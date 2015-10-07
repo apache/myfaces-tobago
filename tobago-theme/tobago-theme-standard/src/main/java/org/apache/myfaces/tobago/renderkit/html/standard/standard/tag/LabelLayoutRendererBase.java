@@ -22,13 +22,14 @@ package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.LabelLayout;
 import org.apache.myfaces.tobago.component.SupportsLabelLayout;
+import org.apache.myfaces.tobago.component.UINav;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
-import org.apache.myfaces.tobago.renderkit.css.CssItem;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
+import org.apache.myfaces.tobago.renderkit.css.CssItem;
+import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
-import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
@@ -122,7 +123,9 @@ public abstract class LabelLayoutRendererBase extends RendererBase {
     // todo: check if BootstrapClass.FORM_GROUP is needed, I've removed it, because of it's margin-bottom: 15px;
     // todo: so we lost too much space
     // todo: without it, e. g. an input field in the header will not be layouted correctly
-    writer.writeClassAttribute(divClass, BootstrapClass.FORM_GROUP, BootstrapClass.maximumSeverity(component));
+    if (ComponentUtils.findAncestor(component, UINav.class) != null) { // TODO: optimize
+      writer.writeClassAttribute(divClass, BootstrapClass.FORM_GROUP, BootstrapClass.maximumSeverity(component));
+    }
 
     switch (labelLayout) {
       case flexLeft:

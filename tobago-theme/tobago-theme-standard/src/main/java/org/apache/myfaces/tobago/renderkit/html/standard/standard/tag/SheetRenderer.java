@@ -941,11 +941,13 @@ public class SheetRenderer extends RendererBase {
 
   private void encodeResizing(final TobagoResponseWriter writer, final AbstractUISheet sheet, final int columnIndex)
       throws IOException {
+/* TBD: turned off in the moment
     writer.startElement(HtmlElements.SPAN, null);
     writer.writeClassAttribute(Classes.create(sheet, "headerResize"));
     writer.writeAttribute(DataAttributes.COLUMN_INDEX, Integer.toString(columnIndex), false);
     writer.write("&nbsp;&nbsp;"); // is needed for IE
     writer.endElement(HtmlElements.SPAN);
+*/
   }
 
   protected void renderColumnSelectorHeader(
