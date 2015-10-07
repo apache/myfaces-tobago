@@ -24,9 +24,6 @@
   <ui:param name="title" value="#{overviewBundle.tabSwitchTypeReloadPage}"/>
 
   <tc:panel>
-    <f:facet name="layout">
-      <tc:gridLayout rows="*;auto"/>
-    </f:facet>
 
     <tc:tabGroup id="tabMarsOuterForm3" switchType="reloadPage" selectedIndex="#{demo.tabState3}" immediate="true">
 
@@ -34,25 +31,18 @@
                             binding="#{demo.tabChangeListener}"/>
 
       <tc:tab label="#{overviewBundle.tabPlanet}">
-        <f:facet name="layout"><tc:gridLayout rows="1*;auto;auto;1*"/></f:facet>
-        <tc:panel/>
         <tc:in value="#{demo.solar.planets[0].diameter}" required="true"
                label="#{overviewBundle.solarPlanetDiameter}"/>
         <tc:in value="#{demo.solar.planets[0].mass}"
                label="#{overviewBundle.solarPlanetMass}"/>
-        <tc:panel/>
       </tc:tab>
       <tc:tab label="#{overviewBundle.tabInsolar}">
-        <f:facet name="layout"><tc:gridLayout rows="1*;auto;auto;1*"/></f:facet>
-        <tc:panel/>
         <tc:in value="#{demo.solar.planets[0].sunDistance}"
                label="#{overviewBundle.solarPlanetSunDistance}"/>
         <tc:in value="#{demo.solar.planets[0].timeOfCirculation}"
                label="#{overviewBundle.solarPlanetTimeOfCirculation}"/>
-        <tc:panel/>
       </tc:tab>
       <tc:tab label="#{overviewBundle.tabMoons}">
-        <f:facet name="layout"><tc:gridLayout/></f:facet>
         <tc:sheet value="#{demo.solar.planets[0].moons}"
                   columns="2*;1*;2*;2*" var="moon">
           <tc:column label="#{overviewBundle.solarArrayName}" id="name" sortable="true">
@@ -71,14 +61,11 @@
       </tc:tab>
     </tc:tabGroup>
 
-    <tc:panel>
-      <f:facet name="layout">
-        <tc:gridLayout columns="*;auto"/>
-      </f:facet>
+    <tc:flowLayout>
+      <tc:style textAlign="right"/>
 
-      <tc:panel/>
       <tc:button label="OK"/>
-    </tc:panel>
+    </tc:flowLayout>
 
   </tc:panel>
 

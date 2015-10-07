@@ -360,7 +360,7 @@ public class TabGroupRenderer extends RendererBase {
     }
 
     writer.startElement(HtmlElements.DIV, null);
-    writer.writeClassAttribute(Classes.create(tab, "content"));
+    writer.writeClassAttribute(Classes.create(tab, "content"), BootstrapClass.PANEL_BODY);
     writer.writeIdAttribute(tab.getClientId(facesContext) + ComponentUtils.SUB_SEPARATOR + "content");
 
     writer.writeAttribute(HtmlAttributes.TABGROUPINDEX, index);

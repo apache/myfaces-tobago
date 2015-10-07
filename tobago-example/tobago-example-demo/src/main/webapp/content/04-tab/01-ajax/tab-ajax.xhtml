@@ -21,12 +21,10 @@
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:f="http://java.sun.com/jsf/core">
+
   <ui:param name="title" value="#{overviewBundle.tabSwitchTypeReloadTag}"/>
 
   <tc:panel>
-    <f:facet name="layout">
-      <tc:gridLayout rows="*;auto"/>
-    </f:facet>
 
     <tc:tabGroup id="tabMarsOuterForm2" switchType="reloadTab" selectedIndex="#{demo.tabState2}" immediate="true"
         renderedPartially="@this :page:header:headerInfo">
@@ -36,15 +34,11 @@
 
       <tc:tab image="image/feather-leaf.png"
               label="#{overviewBundle.tabPlanet}">
-        <f:facet name="layout">
-          <tc:gridLayout rows="1*;auto;auto;1*"/>
-        </f:facet>
         <tc:image value="image/feather-leaf.png"/>
         <tc:in value="#{demo.solar.planets[0].diameter}" required="true"
                label="#{overviewBundle.solarPlanetDiameter}"/>
         <tc:in value="#{demo.solar.planets[0].mass}"
                label="#{overviewBundle.solarPlanetMass}"/>
-        <tc:panel/>
       </tc:tab>
       <tc:tab image="image/feather.png"
               label="#{overviewBundle.tabInsolar}"
@@ -66,7 +60,6 @@
         <tc:panel/>
       </tc:tab>
       <tc:tab image="image/feather-open.png">
-        <f:facet name="layout"><tc:gridLayout/></f:facet>
         <tc:sheet value="#{demo.solar.planets[0].moons}"
                   columns="2*;1*;2*;2*" var="moon">
           <tc:column label="#{overviewBundle.solarArrayName}" id="name" sortable="true">
@@ -85,14 +78,11 @@
       </tc:tab>
     </tc:tabGroup>
 
-    <tc:panel>
-      <f:facet name="layout">
-        <tc:gridLayout columns="*;auto"/>
-      </f:facet>
+    <tc:flowLayout>
+      <tc:style textAlign="right"/>
 
-      <tc:panel/>
       <tc:button label="OK"/>
-    </tc:panel>
+    </tc:flowLayout>
 
   </tc:panel>
 

@@ -1221,7 +1221,6 @@ a:active.tobago-sheet-pagingLink {
 .tobago-tab-content {
   /*position: relative;XXX TOBAGO3*/
   border-color: #ddeeff #778899 #778899 #ddeeff;
-  border-width: 0 1px 1px 1px;
   border-style: solid;
   /*overflow: hidden;XXX TOBAGO3*/
 }
