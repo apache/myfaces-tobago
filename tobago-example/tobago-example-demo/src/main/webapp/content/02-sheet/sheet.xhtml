@@ -93,18 +93,15 @@
 
               <tc:panel/>
 
-              <tc:panel>
-                <f:facet name="layout">
-                  <tc:gridLayout columns="*;auto;auto"/>
-                </f:facet>
-                <tc:panel/>
+              <tc:flowLayout>
+                <tc:style textAlign="right"/>
                 <tc:button label="Cancel">
                   <tc:attribute name="popupClose" value="immediate"/>
                 </tc:button>
-                <tc:button label="Ok" renderedPartially=":page:content">
+                <tc:button label="Ok" renderedPartially=":page:content" defaultCommand="true">
                   <tc:attribute name="popupClose" value="afterSubmit"/>
                 </tc:button>
-              </tc:panel>
+              </tc:flowLayout>
             </tc:box>
           </tc:popup>
         </f:facet>
@@ -148,6 +145,7 @@
         <tc:reload frequency="2000" />
       </f:facet>
 -->
+      <tc:columnSelector/>
       <tc:column label="#{overviewBundle.solarArrayName}" id="name" sortable="true" markup="#{luminary.markup}">
         <tc:out value="#{luminary.name}" id="t_name"/>
       </tc:column>
