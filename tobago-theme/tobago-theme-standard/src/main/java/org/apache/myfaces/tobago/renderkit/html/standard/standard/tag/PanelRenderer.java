@@ -74,7 +74,7 @@ public class PanelRenderer extends RendererBase {
       final UIComponent facetReload = panel.getFacet(Facets.RELOAD);
       if (facetReload != null && facetReload instanceof UIReload && facetReload.isRendered()) {
         final UIReload update = (UIReload) facetReload;
-        writer.writeAttribute(DataAttributes.RELOAD, Integer.toString(update.getFrequency()), false);
+        writer.writeAttribute(DataAttributes.RELOAD.getValue(), Integer.toString(update.getFrequency()), false);
       }
     }
     HtmlRendererUtils.renderCommandFacet(panel, facesContext, writer);

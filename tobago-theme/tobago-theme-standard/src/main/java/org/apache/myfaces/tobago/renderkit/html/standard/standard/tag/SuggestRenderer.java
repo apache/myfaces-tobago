@@ -52,11 +52,11 @@ public class SuggestRenderer extends RendererBase {
       totalCount = list.size();
     }
 
-    ComponentUtils.putDataAttribute(in, cut(DataAttributes.SUGGEST_MIN_CHARS), suggest.getMinimumCharacters());
-    ComponentUtils.putDataAttribute(in, cut(DataAttributes.SUGGEST_DELAY), suggest.getDelay());
-    ComponentUtils.putDataAttribute(in, cut(DataAttributes.SUGGEST_MAX_ITEMS), suggest.getMaximumItems());
-    ComponentUtils.putDataAttribute(in, cut(DataAttributes.SUGGEST_UPDATE), suggest.isUpdate());
-    ComponentUtils.putDataAttribute(in, cut(DataAttributes.SUGGEST_TOTAL_COUNT), totalCount);
+    ComponentUtils.putDataAttribute(in, cut(DataAttributes.SUGGEST_MIN_CHARS.getValue()), suggest.getMinimumCharacters());
+    ComponentUtils.putDataAttribute(in, cut(DataAttributes.SUGGEST_DELAY.getValue()), suggest.getDelay());
+    ComponentUtils.putDataAttribute(in, cut(DataAttributes.SUGGEST_MAX_ITEMS.getValue()), suggest.getMaximumItems());
+    ComponentUtils.putDataAttribute(in, cut(DataAttributes.SUGGEST_UPDATE.getValue()), suggest.isUpdate());
+    ComponentUtils.putDataAttribute(in, cut(DataAttributes.SUGGEST_TOTAL_COUNT.getValue()), totalCount);
 
 // tbd    final String title
 // tbd       = ResourceManagerUtils.getPropertyNotNull(facesContext, "tobago", "tobago.in.inputSuggest.moreElements");
@@ -66,7 +66,7 @@ public class SuggestRenderer extends RendererBase {
       array[i] = list.get(i).getLabel();
     }
 
-    ComponentUtils.putDataAttribute(in, cut(DataAttributes.SUGGEST_DATA), JsonUtils.encode(array));
+    ComponentUtils.putDataAttribute(in, cut(DataAttributes.SUGGEST_DATA.getValue()), JsonUtils.encode(array));
 
     super.prepareRender(facesContext, component);
   }

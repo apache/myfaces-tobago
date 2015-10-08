@@ -89,7 +89,7 @@ public class TreeRenderer extends RendererBase {
 
     final Selectable selectable = tree.getSelectable();
     if (selectable.isSupportedByTree()) {
-      writer.writeAttribute(DataAttributes.SELECTABLE, selectable.name(), false);
+      writer.writeAttribute(DataAttributes.SELECTABLE.getValue(), selectable.name(), false);
     }
 
     final SelectedState selectedState = tree.getSelectedState();

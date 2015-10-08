@@ -72,7 +72,7 @@ public class CommandRenderer extends CommandRendererBase {
       writer.startElement(HtmlElements.A, link);
 
       final CommandMap map = new CommandMap(new Command(facesContext, link));
-      writer.writeAttribute(DataAttributes.COMMANDS, JsonUtils.encode(map), true);
+      writer.writeAttribute(DataAttributes.COMMANDS.getValue(), JsonUtils.encode(map), true);
 
       writer.writeAttribute(HtmlAttributes.HREF, "#", false);
 
@@ -90,7 +90,7 @@ public class CommandRenderer extends CommandRendererBase {
     writer.writeStyleAttribute(link.getStyle());
     if (link.isParentOfCommands()) {
       writer.writeClassAttribute(BootstrapClass.DROPDOWN_TOGGLE); // todo: CSS classes
-      writer.writeAttribute(DataAttributes.TOGGLE, "dropdown", false);
+      writer.writeAttribute(DataAttributes.TOGGLE.getValue(), "dropdown", false);
     } else {
       writer.writeClassAttribute(Classes.create(link), link.getCustomClass());
     }

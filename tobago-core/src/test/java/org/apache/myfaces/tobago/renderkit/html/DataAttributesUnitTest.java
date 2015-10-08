@@ -22,26 +22,24 @@ package org.apache.myfaces.tobago.renderkit.html;
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.lang.reflect.Field;
-
 public class DataAttributesUnitTest {
 
   @Test
   public void testAttributeNames() throws IllegalAccessException {
-    for (final Field field : DataAttributes.class.getFields()) {
+    for (final DataAttributes d : DataAttributes.values()) {
 
-      if (field.getAnnotation(Deprecated.class) != null) {
-        // ignore the check for deprecated fields
-        continue;
-      }
-      final String value = (String) field.get(null);
+// todo      if (d.getAnnotation(Deprecated.class) != null) {
+//        // ignore the check for deprecated fields
+//        continue;
+//      }
+      final String value = d.getValue();
       Assert.assertTrue("Regexp check: value='" + value + "'", value.matches("data(-tobago)?(-[a-z0-9]+)*-[a-z0-9]+"));
 
       final String extension
           = value.startsWith("data-tobago-")
           ? value.substring("data-tobago-".length())
           : value.substring("data-".length());
-      final String name = field.getName();
+      final String name = d.name();
       Assert.assertEquals(name, extension.toUpperCase().replaceAll("-", "_"));
     }
   }

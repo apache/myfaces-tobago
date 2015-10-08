@@ -60,7 +60,7 @@ public class ToolBarRenderer extends RendererBase {
     writer.startElement(HtmlElements.BUTTON, null);
     writer.writeAttribute(HtmlAttributes.TYPE, HtmlButtonTypes.BUTTON, false);
     writer.writeClassAttribute(BootstrapClass.NAVBAR_TOGGLE);
-    writer.writeAttribute(DataAttributes.TOGGLE, "collapse", false);
+    writer.writeAttribute(DataAttributes.TOGGLE.getValue(), "collapse", false);
     writer.writeAttribute("data-target", JQueryUtils.escapeIdForHtml(toolBar.getClientId(facesContext)), true);
 
     writer.startElement(HtmlElements.SPAN, null);

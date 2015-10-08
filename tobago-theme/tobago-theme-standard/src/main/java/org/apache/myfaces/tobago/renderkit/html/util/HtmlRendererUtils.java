@@ -305,7 +305,7 @@ public final class HtmlRendererUtils {
       }
     }
     if (commandMap != null) {
-      writer.writeAttribute(DataAttributes.COMMANDS, JsonUtils.encode(commandMap), true);
+      writer.writeAttribute(DataAttributes.COMMANDS.getValue(), JsonUtils.encode(commandMap), true);
     }
   }
 
@@ -328,7 +328,7 @@ public final class HtmlRendererUtils {
       }
     }
     if (commandMap != null) {
-      writer.writeAttribute(DataAttributes.ROW_ACTION, JsonUtils.encode(commandMap), true);
+      writer.writeAttribute(DataAttributes.ROW_ACTION.getValue(), JsonUtils.encode(commandMap), true);
       return true;
     }
     return false;

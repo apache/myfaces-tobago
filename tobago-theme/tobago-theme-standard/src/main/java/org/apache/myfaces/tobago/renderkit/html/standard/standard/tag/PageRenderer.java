@@ -236,7 +236,7 @@ public class PageRenderer extends RendererBase {
     }
     writer.writeAttribute(HtmlAttributes.ACTION, formAction, true);
     if (partialAction != null) {
-      writer.writeAttribute(DataAttributes.PARTIAL_ACTION, partialAction, true);
+      writer.writeAttribute(DataAttributes.PARTIAL_ACTION.getValue(), partialAction, true);
     }
     if (LOG.isDebugEnabled()) {
       LOG.debug("partial action = " + partialAction);

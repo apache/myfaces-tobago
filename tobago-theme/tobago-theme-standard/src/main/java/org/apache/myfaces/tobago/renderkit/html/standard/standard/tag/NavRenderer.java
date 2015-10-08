@@ -113,8 +113,8 @@ public class NavRenderer extends RendererBase {
     writer.startElement(HtmlElements.BUTTON, null);
     writer.writeAttribute(HtmlAttributes.TYPE, HtmlButtonTypes.BUTTON, false);
     writer.writeClassAttribute(BootstrapClass.NAVBAR_TOGGLE, BootstrapClass.COLLAPSED);
-    writer.writeAttribute(DataAttributes.TOGGLE, "collapse", false);
-    writer.writeAttribute(DataAttributes.TARGET, JQueryUtils.escapeIdForHtml(navbarId), true);
+    writer.writeAttribute(DataAttributes.TOGGLE.getValue(), "collapse", false);
+    writer.writeAttribute(DataAttributes.TARGET.getValue(), JQueryUtils.escapeIdForHtml(navbarId), true);
     writer.writeAttribute("aria-expanded", Boolean.FALSE.toString(), false);
     writer.writeAttribute("aria-controls", navbarId, false);
 

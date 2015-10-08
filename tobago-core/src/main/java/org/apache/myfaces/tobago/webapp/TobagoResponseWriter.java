@@ -173,7 +173,8 @@ public abstract class TobagoResponseWriter extends ResponseWriter {
       final String json = style.encodeJson();
       if (json.length() > 2) { // empty "{}" needs not to be written
         final FacesContext facesContext = FacesContext.getCurrentInstance();
-        writeAttribute(DataAttributes.STYLE, json, style.needsToBeEscaped() || AjaxUtils.isAjaxRequest(facesContext));
+        writeAttribute(
+            DataAttributes.STYLE.getValue(), json, style.needsToBeEscaped() || AjaxUtils.isAjaxRequest(facesContext));
         // in case of AJAX we need to escape the " as long we use
         // org.apache.myfaces.tobago.internal.webapp.JsonResponseWriter
       }

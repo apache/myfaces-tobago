@@ -157,9 +157,9 @@ public class MenuCommandRenderer extends CommandRendererBase {
     }
     writer.writeClassAttribute(css);
     if (!disabled) {
-      writer.writeAttribute(DataAttributes.COMMANDS, JsonUtils.encode(map), true);
+      writer.writeAttribute(DataAttributes.COMMANDS.getValue(), JsonUtils.encode(map), true);
     }
-    writer.writeAttribute(DataAttributes.VALUE, value, true);
+    writer.writeAttribute(DataAttributes.VALUE.getValue(), value, true);
 
     if (command != null) {
       HtmlRendererUtils.writeDataAttributes(facesContext, writer, command);
@@ -180,8 +180,8 @@ public class MenuCommandRenderer extends CommandRendererBase {
         final String imageHover = ResourceManagerUtils
             .getImageOrDisabledImage(facesContext, image + "Hover", disabled, true);
         if (imageHover != null) {
-          writer.writeAttribute(DataAttributes.SRC_DEFAULT, imageWithPath, false);
-          writer.writeAttribute(DataAttributes.SRC_HOVER, imageHover, false);
+          writer.writeAttribute(DataAttributes.SRC_DEFAULT.getValue(), imageWithPath, false);
+          writer.writeAttribute(DataAttributes.SRC_HOVER.getValue(), imageHover, false);
         }
 
         writer.writeAttribute(HtmlAttributes.ALT, "", true);

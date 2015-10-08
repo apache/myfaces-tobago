@@ -111,7 +111,7 @@ public class TabGroupRenderer extends RendererBase {
     final String[] clientIds
         = ComponentUtils.evaluateClientIds(facesContext, tabGroup, tabGroup.getRenderedPartially());
     if (clientIds.length > 0) {
-      writer.writeAttribute(DataAttributes.PARTIAL_IDS, JsonUtils.encode(clientIds), true);
+      writer.writeAttribute(DataAttributes.PARTIAL_IDS.getValue(), JsonUtils.encode(clientIds), true);
     }
 
     writer.startElement(HtmlElements.INPUT, null);
