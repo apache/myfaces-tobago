@@ -352,6 +352,57 @@ table.tobago-sheet-bodyTable>tbody>tr>td:last-child {
   flex: 1 1 auto;
 }
 
+/* suggest ---------------------------------------------------------------------- */
+
+.twitter-typeahead {
+  width: 100%;
+}
+
+.typeahead {
+  background-color: #FFFFFF;
+}
+
+.typeahead:focus {
+  border: 2px solid #0097CF;
+}
+
+.tt-query {
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
+}
+
+.tt-hint {
+  color: #aaaaaa;
+}
+
+.tt-menu {
+  background-color: #FFFFFF;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 3px;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  margin-top: 1px;
+  padding: 8px 0;
+  min-width: 100%;
+}
+
+.tt-suggestion {
+    padding: 3px 20px;
+}
+
+.tt-suggestion:hover {
+    background-color: #0097CF;
+    color: #FFFFFF;
+    cursor: pointer;
+}
+
+.tt-suggestion.tt-cursor {
+  background-color: #0097CF;
+  color: #FFFFFF;
+}
+
+.tt-suggestion p {
+  margin: 0;
+}
+
 /* tab -------------------------------------------------------------- */
 
 .tobago-tab-content {

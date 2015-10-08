@@ -214,12 +214,7 @@ public final class DataAttributes {
    */
   public static final String STYLE = "data-tobago-style";
 
-  /**
-   * Custom suggest attribute. Used for input suggest.
-   * @deprecated Since Tobago 2.0.0. No longer needed.
-   */
-  @Deprecated
-  public static final String SUGGEST = "data-tobago-suggest";
+  public static final String SUGGEST_DATA = "data-tobago-suggest-data";
 
   public static final String SUGGEST_DELAY = "data-tobago-suggest-delay";
 

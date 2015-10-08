@@ -21,16 +21,12 @@ package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
 import org.apache.myfaces.tobago.component.UIIn;
 import org.apache.myfaces.tobago.component.UISuggest;
-import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.model.AutoSuggestItem;
 import org.apache.myfaces.tobago.model.AutoSuggestItems;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
-import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
-import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
-import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
-import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
-import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
+import org.apache.myfaces.tobago.renderkit.html.JsonUtils;
+import org.apache.myfaces.tobago.util.ComponentUtils;
 
 import javax.el.MethodExpression;
 import javax.faces.component.UIComponent;
@@ -43,64 +39,45 @@ import java.util.List;
 public class SuggestRenderer extends RendererBase {
 
   @Override
-  public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
+  public void prepareRender(FacesContext facesContext, UIComponent component) throws IOException {
 
     final UISuggest suggest = (UISuggest) component;
-    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
-    final String id  = suggest.getClientId(facesContext);
     final UIIn in = (UIIn) suggest.getParent();
     final MethodExpression suggestMethodExpression = suggest.getSuggestMethodExpression();
     final AutoSuggestItems items
         = createAutoSuggestItems(suggestMethodExpression.invoke(facesContext.getELContext(), new Object[]{in}));
-    // todo: declare unused/unsupported stuff deprecated
-
-    writer.startElement(HtmlElements.DIV, null);
-    writer.writeClassAttribute(TobagoClass.SUGGEST);
-    writer.writeIdAttribute(id);
-    writer.writeAttribute(DataAttributes.FOR, in.getClientId(facesContext), false);
-    writer.writeAttribute(DataAttributes.SUGGEST_MIN_CHARS, suggest.getMinimumCharacters());
-    writer.writeAttribute(DataAttributes.SUGGEST_DELAY, suggest.getDelay());
-    writer.writeAttribute(DataAttributes.SUGGEST_MAX_ITEMS, suggest.getMaximumItems());
-    writer.writeAttribute(DataAttributes.SUGGEST_UPDATE, Boolean.toString(suggest.isUpdate()), false);
     int totalCount = suggest.getTotalCount();
+    final List<AutoSuggestItem> list = items.getItems();
     if (totalCount == -1) {
-      totalCount = items.getItems().size();
+      totalCount = list.size();
     }
-    writer.writeAttribute(DataAttributes.SUGGEST_TOTAL_COUNT, totalCount);
 
-    writer.startElement(HtmlElements.OL, null);
-    writer.startElement(HtmlElements.LI, null);
-    writer.startElement(HtmlElements.A, null);
-    writer.writeAttribute(HtmlAttributes.HREF, "#", false);
-    writer.writeAttribute(HtmlAttributes.TABINDEX, -1);
-    writer.endElement(HtmlElements.A);
+    ComponentUtils.putDataAttribute(in, cut(DataAttributes.SUGGEST_MIN_CHARS), suggest.getMinimumCharacters());
+    ComponentUtils.putDataAttribute(in, cut(DataAttributes.SUGGEST_DELAY), suggest.getDelay());
+    ComponentUtils.putDataAttribute(in, cut(DataAttributes.SUGGEST_MAX_ITEMS), suggest.getMaximumItems());
+    ComponentUtils.putDataAttribute(in, cut(DataAttributes.SUGGEST_UPDATE), suggest.isUpdate());
+    ComponentUtils.putDataAttribute(in, cut(DataAttributes.SUGGEST_TOTAL_COUNT), totalCount);
 
-    writer.startElement(HtmlElements.OL, null);
-    for (final AutoSuggestItem item : items.getItems()) {
-      writer.startElement(HtmlElements.LI, null);
-      writer.startElement(HtmlElements.A, null);
-      writer.writeAttribute(HtmlAttributes.HREF, "#", false);
-      writer.writeText(item.getLabel());
-      writer.endElement(HtmlElements.A);
-      writer.endElement(HtmlElements.LI);
+// tbd    final String title
+// tbd       = ResourceManagerUtils.getPropertyNotNull(facesContext, "tobago", "tobago.in.inputSuggest.moreElements");
+
+    String array[] = new String[list.size()];
+    for (int i = 0; i < totalCount; i++) {
+      array[i] = list.get(i).getLabel();
     }
-    writer.startElement(HtmlElements.LI, null);
-    writer.writeAttribute(HtmlAttributes.DISABLED, true);
-    final String title
-        = ResourceManagerUtils.getPropertyNotNull(facesContext, "tobago", "tobago.in.inputSuggest.moreElements");
-    writer.writeAttribute(HtmlAttributes.TITLE, title, true);
-    writer.startElement(HtmlElements.A, null);
-    writer.writeAttribute(HtmlAttributes.HREF, "#", false);
-    writer.writeText("...");
-    writer.endElement(HtmlElements.A);
-    writer.endElement(HtmlElements.LI);
 
-    writer.endElement(HtmlElements.OL);
+    ComponentUtils.putDataAttribute(in, cut(DataAttributes.SUGGEST_DATA), JsonUtils.encode(array));
 
-    writer.endElement(HtmlElements.LI);
-    writer.endElement(HtmlElements.OL);
+    super.prepareRender(facesContext, component);
+  }
 
-    writer.endElement(HtmlElements.DIV);
+  /// todo: make DataAttribute to a enum and add this util to the enum class
+  private String cut(String name) {
+    if (name.startsWith("data-")) {
+      return name.substring(5);
+    } else {
+      return name;
+    }
   }
 
   private AutoSuggestItems createAutoSuggestItems(final Object object) {

@@ -39,7 +39,7 @@ Tobago.Suggest.substring = function(strings) {
 
 Tobago.Suggest.init = function (elements) {
 
-  var suggests = Tobago.Utils.selectWithJQuery(elements, ".tobago-suggest");
+  var suggests = Tobago.Utils.selectWithJQuery(elements, "[data-tobago-suggest-data]");
   suggests.each(function () {
     var suggest = jQuery(this);
 
@@ -50,21 +50,16 @@ Tobago.Suggest.init = function (elements) {
     var update = suggest.data("tobago-suggest-update"); // todo
     var totalCount = suggest.data("tobago-suggest-total-count"); // todo
 
-    var list = [];
-    suggest.children("ol").children("li").children("ol").children("li").each(function () {
-      var li = jQuery(this);
-      list.push(li.text());
-    });
+    var list = suggest.data("tobago-suggest-data");
 
-    var input = jQuery(Tobago.Utils.escapeClientId(suggest.data("tobago-for")));
+    suggest.attr("autocomplete", "off");
 
-    suggest.hide();
-
-    input.attr("autocomplete", "off");
-    input.typeahead({
-      minLength: minChars
+    suggest.typeahead({
+      minLength: minChars,
+      hint: true,// todo
+      highlight: true // todo
     }, {
-      //name: 'cars', todo
+      //name: 'test',// todo
       source: Tobago.Suggest.substring(list)
     });
   });
