@@ -19,9 +19,6 @@
 
 package org.apache.myfaces.tobago.internal.webapp;
 
-import org.apache.myfaces.tobago.component.Attributes;
-import org.apache.myfaces.tobago.internal.util.Deprecation;
-import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
@@ -74,15 +71,6 @@ public class TobagoResponseWriterWrapper extends TobagoResponseWriter {
 
   public void writeAttribute(final String name, final String value, final boolean escape) throws IOException {
     responseWriter.writeAttribute(name, value, null);
-  }
-
-  /**
-   * @deprecated since Tobago 1.5.0
-   */
-  @Deprecated
-  public void writeClassAttribute() throws IOException {
-    Deprecation.LOG.warn("Please use writeClassAttribute(org.apache.myfaces.tobago.renderkit.css.Classes)");
-    responseWriter.writeAttribute(HtmlAttributes.CLASS, null, Attributes.STYLE_CLASS);
   }
 
   public String getContentType() {
