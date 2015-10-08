@@ -44,9 +44,9 @@ Tobago.Suggest.init = function (elements) {
     var suggest = jQuery(this);
 
     var minChars = suggest.data("tobago-suggest-min-chars");
+    var maxItems = suggest.data("tobago-suggest-max-items");
 
     var delay = suggest.data("tobago-suggest-delay"); // todo
-    var maxItems = suggest.data("tobago-suggest-max-items"); // todo
     var update = suggest.data("tobago-suggest-update"); // todo
     var totalCount = suggest.data("tobago-suggest-total-count"); // todo
 
@@ -60,6 +60,7 @@ Tobago.Suggest.init = function (elements) {
       highlight: true // todo
     }, {
       //name: 'test',// todo
+      limit: maxItems,
       source: Tobago.Suggest.substring(list)
     });
   });
