@@ -151,14 +151,14 @@ public class SheetRenderer extends RendererBase {
     final UIComponent facetReload = sheet.getFacet(Facets.RELOAD);
     if (facetReload != null && facetReload instanceof UIReload && facetReload.isRendered()) {
       final UIReload update = (UIReload) facetReload;
-      writer.writeAttribute(DataAttributes.RELOAD.getValue(), update.getFrequency());
+      writer.writeAttribute(DataAttributes.RELOAD, update.getFrequency());
     }
     final String[] clientIds = ComponentUtils.evaluateClientIds(facesContext, sheet, sheet.getRenderedPartially());
     if (clientIds.length > 0) {
-      writer.writeAttribute(DataAttributes.PARTIAL_IDS.getValue(), JsonUtils.encode(clientIds), true);
+      writer.writeAttribute(DataAttributes.PARTIAL_IDS, JsonUtils.encode(clientIds), true);
     }
-    writer.writeAttribute(DataAttributes.SELECTION_MODE.getValue(), sheet.getSelectable().name(), false);
-    writer.writeAttribute(DataAttributes.FIRST.getValue(), Integer.toString(sheet.getFirst()), false);
+    writer.writeAttribute(DataAttributes.SELECTION_MODE, sheet.getSelectable().name(), false);
+    writer.writeAttribute(DataAttributes.FIRST, Integer.toString(sheet.getFirst()), false);
 
     final boolean rowAction = HtmlRendererUtils.renderSheetCommands(sheet, facesContext, writer);
 
@@ -280,7 +280,7 @@ public class SheetRenderer extends RendererBase {
       writer.startElement(HtmlElements.TR, null);
       if (rowRendered instanceof Boolean) {
         // if rowRendered attribute is set we need the rowIndex on the client
-        writer.writeAttribute(DataAttributes.ROW_INDEX.getValue(), rowIndex);
+        writer.writeAttribute(DataAttributes.ROW_INDEX, rowIndex);
       }
       final boolean selected = selectedRows.contains(rowIndex);
       final String[] rowMarkups = (String[]) sheet.getAttributes().get("rowMarkup");
@@ -299,7 +299,7 @@ public class SheetRenderer extends RendererBase {
       }
       final String parentId = sheet.getRowParentClientId();
       if (parentId != null) {
-        writer.writeAttribute(DataAttributes.TREE_PARENT.getValue(), parentId, false);
+        writer.writeAttribute(DataAttributes.TREE_PARENT, parentId, false);
       }
 
       int columnIndex = -1;
@@ -745,7 +745,7 @@ public class SheetRenderer extends RendererBase {
     writer.writeAttribute(HtmlAttributes.SRC, image, false);
     writer.writeAttribute(HtmlAttributes.TITLE, tip, true);
     writer.writeAttribute(HtmlAttributes.ALT, "", false);
-    writer.writeAttribute(DataAttributes.DISABLED.getValue(), disabled);
+    writer.writeAttribute(DataAttributes.DISABLED, disabled);
     writer.endElement(HtmlElements.IMG);
   }
 
@@ -836,7 +836,7 @@ public class SheetRenderer extends RendererBase {
               final Command click = new Command(
                   sortCommand.getClientId(facesContext), null, null, null, clientIds, null, null, null, null, null);
               map.setClick(click);
-              writer.writeAttribute(DataAttributes.COMMANDS.getValue(), JsonUtils.encode(map), true);
+              writer.writeAttribute(DataAttributes.COMMANDS, JsonUtils.encode(map), true);
 
               if (tip == null) {
                 tip = "";
@@ -998,7 +998,7 @@ public class SheetRenderer extends RendererBase {
     menuItem.setLabel(ResourceManagerUtils.getPropertyNotNull(facesContext, "tobago", label));
     menuItem.setMarkup(markup);
     menuItem.setOmit(true);
-    ComponentUtils.putDataAttributeWithPrefix(menuItem, DataAttributes.SHEET_ID.getValue(), sheetId);
+    ComponentUtils.putDataAttributeWithPrefix(menuItem, DataAttributes.SHEET_ID, sheetId);
     menu.getChildren().add(menuItem);
   }
 
@@ -1129,7 +1129,7 @@ public class SheetRenderer extends RendererBase {
     writer.startElement(innerElement, null);
     writer.writeClassAttribute(Classes.create(sheet, "pagingLink"));
     if (pagingLinkType == PagingLinkType.NORMAL) {
-      writer.writeAttribute(DataAttributes.TO_PAGE.getValue(), toPage);
+      writer.writeAttribute(DataAttributes.TO_PAGE, toPage);
       writer.writeAttribute(HtmlAttributes.HREF, "#", false);
     }
     writer.flush();

@@ -20,6 +20,7 @@
 package org.apache.myfaces.tobago.internal.webapp;
 
 import org.apache.myfaces.tobago.internal.util.StringUtils;
+import org.apache.myfaces.tobago.renderkit.html.MarkupLanguageAttributes;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -72,12 +73,20 @@ public class DebugResponseWriterWrapper extends TobagoResponseWriter {
     responseWriter.writeText(text, property);
   }
 
+  @Override
   public void flush() throws IOException {
     responseWriter.flush();
   }
 
-  public void writeAttribute(final String name, final String value, final boolean escape) throws IOException {
+  @Override
+  public void writeAttribute(final MarkupLanguageAttributes name, final String value, final boolean escape)
+      throws IOException {
     responseWriter.writeAttribute(name, value, escape);
+  }
+
+  @Override
+  public void writeURIAttribute(MarkupLanguageAttributes name, String string) throws IOException {
+    responseWriter.writeURIAttribute(name, string);
   }
 
   public String getContentType() {

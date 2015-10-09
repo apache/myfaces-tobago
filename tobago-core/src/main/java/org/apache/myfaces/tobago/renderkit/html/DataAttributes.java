@@ -24,7 +24,7 @@ package org.apache.myfaces.tobago.renderkit.html;
  * These attributes may transport data to DOM which are not standardized.
  * The format is "data-tobago-*" which is conform to HTML 5, but also works in older browsers.
  */
-public enum DataAttributes {
+public enum DataAttributes implements MarkupLanguageAttributes {
 
   /**
    * The index of the column of a sheet. This index means the position of the rendered column. It can differ, if there
@@ -81,6 +81,11 @@ public enum DataAttributes {
    * Holds the first day of a week of a calendar control.
    */
   FIRST_DAY_OF_WEEK("data-tobago-first-day-of-week"),
+
+  /**
+   * Defines a maximum value.
+   */
+  LAYOUT("data-tobago-layout"),
 
   /**
    * Defines a maximum value.
@@ -150,6 +155,10 @@ public enum DataAttributes {
    */
   STYLE("data-tobago-style"),
 
+  SCROLL_PANEL("data-tobago-scroll-panel"),
+
+  SCROLL_POSITION("data-tobago-scroll-position"),
+
   SUGGEST_DATA("data-tobago-suggest-data"),
 
   SUGGEST_DELAY("data-tobago-suggest-delay"),
@@ -199,4 +208,14 @@ public enum DataAttributes {
   public String getValue() {
     return value;
   }
+
+  public static MarkupLanguageAttributes dynamic(final String withoutPrefix) {
+    return new MarkupLanguageAttributes() {
+      @Override
+      public String getValue() {
+        return "data-" + withoutPrefix;
+      }
+    };
+  }
+
 }

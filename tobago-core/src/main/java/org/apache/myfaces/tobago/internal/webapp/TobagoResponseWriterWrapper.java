@@ -19,6 +19,7 @@
 
 package org.apache.myfaces.tobago.internal.webapp;
 
+import org.apache.myfaces.tobago.renderkit.html.MarkupLanguageAttributes;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
@@ -69,8 +70,9 @@ public class TobagoResponseWriterWrapper extends TobagoResponseWriter {
     responseWriter.flush();
   }
 
-  public void writeAttribute(final String name, final String value, final boolean escape) throws IOException {
-    responseWriter.writeAttribute(name, value, null);
+  public void writeAttribute(final MarkupLanguageAttributes name, final String value, final boolean escape)
+      throws IOException {
+    responseWriter.writeAttribute(name.getValue(), value, null);
   }
 
   public String getContentType() {
@@ -91,6 +93,11 @@ public class TobagoResponseWriterWrapper extends TobagoResponseWriter {
 
   public void writeURIAttribute(final String name, final Object value, final String property) throws IOException {
     responseWriter.writeURIAttribute(name, value, property);
+  }
+
+  @Override
+  public void writeURIAttribute(MarkupLanguageAttributes name, String string) throws IOException {
+    responseWriter.writeURIAttribute(name.getValue(), string, null);
   }
 
   public void writeText(final char[] text, final int off, final int len) throws IOException {

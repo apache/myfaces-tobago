@@ -29,6 +29,7 @@ import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.model.ExpandedState;
 import org.apache.myfaces.tobago.model.SelectedState;
 import org.apache.myfaces.tobago.model.TreePath;
+import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
@@ -330,7 +331,7 @@ public class RenderUtils {
     writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN, false);
     final String scrollPositionString = scrollPosition != null ? scrollPosition[0] + ";" + scrollPosition[1] : "";
     writer.writeAttribute(HtmlAttributes.VALUE, scrollPositionString, false);
-    writer.writeAttribute("data-tobago-scroll-position", "true", true);
+    writer.writeAttribute(DataAttributes.SCROLL_POSITION, Boolean.TRUE.toString(), true);
     writer.endElement(HtmlElements.INPUT);
   }
 

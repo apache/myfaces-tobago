@@ -22,9 +22,11 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 import org.apache.myfaces.tobago.internal.component.AbstractUISplitLayout;
 import org.apache.myfaces.tobago.internal.layout.LayoutUtils;
 import org.apache.myfaces.tobago.renderkit.css.Style;
+import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
+import org.apache.myfaces.tobago.renderkit.html.MarkupLanguageAttributes;
 import org.apache.myfaces.tobago.renderkit.html.standard.standard.tag.GridLayoutRenderer;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
@@ -43,6 +45,13 @@ public class SplitLayoutRenderer extends GridLayoutRenderer {
   
   private static final Logger LOG = LoggerFactory.getLogger(SplitLayoutRenderer.class);
   private static final String POSITION_ID_POSTFIX = "_spLP";
+
+  // todo: put as enum to DataAttributes, when moved from sandbox to core
+  private static MarkupLanguageAttributes SPLIT_LAYOUT = DataAttributes.dynamic("tobago-split-layout");
+
+  // todo: put as enum to DataAttributes, when moved from sandbox to core
+  private static MarkupLanguageAttributes SPLIT_LAYOUT_CONTAINMENT
+      = DataAttributes.dynamic("data-tobago-split-layout-containment");
 
   @Override
   public void decode(final FacesContext facesContext, final UIComponent component) {
@@ -78,8 +87,8 @@ public class SplitLayoutRenderer extends GridLayoutRenderer {
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
     writer.startElement(HtmlElements.SPAN, layout);
     writer.writeIdAttribute(id);
-    writer.writeAttribute("data-tobago-split-layout", layout.getOrientation().name(), false);
-    writer.writeAttribute("data-tobago-split-layout-containment", createDraggableContainment(layout), true);
+    writer.writeAttribute(SPLIT_LAYOUT, layout.getOrientation().name(), false);
+    writer.writeAttribute(SPLIT_LAYOUT_CONTAINMENT, createDraggableContainment(layout), true);
 /* XXX todo not implemented currently
     final Style style = calculateHandleStyle(layout);
     writer.writeStyleAttribute(style);

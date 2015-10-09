@@ -61,7 +61,7 @@ public class TreeMenuNodeRenderer extends TreeNodeRendererBase {
     writer.writeClassAttribute(Classes.create(node));
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, node);
     if (parentId != null) {
-      writer.writeAttribute(DataAttributes.TREE_PARENT.getValue(), parentId, false);
+      writer.writeAttribute(DataAttributes.TREE_PARENT, parentId, false);
     }
 
     // In the case of a sheet, we need not hiding the node, because the whole TR will be hidden.
@@ -110,8 +110,8 @@ public class TreeMenuNodeRenderer extends TreeNodeRendererBase {
     writer.startElement(HtmlElements.IMG, null);
     writer.writeClassAttribute(Classes.create(node, "toggle"));
     writer.writeAttribute(HtmlAttributes.SRC, src, false);
-    writer.writeAttribute(DataAttributes.SRC_OPEN.getValue(), srcOpen, false);
-    writer.writeAttribute(DataAttributes.SRC_CLOSE.getValue(), srcClose, false);
+    writer.writeAttribute(DataAttributes.SRC_OPEN, srcOpen, false);
+    writer.writeAttribute(DataAttributes.SRC_CLOSE, srcClose, false);
     writer.writeAttribute(HtmlAttributes.ALT, "", false);
     writer.endElement(HtmlElements.IMG);
   }

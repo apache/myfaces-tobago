@@ -76,7 +76,7 @@ public class SelectManyShuttleRenderer extends SelectManyRendererBase {
 
     writer.writeClassAttribute(Classes.create(select, "unselected"));
 
-    writer.writeAttribute(HtmlAttributes.MULTIPLE, HtmlAttributes.MULTIPLE, false);
+    writer.writeAttribute(HtmlAttributes.MULTIPLE, true);
 
     final Object[] values = select.getSelectedValues();
     final String[] submittedValues = getSubmittedValues(select);
@@ -108,7 +108,7 @@ public class SelectManyShuttleRenderer extends SelectManyRendererBase {
       writer.writeAttribute(HtmlAttributes.TABINDEX, tabIndex);
     }
     writer.writeClassAttribute(Classes.create(select, "selected"));
-    writer.writeAttribute(HtmlAttributes.MULTIPLE, HtmlAttributes.MULTIPLE, false);
+    writer.writeAttribute(HtmlAttributes.MULTIPLE, true);
     items = SelectItemUtils.getItemIterator(facesContext, select);
     HtmlRendererUtils.renderSelectItems(select, items, values, submittedValues, true, writer, facesContext);
 
@@ -118,7 +118,7 @@ public class SelectManyShuttleRenderer extends SelectManyRendererBase {
     final String hiddenClientId = clientId + ComponentUtils.SUB_SEPARATOR + "hidden";
     writer.writeIdAttribute(hiddenClientId);
     writer.writeNameAttribute(clientId);
-    writer.writeAttribute(HtmlAttributes.MULTIPLE, HtmlAttributes.MULTIPLE, false);
+    writer.writeAttribute(HtmlAttributes.MULTIPLE, true);
     writer.writeAttribute(HtmlAttributes.REQUIRED, select.isRequired());
     HtmlRendererUtils.renderCommandFacet(select, facesContext, writer);
     items = SelectItemUtils.getItemIterator(facesContext, select);

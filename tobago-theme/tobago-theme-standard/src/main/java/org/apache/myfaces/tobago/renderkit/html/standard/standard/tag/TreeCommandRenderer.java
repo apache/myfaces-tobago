@@ -83,7 +83,7 @@ public class TreeCommandRenderer extends CommandRendererBase {
     } else {
       writer.startElement(HtmlElements.A, command);
       final CommandMap map = new CommandMap(new Command(facesContext, command));
-      writer.writeAttribute(DataAttributes.COMMANDS.getValue(), JsonUtils.encode(map), true);
+      writer.writeAttribute(DataAttributes.COMMANDS, JsonUtils.encode(map), true);
       writer.writeNameAttribute(clientId);
     }
     writer.writeStyleAttribute(style);

@@ -22,6 +22,7 @@ package org.apache.myfaces.tobago.internal.webapp;
 import org.apache.myfaces.tobago.internal.util.FastStringWriter;
 import org.apache.myfaces.tobago.internal.util.JavascriptWriterUtils;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
+import org.apache.myfaces.tobago.renderkit.html.MarkupLanguageAttributes;
 import org.apache.myfaces.tobago.util.FacesVersion;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -134,7 +135,7 @@ public class JsonResponseWriter extends HtmlResponseWriter {
 
   @Override
   protected void writeAttributeInternal(
-      final Writer writer, final String name, final String value, final boolean escape)
+      final Writer writer, final MarkupLanguageAttributes name, final String value, final boolean escape)
       throws IOException {
     if (!isStartStillOpen()) {
       final String trace = getCallingClassStackTraceElementString();
@@ -148,7 +149,7 @@ public class JsonResponseWriter extends HtmlResponseWriter {
 
     if (value != null) {
       writer.write(' ');
-      writer.write(name);
+      writer.write(name.getValue());
       writer.write("='");
 
       if (escape) {

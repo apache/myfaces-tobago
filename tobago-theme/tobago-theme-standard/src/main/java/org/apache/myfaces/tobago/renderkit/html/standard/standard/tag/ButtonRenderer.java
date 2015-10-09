@@ -73,7 +73,7 @@ public class ButtonRenderer extends CommandRendererBase {
 
     if (!disabled) {
       final CommandMap map = new CommandMap(new Command(facesContext, button));
-      writer.writeAttribute(DataAttributes.COMMANDS.getValue(), JsonUtils.encode(map), true);
+      writer.writeAttribute(DataAttributes.COMMANDS, JsonUtils.encode(map), true);
 
       writer.writeAttribute(HtmlAttributes.HREF, "#", false);
 
@@ -105,7 +105,7 @@ public class ButtonRenderer extends CommandRendererBase {
 
     if (button instanceof UIButton && ((UIButton) component).isDefaultCommand()) {
       final AbstractUIForm form = ComponentUtils.findAncestor(component, AbstractUIForm.class);
-      writer.writeAttribute(DataAttributes.DEFAULT.getValue(), form.getClientId(facesContext), false);
+      writer.writeAttribute(DataAttributes.DEFAULT, form.getClientId(facesContext), false);
     }
     writer.flush(); // force closing the start tag
 

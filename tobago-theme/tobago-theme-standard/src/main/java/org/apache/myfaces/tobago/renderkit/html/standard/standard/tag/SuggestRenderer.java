@@ -52,32 +52,23 @@ public class SuggestRenderer extends RendererBase {
       totalCount = list.size();
     }
 
-    ComponentUtils.putDataAttribute(in, cut(DataAttributes.SUGGEST_MIN_CHARS.getValue()), suggest.getMinimumCharacters());
-    ComponentUtils.putDataAttribute(in, cut(DataAttributes.SUGGEST_DELAY.getValue()), suggest.getDelay());
-    ComponentUtils.putDataAttribute(in, cut(DataAttributes.SUGGEST_MAX_ITEMS.getValue()), suggest.getMaximumItems());
-    ComponentUtils.putDataAttribute(in, cut(DataAttributes.SUGGEST_UPDATE.getValue()), suggest.isUpdate());
-    ComponentUtils.putDataAttribute(in, cut(DataAttributes.SUGGEST_TOTAL_COUNT.getValue()), totalCount);
+    ComponentUtils.putDataAttributeWithPrefix(in, DataAttributes.SUGGEST_MIN_CHARS, suggest.getMinimumCharacters());
+    ComponentUtils.putDataAttributeWithPrefix(in, DataAttributes.SUGGEST_DELAY, suggest.getDelay());
+    ComponentUtils.putDataAttributeWithPrefix(in, DataAttributes.SUGGEST_MAX_ITEMS, suggest.getMaximumItems());
+    ComponentUtils.putDataAttributeWithPrefix(in, DataAttributes.SUGGEST_UPDATE, suggest.isUpdate());
+    ComponentUtils.putDataAttributeWithPrefix(in, DataAttributes.SUGGEST_TOTAL_COUNT, totalCount);
 
 // tbd    final String title
 // tbd       = ResourceManagerUtils.getPropertyNotNull(facesContext, "tobago", "tobago.in.inputSuggest.moreElements");
 
-    String array[] = new String[list.size()];
+    String[] array = new String[list.size()];
     for (int i = 0; i < totalCount; i++) {
       array[i] = list.get(i).getLabel();
     }
 
-    ComponentUtils.putDataAttribute(in, cut(DataAttributes.SUGGEST_DATA.getValue()), JsonUtils.encode(array));
+    ComponentUtils.putDataAttribute(in, DataAttributes.SUGGEST_DATA, JsonUtils.encode(array));
 
     super.prepareRender(facesContext, component);
-  }
-
-  /// todo: make DataAttribute to a enum and add this util to the enum class
-  private String cut(String name) {
-    if (name.startsWith("data-")) {
-      return name.substring(5);
-    } else {
-      return name;
-    }
   }
 
   private AutoSuggestItems createAutoSuggestItems(final Object object) {

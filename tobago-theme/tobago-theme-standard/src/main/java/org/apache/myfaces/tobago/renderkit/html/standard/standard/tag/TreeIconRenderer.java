@@ -111,8 +111,8 @@ public class TreeIconRenderer extends RendererBase {
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, image);
     writer.writeAttribute(HtmlAttributes.SRC, source, true);
     if (folder) {
-      writer.writeAttribute(DataAttributes.SRC_OPEN.getValue(), openSource, true);
-      writer.writeAttribute(DataAttributes.SRC_CLOSE.getValue(), closedSource, true);
+      writer.writeAttribute(DataAttributes.SRC_OPEN, openSource, true);
+      writer.writeAttribute(DataAttributes.SRC_CLOSE, closedSource, true);
     }
     writer.writeAttribute(HtmlAttributes.ALT, "", false);
     writer.endElement(HtmlElements.IMG);

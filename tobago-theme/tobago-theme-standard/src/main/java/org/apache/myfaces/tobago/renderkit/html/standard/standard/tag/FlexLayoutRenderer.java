@@ -23,20 +23,16 @@ import org.apache.myfaces.tobago.component.UIFlexLayout;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
+import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
-import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 
 public class FlexLayoutRenderer extends RendererBase {
-
-  private static final Logger LOG = LoggerFactory.getLogger(FlexLayoutRenderer.class);
 
   @Override
   public void encodeBegin(final FacesContext facesContext, final UIComponent component) throws IOException {
@@ -85,33 +81,7 @@ public class FlexLayoutRenderer extends RendererBase {
     writer.writeClassAttribute(
         Classes.create(flexLayout, vertically ? Markup.VERTICALLY : Markup.NULL));
     // todo: const, utils, etc.
-    writer.writeAttribute("data-tobago-layout", b.toString(), true);
-//    writer.writeAttribute("data-tobago-layout", "{\"columns\":[\"auto\",1]}", true);
-  }
-
-  @Override
-  public void encodeChildren(final FacesContext facesContext, final UIComponent component) throws IOException {
-    final UIComponent container = component.getParent();
-    if (!container.isRendered()) {
-      return;
-    }
-    RenderUtils.encodeChildren(facesContext, container);
-/*
-    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
-    final AbstractUIBootstrapLayout bootstrapLayout = (AbstractUIBootstrapLayout) component;
-    final UIComponent container = bootstrapLayout.getParent();
-    if (!container.isRendered()) {
-      return;
-    }
-
-    final List<UIComponent> children = container.getChildren();
-    for (UIComponent child : children) {
-      writer.startElement(HtmlElements.DIV, null);
-      writer.writeClassAttribute("col-md-4");
-      RenderUtils.encode(facesContext, child);
-      writer.endElement(HtmlElements.DIV);
-    }
-*/
+    writer.writeAttribute(DataAttributes.LAYOUT, b.toString(), true);
   }
 
   @Override

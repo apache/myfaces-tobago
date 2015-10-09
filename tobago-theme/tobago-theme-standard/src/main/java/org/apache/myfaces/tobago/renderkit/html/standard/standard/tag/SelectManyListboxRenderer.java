@@ -66,7 +66,7 @@ public class SelectManyListboxRenderer extends SelectManyRendererBase {
     }
     writer.writeStyleAttribute(select.getStyle());
     writer.writeClassAttribute(Classes.create(select), BootstrapClass.FORM_CONTROL, select.getCustomClass());
-    writer.writeAttribute(HtmlAttributes.MULTIPLE, HtmlAttributes.MULTIPLE, false);
+    writer.writeAttribute(HtmlAttributes.MULTIPLE, true);
     if (title != null) {
       writer.writeAttribute(HtmlAttributes.TITLE, title, true);
     }

@@ -59,7 +59,7 @@ public class LinkRenderer extends CommandRendererBase {
       writer.startElement(HtmlElements.A, link);
 
       final CommandMap map = new CommandMap(new Command(facesContext, link));
-      writer.writeAttribute(DataAttributes.COMMANDS.getValue(), JsonUtils.encode(map), true);
+      writer.writeAttribute(DataAttributes.COMMANDS, JsonUtils.encode(map), true);
 
       writer.writeAttribute(HtmlAttributes.HREF, "#", false);
 

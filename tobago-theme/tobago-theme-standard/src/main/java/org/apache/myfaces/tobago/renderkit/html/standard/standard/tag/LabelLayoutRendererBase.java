@@ -28,6 +28,7 @@ import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.CssItem;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
+import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
@@ -129,12 +130,10 @@ public abstract class LabelLayoutRendererBase extends RendererBase {
 
     switch (labelLayout) {
       case flexLeft:
-        // todo: const, utils, etc.
-        writer.writeAttribute("data-tobago-layout", "{\"columns\":[\"auto\",1]}", true);
+        writer.writeAttribute(DataAttributes.LAYOUT, "{\"columns\":[\"auto\",1]}", true);
         break;
       case flexRight:
-        // todo: const, utils, etc.
-        writer.writeAttribute("data-tobago-layout", "{\"columns\":[1,\"auto\"]}", true);
+        writer.writeAttribute(DataAttributes.LAYOUT, "{\"columns\":[1,\"auto\"]}", true);
         break;
       default:
         // nothing to do

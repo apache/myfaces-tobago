@@ -46,9 +46,9 @@ public class DateRenderer extends InRenderer {
     final AbstractUIDate date = (AbstractUIDate) input;
 
     super.writeAdditionalAttributes(facesContext, writer, date);
-    writer.writeAttribute(DataAttributes.PATTERN.getValue(), date.getPattern(), true);
+    writer.writeAttribute(DataAttributes.PATTERN, date.getPattern(), true);
     final DateTimeI18n dateTimeI18n = DateTimeI18n.valueOf(facesContext.getViewRoot().getLocale());
-    writer.writeAttribute(DataAttributes.DATE_TIME_I18N.getValue(), JsonUtils.encode(dateTimeI18n), true);
+    writer.writeAttribute(DataAttributes.DATE_TIME_I18N, JsonUtils.encode(dateTimeI18n), true);
   }
 
   @Override

@@ -119,7 +119,7 @@ public final class HtmlRendererUtils {
   }
 
   public static void encodeIconWithLabel(
-      TobagoResponseWriter writer, FacesContext facesContext, String image, LabelWithAccessKey label, boolean disabled)
+       TobagoResponseWriter writer, FacesContext facesContext, String image, LabelWithAccessKey label, boolean disabled)
       throws IOException {
     if (image != null) {
       if (image.startsWith("glyphicon-")) {
@@ -305,7 +305,7 @@ public final class HtmlRendererUtils {
       }
     }
     if (commandMap != null) {
-      writer.writeAttribute(DataAttributes.COMMANDS.getValue(), JsonUtils.encode(commandMap), true);
+      writer.writeAttribute(DataAttributes.COMMANDS, JsonUtils.encode(commandMap), true);
     }
   }
 
@@ -328,7 +328,7 @@ public final class HtmlRendererUtils {
       }
     }
     if (commandMap != null) {
-      writer.writeAttribute(DataAttributes.ROW_ACTION.getValue(), JsonUtils.encode(commandMap), true);
+      writer.writeAttribute(DataAttributes.ROW_ACTION, JsonUtils.encode(commandMap), true);
       return true;
     }
     return false;
@@ -364,7 +364,7 @@ public final class HtmlRendererUtils {
       final Object mapValue = entry.getValue();
       final String value = mapValue instanceof ValueExpression
           ? ((ValueExpression) mapValue).getValue(elContext).toString() : mapValue.toString();
-      writer.writeAttribute("data-" + name, value, true);
+      writer.writeAttribute(DataAttributes.dynamic(name), value, true);
     }
   }
 }

@@ -32,6 +32,7 @@ import org.apache.myfaces.tobago.layout.PixelLayoutToken;
 import org.apache.myfaces.tobago.layout.RelativeLayoutToken;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
+import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRoleValues;
@@ -57,7 +58,6 @@ public class GridLayoutRenderer extends RendererBase {
     final AbstractUIGridLayout gridLayout = (AbstractUIGridLayout) component;
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
-//    writer.startElement(HtmlElements.DIV, gridLayout);
     writer.startElement(HtmlElements.TABLE, gridLayout);
     writer.writeAttribute(HtmlAttributes.ROLE, HtmlRoleValues.PRESENTATION.toString(), false);
     writer.writeClassAttribute(Classes.create(gridLayout));
@@ -72,8 +72,7 @@ public class GridLayoutRenderer extends RendererBase {
     jsonLayout(gridLayout.getGrid().getRows(), builder);
     builder.append("}");
 
-    writer.writeAttribute("data-tobago-layout", builder.toString(), true);
-
+    writer.writeAttribute(DataAttributes.LAYOUT, builder.toString(), true);
 
     writer.startElement(HtmlElements.COLGROUP, gridLayout);
     final LayoutTokens columns = gridLayout.getGrid().getColumns();
@@ -182,6 +181,5 @@ public class GridLayoutRenderer extends RendererBase {
 
     writer.endElement(HtmlElements.TBODY);
     writer.endElement(HtmlElements.TABLE);
-//    writer.endElement(HtmlElements.DIV);
   }
 }

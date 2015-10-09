@@ -118,10 +118,10 @@ public class MessagesRenderer extends RendererBase {
           writer.startElement(HtmlElements.BUTTON, null);
           writer.writeAttribute(HtmlAttributes.TYPE, HtmlButtonTypes.BUTTON, false);
           writer.writeClassAttribute(BootstrapClass.CLOSE);
-          writer.writeAttribute(DataAttributes.DISMISS.getValue(), "alert", false);
-          writer.writeAttribute(Aria.ACTIVEDESCENDANT.getValue(), "Close", false); // todo: i18n
+          writer.writeAttribute(DataAttributes.DISMISS, "alert", false);
+          writer.writeAttribute(Aria.ACTIVEDESCENDANT, "Close", false); // todo: i18n
           writer.startElement(HtmlElements.SPAN, null);
-          writer.writeAttribute(Aria.HIDDEN.getValue(), Boolean.TRUE.toString(), false);
+          writer.writeAttribute(Aria.HIDDEN, Boolean.TRUE.toString(), false);
           writer.writeText("×"); // times
           writer.endElement(HtmlElements.SPAN);
           writer.endElement(HtmlElements.BUTTON);

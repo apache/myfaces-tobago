@@ -56,7 +56,7 @@ public class TreeNodeRenderer extends TreeNodeRendererBase {
     writer.writeClassAttribute(Classes.create(node));
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, node);
     if (parentId != null) {
-      writer.writeAttribute(DataAttributes.TREE_PARENT.getValue(), parentId, false);
+      writer.writeAttribute(DataAttributes.TREE_PARENT, parentId, false);
     }
 
     Style style = node.getStyle();

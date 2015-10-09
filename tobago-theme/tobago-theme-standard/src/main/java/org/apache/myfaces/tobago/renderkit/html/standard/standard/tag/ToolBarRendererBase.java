@@ -284,11 +284,11 @@ public abstract class ToolBarRendererBase extends RendererBase {
       writer.writeIdAttribute(command.getClientId(facesContext));
     }
     if (map != null) {
-      writer.writeAttribute(DataAttributes.COMMANDS.getValue(), JsonUtils.encode(map), true);
+      writer.writeAttribute(DataAttributes.COMMANDS, JsonUtils.encode(map), true);
     }
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, command);
     if (value != null) {
-      writer.writeAttribute(DataAttributes.VALUE.getValue(), value, true);
+      writer.writeAttribute(DataAttributes.VALUE, value, true);
     }
 
     // render icon

@@ -27,6 +27,7 @@ import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
+import org.apache.myfaces.tobago.renderkit.html.MarkupLanguageAttributes;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -67,6 +68,12 @@ public abstract class TobagoResponseWriter extends ResponseWriter {
    * @deprecated Should not directly called via this interface. There is be a special method which might be better.
    */
   @Deprecated
+  public abstract void writeURIAttribute(String name, Object value, final String property) throws IOException;
+
+  /**
+   * @deprecated Should not directly called via this interface. There is be a special method which might be better.
+   */
+  @Deprecated
   public abstract void writeText(Object text, String property) throws IOException;
 
   @Override
@@ -78,29 +85,27 @@ public abstract class TobagoResponseWriter extends ResponseWriter {
    * Writes a string attribute. The renderer may set escape=false to switch of escaping of the string,
    * if it is not necessary.
    */
-  public abstract void writeAttribute(String name, String string, boolean escape) throws IOException;
+  public abstract void writeAttribute(MarkupLanguageAttributes name, String string, boolean escape) throws IOException;
+
+  /**
+   * Writes a string attribute URL encoded.
+   */
+  public abstract void writeURIAttribute(MarkupLanguageAttributes name, String string) throws IOException;
 
   /**
    * Writes a boolean attribute. The value will not escaped.
    */
-  public void writeAttribute(final String name, final boolean on) throws IOException {
+  public void writeAttribute(final MarkupLanguageAttributes name, final boolean on) throws IOException {
     if (on) {
-      writeAttribute(name, name, false);
+      writeAttribute(name, name.getValue(), false);
     }
   }
 
   /**
    * Writes a integer attribute. The value will not escaped.
    */
-  public void writeAttribute(final String name, final int number) throws IOException {
+  public void writeAttribute(final MarkupLanguageAttributes name, final int number) throws IOException {
     writeAttribute(name, Integer.toString(number), false);
-  }
-
-  /**
-   * Writes a propery as attribute. The value will be escaped.
-   */
-  public void writeAttributeFromComponent(final String name, final String property) throws IOException {
-    writeAttribute(name, null, property);
   }
 
   /**
@@ -174,7 +179,7 @@ public abstract class TobagoResponseWriter extends ResponseWriter {
       if (json.length() > 2) { // empty "{}" needs not to be written
         final FacesContext facesContext = FacesContext.getCurrentInstance();
         writeAttribute(
-            DataAttributes.STYLE.getValue(), json, style.needsToBeEscaped() || AjaxUtils.isAjaxRequest(facesContext));
+            DataAttributes.STYLE, json, style.needsToBeEscaped() || AjaxUtils.isAjaxRequest(facesContext));
         // in case of AJAX we need to escape the " as long we use
         // org.apache.myfaces.tobago.internal.webapp.JsonResponseWriter
       }

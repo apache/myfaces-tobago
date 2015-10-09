@@ -23,8 +23,8 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.RendererTypes;
-import org.apache.myfaces.tobago.component.Visual;
 import org.apache.myfaces.tobago.component.UISheet;
+import org.apache.myfaces.tobago.component.Visual;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.context.TransientStateHolder;
 import org.apache.myfaces.tobago.event.AbstractPopupActionListener;
@@ -36,6 +36,7 @@ import org.apache.myfaces.tobago.internal.util.ArrayUtils;
 import org.apache.myfaces.tobago.internal.util.ObjectUtils;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
+import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -1027,9 +1028,10 @@ public final class ComponentUtils {
    * Adding a data attribute to the component. 
    * The name must start with "data-", e. g. "data-tobago-foo" or "data-bar"
    */
-  public static void putDataAttributeWithPrefix(final UIComponent component, final String name, final Object value) {
-    if (name.startsWith("data-")) {
-      putDataAttribute(component, name.substring(5), value);
+  public static void putDataAttributeWithPrefix(
+      final UIComponent component, final DataAttributes name, final Object value) {
+    if (name.getValue().startsWith("data-")) {
+      putDataAttribute(component, name.getValue().substring(5), value);
     } else {
       LOG.error("The name must start with 'data-' but it doesn't: '" + name + "'");
     }
