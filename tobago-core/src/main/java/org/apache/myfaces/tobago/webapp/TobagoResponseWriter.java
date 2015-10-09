@@ -103,8 +103,10 @@ public abstract class TobagoResponseWriter extends ResponseWriter {
   }
 
   /**
-   * Writes a propery as attribute. The value will be escaped.
+   * Writes a property as attribute. The value will be escaped.
+   * @deprecated since Tobago 2.0.9
    */
+  @Deprecated
   public void writeAttributeFromComponent(final String name, final String property) throws IOException {
     writeAttribute(name, null, property);
   }
