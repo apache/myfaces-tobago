@@ -81,7 +81,7 @@ public final class XmlResponseWriter extends TobagoResponseWriterBase {
   public void startDocument() throws IOException {
     getWriter().write(XHTML_DOCTYPE);
     getWriter().write('\n');
-    startElement(HtmlElements.HTML, null);
+    startElement(HtmlElements.HTML);
     writeAttribute(HtmlAttributes.XMLNS, "http://www.w3.org/1999/xhtml", false);
 
   }

@@ -49,7 +49,7 @@ public class SelectOneChoiceRenderer extends SelectOneRendererBase {
     final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, select);
     final boolean disabled = !items.iterator().hasNext() || select.isDisabled() || select.isReadonly();
 
-    writer.startElement(HtmlElements.SELECT, select);
+    writer.startElement(HtmlElements.SELECT);
     writer.writeNameAttribute(id);
     writer.writeIdAttribute(id);
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, select);

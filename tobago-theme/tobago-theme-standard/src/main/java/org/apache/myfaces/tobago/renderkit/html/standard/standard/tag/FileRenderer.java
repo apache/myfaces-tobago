@@ -97,25 +97,25 @@ public class FileRenderer extends InputRendererBase {
 
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
-    writer.startElement(HtmlElements.DIV, file);
+    writer.startElement(HtmlElements.DIV);
     writer.writeIdAttribute(clientId);
     writer.writeClassAttribute(Classes.create(file), file.getCustomClass());
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, file);
     writer.writeStyleAttribute(file.getStyle());
 
     // visible fake input for a pretty look
-    writer.startElement(HtmlElements.DIV, file);
+    writer.startElement(HtmlElements.DIV);
     writer.writeIdAttribute(clientId + ComponentUtils.SUB_SEPARATOR + "pretty");
-    writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.TEXT, false);
+    writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.TEXT);
     writer.writeClassAttribute(Classes.create(file, "pretty"));
     // TODO Focus
     //HtmlRendererUtils.renderFocus(clientId, file.isFocus(), ComponentUtils.isError(file), facesContext, writer);
     writer.endElement(HtmlElements.DIV);
 
     // invisible file input
-    writer.startElement(HtmlElements.INPUT, file);
+    writer.startElement(HtmlElements.INPUT);
     writer.writeIdAttribute(clientId + ComponentUtils.SUB_SEPARATOR + "real");
-    writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.FILE, false);
+    writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.FILE);
     writer.writeClassAttribute(Classes.create(file, "real"));
     writer.writeNameAttribute(clientId);
     // readonly seems not making sense in browsers.

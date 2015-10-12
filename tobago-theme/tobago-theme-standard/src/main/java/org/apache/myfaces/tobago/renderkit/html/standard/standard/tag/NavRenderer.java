@@ -50,16 +50,16 @@ public class NavRenderer extends RendererBase {
     final String clientId = nav.getClientId(facesContext);
     final String navbarId = clientId + "::navbar";
 
-    writer.startElement(HtmlElements.NAV, null);
+    writer.startElement(HtmlElements.NAV);
     writer.writeIdAttribute(clientId);
     writer.writeAttribute(HtmlAttributes.ROLE, HtmlRoleValues.NAVIGATION.toString(), false);
 
-    writer.startElement(HtmlElements.DIV, null);
+    writer.startElement(HtmlElements.DIV);
     writer.writeClassAttribute(BootstrapClass.CONTAINER_FLUID);
 
     encodeOpener(facesContext, nav, writer, navbarId);
 
-    writer.startElement(HtmlElements.DIV, null);
+    writer.startElement(HtmlElements.DIV);
     writer.writeIdAttribute(navbarId);
     writer.writeClassAttribute(BootstrapClass.COLLAPSE, BootstrapClass.NAVBAR_COLLAPSE);
 // XXX writer.writeClassAttribute(BootstrapClass.COLLAPSE, BootstrapClass.NAVBAR_COLLAPSE, BootstrapClass.NAVBAR_TEXT);
@@ -108,24 +108,24 @@ public class NavRenderer extends RendererBase {
 
     // todo: consolidate this rendering with ToolBarRenderer
 
-    writer.startElement(HtmlElements.DIV, null);
+    writer.startElement(HtmlElements.DIV);
     writer.writeClassAttribute(BootstrapClass.NAVBAR_HEADER);
 
-    writer.startElement(HtmlElements.BUTTON, null);
-    writer.writeAttribute(HtmlAttributes.TYPE, HtmlButtonTypes.BUTTON, false);
+    writer.startElement(HtmlElements.BUTTON);
+    writer.writeAttribute(HtmlAttributes.TYPE, HtmlButtonTypes.BUTTON);
     writer.writeClassAttribute(BootstrapClass.NAVBAR_TOGGLE, BootstrapClass.COLLAPSED);
     writer.writeAttribute(DataAttributes.TOGGLE, "collapse", false);
     writer.writeAttribute(DataAttributes.TARGET, JQueryUtils.escapeIdForHtml(navbarId), true);
     writer.writeAttribute(Aria.EXPANDED, Boolean.FALSE.toString(), false);
     writer.writeAttribute(Aria.CONTROLS, navbarId, false);
 
-    writer.startElement(HtmlElements.SPAN, null);
+    writer.startElement(HtmlElements.SPAN);
     writer.writeClassAttribute(BootstrapClass.SR_ONLY);
     writer.writeText("Toggle navigation"); // todo: i18n
     writer.endElement(HtmlElements.SPAN);
 
     for (int i = 0; i < 3; i++) {
-      writer.startElement(HtmlElements.SPAN, null);
+      writer.startElement(HtmlElements.SPAN);
       writer.writeClassAttribute(BootstrapClass.ICON_BAR);
       writer.endElement(HtmlElements.SPAN);
     }
@@ -136,7 +136,7 @@ public class NavRenderer extends RendererBase {
     if (image != null) {
       final String src = ResourceManagerUtils.getImageWithPath(facesContext, image);
       if (src != null) {
-        writer.startElement(HtmlElements.IMG, null);
+        writer.startElement(HtmlElements.IMG);
         writer.writeClassAttribute(BootstrapClass.NAVBAR_BRAND);
         writer.writeAttribute(HtmlAttributes.SRC, src, true);
         writer.writeAttribute(HtmlAttributes.ALT, "", false);
@@ -146,7 +146,7 @@ public class NavRenderer extends RendererBase {
 
     final String label = nav.getLabel();
     if (label != null) {
-      writer.startElement(HtmlElements.SPAN, null);
+      writer.startElement(HtmlElements.SPAN);
       writer.writeClassAttribute(BootstrapClass.NAVBAR_BRAND);
       writer.writeText(label);
       writer.endElement(HtmlElements.SPAN);
@@ -171,7 +171,7 @@ public class NavRenderer extends RendererBase {
 
     public void mayStart() throws IOException {
       if (!isInDiv) {
-        writer.startElement(HtmlElements.DIV, null);
+        writer.startElement(HtmlElements.DIV);
         writer.writeClassAttribute(BootstrapClass.NAVBAR_FORM);
         isInDiv = true;
       }

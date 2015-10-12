@@ -76,7 +76,7 @@ public class ImageRenderer extends RendererBase {
       alt = "";
     }
 
-    writer.startElement(HtmlElements.IMG, image);
+    writer.startElement(HtmlElements.IMG);
     writer.writeIdAttribute(image.getClientId(facesContext));
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, image);
     if (src != null) {

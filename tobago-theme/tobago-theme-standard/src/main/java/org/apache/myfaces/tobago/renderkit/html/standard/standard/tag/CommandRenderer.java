@@ -25,8 +25,9 @@ import org.apache.myfaces.tobago.internal.component.AbstractUILink;
 import org.apache.myfaces.tobago.internal.util.AccessKeyLogger;
 import org.apache.myfaces.tobago.renderkit.CommandRendererBase;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
-import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
+import org.apache.myfaces.tobago.renderkit.css.Classes;
+import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.Command;
 import org.apache.myfaces.tobago.renderkit.html.CommandMap;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
@@ -39,7 +40,6 @@ import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
-import javax.faces.context.ResponseWriter;
 import java.io.IOException;
 
 public class CommandRenderer extends CommandRendererBase {
@@ -67,9 +67,9 @@ public class CommandRenderer extends CommandRendererBase {
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
     if (disabled) {
-      writer.startElement(HtmlElements.SPAN, link);
+      writer.startElement(HtmlElements.SPAN);
     } else {
-      writer.startElement(HtmlElements.A, link);
+      writer.startElement(HtmlElements.A);
 
       final CommandMap map = new CommandMap(new Command(facesContext, link));
       writer.writeAttribute(DataAttributes.COMMANDS, JsonUtils.encode(map), true);
@@ -110,7 +110,7 @@ public class CommandRenderer extends CommandRendererBase {
       } else {
         image = HtmlRendererUtils.getImageWithPath(facesContext, image, disabled);
       }
-      writer.startElement(HtmlElements.IMG, link);
+      writer.startElement(HtmlElements.IMG);
       writer.writeClassAttribute(Classes.create(link, "image"));
       writer.writeAttribute(HtmlAttributes.SRC, image, true);
       writer.writeAttribute(HtmlAttributes.BORDER, 0); // TODO: is border=0 setting via style possible?
@@ -137,7 +137,7 @@ public class CommandRenderer extends CommandRendererBase {
     }
 
     if (link.isParentOfCommands()) {
-      writer.startElement(HtmlElements.UL, null);
+      writer.startElement(HtmlElements.UL);
       writer.writeClassAttribute(BootstrapClass.DROPDOWN_MENU);
       writer.writeAttribute(HtmlAttributes.ROLE, HtmlRoleValues.MENU.toString(), false);
     }
@@ -158,12 +158,12 @@ public class CommandRenderer extends CommandRendererBase {
 
       for (UIComponent child : component.getChildren()) {
         if (child.isRendered()) {
-          writer.startElement(HtmlElements.LI, null);
+          writer.startElement(HtmlElements.LI);
           if (child instanceof AbstractUICommand) {
             AbstractUICommand command = (AbstractUICommand) child;
             if (command.isParentOfCommands()) {
               // fixme: this name comes not from bootstrap, using prefix? tobago-command-dropdown-submenu
-              writer.writeClassAttribute("dropdown-submenu");
+              writer.writeClassAttribute(TobagoClass.DROPDOWN_SUBMENU);
             }
           }
           child.encodeAll(facesContext);
@@ -181,7 +181,7 @@ public class CommandRenderer extends CommandRendererBase {
     final AbstractUICommand link = (AbstractUICommand) component;
 
     if (link.isParentOfCommands()) {
-      final ResponseWriter writer = facesContext.getResponseWriter();
+      final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
       writer.endElement(HtmlElements.UL);
     }
 

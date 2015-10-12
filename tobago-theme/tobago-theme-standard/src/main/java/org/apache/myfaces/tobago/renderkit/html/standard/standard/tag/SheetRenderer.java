@@ -143,7 +143,7 @@ public class SheetRenderer extends RendererBase {
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
     // Outer sheet div
-    writer.startElement(HtmlElements.DIV, sheet);
+    writer.startElement(HtmlElements.DIV);
     writer.writeIdAttribute(sheetId);
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, sheet);
     writer.writeClassAttribute(Classes.create(sheet), sheet.getCustomClass());
@@ -181,27 +181,27 @@ public class SheetRenderer extends RendererBase {
     final List<Integer> selectedRows = getSelectedRows(sheet, state);
     final List<AbstractUIColumn> renderedColumnList = sheet.getRenderedColumns();
 
-    writer.startElement(HtmlElements.INPUT, null);
+    writer.startElement(HtmlElements.INPUT);
     writer.writeIdAttribute(sheetId + WIDTHS_POSTFIX);
     writer.writeNameAttribute(sheetId + WIDTHS_POSTFIX);
-    writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN, false);
+    writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN);
     writer.writeAttribute(HtmlAttributes.VALUE, StringUtils.joinWithSurroundingSeparator(columnWidths), false);
     writer.endElement(HtmlElements.INPUT);
 
     RenderUtils.writeScrollPosition(facesContext, writer, sheet, sheet.getScrollPosition());
 
     if (selectable != Selectable.none) {
-      writer.startElement(HtmlElements.INPUT, null);
+      writer.startElement(HtmlElements.INPUT);
       writer.writeIdAttribute(sheetId + SELECTED_POSTFIX);
       writer.writeNameAttribute(sheetId + SELECTED_POSTFIX);
-      writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN, false);
+      writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN);
       writer.writeAttribute(
           HtmlAttributes.VALUE, StringUtils.joinWithSurroundingSeparator(selectedRows), true);
       writer.endElement(HtmlElements.INPUT);
     }
 
-    writer.startElement(HtmlElements.INPUT, null);
-    writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN, false);
+    writer.startElement(HtmlElements.INPUT);
+    writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN);
     final String hiddenId = sheetId + UINamingContainer.getSeparatorChar(facesContext)
         + PageAction.TO_PAGE.getToken() + ComponentUtils.SUB_SEPARATOR + "value";
     writer.writeAttribute(HtmlAttributes.NAME, hiddenId, false);
@@ -223,11 +223,11 @@ public class SheetRenderer extends RendererBase {
       renderColumnHeaders(facesContext, sheet, writer, renderedColumnList);
     }
 
-    writer.startElement(HtmlElements.DIV, null);
+    writer.startElement(HtmlElements.DIV);
     writer.writeIdAttribute(sheetId + ComponentUtils.SUB_SEPARATOR + "data_div");
     writer.writeClassAttribute(Classes.create(sheet, "body"));
       
-    writer.startElement(HtmlElements.TABLE, null);
+    writer.startElement(HtmlElements.TABLE);
     writer.writeAttribute(HtmlAttributes.CELLSPACING, "0", false);
     writer.writeAttribute(HtmlAttributes.CELLPADDING, "0", false);
     writer.writeAttribute(HtmlAttributes.SUMMARY, "", false);
@@ -277,7 +277,7 @@ public class SheetRenderer extends RendererBase {
         }
       }
 
-      writer.startElement(HtmlElements.TR, null);
+      writer.startElement(HtmlElements.TR);
       if (rowRendered instanceof Boolean) {
         // if rowRendered attribute is set we need the rowIndex on the client
         writer.writeAttribute(DataAttributes.ROW_INDEX, rowIndex);
@@ -306,7 +306,7 @@ public class SheetRenderer extends RendererBase {
       for (final UIColumn column : renderedColumnList) {
         columnIndex++;
 
-        writer.startElement(HtmlElements.TD, column);
+        writer.startElement(HtmlElements.TD);
 
         Markup markup = column instanceof Visual ? ((Visual) column).getMarkup() : Markup.NULL;
         if (markup == null) {
@@ -341,8 +341,8 @@ public class SheetRenderer extends RendererBase {
 
         if (column instanceof UIColumnSelector) {
           final boolean disabled = ComponentUtils.getBooleanAttribute(column, Attributes.DISABLED);
-          writer.startElement(HtmlElements.INPUT, null);
-          writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.CHECKBOX, false);
+          writer.startElement(HtmlElements.INPUT);
+          writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.CHECKBOX);
           writer.writeAttribute(HtmlAttributes.CHECKED, selected);
           writer.writeAttribute(HtmlAttributes.DISABLED, disabled);
           writer.writeIdAttribute(sheetId + "_data_row_selector_" + rowIndex);
@@ -376,10 +376,10 @@ public class SheetRenderer extends RendererBase {
         writer.endElement(HtmlElements.TD);
       }
 
-      writer.startElement(HtmlElements.TD, null);
+      writer.startElement(HtmlElements.TD);
       writer.writeClassAttribute(Classes.create(sheet, "cell", Markup.FILLER));
 //      writer.write("&nbsp;");
-      writer.startElement(HtmlElements.DIV, null);
+      writer.startElement(HtmlElements.DIV);
       writer.endElement(HtmlElements.DIV);
       writer.endElement(HtmlElements.TD);
 
@@ -389,12 +389,12 @@ public class SheetRenderer extends RendererBase {
     sheet.setRowIndex(-1);
 
     if (emptySheet && showHeader) {
-      writer.startElement(HtmlElements.TR, null);
+      writer.startElement(HtmlElements.TR);
       int columnIndex = -1;
       for (final UIColumn ignored : renderedColumnList) {
         columnIndex++;
-        writer.startElement(HtmlElements.TD, null);
-        writer.startElement(HtmlElements.DIV, null);
+        writer.startElement(HtmlElements.TD);
+        writer.startElement(HtmlElements.DIV);
         if (columnWidths != null) {
           final Integer divWidth = columnWidths.get(columnIndex);
           final Style divStyle = new Style();
@@ -404,10 +404,10 @@ public class SheetRenderer extends RendererBase {
         writer.endElement(HtmlElements.DIV);
         writer.endElement(HtmlElements.TD);
       }
-      writer.startElement(HtmlElements.TD, null);
+      writer.startElement(HtmlElements.TD);
       writer.writeClassAttribute(Classes.create(sheet, "cell", Markup.FILLER));
 //      writer.write("&nbsp;");
-      writer.startElement(HtmlElements.DIV, null);
+      writer.startElement(HtmlElements.DIV);
       writer.endElement(HtmlElements.DIV);
       writer.endElement(HtmlElements.TD);
       writer.endElement(HtmlElements.TR);
@@ -421,7 +421,7 @@ public class SheetRenderer extends RendererBase {
     if (sheet.isPagingVisible()) {
 //      final Style footerStyle = new Style();
 //      footerStyle.setWidth(sheet.getCurrentWidth());
-      writer.startElement(HtmlElements.FOOTER, sheet);
+      writer.startElement(HtmlElements.FOOTER);
       writer.writeClassAttribute(Classes.create(sheet, "footer"));
 //      writer.writeStyleAttribute(footerStyle);
 
@@ -435,7 +435,7 @@ public class SheetRenderer extends RendererBase {
         }
         final String pagerCommandId = pagerCommand.getClientId(facesContext);
 
-        writer.startElement(HtmlElements.SPAN, null);
+        writer.startElement(HtmlElements.SPAN);
         writer.writeClassAttribute(Classes.create(sheet, "pagingOuter", showRowRange));
         writer.writeAttribute(HtmlAttributes.TITLE,
             ResourceManagerUtils.getPropertyNotNull(facesContext, "tobago", "sheetPagingInfoRowPagingTip"), true);
@@ -447,7 +447,7 @@ public class SheetRenderer extends RendererBase {
       // show direct links
       final Markup showDirectLinks = markupForLeftCenterRight(sheet.getShowDirectLinks());
       if (showDirectLinks != Markup.NULL) {
-        writer.startElement(HtmlElements.UL, null);
+        writer.startElement(HtmlElements.UL);
         writer.writeClassAttribute(
             Classes.create(sheet, "pagingOuter", showDirectLinks),
             BootstrapClass.PAGINATION, TobagoClass.SHEET__PAGING_LINKS);
@@ -477,7 +477,7 @@ public class SheetRenderer extends RendererBase {
         }
         final String pagerCommandId = pagerCommand.getClientId(facesContext);
 
-        writer.startElement(HtmlElements.SPAN, null);
+        writer.startElement(HtmlElements.SPAN);
         writer.writeClassAttribute(
             Classes.create(sheet, "pagingOuter", showPageRange), TobagoClass.SHEET__PAGING_PAGES);
         String areaId = "pagingPages";
@@ -489,7 +489,7 @@ public class SheetRenderer extends RendererBase {
           link(facesContext, application, areaId, atBeginning, PageAction.FIRST, sheet);
           link(facesContext, application, areaId, atBeginning, PageAction.PREV, sheet);
         }
-        writer.startElement(HtmlElements.SPAN, null);
+        writer.startElement(HtmlElements.SPAN);
         writer.writeClassAttribute(Classes.create(sheet, "pagingText"));
         writer.writeAttribute(HtmlAttributes.TITLE,
                 ResourceManagerUtils.getPropertyNotNull(facesContext, "tobago", "sheetPagingInfoPagePagingTip"), true);
@@ -523,13 +523,13 @@ public class SheetRenderer extends RendererBase {
           final MessageFormat detail2 = new MessageFormat(
               ResourceManagerUtils.getPropertyNotNull(facesContext, "tobago", key + "2"), locale);
           writer.write(detail1.format(args));
-          writer.startElement(HtmlElements.SPAN, null);
-          writer.writeClassAttribute("tobago-sheet-pagingOutput"); // todo
+          writer.startElement(HtmlElements.SPAN);
+          writer.writeClassAttribute(TobagoClass.SHEET__PAGING_OUTPUT);
           writer.writeText(Integer.toString(first));
           writer.endElement(HtmlElements.SPAN);
-          writer.startElement(HtmlElements.INPUT, null);
-          writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.TEXT, false);
-          writer.writeClassAttribute("tobago-sheet-pagingInput"); // todo
+          writer.startElement(HtmlElements.INPUT);
+          writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.TEXT);
+          writer.writeClassAttribute(TobagoClass.SHEET__PAGING_INPUT);
           writer.writeAttribute(HtmlAttributes.VALUE, first);
           if (!unknown) {
             writer.writeAttribute(HtmlAttributes.MAXLENGTH, Integer.toString(pages).length());
@@ -552,8 +552,8 @@ public class SheetRenderer extends RendererBase {
     }
 
     if (sheet.isTreeModel()) {
-      writer.startElement(HtmlElements.INPUT, sheet);
-      writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN, false);
+      writer.startElement(HtmlElements.INPUT);
+      writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN);
       final String expandedId = sheetId + ComponentUtils.SUB_SEPARATOR + AbstractUIData.SUFFIX_EXPANDED;
       writer.writeNameAttribute(expandedId);
       writer.writeIdAttribute(expandedId);
@@ -565,7 +565,7 @@ public class SheetRenderer extends RendererBase {
 
   private void writeColgroup(final TobagoResponseWriter writer, final List<Integer> columnWidths) throws IOException {
     if (columnWidths != null) {
-      writer.startElement(HtmlElements.COLGROUP, null);
+      writer.startElement(HtmlElements.COLGROUP);
       for (final Integer columnWidth : columnWidths) {
         writeCol(writer, columnWidth);
       }
@@ -577,7 +577,7 @@ public class SheetRenderer extends RendererBase {
   }
 
   private void writeCol(final TobagoResponseWriter writer, final Integer columnWidth) throws IOException {
-    writer.startElement(HtmlElements.COL, null);
+    writer.startElement(HtmlElements.COL);
     if (columnWidth != null) {
       writer.writeAttribute(HtmlAttributes.WIDTH, columnWidth);
     }
@@ -736,7 +736,7 @@ public class SheetRenderer extends RendererBase {
         "image/sheet" + command.getToken() + (disabled ? "Disabled" : ""));
 
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
-    writer.startElement(HtmlElements.IMG, null);
+    writer.startElement(HtmlElements.IMG);
     writer.writeIdAttribute(data.getClientId(facesContext)
         + ComponentUtils.SUB_SEPARATOR + areaId + ComponentUtils.SUB_SEPARATOR + "pagingArrows"
         + ComponentUtils.SUB_SEPARATOR + command.getToken());
@@ -773,9 +773,9 @@ public class SheetRenderer extends RendererBase {
       LOG.debug("*****************************************************");
     }
 
-    writer.startElement(HtmlElements.HEADER, sheet);
+    writer.startElement(HtmlElements.HEADER);
     writer.writeClassAttribute(Classes.create(sheet, "header"));
-    writer.startElement(HtmlElements.TABLE, sheet);
+    writer.startElement(HtmlElements.TABLE);
     writer.writeAttribute(HtmlAttributes.CELLSPACING, "0", false);
     writer.writeAttribute(HtmlAttributes.CELLPADDING, "0", false);
     writer.writeAttribute(HtmlAttributes.SUMMARY, "", false);
@@ -784,14 +784,14 @@ public class SheetRenderer extends RendererBase {
 
     writeColgroup(writer, columnWidths);
 
-    writer.startElement(HtmlElements.TBODY, sheet);
+    writer.startElement(HtmlElements.TBODY);
     for (int i = 0; i < grid.getRowCount(); i++) {
-      writer.startElement(HtmlElements.TR, null);
+      writer.startElement(HtmlElements.TR);
       for (int j = 0; j < grid.getColumnCount(); j++) {
         final Cell cell = grid.getCell(j, i);
         if (cell instanceof OriginCell) {
 //          writer.startElement(HtmlElements.TD, null);
-          writer.startElement(HtmlElements.TH, null);
+          writer.startElement(HtmlElements.TH);
           if (cell.getColumnSpan() > 1) {
             writer.writeAttribute(HtmlAttributes.COLSPAN, cell.getColumnSpan());
           }
@@ -802,9 +802,9 @@ public class SheetRenderer extends RendererBase {
           final UIComponent cellComponent = cell.getComponent();
           final boolean pure = !(cellComponent instanceof UIOut);
 
-          writer.startElement(HtmlElements.DIV, null);
+          writer.startElement(HtmlElements.DIV);
           writer.writeClassAttribute(Classes.create(sheet, "headerCell"));
-          writer.startElement(HtmlElements.SPAN, null);
+          writer.startElement(HtmlElements.SPAN);
           final Style headerStyle = new Style();
           Measure headerHeight = Measure.valueOf(20).multiply(cell.getRowSpan());
           if (!pure) {
@@ -884,10 +884,10 @@ public class SheetRenderer extends RendererBase {
             // render sub menu popup button
             if (dropDownMenu != null && dropDownMenu.isRendered()) {
 
-              writer.startElement(HtmlElements.SPAN, column);
+              writer.startElement(HtmlElements.SPAN);
               writer.writeClassAttribute(Classes.create(column, "menu"));
 
-              writer.startElement(HtmlElements.IMG, column);
+              writer.startElement(HtmlElements.IMG);
               final String menuImage
                   = ResourceManagerUtils.getImage(facesContext, "image/sheetSelectorMenu");
               writer.writeAttribute(HtmlAttributes.TITLE, "", false);
@@ -901,7 +901,7 @@ public class SheetRenderer extends RendererBase {
           }
 
           if (sorterGlyphicon != null) {
-            writer.startElement(HtmlElements.SPAN, null);
+            writer.startElement(HtmlElements.SPAN);
             writer.writeClassAttribute(BootstrapClass.GLYPHICON, sorterGlyphicon);
             writer.endElement(HtmlElements.SPAN);
           }
@@ -918,11 +918,11 @@ public class SheetRenderer extends RendererBase {
       }
       // add a filler column
 //      writer.startElement(HtmlElements.TD, null);
-      writer.startElement(HtmlElements.TH, null);
-      writer.startElement(HtmlElements.DIV, null);
+      writer.startElement(HtmlElements.TH);
+      writer.startElement(HtmlElements.DIV);
       // todo: is the filler class needed here?
       writer.writeClassAttribute(Classes.create(sheet, "headerCell", Markup.FILLER));
-      writer.startElement(HtmlElements.SPAN, null);
+      writer.startElement(HtmlElements.SPAN);
       writer.writeClassAttribute(Classes.create(sheet, "header"));
       final Style headerStyle = new Style();
       headerStyle.setHeight(Measure.valueOf(14)); // XXX todo
@@ -955,7 +955,7 @@ public class SheetRenderer extends RendererBase {
       throws IOException {
 
     final UIToolBar toolBar = createToolBar(facesContext, sheet);
-    writer.startElement(HtmlElements.DIV, null);
+    writer.startElement(HtmlElements.DIV);
     writer.writeClassAttribute(Classes.create(sheet, "toolBar"));
 
     if (UISheet.MULTI.equals(sheet.getSelectable())) {
@@ -1117,16 +1117,16 @@ public class SheetRenderer extends RendererBase {
       final TobagoResponseWriter writer, final UISheet sheet, final String name, final Integer toPage,
       final PagingLinkType pagingLinkType)
       throws IOException {
-    String innerElement = pagingLinkType == PagingLinkType.NORMAL ? HtmlElements.A : HtmlElements.SPAN;
+    HtmlElements innerElement = pagingLinkType == PagingLinkType.NORMAL ? HtmlElements.A : HtmlElements.SPAN;
 
-    writer.startElement(HtmlElements.LI, null);
+    writer.startElement(HtmlElements.LI);
     if (pagingLinkType == PagingLinkType.CURRENT) {
       writer.writeClassAttribute(BootstrapClass.ACTIVE);
     }
     if (pagingLinkType == PagingLinkType.DISABLED) {
       writer.writeClassAttribute(BootstrapClass.DISABLED);
     }
-    writer.startElement(innerElement, null);
+    writer.startElement(innerElement);
     writer.writeClassAttribute(Classes.create(sheet, "pagingLink"));
     if (pagingLinkType == PagingLinkType.NORMAL) {
       writer.writeAttribute(DataAttributes.TO_PAGE, toPage);

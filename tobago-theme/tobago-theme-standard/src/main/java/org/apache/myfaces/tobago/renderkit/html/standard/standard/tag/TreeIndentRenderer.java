@@ -59,7 +59,7 @@ public class TreeIndentRenderer extends RendererBase {
 
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
-    writer.startElement(HtmlElements.SPAN, indent);
+    writer.startElement(HtmlElements.SPAN);
     writer.writeIdAttribute(indent.getClientId(facesContext));
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, indent);
     writer.writeClassAttribute(Classes.create(node, "toggle", Markup.NULL));

@@ -99,8 +99,8 @@ public final class Secret implements Serializable {
    * Encode a hidden field with the secret value from the session.
    */
   public static void encode(final FacesContext facesContext, final TobagoResponseWriter writer) throws IOException {
-    writer.startElement(HtmlElements.INPUT, null);
-    writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN, false);
+    writer.startElement(HtmlElements.INPUT);
+    writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN);
     writer.writeAttribute(HtmlAttributes.NAME, Secret.KEY, false);
     writer.writeAttribute(HtmlAttributes.ID, Secret.KEY, false);
     final Object session = facesContext.getExternalContext().getSession(true);

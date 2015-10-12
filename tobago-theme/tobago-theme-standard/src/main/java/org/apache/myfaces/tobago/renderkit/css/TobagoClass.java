@@ -26,14 +26,21 @@ package org.apache.myfaces.tobago.renderkit.css;
  */
 public enum TobagoClass implements CssItem {
 
+  DROPDOWN_SUBMENU("dropdown-submenu"),
   FLEX_LAYOUT("tobago-flexLayout"),
   LABEL("tobago-label"),
+  MENU_BAR("tobago-menuBar"),
+  MENU__CONTEXT_MENU("tobago-menu-contextMenu"),
+  MENU__DROP_DOWN_MENU("tobago-menu-dropDownMenu"),
   MESSAGES("tobago-messages"),
   PANEL("tobago-panel"),
   POPUP("tobago-popup"),
+  SHEET__PAGING_INPUT("tobago-sheet-pagingInput"),
   SHEET__PAGING_LINKS("tobago-sheet-pagingLinks"),
+  SHEET__PAGING_OUTPUT("tobago-sheet-pagingOutput"),
   SHEET__PAGING_PAGES("tobago-sheet-pagingPages"),
-  SUGGEST("tobago-suggest");
+  SUGGEST("tobago-suggest"),
+  X__ACCESS_KEY("tobago-x-accessKey");
 
   private final String name;
 

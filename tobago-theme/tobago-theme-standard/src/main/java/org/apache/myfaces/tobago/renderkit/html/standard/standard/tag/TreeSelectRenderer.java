@@ -101,19 +101,19 @@ public class TreeSelectRenderer extends RendererBase {
     final boolean folder = data.isFolder();
     final Selectable selectable = data.getSelectable();
 
-    writer.startElement(HtmlElements.SPAN, null);
+    writer.startElement(HtmlElements.SPAN);
     writer.writeClassAttribute(Classes.create(select));
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, select);
 
     if (select.isShowCheckbox()
         && selectable != Selectable.none
         && (!selectable.isLeafOnly() || !folder)) {
-      writer.startElement(HtmlElements.INPUT, null);
+      writer.startElement(HtmlElements.INPUT);
       if (selectable.isSingle()) {
-        writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.RADIO, false);
+        writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.RADIO);
         writer.writeNameAttribute(getClientIdWithoutRowIndex(data, id));
       } else {
-        writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.CHECKBOX, false);
+        writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.CHECKBOX);
         writer.writeNameAttribute(id);
       }
       writer.writeAttribute(HtmlAttributes.VALUE, id, false);
@@ -126,7 +126,7 @@ public class TreeSelectRenderer extends RendererBase {
     // label
     final String label = select.getLabel();
     if (StringUtils.isNotEmpty(label)) {
-      writer.startElement(HtmlElements.LABEL, null);
+      writer.startElement(HtmlElements.LABEL);
       writer.writeClassAttribute(Classes.create(select, "label"));
       final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, select);
       if (title != null) {

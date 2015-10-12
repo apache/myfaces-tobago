@@ -34,9 +34,9 @@ public class MenuSeparatorRenderer extends RendererBase {
   @Override
   public void encodeBegin(final FacesContext facesContext, final UIComponent component) throws IOException {
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
-    writer.startElement(HtmlElements.LI, component);
+    writer.startElement(HtmlElements.LI);
     writer.writeClassAttribute(Classes.create(component));
-    writer.startElement(HtmlElements.HR, component);
+    writer.startElement(HtmlElements.HR);
     writer.endElement(HtmlElements.HR);
     writer.endElement(HtmlElements.LI);
   }

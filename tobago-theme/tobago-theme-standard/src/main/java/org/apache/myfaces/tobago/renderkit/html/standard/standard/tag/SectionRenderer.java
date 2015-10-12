@@ -39,14 +39,14 @@ public class SectionRenderer extends RendererBase {
         final UISection section = (UISection) component;
         final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
-        writer.startElement(HtmlElements.DIV, section);
+        writer.startElement(HtmlElements.DIV);
         writer.writeIdAttribute(section.getClientId(facesContext));
         writer.writeClassAttribute(Classes.create(section), section.getCustomClass());
         HtmlRendererUtils.writeDataAttributes(facesContext, writer, section);
 
         String label = section.getLabelToRender();
         CssItem clazz = null;
-        final String tag;
+        final HtmlElements tag;
         switch (section.getLevel()) {
             case 1:
                 tag = HtmlElements.H1;
@@ -68,7 +68,7 @@ public class SectionRenderer extends RendererBase {
                 tag = HtmlElements.H6;
         }
 
-        writer.startElement(tag, section);
+        writer.startElement(tag);
         if (clazz != null) {
             writer.writeClassAttribute(clazz);
         }

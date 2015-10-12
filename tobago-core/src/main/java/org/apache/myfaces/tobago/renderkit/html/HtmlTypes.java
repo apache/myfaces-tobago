@@ -19,26 +19,7 @@
 
 package org.apache.myfaces.tobago.renderkit.html;
 
-public enum HtmlInputTypes implements HtmlTypes {
+public interface HtmlTypes {
 
-  TEXT("text"),
-  PASSWORD("password"),
-  CHECKBOX("checkbox"),
-  RADIO("radio"),
-  SUBMIT("submit"),
-  RESET("reset"),
-  FILE("file"),
-  HIDDEN("hidden"),
-  IMAGE("image"),
-  BUTTON("button");
-
-  private final String value;
-
-  HtmlInputTypes(String value) {
-    this.value = value;
-  }
-
-  public String getValue() {
-    return value;
-  }
+  String getValue();
 }

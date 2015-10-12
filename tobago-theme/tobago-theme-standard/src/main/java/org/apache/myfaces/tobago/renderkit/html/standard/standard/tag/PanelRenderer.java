@@ -34,7 +34,6 @@ import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
-import javax.faces.context.ResponseWriter;
 import java.io.IOException;
 
 public class PanelRenderer extends RendererBase {
@@ -59,7 +58,7 @@ public class PanelRenderer extends RendererBase {
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
     final String clientId = panel.getClientId(facesContext);
-    writer.startElement(HtmlElements.DIV, panel);
+    writer.startElement(HtmlElements.DIV);
     writer.writeIdAttribute(clientId);
     writer.writeClassAttribute(Classes.create(panel), panel.getCustomClass());
     writer.writeStyleAttribute(panel.getStyle());
@@ -83,7 +82,7 @@ public class PanelRenderer extends RendererBase {
 
   @Override
   public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
-    final ResponseWriter writer = facesContext.getResponseWriter();
+    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
     writer.endElement(HtmlElements.DIV);
   }
 }

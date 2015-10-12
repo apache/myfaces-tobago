@@ -20,6 +20,8 @@
 package org.apache.myfaces.tobago.internal.webapp;
 
 import org.apache.myfaces.tobago.internal.util.StringUtils;
+import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
+import org.apache.myfaces.tobago.renderkit.html.HtmlTypes;
 import org.apache.myfaces.tobago.renderkit.html.MarkupLanguageAttributes;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import org.slf4j.Logger;
@@ -34,7 +36,7 @@ import java.util.Stack;
 
 public class DebugResponseWriterWrapper extends TobagoResponseWriter {
 
-  private Stack<String> stack = new Stack<String>();
+  private Stack<Object> stack = new Stack<Object>();
 
   private static final Logger LOG = LoggerFactory.getLogger(DebugResponseWriterWrapper.class);
 
@@ -82,6 +84,11 @@ public class DebugResponseWriterWrapper extends TobagoResponseWriter {
   public void writeAttribute(final MarkupLanguageAttributes name, final String value, final boolean escape)
       throws IOException {
     responseWriter.writeAttribute(name, value, escape);
+  }
+
+  @Override
+  public void writeAttribute(final MarkupLanguageAttributes name, final HtmlTypes types) throws IOException {
+    responseWriter.writeAttribute(name, types);
   }
 
   @Override
@@ -149,8 +156,7 @@ public class DebugResponseWriterWrapper extends TobagoResponseWriter {
   }
 
   @Override
-  public void startElement(final String name, final UIComponent currentComponent)
-      throws IOException {
+  public void startElement(final String name, final UIComponent currentComponent) throws IOException {
     if (LOG.isDebugEnabled()) {
       LOG.debug("start element: '" + name + "'");
     }
@@ -159,15 +165,45 @@ public class DebugResponseWriterWrapper extends TobagoResponseWriter {
   }
 
   @Override
+  public void startElement(final HtmlElements name) throws IOException {
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("start element: '" + name + "'");
+    }
+    stack.push(name);
+    responseWriter.startElement(name);
+  }
+
+  @Override
   public void endElement(final String name) throws IOException {
     if (LOG.isDebugEnabled()) {
       LOG.debug("end element: '" + name + "'");
     }
-    String top = "";
+    Object top;
     try {
       top = stack.pop();
     } catch (final EmptyStackException e) {
       LOG.error("Failed to close element \"" + name + "\"!", e);
+      top = "*** failure ***";
+    }
+
+    if (!top.equals(name)) {
+      LOG.error("Element end with name='" + name + "' doesn't match with top element on the stack='" + top + "'.",
+          new IllegalArgumentException());
+    }
+    responseWriter.endElement(name);
+  }
+
+  @Override
+  public void endElement(final HtmlElements name) throws IOException {
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("end element: '" + name + "'");
+    }
+    Object top;
+    try {
+      top = stack.pop();
+    } catch (final EmptyStackException e) {
+      LOG.error("Failed to close element \"" + name + "\"!", e);
+      top = "*** failure ***";
     }
 
     if (!top.equals(name)) {

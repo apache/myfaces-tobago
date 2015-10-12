@@ -93,7 +93,7 @@ public class MessagesRenderer extends RendererBase {
         clientIds = facesContext.getClientIdsWithMessages();
       }*/
 
-      writer.startElement(HtmlElements.DIV, messages);
+      writer.startElement(HtmlElements.DIV);
       writer.writeIdAttribute(messages.getClientId(facesContext));
       writer.writeClassAttribute(TobagoClass.MESSAGES);
 
@@ -109,18 +109,18 @@ public class MessagesRenderer extends RendererBase {
         }
 
         if (first || lastSeverity != severity) {
-          writer.startElement(HtmlElements.DIV, messages);
+          writer.startElement(HtmlElements.DIV);
           writer.writeClassAttribute(TobagoClass.MESSAGES,
               BootstrapClass.ALERT, BootstrapClass.ALERT_DISMISSIBLE, BootstrapClass.alert(severity));
           HtmlRendererUtils.writeDataAttributes(facesContext, writer, messages);
           writer.writeAttribute(HtmlAttributes.ROLE, HtmlRoleValues.ALERT.toString(), false);
 
-          writer.startElement(HtmlElements.BUTTON, null);
-          writer.writeAttribute(HtmlAttributes.TYPE, HtmlButtonTypes.BUTTON, false);
+          writer.startElement(HtmlElements.BUTTON);
+          writer.writeAttribute(HtmlAttributes.TYPE, HtmlButtonTypes.BUTTON);
           writer.writeClassAttribute(BootstrapClass.CLOSE);
           writer.writeAttribute(DataAttributes.DISMISS, "alert", false);
           writer.writeAttribute(Aria.ACTIVEDESCENDANT, "Close", false); // todo: i18n
-          writer.startElement(HtmlElements.SPAN, null);
+          writer.startElement(HtmlElements.SPAN);
           writer.writeAttribute(Aria.HIDDEN, Boolean.TRUE.toString(), false);
           writer.writeText("×"); // times
           writer.endElement(HtmlElements.SPAN);
@@ -151,11 +151,11 @@ public class MessagesRenderer extends RendererBase {
 */
       if (messages.getFor() == null) {
         final String id = messages.getClientId(facesContext) + ComponentUtils.SUB_SEPARATOR + "messagesExists";
-        writer.startElement(HtmlElements.INPUT, null);
+        writer.startElement(HtmlElements.INPUT);
         writer.writeAttribute(HtmlAttributes.VALUE, Boolean.TRUE.toString(), false);
         writer.writeAttribute(HtmlAttributes.ID, id, false);
         writer.writeAttribute(HtmlAttributes.NAME, id, false);
-        writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN, false);
+        writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN);
         writer.endElement(HtmlElements.INPUT);
       }
     }
@@ -237,7 +237,7 @@ public class MessagesRenderer extends RendererBase {
 
     final String summary = message.getSummary();
     final String detail = message.getDetail();
-    writer.startElement(HtmlElements.LABEL, null);
+    writer.startElement(HtmlElements.LABEL);
     if (clientId != null) {
       writer.writeAttribute(HtmlAttributes.FOR, clientId, false);
     }

@@ -42,15 +42,15 @@ import java.util.List;
 import java.util.Map;
 
 public class SplitLayoutRenderer extends GridLayoutRenderer {
-  
+
   private static final Logger LOG = LoggerFactory.getLogger(SplitLayoutRenderer.class);
   private static final String POSITION_ID_POSTFIX = "_spLP";
 
   // todo: put as enum to DataAttributes, when moved from sandbox to core
-  private static MarkupLanguageAttributes SPLIT_LAYOUT = DataAttributes.dynamic("tobago-split-layout");
+  private static final MarkupLanguageAttributes SPLIT_LAYOUT = DataAttributes.dynamic("tobago-split-layout");
 
   // todo: put as enum to DataAttributes, when moved from sandbox to core
-  private static MarkupLanguageAttributes SPLIT_LAYOUT_CONTAINMENT
+  private static final MarkupLanguageAttributes SPLIT_LAYOUT_CONTAINMENT
       = DataAttributes.dynamic("data-tobago-split-layout-containment");
 
   @Override
@@ -83,9 +83,9 @@ public class SplitLayoutRenderer extends GridLayoutRenderer {
 
   protected void encodeHandle(final FacesContext facesContext, final AbstractUISplitLayout layout) throws IOException {
     final String id = layout.getClientId(facesContext);
-    
+
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
-    writer.startElement(HtmlElements.SPAN, layout);
+    writer.startElement(HtmlElements.SPAN);
     writer.writeIdAttribute(id);
     writer.writeAttribute(SPLIT_LAYOUT, layout.getOrientation().name(), false);
     writer.writeAttribute(SPLIT_LAYOUT_CONTAINMENT, createDraggableContainment(layout), true);
@@ -101,10 +101,10 @@ public class SplitLayoutRenderer extends GridLayoutRenderer {
       position = style.getTop().getPixel();
     }
 */
-    writer.startElement(HtmlElements.INPUT, null);
+    writer.startElement(HtmlElements.INPUT);
     writer.writeIdAttribute(id + POSITION_ID_POSTFIX);
     writer.writeNameAttribute(id + POSITION_ID_POSTFIX);
-    writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN, false);
+    writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN);
 //    writer.writeAttribute(HtmlAttributes.VALUE, Integer.toString(position), false);
     writer.endElement(HtmlElements.INPUT);
     writer.endElement(HtmlElements.SPAN);
@@ -135,7 +135,8 @@ public class SplitLayoutRenderer extends GridLayoutRenderer {
       final int totalSize = container.getHeight().getPixel();
       return "[0, " + minimumSize1 + ", 0, " + (totalSize - minimumSize2) + "]";
     }
-*/return "";
+*/
+    return "";
   }
 
   private Style calculateHandleStyle(final AbstractUISplitLayout layout) {

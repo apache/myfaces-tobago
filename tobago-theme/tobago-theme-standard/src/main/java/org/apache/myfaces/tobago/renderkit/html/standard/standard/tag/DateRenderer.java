@@ -55,10 +55,10 @@ public class DateRenderer extends InRenderer {
   protected void encodeBeginField(FacesContext facesContext, UIComponent component) throws IOException {
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
-    writer.startElement(HtmlElements.DIV, null);
+    writer.startElement(HtmlElements.DIV);
     writer.writeClassAttribute(TobagoClass.PANEL);
 
-    writer.startElement(HtmlElements.DIV, null);
+    writer.startElement(HtmlElements.DIV);
     writer.writeClassAttribute(BootstrapClass.INPUT_GROUP);
 
     super.encodeBeginField(facesContext, component);
@@ -73,27 +73,27 @@ public class DateRenderer extends InRenderer {
     final String pattern = date.getPattern();
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
-    writer.startElement(HtmlElements.SPAN, null);
+    writer.startElement(HtmlElements.SPAN);
     writer.writeClassAttribute(BootstrapClass.INPUT_GROUP_BTN);
-    writer.startElement(HtmlElements.BUTTON, null);
+    writer.startElement(HtmlElements.BUTTON);
     writer.writeClassAttribute(BootstrapClass.BTN, BootstrapClass.BTN_DEFAULT);
-    writer.writeAttribute(HtmlAttributes.TYPE, HtmlButtonTypes.BUTTON, false);
+    writer.writeAttribute(HtmlAttributes.TYPE, HtmlButtonTypes.BUTTON);
     writer.writeAttribute(HtmlAttributes.DISABLED, date.isDisabled() || date.isReadonly());
     if (pattern.contains("m")) { // simple guessing
       if (pattern.contains("d")) {
-        writer.startElement(HtmlElements.SPAN, null);
+        writer.startElement(HtmlElements.SPAN);
         writer.writeClassAttribute(BootstrapClass.GLYPHICON, BootstrapClass.GLYPHICON_CALENDAR);
         writer.endElement(HtmlElements.SPAN);
-        writer.startElement(HtmlElements.SPAN, null);
+        writer.startElement(HtmlElements.SPAN);
         writer.writeClassAttribute(BootstrapClass.GLYPHICON, BootstrapClass.GLYPHICON_TIME);
         writer.endElement(HtmlElements.SPAN);
       } else {
-        writer.startElement(HtmlElements.SPAN, null);
+        writer.startElement(HtmlElements.SPAN);
         writer.writeClassAttribute(BootstrapClass.GLYPHICON, BootstrapClass.GLYPHICON_TIME);
         writer.endElement(HtmlElements.SPAN);
       }
     } else {
-      writer.startElement(HtmlElements.SPAN, null);
+      writer.startElement(HtmlElements.SPAN);
       writer.writeClassAttribute(BootstrapClass.GLYPHICON, BootstrapClass.GLYPHICON_CALENDAR);
       writer.endElement(HtmlElements.SPAN);
     }

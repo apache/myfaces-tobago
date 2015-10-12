@@ -41,7 +41,7 @@ public class ToolBarRendererOld extends ToolBarRendererBase {
 
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
-    writer.startElement(HtmlElements.DIV, toolBar);
+    writer.startElement(HtmlElements.DIV);
     writer.writeIdAttribute(toolBar.getClientId(facesContext));
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, toolBar);
     writer.writeClassAttribute(Classes.create(toolBar));

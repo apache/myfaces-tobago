@@ -19,6 +19,8 @@
 
 package org.apache.myfaces.tobago.internal.webapp;
 
+import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
+import org.apache.myfaces.tobago.renderkit.html.HtmlTypes;
 import org.apache.myfaces.tobago.renderkit.html.MarkupLanguageAttributes;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
@@ -39,10 +41,19 @@ public class TobagoResponseWriterWrapper extends TobagoResponseWriter {
     responseWriter.startElement(name, component);
   }
 
+  @Override
+  public void startElement(HtmlElements name) throws IOException {
+    responseWriter.startElement(name.getValue(), null);
+  }
+
   public void endElement(final String name) throws IOException {
     responseWriter.endElement(name);
   }
 
+  @Override
+  public void endElement(HtmlElements name) throws IOException {
+    responseWriter.endElement(name.getValue());
+  }
 
   public void write(final String string) throws IOException {
     responseWriter.write(string);
@@ -73,6 +84,11 @@ public class TobagoResponseWriterWrapper extends TobagoResponseWriter {
   public void writeAttribute(final MarkupLanguageAttributes name, final String value, final boolean escape)
       throws IOException {
     responseWriter.writeAttribute(name.getValue(), value, null);
+  }
+
+  public void writeAttribute(final MarkupLanguageAttributes name, final HtmlTypes types)
+      throws IOException {
+    responseWriter.writeAttribute(name.getValue(), types.getValue(), null);
   }
 
   public String getContentType() {

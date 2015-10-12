@@ -82,7 +82,7 @@ public class NumberSliderRenderer extends RendererBase {
 //      inputWidth = (width * (100 - sliderWidthPerc)) / 100;
 //    }
 
-    writer.startElement(HtmlElements.TABLE, slider);
+    writer.startElement(HtmlElements.TABLE);
     writer.writeAttribute(HtmlAttributes.ROLE, HtmlRoleValues.PRESENTATION.toString(), false);
     writer.writeIdAttribute(id);
     writer.writeClassAttribute(Classes.create(slider), slider.getCustomClass());
@@ -90,34 +90,34 @@ public class NumberSliderRenderer extends RendererBase {
     writer.writeStyleAttribute(slider.getStyle());
     //writer.writeAttribute(HtmlAttributes.BORDER,"1",false);
 
-    writer.startElement(HtmlElements.TR, null);
-    writer.startElement(HtmlElements.TD, null);
+    writer.startElement(HtmlElements.TR);
+    writer.startElement(HtmlElements.TD);
     writer.writeClassAttribute(Classes.create(slider, "min"));
 
     final Style widthStyle = new Style();
 //    widthStyle.setWidth(Measure.valueOf(sliderWidth / 2));
     writer.writeStyleAttribute(widthStyle);
-    writer.startElement(HtmlElements.SPAN, null);
+    writer.startElement(HtmlElements.SPAN);
     writer.writeClassAttribute(Classes.create(slider, "min"));
     writer.write(Integer.toString(min));
     writer.endElement(HtmlElements.SPAN);
 
     writer.endElement(HtmlElements.TD);
-    writer.startElement(HtmlElements.TD, null);
+    writer.startElement(HtmlElements.TD);
     writer.writeClassAttribute(Classes.create(slider, "max"));
     writer.writeStyleAttribute(widthStyle);
-    writer.startElement(HtmlElements.SPAN, null);
+    writer.startElement(HtmlElements.SPAN);
     writer.writeClassAttribute(Classes.create(slider, "max"));
     writer.write(Integer.toString(max));
     writer.endElement(HtmlElements.SPAN);
     writer.endElement(HtmlElements.TD);
 
     // the input field starts here
-    writer.startElement(HtmlElements.TD, null);
+    writer.startElement(HtmlElements.TD);
     writer.writeAttribute(HtmlAttributes.ROWSPAN, "2", false);
     writer.writeClassAttribute(Classes.create(slider, "td"));
 
-    writer.startElement(HtmlElements.INPUT, null);
+    writer.startElement(HtmlElements.INPUT);
     writer.writeClassAttribute(Classes.create(slider, "input"));
 //    widthStyle.setWidth(Measure.valueOf(inputWidth));
     writer.writeStyleAttribute(widthStyle);
@@ -134,17 +134,17 @@ public class NumberSliderRenderer extends RendererBase {
     writer.endElement(HtmlElements.TD);
 
     writer.endElement(HtmlElements.TR);
-    writer.startElement(HtmlElements.TR, null);
-    writer.startElement(HtmlElements.TD, null);
+    writer.startElement(HtmlElements.TR);
+    writer.startElement(HtmlElements.TD);
     writer.writeAttribute(HtmlAttributes.COLSPAN, 2);
 
     //track
-    writer.startElement(HtmlElements.DIV, null);
+    writer.startElement(HtmlElements.DIV);
     writer.writeClassAttribute(Classes.create(slider, "slider"));
     writer.writeIdAttribute(getIdForSliderTrack(facesContext, slider));
 
     // handle
-    writer.startElement(HtmlElements.DIV, null);
+    writer.startElement(HtmlElements.DIV);
     writer.writeIdAttribute(getIdForSliderHandle(facesContext, slider));
     final Style handleStyle = new Style();
     handleStyle.setPosition(Position.relative);
@@ -152,7 +152,7 @@ public class NumberSliderRenderer extends RendererBase {
     handleStyle.setWidth(Measure.valueOf(12));
     handleStyle.setHeight(Measure.valueOf(6));
     writer.writeStyleAttribute(handleStyle); // todo: why not do that via the class?
-    writer.startElement(HtmlElements.IMG, null);
+    writer.startElement(HtmlElements.IMG);
     writer.writeAttribute(HtmlAttributes.SRC, getAbsoluteImagePath(facesContext, "image/sliderTriangle"), true);
     writer.endElement(HtmlElements.IMG);
     writer.endElement(HtmlElements.DIV);

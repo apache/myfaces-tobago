@@ -37,7 +37,7 @@ public class ObjectRenderer extends RendererBase {
     final UIObject object = (UIObject) component;
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
-    writer.startElement(HtmlElements.IFRAME, object);
+    writer.startElement(HtmlElements.IFRAME);
     writer.writeAttribute(HtmlAttributes.FRAMEBORDER, "0", false);
     final String clientId = object.getClientId(facesContext);
     writer.writeIdAttribute(clientId);

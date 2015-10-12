@@ -102,7 +102,7 @@ public class TabGroupRenderer extends RendererBase {
     final String switchType = tabGroup.getSwitchType();
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
-    writer.startElement(HtmlElements.DIV, null);
+    writer.startElement(HtmlElements.DIV);
     writer.writeIdAttribute(clientId);
     writer.writeClassAttribute(Classes.create(tabGroup), tabGroup.getCustomClass());
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, tabGroup);
@@ -114,8 +114,8 @@ public class TabGroupRenderer extends RendererBase {
       writer.writeAttribute(DataAttributes.PARTIAL_IDS, JsonUtils.encode(clientIds), true);
     }
 
-    writer.startElement(HtmlElements.INPUT, null);
-    writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN, false);
+    writer.startElement(HtmlElements.INPUT);
+    writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN);
     writer.writeAttribute(HtmlAttributes.VALUE, activeIndex);
     writer.writeNameAttribute(hiddenId);
     writer.writeIdAttribute(hiddenId);
@@ -177,10 +177,10 @@ public class TabGroupRenderer extends RendererBase {
       final int activeIndex)
       throws IOException {
 
-    writer.startElement(HtmlElements.DIV, tabGroup);
+    writer.startElement(HtmlElements.DIV);
     writer.writeClassAttribute(Classes.create(tabGroup, "header"));
 
-    writer.startElement(HtmlElements.UL, tabGroup);
+    writer.startElement(HtmlElements.UL);
     writer.writeClassAttribute(Classes.create(tabGroup, "headerInner"), BootstrapClass.NAV, BootstrapClass.NAV_TABS);
     writer.writeAttribute(HtmlAttributes.ROLE, HtmlRoleValues.TABLIST.toString(), false);
 
@@ -200,7 +200,7 @@ public class TabGroupRenderer extends RendererBase {
           if (maxSeverity != null) {
             ComponentUtils.addCurrentMarkup(tab, ComponentUtils.markupOfSeverity(maxSeverity));
           }
-          writer.startElement(HtmlElements.LI, tab);
+          writer.startElement(HtmlElements.LI);
           // todo: fix Css management
           if (activeIndex == index) {
             writer.writeClassAttribute(Classes.create(tab), BootstrapClass.ACTIVE);
@@ -214,7 +214,7 @@ public class TabGroupRenderer extends RendererBase {
             writer.writeAttribute(HtmlAttributes.TITLE, title, true);
           }
 
-          writer.startElement(HtmlElements.A, tab);
+          writer.startElement(HtmlElements.A);
           if (!disabled) {
             writer.writeAttribute(HtmlAttributes.HREF, "#", false);
           }
@@ -234,7 +234,7 @@ public class TabGroupRenderer extends RendererBase {
             } else {
               image = ResourceManagerUtils.getImageOrDisabledImageWithPath(facesContext, image, disabled);
             }
-            writer.startElement(HtmlElements.IMG, null);
+            writer.startElement(HtmlElements.IMG);
             writer.writeAttribute(HtmlAttributes.SRC, image, true);
             writer.writeClassAttribute(Classes.create(tab, (label.getLabel() != null? "image-right-margin" : "image")));
             writer.endElement(HtmlElements.IMG);
@@ -267,7 +267,7 @@ public class TabGroupRenderer extends RendererBase {
   protected void renderTabToolbar(
       final FacesContext facesContext, final TobagoResponseWriter writer, final UITab tab, final UIPanel toolbar)
       throws IOException {
-    writer.startElement(HtmlElements.SPAN, null);
+    writer.startElement(HtmlElements.SPAN);
     writer.writeClassAttribute(Classes.create(tab, "toolBar"));
     toolbar.setRendererType("TabGroupToolBar");
     RenderUtils.encode(facesContext, toolbar);
@@ -345,7 +345,7 @@ public class TabGroupRenderer extends RendererBase {
       final FacesContext facesContext, final TobagoResponseWriter writer, final UITabGroup tabGroup,
       final UIToolBar toolBar)
       throws IOException {
-    writer.startElement(HtmlElements.DIV, null);
+    writer.startElement(HtmlElements.DIV);
     writer.writeClassAttribute(Classes.create(tabGroup, "toolBar"));
     RenderUtils.encode(facesContext, toolBar);
     writer.endElement(HtmlElements.DIV);
@@ -359,7 +359,7 @@ public class TabGroupRenderer extends RendererBase {
       return;
     }
 
-    writer.startElement(HtmlElements.DIV, null);
+    writer.startElement(HtmlElements.DIV);
     writer.writeClassAttribute(Classes.create(tab, "content"), BootstrapClass.PANEL_BODY);
     writer.writeIdAttribute(tab.getClientId(facesContext) + ComponentUtils.SUB_SEPARATOR + "content");
 

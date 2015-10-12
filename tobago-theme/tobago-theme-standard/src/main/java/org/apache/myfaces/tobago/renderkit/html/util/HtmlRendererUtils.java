@@ -20,20 +20,21 @@
 package org.apache.myfaces.tobago.renderkit.html.util;
 
 import org.apache.myfaces.tobago.component.Attributes;
-import org.apache.myfaces.tobago.component.Visual;
 import org.apache.myfaces.tobago.component.UIColumnEvent;
 import org.apache.myfaces.tobago.component.UICommand;
 import org.apache.myfaces.tobago.component.UIForm;
 import org.apache.myfaces.tobago.component.UISheet;
+import org.apache.myfaces.tobago.component.Visual;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.internal.component.AbstractUICommand;
 import org.apache.myfaces.tobago.internal.util.FacesContextUtils;
 import org.apache.myfaces.tobago.internal.webapp.TobagoResponseWriterWrapper;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
+import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.Style;
-import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
+import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.Command;
 import org.apache.myfaces.tobago.renderkit.html.CommandMap;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
@@ -96,8 +97,8 @@ public final class HtmlRendererUtils {
         writer.writeText(text);
       } else {
         writer.writeText(text.substring(0, pos));
-        writer.startElement(HtmlElements.SPAN, null);
-        writer.writeClassAttribute("tobago-x-accessKey");
+        writer.startElement(HtmlElements.SPAN);
+        writer.writeClassAttribute(TobagoClass.X__ACCESS_KEY);
         writer.writeText(Character.toString(text.charAt(pos)));
         writer.endElement(HtmlElements.SPAN);
         writer.writeText(text.substring(pos + 1));
@@ -107,12 +108,12 @@ public final class HtmlRendererUtils {
 
   public static void encodeIconWithLabel(TobagoResponseWriter writer, String image, String label) throws IOException {
     if (image != null && image.startsWith("glyphicon-")) { // XXX hack: should be integrated in the resource manager
-      writer.startElement(HtmlElements.SPAN, null);
+      writer.startElement(HtmlElements.SPAN);
       writer.writeClassAttribute(BootstrapClass.GLYPHICON, BootstrapClass.glyphicon(image));
       writer.endElement(HtmlElements.SPAN);
     }
     if (label != null) {
-      writer.startElement(HtmlElements.SPAN, null);
+      writer.startElement(HtmlElements.SPAN);
       writer.writeText(label);
       writer.endElement(HtmlElements.SPAN);
     }
@@ -123,7 +124,7 @@ public final class HtmlRendererUtils {
       throws IOException {
     if (image != null) {
       if (image.startsWith("glyphicon-")) {
-        writer.startElement(HtmlElements.SPAN, null);
+        writer.startElement(HtmlElements.SPAN);
         writer.writeClassAttribute(BootstrapClass.GLYPHICON, BootstrapClass.glyphicon(image));
         writer.endElement(HtmlElements.SPAN);
       } else {
@@ -132,7 +133,7 @@ public final class HtmlRendererUtils {
         } else {
           image = getImageWithPath(facesContext, image, disabled);
         }
-        writer.startElement(HtmlElements.IMG, null);
+        writer.startElement(HtmlElements.IMG);
         writer.writeAttribute(HtmlAttributes.SRC, image, true);
         writer.writeAttribute(HtmlAttributes.ALT, "", false);
         writer.endElement(HtmlElements.IMG);
@@ -140,7 +141,7 @@ public final class HtmlRendererUtils {
     }
 
     if (label.getLabel() != null) {
-      writer.startElement(HtmlElements.SPAN, null);
+      writer.startElement(HtmlElements.SPAN);
       HtmlRendererUtils.writeLabelWithAccessKey(writer, label);
       writer.endElement(HtmlElements.SPAN);
     }
@@ -215,7 +216,7 @@ public final class HtmlRendererUtils {
     }
     for (final SelectItem item : items) {
       if (item instanceof SelectItemGroup) {
-        writer.startElement(HtmlElements.OPTGROUP, null);
+        writer.startElement(HtmlElements.OPTGROUP);
         writer.writeAttribute(HtmlAttributes.LABEL, item.getLabel(), true);
         if (item.isDisabled()) {
           writer.writeAttribute(HtmlAttributes.DISABLED, true);
@@ -249,7 +250,7 @@ public final class HtmlRendererUtils {
             }
           }
         }
-        writer.startElement(HtmlElements.OPTION, null);
+        writer.startElement(HtmlElements.OPTION);
         writer.writeAttribute(HtmlAttributes.VALUE, formattedValue, true);
         if (item instanceof org.apache.myfaces.tobago.model.SelectItem) {
           final String image = ((org.apache.myfaces.tobago.model.SelectItem) item).getImage();
@@ -339,8 +340,8 @@ public final class HtmlRendererUtils {
       throws IOException {
     final UIComponent contextMenu = FacetUtils.getContextMenu(parent);
     if (contextMenu != null) {
-      writer.startElement(HtmlElements.OL, contextMenu);
-      writer.writeClassAttribute("tobago-menuBar tobago-menu-contextMenu");
+      writer.startElement(HtmlElements.OL);
+      writer.writeClassAttribute(TobagoClass.MENU_BAR, TobagoClass.MENU__CONTEXT_MENU);
       RenderUtils.encode(facesContext, contextMenu);
       writer.endElement(HtmlElements.OL);
     }

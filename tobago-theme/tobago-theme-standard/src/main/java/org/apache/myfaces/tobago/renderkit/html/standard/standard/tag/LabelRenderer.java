@@ -67,7 +67,7 @@ public class LabelRenderer extends RendererBase {
     final String forValue = ComponentUtils.findClientIdFor(label, facesContext);
 
     final String clientId = label.getClientId(facesContext);
-    writer.startElement(HtmlElements.LABEL, label);
+    writer.startElement(HtmlElements.LABEL);
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, label);
     writer.writeClassAttribute(Classes.create(label), BootstrapClass.CONTROL_LABEL, label.getCustomClass());
     writer.writeStyleAttribute(label.getStyle());

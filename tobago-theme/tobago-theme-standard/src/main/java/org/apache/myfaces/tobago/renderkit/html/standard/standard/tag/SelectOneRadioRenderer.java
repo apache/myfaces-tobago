@@ -61,7 +61,7 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
     final boolean readonly = select.isReadonly();
     final boolean required = select.isRequired();
 
-    writer.startElement(HtmlElements.OL, select);
+    writer.startElement(HtmlElements.OL);
     writer.writeIdAttribute(id);
     writer.writeStyleAttribute(select.getStyle());
     writer.writeClassAttribute(Classes.create(select), select.getCustomClass());
@@ -76,15 +76,15 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
     for (final SelectItem item : items) {
       final boolean itemDisabled = item.isDisabled() || disabled;
       final String itemId = id + ComponentUtils.SUB_SEPARATOR + i++;
-      writer.startElement(HtmlElements.LI, select);
+      writer.startElement(HtmlElements.LI);
       if (itemDisabled) {
         writer.writeClassAttribute(BootstrapClass.RADIO, BootstrapClass.DISABLED);
       } else {
         writer.writeClassAttribute(BootstrapClass.RADIO);
       }
-      writer.startElement(HtmlElements.LABEL, null);
-      writer.startElement(HtmlElements.INPUT, select);
-      writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.RADIO, false);
+      writer.startElement(HtmlElements.LABEL);
+      writer.startElement(HtmlElements.INPUT);
+      writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.RADIO);
       final String formattedValue = RenderUtils.getFormattedValue(facesContext, select, item.getValue());
       boolean checked;
       if (submittedValue == null) {
@@ -116,7 +116,7 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
         if (image != null) {
           final String imageToRender
               = ResourceManagerUtils.getImageOrDisabledImageWithPath(facesContext, image, item.isDisabled());
-          writer.startElement(HtmlElements.IMG, select);
+          writer.startElement(HtmlElements.IMG);
           writer.writeAttribute(HtmlAttributes.SRC, imageToRender, true);
           writer.writeAttribute(HtmlAttributes.ALT, "", false);
           writer.endElement(HtmlElements.IMG);

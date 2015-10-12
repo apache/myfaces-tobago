@@ -49,7 +49,7 @@ public class TreeNodeRenderer extends TreeNodeRendererBase {
 
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
-    writer.startElement(HtmlElements.DIV, null);
+    writer.startElement(HtmlElements.DIV);
 
     // div id
     writer.writeIdAttribute(clientId);

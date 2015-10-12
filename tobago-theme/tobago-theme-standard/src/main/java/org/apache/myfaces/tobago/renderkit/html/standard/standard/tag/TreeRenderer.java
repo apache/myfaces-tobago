@@ -80,7 +80,7 @@ public class TreeRenderer extends RendererBase {
 
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
-    writer.startElement(HtmlElements.DIV, tree);
+    writer.startElement(HtmlElements.DIV);
     writer.writeClassAttribute(Classes.create(tree), tree.getCustomClass());
     writer.writeStyleAttribute(tree.getStyle());
     writer.writeIdAttribute(clientId);
@@ -124,8 +124,8 @@ public class TreeRenderer extends RendererBase {
     }
     tree.setRowIndex(-1);
 
-    writer.startElement(HtmlElements.INPUT, tree);
-    writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN, false);
+    writer.startElement(HtmlElements.INPUT);
+    writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN);
     final String selectedId = clientId + ComponentUtils.SUB_SEPARATOR + AbstractUITree.SUFFIX_SELECTED;
     writer.writeNameAttribute(selectedId);
     writer.writeIdAttribute(selectedId);
@@ -133,8 +133,8 @@ public class TreeRenderer extends RendererBase {
     writer.writeAttribute(HtmlAttributes.VALUE, selectedValue.toString(), false);
     writer.endElement(HtmlElements.INPUT);
 
-    writer.startElement(HtmlElements.INPUT, tree);
-    writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN, false);
+    writer.startElement(HtmlElements.INPUT);
+    writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN);
     final String expandedId = clientId + ComponentUtils.SUB_SEPARATOR + AbstractUIData.SUFFIX_EXPANDED;
     writer.writeNameAttribute(expandedId);
     writer.writeIdAttribute(expandedId);

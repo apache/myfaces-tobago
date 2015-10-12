@@ -58,7 +58,7 @@ public class GridLayoutRenderer extends RendererBase {
     final AbstractUIGridLayout gridLayout = (AbstractUIGridLayout) component;
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
-    writer.startElement(HtmlElements.TABLE, gridLayout);
+    writer.startElement(HtmlElements.TABLE);
     writer.writeAttribute(HtmlAttributes.ROLE, HtmlRoleValues.PRESENTATION.toString(), false);
     writer.writeClassAttribute(Classes.create(gridLayout));
 
@@ -74,14 +74,14 @@ public class GridLayoutRenderer extends RendererBase {
 
     writer.writeAttribute(DataAttributes.LAYOUT, builder.toString(), true);
 
-    writer.startElement(HtmlElements.COLGROUP, gridLayout);
+    writer.startElement(HtmlElements.COLGROUP);
     final LayoutTokens columns = gridLayout.getGrid().getColumns();
     for (LayoutToken column : columns.getTokens()) {
-        writer.startElement(HtmlElements.COL, gridLayout);
+        writer.startElement(HtmlElements.COL);
         writer.endElement(HtmlElements.COL);
     }
     writer.endElement(HtmlElements.COLGROUP);
-    writer.startElement(HtmlElements.TBODY, gridLayout);
+    writer.startElement(HtmlElements.TBODY);
   }
 
   private void jsonLayout(final LayoutTokens bankHeads, final StringBuilder builder) {
@@ -124,11 +124,11 @@ public class GridLayoutRenderer extends RendererBase {
     final int rows = grid.getRowCount();
 
     for (int i = 0; i < rows; i++) {
-      writer.startElement(HtmlElements.TR, gridLayout);
+      writer.startElement(HtmlElements.TR);
       for (int j = 0; j < columns; j++) {
         final Cell cell = grid.getCell(j, i);
         if (cell instanceof OriginCell) {
-          writer.startElement(HtmlElements.TD, gridLayout);
+          writer.startElement(HtmlElements.TD);
           final int columnSpan = cell.getColumnSpan();
           if (columnSpan > 1) {
             writer.writeAttribute(HtmlAttributes.COLSPAN, columnSpan);

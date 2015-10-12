@@ -43,20 +43,20 @@ public class SeparatorRenderer extends RendererBase {
     final String label = getLabel(separator);
 
     if (label != null) {
-      writer.startElement(HtmlElements.FIELDSET, separator);
+      writer.startElement(HtmlElements.FIELDSET);
       writer.writeAttribute(HtmlAttributes.ROLE, HtmlRoleValues.PRESENTATION.toString(), false);
       writer.writeIdAttribute(separator.getClientId(facesContext));
       writer.writeClassAttribute(Classes.create(separator), separator.getCustomClass());
       HtmlRendererUtils.writeDataAttributes(facesContext, writer, separator);
 
-      writer.startElement(HtmlElements.LEGEND, separator);
+      writer.startElement(HtmlElements.LEGEND);
       writer.writeClassAttribute(Classes.create(separator, "label"));
       writer.writeText(label);
       writer.endElement(HtmlElements.LEGEND);
 
       writer.endElement(HtmlElements.FIELDSET);
     } else {
-      writer.startElement(HtmlElements.HR , separator);
+      writer.startElement(HtmlElements.HR);
       writer.writeIdAttribute(separator.getClientId(facesContext));
       writer.writeClassAttribute(Classes.create(separator), separator.getCustomClass());
       writer.endElement(HtmlElements.HR);

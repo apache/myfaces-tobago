@@ -46,37 +46,37 @@ public class ToolBarRenderer extends RendererBase {
     final UIToolBar toolBar = (UIToolBar) component;
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
-    writer.startElement(HtmlElements.NAV, toolBar);
+    writer.startElement(HtmlElements.NAV);
     writer.writeClassAttribute(BootstrapClass.NAVBAR, BootstrapClass.NAVBAR_FORM, BootstrapClass.NAVBAR_DEFAULT);
     writer.writeAttribute(HtmlAttributes.ROLE, HtmlRoleValues.NAVIGATION.toString(), false);
 
-    writer.startElement(HtmlElements.DIV, toolBar);
+    writer.startElement(HtmlElements.DIV);
     writer.writeClassAttribute(BootstrapClass.CONTAINER_FLUID);
 
 //    Brand and toggle get grouped for better mobile display
-    writer.startElement(HtmlElements.DIV, null);
+    writer.startElement(HtmlElements.DIV);
     writer.writeClassAttribute(BootstrapClass.NAVBAR_HEADER);
 
-    writer.startElement(HtmlElements.BUTTON, null);
-    writer.writeAttribute(HtmlAttributes.TYPE, HtmlButtonTypes.BUTTON, false);
+    writer.startElement(HtmlElements.BUTTON);
+    writer.writeAttribute(HtmlAttributes.TYPE, HtmlButtonTypes.BUTTON);
     writer.writeClassAttribute(BootstrapClass.NAVBAR_TOGGLE);
     writer.writeAttribute(DataAttributes.TOGGLE, "collapse", false);
     writer.writeAttribute(DataAttributes.TARGET, JQueryUtils.escapeIdForHtml(toolBar.getClientId(facesContext)), true);
 
-    writer.startElement(HtmlElements.SPAN, null);
+    writer.startElement(HtmlElements.SPAN);
     writer.writeClassAttribute(BootstrapClass.SR_ONLY);
     writer.writeText("Toggle navigation"); // todo i18n
     writer.endElement(HtmlElements.SPAN);
 
     for (int i = 0; i < 3; i++) {
-      writer.startElement(HtmlElements.SPAN, null);
+      writer.startElement(HtmlElements.SPAN);
       writer.writeClassAttribute(BootstrapClass.ICON_BAR);
       writer.endElement(HtmlElements.SPAN);
     }
 
     writer.endElement(HtmlElements.BUTTON);
 
-    writer.startElement(HtmlElements.A, null);
+    writer.startElement(HtmlElements.A);
     writer.writeClassAttribute(BootstrapClass.NAVBAR_BRAND);
     writer.writeAttribute(HtmlAttributes.HREF, "#", false);
 //    writer.writeText("[LOGO]"); // fixme
@@ -84,7 +84,7 @@ public class ToolBarRenderer extends RendererBase {
 
     writer.endElement(HtmlElements.DIV);
 
-    writer.startElement(HtmlElements.DIV, null);
+    writer.startElement(HtmlElements.DIV);
     writer.writeClassAttribute(BootstrapClass.COLLAPSE, BootstrapClass.NAVBAR_COLLAPSE);
     writer.writeIdAttribute(toolBar.getClientId(facesContext));
   }

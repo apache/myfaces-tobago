@@ -63,7 +63,7 @@ public class InRenderer extends InputRendererBase {
     if (LOG.isDebugEnabled()) {
       LOG.debug("currentValue = '{}'", StringUtils.toConfidentialString(currentValue, password));
     }
-    final String type = password ? HtmlInputTypes.PASSWORD : HtmlInputTypes.TEXT;
+    final HtmlInputTypes type = password ? HtmlInputTypes.PASSWORD : HtmlInputTypes.TEXT;
     final String id = input.getClientId(facesContext);
     final boolean readonly = input.isReadonly();
     final boolean disabled = input.isDisabled();
@@ -71,8 +71,8 @@ public class InRenderer extends InputRendererBase {
 
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
-    writer.startElement(HtmlElements.INPUT, input);
-    writer.writeAttribute(HtmlAttributes.TYPE, type, false);
+    writer.startElement(HtmlElements.INPUT);
+    writer.writeAttribute(HtmlAttributes.TYPE, type);
     writer.writeNameAttribute(id);
     writer.writeIdAttribute(id);
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, input);

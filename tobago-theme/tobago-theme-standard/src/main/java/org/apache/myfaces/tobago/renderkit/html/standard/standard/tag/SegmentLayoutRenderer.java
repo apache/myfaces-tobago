@@ -57,7 +57,7 @@ public class SegmentLayoutRenderer extends RendererBase {
     final AbstractUISegmentLayout segmentLayout = (AbstractUISegmentLayout) component;
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
-    writer.startElement(HtmlElements.DIV, segmentLayout);
+    writer.startElement(HtmlElements.DIV);
 //    writer.writeClassAttribute("row");
 //    writer.writeClassAttribute(BootstrapClass.FORM_HORIZONTAL, BootstrapClass.CONTAINER_FLUID);
     writer.writeClassAttribute(BootstrapClass.FORM_GROUP);
@@ -119,7 +119,7 @@ public class SegmentLayoutRenderer extends RendererBase {
   private void encodeDiv(
       FacesContext facesContext, TobagoResponseWriter writer, BootstrapClassGenerator generator, UIComponent child)
       throws IOException {
-    writer.startElement(HtmlElements.DIV, null);
+    writer.startElement(HtmlElements.DIV);
     writer.writeClassAttribute((CssItem) null, generator.generate());
     RenderUtils.encode(facesContext, child);
     writer.endElement(HtmlElements.DIV);

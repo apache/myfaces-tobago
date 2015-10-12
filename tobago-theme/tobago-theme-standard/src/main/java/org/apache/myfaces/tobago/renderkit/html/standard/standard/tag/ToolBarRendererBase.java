@@ -35,6 +35,7 @@ import org.apache.myfaces.tobago.internal.util.ObjectUtils;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
+import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.Command;
 import org.apache.myfaces.tobago.renderkit.html.CommandMap;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
@@ -145,7 +146,7 @@ public abstract class ToolBarRendererBase extends RendererBase {
     }
 
     if (radio != null) {
-      writer.startElement(HtmlElements.SPAN, radio);
+      writer.startElement(HtmlElements.SPAN);
       writer.writeClassAttribute(Classes.create(toolBar, "selectOne"));
       final Object value = radio.getValue();
 
@@ -188,8 +189,8 @@ public abstract class ToolBarRendererBase extends RendererBase {
             facesContext, toolBar, command, writer, checked, map, formattedValue);
       }
 
-      writer.startElement(HtmlElements.INPUT, null);
-      writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN, false);
+      writer.startElement(HtmlElements.INPUT);
+      writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN);
       writer.writeNameAttribute(radioId);
       writer.writeAttribute(HtmlAttributes.VALUE, currentValue, true);
       writer.endElement(HtmlElements.INPUT);
@@ -212,13 +213,13 @@ public abstract class ToolBarRendererBase extends RendererBase {
     final boolean checked = ComponentUtils.getBooleanAttribute(checkbox, Attributes.VALUE);
     final String clientId = checkbox.getClientId(facesContext);
 
-    writer.startElement(HtmlElements.SPAN, checkbox);
+    writer.startElement(HtmlElements.SPAN);
     writer.writeClassAttribute(Classes.create(toolBar, "selectBoolean"));
     final CommandMap map = new CommandMap(new Command());
     renderToolbarButton(facesContext, toolBar, command, writer, checked, map, null);
 
-    writer.startElement(HtmlElements.INPUT, null);
-    writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN, false);
+    writer.startElement(HtmlElements.INPUT);
+    writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN);
     writer.writeNameAttribute(clientId);
     writer.writeAttribute(HtmlAttributes.VALUE, Boolean.toString(checked), false);
     writer.endElement(HtmlElements.INPUT);
@@ -260,7 +261,7 @@ public abstract class ToolBarRendererBase extends RendererBase {
     final boolean separateButtons = hasAnyCommand(command) && showDropDownMenu;
 
     // start rendering
-    writer.startElement(HtmlElements.SPAN, command);
+    writer.startElement(HtmlElements.SPAN);
     Markup itemMarkup = Markup.NULL;
     if (selected) {
       itemMarkup = itemMarkup.add(Markup.SELECTED);
@@ -274,7 +275,7 @@ public abstract class ToolBarRendererBase extends RendererBase {
       writer.writeAttribute(HtmlAttributes.TITLE, title, true);
     }
 
-    writer.startElement(HtmlElements.SPAN, command);
+    writer.startElement(HtmlElements.SPAN);
     if (separateButtons || !showDropDownMenu) {
       writer.writeClassAttribute(Classes.create(toolBar, "button", selected ? Markup.SELECTED : Markup.NULL));
     } else {
@@ -293,7 +294,7 @@ public abstract class ToolBarRendererBase extends RendererBase {
 
     // render icon
     if (showIcon) {
-      writer.startElement(HtmlElements.IMG, command);
+      writer.startElement(HtmlElements.IMG);
       if (iconBig) {
         writer.writeClassAttribute(Classes.create(toolBar, "image32"));
       } else {
@@ -305,7 +306,7 @@ public abstract class ToolBarRendererBase extends RendererBase {
     }
     // render label
     if (showLabel) {
-      writer.startElement(HtmlElements.SPAN, command);
+      writer.startElement(HtmlElements.SPAN);
       if (showLabelRight) {
         writer.writeClassAttribute(Classes.create(toolBar, "labelHorizontal"));
       } else {
@@ -322,15 +323,15 @@ public abstract class ToolBarRendererBase extends RendererBase {
     if (separateButtons) {
       writer.endElement(HtmlElements.SPAN);
 
-      writer.startElement(HtmlElements.SPAN, command);
+      writer.startElement(HtmlElements.SPAN);
       writer.writeClassAttribute(Classes.create(toolBar, "menu"));
       // todo: span has not type: use data-tobago-type here (TOBAGO-1004)
-      writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.BUTTON, false);
+      writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.BUTTON);
     }
 
     // render sub menu popup button
     if (showDropDownMenu) {
-      writer.startElement(HtmlElements.IMG, command);
+      writer.startElement(HtmlElements.IMG);
       final boolean dropDownDisabled
           = ComponentUtils.getBooleanAttribute(dropDownMenu, Attributes.DISABLED) || disabled;
       final String menuImage
@@ -351,10 +352,10 @@ public abstract class ToolBarRendererBase extends RendererBase {
       return;
     }
 
-    writer.startElement(HtmlElements.SPAN, separator);
+    writer.startElement(HtmlElements.SPAN);
     writer.writeClassAttribute(Classes.create(toolBar, "item", Markup.DISABLED));
 
-    writer.startElement(HtmlElements.SPAN, separator);
+    writer.startElement(HtmlElements.SPAN);
     writer.writeClassAttribute(Classes.create(toolBar, "separator"));
     writer.endElement(HtmlElements.SPAN);
 
@@ -450,9 +451,9 @@ public abstract class ToolBarRendererBase extends RendererBase {
   public static void renderDropDownMenu(
       final FacesContext facesContext, final TobagoResponseWriter writer, final AbstractUIMenu dropDownMenu)
       throws IOException {
-    writer.startElement(HtmlElements.OL, dropDownMenu);
+    writer.startElement(HtmlElements.OL);
     // XXX fix naming conventions for CSS classes
-    writer.writeClassAttribute("tobago-menuBar tobago-menu-dropDownMenu");
+    writer.writeClassAttribute(TobagoClass.MENU_BAR, TobagoClass.MENU__DROP_DOWN_MENU);
     RenderUtils.encode(facesContext, dropDownMenu);
     writer.endElement(HtmlElements.OL);
   }

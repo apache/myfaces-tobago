@@ -36,7 +36,7 @@ public class HeaderRenderer extends RendererBase {
   public void encodeBegin(FacesContext facesContext, UIComponent component) throws IOException {
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
     final UIHeader header = (UIHeader) component;
-    writer.startElement(HtmlElements.HEADER, component);
+    writer.startElement(HtmlElements.HEADER);
     writer.writeIdAttribute(component.getClientId(facesContext));
     // TBD: BootstrapClass.NAVBAR_DEFAULT ?
     if (header.isFixed()) {

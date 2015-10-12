@@ -37,7 +37,7 @@ public class FlowLayoutRenderer extends RendererBase {
   public void encodeBegin(final FacesContext facesContext, final UIComponent component) throws IOException {
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
     final UIFlowLayout layout = (UIFlowLayout) component;
-    writer.startElement(HtmlElements.DIV, layout);
+    writer.startElement(HtmlElements.DIV);
     writer.writeClassAttribute(Classes.create(layout), layout.getCustomClass());
     writer.writeStyleAttribute(layout.getStyle());
   }

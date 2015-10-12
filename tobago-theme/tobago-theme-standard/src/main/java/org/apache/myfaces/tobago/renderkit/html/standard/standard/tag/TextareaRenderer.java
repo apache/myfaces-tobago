@@ -55,7 +55,7 @@ public class TextareaRenderer extends InputRendererBase {
     final String clientId = input.getClientId(facesContext);
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
-    writer.startElement(HtmlElements.TEXTAREA, input);
+    writer.startElement(HtmlElements.TEXTAREA);
     writer.writeNameAttribute(clientId);
     writer.writeIdAttribute(clientId);
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, input);

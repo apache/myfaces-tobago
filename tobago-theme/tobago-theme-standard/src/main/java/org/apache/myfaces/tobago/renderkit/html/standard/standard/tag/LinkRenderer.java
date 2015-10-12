@@ -32,17 +32,12 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.JsonUtils;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
-import javax.faces.context.ResponseWriter;
 import java.io.IOException;
 
 public class LinkRenderer extends CommandRendererBase {
-
-  private static final Logger LOG = LoggerFactory.getLogger(LinkRenderer.class);
 
   public void encodeBegin(final FacesContext facesContext, final UIComponent component) throws IOException {
 
@@ -54,9 +49,9 @@ public class LinkRenderer extends CommandRendererBase {
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
     if (disabled) {
-      writer.startElement(HtmlElements.SPAN, link);
+      writer.startElement(HtmlElements.SPAN);
     } else {
-      writer.startElement(HtmlElements.A, link);
+      writer.startElement(HtmlElements.A);
 
       final CommandMap map = new CommandMap(new Command(facesContext, link));
       writer.writeAttribute(DataAttributes.COMMANDS, JsonUtils.encode(map), true);
@@ -91,7 +86,7 @@ public class LinkRenderer extends CommandRendererBase {
 
   public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
     final AbstractUILink link = (AbstractUILink) component;
-    final ResponseWriter writer = facesContext.getResponseWriter();
+    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
     if (link.isDisabled()) {
       writer.endElement(HtmlElements.SPAN);
     } else {

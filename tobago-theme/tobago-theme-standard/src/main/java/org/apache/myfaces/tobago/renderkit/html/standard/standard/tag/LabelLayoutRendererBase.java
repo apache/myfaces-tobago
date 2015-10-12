@@ -118,7 +118,7 @@ public abstract class LabelLayoutRendererBase extends RendererBase {
     }
 
 //    if (labelLayout != LabelLayout.none) {
-    writer.startElement(HtmlElements.DIV, component);
+    writer.startElement(HtmlElements.DIV);
 //    }
 //    writer.writeClassAttribute(divClass, BootstrapClass.maximumSeverity(component));
     // todo: check if BootstrapClass.FORM_GROUP is needed, I've removed it, because of it's margin-bottom: 15px;
@@ -183,7 +183,7 @@ public abstract class LabelLayoutRendererBase extends RendererBase {
     // TBD: maybe use an interface for getLabel()
     final String label = ComponentUtils.getStringAttribute(component, Attributes.LABEL);
     if (StringUtils.isNotBlank(label)) {
-      writer.startElement(HtmlElements.LABEL, component);
+      writer.startElement(HtmlElements.LABEL);
       writer.writeAttribute(HtmlAttributes.FOR, component.getClientId(), false);
       writer.writeClassAttribute(TobagoClass.LABEL);
       // todo: label with accesskey

@@ -59,7 +59,7 @@ public class SelectManyCheckboxRenderer extends SelectManyRendererBase {
     final boolean readonly = select.isReadonly();
     final boolean required = select.isRequired();
 
-    writer.startElement(HtmlElements.OL, select);
+    writer.startElement(HtmlElements.OL);
     writer.writeIdAttribute(id);
     writer.writeStyleAttribute(select.getStyle());
     writer.writeClassAttribute(Classes.create(select), select.getCustomClass());
@@ -74,15 +74,15 @@ public class SelectManyCheckboxRenderer extends SelectManyRendererBase {
     for (final SelectItem item : SelectItemUtils.getItemIterator(facesContext, select)) {
       final boolean itemDisabled = item.isDisabled() || disabled;
       final String itemId = id + ComponentUtils.SUB_SEPARATOR + i++;
-      writer.startElement(HtmlElements.LI, select);
+      writer.startElement(HtmlElements.LI);
       if (itemDisabled) {
         writer.writeClassAttribute(BootstrapClass.CHECKBOX, BootstrapClass.DISABLED);
       } else {
         writer.writeClassAttribute(BootstrapClass.CHECKBOX);
       }
-      writer.startElement(HtmlElements.LABEL, select);
-      writer.startElement(HtmlElements.INPUT, select);
-      writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.CHECKBOX, false);
+      writer.startElement(HtmlElements.LABEL);
+      writer.startElement(HtmlElements.INPUT);
+      writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.CHECKBOX);
       final String formattedValue = RenderUtils.getFormattedValue(facesContext, select, item.getValue());
       boolean checked;
       if (submittedValues == null) {

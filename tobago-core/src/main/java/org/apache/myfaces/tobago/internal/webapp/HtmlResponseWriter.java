@@ -142,17 +142,17 @@ public class HtmlResponseWriter extends TobagoResponseWriterBase {
   public void startDocument() throws IOException {
     getWriter().write(HTML_DOCTYPE);
     getWriter().write('\n');
-    startElement(HtmlElements.HTML, null);
+    startElement(HtmlElements.HTML);
   }
 
   @Override
   public void endElement(final String name) throws IOException {
-    if (name == HtmlElements.BODY) {
+    if (name.equals(HtmlElements.BODY.getValue())) {
       final String javascript = getJavascript();
       if (StringUtils.isNotEmpty(javascript)) {
-        startElement(HtmlElements.SCRIPT, null);
+        startElement(HtmlElements.SCRIPT);
         writeAttribute(HtmlAttributes.TYPE, "text/javascript", false);
-        write(getJavascript());
+        write(javascript);
         super.endElement(HtmlElements.SCRIPT);
       }
     }

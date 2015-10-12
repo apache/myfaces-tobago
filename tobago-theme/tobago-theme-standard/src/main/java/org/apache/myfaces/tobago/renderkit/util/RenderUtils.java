@@ -325,10 +325,10 @@ public class RenderUtils {
       final Integer[] scrollPosition)
       throws IOException {
     final String clientId = component.getClientId(facesContext);
-    writer.startElement(HtmlElements.INPUT, null);
+    writer.startElement(HtmlElements.INPUT);
     writer.writeIdAttribute(clientId + SCROLL_POSTFIX);
     writer.writeNameAttribute(clientId + SCROLL_POSTFIX);
-    writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN, false);
+    writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN);
     final String scrollPositionString = scrollPosition != null ? scrollPosition[0] + ";" + scrollPosition[1] : "";
     writer.writeAttribute(HtmlAttributes.VALUE, scrollPositionString, false);
     writer.writeAttribute(DataAttributes.SCROLL_POSITION, Boolean.TRUE.toString(), true);

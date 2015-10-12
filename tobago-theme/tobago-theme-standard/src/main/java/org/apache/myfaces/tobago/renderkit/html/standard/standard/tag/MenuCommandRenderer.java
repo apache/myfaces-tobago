@@ -122,8 +122,8 @@ public class MenuCommandRenderer extends CommandRendererBase {
 
   private void encodeHidden(final TobagoResponseWriter writer, final String hiddenId, final Object value)
       throws IOException {
-    writer.startElement(HtmlElements.INPUT, null);
-    writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN, false);
+    writer.startElement(HtmlElements.INPUT);
+    writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN);
     writer.writeNameAttribute(hiddenId);
     if (value != null) {
       writer.writeAttribute(HtmlAttributes.VALUE, value.toString(), true);
@@ -138,7 +138,7 @@ public class MenuCommandRenderer extends CommandRendererBase {
       final String sub, final String clientId)
       throws IOException {
 
-    writer.startElement(HtmlElements.LI, null);
+    writer.startElement(HtmlElements.LI);
     if (command != null && !command.isTransient()) {
       writer.writeIdAttribute(command.getClientId(facesContext));
     }
@@ -173,7 +173,7 @@ public class MenuCommandRenderer extends CommandRendererBase {
         iconStyle.setHeight(Measure.valueOf(16));
         iconStyle.setWidth(Measure.valueOf(16));
 
-        writer.startElement(HtmlElements.IMG, null);
+        writer.startElement(HtmlElements.IMG);
         final String imageWithPath
             = ResourceManagerUtils.getImageOrDisabledImage(facesContext, image, disabled);
         writer.writeAttribute(HtmlAttributes.SRC, imageWithPath, false);
@@ -196,7 +196,7 @@ public class MenuCommandRenderer extends CommandRendererBase {
       }
     }
 
-    writer.startElement(HtmlElements.A, null);
+    writer.startElement(HtmlElements.A);
     writer.writeAttribute(HtmlAttributes.HREF, "#", false);
     if (image != null && firstLevel) {
       writer.writeStyleAttribute("vertical-align:top");

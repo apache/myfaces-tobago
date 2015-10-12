@@ -118,7 +118,7 @@ public class TreeListboxNodeRenderer extends CommandRendererBase {
 
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
-    writer.startElement(HtmlElements.OPTION, null);
+    writer.startElement(HtmlElements.OPTION);
     // todo: define where to store the selection of a tree, node.getValue() seems not to be a god place.
     //        writer.writeAttribute(HtmlAttributes.VALUE, node.getValue().toString(), true); // XXX converter?
     writer.writeAttribute(HtmlAttributes.VALUE, id, true);

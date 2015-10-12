@@ -150,18 +150,18 @@ public class PageRenderer extends RendererBase {
     if (!FacesContextUtils.isAjax(facesContext)) {
       final String title = (String) page.getAttributes().get(Attributes.LABEL);
 
-      writer.startElement(HtmlElements.HEAD, null);
+      writer.startElement(HtmlElements.HEAD);
 
       // meta tags
 
       // this is needed, because websphere 6.0? ignores the setting of the content type on the response
-      writer.startElement(HtmlElements.META, null);
+      writer.startElement(HtmlElements.META);
       writer.writeAttribute(HtmlAttributes.HTTP_EQUIV, "Content-Type", false);
       writer.writeAttribute(HtmlAttributes.CONTENT, contentType, false);
       writer.endElement(HtmlElements.META);
 
       // title
-      writer.startElement(HtmlElements.TITLE, null);
+      writer.startElement(HtmlElements.TITLE);
       writer.writeText(title != null ? title : "");
       writer.endElement(HtmlElements.TITLE);
       final Theme theme = client.getTheme();
@@ -189,7 +189,7 @@ public class PageRenderer extends RendererBase {
         }
 
         if (href != null) {
-          writer.startElement(HtmlElements.LINK, null);
+          writer.startElement(HtmlElements.LINK);
           if (href.endsWith(".ico")) {
             writer.writeAttribute(HtmlAttributes.REL, "shortcut icon", false);
             writer.writeAttribute(HtmlAttributes.HREF, href, true);
@@ -221,7 +221,7 @@ public class PageRenderer extends RendererBase {
       writer.endElement(HtmlElements.HEAD);
     }
 
-    writer.startElement(portlet ? HtmlElements.DIV : HtmlElements.BODY, page);
+    writer.startElement(portlet ? HtmlElements.DIV : HtmlElements.BODY);
     writer.writeClassAttribute(
         portlet ? Classes.create(page, Markup.PORTLET) : Classes.create(page),
         BootstrapClass.CONTAINER_FLUID,
@@ -230,7 +230,7 @@ public class PageRenderer extends RendererBase {
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, page);
     HtmlRendererUtils.renderCommandFacet(page, facesContext, writer);
 
-    writer.startElement(HtmlElements.FORM, page);
+    writer.startElement(HtmlElements.FORM);
     if (preventFrameAttacks && !FacesContextUtils.isAjax(facesContext)) {
       writer.writeClassAttribute(Classes.create(page, "preventFrameAttacks", Markup.NULL));
     }
@@ -251,21 +251,21 @@ public class PageRenderer extends RendererBase {
     writer.writeAttribute(HtmlAttributes.ACCEPT_CHARSET, AbstractUIPage.FORM_ACCEPT_CHARSET, false);
     // TODO evaluate 'accept' attribute usage
     //writer.writeAttribute(HtmlAttributes.ACCEPT, );
-    writer.startElement(HtmlElements.INPUT, null);
-    writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN, false);
+    writer.startElement(HtmlElements.INPUT);
+    writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN);
     writer.writeNameAttribute(clientId + ComponentUtils.SUB_SEPARATOR + "form-action");
     writer.writeIdAttribute(clientId + ComponentUtils.SUB_SEPARATOR + "form-action");
     writer.endElement(HtmlElements.INPUT);
 
-    writer.startElement(HtmlElements.INPUT, null);
-    writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN, false);
+    writer.startElement(HtmlElements.INPUT);
+    writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN);
     writer.writeNameAttribute(clientId + ComponentUtils.SUB_SEPARATOR + "context-path");
     writer.writeIdAttribute(clientId + ComponentUtils.SUB_SEPARATOR + "context-path");
     writer.writeAttribute(HtmlAttributes.VALUE, externalContext.getRequestContextPath(), true);
     writer.endElement(HtmlElements.INPUT);
 
-    writer.startElement(HtmlElements.INPUT, null);
-    writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN, false);
+    writer.startElement(HtmlElements.INPUT);
+    writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN);
     writer.writeNameAttribute(clientId + ComponentUtils.SUB_SEPARATOR + "form-clientDimension");
     writer.writeIdAttribute(clientId + ComponentUtils.SUB_SEPARATOR + "form-clientDimension");
     writer.endElement(HtmlElements.INPUT);
@@ -312,7 +312,7 @@ public class PageRenderer extends RendererBase {
     final List<String> styles = ResourceManagerUtils.getStyles(facesContext, styleFile);
     for (final String styleString : styles) {
       if (styleString.length() > 0) {
-        writer.startElement(HtmlElements.LINK, null);
+        writer.startElement(HtmlElements.LINK);
         writer.writeAttribute(HtmlAttributes.REL, "stylesheet", false);
         writer.writeAttribute(HtmlAttributes.HREF, styleString, true);
 //          writer.writeAttribute(HtmlAttributes.MEDIA, "screen", false);
@@ -353,8 +353,8 @@ public class PageRenderer extends RendererBase {
 
     // avoid submit page in ie if the form contains only one input and you press the enter key in the input
     if (clientProperties.getUserAgent().isMsie()) {
-      writer.startElement(HtmlElements.INPUT, null);
-      writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.TEXT, false);
+      writer.startElement(HtmlElements.INPUT);
+      writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.TEXT);
       writer.writeAttribute(HtmlAttributes.NAME, "tobago.dummy", false);
       writer.writeAttribute(HtmlAttributes.TABINDEX, -1);
       writer.writeAttribute(HtmlAttributes.STYLE, "visibility:hidden;display:none;", false);
@@ -363,23 +363,23 @@ public class PageRenderer extends RendererBase {
 
     final List<String> messageClientIds = AjaxInternalUtils.getMessagesClientIds(facesContext);
     if (messageClientIds != null) {
-      writer.startElement(HtmlElements.INPUT, null);
+      writer.startElement(HtmlElements.INPUT);
       writer.writeAttribute(HtmlAttributes.VALUE, StringUtils.join(messageClientIds, ','), true);
       writer.writeAttribute(HtmlAttributes.ID, clientId + ComponentUtils.SUB_SEPARATOR + "messagesClientIds", false);
       writer.writeAttribute(HtmlAttributes.NAME, clientId + ComponentUtils.SUB_SEPARATOR + "messagesClientIds", false);
-      writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN, false);
+      writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN);
       writer.endElement(HtmlElements.INPUT);
     }
 
     // placeholder for menus
-    writer.startElement(HtmlElements.DIV, page);
+    writer.startElement(HtmlElements.DIV);
     writer.writeClassAttribute(Classes.create(page, "menuStore"));
     writer.endElement(HtmlElements.DIV);
 
     final Application application = facesContext.getApplication();
     final ViewHandler viewHandler = application.getViewHandler();
 
-    writer.startElement(HtmlElements.SPAN, null);
+    writer.startElement(HtmlElements.SPAN);
     writer.writeIdAttribute(clientId + ComponentUtils.SUB_SEPARATOR + "jsf-state-container");
     writer.flush();
     if (!FacesContextUtils.isAjax(facesContext)) {
@@ -390,15 +390,15 @@ public class PageRenderer extends RendererBase {
 
     writer.endElement(HtmlElements.FORM);
 
-    writer.startElement(HtmlElements.IMG, null);
+    writer.startElement(HtmlElements.IMG);
     writer.writeClassAttribute(Classes.create(page, "overlayBackgroundImage"));
     final String overlayBackgroundImage = ResourceManagerUtils.getImage(facesContext,
         "image/tobago-overlay-background");
     writer.writeAttribute(HtmlAttributes.SRC, overlayBackgroundImage, true);
     writer.endElement(HtmlElements.IMG);
 
-    writer.startElement(HtmlElements.NOSCRIPT, null);
-    writer.startElement(HtmlElements.DIV, null);
+    writer.startElement(HtmlElements.NOSCRIPT);
+    writer.startElement(HtmlElements.DIV);
     writer.writeClassAttribute(Classes.create(page, "noscript"));
     writer.writeText(ResourceManagerUtils.getPropertyNotNull(facesContext, "tobago", "pageNoscript"));
     writer.endElement(HtmlElements.DIV);
@@ -462,7 +462,7 @@ public class PageRenderer extends RendererBase {
     }
     for (final String src : list) {
       if (StringUtils.isNotBlank(src)) {
-        writer.startElement(HtmlElements.SCRIPT, null);
+        writer.startElement(HtmlElements.SCRIPT);
         writer.writeAttribute(HtmlAttributes.SRC, src, true);
         // TODO test defer attribute
         //writer.writeAttribute(HtmlAttributes.DEFER, true);

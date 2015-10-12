@@ -38,7 +38,7 @@ public class CalendarRenderer extends RendererBase {
     final String id = output.getClientId(facesContext);
 
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
-    writer.startElement(HtmlElements.SPAN, component);
+    writer.startElement(HtmlElements.SPAN);
     writer.writeIdAttribute(id);
     writer.writeText("[tc:calender is currently not implemented]");
     writer.endElement(HtmlElements.SPAN);

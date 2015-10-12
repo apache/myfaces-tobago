@@ -63,7 +63,7 @@ public class MenuRenderer extends RendererBase {
     final boolean firstLevel = !RendererTypes.MENU.equals(menu.getParent().getRendererType());
     final boolean isParentMenu = menu.getChildCount() > 0; // todo: may be not correct
 
-    writer.startElement(HtmlElements.LI, menu);
+    writer.startElement(HtmlElements.LI);
     writer.writeClassAttribute(Classes.create(menu), BootstrapClass.DROPDOWN, menu.getCustomClass());
     StringBuilder backgroundImage = null;
     StringBuilder backgroundPosition = null;
@@ -98,7 +98,7 @@ public class MenuRenderer extends RendererBase {
       style.setBackgroundPosition(backgroundPosition.toString());
       writer.writeStyleAttribute(style);
     }
-    writer.startElement(HtmlElements.A, menu);
+    writer.startElement(HtmlElements.A);
     writer.writeAttribute(HtmlAttributes.HREF, "#", false);
     if (!component.isTransient()) {
       writer.writeIdAttribute(component.getClientId(facesContext));
@@ -114,7 +114,7 @@ public class MenuRenderer extends RendererBase {
 
     writer.endElement(HtmlElements.A);
     if (isParentMenu) {
-      writer.startElement(HtmlElements.OL, menu);
+      writer.startElement(HtmlElements.OL);
 
       writer.writeClassAttribute(BootstrapClass.DROPDOWN_MENU);
     }

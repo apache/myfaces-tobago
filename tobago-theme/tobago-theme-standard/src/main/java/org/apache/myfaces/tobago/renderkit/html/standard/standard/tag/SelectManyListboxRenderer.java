@@ -52,7 +52,7 @@ public class SelectManyListboxRenderer extends SelectManyRendererBase {
     final boolean disabled = !items.iterator().hasNext() || select.isDisabled() || readonly;
 
     final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, select);
-    writer.startElement(HtmlElements.SELECT, select);
+    writer.startElement(HtmlElements.SELECT);
     writer.writeNameAttribute(id);
     writer.writeIdAttribute(id);
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, select);

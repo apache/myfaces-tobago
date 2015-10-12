@@ -36,7 +36,6 @@ import org.slf4j.LoggerFactory;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIPanel;
 import javax.faces.context.FacesContext;
-import javax.faces.context.ResponseWriter;
 import java.io.IOException;
 
 public class BoxRenderer extends BoxRendererBase {
@@ -57,7 +56,7 @@ public class BoxRenderer extends BoxRendererBase {
             LOG.error("XXX toolbar for bootstrap not yet implemented");
         }
 
-        writer.startElement(HtmlElements.DIV, box);
+        writer.startElement(HtmlElements.DIV);
         writer.writeClassAttribute(
             Classes.create(box), BootstrapClass.PANEL, BootstrapClass.PANEL_DEFAULT, box.getCustomClass());
         writer.writeIdAttribute(box.getClientId(facesContext));
@@ -69,10 +68,10 @@ public class BoxRenderer extends BoxRendererBase {
         writer.writeStyleAttribute(box.getStyle());
 
         if (label != null || labelString != null || toolbar != null) {
-            writer.startElement(HtmlElements.DIV, box);
+            writer.startElement(HtmlElements.DIV);
             writer.writeClassAttribute(BootstrapClass.PANEL_HEADING);
 
-            writer.startElement(HtmlElements.H3, null);
+            writer.startElement(HtmlElements.H3);
             writer.writeClassAttribute(BootstrapClass.PANEL_TITLE);
             if (label != null) {
                 RenderUtils.encode(facesContext, label);
@@ -91,13 +90,13 @@ public class BoxRenderer extends BoxRendererBase {
 //            RenderUtils.encode(facesContext, menuBar);
         }
 
-        writer.startElement(HtmlElements.DIV, box);
+        writer.startElement(HtmlElements.DIV);
         writer.writeClassAttribute(BootstrapClass.PANEL_BODY);
     }
 
     @Override
     public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
-        final ResponseWriter writer = facesContext.getResponseWriter();
+        final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
         writer.endElement(HtmlElements.DIV);
         writer.endElement(HtmlElements.DIV);
     }

@@ -54,7 +54,7 @@ public class OutRenderer extends LabelLayoutRendererBase {
 
     if (createSpan) {
       final String id = out.getClientId(facesContext);
-      writer.startElement(HtmlElements.SPAN, out);
+      writer.startElement(HtmlElements.SPAN);
       writer.writeIdAttribute(id);
       HtmlRendererUtils.writeDataAttributes(facesContext, writer, out);
       writer.writeStyleAttribute(out.getStyle());
@@ -70,7 +70,7 @@ public class OutRenderer extends LabelLayoutRendererBase {
         final String token = tokenizer.nextToken();
         writer.writeText(token);
         if (tokenizer.hasMoreTokens()) {
-          writer.startElement(HtmlElements.BR, null);
+          writer.startElement(HtmlElements.BR);
           writer.endElement(HtmlElements.BR);
         }
       }

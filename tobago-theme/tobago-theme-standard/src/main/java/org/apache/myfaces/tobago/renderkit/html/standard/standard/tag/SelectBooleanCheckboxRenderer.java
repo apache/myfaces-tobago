@@ -81,7 +81,7 @@ public class SelectBooleanCheckboxRenderer extends RendererBase {
     final boolean disabled = select.isDisabled();
     final LabelWithAccessKey label = new LabelWithAccessKey(select);
 
-    writer.startElement(HtmlElements.DIV, select);
+    writer.startElement(HtmlElements.DIV);
     writer.writeStyleAttribute(select.getStyle());
     writer.writeClassAttribute(
         Classes.create(select),
@@ -93,14 +93,14 @@ public class SelectBooleanCheckboxRenderer extends RendererBase {
       writer.writeAttribute(HtmlAttributes.TITLE, title, true);
     }
 
-    writer.startElement(HtmlElements.LABEL, select);
+    writer.startElement(HtmlElements.LABEL);
     if (!disabled && label.getAccessKey() != null) {
       writer.writeAttribute(HtmlAttributes.ACCESSKEY, Character.toString(label.getAccessKey()), false);
       AccessKeyLogger.addAccessKey(facesContext, label.getAccessKey(), clientId);
     }
 
-    writer.startElement(HtmlElements.INPUT, select);
-    writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.CHECKBOX, false);
+    writer.startElement(HtmlElements.INPUT);
+    writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.CHECKBOX);
     writer.writeAttribute(HtmlAttributes.VALUE, "true", false);
     writer.writeNameAttribute(clientId);
     writer.writeIdAttribute(clientId);

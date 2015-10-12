@@ -36,7 +36,7 @@ public class CommandGroupRenderer extends RendererBase {
   public void encodeBegin(FacesContext facesContext, UIComponent component) throws IOException {
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
-    writer.startElement(HtmlElements.UL, null);
+    writer.startElement(HtmlElements.UL);
     writer.writeClassAttribute(BootstrapClass.NAV, BootstrapClass.NAVBAR_NAV);
   }
 
@@ -54,7 +54,7 @@ public class CommandGroupRenderer extends RendererBase {
         if (child instanceof AbstractUIForm) { // XXX hack! TBD: How to walk through the children, or do that in JS?
           encodeChildren(facesContext, child);
         } else {
-          writer.startElement(HtmlElements.LI, null);
+          writer.startElement(HtmlElements.LI);
           child.encodeAll(facesContext);
           writer.endElement(HtmlElements.LI);
         }

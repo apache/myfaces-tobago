@@ -61,7 +61,7 @@ public class ProgressRenderer extends RendererBase {
 
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
-    writer.startElement(HtmlElements.DIV, progress);
+    writer.startElement(HtmlElements.DIV);
     writer.writeClassAttribute(Classes.create(progress), progress.getCustomClass());
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, progress);
     writer.writeStyleAttribute(progress.getStyle());
@@ -72,7 +72,7 @@ public class ProgressRenderer extends RendererBase {
     if (model.getValue() == model.getMaximum() && facet instanceof UICommand) {
       HtmlRendererUtils.renderCommandFacet(progress, facesContext, writer);
     }
-    writer.startElement(HtmlElements.DIV, null);
+    writer.startElement(HtmlElements.DIV);
     writer.writeClassAttribute(Classes.create(progress, "value"));
     writer.writeStyleAttribute("width: " + percent + "%");
     writer.endElement(HtmlElements.DIV);

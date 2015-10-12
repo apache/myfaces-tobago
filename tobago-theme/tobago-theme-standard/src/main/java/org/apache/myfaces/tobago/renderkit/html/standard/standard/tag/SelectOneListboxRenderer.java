@@ -48,7 +48,7 @@ public class SelectOneListboxRenderer extends SelectOneRendererBase {
     final Iterable<SelectItem> items = SelectItemUtils.getItemIterator(facesContext, select);
     final boolean disabled = !items.iterator().hasNext() || select.isDisabled() || select.isReadonly();
 
-    writer.startElement(HtmlElements.SELECT, select);
+    writer.startElement(HtmlElements.SELECT);
     writer.writeNameAttribute(id);
     writer.writeIdAttribute(id);
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, select);

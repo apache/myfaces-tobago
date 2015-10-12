@@ -53,7 +53,7 @@ public class TreeLabelRenderer extends RendererBase {
     if (listbox) {
       writer.writeText(text);
     } else {
-      writer.startElement(HtmlElements.LABEL, label);
+      writer.startElement(HtmlElements.LABEL);
       writer.writeClassAttribute(Classes.create(label));
       HtmlRendererUtils.writeDataAttributes(facesContext, writer, label);
       writer.writeStyleAttribute(label.getStyle());

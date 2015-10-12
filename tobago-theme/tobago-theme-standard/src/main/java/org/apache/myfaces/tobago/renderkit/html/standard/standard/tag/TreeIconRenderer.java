@@ -106,7 +106,7 @@ public class TreeIconRenderer extends RendererBase {
 
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
-    writer.startElement(HtmlElements.IMG, null);
+    writer.startElement(HtmlElements.IMG);
     writer.writeClassAttribute(Classes.create(node, "toggle", Markup.NULL));
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, image);
     writer.writeAttribute(HtmlAttributes.SRC, source, true);

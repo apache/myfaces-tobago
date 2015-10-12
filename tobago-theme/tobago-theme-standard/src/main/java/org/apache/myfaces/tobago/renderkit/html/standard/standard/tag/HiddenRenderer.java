@@ -43,15 +43,15 @@ public class HiddenRenderer extends InputRendererBase {
 
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
-    writer.startElement(HtmlElements.INPUT, component);
+    writer.startElement(HtmlElements.INPUT);
     if (component instanceof UIHidden && ((UIHidden) component).isDisabled()) {
-      writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.TEXT, false);
+      writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.TEXT);
       final Style style = new Style();
       style.setDisplay(Display.none);
       writer.writeStyleAttribute(style);
       writer.writeAttribute(HtmlAttributes.DISABLED, true);
     } else {
-      writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN, false);
+      writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN);
     }
     writer.writeNameAttribute(clientId);
     writer.writeIdAttribute(clientId);

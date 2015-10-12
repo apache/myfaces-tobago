@@ -42,7 +42,7 @@ public class SelectManyShuttleRenderer extends SelectManyRendererBase {
   public void encodeBeginField(final FacesContext facesContext, final UIComponent component) throws IOException {
     final UISelectManyShuttle select = (UISelectManyShuttle) component;
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
-    writer.startElement(HtmlElements.DIV, select);
+    writer.startElement(HtmlElements.DIV);
     writer.writeClassAttribute(Classes.create(select), select.getCustomClass());
     final String clientId = select.getClientId(facesContext);
     writer.writeIdAttribute(clientId);
@@ -57,13 +57,13 @@ public class SelectManyShuttleRenderer extends SelectManyRendererBase {
 
     final String unselectedLabel = select.getUnselectedLabel();
     if (unselectedLabel != null) {
-      writer.startElement(HtmlElements.DIV, null);
+      writer.startElement(HtmlElements.DIV);
       writer.writeClassAttribute(Classes.create(select, "unselectedLabel"));
       writer.flush(); // is needed in some cases, e. g. TOBAGO-1094
       writer.write(unselectedLabel);
       writer.endElement(HtmlElements.DIV);
     }
-    writer.startElement(HtmlElements.SELECT, null);
+    writer.startElement(HtmlElements.SELECT);
     final String unselectedClientId = clientId + ComponentUtils.SUB_SEPARATOR + "unselected";
     writer.writeIdAttribute(unselectedClientId);
     writer.writeAttribute(HtmlAttributes.DISABLED, disabled);
@@ -83,7 +83,7 @@ public class SelectManyShuttleRenderer extends SelectManyRendererBase {
     HtmlRendererUtils.renderSelectItems(select, items, values, submittedValues, false, writer, facesContext);
 
     writer.endElement(HtmlElements.SELECT);
-    writer.startElement(HtmlElements.DIV, null);
+    writer.startElement(HtmlElements.DIV);
     writer.writeClassAttribute(Classes.create(select, "toolBar"));
     createButton(facesContext, component, writer, disabled, "image/selectManyShuttleAddAll", "addAll");
     createButton(facesContext, component, writer, disabled, "image/selectManyShuttleAdd", "add");
@@ -92,14 +92,14 @@ public class SelectManyShuttleRenderer extends SelectManyRendererBase {
     writer.endElement(HtmlElements.DIV);
     final String selectedLabel = select.getSelectedLabel();
     if (selectedLabel != null) {
-      writer.startElement(HtmlElements.DIV, null);
+      writer.startElement(HtmlElements.DIV);
       writer.writeClassAttribute(Classes.create(select, "selectedLabel"));
       writer.flush(); // is needed in some cases, e. g. TOBAGO-1094
       writer.write(selectedLabel);
       writer.endElement(HtmlElements.DIV);
     }
 
-    writer.startElement(HtmlElements.SELECT, select);
+    writer.startElement(HtmlElements.SELECT);
     final String selectedClientId = clientId + ComponentUtils.SUB_SEPARATOR + "selected";
     writer.writeIdAttribute(selectedClientId);
 
@@ -113,7 +113,7 @@ public class SelectManyShuttleRenderer extends SelectManyRendererBase {
     HtmlRendererUtils.renderSelectItems(select, items, values, submittedValues, true, writer, facesContext);
 
     writer.endElement(HtmlElements.SELECT);
-    writer.startElement(HtmlElements.SELECT, select);
+    writer.startElement(HtmlElements.SELECT);
     writer.writeClassAttribute(Classes.create(component, "hidden"));
     final String hiddenClientId = clientId + ComponentUtils.SUB_SEPARATOR + "hidden";
     writer.writeIdAttribute(hiddenClientId);
@@ -135,13 +135,13 @@ public class SelectManyShuttleRenderer extends SelectManyRendererBase {
 
   private void createButton(final FacesContext context, final UIComponent component, final TobagoResponseWriter writer,
         final boolean disabled, final String image, final String sub) throws IOException {
-    writer.startElement(HtmlElements.BUTTON, null);
-    writer.writeAttribute(HtmlAttributes.TYPE, HtmlButtonTypes.BUTTON, false);
+    writer.startElement(HtmlElements.BUTTON);
+    writer.writeAttribute(HtmlAttributes.TYPE, HtmlButtonTypes.BUTTON);
     writer.writeClassAttribute(Classes.create(component, sub));
     writer.writeIdAttribute(component.getClientId(context) + ComponentUtils.SUB_SEPARATOR + sub);
     writer.writeAttribute(HtmlAttributes.DISABLED, disabled);
     final String imagePath = ResourceManagerUtils.getImageOrDisabledImage(context, image, disabled);
-    writer.startElement(HtmlElements.IMG, null);
+    writer.startElement(HtmlElements.IMG);
     writer.writeAttribute(HtmlAttributes.SRC, imagePath, true);
     writer.endElement(HtmlElements.IMG);
     writer.endElement(HtmlElements.BUTTON);
