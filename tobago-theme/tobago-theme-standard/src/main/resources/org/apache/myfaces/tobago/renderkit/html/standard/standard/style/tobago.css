@@ -354,6 +354,10 @@ table.tobago-sheet-bodyTable>tbody>tr>td:last-child {
 
 /* suggest ---------------------------------------------------------------------- */
 
+.tobago-suggest {
+  display: none;
+}
+
 .twitter-typeahead {
   width: 100%;
 }

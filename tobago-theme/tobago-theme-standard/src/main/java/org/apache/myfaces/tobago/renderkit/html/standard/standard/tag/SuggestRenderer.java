@@ -24,9 +24,12 @@ import org.apache.myfaces.tobago.component.UISuggest;
 import org.apache.myfaces.tobago.model.AutoSuggestItem;
 import org.apache.myfaces.tobago.model.AutoSuggestItems;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
+import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
+import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.JsonUtils;
-import org.apache.myfaces.tobago.util.ComponentUtils;
+import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
+import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.el.MethodExpression;
 import javax.faces.component.UIComponent;
@@ -39,8 +42,7 @@ import java.util.List;
 public class SuggestRenderer extends RendererBase {
 
   @Override
-  public void prepareRender(FacesContext facesContext, UIComponent component) throws IOException {
-
+  public void encodeBegin(FacesContext facesContext, UIComponent component) throws IOException {
     final UISuggest suggest = (UISuggest) component;
     final UIIn in = (UIIn) suggest.getParent();
     final MethodExpression suggestMethodExpression = suggest.getSuggestMethodExpression();
@@ -52,12 +54,6 @@ public class SuggestRenderer extends RendererBase {
       totalCount = list.size();
     }
 
-    ComponentUtils.putDataAttributeWithPrefix(in, DataAttributes.SUGGEST_MIN_CHARS, suggest.getMinimumCharacters());
-    ComponentUtils.putDataAttributeWithPrefix(in, DataAttributes.SUGGEST_DELAY, suggest.getDelay());
-    ComponentUtils.putDataAttributeWithPrefix(in, DataAttributes.SUGGEST_MAX_ITEMS, suggest.getMaximumItems());
-    ComponentUtils.putDataAttributeWithPrefix(in, DataAttributes.SUGGEST_UPDATE, suggest.isUpdate());
-    ComponentUtils.putDataAttributeWithPrefix(in, DataAttributes.SUGGEST_TOTAL_COUNT, totalCount);
-
 // tbd    final String title
 // tbd       = ResourceManagerUtils.getPropertyNotNull(facesContext, "tobago", "tobago.in.inputSuggest.moreElements");
 
@@ -66,9 +62,24 @@ public class SuggestRenderer extends RendererBase {
       array[i] = list.get(i).getLabel();
     }
 
-    ComponentUtils.putDataAttributeWithPrefix(in, DataAttributes.SUGGEST_DATA, JsonUtils.encode(array));
+    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
-    super.prepareRender(facesContext, component);
+    writer.startElement(HtmlElements.SPAN);
+    writer.writeClassAttribute(TobagoClass.SUGGEST);
+
+    writer.writeAttribute(DataAttributes.SUGGEST_FOR, in.getClientId(facesContext), true);
+    writer.writeAttribute(DataAttributes.SUGGEST_MIN_CHARS, suggest.getMinimumCharacters());
+    writer.writeAttribute(DataAttributes.SUGGEST_DELAY, suggest.getDelay());
+    writer.writeAttribute(DataAttributes.SUGGEST_MAX_ITEMS, suggest.getMaximumItems());
+    writer.writeAttribute(DataAttributes.SUGGEST_UPDATE, suggest.isUpdate());
+    writer.writeAttribute(DataAttributes.SUGGEST_TOTAL_COUNT, totalCount);
+    writer.writeAttribute(DataAttributes.SUGGEST_DATA, JsonUtils.encode(array), true);
+  }
+
+  @Override
+  public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
+    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+    writer.endElement(HtmlElements.SPAN);
   }
 
   private AutoSuggestItems createAutoSuggestItems(final Object object) {

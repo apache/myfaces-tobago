@@ -39,9 +39,11 @@ Tobago.Suggest.substring = function(strings) {
 
 Tobago.Suggest.init = function (elements) {
 
-  var suggests = Tobago.Utils.selectWithJQuery(elements, "[data-tobago-suggest-data]");
+  var suggests = Tobago.Utils.selectWithJQuery(elements, ".tobago-suggest");
+
   suggests.each(function () {
     var suggest = jQuery(this);
+    var input = jQuery(Tobago.Utils.escapeClientId(suggest.data("tobago-suggest-for")));
 
     var minChars = suggest.data("tobago-suggest-min-chars");
     var maxItems = suggest.data("tobago-suggest-max-items");
@@ -52,9 +54,9 @@ Tobago.Suggest.init = function (elements) {
 
     var list = suggest.data("tobago-suggest-data");
 
-    suggest.attr("autocomplete", "off");
+    input.attr("autocomplete", "off");
 
-    suggest.typeahead({
+    input.typeahead({
       minLength: minChars,
       hint: true,// todo
       highlight: true // todo

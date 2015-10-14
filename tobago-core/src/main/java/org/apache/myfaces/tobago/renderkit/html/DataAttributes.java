@@ -163,6 +163,8 @@ public enum DataAttributes implements MarkupLanguageAttributes {
 
   SUGGEST_DELAY("data-tobago-suggest-delay"),
 
+  SUGGEST_FOR("data-tobago-suggest-for"),
+
   SUGGEST_MAX_ITEMS("data-tobago-suggest-max-items"),
 
   SUGGEST_MIN_CHARS("data-tobago-suggest-min-chars"),
