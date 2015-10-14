@@ -25,7 +25,7 @@ import org.apache.myfaces.tobago.internal.component.AbstractUICommandGroup;
 import org.apache.myfaces.tobago.internal.component.AbstractUIForm;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
-import org.apache.myfaces.tobago.renderkit.html.Aria;
+import org.apache.myfaces.tobago.renderkit.html.Arias;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlButtonTypes;
@@ -116,8 +116,8 @@ public class NavRenderer extends RendererBase {
     writer.writeClassAttribute(BootstrapClass.NAVBAR_TOGGLE, BootstrapClass.COLLAPSED);
     writer.writeAttribute(DataAttributes.TOGGLE, "collapse", false);
     writer.writeAttribute(DataAttributes.TARGET, JQueryUtils.escapeIdForHtml(navbarId), true);
-    writer.writeAttribute(Aria.EXPANDED, Boolean.FALSE.toString(), false);
-    writer.writeAttribute(Aria.CONTROLS, navbarId, false);
+    writer.writeAttribute(Arias.EXPANDED, Boolean.FALSE.toString(), false);
+    writer.writeAttribute(Arias.CONTROLS, navbarId, false);
 
     writer.startElement(HtmlElements.SPAN);
     writer.writeClassAttribute(BootstrapClass.SR_ONLY);

@@ -24,13 +24,13 @@ import org.junit.Test;
 
 import java.lang.reflect.Field;
 
-public class AriaUnitTest {
+public class AriasUnitTest {
 
   @Test
   public void testAttributeNames() throws IllegalAccessException {
-    for (final Field field : Aria.class.getFields()) {
+    for (final Field field : Arias.class.getFields()) {
 
-      final Aria aria = (Aria) field.get(null);
+      final Arias aria = (Arias) field.get(null);
       final String value = aria.getValue();
       Assert.assertTrue("Regexp check: value='" + aria + "'", value.matches("aria-[a-z0-9]+"));
 

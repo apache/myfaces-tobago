@@ -19,7 +19,7 @@
 
 package org.apache.myfaces.tobago.renderkit.html;
 
-public enum Aria implements MarkupLanguageAttributes {
+public enum Arias implements MarkupLanguageAttributes {
 
   ACTIVEDESCENDANT("aria-activedescendant"),
   ATOMIC("aria-atomic"),
@@ -46,7 +46,7 @@ public enum Aria implements MarkupLanguageAttributes {
 
   private String value;
 
-  Aria(final String value) {
+  Arias(final String value) {
     this.value = value;
   }
 

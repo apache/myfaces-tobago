@@ -35,7 +35,7 @@ import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
-import org.apache.myfaces.tobago.renderkit.html.Aria;
+import org.apache.myfaces.tobago.renderkit.html.Arias;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlButtonTypes;
@@ -119,9 +119,9 @@ public class MessagesRenderer extends RendererBase {
           writer.writeAttribute(HtmlAttributes.TYPE, HtmlButtonTypes.BUTTON);
           writer.writeClassAttribute(BootstrapClass.CLOSE);
           writer.writeAttribute(DataAttributes.DISMISS, "alert", false);
-          writer.writeAttribute(Aria.ACTIVEDESCENDANT, "Close", false); // todo: i18n
+          writer.writeAttribute(Arias.ACTIVEDESCENDANT, "Close", false); // todo: i18n
           writer.startElement(HtmlElements.SPAN);
-          writer.writeAttribute(Aria.HIDDEN, Boolean.TRUE.toString(), false);
+          writer.writeAttribute(Arias.HIDDEN, Boolean.TRUE.toString(), false);
           writer.writeText("×"); // times
           writer.endElement(HtmlElements.SPAN);
           writer.endElement(HtmlElements.BUTTON);
