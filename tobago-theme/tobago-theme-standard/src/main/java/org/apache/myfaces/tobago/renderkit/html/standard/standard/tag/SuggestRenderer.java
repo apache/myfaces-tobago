@@ -66,7 +66,7 @@ public class SuggestRenderer extends RendererBase {
       array[i] = list.get(i).getLabel();
     }
 
-    ComponentUtils.putDataAttribute(in, DataAttributes.SUGGEST_DATA, JsonUtils.encode(array));
+    ComponentUtils.putDataAttributeWithPrefix(in, DataAttributes.SUGGEST_DATA, JsonUtils.encode(array));
 
     super.prepareRender(facesContext, component);
   }
