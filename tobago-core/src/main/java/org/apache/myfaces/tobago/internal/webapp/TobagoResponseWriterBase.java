@@ -30,33 +30,12 @@ import javax.faces.component.UIComponent;
 import java.io.IOException;
 import java.io.Writer;
 import java.net.URI;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
 
 public abstract class TobagoResponseWriterBase extends TobagoResponseWriter {
 
   private static final Logger LOG = LoggerFactory.getLogger(TobagoResponseWriterBase.class);
 
-  protected static final Set<HtmlElements> EMPTY_TAG = new HashSet<HtmlElements>(Arrays.asList(
-      HtmlElements.BR,
-      HtmlElements.AREA,
-      HtmlElements.LINK,
-      HtmlElements.IMG,
-      HtmlElements.PARAM,
-      HtmlElements.HR,
-      HtmlElements.INPUT,
-      HtmlElements.COL,
-      HtmlElements.BASE,
-      HtmlElements.META));
-
-  /** @deprecated Since Tobago 1.5.3 */
-  @Deprecated
-  public static final String XML_VERSION_1_0_ENCODING_UTF_8 = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
-
-  /** @deprecated Since Tobago 1.5.3 */
-  @Deprecated
-  public static final int XML_VERSION_1_0_ENCODING_UTF_8_LENGTH = XML_VERSION_1_0_ENCODING_UTF_8.length();
+  protected static final String XML_VERSION_1_0_ENCODING_UTF_8 = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
 
   protected static final char[] XML_VERSION_1_0_ENCODING_UTF_8_CHARS = XML_VERSION_1_0_ENCODING_UTF_8.toCharArray();
 
@@ -284,7 +263,7 @@ public abstract class TobagoResponseWriterBase extends TobagoResponseWriter {
   }
 
   protected void endElementInternal(final Writer writer, final HtmlElements name) throws IOException {
-    if (EMPTY_TAG.contains(name)) {
+    if (name.isVoid()) {
       closeEmptyTag();
     } else {
       if (startStillOpen) {

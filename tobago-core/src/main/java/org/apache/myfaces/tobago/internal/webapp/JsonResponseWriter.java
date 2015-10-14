@@ -113,7 +113,7 @@ public class JsonResponseWriter extends HtmlResponseWriter {
 
   @Override
   protected void endElementInternal(final Writer writer, final HtmlElements name) throws IOException {
-    if (EMPTY_TAG.contains(name)) {
+    if (name.isVoid()) {
         writer.write(">");
     } else {
       if (isStartStillOpen()) {
