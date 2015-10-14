@@ -118,11 +118,10 @@ public class InRenderer extends InputRendererBase {
     HtmlRendererUtils.renderFocus(id, input.isFocus(), ComponentUtils.isError(input), facesContext, writer);
     writeAdditionalAttributes(facesContext, writer, input);
     HtmlRendererUtils.renderCommandFacet(input, facesContext, writer);
+    writer.endElement(HtmlElements.INPUT);
   }
 
   protected void encodeEndField(FacesContext facesContext, UIComponent component) throws IOException {
-    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
-    writer.endElement(HtmlElements.INPUT);
   }
 
   protected void writeAdditionalAttributes(

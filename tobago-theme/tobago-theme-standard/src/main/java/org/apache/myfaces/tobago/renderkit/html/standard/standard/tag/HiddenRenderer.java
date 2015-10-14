@@ -57,10 +57,9 @@ public class HiddenRenderer extends InputRendererBase {
     writer.writeIdAttribute(clientId);
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, component);
     writer.writeAttribute(HtmlAttributes.VALUE, value != null ? value : "", true);
+    writer.endElement(HtmlElements.INPUT);
   }
 
   protected void encodeEndField(FacesContext facesContext, UIComponent component) throws IOException {
-    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
-    writer.endElement(HtmlElements.INPUT);
   }
 }
