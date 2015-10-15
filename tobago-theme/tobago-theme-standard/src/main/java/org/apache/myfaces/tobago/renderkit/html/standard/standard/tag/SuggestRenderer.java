@@ -19,6 +19,7 @@
 
 package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
+import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.UIIn;
 import org.apache.myfaces.tobago.component.UISuggest;
 import org.apache.myfaces.tobago.model.AutoSuggestItem;
@@ -26,10 +27,15 @@ import org.apache.myfaces.tobago.model.AutoSuggestItems;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
+import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
+import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
 import org.apache.myfaces.tobago.renderkit.html.JsonUtils;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
+import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.el.MethodExpression;
 import javax.faces.component.UIComponent;
@@ -38,14 +44,33 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 public class SuggestRenderer extends RendererBase {
+
+  private static final Logger LOG = LoggerFactory.getLogger(SuggestRenderer.class);
+
+  public void decode(final FacesContext facesContext, final UIComponent component) {
+
+    final UISuggest suggest = (UISuggest) component;
+    final String clientId = suggest.getClientId(facesContext);
+    final Map<String, String> requestParameterMap = facesContext.getExternalContext().getRequestParameterMap();
+    if (requestParameterMap.containsKey(clientId)) {
+      String query = requestParameterMap.get(clientId);
+      if (LOG.isDebugEnabled()) {
+        LOG.debug("suggest query='{}'", query);
+      }
+      final UIIn in = ComponentUtils.findAncestor(suggest, UIIn.class);
+      in.setSubmittedValue(query);
+    }
+  }
 
   @Override
   public void encodeBegin(FacesContext facesContext, UIComponent component) throws IOException {
     final UISuggest suggest = (UISuggest) component;
-    final UIIn in = (UIIn) suggest.getParent();
+    final UIIn in = ComponentUtils.findAncestor(suggest, UIIn.class);
     final MethodExpression suggestMethodExpression = suggest.getSuggestMethodExpression();
+    // tbd: may use "suggest" instead of "in" for the method call?
     final AutoSuggestItems items
         = createAutoSuggestItems(suggestMethodExpression.invoke(facesContext.getELContext(), new Object[]{in}));
     int totalCount = suggest.getTotalCount();
@@ -64,22 +89,27 @@ public class SuggestRenderer extends RendererBase {
 
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
-    writer.startElement(HtmlElements.SPAN);
+    writer.startElement(HtmlElements.INPUT);
+    writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN);
     writer.writeClassAttribute(TobagoClass.SUGGEST);
+    final String clientId = suggest.getClientId(facesContext);
+    writer.writeIdAttribute(clientId);
+    writer.writeNameAttribute(clientId);
+    writer.writeAttribute(HtmlAttributes.VALUE, (String) suggest.getAttributes().get(Attributes.VALUE), true);
 
-    writer.writeAttribute(DataAttributes.SUGGEST_FOR, in.getClientId(facesContext), true);
+    writer.writeAttribute(DataAttributes.SUGGEST_FOR, in.getClientId(facesContext), false);
     writer.writeAttribute(DataAttributes.SUGGEST_MIN_CHARS, suggest.getMinimumCharacters());
     writer.writeAttribute(DataAttributes.SUGGEST_DELAY, suggest.getDelay());
     writer.writeAttribute(DataAttributes.SUGGEST_MAX_ITEMS, suggest.getMaximumItems());
     writer.writeAttribute(DataAttributes.SUGGEST_UPDATE, suggest.isUpdate());
     writer.writeAttribute(DataAttributes.SUGGEST_TOTAL_COUNT, totalCount);
     writer.writeAttribute(DataAttributes.SUGGEST_DATA, JsonUtils.encode(array), true);
-  }
 
-  @Override
-  public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
-    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
-    writer.endElement(HtmlElements.SPAN);
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("suggest list: " + JsonUtils.encode(array));
+    }
+
+    writer.endElement(HtmlElements.INPUT);
   }
 
   private AutoSuggestItems createAutoSuggestItems(final Object object) {

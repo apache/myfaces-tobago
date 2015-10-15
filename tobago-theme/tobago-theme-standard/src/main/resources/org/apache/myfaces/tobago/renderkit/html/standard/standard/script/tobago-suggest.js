@@ -17,23 +17,18 @@
 
 Tobago.Suggest = {};
 
-Tobago.Suggest.substring = function(strings) {
-  return function findMatches(query, callback) {
-    // an array that will be populated with substring matches
-    var matches = [];
+Tobago.Suggest.loadFromServer = function (input) {
 
-    // regex used to determine if a string contains the substring `query`
-    var substringRegex = new RegExp(query, 'i');
+  return function findMatches(query, syncResults, asyncResults) {
 
-    // iterate through the pool of strings and for any string that
-    // contains the substring `query`, add it to the `matches` array
-    $.each(strings, function(i, string) {
-      if (substringRegex.test(string)) {
-        matches.push(string);
-      }
-    });
-
-    callback(matches);
+    var suggest = jQuery(Tobago.Utils.escapeClientId(input.data("tobago-suggest-for")));
+    if (suggest.val() != query) {
+      suggest.val(query);
+      input.data("tobago-suggest-callback", asyncResults);
+      var id = suggest.attr("id");
+      console.info("query: '" + query + "'");
+      Tobago.Updater.update(suggest, id, id, {});
+    }
   };
 };
 
@@ -44,6 +39,7 @@ Tobago.Suggest.init = function (elements) {
   suggests.each(function () {
     var suggest = jQuery(this);
     var input = jQuery(Tobago.Utils.escapeClientId(suggest.data("tobago-suggest-for")));
+    input.data("tobago-suggest-for", suggest.attr("id"));
 
     var minChars = suggest.data("tobago-suggest-min-chars");
     var maxItems = suggest.data("tobago-suggest-max-items");
@@ -56,15 +52,21 @@ Tobago.Suggest.init = function (elements) {
 
     input.attr("autocomplete", "off");
 
-    input.typeahead({
-      minLength: minChars,
-      hint: true,// todo
-      highlight: true // todo
-    }, {
-      //name: 'test',// todo
-      limit: maxItems,
-      source: Tobago.Suggest.substring(list)
-    });
+    var asyncResults = input.data("tobago-suggest-callback");
+    if (asyncResults) {
+      console.info("data from server: '" + list + "'");
+      asyncResults(list);
+    } else {
+      input.typeahead({
+        minLength: minChars,
+        hint: true,// todo
+        highlight: true // todo
+      }, {
+        //name: 'test',// todo
+        limit: maxItems,
+        source: Tobago.Suggest.loadFromServer(input)
+      });
+    }
   });
 };
 
