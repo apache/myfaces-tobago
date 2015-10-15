@@ -142,7 +142,7 @@ Tobago.Sheet.prototype.setupRowPaging = function() {
 
 Tobago.Sheet.prototype.doPaging = function(event) {
     var element = Tobago.element(event);
-    var action = "unset";
+    var action;
     if (element.id.match(this.firstRegExp)){
       action = this.id + Tobago.COMPONENT_SEP +"First";
     } else if (element.id.match(this.prevRegExp)){
@@ -151,6 +151,8 @@ Tobago.Sheet.prototype.doPaging = function(event) {
       action = this.id + Tobago.COMPONENT_SEP +"Next";
     } else if (element.id.match(this.lastRegExp)){
       action = this.id + Tobago.COMPONENT_SEP +"Last";
+    } else {
+      action = "unset";
     }
     this.reloadWithAction(event.srcElement, action);
   };
