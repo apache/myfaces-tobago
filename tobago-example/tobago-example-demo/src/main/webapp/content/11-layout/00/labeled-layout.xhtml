@@ -27,52 +27,52 @@
   <tc:separator/>
 
   <tc:box label="labelLayout is not set (default is flexLeft)">
-    <tc:in required="true" label="In Label"/>
-    <tc:date required="true" label="Date Label"/>
+    <tc:in id="i_d" required="true" label="In Label"/>
+    <tc:date id="d_d" required="true" label="Date Label"/>
   </tc:box>
 
   <tc:box label="labelLayout=&quot;none&quot;">
-    <tc:in required="true" label="In Label" labelLayout="none"/>
-    <tc:date required="true" label="Date Label" labelLayout="none"/>
+    <tc:in id="i_n" required="true" label="In Label" labelLayout="none"/>
+    <tc:date id="d_n" required="true" label="Date Label" labelLayout="none"/>
   </tc:box>
 
   <tc:box label="labelLayout=&quot;flexLeft&quot;">
-    <tc:in required="true" label="In Label" labelLayout="flexLeft"/>
-    <tc:date required="true" label="Date Label" labelLayout="flexLeft"/>
+    <tc:in id="i_fl" required="true" label="In Label" labelLayout="flexLeft"/>
+    <tc:date id="d_fl" required="true" label="Date Label" labelLayout="flexLeft"/>
   </tc:box>
 
   <tc:box label="labelLayout=&quot;flexRight&quot;">
-    <tc:in required="true" label="In Label" labelLayout="flexRight"/>
-    <tc:date required="true" label="Date Label" labelLayout="flexRight"/>
+    <tc:in id="i_fr" required="true" label="In Label" labelLayout="flexRight"/>
+    <tc:date id="d_fr" required="true" label="Date Label" labelLayout="flexRight"/>
   </tc:box>
 
   <tc:box label="labelLayout=&quot;top&quot;">
-    <tc:in required="true" label="In Label" labelLayout="top"/>
-    <tc:date required="true" label="Date Label" labelLayout="top"/>
+    <tc:in id="i_t" required="true" label="In Label" labelLayout="top"/>
+    <tc:date id="d_t" required="true" label="Date Label" labelLayout="top"/>
   </tc:box>
 
   <tc:box label="labelLayout=&quot;segmentLeft&quot;">
     <tc:segmentLayout large="3;9">
-      <tc:in required="true" label="In Label" labelLayout="segmentLeft"/>
-      <tc:date required="true" label="Date Label" labelLayout="segmentLeft"/>
+      <tc:in id="i_sl" required="true" label="In Label" labelLayout="segmentLeft"/>
+      <tc:date id="d_sl" required="true" label="Date Label" labelLayout="segmentLeft"/>
     </tc:segmentLayout>
   </tc:box>
 
   <tc:box label="labelLayout=&quot;segmentRight&quot; (FIXME: height of label breaks layout, try 6;6)">
     <tc:segmentLayout large="9;3">
-      <tc:in required="true" label="In Label" labelLayout="segmentRight"/>
-      <tc:date required="true" label="Date Label" labelLayout="segmentRight"/>
+      <tc:in id="i_sr" required="true" label="In Label" labelLayout="segmentRight"/>
+      <tc:date id="d_sr" required="true" label="Date Label" labelLayout="segmentRight"/>
     </tc:segmentLayout>
   </tc:box>
 
   <tc:box label="labelLayout=&quot;flowLeft&quot; (FIXME: not impleented yet)">
-    <tc:in required="true" label="In Label" labelLayout="flowLeft"/>
-    <tc:date required="true" label="Date Label" labelLayout="flowLeft"/>
+    <tc:in id="i_wl" required="true" label="In Label" labelLayout="flowLeft"/>
+    <tc:date id="d_wl" required="true" label="Date Label" labelLayout="flowLeft"/>
   </tc:box>
 
   <tc:box label="labelLayout=&quot;flowRight&quot; (FIXME: not impleented yet)">
-    <tc:in required="true" label="In Label" labelLayout="flowRight"/>
-    <tc:date required="true" label="Date Label" labelLayout="flowRight"/>
+    <tc:in id="i_wr" required="true" label="In Label" labelLayout="flowRight"/>
+    <tc:date id="d_wr" required="true" label="Date Label" labelLayout="flowRight"/>
   </tc:box>
 
 </ui:composition>
