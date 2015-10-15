@@ -19,30 +19,32 @@
 
 package org.apache.myfaces.tobago.renderkit.html;
 
+import java.util.Arrays;
+
 public enum HtmlElements {
 
-  A("a"),
-  ABBR("abbr"),
+  A("a", Qualifier.INLINE),
+  ABBR("abbr", Qualifier.INLINE),
   ADDRESS("address"),
-  AREA("area", true),
+  AREA("area", Qualifier.VOID),
   ARTICLE("article"),
   ASIDE("aside"),
   AUDIO("audio"),
-  B("b"),
-  BASE("base", true),
+  B("b", Qualifier.INLINE),
+  BASE("base", Qualifier.VOID),
   BDI("bdi"),
   BDO("bdo"),
   BLOCKQUOTE("blockquote"),
   BODY("body"),
-  BR("br", true),
-  BUTTON("button"),
+  BR("br", Qualifier.VOID),
+  BUTTON("button", Qualifier.INLINE),
   CANVAS("canvas"),
   CAPTION("caption"),
-  CITE("cite"),
+  CITE("cite", Qualifier.INLINE),
   CODE("code"),
-  COL("col", true),
+  COL("col", Qualifier.VOID),
   COLGROUP("colgroup"),
-  COMMAND("command", true),
+  COMMAND("command", Qualifier.VOID),
   DATALIST("datalist"),
   DD("dd"),
   DEL("del"),
@@ -51,8 +53,8 @@ public enum HtmlElements {
   DIV("div"),
   DL("dl"),
   DT("dt"),
-  EM("em"),
-  EMBED("embed", true),
+  EM("em", Qualifier.INLINE),
+  EMBED("embed", Qualifier.VOID),
   FIELDSET("fieldset"),
   FIGCAPTION("figcaption"),
   FIGURE("figure"),
@@ -67,23 +69,23 @@ public enum HtmlElements {
   HEAD("head"),
   HEADER("header"),
   HGROUP("hgroup"),
-  HR("hr", true),
+  HR("hr", Qualifier.VOID),
   HTML("html"),
-  I("i"),
+  I("i", Qualifier.INLINE),
   IFRAME("iframe"),
-  IMG("img", true),
-  INPUT("input", true),
+  IMG("img", Qualifier.VOID, Qualifier.INLINE),
+  INPUT("input", Qualifier.VOID, Qualifier.INLINE),
   INS("ins"),
   KBD("kbd"),
-  KEYGEN("keygen", true),
-  LABEL("label"),
+  KEYGEN("keygen", Qualifier.VOID),
+  LABEL("label", Qualifier.INLINE),
   LEGEND("legend"),
   LI("li"),
-  LINK("link", true),
+  LINK("link", Qualifier.VOID),
   MAP("map"),
   MARK("mark"),
   MENU("menu"),
-  META("meta", true),
+  META("meta", Qualifier.VOID),
   METER("meter"),
   NAV("nav"),
   NOSCRIPT("noscript"),
@@ -92,7 +94,7 @@ public enum HtmlElements {
   OPTGROUP("optgroup"),
   OPTION("option"),
   P("p"),
-  PARAM("param", true),
+  PARAM("param", Qualifier.VOID),
   PRE("pre"),
   PRODRESS("prodress"),
   Q("q"),
@@ -101,44 +103,42 @@ public enum HtmlElements {
   RUBY("ruby"),
   S("s"),
   SAMP("samp"),
-  SCRIPT("script"),
+  SCRIPT("script", Qualifier.INLINE),
   SECTION("section"),
-  SELECT("select"),
+  SELECT("select", Qualifier.INLINE),
   SMALL("small"),
-  SOURCE("source", true),
-  SPAN("span"),
+  SOURCE("source", Qualifier.VOID),
+  SPAN("span", Qualifier.INLINE),
   STRONG("strong"),
   STYLE("style"),
-  SUB("sub"),
+  SUB("sub", Qualifier.INLINE),
   SUMMARY("summary"),
-  SUP("sup"),
+  SUP("sup", Qualifier.INLINE),
   TABLE("table"),
   TBODY("tbody"),
   TD("td"),
-  TEXTAREA("textarea"),
+  TEXTAREA("textarea", Qualifier.INLINE),
   TFOOT("tfoot"),
   TH("th"),
   THEAD("thead"),
   TIME("time"),
   TITLE("title"),
   TR("tr"),
-  TRACK("track", true),
-  U("u"),
+  TRACK("track", Qualifier.VOID),
+  U("u", Qualifier.INLINE),
   UL("ul"),
   VAR("var"),
   VIDEO("video"),
-  WBR("wbr", true);
+  WBR("wbr", Qualifier.VOID);
 
   private final String value;
   private final boolean voidElement;
+  private final boolean inlineElement;
 
-  HtmlElements(String value) {
-    this(value, false);
-  }
-
-  HtmlElements(String value, boolean voidElement) {
+  HtmlElements(String value, Qualifier... qualifiers) {
     this.value = value;
-    this.voidElement = voidElement;
+    this.voidElement = Arrays.asList(qualifiers).contains(Qualifier.VOID);
+    this.inlineElement = Arrays.asList(qualifiers).contains(Qualifier.INLINE);
   }
 
   public String getValue() {
@@ -153,4 +153,10 @@ public enum HtmlElements {
   public boolean isVoid() {
     return voidElement;
   }
+
+  public boolean isInline() {
+    return inlineElement;
+  }
+
+  private enum Qualifier {VOID, INLINE}
 }
