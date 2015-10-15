@@ -80,12 +80,13 @@
       </f:facet>
 
       <tc:in value="#{inputSuggestController.simpleValue}"
-             label="Delay">
+             label="Delay (currently not supported)">
         <tc:suggest suggestMethod="#{countries.prefixed}" delay="2000"/>
       </tc:in>
 
-      <tc:out escape="false"
-          value="Setting the &lt;b>delay='2000'&lt;/b> to wait 2 seconds before making an AJAX request."/>
+      <tc:panel>
+        Setting the <b>delay='2000'</b> to wait 2 seconds before making an AJAX request.
+      </tc:panel>
 
     </tc:panel>
 
