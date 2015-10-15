@@ -124,9 +124,10 @@ public abstract class LabelLayoutRendererBase extends RendererBase {
     // todo: check if BootstrapClass.FORM_GROUP is needed, I've removed it, because of it's margin-bottom: 15px;
     // todo: so we lost too much space
     // todo: without it, e. g. an input field in the header will not be layouted correctly
-    if (ComponentUtils.findAncestor(component, UINav.class) != null) { // TODO: optimize
-      writer.writeClassAttribute(divClass, BootstrapClass.FORM_GROUP, BootstrapClass.maximumSeverity(component));
-    }
+    CssItem extra = ComponentUtils.findAncestor(component, UINav.class) != null ? BootstrapClass.FORM_GROUP : null;
+    // TODO: optimize findAncestor() -> set a marker in UINav?
+
+    writer.writeClassAttribute(divClass, extra, BootstrapClass.maximumSeverity(component));
 
     switch (labelLayout) {
       case flexLeft:
