@@ -97,10 +97,9 @@ public final class HtmlRendererUtils {
         writer.writeText(text);
       } else {
         writer.writeText(text.substring(0, pos));
-        writer.startElement(HtmlElements.SPAN);
-        writer.writeClassAttribute(TobagoClass.X__ACCESS_KEY);
+        writer.startElement(HtmlElements.U);
         writer.writeText(Character.toString(text.charAt(pos)));
-        writer.endElement(HtmlElements.SPAN);
+        writer.endElement(HtmlElements.U);
         writer.writeText(text.substring(pos + 1));
       }
     }

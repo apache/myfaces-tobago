@@ -39,8 +39,7 @@ public enum TobagoClass implements CssItem {
   SHEET__PAGING_LINKS("tobago-sheet-pagingLinks"),
   SHEET__PAGING_OUTPUT("tobago-sheet-pagingOutput"),
   SHEET__PAGING_PAGES("tobago-sheet-pagingPages"),
-  SUGGEST("tobago-suggest"),
-  X__ACCESS_KEY("tobago-x-accessKey");
+  SUGGEST("tobago-suggest");
 
   private final String name;
 
