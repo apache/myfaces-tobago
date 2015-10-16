@@ -48,6 +48,7 @@ import org.apache.myfaces.tobago.internal.layout.OriginCell;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.layout.Display;
 import org.apache.myfaces.tobago.layout.Measure;
+import org.apache.myfaces.tobago.layout.ShowPosition;
 import org.apache.myfaces.tobago.layout.TextAlign;
 import org.apache.myfaces.tobago.model.ExpandedState;
 import org.apache.myfaces.tobago.model.Selectable;
@@ -677,17 +678,17 @@ public class SheetRenderer extends RendererBase {
     RenderUtils.decodedStateOfTreeData(facesContext, sheet);
   }
 
-  private Markup markupForLeftCenterRight(final String name) {
-    if ("left".equals(name)) {
-      return Markup.LEFT;
+  private Markup markupForLeftCenterRight(final ShowPosition position) {
+    switch (position) {
+      case left:
+        return Markup.LEFT;
+      case center:
+        return Markup.CENTER;
+      case right:
+        return Markup.RIGHT;
+      default:
+        return Markup.NULL;
     }
-    if ("center".equals(name)) {
-      return Markup.CENTER;
-    }
-    if ("right".equals(name)) {
-      return Markup.RIGHT;
-    }
-    return Markup.NULL;
   }
 
   private String checkPagingAttribute(final String name) {

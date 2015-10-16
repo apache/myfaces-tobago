@@ -326,6 +326,14 @@ OverflowProperty(property) ::= <<
 <NormalProperty(property)>
 >>
 
+SanitizeModeProperty(property) ::= <<
+<NormalProperty(property)>
+>>
+
+ShowPositionProperty(property) ::= <<
+<NormalProperty(property)>
+>>
+
 StyleProperty(property) ::= <<
 <NormalProperty(property)>
 >>

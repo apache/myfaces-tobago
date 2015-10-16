@@ -34,6 +34,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasVar;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsShowRoot;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsShowRootJunction;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
+import org.apache.myfaces.tobago.layout.ShowPosition;
 import org.apache.myfaces.tobago.model.Selectable;
 
 import javax.faces.component.UIData;
@@ -146,8 +147,13 @@ public interface SheetTagDeclaration
    * rendered in the sheet's footer.
    */
   @TagAttribute
-  @UIComponentTagAttribute(defaultValue = "center",
-      allowedValues = {"left", "center", "right", "none"})
+  @UIComponentTagAttribute(
+      type = "org.apache.myfaces.tobago.layout.ShowPosition",
+      defaultValue = ShowPosition.STRING_CENTER,
+      allowedValues = {
+          ShowPosition.STRING_LEFT, ShowPosition.STRING_CENTER, ShowPosition.STRING_RIGHT, ShowPosition.STRING_NONE
+      },
+      defaultCode = "org.apache.myfaces.tobago.layout.ShowPosition.center")
   void setShowDirectLinks(String showDirectLinks);
 
   /**
@@ -156,8 +162,13 @@ public interface SheetTagDeclaration
    * capability to enter the index displayed page directly.
    */
   @TagAttribute
-  @UIComponentTagAttribute(defaultValue = "right",
-      allowedValues = {"left", "center", "right", "none"})
+  @UIComponentTagAttribute(
+      type = "org.apache.myfaces.tobago.layout.ShowPosition",
+      defaultValue = ShowPosition.STRING_RIGHT,
+      allowedValues = {
+          ShowPosition.STRING_LEFT, ShowPosition.STRING_CENTER, ShowPosition.STRING_RIGHT, ShowPosition.STRING_NONE
+      },
+      defaultCode = "org.apache.myfaces.tobago.layout.ShowPosition.right")
   void setShowPageRange(String showPageRange);
 
   /**
@@ -166,8 +177,13 @@ public interface SheetTagDeclaration
    * capability to enter the index of the start row directly.
    */
   @TagAttribute
-  @UIComponentTagAttribute(defaultValue = "left",
-      allowedValues = {"left", "center", "right", "none"})
+  @UIComponentTagAttribute(
+      type = "org.apache.myfaces.tobago.layout.ShowPosition",
+      defaultValue = ShowPosition.STRING_LEFT,
+      allowedValues = {
+          ShowPosition.STRING_LEFT, ShowPosition.STRING_CENTER, ShowPosition.STRING_RIGHT, ShowPosition.STRING_NONE
+      },
+      defaultCode = "org.apache.myfaces.tobago.layout.ShowPosition.left")
   void setShowRowRange(String showRowRange);
 
   /**

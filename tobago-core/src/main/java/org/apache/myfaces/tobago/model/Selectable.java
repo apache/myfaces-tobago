@@ -126,13 +126,13 @@ public enum Selectable {
   public static final String   STRING_MULTI_CASCADE = "multiCascade";
 
 
-  private static final Set<Selectable> SHEET_VALUES = EnumSet.of(
+  public static final Set<Selectable> SHEET_VALUES = EnumSet.of(
       none,
       multi,
       single,
       singleOrNone);
 
-  private static final Set<Selectable> TREE_VALUES = EnumSet.of(
+  public static final Set<Selectable> TREE_VALUES = EnumSet.of(
       none,
       multi,
       single,
@@ -140,7 +140,7 @@ public enum Selectable {
       singleLeafOnly,
       multiCascade);
 
-  private static final Set<Selectable> TREE_LISTBOX_VALUES = EnumSet.of(
+  public static final Set<Selectable> TREE_LISTBOX_VALUES = EnumSet.of(
       single,
       singleLeafOnly,
       multiLeafOnly);

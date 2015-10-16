@@ -35,7 +35,10 @@ public interface HasSanitize {
    * because that are the critical parts.
    */
   @TagAttribute
-  @UIComponentTagAttribute(defaultValue = SanitizeMode.STRING_AUTO,
-      allowedValues = {SanitizeMode.STRING_AUTO, SanitizeMode.STRING_NEVER})
+  @UIComponentTagAttribute(
+      type = "org.apache.myfaces.tobago.sanitizer.SanitizeMode",
+      defaultValue = SanitizeMode.STRING_AUTO,
+      allowedValues = {SanitizeMode.STRING_AUTO, SanitizeMode.STRING_NEVER},
+      defaultCode = "org.apache.myfaces.tobago.sanitizer.SanitizeMode.auto")
   void setSanitize(String sanitize);
 }

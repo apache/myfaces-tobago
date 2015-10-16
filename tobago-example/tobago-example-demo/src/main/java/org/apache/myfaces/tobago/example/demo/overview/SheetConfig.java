@@ -19,36 +19,25 @@
 
 package org.apache.myfaces.tobago.example.demo.overview;
 
+import org.apache.myfaces.tobago.layout.ShowPosition;
+import org.apache.myfaces.tobago.model.Selectable;
+
 import javax.faces.model.SelectItem;
 
 public class SheetConfig {
-
-  private static final String[] SHEET_PAGER_POSITION_KEYS = {
-      "none",
-      "left",
-      "center",
-      "right"
-  };
-
-  private static final String[] SHEET_SELECTABLE_KEYS = {
-      "none",
-      "single",
-      "singleOrNone",
-      "multi"
-  };
 
   private boolean sheetShowHeader;
   private boolean showPagingAlways;
   private int sheetFirst;
   private int sheetRows;
   private int sheetDirectLinkCount;
-  private String sheetRowPagingPosition;
-  private String sheetDirectPagingPosition;
-  private String sheetPagePagingPosition;
+  private ShowPosition sheetRowPagingPosition;
+  private ShowPosition sheetDirectPagingPosition;
+  private ShowPosition sheetPagePagingPosition;
   private SelectItem[] sheetDirectLinkCountItems;
   private SelectItem[] sheetPagingPositionItems;
   private SelectItem[] sheetSelectableItems;
-  private String selectable;
+  private Selectable selectable;
   private boolean showDirectLinksArrows;
   private boolean showPageRangeArrows;
   private boolean sheetConfigPopup;
@@ -60,12 +49,12 @@ public class SheetConfig {
     sheetDirectLinkCountItems = createSheetItems(new Integer[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15});
     sheetShowHeader = true;
     showPagingAlways = false;
-    sheetRowPagingPosition = SHEET_PAGER_POSITION_KEYS[1];
-    sheetDirectPagingPosition = SHEET_PAGER_POSITION_KEYS[2];
-    sheetPagePagingPosition = SHEET_PAGER_POSITION_KEYS[3];
-    sheetPagingPositionItems = createSheetItems(SHEET_PAGER_POSITION_KEYS);
-    sheetSelectableItems = createSheetItems(SHEET_SELECTABLE_KEYS);
-    selectable = SHEET_SELECTABLE_KEYS[2];
+    sheetRowPagingPosition = ShowPosition.left;
+    sheetDirectPagingPosition = ShowPosition.center;
+    sheetPagePagingPosition = ShowPosition.right;
+    sheetPagingPositionItems = createSheetItems(ShowPosition.values());
+    sheetSelectableItems = createSheetItems(Selectable.SHEET_VALUES.toArray());
+    selectable = Selectable.singleOrNone;
     showDirectLinksArrows = false;
     showPageRangeArrows = true;
   }
@@ -142,27 +131,27 @@ public class SheetConfig {
     return sheetDirectLinkCountItems;
   }
 
-  public String getSheetRowPagingPosition() {
+  public ShowPosition getSheetRowPagingPosition() {
     return sheetRowPagingPosition;
   }
 
-  public void setSheetRowPagingPosition(final String sheetRowPagingPosition) {
+  public void setSheetRowPagingPosition(final ShowPosition sheetRowPagingPosition) {
     this.sheetRowPagingPosition = sheetRowPagingPosition;
   }
 
-  public String getSheetDirectPagingPosition() {
+  public ShowPosition getSheetDirectPagingPosition() {
     return sheetDirectPagingPosition;
   }
 
-  public void setSheetDirectPagingPosition(final String sheetDirectPagingPosition) {
+  public void setSheetDirectPagingPosition(final ShowPosition sheetDirectPagingPosition) {
     this.sheetDirectPagingPosition = sheetDirectPagingPosition;
   }
 
-  public String getSheetPagePagingPosition() {
+  public ShowPosition getSheetPagePagingPosition() {
     return sheetPagePagingPosition;
   }
 
-  public void setSheetPagePagingPosition(final String sheetPagePagingPosition) {
+  public void setSheetPagePagingPosition(final ShowPosition sheetPagePagingPosition) {
     this.sheetPagePagingPosition = sheetPagePagingPosition;
   }
 
@@ -178,11 +167,11 @@ public class SheetConfig {
     this.sheetSelectableItems = sheetSelectableItems;
   }
 
-  public String getSelectable() {
+  public Selectable getSelectable() {
     return selectable;
   }
 
-  public void setSelectable(final String selectable) {
+  public void setSelectable(final Selectable selectable) {
     this.selectable = selectable;
   }
 
