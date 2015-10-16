@@ -25,7 +25,7 @@
 
   <tc:panel rendered="#{info.enabled}">
 
-    <tc:section value="Main Properties">
+    <tc:section label="Main Properties">
 
       <tc:in value="#{info.version}" readonly="true"
              label="Tobago Version"/>
@@ -50,7 +50,7 @@
 
     </tc:section>
 
-    <tc:section value="System Properties">
+    <tc:section label="System Properties">
 
       <tc:sheet var="entry" value="#{info.systemPropertiesAsList}" columns="*;2*" rows="1000">
         <tc:column label="Key">
