@@ -1143,7 +1143,6 @@ public class SheetRenderer extends RendererBase {
     // DO Nothing
   }
 
-/*
   @Override
   public boolean getPrepareRendersChildren() {
     return true;
@@ -1165,5 +1164,4 @@ public class SheetRenderer extends RendererBase {
       }
     }
   }
-*/
 }
