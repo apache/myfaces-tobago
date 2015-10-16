@@ -21,6 +21,7 @@ package org.apache.myfaces.tobago.internal.taglib.declaration;
 
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
+import org.apache.myfaces.tobago.sanitizer.SanitizeMode;
 
 public interface HasSanitize {
   /**
@@ -34,7 +35,7 @@ public interface HasSanitize {
    * because that are the critical parts.
    */
   @TagAttribute
-  @UIComponentTagAttribute(defaultValue = "auto",
-      allowedValues = {"auto", "never"})
+  @UIComponentTagAttribute(defaultValue = SanitizeMode.STRING_AUTO,
+      allowedValues = {SanitizeMode.STRING_AUTO, SanitizeMode.STRING_NEVER})
   void setSanitize(String sanitize);
 }
