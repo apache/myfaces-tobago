@@ -189,6 +189,12 @@
     <converter-class>org.apache.myfaces.tobago.example.demo.OnOffConverter</converter-class>
   </converter>
 
+  <factory>
+    <exception-handler-factory>
+      org.apache.myfaces.tobago.example.demo.TestExceptionHandlerFactory
+    </exception-handler-factory>
+  </factory>
+
   <managed-bean>
     <managed-bean-name>upload</managed-bean-name>
     <managed-bean-class>org.apache.myfaces.tobago.example.demo.Upload</managed-bean-class>
