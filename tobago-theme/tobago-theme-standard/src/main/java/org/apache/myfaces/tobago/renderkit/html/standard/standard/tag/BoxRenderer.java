@@ -75,7 +75,7 @@ public class BoxRenderer extends BoxRendererBase {
             writer.writeClassAttribute(BootstrapClass.PANEL_TITLE);
             if (label != null) {
                 RenderUtils.encode(facesContext, label);
-            } else {
+            } else if (labelString != null) {
                 writer.writeText(labelString);
             }
             writer.endElement(HtmlElements.H3);
