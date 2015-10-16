@@ -18,7 +18,8 @@
 -->
 
 <tc:header fixed="true"
-           xmlns:tc="http://myfaces.apache.org/tobago/component">
+           xmlns:tc="http://myfaces.apache.org/tobago/component"
+           xmlns:f="http://java.sun.com/jsf/core">
 
   <tc:nav image="image/feather-leaf.png" label="Tobago Demo">
 
@@ -30,6 +31,10 @@
           <tc:command label="Hier sind die themes">
             <tc:command action="#{clientConfigController.submit}">
               <tc:selectOneRadio value="#{clientConfigController.theme}">
+                <!-- XXX this is a workaround until TOBAGO-1506 is resolved -->
+                <f:facet name="change">
+                  <tc:command action="#{clientConfigController.submit}"/>
+                </f:facet>
                 <tc:selectItems value="#{clientConfigController.themeItems}"/>
               </tc:selectOneRadio>
             </tc:command>
@@ -37,6 +42,10 @@
           <tc:command label="#{overviewBundle.menu_locale}">
             <tc:command action="#{clientConfigController.submit}">
               <tc:selectOneRadio value="#{clientConfigController.locale}">
+                <!-- XXX this is a workaround until TOBAGO-1506 is resolved -->
+                <f:facet name="change">
+                  <tc:command action="#{clientConfigController.submit}"/>
+                </f:facet>
                 <tc:selectItems value="#{clientConfigController.localeItems}"/>
               </tc:selectOneRadio>
             </tc:command>
