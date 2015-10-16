@@ -19,42 +19,38 @@
 
 <ui:composition template="/layout/overview.xhtml"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
-                xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:f="http://java.sun.com/jsf/core">
+                xmlns:ui="http://java.sun.com/jsf/facelets">
+
   <ui:param name="title" value="Server Info"/>
 
   <tc:panel rendered="#{info.enabled}">
-    <f:facet name="layout">
-      <tc:gridLayout rows="auto;auto;auto;auto;auto;auto;*;*"/>
-    </f:facet>
 
-    <tc:in value="#{info.version}" readonly="true"
-           label="Tobago Version"/>
+    <tc:section value="Main Properties">
 
-    <tc:in value="#{info.jsfTitle}" readonly="true"
-           label="JSF Implementation"/>
+      <tc:in value="#{info.version}" readonly="true"
+             label="Tobago Version"/>
 
-    <tc:in value="#{info.jsfVersion}" readonly="true"
-           label="JSF Version"/>
+      <tc:in value="#{info.jsfTitle}" readonly="true"
+             label="JSF Implementation"/>
 
-    <tc:in value="#{info.serverInfo}" readonly="true"
-           label="Server Info"/>
+      <tc:in value="#{info.jsfVersion}" readonly="true"
+             label="JSF Version"/>
 
-    <tc:in value="#{info.systemProperties['java.runtime.version']} - #{info.systemProperties['java.vm.vendor']}"
-           readonly="true"
-           label="Java"/>
+      <tc:in value="#{info.serverInfo}" readonly="true"
+             label="Server Info"/>
 
-    <tc:in
-        value="#{info.systemProperties['os.name']} - #{info.systemProperties['os.version']} - #{info.systemProperties['os.arch']}"
-        readonly="true"
-        label="Operating System"/>
+      <tc:in value="#{info.systemProperties['java.runtime.version']} - #{info.systemProperties['java.vm.vendor']}"
+             readonly="true"
+             label="Java"/>
 
-    <tc:panel>
-      <f:facet name="layout">
-        <tc:gridLayout columns="auto;*"/>
-      </f:facet>
+      <tc:in
+          value="#{info.systemProperties['os.name']} - #{info.systemProperties['os.version']} - #{info.systemProperties['os.arch']}"
+          readonly="true"
+          label="Operating System"/>
 
-      <tc:label value="System Properties"/>
+    </tc:section>
+
+    <tc:section value="System Properties">
 
       <tc:sheet var="entry" value="#{info.systemPropertiesAsList}" columns="*;2*" rows="1000">
         <tc:column label="Key">
@@ -64,14 +60,9 @@
           <tc:out value="#{entry.value}" escape="true"/>
         </tc:column>
       </tc:sheet>
-    </tc:panel>
+    </tc:section>
 
-    <tc:panel>
-      <f:facet name="layout">
-        <tc:gridLayout columns="auto;*"/>
-      </f:facet>
-
-      <tc:label value="Sessions"/>
+    <tc:section label="Sessions">
 
       <tc:sheet value="#{activityList.values}" var="activity"
                 showRowRange="left" showPageRange="right" showDirectLinks="center">
@@ -88,17 +79,21 @@
           <tc:out value="#{activity.ajaxRequest}"/>
         </tc:column>
       </tc:sheet>
-    </tc:panel>
+    </tc:section>
 
-    <tc:sheet value="#{manifestReader.manifestTree}" state="#{manifestReader.state}" var="manifest">
-      <tc:columnNode label="Library/Key">
-        <tc:treeIndent/>
-        <tc:treeLabel value="#{manifest.name}"/>
-      </tc:columnNode>
-      <tc:column label="Value">
-        <tc:out value="#{manifest.value}"/>
-      </tc:column>
-    </tc:sheet>
+    <tc:section label="Manifest">
+
+      <tc:sheet value="#{manifestReader.manifestTree}" state="#{manifestReader.state}" var="manifest">
+        <tc:columnNode label="Library/Key">
+          <tc:treeIndent/>
+          <tc:treeLabel value="#{manifest.name}"/>
+        </tc:columnNode>
+        <tc:column label="Value">
+          <tc:out value="#{manifest.value}"/>
+        </tc:column>
+      </tc:sheet>
+
+    </tc:section>
 
   </tc:panel>
 </ui:composition>
