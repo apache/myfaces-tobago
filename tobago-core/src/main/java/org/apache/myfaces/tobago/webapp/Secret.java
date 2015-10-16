@@ -82,6 +82,11 @@ public final class Secret implements Serializable {
     final Map requestParameterMap = facesContext.getExternalContext().getRequestParameterMap();
     final String fromRequest = (String) requestParameterMap.get(Secret.KEY);
     final Object session = facesContext.getExternalContext().getSession(false);
+    Secret secret = getSecret(session);
+    return secret != null && secret.secret.equals(fromRequest);
+  }
+
+  private static Secret getSecret(Object session) {
     Secret secret = null;
     if (session!=null) {
       if (session instanceof HttpSession) {
@@ -92,7 +97,7 @@ public final class Secret implements Serializable {
         throw new IllegalArgumentException("Unknown session type: " + session);
       }
     }
-    return secret != null && secret.secret.equals(fromRequest);
+    return secret;
   }
 
   /**
@@ -104,15 +109,10 @@ public final class Secret implements Serializable {
     writer.writeAttribute(HtmlAttributes.NAME, Secret.KEY, false);
     writer.writeAttribute(HtmlAttributes.ID, Secret.KEY, false);
     final Object session = facesContext.getExternalContext().getSession(true);
-    final Secret secret;
-    if (session instanceof HttpSession) {
-      secret = (Secret) ((HttpSession) session).getAttribute(Secret.KEY);
-    } else if (PortletUtils.isPortletApiAvailable() && session instanceof PortletSession) {
-      secret = (Secret) ((PortletSession) session).getAttribute(Secret.KEY, PortletSession.APPLICATION_SCOPE);
-    } else {
-      throw new IllegalArgumentException("Unknown session type: " + session);
+    final Secret secret = getSecret(session);
+    if (secret != null) {
+      writer.writeAttribute(HtmlAttributes.VALUE, secret.secret, false);
     }
-    writer.writeAttribute(HtmlAttributes.VALUE, secret.secret, false);
     writer.endElement(HtmlElements.INPUT);
   }
 
