@@ -102,8 +102,14 @@ without shadow
       writer.writeClassAttribute(Classes.create(box, "shadow"));
 
       final Style shadow = new Style();
-      shadow.setWidth(box.getCurrentWidth().subtract(1));
-      shadow.setHeight(box.getCurrentHeight().subtract(1));
+      Measure boxCurrentWidth = box.getCurrentWidth();
+      if (boxCurrentWidth!=null) {
+        shadow.setWidth(boxCurrentWidth.subtract(1));
+      }
+      Measure boxCurrentHeight = box.getCurrentHeight();
+      if (boxCurrentHeight!=null) {
+        shadow.setHeight(boxCurrentHeight.subtract(1));
+      }
       writer.writeStyleAttribute(shadow);
 
       // border begin
@@ -111,8 +117,12 @@ without shadow
       writer.writeClassAttribute(Classes.create(box, "border"));
 
       final Style border = new Style();
-      border.setWidth(box.getCurrentWidth().subtract(3));
-      border.setHeight(box.getCurrentHeight().subtract(3));
+      if (boxCurrentWidth!=null) {
+        border.setWidth(boxCurrentWidth.subtract(3));
+      }
+      if (boxCurrentHeight!=null) {
+        border.setHeight(boxCurrentHeight.subtract(3));
+      }
       writer.writeStyleAttribute(border);
     }
 
@@ -142,8 +152,12 @@ without shadow
     final Measure borderRight = box.getBorderRight();
     final Measure borderTop = box.getBorderTop();
     final Measure borderBottom = box.getBorderBottom();
-    style.setWidth(style.getWidth().subtract(borderLeft).subtract(borderRight));
-    style.setHeight(style.getHeight().subtract(borderTop).subtract(borderBottom));
+    if (style.getWidth()!=null) {
+      style.setWidth(style.getWidth().subtract(borderLeft).subtract(borderRight));
+    }
+    if (style.getHeight()!=null) {
+      style.setHeight(style.getHeight().subtract(borderTop).subtract(borderBottom));
+    }
     style.setLeft(borderLeft);
     style.setTop(borderTop);
     writer.writeStyleAttribute(style);
