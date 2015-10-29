@@ -106,25 +106,23 @@ public enum Selectable {
   @Deprecated
   public static final Selectable   MULTI_CASCADE = multiCascade;
 
-
   public static final String STRING_NONE = "none";
 
   public static final String STRING_MULTI = "multi";
 
-  public static final String   STRING_SINGLE = "single";
+  public static final String STRING_SINGLE = "single";
 
-  public static final String   STRING_SINGLE_OR_NONE = "singleOrNone";
+  public static final String STRING_SINGLE_OR_NONE = "singleOrNone";
 
-  public static final String   STRING_MULTI_LEAF_ONLY = "multiLeafOnly";
+  public static final String STRING_MULTI_LEAF_ONLY = "multiLeafOnly";
 
-  public static final String   STRING_SINGLE_LEAF_ONLY = "singleLeafOnly";
+  public static final String STRING_SINGLE_LEAF_ONLY = "singleLeafOnly";
 
-  public static final String   STRING_SIBLING = "sibling";
+  public static final String STRING_SIBLING = "sibling";
 
-  public static final String   STRING_SIBLING_LEAF_ONLY = "siblingLeafOnly";
+  public static final String STRING_SIBLING_LEAF_ONLY = "siblingLeafOnly";
 
-  public static final String   STRING_MULTI_CASCADE = "multiCascade";
-
+  public static final String STRING_MULTI_CASCADE = "multiCascade";
 
   public static final Set<Selectable> SHEET_VALUES = EnumSet.of(
       none,
