@@ -70,10 +70,6 @@ public abstract class AbstractUISheet extends AbstractUIData
 
   public static final String SORTER_ID = "sorter";
 
-  public static final String NONE = "none";
-  public static final String SINGLE = "single";
-  public static final String MULTI = "multi";
-
   private SheetState state;
   private List<Integer> widthList;
   private transient LayoutTokens columnLayout;

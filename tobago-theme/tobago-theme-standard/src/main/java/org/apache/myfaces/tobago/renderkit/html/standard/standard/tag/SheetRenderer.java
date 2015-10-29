@@ -959,7 +959,7 @@ public class SheetRenderer extends RendererBase {
     writer.startElement(HtmlElements.DIV);
     writer.writeClassAttribute(Classes.create(sheet, "toolBar"));
 
-    if (UISheet.MULTI.equals(sheet.getSelectable())) {
+    if (Selectable.multi == sheet.getSelectable()) {
       EncodeUtils.prepareRendererAll(facesContext, toolBar);
       RenderUtils.encode(facesContext, toolBar);
     }
