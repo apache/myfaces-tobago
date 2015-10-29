@@ -1151,16 +1151,37 @@ public class SheetRenderer extends RendererBase {
 
   @Override
   public void prepareRendersChildren(final FacesContext facesContext, final UIComponent component) throws IOException {
+
     final UISheet sheet = (UISheet) component;
-    for (final UIColumn column : sheet.getRenderedColumns()) {
-      if (column instanceof AbstractUIColumnNode) {
-        if (LOG.isDebugEnabled()) {
-          LOG.debug("TODO: AbstractUIColumnNode are not prepared.");
-        }
-        // TBD: when the column should be prepared for rendering, I think we need to
-        // TBD: iterate over each row to prepare it.
-        // TBD: in the moment this method TreeNodeRendererBase.prepareRender() will not be called in sheets
+    List<UIComponent> others = new ArrayList<UIComponent>();
+    List<UIColumn> columns = new ArrayList<UIColumn>();
+
+    for (final UIComponent child : sheet.getChildren()) {
+      if (child instanceof UIColumn) {
+        columns.add((UIColumn) child);
       } else {
+        others.add(child);
+      }
+    }
+
+    // for non-columns: prepare only once (needed for e.g. UIStyle)
+    for (UIComponent other : others) {
+      EncodeUtils.prepareRendererAll(facesContext, other);
+    }
+
+    // for columns: prepare for each row
+    final int last = sheet.isRowsUnlimited() ? Integer.MAX_VALUE : sheet.getFirst() + sheet.getRows();
+    for (int rowIndex = sheet.getFirst(); rowIndex < last; rowIndex++) {
+      sheet.setRowIndex(rowIndex);
+      if (!sheet.isRowAvailable()) {
+        break;
+      }
+      final Object rowRendered = sheet.getAttributes().get("rowRendered");
+      if (rowRendered instanceof Boolean && !((Boolean) rowRendered)) {
+        continue;
+      }
+
+      for (UIComponent column : columns) {
         EncodeUtils.prepareRendererAll(facesContext, column);
       }
     }
