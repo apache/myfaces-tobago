@@ -671,4 +671,9 @@ public class Style implements Serializable {
     empty = null;
     this.textAlign = textAlign;
   }
+
+  @Override
+  public String toString() {
+    return encode();
+  }
 }
