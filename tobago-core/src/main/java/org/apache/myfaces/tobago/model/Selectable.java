@@ -80,31 +80,31 @@ public enum Selectable {
 
   /** @deprecated  */
   @Deprecated
-  public static final Selectable   SINGLE = single;
+  public static final Selectable SINGLE = single;
 
   /** @deprecated  */
   @Deprecated
-  public static final Selectable   SINGLE_OR_NONE = singleOrNone;
+  public static final Selectable SINGLE_OR_NONE = singleOrNone;
 
   /** @deprecated  */
   @Deprecated
-  public static final Selectable   MULTI_LEAF_ONLY = multiLeafOnly;
+  public static final Selectable MULTI_LEAF_ONLY = multiLeafOnly;
 
   /** @deprecated  */
   @Deprecated
-  public static final Selectable   SINGLE_LEAF_ONLY = singleLeafOnly;
+  public static final Selectable SINGLE_LEAF_ONLY = singleLeafOnly;
 
   /** @deprecated  */
   @Deprecated
-  public static final Selectable   SIBLING = sibling;
+  public static final Selectable SIBLING = sibling;
 
   /** @deprecated  */
   @Deprecated
-  public static final Selectable   SIBLING_LEAF_ONLY = siblingLeafOnly;
+  public static final Selectable SIBLING_LEAF_ONLY = siblingLeafOnly;
 
   /** @deprecated  */
   @Deprecated
-  public static final Selectable   MULTI_CASCADE = multiCascade;
+  public static final Selectable MULTI_CASCADE = multiCascade;
 
   public static final String STRING_NONE = "none";
 
