@@ -64,3 +64,5 @@ No longer supported:
 * ClientProperties.pageWidth
 * ClientProperties.pageHeight
 * tc:gridLayoutConstraint -> tc:style
+
+if using tc:page state, width, height: remove it
