@@ -897,6 +897,20 @@
               <exclude>**/jquery*.map</exclude>
               <exclude>**/jquery*.css</exclude>
 
+              <!-- bootstrap -->
+              <exclude>**/bootstrap*.js</exclude>
+              <exclude>**/npm.js</exclude>
+              <exclude>**/bootstrap*.map</exclude>
+              <exclude>**/bootstrap*.css</exclude>
+              <exclude>**/glyphicons*.*</exclude>
+
+              <!-- typeahead -->
+              <exclude>**/typeahead*.js</exclude>
+
+              <!-- prism -->
+              <exclude>**/prism*.js</exclude>
+              <exclude>**/prism*.css</exclude>
+
               <!-- log files -->
               <exclude>**/*.log</exclude>
 
