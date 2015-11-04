@@ -21,14 +21,16 @@ package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.UICommand;
+import org.apache.myfaces.tobago.component.UINav;
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.internal.component.AbstractUIImage;
-import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
+import org.apache.myfaces.tobago.renderkit.RendererBase;
+import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
-import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
+import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,7 +39,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 
-public class ImageRenderer extends LayoutComponentRendererBase {
+public class ImageRenderer extends RendererBase {
 
   private static final Logger LOG = LoggerFactory.getLogger(ImageRenderer.class);
 
@@ -74,9 +76,8 @@ public class ImageRenderer extends LayoutComponentRendererBase {
       alt = "";
     }
 
-    writer.startElement(HtmlElements.IMG, image);
-    final String clientId = image.getClientId(facesContext);
-    writer.writeIdAttribute(clientId);
+    writer.startElement(HtmlElements.IMG);
+    writer.writeIdAttribute(image.getClientId(facesContext));
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, image);
     if (src != null) {
       writer.writeAttribute(HtmlAttributes.SRC, src, true);
@@ -87,9 +88,18 @@ public class ImageRenderer extends LayoutComponentRendererBase {
       writer.writeAttribute(HtmlAttributes.TITLE, title, true);
     }
     writer.writeAttribute(HtmlAttributes.BORDER, border, false);
-    final Style style = new Style(facesContext, image);
+/*
+    final Style style = new Style();
+    style.setWidth(image.getWidth());
+    style.setHeight(image.getHeight());
     writer.writeStyleAttribute(style);
-    writer.writeClassAttribute(Classes.create(image));
+*/
+    // todo: may set a marker in the context in the
+    // todo: NavRenderer, or the additional class, to avoid tree traversing
+    writer.writeClassAttribute(
+        Classes.create(image),
+        ComponentUtils.findAncestor(image, UINav.class) != null ? BootstrapClass.NAVBAR_BRAND : null,
+        image.getCustomClass());
     writer.endElement(HtmlElements.IMG);
   }
 

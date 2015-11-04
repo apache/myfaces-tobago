@@ -32,12 +32,15 @@
     <tc:label value="tx"/>
 
     <tc:in value="a" id="s1"/>
-    <tx:in value="b" label="normal" fieldId="s2"/>
+    <tx:in value="b" label="normal" id="s2"/>
+    <tc:out/>
+    <tx:in value="c" label="normal breiter als breit als breit" id="s3"/>
 
-    <tc:script file="script/tobago-assert.js"/>
+    <tc:in value="a new" id="sn1"/>
+    <tc:in value="b new" label="normal&lt;b>b&lt;/b>" id="sn2"/>
+    <tc:out/>
+    <tc:in value="c new" label="normal breiter als breit als breit" id="sn3"/>
 
-    <tc:script onload="TobagoAssert.assertLayout('page:s1', 0, 25, 200, 20);"/>
-    <tc:script onload="TobagoAssert.assertLayout('page:s2', 330, 25, 200, 20);"/>
 
   </tc:page>
 </f:view>

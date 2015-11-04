@@ -19,7 +19,7 @@
 
 package org.apache.myfaces.tobago.context;
 
-import org.apache.myfaces.tobago.config.Configurable;
+import org.apache.myfaces.tobago.component.Visual;
 import org.apache.myfaces.tobago.internal.context.ResourceManagerFactory;
 import org.apache.myfaces.tobago.layout.Measure;
 
@@ -147,47 +147,6 @@ public final class ResourceManagerUtils {
     return addContextPath(scripts, contextPath);
   }
 
-  /**
-   * @deprecated Since Tobago 2.0.0. Because of CSP.
-   */
-  @Deprecated
-  public static String getScriptsAsJSArray(final FacesContext facesContext, final String[] names) {
-    final List<String> fileNames = new ArrayList<String>();
-    for (final String name : names) {
-      fileNames.addAll(getScripts(facesContext, name));
-    }
-    return toJSArray(fileNames);
-  }
-
-  /**
-   * @deprecated Since Tobago 2.0.0. Because of CSP.
-   */
-  @Deprecated
-  public static String getStylesAsJSArray(final FacesContext facesContext, final String[] names) {
-    final List<String> fileNames = new ArrayList<String>();
-    for (final String name : names) {
-      fileNames.addAll(getStyles(facesContext, name));
-    }
-    return toJSArray(fileNames);
-  }
-
-  /**
-   * @deprecated Since Tobago 2.0.0. Because of CSP.
-   */
-  @Deprecated
-  public static String toJSArray(final List<String> list) {
-    final StringBuilder sb = new StringBuilder();
-    for (final String name : list) {
-      if (sb.length() > 0) {
-        sb.append(", ");
-      }
-      sb.append('\'');
-      sb.append(name);
-      sb.append('\'');
-    }
-    return "[" + sb.toString() + "]";
-  }
-
   public static String getDisabledImageWithPath(final FacesContext facesContext, final String image,
                                                 final boolean ignoreMissing) {
     final String filename = ResourceUtils.addPostfixToFilename(image, "Disabled");
@@ -212,9 +171,9 @@ public final class ResourceManagerUtils {
   }
 
   public static Measure getThemeMeasure(
-      final FacesContext facesContext, final Configurable configurable, final String name) {
+      final FacesContext facesContext, final Visual visual, final String name) {
     return ResourceManagerFactory.getResourceManager(facesContext).getThemeMeasure(
-        facesContext, configurable.getRendererType(), configurable.getCurrentMarkup(), name);
+        facesContext, visual.getRendererType(), visual.getCurrentMarkup(), name);
   }
 
   /**

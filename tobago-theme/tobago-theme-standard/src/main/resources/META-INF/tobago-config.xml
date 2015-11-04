@@ -91,6 +91,12 @@
           </supported-markup>
         </renderer>
         <renderer>
+          <name>FlexLayout</name>
+          <supported-markup>
+            <markup>vertically</markup>
+          </supported-markup>
+        </renderer>
+        <renderer>
           <name>Image</name>
           <supported-markup>
             <markup>disabled</markup>
@@ -346,6 +352,8 @@
           <supported-markup>
             <markup>disabled</markup>
             <markup>selected</markup>
+            <markup>big</markup>
+            <markup>right</markup>
           </supported-markup>
         </renderer>
         <renderer>
@@ -387,22 +395,26 @@
         <script name="script/contrib/jquery-1.11.1.js"/>
         <script name="script/contrib/jquery-ui-1.10.4.custom.js"/>
         <script name="script/contrib/jquery-ui-timepicker-addon-1.4.5.js"/>
+        <script name="bootstrap/3.3.5/js/bootstrap.js"/>
         <script name="script/tobago.js"/>
+        <script name="typeahead/0.11.1/typeahead.js"/>
         <style name="style/contrib/ui-lightness/jquery-ui-1.10.4.custom.css"/>
         <style name="style/contrib/jquery-ui-timepicker-addon-1.4.5.css"/>
+        <style name="bootstrap/3.3.5/css/bootstrap.css"/>
+        <style name="bootstrap/3.3.5/css/bootstrap-theme.css"/>
         <style name="style/tobago.css"/>
-        <!-- backward compatibility -->
-        <style name="style/style.css"/>
       </resources>
       <resources production="false">
         <script name="script/contrib/jquery-1.11.1.js"/>
         <script name="script/contrib/jquery-ui-1.10.4.custom.js"/>
         <script name="script/contrib/jquery-ui-timepicker-addon-1.4.5.js"/>
+        <script name="bootstrap/3.3.5/js/bootstrap.js"/>
         <script name="script/tobago.js"/>
         <script name="script/tobago-calendar.js"/>
         <script name="script/tobago-console.js"/>
         <script name="script/tobago-converter.js"/>
         <script name="script/tobago-in.js"/>
+        <script name="script/tobago-layout.js"/>
         <script name="script/tobago-menu.js"/>
         <script name="script/tobago-overlay.js"/>
         <script name="script/tobago-popup.js"/>
@@ -411,12 +423,12 @@
         <script name="script/tobago-tab.js"/>
         <script name="script/tobago-tree.js"/>
         <script name="script/tobago-utils.js"/>
-        <script name="script/tobago-logging.js"/>
+        <script name="typeahead/0.11.1/typeahead.js"/>
         <style name="style/contrib/ui-lightness/jquery-ui-1.10.4.custom.css"/>
         <style name="style/contrib/jquery-ui-timepicker-addon-1.4.5.css"/>
+        <style name="bootstrap/3.3.5/css/bootstrap.css"/>
+        <style name="bootstrap/3.3.5/css/bootstrap-theme.css"/>
         <style name="style/tobago.css"/>
-        <!-- backward compatibility -->
-        <style name="style/style.css"/>
       </resources>
     </theme-definition>
   </theme-definitions>

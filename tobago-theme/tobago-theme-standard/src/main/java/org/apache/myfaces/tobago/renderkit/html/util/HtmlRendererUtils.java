@@ -20,23 +20,21 @@
 package org.apache.myfaces.tobago.renderkit.html.util;
 
 import org.apache.myfaces.tobago.component.Attributes;
-import org.apache.myfaces.tobago.component.SupportsMarkup;
-import org.apache.myfaces.tobago.component.SupportsRenderedPartially;
 import org.apache.myfaces.tobago.component.UIColumnEvent;
 import org.apache.myfaces.tobago.component.UICommand;
 import org.apache.myfaces.tobago.component.UIForm;
-import org.apache.myfaces.tobago.component.UIPage;
 import org.apache.myfaces.tobago.component.UISheet;
+import org.apache.myfaces.tobago.component.Visual;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.internal.component.AbstractUICommand;
-import org.apache.myfaces.tobago.internal.util.Deprecation;
 import org.apache.myfaces.tobago.internal.util.FacesContextUtils;
-import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.internal.webapp.TobagoResponseWriterWrapper;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
+import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.Style;
+import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.Command;
 import org.apache.myfaces.tobago.renderkit.html.CommandMap;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
@@ -60,7 +58,6 @@ import javax.faces.model.SelectItem;
 import javax.faces.model.SelectItemGroup;
 import java.io.IOException;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
@@ -75,22 +72,6 @@ public final class HtmlRendererUtils {
     // to prevent instantiation
   }
 
-  /** @deprecated since 2.0.0, because of CSP */
-  private static boolean renderErrorFocusId(final FacesContext facesContext, final UIInput input) throws IOException {
-    if (ComponentUtils.isError(input)) {
-      if (!FacesContext.getCurrentInstance().getExternalContext().getRequestMap().containsKey(ERROR_FOCUS_KEY)) {
-        FacesContext.getCurrentInstance().getExternalContext().getRequestMap().put(ERROR_FOCUS_KEY, Boolean.TRUE);
-        final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
-        final String id = input.getClientId(facesContext);
-        writer.writeJavascript("Tobago.errorFocusId = '" + id + "';");
-        return true;
-      } else {
-        return true;
-      }
-    }
-    return FacesContext.getCurrentInstance().getExternalContext().getRequestMap().containsKey(ERROR_FOCUS_KEY);
-  }
-
   public static void renderFocus(
       final String clientId, final boolean focus, final boolean error, final FacesContext facesContext,
       final TobagoResponseWriter writer) throws IOException {
@@ -100,41 +81,6 @@ public final class HtmlRendererUtils {
       requestMap.put(FOCUS_KEY, Boolean.TRUE);
       writer.writeAttribute(HtmlAttributes.AUTOFOCUS, true);
     }
-  }
-
-  /** @deprecated since 2.0.0, because of CSP */
-  public static void renderFocusId(final FacesContext facesContext, final UIComponent component)
-      throws IOException {
-    if (component instanceof UIInput) {
-      renderFocusId(facesContext, (UIInput) component);
-    }
-  }
-
-  /** @deprecated since 2.0.0, because of CSP */
-  public static void renderFocusId(final FacesContext facesContext, final UIInput component)
-      throws IOException {
-    if (renderErrorFocusId(facesContext, component)) {
-      return;
-    }
-    if (ComponentUtils.getBooleanAttribute(component, Attributes.FOCUS)) {
-      final UIPage page = (UIPage) ComponentUtils.findPage(facesContext, component);
-      final String id = component.getClientId(facesContext);
-      if (!StringUtils.isBlank(page.getFocusId()) && !page.getFocusId().equals(id)) {
-        LOG.warn("page focusId='" + page.getFocusId() + "' ignoring new value '" + id + "'");
-      } else {
-        final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
-        writer.writeJavascript("Tobago.focusId='" + id + "';");
-      }
-    }
-  }
-
-  /**
-   * @deprecated Since Tobago 2.0.0
-   */
-  @Deprecated
-  public static void createCssClass(final FacesContext facesContext, final UIComponent component) {
-    final String rendererName = getRendererName(facesContext, component);
-    Deprecation.LOG.error("Can't render style class for renderer " + rendererName);
   }
 
   public static String getRendererName(final FacesContext facesContext, final UIComponent component) {
@@ -151,113 +97,61 @@ public final class HtmlRendererUtils {
         writer.writeText(text);
       } else {
         writer.writeText(text.substring(0, pos));
-        writer.startElement(HtmlElements.SPAN, null);
-        writer.writeClassAttribute("tobago-x-accessKey");
+        writer.startElement(HtmlElements.U);
         writer.writeText(Character.toString(text.charAt(pos)));
-        writer.endElement(HtmlElements.SPAN);
+        writer.endElement(HtmlElements.U);
         writer.writeText(text.substring(pos + 1));
       }
     }
   }
 
-  /** @deprecated since 1.5.7 and 2.0.0 */
-  @Deprecated
-  public static void setDefaultTransition(final FacesContext facesContext, final boolean transition)
-      throws IOException {
-    writeScriptLoader(facesContext, null, new String[]{"Tobago.transition = " + transition + ";"});
-  }
-
-  /** @deprecated since 2.0.0 */
-  @Deprecated
-  public static void addClickAcceleratorKey(
-      final FacesContext facesContext, final String clientId, final char key)
-      throws IOException {
-    //addClickAcceleratorKey(facesContext, clientId, key, null);
-  }
-
-  /** @deprecated since 2.0.0 */
-  @Deprecated
-  public static void addClickAcceleratorKey(
-      final FacesContext facesContext, final String clientId, final char key, final String modifier)
-      throws IOException {
-    //String str
-    //    = createOnclickAcceleratorKeyJsStatement(clientId, key, modifier);
-    //writeScriptLoader(facesContext, null, new String[]{str});
-  }
-
-  /** @deprecated since 2.0.0 */
-  @Deprecated
-  public static void addAcceleratorKey(
-      final FacesContext facesContext, final String func, final char key) throws IOException {
-    //addAcceleratorKey(facesContext, func, key, null);
-  }
-
-  /** @deprecated since 2.0.0 */
-  @Deprecated
-  public static void addAcceleratorKey(
-      final FacesContext facesContext, final String func, final char key, final String modifier)
-      throws IOException {
-    final String str = createAcceleratorKeyJsStatement(func, key, modifier);
-    writeScriptLoader(facesContext, null, new String[]{str});
-  }
-
-  /** @deprecated since 2.0.0 */
-  @Deprecated
-  public static String createOnclickAcceleratorKeyJsStatement(
-      final String clientId, final char key, final String modifier) {
-    final String func = "Tobago.clickOnElement('" + clientId + "');";
-    return createAcceleratorKeyJsStatement(func, key, modifier);
-  }
-
-  /** @deprecated since 2.0.0 */
-  @Deprecated
-  public static String createAcceleratorKeyJsStatement(
-      final String func, final char key, final String modifier) {
-    final StringBuilder buffer = new StringBuilder("new Tobago.AcceleratorKey(function() {");
-    buffer.append(func);
-    if (!func.endsWith(";")) {
-      buffer.append(';');
+  public static void encodeIconWithLabel(TobagoResponseWriter writer, String image, String label) throws IOException {
+    if (image != null && image.startsWith("glyphicon-")) { // XXX hack: should be integrated in the resource manager
+      writer.startElement(HtmlElements.SPAN);
+      writer.writeClassAttribute(BootstrapClass.GLYPHICON, BootstrapClass.glyphicon(image));
+      writer.endElement(HtmlElements.SPAN);
     }
-    buffer.append("}, \"");
-    buffer.append(key);
-    if (modifier != null) {
-      buffer.append("\", \"");
-      buffer.append(modifier);
+    if (label != null) {
+      writer.startElement(HtmlElements.SPAN);
+      writer.writeText(label);
+      writer.endElement(HtmlElements.SPAN);
     }
-    buffer.append("\");");
-    return buffer.toString();
   }
 
-  /**
-   * @deprecated since 2.0.0. Please use setter.
-   */
-  @Deprecated
-  public static void removeStyleAttribute(final UIComponent component, final String name) {
-    Deprecation.LOG.error("HtmlRendererUtils.removeStyleAttribute() no longer supported. Use setter.");
+  public static void encodeIconWithLabel(
+       TobagoResponseWriter writer, FacesContext facesContext, String image, LabelWithAccessKey label, boolean disabled)
+      throws IOException {
+    if (image != null) {
+      if (image.startsWith("glyphicon-")) {
+        writer.startElement(HtmlElements.SPAN);
+        writer.writeClassAttribute(BootstrapClass.GLYPHICON, BootstrapClass.glyphicon(image));
+        writer.endElement(HtmlElements.SPAN);
+      } else {
+        if (ResourceManagerUtils.isAbsoluteResource(image)) {
+          // absolute Path to image: nothing to do
+        } else {
+          image = getImageWithPath(facesContext, image, disabled);
+        }
+        writer.startElement(HtmlElements.IMG);
+        writer.writeAttribute(HtmlAttributes.SRC, image, true);
+        writer.writeAttribute(HtmlAttributes.ALT, "", false);
+        writer.endElement(HtmlElements.IMG);
+      }
+    }
+
+    if (label.getLabel() != null) {
+      writer.startElement(HtmlElements.SPAN);
+      HtmlRendererUtils.writeLabelWithAccessKey(writer, label);
+      writer.endElement(HtmlElements.SPAN);
+    }
   }
 
-  /** @deprecated since 2.0.0 */
-  @Deprecated
-  public static void createHeaderAndBodyStyles(final FacesContext facesContext, final UIComponent component) {
-    Deprecation.LOG.error("HtmlRendererUtils.createHeaderAndBodyStyles() no longer supported");
-  }
-
-  /** @deprecated since 2.0.0 */
-  @Deprecated
-  public static void createHeaderAndBodyStyles(
-      final FacesContext facesContext, final UIComponent component, final boolean width) {
-    Deprecation.LOG.error("HtmlRendererUtils.createHeaderAndBodyStyles() no longer supported");
-  }
-
-  /** @deprecated since 2.0.3 */
-  @Deprecated
-  public static String createSrc(final String src, final String ext) {
-    final int dot = src.lastIndexOf('.');
-    if (dot == -1) {
-      LOG.warn("Image src without extension: '" + src + "'");
-      return src;
+  public static String getImageWithPath(final FacesContext facesContext, final String image, final boolean disabled) {
+    final int indexOfExtension = ResourceManagerUtils.indexOfExtension(image);
+    if (indexOfExtension == -1) {
+      return ResourceManagerUtils.getImageOrDisabledImage(facesContext, image, disabled);
     } else {
-      return src.substring(0, dot) + ext + src.substring(dot);
+      return ResourceManagerUtils.getImageOrDisabledImageWithPath(facesContext, image, disabled);
     }
   }
 
@@ -269,86 +163,6 @@ public final class HtmlRendererUtils {
     } else {
       return new TobagoResponseWriterWrapper(writer);
     }
-  }
-
-  /**
-   * @deprecated Since Tobago 2.0.0. Because of CSP.
-   */
-  @Deprecated
-  public static void writeScriptLoader(final FacesContext facesContext, final String script)
-      throws IOException {
-    writeScriptLoader(facesContext, new String[]{script}, null);
-  }
-
-  /**
-   * @deprecated Since Tobago 2.0.0. Because of CSP.
-   */
-  @Deprecated
-  public static void writeScriptLoader(
-      final FacesContext facesContext, final String[] scripts, final String[] afterLoadCmds)
-      throws IOException {
-    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
-    if (scripts != null) {
-      LOG.error("Scripts argument for writeScriptLoader not supported anymore!");
-    }
-    String allScripts = "[]";
-    if (scripts != null) {
-      allScripts = ResourceManagerUtils.getScriptsAsJSArray(facesContext, scripts);
-    }
-    final boolean ajax = FacesContextUtils.isAjax(facesContext);
-    writer.startJavascript();
-    // XXX fix me if scripts != null
-    if (ajax || scripts != null) {
-      writer.write("new Tobago.ScriptLoader(");
-      if (!ajax) {
-        writer.write("\n    ");
-      }
-      writer.write(allScripts);
-
-      if (afterLoadCmds != null && afterLoadCmds.length > 0) {
-        writer.write(", ");
-        if (!ajax) {
-          writer.write("\n");
-        }
-        boolean first = true;
-        for (final String afterLoadCmd : afterLoadCmds) {
-          final String[] splittedStrings = StringUtils.split(afterLoadCmd, '\n'); // split on <CR> to have nicer JS
-          for (final String splitted : splittedStrings) {
-            writer.write(first ? "          " : "        + ");
-            writer.write("\"");
-            String cmd = StringUtils.replace(splitted, "\\", "\\\\");
-            cmd = StringUtils.replace(cmd, "\"", "\\\"");
-            writer.write(cmd);
-            writer.write("\"");
-            if (!ajax) {
-              writer.write("\n");
-            }
-            first = false;
-          }
-        }
-      }
-      writer.write(");");
-    } else {
-    for (final String afterLoadCmd : afterLoadCmds) {
-      writer.write(afterLoadCmd);
-    }
-    }
-    writer.endJavascript();
-  }
-
-  /**
-   * @deprecated Since Tobago 2.0.0. Because of CSP.
-   */
-  @Deprecated
-  public static void writeStyleLoader(
-      final FacesContext facesContext, final String[] styles) throws IOException {
-    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
-
-    writer.startJavascript();
-    writer.write("Tobago.ensureStyleFiles(");
-    writer.write(ResourceManagerUtils.getStylesAsJSArray(facesContext, styles));
-    writer.write(");");
-    writer.endJavascript();
   }
 
   public static String getTitleFromTipAndMessages(final FacesContext facesContext, final UIComponent component) {
@@ -390,15 +204,6 @@ public final class HtmlRendererUtils {
         submittedValue != null ?  new String[] {submittedValue}: null, null, writer, facesContext);
   }
 
-  /**
-   * @deprecated Since Tobago 2.0.7
-   */
-  @Deprecated
-  public static void renderSelectItems(final UIInput component, final Iterable<SelectItem> items, final Object[] values,
-      final Boolean onlySelected, final TobagoResponseWriter writer, final FacesContext facesContext)
-      throws IOException {
-    renderSelectItems(component, items, values, null, onlySelected, writer, facesContext);
-  }
   public static void renderSelectItems(final UIInput component, final Iterable<SelectItem> items, final Object[] values,
       final String[] submittedValues, final Boolean onlySelected, final TobagoResponseWriter writer,
       final FacesContext facesContext) throws IOException {
@@ -410,7 +215,7 @@ public final class HtmlRendererUtils {
     }
     for (final SelectItem item : items) {
       if (item instanceof SelectItemGroup) {
-        writer.startElement(HtmlElements.OPTGROUP, null);
+        writer.startElement(HtmlElements.OPTGROUP);
         writer.writeAttribute(HtmlAttributes.LABEL, item.getLabel(), true);
         if (item.isDisabled()) {
           writer.writeAttribute(HtmlAttributes.DISABLED, true);
@@ -444,7 +249,7 @@ public final class HtmlRendererUtils {
             }
           }
         }
-        writer.startElement(HtmlElements.OPTION, null);
+        writer.startElement(HtmlElements.OPTION);
         writer.writeAttribute(HtmlAttributes.VALUE, formattedValue, true);
         if (item instanceof org.apache.myfaces.tobago.model.SelectItem) {
           final String image = ((org.apache.myfaces.tobago.model.SelectItem) item).getImage();
@@ -456,7 +261,7 @@ public final class HtmlRendererUtils {
             writer.writeStyleAttribute(style);
           }
         }
-        Markup markup = item instanceof SupportsMarkup ? ((SupportsMarkup) item).getMarkup() : Markup.NULL;
+        Markup markup = item instanceof Visual ? ((Visual) item).getMarkup() : Markup.NULL;
         if (onlySelected == null && contains) {
           writer.writeAttribute(HtmlAttributes.SELECTED, true);
           markup = Markup.SELECTED.add(markup);
@@ -473,255 +278,9 @@ public final class HtmlRendererUtils {
     }
   }
 
-  /**
-   * @deprecated Since Tobago 2.0.3.
-   */
-  @Deprecated
-  public static String getComponentIds(
-      final FacesContext context, final UIComponent component, final String[] componentId) {
-    final StringBuilder sb = new StringBuilder();
-    for (final String id : componentId) {
-      if (!StringUtils.isBlank(id)) {
-        if (sb.length() > 0) {
-          sb.append(",");
-        }
-        final String clientId = ComponentUtils.evaluateClientId(context, component, id);
-        if (clientId != null) {
-          sb.append(clientId);
-        }
-      }
-    }
-    return sb.toString();
-  }
-
-  /**
-   * @deprecated Since 2.0.3, please use {@link org.apache.myfaces.tobago.util.ComponentUtils#evaluateClientIds(
-   * javax.faces.context.FacesContext, javax.faces.component.UIComponent, String[])}
-   */
-  public static String[] getComponentIdsAsList(
-      final FacesContext context, final UIComponent component, final String[] componentIds) {
-    return ComponentUtils.evaluateClientIds(context, component, componentIds);
-  }
-
-  /**
-   * @deprecated Since 2.0.3, please use {@link org.apache.myfaces.tobago.util.ComponentUtils#evaluateClientId(
-   * javax.faces.context.FacesContext, javax.faces.component.UIComponent, String)}
-   */
-  public static String getComponentId(
-      final FacesContext context, final UIComponent component, final String componentId) {
-    return ComponentUtils.evaluateClientId(context, component, componentId);
-  }
-
-  /**
-   * @deprecated since Tobago 1.5.0.
-   */
-  @Deprecated
-  public static String toStyleString(final String key, final Integer value) {
-    final StringBuilder buf = new StringBuilder();
-    buf.append(key);
-    buf.append(":");
-    buf.append(value);
-    buf.append("px; ");
-    return buf.toString();
-  }
-
-  /**
-   * @deprecated since Tobago 1.5.0.
-   */
-  @Deprecated
-  public static String toStyleString(final String key, final String value) {
-    final StringBuilder buf = new StringBuilder();
-    buf.append(key);
-    buf.append(":");
-    buf.append(value);
-    buf.append("; ");
-    return buf.toString();
-  }
-
-  /**
-   * @deprecated since Tobago 1.5.0. Please use getTitleFromTipAndMessages and write it out.
-   */
-  @Deprecated
-  public static void renderTip(final UIComponent component, final TobagoResponseWriter writer) throws IOException {
-    final Object objTip = component.getAttributes().get(Attributes.TIP);
-    if (objTip != null) {
-      final String tip = String.valueOf(objTip);
-      writer.writeAttribute(HtmlAttributes.TITLE, tip, true);
-    }
-  }
-
-  /**
-   * @deprecated since Tobago 1.5.0. Please use getTitleFromTipAndMessages and write it out.
-   */
-  public static void renderImageTip(final UIComponent component, final TobagoResponseWriter writer) throws IOException {
-    final Object objTip = component.getAttributes().get(Attributes.TIP);
-    if (objTip != null) {
-      final String tip = String.valueOf(objTip);
-      writer.writeAttribute(HtmlAttributes.ALT, tip, true);
-    } else {
-      writer.writeAttribute(HtmlAttributes.ALT, "", false);
-    }
-  }
-
-  /**
-   * @deprecated Since Tobago 2.0.3, because of CSP.
-   */
-  @Deprecated
-  public static String getJavascriptString(final String str) {
-    if (str != null) {
-      return "\"" + str + "\"";
-    }
-    return null;
-  }
-
-  /**
-   * @deprecated Since Tobago 2.0.3, because of CSP.
-   */
-  @Deprecated
-  public static String getRenderedPartiallyJavascriptArray(final FacesContext facesContext, final UICommand command) {
-    if (command == null) {
-      return null;
-    }
-    return getRenderedPartiallyJavascriptArray(facesContext, command, command);
-  }
-
-  /**
-   * @deprecated Since Tobago 2.0.3, because of CSP.
-   */
-  @Deprecated
-  public static String getRenderedPartiallyJavascriptArray(
-      final FacesContext facesContext, final UIComponent searchBase,
-      final SupportsRenderedPartially supportsRenderedPartially) {
-    final String[] list = supportsRenderedPartially.getRenderedPartially();
-    if (list == null || list.length == 0) {
-      return null;
-    }
-    final StringBuilder strBuilder = new StringBuilder();
-    strBuilder.append("[");
-    for (int i = 0; i < list.length; i++) {
-      if (i != 0) {
-        strBuilder.append(",");
-      }
-      strBuilder.append("\"");
-      strBuilder.append(ComponentUtils.evaluateClientId(facesContext, searchBase, list[i]));
-      strBuilder.append("\"");
-    }
-    strBuilder.append("]");
-    return strBuilder.toString();
-  }
-
-  /**
-   * @deprecated Since Tobago 2.0.3, because of CSP.
-   */
-  @Deprecated
-  public static String getJavascriptArray(final String[] list) {
-    final StringBuilder strBuilder = new StringBuilder();
-    strBuilder.append("[");
-    for (int i = 0; i < list.length; i++) {
-      if (i != 0) {
-        strBuilder.append(",");
-      }
-      strBuilder.append("\"");
-      strBuilder.append(list[i]);
-      strBuilder.append("\"");
-    }
-    strBuilder.append("]");
-    return strBuilder.toString();
-  }
-
-  /**
-   * will be removed in later versions
-   * @deprecated since 2.0.0
-   */
-  @Deprecated
-  public static void renderDojoDndSource(final FacesContext context, final UIComponent component)
+  public static void renderCommandFacet(
+      final UIComponent component, final FacesContext facesContext, final TobagoResponseWriter writer)
       throws IOException {
-    final Object objDojoType = component.getAttributes().get("dojoType");
-    if (null != objDojoType && (objDojoType.equals("dojo.dnd.Source") || objDojoType.equals("dojo.dnd.Target"))) {
-      FacesContextUtils.addOnloadScript(context, createDojoDndType(component,
-          component.getClientId(context), String.valueOf(objDojoType)));
-    }
-  }
-
-  /**
-   * will be removed in later versions
-   * @deprecated since 2.0.0
-   */
-  @Deprecated
-  public static void renderDojoDndItem(
-      final UIComponent component, final TobagoResponseWriter writer, final boolean addStyle)
-      throws IOException {
-    final Object objDndType = component.getAttributes().get("dndType");
-    if (objDndType != null) {
-      writer.writeAttribute("dndType", String.valueOf(objDndType), false);
-    }
-    final Object objDndData = component.getAttributes().get("dndData");
-    if (objDndData != null) {
-      writer.writeAttribute("dndData", String.valueOf(objDndData), false);
-    }
-  }
-
-  /**
-   * will be removed in later versions
-   * @deprecated since 2.0.0
-   */
-  @Deprecated
-  public static String createDojoDndType(final UIComponent component, final String clientId, final String dojoType) {
-    final StringBuilder strBuilder = new StringBuilder();
-    strBuilder.append("new ").append(dojoType).append("('").append(clientId).append("'");
-    final StringBuilder parameter = new StringBuilder();
-
-    final Object objHorizontal = component.getAttributes().get("horizontal");
-    if (objHorizontal != null) {
-      parameter.append("horizontal: ").append(String.valueOf(objHorizontal)).append(",");
-    }
-    final Object objCopyOnly = component.getAttributes().get("copyOnly");
-    if (objCopyOnly != null) {
-      parameter.append("copyOnly: ").append(String.valueOf(objCopyOnly)).append(",");
-    }
-    final Object objSkipForm = component.getAttributes().get("skipForm");
-    if (objSkipForm != null) {
-      parameter.append("skipForm: ").append(String.valueOf(objSkipForm)).append(",");
-    }
-    final Object objWithHandles = component.getAttributes().get("withHandles");
-    if (objWithHandles != null) {
-      parameter.append("withHandles: ").append(String.valueOf(objWithHandles)).append(",");
-    }
-    final Object objAccept = component.getAttributes().get("accept");
-    if (objAccept != null) {
-      String accept = null;
-      if (objAccept instanceof String[]) {
-        final String[] allowed = (String[]) objAccept;
-        if (allowed.length > 1) {
-          // TODO replace this
-          accept = "'" + allowed[0] + "'";
-          for (int i = 1; i < allowed.length; i++) {
-            accept += ",'" + allowed[i] + "'";
-          }
-        }
-      } else {
-        accept = (String) objAccept;
-      }
-      parameter.append("accept: [").append(accept).append("],");
-    }
-    final Object objSingular = component.getAttributes().get("singular");
-    if (objSingular != null) {
-      parameter.append("singular: ").append(String.valueOf(objSingular)).append(",");
-    }
-    final Object objCreator = component.getAttributes().get("creator");
-    if (objCreator != null) {
-      parameter.append("creator: ").append(String.valueOf(objCreator)).append(",");
-    }
-    if (parameter.length() > 0) {
-      parameter.deleteCharAt(parameter.lastIndexOf(","));
-      strBuilder.append(",{").append(parameter).append("}");
-    }
-    strBuilder.append(");");
-    return strBuilder.toString();
-  }
-
-  public static void renderCommandFacet(final UIComponent component, final FacesContext facesContext,
-      final TobagoResponseWriter writer) throws IOException {
     renderCommandFacet(component, component.getClientId(facesContext), facesContext, writer);
   }
 
@@ -750,8 +309,8 @@ public final class HtmlRendererUtils {
     }
   }
 
-  public static boolean renderSheetCommands(final UISheet sheet, final FacesContext facesContext,
-                                         final TobagoResponseWriter writer) throws IOException {
+  public static boolean renderSheetCommands(
+      final UISheet sheet, final FacesContext facesContext, final TobagoResponseWriter writer) throws IOException {
     CommandMap commandMap = null;
     for (final UIComponent child : sheet.getChildren()) {
       if (child instanceof UIColumnEvent) {
@@ -775,161 +334,16 @@ public final class HtmlRendererUtils {
     return false;
   }
 
-  /**
-   * @deprecated Since Tobago 2.0.0. Because of CSP.
-   */
-  @Deprecated
-  public static void checkForCommandFacet(
-      final UIComponent component, final FacesContext facesContext, final TobagoResponseWriter writer)
-      throws IOException {
-    checkForCommandFacet(component, Arrays.asList(component.getClientId(facesContext)), facesContext, writer);
-  }
-
-  /**
-   * @deprecated Since Tobago 2.0.0. Because of CSP.
-   */
-  @Deprecated
-  public static void checkForCommandFacet(
-      final UIComponent component, final List<String> clientIds, final FacesContext facesContext,
-      final TobagoResponseWriter writer) throws IOException {
-    if (ComponentUtils.getBooleanAttribute(component, Attributes.READONLY)
-        || ComponentUtils.getBooleanAttribute(component, Attributes.DISABLED)) {
-      return;
-    }
-    final Map<String, UIComponent> facets = component.getFacets();
-    for (final Map.Entry<String, UIComponent> entry : facets.entrySet()) {
-      if (entry.getValue() instanceof UICommand) {
-        addCommandFacet(clientIds, entry, facesContext, writer);
-      }
-    }
-  }
-
-  /**
-   * @deprecated Since Tobago 2.0.0. Because of CSP.
-   */
-  @Deprecated
-  private static void addCommandFacet(
-      final List<String> clientIds, final Map.Entry<String, UIComponent> facetEntry,
-      final FacesContext facesContext, final TobagoResponseWriter writer)
-      throws IOException {
-    for (final String clientId : clientIds) {
-      writeScriptForClientId(clientId, facetEntry, facesContext, writer);
-    }
-  }
-
-  /**
-   * @deprecated Since Tobago 2.0.0. Because of CSP.
-   */
-  @Deprecated
-  private static void writeScriptForClientId(
-      final String clientId, final Map.Entry<String, UIComponent> facetEntry,
-      final FacesContext facesContext, final TobagoResponseWriter writer) throws IOException {
-    if (facetEntry.getValue() instanceof UICommand
-        && ((UICommand) facetEntry.getValue()).getRenderedPartially().length > 0) {
-      writer.startJavascript();
-      writer.write("var element = Tobago.element(\"");
-      writer.write(clientId);
-      writer.write("\");\n");
-      writer.write("if (element) {\n");
-      writer.write("   Tobago.addEventListener(element, \"");
-      writer.write(facetEntry.getKey());
-      writer.write("\", function(){Tobago.reloadComponent(this, '");
-      writer.write(HtmlRendererUtils.getComponentIds(facesContext, facetEntry.getValue(),
-              ((UICommand) facetEntry.getValue()).getRenderedPartially()));
-      writer.write("','");
-      writer.write(facetEntry.getValue().getClientId(facesContext));
-      writer.write("', {})});\n");
-      writer.write("};");
-      writer.endJavascript();
-    } else {
-      final UIComponent facetComponent = facetEntry.getValue();
-
-      writer.startJavascript();
-      writer.write("var element = Tobago.element(\"");
-      writer.write(clientId + "\");\n");
-      writer.write("if (element) {\n");
-      writer.write("   Tobago.addEventListener(element, \"");
-      writer.write(facetEntry.getKey());
-      writer.write("\", function(){");
-      String facetAction = (String) facetComponent.getAttributes().get(Attributes.ONCLICK);
-      if (facetAction != null) {
-         // Replace @autoId
-        facetAction = StringUtils.replace(facetAction, "@autoId", facetComponent.getClientId(facesContext));
-        writer.write(facetAction);
-      } else {
-        writer.write(createSubmitAction(
-            facetComponent.getClientId(facesContext),
-            ComponentUtils.getBooleanAttribute(facetComponent, Attributes.TRANSITION),
-            null,
-            clientId));
-      }
-      writer.write("});\n};");
-      writer.endJavascript();
-    }
-  }
-
-  /**
-   * @deprecated since 2.0.0. JavaScript should not be rendered in the page. See CSP.
-   */
-  @Deprecated
-  public static String createSubmitAction(
-      final String clientId, final boolean transition, final String target, final String focus) {
-    final StringBuilder builder = new StringBuilder();
-    builder.append("Tobago.submitAction(this,'");
-    builder.append(clientId);
-    builder.append("',{");
-    if (!transition) { // transition == true is the default
-      builder.append("transition:false");
-      if (target != null || focus != null) {
-        builder.append(',');
-      }
-    }
-    if (target != null) {
-      builder.append("target:'");
-      builder.append(target);
-      builder.append('\'');
-      if (focus != null) {
-        builder.append(',');
-      }
-    }
-    if (focus != null) {
-      builder.append("focus:'");
-      builder.append(focus);
-      builder.append('\'');
-    }
-    builder.append("});");
-    return builder.toString();
-  }
-
-  /**
-   * @deprecated since Tobago 1.5.0. Please use {@link org.apache.myfaces.tobago.renderkit.css.Classes}.
-   */
-  @Deprecated
-  public static void removeStyleClasses(final UIComponent cell) {
-    Deprecation.LOG.warn("cell = '" + cell + "'");
-  }
-
   public static void encodeContextMenu(
       final FacesContext facesContext, final TobagoResponseWriter writer, final UIComponent parent)
       throws IOException {
     final UIComponent contextMenu = FacetUtils.getContextMenu(parent);
     if (contextMenu != null) {
-      writer.startElement(HtmlElements.OL, contextMenu);
-      writer.writeClassAttribute("tobago-menuBar tobago-menu-contextMenu");
+      writer.startElement(HtmlElements.OL);
+      writer.writeClassAttribute(TobagoClass.MENU_BAR, TobagoClass.MENU__CONTEXT_MENU);
       RenderUtils.encode(facesContext, contextMenu);
       writer.endElement(HtmlElements.OL);
     }
-  }
-
-  /**
-   * @deprecated Since Tobago 2.0.3. Because of CSP.
-   */
-  @Deprecated
-  public static void addAcceleratorKey(
-      final FacesContext facesContext, final UIComponent component, final Character accessKey) {
-    final String clientId = component.getClientId(facesContext);
-    final String jsStatement = createOnclickAcceleratorKeyJsStatement(clientId, accessKey, null);
-    FacesContextUtils.addMenuAcceleratorScript(facesContext, jsStatement);
   }
 
   public static void writeDataAttributes(
@@ -950,7 +364,7 @@ public final class HtmlRendererUtils {
       final Object mapValue = entry.getValue();
       final String value = mapValue instanceof ValueExpression
           ? ((ValueExpression) mapValue).getValue(elContext).toString() : mapValue.toString();
-      writer.writeAttribute("data-" + name, value, true);
+      writer.writeAttribute(DataAttributes.dynamic(name), value, true);
     }
   }
 }

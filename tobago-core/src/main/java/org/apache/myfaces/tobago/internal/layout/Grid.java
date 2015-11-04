@@ -19,14 +19,12 @@
 
 package org.apache.myfaces.tobago.internal.layout;
 
+import org.apache.myfaces.tobago.layout.LayoutTokens;
+import org.apache.myfaces.tobago.layout.RelativeLayoutToken;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.apache.myfaces.tobago.layout.LayoutTokens;
-import org.apache.myfaces.tobago.layout.Orientation;
-import org.apache.myfaces.tobago.layout.RelativeLayoutToken;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class Grid {
@@ -39,8 +37,8 @@ public class Grid {
    */
   private List<Cell> cells;
 
-  private BankHead[] columnHeads;
-  private BankHead[] rowHeads;
+  private LayoutTokens columns;
+  private LayoutTokens rows;
 
   private int columnCount;
   private int rowCount;
@@ -48,26 +46,18 @@ public class Grid {
   private int columnCursor;
   private int rowCursor;
 
-  private boolean columnOverflow;
-  private boolean rowOverflow;
-
   private List<Integer> errorIndexes;
 
   public Grid(final LayoutTokens columns, final LayoutTokens rows) {
     assert columns.getSize() > 0;
     assert rows.getSize() > 0;
 
-    this.columnCount = columns.getSize(); 
-    this.rowCount = rows.getSize(); 
-    
-    this.columnHeads = new BankHead[columnCount];
-    for (int i = 0; i < columnCount; i++) {
-      columnHeads[i] = new BankHead(columns.get(i));
-    }
-    this.rowHeads = new BankHead[rowCount];
-    for (int i = 0; i < rowCount; i++) {
-      rowHeads[i] = new BankHead(rows.get(i));
-    }
+    this.columnCount = columns.getSize();
+    this.rowCount = rows.getSize();
+
+    this.columns = columns;
+    this.rows = rows;
+
     final int size = columnCount * rowCount;
     this.cells = new ArrayList<Cell>(size);
     for (int i = 0; i < size; i++) {
@@ -84,7 +74,7 @@ public class Grid {
 
     if (columnSpan + columnCursor > columnCount) {
       LOG.warn("The columnSpan is to large for the actual position in the grid. Will be fixed. "
-          + "columnSpan=" + columnSpan + " columnCursor=" + columnCursor + " columnCount=" + columnCount);
+          + "columnSpan='" + columnSpan + "' columnCursor='" + columnCursor + "' columnCount='" + columnCount + "'");
       columnSpan = columnCount - columnCursor;
       error = true;
     }
@@ -95,7 +85,7 @@ public class Grid {
     for (int i = 1; i < columnSpan; i++) {
       if (getCell(i + columnCursor, rowCursor) != null) {
         LOG.warn("The columnSpan is to large for the actual position in the grid. Will be fixed. "
-            + "columnSpan=" + columnSpan + " columnCursor=" + columnCursor + " columnCount=" + columnCount);
+            + "columnSpan='" + columnSpan + "' columnCursor='" + columnCursor + "' columnCount='" + columnCount + "'");
         columnSpan = i - 1;
         error = true;
       }
@@ -118,10 +108,6 @@ public class Grid {
     }
 
     findNextFreeCell();
-  }
-
-  public Cell getCell(final int i, final int j, final Orientation orientation) {
-    return orientation == Orientation.HORIZONTAL ? getCell(i, j) : getCell(j, i);
   }
 
   public Cell getCell(final int column, final int row) {
@@ -153,10 +139,14 @@ public class Grid {
     }
   }
 
-  public BankHead[] getBankHeads(final Orientation orientation) {
-    return orientation == Orientation.HORIZONTAL ? columnHeads : rowHeads;
+  public LayoutTokens getColumns() {
+    return columns;
   }
-  
+
+  public LayoutTokens getRows() {
+    return rows;
+  }
+
   private void enlarge(final int newRows) {
     
     // process cells
@@ -167,44 +157,11 @@ public class Grid {
     }
 
     // process heads
-    final BankHead[] newRowHeads = new BankHead[rowCount + newRows];
-    System.arraycopy(rowHeads, 0, newRowHeads, 0, rowHeads.length);
-    rowHeads = newRowHeads;
-    // todo: shorter in jdk 1.6: rowHeads = Arrays.copyOf(rowHeads, rowHeads.length + newRows);
-    
     for (int i = rowCount; i < rowCount + newRows; i++) {
-      rowHeads[i] = new BankHead(RelativeLayoutToken.DEFAULT_INSTANCE);
+      rows.addToken(RelativeLayoutToken.DEFAULT_INSTANCE);
     }
 
     rowCount += newRows;
-  }
-
-  public boolean isOverflow(final Orientation orientation) {
-    return orientation == Orientation.HORIZONTAL ? columnOverflow : rowOverflow;
-  }
-
-  public void setOverflow(final boolean overflow, final Orientation orientation) {
-    if (orientation == Orientation.HORIZONTAL) {
-      this.columnOverflow = overflow;
-    } else {
-      this.rowOverflow = overflow;
-    }
-  }
-
-  public boolean isOverflow() {
-    return columnOverflow;
-  }
-
-  public void setColumnOverflow(final boolean columnOverflow) {
-    this.columnOverflow = columnOverflow;
-  }
-
-  public boolean isRowOverflow() {
-    return rowOverflow;
-  }
-
-  public void setRowOverflow(final boolean rowOverflow) {
-    this.rowOverflow = rowOverflow;
   }
 
   public void addError(final int i, final int j) {
@@ -475,15 +432,7 @@ public class Grid {
 
   @Override
   public String toString() {
-    final StringBuilder builder = new StringBuilder();
-    builder.append(gridAsString());
-    builder.append("columnHeads=");
-    builder.append(Arrays.toString(columnHeads));
-    builder.append("\n");
-    builder.append("rowHeads=");
-    builder.append(Arrays.toString(rowHeads));
-    builder.append("\n");
-    return builder.toString();
+    return gridAsString() + "columns=" + columns + '\n' + "rows=" + rows + "\n";
   }
 
   private boolean connected(final Cell a, final Cell b) {

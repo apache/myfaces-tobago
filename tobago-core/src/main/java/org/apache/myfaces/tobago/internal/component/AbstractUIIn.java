@@ -19,36 +19,6 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
-import org.apache.myfaces.tobago.component.InputSuggest2;
-import org.apache.myfaces.tobago.component.OnComponentPopulated;
-import org.apache.myfaces.tobago.component.RendererTypes;
-import org.apache.myfaces.tobago.util.ComponentUtils;
-import org.apache.myfaces.tobago.util.CreateComponentUtils;
-
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-
-public abstract class AbstractUIIn extends AbstractUIInput implements OnComponentPopulated, InputSuggest2 {
-
-  public void onComponentPopulated(final FacesContext facesContext, final UIComponent parent) {
-    if (getSuggestMethodExpression() != null) {
-      if (getSuggest() == null) {
-        final AbstractUISuggest suggest = (AbstractUISuggest) CreateComponentUtils.createComponent(
-            facesContext, AbstractUISuggest.COMPONENT_TYPE, RendererTypes.SUGGEST, null);
-        getChildren().add(suggest);
-        suggest.setSuggestMethodExpression(getSuggestMethodExpression());
-        suggest.setMinimumCharacters(getSuggestMinChars());
-        suggest.setDelay(getSuggestDelay());
-      }
-    }
-  }
-
-  public AbstractUISuggest getSuggest() {
-    return ComponentUtils.findDescendant(this, AbstractUISuggest.class);
-  }
-
-  public abstract Integer getSuggestDelay();
-
-  public abstract Integer getSuggestMinChars();
+public abstract class AbstractUIIn extends AbstractUIInput {
 
 }

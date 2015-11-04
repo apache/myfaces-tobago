@@ -42,6 +42,11 @@ public class Upload {
           null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "No UploadItem found!", null));
       return null;
     }
+    if (file.get().length == 0) {
+      FacesContext.getCurrentInstance().addMessage(
+          null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Empty UploadItem found!", null));
+      return null;
+    }
     LOG.info("type=" + file.getContentType());
     LOG.info("size=" + file.get().length);
     String name = file.getName();

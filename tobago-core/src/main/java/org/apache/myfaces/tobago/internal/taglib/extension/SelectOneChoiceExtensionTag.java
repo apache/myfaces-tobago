@@ -24,171 +24,17 @@ import org.apache.myfaces.tobago.apt.annotation.ExtensionTag;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
-import org.apache.myfaces.tobago.internal.taglib.SelectOneChoiceTag;
-
-import javax.el.MethodExpression;
-import javax.el.ValueExpression;
-import javax.servlet.jsp.JspException;
 
 /**
  * Render a single selection dropdown list with a label.
+ *
+ * @deprecated since Tobago 3.0. The tx-library is deprecated, please use the tc-library.
  */
-
 @Tag(name = "selectOneChoice")
 @ExtensionTag(
     baseClassName = "org.apache.myfaces.tobago.internal.taglib.SelectOneChoiceTag",
     faceletHandler = "org.apache.myfaces.tobago.facelets.extension.SelectOneChoiceExtensionHandler")
-public class SelectOneChoiceExtensionTag extends TobagoExtensionBodyTagSupport {
-
-  private ValueExpression required;
-  private ValueExpression value;
-  private MethodExpression valueChangeListener;
-  private ValueExpression disabled;
-  private ValueExpression readonly;
-  private ValueExpression onchange;
-  private ValueExpression label;
-  private ValueExpression accessKey;
-  private ValueExpression rendered;
-  private ValueExpression binding;
-  private ValueExpression tip;
-  private MethodExpression validator;
-  private ValueExpression converter;
-  private ValueExpression labelWidth;
-  private ValueExpression tabIndex;
-  private ValueExpression focus;
-  private ValueExpression markup;
-  private ValueExpression validatorMessage;
-  private ValueExpression converterMessage;
-  private ValueExpression requiredMessage;
-  private String fieldId;
-
-  private LabelExtensionTag labelTag;
-  private SelectOneChoiceTag selectOneChoiceTag;
-
-  @Override
-  public int doStartTag() throws JspException {
-
-    labelTag = new LabelExtensionTag();
-    labelTag.setPageContext(pageContext);
-    if (id != null) {
-      labelTag.setId(id);
-    }
-    if (label != null) {
-      labelTag.setValue(label);
-    }
-    if (accessKey != null) {
-      labelTag.setAccessKey(accessKey);
-    }
-    if (tip != null) {
-      labelTag.setTip(tip);
-    }
-    if (rendered != null) {
-      labelTag.setRendered(rendered);
-    }
-    if (labelWidth != null) {
-      labelTag.setColumns(createStringValueExpression(labelWidth.getExpressionString() + ";*"));
-    }
-    if (markup != null) {
-      labelTag.setMarkup(markup);
-    }
-    labelTag.setParent(getParent());
-    labelTag.setJspId(nextJspId());
-    labelTag.doStartTag();
-
-    selectOneChoiceTag = new SelectOneChoiceTag();
-    selectOneChoiceTag.setPageContext(pageContext);
-    if (value != null) {
-      selectOneChoiceTag.setValue(value);
-    }
-    if (valueChangeListener != null) {
-      selectOneChoiceTag.setValueChangeListener(valueChangeListener);
-    }
-    if (validator != null) {
-      selectOneChoiceTag.setValidator(validator);
-    }
-    if (converter != null) {
-      selectOneChoiceTag.setConverter(converter);
-    }
-    if (binding != null) {
-      selectOneChoiceTag.setBinding(binding);
-    }
-    if (onchange != null) {
-      selectOneChoiceTag.setOnchange(onchange);
-    }
-    if (disabled != null) {
-      selectOneChoiceTag.setDisabled(disabled);
-    }
-    if (markup != null) {
-      selectOneChoiceTag.setMarkup(markup);
-    }
-    if (focus != null) {
-      selectOneChoiceTag.setFocus(focus);
-    }
-    if (fieldId != null) {
-      selectOneChoiceTag.setId(fieldId);
-    }
-    if (label != null) {
-      selectOneChoiceTag.setLabel(label);
-    }
-    if (readonly != null) {
-      selectOneChoiceTag.setReadonly(readonly);
-    }
-    if (required != null) {
-      selectOneChoiceTag.setRequired(required);
-    }
-    if (tabIndex != null) {
-      selectOneChoiceTag.setTabIndex(tabIndex);
-    }
-    if (validatorMessage != null) {
-      selectOneChoiceTag.setValidatorMessage(validatorMessage);
-    }
-    if (converterMessage != null) {
-      selectOneChoiceTag.setConverterMessage(converterMessage);
-    }
-    if (requiredMessage != null) {
-      selectOneChoiceTag.setRequiredMessage(requiredMessage);
-    }
-    selectOneChoiceTag.setParent(labelTag);
-    selectOneChoiceTag.setJspId(nextJspId());
-    selectOneChoiceTag.doStartTag();
-
-    return super.doStartTag();
-  }
-
-  @Override
-  public int doEndTag() throws JspException {
-    selectOneChoiceTag.doEndTag();
-    labelTag.doEndTag();
-    return super.doEndTag();
-  }
-
-  @Override
-  public void release() {
-    super.release();
-    binding = null;
-    onchange = null;
-    disabled = null;
-    label = null;
-    accessKey = null;
-    labelWidth = null;
-    converter = null;
-    validator = null;
-    readonly = null;
-    rendered = null;
-    required = null;
-    tip = null;
-    value = null;
-    valueChangeListener = null;
-    tabIndex = null;
-    selectOneChoiceTag = null;
-    labelTag = null;
-    focus = null;
-    markup = null;
-    validatorMessage = null;
-    converterMessage = null;
-    requiredMessage = null;
-    fieldId = null;
-  }
+public interface SelectOneChoiceExtensionTag {
 
   /**
    * Flag indicating that a value is required.
@@ -197,35 +43,27 @@ public class SelectOneChoiceExtensionTag extends TobagoExtensionBodyTagSupport {
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "boolean", defaultValue = "false")
-  public void setRequired(final ValueExpression required) {
-    this.required = required;
-  }
+  void setRequired(final javax.el.ValueExpression required);
 
   /**
    * The current value of this component.
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "java.lang.Object")
-  public void setValue(final ValueExpression value) {
-    this.value = value;
-  }
+  void setValue(final javax.el.ValueExpression value);
 
   /**
-   * MethodBinding representing a value change listener method
+   * MethodExpression representing a value change listener method
    * that will be notified when a new value has been set for this input component.
    * The expression must evaluate to a public method that takes a ValueChangeEvent
    * parameter, with a return type of void.
-   *
-   * @param valueChangeListener
    */
   @TagAttribute
   @UIComponentTagAttribute(
-          type = {},
-          expression = DynamicExpression.METHOD_EXPRESSION_REQUIRED,
-          methodSignature = "javax.faces.event.ValueChangeEvent")
-  public void setValueChangeListener(final MethodExpression valueChangeListener) {
-    this.valueChangeListener = valueChangeListener;
-  }
+      type = {},
+      expression = DynamicExpression.METHOD_EXPRESSION_REQUIRED,
+      methodSignature = "javax.faces.event.ValueChangeEvent")
+  void setValueChangeListener(final javax.el.MethodExpression valueChangeListener);
 
   /**
    * A method binding EL expression,
@@ -236,37 +74,29 @@ public class SelectOneChoiceExtensionTag extends TobagoExtensionBodyTagSupport {
   @TagAttribute
   @UIComponentTagAttribute(type = {},
       expression = DynamicExpression.METHOD_EXPRESSION,
-      methodSignature = { "javax.faces.context.FacesContext", "javax.faces.component.UIComponent", "java.lang.Object" })
-  public void setValidator(final MethodExpression validator) {
-    this.validator = validator;
-  }
+      methodSignature = {"javax.faces.context.FacesContext", "javax.faces.component.UIComponent", "java.lang.Object"})
+  void setValidator(final javax.el.MethodExpression validator);
 
   /**
    * Flag indicating that this element is disabled.
    */
   @TagAttribute()
   @UIComponentTagAttribute(type = "boolean", defaultValue = "false")
-  public void setDisabled(final ValueExpression disabled) {
-    this.disabled = disabled;
-  }
+  void setDisabled(final javax.el.ValueExpression disabled);
 
   /**
    * Flag indicating that this component will prohibit changes by the user.
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "boolean", defaultValue = "false")
-  public void setReadonly(final ValueExpression readonly) {
-    this.readonly = readonly;
-  }
+  void setReadonly(final javax.el.ValueExpression readonly);
 
   /**
    * Clientside script function to add to this component's onchange handler.
    */
   @TagAttribute
   @UIComponentTagAttribute()
-  public void setOnchange(final ValueExpression onchange) {
-    this.onchange = onchange;
-  }
+  void setOnchange(final javax.el.ValueExpression onchange);
 
   /**
    * An expression that specifies the Converter for this component.
@@ -280,9 +110,17 @@ public class SelectOneChoiceExtensionTag extends TobagoExtensionBodyTagSupport {
   @TagAttribute
   @UIComponentTagAttribute(type = "javax.faces.convert.Converter",
       expression = DynamicExpression.VALUE_EXPRESSION)
-  public void setConverter(final ValueExpression converter) {
-    this.converter = converter;
-  }
+  void setConverter(final javax.el.ValueExpression converter);
+
+  /**
+   * Flag indicating this component should rendered as an inline element.
+   *
+   * @deprecated This should be handled by e.g. a flow layout manager (since 1.5.0)
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(type = "boolean", defaultValue = "false")
+  @Deprecated
+  void setInline(final javax.el.ValueExpression inline);
 
   /**
    * Text value to display as label.
@@ -290,18 +128,7 @@ public class SelectOneChoiceExtensionTag extends TobagoExtensionBodyTagSupport {
    */
   @TagAttribute
   @UIComponentTagAttribute()
-  public void setLabel(final ValueExpression label) {
-    this.label = label;
-  }
-
-  /**
-   * The accessKey of this component.
-   */
-  @TagAttribute
-  @UIComponentTagAttribute(type = "java.lang.Character")
-  public void setAccessKey(final javax.el.ValueExpression accessKey) {
-    this.accessKey = accessKey;
-  }
+  void setLabel(final javax.el.ValueExpression label);
 
   /**
    * Flag indicating whether or not this component should be rendered
@@ -309,9 +136,7 @@ public class SelectOneChoiceExtensionTag extends TobagoExtensionBodyTagSupport {
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "boolean", defaultValue = "true")
-  public void setRendered(final ValueExpression rendered) {
-    this.rendered = rendered;
-  }
+  void setRendered(final javax.el.ValueExpression rendered);
 
   /**
    * The value binding expression linking this
@@ -319,18 +144,14 @@ public class SelectOneChoiceExtensionTag extends TobagoExtensionBodyTagSupport {
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "javax.faces.component.UIComponent")
-  public void setBinding(final ValueExpression binding) {
-    this.binding = binding;
-  }
+  void setBinding(final javax.el.ValueExpression binding);
 
   /**
    * Text value to display as tooltip.
    */
   @TagAttribute
   @UIComponentTagAttribute()
-  public void setTip(final ValueExpression tip) {
-    this.tip = tip;
-  }
+  void setTip(final javax.el.ValueExpression tip);
 
   /**
    * The width for the label component. Default: 'auto'.
@@ -339,24 +160,18 @@ public class SelectOneChoiceExtensionTag extends TobagoExtensionBodyTagSupport {
    */
   @TagAttribute
   @UIComponentTagAttribute()
-  public void setLabelWidth(final ValueExpression labelWidth) {
-    this.labelWidth = labelWidth;
-  }
+  void setLabelWidth(final javax.el.ValueExpression labelWidth);
 
   @TagAttribute
   @UIComponentTagAttribute(type = "java.lang.Integer")
-  public void setTabIndex(final ValueExpression tabIndex) {
-    this.tabIndex = tabIndex;
-  }
+  void setTabIndex(final javax.el.ValueExpression tabIndex);
 
   /**
    * Flag indicating this component should receive the focus.
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "boolean", defaultValue = "false")
-  public void setFocus(final ValueExpression focus) {
-    this.focus = focus;
-  }
+  void setFocus(final javax.el.ValueExpression focus);
 
   /**
    * Indicate markup of this component.
@@ -364,36 +179,28 @@ public class SelectOneChoiceExtensionTag extends TobagoExtensionBodyTagSupport {
    */
   @TagAttribute
   @UIComponentTagAttribute(defaultValue = "none", type = "java.lang.String[]")
-  public void setMarkup(final ValueExpression markup) {
-    this.markup = markup;
-  }
+  void setMarkup(final javax.el.ValueExpression markup);
 
   /**
    * An expression that specifies the validator message
    */
   @TagAttribute
   @UIComponentTagAttribute()
-  public void setValidatorMessage(final ValueExpression validatorMessage) {
-    this.validatorMessage = validatorMessage;
-  }
+  void setValidatorMessage(final javax.el.ValueExpression validatorMessage);
 
   /**
    * An expression that specifies the converter message
    */
   @TagAttribute
   @UIComponentTagAttribute()
-  public void setConverterMessage(final ValueExpression converterMessage) {
-    this.converterMessage = converterMessage;
-  }
+  void setConverterMessage(final javax.el.ValueExpression converterMessage);
 
   /**
    * An expression that specifies the required message
    */
   @TagAttribute
   @UIComponentTagAttribute()
-  public void setRequiredMessage(final ValueExpression requiredMessage) {
-    this.requiredMessage = requiredMessage;
-  }
+  void setRequiredMessage(final javax.el.ValueExpression requiredMessage);
 
   /**
    * The component identifier for the input field component inside of the container.
@@ -401,9 +208,7 @@ public class SelectOneChoiceExtensionTag extends TobagoExtensionBodyTagSupport {
    */
   @TagAttribute(rtexprvalue = true)
   @UIComponentTagAttribute
-  public void setFieldId(final String fieldId) {
-    this.fieldId = fieldId;
-  }
+  void setFieldId(final String fieldId);
 
   /**
    * The component identifier for this component.
@@ -413,7 +218,5 @@ public class SelectOneChoiceExtensionTag extends TobagoExtensionBodyTagSupport {
    */
   @TagAttribute(rtexprvalue = true)
   @UIComponentTagAttribute
-  public void setId(final String id) {
-    super.setId(id);
-  }
+  void setId(final String id);
 }

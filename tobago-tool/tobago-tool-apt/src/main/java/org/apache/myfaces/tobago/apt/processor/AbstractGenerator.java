@@ -36,10 +36,8 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
 
-@SupportedSourceVersion(SourceVersion.RELEASE_5)
+@SupportedSourceVersion(SourceVersion.RELEASE_6)
 public abstract class AbstractGenerator extends AbstractProcessor {
-
-  static final String JSF_VERSION = "jsfVersion";
 
   private List<TypeElement> types;
   private List<PackageElement> packages;

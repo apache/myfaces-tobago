@@ -19,13 +19,19 @@
 
 package org.apache.myfaces.tobago.renderkit.html;
 
-public final class HtmlButtonTypes {
+public enum HtmlButtonTypes implements HtmlTypes {
 
-  public static final String BUTTON = "button";
-  public static final String RESET = "reset";
-  public static final String SUBMIT = "submit";
+  BUTTON("button"),
+  RESET("reset"),
+  SUBMIT("submit");
 
-  private HtmlButtonTypes() {
-    // prevent creating objects
+  private final String value;
+
+  HtmlButtonTypes(String value) {
+    this.value = value;
   }
-}
+
+  public String getValue() {
+    return value;
+  }
+  }

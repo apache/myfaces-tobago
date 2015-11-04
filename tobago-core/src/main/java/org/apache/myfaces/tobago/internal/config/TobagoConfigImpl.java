@@ -67,7 +67,6 @@ public class TobagoConfigImpl extends TobagoConfig {
   private Map<String, String> defaultValidatorInfo;
   private Sanitizer sanitizer;
   private boolean autoAccessKeyFromLabel;
-  private boolean classicDateTimePicker;
   private Map<String, String> mimeTypes;
 
   private boolean unmodifiable = false;
@@ -82,7 +81,6 @@ public class TobagoConfigImpl extends TobagoConfig {
     setNosniffHeader = true;
     contentSecurityPolicy = new ContentSecurityPolicy(ContentSecurityPolicy.Mode.OFF.getValue());
     autoAccessKeyFromLabel = true;
-    classicDateTimePicker = false;
     mimeTypes = new HashMap<String, String>();
   }
 
@@ -294,7 +292,7 @@ public class TobagoConfigImpl extends TobagoConfig {
           defaultValidatorInfo = Collections.emptyMap();
         }
       } catch (final Exception e) {
-        LOG.error("Can't initialize default validators (this happens with some JBoss servers).");
+        LOG.error("Can't initialize default validators (this happens with JBoss GateIn 3.6.0).", e);
         defaultValidatorInfo = Collections.emptyMap();
       }
     }
@@ -372,13 +370,12 @@ public class TobagoConfigImpl extends TobagoConfig {
     return mimeTypes;
   }
 
-  @Override
+  /**
+   * {@inheritDoc}
+   */
+  @Deprecated
   public boolean isClassicDateTimePicker() {
-    return classicDateTimePicker;
-  }
-
-  public void setClassicDateTimePicker(boolean classicDateTimePicker) {
-    this.classicDateTimePicker = classicDateTimePicker;
+    return false;
   }
 
   @Override
@@ -414,8 +411,6 @@ public class TobagoConfigImpl extends TobagoConfig {
     builder.append(sanitizer);
     builder.append(", \nautoAccessKeyFromLabel=");
     builder.append(autoAccessKeyFromLabel);
-    builder.append(", \n=classicDateTimePicker");
-    builder.append(classicDateTimePicker);
     // to see only different (ignore alternative names for the same theme)
     builder.append(", \nthemes=");
     final Set<Theme> all = new HashSet<Theme>(availableThemes.values());

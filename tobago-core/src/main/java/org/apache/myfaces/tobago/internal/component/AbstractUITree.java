@@ -20,10 +20,8 @@
 package org.apache.myfaces.tobago.internal.component;
 
 import org.apache.myfaces.tobago.component.Attributes;
-import org.apache.myfaces.tobago.internal.util.Deprecation;
-import org.apache.myfaces.tobago.layout.LayoutComponent;
+import org.apache.myfaces.tobago.component.Visual;
 import org.apache.myfaces.tobago.model.ExpandedState;
-import org.apache.myfaces.tobago.model.MixedTreeModel;
 import org.apache.myfaces.tobago.model.SelectedState;
 import org.apache.myfaces.tobago.model.TreeState;
 
@@ -33,9 +31,7 @@ import javax.faces.component.NamingContainer;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
-public abstract class AbstractUITree extends AbstractUIData
-// extends javax.faces.component.UIInput
-    implements NamingContainer, LayoutComponent {
+public abstract class AbstractUITree extends AbstractUIData implements NamingContainer, Visual {
 
   public static final String MESSAGE_NOT_LEAF = "tobago.tree.MESSAGE_NOT_LEAF";
 
@@ -99,19 +95,7 @@ public abstract class AbstractUITree extends AbstractUIData
       if (child instanceof AbstractUITreeNode) {
         return child;
       }
-      if (child instanceof AbstractUITreeData) {
-        return child;
-      }
     }
-    return null;
-  }
-
-  /**
-   * @deprecated Since 2.0.0.
-   */
-  @Deprecated
-  public MixedTreeModel getModel() {
-    Deprecation.LOG.error("Doesn't work anymore.");
     return null;
   }
 

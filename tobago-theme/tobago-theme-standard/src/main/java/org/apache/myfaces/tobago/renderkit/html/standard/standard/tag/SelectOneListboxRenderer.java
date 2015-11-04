@@ -20,17 +20,14 @@
 package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
 import org.apache.myfaces.tobago.component.UISelectOneListbox;
-import org.apache.myfaces.tobago.renderkit.SelectOneRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
-import org.apache.myfaces.tobago.renderkit.css.Style;
+import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.SelectItemUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -39,19 +36,11 @@ import java.io.IOException;
 
 public class SelectOneListboxRenderer extends SelectOneRendererBase {
 
-  private static final Logger LOG = LoggerFactory.getLogger(SelectOneListboxRenderer.class);
-
   public boolean getRendersChildren() {
     return true;
   }
 
-  public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
-    if (!(component instanceof UISelectOneListbox)) {
-      LOG.error("Wrong type: Need " + UISelectOneListbox.class.getName()
-          + ", but was " + component.getClass().getName());
-      return;
-    }
-
+  public void encodeBeginField(final FacesContext facesContext, final UIComponent component) throws IOException {
     final UISelectOneListbox select = (UISelectOneListbox) component;
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
@@ -59,7 +48,7 @@ public class SelectOneListboxRenderer extends SelectOneRendererBase {
     final Iterable<SelectItem> items = SelectItemUtils.getItemIterator(facesContext, select);
     final boolean disabled = !items.iterator().hasNext() || select.isDisabled() || select.isReadonly();
 
-    writer.startElement(HtmlElements.SELECT, select);
+    writer.startElement(HtmlElements.SELECT);
     writer.writeNameAttribute(id);
     writer.writeIdAttribute(id);
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, select);
@@ -72,9 +61,8 @@ public class SelectOneListboxRenderer extends SelectOneRendererBase {
     if (tabIndex != null) {
       writer.writeAttribute(HtmlAttributes.TABINDEX, tabIndex);
     }
-    final Style style = new Style(facesContext, select);
-    writer.writeStyleAttribute(style);
-    writer.writeClassAttribute(Classes.create(select));
+    writer.writeStyleAttribute(select.getStyle());
+    writer.writeClassAttribute(Classes.create(select), BootstrapClass.FORM_CONTROL, select.getCustomClass());
     final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, select);
     if (title != null) {
       writer.writeAttribute(HtmlAttributes.TITLE, title, true);
@@ -84,9 +72,10 @@ public class SelectOneListboxRenderer extends SelectOneRendererBase {
     HtmlRendererUtils.renderSelectItems(select, items, select.getValue(), (String) select.getSubmittedValue(),
         writer, facesContext);
 
-    writer.endElement(HtmlElements.SELECT);
-    super.encodeEnd(facesContext, select);
   }
 
+  protected void encodeEndField(FacesContext facesContext, UIComponent component) throws IOException {
+    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+    writer.endElement(HtmlElements.SELECT);
+  }
 }
-

@@ -19,27 +19,9 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
-import org.apache.myfaces.tobago.component.SupportsMarkup;
-import org.apache.myfaces.tobago.layout.LayoutManager;
-import org.apache.myfaces.tobago.layout.Orientation;
+import org.apache.myfaces.tobago.component.Visual;
 
-public abstract class AbstractUIFlowLayout extends AbstractUILayoutBase implements LayoutManager, SupportsMarkup {
+public abstract class AbstractUIFlowLayout extends AbstractUILayoutBase implements Visual {
 
   public static final String COMPONENT_FAMILY = "org.apache.myfaces.tobago.FlowLayout";
-
-  public void init() {
-  }
-
-  public void fixRelativeInsideAuto(final Orientation orientation, final boolean auto) {
-  }
-
-  public void preProcessing(final Orientation orientation) {
-  }
-
-  public void mainProcessing(final Orientation orientation) {
-    
-  }
-
-  public void postProcessing(final Orientation orientation) {
-  }
 }

@@ -19,15 +19,15 @@
 
 package org.apache.myfaces.tobago.internal.layout;
 
-import org.apache.myfaces.tobago.layout.LayoutComponent;
+import javax.faces.component.UIComponent;
 
 /**
- * To support horizontal and vertical spans, at each position will be a cell as a represantive.
+ * To support horizontal and vertical spans, at each position will be a cell as a representative.
  * Either a "origin cell" for the first position or a "span cell" for spanned other positions.
  */
 public interface Cell {
 
-  LayoutComponent getComponent();
+  UIComponent getComponent();
 
   OriginCell getOrigin();
 

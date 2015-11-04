@@ -152,7 +152,8 @@ public class ResourceServlet extends HttpServlet {
         ResponseUtils.ensureNosniffHeader(response);
       }
     } else {
-      LOG.warn("Unsupported mime type of resource='" + resource + "' (because of security reasons)");
+      final String message = "Unsupported mime type of resource='" + resource + "'";
+      LOG.warn(message + " (because of security reasons)");
       response.setStatus(HttpServletResponse.SC_FORBIDDEN);
       return;
     }

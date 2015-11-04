@@ -20,6 +20,7 @@
 package org.apache.myfaces.tobago.example.addressbook.web;
 
 import org.apache.commons.fileupload.FileItem;
+import org.apache.deltaspike.core.api.scope.WindowScoped;
 import org.apache.myfaces.tobago.component.UIColumn;
 import org.apache.myfaces.tobago.component.UISheet;
 import org.apache.myfaces.tobago.config.TobagoConfig;
@@ -33,19 +34,19 @@ import org.apache.myfaces.tobago.model.SelectItem;
 import org.apache.myfaces.tobago.model.SheetState;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
-import javax.annotation.Resource;
 import javax.faces.application.Application;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.faces.validator.ValidatorException;
+import javax.inject.Inject;
+import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -54,9 +55,9 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-@Component("controller")
-@Scope("session")
-public class Controller {
+@Named("controller")
+@WindowScoped
+public class Controller implements Serializable {
 
   private static final Logger LOG = LoggerFactory.getLogger(Controller.class);
 
@@ -75,6 +76,7 @@ public class Controller {
 
   private List<SelectItem> languages = new ArrayList<SelectItem>();
 
+  @Inject
   private Countries countries;
 
   private Theme theme;
@@ -88,7 +90,7 @@ public class Controller {
   private boolean renderLastName = true;
   private boolean renderDayOfBirth = true;
 
-  @Resource(name = "addressDao")
+  @Inject
   private AddressDao addressDao;
 
   private FileItem uploadedFile;
@@ -332,11 +334,6 @@ public class Controller {
 
   public Countries getCountries() {
     return countries;
-  }
-
-  @Resource(name = "countries")
-  public void setCountries(final Countries countries) {
-    this.countries = countries;
   }
 
   public List<SelectItem> getThemeItems() {

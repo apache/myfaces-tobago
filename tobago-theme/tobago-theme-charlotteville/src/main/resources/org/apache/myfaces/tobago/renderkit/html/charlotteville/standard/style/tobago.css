@@ -36,7 +36,6 @@
 /* boxToolBar ----------------------------------------------------------------- */
 
 /* FIXME this is the same code for "toolBar", "boxToolBar" and "tabGroupToolBar"
-   FIXME may be fixed after TOBAGO-900
 */
 
 .tobago-boxToolBar {
@@ -47,7 +46,7 @@
   border-color: #FECB66;
 }
 
-.tobago-boxToolBar-item-markup-hover {
+.tobago-boxToolBar-item:hover {
   border-color: #FECB66;
 }
 
@@ -55,7 +54,7 @@
   background-color: #FFEECF;
 }
 
-.tobago-boxToolBar-button-markup-hover {
+.tobago-boxToolBar-button:hover {
   background-color: #FADC9F;
 }
 
@@ -103,7 +102,7 @@ li.tobago-menu-markup-selected {
 
 /* sheet ---------------------------------------------------------------------- */
 
-.tobago-sheet-headerDiv {
+.tobago-sheet-header {
   border-bottom: 1px solid #FADC9F;
 }
 
@@ -175,14 +174,13 @@ li.tobago-menu-markup-selected {
 /* tabGroupToolBar ----------------------------------------------------------------- */
 
 /* FIXME this is the same code for "toolBar", "boxToolBar" and "tabGroupToolBar"
-   FIXME may be fixed after TOBAGO-900
 */
 
 .tobago-tabGroupToolBar-item-markup-selected {
   border-color: #FECB66;
 }
 
-.tobago-tabGroupToolBar-item-markup-hover {
+.tobago-tabGroupToolBar-item:hover {
   border-color: #FECB66;
 }
 
@@ -190,7 +188,7 @@ li.tobago-menu-markup-selected {
   background-color: #FFEECF;
 }
 
-.tobago-tabGroupToolBar-button-markup-hover {
+.tobago-tabGroupToolBar-button:hover {
   background-color: #FADC9F;
 }
 
@@ -204,7 +202,7 @@ li.tobago-menu-markup-selected {
   border-color: #FECB66;
 }
 
-.tobago-toolBar-item-markup-hover {
+.tobago-toolBar-item:hover {
   border-color: #FECB66;
 }
 
@@ -212,6 +210,6 @@ li.tobago-menu-markup-selected {
   background-color: #FFEECF;
 }
 
-.tobago-toolBar-button-markup-hover {
+.tobago-toolBar-button:hover {
   background-color: #FADC9F;
 }

@@ -19,55 +19,16 @@
 
 package org.apache.myfaces.tobago.renderkit;
 
-import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.UIBox;
-import org.apache.myfaces.tobago.component.UIMenuBar;
-import org.apache.myfaces.tobago.config.Configurable;
-import org.apache.myfaces.tobago.layout.Measure;
-import org.apache.myfaces.tobago.util.ComponentUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 
-public abstract class BoxRendererBase extends LayoutComponentRendererBase {
-
-  private static final Logger LOG = LoggerFactory.getLogger(BoxRendererBase.class);
+public abstract class BoxRendererBase extends RendererBase {
 
   public boolean getRendersChildren() {
     return true;
-  }
-
-  @Override
-  public Measure getBorderTop(final FacesContext facesContext, final Configurable component) {
-
-    Measure borderTop = super.getBorderTop(facesContext, component);
-    if (ComponentUtils.findFacetDescendant((UIComponent) component, Facets.MENUBAR, UIMenuBar.class) != null) {
-      borderTop = borderTop.add(19); // todo: get via theme config
-    }
-    return borderTop;
-  }
-
-  @Override
-  public Measure getMinimumHeight(final FacesContext facesContext, final Configurable component) {
-    if (component instanceof UIBox && ((UIBox) component).isCollapsed()) {
-      return getBorderTop(facesContext, component);
-    }
-    return super.getMinimumHeight(facesContext, component);
-  }
-
-  @Override
-  public Measure getMaximumHeight(final FacesContext facesContext, final Configurable component) {
-    if (component instanceof UIBox && ((UIBox) component).isCollapsed()) {
-      return getBorderTop(facesContext, component);
-    }
-    return super.getMaximumHeight(facesContext, component);
-  }
-
-  protected UIMenuBar getMenuBarFacet(final UIComponent component) {
-    return (UIMenuBar) component.getFacet(Facets.MENUBAR);
   }
 
   @Override

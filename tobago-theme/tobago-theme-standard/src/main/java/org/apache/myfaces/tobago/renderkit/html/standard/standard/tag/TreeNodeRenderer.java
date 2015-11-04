@@ -22,7 +22,6 @@ package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 import org.apache.myfaces.tobago.internal.component.AbstractUIData;
 import org.apache.myfaces.tobago.internal.component.AbstractUITreeNode;
 import org.apache.myfaces.tobago.layout.Display;
-import org.apache.myfaces.tobago.layout.LayoutBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
@@ -50,7 +49,7 @@ public class TreeNodeRenderer extends TreeNodeRendererBase {
 
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
-    writer.startElement(HtmlElements.DIV, null);
+    writer.startElement(HtmlElements.DIV);
 
     // div id
     writer.writeIdAttribute(clientId);
@@ -60,17 +59,15 @@ public class TreeNodeRenderer extends TreeNodeRendererBase {
       writer.writeAttribute(DataAttributes.TREE_PARENT, parentId, false);
     }
 
-    final Style style = new Style();
+    Style style = node.getStyle();
     // In the case of a sheet, we need not hiding the node, because the whole TR will be hidden.
     if (!dataRendersRowContainer && !visible) {
-      style.setDisplay(Display.NONE);
+      if (style == null) {
+        style = new Style();
+      }
+      style.setDisplay(Display.none);
     }
 
-    // div style (width)
-    final Style widthStyle = new Style(facesContext, (LayoutBase) data);
-    if (widthStyle.getWidth() != null) {
-      style.setWidth(widthStyle.getWidth().subtract(22)); // fixme: 4 + 18 for scrollbar
-    }
     writer.writeStyleAttribute(style);
   }
 

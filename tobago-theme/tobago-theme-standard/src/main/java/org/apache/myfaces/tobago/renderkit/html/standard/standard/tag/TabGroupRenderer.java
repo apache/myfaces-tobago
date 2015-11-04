@@ -31,19 +31,17 @@ import org.apache.myfaces.tobago.component.UIToolBar;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.event.TabChangeEvent;
-import org.apache.myfaces.tobago.internal.component.AbstractUIPanelBase;
+import org.apache.myfaces.tobago.internal.component.AbstractUIPanel;
 import org.apache.myfaces.tobago.internal.util.AccessKeyLogger;
-import org.apache.myfaces.tobago.internal.util.StringUtils;
-import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
-import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
+import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
-import org.apache.myfaces.tobago.renderkit.css.Position;
-import org.apache.myfaces.tobago.renderkit.css.Style;
+import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
+import org.apache.myfaces.tobago.renderkit.html.HtmlRoleValues;
 import org.apache.myfaces.tobago.renderkit.html.JsonUtils;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
@@ -62,10 +60,9 @@ import javax.faces.component.UIPanel;
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
-import java.util.List;
 import java.util.Map;
 
-public class TabGroupRenderer extends LayoutComponentRendererBase {
+public class TabGroupRenderer extends RendererBase {
 
   private static final Logger LOG = LoggerFactory.getLogger(TabGroupRenderer.class);
 
@@ -105,11 +102,11 @@ public class TabGroupRenderer extends LayoutComponentRendererBase {
     final String switchType = tabGroup.getSwitchType();
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
-    writer.startElement(HtmlElements.DIV, null);
+    writer.startElement(HtmlElements.DIV);
     writer.writeIdAttribute(clientId);
-    writer.writeClassAttribute(Classes.create(tabGroup));
+    writer.writeClassAttribute(Classes.create(tabGroup), tabGroup.getCustomClass());
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, tabGroup);
-    writer.writeStyleAttribute(new Style(facesContext, tabGroup));
+    writer.writeStyleAttribute(tabGroup.getStyle());
     writer.writeAttribute(HtmlAttributes.SWITCHTYPE, switchType, false);
     final String[] clientIds
         = ComponentUtils.evaluateClientIds(facesContext, tabGroup, tabGroup.getRenderedPartially());
@@ -117,8 +114,8 @@ public class TabGroupRenderer extends LayoutComponentRendererBase {
       writer.writeAttribute(DataAttributes.PARTIAL_IDS, JsonUtils.encode(clientIds), true);
     }
 
-    writer.startElement(HtmlElements.INPUT, null);
-    writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN, false);
+    writer.startElement(HtmlElements.INPUT);
+    writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN);
     writer.writeAttribute(HtmlAttributes.VALUE, activeIndex);
     writer.writeNameAttribute(hiddenId);
     writer.writeIdAttribute(hiddenId);
@@ -144,9 +141,9 @@ public class TabGroupRenderer extends LayoutComponentRendererBase {
     // ensure to select a rendered tab
     int index = -1;
     int closestRenderedTabIndex = -1;
-    for (final UIComponent tab : (List<UIComponent>) tabGroup.getChildren()) {
+    for (final UIComponent tab : tabGroup.getChildren()) {
       index++;
-      if (tab instanceof AbstractUIPanelBase) {
+      if (tab instanceof AbstractUIPanel) {
         if (index == activeIndex) {
           if (tab.isRendered()) {
             return index;
@@ -180,19 +177,12 @@ public class TabGroupRenderer extends LayoutComponentRendererBase {
       final int activeIndex)
       throws IOException {
 
-    final Measure width = tabGroup.getCurrentWidth();
-    final Measure headerHeight = getResourceManager().getThemeMeasure(facesContext, tabGroup, "headerHeight");
-    final Measure toolBarWidth = getResourceManager().getThemeMeasure(facesContext, tabGroup, "toolBarWidth");
-    final Style header = new Style();
-    header.setPosition(Position.RELATIVE);
-    header.setWidth(width.subtractNotNegative(toolBarWidth));
-    header.setHeight(headerHeight);
-    writer.startElement(HtmlElements.DIV, tabGroup);
+    writer.startElement(HtmlElements.DIV);
     writer.writeClassAttribute(Classes.create(tabGroup, "header"));
-    writer.writeStyleAttribute(header);
 
-    writer.startElement(HtmlElements.DIV, tabGroup);
-    writer.writeClassAttribute(Classes.create(tabGroup, "headerInner"));
+    writer.startElement(HtmlElements.UL);
+    writer.writeClassAttribute(Classes.create(tabGroup, "headerInner"), BootstrapClass.NAV, BootstrapClass.NAV_TABS);
+    writer.writeAttribute(HtmlAttributes.ROLE, HtmlRoleValues.TABLIST.toString(), false);
 
     int index = 0;
     for (final UIComponent child : tabGroup.getChildren()) {
@@ -210,15 +200,21 @@ public class TabGroupRenderer extends LayoutComponentRendererBase {
           if (maxSeverity != null) {
             ComponentUtils.addCurrentMarkup(tab, ComponentUtils.markupOfSeverity(maxSeverity));
           }
-          writer.startElement(HtmlElements.DIV, tab);
-          writer.writeClassAttribute(Classes.create(tab));
+          writer.startElement(HtmlElements.LI);
+          // todo: fix Css management
+          if (activeIndex == index) {
+            writer.writeClassAttribute(Classes.create(tab), BootstrapClass.ACTIVE);
+          } else {
+            writer.writeClassAttribute(Classes.create(tab));
+          }
+          writer.writeAttribute(HtmlAttributes.ROLE, HtmlRoleValues.PRESENTATION.toString(), false);
           writer.writeAttribute(HtmlAttributes.TABGROUPINDEX, index);
           final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, tab);
           if (title != null) {
             writer.writeAttribute(HtmlAttributes.TITLE, title, true);
           }
 
-          writer.startElement(HtmlElements.A, tab);
+          writer.startElement(HtmlElements.A);
           if (!disabled) {
             writer.writeAttribute(HtmlAttributes.HREF, "#", false);
           }
@@ -232,13 +228,13 @@ public class TabGroupRenderer extends LayoutComponentRendererBase {
 
           String image = tab.getImage();
           // tab.getImage() resolves to empty string if el-expression resolves to null
-          if (StringUtils.isNotEmpty(image)) {
+          if (image != null && !image.isEmpty()) {
             if (ResourceManagerUtils.isAbsoluteResource(image)) {
               // absolute Path to image : nothing to do
             } else {
               image = ResourceManagerUtils.getImageOrDisabledImageWithPath(facesContext, image, disabled);
             }
-            writer.startElement(HtmlElements.IMG, null);
+            writer.startElement(HtmlElements.IMG);
             writer.writeAttribute(HtmlAttributes.SRC, image, true);
             writer.writeClassAttribute(Classes.create(tab, (label.getLabel() != null? "image-right-margin" : "image")));
             writer.endElement(HtmlElements.IMG);
@@ -255,15 +251,12 @@ public class TabGroupRenderer extends LayoutComponentRendererBase {
             renderTabToolbar(facesContext, writer, tab, toolbar);
           }
 
-          writer.endElement(HtmlElements.DIV);
+          writer.endElement(HtmlElements.LI);
         }
       }
       index++;
     }
-    writer.endElement(HtmlElements.DIV);
-    final Style body = new Style();
-    body.setWidth(width);
-    body.setHeight(tabGroup.getCurrentHeight().subtract(headerHeight));
+    writer.endElement(HtmlElements.UL);
     writer.endElement(HtmlElements.DIV);
     if (tabGroup.isShowNavigationBar()) {
       final UIToolBar toolBar = createToolBar(facesContext, tabGroup);
@@ -274,7 +267,7 @@ public class TabGroupRenderer extends LayoutComponentRendererBase {
   protected void renderTabToolbar(
       final FacesContext facesContext, final TobagoResponseWriter writer, final UITab tab, final UIPanel toolbar)
       throws IOException {
-    writer.startElement(HtmlElements.SPAN, null);
+    writer.startElement(HtmlElements.SPAN);
     writer.writeClassAttribute(Classes.create(tab, "toolBar"));
     toolbar.setRendererType("TabGroupToolBar");
     RenderUtils.encode(facesContext, toolbar);
@@ -352,7 +345,7 @@ public class TabGroupRenderer extends LayoutComponentRendererBase {
       final FacesContext facesContext, final TobagoResponseWriter writer, final UITabGroup tabGroup,
       final UIToolBar toolBar)
       throws IOException {
-    writer.startElement(HtmlElements.DIV, null);
+    writer.startElement(HtmlElements.DIV);
     writer.writeClassAttribute(Classes.create(tabGroup, "toolBar"));
     RenderUtils.encode(facesContext, toolBar);
     writer.endElement(HtmlElements.DIV);
@@ -366,21 +359,13 @@ public class TabGroupRenderer extends LayoutComponentRendererBase {
       return;
     }
 
-    writer.startElement(HtmlElements.DIV, null);
-    writer.writeClassAttribute(Classes.create(tab, "content"));
+    writer.startElement(HtmlElements.DIV);
+    writer.writeClassAttribute(Classes.create(tab, "content"), BootstrapClass.PANEL_BODY);
     writer.writeIdAttribute(tab.getClientId(facesContext) + ComponentUtils.SUB_SEPARATOR + "content");
 
-    final Style style = new Style(facesContext, tab);
-    final Measure borderLeft = tab.getBorderLeft();
-    final Measure borderRight = tab.getBorderRight();
-    final Measure borderTop = tab.getBorderTop();
-    final Measure borderBottom = tab.getBorderBottom();
-    style.setWidth(style.getWidth().subtract(borderLeft).subtract(borderRight));
-    style.setHeight(style.getHeight().subtract(borderTop).subtract(borderBottom));
-    writer.writeStyleAttribute(style);
     writer.writeAttribute(HtmlAttributes.TABGROUPINDEX, index);
 
-    RenderUtils.encodeChildren(facesContext, tab);
+    RenderUtils.encode(facesContext, tab);
 
     writer.endElement(HtmlElements.DIV);
   }

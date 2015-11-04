@@ -51,6 +51,7 @@ public final class Attributes {
   public static final String COLUMNS = "columns";
   public static final String CONVERTER = "converter";
   public static final String CREATE_SPAN = "createSpan";
+  public static final String CSS = "css";
   public static final String CSS_CLASSES_BLOCKS = "cssClassesBlocks";
   /** @deprecated since 2.0.0 */
   @Deprecated
@@ -65,11 +66,14 @@ public final class Attributes {
   public static final String EXPANDED = "expanded";
   public static final String EXECUTE = "execute";
   public static final String EVENT = "event";
+  public static final String EXTRA_SMALL = "extraSmall";
   public static final String FIELD_ID = "fieldId";
   public static final String FIRST = "first";
   public static final String FREQUENCY = "frequency";
   public static final String FOCUS = "focus";
   public static final String FOCUS_ID = "focusId";
+  /** @deprecated since Tobago 3.0.0 */
+  @Deprecated
   public static final String FORCE_VERTICAL_SCROLLBAR = "forceVerticalScrollbar";
   public static final String FORMAT_PATTERN = "formatPattern";
   public static final String FOR = "for";
@@ -96,8 +100,10 @@ public final class Attributes {
   public static final String ITEM_VALUE = "itemValue";
   public static final String JSF_RESOURCE = "jsfResource";
   public static final String LABEL = "label";
+  public static final String LABEL_LAYOUT = "labelLayout";
   public static final String LABEL_POSITION = "labelPosition";
   public static final String LABEL_WIDTH = "labelWidth";
+  public static final String LARGE = "large";
   public static final String LAYOUT_HEIGHT = "layoutHeight";
   public static final String LAYOUT_ORDER = "layoutOrder";
   public static final String LAYOUT_WIDTH = "layoutWidth";
@@ -126,6 +132,7 @@ public final class Attributes {
   public static final String MIN_SEVERITY = "minSeverity";
   public static final String MINIMUM_HEIGHT = "minimumHeight";
   public static final String MINIMUM_WIDTH = "minimumWidth";
+  public static final String MEDIUM = "medium";
   public static final String MODAL = "modal";
   public static final String MODE = "mode";
   public static final String MUTABLE = "mutable";
@@ -149,9 +156,6 @@ public final class Attributes {
   public static final String PADDING_RIGHT = "paddingRight";
   /** Used by a layout manager */
   public static final String PADDING_TOP = "paddingTop";
-  /** @deprecated Since 2.0.6. No longer needed. */
-  @Deprecated
-  public static final String PAGE_MENU = "pageMenu";
   public static final String PASSWORD = "password";
   public static final String POPUP_CLOSE = "popupClose";
   public static final String POPUP_LIST = "popupList";
@@ -196,6 +200,7 @@ public final class Attributes {
   public static final String SHOW_ROW_RANGE = "showRowRange";
   public static final String SHOW_SUMMARY = "showSummary";
   public static final String SHOW_DETAIL = "showDetail";
+  public static final String SMALL = "small";
   public static final String SPAN_X = "spanX";
   public static final String SPAN_Y = "spanY";
   public static final String SRC = "src";

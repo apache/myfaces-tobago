@@ -19,31 +19,31 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
-import org.apache.myfaces.tobago.layout.LayoutComponent;
-import org.apache.myfaces.tobago.layout.LayoutContainer;
+import org.apache.myfaces.tobago.component.Visual;
+import org.apache.myfaces.tobago.internal.layout.LayoutUtils;
 import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.layout.Orientation;
 
 import javax.el.ELContext;
 import javax.el.ValueExpression;
+import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
+import java.util.List;
 
 public abstract class AbstractUISplitLayout extends AbstractUIGridLayout {
-
-  public static final String VERTICAL = Orientation.VERTICAL.name();
-  public static final String HORIZONTAL = Orientation.HORIZONTAL.name();
 
   private String submittedLayout;
 
   public void updateLayout(final int position) {
-    final LayoutContainer container = (LayoutContainer) getParent();
-    final LayoutComponent firstComponent = container.getComponents().get(0);
-    final LayoutComponent secondComponent = container.getComponents().get(1);
+    final List<UIComponent> components = LayoutUtils.findLayoutChildren(getParent());
+    final Visual firstComponent = (Visual) components.get(0);
+    final Visual secondComponent = (Visual) components.get(1);
     final int oldPosition;
 
     final int currentSize1;
     final int currentSize2;
-    if (HORIZONTAL.equals(getOrientation())) {
+/* XXX to be reimplemented: not using GridLayout, it might be better using flex?!
+    if (getOrientation() == Orientation.horizontal) {
       oldPosition = secondComponent.getLeft().getPixel() - 5;
       currentSize1 = firstComponent.getCurrentWidth().getPixel();
       currentSize2 = secondComponent.getCurrentWidth().getPixel();
@@ -58,10 +58,8 @@ public abstract class AbstractUISplitLayout extends AbstractUIGridLayout {
     final int newSize2 = currentSize2 - offset;
 
     final int ggt = gcd(newSize1, newSize2);
-    submittedLayout = new StringBuilder()
-        .append(Integer.toString(newSize1 / ggt)).append("*;")
-        .append(Integer.toString(newSize2 / ggt)).append("*")
-        .toString();
+    submittedLayout = Integer.toString(newSize1 / ggt) + "*;" + Integer.toString(newSize2 / ggt) + "*";
+*/
   }
 
   // TODO: MathUtils
@@ -98,17 +96,13 @@ public abstract class AbstractUISplitLayout extends AbstractUIGridLayout {
     }
   }
 
-  public Measure getSpacing(final Orientation orientation) {
-    return orientation == Orientation.HORIZONTAL ? getColumnSpacing() : getRowSpacing();
-  }
-
 @Override
   public void setColumns(final String columns) {
   }
 
   @Override
   public String getColumns() {
-    return VERTICAL.equals(getOrientation()) ? "1*" : getLayout2();
+    return getOrientation() == Orientation.vertical ? "1*" : getLayout2();
   }
 
 //  private String getLayout2() {
@@ -121,41 +115,20 @@ public abstract class AbstractUISplitLayout extends AbstractUIGridLayout {
 
   @Override
   public String getRows() {
-    return HORIZONTAL.equals(getOrientation()) ? "1*" : getLayout2();
+    return getOrientation() == Orientation.horizontal ? "1*" : getLayout2();
   }
 
   private String getLayout2() {
     return submittedLayout != null ? submittedLayout : getLayout();
   }
 
-  @Override
-  public boolean isRowOverflow() {
-    return false;
-  }
-
-  @Override
-  public boolean isColumnOverflow() {
-    return false;
-  }
-
   public abstract String getLayout();
 
-  public abstract String getOrientation();
-
-  @Deprecated
-  public abstract Measure getCellspacing();
+  public abstract Orientation getOrientation();
 
   public abstract Measure getRowSpacing();
 
   public abstract Measure getColumnSpacing();
-
-  public abstract Measure getMarginLeft();
-
-  public abstract Measure getMarginTop();
-
-  public abstract Measure getMarginRight();
-
-  public abstract Measure getMarginBottom();
 
   public abstract boolean isRigid();
 }

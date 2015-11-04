@@ -20,7 +20,7 @@
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 
 <properties>
-  <entry key="notTranslated"></entry>
+  <entry key="notTranslated">Einige Teile dieser Seite sind nicht in allen Sprachen verfügbar.</entry>
 
 <!--  menu -->
   <entry key="menu_navigate">_Navigation</entry>
@@ -28,7 +28,6 @@
   <entry key="menu_help">_Hilfe</entry>
   <entry key="menu_themes">_Themes</entry>
   <entry key="menu_locale">_Sprachen</entry>
-  <entry key="menu_debug">Debug Modus</entry>
   <entry key="menu_about">Über</entry>
 
 <!--  navigate -->
@@ -37,7 +36,7 @@
   <entry key="basic">Basis</entry>
   <entry key="sheet">Tabellen</entry>
   <entry key="tree">Bäume</entry>
-  <entry key="tab">Reiter</entry>
+  <entry key="tab">Reiter / Tab</entry>
   <entry key="toolbar">Toolbar</entry>
   <entry key="validation">Validierung</entry>
   <entry key="form">Formulare</entry>

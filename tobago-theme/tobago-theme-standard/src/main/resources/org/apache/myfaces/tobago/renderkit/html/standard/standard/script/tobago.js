@@ -100,9 +100,9 @@ var Tobago = {
 
   reloadTimer: {},
 
-  jsObjects: new Array(),
+  jsObjects: [],
 
-  eventListeners: new Array(),
+  eventListeners: [],
 
   /**
     * Check browser types and versions.
@@ -128,7 +128,7 @@ var Tobago = {
   /**
    * Array to queue ScriptLoaders.
    */
-  scriptLoaders: new Array(),
+  scriptLoaders: [],
 
   ajaxComponents: {},
 
@@ -210,7 +210,6 @@ var Tobago = {
     this.action = this.element(this.page.id + this.SUB_COMPONENT_SEP + 'form-action');
     this.contextPath = this.element(this.page.id + this.SUB_COMPONENT_SEP + 'context-path');
     this.blankPage = this.contextPath.value + '/org/apache/myfaces/tobago/renderkit/html/standard/blank.html';
-    this.actionPosition = this.element(this.page.id + this.SUB_COMPONENT_SEP + 'action-position');
 
     this.addBindEventListener(window, 'unload', this, 'onUnload');
 
@@ -234,7 +233,6 @@ var Tobago = {
       window.setTimeout(Tobago.registerResizeAction, 1000);
     }
 
-    Tobago.ensureScrollbarWeights();
     window.setTimeout(Tobago.finishPageLoading, 1);
     console.timeEnd("[tobago] init (main thread)"); // @DEV_ONLY
   },
@@ -280,8 +278,6 @@ var Tobago = {
 
     Tobago.storeClientDimension();
 
-    Tobago.Popup.unlockBehind(jQuery(".tobago-popup-markup-modal"));
-
     Tobago.onBeforeUnload();
 
     return true;
@@ -296,23 +292,9 @@ var Tobago = {
 
   onBeforeUnload: function() {
     if (Tobago.transition) {
-      jQuery(".tobago-page").overlay();
+      jQuery("body").overlay();
     }
     Tobago.transition = Tobago.oldTransition;
-  },
-
-  /**
-   * @deprecated
-   */
-  createOverlay: function (element, error, ajax) {
-    element.overlay({error: error, ajax: ajax});
-  },
-
-  /**
-   * @deprecated
-   */
-  deleteOverlay:function (element) {
-    element.overlay("destroy");
   },
 
   /**
@@ -358,7 +340,6 @@ var Tobago = {
     delete this.page;
     delete this.form;
     delete this.action;
-    delete this.actionPosition;
     delete this.contextPath;
     delete this.blankPage;
     delete this.lastFocusId;
@@ -429,8 +410,6 @@ var Tobago = {
       this.form.appendChild(lastFocusId);
     }
 
-    Tobago.setActionPosition(source);
-
     Tobago.Transport.request(function() {
       if (!this.isSubmit) {
         this.isSubmit = true;
@@ -477,17 +456,6 @@ var Tobago = {
 
 
     }, true);
-  },
-
-  setActionPosition: function(source) {
-    var offset = jQuery(source).offset();
-    var sourceWidth = Tobago.getWidth(source);
-    var sourceHeight = Tobago.getHeight(source);
-    Tobago.actionPosition.value
-        = (offset ? parseInt(offset.left) + 'px,' : '0px,')
-        + (offset ? parseInt(offset.top) + 'px,' : '0px,')
-        + sourceWidth + 'px,' + sourceHeight + 'px';
-//    alert("source='" + source + "' action-position=" + Tobago.actionPosition.value);
   },
 
   getJsfState: function() {
@@ -816,16 +784,9 @@ var Tobago = {
             if (popup && popup.command == "close" && popup.immediate) {
               Tobago.Popup.close(this);
             } else {
-              if (popup && popup.command == "close") {
-                Tobago.Popup.unlockBehind();
-              }
               var action = commands.click.action ? commands.click.action : jQuery(this).attr("id");
               if (commands.click.partially) {
-                if (popup && popup.command == "open") {
-                  Tobago.Popup.openWithAction(this, commands.click.partially, action);
-                } else {
-                  Tobago.reloadComponent(this, commands.click.partially, action, commands.click);
-                }
+                Tobago.reloadComponent(this, commands.click.partially, action, commands.click);
                 event.preventDefault();
                 event.stopPropagation();
               } else if (commands.click.url) {
@@ -894,17 +855,6 @@ var Tobago = {
     Tobago.Utils.selectWithJQuery(elements, '[data-tobago-commands]')
         .each(function () {Tobago.initCommand(jQuery(this));});
 
-/*
-    // access keys
-    var accesskeys = Tobago.Utils.selectWithJQuery(elements, '[accesskey]');
-    accesskeys.each(function () {
-      // setupAccessKey
-      var el = jQuery(this);
-      new Tobago.AcceleratorKey(function () {
-        Tobago.clickOnElement(el.attr("id"))}, el.attr("accesskey"));
-    });
-*/
-
     Tobago.initScrollPosition(elements ? elements : jQuery(".tobago-page"));
   },
 
@@ -935,16 +885,50 @@ var Tobago = {
     });
   },
 
-  initCss: function(elements) {
+  initCss: function (elements) {
     // element styles
     console.time("[tobago] initCss"); // @DEV_ONLY
     Tobago.Utils.selectWithJQuery(elements, "[data-tobago-style]").each(function () {
       var element = jQuery(this);
-      if (Tobago.browser.isMsie678) { // IE before 9 doesn't support multiple backgrounds, so we use only the first.
-        Tobago.fixMultiBackgroundIE8(element);
-      }
-      element.css(element.data("tobago-style"));
+      var data = element.data("tobago-style");
+
+      // set only known properties (because of security)
+      element.css({
+        width: data.width,
+        height: data.height,
+
+        minWidth: data.minWidth,
+        minHeight: data.minHeight,
+        maxWidth: data.maxWidth,
+        maxHeight: data.maxHeight,
+
+        left: data.left,
+        right: data.right,
+        top: data.top,
+        bottom: data.bottom,
+
+        paddingLeft: data.paddingLeft,
+        paddingRight: data.paddingRight,
+        paddingTop: data.paddingTop,
+        paddingBottom: data.paddingBottom,
+
+        marginLeft: data.marginLeft,
+        marginRight: data.marginRight,
+        marginTop: data.marginTop,
+        marginBottom: data.marginBottom,
+
+        overflowX: data.overflowX,
+        overflowY: data.overflowY,
+        display: data.display,
+        position: data.position,
+
+        backgroundImage: data.backgroundImage,         // TBD
+        backgroundPosition: data.backgroundPosition,   // TBD
+        zIndex: data.zIndex, // TBD: needed? will be set by Tobago? check org.apache.myfaces.tobago.renderkit.css.Style
+        textAlign: data.textAlign
+      });
     });
+
     console.timeEnd("[tobago] initCss"); // @DEV_ONLY
   },
 
@@ -996,10 +980,10 @@ var Tobago = {
         var page = jQuery(".tobago-page");
         page.attr("title", "This application can't be used embedded inside an other site " +
         "(configuration: prevent-frame-attacks=true)!");
-        var image = jQuery("body>.tobago-page-overlayErrorPreloadedImage").clone();
-        image.appendTo(page);
-        image.removeClass("tobago-page-overlayErrorPreloadedImage");
-        image.css({margin: "20px"});
+        jQuery("<span>")
+            .addClass("glyphicon glyphicon-flash")
+            .css({color: "#ff0000", fontSize: "xx-large", margin: "20px"})
+            .appendTo(page);
       }
     }
   },
@@ -1020,23 +1004,6 @@ var Tobago = {
   selectWithJQuery: function(elements, selector) {
     console.warn("Deprecated method was called. Please use Tobago.Utils.selectWithJQuery()"); // @DEV_ONLY
     return Tobago.Utils.selectWithJQuery(elements, selector);
-  },
-
-  ensureScrollbarWeights: function() {
-    var id = Tobago.page.id + Tobago.SUB_COMPONENT_SEP + 'scrollbarWeight';
-    var hidden = jQuery(Tobago.Utils.escapeClientId(id));
-    if (hidden.val().length == 0) {
-      var outer = hidden.prev();
-      hidden.val(''
-          + (100 - outer.prop('clientWidth')) + ';'
-          + (100 - outer.prop('clientHeight')));
-    } else {
-      var scrollbarWeights = hidden.val().split(",");
-      if (scrollbarWeights.length == 2) {
-        Tobago.Config.set('Tobago', 'verticalScrollbarWeight', scrollbarWeights[0]);
-        Tobago.Config.set('Tobago', 'horizontalScrollbarWeight', scrollbarWeights[1]);
-      }
-    }
   },
 
   clickOnElement: function(id) {
@@ -1948,25 +1915,6 @@ function tobago_showHidden() {
   }
 }
 
-/** @nosideeffects */
-var LOG = {
-  /** @nosideeffects */
-  debug: function(text) {
-  },
-  /** @nosideeffects */
-  info: function(text) {
-  },
-  /** @nosideeffects */
-  warn: function(text) {
-  },
-  /** @nosideeffects */
-  error: function(text) {
-  },
-  /** @nosideeffects */
-  show: function() {
-  }
-};
-
 // The AJAX response is a JavaScript object:
 
 /*
@@ -2063,9 +2011,6 @@ Tobago.Updater = {
           }
         }
       }
-
-      Tobago.setActionPosition(source);
-
 
       if (!Tobago.partialRequestIds) {
         var hidden = document.createElement('input');
@@ -2196,7 +2141,7 @@ Tobago.Updater = {
     try {
       var data = jQuery.parseJSON(requestObject.xhr.responseText);
       if (data.tobagoAjaxResponse && data.responseCode == 302) {
-        window.location = data.location;
+        Tobago.navigateToUrl(data.location);
         return;
       }
     } catch (e) {
@@ -2272,10 +2217,14 @@ Tobago.Updater = {
         // if there is html data, we replace the ajax element with the new data
         if (data.html.length > 0) {
           var newElement = jQuery(data.html);
-          if (element.size() == 0 && newElement.hasClass("tobago-popup")) {
-            element = jQuery("<div>");
-            element.attr("id", data.ajaxId);
-            jQuery('form').append(element);
+          if (element.size() == 0) {
+            if (newElement.hasClass("tobago-popup")) {
+              element = jQuery("<div>");
+              element.attr("id", data.ajaxId);
+              jQuery('form').append(element);
+            } else {
+              console.warn("AJAX response element has unknown id. I don't know, where to insert or replace"); // @DEV_ONLY
+            }
           }
           element.replaceWith(newElement);
         }
@@ -2307,9 +2256,7 @@ Tobago.Updater = {
         if (typeof this.afterDoUpdateNotModified == 'function') {
           this.afterDoUpdateNotModified();
         }
-        if (overlay.data("tobagoOverlay") != null) {
-          overlay.overlay("destroy");
-        }
+        overlay.overlay("destroy");
         break;
       case Tobago.Updater.CODE_ERROR:
         if (typeof this.afterDoUpdateError == 'function') {
@@ -2326,9 +2273,7 @@ Tobago.Updater = {
         break;
       default:
         console.error('Unknown response code: ' + data.responseCode + " for component id = '" + data.ajaxId + "'"); // @DEV_ONLY
-        if (overlay.data("tobagoOverlay") != null) {
-          overlay.overlay("destroy");
-        }
+        overlay.overlay("destroy");
         break;
     }
   }
@@ -2345,69 +2290,6 @@ Tobago.ToolBar = {};
  */
 Tobago.ToolBar.init = function(elements) {
 
-  // doing the same for 3 renderer names
-  // XXX put this in a loop (the first try doesn't work, because we can't use local variables in a anonymous function)
-
-    Tobago.Utils.selectWithJQuery(elements, ".tobago-toolBar").find('.tobago-toolBar-item')
-        .not('.tobago-toolBar-item-markup-disabled')
-        .hover(function() {
-      jQuery(this).toggleClass('tobago-toolBar-item-markup-hover');
-    })
-        .children('.tobago-toolBar-button, .tobago-toolBar-menu')
-        .mouseenter(function() {
-      jQuery(this)
-          .addClass('tobago-toolBar-button-markup-hover').children('img')
-          .each(function() {
-        // set the src to the hover src url.
-        var hover = jQuery(this).data('tobago-src-hover');
-        if (hover) {
-          jQuery(this).attr('src', hover);
-        }
-      });
-    })
-        .mouseleave(function() {
-      jQuery(this)
-          .removeClass('tobago-toolBar-button-markup-hover')
-          .children('img')
-          .each(function() {
-        // restore the original/normal src url.
-        var normal = jQuery(this).data('tobago-src-default');
-        if (normal) {
-          jQuery(this).attr('src', normal);
-        }
-      });
-    });
-
-    Tobago.Utils.selectWithJQuery(elements, ".tobago-box-headerToolBar").find('.tobago-boxToolBar-item')
-        .not('.tobago-boxToolBar-item-markup-disabled')
-        .hover(function() {
-      jQuery(this).toggleClass('tobago-boxToolBar-item-markup-hover');
-    })
-        .children('.tobago-boxToolBar-button, .tobago-boxToolBar-menu')
-        .mouseenter(function() {
-      jQuery(this)
-          .addClass('tobago-boxToolBar-button-markup-hover').children('img')
-          .each(function() {
-        // set the src to the hover src url.
-        var hover = jQuery(this).data('tobago-src-hover');
-        if (hover) {
-          jQuery(this).attr('src', hover);
-        }
-      });
-    })
-        .mouseleave(function() {
-      jQuery(this)
-          .removeClass('tobago-boxToolBar-button-markup-hover')
-          .children('img')
-          .each(function() {
-        // restore the original/normal src url.
-        var normal = jQuery(this).data('tobago-src-default');
-        if (normal) {
-          jQuery(this).attr('src', normal);
-        }
-      });
-    });
-
   Tobago.Utils.selectWithJQuery(elements, ".tobago-tabGroup-toolBar")
       .find(".tobago-menu[data-tobago-index]").each(function () {
         var menu = jQuery(this);
@@ -2420,36 +2302,6 @@ Tobago.ToolBar.init = function(elements) {
           event.stopPropagation();
         })
       });
-
-    Tobago.Utils.selectWithJQuery(elements, ".tobago-tabGroup-toolBar").find('.tobago-tabGroupToolBar-item')
-        .not('.tobago-tabGroupToolBar-item-markup-disabled')
-        .hover(function() {
-      jQuery(this).toggleClass('tobago-tabGroupToolBar-item-markup-hover');
-    })
-        .children('.tobago-tabGroupToolBar-button, .tobago-tabGroupToolBar-menu')
-        .mouseenter(function() {
-      jQuery(this)
-          .addClass('tobago-tabGroupToolBar-button-markup-hover').children('img')
-          .each(function() {
-        // set the src to the hover src url.
-        var hover = jQuery(this).data('tobago-src-hover');
-        if (hover) {
-          jQuery(this).attr('src', hover);
-        }
-      });
-    })
-        .mouseleave(function() {
-      jQuery(this)
-          .removeClass('tobago-tabGroupToolBar-button-markup-hover')
-          .children('img')
-          .each(function() {
-        // restore the original/normal src url.
-        var normal = jQuery(this).data('tobago-src-default');
-        if (normal) {
-          jQuery(this).attr('src', normal);
-        }
-      });
-    });
 
   Tobago.Utils.selectWithJQuery(elements, ".tobago-toolBar-selectOne").find(".tobago-toolBar-button")
       .click(function () {
@@ -2464,22 +2316,6 @@ Tobago.ToolBar.init = function(elements) {
         var hidden = button.closest(".tobago-toolBar-selectBoolean").children("input[type=hidden]");
         hidden.val(hidden.val() == "true" ? "false" : "true");
       });
-};
-
-/**
- * @deprecated since 2.0.0, use class tobago-toolBar-selectBoolean
- */
-Tobago.ToolBar.checkToggle = function(id) {
-  var element = document.getElementById(id);
-  element.value = 'true' == element.value ? 'false' : 'true';
-};
-
-/**
- * @deprecated since 2.0.0, use class tobago-toolBar-selectOne
- */
-Tobago.ToolBar.setRadioValue = function(id, value) {
-  var element = document.getElementById(id);
-  element.value = value;
 };
 
 Tobago.registerListener(Tobago.ToolBar.init, Tobago.Phase.DOCUMENT_READY);
@@ -2520,10 +2356,8 @@ Tobago.Command.initEnter = function(elements) {
     }
   })};
 
-Tobago.Command.INPUTS_FOR_DEFAULT = "input, select, textarea, a, button";
-
 Tobago.Command.initInputElements = function(elements) {
-  var inputElements = Tobago.Utils.selectWithJQuery(elements, Tobago.Command.INPUTS_FOR_DEFAULT);
+  var inputElements = Tobago.Utils.selectWithJQuery(elements, "input, select, textarea, a, button");
   inputElements.focus(function (event) {
     var target = event.target;
     var id = target.id;
@@ -2750,14 +2584,14 @@ Tobago.File.init = function(elements) {
   var files = Tobago.Utils.selectWithJQuery(elements, ".tobago-file-real");
   files.change(function () {
     var file = jQuery(this);
-    var pretty = file.prev();
+    var pretty = file.siblings(".tobago-file-pretty");
     var filename = file.val();
     // remove path, if any. Some old browsers set the path, others like webkit uses the prefix "C:\facepath\".
     var pos = Math.max(filename.lastIndexOf('/'), filename.lastIndexOf('\\'));
     if (pos >= 0) {
       filename = filename.substr(pos + 1);
     }
-    pretty.val(filename);
+    pretty.text(filename);
   });
   if (files.length > 0) {
     jQuery("form").attr('enctype', 'multipart/form-data')

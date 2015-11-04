@@ -25,7 +25,7 @@
   <parent>
     <groupId>org.apache.myfaces.tobago</groupId>
     <artifactId>tobago</artifactId>
-    <version>2.0.9-SNAPSHOT</version>
+    <version>3.0.0-alpha-1</version>
   </parent>
 
   <dependencies>
@@ -37,40 +37,14 @@
       <scope>provided</scope>
     </dependency>
     <dependency>
-      <groupId>commons-logging</groupId>
-      <artifactId>commons-logging</artifactId>
-      <optional>true</optional>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
       <groupId>org.apache.myfaces.tobago</groupId>
       <artifactId>tobago-theme-charlotteville</artifactId>
       <version>${project.version}</version>
-      <exclusions>
-        <exclusion>
-          <groupId>javax.servlet</groupId>
-          <artifactId>jsp-api</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>javax.servlet</groupId>
-          <artifactId>servlet-api</artifactId>
-        </exclusion>
-      </exclusions>
     </dependency>
     <dependency>
       <groupId>org.apache.myfaces.tobago</groupId>
       <artifactId>tobago-theme-richmond</artifactId>
       <version>${project.version}</version>
-      <exclusions>
-        <exclusion>
-          <groupId>javax.servlet</groupId>
-          <artifactId>jsp-api</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>javax.servlet</groupId>
-          <artifactId>servlet-api</artifactId>
-        </exclusion>
-      </exclusions>
     </dependency>
     <dependency>
       <groupId>org.apache.myfaces.tobago</groupId>
@@ -89,21 +63,15 @@
       <version>${project.version}</version>
     </dependency>
     <dependency>
-      <groupId>javax.servlet.jsp</groupId>
-      <artifactId>jsp-api</artifactId>
+      <groupId>org.apache.geronimo.specs</groupId>
+      <artifactId>geronimo-servlet_3.0_spec</artifactId>
       <scope>provided</scope>
     </dependency>
     <dependency>
-      <groupId>javax.servlet</groupId>
-      <artifactId>servlet-api</artifactId>
+      <groupId>org.apache.geronimo.specs</groupId>
+      <artifactId>geronimo-el_2.2_spec</artifactId>
       <scope>provided</scope>
     </dependency>
-    <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>jcl-over-slf4j</artifactId>
-      <scope>provided</scope>
-    </dependency>
-
   </dependencies>
 
   <profiles>

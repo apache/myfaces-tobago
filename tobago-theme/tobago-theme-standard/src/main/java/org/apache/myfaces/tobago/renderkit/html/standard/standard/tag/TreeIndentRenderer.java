@@ -25,10 +25,8 @@ import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.internal.component.AbstractUIData;
 import org.apache.myfaces.tobago.internal.component.AbstractUITreeNode;
-import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
+import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
-import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
-import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
@@ -39,7 +37,7 @@ import javax.faces.context.FacesContext;
 import java.io.IOException;
 import java.util.List;
 
-public class TreeIndentRenderer extends LayoutComponentRendererBase {
+public class TreeIndentRenderer extends RendererBase {
 
   @Override
   public void encodeBegin(final FacesContext facesContext, final UIComponent component) throws IOException {
@@ -61,9 +59,10 @@ public class TreeIndentRenderer extends LayoutComponentRendererBase {
 
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
-    writer.startElement(HtmlElements.SPAN, indent);
+    writer.startElement(HtmlElements.SPAN);
     writer.writeIdAttribute(indent.getClientId(facesContext));
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, indent);
+    writer.writeClassAttribute(Classes.create(node, "toggle", Markup.NULL));
 
     encodeIndent(
         facesContext, writer, node, showLines, showIcons, showRootJunction, showRoot, junctions);
@@ -90,6 +89,7 @@ public class TreeIndentRenderer extends LayoutComponentRendererBase {
 
     for (int i = dropFirst ? 1 : 0; i < junctions.size() - 1; i++) {
       final Boolean junction = junctions.get(i);
+/*
       writer.startElement(HtmlElements.IMG, null);
       writer.writeClassAttribute(Classes.create(node, "junction"));
       writer.writeAttribute(HtmlAttributes.ALT, "", false);
@@ -99,6 +99,9 @@ public class TreeIndentRenderer extends LayoutComponentRendererBase {
         writer.writeAttribute("src", blank, true);
       }
       writer.endElement(HtmlElements.IMG);
+*/
+      final String icon = junction && showLines ? "glyphicon-option-vertical" : "glyphicon-cog";
+      HtmlRendererUtils.encodeIconWithLabel(writer, icon, null);
     }
   }
 
@@ -111,6 +114,11 @@ public class TreeIndentRenderer extends LayoutComponentRendererBase {
       return;
     }
     final boolean hasNextSibling = junctions.get(junctions.size() - 1); // last element
+
+    final String icon = folder ? expanded ? "glyphicon-minus" : "glyphicon-plus" : "glyphicon-option-vertical";
+    HtmlRendererUtils.encodeIconWithLabel(writer, icon, null);
+
+/*
     writer.startElement(HtmlElements.IMG, null);
     writer.writeClassAttribute(Classes.create(node, "toggle", Markup.NULL));
 
@@ -159,6 +167,7 @@ public class TreeIndentRenderer extends LayoutComponentRendererBase {
     }
     writer.writeAttribute(HtmlAttributes.ALT, "", false);
     writer.endElement(HtmlElements.IMG);
+*/
   }
 
 }

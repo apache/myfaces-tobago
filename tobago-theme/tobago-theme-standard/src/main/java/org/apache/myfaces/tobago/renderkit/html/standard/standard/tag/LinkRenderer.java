@@ -19,16 +19,11 @@
 
 package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
-import org.apache.myfaces.tobago.config.Configurable;
-import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.internal.component.AbstractUILink;
 import org.apache.myfaces.tobago.internal.util.AccessKeyLogger;
-import org.apache.myfaces.tobago.layout.Measure;
-import org.apache.myfaces.tobago.layout.PixelMeasure;
 import org.apache.myfaces.tobago.renderkit.CommandRendererBase;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
-import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.Command;
 import org.apache.myfaces.tobago.renderkit.html.CommandMap;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
@@ -36,19 +31,13 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.JsonUtils;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
-import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
-import javax.faces.context.ResponseWriter;
 import java.io.IOException;
 
 public class LinkRenderer extends CommandRendererBase {
-
-  private static final Logger LOG = LoggerFactory.getLogger(LinkRenderer.class);
 
   public void encodeBegin(final FacesContext facesContext, final UIComponent component) throws IOException {
 
@@ -60,9 +49,9 @@ public class LinkRenderer extends CommandRendererBase {
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
     if (disabled) {
-      writer.startElement(HtmlElements.SPAN, link);
+      writer.startElement(HtmlElements.SPAN);
     } else {
-      writer.startElement(HtmlElements.A, link);
+      writer.startElement(HtmlElements.A);
 
       final CommandMap map = new CommandMap(new Command(facesContext, link));
       writer.writeAttribute(DataAttributes.COMMANDS, JsonUtils.encode(map), true);
@@ -80,9 +69,8 @@ public class LinkRenderer extends CommandRendererBase {
       }
     }
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, link);
-    final Style style = new Style(facesContext, link);
-    writer.writeStyleAttribute(style);
-    writer.writeClassAttribute(Classes.create(link));
+    writer.writeStyleAttribute(link.getStyle());
+    writer.writeClassAttribute(Classes.create(link), link.getCustomClass());
     writer.writeIdAttribute(clientId);
     writer.writeNameAttribute(clientId);
     final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, link);
@@ -93,66 +81,16 @@ public class LinkRenderer extends CommandRendererBase {
 
 //  image
     String image = link.getImage();
-    if (image != null) {
-      if (ResourceManagerUtils.isAbsoluteResource(image)) {
-        // absolute Path to image : nothing to do
-      } else {
-        image = getImageWithPath(facesContext, image, disabled);
-      }
-      writer.startElement(HtmlElements.IMG, link);
-      writer.writeClassAttribute(Classes.create(link, "image"));
-      writer.writeAttribute(HtmlAttributes.SRC, image, true);
-      writer.writeAttribute(HtmlAttributes.BORDER, 0); // TODO: is border=0 setting via style possible?
-      final String tip = link.getTip();
-      writer.writeAttribute(HtmlAttributes.ALT, tip != null ? tip : "", true);
-      if (tip != null) {
-        writer.writeAttribute(HtmlAttributes.TITLE, tip, true);
-      }
-      writer.endElement(HtmlElements.IMG);
-    }
-
-//  label
-    if (label.getLabel() != null) {
-      if (image != null) {
-        writer.write(" "); // separator: e.g. &nbsp;
-      }
-      HtmlRendererUtils.writeLabelWithAccessKey(writer, label);
-    }
+    HtmlRendererUtils.encodeIconWithLabel(writer, facesContext, image, label, disabled);
   }
 
   public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
     final AbstractUILink link = (AbstractUILink) component;
-    final ResponseWriter writer = facesContext.getResponseWriter();
+    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
     if (link.isDisabled()) {
       writer.endElement(HtmlElements.SPAN);
     } else {
       writer.endElement(HtmlElements.A);
     }
-  }
-
-  @Override
-  public Measure getPreferredWidth(final FacesContext facesContext, final Configurable component) {
-
-    if (!(component instanceof AbstractUILink)) {
-      return Measure.valueOf(100);
-    }
-
-    final AbstractUILink link = (AbstractUILink) component;
-    final LabelWithAccessKey label = new LabelWithAccessKey(link);
-    final String text = label.getLabel();
-    final String image = link.getImage();
-
-    Measure width = PixelMeasure.ZERO;
-    if (text != null) {
-      final Measure m = RenderUtils.calculateStringWidth(facesContext, link, text);
-      width = width.add(m);
-    }
-    if ((text != null && image != null)) {
-      width = width.add(4);
-    }
-    if (image != null) {
-      width = width.add(16);
-    }
-    return width;
   }
 }

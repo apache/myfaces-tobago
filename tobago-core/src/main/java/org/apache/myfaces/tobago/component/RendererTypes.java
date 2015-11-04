@@ -28,16 +28,23 @@ public final class RendererTypes {
   public static final String BOX_TOOL_BAR = "BoxToolBar";
   public static final String BUTTON = "Button";
   public static final String CALENDAR = "Calendar";
+  @Deprecated
   public static final String CELL = "Cell";
   public static final String COLUMN = "Column";
+  public static final String SEGMENT_LAYOUT = "SegmentLayout";
   public static final String COLUMN_SELECTOR = "ColumnSelector";
   public static final String COMMAND = "Command";
+  public static final String COMMAND_GROUP = "CommandGroup";
   public static final String DATE = "Date";
+  @Deprecated
   public static final String DATE_PICKER = "DatePicker";
   public static final String FILE = "File";
+  public static final String FLEX_LAYOUT = "FlexLayout";
   public static final String FLOW_LAYOUT = "FlowLayout";
+  public static final String FOOTER = "Footer";
   public static final String FORM = "Form";
   public static final String GRID_LAYOUT = "GridLayout";
+  public static final String HEADER = "Header";
   public static final String HIDDEN = "Hidden";
   public static final String IN = "In";
   public static final String IMAGE = "Image";
@@ -49,6 +56,7 @@ public final class RendererTypes {
   public static final String MENU_BAR = "MenuBar";
   public static final String MENU_COMMAND = "MenuCommand";
   public static final String MENU_SEPARATOR = "MenuSeparator";
+  public static final String NAV = "Nav";
   public static final String OBJECT = "Object";
   public static final String OUT = "Out";
   public static final String PAGE = "Page";
@@ -56,23 +64,22 @@ public final class RendererTypes {
   public static final String POPUP = "Popup";
   public static final String PROGRESS = "Progress";
   public static final String SCRIPT = "Script";
+  public static final String SECTION = "Section";
   public static final String SELECT_BOOLEAN_CHECKBOX = "SelectBooleanCheckbox";
   public static final String SELECT_MANY_CHECKBOX = "SelectManyCheckbox";
   public static final String SELECT_MANY_LISTBOX = "SelectManyListbox";
-  public static final String SELECT_MANY_SHUTTLE = "SelectManyShuttle";;
+  public static final String SELECT_MANY_SHUTTLE = "SelectManyShuttle";
   public static final String SELECT_ONE_CHOICE = "SelectOneChoice";
   public static final String SELECT_ONE_RADIO = "SelectOneRadio";
   public static final String SELECT_ONE_LISTBOX = "SelectOneListbox";
   public static final String SELECT_REFERENCE = "SelectReference";
   public static final String SEPARATOR = "Separator";
   public static final String SHEET_PAGE_COMMAND = "SheetPageCommand";
-  public static final String SHEET_LAYOUT = "SheetLayout";
   public static final String STYLE = "Style";
   public static final String SUGGEST = "Suggest";
   public static final String TEXTAREA = "Textarea";
   public static final String TAB = "Tab";
   public static final String TAB_GROUP = "TabGroup";
-  public static final String TAB_GROUP_LAYOUT = "TabGroupLayout";
   public static final String TAB_GROUP_TOOL_BAR = "TabGroupToolBar";
   public static final String TIME = "Time";
   public static final String TOOL_BAR = "ToolBar";
@@ -91,6 +98,7 @@ public final class RendererTypes {
   public static final String TREE_NODE = "TreeNode";
   public static final String TREE_SELECT = "TreeSelect";
   public static final String SHEET = "Sheet";
+  @Deprecated
   public static final String WIZARD = "Wizard";
 
   private RendererTypes() {

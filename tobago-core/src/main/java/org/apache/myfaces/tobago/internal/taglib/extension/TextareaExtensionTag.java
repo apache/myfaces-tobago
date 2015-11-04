@@ -24,11 +24,6 @@ import org.apache.myfaces.tobago.apt.annotation.ExtensionTag;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
-import org.apache.myfaces.tobago.internal.taglib.TextareaTag;
-
-import javax.el.MethodExpression;
-import javax.el.ValueExpression;
-import javax.servlet.jsp.JspException;
 
 /**
  * Renders a multi line text input control with a label.
@@ -46,190 +41,34 @@ import javax.servlet.jsp.JspException;
  *   &lt;/tc:in>
  * &lt;/tc:panel>
  * </pre>
+ *
+ * @deprecated since Tobago 3.0. The tx-library is deprecated, please use the tc-library.
  */
-
 @Tag(name = "textarea")
 @ExtensionTag(
     baseClassName = "org.apache.myfaces.tobago.internal.taglib.TextareaTag",
     faceletHandler = "org.apache.myfaces.tobago.facelets.extension.TextareaExtensionHandler")
-public class TextareaExtensionTag extends TobagoExtensionBodyTagSupport {
-
-  private ValueExpression binding;
-  private ValueExpression converter;
-  private ValueExpression disabled;
-  private ValueExpression focus;
-  private ValueExpression label;
-  private ValueExpression accessKey;
-  private ValueExpression readonly;
-  private ValueExpression rendered;
-  private ValueExpression required;
-  private ValueExpression tip;
-  private ValueExpression value;
-  private MethodExpression valueChangeListener;
-  private MethodExpression validator;
-  private ValueExpression onchange;
-  private ValueExpression markup;
-  private ValueExpression labelWidth;
-  private ValueExpression tabIndex;
-  private ValueExpression validatorMessage;
-  private ValueExpression converterMessage;
-  private ValueExpression requiredMessage;
-  private String fieldId;
-
-  private LabelExtensionTag labelTag;
-  private TextareaTag textareaTag;
-
-  @Override
-  public int doStartTag() throws JspException {
-
-    labelTag = new LabelExtensionTag();
-    labelTag.setPageContext(pageContext);
-    labelTag.setRows("*");
-    if (id != null) {
-      labelTag.setId(id);
-    }
-    if (label != null) {
-      labelTag.setValue(label);
-    }
-    if (accessKey != null) {
-      labelTag.setAccessKey(accessKey);
-    }
-    if (tip != null) {
-      labelTag.setTip(tip);
-    }
-    if (rendered != null) {
-      labelTag.setRendered(rendered);
-    }
-    if (labelWidth != null) {
-      labelTag.setColumns(createStringValueExpression(labelWidth.getExpressionString() + ";*"));
-    }
-    if (markup != null) {
-      labelTag.setMarkup(markup);
-    }
-    labelTag.setParent(getParent());
-    labelTag.setJspId(nextJspId());
-    labelTag.doStartTag();
-
-    textareaTag = new TextareaTag();
-    textareaTag.setPageContext(pageContext);
-    if (value != null) {
-      textareaTag.setValue(value);
-    }
-    if (valueChangeListener != null) {
-      textareaTag.setValueChangeListener(valueChangeListener);
-    }
-    if (binding != null) {
-      textareaTag.setBinding(binding);
-    }
-    if (converter != null) {
-      textareaTag.setConverter(converter);
-    }
-    if (validator != null) {
-      textareaTag.setValidator(validator);
-    }
-    if (onchange != null) {
-      textareaTag.setOnchange(onchange);
-    }
-    if (disabled != null) {
-      textareaTag.setDisabled(disabled);
-    }
-    if (focus != null) {
-      textareaTag.setFocus(focus);
-    }
-    if (fieldId != null) {
-      textareaTag.setId(fieldId);
-    }
-    if (label != null) {
-      textareaTag.setLabel(label);
-    }
-    if (readonly != null) {
-      textareaTag.setReadonly(readonly);
-    }
-    if (required != null) {
-      textareaTag.setRequired(required);
-    }
-    if (markup != null) {
-      textareaTag.setMarkup(markup);
-    }
-    if (tabIndex != null) {
-      textareaTag.setTabIndex(tabIndex);
-    }
-    if (validatorMessage != null) {
-      textareaTag.setValidatorMessage(validatorMessage);
-    }
-    if (converterMessage != null) {
-      textareaTag.setConverterMessage(converterMessage);
-    }
-    if (requiredMessage != null) {
-      textareaTag.setRequiredMessage(requiredMessage);
-    }
-    textareaTag.setParent(labelTag);
-    textareaTag.setJspId(nextJspId());
-    textareaTag.doStartTag();
-
-    return super.doStartTag();
-  }
-
-  @Override
-  public int doEndTag() throws JspException {
-    textareaTag.doEndTag();
-    labelTag.doEndTag();
-    return super.doEndTag();
-  }
-
-  @Override
-  public void release() {
-    super.release();
-    binding = null;
-    converter = null;
-    validator = null;
-    disabled = null;
-    labelWidth = null;
-    focus = null;
-    label = null;
-    accessKey = null;
-    readonly = null;
-    rendered = null;
-    required = null;
-    tip = null;
-    value = null;
-    onchange = null;
-    markup = null;
-    valueChangeListener = null;
-    tabIndex = null;
-    textareaTag = null;
-    labelTag = null;
-    validatorMessage = null;
-    converterMessage = null;
-    requiredMessage = null;
-    fieldId = null;
-  }
+public interface TextareaExtensionTag {
 
   /**
    * The current value of this component.
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "java.lang.Object")
-  public void setValue(final ValueExpression value) {
-    this.value = value;
-  }
+  void setValue(final javax.el.ValueExpression value);
 
   /**
-   * MethodBinding representing a value change listener method
+   * MethodExpression representing a value change listener method
    * that will be notified when a new value has been set for this input component.
    * The expression must evaluate to a public method that takes a ValueChangeEvent
    * parameter, with a return type of void.
-   *
-   * @param valueChangeListener
    */
   @TagAttribute
   @UIComponentTagAttribute(
-          type = {},
-          expression = DynamicExpression.METHOD_EXPRESSION_REQUIRED,
-          methodSignature = "javax.faces.event.ValueChangeEvent")
-  public void setValueChangeListener(final MethodExpression valueChangeListener) {
-    this.valueChangeListener = valueChangeListener;
-  }
+      type = {},
+      expression = DynamicExpression.METHOD_EXPRESSION_REQUIRED,
+      methodSignature = "javax.faces.event.ValueChangeEvent")
+  void setValueChangeListener(final javax.el.MethodExpression valueChangeListener);
 
   /**
    * Text value to display as label.
@@ -237,27 +76,14 @@ public class TextareaExtensionTag extends TobagoExtensionBodyTagSupport {
    */
   @TagAttribute
   @UIComponentTagAttribute()
-  public void setLabel(final ValueExpression label) {
-    this.label = label;
-  }
-
-  /**
-   * The accessKey of this component.
-   */
-  @TagAttribute
-  @UIComponentTagAttribute(type = "java.lang.Character")
-  public void setAccessKey(final javax.el.ValueExpression accessKey) {
-    this.accessKey = accessKey;
-  }
+  void setLabel(final javax.el.ValueExpression label);
 
   /**
    * Flag indicating this component should receive the focus.
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "boolean", defaultValue = "false")
-  public void setFocus(final ValueExpression focus) {
-    this.focus = focus;
-  }
+  void setFocus(final javax.el.ValueExpression focus);
 
   /**
    * The value binding expression linking this
@@ -265,9 +91,7 @@ public class TextareaExtensionTag extends TobagoExtensionBodyTagSupport {
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "javax.faces.component.UIComponent")
-  public void setBinding(final ValueExpression binding) {
-    this.binding = binding;
-  }
+  void setBinding(final javax.el.ValueExpression binding);
 
   /**
    * Flag indicating whether or not this component should be rendered
@@ -275,9 +99,7 @@ public class TextareaExtensionTag extends TobagoExtensionBodyTagSupport {
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "boolean", defaultValue = "true")
-  public void setRendered(final ValueExpression rendered) {
-    this.rendered = rendered;
-  }
+  void setRendered(final javax.el.ValueExpression rendered);
 
   /**
    * An expression that specifies the Converter for this component.
@@ -291,9 +113,7 @@ public class TextareaExtensionTag extends TobagoExtensionBodyTagSupport {
   @TagAttribute
   @UIComponentTagAttribute(type = "javax.faces.convert.Converter",
       expression = DynamicExpression.VALUE_EXPRESSION)
-  public void setConverter(final ValueExpression converter) {
-    this.converter = converter;
-  }
+  void setConverter(final javax.el.ValueExpression converter);
 
   /**
    * A method binding EL expression,
@@ -304,19 +124,15 @@ public class TextareaExtensionTag extends TobagoExtensionBodyTagSupport {
   @TagAttribute
   @UIComponentTagAttribute(type = {},
       expression = DynamicExpression.METHOD_EXPRESSION,
-      methodSignature = { "javax.faces.context.FacesContext", "javax.faces.component.UIComponent", "java.lang.Object" })
-  public void setValidator(final MethodExpression validator) {
-    this.validator = validator;
-  }
+      methodSignature = {"javax.faces.context.FacesContext", "javax.faces.component.UIComponent", "java.lang.Object"})
+  void setValidator(final javax.el.MethodExpression validator);
 
   /**
    * Clientside script function to add to this component's onchange handler.
    */
   @TagAttribute
   @UIComponentTagAttribute()
-  public void setOnchange(final ValueExpression onchange) {
-    this.onchange = onchange;
-  }
+  void setOnchange(final javax.el.ValueExpression onchange);
 
   /**
    * Indicate markup of this component.
@@ -324,27 +140,21 @@ public class TextareaExtensionTag extends TobagoExtensionBodyTagSupport {
    */
   @TagAttribute
   @UIComponentTagAttribute(defaultValue = "none", type = "java.lang.String[]")
-  public void setMarkup(final ValueExpression markup) {
-    this.markup = markup;
-  }
+  void setMarkup(final javax.el.ValueExpression markup);
 
   /**
    * Flag indicating that this component will prohibit changes by the user.
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "boolean", defaultValue = "false")
-  public void setReadonly(final ValueExpression readonly) {
-    this.readonly = readonly;
-  }
+  void setReadonly(final javax.el.ValueExpression readonly);
 
   /**
    * Flag indicating that this element is disabled.
    */
   @TagAttribute()
   @UIComponentTagAttribute(type = "boolean", defaultValue = "false")
-  public void setDisabled(final ValueExpression disabled) {
-    this.disabled = disabled;
-  }
+  void setDisabled(final javax.el.ValueExpression disabled);
 
   /**
    * Flag indicating that a value is required.
@@ -353,62 +163,48 @@ public class TextareaExtensionTag extends TobagoExtensionBodyTagSupport {
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "boolean", defaultValue = "false")
-  public void setRequired(final ValueExpression required) {
-    this.required = required;
-  }
+  void setRequired(final javax.el.ValueExpression required);
 
   /**
    * Text value to display as tooltip.
    */
   @TagAttribute
   @UIComponentTagAttribute()
-  public void setTip(final ValueExpression tip) {
-    this.tip = tip;
-  }
+  void setTip(final javax.el.ValueExpression tip);
 
-   /**
+  /**
    * The width for the label component. Default: 'auto'.
    * This value is used in the gridLayouts columns attribute.
    * See gridLayout tag for valid values.
    */
   @TagAttribute
   @UIComponentTagAttribute()
-  public void setLabelWidth(final ValueExpression labelWidth) {
-    this.labelWidth = labelWidth;
-  }
+  void setLabelWidth(final javax.el.ValueExpression labelWidth);
 
   @TagAttribute
   @UIComponentTagAttribute(type = "java.lang.Integer")
-  public void setTabIndex(final ValueExpression tabIndex) {
-    this.tabIndex = tabIndex;
-  }
+  void setTabIndex(final javax.el.ValueExpression tabIndex);
 
   /**
    * An expression that specifies the validator message
    */
   @TagAttribute
   @UIComponentTagAttribute()
-  public void setValidatorMessage(final ValueExpression validatorMessage) {
-    this.validatorMessage = validatorMessage;
-  }
+  void setValidatorMessage(final javax.el.ValueExpression validatorMessage);
 
   /**
    * An expression that specifies the converter message
    */
   @TagAttribute
   @UIComponentTagAttribute()
-  public void setConverterMessage(final ValueExpression converterMessage) {
-    this.converterMessage = converterMessage;
-  }
+  void setConverterMessage(final javax.el.ValueExpression converterMessage);
 
   /**
    * An expression that specifies the required message
    */
   @TagAttribute
   @UIComponentTagAttribute()
-  public void setRequiredMessage(final ValueExpression requiredMessage) {
-    this.requiredMessage = requiredMessage;
-  }
+  void setRequiredMessage(final javax.el.ValueExpression requiredMessage);
 
   /**
    * The component identifier for the input field component inside of the container.
@@ -416,9 +212,7 @@ public class TextareaExtensionTag extends TobagoExtensionBodyTagSupport {
    */
   @TagAttribute(rtexprvalue = true)
   @UIComponentTagAttribute
-  public void setFieldId(final String fieldId) {
-    this.fieldId = fieldId;
-  }
+  void setFieldId(final String fieldId);
 
   /**
    * The component identifier for this component.
@@ -428,7 +222,5 @@ public class TextareaExtensionTag extends TobagoExtensionBodyTagSupport {
    */
   @TagAttribute(rtexprvalue = true)
   @UIComponentTagAttribute
-  public void setId(final String id) {
-    super.setId(id);
-  }
+  void setId(final String id);
 }

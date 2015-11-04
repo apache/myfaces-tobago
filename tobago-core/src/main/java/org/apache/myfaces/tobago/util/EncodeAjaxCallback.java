@@ -22,9 +22,6 @@ package org.apache.myfaces.tobago.util;
 
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Facets;
-import org.apache.myfaces.tobago.internal.layout.LayoutContext;
-import org.apache.myfaces.tobago.layout.LayoutContainer;
-import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.renderkit.util.EncodeUtils;
 
 import javax.faces.FacesException;
@@ -48,18 +45,6 @@ public class EncodeAjaxCallback implements TobagoCallback {
          }
       }
       EncodeUtils.prepareRendererAll(facesContext, component);
-      if (component instanceof LayoutContainer) {
-        final LayoutContainer layoutContainer = (LayoutContainer) component;
-        final Measure width = layoutContainer.getCurrentWidth();
-        final Measure height = layoutContainer.getCurrentHeight();
-        final Measure oldWidth = layoutContainer.getWidth();
-        final Measure oldHeight = layoutContainer.getHeight();
-        layoutContainer.setWidth(width);
-        layoutContainer.setHeight(height);
-        new LayoutContext(layoutContainer).layout();
-        layoutContainer.setWidth(oldWidth);
-        layoutContainer.setHeight(oldHeight);
-      }
       component.encodeAll(facesContext);
     } catch (final IOException e) {
       throw new FacesException(e);

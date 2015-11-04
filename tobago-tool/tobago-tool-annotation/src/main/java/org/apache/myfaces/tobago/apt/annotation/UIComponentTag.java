@@ -45,10 +45,6 @@ public @interface UIComponentTag {
 
   String displayName() default "";
 
-  boolean isLayout() default false;
-
-  boolean isTransparentForLayout() default false;
-
   String[] interfaces() default {};
 
   Facet[] facets() default {};

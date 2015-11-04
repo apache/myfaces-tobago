@@ -35,7 +35,10 @@ import javax.faces.view.facelets.ComponentConfig;
  *     &lt;tc:selectBooleanCheckbox/>
  *   &lt;/f:facet>
  * &lt;/tc:menuCommand></pre>
+ *
+ * @deprecated since Tobago 3.0. The tx-library is deprecated, please use the tc-library.
  */
+@Deprecated
 public class MenuCheckboxExtensionHandler extends TobagoMenuExtensionHandler {
 
   public MenuCheckboxExtensionHandler(final ComponentConfig config) {

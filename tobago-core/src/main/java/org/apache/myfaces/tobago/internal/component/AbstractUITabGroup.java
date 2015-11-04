@@ -21,20 +21,14 @@ package org.apache.myfaces.tobago.internal.component;
 
 import org.apache.myfaces.tobago.compat.FacesUtilsEL;
 import org.apache.myfaces.tobago.component.Attributes;
-import org.apache.myfaces.tobago.component.ComponentTypes;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.OnComponentPopulated;
-import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.component.SupportsRenderedPartially;
 import org.apache.myfaces.tobago.component.UITab;
+import org.apache.myfaces.tobago.component.Visual;
 import org.apache.myfaces.tobago.event.TabChangeEvent;
 import org.apache.myfaces.tobago.event.TabChangeListener;
 import org.apache.myfaces.tobago.event.TabChangeSource2;
-import org.apache.myfaces.tobago.internal.layout.LayoutUtils;
-import org.apache.myfaces.tobago.layout.LayoutComponent;
-import org.apache.myfaces.tobago.layout.LayoutContainer;
-import org.apache.myfaces.tobago.layout.LayoutManager;
-import org.apache.myfaces.tobago.util.CreateComponentUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -51,9 +45,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class AbstractUITabGroup extends AbstractUIPanelBase
-    implements TabChangeSource2, ActionSource2, LayoutContainer, LayoutComponent, OnComponentPopulated,
-    SupportsRenderedPartially {
+public abstract class AbstractUITabGroup extends AbstractUIPanel
+    implements TabChangeSource2, ActionSource2, OnComponentPopulated, SupportsRenderedPartially, Visual {
 
   private static final Logger LOG = LoggerFactory.getLogger(AbstractUITabGroup.class);
 
@@ -64,24 +57,11 @@ public abstract class AbstractUITabGroup extends AbstractUIPanelBase
   public static final String SWITCH_TYPE_RELOAD_TAB = "reloadTab";
 
   @Override
-  public void encodeBegin(final FacesContext facesContext) throws IOException {
-
-    super.encodeBegin(facesContext);
-
-    ((AbstractUILayoutBase) getLayoutManager()).encodeBegin(facesContext);
-  }
-
-  @Override
   public void encodeChildren(final FacesContext facesContext) throws IOException {
-
-//    ((AbstractUILayoutBase) getLayoutManager()).encodeChildren(facesContext);
   }
 
   @Override
   public void encodeEnd(final FacesContext facesContext) throws IOException {
-
-    ((AbstractUILayoutBase) getLayoutManager()).encodeEnd(facesContext);
-
     resetTabLayout();
     super.encodeEnd(facesContext);
     setRenderedIndex(getSelectedIndex());
@@ -112,21 +92,21 @@ public abstract class AbstractUITabGroup extends AbstractUIPanelBase
     }
   }
 
-  public AbstractUIPanelBase[] getTabs() {
-    final List<AbstractUIPanelBase> tabs = new ArrayList<AbstractUIPanelBase>();
+  public AbstractUIPanel[] getTabs() {
+    final List<AbstractUIPanel> tabs = new ArrayList<AbstractUIPanel>();
     for (final UIComponent kid : getChildren()) {
-      if (kid instanceof AbstractUIPanelBase) {
+      if (kid instanceof AbstractUIPanel) {
         //if (kid.isRendered()) {
-        tabs.add((AbstractUIPanelBase) kid);
+        tabs.add((AbstractUIPanel) kid);
         //}
       } else {
         LOG.error("Invalid component in UITabGroup: " + kid);
       }
     }
-    return tabs.toArray(new AbstractUIPanelBase[tabs.size()]);
+    return tabs.toArray(new AbstractUIPanel[tabs.size()]);
   }
 
-  public AbstractUIPanelBase getActiveTab() {
+  public AbstractUIPanel getActiveTab() {
     return getTab(getSelectedIndex());
   }
 
@@ -183,7 +163,7 @@ public abstract class AbstractUITabGroup extends AbstractUIPanelBase
       if (!isRendered()) {
         return;
       }
-      final AbstractUIPanelBase renderedTab = getRenderedTab();
+      final AbstractUIPanel renderedTab = getRenderedTab();
       renderedTab.processValidators(context);
       for (final UIComponent facet : getFacets().values()) {
         facet.processValidators(context);
@@ -202,7 +182,7 @@ public abstract class AbstractUITabGroup extends AbstractUIPanelBase
       if (!isRendered()) {
         return;
       }
-      final AbstractUIPanelBase renderedTab = getRenderedTab();
+      final AbstractUIPanel renderedTab = getRenderedTab();
       renderedTab.processUpdates(context);
       for (final UIComponent facet : getFacets().values()) {
         facet.processUpdates(context);
@@ -276,12 +256,12 @@ public abstract class AbstractUITabGroup extends AbstractUIPanelBase
 
   public abstract String getSwitchType();
 
-  private AbstractUIPanelBase getTab(final int index) {
+  private AbstractUIPanel getTab(final int index) {
     int i = 0;
     for (final UIComponent component : getChildren()) {
-      if (component instanceof AbstractUIPanelBase) {
+      if (component instanceof AbstractUIPanel) {
         if (i == index) {
-          return (AbstractUIPanelBase) component;
+          return (AbstractUIPanel) component;
         }
         i++;
       } else {
@@ -292,7 +272,7 @@ public abstract class AbstractUITabGroup extends AbstractUIPanelBase
     return null;
   }
 
-  private AbstractUIPanelBase getRenderedTab() {
+  private AbstractUIPanel getRenderedTab() {
     return getTab(getRenderedIndex());
   }
 
@@ -318,27 +298,7 @@ public abstract class AbstractUITabGroup extends AbstractUIPanelBase
     removeFacesListener(listener);
   }
 
-  public List<LayoutComponent> getComponents() {
-    return LayoutUtils.findLayoutChildren(this);
-  }
-
   public void onComponentPopulated(final FacesContext facesContext, final UIComponent parent) {
-    if (getLayoutManager() == null) {
-      setLayoutManager(CreateComponentUtils.createAndInitLayout(
-          facesContext, ComponentTypes.TAB_GROUP_LAYOUT, RendererTypes.TAB_GROUP_LAYOUT, parent));
-    }
+    super.onComponentPopulated(facesContext, parent);
   }
-
-  public LayoutManager getLayoutManager() {
-    return (LayoutManager) getFacet(Facets.LAYOUT);
-  }
-
-  public void setLayoutManager(final LayoutManager layoutManager) {
-    getFacets().put(Facets.LAYOUT, (AbstractUILayoutBase) layoutManager);
-  }
-
-  public boolean isLayoutChildren() {
-    return isRendered();
-  }
-
 }

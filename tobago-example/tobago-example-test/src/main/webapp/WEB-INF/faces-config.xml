@@ -183,12 +183,6 @@
   </managed-bean>
 
   <managed-bean>
-    <managed-bean-name>tobago1134</managed-bean-name>
-    <managed-bean-class>org.apache.myfaces.tobago.example.test.Tobago1134</managed-bean-class>
-    <managed-bean-scope>none</managed-bean-scope>
-  </managed-bean>
-
-  <managed-bean>
     <managed-bean-name>shuttle</managed-bean-name>
     <managed-bean-class>org.apache.myfaces.tobago.example.test.Shuttle</managed-bean-class>
     <managed-bean-scope>session</managed-bean-scope>
@@ -243,6 +237,12 @@
   </managed-bean>
 
   <managed-bean>
+    <managed-bean-name>bootstrap</managed-bean-name>
+    <managed-bean-class>org.apache.myfaces.tobago.example.test.Bootstrap</managed-bean-class>
+    <managed-bean-scope>session</managed-bean-scope>
+  </managed-bean>
+
+  <managed-bean>
     <managed-bean-name>popupReference</managed-bean-name>
     <managed-bean-class>org.apache.myfaces.tobago.example.test.PopupReferenceController</managed-bean-class>
     <managed-bean-scope>session</managed-bean-scope>
@@ -268,38 +268,6 @@
     <navigation-case>
       <from-outcome>/test/file/file.xhtml</from-outcome>
       <to-view-id>/test/file/file.xhtml</to-view-id>
-    </navigation-case>
-  </navigation-rule>
-
-  <!-- Wizard -->
-
-  <managed-bean>
-    <managed-bean-name>wizardController</managed-bean-name>
-    <managed-bean-class>org.apache.myfaces.tobago.example.test.FilterController</managed-bean-class>
-    <managed-bean-scope>session</managed-bean-scope>
-  </managed-bean>
-
-  <navigation-rule>
-    <from-view-id>/tf/wizard/navi/*</from-view-id>
-    <navigation-case>
-      <from-outcome>index</from-outcome>
-      <to-view-id>/tf/wizard/navi/index.xhtml</to-view-id>
-    </navigation-case>
-    <navigation-case>
-      <from-outcome>filter</from-outcome>
-      <to-view-id>/tf/wizard/navi/filter.xhtml</to-view-id>
-    </navigation-case>
-    <navigation-case>
-      <from-outcome>fileIntoCondition</from-outcome>
-      <to-view-id>/tf/wizard/navi/fileIntoCondition.xhtml</to-view-id>
-    </navigation-case>
-    <navigation-case>
-      <from-outcome>forwardCondition</from-outcome>
-      <to-view-id>/tf/wizard/navi/forwardCondition.xhtml</to-view-id>
-    </navigation-case>
-    <navigation-case>
-      <from-outcome>finish</from-outcome>
-      <to-view-id>/tf/wizard/navi/finish.xhtml</to-view-id>
     </navigation-case>
   </navigation-rule>
 

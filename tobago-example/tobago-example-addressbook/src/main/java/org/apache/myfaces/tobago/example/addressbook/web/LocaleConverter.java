@@ -23,8 +23,10 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
+import javax.faces.convert.FacesConverter;
 import java.util.Locale;
 
+@FacesConverter(forClass = Locale.class)
 public class LocaleConverter implements Converter {
 
   public Object getAsObject(

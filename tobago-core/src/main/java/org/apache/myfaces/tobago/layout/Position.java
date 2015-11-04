@@ -19,44 +19,40 @@
 
 package org.apache.myfaces.tobago.layout;
 
-public class Position {
+/**
+ * Values for position used with CSS.
+ *
+ * Note: the enums are not capitalized, because of problems with {@link java.beans.PropertyEditor}.
+ */
+public enum Position {
 
-  private Measure left;
-  private Measure top;
+  absolute,
+  relative,
+  fixed;
+//  static; XXX not possible
 
-  public Position(final Measure left, final Measure top) {
-    this.left = left;
-    this.top = top;
-  }
+  private String value;
 
-  public Position(final String string) {
-    final int comma = string.indexOf(',');
-    if (comma >= 0) { // found first comma
-      left = Measure.parse(string.substring(0, comma));
-      top = Measure.parse(string.substring(comma + 1));
-    } else {
-      throw new IllegalArgumentException("Can't parse to the position: '" + string + "'");
-    }
-  }
+  /**
+   * Internal constant to use in annotations. Please use {@link Position#absolute}
+   */
+  public static final String STRING_ABSOLUTE = "absolute";
 
-  public Measure getLeft() {
-    return left;
-  }
+  /**
+   * Internal constant to use in annotations. Please use {@link Position#relative}
+   */
+  public static final String STRING_RELATIVE = "relative";
 
-  public void setLeft(final Measure left) {
-    this.left = left;
-  }
+  /**
+   * Internal constant to use in annotations. Please use {@link Position#fixed}
+   */
+  public static final String STRING_FIXED = "fixed";
 
-  public Measure getTop() {
-    return top;
-  }
 
-  public void setTop(final Measure top) {
-    this.top = top;
-  }
-
-  @Override
-  public String toString() {
-    return new StringBuilder().append(left).append(',').append(top).toString();
+  /**
+   * @deprecated Since Tobago 3.0.0 Please use {@link Position:name}
+   */
+  public String getValue() {
+    return value;
   }
 }

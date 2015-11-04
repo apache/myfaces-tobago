@@ -20,7 +20,7 @@
 package org.apache.myfaces.tobago.renderkit.css;
 
 import org.apache.commons.collections.map.MultiKeyMap;
-import org.apache.myfaces.tobago.component.SupportsMarkup;
+import org.apache.myfaces.tobago.component.Visual;
 import org.apache.myfaces.tobago.context.ClientProperties;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.context.Theme;
@@ -33,35 +33,33 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
 /**
- * Builds the CSS class attribute of tags.
- * The names will be generated in a formal way, so generic name (and abbrevation) are possible.
- * The class works like a factory, so caching will be possible.
- * <p/>
+ * <p>
+ * Builds the CSS class attribute of tags. The names will be generated in a formal way, so generic name (and
+ * abbreviation) are possible. The class works like a factory, so caching will be possible.
+ * </p>
+ * <p>
  * The default naming conventions allow these values:<br/>
- *
  * <ul>
- * <li>tobago-&lt;rendererName></li>
- * <li>tobago-&lt;rendererName>-markup-&lt;markupName></li>
- * <li>tobago-&lt;rendererName>-&lt;subElement></li>
- * <li>tobago-&lt;rendererName>-&lt;subElement>-markup-&lt;markupName></li>
+ *   <li>tobago-&lt;rendererName></li>
+ *   <li>tobago-&lt;rendererName>-markup-&lt;markupName></li>
+ *   <li>tobago-&lt;rendererName>-&lt;subElement></li>
+ *   <li>tobago-&lt;rendererName>-&lt;subElement>-markup-&lt;markupName></li>
  * </ul>
- *
- * where
- * <ul>
- * <li>&lt;rendererName>, &lt;subElement> and &lt;markupName> must only contain ASCII-chars and -numbers</li>
- * <li>&lt;rendererName> is the rendererType with a lower case char as first char</li>
- * <li>&lt;subElement> is a sub element of the main tag in the output language (e.g. HTML)</li>
- * <li>&lt;markupName> is the name of an existing markup</li>
- * </ul>
- * If the markup contains more than one name, there will be generated more than one output string.
- * E.g.: UIIn with Markup [readonly, error] will get the class
- * "tobago-in tobago-in-markup-readonly tobago-in-markup-error".
- *
+ * </p>
+ * <p>
+ * where <ul> <li>&lt;rendererName>, &lt;subElement> and &lt;markupName> must only contain ASCII-chars and -numbers</li>
+ * <li>&lt;rendererName> is the rendererType with a lower case char as first char</li> <li>&lt;subElement> is a sub
+ * element of the main tag in the output language (e.g. HTML)</li> <li>&lt;markupName> is the name of an existing
+ * markup</li> </ul> If the markup contains more than one name, there will be generated more than one output string.
+ * E.g.: UIIn with Markup [readonly, error] will get the class "tobago-in tobago-in-markup-readonly
+ * tobago-in-markup-error".
+ * </p>
  */
 public final class Classes {
 
   private static final Logger LOG = LoggerFactory.getLogger(Classes.class);
 
+  /* With cache it seems to be 10 times faster */
   private static final MultiKeyMap CACHE = new MultiKeyMap();
 
   private final String stringValue;
@@ -87,19 +85,19 @@ public final class Classes {
       final UIComponent component, final boolean markupFromComponent, final String sub,
       final Markup explicit, final boolean ignoreCheck) {
     final String rendererName = StringUtils.uncapitalize(component.getRendererType());
-    final Markup markup = markupFromComponent ? ((SupportsMarkup) component).getCurrentMarkup() : explicit;
-    Classes value = (Classes) CACHE.get(rendererName, markup, sub);
-    if (value == null) {
-      value = new Classes(rendererName, markup, sub, ignoreCheck);
-      CACHE.put(rendererName, markup, sub, value);
-      if (LOG.isDebugEnabled()) {
-        LOG.debug("Element added (size={}) to cache (renderName='{}', markup='{}', sub='{}')",
-            CACHE.size(), rendererName, markup, sub);
-      }
-    }
+    final Markup markup = markupFromComponent ? ((Visual) component).getCurrentMarkup() : explicit;
+//    Classes value = (Classes) CACHE.get(rendererName, markup, sub);
+//    if (value == null) {
+    final Classes value;
+    value = new Classes(rendererName, markup, sub, ignoreCheck);
+//      CACHE.put(rendererName, markup, sub, value);
+//      if (LOG.isDebugEnabled()) {
+//        LOG.debug("Element added (size={}) to cache (renderName='{}', markup='{}', sub='{}')",
+//            CACHE.size(), rendererName, markup, sub);
+//      }
+//    }
     return value;
   }
-
   private Classes(final String rendererName, final Markup markup, final String sub, final boolean ignoreMarkupCheck) {
 
     assert sub == null || StringUtils.isAlphanumeric(sub) : "Invalid sub element name: '" + sub + "'";
@@ -138,30 +136,4 @@ public final class Classes {
   public String getStringValue() {
     return stringValue;
   }
-
-  /** @deprecated This workaround will be removed later */
-  @Deprecated
-  public static String requiredWorkaround(final UIComponent component) {
-    final String rendererName = StringUtils.uncapitalize(component.getRendererType());
-    return "tobago-" + rendererName + "-markup-required";
-  }
-
-  /**
-   * @deprecated This workaround will be removed later
-   */
-  @Deprecated
-  public static Classes createWorkaround(
-      final String rendererName, final String sub, final Markup explicit) {
-    return new Classes(rendererName, explicit, sub, false);
-  }
-
-  /**
-   * @deprecated This workaround will be removed later
-   */
-  @Deprecated
-  public static Classes createWorkaround(
-      final String rendererName, final Markup explicit) {
-    return new Classes(rendererName, explicit, null, false);
-  }
-
 }

@@ -25,7 +25,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 
-public abstract class AbstractAjaxRendererBaseWrapper extends AbstractLayoutableRendererBaseWrapper
+public abstract class AbstractAjaxRendererBaseWrapper extends AbstractRendererBaseWrapper
     implements AjaxRenderer {
 
   public void encodeAjax(final FacesContext context, final UIComponent component) throws IOException {

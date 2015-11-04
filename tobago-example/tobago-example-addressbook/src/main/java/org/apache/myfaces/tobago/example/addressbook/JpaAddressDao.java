@@ -21,20 +21,24 @@ package org.apache.myfaces.tobago.example.addressbook;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Repository;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+//import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.sql.DataSourceDefinition;
+import javax.enterprise.context.ApplicationScoped;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import java.io.Serializable;
 import java.util.List;
 
-
-@Repository
-@Transactional()
-@Service("addressDao")
-public class JpaAddressDao implements AddressDao {
+@DataSourceDefinition(
+    name = "addressBookDataSource",
+    url = "jdbc:derby:target/addressDB;create=true",
+    className = "org.apache.derby.jdbc.EmbeddedDriver"
+)
+//@Transactional
+@ApplicationScoped
+public class JpaAddressDao implements AddressDao, Serializable {
 
   private static final Logger LOG = LoggerFactory.getLogger(JpaAddressDao.class);
 
@@ -53,12 +57,12 @@ public class JpaAddressDao implements AddressDao {
     }
     return address;
   }
-  @Transactional(readOnly = true)
+//  @Transactional(readOnly = true)
   public List<Address> findAddresses(final String filter) {
     return findAddresses(filter, null, true);
   }
 
-  @Transactional(readOnly = true)
+//  @Transactional(readOnly = true)
   @SuppressWarnings("unchecked")
   public List<Address> findAddresses(String filter, final String column, final boolean order) {
     final StringBuilder builder = new StringBuilder();
@@ -86,7 +90,7 @@ public class JpaAddressDao implements AddressDao {
     address = getAddress(address.getId());
     entityManager.remove(address);
   }
-  @Transactional(readOnly = true)
+//  @Transactional(readOnly = true)
   public Address getAddress(final Integer id) {
     return entityManager.find(Address.class, id);
   }

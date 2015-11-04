@@ -17,63 +17,53 @@
  * limitations under the License.
 -->
 
-<ui:composition template="/WEB-INF/tags/layout/overview.xhtml"
+<ui:composition template="/layout/overview.xhtml"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
-                xmlns:tx="http://myfaces.apache.org/tobago/extension"
-                xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:f="http://java.sun.com/jsf/core">
+                xmlns:ui="http://java.sun.com/jsf/facelets">
 
-  <tc:box label="Input">
-    <f:facet name="layout">
-      <tc:gridLayout rows="auto;auto;auto;auto;auto;auto;auto;2*;3*;2*;2*;2*;2*;2*"/>
-    </f:facet>
+  <ui:param name="title" value="Input"/>
+
+  <tc:panel>
 
     <tc:in value="Some Text without Label"/>
 
-    <!-- code-sniplet-start id="in" -->
-    <tx:in label="Input" value="Some Text"/>
-    <!-- code-sniplet-end id="in" -->
+    <tc:in label="Input" value="Some Text"/>
 
-    <tx:in label="Read Only" readonly="true" value="Some Text"/>
+    <tc:in label="Read Only" readonly="true" value="Some Text"/>
 
-    <tx:in label="Disabled" disabled="true" value="Some Text"/>
+    <tc:in label="Disabled" disabled="true" value="Some Text"/>
 
-    <tc:panel>
-      <f:facet name="layout">
-        <tc:gridLayout columns="100px;*"/>
-      </f:facet>
+    <tc:flexLayout columns="100px;*">
       <tc:label value="Short Label"/>
       <tc:in value="Some Text"/>
-    </tc:panel>
+    </tc:flexLayout>
 
-    <tx:in label="Input (focus)" focus="true" value="Some Text"/>
+    <tc:in label="Input (focus)" focus="true" value="Some Text"/>
 
-    <tx:in label="Password" password="true" value="Asterics"/>
+    <tc:in label="Password" password="true" value="Asterics"/>
 
     <tc:textarea
         value="Some text without label, some text without label, some text without label, some text without label, some text without label, some text without label, some text without label, some text without label, some text without label, some text without label, ..."/>
 
-    <!-- code-sniplet-start id="textarea" -->
-    <tx:textarea label="Text Area"
+    <tc:textarea label="Text Area"
                  value="Some text, some text, some text, some text, some text, some text, some text, some text, some text, some text, ..."/>
-    <!-- code-sniplet-end id="textarea" -->
 
-    <tx:textarea label="Read Only"
+    <tc:textarea label="Read Only"
                  readonly="true"
                  value="Some text, some text, some text, some text, some text, some text, some text, some text, some text, some text, ..."/>
 
-    <tx:textarea label="Disabled"
+    <tc:textarea label="Disabled"
                  disabled="true"
                  value="Some text, some text, some text, some text, some text, some text, some text, some text, some text, some text, ..."/>
 
-    <tx:textarea label="Area (focus)" focus="true"
+    <tc:textarea label="Area (focus)" focus="true"
                  value="Some Text"/>
 
-    <tc:panel>
+    <tc:flowLayout>
       <tc:out value="An input field is "/>
-      <tc:in value="here" inline="true"/>
+      <tc:in value="here" labelLayout="none"/>
       <tc:out value=" inside of a floating text."/>
-    </tc:panel>
+    </tc:flowLayout>
 
-  </tc:box>
+  </tc:panel>
 </ui:composition>

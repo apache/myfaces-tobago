@@ -22,12 +22,17 @@ package org.apache.myfaces.tobago.example.addressbook;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.inject.Alternative;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
-public class InMemoryAddressDao implements AddressDao {
+@Alternative
+@ApplicationScoped
+public class InMemoryAddressDao implements AddressDao, Serializable {
 
   private static final Logger LOG = LoggerFactory.getLogger(InMemoryAddressDao.class);
 

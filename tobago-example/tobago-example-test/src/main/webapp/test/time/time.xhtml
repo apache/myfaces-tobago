@@ -29,52 +29,68 @@
       </f:facet>
       <tc:gridLayoutConstraint width="900px" height="300px" marginLeft="10px" marginTop="10px" marginRight="10px"/>
 
-      <tc:time/>
-      <tc:time>
+      <tc:date>
+        <f:convertDateTime type="time"/>
+      </tc:date>
+      <tc:date>
         <f:convertDateTime type="time" pattern="HH:mm:ss"/>
-      </tc:time>
+      </tc:date>
       <tc:in value="for comparison only"/>
 
-      <tc:time readonly="true"/>
-      <tc:time readonly="true">
+      <tc:date readonly="true">
+        <f:convertDateTime type="time"/>
+      </tc:date>
+      <tc:date readonly="true">
         <f:convertDateTime type="time" pattern="HH:mm:ss"/>
-      </tc:time>
+      </tc:date>
       <tc:in value="for comparison only" readonly="true"/>
 
-      <tc:time disabled="true"/>
-      <tc:time disabled="true">
+      <tc:date disabled="true">
+        <f:convertDateTime type="time"/>
+      </tc:date>
+      <tc:date disabled="true">
         <f:convertDateTime type="time" pattern="HH:mm:ss"/>
-      </tc:time>
+      </tc:date>
       <tc:in value="for comparison only" disabled="true"/>
 
-      <tc:time markup="error"/>
-      <tc:time markup="error">
+      <tc:date markup="error">
+        <f:convertDateTime type="time"/>
+      </tc:date>
+      <tc:date markup="error">
         <f:convertDateTime type="time" pattern="HH:mm:ss"/>
-      </tc:time>
+      </tc:date>
       <tc:in value="for comparison only" markup="error"/>
 
-      <tx:time label="Label"/>
-      <tx:time label="Label">
+      <tx:date label="Label">
+        <f:convertDateTime type="time"/>
+      </tx:date>
+      <tx:date label="Label">
         <f:convertDateTime type="time" pattern="HH:mm:ss"/>
-      </tx:time>
+      </tx:date>
       <tx:in label="Label" value="for comparison only"/>
 
-      <tx:time label="Label" readonly="true"/>
-      <tx:time label="Label" readonly="true">
+      <tx:date label="Label" readonly="true">
+        <f:convertDateTime type="time"/>
+      </tx:date>
+      <tx:date label="Label" readonly="true">
         <f:convertDateTime type="time" pattern="HH:mm:ss"/>
-      </tx:time>
+      </tx:date>
       <tx:in label="Label" value="for comparison only" readonly="true"/>
 
-      <tx:time label="Label" disabled="true"/>
-      <tx:time label="Label" disabled="true">
+      <tx:date label="Label" disabled="true">
+        <f:convertDateTime type="time"/>
+      </tx:date>
+      <tx:date label="Label" disabled="true">
         <f:convertDateTime type="time" pattern="HH:mm:ss"/>
-      </tx:time>
+      </tx:date>
       <tx:in label="Label" value="for comparison only" disabled="true"/>
 
-      <tx:time label="Label" markup="error"/>
-      <tx:time label="Label" markup="error">
+      <tx:date label="Label" markup="error">
+        <f:convertDateTime type="time"/>
+      </tx:date>
+      <tx:date label="Label" markup="error">
         <f:convertDateTime type="time" pattern="HH:mm:ss"/>
-      </tx:time>
+      </tx:date>
       <tx:in label="Label" value="for comparison only" markup="error"/>
 
       <tc:panel/>

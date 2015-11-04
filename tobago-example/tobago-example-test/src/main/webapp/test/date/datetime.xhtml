@@ -381,9 +381,9 @@
 
 <tc:label value="?"/>
 <tc:in readonly="true"/>
-<tc:time value="#{dateController.once}">
-  <f:convertDateTime pattern="HH:mm:ss"/>
-</tc:time>
+<tc:date value="#{dateController.once}">
+  <f:convertDateTime pattern="HH:mm:ss" type="time"/>
+</tc:date>
 <tc:in readonly="true"/>
 <tc:in readonly="true"/>
 <tc:in readonly="true"/>
@@ -393,9 +393,9 @@
 
 <tc:label value="timeStyle=short"/>
 <tc:in readonly="true"/>
-<tc:time value="#{dateController.once}">
+<tc:date value="#{dateController.once}">
   <f:convertDateTime timeStyle="short" type="time"/>
-</tc:time>
+</tc:date>
 <tc:in readonly="true"/>
 <tc:in readonly="true"/>
 <tc:in readonly="true"/>
@@ -403,9 +403,9 @@
 
 <tc:label value="timeStyle=medium"/>
 <tc:in readonly="true"/>
-<tc:time value="#{dateController.once}">
+<tc:date value="#{dateController.once}">
   <f:convertDateTime timeStyle="medium" type="time"/>
-</tc:time>
+</tc:date>
 <tc:in readonly="true"/>
 <tc:in readonly="true"/>
 <tc:in readonly="true"/>
@@ -413,9 +413,9 @@
 
 <tc:label value="timeStyle=long"/>
 <tc:in readonly="true"/>
-<tc:time value="#{dateController.once}">
+<tc:date value="#{dateController.once}">
   <f:convertDateTime timeStyle="long" type="time"/>
-</tc:time>
+</tc:date>
 <tc:in readonly="true"/>
 <tc:in readonly="true"/>
 <tc:in readonly="true"/>
@@ -423,9 +423,9 @@
 
 <tc:label value="timeStyle=full"/>
 <tc:in readonly="true"/>
-<tc:time value="#{dateController.once}">
+<tc:date value="#{dateController.once}">
   <f:convertDateTime timeStyle="full" type="time"/>
-</tc:time>
+</tc:date>
 <tc:in readonly="true"/>
 <tc:in readonly="true"/>
 <tc:in readonly="true"/>

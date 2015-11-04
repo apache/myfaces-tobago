@@ -19,16 +19,15 @@
 
 package org.apache.myfaces.tobago.example.addressbook.web;
 
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
-
+import javax.enterprise.context.SessionScoped;
 import javax.faces.model.SelectItem;
+import javax.inject.Named;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Locale;
 
-@Component("countries")
-@Scope(value = "session")
+@Named
+@SessionScoped
 public class Countries extends ArrayList<SelectItem> {
 
   public void init(final Locale language) {

@@ -26,14 +26,12 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.internal.component.AbstractUIGridLayout;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasBinding;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasBorder;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasCurrentMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasId;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasMargin;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasMargins;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasSpacing;
+import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
+import org.apache.myfaces.tobago.layout.Orientation;
 
-  /**
+/**
    * Renders a SplitLayout.
    * A area with two child components rendered horizontally or vertically and allows to change the
    * layout relation of this two components on the client.
@@ -45,9 +43,9 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasSpacing;
     uiComponentFacesClass = "javax.faces.component.UIComponentBase",
     componentFamily = AbstractUIGridLayout.COMPONENT_FAMILY,
     rendererType = "SplitLayout",
-    allowedChildComponenents = "NONE", isLayout = true)
-public interface SplitLayoutTagDeclaration extends HasId, HasBorder, HasSpacing, HasMargin,
-    HasMargins, HasBinding, HasMarkup, HasCurrentMarkup {
+    allowedChildComponenents = "NONE")
+public interface SplitLayoutTagDeclaration
+      extends HasId, HasBorder, HasSpacing, HasBinding, IsVisual {
 
   /**
    * This value defines the layout constraints for the layout.
@@ -60,11 +58,12 @@ public interface SplitLayoutTagDeclaration extends HasId, HasBorder, HasSpacing,
 
   /**
    * This value defines the orientation of the split layout.
-   * Possible values are 'HORIZONTAL' and 'VERTICAL'.
+   * Possible values are {@link Orientation#horizontal} and {@link Orientation#vertical}.
    */
-
   @TagAttribute(required = true)
-  @UIComponentTagAttribute(allowedValues = {"HORIZONTAL", "VERTICAL"})
+  @UIComponentTagAttribute(
+      type = "org.apache.myfaces.tobago.layout.Orientation",
+      allowedValues = {Orientation.STRING_HORIZONTAL, Orientation.STRING_VERTICAL})
   void setOrientation(String orientation);
 
   /**

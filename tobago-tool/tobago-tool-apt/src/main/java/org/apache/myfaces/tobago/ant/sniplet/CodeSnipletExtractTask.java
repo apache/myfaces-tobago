@@ -166,7 +166,7 @@ public class CodeSnipletExtractTask extends Task {
       final String fileName = codeSniplet.getId() + ".snip";
       final File file = new File(outputDir, fileName);
       final PrintWriter out = new PrintWriter(new FileOutputStream(file));
-      final StringBuffer code = codeSniplet.getCode(stripLeadingSpaces);
+      final StringBuilder code = codeSniplet.getCode(stripLeadingSpaces);
       out.print(code);
       out.close();
       log("Wrote: " + file.getName(), Project.MSG_INFO);

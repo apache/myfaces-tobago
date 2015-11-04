@@ -17,18 +17,14 @@
  * limitations under the License.
 -->
 
-<ui:composition template="/WEB-INF/tags/layout/overview.xhtml"
+<ui:composition template="/layout/overview.xhtml"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
-                xmlns:tx="http://myfaces.apache.org/tobago/extension"
-                xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:h="http://java.sun.com/jsf/html"
-                xmlns:f="http://java.sun.com/jsf/core">
-  <ui:param name="title" value="#{overviewBundle.intro}"/>
-  <tc:panel>
-    <f:facet name="layout">
-      <tc:gridLayout rowOverflow="true"/>
-    </f:facet>
+                xmlns:ui="http://java.sun.com/jsf/facelets">
 
-    <tc:out escape="false" value="#{overviewBundle.intro_text}"/>
-  </tc:panel>
+  <ui:param name="title" value="#{overviewBundle.intro}"/>
+
+  <tc:out escape="false" value="#{overviewBundle.intro_text}" id="text"/>
+
+  <tc:out value="#{overviewBundle.notTranslated}" id="nt" />
+
 </ui:composition>

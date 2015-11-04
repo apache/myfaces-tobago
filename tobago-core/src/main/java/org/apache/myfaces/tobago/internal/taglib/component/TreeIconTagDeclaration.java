@@ -24,12 +24,10 @@ import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.component.RendererTypes;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasCurrentMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsDisabled;
-import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutComponent;
+import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
 
 import javax.faces.component.UIGraphic;
 
@@ -44,8 +42,7 @@ import javax.faces.component.UIGraphic;
     componentFamily = UIGraphic.COMPONENT_FAMILY,
     rendererType = RendererTypes.TREE_ICON,
     allowedChildComponenents = "NONE")
-public interface TreeIconTagDeclaration
-    extends HasIdBindingAndRendered, HasTip, IsDisabled, HasMarkup, HasCurrentMarkup, IsGridLayoutComponent {
+public interface TreeIconTagDeclaration extends HasIdBindingAndRendered, HasTip, IsDisabled, IsVisual {
 
   /**
    * Absolute url to an image or image name to lookup in tobago resource path

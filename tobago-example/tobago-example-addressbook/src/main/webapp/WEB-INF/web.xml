@@ -17,19 +17,17 @@
  * limitations under the License.
 -->
 
-<web-app xmlns="http://java.sun.com/xml/ns/j2ee"
+<web-app
+    xmlns="http://java.sun.com/xml/ns/javaee"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
-    version="2.4">
+    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+    version="3.0">
 
-  <display-name>A simple addressbook demo with Tobago</display-name>
+  <display-name>A simple address-book demo (Java EE 6)</display-name>
 
   <context-param>
     <param-name>javax.faces.PROJECT_STAGE</param-name>
-<!--
     <param-value>Development</param-value>
--->
-    <param-value>Production</param-value>
   </context-param>
 
   <context-param>
@@ -47,27 +45,19 @@
     <param-value>.xhtml</param-value>
   </context-param>
 
-  <!--  workaround for a bug in Oracle AS (e.g. 10.1.2.0.0)-->
-  <listener>
-    <listener-class>org.apache.myfaces.tobago.webapp.TobagoServletContextListener</listener-class>
-  </listener>
-
-  <listener>
-    <listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
-  </listener>
-
-  <listener>
-    <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-  </listener>
-
-  <listener>
-    <listener-class>org.apache.myfaces.tobago.example.addressbook.DerbyShutdownServletContextListener</listener-class>
-  </listener>
-
   <context-param>
-    <param-name>contextConfigLocation</param-name>
-    <param-value>/WEB-INF/applicationContext.xml</param-value>
+    <param-name>javax.faces.INTERPRET_EMPTY_STRING_SUBMITTED_VALUES_AS_NULL</param-name>
+    <param-value>true</param-value>
   </context-param>
+
+  <filter>
+    <filter-name>LoggingMdcFilter</filter-name>
+    <filter-class>org.apache.myfaces.tobago.internal.webapp.LoggingMdcFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>LoggingMdcFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
 
   <!-- servlet -->
 
@@ -75,11 +65,6 @@
     <servlet-name>FacesServlet</servlet-name>
     <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
     <load-on-startup>1</load-on-startup>
-  </servlet>
-
-  <servlet>
-    <servlet-name>PictureServlet</servlet-name>
-    <servlet-class>org.apache.myfaces.tobago.example.addressbook.web.PictureServlet</servlet-class>
   </servlet>
 
   <servlet>
@@ -92,24 +77,9 @@
     </init-param>
   </servlet>
 
-  <servlet>
-    <servlet-name>KillSessionServlet</servlet-name>
-    <servlet-class>org.apache.myfaces.tobago.example.addressbook.KillSession</servlet-class>
-  </servlet>
-
-  <servlet-mapping>
-    <servlet-name>KillSessionServlet</servlet-name>
-    <url-pattern>/KillSession</url-pattern>
-  </servlet-mapping>
-
   <servlet-mapping>
     <servlet-name>FacesServlet</servlet-name>
     <url-pattern>/faces/*</url-pattern>
-  </servlet-mapping>
-
-  <servlet-mapping>
-    <servlet-name>PictureServlet</servlet-name>
-    <url-pattern>/faces/picture</url-pattern>
   </servlet-mapping>
 
   <servlet-mapping>
@@ -117,20 +87,25 @@
     <url-pattern>/org/apache/myfaces/tobago/renderkit/*</url-pattern>
   </servlet-mapping>
 
-  <!--servlet-mapping>
+  <servlet-mapping>
     <servlet-name>ResourceServlet</servlet-name>
     <url-pattern>/addressbook-resource/*</url-pattern>
-  </servlet-mapping-->
+  </servlet-mapping>
 
-  <!--servlet-mapping>
+  <servlet-mapping>
     <servlet-name>ResourceServlet</servlet-name>
     <url-pattern>/org/tango-project/*</url-pattern>
-  </servlet-mapping-->
+  </servlet-mapping>
+
+  <!-- XXX websphere-provided -->
+  <listener>
+    <listener-class>org.apache.webbeans.servlet.WebBeansConfigurationListener</listener-class>
+  </listener>
 
   <!-- Welcome File List -->
 
   <welcome-file-list>
-    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>index.html</welcome-file>
   </welcome-file-list>
 
   <security-constraint>
@@ -170,5 +145,11 @@
     <env-entry-type>java.lang.String</env-entry-type>
     <env-entry-value>1m</env-entry-value>
   </env-entry>
+
+  <session-config>
+    <cookie-config>
+      <http-only>true</http-only>
+    </cookie-config>
+  </session-config>
 
 </web-app>

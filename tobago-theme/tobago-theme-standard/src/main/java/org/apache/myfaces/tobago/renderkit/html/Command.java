@@ -25,7 +25,6 @@ import org.apache.myfaces.tobago.component.UICommand;
 import org.apache.myfaces.tobago.component.UIForm;
 import org.apache.myfaces.tobago.internal.component.AbstractUICommand;
 import org.apache.myfaces.tobago.internal.util.Deprecation;
-import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 
@@ -51,11 +50,6 @@ public class Command {
   private Integer delay;
   private Popup popup;
   private Boolean omit;
-  /**
-   * @deprecated Script will not work when CSP is activated
-   */
-  @Deprecated
-  private String script;
 
   public Command() {
   }
@@ -87,9 +81,6 @@ public class Command {
         null,
         Popup.createPopup(command),
         command.isOmit());
-    if (command.getOnclick() != null) {
-      script = command.getOnclick();
-    }
   }
 
   public Command(final FacesContext facesContext, UIComponent facetComponent, final String focusId) {
@@ -111,14 +102,6 @@ public class Command {
       this.partially = ComponentUtils.evaluateClientIds(
           facesContext, facetComponent, ((UICommand) facetComponent).getRenderedPartially());
     } else {
-      String facetAction = (String) facetComponent.getAttributes().get(Attributes.ONCLICK);
-      if (facetAction != null) {
-        // Replace @autoId
-        facetAction = StringUtils.replace(facetAction, "@autoId", facetComponent.getClientId(facesContext));
-        // XXX this case is deprecated.
-        // not allowed with Content Security Policy (CSP)
-        this.script = facetAction;
-      }
       if (focusId != null) {
         this.focus = focusId;
       }
@@ -218,20 +201,4 @@ public class Command {
   public void setOmit(final Boolean omit) {
     this.omit = omit;
   }
-
-  /**
-   * @deprecated Script will not work when CSP is activated
-   */
-  public String getScript() {
-    return script;
-  }
-
-  /**
-   * @deprecated Script will not work when CSP is activated
-   */
-  @Deprecated
-  public void setScript(final String script) {
-    this.script = script;
-  }
-
 }

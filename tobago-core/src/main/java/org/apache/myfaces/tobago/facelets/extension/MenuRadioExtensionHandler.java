@@ -39,7 +39,10 @@ import javax.faces.view.facelets.ComponentConfig;
  *     &lt;/tc:selectOneRadio>
  *   &lt;/f:facet>
  * &lt;/tc:menuCommand></pre>
+ *
+ * @deprecated since Tobago 3.0. The tx-library is deprecated, please use the tc-library.
  */
+@Deprecated
 public class MenuRadioExtensionHandler extends TobagoMenuExtensionHandler {
 
   public MenuRadioExtensionHandler(final ComponentConfig config) {

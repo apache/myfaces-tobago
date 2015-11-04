@@ -37,7 +37,7 @@ public class Progress implements Serializable {
     if (update) {
       int value = progress.getValue();
       if (value < progress.getMaximum()) {
-        value = value+10;
+        value = value + 10;
         progress.setValue(value);
       }
     }

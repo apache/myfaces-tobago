@@ -20,7 +20,7 @@
   <parent>
     <groupId>org.apache.myfaces.tobago</groupId>
     <artifactId>tobago-extension</artifactId>
-    <version>2.0.9-SNAPSHOT</version>
+    <version>3.0.0-alpha-1</version>
   </parent>
   <packaging>jar</packaging>
   <name>Tobago Fileupload</name>

@@ -38,7 +38,7 @@
   <entry key="editorMobile">Handy:</entry>
   <entry key="editorFax">Fax:</entry>
   <entry key="editorEmail">eMail:</entry>
-  <entry key="editorBirthday">Geburtstag:</entry>
+  <entry key="editorBirthday">Geburtsdatum:</entry>
   <entry key="editorJobCompany">Firma:</entry>
   <entry key="editorJobTitle">Job Titel:</entry>
   <entry key="editorNote">Bemerkungen:</entry>
@@ -54,6 +54,7 @@
   <entry key="listDelete">Löschen</entry>
   <entry key="listFirstName">Vorname</entry>
   <entry key="listLastName">Nachname</entry>
+  <entry key="listBirthday">Geburtsdatum</entry>
   <entry key="listDeleteConfirmation">Wollen Sie diesen Eintrag wirklich
     löschen?</entry>
 </properties>

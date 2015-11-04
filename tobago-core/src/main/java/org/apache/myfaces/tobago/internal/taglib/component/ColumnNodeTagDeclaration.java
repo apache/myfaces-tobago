@@ -25,14 +25,11 @@ import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.component.RendererTypes;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasCurrentMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabel;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsDisabled;
-import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutComponent;
-import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutContainer;
+import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
 
 import javax.faces.component.UIColumn;
 
@@ -57,8 +54,7 @@ import javax.faces.component.UIColumn;
         "org.apache.myfaces.tobago.TreeCommand"
     })
 public interface ColumnNodeTagDeclaration
-    extends HasIdBindingAndRendered, HasMarkup, HasCurrentMarkup, HasTip, IsDisabled, IsGridLayoutContainer,
-    IsGridLayoutComponent, HasLabel {
+    extends HasIdBindingAndRendered, HasTip, IsDisabled, IsVisual, HasLabel {
 
   /**
    * Flag indicating whether or not the width of this column in a sheet is resizable, by the user.

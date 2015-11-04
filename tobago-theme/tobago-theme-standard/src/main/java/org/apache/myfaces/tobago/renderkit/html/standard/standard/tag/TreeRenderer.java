@@ -23,12 +23,11 @@ import org.apache.myfaces.tobago.component.UITreeNode;
 import org.apache.myfaces.tobago.internal.component.AbstractUIData;
 import org.apache.myfaces.tobago.internal.component.AbstractUITree;
 import org.apache.myfaces.tobago.model.ExpandedState;
-import org.apache.myfaces.tobago.model.SelectedState;
 import org.apache.myfaces.tobago.model.Selectable;
+import org.apache.myfaces.tobago.model.SelectedState;
 import org.apache.myfaces.tobago.model.TreePath;
-import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
+import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
-import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
@@ -45,7 +44,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 
-public class TreeRenderer extends LayoutComponentRendererBase {
+public class TreeRenderer extends RendererBase {
 
   private static final Logger LOG = LoggerFactory.getLogger(TreeRenderer.class);
 
@@ -81,17 +80,16 @@ public class TreeRenderer extends LayoutComponentRendererBase {
 
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
-    writer.startElement(HtmlElements.DIV, tree);
-    writer.writeClassAttribute(Classes.create(tree));
-    final Style style = new Style(facesContext, tree);
-    writer.writeStyleAttribute(style);
+    writer.startElement(HtmlElements.DIV);
+    writer.writeClassAttribute(Classes.create(tree), tree.getCustomClass());
+    writer.writeStyleAttribute(tree.getStyle());
     writer.writeIdAttribute(clientId);
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, tree);
-    writer.writeAttribute("data-tobago-scroll-panel", "true", true);
+    writer.writeAttribute(DataAttributes.SCROLL_PANEL, Boolean.TRUE.toString(), false);
 
-    final Selectable selectable = tree.getSelectableAsEnum();
+    final Selectable selectable = tree.getSelectable();
     if (selectable.isSupportedByTree()) {
-      writer.writeAttribute(DataAttributes.SELECTABLE, selectable.getValue(), false);
+      writer.writeAttribute(DataAttributes.SELECTABLE, selectable.name(), false);
     }
 
     final SelectedState selectedState = tree.getSelectedState();
@@ -126,8 +124,8 @@ public class TreeRenderer extends LayoutComponentRendererBase {
     }
     tree.setRowIndex(-1);
 
-    writer.startElement(HtmlElements.INPUT, tree);
-    writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN, false);
+    writer.startElement(HtmlElements.INPUT);
+    writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN);
     final String selectedId = clientId + ComponentUtils.SUB_SEPARATOR + AbstractUITree.SUFFIX_SELECTED;
     writer.writeNameAttribute(selectedId);
     writer.writeIdAttribute(selectedId);
@@ -135,8 +133,8 @@ public class TreeRenderer extends LayoutComponentRendererBase {
     writer.writeAttribute(HtmlAttributes.VALUE, selectedValue.toString(), false);
     writer.endElement(HtmlElements.INPUT);
 
-    writer.startElement(HtmlElements.INPUT, tree);
-    writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN, false);
+    writer.startElement(HtmlElements.INPUT);
+    writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN);
     final String expandedId = clientId + ComponentUtils.SUB_SEPARATOR + AbstractUIData.SUFFIX_EXPANDED;
     writer.writeNameAttribute(expandedId);
     writer.writeIdAttribute(expandedId);

@@ -17,15 +17,19 @@
  * limitations under the License.
 -->
 
-<ui:composition template="/WEB-INF/tags/layout/overview.xhtml"
+<ui:composition template="/layout/overview.xhtml"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:f="http://java.sun.com/jsf/core">
   <ui:param name="title" value="Non-Faces-Request Demo: Start"/>
 
   <tc:panel>
+    <f:facet name="layout">
+      <tc:flowLayout/>
+    </f:facet>
+
     <p>
-      This demo works with &lt;f:viewParam> which is only available with Facelets (not with JSP pages) <br/>
+      This demo works with &lt;f:viewParam>.<br/>
     </p>
 
     <p>

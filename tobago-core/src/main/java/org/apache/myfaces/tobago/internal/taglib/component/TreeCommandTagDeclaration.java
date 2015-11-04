@@ -27,30 +27,25 @@ import org.apache.myfaces.tobago.component.ComponentTypes;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.internal.taglib.declaration.AbstractCommandTagDeclaration;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasCurrentMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabelAndAccessKey;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTabIndex;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsDisabled;
-import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutComponent;
+import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
 
 import javax.faces.component.UICommand;
 
 /**
  * Renders a command inside of a tree.
  */
-@Tag(
-    name = "treeCommand",
-    tagExtraInfoClassName = "org.apache.myfaces.tobago.internal.taglib.component.CommandTagExtraInfo")
+@Tag(name = "treeCommand")
 @BodyContentDescription(anyTagOf = "facestag")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UITreeCommand",
     uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUITreeCommand",
     uiComponentFacesClass = "javax.faces.component.UICommand",
     interfaces = {
-        "org.apache.myfaces.tobago.layout.LayoutBase",
         "org.apache.myfaces.tobago.component.SupportsAccessKey"
     },
     componentFamily = UICommand.COMPONENT_FAMILY,
@@ -67,5 +62,5 @@ import javax.faces.component.UICommand;
     rendererType = RendererTypes.TREE_COMMAND)
 public interface TreeCommandTagDeclaration
     extends AbstractCommandTagDeclaration, HasIdBindingAndRendered, IsDisabled,
-    HasLabelAndAccessKey, HasTip, HasMarkup, HasCurrentMarkup, HasTabIndex, IsGridLayoutComponent {
+    HasLabelAndAccessKey, HasTip, HasTabIndex, IsVisual {
 }

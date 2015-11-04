@@ -20,7 +20,7 @@
   <parent>
     <groupId>org.apache.myfaces.tobago</groupId>
     <artifactId>tobago-example</artifactId>
-    <version>2.0.9-SNAPSHOT</version>
+    <version>3.0.0-alpha-1</version>
   </parent>
   <artifactId>tobago-example-blank</artifactId>
   <packaging>war</packaging>
@@ -34,63 +34,8 @@
   <dependencies>
     <dependency>
       <groupId>org.apache.myfaces.tobago</groupId>
-      <artifactId>tobago-theme-charlotteville</artifactId>
-      <version>${project.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.myfaces.tobago</groupId>
-      <artifactId>tobago-theme-scarborough</artifactId>
-      <version>${project.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.myfaces.tobago</groupId>
       <artifactId>tobago-theme-speyside</artifactId>
       <version>${project.version}</version>
     </dependency>
-    <dependency>
-      <groupId>org.apache.myfaces.tobago</groupId>
-      <artifactId>tobago-theme-richmond</artifactId>
-      <version>${project.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.myfaces.tobago</groupId>
-      <artifactId>tobago-theme-standard</artifactId>
-      <version>${project.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.myfaces.tobago</groupId>
-      <artifactId>tobago-core</artifactId>
-      <version>${project.version}</version>
-      <scope>compile</scope>
-      <exclusions>
-        <exclusion>
-          <groupId>sun.jdk</groupId>
-          <artifactId>tools</artifactId>
-        </exclusion>
-      </exclusions>
-    </dependency>
-    <dependency>
-      <groupId>log4j</groupId>
-      <artifactId>log4j</artifactId>
-      <scope>runtime</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>slf4j-log4j12</artifactId>
-    </dependency>    
-    <dependency>
-      <groupId>javax.servlet</groupId>
-      <artifactId>jstl</artifactId>
-      <exclusions>
-        <exclusion>
-          <groupId>javax.servlet</groupId>
-          <artifactId>jsp-api</artifactId>
-        </exclusion>
-      </exclusions>
-     </dependency>
-     <dependency>
-       <groupId>taglibs</groupId>
-       <artifactId>standard</artifactId>
-     </dependency>
   </dependencies>
 </project>

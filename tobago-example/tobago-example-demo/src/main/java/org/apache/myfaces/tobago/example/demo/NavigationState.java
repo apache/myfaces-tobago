@@ -46,6 +46,8 @@ public class NavigationState implements Serializable {
 
   private TreeState state = new TreeState(new ExpandedState(1), new SelectedState());
 
+  private boolean viewSource = true;
+
   @PostConstruct
   public void init() {
     currentNode = tree.findByViewId(FacesContext.getCurrentInstance().getViewRoot().getViewId());
@@ -124,5 +126,18 @@ public class NavigationState implements Serializable {
 
   public TreeState getState() {
     return state;
+  }
+
+  public String toggleViewSource() {
+    viewSource = !viewSource;
+    return null;
+  }
+
+  public boolean isViewSource() {
+    return viewSource;
+  }
+
+  public void setViewSource(boolean viewSource) {
+    this.viewSource = viewSource;
   }
 }

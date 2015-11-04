@@ -19,20 +19,19 @@
 
 package org.apache.myfaces.tobago.internal.layout;
 
-import org.apache.myfaces.tobago.layout.LayoutComponent;
-import org.apache.myfaces.tobago.layout.Orientation;
+import javax.faces.component.UIComponent;
 
 public class OriginCell implements Cell {
 
-  private LayoutComponent component;
+  private UIComponent component;
   private int columnSpan;
   private int rowSpan;
 
-  public OriginCell(final LayoutComponent component) {
+  public OriginCell(final UIComponent component) {
     this.component = component;
   }
 
-  public LayoutComponent getComponent() {
+  public UIComponent getComponent() {
     return component;
   }
 
@@ -46,10 +45,6 @@ public class OriginCell implements Cell {
 
   public boolean isHorizontalFirst() {
     return true;
-  }
-
-  public int getSpan(final Orientation orientation) {
-    return orientation == Orientation.HORIZONTAL ? getColumnSpan() : getRowSpan();
   }
 
   public int getColumnSpan() {

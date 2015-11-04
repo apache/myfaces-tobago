@@ -19,19 +19,16 @@
 
 package org.apache.myfaces.tobago.facelets;
 
-import org.apache.myfaces.tobago.component.DeprecatedDimension;
 import org.apache.myfaces.tobago.component.InputSuggest;
 import org.apache.myfaces.tobago.component.OnComponentCreated;
 import org.apache.myfaces.tobago.component.OnComponentPopulated;
-import org.apache.myfaces.tobago.component.SupportsMarkup;
+import org.apache.myfaces.tobago.component.Visual;
 import org.apache.myfaces.tobago.component.SupportsRenderedPartially;
 import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.event.SheetStateChangeSource;
 import org.apache.myfaces.tobago.event.SortActionSource;
 import org.apache.myfaces.tobago.event.TabChangeSource;
-import org.apache.myfaces.tobago.internal.component.AbstractUIFlowLayout;
-import org.apache.myfaces.tobago.internal.component.AbstractUIGridLayout;
-import org.apache.myfaces.tobago.internal.component.AbstractUIPopup;
+import org.apache.myfaces.tobago.internal.component.AbstractUISegmentLayout;
 import org.apache.myfaces.tobago.internal.config.TobagoConfigImpl;
 
 import javax.faces.component.EditableValueHolder;
@@ -58,17 +55,8 @@ public class TobagoComponentHandler extends ComponentHandler {
     if (SortActionSource.class.isAssignableFrom(aClass)) {
       metaRuleset.addRule(SortActionSourceRule.INSTANCE);
     }
-    if (DeprecatedDimension.class.isAssignableFrom(aClass)) {
-      metaRuleset.addRule(DeprecatedDimensionRule.INSTANCE);
-    }
-    if (AbstractUIPopup.class.isAssignableFrom(aClass)) {
-      metaRuleset.addRule(PositionRule.INSTANCE);
-    }
-    if (AbstractUIGridLayout.class.isAssignableFrom(aClass)) {
-      metaRuleset.addRule(GridLayoutRule.INSTANCE);
-    }
-    if (AbstractUIFlowLayout.class.isAssignableFrom(aClass)) {
-      metaRuleset.addRule(FlowLayoutRule.INSTANCE);
+    if (AbstractUISegmentLayout.class.isAssignableFrom(aClass)) {
+      metaRuleset.addRule(SegmentLayoutRule.INSTANCE);
     }
     if (TabChangeSource.class.isAssignableFrom(aClass)) {
       metaRuleset.addRule(TabChangeSourceRule.INSTANCE);
@@ -76,7 +64,7 @@ public class TobagoComponentHandler extends ComponentHandler {
     if (SheetStateChangeSource.class.isAssignableFrom(aClass)) {
       metaRuleset.addRule(SheetStateChangeSourceRule.INSTANCE);
     }
-    if (SupportsMarkup.class.isAssignableFrom(aClass)) {
+    if (Visual.class.isAssignableFrom(aClass)) {
       metaRuleset.addRule(SupportsMarkupRule.INSTANCE);
     }
     if (InputSuggest.class.isAssignableFrom(aClass)) {
@@ -85,6 +73,7 @@ public class TobagoComponentHandler extends ComponentHandler {
     if (SupportsRenderedPartially.class.isAssignableFrom(aClass)) {
       metaRuleset.addRule(SupportsRenderedPartiallyRule.INSTANCE);
     }
+
     return metaRuleset;
   }
 

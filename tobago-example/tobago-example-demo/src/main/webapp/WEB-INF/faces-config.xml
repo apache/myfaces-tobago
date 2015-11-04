@@ -25,7 +25,7 @@
 
   <application>
     <navigation-handler>
-      org.apache.myfaces.tobago.example.demo.MultiplePageDeclarationLanguageNavigationHandler
+      org.apache.myfaces.tobago.example.demo.PrettyUrlForMenuNavigationHandler
     </navigation-handler>
     <locale-config>
       <default-locale>en</default-locale>
@@ -71,12 +71,6 @@
     <managed-bean-scope>application</managed-bean-scope>
   </managed-bean>
 
-  <managed-bean>
-    <managed-bean-name>pageDeclarationLanguage</managed-bean-name>
-    <managed-bean-class>org.apache.myfaces.tobago.example.demo.PageDeclarationLanguageBean</managed-bean-class>
-    <managed-bean-scope>session</managed-bean-scope>
-  </managed-bean>
-
   <!--  overview  -->
 
   <lifecycle>
@@ -90,14 +84,6 @@
     <managed-bean-class>org.apache.myfaces.tobago.example.demo.clientConfig.ClientConfigController</managed-bean-class>
     <managed-bean-scope>session</managed-bean-scope>
   </managed-bean>
-
-  <!--<navigation-rule>
-    <from-view-id>/tobago-module-client/clientConfig.jsp</from-view-id>
-    <navigation-case>
-      <from-action>#{clientConfigController.submit}</from-action>
-      <to-view-id>/tobago-module-client/clientConfig.jsp</to-view-id>
-    </navigation-case>
-  </navigation-rule>-->
 
   <managed-bean>
     <managed-bean-name>clientConfigController2</managed-bean-name>
@@ -117,12 +103,6 @@
     <managed-bean-name>bestPracticeController</managed-bean-name>
     <managed-bean-class>org.apache.myfaces.tobago.example.demo.bestpractice.BestPracticeController</managed-bean-class>
     <managed-bean-scope>request</managed-bean-scope>
-  </managed-bean>
-
-  <managed-bean>
-    <managed-bean-name>birdController</managed-bean-name>
-    <managed-bean-class>org.apache.myfaces.tobago.example.demo.BirdController</managed-bean-class>
-    <managed-bean-scope>session</managed-bean-scope>
   </managed-bean>
 
   <managed-bean>
@@ -176,11 +156,11 @@
     <from-view-id>/content/12-best-practice/00/error.xhtml</from-view-id>
     <navigation-case>
       <from-outcome>error-404</from-outcome>
-      <to-view-id>/content/12-best-practice/00/x-not-existing-page.jsp</to-view-id>
+      <to-view-id>/content/12-best-practice/00/x-not-existing-page.xhtml</to-view-id>
     </navigation-case>
     <navigation-case>
       <from-outcome>syntax</from-outcome>
-      <to-view-id>/content/12-best-practice/00/x-error-in-syntax.jsp</to-view-id>
+      <to-view-id>/content/12-best-practice/00/x-error-in-syntax.xhtml</to-view-id>
     </navigation-case>
   </navigation-rule>
 
@@ -194,6 +174,36 @@
       org.apache.myfaces.tobago.example.demo.TestExceptionHandlerFactory
     </exception-handler-factory>
   </factory>
+
+  <managed-bean>
+    <managed-bean-name>reference</managed-bean-name>
+    <managed-bean-class>org.apache.myfaces.tobago.example.reference.Controller</managed-bean-class>
+    <managed-bean-scope>session</managed-bean-scope>
+  </managed-bean>
+
+  <managed-bean>
+    <managed-bean-name>progress</managed-bean-name>
+    <managed-bean-class>org.apache.myfaces.tobago.example.reference.Progress</managed-bean-class>
+    <managed-bean-scope>session</managed-bean-scope>
+  </managed-bean>
+
+  <managed-bean>
+    <managed-bean-name>selectBooleanCheckboxController</managed-bean-name>
+    <managed-bean-class>org.apache.myfaces.tobago.example.reference.SelectBooleanCheckboxController</managed-bean-class>
+    <managed-bean-scope>session</managed-bean-scope>
+  </managed-bean>
+
+  <managed-bean>
+    <managed-bean-name>partialReloadController</managed-bean-name>
+    <managed-bean-class>org.apache.myfaces.tobago.example.reference.PartialReloadController</managed-bean-class>
+    <managed-bean-scope>request</managed-bean-scope>
+  </managed-bean>
+
+  <managed-bean>
+    <managed-bean-name>inputSuggestController</managed-bean-name>
+    <managed-bean-class>org.apache.myfaces.tobago.example.reference.InputSuggestController</managed-bean-class>
+    <managed-bean-scope>session</managed-bean-scope>
+  </managed-bean>
 
   <managed-bean>
     <managed-bean-name>upload</managed-bean-name>

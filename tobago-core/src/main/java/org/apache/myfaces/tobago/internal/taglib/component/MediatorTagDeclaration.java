@@ -24,10 +24,8 @@ import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.component.RendererTypes;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasCurrentMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
-import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutComponent;
+import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
 
 import javax.faces.component.UIPanel;
 
@@ -42,9 +40,9 @@ import javax.faces.component.UIPanel;
     uiComponentFacesClass = "javax.faces.component.UIPanel",
     componentFamily = UIPanel.COMPONENT_FAMILY,
     rendererType = RendererTypes.MEDIATOR,
-    interfaces = {"org.apache.myfaces.tobago.component.SupportsMarkup"})
+    interfaces = {"org.apache.myfaces.tobago.component.Visual"})
 public interface MediatorTagDeclaration
-    extends HasIdBindingAndRendered, IsGridLayoutComponent, HasMarkup, HasCurrentMarkup {
+    extends HasIdBindingAndRendered, IsVisual {
 
   /**
    * Name of a request-scope attribute under which this component is accessible.

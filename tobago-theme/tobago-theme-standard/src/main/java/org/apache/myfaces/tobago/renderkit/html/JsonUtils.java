@@ -148,10 +148,6 @@ public class JsonUtils {
     if (popup != null) {
       encode(builder, "popup", popup);
     }
-    final String script = command.getScript();
-    if (script != null) {
-      encode(builder, "script", script);
-    }
     final Boolean omit = command.getOmit();
     if (omit != null && omit) { // false is the default, so encoding is needed.
       encode(builder, "omit", omit);

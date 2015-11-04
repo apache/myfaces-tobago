@@ -26,12 +26,10 @@ import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.component.RendererTypes;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasCurrentMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsDisabled;
-import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutContainer;
+import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
 
 import javax.faces.component.UIColumn;
 
@@ -51,32 +49,9 @@ import javax.faces.component.UIColumn;
         "org.apache.myfaces.tobago.TreeNode",
         "org.apache.myfaces.tobago.TreeData"
     })
-public interface
-    TreeNodeTagDeclaration
-    extends HasIdBindingAndRendered, HasMarkup, HasCurrentMarkup, HasTip, IsDisabled, IsGridLayoutContainer {
+public interface TreeNodeTagDeclaration
+    extends HasIdBindingAndRendered, HasTip, IsDisabled, IsVisual {
 
-  /**
-   * Flag indicating if the subnodes are to be displayed.
-   * @deprecated since 2.0.0. Please use the state attribute of the tree with a TreeState
-   */
-  @Deprecated
-  @TagAttribute()
-  @UIComponentTagAttribute(type = "boolean", generate = false, defaultValue = "false")
-  void setExpanded(String expanded);
-
-  /**
-   * Flag indicating if the node is marked, and should be displayed in a special way.
-   * @deprecated since 2.0.0. Please use the state attribute of the tree with a TreeState
-   */
-  @Deprecated
-  @TagAttribute()
-  @UIComponentTagAttribute(type = "boolean", generate = false, defaultValue = "false")
-  void setMarked(String marked);
-
-  /**
-   * Flag indicating if the node is selected (only possible, when the tree component allows it).
-   * @deprecated since 2.0.0. Please use <code>&lt;tc:treeSelect></code>
-   */
   @Deprecated
   @TagAttribute()
   @UIComponentTagAttribute(type = "boolean", generate = false, defaultValue = "false")
@@ -92,18 +67,9 @@ public interface
       methodSignature = "org.apache.myfaces.tobago.event.TreeExpansionEvent")
   void setTreeExpansionListener(String treeExpansionListener);
 
-  /**
-   * Method binding representing a markedListener method that ....
-   * @deprecated since 2.0.0.
-   */
-  @TagAttribute
-  @UIComponentTagAttribute(type = {},
-      generate = false,
-      expression = DynamicExpression.METHOD_EXPRESSION_REQUIRED,
-      methodSignature = "org.apache.myfaces.tobago.event.TreeMarkedEvent")
-  void setTreeMarkedListener(String treeMarkedListener);
-
+/* TBD
   @TagAttribute
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure")
   void setWidth(String width);
+*/
 }

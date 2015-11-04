@@ -21,7 +21,7 @@ package org.apache.myfaces.tobago.internal.context;
 
 import org.apache.myfaces.tobago.application.ProjectStage;
 import org.apache.myfaces.tobago.component.RendererTypes;
-import org.apache.myfaces.tobago.config.Configurable;
+import org.apache.myfaces.tobago.component.Visual;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.context.ResourceManager;
 import org.apache.myfaces.tobago.context.Theme;
@@ -32,7 +32,6 @@ import org.apache.myfaces.tobago.util.LocaleUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
 import javax.faces.render.Renderer;
 import java.util.ArrayList;
@@ -63,20 +62,20 @@ public class ResourceManagerImpl implements ResourceManager {
 
   private boolean production;
 
-  private final Map<String, String> resourceList 
+  private final Map<String, String> resourceList
       = new ConcurrentHashMap<String, String>(100, 0.75f, 1);
 
-  private final Map<RendererCacheKey, Renderer> rendererCache 
+  private final Map<RendererCacheKey, Renderer> rendererCache
       = new ConcurrentHashMap<RendererCacheKey, Renderer>(100, 0.75f, 1);
-  private final Map<ImageCacheKey, StringValue> imageCache 
+  private final Map<ImageCacheKey, StringValue> imageCache
       = new ConcurrentHashMap<ImageCacheKey, StringValue>(100, 0.75f, 1);
-  private final Map<JspCacheKey, String> jspCache 
+  private final Map<JspCacheKey, String> jspCache
       = new ConcurrentHashMap<JspCacheKey, String>(100, 0.75f, 1);
-  private final Map<MiscCacheKey, String[]> miscCache 
+  private final Map<MiscCacheKey, String[]> miscCache
       = new ConcurrentHashMap<MiscCacheKey, String[]>(100, 0.75f, 1);
-  private final Map<PropertyCacheKey, StringValue> propertyCache 
+  private final Map<PropertyCacheKey, StringValue> propertyCache
       = new ConcurrentHashMap<PropertyCacheKey, StringValue>(100, 0.75f, 1);
-  private final Map<ThemeConfigCacheKey, MeasureValue> themeCache 
+  private final Map<ThemeConfigCacheKey, MeasureValue> themeCache
       = new ConcurrentHashMap<ThemeConfigCacheKey, MeasureValue>(100, 0.75f, 1);
   private final Map<String, String[]> extensionCache
       = new ConcurrentHashMap<String, String[]>(10, 0.75f, 1);
@@ -113,40 +112,12 @@ public class ResourceManagerImpl implements ResourceManager {
     resourceList.put(resourceKey, value);
   }
 
-  @Deprecated
-  public String getJsp(final UIViewRoot viewRoot, final String name) {
-    String result = null;
-    if (name != null) {
-
-      final ClientPropertiesKey clientKey = ClientPropertiesKey.get(FacesContext.getCurrentInstance());
-      final JspCacheKey cacheKey = new JspCacheKey(clientKey, name);
-
-      result = jspCache.get(cacheKey);
-      if (result != null) {
-        return result;
-      }
-      try {
-        result = (String) getPaths(clientKey, "",
-            JSP, name, EXT_NONE, false, true, true, null, true, false).get(0);
-        jspCache.put(cacheKey, result);
-      } catch (final Exception e) {
-        LOG.error("name = '" + name + "' clientProperties = '" + clientKey.toString() + "'", e);
-      }
-    }
-    return result;
-  }
-
-  @Deprecated
-  public String getProperty(final UIViewRoot viewRoot, final String bundle, final String propertyKey) {
-    return getProperty(FacesContext.getCurrentInstance(), bundle, propertyKey);
-  }
-
   public String getProperty(final FacesContext facesContext, final String bundle, final String propertyKey) {
 
     if (bundle != null && propertyKey != null) {
       final ClientPropertiesKey clientKey = ClientPropertiesKey.get(facesContext);
       final PropertyCacheKey cacheKey = new PropertyCacheKey(clientKey, bundle, propertyKey);
-      
+
       StringValue result = propertyCache.get(cacheKey);
       if (result == null) {
         final List properties
@@ -161,11 +132,6 @@ public class ResourceManagerImpl implements ResourceManager {
       return result.getValue();
     }
     return null;
-  }
-
-  @Deprecated
-  public Renderer getRenderer(final UIViewRoot viewRoot, final String rendererType) {
-    return getRenderer(FacesContext.getCurrentInstance(), rendererType);
   }
 
   public Renderer getRenderer(final FacesContext facesContext, final String rendererType) {
@@ -199,50 +165,31 @@ public class ResourceManagerImpl implements ResourceManager {
     }
     return renderer;
   }
-  
-  @Deprecated
-  public String[] getScripts(final UIViewRoot viewRoot, final String name) {
-    return getScripts(FacesContext.getCurrentInstance(), name);
-  }
-  
+
   public String[] getScripts(final FacesContext facesContext, final String name) {
     return getStrings(facesContext, name, null);
-  }
-
-  @Deprecated
-  public String[] getStyles(final UIViewRoot viewRoot, final String name) {
-    return getStyles(FacesContext.getCurrentInstance(), name);
   }
 
   public String[] getStyles(final FacesContext facesContext, final String name) {
     return getStrings(facesContext, name, null);
   }
 
-  @Deprecated
-  public String getThemeProperty(final UIViewRoot viewRoot, final String bundle, final String propertyKey) {
-    if (bundle != null && propertyKey != null) {
-
-      final ClientPropertiesKey clientKey = ClientPropertiesKey.get(FacesContext.getCurrentInstance());
-      final PropertyCacheKey cacheKey = new PropertyCacheKey(clientKey, bundle, propertyKey);
-
-      StringValue result = propertyCache.get(cacheKey);
-      if (result == null) {
-        final List properties
-            = getPaths(clientKey, "", PROPERTY, bundle, EXT_NONE, false, true, false, propertyKey, true, true);
-        if (properties != null) {
-          result = new StringValue((String) properties.get(0));
-        } else {
-          result = StringValue.NULL;
-        }
-        propertyCache.put(cacheKey, result);
-      }
-      return result.getValue();
-    }
-    return null;
+  public Measure getThemeMeasure(final FacesContext facesContext, final Visual visual, final String name) {
+    return getThemeMeasure(facesContext, visual.getRendererType(), visual.getCurrentMarkup(), name);
   }
 
-  public Measure getThemeMeasure(final FacesContext facesContext, final Configurable configurable, final String name) {
-    return getThemeMeasure(facesContext, configurable.getRendererType(), configurable.getCurrentMarkup(), name);
+  /**
+   * The default should not be needed, use defaulting from the theme mechanism.
+   */
+  public Measure getThemeMeasure(
+      final FacesContext facesContext, final Visual visual, final String name, final Measure defaultValue) {
+    final Measure measure = getThemeMeasure(facesContext, visual, name);
+    if (measure != null) {
+      return measure;
+    } else {
+//      LOG.warn("Using default-value for visual='" + visual + "' name='" + name + "'");
+      return defaultValue;
+    }
   }
 
   public Measure getThemeMeasure(
@@ -281,21 +228,6 @@ public class ResourceManagerImpl implements ResourceManager {
       themeCache.put(cacheKey, result);
     }
     return result.getValue();
-  }
-
-  @Deprecated
-  public String getImage(final UIViewRoot viewRoot, final String name) {
-    return getImage(FacesContext.getCurrentInstance(), name);
-  }
-
-  @Deprecated
-  public String getImage(final FacesContext facesContext, final String name) {
-    return getImage(facesContext, name, false);
-  }
-
-  @Deprecated
-  public String getImage(final UIViewRoot viewRoot, final String name, final boolean ignoreMissing) {
-    return getImage(FacesContext.getCurrentInstance(), name, ignoreMissing);
   }
 
   /**
@@ -444,7 +376,7 @@ public class ResourceManagerImpl implements ResourceManager {
             + "' name='" + name
             + "' extension='" + Arrays.toString(extensions)
             + "' key='" + key
-            + "'");
+            + "'"/*, new Exception()*/);
       }
       return null;
     } else {

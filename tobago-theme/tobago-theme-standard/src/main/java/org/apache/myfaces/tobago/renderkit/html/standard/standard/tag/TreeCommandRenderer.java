@@ -21,7 +21,10 @@ package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
 import org.apache.myfaces.tobago.component.UITreeCommand;
 import org.apache.myfaces.tobago.component.UITreeNode;
+import org.apache.myfaces.tobago.internal.component.AbstractUIData;
+import org.apache.myfaces.tobago.internal.component.AbstractUITreeNode;
 import org.apache.myfaces.tobago.internal.util.AccessKeyLogger;
+import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.renderkit.CommandRendererBase;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
@@ -40,7 +43,6 @@ import org.slf4j.LoggerFactory;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
-import javax.faces.context.ResponseWriter;
 import java.io.IOException;
 
 public class TreeCommandRenderer extends CommandRendererBase {
@@ -65,15 +67,25 @@ public class TreeCommandRenderer extends CommandRendererBase {
     final LabelWithAccessKey label = new LabelWithAccessKey(command);
     final boolean disabled = command.isDisabled();
 
+    final AbstractUITreeNode node = ComponentUtils.findAncestor(command, AbstractUITreeNode.class);
+    final AbstractUIData data = ComponentUtils.findAncestor(command, AbstractUIData.class);
+    Style style = command.getStyle();
+    if (style == null) {
+      style = new Style();
+    }
+    if (style.getLeft() == null) { // do not override it
+      style.setMarginLeft(leftOffset(node.getLevel(), data.isShowRoot()));
+    }
+
     if (disabled) {
-      writer.startElement(HtmlElements.SPAN, command);
+      writer.startElement(HtmlElements.SPAN);
     } else {
-      writer.startElement(HtmlElements.A, command);
+      writer.startElement(HtmlElements.A);
       final CommandMap map = new CommandMap(new Command(facesContext, command));
       writer.writeAttribute(DataAttributes.COMMANDS, JsonUtils.encode(map), true);
       writer.writeNameAttribute(clientId);
     }
-    writer.writeStyleAttribute(createStyle(facesContext, command));
+    writer.writeStyleAttribute(style);
     writer.writeClassAttribute(Classes.create(command));
     writer.writeIdAttribute(clientId);
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, command);
@@ -90,18 +102,18 @@ public class TreeCommandRenderer extends CommandRendererBase {
     HtmlRendererUtils.writeLabelWithAccessKey(writer, label);
   }
 
-  protected Style createStyle(final FacesContext facesContext, final UITreeCommand link) {
-    return new Style(facesContext, link);
-  }
-
   @Override
   public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
     final UITreeCommand command = (UITreeCommand) component;
-    final ResponseWriter writer = facesContext.getResponseWriter();
+    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
     if (command.isDisabled()) {
       writer.endElement(HtmlElements.SPAN);
     } else {
       writer.endElement(HtmlElements.A);
     }
+  }
+
+  protected Measure leftOffset(int level, boolean showRoot) {
+    return Measure.ZERO;
   }
 }

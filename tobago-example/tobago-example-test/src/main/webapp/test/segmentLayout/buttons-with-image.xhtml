@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!--
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+-->
+
+<f:view
+    xmlns:tc="http://myfaces.apache.org/tobago/component"
+    xmlns:f="http://java.sun.com/jsf/core" xmlns:tx="http://myfaces.apache.org/tobago/extension">
+
+  <tc:page id="page">
+
+    <tc:segmentLayout large="1;1;1;1;1;1;1;1;1;1;1;1" medium="3;3;3;3">
+
+      <tc:button image="glyphicon-remove" label="1a Abbrechen" />
+      <tc:button image="glyphicon-refresh" label="1b Aktualisieren" />
+      <tc:button image="glyphicon-paperclip" label="1c Anhang" />
+      <tc:button image="glyphicon-log-in" label="1d Anmelden" />
+
+      <!-- XXX here is a problem in Firefox 40 and IE 11 when rendering.
+      XXX In Chrome and Safari the page is okay.
+      The image="image/feather-leaf" will create an <img> tag in HTML. This will break the
+      12 column layout:
+      The next line begins after this button, and not in the first column.
+
+      The reason is, that the image is slightly higher than the glyphicon
+      -->
+      <tc:button image="image/feather-leaf" label="2a Ansicht öffnen" />
+      <tc:button image="glyphicon-eye-close" label="2b Ansicht schließen" />
+      <tc:button image="glyphicon-tasks" label="2c Aufgabe" />
+      <tc:button image="glyphicon-scissors" label="2d Ausschneiden" />
+
+      <tc:button image="glyphicon-pencil" label="3a Bearbeiten" />
+      <tc:button image="glyphicon-log-out" label="3b Beenden" />
+      <tc:button image="glyphicon-bookmark" label="3c Bookmark" />
+      <tc:button image="glyphicon-asterisk" label="3d Clear" />
+
+      <tc:button image="glyphicon-export" label="4a Dateiexport" />
+      <tc:button image="glyphicon-th-list" label="4b Detail" />
+      <tc:button image="glyphicon-stats" label="4c Diagramm" />
+      <tc:button image="glyphicon-modal-window" label="4d Display" />
+
+      <tc:button image="glyphicon-file" label="5a Dokument" />
+      <tc:button image="glyphicon-envelope" label="5b Email" />
+      <tc:button image="glyphicon-minus" label="5c Entfernen" />
+      <tc:button image="glyphicon-ok" label="5d Fertig" />
+
+      <tc:button image="glyphicon-filter" label="6a Filtern" />
+      <tc:button image="image/feather-leaf" label="6b Gruppe" />
+      <tc:button image="glyphicon-question-sign" label="6c Hilfe" />
+      <tc:button image="glyphicon-plus" label="6d Hinzufügen" />
+
+      <tc:button image="glyphicon-home" label="7a Home" />
+      <tc:button image="glyphicon-calendar" label="7b Kalender" />
+      <tc:button image="glyphicon-duplicate" label="7c Kopieren" />
+      <tc:button image="glyphicon-trash" label="7d Löschen" />
+
+      <tc:button image="glyphicon-resize-full" label="8a Maximieren" />
+      <tc:button image="glyphicon-resize-small" label="8b Minimieren" />
+      <tc:button image="glyphicon-file" label="8c Neu" />
+      <tc:button image="glyphicon-folder-open" label="8d Öffnen" />
+
+      <tc:button image="glyphicon-step-backward" label="9a Rückgängig" />
+      <tc:button image="glyphicon-lock" label="9b Sicherheit" />
+      <tc:button image="glyphicon-save-file" label="9c Sichern" />
+      <tc:button image="glyphicon-search" label="9d Suchen" />
+
+      <tc:button image="glyphicon-time" label="10a Uhrzeit" />
+      <tc:button image="glyphicon-forward" label="10b Weiter" />
+      <tc:button image="glyphicon-repeat" label="10c Erneut" />
+      <tc:button image="glyphicon-backward" label="10d Zurück" />
+
+      <tc:button image="glyphicon-import" label="11a Dateiimport" />
+      <tc:button image="glyphicon-link" label="11b Link" />
+      <tc:button image="glyphicon-folder-close" label="11c Ordner schließen" />
+      <tc:button image="glyphicon-folder-open" label="11d Ordner öffnen" />
+
+      <tc:button image="glyphicon-print" label="12a Drucken" />
+      <tc:button image="glyphicon-th" label="12b Berechnen" />
+      <tc:button image="glyphicon-eur" label="12c Umrechnungskurs" />
+      <tc:button image="glyphicon-check" label="12d Prüfen" />
+    </tc:segmentLayout>
+
+  </tc:page>
+</f:view>

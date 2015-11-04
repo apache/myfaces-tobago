@@ -29,6 +29,10 @@ import javax.faces.view.facelets.ComponentConfig;
 import javax.faces.view.facelets.FaceletContext;
 import javax.faces.view.facelets.TagAttribute;
 
+/**
+ * @deprecated since Tobago 3.0. The tx-library is deprecated, please use the tc-library.
+ */
+@Deprecated
 public class SelectBooleanCheckboxExtensionHandler extends TobagoLabelExtensionHandler {
 
   private TagAttribute itemLabelAttribute;

@@ -22,7 +22,7 @@
    version="2.0">
 
   <theme-config>
-    <default-theme>speyside</default-theme>
+    <default-theme>standard</default-theme>
     <supported-theme>scarborough</supported-theme>
     <supported-theme>richmond</supported-theme>
     <supported-theme>charlotteville</supported-theme>

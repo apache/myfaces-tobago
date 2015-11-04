@@ -25,10 +25,9 @@ import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasBinding;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasCurrentMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasId;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasItemLabel;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
+import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
 
 /**
  * Add a child UISelectItem component to the UIComponent
@@ -41,7 +40,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
     uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUISelectItem",
     uiComponentFacesClass = "javax.faces.component.UISelectItem",
     allowedChildComponenents = "NONE")
-public interface SelectItemTagDeclaration extends HasBinding, HasId, HasMarkup, HasCurrentMarkup, HasItemLabel {
+public interface SelectItemTagDeclaration extends HasBinding, HasId, IsVisual, HasItemLabel {
 
   /**
    * Description of an item, might be rendered as a tool tip.

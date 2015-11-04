@@ -17,9 +17,8 @@
  * limitations under the License.
 -->
 
-<ui:composition template="/WEB-INF/tags/layout/overview.xhtml"
+<ui:composition template="/layout/overview.xhtml"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
-                xmlns:tx="http://myfaces.apache.org/tobago/extension"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:f="http://java.sun.com/jsf/core">
   <ui:param name="title" value="Editor"/>
@@ -48,9 +47,9 @@
         <li>Must be compatible to CSP (Content Security Policy).</li>
       </ul>
       Unfortunately we didn't found the <em>perfect</em> editor.
-      </p>
-      <p>
-        But that doesn't matter. You can choice you favorite editor and integrate it in your application.
+    </p>
+    <p>
+      But that doesn't matter. You can choice you favorite editor and integrate it in your application.
       In this application there are two editors embedded as an example.
       <ul>
         <li><tc:link link="http://www.tinymce.com/" target="_blank" label="TinyMCE"/></li>

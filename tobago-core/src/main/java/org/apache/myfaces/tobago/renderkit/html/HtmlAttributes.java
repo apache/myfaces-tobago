@@ -19,107 +19,120 @@
 
 package org.apache.myfaces.tobago.renderkit.html;
 
-public final class HtmlAttributes {
+public enum HtmlAttributes implements MarkupLanguageAttributes {
 
-  public static final String ACCEPT_CHARSET = "accept-charset";
-  public static final String ACCEPT = "accept";
-  public static final String ACCESSKEY = "accesskey";
-  public static final String ACTION = "action";
-  public static final String ALIGN = "align";
-  public static final String ALT = "alt";
-  public static final String AUTOCOMPLETE = "autocomplete";
-  public static final String AUTOFOCUS = "autofocus";
-  public static final String BORDER = "border";
-  public static final String CELLPADDING = "cellpadding";
-  public static final String CELLSPACING = "cellspacing";
-  public static final String CHECKED = "checked";
-  public static final String CLASS = "class";
-  public static final String COLSPAN = "colspan";
-  public static final String CONTENT = "content";
-  public static final String DEFER = "defer";
-  public static final String DISABLED = "disabled";
-  public static final String ENCTYPE = "enctype";
-  public static final String FOR = "for";
-  public static final String FRAMEBORDER = "frameborder";
-  public static final String HEIGHT = "height";
-  public static final String HREF = "href";
-  public static final String HTTP_EQUIV = "http-equiv";
-  public static final String ID = "id";
-  public static final String LABEL = "label";
-  public static final String MAXLENGTH = "maxlength";
-  public static final String MEDIA = "media";
-  public static final String METHOD = "method";
-  public static final String MULTIPLE = "multiple";
-  public static final String NAME = "name";
+  ACCEPT_CHARSET("accept-charset"),
+  ACCEPT("accept"),
+  ACCESSKEY("accesskey"),
+  ACTION("action"),
+  ALIGN("align"),
+  ALT("alt"),
+  AUTOCOMPLETE("autocomplete"),
+  AUTOFOCUS("autofocus"),
+  BORDER("border"),
+  CELLPADDING("cellpadding"),
+  CELLSPACING("cellspacing"),
+  CHECKED("checked"),
+  CLASS("class"),
+  COLSPAN("colspan"),
+  CONTENT("content"),
+  DEFER("defer"),
+  DISABLED("disabled"),
+  ENCTYPE("enctype"),
+  FOR("for"),
+  FRAMEBORDER("frameborder"),
+  HEIGHT("height"),
+  HREF("href"),
+  HTTP_EQUIV("http-equiv"),
+  ID("id"),
+  LABEL("label"),
+  MAXLENGTH("maxlength"),
+  MEDIA("media"),
+  METHOD("method"),
+  MULTIPLE("multiple"),
+  NAME("name"),
   /** @deprecated Since 2.0.0. This attribute work not with SCP */
   @Deprecated
-  public static final String ONBLUR = "onblur";
+  ONBLUR("onblur"),
   /** @deprecated Since 2.0.0. This attribute work not with SCP */
   @Deprecated
-  public static final String ONCHANGE = "onchange";
+  ONCHANGE("onchange"),
   /** @deprecated Since 2.0.0. This attribute work not with SCP */
   @Deprecated
-  public static final String ONCLICK = "onclick";
+  ONCLICK("onclick"),
   /** @deprecated Since 2.0.0. This attribute work not with SCP */
   @Deprecated
-  public static final String ONDBLCLICK = "ondblclick";
+  ONDBLCLICK("ondblclick"),
   /** @deprecated Since 2.0.0. This attribute work not with SCP */
   @Deprecated
-  public static final String ONFOCUS = "onfocus";
+  ONFOCUS("onfocus"),
   /** @deprecated Since 2.0.0. This attribute work not with SCP */
   @Deprecated
-  public static final String ONFOCUSIN = "onfocusin";
+  ONFOCUSIN("onfocusin"),
   /** @deprecated Since 2.0.0. This attribute work not with SCP */
   @Deprecated
-  public static final String ONKEYDOWN = "onkeydown";
+  ONKEYDOWN("onkeydown"),
   /** @deprecated Since 2.0.0. This attribute work not with SCP */
   @Deprecated
-  public static final String ONKEYPRESS = "onkeypress";
+  ONKEYPRESS("onkeypress"),
   /** @deprecated Since 2.0.0. This attribute work not with SCP */
   @Deprecated
-  public static final String ONKEYUP = "onkeyup";
+  ONKEYUP("onkeyup"),
   /** @deprecated Since 2.0.0. This attribute work not with SCP */
   @Deprecated
-  public static final String ONLOAD = "onload";
+  ONLOAD("onload"),
   /** @deprecated Since 2.0.0. This attribute work not with SCP */
   @Deprecated
-  public static final String ONMOUSEOVER = "onmouseover";
+  ONMOUSEOVER("onmouseover"),
   /** @deprecated Since 2.0.0. This attribute work not with SCP */
   @Deprecated
-  public static final String ONMOUSEOUT = "onmouseout";
-  public static final String PATTERN = "pattern";
-  public static final String PLACEHOLDER = "placeholder";
-  public static final String READONLY = "readonly";
-  public static final String REL = "rel";
-  public static final String REQUIRED = "required";
-  public static final String ROLE = "role";
-  public static final String ROWS = "rows";
-  public static final String ROWSPAN = "rowspan";
-  public static final String SCROLL = "scroll";
-  public static final String SELECTED = "selected";
-  public static final String SIZE = "size";
-  public static final String SRC = "src";
+  ONMOUSEOUT("onmouseout"),
+  PATTERN("pattern"),
+  PLACEHOLDER("placeholder"),
+  READONLY("readonly"),
+  REL("rel"),
+  REQUIRED("required"),
+  ROLE("role"),
+  ROWS("rows"),
+  ROWSPAN("rowspan"),
+  SCROLL("scroll"),
+  SELECTED("selected"),
+  SIZE("size"),
+  SRC("src"),
   /** @deprecated Since 2.0.0. This attribute work not with SCP */
   @Deprecated
-  public static final String STYLE = "style";
-  public static final String SUMMARY = "summary";
-  public static final String TABINDEX = "tabindex";
-  public static final String TARGET = "target";
-  public static final String TITLE = "title";
-  public static final String TYPE = "type";
-  public static final String VALIGN = "valign";
-  public static final String VALUE = "value";
-  public static final String WIDTH = "width";
+  STYLE("style"),
+  SUMMARY("summary"),
+  TABINDEX("tabindex"),
+  TARGET("target"),
+  TITLE("title"),
+  TYPE("type"),
+  VALIGN("valign"),
+  VALUE("value"),
+  WIDTH("width"),
+  XMLNS("xmlns"),
 
   // Non standard attributes ///////////////////////////////////////////////////////////
 
   /**
    * The index of the tab inside the tab group.
    */
-  public static final String TABGROUPINDEX = "tabgroupindex";
+  TABGROUPINDEX("tabgroupindex"),
   /**
    * The mode of the tab switch: client, reloadTab, reloadPage.
    */
-  public static final String SWITCHTYPE = "switchtype";
+  SWITCHTYPE("switchtype");
+
+
+  private final String value;
+
+  HtmlAttributes(String value) {
+    this.value = value;
+  }
+
+  public String getValue() {
+    return value;
+  }
+
 }
 

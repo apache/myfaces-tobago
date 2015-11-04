@@ -20,13 +20,11 @@
 package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
 import org.apache.myfaces.tobago.component.Attributes;
-import org.apache.myfaces.tobago.internal.component.AbstractUIIn;
 import org.apache.myfaces.tobago.internal.component.AbstractUIInput;
 import org.apache.myfaces.tobago.internal.util.FacesContextUtils;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
-import org.apache.myfaces.tobago.renderkit.InputRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
-import org.apache.myfaces.tobago.renderkit.css.Style;
+import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
@@ -56,9 +54,8 @@ public class InRenderer extends InputRendererBase {
     }
   }
 
-  @Override
-  public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
-
+  protected void encodeBeginField(FacesContext facesContext, UIComponent component)
+      throws IOException {
     final AbstractUIInput input = (AbstractUIInput) component;
     final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, input);
     final String currentValue = getCurrentValue(facesContext, input);
@@ -66,7 +63,7 @@ public class InRenderer extends InputRendererBase {
     if (LOG.isDebugEnabled()) {
       LOG.debug("currentValue = '{}'", StringUtils.toConfidentialString(currentValue, password));
     }
-    final String type = password ? HtmlInputTypes.PASSWORD : HtmlInputTypes.TEXT;
+    final HtmlInputTypes type = password ? HtmlInputTypes.PASSWORD : HtmlInputTypes.TEXT;
     final String id = input.getClientId(facesContext);
     final boolean readonly = input.isReadonly();
     final boolean disabled = input.isDisabled();
@@ -74,8 +71,8 @@ public class InRenderer extends InputRendererBase {
 
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
-    writer.startElement(HtmlElements.INPUT, input);
-    writer.writeAttribute(HtmlAttributes.TYPE, type, false);
+    writer.startElement(HtmlElements.INPUT);
+    writer.writeAttribute(HtmlAttributes.TYPE, type);
     writer.writeNameAttribute(id);
     writer.writeIdAttribute(id);
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, input);
@@ -109,31 +106,22 @@ public class InRenderer extends InputRendererBase {
     if (tabIndex != null) {
       writer.writeAttribute(HtmlAttributes.TABINDEX, tabIndex);
     }
-    final Style style = new Style(facesContext, input);
-    writer.writeStyleAttribute(style);
+    writer.writeStyleAttribute(input.getStyle());
 
     final String placeholder = input.getPlaceholder();
     if (!disabled && !readonly && StringUtils.isNotBlank(placeholder)) {
       writer.writeAttribute(HtmlAttributes.PLACEHOLDER, placeholder, true);
     }
 
-    if (input instanceof AbstractUIIn && ((AbstractUIIn) input).getSuggest() != null) {
-      writer.writeAttribute(HtmlAttributes.AUTOCOMPLETE, "off", false);
-    }
-
-    writer.writeClassAttribute(Classes.create(input));
-      /*if (component instanceof AbstractUIInput) {
-       String onchange = HtmlUtils.generateOnchange((AbstractUIInput) component, facesContext);
-       if (onchange != null) {
-         // TODO: create and use utility method to write attributes without quoting
-     //      writer.writeAttribute(HtmlAttributes.ONCHANGE, onchange, null);
-       }
-     } */
+    writer.writeClassAttribute(Classes.create(input), BootstrapClass.FORM_CONTROL, input.getCustomClass());
     writer.writeAttribute(HtmlAttributes.REQUIRED, required);
     HtmlRendererUtils.renderFocus(id, input.isFocus(), ComponentUtils.isError(input), facesContext, writer);
     writeAdditionalAttributes(facesContext, writer, input);
     HtmlRendererUtils.renderCommandFacet(input, facesContext, writer);
     writer.endElement(HtmlElements.INPUT);
+  }
+
+  protected void encodeEndField(FacesContext facesContext, UIComponent component) throws IOException {
   }
 
   protected void writeAdditionalAttributes(

@@ -90,7 +90,7 @@ public abstract class AbstractTobagoTestBase extends AbstractJsfTestCase {
 
     final ClientProperties clientProperties = new ClientProperties();
     clientProperties.setTheme(one);
-    clientProperties.setLocale(Locale.ENGLISH);
+    facesContext.getViewRoot().setLocale(Locale.ENGLISH);
     session.setAttribute(ClientProperties.MANAGED_BEAN_NAME, clientProperties);
 
     // XXX is there a better way? Get it from Tobagos generated faces-config.xml?

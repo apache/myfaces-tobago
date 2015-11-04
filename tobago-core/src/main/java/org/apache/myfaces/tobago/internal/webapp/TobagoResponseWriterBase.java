@@ -19,8 +19,9 @@
 
 package org.apache.myfaces.tobago.internal.webapp;
 
-import org.apache.myfaces.tobago.internal.util.Deprecation;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
+import org.apache.myfaces.tobago.renderkit.html.HtmlTypes;
+import org.apache.myfaces.tobago.renderkit.html.MarkupLanguageAttributes;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,33 +30,12 @@ import javax.faces.component.UIComponent;
 import java.io.IOException;
 import java.io.Writer;
 import java.net.URI;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
 
 public abstract class TobagoResponseWriterBase extends TobagoResponseWriter {
 
   private static final Logger LOG = LoggerFactory.getLogger(TobagoResponseWriterBase.class);
 
-  protected static final Set<String> EMPTY_TAG = new HashSet<String>(Arrays.asList(
-      HtmlElements.BR,
-      HtmlElements.AREA,
-      HtmlElements.LINK,
-      HtmlElements.IMG,
-      HtmlElements.PARAM,
-      HtmlElements.HR,
-      HtmlElements.INPUT,
-      HtmlElements.COL,
-      HtmlElements.BASE,
-      HtmlElements.META));
-
-  /** @deprecated Since Tobago 1.5.3 */
-  @Deprecated
-  public static final String XML_VERSION_1_0_ENCODING_UTF_8 = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
-
-  /** @deprecated Since Tobago 1.5.3 */
-  @Deprecated
-  public static final int XML_VERSION_1_0_ENCODING_UTF_8_LENGTH = XML_VERSION_1_0_ENCODING_UTF_8.length();
+  protected static final String XML_VERSION_1_0_ENCODING_UTF_8 = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
 
   protected static final char[] XML_VERSION_1_0_ENCODING_UTF_8_CHARS = XML_VERSION_1_0_ENCODING_UTF_8.toCharArray();
 
@@ -174,11 +154,6 @@ public abstract class TobagoResponseWriterBase extends TobagoResponseWriter {
     closeOpenTag();
   }
 
-
-
-
-
-
   protected void closeOpenTag() throws IOException {
     if (startStillOpen) {
       writer.write("\n>");
@@ -202,12 +177,15 @@ public abstract class TobagoResponseWriterBase extends TobagoResponseWriter {
     return characterEncoding;
   }
 
-  public void startElement(final String name, final UIComponent currentComponent)
-      throws IOException {
-    startElementInternal(writer, name, currentComponent);
+  public void startElement(final String name, final UIComponent currentComponent) throws IOException {
+    startElementInternal(writer, HtmlElements.valueOf(name.toUpperCase()), currentComponent);
   }
 
-  protected void startElementInternal(final Writer writer, final String name, final UIComponent currentComponent)
+  public void startElement(final HtmlElements name) throws IOException {
+    startElementInternal(writer, name, null);
+  }
+
+  protected void startElementInternal(final Writer writer, final HtmlElements name, final UIComponent currentComponent)
       throws IOException {
     this.component = currentComponent;
 //    closeOpenTag();
@@ -215,11 +193,15 @@ public abstract class TobagoResponseWriterBase extends TobagoResponseWriter {
       writer.write("\n>");
     }
     writer.write("<");
-    writer.write(name);
+    writer.write(name.getValue());
     startStillOpen = true;
   }
 
   public void endElement(final String name) throws IOException {
+    endElementInternal(writer, HtmlElements.valueOf(name.toUpperCase()));
+  }
+
+  public void endElement(final HtmlElements name) throws IOException {
     endElementInternal(writer, name);
   }
 
@@ -231,13 +213,17 @@ public abstract class TobagoResponseWriterBase extends TobagoResponseWriter {
     write("-->");
   }
 
-
-
+  @Deprecated
   public void writeAttribute(final String name, final Object value, final String property)
       throws IOException {
 
     final String attribute = findValue(value, property);
-    writeAttribute(name, attribute, true);
+    writeAttribute(new MarkupLanguageAttributes() {
+      @Override
+      public String getValue() {
+          return name;
+      }
+    }, attribute, true);
   }
 
   protected final String getCallingClassStackTraceElementString() {
@@ -259,42 +245,32 @@ public abstract class TobagoResponseWriterBase extends TobagoResponseWriter {
 
 // interface TobagoResponseWriter //////////////////////////////////////////////////////////////////////////////////
 
-  public void writeAttribute(final String name, final String value, final boolean escape)
+  public void writeAttribute(final MarkupLanguageAttributes name, final String value, final boolean escape)
       throws IOException {
     writeAttributeInternal(writer, name, value, escape);
   }
 
-  @Override
-  /**
-   * @deprecated Since Tobago 2.0.0
-   */
-  @Deprecated
-  public String getStyleClasses() {
-    if (component == null) {
-      return null;
+  public void writeAttribute(final MarkupLanguageAttributes name, final HtmlTypes types) throws IOException {
+    writeAttributeInternal(writer, name, types.getValue(), false);
+  }
+
+  public void writeURIAttribute(final MarkupLanguageAttributes name, final String value)
+      throws IOException {
+    if (value != null) {
+      final URI uri = URI.create(value);
+      writeAttribute(name, uri.toASCIIString(), true);
     }
-    Deprecation.LOG.error("Can't get style classes.");
-    return null;
   }
 
-  /**
-   * @deprecated since Tobago 1.5.0
-   */
-  @Deprecated
-  public void writeClassAttribute() throws IOException {
-    Deprecation.LOG.error("Please use writeClassAttribute(org.apache.myfaces.tobago.renderkit.css.Classes)");
-  }
-
-
-  protected void endElementInternal(final Writer writer, final String name) throws IOException {
-    if (EMPTY_TAG.contains(name)) {
+  protected void endElementInternal(final Writer writer, final HtmlElements name) throws IOException {
+    if (name.isVoid()) {
       closeEmptyTag();
     } else {
       if (startStillOpen) {
         writer.write("\n>");
       }
       writer.write("</");
-      writer.write(name);
+      writer.write(name.getValue());
 //      writer.write("\n>"); // FIXME: this makes problems with Tidy
       writer.write(">");
     }
@@ -303,7 +279,7 @@ public abstract class TobagoResponseWriterBase extends TobagoResponseWriter {
   protected abstract void closeEmptyTag() throws IOException;
 
   protected void writeAttributeInternal(
-      final Writer writer, final String name, final String value, final boolean escape)
+      final Writer writer, final MarkupLanguageAttributes name, final String value, final boolean escape)
       throws IOException {
     if (!startStillOpen) {
       final String trace = getCallingClassStackTraceElementString();
@@ -317,7 +293,7 @@ public abstract class TobagoResponseWriterBase extends TobagoResponseWriter {
 
     if (value != null) {
       writer.write(' ');
-      writer.write(name);
+      writer.write(name.getValue());
       writer.write("='");
       writerAttributeValue(value, escape);
       writer.write('\'');

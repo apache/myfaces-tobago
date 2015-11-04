@@ -36,6 +36,10 @@ import javax.faces.view.facelets.MetaRuleset;
 import javax.faces.view.facelets.TagAttribute;
 import java.io.IOException;
 
+/**
+ * @deprecated since Tobago 3.0. The tx-library is deprecated, please use the tc-library.
+ */
+@Deprecated
 public class SeparatorExtensionHandler extends ComponentHandler {
   private TagAttribute labelAttribute;
 

@@ -56,7 +56,7 @@ public class TreeMenuNodeRenderer extends TreeNodeRendererBase {
 
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
-    writer.startElement(HtmlElements.DIV, null);
+    writer.startElement(HtmlElements.DIV);
     writer.writeIdAttribute(clientId);
     writer.writeClassAttribute(Classes.create(node));
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, node);
@@ -67,14 +67,14 @@ public class TreeMenuNodeRenderer extends TreeNodeRendererBase {
     // In the case of a sheet, we need not hiding the node, because the whole TR will be hidden.
     if (!dataRendersRowContainer && !visible) {
       final Style style = new Style();
-      style.setDisplay(Display.NONE);
+      style.setDisplay(Display.none);
       writer.writeStyleAttribute(style);
     }
 
 
     if (!folder && ie6) { // XXX IE6: without this hack, we can't click beside the label text. Why?
       final String src = ResourceManagerUtils.getImage(facesContext, "image/1x1");
-      writer.startElement(HtmlElements.IMG, null);
+      writer.startElement(HtmlElements.IMG);
       writer.writeClassAttribute(Classes.create(node, "icon"));
       writer.writeAttribute(HtmlAttributes.SRC, src, false);
       writer.writeAttribute(HtmlAttributes.ALT, "", false);
@@ -107,7 +107,7 @@ public class TreeMenuNodeRenderer extends TreeNodeRendererBase {
     final String srcOpen = ResourceManagerUtils.getImage(facesContext, "image/treeMenuOpen");
     final String srcClose = ResourceManagerUtils.getImage(facesContext, "image/treeMenuClose");
     final String src = expanded ? srcOpen : srcClose;
-    writer.startElement(HtmlElements.IMG, null);
+    writer.startElement(HtmlElements.IMG);
     writer.writeClassAttribute(Classes.create(node, "toggle"));
     writer.writeAttribute(HtmlAttributes.SRC, src, false);
     writer.writeAttribute(DataAttributes.SRC_OPEN, srcOpen, false);

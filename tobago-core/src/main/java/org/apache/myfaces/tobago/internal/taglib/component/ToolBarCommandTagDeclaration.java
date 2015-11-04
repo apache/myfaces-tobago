@@ -26,23 +26,19 @@ import org.apache.myfaces.tobago.component.ComponentTypes;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.internal.taglib.declaration.AbstractCommandTagDeclaration;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasCurrentMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasImage;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabelAndAccessKey;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsDisabled;
-import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutComponent;
+import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
 
 import javax.faces.component.UICommand;
 
 /**
  * Renders a command button within a toolbar.
  */
-@Tag(
-    name = "toolBarCommand",
-    tagExtraInfoClassName = "org.apache.myfaces.tobago.internal.taglib.component.CommandTagExtraInfo")
+@Tag(name = "toolBarCommand")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIToolBarCommand",
     uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUIToolBarCommand",
@@ -59,6 +55,6 @@ import javax.faces.component.UICommand;
             allowedChildComponenents = "org.apache.myfaces.tobago.Menu")
     })
 public interface ToolBarCommandTagDeclaration
-    extends AbstractCommandTagDeclaration, HasIdBindingAndRendered, HasMarkup, HasCurrentMarkup,
-    HasLabelAndAccessKey, HasImage, IsDisabled, HasTip, IsGridLayoutComponent {
+    extends AbstractCommandTagDeclaration, HasIdBindingAndRendered,
+    HasLabelAndAccessKey, HasImage, IsDisabled, HasTip, IsVisual {
 }

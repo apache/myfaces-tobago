@@ -20,8 +20,6 @@
 package org.apache.myfaces.tobago.model;
 
 import java.util.EnumSet;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Set;
 
 public enum Selectable {
@@ -29,92 +27,126 @@ public enum Selectable {
   /**
    * Not selectable.
    */
-  NONE("none"),
+  none,
 
   /**
    * Multi selection possible. No other limitations.
    */
-  MULTI("multi"),
+  multi,
 
   /**
    * Only one item is selectable.
    */
-  SINGLE("single"),
+  single,
 
   /**
    * Only one of no item is selectable.
    */
-  SINGLE_OR_NONE("singleOrNone"),
+  singleOrNone,
 
   /**
    * Only leafs are selectable.
    */
-  MULTI_LEAF_ONLY("multiLeafOnly"),
+  multiLeafOnly,
 
   /**
    * Only one item is selectable and it must be a leaf.
    */
-  SINGLE_LEAF_ONLY("singleLeafOnly"),
+  singleLeafOnly,
 
   /**
    * Only siblings are selectable.
    */
-  SIBLING("sibling"),
+  sibling,
 
   /**
    * Only siblings are selectable and they have to be leafs.
    */
-  SIBLING_LEAF_ONLY("siblingLeafOnly"),
+  siblingLeafOnly,
 
   /**
    * Multi selection possible. When selecting or deselecting an item, the subtree will also
    * be selected or unselected.
    */
-  MULTI_CASCADE("multiCascade");
+  multiCascade;
 
-  private static final Set<Selectable> SHEET_VALUES = EnumSet.of(
-      NONE,
-      MULTI,
-      SINGLE,
-      SINGLE_OR_NONE);
+  /** @deprecated  */
+  @Deprecated
+  public static final Selectable NONE = none;
 
-  private static final Set<Selectable> TREE_VALUES = EnumSet.of(
-      NONE,
-      MULTI,
-      SINGLE,
-      MULTI_LEAF_ONLY,
-      SINGLE_LEAF_ONLY,
-      MULTI_CASCADE);
+  /** @deprecated  */
+  @Deprecated
+  public static final Selectable MULTI = multi;
 
-  private static final Set<Selectable> TREE_LISTBOX_VALUES = EnumSet.of(
-      SINGLE,
-      SINGLE_LEAF_ONLY,
-      MULTI_LEAF_ONLY);
+  /** @deprecated  */
+  @Deprecated
+  public static final Selectable SINGLE = single;
 
-  private static final Map<String, Selectable> MAPPING;
+  /** @deprecated  */
+  @Deprecated
+  public static final Selectable SINGLE_OR_NONE = singleOrNone;
 
-  private String value;
+  /** @deprecated  */
+  @Deprecated
+  public static final Selectable MULTI_LEAF_ONLY = multiLeafOnly;
 
-  Selectable(final String value) {
-    this.value = value;
-  }
+  /** @deprecated  */
+  @Deprecated
+  public static final Selectable SINGLE_LEAF_ONLY = singleLeafOnly;
 
-  public String getValue() {
-    return value;
-  }
+  /** @deprecated  */
+  @Deprecated
+  public static final Selectable SIBLING = sibling;
 
-  static {
-    MAPPING = new HashMap<String, Selectable>();
+  /** @deprecated  */
+  @Deprecated
+  public static final Selectable SIBLING_LEAF_ONLY = siblingLeafOnly;
 
-    for (final Selectable action : Selectable.values()) {
-      MAPPING.put(action.getValue(), action);
-    }
-  }
+  /** @deprecated  */
+  @Deprecated
+  public static final Selectable MULTI_CASCADE = multiCascade;
+
+  public static final String STRING_NONE = "none";
+
+  public static final String STRING_MULTI = "multi";
+
+  public static final String STRING_SINGLE = "single";
+
+  public static final String STRING_SINGLE_OR_NONE = "singleOrNone";
+
+  public static final String STRING_MULTI_LEAF_ONLY = "multiLeafOnly";
+
+  public static final String STRING_SINGLE_LEAF_ONLY = "singleLeafOnly";
+
+  public static final String STRING_SIBLING = "sibling";
+
+  public static final String STRING_SIBLING_LEAF_ONLY = "siblingLeafOnly";
+
+  public static final String STRING_MULTI_CASCADE = "multiCascade";
+
+  public static final Set<Selectable> SHEET_VALUES = EnumSet.of(
+      none,
+      multi,
+      single,
+      singleOrNone);
+
+  public static final Set<Selectable> TREE_VALUES = EnumSet.of(
+      none,
+      multi,
+      single,
+      multiLeafOnly,
+      singleLeafOnly,
+      multiCascade);
+
+  public static final Set<Selectable> TREE_LISTBOX_VALUES = EnumSet.of(
+      single,
+      singleLeafOnly,
+      multiLeafOnly);
 
   /**
-   * @param name Name of the TreeSelectable
+   * @param name Name of the Selectable
    * @return The matching tree selection (can't be null).
-   * @throws IllegalArgumentException When the name doesn't match any TreeSelectable.
+   * @throws IllegalArgumentException When the name doesn't match any Selectable.
    */
   public static Selectable parse(final Object name) throws IllegalArgumentException {
     if (name == null) {
@@ -123,20 +155,15 @@ public enum Selectable {
     if (name instanceof Selectable) {
       return (Selectable) name;
     }
-    final Selectable value = MAPPING.get(name.toString());
-    if (value != null) {
-      return value;
-    } else {
-      throw new IllegalArgumentException("Unknown name for TreeSelectable: '" + name + "'");
-    }
+    return valueOf(name.toString());
   }
 
   public boolean isLeafOnly() {
-    return this == SINGLE_LEAF_ONLY || this == MULTI_LEAF_ONLY || this == SIBLING_LEAF_ONLY;
+    return this == singleLeafOnly || this == multiLeafOnly || this == siblingLeafOnly;
   }
 
   public boolean isSingle() {
-    return this == SINGLE || this == SINGLE_OR_NONE || this == SINGLE_LEAF_ONLY;
+    return this == single || this == singleOrNone || this == singleLeafOnly;
   }
 
   public boolean isSupportedBySheet() {

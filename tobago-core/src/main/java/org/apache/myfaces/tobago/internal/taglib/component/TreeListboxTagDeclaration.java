@@ -26,13 +26,12 @@ import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.component.RendererTypes;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasCurrentMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasValue;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasVar;
-import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutComponent;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsRequired;
+import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
+import org.apache.myfaces.tobago.model.Selectable;
 
 import javax.faces.component.UIData;
 
@@ -52,7 +51,7 @@ import javax.faces.component.UIData;
         "org.apache.myfaces.tobago.TreeData"
     })
 public interface TreeListboxTagDeclaration
-    extends HasIdBindingAndRendered, HasValue, HasVar, IsGridLayoutComponent, HasMarkup, HasCurrentMarkup,
+    extends HasIdBindingAndRendered, HasValue, HasVar, IsVisual,
     IsRequired {
 
   /**
@@ -68,8 +67,10 @@ public interface TreeListboxTagDeclaration
    */
   @TagAttribute
   @UIComponentTagAttribute(
-      defaultValue = "single",
-      allowedValues = {"single", "multiLeafOnly", "singleLeafOnly"})
+      type = "org.apache.myfaces.tobago.model.Selectable",
+      defaultValue = Selectable.STRING_SINGLE,
+      allowedValues = {Selectable.STRING_SINGLE, Selectable.STRING_MULTI_LEAF_ONLY, Selectable.STRING_SINGLE_LEAF_ONLY},
+      defaultCode = "org.apache.myfaces.tobago.model.Selectable.single")
   void setSelectable(String selectable);
 
   /**

@@ -36,7 +36,6 @@
 /* toolBar ----------------------------------------------------------------- */
 
 /* FIXME this is the same code for "toolBar", "boxToolBar" and "tabGroupToolBar"
-   FIXME may be fixed after TOBAGO-900
 */
 
 .tobago-boxToolBar {
@@ -47,7 +46,7 @@
   border-color: #FF9900;
 }
 
-.tobago-boxToolBar-item-markup-hover {
+.tobago-boxToolBar-item:hover {
   border-color: #3366CC;
 }
 
@@ -55,7 +54,7 @@
   background-color: #FFCC66;
 }
 
-.tobago-boxToolBar-button-markup-hover {
+.tobago-boxToolBar-button:hover {
   background-color: #FAB54D;
 }
 
@@ -103,7 +102,7 @@ td.tobago-calendar-day-markup-selected {
 /* file ------------------------------------------------------------ */
 
 .tobago-file {
-  background: url("../image/file-upload.gif") no-repeat right center transparent;
+  background: url("../image/file-upload.png") no-repeat right center transparent;
 }
 
 .tobago-file-pretty {
@@ -221,7 +220,7 @@ li.tobago-menu-markup-selected {
 
 /* sheet ----------------------------------------------------------------- */
 
-.tobago-sheet-headerDiv {
+.tobago-sheet-header {
   border-bottom: 1px solid #d6ebff;
 }
 
@@ -299,7 +298,6 @@ li.tobago-menu-markup-selected {
 /* toolBar ----------------------------------------------------------------- */
 
 /* FIXME this is the same code for "toolBar", "boxToolBar" and "tabGroupToolBar"
-   FIXME may be fixed after TOBAGO-900
 */
 
 .tobago-tabGroupToolBar {
@@ -310,7 +308,7 @@ li.tobago-menu-markup-selected {
   border-color: #FF9900;
 }
 
-.tobago-tabGroupToolBar-item-markup-hover {
+.tobago-tabGroupToolBar-item:hover {
   border-color: #3366CC;
 }
 
@@ -318,42 +316,8 @@ li.tobago-menu-markup-selected {
   background-color: #FFCC66;
 }
 
-.tobago-tabGroupToolBar-button-markup-hover {
+.tobago-tabGroupToolBar-button:hover {
   background-color: #FAB54D;
-}
-
-/* time -------------------------------------------------------------------- */
-
-.tobago-time-borderDiv {
-  border-color: #3366CC;
-}
-
-.tobago-time-input {
-  color: #3366CC;
-}
-
-.tobago-time-input:focus {
-  background: #D6EBFF;
-}
-
-input.tobago-time {
-  border: 1px #3366CC solid;
-  font: 12px arial, helvetica, sans-serif;
-  color: #3366CC;
-}
-
-input.tobago-time-markup-readonly {
-  background-color: #e6e6e6;
-  color: #3366cc;
-}
-
-input.tobago-time-markup-disabled {
-  color: #3366cc;
-  background-color: #e6e6e6;
-}
-
-input.tobago-time-markup-error, .tobago-time-markup-error {
-  border: 1px solid #ff0000;
 }
 
 /* textarea -------------------------------------------------------------- */
@@ -387,7 +351,7 @@ input.tobago-time-markup-error, .tobago-time-markup-error {
   border-color: #FF9900;
 }
 
-.tobago-toolBar-item-markup-hover {
+.tobago-toolBar-item:hover {
   border-color: #3366CC;
 }
 
@@ -395,7 +359,7 @@ input.tobago-time-markup-error, .tobago-time-markup-error {
   background-color: #FFCC66;
 }
 
-.tobago-toolBar-button-markup-hover {
+.tobago-toolBar-button:hover {
   background-color: #FAB54D;
 }
 

@@ -203,6 +203,12 @@ Tobago.Tree.init = function(elements) {
     });
   });
 
+  // XXX hack: if solved TOBAGO-1495 can be closed
+  Tobago.Utils.selectWithJQuery(elements, ".tobago-treeNode")
+      .find(".glyphicon-cog").css({
+    color: "transparent"
+  });
+
 };
 
 Tobago.Tree.isExpanded = function(node, expanded) {

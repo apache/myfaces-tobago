@@ -19,20 +19,19 @@
 
 package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
-import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.component.UIMediator;
-import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
-import org.apache.myfaces.tobago.renderkit.css.Style;
+import org.apache.myfaces.tobago.renderkit.RendererBase;
+import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 
-public class MediatorRenderer extends LayoutComponentRendererBase {
+public class MediatorRenderer extends RendererBase {
 
   private static final Logger LOG = LoggerFactory.getLogger(MediatorRenderer.class);
 
@@ -41,9 +40,10 @@ public class MediatorRenderer extends LayoutComponentRendererBase {
 
     final UIMediator mediator = (UIMediator) component;
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
-    writer.startElement(HtmlElements.DIV, mediator);
+    writer.startElement(HtmlElements.DIV);
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, mediator);
-    writer.writeStyleAttribute(new Style(facesContext, mediator));
+    writer.writeStyleAttribute(mediator.getStyle());
+    writer.writeClassAttribute(mediator.getCustomClass());
   }
 
   @Override

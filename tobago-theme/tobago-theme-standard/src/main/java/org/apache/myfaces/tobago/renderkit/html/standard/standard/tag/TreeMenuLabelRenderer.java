@@ -19,38 +19,5 @@
 
 package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
-import org.apache.myfaces.tobago.component.UITreeLabel;
-import org.apache.myfaces.tobago.internal.component.AbstractUITreeNode;
-import org.apache.myfaces.tobago.layout.Measure;
-import org.apache.myfaces.tobago.renderkit.css.Style;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import javax.faces.context.FacesContext;
-
 public class TreeMenuLabelRenderer extends TreeLabelRenderer {
-
-  private static final Logger LOG = LoggerFactory.getLogger(TreeMenuLabelRenderer.class);
-
-  protected Style createStyle(final FacesContext facesContext, final UITreeLabel node) {
-
-    final AbstractUITreeNode parent = (AbstractUITreeNode) node.getParent();
-    final int level = parent.getLevel();
-//    final boolean folder = parent.isFolder();
-
-    final Style style = new Style();
-    Measure paddingLeft = getResourceManager().getThemeMeasure(facesContext, node, "custom.padding-left");
-    paddingLeft = paddingLeft.multiply(level);
-    style.setPaddingLeft(paddingLeft);
-/*
-    Measure width = ((UITreeMenu)(node.getParent().getParent().getParent())).getCurrentWidth();
-    width = width.subtract(4); // XXX 4 = border + padding
-    width = width.subtractNotNegative(paddingLeft);
-    if (folder) {
-      width = width.subtract(16);
-    }
-    style.setWidth(width);
-*/
-    return style;
-  }
 }

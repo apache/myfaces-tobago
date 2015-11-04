@@ -17,68 +17,64 @@
  * limitations under the License.
 -->
 
-<ui:composition template="/WEB-INF/tags/layout/overview.xhtml"
+<ui:composition template="/layout/overview.xhtml"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
-                xmlns:tx="http://myfaces.apache.org/tobago/extension"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:f="http://java.sun.com/jsf/core">
   <ui:param name="title" value="Sheet as Master-Details example"/>
 
   <tc:panel id="panel">
-    <f:facet name="layout">
-      <tc:gridLayout rows="1*;3*" columns="*;*"/>
-    </f:facet>
 
     <tc:out escape="false" value="Klick on a row">
       <tc:gridLayoutConstraint columnSpan="2"/>
     </tc:out>
 
-    <tc:box label="List of Objects">
-      <f:facet name="toolBar">
-        <tc:toolBar>
-          <tc:toolBarCommand label="Deselect" actionListener="#{demo.selectLuminary}"
-                             renderedPartially=":page:detail" immediate="true">
-            <tc:resetInputActionListener/>
-          </tc:toolBarCommand>
-        </tc:toolBar>
-      </f:facet>
+    <tc:segmentLayout medium="6;6">
 
-      <tc:sheet value="#{demo.solarList}" id="sheet"
-                columns="*" var="luminary" selectable="single">
-        <tc:column label="#{overviewBundle.solarArrayName}" id="name">
-          <tc:out value="#{luminary.name}" id="t_name"/>
-        </tc:column>
-        <tc:columnEvent event="click">
-          <tc:command actionListener="#{demo.selectLuminary}" renderedPartially=":page:detail" immediate="true">
-            <tc:resetInputActionListener/>
-          </tc:command>
-        </tc:columnEvent>
-      </tc:sheet>
-    </tc:box>
-
-    <tc:box id="detail" label="Details">
-
-      <tc:panel rendered="#{demo.currentSolarObject != null}">
-        <f:facet name="layout">
-          <tc:gridLayout rows="auto;auto;auto;auto;auto;auto;auto;auto;auto"/>
+      <tc:box label="List of Objects">
+        <f:facet name="toolBar">
+          <tc:toolBar>
+            <tc:toolBarCommand label="Deselect" actionListener="#{demo.selectLuminary}"
+                               renderedPartially=":page:detail" immediate="true">
+              <tc:resetInputActionListener/>
+            </tc:toolBarCommand>
+          </tc:toolBar>
         </f:facet>
-        <tx:in label="Name" value="#{demo.currentSolarObject.name}" required="true"/>
-        <tx:in label="Number" value="#{demo.currentSolarObject.number}"/>
-        <tx:in label="Orbit" value="#{demo.currentSolarObject.orbit}"/>
-        <tx:in label="Distance" value="#{demo.currentSolarObject.distance}"/>
-        <tx:in label="Period" value="#{demo.currentSolarObject.period}"/>
-        <tx:in label="Obliquity" value="#{demo.currentSolarObject.incl}"/>
-        <tx:in label="Eccentricity" value="#{demo.currentSolarObject.eccen}"/>
-        <tx:in label="Discoverer" value="#{demo.currentSolarObject.discoverer}"/>
-        <tx:in label="Discover Year" value="#{demo.currentSolarObject.discoverYear}"/>
-      </tc:panel>
 
-      <tc:panel rendered="#{demo.currentSolarObject == null}">
-        <tc:out value="Please select a solar object on the left side to show its details."/>
-      </tc:panel>
+        <tc:sheet value="#{demo.solarList}" id="sheet"
+                  columns="*" var="luminary" selectable="single">
+          <tc:column label="#{overviewBundle.solarArrayName}" id="name">
+            <tc:out value="#{luminary.name}" id="t_name"/>
+          </tc:column>
+          <tc:columnEvent event="click">
+            <tc:command actionListener="#{demo.selectLuminary}" renderedPartially=":page:detail" immediate="true">
+              <tc:resetInputActionListener/>
+            </tc:command>
+          </tc:columnEvent>
+        </tc:sheet>
+      </tc:box>
 
-    </tc:box>
+      <tc:box id="detail" label="Details">
+
+        <tc:panel rendered="#{demo.currentSolarObject != null}">
+          <tc:in label="Name" value="#{demo.currentSolarObject.name}" required="true"/>
+          <tc:in label="Number" value="#{demo.currentSolarObject.number}"/>
+          <tc:in label="Orbit" value="#{demo.currentSolarObject.orbit}"/>
+          <tc:in label="Distance" value="#{demo.currentSolarObject.distance}"/>
+          <tc:in label="Period" value="#{demo.currentSolarObject.period}"/>
+          <tc:in label="Obliquity" value="#{demo.currentSolarObject.incl}"/>
+          <tc:in label="Eccentricity" value="#{demo.currentSolarObject.eccen}"/>
+          <tc:in label="Discoverer" value="#{demo.currentSolarObject.discoverer}"/>
+          <tc:in label="Discover Year" value="#{demo.currentSolarObject.discoverYear}"/>
+        </tc:panel>
+
+        <tc:panel rendered="#{demo.currentSolarObject == null}">
+          <tc:out value="Please select a solar object on the left side to show its details."/>
+        </tc:panel>
+
+      </tc:box>
+
+    </tc:segmentLayout>
 
   </tc:panel>
 </ui:composition>

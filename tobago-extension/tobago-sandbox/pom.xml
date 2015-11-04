@@ -20,7 +20,7 @@
   <parent>
     <groupId>org.apache.myfaces.tobago</groupId>
     <artifactId>tobago-extension</artifactId>
-    <version>2.0.9-SNAPSHOT</version>
+    <version>3.0.0-alpha-1</version>
   </parent>
   <artifactId>tobago-sandbox</artifactId>
   <packaging>jar</packaging>
@@ -74,6 +74,7 @@
       <plugin>
         <groupId>org.bsc.maven</groupId>
         <artifactId>maven-processor-plugin</artifactId>
+        <version>2.2.4</version>
         <executions>
           <execution>
             <id>process</id>
@@ -96,7 +97,6 @@
                 <sourceFacesConfig>${basedir}/src/main/faces-config/faces-config.xml</sourceFacesConfig>
                 <targetFacesConfig>META-INF/faces-config.xml</targetFacesConfig>
                 <targetTaglib>META-INF</targetTaglib>
-                <jsfVersion>${jsf.target}</jsfVersion>
               </optionMap>
             </configuration>
           </execution>
@@ -120,7 +120,6 @@
           <excludes>
             <exclude>workaround-because-otherwise-this-will-be-excluded-in-the-next-step</exclude>
             <exclude>org/apache/myfaces/tobago/renderkit/html/sandbox/standard/tag/SelectManyShuttleRenderer.java</exclude>
-            <!--<exclude>org/apache/myfaces/tobago/internal/taglib/sandbox/WizardExtensionTag.java</exclude>-->
           </excludes>
         </configuration>
         <executions>
@@ -137,7 +136,6 @@
                 <include>org/apache/myfaces/tobago/component/*</include>
                 <include>org/apache/myfaces/tobago/renderkit/*</include>
                 <include>org/apache/myfaces/tobago/renderkit/html/sandbox/standard/tag/SelectManyShuttleRenderer.java</include>
-                <!--<include>org/apache/myfaces/tobago/internal/taglib/sandbox/WizardExtensionTag.java</include>-->
               </includes>
               <excludes>
                 <exclude>test</exclude>
@@ -231,53 +229,12 @@
       <scope>test</scope>
     </dependency>
     <dependency>
-      <groupId>javax.el</groupId>
-      <artifactId>el-api</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>fop</groupId>
-      <artifactId>fop</artifactId>
-      <version>0.20.5</version>
-      <scope>provided</scope>
-      <optional>true</optional>
-    </dependency>
-    <!-- XXX not transitive from fop -->
-    <dependency>
-      <groupId>avalon-framework</groupId>
-      <artifactId>avalon-framework</artifactId>
-      <version>20020627</version>
-      <!-- XXX wrong date -->
-      <scope>provided</scope>
-      <optional>true</optional>
-    </dependency>
-    <dependency>
-      <groupId>net.sourceforge.maven-taglib</groupId>
-      <artifactId>maven-taglib-plugin</artifactId>
-    </dependency>
-    <dependency>
       <groupId>org.apache.myfaces.test</groupId>
       <artifactId>myfaces-test20</artifactId>
     </dependency>
   </dependencies>
 
   <profiles>
-    <!-- Apples JDK (until 1.6) has not a tools.jar -->
-    <profile>
-      <id>tools.jar</id>
-      <activation>
-        <os><family>!mac</family></os>
-        <jdk>1.7</jdk>
-      </activation>
-      <dependencies>
-        <dependency>
-          <groupId>sun.jdk</groupId>
-          <artifactId>tools</artifactId>
-          <version>1.5.0</version>
-          <scope>system</scope>
-          <systemPath>${java.home}/../lib/tools.jar</systemPath>
-        </dependency>
-      </dependencies>
-    </profile>
     <profile>
       <id>generate-assembly</id>
       <build>
@@ -309,7 +266,7 @@
             <executions>
               <execution>
                 <id>attach-source</id>
-                <goals><goal>jar-no-fork</goal></goals>
+                <goals><goal>jar</goal></goals>
               </execution>
             </executions>
           </plugin>

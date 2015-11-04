@@ -21,11 +21,13 @@ package org.apache.myfaces.tobago.internal.component;
 
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.OnComponentPopulated;
+import org.apache.myfaces.tobago.component.SupportsAccessKey;
 import org.apache.myfaces.tobago.component.SupportsRenderedPartially;
+import org.apache.myfaces.tobago.component.Visual;
 import org.apache.myfaces.tobago.event.PopupFacetActionListener;
-import org.apache.myfaces.tobago.layout.LayoutComponent;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 
+import javax.faces.component.UICommand;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.event.FacesEvent;
@@ -33,8 +35,11 @@ import javax.faces.event.PhaseId;
 import java.util.Iterator;
 
 public abstract class AbstractUICommand
-    extends AbstractUICommandBase
-    implements SupportsRenderedPartially, OnComponentPopulated, LayoutComponent {
+    extends UICommand
+    implements SupportsRenderedPartially, SupportsAccessKey, OnComponentPopulated, Visual {
+
+  // todo: transient
+  private Boolean parentOfCommands;
 
   public void onComponentPopulated(final FacesContext facesContext, final UIComponent parent) {
     final AbstractUIPopup popup = (AbstractUIPopup) getFacet(Facets.POPUP);
@@ -82,6 +87,19 @@ public abstract class AbstractUICommand
     }
   }
 
+  public boolean isParentOfCommands() {
+    if (parentOfCommands == null) {
+      parentOfCommands = false;
+      for (UIComponent child : getChildren()) {
+        if (child instanceof UICommand) {
+          parentOfCommands = true;
+          break;
+        }
+      }
+    }
+    return parentOfCommands;
+  }
+
   public abstract String getLabel();
 
   public abstract boolean isJsfResource();
@@ -89,8 +107,6 @@ public abstract class AbstractUICommand
   public abstract String getResource();
 
   public abstract String getLink();
-
-  public abstract String getOnclick();
 
   public abstract String getTarget();
 
@@ -100,4 +116,9 @@ public abstract class AbstractUICommand
 
   public abstract boolean isOmit();
 
+  public abstract boolean isDisabled();
+
+  public abstract String getTip();
+
+//  public abstract Integer getTabIndex();
 }

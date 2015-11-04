@@ -24,15 +24,12 @@ import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.RendererTypes;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasCurrentMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasImage;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabelAndAccessKey;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsDisabled;
-import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutComponent;
-import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutContainer;
+import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
 
 import javax.faces.component.UIPanel;
 
@@ -54,6 +51,5 @@ import javax.faces.component.UIPanel;
         @Facet(name = Facets.TOOL_BAR, description = "Contains an instance of UIToolBar",
             allowedChildComponenents = "org.apache.myfaces.tobago.ToolBar")})
 public interface TabTagDeclaration
-    extends HasIdBindingAndRendered, IsGridLayoutContainer, IsGridLayoutComponent,
-    HasLabelAndAccessKey, HasTip, HasMarkup, HasCurrentMarkup, IsDisabled, HasImage {
+    extends HasIdBindingAndRendered, IsVisual, HasLabelAndAccessKey, HasTip, IsDisabled, HasImage {
 }

@@ -19,7 +19,7 @@
 
 package org.apache.myfaces.tobago.example.demo;
 
-import org.apache.myfaces.tobago.example.demo.jsp.JspFormatter;
+import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -31,11 +31,8 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -61,7 +58,6 @@ public class NavigationTree implements Serializable {
    */
 //  @Inject
 //  private ServletContext servletContext;
-
   public NavigationTree() {
     LOG.info("<init> " + this);
   }
@@ -131,14 +127,7 @@ public class NavigationTree implements Serializable {
     return result;
   }
 
-  public void selectByViewId(final String viewId) {
-    gotoNode(findByViewId(viewId));
-  }
-
   public NavigationNode findByViewId(String viewId) {
-    if (viewId.endsWith(".jspx")) {
-      viewId = viewId.substring(0, viewId.lastIndexOf(".jspx")) + ".xhtml";
-    }
     final Enumeration enumeration = root.depthFirstEnumeration();
     while (enumeration.hasMoreElements()) {
       final NavigationNode node = ((NavigationNode) enumeration.nextElement());
@@ -161,23 +150,19 @@ public class NavigationTree implements Serializable {
     }
   }
 
-  public String viewSource() {
+  public String getSource() {
     final FacesContext facesContext = FacesContext.getCurrentInstance();
     final ExternalContext externalContext = facesContext.getExternalContext();
     final String viewId = facesContext.getViewRoot().getViewId();
-    final HttpServletResponse response = (HttpServletResponse) externalContext.getResponse();
-    response.setContentType("text/html; charset=UTF-8");
-
+    InputStream resourceAsStream = null;
     try {
-      final InputStream resourceAsStream = externalContext.getResourceAsStream(viewId);
-      final InputStreamReader reader = new InputStreamReader(resourceAsStream);
-      JspFormatter.writeJsp(reader, new PrintWriter(response.getOutputStream()));
+      resourceAsStream = externalContext.getResourceAsStream(viewId);
+      return IOUtils.toString(resourceAsStream, "UTF-8");
     } catch (final IOException e) {
       LOG.error("", e);
       return "error";
+    } finally {
+      IOUtils.closeQuietly(resourceAsStream);
     }
-
-    facesContext.responseComplete();
-    return null;
   }
 }

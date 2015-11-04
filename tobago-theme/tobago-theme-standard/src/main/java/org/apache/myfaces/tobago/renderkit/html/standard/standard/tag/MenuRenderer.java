@@ -25,7 +25,8 @@ import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.internal.util.AccessKeyLogger;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
-import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
+import org.apache.myfaces.tobago.renderkit.RendererBase;
+import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
@@ -33,16 +34,12 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 
-public class MenuRenderer extends LayoutComponentRendererBase {
-
-  private static final Logger LOG = LoggerFactory.getLogger(MenuRenderer.class);
+public class MenuRenderer extends RendererBase {
 
   @Override
   public void prepareRender(final FacesContext facesContext, final UIComponent component) throws IOException {
@@ -66,8 +63,8 @@ public class MenuRenderer extends LayoutComponentRendererBase {
     final boolean firstLevel = !RendererTypes.MENU.equals(menu.getParent().getRendererType());
     final boolean isParentMenu = menu.getChildCount() > 0; // todo: may be not correct
 
-    writer.startElement(HtmlElements.LI, menu);
-    writer.writeClassAttribute(Classes.create(menu));
+    writer.startElement(HtmlElements.LI);
+    writer.writeClassAttribute(Classes.create(menu), BootstrapClass.DROPDOWN, menu.getCustomClass());
     StringBuilder backgroundImage = null;
     StringBuilder backgroundPosition = null;
     if (menu.getImage() != null) {
@@ -101,7 +98,7 @@ public class MenuRenderer extends LayoutComponentRendererBase {
       style.setBackgroundPosition(backgroundPosition.toString());
       writer.writeStyleAttribute(style);
     }
-    writer.startElement(HtmlElements.A, menu);
+    writer.startElement(HtmlElements.A);
     writer.writeAttribute(HtmlAttributes.HREF, "#", false);
     if (!component.isTransient()) {
       writer.writeIdAttribute(component.getClientId(facesContext));
@@ -117,7 +114,9 @@ public class MenuRenderer extends LayoutComponentRendererBase {
 
     writer.endElement(HtmlElements.A);
     if (isParentMenu) {
-      writer.startElement(HtmlElements.OL, menu);
+      writer.startElement(HtmlElements.OL);
+
+      writer.writeClassAttribute(BootstrapClass.DROPDOWN_MENU);
     }
   }
 

@@ -24,8 +24,10 @@ import org.slf4j.LoggerFactory;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
+import javax.servlet.annotation.WebListener;
 import java.sql.DriverManager;
 
+@WebListener
 public class DerbyShutdownServletContextListener implements ServletContextListener {
 
   private static final Logger LOG = LoggerFactory.getLogger(DerbyShutdownServletContextListener.class);
@@ -33,6 +35,8 @@ public class DerbyShutdownServletContextListener implements ServletContextListen
   public void contextInitialized(final ServletContextEvent servletContextEvent) {
 
   }
+
+  // todo: should not be shut down in case of the "InMemoryAddressDao" alternative
 
   public void contextDestroyed(final ServletContextEvent servletContextEvent) {
     try {

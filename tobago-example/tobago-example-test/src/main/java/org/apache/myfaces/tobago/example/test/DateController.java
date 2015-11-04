@@ -37,8 +37,7 @@ public class DateController implements Serializable {
     try {
       once = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss SSS").parse("1980-03-07 21:05:09 012");
     } catch (ParseException e) {
-      LOG.error("should not happen. ", e
-      );
+      LOG.error("should not happen. ", e);
     }
   }
 

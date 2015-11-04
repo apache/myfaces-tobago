@@ -17,9 +17,8 @@
  * limitations under the License.
 -->
 
-<ui:composition template="/WEB-INF/tags/layout/overview.xhtml"
+<ui:composition template="/layout/overview.xhtml"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
-                xmlns:tx="http://myfaces.apache.org/tobago/extension"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:f="http://java.sun.com/jsf/core">
   <ui:param name="title" value="Default Commands"/>
@@ -28,7 +27,7 @@
       <tc:gridLayout rows="60px;3*;3*;*" />
     </f:facet>
 
-    <tx:in label="Last button clicked" readonly="true" value="#{overviewController.lastAction}"/>
+    <tc:in label="Last button clicked" readonly="true" value="#{overviewController.lastAction}"/>
 
     <tc:form id="form-1">
       <tc:panel id="panel-1">
@@ -36,18 +35,18 @@
           <tc:gridLayout rows="auto;auto;auto;auto;auto;auto;auto;*"/>
         </f:facet>
 
-        <tx:in value="#{demo.text[0]}" required="true" label="#{overviewBundle.newValue1}"/>
+        <tc:in value="#{demo.text[0]}" required="true" label="#{overviewBundle.newValue1}"/>
 
-        <tx:in value="#{demo.text[0]}" readonly="true" label="#{overviewBundle.modelValue1}"/>
+        <tc:in value="#{demo.text[0]}" readonly="true" label="#{overviewBundle.modelValue1}"/>
 
-        <tx:date />
+        <tc:date />
 
-        <tx:selectOneChoice>
+        <tc:selectOneChoice>
           <tc:selectItem itemLabel="A" itemValue="A"/>
           <tc:selectItem itemLabel="B" itemValue="B"/>
           <tc:selectItem itemLabel="C" itemValue="C"/>
           <tc:selectItem itemLabel="D" itemValue="D"/>
-        </tx:selectOneChoice>
+        </tc:selectOneChoice>
 
         <tc:button id="default-1" defaultCommand="true" label="default" actionListener="#{overviewController.click}"/>
 
@@ -61,9 +60,9 @@
           <tc:gridLayout rows="auto;auto;auto;auto;auto;auto;*"/>
         </f:facet>
 
-        <tx:in value="#{demo.text[1]}" required="true" label="#{overviewBundle.newValue1}"/>
+        <tc:in value="#{demo.text[1]}" required="true" label="#{overviewBundle.newValue1}"/>
 
-        <tx:in value="#{demo.text[1]}" readonly="true" label="#{overviewBundle.modelValue1}"/>
+        <tc:in value="#{demo.text[1]}" readonly="true" label="#{overviewBundle.modelValue1}"/>
 
         <tc:button id="default-2" defaultCommand="true" label="default" actionListener="#{overviewController.click}"/>
 

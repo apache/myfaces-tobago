@@ -20,42 +20,47 @@
 <ui:composition template="/addressbook/layout/basic.xhtml"
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
-                xmlns:tx="http://myfaces.apache.org/tobago/extension"
                 xmlns:ui="http://java.sun.com/jsf/facelets">
   <ui:param name="title" value="#{bundle.listPageTitle}"/>
 
-  <tc:panel>
-    <f:facet name="layout">
-      <tc:gridLayout margin="10px" rows="auto;auto;1*;auto"/>
-    </f:facet>
+  <tc:flowLayout>
     <tc:toolBar iconSize="big">
+<!--
       <tc:button label="#{bundle.toolbarAddressList}" action="#{controller.search}" immediate="true"
                  image="image/org/tango-project/tango-icon-theme/32x32/mimetypes/x-office-address-book.png"
                  disabled="#{facesContext.viewRoot.viewId == '/addressbook/list.xhtml'}"/>
+-->
       <tc:button label="#{bundle.listNew}" action="#{controller.createAddress}"
-                 image="image/org/tango-project/tango-icon-theme/32x32/actions/contact-new.png"/>
+                 image="image/org/tango-project/tango-icon-theme/16x16/actions/contact-new.png"/>
+      <tc:button label="#{bundle.listEdit}" action="#{controller.editAddress}"
+                         image="image/org/tango-project/tango-icon-theme/16x16/apps/accessories-text-editor.png"/>
+      <tc:button label="#{bundle.listDelete}" action="#{controller.deleteAddresses}"
+                         image="image/org/tango-project/tango-icon-theme/16x16/places/user-trash.png">
+        <f:facet name="confirmation">
+          <tc:out value="#{bundle.listDeleteConfirmation}"/>
+        </f:facet>
+        <tc:style customClass="btn-danger"/>
+      </tc:button>
       <tc:button label="#{bundle.toolbarAbout}"
-                 image="image/org/tango-project/tango-icon-theme/32x32/apps/help-browser.png">
+                 image="image/org/tango-project/tango-icon-theme/16x16/apps/help-browser.png">
         <tc:popupReference for=":page:about"/>
       </tc:button>
       <tc:button label="#{bundle.admin}" action="#{admin.admin}"
-                 image="image/org/tango-project/tango-icon-theme/32x32/categories/preferences-system.png"/>
-    </tc:toolBar>
+                 image="image/org/tango-project/tango-icon-theme/16x16/categories/preferences-system.png"/>
 
-    <tc:panel>
-      <f:facet name="layout">
-        <tc:gridLayout columns="*;auto"/>
-      </f:facet>
-      <tx:in label="#{bundle.listFilter}"
-             value="#{controller.searchCriterion}"/>
+      <tc:in value="#{controller.searchCriterion}" placeholder="#{bundle.listFilter}" tip="#{bundle.listFilter}"/>
       <tc:button action="#{controller.search}" label="#{bundle.listSearch}"
                  defaultCommand="true"/>
-    </tc:panel>
+      <tc:button tip="Logout" action="#{controller.logout}" immediate="true"
+                      image="image/org/tango-project/tango-icon-theme/16x16/actions/system-log-out.png"/>
+      <tc:style customClass="btn-danger"/>
+    </tc:toolBar>
 
     <tc:box label="#{bundle.listBoxTitle}">
       <f:facet name="layout">
         <tc:gridLayout rows="auto;1*"/>
       </f:facet>
+<!--
       <f:facet name="toolBar">
         <tc:toolBar>
           <tc:toolBarCommand label="#{bundle.listNew}" action="#{controller.createAddress}"
@@ -96,12 +101,13 @@
           </tc:toolBarCommand>
         </tc:toolBar>
       </f:facet>
+-->
 
       <tc:messages/>
 
       <tc:sheet columns="1*;1*;1*" value="#{controller.currentAddressList}"
                 var="address" state="#{controller.selectedAddresses}"
-                sortActionListener="#{controller.sheetSorter}" rows="25"
+                sortActionListener="#{controller.sheetSorter}" rows="15"
                 showRowRange="left" showPageRange="right" showDirectLinks="center">
         <tc:columnEvent event="dblclick">
           <tc:command action="#{controller.editAddress}"/>
@@ -123,29 +129,5 @@
       </tc:sheet>
 
     </tc:box>
-    <tc:panel>
-      <f:facet name="layout">
-        <tc:gridLayout columns="*;20px;*"/>
-      </f:facet>
-      <tc:form>
-        <tx:selectOneChoice label="#{bundle.footerLanguage}"
-                            value="#{controller.language}">
-          <f:selectItems value="#{controller.languages}"/>
-          <f:facet name="change">
-            <tc:command action="#{controller.languageChangedList}"/>
-          </f:facet>
-        </tx:selectOneChoice>
-      </tc:form>
-      <tc:image alt="#{bundle.footerFlag}" width="16" height="11"
-                value="#{bundle.footerFlagIcon}"/>
-      <tc:form>
-        <tx:selectOneChoice label="#{bundle.footerTheme}" value="#{controller.theme}">
-          <f:selectItems value="#{controller.themeItems}"/>
-          <f:facet name="change">
-            <tc:command action="#{controller.themeChanged}"/>
-          </f:facet>
-        </tx:selectOneChoice>
-      </tc:form>
-    </tc:panel>
-  </tc:panel>
+  </tc:flowLayout>
 </ui:composition>

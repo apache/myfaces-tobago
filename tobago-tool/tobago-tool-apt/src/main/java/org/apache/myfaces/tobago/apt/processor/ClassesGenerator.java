@@ -22,24 +22,17 @@ package org.apache.myfaces.tobago.apt.processor;
 import org.antlr.stringtemplate.StringTemplate;
 import org.antlr.stringtemplate.StringTemplateGroup;
 import org.apache.commons.io.IOUtils;
-import org.apache.commons.lang.StringUtils;
-import org.apache.myfaces.tobago.apt.AnnotationUtils;
 import org.apache.myfaces.tobago.apt.annotation.DynamicExpression;
-import org.apache.myfaces.tobago.apt.annotation.SimpleTag;
-import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
-import org.apache.myfaces.tobago.apt.annotation.ValidatorTag;
 import org.apache.myfaces.tobago.apt.generate.ClassInfo;
 import org.apache.myfaces.tobago.apt.generate.ComponentInfo;
 import org.apache.myfaces.tobago.apt.generate.ComponentPropertyInfo;
 import org.apache.myfaces.tobago.apt.generate.PropertyInfo;
 import org.apache.myfaces.tobago.apt.generate.RendererInfo;
-import org.apache.myfaces.tobago.apt.generate.TagInfo;
 
 import javax.annotation.processing.SupportedAnnotationTypes;
-import javax.annotation.processing.SupportedOptions;
 import javax.faces.component.UIComponent;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.ExecutableElement;
@@ -54,7 +47,6 @@ import java.io.Reader;
 import java.io.Writer;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -69,54 +61,31 @@ import java.util.Set;
     "org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute",
     "org.apache.myfaces.tobago.apt.annotation.Taglib",
     "org.apache.myfaces.tobago.apt.annotation.SimpleTag"})
-@SupportedOptions({
-    ClassesGenerator.TAG_VERSION,
-    ClassesGenerator.JSF_VERSION})
 public class ClassesGenerator extends AbstractGenerator {
 
-  static final String TAG_VERSION = "tagVersion";
-
   private StringTemplateGroup rendererStringTemplateGroup;
-  private StringTemplateGroup tagStringTemplateGroup;
-  private StringTemplateGroup tagAbstractStringTemplateGroup;
   private StringTemplateGroup componentStringTemplateGroup;
   private Set<String> renderer = new HashSet<String>();
   private Set<String> ignoredProperties;
-  private String jsfVersion;
-  private String tagVersion;
 
   public void configure() {
 
-    final Map<String, String> options = processingEnv.getOptions();
-    jsfVersion = options.get(ClassesGenerator.JSF_VERSION);
-    tagVersion = options.get(ClassesGenerator.TAG_VERSION);
-    tagVersion = "1.2"; // XXX
+    info("Generating the classes *Component, *Renderer");
 
-    info("Generating the classes *Tag, *Component, *Renderer");
-    info("Options:");
-    info(JSF_VERSION + ": " + jsfVersion);
-    info(TAG_VERSION + ": " + tagVersion);
+    final InputStream rendererStream
+        = getClass().getClassLoader().getResourceAsStream("org/apache/myfaces/tobago/apt/renderer.stg");
+    final Reader rendererReader = new InputStreamReader(rendererStream);
+    rendererStringTemplateGroup = new StringTemplateGroup(rendererReader);
 
-    InputStream stream = getClass().getClassLoader().getResourceAsStream("org/apache/myfaces/tobago/apt/renderer.stg");
-    Reader reader = new InputStreamReader(stream);
-    rendererStringTemplateGroup = new StringTemplateGroup(reader);
-    stream = getClass().getClassLoader().getResourceAsStream("org/apache/myfaces/tobago/apt/tag" + tagVersion + ".stg");
-    reader = new InputStreamReader(stream);
-    tagStringTemplateGroup = new StringTemplateGroup(reader);
-    stream = getClass().getClassLoader().getResourceAsStream("org/apache/myfaces/tobago/apt/tagAbstract"
-        + tagVersion + ".stg");
-    reader = new InputStreamReader(stream);
-    tagAbstractStringTemplateGroup = new StringTemplateGroup(reader);
+    final InputStream componentStream
+        = getClass().getClassLoader().getResourceAsStream("org/apache/myfaces/tobago/apt/component.stg");
+    final Reader componentReader = new InputStreamReader(componentStream);
+    componentStringTemplateGroup = new StringTemplateGroup(componentReader);
 
-    stream = getClass().getClassLoader().getResourceAsStream("org/apache/myfaces/tobago/apt/component"
-        + jsfVersion + ".stg");
-    reader = new InputStreamReader(stream);
-    componentStringTemplateGroup = new StringTemplateGroup(reader);
     ignoredProperties = new HashSet<String>();
     ignoredProperties.add("id");
     ignoredProperties.add("rendered");
     ignoredProperties.add("binding");
-
   }
 
   public void generate() throws Exception {
@@ -129,55 +98,14 @@ public class ClassesGenerator extends AbstractGenerator {
           throw new RuntimeException(
               "Error during processing of " + element.getAnnotation(UIComponentTag.class).uiComponent(), e);
         }
-      } else if (element.getAnnotation(SimpleTag.class) != null || element.getAnnotation(ValidatorTag.class) != null) {
-        createTag(element);
       }
     }
-  }
-
-  private void createTag(final TypeElement declaration) throws IOException {
-    final List<PropertyInfo> properties = new ArrayList<PropertyInfo>();
-    addPropertiesForTagOnly(declaration, properties);
-    final String className = AnnotationUtils.generatedTagName(declaration);
-
-    final TagInfo tagInfo = new TagInfo(declaration.getQualifiedName().toString(), className);
-    tagInfo.setSuperClass(declaration.getQualifiedName().toString());
-    final StringTemplate stringTemplate = tagAbstractStringTemplateGroup.getInstanceOf("tag");
-    stringTemplate.setAttribute("tagInfo", tagInfo);
-    tagInfo.getProperties().addAll(properties);
-    tagInfo.addImport("org.slf4j.Logger");
-    tagInfo.addImport("org.slf4j.LoggerFactory");
-    writeFile(tagInfo, stringTemplate);
   }
 
   private void createTagOrComponent(final TypeElement declaration) throws IOException, ClassNotFoundException {
     final UIComponentTag componentTag = declaration.getAnnotation(UIComponentTag.class);
-    final Tag tag = declaration.getAnnotation(Tag.class);
     final Map<String, PropertyInfo> properties = new HashMap<String, PropertyInfo>();
     addProperties(declaration, properties);
-    if (tag != null) {
-      final String className
-          = "org.apache.myfaces.tobago.internal.taglib." + StringUtils.capitalize(tag.name()) + "Tag";
-      final TagInfo tagInfo
-          = new TagInfo(declaration.getQualifiedName().toString(), className, componentTag.rendererType());
-      for (final PropertyInfo property : properties.values()) {
-        if (property.isTagAttribute()) {
-          tagInfo.getProperties().add(property);
-        }
-      }
-      tagInfo.setSuperClass("org.apache.myfaces.tobago.internal.taglib.TobagoELTag");
-      tagInfo.setComponentClassName(componentTag.uiComponent());
-      tagInfo.addImport("org.apache.myfaces.tobago.internal.util.StringUtils");
-      tagInfo.addImport("org.slf4j.Logger");
-      tagInfo.addImport("org.slf4j.LoggerFactory");
-      tagInfo.addImport("javax.faces.application.Application");
-      tagInfo.addImport("javax.faces.component.UIComponent");
-      tagInfo.addImport("javax.faces.context.FacesContext");
-
-      final StringTemplate stringTemplate = tagStringTemplateGroup.getInstanceOf("tag");
-      stringTemplate.setAttribute("tagInfo", tagInfo);
-      writeFile(tagInfo, stringTemplate);
-    }
 
     if (componentTag.generate()) {
       final StringTemplate componentStringTemplate = componentStringTemplateGroup.getInstanceOf("component");
@@ -218,31 +146,13 @@ public class ClassesGenerator extends AbstractGenerator {
     }
   }
 
-/*
-  private Map<String, PropertyInfo> getBaseClassProperties(String baseClass) {
-
-    for (TypeElement typeElement : getTypes()) {
-      info("bcp " + typeElement);
-      if (typeElement.getAnnotation(UIComponentTag.class) != null) {
-        if (typeElement.getAnnotation(UIComponentTag.class).uiComponent().equals(baseClass)
-            && typeElement.getAnnotation(UIComponentTag.class).generate()) {
-          Map<String, PropertyInfo> properties = new HashMap<String, PropertyInfo>();
-          addProperties(typeElement, properties);
-          return properties;
-        }
-      }
-    }
-    throw new IllegalStateException("No UIComponentTag found for componentClass " + baseClass);
-  }
-*/
-
   private ComponentPropertyInfo addPropertyToComponent(final ComponentInfo componentInfo, final PropertyInfo info) {
 
     final ComponentPropertyInfo componentPropertyInfo = (ComponentPropertyInfo) info.fill(new ComponentPropertyInfo());
     componentInfo.addImport(componentPropertyInfo.getUnmodifiedType());
     componentInfo.addImport("javax.faces.context.FacesContext");
     if ("markup".equals(info.getName())) {
-      componentInfo.addInterface("org.apache.myfaces.tobago.component.SupportsMarkup");
+      componentInfo.addInterface("org.apache.myfaces.tobago.component.Visual");
     }
     if ("requiredMessage".equals(info.getName())) {
       componentInfo.setMessages(true);
@@ -264,27 +174,10 @@ public class ClassesGenerator extends AbstractGenerator {
       }
       renderer.add(className);
       final RendererInfo info = new RendererInfo(declaration.getQualifiedName().toString(), className, rendererType);
-      if (componentTag.isLayout()) {
-        info.setSuperClass("org.apache.myfaces.tobago.renderkit.AbstractLayoutRendererWrapper");
-      } else if (componentTag.isTransparentForLayout()) {
-        info.setSuperClass("org.apache.myfaces.tobago.renderkit.AbstractRendererBaseWrapper");
-      } else {
-        info.setSuperClass("org.apache.myfaces.tobago.renderkit.AbstractLayoutableRendererBaseWrapper");
-      }
+      info.setSuperClass("org.apache.myfaces.tobago.renderkit.AbstractRendererBaseWrapper");
       final StringTemplate stringTemplate = rendererStringTemplateGroup.getInstanceOf("renderer");
       stringTemplate.setAttribute("renderInfo", info);
       writeFile(info, stringTemplate);
-    }
-  }
-
-  protected void addPropertiesForTagOnly(final TypeElement type, final List<PropertyInfo> properties) {
-
-    final List<? extends Element> members = processingEnv.getElementUtils().getAllMembers(type);
-    for (final Element member : members) {
-      if (member instanceof ExecutableElement) {
-        final ExecutableElement executableElement = (ExecutableElement) member;
-        addPropertyForTagOnly(executableElement, properties);
-      }
     }
   }
 
@@ -378,22 +271,6 @@ public class ClassesGenerator extends AbstractGenerator {
       }
     }
     return null;
-  }
-
-  protected void addPropertyForTagOnly(final ExecutableElement declaration, final List<PropertyInfo> properties) {
-    final TagAttribute tagAttribute = declaration.getAnnotation(TagAttribute.class);
-    if (tagAttribute != null) {
-      final String simpleName = declaration.getSimpleName().toString();
-      if (simpleName.startsWith("set") || simpleName.startsWith("get")) {
-        String attributeStr = simpleName.substring(3, 4).toLowerCase(Locale.ENGLISH) + simpleName.substring(4);
-        if (tagAttribute.name().length() > 0) {
-          attributeStr = tagAttribute.name();
-        }
-        final PropertyInfo propertyInfo = new PropertyInfo(attributeStr);
-        propertyInfo.setType(tagAttribute.type());
-        properties.add(propertyInfo);
-      }
-    }
   }
 
   private void writeFile(final ClassInfo info, final StringTemplate stringTemplate) throws IOException {

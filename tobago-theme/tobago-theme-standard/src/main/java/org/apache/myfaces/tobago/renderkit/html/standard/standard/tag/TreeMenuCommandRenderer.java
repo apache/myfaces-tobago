@@ -19,34 +19,13 @@
 
 package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
-import org.apache.myfaces.tobago.component.UITreeCommand;
-import org.apache.myfaces.tobago.internal.component.AbstractUITreeNode;
 import org.apache.myfaces.tobago.layout.Measure;
-import org.apache.myfaces.tobago.renderkit.css.Style;
-
-import javax.faces.context.FacesContext;
 
 public class TreeMenuCommandRenderer extends TreeCommandRenderer {
 
-  protected Style createStyle(final FacesContext facesContext, final UITreeCommand node) {
-
-    final AbstractUITreeNode parent = (AbstractUITreeNode) node.getParent();
-    final int level = parent.getLevel();
-//    final boolean folder = parent.isFolder();
-
-    final Style style = new Style();
-    Measure paddingLeft = getResourceManager().getThemeMeasure(facesContext, node, "custom.padding-left");
-    paddingLeft = paddingLeft.multiply(level);
-    style.setPaddingLeft(paddingLeft);
-/*
-    Measure width = ((UITreeMenu)(node.getParent().getParent().getParent())).getCurrentWidth();
-    width = width.subtract(4); // XXX 4 = border + padding
-    width = width.subtractNotNegative(paddingLeft);
-    if (folder) {
-      width = width.subtract(16);
-    }
-    style.setWidth(width);
-*/
-    return style;
+  protected Measure leftOffset(final int level, final boolean showRoot) {
+    final int factor = showRoot ? level : level - 1;
+    return Measure.valueOf(factor * 25); // XXX should be defined in CSS
   }
+
 }

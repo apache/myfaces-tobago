@@ -19,52 +19,144 @@
 
 package org.apache.myfaces.tobago.renderkit.html;
 
-public final class HtmlElements {
+import java.util.Arrays;
 
-  public static final String A = "a";
-  public static final String AREA = "area";
-  public static final String B = "b";
-  public static final String BASE = "base";
-  public static final String BODY = "body";
-  public static final String BR = "br";
-  public static final String BUTTON = "button";
-  public static final String COL = "col";
-  public static final String COLGROUP = "colgroup";
-  public static final String DIV = "div";
-  public static final String FIELDSET = "fieldset";
-  public static final String FORM = "form";
-  public static final String HEAD = "head";
-  public static final String HR = "hr";
-  public static final String HTML = "html";
-  public static final String IFRAME = "iframe";
-  public static final String IMG = "img";
-  public static final String INPUT = "input";
-  public static final String LABEL = "label";
-  public static final String LEGEND = "legend";
-  public static final String LI = "li";
-  public static final String LINK = "link";
-  public static final String META = "meta";
-  public static final String NOSCRIPT = "noscript";
-  public static final String OL = "ol";
-  public static final String OPTGROUP = "optgroup";
-  public static final String OPTION = "option";
-  public static final String PARAM = "param";
-  public static final String SCRIPT = "script";
-  public static final String SELECT = "select";
-  public static final String SPAN = "span";
-  public static final String STYLE = "style";
-  public static final String TABLE = "table";
-  public static final String TBODY = "tbody";
-  public static final String TD = "td";
-  public static final String TEXTAREA = "textarea";
-  public static final String TH = "th";
-  public static final String TITLE = "title";
-  public static final String TR = "tr";
-  @Deprecated
-  public static final String U = "u";
-  public static final String UL = "ul";
+public enum HtmlElements {
 
-  private HtmlElements() {
+  A("a", Qualifier.INLINE),
+  ABBR("abbr", Qualifier.INLINE),
+  ADDRESS("address"),
+  AREA("area", Qualifier.VOID),
+  ARTICLE("article"),
+  ASIDE("aside"),
+  AUDIO("audio"),
+  B("b", Qualifier.INLINE),
+  BASE("base", Qualifier.VOID),
+  BDI("bdi"),
+  BDO("bdo"),
+  BLOCKQUOTE("blockquote"),
+  BODY("body"),
+  BR("br", Qualifier.VOID),
+  BUTTON("button", Qualifier.INLINE),
+  CANVAS("canvas"),
+  CAPTION("caption"),
+  CITE("cite", Qualifier.INLINE),
+  CODE("code"),
+  COL("col", Qualifier.VOID),
+  COLGROUP("colgroup"),
+  COMMAND("command", Qualifier.VOID),
+  DATALIST("datalist"),
+  DD("dd"),
+  DEL("del"),
+  DETAILS("details"),
+  DFN("dfn"),
+  DIV("div"),
+  DL("dl"),
+  DT("dt"),
+  EM("em", Qualifier.INLINE),
+  EMBED("embed", Qualifier.VOID),
+  FIELDSET("fieldset"),
+  FIGCAPTION("figcaption"),
+  FIGURE("figure"),
+  FOOTER("footer"),
+  FORM("form"),
+  H1("h1"),
+  H2("h2"),
+  H3("h3"),
+  H4("h4"),
+  H5("h5"),
+  H6("h6"),
+  HEAD("head"),
+  HEADER("header"),
+  HGROUP("hgroup"),
+  HR("hr", Qualifier.VOID),
+  HTML("html"),
+  I("i", Qualifier.INLINE),
+  IFRAME("iframe"),
+  IMG("img", Qualifier.VOID, Qualifier.INLINE),
+  INPUT("input", Qualifier.VOID, Qualifier.INLINE),
+  INS("ins"),
+  KBD("kbd"),
+  KEYGEN("keygen", Qualifier.VOID),
+  LABEL("label", Qualifier.INLINE),
+  LEGEND("legend"),
+  LI("li"),
+  LINK("link", Qualifier.VOID),
+  MAP("map"),
+  MARK("mark"),
+  MENU("menu"),
+  META("meta", Qualifier.VOID),
+  METER("meter"),
+  NAV("nav"),
+  NOSCRIPT("noscript"),
+  OBJECT("object"),
+  OL("ol"),
+  OPTGROUP("optgroup"),
+  OPTION("option"),
+  P("p"),
+  PARAM("param", Qualifier.VOID),
+  PRE("pre"),
+  PRODRESS("prodress"),
+  Q("q"),
+  RP("rp"),
+  RT("rt"),
+  RUBY("ruby"),
+  S("s"),
+  SAMP("samp"),
+  SCRIPT("script", Qualifier.INLINE),
+  SECTION("section"),
+  SELECT("select", Qualifier.INLINE),
+  SMALL("small"),
+  SOURCE("source", Qualifier.VOID),
+  SPAN("span", Qualifier.INLINE),
+  STRONG("strong"),
+  STYLE("style"),
+  SUB("sub", Qualifier.INLINE),
+  SUMMARY("summary"),
+  SUP("sup", Qualifier.INLINE),
+  TABLE("table"),
+  TBODY("tbody"),
+  TD("td"),
+  TEXTAREA("textarea", Qualifier.INLINE),
+  TFOOT("tfoot"),
+  TH("th"),
+  THEAD("thead"),
+  TIME("time"),
+  TITLE("title"),
+  TR("tr"),
+  TRACK("track", Qualifier.VOID),
+  U("u", Qualifier.INLINE),
+  UL("ul"),
+  VAR("var"),
+  VIDEO("video"),
+  WBR("wbr", Qualifier.VOID);
 
+  private final String value;
+  private final boolean voidElement;
+  private final boolean inlineElement;
+
+  HtmlElements(String value, Qualifier... qualifiers) {
+    this.value = value;
+    this.voidElement = Arrays.asList(qualifiers).contains(Qualifier.VOID);
+    this.inlineElement = Arrays.asList(qualifiers).contains(Qualifier.INLINE);
   }
+
+  public String getValue() {
+    return value;
+  }
+
+  /**
+   * A void HTML elements is an element whose content model never allows it to have contents under any circumstances.
+   * See <a href="http://www.w3.org/TR/html-markup/syntax.html#void-element">
+   *   http://www.w3.org/TR/html-markup/syntax.html#void-element</a>
+   */
+  public boolean isVoid() {
+    return voidElement;
+  }
+
+  public boolean isInline() {
+    return inlineElement;
+  }
+
+  private enum Qualifier {VOID, INLINE}
 }

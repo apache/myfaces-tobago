@@ -21,9 +21,8 @@ package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
 import org.apache.myfaces.tobago.component.UIObject;
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
-import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
+import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
-import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
@@ -33,12 +32,12 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 
-public class ObjectRenderer extends LayoutComponentRendererBase {
+public class ObjectRenderer extends RendererBase {
   public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
     final UIObject object = (UIObject) component;
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
-    writer.startElement(HtmlElements.IFRAME, object);
+    writer.startElement(HtmlElements.IFRAME);
     writer.writeAttribute(HtmlAttributes.FRAMEBORDER, "0", false);
     final String clientId = object.getClientId(facesContext);
     writer.writeIdAttribute(clientId);
@@ -54,9 +53,8 @@ public class ObjectRenderer extends LayoutComponentRendererBase {
     } else {
       writer.writeAttribute(HtmlAttributes.SRC, ResourceManagerUtils.getBlankPage(facesContext), false);
     }
-    writer.writeClassAttribute(Classes.create(object));
-    final Style style = new Style(facesContext, object);
-    writer.writeStyleAttribute(style);
+    writer.writeClassAttribute(Classes.create(object), object.getCustomClass());
+    writer.writeStyleAttribute(object.getStyle());
 
     String noframes = ResourceManagerUtils.getPropertyNotNull(
         facesContext, "tobago", "browser.noframe.message.prefix");

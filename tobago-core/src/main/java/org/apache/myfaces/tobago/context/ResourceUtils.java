@@ -44,6 +44,7 @@ public final class ResourceUtils {
    */
   @Deprecated
   public static final String GIF = "gif";
+  public static final String PNG = "png";
 
   private ResourceUtils() {
     assert false;

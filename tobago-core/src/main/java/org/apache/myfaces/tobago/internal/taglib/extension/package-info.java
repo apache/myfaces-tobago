@@ -18,13 +18,11 @@
  */
 
 /**
- * <b>Tobago Framework Extension Tag Library 2.0.x -
+ * <b>Tobago Framework Extension Tag Library 3.0.x (deprecated) -
  * (C) Copyright 2005-2015 The Apache Software Foundation</b>
  */
 @org.apache.myfaces.tobago.apt.annotation.Taglib(
     shortName = "tx",
     uri = "http://myfaces.apache.org/tobago/extension",
     name = "tobago-extension",
-    displayName = "Tobago Extensions 2.0.x")
-
-package org.apache.myfaces.tobago.internal.taglib.extension;
+    displayName = "Tobago Extensions 3.0.x (deprecated)") package org.apache.myfaces.tobago.internal.taglib.extension;

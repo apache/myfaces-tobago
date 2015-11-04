@@ -20,13 +20,10 @@
 package org.apache.myfaces.tobago.internal.component;
 
 import org.apache.myfaces.tobago.component.Attributes;
-import org.apache.myfaces.tobago.component.ColumnEvent;
-import org.apache.myfaces.tobago.component.ComponentTypes;
-import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.OnComponentPopulated;
-import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.component.Sorter;
 import org.apache.myfaces.tobago.component.SupportsRenderedPartially;
+import org.apache.myfaces.tobago.component.Visual;
 import org.apache.myfaces.tobago.event.PageActionEvent;
 import org.apache.myfaces.tobago.event.SheetStateChangeEvent;
 import org.apache.myfaces.tobago.event.SheetStateChangeListener;
@@ -34,15 +31,13 @@ import org.apache.myfaces.tobago.event.SheetStateChangeSource2;
 import org.apache.myfaces.tobago.event.SortActionEvent;
 import org.apache.myfaces.tobago.event.SortActionSource2;
 import org.apache.myfaces.tobago.internal.layout.Grid;
-import org.apache.myfaces.tobago.layout.LayoutComponent;
-import org.apache.myfaces.tobago.layout.LayoutContainer;
-import org.apache.myfaces.tobago.layout.LayoutManager;
+import org.apache.myfaces.tobago.internal.layout.OriginCell;
+import org.apache.myfaces.tobago.layout.AutoLayoutToken;
 import org.apache.myfaces.tobago.layout.LayoutTokens;
+import org.apache.myfaces.tobago.layout.RelativeLayoutToken;
 import org.apache.myfaces.tobago.model.ExpandedState;
 import org.apache.myfaces.tobago.model.SelectedState;
 import org.apache.myfaces.tobago.model.SheetState;
-import org.apache.myfaces.tobago.renderkit.LayoutComponentRenderer;
-import org.apache.myfaces.tobago.util.CreateComponentUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -67,42 +62,19 @@ import java.util.Map;
 
 @ListenerFor(systemEventClass = PreRenderComponentEvent.class)
 public abstract class AbstractUISheet extends AbstractUIData
-    implements SheetStateChangeSource2, SortActionSource2, OnComponentPopulated,
-    LayoutContainer, LayoutComponent, SupportsRenderedPartially {
+    implements SheetStateChangeSource2, SortActionSource2, OnComponentPopulated, SupportsRenderedPartially, Visual {
 
   private static final Logger LOG = LoggerFactory.getLogger(AbstractUISheet.class);
 
   public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.Data";
 
-  /**
-   * @see org.apache.myfaces.tobago.component.Facets
-   * @deprecated Please use Facets instead. Will be removed after Tobago 1.5.0 */
-  @Deprecated
-  public static final String FACET_SORTER = "sorter";
   public static final String SORTER_ID = "sorter";
-  /**
-   * @see org.apache.myfaces.tobago.component.Attributes
-   * @deprecated Please use Attributes instead. Will be removed after Tobago 1.5.0 */
-  @Deprecated
-  public static final String ATTR_SCROLL_POSITION = "attrScrollPosition";
-
-  public static final String NONE = "none";
-  public static final String SINGLE = "single";
-  public static final String MULTI = "multi";
 
   private SheetState state;
   private List<Integer> widthList;
   private transient LayoutTokens columnLayout;
 
-  private transient List<LayoutComponent> layoutComponents;
-
-  private transient Boolean needVerticalScrollbar;
-
   private transient Grid headerGrid;
-
-  public LayoutComponentRenderer getLayoutComponentRenderer(final FacesContext context) {
-    return (LayoutComponentRenderer) getRenderer(context);
-  }
 
   @Override
   public void encodeBegin(final FacesContext facesContext) throws IOException {
@@ -300,19 +272,6 @@ public abstract class AbstractUISheet extends AbstractUIData
   }
 
   /**
-   * @deprecated The name of this method is ambiguous.
-   * You may use {@link #getFirstRowIndexOfLastPage()}. Deprecated since 1.5.5.
-   */
-  @Deprecated
-  public int getLastPageIndex() {
-    if (hasRowCount()) {
-      return getFirstRowIndexOfLastPage();
-    } else {
-      return 0;
-    }
-  }
-
-  /**
    * Determines the beginning of the last page in the model.
    * If the number of rows to display on one page is unlimited, the value is 0 (there is only one page).
    * @return The index of the first row of the last paging page.
@@ -342,10 +301,6 @@ public abstract class AbstractUISheet extends AbstractUIData
   private void updateSheetState(final FacesContext facesContext) {
     final SheetState state = getSheetState(facesContext);
     if (state != null) {
-      // ensure sortActionListener
-//      getSortActionListener();
-//      state.setSortedColumn(sortActionListener != null ? sortActionListener.getColumn() : -1);
-//      state.setAscending(sortActionListener != null && sortActionListener.isAscending());
       final Map attributes = getAttributes();
       //noinspection unchecked
       final List<Integer> list = (List<Integer>) attributes.get(Attributes.SELECTED_LIST_STRING);
@@ -399,14 +354,6 @@ public abstract class AbstractUISheet extends AbstractUIData
     }
   }
 
-/*  public MethodBinding getSortActionListener() {
-    if (sortActionListener != null) {
-      return sortActionListener;
-    } else {
-      return new Sorter();
-    }
-  }*/
-
   @Override
   public void queueEvent(final FacesEvent facesEvent) {
     final UIComponent parent = getParent();
@@ -456,7 +403,45 @@ public abstract class AbstractUISheet extends AbstractUIData
     super.processEvent(event);
     if (event instanceof PreRenderComponentEvent) {
       sort(getFacesContext(), null);
+      ensureColumnWidthList();
+      layoutHeader();
     }
+  }
+
+  private void ensureColumnWidthList() {
+
+    final List<AbstractUIColumn> allColumns = getAllColumns();
+    final  List<Integer> currentWidthList = new ArrayList<Integer>(allColumns.size() + 1);
+    for (int i = 0; i < allColumns.size(); i++) {
+      final AbstractUIColumn column = allColumns.get(i);
+      currentWidthList.add(null);
+    }
+
+    setWidthList(currentWidthList);
+  }
+
+  private void layoutHeader() {
+    final UIComponent header = getHeader();
+    if (header == null) {
+      LOG.warn("This should not happen. Please file a bug in the issue tracker to reproduce this case.");
+      return;
+    }
+    final LayoutTokens columns = new LayoutTokens();
+    final List<AbstractUIColumn> renderedColumns = getRenderedColumns();
+    for (final AbstractUIColumn ignored : renderedColumns) {
+      columns.addToken(RelativeLayoutToken.DEFAULT_INSTANCE);
+    }
+    final LayoutTokens rows = new LayoutTokens();
+    rows.addToken(AutoLayoutToken.INSTANCE);
+    final Grid grid = new Grid(columns, rows);
+
+    for(final UIComponent child : header.getChildren()) {
+        if (child.isRendered()) {
+//     XXX not implemented in the moment     grid.add(new OriginCell(child), c.getColumnSpan(), c.getRowSpan());
+          grid.add(new OriginCell(child), 1, 1);
+        }
+    }
+    setHeaderGrid(grid);
   }
 
   protected void sort(FacesContext facesContext, SortActionEvent event) {
@@ -593,76 +578,9 @@ public abstract class AbstractUISheet extends AbstractUIData
     }
 
     getState().setFirst(first);
-//      sheet.queueEvent(new SheetStateChangeEvent(sheet));
-  }
-
-  public List<LayoutComponent> getComponents() {
-    if (layoutComponents != null) {
-      return layoutComponents;
-    }
-    layoutComponents = new ArrayList<LayoutComponent>();
-    for (final UIComponent column : getChildren()) {
-      if (column instanceof AbstractUIColumnSelector) {
-        layoutComponents.add(null); // XXX UIColumnSelector is currently not an instance of LayoutComponent
-      } else if (column instanceof ColumnEvent) {
-        // ignore
-      } else if (column instanceof AbstractUIColumnNode) {
-        layoutComponents.add((AbstractUIColumnNode) column);
-      } else if (column instanceof UIColumn) {
-        LayoutComponent layoutComponent = null;
-        for (final UIComponent component : column.getChildren()) {
-          if (component instanceof LayoutComponent) {
-            if (layoutComponent == null) {
-              layoutComponent = (LayoutComponent) component;
-            } else {
-              LOG.warn(
-                  "Found more than one layout components inside of a UIColumn: column id='{}' renderer-type='{}'",
-                  column.getClientId(FacesContext.getCurrentInstance()),
-                  component.getRendererType());
-            }
-          }
-        }
-        if (layoutComponent != null) {
-          layoutComponents.add(layoutComponent);
-        } else {
-          final FacesContext facesContext = FacesContext.getCurrentInstance();
-          final AbstractUIOut dummy = (AbstractUIOut) CreateComponentUtils.createComponent(
-              facesContext, ComponentTypes.OUT, RendererTypes.OUT, facesContext.getViewRoot().createUniqueId());
-          dummy.setTransient(true);
-          column.getChildren().add(dummy);
-          layoutComponents.add(dummy);
-          LOG.warn(
-              "Found no component inside of a UIColumn: column id='{}'. Creating a dummy with id='{}'!",
-              column.getClientId(facesContext), dummy.getClientId(facesContext));
-        }
-      }
-    }
-    return layoutComponents;
   }
 
   public void onComponentPopulated(final FacesContext facesContext, final UIComponent parent) {
-    if (getLayoutManager() instanceof AbstractUIGridLayout) {
-      // ugly, but it seems that some old pages have this problem
-      LOG.warn("Found a GridLayout as layout facet in sheet. Will be ignored! Please remove it."
-          + " The id of the sheet is: '" + getClientId(facesContext) + "'");
-      getFacets().remove(Facets.LAYOUT);
-    }
-    if (getLayoutManager() == null) {
-      setLayoutManager(CreateComponentUtils.createAndInitLayout(
-          facesContext, ComponentTypes.SHEET_LAYOUT, RendererTypes.SHEET_LAYOUT, parent));
-    }
-  }
-
-  public LayoutManager getLayoutManager() {
-    return (LayoutManager) getFacet(Facets.LAYOUT);
-  }
-
-  public void setLayoutManager(final LayoutManager layoutManager) {
-    getFacets().put(Facets.LAYOUT, (AbstractUILayoutBase) layoutManager);
-  }
-
-  public boolean isLayoutChildren() {
-    return isRendered();
   }
 
   public boolean isRendersRowContainer() {
@@ -670,14 +588,6 @@ public abstract class AbstractUISheet extends AbstractUIData
   }
 
   public abstract boolean isShowHeader();
-
-  public Boolean getNeedVerticalScrollbar() {
-    return needVerticalScrollbar;
-  }
-
-  public void setNeedVerticalScrollbar(final Boolean needVerticalScrollbar) {
-    this.needVerticalScrollbar = needVerticalScrollbar;
-  }
 
   @Override
   public ExpandedState getExpandedState() {

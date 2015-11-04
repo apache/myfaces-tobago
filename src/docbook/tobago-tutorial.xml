@@ -141,9 +141,6 @@
         <para>commons-lang</para>
       </listitem>
 
-      <listitem>
-        <para>commons-logging</para>
-      </listitem>
     </itemizedlist>
 
     <para>Additionally a JSF implementation has to be selected. For MyFaces
@@ -172,7 +169,7 @@
     </itemizedlist>
 
     <para>Finally, a logging mechanism has to be selected. All Tobago examples
-    use log4j as a default.</para>
+    use logback as a default.</para>
 
     <sect2>
       <title>Basic Tobago Page</title>
@@ -601,7 +598,7 @@
           &lt;f:facet name="layout"&gt;
             &lt;tc:gridLayout columns="*;fixed;fixed"/&gt;
           &lt;/f:facet&gt;
-          &lt;tc:panel/&gt;
+          &lt;tc:cell/&gt;
           &lt;tc:button label="OK"&gt;
             <emphasis role="bold">&lt;tc:attribute name="popupClose" value="afterSubmit"/&gt;</emphasis>
           &lt;/tc:button&gt;

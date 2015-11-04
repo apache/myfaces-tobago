@@ -19,16 +19,15 @@
 
 package org.apache.myfaces.tobago.example.demo;
 
+import javax.enterprise.context.SessionScoped;
+import javax.inject.Named;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-/*
-// XXX This doesn't work with CODI in the JSP version
 @SessionScoped
 @Named(value = "birdController")
-*/
 public class BirdController implements Serializable {
 
   private List<Bird> birds = new ArrayList<Bird>(Arrays.asList(

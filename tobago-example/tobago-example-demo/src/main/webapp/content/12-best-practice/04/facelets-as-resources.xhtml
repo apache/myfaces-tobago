@@ -17,19 +17,17 @@
  * limitations under the License.
 -->
 
-<ui:composition template="/WEB-INF/tags/layout/overview.xhtml"
+<ui:composition template="/layout/overview.xhtml"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:f="http://java.sun.com/jsf/core">
   <ui:param name="title" value="Loading Facelets from JARs"/>
   <tc:panel>
     <f:facet name="layout">
-      <tc:gridLayout rows="2*;25px;7*"/>
+      <tc:gridLayout rows="2*;7*"/>
     </f:facet>
 
     <tc:out value="#{overviewBundle.faceletsAsResources_text}"/>
-
-    <tc:out value="Facelets only!" />
 
     <tc:box label="This content is included from a JAR.">
 

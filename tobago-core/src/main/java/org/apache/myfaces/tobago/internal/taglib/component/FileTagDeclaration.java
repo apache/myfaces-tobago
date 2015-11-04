@@ -26,11 +26,9 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasConverterMessage;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasCurrentMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabel;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasOnchange;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabelLayout;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasRequiredMessage;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTabIndex;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
@@ -39,9 +37,9 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasValidatorMessage
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasValueChangeListener;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsDisabled;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsFocus;
-import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutComponent;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsReadonly;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsRequired;
+import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
 
 import javax.faces.component.UIInput;
 
@@ -63,9 +61,9 @@ import javax.faces.component.UIInput;
     rendererType = RendererTypes.FILE,
     allowedChildComponenents = "NONE")
 public interface FileTagDeclaration
-    extends HasValidator, HasValidatorMessage, HasRequiredMessage, HasConverterMessage, HasOnchange,
-    HasValueChangeListener, HasIdBindingAndRendered, IsDisabled, HasMarkup, HasCurrentMarkup, IsFocus,
-    HasLabel, HasTip, IsReadonly, IsRequired, HasTabIndex, IsGridLayoutComponent {
+    extends HasValidator, HasValidatorMessage, HasRequiredMessage, HasConverterMessage,
+    HasValueChangeListener, HasIdBindingAndRendered, IsDisabled, IsFocus,
+    HasLabel, HasLabelLayout, HasTip, IsReadonly, IsRequired, HasTabIndex, IsVisual {
 
   /**
    * Value binding expression pointing to a

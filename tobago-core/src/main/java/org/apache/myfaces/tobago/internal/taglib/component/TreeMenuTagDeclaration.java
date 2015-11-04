@@ -26,13 +26,11 @@ import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.component.RendererTypes;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasCurrentMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasValue;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasVar;
-import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutComponent;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsShowRoot;
+import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
 
 import javax.faces.component.UIData;
 
@@ -44,7 +42,7 @@ import javax.faces.component.UIData;
 @BodyContentDescription(anyTagOf = "<tc:treeData>")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UITreeMenu",
-    uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUITree",
+    uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUITreeMenu",
     uiComponentFacesClass = "javax.faces.component.UIData",
     componentFamily = UIData.COMPONENT_FAMILY,
     rendererType = RendererTypes.TREE_MENU,
@@ -53,7 +51,7 @@ import javax.faces.component.UIData;
         "org.apache.myfaces.tobago.TreeData"
         })
 public interface TreeMenuTagDeclaration
-    extends HasIdBindingAndRendered, HasValue, HasVar, IsGridLayoutComponent, HasMarkup, HasCurrentMarkup,
+    extends HasIdBindingAndRendered, HasValue, HasVar, IsVisual,
     IsShowRoot {
 
   /**

@@ -21,28 +21,27 @@ package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
 import org.apache.myfaces.tobago.ajax.AjaxUtils;
 import org.apache.myfaces.tobago.component.Attributes;
-import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.component.UIBox;
 import org.apache.myfaces.tobago.component.UIButton;
-import org.apache.myfaces.tobago.component.UICell;
-import org.apache.myfaces.tobago.component.UIGridLayout;
 import org.apache.myfaces.tobago.component.UIMessages;
 import org.apache.myfaces.tobago.component.UIPanel;
 import org.apache.myfaces.tobago.component.UIPopup;
-import org.apache.myfaces.tobago.config.Configurable;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.internal.ajax.AjaxInternalUtils;
-import org.apache.myfaces.tobago.internal.component.AbstractUIPage;
 import org.apache.myfaces.tobago.internal.util.FacesContextUtils;
-import org.apache.myfaces.tobago.layout.Measure;
-import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
+import org.apache.myfaces.tobago.renderkit.RendererBase;
+import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
-import org.apache.myfaces.tobago.renderkit.css.Style;
+import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
+import org.apache.myfaces.tobago.renderkit.html.Arias;
+import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
+import org.apache.myfaces.tobago.renderkit.html.HtmlButtonTypes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
+import org.apache.myfaces.tobago.renderkit.html.HtmlRoleValues;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.util.CreateComponentUtils;
@@ -57,7 +56,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
-public class MessagesRenderer extends LayoutComponentRendererBase {
+public class MessagesRenderer extends RendererBase {
 
   private static final Logger LOG = LoggerFactory.getLogger(MessagesRenderer.class);
 
@@ -81,10 +80,7 @@ public class MessagesRenderer extends LayoutComponentRendererBase {
     final List<UIMessages.Item> messageList = messages.createMessageList(facesContext);
 
     if (messageList.size() > 0) { // in ie empty span gets a height
-      writer.startElement(HtmlElements.SPAN, messages);
-      writer.writeClassAttribute(Classes.create(messages));
-      HtmlRendererUtils.writeDataAttributes(facesContext, writer, messages);
-      writer.writeStyleAttribute(new Style(facesContext, messages));
+      writer.writeStyleAttribute(messages.getStyle());
 
       // with id
       /*String focusId = null;
@@ -97,9 +93,49 @@ public class MessagesRenderer extends LayoutComponentRendererBase {
         clientIds = facesContext.getClientIdsWithMessages();
       }*/
 
+      writer.startElement(HtmlElements.DIV);
+      writer.writeIdAttribute(messages.getClientId(facesContext));
+      writer.writeClassAttribute(TobagoClass.MESSAGES);
+
+      FacesMessage.Severity lastSeverity = null;
+      boolean first = true;
+
       for (final UIMessages.Item item : messageList) {
-        encodeMessage(writer, messages, item.getFacesMessage(), item.getClientId());
+        final FacesMessage message = item.getFacesMessage();
+        final FacesMessage.Severity severity = message.getSeverity();
+
+        if (!first && lastSeverity != severity) {
+          writer.endElement(HtmlElements.DIV);
+        }
+
+        if (first || lastSeverity != severity) {
+          writer.startElement(HtmlElements.DIV);
+          writer.writeClassAttribute(TobagoClass.MESSAGES,
+              BootstrapClass.ALERT, BootstrapClass.ALERT_DISMISSIBLE, BootstrapClass.alert(severity));
+          HtmlRendererUtils.writeDataAttributes(facesContext, writer, messages);
+          writer.writeAttribute(HtmlAttributes.ROLE, HtmlRoleValues.ALERT.toString(), false);
+
+          writer.startElement(HtmlElements.BUTTON);
+          writer.writeAttribute(HtmlAttributes.TYPE, HtmlButtonTypes.BUTTON);
+          writer.writeClassAttribute(BootstrapClass.CLOSE);
+          writer.writeAttribute(DataAttributes.DISMISS, "alert", false);
+          writer.writeAttribute(Arias.ACTIVEDESCENDANT, "Close", false); // todo: i18n
+          writer.startElement(HtmlElements.SPAN);
+          writer.writeAttribute(Arias.HIDDEN, Boolean.TRUE.toString(), false);
+          writer.writeText("×"); // times
+          writer.endElement(HtmlElements.SPAN);
+          writer.endElement(HtmlElements.BUTTON);
+
+        }
+
+        encodeMessage(writer, messages, message, item.getClientId());
+
+        lastSeverity = severity;
+        first = false;
       }
+      writer.endElement(HtmlElements.DIV); // close open tag from for-loop
+
+      writer.endElement(HtmlElements.DIV);
 /*
       while(clientIds.hasNext()) {
         String clientId = (String) clientIds.next();
@@ -113,21 +149,17 @@ public class MessagesRenderer extends LayoutComponentRendererBase {
         ComponentUtils.findPage(facesContext, messages).setFocusId(focusId);
       }
 */
-      writer.endElement(HtmlElements.SPAN);
       if (messages.getFor() == null) {
-        final String clientId = messages.getClientId(facesContext);
-        writer.startElement(HtmlElements.INPUT, null);
+        final String id = messages.getClientId(facesContext) + ComponentUtils.SUB_SEPARATOR + "messagesExists";
+        writer.startElement(HtmlElements.INPUT);
         writer.writeAttribute(HtmlAttributes.VALUE, Boolean.TRUE.toString(), false);
-        writer.writeAttribute(HtmlAttributes.ID,
-            clientId + ComponentUtils.SUB_SEPARATOR + "messagesExists", false);
-        writer.writeAttribute(HtmlAttributes.NAME,
-            clientId + ComponentUtils.SUB_SEPARATOR + "messagesExists", false);
-        writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN, false);
+        writer.writeAttribute(HtmlAttributes.ID, id, false);
+        writer.writeAttribute(HtmlAttributes.NAME, id, false);
+        writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN);
         writer.endElement(HtmlElements.INPUT);
       }
     }
-    if (messages.getFor() == null
-        && !AjaxUtils.isAjaxRequest(facesContext)) {
+    if (messages.getFor() == null && !AjaxUtils.isAjaxRequest(facesContext)) {
       AjaxInternalUtils.storeMessagesClientIds(facesContext, messages);
     }
   }
@@ -142,12 +174,6 @@ public class MessagesRenderer extends LayoutComponentRendererBase {
         CreateComponentUtils.createComponent(facesContext, UIPopup.COMPONENT_TYPE, RendererTypes.POPUP, id);
     popup.getAttributes().put(Attributes.Z_INDEX, 10);
 
-    final AbstractUIPage page = ComponentUtils.findPage(facesContext, messages);
-
-    popup.setWidth(page.getCurrentWidth().subtract(200));
-    popup.setHeight(page.getCurrentHeight().subtract(200));
-    popup.setLeft(Measure.valueOf(100));
-    popup.setTop(Measure.valueOf(100));
     popup.setRendered(true);
     popup.setActivated(true);
     popup.onComponentPopulated(facesContext, messages);
@@ -163,34 +189,23 @@ public class MessagesRenderer extends LayoutComponentRendererBase {
     // TODO: set string resources in renderer
     box.getAttributes().put(Attributes.LABEL, ResourceManagerUtils.getPropertyNotNull(
         facesContext, "tobago", "tobago.message.confirmation.title"));
-    UIComponent layout = CreateComponentUtils.createComponent(
-        facesContext, UIGridLayout.COMPONENT_TYPE, RendererTypes.GRID_LAYOUT, "layout");
-    box.getFacets().put(Facets.LAYOUT, layout);
-    layout.getAttributes().put(Attributes.ROWS, "*;auto");
-    layout.getAttributes().put(Attributes.MARGIN, Measure.valueOf(10));
 
-    final UICell scrollPanel = (UICell)
-        CreateComponentUtils.createComponent(facesContext, UICell.COMPONENT_TYPE, "Cell", "messagePanel");
+    final UIPanel scrollPanel = (UIPanel)
+        CreateComponentUtils.createComponent(facesContext, UIPanel.COMPONENT_TYPE, "Panel", "messagePanel");
     box.getChildren().add(scrollPanel);
 
     messages.getParent().getChildren().remove(messages);
     messages.setConfirmation(false);
     scrollPanel.onComponentPopulated(facesContext, messages);
-    scrollPanel.setScrollbars("auto");
     scrollPanel.getChildren().add(messages);
 
     final UIComponent buttonPanel = CreateComponentUtils.createComponent(
         facesContext, UIPanel.COMPONENT_TYPE, RendererTypes.PANEL, "buttonPanel");
-    layout = CreateComponentUtils.createComponent(
-        facesContext, UIGridLayout.COMPONENT_TYPE, RendererTypes.GRID_LAYOUT, "buttonPanelLayout");
-    buttonPanel.getFacets().put(Facets.LAYOUT, layout);
-    layout.getAttributes().put(Attributes.COLUMNS, "*;100px");
-    layout.getAttributes().put(Attributes.ROWS, "auto");
 
     box.getChildren().add(buttonPanel);
 
-    final UICell space = (UICell)
-        CreateComponentUtils.createComponent(facesContext, UICell.COMPONENT_TYPE, "Cell", "space");
+    final UIPanel space = (UIPanel)
+        CreateComponentUtils.createComponent(facesContext, UIPanel.COMPONENT_TYPE, "Panel", "space");
     buttonPanel.getChildren().add(space);
     space.onComponentPopulated(facesContext, messages);
 
@@ -222,13 +237,13 @@ public class MessagesRenderer extends LayoutComponentRendererBase {
 
     final String summary = message.getSummary();
     final String detail = message.getDetail();
-    writer.startElement(HtmlElements.LABEL, null);
+    writer.startElement(HtmlElements.LABEL);
     if (clientId != null) {
       writer.writeAttribute(HtmlAttributes.FOR, clientId, false);
     }
     writer.writeAttribute(HtmlAttributes.TITLE, detail, true);
     final Markup markup = ComponentUtils.markupOfSeverity(message.getSeverity());
-    writer.writeClassAttribute(Classes.create(messages, "item", markup));
+    writer.writeClassAttribute(Classes.create(messages, "item", markup), messages.getCustomClass());
     boolean writeEmptyText = true;
     if (summary != null && messages.isShowSummary()) {
       writer.writeText(summary);
@@ -245,17 +260,7 @@ public class MessagesRenderer extends LayoutComponentRendererBase {
       writer.writeText("");
     }
     writer.endElement(HtmlElements.LABEL);
-    writer.startElement(HtmlElements.BR, null);
-    writer.endElement(HtmlElements.BR);
 
     message.rendered();
-  }
-
-  @Override
-  public Measure getPreferredHeight(final FacesContext facesContext, final Configurable component) {
-    final Measure measure = super.getPreferredHeight(facesContext, component);
-    final UIMessages messages = (UIMessages) component;
-    final int count = messages.createMessageList(facesContext).size();
-    return measure.multiply(count);
   }
 }

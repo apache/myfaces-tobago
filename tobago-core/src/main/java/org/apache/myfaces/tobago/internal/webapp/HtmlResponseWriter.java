@@ -19,22 +19,18 @@
 
 package org.apache.myfaces.tobago.internal.webapp;
 
-import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.internal.util.FastStringWriter;
 import org.apache.myfaces.tobago.internal.util.HtmlWriterUtils;
 import org.apache.myfaces.tobago.internal.util.JsonWriterUtils;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.internal.util.WriterUtils;
-import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 
-import javax.faces.component.UIComponent;
 import javax.faces.context.ResponseWriter;
 import java.io.IOException;
 import java.io.Writer;
 import java.util.Arrays;
-import java.util.Map;
 
 public class HtmlResponseWriter extends TobagoResponseWriterBase {
 
@@ -142,33 +138,21 @@ public class HtmlResponseWriter extends TobagoResponseWriterBase {
         originalWriter, getContentType(), getCharacterEncoding());
   }
 
-  /**
-   * @deprecated
-   */
-  @Deprecated
-  public static Style ensureHtmlStyleMap(final UIComponent component, Style styles) {
-    if (styles == null) {
-      styles = new Style();
-      ((Map<String, Object>) component.getAttributes()).put(Attributes.STYLE, styles);
-    }
-    return styles;
-  }
-
   @Override
   public void startDocument() throws IOException {
     getWriter().write(HTML_DOCTYPE);
     getWriter().write('\n');
-    startElement(HtmlElements.HTML, null);
+    startElement(HtmlElements.HTML);
   }
 
   @Override
   public void endElement(final String name) throws IOException {
-    if (name == HtmlElements.BODY) {
+    if (name.equals(HtmlElements.BODY.getValue())) {
       final String javascript = getJavascript();
       if (StringUtils.isNotEmpty(javascript)) {
-        startElement(HtmlElements.SCRIPT, null);
+        startElement(HtmlElements.SCRIPT);
         writeAttribute(HtmlAttributes.TYPE, "text/javascript", false);
-        write(getJavascript());
+        write(javascript);
         super.endElement(HtmlElements.SCRIPT);
       }
     }

@@ -25,16 +25,23 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasConverter;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasCurrentMarkup;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasConverterMessage;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabel;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabelLayout;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasRequiredMessage;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasSanitize;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasTabIndex;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
-import org.apache.myfaces.tobago.internal.taglib.declaration.InputTagDeclaration;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasValidator;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasValidatorMessage;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasValue;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasValueChangeListener;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsDisabled;
+import org.apache.myfaces.tobago.internal.taglib.declaration.IsFocus;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsReadonly;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsRequired;
+import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
 
 import javax.faces.component.UIInput;
 
@@ -50,8 +57,9 @@ import javax.faces.component.UIInput;
     rendererType = RendererTypes.TEXTAREA,
     allowedChildComponenents = "NONE")
 public interface TextareaTagDeclaration
-    extends HasIdBindingAndRendered, HasConverter, IsReadonly, IsDisabled, IsRequired, HasLabel, HasTip,
-    HasMarkup, HasCurrentMarkup, InputTagDeclaration, HasSanitize {
+    extends HasIdBindingAndRendered, HasConverter, IsReadonly, IsDisabled, IsRequired, HasLabel, HasLabelLayout, HasTip,
+    HasValidator, HasValue, HasValueChangeListener, HasTabIndex, IsFocus, IsVisual,
+    HasValidatorMessage, HasConverterMessage, HasRequiredMessage, HasSanitize {
 
   /**
    * The row count for this component.

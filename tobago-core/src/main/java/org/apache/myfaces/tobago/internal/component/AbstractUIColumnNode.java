@@ -19,10 +19,10 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
-import org.apache.myfaces.tobago.layout.LayoutComponent;
+import org.apache.myfaces.tobago.component.Visual;
 
 /**
  * @since 2.0.0
  */
-public abstract class AbstractUIColumnNode extends AbstractUITreeNode implements LayoutComponent {
+public abstract class AbstractUIColumnNode extends AbstractUITreeNode implements Visual {
 }

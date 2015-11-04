@@ -19,12 +19,12 @@
 
 package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
+import org.apache.myfaces.tobago.renderkit.RendererBase;
 
-public class TabRenderer extends LayoutComponentRendererBase {
+public class TabRenderer extends RendererBase {
 
-  private static final Logger LOG = LoggerFactory.getLogger(TabRenderer.class);
-
+  @Override
+  public boolean getRendersChildren() {
+    return true;
+  }
 }

@@ -26,11 +26,8 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.RendererTypes;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasCurrentMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
-import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutComponentWithDimension;
-import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutContainer;
+import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
 
 import javax.faces.component.UIPanel;
 
@@ -48,42 +45,19 @@ import javax.faces.component.UIPanel;
     componentFamily = UIPanel.COMPONENT_FAMILY,
     rendererType = RendererTypes.POPUP,
     facets = {
-        @Facet(name = Facets.LAYOUT,
-            description = "Contains an instance of AbstractUILayoutBase",
-            allowedChildComponenents = "org.apache.myfaces.tobago.GridLayout")}
+        @Facet(name = Facets.LAYOUT, description = "Deprecated. Contains an layout manager. "
+            + "The layout manager tag should surround the content instead.")}
 )
-public interface PopupTagDeclaration 
-    extends HasIdBindingAndRendered, IsGridLayoutComponentWithDimension, IsGridLayoutContainer,
-    HasMarkup, HasCurrentMarkup {
+public interface PopupTagDeclaration
+    extends HasIdBindingAndRendered, IsVisual {
 
+  /**
+   * The rest of the page will be faded off for the time the popup is displayed.
+   * <br>
+   * XXX Currently (since 3.0 branch) non-modal is not supported.
+   */
   @TagAttribute
   @UIComponentTagAttribute(type = "boolean", defaultValue = "true")
   void setModal(String modal);
-  
-  /**
-   * This value will usually be set by the layout manager.
-   *
-   * @param left The left position of this component.
-   */
-  @TagAttribute
-  @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure")
-  void setLeft(String left);
-
-  /**
-   * This value will usually be set by the layout manager.
-   *
-   * @param top The top position of this component.
-   */
-  @TagAttribute
-  @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure")
-  void setTop(String top);
-
-  /**
-   * Represents the visibility order of the popup. The renderer may implemented this visibility by the CSS z-index.
-   *
-   * @param zIndex The visibility order.
-   */
-  @UIComponentTagAttribute(type = "java.lang.Integer")
-  void setZIndex(String zIndex);
 
 }

@@ -23,22 +23,19 @@ import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.internal.taglib.declaration.AbstractCommandTagDeclaration;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasCurrentMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabel;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabelAndAccessKey;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasValue;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsDisabled;
-import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutComponent;
+import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
 
 import javax.faces.component.UICommand;
 
 /**
  * Renders a set of radio command button's within a toolbar.
  */
-@Tag(
-    name = "toolBarSelectOne",
-    tagExtraInfoClassName = "org.apache.myfaces.tobago.internal.taglib.component.CommandTagExtraInfo")
+@Tag(name = "toolBarSelectOne")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIToolBarSelectOne",
     uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUIToolBarSelectOne",
@@ -46,6 +43,6 @@ import javax.faces.component.UICommand;
     componentFamily = UICommand.COMPONENT_FAMILY,
     rendererType = RendererTypes.MENU_COMMAND,
     allowedChildComponenents = "NONE")
-public interface ToolBarSelectOneTagDeclaration extends AbstractCommandTagDeclaration, HasLabel,
-    HasIdBindingAndRendered, IsDisabled, HasValue, IsGridLayoutComponent, HasMarkup, HasCurrentMarkup {
+public interface ToolBarSelectOneTagDeclaration extends AbstractCommandTagDeclaration, HasLabelAndAccessKey, HasTip,
+    HasIdBindingAndRendered, IsDisabled, HasValue, IsVisual {
 }

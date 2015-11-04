@@ -20,11 +20,15 @@
   <parent>
     <groupId>org.apache.myfaces.tobago</groupId>
     <artifactId>tobago</artifactId>
-    <version>2.0.9-SNAPSHOT</version>
+    <version>3.0.0-alpha-1</version>
   </parent>
   <packaging>pom</packaging>
   <name>Tobago Examples</name>
   <artifactId>tobago-example</artifactId>
+
+  <properties>
+    <logback.version>1.1.1</logback.version>
+  </properties>
 
   <build>
     <!-- NOTE The addressbook run only with mvn jetty:run-exploded.
@@ -76,14 +80,61 @@
         <plugin>
           <groupId>org.eclipse.jetty</groupId>
           <artifactId>jetty-maven-plugin</artifactId>
-          <version>9.2.13.v20150730</version><!-- Jetty 9.3 requires Java 1.8 -->
+          <version>9.2.13.v20150730</version>
+          <!-- Jetty 9.3 requires Java 1.8 -->
+          <!--<version>9.3.3.v20150827</version>-->
           <configuration>
             <scanIntervalSeconds>5</scanIntervalSeconds>
+            <webAppConfig>
+              <overrideDescriptor>${override-web-xml}</overrideDescriptor>
+            </webAppConfig>
+<!--
+            <systemProperties>
+              <systemProperty>
+                <name>logback.configurationFile</name>
+                <value>/Users/lofwyr/t/logback.xml</value>
+              </systemProperty>
+              <systemProperty>
+                <name>java.util.logging.config.file</name>
+                <value>logging.properties</value>
+              </systemProperty>
+            </systemProperties>
+-->
           </configuration>
+<!--
+          <dependencies>
+            <dependency>
+              <groupId>org.slf4j</groupId>
+              <artifactId>jul-to-slf4j</artifactId>
+              <version>${slf4j.version}</version>
+            </dependency>
+            <dependency>
+              <groupId>ch.qos.logback</groupId>
+              <artifactId>logback-classic</artifactId>
+              <version>${logback.version}</version>
+              <scope>runtime</scope>
+            </dependency>
+          </dependencies>
+-->
         </plugin>
       </plugins>
     </pluginManagement>
   </build>
+
+  <dependencies>
+    <dependency>
+      <groupId>ch.qos.logback</groupId>
+      <artifactId>logback-classic</artifactId>
+      <version>${logback.version}</version>
+      <scope>runtime</scope>
+    </dependency>
+    <dependency>
+      <groupId>ch.qos.logback</groupId>
+      <artifactId>logback-core</artifactId>
+      <version>${logback.version}</version>
+      <scope>runtime</scope>
+    </dependency>
+  </dependencies>
 
   <profiles>
     <profile>
@@ -95,7 +146,6 @@
       </activation>
       <modules>
         <module>tobago-example-addressbook</module>
-        <module>tobago-example-addressbook-cdi</module>
         <module>tobago-example-blank</module>
         <module>tobago-example-data</module>
         <module>tobago-example-demo</module>
@@ -106,12 +156,13 @@
       <id>all-modules</id>
       <modules>
         <module>tobago-example-addressbook</module>
-        <module>tobago-example-addressbook-cdi</module>
         <module>tobago-example-blank</module>
         <module>tobago-example-data</module>
         <module>tobago-example-demo</module>
+<!--
+        <module>tobago-example-issuetracker</module>
+-->
         <module>tobago-example-portlet</module>
-        <module>tobago-example-sandbox</module>
         <module>tobago-example-security</module>
         <module>tobago-example-test</module>
         <module>tobago-example-assembly</module>
@@ -167,6 +218,9 @@
           <name>!jsf</name>
         </property>
       </activation>
+      <properties>
+        <override-web-xml>../src/test/jetty/override-myfaces-web.xml</override-web-xml>
+      </properties>
       <dependencies>
         <dependency>
           <groupId>org.apache.myfaces.core</groupId>
@@ -178,16 +232,6 @@
           <groupId>org.apache.myfaces.core</groupId>
           <artifactId>myfaces-impl</artifactId>
           <version>${myfaces20.version}</version>
-          <scope>runtime</scope>
-        </dependency>
-        <dependency>
-          <groupId>javax.servlet</groupId>
-          <artifactId>jstl</artifactId>
-          <scope>runtime</scope>
-        </dependency>
-        <dependency>
-          <groupId>commons-logging</groupId>
-          <artifactId>commons-logging</artifactId>
           <scope>runtime</scope>
         </dependency>
       </dependencies>
@@ -201,6 +245,9 @@
           <value>myfaces-2.1</value>
         </property>
       </activation>
+      <properties>
+        <override-web-xml>../src/test/jetty/override-myfaces-web.xml</override-web-xml>
+      </properties>
       <dependencies>
         <dependency>
           <groupId>org.apache.myfaces.core</groupId>
@@ -212,16 +259,6 @@
           <groupId>org.apache.myfaces.core</groupId>
           <artifactId>myfaces-impl</artifactId>
           <version>${myfaces21.version}</version>
-          <scope>runtime</scope>
-        </dependency>
-        <dependency>
-          <groupId>javax.servlet</groupId>
-          <artifactId>jstl</artifactId>
-          <scope>runtime</scope>
-        </dependency>
-        <dependency>
-          <groupId>commons-logging</groupId>
-          <artifactId>commons-logging</artifactId>
           <scope>runtime</scope>
         </dependency>
       </dependencies>
@@ -235,6 +272,9 @@
           <value>myfaces-2.2</value>
         </property>
       </activation>
+      <properties>
+        <override-web-xml>../src/test/jetty/override-myfaces-web.xml</override-web-xml>
+      </properties>
       <dependencies>
         <dependency>
           <groupId>org.apache.myfaces.core</groupId>
@@ -248,16 +288,6 @@
           <version>${myfaces22.version}</version>
           <scope>runtime</scope>
         </dependency>
-        <dependency>
-          <groupId>javax.servlet</groupId>
-          <artifactId>jstl</artifactId>
-          <scope>runtime</scope>
-        </dependency>
-        <dependency>
-          <groupId>commons-logging</groupId>
-          <artifactId>commons-logging</artifactId>
-          <scope>runtime</scope>
-        </dependency>
       </dependencies>
     </profile>
 
@@ -269,6 +299,9 @@
           <value>mojarra-2.0</value>
         </property>
       </activation>
+      <properties>
+        <override-web-xml>../src/test/jetty/override-mojarra-web.xml</override-web-xml>
+      </properties>
       <dependencies>
         <dependency>
           <groupId>com.sun.faces</groupId>
@@ -280,11 +313,6 @@
           <groupId>com.sun.faces</groupId>
           <artifactId>jsf-impl</artifactId>
           <version>${mojarra20.version}</version>
-          <scope>runtime</scope>
-        </dependency>
-        <dependency>
-          <groupId>javax.servlet</groupId>
-          <artifactId>jstl</artifactId>
           <scope>runtime</scope>
         </dependency>
       </dependencies>
@@ -298,6 +326,9 @@
           <value>mojarra-2.1</value>
         </property>
       </activation>
+      <properties>
+        <override-web-xml>../src/test/jetty/override-mojarra-web.xml</override-web-xml>
+      </properties>
       <dependencies>
         <dependency>
           <groupId>com.sun.faces</groupId>
@@ -309,11 +340,6 @@
           <groupId>com.sun.faces</groupId>
           <artifactId>jsf-impl</artifactId>
           <version>${mojarra21.version}</version>
-          <scope>runtime</scope>
-        </dependency>
-        <dependency>
-          <groupId>javax.servlet</groupId>
-          <artifactId>jstl</artifactId>
           <scope>runtime</scope>
         </dependency>
       </dependencies>
@@ -327,6 +353,9 @@
           <value>mojarra-2.2</value>
         </property>
       </activation>
+      <properties>
+        <override-web-xml>../src/test/jetty/override-mojarra-web.xml</override-web-xml>
+      </properties>
       <dependencies>
         <dependency>
           <groupId>com.sun.faces</groupId>
@@ -340,15 +369,16 @@
           <version>${mojarra22.version}</version>
           <scope>runtime</scope>
         </dependency>
-        <dependency>
-          <groupId>javax.servlet</groupId>
-          <artifactId>jstl</artifactId>
-          <scope>runtime</scope>
-        </dependency>
       </dependencies>
     </profile>
+
     <profile>
       <id>liberty</id>
+<!--
+      <properties>
+        <jsf>provided</jsf>
+      </properties>
+-->
       <build>
         <plugins>
           <plugin>
@@ -386,13 +416,26 @@
     <profile>
       <id>jboss</id>
       <build>
-      <plugins>
-        <plugin>
-          <groupId>org.jboss.as.plugins</groupId>
-          <artifactId>jboss-as-maven-plugin</artifactId>
-          <version>7.3.Final</version>
-        </plugin>
-      </plugins>
+        <plugins>
+          <plugin>
+            <!--
+              Running examples with JBoss AS, try:
+              mvn -Pjboss clean jboss-as:run -Djsf=provided
+             -->
+            <groupId>org.jboss.as.plugins</groupId>
+            <artifactId>jboss-as-maven-plugin</artifactId>
+            <version>7.6.Final</version>
+          </plugin>
+          <plugin>
+            <!--
+              Running examples with Wildfly, try:
+              try: mvn -Pjboss clean wildfly:run -Djsf=provided
+             -->
+            <groupId>org.wildfly.plugins</groupId>
+            <artifactId>wildfly-maven-plugin</artifactId>
+            <version>1.0.2.Final</version>
+          </plugin>
+        </plugins>
       </build>
     </profile>
 
@@ -417,4 +460,6 @@
 -->
 
   </profiles>
+  
+
 </project>

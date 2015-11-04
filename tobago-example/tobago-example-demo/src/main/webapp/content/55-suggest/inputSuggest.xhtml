@@ -15,11 +15,10 @@
  * limitations under the License.
 -->
 
-<ui:composition template="/WEB-INF/tags/layout/overview.xhtml"
+<ui:composition template="/layout/overview.xhtml"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:f="http://java.sun.com/jsf/core"
-                xmlns:tx="http://myfaces.apache.org/tobago/extension">
+                xmlns:f="http://java.sun.com/jsf/core">
   <ui:param name="title" value="InputSuggest"/>
   <tc:panel>
 
@@ -47,12 +46,12 @@
         <tc:gridLayout columns="300px;*" rows="60px"/>
       </f:facet>
 
-      <tx:in id="suggest"
+      <tc:in id="suggest"
              value="#{inputSuggestController.simpleValue}"
              label="Country"
              tip="search for the given prefix">
         <tc:suggest suggestMethod="#{countries.prefixed}"/>
-      </tx:in>
+      </tc:in>
 
       <tc:out escape="false"
           value="The backend implementation returns a list of countries which &lt;b>starts&lt;/b> with the given charaters."/>
@@ -64,11 +63,11 @@
         <tc:gridLayout columns="300px;*" rows="60px"/>
       </f:facet>
 
-      <tx:in value="#{inputSuggestController.simpleValue}"
+      <tc:in value="#{inputSuggestController.simpleValue}"
              label="Containing"
              tip="search for containing the given string">
         <tc:suggest suggestMethod="#{countries.contains}"/>
-      </tx:in>
+      </tc:in>
 
       <tc:out escape="false"
           value="The backend implementation returns a list of countries which &lt;b>contains&lt;/b> the given charaters."/>
@@ -80,13 +79,14 @@
         <tc:gridLayout columns="300px;*" rows="60px"/>
       </f:facet>
 
-      <tx:in value="#{inputSuggestController.simpleValue}"
-             label="Delay">
+      <tc:in value="#{inputSuggestController.simpleValue}"
+             label="Delay (currently not supported)">
         <tc:suggest suggestMethod="#{countries.prefixed}" delay="2000"/>
-      </tx:in>
+      </tc:in>
 
-      <tc:out escape="false"
-          value="Setting the &lt;b>delay='2000'&lt;/b> to wait 2 seconds before making an AJAX request."/>
+      <tc:panel>
+        Setting the <b>delay='2000'</b> to wait 2 seconds before making an AJAX request.
+      </tc:panel>
 
     </tc:panel>
 
@@ -95,10 +95,10 @@
         <tc:gridLayout columns="300px;*" rows="60px"/>
       </f:facet>
 
-      <tx:in value="#{inputSuggestController.simpleValue}"
+      <tc:in value="#{inputSuggestController.simpleValue}"
              label="Minimum">
         <tc:suggest suggestMethod="#{countries.prefixed}" minimumCharacters="3"/>
-      </tx:in>
+      </tc:in>
 
       <tc:out escape="false"
           value="Defining the minimal number of charakers before the list will be requested, here with &lt;b>minimumCharacters='3'&lt;/b>."/>
@@ -120,7 +120,7 @@
               <f:facet name="layout">
                 <tc:gridLayout columns="200px;1*"/>
               </f:facet>
-              <tx:in id="isZip" value="#{inputSuggestController.zipValue}"
+              <tc:in id="isZip" value="#{inputSuggestController.zipValue}"
                      label="ZIP/City:"
                      tip="test"
                      suggestMethod="#{inputSuggestController.getZipSuggestItems}"/>
@@ -133,11 +133,11 @@
               <tc:gridLayoutConstraint rowSpan="3"/>
             </tc:panel>
 
-            <tx:selectOneChoice label="State:"
+            <tc:selectOneChoice label="State:"
                                 id="isState"
                 value="#{inputSuggestController.region}">
               <f:selectItems value="#{inputSuggestController.regionItems}"/>
-            </tx:selectOneChoice>
+            </tc:selectOneChoice>
 
             <tc:textarea id="txarea"/>
 

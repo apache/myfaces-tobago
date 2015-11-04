@@ -24,11 +24,8 @@ import org.apache.myfaces.tobago.component.UITreeLabel;
 import org.apache.myfaces.tobago.component.UITreeNode;
 import org.apache.myfaces.tobago.component.UITreeSelect;
 import org.apache.myfaces.tobago.internal.component.AbstractUITree;
-import org.apache.myfaces.tobago.layout.Measure;
-import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
+import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
-import org.apache.myfaces.tobago.renderkit.css.Position;
-import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
@@ -45,7 +42,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TreeListboxRenderer extends LayoutComponentRendererBase {
+public class TreeListboxRenderer extends RendererBase {
 
   public void prepareRender(final FacesContext facesContext, final UIComponent component) throws IOException {
     super.prepareRender(facesContext, component);
@@ -72,35 +69,41 @@ public class TreeListboxRenderer extends LayoutComponentRendererBase {
     final AbstractUITree tree = (AbstractUITree) component;
     final String clientId = tree.getClientId(facesContext);
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
-    final Style style = new Style(facesContext, tree);
-    final Style scrollDivStyle = new Style();
+    //    final Style scrollDivStyle = new Style();
 
-    writer.startElement(HtmlElements.DIV, tree);
-    scrollDivStyle.setWidth(Measure.valueOf(6 * 160)); // todo: depth * width of a select
-    scrollDivStyle.setHeight(style.getHeight() // todo: what, when there is no scrollbar?
-        .subtract(15)); // todo: scrollbar height
-    scrollDivStyle.setPosition(Position.ABSOLUTE);
-    writer.writeStyleAttribute(scrollDivStyle);
+    writer.startElement(HtmlElements.DIV);
+//    scrollDivStyle.setWidth(Measure.valueOf(6 * 160)); // todo: depth * width of a select
+//    scrollDivStyle.setHeight(style.getHeight() // todo: what, when there is no scrollbar?
+//        .subtract(15)); // todo: scrollbar height
+//    scrollDivStyle.setPosition(Position.ABSOLUTE);
+//    writer.writeStyleAttribute(scrollDivStyle);
 
-    writer.startElement(HtmlElements.DIV, tree);
+    writer.startElement(HtmlElements.DIV);
     writer.writeClassAttribute(Classes.create(tree));
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, tree);
-    writer.writeStyleAttribute(style);
+    writer.writeStyleAttribute(tree.getStyle());
 
-    writer.startElement(HtmlElements.INPUT, tree);
-    writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN, false);
+    writer.startElement(HtmlElements.INPUT);
+    writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN);
     writer.writeNameAttribute(clientId);
     writer.writeIdAttribute(clientId);
     writer.writeAttribute(HtmlAttributes.VALUE, ";", false);
     writer.endElement(HtmlElements.INPUT);
 
-    if (tree.getSelectableAsEnum().isSupportedByTreeListbox()) {
-      writer.startElement(HtmlElements.INPUT, tree);
-      writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN, false);
+    writer.startElement(HtmlElements.INPUT);
+    writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN);
+    writer.writeNameAttribute(clientId + ComponentUtils.SUB_SEPARATOR + AbstractUITree.SUFFIX_MARKED);
+    writer.writeIdAttribute(clientId + ComponentUtils.SUB_SEPARATOR + AbstractUITree.SUFFIX_MARKED);
+    writer.writeAttribute(HtmlAttributes.VALUE, "", false);
+    writer.endElement(HtmlElements.INPUT);
+
+    if (tree.getSelectable().isSupportedByTreeListbox()) {
+      writer.startElement(HtmlElements.INPUT);
+      writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN);
       writer.writeNameAttribute(clientId + AbstractUITree.SELECT_STATE);
       writer.writeIdAttribute(clientId + AbstractUITree.SELECT_STATE);
       writer.writeAttribute(HtmlAttributes.VALUE, ";", false);
-      writer.writeAttribute(DataAttributes.SELECTION_MODE, tree.getSelectableAsEnum().name(), false);
+      writer.writeAttribute(DataAttributes.SELECTION_MODE, tree.getSelectable().name(), false);
       writer.endElement(HtmlElements.INPUT);
     }
 
@@ -111,20 +114,20 @@ public class TreeListboxRenderer extends LayoutComponentRendererBase {
         ? tree.getTreeDataModel().getDepth()
         : 7;  // XXX not a fix value!!!
     // todo: use (TreeListbox ?)Layout
-    final Measure currentWidth = tree.getCurrentWidth();
-    final Measure width = currentWidth.divide(depth);
+//    final Measure currentWidth = tree.getCurrentWidth();
+//    final Measure width = currentWidth.divide(depth);
     for (int level = 0; level < depth; level++) {
 
-      writer.startElement(HtmlElements.DIV, null);
+      writer.startElement(HtmlElements.DIV);
       writer.writeClassAttribute(Classes.create(tree, "level"));
-      final Style levelStyle = new Style();
-      levelStyle.setLeft(width.multiply(level));
-      levelStyle.setWidth(width);
-      writer.writeStyleAttribute(levelStyle);
+//      final Style levelStyle = new Style();
+//      levelStyle.setLeft(width.multiply(level));
+//      levelStyle.setWidth(width);
+//      writer.writeStyleAttribute(levelStyle);
       // at the start of each div there is an empty and disabled select tag to show empty area.
       // this is not needed for the 1st level.
       if (level > 0) {
-        writer.startElement(HtmlElements.SELECT, null);
+        writer.startElement(HtmlElements.SELECT);
         writer.writeAttribute(HtmlAttributes.DISABLED, true);
         writer.writeAttribute(HtmlAttributes.SIZE, 9); // must be > 1, but the real size comes from the layout
         writer.writeClassAttribute(Classes.create(tree, "select"));
@@ -159,7 +162,7 @@ public class TreeListboxRenderer extends LayoutComponentRendererBase {
     final UITreeNode node = ComponentUtils.findDescendant(tree, UITreeNode.class);
     final String parentId = node.getClientId(facesContext);
 
-    writer.startElement(HtmlElements.SELECT, tree);
+    writer.startElement(HtmlElements.SELECT);
     writer.writeClassAttribute(Classes.create(tree, "select"));
     if (parentId != null) {
       writer.writeAttribute(DataAttributes.TREE_PARENT, parentId, false);
@@ -181,7 +184,7 @@ public class TreeListboxRenderer extends LayoutComponentRendererBase {
       }
     }
     if (labelValue != null) {
-      writer.startElement(HtmlElements.OPTGROUP, tree);
+      writer.startElement(HtmlElements.OPTGROUP);
       writer.writeAttribute(HtmlAttributes.LABEL, labelValue, true);
       writer.endElement(HtmlElements.OPTGROUP);
     }

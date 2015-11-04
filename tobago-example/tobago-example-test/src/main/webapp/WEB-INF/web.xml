@@ -17,10 +17,11 @@
  * limitations under the License.
 -->
 
-<web-app xmlns="http://java.sun.com/xml/ns/javaee"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
-         version="2.5">
+<web-app
+    xmlns="http://java.sun.com/xml/ns/javaee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+    version="3.0">
 
   <display-name>Tobago Application for Quality Assurance</display-name>
   <description>Will be used for automated tests in the build process.</description>
@@ -50,6 +51,15 @@
     <param-name>javax.faces.INTERPRET_EMPTY_STRING_SUBMITTED_VALUES_AS_NULL</param-name>
     <param-value>true</param-value>
   </context-param>
+
+  <filter>
+    <filter-name>LoggingMdcFilter</filter-name>
+    <filter-class>org.apache.myfaces.tobago.internal.webapp.LoggingMdcFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>LoggingMdcFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
 
   <servlet>
     <servlet-name>FacesServlet</servlet-name>
@@ -177,5 +187,10 @@
     <url-pattern>/faces/*</url-pattern>
   </filter-mapping>
 
+  <session-config>
+    <cookie-config>
+      <http-only>true</http-only>
+    </cookie-config>
+  </session-config>
 
 </web-app>

@@ -19,20 +19,26 @@
 
 package org.apache.myfaces.tobago.renderkit.html;
 
-public final class HtmlInputTypes {
+public enum HtmlInputTypes implements HtmlTypes {
 
-  public static final String TEXT = "text";
-  public static final String PASSWORD = "password";
-  public static final String CHECKBOX = "checkbox";
-  public static final String RADIO = "radio";
-  public static final String SUBMIT = "submit";
-  public static final String RESET = "reset";
-  public static final String FILE = "file";
-  public static final String HIDDEN = "hidden";
-  public static final String IMAGE = "image";
-  public static final String BUTTON = "button";
+  TEXT("text"),
+  PASSWORD("password"),
+  CHECKBOX("checkbox"),
+  RADIO("radio"),
+  SUBMIT("submit"),
+  RESET("reset"),
+  FILE("file"),
+  HIDDEN("hidden"),
+  IMAGE("image"),
+  BUTTON("button");
 
-  private HtmlInputTypes() {
-    // prevent creating objects
+  private final String value;
+
+  HtmlInputTypes(String value) {
+    this.value = value;
+  }
+
+  public String getValue() {
+    return value;
   }
 }

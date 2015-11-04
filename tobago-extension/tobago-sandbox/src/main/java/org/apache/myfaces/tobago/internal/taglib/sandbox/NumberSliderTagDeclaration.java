@@ -23,14 +23,12 @@ import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasCurrentMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasValue;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasValueChangeListener;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsDisabled;
-import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutComponent;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsReadonly;
+import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
 
 import javax.faces.component.UIInput;
 
@@ -45,8 +43,8 @@ import javax.faces.component.UIInput;
     componentFamily = UIInput.COMPONENT_FAMILY,
     rendererType = "NumberSlider")
 public interface NumberSliderTagDeclaration
-    extends HasIdBindingAndRendered, IsReadonly, IsDisabled, HasMarkup, HasCurrentMarkup,
-    HasValue, HasValueChangeListener, IsGridLayoutComponent {
+    extends HasIdBindingAndRendered, IsReadonly, IsDisabled,
+    HasValue, HasValueChangeListener, IsVisual {
 
   /**
    * The minimum integer that can be entered and which represents the left

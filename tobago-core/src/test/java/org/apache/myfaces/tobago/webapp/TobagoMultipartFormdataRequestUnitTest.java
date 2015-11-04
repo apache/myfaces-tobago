@@ -20,13 +20,24 @@
 package org.apache.myfaces.tobago.webapp;
 
 import org.apache.commons.fileupload.FileItem;
-import org.apache.myfaces.tobago.internal.mock.servlet.MockHttpServletRequest;
+import org.apache.myfaces.test.mock.MockHttpServletRequest;
+import org.apache.myfaces.test.mock.MockServletInputStream;
 import org.apache.myfaces.tobago.internal.webapp.TobagoMultipartFormdataRequest;
 import org.junit.Assert;
 import org.junit.Test;
 
+import javax.servlet.AsyncContext;
+import javax.servlet.DispatcherType;
+import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -57,9 +68,10 @@ public class TobagoMultipartFormdataRequestUnitTest {
         + parameter("country", "Trinidad & Tobago")
         + SNIP + BOUNDARY + SNIP + NEWLINE;
 
-    final MockHttpServletRequest mockRequest
-        = new MockHttpServletRequest(body.getBytes("UTF-8"));
+    final MockHttpServletRequest mockRequest = new MultipartRequest("multipart/form-data; boundary=xxx", body.length());
     mockRequest.setMethod("post");
+    ByteArrayInputStream source = new ByteArrayInputStream(body.getBytes("UTF-8"));
+    mockRequest.setInputStream(new MockServletInputStream(source));
 
     request = new TobagoMultipartFormdataRequest(mockRequest, System.getProperty("java.io.tmpdir"), 1024 * 1024);
   }
@@ -160,6 +172,82 @@ public class TobagoMultipartFormdataRequestUnitTest {
       final Set<String> expectedSet = new HashSet<String>(Arrays.asList(expectedStrings));
       final Set<String> actualSet = new HashSet<String>(Arrays.asList(actualStrings));
       Assert.assertEquals(expectedSet, actualSet);
+    }
+  }
+
+  private static class MultipartRequest extends MockHttpServletRequest {
+
+   private String contentType;
+    private int contentLength;
+
+    private MultipartRequest(String contentType, int contentLength) {
+      this.contentType = contentType;
+      this.contentLength = contentLength;
+    }
+
+    @Override
+    public String getContentType() {
+      return contentType;
+    }
+
+    @Override
+    public int getContentLength() {
+      return contentLength;
+    }
+
+    @Override
+    public boolean authenticate(HttpServletResponse httpServletResponse) throws IOException, ServletException {
+      throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public Part getPart(String s) throws IOException, ServletException {
+      throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public Collection<Part> getParts() throws IOException, ServletException {
+      throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void login(String s, String s2) throws ServletException {
+      throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void logout() throws ServletException {
+      throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public AsyncContext getAsyncContext() {
+      throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public DispatcherType getDispatcherType() {
+      throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public boolean isAsyncStarted() {
+      throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public boolean isAsyncSupported() {
+      throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public AsyncContext startAsync() {
+      throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public AsyncContext startAsync(ServletRequest servletRequest, ServletResponse servletResponse) {
+      throw new UnsupportedOperationException();
     }
   }
 }

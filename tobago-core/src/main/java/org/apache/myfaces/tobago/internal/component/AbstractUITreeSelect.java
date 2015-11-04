@@ -20,13 +20,13 @@
 package org.apache.myfaces.tobago.internal.component;
 
 import org.apache.myfaces.tobago.component.Attributes;
-import org.apache.myfaces.tobago.config.Configurable;
+import org.apache.myfaces.tobago.component.Visual;
 
 import javax.el.ValueExpression;
 import javax.faces.component.UISelectBoolean;
 import javax.faces.context.FacesContext;
 
-public abstract class AbstractUITreeSelect extends UISelectBoolean implements Configurable {
+public abstract class AbstractUITreeSelect extends UISelectBoolean implements Visual {
 
   @Override
   public void updateModel(final FacesContext context) {

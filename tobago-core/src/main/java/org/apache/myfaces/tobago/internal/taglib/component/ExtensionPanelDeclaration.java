@@ -21,22 +21,22 @@ package org.apache.myfaces.tobago.internal.taglib.component;
 
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.component.RendererTypes;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasCurrentMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
-import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutComponent;
-import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutContainer;
+import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
 
 import javax.faces.component.UIPanel;
 
+/**
+ * @deprecated since Tobago 3.0, tx-library is deprecated, please use tc-library
+ */
+@Deprecated
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIExtensionPanel",
     uiComponentBaseClass = "org.apache.myfaces.tobago.component.UIPanel",
     uiComponentFacesClass = "javax.faces.component.UIPanel",
     componentFamily = UIPanel.COMPONENT_FAMILY,
     rendererType = RendererTypes.PANEL)
-public interface ExtensionPanelDeclaration extends HasIdBindingAndRendered, IsGridLayoutComponent,
-        IsGridLayoutContainer, HasMarkup, HasCurrentMarkup, HasTip {
+public interface ExtensionPanelDeclaration extends HasIdBindingAndRendered, IsVisual, HasTip {
 
 }

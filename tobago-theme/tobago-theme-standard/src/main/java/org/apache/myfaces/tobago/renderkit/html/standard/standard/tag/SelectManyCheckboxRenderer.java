@@ -20,12 +20,10 @@
 package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
 import org.apache.myfaces.tobago.component.UISelectManyCheckbox;
-import org.apache.myfaces.tobago.config.Configurable;
 import org.apache.myfaces.tobago.context.Markup;
-import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.renderkit.SelectManyRendererBase;
+import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
-import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
@@ -36,7 +34,6 @@ import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
-import javax.faces.component.UISelectMany;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import java.io.IOException;
@@ -51,7 +48,8 @@ public class SelectManyCheckboxRenderer extends SelectManyRendererBase {
     }
   }
 
-  public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
+  @Override
+  public void encodeBeginField(final FacesContext facesContext, final UIComponent component) throws IOException {
     final UISelectManyCheckbox select = (UISelectManyCheckbox) component;
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
@@ -59,15 +57,12 @@ public class SelectManyCheckboxRenderer extends SelectManyRendererBase {
     final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, select);
     final boolean disabled = select.isDisabled();
     final boolean readonly = select.isReadonly();
-    final Style style = new Style(facesContext, select);
     final boolean required = select.isRequired();
-    // fixme: use CSS, not the Style Attribute for "display"
-    style.setDisplay(null);
 
-    writer.startElement(HtmlElements.OL, select);
+    writer.startElement(HtmlElements.OL);
     writer.writeIdAttribute(id);
-    writer.writeStyleAttribute(style);
-    writer.writeClassAttribute(Classes.create(select));
+    writer.writeStyleAttribute(select.getStyle());
+    writer.writeClassAttribute(Classes.create(select), select.getCustomClass());
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, select);
     if (title != null) {
       writer.writeAttribute(HtmlAttributes.TITLE, title, true);
@@ -77,10 +72,17 @@ public class SelectManyCheckboxRenderer extends SelectManyRendererBase {
     final String[] submittedValues = getSubmittedValues(select);
     int i = 0;
     for (final SelectItem item : SelectItemUtils.getItemIterator(facesContext, select)) {
+      final boolean itemDisabled = item.isDisabled() || disabled;
       final String itemId = id + ComponentUtils.SUB_SEPARATOR + i++;
-      writer.startElement(HtmlElements.LI, select);
-      writer.startElement(HtmlElements.INPUT, select);
-      writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.CHECKBOX, false);
+      writer.startElement(HtmlElements.LI);
+      if (itemDisabled) {
+        writer.writeClassAttribute(BootstrapClass.CHECKBOX, BootstrapClass.DISABLED);
+      } else {
+        writer.writeClassAttribute(BootstrapClass.CHECKBOX);
+      }
+      writer.startElement(HtmlElements.LABEL);
+      writer.startElement(HtmlElements.INPUT);
+      writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.CHECKBOX);
       final String formattedValue = RenderUtils.getFormattedValue(facesContext, select, item.getValue());
       boolean checked;
       if (submittedValues == null) {
@@ -92,7 +94,7 @@ public class SelectManyCheckboxRenderer extends SelectManyRendererBase {
       writer.writeNameAttribute(id);
       writer.writeIdAttribute(itemId);
       writer.writeAttribute(HtmlAttributes.VALUE, formattedValue, true);
-      writer.writeAttribute(HtmlAttributes.DISABLED, item.isDisabled() || disabled);
+      writer.writeAttribute(HtmlAttributes.DISABLED, itemDisabled);
       writer.writeAttribute(HtmlAttributes.READONLY, readonly);
       writer.writeAttribute(HtmlAttributes.REQUIRED, required);
       if (first) {
@@ -108,30 +110,17 @@ public class SelectManyCheckboxRenderer extends SelectManyRendererBase {
 
       final String label = item.getLabel();
       if (label != null) {
-        writer.startElement(HtmlElements.LABEL, select);
-        writer.writeAttribute(HtmlAttributes.FOR, itemId, false);
         writer.writeText(label);
-        writer.endElement(HtmlElements.LABEL);
       }
 
+      writer.endElement(HtmlElements.LABEL);
       writer.endElement(HtmlElements.LI);
     }
-    writer.endElement(HtmlElements.OL);
-
   }
 
   @Override
-  public Measure getHeight(final FacesContext facesContext, final Configurable component) {
-    final UISelectManyCheckbox select = (UISelectManyCheckbox) component;
-    final Measure heightOfOne = super.getHeight(facesContext, component);
-    if (select.isInline()) {
-      return heightOfOne;
-    } else {
-      int count = 0;
-      for(SelectItem ignored : SelectItemUtils.getItemIterator(facesContext, (UISelectMany) component)) {
-        count++;
-      }
-      return heightOfOne.multiply(count);
-    }
+  public void encodeEndField(final FacesContext facesContext, final UIComponent component) throws IOException {
+    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+    writer.endElement(HtmlElements.OL);
   }
 }

@@ -52,7 +52,6 @@ public class TobagoConfigFragment {
   private String sanitizerClass;
   private Properties sanitizerProperties;
   private Boolean autoAccessKeyFromLabel;
-  private Boolean classicDateTimePicker;
   private Map<String, String> mimeTypes;
 
   public TobagoConfigFragment() {
@@ -203,14 +202,6 @@ public class TobagoConfigFragment {
 
   public void setAutoAccessKeyFromLabel(Boolean autoAccessKeyFromLabel) {
     this.autoAccessKeyFromLabel = autoAccessKeyFromLabel;
-  }
-
-  public Boolean getClassicDateTimePicker() {
-    return classicDateTimePicker;
-  }
-
-  public void setClassicDateTimePicker(String classicDateTimePicker) {
-    this.classicDateTimePicker = Boolean.valueOf(classicDateTimePicker);
   }
 
   public void addMimeType(String extension, String type) {

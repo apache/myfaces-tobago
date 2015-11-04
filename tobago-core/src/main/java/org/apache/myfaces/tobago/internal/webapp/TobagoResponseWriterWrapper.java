@@ -19,9 +19,9 @@
 
 package org.apache.myfaces.tobago.internal.webapp;
 
-import org.apache.myfaces.tobago.component.Attributes;
-import org.apache.myfaces.tobago.internal.util.Deprecation;
-import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
+import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
+import org.apache.myfaces.tobago.renderkit.html.HtmlTypes;
+import org.apache.myfaces.tobago.renderkit.html.MarkupLanguageAttributes;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
@@ -41,10 +41,19 @@ public class TobagoResponseWriterWrapper extends TobagoResponseWriter {
     responseWriter.startElement(name, component);
   }
 
+  @Override
+  public void startElement(HtmlElements name) throws IOException {
+    responseWriter.startElement(name.getValue(), null);
+  }
+
   public void endElement(final String name) throws IOException {
     responseWriter.endElement(name);
   }
 
+  @Override
+  public void endElement(HtmlElements name) throws IOException {
+    responseWriter.endElement(name.getValue());
+  }
 
   public void write(final String string) throws IOException {
     responseWriter.write(string);
@@ -72,23 +81,14 @@ public class TobagoResponseWriterWrapper extends TobagoResponseWriter {
     responseWriter.flush();
   }
 
-  public void writeAttribute(final String name, final String value, final boolean escape) throws IOException {
-    responseWriter.writeAttribute(name, value, null);
+  public void writeAttribute(final MarkupLanguageAttributes name, final String value, final boolean escape)
+      throws IOException {
+    responseWriter.writeAttribute(name.getValue(), value, null);
   }
 
-  @Override
-  @Deprecated
-  public String getStyleClasses() {
-    return null;
-  }
-
-  /**
-   * @deprecated since Tobago 1.5.0
-   */
-  @Deprecated
-  public void writeClassAttribute() throws IOException {
-    Deprecation.LOG.warn("Please use writeClassAttribute(org.apache.myfaces.tobago.renderkit.css.Classes)");
-    responseWriter.writeAttribute(HtmlAttributes.CLASS, null, Attributes.STYLE_CLASS);
+  public void writeAttribute(final MarkupLanguageAttributes name, final HtmlTypes types)
+      throws IOException {
+    responseWriter.writeAttribute(name.getValue(), types.getValue(), null);
   }
 
   public String getContentType() {
@@ -109,6 +109,11 @@ public class TobagoResponseWriterWrapper extends TobagoResponseWriter {
 
   public void writeURIAttribute(final String name, final Object value, final String property) throws IOException {
     responseWriter.writeURIAttribute(name, value, property);
+  }
+
+  @Override
+  public void writeURIAttribute(MarkupLanguageAttributes name, String string) throws IOException {
+    responseWriter.writeURIAttribute(name.getValue(), string, null);
   }
 
   public void writeText(final char[] text, final int off, final int len) throws IOException {

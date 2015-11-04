@@ -21,13 +21,13 @@ package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
+import org.apache.myfaces.tobago.renderkit.RendererBase;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 
-public class SubviewRenderer extends LayoutComponentRendererBase {
+public class SubviewRenderer extends RendererBase {
 
     private static final Logger LOG = LoggerFactory.getLogger(SubviewRenderer.class);
 

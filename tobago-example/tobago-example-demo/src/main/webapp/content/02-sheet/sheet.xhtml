@@ -17,15 +17,14 @@
  * limitations under the License.
 -->
 
-<ui:composition template="/WEB-INF/tags/layout/overview.xhtml"
+<ui:composition template="/layout/overview.xhtml"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
-                xmlns:tx="http://myfaces.apache.org/tobago/extension"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:f="http://java.sun.com/jsf/core">
   <ui:param name="title" value="#{overviewBundle.sheet}"/>
 
   <f:facet name="toolBar">
+<!-- fixme toolBar-->
     <tc:toolBar>
       <tc:toolBarCommand
           label="#{overviewBundle.sheet_resetLabel}" tip="#{overviewBundle.sheet_resetTip}"
@@ -37,75 +36,72 @@
               <f:facet name="layout">
                 <tc:gridLayout rows="auto;auto;auto;auto;auto;auto;auto;auto;auto;auto;auto;1*;auto"/>
               </f:facet>
-              <tx:selectOneChoice label="showHeader"
+              <tc:selectOneChoice label="showHeader"
                                   value="#{overviewController.sheetConfig.sheetShowHeader}"
                                   tip="TODO: show Header Text">
                 <f:selectItem itemValue="#{true}" itemLabel="True"/>
                 <f:selectItem itemValue="#{false}" itemLabel="False"/>
-              </tx:selectOneChoice>
-              <tx:selectBooleanCheckbox
+              </tc:selectOneChoice>
+              <tc:selectBooleanCheckbox
                   label="showPagingAlways" value="#{overviewController.sheetConfig.showPagingAlways}"/>
-              <tx:in label="first"
+              <tc:in label="first"
                      value="#{overviewController.sheetConfig.sheetFirst}"
                      tip="TODO: paging Start Text">
                 <f:validateLongRange minimum="0"/>
-              </tx:in>
-              <tx:in label="rows"
+              </tc:in>
+              <tc:in label="rows"
                      value="#{overviewController.sheetConfig.sheetRows}"
                      tip="TODO: paging Lenght Text">
                 <f:validateLongRange minimum="0"/>
-              </tx:in>
+              </tc:in>
 
-              <tx:selectOneChoice label="showRowRange"
+              <tc:selectOneChoice label="showRowRange"
                                   value="#{overviewController.sheetConfig.sheetRowPagingPosition}"
                                   tip="TODO: paging DirectLinkCount Text">
                 <f:selectItems value="#{overviewController.sheetConfig.sheetPagingPositionItems}"/>
-              </tx:selectOneChoice>
+              </tc:selectOneChoice>
 
-              <tx:selectOneChoice label="showPageRange"
+              <tc:selectOneChoice label="showPageRange"
                                   value="#{overviewController.sheetConfig.sheetPagePagingPosition}"
                                   tip="TODO: paging DirectLinkCount Text">
                 <f:selectItems value="#{overviewController.sheetConfig.sheetPagingPositionItems}"/>
-              </tx:selectOneChoice>
-              <tx:selectBooleanCheckbox label="with arrows"
+              </tc:selectOneChoice>
+              <tc:selectBooleanCheckbox label="with arrows"
                                         value="#{overviewController.sheetConfig.showPageRangeArrows}"
                                         tip="TODO: showPageRangeArrows Text"/>
 
-              <tx:selectOneChoice label="showDirectLinks"
+              <tc:selectOneChoice label="showDirectLinks"
                                   value="#{overviewController.sheetConfig.sheetDirectPagingPosition}"
                                   tip="TODO: paging DirectLinkCount Text">
                 <f:selectItems value="#{overviewController.sheetConfig.sheetPagingPositionItems}"/>
-              </tx:selectOneChoice>
-              <tx:selectBooleanCheckbox label="with arrows"
+              </tc:selectOneChoice>
+              <tc:selectBooleanCheckbox label="with arrows"
                                         value="#{overviewController.sheetConfig.showDirectLinksArrows}"
                                         tip="TODO: showDirectLinksArrows Text"/>
 
-              <tx:selectOneChoice label="directLinkCount"
+              <tc:selectOneChoice label="directLinkCount"
                                   value="#{overviewController.sheetConfig.sheetDirectLinkCount}"
                                   tip="TODO: paging DirectLinkCount Text">
                 <f:selectItems value="#{overviewController.sheetConfig.sheetDirectLinkCountItems}"/>
-              </tx:selectOneChoice>
+              </tc:selectOneChoice>
 
-              <tx:selectOneChoice label="selectable"
+              <tc:selectOneChoice label="selectable"
                                   value="#{overviewController.sheetConfig.selectable}"
                                   tip="TODO: selectable Text">
                 <f:selectItems value="#{overviewController.sheetConfig.sheetSelectableItems}"/>
-              </tx:selectOneChoice>
+              </tc:selectOneChoice>
 
               <tc:panel/>
 
-              <tc:panel>
-                <f:facet name="layout">
-                  <tc:gridLayout columns="*;auto;auto"/>
-                </f:facet>
-                <tc:panel/>
+              <tc:flowLayout>
+                <tc:style textAlign="right"/>
                 <tc:button label="Cancel">
                   <tc:attribute name="popupClose" value="immediate"/>
                 </tc:button>
-                <tc:button label="Ok" renderedPartially=":page:content">
+                <tc:button label="Ok" renderedPartially=":page:content" defaultCommand="true">
                   <tc:attribute name="popupClose" value="afterSubmit"/>
                 </tc:button>
-              </tc:panel>
+              </tc:flowLayout>
             </tc:box>
           </tc:popup>
         </f:facet>
@@ -114,23 +110,17 @@
   </f:facet>
 
   <tc:panel>
-    <f:facet name="layout">
-      <tc:gridLayout rows="1*;auto;3*"/>
-    </f:facet>
 
     <tc:out escape="false" value="#{overviewBundle.sheet_text}"/>
 
-    <tc:panel>
-      <f:facet name="layout">
-        <tc:gridLayout columns="*;auto;auto"/>
-      </f:facet>
-      <tc:panel/>
+    <tc:flowLayout>
+      <tc:style textAlign="right"/>
       <tc:button label="#{overviewBundle.sheet_resetLabel}" tip="#{overviewBundle.sheet_resetTip}"
                  actionListener="#{overviewController.resetColumnWidths}" />
       <tc:button label="Sheet Configuration" renderedPartially="sheetConfigPopup">
         <tc:popupReference for="sheetConfigPopup"/>
       </tc:button>
-    </tc:panel>
+    </tc:flowLayout>
 
     <tc:sheet value="#{demo.solarList}" id="sheet"
               columns="3*;1*;3*;3*;3*;3*" var="luminary"
@@ -149,11 +139,13 @@
               showDirectLinksArrows="#{overviewController.sheetConfig.showDirectLinksArrows}"
               showPageRangeArrows="#{overviewController.sheetConfig.showPageRangeArrows}"
               renderedPartially="@this :page:header:headerInfo">
+      <tc:style maxHeight="500px"/>
 <!--
       <f:facet name="reload">
         <tc:reload frequency="2000" />
       </f:facet>
 -->
+      <tc:columnSelector/>
       <tc:column label="#{overviewBundle.solarArrayName}" id="name" sortable="true" markup="#{luminary.markup}">
         <tc:out value="#{luminary.name}" id="t_name"/>
       </tc:column>
@@ -162,9 +154,10 @@
         <tc:out value="#{luminary.number}" id="t_number"/>
       </tc:column>
       <tc:column label="#{overviewBundle.solarArrayOrbit}" sortable="true" id="orbit">
+<!--
         <f:facet name="dropDownMenu">
           <tc:menu>
-            <!-- TODO: example or remove -->
+            &lt;!&ndash; TODO: example or remove &ndash;&gt;
             <tc:menuCommand omit="true" label="todo">
               <tc:dataAttribute name="alert-text" value="Not implemented yet"/>
             </tc:menuCommand>
@@ -179,8 +172,9 @@
           <f:facet name="layout">
             <tc:gridLayout rows="20px"/>
           </f:facet>
+-->
           <tc:out value="#{luminary.orbit}" id="t_orbit"/>
-        </tc:panel>
+        <!--</tc:panel>-->
       </tc:column>
       <tc:column label="#{overviewBundle.solarArrayPopulation}" sortable="true" id="population">
         <tc:in value="#{luminary.population}" id="t_population"/>

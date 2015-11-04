@@ -32,7 +32,6 @@
   <entry key="menu_help">_Help</entry>
   <entry key="menu_themes">_Themes</entry>
   <entry key="menu_locale">_Locale</entry>
-  <entry key="menu_debug">Debug Mode</entry>
   <entry key="menu_about">About</entry>
 
 <!-- navigate -->
@@ -60,7 +59,7 @@
   <entry key="nonFacesResponse">Non Faces Resp.</entry>
   <entry key="toolBarCustomizer">User Customized UI</entry>
   <entry key="faceletsAsResources">Facelets As Resource</entry>
-  <entry key="non-faces-request">Non Faces Request (Facelets only)</entry>
+  <entry key="non-faces-request">Non Faces Request</entry>
 
   <entry key="reference_intro">Ref. (under constr.)</entry>
   <entry key="reference_command">Command</entry>
@@ -369,9 +368,7 @@
     This example uses &lt;b>&amp;lt;c:forEach&gt;&lt;/b>. It works well with the layout manager.&lt;br/>
     Using &lt;b>&amp;lt;ui:repeat&gt;&lt;/b> doesn't work with the grid layout manager in the moment.
     The iterated components are on top of each other in the HTML document,
-    because they got have all the same position attributes.&lt;br/>
-    The JSP variant works not correctly, when you call the page the first time
-    and the session object is not initialized.&lt;br/></entry>
+    because they got have all the same position attributes.&lt;br/></entry>
 
   <!-- faceletsAsResources -->
   <entry key="faceletsAsResources_text">

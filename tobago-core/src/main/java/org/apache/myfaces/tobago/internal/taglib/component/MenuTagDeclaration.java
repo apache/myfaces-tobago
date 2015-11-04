@@ -23,13 +23,11 @@ import org.apache.myfaces.tobago.apt.annotation.BodyContentDescription;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.component.RendererTypes;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasCurrentMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasImage;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabelAndAccessKey;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsDisabled;
-import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutComponent;
+import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
 
 import javax.faces.component.UIPanel;
 
@@ -57,5 +55,5 @@ import javax.faces.component.UIPanel;
         "org.apache.myfaces.tobago.MenuSelectOne",
         "org.apache.myfaces.tobago.MenuSeparator"})
 public interface MenuTagDeclaration extends HasIdBindingAndRendered, HasLabelAndAccessKey,
-    IsDisabled, HasImage, IsGridLayoutComponent, HasMarkup, HasCurrentMarkup {
+    IsDisabled, HasImage, IsVisual {
 }

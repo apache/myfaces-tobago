@@ -133,10 +133,6 @@ public class TobagoConfigSorter implements Comparator<TobagoConfigFragment> {
         result.setAutoAccessKeyFromLabel(fragment.getAutoAccessKeyFromLabel());
       }
 
-      if (fragment.getClassicDateTimePicker() != null) {
-        result.setClassicDateTimePicker(fragment.getClassicDateTimePicker());
-      }
-
       // theme definition
       // todo
 /*
@@ -190,8 +186,8 @@ public class TobagoConfigSorter implements Comparator<TobagoConfigFragment> {
   protected void ensureIrreflexive() {
     for (final Pair a : pairs) {
         if (a.getLower() == a.getHigher()) {
-          final StringBuffer buffer = new StringBuffer();
-          buffer.append("Ordering problem. There are conflicting order rules. Not irreflexive. " + "'");
+          final StringBuilder buffer = new StringBuilder();
+          buffer.append("Ordering problem. There are conflicting order rules. Not irreflexive. '");
           buffer.append(a.getLower());
           buffer.append("' < '");
           buffer.append(a.getHigher());
@@ -214,8 +210,8 @@ public class TobagoConfigSorter implements Comparator<TobagoConfigFragment> {
     for (final Pair a : pairs) {
       for (final Pair b : pairs) {
         if (a.getLower() == b.getHigher() && a.getHigher() == b.getLower()) {
-          final StringBuffer buffer = new StringBuffer();
-          buffer.append("Ordering problem. There are conflicting order rules. Not antisymmetric. " + "'");
+          final StringBuilder buffer = new StringBuilder();
+          buffer.append("Ordering problem. There are conflicting order rules. Not antisymmetric. '");
           buffer.append(a.getLower());
           buffer.append("' < '");
           buffer.append(a.getHigher());

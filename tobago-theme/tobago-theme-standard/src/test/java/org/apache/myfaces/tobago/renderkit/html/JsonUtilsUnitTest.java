@@ -109,10 +109,11 @@ public class JsonUtilsUnitTest extends AbstractTobagoTestBase {
   @Test
   public void monthNames() {
     final DateTimeI18n dateTimeI18n = DateTimeI18n.valueOf(Locale.GERMANY);
+    final String marchShort = dateTimeI18n.getMonthNamesShort()[2]; // different with JDK 1.8.0_51 and 1.8.0_60
     final String expected
         = ("{'monthNames':['Januar','Februar','März','April','Mai','Juni',"
         + "'Juli','August','September','Oktober','November','Dezember'],"
-        + "'monthNamesShort':['Jan','Feb','Mrz','Apr','Mai','Jun','Jul','Aug','Sep','Okt','Nov','Dez'],"
+        + "'monthNamesShort':['Jan','Feb','" + marchShort + "','Apr','Mai','Jun','Jul','Aug','Sep','Okt','Nov','Dez'],"
         + "'dayNames':['Sonntag','Montag','Dienstag','Mittwoch','Donnerstag','Freitag','Samstag'],"
         + "'dayNamesShort':['So','Mo','Di','Mi','Do','Fr','Sa'],"
         + "'dayNamesMin':['So','Mo','Di','Mi','Do','Fr','Sa'],"

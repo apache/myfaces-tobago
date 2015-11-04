@@ -17,9 +17,8 @@
  * limitations under the License.
 -->
 
-<ui:composition template="/WEB-INF/tags/layout/overview.xhtml"
+<ui:composition template="/layout/overview.xhtml"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
-                xmlns:tx="http://myfaces.apache.org/tobago/extension"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:f="http://java.sun.com/jsf/core">
   <ui:param name="title" value="Non-Faces-Request Demo: Fish Pont"/>
@@ -37,7 +36,7 @@
       <tc:gridLayout rows="auto;auto" margin="20px"/>
     </f:facet>
 
-    <tx:in label="Selected:" value="#{fishPond.selectedFish}" readonly="true"/>
+    <tc:in label="Selected:" value="#{fishPond.selectedFish}" readonly="true"/>
 
     <tc:panel>
       <f:facet name="layout">

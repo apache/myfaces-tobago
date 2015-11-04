@@ -52,9 +52,9 @@ Tobago.Sheet = function(
 
   this.firstRowRegExp = new RegExp("^" + this.id + "_data_tr_\\d+$");
 
-  console.timeEnd("[tobago-sheet] constructor"); // @DEV_ONLY
-
   this.setup();
+
+  console.timeEnd("[tobago-sheet] constructor"); // @DEV_ONLY
 };
 
 Tobago.Sheet.init = function(elements) {
@@ -72,6 +72,13 @@ Tobago.Sheet.init = function(elements) {
         dblclick != undefined ? dblclick.action : undefined,
         dblclick != undefined ? dblclick.partially: undefined,
         sheet.data("tobago-partial-ids")); // type array
+
+    //////////////////////////////////////////////
+    // XXX bugfix for IE11 (lower than IE11 isn't supported for that feature)
+    // if a max-height is set on the sheet,
+    if (Tobago.browser.isMsie && sheet.css("max-height") != "none") {
+      sheet.css("height", sheet.css("height")); // reset the height to the same value
+    }
   });
 
   Tobago.Sheet.setup2(sheets);
@@ -99,39 +106,28 @@ Tobago.Sheet.init = function(elements) {
 Tobago.registerListener(Tobago.Sheet.init, Tobago.Phase.DOCUMENT_READY);
 Tobago.registerListener(Tobago.Sheet.init, Tobago.Phase.AFTER_UPDATE);
 
-Tobago.Sheet.prototype.setupPagingLinks = function() {
-    idPrefix = this.id + Tobago.SUB_COMPONENT_SEP;
-    var linkBox = Tobago.element(idPrefix + "pagingLinks");
-    if (linkBox) {
-      for (i = 0 ; i < linkBox.childNodes.length ; i++) {
+Tobago.Sheet.prototype.setupArrowPaging = function(linkBox) {
+    for (var i = 0; i < linkBox.childNodes.length; i++) {
         var child = linkBox.childNodes[i];
         if (child.nodeType == 1 && child.tagName.toUpperCase() == "IMG") {
-          // first, prev, next and last commands
-          if (undefined == jQuery(child).attr("data-tobago-disabled")) {
-              Tobago.addBindEventListener(child, "click", this, "doPaging");
-          }
-        } else if (child.nodeType == 1 && child.tagName.toUpperCase() == "A") {
-          Tobago.addBindEventListener(child, "click", this, "doPagingDirect");
+            // first, prev, next and last commands
+            if (undefined == jQuery(child).attr("data-tobago-disabled")) {
+                Tobago.addBindEventListener(child, "click", this, "doPaging");
+            }
         }
-      }
     }
-  };
+}
 
 Tobago.Sheet.prototype.setupPagePaging = function() {
-    linkBox = Tobago.element(idPrefix + "pagingPages");
-    if (linkBox) {
-      for (var i = 0 ; i < linkBox.childNodes.length ; i++) {
-        var child = linkBox.childNodes[i];
-        if (child.nodeType == 1 && child.tagName.toUpperCase() == "IMG") {
-          // first, prev, next and last commands
-          if (undefined == jQuery(child).attr("data-tobago-disabled")) {
-            Tobago.addBindEventListener(child, "click", this, "doPaging");
-          }
-        } else if (child.nodeType == 1 && child.tagName.toUpperCase() == "SPAN") {
-          var toPageId = this.id + Tobago.COMPONENT_SEP + "ToPage";
-          Tobago.addEventListener(child, "click", Tobago.bind(this, "insertTarget", toPageId));
-        }
-      }
+    var idPrefix = this.id + Tobago.SUB_COMPONENT_SEP;
+
+    var linkBoxPages = Tobago.element(idPrefix + "pagingPages");
+    if (linkBoxPages) {
+        this.setupArrowPaging(linkBoxPages);
+    }
+    var linkBoxLinks = Tobago.element(idPrefix + "pagingLinks");
+    if (linkBoxLinks) {
+        this.setupArrowPaging(linkBoxLinks);
     }
   };
 
@@ -144,25 +140,9 @@ Tobago.Sheet.prototype.setupRowPaging = function() {
     }
   };
 
-
-Tobago.Sheet.prototype.doPagingDirect = function(event) {
-    var element = Tobago.element(event);
-    var action = this.id + Tobago.COMPONENT_SEP + "ToPage";
-
-    var page = element.id.lastIndexOf('_');
-    page = element.id.substring(page + 1);
-    var hidden = document.createElement('input');
-    hidden.type = 'hidden';
-    hidden.value = page;
-    hidden.name = action + Tobago.SUB_COMPONENT_SEP +  "value";
-    Tobago.element(this.id).appendChild(hidden);
-
-    this.reloadWithAction(event.srcElement, action);
-  };
-
 Tobago.Sheet.prototype.doPaging = function(event) {
     var element = Tobago.element(event);
-    var action = "unset";
+    var action;
     if (element.id.match(this.firstRegExp)){
       action = this.id + Tobago.COMPONENT_SEP +"First";
     } else if (element.id.match(this.prevRegExp)){
@@ -171,6 +151,8 @@ Tobago.Sheet.prototype.doPaging = function(event) {
       action = this.id + Tobago.COMPONENT_SEP +"Next";
     } else if (element.id.match(this.lastRegExp)){
       action = this.id + Tobago.COMPONENT_SEP +"Last";
+    } else {
+      action = "unset";
     }
     this.reloadWithAction(event.srcElement, action);
   };
@@ -193,7 +175,7 @@ Tobago.Sheet.prototype.afterDoUpdateError = function() {
 };
 
 Tobago.Sheet.prototype.insertTarget = function(event, actionId) {
-//    console.debug("insertTarget('" + actionId + "')")
+    console.debug("insertTarget('{1}')", actionId);
     var textId = actionId + Tobago.SUB_COMPONENT_SEP + "text";
     var text = Tobago.element(textId);
     if (text) {
@@ -214,7 +196,7 @@ Tobago.Sheet.prototype.insertTarget = function(event, actionId) {
         span.insertBefore(input, text);
       }
       input.value=text.innerHTML;
-      input.style.display = '';
+      input.style.display = 'inline';
       text.style.display = 'none';
       input.focus();
       input.select();
@@ -264,30 +246,40 @@ Tobago.Sheet.prototype.doKeyEvent = function(event) {
 
 Tobago.Sheet.setup2 = function (sheets) {
 
-  // set the height of the header-cells to the height of the td (height: 100% doesn't work)
-  jQuery(sheets).find(".tobago-sheet-headerCell").each(function () {
-    var div = jQuery(this);
-    div.height(div.parent().height());
-  });
-
-  // set the height of the header-cells to the height of the td (height: 100% doesn't work)
-  jQuery(sheets).children(".tobago-sheet-headerDiv").each(function () {
-    jQuery(this).height(jQuery(this).children(":first").height());
-  });
-
   jQuery(sheets).each(function() {
     Tobago.Sheet.resetInputFieldSize(jQuery(this));
   });
 
 
-  // adjust body row filler cells if no scrollbar present but was calculated
-  jQuery(sheets).find("[data-tobago-sheet-verticalscrollbarwidth]").each(function() {
+  // synchronize column widths
+  jQuery(sheets).each(function() {
     var table = jQuery(this);
-    var verticalScrollbarWidth = table.data("tobago-sheet-verticalscrollbarwidth");
-    if (verticalScrollbarWidth !== undefined) {
-      var bodyDiv = table.parent().next();
-      Tobago.Sheet.adjustTableWidth(bodyDiv);
+
+    // todo make a function
+    var headerToBody = false;
+
+    var body = table.find(".tobago-sheet-bodyTable>colgroup>col");
+    var header = table.find(".tobago-sheet-headerTable>colgroup>col");
+
+    var sourceCols = headerToBody ? header : body;
+    var targetCols = headerToBody ? body : header;
+
+    console.assert(targetCols.length == sourceCols.length, "header and body column number doesn't match");  // @DEV_ONLY
+
+    for (var i = 0; i < sourceCols.length; i++) {
+
+      // if not set, pull the width from a cell (is needed for Chrome)
+      if (sourceCols.eq(i).attr("width") == null) {
+        var correspondingCell
+            = sourceCols.eq(i).parents("table:first").children("tbody").children("tr:first").children("td").eq(i);
+        sourceCols.eq(i).attr("width", correspondingCell.outerWidth())
+      }
+
+      targetCols.eq(i).attr("width", sourceCols.eq(i).attr("width"));
     }
+
+
+    //COL elemente... // todo
   });
 
   // resize: mouse events
@@ -299,6 +291,7 @@ Tobago.Sheet.setup2 = function (sheets) {
       // begin resizing
 //      console.log("begin");
 //      console.log(event);
+      LOG.info("down");
       var columnIndex = jQuery(this).data("tobago-column-index");
       var body = jQuery("body");
       var column = jQuery(this).closest("table").children("colgroup").children("col").eq(columnIndex);
@@ -312,6 +305,7 @@ Tobago.Sheet.setup2 = function (sheets) {
         originalFillerWidth: parseInt(filler.attr("width"))
       };
       body.on("mousemove", data, function(event) {
+        LOG.info("move");
         var delta = event.clientX - event.data.originalClientX;
 //        console.log("columnResize(): " + event.data.columnIndex + ", delta: " + delta);
         delta = - Math.min(-delta, event.data.originalColumnWidth - 10);
@@ -330,7 +324,7 @@ Tobago.Sheet.setup2 = function (sheets) {
       body.one("mouseup", {sheet: jQuery(this).closest(".tobago-sheet")}, function (event) {
         // switch off the mouse move listener
         jQuery("body").off("mousemove");
-
+        LOG.info("up");
         // copy the width values from the header to the body, (and build a list of it)
         var sheet = event.data.sheet;
         var headerTable = sheet.find(".tobago-sheet-headerTable");
@@ -374,24 +368,14 @@ Tobago.Sheet.setup2 = function (sheets) {
         var scrollHeight = bodyDiv.prop("scrollHeight");
         console.log("bodyHeight : " + bodyHeight); // @DEV_ONLY
         console.log("scrollHeight : " + scrollHeight); // @DEV_ONLY
-        var verticalScrollbarWidth = 0;
-        if (bodyHeight < scrollHeight) {
-          verticalScrollbarWidth = headerTable.data("tobago-sheet-verticalscrollbarwidth");
-          if (verticalScrollbarWidth) {
-            bodyDivWidth -= verticalScrollbarWidth;
-          }
-        }
 
         var headerFillerWidth = 0;
         var bodyFillerWidth = 0;
         if (usedWidth <= bodyDivWidth) {
           bodyFillerWidth = bodyDivWidth - usedWidth;
-          headerFillerWidth = bodyFillerWidth + verticalScrollbarWidth;
+          headerFillerWidth = bodyFillerWidth;
           bodyTable.css("width", bodyDivWidth);
         } else {
-          if (usedWidth >= (bodyDivWidth - verticalScrollbarWidth)) {
-            headerFillerWidth = verticalScrollbarWidth;
-          }
           bodyTable.css("width", usedWidth);
         }
 
@@ -414,7 +398,7 @@ Tobago.Sheet.setup2 = function (sheets) {
     var scrollTop = sheetBody.prop("scrollTop");
 
     // scrolling the table should move the header
-    sheetBody.siblings(".tobago-sheet-headerDiv").prop("scrollLeft", scrollLeft);
+    sheetBody.siblings(".tobago-sheet-header").prop("scrollLeft", scrollLeft);
 
     // store the position in a hidden field
     var hidden = Tobago.Sheet.hidden(sheetBody.parent(), "scrollPosition");
@@ -437,7 +421,7 @@ Tobago.Sheet.setup2 = function (sheets) {
       var body = sheet.children(".tobago-sheet-body");
       body.prop("scrollLeft", scrollLeft);
       body.prop("scrollTop", scrollTop);
-      sheet.children(".tobago-sheet-headerDiv").prop("scrollLeft", scrollLeft);
+      sheet.children(".tobago-sheet-header").prop("scrollLeft", scrollLeft);
     }
   });
 
@@ -474,6 +458,44 @@ Tobago.Sheet.setup2 = function (sheets) {
     Tobago.Sheets.get(sheet.attr("id")).initReload();
   });
 
+  // init pagingLinks
+  jQuery(sheets).find(".tobago-sheet-pagingLinks").find("a").click(function() {
+    var anchor = jQuery(this);
+    var sheet = anchor.parents(".tobago-sheet:first");
+    var sheetId = sheet.attr("id");
+    var hiddenId = sheetId + ":ToPage::value";
+    var hidden = jQuery(Tobago.Utils.escapeClientId(hiddenId));
+    var toPage = anchor.data("tobago-to-page");
+    hidden.val(toPage);
+    console.info("adding direct link " + anchor.html());
+    console.info("action=" + sheetId + Tobago.COMPONENT_SEP + "ToPage");
+    console.info("page=" + toPage);
+    Tobago.Sheets.get(sheetId).reloadWithAction(anchor.get(0), sheetId + Tobago.COMPONENT_SEP + "ToPage");
+  });
+
+  // init paging by pages
+  jQuery(sheets).find(".tobago-sheet-pagingPages").each(function() {
+    var pagingPages = jQuery(this);
+    pagingPages.find(".tobago-sheet-pagingOutput").parent().click(function () {
+      console.info("click on text");
+      var parent = jQuery(this);
+      parent.children(".tobago-sheet-pagingOutput").hide();
+      parent.children(".tobago-sheet-pagingInput").show().focus().select();
+    });
+    pagingPages.find(".tobago-sheet-pagingInput")
+        .blur(function () {
+          console.info("blur");
+          Tobago.Sheet.hideInputOrSubmit(jQuery(this));
+        }).keydown(function (event) {
+          console.info("keydown");
+          console.dir(event);
+          if (event.keyCode == 13) {
+            event.stopPropagation();
+            event.preventDefault();
+            jQuery(this).blur();
+          }
+        });
+  });
 };
 
 Tobago.Sheet.adjustTableWidth = function(bodyDiv) {
@@ -499,6 +521,25 @@ Tobago.Sheet.adjustTableWidth = function(bodyDiv) {
   }
 };
 
+Tobago.Sheet.hideInputOrSubmit = function(input) {
+  var output = input.siblings(".tobago-sheet-pagingOutput");
+  var changed = output.html() != input.val();
+  var sheet = input.parents(".tobago-sheet:first");
+  var sheetId = sheet.attr("id");
+  output.html(input.val());
+  var hiddenId = sheetId + ":ToPage::value";
+  var hidden = jQuery(Tobago.Utils.escapeClientId(hiddenId));
+  hidden.val(input.val());
+  if (changed) {
+    console.error("not implemented");
+    Tobago.Sheets.get(sheetId).reloadWithAction(input.get(0), sheetId + Tobago.COMPONENT_SEP + "ToPage");
+  } else {
+    console.info("no update needed");
+    input.hide();
+    output.show();
+  }
+};
+
 /** Returns the specific hidden field of a sheet
  * @param sheet The sheet as jQuery Object
  * @param idSuffix The if suffix of the hidden field
@@ -512,19 +553,6 @@ Tobago.Sheet.hidden = function(sheet, idSuffix) {
 Tobago.Sheet.prototype.setup = function() {
   console.time("[tobago-sheet] setup"); // @DEV_ONLY
 
-  // IE 6+7
-  if (Tobago.browser.isMsie67) {
-    jQuery(Tobago.Utils.escapeClientId(this.id) + ">div>table>colgroup>col").each(function() {
-      Tobago.Sheet.fixIE67ColWidth(jQuery(this));
-    });
-
-    // to avoid horizontal scroll bar. This value must be removed, when resizing the columns!
-    jQuery(Tobago.Utils.escapeClientId(this.id)).find(".tobago-sheet-cell-markup-filler").each(function() {
-      jQuery(this).css("width", "0");
-    });
-  }
-
-  this.setupPagingLinks();
   this.setupPagePaging();
   this.setupRowPaging();
 
@@ -754,7 +782,7 @@ Tobago.Sheet.getDataIndex = function(sheet, row) {
  */
 Tobago.Sheet.selectRow = function(selected, rowIndex, row, checkbox) {
   selected.val(selected.val() + rowIndex + ",");
-  row.addClass("tobago-sheet-row-markup-selected");
+  row.addClass("tobago-sheet-row-markup-selected info");
 //  checkbox.prop("checked", true);
   setTimeout(function() {checkbox.prop("checked", true);}, 0);
 };
@@ -767,19 +795,9 @@ Tobago.Sheet.selectRow = function(selected, rowIndex, row, checkbox) {
  */
 Tobago.Sheet.deselectRow = function(selected, rowIndex, row, checkbox) {
   selected.val(selected.val().replace(new RegExp("," + rowIndex + ","), ","));
-  row.removeClass("tobago-sheet-row-markup-selected");
+  row.removeClass("tobago-sheet-row-markup-selected info");
 //  checkbox.prop("checked", false);
   setTimeout(function() {checkbox.prop("checked", false);}, 0);
-};
-
-/**
- * Fixes the wrong computation of col width in IE 6/7: padding will not be handled correctly.
- * @param col A jQuery object
- */
-Tobago.Sheet.fixIE67ColWidth = function(col) {
-  var td = col.closest("table").children("tbody").children("tr:first").children("td").eq(col.index());
-  var delta = td.outerWidth() - td.width();
-  col.attr("width", col.attr("width") - delta);
 };
 
 Tobago.Sheet.resetInputFieldSize = function (table) {

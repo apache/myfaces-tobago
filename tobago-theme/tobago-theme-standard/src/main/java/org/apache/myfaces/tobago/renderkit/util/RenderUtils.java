@@ -20,7 +20,7 @@
 package org.apache.myfaces.tobago.renderkit.util;
 
 import org.apache.myfaces.tobago.component.Attributes;
-import org.apache.myfaces.tobago.config.Configurable;
+import org.apache.myfaces.tobago.component.Visual;
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.internal.component.AbstractUICommand;
 import org.apache.myfaces.tobago.internal.component.AbstractUIData;
@@ -29,11 +29,11 @@ import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.model.ExpandedState;
 import org.apache.myfaces.tobago.model.SelectedState;
 import org.apache.myfaces.tobago.model.TreePath;
+import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
 import org.apache.myfaces.tobago.util.ComponentUtils;
-import org.apache.myfaces.tobago.util.DebugUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -43,31 +43,18 @@ import javax.faces.application.ViewHandler;
 import javax.faces.component.EditableValueHolder;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIParameter;
-import javax.faces.component.UISelectItem;
-import javax.faces.component.UISelectItems;
 import javax.faces.component.ValueHolder;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
-import javax.faces.model.SelectItem;
 import java.io.IOException;
 import java.net.URLDecoder;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.List;
-import java.util.Map;
 
 public class RenderUtils {
 
   private static final Logger LOG = LoggerFactory.getLogger(RenderUtils.class);
-
-  /**
-   * @deprecated since 2.0.0
-   */
-  @Deprecated
-  public static final String COMPONENT_IN_REQUEST = "org.apache.myfaces.tobago.component";
 
   public static final String SCROLL_POSTFIX = ComponentUtils.SUB_SEPARATOR + "scrollPosition";
 
@@ -184,31 +171,31 @@ public class RenderUtils {
 
   public static Measure calculateStringWidth(
       final FacesContext facesContext, final UIComponent component, final String text) {
-    return calculateStringWidth(facesContext, (Configurable) component, text, "tobago.font.widths");
+    return calculateStringWidth(facesContext, (Visual) component, text, "tobago.font.widths");
   }
 
   public static Measure calculateStringWidth2(
       final FacesContext facesContext, final UIComponent component, final String text) {
-    return calculateStringWidth(facesContext, (Configurable) component, text, "tobago.font2.widths");
+    return calculateStringWidth(facesContext, (Visual) component, text, "tobago.font2.widths");
   }
 
   private static Measure calculateStringWidth(
-      final FacesContext facesContext, final Configurable component, final String text, final String type) {
+      final FacesContext facesContext, final Visual visual, final String text, final String type) {
     if (text == null) {
       return Measure.ZERO;
     }
     int width = 0;
     int defaultCharWidth = 10;
     try {
-      defaultCharWidth = ResourceManagerUtils.getThemeMeasure(facesContext, component, "fontWidth").getPixel();
+      defaultCharWidth = ResourceManagerUtils.getThemeMeasure(facesContext, visual, "fontWidth").getPixel();
     } catch (final NullPointerException e) {
-      LOG.warn("no value for 'fontWidth' for type '" + component.getRendererType() + "' found in theme-config");
+      LOG.warn("no value for 'fontWidth' for type '" + visual.getRendererType() + "' found in theme-config");
     }
 
     final String fontWidths = ResourceManagerUtils.getProperty(facesContext, "tobago", type);
 
     for (final char c : text.toCharArray()) {
-      if (c >= 32 && c < 128) { // "normal" char in precomputed range
+      if (fontWidths != null && c >= 32 && c < 128) { // "normal" char in precomputed range
         final int begin = (c - 32) * 2;
         width += Integer.parseInt(fontWidths.substring(begin, begin + 2), 16);
       } else {
@@ -219,54 +206,6 @@ public class RenderUtils {
     width += text.length(); // fixes the problem, that sometime some browsers add some pixels
 
     return Measure.valueOf(width);
-  }
-
-  /**
-   * @deprecated Since Tobago 2.0.0. Please use SelectItemUtils
-   */
-  @Deprecated
-  public static List<SelectItem> getItemsToRender(final javax.faces.component.UISelectOne component) {
-    return getItems(component);
-  }
-
-  /**
-   * @deprecated Since Tobago 2.0.0. Please use SelectItemUtils
-   */
-  @Deprecated
-  public static List<SelectItem> getItemsToRender(final javax.faces.component.UISelectMany component) {
-    return getItems(component);
-  }
-
-  /**
-   * @deprecated Since Tobago 2.0.0. Please use SelectItemUtils
-   */
-  @Deprecated
-  public static List<SelectItem> getItems(final javax.faces.component.UIInput component) {
-
-    final List<SelectItem> selectItems = getSelectItems(component);
-
-    String renderRange = (String) component.getAttributes().get(Attributes.RENDER_RANGE_EXTERN);
-    if (renderRange == null) {
-      renderRange = (String) component.getAttributes().get(Attributes.RENDER_RANGE);
-    }
-    if (renderRange == null) {
-      return selectItems;
-    }
-
-    final int[] indices = StringUtils.getIndices(renderRange);
-    final List<SelectItem> items = new ArrayList<SelectItem>(indices.length);
-
-    if (selectItems.size() != 0) {
-      for (final int index : indices) {
-        items.add(selectItems.get(index));
-      }
-    } else {
-      LOG.warn("No items found! rendering dummies instead!");
-      for (int i = 0; i < indices.length; i++) {
-        items.add(new SelectItem(Integer.toString(i), "Item " + i, ""));
-      }
-    }
-    return items;
   }
 
   public static String currentValue(final UIComponent component) {
@@ -298,95 +237,6 @@ public class RenderUtils {
     }
     return currentValue;
   }
-
-  /**
-   * @deprecated Since Tobago 2.0.0. Please use SelectItemUtils
-   */
-  @Deprecated
-  public static List<SelectItem> getSelectItems(final UIComponent component) {
-
-    final ArrayList<SelectItem> list = new ArrayList<SelectItem>();
-
-    for (final UIComponent child : component.getChildren()) {
-      if (LOG.isDebugEnabled()) {
-        LOG.debug("kid " + child);
-        LOG.debug("kid " + child.getClass().getName());
-      }
-      if (child instanceof UISelectItem) {
-        final Object value = ((UISelectItem) child).getValue();
-        if (value == null) {
-          final UISelectItem item = (UISelectItem) child;
-          if (child instanceof org.apache.myfaces.tobago.component.UISelectItem) {
-            list.add(getSelectItem(
-                (org.apache.myfaces.tobago.component.UISelectItem) child));
-          } else {
-            list.add(new SelectItem(item.getItemValue() == null ? "" : item.getItemValue(),
-                item.getItemLabel() != null ? item.getItemLabel() : item.getItemValue().toString(),
-                item.getItemDescription()));
-          }
-        } else if (value instanceof SelectItem) {
-          list.add((SelectItem) value);
-        } else {
-          final String message
-              = "TYPE ERROR: value NOT instanceof SelectItem. type="
-              + value.getClass().getName() + " value=" + value;
-          LOG.error(message);
-          DebugUtils.addDevelopmentMessage(FacesContext.getCurrentInstance(), message);
-        }
-      } else if (child instanceof UISelectItems) {
-        final Object value = ((UISelectItems) child).getValue();
-        if (LOG.isDebugEnabled()) {
-          LOG.debug("value " + value);
-          if (value != null) {
-            LOG.debug("value " + value.getClass().getName());
-          }
-        }
-        if (value == null) {
-          if (LOG.isDebugEnabled()) {
-            LOG.debug("value is null");
-          }
-        } else if (value instanceof SelectItem) {
-          list.add((SelectItem) value);
-        } else if (value instanceof SelectItem[]) {
-          final SelectItem[] items = (SelectItem[]) value;
-          list.addAll(Arrays.asList(items));
-        } else if (value instanceof Collection) {
-          for (final Object o : ((Collection) value)) {
-            list.add((SelectItem) o);
-          }
-        } else if (value instanceof Map) {
-          for (final Object key : ((Map) value).keySet()) {
-            if (key != null) {
-              final Object val = ((Map) value).get(key);
-              if (val != null) {
-                list.add(new SelectItem(val.toString(), key.toString(), null));
-              }
-            }
-          }
-        } else {
-          final String message
-              = "TYPE ERROR: value NOT instanceof SelectItem, SelectItem[], Collection, Map. type="
-              + value.getClass().getName() + " value=" + value;
-          LOG.error(message);
-          DebugUtils.addDevelopmentMessage(FacesContext.getCurrentInstance(), message);
-        }
-      }
-    }
-
-    return list;
-  }
-
-  /**
-   * @deprecated Since Tobago 2.0.0. Please use SelectItemUtils
-   */
-  @Deprecated
-  private static SelectItem getSelectItem(final org.apache.myfaces.tobago.component.UISelectItem component) {
-    return
-        new org.apache.myfaces.tobago.model.SelectItem(component.getItemValue() == null ? "" : component.getItemValue(),
-            component.getItemLabel(), component.getItemDescription(),
-            component.isItemDisabled(), component.getItemImage(), component.getMarkup());
-  }
-
 
   public static void decodedStateOfTreeData(final FacesContext facesContext, final AbstractUIData data) {
 
@@ -475,13 +325,13 @@ public class RenderUtils {
       final Integer[] scrollPosition)
       throws IOException {
     final String clientId = component.getClientId(facesContext);
-    writer.startElement(HtmlElements.INPUT, null);
+    writer.startElement(HtmlElements.INPUT);
     writer.writeIdAttribute(clientId + SCROLL_POSTFIX);
     writer.writeNameAttribute(clientId + SCROLL_POSTFIX);
-    writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN, false);
+    writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN);
     final String scrollPositionString = scrollPosition != null ? scrollPosition[0] + ";" + scrollPosition[1] : "";
     writer.writeAttribute(HtmlAttributes.VALUE, scrollPositionString, false);
-    writer.writeAttribute("data-tobago-scroll-position", "true", true);
+    writer.writeAttribute(DataAttributes.SCROLL_POSITION, Boolean.TRUE.toString(), true);
     writer.endElement(HtmlElements.INPUT);
   }
 

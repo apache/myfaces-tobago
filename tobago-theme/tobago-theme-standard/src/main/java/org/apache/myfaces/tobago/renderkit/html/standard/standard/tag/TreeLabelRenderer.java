@@ -23,9 +23,8 @@ import org.apache.myfaces.tobago.component.UITreeLabel;
 import org.apache.myfaces.tobago.internal.component.AbstractUIData;
 import org.apache.myfaces.tobago.internal.component.AbstractUITreeListbox;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
-import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
+import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
-import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
@@ -38,7 +37,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 
-public class TreeLabelRenderer extends LayoutComponentRendererBase {
+public class TreeLabelRenderer extends RendererBase {
 
   private static final Logger LOG = LoggerFactory.getLogger(TreeLabelRenderer.class);
 
@@ -54,10 +53,10 @@ public class TreeLabelRenderer extends LayoutComponentRendererBase {
     if (listbox) {
       writer.writeText(text);
     } else {
-      writer.startElement(HtmlElements.LABEL, label);
+      writer.startElement(HtmlElements.LABEL);
       writer.writeClassAttribute(Classes.create(label));
       HtmlRendererUtils.writeDataAttributes(facesContext, writer, label);
-      writer.writeStyleAttribute(createStyle(facesContext, label));
+      writer.writeStyleAttribute(label.getStyle());
       final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, label);
       if (title != null) {
         writer.writeAttribute(HtmlAttributes.TITLE, title, true);
@@ -67,9 +66,5 @@ public class TreeLabelRenderer extends LayoutComponentRendererBase {
 
       writer.endElement(HtmlElements.LABEL);
     }
-  }
-
-  protected Style createStyle(final FacesContext facesContext, final UITreeLabel link) {
-    return new Style(facesContext, link);
   }
 }

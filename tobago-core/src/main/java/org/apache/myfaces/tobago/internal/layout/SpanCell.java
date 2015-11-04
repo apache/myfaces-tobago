@@ -19,7 +19,7 @@
 
 package org.apache.myfaces.tobago.internal.layout;
 
-import org.apache.myfaces.tobago.layout.LayoutComponent;
+import javax.faces.component.UIComponent;
 
 public class SpanCell implements Cell {
 
@@ -33,7 +33,7 @@ public class SpanCell implements Cell {
     this.verticalFirst = verticalFirst;
   }
 
-  public LayoutComponent getComponent() {
+  public UIComponent getComponent() {
     return origin.getComponent();
   }
 

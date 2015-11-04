@@ -23,21 +23,19 @@ import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.internal.taglib.declaration.AbstractCommandTagDeclaration;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasCurrentMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasImage;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabelAndAccessKey;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsDisabled;
-import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutComponent;
+import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
 
 import javax.faces.component.UICommand;
 
 /**
  * Renders a menu item. (This tag was renamed from tc:menuItem since Tobago 1.5.0)
  */
-@Tag(name = "menuCommand", 
-    tagExtraInfoClassName = "org.apache.myfaces.tobago.internal.taglib.component.CommandTagExtraInfo")
+@Tag(name = "menuCommand")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIMenuCommand",
     uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUICommand",
@@ -47,6 +45,6 @@ import javax.faces.component.UICommand;
     rendererType = RendererTypes.MENU_COMMAND,
     allowedChildComponenents = "NONE")
 public interface MenuCommandTagDeclaration
-    extends AbstractCommandTagDeclaration, IsGridLayoutComponent,
-    HasIdBindingAndRendered, HasLabelAndAccessKey, IsDisabled, HasImage, HasMarkup, HasCurrentMarkup {
+    extends AbstractCommandTagDeclaration, IsVisual,
+    HasIdBindingAndRendered, HasLabelAndAccessKey, HasTip, IsDisabled, HasImage {
 }

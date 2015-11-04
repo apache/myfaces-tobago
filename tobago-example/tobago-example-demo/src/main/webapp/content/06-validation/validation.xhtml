@@ -17,11 +17,9 @@
  * limitations under the License.
 -->
 
-<ui:composition template="/WEB-INF/tags/layout/overview.xhtml"
+<ui:composition template="/layout/overview.xhtml"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
-                xmlns:tx="http://myfaces.apache.org/tobago/extension"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:f="http://java.sun.com/jsf/core">
   <ui:param name="title" value="#{overviewBundle.validation}"/>
   <tc:panel>
@@ -35,26 +33,27 @@
       <f:facet name="layout">
         <tc:gridLayout columns="1*;1*"/>
       </f:facet>
-      <tx:in label="#{overviewBundle.validation_number}" markup="number" required="true">
+      <tc:in label="#{overviewBundle.validation_number}" markup="number" required="true"
+             value="#{validationBean.number}">
         <f:validateLength minimum="7" maximum="7"/>
         <f:validateLongRange maximum="9000000"/>
-      </tx:in>
-      <tx:in label="#{overviewBundle.validation_price}" markup="number">
+      </tc:in>
+      <tc:in label="#{overviewBundle.validation_price}" markup="number" value="#{validationBean.price}">
         <f:validateDoubleRange minimum="0.01" maximum="1000"/>
-      </tx:in>
-      <tx:in label="#{overviewBundle.validation_custom}" validator="#{overviewController.customValidator}">
-      </tx:in>
+        <f:convertNumber pattern="#,##0.00 ¤" currencySymbol="€" type="currency" />
+      </tc:in>
+      <tc:in label="#{overviewBundle.validation_custom}" validator="#{overviewController.customValidator}"
+             value="#{validationBean.custom}">
+      </tc:in>
     </tc:panel>
 
-    <tx:textarea label="#{overviewBundle.validation_description}" required="true"/>
+    <tc:textarea label="#{overviewBundle.validation_description}" required="true" value="#{validationBean.text}"/>
 
-    <tc:panel>
-      <f:facet name="layout">
-        <tc:gridLayout columns="1*;100px"/>
-      </f:facet>
-      <tc:panel/>
-      <tc:button action="#{overviewController.noop}" label="#{overviewBundle.validation_submit}"/>
-    </tc:panel>
+    <tc:flowLayout>
+      <tc:style textAlign="right"/>
+      <tc:button action="#{overviewController.noop}" label="#{overviewBundle.validation_submit}"
+          defaultCommand="true"/>
+    </tc:flowLayout>
 
   </tc:panel>
 </ui:composition>

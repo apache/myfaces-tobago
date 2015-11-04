@@ -23,9 +23,9 @@ import org.apache.myfaces.tobago.component.UILabel;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.internal.util.AccessKeyLogger;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
-import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
+import org.apache.myfaces.tobago.renderkit.RendererBase;
+import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
-import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
@@ -39,7 +39,7 @@ import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 
-public class LabelRenderer extends LayoutComponentRendererBase {
+public class LabelRenderer extends RendererBase {
 
   private static final Logger LOG = LoggerFactory.getLogger(LabelRenderer.class);
 
@@ -67,11 +67,10 @@ public class LabelRenderer extends LayoutComponentRendererBase {
     final String forValue = ComponentUtils.findClientIdFor(label, facesContext);
 
     final String clientId = label.getClientId(facesContext);
-    writer.startElement(HtmlElements.LABEL, label);
+    writer.startElement(HtmlElements.LABEL);
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, label);
-    final Classes classes = Classes.create(label);
-    writer.writeClassAttribute(classes);
-    writer.writeStyleAttribute(new Style(facesContext, label));
+    writer.writeClassAttribute(Classes.create(label), BootstrapClass.CONTROL_LABEL, label.getCustomClass());
+    writer.writeStyleAttribute(label.getStyle());
     writer.writeIdAttribute(clientId);
     if (forValue != null) {
       writer.writeAttribute(HtmlAttributes.FOR, forValue, false);

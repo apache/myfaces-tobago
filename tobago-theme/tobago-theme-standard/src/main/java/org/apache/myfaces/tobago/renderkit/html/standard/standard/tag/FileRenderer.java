@@ -23,10 +23,7 @@ import org.apache.commons.fileupload.FileItem;
 import org.apache.myfaces.tobago.internal.component.AbstractUIFile;
 import org.apache.myfaces.tobago.internal.util.FacesContextUtils;
 import org.apache.myfaces.tobago.internal.webapp.TobagoMultipartFormdataRequest;
-import org.apache.myfaces.tobago.layout.Measure;
-import org.apache.myfaces.tobago.renderkit.InputRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
-import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
@@ -93,38 +90,32 @@ public class FileRenderer extends InputRendererBase {
     }
   }
 
-  public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
+  protected void encodeBeginField(FacesContext facesContext, UIComponent component) throws IOException {
 
     final AbstractUIFile file = (AbstractUIFile) component;
     final String clientId = file.getClientId(facesContext);
-    final Style style = new Style(facesContext, file);
 
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
-    writer.startElement(HtmlElements.DIV, file);
+    writer.startElement(HtmlElements.DIV);
     writer.writeIdAttribute(clientId);
-    writer.writeClassAttribute(Classes.create(file));
+    writer.writeClassAttribute(Classes.create(file), file.getCustomClass());
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, file);
-    writer.writeStyleAttribute(style);
+    writer.writeStyleAttribute(file.getStyle());
 
     // visible fake input for a pretty look
-    final Style inputStyle = new Style();
-    final Measure prettyWidthSub = getResourceManager().getThemeMeasure(facesContext, file, "prettyWidthSub");
-    inputStyle.setWidth(style.getWidth().subtract(prettyWidthSub));
-    writer.startElement(HtmlElements.INPUT, file);
+    writer.startElement(HtmlElements.DIV);
     writer.writeIdAttribute(clientId + ComponentUtils.SUB_SEPARATOR + "pretty");
-    writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.TEXT, false);
+    writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.TEXT);
     writer.writeClassAttribute(Classes.create(file, "pretty"));
-    writer.writeStyleAttribute(inputStyle);
-    writer.writeAttribute(HtmlAttributes.DISABLED, true);
     // TODO Focus
     //HtmlRendererUtils.renderFocus(clientId, file.isFocus(), ComponentUtils.isError(file), facesContext, writer);
-    writer.endElement(HtmlElements.INPUT);
+    writer.endElement(HtmlElements.DIV);
 
     // invisible file input
-    writer.startElement(HtmlElements.INPUT, file);
+    writer.startElement(HtmlElements.INPUT);
     writer.writeIdAttribute(clientId + ComponentUtils.SUB_SEPARATOR + "real");
-    writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.FILE, false);
+    writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.FILE);
     writer.writeClassAttribute(Classes.create(file, "real"));
     writer.writeNameAttribute(clientId);
     // readonly seems not making sense in browsers.
@@ -141,7 +132,10 @@ public class FileRenderer extends InputRendererBase {
       writer.writeAttribute(HtmlAttributes.TITLE, title, true);
     }
     writer.endElement(HtmlElements.INPUT);
+  }
 
+  protected void encodeEndField(FacesContext facesContext, UIComponent component) throws IOException {
+    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
     writer.endElement(HtmlElements.DIV);
   }
 }

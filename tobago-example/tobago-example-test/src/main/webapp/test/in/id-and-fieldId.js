@@ -23,7 +23,7 @@ jQuery(document).ready(function() {
   fillIdDisplay("3", ".tobago-in");
   fillIdDisplay("4", ".tobago-in");
   fillIdDisplay("5", ".tobago-date");
-  fillIdDisplay("6", ".tobago-time");
+//  fillIdDisplay("6", ".tobago-time");
   fillIdDisplay("7", ".tobago-file");
   fillIdDisplay("8", ".tobago-textarea");
   fillIdDisplay("9", ".tobago-selectBooleanCheckbox");

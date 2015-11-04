@@ -17,9 +17,8 @@
  * limitations under the License.
 -->
 
-<ui:composition template="/WEB-INF/tags/layout/overview.xhtml"
+<ui:composition template="/layout/overview.xhtml"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
-                xmlns:tx="http://myfaces.apache.org/tobago/extension"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:f="http://java.sun.com/jsf/core">
   <ui:param name="title" value="Select Controls"/>
@@ -47,13 +46,13 @@
     </tc:selectBooleanCheckbox>
 
     <!-- code-sniplet-start id="selectManyListbox" -->
-    <tx:selectManyListbox label="Contact via: ">
+    <tc:selectManyListbox label="Contact via: ">
       <f:selectItem itemValue="Phone" itemLabel="Phone"/>
       <f:selectItem itemValue="eMail" itemLabel="eMail"/>
       <f:selectItem itemValue="Mobile" itemLabel="Mobile"/>
       <f:selectItem itemValue="Fax" itemLabel="Faxscimile"/>
-    </tx:selectManyListbox>
-    <tx:selectManyListbox label="Contact via: ">
+    </tc:selectManyListbox>
+    <tc:selectManyListbox label="Contact via: ">
       <f:selectItem itemValue="Phone" itemLabel="Phone"/>
       <f:selectItem itemValue="eMail" itemLabel="eMail"/>
       <f:selectItem itemValue="Mobile" itemLabel="Mobile"/>
@@ -61,17 +60,17 @@
       <f:facet name="click">
         <tc:command/>
       </f:facet>
-    </tx:selectManyListbox>
+    </tc:selectManyListbox>
     <!-- code-sniplet-end id="selectManyListbox" -->
 
     <!-- code-sniplet-start id="selectOneChoice" -->
-    <tx:selectOneChoice value="selectOneChoice0"
+    <tc:selectOneChoice value="selectOneChoice0"
                         label="Contact me1: ">
       <tc:selectItem itemLabel="Letter" itemValue="letter"/>
       <tc:selectItem itemLabel="Phone" itemValue="phone"/>
       <tc:selectItem itemLabel="eMail" itemValue="eMail"/>
       <tc:selectItem itemLabel="Fax" itemValue="fax"/>
-    </tx:selectOneChoice>
+    </tc:selectOneChoice>
 
     <!-- code-sniplet-end id="selectOneChoice" -->
 
@@ -79,26 +78,26 @@
     With tc:form you enable partial validation and update model.
     <tc:form>
     -->
-    <tx:selectOneChoice value="#{reference.vehicle}"
+    <tc:selectOneChoice value="#{reference.vehicle}"
                         label="Vehicle: " valueChangeListener="#{reference.valueChanged}">
       <f:selectItems value="#{reference.selectItems}"/>
       <f:facet name="change">
         <tc:command action="#{reference.action}"/>
       </f:facet>
-    </tx:selectOneChoice>
-    <tx:selectOneChoice value="#{reference.manufacturer}"
+    </tc:selectOneChoice>
+    <tc:selectOneChoice value="#{reference.manufacturer}"
                         label="Manufacturer: " valueChangeListener="#{reference.valueChanged}">
       <f:selectItems value="#{reference.manufacturerSelectItems}"/>
-    </tx:selectOneChoice>
+    </tc:selectOneChoice>
 
     <!-- code-sniplet-start id="selectOneListbox" -->
-    <tx:selectOneListbox label="Contact via: ">
+    <tc:selectOneListbox label="Contact via: ">
       <f:selectItem itemValue="Phone" itemLabel="Phone"/>
       <f:selectItem itemValue="eMail" itemLabel="eMail"/>
       <f:selectItem itemValue="Mobile" itemLabel="Mobile"/>
       <f:selectItem itemValue="Fax" itemLabel="Faxscimile"/>
-    </tx:selectOneListbox>
-    <tx:selectOneListbox label="Contact via: ">
+    </tc:selectOneListbox>
+    <tc:selectOneListbox label="Contact via: ">
       <f:selectItem itemValue="Phone" itemLabel="Phone"/>
       <f:selectItem itemValue="eMail" itemLabel="eMail"/>
       <f:selectItem itemValue="Mobile" itemLabel="Mobile"/>
@@ -106,7 +105,7 @@
       <f:facet name="click">
         <tc:command/>
       </f:facet>
-    </tx:selectOneListbox>
+    </tc:selectOneListbox>
     <!-- code-sniplet-end id="selectOneListbox" -->
 
     <tc:separator label="Layout"/>

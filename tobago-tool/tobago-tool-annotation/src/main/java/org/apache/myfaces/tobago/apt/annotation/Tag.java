@@ -31,13 +31,9 @@ public @interface Tag {
   String name();
 
   /**
-   * Should be BodyContent.JSP in any case, because there might be a child tag with a specific function.
-   * e.g. &lt;tc:dataAttribute>
-   * @deprecated
+   * Currently not used.
+   * TBD: is there a way to use this with Facelets? In the handler...
    */
-  @Deprecated
-  BodyContent bodyContent() default BodyContent.JSP;
-
   String tagExtraInfoClassName() default "";
 
   String deprecatedName() default "";
@@ -45,3 +41,4 @@ public @interface Tag {
   boolean isBodyTag() default false; 
 
 }
+

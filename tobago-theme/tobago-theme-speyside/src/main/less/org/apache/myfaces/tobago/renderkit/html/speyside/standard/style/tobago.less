@@ -39,13 +39,13 @@
 }
 
 .field-focus-shadow(@color: @focusColor) {
-  -webkit-box-shadow: inset 0px 0px 3px lighten(@color, 20%);
-  -moz-box-shadow: inset 0px 0px 3px lighten(@color, 20%);
-  -o-box-shadow: inset 0px 0px 3px lighten(@color, 20%);
-  box-shadow: inset 0px 0px 3px lighten(@color, 20%);
+  -webkit-box-shadow: inset 0px 0px 2px lighten(@color, 20%), 0px 0px 3px lighten(@color, 20%);
+  -moz-box-shadow: inset 0px 0px 2px lighten(@color, 20%), 0px 0px 3px lighten(@color, 20%);
+  -o-box-shadow: inset 0px 0px 2px lighten(@color, 20%), 0px 0px 3px lighten(@color, 20%);
+  box-shadow: inset 0px 0px 2px lighten(@color, 20%), 0px 0px 3px lighten(@color, 20%);
 }
 
-.transitionBorder(@transition: .5s linear) {
+.transitionBorder(@transition: .1s linear) {
   -webkit-transition: border @transition, -webkit-box-shadow @transition;
   -moz-transition: border @transition, -moz-box-shadow @transition;
   -o-transition: border @transition, -o-box-shadow @transition;
@@ -61,20 +61,22 @@
 /* box ----------------------------------------------------------------- */
 
 .tobago-box {
-  position: absolute;
-}
-
-.tobago-box-shadow {
-  background-color: #999999;
-  position: absolute;
-  left: 1px;
-  top: 1px;
+//  position: absolute;XXX TOBAGO3
+  border: 1px solid darken(@borderColor, 10%);
+  overflow: hidden;
+/*XXX TOBAGO3
+  top: -1px;
+  left: -1px;
+*/
+  background-color: #FAFAFA;
   .border-radius;
+  .box-shadow;
 }
 
+/*XXX TOBAGO3
 .tobago-box-border {
   border: 1px solid darken(@borderColor, 10%);
-  position: absolute;
+//  position: absolute;
   overflow: hidden;
   top: -1px;
   left: -1px;
@@ -82,18 +84,19 @@
   .border-radius;
   .box-shadow;
 }
+*/
 
 .tobago-box-header {
-  background: #E8E8E8 url(../image/box-header-bg.gif) repeat-x top;
-  height: 16px;
-  border: 1px solid transparent;
+  background: #E8E8E8 url(../image/box-header-bg.png) repeat-x top;
+  height: 21px;
+  border: 0 solid transparent;
   border-bottom: 1px dotted black;
-  .border-radius(3px 3px 0 0);
+//  .border-radius(3px 3px 0 0);XXX TOBAGO3
   font: @boldFont;
   color: @textColor2;
   padding: 3px 0 0 5px;
   overflow: hidden;
-  position: relative;
+//  position: relative;XXX TOBAGO3
   white-space: nowrap;
 }
 
@@ -106,7 +109,6 @@
 /* boxToolBar ----------------------------------------------------------------- */
 
 /* FIXME this is the same code for "toolBar", "boxToolBar" and "tabGroupToolBar"
-   FIXME may be fixed after TOBAGO-900
 */
 
 .tobago-boxToolBar {
@@ -128,7 +130,7 @@
   margin: 0;
 }
 
-.tobago-boxToolBar-item-markup-hover {
+.tobago-boxToolBar-item:hover {
   border-width: 0 1px;
   border-color: darken(@borderColor, 10%);
   margin: 0;
@@ -142,7 +144,7 @@
   background-color: #EEEEEE;
 }
 
-.tobago-boxToolBar-button-markup-hover {
+.tobago-boxToolBar-button:hover {
   background-color: #DDDDDD;
 }
 
@@ -157,7 +159,7 @@
   background: #ffffff;
   font: @boldFont;
   color: @textColor2;
-  height: 14px;
+  height: 20px;
   .border-radius;
 }
 
@@ -203,7 +205,7 @@
 
 .tobago-date {
   border: 1px solid darken(@borderColor, 10%);
-  height: 14px;
+  height: 20px;
   font: @font;
   padding-left: 2px;
   padding-right: 2px;
@@ -235,7 +237,7 @@
 }
 
 .ui-widget-header {
-  background: #E8E8E8 url(../image/box-header-bg.gif) repeat-x top;
+  background: #E8E8E8 url(../image/box-header-bg.png) repeat-x top;
   height: 16px;
   border: 1px solid black;
   border-bottom-style: dotted;
@@ -268,12 +270,12 @@
 /* file  ------------------------------------------------------------------- */
 
 .tobago-file {
-  background: url("../image/file-upload.gif") no-repeat right center transparent;
+  background: url("../image/file-upload.png") no-repeat right center transparent;
 }
 
 .tobago-file-pretty {
   border: 1px solid darken(@borderColor, 10%);
-  height: 14px;
+  height: 20px;
   .border-radius;
   .transitionBorder;
   &:focus {
@@ -308,7 +310,7 @@
 
 .tobago-in {
   border: 1px solid darken(@borderColor, 10%);
-  height: 14px;
+  height: 20px;
   font: @font;
   .border-radius;
   background-color: #ffffff;
@@ -337,7 +339,8 @@
 
 .tobago-label {
   background-color: #E8E8E8;
-  height: 14px;
+  height: 20px;
+  width: 120px;
   .border-radius;
   font: @boldFont;
 }
@@ -380,7 +383,7 @@
   font: @boldFont;
   color: @textColor;
   text-decoration: none;
-  line-height: 14px;
+  line-height: 20px;
 }
 
 .tobago-link-markup-disabled {
@@ -694,12 +697,11 @@ hr.tobago-separator, .tobago-separator-start hr, .tobago-separator-end hr {
 
 .tobago-tab-markup-selected {
   color: @textColor2;
-  background: url("../image/box-header-bg.gif") repeat-x scroll center top #E8E8E8;
+  background: url("../image/box-header-bg.png") repeat-x scroll center top #E8E8E8;
 }
 
 .tobago-tab-content {
   border: 1px solid darken(@borderColor, 10%);
-  border-top: 0 solid transparent;
   background: #FAFAFA;
 }
 
@@ -746,12 +748,12 @@ hr.tobago-separator, .tobago-separator-start hr, .tobago-separator-end hr {
 .tobago-tab-outer {
   display: inline-block;
   border-color: darken(@borderColor, 10%);
-  background: url(../image/tab-header-unselected-bg.gif) repeat-x top;
+  background: url(../image/tab-header-unselected-bg.png) repeat-x top;
 }
 
 .tobago-tab-outer-markup-selected {
   padding: 0 0 0 0;
-  background: url(../image/tab-header-selected-bg.gif) repeat-x top;
+  background: url(../image/tab-header-selected-bg.png) repeat-x top;
   height: 18px;
 }
 
@@ -804,7 +806,7 @@ div.tobago-tabGroup-toolBar {
   margin: 0;
 }
 
-.tobago-tabGroupToolBar-item-markup-hover {
+.tobago-tabGroupToolBar-item:hover {
   border-width: 0 1px;
   border-color: darken(@borderColor, 10%);
   margin: 0;
@@ -818,7 +820,7 @@ div.tobago-tabGroup-toolBar {
   background-color: #EEEEEE;
 }
 
-.tobago-tabGroupToolBar-button-markup-hover {
+.tobago-tabGroupToolBar-button:hover {
   background-color: #DDDDDD;
 }
 
@@ -857,88 +859,9 @@ div.tobago-tabGroup-toolBar {
   border: 1px solid @errorColor;
 }
 
-/* time -------------------------------------------------------------------- */
-
-.tobago-time-borderDiv {
-  border: 1px solid darken(@borderColor, 10%);
-  height: 18px;
-  width: 53px;
-  .border-radius;
-}
-
-.tobago-time-borderDiv-markup-readonly {
-  background-color: @readonlyBackgroundColor;
-}
-
-.tobago-time-borderDiv-markup-disabled {
-  color: #808080;
-  background-color: @disabledBackgroundColor;
-}
-
-.tobago-time-borderDiv-markup-error, .tobago-time-borderDiv-markup-fatal {
-  border: 1px solid #FF0000;
-}
-
-.tobago-time-borderDiv-markup-seconds {
-  width: 81px;
-}
-
-.tobago-time-input {
-  font-size: 12px;
-  height: 14px;
-  width: 21px;
-}
-
-.tobago-time-input:focus {
-  background: #E8E8E8;
-}
-
-.tobago-time-borderDiv-markup-focus {
-  outline: none;
-  border-color: @focusColor;
-  .field-focus-shadow;
-}
-
-.tobago-time-incImage, .tobago-time-decImage {
-  left: 60px;
-}
-.tobago-time-incImage-markup-seconds, .tobago-time-decImage-markup-seconds {
-  left: 88px;
-}
-
-input.tobago-time {
-  border: 1px solid darken(@borderColor, 10%);
-  height: 14px;
-  font: @font;
-  padding-left: 2px;
-  padding-right: 2px;
-  .border-radius;
-  .transitionBorder;
-  &:focus {
-    outline: none;
-    border-color: @focusColor;
-    .field-focus-shadow;
-  }
-}
-
-input.tobago-time-markup-readonly {
-  background-color: @readonlyBackgroundColor;
-}
-
-input.tobago-time-markup-disabled {
-  color: @disabledTextColor;
-  background-color: @disabledBackgroundColor;
-}
-
-input.tobago-time-markup-error, input.tobago-time-markup-fatal {
-  border: 1px solid @errorColor;
-}
-
-
 /* toolBar ----------------------------------------------------------------- */
 
 /* FIXME this is the same code for "toolBar", "boxToolBar" and "tabGroupToolBar"
-   FIXME may be fixed after TOBAGO-900
 */
 
 .tobago-toolBar {
@@ -946,8 +869,8 @@ input.tobago-time-markup-error, input.tobago-time-markup-fatal {
   background-color: #FFFFFF;
 }
 .tobago-toolBar-item {
-  position: relative;
-  display: inline-block;
+//  position: relative;
+//  display: inline-block;
   border-width: 0;
   border-style: solid;
   margin: 0 1px;
@@ -960,7 +883,7 @@ input.tobago-time-markup-error, input.tobago-time-markup-fatal {
   margin: 0;
 }
 
-.tobago-toolBar-item-markup-hover {
+.tobago-toolBar-item:hover {
   border-width: 0 1px;
   border-color: darken(@borderColor, 10%);
   margin: 0;
@@ -974,7 +897,7 @@ input.tobago-time-markup-error, input.tobago-time-markup-fatal {
   background-color: #EEEEEE;
 }
 
-.tobago-toolBar-button-markup-hover {
+.tobago-toolBar-button:hover {
   background-color: #DDDDDD;
 }
 

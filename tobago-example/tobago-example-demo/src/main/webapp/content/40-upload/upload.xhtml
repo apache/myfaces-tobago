@@ -17,9 +17,8 @@
  * limitations under the License.
 -->
 
-<ui:composition template="/WEB-INF/tags/layout/overview.xhtml"
+<ui:composition template="/layout/overview.xhtml"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
-                xmlns:tx="http://myfaces.apache.org/tobago/extension"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:f="http://java.sun.com/jsf/core">
   <ui:param name="title" value="File Upload"/>
@@ -33,11 +32,11 @@
         <tc:gridLayout columns="*;auto"/>
       </f:facet>
 
-      <tx:file label="Upload file:" value="#{upload.file}">
+      <tc:file label="Upload file:" value="#{upload.file}">
         <!-- todo: write a 2nd example to demonstrate validation
               <tc:validateFileItem contentType="image/gif image/png"/>
         -->
-      </tx:file>
+      </tc:file>
       <tc:button label="Submit" defaultCommand="true" action="#{upload.upload}"/>
     </tc:panel>
 
