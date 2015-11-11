@@ -111,6 +111,12 @@ table.tobago-gridLayout > tbody > tr:first-child > td {
     border-top: 0;
 }
 
+/* in ----------------------------------------------------------- */
+
+.tobago-in-markup-number {
+  text-align: right;
+}
+
 /* messages ----------------------------------------------------------- */
 
 .tobago-messages-item {

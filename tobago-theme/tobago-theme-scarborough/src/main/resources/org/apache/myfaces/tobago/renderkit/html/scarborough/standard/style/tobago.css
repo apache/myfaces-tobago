@@ -368,11 +368,6 @@ div.tobago-gridLayout-first-column {
   padding: 2px;
 }
 
-.tobago-in-markup-number {
-  display: block;
-  text-align: right;
-}
-
 .tobago-in-markup-required {
   background: url("../image/required.png") no-repeat 3px 50%;
 }
