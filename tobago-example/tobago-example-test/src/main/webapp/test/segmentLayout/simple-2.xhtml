@@ -18,7 +18,6 @@
 
 <f:view
     xmlns:tc="http://myfaces.apache.org/tobago/component"
-    xmlns:tx="http://myfaces.apache.org/tobago/extension"
     xmlns:f="http://java.sun.com/jsf/core">
 
   <!--
@@ -27,12 +26,13 @@
 
   <tc:page id="page">
     <tc:segmentLayout medium="2;4;2;4" small="6;6">
-      <tx:in label="1st label" value="a aa aaa aaaa aaaaa"/>
-      <tx:in label="2nd label" value="b bb bbb bbbb bbbbb b bb bbb bbbb bbbbb b bb bbb bbbb bbb bbbb bbbbb "/>
+      <tc:in label="1st label" value="a aa aaa aaaa aaaaa" labelLayout="segmentLeft"/>
+      <tc:in label="2nd label" value="b bb bbb bbbb bbbbb b bb bbb bbbb bbbbb b bb bbb bbbb bbb bbbb bbbbb "
+             labelLayout="segmentLeft"/>
     </tc:segmentLayout>
     <tc:segmentLayout medium="2;4;2;4" small="6;6">
-      <tx:textarea label="3rd label" value="c cc ccc cccc ccccc"/>
-      <tx:textarea label="4th label" value="d dd ddd dddd ddddd"/>
+      <tc:textarea label="3rd label" value="c cc ccc cccc ccccc" labelLayout="segmentLeft"/>
+      <tc:textarea label="4th label" value="d dd ddd dddd ddddd" labelLayout="segmentLeft"/>
     </tc:segmentLayout>
   </tc:page>
 </f:view>
