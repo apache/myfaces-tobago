@@ -286,6 +286,16 @@ h6 > .glyphicon:first-child {
   list-style: none;
 }
 
+/* segmentLayout ----------------------------------------------------------- */
+
+.tobago-segmentLayout {
+  /*
+  Makes, that the height of the div is set.
+  Otherwise floating elements below, may flew into the area of the segmentLayout.
+  */
+  display: inline-block;
+}
+
 /* sheet -------------------------------------------------------------- */
 
 .tobago-sheet {
