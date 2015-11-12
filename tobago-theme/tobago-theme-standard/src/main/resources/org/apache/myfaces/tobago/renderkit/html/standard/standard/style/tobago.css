@@ -293,7 +293,9 @@ h6 > .glyphicon:first-child {
   Makes, that the height of the div is set.
   Otherwise floating elements below, may flew into the area of the segmentLayout.
   */
-  display: inline-block;
+  /*display: inline-block;
+  todo: this breaks the general layout in IE11 and others
+  */
 }
 
 /* sheet -------------------------------------------------------------- */
