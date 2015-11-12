@@ -20,6 +20,7 @@
 package org.apache.myfaces.tobago.facelets.extension;
 
 import org.apache.myfaces.tobago.component.Attributes;
+import org.apache.myfaces.tobago.internal.util.Deprecation;
 
 import javax.faces.application.Application;
 import javax.faces.component.UIComponent;
@@ -58,6 +59,8 @@ public abstract class TobagoMenuExtensionHandler extends ComponentHandler {
 
   public void applyNextHandler(final FaceletContext faceletContext, final UIComponent menuCommand) throws IOException {
     if (ComponentHandler.isNew(menuCommand)) {
+      Deprecation.LOG.warn("The tx library is deprecated, please use the tc library. "
+          + "See 'Migration to 3.0' on the web site.");
       final UIComponent component = menuCommand.getFacets().remove(getFacetName());
       nextHandler.apply(faceletContext, component);
       menuCommand.getFacets().put(getFacetName(), component);

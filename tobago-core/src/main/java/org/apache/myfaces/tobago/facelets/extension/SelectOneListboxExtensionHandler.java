@@ -41,8 +41,4 @@ public class SelectOneListboxExtensionHandler extends TobagoLabelExtensionHandle
   protected String getSubRendererType() {
     return RendererTypes.SELECT_ONE_LISTBOX;
   }
-
-  protected String getRows() {
-    return "1*";
-  }
 }

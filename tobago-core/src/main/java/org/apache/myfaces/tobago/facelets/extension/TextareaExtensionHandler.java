@@ -41,8 +41,4 @@ public class TextareaExtensionHandler extends TobagoLabelExtensionHandler {
   protected String getSubRendererType() {
     return RendererTypes.TEXTAREA;
   }
-
-  protected String getRows() {
-    return "1*";
-  }
 }

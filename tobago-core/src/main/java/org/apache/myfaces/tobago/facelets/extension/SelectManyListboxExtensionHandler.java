@@ -41,8 +41,4 @@ public class SelectManyListboxExtensionHandler extends TobagoLabelExtensionHandl
   protected String getSubRendererType() {
     return RendererTypes.SELECT_MANY_LISTBOX;
   }
-
-  protected String getRows() {
-    return "1*";
-  }
 }

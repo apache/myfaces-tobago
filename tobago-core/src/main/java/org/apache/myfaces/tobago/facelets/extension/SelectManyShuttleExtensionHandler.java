@@ -41,8 +41,4 @@ public class SelectManyShuttleExtensionHandler extends TobagoLabelExtensionHandl
   protected String getSubRendererType() {
     return RendererTypes.SELECT_MANY_SHUTTLE;
   }
-
-  protected String getRows() {
-    return "1*";
-  }
 }
