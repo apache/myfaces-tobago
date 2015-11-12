@@ -27,6 +27,7 @@ import org.apache.myfaces.tobago.internal.component.AbstractUISegmentLayout;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClassGenerator;
+import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.CssItem;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
@@ -54,13 +55,12 @@ public class SegmentLayoutRenderer extends RendererBase {
 
   @Override
   public void encodeBegin(final FacesContext facesContext, final UIComponent component) throws IOException {
-    final AbstractUISegmentLayout segmentLayout = (AbstractUISegmentLayout) component;
+    final AbstractUISegmentLayout layout = (AbstractUISegmentLayout) component;
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
     writer.startElement(HtmlElements.DIV);
-//    writer.writeClassAttribute("row");
 //    writer.writeClassAttribute(BootstrapClass.FORM_HORIZONTAL, BootstrapClass.CONTAINER_FLUID);
-    writer.writeClassAttribute(BootstrapClass.FORM_GROUP);
+    writer.writeClassAttribute(Classes.create(layout), BootstrapClass.FORM_GROUP);
 //    writer.writeClassAttribute(BootstrapClass.ROW);
   }
 
