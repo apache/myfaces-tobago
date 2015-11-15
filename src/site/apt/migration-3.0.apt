@@ -24,7 +24,68 @@ Migration from Tobago 2.0 to 3.0 (work in progress)
   CSS: box-sizing: changed from content-box to border-box
 
   tc:time -> tc:date
-  You need to set the <<<f:convertDateTime type="time">>> inside the <<<tc:date>>>.
+  You need to set the <<<\<f:convertDateTime type="time"\>>>> inside the <<<\<tc:date\>>>>.
 
   ActionListenerImpl: Class is no longer present, you should use a JSF 2 exception handler instead.
 
+  Replace all <<<\<tc:cell\>>>> with <<<\<tc:panel\>>>>
+
+  If you have own renderer classes: The API of
+
+* replacing tx with tc
+
+    <tx:in label="a" fieldId="b" id="c" />
+
+    will be transformed to this
+
+    <tc:in label="a" id="b or c" />  (if b is set use b otherwise use c)
+
+    There is a little conflict between the "label" attribute used in the JSF spec. and the Tobago tx: label:
+    Tobago means it should be displayed, and JSF spec. means that this should be used to display messages.
+    In most cases there is no issue for that. But for the case that the application need a message label, but
+    should not be displayed we need a new attribute:
+
+    (preliminary) "labelPosition" or "labelLayout" with value "none"
+    With this attribute we may advise the renderer also the position of the label.
+    Or, using an attribute "renderLable"...
+
+* Removing tc:cell tag, please use tc:panel instead, if needed.
+
+  - simplify (flowLayout, flexLayout, segmentLayout):
+
+    <tc:flowLayout>
+      ... content ...
+    </tc:flowLayout>
+
+    instead of
+
+    <tc:panel>
+      <f:facet name="layout">
+        <tc:flowLayout/>
+      </f:facet>
+      ... content ...
+    </tc:panel>
+
+* No longer supported
+
+    Because of the changed layout model (no longer on the server, but with browser CSS) there a some
+    classes, methods and parameters removed.
+
+
+    * AbstractUIPage.getActionPosition()
+
+    * AbstractUIPage.setActionPosition()
+
+    * class Box
+
+    * class Dimension
+
+    * class Position
+
+    * ClientProperties.pageWidth
+
+    * ClientProperties.pageHeight
+
+    * tc:gridLayoutConstraint -> tc:style
+
+* if using tc:page with the attributes state, width, height: remove the attributes
