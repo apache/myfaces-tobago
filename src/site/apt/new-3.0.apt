@@ -33,8 +33,8 @@ Overview and History
     Until Tobago 2.0 the layout was computed on the server, to make advanced features available for
     comfortable web application.
 
-    With CSS3 and HTML5 it is possible these days, to make good layout managers
-    implemented in the browser. Tobago
+    With CSS3 and HTML5 it is possible these days, to make advanced layout managers
+    implemented in the browser.
 
 New Features and Enhancements
 
@@ -49,7 +49,6 @@ New Features and Enhancements
     * Segment Layout (uses the 12 columns layout from Bootstrap)
 
     * Flex Layout (CSS3)
-
     You may replace the <<<GridLayout>>> from Tobago 2.0 with <<<FlexLayout>>>.
 
     * Flow Layout
@@ -58,12 +57,14 @@ New Features and Enhancements
 
 * tx library
 
-    * the tx library no longer needed
+    * The tx library no longer needed
 
-    * label is integrated in the tc library.
+    * The label is integrated into the tc library.
 
-    * results in a more intuitive API
+    * This results in a more intuitive API
 
-    * rich variations of positioning the label with new attribute labelLayout
+    * Rich variations of positioning the label with new attribute labelLayout
 
 Internal Refactoring
+
+    [todo]

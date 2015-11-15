@@ -34,11 +34,11 @@ Migration from Tobago 2.0 to 3.0 (work in progress)
 
 * replacing tx with tc
 
-    <tx:in label="a" fieldId="b" id="c" />
+    <<<\<tx:in label="a" fieldId="b" id="c" /\>>>>
 
     will be transformed to this
 
-    <tc:in label="a" id="b or c" />  (if b is set use b otherwise use c)
+    <<<\<tc:in label="a" id="b or c" /\>>>>  (if b is set use b otherwise use c)
 
     There is a little conflict between the "label" attribute used in the JSF spec. and the Tobago tx: label:
     Tobago means it should be displayed, and JSF spec. means that this should be used to display messages.
@@ -53,18 +53,18 @@ Migration from Tobago 2.0 to 3.0 (work in progress)
 
   - simplify (flowLayout, flexLayout, segmentLayout):
 
-    <tc:flowLayout>
+    <<<\<tc:flowLayout\>>>>
       ... content ...
-    </tc:flowLayout>
+    <<<\</tc:flowLayout\>>>>
 
     instead of
 
-    <tc:panel>
-      <f:facet name="layout">
-        <tc:flowLayout/>
-      </f:facet>
+    <<<\<tc:panel\>>>>
+      <<<\<f:facet name="layout"\>>>>
+        <<<\<tc:flowLayout/\>>>>
+      <<<\</f:facet\>>>>
       ... content ...
-    </tc:panel>
+    <<<\</tc:panel\>>>>
 
 * No longer supported
 
@@ -86,6 +86,6 @@ Migration from Tobago 2.0 to 3.0 (work in progress)
 
     * ClientProperties.pageHeight
 
-    * tc:gridLayoutConstraint -> tc:style
+    * <<<\<tc:gridLayoutConstraint\>>>> -> <<<\<tc:style\>>>>
 
-* if using tc:page with the attributes state, width, height: remove the attributes
+* If using <<<\<tc:page\>>>> with the attributes state, width, height: remove the attributes
