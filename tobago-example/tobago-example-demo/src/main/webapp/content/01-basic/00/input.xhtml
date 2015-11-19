@@ -25,44 +25,44 @@
 
   <tc:panel>
 
-    <tc:in value="Some Text without Label"/>
+    <tc:in id="i1" value="Some Text without Label"/>
 
-    <tc:in label="Input" value="Some Text"/>
+    <tc:in id="i2" label="Input" value="Some Text"/>
 
-    <tc:in label="Read Only" readonly="true" value="Some Text"/>
+    <tc:in id="i3" label="Read Only" readonly="true" value="Some Text"/>
 
-    <tc:in label="Disabled" disabled="true" value="Some Text"/>
+    <tc:in id="i4" label="Disabled" disabled="true" value="Some Text"/>
 
     <tc:flexLayout columns="100px;*">
-      <tc:label value="Short Label"/>
-      <tc:in value="Some Text"/>
+      <tc:label id="l" value="Short Label"/>
+      <tc:in id="i5" value="Some Text"/>
     </tc:flexLayout>
 
-    <tc:in label="Input (focus)" focus="true" value="Some Text"/>
+    <tc:in id="i6" label="Input (focus)" focus="true" value="Some Text"/>
 
-    <tc:in label="Password" password="true" value="Asterics"/>
+    <tc:in id="i7" label="Password" password="true" value="Asterics"/>
 
-    <tc:textarea
+    <tc:textarea id="t1"
         value="Some text without label, some text without label, some text without label, some text without label, some text without label, some text without label, some text without label, some text without label, some text without label, some text without label, ..."/>
 
-    <tc:textarea label="Text Area"
+    <tc:textarea id="t2" label="Text Area"
                  value="Some text, some text, some text, some text, some text, some text, some text, some text, some text, some text, ..."/>
 
-    <tc:textarea label="Read Only"
+    <tc:textarea id="t3" label="Read Only"
                  readonly="true"
                  value="Some text, some text, some text, some text, some text, some text, some text, some text, some text, some text, ..."/>
 
-    <tc:textarea label="Disabled"
+    <tc:textarea id="t4" label="Disabled"
                  disabled="true"
                  value="Some text, some text, some text, some text, some text, some text, some text, some text, some text, some text, ..."/>
 
-    <tc:textarea label="Area (focus)" focus="true"
+    <tc:textarea id="t5" label="Area (focus)" focus="true"
                  value="Some Text"/>
 
     <tc:flowLayout>
-      <tc:out value="An input field is "/>
-      <tc:in value="here" labelLayout="none"/>
-      <tc:out value=" inside of a floating text."/>
+      <tc:out id="f1" value="An input field is "/>
+      <tc:in id="f2" value="here" labelLayout="none"/>
+      <tc:out id="f3" value=" inside of a floating text."/>
     </tc:flowLayout>
 
   </tc:panel>
