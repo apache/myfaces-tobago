@@ -180,11 +180,6 @@
     <location>/faces/error/exception.xhtml</location>
   </error-page>
 
-  <error-page>
-    <exception-type>javax.faces.application.ViewExpiredException</exception-type>
-    <location>/faces/error/view-expired.xhtml</location>
-  </error-page>
-
   <!-- The Usual Welcome File List -->
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>
