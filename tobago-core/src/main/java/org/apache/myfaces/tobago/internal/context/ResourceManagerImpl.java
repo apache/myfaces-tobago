@@ -21,13 +21,10 @@ package org.apache.myfaces.tobago.internal.context;
 
 import org.apache.myfaces.tobago.application.ProjectStage;
 import org.apache.myfaces.tobago.component.RendererTypes;
-import org.apache.myfaces.tobago.component.Visual;
-import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.context.ResourceManager;
 import org.apache.myfaces.tobago.context.Theme;
 import org.apache.myfaces.tobago.context.UserAgent;
 import org.apache.myfaces.tobago.internal.config.TobagoConfigImpl;
-import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.util.LocaleUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -172,62 +169,6 @@ public class ResourceManagerImpl implements ResourceManager {
 
   public String[] getStyles(final FacesContext facesContext, final String name) {
     return getStrings(facesContext, name, null);
-  }
-
-  public Measure getThemeMeasure(final FacesContext facesContext, final Visual visual, final String name) {
-    return getThemeMeasure(facesContext, visual.getRendererType(), visual.getCurrentMarkup(), name);
-  }
-
-  /**
-   * The default should not be needed, use defaulting from the theme mechanism.
-   */
-  public Measure getThemeMeasure(
-      final FacesContext facesContext, final Visual visual, final String name, final Measure defaultValue) {
-    final Measure measure = getThemeMeasure(facesContext, visual, name);
-    if (measure != null) {
-      return measure;
-    } else {
-//      LOG.warn("Using default-value for visual='" + visual + "' name='" + name + "'");
-      return defaultValue;
-    }
-  }
-
-  public Measure getThemeMeasure(
-      final FacesContext facesContext, final String rendererType, final Markup markup, final String name) {
-
-    final ClientPropertiesKey clientKey = ClientPropertiesKey.get(facesContext);
-    final ThemeConfigCacheKey cacheKey = new ThemeConfigCacheKey(clientKey, rendererType, markup, name);
-
-    MeasureValue result = themeCache.get(cacheKey);
-
-    if (result == null) {
-      final List properties = getPaths(clientKey, "", PROPERTY, "tobago-theme-config", EXT_NONE,
-          false, true, false, rendererType + "." + name, true, true);
-
-      Measure measure = null;
-      if (properties != null) {
-        measure = Measure.valueOf(properties.get(0));
-      }
-
-      if (markup != null) {
-        for (final String m : markup) {
-          final List mProperties = getPaths(clientKey, "", PROPERTY, "tobago-theme-config", EXT_NONE,
-              false, true, false, rendererType + "[" + m + "]" + "." + name, true, true);
-          if (mProperties != null) {
-            final Measure summand = Measure.valueOf(mProperties.get(0));
-            measure = summand.add(measure);
-          }
-        }
-      }
-
-      if (measure != null) {
-        result = new MeasureValue(measure);
-      } else {
-        result = MeasureValue.NULL;  // to mark and cache that this value is undefined.
-      }
-      themeCache.put(cacheKey, result);
-    }
-    return result.getValue();
   }
 
   /**

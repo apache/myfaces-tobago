@@ -19,9 +19,6 @@
 
 package org.apache.myfaces.tobago.context;
 
-import org.apache.myfaces.tobago.component.Visual;
-import org.apache.myfaces.tobago.layout.Measure;
-
 import javax.faces.context.FacesContext;
 import javax.faces.render.Renderer;
 
@@ -34,12 +31,6 @@ public interface ResourceManager {
   String[] getScripts(FacesContext facesContext, String name);
 
   String[] getStyles(FacesContext facesContext, String name);
-
-  Measure getThemeMeasure(FacesContext facesContext, Visual visual, String name);
-
-  Measure getThemeMeasure(FacesContext facesContext, Visual visual, String name, Measure defaultValue);
-
-  Measure getThemeMeasure(FacesContext facesContext, String rendererType, Markup markup, String name);
 
   /**
    * @param facesContext the current FacesContext

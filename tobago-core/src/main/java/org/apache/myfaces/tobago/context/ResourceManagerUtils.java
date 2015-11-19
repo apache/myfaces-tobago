@@ -19,9 +19,7 @@
 
 package org.apache.myfaces.tobago.context;
 
-import org.apache.myfaces.tobago.component.Visual;
 import org.apache.myfaces.tobago.internal.context.ResourceManagerFactory;
-import org.apache.myfaces.tobago.layout.Measure;
 
 import javax.faces.context.FacesContext;
 import java.util.ArrayList;
@@ -168,12 +166,6 @@ public final class ResourceManagerUtils {
 
   public static String getPageWithoutContextPath(final FacesContext facesContext, final String name) {
     return ResourceManagerUtils.getImageWithPath(facesContext, name);
-  }
-
-  public static Measure getThemeMeasure(
-      final FacesContext facesContext, final Visual visual, final String name) {
-    return ResourceManagerFactory.getResourceManager(facesContext).getThemeMeasure(
-        facesContext, visual.getRendererType(), visual.getCurrentMarkup(), name);
   }
 
   /**

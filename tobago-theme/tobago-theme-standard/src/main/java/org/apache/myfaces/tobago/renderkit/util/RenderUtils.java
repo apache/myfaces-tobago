@@ -20,12 +20,10 @@
 package org.apache.myfaces.tobago.renderkit.util;
 
 import org.apache.myfaces.tobago.component.Attributes;
-import org.apache.myfaces.tobago.component.Visual;
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.internal.component.AbstractUICommand;
 import org.apache.myfaces.tobago.internal.component.AbstractUIData;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
-import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.model.ExpandedState;
 import org.apache.myfaces.tobago.model.SelectedState;
 import org.apache.myfaces.tobago.model.TreePath;
@@ -167,45 +165,6 @@ public class RenderUtils {
     } else {
       return converter.getAsString(context, component, currentValue);
     }
-  }
-
-  public static Measure calculateStringWidth(
-      final FacesContext facesContext, final UIComponent component, final String text) {
-    return calculateStringWidth(facesContext, (Visual) component, text, "tobago.font.widths");
-  }
-
-  public static Measure calculateStringWidth2(
-      final FacesContext facesContext, final UIComponent component, final String text) {
-    return calculateStringWidth(facesContext, (Visual) component, text, "tobago.font2.widths");
-  }
-
-  private static Measure calculateStringWidth(
-      final FacesContext facesContext, final Visual visual, final String text, final String type) {
-    if (text == null) {
-      return Measure.ZERO;
-    }
-    int width = 0;
-    int defaultCharWidth = 10;
-    try {
-      defaultCharWidth = ResourceManagerUtils.getThemeMeasure(facesContext, visual, "fontWidth").getPixel();
-    } catch (final NullPointerException e) {
-      LOG.warn("no value for 'fontWidth' for type '" + visual.getRendererType() + "' found in theme-config");
-    }
-
-    final String fontWidths = ResourceManagerUtils.getProperty(facesContext, "tobago", type);
-
-    for (final char c : text.toCharArray()) {
-      if (fontWidths != null && c >= 32 && c < 128) { // "normal" char in precomputed range
-        final int begin = (c - 32) * 2;
-        width += Integer.parseInt(fontWidths.substring(begin, begin + 2), 16);
-      } else {
-        width += defaultCharWidth;
-      }
-    }
-
-    width += text.length(); // fixes the problem, that sometime some browsers add some pixels
-
-    return Measure.valueOf(width);
   }
 
   public static String currentValue(final UIComponent component) {
