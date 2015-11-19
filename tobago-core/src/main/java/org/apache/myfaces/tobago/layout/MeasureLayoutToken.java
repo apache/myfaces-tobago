@@ -19,32 +19,31 @@
 
 package org.apache.myfaces.tobago.layout;
 
+/**
+ * @since Tobago 3.0. Was renamed from PixelLayoutToken, because it's generalization.
+ */
+public class MeasureLayoutToken extends LayoutToken {
 
-public class PixelLayoutToken extends LayoutToken {
+  private final Measure measure;
 
-  static final String SUFFIX = "px";
-
-  private final PixelMeasure pixel;
-
-  public PixelLayoutToken(final int pixel) {
+  public MeasureLayoutToken(final String measure) {
     // here we cannot use this(PixelMeasure.pixelValueOf(pixel)), because of class initialization problems
-    this((PixelMeasure) Measure.valueOf(pixel));
+    this(Measure.valueOf(measure));
+    if (this.measure == null) {
+      throw new NumberFormatException(measure);
+    }
   }
 
-  public PixelLayoutToken(final PixelMeasure pixel) {
-    this.pixel = pixel;
+  public MeasureLayoutToken(final Measure measure) {
+    this.measure = measure;
   }
 
-  public int getPixel() {
-    return pixel.getPixel();
-  }
-
-  public PixelMeasure getMeasure() {
-    return pixel;
+  public Measure getMeasure() {
+    return measure;
   }
 
   public String toString() {
-    return pixel.toString();
+    return measure.toString();
   }
 
   public boolean equals(final Object o) {
@@ -55,16 +54,13 @@ public class PixelLayoutToken extends LayoutToken {
       return false;
     }
 
-    final PixelLayoutToken that = (PixelLayoutToken) o;
+    final MeasureLayoutToken that = (MeasureLayoutToken) o;
 
-    if (pixel != that.pixel) {
-      return false;
-    }
+    return measure.equals(that.measure);
 
-    return true;
   }
 
   public int hashCode() {
-    return pixel.hashCode();
+    return measure.hashCode();
   }
 }

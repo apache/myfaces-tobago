@@ -806,13 +806,6 @@ public class SheetRenderer extends RendererBase {
           writer.startElement(HtmlElements.DIV);
           writer.writeClassAttribute(Classes.create(sheet, "headerCell"));
           writer.startElement(HtmlElements.SPAN);
-          final Style headerStyle = new Style();
-          Measure headerHeight = Measure.valueOf(20).multiply(cell.getRowSpan());
-          if (!pure) {
-            headerHeight = headerHeight.subtract(6); // XXX todo
-          }
-          headerStyle.setHeight(headerHeight);
-          writer.writeStyleAttribute(headerStyle);
           final AbstractUIColumn column = renderedColumnList.get(j);
           BootstrapClass sorterGlyphicon = null;
           Markup markup = Markup.NULL;

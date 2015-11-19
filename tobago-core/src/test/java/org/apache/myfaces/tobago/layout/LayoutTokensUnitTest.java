@@ -25,16 +25,6 @@ import org.junit.Test;
 public class LayoutTokensUnitTest {
 
   @Test
-  public void testIsPixelToken() {
-    Assert.assertTrue(LayoutTokens.isPixelToken("120px"));
-  }
-
-  @Test
-  public void testIsPixelToken0() {
-    Assert.assertTrue(LayoutTokens.isPixelToken("0px"));
-  }
-
-  @Test
   public void testIsPercentToken() {
     Assert.assertTrue(LayoutTokens.isPercentToken("50%"));
   }
@@ -57,7 +47,7 @@ public class LayoutTokensUnitTest {
     Assert.assertEquals(RelativeLayoutToken.DEFAULT_INSTANCE, LayoutTokens.parseToken("*"));
     Assert.assertEquals(new RelativeLayoutToken(3), LayoutTokens.parseToken("3*"));
     Assert.assertEquals(new PercentLayoutToken(33), LayoutTokens.parseToken("33%"));
-    Assert.assertEquals(new PixelLayoutToken(120), LayoutTokens.parseToken("120px"));
-    Assert.assertEquals(new PixelLayoutToken(0), LayoutTokens.parseToken("0px"));
+    Assert.assertEquals(new MeasureLayoutToken("120px"), LayoutTokens.parseToken("120px"));
+    Assert.assertEquals(new MeasureLayoutToken("0px"), LayoutTokens.parseToken("0px"));
   }
 }

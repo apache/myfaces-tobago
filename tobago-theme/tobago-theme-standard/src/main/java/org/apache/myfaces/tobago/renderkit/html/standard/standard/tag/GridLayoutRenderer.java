@@ -28,7 +28,7 @@ import org.apache.myfaces.tobago.layout.AutoLayoutToken;
 import org.apache.myfaces.tobago.layout.LayoutToken;
 import org.apache.myfaces.tobago.layout.LayoutTokens;
 import org.apache.myfaces.tobago.layout.Measure;
-import org.apache.myfaces.tobago.layout.PixelLayoutToken;
+import org.apache.myfaces.tobago.layout.MeasureLayoutToken;
 import org.apache.myfaces.tobago.layout.RelativeLayoutToken;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
@@ -92,10 +92,10 @@ public class GridLayoutRenderer extends RendererBase {
         builder.append(factor);
       } else if (token instanceof AutoLayoutToken) {
         builder.append("\"auto\"");
-      } else if (token instanceof PixelLayoutToken) {
-        builder.append("{\"pixel\":");
-        builder.append(((PixelLayoutToken) token).getPixel());
-        builder.append("}");
+      } else if (token instanceof MeasureLayoutToken) {
+        builder.append("{\"measure\":\"");
+        builder.append(((MeasureLayoutToken) token).getMeasure());
+        builder.append("\"}");
       } else {
         LOG.warn("Not supported: " + token);
       }
@@ -144,17 +144,17 @@ public class GridLayoutRenderer extends RendererBase {
           final Measure width = Measure.valueOf(element.getAttributes().get(Attributes.WIDTH));
           if (width != null) {
             builder.append("\"width\":");
-            builder.append("{\"pixel\":");
-            builder.append(width.getPixel());
-            builder.append("}");
+//            builder.append("{\"pixel\":");
+            builder.append(width.serialize());
+//            builder.append("}");
             builder.append(",");
           }
           final Measure height = Measure.valueOf(element.getAttributes().get(Attributes.HEIGHT));
           if (height != null) {
             builder.append("\"height\":");
-            builder.append("{\"pixel\":");
-            builder.append(height.getPixel());
-            builder.append("}");
+//            builder.append("{\"pixel\":");
+            builder.append(height.serialize());
+//            builder.append("}");
             builder.append(",");
           }
           if (builder.length() > 1) {

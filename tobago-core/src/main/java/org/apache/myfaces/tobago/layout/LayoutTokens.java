@@ -53,18 +53,6 @@ public final class LayoutTokens implements Iterable<LayoutToken> {
     return tokens.get(index);
   }
 
-  public void shrinkSizeTo(final int size) {
-    for (int i = getSize() - 1; i >= size; i--) {
-      tokens.remove(i);
-    }
-  }
-
-  public void ensureSize(final int size, final LayoutToken token) {
-    for (int index = getSize(); index < size; index++) {
-      addToken(token);
-    }
-  }
-
   public void addToken(final LayoutToken token) {
     tokens.add(token);
   }
@@ -122,24 +110,17 @@ public final class LayoutTokens implements Iterable<LayoutToken> {
         return AutoLayoutToken.INSTANCE;
       } else if ("minimum".equals(token)) {
         return new MinimumLayoutToken();
-      } else if (isPixelToken(token)) {
-        return new PixelLayoutToken(Integer.parseInt(removeSuffix(token, PixelLayoutToken.SUFFIX)));
       } else if (isPercentToken(token)) {
         return new PercentLayoutToken(Integer.parseInt(removeSuffix(token, PercentLayoutToken.SUFFIX)));
       } else if (isRelativeToken(token)) {
         return new RelativeLayoutToken(Integer.parseInt(removeSuffix(token, RelativeLayoutToken.SUFFIX)));
       } else {
-        LOG.error("Unknown layout token '" + token + "'! Using 'auto' instead.");
-        return AutoLayoutToken.INSTANCE;
+        return new MeasureLayoutToken(token);
       }
     } catch (final NumberFormatException e) {
       LOG.error("Error parsing layout token '" + token + "'! Using 'auto' instead.");
       return AutoLayoutToken.INSTANCE;
     }
-  }
-
-  static boolean isPixelToken(final String token) {
-    return isNumberAndSuffix(token, PixelLayoutToken.SUFFIX);
   }
 
   static boolean isPercentToken(final String token) {

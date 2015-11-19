@@ -24,22 +24,47 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.Serializable;
-import java.util.List;
 
 /**
- *  In JSPs the class {@link org.apache.myfaces.tobago.layout.MeasureEditor} will convert the string literals.
+ * In JSPs the class {@link org.apache.myfaces.tobago.layout.MeasureEditor} will convert the string literals.
  */
-public abstract class Measure implements Serializable {
+public final class Measure implements Serializable {
 
   private static final long serialVersionUID = 1L;
 
   private static final Logger LOG = LoggerFactory.getLogger(Measure.class);
 
   public static final Measure ZERO = valueOf(0);
-  public static final Measure MAX = valueOf(Integer.MAX_VALUE);
 
   // todo: refactor and consolidate with LayoutToken
-  
+
+  private final Double d;
+  private final Integer i;
+  private final Unit unit;
+
+  public Measure(int i, Unit unit) {
+    this.d = null;
+    this.i = i;
+    this.unit = unit;
+  }
+
+  public Measure(double d, Unit unit) {
+    this.d = d;
+    this.i = null;
+    this.unit = unit;
+  }
+
+  public Measure(String string, Unit unit) {
+    if (string.contains(".")) {
+      this.d = Double.parseDouble(string);
+      this.i = null;
+    } else {
+      this.d = null;
+      this.i = Integer.parseInt(string);
+    }
+    this.unit = unit;
+  }
+
   public static Measure valueOf(final Measure value) {
     if (value == null) {
       return ZERO;
@@ -48,7 +73,7 @@ public abstract class Measure implements Serializable {
   }
 
   public static Measure valueOf(final int value) {
-    return PixelMeasure.pixelValueOf(value);
+    return new Measure(value, Unit.PX);
   }
 
   public static Measure valueOf(final Integer value) {
@@ -62,29 +87,27 @@ public abstract class Measure implements Serializable {
     if (value == null) {
       return ZERO;
     }
-    return valueOf(value.intValue());
+    return valueOf(value.doubleValue());
   }
 
   public static Measure valueOf(final String value) {
-    if (StringUtils.isEmpty(value)) {
-      return ZERO;
-    }
     try {
-      final int dot = value.indexOf('.');
-      if (dot == 0) {
-        return Measure.ZERO;
+      if (StringUtils.isEmpty(value)) {
+        return null;
       }
-      if (dot > 0) {
-        return Measure.valueOf(Integer.parseInt(value.substring(0, dot)));
+      final int length = value.length();
+      if (value.endsWith("%")) {
+        return new Measure(value.substring(0, length - 1), Unit.PERCENT);
       }
-      if (value.endsWith("px")) {
-        return Measure.valueOf(Integer.parseInt(value.substring(0, value.length() - 2)));
+      if (length >= 2 && Character.isLetter(value.charAt(length - 2))) {
+        return new Measure(value.substring(0, length - 2), Unit.valueOf(value.substring(length - 2).toUpperCase()));
       }
-      return Measure.valueOf(Integer.parseInt(value));
+      return new Measure(value, Unit.PX);
 
-    } catch (final NumberFormatException e) {
-      throw new IllegalArgumentException("Can't parse to any measure: '" + value + "'", e);
+    } catch (final RuntimeException e) {
+      LOG.warn("Can't parse to any measure: '" + value + "'");
     }
+    return null;
   }
 
   public static Measure valueOf(final Object object) {
@@ -103,101 +126,63 @@ public abstract class Measure implements Serializable {
     return valueOf(object.toString());
   }
 
-  /**
-   * @deprecated since 1.5.0, please use valueOf()
-   */
-  @Deprecated
-  public static Measure parse(final String value) {
-    return valueOf(value);
+  public String serialize() {
+    return "" + (i != null ? i : "") + (d != null ? d : "") + unit.getValue();
   }
 
-  public abstract Measure add(Measure m);
-
-  public abstract Measure add(int m);
-
-  public abstract Measure multiply(int times);
-
-  public abstract Measure divide(int times);
-
-  /**
-   * @deprecated since 1.5.0, please use subtractNotNegative
-   */
-  @Deprecated
-  public Measure substractNotNegative(final Measure m) {
-    return subtractNotNegative(m);
+  public String toString() {
+    return serialize();
   }
 
-  public abstract Measure subtractNotNegative(Measure m);
-
-  public abstract Measure subtract(Measure m);
-
-  public abstract Measure subtract(int m);
-
-  public boolean greaterThan(final Measure measure) {
-    return measure != null && getPixel() > measure.getPixel();
-  }
-
-  public boolean greaterOrEqualThan(final Measure measure) {
-    return measure != null && getPixel() >= measure.getPixel();
-  }
-
-  public boolean lessThan(final Measure measure) {
-    return measure != null && getPixel() < measure.getPixel();
-  }
-
-  public boolean lessOrEqualThan(final Measure measure) {
-    return measure != null && getPixel() <= measure.getPixel();
-  }
-
-  public abstract int getPixel();
-
-  public abstract String serialize();
-
-  /**
-   * Returns the maximum. If all parameters are null, than the result is {@value #ZERO}.
-   */
-  public static Measure max(final List<Measure> list) {
-    Measure max = ZERO;
-    for (final Measure measure : list) {
-      if (max.lessThan(measure)) {
-        max = measure;
-      }
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
     }
-    return max;
-  }
-
-  /**
-   * Returns the minimum. If all parameters are null, than the result is {@value #MAX}.
-   */
-  public static Measure min(final List<Measure> list) {
-    Measure min = MAX;
-    for (final Measure measure : list) {
-      if (min.greaterThan(measure)) {
-        min = measure;
-      }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
     }
-    return min;
-  }
 
-  /**
-   * Returns the maximum. If all parameters are null, than the result is {@value #ZERO}.
-   */
-  public static Measure max(final Measure m1, final Measure m2) {
-    if (m1 != null) {
-      return m1.lessThan(m2) ? m2 : m1;
-    } else {
-      return m2 != null ? m2 : ZERO;
+    Measure measure = (Measure) o;
+
+    if (d != null ? !d.equals(measure.d) : measure.d != null) {
+      return false;
     }
+    if (i != null ? !i.equals(measure.i) : measure.i != null) {
+      return false;
+    }
+    return unit == measure.unit;
+
   }
 
-  /**
-   * Returns the minimum. If all parameters are null, than the result is {@value #MAX}.
-   */
-  public static Measure min(final Measure m1, final Measure m2) {
-    if (m1 != null) {
-      return m1.greaterThan(m2) ? m2 : m1;
-    } else {
-      return m2 != null ? m2 : MAX;
+  @Override
+  public int hashCode() {
+    int result = d != null ? d.hashCode() : 0;
+    result = 31 * result + (i != null ? i.hashCode() : 0);
+    result = 31 * result + unit.hashCode();
+    return result;
+  }
+
+  private enum Unit {
+
+    EM,
+    PX,
+    EX,
+    PT,
+    CM,
+    MM,
+    IN,
+    PC,
+    PERCENT;
+
+    private final String value;
+
+    Unit() {
+      value = name().equals("PERCENT") ? "%" : name().toLowerCase();
+    }
+
+    String getValue() {
+      return value;
     }
   }
 }

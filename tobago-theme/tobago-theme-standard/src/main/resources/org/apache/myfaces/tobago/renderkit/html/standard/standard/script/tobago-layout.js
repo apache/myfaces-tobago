@@ -15,6 +15,13 @@
  * limitations under the License.
  */
 
+Tobago.Layout = {};
+
+Tobago.Layout.Orientation = {
+  HORIZONTAL: true,
+  VERTICAL: false
+};
+
 function init(table) {
 
   var elements = table.children("tbody").children("tr").children("td").children();
@@ -41,7 +48,7 @@ function init(table) {
   });
 }
 
-function layout(table, horizontal) {
+function layoutGrid(table, orientation) {
   var cells;
   var banks;
   var tokens;
@@ -53,14 +60,14 @@ function layout(table, horizontal) {
     return;
   }
 
-  if (horizontal) {
+  if (orientation == Tobago.Layout.Orientation.HORIZONTAL) {
 //    cells = table.find("tr:first>td");
     banks = table.children("colgroup").children("col");
     tokens = tobagoLayout.columns;
     css = "width";
     desired = table.outerWidth();
 //    desired = table.parent().data("tobago-style").width.replace("px", ""); // todo: data("tobago-layout") wohl doch nicht so gut...? der wert wurde ja schon berechnet...
-  } else {
+  } else { // Tobago.Layout.Orientation.VERTICAL
 //    cells = table.find("tr");
     banks = table.children("tbody").children("tr");
     tokens = tobagoLayout.rows;
@@ -87,17 +94,20 @@ function layout(table, horizontal) {
           // a string, currently only "auto" is supported
           if ("auto" == tokens[i]) {
             // nothing to do
-            sumUsed += horizontal ? cell.outerWidth() : cell.outerHeight();
+            sumUsed += orientation == Tobago.Layout.Orientation.HORIZONTAL ? cell.outerWidth() : cell.outerHeight();
           } else {
             console.warn("currently only 'auto' is supported, but found: '" + tokens[i] + "'");  // @DEV_ONLY
           }
           break;
         case "object":
-          if (tokens[i].pixel) {
-            setLength(table, banks, i, css, tokens[i].pixel + "px");
-            sumUsed += tokens[i].pixel;
+          var m = tokens[i].measure;
+          if (m) {
+            setLength(table, banks, i, css, m);
+            if (/^\d+px$/.test(m)) {
+              sumUsed += m.substr(0, m.length - 2);
+            }
           } else {
-            console.warn("can't find pixel in object: '" + tokens[i] + "'");  // @DEV_ONLY
+            console.warn("can't find  measure in object: '" + tokens[i] + "'");  // @DEV_ONLY
           }
           break;
         default:
@@ -137,7 +147,7 @@ function setLength2(banks, i, css, length) {
   banks.eq(i).css(css, length);
 }
 
-function layoutFlex(container, horizontal) {
+function layoutFlex(container, orientation) {
 
   // todo: modernizr
   // if (!Modernizr.flexbox && !Modernizr.flexboxtweener) ... do other
@@ -152,11 +162,11 @@ function layoutFlex(container, horizontal) {
     return;
   }
 
-  if (horizontal) {
+  if (orientation == Tobago.Layout.Orientation.HORIZONTAL) {
     banks = container.children();
     tokens = tobagoLayout.columns;
     css = "width";
-  } else {
+  } else { // Tobago.Layout.Orientation.VERTICAL
     banks = container.children();
     tokens = tobagoLayout.rows;
     css = "height";
@@ -183,10 +193,10 @@ function layoutFlex(container, horizontal) {
           // a string, currently only "auto" is supported
           break;
         case "object":
-          if (tokens[i].pixel) {
-            setLength2(banks, i, css, tokens[i].pixel + "px");
+          if (tokens[i].measure) {
+            setLength2(banks, i, css, tokens[i].measure);
           } else {
-            console.warn("can't find pixel in object: '" + tokens[i] + "'");  // @DEV_ONLY
+            console.warn("can't find measure in object: '" + tokens[i] + "'");  // @DEV_ONLY
           }
           break;
         default:
@@ -207,8 +217,8 @@ jQuery(document).ready(function () {
 
   gridLayouts.each(function () {
     var table = jQuery(this);
-    layout(table, true);
-    layout(table, false);
+    layoutGrid(table, Tobago.Layout.Orientation.HORIZONTAL);
+    layoutGrid(table, Tobago.Layout.Orientation.VERTICAL);
   });
 
   //////////////////////////////////////////////
@@ -219,8 +229,8 @@ jQuery(document).ready(function () {
 
   flexLayouts.each(function () {
     var container = jQuery(this);
-    layoutFlex(container, true);
-    layoutFlex(container, false);
+    layoutFlex(container, Tobago.Layout.Orientation.HORIZONTAL);
+    layoutFlex(container, Tobago.Layout.Orientation.VERTICAL);
   });
 
   //////////////////////////////////////////////
