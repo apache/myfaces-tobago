@@ -26,23 +26,23 @@ public class MeasureUnitTest {
 
   @Test
   public void testDecimal() {
-    Assert.assertEquals("13.3px", ""+Measure.valueOf("13.3px"));
-    Assert.assertEquals("13.7px", ""+Measure.valueOf("13.7px"));
-    Assert.assertEquals("13.3px",""+ Measure.valueOf("13.3"));
-    Assert.assertEquals("13.7px",""+ Measure.valueOf("13.7"));
-    Assert.assertEquals("0.7px",""+ Measure.valueOf(".7"));
-    Assert.assertEquals("0px",""+ Measure.valueOf("0"));
+    Assert.assertEquals("13.3px", "" + Measure.valueOf("13.3px"));
+    Assert.assertEquals("13.7px", "" + Measure.valueOf("13.7px"));
+    Assert.assertEquals("13.3px", "" + Measure.valueOf("13.3"));
+    Assert.assertEquals("13.7px", "" + Measure.valueOf("13.7"));
+    Assert.assertEquals("0.7px", "" + Measure.valueOf(".7"));
+    Assert.assertEquals("0px", "" + Measure.valueOf("0"));
     Assert.assertEquals(null, Measure.valueOf(""));
   }
 
   @Test
   public void testOther() {
-    Assert.assertEquals("13.3cm", ""+Measure.valueOf("13.3cm"));
-    Assert.assertEquals("13.7mm", ""+Measure.valueOf("13.7mm"));
-    Assert.assertEquals("13.7ex", ""+Measure.valueOf("13.7ex"));
-    Assert.assertEquals("13.7em", ""+Measure.valueOf("13.7em"));
-    Assert.assertEquals("13.7in", ""+Measure.valueOf("13.7in"));
-    Assert.assertEquals("13.7%", ""+Measure.valueOf("13.7%"));
+    Assert.assertEquals("13.3cm", "" + Measure.valueOf("13.3cm"));
+    Assert.assertEquals("13.7mm", "" + Measure.valueOf("13.7mm"));
+    Assert.assertEquals("13.7ex", "" + Measure.valueOf("13.7ex"));
+    Assert.assertEquals("13.7em", "" + Measure.valueOf("13.7em"));
+    Assert.assertEquals("13.7in", "" + Measure.valueOf("13.7in"));
+    Assert.assertEquals("13.7%", "" + Measure.valueOf("13.7%"));
   }
 
   @Test
