@@ -390,13 +390,6 @@ public class PageRenderer extends RendererBase {
 
     writer.endElement(HtmlElements.FORM);
 
-    writer.startElement(HtmlElements.IMG);
-    writer.writeClassAttribute(Classes.create(page, "overlayBackgroundImage"));
-    final String overlayBackgroundImage = ResourceManagerUtils.getImage(facesContext,
-        "image/tobago-overlay-background");
-    writer.writeAttribute(HtmlAttributes.SRC, overlayBackgroundImage, true);
-    writer.endElement(HtmlElements.IMG);
-
     writer.startElement(HtmlElements.NOSCRIPT);
     writer.startElement(HtmlElements.DIV);
     writer.writeClassAttribute(Classes.create(page, "noscript"));

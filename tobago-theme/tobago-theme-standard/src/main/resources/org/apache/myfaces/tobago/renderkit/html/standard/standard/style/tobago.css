@@ -242,10 +242,6 @@ table.tobago-gridLayout > tbody > tr:first-child > td {
   position: relative;
 }
 
-.tobago-page-overlayBackgroundImage {
-  display: none;
-}
-
 .tobago-page-noscript {
   position: absolute;
   top: 100px;
