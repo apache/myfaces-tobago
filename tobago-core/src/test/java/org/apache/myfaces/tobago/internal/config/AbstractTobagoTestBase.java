@@ -33,6 +33,7 @@ import org.apache.myfaces.tobago.component.UIPopup;
 import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.context.ClientProperties;
 import org.apache.myfaces.tobago.context.Theme;
+import org.apache.myfaces.tobago.context.ThemeImpl;
 import org.apache.myfaces.tobago.internal.context.ResourceManagerFactory;
 import org.apache.myfaces.tobago.internal.mock.faces.MockTheme;
 import org.apache.myfaces.tobago.internal.util.MimeTypeUtils;
@@ -41,11 +42,8 @@ import org.junit.Before;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.Arrays;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.Locale;
-import java.util.Map;
 
 /**
  * <p>Abstract JUnit test case base class, which sets up the JavaServer Faces
@@ -72,12 +70,10 @@ public abstract class AbstractTobagoTestBase extends AbstractJsfTestCase {
     // Tobago specific extensions
 
     final TobagoConfigImpl tobagoConfig = TobagoConfigMergingUnitTest.loadAndMerge("tobago-config-for-unit-tests.xml");
-    final Theme theme = new MockTheme("default", "Default Mock Theme", Collections.<Theme>emptyList());
-    final Theme one = new MockTheme("one", "Mock Theme One", Arrays.asList(theme));
-    final Map<String, Theme> availableThemes = new HashMap<String, Theme>();
-    availableThemes.put(theme.getName(), theme);
-    availableThemes.put(one.getName(), one);
-    tobagoConfig.setAvailableThemes(availableThemes);
+    final ThemeImpl theme = new MockTheme("default", "Default Mock Theme", Collections.<Theme>emptyList());
+    final ThemeImpl one = new MockTheme("one", "Mock Theme One", Collections.singletonList((Theme) theme));
+    tobagoConfig.addAvailableTheme(theme);
+    tobagoConfig.addAvailableTheme(one);
     tobagoConfig.resolveThemes();
     tobagoConfig.initProjectState(servletContext);
     tobagoConfig.initDefaultValidatorInfo();

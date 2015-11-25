@@ -56,7 +56,7 @@ public class TobagoConfigImpl extends TobagoConfig {
   private Theme defaultTheme;
   private String defaultThemeName;
   private List<String> resourceDirs;
-  private Map<String, Theme> availableThemes;
+  private Map<String, ThemeImpl> availableThemes;
   private RenderersConfig renderersConfig;
   private ProjectStage projectStage;
   private boolean createSessionSecret;
@@ -74,6 +74,7 @@ public class TobagoConfigImpl extends TobagoConfig {
   protected TobagoConfigImpl() {
     supportedThemeNames = new ArrayList<String>();
     supportedThemes = new ArrayList<Theme>();
+    availableThemes = new HashMap<String, ThemeImpl>();
     resourceDirs = new ArrayList<String>();
     createSessionSecret = true;
     checkSessionSecret = true;
@@ -119,6 +120,11 @@ public class TobagoConfigImpl extends TobagoConfig {
   // TODO one init method
   protected void resolveThemes() {
     checkLocked();
+
+    for (final Theme theme : availableThemes.values()) {
+      addResourceDir(theme.getResourcePath());
+    }
+
     if (defaultThemeName != null) {
       defaultTheme = availableThemes.get(defaultThemeName);
       checkThemeIsAvailable(defaultThemeName, defaultTheme);
@@ -128,7 +134,7 @@ public class TobagoConfigImpl extends TobagoConfig {
       }
     } else {
       int deep = 0;
-      for (final Map.Entry<String, Theme> entry : availableThemes.entrySet()) {
+      for (final Map.Entry<String, ThemeImpl> entry : availableThemes.entrySet()) {
         final Theme theme = entry.getValue();
         if (theme.getFallbackList().size() > deep) {
           defaultTheme = theme;
@@ -214,12 +220,13 @@ public class TobagoConfigImpl extends TobagoConfig {
     return defaultTheme;
   }
 
-  protected void setAvailableThemes(final Map<String, Theme> availableThemes) {
+  protected void addAvailableTheme(ThemeImpl availableTheme) {
     checkLocked();
-    this.availableThemes = availableThemes;
-    for (final Theme theme : this.availableThemes.values()) {
-      addResourceDir(theme.getResourcePath());
-    }
+    availableThemes.put(availableTheme.getName(), availableTheme);
+  }
+
+  public Map<String, ThemeImpl> getAvailableThemes() {
+    return availableThemes;
   }
 
   protected RenderersConfig getRenderersConfig() {
@@ -388,7 +395,7 @@ public class TobagoConfigImpl extends TobagoConfig {
       builder.append(", ");
     }
     builder.append("], \ndefaultTheme=");
-    builder.append(defaultTheme.getName());
+    builder.append(defaultTheme != null ? defaultTheme.getName() : null);
     builder.append(", \nresourceDirs=");
     builder.append(resourceDirs);
     builder.append(", \navailableThemes=");

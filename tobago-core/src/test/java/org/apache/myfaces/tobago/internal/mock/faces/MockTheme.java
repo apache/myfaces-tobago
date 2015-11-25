@@ -20,11 +20,12 @@
 package org.apache.myfaces.tobago.internal.mock.faces;
 
 import org.apache.myfaces.tobago.context.Theme;
+import org.apache.myfaces.tobago.context.ThemeImpl;
 import org.apache.myfaces.tobago.internal.config.RenderersConfig;
 
 import java.util.List;
 
-public class MockTheme implements Theme {
+public class MockTheme extends ThemeImpl {
 
   private String name;
 

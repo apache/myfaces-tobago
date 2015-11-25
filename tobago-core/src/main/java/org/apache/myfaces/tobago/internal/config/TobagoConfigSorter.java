@@ -19,6 +19,7 @@
 
 package org.apache.myfaces.tobago.internal.config;
 
+import org.apache.myfaces.tobago.context.ThemeImpl;
 import org.apache.myfaces.tobago.sanitizer.IgnoringSanitizer;
 import org.apache.myfaces.tobago.sanitizer.JsoupSanitizer;
 import org.apache.myfaces.tobago.sanitizer.Sanitizer;
@@ -134,12 +135,10 @@ public class TobagoConfigSorter implements Comparator<TobagoConfigFragment> {
       }
 
       // theme definition
-      // todo
-/*
-      for (Theme theme : fragment.getThemeDefinitions()) {
-        result.addThemeDefinition(theme);
+      result.toString();
+      for (ThemeImpl theme : fragment.getThemeDefinitions()) {
+        result.addAvailableTheme(theme);
       }
-*/
 
       // url
       // todo???
@@ -150,6 +149,8 @@ public class TobagoConfigSorter implements Comparator<TobagoConfigFragment> {
       }
 
     }
+
+    resolveThemes(result, result.getAvailableThemes());
 
     if (sanitizerClass != null) {
       try {
@@ -286,6 +287,26 @@ public class TobagoConfigSorter implements Comparator<TobagoConfigFragment> {
       }
     }
     return null;
+  }
+
+  private void resolveThemes(TobagoConfigImpl tobagoConfig, Map<String, ThemeImpl> map) {
+    for (final ThemeImpl theme : map.values()) {
+      final String fallbackName = theme.getFallbackName();
+      final ThemeImpl fallback = map.get(fallbackName);
+      theme.setFallback(fallback);
+    }
+    for (final ThemeImpl theme : map.values()) {
+      theme.resolveFallbacks();
+    }
+    for (final ThemeImpl theme : map.values()) {
+      theme.resolveRendererConfig(tobagoConfig.getRenderersConfig());
+    }
+    for (final ThemeImpl theme : map.values()) {
+      theme.resolveResources();
+    }
+    for (final ThemeImpl theme : map.values()) {
+      theme.init();
+    }
   }
 
   protected List<Pair> getPairs() {

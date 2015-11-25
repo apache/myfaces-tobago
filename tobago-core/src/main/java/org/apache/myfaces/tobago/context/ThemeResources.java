@@ -30,23 +30,33 @@ import java.util.List;
  */
 public final class ThemeResources implements Serializable {
 
-  private boolean production;
-  private List<ThemeScript> scriptList = new ArrayList<ThemeScript>();
-  private List<ThemeStyle> styleList = new ArrayList<ThemeStyle>();
+  private final boolean production;
+  private final List<ThemeScript> scriptList = new ArrayList<ThemeScript>();
+  private final List<ThemeScript> scriptExcludes = new ArrayList<ThemeScript>();
+  private final List<ThemeStyle> styleList = new ArrayList<ThemeStyle>();
+  private final List<ThemeStyle> styleExcludes = new ArrayList<ThemeStyle>();
+
+  public ThemeResources(boolean production) {
+    this.production = production;
+  }
 
   public void merge(final ThemeResources toAddResources) {
     if (this == toAddResources) {
       return;
     }
-    for (int i = toAddResources.getScriptList().size()-1; i >= 0; i--) {
-      final ThemeScript script = toAddResources.getScriptList().get(i);
-      this.getScriptList().remove(script);
-      this.getScriptList().add(0, script);
+    for (int i = toAddResources.scriptList.size() - 1; i >= 0; i--) {
+      final ThemeScript script = toAddResources.scriptList.get(i);
+      scriptList.remove(script);
+      if (!scriptExcludes.contains(script)) {
+        scriptList.add(0, script);
+      }
     }
-    for (int i = toAddResources.getStyleList().size()-1; i >= 0; i--) {
-      final ThemeStyle style = toAddResources.getStyleList().get(i);
-      this.getStyleList().remove(style);
-      this.getStyleList().add(0, style);
+    for (int i = toAddResources.styleList.size() - 1; i >= 0; i--) {
+      final ThemeStyle style = toAddResources.styleList.get(i);
+      styleList.remove(style);
+      if (!styleExcludes.contains(style)) {
+        styleList.add(0, style);
+      }
     }
   }
 
@@ -54,16 +64,12 @@ public final class ThemeResources implements Serializable {
     return production;
   }
 
-  public void setProduction(final boolean production) {
-    this.production = production;
+  public boolean addScript(final ThemeScript script, boolean exclude) {
+    return exclude ? scriptExcludes.add(script) : scriptList.add(script);
   }
 
-  public boolean addScript(final ThemeScript script) {
-    return scriptList.add(script);
-  }
-
-  public boolean addStyle(final ThemeStyle style) {
-    return styleList.add(style);
+  public boolean addStyle(final ThemeStyle style, boolean exclude) {
+    return exclude ? styleExcludes.add(style) : styleList.add(style);
   }
 
   public List<ThemeScript> getScriptList() {
