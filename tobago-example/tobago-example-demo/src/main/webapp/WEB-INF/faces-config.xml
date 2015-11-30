@@ -177,31 +177,31 @@
 
   <managed-bean>
     <managed-bean-name>reference</managed-bean-name>
-    <managed-bean-class>org.apache.myfaces.tobago.example.reference.Controller</managed-bean-class>
+    <managed-bean-class>org.apache.myfaces.tobago.example.demo.Controller</managed-bean-class>
     <managed-bean-scope>session</managed-bean-scope>
   </managed-bean>
 
   <managed-bean>
     <managed-bean-name>progress</managed-bean-name>
-    <managed-bean-class>org.apache.myfaces.tobago.example.reference.Progress</managed-bean-class>
+    <managed-bean-class>org.apache.myfaces.tobago.example.demo.Progress</managed-bean-class>
     <managed-bean-scope>session</managed-bean-scope>
   </managed-bean>
 
   <managed-bean>
     <managed-bean-name>selectBooleanCheckboxController</managed-bean-name>
-    <managed-bean-class>org.apache.myfaces.tobago.example.reference.SelectBooleanCheckboxController</managed-bean-class>
+    <managed-bean-class>org.apache.myfaces.tobago.example.demo.SelectBooleanCheckboxController</managed-bean-class>
     <managed-bean-scope>session</managed-bean-scope>
   </managed-bean>
 
   <managed-bean>
     <managed-bean-name>partialReloadController</managed-bean-name>
-    <managed-bean-class>org.apache.myfaces.tobago.example.reference.PartialReloadController</managed-bean-class>
+    <managed-bean-class>org.apache.myfaces.tobago.example.demo.PartialReloadController</managed-bean-class>
     <managed-bean-scope>request</managed-bean-scope>
   </managed-bean>
 
   <managed-bean>
     <managed-bean-name>inputSuggestController</managed-bean-name>
-    <managed-bean-class>org.apache.myfaces.tobago.example.reference.InputSuggestController</managed-bean-class>
+    <managed-bean-class>org.apache.myfaces.tobago.example.demo.InputSuggestController</managed-bean-class>
     <managed-bean-scope>session</managed-bean-scope>
   </managed-bean>
 
