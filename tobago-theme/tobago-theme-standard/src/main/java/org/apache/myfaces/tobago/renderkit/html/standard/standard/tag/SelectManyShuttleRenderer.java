@@ -20,8 +20,8 @@
 package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
 import org.apache.myfaces.tobago.component.UISelectManyShuttle;
-import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.renderkit.SelectManyRendererBase;
+import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlButtonTypes;
@@ -74,7 +74,7 @@ public class SelectManyShuttleRenderer extends SelectManyRendererBase {
       writer.writeAttribute(HtmlAttributes.TABINDEX, tabIndex);
     }
 
-    writer.writeClassAttribute(Classes.create(select, "unselected"));
+    writer.writeClassAttribute(Classes.create(select, "unselected"), BootstrapClass.FORM_CONTROL);
 
     writer.writeAttribute(HtmlAttributes.MULTIPLE, true);
 
@@ -85,10 +85,10 @@ public class SelectManyShuttleRenderer extends SelectManyRendererBase {
     writer.endElement(HtmlElements.SELECT);
     writer.startElement(HtmlElements.DIV);
     writer.writeClassAttribute(Classes.create(select, "toolBar"));
-    createButton(facesContext, component, writer, disabled, "image/selectManyShuttleAddAll", "addAll");
-    createButton(facesContext, component, writer, disabled, "image/selectManyShuttleAdd", "add");
-    createButton(facesContext, component, writer, disabled, "image/selectManyShuttleRemove", "remove");
-    createButton(facesContext, component, writer, disabled, "image/selectManyShuttleRemoveAll", "removeAll");
+    createButton(facesContext, component, writer, disabled, BootstrapClass.GLYPHICON_CHEVRON_RIGHT, 2, "addAll");
+    createButton(facesContext, component, writer, disabled, BootstrapClass.GLYPHICON_CHEVRON_RIGHT, 1, "add");
+    createButton(facesContext, component, writer, disabled, BootstrapClass.GLYPHICON_CHEVRON_LEFT, 1, "remove");
+    createButton(facesContext, component, writer, disabled, BootstrapClass.GLYPHICON_CHEVRON_LEFT, 2, "removeAll");
     writer.endElement(HtmlElements.DIV);
     final String selectedLabel = select.getSelectedLabel();
     if (selectedLabel != null) {
@@ -107,7 +107,7 @@ public class SelectManyShuttleRenderer extends SelectManyRendererBase {
     if (tabIndex != null) {
       writer.writeAttribute(HtmlAttributes.TABINDEX, tabIndex);
     }
-    writer.writeClassAttribute(Classes.create(select, "selected"));
+    writer.writeClassAttribute(Classes.create(select, "selected"), BootstrapClass.FORM_CONTROL);
     writer.writeAttribute(HtmlAttributes.MULTIPLE, true);
     items = SelectItemUtils.getItemIterator(facesContext, select);
     HtmlRendererUtils.renderSelectItems(select, items, values, submittedValues, true, writer, facesContext);
@@ -133,17 +133,19 @@ public class SelectManyShuttleRenderer extends SelectManyRendererBase {
     writer.endElement(HtmlElements.DIV);
   }
 
-  private void createButton(final FacesContext context, final UIComponent component, final TobagoResponseWriter writer,
-        final boolean disabled, final String image, final String sub) throws IOException {
+  private void createButton(
+      final FacesContext context, final UIComponent component, final TobagoResponseWriter writer,
+      final boolean disabled, final BootstrapClass icon, final int iconCount, final String sub) throws IOException {
     writer.startElement(HtmlElements.BUTTON);
     writer.writeAttribute(HtmlAttributes.TYPE, HtmlButtonTypes.BUTTON);
     writer.writeClassAttribute(Classes.create(component, sub));
     writer.writeIdAttribute(component.getClientId(context) + ComponentUtils.SUB_SEPARATOR + sub);
     writer.writeAttribute(HtmlAttributes.DISABLED, disabled);
-    final String imagePath = ResourceManagerUtils.getImageOrDisabledImage(context, image, disabled);
-    writer.startElement(HtmlElements.IMG);
-    writer.writeAttribute(HtmlAttributes.SRC, imagePath, true);
-    writer.endElement(HtmlElements.IMG);
+    for (int i = 0; i < iconCount; i++) {
+      writer.startElement(HtmlElements.SPAN);
+      writer.writeClassAttribute(BootstrapClass.GLYPHICON, icon);
+      writer.endElement(HtmlElements.SPAN);
+    }
     writer.endElement(HtmlElements.BUTTON);
   }
 }

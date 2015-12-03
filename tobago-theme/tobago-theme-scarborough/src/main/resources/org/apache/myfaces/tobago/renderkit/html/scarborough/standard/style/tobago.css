@@ -713,49 +713,6 @@ li.tobago-menu-markup-selected {
   border-color: #ff0000;
 }
 
-/* selectManyShuttle ----------------------------------------------------------- */
-
-.tobago-selectManyShuttle {
-  font-family: arial, helvetica, sans-serif;
-  color: #000000;
-  background: transparent;
-}
-
-.tobago-selectManyShuttle-markup-readonly {
-  background-color: #bbccdd;
-}
-
-.tobago-selectManyShuttle-markup-disabled {
-  color: #778899;
-  background: #bbccdd;
-}
-
-.tobago-selectManyShuttle-toolBar {
-  position:absolute;
-  top:50%;
-  margin:-52px 5px;
-  width:50px;
-  height:52px;
-}
-
-.tobago-selectManyShuttle-hidden {
-  display:none
-}
-
-.tobago-selectManyShuttle-addAll,
-.tobago-selectManyShuttle-add,
-.tobago-selectManyShuttle-remove,
-.tobago-selectManyShuttle-removeAll {
-  width:40px;
-}
-
-.tobago-selectManyShuttle-unselected-markup-error,
-.tobago-selectManyShuttle-selected-markup-error {
-  border-style: solid;
-  border-color: #ff0000;
-}
-
-
 /* selectOneChoice --------------------------------------------------------- */
 
 .tobago-selectOneChoice {

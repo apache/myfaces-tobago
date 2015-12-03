@@ -107,6 +107,8 @@ public enum BootstrapClass implements CssItem {
   GLYPHICON("glyphicon"),
   GLYPHICON_CALENDAR("glyphicon-calendar"),
   GLYPHICON_CHEVRON_DOWN("glyphicon-chevron-down"),
+  GLYPHICON_CHEVRON_LEFT("glyphicon-chevron-left"),
+  GLYPHICON_CHEVRON_RIGHT("glyphicon-chevron-right"),
   GLYPHICON_CHEVRON_UP("glyphicon-chevron-up"),
   GLYPHICON_TIME("glyphicon-time"),
   HAS_ERROR("has-error"),

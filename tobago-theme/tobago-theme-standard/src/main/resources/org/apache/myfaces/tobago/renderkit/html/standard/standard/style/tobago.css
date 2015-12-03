@@ -272,6 +272,35 @@ h6 > .glyphicon:first-child {
   list-style: none;
 }
 
+/* selectManyShuttle ----------------------------------------------------------- */
+
+.tobago-selectManyShuttle {
+  display: flex;
+}
+
+.tobago-selectManyShuttle .tobago-selectManyShuttle-unselected,
+.tobago-selectManyShuttle .tobago-selectManyShuttle-selected {
+  flex: 1 0 0px;
+}
+
+.tobago-selectManyShuttle-hidden {
+  display: none;
+}
+
+.tobago-selectManyShuttle-toolBar {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+}
+
+.tobago-selectManyShuttle-toolBar button {
+  display: block;
+}
+
+.tobago-selectManyShuttle-toolBar span:nth-child(2) {
+  margin-left: -0.5em;
+}
+
 /* selectOneRadio ---------------------------------------------------------- */
 
 .tobago-selectOneRadio {
