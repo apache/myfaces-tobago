@@ -567,28 +567,6 @@ li.tobago-menu-markup-selected {
   visibility: hidden;
 }
 
-/* messages --------------------------------------------------- */
-
-.tobago-messages {
-  white-space: nowrap;
-}
-
-.tobago-messages-item-markup-fatal {
-  color: #FF00FF;
-}
-
-.tobago-messages-item-markup-error {
-  color: #FF0000;
-}
-
-.tobago-messages-item-markup-warn {
-  color: #FFA500;
-}
-
-.tobago-messages-item-markup-info {
-  color: #000000;
-}
-
 /* object ------------------------------------------------------------------ */
 
 .tobago-object {
