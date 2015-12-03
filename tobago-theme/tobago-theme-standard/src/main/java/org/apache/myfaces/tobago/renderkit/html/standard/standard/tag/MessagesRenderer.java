@@ -27,14 +27,12 @@ import org.apache.myfaces.tobago.component.UIButton;
 import org.apache.myfaces.tobago.component.UIMessages;
 import org.apache.myfaces.tobago.component.UIPanel;
 import org.apache.myfaces.tobago.component.UIPopup;
-import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.internal.ajax.AjaxInternalUtils;
 import org.apache.myfaces.tobago.internal.util.FacesContextUtils;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
-import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.Arias;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
@@ -95,7 +93,7 @@ public class MessagesRenderer extends RendererBase {
 
       writer.startElement(HtmlElements.DIV);
       writer.writeIdAttribute(messages.getClientId(facesContext));
-      writer.writeClassAttribute(TobagoClass.MESSAGES);
+      writer.writeClassAttribute(Classes.create(messages), messages.getCustomClass());
 
       FacesMessage.Severity lastSeverity = null;
       boolean first = true;
@@ -110,7 +108,7 @@ public class MessagesRenderer extends RendererBase {
 
         if (first || lastSeverity != severity) {
           writer.startElement(HtmlElements.DIV);
-          writer.writeClassAttribute(TobagoClass.MESSAGES,
+          writer.writeClassAttribute(
               BootstrapClass.ALERT, BootstrapClass.ALERT_DISMISSIBLE, BootstrapClass.alert(severity));
           HtmlRendererUtils.writeDataAttributes(facesContext, writer, messages);
           writer.writeAttribute(HtmlAttributes.ROLE, HtmlRoleValues.ALERT.toString(), false);
@@ -242,8 +240,6 @@ public class MessagesRenderer extends RendererBase {
       writer.writeAttribute(HtmlAttributes.FOR, clientId, false);
     }
     writer.writeAttribute(HtmlAttributes.TITLE, detail, true);
-    final Markup markup = ComponentUtils.markupOfSeverity(message.getSeverity());
-    writer.writeClassAttribute(Classes.create(messages, "item", markup), messages.getCustomClass());
     boolean writeEmptyText = true;
     if (summary != null && messages.isShowSummary()) {
       writer.writeText(summary);

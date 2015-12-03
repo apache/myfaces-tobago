@@ -119,7 +119,7 @@ table.tobago-gridLayout > tbody > tr:first-child > td {
 
 /* messages ----------------------------------------------------------- */
 
-.tobago-messages-item:last-child {
+.tobago-messages label:last-child {
   margin-bottom: 0;
 }
 
