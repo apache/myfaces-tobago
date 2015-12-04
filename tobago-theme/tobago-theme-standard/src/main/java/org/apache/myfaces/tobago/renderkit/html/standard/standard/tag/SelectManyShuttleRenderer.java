@@ -138,7 +138,7 @@ public class SelectManyShuttleRenderer extends SelectManyRendererBase {
       final boolean disabled, final BootstrapClass icon, final int iconCount, final String sub) throws IOException {
     writer.startElement(HtmlElements.BUTTON);
     writer.writeAttribute(HtmlAttributes.TYPE, HtmlButtonTypes.BUTTON);
-    writer.writeClassAttribute(Classes.create(component, sub));
+    writer.writeClassAttribute(Classes.create(component, sub), BootstrapClass.BTN, BootstrapClass.BTN_DEFAULT);
     writer.writeIdAttribute(component.getClientId(context) + ComponentUtils.SUB_SEPARATOR + sub);
     writer.writeAttribute(HtmlAttributes.DISABLED, disabled);
     for (int i = 0; i < iconCount; i++) {

@@ -128,10 +128,16 @@
       <tc:selectItem itemValue="stars" itemLabel="Stars" itemDisabled="true"/>
     </tc:selectManyCheckbox>
 
-    <tc:selectManyShuttle>
+    <tc:selectManyShuttle label="Shuttle">
       <tc:selectItem itemValue="sun" itemLabel="Sun"/>
       <tc:selectItem itemValue="moon" itemLabel="Moon"/>
-      <tc:selectItem itemValue="stars" itemLabel="Stars" itemDisabled="true"/>
+      <tc:selectItem itemValue="stars" itemLabel="Stars (Disabled)" itemDisabled="true"/>
+    </tc:selectManyShuttle>
+
+    <tc:selectManyShuttle disabled="true" label="disabled">
+      <tc:selectItem itemValue="sun" itemLabel="Sun"/>
+      <tc:selectItem itemValue="moon" itemLabel="Moon"/>
+      <tc:selectItem itemValue="stars" itemLabel="Stars"/>
     </tc:selectManyShuttle>
 
     <tc:panel/>

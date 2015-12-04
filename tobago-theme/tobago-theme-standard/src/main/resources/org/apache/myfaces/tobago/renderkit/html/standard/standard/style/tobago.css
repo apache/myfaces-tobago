@@ -293,11 +293,11 @@ h6 > .glyphicon:first-child {
   padding: 1rem;
 }
 
-.tobago-selectManyShuttle-toolBar button {
+.tobago-selectManyShuttle-toolBar > button {
   display: block;
 }
 
-.tobago-selectManyShuttle-toolBar span:nth-child(2) {
+.tobago-selectManyShuttle-toolBar > .btn > span:nth-child(2) {
   margin-left: -0.5em;
 }
 
@@ -485,6 +485,8 @@ table.tobago-sheet-bodyTable>tbody>tr>td:last-child {
 
 /*
 fixes missing space, I thinks normal Websites have a " " Space char in the source code, Tobago not.
+
+fixme: there is a problem with the selectManyShuttle with this style.
 */
 .navbar button:nth-child(n+2),
 .navbar input:nth-child(n+2) {
