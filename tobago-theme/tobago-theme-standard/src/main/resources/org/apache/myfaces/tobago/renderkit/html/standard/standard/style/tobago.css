@@ -49,9 +49,6 @@
     display: -webkit-flex; /* needed e.g. for Safari 8.0.2 */
     display: -ms-flexbox; /* needed for IE 10 */
     display: flex;
-
-    /* XXX it overrides the 15px from bootstrap .form-group, TODO: check if this is a good solution */
-    margin-bottom: 5px;
 }
 
 .tobago-flexLayout-markup-vertically {
