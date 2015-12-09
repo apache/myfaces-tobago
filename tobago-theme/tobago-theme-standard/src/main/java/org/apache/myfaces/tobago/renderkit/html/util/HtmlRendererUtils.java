@@ -31,8 +31,8 @@ import org.apache.myfaces.tobago.internal.component.AbstractUICommand;
 import org.apache.myfaces.tobago.internal.util.FacesContextUtils;
 import org.apache.myfaces.tobago.internal.webapp.TobagoResponseWriterWrapper;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
-import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
+import org.apache.myfaces.tobago.renderkit.css.FontAwesomeIconEncoder;
 import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.Command;
@@ -106,10 +106,8 @@ public final class HtmlRendererUtils {
   }
 
   public static void encodeIconWithLabel(TobagoResponseWriter writer, String image, String label) throws IOException {
-    if (image != null && image.startsWith("glyphicon-")) { // XXX hack: should be integrated in the resource manager
-      writer.startElement(HtmlElements.SPAN);
-      writer.writeClassAttribute(BootstrapClass.GLYPHICON, BootstrapClass.glyphicon(image));
-      writer.endElement(HtmlElements.SPAN);
+    if (image != null && image.startsWith("fa-")) { // XXX hack: should be integrated in the resource manager
+      writer.writeIcon(null, FontAwesomeIconEncoder.generateClass(image)); // todo: should not be static
     }
     if (label != null) {
       writer.startElement(HtmlElements.SPAN);
@@ -122,10 +120,8 @@ public final class HtmlRendererUtils {
        TobagoResponseWriter writer, FacesContext facesContext, String image, LabelWithAccessKey label, boolean disabled)
       throws IOException {
     if (image != null) {
-      if (image.startsWith("glyphicon-")) {
-        writer.startElement(HtmlElements.SPAN);
-        writer.writeClassAttribute(BootstrapClass.GLYPHICON, BootstrapClass.glyphicon(image));
-        writer.endElement(HtmlElements.SPAN);
+      if (image.startsWith("fa-")) {
+        writer.writeIcon(null, FontAwesomeIconEncoder.generateClass(image)); // todo: should not be static
       } else {
         if (ResourceManagerUtils.isAbsoluteResource(image)) {
           // absolute Path to image: nothing to do

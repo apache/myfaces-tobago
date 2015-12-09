@@ -26,7 +26,9 @@ import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.internal.component.AbstractUIData;
 import org.apache.myfaces.tobago.internal.component.AbstractUITreeNode;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
+import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
+import org.apache.myfaces.tobago.renderkit.css.Icons;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
@@ -100,8 +102,7 @@ public class TreeIndentRenderer extends RendererBase {
       }
       writer.endElement(HtmlElements.IMG);
 */
-      final String icon = junction && showLines ? "glyphicon-option-vertical" : "glyphicon-cog";
-      HtmlRendererUtils.encodeIconWithLabel(writer, icon, null);
+      writer.writeIcon(Icons.SQUARE_O, BootstrapClass.INVISIBLE); // FIXME TOBAGO-1495
     }
   }
 
@@ -115,8 +116,8 @@ public class TreeIndentRenderer extends RendererBase {
     }
     final boolean hasNextSibling = junctions.get(junctions.size() - 1); // last element
 
-    final String icon = folder ? expanded ? "glyphicon-minus" : "glyphicon-plus" : "glyphicon-option-vertical";
-    HtmlRendererUtils.encodeIconWithLabel(writer, icon, null);
+    writer.writeIcon(
+        (Icons) (folder ? expanded ? Icons.MINUS_SQUARE_O : Icons.PLUS_SQUARE_O : Icons.SQUARE_O));
 
 /*
     writer.startElement(HtmlElements.IMG, null);

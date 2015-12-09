@@ -28,7 +28,6 @@ import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClassGenerator;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
-import org.apache.myfaces.tobago.renderkit.css.CssItem;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
@@ -120,7 +119,7 @@ public class SegmentLayoutRenderer extends RendererBase {
       FacesContext facesContext, TobagoResponseWriter writer, BootstrapClassGenerator generator, UIComponent child)
       throws IOException {
     writer.startElement(HtmlElements.DIV);
-    writer.writeClassAttribute((CssItem) null, generator.generate());
+    writer.writeClassAttribute(null, null, generator.generate());
     RenderUtils.encode(facesContext, child);
     writer.endElement(HtmlElements.DIV);
   }

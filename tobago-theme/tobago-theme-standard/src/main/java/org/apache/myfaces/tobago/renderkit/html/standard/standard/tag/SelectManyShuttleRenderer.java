@@ -23,6 +23,7 @@ import org.apache.myfaces.tobago.component.UISelectManyShuttle;
 import org.apache.myfaces.tobago.renderkit.SelectManyRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
+import org.apache.myfaces.tobago.renderkit.css.Icons;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlButtonTypes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
@@ -85,10 +86,10 @@ public class SelectManyShuttleRenderer extends SelectManyRendererBase {
     writer.endElement(HtmlElements.SELECT);
     writer.startElement(HtmlElements.DIV);
     writer.writeClassAttribute(Classes.create(select, "toolBar"));
-    createButton(facesContext, component, writer, disabled, BootstrapClass.GLYPHICON_CHEVRON_RIGHT, 2, "addAll");
-    createButton(facesContext, component, writer, disabled, BootstrapClass.GLYPHICON_CHEVRON_RIGHT, 1, "add");
-    createButton(facesContext, component, writer, disabled, BootstrapClass.GLYPHICON_CHEVRON_LEFT, 1, "remove");
-    createButton(facesContext, component, writer, disabled, BootstrapClass.GLYPHICON_CHEVRON_LEFT, 2, "removeAll");
+    createButton(facesContext, component, writer, disabled, Icons.ANGLE_DOUBLE_RIGHT, "addAll");
+    createButton(facesContext, component, writer, disabled, Icons.ANGLE_RIGHT, "add");
+    createButton(facesContext, component, writer, disabled, Icons.ANGLE_LEFT, "remove");
+    createButton(facesContext, component, writer, disabled, Icons.ANGLE_DOUBLE_LEFT, "removeAll");
     writer.endElement(HtmlElements.DIV);
     final String selectedLabel = select.getSelectedLabel();
     if (selectedLabel != null) {
@@ -135,17 +136,13 @@ public class SelectManyShuttleRenderer extends SelectManyRendererBase {
 
   private void createButton(
       final FacesContext context, final UIComponent component, final TobagoResponseWriter writer,
-      final boolean disabled, final BootstrapClass icon, final int iconCount, final String sub) throws IOException {
+      final boolean disabled, final Icons icon, final String sub) throws IOException {
     writer.startElement(HtmlElements.BUTTON);
     writer.writeAttribute(HtmlAttributes.TYPE, HtmlButtonTypes.BUTTON);
     writer.writeClassAttribute(Classes.create(component, sub), BootstrapClass.BTN, BootstrapClass.BTN_DEFAULT);
     writer.writeIdAttribute(component.getClientId(context) + ComponentUtils.SUB_SEPARATOR + sub);
     writer.writeAttribute(HtmlAttributes.DISABLED, disabled);
-    for (int i = 0; i < iconCount; i++) {
-      writer.startElement(HtmlElements.SPAN);
-      writer.writeClassAttribute(BootstrapClass.GLYPHICON, icon);
-      writer.endElement(HtmlElements.SPAN);
-    }
+    writer.writeIcon(icon);
     writer.endElement(HtmlElements.BUTTON);
   }
 }

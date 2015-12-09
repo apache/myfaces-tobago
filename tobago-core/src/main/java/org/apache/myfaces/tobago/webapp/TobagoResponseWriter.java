@@ -23,6 +23,9 @@ import org.apache.myfaces.tobago.ajax.AjaxUtils;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.CssItem;
+import org.apache.myfaces.tobago.renderkit.css.FontAwesomeIconEncoder;
+import org.apache.myfaces.tobago.renderkit.css.IconEncoder;
+import org.apache.myfaces.tobago.renderkit.css.Icons;
 import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
@@ -42,6 +45,10 @@ import java.io.Writer;
  * <p/>
  */
 public abstract class TobagoResponseWriter extends ResponseWriter {
+
+  private static final CssItem[] NO_CSS_ITEMS = new CssItem[0];
+
+  protected IconEncoder iconEncoder = new FontAwesomeIconEncoder();
 
   // same as in ResponseWriter
 
@@ -148,10 +155,22 @@ public abstract class TobagoResponseWriter extends ResponseWriter {
     }
   }
 
-  public void writeClassAttribute(final CssItem first, final CssItem... others) throws IOException {
+  public void writeClassAttribute(final CssItem first) throws IOException {
+    writeClassAttribute(first, null, NO_CSS_ITEMS);
+  }
+
+  public void writeClassAttribute(final CssItem first, final CssItem second) throws IOException {
+    writeClassAttribute(first, second, NO_CSS_ITEMS);
+  }
+
+  public void writeClassAttribute(final CssItem first, final CssItem second, final CssItem... others) throws IOException {
     StringBuilder builder = new StringBuilder();
     if (first != null) {
       builder.append(first.getName());
+      builder.append(' ');
+    }
+    if (second != null) {
+      builder.append(second.getName());
       builder.append(' ');
     }
     for (CssItem other : others) {
@@ -199,6 +218,13 @@ public abstract class TobagoResponseWriter extends ResponseWriter {
   @Deprecated
   public void writeStyleAttribute(final String style) throws IOException {
     writeAttribute(HtmlAttributes.STYLE, style, false);
+  }
+
+  /**
+   * Writes an supported icon.
+   */
+  public void writeIcon(final Icons icon, final CssItem... cssItems) throws IOException {
+    iconEncoder.encode(this, icon, cssItems);
   }
 
   /**

@@ -140,15 +140,10 @@
       <tc:selectItem itemValue="stars" itemLabel="Stars"/>
     </tc:selectManyShuttle>
 
-    <tc:panel/>
-
-    <tc:panel>
-      <f:facet name="layout">
-        <tc:gridLayout columns="*;auto"/>
-      </f:facet>
-      <tc:panel/>
-      <tc:button action="/content/25-select/select.xhtml" label="Submit"/>
-    </tc:panel>
+    <tc:flowLayout>
+      <tc:style textAlign="right"/>
+      <tc:button action="/content/25-select/select.xhtml" label="Submit" defaultCommand="true"/>
+    </tc:flowLayout>
 
   </tc:panel>
 

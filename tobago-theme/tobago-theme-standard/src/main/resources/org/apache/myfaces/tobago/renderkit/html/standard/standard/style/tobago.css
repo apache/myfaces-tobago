@@ -355,6 +355,8 @@ h6 > .glyphicon:first-child {
 .tobago-sheet-pagingInput {
   text-align: center;
   display: none;
+  margin: -4px 0;
+  width: 3em;
 }
 
 .tobago-sheet-pagingOuter {
@@ -522,20 +524,4 @@ fixme: there is a problem with the selectManyShuttle with this style.
 /* FIXME: This is to hide the toolbar, until it is implemented */
 .tobago-tabGroup-toolBar {
   display: none;
-}
-
-
-.glyphicon.tobago-x-spinning {
-  animation: tobago-x-spinning 1s infinite linear;
-  -webkit-animation: tobago-x-spinning_webkit 1s infinite linear;
-}
-
-@keyframes tobago-x-spinning {
-  from { transform: rotate(0deg);}
-  to { transform: rotate(360deg);}
-}
-
-@-webkit-keyframes tobago-x-spinning_webkit {
-  from { -webkit-transform: rotate(0deg);}
-  to { -webkit-transform: rotate(360deg);}
 }

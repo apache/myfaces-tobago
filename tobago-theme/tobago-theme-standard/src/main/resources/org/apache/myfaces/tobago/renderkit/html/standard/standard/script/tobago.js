@@ -980,10 +980,11 @@ var Tobago = {
         var page = jQuery(".tobago-page");
         page.attr("title", "This application can't be used embedded inside an other site " +
         "(configuration: prevent-frame-attacks=true)!");
-        jQuery("<span>")
-            .addClass("glyphicon glyphicon-flash")
-            .css({color: "#ff0000", fontSize: "xx-large", margin: "20px"})
+        jQuery("<i>")
+            .addClass("fa fa-flash")
+            .css({fontSize: "xx-large", margin: "20px"})
             .appendTo(page);
+        page.addClass("alert-danger");
       }
     }
   },

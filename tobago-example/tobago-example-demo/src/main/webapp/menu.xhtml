@@ -105,17 +105,17 @@
       </tc:form>
       <tc:form>
         <tc:button immediate="true" id="previous"
-                   image="glyphicon-chevron-left"
+                   image="fa-chevron-left"
                    action="#{navigationState.gotoPrevious}"
                    disabled="#{navigationState.first}"
                    tip="#{overviewBundle.footer_previous}"/>
         <tc:button immediate="true" id="next"
-                   image="glyphicon-chevron-right"
+                   image="fa-chevron-right"
                    action="#{navigationState.gotoNext}"
                    disabled="#{navigationState.last}"
                    tip="#{overviewBundle.footer_next}"/>
         <tc:button action="#{navigationState.toggleViewSource}"
-                   image="glyphicon-eye-open"
+                   image="fa-eye"
                    immediate="true" tip="#{overviewBundle.footer_viewSource}"/>
       </tc:form>
     </tc:flowLayout>

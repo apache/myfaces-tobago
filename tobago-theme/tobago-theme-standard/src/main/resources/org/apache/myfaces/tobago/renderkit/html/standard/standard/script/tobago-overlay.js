@@ -75,11 +75,12 @@ Tobago.Config.set("Ajax", "waitOverlayDelay", 1000);
       var wait = jQuery("<div>").addClass("tobago-page-overlayCenter");
       this.overlay.append(wait);
 
-      var image = jQuery("<span>").css({fontSize: "xx-large"});
+      var image = jQuery("<i>");
       if (this.options.error) {
-        image.addClass("glyphicon glyphicon-flash").css({color: "#ff0000"});
+        image.addClass("fa fa-flash fa-3x");
+        wait.addClass("alert-danger");
       } else {
-        image.addClass("glyphicon glyphicon-refresh tobago-x-spinning").css({opacity: 0.4});
+        image.addClass("fa fa-refresh fa-3x fa-spin").css({opacity: 0.4});
       }
       wait.append(image);
       wait.show();

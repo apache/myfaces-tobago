@@ -57,6 +57,7 @@ import org.apache.myfaces.tobago.model.TreePath;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
+import org.apache.myfaces.tobago.renderkit.css.Icons;
 import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.Command;
@@ -341,11 +342,15 @@ public class SheetRenderer extends RendererBase {
         writer.writeClassAttribute(Classes.create(sheet, "cell", markup));
 
         if (column instanceof UIColumnSelector) {
-          final boolean disabled = ComponentUtils.getBooleanAttribute(column, Attributes.DISABLED);
+          UIColumnSelector selector = (UIColumnSelector) column;
           writer.startElement(HtmlElements.INPUT);
-          writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.CHECKBOX);
+          if (sheet.getSelectable().isSingle()) {
+            writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.RADIO);
+          } else {
+            writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.CHECKBOX);
+          }
           writer.writeAttribute(HtmlAttributes.CHECKED, selected);
-          writer.writeAttribute(HtmlAttributes.DISABLED, disabled);
+          writer.writeAttribute(HtmlAttributes.DISABLED, selector.isDisabled());
           writer.writeIdAttribute(sheetId + "_data_row_selector_" + rowIndex);
           writer.writeClassAttribute(Classes.create(sheet, "columnSelector"));
           writer.endElement(HtmlElements.INPUT);
@@ -478,9 +483,10 @@ public class SheetRenderer extends RendererBase {
         }
         final String pagerCommandId = pagerCommand.getClientId(facesContext);
 
-        writer.startElement(HtmlElements.SPAN);
+        writer.startElement(HtmlElements.UL);
         writer.writeClassAttribute(
-            Classes.create(sheet, "pagingOuter", showPageRange), TobagoClass.SHEET__PAGING_PAGES);
+            Classes.create(sheet, "pagingOuter", showPageRange),
+            TobagoClass.SHEET__PAGING_PAGES, BootstrapClass.PAGINATION);
         String areaId = "pagingPages";
         writer.writeIdAttribute(sheetId + ComponentUtils.SUB_SEPARATOR + "pagingPages");
         writer.writeText("");
@@ -490,6 +496,7 @@ public class SheetRenderer extends RendererBase {
           link(facesContext, application, areaId, atBeginning, PageAction.FIRST, sheet);
           link(facesContext, application, areaId, atBeginning, PageAction.PREV, sheet);
         }
+        writer.startElement(HtmlElements.LI);
         writer.startElement(HtmlElements.SPAN);
         writer.writeClassAttribute(Classes.create(sheet, "pagingText"));
         writer.writeAttribute(HtmlAttributes.TITLE,
@@ -541,12 +548,13 @@ public class SheetRenderer extends RendererBase {
           writer.write(ResourceManagerUtils.getPropertyNotNull(facesContext, "tobago", "sheetPagingInfoEmptyPage"));
         }
         writer.endElement(HtmlElements.SPAN);
+        writer.endElement(HtmlElements.LI);
         if (sheet.isShowPageRangeArrows()) {
           final boolean atEnd = sheet.isAtEnd();
           link(facesContext, application, areaId, atEnd, PageAction.NEXT, sheet);
           link(facesContext, application, areaId, atEnd || !sheet.hasRowCount(), PageAction.LAST, sheet);
         }
-        writer.endElement(HtmlElements.SPAN);
+        writer.endElement(HtmlElements.UL);
       }
 
       writer.endElement(HtmlElements.FOOTER);
@@ -737,22 +745,38 @@ public class SheetRenderer extends RendererBase {
         "image/sheet" + command.getToken() + (disabled ? "Disabled" : ""));
 
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
-    writer.startElement(HtmlElements.IMG);
+    writer.startElement(HtmlElements.LI);
+    writer.startElement(HtmlElements.A);
     writer.writeIdAttribute(data.getClientId(facesContext)
         + ComponentUtils.SUB_SEPARATOR + areaId + ComponentUtils.SUB_SEPARATOR + "pagingArrows"
         + ComponentUtils.SUB_SEPARATOR + command.getToken());
     final Classes pagerClasses = Classes.create(data, "footerPagerButton", disabled ? Markup.DISABLED : null);
     writer.writeClassAttribute(pagerClasses);
-    writer.writeAttribute(HtmlAttributes.SRC, image, false);
     writer.writeAttribute(HtmlAttributes.TITLE, tip, true);
-    writer.writeAttribute(HtmlAttributes.ALT, "", false);
-    writer.writeAttribute(DataAttributes.DISABLED, disabled);
-    writer.endElement(HtmlElements.IMG);
+    writer.writeIcon(getIcon(command));
+//    writer.writeAttribute(DataAttributes.DISABLED, disabled);
+    writer.endElement(HtmlElements.A);
+    writer.endElement(HtmlElements.LI);
   }
 
   // TODO sheet.getColumnLayout() may return the wrong number of column...
   // TODO
   // TODO
+
+  private Icons getIcon(PageAction pageAction) {
+    switch (pageAction) {
+      case FIRST:
+        return Icons.STEP_BACKWARD;
+      case LAST:
+        return Icons.STEP_FORWARD;
+      case PREV:
+        return Icons.BACKWARD;
+      case NEXT:
+        return Icons.FORWARD;
+      default:
+        return null;
+    }
+  }
 
   private void renderColumnHeaders(
       final FacesContext facesContext, final UISheet sheet, final TobagoResponseWriter writer,
@@ -807,7 +831,7 @@ public class SheetRenderer extends RendererBase {
           writer.writeClassAttribute(Classes.create(sheet, "headerCell"));
           writer.startElement(HtmlElements.SPAN);
           final AbstractUIColumn column = renderedColumnList.get(j);
-          BootstrapClass sorterGlyphicon = null;
+          Icons sorterIcon = null;
           Markup markup = Markup.NULL;
           String tip = (String) column.getAttributes().get(Attributes.TIP);
           // sorter icons should only displayed when there is only 1 column and not input
@@ -845,11 +869,11 @@ public class SheetRenderer extends RendererBase {
               if (column.getId().equals(sheetState.getSortedColumnId())) {
                 final String sortTitle;
                 if (sheetState.isAscending()) {
-                  sorterGlyphicon = BootstrapClass.GLYPHICON_CHEVRON_UP;
+                  sorterIcon = Icons.ANGLE_UP;
                   sortTitle = ResourceManagerUtils.getPropertyNotNull(facesContext, "tobago", "sheetAscending");
                   markup = markup.add(Markup.ASCENDING);
                 } else {
-                  sorterGlyphicon = BootstrapClass.GLYPHICON_CHEVRON_DOWN;
+                  sorterIcon = Icons.ANGLE_DOWN;
                   sortTitle = ResourceManagerUtils.getPropertyNotNull(facesContext, "tobago", "sheetDescending");
                   markup = markup.add(Markup.DESCENDING);
                 }
@@ -894,11 +918,7 @@ public class SheetRenderer extends RendererBase {
 
           }
 
-          if (sorterGlyphicon != null) {
-            writer.startElement(HtmlElements.SPAN);
-            writer.writeClassAttribute(BootstrapClass.GLYPHICON, sorterGlyphicon);
-            writer.endElement(HtmlElements.SPAN);
-          }
+          writer.writeIcon(sorterIcon);
 
           writer.endElement(HtmlElements.SPAN);
           if (renderedColumnList.get(j).isResizable()) {

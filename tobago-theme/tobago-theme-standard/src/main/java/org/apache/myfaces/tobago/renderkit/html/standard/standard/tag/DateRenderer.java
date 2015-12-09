@@ -23,6 +23,7 @@ import org.apache.myfaces.tobago.internal.component.AbstractUIDate;
 import org.apache.myfaces.tobago.internal.component.AbstractUIInput;
 import org.apache.myfaces.tobago.internal.context.DateTimeI18n;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
+import org.apache.myfaces.tobago.renderkit.css.Icons;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
@@ -81,21 +82,13 @@ public class DateRenderer extends InRenderer {
     writer.writeAttribute(HtmlAttributes.DISABLED, date.isDisabled() || date.isReadonly());
     if (pattern.contains("m")) { // simple guessing
       if (pattern.contains("d")) {
-        writer.startElement(HtmlElements.SPAN);
-        writer.writeClassAttribute(BootstrapClass.GLYPHICON, BootstrapClass.GLYPHICON_CALENDAR);
-        writer.endElement(HtmlElements.SPAN);
-        writer.startElement(HtmlElements.SPAN);
-        writer.writeClassAttribute(BootstrapClass.GLYPHICON, BootstrapClass.GLYPHICON_TIME);
-        writer.endElement(HtmlElements.SPAN);
+        writer.writeIcon(Icons.CALENDAR);
+        writer.writeIcon(Icons.CLOCK_O);
       } else {
-        writer.startElement(HtmlElements.SPAN);
-        writer.writeClassAttribute(BootstrapClass.GLYPHICON, BootstrapClass.GLYPHICON_TIME);
-        writer.endElement(HtmlElements.SPAN);
+        writer.writeIcon(Icons.CLOCK_O);
       }
     } else {
-      writer.startElement(HtmlElements.SPAN);
-      writer.writeClassAttribute(BootstrapClass.GLYPHICON, BootstrapClass.GLYPHICON_CALENDAR);
-      writer.endElement(HtmlElements.SPAN);
+      writer.writeIcon(Icons.CALENDAR);
     }
     writer.endElement(HtmlElements.BUTTON);
     writer.endElement(HtmlElements.SPAN);

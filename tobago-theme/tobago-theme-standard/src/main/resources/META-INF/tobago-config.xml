@@ -402,6 +402,7 @@
         <style name="style/contrib/jquery-ui-timepicker-addon-1.4.5.css"/>
         <style name="bootstrap/3.3.5/css/bootstrap.css"/>
         <style name="bootstrap/3.3.5/css/bootstrap-theme.css"/>
+        <style name="font-awesome/4.5.0/css/font-awesome.css"/>
         <style name="style/tobago.css"/>
       </resources>
       <resources production="false">
@@ -428,6 +429,7 @@
         <style name="style/contrib/jquery-ui-timepicker-addon-1.4.5.css"/>
         <style name="bootstrap/3.3.5/css/bootstrap.css"/>
         <style name="bootstrap/3.3.5/css/bootstrap-theme.css"/>
+        <style name="font-awesome/4.5.0/css/font-awesome.css"/>
         <style name="style/tobago.css"/>
       </resources>
     </theme-definition>
