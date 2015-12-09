@@ -48,7 +48,7 @@ public abstract class TobagoResponseWriter extends ResponseWriter {
 
   private static final CssItem[] NO_CSS_ITEMS = new CssItem[0];
 
-  protected IconEncoder iconEncoder = new FontAwesomeIconEncoder();
+  private IconEncoder iconEncoder = new FontAwesomeIconEncoder();
 
   // same as in ResponseWriter
 
@@ -163,7 +163,8 @@ public abstract class TobagoResponseWriter extends ResponseWriter {
     writeClassAttribute(first, second, NO_CSS_ITEMS);
   }
 
-  public void writeClassAttribute(final CssItem first, final CssItem second, final CssItem... others) throws IOException {
+  public void writeClassAttribute(final CssItem first, final CssItem second, final CssItem... others)
+      throws IOException {
     StringBuilder builder = new StringBuilder();
     if (first != null) {
       builder.append(first.getName());
