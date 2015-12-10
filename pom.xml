@@ -906,6 +906,7 @@
 
               <!-- font-awesome -->
               <exclude>**/font-awesome*.css</exclude>
+              <exclude>**/fontawesome*.*</exclude>
 
               <!-- typeahead -->
               <exclude>**/typeahead*.js</exclude>
