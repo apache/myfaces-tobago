@@ -143,43 +143,6 @@ fieldset.tobago-box {
   position: absolute;
 }
 
-/* button ------------------------------------------------------------------ */
-
-.tobago-button {
-  border-width: 1px;
-  border-style: solid;
-  border-color: #ddeeff;
-  border-right-color: #6688aa;
-  border-bottom-color: #6688aa;
-  padding: 2px;
-  background: #bbccdd;
-  font-weight: normal;
-  cursor: pointer;
-  height: 19px;
-  white-space: nowrap;
-}
-
-.tobago-button-markup-default {
-  border-width: 2px;
-  padding: 1px;
-}
-
-.tobago-button-markup-disabled {
-  cursor: default;
-}
-
-.tobago-button img {
-  margin-right: 5px;
-  /* here we need "middle" for icons that are not 16px */
-  vertical-align: middle;
-  /* when we use "middle", we need -2px instead of -1px here */
-  margin-top: -2px;
-}
-
-.tobago-button span {
-  vertical-align: top;
-}
-
 /* calendar ------------------------------------------------------------------- */
 
 .tobago-calendar-row {

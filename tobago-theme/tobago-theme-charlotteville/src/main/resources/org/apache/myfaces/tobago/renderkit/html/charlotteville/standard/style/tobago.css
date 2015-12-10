@@ -58,17 +58,6 @@
   background-color: #FADC9F;
 }
 
-/* button ------------------------------------------------------------------ */
-
-.tobago-button {
-  background: #FADC9F;
-  color: #660000;
-}
-
-.tobago-button-markup-disabled {
-  color: GrayText;
-}
-
 /* label ------------------------------------------------------------------- */
 
 .tobago-label {

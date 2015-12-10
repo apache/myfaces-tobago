@@ -58,19 +58,6 @@
   background-color: #FAB54D;
 }
 
-/* button ------------------------------------------------------------ */
-
-.tobago-button {
-  border: 1px #FF7D00 solid;
-  background: #FFCC66;
-  font: 11px arial, helvetica, sans-serif;
-  color: #3366CC;
-}
-
-.tobago-button-markup-disabled {
-  color: gray;
-}
-
 /* - calendar --------------------------------------------------------------- */
 
 td.tobago-calendar-day-markup-selected {
