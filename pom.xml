@@ -904,6 +904,9 @@
               <exclude>**/bootstrap*.css</exclude>
               <exclude>**/glyphicons*.*</exclude>
 
+              <!-- font-awesome -->
+              <exclude>**/font-awesome*.css</exclude>
+
               <!-- typeahead -->
               <exclude>**/typeahead*.js</exclude>
 
