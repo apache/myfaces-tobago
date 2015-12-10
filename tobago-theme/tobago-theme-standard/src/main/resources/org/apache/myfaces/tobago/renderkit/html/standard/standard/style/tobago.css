@@ -43,6 +43,14 @@
   margin-left: .3em;
 }
 
+/*
+XXX workaround for Bootstrap with "old" jQuery UI input control
+needed for popups
+*/
+.ui-datepicker {
+  z-index: 2000 !important;
+}
+
 /* flexLayout -------------------------------------------------------------- */
 
 .tobago-flexLayout {
