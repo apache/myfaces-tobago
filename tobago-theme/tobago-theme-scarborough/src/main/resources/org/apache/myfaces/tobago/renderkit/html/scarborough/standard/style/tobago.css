@@ -786,13 +786,6 @@ hr.tobago-separator {
 
 /* sheet ------------------------------------------------------------------ */
 
-.tobago-sheet {
-  overflow: hidden;
-  position: relative;
-}
-
-/* XXX deprecated: .tobago-sheet-outer please use .tobago-sheet */
-
 .tobago-sheet-header {
   overflow: hidden;
   position: relative;
@@ -914,62 +907,6 @@ hr.tobago-separator {
 .tobago-sheet-row-markup-selected, .tobago-sheet-row-markup-selected td {
 	background: highlight;
 	color: highlighttext;
-}
-
-.tobago-sheet-footer {
-  position: relative;
-  left: 0;
-  top: 0;
-  height: 20px;
-  overflow: hidden;
-}
-
-.tobago-sheet-pagingOuter-markup-left {
-  /*position : absolute;*/
-  /*top: 0;*/
-  /*left: 0;*/
-}
-.tobago-sheet-pagingOuter-markup-center {
-
-}
-
-.tobago-sheet-pagingOuter-markup-right {
-  /*position : absolute;*/
-  /*top: 0;*/
-  /*right: 0;*/
-}
-
-.tobago-sheet-pagingInput {
-  position: relative;
-  width: 30px;
-  height: 16px;
-  padding-top: 0;
-  padding-bottom: 0;
-  margin-top: 0;
-  margin-bottom: 0;
-}
-
-.tobago-sheet-pagingOuter {
-}
-
-.tobago-sheet-pagingText {
-  padding-right: 5px;
-}
-
-.tobago-sheet-footerPagerButton {
-}
-
-.tobago-sheet-footerPagerButton-markup-disabled {
-}
-
-.tobago-sheet-pagingLink {
-  padding-left: 2px;
-  padding-right: 2px;
-}
-
-a:link.tobago-sheet-pagingLink, a:visited.tobago-sheet-pagingLink,
-a:active.tobago-sheet-pagingLink {
-  color: #000000;
 }
 
 .tobago-sheet-selectorMenu {

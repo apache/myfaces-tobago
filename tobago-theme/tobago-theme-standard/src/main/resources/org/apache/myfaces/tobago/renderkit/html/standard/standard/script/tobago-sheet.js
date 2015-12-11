@@ -40,18 +40,6 @@ Tobago.Sheet = function(
   this.dblClickReloadComponentId = dblClickReloadComponentId;
   this.renderedPartially = renderedPartially;
 
-  this.ppPrefix = Tobago.SUB_COMPONENT_SEP + "pagingArrows" + Tobago.SUB_COMPONENT_SEP;
-
-  this.firstRegExp = new RegExp(this.ppPrefix + "First$");
-
-  this.prevRegExp = new RegExp(this.ppPrefix + "Prev$");
-
-  this.nextRegExp = new RegExp(this.ppPrefix + "Next$");
-
-  this.lastRegExp = new RegExp(this.ppPrefix + "Last$");
-
-  this.firstRowRegExp = new RegExp("^" + this.id + "_data_tr_\\d+$");
-
   this.setup();
 
   console.timeEnd("[tobago-sheet] constructor"); // @DEV_ONLY
@@ -106,61 +94,10 @@ Tobago.Sheet.init = function(elements) {
 Tobago.registerListener(Tobago.Sheet.init, Tobago.Phase.DOCUMENT_READY);
 Tobago.registerListener(Tobago.Sheet.init, Tobago.Phase.AFTER_UPDATE);
 
-Tobago.Sheet.prototype.setupArrowPaging = function(linkBox) {
-    for (var i = 0; i < linkBox.childNodes.length; i++) {
-        var child = linkBox.childNodes[i];
-        if (child.nodeType == 1 && child.tagName.toUpperCase() == "IMG") {
-            // first, prev, next and last commands
-            if (undefined == jQuery(child).attr("data-tobago-disabled")) {
-                Tobago.addBindEventListener(child, "click", this, "doPaging");
-            }
-        }
-    }
-}
-
-Tobago.Sheet.prototype.setupPagePaging = function() {
-    var idPrefix = this.id + Tobago.SUB_COMPONENT_SEP;
-
-    var linkBoxPages = Tobago.element(idPrefix + "pagingPages");
-    if (linkBoxPages) {
-        this.setupArrowPaging(linkBoxPages);
-    }
-    var linkBoxLinks = Tobago.element(idPrefix + "pagingLinks");
-    if (linkBoxLinks) {
-        this.setupArrowPaging(linkBoxLinks);
-    }
-  };
-
-Tobago.Sheet.prototype.setupRowPaging = function() {
-    var toRowId = this.id + Tobago.COMPONENT_SEP + "ToRow";
-    var rowText = Tobago.element(toRowId + Tobago.SUB_COMPONENT_SEP + "text");
-    if (rowText) {
-      var parent = rowText.parentNode;
-      Tobago.addEventListener(parent, "click", Tobago.bind(this, "insertTarget", toRowId));
-    }
-  };
-
-Tobago.Sheet.prototype.doPaging = function(event) {
-    var element = Tobago.element(event);
-    var action;
-    if (element.id.match(this.firstRegExp)){
-      action = this.id + Tobago.COMPONENT_SEP +"First";
-    } else if (element.id.match(this.prevRegExp)){
-      action = this.id + Tobago.COMPONENT_SEP +"Prev";
-    } else if (element.id.match(this.nextRegExp)){
-      action = this.id + Tobago.COMPONENT_SEP +"Next";
-    } else if (element.id.match(this.lastRegExp)){
-      action = this.id + Tobago.COMPONENT_SEP +"Last";
-    } else {
-      action = "unset";
-    }
-    this.reloadWithAction(event.srcElement, action);
-  };
-
 Tobago.Sheet.prototype.reloadWithAction = function(source, action, options) {
-    console.debug("reload sheet with action \"" + action + "\""); // @DEV_ONLY
+    console.debug("reload sheet with action '" + action + "'"); // @DEV_ONLY
     Tobago.Updater.update(source, action, this.renderedPartially ? this.renderedPartially : this.id, options);
-  };
+};
 
 Tobago.Sheet.prototype.afterDoUpdateSuccess = function() {
   this.setup();
@@ -173,76 +110,6 @@ Tobago.Sheet.prototype.afterDoUpdateNotModified = function() {
 Tobago.Sheet.prototype.afterDoUpdateError = function() {
   this.initReload();
 };
-
-Tobago.Sheet.prototype.insertTarget = function(event, actionId) {
-    console.debug("insertTarget('{1}')", actionId);
-    var textId = actionId + Tobago.SUB_COMPONENT_SEP + "text";
-    var text = Tobago.element(textId);
-    if (text) {
-      var span = text.parentNode;
-      var hiddenId = actionId + Tobago.SUB_COMPONENT_SEP +  "value";
-      span.style.cursor = 'auto';
-      var input = Tobago.element(hiddenId);
-      if (! input) {
-        input = document.createElement('input');
-        input.type='text';
-        input.id=hiddenId;
-        input.name=hiddenId;
-        input.className = "tobago-sheet-pagingInput";
-        input.actionId = actionId;
-        Tobago.addBindEventListener(input, "blur", this, "delayedHideInput");
-        Tobago.addBindEventListener(input, "keydown", this, "doKeyEvent");
-        input.style.display = 'none';
-        span.insertBefore(input, text);
-      }
-      input.value=text.innerHTML;
-      input.style.display = 'inline';
-      text.style.display = 'none';
-      input.focus();
-      input.select();
-    }
-    else {
-      console.error("Can't find text field with id = \"" + textId + "\"!"); // @DEV_ONLY
-    }
-  };
-
-Tobago.Sheet.prototype.delayedHideInput = function(event) {
-    var element = Tobago.element(event);
-    if (element) {
-      this.textInput = element;
-      setTimeout(Tobago.bind(this, "hideInput"), 100);
-    }
-  };
-
-Tobago.Sheet.prototype.hideInput = function() {
-    if (this.textInput) {
-      this.textInput.parentNode.style.cursor = 'pointer';
-      this.textInput.style.display = 'none';
-      this.textInput.nextSibling.style.display = '';
-    }
-  };
-
-Tobago.Sheet.prototype.doKeyEvent = function(event) {
-    var input = Tobago.element(event);
-    if (input) {
-
-      var keyCode;
-      if (event.which) {
-        keyCode = event.which;
-      } else {
-        keyCode = event.keyCode;
-      }
-      if (keyCode == 13) {
-        if (input.value != input.nextSibling.innerHTML) {
-          Tobago.stopEventPropagation(event);
-          this.reloadWithAction(event.srcElement, input.actionId);
-        } else {
-          this.textInput = input;
-          this.hideInput();
-        }
-      }
-    }
-  };
 
 Tobago.Sheet.setup2 = function (sheets) {
 
@@ -458,37 +325,18 @@ Tobago.Sheet.setup2 = function (sheets) {
     Tobago.Sheets.get(sheet.attr("id")).initReload();
   });
 
-  // init pagingLinks
-  jQuery(sheets).find(".tobago-sheet-pagingLinks").find("a").click(function() {
-    var anchor = jQuery(this);
-    var sheet = anchor.parents(".tobago-sheet:first");
-    var sheetId = sheet.attr("id");
-    var hiddenId = sheetId + ":ToPage::value";
-    var hidden = jQuery(Tobago.Utils.escapeClientId(hiddenId));
-    var toPage = anchor.data("tobago-to-page");
-    hidden.val(toPage);
-    console.info("adding direct link " + anchor.html());
-    console.info("action=" + sheetId + Tobago.COMPONENT_SEP + "ToPage");
-    console.info("page=" + toPage);
-    Tobago.Sheets.get(sheetId).reloadWithAction(anchor.get(0), sheetId + Tobago.COMPONENT_SEP + "ToPage");
-  });
-
   // init paging by pages
-  jQuery(sheets).find(".tobago-sheet-pagingPages").each(function() {
-    var pagingPages = jQuery(this);
-    pagingPages.find(".tobago-sheet-pagingOutput").parent().click(function () {
-      console.info("click on text");
-      var parent = jQuery(this);
-      parent.children(".tobago-sheet-pagingOutput").hide();
-      parent.children(".tobago-sheet-pagingInput").show().focus().select();
+  jQuery(sheets).find(".tobago-sheet-pagingText").each(function() {
+    var pagingText = jQuery(this);
+    pagingText.click(function () {
+      var text = jQuery(this);
+      text.children(".tobago-sheet-pagingOutput").hide();
+      text.children(".tobago-sheet-pagingInput").show().focus().select();
     });
-    pagingPages.find(".tobago-sheet-pagingInput")
+    pagingText.children(".tobago-sheet-pagingInput")
         .blur(function () {
-          console.info("blur");
           Tobago.Sheet.hideInputOrSubmit(jQuery(this));
         }).keydown(function (event) {
-          console.info("keydown");
-          console.dir(event);
           if (event.keyCode == 13) {
             event.stopPropagation();
             event.preventDefault();
@@ -524,17 +372,13 @@ Tobago.Sheet.adjustTableWidth = function(bodyDiv) {
 Tobago.Sheet.hideInputOrSubmit = function(input) {
   var output = input.siblings(".tobago-sheet-pagingOutput");
   var changed = output.html() != input.val();
-  var sheet = input.parents(".tobago-sheet:first");
-  var sheetId = sheet.attr("id");
+  var sheetId = input.parents(".tobago-sheet:first").attr("id");
   output.html(input.val());
-  var hiddenId = sheetId + ":ToPage::value";
-  var hidden = jQuery(Tobago.Utils.escapeClientId(hiddenId));
-  hidden.val(input.val());
   if (changed) {
-    console.error("not implemented");
-    Tobago.Sheets.get(sheetId).reloadWithAction(input.get(0), sheetId + Tobago.COMPONENT_SEP + "ToPage");
+    var commandId = input.attr("id").substr(0, input.attr("id").lastIndexOf("::value"));
+    Tobago.Sheets.get(sheetId).reloadWithAction(input.get(0), commandId);
   } else {
-    console.info("no update needed");
+    console.info("no update needed"); // @DEV_ONLY
     input.hide();
     output.show();
   }
@@ -552,10 +396,6 @@ Tobago.Sheet.hidden = function(sheet, idSuffix) {
 
 Tobago.Sheet.prototype.setup = function() {
   console.time("[tobago-sheet] setup"); // @DEV_ONLY
-
-  this.setupPagePaging();
-  this.setupRowPaging();
-
   this.initReload();
   console.timeEnd("[tobago-sheet] setup"); // @DEV_ONLY
 };
@@ -566,12 +406,6 @@ Tobago.Sheet.prototype.initReload = function() {
   if (typeof reload == "number") {
     Tobago.addReloadTimeout(this.id, Tobago.bind2(this, "reloadWithAction", null, this.id), reload);
   }
-  /*
-  setTimeout(function() {
-//    this.reloadWithAction(null, sheet.attr("id"));
-    Tobago.Updater.update(null, sheet.attr("id"), this.renderedPartially ? this.renderedPartially : this.id, options);
-  }, reload);
-  */
 };
 
 Tobago.Sheet.prototype.doSelection = function(event) {
@@ -744,9 +578,6 @@ Tobago.Sheet.toggleAll = function(sheet) {
 };
 
 Tobago.Sheet.selectRange = function(sheet, rows, first, last, selectDeselected, deselectSelected) {
-//  console.info("select any 15");
-//  var start = new Date().getTime();
-
   var selected = Tobago.Sheet.hidden(sheet, "selected");
   for (var i = first; i <= last; i++) {
     var row = rows.eq(i);
@@ -761,8 +592,6 @@ Tobago.Sheet.selectRange = function(sheet, rows, first, last, selectDeselected, 
       }
     }
   }
-
-//  console.info("select any 15 +++++++++++++ " + (new Date().getTime() - start));
 };
 
 Tobago.Sheet.getDataIndex = function(sheet, row) {

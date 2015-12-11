@@ -40,23 +40,20 @@
   <entry key="sheetPrev">Previous Page</entry>
   <entry key="sheetNext">Next Page</entry>
   <entry key="sheetLast">Last Page</entry>
+  <entry key="sheetToPage">Page {0}</entry>
   <entry key="sheetTipSorting">Click to sort this column</entry>
   <entry key="sheetAscending">Ascending</entry>
   <entry key="sheetDescending">Descending</entry>
-  <entry key="sheetPagingInfoRows">Rows &lt;span id="{3}"&gt;{0}&lt;/span&gt; to {1} of {2}</entry>
-  <entry key="sheetPagingInfoSingleRow">Row &lt;span id="{3}"&gt;{0}&lt;/span&gt; of {2}</entry>
-  <entry key="sheetPagingInfoUndefinedRows">Rows &lt;span id="{3}"&gt;{0}&lt;/span&gt; to {1}</entry>
-  <entry key="sheetPagingInfoUndefinedSingleRow">Row &lt;span id="{3}"&gt;{0}&lt;/span&gt;</entry>
+  <entry key="sheetPagingInfoRows">Rows {0} to {1} of {2}</entry>
+  <entry key="sheetPagingInfoSingleRow">Row {0} of {2}</entry>
+  <entry key="sheetPagingInfoUndefinedRows">Rows {0} to {1}</entry>
+  <entry key="sheetPagingInfoUndefinedSingleRow">Row {0}</entry>
   <entry key="sheetPagingInfoEmptyRow">No rows available</entry>
   <entry key="sheetPagingInfoRowPagingTip">Click here, to change the first displayed row</entry>
-  <entry key="sheetPagingInfoPages1">Page </entry>
-  <entry key="sheetPagingInfoPages2"> of {1}</entry>
-  <entry key="sheetPagingInfoSinglePage1">Page </entry>
-  <entry key="sheetPagingInfoSinglePage2"> of {1}</entry>
-  <entry key="sheetPagingInfoUndefinedPages1">Page </entry>
-  <entry key="sheetPagingInfoUndefinedPages2"/>
-  <entry key="sheetPagingInfoUndefinedSinglePage1">Page </entry>
-  <entry key="sheetPagingInfoUndefinedSinglePage2"/>
+  <entry key="sheetPagingInfoPages">Page {0} of {1}</entry>
+  <entry key="sheetPagingInfoSinglePage">Page {0} of {1}</entry>
+  <entry key="sheetPagingInfoUndefinedPages">Page {0}</entry>
+  <entry key="sheetPagingInfoUndefinedSinglePage">Page {0}</entry>
   <entry key="sheetPagingInfoEmptyPage"/>
   <entry key="sheetPagingInfoPagePagingTip">Click here, to change the displayed page</entry>
   <entry key="sheetMenuToggleselect">Invert selections</entry>

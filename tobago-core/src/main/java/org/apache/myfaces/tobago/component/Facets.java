@@ -38,6 +38,7 @@ public final class Facets {
   public static final String LAYOUT_DEFAULT = "layoutDefault";
   public static final String MENUBAR = "menuBar";
   public static final String PAGER_PAGE = "pagerPage";
+  public static final String PAGER_PAGE_DIRECT = "pagerPageDirect";
   public static final String PAGER_ROW = "pagerRow";
   public static final String POPUP = "popup";
   public static final String RADIO = "radio";

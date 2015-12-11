@@ -42,23 +42,20 @@
   <entry key="sheetPrev">vorherige Seite</entry>
   <entry key="sheetNext">nächste Seite</entry>
   <entry key="sheetLast">letzte Seite</entry>
+  <entry key="sheetToPage">Seite {0}</entry>
   <entry key="sheetTipSorting">nach dieser Spalte sortieren</entry>
   <entry key="sheetAscending">aufsteigend sortiert</entry>
   <entry key="sheetDescending">absteigend sortiert</entry>
-  <entry key="sheetPagingInfoRows">Zeilen &lt;span id="{3}"&gt;{0}&lt;/span&gt; bis {1} von {2}</entry>
-  <entry key="sheetPagingInfoSingleRow">Zeile &lt;span id="{3}">{0}&lt;/span> von {2}</entry>
-  <entry key="sheetPagingInfoUndefinedRows">Zeilen &lt;span id="{3}"&gt;{0}&lt;/span&gt; bis {1}</entry>
-  <entry key="sheetPagingInfoUndefinedSingleRow">Zeile &lt;span id="{3}">{0}&lt;/span></entry>
+  <entry key="sheetPagingInfoRows">Zeilen {0} bis {1} von {2}</entry>
+  <entry key="sheetPagingInfoSingleRow">Zeile {0} von {2}</entry>
+  <entry key="sheetPagingInfoUndefinedRows">Zeilen {0} bis {1}</entry>
+  <entry key="sheetPagingInfoUndefinedSingleRow">Zeile {0}</entry>
   <entry key="sheetPagingInfoEmptyRow">Keine Zeilen verf&amp;uuml;gbar</entry>
   <entry key="sheetPagingInfoRowPagingTip">Hier klicken, zum Eingeben der ersten anzuzeigenden Zeile.</entry>
-  <entry key="sheetPagingInfoPages1">Seite </entry>
-  <entry key="sheetPagingInfoPages2"> von {1}</entry>
-  <entry key="sheetPagingInfoSinglePage1">Seite </entry>
-  <entry key="sheetPagingInfoSinglePage2"> von {1}</entry>
-  <entry key="sheetPagingInfoUndefinedPages1">Seite </entry>
-  <entry key="sheetPagingInfoUndefinedPages2"/>
-  <entry key="sheetPagingInfoUndefinedSinglePage1">Seite </entry>
-  <entry key="sheetPagingInfoUndefinedSinglePage2"/>
+  <entry key="sheetPagingInfoPages">Seite {0} von {1}</entry>
+  <entry key="sheetPagingInfoSinglePage">Seite {0} von {1}</entry>
+  <entry key="sheetPagingInfoUndefinedPages">Seite {0}</entry>
+  <entry key="sheetPagingInfoUndefinedSinglePage">Seite {0}</entry>
   <entry key="sheetPagingInfoEmptyPage"/>
   <entry key="sheetPagingInfoPagePagingTip">Hier klicken, zum Eingeben der anzuzeigenden Seite.</entry>
   <entry key="sheetMenuToggleselect">Markierung umkehren</entry>

@@ -30,6 +30,7 @@ public enum Icons {
   BACKWARD,
   CALENDAR,
   CLOCK_O,
+  ELLIPSIS_H,
   FORWARD,
   MINUS_SQUARE_O,
   PLUS_SQUARE_O,

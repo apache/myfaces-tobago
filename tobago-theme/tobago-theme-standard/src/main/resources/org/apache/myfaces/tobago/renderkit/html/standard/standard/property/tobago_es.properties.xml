@@ -40,23 +40,20 @@
   <entry key="sheetPrev">Página Anterior</entry>
   <entry key="sheetNext">Página Siguiente</entry>
   <entry key="sheetLast">Última Página</entry>
+  <entry key="sheetToPage">Página {0}</entry>
   <entry key="sheetTipSorting">Ordenar por esta columna</entry>
   <entry key="sheetAscending">Ascendente</entry>
   <entry key="sheetDescending">Descendente</entry>
-  <entry key="sheetPagingInfoRows">Registros &lt;span id="{3}"&gt;{0}&lt;/span&gt; {1} de {2}</entry>
-  <entry key="sheetPagingInfoSingleRow">Registro &lt;span id="{3}"&gt;{0}&lt;/span&gt; de {2}</entry>
-  <entry key="sheetPagingInfoUndefinedRows">Registros &lt;span id="{3}"&gt;{0}&lt;/span&gt; {1}</entry>
-  <entry key="sheetPagingInfoUndefinedSingleRow">Registro &lt;span id="{3}"&gt;{0}&lt;/span&gt;</entry>
+  <entry key="sheetPagingInfoRows">Registros {0} {1} de {2}</entry>
+  <entry key="sheetPagingInfoSingleRow">Registro {0} de {2}</entry>
+  <entry key="sheetPagingInfoUndefinedRows">Registros {0} {1}</entry>
+  <entry key="sheetPagingInfoUndefinedSingleRow">Registro {0}</entry>
   <entry key="sheetPagingInfoEmptyRow">No hay registros disponibles</entry>
   <entry key="sheetPagingInfoRowPagingTip">Click aqui, para cambiar el primer registro desplegado.</entry>
-  <entry key="sheetPagingInfoPages1">Página </entry>
-  <entry key="sheetPagingInfoPages2"> de {1}</entry>
-  <entry key="sheetPagingInfoSinglePage1">Página </entry>
-  <entry key="sheetPagingInfoSinglePage2"> de {1}</entry>
-  <entry key="sheetPagingInfoUndefinedPages1">Página </entry>
-  <entry key="sheetPagingInfoUndefinedPages2"/>
-  <entry key="sheetPagingInfoUndefinedSinglePage1">Página </entry>
-  <entry key="sheetPagingInfoUndefinedSinglePage2"/>
+  <entry key="sheetPagingInfoPages">Página {0} de {1}</entry>
+  <entry key="sheetPagingInfoSinglePage">Página {0} de {1}</entry>
+  <entry key="sheetPagingInfoUndefinedPages">Página {0}</entry>
+  <entry key="sheetPagingInfoUndefinedSinglePage">Página {0}</entry>
   <entry key="sheetPagingInfoEmptyPage"/>
   <entry key="sheetPagingInfoPagePagingTip">Click aquí, para cambiar el nombre desplegado.</entry>
   <entry key="sheetMenuToggleselect">Invertir seleccion</entry>

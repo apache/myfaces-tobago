@@ -235,18 +235,6 @@ li.tobago-menu-markup-selected {
 	color: highlighttext;
 }
 
-.tobago-sheet-footer {
-  border-top: 1px dotted #3366CC;
-  background: #ffffff;
-  font: bold 11px arial, helvetica, sans-serif;
-  color: #3366CC;
-  text-decoration: none;
-}
-
-.tobago-sheet-pagingInput {
-  border: 1px #3366CC solid;
-}
-
 /* tab ---------------------------------------------------------------------- */
 
 .tobago-tab {

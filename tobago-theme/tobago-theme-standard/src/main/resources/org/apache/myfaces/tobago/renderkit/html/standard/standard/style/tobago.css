@@ -347,13 +347,13 @@ h6 > .glyphicon:first-child {
   text-align: center;
 }
 
-.tobago-sheet-pagingOuter-markup-left {
+.tobago-sheet-paging-markup-left {
   float: left;
 }
-.tobago-sheet-pagingOuter-markup-center {
+.tobago-sheet-paging-markup-center {
 }
 
-.tobago-sheet-pagingOuter-markup-right {
+.tobago-sheet-paging-markup-right {
   float:right;
 }
 
@@ -364,27 +364,8 @@ h6 > .glyphicon:first-child {
   width: 3em;
 }
 
-.tobago-sheet-pagingOuter {
-  vertical-align: top;
-  cursor: pointer;
-}
-
 .tobago-sheet-pagingText {
   cursor: pointer;
-  vertical-align: top;
-}
-
-.tobago-sheet-footerPagerButton {
-  cursor: pointer;
-  vertical-align: top;
-}
-
-.tobago-sheet-footerPagerButton-markup-disabled {
-  cursor: auto;
-}
-
-.tobago-sheet-pagingLink {
-  vertical-align: top;
 }
 
 table.tobago-sheet-headerTable>tbody>tr>th:last-child,
@@ -511,10 +492,6 @@ fixme: there is a problem with the selectManyShuttle with this style.
 
 .tobago-label {
   width: 155px;
-}
-
-.tobago-sheet-pagingOuter {
-  margin: 20px 0;
 }
 
 /* fixes vertical space, todo: why is is needed? is there a better way? */

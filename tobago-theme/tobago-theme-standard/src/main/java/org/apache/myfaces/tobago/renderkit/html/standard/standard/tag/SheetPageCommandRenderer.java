@@ -19,6 +19,7 @@
 
 package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
+import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.event.PageAction;
 import org.apache.myfaces.tobago.event.PageActionEvent;
 import org.apache.myfaces.tobago.internal.util.FacesContextUtils;
@@ -42,27 +43,27 @@ public class SheetPageCommandRenderer extends LinkRenderer {
       LOG.debug("actionId = '" + actionId + "'");
       LOG.debug("clientId = '" + clientId + "'");
     }
+
     if (actionId != null && actionId.equals(clientId)) {
 
-      final PageAction action;
-      try {
-        action = PageAction.parse(component.getId());
-      } catch (final Exception e) {
-        LOG.error("Illegal value for PageAction :" + component.getId());
-        return;
-      }
+      final PageAction action = (PageAction) component.getAttributes().get(Attributes.PAGE_ACTION);
       final PageActionEvent event = new PageActionEvent(component.getParent(), action);
 
       switch (action) {
         case TO_PAGE:
         case TO_ROW:
-          final Map map = facesContext.getExternalContext().getRequestParameterMap();
-          final Object value = map.get(clientId + ComponentUtils.SUB_SEPARATOR + "value");
-          try {
-            event.setValue(Integer.parseInt((String) value));
-          } catch (final NumberFormatException e) {
-            LOG.error("Can't parse integer value for action " + action.name() + ": " + value);
+          Integer target = (Integer) component.getAttributes().get(Attributes.PAGING_TARGET);
+          if (target == null) {
+            final Map map = facesContext.getExternalContext().getRequestParameterMap();
+            final Object value = map.get(actionId + ComponentUtils.SUB_SEPARATOR + "value");
+            try {
+              target = Integer.parseInt((String) value);
+            } catch (final NumberFormatException e) {
+              LOG.error("Can't parse integer value for action " + action.name() + ": " + value);
+              break;
+            }
           }
+          event.setValue(target);
           break;
         default:
           // nothing more to do
