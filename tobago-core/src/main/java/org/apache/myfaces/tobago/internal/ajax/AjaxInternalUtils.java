@@ -239,7 +239,6 @@ public final class AjaxInternalUtils {
   }
 
   private static void redirectInternal(final Writer writer, final String url) throws IOException {
-    writer.flush(); // is needed in some cases, e. g. TOBAGO-1094
     writer.write("{\n  \"tobagoAjaxResponse\": true,\n");
     writer.write("  \"responseCode\": 302,\n");
     writer.write("  \"location\": \"");
@@ -256,7 +255,6 @@ public final class AjaxInternalUtils {
     ResponseUtils.ensureContentTypeHeader(response, contentType);
     ResponseUtils.ensureNoCacheHeader(response);
     final Writer writer = response.getWriter();
-    writer.flush(); // is needed in some cases, e. g. TOBAGO-1094
     writer.write("{\n  \"tobagoAjaxResponse\": true,\n");
     writer.write("  \"responseCode\": " + AjaxResponseRenderer.CODE_RELOAD_REQUIRED + ",\n");
     writer.write("  \"location\": \"");

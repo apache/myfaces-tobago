@@ -470,7 +470,6 @@ public class PageRenderer extends RendererBase {
       throws IOException {
     writer.startElement(HtmlElements.DIV, null);
     writer.writeAttribute(HtmlAttributes.STYLE, "color: red", null);
-    writer.flush(); // is needed in some cases, e. g. TOBAGO-1094
     writer.write("[");
     writer.write(id != null ? id : "null");
     writer.write("]");

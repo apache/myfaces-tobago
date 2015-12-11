@@ -254,8 +254,6 @@ public abstract class TobagoResponseWriter extends ResponseWriter {
   public void startJavascript() throws IOException {
     startElement(HtmlElements.SCRIPT);
     writeAttribute(HtmlAttributes.TYPE, "text/javascript", false);
-    flush(); // is needed in some cases, e. g. TOBAGO-1094
-//    write("\n<!--\n");
   }
 
   /**

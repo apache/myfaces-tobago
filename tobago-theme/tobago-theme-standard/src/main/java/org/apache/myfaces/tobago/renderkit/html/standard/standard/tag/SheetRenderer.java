@@ -445,7 +445,6 @@ public class SheetRenderer extends RendererBase {
         writer.writeClassAttribute(Classes.create(sheet, "pagingOuter", showRowRange));
         writer.writeAttribute(HtmlAttributes.TITLE,
             ResourceManagerUtils.getPropertyNotNull(facesContext, "tobago", "sheetPagingInfoRowPagingTip"), true);
-        writer.flush(); // is needed in some cases, e. g. TOBAGO-1094
         writer.write(createSheetPagingInfoRow(sheet, facesContext, pagerCommandId));
         writer.endElement(HtmlElements.SPAN);
       }
@@ -501,7 +500,6 @@ public class SheetRenderer extends RendererBase {
         writer.writeClassAttribute(Classes.create(sheet, "pagingText"));
         writer.writeAttribute(HtmlAttributes.TITLE,
                 ResourceManagerUtils.getPropertyNotNull(facesContext, "tobago", "sheetPagingInfoPagePagingTip"), true);
-        writer.flush(); // is needed in some cases, e. g. TOBAGO-1094
         if (sheet.getRowCount() != 0) {
           final Locale locale = facesContext.getViewRoot().getLocale();
           final int first = sheet.getCurrentPage() + 1;
