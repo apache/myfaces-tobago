@@ -67,10 +67,6 @@ public class ImageRenderer extends RendererBase {
       src = null;
     }
 
-    String border = (String) image.getAttributes().get(Attributes.BORDER);
-    if (border == null) {
-      border = "0";
-    }
     String alt = (String) image.getAttributes().get(Attributes.ALT);
     if (alt == null) {
       alt = "";
@@ -87,7 +83,6 @@ public class ImageRenderer extends RendererBase {
     if (title != null) {
       writer.writeAttribute(HtmlAttributes.TITLE, title, true);
     }
-    writer.writeAttribute(HtmlAttributes.BORDER, border, false);
 /*
     final Style style = new Style();
     style.setWidth(image.getWidth());

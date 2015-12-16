@@ -113,7 +113,6 @@ public class CommandRenderer extends CommandRendererBase {
       writer.startElement(HtmlElements.IMG);
       writer.writeClassAttribute(Classes.create(link, "image"));
       writer.writeAttribute(HtmlAttributes.SRC, image, true);
-      writer.writeAttribute(HtmlAttributes.BORDER, 0); // TODO: is border=0 setting via style possible?
       final String tip = link.getTip();
       writer.writeAttribute(HtmlAttributes.ALT, tip != null ? tip : "", true);
       if (tip != null) {
