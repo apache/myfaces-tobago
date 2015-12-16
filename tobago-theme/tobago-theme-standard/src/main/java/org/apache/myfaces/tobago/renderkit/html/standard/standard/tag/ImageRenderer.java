@@ -100,16 +100,6 @@ public class ImageRenderer extends RendererBase {
     }
   }
 
-  private String createSrc(final String src, final String ext) {
-    final int dot = src.lastIndexOf('.');
-    if (dot == -1) {
-      LOG.warn("Image src without extension: '" + src + "'");
-      return src;
-    } else {
-      return src.substring(0, dot) + ext + src.substring(dot);
-    }
-  }
-
   private boolean isDisabled(final AbstractUIImage graphic) {
     return graphic.isDisabled()
         || (graphic.getParent() instanceof UICommand && ((UICommand) graphic.getParent()).isDisabled());
