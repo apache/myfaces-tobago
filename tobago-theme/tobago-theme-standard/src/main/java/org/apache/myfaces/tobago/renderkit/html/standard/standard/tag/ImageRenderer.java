@@ -27,6 +27,7 @@ import org.apache.myfaces.tobago.internal.component.AbstractUIImage;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
+import org.apache.myfaces.tobago.renderkit.css.FontAwesomeIconEncoder;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
@@ -75,30 +76,28 @@ public class ImageRenderer extends RendererBase {
       alt = "";
     }
 
-    writer.startElement(HtmlElements.IMG);
-    writer.writeIdAttribute(image.getClientId(facesContext));
-    HtmlRendererUtils.writeDataAttributes(facesContext, writer, image);
-    if (src != null) {
-      writer.writeAttribute(HtmlAttributes.SRC, src, true);
+    if (fontAwesome) {
+      writer.writeIcon(null, FontAwesomeIconEncoder.generateClass(value)); // todo: should not be static
+    } else {
+      writer.startElement(HtmlElements.IMG);
+      writer.writeIdAttribute(image.getClientId(facesContext));
+      HtmlRendererUtils.writeDataAttributes(facesContext, writer, image);
+      if (src != null) {
+        writer.writeAttribute(HtmlAttributes.SRC, src, true);
+      }
+      writer.writeAttribute(HtmlAttributes.ALT, alt, true);
+      final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, image);
+      if (title != null) {
+        writer.writeAttribute(HtmlAttributes.TITLE, title, true);
+      }
+      // todo: may set a marker in the context in the
+      // todo: NavRenderer, or the additional class, to avoid tree traversing
+      writer.writeClassAttribute(
+          Classes.create(image),
+          ComponentUtils.findAncestor(image, UINav.class) != null ? BootstrapClass.NAVBAR_BRAND : null,
+          image.getCustomClass());
+      writer.endElement(HtmlElements.IMG);
     }
-    writer.writeAttribute(HtmlAttributes.ALT, alt, true);
-    final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, image);
-    if (title != null) {
-      writer.writeAttribute(HtmlAttributes.TITLE, title, true);
-    }
-/*
-    final Style style = new Style();
-    style.setWidth(image.getWidth());
-    style.setHeight(image.getHeight());
-    writer.writeStyleAttribute(style);
-*/
-    // todo: may set a marker in the context in the
-    // todo: NavRenderer, or the additional class, to avoid tree traversing
-    writer.writeClassAttribute(
-        Classes.create(image),
-        ComponentUtils.findAncestor(image, UINav.class) != null ? BootstrapClass.NAVBAR_BRAND : null,
-        image.getCustomClass());
-    writer.endElement(HtmlElements.IMG);
   }
 
   private String createSrc(final String src, final String ext) {
@@ -112,7 +111,7 @@ public class ImageRenderer extends RendererBase {
   }
 
   private boolean isDisabled(final AbstractUIImage graphic) {
-    return graphic.isDisabled() 
+    return graphic.isDisabled()
         || (graphic.getParent() instanceof UICommand && ((UICommand) graphic.getParent()).isDisabled());
   }
 }
