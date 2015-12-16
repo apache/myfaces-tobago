@@ -99,8 +99,8 @@ public abstract class TobagoMenuExtensionHandler extends ComponentHandler {
     final TagAttribute [] attrs = tag.getAttributes().getAll();
     for (int i = 0; i < attrs.length; i++) {
       final TagAttribute attr = attrs[i];
-      if (!(attr.getLocalName().equals(Attributes.CONVERTER)
-          || attr.getLocalName().equals(Attributes.VALUE))) {
+      if (!(attr.getLocalName().equals(Attributes.converter.getName())
+          || attr.getLocalName().equals(Attributes.value.getName()))) {
         metaRuleset.ignore(attr.getLocalName());
       }
     }
@@ -109,8 +109,8 @@ public abstract class TobagoMenuExtensionHandler extends ComponentHandler {
 
   protected MetaRuleset createMetaRuleset(final Class aClass) {
     final MetaRuleset metaRuleset = super.createMetaRuleset(aClass);
-    metaRuleset.ignore(Attributes.CONVERTER);
-    metaRuleset.ignore(Attributes.VALUE);
+    metaRuleset.ignore(Attributes.converter.getName());
+    metaRuleset.ignore(Attributes.value.getName());
     return metaRuleset;
   }
 }

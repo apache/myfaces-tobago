@@ -19,9 +19,10 @@
 
 package org.apache.myfaces.tobago.convert;
 
+import org.apache.myfaces.tobago.component.Attributes;
+import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.apache.myfaces.tobago.component.Attributes;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -40,13 +41,9 @@ public class DurationConverter implements Converter {
 
   public static final String CONVERTER_ID = "org.apache.myfaces.tobago.Duration";
 
-  private static final String NANO = "nano";
-  private static final String MILLI = "milli";
-  private static final String SECOND = "second";
-  private static final String MINUTE = "minute";
-  private static final String HOUR = "hour";
-  private static final String DAY = "day";
-  private static final String YEAR = "year";
+  private static enum Unit {
+    nano, milli, second, minute, hour, day, year
+  }
 
   public String getAsString(
       final FacesContext facesContext, final UIComponent component, final Object object)
@@ -89,22 +86,22 @@ public class DurationConverter implements Converter {
       throws ConverterException {
     final boolean negative = string.indexOf('-') > -1;
     final StringTokenizer tokenizer = new StringTokenizer(string, " :-");
-    final List elements = new ArrayList();
-    while (tokenizer.hasMoreElements()) {
-      elements.add(tokenizer.nextElement());
+    final List<String> elements = new ArrayList<String>();
+    while (tokenizer.hasMoreTokens()) {
+      elements.add(tokenizer.nextToken());
     }
     int hours = 0;
     final int minutes;
     final int seconds;
     switch (elements.size()) {
       case 3:
-        hours = Integer.parseInt((String) elements.get(0));
-        minutes = Integer.parseInt((String) elements.get(1));
-        seconds = Integer.parseInt((String) elements.get(2));
+        hours = Integer.parseInt(elements.get(0));
+        minutes = Integer.parseInt(elements.get(1));
+        seconds = Integer.parseInt(elements.get(2));
         break;
       case 2:
-        minutes = Integer.parseInt((String) elements.get(0));
-        seconds = Integer.parseInt((String) elements.get(1));
+        minutes = Integer.parseInt(elements.get(0));
+        seconds = Integer.parseInt(elements.get(1));
         break;
       default:
         throw new ConverterException("Cannot parse string='" + string + "'");
@@ -112,39 +109,38 @@ public class DurationConverter implements Converter {
     final double factor = getUnitFactor(component);
     final long value = (long) (((hours * 60L + minutes) * 60L + seconds) / factor);
     if (negative) {
-      return Long.valueOf(-value);
+      return -value;
     } else {
-      return Long.valueOf(value);
+      return value;
     }
   }
 
   private static double getUnitFactor(final UIComponent component) {
-    String unit = null;
-    if (component != null) {
-      unit = (String) component.getAttributes().get(Attributes.UNIT);
+    final String unitString = ComponentUtils.getStringAttribute(component, Attributes.unit);
+    Unit unit;
+    try {
+      unit = Unit.valueOf(unitString);
+    } catch (Exception e) {
+      LOG.warn("Unsupported unit: '{}'", unitString);
+      unit = Unit.milli;
     }
-    final double factor;
-    if (unit == null) {
-      factor = 0.001;
-    } else if (NANO.equals(unit)) {
-      factor = 0.000000001;
-    } else if (MILLI.equals(unit)) {
-      factor = 0.001;
-    } else if (SECOND.equals(unit)) {
-      factor = 1.0;
-    } else if (MINUTE.equals(unit)) {
-      factor = 60.0;
-    } else if (HOUR.equals(unit)) {
-      factor = 3600.0;
-    } else if (DAY.equals(unit)) {
-      factor = 86400.0;
-    } else if (YEAR.equals(unit)) {
-      factor = 31556736.0;
-    } else {
-      LOG.warn("Unsupported unit: '" + unit + "'");
-      factor = 0.001;
+    switch (unit) {
+      case nano:
+        return 0.000000001;
+      default:
+      case milli:
+        return 0.001;
+      case second:
+        return 1.0;
+      case minute:
+        return 60.0;
+      case hour:
+        return 3600.0;
+      case day:
+        return 86400.0;
+      case year:
+        return 31556736.0;
     }
-    return factor;
   }
 
 }

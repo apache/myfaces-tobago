@@ -37,7 +37,8 @@ public class SupportsMarkupRule extends MetaRule {
 
   public Metadata applyRule(final String name, final TagAttribute attribute, final MetadataTarget metadataTarget) {
     if (metadataTarget.isTargetInstanceOf(Visual.class)) {
-      if (Attributes.MARKUP.equals(name)) {
+      Attributes a = Attributes.valueOf(name);
+      if (Attributes.markup == a) {
         return new SupportsMarkupMapper(attribute);
       }
     }
@@ -57,7 +58,7 @@ public class SupportsMarkupRule extends MetaRule {
         ((Visual) instance).setMarkup(Markup.valueOf(attribute.getValue()));
       } else {
         final ValueExpression expression = attribute.getValueExpression(ctx, Object.class);
-        ((UIComponent) instance).setValueExpression(Attributes.MARKUP, expression);
+        ((UIComponent) instance).setValueExpression(Attributes.markup.getName(), expression);
       }
     }
   }

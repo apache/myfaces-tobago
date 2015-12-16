@@ -163,7 +163,7 @@ public class TabGroupRenderer extends RendererBase {
       // resetting index to 0
       closestRenderedTabIndex = 0;
     }
-    final ValueExpression expression = tabGroup.getValueExpression(Attributes.SELECTED_INDEX);
+    final ValueExpression expression = tabGroup.getValueExpression(Attributes.selectedIndex.getName());
     if (expression != null) {
       expression.setValue(context.getELContext(), closestRenderedTabIndex);
     } else {
@@ -283,7 +283,7 @@ public class TabGroupRenderer extends RendererBase {
     final UICommand previous = (UICommand) application.createComponent(UICommand.COMPONENT_TYPE);
     previous.setId(viewRoot.createUniqueId());
     previous.setRendererType(null);
-    previous.getAttributes().put(Attributes.IMAGE, "image/tabPrev");
+    ComponentUtils.setAttribute(previous, Attributes.image, "image/tabPrev");
     previous.setOmit(true); // avoid submit
     ComponentUtils.putDataAttribute(previous, "tobago-tabgroup-toolbar-prev", "p");
 
@@ -291,7 +291,7 @@ public class TabGroupRenderer extends RendererBase {
     final UICommand next = (UICommand) application.createComponent(UICommand.COMPONENT_TYPE);
     next.setId(viewRoot.createUniqueId());
     next.setRendererType(null);
-    next.getAttributes().put(Attributes.IMAGE, "image/tabNext");
+    ComponentUtils.setAttribute(next, Attributes.image, "image/tabNext");
     next.setOmit(true); // avoid submit
     ComponentUtils.putDataAttribute(next, "tobago-tabgroup-toolbar-next", "n");
 

@@ -39,7 +39,7 @@ public abstract class AbstractUITreeSelect extends UISelectBoolean implements Vi
    * @return Is the value stored in the state of the UITree parent object?
    */
   public boolean isValueStoredInState() {
-    final ValueExpression valueExpression = getValueExpression(Attributes.VALUE);
+    final ValueExpression valueExpression = getValueExpression(Attributes.value.getName());
     return valueExpression == null;
   }
 }

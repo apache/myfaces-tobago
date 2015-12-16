@@ -45,7 +45,7 @@ public class SeparatorExtensionHandler extends ComponentHandler {
 
   public SeparatorExtensionHandler(final ComponentConfig config) {
     super(config);
-    labelAttribute = getAttribute(Attributes.LABEL);
+    labelAttribute = getAttribute(Attributes.label.getName());
   }
 
   public void applyNextHandler(final FaceletContext faceletContext, final UIComponent separator)
@@ -72,7 +72,7 @@ public class SeparatorExtensionHandler extends ComponentHandler {
         label.setValue(labelAttribute.getValue(faceletContext));
       } else {
         final ValueExpression expression = labelAttribute.getValueExpression(faceletContext, String.class);
-        label.setValueExpression(Attributes.VALUE, expression);
+        label.setValueExpression(Attributes.value.getName(), expression);
       }
     }
   }
@@ -80,7 +80,7 @@ public class SeparatorExtensionHandler extends ComponentHandler {
   protected MetaRuleset createMetaRuleset(final Class aClass) {
     final MetaRuleset metaRuleset = super.createMetaRuleset(aClass);
     if (UISeparator.class.isAssignableFrom(aClass)) {
-      metaRuleset.ignore(Attributes.LABEL);
+      metaRuleset.ignore(Attributes.label.getName());
       return metaRuleset;
     } else {
       final TagAttribute[] attrs = tag.getAttributes().getAll();

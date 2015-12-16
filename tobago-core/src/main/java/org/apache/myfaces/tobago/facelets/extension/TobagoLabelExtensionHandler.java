@@ -57,7 +57,7 @@ public abstract class TobagoLabelExtensionHandler extends ComponentHandler {
 
   public TobagoLabelExtensionHandler(final ComponentConfig config) {
     super(config);
-    fieldIdAttribute = getAttribute(Attributes.FIELD_ID);
+    fieldIdAttribute = getAttribute(Attributes.fieldId.getName());
   }
 
   protected abstract String getSubComponentType();
@@ -117,7 +117,7 @@ public abstract class TobagoLabelExtensionHandler extends ComponentHandler {
   }
 
   protected void enrichInput(final FaceletContext faceletContext, final UIComponent input) {
-    input.getAttributes().put(Attributes.LABEL_LAYOUT, LabelLayout.flexLeft);
+    input.getAttributes().put(Attributes.labelLayout.getName(), LabelLayout.flexLeft);
   }
 
   private boolean checkForAlreadyCreated(final UIComponent panel, final String uid) {
@@ -159,8 +159,8 @@ public abstract class TobagoLabelExtensionHandler extends ComponentHandler {
 
   protected MetaRuleset createSubComponentMetaRuleset(final Class aClass) {
     final MetaRuleset metaRuleset = super.createMetaRuleset(aClass);
-    metaRuleset.ignore(Attributes.TIP);
-    metaRuleset.ignore(Attributes.LABEL_WIDTH);
+    metaRuleset.ignore(Attributes.tip.getName());
+    metaRuleset.ignore(Attributes.labelWidth.getName());
     if (Visual.class.isAssignableFrom(aClass)) {
       metaRuleset.addRule(SupportsMarkupRule.INSTANCE);
     }
@@ -175,7 +175,7 @@ public abstract class TobagoLabelExtensionHandler extends ComponentHandler {
     final TagAttribute[] attrs = tag.getAttributes().getAll();
     for (int i = 0; i < attrs.length; i++) {
       final TagAttribute attr = attrs[i];
-      if (!attr.getLocalName().equals(Attributes.RENDERED)) {
+      if (!attr.getLocalName().equals(Attributes.rendered.getName())) {
         metaRuleset.ignore(attr.getLocalName());
       }
     }

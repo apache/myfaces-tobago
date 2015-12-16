@@ -62,7 +62,6 @@ public abstract class AbstractUITabGroup extends AbstractUIPanel
 
   @Override
   public void encodeEnd(final FacesContext facesContext) throws IOException {
-    resetTabLayout();
     super.encodeEnd(facesContext);
     setRenderedIndex(getSelectedIndex());
   }
@@ -83,13 +82,6 @@ public abstract class AbstractUITabGroup extends AbstractUIPanel
       }
     }
     super.queueEvent(event);
-  }
-
-  private void resetTabLayout() {
-    for (final UIComponent component : getChildren()) {
-      component.getAttributes().remove(Attributes.LAYOUT_WIDTH);
-      component.getAttributes().remove(Attributes.LAYOUT_HEIGHT);
-    }
   }
 
   public AbstractUIPanel[] getTabs() {
@@ -217,7 +209,7 @@ public abstract class AbstractUITabGroup extends AbstractUIPanel
         }
       }
       final Integer index = event.getNewTabIndex();
-      final ValueExpression expression = getValueExpression(Attributes.SELECTED_INDEX);
+      final ValueExpression expression = getValueExpression(Attributes.selectedIndex.getName());
       if (expression != null) {
         expression.setValue(getFacesContext().getELContext(), index);
       } else {

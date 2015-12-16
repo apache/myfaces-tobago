@@ -141,7 +141,7 @@ public class GridLayoutRenderer extends RendererBase {
           final UIComponent element = cell.getComponent();
           StringBuilder builder = new StringBuilder();
           builder.append("{");
-          final Measure width = Measure.valueOf(element.getAttributes().get(Attributes.WIDTH));
+          final Measure width = Measure.valueOf(ComponentUtils.getAttribute(element, Attributes.width));
           if (width != null) {
             builder.append("\"width\":");
 //            builder.append("{\"pixel\":");
@@ -149,7 +149,7 @@ public class GridLayoutRenderer extends RendererBase {
 //            builder.append("}");
             builder.append(",");
           }
-          final Measure height = Measure.valueOf(element.getAttributes().get(Attributes.HEIGHT));
+          final Measure height = Measure.valueOf(ComponentUtils.getAttribute(element, Attributes.height));
           if (height != null) {
             builder.append("\"height\":");
 //            builder.append("{\"pixel\":");

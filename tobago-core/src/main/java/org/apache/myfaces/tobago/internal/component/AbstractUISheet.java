@@ -38,6 +38,7 @@ import org.apache.myfaces.tobago.layout.RelativeLayoutToken;
 import org.apache.myfaces.tobago.model.ExpandedState;
 import org.apache.myfaces.tobago.model.SelectedState;
 import org.apache.myfaces.tobago.model.SheetState;
+import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -58,7 +59,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 
 @ListenerFor(systemEventClass = PreRenderComponentEvent.class)
 public abstract class AbstractUISheet extends AbstractUIData
@@ -81,7 +81,7 @@ public abstract class AbstractUISheet extends AbstractUIData
     final SheetState state = getSheetState(facesContext);
     final int first = state.getFirst();
     if (first > -1 && (!hasRowCount() || first < getRowCount())) {
-      final ValueExpression expression = getValueExpression(Attributes.FIRST);
+      final ValueExpression expression = getValueExpression(Attributes.first.getName());
       if (expression != null) {
         expression.setValue(facesContext.getELContext(), first);
       } else {
@@ -105,7 +105,7 @@ public abstract class AbstractUISheet extends AbstractUIData
       return state;
     }
 
-    final ValueExpression expression = getValueExpression(Attributes.STATE);
+    final ValueExpression expression = getValueExpression(Attributes.state.getName());
     if (expression != null) {
       final ELContext elContext = facesContext.getELContext();
       SheetState sheetState = (SheetState) expression.getValue(elContext);
@@ -141,7 +141,7 @@ public abstract class AbstractUISheet extends AbstractUIData
     if (state != null) {
       state.setColumnWidths(null);
     }
-    getAttributes().remove(Attributes.WIDTH_LIST_STRING);
+    getAttributes().remove(Attributes.widthListString.getName());
   }
 
   /**
@@ -301,14 +301,11 @@ public abstract class AbstractUISheet extends AbstractUIData
   private void updateSheetState(final FacesContext facesContext) {
     final SheetState state = getSheetState(facesContext);
     if (state != null) {
-      final Map attributes = getAttributes();
-      //noinspection unchecked
-      final List<Integer> list = (List<Integer>) attributes.get(Attributes.SELECTED_LIST_STRING);
+      final List<Integer> list = (List<Integer>) ComponentUtils.getAttribute(this, Attributes.selectedListString);
       state.setSelectedRows(list != null ? list : Collections.<Integer>emptyList());
-      state.setColumnWidths((String) attributes.get(Attributes.WIDTH_LIST_STRING));
-      state.setScrollPosition((Integer[]) attributes.get(Attributes.SCROLL_POSITION));
-      attributes.remove(Attributes.SELECTED_LIST_STRING);
-      attributes.remove(Attributes.SCROLL_POSITION);
+      state.setColumnWidths(ComponentUtils.getStringAttribute(this, Attributes.widthListString));
+      ComponentUtils.removeAttribute(this, Attributes.selectedListString);
+      ComponentUtils.removeAttribute(this, Attributes.scrollPosition);
     }
   }
 
@@ -485,17 +482,6 @@ public abstract class AbstractUISheet extends AbstractUIData
     this.widthList = widthList;
   }
 
-
-
-  public Integer[] getScrollPosition() {
-    Integer[] scrollPosition = (Integer[]) getAttributes().get(Attributes.SCROLL_POSITION);
-    if (scrollPosition == null) {
-      scrollPosition = getSheetState(FacesContext.getCurrentInstance()).getScrollPosition();
-    }
-    return scrollPosition;
-  }
-
-
   @Override
   public UIComponent findComponent(final String searchId) {
     return super.findComponent(stripRowIndex(searchId));
@@ -570,7 +556,7 @@ public abstract class AbstractUISheet extends AbstractUIData
         first = -1;
     }
 
-    final ValueExpression expression = getValueExpression(Attributes.FIRST);
+    final ValueExpression expression = getValueExpression(Attributes.first.getName());
     if (expression != null) {
       expression.setValue(getFacesContext().getELContext(), first);
     } else {

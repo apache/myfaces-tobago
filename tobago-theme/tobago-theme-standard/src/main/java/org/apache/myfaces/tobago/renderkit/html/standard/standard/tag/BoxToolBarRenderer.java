@@ -21,6 +21,7 @@ package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.UIToolBar;
+import org.apache.myfaces.tobago.util.ComponentUtils;
 
 import javax.faces.component.UIComponent;
 
@@ -29,7 +30,7 @@ public class BoxToolBarRenderer extends ToolBarRendererBase {
 
   @Override
   protected String getLabelPosition(final UIComponent component) {
-    final String attribute = (String) component.getAttributes().get(Attributes.LABEL_POSITION);
+    final String attribute = ComponentUtils.getStringAttribute(component, Attributes.labelPosition);
     if (UIToolBar.LABEL_BOTTOM.equals(attribute)) {
       return UIToolBar.LABEL_RIGHT;
     } else {
@@ -39,7 +40,7 @@ public class BoxToolBarRenderer extends ToolBarRendererBase {
 
   @Override
   protected String getIconSize(final UIComponent component) {
-    final String attribute = (String) component.getAttributes().get(Attributes.ICON_SIZE);
+    final String attribute = ComponentUtils.getStringAttribute(component, Attributes.iconSize);
     if (UIToolBar.ICON_BIG.equals(attribute)) {
       return UIToolBar.ICON_SMALL;
     } else {

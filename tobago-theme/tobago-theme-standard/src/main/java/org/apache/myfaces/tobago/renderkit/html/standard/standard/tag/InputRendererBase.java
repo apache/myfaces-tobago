@@ -55,7 +55,7 @@ public abstract class InputRendererBase extends LabelLayoutRendererBase {
     if (requestParameterMap.containsKey(clientId)) {
       String newValue = requestParameterMap.get(clientId);
       if (LOG.isDebugEnabled()) {
-        final boolean password = ComponentUtils.getBooleanAttribute(component, Attributes.PASSWORD);
+        final boolean password = ComponentUtils.getBooleanAttribute(component, Attributes.password);
         LOG.debug("clientId='{}'", clientId);
         LOG.debug("requestParameterMap.get(clientId)='{}'", StringUtils.toConfidentialString(newValue, password));
       }

@@ -41,7 +41,7 @@ import java.io.IOException;
 
 /**
  * Manages the rendering of the <b>label</b> and the <b>field</b> together with different possibilities for
- * the position of the label (defined by {@link org.apache.myfaces.tobago.component.Attributes#LABEL_LAYOUT}
+ * the position of the label (defined by {@link org.apache.myfaces.tobago.component.Attributes#labelLayout}
  */
 public abstract class LabelLayoutRendererBase extends RendererBase {
 
@@ -182,7 +182,7 @@ public abstract class LabelLayoutRendererBase extends RendererBase {
   protected void encodeLabel(UIComponent component, TobagoResponseWriter writer, LabelLayout labelLayout)
       throws IOException {
     // TBD: maybe use an interface for getLabel()
-    final String label = ComponentUtils.getStringAttribute(component, Attributes.LABEL);
+    final String label = ComponentUtils.getStringAttribute(component, Attributes.label);
     if (StringUtils.isNotBlank(label)) {
       writer.startElement(HtmlElements.LABEL);
       writer.writeAttribute(HtmlAttributes.FOR, component.getClientId(), false);

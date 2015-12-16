@@ -41,7 +41,7 @@ public class VerbatimRenderer extends RendererBase {
       return;
     }
 
-    if (ComponentUtils.getBooleanAttribute(component, Attributes.ESCAPE)) {
+    if (ComponentUtils.getBooleanAttribute(component, Attributes.escape)) {
       writer.writeText(value, null);
     } else {
       writer.write(value);

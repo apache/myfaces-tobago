@@ -52,7 +52,6 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 import java.util.List;
-import java.util.Map;
 
 public class MessagesRenderer extends RendererBase {
 
@@ -83,7 +82,7 @@ public class MessagesRenderer extends RendererBase {
       // with id
       /*String focusId = null;
       Iterator clientIds;
-      if (ComponentUtils.getBooleanAttribute(messages, Attributes.GLOBAL_ONLY)) {
+      if (ComponentUtils.getBooleanAttribute(messages, Attributes.globalOnly)) {
         ArrayList<String> list = new ArrayList<String>(1);
         list.add(null);
         clientIds = list.iterator();
@@ -170,23 +169,22 @@ public class MessagesRenderer extends RendererBase {
         = messages.getId() != null ? messages.getId() + "popup" : facesContext.getViewRoot().createUniqueId();
     final UIPopup popup = (UIPopup)
         CreateComponentUtils.createComponent(facesContext, UIPopup.COMPONENT_TYPE, RendererTypes.POPUP, id);
-    popup.getAttributes().put(Attributes.Z_INDEX, 10);
+    ComponentUtils.setAttribute(popup, Attributes.zIndex, 10);
 
     popup.setRendered(true);
     popup.setActivated(true);
     popup.onComponentPopulated(facesContext, messages);
     FacesContextUtils.addPopup(facesContext, popup);
-
-    Map<String, Object> okButtonAttributes = popup.getAttributes();
-    okButtonAttributes.put(Attributes.POPUP_RESET, Boolean.TRUE);
+    ComponentUtils.setAttribute(popup, Attributes.popupReset, Boolean.TRUE);
 
     final UIComponent box = CreateComponentUtils.createComponent(
         facesContext, UIBox.COMPONENT_TYPE, RendererTypes.BOX);
     popup.getChildren().add(box);
     box.setId("box");
     // TODO: set string resources in renderer
-    box.getAttributes().put(Attributes.LABEL, ResourceManagerUtils.getPropertyNotNull(
-        facesContext, "tobago", "tobago.message.confirmation.title"));
+    final String label
+        = ResourceManagerUtils.getPropertyNotNull(facesContext, "tobago", "tobago.message.confirmation.title");
+    ComponentUtils.setAttribute(box, Attributes.label, label);
 
     final UIPanel scrollPanel = (UIPanel)
         CreateComponentUtils.createComponent(facesContext, UIPanel.COMPONENT_TYPE, "Panel", "messagePanel");
@@ -210,25 +208,11 @@ public class MessagesRenderer extends RendererBase {
     final UIButton okButton = (UIButton) CreateComponentUtils.createComponent(
         facesContext, UIButton.COMPONENT_TYPE, RendererTypes.BUTTON, CLOSE_POPUP);
     buttonPanel.getChildren().add(okButton);
-    okButtonAttributes = okButton.getAttributes();
-    okButtonAttributes.put(Attributes.LABEL, ResourceManagerUtils.getPropertyNotNull(
-        facesContext, "tobago", "tobago.message.confirmation.okay"));
-    okButtonAttributes.put("popupClose", "immediate");
+    okButton.setLabel(
+        ResourceManagerUtils.getPropertyNotNull(facesContext, "tobago", "tobago.message.confirmation.okay"));
+    ComponentUtils.setAttribute(okButton, Attributes.popupClose, "immediate");
   }
 
-  /*
-    private void encodeMessagesForId(FacesContext facesContext,
-        TobagoResponseWriter writer, String clientId, boolean showSummary, boolean showDetail) throws IOException {
-      Iterator iterator = facesContext.getMessages(clientId);
-      while (iterator.hasNext()) {
-        FacesMessage message = (FacesMessage) iterator.next();
-        if (LOG.isDebugEnabled()) {
-          LOG.debug("message = " + message.getSummary());
-        }
-        encodeMessage(writer, message, clientId, showSummary, showDetail);
-      }
-    }
-  */
   private void encodeMessage(
       final TobagoResponseWriter writer, final UIMessages messages, final FacesMessage message, final String clientId)
       throws IOException {

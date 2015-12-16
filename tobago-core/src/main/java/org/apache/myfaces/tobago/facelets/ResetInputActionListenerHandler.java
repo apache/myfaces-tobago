@@ -42,7 +42,7 @@ public class ResetInputActionListenerHandler extends TagHandler {
 
   public ResetInputActionListenerHandler(final TagConfig config) {
     super(config);
-    execute = getAttribute(Attributes.EXECUTE);
+    execute = getAttribute(Attributes.execute.getName());
   }
 
   public void apply(final FaceletContext faceletContext, final UIComponent parent) throws IOException {

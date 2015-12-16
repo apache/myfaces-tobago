@@ -19,6 +19,7 @@
 
 package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
+import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.component.Attributes;
@@ -36,17 +37,14 @@ public class SelectReferenceRenderer extends RendererBase {
   public void encodeEnd(final FacesContext facesContext,
       final UIComponent component)
       throws IOException {
-    final String referenceId = (String)
-        component.getAttributes().get(Attributes.FOR);
+    final String referenceId = ComponentUtils.getStringAttribute(component, Attributes.forValue);
     final UIComponent reference = component.findComponent(referenceId);
 
-    reference.getAttributes().put(Attributes.RENDER_RANGE_EXTERN,
-        component.getAttributes().get(Attributes.RENDER_RANGE));
+    final Object renderRange = ComponentUtils.getAttribute(component, Attributes.renderRange);
+    ComponentUtils.setAttribute(reference, Attributes.renderRangeExtern, renderRange);
 
     RenderUtils.encode(facesContext, reference);
 
-    reference.getAttributes().remove(Attributes.RENDER_RANGE_EXTERN);
+    ComponentUtils.removeAttribute(reference, Attributes.renderRangeExtern);
   }
-
 }
-

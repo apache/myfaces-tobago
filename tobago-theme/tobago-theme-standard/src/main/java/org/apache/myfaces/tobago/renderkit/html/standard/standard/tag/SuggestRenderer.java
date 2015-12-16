@@ -95,7 +95,7 @@ public class SuggestRenderer extends RendererBase {
     final String clientId = suggest.getClientId(facesContext);
     writer.writeIdAttribute(clientId);
     writer.writeNameAttribute(clientId);
-    writer.writeAttribute(HtmlAttributes.VALUE, (String) suggest.getAttributes().get(Attributes.VALUE), true);
+    writer.writeAttribute(HtmlAttributes.VALUE, ComponentUtils.getStringAttribute(suggest, Attributes.value), true);
 
     writer.writeAttribute(DataAttributes.SUGGEST_FOR, in.getClientId(facesContext), false);
     writer.writeAttribute(DataAttributes.SUGGEST_MIN_CHARS, suggest.getMinimumCharacters());

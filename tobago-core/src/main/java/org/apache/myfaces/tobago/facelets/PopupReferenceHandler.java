@@ -40,7 +40,7 @@ public class PopupReferenceHandler extends TagHandler {
 
   public PopupReferenceHandler(final TagConfig config) {
     super(config);
-    forComponent = getAttribute(Attributes.FOR);
+    forComponent = getAttribute(Attributes.forValue.getName());
   }
 
   public void apply(final FaceletContext faceletContext, final UIComponent parent) throws IOException {

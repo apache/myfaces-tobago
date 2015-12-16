@@ -44,7 +44,7 @@ public class Popup {
     String command = null;
     Boolean immediate = null;
 
-    final String popupClose = (String) component.getAttributes().get(Attributes.POPUP_CLOSE);
+    final String popupClose = ComponentUtils.getStringAttribute(component, Attributes.popupClose);
     if (popupClose != null) {
       command = "close";
       immediate = popupClose.equals("immediate");

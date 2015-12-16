@@ -79,12 +79,12 @@ public abstract class ToolBarRendererBase extends RendererBase {
   }
 
   protected String getLabelPosition(final UIComponent component) {
-    return (String) component.getAttributes().get(Attributes.LABEL_POSITION);
+    return ComponentUtils.getStringAttribute(component, Attributes.labelPosition);
   }
 
   // XXX remove it, after removing subclasses
   protected String getIconSize(final UIComponent component) {
-    return (String) component.getAttributes().get(Attributes.ICON_SIZE);
+    return ComponentUtils.getStringAttribute(component, Attributes.iconSize);
   }
 
   protected boolean isRightAligned(final UIToolBar toolBar) {
@@ -156,7 +156,7 @@ public abstract class ToolBarRendererBase extends RendererBase {
       for (final SelectItem item : items) {
         final String labelText = item.getLabel();
         if (labelText != null) {
-          command.getAttributes().put(Attributes.LABEL, labelText);
+          ComponentUtils.setAttribute(command, Attributes.label, labelText);
         } else {
           LOG.warn("Menu item has label=null. UICommand.getClientId()=" + command.getClientId(facesContext));
         }
@@ -168,10 +168,10 @@ public abstract class ToolBarRendererBase extends RendererBase {
         if (image == null) {
           image = "image/1x1";
         }
-        command.getAttributes().put(Attributes.IMAGE, image);
+        ComponentUtils.setAttribute(command, Attributes.image, image);
 
         if (item.getDescription() != null) {
-          command.getAttributes().put(Attributes.TIP, item.getDescription());
+          ComponentUtils.setAttribute(command, Attributes.tip, item.getDescription());
         }
 
         final String formattedValue = RenderUtils.getFormattedValue(facesContext, radio, item.getValue());
@@ -210,7 +210,7 @@ public abstract class ToolBarRendererBase extends RendererBase {
       checkbox = CreateComponentUtils.createUISelectBooleanFacetWithId(facesContext, command);
     }
 
-    final boolean checked = ComponentUtils.getBooleanAttribute(checkbox, Attributes.VALUE);
+    final boolean checked = ComponentUtils.getBooleanAttribute(checkbox, Attributes.value);
     final String clientId = checkbox.getClientId(facesContext);
 
     writer.startElement(HtmlElements.SPAN);
@@ -235,19 +235,16 @@ public abstract class ToolBarRendererBase extends RendererBase {
       return;
     }
 
-    final boolean disabled = ComponentUtils.getBooleanAttribute(command, Attributes.DISABLED);
+    final boolean disabled = ComponentUtils.getBooleanAttribute(command, Attributes.disabled);
     final LabelWithAccessKey label = command instanceof SupportsAccessKey
-        ? new LabelWithAccessKey((SupportsAccessKey) command)
+        ? new LabelWithAccessKey(command)
         : new LabelWithAccessKey(command.getLabel());
     final AbstractUIMenu dropDownMenu = FacetUtils.getDropDownMenu(command);
 //    final ResourceManager resources = getResourceManager();
 
     final String labelPosition = getLabelPosition(command.getParent());
     final String iconSize = getIconSize(command.getParent());
-    String iconName = (String) command.getAttributes().get(Attributes.IMAGE);
-    if (iconName == null) {
-      iconName = "image/blank";
-    }
+    final String iconName = ComponentUtils.getStringAttribute(command, Attributes.image, "image/blank");
     final String image = getImage(facesContext, iconName, iconSize, disabled, selected);
 
     final boolean showIcon = !UIToolBar.ICON_OFF.equals(iconSize);
@@ -333,7 +330,7 @@ public abstract class ToolBarRendererBase extends RendererBase {
     if (showDropDownMenu) {
       writer.startElement(HtmlElements.IMG);
       final boolean dropDownDisabled
-          = ComponentUtils.getBooleanAttribute(dropDownMenu, Attributes.DISABLED) || disabled;
+          = ComponentUtils.getBooleanAttribute(dropDownMenu, Attributes.disabled) || disabled;
       final String menuImage
           = ResourceManagerUtils.getImageOrDisabledImage(facesContext, "image/toolbarButtonMenu", dropDownDisabled);
       writer.writeAttribute(HtmlAttributes.SRC, menuImage, false);

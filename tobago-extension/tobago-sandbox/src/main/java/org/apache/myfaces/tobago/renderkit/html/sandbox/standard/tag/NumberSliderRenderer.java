@@ -61,8 +61,8 @@ public class NumberSliderRenderer extends RendererBase {
     final String currentValue = getCurrentValue(facesContext, slider);
     final boolean readonly = slider.isReadonly();
     final boolean disabled = slider.isDisabled();
-    final Integer min = ComponentUtils.getIntAttribute(slider, "min");
-    final Integer max = ComponentUtils.getIntAttribute(slider, "max");
+    final Integer min = slider.getMin();
+    final Integer max = slider.getMax();
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
 //    final Style style = slider.getStyle();
@@ -88,7 +88,7 @@ public class NumberSliderRenderer extends RendererBase {
     writer.writeClassAttribute(Classes.create(slider), slider.getCustomClass());
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, slider);
     writer.writeStyleAttribute(slider.getStyle());
-    //writer.writeAttribute(HtmlAttributes.BORDER,"1",false);
+    //writer.writeAttribute(HtmlAttributes.border,"1",false);
 
     writer.startElement(HtmlElements.TR);
     writer.startElement(HtmlElements.TD);
@@ -129,7 +129,6 @@ public class NumberSliderRenderer extends RendererBase {
     }
     writer.writeAttribute(HtmlAttributes.READONLY, readonly);
     writer.writeAttribute(HtmlAttributes.DISABLED, disabled);
-    //writer.writeAttribute(HtmlAttributes.STYLE, null, STYLE);
     writer.endElement(HtmlElements.INPUT);
     writer.endElement(HtmlElements.TD);
 
@@ -161,7 +160,7 @@ public class NumberSliderRenderer extends RendererBase {
     writer.endElement(HtmlElements.TR);
     writer.endElement(HtmlElements.TABLE);
 
-    writeSliderJavaScript(facesContext, slider, writer);
+//    writeSliderJavaScript(facesContext, slider, writer);
     //HtmlRendererUtils.renderFocusId(facesContext, slider);
   }
 
@@ -199,32 +198,4 @@ public class NumberSliderRenderer extends RendererBase {
     final String id = component.getClientId(context);
     return id + ComponentUtils.SUB_SEPARATOR + "handle";
   }
-
-  private void writeSliderJavaScript(
-      final FacesContext context, final UIComponent component, final TobagoResponseWriter writer)
-      throws IOException {
-    final String trackId = getIdForSliderTrack(context, component);
-    final String handleId = getIdForSliderHandle(context, component);
-    final String inputId = getIdForInputField(context, component);
-    final String jsId = component.getClientId(context).replace(":", "_");
-    final Integer min = ComponentUtils.getIntAttribute(component, "min");
-    final Integer max = ComponentUtils.getIntAttribute(component, "max");
-    final String script = "    var slider_" + jsId + " = new Control.Slider('" + handleId + "', '" + trackId + "', {\n"
-        + "        sliderValue:$('" + inputId + "').value,\n"
-        + "        range : $R(" + min + ", " + max + "),\n"
-        + "        values: $R(" + min + ", " + max + ").toArray(),\n"
-        + "        onSlide:function(v) {\n"
-        + "            $('" + inputId + "').value = v;\n"
-        + "        },\n"
-        + "        onChange:function(v) {\n"
-        + "            $('" + inputId + "').value = v;\n"
-        + "        }\n"
-        + "    });\n"
-        + "\n"
-        + "    Event.observe('value', 'change', function() {\n"
-        + "        slider_" + jsId + ".setValue($('" + inputId + "').value);\n"
-        + "    });\n";
-    writer.writeJavascript(script);
-  }
-
 }

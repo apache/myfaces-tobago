@@ -19,7 +19,6 @@
 
 package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
-import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.UICommand;
 import org.apache.myfaces.tobago.component.UIProgress;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
@@ -53,7 +52,7 @@ public class ProgressRenderer extends RendererBase {
     }
 
     final int diff = model.getMaximum() - model.getMinimum();
-    Object title = progress.getAttributes().get(Attributes.TIP);
+    Object title = progress.getTip();
     final double percent = 100.0 * model.getValue() / diff;
     if (title == null && diff > 0) {
       title = Integer.toString((int) percent) + " %";

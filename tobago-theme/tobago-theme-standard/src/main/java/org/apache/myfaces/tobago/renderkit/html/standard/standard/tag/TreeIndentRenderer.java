@@ -94,7 +94,7 @@ public class TreeIndentRenderer extends RendererBase {
 /*
       writer.startElement(HtmlElements.IMG, null);
       writer.writeClassAttribute(Classes.create(node, "junction"));
-      writer.writeAttribute(HtmlAttributes.ALT, "", false);
+      writer.writeAttribute(HtmlAttributes.alt, "", false);
       if (junction && showLines) {
         writer.writeAttribute("src", perpendicular, true);
       } else {
@@ -161,12 +161,12 @@ public class TreeIndentRenderer extends RendererBase {
     final String srcOpen = ResourceManagerUtils.getImage(facesContext, "image/" + open);
     final String srcClose = ResourceManagerUtils.getImage(facesContext, "image/" + close);
     final String src = expanded ? srcOpen : srcClose;
-    writer.writeAttribute(HtmlAttributes.SRC, src, true);
+    writer.writeAttribute(HtmlAttributes.src, src, true);
     if (folder) {
       writer.writeAttribute(DataAttributes.SRC_OPEN, srcOpen, true);
       writer.writeAttribute(DataAttributes.SRC_CLOSE, srcClose, true);
     }
-    writer.writeAttribute(HtmlAttributes.ALT, "", false);
+    writer.writeAttribute(HtmlAttributes.alt, "", false);
     writer.endElement(HtmlElements.IMG);
 */
   }

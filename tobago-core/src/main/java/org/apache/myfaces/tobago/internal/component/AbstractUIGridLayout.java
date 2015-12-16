@@ -56,8 +56,8 @@ public abstract class AbstractUIGridLayout extends AbstractUILayoutBase implemen
 
     final List<UIComponent> components = LayoutUtils.findLayoutChildren(parent);
     for (final UIComponent component : components) {
-      final int columnSpan = ComponentUtils.getIntAttribute(component, Attributes.COLUMN_SPAN, 1);
-      final int rowSpan = ComponentUtils.getIntAttribute(component, Attributes.ROW_SPAN, 1);
+      final int columnSpan = ComponentUtils.getIntAttribute(component, Attributes.columnSpan, 1);
+      final int rowSpan = ComponentUtils.getIntAttribute(component, Attributes.rowSpan, 1);
       grid.add(new OriginCell(component), columnSpan, rowSpan);
       if (LOG.isDebugEnabled()) {
         LOG.debug("\n" + grid);

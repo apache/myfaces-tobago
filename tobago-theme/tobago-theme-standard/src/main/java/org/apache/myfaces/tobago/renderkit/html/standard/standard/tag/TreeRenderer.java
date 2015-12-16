@@ -50,8 +50,8 @@ public class TreeRenderer extends RendererBase {
 
   @Override
   public void decode(final FacesContext facesContext, final UIComponent component) {
-    RenderUtils.decodeScrollPosition(facesContext, component);
     final AbstractUITree tree = (AbstractUITree) component;
+    RenderUtils.decodeScrollPosition(facesContext, tree, tree.getState());
     RenderUtils.decodedStateOfTreeData(facesContext, tree);
   }
 
@@ -142,7 +142,7 @@ public class TreeRenderer extends RendererBase {
     writer.writeAttribute(HtmlAttributes.VALUE, expandedValue.toString(), false);
     writer.endElement(HtmlElements.INPUT);
 
-    RenderUtils.writeScrollPosition(facesContext, writer, tree);
+    RenderUtils.writeScrollPosition(facesContext, writer, tree, tree.getState());
 
     writer.endElement(HtmlElements.DIV);
   }

@@ -148,7 +148,7 @@ public class PageRenderer extends RendererBase {
     final boolean preventFrameAttacks = tobagoConfig.isPreventFrameAttacks();
 
     if (!FacesContextUtils.isAjax(facesContext)) {
-      final String title = (String) page.getAttributes().get(Attributes.LABEL);
+      final String title = page.getLabel();
 
       writer.startElement(HtmlElements.HEAD);
 
@@ -286,12 +286,12 @@ public class PageRenderer extends RendererBase {
 /*
     if (ViewHandlerImpl.USE_VIEW_MAP) {
       writer.startElement(HtmlElements.INPUT, null);
-      writer.writeAttribute(HtmlAttributes.TYPE, "hidden", null);
+      writer.writeAttribute(HtmlAttributes.type, "hidden", null);
       writer.writeNameAttribute(ViewHandlerImpl.PAGE_ID);
       writer.writeIdAttribute(ViewHandlerImpl.PAGE_ID);
       Object value = facesContext.getViewRoot().getAttributes().get(
           ViewHandlerImpl.PAGE_ID);
-      writer.writeAttribute(HtmlAttributes.VALUE, (value != null ? value : ""), null);
+      writer.writeAttribute(HtmlAttributes.value, (value != null ? value : ""), null);
       writer.endElement(HtmlElements.INPUT);
     }
 */
@@ -469,7 +469,7 @@ public class PageRenderer extends RendererBase {
   private void errorMessageForDebugging(final String id, final FacesMessage message, final ResponseWriter writer)
       throws IOException {
     writer.startElement(HtmlElements.DIV, null);
-    writer.writeAttribute(HtmlAttributes.STYLE, "color: red", null);
+    writer.writeAttribute(HtmlAttributes.style, "color: red", null);
     writer.write("[");
     writer.write(id != null ? id : "null");
     writer.write("]");
@@ -500,8 +500,7 @@ public class PageRenderer extends RendererBase {
 */
 
   private String getMethod(final UIPage page) {
-    final String method = (String) page.getAttributes().get(Attributes.METHOD);
-    return method == null ? "post" : method;
+    return ComponentUtils.getStringAttribute(page, Attributes.method, "post");
   }
 
   @Override

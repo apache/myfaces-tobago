@@ -59,7 +59,7 @@ public class InRenderer extends InputRendererBase {
     final AbstractUIInput input = (AbstractUIInput) component;
     final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, input);
     final String currentValue = getCurrentValue(facesContext, input);
-    final boolean password = ComponentUtils.getBooleanAttribute(input, Attributes.PASSWORD);
+    final boolean password = ComponentUtils.getBooleanAttribute(input, Attributes.password);
     if (LOG.isDebugEnabled()) {
       LOG.debug("currentValue = '{}'", StringUtils.toConfidentialString(currentValue, password));
     }
@@ -67,7 +67,7 @@ public class InRenderer extends InputRendererBase {
     final String id = input.getClientId(facesContext);
     final boolean readonly = input.isReadonly();
     final boolean disabled = input.isDisabled();
-    final boolean required = ComponentUtils.getBooleanAttribute(input, Attributes.REQUIRED);
+    final boolean required = ComponentUtils.getBooleanAttribute(input, Attributes.required);
 
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 

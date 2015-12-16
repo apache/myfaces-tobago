@@ -105,7 +105,7 @@ public class SplitLayoutRenderer extends GridLayoutRenderer {
     writer.writeIdAttribute(id + POSITION_ID_POSTFIX);
     writer.writeNameAttribute(id + POSITION_ID_POSTFIX);
     writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN);
-//    writer.writeAttribute(HtmlAttributes.VALUE, Integer.toString(position), false);
+//    writer.writeAttribute(HtmlAttributes.value, Integer.toString(position), false);
     writer.endElement(HtmlElements.INPUT);
     writer.endElement(HtmlElements.SPAN);
   }

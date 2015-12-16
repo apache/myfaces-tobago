@@ -90,10 +90,10 @@ public class Command {
     }
     this.action = facetComponent.getClientId(facesContext);
     // transition == true is the default
-    if (!ComponentUtils.getBooleanAttribute(facetComponent, Attributes.TRANSITION)) {
+    if (!ComponentUtils.getBooleanAttribute(facetComponent, Attributes.transition)) {
       this.transition = Boolean.FALSE;
     }
-    final String target = ComponentUtils.getStringAttribute(facetComponent, Attributes.TARGET);
+    final String target = ComponentUtils.getStringAttribute(facetComponent, Attributes.target);
     if (target != null) {
       this.target = target;
     }
@@ -107,12 +107,12 @@ public class Command {
       }
     }
 
-    final int delay = ComponentUtils.getIntAttribute(facetComponent, Attributes.DELAY);
+    final int delay = ComponentUtils.getIntAttribute(facetComponent, Attributes.delay);
     if (delay > 0) {
       this.delay = delay;
     }
     // omit == false is the default
-    if (ComponentUtils.getBooleanAttribute(facetComponent, Attributes.OMIT)) {
+    if (ComponentUtils.getBooleanAttribute(facetComponent, Attributes.omit)) {
       this.omit = Boolean.TRUE;
     }
   }

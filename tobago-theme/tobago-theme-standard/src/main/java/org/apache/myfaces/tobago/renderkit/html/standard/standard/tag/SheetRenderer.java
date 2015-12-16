@@ -118,17 +118,17 @@ public class SheetRenderer extends RendererBase {
             facesContext, ComponentTypes.OUT, RendererTypes.OUT, "_col" + i);
         out.setTransient(true);
 //        out.setValue(column.getLabel());
-        ValueExpression valueExpression = column.getValueExpression(Attributes.LABEL);
+        ValueExpression valueExpression = column.getValueExpression(Attributes.label.getName());
         if (valueExpression != null) {
-          out.setValueExpression(Attributes.VALUE, valueExpression);
+          out.setValueExpression(Attributes.value.getName(), valueExpression);
         } else {
-          out.setValue(column.getAttributes().get(Attributes.LABEL));
+          out.setValue(ComponentUtils.getAttribute(column, Attributes.label));
         }
-        valueExpression = column.getValueExpression(Attributes.RENDERED);
+        valueExpression = column.getValueExpression(Attributes.rendered.getName());
         if (valueExpression != null) {
-          out.setValueExpression(Attributes.RENDERED, valueExpression);
+          out.setValueExpression(Attributes.rendered.getName(), valueExpression);
         } else {
-          out.setRendered((Boolean) column.getAttributes().get(Attributes.RENDERED));
+          out.setRendered(ComponentUtils.getBooleanAttribute(column, Attributes.rendered));
         }
         header.getChildren().add(out);
         i++;
@@ -190,7 +190,7 @@ public class SheetRenderer extends RendererBase {
     writer.writeAttribute(HtmlAttributes.VALUE, StringUtils.joinWithSurroundingSeparator(columnWidths), false);
     writer.endElement(HtmlElements.INPUT);
 
-    RenderUtils.writeScrollPosition(facesContext, writer, sheet, sheet.getScrollPosition());
+    RenderUtils.writeScrollPosition(facesContext, writer, sheet, sheet.getState());
 
     if (selectable != Selectable.none) {
       writer.startElement(HtmlElements.INPUT);
@@ -315,7 +315,7 @@ public class SheetRenderer extends RendererBase {
         if (isPure(column)) {
           markup = markup.add(Markup.PURE);
         }
-        final String textAlign = (String) column.getAttributes().get(Attributes.ALIGN);
+        final String textAlign = ComponentUtils.getStringAttribute(column, Attributes.align);
         if (textAlign != null) {
           switch (TextAlign.valueOf(textAlign)) {
             case right:
@@ -352,20 +352,6 @@ public class SheetRenderer extends RendererBase {
         } else {
           final List<UIComponent> children = sheet.getRenderedChildrenOf(column);
           for (final UIComponent grandKid : children) {
-            // set height to 0 to prevent use of layoutheight from parent
-            grandKid.getAttributes().put(Attributes.LAYOUT_HEIGHT, HEIGHT_0);
-            // XXX hotfix
-/* XXX broken
-            if (grandKid instanceof LayoutBase) {
-              final LayoutBase base = (LayoutBase) grandKid;
-              if (base.getLeft() != null) {
-                base.setLeft(null);
-              }
-              if (base.getTop() != null) {
-                base.setTop(null);
-              }
-            }
-*/
             EncodeUtils.prepareRendererAll(facesContext, grandKid);
             RenderUtils.encode(facesContext, grandKid);
           }
@@ -652,7 +638,7 @@ public class SheetRenderer extends RendererBase {
     if (requestParameterMap.containsKey(key)) {
       final String widths = (String) requestParameterMap.get(key);
       if (widths.trim().length() > 0) {
-        sheet.getAttributes().put(Attributes.WIDTH_LIST_STRING, widths);
+        ComponentUtils.setAttribute(sheet, Attributes.widthListString, widths);
       }
     }
 
@@ -670,10 +656,10 @@ public class SheetRenderer extends RendererBase {
         selectedRows = Collections.emptyList();
       }
 
-      sheet.getAttributes().put(Attributes.SELECTED_LIST_STRING, selectedRows);
+      ComponentUtils.setAttribute(sheet, Attributes.selectedListString, selectedRows);
     }
 
-    RenderUtils.decodeScrollPosition(facesContext, sheet);
+    RenderUtils.decodeScrollPosition(facesContext, sheet, sheet.getState());
     RenderUtils.decodedStateOfTreeData(facesContext, sheet);
   }
 
@@ -712,7 +698,7 @@ public class SheetRenderer extends RendererBase {
   }
 
   private List<Integer> getSelectedRows(final UISheet data, final SheetState state) {
-    List<Integer> selected = (List<Integer>) data.getAttributes().get(Attributes.SELECTED_LIST_STRING);
+    List<Integer> selected = (List<Integer>) ComponentUtils.getAttribute(data, Attributes.selectedListString);
     if (selected == null && state != null) {
       selected = state.getSelectedRows();
     }
@@ -732,7 +718,7 @@ public class SheetRenderer extends RendererBase {
         : action.getToken();
     final UICommand command = ensurePagingCommand(application, data, facet, action, disabled);
     if (target != null) {
-      command.getAttributes().put(Attributes.PAGING_TARGET, target);
+      ComponentUtils.setAttribute(command, Attributes.pagingTarget, target);
     }
     command.setRenderedPartially(new String[]{data.getId()});
 
@@ -820,10 +806,10 @@ public class SheetRenderer extends RendererBase {
           final AbstractUIColumn column = renderedColumnList.get(j);
           Icons sorterIcon = null;
           Markup markup = Markup.NULL;
-          String tip = (String) column.getAttributes().get(Attributes.TIP);
+           String tip = ComponentUtils.getStringAttribute(column, Attributes.tip);
           // sorter icons should only displayed when there is only 1 column and not input
           if (cell.getColumnSpan() == 1 && cellComponent instanceof UIOut) {
-            final boolean sortable = ComponentUtils.getBooleanAttribute(column, Attributes.SORTABLE);
+            final boolean sortable = ComponentUtils.getBooleanAttribute(column, Attributes.sortable);
             if (sortable) {
               UICommand sortCommand = (UICommand) column.getFacet(Facets.SORTER);
               if (sortCommand == null) {
@@ -1009,7 +995,7 @@ public class SheetRenderer extends RendererBase {
 
     final UICommand command
         = ensurePagingCommand(application, sheet, Facets.PAGER_PAGE_DIRECT, PageAction.TO_PAGE, false);
-    int linkCount = ComponentUtils.getIntAttribute(sheet, Attributes.DIRECT_LINK_COUNT);
+    int linkCount = ComponentUtils.getIntAttribute(sheet, Attributes.directLinkCount);
     linkCount--;  // current page needs no link
     final ArrayList<Integer> prevs = new ArrayList<Integer>(linkCount);
     int page = sheet.getCurrentPage() + 1;
@@ -1090,7 +1076,7 @@ public class SheetRenderer extends RendererBase {
       command = (UICommand) application.createComponent(UICommand.COMPONENT_TYPE);
       command.setRendererType(RendererTypes.SHEET_PAGE_COMMAND);
       command.setRendered(true);
-      command.getAttributes().put(Attributes.PAGE_ACTION, action);
+      ComponentUtils.setAttribute(command, Attributes.pageAction, action);
       command.setDisabled(disabled);
       facets.put(facet, command);
     }

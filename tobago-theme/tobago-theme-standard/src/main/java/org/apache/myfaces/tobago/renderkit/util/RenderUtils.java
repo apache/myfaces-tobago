@@ -19,12 +19,12 @@
 
 package org.apache.myfaces.tobago.renderkit.util;
 
-import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.internal.component.AbstractUICommand;
 import org.apache.myfaces.tobago.internal.component.AbstractUIData;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.model.ExpandedState;
+import org.apache.myfaces.tobago.model.ScrollPositionState;
 import org.apache.myfaces.tobago.model.SelectedState;
 import org.apache.myfaces.tobago.model.TreePath;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
@@ -234,16 +234,14 @@ public class RenderUtils {
 
       // expanded
       if (expandedIndices != null) {
-        if (expandedIndices != null) {
-          final ExpandedState expandedState = data.getExpandedState();
-          final boolean oldExpanded = expandedState.isExpanded(path);
-          final boolean newExpanded = expandedIndices.contains(rowIndex);
-          if (newExpanded != oldExpanded) {
-            if (newExpanded) {
-              expandedState.expand(path);
-            } else {
-              expandedState.collapse(path);
-            }
+        final ExpandedState expandedState = data.getExpandedState();
+        final boolean oldExpanded = expandedState.isExpanded(path);
+        final boolean newExpanded = expandedIndices.contains(rowIndex);
+        if (newExpanded != oldExpanded) {
+          if (newExpanded) {
+            expandedState.expand(path);
+          } else {
+            expandedState.collapse(path);
           }
         }
       }
@@ -269,58 +267,26 @@ public class RenderUtils {
   }
 
   public static void writeScrollPosition(
-      final FacesContext facesContext, final TobagoResponseWriter writer, final UIComponent component)
-      throws IOException {
-    Integer[] scrollPosition = (Integer[]) component.getAttributes().get(Attributes.SCROLL_POSITION);
-    if (scrollPosition == null) {
-      final String key = component.getClientId(facesContext) + SCROLL_POSTFIX;
-      scrollPosition = parseScrollPosition(facesContext.getExternalContext().getRequestParameterMap().get(key));
-    }
-    writeScrollPosition(facesContext, writer, component, scrollPosition);
-  }
-
-  public static void writeScrollPosition(
       final FacesContext facesContext, final TobagoResponseWriter writer, final UIComponent component,
-      final Integer[] scrollPosition)
+      final ScrollPositionState state)
       throws IOException {
     final String clientId = component.getClientId(facesContext);
     writer.startElement(HtmlElements.INPUT);
     writer.writeIdAttribute(clientId + SCROLL_POSTFIX);
     writer.writeNameAttribute(clientId + SCROLL_POSTFIX);
     writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN);
-    final String scrollPositionString = scrollPosition != null ? scrollPosition[0] + ";" + scrollPosition[1] : "";
-    writer.writeAttribute(HtmlAttributes.VALUE, scrollPositionString, false);
+    writer.writeAttribute(HtmlAttributes.VALUE, state.getScrollPosition().encode(), false);
     writer.writeAttribute(DataAttributes.SCROLL_POSITION, Boolean.TRUE.toString(), true);
     writer.endElement(HtmlElements.INPUT);
   }
 
-  public static void decodeScrollPosition(final FacesContext facesContext, final UIComponent component) {
+  public static void decodeScrollPosition(
+      final FacesContext facesContext, final UIComponent component, final ScrollPositionState state) {
     final String key = component.getClientId(facesContext) + SCROLL_POSTFIX;
     final String value = facesContext.getExternalContext().getRequestParameterMap().get(key);
     if (value != null) {
-      final Integer[] scrollPosition = parseScrollPosition(value);
-      if (scrollPosition != null) {
-        //noinspection unchecked
-        component.getAttributes().put(Attributes.SCROLL_POSITION, scrollPosition);
-      }
+      state.getScrollPosition().update(value);
     }
-  }
-
-  public static Integer[] parseScrollPosition(final String value) {
-    Integer[] position = null;
-    if (!StringUtils.isBlank(value)) {
-      final int sep = value.indexOf(";");
-      if (sep == -1) {
-        LOG.warn("Can't parse: '{}'", value);
-        return null;
-      }
-      final int left = Integer.parseInt(value.substring(0, sep));
-      final int top = Integer.parseInt(value.substring(sep + 1));
-      position = new Integer[2];
-      position[0] = left;
-      position[1] = top;
-    }
-    return position;
   }
 
   public static String generateUrl(final FacesContext facesContext, final AbstractUICommand component) {

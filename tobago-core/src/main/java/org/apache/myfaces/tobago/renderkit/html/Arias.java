@@ -44,7 +44,7 @@ public enum Arias implements MarkupLanguageAttributes {
   SETSIZE("aria-setsize"),
   SORT("aria-sort");
 
-  private String value;
+  private final String value;
 
   Arias(final String value) {
     this.value = value;

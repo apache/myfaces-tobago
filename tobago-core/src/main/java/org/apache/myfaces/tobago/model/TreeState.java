@@ -21,14 +21,25 @@ package org.apache.myfaces.tobago.model;
 
 import java.io.Serializable;
 
-public class TreeState implements Serializable {
+public class TreeState implements Serializable, ScrollPositionState {
 
   private ExpandedState expandedState;
   private SelectedState selectedState;
+  private ScrollPosition scrollPosition;
+
+  public TreeState() {
+    this(new ExpandedState(2), new SelectedState(), new ScrollPosition());
+  }
 
   public TreeState(final ExpandedState expandedState, final SelectedState selectedState) {
+    this(expandedState, selectedState, new ScrollPosition());
+  }
+
+  public TreeState(
+      final ExpandedState expandedState, final SelectedState selectedState, final ScrollPosition scrollPosition) {
     this.expandedState = expandedState;
     this.selectedState = selectedState;
+    this.scrollPosition = scrollPosition;
   }
 
   public ExpandedState getExpandedState() {
@@ -37,5 +48,9 @@ public class TreeState implements Serializable {
 
   public SelectedState getSelectedState() {
     return selectedState;
+  }
+
+  public ScrollPosition getScrollPosition() {
+    return scrollPosition;
   }
 }

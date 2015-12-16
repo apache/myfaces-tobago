@@ -36,16 +36,17 @@ public class SegmentLayoutRule extends MetaRule {
   public Metadata applyRule(final String name, final TagAttribute attribute, final MetadataTarget metadataTarget) {
     if (metadataTarget.isTargetInstanceOf(UISegmentLayout.class)) {
       if (attribute.isLiteral()) {
-        if (Attributes.EXTRA_SMALL.equals(name)) {
+        Attributes a = Attributes.valueOf(name);
+        if (Attributes.extraSmall == a) {
           return new ExtraSmallMapper(attribute);
         }
-        if (Attributes.SMALL.equals(name)) {
+        if (Attributes.small == a) {
           return new SmallMapper(attribute);
         }
-        if (Attributes.MEDIUM.equals(name)) {
+        if (Attributes.medium == a) {
           return new MediumMapper(attribute);
         }
-        if (Attributes.LARGE.equals(name)) {
+        if (Attributes.large == a) {
           return new LargeMapper(attribute);
         }
       }

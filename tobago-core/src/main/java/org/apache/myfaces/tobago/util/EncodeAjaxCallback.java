@@ -36,10 +36,10 @@ public class EncodeAjaxCallback implements TobagoCallback {
     try {
        final UIComponent reload = component.getFacet(Facets.RELOAD);
        if (reload != null && reload.isRendered()) {
-         final Boolean immediate = (Boolean) reload.getAttributes().get(Attributes.IMMEDIATE);
-         if (immediate != null && !immediate) {
-           final Boolean update = (Boolean) reload.getAttributes().get(Attributes.UPDATE);
-           if (update != null && !update) {
+         final Boolean immediate = ComponentUtils.getBooleanAttribute(reload, Attributes.immediate);
+         if (!immediate) {
+           final Boolean update = ComponentUtils.getBooleanAttribute(reload, Attributes.update);
+           if (!update) {
              return;
            }
          }

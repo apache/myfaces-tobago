@@ -120,7 +120,7 @@ public class TreeListboxNodeRenderer extends CommandRendererBase {
 
     writer.startElement(HtmlElements.OPTION);
     // todo: define where to store the selection of a tree, node.getValue() seems not to be a god place.
-    //        writer.writeAttribute(HtmlAttributes.VALUE, node.getValue().toString(), true); // XXX converter?
+    //        writer.writeAttribute(HtmlAttributes.value, node.getValue().toString(), true); // XXX converter?
     writer.writeAttribute(HtmlAttributes.VALUE, id, true);
     writer.writeIdAttribute(id);
     writer.writeAttribute(HtmlAttributes.SELECTED, expanded);

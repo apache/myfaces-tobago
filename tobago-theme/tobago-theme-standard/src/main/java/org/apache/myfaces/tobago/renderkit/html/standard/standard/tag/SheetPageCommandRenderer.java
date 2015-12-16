@@ -46,13 +46,13 @@ public class SheetPageCommandRenderer extends LinkRenderer {
 
     if (actionId != null && actionId.equals(clientId)) {
 
-      final PageAction action = (PageAction) component.getAttributes().get(Attributes.PAGE_ACTION);
+      final PageAction action = (PageAction) ComponentUtils.getAttribute(component, Attributes.pageAction);
       final PageActionEvent event = new PageActionEvent(component.getParent(), action);
 
       switch (action) {
         case TO_PAGE:
         case TO_ROW:
-          Integer target = (Integer) component.getAttributes().get(Attributes.PAGING_TARGET);
+          Integer target = (Integer) ComponentUtils.getAttribute(component, Attributes.pagingTarget);
           if (target == null) {
             final Map map = facesContext.getExternalContext().getRequestParameterMap();
             final Object value = map.get(actionId + ComponentUtils.SUB_SEPARATOR + "value");

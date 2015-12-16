@@ -92,7 +92,7 @@ public class ButtonRenderer extends CommandRendererBase {
 
     writer.writeStyleAttribute(button.getStyle());
 
-    final boolean defaultCommand = ComponentUtils.getBooleanAttribute(component, Attributes.DEFAULT_COMMAND);
+    final boolean defaultCommand = ComponentUtils.getBooleanAttribute(component, Attributes.defaultCommand);
     // TODO this might be too expensive:
     // TODO please put a flag in the ToolBar-handler and Button-handler (facelets-handler)
     final boolean insideToolbar = ComponentUtils.findAncestor(component, AbstractUIToolBar.class) != null;
@@ -109,7 +109,7 @@ public class ButtonRenderer extends CommandRendererBase {
     }
     writer.flush(); // force closing the start tag
 
-    String image = (String) button.getAttributes().get(Attributes.IMAGE);
+    String image = ComponentUtils.getStringAttribute(button, Attributes.image);
     HtmlRendererUtils.encodeIconWithLabel(writer, facesContext, image, label, disabled);
 
     writer.endElement(HtmlElements.BUTTON);

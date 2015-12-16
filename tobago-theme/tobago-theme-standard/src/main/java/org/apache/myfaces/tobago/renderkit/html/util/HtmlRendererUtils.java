@@ -163,7 +163,7 @@ public final class HtmlRendererUtils {
 
   public static String getTitleFromTipAndMessages(final FacesContext facesContext, final UIComponent component) {
     final String messages = ComponentUtils.getFacesMessageAsString(facesContext, component);
-    return HtmlRendererUtils.addTip(messages, component.getAttributes().get(Attributes.TIP));
+    return HtmlRendererUtils.addTip(messages, ComponentUtils.getAttribute(component, Attributes.tip));
   }
 
   public static String addTip(String title, final Object tip) {
@@ -283,8 +283,8 @@ public final class HtmlRendererUtils {
   public static void renderCommandFacet(
       final UIComponent component, final String id, final FacesContext facesContext, final TobagoResponseWriter writer)
       throws IOException {
-    if (ComponentUtils.getBooleanAttribute(component, Attributes.READONLY)
-        || ComponentUtils.getBooleanAttribute(component, Attributes.DISABLED)) {
+    if (ComponentUtils.getBooleanAttribute(component, Attributes.readonly)
+        || ComponentUtils.getBooleanAttribute(component, Attributes.disabled)) {
       return;
     }
     CommandMap commandMap = null;

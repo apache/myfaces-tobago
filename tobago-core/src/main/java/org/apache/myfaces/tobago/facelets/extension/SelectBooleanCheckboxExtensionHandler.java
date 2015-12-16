@@ -39,7 +39,7 @@ public class SelectBooleanCheckboxExtensionHandler extends TobagoLabelExtensionH
 
   public SelectBooleanCheckboxExtensionHandler(final ComponentConfig config) {
     super(config);
-    itemLabelAttribute = getAttribute(Attributes.ITEM_LABEL);
+    itemLabelAttribute = getAttribute(Attributes.itemLabel.getName());
   }
 
   protected void enrichInput(final FaceletContext faceletContext, final UIComponent input) {
@@ -50,7 +50,7 @@ public class SelectBooleanCheckboxExtensionHandler extends TobagoLabelExtensionH
         checkbox.setItemLabel(itemLabelAttribute.getValue(faceletContext));
       } else {
         final ValueExpression expression = itemLabelAttribute.getValueExpression(faceletContext, String.class);
-        checkbox.setValueExpression(Attributes.ITEM_LABEL, expression);
+        checkbox.setValueExpression(Attributes.itemLabel.getName(), expression);
       }
     } else {
       checkbox.setItemLabel(""); // for compatibility (TOBAGO-1093)

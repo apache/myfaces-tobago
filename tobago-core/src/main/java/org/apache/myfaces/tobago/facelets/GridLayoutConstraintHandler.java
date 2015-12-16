@@ -41,8 +41,8 @@ public class GridLayoutConstraintHandler extends TagHandler {
 
   public GridLayoutConstraintHandler(final TagConfig config) {
     super(config);
-    columnSpan = getAttribute(Attributes.COLUMN_SPAN);
-    rowSpan = getAttribute(Attributes.ROW_SPAN);
+    columnSpan = getAttribute(Attributes.columnSpan.getName());
+    rowSpan = getAttribute(Attributes.rowSpan.getName());
   }
 
   public void apply(final FaceletContext faceletContext, UIComponent parent) throws IOException {
@@ -56,18 +56,18 @@ public class GridLayoutConstraintHandler extends TagHandler {
 
     if (columnSpan != null) {
       if (columnSpan.isLiteral()) {
-        attributes.put(Attributes.COLUMN_SPAN, Integer.valueOf(columnSpan.getValue()));
+        attributes.put(Attributes.columnSpan.getName(), Integer.valueOf(columnSpan.getValue()));
       } else {
-        parent.setValueExpression(Attributes.COLUMN_SPAN,
+        parent.setValueExpression(Attributes.columnSpan.getName(),
             columnSpan.getValueExpression(faceletContext, Integer.TYPE));
       }
     }
 
     if (rowSpan != null) {
       if (rowSpan.isLiteral()) {
-        attributes.put(Attributes.ROW_SPAN, Integer.valueOf(rowSpan.getValue()));
+        attributes.put(Attributes.rowSpan.getName(), Integer.valueOf(rowSpan.getValue()));
       } else {
-        parent.setValueExpression(Attributes.ROW_SPAN,
+        parent.setValueExpression(Attributes.rowSpan.getName(),
             rowSpan.getValueExpression(faceletContext, Integer.TYPE));
       }
     }

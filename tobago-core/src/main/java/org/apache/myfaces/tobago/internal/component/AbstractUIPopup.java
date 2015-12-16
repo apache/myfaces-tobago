@@ -22,6 +22,7 @@ package org.apache.myfaces.tobago.internal.component;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Visual;
 import org.apache.myfaces.tobago.internal.util.FacesContextUtils;
+import org.apache.myfaces.tobago.util.ComponentUtils;
 
 import javax.el.ValueExpression;
 import javax.faces.component.NamingContainer;
@@ -85,7 +86,7 @@ public abstract class AbstractUIPopup extends AbstractUIPanel
         final UIComponent command = getFacesContext().getViewRoot().findComponent(
             UINamingContainer.getSeparatorChar(getFacesContext()) + action);
         if (command != null && command instanceof UICommand) {
-          return command.getAttributes().get(Attributes.POPUP_CLOSE) == null;
+          return ComponentUtils.getAttribute(command, Attributes.popupClose) == null;
         }
       }
     }

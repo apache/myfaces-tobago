@@ -76,7 +76,7 @@ public class MenuCommandRenderer extends CommandRendererBase {
     if (command.getFacet(Facets.CHECKBOX) != null) {
       // checkbox menu
       final UISelectBooleanCheckbox checkbox = (UISelectBooleanCheckbox) command.getFacet(Facets.CHECKBOX);
-      final boolean checked = ComponentUtils.getBooleanAttribute(checkbox, Attributes.VALUE);
+      final boolean checked = ComponentUtils.getBooleanAttribute(checkbox, Attributes.value);
       final String image = checked ? "image/MenuCheckmark" : null;
       final String hiddenId = checkbox.getClientId(facesContext);
       final CommandMap map = new CommandMap(new Command());

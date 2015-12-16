@@ -71,10 +71,7 @@ public class ImageRenderer extends RendererBase {
       src = null;
     }
 
-    String alt = (String) image.getAttributes().get(Attributes.ALT);
-    if (alt == null) {
-      alt = "";
-    }
+    final String alt = ComponentUtils.getStringAttribute(image, Attributes.alt, "");
 
     if (fontAwesome) {
       writer.writeIcon(null, FontAwesomeIconEncoder.generateClass(value)); // todo: should not be static

@@ -73,9 +73,9 @@ public final class CreateComponentUtils {
         facesContext, UIMenuSelectOne.COMPONENT_TYPE, RendererTypes.SELECT_ONE_RADIO, clientId);
     //noinspection unchecked
     command.getFacets().put(Facets.RADIO, radio);
-    final ValueBinding valueBinding = command.getValueBinding(Attributes.VALUE);
+    final ValueBinding valueBinding = command.getValueBinding(Attributes.value.getName());
     if (valueBinding != null) {
-      radio.setValueBinding(Attributes.VALUE, valueBinding);
+      radio.setValueBinding(Attributes.value.getName(), valueBinding);
     } else {
       radio.setValue(command.getValue());
     }
@@ -93,9 +93,9 @@ public final class CreateComponentUtils {
         facesContext, ComponentTypes.SELECT_BOOLEAN_CHECKBOX, RendererTypes.SELECT_BOOLEAN_CHECKBOX, clientId);
     //noinspection unchecked
     command.getFacets().put(Facets.CHECKBOX, checkbox);
-    final ValueBinding valueBinding = command.getValueBinding(Attributes.VALUE);
+    final ValueBinding valueBinding = command.getValueBinding(Attributes.value.getName());
     if (valueBinding != null) {
-      checkbox.setValueBinding(Attributes.VALUE, valueBinding);
+      checkbox.setValueBinding(Attributes.value.getName(), valueBinding);
     } else {
       //noinspection unchecked
       checkbox.setValue(command.getValue());

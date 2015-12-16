@@ -33,7 +33,7 @@ public enum DataAttributes implements MarkupLanguageAttributes {
     COLUMN_INDEX("data-tobago-column-index"),
 
   /**
-   * TBD: needed? may replace with VALUE?
+   * TBD: needed? may replace with value?
    * Custom command attribute. Is used to mark different client side JavaScript buttons.
    * Should only contain the command name as a keyword, for security reasons.
    */

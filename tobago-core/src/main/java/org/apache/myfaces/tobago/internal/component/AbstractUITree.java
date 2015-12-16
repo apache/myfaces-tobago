@@ -22,6 +22,7 @@ package org.apache.myfaces.tobago.internal.component;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Visual;
 import org.apache.myfaces.tobago.model.ExpandedState;
+import org.apache.myfaces.tobago.model.ScrollPosition;
 import org.apache.myfaces.tobago.model.SelectedState;
 import org.apache.myfaces.tobago.model.TreeState;
 
@@ -140,7 +141,7 @@ public abstract class AbstractUITree extends AbstractUIData implements NamingCon
       context.addMessage(getClientId(context), facesMessage);
     }
 
-    String selectable = ComponentUtils.getStringAttribute(this, SELECTABLE);
+    String selectable = ComponentUtils.getStringAttribute(this, selectable);
     if (selectable != null && selectable.endsWith("LeafOnly")) {
 
       Set<DefaultMutableTreeNode> selection = getState().getSelection();
@@ -191,18 +192,18 @@ public abstract class AbstractUITree extends AbstractUIData implements NamingCon
     }
 
     final ELContext elContext = FacesContext.getCurrentInstance().getELContext();
-    final ValueExpression expression = getValueExpression(Attributes.STATE);
+    final ValueExpression expression = getValueExpression(Attributes.state.getName());
 
     if (expression != null) {
       TreeState state = (TreeState) expression.getValue(elContext);
       if (state == null) {
-        state = new TreeState(new ExpandedState(2), new SelectedState());
+        state = new TreeState(new ExpandedState(2), new SelectedState(), new ScrollPosition());
         expression.setValue(elContext, state);
       }
       return state;
     }
 
-    state = new TreeState(new ExpandedState(2), new SelectedState());
+    state = new TreeState(new ExpandedState(2), new SelectedState(), new ScrollPosition());
     return state;
   }
 
