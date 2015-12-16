@@ -50,15 +50,18 @@ public class ImageRenderer extends RendererBase {
     final AbstractUIImage image = (AbstractUIImage) component;
     final String value = image.getUrl();
     final String src;
+    boolean fontAwesome = false;
     if (value != null) {
       if (ResourceManagerUtils.isAbsoluteResource(value)) {
         // absolute Path to image : nothing to do
         src = value;
       } else {
-        final int dot = ResourceManagerUtils.indexOfExtension(value);
         final boolean disabled = isDisabled(image);
-        if (dot != -1) {
+        if (ResourceManagerUtils.indexOfExtension(value) > -1) { // has extension
           src = ResourceManagerUtils.getImageOrDisabledImageWithPath(facesContext, value, disabled);
+        } else if (value.startsWith("fa-")) {
+          fontAwesome = true;
+          src = null;
         } else {
           src = ResourceManagerUtils.getImageOrDisabledImage(facesContext, value, disabled);
         }
