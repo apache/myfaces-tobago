@@ -19,6 +19,9 @@
 
 package org.apache.myfaces.tobago.component;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * Name constants of the attributes of the Tobago components.
  */
@@ -251,6 +254,8 @@ public enum Attributes {
   widthListString,
   zIndex;
 
+  private static final Logger LOG = LoggerFactory.getLogger(Attributes.class);
+
   /** This constants are needed for annotations, because they can't use the enums. */
   public static final String EXECUTE = "execute";
 
@@ -269,6 +274,15 @@ public enum Attributes {
       return explicit;
     } else {
       return name();
+    }
+  }
+
+  public static Attributes valueOfFailsafe(String name) {
+    try {
+      return Attributes.valueOf(name);
+    } catch (IllegalArgumentException e) {
+      LOG.warn("Can't find enum for {} with name '{}'", Attributes.class.getName(), name);
+      return null;
     }
   }
 

@@ -214,7 +214,7 @@ public final class AttributeHandler extends TagHandler {
         }
       } else {
 
-        final Attributes nameValue = Attributes.valueOf(name.getValue(faceletContext));
+        final Attributes nameValue = Attributes.valueOfFailsafe(name.getValue(faceletContext));
         if (Attributes.rendered == nameValue) {
           if (value.isLiteral()) {
             parent.setRendered(value.getBoolean(faceletContext));
