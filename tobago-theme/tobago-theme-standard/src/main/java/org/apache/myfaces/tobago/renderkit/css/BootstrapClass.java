@@ -104,7 +104,6 @@ public enum BootstrapClass implements CssItem {
   FORM_CONTROL_STATIC("form-control-static"),
   FORM_GROUP("form-group"),
   FORM_HORIZONTAL("form-horizontal"),
-  GLYPHICON("glyphicon"), // FIXME
   HAS_ERROR("has-error"),
   HAS_SUCCESS("has-success"),
   HAS_WARNING("has-warning"),
@@ -164,18 +163,6 @@ public enum BootstrapClass implements CssItem {
 
   public String getName() {
     return name;
-  }
-
-  public static CssItem glyphicon(final String name) {
-
-    return new CssItem() {
-
-      @Override
-      public String getName() {
-        // XXX cleanup, should be resolved with the ResourceManager...
-        return name.startsWith("glyphicon-") ? name : "glyphicon-" + name;
-      }
-    };
   }
 
   public static CssItem alert(final FacesMessage.Severity severity) {
