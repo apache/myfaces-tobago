@@ -38,6 +38,7 @@ public class CommandGroupRenderer extends RendererBase {
 
     writer.startElement(HtmlElements.UL);
     writer.writeClassAttribute(BootstrapClass.NAV, BootstrapClass.NAVBAR_NAV);
+    writer.writeIdAttribute(component.getClientId(facesContext));
   }
 
   @Override
