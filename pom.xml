@@ -903,6 +903,7 @@
               <exclude>**/bootstrap*.map</exclude>
               <exclude>**/bootstrap*.css</exclude>
               <exclude>**/glyphicons*.*</exclude>
+              <exclude>**/config.json</exclude>
 
               <!-- font-awesome -->
               <exclude>**/font-awesome*.css</exclude>
