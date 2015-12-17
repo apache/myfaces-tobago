@@ -39,7 +39,7 @@
 }
 
 /* for pickers with more than one icon, e.g. date-time picker */
-.btn > span.glyphicon:nth-child(n+2) {
+.btn > .fa:nth-child(n+2) {
   margin-left: .3em;
 }
 
@@ -262,13 +262,13 @@ table.tobago-gridLayout > tbody > tr:first-child > td {
 /* section ----------------------------------------------------------- */
 
 /* to separate the icon from the rest of the title */
-h1 > .glyphicon:first-child,
-h2 > .glyphicon:first-child,
-h3 > .glyphicon:first-child,
-h4 > .glyphicon:first-child,
-h5 > .glyphicon:first-child,
-h6 > .glyphicon:first-child {
-  margin-right: 1em;
+h1 > .fa:first-child,
+h2 > .fa:first-child,
+h3 > .fa:first-child,
+h4 > .fa:first-child,
+h5 > .fa:first-child,
+h6 > .fa:first-child {
+  margin-right: 0.7em;
 }
 
 /* selectManyCheckbox ----------------------------------------------------------- */
