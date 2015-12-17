@@ -20,6 +20,7 @@
 Migration from Tobago 2.0 to 3.0 (work in progress)
 
   JSP: JavaServer Pages are no longer supported. You need to migrate to Facelets as VDL.
+  You may do that before migrating to Tobago 3.0.
 
   CSS: box-sizing: changed from content-box to border-box
 
@@ -65,6 +66,13 @@ Migration from Tobago 2.0 to 3.0 (work in progress)
       <<<\</f:facet\>>>>
       ... content ...
     <<<\</tc:panel\>>>>
+
+* Introducing enums instead of constant classes
+
+    Some static utils classes are migrated to Java enums.
+
+    * If using <<<org.apache.myfaces.tobago.component.Attributes>>> you may use the enum value instead of the
+      String contant.
 
 * No longer supported
 
