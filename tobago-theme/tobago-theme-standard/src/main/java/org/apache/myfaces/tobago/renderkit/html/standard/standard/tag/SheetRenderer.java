@@ -1070,9 +1070,7 @@ public class SheetRenderer extends RendererBase {
 
     final Map<String, UIComponent> facets = sheet.getFacets();
     UICommand command = (UICommand) facets.get(facet);
-    if (command != null) {
-      LOG.error("Found facet: '{}'", facet);
-    } else {
+    if (command == null) {
       command = (UICommand) application.createComponent(UICommand.COMPONENT_TYPE);
       command.setRendererType(RendererTypes.SHEET_PAGE_COMMAND);
       command.setRendered(true);
