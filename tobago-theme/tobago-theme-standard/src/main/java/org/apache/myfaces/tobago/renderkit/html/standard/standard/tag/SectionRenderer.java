@@ -22,8 +22,6 @@ package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 import org.apache.myfaces.tobago.component.UISection;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
-import org.apache.myfaces.tobago.renderkit.css.CssItem;
-import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
@@ -45,12 +43,10 @@ public class SectionRenderer extends RendererBase {
         HtmlRendererUtils.writeDataAttributes(facesContext, writer, section);
 
         String label = section.getLabelToRender();
-        CssItem clazz = null;
         final HtmlElements tag;
         switch (section.getLevel()) {
             case 1:
                 tag = HtmlElements.H1;
-                clazz = BootstrapClass.PAGE_HEADER;
                 break;
             case 2:
                 tag = HtmlElements.H2;
@@ -69,9 +65,6 @@ public class SectionRenderer extends RendererBase {
         }
 
         writer.startElement(tag);
-        if (clazz != null) {
-            writer.writeClassAttribute(clazz);
-        }
         final String image = section.getImage();
         HtmlRendererUtils.encodeIconWithLabel(writer, image, label);
         writer.endElement(tag);

@@ -61,7 +61,7 @@ public class NavRenderer extends RendererBase {
 
     writer.startElement(HtmlElements.DIV);
     writer.writeIdAttribute(navbarId);
-    writer.writeClassAttribute(BootstrapClass.COLLAPSE, BootstrapClass.NAVBAR_COLLAPSE);
+    writer.writeClassAttribute(BootstrapClass.COLLAPSE, BootstrapClass.NAVBAR_TOGGLEABLE_XS);
 // XXX writer.writeClassAttribute(BootstrapClass.COLLAPSE, BootstrapClass.NAVBAR_COLLAPSE, BootstrapClass.NAVBAR_TEXT);
   }
 
@@ -109,26 +109,21 @@ public class NavRenderer extends RendererBase {
     // todo: consolidate this rendering with ToolBarRenderer
 
     writer.startElement(HtmlElements.DIV);
-    writer.writeClassAttribute(BootstrapClass.NAVBAR_HEADER);
 
     writer.startElement(HtmlElements.BUTTON);
     writer.writeAttribute(HtmlAttributes.TYPE, HtmlButtonTypes.BUTTON);
-    writer.writeClassAttribute(BootstrapClass.NAVBAR_TOGGLE, BootstrapClass.COLLAPSED);
+    writer.writeClassAttribute(BootstrapClass.NAVBAR_TOGGLER, BootstrapClass.HIDDEN_SM_UP);
     writer.writeAttribute(DataAttributes.TOGGLE, "collapse", false);
     writer.writeAttribute(DataAttributes.TARGET, JQueryUtils.escapeIdForHtml(navbarId), true);
     writer.writeAttribute(Arias.EXPANDED, Boolean.FALSE.toString(), false);
     writer.writeAttribute(Arias.CONTROLS, navbarId, false);
 
+    writer.writeText("☰");
+
     writer.startElement(HtmlElements.SPAN);
     writer.writeClassAttribute(BootstrapClass.SR_ONLY);
     writer.writeText("Toggle navigation"); // todo: i18n
     writer.endElement(HtmlElements.SPAN);
-
-    for (int i = 0; i < 3; i++) {
-      writer.startElement(HtmlElements.SPAN);
-      writer.writeClassAttribute(BootstrapClass.ICON_BAR);
-      writer.endElement(HtmlElements.SPAN);
-    }
 
     writer.endElement(HtmlElements.BUTTON);
 
@@ -172,7 +167,7 @@ public class NavRenderer extends RendererBase {
     public void mayStart() throws IOException {
       if (!isInDiv) {
         writer.startElement(HtmlElements.DIV);
-        writer.writeClassAttribute(BootstrapClass.NAVBAR_FORM);
+        writer.writeClassAttribute(BootstrapClass.FORM_INLINE);
         isInDiv = true;
       }
     }

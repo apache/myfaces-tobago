@@ -47,7 +47,7 @@ public class ToolBarRenderer extends RendererBase {
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
     writer.startElement(HtmlElements.NAV);
-    writer.writeClassAttribute(BootstrapClass.NAVBAR, BootstrapClass.NAVBAR_FORM, BootstrapClass.NAVBAR_DEFAULT);
+    writer.writeClassAttribute(BootstrapClass.NAVBAR, BootstrapClass.NAVBAR_DEFAULT);
     writer.writeAttribute(HtmlAttributes.ROLE, HtmlRoleValues.NAVIGATION.toString(), false);
 
     writer.startElement(HtmlElements.DIV);
@@ -55,11 +55,10 @@ public class ToolBarRenderer extends RendererBase {
 
 //    Brand and toggle get grouped for better mobile display
     writer.startElement(HtmlElements.DIV);
-    writer.writeClassAttribute(BootstrapClass.NAVBAR_HEADER);
 
     writer.startElement(HtmlElements.BUTTON);
     writer.writeAttribute(HtmlAttributes.TYPE, HtmlButtonTypes.BUTTON);
-    writer.writeClassAttribute(BootstrapClass.NAVBAR_TOGGLE);
+    writer.writeClassAttribute(BootstrapClass.NAVBAR_TOGGLER);
     writer.writeAttribute(DataAttributes.TOGGLE, "collapse", false);
     writer.writeAttribute(DataAttributes.TARGET, JQueryUtils.escapeIdForHtml(toolBar.getClientId(facesContext)), true);
 

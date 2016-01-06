@@ -89,7 +89,8 @@ public class CommandRenderer extends CommandRendererBase {
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, link);
     writer.writeStyleAttribute(link.getStyle());
     if (link.isParentOfCommands()) {
-      writer.writeClassAttribute(BootstrapClass.DROPDOWN_TOGGLE); // todo: CSS classes
+      // XXX BootstrapClass.NAV_LINK should only be shown inside of UINav or UIButtonGroup
+      writer.writeClassAttribute(BootstrapClass.DROPDOWN_TOGGLE, BootstrapClass.NAV_LINK); // todo: CSS classes
       writer.writeAttribute(DataAttributes.TOGGLE, "dropdown", false);
     } else {
       writer.writeClassAttribute(Classes.create(link), link.getCustomClass());

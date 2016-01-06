@@ -19,7 +19,6 @@
 
 package org.apache.myfaces.tobago.renderkit.css;
 
-import org.apache.myfaces.tobago.layout.TextAlign;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 
 import javax.faces.application.FacesMessage;
@@ -36,9 +35,14 @@ public enum BootstrapClass implements CssItem {
   ALERT_WARNING("alert-warning"),
   ALERT_INFO("alert-info"),
   ALERT_DISMISSIBLE("alert-dismissible"),
+  BG_INVERSE("bg-inverse"),
   BTN("btn"),
-  BTN_DEFAULT("btn-default"),
+  BTN_SECONDARY("btn-secondary"),
   BTN_PRIMARY("btn-primary"),
+  CARD("card"),
+  CARD_BLOCK("card-block"),
+  CARD_HEADER("card-header"),
+  CARD_TITLE("card-title"),
   CHECKBOX("checkbox"),
   CLOSE("close"),
   COLLAPSE("collapse"),
@@ -93,7 +97,6 @@ public enum BootstrapClass implements CssItem {
   COL_XS_12("col-xs-12"),
   CONTAINER("container"),
   CONTAINER_FLUID("container-fluid"),
-  CONTROL_LABEL("control-label"),
   DANGER("danger"),
   DISABLED("disabled"),
   DROPDOWN("dropdown"),
@@ -101,12 +104,14 @@ public enum BootstrapClass implements CssItem {
   DROPDOWN_TOGGLE("dropdown-toggle"),
   FADE("fade"),
   FORM_CONTROL("form-control"),
+  FORM_CONTROL_LABEL("form-control-label"),
   FORM_CONTROL_STATIC("form-control-static"),
   FORM_GROUP("form-group"),
-  FORM_HORIZONTAL("form-horizontal"),
+  FORM_INLINE("form-inline"),
   HAS_ERROR("has-error"),
   HAS_SUCCESS("has-success"),
   HAS_WARNING("has-warning"),
+  HIDDEN_SM_UP("hidden-sm-up"),
   ICON_BAR("icon-bar"),
   INFO("info"),
   INPUT_GROUP("input-group"),
@@ -116,39 +121,31 @@ public enum BootstrapClass implements CssItem {
   MODAL_DIALOG("modal-dialog"),
   MODAL_CONTENT("modal-content"),
   NAV("nav"),
+  NAV_ITEM("nav-item"),
+  NAV_LINK("nav-link"),
   NAV_TABS("nav-tabs"),
   NAVBAR("navbar"),
   NAVBAR_BRAND("navbar-brand"),
   NAVBAR_BTN("navbar-btn"),
   NAVBAR_COLLAPSE("navbar-collapse"),
+  NAVBAR_DARK("navbar-dark"),
   NAVBAR_DEFAULT("navbar-default"),
   NAVBAR_FIXED_BOTTOM("navbar-fixed-bottom"),
   NAVBAR_FIXED_TOP("navbar-fixed-top"),
-  NAVBAR_FORM("navbar-form"),
-  NAVBAR_HEADER("navbar-header"),
-  NAVBAR_INVERSE("navbar-inverse"),
   NAVBAR_NAV("navbar-nav"),
-  NAVBAR_TEXT("navbar-text"),
-  NAVBAR_TOGGLE("navbar-toggle"),
-  PAGE_HEADER("page-header"),
+  NAVBAR_TOGGLEABLE_XS("navbar-toggleable-xs"),
+  NAVBAR_TOGGLER("navbar-toggler"),
+  PAGE_ITEM("page-item"),
+  PAGE_LINK("page-link"),
   PAGINATION("pagination"),
-  PANEL("panel"),
-  PANEL_BODY("panel-body"),
-  PANEL_DEFAULT("panel-default"),
-  PANEL_HEADING("panel-heading"),
-  PANEL_TITLE("panel-title"),
   RADIO("radio"),
   ROW("row"),
   SR_ONLY("sr-only"),
   TABLE("table"),
   TABLE_BORDERED("table-bordered"),
-  TABLE_CONDENSED("table-condensed"),
   TABLE_HOVER("table-hover"),
+  TABLE_SM("table-sm"),
   TABLE_STRIPED("table-striped"),
-  TEXT_CENTER("text-center"),
-  TEXT_JUSTIFY("text-justify"),
-  TEXT_LEFT("text-left"),
-  TEXT_RIGHT("text-right"),
   WARNING("warning");
 
   private static final int SEVERITY_ERROR = FacesMessage.SEVERITY_ERROR.getOrdinal();
@@ -194,21 +191,6 @@ public enum BootstrapClass implements CssItem {
       return HAS_WARNING;
     } else {
       return null;
-    }
-  }
-
-  public static CssItem textAlign(final TextAlign textAlign) {
-    switch (textAlign) {
-      case left:
-        return TEXT_LEFT;
-      case right:
-        return TEXT_RIGHT;
-      case center:
-        return TEXT_CENTER;
-      case justify:
-        return TEXT_JUSTIFY;
-      default:
-        return null;
     }
   }
 }

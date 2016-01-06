@@ -58,7 +58,7 @@ public class BoxRenderer extends BoxRendererBase {
 
         writer.startElement(HtmlElements.DIV);
         writer.writeClassAttribute(
-            Classes.create(box), BootstrapClass.PANEL, BootstrapClass.PANEL_DEFAULT, box.getCustomClass());
+            Classes.create(box), BootstrapClass.CARD, box.getCustomClass());
         writer.writeIdAttribute(box.getClientId(facesContext));
         final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, box);
         if (title != null) {
@@ -69,10 +69,10 @@ public class BoxRenderer extends BoxRendererBase {
 
         if (label != null || labelString != null || toolbar != null) {
             writer.startElement(HtmlElements.DIV);
-            writer.writeClassAttribute(BootstrapClass.PANEL_HEADING);
+            writer.writeClassAttribute(BootstrapClass.CARD_HEADER);
 
             writer.startElement(HtmlElements.H3);
-            writer.writeClassAttribute(BootstrapClass.PANEL_TITLE);
+            writer.writeClassAttribute(BootstrapClass.CARD_TITLE);
             if (label != null) {
                 RenderUtils.encode(facesContext, label);
             } else if (labelString != null) {
@@ -91,7 +91,7 @@ public class BoxRenderer extends BoxRendererBase {
         }
 
         writer.startElement(HtmlElements.DIV);
-        writer.writeClassAttribute(BootstrapClass.PANEL_BODY);
+        writer.writeClassAttribute(BootstrapClass.CARD_BLOCK);
     }
 
     @Override

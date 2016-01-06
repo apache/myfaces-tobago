@@ -39,11 +39,8 @@ public class HeaderRenderer extends RendererBase {
     writer.startElement(HtmlElements.HEADER);
     writer.writeIdAttribute(component.getClientId(facesContext));
     // TBD: BootstrapClass.NAVBAR_DEFAULT ?
-    if (header.isFixed()) {
-      writer.writeClassAttribute(BootstrapClass.NAVBAR, BootstrapClass.NAVBAR_INVERSE, BootstrapClass.NAVBAR_FIXED_TOP);
-    } else {
-      writer.writeClassAttribute(BootstrapClass.NAVBAR, BootstrapClass.NAVBAR_INVERSE);
-    }
+    writer.writeClassAttribute(BootstrapClass.NAVBAR, BootstrapClass.NAVBAR_DARK, BootstrapClass.BG_INVERSE,
+        header.isFixed() ? BootstrapClass.NAVBAR_FIXED_TOP : null);
 // TBD: should NAVBAR class be in the NavRenderer?
 
 /*

@@ -40,7 +40,7 @@ public class MenuBarRenderer extends RendererBase {
     final UIMenuBar menuBar = (UIMenuBar) component;
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
-    writer.startElement(HtmlElements.OL);
+    writer.startElement(HtmlElements.UL);
     writer.writeIdAttribute(menuBar.getClientId(facesContext));
     writer.writeClassAttribute(
         Classes.create(menuBar),
@@ -55,6 +55,6 @@ public class MenuBarRenderer extends RendererBase {
   @Override
   public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
-    writer.endElement(HtmlElements.OL);
+    writer.endElement(HtmlElements.UL);
   }
 }

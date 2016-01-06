@@ -99,7 +99,7 @@ public class ButtonRenderer extends CommandRendererBase {
     writer.writeClassAttribute(
         Classes.create(button),
         BootstrapClass.BTN,
-        defaultCommand ? BootstrapClass.BTN_PRIMARY : BootstrapClass.BTN_DEFAULT,
+        defaultCommand ? BootstrapClass.BTN_PRIMARY : BootstrapClass.BTN_SECONDARY,
         insideToolbar ? BootstrapClass.NAVBAR_BTN : null,
         button.getCustomClass());
 

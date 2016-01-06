@@ -186,7 +186,7 @@ public abstract class LabelLayoutRendererBase extends RendererBase {
     if (StringUtils.isNotBlank(label)) {
       writer.startElement(HtmlElements.LABEL);
       writer.writeAttribute(HtmlAttributes.FOR, component.getClientId(), false);
-      writer.writeClassAttribute(TobagoClass.LABEL, BootstrapClass.CONTROL_LABEL);
+      writer.writeClassAttribute(TobagoClass.LABEL, BootstrapClass.FORM_CONTROL_LABEL);
       // todo: label with accesskey
       writer.writeText(label);
       writer.endElement(HtmlElements.LABEL);

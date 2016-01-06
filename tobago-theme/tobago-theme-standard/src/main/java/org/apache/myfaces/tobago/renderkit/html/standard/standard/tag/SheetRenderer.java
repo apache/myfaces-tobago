@@ -229,7 +229,7 @@ public class SheetRenderer extends RendererBase {
         Classes.create(sheet, "bodyTable"),
         BootstrapClass.TABLE,
         BootstrapClass.TABLE_BORDERED,
-        BootstrapClass.TABLE_CONDENSED,
+        BootstrapClass.TABLE_SM,
         selectable != Selectable.none ? BootstrapClass.TABLE_HOVER : null);
 
     writeColgroup(writer, columnWidths);
@@ -415,10 +415,11 @@ public class SheetRenderer extends RendererBase {
         writer.startElement(HtmlElements.UL);
         writer.writeClassAttribute(Classes.create(sheet, "paging", showRowRange), BootstrapClass.PAGINATION);
         writer.startElement(HtmlElements.LI);
+        writer.writeClassAttribute(BootstrapClass.PAGE_ITEM);
         writer.writeAttribute(HtmlAttributes.TITLE,
             ResourceManagerUtils.getPropertyNotNull(facesContext, "tobago", "sheetPagingInfoRowPagingTip"), true);
         writer.startElement(HtmlElements.SPAN);
-        writer.writeClassAttribute(Classes.create(sheet, "pagingText"));
+        writer.writeClassAttribute(Classes.create(sheet, "pagingText"), BootstrapClass.PAGE_LINK);
         if (sheet.getRowCount() != 0) {
           final Locale locale = facesContext.getViewRoot().getLocale();
           final int first = sheet.getFirst() + 1;
@@ -510,8 +511,9 @@ public class SheetRenderer extends RendererBase {
           encodeLink(facesContext, sheet, application, disabled, PageAction.PREV, null, Icons.BACKWARD, null);
         }
         writer.startElement(HtmlElements.LI);
+        writer.writeClassAttribute(BootstrapClass.PAGE_ITEM);
         writer.startElement(HtmlElements.SPAN);
-        writer.writeClassAttribute(Classes.create(sheet, "pagingText"));
+        writer.writeClassAttribute(Classes.create(sheet, "pagingText"), BootstrapClass.PAGE_LINK);
         writer.writeAttribute(HtmlAttributes.TITLE,
                 ResourceManagerUtils.getPropertyNotNull(facesContext, "tobago", "sheetPagingInfoPagePagingTip"), true);
         if (sheet.getRowCount() != 0) {
@@ -728,8 +730,9 @@ public class SheetRenderer extends RendererBase {
 
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
     writer.startElement(HtmlElements.LI);
-    writer.writeClassAttribute(liClass, disabled ? BootstrapClass.DISABLED : null);
+    writer.writeClassAttribute(liClass, disabled ? BootstrapClass.DISABLED : null, BootstrapClass.PAGE_ITEM);
     writer.startElement(HtmlElements.A);
+    writer.writeClassAttribute(BootstrapClass.PAGE_LINK);
     writer.writeAttribute(HtmlAttributes.HREF, "#", false);
     writer.writeIdAttribute(command.getClientId(facesContext));
     writer.writeAttribute(HtmlAttributes.TITLE, tip, true);

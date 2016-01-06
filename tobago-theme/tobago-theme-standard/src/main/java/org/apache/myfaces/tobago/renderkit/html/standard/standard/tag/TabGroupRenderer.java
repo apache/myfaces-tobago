@@ -203,9 +203,9 @@ public class TabGroupRenderer extends RendererBase {
           writer.startElement(HtmlElements.LI);
           // todo: fix Css management
           if (activeIndex == index) {
-            writer.writeClassAttribute(Classes.create(tab), BootstrapClass.ACTIVE);
+            writer.writeClassAttribute(Classes.create(tab), BootstrapClass.NAV_ITEM, BootstrapClass.ACTIVE);
           } else {
-            writer.writeClassAttribute(Classes.create(tab));
+            writer.writeClassAttribute(Classes.create(tab), BootstrapClass.NAV_ITEM);
           }
           writer.writeAttribute(HtmlAttributes.ROLE, HtmlRoleValues.PRESENTATION.toString(), false);
           writer.writeAttribute(HtmlAttributes.TABGROUPINDEX, index);
@@ -215,6 +215,7 @@ public class TabGroupRenderer extends RendererBase {
           }
 
           writer.startElement(HtmlElements.A);
+          writer.writeClassAttribute(BootstrapClass.NAV_ITEM);
           if (!disabled) {
             writer.writeAttribute(HtmlAttributes.HREF, "#", false);
           }
@@ -360,7 +361,7 @@ public class TabGroupRenderer extends RendererBase {
     }
 
     writer.startElement(HtmlElements.DIV);
-    writer.writeClassAttribute(Classes.create(tab, "content"), BootstrapClass.PANEL_BODY);
+    writer.writeClassAttribute(Classes.create(tab, "content"), BootstrapClass.CARD_BLOCK);
     writer.writeIdAttribute(tab.getClientId(facesContext) + ComponentUtils.SUB_SEPARATOR + "content");
 
     writer.writeAttribute(HtmlAttributes.TABGROUPINDEX, index);

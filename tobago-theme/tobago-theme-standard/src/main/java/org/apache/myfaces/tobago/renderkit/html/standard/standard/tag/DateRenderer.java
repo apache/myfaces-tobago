@@ -77,7 +77,7 @@ public class DateRenderer extends InRenderer {
     writer.startElement(HtmlElements.SPAN);
     writer.writeClassAttribute(BootstrapClass.INPUT_GROUP_BTN);
     writer.startElement(HtmlElements.BUTTON);
-    writer.writeClassAttribute(BootstrapClass.BTN, BootstrapClass.BTN_DEFAULT);
+    writer.writeClassAttribute(BootstrapClass.BTN, BootstrapClass.BTN_SECONDARY);
     writer.writeAttribute(HtmlAttributes.TYPE, HtmlButtonTypes.BUTTON);
     writer.writeAttribute(HtmlAttributes.DISABLED, date.isDisabled() || date.isReadonly());
     if (pattern.contains("m")) { // simple guessing
