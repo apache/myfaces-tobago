@@ -59,8 +59,9 @@ public class SegmentLayoutRenderer extends RendererBase {
 
     writer.startElement(HtmlElements.DIV);
 //    writer.writeClassAttribute(BootstrapClass.FORM_HORIZONTAL, BootstrapClass.CONTAINER_FLUID);
-    writer.writeClassAttribute(Classes.create(layout), BootstrapClass.FORM_GROUP);
 //    writer.writeClassAttribute(BootstrapClass.ROW);
+    writer.writeClassAttribute(Classes.create(layout), BootstrapClass.FORM_GROUP);
+    writer.writeIdAttribute(layout.getClientId(facesContext));
   }
 
   @Override
