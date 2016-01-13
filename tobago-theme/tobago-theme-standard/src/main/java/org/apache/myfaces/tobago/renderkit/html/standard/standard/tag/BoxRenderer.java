@@ -52,9 +52,6 @@ public class BoxRenderer extends BoxRendererBase {
         final String labelString = box.getLabel();
 
         final UIPanel toolbar = (UIPanel) box.getFacet(Facets.TOOL_BAR); //XXX todo
-        if (toolbar != null) {
-            LOG.error("XXX toolbar for bootstrap not yet implemented");
-        }
 
         writer.startElement(HtmlElements.DIV);
         writer.writeClassAttribute(
@@ -80,14 +77,16 @@ public class BoxRenderer extends BoxRendererBase {
             }
             writer.endElement(HtmlElements.H3);
 
+            if (toolbar != null) {
+                RenderUtils.encode(facesContext, toolbar);
+            }
+
             writer.endElement(HtmlElements.DIV);
         }
 
-// XXX todo
         final UIMenuBar menuBar = ComponentUtils.findFacetDescendant(box, Facets.MENUBAR, UIMenuBar.class);
         if (menuBar != null) {
-            LOG.error("XXX menuBar for bootstrap not yet implemented");
-//            RenderUtils.encode(facesContext, menuBar);
+            RenderUtils.encode(facesContext, menuBar);
         }
 
         writer.startElement(HtmlElements.DIV);
