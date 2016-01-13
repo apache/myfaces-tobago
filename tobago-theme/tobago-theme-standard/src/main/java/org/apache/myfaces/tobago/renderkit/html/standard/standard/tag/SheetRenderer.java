@@ -20,7 +20,6 @@
 package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
 import org.apache.myfaces.tobago.component.Attributes;
-import org.apache.myfaces.tobago.component.ComponentTypes;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.component.UIColumnSelector;
@@ -29,6 +28,7 @@ import org.apache.myfaces.tobago.component.UILink;
 import org.apache.myfaces.tobago.component.UIMenu;
 import org.apache.myfaces.tobago.component.UIMenuCommand;
 import org.apache.myfaces.tobago.component.UIOut;
+import org.apache.myfaces.tobago.component.UIPanel;
 import org.apache.myfaces.tobago.component.UIReload;
 import org.apache.myfaces.tobago.component.UISheet;
 import org.apache.myfaces.tobago.component.UIToolBar;
@@ -109,13 +109,13 @@ public class SheetRenderer extends RendererBase {
   private void ensureHeader(final FacesContext facesContext, final UISheet sheet) {
     UIComponent header = sheet.getHeader();
     if (header == null) {
-      header = CreateComponentUtils.createComponent(facesContext, ComponentTypes.PANEL, null, "_header");
+      header = CreateComponentUtils.createComponent(facesContext, UIPanel.COMPONENT_TYPE, null, "_header");
       header.setTransient(true);
       final List<AbstractUIColumn> columns = sheet.getAllColumns();
       int i = 0;
       for (final AbstractUIColumn column : columns) {
         final AbstractUIOut out = (AbstractUIOut) CreateComponentUtils.createComponent(
-            facesContext, ComponentTypes.OUT, RendererTypes.OUT, "_col" + i);
+            facesContext, UIOut.COMPONENT_TYPE, RendererTypes.OUT, "_col" + i);
         out.setTransient(true);
 //        out.setValue(column.getLabel());
         ValueExpression valueExpression = column.getValueExpression(Attributes.label.getName());

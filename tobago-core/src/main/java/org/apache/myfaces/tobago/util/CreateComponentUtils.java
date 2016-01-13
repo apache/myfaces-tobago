@@ -20,10 +20,10 @@
 package org.apache.myfaces.tobago.util;
 
 import org.apache.myfaces.tobago.component.Attributes;
-import org.apache.myfaces.tobago.component.ComponentTypes;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.component.UIMenuSelectOne;
+import org.apache.myfaces.tobago.component.UISelectBooleanCheckbox;
 import org.apache.myfaces.tobago.internal.component.AbstractUISelectBooleanCheckbox;
 
 import javax.faces.component.UICommand;
@@ -90,7 +90,7 @@ public final class CreateComponentUtils {
   public static AbstractUISelectBooleanCheckbox createUISelectBooleanFacet(
       final FacesContext facesContext, final UICommand command, final String clientId) {
     final AbstractUISelectBooleanCheckbox checkbox = (AbstractUISelectBooleanCheckbox) createComponent(
-        facesContext, ComponentTypes.SELECT_BOOLEAN_CHECKBOX, RendererTypes.SELECT_BOOLEAN_CHECKBOX, clientId);
+        facesContext, UISelectBooleanCheckbox.COMPONENT_TYPE, RendererTypes.SELECT_BOOLEAN_CHECKBOX, clientId);
     //noinspection unchecked
     command.getFacets().put(Facets.CHECKBOX, checkbox);
     final ValueBinding valueBinding = command.getValueBinding(Attributes.value.getName());

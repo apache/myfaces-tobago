@@ -22,7 +22,6 @@ package org.apache.myfaces.tobago.internal.taglib.component;
 import org.apache.myfaces.tobago.apt.annotation.Facet;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
-import org.apache.myfaces.tobago.component.ComponentTypes;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.internal.taglib.declaration.AbstractCommandTagDeclaration;
@@ -48,7 +47,7 @@ import javax.faces.component.UICommand;
     allowedChildComponenents = "NONE",
     facets = {
         @Facet(name = Facets.CONFIRMATION, description = "Contains a UIOutput instance with the confirmation message.",
-            allowedChildComponenents = ComponentTypes.OUT),
+            allowedChildComponenents = "org.apache.myfaces.tobago.Out"),
         @Facet(name = Facets.POPUP, description = "Contains a UIPopup instance.",
             allowedChildComponenents = "org.apache.myfaces.tobago.Popup"),
         @Facet(name = Facets.DROP_DOWN_MENU, description = "Contains a UIMenu instance to render a drop down menu.",

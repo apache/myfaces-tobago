@@ -22,7 +22,6 @@ package org.apache.myfaces.tobago.internal.config;
 import org.apache.myfaces.test.base.junit4.AbstractJsfTestCase;
 import org.apache.myfaces.test.mock.MockFacesContext;
 import org.apache.myfaces.test.mock.MockHttpServletRequest;
-import org.apache.myfaces.tobago.component.ComponentTypes;
 import org.apache.myfaces.tobago.component.UIButton;
 import org.apache.myfaces.tobago.component.UICommand;
 import org.apache.myfaces.tobago.component.UIIn;
@@ -90,14 +89,15 @@ public abstract class AbstractTobagoTestBase extends AbstractJsfTestCase {
     session.setAttribute(ClientProperties.MANAGED_BEAN_NAME, clientProperties);
 
     // XXX is there a better way? Get it from Tobagos generated faces-config.xml?
-    application.addComponent(ComponentTypes.IN, UIIn.class.getName());
-    application.addComponent(ComponentTypes.OUT, UIOut.class.getName());
-    application.addComponent(ComponentTypes.PANEL, UIPanel.class.getName());
-    application.addComponent("javax.faces.Command", javax.faces.component.UICommand.class.getName());
-    application.addComponent(ComponentTypes.COMMAND, UICommand.class.getName());
-    application.addComponent(ComponentTypes.LINK, UILink.class.getName());
-    application.addComponent(ComponentTypes.BUTTON, UIButton.class.getName());
-    application.addComponent(ComponentTypes.POPUP, UIPopup.class.getName());
+    application.addComponent(UIIn.COMPONENT_TYPE, UIIn.class.getName());
+    application.addComponent(UIOut.COMPONENT_TYPE, UIOut.class.getName());
+    application.addComponent(UIPanel.COMPONENT_TYPE, UIPanel.class.getName());
+    application.addComponent(
+        javax.faces.component.UICommand.COMPONENT_TYPE, javax.faces.component.UICommand.class.getName());
+    application.addComponent(UICommand.COMPONENT_TYPE, UICommand.class.getName());
+    application.addComponent(UILink.COMPONENT_TYPE, UILink.class.getName());
+    application.addComponent(UIButton.COMPONENT_TYPE, UIButton.class.getName());
+    application.addComponent(UIPopup.COMPONENT_TYPE, UIPopup.class.getName());
 
     try {
       ResourceManagerFactory.init(servletContext, tobagoConfig);
