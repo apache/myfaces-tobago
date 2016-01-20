@@ -28,6 +28,7 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRoleValues;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
+import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
@@ -65,7 +66,7 @@ public class SeparatorRenderer extends RendererBase {
 
   private String getLabel(final UISeparator separator) {
     String label = separator.getLabel();
-    final UIComponent facet = separator.getFacet(Facets.LABEL);
+    final UIComponent facet = ComponentUtils.getFacet(separator, Facets.label);
     if (label == null && facet != null) {
       label = String.valueOf(((UILabel) facet).getValue());
     }

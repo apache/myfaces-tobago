@@ -116,9 +116,9 @@ public abstract class ToolBarRendererBase extends RendererBase {
     } else if (command instanceof SelectOneCommand) {
       renderSelectOne(facesContext, toolBar, command, writer);
     } else {
-      if (command.getFacet(Facets.RADIO) != null) {
+      if (ComponentUtils.getFacet(command, Facets.radio) != null) {
         renderSelectOne(facesContext, toolBar, command, writer);
-      } else if (command.getFacet(Facets.CHECKBOX) != null) {
+      } else if (ComponentUtils.getFacet(command, Facets.checkbox) != null) {
         renderSelectBoolean(facesContext, toolBar, command, writer);
       } else {
         final CommandMap map = new CommandMap(new Command(facesContext, command));
@@ -136,7 +136,7 @@ public abstract class ToolBarRendererBase extends RendererBase {
 
     final List<SelectItem> items;
 
-    UIMenuSelectOne radio = (UIMenuSelectOne) command.getFacet(Facets.RADIO);
+    UIMenuSelectOne radio = (UIMenuSelectOne) ComponentUtils.getFacet(command, Facets.radio);
     if (radio == null) {
       items = SelectItemUtils.getItemList(facesContext, command);
       radio = CreateComponentUtils.createUIMenuSelectOneFacet(facesContext, command);
@@ -205,7 +205,7 @@ public abstract class ToolBarRendererBase extends RendererBase {
       final FacesContext facesContext, final UIToolBar toolBar, final AbstractUICommand command,
       final TobagoResponseWriter writer) throws IOException {
 
-    UIComponent checkbox = command.getFacet(Facets.CHECKBOX);
+    UIComponent checkbox = ComponentUtils.getFacet(command, Facets.checkbox);
     if (checkbox == null) {
       checkbox = CreateComponentUtils.createUISelectBooleanFacetWithId(facesContext, command);
     }

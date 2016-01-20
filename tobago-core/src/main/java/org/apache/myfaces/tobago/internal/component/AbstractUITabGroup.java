@@ -29,6 +29,7 @@ import org.apache.myfaces.tobago.component.Visual;
 import org.apache.myfaces.tobago.event.TabChangeEvent;
 import org.apache.myfaces.tobago.event.TabChangeListener;
 import org.apache.myfaces.tobago.event.TabChangeSource2;
+import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -121,7 +122,7 @@ public abstract class AbstractUITabGroup extends AbstractUIPanel
             if (getRenderedIndex() == index) {
               tab.processDecodes(context);
             } else {
-              UIComponent facet = tab.getFacet(Facets.TOOL_BAR);
+              UIComponent facet = ComponentUtils.getFacet(tab, Facets.toolBar);
               if (facet != null) {
                 facet.processDecodes(context);
               }

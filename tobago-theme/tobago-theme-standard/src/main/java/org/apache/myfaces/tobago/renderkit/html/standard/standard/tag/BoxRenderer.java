@@ -48,10 +48,10 @@ public class BoxRenderer extends BoxRendererBase {
         final UIBox box = (UIBox) component;
         final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
-        final UIComponent label = box.getFacet(Facets.LABEL);
+        final UIComponent label = ComponentUtils.getFacet(box, Facets.label);
         final String labelString = box.getLabel();
 
-        final UIPanel toolbar = (UIPanel) box.getFacet(Facets.TOOL_BAR); //XXX todo
+        final UIPanel toolbar = (UIPanel) ComponentUtils.getFacet(box, Facets.toolBar); //XXX todo
 
         writer.startElement(HtmlElements.DIV);
         writer.writeClassAttribute(
@@ -84,7 +84,7 @@ public class BoxRenderer extends BoxRendererBase {
             writer.endElement(HtmlElements.DIV);
         }
 
-        final UIMenuBar menuBar = ComponentUtils.findFacetDescendant(box, Facets.MENUBAR, UIMenuBar.class);
+        final UIMenuBar menuBar = ComponentUtils.findFacetDescendant(box, Facets.menuBar, UIMenuBar.class);
         if (menuBar != null) {
             RenderUtils.encode(facesContext, menuBar);
         }

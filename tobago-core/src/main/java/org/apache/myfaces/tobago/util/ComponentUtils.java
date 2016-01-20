@@ -21,6 +21,7 @@ package org.apache.myfaces.tobago.util;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.myfaces.tobago.component.Attributes;
+import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.UISheet;
 import org.apache.myfaces.tobago.component.Visual;
 import org.apache.myfaces.tobago.context.Markup;
@@ -269,9 +270,9 @@ public final class ComponentUtils {
    * Searches the component tree beneath the component and return the first component matching the type.
    */
   public static <T extends UIComponent> T findFacetDescendant(
-      final UIComponent component, final String facet, final Class<T> type) {
+      final UIComponent component, final Facets facet, final Class<T> type) {
 
-    final UIComponent facetComponent = component.getFacet(facet);
+    final UIComponent facetComponent = component.getFacet(facet.name());
     if (facetComponent != null) {
       if (type.isAssignableFrom(facetComponent.getClass())) {
         return (T) facetComponent;
@@ -516,6 +517,14 @@ public final class ComponentUtils {
 
   public static void removeAttribute(final UIComponent component, final Attributes name) {
     component.getAttributes().remove(name.getName());
+  }
+
+  public static UIComponent getFacet(final UIComponent component, final Facets facet) {
+    return component.getFacet(facet.name());
+  }
+
+  public static void setFacet(final UIComponent component, final Facets facet, final UIComponent child) {
+    component.getFacets().put(facet.name(), child);
   }
 
   public static boolean isFacetOf(final UIComponent component, final UIComponent parent) {

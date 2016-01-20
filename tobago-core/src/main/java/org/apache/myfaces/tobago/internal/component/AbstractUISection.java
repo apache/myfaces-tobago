@@ -39,7 +39,7 @@ public abstract class AbstractUISection extends UIComponentBase implements Visua
 
   public String getLabelToRender() {
 
-    final UIComponent facet = getFacet(Facets.LABEL);
+    final UIComponent facet = ComponentUtils.getFacet(this, Facets.label);
     if (facet instanceof UIOutput) {
       return String.valueOf(((UIOutput) facet).getValue());
     } else if (facet != null) {

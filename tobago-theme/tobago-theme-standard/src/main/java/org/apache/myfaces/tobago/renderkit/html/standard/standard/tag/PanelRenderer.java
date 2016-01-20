@@ -30,6 +30,7 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
+import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
@@ -70,7 +71,7 @@ public class PanelRenderer extends RendererBase {
 
     // TODO check ajax id?
     if (!FacesContextUtils.isAjax(facesContext)) {
-      final UIComponent facetReload = panel.getFacet(Facets.RELOAD);
+      final UIComponent facetReload = ComponentUtils.getFacet(panel, Facets.reload);
       if (facetReload != null && facetReload instanceof UIReload && facetReload.isRendered()) {
         final UIReload update = (UIReload) facetReload;
         writer.writeAttribute(DataAttributes.RELOAD, Integer.toString(update.getFrequency()), false);

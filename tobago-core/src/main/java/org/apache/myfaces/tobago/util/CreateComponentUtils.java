@@ -72,7 +72,7 @@ public final class CreateComponentUtils {
     final UIMenuSelectOne radio = (UIMenuSelectOne) createComponent(
         facesContext, UIMenuSelectOne.COMPONENT_TYPE, RendererTypes.SELECT_ONE_RADIO, clientId);
     //noinspection unchecked
-    command.getFacets().put(Facets.RADIO, radio);
+    ComponentUtils.setFacet(command, Facets.radio, radio);
     final ValueBinding valueBinding = command.getValueBinding(Attributes.value.getName());
     if (valueBinding != null) {
       radio.setValueBinding(Attributes.value.getName(), valueBinding);
@@ -92,7 +92,7 @@ public final class CreateComponentUtils {
     final AbstractUISelectBooleanCheckbox checkbox = (AbstractUISelectBooleanCheckbox) createComponent(
         facesContext, UISelectBooleanCheckbox.COMPONENT_TYPE, RendererTypes.SELECT_BOOLEAN_CHECKBOX, clientId);
     //noinspection unchecked
-    command.getFacets().put(Facets.CHECKBOX, checkbox);
+    ComponentUtils.setFacet(command, Facets.checkbox, checkbox);
     final ValueBinding valueBinding = command.getValueBinding(Attributes.value.getName());
     if (valueBinding != null) {
       checkbox.setValueBinding(Attributes.value.getName(), valueBinding);

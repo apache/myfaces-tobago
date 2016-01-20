@@ -73,9 +73,10 @@ public class MenuCommandRenderer extends CommandRendererBase {
     final boolean disabled = command.isDisabled();
     final boolean firstLevel = RendererTypes.MENU_BAR.equals(command.getParent().getRendererType());
 
-    if (command.getFacet(Facets.CHECKBOX) != null) {
+    if (ComponentUtils.getFacet(command, Facets.checkbox) != null) {
       // checkbox menu
-      final UISelectBooleanCheckbox checkbox = (UISelectBooleanCheckbox) command.getFacet(Facets.CHECKBOX);
+      final UISelectBooleanCheckbox checkbox
+          = (UISelectBooleanCheckbox) ComponentUtils.getFacet(command, Facets.checkbox);
       final boolean checked = ComponentUtils.getBooleanAttribute(checkbox, Attributes.value);
       final String image = checked ? "image/MenuCheckmark" : null;
       final String hiddenId = checkbox.getClientId(facesContext);
@@ -84,10 +85,10 @@ public class MenuCommandRenderer extends CommandRendererBase {
       encodeItem(facesContext, writer,
           command, menu, label, map, disabled, firstLevel, image, null, "selectBoolean", command.getClientId());
       encodeHidden(writer, hiddenId, checked);
-    } else if (command.getFacet(Facets.RADIO) != null) {
+    } else if (ComponentUtils.getFacet(command, Facets.radio) != null) {
       // radio menu
       final String clientId = command.getClientId(facesContext);
-      final UISelectOne radio = (UISelectOne) command.getFacet(Facets.RADIO);
+      final UISelectOne radio = (UISelectOne) ComponentUtils.getFacet(command, Facets.radio);
       final String hiddenId = radio.getClientId(facesContext);
       for (final SelectItem item : SelectItemUtils.getItemIterator(facesContext, radio)) {
         final boolean checked = ObjectUtils.equals(item.getValue(), radio.getValue());

@@ -34,7 +34,7 @@ public class EncodeAjaxCallback implements TobagoCallback {
 
   public void invokeContextCallback(final FacesContext facesContext, final UIComponent component) {
     try {
-       final UIComponent reload = component.getFacet(Facets.RELOAD);
+       final UIComponent reload = ComponentUtils.getFacet(component, Facets.reload);
        if (reload != null && reload.isRendered()) {
          final Boolean immediate = ComponentUtils.getBooleanAttribute(reload, Attributes.immediate);
          if (!immediate) {

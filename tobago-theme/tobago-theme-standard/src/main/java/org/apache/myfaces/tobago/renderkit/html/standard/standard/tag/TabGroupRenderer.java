@@ -247,7 +247,7 @@ public class TabGroupRenderer extends RendererBase {
           }
           writer.endElement(HtmlElements.A);
 
-          final UIPanel toolbar = (UIPanel) tab.getFacet(Facets.TOOL_BAR);
+          final UIPanel toolbar = (UIPanel) ComponentUtils.getFacet(tab, Facets.toolBar);
           if (toolbar != null) {
             renderTabToolbar(facesContext, writer, tab, toolbar);
           }
@@ -338,7 +338,7 @@ public class TabGroupRenderer extends RendererBase {
     toolBar.getChildren().add(previous);
     toolBar.getChildren().add(next);
     toolBar.getChildren().add(all);
-    tabGroup.getFacets().put(Facets.TOOL_BAR, toolBar);
+    ComponentUtils.setFacet(tabGroup, Facets.toolBar, toolBar);
     return toolBar;
   }
 

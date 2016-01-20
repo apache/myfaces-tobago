@@ -118,7 +118,7 @@ public class Command {
   }
 
   private static String getConfirmation(final AbstractUICommand command) {
-    final ValueHolder facet = (ValueHolder) command.getFacet(Facets.CONFIRMATION);
+    final ValueHolder facet = (ValueHolder) ComponentUtils.getFacet(command, Facets.confirmation);
     return facet != null ? "" + facet.getValue() : null;
   }
 

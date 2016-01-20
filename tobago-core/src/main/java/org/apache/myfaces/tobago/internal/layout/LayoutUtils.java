@@ -21,6 +21,7 @@ package org.apache.myfaces.tobago.internal.layout;
 
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.Visual;
+import org.apache.myfaces.tobago.util.ComponentUtils;
 
 import javax.faces.component.UIComponent;
 import java.util.ArrayList;
@@ -90,7 +91,7 @@ public final class LayoutUtils {
       base = component;
     }
 
-    final UIComponent layoutFacet = base.getFacet(Facets.LAYOUT);
+    final UIComponent layoutFacet = ComponentUtils.getFacet(base, Facets.layout);
     if (layoutFacet != null) {
       return layoutFacet;
     } else {

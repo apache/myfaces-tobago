@@ -150,7 +150,7 @@ public class SheetRenderer extends RendererBase {
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, sheet);
     writer.writeClassAttribute(Classes.create(sheet), sheet.getCustomClass());
     writer.writeStyleAttribute(sheet.getStyle());
-    final UIComponent facetReload = sheet.getFacet(Facets.RELOAD);
+    final UIComponent facetReload = ComponentUtils.getFacet(sheet, Facets.reload);
     if (facetReload != null && facetReload instanceof UIReload && facetReload.isRendered()) {
       final UIReload update = (UIReload) facetReload;
       writer.writeAttribute(DataAttributes.RELOAD, update.getFrequency());
@@ -409,7 +409,8 @@ public class SheetRenderer extends RendererBase {
       // show row range
       final Markup showRowRange = markupForLeftCenterRight(sheet.getShowRowRange());
       if (showRowRange != Markup.NULL) {
-        final UICommand command = ensurePagingCommand(application, sheet, Facets.PAGER_ROW, PageAction.TO_ROW, false);
+        final UICommand command
+            = ensurePagingCommand(application, sheet, Facets.pagerRow.name(), PageAction.TO_ROW, false);
         final String pagerCommandId = command.getClientId(facesContext);
 
         writer.startElement(HtmlElements.UL);
@@ -499,7 +500,8 @@ public class SheetRenderer extends RendererBase {
       // show page range
       final Markup showPageRange = markupForLeftCenterRight(sheet.getShowPageRange());
       if (showPageRange != Markup.NULL) {
-        final UICommand command = ensurePagingCommand(application, sheet, Facets.PAGER_PAGE, PageAction.TO_PAGE, false);
+        final UICommand command
+            = ensurePagingCommand(application, sheet, Facets.pagerPage.name(), PageAction.TO_PAGE, false);
         final String pagerCommandId = command.getClientId(facesContext);
 
         writer.startElement(HtmlElements.UL);
@@ -814,13 +816,13 @@ public class SheetRenderer extends RendererBase {
           if (cell.getColumnSpan() == 1 && cellComponent instanceof UIOut) {
             final boolean sortable = ComponentUtils.getBooleanAttribute(column, Attributes.sortable);
             if (sortable) {
-              UICommand sortCommand = (UICommand) column.getFacet(Facets.SORTER);
+              UICommand sortCommand = (UICommand) ComponentUtils.getFacet(column, Facets.sorter);
               if (sortCommand == null) {
                 final String columnId = column.getClientId(facesContext);
                 final String sorterId = columnId.substring(columnId.lastIndexOf(":") + 1) + "_" + UISheet.SORTER_ID;
                 sortCommand = (UICommand) CreateComponentUtils.createComponent(
                     facesContext, UICommand.COMPONENT_TYPE, RendererTypes.LINK, sorterId);
-                column.getFacets().put(Facets.SORTER, sortCommand);
+                ComponentUtils.setFacet(column, Facets.sorter, sortCommand);
               }
               String[] clientIds = ComponentUtils.evaluateClientIds(facesContext, sheet, sheet.getRenderedPartially());
               if (clientIds.length == 0) {
@@ -975,7 +977,7 @@ public class SheetRenderer extends RendererBase {
     toolBar.setRendererType("TabGroupToolBar");
     toolBar.setTransient(true);
     toolBar.getChildren().add(dropDown);
-    sheet.getFacets().put(Facets.TOOL_BAR, toolBar);
+    ComponentUtils.setFacet(sheet, Facets.toolBar, toolBar);
     return toolBar;
   }
 

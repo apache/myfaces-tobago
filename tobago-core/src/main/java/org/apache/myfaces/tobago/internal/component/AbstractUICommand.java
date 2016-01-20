@@ -42,7 +42,7 @@ public abstract class AbstractUICommand
   private Boolean parentOfCommands;
 
   public void onComponentPopulated(final FacesContext facesContext, final UIComponent parent) {
-    final AbstractUIPopup popup = (AbstractUIPopup) getFacet(Facets.POPUP);
+    final AbstractUIPopup popup = (AbstractUIPopup) ComponentUtils.getFacet(this, Facets.popup);
     if (popup != null) {
       if (!ComponentUtils.containsPopupActionListener(this)) {
         addActionListener(new PopupFacetActionListener());
