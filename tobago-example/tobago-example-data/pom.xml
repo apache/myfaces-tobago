@@ -29,11 +29,6 @@
 
   <dependencies>
     <dependency>
-      <groupId>org.apache.myfaces.tobago</groupId>
-      <artifactId>tobago-core</artifactId>
-      <version>${project.version}</version>
-    </dependency>
-    <dependency>
       <groupId>commons-lang</groupId>
       <artifactId>commons-lang</artifactId>
     </dependency>
