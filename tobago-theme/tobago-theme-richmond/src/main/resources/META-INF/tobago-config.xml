@@ -37,9 +37,9 @@
       <versioned>true</versioned>
       <resources production="true">
         <excludes>
-          <script name="bootstrap/3.3.5/js/bootstrap.js"/>
-          <style name="bootstrap/3.3.5/css/bootstrap.css"/>
-          <style name="bootstrap/3.3.5/css/bootstrap-theme.css"/>
+          <script name="bootstrap/4.0.0-alpha.2/js/bootstrap.js"/>
+          <style name="bootstrap/4.0.0-alpha.2/css/bootstrap.css"/>
+          <style name="bootstrap/4.0.0-alpha.2/css/bootstrap-theme.css"/>
         </excludes>
         <script name="bootstrap-richmond/3.3.6/js/bootstrap.js"/>
         <style name="bootstrap-richmond/3.3.6/css/bootstrap.css"/>
@@ -47,9 +47,9 @@
       </resources>
       <resources production="false">
         <excludes>
-          <script name="bootstrap/3.3.5/js/bootstrap.js"/>
-          <style name="bootstrap/3.3.5/css/bootstrap.css"/>
-          <style name="bootstrap/3.3.5/css/bootstrap-theme.css"/>
+          <script name="bootstrap/4.0.0-alpha.2/js/bootstrap.js"/>
+          <style name="bootstrap/4.0.0-alpha.2/css/bootstrap.css"/>
+          <style name="bootstrap/4.0.0-alpha.2/css/bootstrap-theme.css"/>
         </excludes>
         <script name="bootstrap-richmond/3.3.6/js/bootstrap.js"/>
         <style name="bootstrap-richmond/3.3.6/css/bootstrap.css"/>
