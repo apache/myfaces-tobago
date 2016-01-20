@@ -608,7 +608,7 @@ mvn install -Pall-modules
   Tobago 1.0.x and Tobago 1.5.x are using the old name <<<style.css>>>, since Tobago 2.0.0
   <<<tobago.css>>> is used, <<<style.css>>> will also be included for compatibility (in Tobago 2.x).
 
-  The {{{https://svn.apache.org/repos/asf/myfaces/tobago/trunk/tobago-example/tobago-theme-example/}example theme}} provides
+  The {{{https://svn.apache.org/repos/asf/myfaces/tobago/trunk/tobago-theme/tobago-theme-example/}example theme}} provides
   an example for styling sheet cells and contains more complex examples of markup, which need addtional JavaScript
   to generate more dynamic behaviours like fade-out effects or client-side change detection.
 

@@ -21,7 +21,7 @@ Live Demo
 
   A live demo can be found for different versions here:
 
-  * {{{http://www.irian.biz/tobago-example-demo-3.0.x/}3.0.x (experimental)}}
+  * {{{http://www.irian.biz/tobago-example-demo-3.0.x/}3.0.x (alpha)}}
 
   * {{{http://www.irian.biz/tobago-example-demo-2.0.x/}2.0.x (current release)}}
 
@@ -77,4 +77,4 @@ Examples
 
   This theme shows how to extend an existing theme and add new markups.
 
-  Sources: {{http://svn.apache.org/repos/asf/myfaces/tobago/trunk/tobago-example/tobago-theme-example/}}
+  Sources: {{http://svn.apache.org/repos/asf/myfaces/tobago/trunk/tobago-theme/tobago-theme-example/}}

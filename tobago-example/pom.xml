@@ -148,7 +148,6 @@
         <module>tobago-example-security</module>
         <module>tobago-example-test</module>
         <module>tobago-example-assembly</module>
-        <module>tobago-theme-example</module>
       </modules>
     </profile>
     <profile>
