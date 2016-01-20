@@ -302,7 +302,7 @@ public class TabGroupRenderer extends RendererBase {
     all.setOmit(true); // avoid submit
 
     final UIMenu menu = (UIMenu) CreateComponentUtils.createComponent(
-        facesContext, UIMenu.COMPONENT_TYPE, RendererTypes.MENU, viewRoot.createUniqueId());
+        facesContext, UIMenu.COMPONENT_TYPE, RendererTypes.Menu, viewRoot.createUniqueId());
     menu.setTransient(true);
     ComponentUtils.addCurrentMarkup(menu, Markup.TOP);
     FacetUtils.setDropDownMenu(all, menu);
@@ -312,7 +312,7 @@ public class TabGroupRenderer extends RendererBase {
         final UITab tab = (UITab) child;
         if (tab.isRendered()) {
           final UIMenuCommand entry = (UIMenuCommand) CreateComponentUtils.createComponent(
-              facesContext, UIMenuCommand.COMPONENT_TYPE, RendererTypes.MENU_COMMAND, viewRoot.createUniqueId());
+              facesContext, UIMenuCommand.COMPONENT_TYPE, RendererTypes.MenuCommand, viewRoot.createUniqueId());
           entry.setTransient(true);
           entry.setOmit(true); // avoid submit
           final LabelWithAccessKey label = new LabelWithAccessKey(tab);

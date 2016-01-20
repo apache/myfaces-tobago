@@ -481,7 +481,7 @@ public class ResourceManagerImpl implements ResourceManager {
       LOG.debug("rendererType = '{}'", rendererType);
     }
     if ("javax.faces.Text".equals(rendererType)) { // TODO: find a better way
-      name = RendererTypes.OUT;
+      name = RendererTypes.Out.name();
     } else {
       name = rendererType;
     }

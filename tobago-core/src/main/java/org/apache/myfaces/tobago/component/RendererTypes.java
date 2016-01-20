@@ -22,22 +22,89 @@ package org.apache.myfaces.tobago.component;
 /**
  * Constants for the renderer type
  */
-public final class RendererTypes {
+public enum RendererTypes {
+
+  Box,
+  BoxToolBar,
+  Button,
+  Calendar,
+  Column,
+  SegmentLayout,
+  ColumnSelector,
+  Command,
+  CommandGroup,
+  Date,
+  File,
+  FlexLayout,
+  FlowLayout,
+  Footer,
+  Form,
+  GridLayout,
+  Header,
+  Hidden,
+  In,
+  Image,
+  Link,
+  Label,
+  Mediator,
+  Messages,
+  Menu,
+  MenuBar,
+  MenuCommand,
+  MenuSeparator,
+  Nav,
+  Object,
+  Out,
+  Page,
+  Panel,
+  Popup,
+  Progress,
+  Script,
+  Section,
+  SelectBooleanCheckbox,
+  SelectManyCheckbox,
+  SelectManyListbox,
+  SelectManyShuttle,
+  SelectOneChoice,
+  SelectOneRadio,
+  SelectOneListbox,
+  SelectReference,
+  Separator,
+  SheetPageCommand,
+  Style,
+  Suggest,
+  Textarea,
+  Tab,
+  TabGroup,
+  TabGroupToolBar,
+  Time,
+  ToolBar,
+  Tree,
+  TreeData,
+  TreeCommand,
+  TreeIcon,
+  TreeIndent,
+  TreeLabel,
+  TreeListbox,
+  TreeListboxNode,
+  TreeMenu,
+  TreeMenuCommand,
+  TreeMenuLabel,
+  TreeMenuNode,
+  TreeNode,
+  TreeSelect,
+  Sheet;
 
   public static final String BOX = "Box";
   public static final String BOX_TOOL_BAR = "BoxToolBar";
   public static final String BUTTON = "Button";
   public static final String CALENDAR = "Calendar";
-  @Deprecated
-  public static final String CELL = "Cell";
   public static final String COLUMN = "Column";
   public static final String SEGMENT_LAYOUT = "SegmentLayout";
   public static final String COLUMN_SELECTOR = "ColumnSelector";
   public static final String COMMAND = "Command";
   public static final String COMMAND_GROUP = "CommandGroup";
   public static final String DATE = "Date";
-  @Deprecated
-  public static final String DATE_PICKER = "DatePicker";
   public static final String FILE = "File";
   public static final String FLEX_LAYOUT = "FlexLayout";
   public static final String FLOW_LAYOUT = "FlowLayout";
@@ -98,10 +165,4 @@ public final class RendererTypes {
   public static final String TREE_NODE = "TreeNode";
   public static final String TREE_SELECT = "TreeSelect";
   public static final String SHEET = "Sheet";
-  @Deprecated
-  public static final String WIZARD = "Wizard";
-
-  private RendererTypes() {
-    // to prevent instantiation
-  }
 }

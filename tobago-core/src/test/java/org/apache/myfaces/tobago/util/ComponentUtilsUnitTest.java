@@ -41,8 +41,8 @@ public class ComponentUtilsUnitTest extends AbstractTobagoTestBase {
 
   @Test
   public void testFindDescendant() {
-    final UIComponent p = CreateComponentUtils.createComponent(UIPanel.COMPONENT_TYPE, RendererTypes.PANEL, "p");
-    final UIComponent i = CreateComponentUtils.createComponent(UIIn.COMPONENT_TYPE, RendererTypes.IN, "i");
+    final UIComponent p = CreateComponentUtils.createComponent(UIPanel.COMPONENT_TYPE, RendererTypes.Panel, "p");
+    final UIComponent i = CreateComponentUtils.createComponent(UIIn.COMPONENT_TYPE, RendererTypes.In, "i");
     p.getChildren().add(i);
 
     final UIIn in = ComponentUtils.findDescendant(p, UIIn.class);

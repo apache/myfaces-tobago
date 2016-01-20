@@ -168,7 +168,7 @@ public class MessagesRenderer extends RendererBase {
     final String id
         = messages.getId() != null ? messages.getId() + "popup" : facesContext.getViewRoot().createUniqueId();
     final UIPopup popup = (UIPopup)
-        CreateComponentUtils.createComponent(facesContext, UIPopup.COMPONENT_TYPE, RendererTypes.POPUP, id);
+        CreateComponentUtils.createComponent(facesContext, UIPopup.COMPONENT_TYPE, RendererTypes.Popup, id);
     ComponentUtils.setAttribute(popup, Attributes.zIndex, 10);
 
     popup.setRendered(true);
@@ -178,7 +178,7 @@ public class MessagesRenderer extends RendererBase {
     ComponentUtils.setAttribute(popup, Attributes.popupReset, Boolean.TRUE);
 
     final UIComponent box = CreateComponentUtils.createComponent(
-        facesContext, UIBox.COMPONENT_TYPE, RendererTypes.BOX);
+        facesContext, UIBox.COMPONENT_TYPE, RendererTypes.Box, "box");
     popup.getChildren().add(box);
     box.setId("box");
     // TODO: set string resources in renderer
@@ -187,7 +187,7 @@ public class MessagesRenderer extends RendererBase {
     ComponentUtils.setAttribute(box, Attributes.label, label);
 
     final UIPanel scrollPanel = (UIPanel)
-        CreateComponentUtils.createComponent(facesContext, UIPanel.COMPONENT_TYPE, "Panel", "messagePanel");
+        CreateComponentUtils.createComponent(facesContext, UIPanel.COMPONENT_TYPE, RendererTypes.Panel, "messagePanel");
     box.getChildren().add(scrollPanel);
 
     messages.getParent().getChildren().remove(messages);
@@ -196,17 +196,17 @@ public class MessagesRenderer extends RendererBase {
     scrollPanel.getChildren().add(messages);
 
     final UIComponent buttonPanel = CreateComponentUtils.createComponent(
-        facesContext, UIPanel.COMPONENT_TYPE, RendererTypes.PANEL, "buttonPanel");
+        facesContext, UIPanel.COMPONENT_TYPE, RendererTypes.Panel, "buttonPanel");
 
     box.getChildren().add(buttonPanel);
 
     final UIPanel space = (UIPanel)
-        CreateComponentUtils.createComponent(facesContext, UIPanel.COMPONENT_TYPE, "Panel", "space");
+        CreateComponentUtils.createComponent(facesContext, UIPanel.COMPONENT_TYPE, RendererTypes.Panel, "space");
     buttonPanel.getChildren().add(space);
     space.onComponentPopulated(facesContext, messages);
 
     final UIButton okButton = (UIButton) CreateComponentUtils.createComponent(
-        facesContext, UIButton.COMPONENT_TYPE, RendererTypes.BUTTON, CLOSE_POPUP);
+        facesContext, UIButton.COMPONENT_TYPE, RendererTypes.Button, CLOSE_POPUP);
     buttonPanel.getChildren().add(okButton);
     okButton.setLabel(
         ResourceManagerUtils.getPropertyNotNull(facesContext, "tobago", "tobago.message.confirmation.okay"));

@@ -98,8 +98,6 @@ public class SheetRenderer extends RendererBase {
   public static final String WIDTHS_POSTFIX = ComponentUtils.SUB_SEPARATOR + "widths";
   public static final String SELECTED_POSTFIX = ComponentUtils.SUB_SEPARATOR + "selected";
 
-  private static final Integer HEIGHT_0 = 0;
-
   @Override
   public void prepareRender(final FacesContext facesContext, final UIComponent component) throws IOException {
     super.prepareRender(facesContext, component);
@@ -115,7 +113,7 @@ public class SheetRenderer extends RendererBase {
       int i = 0;
       for (final AbstractUIColumn column : columns) {
         final AbstractUIOut out = (AbstractUIOut) CreateComponentUtils.createComponent(
-            facesContext, UIOut.COMPONENT_TYPE, RendererTypes.OUT, "_col" + i);
+            facesContext, UIOut.COMPONENT_TYPE, RendererTypes.Out, "_col" + i);
         out.setTransient(true);
 //        out.setValue(column.getLabel());
         ValueExpression valueExpression = column.getValueExpression(Attributes.label.getName());
@@ -821,7 +819,7 @@ public class SheetRenderer extends RendererBase {
                 final String columnId = column.getClientId(facesContext);
                 final String sorterId = columnId.substring(columnId.lastIndexOf(":") + 1) + "_" + UISheet.SORTER_ID;
                 sortCommand = (UICommand) CreateComponentUtils.createComponent(
-                    facesContext, UICommand.COMPONENT_TYPE, RendererTypes.LINK, sorterId);
+                    facesContext, UICommand.COMPONENT_TYPE, RendererTypes.Link, sorterId);
                 ComponentUtils.setFacet(column, Facets.sorter, sortCommand);
               }
               String[] clientIds = ComponentUtils.evaluateClientIds(facesContext, sheet, sheet.getRenderedPartially());
@@ -964,7 +962,7 @@ public class SheetRenderer extends RendererBase {
         facesContext, UICommand.COMPONENT_TYPE, null, "dropDown");
     dropDown.setOmit(true);
     final UIMenu menu = (UIMenu) CreateComponentUtils.createComponent(
-        facesContext, UIMenu.COMPONENT_TYPE, RendererTypes.MENU, "menu");
+        facesContext, UIMenu.COMPONENT_TYPE, RendererTypes.Menu, "menu");
     FacetUtils.setDropDownMenu(dropDown, menu);
     final String sheetId = sheet.getClientId(facesContext);
 
@@ -986,7 +984,7 @@ public class SheetRenderer extends RendererBase {
       final String sheetId) {
     final String id = markup.toString();
     final UIMenuCommand menuItem = (UIMenuCommand) CreateComponentUtils.createComponent(
-        facesContext, UIMenuCommand.COMPONENT_TYPE, RendererTypes.MENU_COMMAND, id);
+        facesContext, UIMenuCommand.COMPONENT_TYPE, RendererTypes.MenuCommand, id);
     menuItem.setLabel(ResourceManagerUtils.getPropertyNotNull(facesContext, "tobago", label));
     menuItem.setMarkup(markup);
     menuItem.setOmit(true);

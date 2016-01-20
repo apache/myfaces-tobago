@@ -139,63 +139,61 @@ public abstract class ToolBarRendererBase extends RendererBase {
     UIMenuSelectOne radio = (UIMenuSelectOne) ComponentUtils.getFacet(command, Facets.radio);
     if (radio == null) {
       items = SelectItemUtils.getItemList(facesContext, command);
-      radio = CreateComponentUtils.createUIMenuSelectOneFacet(facesContext, command);
+      radio = CreateComponentUtils.createUIMenuSelectOneFacet(facesContext, command, null);
       radio.setId(facesContext.getViewRoot().createUniqueId());
     } else {
       items = SelectItemUtils.getItemList(facesContext, radio);
     }
 
-    if (radio != null) {
-      writer.startElement(HtmlElements.SPAN);
-      writer.writeClassAttribute(Classes.create(toolBar, "selectOne"));
-      final Object value = radio.getValue();
+    writer.startElement(HtmlElements.SPAN);
+    writer.writeClassAttribute(Classes.create(toolBar, "selectOne"));
+    final Object value = radio.getValue();
 
-      String currentValue = "";
-      boolean markFirst = !hasSelectedValue(items, value);
-      final String radioId = radio.getClientId(facesContext);
-      for (final SelectItem item : items) {
-        final String labelText = item.getLabel();
-        if (labelText != null) {
-          ComponentUtils.setAttribute(command, Attributes.label, labelText);
-        } else {
-          LOG.warn("Menu item has label=null. UICommand.getClientId()=" + command.getClientId(facesContext));
-        }
-
-        String image = null;
-        if (item instanceof org.apache.myfaces.tobago.model.SelectItem) {
-          image = ((org.apache.myfaces.tobago.model.SelectItem) item).getImage();
-        }
-        if (image == null) {
-          image = "image/1x1";
-        }
-        ComponentUtils.setAttribute(command, Attributes.image, image);
-
-        if (item.getDescription() != null) {
-          ComponentUtils.setAttribute(command, Attributes.tip, item.getDescription());
-        }
-
-        final String formattedValue = RenderUtils.getFormattedValue(facesContext, radio, item.getValue());
-        final boolean checked;
-        if (ObjectUtils.equals(item.getValue(), value) || markFirst) {
-          checked = true;
-          markFirst = false;
-          currentValue = formattedValue;
-        } else {
-          checked = false;
-        }
-
-        final CommandMap map = new CommandMap(new Command());
-        renderToolbarButton(
-            facesContext, toolBar, command, writer, checked, map, formattedValue);
+    String currentValue = "";
+    boolean markFirst = !hasSelectedValue(items, value);
+    final String radioId = radio.getClientId(facesContext);
+    for (final SelectItem item : items) {
+      final String labelText = item.getLabel();
+      if (labelText != null) {
+        ComponentUtils.setAttribute(command, Attributes.label, labelText);
+      } else {
+        LOG.warn("Menu item has label=null. UICommand.getClientId()=" + command.getClientId(facesContext));
       }
 
-      writer.startElement(HtmlElements.INPUT);
-      writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN);
-      writer.writeNameAttribute(radioId);
-      writer.writeAttribute(HtmlAttributes.VALUE, currentValue, true);
-      writer.endElement(HtmlElements.INPUT);
-      writer.endElement(HtmlElements.SPAN);
+      String image = null;
+      if (item instanceof org.apache.myfaces.tobago.model.SelectItem) {
+        image = ((org.apache.myfaces.tobago.model.SelectItem) item).getImage();
+      }
+      if (image == null) {
+        image = "image/1x1";
+      }
+      ComponentUtils.setAttribute(command, Attributes.image, image);
+
+      if (item.getDescription() != null) {
+        ComponentUtils.setAttribute(command, Attributes.tip, item.getDescription());
+      }
+
+      final String formattedValue = RenderUtils.getFormattedValue(facesContext, radio, item.getValue());
+      final boolean checked;
+      if (ObjectUtils.equals(item.getValue(), value) || markFirst) {
+        checked = true;
+        markFirst = false;
+        currentValue = formattedValue;
+      } else {
+        checked = false;
+      }
+
+      final CommandMap map = new CommandMap(new Command());
+      renderToolbarButton(
+          facesContext, toolBar, command, writer, checked, map, formattedValue);
     }
+
+    writer.startElement(HtmlElements.INPUT);
+    writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN);
+    writer.writeNameAttribute(radioId);
+    writer.writeAttribute(HtmlAttributes.VALUE, currentValue, true);
+    writer.endElement(HtmlElements.INPUT);
+    writer.endElement(HtmlElements.SPAN);
   }
 
   // todo: remove component creation in renderer, for JSF 2.0

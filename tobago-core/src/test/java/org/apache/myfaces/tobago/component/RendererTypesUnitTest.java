@@ -30,10 +30,21 @@ public class RendererTypesUnitTest {
   @Test
   public void testNames() throws IllegalAccessException {
 
-    for (final Field field : RendererTypes.class.getFields()) {
-      final String value = (String) field.get(null);
-      Assert.assertTrue("value='" + value + "'", value.matches("[A-Z][a-zA-Z]*"));
-      Assert.assertEquals(StringUtils.constantToCamelCase(field.getName()), value);
+
+    final Field[] fields = RendererTypes.class.getFields();
+    final RendererTypes[] values = RendererTypes.values();
+
+    Assert.assertEquals("count", fields.length, 2 * values.length);
+
+    for (final Field field : fields) {
+      final Object object = field.get(null);
+      if (object instanceof String) {
+        final String value = (String) object;
+        Assert.assertTrue("value='" + value + "'", value.matches("[A-Z][a-zA-Z]*"));
+        final String expected = StringUtils.constantToCamelCase(field.getName());
+        Assert.assertEquals(expected, value);
+        Assert.assertNotNull("exists", RendererTypes.valueOf(value));
+      }
     }
   }
 }

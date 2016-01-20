@@ -36,41 +36,28 @@ public final class CreateComponentUtils {
   private CreateComponentUtils() {
   }
 
-  @Deprecated
-  public static UIComponent createComponent(final String componentType, final String rendererType) {
-    return createComponent(componentType, rendererType, null);
-  }
-
   public static UIComponent createComponent(
-      final String componentType, final String rendererType, final String clientId) {
+      final String componentType, final RendererTypes rendererType, final String clientId) {
     final FacesContext facesContext = FacesContext.getCurrentInstance();
     return createComponent(facesContext, componentType, rendererType, clientId);
   }
 
-  @Deprecated
   public static UIComponent createComponent(
-      final FacesContext facesContext, final String componentType, final String rendererType) {
-    return createComponent(facesContext, componentType, rendererType, null);
-  }
-
-  public static UIComponent createComponent(
-      final FacesContext facesContext, final String componentType, final String rendererType, final String clientId) {
+      final FacesContext facesContext, final String componentType, final RendererTypes rendererType,
+      final String clientId) {
     final UIComponent component  = facesContext.getApplication().createComponent(componentType);
-    component.setRendererType(rendererType);
+    if (rendererType != null) {
+      component.setRendererType(rendererType.name());
+    }
     component.setId(clientId);
     return component;
-  }
-
-  @Deprecated
-  public static UIMenuSelectOne createUIMenuSelectOneFacet(final FacesContext facesContext, final UICommand command) {
-    return createUIMenuSelectOneFacet(facesContext, command, null);
   }
 
   public static UIMenuSelectOne createUIMenuSelectOneFacet(
       final FacesContext facesContext, final UICommand command, final String clientId) {
 
     final UIMenuSelectOne radio = (UIMenuSelectOne) createComponent(
-        facesContext, UIMenuSelectOne.COMPONENT_TYPE, RendererTypes.SELECT_ONE_RADIO, clientId);
+        facesContext, UIMenuSelectOne.COMPONENT_TYPE, RendererTypes.SelectOneRadio, clientId);
     //noinspection unchecked
     ComponentUtils.setFacet(command, Facets.radio, radio);
     final ValueBinding valueBinding = command.getValueBinding(Attributes.value.getName());
@@ -90,7 +77,7 @@ public final class CreateComponentUtils {
   public static AbstractUISelectBooleanCheckbox createUISelectBooleanFacet(
       final FacesContext facesContext, final UICommand command, final String clientId) {
     final AbstractUISelectBooleanCheckbox checkbox = (AbstractUISelectBooleanCheckbox) createComponent(
-        facesContext, UISelectBooleanCheckbox.COMPONENT_TYPE, RendererTypes.SELECT_BOOLEAN_CHECKBOX, clientId);
+        facesContext, UISelectBooleanCheckbox.COMPONENT_TYPE, RendererTypes.SelectBooleanCheckbox, clientId);
     //noinspection unchecked
     ComponentUtils.setFacet(command, Facets.checkbox, checkbox);
     final ValueBinding valueBinding = command.getValueBinding(Attributes.value.getName());
