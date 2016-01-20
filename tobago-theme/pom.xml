@@ -51,6 +51,15 @@
     <module>tobago-theme-example</module>
   </modules>
 
+  <profiles>
+    <profile>
+      <id>modules-all</id>
+      <modules>
+        <module>tobago-theme-example</module>
+      </modules>
+    </profile>
+  </profiles>
+
   <dependencies>
     <dependency>
       <groupId>org.apache.myfaces.core</groupId>
