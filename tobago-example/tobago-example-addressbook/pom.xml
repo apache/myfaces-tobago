@@ -168,28 +168,6 @@
     </dependency>
     <dependency>
       <groupId>org.apache.myfaces.tobago</groupId>
-      <artifactId>tobago-theme-charlotteville</artifactId>
-      <version>${project.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.myfaces.tobago</groupId>
-      <artifactId>tobago-theme-richmond</artifactId>
-      <version>${project.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.myfaces.tobago</groupId>
-      <artifactId>tobago-core</artifactId>
-      <version>${project.version}</version>
-      <scope>compile</scope>
-      <exclusions>
-        <exclusion>
-          <groupId>sun.jdk</groupId>
-          <artifactId>tools</artifactId>
-        </exclusion>
-      </exclusions>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.myfaces.tobago</groupId>
       <artifactId>tobago-security</artifactId>
       <version>${project.version}</version>
     </dependency>
