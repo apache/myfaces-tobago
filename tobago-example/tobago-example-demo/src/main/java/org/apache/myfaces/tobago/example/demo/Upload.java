@@ -23,29 +23,33 @@ import org.apache.commons.fileupload.FileItem;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
+import javax.enterprise.context.SessionScoped;
+import javax.inject.Named;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Upload {
+@SessionScoped
+@Named
+public class Upload implements Serializable {
 
   private static final Logger LOG = LoggerFactory.getLogger(Upload.class);
 
-  private FileItem file;
+  private FileItem file1;
+  private FileItem file2;
 
   private List<UploadItem> list = new ArrayList<UploadItem>();
 
   public String upload() {
-    if (file == null) {
-      FacesContext.getCurrentInstance().addMessage(
-          null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "No UploadItem found!", null));
-      return null;
-    }
-    if (file.get().length == 0) {
-      FacesContext.getCurrentInstance().addMessage(
-          null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Empty UploadItem found!", null));
-      return null;
+   upload(file1);
+   upload(file2);
+    return null;
+  }
+
+  public void upload(FileItem file) {
+    LOG.info("checking file item");
+    if (file == null || file.get().length == 0) {
+      return;
     }
     LOG.info("type=" + file.getContentType());
     LOG.info("size=" + file.get().length);
@@ -58,16 +62,22 @@ public class Upload {
     }
     LOG.info("name=" + name);
     list.add(new UploadItem(name, file.get().length, file.getContentType()));
-    file = null; // we don't need it in this demo.
-    return null;
   }
 
-  public FileItem getFile() {
-    return file;
+  public FileItem getFile1() {
+    return file1;
   }
 
-  public void setFile(final FileItem file) {
-    this.file = file;
+  public void setFile1(FileItem file1) {
+    this.file1 = file1;
+  }
+
+  public FileItem getFile2() {
+    return file2;
+  }
+
+  public void setFile2(FileItem file2) {
+    this.file2 = file2;
   }
 
   public List<UploadItem> getList() {

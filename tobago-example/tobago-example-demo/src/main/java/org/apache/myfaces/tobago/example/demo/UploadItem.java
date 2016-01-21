@@ -22,7 +22,9 @@ package org.apache.myfaces.tobago.example.demo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class UploadItem {
+import java.io.Serializable;
+
+public class UploadItem implements Serializable {
 
   private static final Logger LOG = LoggerFactory.getLogger(UploadItem.class);
 
