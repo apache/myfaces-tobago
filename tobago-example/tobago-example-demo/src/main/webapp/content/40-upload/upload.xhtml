@@ -25,7 +25,7 @@
   <ui:param name="title" value="File Upload"/>
   <tc:panel>
     <f:facet name="layout">
-      <tc:gridLayout rows="auto;*"/>
+      <tc:gridLayout rows="auto;auto;*"/>
     </f:facet>
 
     <tc:panel>
@@ -33,12 +33,20 @@
         <tc:gridLayout columns="*;auto"/>
       </f:facet>
 
-      <tx:file label="Upload file:" value="#{upload.file}">
-        <!-- todo: write a 2nd example to demonstrate validation
-              <tc:validateFileItem contentType="image/gif image/png"/>
-        -->
-      </tx:file>
+      <tx:file label="Upload file:" value="#{upload.file}" tip="without extra validation"/>
       <tc:button label="Submit" defaultCommand="true" action="#{upload.upload}"/>
+    </tc:panel>
+
+    <tc:panel>
+      <f:facet name="layout">
+        <tc:gridLayout columns="*;auto"/>
+      </f:facet>
+
+      <tx:file label="Upload image:" value="#{upload.file}"
+               tip="with a validator for file items - types: gif, jpg, png">
+        <tc:validateFileItem contentType="image/*"/>
+      </tx:file>
+      <tc:button label="Submit" action="#{upload.upload}"/>
     </tc:panel>
 
     <tc:sheet var="entry" value="#{upload.list}" columns="*;*;*">
