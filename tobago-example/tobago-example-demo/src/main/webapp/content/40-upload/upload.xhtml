@@ -35,18 +35,12 @@
 
       <tx:file label="Upload file:" value="#{upload.file}" tip="without extra validation"/>
       <tc:button label="Submit" defaultCommand="true" action="#{upload.upload}"/>
-    </tc:panel>
-
-    <tc:panel>
-      <f:facet name="layout">
-        <tc:gridLayout columns="*;auto"/>
-      </f:facet>
 
       <tx:file label="Upload image:" value="#{upload.file}"
                tip="with a validator for file items - types: gif, jpg, png">
         <tc:validateFileItem contentType="image/*"/>
       </tx:file>
-      <tc:button label="Submit" action="#{upload.upload}"/>
+      <tc:panel/>
     </tc:panel>
 
     <tc:sheet var="entry" value="#{upload.list}" columns="*;*;*">
