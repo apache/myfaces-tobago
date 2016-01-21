@@ -33,15 +33,17 @@ public class Upload implements Serializable {
 
   private FileItem file;
 
+  private String result;
+
   public String upload() {
+    result = null;
     if (file == null) {
       FacesContext.getCurrentInstance().addMessage(
           null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "No UploadItem found!", null));
       return null;
     }
-    LOG.info("type=" + file.getContentType());
-    LOG.info("size=" + file.get().length);
-    LOG.info("name=" + file.getName());
+    result = "type='" + file.getContentType() + "' size='" + file.get().length + "' name='" + file.getName() + "'";
+    LOG.info(result);
     return "/test/file/file.xhtml";
   }
   
@@ -51,5 +53,13 @@ public class Upload implements Serializable {
 
   public void setFile(final FileItem file) {
     this.file = file;
+  }
+
+  public String getResult() {
+    return result;
+  }
+
+  public void setResult(String result) {
+    this.result = result;
   }
 }
