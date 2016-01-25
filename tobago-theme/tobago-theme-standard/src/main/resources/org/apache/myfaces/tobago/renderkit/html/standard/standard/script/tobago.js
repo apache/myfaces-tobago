@@ -1682,10 +1682,6 @@ Tobago.Panel.prototype.reloadWithAction = function(source, action, options) {
   Tobago.Updater.update(source, action, this.id, reloadOptions);
 };
 
-Tobago.Panel.prototype.prepareReload = function() {
-  jQuery(Tobago.Utils.escapeClientId(this.id)).overlay({error: false, ajax: true});
-};
-
 Tobago.registerListener(Tobago.Panel.init, Tobago.Phase.DOCUMENT_READY);
 Tobago.registerListener(Tobago.Panel.init, Tobago.Phase.AFTER_UPDATE);
 
@@ -2017,14 +2013,19 @@ Tobago.Updater = {
           for (i = 0; i < ids.length; i++) {
             var id = ids[i];
             var container = Tobago.ajaxComponents[id];
-              if (container && typeof container.prepareReload == 'function') {
-                container.prepareReload();
-              } else if (container) {
-              container.overlay({error: false, ajax: true});
+            var $container;
+            // XXX: check how all 3 cases can happen?
+            if (container instanceof jQuery) {
+              $container = container;
+              console.info("OVERLAY for 'jq' " + $container.attr("id")); // @DEV_ONLY
+            } else if (container) {
+              $container = jQuery(container);
+              console.info("OVERLAY for 'el' " + $container.attr("id")); // @DEV_ONLY
             } else {
-              jQuery(Tobago.Utils.escapeClientId(id)).overlay({error: false, ajax: true});
+              $container = jQuery(Tobago.Utils.escapeClientId(id));
+              console.info("OVERLAY for 'id' " + $container.attr("id")); // @DEV_ONLY
             }
-            console.info("OVERLAY for " + id); // @DEV_ONLY
+            $container.overlay({error: false, ajax: true});
           }
         }
       }
