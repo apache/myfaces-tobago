@@ -1814,7 +1814,7 @@ Tobago.Transport = {
   },
 
   /**
-   * @return true if the request is queued or ignored, because of a double request.
+   * @return true if the request is queued.
    */
   request: function(req, submitPage, actionId) {
     var index = 0;
@@ -1825,23 +1825,24 @@ Tobago.Transport = {
     } else if (!this.pageSubmitted) { // AJAX case
       console.debug('Current ActionId = ' + this.currentActionId + ' action= ' + actionId); // @DEV_ONLY
       if (actionId && this.currentActionId == actionId) {
-        console.debug('Ignoring request'); // @DEV_ONLY
+        console.info('Ignoring request'); // @DEV_ONLY
         // If actionId equals currentActionId assume double request: do nothing
-        return true;
+        return false;
       }
       index = this.requests.push(req);
       //console.debug('index = ' + index)
       this.currentActionId = actionId;
     } else {
+      console.warn("ELSE?") // @DEV_ONLY
       return false;
     }
-    //console.debug('index = ' + index)
+    console.debug('index = ' + index)  // @DEV_ONLY
     if (index == 1) {
-      console.debug('Execute request!'); // @DEV_ONLY
+      console.info('Execute request!'); // @DEV_ONLY
       this.startTime = new Date().getTime();
       this.requests[0]();
     } else {
-      console.debug('Request queued!'); // @DEV_ONLY
+      console.info('Request queued!'); // @DEV_ONLY
     }
     return true;
   },
@@ -1997,22 +1998,6 @@ Tobago.Updater = {
         requestOptions.url = form.attr("action");
       }
 
-      var ids;
-      if (requestOptions.createOverlay) {
-        ids = Tobago.parsePartialIds(ajaxComponentIds);
-        for (var i = 0; i < ids.length; i++) {
-          var id = ids[i];
-          var container = Tobago.ajaxComponents[id];
-          if (container && typeof container.prepareReload == 'function') {
-            container.prepareReload();
-          } else if (container) {
-            container.overlay({error: false, ajax: true});
-          } else {
-            jQuery(Tobago.Utils.escapeClientId(id)).overlay({error: false, ajax: true});
-          }
-        }
-      }
-
       if (!Tobago.partialRequestIds) {
         var hidden = document.createElement('input');
         hidden.type = 'hidden';
@@ -2025,8 +2010,23 @@ Tobago.Updater = {
       Tobago.storeClientDimension();
 
       if (!Tobago.Transport.ajaxTransport.request(requestOptions)) {
-        console.error('Page was submitted, request not queued!'); // @DEV_ONLY
-        Tobago.Updater.handleMissingResponses(ajaxComponentIds, {});
+        console.error('Page was already submitted, request not queued!'); // @DEV_ONLY
+      } else {
+        if (requestOptions.createOverlay) {
+          var ids = Tobago.parsePartialIds(ajaxComponentIds);
+          for (i = 0; i < ids.length; i++) {
+            var id = ids[i];
+            var container = Tobago.ajaxComponents[id];
+              if (container && typeof container.prepareReload == 'function') {
+                container.prepareReload();
+              } else if (container) {
+              container.overlay({error: false, ajax: true});
+            } else {
+              jQuery(Tobago.Utils.escapeClientId(id)).overlay({error: false, ajax: true});
+            }
+            console.info("OVERLAY for " + id); // @DEV_ONLY
+          }
+        }
       }
     } else {
       console.info('No Ajax transport found! Doing full page reload.'); // @DEV_ONLY
