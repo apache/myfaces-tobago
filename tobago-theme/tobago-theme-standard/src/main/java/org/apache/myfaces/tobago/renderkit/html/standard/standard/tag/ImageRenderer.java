@@ -70,7 +70,8 @@ public class ImageRenderer extends RendererBase {
     final String alt = ComponentUtils.getStringAttribute(image, Attributes.alt, "");
 
     if (fontAwesome) {
-      writer.writeIcon(null, image.getStyle(), FontAwesomeIconEncoder.generateClass(value)); // todo: should not be static
+      // todo: should not be static
+      writer.writeIcon(null, image.getStyle(), FontAwesomeIconEncoder.generateClass(value));
     } else {
       writer.startElement(HtmlElements.IMG);
       writer.writeIdAttribute(image.getClientId(facesContext));
