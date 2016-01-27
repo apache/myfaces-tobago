@@ -1193,7 +1193,7 @@
     <common-lang.version>2.1</common-lang.version>
     <commons-logging.version>1.1.1</commons-logging.version>
     <commons-digester.version>1.8</commons-digester.version>
-    <commons-collection.version>3.1</commons-collection.version>
+    <commons-collection.version>3.2.2</commons-collection.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
 </project>
