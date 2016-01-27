@@ -1861,10 +1861,10 @@ Tobago.Transport = {
       //console.debug('index = ' + index)
       this.currentActionId = actionId;
     } else {
-      console.warn("ELSE?") // @DEV_ONLY
+      console.debug("else case"); // @DEV_ONLY
       return false;
     }
-    console.debug('index = ' + index)  // @DEV_ONLY
+    console.debug('index = ' + index);  // @DEV_ONLY
     if (index == 1) {
       console.info('Execute request!'); // @DEV_ONLY
       this.startTime = new Date().getTime();
