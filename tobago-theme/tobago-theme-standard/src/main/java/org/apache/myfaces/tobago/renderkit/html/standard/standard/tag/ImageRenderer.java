@@ -33,16 +33,12 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 
 public class ImageRenderer extends RendererBase {
-
-  private static final Logger LOG = LoggerFactory.getLogger(ImageRenderer.class);
 
   public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
 
@@ -74,7 +70,7 @@ public class ImageRenderer extends RendererBase {
     final String alt = ComponentUtils.getStringAttribute(image, Attributes.alt, "");
 
     if (fontAwesome) {
-      writer.writeIcon(null, FontAwesomeIconEncoder.generateClass(value)); // todo: should not be static
+      writer.writeIcon(null, image.getStyle(), FontAwesomeIconEncoder.generateClass(value)); // todo: should not be static
     } else {
       writer.startElement(HtmlElements.IMG);
       writer.writeIdAttribute(image.getClientId(facesContext));
@@ -93,6 +89,7 @@ public class ImageRenderer extends RendererBase {
           Classes.create(image),
           ComponentUtils.findAncestor(image, UINav.class) != null ? BootstrapClass.NAVBAR_BRAND : null,
           image.getCustomClass());
+      writer.writeStyleAttribute(image.getStyle());
       writer.endElement(HtmlElements.IMG);
     }
   }

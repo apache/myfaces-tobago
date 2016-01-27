@@ -225,7 +225,14 @@ public abstract class TobagoResponseWriter extends ResponseWriter {
    * Writes an supported icon.
    */
   public void writeIcon(final Icons icon, final CssItem... cssItems) throws IOException {
-    iconEncoder.encode(this, icon, cssItems);
+    writeIcon(icon, null, cssItems);
+  }
+
+  /**
+   * Writes an supported icon with explicit style information.
+   */
+  public void writeIcon(final Icons icon, final Style style, final CssItem... cssItems) throws IOException {
+    iconEncoder.encode(this, icon, style, cssItems);
   }
 
   /**

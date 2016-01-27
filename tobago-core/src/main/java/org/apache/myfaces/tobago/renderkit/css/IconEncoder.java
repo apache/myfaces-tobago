@@ -25,6 +25,6 @@ import java.io.IOException;
 
 public interface IconEncoder {
 
-  void encode(TobagoResponseWriter writer, Icons icon, final CssItem... cssItems) throws IOException;
+  void encode(TobagoResponseWriter writer, Icons icon, Style style, final CssItem... cssItems) throws IOException;
 
 }
