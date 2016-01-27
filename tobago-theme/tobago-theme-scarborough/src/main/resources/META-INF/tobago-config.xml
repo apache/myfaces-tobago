@@ -39,7 +39,6 @@
         <excludes>
           <script name="bootstrap/4.0.0-alpha.2/js/bootstrap.js"/>
           <style name="bootstrap/4.0.0-alpha.2/css/bootstrap.css"/>
-          <style name="bootstrap/4.0.0-alpha.2/css/bootstrap-theme.css"/>
         </excludes>
         <script name="bootstrap-scarborough/3.3.6/js/bootstrap.js"/>
         <style name="bootstrap-scarborough/3.3.6/css/bootstrap.css"/>
@@ -49,7 +48,6 @@
         <excludes>
           <script name="bootstrap/4.0.0-alpha.2/js/bootstrap.js"/>
           <style name="bootstrap/4.0.0-alpha.2/css/bootstrap.css"/>
-          <style name="bootstrap/4.0.0-alpha.2/css/bootstrap-theme.css"/>
         </excludes>
         <script name="bootstrap-scarborough/3.3.6/js/bootstrap.js"/>
         <style name="bootstrap-scarborough/3.3.6/css/bootstrap.css"/>
