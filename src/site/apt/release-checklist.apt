@@ -23,6 +23,8 @@ Release Checklist (Developer Info)
 
 * Preparation
 
+  * You need to add your GPG keys in {{{https://svn.apache.org/repos/asf/myfaces/keys/KEYS}Subversion}} and the {{{https://www.apache.org/dist/myfaces/KEYS}Apache site}} before a release.
+
   * Ensure that all open bugs have been either fixed or moved to an other release version.
 
   * Ensure that all examples are working with the release candidate.
@@ -53,8 +55,6 @@ mvn clean install -Pall-modules && mvn checkstyle:check apache-rat:check animal-
 # for Tobago 2.0.9 and higher
 mvn clean install && mvn checkstyle:check apache-rat:check animal-sniffer:check
 +------------------------+
-
-  * You need to add your GPG keys in {{{https://svn.apache.org/repos/asf/myfaces/keys/KEYS}Subversion}} and the {{{https://www.apache.org/dist/myfaces/KEYS}Apache site}} before a release.
 
 * Building the Release (Tobago 1.0.x to 2.0.8)
 
