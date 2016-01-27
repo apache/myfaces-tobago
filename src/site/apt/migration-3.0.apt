@@ -67,6 +67,8 @@ Migration from Tobago 2.0 to 3.0 (work in progress)
       ... content ...
     <<<\</tc:panel\>>>>
 
+* tc:image has no longer the attributes width and height, please use a tc:style child tag instead.
+
 * Introducing enums instead of constant classes
 
     Some static utils classes are migrated to Java enums.
