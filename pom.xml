@@ -1487,9 +1487,9 @@
     <myfaces20.version>2.0.23</myfaces20.version>
     <myfaces21.version>2.1.17</myfaces21.version>
     <myfaces22.version>2.2.9</myfaces22.version>
-    <mojarra20.version>2.0.11</mojarra20.version>
-    <mojarra21.version>2.1.28</mojarra21.version>
-    <mojarra22.version>2.2.6</mojarra22.version>
+    <mojarra20.version>2.0.11-02</mojarra20.version>
+    <mojarra21.version>2.1.29-05</mojarra21.version>
+    <mojarra22.version>2.2.12</mojarra22.version>
     <slf4j.version>1.7.7</slf4j.version>
     <logback.version>1.1.1</logback.version>
     <log4j.version>1.2.17</log4j.version>
