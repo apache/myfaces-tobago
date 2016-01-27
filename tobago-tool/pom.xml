@@ -25,9 +25,11 @@
   <packaging>pom</packaging>
   <name>Tobago Tool</name>
   <artifactId>tobago-tool</artifactId>
+
   <modules>
     <module>tobago-tool-apt</module>
     <module>tobago-tool-annotation</module>
     <module>tobago-theme-plugin</module>
   </modules>
+
 </project>

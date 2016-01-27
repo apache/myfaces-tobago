@@ -49,11 +49,14 @@ mvn checkstyle:check rat:check -Pall-modules
 
 # for Tobago 1.5.x and higher
 mvn clean install -Pall-modules && mvn checkstyle:check apache-rat:check animal-sniffer:check -Pall-modules
+
+# for Tobago 2.0.9 and higher
+mvn clean install && mvn checkstyle:check apache-rat:check animal-sniffer:check
 +------------------------+
 
   * You need to add your GPG keys in {{{https://svn.apache.org/repos/asf/myfaces/keys/KEYS}Subversion}} and the {{{https://www.apache.org/dist/myfaces/KEYS}Apache site}} before a release.
 
-* Building the Release
+* Building the Release (Tobago 1.0.x to 2.0.8)
 
   * Prepare the release with:
 
@@ -78,11 +81,20 @@ mvn install -Papache-release,jdk14retro,generate-assembly --no-plugin-updates -D
 # "deploy" with Java 1.7 and Maven 3 (hotfix: also comment out the maven-apt-plugin stuff)
 mvn deploy -Papache-release,generate-assembly --no-plugin-updates -Dnon-default-modules
 
-# for Tobago 1.5.x and higher
+# for Tobago 1.5.x to 2.0.8
 mvn deploy -Papache-release,generate-assembly --no-plugin-updates -Dnon-default-modules
 +------------------------+
 
-    For more information please consult the pom.xml files.
+* Building the Release (Tobago 2.0.9 and higher)
+
+  * Prepare and perform the release with:
+
++------------------------+
+mvn release:prepare
+mvn release:perform
++------------------------+
+
+* Staging repository
 
   * <Close> the repository on the {{{https://repository.apache.org/}Nexus}} instance for stating (you will receive a mail with the staging location).
 

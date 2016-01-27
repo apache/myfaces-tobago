@@ -49,16 +49,8 @@
     <module>tobago-theme-richmond</module>
     <module>tobago-theme-charlotteville</module>
     <module>tobago-theme-example</module>
+    <module>tobago-theme-example</module>
   </modules>
-
-  <profiles>
-    <profile>
-      <id>modules-all</id>
-      <modules>
-        <module>tobago-theme-example</module>
-      </modules>
-    </profile>
-  </profiles>
 
   <dependencies>
     <dependency>
