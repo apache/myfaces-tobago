@@ -950,6 +950,9 @@
             <remoteTagging>true</remoteTagging>
             <autoVersionSubmodules>true</autoVersionSubmodules>
             <waitBeforeTagging>20</waitBeforeTagging>
+            <useReleaseProfile>false</useReleaseProfile>
+            <goals>deploy</goals>
+            <arguments>-Papache-release,generate-assembly ${arguments}</arguments>
           </configuration>
         </plugin>
         <plugin>
@@ -984,6 +987,8 @@
     <module>tobago-core</module>
     <module>tobago-theme</module>
     <module>tobago-extension</module>
+    <module>tobago-example</module>
+    <module>tobago-assembly</module>
   </modules>
 
   <distributionManagement>
@@ -1005,13 +1010,6 @@
   </distributionManagement>
 
   <profiles>
-    <profile>
-      <id>all-modules</id>
-      <modules>
-        <module>tobago-example</module>
-        <module>tobago-assembly</module>
-      </modules>
-    </profile>
     <profile>
       <id>apache-release</id>
       <!--
@@ -1111,19 +1109,10 @@
           </plugin>
         </plugins>
       </build>
-      <modules>
-        <module>tobago-extension</module>
-        <module>tobago-example</module>
-      </modules>
     </profile>
 
     <profile>
       <id>generate-assembly</id>
-      <modules>
-        <module>tobago-extension</module>
-        <module>tobago-example</module>
-        <module>tobago-assembly</module>
-      </modules>
       <build>
         <plugins>
           <plugin>
