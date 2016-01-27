@@ -69,7 +69,6 @@ public class BoxRenderer extends BoxRendererBase {
             writer.writeClassAttribute(BootstrapClass.CARD_HEADER);
 
             writer.startElement(HtmlElements.H3);
-            writer.writeClassAttribute(BootstrapClass.CARD_TITLE);
             if (label != null) {
                 RenderUtils.encode(facesContext, label);
             } else if (labelString != null) {
