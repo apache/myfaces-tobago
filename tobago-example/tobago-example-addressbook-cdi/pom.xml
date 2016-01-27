@@ -315,22 +315,6 @@
        <version>1.0</version>
        <scope>provided</scope>
     </dependency>
-<!--
-    <dependency>
-      <groupId>javax.servlet</groupId>
-      <artifactId>jstl</artifactId>
-      <exclusions>
-        <exclusion>
-          <groupId>javax.servlet</groupId>
-          <artifactId>jsp-api</artifactId>
-        </exclusion>
-      </exclusions>
-    </dependency>
-    <dependency>
-      <groupId>taglibs</groupId>
-      <artifactId>standard</artifactId>
-    </dependency>
--->
 
     <!-- DeltaSpike -->
     <dependency>
@@ -392,16 +376,8 @@
 
 <!-- for JSF 2.0 and Bean Validation (JSR-303)  -->
         <dependency>
-          <groupId>javax.el</groupId>
-          <artifactId>el-api</artifactId>
-          <version>2.2</version>
-          <scope>compile</scope>
-        </dependency>
-
-        <dependency>
           <groupId>org.glassfish.web</groupId>
-          <artifactId>el-impl</artifactId>
-          <version>2.2</version>
+          <artifactId>javax.el</artifactId>
         </dependency>
 
       </dependencies>
@@ -424,16 +400,8 @@
 
 <!-- for JSF 2.0 and Bean Validation (JSR-303)  -->
         <dependency>
-          <groupId>javax.el</groupId>
-          <artifactId>el-api</artifactId>
-          <version>2.2</version>
-          <scope>compile</scope>
-        </dependency>
-
-        <dependency>
           <groupId>org.glassfish.web</groupId>
-          <artifactId>el-impl</artifactId>
-          <version>2.2</version>
+          <artifactId>javax.el</artifactId>
         </dependency>
 
       </dependencies>
@@ -456,16 +424,8 @@
 
 <!-- for JSF 2.0 and Bean Validation (JSR-303)  -->
         <dependency>
-          <groupId>javax.el</groupId>
-          <artifactId>el-api</artifactId>
-          <version>2.2</version>
-          <scope>compile</scope>
-        </dependency>
-
-        <dependency>
           <groupId>org.glassfish.web</groupId>
-          <artifactId>el-impl</artifactId>
-          <version>2.2</version>
+          <artifactId>javax.el</artifactId>
         </dependency>
 
       </dependencies>
@@ -488,16 +448,8 @@
 
 <!-- for JSF 2.0 and Bean Validation (JSR-303)  -->
         <dependency>
-          <groupId>javax.el</groupId>
-          <artifactId>el-api</artifactId>
-          <version>2.2</version>
-          <scope>compile</scope>
-        </dependency>
-
-        <dependency>
           <groupId>org.glassfish.web</groupId>
-          <artifactId>el-impl</artifactId>
-          <version>2.2</version>
+          <artifactId>javax.el</artifactId>
         </dependency>
 
       </dependencies>
@@ -520,16 +472,8 @@
 
 <!-- for JSF 2.0 and Bean Validation (JSR-303)  -->
         <dependency>
-          <groupId>javax.el</groupId>
-          <artifactId>el-api</artifactId>
-          <version>2.2</version>
-          <scope>compile</scope>
-        </dependency>
-
-        <dependency>
           <groupId>org.glassfish.web</groupId>
-          <artifactId>el-impl</artifactId>
-          <version>2.2</version>
+          <artifactId>javax.el</artifactId>
         </dependency>
 
       </dependencies>
@@ -552,16 +496,8 @@
 
 <!-- for JSF 2.0 and Bean Validation (JSR-303)  -->
         <dependency>
-          <groupId>javax.el</groupId>
-          <artifactId>el-api</artifactId>
-          <version>2.2</version>
-          <scope>compile</scope>
-        </dependency>
-
-        <dependency>
           <groupId>org.glassfish.web</groupId>
-          <artifactId>el-impl</artifactId>
-          <version>2.2</version>
+          <artifactId>javax.el</artifactId>
         </dependency>
 
       </dependencies>
