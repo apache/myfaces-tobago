@@ -95,7 +95,7 @@ svn co https://svn.apache.org/repos/asf/myfaces/tobago/trunk/ tobago
   To build the complete project with all sub-modules you have to enter the following command
 
 +------------------------------------------+
-mvn install -Pall-modules
+mvn install
 +------------------------------------------+
 
   For more information on building Tobago -- especially the 1.0.x branch -- see {{{./getting-started.html}Getting Started.}}

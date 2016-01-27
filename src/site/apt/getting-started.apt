@@ -66,15 +66,6 @@ Building
   to run the install target on all sub projects. This will
   put all necessary artifacts into your local repository.
 
-Building All
-
-   For building all the stuff you can use the profile all-modules
-
-+----------------------------------------
-  mvn install -Pall-modules
-+----------------------------------------
-
-
 The Demo
 
   You can run the examples inside tobago-example with jetty

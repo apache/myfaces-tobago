@@ -49,7 +49,7 @@ fi
 
 
 echo "Building tobago site."
-mvn -Pall-modules clean
+mvn clean
 mvn install javancss:report jxr:jxr jxr:test-jxr clirr:clirr -Daggregate=false --batch-mode
 mvn site:site -Daggregate=true --batch-mode
 mvn dashboard:dashboard

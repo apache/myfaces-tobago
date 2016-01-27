@@ -9,12 +9,6 @@ In the main directory you can use
 to run the install target on all sub projects. This will
 put all necessary artifacts into your local repository.
 
-Building All
------------
-For building all the stuff you can use the profile all-modules
-
-mvn install -Pall-modules
-
 Demo
 ----
 
