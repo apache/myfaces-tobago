@@ -38,8 +38,9 @@ public class HeaderRenderer extends RendererBase {
     final UIHeader header = (UIHeader) component;
     writer.startElement(HtmlElements.HEADER);
     writer.writeIdAttribute(component.getClientId(facesContext));
-    // TBD: BootstrapClass.NAVBAR_DEFAULT ?
-    writer.writeClassAttribute(BootstrapClass.NAVBAR, BootstrapClass.NAVBAR_DARK, BootstrapClass.BG_INVERSE,
+    // TBD: NAVBAR_DARK and BG_INVERSE should not be the default
+    // TBD: how to configure it when it is needed, with customClass, or with markup?
+    writer.writeClassAttribute(BootstrapClass.NAVBAR, /*BootstrapClass.NAVBAR_DARK, BootstrapClass.BG_INVERSE,*/
         header.isFixed() ? BootstrapClass.NAVBAR_FIXED_TOP : null);
 // TBD: should NAVBAR class be in the NavRenderer?
 
