@@ -235,41 +235,6 @@ li.tobago-menu-markup-selected {
 	color: highlighttext;
 }
 
-/* tab ---------------------------------------------------------------------- */
-
-.tobago-tab {
-  background: #6699FF repeat-x top;
-  border-color: #3366CC;
-  color: #D6EBFF;
-}
-
-.tobago-tab-content {
-  border-color: #3366CC;
-  background: #FAFAFA;
-}
-
-.tobago-tab a:link,
-.tobago-tab a:visited,
-.tobago-tab a:active {
-  color: #D6EBFF;
-}
-
-.tobago-tab-markup-disabled,
-.tobago-tab-markup-disabled a:link,
-.tobago-tab-markup-disabled a:visited,
-.tobago-tab-markup-disabled a:active {
-  background: #808080 repeat-x top;
-  color: #e6e6e6;
-}
-
-.tobago-tabGroup-headerInner {
-  border-bottom-color: #3366CC;
-}
-
-.tobago-tabGroup-toolBar {
-  border-bottom-color: #3366CC;
-}
-
 /* toolBar ----------------------------------------------------------------- */
 
 /* FIXME this is the same code for "toolBar", "boxToolBar" and "tabGroupToolBar"

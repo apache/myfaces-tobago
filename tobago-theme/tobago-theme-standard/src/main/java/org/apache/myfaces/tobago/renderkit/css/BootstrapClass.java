@@ -141,6 +141,8 @@ public enum BootstrapClass implements CssItem {
   RADIO("radio"),
   ROW("row"),
   SR_ONLY("sr-only"),
+  TAB_CONTENT("tab-content"),
+  TAB_PANE("tab-pane"),
   TABLE("table"),
   TABLE_BORDERED("table-bordered"),
   TABLE_HOVER("table-hover"),

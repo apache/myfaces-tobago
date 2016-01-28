@@ -434,27 +434,7 @@ table.tobago-sheet-bodyTable>tbody>tr>td:last-child {
   margin: 0;
 }
 
-/* tab -------------------------------------------------------------- */
-
-.tobago-tab-content {
-  display: none;
-  border: 1px solid #cccccc;
-  padding: 5px;
-  -webkit-border-radius: 3px;
-  -moz-border-radius: 3px;
-  border-radius: 3px;
-}
-
-/* 1st is hidden, 2nd is header, 3rd is toolbar, 4th is the first content tab */
-.tobago-tab-content:nth-child(4) {
-  -webkit-border-top-left-radius: 0;
-  -moz-border-radius-topleft: 0;
-  border-top-left-radius: 0;
-}
-
-.tobago-tab-content-markup-selected {
-  display: block;
-}
+/* out -------------------------------------------------------------- */
 
 .tobago-out {
   display: inline-block;

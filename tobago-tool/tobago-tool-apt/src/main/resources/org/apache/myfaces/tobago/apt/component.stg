@@ -350,6 +350,10 @@ SelectableProperty(property) ::= <<
 <NormalProperty(property)>
 >>
 
+SwitchTypeProperty(property) ::= <<
+<NormalProperty(property)>
+>>
+
 StringProperty(property) ::= <<
 <NormalProperty(property)>
 >>

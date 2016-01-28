@@ -19,6 +19,7 @@
 
 package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
+import org.apache.myfaces.tobago.ajax.AjaxUtils;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.RendererTypes;
@@ -33,6 +34,7 @@ import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.event.TabChangeEvent;
 import org.apache.myfaces.tobago.internal.component.AbstractUIPanel;
 import org.apache.myfaces.tobago.internal.util.AccessKeyLogger;
+import org.apache.myfaces.tobago.model.SwitchType;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
@@ -99,7 +101,7 @@ public class TabGroupRenderer extends RendererBase {
 
     final String clientId = tabGroup.getClientId(facesContext);
     final String hiddenId = clientId + TabGroupRenderer.ACTIVE_INDEX_POSTFIX;
-    final String switchType = tabGroup.getSwitchType();
+    final SwitchType switchType = tabGroup.getSwitchType();
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
     writer.startElement(HtmlElements.DIV);
@@ -107,7 +109,7 @@ public class TabGroupRenderer extends RendererBase {
     writer.writeClassAttribute(Classes.create(tabGroup), tabGroup.getCustomClass());
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, tabGroup);
     writer.writeStyleAttribute(tabGroup.getStyle());
-    writer.writeAttribute(HtmlAttributes.SWITCHTYPE, switchType, false);
+    writer.writeAttribute(HtmlAttributes.SWITCHTYPE, switchType.name(), false);
     final String[] clientIds
         = ComponentUtils.evaluateClientIds(facesContext, tabGroup, tabGroup.getRenderedPartially());
     if (clientIds.length > 0) {
@@ -121,17 +123,9 @@ public class TabGroupRenderer extends RendererBase {
     writer.writeIdAttribute(hiddenId);
     writer.endElement(HtmlElements.INPUT);
 
-    encodeHeader(facesContext, writer, tabGroup, activeIndex);
+    encodeHeader(facesContext, writer, tabGroup, activeIndex, switchType);
 
-    int index = 0;
-    for (final UIComponent tab : tabGroup.getChildren()) {
-      if (tab instanceof UITab) {
-        if (tab.isRendered() && (UITabGroup.SWITCH_TYPE_CLIENT.equals(switchType) || index == activeIndex)) {
-          encodeContent(writer, facesContext, (UITab) tab, index);
-        }
-        index++;
-      }
-    }
+    encodeContent(facesContext, writer, tabGroup, activeIndex, switchType);
 
     writer.endElement(HtmlElements.DIV);
   }
@@ -174,14 +168,11 @@ public class TabGroupRenderer extends RendererBase {
 
   private void encodeHeader(
       final FacesContext facesContext, final TobagoResponseWriter writer, final UITabGroup tabGroup,
-      final int activeIndex)
+      final int activeIndex, final SwitchType switchType)
       throws IOException {
 
-    writer.startElement(HtmlElements.DIV);
-    writer.writeClassAttribute(Classes.create(tabGroup, "header"));
-
     writer.startElement(HtmlElements.UL);
-    writer.writeClassAttribute(Classes.create(tabGroup, "headerInner"), BootstrapClass.NAV, BootstrapClass.NAV_TABS);
+    writer.writeClassAttribute(Classes.create(tabGroup, "header"), BootstrapClass.NAV, BootstrapClass.NAV_TABS);
     writer.writeAttribute(HtmlAttributes.ROLE, HtmlRoleValues.TABLIST.toString(), false);
 
     int index = 0;
@@ -201,12 +192,7 @@ public class TabGroupRenderer extends RendererBase {
             ComponentUtils.addCurrentMarkup(tab, ComponentUtils.markupOfSeverity(maxSeverity));
           }
           writer.startElement(HtmlElements.LI);
-          // todo: fix Css management
-          if (activeIndex == index) {
-            writer.writeClassAttribute(Classes.create(tab), BootstrapClass.NAV_ITEM, BootstrapClass.ACTIVE);
-          } else {
-            writer.writeClassAttribute(Classes.create(tab), BootstrapClass.NAV_ITEM);
-          }
+          writer.writeClassAttribute(Classes.create(tab), BootstrapClass.NAV_ITEM);
           writer.writeAttribute(HtmlAttributes.ROLE, HtmlRoleValues.PRESENTATION.toString(), false);
           writer.writeAttribute(HtmlAttributes.TABGROUPINDEX, index);
           final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, tab);
@@ -215,9 +201,21 @@ public class TabGroupRenderer extends RendererBase {
           }
 
           writer.startElement(HtmlElements.A);
-          writer.writeClassAttribute(BootstrapClass.NAV_ITEM);
-          if (!disabled) {
-            writer.writeAttribute(HtmlAttributes.HREF, "#", false);
+          writer.writeAttribute(DataAttributes.TOGGLE, "tab", false);
+          if (activeIndex == index) {
+            writer.writeClassAttribute(BootstrapClass.NAV_LINK, BootstrapClass.ACTIVE);
+          } else {
+            writer.writeClassAttribute(BootstrapClass.NAV_LINK);
+          }
+          if (!disabled && switchType == SwitchType.client) {
+            writer.writeAttribute(HtmlAttributes.HREF, '#' + getTabPanelId(facesContext, tab), false);
+            if (AjaxUtils.isAjaxRequest(facesContext)) {
+              writer.writeAttribute(
+                  DataAttributes.TARGET, '#' + getTabPanelId(facesContext, tab).replaceAll(":", "\\\\\\\\:"), false);
+            } else {
+              writer.writeAttribute(
+                  DataAttributes.TARGET, '#' + getTabPanelId(facesContext, tab).replaceAll(":", "\\\\:"), false);
+            }
           }
           final String tabId = tab.getClientId(facesContext);
           writer.writeIdAttribute(tabId);
@@ -226,6 +224,7 @@ public class TabGroupRenderer extends RendererBase {
             writer.writeAttribute(HtmlAttributes.ACCESSKEY, Character.toString(label.getAccessKey()), false);
             AccessKeyLogger.addAccessKey(facesContext, label.getAccessKey(), tabId);
           }
+          writer.writeAttribute(HtmlAttributes.ROLE, HtmlRoleValues.TAB.toString(), false);
 
           String image = tab.getImage();
           // tab.getImage() resolves to empty string if el-expression resolves to null
@@ -258,7 +257,6 @@ public class TabGroupRenderer extends RendererBase {
       index++;
     }
     writer.endElement(HtmlElements.UL);
-    writer.endElement(HtmlElements.DIV);
     if (tabGroup.isShowNavigationBar()) {
       final UIToolBar toolBar = createToolBar(facesContext, tabGroup);
       renderToolBar(facesContext, writer, tabGroup, toolBar);
@@ -353,21 +351,38 @@ public class TabGroupRenderer extends RendererBase {
   }
 
   protected void encodeContent(
-      final TobagoResponseWriter writer, final FacesContext facesContext, final UITab tab, final int index)
-      throws IOException {
-
-    if (tab.isDisabled()) {
-      return;
-    }
-
+      FacesContext facesContext, TobagoResponseWriter writer, UITabGroup tabGroup,
+      int activeIndex, SwitchType switchType) throws IOException {
     writer.startElement(HtmlElements.DIV);
-    writer.writeClassAttribute(Classes.create(tab, "content"), BootstrapClass.CARD_BLOCK);
-    writer.writeIdAttribute(tab.getClientId(facesContext) + ComponentUtils.SUB_SEPARATOR + "content");
+    writer.writeClassAttribute(BootstrapClass.TAB_CONTENT);
+    int index = 0;
+    for (final UIComponent tab : tabGroup.getChildren()) {
+      if (tab instanceof UITab) {
+        if (tab.isRendered() && (switchType == SwitchType.client || index == activeIndex)) {
 
-    writer.writeAttribute(HtmlAttributes.TABGROUPINDEX, index);
+          if (((UITab) tab).isDisabled()) {
+            continue;
+          }
 
-    RenderUtils.encode(facesContext, tab);
+          writer.startElement(HtmlElements.DIV);
+          writer.writeClassAttribute(Classes.create(tab, "content"),
+              BootstrapClass.TAB_PANE, index == activeIndex ? BootstrapClass.ACTIVE: null);
+          writer.writeAttribute(HtmlAttributes.ROLE,  HtmlRoleValues.TABPANEL.toString(), false);
+          writer.writeIdAttribute(getTabPanelId(facesContext, (UITab) tab));
 
+          writer.writeAttribute(HtmlAttributes.TABGROUPINDEX, index);
+
+          RenderUtils.encode(facesContext, tab);
+
+          writer.endElement(HtmlElements.DIV);
+        }
+        index++;
+      }
+    }
     writer.endElement(HtmlElements.DIV);
+  }
+
+  private String getTabPanelId(FacesContext facesContext, UITab tab) {
+    return tab.getClientId(facesContext) + ComponentUtils.SUB_SEPARATOR + "content";
   }
 }

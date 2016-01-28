@@ -17,27 +17,16 @@
  * under the License.
  */
 
-package org.apache.myfaces.tobago.renderkit.html;
+package org.apache.myfaces.tobago.model;
 
-public enum HtmlRoleValues {
+public enum SwitchType {
 
-  ALERT("alert"),
-  DIALOG("dialog"),
-  DOCUMENT("document"),
-  MENU("menu"),
-  NAVIGATION("navigation"),
-  PRESENTATION("presentation"),
-  TAB("tab"),
-  TABLIST("tablist"),
-  TABPANEL("tabpanel");
+  client,
+  reloadPage,
+  reloadTab;
 
-  private String value;
+  public static final String CLIENT = "client";
+  public static final String RELOAD_PAGE = "reloadPage";
+  public static final String RELOAD_TAB = "reloadTab";
 
-  HtmlRoleValues(final String value) {
-    this.value = value;
-  }
-
-  public String toString() {
-    return value;
-  }
 }

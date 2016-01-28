@@ -29,6 +29,7 @@ import org.apache.myfaces.tobago.component.Visual;
 import org.apache.myfaces.tobago.event.TabChangeEvent;
 import org.apache.myfaces.tobago.event.TabChangeListener;
 import org.apache.myfaces.tobago.event.TabChangeSource2;
+import org.apache.myfaces.tobago.model.SwitchType;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -51,12 +52,6 @@ public abstract class AbstractUITabGroup extends AbstractUIPanel
 
   private static final Logger LOG = LoggerFactory.getLogger(AbstractUITabGroup.class);
 
-  public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.TabGroup";
-
-  public static final String SWITCH_TYPE_CLIENT = "client";
-  public static final String SWITCH_TYPE_RELOAD_PAGE = "reloadPage";
-  public static final String SWITCH_TYPE_RELOAD_TAB = "reloadTab";
-
   @Override
   public void encodeChildren(final FacesContext facesContext) throws IOException {
   }
@@ -75,7 +70,7 @@ public abstract class AbstractUITabGroup extends AbstractUIPanel
 
   public void queueEvent(final FacesEvent event) {
     if (this == event.getSource()) {
-      if (isImmediate() || isSwitchTypeClient()) {
+      if (isImmediate() || getSwitchType() == SwitchType.client) {
         // if switch type client event is always immediate
         event.setPhaseId(PhaseId.APPLY_REQUEST_VALUES);
       } else {
@@ -85,28 +80,28 @@ public abstract class AbstractUITabGroup extends AbstractUIPanel
     super.queueEvent(event);
   }
 
-  public AbstractUIPanel[] getTabs() {
-    final List<AbstractUIPanel> tabs = new ArrayList<AbstractUIPanel>();
+  public AbstractUITab[] getTabs() {
+    final List<AbstractUITab> tabs = new ArrayList<AbstractUITab>();
     for (final UIComponent kid : getChildren()) {
-      if (kid instanceof AbstractUIPanel) {
+      if (kid instanceof AbstractUITab) {
         //if (kid.isRendered()) {
-        tabs.add((AbstractUIPanel) kid);
+        tabs.add((AbstractUITab) kid);
         //}
       } else {
         LOG.error("Invalid component in UITabGroup: " + kid);
       }
     }
-    return tabs.toArray(new AbstractUIPanel[tabs.size()]);
+    return tabs.toArray(new AbstractUITab[tabs.size()]);
   }
 
-  public AbstractUIPanel getActiveTab() {
+  public AbstractUITab getActiveTab() {
     return getTab(getSelectedIndex());
   }
 
 
   @Override
   public void processDecodes(final FacesContext context) {
-    if (!isSwitchTypeClient()) {
+    if (!(getSwitchType() == SwitchType.client)) {
 
       if (context == null) {
         throw new NullPointerException("context");
@@ -149,14 +144,14 @@ public abstract class AbstractUITabGroup extends AbstractUIPanel
 
   @Override
   public void processValidators(final FacesContext context) {
-    if (!isSwitchTypeClient()) {
+    if (!(getSwitchType() == SwitchType.client)) {
       if (context == null) {
         throw new NullPointerException("context");
       }
       if (!isRendered()) {
         return;
       }
-      final AbstractUIPanel renderedTab = getRenderedTab();
+      final AbstractUITab renderedTab = getRenderedTab();
       renderedTab.processValidators(context);
       for (final UIComponent facet : getFacets().values()) {
         facet.processValidators(context);
@@ -168,14 +163,14 @@ public abstract class AbstractUITabGroup extends AbstractUIPanel
 
   @Override
   public void processUpdates(final FacesContext context) {
-    if (!isSwitchTypeClient()) {
+    if (!(getSwitchType() == SwitchType.client)) {
       if (context == null) {
         throw new NullPointerException("context");
       }
       if (!isRendered()) {
         return;
       }
-      final AbstractUIPanel renderedTab = getRenderedTab();
+      final AbstractUITab renderedTab = getRenderedTab();
       renderedTab.processUpdates(context);
       for (final UIComponent facet : getFacets().values()) {
         facet.processUpdates(context);
@@ -203,7 +198,7 @@ public abstract class AbstractUITabGroup extends AbstractUIPanel
 //      }
 
       // XXX is this needed?
-      if (!isSwitchTypeClient()) {
+      if (!(getSwitchType() == SwitchType.client)) {
         final ActionListener defaultActionListener = getFacesContext().getApplication().getActionListener();
         if (defaultActionListener != null) {
           defaultActionListener.processAction(event);
@@ -220,15 +215,10 @@ public abstract class AbstractUITabGroup extends AbstractUIPanel
   }
 
   public void addTabChangeListener(final TabChangeListener listener) {
-    if (LOG.isWarnEnabled() && isSwitchTypeClient()) {
+    if (LOG.isWarnEnabled() && getSwitchType() == SwitchType.client) {
       LOG.warn("Adding TabChangeListener to client side TabGroup!");
     }
     addFacesListener(listener);
-  }
-
-  public boolean isSwitchTypeClient() {
-    final String switchType = getSwitchType();
-    return (switchType == null || switchType.equals(SWITCH_TYPE_CLIENT));
   }
 
   public void removeTabChangeListener(final TabChangeListener listener) {
@@ -247,14 +237,14 @@ public abstract class AbstractUITabGroup extends AbstractUIPanel
 
   public abstract void setSelectedIndex(Integer index);
 
-  public abstract String getSwitchType();
+  public abstract SwitchType getSwitchType();
 
-  private AbstractUIPanel getTab(final int index) {
+  private AbstractUITab getTab(final int index) {
     int i = 0;
     for (final UIComponent component : getChildren()) {
-      if (component instanceof AbstractUIPanel) {
+      if (component instanceof AbstractUITab) {
         if (i == index) {
-          return (AbstractUIPanel) component;
+          return (AbstractUITab) component;
         }
         i++;
       } else {
@@ -265,7 +255,7 @@ public abstract class AbstractUITabGroup extends AbstractUIPanel
     return null;
   }
 
-  private AbstractUIPanel getRenderedTab() {
+  private AbstractUITab getRenderedTab() {
     return getTab(getRenderedIndex());
   }
 

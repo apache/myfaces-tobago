@@ -26,13 +26,13 @@ import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.component.RendererTypes;
-import org.apache.myfaces.tobago.internal.component.AbstractUITabGroup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasAction;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasActionListener;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasRenderedPartially;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsImmediateCommand;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
+import org.apache.myfaces.tobago.model.SwitchType;
 
 import javax.faces.component.UIPanel;
 
@@ -75,10 +75,10 @@ public interface TabGroupTagDeclaration
    * @param switchType Sets the switching type.
    */
   @TagAttribute
-  @UIComponentTagAttribute(type = "java.lang.String",
-      allowedValues = {AbstractUITabGroup.SWITCH_TYPE_CLIENT, AbstractUITabGroup.SWITCH_TYPE_RELOAD_PAGE,
-              AbstractUITabGroup.SWITCH_TYPE_RELOAD_TAB},
-      defaultValue = AbstractUITabGroup.SWITCH_TYPE_CLIENT)
+  @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.model.SwitchType",
+      allowedValues = {SwitchType.CLIENT, SwitchType.RELOAD_PAGE, SwitchType.RELOAD_TAB},
+      defaultValue = SwitchType.CLIENT,
+      defaultCode = "org.apache.myfaces.tobago.model.SwitchType.client")
   void setSwitchType(String switchType);
 
   /**
@@ -92,7 +92,7 @@ public interface TabGroupTagDeclaration
   void setSelectedIndex(String selectedIndex);
 
   /**
-   * For internal use. TODO: Check if this long needed
+   * For internal use. TBD: Check if this is needed any longer.
    */
   @UIComponentTagAttribute(type = "java.lang.Integer", defaultValue = "0")
   void setRenderedIndex(String renderedIndex);
