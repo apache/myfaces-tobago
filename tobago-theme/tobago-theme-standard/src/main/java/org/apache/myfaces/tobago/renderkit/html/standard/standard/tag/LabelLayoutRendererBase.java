@@ -22,7 +22,6 @@ package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.LabelLayout;
 import org.apache.myfaces.tobago.component.SupportsLabelLayout;
-import org.apache.myfaces.tobago.component.UINav;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
@@ -124,10 +123,11 @@ public abstract class LabelLayoutRendererBase extends RendererBase {
     // todo: check if BootstrapClass.FORM_GROUP is needed, I've removed it, because of it's margin-bottom: 15px;
     // todo: so we lost too much space
     // todo: without it, e. g. an input field in the header will not be layouted correctly
-    CssItem extra = ComponentUtils.findAncestor(component, UINav.class) != null ? BootstrapClass.FORM_GROUP : null;
+//    CssItem extra = ComponentUtils.findAncestor(component, UINav.class) != null ? BootstrapClass.FORM_GROUP : null;
     // TODO: optimize findAncestor() -> set a marker in UINav?
 
-    writer.writeClassAttribute(divClass, extra, BootstrapClass.maximumSeverity(component));
+//    writer.writeClassAttribute(divClass, extra, BootstrapClass.maximumSeverity(component));
+    writer.writeClassAttribute(divClass, BootstrapClass.FORM_GROUP, BootstrapClass.maximumSeverity(component));
 
     switch (labelLayout) {
       case flexLeft:
