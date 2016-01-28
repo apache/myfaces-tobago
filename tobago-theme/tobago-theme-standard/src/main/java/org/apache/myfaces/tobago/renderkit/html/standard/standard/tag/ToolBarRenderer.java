@@ -47,7 +47,7 @@ public class ToolBarRenderer extends RendererBase {
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
     writer.startElement(HtmlElements.NAV);
-    writer.writeClassAttribute(BootstrapClass.NAVBAR, BootstrapClass.NAVBAR_DEFAULT);
+    writer.writeClassAttribute(BootstrapClass.NAVBAR);
     writer.writeAttribute(HtmlAttributes.ROLE, HtmlRoleValues.NAVIGATION.toString(), false);
 
     writer.startElement(HtmlElements.DIV);
