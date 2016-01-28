@@ -160,7 +160,7 @@ public class CommandRenderer extends CommandRendererBase {
       for (UIComponent child : component.getChildren()) {
         if (child.isRendered()) {
           writer.startElement(HtmlElements.LI);
-          CssItem submenu = child instanceof AbstractUICommand &&((AbstractUICommand)child).isParentOfCommands()
+          CssItem submenu = child instanceof AbstractUICommand && ((AbstractUICommand) child).isParentOfCommands()
               ? TobagoClass.DROPDOWN_SUBMENU : null;
           // fixme: this name comes not from bootstrap, using prefix? tobago-command-dropdown-submenu
           writer.writeClassAttribute(BootstrapClass.DROPDOWN_ITEM, submenu);
