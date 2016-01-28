@@ -100,6 +100,7 @@ public enum BootstrapClass implements CssItem {
   DANGER("danger"),
   DISABLED("disabled"),
   DROPDOWN("dropdown"),
+  DROPDOWN_ITEM("dropdown-item"),
   DROPDOWN_MENU("dropdown-menu"),
   DROPDOWN_TOGGLE("dropdown-toggle"),
   FADE("fade"),

@@ -56,7 +56,7 @@ public class CommandGroupRenderer extends RendererBase {
           encodeChildren(facesContext, child);
         } else {
           writer.startElement(HtmlElements.LI);
-          writer.writeClassAttribute(BootstrapClass.NAV_ITEM);
+          writer.writeClassAttribute(BootstrapClass.NAV_ITEM, BootstrapClass.DROPDOWN);
           child.encodeAll(facesContext);
           writer.endElement(HtmlElements.LI);
         }

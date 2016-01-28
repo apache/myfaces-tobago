@@ -27,6 +27,7 @@ import org.apache.myfaces.tobago.renderkit.CommandRendererBase;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
+import org.apache.myfaces.tobago.renderkit.css.CssItem;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.Command;
 import org.apache.myfaces.tobago.renderkit.html.CommandMap;
@@ -159,13 +160,10 @@ public class CommandRenderer extends CommandRendererBase {
       for (UIComponent child : component.getChildren()) {
         if (child.isRendered()) {
           writer.startElement(HtmlElements.LI);
-          if (child instanceof AbstractUICommand) {
-            AbstractUICommand command = (AbstractUICommand) child;
-            if (command.isParentOfCommands()) {
-              // fixme: this name comes not from bootstrap, using prefix? tobago-command-dropdown-submenu
-              writer.writeClassAttribute(TobagoClass.DROPDOWN_SUBMENU);
-            }
-          }
+          CssItem submenu = child instanceof AbstractUICommand &&((AbstractUICommand)child).isParentOfCommands()
+              ? TobagoClass.DROPDOWN_SUBMENU : null;
+          // fixme: this name comes not from bootstrap, using prefix? tobago-command-dropdown-submenu
+          writer.writeClassAttribute(BootstrapClass.DROPDOWN_ITEM, submenu);
           child.encodeAll(facesContext);
           writer.endElement(HtmlElements.LI);
         }
