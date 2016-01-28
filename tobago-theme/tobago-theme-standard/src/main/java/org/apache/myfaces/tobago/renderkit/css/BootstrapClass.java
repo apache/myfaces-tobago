@@ -129,7 +129,6 @@ public enum BootstrapClass implements CssItem {
   NAVBAR_BTN("navbar-btn"),
   NAVBAR_COLLAPSE("navbar-collapse"),
   NAVBAR_DARK("navbar-dark"),
-  NAVBAR_DEFAULT("navbar-default"),
   NAVBAR_FIXED_BOTTOM("navbar-fixed-bottom"),
   NAVBAR_FIXED_TOP("navbar-fixed-top"),
   NAVBAR_NAV("navbar-nav"),

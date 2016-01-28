@@ -88,7 +88,7 @@ public class ToolBarRenderer extends RendererBase {
     writer.writeIdAttribute(toolBar.getClientId(facesContext));
   }
 /*
-<nav class="navbar navbar-default" role="navigation">
+<nav class="navbar" role="navigation">
       <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
