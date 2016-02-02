@@ -25,7 +25,8 @@ Release Checklist (Developer Info)
 
   * You need to add your GPG keys in {{{https://svn.apache.org/repos/asf/myfaces/keys/KEYS}Subversion}} and the {{{https://www.apache.org/dist/myfaces/KEYS}Apache site}} before a release.
 
-  * Ensure that all open bugs have been either fixed or moved to an other release version.
+  * Ensure that all open bugs and issues in {{{https://issues.apache.org/jira/}Jira}} have been either fixed
+    or moved to an other release version.
 
   * Ensure that all examples are working with the release candidate.
 
@@ -108,11 +109,13 @@ mvn release:perform
 
 * Publishing
 
-  * Close all resolved jira issuse for the release.
+  * <Release> the version in {{{https://issues.apache.org/jira/}Jira}} and close all resolved issues for the release.
 
   * <Release> the staging repository on the {{{https://repository.apache.org/}Nexus}} instance.
 
   * Copy the download artifacts from the repository to the site (see script below)
+
+  * Add the release version and date to the {{{https://reporter.apache.org/addrelease.html?myfaces}Apache Committee Report Helper}}.
 
   * Building the site
 
@@ -225,8 +228,8 @@ Copy the download artifacts from the repository to the site (release-tobago.sh)
 #!/bin/sh
 set -e
 
-VERSION=2.0.8
-LOCAL_BUILD=~/Documents/project/apache
+VERSION=2.0.9
+#VERSION=3.0.0-alpha-2
 
 MAVEN_REPOSITORY=https://repository.apache.org/content/repositories/releases
 DIST_REPOSITORY=https://dist.apache.org/repos/dist/release/myfaces
@@ -246,15 +249,8 @@ function download() {
 # this performs check of the hashes (if this fails, something might went wrong absolutely)
 function check() {
   FILE="$1"
-  LOCAL_FILE="$2"
 
   echo "Checking file ${FILE}: "
-
-  if ! diff --ignore-all-space "${FILE}" "${LOCAL_FILE}" ; then
-    echo "Error: local identity check failed!"
-    exit -1
-  fi
-  echo "  download matches local build"
 
   md5 -q "${FILE}" > "${FILE}.md5.temp"
   if ! diff --ignore-all-space "${FILE}.md5" "${FILE}.md5.temp" ; then
@@ -301,11 +297,11 @@ download "org/apache/myfaces/tobago/tobago-example-assembly" "tobago-example-ass
 download "org/apache/myfaces/tobago/tobago-example-assembly" "tobago-example-assembly-${VERSION}-example.zip"    "myfaces-tobago-${VERSION}-example.zip"
 download "org/apache/myfaces/tobago/tobago"                  "tobago-${VERSION}-source-release.zip"              "myfaces-tobago-${VERSION}-source-release.zip"
 
-check "myfaces-tobago-${VERSION}-dist.tar.gz"         ${LOCAL_BUILD}/tobago-${VERSION}/tobago-assembly/target/assembly/out/myfaces-tobago-${VERSION}-dist.tar.gz
-check "myfaces-tobago-${VERSION}-dist.zip"            ${LOCAL_BUILD}/tobago-${VERSION}/tobago-assembly/target/assembly/out/myfaces-tobago-${VERSION}-dist.zip
-check "myfaces-tobago-${VERSION}-example.tar.gz"      ${LOCAL_BUILD}/tobago-${VERSION}/tobago-example/tobago-example-assembly/target/assembly/out/myfaces-tobago-${VERSION}-example.tar.gz
-check "myfaces-tobago-${VERSION}-example.zip"         ${LOCAL_BUILD}/tobago-${VERSION}/tobago-example/tobago-example-assembly/target/assembly/out/myfaces-tobago-${VERSION}-example.zip
-check "myfaces-tobago-${VERSION}-source-release.zip"  ${LOCAL_BUILD}/tobago-${VERSION}/target/tobago-${VERSION}-source-release.zip
+check "myfaces-tobago-${VERSION}-dist.tar.gz"
+check "myfaces-tobago-${VERSION}-dist.zip"
+check "myfaces-tobago-${VERSION}-example.tar.gz"
+check "myfaces-tobago-${VERSION}-example.zip"
+check "myfaces-tobago-${VERSION}-source-release.zip"
 
 rm -f *.temp
 
