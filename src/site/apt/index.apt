@@ -47,6 +47,22 @@ Apache Tobago
 
 News
 
+* December 21, 2015 - MyFaces Tobago 3.0.0-alpha-2 Released
+
+      The MyFaces Tobago component library in version 3.0.0-alpha-2 has been released.
+
+      Release notes can be found in
+      {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12333887}Jira}}.
+
+      Major change since alpha 1 is replacing "Glyphicons" with "Font Awesome".
+      This may be the last version using Bootstrap 3.
+      The next alpha of Tobago will properly using Bootstrap 4, where the second alpha was released a few days ago.
+
+      Also see section: {{{./new-3.0.html} What's new in Tobago 3.0?}}
+
+      \ {}
+      ~~ hack for a bit space
+
 * November 11, 2015 - MyFaces Tobago 3.0.0-alpha-1 Released
 
       The MyFaces Tobago component library in version 3.0.0-alpha-1 has been released.

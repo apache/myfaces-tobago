@@ -62,6 +62,15 @@
         <file-release>http://www.apache.org/dyn/closer.lua/myfaces/binaries/myfaces-tobago-2.0.8-dist.zip</file-release>
       </Version>
     </release>
+    <release>
+      <Version>
+        <name>Latest alpha release of 3.0.x</name>
+        <created>2015-12-21</created>
+        <revision>3.0.0-alpha-2</revision>
+        <file-release>http://www.apache.org/dyn/closer.lua/myfaces/binaries/myfaces-tobago-3.0.0-alpha-2-dist.tar.gz</file-release>
+        <file-release>http://www.apache.org/dyn/closer.lua/myfaces/binaries/myfaces-tobago-3.0.0-alpha-2-dist.zip</file-release>
+      </Version>
+    </release>
     <repository>
       <SVNRepository>
         <location rdf:resource="http://svn.apache.org/repos/asf/myfaces/tobago"/>
