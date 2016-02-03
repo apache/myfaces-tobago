@@ -343,7 +343,7 @@ public abstract class AbstractUISheet extends AbstractUIData
         if (child instanceof AbstractUIColumn) {
           result.add((AbstractUIColumn) child);
         } else if (child instanceof AbstractUIData){
-          // ignore nested sheets
+          // ignore columns of nested sheets
         } else {
           findColumns(child, result, all);
         }
