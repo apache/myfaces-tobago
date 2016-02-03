@@ -360,6 +360,11 @@ public class TobagoDemoController implements Serializable {
     }
   }
 
+  public String resetLuminary() {
+    currentSolarObject = null;
+    return null;
+  }
+
   public void setSolarList(final List<SolarObject> solarList) {
     this.solarList = solarList;
   }
