@@ -40,63 +40,6 @@
         </configuration>
       </plugin>
       <plugin>
-        <artifactId>maven-antrun-plugin</artifactId>
-        <executions>
-          <execution>
-            <id>strip-javascript</id>
-            <goals>
-              <goal>run</goal>
-            </goals>
-            <phase>compile</phase>
-            <configuration>
-              <target>
-                <concat destfile="${project.build.directory}/javascript-min/scarborough/script/tobago.min.js" force="no">
-                  <filelist dir="${basedir}/src/main/resources/org/apache/myfaces/tobago/renderkit/html/scarborough/standard/script" files="tobago.js" />
-                </concat>
-                <replaceregexp match="^.*//.*@DEV_ONLY.*$" replace="" byline="true">
-                  <fileset dir="${project.build.directory}/javascript-min">
-                    <include name="**/tobago.min.js" />
-                  </fileset>
-                </replaceregexp>
-              </target>
-            </configuration>
-          </execution>
-        </executions>
-        <dependencies>
-          <dependency>
-            <groupId>ant</groupId>
-            <artifactId>ant-apache-regexp</artifactId>
-            <version>1.6.5</version>
-          </dependency>
-        </dependencies>
-      </plugin>
-      <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>exec-maven-plugin</artifactId>
-        <executions>
-          <execution>
-            <id>compress-standard</id>
-            <goals>
-              <goal>exec</goal>
-            </goals>
-            <phase>compile</phase>
-            <configuration>
-              <executable>java</executable>
-              <arguments>
-                <argument>-jar</argument>
-                <argument>../tobago-theme-standard/lib/compiler-20120430.jar</argument>
-                <argument>--js</argument>
-                <argument>${project.build.directory}/javascript-min/scarborough/script/tobago.min.js</argument>
-                <argument>--js_output_file</argument>
-                <argument>
-                  target/classes/org/apache/myfaces/tobago/renderkit/html/scarborough/standard/script/tobago.min.js
-                </argument>
-              </arguments>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
-      <plugin>
         <groupId>net.alchim31.maven</groupId>
         <artifactId>yuicompressor-maven-plugin</artifactId>
         <executions>

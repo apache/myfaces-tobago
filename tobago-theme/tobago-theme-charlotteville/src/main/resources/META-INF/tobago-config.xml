@@ -35,6 +35,7 @@
       <resource-path>org/apache/myfaces/tobago/renderkit</resource-path>
       <fallback>standard</fallback>
       <versioned>true</versioned>
+<!--
       <resources production="true">
         <excludes>
           <script name="bootstrap/4.0.0-alpha.2/js/bootstrap.js"/>
@@ -53,6 +54,7 @@
         <style name="bootstrap-charlotteville/3.3.6/css/bootstrap.css"/>
         <style name="bootstrap-charlotteville/3.3.6/css/bootstrap-theme.css"/>
       </resources>
+-->
     </theme-definition>
   </theme-definitions>
 </tobago-config>
