@@ -45,17 +45,17 @@ public abstract class InputRendererBase extends LabelLayoutRendererBase {
       return; // no decoding required
     }
 
-    if (ComponentUtils.isOutputOnly(component)) {
+    if (ComponentUtils.isOutputOnly(input)) {
       return;
     }
 
-    final String clientId = component.getClientId(facesContext);
+    final String clientId = input.getClientId(facesContext);
 
     final Map<String, String> requestParameterMap = facesContext.getExternalContext().getRequestParameterMap();
     if (requestParameterMap.containsKey(clientId)) {
       String newValue = requestParameterMap.get(clientId);
       if (LOG.isDebugEnabled()) {
-        final boolean password = ComponentUtils.getBooleanAttribute(component, Attributes.password);
+        final boolean password = ComponentUtils.getBooleanAttribute(input, Attributes.password);
         LOG.debug("clientId='{}'", clientId);
         LOG.debug("requestParameterMap.get(clientId)='{}'", StringUtils.toConfidentialString(newValue, password));
       }

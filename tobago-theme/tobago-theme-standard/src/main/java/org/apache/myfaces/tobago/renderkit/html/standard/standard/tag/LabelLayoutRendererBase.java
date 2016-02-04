@@ -49,7 +49,7 @@ public abstract class LabelLayoutRendererBase extends RendererBase {
 
     encodeBeginSurrounding(facesContext, component);
 
-    switch (((SupportsLabelLayout) component).getLabelLayout()) {
+    switch (getType(component)) {
       case segmentLeft:
         if (LabelLayout.getSegment(facesContext) == LabelLayout.segmentRight) {
           encodeBeginField(facesContext, component);
@@ -68,7 +68,8 @@ public abstract class LabelLayoutRendererBase extends RendererBase {
 
   @Override
   public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
-    switch (((SupportsLabelLayout) component).getLabelLayout()) {
+
+    switch (getType(component)) {
       case segmentLeft:
         if (LabelLayout.getSegment(facesContext) == LabelLayout.segmentRight) {
           encodeEndField(facesContext, component);
@@ -105,7 +106,7 @@ public abstract class LabelLayoutRendererBase extends RendererBase {
     // - segmentRight (todo)
     // - flowLeft (todo)
     // - flowRight (todo)
-    final LabelLayout labelLayout = ((SupportsLabelLayout) component).getLabelLayout();
+    final LabelLayout labelLayout = getType(component);
     final CssItem divClass;
     switch (labelLayout) {
       case flexLeft:
@@ -163,7 +164,7 @@ public abstract class LabelLayoutRendererBase extends RendererBase {
   protected void encodeEndSurrounding(final FacesContext facesContext, final UIComponent component) throws IOException {
 
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
-    final LabelLayout labelLayout = ((SupportsLabelLayout) component).getLabelLayout();
+    final LabelLayout labelLayout = getType(component);
 
     switch (labelLayout) {
       case flexRight:
@@ -191,6 +192,12 @@ public abstract class LabelLayoutRendererBase extends RendererBase {
       writer.writeText(label);
       writer.endElement(HtmlElements.LABEL);
     }
+  }
+
+  private LabelLayout getType(UIComponent component) {
+    return component instanceof SupportsLabelLayout
+        ? ((SupportsLabelLayout) component).getLabelLayout()
+        : LabelLayout.skip;
   }
 
 }

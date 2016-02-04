@@ -23,7 +23,50 @@ import javax.faces.context.FacesContext;
 
 public enum LabelLayout {
 
-  none, flexLeft, flexRight, top, segmentLeft, segmentRight, flowLeft, flowRight;
+  /**
+   * do not render the label
+   */
+  none,
+
+  /**
+   * flex layout: let the label be on the left side
+   */
+  flexLeft,
+
+  /**
+   * flex layout: let the label be on the right side
+   */
+  flexRight,
+
+  /**
+   * let the label be on the top of the element
+   */
+  top,
+
+  /**
+   * segment layout: let the label be on the left side
+   */
+  segmentLeft,
+
+  /**
+   * segment layout: let the label be on the right side
+   */
+  segmentRight,
+
+  /**
+   * flow layout: let the label be on the left side
+   */
+  flowLeft,
+
+  /**
+   * flow layout: let the label be on the right side
+   */
+  flowRight,
+
+  /**
+   * skip rendering the surrounding container.
+   */
+  skip;
 
   private static final String SEGMENT_TO_RENDER_KEY = LabelLayout.class.getName();
 

@@ -20,6 +20,7 @@
 package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
 import org.apache.myfaces.tobago.component.UIHidden;
+import org.apache.myfaces.tobago.internal.component.AbstractUIHidden;
 import org.apache.myfaces.tobago.layout.Display;
 import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
@@ -38,13 +39,14 @@ public class HiddenRenderer extends InputRendererBase {
 
   protected void encodeBeginField(FacesContext facesContext, UIComponent component) throws IOException {
 
-    final String clientId = component.getClientId(facesContext);
-    final String value = RenderUtils.currentValue(component);
+    final AbstractUIHidden hidden = (AbstractUIHidden) component;
+    final String clientId = hidden.getClientId(facesContext);
+    final String value = RenderUtils.currentValue(hidden);
 
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
     writer.startElement(HtmlElements.INPUT);
-    if (component instanceof UIHidden && ((UIHidden) component).isDisabled()) {
+    if (hidden.isDisabled()) {
       writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.TEXT);
       final Style style = new Style();
       style.setDisplay(Display.none);
@@ -55,7 +57,7 @@ public class HiddenRenderer extends InputRendererBase {
     }
     writer.writeNameAttribute(clientId);
     writer.writeIdAttribute(clientId);
-    HtmlRendererUtils.writeDataAttributes(facesContext, writer, component);
+    HtmlRendererUtils.writeDataAttributes(facesContext, writer, hidden);
     writer.writeAttribute(HtmlAttributes.VALUE, value != null ? value : "", true);
     writer.endElement(HtmlElements.INPUT);
   }
