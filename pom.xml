@@ -600,6 +600,7 @@
         <executions>
           <execution>
             <id>enforce</id>
+            <phase>validate</phase>
             <goals>
               <goal>enforce</goal>
             </goals>
@@ -1049,29 +1050,6 @@
               <revisionOnScmFailure>unknown</revisionOnScmFailure>
             </configuration>
           </plugin>
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-enforcer-plugin</artifactId>
-            <version>1.4</version>
-            <executions>
-              <execution>
-                <id>enforce-java</id>
-                <phase>validate</phase>
-                <goals>
-                  <goal>enforce</goal>
-                </goals>
-                <configuration>
-                  <rules>
-                    <requireJavaVersion>
-                      <message>Tobago must be compiled with Java 6 or higher</message>
-                      <version>[1.6,)</version>
-                    </requireJavaVersion>
-                  </rules>
-                </configuration>
-              </execution>
-            </executions>
-          </plugin>
-
           <plugin>
             <groupId>org.codehaus.mojo</groupId>
             <artifactId>animal-sniffer-maven-plugin</artifactId>
