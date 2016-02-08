@@ -29,7 +29,7 @@ import javax.faces.context.FacesContext;
 import java.io.IOException;
 import java.util.List;
 
-public abstract class AbstractUITreeNode
+public abstract class AbstractUITreeNodeBase
     extends AbstractUIColumn implements Visual {
 
   @Override

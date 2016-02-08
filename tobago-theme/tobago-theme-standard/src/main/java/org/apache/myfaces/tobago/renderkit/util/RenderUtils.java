@@ -24,15 +24,9 @@ import org.apache.myfaces.tobago.internal.component.AbstractUICommand;
 import org.apache.myfaces.tobago.internal.component.AbstractUIData;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.model.ExpandedState;
-import org.apache.myfaces.tobago.model.ScrollPositionState;
 import org.apache.myfaces.tobago.model.SelectedState;
 import org.apache.myfaces.tobago.model.TreePath;
-import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
-import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
-import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
-import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
 import org.apache.myfaces.tobago.util.ComponentUtils;
-import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -53,8 +47,6 @@ import java.util.List;
 public class RenderUtils {
 
   private static final Logger LOG = LoggerFactory.getLogger(RenderUtils.class);
-
-  public static final String SCROLL_POSTFIX = ComponentUtils.SUB_SEPARATOR + "scrollPosition";
 
   private RenderUtils() {
     // to prevent instantiation
@@ -264,29 +256,6 @@ public class RenderUtils {
       LOG.warn("Can't parse " + suffix + ": '" + string + "' from parameter '" + key + "'", e);
     }
     return null;
-  }
-
-  public static void writeScrollPosition(
-      final FacesContext facesContext, final TobagoResponseWriter writer, final UIComponent component,
-      final ScrollPositionState state)
-      throws IOException {
-    final String clientId = component.getClientId(facesContext);
-    writer.startElement(HtmlElements.INPUT);
-    writer.writeIdAttribute(clientId + SCROLL_POSTFIX);
-    writer.writeNameAttribute(clientId + SCROLL_POSTFIX);
-    writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN);
-    writer.writeAttribute(HtmlAttributes.VALUE, state.getScrollPosition().encode(), false);
-    writer.writeAttribute(DataAttributes.SCROLL_POSITION, Boolean.TRUE.toString(), true);
-    writer.endElement(HtmlElements.INPUT);
-  }
-
-  public static void decodeScrollPosition(
-      final FacesContext facesContext, final UIComponent component, final ScrollPositionState state) {
-    final String key = component.getClientId(facesContext) + SCROLL_POSTFIX;
-    final String value = facesContext.getExternalContext().getRequestParameterMap().get(key);
-    if (value != null) {
-      state.getScrollPosition().update(value);
-    }
   }
 
   public static String generateUrl(final FacesContext facesContext, final AbstractUICommand component) {

@@ -24,7 +24,7 @@ import org.apache.myfaces.tobago.component.UITreeIndent;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.internal.component.AbstractUIData;
-import org.apache.myfaces.tobago.internal.component.AbstractUITreeNode;
+import org.apache.myfaces.tobago.internal.component.AbstractUITreeNodeBase;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
@@ -45,7 +45,7 @@ public class TreeIndentRenderer extends RendererBase {
   public void encodeBegin(final FacesContext facesContext, final UIComponent component) throws IOException {
 
     final UITreeIndent indent = (UITreeIndent) component;
-    final AbstractUITreeNode node = ComponentUtils.findAncestor(indent, AbstractUITreeNode.class);
+    final AbstractUITreeNodeBase node = ComponentUtils.findAncestor(indent, AbstractUITreeNodeBase.class);
     final AbstractUIData data = ComponentUtils.findAncestor(indent, AbstractUIData.class);
 
     final boolean folder = node.isFolder();
@@ -80,7 +80,7 @@ public class TreeIndentRenderer extends RendererBase {
   }
 
   private void encodeIndent(
-      final FacesContext facesContext, final TobagoResponseWriter writer, final AbstractUITreeNode node,
+      final FacesContext facesContext, final TobagoResponseWriter writer, final AbstractUITreeNodeBase node,
       final boolean showLines, final boolean showIcons, final boolean showRootJunction, final boolean showRoot,
       final List<Boolean> junctions)
       throws IOException {
@@ -107,7 +107,7 @@ public class TreeIndentRenderer extends RendererBase {
   }
 
   private void encodeTreeJunction(
-      final FacesContext facesContext, final TobagoResponseWriter writer, final AbstractUITreeNode node,
+      final FacesContext facesContext, final TobagoResponseWriter writer, final AbstractUITreeNodeBase node,
       final boolean showLines, final boolean showIcons, final boolean showRootJunction, final List<Boolean> junctions,
       final boolean expanded, final boolean folder, final boolean root)
       throws IOException {

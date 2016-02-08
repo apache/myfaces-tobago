@@ -25,13 +25,10 @@ import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.component.UIColumnSelector;
 import org.apache.myfaces.tobago.component.UICommand;
 import org.apache.myfaces.tobago.component.UILink;
-import org.apache.myfaces.tobago.component.UIMenu;
-import org.apache.myfaces.tobago.component.UIMenuCommand;
 import org.apache.myfaces.tobago.component.UIOut;
 import org.apache.myfaces.tobago.component.UIPanel;
 import org.apache.myfaces.tobago.component.UIReload;
 import org.apache.myfaces.tobago.component.UISheet;
-import org.apache.myfaces.tobago.component.UIToolBar;
 import org.apache.myfaces.tobago.component.Visual;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
@@ -61,10 +58,12 @@ import org.apache.myfaces.tobago.renderkit.css.CssItem;
 import org.apache.myfaces.tobago.renderkit.css.Icons;
 import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
+import org.apache.myfaces.tobago.renderkit.html.Arias;
 import org.apache.myfaces.tobago.renderkit.html.Command;
 import org.apache.myfaces.tobago.renderkit.html.CommandMap;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
+import org.apache.myfaces.tobago.renderkit.html.HtmlButtonTypes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
 import org.apache.myfaces.tobago.renderkit.html.JsonUtils;
@@ -95,8 +94,10 @@ public class SheetRenderer extends RendererBase {
 
   private static final Logger LOG = LoggerFactory.getLogger(SheetRenderer.class);
 
-  public static final String WIDTHS_POSTFIX = ComponentUtils.SUB_SEPARATOR + "widths";
-  public static final String SELECTED_POSTFIX = ComponentUtils.SUB_SEPARATOR + "selected";
+  protected static final String WIDTHS = ComponentUtils.SUB_SEPARATOR + "widths";
+  protected static final String SCROLL_POSITION = ComponentUtils.SUB_SEPARATOR + "scrollPosition";
+  protected static final String SELECTED = ComponentUtils.SUB_SEPARATOR + "selected";
+  protected static final String SELECTOR_DROPDOWN = ComponentUtils.SUB_SEPARATOR + "selectorDropdown";
 
   @Override
   public void prepareRender(final FacesContext facesContext, final UIComponent component) throws IOException {
@@ -182,18 +183,25 @@ public class SheetRenderer extends RendererBase {
     final List<AbstractUIColumn> renderedColumnList = sheet.getRenderedColumns();
 
     writer.startElement(HtmlElements.INPUT);
-    writer.writeIdAttribute(sheetId + WIDTHS_POSTFIX);
-    writer.writeNameAttribute(sheetId + WIDTHS_POSTFIX);
+    writer.writeIdAttribute(sheetId + WIDTHS);
+    writer.writeNameAttribute(sheetId + WIDTHS);
     writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN);
     writer.writeAttribute(HtmlAttributes.VALUE, StringUtils.joinWithSurroundingSeparator(columnWidths), false);
     writer.endElement(HtmlElements.INPUT);
 
-    RenderUtils.writeScrollPosition(facesContext, writer, sheet, sheet.getState());
+    final String clientId = sheet.getClientId(facesContext);
+    writer.startElement(HtmlElements.INPUT);
+    writer.writeIdAttribute(clientId + SCROLL_POSITION);
+    writer.writeNameAttribute(clientId + SCROLL_POSITION);
+    writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN);
+    writer.writeAttribute(HtmlAttributes.VALUE, sheet.getState().getScrollPosition().encode(), false);
+    writer.writeAttribute(DataAttributes.SCROLL_POSITION, Boolean.TRUE.toString(), true);
+    writer.endElement(HtmlElements.INPUT);
 
     if (selectable != Selectable.none) {
       writer.startElement(HtmlElements.INPUT);
-      writer.writeIdAttribute(sheetId + SELECTED_POSTFIX);
-      writer.writeNameAttribute(sheetId + SELECTED_POSTFIX);
+      writer.writeIdAttribute(sheetId + SELECTED);
+      writer.writeNameAttribute(sheetId + SELECTED);
       writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN);
       writer.writeAttribute(
           HtmlAttributes.VALUE, StringUtils.joinWithSurroundingSeparator(selectedRows), true);
@@ -341,7 +349,6 @@ public class SheetRenderer extends RendererBase {
           }
           writer.writeAttribute(HtmlAttributes.CHECKED, selected);
           writer.writeAttribute(HtmlAttributes.DISABLED, selector.isDisabled());
-          writer.writeIdAttribute(sheetId + "_data_row_selector_" + rowIndex);
           writer.writeClassAttribute(Classes.create(sheet, "columnSelector"));
           writer.endElement(HtmlElements.INPUT);
         } else if (column instanceof AbstractUIColumnNode) {
@@ -634,7 +641,7 @@ public class SheetRenderer extends RendererBase {
 
     final UISheet sheet = (UISheet) component;
 
-    String key = sheet.getClientId(facesContext) + WIDTHS_POSTFIX;
+    String key = sheet.getClientId(facesContext) + WIDTHS;
 
     final Map requestParameterMap = facesContext.getExternalContext().getRequestParameterMap();
     if (requestParameterMap.containsKey(key)) {
@@ -644,7 +651,7 @@ public class SheetRenderer extends RendererBase {
       }
     }
 
-    key = sheet.getClientId(facesContext) + SELECTED_POSTFIX;
+    key = sheet.getClientId(facesContext) + SELECTED;
     if (requestParameterMap.containsKey(key)) {
       final String selected = (String) requestParameterMap.get(key);
       if (LOG.isDebugEnabled()) {
@@ -661,7 +668,11 @@ public class SheetRenderer extends RendererBase {
       ComponentUtils.setAttribute(sheet, Attributes.selectedListString, selectedRows);
     }
 
-    RenderUtils.decodeScrollPosition(facesContext, sheet, sheet.getState());
+    final String value = facesContext.getExternalContext().getRequestParameterMap().get(
+        sheet.getClientId(facesContext) + SCROLL_POSITION);
+    if (value != null) {
+      sheet.getState().getScrollPosition().update(value);
+    }
     RenderUtils.decodedStateOfTreeData(facesContext, sheet);
   }
 
@@ -758,6 +769,8 @@ public class SheetRenderer extends RendererBase {
       final FacesContext facesContext, final UISheet sheet, final TobagoResponseWriter writer,
       final List<AbstractUIColumn> renderedColumnList)
       throws IOException {
+
+    final Selectable selectable = sheet.getSelectable();
 
     final Grid grid = sheet.getHeaderGrid();
     if (grid == null) {
@@ -869,8 +882,43 @@ public class SheetRenderer extends RendererBase {
           writer.writeClassAttribute(Classes.create(sheet, "header", markup));
           writer.writeAttribute(HtmlAttributes.TITLE, tip, true);
 
-          if (column instanceof UIColumnSelector) {
-            renderColumnSelectorHeader(facesContext, writer, sheet);
+          if (column instanceof UIColumnSelector && selectable.isMulti()) {
+            writer.writeClassAttribute(Classes.create(sheet, "selectorDropdown"));
+
+            writer.startElement(HtmlElements.DIV);
+            writer.writeClassAttribute(BootstrapClass.DROPDOWN);
+            writer.startElement(HtmlElements.BUTTON);
+            writer.writeClassAttribute(
+                BootstrapClass.BTN, BootstrapClass.BTN_SECONDARY, BootstrapClass.DROPDOWN_TOGGLE);
+            writer.writeAttribute(HtmlAttributes.TYPE, HtmlButtonTypes.BUTTON);
+            writer.writeIdAttribute(sheet.getClientId(facesContext) + SELECTOR_DROPDOWN);
+            writer.writeAttribute(DataAttributes.TOGGLE, "dropdown", false);
+            writer.writeAttribute(Arias.HASPOPUP, Boolean.TRUE.toString(), false);
+            writer.writeAttribute(Arias.EXPANDED, Boolean.FALSE.toString(), false);
+            writer.endElement(HtmlElements.BUTTON);
+            writer.startElement(HtmlElements.DIV);
+            writer.writeClassAttribute(BootstrapClass.DROPDOWN_MENU);
+            writer.writeAttribute(Arias.LABELLEDBY, sheet.getClientId(facesContext) + SELECTOR_DROPDOWN, false);
+            writer.startElement(HtmlElements.BUTTON);
+            writer.writeClassAttribute(BootstrapClass.DROPDOWN_ITEM);
+            writer.writeAttribute(HtmlAttributes.TYPE, HtmlButtonTypes.BUTTON);
+            writer.writeAttribute(DataAttributes.COMMAND, "sheetSelectAll", false);
+            writer.writeText(ResourceManagerUtils.getPropertyNotNull(facesContext, "tobago", "sheetMenuSelect"));
+            writer.endElement(HtmlElements.BUTTON);
+            writer.startElement(HtmlElements.BUTTON);
+            writer.writeClassAttribute(BootstrapClass.DROPDOWN_ITEM);
+            writer.writeAttribute(HtmlAttributes.TYPE, HtmlButtonTypes.BUTTON);
+            writer.writeAttribute(DataAttributes.COMMAND, "sheetDeselectAll", false);
+            writer.writeText(ResourceManagerUtils.getPropertyNotNull(facesContext, "tobago", "sheetMenuUnselect"));
+            writer.endElement(HtmlElements.BUTTON);
+            writer.startElement(HtmlElements.BUTTON);
+            writer.writeClassAttribute(BootstrapClass.DROPDOWN_ITEM);
+            writer.writeAttribute(HtmlAttributes.TYPE, HtmlButtonTypes.BUTTON);
+            writer.writeAttribute(DataAttributes.COMMAND, "sheetToggleAll", false);
+            writer.writeText(ResourceManagerUtils.getPropertyNotNull(facesContext, "tobago", "sheetMenuToggleselect"));
+            writer.endElement(HtmlElements.BUTTON);
+            writer.endElement(HtmlElements.DIV);
+            writer.endElement(HtmlElements.DIV);
           } else {
             RenderUtils.encode(facesContext, cellComponent);
 
@@ -938,58 +986,6 @@ public class SheetRenderer extends RendererBase {
     writer.write("&nbsp;&nbsp;"); // is needed for IE
     writer.endElement(HtmlElements.SPAN);
 */
-  }
-
-  protected void renderColumnSelectorHeader(
-      final FacesContext facesContext, final TobagoResponseWriter writer, final UISheet sheet)
-      throws IOException {
-
-    final UIToolBar toolBar = createToolBar(facesContext, sheet);
-    writer.startElement(HtmlElements.DIV);
-    writer.writeClassAttribute(Classes.create(sheet, "toolBar"));
-
-    if (Selectable.multi == sheet.getSelectable()) {
-      EncodeUtils.prepareRendererAll(facesContext, toolBar);
-      RenderUtils.encode(facesContext, toolBar);
-    }
-
-    writer.endElement(HtmlElements.DIV);
-  }
-
-  private UIToolBar createToolBar(final FacesContext facesContext, final UISheet sheet) {
-    final Application application = facesContext.getApplication();
-    final UICommand dropDown = (UICommand) CreateComponentUtils.createComponent(
-        facesContext, UICommand.COMPONENT_TYPE, null, "dropDown");
-    dropDown.setOmit(true);
-    final UIMenu menu = (UIMenu) CreateComponentUtils.createComponent(
-        facesContext, UIMenu.COMPONENT_TYPE, RendererTypes.Menu, "menu");
-    FacetUtils.setDropDownMenu(dropDown, menu);
-    final String sheetId = sheet.getClientId(facesContext);
-
-    createMenuItem(facesContext, menu, "sheetMenuSelect", Markup.SHEET_SELECT_ALL, sheetId);
-    createMenuItem(facesContext, menu, "sheetMenuUnselect", Markup.SHEET_DESELECT_ALL, sheetId);
-    createMenuItem(facesContext, menu, "sheetMenuToggleselect", Markup.SHEET_TOGGLE_ALL, sheetId);
-
-    final UIToolBar toolBar = (UIToolBar) application.createComponent(UIToolBar.COMPONENT_TYPE);
-    toolBar.setId(facesContext.getViewRoot().createUniqueId());
-    toolBar.setRendererType("TabGroupToolBar");
-    toolBar.setTransient(true);
-    toolBar.getChildren().add(dropDown);
-    ComponentUtils.setFacet(sheet, Facets.toolBar, toolBar);
-    return toolBar;
-  }
-
-  private void createMenuItem(
-      final FacesContext facesContext, final UIMenu menu, final String label, final Markup markup,
-      final String sheetId) {
-    final String id = markup.toString();
-    final UIMenuCommand menuItem = (UIMenuCommand) CreateComponentUtils.createComponent(
-        facesContext, UIMenuCommand.COMPONENT_TYPE, RendererTypes.MenuCommand, id);
-    menuItem.setLabel(ResourceManagerUtils.getPropertyNotNull(facesContext, "tobago", label));
-    menuItem.setMarkup(markup);
-    menuItem.setOmit(true);
-    ComponentUtils.putDataAttributeWithPrefix(menuItem, DataAttributes.SHEET_ID, sheetId);
-    menu.getChildren().add(menuItem);
   }
 
   private void encodeDirectPagingLinks(

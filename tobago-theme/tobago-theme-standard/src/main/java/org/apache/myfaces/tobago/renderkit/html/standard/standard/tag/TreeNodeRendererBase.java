@@ -22,7 +22,7 @@ package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.internal.component.AbstractUIData;
 import org.apache.myfaces.tobago.internal.component.AbstractUITree;
-import org.apache.myfaces.tobago.internal.component.AbstractUITreeNode;
+import org.apache.myfaces.tobago.internal.component.AbstractUITreeNodeBase;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 
@@ -36,7 +36,7 @@ public class TreeNodeRendererBase extends RendererBase {
   public void prepareRender(final FacesContext facesContext, final UIComponent component) throws IOException {
     super.prepareRender(facesContext, component);
 
-    final AbstractUITreeNode node = (AbstractUITreeNode) component;
+    final AbstractUITreeNodeBase node = (AbstractUITreeNodeBase) component;
     final AbstractUIData data = ComponentUtils.findAncestor(node, AbstractUIData.class);
     if (data instanceof AbstractUITree && data.getSelectedState().isSelected(node.getPath())) {
       ComponentUtils.addCurrentMarkup(node, Markup.SELECTED);

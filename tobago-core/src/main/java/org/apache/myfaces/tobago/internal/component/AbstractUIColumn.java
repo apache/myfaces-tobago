@@ -30,4 +30,6 @@ public abstract class AbstractUIColumn extends UIColumn implements Visual {
   public boolean isResizable() {
     return false;
   }
+
+  public abstract String getLabel();
 }

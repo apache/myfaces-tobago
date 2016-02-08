@@ -20,7 +20,7 @@
 package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
 import org.apache.myfaces.tobago.internal.component.AbstractUIData;
-import org.apache.myfaces.tobago.internal.component.AbstractUITreeNode;
+import org.apache.myfaces.tobago.internal.component.AbstractUITreeNodeBase;
 import org.apache.myfaces.tobago.layout.Display;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.Style;
@@ -39,7 +39,7 @@ public class TreeNodeRenderer extends TreeNodeRendererBase {
   @Override
   public void encodeBegin(final FacesContext facesContext, final UIComponent component) throws IOException {
 
-    final AbstractUITreeNode node = (AbstractUITreeNode) component;
+    final AbstractUITreeNodeBase node = (AbstractUITreeNodeBase) component;
     final AbstractUIData data = ComponentUtils.findAncestor(node, AbstractUIData.class);
 
     final boolean dataRendersRowContainer = data.isRendersRowContainer();

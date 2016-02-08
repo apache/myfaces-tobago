@@ -48,10 +48,16 @@ public class TreeRenderer extends RendererBase {
 
   private static final Logger LOG = LoggerFactory.getLogger(TreeRenderer.class);
 
+  protected static final String SCROLL_POSITION = ComponentUtils.SUB_SEPARATOR + "scrollPosition";
+
   @Override
   public void decode(final FacesContext facesContext, final UIComponent component) {
     final AbstractUITree tree = (AbstractUITree) component;
-    RenderUtils.decodeScrollPosition(facesContext, tree, tree.getState());
+    final String value = facesContext.getExternalContext().getRequestParameterMap().get(
+        tree.getClientId(facesContext) + SCROLL_POSITION);
+    if (value != null) {
+      tree.getState().getScrollPosition().update(value);
+    }
     RenderUtils.decodedStateOfTreeData(facesContext, tree);
   }
 
@@ -142,7 +148,13 @@ public class TreeRenderer extends RendererBase {
     writer.writeAttribute(HtmlAttributes.VALUE, expandedValue.toString(), false);
     writer.endElement(HtmlElements.INPUT);
 
-    RenderUtils.writeScrollPosition(facesContext, writer, tree, tree.getState());
+    writer.startElement(HtmlElements.INPUT);
+    writer.writeIdAttribute(clientId + SCROLL_POSITION);
+    writer.writeNameAttribute(clientId + SCROLL_POSITION);
+    writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN);
+    writer.writeAttribute(HtmlAttributes.VALUE, tree.getState().getScrollPosition().encode(), false);
+    writer.writeAttribute(DataAttributes.SCROLL_POSITION, Boolean.TRUE.toString(), true);
+    writer.endElement(HtmlElements.INPUT);
 
     writer.endElement(HtmlElements.DIV);
   }

@@ -93,7 +93,7 @@ public abstract class AbstractUITree extends AbstractUIData implements NamingCon
   public UIComponent getRoot() {
     // find the UITreeNode in the children.
     for (final UIComponent child : getChildren()) {
-      if (child instanceof AbstractUITreeNode) {
+      if (child instanceof AbstractUITreeNodeBase) {
         return child;
       }
     }

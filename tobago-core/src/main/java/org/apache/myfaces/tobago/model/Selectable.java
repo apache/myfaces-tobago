@@ -166,6 +166,10 @@ public enum Selectable {
     return this == single || this == singleOrNone || this == singleLeafOnly;
   }
 
+  public boolean isMulti() {
+    return this == multi || this == multiLeafOnly || this == multiCascade;
+  }
+
   public boolean isSupportedBySheet() {
     return SHEET_VALUES.contains(this);
   }

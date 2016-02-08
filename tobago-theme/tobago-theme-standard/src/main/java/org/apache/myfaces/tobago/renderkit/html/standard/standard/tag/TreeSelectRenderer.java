@@ -22,7 +22,7 @@ package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 import org.apache.myfaces.tobago.component.UITreeSelect;
 import org.apache.myfaces.tobago.internal.component.AbstractUIData;
 import org.apache.myfaces.tobago.internal.component.AbstractUITreeListbox;
-import org.apache.myfaces.tobago.internal.component.AbstractUITreeNode;
+import org.apache.myfaces.tobago.internal.component.AbstractUITreeNodeBase;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.model.Selectable;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
@@ -48,7 +48,7 @@ public class TreeSelectRenderer extends RendererBase {
   public void decode(final FacesContext facesContext, final UIComponent component) {
 
     final UITreeSelect select = (UITreeSelect) component;
-    final AbstractUITreeNode node = ComponentUtils.findAncestor(select, AbstractUITreeNode.class);
+    final AbstractUITreeNodeBase node = ComponentUtils.findAncestor(select, AbstractUITreeNodeBase.class);
     final AbstractUIData data = ComponentUtils.findAncestor(node, AbstractUIData.class);
 
     if (ComponentUtils.isOutputOnly(select)) {
@@ -79,7 +79,7 @@ public class TreeSelectRenderer extends RendererBase {
   public void encodeBegin(final FacesContext facesContext, final UIComponent component) throws IOException {
 
     final UITreeSelect select = (UITreeSelect) component;
-    final AbstractUITreeNode node = ComponentUtils.findAncestor(select, AbstractUITreeNode.class);
+    final AbstractUITreeNodeBase node = ComponentUtils.findAncestor(select, AbstractUITreeNodeBase.class);
     final AbstractUIData data = ComponentUtils.findAncestor(node, AbstractUIData.class);
 
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);

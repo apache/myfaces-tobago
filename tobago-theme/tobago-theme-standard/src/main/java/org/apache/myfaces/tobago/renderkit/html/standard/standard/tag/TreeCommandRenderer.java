@@ -22,7 +22,7 @@ package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 import org.apache.myfaces.tobago.component.UITreeCommand;
 import org.apache.myfaces.tobago.component.UITreeNode;
 import org.apache.myfaces.tobago.internal.component.AbstractUIData;
-import org.apache.myfaces.tobago.internal.component.AbstractUITreeNode;
+import org.apache.myfaces.tobago.internal.component.AbstractUITreeNodeBase;
 import org.apache.myfaces.tobago.internal.util.AccessKeyLogger;
 import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.renderkit.CommandRendererBase;
@@ -67,7 +67,7 @@ public class TreeCommandRenderer extends CommandRendererBase {
     final LabelWithAccessKey label = new LabelWithAccessKey(command);
     final boolean disabled = command.isDisabled();
 
-    final AbstractUITreeNode node = ComponentUtils.findAncestor(command, AbstractUITreeNode.class);
+    final AbstractUITreeNodeBase node = ComponentUtils.findAncestor(command, AbstractUITreeNodeBase.class);
     final AbstractUIData data = ComponentUtils.findAncestor(command, AbstractUIData.class);
     Style style = command.getStyle();
     if (style == null) {

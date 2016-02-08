@@ -1129,19 +1129,6 @@ var Tobago = {
     }
   },
 
-  isInputElement: function(tagName) {
-    tagName = tagName.toUpperCase();
-    if (tagName == 'INPUT'
-        || tagName == 'TEXTAREA'
-        || tagName == 'SELECT'
-        || tagName == 'A'
-        || tagName == 'BUTTON'
-        ) {
-      return true;
-    }
-    return false;
-  },
-
   /**
    * Create a HTML input element with given type, name and value.
    */
