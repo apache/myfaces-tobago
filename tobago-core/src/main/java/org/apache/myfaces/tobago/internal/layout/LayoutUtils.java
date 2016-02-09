@@ -76,7 +76,8 @@ public final class LayoutUtils {
   }
 
   /**
-   * Replacement for refactoring
+   * This is needed, when the layout manager is set by a facet.
+   * This should be only used by the classic &lt;tc:gridLayout>
    * @since 3.0.0
    * @deprecated since 3.0.0
    */
