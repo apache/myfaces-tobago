@@ -36,6 +36,7 @@ import javax.faces.FactoryFinder;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseStream;
 import javax.faces.context.ResponseWriter;
+import javax.faces.render.ClientBehaviorRenderer;
 import javax.faces.render.RenderKit;
 import javax.faces.render.RenderKitFactory;
 import javax.faces.render.Renderer;
@@ -43,19 +44,22 @@ import javax.faces.render.ResponseStateManager;
 import java.io.OutputStream;
 import java.io.Writer;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 public class TobagoRenderKit extends RenderKit {
 
   private static final Logger LOG = LoggerFactory.getLogger(TobagoRenderKit.class);
 
-  public static final String RENDER_KIT_ID = "tobago";
-
-  private RenderKit htmlBasicRenderKit;
+  private final RenderKit htmlBasicRenderKit;
 
   private Map<Key, Renderer> renderers = new HashMap<Key, Renderer>();
 
   public TobagoRenderKit() {
+    RenderKitFactory rkFactory = (RenderKitFactory) FactoryFinder.getFactory(FactoryFinder.RENDER_KIT_FACTORY);
+    htmlBasicRenderKit =
+        rkFactory.getRenderKit(FacesContext.getCurrentInstance(), RenderKitFactory.HTML_BASIC_RENDER_KIT);
+    LOG.error("Creating TobagoRenderKit with base: {}", htmlBasicRenderKit);
     if (LOG.isDebugEnabled()) {
       LOG.debug("Creating TobagoRenderKit");
     }
@@ -65,8 +69,7 @@ public class TobagoRenderKit extends RenderKit {
   public Renderer getRenderer(final String family, final String rendererType) {
     Renderer renderer = renderers.get(new Key(family, rendererType));
     if (renderer == null) {
-      final RenderKit renderKit = getHtmlBasicRenderKit();
-      renderer = renderKit.getRenderer(family, rendererType);
+      renderer = htmlBasicRenderKit.getRenderer(family, rendererType);
       if (renderer != null) {
         renderer = new RendererBaseWrapper(renderer);
       }
@@ -78,15 +81,6 @@ public class TobagoRenderKit extends RenderKit {
     }
 
     return renderer;
-  }
-
-  private RenderKit getHtmlBasicRenderKit() {
-    if (htmlBasicRenderKit == null) {
-      final RenderKitFactory rkFactory = (RenderKitFactory) FactoryFinder.getFactory(FactoryFinder.RENDER_KIT_FACTORY);
-      htmlBasicRenderKit =
-          rkFactory.getRenderKit(FacesContext.getCurrentInstance(), RenderKitFactory.HTML_BASIC_RENDER_KIT);
-    }
-    return htmlBasicRenderKit;
   }
 
   @Override
@@ -145,12 +139,24 @@ public class TobagoRenderKit extends RenderKit {
 
   @Override
   public ResponseStateManager getResponseStateManager() {
-    return getHtmlBasicRenderKit().getResponseStateManager();
+    return htmlBasicRenderKit.getResponseStateManager();
   }
 
   @Override
   public ResponseStream createResponseStream(final OutputStream outputStream) {
-    return getHtmlBasicRenderKit().createResponseStream(outputStream);
+    return htmlBasicRenderKit.createResponseStream(outputStream);
+  }
+
+  public void addClientBehaviorRenderer(String type, ClientBehaviorRenderer renderer) {
+    htmlBasicRenderKit.addClientBehaviorRenderer(type, renderer);
+  }
+
+  public ClientBehaviorRenderer getClientBehaviorRenderer(String type) {
+    return htmlBasicRenderKit.getClientBehaviorRenderer(type);
+  }
+
+  public Iterator<String> getClientBehaviorRendererTypes() {
+    return htmlBasicRenderKit.getClientBehaviorRendererTypes();
   }
 
   private static final class Key {

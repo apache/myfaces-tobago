@@ -120,6 +120,9 @@ public class FacesConfigGenerator extends AbstractGenerator {
   private static final String RENDER_KIT_CLASS = "render-kit-class";
   private static final String RENDERER_TYPE = "renderer-type";
   private static final String RENDERER_CLASS = "renderer-class";
+  private static final String CLIENT_BEHAVIOR_RENDERER = "client-behavior-renderer";
+  private static final String CLIENT_BEHAVIOR_RENDERER_TYPE = "client-behavior-renderer-type";
+  private static final String CLIENT_BEHAVIOR_RENDERER_CLASS = "client-behavior-renderer-class";
 
   private static final Set<String> IGNORED_PROPERTIES = new HashSet<String>(Arrays.asList("binding"));
 
@@ -202,6 +205,16 @@ public class FacesConfigGenerator extends AbstractGenerator {
         renderKitClass.setText("org.apache.myfaces.tobago.renderkit.TobagoRenderKit");
         renderKit.addContent(renderKitClass);
         renderKit.addContent(newRenderer);
+
+        final org.jdom.Element clientBehaviorRender = new org.jdom.Element(CLIENT_BEHAVIOR_RENDERER, namespace);
+        final org.jdom.Element clientBehaviorType = new org.jdom.Element(CLIENT_BEHAVIOR_RENDERER_TYPE, namespace);
+        clientBehaviorType.setText("javax.faces.behavior.Ajax");
+        clientBehaviorRender.addContent(clientBehaviorType);
+        final org.jdom.Element clientBehaviorClass = new org.jdom.Element(CLIENT_BEHAVIOR_RENDERER_CLASS, namespace);
+        clientBehaviorClass.setText("org.apache.myfaces.tobago.renderkit.html.AjaxClientBehaviorRenderer");
+        clientBehaviorRender.addContent(clientBehaviorClass);
+        renderKit.addContent(clientBehaviorRender);
+
         final int lastIndex = getIndexAfter(rootElement, CONVERTER, COMPONENT, FACTORY, APPLICATION);
         rootElement.addContent(lastIndex, renderKit);
       }

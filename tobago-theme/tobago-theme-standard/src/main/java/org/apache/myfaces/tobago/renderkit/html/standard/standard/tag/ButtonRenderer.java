@@ -43,8 +43,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.faces.component.UIComponent;
+import javax.faces.component.behavior.ClientBehavior;
+import javax.faces.component.behavior.ClientBehaviorBase;
+import javax.faces.component.behavior.ClientBehaviorContext;
+import javax.faces.component.behavior.ClientBehaviorHolder;
 import javax.faces.context.FacesContext;
+import javax.faces.render.ClientBehaviorRenderer;
 import java.io.IOException;
+import java.util.List;
+import java.util.Map;
 
 public class ButtonRenderer extends CommandRendererBase {
 
@@ -72,9 +79,6 @@ public class ButtonRenderer extends CommandRendererBase {
     writer.writeAttribute(HtmlAttributes.DISABLED, disabled);
 
     if (!disabled) {
-      final CommandMap map = new CommandMap(new Command(facesContext, button));
-      writer.writeAttribute(DataAttributes.COMMANDS, JsonUtils.encode(map), true);
-
       writer.writeAttribute(HtmlAttributes.HREF, "#", false);
 
       if (label.getAccessKey() != null) {
@@ -88,6 +92,30 @@ public class ButtonRenderer extends CommandRendererBase {
           writer.writeAttribute(HtmlAttributes.TABINDEX, tabIndex);
         }
       }
+
+      String commands = null;
+      final Map<String, List<ClientBehavior>> behaviors = ((ClientBehaviorHolder) component).getClientBehaviors();
+      for (Map.Entry<String, List<ClientBehavior>> behavior : behaviors.entrySet()) {
+        final String key = behavior.getKey();
+        final ClientBehaviorContext context
+            = ClientBehaviorContext.createClientBehaviorContext(facesContext, button, key, clientId, null);
+        for (ClientBehavior clientBehavior : behavior.getValue()) {
+          if (clientBehavior instanceof ClientBehaviorBase) {
+            final String type = ((ClientBehaviorBase) clientBehavior).getRendererType();
+            final ClientBehaviorRenderer clientBehaviorRenderer
+                = facesContext.getRenderKit().getClientBehaviorRenderer(type);
+            commands = clientBehaviorRenderer.getScript(context, clientBehavior);
+          } else {
+            LOG.warn("Ignoring: '{}'", clientBehavior);
+          }
+        }
+      }
+
+      if (commands == null) {
+        final CommandMap map = new CommandMap(new Command(facesContext, button));
+        commands =  JsonUtils.encode(map);
+      }
+      writer.writeAttribute(DataAttributes.COMMANDS, commands, true);
     }
 
     writer.writeStyleAttribute(button.getStyle());

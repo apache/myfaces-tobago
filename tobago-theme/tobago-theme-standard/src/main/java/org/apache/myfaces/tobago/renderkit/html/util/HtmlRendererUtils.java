@@ -318,7 +318,7 @@ public final class HtmlRendererUtils {
             if (commandMap == null) {
               commandMap = new CommandMap();
             }
-            commandMap.addCommand(columnEvent.getEvent(), new Command(facesContext, action, null));
+            commandMap.addCommand(columnEvent.getEvent(), new Command(facesContext, action, (String) null));
           }
         }
       }

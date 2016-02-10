@@ -23,7 +23,7 @@
 
   <tc:nav image="image/feather-leaf.png" label="Tobago Demo">
 
-    <tc:form>
+    <tc:form id="header">
 
       <tc:commandGroup>
 
@@ -81,7 +81,7 @@
 
       </tc:commandGroup>
       <!-- TBD: this is not nice: can we put tc:out or tc:label into the menu?  -->
-      <tc:commandGroup>
+      <tc:commandGroup id="headerInfo">
         <tc:command omit="true" label="Info">
           <tc:command omit="true" label="Theme: #{clientConfigController.localizedTheme}"/>
           <tc:command omit="true" label="Locale: #{clientConfigController.localizedLocale}"/>

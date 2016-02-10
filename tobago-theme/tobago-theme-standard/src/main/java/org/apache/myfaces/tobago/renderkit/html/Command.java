@@ -69,6 +69,20 @@ public class Command {
     this.omit = omit;
   }
 
+  public Command(final FacesContext facesContext, final AbstractUICommand command, String[] ids) {
+    this(
+        null,
+        command.isTransition(),
+        command.getTarget(),
+        RenderUtils.generateUrl(facesContext, command),
+        ComponentUtils.evaluateClientIds(facesContext, command, ids),
+        null,
+        getConfirmation(command),
+        null,
+        Popup.createPopup(command),
+        command.isOmit());
+  }
+
   public Command(final FacesContext facesContext, final AbstractUICommand command) {
     this(
         null,

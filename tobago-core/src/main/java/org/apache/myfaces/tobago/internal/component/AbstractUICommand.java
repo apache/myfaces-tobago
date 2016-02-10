@@ -29,14 +29,20 @@ import org.apache.myfaces.tobago.util.ComponentUtils;
 
 import javax.faces.component.UICommand;
 import javax.faces.component.UIComponent;
+import javax.faces.component.behavior.ClientBehaviorHolder;
 import javax.faces.context.FacesContext;
 import javax.faces.event.FacesEvent;
 import javax.faces.event.PhaseId;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.Iterator;
 
 public abstract class AbstractUICommand
     extends UICommand
-    implements SupportsRenderedPartially, SupportsAccessKey, OnComponentPopulated, Visual {
+    implements SupportsRenderedPartially, SupportsAccessKey, OnComponentPopulated, Visual, ClientBehaviorHolder {
+
+  // todo generate
+  private static final Collection<String> EVENT_NAMES = Arrays.asList("click");
 
   // todo: transient
   private Boolean parentOfCommands;
@@ -98,6 +104,18 @@ public abstract class AbstractUICommand
       }
     }
     return parentOfCommands;
+  }
+
+  // todo generate
+  @Override
+  public String getDefaultEventName() {
+    return "click";
+  }
+
+  // todo generate
+  @Override
+  public Collection<String> getEventNames() {
+    return EVENT_NAMES;
   }
 
   public abstract String getLabel();
