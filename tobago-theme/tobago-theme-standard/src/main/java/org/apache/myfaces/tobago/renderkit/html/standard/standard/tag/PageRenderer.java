@@ -72,7 +72,7 @@ public class PageRenderer extends RendererBase {
 
   private static final String LAST_FOCUS_ID = "lastFocusId";
 
-  private final static String HEAD_TARGET = "head";
+  private static final String HEAD_TARGET = "head";
 
   @Override
   public void decode(final FacesContext facesContext, final UIComponent component) {
