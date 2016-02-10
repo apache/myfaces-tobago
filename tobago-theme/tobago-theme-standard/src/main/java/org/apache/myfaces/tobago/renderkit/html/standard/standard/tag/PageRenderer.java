@@ -467,8 +467,7 @@ public class PageRenderer extends RendererBase {
       if (StringUtils.isNotBlank(src)) {
         writer.startElement(HtmlElements.SCRIPT);
         writer.writeAttribute(HtmlAttributes.SRC, src, true);
-        // TODO test defer attribute
-        //writer.writeAttribute(HtmlAttributes.DEFER, true);
+        writer.writeAttribute(HtmlAttributes.DEFER, true);
         writer.writeAttribute(HtmlAttributes.TYPE, "text/javascript", false);
         writer.endElement(HtmlElements.SCRIPT);
       }
