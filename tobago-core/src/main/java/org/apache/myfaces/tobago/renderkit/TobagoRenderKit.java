@@ -99,13 +99,10 @@ public class TobagoRenderKit extends RenderKit {
     }
     if (contentTypeList == null) {
       contentType = "text/html";
-    } else if (contentTypeList.indexOf("text/html") > -1) {
+    } else if (contentTypeList.contains("text/html")) {
       contentType = "text/html";
       LOG.warn("patching content type from " + contentTypeList + " to " + contentType + "'");
-    } else if (contentTypeList.indexOf("text/fo") > -1) {
-      contentType = "text/fo";
-      LOG.warn("patching content type from " + contentTypeList + " to " + contentType + "'");
-    } else if (contentTypeList.indexOf("application/json") > -1) {
+    } else if (contentTypeList.contains("application/json")) {
       return new JsonResponseWriter(writer, "application/json", characterEncoding);
     } else {
       contentType = "text/html";
