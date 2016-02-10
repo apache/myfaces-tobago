@@ -20,7 +20,8 @@
 <ui:composition template="/main.xhtml"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:f="http://java.sun.com/jsf/core">
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns="http://www.w3.org/1999/xhtml">
   <ui:param name="title" value="Editor"/>
 
 
@@ -39,27 +40,31 @@
     <p>
       So Tobago should not implement it's own HTML editor.
       But Tobago may embed an existing editor. Such an editor needs to comply with these requirements:
-      <ul>
-        <li>License must be compatible with the Apache 2.0 license.</li>
-        <li>Should be easy to integrate.</li>
-        <li>Should have many features.</li>
-        <li>Should have few bugs.</li>
-        <li>Must be compatible to CSP (Content Security Policy).</li>
-      </ul>
+    </p>
+    <ul>
+      <li>License must be compatible with the Apache 2.0 license.</li>
+      <li>Should be easy to integrate.</li>
+      <li>Should have many features.</li>
+      <li>Should have few bugs.</li>
+      <li>Must be compatible to CSP (Content Security Policy).</li>
+    </ul>
+    <p>
       Unfortunately we didn't found the <em>perfect</em> editor.
     </p>
     <p>
       But that doesn't matter. You can choice you favorite editor and integrate it in your application.
       In this application there are two editors embedded as an example.
-      <ul>
-        <li><tc:link link="http://www.tinymce.com/" target="_blank" label="TinyMCE"/></li>
-        Is using LGPL license.
-        <li><tc:link link="http://ckeditor.com/" target="_blank" label="CKEditor"/></li>
-        Doesn't work with CSP activated.
-        There is an issue #8584 in the
-        <tc:link link="https://dev.ckeditor.com/ticket/8584" target="_blank" label="issue tracker"/>
-        of the project.
-      </ul>
+    </p>
+    <ul>
+      <li><tc:link link="http://www.tinymce.com/" target="_blank" label="TinyMCE"/></li>
+      Is using LGPL license.
+      <li><tc:link link="http://ckeditor.com/" target="_blank" label="CKEditor"/></li>
+      Doesn't work with CSP activated.
+      There is an issue #8584 in the
+      <tc:link link="https://dev.ckeditor.com/ticket/8584" target="_blank" label="issue tracker"/>
+      of the project.
+    </ul>
+    <p>
     </p>
 
     <h3>About security</h3>
@@ -72,12 +77,10 @@
 
     <h3>Todos:</h3>
 
-    <p>
-      <ul>
-        <li>todo: view source fragments</li>
-        <li>todo: HTML Filter</li>
-      </ul>
-    </p>
+    <ul>
+      <li>todo: view source fragments</li>
+      <li>todo: HTML Filter</li>
+    </ul>
 
   </tc:panel>
 </ui:composition>
