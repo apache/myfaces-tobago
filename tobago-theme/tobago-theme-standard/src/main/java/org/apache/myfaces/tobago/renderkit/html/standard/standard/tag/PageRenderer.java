@@ -55,6 +55,7 @@ import org.slf4j.LoggerFactory;
 import javax.faces.application.Application;
 import javax.faces.application.ViewHandler;
 import javax.faces.component.UIComponent;
+import javax.faces.component.UIViewRoot;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.portlet.MimeResponse;
@@ -70,6 +71,8 @@ public class PageRenderer extends RendererBase {
   private static final Logger LOG = LoggerFactory.getLogger(PageRenderer.class);
 
   private static final String LAST_FOCUS_ID = "lastFocusId";
+
+  private final static String HEAD_TARGET = "head";
 
   @Override
   public void decode(final FacesContext facesContext, final UIComponent component) {
@@ -203,6 +206,13 @@ public class PageRenderer extends RendererBase {
         } else {
           LOG.warn("Application icon '" + icon + "' not found!");
         }
+      }
+      UIViewRoot root = facesContext.getViewRoot();
+      List<UIComponent> componentResources = root.getComponentResources(facesContext, HEAD_TARGET);
+
+      for (int i = 0, childCount = componentResources.size(); i < childCount; i++) {
+        UIComponent child = componentResources.get(i);
+        child.encodeAll(facesContext);
       }
 
       // render remaining script tags
