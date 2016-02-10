@@ -178,14 +178,14 @@ public abstract class TobagoResponseWriterBase extends TobagoResponseWriter {
   }
 
   public void startElement(final String name, final UIComponent currentComponent) throws IOException {
-    startElementInternal(writer, HtmlElements.valueOf(name.toUpperCase()), currentComponent);
+    startElementInternal(writer, name, currentComponent);
   }
 
   public void startElement(final HtmlElements name) throws IOException {
-    startElementInternal(writer, name, null);
+    startElementInternal(writer, name.getValue(), null);
   }
 
-  protected void startElementInternal(final Writer writer, final HtmlElements name, final UIComponent currentComponent)
+  protected void startElementInternal(final Writer writer, final String name, final UIComponent currentComponent)
       throws IOException {
     this.component = currentComponent;
 //    closeOpenTag();
@@ -193,16 +193,26 @@ public abstract class TobagoResponseWriterBase extends TobagoResponseWriter {
       writer.write("\n>");
     }
     writer.write("<");
-    writer.write(name.getValue());
+    writer.write(name);
     startStillOpen = true;
   }
 
   public void endElement(final String name) throws IOException {
-    endElementInternal(writer, HtmlElements.valueOf(name.toUpperCase()));
+    if (HtmlElements.isVoid(name)) {
+      closeEmptyTag();
+    } else {
+      endElementInternal(writer, name);
+    }
+    startStillOpen = false;
   }
 
   public void endElement(final HtmlElements name) throws IOException {
-    endElementInternal(writer, name);
+    if (name.isVoid()) {
+      closeEmptyTag();
+    } else {
+      endElementInternal(writer, name.getValue());
+    }
+    startStillOpen = false;
   }
 
   public void writeComment(final Object obj) throws IOException {
@@ -262,20 +272,16 @@ public abstract class TobagoResponseWriterBase extends TobagoResponseWriter {
     }
   }
 
-  protected void endElementInternal(final Writer writer, final HtmlElements name) throws IOException {
-    if (name.isVoid()) {
-      closeEmptyTag();
-    } else {
+  protected void endElementInternal(final Writer writer, final String name) throws IOException {
       if (startStillOpen) {
         writer.write("\n>");
       }
       writer.write("</");
-      writer.write(name.getValue());
+      writer.write(name);
 //      writer.write("\n>"); // FIXME: this makes problems with Tidy
       writer.write(">");
-    }
-    startStillOpen = false;
   }
+
   protected abstract void closeEmptyTag() throws IOException;
 
   protected void writeAttributeInternal(

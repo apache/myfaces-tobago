@@ -20,6 +20,8 @@
 package org.apache.myfaces.tobago.renderkit.html;
 
 import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 public enum HtmlElements {
 
@@ -135,10 +137,20 @@ public enum HtmlElements {
   private final boolean voidElement;
   private final boolean inlineElement;
 
-  HtmlElements(String value, Qualifier... qualifiers) {
+  private static final Set<String> voids = new HashSet<String>();
+
+  HtmlElements(final String value, final Qualifier... qualifiers) {
     this.value = value;
     this.voidElement = Arrays.asList(qualifiers).contains(Qualifier.VOID);
     this.inlineElement = Arrays.asList(qualifiers).contains(Qualifier.INLINE);
+  }
+
+  static {
+    for (final HtmlElements htmlElement : values()) {
+    if (htmlElement.isVoid()) {
+        voids.add(htmlElement.getValue());
+      }
+    }
   }
 
   public String getValue() {
@@ -156,6 +168,10 @@ public enum HtmlElements {
 
   public boolean isInline() {
     return inlineElement;
+  }
+
+  public static boolean isVoid(final String name) {
+    return voids.contains(name);
   }
 
   private enum Qualifier {VOID, INLINE}

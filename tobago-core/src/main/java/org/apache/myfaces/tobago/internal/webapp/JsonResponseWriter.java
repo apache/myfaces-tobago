@@ -22,7 +22,6 @@ package org.apache.myfaces.tobago.internal.webapp;
 import org.apache.myfaces.tobago.internal.util.FastStringWriter;
 import org.apache.myfaces.tobago.internal.util.JavascriptWriterUtils;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
-import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.MarkupLanguageAttributes;
 import org.apache.myfaces.tobago.util.FacesVersion;
 import org.slf4j.Logger;
@@ -100,30 +99,24 @@ public class JsonResponseWriter extends HtmlResponseWriter {
   }
 
   @Override
-  protected void startElementInternal(final Writer writer, final HtmlElements name, final UIComponent currentComponent)
+  protected void startElementInternal(final Writer writer, final String name, final UIComponent currentComponent)
       throws IOException {
     setComponent(currentComponent);
     if (isStartStillOpen()) {
       writer.write(">");
     }
     writer.write("<");
-    writer.write(name.getValue());
-    setStartStillOpen(true);
+    writer.write(name);
   }
 
   @Override
-  protected void endElementInternal(final Writer writer, final HtmlElements name) throws IOException {
-    if (name.isVoid()) {
-        writer.write(">");
-    } else {
-      if (isStartStillOpen()) {
-        writer.write(">");
-      }
-      writer.write("</");
-      writer.write(name.getValue());
+  protected void endElementInternal(final Writer writer, final String name) throws IOException {
+    if (isStartStillOpen()) {
       writer.write(">");
     }
-    setStartStillOpen(false);
+    writer.write("</");
+    writer.write(name);
+    writer.write(">");
   }
 
   @Override
