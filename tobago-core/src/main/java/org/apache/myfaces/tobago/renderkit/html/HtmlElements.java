@@ -137,7 +137,7 @@ public enum HtmlElements {
   private final boolean voidElement;
   private final boolean inlineElement;
 
-  private static final Set<String> voids = new HashSet<String>();
+  private static final Set<String> VOIDS = new HashSet<String>();
 
   HtmlElements(final String value, final Qualifier... qualifiers) {
     this.value = value;
@@ -147,8 +147,8 @@ public enum HtmlElements {
 
   static {
     for (final HtmlElements htmlElement : values()) {
-    if (htmlElement.isVoid()) {
-        voids.add(htmlElement.getValue());
+      if (htmlElement.isVoid()) {
+        VOIDS.add(htmlElement.getValue());
       }
     }
   }
@@ -160,7 +160,7 @@ public enum HtmlElements {
   /**
    * A void HTML elements is an element whose content model never allows it to have contents under any circumstances.
    * See <a href="http://www.w3.org/TR/html-markup/syntax.html#void-element">
-   *   http://www.w3.org/TR/html-markup/syntax.html#void-element</a>
+   * http://www.w3.org/TR/html-markup/syntax.html#void-element</a>
    */
   public boolean isVoid() {
     return voidElement;
@@ -171,7 +171,7 @@ public enum HtmlElements {
   }
 
   public static boolean isVoid(final String name) {
-    return voids.contains(name);
+    return VOIDS.contains(name);
   }
 
   private enum Qualifier {VOID, INLINE}
