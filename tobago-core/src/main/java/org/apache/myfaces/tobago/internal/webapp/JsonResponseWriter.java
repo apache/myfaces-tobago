@@ -107,6 +107,7 @@ public class JsonResponseWriter extends HtmlResponseWriter {
     }
     writer.write("<");
     writer.write(name);
+    setStartStillOpen(true);
   }
 
   @Override
@@ -117,6 +118,7 @@ public class JsonResponseWriter extends HtmlResponseWriter {
     writer.write("</");
     writer.write(name);
     writer.write(">");
+    setStartStillOpen(false);
   }
 
   @Override
@@ -125,6 +127,11 @@ public class JsonResponseWriter extends HtmlResponseWriter {
       getWriter().write(">");
       setStartStillOpen(false);
     }
+  }
+
+  @Override
+  protected final void closeEmptyTag() throws IOException {
+    getWriter().write(">");
   }
 
   @Override
