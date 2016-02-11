@@ -22,11 +22,9 @@ package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 import org.apache.myfaces.tobago.component.UIColumn;
 import org.apache.myfaces.tobago.component.UILink;
 import org.apache.myfaces.tobago.component.UIOut;
-import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.internal.component.AbstractUIMenu;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.util.EncodeUtils;
-import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.util.FacetUtils;
 
 import javax.faces.component.UIComponent;
@@ -34,16 +32,6 @@ import javax.faces.context.FacesContext;
 import java.io.IOException;
 
 public class ColumnRenderer extends RendererBase {
-
-  @Override
-  public void prepareRender(final FacesContext facesContext, final UIComponent component) throws IOException {
-    super.prepareRender(facesContext, component);
-
-    final UIColumn column = (UIColumn) component;
-    if (isPure(column)) {
-      ComponentUtils.addCurrentMarkup(column, Markup.PURE);
-    }
-  }
 
   /**
    * Differ between simple content and complex content.

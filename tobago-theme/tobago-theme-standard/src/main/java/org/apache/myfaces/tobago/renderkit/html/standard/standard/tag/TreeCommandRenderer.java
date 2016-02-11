@@ -20,7 +20,6 @@
 package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
 import org.apache.myfaces.tobago.component.UITreeCommand;
-import org.apache.myfaces.tobago.component.UITreeNode;
 import org.apache.myfaces.tobago.internal.component.AbstractUIData;
 import org.apache.myfaces.tobago.internal.component.AbstractUITreeNodeBase;
 import org.apache.myfaces.tobago.internal.util.AccessKeyLogger;
@@ -48,15 +47,6 @@ import java.io.IOException;
 public class TreeCommandRenderer extends CommandRendererBase {
 
   private static final Logger LOG = LoggerFactory.getLogger(TreeCommandRenderer.class);
-
-  @Override
-  public void prepareRender(final FacesContext facesContext, final UIComponent component) throws IOException {
-    final UITreeCommand command = (UITreeCommand) component;
-    final UITreeNode node = ComponentUtils.findAncestor(command, UITreeNode.class);
-    // Todo: use an expression?
-    command.setDisabled(node.isDisabled());
-    super.prepareRender(facesContext, component);
-  }
 
   @Override
   public void encodeBegin(final FacesContext facesContext, final UIComponent component) throws IOException {

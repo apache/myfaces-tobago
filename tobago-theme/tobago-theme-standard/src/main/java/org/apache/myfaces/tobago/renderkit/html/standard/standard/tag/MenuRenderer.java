@@ -42,17 +42,6 @@ import java.io.IOException;
 public class MenuRenderer extends RendererBase {
 
   @Override
-  public void prepareRender(final FacesContext facesContext, final UIComponent component) throws IOException {
-    super.prepareRender(facesContext, component);
-
-    final UIMenu menu = (UIMenu) component;
-    final boolean firstLevel = !RendererTypes.MENU.equals(menu.getParent().getRendererType());
-    if (firstLevel) {
-      ComponentUtils.addCurrentMarkup(menu, Markup.TOP);
-    }
-  }
-
-  @Override
   public void encodeBegin(final FacesContext facesContext, final UIComponent component) throws IOException {
 
     final UIMenu menu = (UIMenu) component;
@@ -64,6 +53,9 @@ public class MenuRenderer extends RendererBase {
     final boolean isParentMenu = menu.getChildCount() > 0; // todo: may be not correct
 
     writer.startElement(HtmlElements.LI);
+    if (firstLevel) {
+      ComponentUtils.addCurrentMarkup(menu, Markup.TOP);
+    }
     writer.writeClassAttribute(Classes.create(menu), BootstrapClass.DROPDOWN, menu.getCustomClass());
     StringBuilder backgroundImage = null;
     StringBuilder backgroundPosition = null;

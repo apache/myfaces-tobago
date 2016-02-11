@@ -63,21 +63,6 @@ public abstract class ToolBarRendererBase extends RendererBase {
 
   private static final Logger LOG = LoggerFactory.getLogger(ToolBarRendererBase.class);
 
-  @Override
-  public void prepareRender(
-      final FacesContext facesContext, final UIComponent component) throws IOException {
-    super.prepareRender(facesContext, component);
-
-    final UIToolBar toolBar = (UIToolBar) component;
-
-    if ("big".equals(getIconSize(toolBar))) {
-      ComponentUtils.addCurrentMarkup(toolBar, Markup.BIG);
-    }
-    if ("right".equals(getLabelPosition(toolBar))) {
-      ComponentUtils.addCurrentMarkup(toolBar, Markup.RIGHT);
-    }
-  }
-
   protected String getLabelPosition(final UIComponent component) {
     return ComponentUtils.getStringAttribute(component, Attributes.labelPosition);
   }
@@ -89,6 +74,19 @@ public abstract class ToolBarRendererBase extends RendererBase {
 
   protected boolean isRightAligned(final UIToolBar toolBar) {
     return UIToolBar.ORIENTATION_RIGHT.equals(toolBar.getOrientation());
+  }
+
+  @Override
+  public void encodeBegin(FacesContext context, UIComponent component) throws IOException {
+    super.encodeBegin(context, component);
+
+    final UIToolBar toolBar = (UIToolBar) component;
+    if ("big".equals(getIconSize(toolBar))) {
+      ComponentUtils.addCurrentMarkup(toolBar, Markup.BIG);
+    }
+    if ("right".equals(getLabelPosition(toolBar))) {
+      ComponentUtils.addCurrentMarkup(toolBar, Markup.RIGHT);
+    }
   }
 
   @Override

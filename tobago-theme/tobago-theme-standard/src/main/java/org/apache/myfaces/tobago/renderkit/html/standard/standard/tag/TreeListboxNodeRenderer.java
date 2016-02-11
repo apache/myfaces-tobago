@@ -98,18 +98,6 @@ public class TreeListboxNodeRenderer extends CommandRendererBase {
   }
 
   @Override
-  public void prepareRender(final FacesContext facesContext, final UIComponent component) throws IOException {
-    super.prepareRender(facesContext, component);
-
-    final UITreeNode node = (UITreeNode) component;
-/* XXX check
-    if (node.isMarked()) {
-      node.setMarkup(Markup.MARKED.add(node.getMarkup()));
-    }
-*/
-  }
-
-  @Override
   public void encodeBegin(final FacesContext facesContext, final UIComponent component) throws IOException {
     final UITreeNode node = (UITreeNode) component;
     final boolean folder = node.isFolder();

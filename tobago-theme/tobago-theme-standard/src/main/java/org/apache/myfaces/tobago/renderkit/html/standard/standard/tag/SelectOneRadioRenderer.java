@@ -20,7 +20,6 @@
 package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
 import org.apache.myfaces.tobago.component.UISelectOneRadio;
-import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.internal.util.ObjectUtils;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
@@ -35,20 +34,11 @@ import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
-import javax.faces.component.UISelectOne;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import java.io.IOException;
 
 public class SelectOneRadioRenderer extends SelectOneRendererBase {
-
-  public void prepareRender(final FacesContext facesContext, final UIComponent component) throws IOException {
-    final UISelectOne select = (UISelectOne) component;
-    super.prepareRender(facesContext, select);
-    if (select instanceof UISelectOneRadio && ((UISelectOneRadio) select).isInline()) {
-      ComponentUtils.addCurrentMarkup(((UISelectOneRadio) select), Markup.INLINE);
-    }
-  }
 
   protected void encodeBeginField(FacesContext facesContext, UIComponent component) throws IOException {
     final UISelectOneRadio select = (UISelectOneRadio) component;

@@ -43,16 +43,6 @@ public class NumberSliderRenderer extends RendererBase {
 
   private static final String SLIDER_WIDTH_PERCENT = "sliderWidthPercent";
 
-  public void prepareRender(final FacesContext facesContext, final UIComponent component) throws IOException {
-    super.prepareRender(facesContext, component);
-/* todo: use e. g. jQuery
-    if (facesContext instanceof TobagoFacesContext) {
-      final String[] scripts = new String[]{"script/scriptaculous.js"};
-      ((TobagoFacesContext) facesContext).getScriptFiles().add(scripts[0]);
-    }
-*/
-  }
-
   public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
 
     final AbstractUINumberSlider slider = (AbstractUINumberSlider) component;

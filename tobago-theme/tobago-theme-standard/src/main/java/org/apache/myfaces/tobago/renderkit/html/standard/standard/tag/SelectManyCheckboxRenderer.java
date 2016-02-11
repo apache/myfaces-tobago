@@ -20,7 +20,6 @@
 package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
 import org.apache.myfaces.tobago.component.UISelectManyCheckbox;
-import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.renderkit.SelectManyRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
@@ -39,14 +38,6 @@ import javax.faces.model.SelectItem;
 import java.io.IOException;
 
 public class SelectManyCheckboxRenderer extends SelectManyRendererBase {
-
-  public void prepareRender(final FacesContext facesContext, final UIComponent component) throws IOException {
-    final UISelectManyCheckbox select = (UISelectManyCheckbox) component;
-    super.prepareRender(facesContext, select);
-    if (select.isInline()) {
-      ComponentUtils.addCurrentMarkup(select, Markup.INLINE);
-    }
-  }
 
   @Override
   public void encodeBeginField(final FacesContext facesContext, final UIComponent component) throws IOException {
