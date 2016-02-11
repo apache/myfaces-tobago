@@ -55,20 +55,4 @@ public class EncodeAjaxCallback implements TobagoCallback {
       return PhaseId.RENDER_RESPONSE;
   }
   
-  /**
-   * @deprecated since 2.0.0, please use component.encodeAll()
-   */
-  @Deprecated
-  public static void encodeAll(final FacesContext facesContext, final UIComponent component) throws IOException {
-    component.encodeAll(facesContext);
-  }
-
-  /**
-   * @deprecated since 2.0.0, please use EncodeUtils.prepareRendererAll()
-   */
-  @Deprecated
-  public static void prepareRendererAll(final FacesContext facesContext, final UIComponent component)
-      throws IOException {
-    EncodeUtils.prepareRendererAll(facesContext, component);
-  }
 }

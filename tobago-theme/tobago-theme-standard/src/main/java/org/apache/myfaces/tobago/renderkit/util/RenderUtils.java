@@ -109,15 +109,6 @@ public class RenderUtils {
     return false;
   }
 
-  /**
-   * @deprecated since 2.0.0, please use EncodeUtils.prepareRendererAll()
-   */
-  @Deprecated
-  public static void prepareRendererAll(final FacesContext facesContext, final UIComponent component)
-      throws IOException {
-    EncodeUtils.prepareRendererAll(facesContext, component);
-  }
-
   public static String getFormattedValue(final FacesContext facesContext, final UIComponent component) {
     Object value = null;
     if (component instanceof ValueHolder) {
