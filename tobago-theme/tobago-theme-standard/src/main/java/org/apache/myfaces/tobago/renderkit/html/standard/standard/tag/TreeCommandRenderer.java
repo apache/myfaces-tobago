@@ -21,6 +21,7 @@ package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
 import org.apache.myfaces.tobago.component.UITreeCommand;
 import org.apache.myfaces.tobago.internal.component.AbstractUIData;
+import org.apache.myfaces.tobago.internal.component.AbstractUITreeMenu;
 import org.apache.myfaces.tobago.internal.component.AbstractUITreeNodeBase;
 import org.apache.myfaces.tobago.internal.util.AccessKeyLogger;
 import org.apache.myfaces.tobago.layout.Measure;
@@ -37,16 +38,12 @@ import org.apache.myfaces.tobago.renderkit.html.JsonUtils;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 
 public class TreeCommandRenderer extends CommandRendererBase {
-
-  private static final Logger LOG = LoggerFactory.getLogger(TreeCommandRenderer.class);
 
   @Override
   public void encodeBegin(final FacesContext facesContext, final UIComponent component) throws IOException {
@@ -64,7 +61,7 @@ public class TreeCommandRenderer extends CommandRendererBase {
       style = new Style();
     }
     if (style.getLeft() == null) { // do not override it
-      style.setMarginLeft(leftOffset(node.getLevel(), data.isShowRoot()));
+      style.setMarginLeft(leftOffset(data, node.getLevel(), data.isShowRoot()));
     }
 
     if (disabled) {
@@ -103,7 +100,12 @@ public class TreeCommandRenderer extends CommandRendererBase {
     }
   }
 
-  protected Measure leftOffset(int level, boolean showRoot) {
-    return Measure.ZERO;
+  protected Measure leftOffset(AbstractUIData data, int level, boolean showRoot) {
+    if (data instanceof AbstractUITreeMenu) {
+        final int factor = showRoot ? level : level - 1;
+        return Measure.valueOf(factor * 25); // XXX should be defined in CSS
+    } else {
+      return Measure.ZERO;
+    }
   }
 }

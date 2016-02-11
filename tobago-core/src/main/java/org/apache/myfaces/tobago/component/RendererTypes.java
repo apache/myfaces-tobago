@@ -86,11 +86,7 @@ public enum RendererTypes {
   TreeIndent,
   TreeLabel,
   TreeListbox,
-  TreeListboxNode,
   TreeMenu,
-  TreeMenuCommand,
-  TreeMenuLabel,
-  TreeMenuNode,
   TreeNode,
   TreeSelect,
   Sheet;
@@ -157,11 +153,7 @@ public enum RendererTypes {
   public static final String TREE_INDENT = "TreeIndent";
   public static final String TREE_LABEL = "TreeLabel";
   public static final String TREE_LISTBOX = "TreeListbox";
-  public static final String TREE_LISTBOX_NODE = "TreeListboxNode";
   public static final String TREE_MENU = "TreeMenu";
-  public static final String TREE_MENU_COMMAND = "TreeMenuCommand";
-  public static final String TREE_MENU_LABEL = "TreeMenuLabel";
-  public static final String TREE_MENU_NODE = "TreeMenuNode";
   public static final String TREE_NODE = "TreeNode";
   public static final String TREE_SELECT = "TreeSelect";
   public static final String SHEET = "Sheet";

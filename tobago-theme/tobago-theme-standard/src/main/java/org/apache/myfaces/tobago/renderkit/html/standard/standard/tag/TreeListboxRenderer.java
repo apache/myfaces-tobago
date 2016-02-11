@@ -19,7 +19,6 @@
 
 package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
-import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.component.UITreeLabel;
 import org.apache.myfaces.tobago.component.UITreeNode;
 import org.apache.myfaces.tobago.component.UITreeSelect;
@@ -43,20 +42,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TreeListboxRenderer extends RendererBase {
-
-  public void prepareRender(final FacesContext facesContext, final UIComponent component) throws IOException {
-    super.prepareRender(facesContext, component);
-    setRendererTypeForCommandsAndNodes(component);
-  }
-
-  protected void setRendererTypeForCommandsAndNodes(final UIComponent component) {
-    for (final UIComponent child : component.getChildren()) {
-      if (child instanceof UITreeNode) {
-        child.setRendererType(RendererTypes.TREE_LISTBOX_NODE);
-      }
-      setRendererTypeForCommandsAndNodes(child);
-    }
-  }
 
   @Override
   public void encodeChildren(final FacesContext context, final UIComponent component) throws IOException {
