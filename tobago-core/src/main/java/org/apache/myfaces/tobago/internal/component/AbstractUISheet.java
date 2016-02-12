@@ -50,7 +50,6 @@ import javax.faces.component.UIComponent;
 import javax.faces.component.UINamingContainer;
 import javax.faces.context.FacesContext;
 import javax.faces.event.AbortProcessingException;
-import javax.faces.event.ComponentSystemEvent;
 import javax.faces.event.FacesEvent;
 import javax.faces.event.ListenerFor;
 import javax.faces.event.PhaseId;
@@ -396,13 +395,10 @@ public abstract class AbstractUISheet extends AbstractUIData
     }
   }
 
-  public void processEvent(ComponentSystemEvent event) {
-    super.processEvent(event);
-    if (event instanceof PreRenderComponentEvent) {
-      sort(getFacesContext(), null);
-      ensureColumnWidthList();
-      layoutHeader();
-    }
+  public void init(FacesContext facesContext) {
+    sort(facesContext, null);
+    ensureColumnWidthList();
+    layoutHeader();
   }
 
   private void ensureColumnWidthList() {

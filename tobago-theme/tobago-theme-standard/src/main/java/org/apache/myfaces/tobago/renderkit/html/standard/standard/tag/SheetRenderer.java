@@ -100,7 +100,9 @@ public class SheetRenderer extends RendererBase {
 
   @Override
   public void encodeBegin(final FacesContext facesContext, final UIComponent component) {
-    ensureHeader(facesContext, (UISheet) component);
+    final UISheet sheet = (UISheet) component;
+    ensureHeader(facesContext, sheet);
+    sheet.init(facesContext);
   }
 
   private void ensureHeader(final FacesContext facesContext, final UISheet sheet) {
