@@ -786,7 +786,16 @@ var Tobago = {
             } else {
               var action = commands.click.action ? commands.click.action : jQuery(this).attr("id");
               if (commands.click.partially) {
-                Tobago.reloadComponent(this, commands.click.partially, action, commands.click);
+                //Tobago.reloadComponent(this, commands.click.partially, action, commands.click);
+                jsf.ajax.request(
+                    jQuery(this).attr("id"),
+                    event,
+                    {
+                      // TODO: check difference between f:ajax and renderPartially
+                      "javax.faces.behavior.event": "click",
+                      execute: commands.click.partially,
+                      render: commands.click.partially
+                    });
                 event.preventDefault();
                 event.stopPropagation();
               } else if (commands.click.url) {
@@ -813,9 +822,17 @@ var Tobago = {
       });
     }
     if (commands.change) {
-      command.change(function() {
+      command.change(function(event) {
         if (commands.change.partially) {
-          Tobago.reloadComponent(this, commands.change.partially, commands.change.action, commands.change);
+          //Tobago.reloadComponent(this, commands.change.partially, commands.change.action, commands.change);
+          jsf.ajax.request(
+              jQuery(this).attr("id"),
+              event,
+              {
+                "javax.faces.behavior.event": "change",
+                execute: commands.change.partially,
+                render: commands.change.partially
+              });
         } else {
           Tobago.submitAction(this, commands.change.action, commands.change);
         }
@@ -823,7 +840,15 @@ var Tobago = {
     }
     if (commands.complete) {
       if (commands.complete.partially) {
-        Tobago.reloadComponent(this, commands.complete.partially, commands.complete.action, commands.complete);
+        //Tobago.reloadComponent(this, commands.complete.partially, commands.complete.action, commands.complete);
+        jsf.ajax.request(
+            jQuery(this).attr("id"),
+            null,
+            {
+              "javax.faces.behavior.event": "complete",
+              execute: commands.complete.partially,
+              render: commands.complete.partially
+            });
       } else {
         Tobago.submitAction(this, commands.complete.action, commands.complete);
       }
@@ -1666,7 +1691,16 @@ Tobago.Panel.prototype.initReload = function() {
 Tobago.Panel.prototype.reloadWithAction = function(source, action, options) {
   var reloadOptions = Tobago.extend({}, this.options);
   reloadOptions = Tobago.extend(reloadOptions, options);
-  Tobago.Updater.update(source, action, this.id, reloadOptions);
+  //Tobago.Updater.update(source, action, this.id, reloadOptions);
+  // todo: reloadOptions
+  jsf.ajax.request(
+      action,
+      null,
+      {
+        "javax.faces.behavior.event": "reload",
+        execute: this.id,
+        render: this.id
+      });
 };
 
 Tobago.registerListener(Tobago.Panel.init, Tobago.Phase.DOCUMENT_READY);
@@ -2638,3 +2672,23 @@ Tobago.Codi.urlWithoutWindowId = function(base) {
 
 Tobago.registerListener(Tobago.Codi.init, Tobago.Phase.DOCUMENT_READY);
 
+jsf.ajax.addOnEvent(function (event) {
+  console.timeEnd("x"); // @DEV_ONLY
+  console.time("x"); // @DEV_ONLY
+  console.log(event);
+  if (event.status == "success") {
+    console.log("success");// @DEV_ONLY
+
+    jQuery(event.responseXML).find("update").each(function () {
+      var newElement = jQuery(Tobago.Utils.escapeClientId(jQuery(this).attr("id")));
+      console.info("Update after jsf.ajax success: id='" + newElement.attr("id") + "'"); // @DEV_ONLY
+
+      for (var order = 0; order < Tobago.listeners.afterUpdate.length; order++) {
+        var list = Tobago.listeners.afterUpdate[order];
+        for (var i = 0; i < list.length; i++) {
+          list[i](newElement);
+        }
+      }
+    });
+  }
+});

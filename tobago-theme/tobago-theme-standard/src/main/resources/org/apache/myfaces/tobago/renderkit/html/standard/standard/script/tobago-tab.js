@@ -28,18 +28,31 @@ Tobago.TabGroup.init = function(elements) {
   // initialize the tab header elements
   // reload tab case
   tabGroups.filter("[switchType='reloadTab']").each(function() {
-    jQuery(this).find(".tobago-tabGroup-header").first()
-        .children(".tobago-tab").not(".tobago-tab-markup-disabled").click(function() {
-          var tab = jQuery(this);
-          var activeIndex = Tobago.TabGroup.updateHidden(tab);
-          console.debug("todo: ajax reload, activeIndex=" + activeIndex); // @DEV_ONLY
-          var tabGroup = tab.parents(".tobago-tabGroup:first");
-          var partialIds = tabGroup.data("tobago-partial-ids");
-          if (!partialIds) {
-            partialIds = tabGroup.attr("id");
-          }
-          Tobago.Updater.update(tabGroup, tabGroup.attr("id"), partialIds, {});
-        })
+    jQuery(this)
+        .find(".tobago-tabGroup-header")
+        .first()
+        .children(".tobago-tab")
+        .not(".tobago-tab-markup-disabled")
+        .click(
+            function (event) {
+              var tab = jQuery(this);
+              var activeIndex = Tobago.TabGroup.updateHidden(tab);
+              console.debug("todo: ajax reload, activeIndex=" + activeIndex); // @DEV_ONLY
+              var tabGroup = tab.parents(".tobago-tabGroup:first");
+              var partialIds = tabGroup.data("tobago-partial-ids");
+              if (!partialIds) {
+                partialIds = tabGroup.attr("id");
+              }
+              //Tobago.Updater.update(tabGroup, tabGroup.attr("id"), partialIds, {});
+              jsf.ajax.request(
+                  tabGroup.attr("id"),
+                  event,
+                  {
+                    //"javax.faces.behavior.event": "click",
+                    execute: partialIds,
+                    render: partialIds
+                  });
+            })
   });
 
   // initialize the tab header elements

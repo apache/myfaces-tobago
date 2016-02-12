@@ -22,8 +22,6 @@ package org.apache.myfaces.tobago.renderkit;
 import org.apache.myfaces.tobago.ajax.AjaxUtils;
 import org.apache.myfaces.tobago.application.ProjectStage;
 import org.apache.myfaces.tobago.config.TobagoConfig;
-import org.apache.myfaces.tobago.context.Capability;
-import org.apache.myfaces.tobago.context.ClientProperties;
 import org.apache.myfaces.tobago.internal.webapp.DebugResponseWriterWrapper;
 import org.apache.myfaces.tobago.internal.webapp.HtmlResponseWriter;
 import org.apache.myfaces.tobago.internal.webapp.JsonResponseWriter;
@@ -88,7 +86,9 @@ public class TobagoRenderKit extends RenderKit {
     if (AjaxUtils.isAjaxRequest(facesContext)) {
       return new JsonResponseWriter(writer, "application/json", characterEncoding);
     }
-    if (contentTypeList == null) {
+    if (facesContext.getPartialViewContext().isAjaxRequest()) {
+      contentType = "text/xml";
+    } else if (contentTypeList == null) {
       contentType = "text/html";
     } else if (contentTypeList.contains("text/html")) {
       contentType = "text/html";
@@ -109,12 +109,6 @@ public class TobagoRenderKit extends RenderKit {
         || "application/xml".equals(contentType)
         || "text/xml".equals(contentType)) {
       xml = true;
-    }
-
-    // content type xhtml is not supported in every browser... e. g. IE 6, 7, 8
-    if (!ClientProperties.getInstance(FacesContext.getCurrentInstance())
-        .getUserAgent().hasCapability(Capability.CONTENT_TYPE_XHTML)) {
-      contentType = "text/html";
     }
 
     TobagoResponseWriter responseWriter;

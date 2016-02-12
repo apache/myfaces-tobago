@@ -124,13 +124,9 @@ public class JsonUtils {
     if (url != null) {
       encode(builder, "url", url);
     }
-    final String[] partially = command.getPartially();
-    if (partially != null && partially.length > 0) {
-      if (partially.length == 1) {
-        encode(builder, "partially", partially[0]);
-      } else {
-        encode(builder, "partially", partially);
-      }
+    final String partially = command.getPartially();
+    if (partially != null) {
+      encode(builder, "partially", partially);
     }
     final String focus = command.getFocus();
     if (focus != null) {

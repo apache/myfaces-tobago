@@ -22,7 +22,6 @@ package org.apache.myfaces.tobago.util;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Facets;
-import org.apache.myfaces.tobago.component.UISheet;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.context.TransientStateHolder;
 import org.apache.myfaces.tobago.event.AbstractPopupActionListener;
@@ -30,6 +29,7 @@ import org.apache.myfaces.tobago.internal.component.AbstractUIForm;
 import org.apache.myfaces.tobago.internal.component.AbstractUIInput;
 import org.apache.myfaces.tobago.internal.component.AbstractUIPage;
 import org.apache.myfaces.tobago.internal.component.AbstractUIPopup;
+import org.apache.myfaces.tobago.internal.component.AbstractUISheet;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
@@ -648,7 +648,7 @@ public final class ComponentUtils {
   /**
    * Resolves the real clientIds.
    */
-  public static String[] evaluateClientIds(
+  public static String evaluateClientIds(
       final FacesContext context, final UIComponent component, final String[] componentIds) {
     final List<String> result = new ArrayList<String>(componentIds.length);
     for (final String id : componentIds) {
@@ -659,7 +659,11 @@ public final class ComponentUtils {
         }
       }
     }
-    return (String[]) result.toArray(new String[result.size()]);
+    if (result.isEmpty()) {
+      return null;
+    } else {
+      return StringUtils.join(result, ' ');
+    }
   }
 
   /**
@@ -670,8 +674,8 @@ public final class ComponentUtils {
     final UIComponent partiallyComponent = ComponentUtils.findComponent(component, componentId);
     if (partiallyComponent != null) {
       final String clientId = partiallyComponent.getClientId(context);
-      if (partiallyComponent instanceof UISheet) {
-        final int rowIndex = ((UISheet) partiallyComponent).getRowIndex();
+      if (partiallyComponent instanceof AbstractUISheet) {
+        final int rowIndex = ((AbstractUISheet) partiallyComponent).getRowIndex();
         if (rowIndex >= 0 && clientId.endsWith(Integer.toString(rowIndex))) {
           return clientId.substring(0, clientId.lastIndexOf(UINamingContainer.getSeparatorChar(context)));
         }

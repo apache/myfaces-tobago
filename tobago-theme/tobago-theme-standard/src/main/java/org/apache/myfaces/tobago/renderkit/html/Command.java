@@ -25,6 +25,7 @@ import org.apache.myfaces.tobago.component.UICommand;
 import org.apache.myfaces.tobago.component.UIForm;
 import org.apache.myfaces.tobago.internal.component.AbstractUICommand;
 import org.apache.myfaces.tobago.internal.util.Deprecation;
+import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 
@@ -44,7 +45,7 @@ public class Command {
   private Boolean transition;
   private String target;
   private String url;
-  private String[] partially;
+  private String partially;
   private String focus;
   private String confirmation;
   private Integer delay;
@@ -55,13 +56,13 @@ public class Command {
   }
 
   public Command(
-      final String action, final Boolean transition, final String target, final String url, final String[] partially,
+      final String action, final Boolean transition, final String target, final String url, final String partially,
       final String focus, final String confirmation, final Integer delay, final Popup popup, final Boolean omit) {
     this.action = action;
     this.transition = transition;
     this.target = target;
     this.url = url;
-    this.partially = partially;
+    setPartially(partially);
     this.focus = focus;
     this.confirmation = confirmation;
     this.delay = delay;
@@ -113,8 +114,8 @@ public class Command {
     }
     if (facetComponent instanceof AbstractUICommand
         && ((AbstractUICommand) facetComponent).getRenderedPartially().length > 0) {
-      this.partially = ComponentUtils.evaluateClientIds(
-          facesContext, facetComponent, ((UICommand) facetComponent).getRenderedPartially());
+      setPartially(ComponentUtils.evaluateClientIds(
+          facesContext, facetComponent, ((UICommand) facetComponent).getRenderedPartially()));
     } else {
       if (focusId != null) {
         this.focus = focusId;
@@ -168,12 +169,14 @@ public class Command {
     this.url = url;
   }
 
-  public String[] getPartially() {
+  public String getPartially() {
     return partially;
   }
 
-  public void setPartially(final String[] partially) {
-    this.partially = partially;
+  public void setPartially(final String partially) {
+    if (StringUtils.isNotBlank(partially)) {
+      this.partially = partially;
+    }
   }
 
   public String getFocus() {

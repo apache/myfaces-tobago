@@ -95,7 +95,17 @@ Tobago.registerListener(Tobago.Sheet.init, Tobago.Phase.AFTER_UPDATE);
 
 Tobago.Sheet.prototype.reloadWithAction = function(source, action, options) {
     console.debug("reload sheet with action '" + action + "'"); // @DEV_ONLY
-    Tobago.Updater.update(source, action, this.renderedPartially ? this.renderedPartially : this.id, options);
+    //Tobago.Updater.update(source, action, this.renderedPartially ? this.renderedPartially : this.id, options);
+  // todo: options
+  var reloadIds =  this.renderedPartially ? this.renderedPartially : this.id;
+  jsf.ajax.request(
+      action,
+      null,
+      {
+        "javax.faces.behavior.event": "reload",
+        execute: reloadIds,
+        render: reloadIds
+      });
 };
 
 Tobago.Sheet.prototype.afterDoUpdateSuccess = function() {
@@ -350,7 +360,15 @@ Tobago.Sheet.setup2 = function (sheets) {
                 action = id + ":" + rowIndex + ":" + clickActionId;
               }
               if (clickReloadComponentId && clickReloadComponentId.length > 0) {
-                Tobago.reloadComponent($target.get(0), clickReloadComponentId, action)
+                //Tobago.reloadComponent($target.get(0), clickReloadComponentId, action)
+                jsf.ajax.request(
+                    action,
+                    event,
+                    {
+                      //"javax.faces.behavior.event": "click",
+                      execute: clickReloadComponentId,
+                      render: clickReloadComponentId
+                    });
               } else {
                 Tobago.submitAction($target.get(0), action);
               }
@@ -485,7 +503,15 @@ Tobago.Sheet.prototype.doDblClick = function(event) {
           action = this.id + ":" + rowIndex + ":" + this.dblClickActionId;
         }
         if (this.dblClickReloadComponentId && this.dblClickReloadComponentId.length > 0) {
-          Tobago.reloadComponent(srcElement, this.dblClickReloadComponentId, action)
+          //Tobago.reloadComponent(srcElement, this.dblClickReloadComponentId, action);
+          jsf.ajax.request(
+              action,
+              event,
+              {
+                //"javax.faces.behavior.event": "dblclick",
+                execute: this.dblClickReloadComponentId,
+                render: this.dblClickReloadComponentId
+              });
         } else {
           Tobago.submitAction(srcElement, action);
         }

@@ -17,7 +17,7 @@
 
 Tobago.Tree = {};
 
-Tobago.Tree.toggleNode = function(element) {
+Tobago.Tree.toggleNode = function(element, event) {
   var src;
   var node = element.closest(".tobago-treeNode, .tobago-treeMenuNode");
   var data = node.closest(".tobago-treeMenu, .tobago-tree, .tobago-sheet");
@@ -41,7 +41,15 @@ Tobago.Tree.toggleNode = function(element) {
     var reload = Tobago.Tree.showChildren(node, expanded);
     expanded.val(expanded.val() + rowIndex + ",");
     if (reload) {
-      Tobago.reloadComponent(element, data.attr("id"), toggle.parent().attr("id"), {});
+      //Tobago.reloadComponent(element, data.attr("id"), toggle.parent().attr("id"), {});
+      jsf.ajax.request(
+          toggle.parent().attr("id"),
+          event,
+          {
+            //"javax.faces.behavior.event": "click",
+            execute: data.attr("id"),
+            render: data.attr("id")
+          });
     } else {
       toggle.each(function() {
         src = jQuery(this).data("tobago-src-open");
@@ -105,8 +113,8 @@ Tobago.Tree.showChildren = function (node, expanded) {
 
 Tobago.Tree.init = function(elements) {
   
-  Tobago.Utils.selectWithJQuery(elements, ".tobago-treeNode-markup-folder .tobago-treeNode-toggle").click(function() {
-    Tobago.Tree.toggleNode(jQuery(this));
+  Tobago.Utils.selectWithJQuery(elements, ".tobago-treeNode-markup-folder .tobago-treeNode-toggle").click(function(event) {
+    Tobago.Tree.toggleNode(jQuery(this), event);
     return false;
   });
 
@@ -116,8 +124,8 @@ Tobago.Tree.init = function(elements) {
     var toggle = jQuery(this).children(".tobago-treeMenuCommand").size() == 0
         ? jQuery(this)
         : jQuery(this).find(".tobago-treeMenuNode-toggle");
-    toggle.click(function() {
-      Tobago.Tree.toggleNode(jQuery(this));
+    toggle.click(function(event) {
+      Tobago.Tree.toggleNode(jQuery(this), event);
     });
   });
 

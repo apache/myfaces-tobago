@@ -154,10 +154,8 @@ public class SheetRenderer extends RendererBase {
       final UIReload update = (UIReload) facetReload;
       writer.writeAttribute(DataAttributes.RELOAD, update.getFrequency());
     }
-    final String[] clientIds = ComponentUtils.evaluateClientIds(facesContext, sheet, sheet.getRenderedPartially());
-    if (clientIds.length > 0) {
-      writer.writeAttribute(DataAttributes.PARTIAL_IDS, JsonUtils.encode(clientIds), true);
-    }
+    writer.writeAttribute(DataAttributes.PARTIAL_IDS,
+        ComponentUtils.evaluateClientIds(facesContext, sheet, sheet.getRenderedPartially()), false);
     writer.writeAttribute(DataAttributes.SELECTION_MODE, sheet.getSelectable().name(), false);
     writer.writeAttribute(DataAttributes.FIRST, Integer.toString(sheet.getFirst()), false);
 
@@ -833,9 +831,9 @@ public class SheetRenderer extends RendererBase {
                     facesContext, UICommand.COMPONENT_TYPE, RendererTypes.Link, sorterId);
                 ComponentUtils.setFacet(column, Facets.sorter, sortCommand);
               }
-              String[] clientIds = ComponentUtils.evaluateClientIds(facesContext, sheet, sheet.getRenderedPartially());
-              if (clientIds.length == 0) {
-                clientIds = new String[]{sheet.getClientId(facesContext)};
+              String clientIds = ComponentUtils.evaluateClientIds(facesContext, sheet, sheet.getRenderedPartially());
+              if (clientIds == null) {
+                clientIds = sheet.getClientId(facesContext);
               }
               final CommandMap map = new CommandMap();
               final Command click = new Command(

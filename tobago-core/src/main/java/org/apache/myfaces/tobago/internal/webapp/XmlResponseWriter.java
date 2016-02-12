@@ -19,8 +19,6 @@
 
 package org.apache.myfaces.tobago.internal.webapp;
 
-import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
-import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.util.XmlUtils;
 
 import javax.faces.context.ResponseWriter;
@@ -79,15 +77,15 @@ public final class XmlResponseWriter extends TobagoResponseWriterBase {
 
   @Override
   public void startDocument() throws IOException {
-    getWriter().write(XHTML_DOCTYPE);
-    getWriter().write('\n');
-    startElement(HtmlElements.HTML);
-    writeAttribute(HtmlAttributes.XMLNS, "http://www.w3.org/1999/xhtml", false);
-
+//    getWriter().write(XHTML_DOCTYPE);
+//    getWriter().write('\n');
+//    startElement(HtmlElements.HTML);
+//    writeAttribute(HtmlAttributes.XMLNS, "http://www.w3.org/1999/xhtml", false);
+//
   }
 
   @Override
   public void endDocument() throws IOException {
-    endElement(HtmlElements.HTML);
+//    endElement(HtmlElements.HTML);
   }
 }
