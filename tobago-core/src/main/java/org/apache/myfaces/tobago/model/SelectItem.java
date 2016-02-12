@@ -30,7 +30,6 @@ public class SelectItem extends javax.faces.model.SelectItem implements Visual {
 
   private String image;
   private Markup markup = Markup.NULL;
-  private Markup currentMarkup;
   private Style style;
   private CustomClass customClass;
 
@@ -102,16 +101,6 @@ public class SelectItem extends javax.faces.model.SelectItem implements Visual {
   @Override
   public void setMarkup(final Markup markup) {
     this.markup = markup;
-  }
-
-  @Override
-  public Markup getCurrentMarkup() {
-    return currentMarkup;
-  }
-
-  @Override
-  public void setCurrentMarkup(final Markup currentMarkup) {
-    this.currentMarkup = currentMarkup;
   }
 
   @Override

@@ -32,7 +32,6 @@ import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
-import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
@@ -53,10 +52,8 @@ public class MenuRenderer extends RendererBase {
     final boolean isParentMenu = menu.getChildCount() > 0; // todo: may be not correct
 
     writer.startElement(HtmlElements.LI);
-    if (firstLevel) {
-      ComponentUtils.addCurrentMarkup(menu, Markup.TOP);
-    }
-    writer.writeClassAttribute(Classes.create(menu), BootstrapClass.DROPDOWN, menu.getCustomClass());
+    final Markup markup = firstLevel ? Markup.TOP : null;
+    writer.writeClassAttribute(Classes.create(menu, markup), BootstrapClass.DROPDOWN, menu.getCustomClass());
     StringBuilder backgroundImage = null;
     StringBuilder backgroundPosition = null;
     if (menu.getImage() != null) {

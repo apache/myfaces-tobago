@@ -44,36 +44,35 @@ public class LabelRenderer extends RendererBase {
   private static final Logger LOG = LoggerFactory.getLogger(LabelRenderer.class);
 
   @Override
-  public void prepareRender(final FacesContext facesContext, final UIComponent component) throws IOException {
+  public void prepareRender(final FacesContext facesContext, final UIComponent component) {
     super.prepareRender(facesContext, component);
 
     ComponentUtils.evaluateAutoFor(component, UIInput.class);
-
-    // adding the markups from the corresponding input component
-    final UILabel label = (UILabel) component;
-    final UIComponent corresponding = ComponentUtils.findFor(label);
-    if (corresponding != null) {
-      Markup markup = label.getCurrentMarkup();
-      markup = ComponentUtils.updateMarkup(corresponding, markup);
-      label.setCurrentMarkup(markup);
-    }
   }
 
   public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
 
     final UILabel label = (UILabel) component;
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
-
-    final String forValue = ComponentUtils.findClientIdFor(label, facesContext);
-
+    final UIComponent corresponding = ComponentUtils.findFor(label);
+    final String forId = corresponding != null ? corresponding.getClientId(facesContext) : null;
     final String clientId = label.getClientId(facesContext);
+
+    // TBD: want to do this in JavaScript in Browser (or CSS)?
+    Markup correspondingMarkup = Markup.NULL;
+    // adding the markups from the corresponding input component
+    if (corresponding != null) {
+      correspondingMarkup = ComponentUtils.updateMarkup(corresponding, Markup.NULL);
+    }
+
     writer.startElement(HtmlElements.LABEL);
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, label);
-    writer.writeClassAttribute(Classes.create(label), BootstrapClass.FORM_CONTROL_LABEL, label.getCustomClass());
+    writer.writeClassAttribute(
+        Classes.create(label, correspondingMarkup), BootstrapClass.FORM_CONTROL_LABEL, label.getCustomClass());
     writer.writeStyleAttribute(label.getStyle());
     writer.writeIdAttribute(clientId);
-    if (forValue != null) {
-      writer.writeAttribute(HtmlAttributes.FOR, forValue, false);
+    if (forId != null) {
+      writer.writeAttribute(HtmlAttributes.FOR, forId, false);
     }
     final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, label);
     if (title != null) {

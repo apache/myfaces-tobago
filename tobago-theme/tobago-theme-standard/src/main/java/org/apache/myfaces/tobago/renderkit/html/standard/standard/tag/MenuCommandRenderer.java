@@ -145,7 +145,7 @@ public class MenuCommandRenderer extends CommandRendererBase {
     }
     Markup markup = null;
     if (command != null) {
-      markup = command.getCurrentMarkup();
+      markup = command.getMarkup();
       if (firstLevel) {
         markup = Markup.TOP.add(markup);
       }

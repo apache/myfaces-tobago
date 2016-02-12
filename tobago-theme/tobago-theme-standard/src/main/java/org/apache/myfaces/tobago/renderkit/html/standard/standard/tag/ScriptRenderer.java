@@ -25,11 +25,10 @@ import org.apache.myfaces.tobago.renderkit.RendererBase;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
-import java.io.IOException;
 
 public class ScriptRenderer extends RendererBase {
 
-  public void prepareRender(final FacesContext facesContext, final UIComponent component) throws IOException {
+  public void prepareRender(final FacesContext facesContext, final UIComponent component) {
     super.prepareRender(facesContext, component);
     final UIScript scriptComponent = (UIScript) component;
     final String file = scriptComponent.getFile();

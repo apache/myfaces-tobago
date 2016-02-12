@@ -26,6 +26,7 @@ import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.context.Theme;
 import org.apache.myfaces.tobago.internal.util.Deprecation;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
+import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -73,9 +74,10 @@ public final class Classes {
   }
 
   public static Classes create(final UIComponent component, final Markup explicit) {
-    return create(component, false, null, explicit, false);
+    return create(component, true, null, explicit, false);
   }
 
+  // TODO: clean up..., hope this is no longer needed...
   public static Classes create(final UIComponent component, final String sub, final Markup explicit) {
     return create(component, false, sub, explicit, false);
   }
@@ -85,7 +87,18 @@ public final class Classes {
       final UIComponent component, final boolean markupFromComponent, final String sub,
       final Markup explicit, final boolean ignoreCheck) {
     final String rendererName = StringUtils.uncapitalize(component.getRendererType());
-    final Markup markup = markupFromComponent ? ((Visual) component).getCurrentMarkup() : explicit;
+
+    Markup markup;
+    if (markupFromComponent) {
+      final Visual visual = (Visual) component;
+      markup = ComponentUtils.updateMarkup(component, visual.getMarkup());
+      if (explicit != null) {
+        markup = explicit.add(markup);
+      }
+    } else {
+      markup = explicit;
+    }
+
 //    Classes value = (Classes) CACHE.get(rendererName, markup, sub);
 //    if (value == null) {
     final Classes value;

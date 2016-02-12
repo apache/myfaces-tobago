@@ -19,12 +19,9 @@
 
 package org.apache.myfaces.tobago.renderkit;
 
-import org.apache.myfaces.tobago.component.Visual;
-import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.context.ResourceManager;
 import org.apache.myfaces.tobago.internal.context.ResourceManagerFactory;
 import org.apache.myfaces.tobago.layout.Measure;
-import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -49,13 +46,7 @@ public class RendererBase extends Renderer {
   /**
    * Hook to e. g. register resources, etc.
    */
-  public void prepareRender(final FacesContext facesContext, final UIComponent component) throws IOException {
-
-    if (component instanceof Visual) {
-      final Visual visual = (Visual) component;
-      final Markup markup = ComponentUtils.updateMarkup(component, visual.getMarkup());
-      visual.setCurrentMarkup(markup);
-    }
+  public void prepareRender(final FacesContext facesContext, final UIComponent component) {
   }
 
   public boolean getPrepareRendersChildren() {

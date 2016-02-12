@@ -30,10 +30,6 @@ public interface Visual {
 
   void setMarkup(Markup markup);
 
-  Markup getCurrentMarkup();
-
-  void setCurrentMarkup(Markup markup);
-
   Style getStyle();
 
   void setStyle(Style style);

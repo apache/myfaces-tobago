@@ -58,12 +58,4 @@ public interface IsVisual {
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.context.Markup")
   void setMarkup(String markup);
 
-  /**
-   * The current markup is the current internal state of the markup.
-   * It is the same as markup plus additional values like "required", "error", "selected", ....
-   */
-  @UIComponentTagAttribute(
-      type = "org.apache.myfaces.tobago.context.Markup",
-      isTransient = true)
-  void setCurrentMarkup(String markup);
 }

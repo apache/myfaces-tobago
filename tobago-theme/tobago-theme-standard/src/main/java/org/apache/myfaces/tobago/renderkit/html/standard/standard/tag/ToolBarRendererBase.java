@@ -80,13 +80,15 @@ public abstract class ToolBarRendererBase extends RendererBase {
   public void encodeBegin(FacesContext context, UIComponent component) throws IOException {
     super.encodeBegin(context, component);
 
+/* XXX
     final UIToolBar toolBar = (UIToolBar) component;
     if ("big".equals(getIconSize(toolBar))) {
-      ComponentUtils.addCurrentMarkup(toolBar, Markup.BIG);
+      toolBar.setCurrentMarkup(Markup.BIG.add(toolBar.getCurrentMarkup()));
     }
     if ("right".equals(getLabelPosition(toolBar))) {
-      ComponentUtils.addCurrentMarkup(toolBar, Markup.RIGHT);
+      toolBar.setCurrentMarkup(Markup.RIGHT.add(toolBar.getCurrentMarkup()));
     }
+*/
   }
 
   @Override

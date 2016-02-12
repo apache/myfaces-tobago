@@ -19,8 +19,8 @@
 
 package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
-import org.apache.myfaces.tobago.component.Visual;
 import org.apache.myfaces.tobago.component.UIStyle;
+import org.apache.myfaces.tobago.component.Visual;
 import org.apache.myfaces.tobago.internal.util.FacesContextUtils;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.CustomClass;
@@ -30,13 +30,12 @@ import org.slf4j.LoggerFactory;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
-import java.io.IOException;
 
 public class StyleRenderer extends RendererBase {
 
   private static final Logger LOG = LoggerFactory.getLogger(StyleRenderer.class);
 
-  public void prepareRender(final FacesContext facesContext, final UIComponent component) throws IOException {
+  public void prepareRender(final FacesContext facesContext, final UIComponent component) {
     super.prepareRender(facesContext, component);
     final UIStyle styleComponent = (UIStyle) component;
     final String file = styleComponent.getFile();

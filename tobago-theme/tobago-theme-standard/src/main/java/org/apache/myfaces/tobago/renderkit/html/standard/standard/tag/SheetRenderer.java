@@ -100,7 +100,7 @@ public class SheetRenderer extends RendererBase {
   protected static final String SELECTOR_DROPDOWN = ComponentUtils.SUB_SEPARATOR + "selectorDropdown";
 
   @Override
-  public void prepareRender(final FacesContext facesContext, final UIComponent component) throws IOException {
+  public void prepareRender(final FacesContext facesContext, final UIComponent component) {
     super.prepareRender(facesContext, component);
     ensureHeader(facesContext, (UISheet) component);
   }

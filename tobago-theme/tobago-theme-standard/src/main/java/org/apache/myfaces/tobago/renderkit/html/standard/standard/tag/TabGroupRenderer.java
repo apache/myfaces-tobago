@@ -183,16 +183,15 @@ public class TabGroupRenderer extends RendererBase {
           final LabelWithAccessKey label = new LabelWithAccessKey(tab);
           final boolean disabled = tab.isDisabled();
 
-          if (activeIndex == index) {
-            ComponentUtils.addCurrentMarkup(tab, Markup.SELECTED);
-          }
+          Markup markup = activeIndex == index ? Markup.SELECTED : Markup.NULL;
           final FacesMessage.Severity maxSeverity
               = ComponentUtils.getMaximumSeverityOfChildrenMessages(facesContext, tab);
           if (maxSeverity != null) {
-            ComponentUtils.addCurrentMarkup(tab, ComponentUtils.markupOfSeverity(maxSeverity));
+            markup = markup.add(ComponentUtils.markupOfSeverity(maxSeverity));
           }
+
           writer.startElement(HtmlElements.LI);
-          writer.writeClassAttribute(Classes.create(tab), BootstrapClass.NAV_ITEM);
+          writer.writeClassAttribute(Classes.create(tab, markup), BootstrapClass.NAV_ITEM);
           writer.writeAttribute(HtmlAttributes.ROLE, HtmlRoleValues.PRESENTATION.toString(), false);
           writer.writeAttribute(HtmlAttributes.TABGROUPINDEX, index);
           final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, tab);
@@ -302,7 +301,7 @@ public class TabGroupRenderer extends RendererBase {
     final UIMenu menu = (UIMenu) CreateComponentUtils.createComponent(
         facesContext, UIMenu.COMPONENT_TYPE, RendererTypes.Menu, viewRoot.createUniqueId());
     menu.setTransient(true);
-    ComponentUtils.addCurrentMarkup(menu, Markup.TOP);
+// XXX    menu.setCurrentMarkup(Markup.TOP.add(menu.getCurrentMarkup()));
     FacetUtils.setDropDownMenu(all, menu);
     int index = 0;
     for (final UIComponent child : tabGroup.getChildren()) {

@@ -135,17 +135,18 @@ public class TreeNodeRenderer extends RendererBase {
       // div id
       writer.writeIdAttribute(clientId);
 
+      Markup markup = Markup.NULL;
       if (data instanceof AbstractUITree && data.getSelectedState().isSelected(node.getPath())) {
-        ComponentUtils.addCurrentMarkup(node, Markup.SELECTED);
+        markup = markup.add(Markup.SELECTED);
       }
       if (folder) {
-        ComponentUtils.addCurrentMarkup(node, Markup.FOLDER);
+        markup = markup.add(Markup.FOLDER);
         if (data.getExpandedState().isExpanded(node.getPath())) {
-          ComponentUtils.addCurrentMarkup(node, Markup.EXPANDED);
+          markup = markup.add(Markup.EXPANDED);
         }
       }
 
-      writer.writeClassAttribute(Classes.create(node));
+      writer.writeClassAttribute(Classes.create(node, markup));
       HtmlRendererUtils.writeDataAttributes(facesContext, writer, node);
       if (parentId != null) {
         writer.writeAttribute(DataAttributes.TREE_PARENT, parentId, false);
@@ -166,7 +167,7 @@ public class TreeNodeRenderer extends RendererBase {
 
   @Override
   public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
-    final UITreeNode node = (UITreeNode) component;
+    final AbstractUITreeNodeBase node = (AbstractUITreeNodeBase) component;
     final AbstractUIData data = ComponentUtils.findAncestor(node, AbstractUIData.class);
     final int level = node.getLevel();
     final boolean folder = node.isFolder();
@@ -189,7 +190,8 @@ public class TreeNodeRenderer extends RendererBase {
   }
 
   private void encodeIcon(
-      final FacesContext facesContext, final TobagoResponseWriter writer, final boolean expanded, final UITreeNode node)
+      final FacesContext facesContext, final TobagoResponseWriter writer, final boolean expanded,
+      final AbstractUITreeNodeBase node)
       throws IOException {
     final String srcOpen = ResourceManagerUtils.getImage(facesContext, "image/treeMenuOpen");
     final String srcClose = ResourceManagerUtils.getImage(facesContext, "image/treeMenuClose");

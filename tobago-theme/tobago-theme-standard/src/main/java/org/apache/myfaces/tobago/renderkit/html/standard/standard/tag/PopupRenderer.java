@@ -37,7 +37,7 @@ import java.io.IOException;
 public class PopupRenderer extends RendererBase {
 
   @Override
-  public void prepareRender(final FacesContext facesContext, final UIComponent component) throws IOException {
+  public void prepareRender(final FacesContext facesContext, final UIComponent component) {
 
     final UIPopup popup = (UIPopup) component;
     FacesContextUtils.addPopup(facesContext, popup);

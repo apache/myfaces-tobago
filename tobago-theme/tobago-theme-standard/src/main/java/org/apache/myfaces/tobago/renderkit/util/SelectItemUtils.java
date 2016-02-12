@@ -146,7 +146,7 @@ public class SelectItemUtils {
             org.apache.myfaces.tobago.component.UISelectItem tobagoSelectItem
                 = (org.apache.myfaces.tobago.component.UISelectItem) uiSelectItem;
             image = tobagoSelectItem.getItemImage();
-            markup = tobagoSelectItem.getCurrentMarkup();
+            markup = tobagoSelectItem.getMarkup();
           }
           item = new org.apache.myfaces.tobago.model.SelectItem(itemValue, label, description, disabled, image, markup);
         } else if (!(item instanceof SelectItem)) {
@@ -244,7 +244,7 @@ public class SelectItemUtils {
           final String itemImage = ComponentUtils.getStringAttribute(currentUISelectItems, Attributes.itemImage);
           final Markup markup;
           if (currentUISelectItems instanceof Visual) {
-            markup = ((Visual) currentUISelectItems).getCurrentMarkup();
+            markup = ((Visual) currentUISelectItems).getMarkup();
           } else {
             markup = Markup.NULL;
           }

@@ -23,7 +23,6 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.UISheet;
-import org.apache.myfaces.tobago.component.Visual;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.context.TransientStateHolder;
 import org.apache.myfaces.tobago.event.AbstractPopupActionListener;
@@ -755,10 +754,6 @@ public final class ComponentUtils {
       return Markup.INFO;
     }
     return null;
-  }
-
-  public static void addCurrentMarkup(final Visual component, final Markup markup) {
-    component.setCurrentMarkup(markup.add(component.getCurrentMarkup()));
   }
 
   public static FacesMessage.Severity getMaximumSeverityOfChildrenMessages(

@@ -37,7 +37,7 @@ public abstract class AbstractRendererBaseWrapper extends RendererBase {
   }
 
   @Override
-  public final void prepareRender(final FacesContext facesContext, final UIComponent component) throws IOException {
+  public final void prepareRender(final FacesContext facesContext, final UIComponent component) {
     getRenderer(facesContext).prepareRender(facesContext, component);
   }
   @Override
