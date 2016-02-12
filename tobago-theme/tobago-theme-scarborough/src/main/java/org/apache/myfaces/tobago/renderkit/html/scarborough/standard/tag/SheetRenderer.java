@@ -157,7 +157,7 @@ public class SheetRenderer extends RendererBase {
       writer.startElement(HtmlElements.TH);
       writer.writeIdAttribute(column.getClientId(facesContext));
       if (column instanceof UIColumn) {
-        writer.writeText(((UIColumn)column).getLabel());
+        writer.writeText(((UIColumn) column).getLabel());
       } else if (column instanceof UIColumnSelector && selectable.isMulti()) {
         writer.writeClassAttribute(Classes.create(sheet, "selectorDropdown"));
 
