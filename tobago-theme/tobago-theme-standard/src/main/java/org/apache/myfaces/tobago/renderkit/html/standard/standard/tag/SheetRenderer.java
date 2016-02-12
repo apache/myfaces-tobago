@@ -33,7 +33,7 @@ import org.apache.myfaces.tobago.component.Visual;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.event.PageAction;
-import org.apache.myfaces.tobago.internal.component.AbstractUIColumn;
+import org.apache.myfaces.tobago.internal.component.AbstractUIColumnBase;
 import org.apache.myfaces.tobago.internal.component.AbstractUIColumnNode;
 import org.apache.myfaces.tobago.internal.component.AbstractUIData;
 import org.apache.myfaces.tobago.internal.component.AbstractUIMenu;
@@ -110,9 +110,9 @@ public class SheetRenderer extends RendererBase {
     if (header == null) {
       header = CreateComponentUtils.createComponent(facesContext, UIPanel.COMPONENT_TYPE, null, "_header");
       header.setTransient(true);
-      final List<AbstractUIColumn> columns = sheet.getAllColumns();
+      final List<AbstractUIColumnBase> columns = sheet.getAllColumns();
       int i = 0;
-      for (final AbstractUIColumn column : columns) {
+      for (final AbstractUIColumnBase column : columns) {
         final AbstractUIOut out = (AbstractUIOut) CreateComponentUtils.createComponent(
             facesContext, UIOut.COMPONENT_TYPE, RendererTypes.Out, "_col" + i);
         out.setTransient(true);
@@ -180,7 +180,7 @@ public class SheetRenderer extends RendererBase {
     final List<Integer> columnWidths = sheet.getWidthList();
 
     final List<Integer> selectedRows = getSelectedRows(sheet, state);
-    final List<AbstractUIColumn> renderedColumnList = sheet.getRenderedColumns();
+    final List<AbstractUIColumnBase> renderedColumnList = sheet.getRenderedColumns();
 
     writer.startElement(HtmlElements.INPUT);
     writer.writeIdAttribute(sheetId + WIDTHS);
@@ -765,7 +765,7 @@ public class SheetRenderer extends RendererBase {
 
   private void renderColumnHeaders(
       final FacesContext facesContext, final UISheet sheet, final TobagoResponseWriter writer,
-      final List<AbstractUIColumn> renderedColumnList)
+      final List<AbstractUIColumnBase> renderedColumnList)
       throws IOException {
 
     final Selectable selectable = sheet.getSelectable();
@@ -817,7 +817,7 @@ public class SheetRenderer extends RendererBase {
           writer.startElement(HtmlElements.DIV);
           writer.writeClassAttribute(Classes.create(sheet, "headerCell"));
           writer.startElement(HtmlElements.SPAN);
-          final AbstractUIColumn column = renderedColumnList.get(j);
+          final AbstractUIColumnBase column = renderedColumnList.get(j);
           Icons sorterIcon = null;
           Markup markup = Markup.NULL;
            String tip = ComponentUtils.getStringAttribute(column, Attributes.tip);

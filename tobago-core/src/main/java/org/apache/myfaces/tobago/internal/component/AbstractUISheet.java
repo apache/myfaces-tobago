@@ -324,23 +324,23 @@ public abstract class AbstractUISheet extends AbstractUIData
     state = (SheetState) values[1];
   }
 
-  public List<AbstractUIColumn> getAllColumns() {
-    ArrayList<AbstractUIColumn> result = new ArrayList<AbstractUIColumn>();
+  public List<AbstractUIColumnBase> getAllColumns() {
+    ArrayList<AbstractUIColumnBase> result = new ArrayList<AbstractUIColumnBase>();
     findColumns(this, result, true);
     return result;
   }
 
-  public List<AbstractUIColumn> getRenderedColumns() {
-    ArrayList<AbstractUIColumn> result = new ArrayList<AbstractUIColumn>();
+  public List<AbstractUIColumnBase> getRenderedColumns() {
+    ArrayList<AbstractUIColumnBase> result = new ArrayList<AbstractUIColumnBase>();
     findColumns(this, result, false);
     return result;
   }
 
-  private void findColumns(final UIComponent component, final List<AbstractUIColumn> result, final boolean all) {
+  private void findColumns(final UIComponent component, final List<AbstractUIColumnBase> result, final boolean all) {
     for (final UIComponent child : component.getChildren()) {
       if (all || child.isRendered()) {
-        if (child instanceof AbstractUIColumn) {
-          result.add((AbstractUIColumn) child);
+        if (child instanceof AbstractUIColumnBase) {
+          result.add((AbstractUIColumnBase) child);
         } else if (child instanceof AbstractUIData){
           // ignore columns of nested sheets
         } else {
@@ -403,10 +403,10 @@ public abstract class AbstractUISheet extends AbstractUIData
 
   private void ensureColumnWidthList() {
 
-    final List<AbstractUIColumn> allColumns = getAllColumns();
+    final List<AbstractUIColumnBase> allColumns = getAllColumns();
     final  List<Integer> currentWidthList = new ArrayList<Integer>(allColumns.size() + 1);
     for (int i = 0; i < allColumns.size(); i++) {
-      final AbstractUIColumn column = allColumns.get(i);
+      final AbstractUIColumnBase column = allColumns.get(i);
       currentWidthList.add(null);
     }
 
@@ -420,8 +420,8 @@ public abstract class AbstractUISheet extends AbstractUIData
       return;
     }
     final LayoutTokens columns = new LayoutTokens();
-    final List<AbstractUIColumn> renderedColumns = getRenderedColumns();
-    for (final AbstractUIColumn ignored : renderedColumns) {
+    final List<AbstractUIColumnBase> renderedColumns = getRenderedColumns();
+    for (final AbstractUIColumnBase ignored : renderedColumns) {
       columns.addToken(RelativeLayoutToken.DEFAULT_INSTANCE);
     }
     final LayoutTokens rows = new LayoutTokens();

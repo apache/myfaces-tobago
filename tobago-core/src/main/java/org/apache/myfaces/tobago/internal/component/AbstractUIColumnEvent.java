@@ -19,11 +19,5 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
-import org.apache.myfaces.tobago.component.Visual;
-
-public abstract class AbstractUIColumn extends AbstractUIColumnBase implements Visual {
-
-//  public abstract Measure getWidth();
-
-  public abstract String getLabel();
+public class AbstractUIColumnEvent extends AbstractUIColumnBase {
 }

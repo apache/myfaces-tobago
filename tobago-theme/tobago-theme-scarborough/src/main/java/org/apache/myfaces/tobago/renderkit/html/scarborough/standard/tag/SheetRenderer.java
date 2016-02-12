@@ -31,6 +31,7 @@ import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.event.PageAction;
 import org.apache.myfaces.tobago.internal.component.AbstractUIColumn;
+import org.apache.myfaces.tobago.internal.component.AbstractUIColumnBase;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.layout.ShowPosition;
 import org.apache.myfaces.tobago.layout.TextAlign;
@@ -99,7 +100,7 @@ public class SheetRenderer extends RendererBase {
     final UISheet sheet = (UISheet) component;
     final String clientId = sheet.getClientId(facesContext);
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
-    final List<AbstractUIColumn> columns = sheet.getRenderedColumns();
+    final List<AbstractUIColumnBase> columns = sheet.getRenderedColumns();
     final Selectable selectable = sheet.getSelectable();
     final List<Integer> selectedRows = getSelectedRows(sheet);
 
@@ -152,11 +153,11 @@ public class SheetRenderer extends RendererBase {
 
     writer.startElement(HtmlElements.THEAD);
     writer.startElement(HtmlElements.TR);
-    for (AbstractUIColumn column : columns) {
+    for (AbstractUIColumnBase column : columns) {
       writer.startElement(HtmlElements.TH);
       writer.writeIdAttribute(column.getClientId(facesContext));
       if (column instanceof UIColumn) {
-        writer.writeText(column.getLabel());
+        writer.writeText(((UIColumn)column).getLabel());
       } else if (column instanceof UIColumnSelector && selectable.isMulti()) {
         writer.writeClassAttribute(Classes.create(sheet, "selectorDropdown"));
 
@@ -208,7 +209,7 @@ public class SheetRenderer extends RendererBase {
     final UISheet sheet = (UISheet) component;
     final String clientId = sheet.getClientId(facesContext);
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
-    final List<AbstractUIColumn> columns = sheet.getRenderedColumns();
+    final List<AbstractUIColumnBase> columns = sheet.getRenderedColumns();
     final boolean hasClickAction = HtmlRendererUtils.renderSheetCommands(sheet, facesContext, writer);
     final List<Integer> selectedRows = getSelectedRows(sheet);
 
@@ -249,31 +250,34 @@ public class SheetRenderer extends RendererBase {
       }
       writer.writeClassAttribute(Classes.create(sheet, "row", rowMarkup), selected ? BootstrapClass.INFO : null);
 
-      for (AbstractUIColumn column : columns) {
+      for (AbstractUIColumnBase column : columns) {
 
         writer.startElement(HtmlElements.TD);
 
-        Markup markup = column.getMarkup();
-        if (markup == null) {
-          markup = Markup.NULL;
-        }
-        if (hasClickAction) {
-          markup = markup.add(Markup.CLICKABLE);
-        }
-        final String textAlign = ComponentUtils.getStringAttribute(column, Attributes.align);
-        if (textAlign != null) {
-          switch (TextAlign.valueOf(textAlign)) {
-            case right:
-              markup = markup.add(Markup.RIGHT);
-              break;
-            case center:
-              markup = markup.add(Markup.CENTER);
-              break;
-            case justify:
-              markup = markup.add(Markup.JUSTIFY);
-              break;
-            default:
-              // nothing to do
+        Markup markup = Markup.NULL;
+        if (column instanceof AbstractUIColumn) {
+          final Markup markup1 = ((AbstractUIColumn) column).getMarkup();
+          if (markup1 != null) {
+            markup = markup1;
+          }
+          if (hasClickAction) {
+            markup = markup.add(Markup.CLICKABLE);
+          }
+          final String textAlign = ComponentUtils.getStringAttribute(column, Attributes.align);
+          if (textAlign != null) {
+            switch (TextAlign.valueOf(textAlign)) {
+              case right:
+                markup = markup.add(Markup.RIGHT);
+                break;
+              case center:
+                markup = markup.add(Markup.CENTER);
+                break;
+              case justify:
+                markup = markup.add(Markup.JUSTIFY);
+                break;
+              default:
+                // nothing to do
+            }
           }
         }
         writer.writeClassAttribute(Classes.create(sheet, "cell", markup));
