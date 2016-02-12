@@ -29,20 +29,25 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRoleValues;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ComponentSystemEvent;
+import javax.faces.event.ComponentSystemEventListener;
+import javax.faces.event.ListenerFor;
+import javax.faces.event.PostAddToViewEvent;
 import java.io.IOException;
 
-public class PopupRenderer extends RendererBase {
+@ListenerFor(systemEventClass = PostAddToViewEvent.class)
+public class PopupRenderer extends RendererBase implements ComponentSystemEventListener {
 
   @Override
-  public void prepareRender(final FacesContext facesContext, final UIComponent component) {
-
-    final UIPopup popup = (UIPopup) component;
+  public void processEvent(ComponentSystemEvent event) {
+    final FacesContext facesContext = FacesContext.getCurrentInstance();
+    final UIPopup popup = (UIPopup) event.getComponent();
     FacesContextUtils.addPopup(facesContext, popup);
-
-    super.prepareRender(facesContext, popup);
   }
 
   @Override

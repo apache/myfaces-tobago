@@ -44,7 +44,6 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
-import org.apache.myfaces.tobago.renderkit.util.EncodeUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.Secret;
@@ -101,9 +100,6 @@ public class PageRenderer extends RendererBase {
 
     final UIPage page = (UIPage) component;
     final TobagoConfig tobagoConfig = TobagoConfig.getInstance(facesContext);
-
-    // invoke prepareRender
-    EncodeUtils.prepareRendererAll(facesContext, page);
 
     if (FacesContextUtils.getFocusId(facesContext) == null && !StringUtils.isBlank(page.getFocusId())) {
       FacesContextUtils.setFocusId(facesContext, page.getFocusId());

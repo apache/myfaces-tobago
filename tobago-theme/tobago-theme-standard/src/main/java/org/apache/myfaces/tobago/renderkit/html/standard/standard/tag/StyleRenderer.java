@@ -30,14 +30,20 @@ import org.slf4j.LoggerFactory;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ComponentSystemEvent;
+import javax.faces.event.ComponentSystemEventListener;
+import javax.faces.event.ListenerFor;
+import javax.faces.event.PostAddToViewEvent;
 
-public class StyleRenderer extends RendererBase {
+@ListenerFor(systemEventClass = PostAddToViewEvent.class)
+public class StyleRenderer extends RendererBase implements ComponentSystemEventListener {
 
   private static final Logger LOG = LoggerFactory.getLogger(StyleRenderer.class);
 
-  public void prepareRender(final FacesContext facesContext, final UIComponent component) {
-    super.prepareRender(facesContext, component);
-    final UIStyle styleComponent = (UIStyle) component;
+  @Override
+  public void processEvent(ComponentSystemEvent event) {
+    final FacesContext facesContext = FacesContext.getCurrentInstance();
+    final UIStyle styleComponent = (UIStyle) event.getComponent();
     final String file = styleComponent.getFile();
     if (file != null) {
       FacesContextUtils.addStyleFile(facesContext, file);

@@ -68,7 +68,6 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
 import org.apache.myfaces.tobago.renderkit.html.JsonUtils;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
-import org.apache.myfaces.tobago.renderkit.util.EncodeUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.util.CreateComponentUtils;
@@ -100,8 +99,7 @@ public class SheetRenderer extends RendererBase {
   protected static final String SELECTOR_DROPDOWN = ComponentUtils.SUB_SEPARATOR + "selectorDropdown";
 
   @Override
-  public void prepareRender(final FacesContext facesContext, final UIComponent component) {
-    super.prepareRender(facesContext, component);
+  public void encodeBegin(final FacesContext facesContext, final UIComponent component) {
     ensureHeader(facesContext, (UISheet) component);
   }
 
@@ -352,12 +350,10 @@ public class SheetRenderer extends RendererBase {
           writer.writeClassAttribute(Classes.create(sheet, "columnSelector"));
           writer.endElement(HtmlElements.INPUT);
         } else if (column instanceof AbstractUIColumnNode) {
-          EncodeUtils.prepareRendererAll(facesContext, column);
           RenderUtils.encode(facesContext, column);
         } else {
           final List<UIComponent> children = sheet.getRenderedChildrenOf(column);
           for (final UIComponent grandKid : children) {
-            EncodeUtils.prepareRendererAll(facesContext, grandKid);
             RenderUtils.encode(facesContext, grandKid);
           }
         }
@@ -1083,48 +1079,5 @@ public class SheetRenderer extends RendererBase {
   @Override
   public void encodeChildren(final FacesContext context, final UIComponent component) throws IOException {
     // DO Nothing
-  }
-
-  @Override
-  public boolean getPrepareRendersChildren() {
-    return true;
-  }
-
-  @Override
-  public void prepareRendersChildren(final FacesContext facesContext, final UIComponent component) throws IOException {
-
-    final UISheet sheet = (UISheet) component;
-    List<UIComponent> others = new ArrayList<UIComponent>();
-    List<UIColumn> columns = new ArrayList<UIColumn>();
-
-    for (final UIComponent child : sheet.getChildren()) {
-      if (child instanceof UIColumn) {
-        columns.add((UIColumn) child);
-      } else {
-        others.add(child);
-      }
-    }
-
-    // for non-columns: prepare only once (needed for e.g. UIStyle)
-    for (UIComponent other : others) {
-      EncodeUtils.prepareRendererAll(facesContext, other);
-    }
-
-    // for columns: prepare for each row
-    final int last = sheet.isRowsUnlimited() ? Integer.MAX_VALUE : sheet.getFirst() + sheet.getRows();
-    for (int rowIndex = sheet.getFirst(); rowIndex < last; rowIndex++) {
-      sheet.setRowIndex(rowIndex);
-      if (!sheet.isRowAvailable()) {
-        break;
-      }
-      final Object rowRendered = sheet.getAttributes().get("rowRendered");
-      if (rowRendered instanceof Boolean && !((Boolean) rowRendered)) {
-        continue;
-      }
-
-      for (UIComponent column : columns) {
-        EncodeUtils.prepareRendererAll(facesContext, column);
-      }
-    }
   }
 }

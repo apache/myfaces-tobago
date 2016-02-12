@@ -33,7 +33,6 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
-import org.apache.myfaces.tobago.renderkit.util.EncodeUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
@@ -124,7 +123,6 @@ public class TreeRenderer extends RendererBase {
       }
 
       for (final UIComponent child : tree.getChildren()) {
-        EncodeUtils.prepareRendererAll(facesContext, child);
         RenderUtils.encode(facesContext, child);
       }
     }
@@ -157,10 +155,5 @@ public class TreeRenderer extends RendererBase {
     writer.endElement(HtmlElements.INPUT);
 
     writer.endElement(HtmlElements.DIV);
-  }
-
-  @Override
-  public boolean getPrepareRendersChildren() {
-    return true;
   }
 }

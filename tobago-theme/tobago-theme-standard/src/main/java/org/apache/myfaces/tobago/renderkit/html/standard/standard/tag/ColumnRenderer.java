@@ -22,14 +22,9 @@ package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 import org.apache.myfaces.tobago.component.UIColumn;
 import org.apache.myfaces.tobago.component.UILink;
 import org.apache.myfaces.tobago.component.UIOut;
-import org.apache.myfaces.tobago.internal.component.AbstractUIMenu;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
-import org.apache.myfaces.tobago.renderkit.util.EncodeUtils;
-import org.apache.myfaces.tobago.util.FacetUtils;
 
 import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import java.io.IOException;
 
 public class ColumnRenderer extends RendererBase {
 
@@ -48,19 +43,6 @@ public class ColumnRenderer extends RendererBase {
       }
     }
     return false;
-  }
-
-  @Override
-  public boolean getPrepareRendersChildren() {
-    return true;
-  }
-
-  @Override
-  public void prepareRendersChildren(final FacesContext facesContext, final UIComponent component) throws IOException {
-    final AbstractUIMenu dropDownMenu = FacetUtils.getDropDownMenu(component);
-    if (dropDownMenu != null) {
-      EncodeUtils.prepareRendererAll(facesContext, dropDownMenu);
-    }
   }
 
   @Override

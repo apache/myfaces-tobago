@@ -70,9 +70,6 @@ public class TobagoRenderKit extends RenderKit {
     Renderer renderer = renderers.get(new Key(family, rendererType));
     if (renderer == null) {
       renderer = htmlBasicRenderKit.getRenderer(family, rendererType);
-      if (renderer != null) {
-        renderer = new RendererBaseWrapper(renderer);
-      }
     }
 
     if (renderer == null) {

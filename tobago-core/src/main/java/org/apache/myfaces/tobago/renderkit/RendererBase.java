@@ -35,26 +35,12 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
 import javax.faces.render.Renderer;
-import java.io.IOException;
 
 public class RendererBase extends Renderer {
 
   private static final Logger LOG = LoggerFactory.getLogger(RendererBase.class);
 
   private ResourceManager resourceManager;
-
-  /**
-   * Hook to e. g. register resources, etc.
-   */
-  public void prepareRender(final FacesContext facesContext, final UIComponent component) {
-  }
-
-  public boolean getPrepareRendersChildren() {
-    return false;
-  }
-
-  public void prepareRendersChildren(final FacesContext context, final UIComponent component) throws IOException {
-  }
 
   protected Object getCurrentValueAsObject(final UIInput input) {
     final Object submittedValue = input.getSubmittedValue();

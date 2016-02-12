@@ -52,7 +52,6 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
 import org.apache.myfaces.tobago.renderkit.html.JsonUtils;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
-import org.apache.myfaces.tobago.renderkit.util.EncodeUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
@@ -294,7 +293,6 @@ LOG.info("" + column);
         } else if (column instanceof UIColumn) {
           for (final UIComponent grandKid : column.getChildren()) {
             if (grandKid.isRendered()) {
-              EncodeUtils.prepareRendererAll(facesContext, grandKid);
               RenderUtils.encode(facesContext, grandKid);
             }
           }

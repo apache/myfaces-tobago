@@ -35,16 +35,22 @@ import org.slf4j.LoggerFactory;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ComponentSystemEvent;
+import javax.faces.event.ComponentSystemEventListener;
+import javax.faces.event.ListenerFor;
+import javax.faces.event.PostAddToViewEvent;
 import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
 import java.io.IOException;
 
-public class FileRenderer extends InputRendererBase {
+@ListenerFor(systemEventClass = PostAddToViewEvent.class)
+public class FileRenderer extends InputRendererBase implements ComponentSystemEventListener {
 
   private static final Logger LOG = LoggerFactory.getLogger(FileRenderer.class);
 
-  public void prepareRender(final FacesContext facesContext, final UIComponent component) {
-    super.prepareRender(facesContext, component);
+  @Override
+  public void processEvent(ComponentSystemEvent event) {
+    final FacesContext facesContext = FacesContext.getCurrentInstance();
     FacesContextUtils.setEnctype(facesContext, "multipart/form-data");
   }
 

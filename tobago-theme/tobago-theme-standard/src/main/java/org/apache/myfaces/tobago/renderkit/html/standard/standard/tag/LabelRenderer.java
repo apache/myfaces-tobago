@@ -31,25 +31,25 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ComponentSystemEvent;
+import javax.faces.event.ComponentSystemEventListener;
+import javax.faces.event.ListenerFor;
+import javax.faces.event.PostAddToViewEvent;
 import java.io.IOException;
 
-public class LabelRenderer extends RendererBase {
-
-  private static final Logger LOG = LoggerFactory.getLogger(LabelRenderer.class);
+@ListenerFor(systemEventClass = PostAddToViewEvent.class)
+public class LabelRenderer extends RendererBase implements ComponentSystemEventListener {
 
   @Override
-  public void prepareRender(final FacesContext facesContext, final UIComponent component) {
-    super.prepareRender(facesContext, component);
-
-    ComponentUtils.evaluateAutoFor(component, UIInput.class);
+  public void processEvent(ComponentSystemEvent event) {
+    ComponentUtils.evaluateAutoFor(event.getComponent(), UIInput.class);
   }
 
+  @Override
   public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
 
     final UILabel label = (UILabel) component;

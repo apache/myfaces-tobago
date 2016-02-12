@@ -37,19 +37,6 @@ public abstract class AbstractRendererBaseWrapper extends RendererBase {
   }
 
   @Override
-  public final void prepareRender(final FacesContext facesContext, final UIComponent component) {
-    getRenderer(facesContext).prepareRender(facesContext, component);
-  }
-  @Override
-  public final boolean getPrepareRendersChildren() {
-    return getRenderer(FacesContext.getCurrentInstance()).getPrepareRendersChildren();
-  }
-  @Override
-  public final void prepareRendersChildren(final FacesContext context, final UIComponent component) throws IOException {
-    getRenderer(context).prepareRendersChildren(context, component);
-  }
-
-  @Override
   public final boolean getRendersChildren() {
     return getRenderer(FacesContext.getCurrentInstance()).getRendersChildren();
   }

@@ -23,14 +23,19 @@ import org.apache.myfaces.tobago.component.UIScript;
 import org.apache.myfaces.tobago.internal.util.FacesContextUtils;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 
-import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ComponentSystemEvent;
+import javax.faces.event.ComponentSystemEventListener;
+import javax.faces.event.ListenerFor;
+import javax.faces.event.PostAddToViewEvent;
 
-public class ScriptRenderer extends RendererBase {
+@ListenerFor(systemEventClass = PostAddToViewEvent.class)
+public class ScriptRenderer extends RendererBase implements ComponentSystemEventListener {
 
-  public void prepareRender(final FacesContext facesContext, final UIComponent component) {
-    super.prepareRender(facesContext, component);
-    final UIScript scriptComponent = (UIScript) component;
+  @Override
+  public void processEvent(ComponentSystemEvent event) {
+    final FacesContext facesContext = FacesContext.getCurrentInstance();
+    final UIScript scriptComponent = (UIScript) event.getComponent();
     final String file = scriptComponent.getFile();
     if (file != null) {
       FacesContextUtils.addScriptFile(facesContext, file);

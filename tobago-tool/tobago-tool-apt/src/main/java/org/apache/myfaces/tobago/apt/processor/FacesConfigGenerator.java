@@ -370,7 +370,10 @@ public class FacesConfigGenerator extends AbstractGenerator {
       elementType.setText(rendererType);
       element.addContent(elementType);
       final org.jdom.Element elementClass = new org.jdom.Element(RENDERER_CLASS, namespace);
-      final String className = "org.apache.myfaces.tobago.renderkit." + rendererType + "Renderer";
+//      final String className = "org.apache.myfaces.tobago.renderkit." + rendererType + "Renderer";
+      // TBD: support different Renderer Classes per Theme any longer? Or how?
+      final String className
+          = "org.apache.myfaces.tobago.renderkit.html.standard.standard.tag." + rendererType + "Renderer";
       elementClass.setText(className);
       element.addContent(elementClass);
       renderer.add(element);

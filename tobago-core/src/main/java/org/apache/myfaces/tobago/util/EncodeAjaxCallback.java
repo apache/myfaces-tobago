@@ -22,7 +22,6 @@ package org.apache.myfaces.tobago.util;
 
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Facets;
-import org.apache.myfaces.tobago.renderkit.util.EncodeUtils;
 
 import javax.faces.FacesException;
 import javax.faces.component.UIComponent;
@@ -44,7 +43,6 @@ public class EncodeAjaxCallback implements TobagoCallback {
            }
          }
       }
-      EncodeUtils.prepareRendererAll(facesContext, component);
       component.encodeAll(facesContext);
     } catch (final IOException e) {
       throw new FacesException(e);
