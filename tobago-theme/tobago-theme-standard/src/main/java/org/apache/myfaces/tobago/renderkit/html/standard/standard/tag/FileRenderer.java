@@ -43,7 +43,7 @@ public class FileRenderer extends InputRendererBase {
 
   private static final Logger LOG = LoggerFactory.getLogger(FileRenderer.class);
 
-  public void prepareRender(final FacesContext facesContext, final UIComponent component) throws IOException {
+  public void prepareRender(final FacesContext facesContext, final UIComponent component) {
     super.prepareRender(facesContext, component);
     FacesContextUtils.setEnctype(facesContext, "multipart/form-data");
   }
@@ -79,6 +79,19 @@ public class FileRenderer extends InputRendererBase {
     } else {
 
       final FileItem item = request.getFileItem(input.getClientId(facesContext));
+/*
+TODO: Using Servlet 3.0 file upload...
+      try {
+        final Part part = request.getPart(input.getClientId(facesContext));
+        LOG.info("content type: " + part.getContentType());
+        LOG.info("name:         " + part.getName());
+        LOG.info("size:         " + part.getSize());
+      } catch (IOException e) {
+        e.printStackTrace();
+      } catch (ServletException e) {
+        e.printStackTrace();
+      }
+*/
 
       if (LOG.isDebugEnabled()) {
         LOG.debug("Uploaded file name : \"" + item.getName()
