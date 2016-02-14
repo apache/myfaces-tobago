@@ -114,7 +114,7 @@ public class FileUploadFacesContextFactoryImpl extends FacesContextFactory {
     }
     if (LOG.isInfoEnabled()) {
       LOG.info("Configure uploadMaxFileSize for "+ getClass().getName() + " to "+ this.maxSize);
-      LOG.info("Configure uploadRepositryPath for "+ getClass().getName() + " to "+ this.repositoryPath);
+      LOG.info("Configure uploadRepositoryPath for "+ getClass().getName() + " to "+ this.repositoryPath);
     }
   }
 
