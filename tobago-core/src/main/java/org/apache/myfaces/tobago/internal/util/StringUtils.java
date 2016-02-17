@@ -90,7 +90,15 @@ public final class StringUtils {
     return indices;
   }
 
-  public static String constantToCamelCase(final String constant) {
+  public static String constantToLowerCamelCase(final String constant) {
+    final StringBuilder builder = new StringBuilder(constantToUpperCamelCase(constant));
+    if (builder.length() > 0) {
+      builder.setCharAt(0, Character.toLowerCase(builder.charAt(0)));
+    }
+    return builder.toString();
+  }
+
+  public static String constantToUpperCamelCase(final String constant) {
     final StringBuilder builder = new StringBuilder(constant.length());
     final char[] chars = constant.toCharArray();
     for (int i = 0; i < chars.length; i++) {

@@ -17,27 +17,16 @@
  * under the License.
  */
 
-package org.apache.myfaces.tobago.component;
+package org.apache.myfaces.tobago.layout;
 
-import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.util.EnumUnitTest;
 import org.junit.Test;
 
-public class RendererTypesUnitTest extends EnumUnitTest {
+public class AlignItemsUnitTest extends EnumUnitTest {
 
   @Test
   public void testNames() throws IllegalAccessException, NoSuchFieldException {
-
-    testNames(RendererTypes.class);
+    testNames(AlignItems.class);
   }
 
-  @Override
-  protected String getEnumRegexp() {
-    return "[A-Z][a-zA-Z]*";
-  }
-
-  @Override
-  protected String constantCaseToEnum(String constant) {
-    return StringUtils.constantToUpperCamelCase(constant);
-  }
 }
