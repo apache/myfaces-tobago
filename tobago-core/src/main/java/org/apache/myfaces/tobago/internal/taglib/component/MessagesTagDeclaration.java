@@ -98,8 +98,8 @@ public interface MessagesTagDeclaration
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.OrderBy",
-      allowedValues = {OrderBy.STRING_OCCURRENCE, OrderBy.STRING_SEVERITY},
-      defaultValue = OrderBy.STRING_OCCURRENCE,
+      allowedValues = {OrderBy.OCCURRENCE, OrderBy.SEVERITY},
+      defaultValue = OrderBy.OCCURRENCE,
       defaultCode = "org.apache.myfaces.tobago.layout.OrderBy.occurrence")
   void setOrderBy(String orderBy);
 

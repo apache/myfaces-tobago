@@ -19,13 +19,13 @@
 
 package org.apache.myfaces.tobago.layout;
 
-public enum OrderBy {
+import org.apache.myfaces.tobago.util.EnumUnitTest;
+import org.junit.Test;
 
-  occurrence,
-  severity;
+public class OrderByUnitTest extends EnumUnitTest {
 
-  public static final String OCCURRENCE = "occurrence";
-
-  public static final String SEVERITY = "severity";
-
+  @Test
+  public void testNames() throws IllegalAccessException, NoSuchFieldException {
+    testNames(OrderBy.class);
+  }
 }
