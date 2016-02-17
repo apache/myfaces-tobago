@@ -22,6 +22,8 @@ package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 import org.apache.myfaces.tobago.component.UIHeader;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
+import org.apache.myfaces.tobago.renderkit.css.Classes;
+import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
@@ -40,15 +42,15 @@ public class HeaderRenderer extends RendererBase {
     writer.writeIdAttribute(component.getClientId(facesContext));
     // TBD: NAVBAR_DARK and BG_INVERSE should not be the default
     // TBD: how to configure it when it is needed, with customClass, or with markup?
-    writer.writeClassAttribute(BootstrapClass.NAVBAR, /*BootstrapClass.NAVBAR_DARK, BootstrapClass.BG_INVERSE,*/
-        header.isFixed() ? BootstrapClass.NAVBAR_FIXED_TOP : null);
+    writer.writeClassAttribute(
+        Classes.create(header),
+        BootstrapClass.NAVBAR, /*BootstrapClass.NAVBAR_DARK, BootstrapClass.BG_INVERSE,*/
+        header.isFixed() ? BootstrapClass.NAVBAR_FIXED_TOP : null,
+        header.getCustomClass());
 // TBD: should NAVBAR class be in the NavRenderer?
-
-/*
-    if (header.isFixed()) {
-      writer.writeClassAttribute(BootstrapClass.NAVBAR_FIXED_TOP);
-    }
-*/
+    writer.writeAttribute(HtmlAttributes.TITLE, header.getTip(), true);
+    writer.writeStyleAttribute(header.getStyle());
+//    HtmlRendererUtils.writeDataAttributes(facesContext, writer, header);
   }
 
   @Override
