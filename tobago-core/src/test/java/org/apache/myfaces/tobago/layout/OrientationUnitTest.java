@@ -19,22 +19,13 @@
 
 package org.apache.myfaces.tobago.layout;
 
-/**
- * Layout relevant values for the orientation.
- */
-public enum Orientation {
-  
-  horizontal,
-  vertical;
+import org.apache.myfaces.tobago.util.EnumUnitTest;
+import org.junit.Test;
 
-  /**
-   * Internal constant to use in annotations. Please use {@link Orientation#horizontal}
-   */
-  public static final String HORIZONTAL = "horizontal";
+public class OrientationUnitTest extends EnumUnitTest {
 
-  /**
-   * Internal constant to use in annotations. Please use {@link Orientation#horizontal}
-   */
-  public static final String VERTICAL = "vertical";
-
+  @Test
+  public void testNames() throws IllegalAccessException, NoSuchFieldException {
+    testNames(Orientation.class);
+  }
 }

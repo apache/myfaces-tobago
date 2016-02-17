@@ -62,7 +62,7 @@ public interface SplitLayoutTagDeclaration
   @TagAttribute(required = true)
   @UIComponentTagAttribute(
       type = "org.apache.myfaces.tobago.layout.Orientation",
-      allowedValues = {Orientation.STRING_HORIZONTAL, Orientation.STRING_VERTICAL})
+      allowedValues = {Orientation.HORIZONTAL, Orientation.VERTICAL})
   void setOrientation(String orientation);
 
   /**
