@@ -50,7 +50,7 @@ public class HeaderRenderer extends RendererBase {
 // TBD: should NAVBAR class be in the NavRenderer?
     writer.writeAttribute(HtmlAttributes.TITLE, header.getTip(), true);
     writer.writeStyleAttribute(header.getStyle());
-//    HtmlRendererUtils.writeDataAttributes(facesContext, writer, header);
+    HtmlRendererUtils.writeDataAttributes(facesContext, writer, header);
   }
 
   @Override

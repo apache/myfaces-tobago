@@ -53,6 +53,7 @@ public class NavRenderer extends RendererBase {
     writer.startElement(HtmlElements.NAV);
     writer.writeIdAttribute(clientId);
     writer.writeAttribute(HtmlAttributes.ROLE, HtmlRoleValues.NAVIGATION.toString(), false);
+    HtmlRendererUtils.writeDataAttributes(facesContext, writer, nav);
 
     writer.startElement(HtmlElements.DIV);
     writer.writeClassAttribute(BootstrapClass.CONTAINER_FLUID);

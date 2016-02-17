@@ -46,7 +46,7 @@ public class FooterRenderer extends RendererBase {
         footer.getCustomClass());
     writer.writeAttribute(HtmlAttributes.TITLE, footer.getTip(), true);
     writer.writeStyleAttribute(footer.getStyle());
-//    HtmlRendererUtils.writeDataAttributes(facesContext, writer, footer);
+    HtmlRendererUtils.writeDataAttributes(facesContext, writer, footer);
   }
 
   @Override
