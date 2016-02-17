@@ -267,7 +267,7 @@ public class Style implements Serializable {
     }
     if (display != null) {
       buf.append("display:");
-      buf.append(display.getValue());
+      buf.append(display.name());
       buf.append(';');
     }
     if (position != null) {
@@ -403,7 +403,7 @@ public class Style implements Serializable {
     }
     if (display != null) {
       buf.append("\"display\":\"");
-      buf.append(display.getValue());
+      buf.append(display.name());
       buf.append("\",");
     }
     if (position != null) {

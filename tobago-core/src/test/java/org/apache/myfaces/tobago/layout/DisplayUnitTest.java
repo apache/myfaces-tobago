@@ -19,30 +19,13 @@
 
 package org.apache.myfaces.tobago.layout;
 
-/**
- * Values for display attribute used with CSS.
- *
- * Note: the enums are not capitalized, because of problems with {@link java.beans.PropertyEditor}.
- */
-public enum Display {
+import org.apache.myfaces.tobago.util.EnumUnitTest;
+import org.junit.Test;
 
-  block,
-  inline,
-  none;
+public class DisplayUnitTest extends EnumUnitTest {
 
-  /**
-   * Internal constant to use in annotations. Please use {@link Display#block}
-   */
-  public static final String BLOCK = "block";
-
-  /**
-   * Internal constant to use in annotations. Please use {@link Display#inline}
-   */
-  public static final String INLINE = "inline";
-
-  /**
-   * Internal constant to use in annotations. Please use {@link Display#none}
-   */
-  public static final String NONE = "none";
-
+  @Test
+  public void testNames() throws IllegalAccessException, NoSuchFieldException {
+    testNames(Display.class);
+  }
 }

@@ -233,7 +233,7 @@ public interface StyleTagDeclaration extends HasIdBindingAndRendered {
   @TagAttribute()
   @UIComponentTagAttribute(
       type = "org.apache.myfaces.tobago.layout.Display",
-      allowedValues = {Display.STRING_BLOCK, Display.STRING_INLINE, Display.STRING_NONE})
+      allowedValues = {Display.BLOCK, Display.INLINE, Display.NONE})
   void setDisplay(String display);
 
   /**
