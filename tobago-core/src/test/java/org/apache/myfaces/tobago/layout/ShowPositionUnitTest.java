@@ -19,15 +19,13 @@
 
 package org.apache.myfaces.tobago.layout;
 
-public enum ShowPosition {
+import org.apache.myfaces.tobago.util.EnumUnitTest;
+import org.junit.Test;
 
-  left,
-  center,
-  right,
-  none;
+public class ShowPositionUnitTest extends EnumUnitTest {
 
-  public static final String LEFT = "left";
-  public static final String CENTER = "center";
-  public static final String RIGHT = "right";
-  public static final String NONE = "none";
+  @Test
+  public void testNames() throws IllegalAccessException, NoSuchFieldException {
+    testNames(ShowPosition.class);
+  }
 }

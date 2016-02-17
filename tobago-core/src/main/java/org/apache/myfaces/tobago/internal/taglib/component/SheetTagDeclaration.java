@@ -149,9 +149,9 @@ public interface SheetTagDeclaration
   @TagAttribute
   @UIComponentTagAttribute(
       type = "org.apache.myfaces.tobago.layout.ShowPosition",
-      defaultValue = ShowPosition.STRING_CENTER,
+      defaultValue = ShowPosition.CENTER,
       allowedValues = {
-          ShowPosition.STRING_LEFT, ShowPosition.STRING_CENTER, ShowPosition.STRING_RIGHT, ShowPosition.STRING_NONE
+          ShowPosition.LEFT, ShowPosition.CENTER, ShowPosition.RIGHT, ShowPosition.NONE
       },
       defaultCode = "org.apache.myfaces.tobago.layout.ShowPosition.center")
   void setShowDirectLinks(String showDirectLinks);
@@ -164,9 +164,9 @@ public interface SheetTagDeclaration
   @TagAttribute
   @UIComponentTagAttribute(
       type = "org.apache.myfaces.tobago.layout.ShowPosition",
-      defaultValue = ShowPosition.STRING_RIGHT,
+      defaultValue = ShowPosition.RIGHT,
       allowedValues = {
-          ShowPosition.STRING_LEFT, ShowPosition.STRING_CENTER, ShowPosition.STRING_RIGHT, ShowPosition.STRING_NONE
+          ShowPosition.LEFT, ShowPosition.CENTER, ShowPosition.RIGHT, ShowPosition.NONE
       },
       defaultCode = "org.apache.myfaces.tobago.layout.ShowPosition.right")
   void setShowPageRange(String showPageRange);
@@ -179,9 +179,9 @@ public interface SheetTagDeclaration
   @TagAttribute
   @UIComponentTagAttribute(
       type = "org.apache.myfaces.tobago.layout.ShowPosition",
-      defaultValue = ShowPosition.STRING_LEFT,
+      defaultValue = ShowPosition.LEFT,
       allowedValues = {
-          ShowPosition.STRING_LEFT, ShowPosition.STRING_CENTER, ShowPosition.STRING_RIGHT, ShowPosition.STRING_NONE
+          ShowPosition.LEFT, ShowPosition.CENTER, ShowPosition.RIGHT, ShowPosition.NONE
       },
       defaultCode = "org.apache.myfaces.tobago.layout.ShowPosition.left")
   void setShowRowRange(String showRowRange);
