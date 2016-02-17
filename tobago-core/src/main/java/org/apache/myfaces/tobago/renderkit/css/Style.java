@@ -272,7 +272,7 @@ public class Style implements Serializable {
     }
     if (position != null) {
       buf.append("position:");
-      buf.append(position.getValue());
+      buf.append(position.name());
       buf.append(';');
     }
     if (backgroundImage != null) {
@@ -408,7 +408,7 @@ public class Style implements Serializable {
     }
     if (position != null) {
       buf.append("\"position\":\"");
-      buf.append(position.getValue());
+      buf.append(position.name());
       buf.append("\",");
     }
     if (backgroundImage != null) {

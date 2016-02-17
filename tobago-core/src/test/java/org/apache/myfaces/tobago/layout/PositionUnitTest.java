@@ -19,30 +19,13 @@
 
 package org.apache.myfaces.tobago.layout;
 
-/**
- * Values for position used with CSS.
- *
- * Note: the enums are not capitalized, because of problems with {@link java.beans.PropertyEditor}.
- */
-public enum Position {
+import org.apache.myfaces.tobago.util.EnumUnitTest;
+import org.junit.Test;
 
-  absolute,
-  relative,
-  fixed;
-//  static; XXX not possible
+public class PositionUnitTest extends EnumUnitTest {
 
-  /**
-   * Internal constant to use in annotations. Please use {@link Position#absolute}
-   */
-  public static final String ABSOLUTE = "absolute";
-
-  /**
-   * Internal constant to use in annotations. Please use {@link Position#relative}
-   */
-  public static final String RELATIVE = "relative";
-
-  /**
-   * Internal constant to use in annotations. Please use {@link Position#fixed}
-   */
-  public static final String FIXED = "fixed";
+  @Test
+  public void testNames() throws IllegalAccessException, NoSuchFieldException {
+    testNames(Position.class);
+  }
 }

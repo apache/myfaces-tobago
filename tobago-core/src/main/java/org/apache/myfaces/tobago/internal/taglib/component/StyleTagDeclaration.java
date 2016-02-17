@@ -243,7 +243,7 @@ public interface StyleTagDeclaration extends HasIdBindingAndRendered {
   @TagAttribute()
   @UIComponentTagAttribute(
       type = "org.apache.myfaces.tobago.layout.Position",
-      allowedValues = {Position.STRING_ABSOLUTE, Position.STRING_RELATIVE, Position.STRING_FIXED})
+      allowedValues = {Position.ABSOLUTE, Position.RELATIVE, Position.FIXED})
   void setPosition(String position);
 
   /**
