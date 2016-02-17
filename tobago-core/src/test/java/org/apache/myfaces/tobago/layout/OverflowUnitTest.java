@@ -22,10 +22,10 @@ package org.apache.myfaces.tobago.layout;
 import org.apache.myfaces.tobago.util.EnumUnitTest;
 import org.junit.Test;
 
-public class OrderByUnitTest extends EnumUnitTest {
+public class OverflowUnitTest extends EnumUnitTest {
 
   @Test
   public void testNames() throws IllegalAccessException, NoSuchFieldException {
-    testNames(OrderBy.class);
+    testNames(Overflow.class);
   }
 }

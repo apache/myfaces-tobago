@@ -257,12 +257,12 @@ public class Style implements Serializable {
     }
     if (overflowX != null) {
       buf.append("overflow-x:");
-      buf.append(overflowX.getValue());
+      buf.append(overflowX.name());
       buf.append(';');
     }
     if (overflowY != null) {
       buf.append("overflow-y:");
-      buf.append(overflowY.getValue());
+      buf.append(overflowY.name());
       buf.append(';');
     }
     if (display != null) {
@@ -393,12 +393,12 @@ public class Style implements Serializable {
     }
     if (overflowX != null) {
       buf.append("\"overflowX\":\"");
-      buf.append(overflowX.getValue());
+      buf.append(overflowX.name());
       buf.append("\",");
     }
     if (overflowY != null) {
       buf.append("\"overflowY\":\"");
-      buf.append(overflowY.getValue());
+      buf.append(overflowY.name());
       buf.append("\",");
     }
     if (display != null) {

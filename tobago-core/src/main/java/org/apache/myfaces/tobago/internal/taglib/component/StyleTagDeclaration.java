@@ -212,7 +212,7 @@ public interface StyleTagDeclaration extends HasIdBindingAndRendered {
   @TagAttribute()
   @UIComponentTagAttribute(
       type = "org.apache.myfaces.tobago.layout.Overflow",
-      allowedValues = {Overflow.STRING_AUTO, Overflow.STRING_SCROLL, Overflow.STRING_HIDDEN})
+      allowedValues = {Overflow.AUTO, Overflow.SCROLL, Overflow.HIDDEN})
   void setOverflowX(String overflowX);
 
   /**
@@ -222,7 +222,7 @@ public interface StyleTagDeclaration extends HasIdBindingAndRendered {
   @TagAttribute()
   @UIComponentTagAttribute(
       type = "org.apache.myfaces.tobago.layout.Overflow",
-      allowedValues = {Overflow.STRING_AUTO, Overflow.STRING_SCROLL, Overflow.STRING_HIDDEN})
+      allowedValues = {Overflow.AUTO, Overflow.SCROLL, Overflow.HIDDEN})
   void setOverflowY(String overflowY);
 
   /**
