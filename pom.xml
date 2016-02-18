@@ -1010,6 +1010,10 @@
           <groupId>org.owasp</groupId>
           <artifactId>dependency-check-maven</artifactId>
           <version>1.3.4</version>
+          <configuration>
+            <!-- TBD: check which score can be accepted -->
+            <failBuildOnCVSS>1</failBuildOnCVSS>
+          </configuration>
         </plugin>
       </plugins>
     </pluginManagement>
@@ -1132,7 +1136,7 @@
             <executions>
               <execution>
                 <goals>
-                  <goal>check</goal>
+                  <goal>aggregate</goal>
                 </goals>
               </execution>
             </executions>
