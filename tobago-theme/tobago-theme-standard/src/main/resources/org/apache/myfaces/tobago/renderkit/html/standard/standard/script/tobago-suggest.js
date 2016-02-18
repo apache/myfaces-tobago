@@ -27,15 +27,15 @@ Tobago.Suggest.loadFromServer = function (input) {
       input.data("tobago-suggest-callback", asyncResults);
       var id = suggest.attr("id");
       console.info("query: '" + query + "'");
-      //Tobago.Updater.update(suggest, id, id, {});
-      jsf.ajax.request(
-          id,
-          null, // todo: event
-          {
-            "javax.faces.behavior.event": "suggest",
-            execute: id,
-            render: id
-          });
+      Tobago.Updater.update(suggest, id, id, {});
+      //jsf.ajax.request( TODO: need a behavior handling for new AJAX...
+      //    id,
+      //    null, // todo: event
+      //    {
+      //      "javax.faces.behavior.event": "suggest",
+      //      execute: id,
+      //      render: id
+      //    });
     }
   };
 };
