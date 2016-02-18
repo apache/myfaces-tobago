@@ -28,9 +28,7 @@
           rows="auto;auto;auto;auto;auto;auto;45px;45px;auto;auto;auto;200px;200px;auto;auto;auto;auto;auto;*;auto"/>
     </f:facet>
 
-    <!-- code-sniplet-start id="selectBooleanCheckbox" -->
     <tc:selectBooleanCheckbox label="_Letter"/>
-    <!-- code-sniplet-end id="selectBooleanCheckbox" -->
     <tc:selectBooleanCheckbox label="_Phone"/>
     <tc:selectBooleanCheckbox label="_eMail"/>
     <tc:selectBooleanCheckbox label="_Fax">
@@ -45,7 +43,6 @@
       <f:converter converterId="org.apache.myfaces.tobago.example.demo.OnOffConverter"/>
     </tc:selectBooleanCheckbox>
 
-    <!-- code-sniplet-start id="selectManyListbox" -->
     <tc:selectManyListbox label="Contact via: ">
       <f:selectItem itemValue="Phone" itemLabel="Phone"/>
       <f:selectItem itemValue="eMail" itemLabel="eMail"/>
@@ -61,9 +58,7 @@
         <tc:command/>
       </f:facet>
     </tc:selectManyListbox>
-    <!-- code-sniplet-end id="selectManyListbox" -->
 
-    <!-- code-sniplet-start id="selectOneChoice" -->
     <tc:selectOneChoice value="selectOneChoice0"
                         label="Contact me1: ">
       <tc:selectItem itemLabel="Letter" itemValue="letter"/>
@@ -72,7 +67,6 @@
       <tc:selectItem itemLabel="Fax" itemValue="fax"/>
     </tc:selectOneChoice>
 
-    <!-- code-sniplet-end id="selectOneChoice" -->
 
     <!-- surround this with a tc:form if you get validatation or required messages from other fields.
     With tc:form you enable partial validation and update model.
@@ -90,7 +84,6 @@
       <f:selectItems value="#{reference.manufacturerSelectItems}"/>
     </tc:selectOneChoice>
 
-    <!-- code-sniplet-start id="selectOneListbox" -->
     <tc:selectOneListbox label="Contact via: ">
       <f:selectItem itemValue="Phone" itemLabel="Phone"/>
       <f:selectItem itemValue="eMail" itemLabel="eMail"/>
@@ -106,7 +99,6 @@
         <tc:command/>
       </f:facet>
     </tc:selectOneListbox>
-    <!-- code-sniplet-end id="selectOneListbox" -->
 
     <tc:separator label="Layout"/>
 

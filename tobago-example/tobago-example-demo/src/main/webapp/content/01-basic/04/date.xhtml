@@ -29,35 +29,25 @@
                      rows="auto;auto;auto;auto;auto;auto;auto;auto;auto;auto;auto;auto;auto;auto;auto;auto;250px;*"/>
     </f:facet>
 
-    <!-- code-sniplet-start id="date" -->
     <tc:in label="Date as Text" value="#{dateController.once}">
       <f:convertDateTime pattern="dd.MM.yyyy"/>
     </tc:in>
-    <!-- code-sniplet-end id="date" -->
     <tc:panel/>
 
-    <!-- code-sniplet-start id="date" -->
     <tc:date label="Date" value="#{dateController.once}">
       <f:convertDateTime pattern="dd.MM.yyyy"/>
     </tc:date>
-    <!-- code-sniplet-end id="date" -->
     <tc:panel/>
 
-    <!-- code-sniplet-start id="date" -->
     <tc:date value="#{dateController.once}">
       <f:convertDateTime pattern="dd.MM.yyyy"/>
     </tc:date>
-    <!-- code-sniplet-end id="date" -->
     <tc:panel/>
 
-    <!-- code-sniplet-start id="dateTime" -->
 <!--
     <tc:date label="Date/Time" value="#{dateController.once}">
       <f:convertDateTime pattern="dd.MM.yyyy HH:mm"/>
     </tc:date>
--->
-    <!-- code-sniplet-end id="dateTime" -->
-<!--
     <tc:panel/>
 -->
 
@@ -129,9 +119,7 @@
     </tc:time>
     <tc:panel/>
 
-    <!-- code-sniplet-start id="calendar" -->
     <tc:calendar/>
-    <!-- code-sniplet-end id="calendar" -->
     <tc:panel/>
 
     <tc:panel>

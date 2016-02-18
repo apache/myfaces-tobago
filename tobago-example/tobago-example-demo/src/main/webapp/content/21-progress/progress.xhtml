@@ -32,13 +32,11 @@
       <tc:gridLayout rows="auto;1*" columns="100px;1* "/>
     </f:facet>
     <tc:label value="Progress:"/>
-    <!-- code-sniplet-start id="progress" -->
     <tc:progress value="#{progress.progress}">
       <f:facet name="complete">
         <tc:command action="#{progress.reset}"/>
       </f:facet>
     </tc:progress>
-    <!-- code-sniplet-end id="progress" -->
     <tc:panel/>
   </tc:panel>
 
