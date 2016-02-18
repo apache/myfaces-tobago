@@ -29,9 +29,6 @@ import org.apache.myfaces.tobago.util.CreateComponentUtils;
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
 import java.util.Locale;
 
 // using ' instead of " to make it better readable.
@@ -112,11 +109,12 @@ public class JsonUtilsUnitTest extends AbstractTobagoTestBase {
   @Test
   public void monthNames() {
     final DateTimeI18n dateTimeI18n = DateTimeI18n.valueOf(Locale.GERMANY);
+    final String marchShort = dateTimeI18n.getMonthNamesShort()[2]; // different with JDK 1.8.0_51 and 1.8.0_60
     final String expected
         = ("{'monthNames':['Januar','Februar','März','April','Mai','Juni',"
         + "'Juli','August','September','Oktober','November','Dezember'],"
         + "'monthNamesShort':['Jan','Feb','"
-        + getMarchShort() + "','Apr','Mai','Jun','Jul','Aug','Sep','Okt','Nov','Dez'],"
+        + marchShort + "','Apr','Mai','Jun','Jul','Aug','Sep','Okt','Nov','Dez'],"
         + "'dayNames':['Sonntag','Montag','Dienstag','Mittwoch','Donnerstag','Freitag','Samstag'],"
         + "'dayNamesShort':['So','Mo','Di','Mi','Do','Fr','Sa'],"
         + "'dayNamesMin':['So','Mo','Di','Mi','Do','Fr','Sa'],"
@@ -124,14 +122,4 @@ public class JsonUtilsUnitTest extends AbstractTobagoTestBase {
 
     Assert.assertEquals(expected, JsonUtils.encode(dateTimeI18n));
   }
-
-  /**
-   * The result depends on the JAVA Version: 7 differs to 8.
-   */
-  private String getMarchShort() {
-    final Calendar cal = GregorianCalendar.getInstance();
-    cal.set(2000, GregorianCalendar.MARCH, 15);
-    return new SimpleDateFormat("MMM").format(cal.getTime());
-  }
-
 }
