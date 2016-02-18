@@ -84,6 +84,14 @@
           <artifactId>maven-plugin-plugin</artifactId>
           <version>3.4</version>
         </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-javadoc-plugin</artifactId>
+          <configuration>
+            <!-- switched off, because of the @goal tags, etc. -->
+            <additionalparam>-Xdoclint:none</additionalparam>
+          </configuration>
+        </plugin>
       </plugins>
     </pluginManagement>
   </build>
