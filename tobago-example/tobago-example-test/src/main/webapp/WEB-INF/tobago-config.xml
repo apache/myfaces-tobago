@@ -35,6 +35,7 @@
   <auto-access-key-from-label>false</auto-access-key-from-label>
 
   <!-- this disables CSP -->
+  <!-- XXX With CSP Tobago 3.0.x is currently not working 100% see TOBAGO-1534 -->
   <content-security-policy mode="report-only"/>
 
   <renderers>
