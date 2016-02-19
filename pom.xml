@@ -597,7 +597,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-enforcer-plugin</artifactId>
-        <version>1.4</version>
+        <version>1.4.1</version>
         <executions>
           <execution>
             <id>enforce</id>
@@ -621,8 +621,8 @@
                   </unCheckedPlugins>
                 </requirePluginVersions>
                 <requireJavaVersion>
-                  <message>Tobago must be compiled with Java 7 or higher</message>
-                  <version>[1.7,)</version>
+                  <message>Tobago must be compiled with Java 8 or higher</message>
+                  <version>[1.8,)</version>
                 </requireJavaVersion>
               </rules>
             </configuration>
