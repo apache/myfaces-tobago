@@ -74,6 +74,26 @@ needed for popups
     margin-left: 5px;
 }
 
+.alignItems-baseline {
+  align-items: baseline;
+}
+
+.alignItems-center {
+  align-items: center;
+}
+
+.alignItems-flexEnd {
+  align-items: flex-end;
+}
+
+.alignItems-flexStart {
+  align-items: flex-start;
+}
+
+.alignItems-stretch {
+  align-items: stretch;
+}
+
 /* footer -------------------------------------------------------------- */
 
 .tobago-footer {

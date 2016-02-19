@@ -23,6 +23,7 @@ import org.apache.myfaces.tobago.component.UIFlexLayout;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
+import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
@@ -77,11 +78,12 @@ public class FlexLayoutRenderer extends RendererBase {
           .replace("*", "1").replaceAll("(\\d+[a-zA-Z]{2})", "{\"measure\":\"$1\"}"));
       b.append("]}");
     }
-    boolean vertically = rows.contains(";");
-    writer.writeClassAttribute(
-        Classes.create(flexLayout, vertically ? Markup.VERTICALLY : Markup.NULL));
     // todo: const, utils, etc.
     writer.writeAttribute(DataAttributes.LAYOUT, b.toString(), true);
+    boolean vertically = rows.contains(";");
+    writer.writeClassAttribute(
+        Classes.create(flexLayout, vertically ? Markup.VERTICALLY : Markup.NULL),
+        TobagoClass.valueOf(flexLayout.getAlignItems()));
   }
 
   @Override

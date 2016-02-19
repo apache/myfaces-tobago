@@ -19,6 +19,10 @@
 
 package org.apache.myfaces.tobago.renderkit.css;
 
+import org.apache.myfaces.tobago.layout.AlignItems;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * TBD: preliminary
  *
@@ -26,6 +30,11 @@ package org.apache.myfaces.tobago.renderkit.css;
  */
 public enum TobagoClass implements CssItem {
 
+  ALIGN_ITEMS__BASELINE("alignItems-baseline"),
+  ALIGN_ITEMS__CENTER("alignItems-center"),
+  ALIGN_ITEMS__FLEX_END("alignItems-flexEnd"),
+  ALIGN_ITEMS__FLEX_START("alignItems-flexStart"),
+  ALIGN_ITEMS__STRETCH("alignItems-stretch"),
   DROPDOWN_SUBMENU("dropdown-submenu"),
   FLEX_LAYOUT("tobago-flexLayout"),
   LABEL("tobago-label"),
@@ -39,6 +48,8 @@ public enum TobagoClass implements CssItem {
   SHEET__PAGING_OUTPUT("tobago-sheet-pagingOutput"),
   SUGGEST("tobago-suggest");
 
+  private static final Logger LOG = LoggerFactory.getLogger(TobagoClass.class);
+
   private final String name;
 
   TobagoClass(final String name) {
@@ -47,6 +58,28 @@ public enum TobagoClass implements CssItem {
 
   public String getName() {
     return name;
+  }
+
+  public static TobagoClass valueOf(AlignItems alignItems) {
+    if (alignItems == null) {
+      return null;
+    } else {
+      switch (alignItems) {
+        case baseline:
+          return ALIGN_ITEMS__BASELINE;
+        case center:
+          return ALIGN_ITEMS__CENTER;
+        case flexEnd:
+          return ALIGN_ITEMS__FLEX_END;
+        case flexStart:
+          return ALIGN_ITEMS__FLEX_START;
+        case stretch:
+          return ALIGN_ITEMS__STRETCH;
+        default:
+          LOG.warn("Undefined alignItems: '{}'.", alignItems);
+          return null;
+      }
+    }
   }
 
 }
