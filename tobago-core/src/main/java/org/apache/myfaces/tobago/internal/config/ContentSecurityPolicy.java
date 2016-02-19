@@ -65,10 +65,10 @@ public class ContentSecurityPolicy {
 
   @Override
   public String toString() {
-    return "ContentSecurityPolicy{" +
-        "mode=" + mode +
-        ", directiveList=" + directiveList +
-        '}';
+    return "ContentSecurityPolicy{"
+        + "mode=" + mode
+        + ", directiveList=" + directiveList
+        + '}';
   }
 
   public static enum Mode {
