@@ -465,7 +465,8 @@ public class PageRenderer extends RendererBase {
       if (StringUtils.isNotBlank(src)) {
         writer.startElement(HtmlElements.SCRIPT);
         writer.writeAttribute(HtmlAttributes.SRC, src, true);
-        writer.writeAttribute(HtmlAttributes.DEFER, true);
+//   XXX with defer activated, pages are not shown reliable
+//        writer.writeAttribute(HtmlAttributes.DEFER, true);
         writer.writeAttribute(HtmlAttributes.TYPE, "text/javascript", false);
         writer.endElement(HtmlElements.SCRIPT);
       }
