@@ -20,10 +20,7 @@
 package org.apache.myfaces.tobago.renderkit.html.util;
 
 import org.apache.myfaces.tobago.component.Attributes;
-import org.apache.myfaces.tobago.component.UIColumnEvent;
-import org.apache.myfaces.tobago.component.UICommand;
 import org.apache.myfaces.tobago.component.UIForm;
-import org.apache.myfaces.tobago.component.UISheet;
 import org.apache.myfaces.tobago.component.Visual;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
@@ -303,31 +300,6 @@ public final class HtmlRendererUtils {
     if (commandMap != null) {
       writer.writeAttribute(DataAttributes.COMMANDS, JsonUtils.encode(commandMap), true);
     }
-  }
-
-  public static boolean renderSheetCommands(
-      final UISheet sheet, final FacesContext facesContext, final TobagoResponseWriter writer) throws IOException {
-    CommandMap commandMap = null;
-    for (final UIComponent child : sheet.getChildren()) {
-      if (child instanceof UIColumnEvent) {
-        final UIColumnEvent columnEvent = (UIColumnEvent) child;
-        if (columnEvent.isRendered()) {
-          final UIComponent selectionChild = child.getChildren().get(0);
-          if (selectionChild != null && selectionChild instanceof AbstractUICommand && selectionChild.isRendered()) {
-            final UICommand action = (UICommand) selectionChild;
-            if (commandMap == null) {
-              commandMap = new CommandMap();
-            }
-            commandMap.addCommand(columnEvent.getEvent(), new Command(facesContext, action, (String) null));
-          }
-        }
-      }
-    }
-    if (commandMap != null) {
-      writer.writeAttribute(DataAttributes.ROW_ACTION, JsonUtils.encode(commandMap), true);
-      return true;
-    }
-    return false;
   }
 
   public static void encodeContextMenu(

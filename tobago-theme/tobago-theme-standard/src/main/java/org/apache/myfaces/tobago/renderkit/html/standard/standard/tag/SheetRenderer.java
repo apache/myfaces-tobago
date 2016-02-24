@@ -22,6 +22,7 @@ package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.RendererTypes;
+import org.apache.myfaces.tobago.component.UIColumnEvent;
 import org.apache.myfaces.tobago.component.UIColumnSelector;
 import org.apache.myfaces.tobago.component.UICommand;
 import org.apache.myfaces.tobago.component.UILink;
@@ -35,6 +36,7 @@ import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.event.PageAction;
 import org.apache.myfaces.tobago.internal.component.AbstractUIColumnBase;
 import org.apache.myfaces.tobago.internal.component.AbstractUIColumnNode;
+import org.apache.myfaces.tobago.internal.component.AbstractUICommand;
 import org.apache.myfaces.tobago.internal.component.AbstractUIData;
 import org.apache.myfaces.tobago.internal.component.AbstractUIMenu;
 import org.apache.myfaces.tobago.internal.component.AbstractUIOut;
@@ -99,13 +101,56 @@ public class SheetRenderer extends RendererBase {
   protected static final String SELECTOR_DROPDOWN = ComponentUtils.SUB_SEPARATOR + "selectorDropdown";
 
   @Override
-  public void encodeBegin(final FacesContext facesContext, final UIComponent component) {
+  public void decode(final FacesContext facesContext, final UIComponent component) {
+
     final UISheet sheet = (UISheet) component;
-    ensureHeader(facesContext, sheet);
-    sheet.init(facesContext);
+
+    String key = sheet.getClientId(facesContext) + WIDTHS;
+
+    final Map requestParameterMap = facesContext.getExternalContext().getRequestParameterMap();
+    if (requestParameterMap.containsKey(key)) {
+      final String widths = (String) requestParameterMap.get(key);
+      if (widths.trim().length() > 0) {
+        ComponentUtils.setAttribute(sheet, Attributes.widthListString, widths);
+      }
+    }
+
+    key = sheet.getClientId(facesContext) + SELECTED;
+    if (requestParameterMap.containsKey(key)) {
+      final String selected = (String) requestParameterMap.get(key);
+      if (LOG.isDebugEnabled()) {
+        LOG.debug("selected = " + selected);
+      }
+      List<Integer> selectedRows;
+      try {
+        selectedRows = StringUtils.parseIntegerList(selected);
+      } catch (final NumberFormatException e) {
+        LOG.warn(selected, e);
+        selectedRows = Collections.emptyList();
+      }
+
+      ComponentUtils.setAttribute(sheet, Attributes.selectedListString, selectedRows);
+    }
+
+    final String value = facesContext.getExternalContext().getRequestParameterMap().get(
+        sheet.getClientId(facesContext) + SCROLL_POSITION);
+    if (value != null) {
+      sheet.getState().getScrollPosition().update(value);
+    }
+    RenderUtils.decodedStateOfTreeData(facesContext, sheet);
+
+    for (UIComponent facet : sheet.getFacets().values()) {
+      facet.decode(facesContext);
+    }
   }
 
-  private void ensureHeader(final FacesContext facesContext, final UISheet sheet) {
+  @Override
+  public void encodeBegin(final FacesContext facesContext, final UIComponent component) throws IOException {
+
+    final UISheet sheet = (UISheet) component;
+    final String sheetId = sheet.getClientId(facesContext);
+    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+
     UIComponent header = sheet.getHeader();
     if (header == null) {
       header = CreateComponentUtils.createComponent(facesContext, UIPanel.COMPONENT_TYPE, null, "_header");
@@ -134,14 +179,7 @@ public class SheetRenderer extends RendererBase {
       }
       sheet.setHeader(header);
     }
-  }
-
-  @Override
-  public void encodeEnd(final FacesContext facesContext, final UIComponent uiComponent) throws IOException {
-
-    final UISheet sheet = (UISheet) uiComponent;
-    final String sheetId = sheet.getClientId(facesContext);
-    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+    sheet.init(facesContext);
 
     // Outer sheet div
     writer.startElement(HtmlElements.DIV);
@@ -158,25 +196,20 @@ public class SheetRenderer extends RendererBase {
         ComponentUtils.evaluateClientIds(facesContext, sheet, sheet.getRenderedPartially()), false);
     writer.writeAttribute(DataAttributes.SELECTION_MODE, sheet.getSelectable().name(), false);
     writer.writeAttribute(DataAttributes.FIRST, Integer.toString(sheet.getFirst()), false);
-
-    final boolean rowAction = HtmlRendererUtils.renderSheetCommands(sheet, facesContext, writer);
-
-    renderSheet(facesContext, sheet, rowAction);
-
-    writer.endElement(HtmlElements.DIV);
   }
 
-  private void renderSheet(final FacesContext facesContext, final UISheet sheet, final boolean hasClickAction)
-      throws IOException {
+  @Override
+  public void encodeEnd(final FacesContext facesContext, final UIComponent uiComponent) throws IOException {
+
+    final UISheet sheet = (UISheet) uiComponent;
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+
+    final boolean rowAction = renderSheetCommands(sheet, facesContext, writer);
     final String sheetId = sheet.getClientId(facesContext);
-
     final Selectable selectable = sheet.getSelectable();
-
     final Application application = facesContext.getApplication();
     final SheetState state = sheet.getSheetState(facesContext);
     final List<Integer> columnWidths = sheet.getWidthList();
-
     final List<Integer> selectedRows = getSelectedRows(sheet, state);
     final List<AbstractUIColumnBase> renderedColumnList = sheet.getRenderedColumns();
 
@@ -224,7 +257,7 @@ public class SheetRenderer extends RendererBase {
     writer.startElement(HtmlElements.DIV);
     writer.writeIdAttribute(sheetId + ComponentUtils.SUB_SEPARATOR + "data_div");
     writer.writeClassAttribute(Classes.create(sheet, "body"));
-      
+
     writer.startElement(HtmlElements.TABLE);
     writer.writeAttribute(HtmlAttributes.CELLSPACING, "0", false);
     writer.writeAttribute(HtmlAttributes.CELLPADDING, "0", false);
@@ -313,7 +346,7 @@ public class SheetRenderer extends RendererBase {
         if (columnIndex == 0) {
           markup = markup.add(Markup.FIRST);
         }
-        if (hasClickAction) {
+        if (rowAction) {
           markup = markup.add(Markup.CLICKABLE);
         }
         if (isPure(column)) {
@@ -591,6 +624,8 @@ public class SheetRenderer extends RendererBase {
       writer.writeAttribute(HtmlAttributes.VALUE, expandedValue.toString(), false);
       writer.endElement(HtmlElements.INPUT);
     }
+
+    writer.endElement(HtmlElements.DIV);
   }
 
   private void writeColgroup(final TobagoResponseWriter writer, final List<Integer> columnWidths) throws IOException {
@@ -631,51 +666,6 @@ public class SheetRenderer extends RendererBase {
     return false;
   }
 
-  @Override
-  public void decode(final FacesContext facesContext, final UIComponent component) {
-    super.decode(facesContext, component);
-
-    final UISheet sheet = (UISheet) component;
-
-    String key = sheet.getClientId(facesContext) + WIDTHS;
-
-    final Map requestParameterMap = facesContext.getExternalContext().getRequestParameterMap();
-    if (requestParameterMap.containsKey(key)) {
-      final String widths = (String) requestParameterMap.get(key);
-      if (widths.trim().length() > 0) {
-        ComponentUtils.setAttribute(sheet, Attributes.widthListString, widths);
-      }
-    }
-
-    key = sheet.getClientId(facesContext) + SELECTED;
-    if (requestParameterMap.containsKey(key)) {
-      final String selected = (String) requestParameterMap.get(key);
-      if (LOG.isDebugEnabled()) {
-        LOG.debug("selected = " + selected);
-      }
-      List<Integer> selectedRows;
-      try {
-        selectedRows = StringUtils.parseIntegerList(selected);
-      } catch (final NumberFormatException e) {
-        LOG.warn(selected, e);
-        selectedRows = Collections.emptyList();
-      }
-
-      ComponentUtils.setAttribute(sheet, Attributes.selectedListString, selectedRows);
-    }
-
-    final String value = facesContext.getExternalContext().getRequestParameterMap().get(
-        sheet.getClientId(facesContext) + SCROLL_POSITION);
-    if (value != null) {
-      sheet.getState().getScrollPosition().update(value);
-    }
-    RenderUtils.decodedStateOfTreeData(facesContext, sheet);
-
-    for (UIComponent facet : sheet.getFacets().values()) {
-      facet.decode(facesContext);
-    }
-  }
-
   private Markup markupForLeftCenterRight(final ShowPosition position) {
     switch (position) {
       case left:
@@ -687,22 +677,6 @@ public class SheetRenderer extends RendererBase {
       default:
         return Markup.NULL;
     }
-  }
-
-  private String checkPagingAttribute(final String name) {
-    if (isNotNone(name)) {
-      return name;
-    } else {
-      if (!"none".equals(name)) {
-        LOG.warn("Illegal value in sheets paging attribute: '" + name + "'");
-      }
-      return "none";
-    }
-  }
-
-  private boolean isNotNone(final String value) {
-    // todo: use enum type instead of string
-    return "left".equals(value) || "center".equals(value) || "right".equals(value);
   }
 
   @Override
@@ -1072,6 +1046,7 @@ public class SheetRenderer extends RendererBase {
     if (command == null) {
       command = (UICommand) application.createComponent(UICommand.COMPONENT_TYPE);
       command.setRendererType(RendererTypes.SHEET_PAGE_COMMAND);
+//      command.addActionListener(new SheetActionListener()); XXX to activate: remove RendererType
       command.setRendered(true);
       ComponentUtils.setAttribute(command, Attributes.pageAction, action);
       command.setDisabled(disabled);
@@ -1084,4 +1059,30 @@ public class SheetRenderer extends RendererBase {
   public void encodeChildren(final FacesContext context, final UIComponent component) throws IOException {
     // DO Nothing
   }
+
+  public static boolean renderSheetCommands(
+      final UISheet sheet, final FacesContext facesContext, final TobagoResponseWriter writer) throws IOException {
+    CommandMap commandMap = null;
+    for (final UIComponent child : sheet.getChildren()) {
+      if (child instanceof UIColumnEvent) {
+        final UIColumnEvent columnEvent = (UIColumnEvent) child;
+        if (columnEvent.isRendered()) {
+          final UIComponent selectionChild = child.getChildren().get(0);
+          if (selectionChild != null && selectionChild instanceof AbstractUICommand && selectionChild.isRendered()) {
+            final UICommand action = (UICommand) selectionChild;
+            if (commandMap == null) {
+              commandMap = new CommandMap();
+            }
+            commandMap.addCommand(columnEvent.getEvent(), new Command(facesContext, action, (String) null));
+          }
+        }
+      }
+    }
+    if (commandMap != null) {
+      writer.writeAttribute(DataAttributes.ROW_ACTION, JsonUtils.encode(commandMap), true);
+      return true;
+    }
+    return false;
+  }
+
 }

@@ -23,6 +23,7 @@ import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.component.UIColumn;
+import org.apache.myfaces.tobago.component.UIColumnEvent;
 import org.apache.myfaces.tobago.component.UIColumnSelector;
 import org.apache.myfaces.tobago.component.UICommand;
 import org.apache.myfaces.tobago.component.UIReload;
@@ -32,6 +33,7 @@ import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.event.PageAction;
 import org.apache.myfaces.tobago.internal.component.AbstractUIColumn;
 import org.apache.myfaces.tobago.internal.component.AbstractUIColumnBase;
+import org.apache.myfaces.tobago.internal.component.AbstractUICommand;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.layout.ShowPosition;
 import org.apache.myfaces.tobago.layout.TextAlign;
@@ -208,7 +210,7 @@ public class SheetRenderer extends RendererBase {
     final String clientId = sheet.getClientId(facesContext);
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
     final List<AbstractUIColumnBase> columns = sheet.getRenderedColumns();
-    final boolean hasClickAction = HtmlRendererUtils.renderSheetCommands(sheet, facesContext, writer);
+    final boolean hasClickAction = renderSheetCommands(sheet, facesContext, writer);
     final List<Integer> selectedRows = getSelectedRows(sheet);
 
     writer.startElement(HtmlElements.TBODY);
@@ -661,6 +663,31 @@ LOG.info("" + column);
       default:
         return Markup.NULL;
     }
+  }
+
+  public static boolean renderSheetCommands(
+      final UISheet sheet, final FacesContext facesContext, final TobagoResponseWriter writer) throws IOException {
+    CommandMap commandMap = null;
+    for (final UIComponent child : sheet.getChildren()) {
+      if (child instanceof UIColumnEvent) {
+        final UIColumnEvent columnEvent = (UIColumnEvent) child;
+        if (columnEvent.isRendered()) {
+          final UIComponent selectionChild = child.getChildren().get(0);
+          if (selectionChild != null && selectionChild instanceof AbstractUICommand && selectionChild.isRendered()) {
+            final UICommand action = (UICommand) selectionChild;
+            if (commandMap == null) {
+              commandMap = new CommandMap();
+            }
+            commandMap.addCommand(columnEvent.getEvent(), new Command(facesContext, action, (String) null));
+          }
+        }
+      }
+    }
+    if (commandMap != null) {
+      writer.writeAttribute(DataAttributes.ROW_ACTION, JsonUtils.encode(commandMap), true);
+      return true;
+    }
+    return false;
   }
 
 }
