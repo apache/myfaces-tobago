@@ -38,13 +38,18 @@ public class SheetPageCommandRenderer extends LinkRenderer {
   @Override
   public void decode(final FacesContext facesContext, final UIComponent component) {
     final String actionId = FacesContextUtils.getActionId(facesContext);
+    final String sourceId = facesContext.getExternalContext().getRequestParameterMap().get("javax.faces.source");
     final String clientId = component.getClientId(facesContext);
     if (LOG.isDebugEnabled()) {
       LOG.debug("actionId = '" + actionId + "'");
+      LOG.debug("sourceId = '" + sourceId + "'");
       LOG.debug("clientId = '" + clientId + "'");
     }
 
-    if (actionId != null && actionId.equals(clientId)) {
+    // XXX todo: remove actionId
+    if (actionId != null && actionId.equals(clientId) || sourceId != null && sourceId.equals(clientId)) {
+
+      final String id = sourceId != null ? sourceId : actionId;
 
       final PageAction action = (PageAction) ComponentUtils.getAttribute(component, Attributes.pageAction);
       final PageActionEvent event = new PageActionEvent(component.getParent(), action);
@@ -55,7 +60,7 @@ public class SheetPageCommandRenderer extends LinkRenderer {
           Integer target = (Integer) ComponentUtils.getAttribute(component, Attributes.pagingTarget);
           if (target == null) {
             final Map map = facesContext.getExternalContext().getRequestParameterMap();
-            final Object value = map.get(actionId + ComponentUtils.SUB_SEPARATOR + "value");
+            final Object value = map.get(id + ComponentUtils.SUB_SEPARATOR + "value");
             try {
               target = Integer.parseInt((String) value);
             } catch (final NumberFormatException e) {

@@ -38,13 +38,15 @@ public abstract class CommandRendererBase extends RendererBase {
       return;
     }
     final String actionId = FacesContextUtils.getActionId(facesContext);
+    final String sourceId = facesContext.getExternalContext().getRequestParameterMap().get("javax.faces.source");
     final String clientId = component.getClientId(facesContext);
     if (LOG.isDebugEnabled()) {
       LOG.debug("actionId = '" + actionId + "'");
+      LOG.debug("sourceId = '" + sourceId + "'");
       LOG.debug("clientId = '" + clientId + "'");
     }
-    if (actionId != null && actionId.equals(clientId)) {
-
+    // XXX todo: remove actionId
+    if (actionId != null && actionId.equals(clientId) || sourceId != null && sourceId.equals(clientId)) {
       if (LOG.isDebugEnabled()) {
         LOG.debug("queueEvent = '" + actionId + "'");
       }

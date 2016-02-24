@@ -670,6 +670,10 @@ public class SheetRenderer extends RendererBase {
       sheet.getState().getScrollPosition().update(value);
     }
     RenderUtils.decodedStateOfTreeData(facesContext, sheet);
+
+    for (UIComponent facet : sheet.getFacets().values()) {
+      facet.decode(facesContext);
+    }
   }
 
   private Markup markupForLeftCenterRight(final ShowPosition position) {
