@@ -489,8 +489,8 @@ public class SheetRenderer extends RendererBase {
             writer.writeText(Integer.toString(first));
             writer.endElement(HtmlElements.SPAN);
             writer.startElement(HtmlElements.INPUT);
-            writer.writeIdAttribute(pagerCommandId + ComponentUtils.SUB_SEPARATOR + "value");
-            writer.writeNameAttribute(pagerCommandId + ComponentUtils.SUB_SEPARATOR + "value");
+            writer.writeIdAttribute(pagerCommandId);
+            writer.writeNameAttribute(pagerCommandId);
             writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.TEXT);
             writer.writeClassAttribute(TobagoClass.SHEET__PAGING_INPUT);
             writer.writeAttribute(HtmlAttributes.VALUE, first);
@@ -584,8 +584,8 @@ public class SheetRenderer extends RendererBase {
             writer.writeText(Integer.toString(first));
             writer.endElement(HtmlElements.SPAN);
             writer.startElement(HtmlElements.INPUT);
-            writer.writeIdAttribute(pagerCommandId + ComponentUtils.SUB_SEPARATOR + "value");
-            writer.writeNameAttribute(pagerCommandId + ComponentUtils.SUB_SEPARATOR + "value");
+            writer.writeIdAttribute(pagerCommandId);
+            writer.writeNameAttribute(pagerCommandId);
             writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.TEXT);
             writer.writeClassAttribute(TobagoClass.SHEET__PAGING_INPUT);
             writer.writeAttribute(HtmlAttributes.VALUE, first);

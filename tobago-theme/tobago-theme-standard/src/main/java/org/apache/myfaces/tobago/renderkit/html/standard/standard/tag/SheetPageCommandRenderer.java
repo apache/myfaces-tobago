@@ -60,7 +60,7 @@ public class SheetPageCommandRenderer extends LinkRenderer {
           Integer target = (Integer) ComponentUtils.getAttribute(component, Attributes.pagingTarget);
           if (target == null) {
             final Map map = facesContext.getExternalContext().getRequestParameterMap();
-            final Object value = map.get(id + ComponentUtils.SUB_SEPARATOR + "value");
+            final Object value = map.get(id);
             try {
               target = Integer.parseInt((String) value);
             } catch (final NumberFormatException e) {

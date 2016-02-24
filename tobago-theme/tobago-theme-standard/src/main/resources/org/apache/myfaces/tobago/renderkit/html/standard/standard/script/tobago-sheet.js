@@ -443,8 +443,7 @@ Tobago.Sheet.hideInputOrSubmit = function(input) {
   var sheetId = input.parents(".tobago-sheet:first").attr("id");
   output.html(input.val());
   if (changed) {
-    var commandId = input.attr("id").substr(0, input.attr("id").lastIndexOf("::value"));
-    Tobago.Sheets.get(sheetId).reloadWithAction(input.get(0), commandId);
+    Tobago.Sheets.get(sheetId).reloadWithAction(input.get(0), input.attr("id"));
   } else {
     console.info("no update needed"); // @DEV_ONLY
     input.hide();
