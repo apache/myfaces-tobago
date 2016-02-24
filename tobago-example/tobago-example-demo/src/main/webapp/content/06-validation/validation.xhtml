@@ -27,31 +27,32 @@
       <tc:gridLayout rows="80px;auto;*;auto"/>
     </f:facet>
 
-    <tc:out escape="false" value="#{overviewBundle.validation_text}"/>
+    <tc:out escape="false" value="#{overviewBundle.validation_text}" id="text"/>
 
     <tc:panel>
       <f:facet name="layout">
         <tc:gridLayout columns="1*;1*"/>
       </f:facet>
-      <tc:in label="#{overviewBundle.validation_number}" markup="number" required="true"
+      <tc:in label="#{overviewBundle.validation_number}" markup="number" required="true" id="number"
              value="#{validationBean.number}">
         <f:validateLength minimum="7" maximum="7"/>
         <f:validateLongRange maximum="9000000"/>
       </tc:in>
-      <tc:in label="#{overviewBundle.validation_price}" markup="number" value="#{validationBean.price}">
+      <tc:in label="#{overviewBundle.validation_price}" markup="number" value="#{validationBean.price}" id="price">
         <f:validateDoubleRange minimum="0.01" maximum="1000"/>
         <f:convertNumber pattern="#,##0.00 ¤" currencySymbol="€" type="currency" />
       </tc:in>
       <tc:in label="#{overviewBundle.validation_custom}" validator="#{overviewController.customValidator}"
-             value="#{validationBean.custom}">
+             value="#{validationBean.custom}" id="custom">
       </tc:in>
     </tc:panel>
 
-    <tc:textarea label="#{overviewBundle.validation_description}" required="true" value="#{validationBean.text}"/>
+    <tc:textarea label="#{overviewBundle.validation_description}" required="true" value="#{validationBean.text}"
+                 id="area"/>
 
     <tc:flowLayout>
       <tc:style textAlign="right"/>
-      <tc:button action="#{overviewController.noop}" label="#{overviewBundle.validation_submit}"
+      <tc:button action="#{overviewController.noop}" label="#{overviewBundle.validation_submit}" id="noop"
           defaultCommand="true"/>
     </tc:flowLayout>
 
