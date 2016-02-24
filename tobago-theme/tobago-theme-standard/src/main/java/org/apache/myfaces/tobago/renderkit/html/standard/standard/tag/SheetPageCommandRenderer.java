@@ -22,7 +22,6 @@ package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.event.PageAction;
 import org.apache.myfaces.tobago.event.PageActionEvent;
-import org.apache.myfaces.tobago.internal.util.FacesContextUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,19 +36,14 @@ public class SheetPageCommandRenderer extends LinkRenderer {
 
   @Override
   public void decode(final FacesContext facesContext, final UIComponent component) {
-    final String actionId = FacesContextUtils.getActionId(facesContext);
     final String sourceId = facesContext.getExternalContext().getRequestParameterMap().get("javax.faces.source");
     final String clientId = component.getClientId(facesContext);
     if (LOG.isDebugEnabled()) {
-      LOG.debug("actionId = '" + actionId + "'");
       LOG.debug("sourceId = '" + sourceId + "'");
       LOG.debug("clientId = '" + clientId + "'");
     }
 
-    // XXX todo: remove actionId
-    if (actionId != null && actionId.equals(clientId) || sourceId != null && sourceId.equals(clientId)) {
-
-      final String id = sourceId != null ? sourceId : actionId;
+    if (clientId.equals(sourceId)) {
 
       final PageAction action = (PageAction) ComponentUtils.getAttribute(component, Attributes.pageAction);
       final PageActionEvent event = new PageActionEvent(component.getParent(), action);
@@ -60,7 +54,7 @@ public class SheetPageCommandRenderer extends LinkRenderer {
           Integer target = (Integer) ComponentUtils.getAttribute(component, Attributes.pagingTarget);
           if (target == null) {
             final Map map = facesContext.getExternalContext().getRequestParameterMap();
-            final Object value = map.get(id);
+            final Object value = map.get(clientId);
             try {
               target = Integer.parseInt((String) value);
             } catch (final NumberFormatException e) {

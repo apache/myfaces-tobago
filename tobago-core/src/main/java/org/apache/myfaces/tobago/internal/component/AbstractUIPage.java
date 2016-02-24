@@ -61,8 +61,6 @@ public abstract class AbstractUIPage extends AbstractUIForm implements Visual {
 
   private String formId;
 
-  private String actionId;
-
   @Override
   public boolean getRendersChildren() {
     return true;
@@ -228,24 +226,24 @@ public abstract class AbstractUIPage extends AbstractUIForm implements Visual {
     // reset old submitted state
     setSubmitted(false);
 
-    String currentActionId = getActionId();
+    String sourceId = facesContext.getExternalContext().getRequestParameterMap().get("javax.faces.source");
     if (LOG.isDebugEnabled()) {
-      LOG.debug("actionId = '" + currentActionId + "'");
+      LOG.debug("sourceId = '" + sourceId + "'");
     }
 
     final UIViewRoot viewRoot = facesContext.getViewRoot();
-    UIComponent command = viewRoot.findComponent(currentActionId);
+    UIComponent command = viewRoot.findComponent(sourceId);
 
     // TODO: remove this if block if proven this never happens anymore
     if (command == null
-        && currentActionId != null && currentActionId.matches(".*:\\d+:.*")) {
+        && sourceId != null && sourceId.matches(".*:\\d+:.*")) {
       // If currentActionId component was inside a sheet the id contains the
       // rowIndex and is therefore not found here.
       // We do not need the row here because we want just to find the
       // related form, so removing the rowIndex will help here.
-      currentActionId = currentActionId.replaceAll(":\\d+:", ":");
+      sourceId = sourceId.replaceAll(":\\d+:", ":");
       try {
-        command = viewRoot.findComponent(currentActionId);
+        command = viewRoot.findComponent(sourceId);
         //LOG.info("command = \"" + command + "\"", new Exception());
       } catch (final Exception e) {
         // ignore
@@ -253,7 +251,7 @@ public abstract class AbstractUIPage extends AbstractUIForm implements Visual {
     }
 
     if (LOG.isTraceEnabled()) {
-      LOG.trace(currentActionId);
+      LOG.trace(sourceId);
       LOG.trace("command:{}", command);
       LOG.trace(DebugUtils.toString(viewRoot, 0));
     }
@@ -298,11 +296,10 @@ public abstract class AbstractUIPage extends AbstractUIForm implements Visual {
     }
   }
 
-  public String getActionId() {
-    return actionId;
-  }
-
-  public void setActionId(final String actionId) {
-    this.actionId = actionId;
+  /** @deprecated XXX delete me */
+  @Deprecated
+  private String getActionId() {
+    LOG.warn("XXX should not be called, because of AJAX cleanup...");
+    return null;
   }
 }

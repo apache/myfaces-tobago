@@ -19,7 +19,6 @@
 
 package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
-import org.apache.myfaces.tobago.internal.util.FacesContextUtils;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 
 import javax.faces.component.UIComponent;
@@ -30,9 +29,9 @@ public class FormRenderer extends RendererBase {
 
   public void decode(final FacesContext facesContext, final UIComponent component) {
     final UIForm form = (UIForm) component;
-    final String actionId = FacesContextUtils.getActionId(facesContext);
+    final String sourceId = facesContext.getExternalContext().getRequestParameterMap().get("javax.faces.source");
     final String clientId = form.getClientId(facesContext);
-    if (actionId != null && actionId.startsWith(clientId)) {
+    if (sourceId != null && sourceId.startsWith(clientId)) {
       form.setSubmitted(true);
     }
     super.decode(facesContext, form);

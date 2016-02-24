@@ -19,7 +19,6 @@
 
 package org.apache.myfaces.tobago.renderkit;
 
-import org.apache.myfaces.tobago.internal.util.FacesContextUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,18 +36,15 @@ public abstract class CommandRendererBase extends RendererBase {
     if (ComponentUtils.isOutputOnly(component)) {
       return;
     }
-    final String actionId = FacesContextUtils.getActionId(facesContext);
     final String sourceId = facesContext.getExternalContext().getRequestParameterMap().get("javax.faces.source");
     final String clientId = component.getClientId(facesContext);
     if (LOG.isDebugEnabled()) {
-      LOG.debug("actionId = '" + actionId + "'");
       LOG.debug("sourceId = '" + sourceId + "'");
       LOG.debug("clientId = '" + clientId + "'");
     }
-    // XXX todo: remove actionId
-    if (actionId != null && actionId.equals(clientId) || sourceId != null && sourceId.equals(clientId)) {
+    if (clientId.equals(sourceId)) {
       if (LOG.isDebugEnabled()) {
-        LOG.debug("queueEvent = '" + actionId + "'");
+        LOG.debug("queueEvent = '" + clientId + "'");
       }
       commandActivated(component);
     }

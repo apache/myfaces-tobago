@@ -30,7 +30,6 @@ import org.apache.myfaces.tobago.renderkit.html.MarkupLanguageAttributes;
 import org.apache.myfaces.tobago.renderkit.html.standard.standard.tag.GridLayoutRenderer;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
-import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -55,8 +54,9 @@ public class SplitLayoutRenderer extends GridLayoutRenderer {
 
   @Override
   public void decode(final FacesContext facesContext, final UIComponent component) {
+    final String sourceId = facesContext.getExternalContext().getRequestParameterMap().get("javax.faces.source");
     final String clientId = component.getClientId();
-    if (clientId.equals(ComponentUtils.findPage(facesContext).getActionId())) {
+    if (clientId.equals(sourceId)) {
       // only decode and update layout at resize request
       final Map<String, String> parameterMap = facesContext.getExternalContext().getRequestParameterMap();
       final String position = parameterMap.get(clientId + POSITION_ID_POSTFIX);

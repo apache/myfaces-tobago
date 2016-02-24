@@ -490,4 +490,15 @@ public final class StringUtils {
     }
     return true;
   }
+
+  public static boolean startsWith(String string, String prefix) {
+    if (string == null || prefix == null) {
+      return (string == null && prefix == null);
+    }
+    if (prefix.length() > string.length()) {
+      return false;
+    }
+    return string.regionMatches(0, prefix, 0, prefix.length());
+  }
+
 }

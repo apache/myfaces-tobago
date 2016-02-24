@@ -80,14 +80,6 @@ public class PageRenderer extends RendererBase {
     final AbstractUIPage page = (AbstractUIPage) component;
     final String clientId = page.getClientId(facesContext);
 
-    final String actionIdName = clientId + ComponentUtils.SUB_SEPARATOR + "form-action";
-    final String newActionId = facesContext.getExternalContext().getRequestParameterMap().get(actionIdName);
-    if (LOG.isDebugEnabled()) {
-      LOG.debug("action = " + newActionId);
-    }
-    page.setActionId(newActionId);
-    FacesContextUtils.setActionId(facesContext, newActionId);
-
     final ExternalContext externalContext = facesContext.getExternalContext();
     // last focus
     final String lastFocusId =
@@ -260,10 +252,12 @@ public class PageRenderer extends RendererBase {
     // TODO evaluate 'accept' attribute usage
     //writer.writeAttribute(HtmlAttributes.ACCEPT, );
     writer.writeAttribute(DataAttributes.CONTEXT_PATH, externalContext.getRequestContextPath(), true);
+
     writer.startElement(HtmlElements.INPUT);
     writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN);
-    writer.writeNameAttribute(clientId + ComponentUtils.SUB_SEPARATOR + "form-action");
-    writer.writeIdAttribute(clientId + ComponentUtils.SUB_SEPARATOR + "form-action");
+    writer.writeNameAttribute("javax.faces.source");
+    writer.writeIdAttribute("javax.faces.source");
+    writer.writeAttribute(HtmlAttributes.DISABLED, true);
     writer.endElement(HtmlElements.INPUT);
 
     writer.startElement(HtmlElements.INPUT);

@@ -57,12 +57,6 @@ var Tobago = {
   form: null,
 
   /**
-   * The hidden html input object for submitted actionId.
-   * set via init function
-   */
-  action: null,
-
-  /**
    * The id of the element which should became the focus after loading.
    * Set via renderer if requested.
    */
@@ -196,7 +190,6 @@ var Tobago = {
     this.page = page.get(0);
     this.form = page.find("form").get(0); // find() seems to be faster than children()
     this.addBindEventListener(this.form, 'submit', this, 'onSubmit');
-    this.action = this.element(this.page.id + this.SUB_COMPONENT_SEP + 'form-action');
 
     this.addBindEventListener(window, 'unload', this, 'onUnload');
 
@@ -326,7 +319,6 @@ var Tobago = {
 
     delete this.page;
     delete this.form;
-    delete this.action;
     delete this.lastFocusId;
   },
 
@@ -399,7 +391,9 @@ var Tobago = {
       if (!this.isSubmit) {
         this.isSubmit = true;
         var oldTarget = Tobago.form.target;
-        Tobago.action.value = actionId;
+        var $sourceHidden = jQuery(Tobago.Utils.escapeClientId("javax.faces.source"));
+        $sourceHidden.prop("disabled", false);
+        $sourceHidden.val(actionId);
         if (options.target) {
           Tobago.form.target = options.target;
         }
@@ -1900,7 +1894,7 @@ Tobago.Transport.JqueryTransport = {
 
     return Tobago.Transport.request(function() {
       requestObject.url = requestOptions.url;
-      Tobago.action.value = requestOptions.actionId;
+      jQuery(Tobago.Utils.escapeClientId("javax.faces.source")).val(requestOptions.actionId);
       Tobago.partialRequestIds.value = requestOptions.ajaxComponentIds;
       requestObject.data = jQuery(Tobago.form).serialize();
       requestOptions.xhr = jQuery.ajax(requestObject);

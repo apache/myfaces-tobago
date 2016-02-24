@@ -21,10 +21,9 @@ package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.internal.component.AbstractUIInput;
-import org.apache.myfaces.tobago.internal.util.FacesContextUtils;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
-import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
+import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
@@ -47,8 +46,9 @@ public class InRenderer extends InputRendererBase {
   @Override
   public void decode(final FacesContext facesContext, final UIComponent component) {
     super.decode(facesContext, component);
+    final String sourceId = facesContext.getExternalContext().getRequestParameterMap().get("javax.faces.source");
     final String clientId = component.getClientId(facesContext);
-    if (clientId.equals(FacesContextUtils.getActionId(facesContext))) {
+    if (clientId.equals(sourceId)) {
       // this is a inputSuggest request -> render response
       facesContext.renderResponse();
     }

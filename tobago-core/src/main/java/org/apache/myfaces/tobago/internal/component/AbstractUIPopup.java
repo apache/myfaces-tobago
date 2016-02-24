@@ -21,7 +21,7 @@ package org.apache.myfaces.tobago.internal.component;
 
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Visual;
-import org.apache.myfaces.tobago.internal.util.FacesContextUtils;
+import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 
 import javax.el.ValueExpression;
@@ -74,17 +74,17 @@ public abstract class AbstractUIPopup extends AbstractUIPanel
 
   private boolean isSubmitted() {
     final FacesContext facesContext = getFacesContext();
-    final String action = FacesContextUtils.getActionId(facesContext);
-    return action != null && action.startsWith(
-        getClientId(facesContext) + UINamingContainer.getSeparatorChar(facesContext));
+    final String sourceId = facesContext.getExternalContext().getRequestParameterMap().get("javax.faces.source");
+    return StringUtils.startsWith(
+        sourceId, getClientId(facesContext) + UINamingContainer.getSeparatorChar(facesContext));
   }
 
   private boolean isRedisplay() {
     if (isSubmitted()) {
-      final String action = FacesContextUtils.getActionId(getFacesContext());
-      if (action != null) {
-        final UIComponent command = getFacesContext().getViewRoot().findComponent(
-            UINamingContainer.getSeparatorChar(getFacesContext()) + action);
+      final String sourceId = getFacesContext().getExternalContext().getRequestParameterMap().get("javax.faces.source");
+      if (sourceId != null) {
+        final UIComponent command = getFacesContext().getViewRoot()
+            .findComponent(UINamingContainer.getSeparatorChar(getFacesContext()) + sourceId);
         if (command != null && command instanceof UICommand) {
           return ComponentUtils.getAttribute(command, Attributes.popupClose) == null;
         }

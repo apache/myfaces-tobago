@@ -38,7 +38,6 @@ public final class FacesContextUtils {
   private static final String TOBAGO_STYLE_FILES = "org.apache.myfaces.tobago.styleFiles";
   private static final String TOBAGO_POPUPS = "org.apache.myfaces.tobago.popups";
   private static final String TOBAGO_FOCUS_ID = "org.apache.myfaces.tobago.focusId";
-  private static final String TOBAGO_ACTION_ID = "org.apache.myfaces.tobago.actionId";
 
   private FacesContextUtils() {
   }
@@ -58,15 +57,6 @@ public final class FacesContextUtils {
   public static String getFocusId(final FacesContext context) {
     return (String) context.getAttributes().get(TOBAGO_FOCUS_ID);
   }
-
-  public static void setActionId(final FacesContext context, final String actionId) {
-    context.getAttributes().put(TOBAGO_ACTION_ID, actionId);
-  }
-
-  public static String getActionId(final FacesContext context) {
-    return (String) context.getAttributes().get(TOBAGO_ACTION_ID);
-  }
-
 
   public static String getAjaxComponentId(final FacesContext context) {
     return (String) context.getAttributes().get(TOBAGO_AJAX_COMPONENT_ID);
