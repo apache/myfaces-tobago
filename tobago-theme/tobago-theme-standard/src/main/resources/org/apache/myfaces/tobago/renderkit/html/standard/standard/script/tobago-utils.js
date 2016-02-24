@@ -23,7 +23,7 @@ Tobago.Utils = {};
  * @return A string which can be used as a jQuery selector.
  */
 Tobago.Utils.escapeClientId = function(id) {
-  return '#' + id.replace(/:/g, '\\:');
+  return '#' + id.replace(/([:\.])/g, '\\$1');
 };
 
 /**
