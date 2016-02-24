@@ -341,14 +341,6 @@ Tobago.Menu.init = function(elements) {
     Tobago.Menu.closeAll();
   });
 
-  // IE6 select-tag fix
-  // put a iframe inside the div, so that a <select> tag doesn't shine through.
-  // the iframe must be resized (see above)
-  if (Tobago.browser.isMsie6) {
-    menus.children("ol").prepend(
-        "<iframe class='tobago-menu-ie6bugfix' src='" + Tobago.blankPage + "'></iframe>");
-  }
-
   // put the sub-menu in the data to find it later
   menus.each(function() {
     var superMenu = jQuery(this);

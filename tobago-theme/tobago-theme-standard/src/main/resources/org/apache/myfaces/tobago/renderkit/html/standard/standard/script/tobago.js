@@ -63,17 +63,6 @@ var Tobago = {
   action: null,
 
   /**
-   * The hidden html input object for the contextPath.
-   * set via init function
-   */
-  contextPath: null,
-
-  /**
-   * Blank page e. g. useful to set src of iframes (to prevent https problems in ie, see TOBAGO-538)
-   */
-  blankPage: null,
-
-  /**
    * The id of the element which should became the focus after loading.
    * Set via renderer if requested.
    */
@@ -208,8 +197,6 @@ var Tobago = {
     this.form = page.find("form").get(0); // find() seems to be faster than children()
     this.addBindEventListener(this.form, 'submit', this, 'onSubmit');
     this.action = this.element(this.page.id + this.SUB_COMPONENT_SEP + 'form-action');
-    this.contextPath = this.element(this.page.id + this.SUB_COMPONENT_SEP + 'context-path');
-    this.blankPage = this.contextPath.value + '/org/apache/myfaces/tobago/renderkit/html/standard/blank.html';
 
     this.addBindEventListener(window, 'unload', this, 'onUnload');
 
@@ -340,8 +327,6 @@ var Tobago = {
     delete this.page;
     delete this.form;
     delete this.action;
-    delete this.contextPath;
-    delete this.blankPage;
     delete this.lastFocusId;
   },
 

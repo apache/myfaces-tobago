@@ -30,7 +30,7 @@ public enum DataAttributes implements MarkupLanguageAttributes {
    * The index of the column of a sheet. This index means the position of the rendered column. It can differ, if there
    * are tc:column with rendered=false.
    */
-    COLUMN_INDEX("data-tobago-column-index"),
+  COLUMN_INDEX("data-tobago-column-index"),
 
   /**
    * Custom command attribute. Is used to mark different client side JavaScript buttons.
@@ -42,6 +42,11 @@ public enum DataAttributes implements MarkupLanguageAttributes {
    * The list of commands attached to an element.
    */
   COMMANDS("data-tobago-commands"),
+
+  /**
+   * The context path of the application, may be needed in the Client.
+   */
+  CONTEXT_PATH("data-tobago-context-path"),
 
   DATE_TIME_I18N("data-tobago-date-time-i18n"),
 

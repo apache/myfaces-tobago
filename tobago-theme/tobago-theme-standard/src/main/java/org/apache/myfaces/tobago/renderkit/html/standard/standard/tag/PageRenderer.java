@@ -259,17 +259,11 @@ public class PageRenderer extends RendererBase {
     writer.writeAttribute(HtmlAttributes.ACCEPT_CHARSET, AbstractUIPage.FORM_ACCEPT_CHARSET, false);
     // TODO evaluate 'accept' attribute usage
     //writer.writeAttribute(HtmlAttributes.ACCEPT, );
+    writer.writeAttribute(DataAttributes.CONTEXT_PATH, externalContext.getRequestContextPath(), true);
     writer.startElement(HtmlElements.INPUT);
     writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN);
     writer.writeNameAttribute(clientId + ComponentUtils.SUB_SEPARATOR + "form-action");
     writer.writeIdAttribute(clientId + ComponentUtils.SUB_SEPARATOR + "form-action");
-    writer.endElement(HtmlElements.INPUT);
-
-    writer.startElement(HtmlElements.INPUT);
-    writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN);
-    writer.writeNameAttribute(clientId + ComponentUtils.SUB_SEPARATOR + "context-path");
-    writer.writeIdAttribute(clientId + ComponentUtils.SUB_SEPARATOR + "context-path");
-    writer.writeAttribute(HtmlAttributes.VALUE, externalContext.getRequestContextPath(), true);
     writer.endElement(HtmlElements.INPUT);
 
     writer.startElement(HtmlElements.INPUT);
