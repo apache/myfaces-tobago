@@ -809,6 +809,7 @@ public class SheetRenderer extends RendererBase {
                     facesContext, UICommand.COMPONENT_TYPE, RendererTypes.Link, sorterId);
                 ComponentUtils.setFacet(column, Facets.sorter, sortCommand);
               }
+              writer.writeIdAttribute(sortCommand.getClientId(facesContext));
               String clientIds = ComponentUtils.evaluateClientIds(facesContext, sheet, sheet.getRenderedPartially());
               if (clientIds == null) {
                 clientIds = sheet.getClientId(facesContext);
