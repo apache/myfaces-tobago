@@ -70,6 +70,7 @@ needed for popups
 .tobago-flexLayout > .tobago-out:nth-child(n+2),
 .tobago-flexLayout > .tobago-panel:nth-child(n+2),
 .tobago-flexLayout > .tobago-label:nth-child(n+2),
+.tobago-flexLayout > .tobago-selectManyShuttle:nth-child(n+2),
 .tobago-flexLayout > .twitter-typeahead:nth-child(n+2) {
     margin-left: 5px;
 }
@@ -315,15 +316,20 @@ h6 > .fa:first-child {
 .tobago-selectManyShuttle-toolBar {
   display: flex;
   flex-direction: column;
-  padding: 1rem;
+  padding: 0 0.5rem;
 }
 
 .tobago-selectManyShuttle-toolBar > button {
   display: block;
 }
 
-.tobago-selectManyShuttle-toolBar > .btn > span:nth-child(2) {
-  margin-left: -0.5em;
+.tobago-selectManyShuttle-toolBar > div {
+  flex: 1 0 0px;
+}
+
+/* XXX this fixes the margin left from .btn:nth-child(n+2), but is ugly */
+.tobago-selectManyShuttle-toolBar > * {
+  margin-left: 0 !important;
 }
 
 /* selectOneRadio ---------------------------------------------------------- */
