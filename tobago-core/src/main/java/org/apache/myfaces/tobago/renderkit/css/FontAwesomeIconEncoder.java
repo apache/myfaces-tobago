@@ -57,6 +57,9 @@ public class FontAwesomeIconEncoder implements IconEncoder {
   }
 
   private CssItem generateClass(final Icons icon) {
+    if (icon == null) {
+      return null;
+    }
     CssItem result = icons.get(icon);
     if (result == null) {
       LOG.warn("Missing icon: '" + icon + "'");
