@@ -199,28 +199,4 @@
     <managed-bean-scope>request</managed-bean-scope>
   </managed-bean>
 
-  <managed-bean>
-    <managed-bean-name>inputSuggestController</managed-bean-name>
-    <managed-bean-class>org.apache.myfaces.tobago.example.demo.InputSuggestController</managed-bean-class>
-    <managed-bean-scope>session</managed-bean-scope>
-  </managed-bean>
-
-  <managed-bean>
-    <managed-bean-name>upload</managed-bean-name>
-    <managed-bean-class>org.apache.myfaces.tobago.example.demo.Upload</managed-bean-class>
-    <managed-bean-scope>session</managed-bean-scope>
-  </managed-bean>
-
-  <managed-bean>
-    <managed-bean-name>treeEditor</managed-bean-name>
-    <managed-bean-class>org.apache.myfaces.tobago.example.demo.TreeEditor</managed-bean-class>
-    <managed-bean-scope>session</managed-bean-scope>
-  </managed-bean>
-
-  <managed-bean>
-    <managed-bean-name>fishPond</managed-bean-name>
-    <managed-bean-class>org.apache.myfaces.tobago.example.demo.nonfacesrequest.FishPond</managed-bean-class>
-    <managed-bean-scope>session</managed-bean-scope>
-  </managed-bean>
-
 </faces-config>

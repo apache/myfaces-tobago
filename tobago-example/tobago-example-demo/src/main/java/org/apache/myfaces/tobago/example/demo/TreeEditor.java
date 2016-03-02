@@ -24,10 +24,15 @@ import org.apache.myfaces.tobago.example.data.Node;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.enterprise.context.SessionScoped;
+import javax.inject.Named;
 import javax.swing.tree.DefaultMutableTreeNode;
+import java.io.Serializable;
 import java.util.Enumeration;
 
-public class TreeEditor {
+@SessionScoped
+@Named
+public class TreeEditor implements Serializable {
 
   private static final Logger LOG = LoggerFactory.getLogger(TreeEditor.class);
 
