@@ -36,6 +36,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import java.io.IOException;
+import java.util.List;
 
 public class SelectManyShuttleRenderer extends SelectManyRendererBase {
 
@@ -53,7 +54,7 @@ public class SelectManyShuttleRenderer extends SelectManyRendererBase {
       writer.writeAttribute(HtmlAttributes.TITLE, title, true);
     }
     final boolean hasLabel = select.hasLabel();
-    Iterable<SelectItem> items = SelectItemUtils.getItemIterator(facesContext, select);
+    final List<SelectItem> items = SelectItemUtils.getItemList(facesContext, select);
     final boolean disabled = !items.iterator().hasNext() || select.isDisabled() || select.isReadonly();
 
     final String unselectedLabel = select.getUnselectedLabel();
@@ -62,6 +63,10 @@ public class SelectManyShuttleRenderer extends SelectManyRendererBase {
       writer.writeClassAttribute(Classes.create(select, "unselectedLabel"));
       writer.write(unselectedLabel);
       writer.endElement(HtmlElements.DIV);
+    }
+    Integer rows = select.getRows();
+    if (rows == null) {
+      rows = items.size();
     }
     writer.startElement(HtmlElements.SELECT);
     final String unselectedClientId = clientId + ComponentUtils.SUB_SEPARATOR + "unselected";
@@ -77,6 +82,7 @@ public class SelectManyShuttleRenderer extends SelectManyRendererBase {
     writer.writeClassAttribute(Classes.create(select, "unselected"), BootstrapClass.FORM_CONTROL);
 
     writer.writeAttribute(HtmlAttributes.MULTIPLE, true);
+    writer.writeAttribute(HtmlAttributes.SIZE, rows);
 
     final Object[] values = select.getSelectedValues();
     final String[] submittedValues = getSubmittedValues(select);
@@ -85,10 +91,14 @@ public class SelectManyShuttleRenderer extends SelectManyRendererBase {
     writer.endElement(HtmlElements.SELECT);
     writer.startElement(HtmlElements.DIV);
     writer.writeClassAttribute(Classes.create(select, "toolBar"));
+    writer.startElement(HtmlElements.DIV);
+    writer.endElement(HtmlElements.DIV);
     createButton(facesContext, component, writer, disabled, Icons.ANGLE_DOUBLE_RIGHT, "addAll");
     createButton(facesContext, component, writer, disabled, Icons.ANGLE_RIGHT, "add");
     createButton(facesContext, component, writer, disabled, Icons.ANGLE_LEFT, "remove");
     createButton(facesContext, component, writer, disabled, Icons.ANGLE_DOUBLE_LEFT, "removeAll");
+    writer.startElement(HtmlElements.DIV);
+    writer.endElement(HtmlElements.DIV);
     writer.endElement(HtmlElements.DIV);
     final String selectedLabel = select.getSelectedLabel();
     if (selectedLabel != null) {
@@ -108,7 +118,7 @@ public class SelectManyShuttleRenderer extends SelectManyRendererBase {
     }
     writer.writeClassAttribute(Classes.create(select, "selected"), BootstrapClass.FORM_CONTROL);
     writer.writeAttribute(HtmlAttributes.MULTIPLE, true);
-    items = SelectItemUtils.getItemIterator(facesContext, select);
+    writer.writeAttribute(HtmlAttributes.SIZE, rows);
     HtmlRendererUtils.renderSelectItems(select, items, values, submittedValues, true, writer, facesContext);
 
     writer.endElement(HtmlElements.SELECT);
@@ -120,7 +130,6 @@ public class SelectManyShuttleRenderer extends SelectManyRendererBase {
     writer.writeAttribute(HtmlAttributes.MULTIPLE, true);
     writer.writeAttribute(HtmlAttributes.REQUIRED, select.isRequired());
     HtmlRendererUtils.renderCommandFacet(select, facesContext, writer);
-    items = SelectItemUtils.getItemIterator(facesContext, select);
     HtmlRendererUtils.renderSelectItems(select, items, values, submittedValues, writer, facesContext);
 
     writer.endElement(HtmlElements.SELECT);

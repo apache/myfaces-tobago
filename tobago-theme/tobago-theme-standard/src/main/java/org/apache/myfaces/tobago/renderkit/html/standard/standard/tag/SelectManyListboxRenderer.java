@@ -21,8 +21,8 @@ package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
 import org.apache.myfaces.tobago.component.UISelectManyListbox;
 import org.apache.myfaces.tobago.renderkit.SelectManyRendererBase;
-import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
+import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
@@ -34,6 +34,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import java.io.IOException;
+import java.util.List;
 
 public class SelectManyListboxRenderer extends SelectManyRendererBase {
 
@@ -47,9 +48,10 @@ public class SelectManyListboxRenderer extends SelectManyRendererBase {
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
     final String id = select.getClientId(facesContext);
-    final Iterable<SelectItem> items = SelectItemUtils.getItemIterator(facesContext, select);
+    final List<SelectItem> items = SelectItemUtils.getItemList(facesContext, select);
     final boolean readonly = select.isReadonly();
     final boolean disabled = !items.iterator().hasNext() || select.isDisabled() || readonly;
+    final Integer rows = select.getRows();
 
     final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, select);
     writer.startElement(HtmlElements.SELECT);
@@ -67,9 +69,8 @@ public class SelectManyListboxRenderer extends SelectManyRendererBase {
     writer.writeStyleAttribute(select.getStyle());
     writer.writeClassAttribute(Classes.create(select), BootstrapClass.FORM_CONTROL, select.getCustomClass());
     writer.writeAttribute(HtmlAttributes.MULTIPLE, true);
-    if (title != null) {
-      writer.writeAttribute(HtmlAttributes.TITLE, title, true);
-    }
+    writer.writeAttribute(HtmlAttributes.SIZE, rows != null ? rows : items.size());
+    writer.writeAttribute(HtmlAttributes.TITLE, title, true);
     HtmlRendererUtils.renderCommandFacet(select, facesContext, writer);
     final Object[] values = select.getSelectedValues();
     final String[] submittedValues = getSubmittedValues(select);
