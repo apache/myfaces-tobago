@@ -48,7 +48,8 @@ public class SelectOneListboxRenderer extends SelectOneRendererBase {
     final String id = select.getClientId(facesContext);
     final List<SelectItem> items = SelectItemUtils.getItemList(facesContext, select);
     final boolean disabled = !items.iterator().hasNext() || select.isDisabled() || select.isReadonly();
-    final Integer rows = select.getRows();
+    Integer size = select.getSize();
+    size = Math.max(size != null ? size : items.size(), 2); // must be > 1
 
     writer.startElement(HtmlElements.SELECT);
     writer.writeNameAttribute(id);
@@ -64,7 +65,7 @@ public class SelectOneListboxRenderer extends SelectOneRendererBase {
     writer.writeClassAttribute(Classes.create(select), BootstrapClass.FORM_CONTROL, select.getCustomClass());
     final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, select);
     writer.writeAttribute(HtmlAttributes.TITLE, title, true);
-    writer.writeAttribute(HtmlAttributes.SIZE, rows != null ? rows : items.size());
+    writer.writeAttribute(HtmlAttributes.SIZE, size);
     HtmlRendererUtils.renderCommandFacet(select, facesContext, writer);
     HtmlRendererUtils.renderSelectItems(select, items, select.getValue(), (String) select.getSubmittedValue(),
         writer, facesContext);

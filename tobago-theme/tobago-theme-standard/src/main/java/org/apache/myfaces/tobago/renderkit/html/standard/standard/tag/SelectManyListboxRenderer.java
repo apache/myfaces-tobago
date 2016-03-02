@@ -51,7 +51,8 @@ public class SelectManyListboxRenderer extends SelectManyRendererBase {
     final List<SelectItem> items = SelectItemUtils.getItemList(facesContext, select);
     final boolean readonly = select.isReadonly();
     final boolean disabled = !items.iterator().hasNext() || select.isDisabled() || readonly;
-    final Integer rows = select.getRows();
+    Integer size = select.getSize();
+    size = Math.max(size != null ? size : items.size(), 2); // must be > 1
 
     final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, select);
     writer.startElement(HtmlElements.SELECT);
@@ -66,7 +67,7 @@ public class SelectManyListboxRenderer extends SelectManyRendererBase {
     writer.writeStyleAttribute(select.getStyle());
     writer.writeClassAttribute(Classes.create(select), BootstrapClass.FORM_CONTROL, select.getCustomClass());
     writer.writeAttribute(HtmlAttributes.MULTIPLE, true);
-    writer.writeAttribute(HtmlAttributes.SIZE, rows != null ? rows : items.size());
+    writer.writeAttribute(HtmlAttributes.SIZE, size);
     writer.writeAttribute(HtmlAttributes.TITLE, title, true);
     HtmlRendererUtils.renderCommandFacet(select, facesContext, writer);
     final Object[] values = select.getSelectedValues();

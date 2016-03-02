@@ -22,12 +22,12 @@ package org.apache.myfaces.tobago.internal.taglib.declaration;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 
-public interface HasRows {
+public interface HasSize {
 
   /**
-   * The row count for this component.
+   * The number of the shown rows in the element. E. g. the size attribute of the select element in HTML.
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "java.lang.Integer")
-  void setRows(String rows);
+  void setSize(String size);
 }

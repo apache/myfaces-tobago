@@ -20,9 +20,11 @@
 package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
 import org.apache.myfaces.tobago.component.UITreeLabel;
+import org.apache.myfaces.tobago.component.UITreeListbox;
 import org.apache.myfaces.tobago.component.UITreeNode;
 import org.apache.myfaces.tobago.component.UITreeSelect;
 import org.apache.myfaces.tobago.internal.component.AbstractUITree;
+import org.apache.myfaces.tobago.internal.component.AbstractUITreeListbox;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
@@ -50,7 +52,7 @@ public class TreeListboxRenderer extends RendererBase {
   @Override
   public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
 
-    final AbstractUITree tree = (AbstractUITree) component;
+    final UITreeListbox tree = (UITreeListbox) component;
     final String clientId = tree.getClientId(facesContext);
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
     //    final Style scrollDivStyle = new Style();
@@ -94,6 +96,8 @@ public class TreeListboxRenderer extends RendererBase {
     List<Integer> thisLevel = new ArrayList<Integer>();
     thisLevel.add(0);
     List<Integer> nextLevel = new ArrayList<Integer>();
+    Integer size = tree.getSize();
+    size = Math.max(size != null ? size : 10, 2); // must be > 1, default is 10, if not set
     final int depth = tree.getTreeDataModel().getDepth() != -1
         ? tree.getTreeDataModel().getDepth()
         : 7;  // XXX not a fix value!!!
@@ -113,13 +117,13 @@ public class TreeListboxRenderer extends RendererBase {
       if (level > 0) {
         writer.startElement(HtmlElements.SELECT);
         writer.writeAttribute(HtmlAttributes.DISABLED, true);
-        writer.writeAttribute(HtmlAttributes.SIZE, 9); // must be > 1, but the real size comes from the layout
+        writer.writeAttribute(HtmlAttributes.SIZE, size);
         writer.writeClassAttribute(Classes.create(tree, "select"));
         writer.endElement(HtmlElements.SELECT);
       }
 
       for(final Integer rowIndex : thisLevel) {
-        encodeSelectBox(facesContext, tree, writer, rowIndex, nextLevel);
+        encodeSelectBox(facesContext, tree, writer, rowIndex, nextLevel, size);
       }
 
       thisLevel.clear();
@@ -137,8 +141,8 @@ public class TreeListboxRenderer extends RendererBase {
   }
 
   private void encodeSelectBox(
-      final FacesContext facesContext, final AbstractUITree tree, final TobagoResponseWriter writer,
-      final int parentRowIndex, final List<Integer> foldersRowIndices)
+      final FacesContext facesContext, final AbstractUITreeListbox tree, final TobagoResponseWriter writer,
+      final int parentRowIndex, final List<Integer> foldersRowIndices, final int size)
       throws IOException {
 
     tree.setRowIndex(parentRowIndex);
@@ -152,7 +156,7 @@ public class TreeListboxRenderer extends RendererBase {
       writer.writeAttribute(DataAttributes.TREE_PARENT, parentId, false);
     }
 
-    writer.writeAttribute(HtmlAttributes.SIZE, 9); // must be > 1, but the real size comes from the layout
+    writer.writeAttribute(HtmlAttributes.SIZE, size);
 //    writer.writeAttribute(HtmlAttributes.MULTIPLE, siblingMode);
 
     final UITreeSelect select = ComponentUtils.findDescendant(tree, UITreeSelect.class);

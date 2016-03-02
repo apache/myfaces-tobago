@@ -64,10 +64,9 @@ public class SelectManyShuttleRenderer extends SelectManyRendererBase {
       writer.write(unselectedLabel);
       writer.endElement(HtmlElements.DIV);
     }
-    Integer rows = select.getRows();
-    if (rows == null) {
-      rows = items.size();
-    }
+    Integer size = select.getSize();
+    size = Math.max(size != null ? size : items.size(), 2); // must be > 1
+
     writer.startElement(HtmlElements.SELECT);
     final String unselectedClientId = clientId + ComponentUtils.SUB_SEPARATOR + "unselected";
     writer.writeIdAttribute(unselectedClientId);
@@ -79,7 +78,7 @@ public class SelectManyShuttleRenderer extends SelectManyRendererBase {
     writer.writeClassAttribute(Classes.create(select, "unselected"), BootstrapClass.FORM_CONTROL);
 
     writer.writeAttribute(HtmlAttributes.MULTIPLE, true);
-    writer.writeAttribute(HtmlAttributes.SIZE, rows);
+    writer.writeAttribute(HtmlAttributes.SIZE, size);
 
     final Object[] values = select.getSelectedValues();
     final String[] submittedValues = getSubmittedValues(select);
@@ -113,7 +112,7 @@ public class SelectManyShuttleRenderer extends SelectManyRendererBase {
     writer.writeAttribute(HtmlAttributes.TABINDEX, select.getTabIndex());
     writer.writeClassAttribute(Classes.create(select, "selected"), BootstrapClass.FORM_CONTROL);
     writer.writeAttribute(HtmlAttributes.MULTIPLE, true);
-    writer.writeAttribute(HtmlAttributes.SIZE, rows);
+    writer.writeAttribute(HtmlAttributes.SIZE, size);
     HtmlRendererUtils.renderSelectItems(select, items, values, submittedValues, true, writer, facesContext);
 
     writer.endElement(HtmlElements.SELECT);
