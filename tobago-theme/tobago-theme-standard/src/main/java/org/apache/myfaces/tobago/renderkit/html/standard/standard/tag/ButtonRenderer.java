@@ -87,10 +87,7 @@ public class ButtonRenderer extends CommandRendererBase {
       }
 
       if (button instanceof UIButton) {
-        final Integer tabIndex = ((UIButton) button).getTabIndex();
-        if (tabIndex != null) {
-          writer.writeAttribute(HtmlAttributes.TABINDEX, tabIndex);
-        }
+        writer.writeAttribute(HtmlAttributes.TABINDEX, ((UIButton) button).getTabIndex());
       }
 
       String commands = null;

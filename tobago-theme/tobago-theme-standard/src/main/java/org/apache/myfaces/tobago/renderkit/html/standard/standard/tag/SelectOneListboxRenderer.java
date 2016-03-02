@@ -59,16 +59,11 @@ public class SelectOneListboxRenderer extends SelectOneRendererBase {
     writer.writeAttribute(HtmlAttributes.REQUIRED, select.isRequired());
     HtmlRendererUtils.renderFocus(id, select.isFocus(), ComponentUtils.isError(select), facesContext, writer);
 
-    final Integer tabIndex = select.getTabIndex();
-    if (tabIndex != null) {
-      writer.writeAttribute(HtmlAttributes.TABINDEX, tabIndex);
-    }
+    writer.writeAttribute(HtmlAttributes.TABINDEX, select.getTabIndex());
     writer.writeStyleAttribute(select.getStyle());
     writer.writeClassAttribute(Classes.create(select), BootstrapClass.FORM_CONTROL, select.getCustomClass());
     final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, select);
-    if (title != null) {
-      writer.writeAttribute(HtmlAttributes.TITLE, title, true);
-    }
+    writer.writeAttribute(HtmlAttributes.TITLE, title, true);
     writer.writeAttribute(HtmlAttributes.SIZE, rows != null ? rows : items.size());
     HtmlRendererUtils.renderCommandFacet(select, facesContext, writer);
     HtmlRendererUtils.renderSelectItems(select, items, select.getValue(), (String) select.getSubmittedValue(),

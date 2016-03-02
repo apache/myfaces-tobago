@@ -124,10 +124,12 @@ public abstract class TobagoResponseWriter extends ResponseWriter {
   }
 
   /**
-   * Writes a integer attribute. The value will not escaped.
+   * Writes a {@link Integer} attribute, if the value is not {@code null}. The value will not be escaped.
    */
-  public void writeAttribute(final MarkupLanguageAttributes name, final int number) throws IOException {
-    writeAttribute(name, Integer.toString(number), false);
+  public void writeAttribute(final MarkupLanguageAttributes name, final Integer number) throws IOException {
+    if (number != null) {
+      writeAttribute(name, Integer.toString(number), false);
+    }
   }
 
   /**

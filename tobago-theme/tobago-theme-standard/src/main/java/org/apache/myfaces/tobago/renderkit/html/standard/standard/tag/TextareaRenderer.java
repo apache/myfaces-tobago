@@ -54,25 +54,18 @@ public class TextareaRenderer extends InputRendererBase {
     final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, component);
     final String clientId = input.getClientId(facesContext);
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+    final Integer rows = input.getRows();
 
     writer.startElement(HtmlElements.TEXTAREA);
     writer.writeNameAttribute(clientId);
     writer.writeIdAttribute(clientId);
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, input);
-    final Integer rows = input.getRows();
-    if (rows != null) {
-      writer.writeAttribute(HtmlAttributes.ROWS, rows);
-    }
-    if (title != null) {
-      writer.writeAttribute(HtmlAttributes.TITLE, title, true);
-    }
+    writer.writeAttribute(HtmlAttributes.ROWS, rows);
+    writer.writeAttribute(HtmlAttributes.TITLE, title, true);
     writer.writeAttribute(HtmlAttributes.READONLY, input.isReadonly());
     writer.writeAttribute(HtmlAttributes.DISABLED, input.isDisabled());
     writer.writeAttribute(HtmlAttributes.REQUIRED, input.isRequired());
-    final Integer tabIndex = input.getTabIndex();
-    if (tabIndex != null) {
-      writer.writeAttribute(HtmlAttributes.TABINDEX, tabIndex);
-    }
+    writer.writeAttribute(HtmlAttributes.TABINDEX, input.getTabIndex());
 
     writer.writeClassAttribute(Classes.create(input), BootstrapClass.FORM_CONTROL, input.getCustomClass());
     writer.writeStyleAttribute(input.getStyle());

@@ -74,10 +74,7 @@ public class SelectManyShuttleRenderer extends SelectManyRendererBase {
     writer.writeAttribute(HtmlAttributes.DISABLED, disabled);
 
     // TODO tabIndex
-    final Integer tabIndex = select.getTabIndex();
-    if (tabIndex != null) {
-      writer.writeAttribute(HtmlAttributes.TABINDEX, tabIndex);
-    }
+    writer.writeAttribute(HtmlAttributes.TABINDEX, select.getTabIndex());
 
     writer.writeClassAttribute(Classes.create(select, "unselected"), BootstrapClass.FORM_CONTROL);
 
@@ -113,9 +110,7 @@ public class SelectManyShuttleRenderer extends SelectManyRendererBase {
     writer.writeIdAttribute(selectedClientId);
 
     writer.writeAttribute(HtmlAttributes.DISABLED, disabled);
-    if (tabIndex != null) {
-      writer.writeAttribute(HtmlAttributes.TABINDEX, tabIndex);
-    }
+    writer.writeAttribute(HtmlAttributes.TABINDEX, select.getTabIndex());
     writer.writeClassAttribute(Classes.create(select, "selected"), BootstrapClass.FORM_CONTROL);
     writer.writeAttribute(HtmlAttributes.MULTIPLE, true);
     writer.writeAttribute(HtmlAttributes.SIZE, rows);

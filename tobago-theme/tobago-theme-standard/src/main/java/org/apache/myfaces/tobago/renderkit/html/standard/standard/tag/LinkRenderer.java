@@ -63,10 +63,7 @@ public class LinkRenderer extends CommandRendererBase {
         AccessKeyLogger.addAccessKey(facesContext, label.getAccessKey(), clientId);
       }
 
-      final Integer tabIndex = link.getTabIndex();
-      if (tabIndex != null) {
-        writer.writeAttribute(HtmlAttributes.TABINDEX, tabIndex);
-      }
+      writer.writeAttribute(HtmlAttributes.TABINDEX, link.getTabIndex());
     }
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, link);
     writer.writeStyleAttribute(link.getStyle());

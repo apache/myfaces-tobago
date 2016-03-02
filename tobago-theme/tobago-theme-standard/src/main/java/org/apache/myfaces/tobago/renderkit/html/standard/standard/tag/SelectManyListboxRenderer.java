@@ -62,10 +62,7 @@ public class SelectManyListboxRenderer extends SelectManyRendererBase {
     writer.writeAttribute(HtmlAttributes.READONLY, readonly);
     writer.writeAttribute(HtmlAttributes.REQUIRED, select.isRequired());
     HtmlRendererUtils.renderFocus(id, select.isFocus(), ComponentUtils.isError(select), facesContext, writer);
-    final Integer tabIndex = select.getTabIndex();
-    if (tabIndex != null) {
-      writer.writeAttribute(HtmlAttributes.TABINDEX, tabIndex);
-    }
+    writer.writeAttribute(HtmlAttributes.TABINDEX, select.getTabIndex());
     writer.writeStyleAttribute(select.getStyle());
     writer.writeClassAttribute(Classes.create(select), BootstrapClass.FORM_CONTROL, select.getCustomClass());
     writer.writeAttribute(HtmlAttributes.MULTIPLE, true);

@@ -111,10 +111,7 @@ public class SelectBooleanCheckboxRenderer extends RendererBase {
 
     HtmlRendererUtils.renderFocus(clientId, select.isFocus(), ComponentUtils.isError(select), facesContext, writer);
 
-    final Integer tabIndex = select.getTabIndex();
-    if (tabIndex != null) {
-      writer.writeAttribute(HtmlAttributes.TABINDEX, tabIndex);
-    }
+    writer.writeAttribute(HtmlAttributes.TABINDEX, select.getTabIndex());
     HtmlRendererUtils.renderCommandFacet(select, facesContext, writer);
     writer.endElement(HtmlElements.INPUT);
 

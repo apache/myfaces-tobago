@@ -102,10 +102,7 @@ public class InRenderer extends InputRendererBase {
     }
     writer.writeAttribute(HtmlAttributes.READONLY, readonly);
     writer.writeAttribute(HtmlAttributes.DISABLED, disabled);
-    final Integer tabIndex = input.getTabIndex();
-    if (tabIndex != null) {
-      writer.writeAttribute(HtmlAttributes.TABINDEX, tabIndex);
-    }
+    writer.writeAttribute(HtmlAttributes.TABINDEX, input.getTabIndex());
     writer.writeStyleAttribute(input.getStyle());
 
     final String placeholder = input.getPlaceholder();

@@ -93,10 +93,7 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
         HtmlRendererUtils.renderFocus(id, select.isFocus(), ComponentUtils.isError(select), facesContext, writer);
         first = false;
       }
-      final Integer tabIndex = select.getTabIndex();
-      if (tabIndex != null) {
-        writer.writeAttribute(HtmlAttributes.TABINDEX, tabIndex);
-      }
+      writer.writeAttribute(HtmlAttributes.TABINDEX, select.getTabIndex());
       HtmlRendererUtils.renderCommandFacet(select, itemId, facesContext, writer);
       writer.endElement(HtmlElements.INPUT);
 

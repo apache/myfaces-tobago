@@ -82,10 +82,8 @@ public class CommandRenderer extends CommandRendererBase {
         AccessKeyLogger.addAccessKey(facesContext, label.getAccessKey(), clientId);
       }
 
-      final Integer tabIndex = link instanceof AbstractUILink ? ((AbstractUILink) link).getTabIndex() : null;
-      if (tabIndex != null) {
-        writer.writeAttribute(HtmlAttributes.TABINDEX, tabIndex);
-      }
+      writer.writeAttribute(HtmlAttributes.TABINDEX,
+          link instanceof AbstractUILink ? ((AbstractUILink) link).getTabIndex() : null);
     }
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, link);
     writer.writeStyleAttribute(link.getStyle());

@@ -142,10 +142,7 @@ TODO: Using Servlet 3.0 file upload...
     writer.writeAttribute(HtmlAttributes.READONLY, file.isReadonly());
     writer.writeAttribute(HtmlAttributes.REQUIRED, file.isRequired());
     writer.writeAttribute(HtmlAttributes.SIZE, "1024", false);
-    final Integer tabIndex = file.getTabIndex();
-    if (tabIndex != null) {
-      writer.writeAttribute(HtmlAttributes.TABINDEX, tabIndex);
-    }
+    writer.writeAttribute(HtmlAttributes.TABINDEX, file.getTabIndex());
     final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, file);
     if (title != null) {
       writer.writeAttribute(HtmlAttributes.TITLE, title, true);

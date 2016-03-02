@@ -643,9 +643,7 @@ public class SheetRenderer extends RendererBase {
 
   private void writeCol(final TobagoResponseWriter writer, final Integer columnWidth) throws IOException {
     writer.startElement(HtmlElements.COL);
-    if (columnWidth != null) {
-      writer.writeAttribute(HtmlAttributes.WIDTH, columnWidth);
-    }
+    writer.writeAttribute(HtmlAttributes.WIDTH, columnWidth);
     writer.endElement(HtmlElements.COL);
   }
 
