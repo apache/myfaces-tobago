@@ -65,6 +65,8 @@ New Features and Enhancements
 
     * Rich variations of positioning the label with new attribute labelLayout
 
+* File upload now uses Servert 3.0 instead of Commons Fileupload. This simplifies the setup.
+
 Internal Refactoring
 
     [todo]

@@ -69,6 +69,17 @@ Migration from Tobago 2.0 to 3.0 (work in progress)
 
 * tc:image has no longer the attributes width and height, please use a tc:style child tag instead.
 
+* File upload now uses the Servlet 3.0 features.
+
+  * You no long need to define a TobagoMultipartFormdataFilter in the web.xml
+
+  * There is no longer a tobago-fileupload.jar
+
+  * Remove the dependency to commons-fileupload.jar in your web app, if there is any.
+
+  * If using JSF 2.0 or 2.1 you will need to add a tag <<<\multipart-config\>>>> Tag to the FacesServlet config
+    in the <<<web.xml>>>.
+
 * Introducing enums instead of constant classes
 
     Some static utils classes are migrated to Java enums.
