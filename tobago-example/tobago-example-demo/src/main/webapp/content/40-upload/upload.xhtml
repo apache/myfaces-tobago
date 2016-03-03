@@ -20,15 +20,39 @@
 <ui:composition template="/main.xhtml"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:f="http://java.sun.com/jsf/core">
+                xmlns="http://www.w3.org/1999/xhtml">
   <ui:param name="title" value="File Upload"/>
   <tc:panel>
 
+    <p>
+      To load up files to the server for JSF 2.0 and 2.1 you will need to
+      add an multipart-config entry to the FacesServlet in the <code>web.xml</code> file.
+      Since JSF 2.2 this is not required.
+    </p>
+
+    <p>
+      Here you can configure some more general information.
+    </p>
+
+    <pre><code class="language-markup">
+      &lt;multipart-config>
+        &lt;location>/tmp&lt;/location>
+        &lt;max-file-size>20848820&lt;/max-file-size>
+        &lt;max-request-size>418018841&lt;/max-request-size>
+        &lt;file-size-threshold>1048576&lt;/file-size-threshold>
+      &lt;/multipart-config>
+    </code></pre>
+
+    The first example loads up an arbitrary file. The second example contains a <code>&lt;tc:validateFileItem></code>
+    tag with restrict the content type.
+
     <tc:file label="Upload file:" value="#{upload.file1}" tip="without extra validation" id="file1"/>
+
     <tc:file label="Upload image:" value="#{upload.file2}" id="file2"
              tip="with a validator for file items - types: gif, jpg, png">
       <tc:validateFileItem contentType="image/*"/>
     </tc:file>
+
     <tc:button label="Submit" defaultCommand="true" action="#{upload.upload}"/>
 
     <tc:sheet var="entry" value="#{upload.list}" columns="*;*;*">

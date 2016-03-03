@@ -19,37 +19,42 @@
 
 package org.apache.myfaces.tobago.example.test;
 
-import org.apache.commons.fileupload.FileItem;
+import org.apache.myfaces.tobago.internal.util.PartUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.Part;
 import java.io.Serializable;
 
 public class Upload implements Serializable {
 
   private static final Logger LOG = LoggerFactory.getLogger(Upload.class);
 
-  private FileItem file;
+  private Part part;
 
   public String upload() {
-    if (file == null) {
+    if (part == null) {
       FacesContext.getCurrentInstance().addMessage(
           null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "No UploadItem found!", null));
       return null;
     }
-    LOG.info("type=" + file.getContentType());
-    LOG.info("size=" + file.get().length);
-    LOG.info("name=" + file.getName());
+    LOG.info("type=" + part.getContentType());
+    LOG.info("size=" + part.getSize());
+    final String name = PartUtils.getSubmittedFileName(part);
+    LOG.info("name=" + name);
+    FacesContext.getCurrentInstance().addMessage(
+        null, new FacesMessage(FacesMessage.SEVERITY_INFO, "File was uploaded: " + name, null));
+
     return "/test/file/file.xhtml";
   }
   
-  public FileItem getFile() {
-    return file;
+  public Part getFile() {
+    return part;
   }
 
-  public void setFile(final FileItem file) {
-    this.file = file;
+  public void setFile(final Part file) {
+    this.part = file;
   }
 }

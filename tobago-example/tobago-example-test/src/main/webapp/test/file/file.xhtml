@@ -21,10 +21,8 @@
     xmlns:f="http://java.sun.com/jsf/core">
 
   <tc:page>
-    <f:facet name="layout">
-      <tc:gridLayout rows="auto;auto"/>
-    </f:facet>
-    <tc:gridLayoutConstraint width="600px" height="300px"/>
+
+    <tc:messages/>
 
     <tc:file value="#{upload.file}" required="true"/>
     <tc:button label="OK" action="#{upload.upload}"/>

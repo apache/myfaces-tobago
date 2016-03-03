@@ -19,10 +19,9 @@
 
 package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
-import org.apache.commons.fileupload.FileItem;
 import org.apache.myfaces.tobago.internal.component.AbstractUIFile;
 import org.apache.myfaces.tobago.internal.util.FacesContextUtils;
-import org.apache.myfaces.tobago.internal.webapp.TobagoMultipartFormdataRequest;
+import org.apache.myfaces.tobago.internal.util.PartUtils;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
@@ -39,8 +38,8 @@ import javax.faces.event.ComponentSystemEvent;
 import javax.faces.event.ComponentSystemEventListener;
 import javax.faces.event.ListenerFor;
 import javax.faces.event.PostAddToViewEvent;
-import javax.servlet.ServletRequest;
-import javax.servlet.http.HttpServletRequestWrapper;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.Part;
 import java.io.IOException;
 
 @ListenerFor(systemEventClass = PostAddToViewEvent.class)
@@ -64,48 +63,22 @@ public class FileRenderer extends InputRendererBase implements ComponentSystemEv
     }
 
     final AbstractUIFile input = (AbstractUIFile) component;
-
-    TobagoMultipartFormdataRequest request = null;
-    final Object requestObject = facesContext.getExternalContext().getRequest();
-    if (requestObject instanceof TobagoMultipartFormdataRequest) {
-      request = (TobagoMultipartFormdataRequest) requestObject;
-    } else if (requestObject instanceof HttpServletRequestWrapper) {
-      final ServletRequest wrappedRequest
-          = ((HttpServletRequestWrapper) requestObject).getRequest();
-      if (wrappedRequest instanceof TobagoMultipartFormdataRequest) {
-        request = (TobagoMultipartFormdataRequest) wrappedRequest;
-      }
-    }
-    // TODO PortletRequest ??
-    if (request == null) {
-      // should not be possible, because of the check in UIPage
-      LOG.error("Can't process multipart/form-data without TobagoRequest. "
-          + "Please check the web.xml and define a TobagoMultipartFormdataFilter. "
-          + "See documentation for <tc:file>");
-    } else {
-
-      final FileItem item = request.getFileItem(input.getClientId(facesContext));
-/*
-TODO: Using Servlet 3.0 file upload...
+    final Object request = facesContext.getExternalContext().getRequest();
+    if (request instanceof HttpServletRequest) {
       try {
-        final Part part = request.getPart(input.getClientId(facesContext));
-        LOG.info("content type: " + part.getContentType());
-        LOG.info("name:         " + part.getName());
-        LOG.info("size:         " + part.getSize());
-      } catch (IOException e) {
-        e.printStackTrace();
-      } catch (ServletException e) {
-        e.printStackTrace();
+        HttpServletRequest httpServletRequest = (HttpServletRequest) request;
+        final Part part = httpServletRequest.getPart(input.getClientId(facesContext));
+        if (LOG.isDebugEnabled()) {
+          LOG.debug("Uploaded file '{}', size={}, type='{}'",
+              PartUtils.getSubmittedFileName(part), part.getSize(), part.getContentType());
+        }
+        input.setSubmittedValue(part);
+      } catch (Exception e) {
+        LOG.error("", e);
+        input.setValid(false);
       }
-*/
-
-      if (LOG.isDebugEnabled()) {
-        LOG.debug("Uploaded file name : \"" + item.getName()
-            + "\"  size = " + item.getSize());
-      }
-      input.setSubmittedValue(item);
-      //TODO remove this
-      input.setValid(true);
+    } else { // todo: PortletRequest
+      LOG.warn("Unsupported request type: " + request.getClass().getName());
     }
   }
 

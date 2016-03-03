@@ -65,6 +65,8 @@
     <servlet-name>FacesServlet</servlet-name>
     <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
     <load-on-startup>1</load-on-startup>
+    <!-- This is needed, for file upload e.g. <tc:file> with JSF 2.0 or 2.1, JSF 2.2 doesn't need it. -->
+    <multipart-config/>
   </servlet>
 
   <servlet>

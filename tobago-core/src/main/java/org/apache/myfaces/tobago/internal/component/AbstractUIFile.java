@@ -19,7 +19,6 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
-import org.apache.commons.fileupload.FileItem;
 import org.apache.myfaces.tobago.component.SupportsLabelLayout;
 import org.apache.myfaces.tobago.component.Visual;
 import org.apache.myfaces.tobago.util.MessageUtils;
@@ -27,13 +26,14 @@ import org.apache.myfaces.tobago.util.MessageUtils;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.Part;
 
 public abstract class AbstractUIFile extends UIInput implements SupportsLabelLayout, Visual {
 
   public void validate(final FacesContext facesContext) {
     if (isRequired()) {
-      if (getSubmittedValue() instanceof FileItem) {
-        final FileItem file = (FileItem) getSubmittedValue();
+      if (getSubmittedValue() instanceof Part) {
+        final Part file = (Part) getSubmittedValue();
         if (file == null || file.getName().length() == 0) {
           addErrorMessage(facesContext);
           setValid(false);

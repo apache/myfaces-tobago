@@ -19,6 +19,8 @@
 
 package org.apache.myfaces.tobago.example.addressbook;
 
+import org.apache.commons.io.IOUtils;
+
 import javax.persistence.Basic;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -26,6 +28,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.Serializable;
 
 @Entity
@@ -43,9 +47,9 @@ public class Picture implements Serializable {
   public Picture() {
   }
 
-  public Picture(final String contentType, final byte[] content) {
+  public Picture(final String contentType, final InputStream inputStream) throws IOException {
     this.contentType = contentType;
-    this.content = content;
+    this.content = IOUtils.toByteArray(inputStream);
   }
 
   public Integer getId() {

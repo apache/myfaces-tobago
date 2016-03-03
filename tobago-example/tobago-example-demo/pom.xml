@@ -80,11 +80,6 @@
       <version>${project.version}</version>
     </dependency>
     <dependency>
-      <groupId>org.apache.myfaces.tobago</groupId>
-      <artifactId>tobago-fileupload</artifactId>
-      <version>${project.version}</version>
-    </dependency>
-    <dependency>
       <groupId>oro</groupId>
       <artifactId>oro</artifactId>
       <version>2.0.8</version>

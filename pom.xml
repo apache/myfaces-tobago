@@ -198,7 +198,6 @@
             <link>http://docs.oracle.com/javase/6/docs/api/</link>
             <link>http://docs.oracle.com/javaee/6/api/</link>
             <link>http://jakarta.apache.org/commons/collections/api-${commons-collection.version}/</link>
-            <link>http://jakarta.apache.org/commons/fileupload/apidocs</link>
             <link>http://www.slf4j.org/apidocs</link>
             <link>http://junit.sourceforge.net/javadoc/</link>
             <link>http://logback.qos.ch/apidocs/</link>
@@ -462,11 +461,6 @@
         <groupId>commons-collections</groupId>
         <artifactId>commons-collections</artifactId>
         <version>${commons-collection.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>commons-fileupload</groupId>
-        <artifactId>commons-fileupload</artifactId>
-        <version>1.3.1</version>
       </dependency>
       <dependency>
         <groupId>commons-codec</groupId>

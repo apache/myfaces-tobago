@@ -45,10 +45,6 @@ import javax.faces.component.UIInput;
 
 /**
  * Renders a file input field.
- * You need to define an org.apache.myfaces.tobago.webapp.TobagoMultipartFormdataFilter in your web.xml or
- * add the tobago-fileupload.jar to your project.
- * The tobago-fileupload.jar contains a FacesContextFactory that wraps the
- * multipart-formdata request inside the facesContext.
  * <p />
  * For content constraints please use <a href="validateFileItem.html">tc:validateFileItem</a>.
  */
@@ -67,12 +63,12 @@ public interface FileTagDeclaration
 
   /**
    * Value binding expression pointing to a
-   * <code>org.apache.commons.fileupload.FileItem</code> property to store the
+   * {@link javax.servlet.http.Part} property to store the
    * uploaded file.
    */
   @TagAttribute()
   @UIComponentTagAttribute(
-      type = { "org.apache.commons.fileupload.FileItem" },
+      type = { "javax.servlet.http.Part" },
       expression = DynamicExpression.VALUE_EXPRESSION_REQUIRED)
   void setValue(String value);
 }

@@ -249,11 +249,6 @@
     </dependency-->
     <dependency>
       <groupId>org.apache.myfaces.tobago</groupId>
-      <artifactId>tobago-fileupload</artifactId>
-      <version>${project.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.myfaces.tobago</groupId>
       <artifactId>tobago-security</artifactId>
       <version>${project.version}</version>
     </dependency>

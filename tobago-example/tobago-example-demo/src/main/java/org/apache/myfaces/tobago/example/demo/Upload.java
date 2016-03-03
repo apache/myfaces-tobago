@@ -19,12 +19,15 @@
 
 package org.apache.myfaces.tobago.example.demo;
 
-import org.apache.commons.fileupload.FileItem;
+import org.apache.myfaces.tobago.internal.util.PartUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Named;
+import javax.servlet.http.Part;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -35,8 +38,8 @@ public class Upload implements Serializable {
 
   private static final Logger LOG = LoggerFactory.getLogger(Upload.class);
 
-  private FileItem file1;
-  private FileItem file2;
+  private Part file1;
+  private Part file2;
 
   private List<UploadItem> list = new ArrayList<UploadItem>();
 
@@ -46,37 +49,34 @@ public class Upload implements Serializable {
     return null;
   }
 
-  public void upload(FileItem file) {
+  public void upload(Part part) {
     LOG.info("checking file item");
-    if (file == null || file.get().length == 0) {
+    if (part == null || part.getSize() == 0) {
       return;
     }
-    LOG.info("type=" + file.getContentType());
-    LOG.info("size=" + file.get().length);
-    String name = file.getName();
-    final int pos = Math.max(name.lastIndexOf('/'), name.lastIndexOf('\\'));
-    if (pos >= 0) {
-      // some old browsers send the name with path.
-      // modern browsers doesn't because of security reasons.
-      name = name.substring(pos + 1);
-    }
-    LOG.info("name=" + name);
-    list.add(new UploadItem(name, file.get().length, file.getContentType()));
+    LOG.info("type=" + part.getContentType());
+    LOG.info("size=" + part.getSize());
+    final String submittedFileName = PartUtils.getSubmittedFileName(part);
+    LOG.info("name=" + submittedFileName);
+    list.add(new UploadItem(submittedFileName, part.getSize(), part.getContentType()));
+    FacesContext.getCurrentInstance().addMessage(
+        null, new FacesMessage(FacesMessage.SEVERITY_INFO, "File was uploaded: " + submittedFileName, null));
+
   }
 
-  public FileItem getFile1() {
+  public Part getFile1() {
     return file1;
   }
 
-  public void setFile1(FileItem file1) {
+  public void setFile1(Part file1) {
     this.file1 = file1;
   }
 
-  public FileItem getFile2() {
+  public Part getFile2() {
     return file2;
   }
 
-  public void setFile2(FileItem file2) {
+  public void setFile2(Part file2) {
     this.file2 = file2;
   }
 
