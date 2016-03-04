@@ -37,21 +37,15 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlButtonTypes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.JsonUtils;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
+import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.faces.component.UIComponent;
-import javax.faces.component.behavior.ClientBehavior;
-import javax.faces.component.behavior.ClientBehaviorBase;
-import javax.faces.component.behavior.ClientBehaviorContext;
-import javax.faces.component.behavior.ClientBehaviorHolder;
 import javax.faces.context.FacesContext;
-import javax.faces.render.ClientBehaviorRenderer;
 import java.io.IOException;
-import java.util.List;
-import java.util.Map;
 
 public class ButtonRenderer extends CommandRendererBase {
 
@@ -90,25 +84,8 @@ public class ButtonRenderer extends CommandRendererBase {
         writer.writeAttribute(HtmlAttributes.TABINDEX, ((UIButton) button).getTabIndex());
       }
 
-      String commands = null;
-      final Map<String, List<ClientBehavior>> behaviors = ((ClientBehaviorHolder) component).getClientBehaviors();
-      for (Map.Entry<String, List<ClientBehavior>> behavior : behaviors.entrySet()) {
-        final String key = behavior.getKey();
-        final ClientBehaviorContext context
-            = ClientBehaviorContext.createClientBehaviorContext(facesContext, button, key, clientId, null);
-        for (ClientBehavior clientBehavior : behavior.getValue()) {
-          if (clientBehavior instanceof ClientBehaviorBase) {
-            final String type = ((ClientBehaviorBase) clientBehavior).getRendererType();
-            final ClientBehaviorRenderer clientBehaviorRenderer
-                = facesContext.getRenderKit().getClientBehaviorRenderer(type);
-            commands = clientBehaviorRenderer.getScript(context, clientBehavior);
-          } else {
-            LOG.warn("Ignoring: '{}'", clientBehavior);
-          }
-        }
-      }
-
-      if (commands == null) {
+      String commands = RenderUtils.getBehaviorCommands(facesContext, button);
+      if (commands == null) { // old way
         final CommandMap map = new CommandMap(new Command(facesContext, button));
         commands =  JsonUtils.encode(map);
       }
@@ -117,10 +94,10 @@ public class ButtonRenderer extends CommandRendererBase {
 
     writer.writeStyleAttribute(button.getStyle());
 
-    final boolean defaultCommand = ComponentUtils.getBooleanAttribute(component, Attributes.defaultCommand);
+    final boolean defaultCommand = ComponentUtils.getBooleanAttribute(button, Attributes.defaultCommand);
     // TODO this might be too expensive:
     // TODO please put a flag in the ToolBar-handler and Button-handler (facelets-handler)
-    final boolean insideToolbar = ComponentUtils.findAncestor(component, AbstractUIToolBar.class) != null;
+    final boolean insideToolbar = ComponentUtils.findAncestor(button, AbstractUIToolBar.class) != null;
     writer.writeClassAttribute(
         Classes.create(button),
         BootstrapClass.BTN,
@@ -128,8 +105,8 @@ public class ButtonRenderer extends CommandRendererBase {
         insideToolbar ? BootstrapClass.NAVBAR_BTN : null,
         button.getCustomClass());
 
-    if (button instanceof UIButton && ((UIButton) component).isDefaultCommand()) {
-      final AbstractUIForm form = ComponentUtils.findAncestor(component, AbstractUIForm.class);
+    if (button instanceof UIButton && ((UIButton) button).isDefaultCommand()) {
+      final AbstractUIForm form = ComponentUtils.findAncestor(button, AbstractUIForm.class);
       writer.writeAttribute(DataAttributes.DEFAULT, form.getClientId(facesContext), false);
     }
     writer.flush(); // force closing the start tag

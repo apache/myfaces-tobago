@@ -36,15 +36,21 @@ import javax.faces.component.EditableValueHolder;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIParameter;
 import javax.faces.component.ValueHolder;
+import javax.faces.component.behavior.ClientBehavior;
+import javax.faces.component.behavior.ClientBehaviorBase;
+import javax.faces.component.behavior.ClientBehaviorContext;
+import javax.faces.component.behavior.ClientBehaviorHolder;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
+import javax.faces.render.ClientBehaviorRenderer;
 import java.io.IOException;
 import java.net.URLDecoder;
 import java.util.List;
+import java.util.Map;
 
-public class RenderUtils {
+public final class RenderUtils {
 
   private static final Logger LOG = LoggerFactory.getLogger(RenderUtils.class);
 
@@ -304,6 +310,26 @@ public class RenderUtils {
     }
 
     return url;
+  }
+
+  public static String getBehaviorCommands(FacesContext facesContext, ClientBehaviorHolder button) {
+    final Map<String, List<ClientBehavior>> behaviors = button.getClientBehaviors();
+    for (Map.Entry<String, List<ClientBehavior>> behavior : behaviors.entrySet()) {
+      final String key = behavior.getKey();
+      final ClientBehaviorContext context = ClientBehaviorContext.createClientBehaviorContext(
+          facesContext, (UIComponent) button, key, ((UIComponent) button).getClientId(facesContext), null);
+      for (ClientBehavior clientBehavior : behavior.getValue()) {
+        if (clientBehavior instanceof ClientBehaviorBase) {
+          final String type = ((ClientBehaviorBase) clientBehavior).getRendererType();
+          final ClientBehaviorRenderer clientBehaviorRenderer
+              = facesContext.getRenderKit().getClientBehaviorRenderer(type);
+          final String commands =  clientBehaviorRenderer.getScript(context, clientBehavior);
+        } else {
+          LOG.warn("Ignoring: '{}'", clientBehavior);
+        }
+      }
+    }
+    return null;
   }
 
 }
