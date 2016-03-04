@@ -56,6 +56,7 @@ public class Upload implements Serializable {
     }
     LOG.info("type=" + part.getContentType());
     LOG.info("size=" + part.getSize());
+    LOG.info("cd = " + part.getHeader("Content-Disposition"));
     final String submittedFileName = PartUtils.getSubmittedFileName(part);
     LOG.info("name=" + submittedFileName);
     list.add(new UploadItem(submittedFileName, part.getSize(), part.getContentType()));

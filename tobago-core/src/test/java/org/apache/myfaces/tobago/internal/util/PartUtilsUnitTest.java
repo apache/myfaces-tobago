@@ -37,6 +37,15 @@ public class PartUtilsUnitTest {
 
     final String dc1 = "form-data; name=\"page:file\"; filename=\"foo;bar=\\\"boo\\\"-bar.jpg\"";
     Assert.assertEquals("foo;bar=\"boo\"-bar.jpg", PartUtils.getSubmittedFileName(new PartMock(dc1)));
+
+/* XXX will fail, because a / will be encoded as a :
+    final String dc2
+        = "form-data; name=\"page:file1\"; filename=\"semicolon;doublequote\\\"backslash\\"
+        + "slash:doublebackslash\\\\quote'umlautsäöüumlautsäöüeuro€tilde~muµspace hiraganaぁ.jpg\"";
+    Assert.assertEquals(
+        "semicolon;doublequote\"backslash\\slash/doublebackslash\\\\quote'umlautsäöüumlautsäöüeuro€tilde~muµspace "
+            + "hiraganaぁ.jpg", PartUtils.getSubmittedFileName(new PartMock(dc2)));
+*/
   }
 
   private static final class PartMock implements Part {
