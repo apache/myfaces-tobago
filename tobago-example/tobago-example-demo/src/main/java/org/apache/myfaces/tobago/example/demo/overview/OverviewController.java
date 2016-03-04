@@ -91,8 +91,6 @@ public class OverviewController implements Serializable {
 
   private Selectable treeListboxSelectMode;
 
-  private Integer treeTabsState;
-
   private String lastAction;
 
   private SheetConfig sheetConfig;
@@ -118,7 +116,6 @@ public class OverviewController implements Serializable {
     treeSelectMode = TREE_SELECT_MODE_KEYS[3];
     treeListboxSelectMode = TREELISTBOX_SELECT_MODE_KEYS[0];
     multiValue = new Salutation[0];
-    treeTabsState = 0;
     sheetConfig = new SheetConfig();
     final String[] toolbarIconKeys
         = {UIToolBar.ICON_OFF, UIToolBar.ICON_SMALL, UIToolBar.ICON_BIG};
@@ -318,14 +315,6 @@ public class OverviewController implements Serializable {
 
   public String getLastAction() {
     return lastAction;
-  }
-
-  public Integer getTreeTabsState() {
-    return treeTabsState;
-  }
-
-  public void setTreeTabsState(final Integer treeTabsState) {
-    this.treeTabsState = treeTabsState;
   }
 
   public SheetConfig getSheetConfig() {

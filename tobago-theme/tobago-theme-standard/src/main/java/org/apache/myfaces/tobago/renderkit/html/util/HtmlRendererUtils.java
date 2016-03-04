@@ -271,12 +271,20 @@ public final class HtmlRendererUtils {
     }
   }
 
+  /**
+   * @deprecated Use client behaviour instead.
+   */
+  @Deprecated
   public static void renderCommandFacet(
       final UIComponent component, final FacesContext facesContext, final TobagoResponseWriter writer)
       throws IOException {
     renderCommandFacet(component, component.getClientId(facesContext), facesContext, writer);
   }
 
+  /**
+   * @deprecated Use client behaviour instead.
+   */
+  @Deprecated
   public static void renderCommandFacet(
       final UIComponent component, final String id, final FacesContext facesContext, final TobagoResponseWriter writer)
       throws IOException {

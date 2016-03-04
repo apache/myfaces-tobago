@@ -25,10 +25,12 @@ import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
+import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
+import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import org.slf4j.Logger;
@@ -112,13 +114,18 @@ public class SelectBooleanCheckboxRenderer extends RendererBase {
     HtmlRendererUtils.renderFocus(clientId, select.isFocus(), ComponentUtils.isError(select), facesContext, writer);
 
     writer.writeAttribute(HtmlAttributes.TABINDEX, select.getTabIndex());
-    HtmlRendererUtils.renderCommandFacet(select, facesContext, writer);
+
+    final String commands = RenderUtils.getBehaviorCommands(facesContext, select);
+    if (commands != null) {
+      writer.writeAttribute(DataAttributes.COMMANDS, commands, true);
+    } else { // old
+      HtmlRendererUtils.renderCommandFacet(select, facesContext, writer);
+    }
+
     writer.endElement(HtmlElements.INPUT);
 
     if (label.getLabel() != null) {
-
       HtmlRendererUtils.writeLabelWithAccessKey(writer, label);
-
     }
 
     writer.endElement(HtmlElements.LABEL);

@@ -23,6 +23,7 @@ import org.apache.myfaces.tobago.component.UISelectManyCheckbox;
 import org.apache.myfaces.tobago.renderkit.SelectManyRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
+import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
@@ -93,7 +94,12 @@ public class SelectManyCheckboxRenderer extends SelectManyRendererBase {
         first = false;
       }
       writer.writeAttribute(HtmlAttributes.TABINDEX, select.getTabIndex());
-      HtmlRendererUtils.renderCommandFacet(select, itemId, facesContext, writer);
+      final String commands = RenderUtils.getBehaviorCommands(facesContext, select);
+      if (commands != null) {
+        writer.writeAttribute(DataAttributes.COMMANDS, commands, true);
+      } else { // old
+        HtmlRendererUtils.renderCommandFacet(select, itemId, facesContext, writer);
+      }
       writer.endElement(HtmlElements.INPUT);
 
       final String label = item.getLabel();

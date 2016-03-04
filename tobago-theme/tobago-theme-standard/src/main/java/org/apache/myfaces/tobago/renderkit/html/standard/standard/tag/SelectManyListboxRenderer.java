@@ -23,9 +23,11 @@ import org.apache.myfaces.tobago.component.UISelectManyListbox;
 import org.apache.myfaces.tobago.renderkit.SelectManyRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
+import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
+import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
 import org.apache.myfaces.tobago.renderkit.util.SelectItemUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
@@ -69,7 +71,12 @@ public class SelectManyListboxRenderer extends SelectManyRendererBase {
     writer.writeAttribute(HtmlAttributes.MULTIPLE, true);
     writer.writeAttribute(HtmlAttributes.SIZE, size);
     writer.writeAttribute(HtmlAttributes.TITLE, title, true);
-    HtmlRendererUtils.renderCommandFacet(select, facesContext, writer);
+    final String commands = RenderUtils.getBehaviorCommands(facesContext, select);
+    if (commands != null) {
+      writer.writeAttribute(DataAttributes.COMMANDS, commands, true);
+    } else { // old
+      HtmlRendererUtils.renderCommandFacet(select, facesContext, writer);
+    }
     final Object[] values = select.getSelectedValues();
     final String[] submittedValues = getSubmittedValues(select);
 

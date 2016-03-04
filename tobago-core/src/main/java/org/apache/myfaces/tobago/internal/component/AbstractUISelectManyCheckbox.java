@@ -19,13 +19,5 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
-public abstract class AbstractUISelectManyShuttle extends AbstractUISelectManyBase {
-
-  public abstract String getSelectedLabel();
-
-  public abstract String getUnselectedLabel();
-
-  public boolean hasLabel() {
-     return getSelectedLabel() != null || getUnselectedLabel() != null;
-  }
+public abstract class AbstractUISelectManyCheckbox extends AbstractUISelectManyBase {
 }

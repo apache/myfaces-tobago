@@ -24,16 +24,10 @@
   <ui:param name="title" value="#{overviewBundle.tree}"/>
 
   <tc:panel id="panel">
-    <f:facet name="layout">
-      <tc:gridLayout rows="9*;16*"/>
-    </f:facet>
 
     <tc:out escape="false" value="(UNDER CONSTRUCTION) #{overviewBundle.tree_text}"/>
 
-    <tc:panel>
-      <f:facet name="layout">
-        <tc:gridLayout columns="2*;1*"/>
-      </f:facet>
+    <tc:flexLayout columns="*;*">
 
       <tc:tree id="tree"
                showRootJunction="#{demo.showRootJunction}"
@@ -45,33 +39,25 @@
           <tc:treeIcon value="image/feather.png" rendered="#{demo.showIcons}"/>
           <tc:treeLabel value="#{node.userObject.name}"/>
         </tc:treeNode>
-        <!--
-        todo: events instead of state
-        todo: test action listener
-        actionListener="org.apache.myfaces.tobago.example.demo.actionlistener.TreeEditor"
-        -->
       </tc:tree>
 
       <tc:panel>
-        <f:facet name="layout">
-          <tc:gridLayout rows="auto;auto;auto;auto;auto"/>
-        </f:facet>
-
-        <tc:selectBooleanCheckbox label="#{overviewBundle.treeShowIcons}"
-                                  value="#{demo.showIcons}"
-                                  disabled="#{overviewController.treeTabsState != 0}"/>
-        <tc:selectBooleanCheckbox label="#{overviewBundle.treeShowJunctions}"
-                                  value="#{demo.showJunctions}"
-                                  disabled="#{overviewController.treeTabsState != 0}"/>
-        <tc:selectBooleanCheckbox label="#{overviewBundle.treeShowRootJunction}"
-                                  value="#{demo.showRootJunction}"
-                                  disabled="#{overviewController.treeTabsState != 0}"/>
-        <tc:selectBooleanCheckbox label="#{overviewBundle.treeShowRoot}"
-                                  value="#{demo.showRoot}"
-                                  disabled="#{overviewController.treeTabsState != 0}"/>
-
-        <tc:button label="#{overviewBundle.submit}" renderedPartially="panel"/>
+        <tc:selectBooleanCheckbox label="#{overviewBundle.treeShowIcons}" value="#{demo.showIcons}">
+          <f:ajax render="panel"/>
+        </tc:selectBooleanCheckbox>
+        <tc:selectBooleanCheckbox label="#{overviewBundle.treeShowJunctions}" value="#{demo.showJunctions}">
+          <f:ajax render="panel"/>
+        </tc:selectBooleanCheckbox>
+        <tc:selectBooleanCheckbox label="#{overviewBundle.treeShowRootJunction}" value="#{demo.showRootJunction}">
+          <f:ajax render="panel"/>
+        </tc:selectBooleanCheckbox>
+        <tc:selectBooleanCheckbox label="#{overviewBundle.treeShowRoot}" value="#{demo.showRoot}">
+          <f:ajax render="panel"/>
+        </tc:selectBooleanCheckbox>
       </tc:panel>
-    </tc:panel>
+
+    </tc:flexLayout>
+
   </tc:panel>
+
 </ui:composition>

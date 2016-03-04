@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+-->
+
+<ui:composition template="/main.xhtml"
+                xmlns:tc="http://myfaces.apache.org/tobago/component"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core">
+  <ui:param name="title" value="Select Boolean Checkbox: &lt;tc:selectBoleanCheckbox>"/>
+
+  <tc:section label="Simple Usage">
+
+    <tc:selectBooleanCheckbox value="#{selectBoolean.a}" label="A" id="a"/>
+    <tc:selectBooleanCheckbox value="#{selectBoolean.b}" label="B" id="b"/>
+    <tc:selectBooleanCheckbox value="#{selectBoolean.c}" label="C" id="c"/>
+
+    <tc:flowLayout>
+      <tc:style textAlign="right"/>
+      <tc:button label="Submit" defaultCommand="true" action="#{selectBoolean.submit}"/>
+    </tc:flowLayout>
+
+  </tc:section>
+
+  <tc:section label="AJAX" id="ajax">
+
+    <tc:selectBooleanCheckbox value="#{selectBoolean.d}" label="D" id="d">
+      <f:ajax render="ajax"/>
+    </tc:selectBooleanCheckbox>
+    <tc:out label="Value is" value="#{selectBoolean.d}"/>
+
+    <tc:selectBooleanCheckbox value="#{selectBoolean.e}" label="E" id="e">
+      <f:ajax render="ajax"/>
+    </tc:selectBooleanCheckbox>
+    <tc:out label="Value is" value="#{selectBoolean.e}"/>
+
+    <tc:selectBooleanCheckbox value="#{selectBoolean.f}" label="F" id="f">
+      <f:ajax render="ajax"/>
+    </tc:selectBooleanCheckbox>
+    <tc:out label="Value is" value="#{selectBoolean.f}"/>
+
+  </tc:section>
+
+</ui:composition>

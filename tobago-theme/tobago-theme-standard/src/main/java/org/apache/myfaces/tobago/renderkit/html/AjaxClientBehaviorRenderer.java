@@ -23,6 +23,7 @@ import org.apache.myfaces.tobago.internal.component.AbstractUICommand;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 
+import javax.faces.component.UIComponent;
 import javax.faces.component.behavior.AjaxBehavior;
 import javax.faces.component.behavior.ClientBehavior;
 import javax.faces.component.behavior.ClientBehaviorContext;
@@ -36,24 +37,44 @@ public class AjaxClientBehaviorRenderer extends ClientBehaviorRenderer {
   public String getScript(ClientBehaviorContext behaviorContext, ClientBehavior behavior) {
 
     final AjaxBehavior ajaxBehavior = (AjaxBehavior) behavior;
-    final AbstractUICommand component = (AbstractUICommand) behaviorContext.getComponent();
     final FacesContext facesContext = behaviorContext.getFacesContext();
     final Collection<String> render = ajaxBehavior.getRender();
+    final UIComponent uiComponent = behaviorContext.getComponent();
 
-    final Command command = new Command(
-        null,
-        component.isTransition(),
-        component.getTarget(),
-        RenderUtils.generateUrl(facesContext, component),
-        ComponentUtils.evaluateClientIds(facesContext, component, render.toArray(new String[render.size()])),
-        null,
-        null, // getConfirmation(command), // todo
-        null,
-        Popup.createPopup(component),
-        component.isOmit());
+    if (uiComponent instanceof AbstractUICommand) {
+      final AbstractUICommand component = (AbstractUICommand) uiComponent;
 
-    final CommandMap map = new CommandMap();
-    map.addCommand(behaviorContext.getEventName(), command);
-    return JsonUtils.encode(map);
+      final Command command = new Command(
+          null,
+          component.isTransition(),
+          component.getTarget(),
+          RenderUtils.generateUrl(facesContext, component),
+          ComponentUtils.evaluateClientIds(facesContext, component, render.toArray(new String[render.size()])),
+          null,
+          null, // getConfirmation(command), // todo
+          null,
+          Popup.createPopup(component),
+          component.isOmit());
+
+      final CommandMap map = new CommandMap();
+      map.addCommand(behaviorContext.getEventName(), command);
+      return JsonUtils.encode(map);
+    } else {
+      final Command command = new Command( // todo
+          null,
+          null,
+          null,
+          null,
+          ComponentUtils.evaluateClientIds(facesContext, uiComponent, render.toArray(new String[render.size()])),
+          null,
+          null,
+          null,
+          null,
+          null);
+
+      final CommandMap map = new CommandMap();
+      map.addCommand(behaviorContext.getEventName(), command);
+      return JsonUtils.encode(map);
+    }
   }
 }

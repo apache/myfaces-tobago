@@ -49,7 +49,9 @@
 
           <tc:flexLayout rows="auto;*">
 
-            <tc:messages orderBy="severity"/>
+            <tc:panel id="messages">
+              <tc:messages orderBy="severity"/>
+            </tc:panel>
 
             <tc:box label="#{title}" id="content">
               <ui:insert/>
