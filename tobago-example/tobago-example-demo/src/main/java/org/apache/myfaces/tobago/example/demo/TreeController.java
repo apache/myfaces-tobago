@@ -25,12 +25,17 @@ import org.apache.myfaces.tobago.example.data.NamedNode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.enterprise.context.SessionScoped;
 import javax.faces.event.ActionEvent;
+import javax.inject.Named;
 import javax.swing.tree.DefaultMutableTreeNode;
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class TreeController {
+@SessionScoped
+@Named
+public class TreeController implements Serializable {
 
   private static final Logger LOG = LoggerFactory.getLogger(TreeController.class);
 

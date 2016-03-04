@@ -23,12 +23,15 @@ import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.enterprise.context.RequestScoped;
 import javax.faces.context.FacesContext;
+import javax.inject.Named;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.InputStream;
 
-
+@RequestScoped
+@Named
 public class BestPracticeController {
 
   private static final Logger LOG = LoggerFactory.getLogger(BestPracticeController.class);

@@ -22,7 +22,9 @@ package org.apache.myfaces.tobago.example.demo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.enterprise.context.ApplicationScoped;
 import javax.faces.context.FacesContext;
+import javax.inject.Named;
 import javax.servlet.ServletContext;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -39,6 +41,8 @@ import java.util.Properties;
  * The file name can be changed with a system property with name <code>{@value #CONFIG_FILE}</code>.
  *
  */
+@ApplicationScoped
+@Named("info")
 public class ServerInfo {
 
   private static final Logger LOG = LoggerFactory.getLogger(ServerInfo.class);
