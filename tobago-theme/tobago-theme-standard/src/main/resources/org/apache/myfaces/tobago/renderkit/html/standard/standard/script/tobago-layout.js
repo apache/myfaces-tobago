@@ -207,8 +207,9 @@ function layoutFlex(container, orientation) {
   }
 }
 
-jQuery(document).ready(function () {
-  var gridLayouts = jQuery(".tobago-gridLayout");
+Tobago.Layout.init = function (elements) {
+
+  var gridLayouts = Tobago.Utils.selectWithJQuery(elements, ".tobago-gridLayout");
 
   gridLayouts.each(function () {
     var table = jQuery(this);
@@ -225,7 +226,7 @@ jQuery(document).ready(function () {
 
   // the flex stuff.
 
-  var flexLayouts = jQuery(".tobago-flexLayout");
+  var flexLayouts = Tobago.Utils.selectWithJQuery(elements, ".tobago-flexLayout");
 
   flexLayouts.each(function () {
     var container = jQuery(this);
@@ -239,7 +240,7 @@ jQuery(document).ready(function () {
   // XXX Is there a CSS solution?
   // TODO: this might be reevaluated after a "resize"
 
-  var header = jQuery(".navbar-fixed-top");
+  var header = Tobago.Utils.selectWithJQuery(elements, ".navbar-fixed-top");
   header.each(function () {
     var content = header.next();
     content.css({
@@ -247,7 +248,7 @@ jQuery(document).ready(function () {
     });
   });
 
-  var footer = jQuery(".navbar-fixed-bottom");
+  var footer = Tobago.Utils.selectWithJQuery(elements, ".navbar-fixed-bottom");
   footer.each(function () {
     var content = footer.prev();
     content.css({
@@ -255,4 +256,7 @@ jQuery(document).ready(function () {
     });
   });
 
-});
+};
+
+Tobago.registerListener(Tobago.Layout.init, Tobago.Phase.DOCUMENT_READY);
+Tobago.registerListener(Tobago.Layout.init, Tobago.Phase.AFTER_UPDATE);
