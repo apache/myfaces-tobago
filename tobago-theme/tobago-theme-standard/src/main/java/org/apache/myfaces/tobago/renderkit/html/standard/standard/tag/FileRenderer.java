@@ -27,6 +27,7 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
+import org.apache.myfaces.tobago.renderkit.util.HttpPartWrapper;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import org.slf4j.Logger;
@@ -72,7 +73,7 @@ public class FileRenderer extends InputRendererBase implements ComponentSystemEv
           LOG.debug("Uploaded file '{}', size={}, type='{}'",
               PartUtils.getSubmittedFileName(part), part.getSize(), part.getContentType());
         }
-        input.setSubmittedValue(part);
+        input.setSubmittedValue(new HttpPartWrapper(part));
       } catch (Exception e) {
         LOG.error("", e);
         input.setValid(false);
