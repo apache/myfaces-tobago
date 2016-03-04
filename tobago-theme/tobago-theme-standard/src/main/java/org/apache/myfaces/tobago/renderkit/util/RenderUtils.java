@@ -324,6 +324,7 @@ public final class RenderUtils {
           final ClientBehaviorRenderer clientBehaviorRenderer
               = facesContext.getRenderKit().getClientBehaviorRenderer(type);
           final String commands =  clientBehaviorRenderer.getScript(context, clientBehavior);
+          return commands;
         } else {
           LOG.warn("Ignoring: '{}'", clientBehavior);
         }
