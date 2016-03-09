@@ -2596,7 +2596,13 @@ Tobago.File.init = function(elements) {
     pretty.text(filename);
   });
   if (files.length > 0) {
-    jQuery("form").attr('enctype', 'multipart/form-data')
+    jQuery("form").attr('enctype', 'multipart/form-data');
+    if (myfaces) {
+      // XXX This hack is currently needed for MyFaces 2.0 and 2.1 for File Upload with AJAX
+      // XXX to enable multipart-formdata
+      myfaces.config = myfaces.config || {};
+      myfaces.config["transportAutoSelection"] = true;
+    }
   }
 };
 
