@@ -47,8 +47,9 @@
             <tc:out value="#{luminary.name}" id="t_name"/>
           </tc:column>
           <tc:columnEvent event="click">
-            <tc:command actionListener="#{demo.selectLuminary}" renderedPartially=":page:detail" immediate="true">
+            <tc:command actionListener="#{demo.selectLuminary}" immediate="true">
               <tc:resetInputActionListener/>
+              <f:ajax execute=":page:detail"/>
             </tc:command>
           </tc:columnEvent>
         </tc:sheet>
