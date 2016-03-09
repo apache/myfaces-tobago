@@ -54,11 +54,20 @@
       <tc:validateFileItem contentType="image/*"/>
     </tc:file>
 
-    <tc:button label="Submit" defaultCommand="true" action="#{upload.upload}"/>
+    <tc:flowLayout>
+      <tc:style textAlign="right"/>
+      <tc:button label="Submit" defaultCommand="true" action="#{upload.upload}"/>
+    </tc:flowLayout>
 
-    <tc:file label="Instant" value="#{upload.file3}" tip="with AJAX" id="file3">
-      <f:ajax listener="#{upload.uploadAjax}" render="panel"/>
-    </tc:file>
+    <tc:section label="AJAX">
+
+      The AJAX feature of file upload currently only works with JSF 2.2 (not with JSF 2.0 or 2.1)!
+
+      <tc:file label="Instant" value="#{upload.file3}" tip="with AJAX" id="file3">
+        <f:ajax listener="#{upload.uploadAjax}" render="panel"/>
+      </tc:file>
+
+    </tc:section>
 
     <tc:sheet id="sheet" var="entry" value="#{upload.list}" columns="*;*;*">
 

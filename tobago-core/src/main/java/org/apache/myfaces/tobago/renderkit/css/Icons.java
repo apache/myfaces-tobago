@@ -31,6 +31,7 @@ public enum Icons {
   CALENDAR,
   CLOCK_O,
   ELLIPSIS_H,
+  FOLDER_OPEN,
   FORWARD,
   MINUS_SQUARE_O,
   PLUS_SQUARE_O,

@@ -51,6 +51,23 @@ needed for popups
   z-index: 2000 !important;
 }
 
+/* file -------------------------------------------------------------- */
+
+.tobago-file {
+  position: relative;
+}
+
+.tobago-file-real {
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  opacity: 0;
+  width: 100%;
+  filter: alpha(opacity: 0);
+  z-index: 2;
+}
+
 /* flexLayout -------------------------------------------------------------- */
 
 .tobago-flexLayout {

@@ -22,9 +22,12 @@ package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 import org.apache.myfaces.tobago.internal.component.AbstractUIFile;
 import org.apache.myfaces.tobago.internal.util.FacesContextUtils;
 import org.apache.myfaces.tobago.internal.util.PartUtils;
+import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
+import org.apache.myfaces.tobago.renderkit.css.Icons;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
+import org.apache.myfaces.tobago.renderkit.html.HtmlButtonTypes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
@@ -105,11 +108,22 @@ public class FileRenderer extends InputRendererBase implements ComponentSystemEv
 
     // visible fake input for a pretty look
     writer.startElement(HtmlElements.DIV);
-    writer.writeIdAttribute(clientId + ComponentUtils.SUB_SEPARATOR + "pretty");
-    writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.TEXT);
-    writer.writeClassAttribute(Classes.create(file, "pretty"));
+    writer.writeClassAttribute(BootstrapClass.INPUT_GROUP);
+    writer.startElement(HtmlElements.SPAN);
+    writer.writeClassAttribute(Classes.create(file, "pretty"), BootstrapClass.FORM_CONTROL);
     // TODO Focus
     //HtmlRendererUtils.renderFocus(clientId, file.isFocus(), ComponentUtils.isError(file), facesContext, writer);
+    writer.writeText(" "); // this is a non breaking space
+    writer.endElement(HtmlElements.SPAN);
+
+    writer.startElement(HtmlElements.SPAN);
+    writer.writeClassAttribute(BootstrapClass.INPUT_GROUP_BTN);
+    writer.startElement(HtmlElements.BUTTON);
+    writer.writeClassAttribute(BootstrapClass.BTN, BootstrapClass.BTN_SECONDARY);
+    writer.writeAttribute(HtmlAttributes.TYPE, HtmlButtonTypes.BUTTON);
+    writer.writeIcon(Icons.FOLDER_OPEN);
+    writer.endElement(HtmlElements.BUTTON);
+    writer.endElement(HtmlElements.SPAN);
     writer.endElement(HtmlElements.DIV);
 
     // invisible file input
