@@ -58,10 +58,10 @@
           <f:convertDateTime pattern="dd/MM/yyyy"/>
           <tc:validateSubmittedValueLength maximum="10"/>
         </tc:date>
-        <tc:time label="#{overviewBundle.basic_timeLabel}" tabIndex="5" id="basic_time"
+        <tc:date label="#{overviewBundle.basic_timeLabel}" tabIndex="5" id="basic_time"
                  value="#{overviewController.basicTime}">
           <f:convertDateTime pattern="HH:mm" timeZone="CET"/>
-        </tc:time>
+        </tc:date>
         <tc:in value="#{overviewController.placeholder}" tabIndex="6" id="basic_placeholder"
                label="Placeholder" placeholder="Search..."/>
       </tc:panel>
