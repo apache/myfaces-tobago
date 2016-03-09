@@ -20,9 +20,10 @@
 <ui:composition template="/main.xhtml"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
                 xmlns="http://www.w3.org/1999/xhtml">
   <ui:param name="title" value="File Upload"/>
-  <tc:panel>
+  <tc:panel id="panel">
 
     <p>
       To load up files to the server for JSF 2.0 and 2.1 you will need to
@@ -55,7 +56,11 @@
 
     <tc:button label="Submit" defaultCommand="true" action="#{upload.upload}"/>
 
-    <tc:sheet var="entry" value="#{upload.list}" columns="*;*;*">
+    <tc:file label="Instant" value="#{upload.file3}" tip="with AJAX" id="file3">
+      <f:ajax listener="#{upload.uploadAjax}" render="panel"/>
+    </tc:file>
+
+    <tc:sheet id="sheet" var="entry" value="#{upload.list}" columns="*;*;*">
 
       <tc:column label="Name">
         <tc:out value="#{entry.name}"/>

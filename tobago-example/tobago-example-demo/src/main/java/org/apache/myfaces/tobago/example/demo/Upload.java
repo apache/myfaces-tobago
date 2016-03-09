@@ -26,6 +26,7 @@ import org.slf4j.LoggerFactory;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.faces.event.AjaxBehaviorEvent;
 import javax.inject.Named;
 import javax.servlet.http.Part;
 import java.io.Serializable;
@@ -40,6 +41,7 @@ public class Upload implements Serializable {
 
   private Part file1;
   private Part file2;
+  private Part file3;
 
   private List<UploadItem> list = new ArrayList<UploadItem>();
 
@@ -47,6 +49,10 @@ public class Upload implements Serializable {
    upload(file1);
    upload(file2);
     return null;
+  }
+
+  public void uploadAjax(AjaxBehaviorEvent event) {
+    upload(file3);
   }
 
   public void upload(Part part) {
@@ -79,6 +85,14 @@ public class Upload implements Serializable {
 
   public void setFile2(Part file2) {
     this.file2 = file2;
+  }
+
+  public Part getFile3() {
+    return file3;
+  }
+
+  public void setFile3(Part file3) {
+    this.file3 = file3;
   }
 
   public List<UploadItem> getList() {

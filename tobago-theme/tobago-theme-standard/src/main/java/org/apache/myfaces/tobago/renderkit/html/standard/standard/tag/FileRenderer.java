@@ -23,6 +23,7 @@ import org.apache.myfaces.tobago.internal.component.AbstractUIFile;
 import org.apache.myfaces.tobago.internal.util.FacesContextUtils;
 import org.apache.myfaces.tobago.internal.util.PartUtils;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
+import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
@@ -127,6 +128,12 @@ public class FileRenderer extends InputRendererBase implements ComponentSystemEv
     if (title != null) {
       writer.writeAttribute(HtmlAttributes.TITLE, title, true);
     }
+
+    final String commands = RenderUtils.getBehaviorCommands(facesContext, file);
+    if (commands != null) {
+      writer.writeAttribute(DataAttributes.COMMANDS, commands, true);
+    }
+
     writer.endElement(HtmlElements.INPUT);
   }
 

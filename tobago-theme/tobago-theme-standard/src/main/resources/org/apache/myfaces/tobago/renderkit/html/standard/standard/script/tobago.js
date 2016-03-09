@@ -805,7 +805,7 @@ var Tobago = {
         if (commands.change.partially) {
           //Tobago.reloadComponent(this, commands.change.partially, commands.change.action, commands.change);
           jsf.ajax.request(
-              jQuery(this).attr("id"),
+              jQuery(this).attr("name"),
               event,
               {
                 "javax.faces.behavior.event": "change",
