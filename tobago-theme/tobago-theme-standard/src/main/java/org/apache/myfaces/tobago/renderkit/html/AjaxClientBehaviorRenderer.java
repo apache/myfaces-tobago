@@ -64,7 +64,8 @@ public class AjaxClientBehaviorRenderer extends ClientBehaviorRenderer {
       map.addCommand(behaviorContext.getEventName(), command);
       return JsonUtils.encode(map);
     } else {
-      final Command command = new Command( // todo
+      // todo
+      final Command command = new Command(
           null,
           null,
           null,
