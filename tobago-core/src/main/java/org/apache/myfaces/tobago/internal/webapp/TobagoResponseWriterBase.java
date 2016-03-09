@@ -106,6 +106,7 @@ public abstract class TobagoResponseWriterBase extends TobagoResponseWriter {
     }
   }
 
+  @Override
   public void write(final char[] cbuf, final int off, final int len)
       throws IOException {
     writer.write(cbuf, off, len);
@@ -139,11 +140,13 @@ public abstract class TobagoResponseWriterBase extends TobagoResponseWriter {
     writer.write(string, i, i1);
   }
 
+  @Override
   public void close() throws IOException {
     closeOpenTag();
     writer.close();
   }
 
+  @Override
   public void flush() throws IOException {
     /*
     From the api:
@@ -161,26 +164,32 @@ public abstract class TobagoResponseWriterBase extends TobagoResponseWriter {
     }
   }
 
+  @Override
   public void startDocument() throws IOException {
     // nothing to do
   }
 
+  @Override
   public void endDocument() throws IOException {
     // nothing to do
   }
 
+  @Override
   public String getContentType() {
     return contentType;
   }
 
+  @Override
   public String getCharacterEncoding() {
     return characterEncoding;
   }
 
+  @Override
   public void startElement(final String name, final UIComponent currentComponent) throws IOException {
     startElementInternal(writer, name, currentComponent);
   }
 
+  @Override
   public void startElement(final HtmlElements name) throws IOException {
     startElementInternal(writer, name.getValue(), null);
   }
@@ -197,6 +206,7 @@ public abstract class TobagoResponseWriterBase extends TobagoResponseWriter {
     startStillOpen = true;
   }
 
+  @Override
   public void endElement(final String name) throws IOException {
     if (HtmlElements.isVoid(name)) {
       closeEmptyTag();
@@ -206,6 +216,7 @@ public abstract class TobagoResponseWriterBase extends TobagoResponseWriter {
     startStillOpen = false;
   }
 
+  @Override
   public void endElement(final HtmlElements name) throws IOException {
     if (name.isVoid()) {
       closeEmptyTag();
@@ -215,6 +226,7 @@ public abstract class TobagoResponseWriterBase extends TobagoResponseWriter {
     startStillOpen = false;
   }
 
+  @Override
   public void writeComment(final Object obj) throws IOException {
     closeOpenTag();
     final String comment = obj.toString();
@@ -223,6 +235,7 @@ public abstract class TobagoResponseWriterBase extends TobagoResponseWriter {
     write("-->");
   }
 
+  @Override
   @Deprecated
   public void writeAttribute(final String name, final Object value, final String property)
       throws IOException {
@@ -245,6 +258,7 @@ public abstract class TobagoResponseWriterBase extends TobagoResponseWriter {
     return stackTrace[i].toString();
   }
 
+  @Override
   public void writeURIAttribute(final String name, final Object value, final String property)
       throws IOException {
     if (value != null) {
@@ -255,15 +269,18 @@ public abstract class TobagoResponseWriterBase extends TobagoResponseWriter {
 
 // interface TobagoResponseWriter //////////////////////////////////////////////////////////////////////////////////
 
+  @Override
   public void writeAttribute(final MarkupLanguageAttributes name, final String value, final boolean escape)
       throws IOException {
     writeAttributeInternal(writer, name, value, escape);
   }
 
+  @Override
   public void writeAttribute(final MarkupLanguageAttributes name, final HtmlTypes types) throws IOException {
     writeAttributeInternal(writer, name, types.getValue(), false);
   }
 
+  @Override
   public void writeURIAttribute(final MarkupLanguageAttributes name, final String value)
       throws IOException {
     if (value != null) {

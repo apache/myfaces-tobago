@@ -58,6 +58,7 @@ public class CommandRenderer extends CommandRendererBase {
   }
 */
 
+  @Override
   public void encodeBegin(final FacesContext facesContext, final UIComponent component) throws IOException {
 
     final AbstractUICommand link = (AbstractUICommand) component;
@@ -172,6 +173,7 @@ public class CommandRenderer extends CommandRendererBase {
 
   }
 
+  @Override
   public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
 
     final AbstractUICommand link = (AbstractUICommand) component;

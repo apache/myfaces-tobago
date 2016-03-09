@@ -64,6 +64,7 @@ public abstract class TobagoLabelExtensionHandler extends ComponentHandler {
 
   protected abstract String getSubRendererType();
 
+  @Override
   public void applyNextHandler(final FaceletContext ctx, final UIComponent panel)
       throws IOException, ELException {
     if (ComponentHandler.isNew(panel)) {
@@ -91,6 +92,7 @@ public abstract class TobagoLabelExtensionHandler extends ComponentHandler {
     }
   }
 
+  @Override
   public void onComponentCreated(
       final FaceletContext faceletContext, final UIComponent panel, final UIComponent parent) {
 
@@ -131,6 +133,7 @@ public abstract class TobagoLabelExtensionHandler extends ComponentHandler {
     return false;
   }
 
+  @Override
   public void onComponentPopulated(
       final FaceletContext faceletContext, final UIComponent component, final UIComponent parent) {
     super.onComponentPopulated(faceletContext, component, parent);
@@ -170,6 +173,7 @@ public abstract class TobagoLabelExtensionHandler extends ComponentHandler {
     return metaRuleset;
   }
 
+  @Override
   protected MetaRuleset createMetaRuleset(final Class aClass) {
     final MetaRuleset metaRuleset = super.createMetaRuleset(aClass);
     final TagAttribute[] attrs = tag.getAttributes().getAll();

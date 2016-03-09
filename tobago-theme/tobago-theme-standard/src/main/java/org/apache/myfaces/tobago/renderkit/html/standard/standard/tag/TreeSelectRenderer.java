@@ -45,6 +45,7 @@ public class TreeSelectRenderer extends RendererBase {
 
   private static final Logger LOG = LoggerFactory.getLogger(TreeSelectRenderer.class);
 
+  @Override
   public void decode(final FacesContext facesContext, final UIComponent component) {
 
     final UITreeSelect select = (UITreeSelect) component;

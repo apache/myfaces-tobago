@@ -57,6 +57,7 @@ public abstract class TobagoMenuExtensionHandler extends ComponentHandler {
 
   protected abstract String getFacetName();
 
+  @Override
   public void applyNextHandler(final FaceletContext faceletContext, final UIComponent menuCommand) throws IOException {
     if (ComponentHandler.isNew(menuCommand)) {
       Deprecation.LOG.warn("The tx library is deprecated, please use the tc library. "
@@ -69,6 +70,7 @@ public abstract class TobagoMenuExtensionHandler extends ComponentHandler {
     }
   }
 
+  @Override
   public void onComponentCreated(
       final FaceletContext faceletContext, final UIComponent menuCommand, final UIComponent parent) {
 
@@ -107,6 +109,7 @@ public abstract class TobagoMenuExtensionHandler extends ComponentHandler {
     return metaRuleset;
   }
 
+  @Override
   protected MetaRuleset createMetaRuleset(final Class aClass) {
     final MetaRuleset metaRuleset = super.createMetaRuleset(aClass);
     metaRuleset.ignore(Attributes.converter.getName());

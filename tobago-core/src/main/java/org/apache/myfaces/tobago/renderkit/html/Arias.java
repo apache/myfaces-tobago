@@ -50,6 +50,7 @@ public enum Arias implements MarkupLanguageAttributes {
     this.value = value;
   }
 
+  @Override
   public String getValue() {
     return value;
   }

@@ -72,10 +72,12 @@ public abstract class AbstractConverter implements Converter {
     return convertMatch(getFragment(data, start, end));
   }
 
+  @Override
   public String convertMisc(final String fragment) {
     return fragment;
   }
 
+  @Override
   public String convert(final String input) {
     final StringBuilder buffer = new StringBuilder();
     int lastStart = 0;

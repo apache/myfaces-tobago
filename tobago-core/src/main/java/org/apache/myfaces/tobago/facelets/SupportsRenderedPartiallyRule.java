@@ -35,6 +35,7 @@ public class SupportsRenderedPartiallyRule extends MetaRule {
 
   public static final SupportsRenderedPartiallyRule INSTANCE = new SupportsRenderedPartiallyRule();
 
+  @Override
   public Metadata applyRule(final String name, final TagAttribute attribute, final MetadataTarget metadataTarget) {
     if (metadataTarget.isTargetInstanceOf(SupportsRenderedPartially.class)) {
       Attributes a = Attributes.valueOfFailsafe(name);
@@ -53,6 +54,7 @@ public class SupportsRenderedPartiallyRule extends MetaRule {
       this.attribute = attribute;
     }
 
+    @Override
     public void applyMetadata(final FaceletContext ctx, final Object instance) {
       if (attribute.isLiteral()) {
         final String[] components = ComponentUtils.splitList(attribute.getValue());

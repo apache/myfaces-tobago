@@ -48,6 +48,7 @@ public abstract class AbstractUIInput extends javax.faces.component.UIInput
 
 
   // TODO can this removed?
+  @Override
   public void updateModel(final FacesContext facesContext) {
     if (ComponentUtils.mayUpdateModel(this)) {
       super.updateModel(facesContext);

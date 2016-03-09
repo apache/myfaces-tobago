@@ -32,12 +32,14 @@ public class DerbyShutdownServletContextListener implements ServletContextListen
 
   private static final Logger LOG = LoggerFactory.getLogger(DerbyShutdownServletContextListener.class);
 
+  @Override
   public void contextInitialized(final ServletContextEvent servletContextEvent) {
 
   }
 
   // todo: should not be shut down in case of the "InMemoryAddressDao" alternative
 
+  @Override
   public void contextDestroyed(final ServletContextEvent servletContextEvent) {
     try {
       DriverManager.getConnection("jdbc:derby:target/addressDB;shutdown=true");

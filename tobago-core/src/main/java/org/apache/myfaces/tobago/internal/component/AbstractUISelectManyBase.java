@@ -46,6 +46,7 @@ public abstract class AbstractUISelectManyBase extends UISelectMany
     return EVENT_NAMES;
   }
 
+  @Override
   public Object[] getSelectedValues() {
     final Object value = getValue();
     if (value instanceof Collection) {

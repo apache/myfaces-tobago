@@ -529,18 +529,21 @@ public class TobagoDemoController implements Serializable {
 
     if ("name".equals(columnId)) {
       comparator = new Comparator<SolarObject>() {
+        @Override
         public int compare(final SolarObject o1, final SolarObject o2) {
           return o1.getName().compareToIgnoreCase(o2.getName());
         }
       };
     } else if ("orbit".equals(columnId)) {
       comparator = new Comparator<SolarObject>() {
+        @Override
         public int compare(final SolarObject o1, final SolarObject o2) {
           return o1.getOrbit().compareToIgnoreCase(o2.getOrbit());
         }
       };
     } else if ("population".equals(columnId)) {
       comparator = new Comparator<SolarObject>() {
+        @Override
         public int compare(final SolarObject o1, final SolarObject o2) {
           Integer i1 = -1;
           try {
@@ -559,12 +562,14 @@ public class TobagoDemoController implements Serializable {
       };
     } else if ("distance".equals(columnId)) {
       comparator = new Comparator<SolarObject>() {
+        @Override
         public int compare(final SolarObject o1, final SolarObject o2) {
           return o1.getDistance().compareTo(o2.getDistance());
         }
       };
     } else if ("period".equals(columnId)) {
       comparator = new Comparator<SolarObject>() {
+        @Override
         public int compare(final SolarObject o1, final SolarObject o2) {
           return o1.getPeriod().compareTo(o2.getPeriod());
         }

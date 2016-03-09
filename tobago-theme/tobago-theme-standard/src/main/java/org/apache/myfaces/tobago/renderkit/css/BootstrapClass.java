@@ -161,6 +161,7 @@ public enum BootstrapClass implements CssItem {
     this.name = name;
   }
 
+  @Override
   public String getName() {
     return name;
   }

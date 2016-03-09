@@ -37,6 +37,7 @@ import java.io.IOException;
 public class PictureServlet extends NonFacesRequestServlet {
   private static final Logger LOG = LoggerFactory.getLogger(PictureServlet.class);
 
+  @Override
   public String invokeApplication(final FacesContext facesContext) {
     final Controller controller = (Controller) VariableResolverUtils.resolveVariable(facesContext, "controller");
     final Address address = controller.getCurrentAddress();

@@ -43,6 +43,7 @@ public class HiddenRenderer extends InputRendererBase {
     RenderUtils.decodeClientBehaviors(facesContext, component);
   }
 
+  @Override
   protected void encodeBeginField(FacesContext facesContext, UIComponent component) throws IOException {
 
     final AbstractUIHidden hidden = (AbstractUIHidden) component;
@@ -68,6 +69,7 @@ public class HiddenRenderer extends InputRendererBase {
     writer.endElement(HtmlElements.INPUT);
   }
 
+  @Override
   protected void encodeEndField(FacesContext facesContext, UIComponent component) throws IOException {
   }
 }

@@ -40,6 +40,7 @@ import java.io.IOException;
 
 public class ImageRenderer extends RendererBase {
 
+  @Override
   public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
 
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);

@@ -134,6 +134,7 @@ public class SheetState implements Serializable, ScrollPositionState {
     }
   }
 
+  @Override
   public ScrollPosition getScrollPosition() {
     return scrollPosition;
   }

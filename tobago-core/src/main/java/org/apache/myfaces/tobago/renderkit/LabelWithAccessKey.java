@@ -46,10 +46,12 @@ public final class LabelWithAccessKey {
   @Deprecated
   public LabelWithAccessKey(final String label) {
     this(new SupportsAccessKey() {
+      @Override
       public Character getAccessKey() {
         return null;
       }
 
+      @Override
       public String getLabel() {
         return label;
       }

@@ -50,6 +50,7 @@ public class TobagoComponentHandler extends ComponentHandler {
     super(componentConfig);
   }
 
+  @Override
   protected MetaRuleset createMetaRuleset(final Class aClass) {
     final MetaRuleset metaRuleset = super.createMetaRuleset(aClass);
     if (SortActionSource.class.isAssignableFrom(aClass)) {
@@ -77,6 +78,7 @@ public class TobagoComponentHandler extends ComponentHandler {
     return metaRuleset;
   }
 
+  @Override
   public void onComponentCreated(final FaceletContext context, final UIComponent component, final UIComponent parent) {
     if (component instanceof OnComponentCreated
         && component.getAttributes().get(OnComponentCreated.MARKER) == null) {
@@ -85,6 +87,7 @@ public class TobagoComponentHandler extends ComponentHandler {
     }
   }
 
+  @Override
   public void onComponentPopulated(
       final FaceletContext context, final UIComponent component, final UIComponent parent) {
     if (component instanceof OnComponentPopulated

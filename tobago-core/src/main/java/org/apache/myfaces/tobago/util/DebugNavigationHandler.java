@@ -36,6 +36,7 @@ public class DebugNavigationHandler extends NavigationHandler {
     this.navigationHandler = navigationHandler;
   }
 
+  @Override
   public void handleNavigation(final FacesContext facesContext, final String fromAction, final String outcome) {
     if (LOG.isDebugEnabled()) {
       LOG.debug("Handle Navigation context: " + facesContext + " fromAction: '"

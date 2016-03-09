@@ -176,6 +176,7 @@ public class TobagoConfigImpl extends TobagoConfig {
     }
   }
 
+  @Override
   public Theme getTheme(final String name) {
     if (name == null) {
       LOG.debug("searching theme: null");
@@ -198,6 +199,7 @@ public class TobagoConfigImpl extends TobagoConfig {
     this.defaultThemeName = defaultThemeName;
   }
 
+  @Override
   public List<Theme> getSupportedThemes() {
     return supportedThemes;
   }
@@ -216,6 +218,7 @@ public class TobagoConfigImpl extends TobagoConfig {
     return resourceDirs;
   }
 
+  @Override
   public Theme getDefaultTheme() {
     return defaultTheme;
   }
@@ -238,6 +241,7 @@ public class TobagoConfigImpl extends TobagoConfig {
     this.renderersConfig = renderersConfig;
   }
 
+  @Override
   public ProjectStage getProjectStage() {
     return projectStage;
   }
@@ -305,6 +309,7 @@ public class TobagoConfigImpl extends TobagoConfig {
     }
   }
 
+  @Override
   public boolean isCreateSessionSecret() {
     return createSessionSecret;
   }
@@ -314,6 +319,7 @@ public class TobagoConfigImpl extends TobagoConfig {
     this.createSessionSecret = createSessionSecret;
   }
 
+  @Override
   public boolean isCheckSessionSecret() {
     return checkSessionSecret;
   }
@@ -324,6 +330,7 @@ public class TobagoConfigImpl extends TobagoConfig {
   }
 
 
+  @Override
   public boolean isPreventFrameAttacks() {
     return preventFrameAttacks;
   }
@@ -333,10 +340,12 @@ public class TobagoConfigImpl extends TobagoConfig {
     this.preventFrameAttacks = preventFrameAttacks;
   }
 
+  @Override
   public ContentSecurityPolicy getContentSecurityPolicy() {
     return contentSecurityPolicy;
   }
 
+  @Override
   public boolean isSetNosniffHeader() {
     return setNosniffHeader;
   }
@@ -354,6 +363,7 @@ public class TobagoConfigImpl extends TobagoConfig {
     return defaultValidatorInfo;
   }
 
+  @Override
   public Sanitizer getSanitizer() {
     return sanitizer;
   }
@@ -363,6 +373,7 @@ public class TobagoConfigImpl extends TobagoConfig {
     this.sanitizer = sanitizer;
   }
 
+  @Override
   public boolean isAutoAccessKeyFromLabel() {
     return autoAccessKeyFromLabel;
   }
@@ -380,6 +391,7 @@ public class TobagoConfigImpl extends TobagoConfig {
   /**
    * {@inheritDoc}
    */
+  @Override
   @Deprecated
   public boolean isClassicDateTimePicker() {
     return false;

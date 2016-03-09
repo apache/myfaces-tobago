@@ -138,14 +138,17 @@ public class TobagoRenderKit extends RenderKit {
     return htmlBasicRenderKit.createResponseStream(outputStream);
   }
 
+  @Override
   public void addClientBehaviorRenderer(String type, ClientBehaviorRenderer renderer) {
     htmlBasicRenderKit.addClientBehaviorRenderer(type, renderer);
   }
 
+  @Override
   public ClientBehaviorRenderer getClientBehaviorRenderer(String type) {
     return htmlBasicRenderKit.getClientBehaviorRenderer(type);
   }
 
+  @Override
   public Iterator<String> getClientBehaviorRendererTypes() {
     return htmlBasicRenderKit.getClientBehaviorRendererTypes();
   }

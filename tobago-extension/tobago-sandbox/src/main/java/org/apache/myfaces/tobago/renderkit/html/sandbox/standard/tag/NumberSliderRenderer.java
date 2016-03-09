@@ -43,6 +43,7 @@ public class NumberSliderRenderer extends RendererBase {
 
   private static final String SLIDER_WIDTH_PERCENT = "sliderWidthPercent";
 
+  @Override
   public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
 
     final AbstractUINumberSlider slider = (AbstractUINumberSlider) component;
@@ -154,6 +155,7 @@ public class NumberSliderRenderer extends RendererBase {
     //HtmlRendererUtils.renderFocusId(facesContext, slider);
   }
 
+  @Override
   public void decode(final FacesContext context, final UIComponent component) {
     final UIInput uiInput;
     if (component instanceof UIInput && !ComponentUtils.isOutputOnly(component)) {

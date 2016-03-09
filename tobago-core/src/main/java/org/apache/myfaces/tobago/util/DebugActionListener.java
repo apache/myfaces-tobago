@@ -37,6 +37,7 @@ public class DebugActionListener implements ActionListener {
     this.actionListener = actionListener;
   }
 
+  @Override
   public void processAction(final ActionEvent actionEvent) throws AbortProcessingException {
     if (LOG.isDebugEnabled()) {
       LOG.debug("processAction " + actionEvent);

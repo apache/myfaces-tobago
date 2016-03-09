@@ -39,6 +39,7 @@ import java.io.IOException;
 
 public class LinkRenderer extends CommandRendererBase {
 
+  @Override
   public void encodeBegin(final FacesContext facesContext, final UIComponent component) throws IOException {
 
     final AbstractUILink link = (AbstractUILink) component;
@@ -81,6 +82,7 @@ public class LinkRenderer extends CommandRendererBase {
     HtmlRendererUtils.encodeIconWithLabel(writer, facesContext, image, label, disabled);
   }
 
+  @Override
   public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
     final AbstractUILink link = (AbstractUILink) component;
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);

@@ -81,6 +81,7 @@ public class TaglibGenerator extends AbstractGenerator {
 
   private String targetTaglib;
 
+  @Override
   public void configure() {
     final Map<String, String> options = processingEnv.getOptions();
     targetTaglib = options.get(TARGET_TAGLIB);
@@ -90,6 +91,7 @@ public class TaglibGenerator extends AbstractGenerator {
     info(TARGET_TAGLIB + ": " + targetTaglib);
   }
 
+  @Override
   public void generate()
       throws IOException, TransformerException, ParserConfigurationException, ClassNotFoundException {
     for (final PackageElement packageElement : getPackages()) {
@@ -378,6 +380,7 @@ public class TaglibGenerator extends AbstractGenerator {
     final List<? extends javax.lang.model.element.Element> members
         = new ArrayList<javax.lang.model.element.Element>(processingEnv.getElementUtils().getAllMembers(type));
     Collections.sort(members, new Comparator<javax.lang.model.element.Element>() {
+      @Override
       public int compare(final javax.lang.model.element.Element d1, final javax.lang.model.element.Element d2) {
         return d1.getSimpleName().toString().compareTo(d2.getSimpleName().toString());
       }

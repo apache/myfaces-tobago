@@ -36,10 +36,12 @@ public class LabelExtensionHandler extends TobagoLabelExtensionHandler {
     super(config);
   }
 
+  @Override
   protected String getSubComponentType() {
     return UILabel.COMPONENT_TYPE;
   }
 
+  @Override
   protected String getSubRendererType() {
     return RendererTypes.LABEL;
   }

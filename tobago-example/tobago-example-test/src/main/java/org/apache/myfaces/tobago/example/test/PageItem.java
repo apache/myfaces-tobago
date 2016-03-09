@@ -68,6 +68,7 @@ public class PageItem extends DefaultMutableTreeNode implements Comparable {
     return label;
   }
 
+  @Override
   public int compareTo(final Object object) {
     return label.compareTo(((PageItem) object).label);
   }

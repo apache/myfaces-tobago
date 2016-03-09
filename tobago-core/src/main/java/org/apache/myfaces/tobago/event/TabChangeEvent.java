@@ -46,10 +46,12 @@ public class TabChangeEvent extends ActionEvent {
     setNewState(newState);
   }
 
+  @Override
   public boolean isAppropriateListener(final FacesListener facesListener) {
     return facesListener instanceof TabChangeListener;
   }
 
+  @Override
   public void processListener(final FacesListener facesListener) {
     if (facesListener instanceof TabChangeListener) {
       ((TabChangeListener) facesListener).processTabChange(this);

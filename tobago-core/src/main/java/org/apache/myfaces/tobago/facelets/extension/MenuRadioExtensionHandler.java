@@ -49,14 +49,17 @@ public class MenuRadioExtensionHandler extends TobagoMenuExtensionHandler {
     super(config);
   }
 
+  @Override
   protected String getSubComponentType() {
     return UISelectOneRadio.COMPONENT_TYPE;
   }
 
+  @Override
   protected String getSubRendererType() {
     return "SelectOneRadio";
   }
 
+  @Override
   protected String getFacetName() {
     return Facets.RADIO;
   }

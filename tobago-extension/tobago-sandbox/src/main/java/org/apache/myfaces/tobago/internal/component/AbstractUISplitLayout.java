@@ -130,5 +130,6 @@ public abstract class AbstractUISplitLayout extends AbstractUIGridLayout {
 
   public abstract Measure getColumnSpacing();
 
+  @Override
   public abstract boolean isRigid();
 }

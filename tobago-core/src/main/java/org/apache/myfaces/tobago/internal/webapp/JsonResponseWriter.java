@@ -94,6 +94,7 @@ public class JsonResponseWriter extends HtmlResponseWriter {
     encodeInJavascriptBlock.writeText(script);
   }
 
+  @Override
   public String getJavascript() {
     return javascriptWriter.toString();
   }
@@ -162,6 +163,7 @@ public class JsonResponseWriter extends HtmlResponseWriter {
     }
   }
 
+  @Override
   public void writeText(final Object text, final String property)
       throws IOException {
     closeOpenTag();
@@ -177,6 +179,7 @@ public class JsonResponseWriter extends HtmlResponseWriter {
   }
 */
 
+  @Override
   public ResponseWriter cloneWithWriter(final Writer originalWriter) {
      return new JsonResponseWriter(
          originalWriter, getContentType(), getCharacterEncoding());

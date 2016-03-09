@@ -37,6 +37,7 @@ public class ApplyRequestValuesCallback implements TobagoCallback {
   @SuppressWarnings("UnusedDeclaration")
   private static final Logger LOG = LoggerFactory.getLogger(ApplyRequestValuesCallback.class);
 
+  @Override
   public void invokeContextCallback(final FacesContext facesContext, final UIComponent component) {
     if (FacesContextUtils.isAjax(facesContext)) {
       final String ajaxId = FacesContextUtils.getAjaxComponentId(facesContext);
@@ -63,6 +64,7 @@ public class ApplyRequestValuesCallback implements TobagoCallback {
     component.processDecodes(facesContext);
   }
 
+  @Override
   public PhaseId getPhaseId() {
     return PhaseId.APPLY_REQUEST_VALUES;
   }

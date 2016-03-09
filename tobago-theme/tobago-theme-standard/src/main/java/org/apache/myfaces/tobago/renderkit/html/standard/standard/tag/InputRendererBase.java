@@ -37,6 +37,7 @@ public abstract class InputRendererBase extends LabelLayoutRendererBase {
 
   private static final Logger LOG = LoggerFactory.getLogger(InputRendererBase.class);
 
+  @Override
   public void decode(final FacesContext facesContext, final UIComponent component) {
     final UIInput input;
     if (component instanceof UIInput) {

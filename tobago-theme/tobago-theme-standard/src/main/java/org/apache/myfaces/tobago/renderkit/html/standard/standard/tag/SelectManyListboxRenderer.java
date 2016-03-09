@@ -40,6 +40,7 @@ import java.util.List;
 
 public class SelectManyListboxRenderer extends SelectManyRendererBase {
 
+  @Override
   public boolean getRendersChildren() {
     return true;
   }

@@ -32,6 +32,7 @@ public class ContentTypeRule extends MetaRule {
 
   public static final ContentTypeRule INSTANCE = new ContentTypeRule();
 
+  @Override
   public Metadata applyRule(final String name, final TagAttribute attribute, final MetadataTarget metadataTarget) {
     if ("contentType".equals(name)) {
       return new ContentTypeRuleMapper(attribute);
@@ -47,6 +48,7 @@ public class ContentTypeRule extends MetaRule {
       this.attribute = attribute;
     }
 
+    @Override
     public void applyMetadata(final FaceletContext ctx, final Object instance) {
       final String[] components = ComponentUtils.splitList(attribute.getValue(ctx));
       ((FileItemValidator) instance).setContentType(components);

@@ -68,6 +68,7 @@ public class ClassesGenerator extends AbstractGenerator {
   private Set<String> renderer = new HashSet<String>();
   private Set<String> ignoredProperties;
 
+  @Override
   public void configure() {
 
     info("Generating the classes *Component, *Renderer");
@@ -88,6 +89,7 @@ public class ClassesGenerator extends AbstractGenerator {
     ignoredProperties.add("binding");
   }
 
+  @Override
   public void generate() throws Exception {
     for (final TypeElement element : getTypes()) {
       if (element.getAnnotation(UIComponentTag.class) != null) {

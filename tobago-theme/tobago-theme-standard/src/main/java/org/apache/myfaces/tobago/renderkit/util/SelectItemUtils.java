@@ -55,6 +55,7 @@ public class SelectItemUtils {
 
         private SelectItemsIterator iterator;
 
+        @Override
         public Iterator<SelectItem> iterator() {
           if (iterator == null) {
             iterator = new SelectItemsIterator(facesContext, selector);
@@ -96,6 +97,7 @@ public class SelectItemUtils {
       this.facesContext = facesContext;
     }
 
+    @Override
     @SuppressWarnings("unchecked")
     public boolean hasNext() {
       if (nextItem != null) {
@@ -191,6 +193,7 @@ public class SelectItemUtils {
       return false;
     }
 
+    @Override
     public SelectItem next() {
       if (!hasNext()) {
         throw new NoSuchElementException();
@@ -270,6 +273,7 @@ public class SelectItemUtils {
       throw new NoSuchElementException();
     }
 
+    @Override
     public void remove() {
       throw new UnsupportedOperationException();
     }

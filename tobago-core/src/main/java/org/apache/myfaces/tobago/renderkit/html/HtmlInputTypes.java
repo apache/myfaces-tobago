@@ -38,6 +38,7 @@ public enum HtmlInputTypes implements HtmlTypes {
     this.value = value;
   }
 
+  @Override
   public String getValue() {
     return value;
   }

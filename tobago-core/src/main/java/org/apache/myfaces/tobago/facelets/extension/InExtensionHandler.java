@@ -34,10 +34,12 @@ public class InExtensionHandler extends TobagoLabelExtensionHandler {
     super(config);
   }
 
+  @Override
   protected String getSubComponentType() {
     return UIIn.COMPONENT_TYPE;
   }
 
+  @Override
   protected String getSubRendererType() {
     return RendererTypes.IN;
   }

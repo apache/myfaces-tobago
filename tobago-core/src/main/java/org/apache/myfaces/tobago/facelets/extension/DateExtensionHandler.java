@@ -34,10 +34,12 @@ public class DateExtensionHandler extends TobagoLabelExtensionHandler {
     super(config);
   }
 
+  @Override
   protected String getSubComponentType() {
     return UIDate.COMPONENT_TYPE;
   }
 
+  @Override
   protected String getSubRendererType() {
     return RendererTypes.DATE;
   }

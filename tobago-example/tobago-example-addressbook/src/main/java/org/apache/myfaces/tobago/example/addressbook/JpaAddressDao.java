@@ -45,6 +45,7 @@ public class JpaAddressDao implements AddressDao, Serializable {
   @PersistenceContext(unitName = "addressBook")
   private EntityManager entityManager;
 
+  @Override
   public Address updateAddress(final Address address) {
     if (address.getId() == null) {
       entityManager.persist(address);
@@ -58,11 +59,13 @@ public class JpaAddressDao implements AddressDao, Serializable {
     return address;
   }
 //  @Transactional(readOnly = true)
+  @Override
   public List<Address> findAddresses(final String filter) {
     return findAddresses(filter, null, true);
   }
 
 //  @Transactional(readOnly = true)
+  @Override
   @SuppressWarnings("unchecked")
   public List<Address> findAddresses(String filter, final String column, final boolean order) {
     final StringBuilder builder = new StringBuilder();
@@ -86,11 +89,13 @@ public class JpaAddressDao implements AddressDao, Serializable {
     return query.getResultList();
   }
 
+  @Override
   public void removeAddress(Address address) {
     address = getAddress(address.getId());
     entityManager.remove(address);
   }
 //  @Transactional(readOnly = true)
+  @Override
   public Address getAddress(final Integer id) {
     return entityManager.find(Address.class, id);
   }

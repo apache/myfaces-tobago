@@ -31,22 +31,27 @@ public class OriginCell implements Cell {
     this.component = component;
   }
 
+  @Override
   public UIComponent getComponent() {
     return component;
   }
 
+  @Override
   public OriginCell getOrigin() {
     return this;
   }
 
+  @Override
   public boolean isVerticalFirst() {
     return true;
   }
 
+  @Override
   public boolean isHorizontalFirst() {
     return true;
   }
 
+  @Override
   public int getColumnSpan() {
     return columnSpan;
   }
@@ -55,6 +60,7 @@ public class OriginCell implements Cell {
     this.columnSpan = columnSpan;
   }
 
+  @Override
   public int getRowSpan() {
     return rowSpan;
   }

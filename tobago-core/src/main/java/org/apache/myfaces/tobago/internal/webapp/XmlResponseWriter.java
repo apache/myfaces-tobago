@@ -37,6 +37,7 @@ public final class XmlResponseWriter extends TobagoResponseWriterBase {
     super(writer, contentType, characterEncoding);
   }
 
+  @Override
   public void writeText(final Object text, final String property)
       throws IOException {
     closeOpenTag();
@@ -44,6 +45,7 @@ public final class XmlResponseWriter extends TobagoResponseWriterBase {
     write(XmlUtils.escape(value));
   }
 
+  @Override
   public void writeText(final char[] text, final int offset, final int length)
       throws IOException {
     closeOpenTag();
@@ -60,6 +62,7 @@ public final class XmlResponseWriter extends TobagoResponseWriterBase {
     }
   }
 
+  @Override
   public ResponseWriter cloneWithWriter(final Writer originalWriter) {
     return new XmlResponseWriter(
         originalWriter, getContentType(), getCharacterEncoding());

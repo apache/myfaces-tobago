@@ -64,6 +64,7 @@ public class RenderersConfigImpl implements RenderersConfig, Serializable {
     this.merged = merged;
   }
 
+  @Override
   public List<RendererConfig> getRendererConfigs() {
     final ArrayList<RendererConfig> result = new ArrayList<RendererConfig>();
     result.addAll(rendererMap.values());
@@ -80,6 +81,7 @@ public class RenderersConfigImpl implements RenderersConfig, Serializable {
     }
   }
 
+  @Override
   public boolean isMarkupSupported(final String rendererName, final String markup) {
     final RendererConfig rendererConfig = rendererMap.get(rendererName);
     if (rendererConfig != null) {

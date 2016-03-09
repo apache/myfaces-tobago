@@ -61,6 +61,7 @@ public abstract class AbstractTobagoTestBase extends AbstractJsfTestCase {
   /**
    * <p>Set up instance variables required by Tobago test cases.</p>
    */
+  @Override
   @Before
   public void setUp() throws Exception {
 
@@ -108,6 +109,7 @@ public abstract class AbstractTobagoTestBase extends AbstractJsfTestCase {
     tobagoConfig.lock();
   }
 
+  @Override
   @After
   public void tearDown() throws Exception {
     try {

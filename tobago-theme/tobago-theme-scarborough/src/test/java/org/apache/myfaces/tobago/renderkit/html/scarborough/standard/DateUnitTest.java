@@ -52,6 +52,7 @@ public class DateUnitTest extends AbstractJavaScriptTestBase {
     return calendar.getTime();
   }
 
+  @Override
   protected void setUp() throws Exception {
     super.setUp();
     loadScriptFile("tobago-converter.js");

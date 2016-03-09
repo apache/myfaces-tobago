@@ -41,6 +41,7 @@ import java.io.IOException;
 
 public class SelectOneRadioRenderer extends SelectOneRendererBase {
 
+  @Override
   protected void encodeBeginField(FacesContext facesContext, UIComponent component) throws IOException {
     final UISelectOneRadio select = (UISelectOneRadio) component;
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
@@ -126,6 +127,7 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
     }
   }
 
+  @Override
   protected void encodeEndField(FacesContext facesContext, UIComponent component) throws IOException {
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
     writer.endElement(HtmlElements.OL);

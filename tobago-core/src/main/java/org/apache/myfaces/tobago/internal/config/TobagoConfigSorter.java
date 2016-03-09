@@ -236,6 +236,7 @@ public class TobagoConfigSorter implements Comparator<TobagoConfigFragment> {
     }
   }
 
+  @Override
   public int compare(final TobagoConfigFragment a, final TobagoConfigFragment b) {
     if (isInRelation(a, b)) {
       return -1;

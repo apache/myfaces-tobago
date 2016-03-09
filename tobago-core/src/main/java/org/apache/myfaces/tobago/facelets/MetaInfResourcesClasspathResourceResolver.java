@@ -49,6 +49,7 @@ public class MetaInfResourcesClasspathResourceResolver extends DefaultResourceRe
     }
   }
 
+  @Override
   public URL resolveUrl(String path) {
     URL url = super.resolveUrl(path);
     if (LOG.isDebugEnabled()) {

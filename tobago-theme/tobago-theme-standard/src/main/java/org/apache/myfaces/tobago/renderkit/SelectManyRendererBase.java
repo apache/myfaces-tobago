@@ -59,6 +59,7 @@ public abstract class SelectManyRendererBase extends InputRendererBase {
 
   private static final Logger LOG = LoggerFactory.getLogger(SelectManyRendererBase.class);
 
+  @Override
   public void decode(final FacesContext facesContext, final UIComponent component) {
     if (ComponentUtils.isOutputOnly(component)) {
       return;
@@ -91,6 +92,7 @@ public abstract class SelectManyRendererBase extends InputRendererBase {
     return (String[]) input.getSubmittedValue();
   }
 
+  @Override
   public Object getConvertedValue(
       final FacesContext facesContext, final UIComponent component, final Object submittedValue)
       throws ConverterException {
@@ -523,6 +525,7 @@ public abstract class SelectManyRendererBase extends InputRendererBase {
       this.facesContext = facesContext;
     }
 
+    @Override
     @SuppressWarnings("unchecked")
     public boolean hasNext() {
       if (nextItem != null) {
@@ -636,6 +639,7 @@ public abstract class SelectManyRendererBase extends InputRendererBase {
       return false;
     }
 
+    @Override
     public SelectItem next() {
       if (!hasNext()) {
         throw new NoSuchElementException();
@@ -711,6 +715,7 @@ public abstract class SelectManyRendererBase extends InputRendererBase {
       throw new NoSuchElementException();
     }
 
+    @Override
     public void remove() {
       throw new UnsupportedOperationException();
     }
@@ -784,14 +789,17 @@ public abstract class SelectManyRendererBase extends InputRendererBase {
   // #################################################################################################################
   private static class EmptyIterator<T> implements Iterator<T> {
 
+    @Override
     public boolean hasNext() {
       return false;
     }
 
+    @Override
     public T next() {
       throw new NoSuchElementException();
     }
 
+    @Override
     public void remove() {
       throw new UnsupportedOperationException();
     }

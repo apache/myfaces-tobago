@@ -70,6 +70,7 @@ public abstract class TobagoResponseWriter extends ResponseWriter {
     
   public abstract void endElement(HtmlElements name) throws IOException;
 
+  @Override
   public abstract void write(String string) throws IOException;
 
   @Override
@@ -81,18 +82,21 @@ public abstract class TobagoResponseWriter extends ResponseWriter {
   /**
    * @deprecated Should not directly called via this interface. There is be a special method which might be better.
    */
+  @Override
   @Deprecated
   public abstract void writeAttribute(String name, Object value, final String property) throws IOException;
 
   /**
    * @deprecated Should not directly called via this interface. There is be a special method which might be better.
    */
+  @Override
   @Deprecated
   public abstract void writeURIAttribute(String name, Object value, final String property) throws IOException;
 
   /**
    * @deprecated Should not directly called via this interface. There is be a special method which might be better.
    */
+  @Override
   @Deprecated
   public abstract void writeText(Object text, String property) throws IOException;
 

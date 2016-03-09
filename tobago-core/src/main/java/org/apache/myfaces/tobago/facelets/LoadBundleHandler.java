@@ -40,6 +40,7 @@ public class LoadBundleHandler extends TagHandler {
     this.var = getRequiredAttribute("var");
   }
 
+  @Override
   public void apply(final FaceletContext faceletContext, final UIComponent parent) throws IOException {
     final String name = basename.getValue(faceletContext);
     final BundleMapWrapper map = new BundleMapWrapper(name);

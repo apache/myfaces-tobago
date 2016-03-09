@@ -56,6 +56,7 @@ public final class TagMethodExpression extends MethodExpression
     this.orig = orig;
   }
 
+  @Override
   public MethodInfo getMethodInfo(final ELContext context) {
     try {
       return this.orig.getMethodInfo(context);
@@ -68,6 +69,7 @@ public final class TagMethodExpression extends MethodExpression
     }
   }
 
+  @Override
   public Object invoke(final ELContext context, final Object[] params) {
     try {
       return this.orig.invoke(context, params);
@@ -80,6 +82,7 @@ public final class TagMethodExpression extends MethodExpression
     }
   }
 
+  @Override
   public String getExpressionString() {
     return this.orig.getExpressionString();
   }
@@ -92,15 +95,18 @@ public final class TagMethodExpression extends MethodExpression
     return this.orig.hashCode();
   }
 
+  @Override
   public boolean isLiteralText() {
     return this.orig.isLiteralText();
   }
 
+  @Override
   public void writeExternal(final ObjectOutput out) throws IOException {
     out.writeObject(this.orig);
     out.writeUTF(this.attr);
   }
 
+  @Override
   public void readExternal(final ObjectInput in) throws IOException, ClassNotFoundException {
     this.orig = (MethodExpression) in.readObject();
     this.attr = in.readUTF();
@@ -110,6 +116,7 @@ public final class TagMethodExpression extends MethodExpression
     return this.attr + ": " + this.orig;
   }
 
+  @Override
   public MethodExpression getWrapped() {
     return this.orig;
   }

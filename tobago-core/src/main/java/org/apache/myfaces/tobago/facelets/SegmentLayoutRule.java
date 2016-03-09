@@ -33,6 +33,7 @@ public class SegmentLayoutRule extends MetaRule {
 
   public static final SegmentLayoutRule INSTANCE = new SegmentLayoutRule();
 
+  @Override
   public Metadata applyRule(final String name, final TagAttribute attribute, final MetadataTarget metadataTarget) {
     if (metadataTarget.isTargetInstanceOf(UISegmentLayout.class)) {
       if (attribute.isLiteral()) {
@@ -61,6 +62,7 @@ public class SegmentLayoutRule extends MetaRule {
       this.attribute = attribute;
     }
 
+    @Override
     public void applyMetadata(final FaceletContext ctx, final Object instance) {
       final UISegmentLayout gridLayout = (UISegmentLayout) instance;
       gridLayout.setExtraSmall(ColumnPartition.valueOf(attribute.getValue()));
@@ -74,6 +76,7 @@ public class SegmentLayoutRule extends MetaRule {
       this.attribute = attribute;
     }
 
+    @Override
     public void applyMetadata(final FaceletContext ctx, final Object instance) {
       final UISegmentLayout gridLayout = (UISegmentLayout) instance;
       gridLayout.setSmall(ColumnPartition.valueOf(attribute.getValue()));
@@ -87,6 +90,7 @@ public class SegmentLayoutRule extends MetaRule {
       this.attribute = attribute;
     }
 
+    @Override
     public void applyMetadata(final FaceletContext ctx, final Object instance) {
       final UISegmentLayout gridLayout = (UISegmentLayout) instance;
       gridLayout.setMedium(ColumnPartition.valueOf(attribute.getValue()));
@@ -100,6 +104,7 @@ public class SegmentLayoutRule extends MetaRule {
       this.attribute = attribute;
     }
 
+    @Override
     public void applyMetadata(final FaceletContext ctx, final Object instance) {
       final UISegmentLayout gridLayout = (UISegmentLayout) instance;
       gridLayout.setLarge(ColumnPartition.valueOf(attribute.getValue()));

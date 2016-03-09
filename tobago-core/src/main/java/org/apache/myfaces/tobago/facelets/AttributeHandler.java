@@ -70,6 +70,7 @@ public final class AttributeHandler extends TagHandler {
     this.mode = getAttribute(Attributes.mode.getName());
   }
 
+  @Override
   public void apply(final FaceletContext faceletContext, final UIComponent parent) throws ELException {
     if (parent == null) {
       throw new TagException(tag, "Parent UIComponent was null");

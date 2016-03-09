@@ -34,10 +34,12 @@ public class SelectOneRadioExtensionHandler extends TobagoLabelExtensionHandler 
     super(config);
   }
 
+  @Override
   protected String getSubComponentType() {
     return UISelectOneRadio.COMPONENT_TYPE;
   }
 
+  @Override
   protected String getSubRendererType() {
     return RendererTypes.SELECT_ONE_RADIO;
   }

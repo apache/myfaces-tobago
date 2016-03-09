@@ -152,6 +152,7 @@ public final class XmlUtils {
 
   private static class Resolver implements EntityResolver {
 
+    @Override
     public InputSource resolveEntity(final String publicId, final String systemId)
         throws SAXException {
       final String dtd = "<!ELEMENT properties (comment?, entry*)>"

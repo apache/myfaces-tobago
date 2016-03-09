@@ -34,10 +34,12 @@ public class SelectOneChoiceExtensionHandler extends TobagoLabelExtensionHandler
     super(config);
   }
 
+  @Override
   protected String getSubComponentType() {
     return UISelectOneChoice.COMPONENT_TYPE;
   }
 
+  @Override
   protected String getSubRendererType() {
     return RendererTypes.SELECT_ONE_CHOICE;
   }

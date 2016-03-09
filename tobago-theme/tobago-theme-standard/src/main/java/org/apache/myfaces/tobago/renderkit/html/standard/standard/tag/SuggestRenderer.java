@@ -50,6 +50,7 @@ public class SuggestRenderer extends RendererBase {
 
   private static final Logger LOG = LoggerFactory.getLogger(SuggestRenderer.class);
 
+  @Override
   public void decode(final FacesContext facesContext, final UIComponent component) {
 
     final UISuggest suggest = (UISuggest) component;

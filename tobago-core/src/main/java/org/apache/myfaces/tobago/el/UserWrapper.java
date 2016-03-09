@@ -53,6 +53,7 @@ public class UserWrapper {
 
   private static class RolesMap implements Map {
 
+    @Override
     public Object get(final Object key) {
       final String role = (String) key;
       final FacesContext facesContext = FacesContext.getCurrentInstance();
@@ -63,46 +64,57 @@ public class UserWrapper {
       return Boolean.valueOf(inRole);
     }
 
+    @Override
     public int size() {
       throw new UnsupportedOperationException();
     }
 
+    @Override
     public void clear() {
       throw new UnsupportedOperationException();
     }
 
+    @Override
     public boolean isEmpty() {
       throw new UnsupportedOperationException();
     }
 
+    @Override
     public boolean containsKey(final Object key) {
       throw new UnsupportedOperationException();
     }
 
+    @Override
     public boolean containsValue(final Object value) {
       throw new UnsupportedOperationException();
     }
 
+    @Override
     public Collection values() {
       throw new UnsupportedOperationException();
     }
 
+    @Override
     public void putAll(final Map t) {
       throw new UnsupportedOperationException();
     }
 
+    @Override
     public Set entrySet() {
       throw new UnsupportedOperationException();
     }
 
+    @Override
     public Set keySet() {
       throw new UnsupportedOperationException();
     }
 
+    @Override
     public Object remove(final Object key) {
       throw new UnsupportedOperationException();
     }
 
+    @Override
     public Object put(final Object key, final Object value) {
       throw new UnsupportedOperationException();
     }

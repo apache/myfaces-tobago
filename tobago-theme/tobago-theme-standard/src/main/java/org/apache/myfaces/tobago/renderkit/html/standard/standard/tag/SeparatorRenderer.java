@@ -37,6 +37,7 @@ import java.io.IOException;
 
 public class SeparatorRenderer extends RendererBase {
 
+  @Override
   public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
 
     final UISeparator separator = (UISeparator) component;

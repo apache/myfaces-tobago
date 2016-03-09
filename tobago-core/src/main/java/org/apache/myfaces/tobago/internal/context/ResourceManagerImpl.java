@@ -109,6 +109,7 @@ public class ResourceManagerImpl implements ResourceManager {
     resourceList.put(resourceKey, value);
   }
 
+  @Override
   public String getProperty(final FacesContext facesContext, final String bundle, final String propertyKey) {
 
     if (bundle != null && propertyKey != null) {
@@ -131,6 +132,7 @@ public class ResourceManagerImpl implements ResourceManager {
     return null;
   }
 
+  @Override
   public Renderer getRenderer(final FacesContext facesContext, final String rendererType) {
     Renderer renderer = null;
 
@@ -163,10 +165,12 @@ public class ResourceManagerImpl implements ResourceManager {
     return renderer;
   }
 
+  @Override
   public String[] getScripts(final FacesContext facesContext, final String name) {
     return getStrings(facesContext, name, null);
   }
 
+  @Override
   public String[] getStyles(final FacesContext facesContext, final String name) {
     return getStrings(facesContext, name, null);
   }
@@ -174,6 +178,7 @@ public class ResourceManagerImpl implements ResourceManager {
   /**
    * {@inheritDoc}
    */
+  @Override
   @Deprecated
   public String getImage(
       final FacesContext facesContext, final String nameWithExtension, final boolean ignoreMissing) {
@@ -191,6 +196,7 @@ public class ResourceManagerImpl implements ResourceManager {
   /**
    * {@inheritDoc}
    */
+  @Override
   public String getImage(
       final FacesContext facesContext, final String name, final String extension, final boolean ignoreMissing) {
     if (name != null) {

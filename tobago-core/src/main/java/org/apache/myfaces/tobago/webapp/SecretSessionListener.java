@@ -26,6 +26,7 @@ import javax.servlet.http.HttpSessionListener;
 
 public class SecretSessionListener implements HttpSessionListener {
 
+  @Override
   public void sessionCreated(final HttpSessionEvent sessionEvent) {
     // a session creation may happen outside from JSF 
     if (TobagoConfig.getInstance(sessionEvent.getSession().getServletContext()).isCreateSessionSecret()) {
@@ -33,6 +34,7 @@ public class SecretSessionListener implements HttpSessionListener {
     }
   }
 
+  @Override
   public void sessionDestroyed(final HttpSessionEvent se) {
   }
 }

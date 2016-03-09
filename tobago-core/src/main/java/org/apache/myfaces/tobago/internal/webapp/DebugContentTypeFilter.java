@@ -34,12 +34,14 @@ import java.io.IOException;
 public class DebugContentTypeFilter implements Filter {
   private static final Logger LOG = LoggerFactory.getLogger(DebugContentTypeFilter.class);
 
+  @Override
   public void init(final FilterConfig filterConfig) throws ServletException {
     if (LOG.isInfoEnabled()) {
       LOG.info("init " + getClass().getName());
     }
   }
 
+  @Override
   public void doFilter(final ServletRequest request, final ServletResponse response, final FilterChain chain)
       throws IOException, ServletException {
     if (LOG.isDebugEnabled()) {
@@ -55,6 +57,7 @@ public class DebugContentTypeFilter implements Filter {
     }
   }
 
+  @Override
   public void destroy() {
 
   }

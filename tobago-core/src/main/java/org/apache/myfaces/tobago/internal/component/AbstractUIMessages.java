@@ -105,6 +105,7 @@ public abstract class AbstractUIMessages extends javax.faces.component.UIMessage
   }
 
   public static class ItemComparator implements Comparator<Item> {
+    @Override
     public int compare(final Item item1, final Item item2) {
       return item2.getFacesMessage().getSeverity().getOrdinal() - item1.getFacesMessage().getSeverity().getOrdinal();
     }

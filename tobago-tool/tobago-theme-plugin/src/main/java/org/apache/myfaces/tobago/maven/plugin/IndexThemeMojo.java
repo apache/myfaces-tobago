@@ -122,6 +122,7 @@ public class IndexThemeMojo extends AbstractThemeMojo {
     return file.replace(FILE_SEPARATOR, '/');
   }
 
+  @Override
   public String[] getExcludes() {
     return EXCLUDES;
   }

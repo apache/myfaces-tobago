@@ -36,12 +36,14 @@ import java.io.IOException;
 public class LoggingMdcFilter implements Filter {
   private static final Logger LOG = LoggerFactory.getLogger(LoggingMdcFilter.class);
 
+  @Override
   public void init(final FilterConfig filterConfig) throws ServletException {
     if (LOG.isInfoEnabled()) {
       LOG.info("init " + getClass().getName());
     }
   }
 
+  @Override
   public void doFilter(final ServletRequest request, final ServletResponse response, final FilterChain chain)
       throws IOException, ServletException {
 
@@ -69,6 +71,7 @@ public class LoggingMdcFilter implements Filter {
     }
   }
 
+  @Override
   public void destroy() {
 
   }

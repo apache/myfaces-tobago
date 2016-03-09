@@ -51,6 +51,7 @@ public class FileItemValidator implements Validator, StateHolder {
   public FileItemValidator() {
   }
 
+  @Override
   public void validate(final FacesContext facesContext, final UIComponent component, final Object value)
       throws ValidatorException {
     if (value != null && component instanceof AbstractUIFile) {
@@ -104,6 +105,7 @@ public class FileItemValidator implements Validator, StateHolder {
     this.contentType = contentType;
   }
 
+  @Override
   public Object saveState(final FacesContext context) {
     final Object[] values = new Object[2];
     values[0] = maxSize;
@@ -111,16 +113,19 @@ public class FileItemValidator implements Validator, StateHolder {
     return values;
   }
 
+  @Override
   public void restoreState(final FacesContext context, final Object state) {
     final Object[] values = (Object[]) state;
     maxSize = (Integer) values[0];
     contentType = (String[]) values[1];
   }
 
+  @Override
   public boolean isTransient() {
     return transientValue;
   }
 
+  @Override
   public void setTransient(final boolean newTransientValue) {
     this.transientValue = newTransientValue;
   }

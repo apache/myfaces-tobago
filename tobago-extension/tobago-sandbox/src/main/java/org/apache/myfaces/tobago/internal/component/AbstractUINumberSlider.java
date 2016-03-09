@@ -35,6 +35,7 @@ public abstract class AbstractUINumberSlider extends javax.faces.component.UIInp
   
   public abstract boolean isDisabled();
 
+  @Override
   public void validate(final FacesContext context) {
     super.validate(context);
     try {

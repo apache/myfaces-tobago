@@ -34,10 +34,12 @@ public class SelectManyListboxExtensionHandler extends TobagoLabelExtensionHandl
     super(config);
   }
 
+  @Override
   protected String getSubComponentType() {
     return UISelectManyListbox.COMPONENT_TYPE;
   }
 
+  @Override
   protected String getSubRendererType() {
     return RendererTypes.SELECT_MANY_LISTBOX;
   }

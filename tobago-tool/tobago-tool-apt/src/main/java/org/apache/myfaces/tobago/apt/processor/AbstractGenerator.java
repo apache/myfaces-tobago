@@ -42,6 +42,7 @@ public abstract class AbstractGenerator extends AbstractProcessor {
   private List<TypeElement> types;
   private List<PackageElement> packages;
 
+  @Override
   public boolean process(final Set<? extends TypeElement> annotations, final RoundEnvironment roundEnv) {
 
     info("**********************************************************************************");
@@ -76,6 +77,7 @@ public abstract class AbstractGenerator extends AbstractProcessor {
     }
 
     Collections.sort(types, new Comparator<TypeElement>() {
+      @Override
       public int compare(final TypeElement d1, final TypeElement d2) {
         return d1.getSimpleName().toString().compareTo(d2.getSimpleName().toString());
       }

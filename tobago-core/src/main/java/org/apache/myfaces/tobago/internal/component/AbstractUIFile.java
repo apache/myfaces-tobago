@@ -48,6 +48,7 @@ public abstract class AbstractUIFile extends UIInput implements SupportsLabelLay
     return EVENT_NAMES;
   }
 
+  @Override
   public void validate(final FacesContext facesContext) {
     if (isRequired()) {
       if (getSubmittedValue() instanceof Part) {

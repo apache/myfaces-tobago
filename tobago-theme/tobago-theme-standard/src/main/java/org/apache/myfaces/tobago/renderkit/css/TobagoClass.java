@@ -56,6 +56,7 @@ public enum TobagoClass implements CssItem {
     this.name = name;
   }
 
+  @Override
   public String getName() {
     return name;
   }

@@ -45,6 +45,7 @@ public class SelectBooleanCheckboxRenderer extends RendererBase {
 
   private static final Logger LOG = LoggerFactory.getLogger(SelectBooleanCheckboxRenderer.class);
 
+  @Override
   public void decode(final FacesContext facesContext, final UIComponent component) {
 
     final UIInput input = (UIInput) component;
@@ -73,6 +74,7 @@ public class SelectBooleanCheckboxRenderer extends RendererBase {
 //  }
 
   //
+  @Override
   public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
 
     final UISelectBooleanCheckbox select = (UISelectBooleanCheckbox) component;

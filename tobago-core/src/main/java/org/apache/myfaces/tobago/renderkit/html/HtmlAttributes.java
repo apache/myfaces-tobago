@@ -130,6 +130,7 @@ public enum HtmlAttributes implements MarkupLanguageAttributes {
     this.value = value;
   }
 
+  @Override
   public String getValue() {
     return value;
   }

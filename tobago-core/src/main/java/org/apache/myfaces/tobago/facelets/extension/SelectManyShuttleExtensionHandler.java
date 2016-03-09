@@ -34,10 +34,12 @@ public class SelectManyShuttleExtensionHandler extends TobagoLabelExtensionHandl
     super(config);
   }
 
+  @Override
   protected String getSubComponentType() {
     return UISelectManyShuttle.COMPONENT_TYPE;
   }
 
+  @Override
   protected String getSubRendererType() {
     return RendererTypes.SELECT_MANY_SHUTTLE;
   }

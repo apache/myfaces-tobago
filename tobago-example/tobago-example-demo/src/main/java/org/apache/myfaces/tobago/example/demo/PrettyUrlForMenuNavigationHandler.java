@@ -38,6 +38,7 @@ public class PrettyUrlForMenuNavigationHandler extends NavigationHandler {
     this.navigationHandler = navigationHandler;
   }
 
+  @Override
   public void handleNavigation(final FacesContext facesContext, final String fromAction, String outcome) {
 
     if (StringUtils.startsWith(outcome, "/content/")) {

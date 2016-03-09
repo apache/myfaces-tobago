@@ -134,6 +134,7 @@ public class TreeNodeDataModel extends TreeDataModel {
     return mapping.size();
   }
 
+  @Override
   public TreeNode getRowData() {
     return mapping.get(rowIndex).getNode();
   }
@@ -213,6 +214,7 @@ public class TreeNodeDataModel extends TreeDataModel {
     return true;
   }
 
+  @Override
   public String getRowClientId() {
     if (isRowAvailable()) {
       return mapping.get(rowIndex).getClientId();
@@ -221,6 +223,7 @@ public class TreeNodeDataModel extends TreeDataModel {
     }
   }
 
+  @Override
   public void setRowClientId(final String clientId) {
     if (isRowAvailable()) {
       mapping.get(rowIndex).setClientId(clientId);
@@ -229,6 +232,7 @@ public class TreeNodeDataModel extends TreeDataModel {
     }
   }
 
+  @Override
   public String getRowParentClientId() {
     if (isRowAvailable()) {
       final TreeNode parent = mapping.get(rowIndex).getNode().getParent();
@@ -242,6 +246,7 @@ public class TreeNodeDataModel extends TreeDataModel {
     }
   }
 
+  @Override
   public List<Integer> getRowIndicesOfChildren() {
     final TreeNode node = getRowData();
     final int n = node.getChildCount();

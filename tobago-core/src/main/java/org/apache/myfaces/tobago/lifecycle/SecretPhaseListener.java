@@ -33,6 +33,7 @@ public class SecretPhaseListener implements PhaseListener {
 
   private static final Logger LOG = LoggerFactory.getLogger(SecretPhaseListener.class);
 
+  @Override
   public void afterPhase(final PhaseEvent event) {
     final FacesContext facesContext = event.getFacesContext();
     if (!facesContext.getResponseComplete()
@@ -46,9 +47,11 @@ public class SecretPhaseListener implements PhaseListener {
     }
   }
 
+  @Override
   public void beforePhase(final PhaseEvent event) {
   }
 
+  @Override
   public PhaseId getPhaseId() {
     return PhaseId.RESTORE_VIEW;
   }

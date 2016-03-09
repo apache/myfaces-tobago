@@ -45,6 +45,7 @@ public class ResetInputActionListenerHandler extends TagHandler {
     execute = getAttribute(Attributes.execute.getName());
   }
 
+  @Override
   public void apply(final FaceletContext faceletContext, final UIComponent parent) throws IOException {
     if (parent instanceof ActionSource) {
       if (ComponentHandler.isNew(parent)) {

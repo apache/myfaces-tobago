@@ -53,6 +53,7 @@ public class MethodExpressionToMethodBinding extends MethodBinding implements St
     return methodExpression.getExpressionString();
   }
 
+  @Override
   public Class getType(final FacesContext facesContext)
       throws MethodNotFoundException {
 
@@ -65,6 +66,7 @@ public class MethodExpressionToMethodBinding extends MethodBinding implements St
     }
   }
 
+  @Override
   public Object invoke(final FacesContext facesContext, final Object[] params)
       throws EvaluationException {
 
@@ -78,12 +80,14 @@ public class MethodExpressionToMethodBinding extends MethodBinding implements St
   }
 
 
+  @Override
   public void restoreState(final FacesContext context, final Object state) {
     if (state != null) {
       methodExpression = (MethodExpression) state;
     }
   }
 
+  @Override
   public Object saveState(final FacesContext context) {
     if (!isTransient) {
       return methodExpression;
@@ -91,10 +95,12 @@ public class MethodExpressionToMethodBinding extends MethodBinding implements St
     return null;
   }
 
+  @Override
   public void setTransient(final boolean newTransientValue) {
     isTransient = newTransientValue;
   }
 
+  @Override
   public boolean isTransient() {
     return isTransient;
   }

@@ -193,6 +193,7 @@ public class SheetFilter {
   }
 
   public class DistanceRangeConverter implements Converter {
+    @Override
     public Object getAsObject(final FacesContext context, final UIComponent component, final String value)
         throws ConverterException {
       if (StringUtils.isBlank(value)) {
@@ -202,6 +203,7 @@ public class SheetFilter {
       }
     }
 
+    @Override
     public String getAsString(
         final FacesContext context, final UIComponent component, final Object value) throws ConverterException {
       if (value == null) {

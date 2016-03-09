@@ -72,6 +72,7 @@ public class ThemeImpl implements Theme, Serializable {
     unmodifiable = true;
   }
 
+  @Override
   public String getName() {
     return name;
   }
@@ -81,6 +82,7 @@ public class ThemeImpl implements Theme, Serializable {
     this.name = name;
   }
 
+  @Override
   public String getDisplayName() {
     return displayName;
   }
@@ -90,6 +92,7 @@ public class ThemeImpl implements Theme, Serializable {
     this.displayName = displayName;
   }
 
+  @Override
   public String getResourcePath() {
     return resourcePath;
   }
@@ -117,6 +120,7 @@ public class ThemeImpl implements Theme, Serializable {
     this.fallbackName = fallbackName;
   }
 
+  @Override
   public List<Theme> getFallbackList() {
     return fallbackList;
   }
@@ -179,6 +183,7 @@ public class ThemeImpl implements Theme, Serializable {
     this.renderersConfig = renderersConfig;
   }
 
+  @Override
   public RenderersConfig getRenderersConfig() {
     return renderersConfig;
   }
@@ -227,6 +232,7 @@ public class ThemeImpl implements Theme, Serializable {
 
   }
 
+  @Override
   public String[] getScriptResources(final boolean production) {
     if (production) {
       return productionScripts;
@@ -235,6 +241,7 @@ public class ThemeImpl implements Theme, Serializable {
     }
   }
 
+  @Override
   public String[] getStyleResources(final boolean production) {
     if (production) {
       return productionStyles;
@@ -253,6 +260,7 @@ public class ThemeImpl implements Theme, Serializable {
     this.versioned = versioned;
   }
 
+  @Override
   public String getVersion() {
     return version;
   }

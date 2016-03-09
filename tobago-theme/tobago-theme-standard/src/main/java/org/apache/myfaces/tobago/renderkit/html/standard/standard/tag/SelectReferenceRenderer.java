@@ -34,8 +34,9 @@ public class SelectReferenceRenderer extends RendererBase {
 
   private static final Logger LOG = LoggerFactory.getLogger(SelectReferenceRenderer.class);
 
+  @Override
   public void encodeEnd(final FacesContext facesContext,
-      final UIComponent component)
+                        final UIComponent component)
       throws IOException {
     final String referenceId = ComponentUtils.getStringAttribute(component, Attributes.forValue);
     final UIComponent reference = component.findComponent(referenceId);

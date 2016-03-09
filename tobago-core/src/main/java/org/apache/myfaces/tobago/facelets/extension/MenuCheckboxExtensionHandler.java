@@ -45,14 +45,17 @@ public class MenuCheckboxExtensionHandler extends TobagoMenuExtensionHandler {
     super(config);
   }
 
+  @Override
   protected String getSubComponentType() {
     return UISelectBooleanCheckbox.COMPONENT_TYPE;
   }
 
+  @Override
   protected String getSubRendererType() {
     return "SelectBooleanCheckbox";
   }
 
+  @Override
   protected String getFacetName() {
     return Facets.CHECKBOX;
   }

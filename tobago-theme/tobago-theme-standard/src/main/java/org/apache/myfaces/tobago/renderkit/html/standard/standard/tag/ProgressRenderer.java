@@ -40,6 +40,7 @@ public class ProgressRenderer extends RendererBase {
 
   private static final Logger LOG = LoggerFactory.getLogger(ProgressRenderer.class);
 
+  @Override
   public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
 
     final UIProgress progress = (UIProgress) component;

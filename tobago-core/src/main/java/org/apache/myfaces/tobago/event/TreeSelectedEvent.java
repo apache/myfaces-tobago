@@ -36,10 +36,12 @@ public class TreeSelectedEvent extends FacesEvent {
     this.newSelected = newSelected;
   }
 
+  @Override
   public boolean isAppropriateListener(final FacesListener facesListener) {
     return facesListener instanceof TreeSelectedListener;
   }
 
+  @Override
   public void processListener(final FacesListener facesListener) {
     if (facesListener instanceof TreeSelectedListener) {
       if (oldSelected && !newSelected) {

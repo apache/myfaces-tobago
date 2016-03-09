@@ -82,6 +82,7 @@ public class BeanComparator extends ComparatorBase implements Serializable {
    * @param param2 <description>
    * @return <description>
    */
+  @Override
   public int compare(final Object param1, final Object param2) {
     final Object obj1;
     final Object obj2;

@@ -34,10 +34,12 @@ public class SelectOneListboxExtensionHandler extends TobagoLabelExtensionHandle
     super(config);
   }
 
+  @Override
   protected String getSubComponentType() {
     return UISelectOneListbox.COMPONENT_TYPE;
   }
 
+  @Override
   protected String getSubRendererType() {
     return RendererTypes.SELECT_ONE_LISTBOX;
   }

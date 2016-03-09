@@ -48,6 +48,7 @@ public class SeparatorExtensionHandler extends ComponentHandler {
     labelAttribute = getAttribute(Attributes.label.getName());
   }
 
+  @Override
   public void applyNextHandler(final FaceletContext faceletContext, final UIComponent separator)
       throws IOException, ELException {
     if (ComponentHandler.isNew(separator)) {
@@ -59,6 +60,7 @@ public class SeparatorExtensionHandler extends ComponentHandler {
     }
   }
 
+  @Override
   public void onComponentCreated(
       final FaceletContext faceletContext, final UIComponent separator, final UIComponent parent) {
     final Application application = faceletContext.getFacesContext().getApplication();
@@ -77,6 +79,7 @@ public class SeparatorExtensionHandler extends ComponentHandler {
     }
   }
 
+  @Override
   protected MetaRuleset createMetaRuleset(final Class aClass) {
     final MetaRuleset metaRuleset = super.createMetaRuleset(aClass);
     if (UISeparator.class.isAssignableFrom(aClass)) {

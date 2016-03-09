@@ -50,6 +50,7 @@ public abstract class AbstractUISelectOneBase extends javax.faces.component.UISe
     return EVENT_NAMES;
   }
 
+  @Override
   public void validate(final FacesContext facesContext) {
     if (isRequired()  && !isReadonly()) {
       final Object submittedValue = getSubmittedValue();

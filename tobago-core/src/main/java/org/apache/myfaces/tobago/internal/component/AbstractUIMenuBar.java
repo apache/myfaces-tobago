@@ -30,6 +30,7 @@ import javax.faces.render.Renderer;
 
 public abstract class AbstractUIMenuBar extends UIPanel implements Visual, OnComponentCreated {
 
+  @Override
   public void onComponentCreated(final FacesContext context, final UIComponent parent) {
     final Renderer renderer = getRenderer(getFacesContext());
     if (renderer instanceof RendererBase) {

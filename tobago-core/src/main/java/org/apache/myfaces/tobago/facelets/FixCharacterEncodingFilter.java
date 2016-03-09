@@ -28,12 +28,14 @@ import javax.servlet.FilterChain;
 import java.io.IOException;
 
 public class FixCharacterEncodingFilter implements Filter {
+  @Override
   public void init(final FilterConfig filterConfig) throws ServletException {
 
   }
 
+  @Override
   public void doFilter(final ServletRequest servletRequest,
-      final ServletResponse servletResponse, final FilterChain filterChain)
+                       final ServletResponse servletResponse, final FilterChain filterChain)
       throws IOException, ServletException {
     if (servletRequest.getCharacterEncoding() == null) {
       servletRequest.setCharacterEncoding("UTF-8");
@@ -41,6 +43,7 @@ public class FixCharacterEncodingFilter implements Filter {
     filterChain.doFilter(servletRequest, servletResponse);
   }
 
+  @Override
   public void destroy() {
   }
 }

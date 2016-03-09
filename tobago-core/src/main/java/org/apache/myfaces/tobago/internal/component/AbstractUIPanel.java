@@ -63,6 +63,7 @@ public abstract class AbstractUIPanel extends javax.faces.component.UIPanel
     super.encodeEnd(facesContext);
   }
 
+  @Override
   public void onComponentPopulated(final FacesContext facesContext, final UIComponent parent) {
   }
 }

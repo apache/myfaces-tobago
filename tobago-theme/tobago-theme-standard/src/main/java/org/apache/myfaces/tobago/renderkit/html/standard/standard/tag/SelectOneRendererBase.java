@@ -32,6 +32,7 @@ public abstract class SelectOneRendererBase extends InputRendererBase {
 
   private static final Logger LOG = LoggerFactory.getLogger(SelectOneRendererBase.class);
 
+  @Override
   public void decode(final FacesContext facesContext, final UIComponent component) {
     if (ComponentUtils.isOutputOnly(component)) {
       return;

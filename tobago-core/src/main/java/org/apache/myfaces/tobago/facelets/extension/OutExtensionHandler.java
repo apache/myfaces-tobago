@@ -34,10 +34,12 @@ public class OutExtensionHandler extends TobagoLabelExtensionHandler {
     super(config);
   }
 
+  @Override
   protected String getSubComponentType() {
     return UIOut.COMPONENT_TYPE;
   }
 
+  @Override
   protected String getSubRendererType() {
     return RendererTypes.OUT;
   }

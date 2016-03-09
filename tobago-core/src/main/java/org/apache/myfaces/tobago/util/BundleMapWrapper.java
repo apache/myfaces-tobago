@@ -35,10 +35,12 @@ public class BundleMapWrapper implements Map, Serializable {
     this.basename = basename;
   }
 
+  @Override
   public void clear() {
     throw new UnsupportedOperationException();
   }
 
+  @Override
   public boolean containsKey(final Object key) {
     if (null == key) {
       return false;
@@ -48,14 +50,17 @@ public class BundleMapWrapper implements Map, Serializable {
     return value != null;
   }
 
+  @Override
   public boolean containsValue(final Object value) {
     throw new UnsupportedOperationException();
   }
 
+  @Override
   public Set entrySet() {
     throw new UnsupportedOperationException();
   }
 
+  @Override
   public Object get(final Object key) {
     if (null == key) {
       return null;
@@ -79,30 +84,37 @@ public class BundleMapWrapper implements Map, Serializable {
     return basename.equals(that.basename);
   }
 
+  @Override
   public boolean isEmpty() {
     throw new UnsupportedOperationException();
   }
 
+  @Override
   public Set keySet() {
     throw new UnsupportedOperationException();
   }
 
+  @Override
   public Object put(final Object k, final Object v) {
     throw new UnsupportedOperationException();
   }
 
+  @Override
   public void putAll(final Map t) {
     throw new UnsupportedOperationException();
   }
 
+  @Override
   public Object remove(final Object k) {
     throw new UnsupportedOperationException();
   }
 
+  @Override
   public int size() {
     throw new UnsupportedOperationException();
   }
 
+  @Override
   public Collection values() {
     throw new UnsupportedOperationException();
   }

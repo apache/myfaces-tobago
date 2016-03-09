@@ -58,6 +58,7 @@ public class TabChangeListenerHandler extends TagHandler {
     }
   }
 
+  @Override
   public void apply(final FaceletContext faceletContext, final UIComponent parent) throws IOException {
     if (parent instanceof TabChangeSource2) {
       // only process if parent was just created

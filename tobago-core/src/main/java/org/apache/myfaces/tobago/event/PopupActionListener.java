@@ -55,21 +55,25 @@ public class PopupActionListener extends AbstractPopupActionListener implements 
     return popup;
   }
 
+  @Override
   public boolean isTransient() {
     return false;
   }
 
+  @Override
   public void restoreState(final FacesContext context, final Object state) {
     final Object[] values = (Object[]) state;
     popupId = (String) values[0];
   }
 
+  @Override
   public Object saveState(final FacesContext context) {
     final Object[] values = new Object[1];
     values[0] = popupId;
     return values;
   }
 
+  @Override
   public void setTransient(final boolean newTransientValue) {
     // ignore
   }

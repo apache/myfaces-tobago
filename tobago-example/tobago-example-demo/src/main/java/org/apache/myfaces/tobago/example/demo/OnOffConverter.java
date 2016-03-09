@@ -31,6 +31,7 @@ public class OnOffConverter implements Converter {
 
   private static final Logger LOG = LoggerFactory.getLogger(OnOffConverter.class);
 
+  @Override
   public Object getAsObject(final FacesContext context, final UIComponent component, final String value)
       throws ConverterException {
     final String result = Boolean.parseBoolean(value) ? "on" : "off";
@@ -38,6 +39,7 @@ public class OnOffConverter implements Converter {
     return result;
   }
 
+  @Override
   public String getAsString(final FacesContext context, final UIComponent component, final Object value)
       throws ConverterException {
     final String result = "on".equals(value) ? Boolean.TRUE.toString() : Boolean.FALSE.toString();

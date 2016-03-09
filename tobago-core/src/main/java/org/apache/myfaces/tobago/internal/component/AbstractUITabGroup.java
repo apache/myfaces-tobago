@@ -68,6 +68,7 @@ public abstract class AbstractUITabGroup extends AbstractUIPanel
     return true;
   }
 
+  @Override
   public void queueEvent(final FacesEvent event) {
     if (this == event.getSource()) {
       if (isImmediate() || getSwitchType() == SwitchType.client) {
@@ -181,6 +182,7 @@ public abstract class AbstractUITabGroup extends AbstractUIPanel
     }
   }
 
+  @Override
   public void broadcast(final FacesEvent facesEvent) throws AbortProcessingException {
     super.broadcast(facesEvent);
     if (facesEvent instanceof TabChangeEvent && facesEvent.getComponent() == this) {
@@ -214,6 +216,7 @@ public abstract class AbstractUITabGroup extends AbstractUIPanel
     }
   }
 
+  @Override
   public void addTabChangeListener(final TabChangeListener listener) {
     if (LOG.isWarnEnabled() && getSwitchType() == SwitchType.client) {
       LOG.warn("Adding TabChangeListener to client side TabGroup!");
@@ -221,10 +224,12 @@ public abstract class AbstractUITabGroup extends AbstractUIPanel
     addFacesListener(listener);
   }
 
+  @Override
   public void removeTabChangeListener(final TabChangeListener listener) {
     removeFacesListener(listener);
   }
 
+  @Override
   public TabChangeListener[] getTabChangeListeners() {
     return (TabChangeListener[]) getFacesListeners(TabChangeListener.class);
   }
@@ -263,6 +268,7 @@ public abstract class AbstractUITabGroup extends AbstractUIPanel
   /**
    * @since 1.5.0
    */
+  @Override
   public void addActionListener(final ActionListener listener) {
     addFacesListener(listener);
   }
@@ -270,6 +276,7 @@ public abstract class AbstractUITabGroup extends AbstractUIPanel
   /**
    * @since 1.5.0
    */
+  @Override
   public ActionListener[] getActionListeners() {
     return (ActionListener[]) getFacesListeners(ActionListener.class);
   }
@@ -277,10 +284,12 @@ public abstract class AbstractUITabGroup extends AbstractUIPanel
   /**
    * @since 1.5.0
    */
+  @Override
   public void removeActionListener(final ActionListener listener) {
     removeFacesListener(listener);
   }
 
+  @Override
   public void onComponentPopulated(final FacesContext facesContext, final UIComponent parent) {
     super.onComponentPopulated(facesContext, parent);
   }

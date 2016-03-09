@@ -47,6 +47,7 @@ public abstract class AbstractUICommand
   // todo: transient
   private Boolean parentOfCommands;
 
+  @Override
   public void onComponentPopulated(final FacesContext facesContext, final UIComponent parent) {
     final AbstractUIPopup popup = (AbstractUIPopup) ComponentUtils.getFacet(this, Facets.popup);
     if (popup != null) {
@@ -56,6 +57,7 @@ public abstract class AbstractUICommand
     }
   }
 
+  @Override
   public void processDecodes(final FacesContext context) {
     if (context == null) {
       throw new NullPointerException();
@@ -81,6 +83,7 @@ public abstract class AbstractUICommand
     }
   }
 
+  @Override
   public void queueEvent(final FacesEvent facesEvent) {
     // fix for TOBAGO-262
     super.queueEvent(facesEvent);
@@ -118,6 +121,7 @@ public abstract class AbstractUICommand
     return EVENT_NAMES;
   }
 
+  @Override
   public abstract String getLabel();
 
   public abstract boolean isJsfResource();
@@ -130,6 +134,7 @@ public abstract class AbstractUICommand
 
   public abstract boolean isTransition();
 
+  @Override
   public abstract String[] getRenderedPartially();
 
   public abstract boolean isOmit();

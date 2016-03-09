@@ -27,6 +27,7 @@ import java.io.IOException;
 
 public abstract class BoxRendererBase extends RendererBase {
 
+  @Override
   public boolean getRendersChildren() {
     return true;
   }

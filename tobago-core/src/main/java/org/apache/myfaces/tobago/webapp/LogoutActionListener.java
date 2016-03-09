@@ -37,6 +37,7 @@ public class LogoutActionListener implements ActionListener {
 
   private static final Logger LOG = LoggerFactory.getLogger(LogoutActionListener.class);
 
+  @Override
   public void processAction(final ActionEvent event) throws AbortProcessingException {
     final FacesContext facesContext = FacesContext.getCurrentInstance();
     final ExternalContext externalContext = facesContext.getExternalContext();

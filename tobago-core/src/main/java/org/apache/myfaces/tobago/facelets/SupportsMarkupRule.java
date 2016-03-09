@@ -35,6 +35,7 @@ public class SupportsMarkupRule extends MetaRule {
 
   public static final SupportsMarkupRule INSTANCE = new SupportsMarkupRule();
 
+  @Override
   public Metadata applyRule(final String name, final TagAttribute attribute, final MetadataTarget metadataTarget) {
     if (metadataTarget.isTargetInstanceOf(Visual.class)) {
       Attributes a = Attributes.valueOfFailsafe(name);
@@ -53,6 +54,7 @@ public class SupportsMarkupRule extends MetaRule {
       this.attribute = attribute;
     }
 
+    @Override
     public void applyMetadata(final FaceletContext ctx, final Object instance) {
       if (attribute.isLiteral()) {
         ((Visual) instance).setMarkup(Markup.valueOf(attribute.getValue()));

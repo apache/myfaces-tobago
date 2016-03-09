@@ -43,6 +43,7 @@ public final class DataAttributeHandler extends TagHandler {
     this.value = getRequiredAttribute(Attributes.value.getName());
   }
 
+  @Override
   public void apply(final FaceletContext faceletContext, final UIComponent parent) throws ELException {
     if (parent == null) {
       throw new TagException(tag, "Parent UIComponent was null");

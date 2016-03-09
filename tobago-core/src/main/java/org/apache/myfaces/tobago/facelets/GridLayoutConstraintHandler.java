@@ -45,6 +45,7 @@ public class GridLayoutConstraintHandler extends TagHandler {
     rowSpan = getAttribute(Attributes.rowSpan.getName());
   }
 
+  @Override
   public void apply(final FaceletContext faceletContext, UIComponent parent) throws IOException {
     final Map<String, Object> attributes = parent.getAttributes();
     if (parent.getParent() != null && parent.getParent() instanceof UIExtensionPanel) {

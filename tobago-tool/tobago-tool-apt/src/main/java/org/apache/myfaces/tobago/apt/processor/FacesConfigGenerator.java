@@ -600,6 +600,7 @@ public class FacesConfigGenerator extends AbstractGenerator {
             addAttributes(typeElement, attributes, properties, namespace);
             if (!attributes.isEmpty()) {
               Collections.sort(attributes, new Comparator<org.jdom.Element>() {
+                @Override
                 public int compare(final org.jdom.Element d1, final org.jdom.Element d2) {
                   return d1.getChildText(ATTRIBUTE_NAME, namespace).compareTo(
                       d2.getChildText(ATTRIBUTE_NAME, namespace));
@@ -609,6 +610,7 @@ public class FacesConfigGenerator extends AbstractGenerator {
             }
             if (!properties.isEmpty()) {
               Collections.sort(properties, new Comparator<org.jdom.Element>() {
+                @Override
                 public int compare(final org.jdom.Element d1, final org.jdom.Element d2) {
                   return d1.getChildText(PROPERTY_NAME, namespace).compareTo(
                       d2.getChildText(PROPERTY_NAME, namespace));

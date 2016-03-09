@@ -31,6 +31,7 @@ import java.util.List;
 
 public class UIMessagesUnitTest extends AbstractTobagoTestBase {
 
+  @Override
   @Before
   public void setUp() throws Exception {
     super.setUp();

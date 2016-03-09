@@ -38,6 +38,7 @@ public class JsoupSanitizer implements Sanitizer {
 
   private boolean unmodifiable = false;
 
+  @Override
   public String sanitize(final String html) {
 
     final String safe = Jsoup.clean(html, whitelist);
@@ -47,6 +48,7 @@ public class JsoupSanitizer implements Sanitizer {
     return safe;
   }
 
+  @Override
   public void setProperties(final Properties configuration) {
     checkLocked();
 

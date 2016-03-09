@@ -54,6 +54,7 @@ public class NavigationNode extends DefaultMutableTreeNode implements Comparable
     title = t != null ? t : name;
   }
 
+  @Override
   public int compareTo(final Object o) {
     final NavigationNode other = (NavigationNode) o;
     return branch.compareTo(other.getBranch());
@@ -68,10 +69,12 @@ public class NavigationNode extends DefaultMutableTreeNode implements Comparable
     treePath = new TreePath(this);
   }
 
+  @Override
   public NavigationNode getNextNode() {
     return (NavigationNode) super.getNextNode();
   }
 
+  @Override
   public NavigationNode getPreviousNode() {
     return (NavigationNode) super.getPreviousNode();
   }

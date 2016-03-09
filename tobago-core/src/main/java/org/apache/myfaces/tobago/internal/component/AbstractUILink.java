@@ -27,9 +27,12 @@ public abstract class AbstractUILink extends AbstractUICommand implements Suppor
 
   public abstract Integer getTabIndex();
 
+  @Override
   public abstract String getTip();
 
+  @Override
   public abstract boolean isDisabled();
 
+  @Override
   public abstract Character getAccessKey();
 }

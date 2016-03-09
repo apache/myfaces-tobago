@@ -35,6 +35,7 @@ public class JspTagConverter extends AbstractConverter {
   private TagConverter tagConverter = new TagConverter();
   private Map<String, String> tags = new HashMap<String, String>();
 
+  @Override
   public Pattern initPattern() throws MalformedPatternException {
 //    return compiler.compile("(?s)<%.*?%>");
 //    return compiler.compile("(?s)<%(--)?.*?\\1%>");
@@ -56,6 +57,7 @@ public class JspTagConverter extends AbstractConverter {
   }
 */
 
+  @Override
   public String convertMatch(final String fragment) {
     final String key = "tag" + tags.size();
     String tag = XmlUtils.escape(fragment, false);
@@ -83,6 +85,7 @@ public class JspTagConverter extends AbstractConverter {
     return "${" + key + "}";
   }
 
+  @Override
   public String convert(final String input) {
     String result; // = StringUtils.replace(input, "$", "$$");
     result = super.convert(input);

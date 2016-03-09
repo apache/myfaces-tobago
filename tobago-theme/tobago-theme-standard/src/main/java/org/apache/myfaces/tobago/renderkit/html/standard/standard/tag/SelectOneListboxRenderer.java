@@ -39,10 +39,12 @@ import java.util.List;
 
 public class SelectOneListboxRenderer extends SelectOneRendererBase {
 
+  @Override
   public boolean getRendersChildren() {
     return true;
   }
 
+  @Override
   public void encodeBeginField(final FacesContext facesContext, final UIComponent component) throws IOException {
     final UISelectOneListbox select = (UISelectOneListbox) component;
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
@@ -79,6 +81,7 @@ public class SelectOneListboxRenderer extends SelectOneRendererBase {
 
   }
 
+  @Override
   protected void encodeEndField(FacesContext facesContext, UIComponent component) throws IOException {
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
     writer.endElement(HtmlElements.SELECT);

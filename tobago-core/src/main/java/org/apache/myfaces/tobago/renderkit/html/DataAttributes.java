@@ -211,6 +211,7 @@ public enum DataAttributes implements MarkupLanguageAttributes {
     this.value = value;
   }
 
+  @Override
   public String getValue() {
     return value;
   }

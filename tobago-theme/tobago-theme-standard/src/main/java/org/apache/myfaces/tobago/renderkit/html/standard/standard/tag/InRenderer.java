@@ -58,6 +58,7 @@ public class InRenderer extends InputRendererBase {
     RenderUtils.decodeClientBehaviors(facesContext, component);
   }
 
+  @Override
   protected void encodeBeginField(FacesContext facesContext, UIComponent component)
       throws IOException {
     final AbstractUIInput input = (AbstractUIInput) component;
@@ -129,6 +130,7 @@ public class InRenderer extends InputRendererBase {
     writer.endElement(HtmlElements.INPUT);
   }
 
+  @Override
   protected void encodeEndField(FacesContext facesContext, UIComponent component) throws IOException {
   }
 

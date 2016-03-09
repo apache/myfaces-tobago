@@ -214,10 +214,12 @@ public class MenuCommandRenderer extends CommandRendererBase {
     writer.endElement(HtmlElements.LI);
   }
 
+  @Override
   public void encodeChildren(final FacesContext facesContext, final UIComponent component)
       throws IOException {
   }
 
+  @Override
   public boolean getRendersChildren() {
     return true;
   }

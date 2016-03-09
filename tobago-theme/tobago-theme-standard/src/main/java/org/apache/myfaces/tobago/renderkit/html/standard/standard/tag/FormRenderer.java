@@ -27,6 +27,7 @@ import javax.faces.context.FacesContext;
 
 public class FormRenderer extends RendererBase {
 
+  @Override
   public void decode(final FacesContext facesContext, final UIComponent component) {
     final UIForm form = (UIForm) component;
     final String sourceId = facesContext.getExternalContext().getRequestParameterMap().get("javax.faces.source");

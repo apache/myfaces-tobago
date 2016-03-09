@@ -30,18 +30,21 @@ import javax.faces.event.PhaseListener;
 //todo @JsfPhaseListener
 public class SynchronizeNavigationPhaseListener implements PhaseListener {
 
+  @Override
   public void beforePhase(final PhaseEvent event) {
     if (PhaseId.RENDER_RESPONSE.equals(event.getPhaseId())) {
       synchronizeState();
     }
   }
 
+  @Override
   public void afterPhase(final PhaseEvent event) {
     if (PhaseId.RESTORE_VIEW.equals(event.getPhaseId())) {
       synchronizeState();
     }
   }
 
+  @Override
   public PhaseId getPhaseId() {
     return PhaseId.ANY_PHASE;
   }

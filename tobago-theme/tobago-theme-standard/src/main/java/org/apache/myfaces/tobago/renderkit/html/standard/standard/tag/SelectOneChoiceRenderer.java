@@ -38,10 +38,12 @@ import java.io.IOException;
 
 public class SelectOneChoiceRenderer extends SelectOneRendererBase {
 
+  @Override
   public boolean getRendersChildren() {
     return true;
   }
 
+  @Override
   protected void encodeBeginField(FacesContext facesContext, UIComponent component) throws IOException {
     final UISelectOneChoice select = (UISelectOneChoice) component;
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
@@ -75,6 +77,7 @@ public class SelectOneChoiceRenderer extends SelectOneRendererBase {
 
   }
 
+  @Override
   protected void encodeEndField(FacesContext facesContext, UIComponent component) throws IOException {
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
     writer.endElement(HtmlElements.SELECT);

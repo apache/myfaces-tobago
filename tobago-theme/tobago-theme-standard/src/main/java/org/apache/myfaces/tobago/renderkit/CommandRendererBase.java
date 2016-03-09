@@ -31,6 +31,7 @@ public abstract class CommandRendererBase extends RendererBase {
 
   private static final Logger LOG = LoggerFactory.getLogger(CommandRendererBase.class);
 
+  @Override
   public void decode(final FacesContext facesContext, final UIComponent component) {
 
     if (ComponentUtils.isOutputOnly(component)) {

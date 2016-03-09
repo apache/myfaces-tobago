@@ -34,10 +34,12 @@ public class SelectManyCheckboxExtensionHandler extends TobagoLabelExtensionHand
     super(config);
   }
 
+  @Override
   protected String getSubComponentType() {
     return UISelectManyCheckbox.COMPONENT_TYPE;
   }
 
+  @Override
   protected String getSubRendererType() {
     return RendererTypes.SELECT_MANY_CHECKBOX;
   }

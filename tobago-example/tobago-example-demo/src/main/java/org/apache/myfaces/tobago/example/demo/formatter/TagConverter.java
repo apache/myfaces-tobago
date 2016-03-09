@@ -24,10 +24,12 @@ import org.apache.oro.text.regex.Pattern;
 
 public class TagConverter extends AbstractConverter {
 
+  @Override
   public Pattern initPattern() throws MalformedPatternException {
     return getCompiler().compile("(?s)<.*?>");
   }
 
+  @Override
   public String convertMatch(final String fragment) {
     // String escaped = XmlUtils.escape(fragment);
 

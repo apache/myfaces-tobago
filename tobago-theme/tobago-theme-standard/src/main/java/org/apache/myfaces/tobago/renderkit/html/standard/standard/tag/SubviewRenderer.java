@@ -31,6 +31,7 @@ public class SubviewRenderer extends RendererBase {
 
     private static final Logger LOG = LoggerFactory.getLogger(SubviewRenderer.class);
 
+  @Override
   public void encodeBegin(final FacesContext facesContext, final UIComponent component)
       throws IOException {
     if (LOG.isInfoEnabled()) {
@@ -39,8 +40,9 @@ public class SubviewRenderer extends RendererBase {
     super.encodeBegin(facesContext, component);
   }
 
+  @Override
   public void encodeEnd(final FacesContext facesContext,
-      final UIComponent component) throws IOException {
+                        final UIComponent component) throws IOException {
 
   }
 

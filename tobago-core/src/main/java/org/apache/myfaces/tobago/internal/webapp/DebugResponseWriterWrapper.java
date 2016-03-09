@@ -46,10 +46,12 @@ public class DebugResponseWriterWrapper extends TobagoResponseWriter {
     this.responseWriter = responseWriter;
   }
 
+  @Override
   public void write(final String string) throws IOException {
     responseWriter.write(string);
   }
 
+  @Override
   public void writeComment(final Object comment) throws IOException {
     String commentStr = comment.toString();
     if (commentStr.indexOf("--") > 0) {
@@ -61,15 +63,18 @@ public class DebugResponseWriterWrapper extends TobagoResponseWriter {
     responseWriter.writeComment(commentStr);
   }
 
+  @Override
   public ResponseWriter cloneWithWriter(final Writer writer) {
     return new DebugResponseWriterWrapper((TobagoResponseWriter) responseWriter.cloneWithWriter(writer));
   }
 
+  @Override
   @Deprecated
   public void writeAttribute(final String name, final Object value, final String property) throws IOException {
     responseWriter.writeAttribute(name, value, property);
   }
 
+  @Override
   @Deprecated
   public void writeText(final Object text, final String property) throws IOException {
     responseWriter.writeText(text, property);
@@ -96,18 +101,22 @@ public class DebugResponseWriterWrapper extends TobagoResponseWriter {
     responseWriter.writeURIAttribute(name, string);
   }
 
+  @Override
   public String getContentType() {
     return responseWriter.getContentType();
   }
 
+  @Override
   public String getCharacterEncoding() {
     return responseWriter.getCharacterEncoding();
   }
 
+  @Override
   public void startDocument() throws IOException {
     responseWriter.startDocument();
   }
 
+  @Override
   public void endDocument() throws IOException {
     responseWriter.endDocument();
   }
@@ -139,18 +148,22 @@ public class DebugResponseWriterWrapper extends TobagoResponseWriter {
     responseWriter.startJavascript();
   }
 
+  @Override
   public void writeURIAttribute(final String name, final Object value, final String property) throws IOException {
     responseWriter.writeURIAttribute(name, value, property);
   }
 
+  @Override
   public void writeText(final char[] text, final int off, final int len) throws IOException {
     responseWriter.writeText(text, off, len);
   }
 
+  @Override
   public void write(final char[] chars, final int i, final int i1) throws IOException {
     responseWriter.write(chars, i, i1);
   }
 
+  @Override
   public void close() throws IOException {
     responseWriter.close();
   }

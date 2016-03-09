@@ -107,12 +107,15 @@ public final class Resource {
   private static URL getUrlForResourceAsStream(final ExternalContext externalContext, final String path)
       throws MalformedURLException {
     final URLStreamHandler handler = new URLStreamHandler() {
+      @Override
       protected URLConnection openConnection(final URL u) throws IOException {
         final String file = u.getFile();
         return new URLConnection(u) {
+          @Override
           public void connect() throws IOException {
           }
 
+          @Override
           public InputStream getInputStream() throws IOException {
             if (LOG.isTraceEnabled()) {
               LOG.trace("Opening internal url to " + file);

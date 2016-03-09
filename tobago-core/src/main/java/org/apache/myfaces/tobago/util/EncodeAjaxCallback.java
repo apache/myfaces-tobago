@@ -31,6 +31,7 @@ import java.io.IOException;
 
 public class EncodeAjaxCallback implements TobagoCallback {
 
+  @Override
   public void invokeContextCallback(final FacesContext facesContext, final UIComponent component) {
     try {
        final UIComponent reload = ComponentUtils.getFacet(component, Facets.reload);
@@ -49,6 +50,7 @@ public class EncodeAjaxCallback implements TobagoCallback {
     }
   }
   
+  @Override
   public PhaseId getPhaseId() {
       return PhaseId.RENDER_RESPONSE;
   }

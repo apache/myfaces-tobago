@@ -31,6 +31,7 @@ public enum HtmlButtonTypes implements HtmlTypes {
     this.value = value;
   }
 
+  @Override
   public String getValue() {
     return value;
   }

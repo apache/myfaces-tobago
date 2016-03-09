@@ -50,6 +50,7 @@ public class TreeState implements Serializable, ScrollPositionState {
     return selectedState;
   }
 
+  @Override
   public ScrollPosition getScrollPosition() {
     return scrollPosition;
   }

@@ -41,6 +41,7 @@ public class TreeLabelRenderer extends RendererBase {
 
   private static final Logger LOG = LoggerFactory.getLogger(TreeLabelRenderer.class);
 
+  @Override
   public void encodeBegin(final FacesContext facesContext, final UIComponent component) throws IOException {
 
     final AbstractUIData data = ComponentUtils.findAncestor(component, AbstractUIData.class);

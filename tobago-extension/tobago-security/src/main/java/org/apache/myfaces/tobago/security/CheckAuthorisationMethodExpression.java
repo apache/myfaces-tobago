@@ -83,21 +83,25 @@ public class CheckAuthorisationMethodExpression extends MethodExpression impleme
     return methodExpression.isLiteralText();
   }
 
+  @Override
   public Object saveState(final FacesContext facesContext) {
   final Object[] saveState = new Object[1];
     saveState[0] = UIComponentBase.saveAttachedState(facesContext, methodExpression);
     return saveState;
   }
 
+  @Override
   public void restoreState(final FacesContext facesContext, final Object savedState) {
     final Object[] values = (Object[]) savedState;
     methodExpression = (MethodExpression) UIComponentBase.restoreAttachedState(facesContext, values[0]);
   }
 
+  @Override
   public boolean isTransient() {
     return methodExpression instanceof StateHolder && ((StateHolder) methodExpression).isTransient();
   }
 
+  @Override
   public void setTransient(final boolean bool) {
     if (methodExpression instanceof StateHolder) {
       ((StateHolder) methodExpression).setTransient(bool);

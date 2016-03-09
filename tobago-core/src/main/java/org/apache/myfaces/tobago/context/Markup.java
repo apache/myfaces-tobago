@@ -183,6 +183,7 @@ public final class Markup implements Serializable, Iterable<String> {
     return result;
   }
 
+  @Override
   public Iterator<String> iterator() {
     if (value != null) {
       return new SingletonIterator(value);

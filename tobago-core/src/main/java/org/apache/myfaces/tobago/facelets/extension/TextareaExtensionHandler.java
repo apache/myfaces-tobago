@@ -34,10 +34,12 @@ public class TextareaExtensionHandler extends TobagoLabelExtensionHandler {
     super(config);
   }
 
+  @Override
   protected String getSubComponentType() {
     return UITextarea.COMPONENT_TYPE;
   }
 
+  @Override
   protected String getSubRendererType() {
     return RendererTypes.TEXTAREA;
   }

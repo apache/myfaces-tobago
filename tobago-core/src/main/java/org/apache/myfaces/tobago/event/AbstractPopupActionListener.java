@@ -32,6 +32,7 @@ public abstract class AbstractPopupActionListener implements ActionListener {
 
   private static final Logger LOG = LoggerFactory.getLogger(AbstractPopupActionListener.class);
 
+  @Override
   public void processAction(final ActionEvent actionEvent) throws AbortProcessingException {
     final AbstractUIPopup popup = getPopup(actionEvent);
     if (popup != null) {

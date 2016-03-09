@@ -42,6 +42,7 @@ public class DebugPhaseListener implements PhaseListener {
 
   private static final String KEY = DebugPhaseListener.class.getName() + "_ID_";
 
+  @Override
   public void afterPhase(final PhaseEvent phaseEvent) {
     final FacesContext facesContext = phaseEvent.getFacesContext();
     final boolean productionMode = TobagoConfig.getInstance(facesContext).getProjectStage() == ProjectStage.Production;
@@ -90,6 +91,7 @@ public class DebugPhaseListener implements PhaseListener {
     }
   }
 
+  @Override
   public void beforePhase(final PhaseEvent phaseEvent) {
     final FacesContext facesContext = phaseEvent.getFacesContext();
     final boolean productionMode = TobagoConfig.getInstance(facesContext).getProjectStage() == ProjectStage.Production;
@@ -148,6 +150,7 @@ public class DebugPhaseListener implements PhaseListener {
     }
   }
 
+  @Override
   public PhaseId getPhaseId() {
     return PhaseId.ANY_PHASE;
   }

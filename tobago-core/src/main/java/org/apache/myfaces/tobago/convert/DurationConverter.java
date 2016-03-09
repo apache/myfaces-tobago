@@ -45,6 +45,7 @@ public class DurationConverter implements Converter {
     nano, milli, second, minute, hour, day, year
   }
 
+  @Override
   public String getAsString(
       final FacesContext facesContext, final UIComponent component, final Object object)
       throws ConverterException {
@@ -81,6 +82,7 @@ public class DurationConverter implements Converter {
     return string;
   }
 
+  @Override
   public Object getAsObject(
       final FacesContext facesContext, final UIComponent component, final String string)
       throws ConverterException {

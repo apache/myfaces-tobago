@@ -96,6 +96,7 @@ public class HtmlResponseWriter extends TobagoResponseWriterBase {
     return helper;
   }
 
+  @Override
   public void writeText(final Object text, final String property)
       throws IOException {
     closeOpenTag();
@@ -103,6 +104,7 @@ public class HtmlResponseWriter extends TobagoResponseWriterBase {
     helper.writeText(value);
   }
 
+  @Override
   public void writeText(final char[] text, final int offset, final int length)
       throws IOException {
     closeOpenTag();
@@ -133,6 +135,7 @@ public class HtmlResponseWriter extends TobagoResponseWriterBase {
     }
   }
 
+  @Override
   public ResponseWriter cloneWithWriter(final Writer originalWriter) {
     return new HtmlResponseWriter(
         originalWriter, getContentType(), getCharacterEncoding());

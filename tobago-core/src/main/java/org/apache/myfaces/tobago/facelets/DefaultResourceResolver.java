@@ -34,6 +34,7 @@ public class DefaultResourceResolver extends ResourceResolver {
     super();
   }
 
+  @Override
   public URL resolveUrl(final String path) {
     try {
       return Resource.getResourceUrl(FacesContext.getCurrentInstance(), path);

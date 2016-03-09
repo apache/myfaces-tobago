@@ -37,6 +37,7 @@ public class TransientStateHolder implements StateHolder, Serializable {
     this.object = object;
   }
 
+  @Override
   public Object saveState(final FacesContext context) {
     // do nothing
     return null;
@@ -54,14 +55,17 @@ public class TransientStateHolder implements StateHolder, Serializable {
     return object;
   }
 
+  @Override
   public void restoreState(final FacesContext context, final Object state) {
     // do nothing
   }
 
+  @Override
   public boolean isTransient() {
     return true;
   }
 
+  @Override
   public void setTransient(final boolean newTransientValue) {
     // do nothing
   }

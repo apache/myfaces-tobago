@@ -32,6 +32,7 @@ import java.io.IOException;
 
 public class SectionRenderer extends RendererBase {
 
+    @Override
     public void encodeBegin(final FacesContext facesContext, final UIComponent component) throws IOException {
 
         final UISection section = (UISection) component;
@@ -70,6 +71,7 @@ public class SectionRenderer extends RendererBase {
         writer.endElement(tag);
     }
 
+    @Override
     public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
 
         final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);

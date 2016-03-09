@@ -42,6 +42,7 @@ public class SelectBooleanCheckboxExtensionHandler extends TobagoLabelExtensionH
     itemLabelAttribute = getAttribute(Attributes.itemLabel.getName());
   }
 
+  @Override
   protected void enrichInput(final FaceletContext faceletContext, final UIComponent input) {
     super.enrichInput(faceletContext, input);
     final UISelectBooleanCheckbox checkbox = (UISelectBooleanCheckbox) input;
@@ -57,10 +58,12 @@ public class SelectBooleanCheckboxExtensionHandler extends TobagoLabelExtensionH
     }
   }
 
+  @Override
   protected String getSubComponentType() {
     return UISelectBooleanCheckbox.COMPONENT_TYPE;
   }
 
+  @Override
   protected String getSubRendererType() {
     return RendererTypes.SELECT_BOOLEAN_CHECKBOX;
   }

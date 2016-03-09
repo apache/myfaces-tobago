@@ -34,6 +34,7 @@ public class EmailAddressConverter implements Converter {
 
   private static final Logger LOG = LoggerFactory.getLogger(EmailAddressConverter.class);
 
+  @Override
   public Object getAsObject(
       final FacesContext facesContext, final UIComponent component, final String reference) {
     if (reference == null || reference.length() == 0) {
@@ -46,6 +47,7 @@ public class EmailAddressConverter implements Converter {
     return new EmailAddress(reference);
   }
 
+  @Override
   public String getAsString(final FacesContext facesContext, final UIComponent component, final Object object) {
     return object.toString();
   }

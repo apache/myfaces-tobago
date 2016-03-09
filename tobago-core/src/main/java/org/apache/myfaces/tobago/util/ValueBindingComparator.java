@@ -110,6 +110,7 @@ public class ValueBindingComparator extends ComparatorBase {
 
   // implementation of java.util.Comparator interface
 
+  @Override
   public int compare(final Object param1, final Object param2) {
     final Object obj1;
     final Object obj2;

@@ -33,6 +33,7 @@ import javax.faces.context.FacesContext;
 import java.io.IOException;
 
 public class ObjectRenderer extends RendererBase {
+  @Override
   public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
     final UIObject object = (UIObject) component;
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);

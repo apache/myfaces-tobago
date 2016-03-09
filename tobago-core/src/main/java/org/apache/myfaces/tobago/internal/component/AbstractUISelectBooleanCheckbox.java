@@ -46,6 +46,7 @@ public abstract class AbstractUISelectBooleanCheckbox extends UISelectBoolean im
     return EVENT_NAMES;
   }
 
+  @Override
   public boolean isSelected() {
     Object value = getSubmittedValue();
     if (value == null) {
@@ -58,6 +59,7 @@ public abstract class AbstractUISelectBooleanCheckbox extends UISelectBoolean im
     }
   }
 
+  @Override
   protected void validateValue(final FacesContext facesContext, final Object convertedValue) {
     if (isRequired()) {
       if (convertedValue instanceof Boolean && !((Boolean) convertedValue)

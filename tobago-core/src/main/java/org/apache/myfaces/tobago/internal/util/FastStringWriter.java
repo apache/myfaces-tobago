@@ -34,18 +34,22 @@ public class FastStringWriter extends Writer {
     stringBuilder = new StringBuilder(initialSize);
   }
 
+  @Override
   public void write(final int c) {
     stringBuilder.append((char) c);
   }
 
+  @Override
   public void write(final char[] cbuf, final int off, final int len) {
     stringBuilder.append(cbuf, off, len);
   }
 
+  @Override
   public void write(final String str) {
     stringBuilder.append(str);
   }
 
+  @Override
   public void write(final String str, final int off, final int len) {
     stringBuilder.append(str.substring(off, off + len));
   }
@@ -54,10 +58,12 @@ public class FastStringWriter extends Writer {
     return stringBuilder.toString();
   }
 
+  @Override
   public void flush() {
     // do nothing
   }
 
+  @Override
   public void close() throws IOException {
     // do nothing
   }
