@@ -312,7 +312,7 @@ public final class RenderUtils {
     return url;
   }
 
-  public static String getBehaviorCommands(FacesContext facesContext, ClientBehaviorHolder button) {
+  public static String getBehaviorCommands(final FacesContext facesContext, final ClientBehaviorHolder button) {
     final Map<String, List<ClientBehavior>> behaviors = button.getClientBehaviors();
     for (Map.Entry<String, List<ClientBehavior>> behavior : behaviors.entrySet()) {
       final String key = behavior.getKey();
@@ -323,7 +323,7 @@ public final class RenderUtils {
           final String type = ((ClientBehaviorBase) clientBehavior).getRendererType();
           final ClientBehaviorRenderer clientBehaviorRenderer
               = facesContext.getRenderKit().getClientBehaviorRenderer(type);
-          final String commands =  clientBehaviorRenderer.getScript(context, clientBehavior);
+          final String commands = clientBehaviorRenderer.getScript(context, clientBehavior);
           return commands;
         } else {
           LOG.warn("Ignoring: '{}'", clientBehavior);
@@ -333,4 +333,25 @@ public final class RenderUtils {
     return null;
   }
 
+  public static void decodeClientBehaviors(final FacesContext facesContext, final UIComponent component) {
+    if (component instanceof ClientBehaviorHolder) {
+      final ClientBehaviorHolder clientBehaviorHolder = (ClientBehaviorHolder) component;
+      final Map<String, List<ClientBehavior>> clientBehaviors = clientBehaviorHolder.getClientBehaviors();
+      if (clientBehaviors != null && !clientBehaviors.isEmpty()) {
+        final Map<String, String> paramMap = facesContext.getExternalContext().getRequestParameterMap();
+        final String behaviorEventName = paramMap.get("javax.faces.behavior.event");
+        if (behaviorEventName != null) {
+          final List<ClientBehavior> clientBehaviorList = clientBehaviors.get(behaviorEventName);
+          if (clientBehaviorList != null && !clientBehaviorList.isEmpty()) {
+            final String clientId = paramMap.get("javax.faces.source");
+            if (component.getClientId(facesContext).equals(clientId)) {
+              for (ClientBehavior clientBehavior : clientBehaviorList) {
+                clientBehavior.decode(facesContext, component);
+              }
+            }
+          }
+        }
+      }
+    }
+  }
 }

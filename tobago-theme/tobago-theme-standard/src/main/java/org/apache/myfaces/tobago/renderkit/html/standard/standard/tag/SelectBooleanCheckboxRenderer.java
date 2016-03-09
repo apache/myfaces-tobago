@@ -61,6 +61,8 @@ public class SelectBooleanCheckboxRenderer extends RendererBase {
     }
 
     input.setSubmittedValue("true".equals(newValue) ? "true" : "false");
+
+    RenderUtils.decodeClientBehaviors(facesContext, input);
   }
 
 //  public Object getConvertedValue(

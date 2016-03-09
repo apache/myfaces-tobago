@@ -23,11 +23,15 @@ import org.apache.myfaces.tobago.internal.component.AbstractUICommand;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 
+import javax.faces.component.ActionSource;
+import javax.faces.component.EditableValueHolder;
 import javax.faces.component.UIComponent;
 import javax.faces.component.behavior.AjaxBehavior;
 import javax.faces.component.behavior.ClientBehavior;
 import javax.faces.component.behavior.ClientBehaviorContext;
 import javax.faces.context.FacesContext;
+import javax.faces.event.AjaxBehaviorEvent;
+import javax.faces.event.PhaseId;
 import javax.faces.render.ClientBehaviorRenderer;
 import java.util.Collection;
 
@@ -76,5 +80,36 @@ public class AjaxClientBehaviorRenderer extends ClientBehaviorRenderer {
       map.addCommand(behaviorContext.getEventName(), command);
       return JsonUtils.encode(map);
     }
+  }
+
+  @Override
+  public void decode(FacesContext context, UIComponent component, ClientBehavior behavior) {
+    AjaxBehavior ajaxBehavior = (AjaxBehavior) behavior;
+    if (ajaxBehavior.isDisabled() || !component.isRendered()) {
+      return;
+    }
+
+    dispatchBehaviorEvent(component, ajaxBehavior);
+  }
+
+  private void dispatchBehaviorEvent(UIComponent component, AjaxBehavior ajaxBehavior) {
+
+    AjaxBehaviorEvent event = new AjaxBehaviorEvent(component, ajaxBehavior);
+    boolean isImmediate = isImmediate(ajaxBehavior, component);
+    event.setPhaseId(isImmediate ? PhaseId.APPLY_REQUEST_VALUES : PhaseId.INVOKE_APPLICATION);
+    component.queueEvent(event);
+  }
+
+  private boolean isImmediate(AjaxBehavior ajaxBehavior, UIComponent component) {
+    if (ajaxBehavior.isImmediateSet()) {
+      return ajaxBehavior.isImmediate();
+    }
+    if (component instanceof EditableValueHolder) {
+      return ((EditableValueHolder) component).isImmediate();
+    }
+    if (component instanceof ActionSource) {
+      return ((ActionSource) component).isImmediate();
+    }
+    return false;
   }
 }

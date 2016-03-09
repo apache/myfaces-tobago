@@ -72,12 +72,10 @@
     With tc:form you enable partial validation and update model.
     <tc:form>
     -->
-    <tc:selectOneChoice value="#{reference.vehicle}"
+    <tc:selectOneChoice value="#{reference.vehicle}" id="vehicle"
                         label="Vehicle: " valueChangeListener="#{reference.valueChanged}">
       <f:selectItems value="#{reference.selectItems}"/>
-      <f:facet name="change">
-        <tc:command action="#{reference.action}"/>
-      </f:facet>
+      <f:ajax listener="#{reference.action}" render="vehicle"/>
     </tc:selectOneChoice>
     <tc:selectOneChoice value="#{reference.manufacturer}"
                         label="Manufacturer: " valueChangeListener="#{reference.valueChanged}">

@@ -119,12 +119,16 @@
     </tc:time>
     <tc:panel/>
 
-    <tc:calendar/>
+    <tc:date label="on change" value="#{dateController.onchange}">
+      <f:convertDateTime pattern="dd.MM.yyyy"/>
+      <f:ajax render="o"/>
+    </tc:date>
     <tc:panel/>
 
-    <tc:panel>
-      <tc:gridLayoutConstraint columnSpan="2"/>
-    </tc:panel>
+    <tc:out id="o" value="#{dateController.onchange}" label="on server"/>
+
+    <tc:calendar/>
+    <tc:panel/>
 
   </tc:panel>
 </ui:composition>

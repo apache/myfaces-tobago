@@ -21,6 +21,7 @@ package org.apache.myfaces.tobago.renderkit;
 
 import org.apache.myfaces.tobago.internal.util.ArrayUtils;
 import org.apache.myfaces.tobago.renderkit.html.standard.standard.tag.InputRendererBase;
+import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -62,27 +63,28 @@ public abstract class SelectManyRendererBase extends InputRendererBase {
     if (ComponentUtils.isOutputOnly(component)) {
       return;
     }
-    if (component instanceof UISelectMany) {
-      final UISelectMany uiSelectMany = (UISelectMany) component;
 
-      String[] newValues =
-          facesContext.getExternalContext().getRequestParameterValuesMap().get(uiSelectMany.getClientId(facesContext));
-      if (LOG.isDebugEnabled()) {
-        LOG.debug("decode: key='" + component.getClientId(facesContext)
-            + "' value='" + Arrays.toString(newValues) + "'");
-        LOG.debug("size ... '" + (newValues != null ? newValues.length : -1) + "'");
-        if (newValues != null) {
-          for (final String newValue : newValues) {
-            LOG.debug("newValues[i] = '" + newValue + "'");
-          }
+    final UISelectMany select = (UISelectMany) component;
+
+    String[] newValues =
+        facesContext.getExternalContext().getRequestParameterValuesMap().get(select.getClientId(facesContext));
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("decode: key='" + component.getClientId(facesContext)
+          + "' value='" + Arrays.toString(newValues) + "'");
+      LOG.debug("size ... '" + (newValues != null ? newValues.length : -1) + "'");
+      if (newValues != null) {
+        for (final String newValue : newValues) {
+          LOG.debug("newValues[i] = '" + newValue + "'");
         }
       }
-
-      if (newValues == null) {
-        newValues = ArrayUtils.EMPTY_STRING_ARRAY; // because no selection will not submitted by browsers
-      }
-      uiSelectMany.setSubmittedValue(newValues);
     }
+
+    if (newValues == null) {
+      newValues = ArrayUtils.EMPTY_STRING_ARRAY; // because no selection will not submitted by browsers
+    }
+    select.setSubmittedValue(newValues);
+
+    RenderUtils.decodeClientBehaviors(facesContext, select);
   }
 
   public String[] getSubmittedValues(UIInput input) {
@@ -120,7 +122,7 @@ public abstract class SelectManyRendererBase extends InputRendererBase {
   static final String VALUE_TYPE_KEY = "valueType";
 
   static Object getConvertedUISelectManyValue(FacesContext facesContext, UISelectMany component,
-      String[] submittedValue) throws ConverterException {
+                                              String[] submittedValue) throws ConverterException {
     return getConvertedUISelectManyValue(facesContext, component,
         submittedValue, false);
   }
@@ -138,7 +140,8 @@ public abstract class SelectManyRendererBase extends InputRendererBase {
    * @throws ConverterException
    */
   static Object getConvertedUISelectManyValue(FacesContext facesContext, UISelectMany component,
-      String[] submittedValue, boolean considerValueType) throws ConverterException {
+                                              String[] submittedValue, boolean considerValueType)
+      throws ConverterException {
     // Attention!
     // This code is duplicated in shared renderkit package (except for considerValueType).
     // If you change something here please do the same in the other class!
@@ -172,7 +175,7 @@ public abstract class SelectManyRendererBase extends InputRendererBase {
         if (String.class.equals(componentType)) {
           return submittedValue;
         }
-    if (converter == null) {
+        if (converter == null) {
           // the compononent does not have an attached converter
           // --> try to get a registered-by-class converter
           converter = facesContext.getApplication().createConverter(
@@ -187,7 +190,7 @@ public abstract class SelectManyRendererBase extends InputRendererBase {
             // and we do not have a Converter
             throw new ConverterException(
                 "Could not obtain a Converter for "
-                + componentType.getName());
+                    + componentType.getName());
           }
         }
         // instantiate the array
@@ -207,27 +210,27 @@ public abstract class SelectManyRendererBase extends InputRendererBase {
           if (collectionType == null) {
             throw new FacesException(
                 "The attribute "
-                + COLLECTION_TYPE_KEY
-                + " of component "
-                + component.getClientId(facesContext)
-                + " does not evaluate to a "
-                + "String, a Class object or a ValueExpression pointing "
-                + "to a String or a Class object.");
+                    + COLLECTION_TYPE_KEY
+                    + " of component "
+                    + component.getClientId(facesContext)
+                    + " does not evaluate to a "
+                    + "String, a Class object or a ValueExpression pointing "
+                    + "to a String or a Class object.");
           }
           // now we have a collectionType --> but is it really some kind of Collection
           if (!Collection.class.isAssignableFrom(collectionType)) {
             throw new FacesException("The attribute "
-                                     + COLLECTION_TYPE_KEY + " of component "
-                                     + component.getClientId(facesContext)
-                                     + " does not point to a valid type of Collection.");
+                + COLLECTION_TYPE_KEY + " of component "
+                + component.getClientId(facesContext)
+                + " does not point to a valid type of Collection.");
           }
           // now we have a real collectionType --> try to instantiate it
           try {
             targetForConvertedValues = collectionType.newInstance();
           } catch (Exception e) {
             throw new FacesException("The Collection "
-                                     + collectionType.getName()
-                                     + "can not be instantiated.", e);
+                + collectionType.getName()
+                + "can not be instantiated.", e);
           }
         } else if (Collection.class.isAssignableFrom(modelType)) {
           // component.getValue() will implement Collection at this point
@@ -254,8 +257,8 @@ public abstract class SelectManyRendererBase extends InputRendererBase {
             // or with the class object of componentValue (if any)
             try {
               targetForConvertedValues = (componentValue != null
-                                          ? componentValue.getClass()
-                                          : modelType).newInstance();
+                  ? componentValue.getClass()
+                  : modelType).newInstance();
             } catch (Exception e) {
               // this did not work either
               // use the standard concrete type
@@ -278,11 +281,11 @@ public abstract class SelectManyRendererBase extends InputRendererBase {
 
           // optimization: if we don't have a converter, we can return the submittedValue
           if (converter == null) {
-        return submittedValue;
-      }
+            return submittedValue;
+          }
 
           targetForConvertedValues = new Object[submittedValue.length];
-      }
+        }
       } else {
         // the expression does neither point to an array nor to a collection
         throw new ConverterException(
@@ -313,7 +316,7 @@ public abstract class SelectManyRendererBase extends InputRendererBase {
     }
 
     return targetForConvertedValues;
-      }
+  }
 
   /**
    * Gets a Class object from a given component attribute. The attribute can
@@ -327,7 +330,7 @@ public abstract class SelectManyRendererBase extends InputRendererBase {
    *                        class cannot be found
    */
   static Class<?> getClassFromAttribute(FacesContext facesContext,
-      Object attribute) throws FacesException {
+                                        Object attribute) throws FacesException {
     // Attention!
     // This code is duplicated in shared renderkit package.
     // If you change something here please do the same in the other class!
@@ -340,7 +343,7 @@ public abstract class SelectManyRendererBase extends InputRendererBase {
       // get the value of the ValueExpression
       attribute = ((ValueExpression) attribute)
           .getValue(facesContext.getELContext());
-      }
+    }
     // ... String that is a fully qualified Java class name
     if (attribute instanceof String) {
       try {
@@ -348,8 +351,8 @@ public abstract class SelectManyRendererBase extends InputRendererBase {
       } catch (ClassNotFoundException cnfe) {
         throw new FacesException(
             "Unable to find class "
-            + attribute
-            + " on the classpath.", cnfe);
+                + attribute
+                + " on the classpath.", cnfe);
       }
     } else if (attribute instanceof Class) {
       // ... a Class object
@@ -357,7 +360,7 @@ public abstract class SelectManyRendererBase extends InputRendererBase {
     }
 
     return type;
-      }
+  }
 
   /**
    * Uses the valueType attribute of the given UISelectMany component to
@@ -374,15 +377,15 @@ public abstract class SelectManyRendererBase extends InputRendererBase {
     if (valueTypeAttr != null) {
       // treat the valueType attribute exactly like the collectionType attribute
       Class<?> valueType = getClassFromAttribute(facesContext, valueTypeAttr);
-    if (valueType == null) {
+      if (valueType == null) {
         throw new FacesException(
             "The attribute "
-            + VALUE_TYPE_KEY
-            + " of component "
-            + component.getClientId(facesContext)
-            + " does not evaluate to a "
-            + "String, a Class object or a ValueExpression pointing "
-            + "to a String or a Class object.");
+                + VALUE_TYPE_KEY
+                + " of component "
+                + component.getClientId(facesContext)
+                + " does not evaluate to a "
+                + "String, a Class object or a ValueExpression pointing "
+                + "to a String or a Class object.");
       }
       // now we have a valid valueType
       // --> try to get a registered-by-class converter
@@ -390,10 +393,10 @@ public abstract class SelectManyRendererBase extends InputRendererBase {
 
       if (converter == null) {
         facesContext.getExternalContext().log("Found attribute valueType on component "
-                                              + getPathToComponent(component)
-                                              + ", but could not get a by-type converter for type "
-                                              + valueType.getName());
-    }
+            + getPathToComponent(component)
+            + ", but could not get a by-type converter for type "
+            + valueType.getName());
+      }
     }
 
     return converter;
@@ -515,8 +518,8 @@ public abstract class SelectManyRendererBase extends InputRendererBase {
 
     public SelectItemsIterator(UIComponent selectItemsParent, FacesContext facesContext) {
       children = selectItemsParent.getChildCount() > 0
-                  ? selectItemsParent.getChildren().iterator()
-                  : EMPTY_UICOMPONENT_ITERATOR;
+          ? selectItemsParent.getChildren().iterator()
+          : EMPTY_UICOMPONENT_ITERATOR;
       this.facesContext = facesContext;
     }
 
@@ -569,8 +572,8 @@ public abstract class SelectManyRendererBase extends InputRendererBase {
           } else if (!(item instanceof SelectItem)) {
             ValueExpression expression = uiSelectItem.getValueExpression("value");
             throw new IllegalArgumentException("ValueExpression '"
-                 + (expression == null ? null : expression.getExpressionString()) + "' of UISelectItem : "
-                 + getPathToComponent(child) + " does not reference an Object of type SelectItem");
+                + (expression == null ? null : expression.getExpressionString()) + "' of UISelectItem : "
+                + getPathToComponent(child) + " does not reference an Object of type SelectItem");
           }
           nextItem = (SelectItem) item;
           currentComponent = child;
@@ -588,9 +591,9 @@ public abstract class SelectManyRendererBase extends InputRendererBase {
             // --> we have to use class Array to get the values
             int length = Array.getLength(value);
             Collection<Object> items = new ArrayList<Object>(length);
-      for (int i = 0; i < length; i++) {
+            for (int i = 0; i < length; i++) {
               items.add(Array.get(value, i));
-      }
+            }
             nestedItems = items.iterator();
             return hasNext();
           } else if (value instanceof Iterable) {
@@ -602,11 +605,11 @@ public abstract class SelectManyRendererBase extends InputRendererBase {
             Collection<SelectItem> items = new ArrayList<SelectItem>(map.size());
             for (Map.Entry<Object, Object> entry : map.entrySet()) {
               items.add(new SelectItem(entry.getValue(), entry.getKey().toString()));
-    }
+            }
 
             nestedItems = items.iterator();
             return hasNext();
-    } else {
+          } else {
 
             if ((facesContext.isProjectStage(ProjectStage.Production) && LOG.isDebugEnabled())
                 || LOG.isWarnEnabled()) {
@@ -617,15 +620,15 @@ public abstract class SelectManyRendererBase extends InputRendererBase {
                   (value == null ? null : value.getClass().getName())
               };
               String message = "ValueExpression {0} of UISelectItems with component-path {1}"
-                               + " does not reference an Object of type SelectItem,"
-                               + " array, Iterable or Map, but of type: {2}";
+                  + " does not reference an Object of type SelectItem,"
+                  + " array, Iterable or Map, but of type: {2}";
               if (facesContext.isProjectStage(ProjectStage.Production)) {
                 LOG.debug(message, objects);
               } else {
                 LOG.warn(message, objects);
-      }
-    }
-  }
+              }
+            }
+          }
         } else {
           currentComponent = null;
         }

@@ -23,6 +23,7 @@ import org.apache.myfaces.tobago.component.UITextarea;
 import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
+import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
@@ -42,6 +43,13 @@ import java.io.IOException;
 public class TextareaRenderer extends InputRendererBase {
 
   private static final Logger LOG = LoggerFactory.getLogger(TextareaRenderer.class);
+
+  @Override
+  public void decode(FacesContext facesContext, UIComponent component) {
+    super.decode(facesContext, component);
+
+    RenderUtils.decodeClientBehaviors(facesContext, component);
+  }
 
   @Override
   public void encodeBeginField(final FacesContext facesContext, final UIComponent component) throws IOException {
@@ -87,7 +95,14 @@ public class TextareaRenderer extends InputRendererBase {
     if (pattern != null) {
       writer.writeAttribute(HtmlAttributes.PATTERN, pattern, false);
     }
-    HtmlRendererUtils.renderCommandFacet(input, facesContext, writer);
+
+    final String commands = RenderUtils.getBehaviorCommands(facesContext, input);
+    if (commands != null) {
+      writer.writeAttribute(DataAttributes.COMMANDS, commands, true);
+    } else { // old
+      HtmlRendererUtils.renderCommandFacet(input, facesContext, writer);
+    }
+
     HtmlRendererUtils.renderFocus(clientId, input.isFocus(), ComponentUtils.isError(input), facesContext, writer);
 
     /*String placeholder = input.getPlaceholder();

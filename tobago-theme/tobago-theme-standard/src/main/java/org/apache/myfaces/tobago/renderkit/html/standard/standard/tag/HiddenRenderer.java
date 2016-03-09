@@ -36,6 +36,13 @@ import java.io.IOException;
 // TODO: Its not nice, that the base class use layout
 public class HiddenRenderer extends InputRendererBase {
 
+  @Override
+  public void decode(FacesContext facesContext, UIComponent component) {
+    super.decode(facesContext, component);
+
+    RenderUtils.decodeClientBehaviors(facesContext, component);
+  }
+
   protected void encodeBeginField(FacesContext facesContext, UIComponent component) throws IOException {
 
     final AbstractUIHidden hidden = (AbstractUIHidden) component;

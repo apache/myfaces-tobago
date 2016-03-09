@@ -19,6 +19,7 @@
 
 package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
+import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,16 +36,17 @@ public abstract class SelectOneRendererBase extends InputRendererBase {
     if (ComponentUtils.isOutputOnly(component)) {
       return;
     }
-    if (component instanceof UISelectOne) {
-      final UISelectOne uiSelectOne = (UISelectOne) component;
 
-      final String clientId = uiSelectOne.getClientId(facesContext);
-      final Object newValue =
-          facesContext.getExternalContext().getRequestParameterMap().get(clientId);
-      if (LOG.isDebugEnabled()) {
-        LOG.debug("decode: key='" + clientId + "' value='" + newValue + "'");
-      }
-      uiSelectOne.setSubmittedValue(newValue);
+    final UISelectOne select = (UISelectOne) component;
+
+    final String clientId = select.getClientId(facesContext);
+    final Object newValue =
+        facesContext.getExternalContext().getRequestParameterMap().get(clientId);
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("decode: key='" + clientId + "' value='" + newValue + "'");
     }
+    select.setSubmittedValue(newValue);
+
+    RenderUtils.decodeClientBehaviors(facesContext, select);
   }
 }

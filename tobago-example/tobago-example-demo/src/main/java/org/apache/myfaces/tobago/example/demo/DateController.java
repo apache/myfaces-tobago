@@ -37,6 +37,8 @@ public class DateController implements Serializable {
 
   private Date once;
 
+  private Date onchange;
+
   public DateController() {
     try {
       once = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss SSS").parse("1980-03-07 21:05:09 012");
@@ -52,5 +54,13 @@ public class DateController implements Serializable {
 
   public void setOnce(Date once) {
     this.once = once;
+  }
+
+  public Date getOnchange() {
+    return onchange;
+  }
+
+  public void setOnchange(Date onchange) {
+    this.onchange = onchange;
   }
 }

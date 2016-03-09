@@ -28,6 +28,7 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.HttpPartWrapper;
+import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import org.slf4j.Logger;
@@ -54,10 +55,12 @@ public class FileRenderer extends InputRendererBase implements ComponentSystemEv
     FacesContextUtils.setEnctype(facesContext, "multipart/form-data");
   }
 
+  @Override
   public boolean getRendersChildren() {
     return true;
   }
 
+  @Override
   public void decode(final FacesContext facesContext, final UIComponent component) {
     if (ComponentUtils.isOutputOnly(component)) {
       return;
@@ -81,8 +84,11 @@ public class FileRenderer extends InputRendererBase implements ComponentSystemEv
     } else { // todo: PortletRequest
       LOG.warn("Unsupported request type: " + request.getClass().getName());
     }
+
+    RenderUtils.decodeClientBehaviors(facesContext, component);
   }
 
+  @Override
   protected void encodeBeginField(FacesContext facesContext, UIComponent component) throws IOException {
 
     final AbstractUIFile file = (AbstractUIFile) component;
@@ -124,6 +130,7 @@ public class FileRenderer extends InputRendererBase implements ComponentSystemEv
     writer.endElement(HtmlElements.INPUT);
   }
 
+  @Override
   protected void encodeEndField(FacesContext facesContext, UIComponent component) throws IOException {
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
     writer.endElement(HtmlElements.DIV);

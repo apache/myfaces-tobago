@@ -3,6 +3,7 @@ package org.apache.myfaces.tobago.example.demo;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.faces.event.AjaxBehaviorEvent;
 import javax.inject.Named;
 import java.io.Serializable;
 
@@ -20,8 +21,14 @@ public class SelectBoolean implements Serializable {
 
   public String submit() {
     FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
-        "Selected items: " + (a ? "a" : "") + "" + (b ? "b" : "") + "" + (c ? "c" : ""), null));
+        "Selected items: "
+            + (a ? "a" : "") + "" + (b ? "b" : "") + "" + (c ? "c" : "")
+            + (d ? "d" : "") + "" + (e ? "e" : "") + "" + (f ? "f" : ""), null));
     return null;
+  }
+
+  public void action(AjaxBehaviorEvent event) {
+    submit();
   }
 
   public boolean isA() {

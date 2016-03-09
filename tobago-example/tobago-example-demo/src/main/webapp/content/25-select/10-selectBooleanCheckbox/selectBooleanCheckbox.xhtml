@@ -20,7 +20,8 @@
 <ui:composition template="/main.xhtml"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:f="http://java.sun.com/jsf/core">
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html">
   <ui:param name="title" value="Select Boolean Checkbox: &lt;tc:selectBoleanCheckbox>"/>
 
   <tc:section label="Simple Usage">
@@ -39,7 +40,7 @@
   <tc:section label="AJAX" id="ajax">
 
     <tc:selectBooleanCheckbox value="#{selectBoolean.d}" label="D" id="d">
-      <f:ajax render="ajax"/>
+      <f:ajax render="ajax :page:messages" listener="#{selectBoolean.action}"/>
     </tc:selectBooleanCheckbox>
     <tc:out label="Value is" value="#{selectBoolean.d}"/>
 
