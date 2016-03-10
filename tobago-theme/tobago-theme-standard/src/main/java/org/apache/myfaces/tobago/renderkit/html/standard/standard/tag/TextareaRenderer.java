@@ -28,6 +28,7 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
+import org.apache.myfaces.tobago.sanitizer.SanitizeMode;
 import org.apache.myfaces.tobago.sanitizer.Sanitizer;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
@@ -112,7 +113,7 @@ public class TextareaRenderer extends InputRendererBase {
     String currentValue = RenderUtils.currentValue(input);
     if (currentValue != null) {
       if (ComponentUtils.getDataAttribute(input, "html-editor") != null
-          && "auto".equals(input.getSanitize())) {
+          && SanitizeMode.auto == input.getSanitize()) {
         final Sanitizer sanitizer = TobagoConfig.getInstance(facesContext).getSanitizer();
         currentValue = sanitizer.sanitize(currentValue);
       }

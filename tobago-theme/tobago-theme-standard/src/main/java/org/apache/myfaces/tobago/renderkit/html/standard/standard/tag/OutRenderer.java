@@ -27,6 +27,7 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
+import org.apache.myfaces.tobago.sanitizer.SanitizeMode;
 import org.apache.myfaces.tobago.sanitizer.Sanitizer;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
@@ -76,7 +77,7 @@ public class OutRenderer extends LabelLayoutRendererBase {
       }
     } else { // escape="false"
       writer.writeText("", null); // to ensure the closing > of the <span> start tag.
-      if ("auto".equals(out.getSanitize())) {
+      if (SanitizeMode.auto == out.getSanitize()) {
         final Sanitizer sanitizer = TobagoConfig.getInstance(facesContext).getSanitizer();
         text = sanitizer.sanitize(text);
       }

@@ -23,6 +23,7 @@ import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.UITextarea;
 import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
+import org.apache.myfaces.tobago.sanitizer.SanitizeMode;
 import org.apache.myfaces.tobago.sanitizer.Sanitizer;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.slf4j.Logger;
@@ -63,7 +64,7 @@ public abstract class InputRendererBase extends LabelLayoutRendererBase {
       if (input instanceof UITextarea) {
         UITextarea textarea = (UITextarea) input;
         if (ComponentUtils.getDataAttribute(input, "html-editor") != null
-            && "auto".equals(textarea.getSanitize())) {
+            && SanitizeMode.auto == textarea.getSanitize()) {
           final Sanitizer sanitizer = TobagoConfig.getInstance(facesContext).getSanitizer();
           newValue = sanitizer.sanitize(newValue);
         }
