@@ -41,22 +41,9 @@ import javax.faces.validator.LengthValidator;
 import javax.faces.validator.Validator;
 import java.io.IOException;
 
-public class InRenderer extends InputRendererBase {
+public class InRenderer extends LabelLayoutRendererBase {
 
   private static final Logger LOG = LoggerFactory.getLogger(InRenderer.class);
-
-  @Override
-  public void decode(final FacesContext facesContext, final UIComponent component) {
-    super.decode(facesContext, component);
-    final String sourceId = facesContext.getExternalContext().getRequestParameterMap().get("javax.faces.source");
-    final String clientId = component.getClientId(facesContext);
-    if (clientId.equals(sourceId)) {
-      // this is a inputSuggest request -> render response
-      facesContext.renderResponse();
-    }
-
-    RenderUtils.decodeClientBehaviors(facesContext, component);
-  }
 
   @Override
   protected void encodeBeginField(FacesContext facesContext, UIComponent component)

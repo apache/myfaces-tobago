@@ -17,10 +17,9 @@
  * under the License.
  */
 
-package org.apache.myfaces.tobago.renderkit;
+package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
 import org.apache.myfaces.tobago.internal.util.ArrayUtils;
-import org.apache.myfaces.tobago.renderkit.html.standard.standard.tag.InputRendererBase;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.slf4j.Logger;
@@ -55,7 +54,7 @@ import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
-public abstract class SelectManyRendererBase extends InputRendererBase {
+public abstract class SelectManyRendererBase extends LabelLayoutRendererBase {
 
   private static final Logger LOG = LoggerFactory.getLogger(SelectManyRendererBase.class);
 

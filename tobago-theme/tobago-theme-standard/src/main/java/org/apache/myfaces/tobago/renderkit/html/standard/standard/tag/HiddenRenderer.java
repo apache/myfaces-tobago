@@ -33,18 +33,10 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 
-// TODO: Its not nice, that the base class use layout
-public class HiddenRenderer extends InputRendererBase {
+public class HiddenRenderer extends DecodingRendererBase {
 
   @Override
-  public void decode(FacesContext facesContext, UIComponent component) {
-    super.decode(facesContext, component);
-
-    RenderUtils.decodeClientBehaviors(facesContext, component);
-  }
-
-  @Override
-  protected void encodeBeginField(FacesContext facesContext, UIComponent component) throws IOException {
+  public void encodeBegin(FacesContext facesContext, UIComponent component) throws IOException {
 
     final AbstractUIHidden hidden = (AbstractUIHidden) component;
     final String clientId = hidden.getClientId(facesContext);
@@ -66,10 +58,11 @@ public class HiddenRenderer extends InputRendererBase {
     writer.writeIdAttribute(clientId);
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, hidden);
     writer.writeAttribute(HtmlAttributes.VALUE, value != null ? value : "", true);
-    writer.endElement(HtmlElements.INPUT);
   }
 
   @Override
-  protected void encodeEndField(FacesContext facesContext, UIComponent component) throws IOException {
+  public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
+    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+    writer.endElement(HtmlElements.INPUT);
   }
 }

@@ -41,16 +41,9 @@ import javax.faces.validator.LengthValidator;
 import javax.faces.validator.Validator;
 import java.io.IOException;
 
-public class TextareaRenderer extends InputRendererBase {
+public class TextareaRenderer extends LabelLayoutRendererBase {
 
   private static final Logger LOG = LoggerFactory.getLogger(TextareaRenderer.class);
-
-  @Override
-  public void decode(FacesContext facesContext, UIComponent component) {
-    super.decode(facesContext, component);
-
-    RenderUtils.decodeClientBehaviors(facesContext, component);
-  }
 
   @Override
   public void encodeBeginField(final FacesContext facesContext, final UIComponent component) throws IOException {

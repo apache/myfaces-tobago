@@ -17,8 +17,9 @@
  * under the License.
  */
 
-package org.apache.myfaces.tobago.renderkit;
+package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
+import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -49,7 +49,7 @@ import javax.servlet.http.Part;
 import java.io.IOException;
 
 @ListenerFor(systemEventClass = PostAddToViewEvent.class)
-public class FileRenderer extends InputRendererBase implements ComponentSystemEventListener {
+public class FileRenderer extends LabelLayoutRendererBase implements ComponentSystemEventListener {
 
   private static final Logger LOG = LoggerFactory.getLogger(FileRenderer.class);
 
@@ -88,8 +88,6 @@ public class FileRenderer extends InputRendererBase implements ComponentSystemEv
     } else { // todo: PortletRequest
       LOG.warn("Unsupported request type: " + request.getClass().getName());
     }
-
-    RenderUtils.decodeClientBehaviors(facesContext, component);
   }
 
   @Override

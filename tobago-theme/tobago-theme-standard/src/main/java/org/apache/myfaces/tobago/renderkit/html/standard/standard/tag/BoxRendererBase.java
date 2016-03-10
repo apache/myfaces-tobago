@@ -17,9 +17,10 @@
  * under the License.
  */
 
-package org.apache.myfaces.tobago.renderkit;
+package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
 import org.apache.myfaces.tobago.component.UIBox;
+import org.apache.myfaces.tobago.renderkit.RendererBase;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;

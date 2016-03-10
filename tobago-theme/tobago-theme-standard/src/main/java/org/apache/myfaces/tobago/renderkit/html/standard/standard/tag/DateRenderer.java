@@ -31,7 +31,6 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlButtonTypes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.JsonUtils;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
-import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
@@ -39,13 +38,6 @@ import javax.faces.context.FacesContext;
 import java.io.IOException;
 
 public class DateRenderer extends InRenderer {
-
-  @Override
-  public void decode(FacesContext facesContext, UIComponent component) {
-    super.decode(facesContext, component);
-
-    RenderUtils.decodeClientBehaviors(facesContext, component);
-  }
 
   @Override
   protected void writeAdditionalAttributes(

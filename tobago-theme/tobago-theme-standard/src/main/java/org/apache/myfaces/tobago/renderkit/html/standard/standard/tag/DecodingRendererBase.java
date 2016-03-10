@@ -23,54 +23,55 @@ import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.UITextarea;
 import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
+import org.apache.myfaces.tobago.renderkit.RendererBase;
+import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
 import org.apache.myfaces.tobago.sanitizer.SanitizeMode;
 import org.apache.myfaces.tobago.sanitizer.Sanitizer;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.faces.component.EditableValueHolder;
 import javax.faces.component.UIComponent;
-import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
 import java.util.Map;
 
-public abstract class InputRendererBase extends LabelLayoutRendererBase {
+public abstract class DecodingRendererBase extends RendererBase {
 
-  private static final Logger LOG = LoggerFactory.getLogger(InputRendererBase.class);
+  private static final Logger LOG = LoggerFactory.getLogger(DecodingRendererBase.class);
 
   @Override
   public void decode(final FacesContext facesContext, final UIComponent component) {
-    final UIInput input;
-    if (component instanceof UIInput) {
-      input = (UIInput) component;
-    } else {
+    if (!(component instanceof EditableValueHolder)) {
       return; // no decoding required
     }
 
-    if (ComponentUtils.isOutputOnly(input)) {
-      return;
+    if (ComponentUtils.isOutputOnly(component)) {
+      return; // no decoding required
     }
 
-    final String clientId = input.getClientId(facesContext);
+    final String clientId = component.getClientId(facesContext);
 
     final Map<String, String> requestParameterMap = facesContext.getExternalContext().getRequestParameterMap();
     if (requestParameterMap.containsKey(clientId)) {
       String newValue = requestParameterMap.get(clientId);
       if (LOG.isDebugEnabled()) {
-        final boolean password = ComponentUtils.getBooleanAttribute(input, Attributes.password);
+        final boolean password = ComponentUtils.getBooleanAttribute(component, Attributes.password);
         LOG.debug("clientId='{}'", clientId);
         LOG.debug("requestParameterMap.get(clientId)='{}'", StringUtils.toConfidentialString(newValue, password));
       }
-      if (input instanceof UITextarea) {
-        UITextarea textarea = (UITextarea) input;
-        if (ComponentUtils.getDataAttribute(input, "html-editor") != null
+      if (component instanceof UITextarea) {
+        UITextarea textarea = (UITextarea) component;
+        if (ComponentUtils.getDataAttribute(component, "html-editor") != null
             && SanitizeMode.auto == textarea.getSanitize()) {
           final Sanitizer sanitizer = TobagoConfig.getInstance(facesContext).getSanitizer();
           newValue = sanitizer.sanitize(newValue);
         }
       }
 
-      input.setSubmittedValue(newValue);
+      ((EditableValueHolder) component).setSubmittedValue(newValue);
     }
+
+    RenderUtils.decodeClientBehaviors(facesContext, component);
   }
 }
