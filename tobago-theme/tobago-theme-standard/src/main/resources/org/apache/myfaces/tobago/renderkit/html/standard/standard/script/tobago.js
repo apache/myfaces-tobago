@@ -681,63 +681,6 @@ var Tobago = {
     }
   },
 
-
-  /**
-   *  Onchange function for SelectOneListbox.
-   *  @deprecated since Tobago 2.0.0. Is replaces with SelectOneListbox.init()
-   */
-  selectOneListboxChange: function(element) {
-    if (element.oldValue == undefined) {
-      element.oldValue = -1;
-    }
-  },
-
-  /**
-   * Onclick function for SelectOneListbox.
-   *  @deprecated since Tobago 2.0.0. Is replaces with SelectOneListbox.init()
-   */
-  selectOneListboxClick: function(element) {
-    if (element.oldValue == undefined || element.oldValue == element.selectedIndex) {
-      element.selectedIndex = -1;
-    }
-    element.oldValue = element.selectedIndex;
-  },
-
-  /**
-   * Init function for SelectOneRadio.
-   *  @deprecated since Tobago 2.0.0. Is replaces with SelectOneRadio.init()
-   */
-  selectOneRadioInit: function(name) {
-    var elements = document.getElementsByName(name);
-    for (var i = 0; i < elements.length; i++) {
-      elements[i].oldValue = elements[i].checked;
-    }
-  },
-
-  /**
-   * Onclick function for SelectOneRadio.
-   *  @deprecated since Tobago 2.0.0. Is replaces with SelectOneRadio.init()
-   */
-  selectOneRadioClick: function(element, name, required, readonly) {
-    var elements = document.getElementsByName(name);
-    for (var i = 0; i < elements.length; i++) {
-      if (readonly) {
-        elements[i].checked = elements[i].oldValue;
-      } else {
-        if (elements[i] != element) {
-          elements[i].checked = false;
-          elements[i].oldValue = false;
-        }
-      }
-    }
-    if (!required && !readonly) {
-      if (element.oldValue == element.checked) {
-        element.checked = false;
-      }
-      element.oldValue = element.checked;
-    }
-  },
-
   resizePage: function(event) {
     Tobago.resizeEventCount++;
     window.setTimeout(Tobago.resizePageAction, 250);
