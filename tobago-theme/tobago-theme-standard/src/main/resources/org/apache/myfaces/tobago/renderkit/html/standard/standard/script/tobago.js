@@ -2593,7 +2593,14 @@ Tobago.File.init = function(elements) {
     if (pos >= 0) {
       filename = filename.substr(pos + 1);
     }
-    pretty.text(filename);
+    pretty.val(filename);
+  });
+  // click on the button (when using focus with keyboard)
+  files.each(function() {
+    var real = jQuery(this);
+    real.parent().find("button").click(function() {
+      real.click();
+    });
   });
   if (files.length > 0) {
     jQuery("form").attr('enctype', 'multipart/form-data');

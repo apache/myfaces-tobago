@@ -57,6 +57,10 @@ needed for popups
   position: relative;
 }
 
+.tobago-file-pretty {
+  text-overflow: ellipsis;
+}
+
 .tobago-file-real {
   position: absolute;
   right: 0;

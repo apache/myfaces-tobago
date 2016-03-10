@@ -109,16 +109,18 @@ public class FileRenderer extends InputRendererBase implements ComponentSystemEv
     // visible fake input for a pretty look
     writer.startElement(HtmlElements.DIV);
     writer.writeClassAttribute(BootstrapClass.INPUT_GROUP);
-    writer.startElement(HtmlElements.SPAN);
+    writer.startElement(HtmlElements.INPUT);
+    writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.TEXT);
+    writer.writeAttribute(HtmlAttributes.TABINDEX, -1);
     writer.writeClassAttribute(Classes.create(file, "pretty"), BootstrapClass.FORM_CONTROL);
     // TODO Focus
     //HtmlRendererUtils.renderFocus(clientId, file.isFocus(), ComponentUtils.isError(file), facesContext, writer);
-    writer.writeText(" "); // this is a non breaking space
-    writer.endElement(HtmlElements.SPAN);
+    writer.endElement(HtmlElements.INPUT);
 
     writer.startElement(HtmlElements.SPAN);
     writer.writeClassAttribute(BootstrapClass.INPUT_GROUP_BTN);
     writer.startElement(HtmlElements.BUTTON);
+    writer.writeAttribute(HtmlAttributes.TABINDEX, file.getTabIndex());
     writer.writeClassAttribute(BootstrapClass.BTN, BootstrapClass.BTN_SECONDARY);
     writer.writeAttribute(HtmlAttributes.TYPE, HtmlButtonTypes.BUTTON);
     writer.writeIcon(Icons.FOLDER_OPEN);
@@ -128,16 +130,15 @@ public class FileRenderer extends InputRendererBase implements ComponentSystemEv
 
     // invisible file input
     writer.startElement(HtmlElements.INPUT);
-    writer.writeIdAttribute(clientId + ComponentUtils.SUB_SEPARATOR + "real");
     writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.FILE);
+    writer.writeAttribute(HtmlAttributes.TABINDEX, -1);
+    writer.writeIdAttribute(clientId + ComponentUtils.SUB_SEPARATOR + "real");
     writer.writeClassAttribute(Classes.create(file, "real"));
     writer.writeNameAttribute(clientId);
     // readonly seems not making sense in browsers.
     writer.writeAttribute(HtmlAttributes.DISABLED, file.isDisabled() || file.isReadonly());
     writer.writeAttribute(HtmlAttributes.READONLY, file.isReadonly());
     writer.writeAttribute(HtmlAttributes.REQUIRED, file.isRequired());
-    writer.writeAttribute(HtmlAttributes.SIZE, "1024", false);
-    writer.writeAttribute(HtmlAttributes.TABINDEX, file.getTabIndex());
     final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, file);
     if (title != null) {
       writer.writeAttribute(HtmlAttributes.TITLE, title, true);
