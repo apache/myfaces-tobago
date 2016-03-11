@@ -19,25 +19,10 @@
 
 <ui:composition template="/main.xhtml"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
-                xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:f="http://java.sun.com/jsf/core">
+                xmlns:ui="http://java.sun.com/jsf/facelets">
 
-  <ui:param name="title" value="Simple progress example with reload facet"/>
+  <ui:param name="title" value="TODO"/>
 
-  <tc:panel>
-    <f:facet name="reload">
-      <tc:reload frequency="2000" update="#{progress.update}"/>
-    </f:facet>
-    <f:facet name="layout">
-      <tc:gridLayout rows="auto;1*" columns="100px;1* "/>
-    </f:facet>
-    <tc:label value="Progress:"/>
-    <tc:progress value="#{progress.progress}">
-      <f:facet name="complete">
-        <tc:command action="#{progress.reset}"/>
-      </f:facet>
-    </tc:progress>
-    <tc:panel/>
-  </tc:panel>
+TODO
 
 </ui:composition>
