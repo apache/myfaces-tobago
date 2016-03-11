@@ -52,7 +52,7 @@ public class SeparatorExtensionHandler extends ComponentHandler {
   public void applyNextHandler(final FaceletContext faceletContext, final UIComponent separator)
       throws IOException, ELException {
     if (ComponentHandler.isNew(separator)) {
-      final UIComponent component = (UIComponent) separator.getFacets().remove(Facets.LABEL);
+      final UIComponent component = separator.getFacets().remove(Facets.LABEL);
       nextHandler.apply(faceletContext, component);
       separator.getFacets().put(Facets.LABEL, component);
     } else {

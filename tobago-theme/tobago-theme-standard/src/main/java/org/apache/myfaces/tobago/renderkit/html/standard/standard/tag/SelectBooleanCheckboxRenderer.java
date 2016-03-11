@@ -54,7 +54,7 @@ public class SelectBooleanCheckboxRenderer extends RendererBase {
       return;
     }
 
-    final String newValue = (String) facesContext.getExternalContext()
+    final String newValue = facesContext.getExternalContext()
         .getRequestParameterMap().get(input.getClientId(facesContext));
 
     if (LOG.isDebugEnabled()) {

@@ -116,8 +116,7 @@ public class TreeIndentRenderer extends RendererBase {
     }
     final boolean hasNextSibling = junctions.get(junctions.size() - 1); // last element
 
-    writer.writeIcon(
-        (Icons) (folder ? expanded ? Icons.MINUS_SQUARE_O : Icons.PLUS_SQUARE_O : Icons.SQUARE_O));
+    writer.writeIcon(folder ? expanded ? Icons.MINUS_SQUARE_O : Icons.PLUS_SQUARE_O : Icons.SQUARE_O);
 
 /*
     writer.startElement(HtmlElements.IMG, null);

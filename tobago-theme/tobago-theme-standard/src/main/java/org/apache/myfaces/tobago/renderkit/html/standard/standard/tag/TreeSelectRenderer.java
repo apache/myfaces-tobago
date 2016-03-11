@@ -64,7 +64,7 @@ public class TreeSelectRenderer extends RendererBase {
       name = clientId;
     }
 
-    final String parameter = (String) facesContext.getExternalContext().getRequestParameterMap().get(name);
+    final String parameter = facesContext.getExternalContext().getRequestParameterMap().get(name);
 
     if (LOG.isDebugEnabled()) {
       LOG.debug("parameter = '" + parameter + "'");

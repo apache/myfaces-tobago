@@ -546,7 +546,7 @@ public final class ComponentUtils {
       return null;
     }
 
-    final Map<String, Object> requestMap = (Map<String, Object>) facesContext.getExternalContext().getRequestMap();
+    final Map<String, Object> requestMap = facesContext.getExternalContext().getRequestMap();
     final StringBuilder key = new StringBuilder(RENDER_KEY_PREFIX);
     key.append(rendererType);
     RendererBase renderer = (RendererBase) requestMap.get(key.toString());
