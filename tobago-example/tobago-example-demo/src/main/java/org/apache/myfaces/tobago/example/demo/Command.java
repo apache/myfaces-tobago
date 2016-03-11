@@ -33,6 +33,6 @@ public class Command {
 
   public String action() {
     LOG.info("action");
-    return "/content/60-command/command.xhtml";
+    return "/content/20-component/040-command/10-button+link/button+link.xhtml";
   }
 }
