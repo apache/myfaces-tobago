@@ -84,7 +84,7 @@ public class ToolBarRenderer extends RendererBase {
     writer.endElement(HtmlElements.DIV);
 
     writer.startElement(HtmlElements.DIV);
-    writer.writeClassAttribute(BootstrapClass.COLLAPSE, BootstrapClass.NAVBAR_COLLAPSE);
+// TODO    writer.writeClassAttribute(BootstrapClass.COLLAPSE, BootstrapClass.NAVBAR_COLLAPSE);
     writer.writeIdAttribute(toolBar.getClientId(facesContext));
   }
 /*
