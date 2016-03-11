@@ -41,11 +41,15 @@
 
     <tc:out value="FIXME: AJAX example currently not working correctly: In.setChangeValue() will not be called."/>
 
-    <tc:in id="i6" value="#{in.changeValue}" label="on change">
-      <f:ajax render="panel" listener="#{in.update}"/>
-    </tc:in>
+    <tc:panel id="panel">
 
-    <tc:out id="o" value="#{in.changeValue}" label="value on server"/>
+      <tc:in id="i6" value="#{in.changeValue}" label="on change">
+        <f:ajax render="panel" listener="#{in.update}"/>
+      </tc:in>
+
+      <tc:out id="o" value="#{in.changeValue}" label="value on server"/>
+
+    </tc:panel>
 
     <tc:in id="i7" label="Input (focus)" focus="true" value="Some Text"/>
 
