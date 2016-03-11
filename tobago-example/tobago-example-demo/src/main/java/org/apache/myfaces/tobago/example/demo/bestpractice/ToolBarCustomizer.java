@@ -19,14 +19,19 @@
 
 package org.apache.myfaces.tobago.example.demo.bestpractice;
 
+import javax.enterprise.context.SessionScoped;
 import javax.faces.component.UIParameter;
 import javax.faces.event.ActionEvent;
+import javax.inject.Named;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
-public class ToolBarCustomizer {
+@SessionScoped
+@Named("customizer")
+public class ToolBarCustomizer implements Serializable {
 
   private List<Item> list;
 
