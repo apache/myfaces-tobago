@@ -19,7 +19,6 @@
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 
 <properties>
- <entry key="tobago_version">MyFaces Tobago 1.0.7</entry>
  <entry key="tobago_url">http://myfaces.apache.org/tobago</entry>
 
 
