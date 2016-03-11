@@ -66,7 +66,6 @@ public class InRenderer extends LabelLayoutRendererBase {
     writer.startElement(HtmlElements.INPUT);
     writer.writeAttribute(HtmlAttributes.TYPE, type);
     writer.writeNameAttribute(id);
-    writer.writeIdAttribute(id);
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, input);
     if (currentValue != null) {
       writer.writeAttribute(HtmlAttributes.VALUE, currentValue, true);

@@ -60,7 +60,6 @@ public class TextareaRenderer extends LabelLayoutRendererBase {
 
     writer.startElement(HtmlElements.TEXTAREA);
     writer.writeNameAttribute(clientId);
-    writer.writeIdAttribute(clientId);
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, input);
     writer.writeAttribute(HtmlAttributes.ROWS, rows);
     writer.writeAttribute(HtmlAttributes.TITLE, title, true);

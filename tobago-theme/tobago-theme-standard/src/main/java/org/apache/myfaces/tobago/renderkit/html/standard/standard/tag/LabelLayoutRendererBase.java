@@ -118,6 +118,7 @@ public abstract class LabelLayoutRendererBase extends DecodingRendererBase {
 
 //    if (labelLayout != LabelLayout.none) {
     writer.startElement(HtmlElements.DIV);
+    writer.writeIdAttribute(component.getClientId(facesContext));
 //    }
 //    writer.writeClassAttribute(divClass, BootstrapClass.maximumSeverity(component));
     // todo: check if BootstrapClass.FORM_GROUP is needed, I've removed it, because of it's margin-bottom: 15px;

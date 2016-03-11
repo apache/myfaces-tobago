@@ -53,7 +53,7 @@ var initInspect = function (elements) {
     var element = jQuery(this);
     element.addClass("demo-selected");
 
-    var clientId = element.attr("id");
+    var clientId = element.closest("[id]").attr("id");
     var id = clientId.substr(clientId.lastIndexOf(":") + 1);
 
     var source = jQuery("#demo-view-source");

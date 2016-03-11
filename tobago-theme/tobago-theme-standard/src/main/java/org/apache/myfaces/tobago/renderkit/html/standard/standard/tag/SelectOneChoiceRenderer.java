@@ -55,7 +55,6 @@ public class SelectOneChoiceRenderer extends SelectOneRendererBase {
 
     writer.startElement(HtmlElements.SELECT);
     writer.writeNameAttribute(id);
-    writer.writeIdAttribute(id);
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, select);
     writer.writeAttribute(HtmlAttributes.DISABLED, disabled);
     writer.writeAttribute(HtmlAttributes.TABINDEX, select.getTabIndex());

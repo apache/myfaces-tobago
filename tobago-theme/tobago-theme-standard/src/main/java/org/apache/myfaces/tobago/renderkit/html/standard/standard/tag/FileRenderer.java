@@ -99,7 +99,6 @@ public class FileRenderer extends LabelLayoutRendererBase implements ComponentSy
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
     writer.startElement(HtmlElements.DIV);
-    writer.writeIdAttribute(clientId);
     writer.writeClassAttribute(Classes.create(file), file.getCustomClass());
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, file);
     writer.writeStyleAttribute(file.getStyle());

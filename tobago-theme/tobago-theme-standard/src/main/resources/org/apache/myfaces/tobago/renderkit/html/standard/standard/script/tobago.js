@@ -2422,33 +2422,33 @@ Tobago.SelectOneRadio.init = function(elements) {
   var selectOneRadios = Tobago.Utils.selectWithJQuery(elements, ".tobago-selectOneRadio");
   selectOneRadios.each(function() {
     var ul = jQuery(this);
-    var radios = jQuery('input[name="' + ul.attr('id').replace(/:/g, '\\:') + '"]');
+    var id = ul.closest("[id]").attr("id");
+    var radios = jQuery('input[name="' + id.replace(/([:\.])/g, '\\$1') + '"]');
     radios.each(function () {
       var selectOneRadio = jQuery(this);
-      selectOneRadio.data("oldValue", selectOneRadio.prop("checked"));
+      selectOneRadio.data("tobago-old-value", selectOneRadio.prop("checked"));
     });
     radios.click(function() {
       var selectOneRadio = jQuery(this);
       var readonly = selectOneRadio.prop("readonly");
       var required = selectOneRadio.prop("required");
       if (!required && !readonly) {
-        if (selectOneRadio.data("oldValue") == selectOneRadio.prop("checked")) {
+        if (selectOneRadio.data("tobago-old-value") == selectOneRadio.prop("checked")) {
           selectOneRadio.prop("checked", false);
         }
-        selectOneRadio.data("oldValue", selectOneRadio.prop("checked"));
+        selectOneRadio.data("tobago-old-value", selectOneRadio.prop("checked"));
       }
-      var radios = jQuery('input[name="' + ul.attr('id').replace(/:/g, '\\:') + '"]');
       if (readonly) {
         radios.each(function () {
           var radio = jQuery(this);
-          radio.prop("checked", radio.data("oldValue"));
+          radio.prop("checked", radio.data("tobago-old-value"));
         });
       } else {
         radios.each(function () {
           if (this.id != selectOneRadio.get(0).id) {
             var radio = jQuery(this);
             radio.prop("checked", false);
-            radio.data("oldValue", radio.prop("checked"));
+            radio.data("tobago-old-value", radio.prop("checked"));
           }
         });
       }
@@ -2469,16 +2469,16 @@ Tobago.SelectOneListbox.init = function (elements) {
   notRequired
       .change(function () {
         var element = jQuery(this);
-        if (element.data("tobago-oldvalue") == undefined) {
-          element.data("tobago-oldvalue", -1);
+        if (element.data("tobago-old-value") == undefined) {
+          element.data("tobago-old-value", -1);
         }
       }).click(function () {
         var element = jQuery(this);
-        if (element.data("tobago-oldvalue") == undefined
-            || element.data("tobago-oldvalue") == element.prop("selectedIndex")) {
+        if (element.data("tobago-old-value") == undefined
+            || element.data("tobago-old-value") == element.prop("selectedIndex")) {
           element.prop("selectedIndex", -1);
         }
-        element.data("tobago-oldvalue", element.prop("selectedIndex"));
+        element.data("tobago-old-value", element.prop("selectedIndex"));
       });
 };
 

@@ -51,7 +51,6 @@ public class SelectManyCheckboxRenderer extends SelectManyRendererBase {
     final boolean required = select.isRequired();
 
     writer.startElement(HtmlElements.OL);
-    writer.writeIdAttribute(id);
     writer.writeStyleAttribute(select.getStyle());
     writer.writeClassAttribute(Classes.create(select), select.getCustomClass());
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, select);

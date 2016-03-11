@@ -21,8 +21,8 @@ package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
 import org.apache.myfaces.tobago.component.UIOut;
 import org.apache.myfaces.tobago.config.TobagoConfig;
-import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
+import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
@@ -54,9 +54,7 @@ public class OutRenderer extends LabelLayoutRendererBase {
     final boolean createSpan = out.isCreateSpan();
 
     if (createSpan) {
-      final String id = out.getClientId(facesContext);
       writer.startElement(HtmlElements.SPAN);
-      writer.writeIdAttribute(id);
       HtmlRendererUtils.writeDataAttributes(facesContext, writer, out);
       writer.writeStyleAttribute(out.getStyle());
       writer.writeClassAttribute(Classes.create(out), BootstrapClass.FORM_CONTROL_STATIC, out.getCustomClass());
