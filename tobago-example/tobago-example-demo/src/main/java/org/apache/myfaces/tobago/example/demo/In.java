@@ -19,14 +19,24 @@
 
 package org.apache.myfaces.tobago.example.demo;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javax.enterprise.context.RequestScoped;
+import javax.faces.event.AjaxBehaviorEvent;
 import javax.inject.Named;
 
 @RequestScoped
 @Named
 public class In {
 
+  private static final Logger LOG = LoggerFactory.getLogger(In.class);
+
   private String changeValue;
+
+  public void update(AjaxBehaviorEvent event) {
+    LOG.info("AjaxBehaviorEvent called. Current value: '{}'", changeValue);
+  }
 
   public String getChangeValue() {
     return changeValue;
