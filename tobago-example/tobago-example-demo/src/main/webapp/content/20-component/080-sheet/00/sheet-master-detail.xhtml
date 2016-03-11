@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+-->
+
+<ui:composition template="/main.xhtml"
+                xmlns:tc="http://myfaces.apache.org/tobago/component"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core">
+  <ui:param name="title" value="Sheet as Master-Details example"/>
+
+  <tc:panel id="panel">
+
+    <tc:out escape="false" value="Klick on a row">
+      <tc:gridLayoutConstraint columnSpan="2"/>
+    </tc:out>
+
+    <tc:segmentLayout medium="6;6">
+
+      <tc:box label="List of Objects">
+        <f:facet name="toolBar">
+          <tc:toolBar>
+            <tc:toolBarCommand label="Deselect" actionListener="#{demo.selectLuminary}"
+                               renderedPartially=":page:detail" immediate="true">
+              <tc:resetInputActionListener/>
+            </tc:toolBarCommand>
+          </tc:toolBar>
+        </f:facet>
+
+        <tc:sheet value="#{demo.solarList}" id="sheet"
+                  columns="*" var="luminary" selectable="single">
+          <tc:column label="#{overviewBundle.solarArrayName}" id="name">
+            <tc:out value="#{luminary.name}" id="t_name"/>
+          </tc:column>
+          <tc:columnEvent event="click">
+            <tc:command actionListener="#{demo.selectLuminary}" immediate="true">
+              <tc:resetInputActionListener/>
+              <f:ajax render=":page:detail"/>
+            </tc:command>
+          </tc:columnEvent>
+        </tc:sheet>
+      </tc:box>
+
+      <tc:box id="detail" label="Details">
+
+        <tc:panel rendered="#{demo.currentSolarObject != null}">
+          <tc:in label="Name" value="#{demo.currentSolarObject.name}" required="true"/>
+          <tc:in label="Number" value="#{demo.currentSolarObject.number}"/>
+          <tc:in label="Orbit" value="#{demo.currentSolarObject.orbit}"/>
+          <tc:in label="Distance" value="#{demo.currentSolarObject.distance}"/>
+          <tc:in label="Period" value="#{demo.currentSolarObject.period}"/>
+          <tc:in label="Obliquity" value="#{demo.currentSolarObject.incl}"/>
+          <tc:in label="Eccentricity" value="#{demo.currentSolarObject.eccen}"/>
+          <tc:in label="Discoverer" value="#{demo.currentSolarObject.discoverer}"/>
+          <tc:in label="Discover Year" value="#{demo.currentSolarObject.discoverYear}"/>
+          <tc:flowLayout>
+            <tc:style textAlign="right"/>
+            <tc:button label="OK"/>
+            <tc:button label="Cancel" immediate="true" action="#{demo.resetLuminary}"/>
+          </tc:flowLayout>
+        </tc:panel>
+
+        <tc:panel rendered="#{demo.currentSolarObject == null}">
+          <tc:out value="Please select a solar object on the left side to show its details."/>
+        </tc:panel>
+
+      </tc:box>
+
+    </tc:segmentLayout>
+
+  </tc:panel>
+</ui:composition>
