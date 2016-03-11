@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+-->
+
+<ui:composition template="/main.xhtml"
+                xmlns:tc="http://myfaces.apache.org/tobago/component"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+  <ui:param name="title" value="Input"/>
+
+  <tc:panel>
+
+    <tc:in id="i1" label="Input" value="Some Text"/>
+
+    <tc:in id="i2" label="Read Only" readonly="true" value="Some Text"/>
+
+    <tc:in id="i3" label="Disabled" disabled="true" value="Some Text"/>
+
+    <tc:flexLayout columns="100px;*">
+      <tc:label id="l" value="Short Label"/>
+      <tc:in id="i4" value="Some Text"/>
+    </tc:flexLayout>
+
+    <tc:in id="i5" value="Some Text without Label"/>
+
+    <tc:out value="FIXME: AJAX example currently not working correctly: In.setChangeValue() will not be called."/>
+
+    <tc:panel id="panel">
+
+      <tc:in id="i6" value="#{in.changeValue}" label="on change">
+        <f:ajax render="panel" listener="#{in.update}"/>
+      </tc:in>
+
+      <tc:out id="o" value="#{in.changeValue}" label="value on server"/>
+
+    </tc:panel>
+
+    <tc:in id="i7" label="Input (focus)" focus="true" value="Some Text"/>
+
+    <tc:in id="i8" label="Password" password="true" value="Asterics"/>
+
+    <tc:textarea id="t1"
+        value="Some text without label, some text without label, some text without label, some text without label, some text without label, some text without label, some text without label, some text without label, some text without label, some text without label, ..."/>
+
+    <tc:textarea id="t2" label="Text Area"
+                 value="Some text, some text, some text, some text, some text, some text, some text, some text, some text, some text, ..."/>
+
+    <tc:textarea id="t3" label="Read Only"
+                 readonly="true"
+                 value="Some text, some text, some text, some text, some text, some text, some text, some text, some text, some text, ..."/>
+
+    <tc:textarea id="t4" label="Disabled"
+                 disabled="true"
+                 value="Some text, some text, some text, some text, some text, some text, some text, some text, some text, some text, ..."/>
+
+    <tc:textarea id="t5" label="Area (focus)" focus="true"
+                 value="Some Text"/>
+
+    <tc:flowLayout>
+      <tc:out id="f1" value="An input field is "/>
+      <tc:in id="f2" value="here" labelLayout="none"/>
+      <tc:out id="f3" value=" inside of a floating text."/>
+    </tc:flowLayout>
+
+    <tc:textarea id="t6" value="#{textarea.changeValue}" label="on change">
+      <f:ajax render="ot" />
+    </tc:textarea>
+
+    <tc:out id="ot" value="#{textarea.changeValue}" label="on server"/>
+
+  </tc:panel>
+</ui:composition>

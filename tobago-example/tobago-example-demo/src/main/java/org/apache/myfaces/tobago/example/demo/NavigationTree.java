@@ -93,6 +93,7 @@ public class NavigationTree implements Serializable {
 //    map.put(tree.getBranch(), tree);
 
     for (final NavigationNode node : nodes) {
+      LOG.info("node='{}' with title '{}'", node.getName(), node.getTitle());
       map.put(node.getBranch(), node);
       final String parent = node.getBranch().substring(0, node.getBranch().lastIndexOf('/'));
       if (!parent.equals("")) { // is root
