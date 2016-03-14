@@ -46,6 +46,7 @@ public enum HtmlAttributes implements MarkupLanguageAttributes {
   HTTP_EQUIV("http-equiv"),
   ID("id"),
   LABEL("label"),
+  MAX("max"),
   MAXLENGTH("maxlength"),
   MEDIA("media"),
   METHOD("method"),

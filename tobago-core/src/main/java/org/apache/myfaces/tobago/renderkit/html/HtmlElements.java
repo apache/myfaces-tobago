@@ -98,7 +98,7 @@ public enum HtmlElements {
   P("p"),
   PARAM("param", Qualifier.VOID),
   PRE("pre"),
-  PRODRESS("prodress"),
+  PROGRESS("progress"),
   Q("q"),
   RP("rp"),
   RT("rt"),

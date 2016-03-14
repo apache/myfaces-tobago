@@ -20,8 +20,64 @@
 package org.apache.myfaces.tobago.internal.component;
 
 import org.apache.myfaces.tobago.component.Visual;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.faces.component.UIOutput;
+import javax.faces.event.AbortProcessingException;
+import javax.faces.event.ComponentSystemEvent;
+import javax.faces.event.ComponentSystemEventListener;
+import javax.faces.event.ListenerFor;
+import javax.faces.event.PreRenderComponentEvent;
+import javax.swing.BoundedRangeModel;
 
-public abstract class AbstractUIProgress extends UIOutput implements Visual {
+@ListenerFor(systemEventClass = PreRenderComponentEvent.class)
+public abstract class AbstractUIProgress extends UIOutput implements Visual, ComponentSystemEventListener {
+
+  private static final Logger LOG = LoggerFactory.getLogger(AbstractUIProgress.class);
+
+  private double rangeValue;
+  private double rangeMax;
+
+  public double getRangeValue() {
+    return rangeValue;
+  }
+
+  public double getRangeMax() {
+    return rangeMax;
+  }
+
+  @Override
+  public void processEvent(ComponentSystemEvent event) throws AbortProcessingException {
+
+    if (event instanceof PreRenderComponentEvent) {
+      Object model = getValue();
+      if (model instanceof BoundedRangeModel) {
+        BoundedRangeModel m = (BoundedRangeModel) model;
+        rangeValue = (double) m.getValue();
+        rangeMax = (double) m.getMaximum();
+        final int min = m.getMinimum();
+        if (min != 0) {
+          rangeValue -= min;
+          rangeMax -= min;
+        }
+      } else {
+        if (model instanceof Number) {
+          rangeValue = ((Number) model).doubleValue();
+        } else {
+          rangeValue = Double.parseDouble("" + model);
+        }
+        if (getMax() != null) {
+          rangeMax = getMax();
+        } else {
+          rangeMax = 1.0;
+        }
+        if (rangeValue > rangeMax) {
+          rangeValue = rangeMax;
+        }
+      }
+    }
+  }
+
+  public abstract Double getMax();
 }

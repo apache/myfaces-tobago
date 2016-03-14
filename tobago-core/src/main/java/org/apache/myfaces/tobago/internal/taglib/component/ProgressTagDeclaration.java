@@ -53,11 +53,19 @@ import javax.faces.component.UIOutput;
 public interface ProgressTagDeclaration extends HasIdBindingAndRendered, HasTip, IsVisual {
 
   /**
-   * The current value of this component.
+   * The current value of this component. May be a java.lang.Number or a javax.swing.BoundedRangeModel
    */
   @TagAttribute
   @UIComponentTagAttribute(
-      type = { "javax.swing.BoundedRangeModel" },
+      type = { "javax.swing.BoundedRangeModel", "java.lang.Double" },
       expression = DynamicExpression.VALUE_EXPRESSION_REQUIRED)
   void setValue(String value);
+
+  /**
+   * The maximum of the value of the progress.
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(
+      type = { "java.lang.Double" })
+  void setMax(String max);
 }

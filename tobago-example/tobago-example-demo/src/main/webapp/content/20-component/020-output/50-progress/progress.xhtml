@@ -21,23 +21,33 @@
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:f="http://java.sun.com/jsf/core">
-
-  <ui:param name="title" value="Simple progress example with reload facet"/>
+  <ui:param name="title" value="#{overviewBundle.progress}"/>
 
   <tc:panel>
-    <f:facet name="reload">
-      <tc:reload frequency="2000" update="#{progress.update}"/>
-    </f:facet>
-    <f:facet name="layout">
-      <tc:gridLayout rows="auto;1*" columns="100px;1* "/>
-    </f:facet>
-    <tc:label value="Progress:"/>
-    <tc:progress value="#{progress.progress}">
-      <f:facet name="complete">
-        <tc:command action="#{progress.reset}"/>
-      </f:facet>
-    </tc:progress>
-    <tc:panel/>
-  </tc:panel>
 
+    <p>Simple progress example with reload facet</p>
+
+    <p><b>TODO:</b> May be subject of change... use AjaxClientBehavior</p>
+
+    <tc:panel>
+      <f:facet name="reload">
+        <tc:reload frequency="2000" update="#{progress.update}"/>
+      </f:facet>
+      <tc:flexLayout columns="auto;*">
+
+        <tc:label value="Progress:"/>
+        <tc:progress value="#{progress.progress}">
+          <f:facet name="complete">
+            <tc:command action="#{progress.reset}"/>
+          </f:facet>
+        </tc:progress>
+      </tc:flexLayout>
+    </tc:panel>
+
+    <tc:flexLayout columns="auto;*">
+      <tc:label value="Progress:"/>
+      <tc:progress value="0.3" max="1"/>
+    </tc:flexLayout>
+
+  </tc:panel>
 </ui:composition>
