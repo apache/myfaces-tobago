@@ -20,9 +20,7 @@
 <ui:composition template="/main.xhtml"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
                 xmlns:ui="http://java.sun.com/jsf/facelets">
-
-  <ui:param name="title" value="TODO"/>
-
-TODO
-
+    <ui:param name="title" value="#{overviewBundle.label}"/>
+    <tc:label id="l1" value="Some Text"/>
+    <tc:label id="l2" disabled="true" value="Some diabled text."/>
 </ui:composition>

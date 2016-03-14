@@ -21,114 +21,71 @@
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:f="http://java.sun.com/jsf/core">
-  <ui:param name="title" value="Time Specific Controls"/>
-
-  <tc:panel>
-    <f:facet name="layout">
-      <tc:gridLayout columns="400px;*"
-                     rows="auto;auto;auto;auto;auto;auto;auto;auto;auto;auto;auto;auto;auto;auto;auto;auto;250px;*"/>
-    </f:facet>
-
-    <tc:in label="Date as Text" value="#{dateController.once}">
-      <f:convertDateTime pattern="dd.MM.yyyy"/>
-    </tc:in>
-    <tc:panel/>
-
-    <tc:date label="Date" value="#{dateController.once}">
-      <f:convertDateTime pattern="dd.MM.yyyy"/>
-    </tc:date>
-    <tc:panel/>
-
-    <tc:date value="#{dateController.once}">
-      <f:convertDateTime pattern="dd.MM.yyyy"/>
-    </tc:date>
-    <tc:panel/>
-
-<!--
-    <tc:date label="Date/Time" value="#{dateController.once}">
-      <f:convertDateTime pattern="dd.MM.yyyy HH:mm"/>
-    </tc:date>
-    <tc:panel/>
--->
-
-<!--
-    <tc:date label="Date (focus)" focus="true">
--->
-    <tc:date label="Date (focus)">
-      <f:convertDateTime pattern="dd.MM.yyyy"/>
-    </tc:date>
-    <tc:panel/>
-
-    <tc:date label="Short style" value="#{dateController.once}">
-      <f:convertDateTime dateStyle="short" type="both" timeStyle="short"/>
-    </tc:date>
-    <tc:panel/>
-
-    <tc:date label="Medium Style" value="#{dateController.once}">
-      <f:convertDateTime dateStyle="medium" type="both" timeStyle="medium"/>
-    </tc:date>
-    <tc:panel/>
-
-    <tc:date label="Long Style" value="#{dateController.once}">
-      <f:convertDateTime dateStyle="long" type="both" timeStyle="long"/>
-    </tc:date>
-    <tc:panel/>
-
-    <tc:date label="Full Style" value="#{dateController.once}">
-      <f:convertDateTime dateStyle="full" type="both" timeStyle="full"/>
-    </tc:date>
-    <tc:panel/>
-
-    <tc:date label="Month" value="#{dateController.once}">
-      <f:convertDateTime pattern="MM/yyyy"/>
-    </tc:date>
-    <tc:panel/>
-
-    <tc:date label="Year" value="#{dateController.once}">
-      <f:convertDateTime pattern="yyyy"/>
-    </tc:date>
-    <tc:panel/>
-
-    <tc:date label="Time" value="#{dateController.once}">
-      <f:convertDateTime type="time" pattern="HH:mm"/>
-    </tc:date>
-    <tc:panel/>
-
-    <tc:date label="Time (Seconds)" value="#{dateController.once}">
-      <f:convertDateTime type="time" pattern="HH:mm:ss"/>
-    </tc:date>
-    <tc:panel/>
-
-    <tc:date label="Time" value="#{dateController.once}" readonly="true">
-      <f:convertDateTime type="time" pattern="HH:mm"/>
-    </tc:date>
-    <tc:panel/>
-
-    <tc:date label="Time (Seconds)" value="#{dateController.once}" readonly="true">
-      <f:convertDateTime type="time" pattern="HH:mm:ss"/>
-    </tc:date>
-    <tc:panel/>
-
-    <tc:date label="Time" value="#{dateController.once}" disabled="true">
-      <f:convertDateTime type="time" pattern="HH:mm"/>
-    </tc:date>
-    <tc:panel/>
-
-    <tc:date label="Time (Seconds)" value="#{dateController.once}" disabled="true">
-      <f:convertDateTime type="time" pattern="HH:mm:ss"/>
-    </tc:date>
-    <tc:panel/>
-
-    <tc:date label="on change" value="#{dateController.onchange}">
-      <f:convertDateTime pattern="dd.MM.yyyy"/>
-      <f:ajax render="o"/>
-    </tc:date>
-    <tc:panel/>
-
-    <tc:out id="o" value="#{dateController.onchange}" label="on server"/>
-
-    <tc:calendar/>
-    <tc:panel/>
-
-  </tc:panel>
+    <ui:param name="title" value="#{overviewBundle.date}"/>
+    <tc:tabGroup id="tabGroup1">
+        <tc:tab label="Basics">
+            <tc:date id="d1" label="Date" value="#{dateController.once}">
+                <f:convertDateTime pattern="dd.MM.yyyy"/>
+            </tc:date>
+            <tc:date id="d2" label="Read Only" readonly="true" value="#{dateController.once}">
+                <f:convertDateTime pattern="dd.MM.yyyy"/>
+            </tc:date>
+            <tc:date id="d3" label="Disabled" disabled="true" value="#{dateController.once}">
+                <f:convertDateTime pattern="dd.MM.yyyy"/>
+            </tc:date>
+            <tc:date id="d4" value="#{dateController.once}">
+                <f:convertDateTime pattern="dd.MM.yyyy"/>
+            </tc:date>
+            <tc:date id="d5" label="Date (focus)" focus="true">
+                <f:convertDateTime pattern="dd.MM.yyyy"/>
+            </tc:date>
+        </tc:tab>
+        <tc:tab label="Outputfields">
+            <tc:out id="o1" value="The date can also be displayed in other components."/>
+            <tc:in id="i1" label="Date in Textfield" value="#{dateController.once}">
+                <f:convertDateTime pattern="dd.MM.yyyy"/>
+            </tc:in>
+            <tc:textarea id="t1" label="Date in Text Area" value="#{dateController.once}">
+                <f:convertDateTime pattern="dd.MM.yyyy"/>
+            </tc:textarea>
+            <tc:out id="o2" label="Date in Output" value="#{dateController.once}">
+                <f:convertDateTime pattern="dd.MM.yyyy"/>
+            </tc:out>
+            <tc:label id="l1" value="#{dateController.once}">
+                <f:convertDateTime pattern="dd.MM.yyyy"/>
+            </tc:label>
+        </tc:tab>
+        <tc:tab label="Pattern">
+            <tc:date label="Month" value="#{dateController.once}">
+                <f:convertDateTime pattern="MM/yyyy" type="date"/>
+            </tc:date>
+            <tc:date label="Time" value="#{dateController.once}">
+                <f:convertDateTime pattern="HH:mm" type="time"/>
+            </tc:date>
+            <tc:date label="Time (Seconds)" value="#{dateController.once}">
+                <f:convertDateTime pattern="HH:mm:ss" type="time"/>
+            </tc:date>
+        </tc:tab>
+        <tc:tab label="Styles">
+            <tc:date id="dateshortstyle" label="Short style" value="#{dateController.once}">
+                <f:convertDateTime dateStyle="short" timeStyle="short" type="both"/>
+            </tc:date>
+            <tc:date id="datemediumstyle" label="Medium Style" value="#{dateController.once}">
+                <f:convertDateTime dateStyle="medium" timeStyle="medium" type="both"/>
+            </tc:date>
+            <tc:date id="datelongstyle" label="Long Style" value="#{dateController.once}">
+                <f:convertDateTime dateStyle="long" timeStyle="long" type="both"/>
+            </tc:date>
+            <tc:date id="datefullstyle" label="Full Style" value="#{dateController.once}">
+                <f:convertDateTime dateStyle="full" timeStyle="full" type="both"/>
+            </tc:date>
+        </tc:tab>
+        <tc:tab label="Ajax">
+            <tc:date label="On Change" value="#{dateController.onchange}">
+                <f:convertDateTime pattern="dd.MM.yyyy"/>
+                <f:ajax render="o"/>
+            </tc:date>
+            <tc:out id="o" value="#{dateController.onchange}" label="On Server"/>
+        </tc:tab>
+    </tc:tabGroup>
 </ui:composition>

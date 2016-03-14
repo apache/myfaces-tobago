@@ -29,7 +29,7 @@ import java.io.Serializable;
 @Named
 public class Progress implements Serializable {
 
-  private DefaultBoundedRangeModel progress = new DefaultBoundedRangeModel(0, 0, 0, 100);
+  private DefaultBoundedRangeModel progress = new DefaultBoundedRangeModel(10, 0, 0, 100);
   private boolean update;
 
   public boolean isUpdate() {

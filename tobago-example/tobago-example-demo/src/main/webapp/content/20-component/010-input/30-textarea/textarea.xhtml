@@ -19,11 +19,15 @@
 
 <ui:composition template="/main.xhtml"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
-                xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:f="http://java.sun.com/jsf/core">
-
-  <ui:param name="title" value="<tc:textarea>"/>
-
-  TODO
-
+                xmlns:ui="http://java.sun.com/jsf/facelets">
+    <ui:param name="title" value="#{overviewBundle.textarea}"/>
+    <tc:textarea id="t1" label="Text Area"
+                 value="Some text, some text, some text, some text, some text, some text, some text, some text, some text, some text, ..."/>
+    <tc:textarea id="t2" label="Read Only" readonly="true"
+                 value="Some text, some text, some text, some text, some text, some text, some text, some text, some text, some text, ..."/>
+    <tc:textarea id="t3" label="Disabled" disabled="true"
+                 value="Some text, some text, some text, some text, some text, some text, some text, some text, some text, some text, ..."/>
+    <tc:textarea id="t4"
+                 value="Text Area without a label, Text Area without a label, Text Area without a label, Text Area without a label, Text Area without a label, Text Area without a label, Text Area without a label, Text Area without a label, Text Area without a label, ..."/>
+    <tc:textarea id="t5" label="Text Area (focus)" focus="true" value="Some Text"/>
 </ui:composition>

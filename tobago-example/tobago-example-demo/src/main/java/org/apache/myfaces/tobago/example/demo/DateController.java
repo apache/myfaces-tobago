@@ -25,8 +25,6 @@ import org.slf4j.LoggerFactory;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 import java.io.Serializable;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @SessionScoped
@@ -40,12 +38,7 @@ public class DateController implements Serializable {
   private Date onchange;
 
   public DateController() {
-    try {
-      once = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss SSS").parse("1980-03-07 21:05:09 012");
-    } catch (ParseException e) {
-      LOG.error("should not happen. ", e
-      );
-    }
+      once = new Date();
   }
 
   public Date getOnce() {

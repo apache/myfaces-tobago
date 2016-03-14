@@ -22,38 +22,33 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:h="http://java.sun.com/jsf/html">
-  <ui:param name="title" value="Select Boolean Checkbox: &lt;tc:selectBoleanCheckbox>"/>
+    <ui:param name="title" value="#{overviewBundle.selectBooleanCheckbox}"/>
+    <tc:tabGroup id="tabGroup1">
+        <tc:tab label="Basics">
+            <tc:selectBooleanCheckbox value="#{selectBoolean.a}" label="A" id="a"/>
+            <tc:selectBooleanCheckbox value="#{selectBoolean.b}" label="B" id="b"/>
+            <tc:selectBooleanCheckbox value="#{selectBoolean.c}" label="C" id="c"/>
 
-  <tc:section label="Simple Usage">
+            <tc:flowLayout>
+                <tc:style textAlign="right"/>
+                <tc:button label="Submit" defaultCommand="true" action="#{selectBoolean.submit}"/>
+            </tc:flowLayout>
+        </tc:tab>
+        <tc:tab label="Ajax">
+            <tc:selectBooleanCheckbox value="#{selectBoolean.d}" label="D" id="d">
+                <f:ajax render="ajax :page:messages" listener="#{selectBoolean.action}"/>
+            </tc:selectBooleanCheckbox>
+            <tc:out label="Value is" value="#{selectBoolean.d}"/>
 
-    <tc:selectBooleanCheckbox value="#{selectBoolean.a}" label="A" id="a"/>
-    <tc:selectBooleanCheckbox value="#{selectBoolean.b}" label="B" id="b"/>
-    <tc:selectBooleanCheckbox value="#{selectBoolean.c}" label="C" id="c"/>
+            <tc:selectBooleanCheckbox value="#{selectBoolean.e}" label="E" id="e">
+                <f:ajax render="ajax"/>
+            </tc:selectBooleanCheckbox>
+            <tc:out label="Value is" value="#{selectBoolean.e}"/>
 
-    <tc:flowLayout>
-      <tc:style textAlign="right"/>
-      <tc:button label="Submit" defaultCommand="true" action="#{selectBoolean.submit}"/>
-    </tc:flowLayout>
-
-  </tc:section>
-
-  <tc:section label="AJAX" id="ajax">
-
-    <tc:selectBooleanCheckbox value="#{selectBoolean.d}" label="D" id="d">
-      <f:ajax render="ajax :page:messages" listener="#{selectBoolean.action}"/>
-    </tc:selectBooleanCheckbox>
-    <tc:out label="Value is" value="#{selectBoolean.d}"/>
-
-    <tc:selectBooleanCheckbox value="#{selectBoolean.e}" label="E" id="e">
-      <f:ajax render="ajax"/>
-    </tc:selectBooleanCheckbox>
-    <tc:out label="Value is" value="#{selectBoolean.e}"/>
-
-    <tc:selectBooleanCheckbox value="#{selectBoolean.f}" label="F" id="f">
-      <f:ajax render="ajax"/>
-    </tc:selectBooleanCheckbox>
-    <tc:out label="Value is" value="#{selectBoolean.f}"/>
-
-  </tc:section>
-
+            <tc:selectBooleanCheckbox value="#{selectBoolean.f}" label="F" id="f">
+                <f:ajax render="ajax"/>
+            </tc:selectBooleanCheckbox>
+            <tc:out label="Value is" value="#{selectBoolean.f}"/>
+        </tc:tab>
+    </tc:tabGroup>
 </ui:composition>

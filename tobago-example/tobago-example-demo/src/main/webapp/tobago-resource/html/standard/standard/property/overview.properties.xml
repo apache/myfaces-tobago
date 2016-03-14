@@ -36,6 +36,21 @@
 <!-- navigate -->
   <entry key="overview">Overview</entry>
   <entry key="intro">Intro</entry>
+  <entry key="component">Components</entry>
+  <entry key="input">Input Fields</entry>
+  <entry key="in">Input</entry>
+  <entry key="textarea">Text Area</entry>
+  <entry key="date">Date</entry>
+  <entry key="output">Output Fields</entry>
+  <entry key="out">Output</entry>
+  <entry key="Label">Label</entry>
+  <entry key="image">Image</entry>
+  <entry key="progress">Progress Bar</entry>
+  <entry key="object">External Object (iframe)</entry>
+  <entry key="select">Select</entry>
+  <entry key="selectBooleanCheckbox">Boolean Checkbox</entry>
+
+
   <entry key="basic">Basic Controls</entry>
   <entry key="sheet">Sheet Control</entry>
   <entry key="tree">Tree Control</entry>
@@ -63,7 +78,6 @@
   <entry key="reference_intro">Ref. (under constr.)</entry>
   <entry key="reference_command">Command</entry>
   <entry key="reference_container">Container</entry>
-  <entry key="reference_input">Input</entry>
   <entry key="reference_inputSuggest">Input suggest</entry>
   <entry key="reference_menu">Menu</entry>
   <entry key="reference_output">Output</entry>
