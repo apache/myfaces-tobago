@@ -374,6 +374,10 @@ LabelLayoutProperty(property) ::= <<
 <NormalProperty(property)>
 >>
 
+DoubleProperty(property) ::= <<
+<NormalProperty(property)>
+>>
+
 MethodExpressionProperty(property) ::= <<
 
 /**

@@ -32,8 +32,6 @@ import org.slf4j.LoggerFactory;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
-import javax.swing.BoundedRangeModel;
-import javax.swing.DefaultBoundedRangeModel;
 import java.io.IOException;
 
 public class ProgressRenderer extends RendererBase {
@@ -41,43 +39,39 @@ public class ProgressRenderer extends RendererBase {
   private static final Logger LOG = LoggerFactory.getLogger(ProgressRenderer.class);
 
   @Override
-  public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
+  public void encodeBegin(final FacesContext facesContext, final UIComponent component) throws IOException {
 
     final UIProgress progress = (UIProgress) component;
 
-    BoundedRangeModel model = (BoundedRangeModel) progress.getValue();
+    final double value = progress.getRangeValue();
+    final double max = progress.getRangeMax();
 
-    if (model == null) {
-      LOG.warn("'null' value found! Using dummy Model instead!");
-      model = new DefaultBoundedRangeModel(0, 1, 0, 100);
-    }
-
-    final int diff = model.getMaximum() - model.getMinimum();
-    Object title = progress.getTip();
-    final double percent = 100.0 * model.getValue() / diff;
-    if (title == null && diff > 0) {
-      title = Integer.toString((int) percent) + " %";
+    String title = progress.getTip();
+    if (title == null && max > 0) {
+      title = Integer.toString((int) (value / max)) + " %";
     }
 
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
-    writer.startElement(HtmlElements.DIV);
+    writer.startElement(HtmlElements.PROGRESS);
+    writer.writeIdAttribute(progress.getClientId(facesContext));
     writer.writeClassAttribute(Classes.create(progress), progress.getCustomClass());
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, progress);
     writer.writeStyleAttribute(progress.getStyle());
-    if (title != null) {
-      writer.writeAttribute(HtmlAttributes.TITLE, String.valueOf(title), true);
-    }
+    writer.writeAttribute(HtmlAttributes.TITLE, title, true);
+    writer.writeAttribute(HtmlAttributes.MAX, Double.toString(max), false);
+    writer.writeAttribute(HtmlAttributes.VALUE, Double.toString(value), false);
+
     final UIComponent facet = progress.getFacet("complete");
-    if (model.getValue() == model.getMaximum() && facet instanceof UICommand) {
+    if (value == max && facet instanceof UICommand) {
       HtmlRendererUtils.renderCommandFacet(progress, facesContext, writer);
     }
-    writer.startElement(HtmlElements.DIV);
-    writer.writeClassAttribute(Classes.create(progress, "value"));
-    writer.writeStyleAttribute("width: " + percent + "%");
-    writer.endElement(HtmlElements.DIV);
+  }
 
-    writer.endElement(HtmlElements.DIV);
+  @Override
+  public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
 
+    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+    writer.endElement(HtmlElements.PROGRESS);
   }
 }
