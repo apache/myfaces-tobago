@@ -158,6 +158,12 @@ table.tobago-gridLayout > tbody > tr:first-child > td {
     border-top: 0;
 }
 
+/* image ----------------------------------------------------------- */
+
+.tobago-image-markup-disabled {
+  filter: grayscale(1) blur(2px) contrast(0.5) brightness(1.2);
+}
+
 /* in ----------------------------------------------------------- */
 
 .tobago-in-markup-number {
