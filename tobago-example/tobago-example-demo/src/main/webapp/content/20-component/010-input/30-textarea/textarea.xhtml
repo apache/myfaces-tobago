@@ -20,14 +20,39 @@
 <ui:composition template="/main.xhtml"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
                 xmlns:ui="http://java.sun.com/jsf/facelets">
-    <ui:param name="title" value="#{overviewBundle.textarea}"/>
-    <tc:textarea id="t1" label="Text Area"
-                 value="Some text, some text, some text, some text, some text, some text, some text, some text, some text, some text, ..."/>
-    <tc:textarea id="t2" label="Read Only" readonly="true"
-                 value="Some text, some text, some text, some text, some text, some text, some text, some text, some text, some text, ..."/>
-    <tc:textarea id="t3" label="Disabled" disabled="true"
-                 value="Some text, some text, some text, some text, some text, some text, some text, some text, some text, some text, ..."/>
-    <tc:textarea id="t4"
-                 value="Text Area without a label, Text Area without a label, Text Area without a label, Text Area without a label, Text Area without a label, Text Area without a label, Text Area without a label, Text Area without a label, Text Area without a label, ..."/>
-    <tc:textarea id="t5" label="Text Area (focus)" focus="true" value="Some Text"/>
+    <ui:param name="title" value="#{overviewBundle.textarea} &lt;tc:textarea&gt;"/>
+    <p>The <code class="language-markup">&lt;tc:textarea/&gt;</code> tag, creates a textfield with one or more rows.
+        The textarea becomes scrollable, if the containing text could not displayed in the current size.</p>
+    <p>A documentation of all possible attributes can be found here (https://myfaces.apache.org/tobago/doc/2.0.9/tld/tc/textarea.html). TODO: link to tobago3</p>
+    <tc:section label="Basics">
+        <p>The textarea should always have a label attached. For this, use the <code>label</code> attribute.</p>
+        <p>Unlike the inputfield TODO:linkToIn there is no placeholder attribute to describe the meaning of a textarea, when no label is set.</p>
+        <pre><code class="language-markup">&lt;tc:textarea label="Text Area" value="Some text, some text, ..."/&gt;</code></pre>
+        <tc:textarea id="t1" label="Text Area"
+                     value="Some text, some text, some text, some text, some text, some text, some text, some text, some text, some text, ..."/>
+        <tc:textarea id="t2" label="Read Only" readonly="true"
+                     value="Some text, some text, some text, some text, some text, some text, some text, some text, some text, some text, ..."/>
+        <tc:textarea id="t3" label="Disabled" disabled="true"
+                     value="Some text, some text, some text, some text, some text, some text, some text, some text, some text, some text, ..."/>
+        <tc:textarea id="t4"
+                     value="Text Area without a label, Text Area without a label, Text Area without a label, Text Area without a label, Text Area without a label, Text Area without a label, Text Area without a label, Text Area without a label, Text Area without a label, ..."/>
+    </tc:section>
+    <tc:section label="Focus">
+        <p>The following textarea should be selected after reloading this page. Use the <code>focus</code> attribute.</p>
+        <pre><code class="language-markup">&lt;tc:textarea label="Text Area (focus)" focus="true" value="Some Text"/&gt;</code></pre>
+        <tc:textarea id="t5" label="Text Area (focus)" focus="true" value="Some Text"/>
+    </tc:section>
+    <tc:section label="Rows">
+        <p>With the <code>rows</code> attribute, the initial size of the textbox can be set. A value less than 1 has no effect.</p>
+        <p>The following example show textareas with a predefined rows from 1 to 4.</p>
+        <pre><code class="language-markup">&lt;tc:textarea label="Text Area (focus)" rows="1" value="Some Text"/&gt;</code></pre>
+        <tc:textarea id="t6" label="Text Area (1 row)" rows="1"
+                     value="Text Area with one row. Text Area with one row. Text Area with one row. Text Area with one row."/>
+        <tc:textarea id="t7" label="Text Area (2 rows)" rows="2"
+                     value="Text Area with two rows. Text Area with two rows. Text Area with two rows. Text Area with two rows. Text Area with two rows."/>
+        <tc:textarea id="t8" label="Text Area (3 rows)" rows="3"
+                     value="Text Area with three rows. Text Area with three rows. Text Area with three rows. Text Area with three rows. "/>
+        <tc:textarea id="t9" label="Text Area (4 rows)" rows="4"
+                     value="Text Area with four rows. Text Area with four rows. Text Area with four rows. Text Area with four rows."/>
+    </tc:section>
 </ui:composition>

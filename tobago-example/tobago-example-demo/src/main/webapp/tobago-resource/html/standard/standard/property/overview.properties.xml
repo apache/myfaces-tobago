@@ -39,6 +39,7 @@
   <entry key="component">Components</entry>
   <entry key="input">Input Fields</entry>
   <entry key="in">Input</entry>
+  <entry key="suggest">Suggest</entry>
   <entry key="textarea">Text Area</entry>
   <entry key="date">Date</entry>
   <entry key="output">Output Fields</entry>
