@@ -130,12 +130,16 @@ public class TaglibGenerator extends AbstractGenerator {
 
     addLeafTextElement(taglibAnnotation.uri(), "namespace", taglib, document);
 
-    final Element function = document.createElement("function");
-    taglib.appendChild(function);
-    addLeafTextElement("columnPartition", "function-name", function, document);
-    addLeafTextElement("org.apache.myfaces.tobago.layout.ColumnPartition", "function-class", function, document);
-    addLeafTextElement("org.apache.myfaces.tobago.layout.ColumnPartition valueOf(java.lang.String)",
-        "function-signature", function, document);
+    // XXX hack: should be configurable or generated from annotations.
+    if ("http://myfaces.apache.org/tobago/component".equals(taglibAnnotation.uri())) {
+      addFunction(document, taglib, "columnPartition", "org.apache.myfaces.tobago.layout.ColumnPartition",
+          "org.apache.myfaces.tobago.layout.ColumnPartition valueOf(java.lang.String)");
+
+      for (int i = 1; i < 10; i++) {
+        addFunction(document, taglib, "format" + i, "org.apache.myfaces.tobago.util.MessageFormat",
+            "java.lang.String format(java.lang.String"+ StringUtils.repeat(", java.lang.Object", i) +")");
+      }
+    }
 
     for (final TypeElement typeElement : getTypes()) {
       if (processingEnv.getElementUtils().getPackageOf(typeElement).equals(packageElement)) {
@@ -163,6 +167,15 @@ public class TaglibGenerator extends AbstractGenerator {
     } finally {
       IOUtils.closeQuietly(writer);
     }
+  }
+
+  private void addFunction(Document document, Element taglib, String functionName, String functionClass,
+                           String functionSignature) {
+    final Element function = document.createElement("function");
+    taglib.appendChild(function);
+    addLeafTextElement(functionName, "function-name", function, document);
+    addLeafTextElement(functionClass, "function-class", function, document);
+    addLeafTextElement(functionSignature, "function-signature", function, document);
   }
 
   protected void appendTag(

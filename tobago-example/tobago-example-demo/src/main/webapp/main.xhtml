@@ -37,8 +37,6 @@
 
       <ui:include src="/menu.xhtml"/>
 
-      <!--<tc:segmentLayout large="6;6">-->
-      <!--<tc:segmentLayout large="#{navigationState.viewSource ? tc:columnPartition('8;4') : tc:columnPartition('6;6')}">-->
       <tc:segmentLayout large="#{tc:columnPartition(navigationState.viewSource ? '8;4' : '12')}">
 
         <tc:flexLayout columns="*;4*">

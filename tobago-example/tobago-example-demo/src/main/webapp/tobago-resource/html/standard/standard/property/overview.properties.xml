@@ -396,4 +396,9 @@
 
     The content has to reside in the /META-INF/resources directory.</entry>
 
+  <entry key="format1">The equatorial radius of the sun is {0} km.</entry>
+  <entry key="format3">The temperature of the sun is {0} K on the surface, but {1} K in the center and {2} K in the corona.</entry>
+  <entry key="format9">Just reordering: {4} - {1} - {6} - {8} - {5} - {3} - {0} - {7} - {2}</entry>
+
+
 </properties>
