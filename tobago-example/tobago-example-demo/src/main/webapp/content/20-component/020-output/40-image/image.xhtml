@@ -20,10 +20,20 @@
 <ui:composition template="/main.xhtml"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
                 xmlns:ui="http://java.sun.com/jsf/facelets">
-
-    <ui:param name="title" value="#{overviewBundle.image}"/>
-    <tc:image value="image/tobago_head.png"/>
-    <tc:image value="image/tobago_head.png">
-      <tc:style width="75px" height="42px"/>
+  <ui:param name="title" value="#{overviewBundle.image} &lt;tc:image&gt;"/>
+  <p>Create an image with <code class="language-markup">&lt;tc:image/&gt;</code></p>
+  <p>link to attribute-doku</p>
+  <tc:section label="Basics">
+    <pre><code class="language-markup">&lt;tc:image disabled="true" value="image/tobago_head.png"/&gt;</code></pre>
+    <tc:image id="i1" disabled="true" value="image/tobago_head.png"/>
+  </tc:section>
+  <tc:section label="Set width">
+    <p>To set the size of an image, <code>&lt;tc:style/&gt;</code> can be used.</p>
+    <pre><code class="language-markup">&lt;tc:image value="image/tobago_head.png"&gt;
+  &lt;tc:style width="20%"/&gt;
+&lt;/tc:image&gt;</code></pre>
+    <tc:image id="i2" value="image/tobago_head.png">
+      <tc:style width="20%"/>
     </tc:image>
+  </tc:section>
 </ui:composition>

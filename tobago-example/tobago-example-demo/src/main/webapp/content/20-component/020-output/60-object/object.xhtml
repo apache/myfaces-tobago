@@ -21,33 +21,36 @@
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:f="http://java.sun.com/jsf/core">
-    <ui:param name="title" value="#{overviewBundle.object}"/>
-    <tc:script file="content/20-component/020-output/60-object/object.js"/>
-    <tc:out id="o1" value="External objects can be included, when CSP is activated. You may add a frame-src policy to the 'tobago-config.xml'."/>
+  <ui:param name="title" value="#{overviewBundle.object}"/>
+  <tc:script file="content/20-component/020-output/60-object/object.js"/>
 
+  <tc:out id="o1"
+          value="External objects can be included, when CSP is activated. You may add a frame-src policy to the 'tobago-config.xml'."/>
 
+  <p>
     <tc:object id="tobagomap" src="https://www.google.com/maps/@11.249123,-60.687103,31489m/data=!3m1!1e3?hl=de"/>
+  </p>
 
+  <p>
     <tc:object src="http://www.apache.org/"/>
+  </p>
 
-    <tc:panel>
-        <f:facet name="layout">
-            <tc:gridLayout rows="35px;auto;*"/>
-        </f:facet>
+  <tc:out id="o11"
+          value="External objects can be included, when CSP is activated. You may add a frame-src policy to the 'tobago-config.xml'."/>
 
-        <tc:out id="o11" value="External objects can be included, when CSP is activated. You may add a frame-src policy to the 'tobago-config.xml'."/>
+  <tc:toolBar iconSize="off">
+    <tc:toolBarCommand label="Show Tobago" omit="true">
+      <tc:dataAttribute name="maps-position" value="11.249123,-60.687103"/>
+      <tc:dataAttribute name="maps-zoom" value="12"/>
+      <tc:dataAttribute name="maps-target" value="page:map"/>
+    </tc:toolBarCommand>
+    <tc:toolBarCommand label="Show World" omit="true">
+      <tc:dataAttribute name="maps-target" value="page:map"/>
+    </tc:toolBarCommand>
+  </tc:toolBar>
 
-        <tc:toolBar iconSize="off">
-            <tc:toolBarCommand label="Show Tobago" omit="true">
-                <tc:dataAttribute name="maps-position" value="11.249123,-60.687103"/>
-                <tc:dataAttribute name="maps-zoom" value="12"/>
-                <tc:dataAttribute name="maps-target" value="page:map"/>
-            </tc:toolBarCommand>
-            <tc:toolBarCommand label="Show World" omit="true">
-                <tc:dataAttribute name="maps-target" value="page:map"/>
-            </tc:toolBarCommand>
-        </tc:toolBar>
-        <tc:object id="map"/>
+  <p>
+    <tc:object id="map"/>
+  </p>
 
-    </tc:panel>
 </ui:composition>

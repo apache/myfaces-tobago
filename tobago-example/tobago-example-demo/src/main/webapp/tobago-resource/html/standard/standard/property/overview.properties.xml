@@ -44,7 +44,7 @@
   <entry key="date">Date</entry>
   <entry key="output">Output Fields</entry>
   <entry key="out">Output</entry>
-  <entry key="Label">Label</entry>
+  <entry key="label">Label</entry>
   <entry key="image">Image</entry>
   <entry key="progress">Progress Bar</entry>
   <entry key="object">External Object (iframe)</entry>

@@ -21,129 +21,141 @@
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:f="http://java.sun.com/jsf/core">
-    <ui:param name="title" value="#{overviewBundle.date} &lt;tc:date&gt;"/>
-    <p>The <code class="language-markup">&lt;tc:date/&gt;</code> tag create an inputfield with a button to open a calendar to edit the date.
-        The date can also be edited in the textfield.</p>
-    <p>A documentation of all possible attributes can be found here (https://myfaces.apache.org/tobago/doc/2.0.9/tld/tc/date.html). TODO: link to tobago3</p>
-    <tc:section label="Basics">
-        <p>In general, a date should always have a label. To get a label use the <code>label</code> attribute.</p>
-        <p>It is recommended to use a pattern. For that, use <code>&lt;f:convertDateTime&gt;</code>.</p>
-        <p>The <code>value</code> must be a Date(link to https://docs.oracle.com/javase/8/docs/api/java/util/Date.html) or a string with a matching pattern.</p>
+  <ui:param name="title" value="#{overviewBundle.date} &lt;tc:date&gt;"/>
+  <p>The <code class="language-markup">&lt;tc:date/&gt;</code> tag create an inputfield with a button to open a calendar to edit the date.
+    The date can also be edited in the textfield.</p>
+  <p>A documentation of all possible attributes can be found here (https://myfaces.apache.org/tobago/doc/2.0.9/tld/tc/date.html). TODO: link to tobago3</p>
+  <tc:section label="Basics">
+    <p>In general, a date should always have a label. To get a label use the <code>label</code> attribute.</p>
+    <p>It is recommended to use a pattern. For that, use <code>&lt;f:convertDateTime&gt;</code>.</p>
+    <p>The
+      <code>value</code> must be a Date(link to https://docs.oracle.com/javase/8/docs/api/java/util/Date.html) or a string with a matching pattern.
+    </p>
         <pre><code class="language-markup">&lt;tc:date label="Date" value="18.03.2016"&gt;
-    &lt;f:convertDateTime pattern="dd.MM.yyyy"/&gt;
+  &lt;f:convertDateTime pattern="dd.MM.yyyy"/&gt;
 &lt;/tc:date&gt;</code></pre>
-        <tc:date id="d1" label="Date" value="#{dateController.once}">
-            <f:convertDateTime pattern="dd.MM.yyyy"/>
-        </tc:date>
-        <tc:date id="d2" label="Read Only" readonly="true" value="#{dateController.once}">
-            <f:convertDateTime pattern="dd.MM.yyyy"/>
-        </tc:date>
-        <tc:date id="d3" label="Disabled" disabled="true" value="#{dateController.once}">
-            <f:convertDateTime pattern="dd.MM.yyyy"/>
-        </tc:date>
-        <tc:date id="d4" value="#{dateController.once}">
-            <f:convertDateTime pattern="dd.MM.yyyy"/>
-        </tc:date>
-    </tc:section>
-    <tc:section label="Focus">
-        <p>The following date should be selected after reloading the page. This can be done with the attribute <code>focus</code>.</p>
+    <tc:date id="d1" label="Date" value="#{dateController.once}">
+      <f:convertDateTime pattern="dd.MM.yyyy"/>
+    </tc:date>
+    <tc:date id="d2" label="Read Only" readonly="true" value="#{dateController.once}">
+      <f:convertDateTime pattern="dd.MM.yyyy"/>
+    </tc:date>
+    <tc:date id="d3" label="Disabled" disabled="true" value="#{dateController.once}">
+      <f:convertDateTime pattern="dd.MM.yyyy"/>
+    </tc:date>
+    <tc:date id="d4" value="#{dateController.once}">
+      <f:convertDateTime pattern="dd.MM.yyyy"/>
+    </tc:date>
+  </tc:section>
+  <tc:section label="Focus">
+    <p>The following date should be selected after reloading the page. This can be done with the attribute <code>focus</code>.</p>
         <pre><code class="language-markup">&lt;tc:date label="Date (focus)" focus="true"&gt;
-            &lt;f:convertDateTime pattern="dd.MM.yyyy"/&gt;
-            &lt;/tc:date&gt;</code></pre>
-        <tc:date id="d5" label="Date (focus)" focus="true">
-            <f:convertDateTime pattern="dd.MM.yyyy"/>
-        </tc:date>
-    </tc:section>
-    <tc:section label="Outputfields">
-        <p>A date can also be displayed in other components.</p>
-        <tc:section label="Input">
+  &lt;f:convertDateTime pattern="dd.MM.yyyy"/&gt;
+&lt;/tc:date&gt;</code></pre>
+    <tc:date id="d5" label="Date (focus)" focus="true">
+      <f:convertDateTime pattern="dd.MM.yyyy"/>
+    </tc:date>
+  </tc:section>
+  <tc:section label="Outputfields">
+    <p>A date can also be displayed in other components.</p>
+    <tc:section label="Input">
             <pre><code class="language-markup">&lt;tc:in label="Date in Textfield" value="\#{dateController.today}"&gt;
-    &lt;f:convertDateTime pattern="dd.MM.yyyy"/&gt;
+  &lt;f:convertDateTime pattern="dd.MM.yyyy"/&gt;
 &lt;/tc:in&gt;</code></pre>
-            <tc:in label="Date in Textfield" value="#{dateController.once}">
-                <f:convertDateTime pattern="dd.MM.yyyy"/>
-            </tc:in>
-        </tc:section>
-        <tc:section label="Text Area">
+      <tc:in id="i1" label="Date in Textfield" value="#{dateController.once}">
+        <f:convertDateTime pattern="dd.MM.yyyy"/>
+      </tc:in>
+    </tc:section>
+    <tc:section label="Text Area">
             <pre><code class="language-markup">&lt;tc:textarea label="Date in Text Area" value="\#{dateController.today}"&gt;
-    &lt;f:convertDateTime pattern="dd.MM.yyyy"/&gt;
+  &lt;f:convertDateTime pattern="dd.MM.yyyy"/&gt;
 &lt;/tc:textarea&gt;</code></pre>
-            <tc:textarea id="t1" label="Date in Text Area" value="#{dateController.once}">
-                <f:convertDateTime pattern="dd.MM.yyyy"/>
-            </tc:textarea>
-        </tc:section>
-        <tc:section label="Output">
+      <tc:textarea id="t1" label="Date in Text Area" value="#{dateController.once}">
+        <f:convertDateTime pattern="dd.MM.yyyy"/>
+      </tc:textarea>
+    </tc:section>
+    <tc:section label="Output">
             <pre><code class="language-markup">&lt;tc:out label="Date in Output" value="\#{dateController.today}"&gt;
-    &lt;f:convertDateTime pattern="dd.MM.yyyy"/&gt;
+  &lt;f:convertDateTime pattern="dd.MM.yyyy"/&gt;
 &lt;/tc:out&gt;</code></pre>
-            <tc:out id="o2" label="Date in Output" value="#{dateController.once}">
-                <f:convertDateTime pattern="dd.MM.yyyy"/>
-            </tc:out>
-        </tc:section>
-        <tc:section label="Label">
+      <tc:out id="o1" label="Date in Output" value="#{dateController.once}">
+        <f:convertDateTime pattern="dd.MM.yyyy"/>
+      </tc:out>
+    </tc:section>
+    <tc:section label="Label">
             <pre><code class="language-markup">&lt;tc:label value="\#{dateController.today}"&gt;
-    &lt;f:convertDateTime pattern="dd.MM.yyyy"/&gt;
+  &lt;f:convertDateTime pattern="dd.MM.yyyy"/&gt;
 &lt;/tc:label&gt;</code></pre>
-            <tc:label id="l1" value="#{dateController.once}">
-                <f:convertDateTime pattern="dd.MM.yyyy"/>
-            </tc:label>
-        </tc:section>
+      <tc:label id="l1" value="#{dateController.once}">
+        <f:convertDateTime pattern="dd.MM.yyyy"/>
+      </tc:label>
     </tc:section>
-    <tc:section label="Pattern And Button">
-        <p>Here are some examples for different pattern. The format is used from java.text.SimpleDateFormat. TODO:setlink</p>
-        <p>Also the type of the button changed with the <code>type</code> attribute.</p>
-        <tc:section label="Month">
+  </tc:section>
+  <tc:section label="Pattern And Button">
+    <p>Here are some examples for different pattern. The format is used from java.text.SimpleDateFormat. TODO:setlink</p>
+    <p>Also the type of the button changed with the <code>type</code> attribute.</p>
+    <tc:section label="Month">
             <pre><code class="language-markup">&lt;tc:date label="Month" value="\#{dateController.today}"&gt;
-    &lt;f:convertDateTime pattern="MM/yyyy" type="date"/&gt;
+  &lt;f:convertDateTime pattern="MM/yyyy" type="date"/&gt;
 &lt;/tc:date&gt;</code></pre>
-            <tc:date label="Month" value="#{dateController.once}">
-                <f:convertDateTime pattern="MM/yyyy" type="date"/>
-            </tc:date>
-        </tc:section>
-        <tc:section label="Minutes">
+      <tc:date id="d6" label="Month" value="#{dateController.once}">
+        <f:convertDateTime pattern="MM/yyyy" type="date"/>
+      </tc:date>
+    </tc:section>
+    <tc:section label="Minutes">
             <pre><code class="language-markup">&lt;tc:date label="Time" value="\#{dateController.today}"&gt;
-    &lt;f:convertDateTime pattern="HH:mm" type="time"/&gt;
+  &lt;f:convertDateTime pattern="HH:mm" type="time"/&gt;
 &lt;/tc:date&gt;</code></pre>
-            <tc:date label="Time" value="#{dateController.once}">
-                <f:convertDateTime pattern="HH:mm" type="time"/>
-            </tc:date>
-        </tc:section>
-        <tc:section label="Seconds">
+      <tc:date id="d7" label="Time" value="#{dateController.once}">
+        <f:convertDateTime pattern="HH:mm" type="time"/>
+      </tc:date>
+    </tc:section>
+    <tc:section label="Seconds">
             <pre><code class="language-markup">&lt;tc:date label="Time" value="\#{dateController.today}"&gt;
-    &lt;f:convertDateTime pattern="HH:mm:ss" type="time"/&gt;
+  &lt;f:convertDateTime pattern="HH:mm:ss" type="time"/&gt;
 &lt;/tc:date&gt;</code></pre>
-            <tc:date label="Time" value="#{dateController.once}">
-                <f:convertDateTime pattern="HH:mm:ss" type="time"/>
-            </tc:date>
-        </tc:section>
-        <tc:section label="Month with minutes">
+      <tc:date id="d8" label="Time" value="#{dateController.once}">
+        <f:convertDateTime pattern="HH:mm:ss" type="time"/>
+      </tc:date>
+    </tc:section>
+    <tc:section label="Month with minutes">
             <pre><code class="language-markup">&lt;tc:date label="Date and time" value="\#{dateController.today}"&gt;
-    &lt;f:convertDateTime pattern="dd.MM. - HH:mm" type="both"/&gt;
+  &lt;f:convertDateTime pattern="dd.MM. - HH:mm" type="both"/&gt;
 &lt;/tc:date&gt;</code></pre>
-            <tc:date label="Date and time" value="#{dateController.once}">
-                <f:convertDateTime pattern="dd.MM. - HH:mm" type="both"/>
-            </tc:date>
-        </tc:section>
+      <tc:date id="d9" label="Date and time" value="#{dateController.once}">
+        <f:convertDateTime pattern="dd.MM. - HH:mm" type="both"/>
+      </tc:date>
     </tc:section>
-    <tc:section label="Styles">
-        <tc:date id="dateshortstyle" label="Short style" value="#{dateController.once}">
-            <f:convertDateTime dateStyle="short" timeStyle="short" type="both"/>
-        </tc:date>
-        <tc:date id="datemediumstyle" label="Medium Style" value="#{dateController.once}">
-            <f:convertDateTime dateStyle="medium" timeStyle="medium" type="both"/>
-        </tc:date>
-        <tc:date id="datelongstyle" label="Long Style" value="#{dateController.once}">
-            <f:convertDateTime dateStyle="long" timeStyle="long" type="both"/>
-        </tc:date>
-        <tc:date id="datefullstyle" label="Full Style" value="#{dateController.once}">
-            <f:convertDateTime dateStyle="full" timeStyle="full" type="both"/>
-        </tc:date>
-    </tc:section>
-    <tc:section label="Ajax">
-        <tc:date label="On Change" value="#{dateController.onchange}">
-            <f:convertDateTime pattern="dd.MM.yyyy"/>
-            <f:ajax render="o"/>
-        </tc:date>
-        <tc:out id="o" value="#{dateController.onchange}" label="On Server"/>
-    </tc:section>
+  </tc:section>
+  <tc:section label="Styles">
+    <p>Styles can be set with the attributes <code>dateStyle</code> and <code>timeStyle</code>.
+      Possible values are 'short', 'medium', 'long' and 'full'.</p>
+    <tc:date id="d10" label="Short style" value="#{dateController.once}">
+      <f:convertDateTime dateStyle="short" timeStyle="short" type="both"/>
+    </tc:date>
+    <tc:date id="d11" label="Medium Style" value="#{dateController.once}">
+      <f:convertDateTime dateStyle="medium" timeStyle="medium" type="both"/>
+    </tc:date>
+    <tc:date id="d12" label="Long Style" value="#{dateController.once}">
+      <f:convertDateTime dateStyle="long" timeStyle="long" type="both"/>
+    </tc:date>
+    <tc:date id="d13" label="Full Style" value="#{dateController.once}">
+      <f:convertDateTime dateStyle="full" timeStyle="full" type="both"/>
+    </tc:date>
+  </tc:section>
+  <tc:section label="Ajax">
+    <p>The outputfield in this example, display the given date.
+      With <code class="language-markup">&lt;f:ajax/&gt;</code>, the outputfield will be rerendered, after the date changed.
+      The date can be changed by button or by entering a valid date in the textfield. If the date is not valid, it won't be adopted.</p>
+    <pre><code class="language-markup">&lt;tc:date label="On Change" value="\#{dateController.onchange}"&gt;
+  &lt;f:convertDateTime pattern="dd.MM.yyyy"/&gt;
+  &lt;f:ajax render="outputfield"/&gt;
+&lt;/tc:date&gt;
+&lt;tc:out id="outputfield" label="On Server" value="\#{dateController.onchange}"/&gt;</code></pre>
+    <tc:date id="d14" label="On Change" value="#{dateController.onchange}">
+      <f:convertDateTime pattern="dd.MM.yyyy"/>
+      <f:ajax render="outputfield"/>
+    </tc:date>
+    <tc:out id="outputfield" label="On Server" value="#{dateController.onchange}"/>
+  </tc:section>
 </ui:composition>

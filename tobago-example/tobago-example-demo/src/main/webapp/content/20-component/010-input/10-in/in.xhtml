@@ -20,31 +20,34 @@
 <ui:composition template="/main.xhtml"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
                 xmlns:ui="http://java.sun.com/jsf/facelets">
-    <ui:param name="title" value="#{overviewBundle.in} &lt;tc:in&gt;"/>
-    <p>The <code class="language-markup">&lt;tc:in/&gt;</code> tag create a classic inputfield.</p>
-    <p>A documentation of all possible attributes can be found here (https://myfaces.apache.org/tobago/doc/2.0.9/tld/tc/in.html). TODO: link to tobago3</p>
-    <tc:section label="Basics">
-        <p>In the most cases, a label should be placed in front of every inputfield. For this use the attribute <code>label</code>.</p>
-        <pre><code class="language-markup">&lt;tc:in label="Input" value="Some Text"/&gt;</code></pre>
-        <tc:in id="i1" label="Input" value="Some Text"/>
-        <tc:in id="i2" label="Read Only" readonly="true" value="Some Text"/>
-        <tc:in id="i3" label="Disabled" disabled="true" value="Some Text"/>
-        <tc:in id="i4" value="Input without a label"/>
-    </tc:section>
-    <tc:section label="Focus">
-        <p>The following inputfield should be selected after reloading the page. Use the <code>focus</code> attribute.</p>
-        <pre><code class="language-markup">&lt;tc:in label="Input (focus)" focus="true" value="Some Text"/&gt;</code></pre>
-        <tc:in id="i5" label="Input (focus)" focus="true" value="Some Text"/>
-    </tc:section>
-    <tc:section label="Password">
-        <p>To create an inputfield for passwords, set the <code>password</code> attribute to 'true'. It will hide the text as shown in the following example.</p>
-        <pre><code id="c3" class="language-markup">&lt;tc:in label="Password" password="true" value="password"/&gt;</code></pre>
-        <tc:in id="i6" label="Password" password="true" value="password"/>
-    </tc:section>
-    <tc:section label="Placeholder">
-        <p>Another way to tell the user the meaning of a field is the <code>placeholder</code> attribute.</p>
-        <p>The text of the placeholder will only be shown, if the value is an empty string.</p>
-        <pre><code class="language-markup">&lt;tc:in label="Placeholder" placeholder="Grey Text"/&gt;</code></pre>
-        <tc:in id="i7" label="Placeholder" placeholder="Short description of the field." value=""/>
-    </tc:section>
+  <ui:param name="title" value="#{overviewBundle.in} &lt;tc:in&gt;"/>
+  <p>The <code class="language-markup">&lt;tc:in/&gt;</code> tag create a classic inputfield.</p>
+  <p>A documentation of all possible attributes can be found here (https://myfaces.apache.org/tobago/doc/2.0.9/tld/tc/in.html). TODO: link to tobago3</p>
+  <tc:section label="Basics">
+    <p>In the most cases, a label should be placed in front of every inputfield. For this use the attribute
+      <code>label</code>.</p>
+    <pre><code class="language-markup">&lt;tc:in label="Input" value="Some Text"/&gt;</code></pre>
+    <tc:in id="i1" label="Input" value="Some Text"/>
+    <tc:in id="i2" label="Read Only" readonly="true" value="Some Text"/>
+    <tc:in id="i3" label="Disabled" disabled="true" value="Some Text"/>
+    <tc:in id="i4" value="Input without a label"/>
+  </tc:section>
+  <tc:section label="Focus">
+    <p>The following inputfield should be selected after reloading the page. Use the <code>focus</code> attribute.</p>
+    <pre><code class="language-markup">&lt;tc:in label="Input (focus)" focus="true" value="Some Text"/&gt;</code></pre>
+    <tc:in id="i5" label="Input (focus)" focus="true" value="Some Text"/>
+  </tc:section>
+  <tc:section label="Password">
+    <p>To create an inputfield for passwords, set the
+      <code>password</code> attribute to 'true'. It will hide the text as shown in the following example.</p>
+        <pre><code id="c3"
+                   class="language-markup">&lt;tc:in label="Password" password="true" value="password"/&gt;</code></pre>
+    <tc:in id="i6" label="Password" password="true" value="password"/>
+  </tc:section>
+  <tc:section label="Placeholder">
+    <p>Another way to tell the user the meaning of a field is the <code>placeholder</code> attribute.</p>
+    <p>The text of the placeholder will only be shown, if the value is an empty string.</p>
+    <pre><code class="language-markup">&lt;tc:in label="Placeholder" placeholder="Grey Text"/&gt;</code></pre>
+    <tc:in id="i7" label="Placeholder" placeholder="Short description of the field." value=""/>
+  </tc:section>
 </ui:composition>
