@@ -116,7 +116,7 @@ public class ExpandedState implements Serializable {
     } else {
       collapsedSet.remove(path);
     }
-    if (parents && ! path.isRoot()) {
+    if (parents && !path.isRoot()) {
       expand(path.getParent(), true);
     }
   }
