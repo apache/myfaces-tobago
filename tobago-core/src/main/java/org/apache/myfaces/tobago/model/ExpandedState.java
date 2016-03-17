@@ -81,8 +81,18 @@ public class ExpandedState implements Serializable {
    * @param node The node to expand.
    */
   public void expand(final TreeNode node) {
+    expand(node, false);
+  }
+
+  /**
+   * Expands a single node.
+   *
+   * @param node The node to expand.
+   * @param parents Should the parents also be expanded?
+   */
+  public void expand(final TreeNode node, final boolean parents) {
     final TreePath path = new TreePath(node);
-    expand(path);
+    expand(path, parents);
   }
 
   /**
@@ -91,10 +101,23 @@ public class ExpandedState implements Serializable {
    * @param path The path of the node to expand.
    */
   public void expand(final TreePath path) {
+    expand(path, false);
+  }
+
+  /**
+   * Expands a single node.
+   *
+   * @param path The path of the node to expand.
+   * @param parents Should the parents also be expanded?
+   */
+  public void expand(final TreePath path, final boolean parents) {
     if (path.getLength() >= defaultExpandedLevels) {
       expandedSet.add(path);
     } else {
       collapsedSet.remove(path);
+    }
+    if (parents && ! path.isRoot()) {
+      expand(path.getParent(), true);
     }
   }
 
