@@ -28,9 +28,9 @@ import javax.inject.Named;
 
 @RequestScoped
 @Named
-public class In {
+public class InController {
 
-  private static final Logger LOG = LoggerFactory.getLogger(In.class);
+  private static final Logger LOG = LoggerFactory.getLogger(InController.class);
 
   private String changeValue;
 

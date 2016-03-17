@@ -51,8 +51,6 @@
   <entry key="select">Select</entry>
   <entry key="selectBooleanCheckbox">Boolean Checkbox</entry>
 
-
-  <entry key="basic">Basic Controls</entry>
   <entry key="sheet">Sheet Control</entry>
   <entry key="tree">Tree Control</entry>
   <entry key="tree-editor">Editor</entry>

@@ -43,11 +43,11 @@
 
     <tc:panel id="panel">
 
-      <tc:in id="i6" value="#{in.changeValue}" label="on change">
-        <f:ajax render="panel" listener="#{in.update}"/>
+      <tc:in id="i6" value="#{inController.changeValue}" label="on change">
+        <f:ajax render="panel" listener="#{inController.update}"/>
       </tc:in>
 
-      <tc:out id="o" value="#{in.changeValue}" label="value on server"/>
+      <tc:out id="o" value="#{inController.changeValue}" label="value on server"/>
 
     </tc:panel>
 
