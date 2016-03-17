@@ -57,7 +57,7 @@ public class NavigationState implements Serializable {
   private void initState() {
     if (currentNode != null) {
       state.getSelectedState().clearAndSelect(currentNode.getTreePath());
-      state.getExpandedState().expand(currentNode.getTreePath());
+      state.getExpandedState().expand(currentNode.getTreePath(), true);
     }
   }
 

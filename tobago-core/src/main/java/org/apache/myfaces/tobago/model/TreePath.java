@@ -95,6 +95,14 @@ public class TreePath implements Serializable {
     return path;
   }
 
+  public TreePath getParent() {
+    return new TreePath(Arrays.copyOf(path, path.length - 1));
+  }
+
+  public boolean isRoot() {
+    return path.length == 0;
+  }
+
   public int getLength() {
     return path.length;
   }
