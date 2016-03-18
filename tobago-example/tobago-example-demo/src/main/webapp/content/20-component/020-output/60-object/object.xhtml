@@ -21,36 +21,97 @@
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:f="http://java.sun.com/jsf/core">
-  <ui:param name="title" value="#{overviewBundle.object}"/>
+  <ui:param name="title" value="#{overviewBundle.object} &lt;tc:object&gt;"/>
   <tc:script file="content/20-component/020-output/60-object/object.js"/>
 
-  <tc:out id="o1"
-          value="External objects can be included, when CSP is activated. You may add a frame-src policy to the 'tobago-config.xml'."/>
+  <p>The <code>&lt;tc:object&gt;</code> tag create an iframe.
+    External objects can be included, when Content Security Policy is activated.
+    You may add a frame-src policy to the 'tobago-config.xml'.</p>
+  <tc:link label="Generated Documentation" link="https://myfaces.apache.org/tobago/doc/2.0.9/tld/tc/object.html"/>
+  <tc:section label="Basics">
+    <pre><code class="language-markup">&lt;tc:object src="https://www.google.com/maps/..."/&gt;</code></pre>
+    <tc:object id="o1"
+               src="https://www.google.com/maps/embed?pb=!1m10!1m8!1m3!1d137123.69440217633!2d-60.687103!3d11.249123!3m2!1i1024!2i768!4f13.1!5e1!3m2!1sde!2sus!4v1458208065829"/>
+  </tc:section>
+  <tc:section label="Style">
+    <pre><code class="language-markup">&lt;tc:object src="https://www.google.com/maps/..."&gt;
+      &lt;tc:style width="100%"/&gt;
+      &lt;/tc:object&gt;</code></pre>
+    <tc:object id="o2"
+               src="https://www.google.com/maps/embed?pb=!1m13!1m11!1m3!1d99967845.2048925!2d-60.68710300000001!3d11.249123!2m2!1f0!2f0!3m2!1i1024!2i768!4f13.1!5e1!3m2!1sde!2sus!4v1458208366973">
+      <tc:style width="100%"/>
+    </tc:object>
+  </tc:section>
+  <tc:section label="Toolbar">
+    <p>In this example, the object would be reloaded, after hitting a button.</p>
+    <pre><code class="language-markup">&lt;tc:toolBar iconSize="off"&gt;
+  &lt;tc:toolBarCommand label="Show Tobago" omit="true"&gt;
+    &lt;tc:dataAttribute name="maps-position" value="11.249123,-60.687103"/&gt;
+    &lt;tc:dataAttribute name="maps-zoom" value="12"/&gt;
+    &lt;tc:dataAttribute name="maps-target" value="page:map"/&gt;
+  &lt;/tc:toolBarCommand&gt;
+  &lt;tc:toolBarCommand label="Show World" omit="true"&gt;
+    &lt;tc:dataAttribute name="maps-target" value="page:map"/&gt;
+  &lt;/tc:toolBarCommand&gt;
+&lt;/tc:toolBar&gt;
 
-  <p>
-    <tc:object id="tobagomap" src="https://www.google.com/maps/@11.249123,-60.687103,31489m/data=!3m1!1e3?hl=de"/>
-  </p>
+&lt;tc:object id="map"&gt;
+  &lt;tc:style width="100%" height="500px"/&gt;
+&lt;/tc:object&gt;</code></pre>
 
-  <p>
-    <tc:object src="http://www.apache.org/"/>
-  </p>
+    <pre><code class="language-javascript">(function ($) {
+  $.widget("demo.maps", {
+    options: {
+      position: "11.249123,-60.687103", // tobago
+      zoom: 2 // global
+    },
+    _create: function () {
+      this._on({
+        click: function (event) {
+          var position = this.element.data("maps-position");
+          if (position == null) {
+            position = this.options.position;
+          }
+          var zoom = this.element.data("maps-zoom");
+          if (zoom == null) {
+            zoom = this.options.zoom;
+          }
+          var target = this.element.data("maps-target");
+          var url = 'https://maps.google.com/maps?'
+            + 'ie=UTF8&amp;ll=' + position + '&amp;t=h&amp;z='
+            + zoom + '&amp;output=embed&amp;f=q&amp;cd=1';
+          jQuery(Tobago.Utils.escapeClientId(target)).attr('src', url);
+        }
+      });
+    },
+    _setOption: function (key, value) {
+    },
+    _destroy: function () {
+    }
+  });
+}(jQuery));
 
-  <tc:out id="o11"
-          value="External objects can be included, when CSP is activated. You may add a frame-src policy to the 'tobago-config.xml'."/>
+var initMaps = function () {
+  jQuery("[data-maps-target]")
+    .maps()
+    .first()
+    .click();
+};
 
-  <tc:toolBar iconSize="off">
-    <tc:toolBarCommand label="Show Tobago" omit="true">
-      <tc:dataAttribute name="maps-position" value="11.249123,-60.687103"/>
-      <tc:dataAttribute name="maps-zoom" value="12"/>
-      <tc:dataAttribute name="maps-target" value="page:map"/>
-    </tc:toolBarCommand>
-    <tc:toolBarCommand label="Show World" omit="true">
-      <tc:dataAttribute name="maps-target" value="page:map"/>
-    </tc:toolBarCommand>
-  </tc:toolBar>
+Tobago.registerListener(initMaps, Tobago.Phase.DOCUMENT_READY);</code></pre>
 
-  <p>
-    <tc:object id="map"/>
-  </p>
-
+    <tc:toolBar iconSize="off">
+      <tc:toolBarCommand label="Show Tobago" omit="true">
+        <tc:dataAttribute name="maps-position" value="11.249123,-60.687103"/>
+        <tc:dataAttribute name="maps-zoom" value="12"/>
+        <tc:dataAttribute name="maps-target" value="page:map"/>
+      </tc:toolBarCommand>
+      <tc:toolBarCommand label="Show World" omit="true">
+        <tc:dataAttribute name="maps-target" value="page:map"/>
+      </tc:toolBarCommand>
+    </tc:toolBar>
+    <tc:object id="map">
+      <tc:style width="100%" height="500px"/>
+    </tc:object>
+  </tc:section>
 </ui:composition>

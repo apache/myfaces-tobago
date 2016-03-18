@@ -30,13 +30,15 @@
   </tc:section>
 
   <tc:section label="Input Field">
-    <pre><code class="language-markup">&lt;tc:flexLayout columns="*;200px"&gt;
-  &lt;tc:in placeholder="Inputfield"/&gt;
-  &lt;tc:label id="l2" value="Label after inputfield"/&gt;
-&lt;/tc:flexLayout&gt;</code></pre>
-    <tc:flexLayout columns="*;200px">
+    <pre><code class="language-markup">&lt;tc:flexLayout columns="250px;*;200px">
+  &lt;tc:label value="Label in front of inputfield"/>
+  &lt;tc:in placeholder="Inputfield"/>
+  &lt;tc:label value="Label after inputfield"/>
+&lt;/tc:flexLayout></code></pre>
+    <tc:flexLayout columns="250px;*;200px">
+      <tc:label id="l2" value="Label in front of inputfield"/>
       <tc:in id="i1" placeholder="Inputfield"/>
-      <tc:label id="l2" value="Label after inputfield"/>
+      <tc:label id="l3" value="Label after inputfield"/>
     </tc:flexLayout>
   </tc:section>
 

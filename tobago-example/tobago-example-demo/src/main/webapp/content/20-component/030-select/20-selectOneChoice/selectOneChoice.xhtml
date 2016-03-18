@@ -21,18 +21,66 @@
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:f="http://java.sun.com/jsf/core">
-  <ui:param name="title" value="Select One Choice: &lt;tc:selectOneChoice>"/>
+  <ui:param name="title" value="#{overviewBundle.selectOneChoice} &lt;tc:selectOneChoice&gt;"/>
+  <p><code class="language-markup">&lt;tc:selectOneChoice/&gt;</code> create a dropdownbox.
+    Static entries could be created via <code class="language-markup">&lt;tc:selectItem/&gt;</code>.
+    For a list from a controller, use <code
+            class="language-markup">&lt;tc:selectItems value="\#{controller.list}"/&gt;</code>.</p>
+  <tc:link label="Generated Documentation"
+           link="https://myfaces.apache.org/tobago/doc/2.0.9/tld/tc/selectOneChoice.html"/>
+
+  <tc:section label="Basics">
+    <p>Dropdown Box with hardcoded items. The second item is disabled.</p>
+    <pre><code class="language-markup">&lt;tc:selectOneChoice label="Dropdown Box">
+  &lt;tc:selectItem itemLabel="Item One" itemValue="one"/>
+  &lt;tc:selectItem itemLabel="Item Two" itemValue="two" itemDisabled="true"/>
+&lt;/tc:selectOneChoice></code></pre>
+    <tc:selectOneChoice id="s1" label="Dropdown Box">
+      <tc:selectItem itemLabel="Item One" itemValue="one"/>
+      <tc:selectItem itemLabel="Item Two" itemValue="two" itemDisabled="true"/>
+    </tc:selectOneChoice>
+    <tc:selectOneChoice id="s2" label="Read Only" readonly="true">
+      <tc:selectItem itemLabel="Item One" itemValue="one"/>
+      <tc:selectItem itemLabel="Item Two" itemValue="two"/>
+    </tc:selectOneChoice>
+    <tc:selectOneChoice id="s3" label="Disabled" disabled="true">
+      <tc:selectItem itemLabel="Item One" itemValue="one"/>
+      <tc:selectItem itemLabel="Item Two" itemValue="two"/>
+    </tc:selectOneChoice>
+  </tc:section>
 
   <tc:section label="Simple Usage">
-
-    TODO
-
+    <p>Select a person. The label of the item is shown in the dropdownbox.
+      After submitting, the value of the item is shown in the outputfield.</p>
+    <pre><code class="language-markup">&lt;tc:selectOneChoice label="Person" value="\#{selectOneChoiceController.person}">
+  &lt;tc:selectItem itemLabel="Alice" itemValue="Alice Anderson"/>
+  &lt;tc:selectItem itemLabel="Bob" itemValue="Bob Brunch"/>
+&lt;/tc:selectOneChoice>
+&lt;tc:out label="Selected Person" value="\#{selectOneChoiceController.person}"/>
+&lt;tc:button label="Submit"/></code></pre>
+    <tc:selectOneChoice id="s4" label="Person" value="#{selectOneChoiceController.person}">
+      <tc:selectItem itemLabel="Alice" itemValue="Alice Anderson"/>
+      <tc:selectItem itemLabel="Bob" itemValue="Bob Brunch"/>
+    </tc:selectOneChoice>
+    <tc:out id="o1" label="Selected Person" value="#{selectOneChoiceController.person}"/>
+    <tc:button id="b1" label="Submit"/>
   </tc:section>
 
-  <tc:section label="AJAX" id="ajax">
-
-    TODO
-
+  <tc:section label="Ajax">
+    <p>Select a planet and a moon. The list of moons depends on the selected planet.</p>
+    <pre><code class="language-markup">&lt;tc:selectOneChoice label="Planet" value="\#{selectOneChoiceController.planet}">
+  &lt;f:selectItems value="\#{selectOneChoiceController.planets}"/>
+  &lt;f:ajax render="moonbox"/>
+&lt;/tc:selectOneChoice>
+&lt;tc:selectOneChoice id="moonbox" label="Moon">
+  &lt;f:selectItems value="\#{selectOneChoiceController.moons}"/>
+&lt;/tc:selectOneChoice></code></pre>
+    <tc:selectOneChoice id="s5" label="Planet" value="#{selectOneChoiceController.planet}">
+      <f:selectItems value="#{selectOneChoiceController.planets}"/>
+      <f:ajax render="moonbox"/>
+    </tc:selectOneChoice>
+    <tc:selectOneChoice id="moonbox" label="Moon">
+      <f:selectItems value="#{selectOneChoiceController.moons}"/>
+    </tc:selectOneChoice>
   </tc:section>
-
 </ui:composition>

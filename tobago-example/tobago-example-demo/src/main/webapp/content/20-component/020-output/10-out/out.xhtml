@@ -40,13 +40,15 @@
     <tc:section label="Escape off">
       <p>Although the HTML code is not escaped, you can see, that the text is not colored.
         This is, because the code is sanitzed (see next section).</p>
-      <pre><code class="language-markup">&lt;tc:out label="Escape off" escape="false" value="\#{outController.html}"/&gt;</code></pre>
+      <pre><code
+              class="language-markup">&lt;tc:out label="Escape off" escape="false" value="\#{outController.html}"/&gt;</code></pre>
       <tc:out id="o4" label="Escape off" escape="false" value="#{outController.html}"/>
     </tc:section>
   </tc:section>
   <tc:section label="Sanitize">
     <p>Sanitize remove HTML/XML-Tags from a given string, if not escaped. It can be configured in the tobago-config.xml.
-      If you want to write your own sanitizer, you have to implement <code>org.apache.myfaces.tobago.sanitizer.Sanitizer</code>.</p>
+      If you want to write your own sanitizer, you have to implement
+      <code>org.apache.myfaces.tobago.sanitizer.Sanitizer</code>.</p>
     <p>Sanitzing can be deactivated for a component using the <code>sanitize</code> attribute.
       But be careful, because of XSS vulnerability.</p>
     <pre><code

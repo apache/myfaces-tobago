@@ -23,9 +23,10 @@
   <ui:param name="title" value="#{overviewBundle.image} &lt;tc:image&gt;"/>
   <p>Create an image with <code class="language-markup">&lt;tc:image/&gt;</code></p>
   <p>link to attribute-doku</p>
+  <tc:link label="Generated Documentation" link="https://myfaces.apache.org/tobago/doc/2.0.9/tld/tc/link.html"/>
   <tc:section label="Basics">
-    <pre><code class="language-markup">&lt;tc:image disabled="true" value="image/tobago_head.png"/&gt;</code></pre>
-    <tc:image id="i1" disabled="true" value="image/tobago_head.png"/>
+    <pre><code class="language-markup">&lt;tc:image value="image/tobago_head.png"/&gt;</code></pre>
+    <tc:image id="i1" value="image/tobago_head.png"/>
   </tc:section>
   <tc:section label="Set width">
     <p>To set the size of an image, <code>&lt;tc:style/&gt;</code> can be used.</p>
@@ -35,5 +36,17 @@
     <tc:image id="i2" value="image/tobago_head.png">
       <tc:style width="20%"/>
     </tc:image>
+  </tc:section>
+  <tc:section label="Disable">
+    <p>The <code>disabled</code> attribute can be used, to let the picture look more 'disabled'.</p>
+    <tc:section label="Disabled off">
+      <p>Disabled is 'false' by default.</p>
+      <pre><code class="language-markup">&lt;tc:image disabled="false" value="image/alps.png"/&gt;</code></pre>
+      <tc:image id="i3" disabled="false" value="image/alps.png"/>
+    </tc:section>
+    <tc:section label="Disabled on">
+      <pre><code class="language-markup">&lt;tc:image disabled="true" value="image/alps.png"/&gt;</code></pre>
+      <tc:image id="i4" disabled="true" value="image/alps.png"/>
+    </tc:section>
   </tc:section>
 </ui:composition>

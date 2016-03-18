@@ -50,6 +50,9 @@
   <entry key="object">External Object (iframe)</entry>
   <entry key="select">Select</entry>
   <entry key="selectBooleanCheckbox">Boolean Checkbox</entry>
+  <entry key="selectOneChoice">Dropdown Box</entry>
+  <entry key="selectOneRadio">Radio Button</entry>
+  <entry key="selectOneListbox">List</entry>
 
   <entry key="sheet">Sheet Control</entry>
   <entry key="tree">Tree Control</entry>
