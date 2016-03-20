@@ -32,11 +32,7 @@
   <tc:section label="Basics">
     <p>Radiobutton group with a label. The last item is disabled.
       Also the label set on top with the <code>labelLayout</code> attribute.</p>
-    <pre><code class="language-markup">&lt;tc:selectOneRadio label="Radio Group">
-      &lt;tc:selectItem itemLabel="Sun" itemValue="solis"/>
-      &lt;tc:selectItem itemLabel="Moon" itemValue="luna"/>
-      &lt;tc:selectItem itemLabel="Stars" itemValue="stella" itemDisabled="true"/>
-      &lt;/tc:selectOneRadio></code></pre>
+    <pre><code class="language-markup">&lt;tc:selectOneRadio label="Radio Group" labelLayout="top"/></code></pre>
     <tc:segmentLayout large="4;4;4">
       <tc:selectOneRadio id="s1" label="Radio Group" labelLayout="top">
         <tc:selectItem itemLabel="Sun" itemValue="solis"/>
@@ -57,22 +53,13 @@
   </tc:section>
 
   <tc:section label="Simple Usage">
-    <p>Add number one to number two or subtract number two from number one.</p>
+    <p>Add number1 to number2 or subtract number2 from number1.</p>
     <pre><code class="language-markup">&lt;tc:selectOneRadio label="Number 1" labelLayout="top"
   value="\#{selectOneRadioController.numberOne}">
   &lt;tc:selectItem itemLabel="1" itemValue="1"/>
   &lt;tc:selectItem itemLabel="2" itemValue="2"/>
   &lt;tc:selectItem itemLabel="4" itemValue="4"/>
-&lt;/tc:selectOneRadio>
-&lt;tc:selectOneRadio label="Number 2" labelLayout="top"
-  value="\#{selectOneRadioController.numberTwo}">
-  &lt;tc:selectItem itemLabel="1" itemValue="1"/>
-  &lt;tc:selectItem itemLabel="2" itemValue="2"/>
-  &lt;tc:selectItem itemLabel="4" itemValue="4"/>
-&lt;/tc:selectOneRadio>
-&lt;tc:out label="Result" value="\#{selectOneRadioController.result}"/>
-&lt;tc:button label="Addition" action="\#{selectOneRadioController.add}"/>
-&lt;tc:button label="Subtraction" action="\#{selectOneRadioController.subtract}"/></code></pre>
+&lt;/tc:selectOneRadio></code></pre>
     <tc:segmentLayout large="6;6">
       <tc:selectOneRadio id="s4" label="Number 1" labelLayout="top" value="#{selectOneRadioController.numberOne}">
         <tc:selectItem itemLabel="1" itemValue="1"/>

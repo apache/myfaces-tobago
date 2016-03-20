@@ -34,79 +34,36 @@
                src="https://www.google.com/maps/embed?pb=!1m10!1m8!1m3!1d137123.69440217633!2d-60.687103!3d11.249123!3m2!1i1024!2i768!4f13.1!5e1!3m2!1sde!2sus!4v1458208065829"/>
   </tc:section>
   <tc:section label="Style">
-    <pre><code class="language-markup">&lt;tc:object src="https://www.google.com/maps/..."&gt;
-      &lt;tc:style width="100%"/&gt;
-      &lt;/tc:object&gt;</code></pre>
+    <p>A <code class="language-markup">&lt;tc:object/></code> tag can contain a style tag.
+      In this case it's <code class="language-markup">&lt;tc:style width="100%"/></code>.</p>
     <tc:object id="o2"
                src="https://www.google.com/maps/embed?pb=!1m13!1m11!1m3!1d99967845.2048925!2d-60.68710300000001!3d11.249123!2m2!1f0!2f0!3m2!1i1024!2i768!4f13.1!5e1!3m2!1sde!2sus!4v1458208366973">
       <tc:style width="100%"/>
     </tc:object>
   </tc:section>
-  <tc:section label="Toolbar">
-    <p>In this example, the object would be reloaded, after hitting a button.</p>
-    <pre><code class="language-markup">&lt;tc:toolBar iconSize="off"&gt;
-  &lt;tc:toolBarCommand label="Show Tobago" omit="true"&gt;
-    &lt;tc:dataAttribute name="maps-position" value="11.249123,-60.687103"/&gt;
-    &lt;tc:dataAttribute name="maps-zoom" value="12"/&gt;
-    &lt;tc:dataAttribute name="maps-target" value="page:map"/&gt;
-  &lt;/tc:toolBarCommand&gt;
-  &lt;tc:toolBarCommand label="Show World" omit="true"&gt;
-    &lt;tc:dataAttribute name="maps-target" value="page:map"/&gt;
-  &lt;/tc:toolBarCommand&gt;
-&lt;/tc:toolBar&gt;
-
-&lt;tc:object id="map"&gt;
-  &lt;tc:style width="100%" height="500px"/&gt;
-&lt;/tc:object&gt;</code></pre>
-
-    <pre><code class="language-javascript">(function ($) {
-  $.widget("demo.maps", {
-    options: {
-      position: "11.249123,-60.687103", // tobago
-      zoom: 2 // global
-    },
-    _create: function () {
-      this._on({
-        click: function (event) {
-          var position = this.element.data("maps-position");
-          if (position == null) {
-            position = this.options.position;
-          }
-          var zoom = this.element.data("maps-zoom");
-          if (zoom == null) {
-            zoom = this.options.zoom;
-          }
-          var target = this.element.data("maps-target");
-          var url = 'https://maps.google.com/maps?'
-            + 'ie=UTF8&amp;ll=' + position + '&amp;t=h&amp;z='
-            + zoom + '&amp;output=embed&amp;f=q&amp;cd=1';
-          jQuery(Tobago.Utils.escapeClientId(target)).attr('src', url);
-        }
-      });
-    },
-    _setOption: function (key, value) {
-    },
-    _destroy: function () {
-    }
-  });
-}(jQuery));
-
-var initMaps = function () {
-  jQuery("[data-maps-target]")
-    .maps()
-    .first()
-    .click();
-};
-
-Tobago.registerListener(initMaps, Tobago.Phase.DOCUMENT_READY);</code></pre>
-
-    <tc:toolBar iconSize="off">
-      <tc:toolBarCommand label="Show Tobago" omit="true">
+  <tc:section label="Tool Bar">
+    <p>There are two <code class="language-markup">&lt;tc:toolBarCommand/></code>
+      within a <code class="language-markup">&lt;tc:toolBar/></code> in this example.
+      The first show the island Tobago,
+      the second show the worldmap in <code class="language-markup">&lt;tc:object id="map"></code>.
+      The toolbarcommands send the parameter (maps-position, maps-zoom, maps-target) to an <code>object.js</code>,
+      which is shown in the objects.js-box. The JavaScript build the URL for the iframe.</p>
+    <pre><code class="language-markup">&lt;tc:toolBarCommand label="Show Tobago" omit="true"&gt;
+  &lt;tc:dataAttribute name="maps-position" value="11.249123,-60.687103"/&gt;
+  &lt;tc:dataAttribute name="maps-zoom" value="12"/&gt;
+  &lt;tc:dataAttribute name="maps-target" value="page:map"/&gt;
+&lt;/tc:toolBarCommand&gt;</code></pre>
+    <tc:button label="show/hide" action="#{objectController.switchCollapsed}"/>
+    <tc:box label="object.js" collapsed="#{objectController.collapsed}">
+      <pre><code class="language-javascript"><tc:out value="#{objectController.javaScriptSource}"/></code></pre>
+    </tc:box>
+    <tc:toolBar id="t1" iconSize="off">
+      <tc:toolBarCommand id="c1" label="Show Tobago" omit="true">
         <tc:dataAttribute name="maps-position" value="11.249123,-60.687103"/>
         <tc:dataAttribute name="maps-zoom" value="12"/>
         <tc:dataAttribute name="maps-target" value="page:map"/>
       </tc:toolBarCommand>
-      <tc:toolBarCommand label="Show World" omit="true">
+      <tc:toolBarCommand id="c2" label="Show World" omit="true">
         <tc:dataAttribute name="maps-target" value="page:map"/>
       </tc:toolBarCommand>
     </tc:toolBar>

@@ -52,7 +52,9 @@
   <entry key="selectBooleanCheckbox">Boolean Checkbox</entry>
   <entry key="selectOneChoice">Dropdown Box</entry>
   <entry key="selectOneRadio">Radio Button</entry>
-  <entry key="selectOneListbox">List</entry>
+  <entry key="selectOneListbox">Single Selection List</entry>
+  <entry key="selectManyCheckbox">Checkbox Group</entry>
+  <entry key="selectManyListbox">Multi Selection List</entry>
 
   <entry key="sheet">Sheet Control</entry>
   <entry key="tree">Tree Control</entry>

@@ -21,20 +21,19 @@
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:f="http://java.sun.com/jsf/core">
-  <ui:param name="title" value="#{overviewBundle.selectOneChoice} &lt;tc:selectOneChoice&gt;"/>
-  <p><code class="language-markup">&lt;tc:selectOneChoice/&gt;</code> create a dropdownbox.
-    Static entries could be created via <code class="language-markup">&lt;tc:selectItem/&gt;</code>.
-    For a list from a controller, use <code
-            class="language-markup">&lt;tc:selectItems value="\#{controller.list}"/&gt;</code>.</p>
+  <ui:param name="title" value="#{overviewBundle.selectOneChoice} &lt;tc:selectOneChoice>"/>
+  <p>The tag <code class="language-markup">&lt;tc:selectOneChoice/&gt;</code> create a dropdownbox,
+    which contain<br/>
+  <code class="language-markup">&lt;tc:selectItem/></code> for static entries or<br/>
+    <code class="language-markup">&lt;tc:selectItems value="\#{controller.list}"/></code> for entries from
+    a controller.</p>
   <tc:link label="Generated Documentation"
            link="https://myfaces.apache.org/tobago/doc/2.0.9/tld/tc/selectOneChoice.html"/>
 
   <tc:section label="Basics">
-    <p>Dropdown Box with hardcoded items. The second item is disabled.</p>
-    <pre><code class="language-markup">&lt;tc:selectOneChoice label="Dropdown Box">
-  &lt;tc:selectItem itemLabel="Item One" itemValue="one"/>
-  &lt;tc:selectItem itemLabel="Item Two" itemValue="two" itemDisabled="true"/>
-&lt;/tc:selectOneChoice></code></pre>
+    <p>Dropdown Box with hardcoded items. The second item is disabled.
+      To disable an item, use the <code>itemDisable</code> attribute.</p>
+    <pre><code class="language-markup">&lt;tc:selectOneChoice label="Dropdown Box"/></code></pre>
     <tc:selectOneChoice id="s1" label="Dropdown Box">
       <tc:selectItem itemLabel="Item One" itemValue="one"/>
       <tc:selectItem itemLabel="Item Two" itemValue="two" itemDisabled="true"/>
@@ -51,13 +50,9 @@
 
   <tc:section label="Simple Usage">
     <p>Select a person. The label of the item is shown in the dropdownbox.
-      After submitting, the value of the item is shown in the outputfield.</p>
-    <pre><code class="language-markup">&lt;tc:selectOneChoice label="Person" value="\#{selectOneChoiceController.person}">
-  &lt;tc:selectItem itemLabel="Alice" itemValue="Alice Anderson"/>
-  &lt;tc:selectItem itemLabel="Bob" itemValue="Bob Brunch"/>
-&lt;/tc:selectOneChoice>
-&lt;tc:out label="Selected Person" value="\#{selectOneChoiceController.person}"/>
-&lt;tc:button label="Submit"/></code></pre>
+      After submitting, the value of the item is shown in the outputfield.
+      So, if 'Alice' is selected, the text in the outputfield is 'Alice Anderson'.</p>
+    <pre><code class="language-markup">&lt;tc:selectItem itemLabel="Alice" itemValue="Alice Anderson"/></code></pre>
     <tc:selectOneChoice id="s4" label="Person" value="#{selectOneChoiceController.person}">
       <tc:selectItem itemLabel="Alice" itemValue="Alice Anderson"/>
       <tc:selectItem itemLabel="Bob" itemValue="Bob Brunch"/>
@@ -67,7 +62,9 @@
   </tc:section>
 
   <tc:section label="Ajax">
-    <p>Select a planet and a moon. The list of moons depends on the selected planet.</p>
+    <p>Select a planet and a moon. The list of moons depends on the selected planet.
+      The planet-dropdownbox contain a <code class="language-markup">&lt;f:ajax render="moonbox"/></code>.
+      With it, the moon-dropdownbox will be rerendered, after a value changed in planet-dropdownbox.</p>
     <pre><code class="language-markup">&lt;tc:selectOneChoice label="Planet" value="\#{selectOneChoiceController.planet}">
   &lt;f:selectItems value="\#{selectOneChoiceController.planets}"/>
   &lt;f:ajax render="moonbox"/>

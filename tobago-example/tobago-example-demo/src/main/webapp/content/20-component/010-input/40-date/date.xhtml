@@ -145,13 +145,11 @@
   </tc:section>
   <tc:section label="Ajax">
     <p>The outputfield in this example, display the given date.
-      With <code class="language-markup">&lt;f:ajax/&gt;</code>, the outputfield will be rerendered, after the date changed.
-      The date can be changed by button or by entering a valid date in the textfield. If the date is not valid, it won't be adopted.</p>
-    <pre><code class="language-markup">&lt;tc:date label="On Change" value="\#{dateController.onchange}"&gt;
-  &lt;f:convertDateTime pattern="dd.MM.yyyy"/&gt;
-  &lt;f:ajax render="outputfield"/&gt;
-&lt;/tc:date&gt;
-&lt;tc:out id="outputfield" label="On Server" value="\#{dateController.onchange}"/&gt;</code></pre>
+      With <code class="language-markup">&lt;f:ajax render="outputfield"/></code>,
+      the <code class="language-markup">&lt;tc:out id="outputfield" .../></code> will be rerendered,
+      after the date changed.
+      The date can be changed by button or by entering a valid date in the textfield. If the date is not valid,
+      it won't be adopted.</p>
     <tc:date id="d14" label="On Change" value="#{dateController.onchange}">
       <f:convertDateTime pattern="dd.MM.yyyy"/>
       <f:ajax render="outputfield"/>

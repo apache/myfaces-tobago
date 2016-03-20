@@ -19,7 +19,7 @@
 
 package org.apache.myfaces.tobago.example.demo;
 
-import org.apache.myfaces.tobago.model.SelectItem;
+import org.apache.myfaces.tobago.example.demo.exampledata.PlanetExample;
 
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
@@ -27,36 +27,11 @@ import java.io.Serializable;
 
 @SessionScoped
 @Named
-public class SelectOneRadioController implements Serializable {
+public class SelectOneRadioController extends PlanetExample implements Serializable {
 
   private int numberOne;
   private int numberTwo;
   private int result;
-  private SelectItem[] planets;
-  private SelectItem[] earthmoons;
-  private SelectItem[] marsmoons;
-  private SelectItem[] jupitermoons;
-  private int planet;
-
-  public SelectOneRadioController() {
-    planets = new SelectItem[]{
-            new SelectItem(0, "Earth"),
-            new SelectItem(1, "Mars"),
-            new SelectItem(2, "Jupiter")};
-    earthmoons = new SelectItem[]{
-            new SelectItem(0, "Moon")
-    };
-    marsmoons = new SelectItem[]{
-            new SelectItem(0, "Phobos"),
-            new SelectItem(1, "Deimos")
-    };
-    jupitermoons = new SelectItem[]{
-            new SelectItem(0, "Europa"),
-            new SelectItem(1, "Ganymed"),
-            new SelectItem(2, "Io"),
-            new SelectItem(3, "Kallisto")
-    };
-  }
 
   public int getNumberOne() {
     return numberOne;
@@ -84,30 +59,5 @@ public class SelectOneRadioController implements Serializable {
 
   public int getResult() {
     return result;
-  }
-
-  public SelectItem[] getPlanets() {
-    return planets;
-  }
-
-  public int getPlanet() {
-    return planet;
-  }
-
-  public void setPlanet(int planet) {
-    this.planet = planet;
-  }
-
-  public SelectItem[] getMoons() {
-    switch (planet) {
-      case 0:
-        return earthmoons;
-      case 1:
-        return marsmoons;
-      case 2:
-        return jupitermoons;
-      default:
-        return new SelectItem[0];
-    }
   }
 }

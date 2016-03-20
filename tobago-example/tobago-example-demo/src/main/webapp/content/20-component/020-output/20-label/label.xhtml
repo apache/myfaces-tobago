@@ -22,19 +22,19 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets">
   <ui:param name="title" value="#{overviewBundle.label} &lt;tc:label&gt;"/>
   <p>With <code class="language-markup">&lt;tc:label&gt;</code>, a single label can be created.
-    Some components already have a <code>label</code> attribute to combine it with a label, which should be used in general.</p>
-  <p>TODO:link to attribute</p>
+    Some components already have a <code>label</code> attribute to combine it with a label,
+    which should be used in general.</p>
+  <tc:link label="Generated Documentation"
+           link="https://myfaces.apache.org/tobago/doc/2.0.9/tld/tc/label.html"/>
   <tc:section label="Basics">
     <pre><code class="language-markup">&lt;tc:label value="Single Label"/&gt;</code></pre>
     <tc:label id="l1" value="Single Label"/>
   </tc:section>
 
   <tc:section label="Input Field">
-    <pre><code class="language-markup">&lt;tc:flexLayout columns="250px;*;200px">
-  &lt;tc:label value="Label in front of inputfield"/>
-  &lt;tc:in placeholder="Inputfield"/>
-  &lt;tc:label value="Label after inputfield"/>
-&lt;/tc:flexLayout></code></pre>
+    <p>With <code class="language-markup">&lt;tc:flexLayout columns="250px;*;200px"></code> a label is set
+      in front and after an inputfield. The <code>label</code> attribute is not used for
+      <code class="language-markup">&lt;tc:in/></code>.</p>
     <tc:flexLayout columns="250px;*;200px">
       <tc:label id="l2" value="Label in front of inputfield"/>
       <tc:in id="i1" placeholder="Inputfield"/>
@@ -47,10 +47,9 @@
   </tc:section>
 
   <tc:section label="Progress Bar">
-    <pre><code class="language-markup">&lt;tc:flowLayout&gt;
-  &lt;tc:label value="Progress:"/&gt;
-  &lt;tc:progress value="0.4" max="1"/&gt;
-&lt;/tc:flowLayout&gt;</code></pre>
+    <p>Some components like <code class="language-markup">&lt;tc:progress/></code> do not have a <code>label</code>
+      attribute. In this example, a label is combined with a progressbar using
+      <code class="language-markup">&lt;tc:flowLayout/></code>.</p>
     <tc:flowLayout>
       <tc:label id="l4" value="Progress:"/>
       <tc:progress value="0.4" max="1"/>

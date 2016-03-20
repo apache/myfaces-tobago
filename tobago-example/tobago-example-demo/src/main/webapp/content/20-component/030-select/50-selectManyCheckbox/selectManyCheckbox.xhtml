@@ -22,17 +22,45 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:f="http://java.sun.com/jsf/core">
   <ui:param name="title" value="Select Many Checkbox: &lt;tc:selectManyCheckbox>"/>
+  <p>With <code class="language-markup">&lt;tc:selectManyCheckbox/></code>, you can create a group of checkboxes.
+    The items are added via <code class="language-markup">&lt;tc:selectItem/></code> for static entries or
+    <code class="language-markup">&lt;tc:selectItems value="\#{controller.list}"/></code> for entries from a
+    controller.</p>
+  <tc:section label="Basics">
+    <p>Checkbox Group with two items. The second one is disabled.</p>
+    <tc:selectManyCheckbox label="Checkbox Group">
+      <tc:selectItem itemLabel="Item One" itemValue="one"/>
+      <tc:selectItem itemLabel="Item Two" itemValue="two" itemDisabled="true"/>
+    </tc:selectManyCheckbox>
+    <tc:selectManyCheckbox label="Read Only" readonly="true">
+      <tc:selectItem itemLabel="Item One" itemValue="one"/>
+      <tc:selectItem itemLabel="Item Two" itemValue="two" itemDisabled="true"/>
+    </tc:selectManyCheckbox>
+    <tc:selectManyCheckbox label="Disabled" disabled="true">
+      <tc:selectItem itemLabel="Item One" itemValue="one"/>
+      <tc:selectItem itemLabel="Item Two" itemValue="two" itemDisabled="true"/>
+    </tc:selectManyCheckbox>
+  </tc:section>
 
   <tc:section label="Simple Usage">
-
-    TODO
-
+    <tc:selectManyCheckbox label="Checkbox Group" value="#{selectManyCheckboxController.animals}">
+      <tc:selectItem itemLabel="Cat" itemValue="Cat"/>
+      <tc:selectItem itemLabel="Dog" itemValue="Dog"/>
+      <tc:selectItem itemLabel="Fox" itemValue="Fox"/>
+      <tc:selectItem itemLabel="Rabbit" itemValue="Rabbit"/>
+    </tc:selectManyCheckbox>
+    <tc:out id="o1" label="Selected Animals" value="#{selectManyCheckboxController.animal}"/>
+    <tc:button id="b1" label="Submit"/>
   </tc:section>
 
-  <tc:section label="AJAX" id="ajax">
-
-    TODO
-
+  <tc:section label="Ajax">
+    <tc:selectManyCheckbox label="Checkbox Group" value="#{selectManyCheckboxController.numbers}">
+      <tc:selectItem itemLabel="One" itemValue="1"/>
+      <tc:selectItem itemLabel="Two" itemValue="2"/>
+      <tc:selectItem itemLabel="Three" itemValue="3"/>
+      <tc:selectItem itemLabel="Four" itemValue="4"/>
+      <f:ajax render="resultOutput"/>
+    </tc:selectManyCheckbox>
+    <tc:out id="resultOutput" label="Selected Animals" value="#{selectManyCheckboxController.result}"/>
   </tc:section>
-
 </ui:composition>

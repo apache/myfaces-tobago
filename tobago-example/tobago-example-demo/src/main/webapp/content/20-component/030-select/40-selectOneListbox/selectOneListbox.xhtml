@@ -21,21 +21,46 @@
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:f="http://java.sun.com/jsf/core">
-  <ui:param name="title" value="Select One Listbox: &lt;tc:selectOneListbox>"/>
+  <ui:param name="title" value="#{overviewBundle.selectOneListbox} &lt;tc:selectOneListbox>"/>
+  <p>The <code class="language-markup">&lt;tc:selectOneListbox/></code> create a list of entries, where only one
+  entry can be selected.</p>
+  <tc:link label="Generated Documentation"
+           link="https://myfaces.apache.org/tobago/doc/2.0.9/tld/tc/selectOneListbox.html"/>
 
-  <tc:section label="Simple Usage">
-
-    TODO
-
+  <tc:section label="Basics">
+    <tc:selectOneListbox id="s1" label="List" size="2">
+      <tc:selectItem itemLabel="Alpha"/>
+      <tc:selectItem itemLabel="Beta"/>
+    </tc:selectOneListbox>
+    <tc:selectOneListbox id="s2" label="Read Only" readonly="true" size="2">
+      <tc:selectItem itemLabel="Alpha"/>
+      <tc:selectItem itemLabel="Beta"/>
+    </tc:selectOneListbox>
+    <tc:selectOneListbox id="s3" label="Disabled" disabled="true" size="2">
+      <tc:selectItem itemLabel="Alpha"/>
+      <tc:selectItem itemLabel="Beta"/>
+    </tc:selectOneListbox>
   </tc:section>
 
-  <tc:section label="AJAX" id="ajax">
-
-    <tc:selectOneListbox value="#{selectOne.value}" label="D" id="d">
-      <tc:selectItems value="#{selectOne.types}" var="item" itemValue="#{item}" itemLabel="#{item}"/>
-      <f:ajax render="ajax"/>
+  <tc:section label="Simple Usage">
+    <tc:selectOneListbox id="s4" label="River" value="#{selectOneListboxController.river}">
+      <tc:selectItem itemLabel="Nile" itemValue="Nile (6853 km)"/>
+      <tc:selectItem itemLabel="Amazon" itemValue="Amazon (6437 km)"/>
+      <tc:selectItem itemLabel="Yangtze" itemValue="Yangtze (6300 km)"/>
+      <tc:selectItem itemLabel="Yellow River" itemValue="Yellow River (5464 km)"/>
+      <tc:selectItem itemLabel="Paraná River" itemValue="Paraná River (4880 km)"/>
     </tc:selectOneListbox>
-    <tc:out label="Value is" value="#{selectOne.value}"/>
+    <tc:out id="o1" label="River" value="#{selectOneListboxController.river}"/>
+    <tc:button id="b1" label="Submit"/>
+  </tc:section>
+
+  <tc:section label="Ajax">
+    <tc:selectOneListbox id="s5" label="Mountains" value="#{selectOneListboxController.mountain}" >
+      <tc:selectItems value="#{selectOneListboxController.mountains}" var="mountain"
+                      itemLabel="#{mountain.label}" itemValue="#{mountain.value}" />
+      <f:ajax render="selectedMountain"/>
+    </tc:selectOneListbox>
+    <tc:out id="selectedMountain" label="Height" value="#{selectOneListboxController.mountain}"/>
 
   </tc:section>
 

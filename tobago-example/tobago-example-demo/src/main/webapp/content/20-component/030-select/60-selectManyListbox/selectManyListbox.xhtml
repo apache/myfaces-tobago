@@ -23,16 +23,40 @@
                 xmlns:f="http://java.sun.com/jsf/core">
   <ui:param name="title" value="Select Many Listbox: &lt;tc:selectManyListbox>"/>
 
+  <tc:section label="Basics">
+    <p>A list with three items. The second one is disabled.</p>
+    <tc:selectManyListbox id="s1" label="List">
+      <tc:selectItem itemLabel="Item1" itemValue="item1"/>
+      <tc:selectItem itemLabel="Item2" itemValue="item2" itemDisabled="true"/>
+      <tc:selectItem itemLabel="Item3" itemValue="item3"/>
+    </tc:selectManyListbox>
+    <tc:selectManyListbox id="s2" label="Read Only" readonly="true">
+      <tc:selectItem itemLabel="Item1" itemValue="item1"/>
+      <tc:selectItem itemLabel="Item2" itemValue="item2" itemDisabled="true"/>
+      <tc:selectItem itemLabel="Item3" itemValue="item3"/>
+    </tc:selectManyListbox>
+    <tc:selectManyListbox id="s3" label="Disabled" disabled="true">
+      <tc:selectItem itemLabel="Item1" itemValue="item1"/>
+      <tc:selectItem itemLabel="Item2" itemValue="item2" itemDisabled="true"/>
+      <tc:selectItem itemLabel="Item3" itemValue="item3"/>
+    </tc:selectManyListbox>
+  </tc:section>
+
   <tc:section label="Simple Usage">
-
-    TODO
-
+    <tc:selectManyListbox id="s4" label="List" value="#{selectManyListboxController.celestials}">
+      <tc:selectItem itemLabel="Sun" itemValue="The sun, "/>
+      <tc:selectItem itemLabel="Moon" itemValue="the moon, "/>
+      <tc:selectItem itemLabel="Stars" itemValue="the stars..."/>
+    </tc:selectManyListbox>
+    <tc:out id="o1" label="" value="#{selectManyListboxController.celestial}"/>
+    <tc:button id="b1" label="Submit"/>
   </tc:section>
 
   <tc:section label="AJAX" id="ajax">
-
-    TODO
-
+    <tc:selectManyListbox id="s5" label="Deserts" size="4" value="#{selectManyListboxController.selectedDeserts}">
+      <f:selectItems value="#{selectManyListboxController.deserts}"/>
+      <f:ajax render="desertOutput"/>
+    </tc:selectManyListbox>
+    <tc:out id="desertOutput" label="Selected Desets" value="#{selectManyListboxController.selectedDeserts}"/>
   </tc:section>
-
 </ui:composition>

@@ -19,23 +19,48 @@
 
 package org.apache.myfaces.tobago.example.demo;
 
-import org.apache.myfaces.tobago.example.demo.exampledata.PlanetExample;
-
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @SessionScoped
 @Named
-public class SelectOneChoiceController extends PlanetExample implements Serializable {
+public class SelectManyCheckboxController implements Serializable {
 
-  private String person;
+  private List<String> animals = new ArrayList<String>();
+  private List<String> numbers = new ArrayList<String>();
 
-  public String getPerson() {
-    return person;
+  public List getAnimals() {
+    return animals;
   }
 
-  public void setPerson(String person) {
-    this.person = person;
+  public void setAnimals(List<String> animals) {
+    this.animals = animals;
+  }
+
+  public String getAnimal() {
+    String retValue = "";
+    for (String s : animals) {
+      retValue = retValue.concat(s + " ");
+    }
+    return retValue;
+  }
+
+  public List<String> getNumbers() {
+    return numbers;
+  }
+
+  public void setNumbers(List<String> numbers) {
+    this.numbers = numbers;
+  }
+
+  public int getResult() {
+    int result = 0;
+    for (String number : numbers) {
+      result += Integer.valueOf(number);
+    }
+    return result;
   }
 }

@@ -19,7 +19,7 @@
 
 package org.apache.myfaces.tobago.example.demo;
 
-import org.apache.myfaces.tobago.example.demo.exampledata.PlanetExample;
+import org.apache.myfaces.tobago.model.SelectItem;
 
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
@@ -27,15 +27,39 @@ import java.io.Serializable;
 
 @SessionScoped
 @Named
-public class SelectOneChoiceController extends PlanetExample implements Serializable {
+public class SelectOneListboxController implements Serializable {
 
-  private String person;
+  private String river;
+  private SelectItem[] mountains;
+  private String mountain;
 
-  public String getPerson() {
-    return person;
+  public SelectOneListboxController() {
+    mountains = new SelectItem[]{
+            new SelectItem("8848 m", "Everest"),
+            new SelectItem("8611 m", "K2"),
+            new SelectItem("8586 m", "Kangchenjunga"),
+            new SelectItem("8516 m", "Lhotse"),
+            new SelectItem("8481 m", "Makalu")
+    };
   }
 
-  public void setPerson(String person) {
-    this.person = person;
+  public String getRiver() {
+    return river;
+  }
+
+  public void setRiver(String river) {
+    this.river = river;
+  }
+
+  public SelectItem[] getMountains() {
+    return mountains;
+  }
+
+  public String getMountain() {
+    return mountain;
+  }
+
+  public void setMountain(String mountain) {
+    this.mountain = mountain;
   }
 }
