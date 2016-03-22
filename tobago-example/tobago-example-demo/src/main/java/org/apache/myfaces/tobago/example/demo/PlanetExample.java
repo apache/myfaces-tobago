@@ -24,9 +24,9 @@ import org.apache.myfaces.tobago.model.SelectItem;
 public abstract class PlanetExample {
 
   private SelectItem[] planets;
-  private SelectItem[] earthmoons;
-  private SelectItem[] marsmoons;
-  private SelectItem[] jupitermoons;
+  private SelectItem[] earthMoons;
+  private SelectItem[] marsMoons;
+  private SelectItem[] jupiterMoons;
   private int planet;
 
   public PlanetExample() {
@@ -34,14 +34,14 @@ public abstract class PlanetExample {
             new SelectItem(0, "Earth"),
             new SelectItem(1, "Mars"),
             new SelectItem(2, "Jupiter")};
-    earthmoons = new SelectItem[]{
+    earthMoons = new SelectItem[]{
             new SelectItem(0, "Moon")
     };
-    marsmoons = new SelectItem[]{
+    marsMoons = new SelectItem[]{
             new SelectItem(0, "Phobos"),
             new SelectItem(1, "Deimos")
     };
-    jupitermoons = new SelectItem[]{
+    jupiterMoons = new SelectItem[]{
             new SelectItem(0, "Europa"),
             new SelectItem(1, "Ganymed"),
             new SelectItem(2, "Io"),
@@ -64,11 +64,11 @@ public abstract class PlanetExample {
   public SelectItem[] getMoons() {
     switch (planet) {
       case 0:
-        return earthmoons;
+        return earthMoons;
       case 1:
-        return marsmoons;
+        return marsMoons;
       case 2:
-        return jupitermoons;
+        return jupiterMoons;
       default:
         return new SelectItem[0];
     }

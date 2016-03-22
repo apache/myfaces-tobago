@@ -21,7 +21,19 @@
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:f="http://java.sun.com/jsf/core">
-  <ui:param name="title" value="Default Commands (TODO: move to Multi-Form)"/>
+  <ui:param name="title" value="#{overviewBundle.default_command}"/>
+  <p>A button can be made to a default button with the <code>defaultCommand</code> attribute.
+    If true, the comment is executed - for example if the user presses the enter key inside a related input field.
+  The default button is highlighted by another color.</p>
+  <tc:link label="Generated Documentation" link="https://myfaces.apache.org/tobago/doc/2.0.9/tld/tc/button.html"/>
+
+  <tc:section label="Basics">
+    <p>After writing some text into the textfield, the user can press 'ENTER' to run the command.</p>
+    <tc:in id="i1" label="Textfield" placeholder="add some text..." value="#{defaultCommandController.value1}"/>
+    <tc:out id="o1" label="Value in textfield" value="#{defaultCommandController.value1}"/>
+    <tc:button label="Submit" defaultCommand="true"/>
+  </tc:section>
+
   <tc:panel>
     <f:facet name="layout">
       <tc:gridLayout rows="60px;3*;3*;*" />

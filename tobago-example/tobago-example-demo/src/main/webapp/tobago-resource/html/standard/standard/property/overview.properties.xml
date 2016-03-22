@@ -55,6 +55,10 @@
   <entry key="selectOneListbox">Single Selection List</entry>
   <entry key="selectManyCheckbox">Checkbox Group</entry>
   <entry key="selectManyListbox">Multi Selection List</entry>
+  <entry key="selectManyShuttle">Shuttle List</entry>
+  <entry key="default_command">Default Command</entry>
+  <entry key="button_link">Link</entry>
+
 
   <entry key="sheet">Sheet Control</entry>
   <entry key="tree">Tree Control</entry>

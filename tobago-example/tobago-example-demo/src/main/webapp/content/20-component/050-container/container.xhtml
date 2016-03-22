@@ -19,10 +19,52 @@
 
 <ui:composition template="/main.xhtml"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
-                xmlns:ui="http://java.sun.com/jsf/facelets">
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core">
 
   <ui:param name="title" value="TODO"/>
 
 TODO
 
+  <tc:panel>
+    <f:facet name="layout">
+      <tc:gridLayout/>
+    </f:facet>
+
+    <tc:separator label="Layout"/>
+
+    <tc:panel>
+      <f:facet name="layout">
+        <tc:gridLayout rows="auto" columns="auto;auto;auto;*"/>
+      </f:facet>
+
+      <tc:button label="Hello"/>
+      <tc:button label="WWWWWWWWWW"/>
+      <tc:button label="llllllllll"/>
+      <tc:panel/>
+
+    </tc:panel>
+
+    <tc:panel>
+      <f:facet name="layout">
+        <tc:gridLayout rows="auto" columns="auto;*"/>
+      </f:facet>
+
+      <tc:button
+              label="The goal of Tobago is to provide the community with a well designed set of user interface components."/>
+      <tc:panel/>
+
+    </tc:panel>
+
+    <tc:panel>
+      <f:facet name="layout">
+        <tc:gridLayout rows="45px" columns="100px;100px;*"/>
+      </f:facet>
+
+      <tc:button label="This is a button with a long text."/>
+      <tc:button image="image/next.png" label="This is a button with a long text."/>
+
+    </tc:panel>
+
+  </tc:panel>
 </ui:composition>

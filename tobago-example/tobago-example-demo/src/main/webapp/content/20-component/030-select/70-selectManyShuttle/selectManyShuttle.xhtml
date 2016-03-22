@@ -21,22 +21,84 @@
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:f="http://java.sun.com/jsf/core">
-  <ui:param name="title" value="Select Many Shuttle: &lt;tc:selectManyShuttle>"/>
+  <ui:param name="title" value="#{overviewBundle.selectManyShuttle} &lt;tc:selectManyShuttle>"/>
+  <p>The shuttlelist component can be created with <code class="language-markup">&lt;tc:selectManyShuttle/></code>.</p>
+  <tc:link label="Generated Documentation"
+           link="https://myfaces.apache.org/tobago/doc/2.0.9/tld/tc/selectManyShuttle.html"/>
 
-  <tc:section label="Simple Usage">
-
-    TODO
-
+  <tc:section label="Basics">
+    <p>In general, the height of the list depends on the number of items and is set to an amount, where no
+      scrollbar is needed. You can set the number of rows with the <code>size</code> attribute. The shuttle list
+      has at least seven rows, values less than seven have no effect.
+      Items are added via <code class="language-markup">&lt;tc:selectItem></code> (static) or
+      <code class="language-markup">&lt;tc:selectItems></code> (dynamic).</p>
+    <tc:selectManyShuttle id="s1" label="Shuttle List" size="7">
+      <tc:selectItem itemLabel="Item1"/>
+      <tc:selectItem itemLabel="Item2"/>
+      <tc:selectItem itemLabel="Item3"/>
+      <tc:selectItem itemLabel="Item4"/>
+      <tc:selectItem itemLabel="Item5"/>
+      <tc:selectItem itemLabel="Item6"/>
+      <tc:selectItem itemLabel="Item7"/>
+      <tc:selectItem itemLabel="Item8"/>
+      <tc:selectItem itemLabel="Item9"/>
+      <tc:selectItem itemLabel="Item10"/>
+      <tc:selectItem itemLabel="Item11"/>
+      <tc:selectItem itemLabel="Item12"/>
+    </tc:selectManyShuttle>
+    <tc:selectManyShuttle id="s2" label="Read Only" readonly="true" size="7">
+      <tc:selectItem itemLabel="Item1"/>
+      <tc:selectItem itemLabel="Item2"/>
+      <tc:selectItem itemLabel="Item3"/>
+      <tc:selectItem itemLabel="Item4"/>
+      <tc:selectItem itemLabel="Item5"/>
+      <tc:selectItem itemLabel="Item6"/>
+      <tc:selectItem itemLabel="Item7"/>
+      <tc:selectItem itemLabel="Item8"/>
+      <tc:selectItem itemLabel="Item9"/>
+      <tc:selectItem itemLabel="Item10"/>
+      <tc:selectItem itemLabel="Item11"/>
+      <tc:selectItem itemLabel="Item12"/>
+    </tc:selectManyShuttle>
+    <tc:selectManyShuttle id="s3" label="Disabled" disabled="true" size="7">
+      <tc:selectItem itemLabel="Item1"/>
+      <tc:selectItem itemLabel="Item2"/>
+      <tc:selectItem itemLabel="Item3"/>
+      <tc:selectItem itemLabel="Item4"/>
+      <tc:selectItem itemLabel="Item5"/>
+      <tc:selectItem itemLabel="Item6"/>
+      <tc:selectItem itemLabel="Item7"/>
+      <tc:selectItem itemLabel="Item8"/>
+      <tc:selectItem itemLabel="Item9"/>
+      <tc:selectItem itemLabel="Item10"/>
+      <tc:selectItem itemLabel="Item11"/>
+      <tc:selectItem itemLabel="Item12"/>
+    </tc:selectManyShuttle>
   </tc:section>
 
-  <tc:section label="AJAX" id="ajax">
-
-    <tc:selectManyShuttle value="#{selectMany.value}" label="D" id="d">
-      <tc:selectItems value="#{selectMany.types}" var="item" itemValue="#{item}" itemLabel="#{item}"/>
-      <f:ajax render="ajax"/>
+  <tc:section label="Simple Usage">
+    <pre><code class="language-markup">&lt;tc:selectManyShuttle label="Planets" labelLayout="top"
+  unselectedLabel="Left List" selectedLabel="Right List"
+  value="\#{selectManyShuttleController.selectedPlanets}">
+  &lt;tc:selectItems value="\#{selectManyShuttleController.planets}"
+    var="planet" itemLabel="\#{planet.name}" itemValue="\#{planet.name}"/>
+&lt;/tc:selectManyShuttle></code></pre>
+    <tc:selectManyShuttle id="s4" label="Planets" labelLayout="top"
+                          unselectedLabel="Left List" selectedLabel="Right List"
+                          value="#{selectManyShuttleController.selectedPlanets}">
+      <tc:selectItems value="#{selectManyShuttleController.planets}"
+                      var="planet" itemLabel="#{planet.name}" itemValue="#{planet.name}"/>
     </tc:selectManyShuttle>
-    <tc:out label="Value is" value="#{selectMany.valueAsString}"/>
+    <tc:out id="o1" label="Selected Planets" value="#{selectManyShuttleController.selectedPlanetsAsString}"/>
+    <tc:button label="Submit"/>
+  </tc:section>
 
+  <tc:section label="Ajax">
+    <tc:selectManyShuttle id="s5" label="Stars" labelLayout="top" value="#{selectManyShuttleController.selectedStars}">
+      <tc:selectItems value="#{selectManyShuttleController.stars}"/>
+      <f:ajax render="outputStars"/>
+    </tc:selectManyShuttle>
+    <tc:out id="outputStars" label="Selected Stars" value="#{selectManyShuttleController.selectedStarsAsString}"/>
   </tc:section>
 
 </ui:composition>
