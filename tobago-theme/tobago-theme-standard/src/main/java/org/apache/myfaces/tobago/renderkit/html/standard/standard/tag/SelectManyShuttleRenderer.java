@@ -55,7 +55,8 @@ public class SelectManyShuttleRenderer extends SelectManyRendererBase {
     }
     final boolean hasLabel = select.hasLabel();
     final List<SelectItem> items = SelectItemUtils.getItemList(facesContext, select);
-    final boolean disabled = !items.iterator().hasNext() || select.isDisabled() || select.isReadonly();
+    final boolean disabled = !items.iterator().hasNext() || select.isDisabled();
+    final boolean readonly = select.isReadonly();
 
     final String unselectedLabel = select.getUnselectedLabel();
     if (unselectedLabel != null) {
@@ -71,6 +72,7 @@ public class SelectManyShuttleRenderer extends SelectManyRendererBase {
     final String unselectedClientId = clientId + ComponentUtils.SUB_SEPARATOR + "unselected";
     writer.writeIdAttribute(unselectedClientId);
     writer.writeAttribute(HtmlAttributes.DISABLED, disabled);
+    writer.writeAttribute(HtmlAttributes.READONLY, readonly);
 
     // TODO tabIndex
     writer.writeAttribute(HtmlAttributes.TABINDEX, select.getTabIndex());
@@ -89,10 +91,10 @@ public class SelectManyShuttleRenderer extends SelectManyRendererBase {
     writer.writeClassAttribute(Classes.create(select, "toolBar"));
     writer.startElement(HtmlElements.DIV);
     writer.endElement(HtmlElements.DIV);
-    createButton(facesContext, component, writer, disabled, Icons.ANGLE_DOUBLE_RIGHT, "addAll");
-    createButton(facesContext, component, writer, disabled, Icons.ANGLE_RIGHT, "add");
-    createButton(facesContext, component, writer, disabled, Icons.ANGLE_LEFT, "remove");
-    createButton(facesContext, component, writer, disabled, Icons.ANGLE_DOUBLE_LEFT, "removeAll");
+    createButton(facesContext, component, writer, disabled | readonly, Icons.ANGLE_DOUBLE_RIGHT, "addAll");
+    createButton(facesContext, component, writer, disabled | readonly, Icons.ANGLE_RIGHT, "add");
+    createButton(facesContext, component, writer, disabled | readonly, Icons.ANGLE_LEFT, "remove");
+    createButton(facesContext, component, writer, disabled | readonly, Icons.ANGLE_DOUBLE_LEFT, "removeAll");
     writer.startElement(HtmlElements.DIV);
     writer.endElement(HtmlElements.DIV);
     writer.endElement(HtmlElements.DIV);
@@ -109,6 +111,7 @@ public class SelectManyShuttleRenderer extends SelectManyRendererBase {
     writer.writeIdAttribute(selectedClientId);
 
     writer.writeAttribute(HtmlAttributes.DISABLED, disabled);
+    writer.writeAttribute(HtmlAttributes.READONLY, readonly);
     writer.writeAttribute(HtmlAttributes.TABINDEX, select.getTabIndex());
     writer.writeClassAttribute(Classes.create(select, "selected"), BootstrapClass.FORM_CONTROL);
     writer.writeAttribute(HtmlAttributes.MULTIPLE, true);
