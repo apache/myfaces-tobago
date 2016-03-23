@@ -72,7 +72,7 @@ public interface SelectItemsTagDeclaration extends HasId, HasBinding, HasItemLab
    * Value to be returned to the server if this option is selected by the user.
    */
   @TagAttribute
-  @UIComponentTagAttribute()
+  @UIComponentTagAttribute(type = {"java.lang.Object"})
   void setItemValue(String itemValue);
 
   /**
