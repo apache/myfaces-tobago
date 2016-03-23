@@ -50,7 +50,8 @@ public class NavigationNode extends DefaultMutableTreeNode implements Comparable
     branch = matcher.group(1);
     name = matcher.group(2);
     final String extension = matcher.group(3);
-    final String t = ResourceManagerUtils.getProperty(FacesContext.getCurrentInstance(), "overview", name);
+    final String key = name.replaceAll("\\+|\\-", "_");
+    final String t = ResourceManagerUtils.getProperty(FacesContext.getCurrentInstance(), "overview", key);
     title = t != null ? t : name;
   }
 

@@ -121,6 +121,11 @@
           </excludes>
         </configuration>
       </plugin>
+      <plugin>
+        <groupId>nl.geodienstencentrum.maven</groupId>
+        <artifactId>sass-maven-plugin</artifactId>
+        <version>2.14</version>
+      </plugin>
     </plugins>
   </build>
 

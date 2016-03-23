@@ -83,9 +83,9 @@
       via <code>selectedLabel</code>. The label for the whole component is set on top by
       <code>labelLayout="top"</code>.</p>
     <p>In this example, the entries are added by
-      <code class="language-markup">&lt;tc:selectItems ... var="planet" itemLabel="\#{planet.name}" itemValue="\#{planet.id}"/></code>.
+      <code class="language-markup">&lt;tc:selectItems ... var="planet" itemLabel="\#{planet.name}" itemValue="\#{planet}"/></code>.
       The name of a variable is defined by<code>var</code>. In this case, the <code>itemLabel</code> get the name of
-      the planet, while the <code>itemValue</code> is the id.</p>
+      the planet, while the <code>itemValue</code> is object itself.</p>
     <pre><code class="language-markup">&lt;tc:selectManyShuttle label="Planets" ...>
   &lt;tc:selectItems value="\#{selectManyShuttleController.planets}" .../>
 &lt;/tc:selectManyShuttle></code></pre>

@@ -21,25 +21,37 @@
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:f="http://java.sun.com/jsf/core">
-  <ui:param name="title" value="Container"/>
+  <ui:param name="title" value="#{overviewBundle.box} &lt;tc:box>"/>
+  <p>A content box is created with <code class="language-markup">&lt;tc:box/></code>.</p>
+  <tc:link label="Tag Library Documentation" image="image/feather-leaf.png"
+           link="#{overviewBundle.tagDocUrl}/box.html"/>
+  <tc:section label="Basics">
+    <p>The title of the box is set by the <code>label</code> attribute.</p>
+    <pre><code class="language-markup">&lt;tc:box label="Box">Content&lt;/tc:box></code></pre>
+    <tc:box id="b1" label="Box">Content</tc:box>
+    <tc:box>Contentbox without a title.</tc:box>
+  </tc:section>
 
-  <tc:segmentLayout medium="6;6">
-    <tc:box label="Box (height=200px)">
-      <tc:style height="200px"/>
-    </tc:box>
-    <tc:box label="Box (no height set)"/>
-  </tc:segmentLayout>
+  <tc:section label="Collapse/Expand">
+    <p>A contentbox can be collapsed via <code>collapsed</code> attribute.</p>
+    <pre><code class="language-markup">&lt;tc:box label="Collapsed" collapsed="true">Content&lt;/tc:box></code></pre>
+    <tc:segmentLayout medium="6;6">
+      <tc:box label="Collapsed" collapsed="true">Content</tc:box>
+      <tc:box label="Expanded" collapsed="false">Content</tc:box>
+    </tc:segmentLayout>
+  </tc:section>
 
-  <tc:segmentLayout medium="12">
-    <tc:box label="Box with toolbar" >
+  <tc:section label="Toolbar">
+    <p>It's possible to add a toobar to the header of a contentbox. For that, the contentbox must contain the tag
+      <code class="language-markup">&lt;f:facet name="toolBar"></code>. The facet contain the
+      <code class="language-markup">&lt;tc:toolBar></code> tag.</p>
+    <tc:box>
       <f:facet name="toolBar">
         <tc:toolBar>
-          <tc:toolBarCommand id="button1" label="Button 1"/>
-          <tc:toolBarCommand id="button2" label="Button 2"/>
+          <tc:toolBarCommand label="Toolbar Entry"/>
         </tc:toolBar>
       </f:facet>
-
       Content
     </tc:box>
-  </tc:segmentLayout>
+  </tc:section>
 </ui:composition>

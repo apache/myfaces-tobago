@@ -58,6 +58,13 @@
   <entry key="selectManyShuttle">Shuttle List</entry>
   <entry key="default_command">Default Command</entry>
   <entry key="button_link">Link</entry>
+  <entry key="toolBar">Toolbar</entry>
+  <entry key="menu">Menubar</entry>
+  <entry key="box">Content Box</entry>
+  <entry key="separator">Separator</entry>
+  <entry key="section">Section</entry>
+  <entry key="header_footer">Header / Footer</entry>
+  <entry key="popup">Popup</entry>
 
 
   <entry key="sheet">Sheet Control</entry>
@@ -65,7 +72,6 @@
   <entry key="tree-editor">Editor</entry>
   <entry key="tree-command-types">Command Types</entry>
   <entry key="tab">Tab Control</entry>
-  <entry key="toolBar">Toolbar</entry>
   <entry key="validation">Validation</entry>
   <entry key="validation-severity">Severity</entry>
   <entry key="form">Forms</entry>
