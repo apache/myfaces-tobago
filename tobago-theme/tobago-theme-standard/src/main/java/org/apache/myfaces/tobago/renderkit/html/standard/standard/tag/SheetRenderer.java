@@ -104,9 +104,9 @@ public class SheetRenderer extends RendererBase {
   public void decode(final FacesContext facesContext, final UIComponent component) {
 
     final UISheet sheet = (UISheet) component;
+    final String clientId = sheet.getClientId(facesContext);
 
-    String key = sheet.getClientId(facesContext) + WIDTHS;
-
+    String key = clientId + WIDTHS;
     final Map requestParameterMap = facesContext.getExternalContext().getRequestParameterMap();
     if (requestParameterMap.containsKey(key)) {
       final String widths = (String) requestParameterMap.get(key);
@@ -115,7 +115,7 @@ public class SheetRenderer extends RendererBase {
       }
     }
 
-    key = sheet.getClientId(facesContext) + SELECTED;
+    key = clientId + SELECTED;
     if (requestParameterMap.containsKey(key)) {
       final String selected = (String) requestParameterMap.get(key);
       if (LOG.isDebugEnabled()) {
@@ -132,8 +132,7 @@ public class SheetRenderer extends RendererBase {
       ComponentUtils.setAttribute(sheet, Attributes.selectedListString, selectedRows);
     }
 
-    final String value = facesContext.getExternalContext().getRequestParameterMap().get(
-        sheet.getClientId(facesContext) + SCROLL_POSITION);
+    final String value = facesContext.getExternalContext().getRequestParameterMap().get(clientId + SCROLL_POSITION);
     if (value != null) {
       sheet.getState().getScrollPosition().update(value);
     }
