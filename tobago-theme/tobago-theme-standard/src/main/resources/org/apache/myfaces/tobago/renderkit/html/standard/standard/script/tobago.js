@@ -2288,7 +2288,7 @@ Tobago.Command.initEnter = function(elements) {
           return;
         }
       }
-      var id = target.id;
+      var id = target.name ? target.name : target.id;
       while (id != null) {
         var command = jQuery("[data-tobago-default='" + id + "']");
         if (command.size() > 0) {
