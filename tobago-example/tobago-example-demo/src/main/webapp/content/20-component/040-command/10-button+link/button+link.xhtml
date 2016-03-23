@@ -20,33 +20,53 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:f="http://java.sun.com/jsf/core">
   <ui:param name="title" value="#{overviewBundle.button_link} &lt;tc:button> &lt;tc:link>"/>
-  <p>The classic link can be set with the <code>&lt;tc:link/></code> tag. You can also set a link via a button.</p>
-  <tc:link label="Generated Documentation for &lt;tc:link/>"
-           link="https://myfaces.apache.org/tobago/doc/2.0.9/tld/tc/link.html"/>
+  <p>The classic link can be set with the <code class="language-markup">&lt;tc:link/></code> tag.
+    You can also set a link by <code class="language-markup">&lt;tc:button/></code>.</p>
+  <tc:link label="Tag Library Documentation for &lt;tc:link/>" image="image/feather-leaf.png"
+           link="#{overviewBundle.tagDocUrl}/link.html"/>
   |
-  <tc:link label="Generated Documentation for &lt;tc:button/>"
-           link="https://myfaces.apache.org/tobago/doc/2.0.9/tld/tc/button.html"/>
+  <tc:link label="Tag Library Documentation for &lt;tc:button/>" image="image/feather-leaf.png"
+           link="#{overviewBundle.tagDocUrl}/button.html"/>
 
-  <tc:section label="Basics &lt;tc:link>">
-    <pre><code class="language-markup">&lt;tc:link label="apache.org" link="https://www.apache.org/"/></code></pre>
-    <tc:link id="l1" label="apache.org" link="https://www.apache.org/"/>
-    |
-    <tc:link id="l2" label="Disabled" disabled="true" link="https://www.apache.org/"/>
-    |
-    <tc:link id="l3" label="Resource" resource="content/20-component/component.xhtml"/>
-    |
-    <tc:link id="l4" label="Action" action="#{buttonLinkController.linkToComponentsRoot}"/>
-    |
-    <tc:link id="l5" label="Link with an image" image="image/feather-leaf.png" link="https://www.apache.org/"/>
+  <tc:section label="Basics">
+    <tc:section label="&lt;tc:link>">
+      <pre><code class="language-markup">&lt;tc:link label="apache.org" link="https://www.apache.org/"/></code></pre>
+      <tc:link id="l1" label="apache.org" link="https://www.apache.org/"/>
+      |
+      <tc:link id="l2" label="Disabled" disabled="true" link="https://www.apache.org/"/>
+      |
+      <tc:link id="l3" label="Resource" resource="content/20-component/component.xhtml"/>
+      |
+      <tc:link id="l4" label="Action" action="#{buttonLinkController.linkToComponentsRoot}"/>
+      |
+      <tc:link id="l5" label="Link with an image" image="image/feather-leaf.png" link="https://www.apache.org/"/>
+    </tc:section>
+
+    <tc:section label="&lt;tc:button>">
+      <pre><code class="language-markup">&lt;tc:button label="apache.org" link="https://www.apache.org/"/></code></pre>
+      <tc:button id="b1" label="apache.org" link="https://www.apache.org/"/>
+      <tc:button id="b2" label="Disabled" disabled="true" link="https://www.apache.org/"/>
+      <tc:button id="b3" label="Resource" resource="content/20-component/component.xhtml"/>
+      <tc:button id="b4" label="Action" action="#{buttonLinkController.linkToComponentsRoot}"/>
+      <tc:button id="b5" image="image/feather-leaf.png" link="https://www.apache.org/"/>
+    </tc:section>
   </tc:section>
 
-  <tc:section label="Basics &lt;tc:button>">
-    <pre><code class="language-markup">&lt;tc:button label="apache.org" link="https://www.apache.org/"/></code></pre>
-    <tc:button id="b1" label="apache.org" link="https://www.apache.org/"/>
-    <tc:button id="b2" label="Disabled" disabled="true" link="https://www.apache.org/"/>
-    <tc:button id="b3" label="Resource" resource="content/20-component/component.xhtml"/>
-    <tc:button id="b4" label="Action" action="#{buttonLinkController.linkToComponentsRoot}"/>
-    <tc:button id="b5" image="image/feather-leaf.png" link="https://www.apache.org/"/>
+  <tc:section label="Localization">
+    <p>When configured, a link leads to a localized resource. Languages can be configured in the faces-config.xml.</p>
+      <pre><code class="language-markup">&lt;application>
+  &lt;locale-config>
+    &lt;default-locale>en&lt;/default-locale>
+    &lt;supported-locale>de&lt;/supported-locale>
+    ...</code></pre>
+    <p>In addition, a localized file must be available.</p>
+    <p>In this example, <tc:link label="this link"
+                                 resource="content/20-component/040-command/10-button+link/sample.html"/>
+      leads to a 'sample.html'. When the language is german, it leads to 'sample_de.html'.</p>
+    <tc:selectOneChoice label="#{overviewBundle.locale}" value="#{clientConfigController2.locale}">
+      <f:selectItems value="#{clientConfigController2.localeItems}"/>
+    </tc:selectOneChoice>
+    <tc:button action="#{clientConfigController2.submit}" label="#{overviewBundle.locale_submit}"/>
   </tc:section>
 
   <tc:section label="Confirmation">

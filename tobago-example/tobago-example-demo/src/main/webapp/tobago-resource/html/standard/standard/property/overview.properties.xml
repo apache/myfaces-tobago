@@ -108,6 +108,9 @@
   <entry key="footer_next">Next</entry>
   <entry key="footer_viewSource">View Source</entry>
 
+  <!-- Tag Library Documentation URL -->
+  <entry key="tagDocUrl">https://myfaces.apache.org/tobago/doc/2.0.9/tld/tc</entry>
+
 
 <!--  intro -->
 <entry key="intro_text">&lt;p&gt;Tobago is a user interface framework for developing webapplications.

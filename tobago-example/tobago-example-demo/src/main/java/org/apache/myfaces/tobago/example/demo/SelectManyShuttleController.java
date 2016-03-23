@@ -62,8 +62,8 @@ public class SelectManyShuttleController implements Serializable {
     String retValue = "";
     for (String selectedPlanet : selectedPlanets) {
       for (Planet planet : planets) {
-        if (planet.getName().equals(selectedPlanet)) {
-          retValue = retValue.concat(planet.getName() + " (" + planet.getAu() + "); ");
+        if (planet.getId().equals(selectedPlanet)) {
+          retValue = retValue.concat(planet.getName() + " (" + planet.getAu() + " AU); ");
         }
       }
     }
@@ -87,19 +87,25 @@ public class SelectManyShuttleController implements Serializable {
   }
 
   public class Planet {
+    private String id;
     private String name;
     private double au;
 
     public Planet(String name, double au) {
+      id = name + au;
       this.name = name;
       this.au = au;
+    }
+
+    public String getId() {
+      return id;
     }
 
     public String getName() {
       return name;
     }
 
-    public double getAu() {
+    private double getAu() {
       return au;
     }
   }

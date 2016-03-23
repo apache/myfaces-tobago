@@ -22,37 +22,56 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:f="http://java.sun.com/jsf/core">
   <ui:param name="title" value="#{overviewBundle.selectManyListbox} &lt;tc:selectManyListbox>"/>
-
+<p>The <code class="language-markup">&lt;tc:selectManyListbox/></code> create a list,
+  where more than one entry could be selected. Entries are added with
+  <code class="language-markup"><tc:selectItem/></code> (static) or
+  <code class="language-markup"><tc:selectItems value="\#{controller.list}"/></code> (from controller).</p>
+  <tc:link label="Tag Library Documentation" image="image/feather-leaf.png"
+           link="#{overviewBundle.tagDocUrl}/selectManyListbox.html"/>
   <tc:section label="Basics">
-    <p>A list with three items. The second one is disabled.</p>
+    <p>In this example, there is a list with three items. The second one is disabled with the
+      <code>itemDisabled</code> attribute of the <code class="language-markup"><tc:selectItem/></code> tag.</p>
     <tc:selectManyListbox id="s1" label="List">
       <tc:selectItem itemLabel="Item1" itemValue="item1"/>
-      <tc:selectItem itemLabel="Item2" itemValue="item2" itemDisabled="true"/>
+      <tc:selectItem itemLabel="Item2 (disabled)" itemValue="item2" itemDisabled="true"/>
       <tc:selectItem itemLabel="Item3" itemValue="item3"/>
     </tc:selectManyListbox>
     <tc:selectManyListbox id="s2" label="Read Only" readonly="true">
       <tc:selectItem itemLabel="Item1" itemValue="item1"/>
-      <tc:selectItem itemLabel="Item2" itemValue="item2" itemDisabled="true"/>
+      <tc:selectItem itemLabel="Item2 (disabled)" itemValue="item2" itemDisabled="true"/>
       <tc:selectItem itemLabel="Item3" itemValue="item3"/>
     </tc:selectManyListbox>
     <tc:selectManyListbox id="s3" label="Disabled" disabled="true">
       <tc:selectItem itemLabel="Item1" itemValue="item1"/>
-      <tc:selectItem itemLabel="Item2" itemValue="item2" itemDisabled="true"/>
+      <tc:selectItem itemLabel="Item2 (disabled)" itemValue="item2" itemDisabled="true"/>
       <tc:selectItem itemLabel="Item3" itemValue="item3"/>
     </tc:selectManyListbox>
   </tc:section>
 
   <tc:section label="Simple Usage">
+    <p>Select an entry and press the submit-button. The text in the outputfield depends on the selection.</p>
+    <pre><code class="language-markup">&lt;tc:selectManyListbox label="List" value="\#{selectManyListboxController.celestials}">
+  &lt;tc:selectItem itemLabel="Sun" itemValue="The sun, "/>
+  ...
+&lt;/tc:selectManyListbox>
+&lt;tc:out label="Selection" value="\#{selectManyListboxController.celestial}"/></code></pre>
     <tc:selectManyListbox id="s4" label="List" value="#{selectManyListboxController.celestials}">
       <tc:selectItem itemLabel="Sun" itemValue="The sun, "/>
       <tc:selectItem itemLabel="Moon" itemValue="the moon, "/>
       <tc:selectItem itemLabel="Stars" itemValue="the stars..."/>
     </tc:selectManyListbox>
-    <tc:out id="o1" label="" value="#{selectManyListboxController.celestial}"/>
+    <tc:out id="o1" label="Selection" value="#{selectManyListboxController.celestial}"/>
     <tc:button id="b1" label="Submit"/>
   </tc:section>
 
-  <tc:section label="AJAX" id="ajax">
+  <tc:section label="Ajax" id="ajax">
+    <p>The selected deserts from the list, are shown in the
+      <code class="language-markup">&lt;tc:out id="desertOutput" .../></code>.
+      The value in the outputfield will be rerendered, after the selection in the list changed. For that,
+      <code class="language-markup">&lt;tc:selectManyListbox label="Deserts" size="4" ...></code> contain a
+      <code class="language-markup">&lt;f:ajax render="desertOutput"/></code> tag.</p>
+    <p>The number of rows is set to four by the <code>size</code> attribute. Is no size set, the height of the list
+      depends of the number of rows. The list shows at least two rows. Values lower than two have no effect.</p>
     <tc:selectManyListbox id="s5" label="Deserts" size="4" value="#{selectManyListboxController.selectedDeserts}">
       <f:selectItems value="#{selectManyListboxController.deserts}"/>
       <f:ajax render="desertOutput"/>

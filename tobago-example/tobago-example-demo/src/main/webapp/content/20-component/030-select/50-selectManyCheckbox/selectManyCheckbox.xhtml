@@ -26,23 +26,34 @@
     The items are added via <code class="language-markup">&lt;tc:selectItem/></code> for static entries or
     <code class="language-markup">&lt;tc:selectItems value="\#{controller.list}"/></code> for entries from a
     controller.</p>
+  <tc:link label="Tag Library Documentation" image="image/feather-leaf.png"
+           link="#{overviewBundle.tagDocUrl}/selectManyCheckbox.html"/>
   <tc:section label="Basics">
     <p>Checkbox Group with two items. The second one is disabled.</p>
+    <pre><code class="language-markup">&lt;tc:selectManyCheckbox label="Checkbox Group"></code></pre>
     <tc:selectManyCheckbox label="Checkbox Group">
       <tc:selectItem itemLabel="Item One" itemValue="one"/>
-      <tc:selectItem itemLabel="Item Two" itemValue="two" itemDisabled="true"/>
+      <tc:selectItem itemLabel="Item Two (disabled)" itemValue="two" itemDisabled="true"/>
     </tc:selectManyCheckbox>
     <tc:selectManyCheckbox label="Read Only" readonly="true">
       <tc:selectItem itemLabel="Item One" itemValue="one"/>
-      <tc:selectItem itemLabel="Item Two" itemValue="two" itemDisabled="true"/>
+      <tc:selectItem itemLabel="Item Two (disabled)" itemValue="two" itemDisabled="true"/>
     </tc:selectManyCheckbox>
     <tc:selectManyCheckbox label="Disabled" disabled="true">
       <tc:selectItem itemLabel="Item One" itemValue="one"/>
-      <tc:selectItem itemLabel="Item Two" itemValue="two" itemDisabled="true"/>
+      <tc:selectItem itemLabel="Item Two (disabled)" itemValue="two" itemDisabled="true"/>
     </tc:selectManyCheckbox>
   </tc:section>
 
   <tc:section label="Simple Usage">
+    <p>Select an animal. The selection is shown in the outputfield, after pressing 'Submit'.</p>
+    <p><code
+            class="language-markup">&lt;tc:selectManyCheckbox label="Checkbox Group" value="\#{selectManyCheckboxController.animals}"></code>
+      save the selected value in the controller.
+      The available items are added with <code class="language-markup">&lt;tc:selectItem .../></code>.
+      The
+      <code class="language-markup">&lt;tc:out ... value="\#{selectManyCheckboxController.animal}"/></code>
+      get the value from the controller.</p>
     <tc:selectManyCheckbox label="Checkbox Group" value="#{selectManyCheckboxController.animals}">
       <tc:selectItem itemLabel="Cat" itemValue="Cat"/>
       <tc:selectItem itemLabel="Dog" itemValue="Dog"/>
@@ -54,6 +65,11 @@
   </tc:section>
 
   <tc:section label="Ajax">
+    <p>Select a number. Those numbers are added and displayed in the
+      <code class="language-markup">&lt;tc:out id="resultOutput" .../></code>.
+      <code class="language-markup">&lt;tc:selectManyCheckbox .../></code> contain a
+      <code class="language-markup">&lt;f:ajax render="resultOutput"/></code>, which rerenders the outputfield after
+      check/uncheck a checkbox.</p>
     <tc:selectManyCheckbox label="Checkbox Group" value="#{selectManyCheckboxController.numbers}">
       <tc:selectItem itemLabel="One" itemValue="1"/>
       <tc:selectItem itemLabel="Two" itemValue="2"/>

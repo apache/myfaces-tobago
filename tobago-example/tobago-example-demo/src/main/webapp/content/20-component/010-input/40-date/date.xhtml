@@ -22,9 +22,10 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:f="http://java.sun.com/jsf/core">
   <ui:param name="title" value="#{overviewBundle.date} &lt;tc:date&gt;"/>
-  <p>The <code class="language-markup">&lt;tc:date/&gt;</code> tag create an inputfield with a button to open a calendar to edit the date.
+  <p>The <code class="language-markup">&lt;tc:date/&gt;</code>
+    tag create an inputfield with a button to open a calendar to edit the date.
     The date can also be edited in the textfield.</p>
-  <p>A documentation of all possible attributes can be found here (https://myfaces.apache.org/tobago/doc/2.0.9/tld/tc/date.html). TODO: link to tobago3</p>
+  <tc:link label="Tag Library Documentation" image="image/feather-leaf.png" link="#{overviewBundle.tagDocUrl}/date.html"/>
   <tc:section label="Basics">
     <p>In general, a date should always have a label. To get a label use the <code>label</code> attribute.</p>
     <p>It is recommended to use a pattern. For that, use <code>&lt;f:convertDateTime&gt;</code>.</p>

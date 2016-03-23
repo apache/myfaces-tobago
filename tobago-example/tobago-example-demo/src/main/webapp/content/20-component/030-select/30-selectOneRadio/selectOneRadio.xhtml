@@ -26,8 +26,8 @@
     Static entries are added with <code class="language-markup">&lt;tc:selectItem/></code> tag.
     A list from a controller is added with
     <code class="language-markup">&lt;tc:selectItems value="\#{controller.list}"/></code>.</p>
-  <tc:link label="Generated Documentation"
-           link="https://myfaces.apache.org/tobago/doc/2.0.9/tld/tc/selectOneRadio.html"/>
+  <tc:link label="Tag Library Documentation" image="image/feather-leaf.png"
+           link="#{overviewBundle.tagDocUrl}/selectOneRadio.html"/>
 
   <tc:section label="Basics">
     <p>Radiobutton group with a label. The last item is disabled.
@@ -54,12 +54,11 @@
 
   <tc:section label="Simple Usage">
     <p>Add number1 to number2 or subtract number2 from number1.</p>
-    <pre><code class="language-markup">&lt;tc:selectOneRadio label="Number 1" labelLayout="top"
-  value="\#{selectOneRadioController.numberOne}">
-  &lt;tc:selectItem itemLabel="1" itemValue="1"/>
-  &lt;tc:selectItem itemLabel="2" itemValue="2"/>
-  &lt;tc:selectItem itemLabel="4" itemValue="4"/>
-&lt;/tc:selectOneRadio></code></pre>
+    <p>The radiobuttons are hardcoded with
+      <code class="language-markup">&lt;tc:selectItem itemLabel="1" itemValue="1"/></code>.
+      The buttons trigger an action in the controller:
+      <code class="language-markup">&lt;tc:button label="Addition" action="\#{selectOneRadioController.add}"/></code>
+    </p>
     <tc:segmentLayout large="6;6">
       <tc:selectOneRadio id="s4" label="Number 1" labelLayout="top" value="#{selectOneRadioController.numberOne}">
         <tc:selectItem itemLabel="1" itemValue="1"/>
@@ -81,14 +80,12 @@
 
   <tc:section label="Ajax">
     <p>Select a planet on the left. One the right side, you can select one of the moons.</p>
-    <pre><code class="language-markup">&lt;tc:selectOneRadio label="Planet" labelLayout="top"
-  value="\#{selectOneRadioController.planet}">
-  &lt;f:selectItems value="\#{selectOneRadioController.planets}"/>
-  &lt;f:ajax render="moonradio"/>
-&lt;/tc:selectOneRadio>
-&lt;tc:selectOneRadio id="moonradio" label="Moon" labelLayout="top">
-  &lt;f:selectItems value="\#{selectOneRadioController.moons}"/>
-&lt;/tc:selectOneRadio></code></pre>
+    <p>The planets are added with
+      <code class="language-markup">&lt;f:selectItems value="\#{selectOneRadioController.planets}"/></code>.
+      The radiogroup of the planets also contain a
+      <code class="language-markup">&lt;f:ajax render="moonradio"></code> element,
+      which allows to rerender the radiogroup with the ID 'moonradio' every time, the value changed in the
+      planet-radiogroup.</p>
     <tc:segmentLayout large="6;6">
       <tc:selectOneRadio id="s6" label="Planet" labelLayout="top" value="#{selectOneRadioController.planet}">
         <f:selectItems value="#{selectOneRadioController.planets}"/>

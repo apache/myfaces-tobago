@@ -23,45 +23,64 @@
                 xmlns:f="http://java.sun.com/jsf/core">
   <ui:param name="title" value="#{overviewBundle.selectOneListbox} &lt;tc:selectOneListbox>"/>
   <p>The <code class="language-markup">&lt;tc:selectOneListbox/></code> create a list of entries, where only one
-  entry can be selected.</p>
-  <tc:link label="Generated Documentation"
-           link="https://myfaces.apache.org/tobago/doc/2.0.9/tld/tc/selectOneListbox.html"/>
+    entry can be selected.</p>
+  <tc:link label="Tag Library Documentation" image="image/feather-leaf.png"
+           link="#{overviewBundle.tagDocUrl}/selectOneListbox.html"/>
 
   <tc:section label="Basics">
+    <p>If the number of rows is not set, die height of the list depends on the number of entries.
+      The number of rows can be set by the <code>size</code> attribute. A list has always two rows, therefor values
+      less than two have no effect.</p>
+    <pre><code class="language-markup">&lt;tc:selectOneListbox label="List" size="2">
+  &lt;tc:selectItem itemLabel="Alpha"/>
+  ...
+&lt;/tc:selectOneListbox></code></pre>
     <tc:selectOneListbox id="s1" label="List" size="2">
       <tc:selectItem itemLabel="Alpha"/>
       <tc:selectItem itemLabel="Beta"/>
+      <tc:selectItem itemLabel="Gamma"/>
+      <tc:selectItem itemLabel="Delta"/>
     </tc:selectOneListbox>
     <tc:selectOneListbox id="s2" label="Read Only" readonly="true" size="2">
       <tc:selectItem itemLabel="Alpha"/>
       <tc:selectItem itemLabel="Beta"/>
+      <tc:selectItem itemLabel="Gamma"/>
+      <tc:selectItem itemLabel="Delta"/>
     </tc:selectOneListbox>
     <tc:selectOneListbox id="s3" label="Disabled" disabled="true" size="2">
       <tc:selectItem itemLabel="Alpha"/>
       <tc:selectItem itemLabel="Beta"/>
+      <tc:selectItem itemLabel="Gamma"/>
+      <tc:selectItem itemLabel="Delta"/>
     </tc:selectOneListbox>
   </tc:section>
 
   <tc:section label="Simple Usage">
+    <p>Select a river in the list. After pressing the submit-button, the length of the river is shown in the
+      outputfield.</p>
+    <p>Items are added with
+      <code class="language-markup">&lt;tc:selectItem itemLabel="Nile" itemValue="6853 km"/></code>.</p>
     <tc:selectOneListbox id="s4" label="River" value="#{selectOneListboxController.river}">
-      <tc:selectItem itemLabel="Nile" itemValue="Nile (6853 km)"/>
-      <tc:selectItem itemLabel="Amazon" itemValue="Amazon (6437 km)"/>
-      <tc:selectItem itemLabel="Yangtze" itemValue="Yangtze (6300 km)"/>
-      <tc:selectItem itemLabel="Yellow River" itemValue="Yellow River (5464 km)"/>
-      <tc:selectItem itemLabel="Paraná River" itemValue="Paraná River (4880 km)"/>
+      <tc:selectItem itemLabel="Nile" itemValue="6853 km"/>
+      <tc:selectItem itemLabel="Amazon" itemValue="6437 km"/>
+      <tc:selectItem itemLabel="Yangtze" itemValue="6300 km"/>
+      <tc:selectItem itemLabel="Yellow River" itemValue="5464 km"/>
+      <tc:selectItem itemLabel="Paraná River" itemValue="4880 km"/>
     </tc:selectOneListbox>
-    <tc:out id="o1" label="River" value="#{selectOneListboxController.river}"/>
+    <tc:out id="o1" label="Length" value="#{selectOneListboxController.river}"/>
     <tc:button id="b1" label="Submit"/>
   </tc:section>
 
   <tc:section label="Ajax">
-    <tc:selectOneListbox id="s5" label="Mountains" value="#{selectOneListboxController.mountain}" >
+    <p>Select a mountain in the list. The height will be displayed by
+      <code class="language-markup">&lt;tc:out id="selectedMountain" .../></code>. The
+      <code class="language-markup">&lt;tc:selectOneListbox/></code> contain a
+      <code class="language-markup">&lt;f:ajax render="selectedMountain"/></code>, which rerender the outputfield.</p>
+    <tc:selectOneListbox id="s5" label="Mountains" value="#{selectOneListboxController.mountain}">
       <tc:selectItems value="#{selectOneListboxController.mountains}" var="mountain"
-                      itemLabel="#{mountain.label}" itemValue="#{mountain.value}" />
+                      itemLabel="#{mountain.label}" itemValue="#{mountain.value}"/>
       <f:ajax render="selectedMountain"/>
     </tc:selectOneListbox>
     <tc:out id="selectedMountain" label="Height" value="#{selectOneListboxController.mountain}"/>
-
   </tc:section>
-
 </ui:composition>
