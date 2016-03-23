@@ -19,6 +19,8 @@
 
 package org.apache.myfaces.tobago.example.demo;
 
+import org.apache.myfaces.tobago.example.data.SolarObject;
+
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 import java.io.Serializable;
@@ -30,44 +32,29 @@ import java.util.List;
 @Named
 public class SelectManyShuttleController implements Serializable {
 
-  private List<Planet> planets = new ArrayList<Planet>();
-  private String[] selectedPlanets = new String[0];
+  private List<SolarObject> planets = new ArrayList<SolarObject>();
+  private SolarObject[] selectedPlanets = new SolarObject[0];
   private List<String> stars = Arrays.asList("Proxima Centauri", "Alpha Centauri", "Wolf 359", "Sirius");
   private String[] selectedStars = new String[0];
 
   public SelectManyShuttleController() {
-    planets.add(new Planet("Mercury", 0.387));
-    planets.add(new Planet("Venus", 0.723));
-    planets.add(new Planet("Earth", 1));
-    planets.add(new Planet("Mars", 1.524));
-    planets.add(new Planet("Jupiter", 5.203));
-    planets.add(new Planet("Saturn", 9.537));
-    planets.add(new Planet("Uranus", 19.191));
-    planets.add(new Planet("Neptun", 30.069));
+    planets = SolarObject.getSatellites("Sun");
   }
 
-  public List<Planet> getPlanets() {
+  public List<SolarObject> getPlanets() {
     return planets;
   }
 
-  public String[] getSelectedPlanets() {
+  public SolarObject[] getSelectedPlanets() {
     return selectedPlanets;
   }
 
-  public void setSelectedPlanets(String[] selectedPlanets) {
+  public void setSelectedPlanets(SolarObject[] selectedPlanets) {
     this.selectedPlanets = selectedPlanets;
   }
 
   public String getSelectedPlanetsAsString() {
-    String retValue = "";
-    for (String selectedPlanet : selectedPlanets) {
-      for (Planet planet : planets) {
-        if (planet.getId().equals(selectedPlanet)) {
-          retValue = retValue.concat(planet.getName() + " (" + planet.getAu() + " AU); ");
-        }
-      }
-    }
-    return retValue;
+    return Arrays.toString(selectedPlanets);
   }
 
   public List<String> getStars() {
@@ -84,29 +71,5 @@ public class SelectManyShuttleController implements Serializable {
 
   public String getSelectedStarsAsString() {
     return Arrays.toString(selectedStars);
-  }
-
-  public class Planet {
-    private String id;
-    private String name;
-    private double au;
-
-    public Planet(String name, double au) {
-      id = name + au;
-      this.name = name;
-      this.au = au;
-    }
-
-    public String getId() {
-      return id;
-    }
-
-    public String getName() {
-      return name;
-    }
-
-    private double getAu() {
-      return au;
-    }
   }
 }

@@ -93,7 +93,7 @@
                           unselectedLabel="Left List" selectedLabel="Right List"
                           value="#{selectManyShuttleController.selectedPlanets}">
       <tc:selectItems value="#{selectManyShuttleController.planets}"
-                      var="planet" itemLabel="#{planet.name}" itemValue="#{planet.id}"/>
+                      var="planet" itemLabel="#{planet.name}" itemValue="#{planet}"/>
     </tc:selectManyShuttle>
     <tc:out id="o1" label="Selected Planets" value="#{selectManyShuttleController.selectedPlanetsAsString}"/>
     <tc:button label="Submit"/>

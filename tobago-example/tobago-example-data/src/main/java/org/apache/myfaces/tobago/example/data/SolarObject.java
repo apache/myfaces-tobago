@@ -166,6 +166,10 @@ public class SolarObject {
     this.chemicalComposition = chemicalComposition;
   }
 
+  public String toString() {
+    return name;
+  }
+
   public boolean isSelectionDisabled() {
     return number.equals("II");
   }
@@ -207,6 +211,17 @@ public class SolarObject {
     }
     return collect;
   }
+
+  // TODO: optimize
+  public static SolarObject find(String name) {
+    for (SolarObject solarObject : DATA) {
+      if (solarObject.getName().equals(name)) {
+        return solarObject;
+      }
+    }
+    return null;
+  }
+
 
   public static final SolarObject SUN = new SolarObject("Sun", "-", "-", 0, 0.0, 0.0, 0.0, "-", null);
   public static final SolarObject EARTH =new SolarObject("Earth", "III", "Sun", 149600, 365.26, 0.00, 0.02, "-", null);
