@@ -291,11 +291,11 @@ public abstract class TobagoResponseWriter extends ResponseWriter {
 
   @Override
   public void startCDATA() throws IOException {
-    write ("<![CDATA[");
+    write("<![CDATA[");
   }
 
   @Override
   public void endCDATA() throws IOException {
-    write ("]]>");
+    write("]]>");
   }
 }
