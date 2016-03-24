@@ -288,4 +288,14 @@ public abstract class TobagoResponseWriter extends ResponseWriter {
 
     return contentType + "; charset=" + characterEncoding;
   }
+
+  @Override
+  public void startCDATA() throws IOException {
+    write ("<![CDATA[");
+  }
+
+  @Override
+  public void endCDATA() throws IOException {
+    write ("]]>");
+  }
 }
