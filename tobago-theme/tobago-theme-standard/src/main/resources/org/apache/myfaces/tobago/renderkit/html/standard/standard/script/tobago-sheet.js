@@ -167,7 +167,7 @@ Tobago.Sheet.setup2 = function (sheets) {
       // begin resizing
 //      console.log("begin");
 //      console.log(event);
-      console.info("down");
+      console.info("down"); // @DEV_ONLY
       var columnIndex = jQuery(this).data("tobago-column-index");
       var body = jQuery("body");
       var column = jQuery(this).closest("table").children("colgroup").children("col").eq(columnIndex);
@@ -181,7 +181,7 @@ Tobago.Sheet.setup2 = function (sheets) {
         originalFillerWidth: parseInt(filler.attr("width"))
       };
       body.on("mousemove", data, function(event) {
-        console.info("move");
+        console.info("move"); // @DEV_ONLY
         var delta = event.clientX - event.data.originalClientX;
 //        console.log("columnResize(): " + event.data.columnIndex + ", delta: " + delta);
         delta = - Math.min(-delta, event.data.originalColumnWidth - 10);
@@ -200,7 +200,7 @@ Tobago.Sheet.setup2 = function (sheets) {
       body.one("mouseup", {sheet: jQuery(this).closest(".tobago-sheet")}, function (event) {
         // switch off the mouse move listener
         jQuery("body").off("mousemove");
-        console.info("up");
+        console.info("up"); // @DEV_ONLY
         // copy the width values from the header to the body, (and build a list of it)
         var sheet = event.data.sheet;
         var headerTable = sheet.find(".tobago-sheet-headerTable");
