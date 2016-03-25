@@ -18,95 +18,65 @@
 -->
 
 <ui:composition template="/main.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:f="http://java.sun.com/jsf/core">
-  <ui:param name="title" value="Popups"/>
-
-  <tc:panel>
-    <f:facet name="layout">
-      <tc:gridLayout rows="auto;auto;auto;auto;auto;auto;auto;*"/>
-    </f:facet>
-    <f:facet name="menuBar">
-      <tc:menuBar>
-        <tc:menu label="Menu">
-          <tc:menuCommand label="Open Popup">
-            <tc:popupReference for=":page:popup"/>
-          </tc:menuCommand>
-        </tc:menu>
-      </tc:menuBar>
-    </f:facet>
-
-    <tc:panel>
-      <tc:label value="Full Reload"/>
-
-      <tc:button label="Open">
+  <ui:param name="title" value="#{overviewBundle.popup} &lt;tc:popup>"/>
+  <p>A popup dialog is created with <code class="language-markup">&lt;tc:popup/></code>.
+    It can be filled with components like other container.</p>
+  <tc:link label="Tag Library Documentation" image="image/feather-leaf.png"
+           link="#{overviewBundle.tagDocUrl}/popup.html"/>
+  <tc:section label="Basics">
+    <p>There are basically two ways to open a popup dialog.
+      First, put the <code class="language-markup">&lt;tc:popup/></code> tag within an opening component,
+      like a button or a link. The second one is to use the
+      <code class="language-markup">&lt;tc:popupReference/></code> tag.</p>
+    <tc:section label="Popup within button">
+      <p>In this example, the popup should be within a button. To make this happen, the facet-tag is also needed.
+        In detail:<br/>
+        The <code class="language-markup">&lt;tc:button label="Open Popup 1"></code> contain
+        <code class="language-markup">&lt;f:facet name="popup"></code>, which contain
+        <code class="language-markup">&lt;tc:popup id="popup1"></code>.</p>
+      <tc:button id="b1" label="Open Popup 1">
         <f:facet name="popup">
-          <tc:popup id="modal_popup">
-            <tc:segmentLayout large="12">
-
-            <tc:box label="Modal text input" id="modal_box">
-              <f:facet name="layout">
-                <tc:gridLayout rows="auto;auto;auto;auto;*;auto" columns="auto"/>
-              </f:facet>
-              <f:facet name="menuBar">
-                <tc:menuBar>
-                  <tc:menu label="Menu">
-                    <tc:menuCommand label="Say okay" omit="true">
-                      <tc:dataAttribute name="alert-text" value="Okay!"/>
-                    </tc:menuCommand>
-                  </tc:menu>
-                </tc:menuBar>
-              </f:facet>
-
-              <tc:selectOneChoice label="Select some">
-                <f:selectItem itemLabel="A" itemValue="a"/>
-                <f:selectItem itemLabel="B" itemValue="b"/>
-              </tc:selectOneChoice>
-              <tc:selectBooleanCheckbox value="#{reference.bool}" label="Check" />
-              <tc:in label="In" value="#{reference.text}" required="true"/>
-              <tc:date label="Date">
-                <f:convertDateTime pattern="dd/MM/yyyy"/>
-              </tc:date>
-              <tc:image value="image/feather-leaf.png" width="16px" height="16px"/>
-              <tc:panel/>
-              <tc:flowLayout>
-                <tc:style textAlign="right"/>
-                <tc:button label="Cancel">
-                  <tc:attribute name="popupClose" value="immediate"/>
-                </tc:button>
-                <tc:button label="Redisplay" renderedPartially="modal_box"/>
-                <tc:button label="Ok">
-                  <tc:attribute name="popupClose" value="afterSubmit"/>
-                </tc:button>
-              </tc:flowLayout>
-
-            </tc:box>
-            </tc:segmentLayout>
+          <tc:popup id="popup1">
+            <p>This is a popup dialog.</p>
           </tc:popup>
         </f:facet>
       </tc:button>
+    </tc:section>
+    <tc:section label="Reference to popup">
+      <p>The link tag contain a <code class="language-markup">&lt;tc:popupReference for="popup1"/></code>.
+        The value of the <code>for</code> attribute has to be the ID of a popup dialog.</p>
+      <tc:link id="l1" label="Open Popup 1">
+        <tc:popupReference for="popup1"/>
+      </tc:link>
+    </tc:section>
+  </tc:section>
 
-    </tc:panel>
-
-    <tc:panel>
-      <tc:label value="Partial Reload"/>
-
-      <tc:button label="Open" renderedPartially="modal_popup">
-        <tc:popupReference for="modal_popup"/>
-      </tc:button>
-
-    </tc:panel>
-
-    <tc:in readonly="true" label="The Boolean" value="#{reference.bool}"/>
-
-    <tc:in readonly="true" label="The Text" value="#{reference.text}"/>
-
-    <tc:in required="true" label="Required"/>
-
-    <tc:selectOneChoice label="Select"/>
-
-    <tc:panel/>
-
-  </tc:panel>
+  <tc:section label="Close Popup">
+    <p>A popup can be closed with or without submitting the entered values.</p>
+    <p>To create a 'OK'-button, insert
+      <code class="language-markup">&lt;tc:attribute name="popupClose" value="afterSubmit"/></code>
+      into the button tag.</p>
+    <p>To create a 'Cancel'-button, insert
+      <code class="language-markup">&lt;tc:attribute name="popupClose" value="immediate"/></code>
+      into the button tag.</p>
+    <tc:popup id="popup2">
+      <tc:box label="Popup 2">
+        <tc:in id="i1" label="Textfield" value="#{popupController.text}"/>
+        <tc:button label="OK">
+          <tc:attribute name="popupClose" value="afterSubmit"/>
+        </tc:button>
+        <tc:button label="Cancel">
+          <tc:attribute name="popupClose" value="immediate"/>
+        </tc:button>
+      </tc:box>
+    </tc:popup>
+    <tc:button id="b2" label="Open Popup 2">
+      <tc:popupReference for="popup2"/>
+    </tc:button>
+    <tc:out id="o2" label="Text from Popup" value="#{popupController.text}"/>
+  </tc:section>
 </ui:composition>

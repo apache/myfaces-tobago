@@ -19,18 +19,22 @@
 
 package org.apache.myfaces.tobago.example.demo;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
+import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 import java.io.Serializable;
 
+@SessionScoped
 @Named
-public class ButtonLinkController implements Serializable {
-  private static final Logger LOG = LoggerFactory.getLogger(Command.class);
+public class PopupController implements Serializable {
 
-  public String linkToComponentsRoot() {
-    LOG.info("link to components root");
-    return "/content/20-component/component.xhtml";
+  private String text;
+
+  public String getText() {
+    return text;
+  }
+
+  public void setText(String text) {
+    this.text = text;
   }
 }

@@ -21,11 +21,11 @@ package org.apache.myfaces.tobago.example.demo;
 
 import org.apache.myfaces.tobago.model.SelectItem;
 
-import javax.enterprise.context.SessionScoped;
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 import java.io.Serializable;
 
-@SessionScoped
+@RequestScoped
 @Named
 public class SelectOneListboxController implements Serializable {
 

@@ -19,13 +19,13 @@
 
 package org.apache.myfaces.tobago.example.demo;
 
-import javax.enterprise.context.SessionScoped;
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-@SessionScoped
+@RequestScoped
 @Named
 public class SelectManyCheckboxController implements Serializable {
 

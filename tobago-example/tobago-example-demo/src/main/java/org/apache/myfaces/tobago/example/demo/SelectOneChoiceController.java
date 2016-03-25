@@ -19,11 +19,11 @@
 
 package org.apache.myfaces.tobago.example.demo;
 
-import javax.enterprise.context.SessionScoped;
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 import java.io.Serializable;
 
-@SessionScoped
+@RequestScoped
 @Named
 public class SelectOneChoiceController extends PlanetExample implements Serializable {
 

@@ -16,6 +16,7 @@
 -->
 
 <ui:composition template="/main.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:f="http://java.sun.com/jsf/core">
@@ -35,7 +36,7 @@
       |
       <tc:link id="l2" label="Disabled" disabled="true" link="https://www.apache.org/"/>
       |
-      <tc:link id="l3" label="Resource" resource="content/20-component/component.xhtml"/>
+      <tc:link id="l3" label="Resource" resource="faces/content/20-component/component.xhtml"/>
       |
       <tc:link id="l4" label="Action" action="#{buttonLinkController.linkToComponentsRoot}"/>
       |
@@ -46,7 +47,7 @@
       <pre><code class="language-markup">&lt;tc:button label="apache.org" link="https://www.apache.org/"/></code></pre>
       <tc:button id="b1" label="apache.org" link="https://www.apache.org/"/>
       <tc:button id="b2" label="Disabled" disabled="true" link="https://www.apache.org/"/>
-      <tc:button id="b3" label="Resource" resource="content/20-component/component.xhtml"/>
+      <tc:button id="b3" label="Resource" resource="faces/content/20-component/component.xhtml"/>
       <tc:button id="b4" label="Action" action="#{buttonLinkController.linkToComponentsRoot}"/>
       <tc:button id="b5" image="image/feather-leaf.png" link="https://www.apache.org/"/>
     </tc:section>

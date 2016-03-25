@@ -22,12 +22,12 @@ package org.apache.myfaces.tobago.example.demo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.enterprise.context.SessionScoped;
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.util.Date;
 
-@SessionScoped
+@RequestScoped
 @Named
 public class DateController implements Serializable {
 
@@ -38,7 +38,7 @@ public class DateController implements Serializable {
   private Date onchange;
 
   public DateController() {
-      once = new Date();
+    once = new Date();
   }
 
   public Date getOnce() {
