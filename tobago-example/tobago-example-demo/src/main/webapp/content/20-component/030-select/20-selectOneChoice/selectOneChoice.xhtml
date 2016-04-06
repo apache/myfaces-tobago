@@ -28,8 +28,15 @@
   <code class="language-markup">&lt;tc:selectItem/></code> for static entries or<br/>
     <code class="language-markup">&lt;tc:selectItems value="\#{controller.list}"/></code> for entries from
     a controller.</p>
-  <tc:link label="Tag Library Documentation" image="image/feather-leaf.png"
-           link="#{overviewBundle.tagDocUrl}/selectOneChoice.html"/>
+  <p>Tag Library Documentation:
+    <tc:link label="&lt;tc:selectOneChoice/>" image="image/feather-leaf.png"
+             link="#{overviewBundle.tagDocUrl}/selectOneChoice.html"/>
+    |
+    <tc:link label="&lt;tc:selectItem/>" image="image/feather-leaf.png"
+             link="#{overviewBundle.tagDocUrl}/selectItem.html"/>
+    |
+    <tc:link label="&lt;tc:selectItems/>" image="image/feather-leaf.png"
+             link="#{overviewBundle.tagDocUrl}/selectItems.html"/></p>
 
   <tc:section label="Basics">
     <p>Dropdown Box with hardcoded items. The second item is disabled.
@@ -66,7 +73,8 @@
     <p>Select a planet and a moon. The list of moons depends on the selected planet.
       The planet-dropdownbox contain a <code class="language-markup">&lt;f:ajax render="moonbox"/></code>.
       With it, the moon-dropdownbox will be rerendered, after a value changed in planet-dropdownbox.</p>
-    <pre><code class="language-markup">&lt;tc:selectOneChoice label="Planet" value="\#{selectOneChoiceController.planet}">
+    <pre><code class="language-markup">&lt;tc:selectOneChoice label="Planet"
+      value="\#{selectOneChoiceController.planet}">
   &lt;f:selectItems value="\#{selectOneChoiceController.planets}"/>
   &lt;f:ajax render="moonbox"/>
 &lt;/tc:selectOneChoice>

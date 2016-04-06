@@ -24,9 +24,17 @@
                 xmlns:f="http://java.sun.com/jsf/core">
   <ui:param name="title" value="#{overviewBundle.selectOneListbox} &lt;tc:selectOneListbox>"/>
   <p>The <code class="language-markup">&lt;tc:selectOneListbox/></code> create a list of entries, where only one
-    entry can be selected.</p>
-  <tc:link label="Tag Library Documentation" image="image/feather-leaf.png"
-           link="#{overviewBundle.tagDocUrl}/selectOneListbox.html"/>
+    entry can be selected. Items can be added with <code class="language-markup">&lt;tc:selectItem/></code>
+    or <code class="language-markup">&lt;tc:selectItems/></code>.</p>
+  <p>Tag Library Documentation:
+    <tc:link label="&lt;tc:selectOneListbox/>" image="image/feather-leaf.png"
+             link="#{overviewBundle.tagDocUrl}/selectOneListbox.html"/>
+    |
+    <tc:link label="&lt;tc:selectItem/>" image="image/feather-leaf.png"
+             link="#{overviewBundle.tagDocUrl}/selectItem.html"/>
+    |
+    <tc:link label="&lt;tc:selectItems/>" image="image/feather-leaf.png"
+             link="#{overviewBundle.tagDocUrl}/selectItems.html"/></p>
 
   <tc:section label="Basics">
     <p>If the number of rows is not set, die height of the list depends on the number of entries.

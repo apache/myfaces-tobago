@@ -26,13 +26,19 @@
   <p>The <code class="language-markup">&lt;tc:date/&gt;</code>
     tag create an inputfield with a button to open a calendar to edit the date.
     The date can also be edited in the textfield.</p>
-  <tc:link label="Tag Library Documentation" image="image/feather-leaf.png" link="#{overviewBundle.tagDocUrl}/date.html"/>
+  <p>Tag Library Documentation:
+    <tc:link label="&lt;tc:date/>" image="image/feather-leaf.png" link="#{overviewBundle.tagDocUrl}/date.html"/>
+    |
+    <tc:link label="&lt;f:convertDateTime/>"
+             link="https://docs.oracle.com/javaee/6/javaserverfaces/2.0/docs/pdldocs/facelets/f/convertDateTime.html"/>
+  </p>
+
   <tc:section label="Basics">
     <p>In general, a date should always have a label. To get a label use the <code>label</code> attribute.</p>
     <p>It is recommended to use a pattern. For that, use <code>&lt;f:convertDateTime&gt;</code>.</p>
-    <p>The
-      <code>value</code> must be a Date(link to https://docs.oracle.com/javase/8/docs/api/java/util/Date.html) or a string with a matching pattern.
-    </p>
+    <p>The <code>value</code> must be a
+      <tc:link label="Date" link="https://docs.oracle.com/javase/8/docs/api/java/util/Date.html"/>
+      or a string with a matching pattern.</p>
         <pre><code class="language-markup">&lt;tc:date label="Date" value="18.03.2016"&gt;
   &lt;f:convertDateTime pattern="dd.MM.yyyy"/&gt;
 &lt;/tc:date&gt;</code></pre>

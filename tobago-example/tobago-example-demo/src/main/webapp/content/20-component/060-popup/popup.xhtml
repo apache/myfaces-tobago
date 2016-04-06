@@ -25,8 +25,19 @@
   <ui:param name="title" value="#{overviewBundle.popup} &lt;tc:popup>"/>
   <p>A popup dialog is created with <code class="language-markup">&lt;tc:popup/></code>.
     It can be filled with components like other container.</p>
-  <tc:link label="Tag Library Documentation" image="image/feather-leaf.png"
-           link="#{overviewBundle.tagDocUrl}/popup.html"/>
+  <p>Tag Library Documentation:
+    <tc:link label="&lt;tc:popup/>" image="image/feather-leaf.png"
+             link="#{overviewBundle.tagDocUrl}/popup.html"/>
+    |
+    <tc:link label="&lt;f:facet/>"
+             link="https://docs.oracle.com/javaee/6/javaserverfaces/2.0/docs/pdldocs/facelets/f/facet.html"/>
+    |
+    <tc:link label="&lt;tc:popupReference/>" image="image/feather-leaf.png"
+             link="#{overviewBundle.tagDocUrl}/popupReference.html"/>
+    |
+    <tc:link label="&lt;tc:attribute/>" image="image/feather-leaf.png"
+             link="#{overviewBundle.tagDocUrl}/attribute.html"/></p>
+
   <tc:section label="Basics">
     <p>There are basically two ways to open a popup dialog.
       First, put the <code class="language-markup">&lt;tc:popup/></code> tag within an opening component,

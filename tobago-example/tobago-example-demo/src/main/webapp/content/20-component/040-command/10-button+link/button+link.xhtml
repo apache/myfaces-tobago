@@ -23,11 +23,10 @@
   <ui:param name="title" value="#{overviewBundle.button_link} &lt;tc:button> &lt;tc:link>"/>
   <p>The classic link can be set with the <code class="language-markup">&lt;tc:link/></code> tag.
     You can also set a link by <code class="language-markup">&lt;tc:button/></code>.</p>
-  <tc:link label="Tag Library Documentation for &lt;tc:link/>" image="image/feather-leaf.png"
-           link="#{overviewBundle.tagDocUrl}/link.html"/>
-  |
-  <tc:link label="Tag Library Documentation for &lt;tc:button/>" image="image/feather-leaf.png"
-           link="#{overviewBundle.tagDocUrl}/button.html"/>
+  <p>Tag Library Documentation:
+    <tc:link label="&lt;tc:link/>" image="image/feather-leaf.png" link="#{overviewBundle.tagDocUrl}/link.html"/>
+    |
+    <tc:link label="&lt;tc:button/>" image="image/feather-leaf.png" link="#{overviewBundle.tagDocUrl}/button.html"/></p>
 
   <tc:section label="Basics">
     <tc:section label="&lt;tc:link>">
@@ -91,7 +90,8 @@
       For example a new window/tab or a specific iframe (<code class="language-markup">&lt;tc:object/></code>).</p>
     <tc:section label="New Window">
       <pre><code
-              class="language-markup">&lt;tc:link label="open link in new window" link="https://www.apache.org/" target="_blank"/></code></pre>
+              class="language-markup">&lt;tc:link label="open link in new window"
+        link="https://www.apache.org/" target="_blank"/></code></pre>
       <p><tc:link label="open link in new window" link="https://www.apache.org/" target="_blank"/></p>
     </tc:section>
     <tc:section label="IFrame">

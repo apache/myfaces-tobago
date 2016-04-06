@@ -23,12 +23,20 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:f="http://java.sun.com/jsf/core">
   <ui:param name="title" value="#{overviewBundle.selectManyListbox} &lt;tc:selectManyListbox>"/>
-<p>The <code class="language-markup">&lt;tc:selectManyListbox/></code> create a list,
-  where more than one entry could be selected. Entries are added with
-  <code class="language-markup"><tc:selectItem/></code> (static) or
-  <code class="language-markup"><tc:selectItems value="\#{controller.list}"/></code> (from controller).</p>
-  <tc:link label="Tag Library Documentation" image="image/feather-leaf.png"
-           link="#{overviewBundle.tagDocUrl}/selectManyListbox.html"/>
+  <p>The <code class="language-markup">&lt;tc:selectManyListbox/></code> create a list,
+    where more than one entry could be selected. Entries are added with
+    <code class="language-markup">&lt;tc:selectItem/></code> (static) or
+    <code class="language-markup">&lt;tc:selectItems value="\#{controller.list}"/></code> (from controller).</p>
+  <p>Tag Library Documentation:
+    <tc:link label="&lt;tc:selectManyListbox/>" image="image/feather-leaf.png"
+             link="#{overviewBundle.tagDocUrl}/selectManyListbox.html"/>
+    |
+    <tc:link label="&lt;tc:selectItem/>" image="image/feather-leaf.png"
+             link="#{overviewBundle.tagDocUrl}/selectItem.html"/>
+    |
+    <tc:link label="&lt;tc:selectItems/>" image="image/feather-leaf.png"
+             link="#{overviewBundle.tagDocUrl}/selectItems.html"/></p>
+
   <tc:section label="Basics">
     <p>In this example, there is a list with three items. The second one is disabled with the
       <code>itemDisabled</code> attribute of the <code class="language-markup"><tc:selectItem/></code> tag.</p>

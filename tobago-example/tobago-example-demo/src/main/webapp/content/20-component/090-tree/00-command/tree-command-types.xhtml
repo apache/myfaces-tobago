@@ -18,21 +18,37 @@
 -->
 
 <ui:composition template="/main.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
                 xmlns:ui="http://java.sun.com/jsf/facelets">
-  <ui:param name="title" value="Tree - Different Command Types"/>
+  <ui:param name="title" value="#{overviewBundle.tree_command_types} &lt;tc:treeCommand>"/>
+  <p>The <code class="language-markup">&lt;tc:treeCommand/></code> tag can be added to a
+    <code class="language-markup">&lt;tc:treeNode/></code> instead of a
+    <code class="language-markup">&lt;treeLabel/></code> tag.
+    It's like a <code class="language-markup">&lt;tc:link/></code> and can used to run a action or
+    link to a resource or external website.</p>
+  <p><tc:link label="Tag Library Documentation" image="image/feather-leaf.png"
+              link="#{overviewBundle.tagDocUrl}/treeCommand.html"/></p>
 
-  <tc:treeMenu value="#{treeController.mixed}" var="node" id="data">
-    <tc:treeNode id="template">
-      <!-- todo: remove onclick -->
-      <!-- todo: remove mixing action and link -->
-      <tc:treeCommand label="#{node.name}" rendered="#{node.childCount == 0}"
-                      action="#{node.action}"
-                      actionListener="#{node.actionListener}"
-                      link="#{node.url}"
-                      onclick="#{node.script}"/>
-      <tc:treeLabel value="#{node.name}" rendered="#{node.childCount > 0}"/>
-    </tc:treeNode>
-  </tc:treeMenu>
+  <tc:section label="Example">
+    <p>In this example, the nodes with children are displayed as
+      <code class="language-markup">&lt;tc:treeLabel/></code>. The leafs are
+      <code class="language-markup">&lt;tc:treeCommand/></code>.
+      Like the parent nodes suggest,
+      the entries in 'Actions' run an action with the <code>action</code> attribute.
+      The entries in 'Resources' link to an internal page via <code>resource</code> attribute.
+      And the entries in 'Links' are links to an external website using the <code>link</code> attribute.</p>
+    <tc:tree value="#{treeCommandTypesController.sample}" var="node">
+      <tc:treeNode>
+        <tc:treeIndent showJunctions="false"/>
+        <tc:treeLabel value="#{node.name}" rendered="#{node.childCount > 0}"/>
+        <tc:treeCommand label="#{node.name}" rendered="#{node.childCount == 0}"
+                        action="#{treeCommandTypesController.increaseActionCount(node.action)}"
+                        resource="#{node.resource}" link="#{node.url}"/>
+      </tc:treeNode>
+    </tc:tree>
 
+    <tc:out label="Action 1 Count" value="#{treeCommandTypesController.actionOneCount}"/>
+    <tc:out label="Action 2 Count" value="#{treeCommandTypesController.actionTwoCount}"/>
+  </tc:section>
 </ui:composition>

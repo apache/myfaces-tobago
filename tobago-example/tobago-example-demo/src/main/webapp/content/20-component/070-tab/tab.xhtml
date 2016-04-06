@@ -18,16 +18,49 @@
 -->
 
 <ui:composition template="/main.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
-                xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:f="http://java.sun.com/jsf/core">
+                xmlns:ui="http://java.sun.com/jsf/facelets">
   <ui:param name="title" value="#{overviewBundle.tab}"/>
-  <tc:panel>
-    <f:facet name="layout">
-      <tc:gridLayout rows="1*;4*"/>
-    </f:facet>
+  <p>A <code class="language-markup">&lt;tc:tabGroup/></code> can contain several
+    <code class="language-markup">&lt;tc:tab/></code> tags.
+    Switching between tabs can be done on the client or by server request.
+    For server requests there are two ways. Reload the whole page and reload only the tab (Ajax).
+    To set the switching type, use the <code>switchType</code> attribute. By default it's client sided.</p>
 
-    <tc:out escape="false" value="#{overviewBundle.tab_text}"/>
+  <tc:section label="#{overviewBundle.tab_client}">
+    <pre><code class="language-markup">&lt;tc:tabGroup></code></pre>
+    <tc:tabGroup>
+      <tc:tab label="Tab One">
+        <p>Content of tab one.</p>
+      </tc:tab>
+      <tc:tab label="Tab Two">
+        <p>Content of tab two.</p>
+      </tc:tab>
+    </tc:tabGroup>
+  </tc:section>
 
-  </tc:panel>
+  <tc:section label="#{overviewBundle.tab_ajax}">
+    <pre><code class="language-markup">&lt;tabGroup switchType="reloadTab"></code></pre>
+    <tc:tabGroup switchType="reloadTab">
+      <tc:tab label="Tab One">
+        <p>Content of tab one.</p>
+      </tc:tab>
+      <tc:tab label="Tab Two">
+        <p>Content of tab two.</p>
+      </tc:tab>
+    </tc:tabGroup>
+  </tc:section>
+
+  <tc:section label="#{overviewBundle.tab_server}">
+    <pre><code class="language-markup">&lt;tabGroup switchType="reloadPage"></code></pre>
+    <tc:tabGroup switchType="reloadPage">
+      <tc:tab label="Tab One">
+        <p>Content of tab one.</p>
+      </tc:tab>
+      <tc:tab label="Tab Two">
+        <p>Content of tab two.</p>
+      </tc:tab>
+    </tc:tabGroup>
+  </tc:section>
 </ui:composition>

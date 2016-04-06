@@ -23,6 +23,10 @@
   border: 1px solid #cccccc;
 }
 
+.blue {
+  background-color: #2aabff;
+}
+
 /* todo: should be switchable
 .comment {
   display: none;

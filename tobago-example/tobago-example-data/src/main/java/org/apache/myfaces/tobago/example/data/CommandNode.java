@@ -17,39 +17,41 @@
  * under the License.
  */
 
-package org.apache.myfaces.tobago.example.demo.actionlistener;
+package org.apache.myfaces.tobago.example.data;
 
-import org.apache.myfaces.tobago.event.TabChangeEvent;
-import org.apache.myfaces.tobago.event.TabChangeListener;
+import javax.swing.tree.DefaultMutableTreeNode;
 
-public class SimpleTabChangeListener implements TabChangeListener {
+public class CommandNode extends DefaultMutableTreeNode {
 
-  private int count = 0;
-  private int newTabIndex = -1;
-  private int oldTabIndex = -1;
-  private String clientId;
+  private String name;
+  private String action;
+  private String resource;
+  private String url;
 
-  @Override
-  public void processTabChange(TabChangeEvent tabChangeEvent) {
-    count++;
-    newTabIndex = tabChangeEvent.getNewTabIndex();
-    oldTabIndex = tabChangeEvent.getOldTabIndex();
-    clientId = tabChangeEvent.getComponent().getClientId();
+  public CommandNode(String name) {
+    this.name = name;
   }
 
-  public int getCount() {
-    return count;
+  public CommandNode(String name, String action, String resource, String url) {
+    this.name = name;
+    this.action = action;
+    this.resource = resource;
+    this.url = url;
   }
 
-  public int getNewTabIndex() {
-    return newTabIndex;
+  public String getName() {
+    return name;
   }
 
-  public int getOldTabIndex() {
-    return oldTabIndex;
+  public String getAction() {
+    return action;
   }
 
-  public String getClientId() {
-    return clientId;
+  public String getResource() {
+    return resource;
+  }
+
+  public String getUrl() {
+    return url;
   }
 }

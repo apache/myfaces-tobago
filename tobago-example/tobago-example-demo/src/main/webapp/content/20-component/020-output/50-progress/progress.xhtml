@@ -18,40 +18,56 @@
 -->
 
 <ui:composition template="/main.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:f="http://java.sun.com/jsf/core">
-  <ui:param name="title" value="#{overviewBundle.progress}"/>
+  <ui:param name="title" value="#{overviewBundle.progress} &lt;tc:progress>"/>
+  <p>The <code class="language-markup">&lt;tc:progress/></code> tag create a progressbar.
+    The most important attribute is <code>value</code>.
+    It could be a <code>double</code> - in that case, you need the attribute <code>max</code> as well.
+    Or it is of type <code>BoundedRangeModel</code>.</p>
+  <p>Tag Library Documentation:
+    <tc:link label="&lt;tc:progress/>" image="image/feather-leaf.png" link="#{overviewBundle.tagDocUrl}/progress.html"/>
+    |
+    <tc:link label="BoundedRangeModel"
+             link="https://docs.oracle.com/javase/7/docs/api/javax/swing/BoundedRangeModel.html"/></p>
 
-  <tc:panel>
+  <tc:section label="Basics">
+    <p>A static progressbar, with <code>value</code> of type <code>double</code>.</p>
+    <pre><code class="language-markup">&lt;tc:progress value="15.8" max="20"/></code></pre>
+    <tc:progress value="14.9" max="20"/>
+  </tc:section>
 
-    <p>Simple progress example with reload facet</p>
+  <tc:section label="Button">
+    <p>By pressing the button, progress is added to the progressbar.</p>
+    <pre><code class="language-markup">&lt;tc:button label="Add Progress" action="\#{progressController.addProgress}"/>
+&lt;tc:progress value="\#{progressController.progress}"/></code></pre>
+    <tc:button id="b1" label="Add Progress" action="#{progressController.addProgress}"/>
+    <br/>
+    <tc:progress value="#{progressController.progress}"/>
+  </tc:section>
 
-    <p><b>TODO:</b> May be subject of change... use AjaxClientBehavior</p>
-
+  <tc:section label="Time">
+    <p>In this example, the current time is displayed as progressbars.</p>
+    <pre><code
+            class="language-markup">&lt;tc:progress value="\#{progressController.currentHours}" max="23"/></code></pre>
     <tc:panel>
-      <!--
-            <f:facet name="reload">
-              <tc:reload frequency="2000" update="#{progress.update}"/>
-            </f:facet>
-      -->
-      <tc:flexLayout columns="auto;*">
+      <f:facet name="reload">
+        <tc:reload frequency="1000" update="true"/>
+      </f:facet>
+      <tc:out id="o1" label="Current Date" value="#{progressController.currentDate}">
+        <f:convertDateTime pattern="HH:mm:ss"/>
+      </tc:out>
 
-        <tc:label value="Progress:"/>
-        <tc:progress value="#{progress.progress}">
-          <!--
-                    <f:facet name="complete">
-                      <tc:command action="#{progress.reset}"/>
-                    </f:facet>
--->
-        </tc:progress>
-      </tc:flexLayout>
+      <tc:label value="Hour"/>
+      <tc:progress value="#{progressController.currentHours}" max="23"/>
+      <br/>
+      <tc:label value="Minutes"/>
+      <tc:progress value="#{progressController.currentMinutes}" max="59"/>
+      <br/>
+      <tc:label value="Seconds"/>
+      <tc:progress value="#{progressController.currentSeconds}" max="59"/>
     </tc:panel>
-
-    <tc:flexLayout columns="auto;*">
-      <tc:label value="Progress:"/>
-      <tc:progress value="0.3" max="1"/>
-    </tc:flexLayout>
-
-  </tc:panel>
+  </tc:section>
 </ui:composition>

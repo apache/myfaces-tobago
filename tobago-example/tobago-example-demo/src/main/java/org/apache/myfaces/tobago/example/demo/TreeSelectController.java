@@ -20,6 +20,7 @@
 package org.apache.myfaces.tobago.example.demo;
 
 import org.apache.myfaces.tobago.example.data.CategoryTree;
+import org.apache.myfaces.tobago.example.data.Node;
 
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
@@ -28,15 +29,12 @@ import java.io.Serializable;
 
 @SessionScoped
 @Named
-public class TreeController implements Serializable {
+public class TreeSelectController implements Serializable {
 
   private DefaultMutableTreeNode sample;
-  private boolean treeShowRoot = false;
-  private boolean treeShowRootJunction = false;
-  private boolean treeIndentRendered = true;
-  private boolean treeIndentShowJunction = true;
+  private String selectable = "multi";
 
-  public TreeController() {
+  public TreeSelectController() {
     sample = CategoryTree.createSample();
   }
 
@@ -44,35 +42,32 @@ public class TreeController implements Serializable {
     return sample;
   }
 
-  public boolean isTreeShowRoot() {
-    return treeShowRoot;
+  public String getSelectable() {
+    return selectable;
   }
 
-  public void setTreeShowRoot(boolean treeShowRoot) {
-    this.treeShowRoot = treeShowRoot;
+  public void setSelectable(String selectable) {
+    this.selectable = selectable;
   }
 
-  public boolean isTreeShowRootJunction() {
-    return treeShowRootJunction;
+  public String getSelectedNodes() {
+    StringBuilder stringBuilder = new StringBuilder();
+    buildSelectedNodesString(stringBuilder, sample);
+    if (stringBuilder.length() > 2) {
+      return stringBuilder.substring(2); // Remove ', '.
+    } else {
+      return "";
+    }
   }
 
-  public void setTreeShowRootJunction(boolean treeShowRootJunction) {
-    this.treeShowRootJunction = treeShowRootJunction;
-  }
-
-  public boolean isTreeIndentRendered() {
-    return treeIndentRendered;
-  }
-
-  public void setTreeIndentRendered(boolean treeIndentRendered) {
-    this.treeIndentRendered = treeIndentRendered;
-  }
-
-  public boolean isTreeIndentShowJunction() {
-    return treeIndentShowJunction;
-  }
-
-  public void setTreeIndentShowJunction(boolean treeIndentShowJunction) {
-    this.treeIndentShowJunction = treeIndentShowJunction;
+  private void buildSelectedNodesString(StringBuilder stringBuilder, DefaultMutableTreeNode node) {
+    Node userObject = (Node) node.getUserObject();
+    if (userObject.isSelected()) {
+      stringBuilder.append(", " + userObject.getName());
+    }
+    for (int i = 0; i < node.getChildCount(); i++) {
+      DefaultMutableTreeNode child = (DefaultMutableTreeNode) node.getChildAt(i);
+      buildSelectedNodesString(stringBuilder, child);
+    }
   }
 }

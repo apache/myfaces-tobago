@@ -32,10 +32,6 @@
 
 <!--  navigate -->
   <entry key="overview">Übersicht</entry>
-  <entry key="intro">Einführung</entry>
-  <entry key="sheet">Tabellen</entry>
-  <entry key="tree">Bäume</entry>
-  <entry key="tab">Reiter / Tab</entry>
   <entry key="toolbar">Toolbar</entry>
   <entry key="validation">Validierung</entry>
   <entry key="form">Formulare</entry>

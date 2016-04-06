@@ -166,4 +166,12 @@ public class NavigationTree implements Serializable {
       IOUtils.closeQuietly(resourceAsStream);
     }
   }
+
+  public boolean isMessagesPage() {
+    return FacesContext.getCurrentInstance().getViewRoot().getViewId().endsWith("messages.xhtml");
+  }
+
+  public boolean isOutputPage() {
+    return FacesContext.getCurrentInstance().getViewRoot().getViewId().endsWith("output.xhtml");
+  }
 }

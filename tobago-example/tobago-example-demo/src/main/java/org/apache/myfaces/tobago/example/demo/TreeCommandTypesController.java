@@ -19,41 +19,42 @@
 
 package org.apache.myfaces.tobago.example.demo;
 
+import org.apache.myfaces.tobago.example.data.CommandNode;
+import org.apache.myfaces.tobago.example.data.CommandNodeFactory;
+
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
-import javax.swing.DefaultBoundedRangeModel;
-import javax.swing.BoundedRangeModel;
 import java.io.Serializable;
 
 @SessionScoped
 @Named
-public class Progress implements Serializable {
+public class TreeCommandTypesController implements Serializable {
 
-  private DefaultBoundedRangeModel progress = new DefaultBoundedRangeModel(10, 0, 0, 100);
-  private boolean update;
+  private CommandNode sample;
+  private int actionOneCount = 0;
+  private int actionTwoCount = 0;
 
-  public boolean isUpdate() {
-    update = !update;
-    if (update) {
-      int value = progress.getValue();
-      if (value < progress.getMaximum()) {
-        value = value + 10;
-        progress.setValue(value);
-      }
+  public TreeCommandTypesController() {
+    sample = CommandNodeFactory.createSample();
+  }
+
+  public CommandNode getSample() {
+    return sample;
+  }
+
+  public int getActionOneCount() {
+    return actionOneCount;
+  }
+
+  public void increaseActionCount(String name) {
+    if ("ActionOne".equals(name)) {
+      actionOneCount++;
+    } else if ("ActionTwo".equals(name)) {
+      actionTwoCount++;
     }
-    return update;
   }
 
-  public void setUpdate(final boolean update) {
-    this.update = update;
-  }
-
-  public BoundedRangeModel getProgress() {
-    return progress;
-  }
-
-  public String reset() {
-    progress.setValue(0);
-    return "reset";
+  public int getActionTwoCount() {
+    return actionTwoCount;
   }
 }

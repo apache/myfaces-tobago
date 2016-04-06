@@ -18,11 +18,44 @@
 -->
 
 <ui:composition template="/main.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
                 xmlns:ui="http://java.sun.com/jsf/facelets">
+  <ui:param name="title" value="#{overviewBundle.section} &lt;tc:section>"/>
+  <p>A section can be added with <code class="language-markup">&lt;tc:section/></code> tag.</p>
+  <tc:link label="Tag Library Documentation" image="image/feather-leaf.png"
+           link="#{overviewBundle.tagDocUrl}/section.html"/>
 
-  <ui:param name="title" value="TODO"/>
+  <tc:section label="Basics">
+    <p>A section can have a title. It is added with the <code>label</code> attribute.
+      This text is the content of a section.</p>
+    <pre><code class="language-markup">&lt;tc:section label="Basics"></code></pre>
+  </tc:section>
 
-TODO
+  <tc:section label="Cascading">
+    <p>A section can contain one or more sections. In this example, the sections are cascaded to level six.</p>
+    <tc:section label="Section 2">
+      <p>Level two. The section "Cascading" is level one.</p>
+      <tc:section label="Section 3">
+        <p>Level three.</p>
+        <tc:section label="Section 4">
+          <p>Level four.</p>
+          <tc:section label="Section 5">
+            <p>Level five.</p>
+            <tc:section label="Section 6">
+              <p>Level six.</p>
+            </tc:section>
+          </tc:section>
+        </tc:section>
+      </tc:section>
+    </tc:section>
+  </tc:section>
 
+  <tc:section label="Image">
+    <p>A section can have an image in the header. The following section have pie-chart in the header.</p>
+    <pre><code class="language-markup">&lt;tc:section label="Pie-Chart" image="fa-pie-chart"></code></pre>
+    <tc:section label="Pie-Chart" image="fa-pie-chart">
+      <p>It's also possible to use image files, instead of font awesome.</p>
+    </tc:section>
+  </tc:section>
 </ui:composition>

@@ -18,41 +18,28 @@
 -->
 
 <ui:composition template="/main.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
-                xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:f="http://java.sun.com/jsf/core">
-  <ui:param name="title" value="#{overviewBundle.tree} Menu"/> <!-- todo i18n -->
+                xmlns:ui="http://java.sun.com/jsf/facelets">
+  <ui:param name="title" value="#{overviewBundle.tree_menu} &lt;tc:treeMenu>"/>
+  <p>The <code class="language-markup">&lt;tc:treeMenu/></code> tag can be used for menus
+    like the one on the left side of this site.
+    The nodes have to be <code class="language-markup">&lt;tc:treeCommand/></code> tags,
+    otherwise <code class="language-markup">&lt;tc:treeMenu/></code> behaves the same way as
+    <code class="language-markup">&lt;tc:tree/></code>.
+    <code class="language-markup">&lt;tc:treeMenu/></code> set indents automatically for
+    <code class="language-markup">&lt;tc:treeCommand/></code>.
+    So the <code class="language-markup">&lt;tc:treeIndent/></code> tag is not needed.</p>
+  <tc:link label="Tag Library Documentation:" image="image/feather-leaf.png"
+           link="#{overviewBundle.tagDocUrl}/treeMenu.html"/>
 
-  <tc:panel>
-    <f:facet name="layout">
-      <tc:gridLayout rows="9*;16*"/>
-    </f:facet>
-
-    <tc:out escape="false" value="(UNDER CONSTRUCTION) Tree Menu"/>
-
-    <tc:panel>
-      <f:facet name="layout">
-        <tc:gridLayout columns="2*;1*"/>
-      </f:facet>
-
-      <tc:treeMenu id="treeMenu" showRoot="#{demo.showRoot}" value="#{demo.tree}" var="node">
-        <tc:treeNode id="template">
-          <tc:treeLabel value="#{node.userObject.name}"/>
-        </tc:treeNode>
-      </tc:treeMenu>
-
-      <tc:panel>
-        <f:facet name="layout">
-          <tc:gridLayout rows="auto;*;auto"/>
-        </f:facet>
-
-        <tc:selectBooleanCheckbox label="#{overviewBundle.treeShowRoot}"
-                                  value="#{demo.showRoot}"/>
-        <tc:panel/>
-        <tc:button action="redisplay" label="#{overviewBundle.submit}"/>
-      </tc:panel>
-
-    </tc:panel>
-
-  </tc:panel>
+  <tc:section label="Example">
+    <p>In this example, a click on a node has no effect.</p>
+    <pre><code class="language-markup">&lt;tc:treeMenu value="\#{treeController.sample}" ...></code></pre>
+    <tc:treeMenu value="#{treeController.sample}" var="node">
+      <tc:treeNode>
+        <tc:treeCommand label="#{node.userObject.name}"/>
+      </tc:treeNode>
+    </tc:treeMenu>
+  </tc:section>
 </ui:composition>

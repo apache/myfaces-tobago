@@ -27,8 +27,16 @@
     The items are added via <code class="language-markup">&lt;tc:selectItem/></code> for static entries or
     <code class="language-markup">&lt;tc:selectItems value="\#{controller.list}"/></code> for entries from a
     controller.</p>
-  <tc:link label="Tag Library Documentation" image="image/feather-leaf.png"
-           link="#{overviewBundle.tagDocUrl}/selectManyCheckbox.html"/>
+  <p>Tag Library Documentation:
+    <tc:link label="&lt;tc:selectManyCheckbox/>" image="image/feather-leaf.png"
+             link="#{overviewBundle.tagDocUrl}/selectManyCheckbox.html"/>
+    |
+    <tc:link label="&lt;tc:selectItem/>" image="image/feather-leaf.png"
+             link="#{overviewBundle.tagDocUrl}/selectItem.html"/>
+    |
+    <tc:link label="&lt;tc:selectItems/>" image="image/feather-leaf.png"
+             link="#{overviewBundle.tagDocUrl}/selectItems.html"/></p>
+
   <tc:section label="Basics">
     <p>Checkbox Group with two items. The second one is disabled.</p>
     <pre><code class="language-markup">&lt;tc:selectManyCheckbox label="Checkbox Group"></code></pre>

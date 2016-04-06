@@ -18,53 +18,42 @@
 -->
 
 <ui:composition template="/main.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
-                xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:f="http://java.sun.com/jsf/core">
+                xmlns:ui="http://java.sun.com/jsf/facelets">
+  <ui:param name="title" value="#{overviewBundle.container}"/>
+  <p>With the container components, content can be shown in different ways.</p>
 
-  <ui:param name="title" value="TODO"/>
+  <tc:section label="#{overviewBundle.box}">
+    <pre><code class="language-markup">&lt;tc:box label="Box">Content&lt;/tc:box></code></pre>
+    <tc:box label="Box">Content</tc:box>
+  </tc:section>
 
-TODO
+  <tc:section label="#{overviewBundle.panel}">
+    <pre><code class="language-markup">&lt;tc:panel>Content&lt;/tc:panel></code></pre>
+    <tc:panel>Content</tc:panel>
+  </tc:section>
 
-  <tc:panel>
-    <f:facet name="layout">
-      <tc:gridLayout/>
-    </f:facet>
+  <tc:section label="#{overviewBundle.separator}">
+    <pre><code class="language-markup">&lt;p>Content&lt;/p>
+&lt;tc:separator/>
+&lt;p>Content&lt;/p></code></pre>
+    <p>Content</p>
+    <tc:separator/>
+    <p>Content</p>
+  </tc:section>
 
-    <tc:separator label="Layout"/>
+  <tc:section label="#{overviewBundle.section}">
+    <pre><code class="language-markup">&lt;tc:section label="Section">Content&lt;/tc:section></code></pre>
+    <tc:section label="Section">Content</tc:section>
+  </tc:section>
 
-    <tc:panel>
-      <f:facet name="layout">
-        <tc:gridLayout rows="auto" columns="auto;auto;auto;*"/>
-      </f:facet>
-
-      <tc:button label="Hello"/>
-      <tc:button label="WWWWWWWWWW"/>
-      <tc:button label="llllllllll"/>
-      <tc:panel/>
-
-    </tc:panel>
-
-    <tc:panel>
-      <f:facet name="layout">
-        <tc:gridLayout rows="auto" columns="auto;*"/>
-      </f:facet>
-
-      <tc:button
-              label="The goal of Tobago is to provide the community with a well designed set of user interface components."/>
-      <tc:panel/>
-
-    </tc:panel>
-
-    <tc:panel>
-      <f:facet name="layout">
-        <tc:gridLayout rows="45px" columns="100px;100px;*"/>
-      </f:facet>
-
-      <tc:button label="This is a button with a long text."/>
-      <tc:button image="image/next.png" label="This is a button with a long text."/>
-
-    </tc:panel>
-
-  </tc:panel>
+  <tc:section label="#{overviewBundle.header_footer}">
+    <pre><code class="language-markup">&lt;tc:header>Header-Content&lt;/tc:header>
+&lt;p>Content between header and footer.&lt;/p>
+&lt;tc:footer>Footer-Content&lt;/tc:footer></code></pre>
+    <tc:header>Header-Content</tc:header>
+    <p>Content between header and footer.</p>
+    <tc:footer>Footer-Content</tc:footer>
+  </tc:section>
 </ui:composition>
