@@ -23,7 +23,7 @@
                 xmlns:f="http://java.sun.com/jsf/core">
     <ui:param name="title" value="#{overviewBundle.suggest} &lt;tc:suggest&gt;"/>
     <p>The suggest-tag is used within the <code>&lt;tc:in&gt;</code> tag.</p>
-    <tc:in id="i1" label="Language" placeholder="Select Language" value="#{suggest.suggestInput}">
-        <tc:suggest id="s1" suggestMethod="#{suggest.getInputSuggestItems}" delay="300" minimumCharacters="1" maximumItems="10"/>
+    <tc:in id="i1" label="Language" placeholder="Select Language" value="#{overviewController.suggestInput}">
+        <tc:suggest id="s1" suggestMethod="#{overviewController.getInputSuggestItems}" delay="300" minimumCharacters="1" maximumItems="10"/>
     </tc:in>
 </ui:composition>
