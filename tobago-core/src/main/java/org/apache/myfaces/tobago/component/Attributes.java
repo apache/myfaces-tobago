@@ -251,7 +251,6 @@ public enum Attributes {
   validator,
   width,
   widthList,
-  widthListString,
   zIndex;
 
   private static final Logger LOG = LoggerFactory.getLogger(Attributes.class);

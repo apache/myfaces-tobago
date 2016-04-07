@@ -33,6 +33,7 @@ import org.apache.myfaces.tobago.event.SortActionSource2;
 import org.apache.myfaces.tobago.internal.layout.Grid;
 import org.apache.myfaces.tobago.internal.layout.OriginCell;
 import org.apache.myfaces.tobago.layout.AutoLayoutToken;
+import org.apache.myfaces.tobago.layout.LayoutToken;
 import org.apache.myfaces.tobago.layout.LayoutTokens;
 import org.apache.myfaces.tobago.layout.RelativeLayoutToken;
 import org.apache.myfaces.tobago.model.ExpandedState;
@@ -50,6 +51,8 @@ import javax.faces.component.UIComponent;
 import javax.faces.component.UINamingContainer;
 import javax.faces.context.FacesContext;
 import javax.faces.event.AbortProcessingException;
+import javax.faces.event.ComponentSystemEvent;
+import javax.faces.event.ComponentSystemEventListener;
 import javax.faces.event.FacesEvent;
 import javax.faces.event.ListenerFor;
 import javax.faces.event.PhaseId;
@@ -61,7 +64,8 @@ import java.util.List;
 
 @ListenerFor(systemEventClass = PreRenderComponentEvent.class)
 public abstract class AbstractUISheet extends AbstractUIData
-    implements SheetStateChangeSource2, SortActionSource2, OnComponentPopulated, SupportsRenderedPartially, Visual {
+    implements SheetStateChangeSource2, SortActionSource2, OnComponentPopulated, SupportsRenderedPartially, Visual,
+        ComponentSystemEventListener {
 
   private static final Logger LOG = LoggerFactory.getLogger(AbstractUISheet.class);
 
@@ -70,8 +74,8 @@ public abstract class AbstractUISheet extends AbstractUIData
   public static final String SORTER_ID = "sorter";
 
   private SheetState state;
-  private List<Integer> widthList;
   private transient LayoutTokens columnLayout;
+  private transient boolean autoLayout;
 
   private transient Grid headerGrid;
 
@@ -121,26 +125,35 @@ public abstract class AbstractUISheet extends AbstractUIData
 
   public abstract String getColumns();
 
-  public LayoutTokens getColumnLayout() {
-    if (columnLayout == null) {
+  @Override
+  public void processEvent(ComponentSystemEvent event) throws AbortProcessingException {
+
+    if (event instanceof PreRenderComponentEvent) {
       final String columns = getColumns();
       if (columns != null) {
         columnLayout = LayoutTokens.parse(columns);
       }
+
+      autoLayout = true;
+      if (columnLayout != null) {
+        for (LayoutToken layoutToken : columnLayout.getTokens()) {
+          if (! (layoutToken instanceof AutoLayoutToken)) {
+            autoLayout = false;
+            break;
+          }
+        }
+      }
+
+      LOG.debug("autoLayout={}", autoLayout);
     }
+  }
+
+  public LayoutTokens getColumnLayout() {
     return columnLayout;
   }
 
-  /**
-   * Remove the (by user) resized column widths. An application may provide a button to access it.
-   * Since 1.0.26.
-   */
-  public void resetColumnWidths() {
-    final SheetState state = getState();
-    if (state != null) {
-      state.setColumnWidths(null);
-    }
-    getAttributes().remove(Attributes.widthListString.getName());
+  public boolean isAutoLayout() {
+    return autoLayout;
   }
 
   /**
@@ -294,20 +307,15 @@ public abstract class AbstractUISheet extends AbstractUIData
   @Override
   public void processUpdates(final FacesContext context) {
     super.processUpdates(context);
-    updateSheetState(context);
-  }
 
-  private void updateSheetState(final FacesContext facesContext) {
-    final SheetState state = getSheetState(facesContext);
+    final SheetState state = getSheetState(context);
     if (state != null) {
       final List<Integer> list = (List<Integer>) ComponentUtils.getAttribute(this, Attributes.selectedListString);
       state.setSelectedRows(list != null ? list : Collections.<Integer>emptyList());
-      state.setColumnWidths(ComponentUtils.getStringAttribute(this, Attributes.widthListString));
       ComponentUtils.removeAttribute(this, Attributes.selectedListString);
       ComponentUtils.removeAttribute(this, Attributes.scrollPosition);
     }
   }
-
 
   @Override
   public Object saveState(final FacesContext context) {
@@ -330,6 +338,8 @@ public abstract class AbstractUISheet extends AbstractUIData
     return result;
   }
 
+  // TODO remove
+  @Deprecated
   public List<AbstractUIColumnBase> getRenderedColumns() {
     ArrayList<AbstractUIColumnBase> result = new ArrayList<AbstractUIColumnBase>();
     findColumns(this, result, false);
@@ -397,20 +407,7 @@ public abstract class AbstractUISheet extends AbstractUIData
 
   public void init(FacesContext facesContext) {
     sort(facesContext, null);
-    ensureColumnWidthList();
     layoutHeader();
-  }
-
-  private void ensureColumnWidthList() {
-
-    final List<AbstractUIColumnBase> allColumns = getAllColumns();
-    final  List<Integer> currentWidthList = new ArrayList<Integer>(allColumns.size() + 1);
-    for (int i = 0; i < allColumns.size(); i++) {
-      final AbstractUIColumnBase column = allColumns.get(i);
-      currentWidthList.add(null);
-    }
-
-    setWidthList(currentWidthList);
   }
 
   private void layoutHeader() {
@@ -471,14 +468,6 @@ public abstract class AbstractUISheet extends AbstractUIData
   @Override
   public void removeStateChangeListener(final SheetStateChangeListener listener) {
     removeFacesListener(listener);
-  }
-
-  public List<Integer> getWidthList() {
-    return widthList;
-  }
-
-  public void setWidthList(final List<Integer> widthList) {
-    this.widthList = widthList;
   }
 
   @Override

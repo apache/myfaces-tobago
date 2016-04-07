@@ -60,7 +60,7 @@ public interface SheetTagDeclaration
     extends HasIdBindingAndRendered, IsVisual, HasRenderedPartially, IsShowRoot, IsShowRootJunction, HasVar {
   /**
    * LayoutConstraints for column layout.
-   * Semicolon separated list of layout tokens ('&lt;x>*', '&lt;x>px' or '&lt;x>%').
+   * Semicolon separated list of layout tokens ('&lt;x>*', '&lt;x>px' or '&lt;x>%') or "auto"
    */
   @TagAttribute
   @UIComponentTagAttribute()

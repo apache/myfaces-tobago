@@ -36,6 +36,8 @@ public enum TobagoClass implements CssItem {
   ALIGN_ITEMS__FLEX_START("alignItems-flexStart"),
   ALIGN_ITEMS__STRETCH("alignItems-stretch"),
   DROPDOWN_SUBMENU("dropdown-submenu"),
+  TABLE_LAYOUT__FIXED("tableLayout-fixed"),
+
   FLEX_LAYOUT("tobago-flexLayout"),
   LABEL("tobago-label"),
   MENU_BAR("tobago-menuBar"),

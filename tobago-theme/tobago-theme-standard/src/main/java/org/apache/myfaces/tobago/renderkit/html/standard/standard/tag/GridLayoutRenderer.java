@@ -24,18 +24,16 @@ import org.apache.myfaces.tobago.internal.component.AbstractUIGridLayout;
 import org.apache.myfaces.tobago.internal.layout.Cell;
 import org.apache.myfaces.tobago.internal.layout.Grid;
 import org.apache.myfaces.tobago.internal.layout.OriginCell;
-import org.apache.myfaces.tobago.layout.AutoLayoutToken;
 import org.apache.myfaces.tobago.layout.LayoutToken;
 import org.apache.myfaces.tobago.layout.LayoutTokens;
 import org.apache.myfaces.tobago.layout.Measure;
-import org.apache.myfaces.tobago.layout.MeasureLayoutToken;
-import org.apache.myfaces.tobago.layout.RelativeLayoutToken;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRoleValues;
+import org.apache.myfaces.tobago.renderkit.html.JsonUtils;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
@@ -65,11 +63,11 @@ public class GridLayoutRenderer extends RendererBase {
     final StringBuilder builder = new StringBuilder();
 
     builder.append("{\"columns\":");
-    jsonLayout(gridLayout.getGrid().getColumns(), builder);
+    JsonUtils.encode(gridLayout.getGrid().getColumns(), builder);
     builder.append(",");
 
     builder.append("\"rows\":");
-    jsonLayout(gridLayout.getGrid().getRows(), builder);
+    JsonUtils.encode(gridLayout.getGrid().getRows(), builder);
     builder.append("}");
 
     writer.writeAttribute(DataAttributes.LAYOUT, builder.toString(), true);
@@ -82,29 +80,6 @@ public class GridLayoutRenderer extends RendererBase {
     }
     writer.endElement(HtmlElements.COLGROUP);
     writer.startElement(HtmlElements.TBODY);
-  }
-
-  private void jsonLayout(final LayoutTokens bankHeads, final StringBuilder builder) {
-    builder.append("[");
-    for (final LayoutToken token : bankHeads.getTokens()) {
-      if (token instanceof RelativeLayoutToken) {
-        final int factor = ((RelativeLayoutToken) token).getFactor();
-        builder.append(factor);
-      } else if (token instanceof AutoLayoutToken) {
-        builder.append("\"auto\"");
-      } else if (token instanceof MeasureLayoutToken) {
-        builder.append("{\"measure\":\"");
-        builder.append(((MeasureLayoutToken) token).getMeasure());
-        builder.append("\"}");
-      } else {
-        LOG.warn("Not supported: " + token);
-      }
-      builder.append(',');
-    }
-    if (builder.charAt(builder.length() - 1) == ',') {
-      builder.deleteCharAt(builder.length() - 1);
-    }
-    builder.append("]");
   }
 
   @Override

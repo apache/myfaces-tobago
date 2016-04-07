@@ -41,7 +41,7 @@ public class SheetState implements Serializable, ScrollPositionState {
   private String sortedColumnId;
   private boolean ascending;
   private boolean toBeSorted;
-  private String columnWidths;
+  private List<Integer> columnWidths;
   private List<Integer> selectedRows;
   private ScrollPosition scrollPosition;
   private ExpandedState expandedState;
@@ -106,11 +106,11 @@ public class SheetState implements Serializable, ScrollPositionState {
     }
   }
 
-  public String getColumnWidths() {
+  public List<Integer> getColumnWidths() {
     return columnWidths;
   }
 
-  public void setColumnWidths(final String columnWidths) {
+  public void setColumnWidths(final List<Integer> columnWidths) {
     this.columnWidths = columnWidths;
   }
 

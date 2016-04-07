@@ -421,10 +421,9 @@ h6 > .fa:first-child {
   cursor: pointer;
 }
 
-table.tobago-sheet-headerTable>tbody>tr>th:last-child,
-table.tobago-sheet-bodyTable>tbody>tr>td:last-child {
-  padding-left: 0;
-  padding-right: 0;
+table.tobago-sheet-headerTable>tbody>tr>th,
+table.tobago-sheet-bodyTable>tbody>tr>td {
+  padding: 0;
 }
 
 .tobago-sheet-body {
@@ -436,71 +435,22 @@ table.tobago-sheet-bodyTable>tbody>tr>td:last-child {
   margin-bottom: 0;
 }
 
-table.tobago-sheet-fixHeader > thead,
-table.tobago-sheet-fixHeader > tbody,
-table.tobago-sheet-fixHeader > thead > tr,
-table.tobago-sheet-fixHeader > tbody > tr,
-table.tobago-sheet-fixHeader > thead > tr > th,
-table.tobago-sheet-fixHeader > tbody > tr > td {
-  display: block;
+.tableLayout-fixed {
+  table-layout: fixed;
 }
 
-table.tobago-sheet-fixHeader > thead > tr:after,
-table.tobago-sheet-fixHeader > tbody > tr:after {
-  content: ' ';
-  display: block;
-  visibility: hidden;
-  clear: both;
+.tobago-sheet-headerCell {
+  position: relative;
 }
 
-table.tobago-sheet-fixHeader > thead > tr > th {
-  /*height: 30px;*/
-}
-
-table.tobago-sheet-fixHeader > thead > tr > th {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-table.tobago-sheet-fixHeader > tbody {
-  height: 300px;
-  overflow-y: auto;
-}
-
-table.tobago-sheet-fixHeader > thead > tr > th,
-table.tobago-sheet-fixHeader > tbody > tr > td {
-  float: left;
-}
-
-table.tobago-sheet-fixHeader > thead > tr > th,
-table.tobago-sheet-fixHeader > tbody > tr > td {
-  width: 10%;
-}
-
-table.tobago-sheet-fixHeader > thead > tr > th:nth-child(1),
-table.tobago-sheet-fixHeader > tbody > tr > td:nth-child(1) {
-  width: 20%;
-}
-
-table.tobago-sheet-fixHeader > thead > tr > th:nth-child(2),
-table.tobago-sheet-fixHeader > tbody > tr > td:nth-child(2) {
-  width: 20%;
-}
-
-table.tobago-sheet-fixHeader > thead > tr > th:nth-child(3),
-table.tobago-sheet-fixHeader > tbody > tr > td:nth-child(3) {
-  width: 20%;
-}
-
-table.tobago-sheet-fixHeader > thead > tr > th:nth-child(4),
-table.tobago-sheet-fixHeader > tbody > tr > td:nth-child(4) {
-  width: 20%;
-}
-
-table.tobago-sheet-fixHeader > thead > tr > th.tobago-sheet-selectorDropdown {
-  /* This is to override the rule above, and the drowdown would be clipped. */
-  overflow: visible;
+.tobago-sheet-headerResize {
+  position: absolute;
+  right: -5px;
+  top: 0;
+  width: 10px;
+  height: 100%;
+  z-index: 1;
+  cursor: col-resize;
 }
 
 /* suggest ---------------------------------------------------------------------- */
