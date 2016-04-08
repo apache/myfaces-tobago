@@ -29,7 +29,6 @@
   <modules>
     <module>tobago-deprecation</module>
     <module>tobago-sandbox</module>
-    <module>tobago-security</module>
   </modules>
 
   <dependencies>
