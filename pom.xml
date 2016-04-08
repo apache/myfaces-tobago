@@ -483,7 +483,19 @@
         <groupId>org.apache.geronimo.specs</groupId>
         <artifactId>geronimo-annotation_1.0_spec</artifactId>
         <version>1.1.1</version>
-        <scope>provided</scope>
+        <optional>true</optional>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.geronimo.specs</groupId>
+        <artifactId>geronimo-jcdi_1.0_spec</artifactId>
+        <version>1.0</version>
+        <optional>true</optional>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.geronimo.specs</groupId>
+        <artifactId>geronimo-atinject_1.0_spec</artifactId>
+        <version>1.0</version>
+        <optional>true</optional>
       </dependency>
       <dependency>
         <!-- jsoup HTML parser library -->

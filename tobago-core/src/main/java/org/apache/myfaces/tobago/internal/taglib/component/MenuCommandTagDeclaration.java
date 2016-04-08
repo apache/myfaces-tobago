@@ -32,7 +32,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasRenderedPartiall
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasResource;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTarget;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
-import org.apache.myfaces.tobago.internal.taglib.declaration.IsDisabled;
+import org.apache.myfaces.tobago.internal.taglib.declaration.IsDisabledBySecurity;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsImmediateCommand;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsOmit;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsTransition;
@@ -54,6 +54,6 @@ import javax.faces.component.UICommand;
     allowedChildComponenents = "NONE")
 public interface MenuCommandTagDeclaration
     extends HasAction, HasActionListener, IsImmediateCommand,
-    HasLink, HasResource, IsTransition, HasTarget, HasRenderedPartially, IsDisabled, IsOmit, IsVisual,
+    HasLink, HasResource, IsTransition, HasTarget, HasRenderedPartially, IsDisabledBySecurity, IsOmit, IsVisual,
     HasIdBindingAndRendered, HasLabelAndAccessKey, HasTip, HasImage {
 }

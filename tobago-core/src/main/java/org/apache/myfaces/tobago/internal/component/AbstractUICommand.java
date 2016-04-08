@@ -24,9 +24,14 @@ import org.apache.myfaces.tobago.component.OnComponentPopulated;
 import org.apache.myfaces.tobago.component.SupportsAccessKey;
 import org.apache.myfaces.tobago.component.SupportsRenderedPartially;
 import org.apache.myfaces.tobago.component.Visual;
+import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.event.PopupFacetActionListener;
+import org.apache.myfaces.tobago.internal.util.AuthorizationHelper;
 import org.apache.myfaces.tobago.util.ComponentUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+import javax.el.MethodExpression;
 import javax.faces.component.UICommand;
 import javax.faces.component.UIComponent;
 import javax.faces.component.behavior.ClientBehaviorHolder;
@@ -41,8 +46,14 @@ public abstract class AbstractUICommand
     extends UICommand
     implements SupportsRenderedPartially, SupportsAccessKey, OnComponentPopulated, Visual, ClientBehaviorHolder {
 
+  private static final Logger LOG = LoggerFactory.getLogger(AbstractUICommand.class);
+
   // todo generate
   private static final Collection<String> EVENT_NAMES = Arrays.asList("click");
+
+  enum PropertyKeys {
+    disabled,
+  }
 
   // todo: transient
   private Boolean parentOfCommands;
@@ -109,6 +120,39 @@ public abstract class AbstractUICommand
     return parentOfCommands;
   }
 
+  /**
+   Flag indicating that this element is disabled.
+   <br />Default: <code>false</code>
+   */
+  public boolean isDisabled() {
+
+    final FacesContext facesContext = getFacesContext();
+    final TobagoConfig tobagoConfig = TobagoConfig.getInstance(facesContext);
+    LOG.info("HALLO PROJECT STAGE: {}", tobagoConfig.getProjectStage());
+    // todo: get from configuration tobago-config.xml
+    if (true) {
+      final AuthorizationHelper authorizationHelper = AuthorizationHelper.getInstance(facesContext);
+      final MethodExpression actionExpression = getActionExpression();
+      if (actionExpression != null) {
+        final boolean authorized =
+            authorizationHelper.isAuthorized(facesContext, actionExpression.getExpressionString());
+        if (!authorized) {
+          return true;
+        }
+      }
+    }
+
+    Boolean bool = (Boolean) getStateHelper().eval(PropertyKeys.disabled);
+    if (bool != null) {
+      return bool;
+    }
+    return false;
+  }
+
+  public void setDisabled(boolean disabled) {
+    getStateHelper().put(PropertyKeys.disabled, disabled);
+  }
+
   // todo generate
   @Override
   public String getDefaultEventName() {
@@ -138,8 +182,6 @@ public abstract class AbstractUICommand
   public abstract String[] getRenderedPartially();
 
   public abstract boolean isOmit();
-
-  public abstract boolean isDisabled();
 
   public abstract String getTip();
 

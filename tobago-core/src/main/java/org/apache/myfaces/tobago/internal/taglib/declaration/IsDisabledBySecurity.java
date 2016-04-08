@@ -17,13 +17,18 @@
  * under the License.
  */
 
-package org.apache.myfaces.tobago.internal.component;
+package org.apache.myfaces.tobago.internal.taglib.declaration;
 
-import org.apache.myfaces.tobago.component.SupportsAccessKey;
+import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
+import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 
-public abstract class AbstractUILink extends AbstractUICommand implements SupportsAccessKey {
-
-  public abstract java.lang.String getImage();
-
-  public abstract Integer getTabIndex();
+public interface IsDisabledBySecurity {
+  /**
+   * Flag indicating that this element is disabled. If configured so in the tobago-config.xml the action will be
+   * checked for the annotations {@link javax.annotation.security.RolesAllowed},
+   * {@link javax.annotation.security.PermitAll} or {@link javax.annotation.security.DenyAll}.
+   */
+  @TagAttribute()
+  @UIComponentTagAttribute(type = "boolean", generate = false)
+  void setDisabled(String disabled);
 }

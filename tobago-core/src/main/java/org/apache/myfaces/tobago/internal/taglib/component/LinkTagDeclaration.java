@@ -36,7 +36,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasResource;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTabIndex;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTarget;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
-import org.apache.myfaces.tobago.internal.taglib.declaration.IsDisabled;
+import org.apache.myfaces.tobago.internal.taglib.declaration.IsDisabledBySecurity;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsImmediateCommand;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsOmit;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsTransition;
@@ -68,6 +68,6 @@ import javax.faces.component.UICommand;
             allowedChildComponenents = "org.apache.myfaces.tobago.Popup")})
 public interface LinkTagDeclaration
     extends HasIdBindingAndRendered, HasLabelAndAccessKey, HasAction, HasActionListener, IsImmediateCommand,
-    HasLink, HasResource, IsTransition, HasTarget, HasRenderedPartially, IsDisabled, IsOmit,
+    HasLink, HasResource, IsTransition, HasTarget, HasRenderedPartially, IsDisabledBySecurity, IsOmit,
     HasTip, HasImage, HasTabIndex, IsVisual {
 }
