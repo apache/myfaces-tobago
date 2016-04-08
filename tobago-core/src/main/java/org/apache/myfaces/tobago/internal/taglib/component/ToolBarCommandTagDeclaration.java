@@ -24,12 +24,20 @@ import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.RendererTypes;
-import org.apache.myfaces.tobago.internal.taglib.declaration.AbstractCommandTagDeclaration;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasAction;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasActionListener;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasImage;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabelAndAccessKey;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasLink;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasRenderedPartially;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasResource;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasTarget;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsDisabled;
+import org.apache.myfaces.tobago.internal.taglib.declaration.IsImmediateCommand;
+import org.apache.myfaces.tobago.internal.taglib.declaration.IsOmit;
+import org.apache.myfaces.tobago.internal.taglib.declaration.IsTransition;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
 
 import javax.faces.component.UICommand;
@@ -54,6 +62,7 @@ import javax.faces.component.UICommand;
             allowedChildComponenents = "org.apache.myfaces.tobago.Menu")
     })
 public interface ToolBarCommandTagDeclaration
-    extends AbstractCommandTagDeclaration, HasIdBindingAndRendered,
+    extends HasAction, HasActionListener, IsImmediateCommand,
+    HasLink, HasResource, IsTransition, HasTarget, HasRenderedPartially, IsOmit, HasIdBindingAndRendered,
     HasLabelAndAccessKey, HasImage, IsDisabled, HasTip, IsVisual {
 }
