@@ -30,29 +30,4 @@
     </after>
   </ordering>
 
-  <component>
-    <component-type>org.apache.myfaces.tobago.Command</component-type>
-    <component-class>org.apache.myfaces.tobago.security.UISecuredCommand</component-class>
-  </component>
-
-  <component>
-    <component-type>org.apache.myfaces.tobago.Link</component-type>
-    <component-class>org.apache.myfaces.tobago.security.UISecuredLink</component-class>
-  </component>
-
-  <component>
-    <component-type>org.apache.myfaces.tobago.Button</component-type>
-    <component-class>org.apache.myfaces.tobago.security.UISecuredButton</component-class>
-  </component>
-
-  <component>
-    <component-type>org.apache.myfaces.tobago.MenuCommand</component-type>
-    <component-class>org.apache.myfaces.tobago.security.UISecuredMenuCommand</component-class>
-  </component>
-
-  <component>
-    <component-type>org.apache.myfaces.tobago.ToolBarCommand</component-type>
-    <component-class>org.apache.myfaces.tobago.security.UISecuredToolBarCommand</component-class>
-  </component>
-
 </faces-config>
