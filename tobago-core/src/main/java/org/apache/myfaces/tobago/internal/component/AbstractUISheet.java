@@ -137,7 +137,7 @@ public abstract class AbstractUISheet extends AbstractUIData
       autoLayout = true;
       if (columnLayout != null) {
         for (LayoutToken layoutToken : columnLayout.getTokens()) {
-          if (! (layoutToken instanceof AutoLayoutToken)) {
+          if (!(layoutToken instanceof AutoLayoutToken)) {
             autoLayout = false;
             break;
           }

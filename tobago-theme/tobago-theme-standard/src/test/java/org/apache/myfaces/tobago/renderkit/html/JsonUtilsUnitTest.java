@@ -132,17 +132,17 @@ public class JsonUtilsUnitTest extends AbstractTobagoTestBase {
   @Test
   public void decodeIntegerArray() {
 
-    Assert.assertEquals(Arrays.asList(1,2,3,4), JsonUtils.decodeIntegerArray("[1,2,3,4]"));
+    Assert.assertEquals(Arrays.asList(1, 2, 3, 4), JsonUtils.decodeIntegerArray("[1,2,3,4]"));
 
-    Assert.assertEquals(Arrays.asList(1,2,3,4), JsonUtils.decodeIntegerArray(" [ 1 , 2 , 3 , 4 ] "));
+    Assert.assertEquals(Arrays.asList(1, 2, 3, 4), JsonUtils.decodeIntegerArray(" [ 1 , 2 , 3 , 4 ] "));
 
     Assert.assertEquals(Arrays.asList(1), JsonUtils.decodeIntegerArray("[1]"));
 
     Assert.assertEquals(Arrays.asList(), JsonUtils.decodeIntegerArray("[]"));
 
-    Assert.assertEquals(Arrays.asList(1000000000,2,3,4), JsonUtils.decodeIntegerArray("[1000000000,2,3,4]"));
+    Assert.assertEquals(Arrays.asList(1000000000, 2, 3, 4), JsonUtils.decodeIntegerArray("[1000000000,2,3,4]"));
 
-    Assert.assertEquals(Arrays.asList(2,3,4), JsonUtils.decodeIntegerArray("[null,2,3,4]"));
+    Assert.assertEquals(Arrays.asList(2, 3, 4), JsonUtils.decodeIntegerArray("[null,2,3,4]"));
 
     Assert.assertEquals(null, JsonUtils.decodeIntegerArray("1,2,3,4"));
   }
