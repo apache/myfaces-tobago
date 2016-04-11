@@ -68,6 +68,28 @@
           <autoDelete>true</autoDelete>
         </configuration>
       </plugin>
+      <plugin>
+        <groupId>org.eclipse.jetty</groupId>
+        <artifactId>jetty-maven-plugin</artifactId>
+        <configuration>
+          <loginServices>
+            <loginService implementation="org.eclipse.jetty.security.HashLoginService">
+              <name>demo-realm</name>
+              <config>src/test/resources/realm.properties</config>
+            </loginService>
+          </loginServices>
+          <stopKey>stopKey</stopKey>
+          <stopPort>9999</stopPort>
+          <systemProperties>
+            <systemProperty>
+              <name>derby.stream.error.file</name>
+              <value>target/derby.log</value>
+            </systemProperty>
+          </systemProperties>
+        </configuration>
+        <dependencies>
+        </dependencies>
+      </plugin>
     </plugins>
   </build>
 
