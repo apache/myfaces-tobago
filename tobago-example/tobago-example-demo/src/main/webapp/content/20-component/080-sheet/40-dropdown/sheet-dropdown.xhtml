@@ -20,12 +20,12 @@
 <ui:composition template="/main.xhtml"
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
-                xmlns:ui="http://java.sun.com/jsf/facelets">
-  <ui:param name="title" value="#{overviewBundle.sheet} &lt;tc:sheet>"/>
-  <p>A <code class="language-markup">&lt;tc:sheet/></code> tag can contain any number of
-    <code class="language-markup">&lt;tc:column/></code> tags.
-    The <code class="language-markup">&lt;tc:column/></code> tag is a container, which may contain
-    outputfields, progress bars or even tab groups.</p>
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core">
+  <ui:param name="title" value="#{overviewBundle.sheet_dropdown}"/>
+  <p>
+    TODO
+  </p>
   <p>Tag Library Documentation:
     <tc:link label="&lt;tc:sheet/>" image="image/feather-leaf.png"
              link="#{overviewBundle.tagDocUrl}/sheet.html"/>
@@ -33,25 +33,19 @@
     <tc:link label="&lt;tc:column/>" image="image/feather-leaf.png"
              link="#{overviewBundle.tagDocUrl}/column.html"/></p>
 
-  <tc:section label="Basics">
-    <p>Two attributes should be recognized in a sheet.
-      The date of the sheet is set in the <code>value</code> attribute.
-      The variablename of a single entry is set by the <code>var</code> attribute, which can be used in the
-      <code class="language-markup">&lt;tc:column/></code> tags.
-      In this example, also the <code>rows</code> attribute is set. So only four rows are shown at a time.
-      Only outputfields are used to display the data.</p>
-    <pre><code class="language-markup">&lt;tc:sheet value="\#{sheetController.solarList}"
-    var="solarobject" rows="4">
-  &lt;tc:column label="Name">
-    &lt;tc:out value="\#{solarobject.name}"/>
-      ...</code></pre>
-    <tc:sheet columns="3*;2*;3*;*;*" id="s1" value="#{sheetController.solarList}" var="solarobject" rows="4">
-      <tc:style maxHeight="500px"/>
+  <tc:section label="dropDownMenu">
+    <tc:sheet id="s5" value="#{sheetController.solarList}" var="solarobject" rows="4">
       <tc:column label="Name">
         <tc:out value="#{solarobject.name}"/>
       </tc:column>
       <tc:column label="Orbit">
-        <tc:out value="#{solarobject.orbit}"/>
+        <f:facet name="dropDownMenu">
+          <tc:menu>
+            <tc:menuCommand omit="true" label="todo">
+              <tc:dataAttribute name="alert-text" value="Not implemented yet"/>
+            </tc:menuCommand>
+          </tc:menu>
+        </f:facet>
       </tc:column>
       <tc:column label="Period (Days)">
         <tc:out value="#{solarobject.period}"/>

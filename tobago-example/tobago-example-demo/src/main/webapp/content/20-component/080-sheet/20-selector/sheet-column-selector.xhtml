@@ -21,32 +21,31 @@
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
                 xmlns:ui="http://java.sun.com/jsf/facelets">
-  <ui:param name="title" value="#{overviewBundle.sheet} &lt;tc:sheet>"/>
-  <p>A <code class="language-markup">&lt;tc:sheet/></code> tag can contain any number of
-    <code class="language-markup">&lt;tc:column/></code> tags.
-    The <code class="language-markup">&lt;tc:column/></code> tag is a container, which may contain
-    outputfields, progress bars or even tab groups.</p>
+  <ui:param name="title" value="#{overviewBundle.sheet_column_selector} &lt;tc:columnSelector>"/>
+  <p>To insert a selectable column, use the <code class="language-markup">&lt;tc:columnSelector/></code> tag.
+    With the <code>selectable</code> in the <code class="language-markup">&lt;tc:sheet/></code> tag, you can
+    adjust, whether the column should show checkboxes (default) or radio button 'singleOrNone'.</p>
   <p>Tag Library Documentation:
     <tc:link label="&lt;tc:sheet/>" image="image/feather-leaf.png"
              link="#{overviewBundle.tagDocUrl}/sheet.html"/>
     |
-    <tc:link label="&lt;tc:column/>" image="image/feather-leaf.png"
-             link="#{overviewBundle.tagDocUrl}/column.html"/></p>
+    <tc:link label="&lt;tc:columnSelector/>" image="image/feather-leaf.png"
+             link="#{overviewBundle.tagDocUrl}/columnSelector.html"/></p>
 
-  <tc:section label="Basics">
-    <p>Two attributes should be recognized in a sheet.
-      The date of the sheet is set in the <code>value</code> attribute.
-      The variablename of a single entry is set by the <code>var</code> attribute, which can be used in the
-      <code class="language-markup">&lt;tc:column/></code> tags.
-      In this example, also the <code>rows</code> attribute is set. So only four rows are shown at a time.
-      Only outputfields are used to display the data.</p>
+  <tc:section label="Column Selector">
+    <p>The first column in this sheet contain radio buttons.
+      After clicking the submit button, the number of the selected row is displayed in the outputfield.</p>
     <pre><code class="language-markup">&lt;tc:sheet value="\#{sheetController.solarList}"
-    var="solarobject" rows="4">
-  &lt;tc:column label="Name">
-    &lt;tc:out value="\#{solarobject.name}"/>
-      ...</code></pre>
-    <tc:sheet columns="3*;2*;3*;*;*" id="s1" value="#{sheetController.solarList}" var="solarobject" rows="4">
-      <tc:style maxHeight="500px"/>
+    var="solarobject" selectable="singleOrNone" rows="2"
+    state="\#{sheetController.sheetState}">
+    &lt;tc:columnSelector/>
+    &lt;tc:column label="Name">
+      &lt;tc:out value="\#{solarobject.name}"/>
+    &lt;/tc:column>
+    ...</code></pre>
+    <tc:sheet id="s4" value="#{sheetController.solarList}" var="solarobject" rows="2"
+              selectable="singleOrNone" state="#{sheetController.sheetState}">
+      <tc:columnSelector/>
       <tc:column label="Name">
         <tc:out value="#{solarobject.name}"/>
       </tc:column>
@@ -63,5 +62,8 @@
         <tc:out value="#{solarobject.discoverYear}"/>
       </tc:column>
     </tc:sheet>
+
+    <tc:button id="b1" label="Submit"/>
+    <tc:out id="o1" label="Row Number" value="#{sheetController.selectedRowNumber}"/>
   </tc:section>
 </ui:composition>

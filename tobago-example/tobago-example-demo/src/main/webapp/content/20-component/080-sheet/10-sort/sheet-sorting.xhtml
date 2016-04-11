@@ -21,11 +21,8 @@
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
                 xmlns:ui="http://java.sun.com/jsf/facelets">
-  <ui:param name="title" value="#{overviewBundle.sheet} &lt;tc:sheet>"/>
-  <p>A <code class="language-markup">&lt;tc:sheet/></code> tag can contain any number of
-    <code class="language-markup">&lt;tc:column/></code> tags.
-    The <code class="language-markup">&lt;tc:column/></code> tag is a container, which may contain
-    outputfields, progress bars or even tab groups.</p>
+  <ui:param name="title" value="#{overviewBundle.sheet_sorting} &lt;tc:sheet>"/>
+  <p>Sorting can be enabled via the <code>sortActionListener</code> attribute, which is set in the sheet.</p>
   <p>Tag Library Documentation:
     <tc:link label="&lt;tc:sheet/>" image="image/feather-leaf.png"
              link="#{overviewBundle.tagDocUrl}/sheet.html"/>
@@ -33,33 +30,22 @@
     <tc:link label="&lt;tc:column/>" image="image/feather-leaf.png"
              link="#{overviewBundle.tagDocUrl}/column.html"/></p>
 
-  <tc:section label="Basics">
-    <p>Two attributes should be recognized in a sheet.
-      The date of the sheet is set in the <code>value</code> attribute.
-      The variablename of a single entry is set by the <code>var</code> attribute, which can be used in the
-      <code class="language-markup">&lt;tc:column/></code> tags.
-      In this example, also the <code>rows</code> attribute is set. So only four rows are shown at a time.
-      Only outputfields are used to display the data.</p>
+  <tc:section label="Sorting">
+    <p>All columns in this sheet can be sorted.</p>
     <pre><code class="language-markup">&lt;tc:sheet value="\#{sheetController.solarList}"
-    var="solarobject" rows="4">
-  &lt;tc:column label="Name">
-    &lt;tc:out value="\#{solarobject.name}"/>
-      ...</code></pre>
-    <tc:sheet columns="3*;2*;3*;*;*" id="s1" value="#{sheetController.solarList}" var="solarobject" rows="4">
-      <tc:style maxHeight="500px"/>
-      <tc:column label="Name">
+    var="solarobject" rows="4"
+    sortActionListener="\#{sheetController.sheetSorter}"></code></pre>
+    <p>In addition, the columns must be sortable and have an id.</p>
+    <pre><code class="language-markup">&lt;tc:column id="namecol" label="Name" sortable="true"></code></pre>
+    <tc:sheet id="s3" value="#{sheetController.solarList}" var="solarobject" rows="4"
+              sortActionListener="#{sheetController.sheetSorter}">
+      <tc:column id="namecol" label="Name" sortable="true">
         <tc:out value="#{solarobject.name}"/>
       </tc:column>
-      <tc:column label="Orbit">
-        <tc:out value="#{solarobject.orbit}"/>
-      </tc:column>
-      <tc:column label="Period (Days)">
+      <tc:column id="periodcol" label="Period (Days)" sortable="true">
         <tc:out value="#{solarobject.period}"/>
       </tc:column>
-      <tc:column label="Discoverer">
-        <tc:out value="#{solarobject.discoverer}"/>
-      </tc:column>
-      <tc:column label="Year">
+      <tc:column id="yearcol" label="Discovery Year" sortable="true">
         <tc:out value="#{solarobject.discoverYear}"/>
       </tc:column>
     </tc:sheet>
