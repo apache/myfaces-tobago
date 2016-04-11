@@ -82,6 +82,7 @@
           <tomeeClassifier>plus</tomeeClassifier>
           <!--<tomeeHttpPort>9090</tomeeHttpPort>-->
           <!--<context>/demo</context>-->
+          <config>${project.basedir}/src/test/tomee/conf</config>
         </configuration>
       </plugin>
 

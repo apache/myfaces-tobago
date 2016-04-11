@@ -30,7 +30,8 @@ public class Login {
     request.login(username, password);
     LOG.info("Successful login user: '{}'", username);
 
-    response.sendRedirect(response.encodeRedirectURL("/content/30-concept/80-security/content-security-policy.xhtml"));
+    response.sendRedirect(response.encodeRedirectURL(
+            request.getContextPath() + "/faces/content/30-concept/80-security/content-security-policy.xhtml"));
   }
 
   public void logout() throws ServletException, IOException {
