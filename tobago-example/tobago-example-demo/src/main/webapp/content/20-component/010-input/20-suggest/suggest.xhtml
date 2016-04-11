@@ -18,12 +18,53 @@
 -->
 
 <ui:composition template="/main.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
-                xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:f="http://java.sun.com/jsf/core">
-    <ui:param name="title" value="#{overviewBundle.suggest} &lt;tc:suggest&gt;"/>
-    <p>The suggest-tag is used within the <code>&lt;tc:in&gt;</code> tag.</p>
-    <tc:in id="i1" label="Language" placeholder="Select Language" value="#{overviewController.suggestInput}">
-        <tc:suggest id="s1" suggestMethod="#{overviewController.getInputSuggestItems}" delay="300" minimumCharacters="1" maximumItems="10"/>
+                xmlns:ui="http://java.sun.com/jsf/facelets">
+  <ui:param name="title" value="#{overviewBundle.suggest} &lt;tc:suggest&gt;"/>
+  <p>A <code class="language-markup">&lt;tc:suggest/></code> tag can be added to an inputfield to make
+    suggestions based on the already entered text.</p>
+  <p>Tag Library Documentation:
+    <tc:link label="&lt;tc:suggest/>" image="image/feather-leaf.png"
+             link="#{overviewBundle.tagDocUrl}/suggest.html"/>
+    |
+    <tc:link label="&lt;tc:in/>" image="image/feather-leaf.png" link="#{overviewBundle.tagDocUrl}/in.html"/></p>
+
+  <tc:section label="Basics">
+    <p>Select a language, after you type a character in the textfield, a list of suggestions is shown.</p>
+        <pre><code class="language-markup">&lt;tc:in id="i1" label="Language" value="\#{suggestController.suggestInput}">
+    &lt;tc:suggest suggestMethod="\#{suggestController.getInputSuggestItems}"/>
+&lt;/tc:in></code></pre>
+    <tc:in id="i1" label="Language" value="#{suggestController.suggestInput}">
+      <tc:suggest suggestMethod="#{suggestController.getInputSuggestItems}"/>
     </tc:in>
+  </tc:section>
+
+  <tc:section label="Advanced">
+    <p>This example differs in a few points from the one in the 'Basics' section.
+      There are only two suggestions shown to the user, because the
+      <code>maximumItems</code> attribute is set to '2'.
+      Also you need to type two characters before suggestions are made,
+      because of the <code>minimumCharacters</code> attribute which has the value '2'.
+      And by setting the <code>delay</code> to '2000', the user have to wait two seconds,
+      before the suggestionlist is show.</p>
+        <pre><code class="language-markup">&lt;tc:suggest suggestMethod="\#{suggestController.getInputSuggestItems}"
+  maximumItems="2" minimumCharacters="2" delay="2000"/></code></pre>
+    <tc:in id="i2" label="Language" value="#{suggestController.suggestInput}">
+      <tc:suggest suggestMethod="#{suggestController.getInputSuggestItems}"
+                  maximumItems="2" minimumCharacters="2" delay="2000"/>
+    </tc:in>
+  </tc:section>
+
+  <tc:section label="Client sided">
+    <p>For optimization, the filtering can be done by the client.
+      For that, <code>update</code> must be 'false' and <code>minimumCharacters</code> have to be '0'.
+      If client sided filtering is activated, the <code>filter</code> attribute has an effect.</p>
+    <pre><code class="language-markup">&lt;tc:suggest suggestMethod="\#{suggestController.getCountryLanguageList}"
+  update="false" minimumCharacters="0" filter="prefix"/></code></pre>
+    <tc:in id="i3" label="Language" value="#{suggestController.suggestInput}">
+      <tc:suggest suggestMethod="#{suggestController.getCountryLanguageList}"
+                  update="false" minimumCharacters="0" filter="prefix"/>
+    </tc:in>
+  </tc:section>
 </ui:composition>

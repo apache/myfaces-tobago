@@ -22,14 +22,14 @@ package org.apache.myfaces.tobago.example.demo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 import javax.swing.DefaultBoundedRangeModel;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-@RequestScoped
+@SessionScoped
 @Named
 public class ProgressController implements Serializable {
 

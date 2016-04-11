@@ -18,51 +18,66 @@
 -->
 
 <ui:composition template="/main.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
-                xmlns:ui="http://java.sun.com/jsf/facelets">
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core">
+  <ui:param name="title" value="#{overviewBundle.tree_editor}"/>
+  <p>This is an example, to show how to edit a tree.</p>
 
-  <ui:param name="title" value="Tree - Editor"/>
+  <tc:button label="New">
+    <f:facet name="popup">
+      <tc:popup id="createPopup">
+        <tc:box label="New">
+          <tc:in label="New Name" value="#{treeEditorController.name}"/>
+          <tc:button label="OK" action="#{treeEditorController.create}">
+            <tc:attribute name="popupClose" value="afterSubmit"/>
+          </tc:button>
+          <tc:button label="Cancel">
+            <tc:attribute name="popupClose" value="immediate"/>
+          </tc:button>
+        </tc:box>
+      </tc:popup>
+    </f:facet>
+  </tc:button>
+  <tc:button label="Rename">
+    <f:facet name="popup">
+      <tc:popup id="renamePopup">
+        <tc:box label="Rename">
+          <tc:in label="New Name" value="#{treeEditorController.name}"/>
+          <tc:button label="OK" action="#{treeEditorController.rename}">
+            <tc:attribute name="popupClose" value="afterSubmit"/>
+          </tc:button>
+          <tc:button label="Cancel">
+            <tc:attribute name="popupClose" value="immediate"/>
+          </tc:button>
+        </tc:box>
+      </tc:popup>
+    </f:facet>
+  </tc:button>
 
-  This is a sample for an editable tree. (Not all functions are implemented).
-  Try to select a node an click "New" or "Delete")
-
+  <p>Currently, the buttons 'New' and 'Rename' doesn't work in the toolbar. Use the alternative buttons above.</p>
   <tc:toolBar>
-    <tc:toolBarCommand label="New" action="#{treeEditor.create}" image="fa-file-o"/>
-    <tc:toolBarCommand label="Delete" action="#{treeEditor.delete}" image="fa-trash-o"/>
-    <tc:toolBarCommand label="Edit" omit="true" image="fa-edit">
+    <tc:toolBarCommand label="New" omit="true" image="fa-file-o">
       <tc:dataAttribute name="alert-text" value="Not implemented yet"/>
     </tc:toolBarCommand>
-    <tc:toolBarCommand label="Cut" omit="true" image="fa-cut">
+    <tc:toolBarCommand label="Delete" image="fa-trash-o" action="#{treeEditorController.delete}"/>
+    <tc:toolBarCommand label="Rename" omit="true" image="fa-edit">
       <tc:dataAttribute name="alert-text" value="Not implemented yet"/>
     </tc:toolBarCommand>
-    <tc:toolBarCommand label="Copy" omit="true" image="fa-copy">
-      <tc:dataAttribute name="alert-text" value="Not implemented yet"/>
-    </tc:toolBarCommand>
-    <tc:toolBarCommand label="Paste" omit="true" image="fa-paste">
-      <tc:dataAttribute name="alert-text" value="Not implemented yet"/>
-    </tc:toolBarCommand>
-    <tc:toolBarCommand label="Up" omit="true" image="fa-level-up">
-      <tc:dataAttribute name="alert-text" value="Not implemented yet"/>
-    </tc:toolBarCommand>
-    <tc:toolBarCommand label="Down" omit="true" image="fa-level-down">
-      <tc:dataAttribute name="alert-text" value="Not implemented yet"/>
-    </tc:toolBarCommand>
+    <tc:toolBarCommand label="Cut" action="#{treeEditorController.cut}" image="fa-cut"/>
+    <tc:toolBarCommand label="Copy" action="#{treeEditorController.copy}" image="fa-copy"/>
+    <tc:toolBarCommand label="Paste" action="#{treeEditorController.paste}" image="fa-paste"/>
+    <tc:toolBarCommand label="Up" action="#{treeEditorController.moveUp}" image="fa-level-up"/>
+    <tc:toolBarCommand label="Down" action="#{treeEditorController.moveDown}" image="fa-level-down"/>
+    <tc:toolBarCommand label="Reset" action="#{treeEditorController.reset}" image="fa-undo"/>
   </tc:toolBar>
 
-  <tc:tree id="tree"
-           showRootJunction="true"
-           showRoot="true"
-           value="#{treeEditor.categoryTree}"
-           var="node"
-           selectable="single">
-    <tc:treeNode id="template"
-                 markup="#{node.userObject.markup}"
-                 tip="#{node.userObject.tip}"
-                 disabled="#{node.userObject.disabled}">
+  <tc:tree value="#{treeEditorController.categoryTree}" var="node"
+           showRoot="true" showRootJunction="true" selectable="single">
+    <tc:treeNode>
       <tc:treeIndent showJunctions="true"/>
-      <tc:treeIcon value="image/feather.png"/>
-      <tc:treeSelect value="#{node.userObject.selected}" label="#{node.userObject.name}"/>
+      <tc:treeSelect label="#{node.userObject.name}" value="#{node.userObject.selected}"/>
     </tc:treeNode>
   </tc:tree>
-
 </ui:composition>
