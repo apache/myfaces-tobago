@@ -34,6 +34,7 @@ import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.HttpPartWrapper;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
+import org.apache.myfaces.tobago.validator.FileItemValidator;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -44,6 +45,7 @@ import javax.faces.event.ComponentSystemEvent;
 import javax.faces.event.ComponentSystemEventListener;
 import javax.faces.event.ListenerFor;
 import javax.faces.event.PostAddToViewEvent;
+import javax.faces.validator.Validator;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.Part;
 import java.io.IOException;
@@ -95,6 +97,7 @@ public class FileRenderer extends LabelLayoutRendererBase implements ComponentSy
 
     final AbstractUIFile file = (AbstractUIFile) component;
     final String clientId = file.getClientId(facesContext);
+    final String accept = createAcceptFromValidators(file);
 
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
@@ -108,6 +111,7 @@ public class FileRenderer extends LabelLayoutRendererBase implements ComponentSy
     writer.writeClassAttribute(BootstrapClass.INPUT_GROUP);
     writer.startElement(HtmlElements.INPUT);
     writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.TEXT);
+    writer.writeAttribute(HtmlAttributes.ACCEPT, accept, true);
     writer.writeAttribute(HtmlAttributes.TABINDEX, -1);
     writer.writeClassAttribute(Classes.create(file, "pretty"), BootstrapClass.FORM_CONTROL);
     // TODO Focus
@@ -128,6 +132,7 @@ public class FileRenderer extends LabelLayoutRendererBase implements ComponentSy
     // invisible file input
     writer.startElement(HtmlElements.INPUT);
     writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.FILE);
+    writer.writeAttribute(HtmlAttributes.ACCEPT, accept, true);
     writer.writeAttribute(HtmlAttributes.TABINDEX, -1);
     writer.writeIdAttribute(clientId + ComponentUtils.SUB_SEPARATOR + "real");
     writer.writeClassAttribute(Classes.create(file, "real"));
@@ -147,6 +152,24 @@ public class FileRenderer extends LabelLayoutRendererBase implements ComponentSy
     }
 
     writer.endElement(HtmlElements.INPUT);
+  }
+
+  private String createAcceptFromValidators(final AbstractUIFile file) {
+    final StringBuilder builder = new StringBuilder();
+    for (Validator validator : file.getValidators()) {
+      if (validator instanceof FileItemValidator) {
+        final FileItemValidator fileItemValidator = (FileItemValidator) validator;
+        for (final String contentType : fileItemValidator.getContentType()) {
+          builder.append(",");
+          builder.append(contentType);
+        }
+      }
+    }
+    if (builder.length() > 0) {
+      return builder.substring(1);
+    } else {
+      return null;
+    }
   }
 
   @Override
