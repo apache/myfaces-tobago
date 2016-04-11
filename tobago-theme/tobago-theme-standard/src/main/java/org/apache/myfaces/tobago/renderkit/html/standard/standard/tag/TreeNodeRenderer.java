@@ -29,6 +29,7 @@ import org.apache.myfaces.tobago.internal.component.AbstractUITreeListbox;
 import org.apache.myfaces.tobago.internal.component.AbstractUITreeMenu;
 import org.apache.myfaces.tobago.internal.component.AbstractUITreeNodeBase;
 import org.apache.myfaces.tobago.layout.Display;
+import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.model.Selectable;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
@@ -153,12 +154,15 @@ public class TreeNodeRenderer extends RendererBase {
       }
 
       Style style = node.getStyle();
+      if (style == null) {
+        style = new Style();
+      }
       // In the case of a sheet, we need not hiding the node, because the whole TR will be hidden.
       if (!dataRendersRowContainer && !visible) {
-        if (style == null) {
-          style = new Style();
-        }
         style.setDisplay(Display.none);
+      }
+      if(style.getLeft() == null) {
+        style.setMarginLeft(leftOffset(data, node.getLevel(), data.isShowRoot()));
       }
 
       writer.writeStyleAttribute(style);
@@ -205,4 +209,12 @@ public class TreeNodeRenderer extends RendererBase {
     writer.endElement(HtmlElements.IMG);
   }
 
+  protected Measure leftOffset(AbstractUIData data, int level, boolean showRoot) {
+    if (data instanceof AbstractUITreeMenu) {
+      final int factor = showRoot ? level : level - 1;
+      return Measure.valueOf(factor * 25); // XXX should be defined in CSS
+    } else {
+      return Measure.ZERO;
+    }
+  }
 }

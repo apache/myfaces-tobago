@@ -20,11 +20,7 @@
 package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
 import org.apache.myfaces.tobago.component.UITreeCommand;
-import org.apache.myfaces.tobago.internal.component.AbstractUIData;
-import org.apache.myfaces.tobago.internal.component.AbstractUITreeMenu;
-import org.apache.myfaces.tobago.internal.component.AbstractUITreeNodeBase;
 import org.apache.myfaces.tobago.internal.util.AccessKeyLogger;
-import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.Style;
@@ -35,7 +31,6 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.JsonUtils;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
-import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
@@ -53,16 +48,6 @@ public class TreeCommandRenderer extends CommandRendererBase {
     final LabelWithAccessKey label = new LabelWithAccessKey(command);
     final boolean disabled = command.isDisabled();
 
-    final AbstractUITreeNodeBase node = ComponentUtils.findAncestor(command, AbstractUITreeNodeBase.class);
-    final AbstractUIData data = ComponentUtils.findAncestor(command, AbstractUIData.class);
-    Style style = command.getStyle();
-    if (style == null) {
-      style = new Style();
-    }
-    if (style.getLeft() == null) { // do not override it
-      style.setMarginLeft(leftOffset(data, node.getLevel(), data.isShowRoot()));
-    }
-
     if (disabled) {
       writer.startElement(HtmlElements.SPAN);
     } else {
@@ -71,7 +56,7 @@ public class TreeCommandRenderer extends CommandRendererBase {
       writer.writeAttribute(DataAttributes.COMMANDS, JsonUtils.encode(map), true);
       writer.writeNameAttribute(clientId);
     }
-    writer.writeStyleAttribute(style);
+    writer.writeStyleAttribute(command.getStyle() != null ? command.getStyle() : new Style());
     writer.writeClassAttribute(Classes.create(command));
     writer.writeIdAttribute(clientId);
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, command);
@@ -96,15 +81,6 @@ public class TreeCommandRenderer extends CommandRendererBase {
       writer.endElement(HtmlElements.SPAN);
     } else {
       writer.endElement(HtmlElements.A);
-    }
-  }
-
-  protected Measure leftOffset(AbstractUIData data, int level, boolean showRoot) {
-    if (data instanceof AbstractUITreeMenu) {
-        final int factor = showRoot ? level : level - 1;
-        return Measure.valueOf(factor * 25); // XXX should be defined in CSS
-    } else {
-      return Measure.ZERO;
     }
   }
 }
