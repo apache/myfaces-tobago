@@ -73,7 +73,14 @@
   <entry key="tab_ajax">Ajax</entry>
   <entry key="tab_server">Server sided</entry>
   <entry key="sheet">Sheet Control</entry>
-  <entry key="sheet_master_detail">Column Event</entry>
+  <entry key="sheet_column_content">Column Content</entry>
+  <entry key="sheet_sorting">Sorting</entry>
+  <entry key="sheet_column_selector">Column Selector</entry>
+  <entry key="sheet_column_event">Column Event</entry>
+  <entry key="sheet_dropdown">Dropdown Box</entry>
+  <entry key="sheet_filter">Filtering</entry>
+  <entry key="sheet_header">Header</entry>
+  <entry key="sheet_tree">Column Tree</entry>
   <entry key="tree">Tree Control</entry>
   <entry key="tree_command_types">Command</entry>
   <entry key="tree_select">Select</entry>
@@ -81,10 +88,11 @@
   <entry key="tree_menu">Tree Menu</entry>
   <entry key="tree_listbox">Tree List</entry>
   <entry key="upload">File Upload</entry>
+  <entry key="wysiwyg_editor">WYSIWYG Editor</entry>
+  <entry key="tinymce">TinyMCE</entry>
+  <entry key="ckeditor">CKEditor</entry>
 
 
-  <entry key="tree-editor">Editor</entry>
-  <entry key="tree-command-types">Command Types</entry>
   <entry key="validation">Validation</entry>
   <entry key="validation-severity">Severity</entry>
   <entry key="form">Forms</entry>

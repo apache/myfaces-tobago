@@ -18,56 +18,52 @@
 -->
 
 <ui:composition template="/main.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
-                xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:f="http://java.sun.com/jsf/core">
-  <ui:param name="title" value="#{overviewBundle.sheet}"/>
+                xmlns:ui="http://java.sun.com/jsf/facelets">
+  <ui:param name="title" value="#{overviewBundle.sheet_tree} &lt;tc:columnNode/>"/>
+  <p>A tree can be added into a sheet. To do so, there are two steps which must be done.
+    First, the <code>value</code> attribute of the sheet must refer to a method, which return a tree instead of a list.
+    Second, to display the tree, use the <code class="language-markup">&lt;tc:columnNode/></code> tag.</p>
 
-  <tc:panel>
-    <f:facet name="layout">
-      <tc:gridLayout rows="1*;5*"/>
-    </f:facet>
+  <p>Tag Library Documentation:
+    <tc:link label="&lt;tc:sheet/>" image="image/feather-leaf.png"
+             link="#{overviewBundle.tagDocUrl}/sheet.html"/>
+    |
+    <tc:link label="&lt;tc:columnNode/>" image="image/feather-leaf.png"
+             link="#{overviewBundle.tagDocUrl}/columnNode.html"/></p>
 
-    <tc:out value="Tree Table"/>
-
-    <tc:sheet value="#{demo.solarTree}" id="sheet"
-              columns="3*;2*;30px;2*;2*;2*;2*;2*;2*" var="luminary"
-              state="#{demo.sheetTreeState}"
-              showRoot="true"
-              showRootJunction="true"
-              showRowRange="left"
-              showPageRange="right"
-              showDirectLinks="center">
-
-      <tc:columnNode id="name">
+  <tc:section label="Column Tree">
+    <p>There is a tree in the first column. You can expand and collapse the items.
+      The <code class="language-markup">&lt;tc:columnNode/></code> tag can contain several tags for a tree.
+      In this example, it's a <code class="language-markup">&lt;tc:treeIndent/></code> to intent the
+      single entries of the tree.</p>
+    <pre><code class="language-markup">&lt;tc:sheet value="\#{sheetTreeController.solarTree}"
+    var="solarObject" showRoot="true" showRootJunction="true">
+  &lt;tc:columnNode label="Name">
+    &lt;tc:treeIndent/>
+    &lt;tc:out value="\#{solarObject.userObject.name}"/>
+    ...</code></pre>
+    <tc:sheet value="#{sheetTreeController.solarTree}" var="solarObject" showRoot="true" showRootJunction="true">
+      <tc:columnNode label="Name">
         <tc:treeIndent/>
-        <tc:out value="#{luminary.userObject.name}" id="t_name"/>
+        <tc:out value="#{solarObject.userObject.name}"/>
       </tc:columnNode>
-      <tc:column id="orbit" label="#{overviewBundle.solarArrayOrbit}">
-        <tc:out value="#{luminary.userObject.orbit}" id="t_orbit"/>
+      <tc:column label="Central Body">
+        <tc:out value="#{solarObject.userObject.orbit}"/>
       </tc:column>
-      <tc:column id="number" resizable="false"
-                 tip="#{overviewBundle.solarArrayNumberTip}" align="center">
-        <tc:out value="#{luminary.userObject.number}" id="t_number"/>
+      <tc:column label="Distance" sortable="true">
+        <tc:out value="#{solarObject.userObject.distance}"/>
       </tc:column>
-      <tc:column align="right" id="distance">
-        <tc:out value="#{luminary.userObject.distance}" id="t_distance"/>
+      <tc:column label="Period" sortable="true">
+        <tc:out value="#{solarObject.userObject.period}"/>
       </tc:column>
-      <tc:column label="#{overviewBundle.solarArrayPeriod}" align="right" id="period">
-        <tc:out value="#{luminary.userObject.period}" id="t_period"/>
+      <tc:column label="Discoverer">
+        <tc:out value="#{solarObject.userObject.discoverer}"/>
       </tc:column>
-      <tc:column align="right" id="incl">
-        <tc:out value="#{luminary.userObject.incl}" id="t_incl"/>
-      </tc:column>
-      <tc:column align="right" id="eccen">
-        <tc:out value="#{luminary.userObject.eccen}" id="t_eccen"/>
-      </tc:column>
-      <tc:column id="discoverer">
-        <tc:out value="#{luminary.userObject.discoverer}" id="t_discoverer"/>
-      </tc:column>
-      <tc:column align="center" id="discoverYear">
-        <tc:out value="#{luminary.userObject.discoverYear}" id="t_discoverYear"/>
+      <tc:column label="Year" sortable="true">
+        <tc:out value="#{solarObject.userObject.discoverYear}"/>
       </tc:column>
     </tc:sheet>
-  </tc:panel>
+  </tc:section>
 </ui:composition>

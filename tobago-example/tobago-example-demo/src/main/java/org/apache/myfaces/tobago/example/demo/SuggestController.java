@@ -1,0 +1,75 @@
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */
+
+package org.apache.myfaces.tobago.example.demo;
+
+import org.apache.commons.lang.StringUtils;
+import org.apache.myfaces.tobago.example.data.LocaleList;
+import org.apache.myfaces.tobago.model.SuggestFilter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import javax.enterprise.context.SessionScoped;
+import javax.faces.component.UIInput;
+import javax.inject.Named;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
+@SessionScoped
+@Named
+public class SuggestController implements Serializable {
+
+  private static final Logger LOG = LoggerFactory.getLogger(SuggestController.class);
+  private String suggestInput;
+
+  public String getSuggestInput() {
+    return suggestInput;
+  }
+
+  public void setSuggestInput(String suggestInput) {
+    this.suggestInput = suggestInput;
+  }
+
+  public List<String> getInputSuggestItems(final UIInput component) {
+    String substring = (String) component.getSubmittedValue();
+    if (substring == null) {
+      substring = "";
+    }
+    LOG.info("Creating items for substring: '" + substring + "'");
+    final List<String> result = new ArrayList<String>();
+    for (final String name : LocaleList.COUNTRY_LANGUAGE) {
+      if (StringUtils.containsIgnoreCase(name, substring)) {
+        result.add(name);
+      }
+      if (result.size() > 100) { // this value should not be smaller than the value of the suggest control
+        break;
+      }
+    }
+    return result;
+  }
+
+  public SuggestFilter getFilter() {
+    return SuggestFilter.PREFIX;
+  }
+
+  public List<String> getCountryLanguageList(final UIInput component) {
+    return LocaleList.COUNTRY_LANGUAGE;
+  }
+}

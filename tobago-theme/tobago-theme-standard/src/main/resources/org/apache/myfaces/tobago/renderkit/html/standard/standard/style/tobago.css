@@ -319,10 +319,19 @@ h6 > .fa:first-child {
   margin-right: 0.7em;
 }
 
+/* selectBooleanCheckbox ----------------------------------------------- */
+.tobago-selectBooleanCheckbox input {
+  margin-right: 6px;
+}
+
 /* selectManyCheckbox ----------------------------------------------------------- */
 
 .tobago-selectManyCheckbox {
   list-style: none;
+}
+
+.tobago-selectManyCheckbox input {
+  margin-right: 6px;
 }
 
 /* selectManyShuttle ----------------------------------------------------------- */
@@ -365,6 +374,10 @@ h6 > .fa:first-child {
   list-style: none;
 }
 
+.tobago-selectOneRadio input {
+  margin-right: 6px;
+}
+
 /* segmentLayout ----------------------------------------------------------- */
 
 .tobago-segmentLayout {
@@ -375,6 +388,28 @@ h6 > .fa:first-child {
   /*display: inline-block;
   todo: this breaks the general layout in IE11 and others
   */
+}
+
+/* separator -------------------------------------------------------------- */
+hr.tobago-separator {
+  border-top: 1px solid #e5e5e5;
+}
+
+fieldset.tobago-separator {
+  border-top: 1px solid #e5e5e5;
+  border-bottom: none;
+  border-left: none;
+  border-right: none;
+  display: block;
+  margin: 1rem 0rem;
+}
+
+fieldset.tobago-separator legend {
+  width: initial;
+  margin-left: 25px;
+  padding-left: 10px;
+  padding-right: 10px;
+  font-size: 12pt;
 }
 
 /* sheet -------------------------------------------------------------- */

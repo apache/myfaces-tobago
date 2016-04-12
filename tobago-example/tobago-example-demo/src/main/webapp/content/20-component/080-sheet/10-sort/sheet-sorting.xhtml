@@ -22,7 +22,10 @@
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
                 xmlns:ui="http://java.sun.com/jsf/facelets">
   <ui:param name="title" value="#{overviewBundle.sheet_sorting} &lt;tc:sheet>"/>
-  <p>Sorting can be enabled via the <code>sortActionListener</code> attribute, which is set in the sheet.</p>
+  <p>Sorting can be enable via the <code>sortable</code> attribute in the
+    <code class="language-markup">&lt;tc:column/></code>.
+    A custom sorting implementation can be set in the <code>sortActionListener</code> attribute in the
+    <code class="language-markup">&lt;tc:sheet/></code>.</p>
   <p>Tag Library Documentation:
     <tc:link label="&lt;tc:sheet/>" image="image/feather-leaf.png"
              link="#{overviewBundle.tagDocUrl}/sheet.html"/>
@@ -30,15 +33,36 @@
     <tc:link label="&lt;tc:column/>" image="image/feather-leaf.png"
              link="#{overviewBundle.tagDocUrl}/column.html"/></p>
 
-  <tc:section label="Sorting">
-    <p>All columns in this sheet can be sorted.</p>
+  <tc:section label="Basics">
+    <p>In this example, the <code>sortable</code> attribute is 'true' for all columns.
+      Notice, that there are negative periods.</p>
+    <pre><code class="language-markup">&lt;tc:column label="Name" sortable="true"></code></pre>
+    <tc:sheet id="s1" value="#{sheetSortingController.solarList}" var="solarobject" rows="4">
+      <tc:column label="Name" sortable="true">
+        <tc:out value="#{solarobject.name}"/>
+      </tc:column>
+      <tc:column label="Period (Days)" sortable="true">
+        <tc:out value="#{solarobject.period}"/>
+      </tc:column>
+      <tc:column label="Discovery Year" sortable="true">
+        <tc:out value="#{solarobject.discoverYear}"/>
+      </tc:column>
+    </tc:sheet>
+  </tc:section>
+
+  <tc:section label="Custom Sorting">
+    <p>All columns in this sheet can be sorted. A custom sorting implementation is set.
+      Now, the sign for period numbers is ignored by sorting.</p>
+
     <pre><code class="language-markup">&lt;tc:sheet value="\#{sheetController.solarList}"
     var="solarobject" rows="4"
-    sortActionListener="\#{sheetController.sheetSorter}"></code></pre>
-    <p>In addition, the columns must be sortable and have an id.</p>
-    <pre><code class="language-markup">&lt;tc:column id="namecol" label="Name" sortable="true"></code></pre>
-    <tc:sheet id="s3" value="#{sheetController.solarList}" var="solarobject" rows="4"
-              sortActionListener="#{sheetController.sheetSorter}">
+    sortActionListener="\#{sheetController.sheetSorter}">
+      &lt;tc:column id="namecol" label="Name" sortable="true">
+      ...
+    </code></pre>
+
+    <tc:sheet id="s2" value="#{sheetSortingController.solarList}" var="solarobject" rows="4"
+              sortActionListener="#{sheetSortingController.sheetSorter}">
       <tc:column id="namecol" label="Name" sortable="true">
         <tc:out value="#{solarobject.name}"/>
       </tc:column>
