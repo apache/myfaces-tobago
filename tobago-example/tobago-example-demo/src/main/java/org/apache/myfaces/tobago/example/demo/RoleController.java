@@ -28,29 +28,28 @@ import java.io.Serializable;
 @Named
 public class RoleController implements Serializable {
 
-  private String guestString;
-  private String adminString;
+  private String text;
   private static final String OUTCOME_ADMIN = "admin";
 
-  public String getGuestString() {
-    return guestString;
+  public String getText() {
+    return text;
   }
 
-  public void setGuestString(String guestString) {
-    this.guestString = guestString;
+  public void setText(String text) {
+    this.text = text;
   }
 
-  @RolesAllowed({"admin"})
-  public String getAdminString() {
-    return adminString;
+  @RolesAllowed({"demo-admin", "demo-guest"})
+  public boolean guestBox() {
+    return true;
   }
 
-  @RolesAllowed({"admin"})
-  public void setAdminString(String adminString) {
-    this.adminString = adminString;
+  @RolesAllowed({"demo-admin"})
+  public boolean adminBox() {
+    return true;
   }
 
-  @RolesAllowed({"admin"})
+  @RolesAllowed({"demo-admin"})
   public String admin() {
     return OUTCOME_ADMIN;
   }

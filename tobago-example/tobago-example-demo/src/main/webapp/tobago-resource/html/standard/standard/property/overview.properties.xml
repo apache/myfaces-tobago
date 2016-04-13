@@ -34,7 +34,6 @@
   <entry key="menu_about">About</entry>
 
 <!-- navigate -->
-  <entry key="overview">Overview</entry>
   <entry key="intro">Intro</entry>
   <entry key="component">Components</entry>
   <entry key="input">Input Fields</entry>
@@ -91,9 +90,10 @@
   <entry key="wysiwyg_editor">WYSIWYG Editor</entry>
   <entry key="tinymce">TinyMCE</entry>
   <entry key="ckeditor">CKEditor</entry>
-
-
   <entry key="validation">Validation</entry>
+  <entry key="roles">Roles</entry>
+
+
   <entry key="validation-severity">Severity</entry>
   <entry key="form">Forms</entry>
   <entry key="theme">Themes</entry>
@@ -137,25 +137,6 @@
 
   <!-- Tag Library Documentation URL -->
   <entry key="tagDocUrl">https://myfaces.apache.org/tobago/doc/2.0.9/tld/tc</entry>
-
-
-<!--  intro -->
-<entry key="intro_text">&lt;p&gt;Tobago is a user interface framework for developing webapplications.
-  The technical basis of the framework is JavaServer Faces. The main core represents a theme oriented
-  JSF Render Kit.&lt;/p&gt;
-  &lt;p&gt;&lt;b&gt;Basic Controls&lt;/b&gt;&lt;br/&gt;
-  Tobago provides all standard controls of HTML like inputs, textareas, radiobuttons, checkboxes and buttons.
-  Additionally Tobago provides you with complex controls, which are not natively supportet by simple HTML,
-  including sheets, trees and tabs.&lt;/p&gt;
-  &lt;p&gt;&lt;b&gt;Validation&lt;/b&gt;&lt;br/&gt;
-  The main goal of Tobago is the development of applications which are interactive from the users point of view.
-  Tobago makes it easy to validate input and helps the user to enter correct data.&lt;/p&gt;
-  &lt;p&gt;&lt;b&gt;Layout&lt;/b&gt;&lt;br/&gt;
-  Tobago provides a sophisticated layout managing mechanism which can be seen as a mixture of classic HTML table
-  layout and Swing Gridbag layout.&lt;/p&gt;
-  &lt;p&gt;&lt;b&gt;Additional Features&lt;/b&gt;&lt;br/&gt;
-  Themes, Browser, Internationalisation.&lt;/p&gt;
-</entry>
 
 <!--  basicControls -->
   <entry key="basic_sampleInputTitle">Basic Input Examples</entry>

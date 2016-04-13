@@ -178,7 +178,8 @@
       <url-pattern>/content/*</url-pattern>
     </web-resource-collection>
     <auth-constraint>
-      <role-name>demo-user</role-name>
+      <role-name>demo-admin</role-name>
+      <role-name>demo-guest</role-name>
     </auth-constraint>
   </security-constraint>
 
@@ -192,7 +193,10 @@
   </login-config>
 
   <security-role>
-    <role-name>demo-user</role-name>
+    <role-name>demo-admin</role-name>
+  </security-role>
+  <security-role>
+    <role-name>demo-guest</role-name>
   </security-role>
 
 </web-app>

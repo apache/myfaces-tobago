@@ -18,43 +18,82 @@
 -->
 
 <ui:composition template="/main.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:f="http://java.sun.com/jsf/core">
   <ui:param name="title" value="#{overviewBundle.validation}"/>
-  <tc:panel>
-    <f:facet name="layout">
-      <tc:gridLayout rows="80px;auto;*;auto"/>
-    </f:facet>
+  <p>There are several ways to validate the content of a component. In general input components have the option
+    for validation. In the following sections, the different kinds von validation are explained.</p>
 
-    <tc:out escape="false" value="#{overviewBundle.validation_text}" id="text"/>
+  <p>Tag Library Documentation:
+    <tc:link label="&lt;tc:sheet/>" image="image/feather-leaf.png"
+             link="#{overviewBundle.tagDocUrl}/sheet.html"/>
+    |
+    <tc:link label="&lt;tc:column/>" image="image/feather-leaf.png"
+             link="#{overviewBundle.tagDocUrl}/column.html"/></p>
 
-    <tc:panel>
-      <f:facet name="layout">
-        <tc:gridLayout columns="1*;1*"/>
-      </f:facet>
-      <tc:in label="#{overviewBundle.validation_number}" markup="number" required="true" id="number"
-             value="#{validationBean.number}">
-        <f:validateLength minimum="7" maximum="7"/>
-        <f:validateLongRange maximum="9000000"/>
+  <tc:section label="Required">
+    <p>A simple way of validation is the <code>required</code> attribute in some input components.
+      The text area must not empty if the submit button is pressed. Otherwise a error message is displayed.</p>
+    <pre><code class="language-markup">&lt;tc:textarea label="Text Area" required="true"/></code></pre>
+    <tc:form>
+      <tc:textarea id="t1" label="Text Area" required="true"/>
+      <tc:button label="Submit"/>
+    </tc:form>
+  </tc:section>
+
+  <tc:section label="Validate Length">
+    <p>The length of a value can be validated by the <code class="language-markup">&lt;f:validateLength/></code> tag.
+      Length means the number of characters.
+      In this example, the given string must have at least two characters and maximal four characters.</p>
+    <pre><code class="language-markup">&lt;tc:in label="Input">
+  &lt;f:validateLength minimum="2" maximum="4"/>
+&lt;/tc:in></code></pre>
+    <tc:form>
+      <tc:in id="i1" label="Text">
+        <f:validateLength minimum="2" maximum="4"/>
       </tc:in>
-      <tc:in label="#{overviewBundle.validation_price}" markup="number" value="#{validationBean.price}" id="price">
-        <f:validateDoubleRange minimum="0.01" maximum="1000"/>
-        <f:convertNumber pattern="#,##0.00 ¤" currencySymbol="€" type="currency" />
+      <tc:button label="Submit"/>
+    </tc:form>
+  </tc:section>
+
+  <tc:section label="Validate Range">
+    <p>The range of a number can be validated via <code class="language-markup">&lt;f:validateLongRange/></code>
+      or - for floating point numbers - <code class="language-markup">&lt;f:validateDoubleRange/></code>.
+      In the following inputfield numbers from 3 to 77 can be added.</p>
+    <pre><code class="language-markup">&lt;tc:in label="Number" markup="number">
+  &lt;f:validateLongRange minimum="3" maximum="77"/>
+&lt;/tc:in></code></pre>
+    <tc:form>
+      <tc:in id="i2" label="Number" markup="number">
+        <f:validateLongRange minimum="3" maximum="77"/>
       </tc:in>
-      <tc:in label="#{overviewBundle.validation_custom}" validator="#{overviewController.customValidator}"
-             value="#{validationBean.custom}" id="custom">
+      <tc:button label="Submit"/>
+    </tc:form>
+  </tc:section>
+
+  <tc:section label="Regex Validation">
+    <p>A value can be validated against a regex patter via the
+      <code class="language-markup">&lt;f:validateRegex/></code> tag.</p>
+    <pre><code class="language-markup">&lt;tc:in label="Letter &amp; Number" >
+  &lt;f:validateRegex pattern="[A-Za-z][0-9]"/>
+&lt;/tc:in></code></pre>
+    <tc:form>
+      <p>The value in the field must be a word character combined with a number. For example 'T3'.</p>
+      <tc:in id="i3" label="Letter &amp; Number">
+        <f:validateRegex pattern="[A-Za-z][0-9]"/>
       </tc:in>
-    </tc:panel>
+      <tc:button label="Submit"/>
+    </tc:form>
+  </tc:section>
 
-    <tc:textarea label="#{overviewBundle.validation_description}" required="true" value="#{validationBean.text}"
-                 id="area"/>
-
-    <tc:flowLayout>
-      <tc:style textAlign="right"/>
-      <tc:button action="#{overviewController.noop}" label="#{overviewBundle.validation_submit}" id="noop"
-          defaultCommand="true"/>
-    </tc:flowLayout>
-
-  </tc:panel>
+  <tc:section label="Custom Validator">
+    <p>It's also possible to add custom validators using the <code>validator</code> attribute of an input component.
+      In this case, only the string 'Tobago' is accepted.</p>
+    <tc:form>
+      <tc:in id="i4" label="Text" validator="#{validationController.customValidator}"/>
+      <tc:button label="Submit"/>
+    </tc:form>
+  </tc:section>
 </ui:composition>
