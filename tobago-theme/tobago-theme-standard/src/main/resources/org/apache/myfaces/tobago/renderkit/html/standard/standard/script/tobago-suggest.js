@@ -28,7 +28,7 @@ Tobago.Suggest.loadFromServer = function (input) {
       var id = suggest.attr("id");
       console.info("query: '" + query + "'");
       Tobago.Updater.update(suggest, id, id, {});
-      //jsf.ajax.request( TODO: need a behavior handling for new AJAX...
+      //jsf.ajax.request( // TODO: need a behavior handling for new AJAX...
       //    id,
       //    null, // todo: event
       //    {

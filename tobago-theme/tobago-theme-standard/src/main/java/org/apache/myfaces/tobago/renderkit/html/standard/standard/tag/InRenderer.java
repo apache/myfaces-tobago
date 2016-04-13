@@ -56,7 +56,8 @@ public class InRenderer extends LabelLayoutRendererBase {
       LOG.debug("currentValue = '{}'", StringUtils.toConfidentialString(currentValue, password));
     }
     final HtmlInputTypes type = password ? HtmlInputTypes.PASSWORD : HtmlInputTypes.TEXT;
-    final String id = input.getClientId(facesContext);
+    final String clientId = input.getClientId(facesContext);
+    final String fieldId = clientId + ComponentUtils.SUB_SEPARATOR + "field";
     final boolean readonly = input.isReadonly();
     final boolean disabled = input.isDisabled();
     final boolean required = ComponentUtils.getBooleanAttribute(input, Attributes.required);
@@ -65,7 +66,8 @@ public class InRenderer extends LabelLayoutRendererBase {
 
     writer.startElement(HtmlElements.INPUT);
     writer.writeAttribute(HtmlAttributes.TYPE, type);
-    writer.writeNameAttribute(id);
+    writer.writeNameAttribute(clientId);
+    writer.writeIdAttribute(fieldId);
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, input);
     if (currentValue != null) {
       writer.writeAttribute(HtmlAttributes.VALUE, currentValue, true);
@@ -103,7 +105,7 @@ public class InRenderer extends LabelLayoutRendererBase {
 
     writer.writeClassAttribute(Classes.create(input), BootstrapClass.FORM_CONTROL, input.getCustomClass());
     writer.writeAttribute(HtmlAttributes.REQUIRED, required);
-    HtmlRendererUtils.renderFocus(id, input.isFocus(), ComponentUtils.isError(input), facesContext, writer);
+    HtmlRendererUtils.renderFocus(clientId, input.isFocus(), ComponentUtils.isError(input), facesContext, writer);
     writeAdditionalAttributes(facesContext, writer, input);
 
     final String commands = RenderUtils.getBehaviorCommands(facesContext, input);
