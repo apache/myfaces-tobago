@@ -25,21 +25,22 @@
 
   <tc:section label="Login">
 
-    <tc:out value="Use one of the following users to login."/>
-    (
-    <tc:link label="guest/guest" omit="true">
-      <tc:dataAttribute name="login" value='{"username": "guest", "password": "guest"}'/>
-    </tc:link>
-    or
-    <tc:link label="admin/admin" omit="true">
-      <tc:dataAttribute name="login" value='{"username": "admin", "password": "admin"}'/>
-    </tc:link>
-    )
+    <p>
+      Use one of the following users to login
+      (Shortcuts:
+      <tc:link label="guest/guest" omit="true">
+        <tc:dataAttribute name="login" value='{"username": "guest", "password": "guest"}'/>
+      </tc:link>
+      or
+      <tc:link label="admin/admin" omit="true">
+        <tc:dataAttribute name="login" value='{"username": "admin", "password": "admin"}'/>
+      </tc:link>).
+    </p>
 
     <tc:in id="username" value="#{login.username}" label="User"/>
     <tc:in id="password" value="#{login.password}" password="true" label="Password"/>
 
-    <tc:button action="#{login.login}" label="Login" defaultCommand="true"/>
+    <tc:button id="login" action="#{login.login}" label="Login" defaultCommand="true"/>
 
   </tc:section>
 

@@ -68,3 +68,21 @@ var initInspect = function (elements) {
 
 Tobago.registerListener(initInspect, Tobago.Phase.DOCUMENT_READY);
 Tobago.registerListener(initInspect, Tobago.Phase.AFTER_UPDATE);
+
+Demo = {};
+
+/**
+ * Copies the values from the data-login attribute to the username/password fields.
+ */
+Demo.prepareQuickLinks = function() {
+  jQuery("a[data-login]").click(function() {
+    var link = jQuery(this);
+    var login = link.data("login");
+    jQuery(Tobago.Utils.escapeClientId("page:username")).find("input").val(login.username);
+    jQuery(Tobago.Utils.escapeClientId("page:password")).find("input").val(login.password);
+    jQuery(Tobago.Utils.escapeClientId("page:login")).click();
+    return false;
+  });
+};
+
+Tobago.registerListener(Demo.prepareQuickLinks, Tobago.Phase.DOCUMENT_READY);
