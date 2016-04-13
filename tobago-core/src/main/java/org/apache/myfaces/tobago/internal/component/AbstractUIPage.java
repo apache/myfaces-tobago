@@ -217,16 +217,21 @@ public abstract class AbstractUIPage extends AbstractUIForm implements Visual {
     // find the form of the action command and set submitted to it and all
     // children
 
+    final UIViewRoot viewRoot = facesContext.getViewRoot();
+
     // reset old submitted state
     setSubmitted(false);
 
     String sourceId = facesContext.getExternalContext().getRequestParameterMap().get("javax.faces.source");
-    if (LOG.isDebugEnabled()) {
-      LOG.debug("sourceId = '" + sourceId + "'");
+    UIComponent command = null;
+    if (sourceId != null) {
+      if (LOG.isDebugEnabled()) {
+        LOG.debug("sourceId = '" + sourceId + "'");
+      }
+      command = viewRoot.findComponent(sourceId);
+    } else {
+      LOG.warn("No sourceId found!");
     }
-
-    final UIViewRoot viewRoot = facesContext.getViewRoot();
-    UIComponent command = viewRoot.findComponent(sourceId);
 
     // TODO: remove this if block if proven this never happens anymore
     if (command == null
