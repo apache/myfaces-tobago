@@ -24,7 +24,6 @@ import org.apache.myfaces.tobago.component.OnComponentPopulated;
 import org.apache.myfaces.tobago.component.SupportsAccessKey;
 import org.apache.myfaces.tobago.component.SupportsRenderedPartially;
 import org.apache.myfaces.tobago.component.Visual;
-import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.event.PopupFacetActionListener;
 import org.apache.myfaces.tobago.internal.util.AuthorizationHelper;
 import org.apache.myfaces.tobago.util.ComponentUtils;
@@ -127,8 +126,6 @@ public abstract class AbstractUICommand
   public boolean isDisabled() {
 
     final FacesContext facesContext = getFacesContext();
-    final TobagoConfig tobagoConfig = TobagoConfig.getInstance(facesContext);
-    LOG.info("HALLO PROJECT STAGE: {}", tobagoConfig.getProjectStage());
     // todo: get from configuration tobago-config.xml
     if (true) {
       final AuthorizationHelper authorizationHelper = AuthorizationHelper.getInstance(facesContext);
