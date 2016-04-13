@@ -137,9 +137,11 @@ public class SheetRenderer extends RendererBase {
     }
     RenderUtils.decodedStateOfTreeData(facesContext, sheet);
 
+/* this will be done by the javax.faces.component.UIData.processDecodes() because these are facets.
     for (UIComponent facet : sheet.getFacets().values()) {
       facet.decode(facesContext);
     }
+*/
   }
 
   @Override
