@@ -30,14 +30,14 @@ public enum PageAction {
   FIRST("First"),
 
   /**
-   * Next page is requested
-   */
-  NEXT("Next"),
-
-  /**
    * Previous page is requested
    */
   PREV("Prev"),
+
+  /**
+   * Next page is requested
+   */
+  NEXT("Next"),
 
   /**
    * Last page is requested
