@@ -57,16 +57,17 @@
   </tc:section>
 
   <tc:section label="Ajax">
-    <p>
-      The outputfield in this example, display the given value on the server.
-      With <code class="language-markup">&lt;f:ajax render="outputfield"/></code>, the outputfield will be rerendered,
-      after the value has been changed, because its id is <code>outputfield</code> and the default event for
-      <code>&lt;tc:in></code> is <code>change</code>.
-    </p>
+    <p>The outputfield in this example, display the given value on the server.
+      With <code class="language-markup">&lt;f:ajax render="outputfield" listener="\#{inController.update}"/></code>,
+      the outputfield will be rerendered, after the value has been changed.
+      This is because <code>outputfield</code> is the id of the <code>&lt;tc:out/></code> tag.
+      and the default event for <code class="language-markup">&lt;tc:in/></code> is <code>change</code>.
+
+      Additional, the <code>listener</code> attribute is set. The given method is called after the inputfield
+      loose focus.</p>
     <tc:in id="i8" label="On Change" value="#{inController.changeValue}">
-      <f:ajax render="outputfield"/>
+      <f:ajax render="outputfield" listener="#{inController.update}"/>
     </tc:in>
     <tc:out id="outputfield" label="On Server" value="#{inController.changeValue}"/>
   </tc:section>
-
 </ui:composition>

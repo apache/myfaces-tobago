@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+-->
+
+<ui:composition template="/main.xhtml"
+                xmlns:tc="http://myfaces.apache.org/tobago/component"
+                xmlns:ui="http://java.sun.com/jsf/facelets">
+  <ui:param name="title" value="#{overviewBundle.flex_layout}"/>
+  <p>The flex layout can be used with the <code>&lt;tc:flexLayout/></code> tag.
+    The two most important attributes are <code>columns</code> and <code>rows</code>.
+    If both attributes are set, only <code>rows</code> has an effect.</p>
+
+  <tc:section label="Basics">
+    <p>If no attributes set, the behavior of the flex layout is like a flow layout.</p>
+    <tc:flexLayout>
+      <tc:button label="Button"/>
+      <tc:button label="Button"/>
+      <tc:button label="Button"/>
+      <tc:button label="Button"/>
+      <tc:button label="Button"/>
+    </tc:flexLayout>
+  </tc:section>
+
+  <tc:section label="Columns">
+    <p>In this example, the <code>columns</code> attribute is set to '200px;auto;1*;2*;1*'.
+      This means:</p>
+    <ul>
+      <li>Column 1: Width is always at 200px.</li>
+      <li>Column 2: Width is always the width of the button.</li>
+      <li>The left space is filled with the remaining buttons.
+        The fourth button is twice the size than button three and five.
+      </li>
+    </ul>
+    <tc:flexLayout columns="200px;auto;1*;2*;1*">
+      <tc:button label="Button"/>
+      <tc:button label="Button"/>
+      <tc:button label="Button"/>
+      <tc:button label="Button"/>
+      <tc:button label="Button"/>
+    </tc:flexLayout>
+  </tc:section>
+
+  <tc:section label="Rows">
+    <p>The <code>rows</code> attribute is set to '100px;auto;1*;2*;1*'. Also, the height of the flex layout is '400px'.
+      This means:</p>
+    <ul>
+      <li>Row 1: Height is always at 100px.</li>
+      <li>Row 2: Height is always the height of the button.</li>
+      <li>The left space is filled with the remaining buttons.
+        The fourth button is twice the size than button three and five.
+      </li>
+    </ul>
+    <tc:flexLayout rows="100px;auto;1*;2*;1*">
+      <tc:style height="400px"/>
+      <tc:button label="Button"/>
+      <tc:button label="Button"/>
+      <tc:button label="Button"/>
+      <tc:button label="Button"/>
+      <tc:button label="Button"/>
+    </tc:flexLayout>
+  </tc:section>
+</ui:composition>

@@ -41,7 +41,6 @@
 
   <!--<entry key="bestPractice">Best Practice</entry>-->
   <entry key="error">Fehlerbehandlung</entry>
-  <entry key="theme">Designs</entry>
   <entry key="transition">Seitenübergang</entry>
 
   <entry key="submit">Übernehmen</entry>
@@ -188,9 +187,6 @@
 
 <!--  theme -->
   <entry key="theme_title">Einstellung des Designs</entry>
-  <entry key="theme_label">Design</entry>
-  <entry key="theme_submit">Übernehmen</entry>
-  <entry key="theme_text">Tobago unterstützt eine vielseitige Darstellungsweise aller Controls: so genannte Designs oder Themes. &lt;ul style="margin-top: 2px;"&gt; &lt;li style="line-height: 130%;"&gt;Die Auswahl eines Themes kann applikationsweit gelten,   aber auch eine Benutzer- oder Gruppeneinstellung sein.&lt;/li&gt; &lt;li style="line-height: 130%;"&gt;Es können sowohl Bilder und andere Resourcen,   als auch die eigentlichen Applikationswebseiten   Theme-abhängig gestaltet werden.&lt;/li&gt; &lt;/ul&gt;</entry>
 
 <!--  browser -->
   <entry key="browser_sampleTitle">Browser Beispiel</entry>

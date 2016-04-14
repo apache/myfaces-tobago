@@ -18,51 +18,38 @@
 -->
 
 <ui:composition template="/main.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:f="http://java.sun.com/jsf/core">
   <ui:param name="title" value="#{overviewBundle.theme}"/>
-  <tc:panel>
-    <f:facet name="layout">
-      <tc:gridLayout rows="120px;auto;*"/>
-    </f:facet>
+  <p>Tobago supports a big variety of displaying controls, so called designs or themes.</p>
 
-    <tc:out escape="false" value="#{overviewBundle.theme_text}"/>
+  <tc:section label="Change Theme">
+    <p>Choosing of themes can be application wide, user or group specific.
+      Images and other resources can be theme dependant as well as the application pages can be designed seperatly
+      for each supported theme.</p>
+    <tc:selectOneChoice label="Theme" value="#{themeController.theme}">
+      <f:selectItems value="#{themeController.themeItems}"/>
+    </tc:selectOneChoice>
+    <tc:button label="Submit" action="#{themeController.submit}"/>
 
-    <tc:panel>
-      <f:facet name="layout">
-        <tc:gridLayout columns="*;auto"/>
-      </f:facet>
+    <tc:separator/>
+    <tc:image value="image/theme-photo.jpg"/>
+    <tc:out id="o1" value="#{overviewBundle.theme_photo}"/>
+  </tc:section>
 
-      <tc:selectOneChoice value="#{clientConfigController2.theme}"
-                          label="#{overviewBundle.theme_label}">
-        <f:selectItems value="#{clientConfigController2.themeItems}"/>
-      </tc:selectOneChoice>
-      <tc:button action="#{clientConfigController2.submit}" label="#{overviewBundle.theme_submit}"/>
-    </tc:panel>
+  <tc:section label="Configuration">
+    <p>In Tobago it's easy to give an application a well designed look. You can use prepared themes like 'speyside' or
+      'scarborough', just to name two. The only thing you have to do is configure them in the 'tobago-config.xml'.</p>
 
-    <tc:panel>
-      <f:facet name="layout">
-        <tc:gridLayout columns="*;480px;*" rows="*;320px;*"/>
-      </f:facet>
-
-      <tc:panel>
-        <tc:gridLayoutConstraint columnSpan="3"/>
-      </tc:panel>
-
-      <tc:panel/>
-      <tc:image value="image/theme-photo.jpg"/>
-      <tc:panel/>
-
-      <tc:panel/>
-      <tc:out escape="false" value="#{overviewBundle.theme_photo}"/>
-      <tc:panel/>
-
-      <tc:panel>
-        <tc:gridLayoutConstraint columnSpan="3"/>
-      </tc:panel>
-
-    </tc:panel>
-
-  </tc:panel>
+    <pre><code class="language-markup">...
+&lt;tobago-config>
+  &lt;theme-config>
+    &lt;default-theme>speyside&lt;/default-theme>
+  &lt;/theme-config>
+  &lt;resource-dir>tobago&lt;/resource-dir>
+&lt;/tobago-config>
+...</code></pre>
+  </tc:section>
 </ui:composition>

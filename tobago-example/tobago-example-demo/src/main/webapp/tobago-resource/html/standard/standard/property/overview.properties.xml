@@ -19,7 +19,7 @@
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 
 <properties>
-  <entry key="tobago_url">http://myfaces.apache.org/tobago</entry>
+ <entry key="tobago_url">http://myfaces.apache.org/tobago</entry>
 
   <entry key="notTranslated">Sorry, not completely translated yet.</entry>
   <entry key="pageTitle">Tobago Demo</entry>
@@ -100,14 +100,17 @@
   <entry key="validation_jsr303">JSR 303: Bean Validation</entry>
   <entry key="conversion">Conversion</entry>
   <entry key="form">Forms</entry>
+  <entry key="theme">Themes</entry>
+  <entry key="layout">Layout</entry>
+  <entry key="flow_layout">FlowLayout</entry>
+  <entry key="flex_layout">FlexLayout</entry>
+  <entry key="segment_layout">SegmentLayout</entry>
   <entry key="roles">Roles</entry>
 
 
   <entry key="validation-severity">Severity</entry>
-  <entry key="theme">Themes</entry>
   <entry key="browser">Browser</entry>
   <entry key="locale">Locale</entry>
-  <entry key="layout">Layout</entry>
 
   <entry key="bestPractice">Best Practice</entry>
   <entry key="error">Error Handling</entry>
@@ -320,8 +323,6 @@
 
 <!--  theme -->
 <entry key="theme_title">Theme settings</entry>
-<entry key="theme_label">Theme</entry>
-<entry key="theme_submit">Submit</entry>
 <entry key="theme_text">Tobago supports a big variety of displaying controls,
   so called designs or themes.
     &lt;ul style="margin-top: 2px;"&gt;
@@ -392,7 +393,7 @@
             &lt;resource-dir&gt;tobago&lt;/resource-dir&gt;
 &lt;/tobago-config&gt;
 ...</entry>
-  <entry key="theme_photo">Photo of the location</entry>
+  <entry key="theme_photo">The Standard Theme don't have a photo to show</entry>
 
   <entry key="foreach_text">
     There are two possibilities to use iterators:&lt;br/>
