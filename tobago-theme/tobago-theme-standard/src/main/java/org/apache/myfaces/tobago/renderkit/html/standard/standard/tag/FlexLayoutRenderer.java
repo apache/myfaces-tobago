@@ -41,6 +41,7 @@ public class FlexLayoutRenderer extends RendererBase {
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
     writer.startElement(HtmlElements.DIV);
+    writer.writeIdAttribute(flexLayout.getClientId());
     final String columns = flexLayout.getColumns();
     StringBuilder b = new StringBuilder(); // TODO: implement better: own class, parser, validation, etc.
     if (columns.contains(";")) {
