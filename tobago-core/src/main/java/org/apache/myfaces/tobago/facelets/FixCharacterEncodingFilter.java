@@ -19,6 +19,9 @@
 
 package org.apache.myfaces.tobago.facelets;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javax.servlet.Filter;
 import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
@@ -31,8 +34,13 @@ import java.io.IOException;
 @WebFilter(urlPatterns = "/*")
 public class FixCharacterEncodingFilter implements Filter {
 
+  private static final Logger LOG = LoggerFactory.getLogger(FixCharacterEncodingFilter.class);
+
   @Override
   public void init(final FilterConfig filterConfig) throws ServletException {
+    if (LOG.isInfoEnabled()) {
+      LOG.info("Filter initialized: Setting characterEncoding to UTF-8 to all requests.");
+    }
   }
 
   @Override
