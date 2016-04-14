@@ -59,7 +59,7 @@
   <tc:section label="Client sided">
     <p>For optimization, the filtering can be done by the client.
       For that, <code>update</code> must be 'false' and <code>minimumCharacters</code> have to be '0'.
-      If client sided filtering is activated, the <code>filter</code> attribute has an effect.</p>
+      The <code>filter</code> attribute has only an effect, if client sided filtering is activated.</p>
     <pre><code class="language-markup">&lt;tc:suggest suggestMethod="\#{suggestController.getCountryLanguageList}"
   update="false" minimumCharacters="0" filter="prefix"/></code></pre>
     <tc:in id="i3" label="Language" value="#{suggestController.suggestInput}">

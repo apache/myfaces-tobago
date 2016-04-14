@@ -21,33 +21,30 @@
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:f="http://java.sun.com/jsf/core">
-  <ui:param name="title" value="JSR-303: Bean Validation"/>
-  <tc:panel>
-    <f:facet name="layout">
-      <tc:gridLayout rows="40px;auto;auto;*;auto"/>
-    </f:facet>
+  <ui:param name="title" value="#{overviewBundle.validation_jsr303}"/>
+  <p>Tobago has JSR 303 Validation support.
+    With it, you can describe the validation in an annotation in the controller.</p>
 
-    <tc:out value="TODO: Explain JSR-303 Bean Validation"/>
+  <tc:section label="Required">
+    <p>In this example, the input cannot be empty - in other words, it's required.
+      The value in the controller is annotated with <code class="language-java">@NotNull</code>.</p>
+    <pre><code class="language-markup">&lt;tc:in label="Input" value="\#{validationJsr303Controller.required}"/></code></pre>
+    <pre><code class="language-java">@NotNull
+private String required;</code></pre>
+    <tc:form>
+      <tc:in label="Input (required)" value="#{validationJsr303Controller.required}"/>
+      <tc:button label="Submit"/>
+    </tc:form>
+  </tc:section>
 
-    <tc:messages/>
-
-    <tc:panel>
-      <f:facet name="layout">
-        <tc:gridLayout rows="auto;auto;auto;auto"/>
-      </f:facet>
-      <tc:in label="Required" value="#{jsr303.required}"/>
-      <tc:in label="Length" value="#{jsr303.length}"/>
-    </tc:panel>
-
-    <tc:panel/>
-
-    <tc:panel>
-      <f:facet name="layout">
-        <tc:gridLayout columns="1*;100px"/>
-      </f:facet>
-      <tc:panel/>
-      <tc:button action="#{jsr303.action}" label="#{overviewBundle.validation_submit}"/>
-    </tc:panel>
-
-  </tc:panel>
+  <tc:section label="Length">
+    <p>The length of the given string must be between 2 and 4 characters.</p>
+    <pre><code class="language-markup">&lt;tc:in label="Input" value="\#{validationJsr303Controller.length}"/></code></pre>
+    <pre><code class="language-java">@Size(min = 2, max = 4, message = "Length must be between 2 and 4")
+private String length;</code></pre>
+    <tc:form>
+      <tc:in label="2 to 4 Character" value="#{validationJsr303Controller.length}"/>
+      <tc:button label="Submit"/>
+    </tc:form>
+  </tc:section>
 </ui:composition>

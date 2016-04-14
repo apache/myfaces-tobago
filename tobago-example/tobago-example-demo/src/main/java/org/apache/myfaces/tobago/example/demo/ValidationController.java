@@ -19,32 +19,26 @@
 
 package org.apache.myfaces.tobago.example.demo;
 
-import javax.enterprise.context.SessionScoped;
+import javax.enterprise.context.RequestScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.validator.ValidatorException;
 import javax.inject.Named;
 import java.io.Serializable;
-import java.math.BigDecimal;
 
+@RequestScoped
 @Named
-@SessionScoped
-public class Conversion implements Serializable {
+public class ValidationController implements Serializable {
 
-  private BigDecimal big = new BigDecimal("3.1415");
-  private String string;
-
-  public String getString() {
-    return string;
-  }
-
-  public void setString(String string) {
-    this.string = string;
-  }
-
-  public BigDecimal getBig() {
-    return big;
-  }
-
-  public void setBig(BigDecimal big) {
-    this.big = big;
+  public void customValidator(final FacesContext context, final UIComponent component, final Object value)
+          throws ValidatorException {
+    if (value == null) {
+      return;
+    }
+    if (!"tobago".equalsIgnoreCase(value.toString())) {
+      throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, "Please type in 'Tobago'",
+              "Please type in 'Tobago'"));
+    }
   }
 }
-

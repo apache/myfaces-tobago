@@ -18,69 +18,61 @@
 -->
 
 <ui:composition template="/main.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
-                xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:f="http://java.sun.com/jsf/core">
-  <ui:param name="title" value="#{overviewBundle.form}"/>
-  <tc:panel>
-    <f:facet name="layout">
-      <tc:gridLayout/>
-    </f:facet>
+                xmlns:ui="http://java.sun.com/jsf/facelets">
+  <ui:param name="title" value="#{overviewBundle.form} &lt;tc:form>"/>
+  <p>Tobago supports nested forms and can treat each form separately.
+    Values can be stored separately into the model, while already filled input elements keep their values (temporarily).
+    If the validation of a form is activated but the actual value of this form is only stored temporarily,
+    the validation is deactivated until the value is definitely stored into the model.
+    Forms are add by the <code class="language-markup">&lt;tc:form/></code> tag.</p>
+  <p>Forms are also relevant for
+    <tc:link label="#{overviewBundle.default_command}"
+             resource="/faces/content/20-component/040-command/00-default/default-command.xhtml"/>.</p>
+  <tc:link label="Tag Library Documentation" image="image/feather-leaf.png"
+           link="#{overviewBundle.tagDocUrl}/form.html"/>
 
-    <!--
-        <tc:out escape="false" value="#{overviewBundle.form_text1}" />
-    -->
+  <tc:section label="Example">
+    <p>Every form in this example is surrounded by a content box.
+      The submit buttons in the inner forms only put the inner value into the model.
+      The submit button in the outer form put all values into the model.
+      Notice, that the inputfield in the outer form is required.</p>
 
-    <tc:box label="#{overviewBundle.form_outTitle}">
-      <f:facet name="layout">
-        <tc:gridLayout rows="80px;auto;auto;auto;auto"/>
-      </f:facet>
+    <pre><code class="language-markup">&lt;tc:form>
+  &lt;tc:form>
+    &lt;tc:in label="Inner Value 1" value="\#{formController.innerValue1}"/>
+    ...
+  &lt;/tc:form>
+  &lt;tc:form>
+    &lt;tc:in label="Inner Value 2" value="\#{formController.innerValue2}"/>
+    ...
+  &lt;/tc:form>
+  &lt;tc:in label="Outer Value" required="true" value="\#{formController.outerValue}"/>
+  ...
+&lt;/tc:form></code></pre>
 
-      <tc:out escape="false" value="#{overviewBundle.form_text2}"/>
-
-      <tc:box label="#{overviewBundle.form_in1Title}">
-        <f:facet name="layout">
-          <tc:gridLayout rows="auto;auto;" columns="1*;100px"/>
-        </f:facet>
-
-        <tc:form id="form1">
-          <tc:in value="#{demo.text[0]}" required="true" label="#{overviewBundle.newValue1}"/>
-          <tc:button label="#{overviewBundle.submitForm1}">
-            <tc:gridLayoutConstraint rowSpan="2"/>
-          </tc:button>
-          <tc:in value="#{demo.text[0]}" readonly="true" label="#{overviewBundle.modelValue1}"/>
-        </tc:form>
-
-      </tc:box>
-
-      <tc:box label="#{overviewBundle.form_in2Title}">
-        <f:facet name="layout">
-          <tc:gridLayout rows="auto;auto" columns="1*;100px"/>
-        </f:facet>
-
-        <tc:form id="form2">
-          <tc:in value="#{demo.text[1]}" required="true" label="#{overviewBundle.newValue2}"/>
-          <tc:button label="#{overviewBundle.submitForm2}">
-            <tc:gridLayoutConstraint rowSpan="2"/>
-          </tc:button>
-          <tc:in value="#{demo.text[1]}" readonly="true" label="#{overviewBundle.modelValue2}"/>
-        </tc:form>
-      </tc:box>
-
-      <tc:separator label="#{overviewBundle.form_outTitle}" />
-      
-      <tc:panel>
-        <f:facet name="layout">
-          <tc:gridLayout rows="auto;auto" columns="*;100px"/>
-        </f:facet>
-
-        <tc:in value="#{demo.text[2]}" required="true" label="#{overviewBundle.newValue2}"/>
-        <tc:button label="#{overviewBundle.submitAll}">
-          <tc:gridLayoutConstraint rowSpan="2"/>
-        </tc:button>
-        <tc:in value="#{demo.text[2]}" readonly="true" label="#{overviewBundle.modelValue2}"/>
-        
-      </tc:panel>
+    <tc:box label="Outer Form">
+      <tc:form>
+        <tc:box label="Inner Form 1">
+          <tc:form>
+            <tc:in label="Inner Value 1" value="#{formController.innerValue1}"/>
+            <tc:out label="Value in Model" value="#{formController.innerValue1}"/>
+            <tc:button label="Submit"/>
+          </tc:form>
+        </tc:box>
+        <tc:box label="Inner Form 2">
+          <tc:form>
+            <tc:in label="Inner Value 2" value="#{formController.innerValue2}"/>
+            <tc:out label="Value in Model" value="#{formController.innerValue2}"/>
+            <tc:button label="Submit"/>
+          </tc:form>
+        </tc:box>
+        <tc:separator/>
+        <tc:in label="Outer Value" required="true" value="#{formController.outerValue}"/>
+        <tc:out label="Value in Model" value="#{formController.outerValue}"/>
+        <tc:button label="Submit"/>
+      </tc:form>
     </tc:box>
-  </tc:panel>
+  </tc:section>
 </ui:composition>

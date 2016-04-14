@@ -21,20 +21,88 @@
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:f="http://java.sun.com/jsf/core">
-  <ui:param name="title" value="Conversion"/>
-  <tc:panel>
+  <ui:param name="title" value="#{overviewBundle.conversion}"/>
+  <p>To convert numbers put a <code class="language-markup">&lt;f:convertNumber/></code> tag in an component.</p>
+  <tc:section label="Example">
+    <p>The following examples show the basic functions of the number converter.
+      The given number is in every example:</p>
+    <tc:label value="#{conversionController.amount}"/>
 
-    <tc:out escape="false" value="JSF feature: conversion"/>
+    <tc:section label="Default">
+      <p>By default, grouping is activated and only three digits after the point are shown.
+        Also the value of <code>type</code> is 'number'.</p>
+      <pre><code class="language-markup">&lt;tc:out label="Number"
+    markup="number" value="\#{conversionController.amount}">
+  &lt;f:convertNumber/>
+&lt;/tc:out></code></pre>
+      <tc:out id="o1" label="Number" markup="number" value="#{conversionController.amount}">
+        <f:convertNumber/>
+      </tc:out>
+    </tc:section>
 
-    <tc:in label="java.math.BigDecimal" markup="number" value="#{conversion.big}" id="big">
-      <f:convertNumber/>
-    </tc:in>
+    <tc:section label="Grouping">
+      <p>Grouping is deactivated.</p>
+      <pre><code class="language-markup">&lt;f:convertNumber groupingUsed="false"/></code></pre>
+      <tc:out id="o2" label="Number" markup="number" value="#{conversionController.amount}">
+        <f:convertNumber groupingUsed="false"/>
+      </tc:out>
+    </tc:section>
 
-    <tc:flowLayout>
-      <tc:style textAlign="right"/>
-      <tc:button action="#{overviewController.noop}" label="#{overviewBundle.validation_submit}"
-                 defaultCommand="true"/>
-    </tc:flowLayout>
+    <tc:section label="Integer only">
+      <p>Only integer values are shown.</p>
+      <pre><code class="language-markup">&lt;f:convertNumber integerOnly="true"/></code></pre>
+      <tc:out id="o3" label="Number" markup="number" value="#{conversionController.amount}">
+        <f:convertNumber integerOnly="true"/>
+      </tc:out>
+    </tc:section>
 
-  </tc:panel>
+    <tc:section label="Minimal Digits">
+      <p>There are at minimum 10 integer digits and 5 digits after the point shown.
+        The given amount is not high enough in both ways. </p>
+      <pre><code class="language-markup">&lt;f:convertNumber minIntegerDigits="10" minFractionDigits="5"/></code></pre>
+      <tc:out id="o4" label="Number" markup="number" value="#{conversionController.amount}">
+        <f:convertNumber minIntegerDigits="10" minFractionDigits="5"/>
+      </tc:out>
+    </tc:section>
+
+    <tc:section label="Maximal Digits">
+      <p>There are maximal 6 integer digits and 2 digits after the point shown.
+        Notice, that the second digit after the point is rounded up.</p>
+      <pre><code class="language-markup">&lt;f:convertNumber maxIntegerDigits="6" maxFractionDigits="2"/></code></pre>
+      <tc:out id="o5" label="Number" markup="number" value="#{conversionController.amount}">
+        <f:convertNumber maxIntegerDigits="6" maxFractionDigits="2"/>
+      </tc:out>
+    </tc:section>
+
+    <tc:section label="Type">
+      <p>The <code>type</code> attribute can have the value 'number' (default), 'currency' and 'percent'.
+        If the type is set to 'currency', a code or a symbol must be set. Have a look at the following examples.</p>
+
+      <tc:section label="Currency Code">
+        <p>The currency code is set to 'EUR'. Also the type must set to 'currency', otherwise the
+          <code>currencyCode</code> attribute has no effect.</p>
+        <pre><code class="language-markup">&lt;f:convertNumber type="currency" currencyCode="EUR"/></code></pre>
+        <tc:out id="i6" label="Number" markup="number" value="#{conversionController.amount}">
+          <f:convertNumber type="currency" currencyCode="EUR"/>
+        </tc:out>
+      </tc:section>
+
+      <tc:section label="Currency Symbol">
+        <p>The currency symbol is set to '€'. Also the type must set to 'currency', otherwise the
+          <code>currencyCode</code> attribute has no effect.</p>
+        <pre><code class="language-markup">&lt;f:convertNumber type="currency" currencySymbol="€"/></code></pre>
+        <tc:out id="i7" label="Number" markup="number" value="#{conversionController.amount}">
+          <f:convertNumber type="currency" currencySymbol="€"/>
+        </tc:out>
+      </tc:section>
+
+      <tc:section label="Percent">
+        <p>The type is set to 'percent'.</p>
+        <pre><code class="language-markup">&lt;f:convertNumber type="percent"/></code></pre>
+        <tc:out id="i8" label="Number" markup="number" value="#{conversionController.amount}">
+          <f:convertNumber type="percent"/>
+        </tc:out>
+      </tc:section>
+    </tc:section>
+  </tc:section>
 </ui:composition>

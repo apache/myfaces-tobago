@@ -19,11 +19,12 @@
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 
 <properties>
- <entry key="tobago_url">http://myfaces.apache.org/tobago</entry>
+  <entry key="tobago_url">http://myfaces.apache.org/tobago</entry>
 
+  <entry key="notTranslated">Sorry, not completely translated yet.</entry>
+  <entry key="pageTitle">Tobago Demo</entry>
 
-<entry key="notTranslated">Sorry, not completely translated yet.</entry>
-<entry key="pageTitle">Tobago Demo</entry>
+  <entry key="login">Login</entry>
 
 <!-- menu -->
   <entry key="menu_navigate">_Navigation</entry>
@@ -33,8 +34,10 @@
   <entry key="menu_locale">_Locale</entry>
   <entry key="menu_about">About</entry>
 
-<!-- navigate -->
+  <!-- navigate -->
   <entry key="intro">Intro</entry>
+
+  <!-- navigate : components -->
   <entry key="component">Components</entry>
   <entry key="input">Input Fields</entry>
   <entry key="in">Input</entry>
@@ -90,12 +93,17 @@
   <entry key="wysiwyg_editor">WYSIWYG Editor</entry>
   <entry key="tinymce">TinyMCE</entry>
   <entry key="ckeditor">CKEditor</entry>
+
+  <!-- navigate : concept -->
+  <entry key="concept">Concepts</entry>
   <entry key="validation">Validation</entry>
+  <entry key="validation_jsr303">JSR 303: Bean Validation</entry>
+  <entry key="conversion">Conversion</entry>
+  <entry key="form">Forms</entry>
   <entry key="roles">Roles</entry>
 
 
   <entry key="validation-severity">Severity</entry>
-  <entry key="form">Forms</entry>
   <entry key="theme">Themes</entry>
   <entry key="browser">Browser</entry>
   <entry key="locale">Locale</entry>
@@ -296,15 +304,6 @@
   the model.&lt;/li&gt;
 &lt;li style="line-height: 130%;"&gt;If the first input contains an error but the second
   one validates, the validation of the first form is deactivated.&lt;/li&gt;
-  </entry>
-<entry key="form_text2">Tobago supports nested forms and can treat each form seperatly:
-&lt;ul style="margin-top: 2px;"&gt;
-&lt;li style="line-height: 130%;"&gt;Values can be stored seperatly into the model
-  while already filled in input elements keep their values (temporarily)&lt;/li&gt;
-&lt;li style="line-height: 130%;"&gt;If the validation of a form is activated
-  but the actual value of this form is only stored temporarily, the validation
-  is deactivated until the value is definitly stored into the model. &lt;/li&gt;
-&lt;/ul&gt;
   </entry>
 <entry key="form_in1Title">First inner form</entry>
 <entry key="form_in2Title">Second inner form</entry>

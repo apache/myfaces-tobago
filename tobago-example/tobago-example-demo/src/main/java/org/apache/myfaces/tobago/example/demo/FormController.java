@@ -23,44 +23,35 @@ import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 import java.io.Serializable;
 
-@Named
 @SessionScoped
-public class ValidationBean implements Serializable {
+@Named
+public class FormController implements Serializable {
 
-  private int number;
-  private double price;
-  private String custom;
-  private String text;
+  private String outerValue;
+  private String innerValue1;
+  private String innerValue2;
 
-  public int getNumber() {
-    return number;
+  public String getOuterValue() {
+    return outerValue;
   }
 
-  public void setNumber(int number) {
-    this.number = number;
+  public void setOuterValue(String outerValue) {
+    this.outerValue = outerValue;
   }
 
-  public double getPrice() {
-    return price;
+  public String getInnerValue1() {
+    return innerValue1;
   }
 
-  public void setPrice(double price) {
-    this.price = price;
+  public void setInnerValue1(String innerValue1) {
+    this.innerValue1 = innerValue1;
   }
 
-  public String getCustom() {
-    return custom;
+  public String getInnerValue2() {
+    return innerValue2;
   }
 
-  public void setCustom(String custom) {
-    this.custom = custom;
-  }
-
-  public String getText() {
-    return text;
-  }
-
-  public void setText(String text) {
-    this.text = text;
+  public void setInnerValue2(String innerValue2) {
+    this.innerValue2 = innerValue2;
   }
 }
