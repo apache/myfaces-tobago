@@ -543,6 +543,12 @@ table.tobago-sheet-bodyTable>tbody>tr>td {
   margin: 0;
 }
 
+/* tree ---------------------------------------------------------------------- */
+
+.tobago-treeCommand {
+  cursor: pointer;
+}
+
 /* out -------------------------------------------------------------- */
 
 .tobago-out {
