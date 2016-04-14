@@ -25,17 +25,19 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.FilterChain;
+import javax.servlet.annotation.WebFilter;
 import java.io.IOException;
 
+@WebFilter(urlPatterns = "/*")
 public class FixCharacterEncodingFilter implements Filter {
+
   @Override
   public void init(final FilterConfig filterConfig) throws ServletException {
-
   }
 
   @Override
-  public void doFilter(final ServletRequest servletRequest,
-                       final ServletResponse servletResponse, final FilterChain filterChain)
+  public void doFilter(
+      final ServletRequest servletRequest, final ServletResponse servletResponse, final FilterChain filterChain)
       throws IOException, ServletException {
     if (servletRequest.getCharacterEncoding() == null) {
       servletRequest.setCharacterEncoding("UTF-8");
