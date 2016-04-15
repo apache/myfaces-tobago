@@ -34,8 +34,7 @@
         <configuration>
           <childDelegation>true</childDelegation>
           <excludes>
-            <exclude>**/DateUnitTest*</exclude>
-            <exclude>**/GridLayoutUnitTest*</exclude>  
+            <exclude>**/GridLayoutUnitTest*</exclude>
           </excludes>
         </configuration>
       </plugin>
@@ -75,12 +74,6 @@
           <artifactId>tools</artifactId>
         </exclusion>
       </exclusions>
-    </dependency>
-    <dependency>
-      <groupId>rhino</groupId>
-      <artifactId>js</artifactId>
-      <version>1.6R2</version>
-      <scope>test</scope>
     </dependency>
   </dependencies>
 </project>
