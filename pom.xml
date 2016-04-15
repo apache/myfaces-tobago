@@ -905,29 +905,23 @@
               <exclude>DEPENDENCIES</exclude>
 
               <!-- jQuery -->
-              <exclude>**/jquery*.js</exclude>
-              <exclude>**/jquery*.map</exclude>
-              <exclude>**/jquery*.css</exclude>
+              <exclude>**/org/apache/myfaces/tobago/renderkit/html/standard/standard/jquery/**/jquery*.*</exclude>
+              <exclude>**/org/apache/myfaces/tobago/renderkit/html/standard/standard/script/contrib/jquery*.js</exclude>
+              <exclude>**/org/apache/myfaces/tobago/renderkit/html/standard/standard/style/contrib/**/jquery*.css</exclude>
 
               <!-- bootstrap -->
-              <exclude>**/bootstrap*.js</exclude>
-              <exclude>**/npm.js</exclude>
-              <exclude>**/bootstrap*.map</exclude>
-              <exclude>**/bootstrap*.css</exclude>
-              <exclude>**/glyphicons*.*</exclude>
-              <exclude>**/config.json</exclude>
+              <exclude>**/org/apache/myfaces/tobago/renderkit/html/standard/standard/bootstrap/**/bootstrap*.*</exclude>
 
               <!-- tether -->
               <exclude>**/org/apache/myfaces/tobago/renderkit/html/standard/standard/tether/**/tether*.*</exclude>
 
               <!-- font-awesome -->
-              <exclude>**/font-awesome*.css</exclude>
-              <exclude>**/fontawesome*.*</exclude>
+              <exclude>**/org/apache/myfaces/tobago/renderkit/html/standard/standard/font-awesome/**/font*awesome*.*</exclude>
 
               <!-- typeahead -->
-              <exclude>**/typeahead*.js</exclude>
+              <exclude>**/org/apache/myfaces/tobago/renderkit/html/standard/standard/typeahead/**/typeahead*.*</exclude>
 
-              <!-- prism -->
+              <!-- prism (tobago-example-demo) -->
               <exclude>**/prism*.js</exclude>
               <exclude>**/prism*.css</exclude>
 
