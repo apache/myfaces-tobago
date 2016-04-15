@@ -40,9 +40,9 @@ Release Checklist (Developer Info)
 
     * for Tobago 1.5.x use jdk 1.7.
 
-    * for Tobago 2.0.x use jdk 1.7 or 1.8.
+    * for Tobago 2.0.x use jdk 1.8.
 
-    * for Tobago 3.0.x use jdk 1.7 or 1.8.
+    * for Tobago 3.0.x use jdk 1.8.
 
   * Perform basic checks on an unmodified checkout for all modules:
 
