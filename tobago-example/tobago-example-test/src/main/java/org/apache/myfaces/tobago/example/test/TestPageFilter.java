@@ -71,10 +71,9 @@ public class TestPageFilter {
   /**
    * Switched off temporary.
    */
-  public static final Set<String> TODO = new HashSet<String>(Arrays.asList(
+  private static final Set<String> TODO = new HashSet<String>(Arrays.asList(
       "/test/gridLayout/scrolling-2-levels.*", // todo: ?
       "/test/gridLayout/scrolling-tab.*", // todo: measurement problem with firefox?
-      "/test/mediator/tomahawk-inputHtml.*", // todo
       "/test/treeListbox/*", // todo
       "/test/label/label-tx.xhtml" // todo see TOBAGO-993
   ));
