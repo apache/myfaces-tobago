@@ -917,6 +917,9 @@
               <exclude>**/glyphicons*.*</exclude>
               <exclude>**/config.json</exclude>
 
+              <!-- tether -->
+              <exclude>**/org/apache/myfaces/tobago/renderkit/html/standard/standard/tether/**/tether*.*</exclude>
+
               <!-- font-awesome -->
               <exclude>**/font-awesome*.css</exclude>
               <exclude>**/fontawesome*.*</exclude>
