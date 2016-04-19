@@ -21,16 +21,20 @@
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
                 xmlns:ui="http://java.sun.com/jsf/facelets">
-  <ui:param name="title" value="#{overviewBundle.segment_layout}"/>
+  <ui:param name="title" value="#{overviewBundle.segment_layout}  &lt;tc:segmentLayout>"/>
   <p>The segment layout is basicly a grid with 12 columns.
     The number and the proportion of the columns can be set with
     <code>large</code>, <code>medium</code>, <code>small</code> or <code>extraSmall</code>.
     Every attribute has a different css class, but the usage is the same.
     The value is a semicolon separated list of integers, which sum has to be '12'.
     A value of n will use n columns from the grid.</p>
+  <tc:link label="Tag Library Documentation" image="image/feather-leaf.png"
+           link="#{overviewBundle.tagDocUrl}/segmentLayout.html"/>
 
   <tc:section label="Basics">
-    <p>This example show a segment layout with four columns and a segment layout with three columns.</p>
+    <p>This example show a segment layout with four columns and a segment layout with three columns.
+      The numbers are displayed via the <code class="language-markup">&lt;tc:label/></code> tag.
+      The space is set via the <code class="language-markup">&lt;tc:hidden/></code> tag.</p>
     <tc:section label="4 Columns">
       <pre><code class="language-markup">&lt;tc:segmentLayout medium="2;4;3;3"></code></pre>
       <tc:segmentLayout medium="2;4;3;3">

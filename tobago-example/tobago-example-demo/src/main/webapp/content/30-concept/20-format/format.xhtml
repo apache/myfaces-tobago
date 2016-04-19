@@ -21,33 +21,35 @@
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+  <ui:param name="title" value="#{overviewBundle.format}"/>
+  <p>Use the EL functions from <code>tc:format1</code> to <code>tc:format9</code>
+    to replace up to 9 variables in a given internationalized text.
+    This work like in <tc:link label="java.text.MessageFormat"
+                               link="https://docs.oracle.com/javase/6/docs/api/java/text/MessageFormat.html"/>.</p>
 
-  <ui:param name="title" value="Formatting"/>
+  <tc:section label="Format 1">
+    <p>The message format is: "#{overviewBundle.format1}"</p>
+    <pre><code class="language-markup">&lt;tc:out value="\#{tc:format1(overviewBundle.format1, 695700)}"/></code></pre>
+    <tc:out id="o1" value="#{tc:format1(overviewBundle.format1, 695700)}"/>
+  </tc:section>
 
-  <p>
-    Use the EL functions <code>tc:format1</code> ...
-    <code>tc:format9</code> to replace up to 9 variables in a given internationalized text.
-    This work like in [TODO ref java.text.MessageFormat].
-  </p>
-  <p>
-    This is also analog to the <code>&lt;h:outputFormat></code> tag, but can be applied to generally each attribute
-    in each tag and also in content.
-  </p>
-  <ul>
-    <li><tc:out value="#{tc:format1(overviewBundle.format1, 695700)}" id="format1"/></li>
-    <li><tc:out value="#{tc:format3(overviewBundle.format3, 5800, 15700000, 5000000)}" id="format3"/></li>
-    <li><tc:out value="#{tc:format9(overviewBundle.format9, 0, 1, 2, 3, 4, 5, 6, 7, 8)}" id="format9"/></li>
-  </ul>
-  The message format is the bundles are:
-  <ul>
-    <li><tc:out value="#{overviewBundle.format1}" id="mformat1"/></li>
-    <li><tc:out value="#{overviewBundle.format3}" id="mformat3"/></li>
-    <li><tc:out value="#{overviewBundle.format9}" id="mformat9"/></li>
-  </ul>
+  <tc:section label="Format 3">
+    <p>The message format is: "#{overviewBundle.format3}"</p>
+    <pre><code
+            class="language-markup">&lt;tc:out value="\#{tc:format3(overviewBundle.format3, 5800, 15700000, 5000000)}"/></code></pre>
+    <tc:out id="o2" value="#{tc:format3(overviewBundle.format3, 5800, 15700000, 5000000)}"/>
+  </tc:section>
 
-  <p>
-    You may also use the <code>fn:</code> function library for string manipulation.
-    E.g. uppercase: #{fn:toUpperCase("uppercase")}.
-  </p>
+  <tc:section label="Format 9">
+    <p>The message format is: "#{overviewBundle.format9}"</p>
+    <pre><code
+            class="language-markup">&lt;tc:out value="\#{tc:format9(overviewBundle.format9, 0, 1, 2, 3, 4, 5, 6, 7, 8)}"/></code></pre>
+    <tc:out id="o3" value="#{tc:format9(overviewBundle.format9, 0, 1, 2, 3, 4, 5, 6, 7, 8)}"/>
+  </tc:section>
 
+  <tc:section label="UpperCase">
+    <p>You may also use the <code>fn:</code> function library for string manipulation.</p>
+    <pre><code class="language-markup">&lt;tc:out value="\#{fn:toUpperCase('uppercase')}"/></code></pre>
+    <tc:out id="o4" value="#{fn:toUpperCase('uppercase')}"/>
+  </tc:section>
 </ui:composition>

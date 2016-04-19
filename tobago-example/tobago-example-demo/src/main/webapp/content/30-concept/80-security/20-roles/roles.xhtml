@@ -29,6 +29,9 @@
     <p>To allow an action only for a specific role, you have to annotate a method with
       <code class="language-java">@RolesAllowed({"role1", "role2"})</code>.
       This method must not have a parameter.</p>
+    <p>Also, the name of the beans must be distinct.
+      Tobago only read an el expression once and put it in the cache including the annotation.
+      After that, Tobago only work with the cache.</p>
     <p>There are different ways to define roles for Tomcat and Jetty.</p>
     <tc:section label="Tomcat">
       <p>Roles are defined in a tomcat-users.xml within the <code class="language-markup">&lt;tomcat-users></code>

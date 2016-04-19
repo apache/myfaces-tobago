@@ -20,10 +20,12 @@
 <ui:composition template="/main.xhtml"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
                 xmlns:ui="http://java.sun.com/jsf/facelets">
-  <ui:param name="title" value="#{overviewBundle.flex_layout}"/>
+  <ui:param name="title" value="#{overviewBundle.flex_layout}  &lt;tc:flexLayout>"/>
   <p>The flex layout can be used with the <code>&lt;tc:flexLayout/></code> tag.
     The two most important attributes are <code>columns</code> and <code>rows</code>.
     If both attributes are set, only <code>rows</code> has an effect.</p>
+  <tc:link label="Tag Library Documentation" image="image/feather-leaf.png"
+           link="#{overviewBundle.tagDocUrl}/flexLayout.html"/>
 
   <tc:section label="Basics">
     <p>If no attributes set, the behavior of the flex layout is like a flow layout.</p>

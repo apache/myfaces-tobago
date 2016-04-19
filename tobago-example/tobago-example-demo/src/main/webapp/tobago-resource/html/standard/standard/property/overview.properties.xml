@@ -105,6 +105,9 @@
   <entry key="flow_layout">FlowLayout</entry>
   <entry key="flex_layout">FlexLayout</entry>
   <entry key="segment_layout">SegmentLayout</entry>
+  <entry key="labeled_layout">LabeledLayout</entry>
+  <entry key="grid_layout">GridLayout</entry>
+  <entry key="format">Formatting</entry>
   <entry key="roles">Roles</entry>
 
 
@@ -354,25 +357,6 @@
     &lt;li style="line-height: 130%;"&gt;Unicode is used internally.&lt;/li&gt;
     &lt;li style="line-height: 130%;"&gt;Content in different languages can be provided by resource bundles.&lt;/li&gt;
     &lt;li style="line-height: 130%;"&gt;Like content, images and scripts can be localized.&lt;/li&gt;
-    &lt;/ul&gt;
-</entry>
-
-<!--  layout -->
-<entry key="layout_exampleTitle">Layout Example: Personal Information</entry>
-<entry key="layout_salutation">Salutation</entry>
-<entry key="layout_firstName">First Name</entry>
-<entry key="layout_lastName">Last Name</entry>
-<entry key="layout_co">c/o</entry>
-<entry key="layout_street">Street</entry>
-<entry key="layout_streetNumber">No</entry>
-<entry key="layout_zipCode">ZIP</entry>
-<entry key="layout_city">City</entry>
-<entry key="layout_note">Note</entry>
-<entry key="layout_text">Tobago simplifies the design of websites.
-    &lt;ul style="margin-top: 2px;"&gt;
-    &lt;li style="line-height: 130%;"&gt;Easy to use development of single- and   multicolumn forms.&lt;/li&gt;
-    &lt;li style="line-height: 130%;"&gt;Cells can span over multiple rows and colums.&lt;/li&gt;
-    &lt;li style="line-height: 130%;"&gt;Automatic alignment of input field labels.&lt;/li&gt;
     &lt;/ul&gt;
 </entry>
 
