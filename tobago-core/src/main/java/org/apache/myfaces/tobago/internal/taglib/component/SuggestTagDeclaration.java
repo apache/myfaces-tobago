@@ -61,8 +61,8 @@ public interface SuggestTagDeclaration extends HasIdBindingAndRendered {
    * and returns a List&lt;String&gt;, a List&lt;org.apache.myfaces.tobago.model.AutoSuggestItem&gt;
    * or a org.apache.myfaces.tobago.model.AutoSuggestItems.
    *
-   * @deprecated Please use an <code>&lt;tc:selectItems&gt;</code> tag or a list of <code>&lt;tc:selectItem&gt;</code> tags
-   * (TODO: not implemented yet).
+   * @deprecated Please use an <code>&lt;tc:selectItems&gt;</code> tag or a list of <code>&lt;tc:selectItem&gt;</code>
+   * tags (TODO: not implemented yet).
    */
   @Deprecated
   @TagAttribute
