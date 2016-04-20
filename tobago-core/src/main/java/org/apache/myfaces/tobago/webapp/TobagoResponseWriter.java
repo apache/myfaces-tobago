@@ -299,4 +299,6 @@ public abstract class TobagoResponseWriter extends ResponseWriter {
   public void endCDATA() throws IOException {
     write("]]>");
   }
+
+//  protected abstract void writeNewline() throws IOException;
 }

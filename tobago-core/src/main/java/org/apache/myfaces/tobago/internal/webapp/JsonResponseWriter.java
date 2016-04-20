@@ -112,7 +112,7 @@ public class JsonResponseWriter extends HtmlResponseWriter {
   }
 
   @Override
-  protected void endElementInternal(final Writer writer, final String name) throws IOException {
+  protected void endElementInternal(final Writer writer, final String name, final boolean inline) throws IOException {
     if (isStartStillOpen()) {
       writer.write(">");
     }

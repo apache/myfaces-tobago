@@ -34,8 +34,7 @@ import java.util.Arrays;
 
 public class HtmlResponseWriter extends TobagoResponseWriterBase {
 
-  private static final String HTML_DOCTYPE =
-      "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01//EN\" \"http://www.w3.org/TR/html4/strict.dtd\">";
+  private static final String HTML_DOCTYPE = "<!DOCTYPE html>";
 
   private final WriterUtils helper;
   private FastStringWriter javascriptWriter;
@@ -123,7 +122,7 @@ public class HtmlResponseWriter extends TobagoResponseWriterBase {
 
   @Override
   protected void closeEmptyTag() throws IOException {
-    getWriter().write("\n>");
+    getWriter().write(">");
   }
 
   @Override

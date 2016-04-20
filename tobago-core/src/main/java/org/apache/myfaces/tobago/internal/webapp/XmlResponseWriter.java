@@ -70,7 +70,7 @@ public final class XmlResponseWriter extends TobagoResponseWriterBase {
 
   @Override
   public void closeEmptyTag() throws IOException {
-    getWriter().write("\n/>");
+    getWriter().write("/>");
   }
 
   @Override

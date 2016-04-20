@@ -19,6 +19,7 @@
 
 package org.apache.myfaces.tobago.internal.webapp;
 
+import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlTypes;
 import org.apache.myfaces.tobago.renderkit.html.MarkupLanguageAttributes;
@@ -38,6 +39,8 @@ public abstract class TobagoResponseWriterBase extends TobagoResponseWriter {
   protected static final String XML_VERSION_1_0_ENCODING_UTF_8 = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
 
   protected static final char[] XML_VERSION_1_0_ENCODING_UTF_8_CHARS = XML_VERSION_1_0_ENCODING_UTF_8.toCharArray();
+
+  private int i = 0;
 
   private UIComponent component;
 
@@ -159,7 +162,7 @@ public abstract class TobagoResponseWriterBase extends TobagoResponseWriter {
 
   protected void closeOpenTag() throws IOException {
     if (startStillOpen) {
-      writer.write("\n>");
+      writer.write(">");
       startStillOpen = false;
     }
   }
@@ -192,6 +195,9 @@ public abstract class TobagoResponseWriterBase extends TobagoResponseWriter {
   @Override
   public void startElement(final HtmlElements name) throws IOException {
     startElementInternal(writer, name.getValue(), null);
+    if (!name.isVoid()) {
+      i++;
+    }
   }
 
   protected void startElementInternal(final Writer writer, final String name, final UIComponent currentComponent)
@@ -199,9 +205,9 @@ public abstract class TobagoResponseWriterBase extends TobagoResponseWriter {
     this.component = currentComponent;
 //    closeOpenTag();
     if (startStillOpen) {
-      writer.write("\n>");
+      writer.write(">");
     }
-    writer.write("<");
+    writer.write("\n" + StringUtils.repeat("  ", i) + "<");
     writer.write(name);
     startStillOpen = true;
   }
@@ -211,7 +217,7 @@ public abstract class TobagoResponseWriterBase extends TobagoResponseWriter {
     if (HtmlElements.isVoid(name)) {
       closeEmptyTag();
     } else {
-      endElementInternal(writer, name);
+      endElementInternal(writer, name, false);
     }
     startStillOpen = false;
   }
@@ -221,7 +227,10 @@ public abstract class TobagoResponseWriterBase extends TobagoResponseWriter {
     if (name.isVoid()) {
       closeEmptyTag();
     } else {
-      endElementInternal(writer, name.getValue());
+      if (!name.isVoid()) {
+        i--;
+      }
+      endElementInternal(writer, name.getValue(), name.isInline());
     }
     startStillOpen = false;
   }
@@ -230,7 +239,7 @@ public abstract class TobagoResponseWriterBase extends TobagoResponseWriter {
   public void writeComment(final Object obj) throws IOException {
     closeOpenTag();
     final String comment = obj.toString();
-    write("<!--");
+    write("\n" + StringUtils.repeat("  ", i) + "<!--");
     write(comment);
     write("-->");
   }
@@ -289,14 +298,17 @@ public abstract class TobagoResponseWriterBase extends TobagoResponseWriter {
     }
   }
 
-  protected void endElementInternal(final Writer writer, final String name) throws IOException {
-      if (startStillOpen) {
-        writer.write("\n>");
-      }
-      writer.write("</");
-      writer.write(name);
-//      writer.write("\n>"); // FIXME: this makes problems with Tidy
+  protected void endElementInternal(final Writer writer, final String name, final boolean inline) throws IOException {
+    if (startStillOpen) {
       writer.write(">");
+    }
+    if (inline) {
+      writer.write("</");
+    } else {
+      writer.write("\n" + StringUtils.repeat("  ", i) + "</");
+    }
+    writer.write(name);
+    writer.write(">");
   }
 
   protected abstract void closeEmptyTag() throws IOException;
