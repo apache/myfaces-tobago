@@ -71,7 +71,7 @@ public final class LocaleUtils {
   /**
    * Returns a list of strings, which are used as suffix for resources from resource manager.
    * 
-   * Sample: "de_DE" -> "_de_DE", "_de", "" 
+   * Sample: "de_DE" -&gt; "_de_DE", "_de", ""
    */
   public static List<String> getLocaleSuffixList(final Locale locale) {
 

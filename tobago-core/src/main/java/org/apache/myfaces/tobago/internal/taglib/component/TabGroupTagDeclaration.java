@@ -61,9 +61,12 @@ public interface TabGroupTagDeclaration
   void setShowNavigationBar(String showNavigationBar);
 
   /**
+   * <p>
    * Indicating how tab switching should be done.
-   * <p/>
+   * </p>
+   * <p>
    * Possible values are:
+   * </p>
    * <dl>
    *   <dt>client</dt>
    *   <dd>Tab switching is done on client, no server Request.</dd>

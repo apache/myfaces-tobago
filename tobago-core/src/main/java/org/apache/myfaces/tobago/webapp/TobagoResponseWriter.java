@@ -40,9 +40,10 @@ import java.io.IOException;
 import java.io.Writer;
 
 /**
+ * <p>
  * This provides an alternative ResponseWriter interfaces, which allows optimizations.
  * E. g. some attributes needed to to be escaped.
- * <p/>
+ * </p>
  */
 public abstract class TobagoResponseWriter extends ResponseWriter {
 

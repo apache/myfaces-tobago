@@ -32,9 +32,12 @@ import org.apache.myfaces.tobago.layout.Position;
 import org.apache.myfaces.tobago.layout.TextAlign;
 
 /**
+ * <p>
  * Add a style tag with the given file name.
- * <p/>
+ * </p>
+ * <p>
  * Remark: Inline styles are deprecated because of CSP.
+ * </p>
  */
 @Tag(name = "style")
 @BodyContentDescription(contentType = "css")

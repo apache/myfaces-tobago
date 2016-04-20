@@ -108,11 +108,6 @@ public class ValueExpressionComparator extends ComparatorBase {
 
   // implementation of java.util.Comparator interface
 
-  /**
-   * @param param1 <description>
-   * @param param2 <description>
-   * @return <description>
-   */
   @Override
   public int compare(final Object param1, final Object param2) {
     final Object obj1;

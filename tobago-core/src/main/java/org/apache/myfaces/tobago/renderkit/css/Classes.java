@@ -39,22 +39,21 @@ import javax.faces.context.FacesContext;
  * abbreviation) are possible. The class works like a factory, so caching will be possible.
  * </p>
  * <p>
- * The default naming conventions allow these values:<br/>
- * <ul>
- *   <li>tobago-&lt;rendererName></li>
- *   <li>tobago-&lt;rendererName>-markup-&lt;markupName></li>
- *   <li>tobago-&lt;rendererName>-&lt;subElement></li>
- *   <li>tobago-&lt;rendererName>-&lt;subElement>-markup-&lt;markupName></li>
- * </ul>
+ * The default naming conventions allow these values:
  * </p>
- * <p>
- * where <ul> <li>&lt;rendererName>, &lt;subElement> and &lt;markupName> must only contain ASCII-chars and -numbers</li>
- * <li>&lt;rendererName> is the rendererType with a lower case char as first char</li> <li>&lt;subElement> is a sub
- * element of the main tag in the output language (e.g. HTML)</li> <li>&lt;markupName> is the name of an existing
+ * <ul>
+ *   <li>tobago-&lt;rendererName&gt;
+ *   <li>tobago-&lt;rendererName&gt;-markup-&lt;markupName&gt;
+ *   <li>tobago-&lt;rendererName&gt;-&lt;subElement&gt;
+ *   <li>tobago-&lt;rendererName&gt;-&lt;subElement&gt;-markup-&lt;markupName&gt;
+ * </ul>
+ * <br>
+ * where <ul> <li>&lt;rendererName&gt;, &lt;subElement&gt; and &lt;markupName&gt; must only contain ASCII-chars and -numbers</li>
+ * <li>&lt;rendererName&gt; is the rendererType with a lower case char as first char</li> <li>&lt;subElement&gt; is a sub
+ * element of the main tag in the output language (e.g. HTML)</li> <li>&lt;markupName&gt; is the name of an existing
  * markup</li> </ul> If the markup contains more than one name, there will be generated more than one output string.
  * E.g.: UIIn with Markup [readonly, error] will get the class "tobago-in tobago-in-markup-readonly
  * tobago-in-markup-error".
- * </p>
  */
 public final class Classes {
 

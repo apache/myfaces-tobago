@@ -219,7 +219,6 @@
              -federationxml JDK http://doclava.googlecode.com/svn/static/api/openjdk-6.xml
              -hdf project.name "${project.name}"
              -d ${project.build.directory}/apidocs
-             -Xdoclint:none
           </additionalparam>
           <useStandardDocletOptions>false</useStandardDocletOptions>
           <!--
@@ -838,7 +837,12 @@
           <version>2.10.3</version>
           <configuration>
             <!-- switched off check in Java 8 -->
-            <additionalparam>-Xdoclint:none</additionalparam>
+            <additionalparam>
+                -Xdoclint:accessibility
+                -Xdoclint:html
+                -Xdoclint:reference
+                -Xdoclint:syntax
+            </additionalparam>
           </configuration>
         </plugin>
         <plugin>

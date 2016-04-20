@@ -591,6 +591,7 @@ public final class ComponentUtils {
   /**
    * <p>
    * The search depends on the number of prefixed colons in the relativeId:
+   * </p>
    * <dl>
    *   <dd>number of prefixed colons == 0</dd>
    *   <dt>fully relative</dt>
@@ -600,10 +601,9 @@ public final class ComponentUtils {
    *   <dt>search in the current naming container (same as 0 colons)</dt>
    *   <dd>number of prefixed colons == 3</dd>
    *   <dt>search in the parent naming container of the current naming container</dt>
-   *   <dd>number of prefixed colons > 3</dd>
+   *   <dd>number of prefixed colons &gt; 3</dd>
    *   <dt>go to the next parent naming container for each additional colon</dt>
    * </dl>
-   * </p>
    * <p>
    * If a literal is specified: to use more than one identifier the identifiers must be space delimited.
    * </p>

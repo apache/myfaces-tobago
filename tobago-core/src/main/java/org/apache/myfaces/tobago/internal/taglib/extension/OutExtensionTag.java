@@ -29,19 +29,18 @@ import javax.el.ValueExpression;
 
 /**
  * Renders a text output field with a label.
- * <br />
+ * <br>
  * Short syntax of:
- * <p/>
  * <pre>
- * &lt;tc:panel>
- *   &lt;f:facet name="layout">
- *     &lt;tc:gridLayout columns="auto;*"/>
- *   &lt;/f:facet>
- *   &lt;tc:label value="#{label}" for="@auto"/>
- *   &lt;tc:out value="#{value}">
+ * &lt;tc:panel&gt;
+ *   &lt;f:facet name="layout"&gt;
+ *     &lt;tc:gridLayout columns="auto;*"/&gt;
+ *   &lt;/f:facet&gt;
+ *   &lt;tc:label value="#{label}" for="@auto"/&gt;
+ *   &lt;tc:out value="#{value}"&gt;
  *     ...
- *   &lt;/tc:out>
- * &lt;/tc:panel>
+ *   &lt;/tc:out&gt;
+ * &lt;/tc:panel&gt;
  * </pre>
  *
  * @deprecated since Tobago 3.0. The tx-library is deprecated, please use the tc-library.

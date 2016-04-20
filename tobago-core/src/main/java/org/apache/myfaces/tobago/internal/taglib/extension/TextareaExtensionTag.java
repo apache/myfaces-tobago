@@ -27,19 +27,18 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 
 /**
  * Renders a multi line text input control with a label.
- * <br />
+ * <br>
  * Short syntax of:
- * <p/>
  * <pre>
- * &lt;tc:panel>
- *   &lt;f:facet name="layout">
- *     &lt;tc:gridLayout columns="auto;*"/>
- *   &lt;/f:facet>
- *   &lt;tc:label value="#{label}" for="@auto"/>
- *   &lt;tc:textarea value="#{value}">
+ * &lt;tc:panel&gt;
+ *   &lt;f:facet name="layout"&gt;
+ *     &lt;tc:gridLayout columns="auto;*"/&gt;
+ *   &lt;/f:facet&gt;
+ *   &lt;tc:label value="#{label}" for="@auto"/&gt;
+ *   &lt;tc:textarea value="#{value}"&gt;
  *     ...
- *   &lt;/tc:in>
- * &lt;/tc:panel>
+ *   &lt;/tc:in&gt;
+ * &lt;/tc:panel&gt;
  * </pre>
  *
  * @deprecated since Tobago 3.0. The tx-library is deprecated, please use the tc-library.

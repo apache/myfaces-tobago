@@ -32,20 +32,27 @@ import java.util.Iterator;
 import java.util.List;
 
 /**
+ * <p>
  * A markup signs a component to be rendered different from the normal.
  * E. g. <code>markup="emphasized"</code> might be rendered bold
  * or a <code>markup="deleted"</code> might be rendered with line-through style.
  * The concrete rendering depends from the theme.
- * <p/>
+ * </p>
+ * <p>
  * The markup can also hold more than one value, e. g. <code>markup="emphasized, deleted"</code>.
- * <p/>
+ * </p>
+ * <p>
  * The value of the markup is unmodifiable.
- * <p/>
+ * </p>
+ * <p>
  * A markup must be registered for a component, before it can be used.
- * <p/>
+ * </p>
+ * <p>
  * A markup should only contain ASCII characters and digits.
- * <p/>
+ * </p>
+ * <p>
  * In JSPs the class {@link org.apache.myfaces.tobago.context.MarkupEditor} will convert the string literals.
+ * </p>
  */
 public final class Markup implements Serializable, Iterable<String> {
 

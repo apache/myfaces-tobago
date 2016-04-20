@@ -30,15 +30,14 @@ import org.apache.myfaces.tobago.internal.component.AbstractUIToolBar;
 import javax.faces.component.UIPanel;
 
 /**
- * <p/>
- * Renders a toolbar.<p />
+ * Renders a toolbar.<br>
  * Allowed subcomponents are subtypes of UICommand i.e.
  * <code>'button'</code> and <code>'link'</code> tags.
  * These are rendered by ToolbarRenderer, so the result has
- * no difference.<p />
+ * no difference.<br>
  * To add an drop down menu to a button add a facet <code>'dropDownMenu'</code>
  * containing a
- * <a href="menu.html"><code>&lt;tc:menu></code></a>
+ * <a href="menu.html"><code>&lt;tc:menu&gt;</code></a>
  * tag to the button. Label's and Image's on those menu tag's are ignored
  * and replaced by the renderer.
  * <pre>

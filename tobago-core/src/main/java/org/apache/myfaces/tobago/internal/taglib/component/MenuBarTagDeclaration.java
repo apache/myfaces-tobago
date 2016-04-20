@@ -29,9 +29,9 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
 import javax.faces.component.UIPanel;
 
 /**
-* Renders a menu bar.<br />
+* Renders a menu bar.<br>
 * Add menu bar as facet name="menuBar" to page tag or use it anywhere
-* on page.<br />
+* on page.
 */
 @Tag(name = "menuBar")
 @BodyContentDescription(

@@ -33,8 +33,6 @@ public interface HasTabIndex {
    * in the order they appear in the character stream
    * Elements that are disabled or with a negative tabIndex
    * do not participate in the tabbing order.
-   *
-   * @param tabIndex
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "java.lang.Integer")

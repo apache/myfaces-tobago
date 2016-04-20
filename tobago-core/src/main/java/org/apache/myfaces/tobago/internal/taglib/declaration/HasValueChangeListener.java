@@ -29,8 +29,6 @@ public interface HasValueChangeListener {
    * that will be notified when a new value has been set for this input component.
    * The expression must evaluate to a public method that takes a ValueChangeEvent
    * parameter, with a return type of void.
-   *
-   * @param valueChangeListener
    */
   @TagAttribute
   @UIComponentTagAttribute(

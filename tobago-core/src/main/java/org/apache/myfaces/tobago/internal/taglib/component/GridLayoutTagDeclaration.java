@@ -42,8 +42,8 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
  * PIXEL        ::= NUMBER "px"
  * PROPORTIONAL ::= [NUMBER] "*"
  * </pre>
- * <p/>
  * <table border="1">
+ * <caption>GridLayout</caption>
  * <tr>
  * <th>Parent</th>
  * <th>Child</th>

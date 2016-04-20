@@ -29,7 +29,7 @@ import java.util.List;
  * Handles a path in a tree from the root node to the position inside this tree.
  * The position of the root node is dropped in the list, because it would always be zero.
  * The path of the root node as length 0.
- * <p/>
+ * <br>
  * Example:
  * <pre>
  *  + Root               Path: []

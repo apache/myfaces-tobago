@@ -25,8 +25,8 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 public interface HasRowLayout {
   /**
    * This value defines the layout constraints for row layout.
-   * It is a semicolon separated list of layout tokens '[&lt;n>]*', '&lt;n>px' or 'auto'.
-   * Where &lt;n> is a non negative integer and the square brackets means optional.
+   * It is a semicolon separated list of layout tokens '[&lt;n&gt;]*', '&lt;n&gt;px' or 'auto'.
+   * Where &lt;n&gt; is a non negative integer and the square brackets means optional.
    * Example: '2*;*;100px;auto'.
    */
   @TagAttribute

@@ -43,9 +43,12 @@ import java.util.Map;
 import java.util.Set;
 
 /**
+ * <p>
  * Implementation of the Tobago configuration.
- * <p/>
+ * </p>
+ * <p>
  * All setters must are protected, so EL can't modify this config.
+ * </p>
  */
 public class TobagoConfigImpl extends TobagoConfig {
 

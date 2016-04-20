@@ -41,7 +41,7 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * <p><pre>
+ * <pre>
  * &lt;servlet&gt;
  *   &lt;servlet-name&gt;ResourceServlet&lt;/servlet-name&gt;
  *   &lt;servlet-class&gt;org.apache.myfaces.tobago.servlet.ResourceServlet&lt;/servlet-class&gt;
@@ -62,7 +62,7 @@ import java.util.Set;
  *   &lt;servlet-name&gt;ResourceServlet&lt;/servlet-name&gt;
  *   &lt;url-pattern&gt;/org/apache/myfaces/tobago/renderkit/*&lt;/url-pattern&gt;
  * &lt;/servlet-mapping&gt;
- * </pre><p>
+ * </pre>
  *
  * @since 1.0.7
  */

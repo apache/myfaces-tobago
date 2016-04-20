@@ -48,17 +48,17 @@ public interface AttributeTagDeclaration {
   /**
    * Warning: The mode is only available when using Facelets.
    * Allowed values are "action", "actionListener", "actionFromValue", "isNotSet", "isSet", "valueIfSet".
-   * <br/>
+   * <br>
    * "action" (method binding) evaluate the expression to find the method binding which is referenced with the template.
-   * <br/>
+   * <br>
    * "actionListener" same as "action" but for the method signature of ActionListeners.
-   * <br/>
+   * <br>
    * "isSet" (boolean) checks, if the expression is set from the composition caller.
-   * <br/>
+   * <br>
    * "isNotSet" (boolean) negation of "isSet"
-   * <br/>
+   * <br>
    * "actionFromValue" Evaluates the ValueBinding to get an outcome set directly (no action method)
-   * <br/>
+   * <br>
    * "valueIfSet" set the attribute only if the value is set.
    */
   @TagAttribute(name = "mode")

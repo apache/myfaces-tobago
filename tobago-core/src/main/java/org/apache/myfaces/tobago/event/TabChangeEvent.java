@@ -37,7 +37,7 @@ public class TabChangeEvent extends ActionEvent {
   }
   
   /**
-   * @deprecated Please use {@link TabChangeEvent(UIComponent, Integer, Integer)}
+   * @deprecated Please use {@link #TabChangeEvent(UIComponent, Integer, Integer)}
    */
   @Deprecated
   public TabChangeEvent(final UIComponent uiComponent, final Object oldState, final Object newState) {

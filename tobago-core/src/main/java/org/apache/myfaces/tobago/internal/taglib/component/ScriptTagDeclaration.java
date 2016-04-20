@@ -28,7 +28,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRend
 
 /**
  * This tag adds script files to include into the rendered page.
- * <p/>
+ * <br>
  * Deprecated (because of CSP): This tag adds client side script to the rendered page.
  */
 @Tag(name = "script")

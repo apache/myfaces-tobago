@@ -110,10 +110,10 @@ createDescription(property) ::= <<
 /**
 <property.description>
 <if(property.defaultValue)>
-\<br /\>Default: \<code\><property.defaultValue>\</code\>
+\<br\>Default: \<code\><property.defaultValue>\</code\>
 <endif>
 <if(property.allowedValues)>
-\<br /\>Allowed Values: \<code\><property.allowedValues:allowedValue(); separator=",">\</code\>
+\<br\>Allowed Values: \<code\><property.allowedValues:allowedValue(); separator=",">\</code\>
 <endif>
 
 <if(property.deprecated)>

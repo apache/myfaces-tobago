@@ -28,18 +28,18 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 /**
  * Renders menu items like radio buttons (select one).
  * <pre>
- * &lt;tx:menuRadio>
- *   &lt;tc:selectItems/> &lt;!-- body -->
- * &lt;/tx:menuRadio></pre>
+ * &lt;tx:menuRadio&gt;
+ *   &lt;tc:selectItems/&gt; &lt;!-- body --&gt;
+ * &lt;/tx:menuRadio&gt;</pre>
  * is the short form of
  * <pre>
- * &lt;tc:menuCommand>
- *   &lt;f:facet name="radio">
- *     &lt;tc:selectOneRadio>
- *       &lt;tc:selectItems/> &lt;!-- body -->
- *     &lt;/tc:selectOneRadio>
- *   &lt;/f:facet>
- * &lt;/tc:menuCommand></pre>
+ * &lt;tc:menuCommand&gt;
+ *   &lt;f:facet name="radio"&gt;
+ *     &lt;tc:selectOneRadio&gt;
+ *       &lt;tc:selectItems/&gt; &lt;!-- body --&gt;
+ *     &lt;/tc:selectOneRadio&gt;
+ *   &lt;/f:facet&gt;
+ * &lt;/tc:menuCommand&gt;</pre>
  *
  * @deprecated since Tobago 3.0. The tx-library is deprecated, please use the tc-library.
  */

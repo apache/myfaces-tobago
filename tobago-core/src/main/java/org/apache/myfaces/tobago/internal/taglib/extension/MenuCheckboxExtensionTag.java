@@ -28,14 +28,14 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 /**
  * Renders a menu item like a check box.
  * <pre>
- * &lt;tx:menuCheckbox/></pre>
+ * &lt;tx:menuCheckbox/&gt;</pre>
  * is the short form of
  * <pre>
- * &lt;tc:menuCommand>
- *   &lt;f:facet name="checkbox">
- *     &lt;tc:selectBooleanCheckbox/>
- *   &lt;/f:facet>
- * &lt;/tc:menuCommand></pre>
+ * &lt;tc:menuCommand&gt;
+ *   &lt;f:facet name="checkbox"&gt;
+ *     &lt;tc:selectBooleanCheckbox/&gt;
+ *   &lt;/f:facet&gt;
+ * &lt;/tc:menuCommand&gt;</pre>
  *
  * @deprecated since Tobago 3.0. The tx-library is deprecated, please use the tc-library.
  */
@@ -74,8 +74,6 @@ public interface MenuCheckboxExtensionTag {
 
   /**
    * Script to be invoked when clicked
-   *
-   * @param onclick
    */
   @TagAttribute
   @UIComponentTagAttribute()
@@ -83,8 +81,6 @@ public interface MenuCheckboxExtensionTag {
 
   /**
    * Link to an arbitrary URL
-   *
-   * @param link
    */
   @TagAttribute
   @UIComponentTagAttribute()

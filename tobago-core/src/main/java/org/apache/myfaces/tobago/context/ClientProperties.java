@@ -30,13 +30,17 @@ import javax.faces.context.FacesContext;
 import java.io.Serializable;
 
 /**
+ * <p>
  * The ClientProperties contains data, which are individual for each user.
  * It is stored in the session by default, but the application can override this in the faces-config.xml.
- * <p/>
+ * </p>
+ * <p>
  * The managed bean name which is Tobago using for the instance is {@link #MANAGED_BEAN_NAME}.
- * <p/>
+ * </p>
+ * <p>
  * Please use {@link ClientProperties#getInstance(javax.faces.context.FacesContext)}
  * to access to the users client properties.
+ * </p>
  */
 
 public class ClientProperties implements Serializable {

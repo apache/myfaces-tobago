@@ -121,7 +121,7 @@ public abstract class AbstractUICommand
 
   /**
    Flag indicating that this element is disabled.
-   <br />Default: <code>false</code>
+   <br>Default: <code>false</code>
    */
   public boolean isDisabled() {
 

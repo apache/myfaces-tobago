@@ -37,7 +37,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * @deprecated since Tobago 2.0.8 - Please use &lt;f:initParam> instead - see also TOBAGO-1456
+ * @deprecated since Tobago 2.0.8 - Please use &lt;f:initParam&gt; instead - see also TOBAGO-1456
  */
 @Deprecated
 public abstract class NonFacesRequestServlet extends HttpServlet {

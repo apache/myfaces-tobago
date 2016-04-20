@@ -44,9 +44,12 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
 import javax.faces.component.UIInput;
 
 /**
+ * <p>
  * Renders a file input field.
- * <p />
+ * </p>
+ * <p>
  * For content constraints please use <a href="validateFileItem.html">tc:validateFileItem</a>.
+ * </p>
  */
 @Tag(name = "file")
 @UIComponentTag(

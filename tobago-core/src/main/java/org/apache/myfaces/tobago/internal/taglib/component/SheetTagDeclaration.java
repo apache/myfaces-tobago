@@ -60,7 +60,7 @@ public interface SheetTagDeclaration
     extends HasIdBindingAndRendered, IsVisual, HasRenderedPartially, IsShowRoot, IsShowRootJunction, HasVar {
   /**
    * LayoutConstraints for column layout.
-   * Semicolon separated list of layout tokens ('&lt;x>*', '&lt;x>px' or '&lt;x>%') or "auto"
+   * Semicolon separated list of layout tokens ('&lt;x&gt;*', '&lt;x&gt;px' or '&lt;x&gt;%') or "auto"
    */
   @TagAttribute
   @UIComponentTagAttribute()
@@ -76,7 +76,7 @@ public interface SheetTagDeclaration
   /**
    * The number of rows to display, starting with the one identified by the
    * "first" property.
-   * <br/> The default has been changed from 100 to 0 because this is the default
+   * <br> The default has been changed from 100 to 0 because this is the default
    * in the JSF standard (since Tobago 1.5).
    */
   @TagAttribute
@@ -104,17 +104,17 @@ public interface SheetTagDeclaration
   void setValue(String value);
 
   /**
-   * Flag indicating whether or not the paging panel should be display, if it is not needed for paging.<br />
+   * Flag indicating whether or not the paging panel should be display, if it is not needed for paging.<br>
    * <ul>
    * <li>showPagingAlways="false" which is the default means, that the paging footer should be displayed,
-   * only when it is needed.</li>
+   * only when it is needed.
    * <ul>
-   * <li>When the rows="0" paging is not needed, so the footer will not be rendered,</li>
+   * <li>When the rows="0" paging is not needed, so the footer will not be rendered,
    * <li>when rows="N", N &gt; 0 and the size of the data value is &lt;= N paging is not needed
-   * and the footer will not be rendered,</li>
-   * <li>in any other case the paging footer will be displayed.</li>
+   * and the footer will not be rendered,
+   * <li>in any other case the paging footer will be displayed.
    * </ul>
-   * <li>showPagingAlways="true" means, that the paging footer should be displayed in any case.</li>
+   * <li>showPagingAlways="true" means, that the paging footer should be displayed in any case.
    * </ul>
    */
   @TagAttribute
@@ -122,7 +122,7 @@ public interface SheetTagDeclaration
   void setShowPagingAlways(String showPagingAlways);
 
   /**
-   * The count of rendered direct paging links in the sheet's footer.<br />
+   * The count of rendered direct paging links in the sheet's footer.<br>
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "java.lang.Integer", defaultValue = "9")
@@ -130,7 +130,7 @@ public interface SheetTagDeclaration
 
   /**
    * Flag indicating whether or not this sheet should reserve space for
-   * vertical toolbar when calculating column width's.<br />
+   * vertical toolbar when calculating column width's.<br>
    * Possible values are: <pre>
    *      'auto'  : sheet try to estimate the need of scrollbar.
    *      'true'  : space for scrollbar is reserved.

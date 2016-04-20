@@ -25,10 +25,13 @@ import org.slf4j.LoggerFactory;
 import java.net.URL;
 
 /**
+ * <p>
  * Provides facelets from the directory "META-INF/resources/" of any jar file in the classpath.
  * With the Servlet 3.0 specification this is no longer needed.
- * <p/>
+ * </p>
+ * <p>
  * To configure this ResourceResolver put this code into the web.xml file:
+ * </p>
  * <pre>
  *  &lt;context-param&gt;
  *    &lt;param-name&gt;javax.faces.FACELETS_RESOURCE_RESOLVER&lt;/param-name&gt;
@@ -37,7 +40,6 @@ import java.net.URL;
  *    &lt;/param-value&gt;
  *  &lt;/context-param&gt;
  * </pre>
- * <p/>
  */
 public class MetaInfResourcesClasspathResourceResolver extends DefaultResourceResolver {
 

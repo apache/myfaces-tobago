@@ -26,15 +26,14 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 
 /**
  * Renders a separator.
- * <br />
+ * <br>
  * Short syntax of:
- * <p/>
  * <pre>
- * &lt;tc:separator>
- *   &lt;f:facet name="label">
- *     &lt;tc:label value="label"/>
- *   &lt;/f:facet>
- * &lt;/tc:separator>
+ * &lt;tc:separator&gt;
+ *   &lt;f:facet name="label"&gt;
+ *     &lt;tc:label value="label"/&gt;
+ *   &lt;/f:facet&gt;
+ * &lt;/tc:separator&gt;
  * </pre>
  *
  * @deprecated since Tobago 3.0. The tx-library is deprecated, please use the tc-library.

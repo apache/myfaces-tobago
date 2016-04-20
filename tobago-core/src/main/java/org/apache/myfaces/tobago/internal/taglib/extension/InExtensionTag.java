@@ -30,19 +30,18 @@ import javax.el.ValueExpression;
 
 /**
  * Renders a text input field with a label.
- * <br />
+ * <br>
  * Short syntax of:
- * <p/>
  * <pre>
- * &lt;tc:panel>
- *   &lt;f:facet name="layout">
- *     &lt;tc:gridLayout columns="auto;*"/>
- *   &lt;/f:facet>
- *   &lt;tc:label value="#{label}" for="@auto"/>
- *   &lt;tc:in value="#{value}">
+ * &lt;tc:panel&gt;
+ *   &lt;f:facet name="layout"&gt;
+ *     &lt;tc:gridLayout columns="auto;*"/&gt;
+ *   &lt;/f:facet&gt;
+ *   &lt;tc:label value="#{label}" for="@auto"/&gt;
+ *   &lt;tc:in value="#{value}"&gt;
  *     ...
- *   &lt;/tc:in>
- * &lt;/tc:panel>
+ *   &lt;/tc:in&gt;
+ * &lt;/tc:panel&gt;
  * </pre>
  *
  * @deprecated since Tobago 3.0. The tx-library is deprecated, please use the tc-library.
@@ -138,7 +137,7 @@ public interface InExtensionTag {
    * MethodBinding which generates a list of suggested input values based on
    * the currently entered text, which could be retrieved via getSubmittedValue() on the UIIn.
    * The expression has to evaluate to a public method which has a javax.faces.component.UIInput parameter
-   * and returns a List&lt;String>(deprecated), a List&lt;org.apache.myfaces.tobago.model.AutoSuggestItem>
+   * and returns a List&lt;String&gt;(deprecated), a List&lt;org.apache.myfaces.tobago.model.AutoSuggestItem&gt;
    * or a org.apache.myfaces.tobago.model.AutoSuggestItems.
    *
    * @deprecated since 2.0.0, please use tc:suggest

@@ -72,14 +72,14 @@ public enum TextAlign {
   public static final String STRING_JUSTIFY = "justify";
 
   /**
-   * @deprecated Since Tobago 3.0.0 Please use {@link TextAlign:name}
+   * @deprecated Since Tobago 3.0.0 Please use {@link TextAlign#name}
    */
   public String getValue() {
     return name();
   }
 
   /**
-   * @deprecated Since Tobago 3.0.0 Please use {@link TextAlign:valueOf}
+   * @deprecated Since Tobago 3.0.0 Please use {@link TextAlign#valueOf}
    */
   @Deprecated
   public static TextAlign parse(final String string) {
