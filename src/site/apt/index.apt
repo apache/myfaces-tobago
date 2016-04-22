@@ -47,6 +47,21 @@ Apache Tobago
 
 News
 
+* April 20, 2016 - MyFaces Tobago 3.0.0-alpha-3 Released
+
+      The MyFaces Tobago component library in version 3.0.0-alpha-3 has been released.
+
+      Release notes can be found in
+      {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12334363}Jira}}.
+
+      Major change is upgrading from Bootstrap 3 to Bootstrap 4 (alpha) and
+      using Servlet 3.0 API for uploading files (instead of commons-fileupload).
+
+      Also see section: {{{./new-3.0.html} What's new in Tobago 3.0?}}
+
+      \ {}
+      ~~ hack for a bit space
+
 * February 1, 2016 - MyFaces Tobago 2.0.9 Released
 
       The MyFaces Tobago component library in version 2.0.9 has been released.
