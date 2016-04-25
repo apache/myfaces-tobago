@@ -55,11 +55,13 @@ public class TextareaRenderer extends LabelLayoutRendererBase {
     final UITextarea input = (UITextarea) component;
     final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, component);
     final String clientId = input.getClientId(facesContext);
+    final String fieldId = clientId + ComponentUtils.SUB_SEPARATOR + "field";
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
     final Integer rows = input.getRows();
 
     writer.startElement(HtmlElements.TEXTAREA);
     writer.writeNameAttribute(clientId);
+    writer.writeIdAttribute(fieldId);
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, input);
     writer.writeAttribute(HtmlAttributes.ROWS, rows);
     writer.writeAttribute(HtmlAttributes.TITLE, title, true);
