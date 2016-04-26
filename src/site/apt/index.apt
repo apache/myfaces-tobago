@@ -47,6 +47,34 @@ Apache Tobago
 
 News
 
+* April 26, 2016 - Switching Subversion trunk to Tobago 3.0.x
+
+      Today the Subversion <<<trunk>>> is moved to <<<branches/tobago-2.0.x>>> and
+      the <<<branches/tobago-3.0.x>>> is moved to trunk.
+
+      To migrate an already checked out project, please check at first your current location like:
+
++----------------------------------------
+svn info | grep "Repository Root"
++----------------------------------------
+
+      The result shows you whether you are using <<<http>>> or <<<https>>>
+
+      To switch from the old trunk to the 2.0.x branch use:
+
++----------------------------------------
+svn switch https://svn.apache.org/repos/asf/myfaces/tobago/branches/tobago-2.0.x/
++----------------------------------------
+
+      To switch from the old 3.0.x branch to the new trunk use:
+
++----------------------------------------
+svn switch https://svn.apache.org/repos/asf/myfaces/tobago/trunk/
++----------------------------------------
+
+      \ {}
+      ~~ hack for a bit space
+
 * April 20, 2016 - MyFaces Tobago 3.0.0-alpha-3 Released
 
       The MyFaces Tobago component library in version 3.0.0-alpha-3 has been released.
