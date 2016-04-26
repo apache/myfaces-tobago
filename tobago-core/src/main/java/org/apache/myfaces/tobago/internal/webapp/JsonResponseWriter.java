@@ -27,7 +27,6 @@ import org.apache.myfaces.tobago.util.FacesVersion;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.faces.component.UIComponent;
 import javax.faces.context.ResponseWriter;
 import java.io.IOException;
 import java.io.Writer;
@@ -100,9 +99,8 @@ public class JsonResponseWriter extends HtmlResponseWriter {
   }
 
   @Override
-  protected void startElementInternal(final Writer writer, final String name, final UIComponent currentComponent)
+  protected void startElementInternal(final Writer writer, final String name, final boolean inline)
       throws IOException {
-    setComponent(currentComponent);
     if (isStartStillOpen()) {
       writer.write(">");
     }

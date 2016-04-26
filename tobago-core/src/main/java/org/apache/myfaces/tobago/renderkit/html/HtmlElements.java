@@ -43,7 +43,7 @@ public enum HtmlElements {
   CANVAS("canvas"),
   CAPTION("caption"),
   CITE("cite", Qualifier.INLINE),
-  CODE("code"),
+  CODE("code", Qualifier.INLINE),
   COL("col", Qualifier.VOID),
   COLGROUP("colgroup"),
   COMMAND("command", Qualifier.VOID),
@@ -97,7 +97,7 @@ public enum HtmlElements {
   OPTION("option"),
   P("p"),
   PARAM("param", Qualifier.VOID),
-  PRE("pre"),
+  PRE("pre", Qualifier.INLINE),
   PROGRESS("progress"),
   Q("q"),
   RP("rp"),
@@ -138,6 +138,7 @@ public enum HtmlElements {
   private final boolean inlineElement;
 
   private static final Set<String> VOIDS = new HashSet<String>();
+  private static final Set<String> INLINES = new HashSet<String>();
 
   HtmlElements(final String value, final Qualifier... qualifiers) {
     this.value = value;
@@ -149,6 +150,9 @@ public enum HtmlElements {
     for (final HtmlElements htmlElement : values()) {
       if (htmlElement.isVoid()) {
         VOIDS.add(htmlElement.getValue());
+      }
+      if (htmlElement.isInline()) {
+        INLINES.add(htmlElement.getValue());
       }
     }
   }
@@ -172,6 +176,10 @@ public enum HtmlElements {
 
   public static boolean isVoid(final String name) {
     return VOIDS.contains(name);
+  }
+
+  public static boolean isInline(final String name) {
+    return INLINES.contains(name);
   }
 
   private enum Qualifier {VOID, INLINE}

@@ -19,6 +19,7 @@
 
 package org.apache.myfaces.tobago.webapp;
 
+import org.apache.myfaces.test.base.junit4.AbstractJsfTestCase;
 import org.apache.myfaces.tobago.internal.webapp.HtmlResponseWriter;
 import org.apache.myfaces.tobago.internal.webapp.XmlResponseWriter;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
@@ -30,13 +31,14 @@ import org.junit.Test;
 import java.io.IOException;
 import java.io.StringWriter;
 
-public class TobagoResponseWriterUnitTest {
+public class TobagoResponseWriterUnitTest extends AbstractJsfTestCase {
 
   private StringWriter stringWriter;
   private TobagoResponseWriter writer;
 
   @Before
   public void setUp() throws Exception {
+    super.setUp();
     stringWriter = new StringWriter();
     writer = new HtmlResponseWriter(stringWriter, "", "UTF-8");
   }
@@ -70,7 +72,7 @@ public class TobagoResponseWriterUnitTest {
     writer.endElement(HtmlElements.SELECT);
     Assert.assertEquals("attr tag", "\n<select value='0'></select>", stringWriter.toString());
   }
-  
+
   @Test
   public void testURIAttribute() throws IOException {
     writer.startElement(HtmlElements.A);
