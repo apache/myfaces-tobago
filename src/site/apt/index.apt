@@ -49,8 +49,8 @@ News
 
 * April 26, 2016 - Switching Subversion trunk to Tobago 3.0.x
 
-      Today the Subversion <<<trunk>>> is moved to <<<branches/tobago-2.0.x>>> and
-      the <<<branches/tobago-3.0.x>>> is moved to trunk.
+      Today the Subversion <<<trunk>>> has been moved to <<<branches/tobago-2.0.x>>> and
+      the <<<branches/tobago-3.0.x>>> has been moved to trunk.
 
       To migrate an already checked out project, please check at first your current location like:
 
