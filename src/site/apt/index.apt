@@ -54,8 +54,15 @@ News
       Release notes can be found in
       {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12334363}Jira}}.
 
-      Major change is upgrading from Bootstrap 3 to Bootstrap 4 (alpha) and
-      using Servlet 3.0 API for uploading files (instead of commons-fileupload).
+      Major changes are
+
+      * integration of <<<\<f:ajax\>>>>,
+
+      * upgrading from Bootstrap 3 to Bootstrap 4 (alpha) and
+
+      * using Servlet 3.0 API for uploading files (instead of commons-fileupload).
+
+      []
 
       Also see section: {{{./new-3.0.html} What's new in Tobago 3.0?}}
 
