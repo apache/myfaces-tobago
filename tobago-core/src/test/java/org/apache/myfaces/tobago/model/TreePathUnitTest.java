@@ -105,55 +105,6 @@ public class TreePathUnitTest {
   public void testGetPath() {
     final TreePath treePath = new TreePath(0, 1, 2);
     Assert.assertTrue(Arrays.equals(new int[]{0, 1, 2}, treePath.getPath()));
-    final TreePath treePath2 = new TreePath(treePath, 3);
-    Assert.assertTrue(Arrays.equals(new int[]{0, 1, 2, 3}, treePath2.getPath()));
   }
 
-  @Test
-  public void testGetPathString() {
-    final TreePath treePath = new TreePath(0, 1, 2);
-    Assert.assertEquals("_0_1_2", treePath.getPathString());
-    final TreePath treePath2 = new TreePath(treePath, 3);
-    Assert.assertEquals("_0_1_2_3", treePath2.getPathString());
-  }
-
-  @Test
-  public void testGetNode() {
-
-    final DefaultMutableTreeNode root = new DefaultMutableTreeNode("root");
-    final DefaultMutableTreeNode node1 = new DefaultMutableTreeNode("node1");
-    root.add(node1);
-    final DefaultMutableTreeNode node2 = new DefaultMutableTreeNode("node2");
-    final DefaultMutableTreeNode node3 = new DefaultMutableTreeNode("node3");
-    node2.add(node3);
-    root.add(node2);
-
-    Assert.assertEquals(root, new TreePath(0).getNode(root));
-    Assert.assertEquals(node1, new TreePath(0, 0).getNode(root));
-    Assert.assertEquals(node2, new TreePath(0, 1).getNode(root));
-    Assert.assertEquals(node3, new TreePath(0, 1, 0).getNode(root));
-  }
-
-  @Test
-  public void testGetNode2() {
-
-    final DefaultMutableTreeNode tree = new DefaultMutableTreeNode("Category");
-    tree.add(new DefaultMutableTreeNode("Sports"));
-    tree.add(new DefaultMutableTreeNode("Movies"));
-    final DefaultMutableTreeNode science = new DefaultMutableTreeNode("Science");
-    tree.add(science);
-    science.add(new DefaultMutableTreeNode("Geography"));
-    science.add(new DefaultMutableTreeNode("Mathematics"));
-    final DefaultMutableTreeNode astronomy = new DefaultMutableTreeNode("Astronomy");
-    astronomy.add(new DefaultMutableTreeNode("Education"));
-    astronomy.add(new DefaultMutableTreeNode("Pictures"));
-    science.add(astronomy);
-    tree.add(new DefaultMutableTreeNode("Music"));
-    tree.add(new DefaultMutableTreeNode("Games"));
-
-    Assert.assertEquals("Category", new TreePath(0).getNode(tree).getUserObject());
-    Assert.assertEquals("Sports", new TreePath(0, 0).getNode(tree).getUserObject());
-    Assert.assertEquals("Astronomy", new TreePath(0, 2, 2).getNode(tree).getUserObject());
-    Assert.assertEquals("Games", new TreePath(0, 4).getNode(tree).getUserObject());
-  }
 }

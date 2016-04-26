@@ -24,183 +24,19 @@ import org.apache.myfaces.tobago.apt.annotation.ExtensionTag;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
-import org.apache.myfaces.tobago.internal.taglib.SelectOneRadioTag;
-
-import javax.el.MethodExpression;
-import javax.el.ValueExpression;
-import javax.servlet.jsp.JspException;
 
 /**
  * Render a set of radio buttons.
  *
  * @since 1.0.13
+ *
+ * @deprecated since Tobago 3.0. The tx-library is deprecated, please use the tc-library.
  */
 @Tag(name = "selectOneRadio")
 @ExtensionTag(
     baseClassName = "org.apache.myfaces.tobago.internal.taglib.SelectOneRadioTag",
     faceletHandler = "org.apache.myfaces.tobago.facelets.extension.SelectOneRadioExtensionHandler")
-public class SelectOneRadioExtensionTag extends TobagoExtensionBodyTagSupport {
-
-  private ValueExpression required;
-  private ValueExpression value;
-  private MethodExpression valueChangeListener;
-  private ValueExpression disabled;
-  private ValueExpression readonly;
-  private ValueExpression onchange;
-  private ValueExpression inline;
-  private ValueExpression label;
-  private ValueExpression accessKey;
-  private ValueExpression rendered;
-  private ValueExpression binding;
-  private ValueExpression tip;
-  private MethodExpression validator;
-  private ValueExpression converter;
-  private ValueExpression labelWidth;
-  private ValueExpression tabIndex;
-  private ValueExpression focus;
-  private ValueExpression renderRange;
-  private ValueExpression validatorMessage;
-  private ValueExpression converterMessage;
-  private ValueExpression requiredMessage;
-  private ValueExpression markup;
-  private String fieldId;
-
-  private LabelExtensionTag labelTag;
-  private SelectOneRadioTag selectOneRadioTag;
-
-  @Override
-  public int doStartTag() throws JspException {
-
-    labelTag = new LabelExtensionTag();
-    labelTag.setPageContext(pageContext);
-    if (id != null) {
-      labelTag.setId(id);
-    }
-    if (label != null) {
-      labelTag.setValue(label);
-    }
-    if (accessKey != null) {
-      labelTag.setAccessKey(accessKey);
-    }
-    if (tip != null) {
-      labelTag.setTip(tip);
-    }
-    if (rendered != null) {
-      labelTag.setRendered(rendered);
-    }
-    if (labelWidth != null) {
-      labelTag.setColumns(createStringValueExpression(labelWidth.getExpressionString() + ";*"));
-    }
-    if (markup != null) {
-      labelTag.setMarkup(markup);
-    }
-    labelTag.setParent(getParent());
-    labelTag.setJspId(nextJspId());
-    labelTag.doStartTag();
-
-    selectOneRadioTag = new SelectOneRadioTag();
-    selectOneRadioTag.setPageContext(pageContext);
-    if (value != null) {
-      selectOneRadioTag.setValue(value);
-    }
-    if (valueChangeListener != null) {
-      selectOneRadioTag.setValueChangeListener(valueChangeListener);
-    }
-    if (validator != null) {
-      selectOneRadioTag.setValidator(validator);
-    }
-    if (converter != null) {
-      selectOneRadioTag.setConverter(converter);
-    }
-    if (binding != null) {
-      selectOneRadioTag.setBinding(binding);
-    }
-    if (onchange != null) {
-      selectOneRadioTag.setOnchange(onchange);
-    }
-    if (disabled != null) {
-      selectOneRadioTag.setDisabled(disabled);
-    }
-    if (inline != null) {
-      selectOneRadioTag.setInline(inline);
-    }
-    if (focus != null) {
-      selectOneRadioTag.setFocus(focus);
-    }
-    if (fieldId != null) {
-      selectOneRadioTag.setId(fieldId);
-    }
-    if (label != null) {
-      selectOneRadioTag.setLabel(label);
-    }
-    if (readonly != null) {
-      selectOneRadioTag.setReadonly(readonly);
-    }
-    if (required != null) {
-      selectOneRadioTag.setRequired(required);
-    }
-    if (tabIndex != null) {
-      selectOneRadioTag.setTabIndex(tabIndex);
-    }
-    if (renderRange != null) {
-      selectOneRadioTag.setRenderRange(renderRange);
-    }
-    if (validatorMessage != null) {
-      selectOneRadioTag.setValidatorMessage(validatorMessage);
-    }
-    if (converterMessage != null) {
-      selectOneRadioTag.setConverterMessage(converterMessage);
-    }
-    if (requiredMessage != null) {
-      selectOneRadioTag.setRequiredMessage(requiredMessage);
-    }
-    if (markup != null) {
-      selectOneRadioTag.setMarkup(markup);
-    }
-
-    selectOneRadioTag.setParent(labelTag);
-    selectOneRadioTag.setJspId(nextJspId());
-    selectOneRadioTag.doStartTag();
-
-    return super.doStartTag();
-  }
-
-  @Override
-  public int doEndTag() throws JspException {
-    selectOneRadioTag.doEndTag();
-    labelTag.doEndTag();
-    return super.doEndTag();
-  }
-
-  @Override
-  public void release() {
-    super.release();
-    binding = null;
-    onchange = null;
-    disabled = null;
-    inline = null;
-    label = null;
-    accessKey = null;
-    labelWidth = null;
-    converter = null;
-    validator = null;
-    readonly = null;
-    rendered = null;
-    required = null;
-    tip = null;
-    value = null;
-    valueChangeListener = null;
-    tabIndex = null;
-    selectOneRadioTag = null;
-    labelTag = null;
-    focus = null;
-    renderRange = null;
-    validatorMessage = null;
-    converterMessage = null;
-    requiredMessage = null;
-    markup = null;
-    fieldId = null;
-  }
+public interface SelectOneRadioExtensionTag {
 
   /**
    * Flag indicating that a value is required.
@@ -209,35 +45,27 @@ public class SelectOneRadioExtensionTag extends TobagoExtensionBodyTagSupport {
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "boolean", defaultValue = "false")
-  public void setRequired(final ValueExpression required) {
-    this.required = required;
-  }
+  void setRequired(final javax.el.ValueExpression required);
 
   /**
    * The current value of this component.
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "java.lang.Object")
-  public void setValue(final ValueExpression value) {
-    this.value = value;
-  }
+  void setValue(final javax.el.ValueExpression value);
 
   /**
-   * MethodBinding representing a value change listener method
+   * MethodExpression representing a value change listener method
    * that will be notified when a new value has been set for this input component.
    * The expression must evaluate to a public method that takes a ValueChangeEvent
    * parameter, with a return type of void.
-   *
-   * @param valueChangeListener
    */
   @TagAttribute
   @UIComponentTagAttribute(
-          type = {},
-          expression = DynamicExpression.METHOD_EXPRESSION_REQUIRED,
-          methodSignature = "javax.faces.event.ValueChangeEvent")
-  public void setValueChangeListener(final MethodExpression valueChangeListener) {
-    this.valueChangeListener = valueChangeListener;
-  }
+      type = {},
+      expression = DynamicExpression.METHOD_EXPRESSION_REQUIRED,
+      methodSignature = "javax.faces.event.ValueChangeEvent")
+  void setValueChangeListener(final javax.el.MethodExpression valueChangeListener);
 
   /**
    * A method binding EL expression,
@@ -248,37 +76,29 @@ public class SelectOneRadioExtensionTag extends TobagoExtensionBodyTagSupport {
   @TagAttribute
   @UIComponentTagAttribute(type = {},
       expression = DynamicExpression.METHOD_EXPRESSION,
-      methodSignature = { "javax.faces.context.FacesContext", "javax.faces.component.UIComponent", "java.lang.Object" })
-  public void setValidator(final MethodExpression validator) {
-    this.validator = validator;
-  }
+      methodSignature = {"javax.faces.context.FacesContext", "javax.faces.component.UIComponent", "java.lang.Object"})
+  void setValidator(final javax.el.MethodExpression validator);
 
   /**
    * Flag indicating that this element is disabled.
    */
   @TagAttribute()
   @UIComponentTagAttribute(type = "boolean", defaultValue = "false")
-  public void setDisabled(final ValueExpression disabled) {
-    this.disabled = disabled;
-  }
+  void setDisabled(final javax.el.ValueExpression disabled);
 
   /**
    * Flag indicating that this component will prohibit changes by the user.
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "boolean", defaultValue = "false")
-  public void setReadonly(final ValueExpression readonly) {
-    this.readonly = readonly;
-  }
+  void setReadonly(final javax.el.ValueExpression readonly);
 
   /**
    * Clientside script function to add to this component's onchange handler.
    */
   @TagAttribute
   @UIComponentTagAttribute()
-  public void setOnchange(final ValueExpression onchange) {
-    this.onchange = onchange;
-  }
+  void setOnchange(final javax.el.ValueExpression onchange);
 
   /**
    * An expression that specifies the Converter for this component.
@@ -292,17 +112,14 @@ public class SelectOneRadioExtensionTag extends TobagoExtensionBodyTagSupport {
   @TagAttribute
   @UIComponentTagAttribute(type = "javax.faces.convert.Converter",
       expression = DynamicExpression.VALUE_EXPRESSION)
-  public void setConverter(final ValueExpression converter) {
-    this.converter = converter;
-  }
+  void setConverter(final javax.el.ValueExpression converter);
+
   /**
    * Flag indicating this component should rendered as an inline element.
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "boolean", defaultValue = "false")
-  public void setInline(final ValueExpression inline) {
-    this.inline = inline;
-  }
+  void setInline(final javax.el.ValueExpression inline);
 
   /**
    * Text value to display as label.
@@ -310,18 +127,7 @@ public class SelectOneRadioExtensionTag extends TobagoExtensionBodyTagSupport {
    */
   @TagAttribute
   @UIComponentTagAttribute()
-  public void setLabel(final ValueExpression label) {
-    this.label = label;
-  }
-
-  /**
-   * The accessKey of this component.
-   */
-  @TagAttribute
-  @UIComponentTagAttribute(type = "java.lang.Character")
-  public void setAccessKey(final javax.el.ValueExpression accessKey) {
-    this.accessKey = accessKey;
-  }
+  void setLabel(final javax.el.ValueExpression label);
 
   /**
    * Flag indicating whether or not this component should be rendered
@@ -329,9 +135,7 @@ public class SelectOneRadioExtensionTag extends TobagoExtensionBodyTagSupport {
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "boolean", defaultValue = "true")
-  public void setRendered(final ValueExpression rendered) {
-    this.rendered = rendered;
-  }
+  void setRendered(final javax.el.ValueExpression rendered);
 
   /**
    * The value binding expression linking this
@@ -339,18 +143,14 @@ public class SelectOneRadioExtensionTag extends TobagoExtensionBodyTagSupport {
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "javax.faces.component.UIComponent")
-  public void setBinding(final ValueExpression binding) {
-    this.binding = binding;
-  }
+  void setBinding(final javax.el.ValueExpression binding);
 
   /**
    * Text value to display as tooltip.
    */
   @TagAttribute
   @UIComponentTagAttribute()
-  public void setTip(final ValueExpression tip) {
-    this.tip = tip;
-  }
+  void setTip(final javax.el.ValueExpression tip);
 
   /**
    * The width for the label component. Default: 'auto'.
@@ -359,60 +159,46 @@ public class SelectOneRadioExtensionTag extends TobagoExtensionBodyTagSupport {
    */
   @TagAttribute
   @UIComponentTagAttribute()
-  public void setLabelWidth(final ValueExpression labelWidth) {
-    this.labelWidth = labelWidth;
-  }
+  void setLabelWidth(final javax.el.ValueExpression labelWidth);
 
   @TagAttribute
   @UIComponentTagAttribute(type = "java.lang.Integer")
-  public void setTabIndex(final ValueExpression tabIndex) {
-    this.tabIndex = tabIndex;
-  }
+  void setTabIndex(final javax.el.ValueExpression tabIndex);
 
   /**
    * Flag indicating this component should receive the focus.
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "boolean", defaultValue = "false")
-  public void setFocus(final ValueExpression focus) {
-    this.focus = focus;
-  }
+  void setFocus(final javax.el.ValueExpression focus);
 
   /**
    * Range of items to render.
    */
   @TagAttribute
   @UIComponentTagAttribute()
-  public void setRenderRange(final ValueExpression renderRange) {
-    this.renderRange = renderRange;
-  }
+  void setRenderRange(final javax.el.ValueExpression renderRange);
 
   /**
    * An expression that specifies the validator message
    */
   @TagAttribute
   @UIComponentTagAttribute()
-  public void setValidatorMessage(final ValueExpression validatorMessage) {
-    this.validatorMessage = validatorMessage;
-  }
+  void setValidatorMessage(final javax.el.ValueExpression validatorMessage);
 
   /**
    * An expression that specifies the converter message
    */
   @TagAttribute
   @UIComponentTagAttribute()
-  public void setConverterMessage(final ValueExpression converterMessage) {
-    this.converterMessage = converterMessage;
-  }
+  void setConverterMessage(final javax.el.ValueExpression converterMessage);
 
   /**
    * An expression that specifies the required message
    */
   @TagAttribute
   @UIComponentTagAttribute()
-  public void setRequiredMessage(final ValueExpression requiredMessage) {
-    this.requiredMessage = requiredMessage;
-  }
+  void setRequiredMessage(final javax.el.ValueExpression requiredMessage);
 
   /**
    * Indicate markup of this component.
@@ -420,9 +206,7 @@ public class SelectOneRadioExtensionTag extends TobagoExtensionBodyTagSupport {
    */
   @TagAttribute
   @UIComponentTagAttribute(defaultValue = "none", type = "java.lang.String[]")
-  public void setMarkup(final ValueExpression markup) {
-    this.markup = markup;
-  }
+  void setMarkup(final javax.el.ValueExpression markup);
 
   /**
    * The component identifier for the input field component inside of the container.
@@ -430,9 +214,7 @@ public class SelectOneRadioExtensionTag extends TobagoExtensionBodyTagSupport {
    */
   @TagAttribute(rtexprvalue = true)
   @UIComponentTagAttribute
-  public void setFieldId(final String fieldId) {
-    this.fieldId = fieldId;
-  }
+  void setFieldId(final String fieldId);
 
   /**
    * The component identifier for this component.
@@ -442,7 +224,5 @@ public class SelectOneRadioExtensionTag extends TobagoExtensionBodyTagSupport {
    */
   @TagAttribute(rtexprvalue = true)
   @UIComponentTagAttribute
-  public void setId(final String id) {
-    super.setId(id);
-  }
+  void setId(final String id);
 }

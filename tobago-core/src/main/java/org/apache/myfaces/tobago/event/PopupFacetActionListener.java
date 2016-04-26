@@ -19,10 +19,11 @@
 
 package org.apache.myfaces.tobago.event;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.internal.component.AbstractUIPopup;
+import org.apache.myfaces.tobago.util.ComponentUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -34,7 +35,7 @@ public class PopupFacetActionListener extends AbstractPopupActionListener {
 
   @Override
   protected AbstractUIPopup getPopup(final ActionEvent actionEvent) {
-    final UIComponent component = actionEvent.getComponent().getFacet(Facets.POPUP);
+    final UIComponent component = ComponentUtils.getFacet(actionEvent.getComponent(), Facets.popup);
     if (component instanceof AbstractUIPopup) {
       return (AbstractUIPopup) component;
     } else if (component != null) {

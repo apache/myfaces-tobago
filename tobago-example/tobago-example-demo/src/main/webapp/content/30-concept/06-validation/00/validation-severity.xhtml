@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+-->
+
+<ui:composition template="/main.xhtml"
+                xmlns:tc="http://myfaces.apache.org/tobago/component"
+                xmlns:ui="http://java.sun.com/jsf/facelets">
+  <ui:param name="title" value="#{overviewBundle.validation}"/>
+
+  <tc:out value="The validation process in JSF creates FacesMessages with different severities.
+      These severities will be used to add an corresponding CSS class to the elements via the markup mechanism,
+      e. g. tobago-label-markup-error." id="text"/>
+  <tc:segmentLayout small="6;6">
+    <tc:in label="Fatal" value="something" validator="#{validationSeverity.addFatal}" id="fatal"/>
+    <tc:out value="(Validator creates an fatal error)" id="o_fatal"/>
+    <tc:in label="Error" value="something" validator="#{validationSeverity.addError}" id="error"/>
+    <tc:out value="(Validator creates an error)" id="o_error"/>
+    <tc:in label="Warn" value="something" validator="#{validationSeverity.addWarn}" id="warn"/>
+    <tc:out value="(Validator creates a warning)" id="o_warn"/>
+    <tc:in label="Info" value="something" validator="#{validationSeverity.addInfo}" id="info"/>
+    <tc:out value="(Validator creates an info)" id="o_info"/>
+  </tc:segmentLayout>
+
+  <tc:flowLayout>
+    <tc:style textAlign="right"/>
+    <tc:button label="#{overviewBundle.validation_submit}"/>
+  </tc:flowLayout>
+
+</ui:composition>

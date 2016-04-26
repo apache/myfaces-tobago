@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+-->
+
+<ui:composition template="/main.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:tc="http://myfaces.apache.org/tobago/component"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core">
+  <ui:param name="title" value="#{overviewBundle.tab} - #{overviewBundle.tab_ajax} &lt;tc:tab>"/>
+  <p>Tabs can be created with one or more <code class="language-markup">&lt;tc:tab/></code> within a
+    <code class="language-markup">&lt;tc:tabGroup></code>.
+    Within a tab, content can be added like in a section or a panel.</p>
+  <p>To activate Ajax, the <code>switchType</code> attribute must have the value "reloadTab".
+    On all tabgroups on this page, Ajax is activated.</p>
+  <p>Tag Library Documentation:
+    <tc:link label="&lt;tc:tabGroup/>" image="image/feather-leaf.png" link="#{overviewBundle.tagDocUrl}/tabGroup.html"/>
+    |
+    <tc:link label="&lt;tc:tab/>" image="image/feather-leaf.png" link="#{overviewBundle.tagDocUrl}/tab.html"/>
+    |
+    <tc:link label="&lt;tc:tabChangeListener/>" image="image/feather-leaf.png"
+             link="#{overviewBundle.tagDocUrl}/tabChangeListener.html"/></p>
+
+  <tc:section label="Basics">
+    <p>A simple tabgroup. The second tab is disabled.</p>
+    <tc:tabGroup id="tg1" switchType="reloadTab">
+      <tc:tab id="t11" label="One">
+        First tab.
+      </tc:tab>
+      <tc:tab id="t12" label="Two" disabled="true">
+        Second tab.
+      </tc:tab>
+      <tc:tab id="t13" label="Three">
+        Third tab.
+      </tc:tab>
+    </tc:tabGroup>
+  </tc:section>
+
+  <tc:section label="Header">
+    <p>This example show the different headers, if the <code>label</code> or the <code>image</code> is used.</p>
+    <tc:tabGroup id="tg2" switchType="reloadTab">
+      <tc:tab id="t21" label="Only label">
+        <p>Only a label is set.</p>
+        <pre><code class="language-markup">&lt;tc:tab label="Only label"/></code></pre>
+      </tc:tab>
+      <tc:tab id="t22" label="Label with image" image="image/feather-leaf.png">
+        <p>A label and an image are set.</p>
+        <pre><code
+                class="language-markup">&lt;tc:tab label="Label with image" image="image/feather-leaf.png"></code></pre>
+      </tc:tab>
+      <tc:tab id="t23" image="image/feather-leaf.png">
+        <p>Only an image is set.</p>
+        <pre><code class="language-markup">&lt;tc:tab image="image/feather-leaf.png"></code></pre>
+      </tc:tab>
+      <tc:tab id="t24">
+        <p>Neither a label or an image are set. In this case the header gets a label with the indexnumber of the tab in
+          the tabgroup.</p>
+      </tc:tab>
+    </tc:tabGroup>
+  </tc:section>
+
+  <tc:section label="Open Folder Example">
+    <p>The image in the header depends on what tab is currently selected.</p>
+    <pre><code class="language-markup">&lt;tc:tabGroup selectedIndex="\#{tabController.index}"></code></pre>
+    <tc:tabGroup switchType="reloadTab" selectedIndex="#{tabController.index}">
+      <tc:tab label="One" image="#{tabController.tabOneImage}">
+        <p>First folder open.</p>
+      </tc:tab>
+      <tc:tab label="Two" image="#{tabController.tabTwoImage}">
+        <p>Second folder open.</p>
+      </tc:tab>
+      <tc:tab label="Three" image="#{tabController.tabThreeImage}">
+        <p>Third folder open.</p>
+      </tc:tab>
+    </tc:tabGroup>
+  </tc:section>
+
+  <tc:section label="TabChangeListener">
+    <p>The <code class="language-markup">&lt;tc:tabChangeListener/></code> tag is used to bind a
+      <code>TabChangeListener</code>. The <code>TabChangeListener</code> is an interface,
+      which is implemented in this example by <code>SimpleTabChangeListener</code>.</p>
+    <code class="language-markup">&lt;tc:tabChangeListener type="org.apache.myfaces.tobago.example
+      .demo.actionlistener.SimpleTabChangeListener"
+      binding="\#{tabController.tabChangeListener}"/></code>
+    <tc:tabGroup switchType="reloadTab" renderedPartially="outPanel">
+      <tc:tabChangeListener type="org.apache.myfaces.tobago.example.demo.actionlistener.SimpleTabChangeListener"
+                            binding="#{tabController.tabChangeListener}"/>
+      <tc:tab label="One">
+        <p>Changed to tab one.</p>
+      </tc:tab>
+      <tc:tab label="Two">
+        <p>Changed to tab two.</p>
+      </tc:tab>
+      <tc:tab label="Three">
+        <p>Changed to tab three.</p>
+      </tc:tab>
+    </tc:tabGroup>
+    <tc:panel id="outPanel">
+      <tc:out label="NewTabIndex" value="#{tabController.newTabIndex}"/>
+      <tc:out label="ClientID" value="#{tabController.clientId}"/>
+      <tc:out label="TabChangedCount" value="#{tabController.count}"/>
+    </tc:panel>
+  </tc:section>
+</ui:composition>

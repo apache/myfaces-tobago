@@ -18,8 +18,8 @@
  */
 
 /**
- * <b>Tobago Framework Component Tag Library 2.0.x -
- * (C) Copyright 2005-2015 The Apache Software Foundation</b>
+ * <b>Tobago Framework Component Tag Library 3.0.x -
+ * (C) Copyright 2005-2016 The Apache Software Foundation</b>
  */
 @org.apache.myfaces.tobago.apt.annotation.Taglib(
     shortName = "tc",
@@ -28,6 +28,6 @@
         "org.apache.myfaces.tobago.webapp.TobagoServletContextListener",
         "org.apache.myfaces.tobago.webapp.SecretSessionListener"},
     name = "tobago",
-    displayName = "Tobago Components 2.0.x")
+    displayName = "Tobago Components 3.0.x")
 
 package org.apache.myfaces.tobago.internal.taglib.component;

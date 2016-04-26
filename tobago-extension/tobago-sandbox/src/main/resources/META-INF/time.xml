@@ -34,16 +34,16 @@
     <tc:label value="${label}" for="@auto" tip="${tip}"/>
     <c:choose>
 	    <c:when test="${empty id}">
-        <tc:time value="${value}" required="${required}"
+        <tc:date value="${value}" required="${required}"
                readonly="${readonly}" disabled="${disabled}" >
           <ui:insert/>
-        </tc:time>
+        </tc:date>
       </c:when>
 	    <c:when test="${not empty id}">
-        <tc:time id="${id}" value="${value}" required="${required}"
+        <tc:date id="${id}" value="${value}" required="${required}"
                readonly="${readonly}" disabled="${disabled}" >
           <ui:insert/>
-        </tc:time>
+        </tc:date>
       </c:when>
     </c:choose>
   </tc:panel>

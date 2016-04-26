@@ -50,8 +50,7 @@ public final class AjaxUtils {
   }
 
   public static boolean isAjaxRequest(final ServletRequest request) {
-    final String[] ajaxComponentIds
-        = ((Map<String, String[]>) request.getParameterMap()).get(AjaxInternalUtils.TOBAGO_PARTIAL_IDS);
+    final String[] ajaxComponentIds = request.getParameterMap().get(AjaxInternalUtils.TOBAGO_PARTIAL_IDS);
     return ajaxComponentIds != null && ajaxComponentIds.length > 0;
   }
 
@@ -93,25 +92,26 @@ public final class AjaxUtils {
   }
 
   /**
+   * @param facesContext Current instance of the {@link FacesContext}
    * @return true if a UIMessage component has added to renderedPartially
    */
-  public static boolean addUIMessagesToRenderedPartially(final FacesContext context) {
-    if (!isAjaxRequest(context)) {
+  public static boolean addUIMessagesToRenderedPartially(final FacesContext facesContext) {
+    if (!isAjaxRequest(facesContext)) {
       return false;
     }
-    final List<String> list = AjaxInternalUtils.getMessagesComponentIds(context);
-    final Iterator clientIds = context.getClientIdsWithMessages();
+    final List<String> list = AjaxInternalUtils.getMessagesComponentIds(facesContext);
+    final Iterator clientIds = facesContext.getClientIdsWithMessages();
     boolean added = false;
 
     if (clientIds.hasNext()) { // messages in the partial part
       for (final String componentClientId: list) {
-        added = AjaxInternalUtils.addNextPossibleAjaxComponent(context, componentClientId);
+        added = AjaxInternalUtils.addNextPossibleAjaxComponent(facesContext, componentClientId);
       }
     } else {  // checking for an existing shown error on page
       for (final String componentClientId: list) {
-        if (context.getExternalContext().getRequestParameterMap().containsKey(
+        if (facesContext.getExternalContext().getRequestParameterMap().containsKey(
             componentClientId + ComponentUtils.SUB_SEPARATOR + "messagesExists")) {
-          added = AjaxInternalUtils.addNextPossibleAjaxComponent(context, componentClientId);
+          added = AjaxInternalUtils.addNextPossibleAjaxComponent(facesContext, componentClientId);
         }
       }
     }

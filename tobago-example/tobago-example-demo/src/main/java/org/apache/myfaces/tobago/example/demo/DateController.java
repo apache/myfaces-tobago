@@ -22,14 +22,12 @@ package org.apache.myfaces.tobago.example.demo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.enterprise.context.SessionScoped;
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 import java.io.Serializable;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
-@SessionScoped
+@RequestScoped
 @Named
 public class DateController implements Serializable {
 
@@ -37,13 +35,10 @@ public class DateController implements Serializable {
 
   private Date once;
 
+  private Date onchange;
+
   public DateController() {
-    try {
-      once = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss SSS").parse("1980-03-07 21:05:09 012");
-    } catch (ParseException e) {
-      LOG.error("should not happen. ", e
-      );
-    }
+    once = new Date();
   }
 
   public Date getOnce() {
@@ -52,5 +47,13 @@ public class DateController implements Serializable {
 
   public void setOnce(Date once) {
     this.once = once;
+  }
+
+  public Date getOnchange() {
+    return onchange;
+  }
+
+  public void setOnchange(Date onchange) {
+    this.onchange = onchange;
   }
 }

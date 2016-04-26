@@ -27,6 +27,7 @@ import javax.faces.context.FacesContext;
 
 public class UpdateModelValuesCallback implements javax.faces.component.ContextCallback {
 
+  @Override
   public void invokeContextCallback(final FacesContext facesContext, final UIComponent component) {
     if (facesContext.getExternalContext().getRequestMap().get(AbstractUIForm.SUBMITTED_MARKER) == null
         || ((Boolean) facesContext.getExternalContext().getRequestMap().get(AbstractUIForm.SUBMITTED_MARKER))) {

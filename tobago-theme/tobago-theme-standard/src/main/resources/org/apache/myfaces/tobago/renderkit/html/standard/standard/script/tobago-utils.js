@@ -23,7 +23,7 @@ Tobago.Utils = {};
  * @return A string which can be used as a jQuery selector.
  */
 Tobago.Utils.escapeClientId = function(id) {
-  return '#' + id.replace(/:/g, '\\:');
+  return '#' + id.replace(/([:\.])/g, '\\$1');
 };
 
 /**
@@ -40,66 +40,9 @@ Tobago.Utils.selectWidthJQuery = function(elements, selector) {
  * @param selector a jQuery selector.
  */
 Tobago.Utils.selectWithJQuery = function(elements, selector) {
-
-  if (elements == null) {
-    return jQuery(selector);
-  }
-
-  if (Tobago.browser.isMsie678) {
-    if (selector.match(/^\[[-_a-zA-Z0-9]+\]$/)) { // single attribute set
-      return Tobago.Utils.ieSelectWithJQueryAttr(elements, selector);
-    }
-    if (selector == Tobago.Command.INPUTS_FOR_DEFAULT) { // specific list of input elements
-      return Tobago.Utils.ieSelectWithJQueryInputs(elements);
-    }
-    //if (selector.match(/^\.[-_a-zA-Z0-9]+$/)) { // single class
-    //  return Tobago.Utils.ieSelectWithJQueryClass(elements, selector);
-    //}
-  }
-
-  return elements.find(selector).add(elements.filter(selector));
-};
-
-/** internal function for IE <= 8 performance */
-Tobago.Utils.ieSelectWithJQueryAttr = function (elements, selector) {
-  var founds = [];
-  for (var i = 0; i < elements.length; i++) {
-    Tobago.Utils.ieFilterAttributes(elements.get(i), selector.substr(1, selector.length - 2), founds);
-  }
-  return jQuery(founds);
-};
-
-/** internal function for IE <= 8 performance */
-Tobago.Utils.ieFilterAttributes = function (element, filter, result) {
-  if (element[filter] !== undefined) {
-    result.push(element);
-  }
-  for (var i = 0; i < element.childNodes.length; i++) {
-    Tobago.Utils.ieFilterAttributes(element.childNodes[i], filter, result);
-  }
-};
-
-/** internal function for IE <= 8 performance */
-Tobago.Utils.ieSelectWithJQueryInputs = function(elements) {
-  var founds = [];
-  for (var i = 0; i < elements.length; i++) {
-    var element = elements.get(i);
-    Tobago.Utils.ieFilterTags(element, ["INPUT", "SELECT", "TEXTAREA", "A", "BUTTON"], founds);
-  }
-  return jQuery(founds);
-};
-
-/** internal function for IE <= 8 performance */
-Tobago.Utils.ieFilterTags = function (element, tagNames, result) {
-  for (var i = 0; i < tagNames.length; i++) {
-    if (element.tagName == tagNames[i]) {
-      result.push(element);
-      break;
-    }
-  }
-  for (i = 0; i < element.childNodes.length; i++) {
-    Tobago.Utils.ieFilterTags(element.childNodes[i], tagNames, result);
-  }
+  return elements == null
+      ? jQuery(selector)
+      : elements.find(selector).add(elements.filter(selector));
 };
 
 Tobago.Utils.findSubComponent = function(element, subId) {
@@ -163,8 +106,8 @@ Tobago.Utils.keepElementInVisibleArea = function(elements) {
   elements.each(function() {
     var element = jQuery(this);
     var page = jQuery(".tobago-page-content:first");
-    var left = element.position().left;
-    var top = element.position().top;
+    var left = element.offset().left;
+    var top = element.offset().top;
     // fix menu position, when it is outside of the current page
     left = Math.max(0, Math.min(left, page.outerWidth() - element.outerWidth()));
     top = Math.max(0, Math.min(top, page.outerHeight() - element.outerHeight()));
@@ -177,3 +120,4 @@ Tobago.Utils.keepElementInVisibleArea = function(elements) {
 Tobago.Utils.acceleratorKeyEvent = function() {
   return Tobago.browser.isWebkit || Tobago.browser.isGecko ? 'keydown' : 'keypress';
 };
+

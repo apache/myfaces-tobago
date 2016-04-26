@@ -19,21 +19,33 @@
 
 package org.apache.myfaces.tobago.facelets;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javax.servlet.Filter;
 import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.FilterChain;
+import javax.servlet.annotation.WebFilter;
 import java.io.IOException;
 
+@WebFilter(urlPatterns = "/*")
 public class FixCharacterEncodingFilter implements Filter {
-  public void init(final FilterConfig filterConfig) throws ServletException {
 
+  private static final Logger LOG = LoggerFactory.getLogger(FixCharacterEncodingFilter.class);
+
+  @Override
+  public void init(final FilterConfig filterConfig) throws ServletException {
+    if (LOG.isInfoEnabled()) {
+      LOG.info("Filter initialized: Setting characterEncoding to UTF-8 to all requests.");
+    }
   }
 
-  public void doFilter(final ServletRequest servletRequest,
-      final ServletResponse servletResponse, final FilterChain filterChain)
+  @Override
+  public void doFilter(
+      final ServletRequest servletRequest, final ServletResponse servletResponse, final FilterChain filterChain)
       throws IOException, ServletException {
     if (servletRequest.getCharacterEncoding() == null) {
       servletRequest.setCharacterEncoding("UTF-8");
@@ -41,6 +53,7 @@ public class FixCharacterEncodingFilter implements Filter {
     filterChain.doFilter(servletRequest, servletResponse);
   }
 
+  @Override
   public void destroy() {
   }
 }

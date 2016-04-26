@@ -37,31 +37,34 @@ public class ApplyRequestValuesCallback implements TobagoCallback {
   @SuppressWarnings("UnusedDeclaration")
   private static final Logger LOG = LoggerFactory.getLogger(ApplyRequestValuesCallback.class);
 
-  public void invokeContextCallback(final FacesContext context, final UIComponent component) {
-    if (FacesContextUtils.isAjax(context)) {
-      final String ajaxId = FacesContextUtils.getAjaxComponentId(context);
-      final UIComponent reload = component.getFacet(Facets.RELOAD);
-      if (ajaxId != null && ajaxId.equals(component.getClientId(context)) && reload != null && reload.isRendered()
-          && ajaxId.equals(FacesContextUtils.getActionId(context))) {
-        final Boolean immediate = (Boolean) reload.getAttributes().get(Attributes.IMMEDIATE);
-        if (immediate != null && immediate) {
-          final Boolean update = (Boolean) reload.getAttributes().get(Attributes.UPDATE);
-          if (update != null && !update) {
-            final Object response = context.getExternalContext().getResponse();
+  @Override
+  public void invokeContextCallback(final FacesContext facesContext, final UIComponent component) {
+    if (FacesContextUtils.isAjax(facesContext)) {
+      final String ajaxId = FacesContextUtils.getAjaxComponentId(facesContext);
+      final String sourceId = facesContext.getExternalContext().getRequestParameterMap().get("javax.faces.source");
+      final UIComponent reload = ComponentUtils.getFacet(component, Facets.reload);
+      if (ajaxId != null && ajaxId.equals(component.getClientId(facesContext)) && reload != null && reload.isRendered()
+          && ajaxId.equals(sourceId)) {
+        final boolean immediate = ComponentUtils.getBooleanAttribute(reload, Attributes.immediate);
+        if (immediate) {
+          final boolean update = ComponentUtils.getBooleanAttribute(reload, Attributes.update);
+          if (!update) {
+            final Object response = facesContext.getExternalContext().getResponse();
             if (response instanceof HttpServletResponse) {
               ((HttpServletResponse) response).setStatus(HttpServletResponse.SC_NOT_MODIFIED);
             } else if (response instanceof PortletResponse) {
               // TBD: Portlet: what is to do here?
             }
-            context.responseComplete();
+            facesContext.responseComplete();
             return;
           }
         }
       }
     }
-    component.processDecodes(context);
+    component.processDecodes(facesContext);
   }
 
+  @Override
   public PhaseId getPhaseId() {
     return PhaseId.APPLY_REQUEST_VALUES;
   }

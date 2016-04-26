@@ -21,23 +21,45 @@ package org.apache.myfaces.tobago.internal.component;
 
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.OnComponentPopulated;
+import org.apache.myfaces.tobago.component.SupportsAccessKey;
 import org.apache.myfaces.tobago.component.SupportsRenderedPartially;
+import org.apache.myfaces.tobago.component.Visual;
 import org.apache.myfaces.tobago.event.PopupFacetActionListener;
-import org.apache.myfaces.tobago.layout.LayoutComponent;
+import org.apache.myfaces.tobago.internal.util.AuthorizationHelper;
 import org.apache.myfaces.tobago.util.ComponentUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+import javax.el.MethodExpression;
+import javax.faces.component.UICommand;
 import javax.faces.component.UIComponent;
+import javax.faces.component.behavior.ClientBehaviorHolder;
 import javax.faces.context.FacesContext;
 import javax.faces.event.FacesEvent;
 import javax.faces.event.PhaseId;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.Iterator;
 
 public abstract class AbstractUICommand
-    extends AbstractUICommandBase
-    implements SupportsRenderedPartially, OnComponentPopulated, LayoutComponent {
+    extends UICommand
+    implements SupportsRenderedPartially, SupportsAccessKey, OnComponentPopulated, Visual, ClientBehaviorHolder {
 
+  private static final Logger LOG = LoggerFactory.getLogger(AbstractUICommand.class);
+
+  // todo generate
+  private static final Collection<String> EVENT_NAMES = Arrays.asList("click");
+
+  enum PropertyKeys {
+    disabled,
+  }
+
+  // todo: transient
+  private Boolean parentOfCommands;
+
+  @Override
   public void onComponentPopulated(final FacesContext facesContext, final UIComponent parent) {
-    final AbstractUIPopup popup = (AbstractUIPopup) getFacet(Facets.POPUP);
+    final AbstractUIPopup popup = (AbstractUIPopup) ComponentUtils.getFacet(this, Facets.popup);
     if (popup != null) {
       if (!ComponentUtils.containsPopupActionListener(this)) {
         addActionListener(new PopupFacetActionListener());
@@ -45,6 +67,7 @@ public abstract class AbstractUICommand
     }
   }
 
+  @Override
   public void processDecodes(final FacesContext context) {
     if (context == null) {
       throw new NullPointerException();
@@ -70,6 +93,7 @@ public abstract class AbstractUICommand
     }
   }
 
+  @Override
   public void queueEvent(final FacesEvent facesEvent) {
     // fix for TOBAGO-262
     super.queueEvent(facesEvent);
@@ -82,6 +106,63 @@ public abstract class AbstractUICommand
     }
   }
 
+  public boolean isParentOfCommands() {
+    if (parentOfCommands == null) {
+      parentOfCommands = false;
+      for (UIComponent child : getChildren()) {
+        if (child instanceof UICommand) {
+          parentOfCommands = true;
+          break;
+        }
+      }
+    }
+    return parentOfCommands;
+  }
+
+  /**
+   Flag indicating that this element is disabled.
+   <br>Default: <code>false</code>
+   */
+  public boolean isDisabled() {
+
+    final FacesContext facesContext = getFacesContext();
+    // todo: get from configuration tobago-config.xml
+    if (true) {
+      final AuthorizationHelper authorizationHelper = AuthorizationHelper.getInstance(facesContext);
+      final MethodExpression actionExpression = getActionExpression();
+      if (actionExpression != null) {
+        final boolean authorized =
+            authorizationHelper.isAuthorized(facesContext, actionExpression.getExpressionString());
+        if (!authorized) {
+          return true;
+        }
+      }
+    }
+
+    Boolean bool = (Boolean) getStateHelper().eval(PropertyKeys.disabled);
+    if (bool != null) {
+      return bool;
+    }
+    return false;
+  }
+
+  public void setDisabled(boolean disabled) {
+    getStateHelper().put(PropertyKeys.disabled, disabled);
+  }
+
+  // todo generate
+  @Override
+  public String getDefaultEventName() {
+    return "click";
+  }
+
+  // todo generate
+  @Override
+  public Collection<String> getEventNames() {
+    return EVENT_NAMES;
+  }
+
+  @Override
   public abstract String getLabel();
 
   public abstract boolean isJsfResource();
@@ -90,14 +171,16 @@ public abstract class AbstractUICommand
 
   public abstract String getLink();
 
-  public abstract String getOnclick();
-
   public abstract String getTarget();
 
   public abstract boolean isTransition();
 
+  @Override
   public abstract String[] getRenderedPartially();
 
   public abstract boolean isOmit();
 
+  public abstract String getTip();
+
+//  public abstract Integer getTabIndex();
 }

@@ -26,13 +26,31 @@
   <artifactId>tobago</artifactId>
   <packaging>pom</packaging>
   <name>Apache Tobago</name>
-  <version>2.0.10-SNAPSHOT</version>
+  <version>3.0.0-beta-1-SNAPSHOT</version>
   <description>The goal of Tobago is to provide the community with a well designed set of user interface components based on JSF and run on MyFaces.</description>
   <prerequisites>
     <maven>3.0.4</maven>
   </prerequisites>
   <url>http://myfaces.apache.org/tobago</url>
   <inceptionYear>2002</inceptionYear>
+
+  <properties>
+    <myfaces20.version>2.0.23</myfaces20.version>
+    <myfaces21.version>2.1.17</myfaces21.version>
+    <myfaces22.version>2.2.9</myfaces22.version>
+    <mojarra20.version>2.0.11-02</mojarra20.version>
+    <mojarra21.version>2.1.29-05</mojarra21.version>
+    <mojarra22.version>2.2.12</mojarra22.version>
+    <slf4j.version>1.7.12</slf4j.version>
+    <logback.version>1.1.3</logback.version>
+    <commons-collection.version>3.2.2</commons-collection.version>
+    <maven.compile.source>1.6</maven.compile.source>
+    <maven.compile.target>1.6</maven.compile.target>
+    <maven.compile.encoding>UTF-8</maven.compile.encoding>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <required.maven.version>3.0.4</required.maven.version>
+  </properties>
+
   <issueManagement>
     <system>jira</system>
     <url>https://issues.apache.org/jira/browse/TOBAGO</url>
@@ -134,7 +152,7 @@
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>taglist-maven-plugin</artifactId>
-        <version>2.0</version>
+        <version>2.4</version>
         <configuration>
           <tags>
             <tag>TODO</tag>
@@ -149,13 +167,13 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-jxr-plugin</artifactId>
-        <version>2.3</version>
+        <version>2.5</version>
       </plugin>
 
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-checkstyle-plugin</artifactId>
-        <version>2.9</version>
+        <version>2.9.1</version><!-- before update MYFACES-3995 needs to be fixed -->
         <configuration>
           <configLocation>tobago/checkstyle.xml</configLocation>
           <headerLocation>default/myfaces-header.txt</headerLocation>
@@ -178,22 +196,18 @@
           <source>${maven.compile.source}</source>
           <charset>${maven.compile.encoding}</charset>
           <links>
-            <link>http://download.oracle.com/javase/1.5.0/docs/api/</link>
-            <link>http://download.oracle.com/javaee/5/api/</link>
+            <link>http://docs.oracle.com/javase/6/docs/api/</link>
+            <link>http://docs.oracle.com/javaee/6/api/</link>
             <link>http://jakarta.apache.org/commons/collections/api-${commons-collection.version}/</link>
-            <link>http://jakarta.apache.org/commons/lang/api-${commons-lang.version}/</link>
-            <link>http://jakarta.apache.org/commons/fileupload/apidocs</link>
-            <link>http://jakarta.apache.org/commons/io/api-${commons-io.version}/</link>
-            <link>http://jakarta.apache.org/commons/logging/commons-logging-${commons-logging.version}/apidocs/</link>
             <link>http://www.slf4j.org/apidocs</link>
             <link>http://junit.sourceforge.net/javadoc/</link>
-            <link>http://logging.apache.org/log4j/docs/api/</link>
+            <link>http://logback.qos.ch/apidocs/</link>
           </links>
-          <excludePackageNames>org.apache.myfaces.tobago.internal.*:org.apache.myfaces.tobago.internal.taglib12.*</excludePackageNames>
+          <excludePackageNames>org.apache.myfaces.tobago.internal.*</excludePackageNames>
           <docletArtifact>
             <groupId>com.google.doclava</groupId>
             <artifactId>doclava</artifactId>
-            <version>1.0.3</version>
+            <version>1.0.6</version>
           </docletArtifact>
           <doclet>com.google.doclava.Doclava</doclet>
           <!--
@@ -206,7 +220,6 @@
              -federationxml JDK http://doclava.googlecode.com/svn/static/api/openjdk-6.xml
              -hdf project.name "${project.name}"
              -d ${project.build.directory}/apidocs
-             -Xdoclint:none
           </additionalparam>
           <useStandardDocletOptions>false</useStandardDocletOptions>
           <!--
@@ -219,7 +232,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-report-plugin</artifactId>
-        <version>2.9</version>
+        <version>2.18.1</version>
         <configuration>
           <aggregate>true</aggregate>
         </configuration>
@@ -228,7 +241,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-project-info-reports-plugin</artifactId>
-        <version>2.4</version>
+        <version>2.9</version>
       </plugin>
 
       <!--plugin>
@@ -252,7 +265,7 @@
         <inherited>false</inherited>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-changelog-plugin</artifactId>
-        <version>2.2</version>
+        <version>2.3</version>
         <configuration>
           <basedir>${basedir}</basedir>
         </configuration>
@@ -285,6 +298,7 @@
         </configuration>
       </plugin-->
 
+      <!-- pmd has problems with annotations -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-pmd-plugin</artifactId>
@@ -297,9 +311,6 @@
           <linkXRef>true</linkXRef>
           <targetJdk>${maven.compile.source}</targetJdk>
           <aggregate>true</aggregate>
-<!--
-          <allowCommentedBlocks>true</allowCommentedBlocks>
--->
         </configuration>
       </plugin>                              
 
@@ -313,7 +324,7 @@
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>findbugs-maven-plugin</artifactId>
-        <version>2.5.1</version>
+        <version>3.0.1</version>
         <configuration>
           <threshold>Low</threshold>
           <effort>Max</effort>
@@ -331,7 +342,7 @@
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>javancss-maven-plugin</artifactId>
-        <version>2.0</version>
+        <version>2.1</version>
         <configuration>
           <excludes>
             <exclude>org/apache/myfaces/tobago/internal/layout/Grid.java</exclude>
@@ -348,7 +359,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-dependency-plugin</artifactId>
-        <version>2.8</version>
+        <version>2.10</version>
         <reportSets>
           <reportSet>
             <reports>
@@ -383,17 +394,15 @@
         <optional>true</optional>
       </dependency>
       <dependency>
-        <groupId>javax.servlet.jsp</groupId>
-        <artifactId>jsp-api</artifactId>
-        <version>2.1</version>
-        <optional>true</optional>
+        <groupId>org.apache.geronimo.specs</groupId>
+        <artifactId>geronimo-servlet_3.0_spec</artifactId>
+        <version>1.0</version>
         <scope>provided</scope>
       </dependency>
       <dependency>
-        <groupId>javax.servlet</groupId>
-        <artifactId>servlet-api</artifactId>
-        <version>2.5</version>
-        <optional>true</optional>
+        <groupId>org.apache.geronimo.specs</groupId>
+        <artifactId>geronimo-el_2.2_spec</artifactId>
+        <version>1.0.4</version>
         <scope>provided</scope>
       </dependency>
       <dependency>
@@ -402,45 +411,26 @@
         <version>${slf4j.version}</version>
       </dependency>
       <dependency>
-        <groupId>org.slf4j</groupId>
-        <artifactId>slf4j-simple</artifactId>
-        <version>${slf4j.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.slf4j</groupId>
-        <artifactId>slf4j-ext</artifactId>
-        <version>${slf4j.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.slf4j</groupId>
-        <artifactId>jcl-over-slf4j</artifactId>
-        <version>${slf4j.version}</version>
-        <optional>true</optional>
-      </dependency>
-      <dependency>
         <groupId>ch.qos.logback</groupId>
         <artifactId>logback-classic</artifactId>
         <version>${logback.version}</version>
       </dependency>
-      <dependency>
-        <groupId>org.slf4j</groupId>
-        <artifactId>slf4j-log4j12</artifactId>
-        <version>${slf4j.version}</version>
-      </dependency>
+      <!-- only needed to build Tobago and for some examples, but not for runtime -->
       <dependency>
         <groupId>commons-io</groupId>
         <artifactId>commons-io</artifactId>
-        <version>${commons-io.version}</version>
+        <version>2.4</version>
       </dependency>
+      <!-- only needed to build Tobago and for some examples, but not for runtime -->
       <dependency>
         <groupId>commons-lang</groupId>
         <artifactId>commons-lang</artifactId>
-        <version>${commons-lang.version}</version>
+        <version>2.6</version>
       </dependency>
       <dependency>
         <groupId>commons-beanutils</groupId>
         <artifactId>commons-beanutils</artifactId>
-        <version>1.8.3</version>
+        <version>1.9.2</version>
       </dependency>
       <dependency>
         <groupId>commons-collections</groupId>
@@ -448,48 +438,15 @@
         <version>${commons-collection.version}</version>
       </dependency>
       <dependency>
-        <groupId>commons-logging</groupId>
-        <artifactId>commons-logging</artifactId>
-        <version>${commons-logging.version}</version>
-        <scope>provided</scope>
-      </dependency>
-      <dependency>
-        <groupId>commons-fileupload</groupId>
-        <artifactId>commons-fileupload</artifactId>
-        <version>1.3.1</version>
-      </dependency>
-      <dependency>
         <groupId>commons-codec</groupId>
         <artifactId>commons-codec</artifactId>
-        <version>1.4</version>
-      </dependency>
-      <dependency>
-        <groupId>log4j</groupId>
-        <artifactId>log4j</artifactId>
-        <version>${log4j.version}</version>
+        <version>1.10</version>
       </dependency>
       <dependency>
         <groupId>junit</groupId>
         <artifactId>junit</artifactId>
         <version>4.12</version>
         <scope>test</scope>
-      </dependency>
-      <dependency>
-        <groupId>javax.servlet</groupId>
-        <artifactId>jstl</artifactId>
-        <version>1.1.0</version>
-        <exclusions>
-          <exclusion>
-            <groupId>javax.servlet</groupId>
-            <artifactId>jsp-api</artifactId>
-          </exclusion>
-        </exclusions>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.geronimo.specs</groupId>
-        <artifactId>geronimo-el_2.2_spec</artifactId>
-        <version>1.0.4</version>
-        <scope>provided</scope>
       </dependency>
       <dependency>
         <groupId>javax.portlet</groupId>
@@ -501,19 +458,25 @@
         <groupId>org.apache.geronimo.specs</groupId>
         <artifactId>geronimo-annotation_1.0_spec</artifactId>
         <version>1.1.1</version>
-        <scope>provided</scope>
+        <optional>true</optional>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.geronimo.specs</groupId>
+        <artifactId>geronimo-jcdi_1.0_spec</artifactId>
+        <version>1.0</version>
+        <optional>true</optional>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.geronimo.specs</groupId>
+        <artifactId>geronimo-atinject_1.0_spec</artifactId>
+        <version>1.0</version>
+        <optional>true</optional>
       </dependency>
       <dependency>
         <!-- jsoup HTML parser library -->
         <groupId>org.jsoup</groupId>
         <artifactId>jsoup</artifactId>
-        <version>1.7.3</version>
-      </dependency>
-      <dependency>
-        <groupId>net.sourceforge.maven-taglib</groupId>
-        <artifactId>maven-taglib-plugin</artifactId>
-        <version>2.4</version>
-        <scope>test</scope>
+        <version>1.8.2</version>
       </dependency>
       <dependency>
         <groupId>org.apache.myfaces.test</groupId>
@@ -530,13 +493,6 @@
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
     </dependency>
-
-    <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>jcl-over-slf4j</artifactId>
-      <optional>true</optional>
-    </dependency>
-
     <dependency>
       <groupId>ch.qos.logback</groupId>
       <artifactId>logback-classic</artifactId>
@@ -544,13 +500,12 @@
     </dependency>
 
     <dependency>
-      <groupId>javax.servlet.jsp</groupId>
-      <artifactId>jsp-api</artifactId>
+      <groupId>org.apache.geronimo.specs</groupId>
+      <artifactId>geronimo-servlet_3.0_spec</artifactId>
     </dependency>
-
     <dependency>
-      <groupId>javax.servlet</groupId>
-      <artifactId>servlet-api</artifactId>
+      <groupId>org.apache.geronimo.specs</groupId>
+      <artifactId>geronimo-el_2.2_spec</artifactId>
     </dependency>
 
     <dependency>
@@ -579,9 +534,9 @@
   </dependencies>
 
   <scm>
-    <connection>scm:svn:http://svn.apache.org/repos/asf/myfaces/tobago/trunk</connection>
-    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/myfaces/tobago/trunk</developerConnection>
-    <url>http://svn.eu.apache.org/viewvc/myfaces/tobago/trunk</url>
+    <connection>scm:svn:http://svn.apache.org/repos/asf/myfaces/tobago/branches/tobago-3.0.x</connection>
+    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/myfaces/tobago/branches/tobago-3.0.x</developerConnection>
+    <url>http://svn.eu.apache.org/viewvc/myfaces/tobago/branches/tobago-3.0.x</url>
   </scm>
 
   <build>
@@ -591,12 +546,13 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-pmd-plugin</artifactId>
+        <version>3.4</version>
       </plugin>
 
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-checkstyle-plugin</artifactId>
-        <version>2.9</version>
+        <version>2.9.1</version><!-- before update MYFACES-3995 needs to be fixed -->
         <executions>
           <execution>
             <id>verify-style</id>
@@ -627,13 +583,14 @@
         <executions>
           <execution>
             <id>enforce</id>
+            <phase>validate</phase>
             <goals>
               <goal>enforce</goal>
             </goals>
             <configuration>
               <rules>
                 <requireMavenVersion>
-                  <!-- 3.3.1 is only required for a release, for a normal build 2.2.1 should be okay -->
+                  <!-- 3.3.1 is only required for a release, for a normal build 3.0.4 should be okay -->
                   <version>${required.maven.version}</version>
                 </requireMavenVersion>
                 <requirePluginVersions>
@@ -666,21 +623,6 @@
           </execution>
         </executions>
       </plugin>-->
-      <!--plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>ianal-maven-plugin</artifactId>
-        <executions>
-          <execution>
-            <goals>
-              <goal>verify-legal-files</goal>
-            </goals>
-            <configuration>
-              <- Fail the build if any artifacts are missing legal files ->
-              <strict>false</strict>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin-->
       <plugin>
         <groupId>org.apache.rat</groupId>
         <artifactId>apache-rat-plugin</artifactId>
@@ -700,7 +642,7 @@
                 <addLicense>true</addLicense>
               </properties>
               <excludeScope>provided</excludeScope>
-              <excludeArtifactIds>servlet-api,jsp-api,jstl</excludeArtifactIds>
+              <excludeArtifactIds>servlet-api,jstl</excludeArtifactIds>
             </configuration>
           </execution>
         </executions>
@@ -708,12 +650,11 @@
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>animal-sniffer-maven-plugin</artifactId>
-        <version>1.14</version>
         <configuration>
           <signature>
             <groupId>org.codehaus.mojo.signature</groupId>
-            <artifactId>java15</artifactId>
-            <version>1.0</version>
+            <artifactId>java16</artifactId>
+            <version>1.1</version>
           </signature>
         </configuration>
       </plugin>
@@ -763,12 +704,12 @@
         <plugin>
           <groupId>org.codehaus.mojo</groupId>
           <artifactId>build-helper-maven-plugin</artifactId>
-          <version>1.7</version>
+          <version>1.9.1</version>
         </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-checkstyle-plugin</artifactId>
-          <version>2.9</version>
+          <version>2.9.1</version><!-- before update MYFACES-3995 needs to be fixed -->
           <configuration>
             <configLocation>tobago/checkstyle.xml</configLocation>
             <headerLocation>default/myfaces-header.txt</headerLocation>
@@ -777,10 +718,17 @@
             <indentSize>2</indentSize>
             <includeTestSourceDirectory>true</includeTestSourceDirectory>
           </configuration>
+          <dependencies>
+            <dependency>
+              <groupId>org.apache.myfaces.buildtools</groupId>
+              <artifactId>checkstyle-rules</artifactId>
+              <version>6</version>
+            </dependency>
+          </dependencies>
         </plugin>
         <plugin>
           <artifactId>maven-remote-resources-plugin</artifactId>
-          <version>1.2.1</version>
+          <version>1.5</version>
           <executions>
             <execution>
               <goals>
@@ -800,7 +748,7 @@
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-jar-plugin</artifactId>
-          <version>2.3.2</version>
+          <version>2.6</version>
           <configuration>
             <archive>
               <manifest>
@@ -824,18 +772,18 @@
         <plugin>
           <groupId>org.codehaus.cargo</groupId>
           <artifactId>cargo-maven2-plugin</artifactId>
-          <version>1.0.3</version>
+          <version>1.4.13</version>
         </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-compiler-plugin</artifactId>
-          <version>3.3</version>
+          <version>3.5.1</version>
           <configuration>
             <source>${maven.compile.source}</source>
             <target>${maven.compile.target}</target>
             <encoding>${maven.compile.encoding}</encoding>
             <showWarnings>true</showWarnings>
-            <useIncrementalCompilation>false</useIncrementalCompilation><!-- see MCOMPILER-209 and MCOMPILER-235 -->
+            <useIncrementalCompilation>false</useIncrementalCompilation><!-- see MCOMPILER-209 -->
             <!--fork>true</fork-->
             <!-- <compilerArgument>-Xlint:all,-serial,-fallthrough</compilerArgument>-->
           </configuration>
@@ -843,17 +791,12 @@
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-dependency-plugin</artifactId>
-          <version>2.8</version>
-        </plugin>
-        <plugin>
-          <groupId>org.apache.tomcat.maven</groupId>
-          <artifactId>tomcat7-maven-plugin</artifactId>
-          <version>2.2</version>
+          <version>2.10</version>
         </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-surefire-plugin</artifactId>
-          <version>2.9</version>
+          <version>2.18.1</version>
           <configuration>
             <!--
             <childDelegation>false</childDelegation>
@@ -868,21 +811,26 @@
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-javadoc-plugin</artifactId>
-          <version>2.8</version>
+          <version>2.10.3</version>
           <configuration>
             <!-- switched off check in Java 8 -->
-            <additionalparam>-Xdoclint:none</additionalparam>
+            <additionalparam>
+                -Xdoclint:accessibility
+                -Xdoclint:html
+                -Xdoclint:reference
+                -Xdoclint:syntax
+            </additionalparam>
           </configuration>
         </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-deploy-plugin</artifactId>
-          <version>2.7</version>
+          <version>2.8.2</version>
         </plugin>
         <plugin>
           <groupId>org.codehaus.mojo</groupId>
           <artifactId>clirr-maven-plugin</artifactId>
-          <version>2.3</version>
+          <version>2.6.1</version>
           <configuration>
             <failOnError>false</failOnError>
             <minSeverity>info</minSeverity>
@@ -891,58 +839,43 @@
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-war-plugin</artifactId>
-          <version>2.1.1</version>
+          <version>2.6</version>
         </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-resources-plugin</artifactId>
-<!--
-          <version>2.6</version>
--->
-          <version>2.5</version>
+          <version>2.7</version>
         </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-clean-plugin</artifactId>
-          <version>2.4.1</version>
+          <version>2.6.1</version>
         </plugin>
         <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-source-plugin</artifactId>
-          <version>2.1.2</version>
-          <executions>
-            <!-- here we override the super-pom attach-sources executionid which
-            calls sources:jar goal. That goals forks the lifecycle, causing
-            the generate-sources phase to be called twice for the install goal.
-            This causes any other plugin bound to the generate-sources phase to
-            be called twice which usually has nasty side effects, let alone
-            creating duplicate processing and longer build times. -->
-            <execution>
-              <id>attach-sources</id>
-              <phase>DISABLE_FORKED_LIFECYCLE_MSOURCES-13</phase>
-            </execution>
-          </executions>
+          <version>2.4</version>
         </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-install-plugin</artifactId>
-          <version>2.3.1</version>
+          <version>2.5.2</version>
         </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-scm-plugin</artifactId>
-          <version>1.5</version>
+          <version>1.9.4</version>
         </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-antrun-plugin</artifactId>
-          <version>1.3</version>
+          <version>1.8</version>
         </plugin>
         <plugin>
           <groupId>net.sourceforge.maven-taglib</groupId>
           <artifactId>maven-taglib-plugin</artifactId>
           <version>2.4</version>
         </plugin>
-
         <plugin>
           <groupId>org.apache.rat</groupId>
           <artifactId>apache-rat-plugin</artifactId>
@@ -953,9 +886,25 @@
               <exclude>DEPENDENCIES</exclude>
 
               <!-- jQuery -->
-              <exclude>**/jquery*.js</exclude>
-              <exclude>**/jquery*.map</exclude>
-              <exclude>**/jquery*.css</exclude>
+              <exclude>**/org/apache/myfaces/tobago/renderkit/html/standard/standard/jquery/**/jquery*.*</exclude>
+              <exclude>**/org/apache/myfaces/tobago/renderkit/html/standard/standard/script/contrib/jquery*.js</exclude>
+              <exclude>**/org/apache/myfaces/tobago/renderkit/html/standard/standard/style/contrib/**/jquery*.css</exclude>
+
+              <!-- bootstrap -->
+              <exclude>**/org/apache/myfaces/tobago/renderkit/html/standard/standard/bootstrap/**/bootstrap*.*</exclude>
+
+              <!-- tether -->
+              <exclude>**/org/apache/myfaces/tobago/renderkit/html/standard/standard/tether/**/tether*.*</exclude>
+
+              <!-- font-awesome -->
+              <exclude>**/org/apache/myfaces/tobago/renderkit/html/standard/standard/font-awesome/**/font*awesome*.*</exclude>
+
+              <!-- typeahead -->
+              <exclude>**/org/apache/myfaces/tobago/renderkit/html/standard/standard/typeahead/**/typeahead*.*</exclude>
+
+              <!-- prism (tobago-example-demo) -->
+              <exclude>**/prism*.js</exclude>
+              <exclude>**/prism*.css</exclude>
 
               <!-- log files -->
               <exclude>**/*.log</exclude>
@@ -978,13 +927,13 @@
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-assembly-plugin</artifactId>
-          <version>2.2.1</version>
+          <version>2.5.5</version>
         </plugin>
 
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-release-plugin</artifactId>
-          <version>2.3.2</version>
+          <version>2.5.2</version>
           <configuration>
             <tagBase>https://svn.apache.org/repos/asf/myfaces/tobago/tags</tagBase>
             <preparationGoals>clean install</preparationGoals>
@@ -999,12 +948,17 @@
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-site-plugin</artifactId>
-          <version>3.3</version>
+          <version>3.5.1</version>
         </plugin>
         <plugin>
-          <groupId>org.bsc.maven</groupId>
-          <artifactId>maven-processor-plugin</artifactId>
-          <version>2.2.4</version>
+          <groupId>org.codehaus.mojo</groupId>
+          <artifactId>animal-sniffer-maven-plugin</artifactId>
+          <version>1.14</version>
+        </plugin>
+        <plugin>
+          <groupId>org.codehaus.mojo</groupId>
+          <artifactId>versions-maven-plugin</artifactId>
+          <version>2.1</version>
         </plugin>
         <plugin>
           <groupId>org.owasp</groupId>
@@ -1077,7 +1031,7 @@
           <plugin>
             <groupId>org.codehaus.mojo</groupId>
             <artifactId>buildnumber-maven-plugin</artifactId>
-            <version>1.0</version>
+            <version>1.3</version>
             <executions>
               <execution>
                 <phase>validate</phase>
@@ -1094,29 +1048,6 @@
               <revisionOnScmFailure>unknown</revisionOnScmFailure>
             </configuration>
           </plugin>
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-enforcer-plugin</artifactId>
-            <version>1.4.1</version>
-            <executions>
-              <execution>
-                <id>enforce-java</id>
-                <phase>validate</phase>
-                <goals>
-                  <goal>enforce</goal>
-                </goals>
-                <configuration>
-                  <rules>
-                    <requireJavaVersion>
-                      <message>Tobago must be compiled with Java 8 or higher</message>
-                      <version>[1.8,)</version>
-                    </requireJavaVersion>
-                  </rules>
-                </configuration>
-              </execution>
-            </executions>
-          </plugin>
-
           <plugin>
             <groupId>org.codehaus.mojo</groupId>
             <artifactId>animal-sniffer-maven-plugin</artifactId>
@@ -1144,19 +1075,17 @@
 
           <plugin>
             <artifactId>maven-source-plugin</artifactId>
-            <version>2.1.2</version>
             <executions>
               <execution>
                 <id>attach-sources</id>
                 <goals>
-                  <goal>jar-no-fork</goal>
+                  <goal>jar</goal>
                 </goals>
               </execution>
             </executions>
           </plugin>
           <plugin>
             <artifactId>maven-javadoc-plugin</artifactId>
-            <version>2.8</version>
             <executions>
               <execution>
                 <id>attach-javadocs</id>
@@ -1170,29 +1099,6 @@
       </build>
     </profile>
 
-    <!--name of the runtime classes file-->
-    <profile>
-      <id>rt.jar</id>
-      <activation>
-        <os>
-          <family>!mac</family>
-        </os>
-      </activation>
-      <properties>
-        <java.classes.jar>lib/rt.jar</java.classes.jar>
-      </properties>
-    </profile>
-    <profile>
-      <id>classes.jar</id>
-      <activation>
-        <os>
-          <family>mac</family>
-        </os>
-      </activation>
-      <properties>
-        <java.classes.jar>../Classes/classes.jar</java.classes.jar>
-      </properties>
-    </profile>
     <profile>
       <id>generate-assembly</id>
       <build>
@@ -1200,7 +1106,6 @@
           <plugin>
             <groupId>org.codehaus.mojo</groupId>
             <artifactId>buildnumber-maven-plugin</artifactId>
-            <version>1.0</version>
             <executions>
               <execution>
                 <phase>validate</phase>
@@ -1233,7 +1138,7 @@
             <executions>
               <execution>
                 <id>attach-source</id>
-                <goals><goal>jar-no-fork</goal></goals>
+                <goals><goal>jar</goal></goals>
               </execution>
             </executions>
           </plugin>
@@ -1281,51 +1186,6 @@
 
 -->
 
-<!--
-    <profile>
-      <id>jsf-2.0</id>
-      <activation>
-        <property>
-          <name>jsf</name>
-          <value>myfaces-2.0</value>
-        </property>
-      </activation>
-      <properties>
-        <jsf.target>2.0</jsf.target>
-      </properties>
-      <dependencyManagement>
-        <dependencies>
-          <dependency>
-            <groupId>org.apache.myfaces.core</groupId>
-            <artifactId>myfaces-api</artifactId>
-            <version>${myfaces20.version}</version>
-            <optional>true</optional>
-          </dependency>
-          <dependency>
-            <groupId>org.apache.myfaces.core</groupId>
-            <artifactId>myfaces-impl</artifactId>
-            <version>${myfaces20.version}</version>
-            <optional>true</optional>
-          </dependency>
-          <dependency>
-            <groupId>javax.servlet.jsp</groupId>
-            <artifactId>jsp-api</artifactId>
-            <version>2.1</version>
-            <scope>provided</scope>
-            <optional>true</optional>
-          </dependency>
-          <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>servlet-api</artifactId>
-            <version>2.5</version>
-            <optional>true</optional>
-            <scope>provided</scope>
-          </dependency>
-        </dependencies>
-      </dependencyManagement>
-    </profile>
--->
-
     <profile>
       <id>jsf-2.1</id>
       <activation>
@@ -1363,9 +1223,6 @@
           <value>myfaces-2.2</value>
         </property>
       </activation>
-      <properties>
-        <jsf.target>2.0</jsf.target>
-      </properties>
       <dependencyManagement>
         <dependencies>
           <dependency>
@@ -1392,9 +1249,6 @@
           <value>mojarra-2.0</value>
         </property>
       </activation>
-      <properties>
-        <jsf.target>2.0</jsf.target>
-      </properties>
       <dependencyManagement>
         <dependencies>
           <dependency>
@@ -1421,9 +1275,6 @@
           <value>mojarra-2.1</value>
         </property>
       </activation>
-      <properties>
-        <jsf.target>2.0</jsf.target>
-      </properties>
       <dependencyManagement>
         <dependencies>
           <dependency>
@@ -1450,9 +1301,6 @@
           <value>mojarra-2.2</value>
         </property>
       </activation>
-      <properties>
-        <jsf.target>2.0</jsf.target>
-      </properties>
       <dependencyManagement>
         <dependencies>
           <dependency>
@@ -1470,33 +1318,7 @@
         </dependencies>
       </dependencyManagement>
     </profile>
-    <!-- MSOURCES-13 related workaround overriding super-pom -->
-    <profile>
-      <id>release-profile</id>
-      <activation>
-        <property>
-          <name>performRelease</name>
-          <value>true</value>
-        </property>
-      </activation>
-      <build>
-        <plugins>
-          <plugin>
-            <inherited>true</inherited>
-            <artifactId>maven-source-plugin</artifactId>
-            <executions>
-              <execution>
-                <id>attach-sources-no-fork</id>
-                <inherited>true</inherited>
-                <goals>
-                  <goal>jar-no-fork</goal>
-                </goals>
-              </execution>
-            </executions>
-          </plugin>
-        </plugins>
-      </build>
-    </profile>
+
   </profiles>
 
   <contributors>
@@ -1509,25 +1331,4 @@
     </contributor>
   </contributors>
 
-  <properties>
-    <myfaces20.version>2.0.23</myfaces20.version>
-    <myfaces21.version>2.1.17</myfaces21.version>
-    <myfaces22.version>2.2.9</myfaces22.version>
-    <mojarra20.version>2.0.11-02</mojarra20.version>
-    <mojarra21.version>2.1.29-05</mojarra21.version>
-    <mojarra22.version>2.2.12</mojarra22.version>
-    <slf4j.version>1.7.7</slf4j.version>
-    <logback.version>1.1.1</logback.version>
-    <log4j.version>1.2.17</log4j.version>
-    <commons-io.version>2.4</commons-io.version>
-    <commons-lang.version>2.6</commons-lang.version>
-    <commons-logging.version>1.1.1</commons-logging.version>
-    <commons-collection.version>3.2.2</commons-collection.version>
-    <maven.compile.source>1.5</maven.compile.source>
-    <maven.compile.target>1.5</maven.compile.target>
-    <maven.compile.encoding>UTF-8</maven.compile.encoding>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <jsf.target>2.0</jsf.target>
-    <required.maven.version>2.2.1</required.maven.version>
-  </properties>
 </project>

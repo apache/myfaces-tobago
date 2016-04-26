@@ -23,58 +23,56 @@ import org.apache.myfaces.tobago.component.UILabel;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.internal.util.AccessKeyLogger;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
-import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
+import org.apache.myfaces.tobago.renderkit.RendererBase;
+import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
-import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ComponentSystemEvent;
+import javax.faces.event.ComponentSystemEventListener;
+import javax.faces.event.ListenerFor;
+import javax.faces.event.PostAddToViewEvent;
 import java.io.IOException;
 
-public class LabelRenderer extends LayoutComponentRendererBase {
-
-  private static final Logger LOG = LoggerFactory.getLogger(LabelRenderer.class);
+@ListenerFor(systemEventClass = PostAddToViewEvent.class)
+public class LabelRenderer extends RendererBase implements ComponentSystemEventListener {
 
   @Override
-  public void prepareRender(final FacesContext facesContext, final UIComponent component) throws IOException {
-    super.prepareRender(facesContext, component);
-
-    ComponentUtils.evaluateAutoFor(component, UIInput.class);
-
-    // adding the markups from the corresponding input component
-    final UILabel label = (UILabel) component;
-    final UIComponent corresponding = ComponentUtils.findFor(label);
-    if (corresponding != null) {
-      Markup markup = label.getCurrentMarkup();
-      markup = ComponentUtils.updateMarkup(corresponding, markup);
-      label.setCurrentMarkup(markup);
-    }
+  public void processEvent(ComponentSystemEvent event) {
+    ComponentUtils.evaluateAutoFor(event.getComponent(), UIInput.class);
   }
 
+  @Override
   public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
 
     final UILabel label = (UILabel) component;
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
-
-    final String forValue = ComponentUtils.findClientIdFor(label, facesContext);
-
+    final UIComponent corresponding = ComponentUtils.findFor(label);
+    final String forId = corresponding != null ? corresponding.getClientId(facesContext) : null;
     final String clientId = label.getClientId(facesContext);
-    writer.startElement(HtmlElements.LABEL, label);
+
+    // TBD: want to do this in JavaScript in Browser (or CSS)?
+    Markup correspondingMarkup = Markup.NULL;
+    // adding the markups from the corresponding input component
+    if (corresponding != null) {
+      correspondingMarkup = ComponentUtils.updateMarkup(corresponding, Markup.NULL);
+    }
+
+    writer.startElement(HtmlElements.LABEL);
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, label);
-    final Classes classes = Classes.create(label);
-    writer.writeClassAttribute(classes);
-    writer.writeStyleAttribute(new Style(facesContext, label));
+    writer.writeClassAttribute(
+        Classes.create(label, correspondingMarkup), BootstrapClass.FORM_CONTROL_LABEL, label.getCustomClass());
+    writer.writeStyleAttribute(label.getStyle());
     writer.writeIdAttribute(clientId);
-    if (forValue != null) {
-      writer.writeAttribute(HtmlAttributes.FOR, forValue, false);
+    if (forId != null) {
+      writer.writeAttribute(HtmlAttributes.FOR, forId, false);
     }
     final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, label);
     if (title != null) {

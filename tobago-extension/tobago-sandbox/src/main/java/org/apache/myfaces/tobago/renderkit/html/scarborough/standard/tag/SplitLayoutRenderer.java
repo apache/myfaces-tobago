@@ -19,25 +19,20 @@
 
 package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
-import org.apache.myfaces.tobago.renderkit.html.standard.standard.tag.GridLayoutRenderer;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import org.apache.myfaces.tobago.internal.component.AbstractUISplitLayout;
-import org.apache.myfaces.tobago.layout.Display;
-import org.apache.myfaces.tobago.layout.LayoutComponent;
-import org.apache.myfaces.tobago.layout.LayoutContainer;
-import org.apache.myfaces.tobago.layout.Measure;
-import org.apache.myfaces.tobago.renderkit.css.Classes;
-import org.apache.myfaces.tobago.renderkit.css.Position;
+import org.apache.myfaces.tobago.internal.layout.LayoutUtils;
 import org.apache.myfaces.tobago.renderkit.css.Style;
+import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
+import org.apache.myfaces.tobago.renderkit.html.MarkupLanguageAttributes;
+import org.apache.myfaces.tobago.renderkit.html.standard.standard.tag.GridLayoutRenderer;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
-import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -46,14 +41,22 @@ import java.util.List;
 import java.util.Map;
 
 public class SplitLayoutRenderer extends GridLayoutRenderer {
-  
+
   private static final Logger LOG = LoggerFactory.getLogger(SplitLayoutRenderer.class);
   private static final String POSITION_ID_POSTFIX = "_spLP";
 
+  // todo: put as enum to DataAttributes, when moved from sandbox to core
+  private static final MarkupLanguageAttributes SPLIT_LAYOUT = DataAttributes.dynamic("tobago-split-layout");
+
+  // todo: put as enum to DataAttributes, when moved from sandbox to core
+  private static final MarkupLanguageAttributes SPLIT_LAYOUT_CONTAINMENT
+      = DataAttributes.dynamic("data-tobago-split-layout-containment");
+
   @Override
   public void decode(final FacesContext facesContext, final UIComponent component) {
+    final String sourceId = facesContext.getExternalContext().getRequestParameterMap().get("javax.faces.source");
     final String clientId = component.getClientId();
-    if (clientId.equals(ComponentUtils.findPage(facesContext).getActionId())) {
+    if (clientId.equals(sourceId)) {
       // only decode and update layout at resize request
       final Map<String, String> parameterMap = facesContext.getExternalContext().getRequestParameterMap();
       final String position = parameterMap.get(clientId + POSITION_ID_POSTFIX);
@@ -63,17 +66,15 @@ public class SplitLayoutRenderer extends GridLayoutRenderer {
 
   @Override
   public void encodeChildren(final FacesContext facesContext, final UIComponent component) throws IOException {
-    final LayoutContainer container = (LayoutContainer) ((AbstractUISplitLayout) component).getParent();
-    if (!((LayoutContainer) container).isLayoutChildren()) {
-      return;
-    } else {
-      final List<LayoutComponent> components = container.getComponents();
+    final UIComponent parent = component.getParent();
+    if (parent.isRendered()) {
+      final List<UIComponent> components = LayoutUtils.findLayoutChildren(parent);
       if (components.size() != 2) {
         LOG.warn("Illegal component count in splitLayout: {}", components.size());
       }
-      RenderUtils.encode(facesContext, (UIComponent) components.get(0));
-      RenderUtils.encode(facesContext, (UIComponent) components.get(1));
-      if (((UIComponent) components.get(0)).isRendered() && ((UIComponent) components.get(1)).isRendered()) {
+      RenderUtils.encode(facesContext, components.get(0));
+      RenderUtils.encode(facesContext, components.get(1));
+      if (components.get(0).isRendered() && components.get(1).isRendered()) {
         // only when both components are rendered
         encodeHandle(facesContext, (AbstractUISplitLayout) component);
       }
@@ -82,64 +83,70 @@ public class SplitLayoutRenderer extends GridLayoutRenderer {
 
   protected void encodeHandle(final FacesContext facesContext, final AbstractUISplitLayout layout) throws IOException {
     final String id = layout.getClientId(facesContext);
-    
+
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
-    writer.startElement(HtmlElements.SPAN, layout);
+    writer.startElement(HtmlElements.SPAN);
     writer.writeIdAttribute(id);
-    writer.writeAttribute("data-tobago-split-layout", layout.getOrientation().toLowerCase(), true);
-    writer.writeAttribute("data-tobago-split-layout-containment", createDraggableContainment(layout), true);
+    writer.writeAttribute(SPLIT_LAYOUT, layout.getOrientation().name(), false);
+    writer.writeAttribute(SPLIT_LAYOUT_CONTAINMENT, createDraggableContainment(layout), true);
+/* XXX todo not implemented currently
     final Style style = calculateHandleStyle(layout);
     writer.writeStyleAttribute(style);
-    writer.writeClassAttribute(Classes.create(layout, layout.getOrientation().toLowerCase()));
+    writer.writeClassAttribute(Classes.create(layout, layout.getOrientation().name()));
 
     final int position;
-    if (AbstractUISplitLayout.HORIZONTAL.equals(layout.getOrientation())) {
+    if (layout.getOrientation() == Orientation.horizontal) {
       position = style.getLeft().getPixel();
     } else {
       position = style.getTop().getPixel();
     }
-    writer.startElement(HtmlElements.INPUT, null);
+*/
+    writer.startElement(HtmlElements.INPUT);
     writer.writeIdAttribute(id + POSITION_ID_POSTFIX);
     writer.writeNameAttribute(id + POSITION_ID_POSTFIX);
-    writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN, false);
-    writer.writeAttribute(HtmlAttributes.VALUE, Integer.toString(position), false);
+    writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN);
+//    writer.writeAttribute(HtmlAttributes.value, Integer.toString(position), false);
     writer.endElement(HtmlElements.INPUT);
-
-
     writer.endElement(HtmlElements.SPAN);
-
   }
 
   private String createDraggableContainment(final AbstractUISplitLayout layout) {
-    final LayoutContainer container = (LayoutContainer) ((AbstractUISplitLayout) layout).getParent();
-    final LayoutComponent firstComponent = container.getComponents().get(0);
-    final LayoutComponent secondComponent = container.getComponents().get(1);
+/* XXX todo not implemented currently
+    final UIComponent parent = layout.getParent();
+    final LayoutContainer container = (LayoutContainer) parent;
+    final List<UIComponent> components = LayoutUtils.findLayoutChildren(parent);
+    final Style firstComponent = ((Visual) components.get(0)).getStyle();
+    final Style secondComponent = ((Visual) components.get(1)).getStyle();
 
     Measure minimum;
-    if (AbstractUISplitLayout.HORIZONTAL.equals(layout.getOrientation())) {
-      minimum = firstComponent.getMinimumWidth();
+
+    if (layout.getOrientation() == Orientation.horizontal) {
+      minimum = firstComponent.getMinWidth();
       final int minimumSize1 = minimum != null ? minimum.getPixel() : 0;
-      minimum = secondComponent.getMinimumWidth();
+      minimum = secondComponent.getMinWidth();
       final int minimumSize2 = minimum != null ? minimum.getPixel() : 0;
-      final int totalSize = container.getCurrentWidth().getPixel();
-      return new StringBuilder("[").append(minimumSize1).append(", 0, ").append(totalSize-minimumSize2).append(", 0]")
-          .toString();
+      final int totalSize = container.getWidth().getPixel();
+      return "[" + minimumSize1 + ", 0, " + (totalSize - minimumSize2) + ", 0]";
     } else {
-      minimum = firstComponent.getMinimumHeight();
+      minimum = firstComponent.getMinHeight();
       final int minimumSize1 = minimum != null ? minimum.getPixel() : 0;
-      minimum = secondComponent.getMinimumHeight();
+      minimum = secondComponent.getMinHeight();
       final int minimumSize2 = minimum != null ? minimum.getPixel() : 0;
-      final int totalSize = container.getCurrentHeight().getPixel();
-      return new StringBuilder("[0, ").append(minimumSize1).append(", 0, ").append(totalSize-minimumSize2).append("]")
-          .toString();
+      final int totalSize = container.getHeight().getPixel();
+      return "[0, " + minimumSize1 + ", 0, " + (totalSize - minimumSize2) + "]";
     }
+*/
+    return "";
   }
 
   private Style calculateHandleStyle(final AbstractUISplitLayout layout) {
-    final LayoutContainer container = (LayoutContainer) ((AbstractUISplitLayout) layout).getParent();
-    final LayoutComponent secondComponent = container.getComponents().get(1);
+/* XXX todo not implemented currently
+    final UIComponent parent = layout.getParent();
+    final LayoutContainer container = (LayoutContainer) parent;
+    final LayoutComponent secondComponent = (LayoutComponent) LayoutUtils.findLayoutChildren(parent).get(1);
     final Style style = new Style();
-    if (AbstractUISplitLayout.HORIZONTAL.equals(layout.getOrientation())) {
+
+    if (layout.getOrientation() == Orientation.horizontal) {
       style.setWidth(Measure.valueOf(5));
       style.setHeight(container.getCurrentHeight());
       style.setLeft(Measure.valueOf(secondComponent.getLeft().subtract(5)));
@@ -150,8 +157,11 @@ public class SplitLayoutRenderer extends GridLayoutRenderer {
       style.setLeft(Measure.valueOf(0));
       style.setTop(Measure.valueOf(Measure.valueOf(secondComponent.getTop().subtract(5))));
     }
-    style.setDisplay(Display.BLOCK);
-    style.setPosition(Position.ABSOLUTE);
+    // todo: use CSS class
+    style.setDisplay(Display.block);
+    style.setPosition(Position.absolute);
     return style;
+*/
+    return null;
   }
 }

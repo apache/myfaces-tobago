@@ -19,36 +19,5 @@
 
 package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
-import org.apache.myfaces.tobago.component.RendererTypes;
-import org.apache.myfaces.tobago.component.UITreeCommand;
-import org.apache.myfaces.tobago.component.UITreeLabel;
-import org.apache.myfaces.tobago.component.UITreeNode;
-
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import java.io.IOException;
-
 public class TreeMenuRenderer extends TreeRenderer {
-
-  @Override
-  public void prepareRender(final FacesContext facesContext, final UIComponent component) throws IOException {
-    super.prepareRender(facesContext, component);
-
-    setRendererTypeForCommandsAndNodes(component);
-  }
-
-  protected void setRendererTypeForCommandsAndNodes(final UIComponent component) {
-    for (final UIComponent child : component.getChildren()) {
-      if (child instanceof UITreeNode) {
-        child.setRendererType(RendererTypes.TREE_MENU_NODE);
-      }
-      if (child instanceof UITreeCommand) {
-        child.setRendererType(RendererTypes.TREE_MENU_COMMAND);
-      }
-      if (child instanceof UITreeLabel) {
-        child.setRendererType(RendererTypes.TREE_MENU_LABEL);
-      }
-      setRendererTypeForCommandsAndNodes(child);
-    }
-  }
 }

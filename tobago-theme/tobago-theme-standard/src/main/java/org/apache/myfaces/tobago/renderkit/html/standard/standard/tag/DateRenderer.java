@@ -19,67 +19,82 @@
 
 package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
-import org.apache.myfaces.tobago.config.TobagoConfig;
-import org.apache.myfaces.tobago.context.ResourceManagerUtils;
+import org.apache.myfaces.tobago.internal.component.AbstractUIDate;
 import org.apache.myfaces.tobago.internal.component.AbstractUIInput;
 import org.apache.myfaces.tobago.internal.context.DateTimeI18n;
-import org.apache.myfaces.tobago.internal.util.DateFormatUtils;
+import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
+import org.apache.myfaces.tobago.renderkit.css.Icons;
+import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
+import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
+import org.apache.myfaces.tobago.renderkit.html.HtmlButtonTypes;
+import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.JsonUtils;
+import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
+import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
-import javax.faces.convert.Converter;
-import javax.faces.convert.DateTimeConverter;
 import java.io.IOException;
 
 public class DateRenderer extends InRenderer {
-
-  private static final Logger LOG = LoggerFactory.getLogger(DateRenderer.class);
 
   @Override
   protected void writeAdditionalAttributes(
       final FacesContext facesContext, final TobagoResponseWriter writer, final AbstractUIInput input)
       throws IOException {
-    super.writeAdditionalAttributes(facesContext, writer, input);
 
-    String pattern = null;
-    final Converter help = getConverter(facesContext, input);
-    if (help instanceof DateTimeConverter) {
-      final DateTimeConverter converter = (DateTimeConverter) help;
-      pattern = DateFormatUtils.findPattern(converter);
-    }
-    if (pattern == null) {
-      pattern = "yyyy-MM-dd";
-      LOG.warn("Can't find the pattern for the converter! DatePicker may not work correctly. "
-          + "Trying to use: '" + pattern + "'");
-    }
+    final AbstractUIDate date = (AbstractUIDate) input;
 
-    writer.writeAttribute(DataAttributes.PATTERN, pattern, true);
-
+    super.writeAdditionalAttributes(facesContext, writer, date);
+    writer.writeAttribute(DataAttributes.PATTERN, date.getPattern(), true);
     final DateTimeI18n dateTimeI18n = DateTimeI18n.valueOf(facesContext.getViewRoot().getLocale());
     writer.writeAttribute(DataAttributes.DATE_TIME_I18N, JsonUtils.encode(dateTimeI18n), true);
+  }
 
-    final String imageName;
+  @Override
+  protected void encodeBeginField(FacesContext facesContext, UIComponent component) throws IOException {
+    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+
+    writer.startElement(HtmlElements.DIV);
+    writer.writeClassAttribute(TobagoClass.PANEL);
+
+    writer.startElement(HtmlElements.DIV);
+    writer.writeClassAttribute(BootstrapClass.INPUT_GROUP);
+
+    super.encodeBeginField(facesContext, component);
+  }
+
+  @Override
+  public void encodeEndField(FacesContext facesContext, UIComponent component) throws IOException {
+
+    super.encodeEndField(facesContext, component);
+
+    final AbstractUIDate date = (AbstractUIDate) component;
+    final String pattern = date.getPattern();
+    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+
+    writer.startElement(HtmlElements.SPAN);
+    writer.writeClassAttribute(BootstrapClass.INPUT_GROUP_BTN);
+    writer.startElement(HtmlElements.BUTTON);
+    writer.writeClassAttribute(BootstrapClass.BTN, BootstrapClass.BTN_SECONDARY);
+    writer.writeAttribute(HtmlAttributes.TYPE, HtmlButtonTypes.BUTTON);
+    writer.writeAttribute(HtmlAttributes.DISABLED, date.isDisabled() || date.isReadonly());
     if (pattern.contains("m")) { // simple guessing
       if (pattern.contains("d")) {
-        imageName = "image/date-time";
+        writer.writeIcon(Icons.CALENDAR);
+        writer.writeIcon(Icons.CLOCK_O);
       } else {
-        imageName = "image/time";
+        writer.writeIcon(Icons.CLOCK_O);
       }
     } else {
-      imageName = "image/date";
+      writer.writeIcon(Icons.CALENDAR);
     }
-    final String icon = ResourceManagerUtils.getImage(facesContext, imageName);
-    if (icon != null) {
-      writer.writeAttribute(DataAttributes.DATE_TIME_ICON, icon, true);
-    }
+    writer.endElement(HtmlElements.BUTTON);
+    writer.endElement(HtmlElements.SPAN);
 
-    if (TobagoConfig.getInstance(facesContext).isClassicDateTimePicker()) {
-      // to mark the compatibility mode
-      writer.writeAttribute(DataAttributes.CLASSIC_DATE_TIME_PICKER, "", false);
-    }
+    writer.endElement(HtmlElements.DIV);
+
+    writer.endElement(HtmlElements.DIV);
   }
 }

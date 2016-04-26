@@ -31,10 +31,12 @@ public class IgnoringSanitizer implements Sanitizer {
 
   private static final Logger LOG = LoggerFactory.getLogger(IgnoringSanitizer.class);
 
+  @Override
   public String sanitize(String html) {
     return html;
   }
 
+  @Override
   public void setProperties(Properties configuration) {
     LOG.warn("No configuration needed! Got: '{}'", configuration);
   }

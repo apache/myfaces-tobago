@@ -45,34 +45,43 @@ public class Command {
   private Boolean transition;
   private String target;
   private String url;
-  private String[] partially;
+  private String partially;
   private String focus;
   private String confirmation;
   private Integer delay;
   private Popup popup;
   private Boolean omit;
-  /**
-   * @deprecated Script will not work when CSP is activated
-   */
-  @Deprecated
-  private String script;
 
   public Command() {
   }
 
   public Command(
-      final String action, final Boolean transition, final String target, final String url, final String[] partially,
+      final String action, final Boolean transition, final String target, final String url, final String partially,
       final String focus, final String confirmation, final Integer delay, final Popup popup, final Boolean omit) {
     this.action = action;
     this.transition = transition;
     this.target = target;
     this.url = url;
-    this.partially = partially;
+    setPartially(partially);
     this.focus = focus;
     this.confirmation = confirmation;
     this.delay = delay;
     this.popup = popup;
     this.omit = omit;
+  }
+
+  public Command(final FacesContext facesContext, final AbstractUICommand command, String[] ids) {
+    this(
+        null,
+        command.isTransition(),
+        command.getTarget(),
+        RenderUtils.generateUrl(facesContext, command),
+        ComponentUtils.evaluateClientIds(facesContext, command, ids),
+        null,
+        getConfirmation(command),
+        null,
+        Popup.createPopup(command),
+        command.isOmit());
   }
 
   public Command(final FacesContext facesContext, final AbstractUICommand command) {
@@ -87,9 +96,6 @@ public class Command {
         null,
         Popup.createPopup(command),
         command.isOmit());
-    if (command.getOnclick() != null) {
-      script = command.getOnclick();
-    }
   }
 
   public Command(final FacesContext facesContext, UIComponent facetComponent, final String focusId) {
@@ -99,43 +105,35 @@ public class Command {
     }
     this.action = facetComponent.getClientId(facesContext);
     // transition == true is the default
-    if (!ComponentUtils.getBooleanAttribute(facetComponent, Attributes.TRANSITION)) {
+    if (!ComponentUtils.getBooleanAttribute(facetComponent, Attributes.transition)) {
       this.transition = Boolean.FALSE;
     }
-    final String target = ComponentUtils.getStringAttribute(facetComponent, Attributes.TARGET);
+    final String target = ComponentUtils.getStringAttribute(facetComponent, Attributes.target);
     if (target != null) {
       this.target = target;
     }
     if (facetComponent instanceof AbstractUICommand
         && ((AbstractUICommand) facetComponent).getRenderedPartially().length > 0) {
-      this.partially = ComponentUtils.evaluateClientIds(
-          facesContext, facetComponent, ((UICommand) facetComponent).getRenderedPartially());
+      setPartially(ComponentUtils.evaluateClientIds(
+          facesContext, facetComponent, ((UICommand) facetComponent).getRenderedPartially()));
     } else {
-      String facetAction = (String) facetComponent.getAttributes().get(Attributes.ONCLICK);
-      if (facetAction != null) {
-        // Replace @autoId
-        facetAction = StringUtils.replace(facetAction, "@autoId", facetComponent.getClientId(facesContext));
-        // XXX this case is deprecated.
-        // not allowed with Content Security Policy (CSP)
-        this.script = facetAction;
-      }
       if (focusId != null) {
         this.focus = focusId;
       }
     }
 
-    final int delay = ComponentUtils.getIntAttribute(facetComponent, Attributes.DELAY);
+    final int delay = ComponentUtils.getIntAttribute(facetComponent, Attributes.delay);
     if (delay > 0) {
       this.delay = delay;
     }
     // omit == false is the default
-    if (ComponentUtils.getBooleanAttribute(facetComponent, Attributes.OMIT)) {
+    if (ComponentUtils.getBooleanAttribute(facetComponent, Attributes.omit)) {
       this.omit = Boolean.TRUE;
     }
   }
 
   private static String getConfirmation(final AbstractUICommand command) {
-    final ValueHolder facet = (ValueHolder) command.getFacet(Facets.CONFIRMATION);
+    final ValueHolder facet = (ValueHolder) ComponentUtils.getFacet(command, Facets.confirmation);
     return facet != null ? "" + facet.getValue() : null;
   }
 
@@ -171,12 +169,14 @@ public class Command {
     this.url = url;
   }
 
-  public String[] getPartially() {
+  public String getPartially() {
     return partially;
   }
 
-  public void setPartially(final String[] partially) {
-    this.partially = partially;
+  public void setPartially(final String partially) {
+    if (StringUtils.isNotBlank(partially)) {
+      this.partially = partially;
+    }
   }
 
   public String getFocus() {
@@ -218,20 +218,4 @@ public class Command {
   public void setOmit(final Boolean omit) {
     this.omit = omit;
   }
-
-  /**
-   * @deprecated Script will not work when CSP is activated
-   */
-  public String getScript() {
-    return script;
-  }
-
-  /**
-   * @deprecated Script will not work when CSP is activated
-   */
-  @Deprecated
-  public void setScript(final String script) {
-    this.script = script;
-  }
-
 }

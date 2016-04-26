@@ -55,9 +55,8 @@ public class ThemeImpl implements Theme, Serializable {
   private boolean unmodifiable = false;
 
   public ThemeImpl() {
-    resources = new ThemeResources();
-    productionResources = new ThemeResources();
-    productionResources.setProduction(true);
+    resources = new ThemeResources(false);
+    productionResources = new ThemeResources(true);
   }
 
   private void checkLocked() throws IllegalStateException {
@@ -73,6 +72,7 @@ public class ThemeImpl implements Theme, Serializable {
     unmodifiable = true;
   }
 
+  @Override
   public String getName() {
     return name;
   }
@@ -82,6 +82,7 @@ public class ThemeImpl implements Theme, Serializable {
     this.name = name;
   }
 
+  @Override
   public String getDisplayName() {
     return displayName;
   }
@@ -91,6 +92,7 @@ public class ThemeImpl implements Theme, Serializable {
     this.displayName = displayName;
   }
 
+  @Override
   public String getResourcePath() {
     return resourcePath;
   }
@@ -118,6 +120,7 @@ public class ThemeImpl implements Theme, Serializable {
     this.fallbackName = fallbackName;
   }
 
+  @Override
   public List<Theme> getFallbackList() {
     return fallbackList;
   }
@@ -175,25 +178,12 @@ public class ThemeImpl implements Theme, Serializable {
     }
   }
 
-  public String toString() {
-    final StringBuilder builder = new StringBuilder();
-    builder.append("Theme: ");
-    builder.append(name);
-    if (renderersConfig != null) {
-      builder.append("\n");
-      for (final RendererConfig config : renderersConfig.getRendererConfigs()) {
-        builder.append(config);
-        builder.append("\n");
-      }
-    }
-    return builder.toString();
-  }
-
   public void setRenderersConfig(final RenderersConfigImpl renderersConfig) {
     checkLocked();
     this.renderersConfig = renderersConfig;
   }
 
+  @Override
   public RenderersConfig getRenderersConfig() {
     return renderersConfig;
   }
@@ -212,6 +202,7 @@ public class ThemeImpl implements Theme, Serializable {
 
   public void addResources(final ThemeResources themeResources) {
     checkLocked();
+
     if (themeResources.isProduction()) {
       productionResources.merge(themeResources);
     } else {
@@ -241,18 +232,22 @@ public class ThemeImpl implements Theme, Serializable {
 
   }
 
+  @Override
   public String[] getScriptResources(final boolean production) {
     if (production) {
       return productionScripts;
+    } else {
+      return scripts;
     }
-    return scripts;
   }
 
+  @Override
   public String[] getStyleResources(final boolean production) {
     if (production) {
       return productionStyles;
+    } else {
+      return styles;
     }
-    return styles;
   }
 
   public boolean isVersioned() {
@@ -265,6 +260,7 @@ public class ThemeImpl implements Theme, Serializable {
     this.versioned = versioned;
   }
 
+  @Override
   public String getVersion() {
     return version;
   }
@@ -272,5 +268,47 @@ public class ThemeImpl implements Theme, Serializable {
   public void setVersion(final String version) {
     checkLocked();
     this.version = version;
+  }
+
+  public String toString() {
+    final StringBuilder builder = new StringBuilder();
+    builder.append("Theme:  name='");
+    builder.append(name);
+    builder.append("' fallback=");
+    if (fallback != null) {
+      builder.append("'");
+      builder.append(fallback.getName());
+      builder.append("'");
+    } else {
+      builder.append("null");
+    }
+    builder.append(", \nproductionScripts=[");
+    for (String s : productionScripts != null ? productionScripts : new String[0]) {
+      builder.append("\n");
+      builder.append(s);
+    }
+    builder.append("], \nscripts=[");
+    for (String s : scripts != null ? scripts : new String[0]) {
+      builder.append("\n");
+      builder.append(s);
+    }
+    builder.append("], \nproductionStyles=[");
+    for (String s : productionStyles != null ? productionStyles : new String[0]) {
+      builder.append("\n");
+      builder.append(s);
+    }
+    builder.append("], \nstyles=[");
+    for (String s : styles != null ? styles : new String[0]) {
+      builder.append("\n");
+      builder.append(s);
+    }
+    if (renderersConfig != null) {
+      builder.append("\n");
+      for (final RendererConfig config : renderersConfig.getRendererConfigs()) {
+        builder.append(config);
+        builder.append("\n");
+      }
+    }
+    return builder.toString();
   }
 }

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+-->
+
+<ui:composition template="/main.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:tc="http://myfaces.apache.org/tobago/component"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core">
+  <ui:param name="title" value="#{overviewBundle.theme}"/>
+  <p>Tobago supports a big variety of displaying controls, so called designs or themes.</p>
+
+  <tc:section label="Change Theme">
+    <p>Choosing of themes can be application wide, user or group specific.
+      Images and other resources can be theme dependant as well as the application pages can be designed seperatly
+      for each supported theme.</p>
+    <tc:selectOneChoice label="Theme" value="#{themeController.theme}">
+      <f:selectItems value="#{themeController.themeItems}"/>
+    </tc:selectOneChoice>
+    <tc:button label="Submit" action="#{themeController.submit}"/>
+
+    <tc:separator/>
+    <tc:image value="image/theme-photo.jpg"/>
+    <tc:out id="o1" value="#{overviewBundle.theme_photo}"/>
+  </tc:section>
+
+  <tc:section label="Configuration">
+    <p>In Tobago it's easy to give an application a well designed look. You can use prepared themes like 'speyside' or
+      'scarborough', just to name two. The only thing you have to do is configure them in the 'tobago-config.xml'.</p>
+
+    <pre><code class="language-markup">...
+&lt;tobago-config>
+  &lt;theme-config>
+    &lt;default-theme>speyside&lt;/default-theme>
+  &lt;/theme-config>
+  &lt;resource-dir>tobago&lt;/resource-dir>
+&lt;/tobago-config>
+...</code></pre>
+  </tc:section>
+</ui:composition>

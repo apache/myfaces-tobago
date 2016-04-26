@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+-->
+
+<ui:composition template="/main.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:tc="http://myfaces.apache.org/tobago/component"
+                xmlns:ui="http://java.sun.com/jsf/facelets">
+  <ui:param name="title" value="#{overviewBundle.header_footer} &lt;tc:header> &lt;tc:footer>"/>
+  <p>A header / footer can be set via the <code class="language-markup">&lt;tc:header/></code>
+    respectively <code class="language-markup">&lt;tc:footer/></code> tag.</p>
+
+  <tc:section label="Basics">
+    <p>In this simple example, a header and a footer are set.
+      By default the value of the <code>fixed</code> attribute is 'false'.
+      The content of the header, footer and the content between are wrapped in
+      <code class="language-markup">&lt;tc:box/></code> tags. The content boxes don't have a label, but a border.
+    </p>
+    <tc:header>
+      <tc:box>
+        <p>This is the header.</p>
+      </tc:box>
+    </tc:header>
+    <tc:box>
+      <p>This is the content between header and footer.</p>
+    </tc:box>
+    <tc:footer>
+      <tc:box>
+        <p>This is the footer.</p>
+      </tc:box>
+    </tc:footer>
+  </tc:section>
+
+  <tc:section label="Header">
+    <p>The header on this site is fixed.
+      It contain the feather icon, the toolbar and the searchbar with the buttons on the right.</p>
+    <pre><code class="language-markup">&lt;tc:header fixed="true">
+  ...</code></pre>
+  </tc:section>
+
+  <tc:section label="Footer">
+    <p>The footer on this site is fixed.</p>
+    <pre><code class="language-markup">&lt;tc:footer fixed="true">
+  © 2016 Apache Software Foundation, Licensed under the &lt;a
+    href="http://www.apache.org/licenses/LICENSE-2.0">Apache License, Version 2.0&lt;/a>.
+&lt;/tc:footer></code></pre>
+  </tc:section>
+</ui:composition>

@@ -20,7 +20,7 @@
   <parent>
     <groupId>org.apache.myfaces.tobago</groupId>
     <artifactId>tobago-theme</artifactId>
-    <version>2.0.10-SNAPSHOT</version>
+    <version>3.0.0-beta-1-SNAPSHOT</version>
   </parent>
   <artifactId>tobago-theme-charlotteville</artifactId>
   <name>Tobago Theme Charlotteville</name>
@@ -29,7 +29,6 @@
       <plugin>
         <groupId>net.alchim31.maven</groupId>
         <artifactId>yuicompressor-maven-plugin</artifactId>
-        <version>1.1</version>
         <executions>
           <execution>
             <goals>
@@ -56,12 +55,6 @@
       <groupId>org.apache.myfaces.tobago</groupId>
       <artifactId>tobago-core</artifactId>
       <version>${project.version}</version>
-      <exclusions>
-        <exclusion>
-          <groupId>sun.jdk</groupId>
-          <artifactId>tools</artifactId>
-        </exclusion>
-      </exclusions>
     </dependency>
   </dependencies>
 </project>

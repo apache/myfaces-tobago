@@ -34,3 +34,55 @@ var initAlert = function () {
 
 Tobago.registerListener(initAlert, Tobago.Phase.DOCUMENT_READY);
 Tobago.registerListener(initAlert, Tobago.Phase.AFTER_UPDATE);
+
+var initInspect = function (elements) {
+
+  jQuery("code").find("br").replaceWith("\n");
+
+  var tobagoElements = Tobago.Utils.selectWithJQuery(elements, ".tobago-in,.tobago-out,.tobago-date");
+
+  tobagoElements = tobagoElements.filter(function () {
+    return jQuery(this).parents("#page\\:content").length == 1;
+  });
+
+  tobagoElements.hover(function () {
+
+    // clear old selections:
+    jQuery(".demo-selected").removeClass("demo-selected");
+
+    var element = jQuery(this);
+    element.addClass("demo-selected");
+
+    var clientId = element.closest("[id]").attr("id");
+    var id = clientId.substr(clientId.lastIndexOf(":") + 1);
+
+    var source = jQuery("#demo-view-source");
+
+    var span = source.find("span.token.attr-value").filter(function () {
+      return jQuery(this).prev().text() + jQuery(this).text() == 'id=' + '"' + id + '"';
+    });
+    var tag = span.parent();
+    tag.addClass("demo-selected");
+  });
+};
+
+Tobago.registerListener(initInspect, Tobago.Phase.DOCUMENT_READY);
+Tobago.registerListener(initInspect, Tobago.Phase.AFTER_UPDATE);
+
+Demo = {};
+
+/**
+ * Copies the values from the data-login attribute to the username/password fields.
+ */
+Demo.prepareQuickLinks = function() {
+  jQuery("a[data-login]").click(function() {
+    var link = jQuery(this);
+    var login = link.data("login");
+    jQuery(Tobago.Utils.escapeClientId("page:username")).find("input").val(login.username);
+    jQuery(Tobago.Utils.escapeClientId("page:password")).find("input").val(login.password);
+    jQuery(Tobago.Utils.escapeClientId("page:login")).click();
+    return false;
+  });
+};
+
+Tobago.registerListener(Demo.prepareQuickLinks, Tobago.Phase.DOCUMENT_READY);

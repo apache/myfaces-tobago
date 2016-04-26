@@ -71,15 +71,18 @@ public class ValueExpressionPopupActionListener extends AbstractPopupActionListe
     }
   }
 
+  @Override
   public boolean isTransient() {
     return false;
   }
 
+  @Override
   public void restoreState(final FacesContext context, final Object state) {
     final Object[] values = (Object[]) state;
     popupIdExpression = (ValueExpression) UIComponentBase.restoreAttachedState(context, values[0]);
   }
 
+  @Override
   public Object saveState(final FacesContext context) {
     final Object[] values = new Object[1];
     values[0] = UIComponentBase.saveAttachedState(context, popupIdExpression);
@@ -87,6 +90,7 @@ public class ValueExpressionPopupActionListener extends AbstractPopupActionListe
   }
 
 
+  @Override
   public void setTransient(final boolean newTransientValue) {
     // ignore
   }

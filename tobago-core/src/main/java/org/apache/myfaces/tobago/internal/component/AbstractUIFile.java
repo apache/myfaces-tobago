@@ -19,21 +19,40 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
-import org.apache.commons.fileupload.FileItem;
-import org.apache.myfaces.tobago.component.UIFileInput;
-import org.apache.myfaces.tobago.layout.LayoutComponent;
+import org.apache.myfaces.tobago.component.SupportsLabelLayout;
+import org.apache.myfaces.tobago.component.Visual;
 import org.apache.myfaces.tobago.util.MessageUtils;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIInput;
+import javax.faces.component.behavior.ClientBehaviorHolder;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.Part;
+import java.util.Arrays;
+import java.util.Collection;
 
-public abstract class AbstractUIFile extends UIInput implements LayoutComponent, UIFileInput {
+public abstract class AbstractUIFile extends UIInput implements SupportsLabelLayout, Visual, ClientBehaviorHolder {
 
+  // todo generate
+  private static final Collection<String> EVENT_NAMES = Arrays.asList("change");
+
+  // todo generate
+  @Override
+  public String getDefaultEventName() {
+    return "change";
+  }
+
+  // todo generate
+  @Override
+  public Collection<String> getEventNames() {
+    return EVENT_NAMES;
+  }
+
+  @Override
   public void validate(final FacesContext facesContext) {
     if (isRequired()) {
-      if (getSubmittedValue() instanceof FileItem) {
-        final FileItem file = (FileItem) getSubmittedValue();
+      if (getSubmittedValue() instanceof Part) {
+        final Part file = (Part) getSubmittedValue();
         if (file == null || file.getName().length() == 0) {
           addErrorMessage(facesContext);
           setValid(false);

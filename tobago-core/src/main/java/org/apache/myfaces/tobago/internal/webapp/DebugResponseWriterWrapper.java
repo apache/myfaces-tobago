@@ -19,10 +19,10 @@
 
 package org.apache.myfaces.tobago.internal.webapp;
 
-import org.apache.myfaces.tobago.component.Attributes;
-import org.apache.myfaces.tobago.internal.util.Deprecation;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
-import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
+import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
+import org.apache.myfaces.tobago.renderkit.html.HtmlTypes;
+import org.apache.myfaces.tobago.renderkit.html.MarkupLanguageAttributes;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,7 +36,7 @@ import java.util.Stack;
 
 public class DebugResponseWriterWrapper extends TobagoResponseWriter {
 
-  private Stack<String> stack = new Stack<String>();
+  private Stack<Object> stack = new Stack<Object>();
 
   private static final Logger LOG = LoggerFactory.getLogger(DebugResponseWriterWrapper.class);
 
@@ -46,10 +46,12 @@ public class DebugResponseWriterWrapper extends TobagoResponseWriter {
     this.responseWriter = responseWriter;
   }
 
+  @Override
   public void write(final String string) throws IOException {
     responseWriter.write(string);
   }
 
+  @Override
   public void writeComment(final Object comment) throws IOException {
     String commentStr = comment.toString();
     if (commentStr.indexOf("--") > 0) {
@@ -61,55 +63,60 @@ public class DebugResponseWriterWrapper extends TobagoResponseWriter {
     responseWriter.writeComment(commentStr);
   }
 
+  @Override
   public ResponseWriter cloneWithWriter(final Writer writer) {
     return new DebugResponseWriterWrapper((TobagoResponseWriter) responseWriter.cloneWithWriter(writer));
   }
 
+  @Override
   @Deprecated
   public void writeAttribute(final String name, final Object value, final String property) throws IOException {
     responseWriter.writeAttribute(name, value, property);
   }
 
+  @Override
   @Deprecated
   public void writeText(final Object text, final String property) throws IOException {
     responseWriter.writeText(text, property);
   }
 
+  @Override
   public void flush() throws IOException {
     responseWriter.flush();
   }
 
-  public void writeAttribute(final String name, final String value, final boolean escape) throws IOException {
+  @Override
+  public void writeAttribute(final MarkupLanguageAttributes name, final String value, final boolean escape)
+      throws IOException {
     responseWriter.writeAttribute(name, value, escape);
   }
 
   @Override
-  @Deprecated
-  public String getStyleClasses() {
-    return responseWriter.getStyleClasses();
+  public void writeAttribute(final MarkupLanguageAttributes name, final HtmlTypes types) throws IOException {
+    responseWriter.writeAttribute(name, types);
   }
 
-  /**
-   * @deprecated since Tobago 1.5.0
-   */
-  @Deprecated
-  public void writeClassAttribute() throws IOException {
-    Deprecation.LOG.warn("Please use writeClassAttribute(org.apache.myfaces.tobago.renderkit.css.Classes)");
-    responseWriter.writeAttribute(HtmlAttributes.CLASS, null, Attributes.STYLE_CLASS);
+  @Override
+  public void writeURIAttribute(MarkupLanguageAttributes name, String string) throws IOException {
+    responseWriter.writeURIAttribute(name, string);
   }
 
+  @Override
   public String getContentType() {
     return responseWriter.getContentType();
   }
 
+  @Override
   public String getCharacterEncoding() {
     return responseWriter.getCharacterEncoding();
   }
 
+  @Override
   public void startDocument() throws IOException {
     responseWriter.startDocument();
   }
 
+  @Override
   public void endDocument() throws IOException {
     responseWriter.endDocument();
   }
@@ -141,25 +148,28 @@ public class DebugResponseWriterWrapper extends TobagoResponseWriter {
     responseWriter.startJavascript();
   }
 
+  @Override
   public void writeURIAttribute(final String name, final Object value, final String property) throws IOException {
     responseWriter.writeURIAttribute(name, value, property);
   }
 
+  @Override
   public void writeText(final char[] text, final int off, final int len) throws IOException {
     responseWriter.writeText(text, off, len);
   }
 
+  @Override
   public void write(final char[] chars, final int i, final int i1) throws IOException {
     responseWriter.write(chars, i, i1);
   }
 
+  @Override
   public void close() throws IOException {
     responseWriter.close();
   }
 
   @Override
-  public void startElement(final String name, final UIComponent currentComponent)
-      throws IOException {
+  public void startElement(final String name, final UIComponent currentComponent) throws IOException {
     if (LOG.isDebugEnabled()) {
       LOG.debug("start element: '" + name + "'");
     }
@@ -168,15 +178,45 @@ public class DebugResponseWriterWrapper extends TobagoResponseWriter {
   }
 
   @Override
+  public void startElement(final HtmlElements name) throws IOException {
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("start element: '" + name + "'");
+    }
+    stack.push(name);
+    responseWriter.startElement(name);
+  }
+
+  @Override
   public void endElement(final String name) throws IOException {
     if (LOG.isDebugEnabled()) {
       LOG.debug("end element: '" + name + "'");
     }
-    String top = "";
+    Object top;
     try {
       top = stack.pop();
     } catch (final EmptyStackException e) {
       LOG.error("Failed to close element \"" + name + "\"!", e);
+      top = "*** failure ***";
+    }
+
+    if (!top.equals(name)) {
+      LOG.error("Element end with name='" + name + "' doesn't match with top element on the stack='" + top + "'.",
+          new IllegalArgumentException());
+    }
+    responseWriter.endElement(name);
+  }
+
+  @Override
+  public void endElement(final HtmlElements name) throws IOException {
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("end element: '" + name + "'");
+    }
+    Object top;
+    try {
+      top = stack.pop();
+    } catch (final EmptyStackException e) {
+      LOG.error("Failed to close element \"" + name + "\"!", e);
+      top = "*** failure ***";
     }
 
     if (!top.equals(name)) {

@@ -19,83 +19,51 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
-import org.apache.myfaces.tobago.component.ComponentTypes;
-import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.OnComponentPopulated;
-import org.apache.myfaces.tobago.component.RendererTypes;
+import org.apache.myfaces.tobago.component.Visual;
 import org.apache.myfaces.tobago.internal.layout.LayoutUtils;
-import org.apache.myfaces.tobago.layout.LayoutComponent;
-import org.apache.myfaces.tobago.layout.LayoutContainer;
-import org.apache.myfaces.tobago.layout.LayoutManager;
-import org.apache.myfaces.tobago.util.ComponentUtils;
-import org.apache.myfaces.tobago.util.CreateComponentUtils;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
-import java.util.List;
 
-public abstract class AbstractUIPanel extends AbstractUIPanelBase
-    implements OnComponentPopulated, LayoutContainer, LayoutComponent {
+public abstract class AbstractUIPanel extends javax.faces.component.UIPanel
+    implements OnComponentPopulated, Visual {
 
   @Override
   public void encodeBegin(final FacesContext facesContext) throws IOException {
 
     super.encodeBegin(facesContext);
-    ((AbstractUILayoutBase) getLayoutManager()).encodeBegin(facesContext);
+
+    final UIComponent layoutManager = LayoutUtils.getLayoutManager(this);
+    if (layoutManager != null) {
+      layoutManager.encodeBegin(facesContext);
+    }
   }
 
   @Override
   public void encodeChildren(final FacesContext facesContext) throws IOException {
 
-    ((AbstractUILayoutBase) getLayoutManager()).encodeChildren(facesContext);
+    final UIComponent layoutManager = LayoutUtils.getLayoutManager(this);
+    if (layoutManager != null) {
+      layoutManager.encodeChildren(facesContext);
+    } else {
+      super.encodeChildren(facesContext);
+    }
   }
 
   @Override
   public void encodeEnd(final FacesContext facesContext) throws IOException {
 
-    ((AbstractUILayoutBase) getLayoutManager()).encodeEnd(facesContext);
+    final UIComponent layoutManager = LayoutUtils.getLayoutManager(this);
+    if (layoutManager != null) {
+      layoutManager.encodeEnd(facesContext);
+    }
+
     super.encodeEnd(facesContext);
   }
 
+  @Override
   public void onComponentPopulated(final FacesContext facesContext, final UIComponent parent) {
-  }
-
-  public List<LayoutComponent> getComponents() {
-    return LayoutUtils.findLayoutChildren(this);
-  }
-
-  public LayoutManager getLayoutManager() {
-
-    final UIComponent base;
-
-    final UIComponent compositeFacet = getFacet(COMPOSITE_FACET_NAME);
-    if (compositeFacet != null) {
-      base = compositeFacet.getChildren().get(0);
-    } else {
-      base = this;
-    }
-
-    final UIComponent layoutFacet = base.getFacet(Facets.LAYOUT);
-    if (layoutFacet != null) {
-      if (layoutFacet instanceof LayoutManager) {
-        return (LayoutManager) layoutFacet;
-      } else {
-        return (LayoutManager) ComponentUtils.findChild(layoutFacet, AbstractUILayoutBase.class);
-      }
-    } else {
-      final LayoutManager layoutManager = CreateComponentUtils.createAndInitLayout(
-          FacesContext.getCurrentInstance(), ComponentTypes.GRID_LAYOUT, RendererTypes.GRID_LAYOUT, base.getParent());
-      base.getFacets().put(Facets.LAYOUT, (AbstractUILayoutBase) layoutManager);
-      return layoutManager;
-    }
-  }
-
-  public void setLayoutManager(final LayoutManager layoutManager) {
-    getFacets().put(Facets.LAYOUT, (AbstractUILayoutBase) layoutManager);
-  }
-
-  public boolean isLayoutChildren() {
-    return isRendered();
   }
 }

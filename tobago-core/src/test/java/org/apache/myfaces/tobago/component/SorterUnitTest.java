@@ -19,7 +19,7 @@
 
 package org.apache.myfaces.tobago.component;
 
-import org.apache.myfaces.test.mock.MockValueBinding;
+import org.apache.myfaces.test.el.MockValueExpression;
 import org.apache.myfaces.tobago.event.SortActionEvent;
 import org.apache.myfaces.tobago.internal.config.AbstractTobagoTestBase;
 import org.junit.Test;
@@ -48,8 +48,8 @@ public class SorterUnitTest extends AbstractTobagoTestBase {
 
         sorter.perform(sortActionEvent);
         
-        link.setValueBinding(Attributes.LABEL,
-                new MockValueBinding(getFacesContext().getApplication(), "var.test"));
+        link.setValueExpression(Attributes.label.getName(),
+                new MockValueExpression("var.test", String.class));
 
         sorter.perform(sortActionEvent);
 

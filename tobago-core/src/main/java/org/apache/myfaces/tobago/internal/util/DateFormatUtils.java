@@ -28,7 +28,6 @@ import java.util.Locale;
 /**
  * This code is taken from myfaces core.
  * TODO: Should be sharable (e.g. myfaces-commons).
- * <p/>
  */
 public final class DateFormatUtils {
 

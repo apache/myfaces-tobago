@@ -20,8 +20,6 @@
 package org.apache.myfaces.tobago.renderkit;
 
 import org.apache.myfaces.tobago.internal.context.ResourceManagerFactory;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
@@ -32,25 +30,10 @@ import java.io.IOException;
 
 public abstract class AbstractRendererBaseWrapper extends RendererBase {
   
-  private static final Logger LOG = LoggerFactory.getLogger(AbstractRendererBaseWrapper.class);
-
   @Override
   public final void onComponentCreated(
       final FacesContext facesContext, final UIComponent component, final UIComponent parent) {
     getRenderer(facesContext).onComponentCreated(facesContext, component, parent);
-  }
-
-  @Override
-  public final void prepareRender(final FacesContext facesContext, final UIComponent component) throws IOException {
-    getRenderer(facesContext).prepareRender(facesContext, component);
-  }
-  @Override
-  public final boolean getPrepareRendersChildren() {
-    return getRenderer(FacesContext.getCurrentInstance()).getPrepareRendersChildren();
-  }
-  @Override
-  public final void prepareRendersChildren(final FacesContext context, final UIComponent component) throws IOException {
-    getRenderer(context).prepareRendersChildren(context, component);
   }
 
   @Override
@@ -111,8 +94,8 @@ public abstract class AbstractRendererBaseWrapper extends RendererBase {
   }
 
   protected final RendererBase getRenderer(final FacesContext facesContext) {
-    final RendererBase renderer = (RendererBase) ResourceManagerFactory.
-        getResourceManager(facesContext).getRenderer(facesContext.getViewRoot(), getRendererType());
+    final RendererBase renderer = (RendererBase)
+        ResourceManagerFactory.getResourceManager(facesContext).getRenderer(facesContext, getRendererType());
     if (renderer == null) {
       throw new RuntimeException("No renderer found for rendererType='"+ getRendererType()
           + "' in wrapper class '" + this.getClass().getName() + "'");

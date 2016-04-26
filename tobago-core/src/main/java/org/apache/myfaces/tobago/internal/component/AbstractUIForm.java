@@ -30,6 +30,8 @@ import javax.faces.component.ContextCallback;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIForm;
 import javax.faces.context.FacesContext;
+import javax.faces.event.AjaxBehaviorEvent;
+import javax.faces.event.FacesEvent;
 import javax.faces.event.PhaseId;
 import java.util.Iterator;
 
@@ -45,7 +47,7 @@ public abstract class AbstractUIForm extends UIForm implements Form {
 
     // Process this component first
     // to know the active actionId
-    // for the following childrend
+    // for the following children
     decode(facesContext);
 
     final Iterator kids = getFacetsAndChildren();
@@ -103,6 +105,17 @@ public abstract class AbstractUIForm extends UIForm implements Form {
         kid.processUpdates(facesContext);
       }
     }
+  }
+
+  @Override
+  public void queueEvent(FacesEvent event) {
+    if (event instanceof AjaxBehaviorEvent) {
+      if (LOG.isDebugEnabled()) {
+        LOG.debug("event={}", event);
+      }
+      setSubmitted(true);
+    }
+    super.queueEvent(event);
   }
 
   @Override

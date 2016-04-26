@@ -20,20 +20,24 @@
 package org.apache.myfaces.tobago.component;
 
 import org.apache.myfaces.tobago.internal.util.StringUtils;
-import org.junit.Assert;
+import org.apache.myfaces.tobago.util.EnumUnitTest;
 import org.junit.Test;
 
-import java.lang.reflect.Field;
-
-public class RendererTypesUnitTest {
+public class RendererTypesUnitTest extends EnumUnitTest {
 
   @Test
-  public void testNames() throws IllegalAccessException {
+  public void testNames() throws IllegalAccessException, NoSuchFieldException {
 
-    for (final Field field : RendererTypes.class.getFields()) {
-      final String value = (String) field.get(null);
-      Assert.assertTrue("value='" + value + "'", value.matches("[A-Z][a-zA-Z]*"));
-      Assert.assertEquals(StringUtils.constantToCamelCase(field.getName()), value);
-    }
+    testNames(RendererTypes.class);
+  }
+
+  @Override
+  protected String getEnumRegexp() {
+    return "[A-Z][a-zA-Z]*";
+  }
+
+  @Override
+  protected String constantCaseToEnum(String constant) {
+    return StringUtils.constantToUpperCamelCase(constant);
   }
 }

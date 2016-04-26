@@ -24,21 +24,23 @@ import org.apache.myfaces.tobago.component.UISelectManyShuttle;
 
 import javax.faces.view.facelets.ComponentConfig;
 
+/**
+ * @deprecated since Tobago 3.0. The tx-library is deprecated, please use the tc-library.
+ */
+@Deprecated
 public class SelectManyShuttleExtensionHandler extends TobagoLabelExtensionHandler {
 
   public SelectManyShuttleExtensionHandler(final ComponentConfig config) {
     super(config);
   }
 
+  @Override
   protected String getSubComponentType() {
     return UISelectManyShuttle.COMPONENT_TYPE;
   }
 
+  @Override
   protected String getSubRendererType() {
     return RendererTypes.SELECT_MANY_SHUTTLE;
-  }
-
-  protected String getRows() {
-    return "1*";
   }
 }

@@ -20,8 +20,9 @@
 package org.apache.myfaces.tobago.renderkit.util;
 
 import org.apache.myfaces.tobago.component.Attributes;
-import org.apache.myfaces.tobago.component.SupportsMarkup;
+import org.apache.myfaces.tobago.component.Visual;
 import org.apache.myfaces.tobago.context.Markup;
+import org.apache.myfaces.tobago.util.ComponentUtils;
 
 import javax.el.ValueExpression;
 import javax.faces.component.UIComponent;
@@ -54,6 +55,7 @@ public class SelectItemUtils {
 
         private SelectItemsIterator iterator;
 
+        @Override
         public Iterator<SelectItem> iterator() {
           if (iterator == null) {
             iterator = new SelectItemsIterator(facesContext, selector);
@@ -95,6 +97,7 @@ public class SelectItemUtils {
       this.facesContext = facesContext;
     }
 
+    @Override
     @SuppressWarnings("unchecked")
     public boolean hasNext() {
       if (nextItem != null) {
@@ -145,7 +148,7 @@ public class SelectItemUtils {
             org.apache.myfaces.tobago.component.UISelectItem tobagoSelectItem
                 = (org.apache.myfaces.tobago.component.UISelectItem) uiSelectItem;
             image = tobagoSelectItem.getItemImage();
-            markup = tobagoSelectItem.getCurrentMarkup();
+            markup = tobagoSelectItem.getMarkup();
           }
           item = new org.apache.myfaces.tobago.model.SelectItem(itemValue, label, description, disabled, image, markup);
         } else if (!(item instanceof SelectItem)) {
@@ -190,6 +193,7 @@ public class SelectItemUtils {
       return false;
     }
 
+    @Override
     public SelectItem next() {
       if (!hasNext()) {
         throw new NoSuchElementException();
@@ -211,7 +215,7 @@ public class SelectItemUtils {
           // write the current item into the request map under the key listed in var, if available
           boolean wroteRequestMapVarValue = false;
           Object oldRequestMapVarValue = null;
-          final String var = (String) attributeMap.get(Attributes.VAR);
+          final String var = ComponentUtils.getStringAttribute(currentUISelectItems, Attributes.var);
           if (var != null && !"".equals(var)) {
             // save the current value of the key listed in var from the request map
             oldRequestMapVarValue = facesContext.getExternalContext().getRequestMap().put(var, item);
@@ -219,7 +223,7 @@ public class SelectItemUtils {
           }
 
           // check the itemValue attribute
-          Object itemValue = attributeMap.get(Attributes.ITEM_VALUE);
+          Object itemValue = ComponentUtils.getAttribute(currentUISelectItems, Attributes.itemValue);
           if (itemValue == null) {
             // the itemValue attribute was not provided
             // --> use the current item as the itemValue
@@ -228,21 +232,22 @@ public class SelectItemUtils {
 
           // Spec: When iterating over the select items, toString()
           // must be called on the string rendered attribute values
-          Object itemLabel = attributeMap.get(Attributes.ITEM_LABEL);
+          Object itemLabel = ComponentUtils.getAttribute(currentUISelectItems, Attributes.itemLabel);
           if (itemLabel == null) {
             itemLabel = itemValue.toString();
           } else {
             itemLabel = itemLabel.toString();
           }
-          Object itemDescription = attributeMap.get(Attributes.ITEM_DESCRIPTION);
+          Object itemDescription = ComponentUtils.getAttribute(currentUISelectItems, Attributes.itemDescription);
           if (itemDescription != null) {
             itemDescription = itemDescription.toString();
           }
-          final Boolean itemDisabled = getBooleanAttribute(currentUISelectItems, Attributes.ITEM_DISABLED, false);
-          final String itemImage = (String) attributeMap.get(Attributes.ITEM_IMAGE);
+          final Boolean itemDisabled
+              = ComponentUtils.getBooleanAttribute(currentUISelectItems, Attributes.itemDisabled, false);
+          final String itemImage = ComponentUtils.getStringAttribute(currentUISelectItems, Attributes.itemImage);
           final Markup markup;
-          if (currentUISelectItems instanceof SupportsMarkup) {
-            markup = ((SupportsMarkup) currentUISelectItems).getCurrentMarkup();
+          if (currentUISelectItems instanceof Visual) {
+            markup = ((Visual) currentUISelectItems).getMarkup();
           } else {
             markup = Markup.NULL;
           }
@@ -268,23 +273,9 @@ public class SelectItemUtils {
       throw new NoSuchElementException();
     }
 
+    @Override
     public void remove() {
       throw new UnsupportedOperationException();
-    }
-
-    private boolean getBooleanAttribute(
-        final UIComponent component, final String attrName, final boolean defaultValue) {
-      final Object value = component.getAttributes().get(attrName);
-      if (value == null) {
-        return defaultValue;
-      } else if (value instanceof Boolean) {
-        return (Boolean) value;
-      } else {
-        // If the value is a String, parse the boolean.
-        // This makes the following code work: <tag attribute="true" />,
-        // otherwise you would have to write <tag attribute="#{true}" />.
-        return Boolean.valueOf(value.toString());
-      }
     }
   }
 

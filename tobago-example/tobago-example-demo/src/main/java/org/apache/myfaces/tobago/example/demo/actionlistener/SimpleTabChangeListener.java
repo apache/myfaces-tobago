@@ -21,21 +21,35 @@ package org.apache.myfaces.tobago.example.demo.actionlistener;
 
 import org.apache.myfaces.tobago.event.TabChangeEvent;
 import org.apache.myfaces.tobago.event.TabChangeListener;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class SimpleTabChangeListener implements TabChangeListener {
 
-  private static final Logger LOG = LoggerFactory.getLogger(SimpleTabChangeListener.class);
+  private int count = 0;
+  private int newTabIndex = -1;
+  private int oldTabIndex = -1;
+  private String clientId;
 
-  public SimpleTabChangeListener() {
-    LOG.info("new SimpleTabChangeListener id='" + System.identityHashCode(this) + "'");
+  @Override
+  public void processTabChange(TabChangeEvent tabChangeEvent) {
+    count++;
+    newTabIndex = tabChangeEvent.getNewTabIndex();
+    oldTabIndex = tabChangeEvent.getOldTabIndex();
+    clientId = tabChangeEvent.getComponent().getClientId();
   }
 
-  public void processTabChange(final TabChangeEvent tabChangeEvent) {
-    LOG.info("TabState has changed: from tabIndex '" + tabChangeEvent.getOldTabIndex()
-        + "' to tabIndex '" + tabChangeEvent.getNewTabIndex()
-        + "' id='" + tabChangeEvent.getComponent().getClientId() + "'");
+  public int getCount() {
+    return count;
+  }
 
+  public int getNewTabIndex() {
+    return newTabIndex;
+  }
+
+  public int getOldTabIndex() {
+    return oldTabIndex;
+  }
+
+  public String getClientId() {
+    return clientId;
   }
 }

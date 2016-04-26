@@ -66,7 +66,7 @@ public class DurationConverterUnitTest {
         + " long='" + aLong + "'";
     final String result;
     if (unit != null) {
-      input.getAttributes().put(Attributes.UNIT, unit);
+      input.getAttributes().put(Attributes.unit.getName(), unit);
     }
     result = converter.getAsString(null, input, aLong);
     Assert.assertEquals(info, string, result);
@@ -79,7 +79,7 @@ public class DurationConverterUnitTest {
         + " string='" + string + "'";
     final Long result;
     if (unit != null) {
-      input.getAttributes().put(Attributes.UNIT, unit);
+      input.getAttributes().put(Attributes.unit.getName(), unit);
     }
     result = (Long) converter.getAsObject(null, input, string);
     Assert.assertEquals(info, aLong, result);

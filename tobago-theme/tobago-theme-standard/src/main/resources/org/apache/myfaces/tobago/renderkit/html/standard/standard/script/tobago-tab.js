@@ -26,44 +26,39 @@ Tobago.TabGroup.init = function(elements) {
   var tabGroups = Tobago.Utils.selectWithJQuery(elements, ".tobago-tabGroup");
 
   // initialize the tab header elements
-  // client case
-  tabGroups.filter("[switchType='client']").each(function() {
-    jQuery(this).find(".tobago-tabGroup-headerInner").first()
-      .children(".tobago-tab").not(".tobago-tab-markup-disabled").click(function() {
-          var activeIndex = Tobago.TabGroup.updateHidden(jQuery(this));
-          jQuery(this).siblings(".tobago-tab-markup-selected").removeClass("tobago-tab-markup-selected");
-          jQuery(this).addClass("tobago-tab-markup-selected");
-          var tabGroup = jQuery(this).parents(".tobago-tabGroup:first");
-          tabGroup.children(".tobago-tab-content-markup-selected").removeClass("tobago-tab-content-markup-selected");
-          tabGroup.children(".tobago-tab-content[tabgroupindex=" + activeIndex + "]")
-              .addClass("tobago-tab-content-markup-selected");
-          // scroll the tabs, if necessary
-          var header = jQuery(this).parents(".tobago-tabGroup-header:first");
-          Tobago.TabGroup.ensureScrollPosition(header);
-        })
-  });
-
-  // initialize the tab header elements
   // reload tab case
   tabGroups.filter("[switchType='reloadTab']").each(function() {
-    jQuery(this).find(".tobago-tabGroup-headerInner").first()
-        .children(".tobago-tab").not(".tobago-tab-markup-disabled").click(function() {
-          var tab = jQuery(this);
-          var activeIndex = Tobago.TabGroup.updateHidden(tab);
-          console.debug("todo: ajax reload, activeIndex=" + activeIndex); // @DEV_ONLY
-          var tabGroup = tab.parents(".tobago-tabGroup:first");
-          var partialIds = tabGroup.data("tobago-partial-ids");
-          if (!partialIds) {
-            partialIds = tabGroup.attr("id");
-          }
-          Tobago.Updater.update(tabGroup, tabGroup.attr("id"), partialIds, {});
-        })
+    jQuery(this)
+        .find(".tobago-tabGroup-header")
+        .first()
+        .children(".tobago-tab")
+        .not(".tobago-tab-markup-disabled")
+        .click(
+            function (event) {
+              var tab = jQuery(this);
+              var activeIndex = Tobago.TabGroup.updateHidden(tab);
+              console.debug("todo: ajax reload, activeIndex=" + activeIndex); // @DEV_ONLY
+              var tabGroup = tab.parents(".tobago-tabGroup:first");
+              var partialIds = tabGroup.data("tobago-partial-ids");
+              if (!partialIds) {
+                partialIds = tabGroup.attr("id");
+              }
+              //Tobago.Updater.update(tabGroup, tabGroup.attr("id"), partialIds, {});
+              jsf.ajax.request(
+                  tabGroup.attr("id"),
+                  event,
+                  {
+                    //"javax.faces.behavior.event": "click",
+                    execute: partialIds,
+                    render: partialIds
+                  });
+            })
   });
 
   // initialize the tab header elements
   // reload page case
   tabGroups.filter("[switchType='reloadPage']").each(function() {
-    jQuery(this).find(".tobago-tabGroup-headerInner").first()
+    jQuery(this).find(".tobago-tabGroup-header").first()
       .children(".tobago-tab").not(".tobago-tab-markup-disabled").click(function() {
           var activeIndex = Tobago.TabGroup.updateHidden(jQuery(this));
           console.debug("todo: full reload, activeIndex=" + activeIndex); // @DEV_ONLY

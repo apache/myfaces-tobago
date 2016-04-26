@@ -53,10 +53,6 @@ public class BeanComparator extends ComparatorBase implements Serializable {
     this.property = property;
   }
 
-  /**
-   * @param param1 <description>
-   * @return <description>
-   */
   public boolean equals(final Object param1) {
     if (this == param1) {
       return true;
@@ -77,11 +73,7 @@ public class BeanComparator extends ComparatorBase implements Serializable {
 
   // implementation of java.util.Comparator interface
 
-  /**
-   * @param param1 <description>
-   * @param param2 <description>
-   * @return <description>
-   */
+  @Override
   public int compare(final Object param1, final Object param2) {
     final Object obj1;
     final Object obj2;

@@ -26,17 +26,22 @@ import javax.faces.view.facelets.ComponentConfig;
 
 /**
  * XXX Still not implemented correctly!
+ *
+ * @deprecated since Tobago 3.0. The tx-library is deprecated, please use the tc-library.
  */
+@Deprecated
 public class LabelExtensionHandler extends TobagoLabelExtensionHandler {
 
   public LabelExtensionHandler(final ComponentConfig config) {
     super(config);
   }
 
+  @Override
   protected String getSubComponentType() {
     return UILabel.COMPONENT_TYPE;
   }
 
+  @Override
   protected String getSubRendererType() {
     return RendererTypes.LABEL;
   }

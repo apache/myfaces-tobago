@@ -36,10 +36,12 @@ public class TreeExpansionEvent extends FacesEvent {
     this.newExpanded = newExpanded;
   }
 
+  @Override
   public boolean isAppropriateListener(final FacesListener facesListener) {
     return facesListener instanceof TreeExpansionListener;
   }
 
+  @Override
   public void processListener(final FacesListener facesListener) {
     if (facesListener instanceof TreeExpansionListener) {
       if (oldExpanded && !newExpanded) {

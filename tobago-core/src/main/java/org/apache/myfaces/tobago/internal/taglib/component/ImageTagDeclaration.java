@@ -24,14 +24,10 @@ import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.component.RendererTypes;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasBorder;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasCurrentMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsDisabled;
-import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutComponentWithDimension;
-import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutContainer;
+import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
 
 import javax.faces.component.UIGraphic;
 
@@ -47,8 +43,7 @@ import javax.faces.component.UIGraphic;
     rendererType = RendererTypes.IMAGE,
     allowedChildComponenents = "NONE")
 public interface ImageTagDeclaration
-    extends HasIdBindingAndRendered, HasBorder, HasTip, IsDisabled, HasMarkup, HasCurrentMarkup,
-    IsGridLayoutComponentWithDimension, IsGridLayoutContainer {
+    extends HasIdBindingAndRendered, HasTip, IsDisabled, IsVisual {
 
   /**
    * Absolute url to an image or image name to lookup in tobago resource path.

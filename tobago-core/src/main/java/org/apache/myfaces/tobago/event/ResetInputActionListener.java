@@ -42,6 +42,7 @@ public class ResetInputActionListener extends AbstractResetInputActionListener i
      this.clientIds = clientIds.toArray(new String[clientIds.size()]);
   }
 
+  @Override
   public void processAction(final ActionEvent event) {
     for (final String clientId : clientIds) {
       final UIComponent component = ComponentUtils.findComponent(event.getComponent(), clientId);
@@ -51,19 +52,23 @@ public class ResetInputActionListener extends AbstractResetInputActionListener i
     }
   }
 
+  @Override
   public boolean isTransient() {
     return false;
   }
 
+  @Override
   public void setTransient(final boolean newTransientValue) {
     // ignore
   }
 
+  @Override
   public void restoreState(final FacesContext context, final Object state) {
     final Object[] values = (Object[]) state;
     clientIds = (String[]) values[0];
   }
 
+  @Override
   public Object saveState(final FacesContext context) {
     final Object[] values = new Object[1];
     values[0] = clientIds;

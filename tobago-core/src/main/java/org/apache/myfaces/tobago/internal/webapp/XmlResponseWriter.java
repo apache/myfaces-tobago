@@ -19,7 +19,6 @@
 
 package org.apache.myfaces.tobago.internal.webapp;
 
-import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.util.XmlUtils;
 
 import javax.faces.context.ResponseWriter;
@@ -38,6 +37,7 @@ public final class XmlResponseWriter extends TobagoResponseWriterBase {
     super(writer, contentType, characterEncoding);
   }
 
+  @Override
   public void writeText(final Object text, final String property)
       throws IOException {
     closeOpenTag();
@@ -45,6 +45,7 @@ public final class XmlResponseWriter extends TobagoResponseWriterBase {
     write(XmlUtils.escape(value));
   }
 
+  @Override
   public void writeText(final char[] text, final int offset, final int length)
       throws IOException {
     closeOpenTag();
@@ -61,6 +62,7 @@ public final class XmlResponseWriter extends TobagoResponseWriterBase {
     }
   }
 
+  @Override
   public ResponseWriter cloneWithWriter(final Writer originalWriter) {
     return new XmlResponseWriter(
         originalWriter, getContentType(), getCharacterEncoding());
@@ -68,7 +70,7 @@ public final class XmlResponseWriter extends TobagoResponseWriterBase {
 
   @Override
   public void closeEmptyTag() throws IOException {
-    getWriter().write("\n/>");
+    getWriter().write("/>");
   }
 
   @Override
@@ -78,15 +80,15 @@ public final class XmlResponseWriter extends TobagoResponseWriterBase {
 
   @Override
   public void startDocument() throws IOException {
-    getWriter().write(XHTML_DOCTYPE);
-    getWriter().write('\n');
-    startElement(HtmlElements.HTML, null);
-    writeAttribute("xmlns", "http://www.w3.org/1999/xhtml", false);
-
+//    getWriter().write(XHTML_DOCTYPE);
+//    getWriter().write('\n');
+//    startElement(HtmlElements.HTML);
+//    writeAttribute(HtmlAttributes.XMLNS, "http://www.w3.org/1999/xhtml", false);
+//
   }
 
   @Override
   public void endDocument() throws IOException {
-    endElement(HtmlElements.HTML);
+//    endElement(HtmlElements.HTML);
   }
 }

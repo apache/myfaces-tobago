@@ -22,12 +22,17 @@ package org.apache.myfaces.tobago.example.addressbook;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.inject.Alternative;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
-public class InMemoryAddressDao implements AddressDao {
+@Alternative
+@ApplicationScoped
+public class InMemoryAddressDao implements AddressDao, Serializable {
 
   private static final Logger LOG = LoggerFactory.getLogger(InMemoryAddressDao.class);
 
@@ -37,6 +42,7 @@ public class InMemoryAddressDao implements AddressDao {
     addresses = new ArrayList<Address>();
   }
 
+  @Override
   public synchronized Address updateAddress(final Address address) {
     LOG.debug("Trying address: "+address);
     final Address storedAddress = getAddress(address.getId());
@@ -52,15 +58,18 @@ public class InMemoryAddressDao implements AddressDao {
     return address;
   }
 
+  @Override
   public List<Address> findAddresses(final String filter, final String column, final boolean order) {
     return findAddresses(filter);
   }
 
+  @Override
   public synchronized List<Address> findAddresses(final String filter) {
     LOG.debug("Find addresses: "+addresses);
     return Collections.unmodifiableList(addresses);
   }
 
+  @Override
   public synchronized void removeAddress(final Address address) {
     final Iterator<Address> it = addresses.iterator();
     while (it.hasNext()) {
@@ -70,6 +79,7 @@ public class InMemoryAddressDao implements AddressDao {
     }
   }
 
+  @Override
   public Address getAddress(final Integer id) {
     for (final Address address : addresses) {
       if (address.getId().equals(id)) {

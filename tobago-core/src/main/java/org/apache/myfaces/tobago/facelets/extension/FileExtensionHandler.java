@@ -24,16 +24,22 @@ import org.apache.myfaces.tobago.component.UIFile;
 
 import javax.faces.view.facelets.ComponentConfig;
 
+/**
+ * @deprecated since Tobago 3.0. The tx-library is deprecated, please use the tc-library.
+ */
+@Deprecated
 public class FileExtensionHandler extends TobagoLabelExtensionHandler {
 
   public FileExtensionHandler(final ComponentConfig config) {
     super(config);
   }
 
+  @Override
   protected String getSubComponentType() {
     return UIFile.COMPONENT_TYPE;
   }
 
+  @Override
   protected String getSubRendererType() {
     return RendererTypes.FILE;
   }

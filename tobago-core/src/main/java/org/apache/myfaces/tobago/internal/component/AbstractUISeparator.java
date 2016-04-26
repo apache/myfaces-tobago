@@ -19,9 +19,9 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
-import org.apache.myfaces.tobago.layout.LayoutComponent;
+import org.apache.myfaces.tobago.component.Visual;
 
 import javax.faces.component.UIComponentBase;
 
-public abstract class AbstractUISeparator extends UIComponentBase implements LayoutComponent {
+public abstract class AbstractUISeparator extends UIComponentBase implements Visual {
 }

@@ -19,129 +19,162 @@
 
 package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
-import org.apache.commons.fileupload.FileItem;
 import org.apache.myfaces.tobago.internal.component.AbstractUIFile;
 import org.apache.myfaces.tobago.internal.util.FacesContextUtils;
-import org.apache.myfaces.tobago.internal.webapp.TobagoMultipartFormdataRequest;
-import org.apache.myfaces.tobago.layout.Measure;
-import org.apache.myfaces.tobago.renderkit.InputRendererBase;
+import org.apache.myfaces.tobago.internal.util.PartUtils;
+import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
-import org.apache.myfaces.tobago.renderkit.css.Style;
+import org.apache.myfaces.tobago.renderkit.css.Icons;
+import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
+import org.apache.myfaces.tobago.renderkit.html.HtmlButtonTypes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
+import org.apache.myfaces.tobago.renderkit.util.HttpPartWrapper;
+import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
+import org.apache.myfaces.tobago.validator.FileItemValidator;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
-import javax.servlet.ServletRequest;
-import javax.servlet.http.HttpServletRequestWrapper;
+import javax.faces.event.ComponentSystemEvent;
+import javax.faces.event.ComponentSystemEventListener;
+import javax.faces.event.ListenerFor;
+import javax.faces.event.PostAddToViewEvent;
+import javax.faces.validator.Validator;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.Part;
 import java.io.IOException;
 
-public class FileRenderer extends InputRendererBase {
+@ListenerFor(systemEventClass = PostAddToViewEvent.class)
+public class FileRenderer extends LabelLayoutRendererBase implements ComponentSystemEventListener {
 
   private static final Logger LOG = LoggerFactory.getLogger(FileRenderer.class);
 
-  public void prepareRender(final FacesContext facesContext, final UIComponent component) throws IOException {
-    super.prepareRender(facesContext, component);
+  @Override
+  public void processEvent(ComponentSystemEvent event) {
+    final FacesContext facesContext = FacesContext.getCurrentInstance();
     FacesContextUtils.setEnctype(facesContext, "multipart/form-data");
   }
 
+  @Override
   public boolean getRendersChildren() {
     return true;
   }
 
+  @Override
   public void decode(final FacesContext facesContext, final UIComponent component) {
     if (ComponentUtils.isOutputOnly(component)) {
       return;
     }
 
     final AbstractUIFile input = (AbstractUIFile) component;
-
-    TobagoMultipartFormdataRequest request = null;
-    final Object requestObject = facesContext.getExternalContext().getRequest();
-    if (requestObject instanceof TobagoMultipartFormdataRequest) {
-      request = (TobagoMultipartFormdataRequest) requestObject;
-    } else if (requestObject instanceof HttpServletRequestWrapper) {
-      final ServletRequest wrappedRequest
-          = ((HttpServletRequestWrapper) requestObject).getRequest();
-      if (wrappedRequest instanceof TobagoMultipartFormdataRequest) {
-        request = (TobagoMultipartFormdataRequest) wrappedRequest;
+    final Object request = facesContext.getExternalContext().getRequest();
+    if (request instanceof HttpServletRequest) {
+      try {
+        HttpServletRequest httpServletRequest = (HttpServletRequest) request;
+        final Part part = httpServletRequest.getPart(input.getClientId(facesContext));
+        if (LOG.isDebugEnabled()) {
+          LOG.debug("Uploaded file '{}', size={}, type='{}'",
+              PartUtils.getSubmittedFileName(part), part.getSize(), part.getContentType());
+        }
+        input.setSubmittedValue(new HttpPartWrapper(part));
+      } catch (Exception e) {
+        LOG.error("", e);
+        input.setValid(false);
       }
-    }
-    // TODO PortletRequest ??
-    if (request == null) {
-      // should not be possible, because of the check in UIPage
-      LOG.error("Can't process multipart/form-data without TobagoRequest. "
-          + "Please check the web.xml and define a TobagoMultipartFormdataFilter. "
-          + "See documentation for <tc:file>");
-    } else {
-
-      final FileItem item = request.getFileItem(input.getClientId(facesContext));
-
-      if (LOG.isDebugEnabled()) {
-        LOG.debug("Uploaded file name : \"" + item.getName()
-            + "\"  size = " + item.getSize());
-      }
-      input.setSubmittedValue(item);
-      //TODO remove this
-      input.setValid(true);
+    } else { // todo: PortletRequest
+      LOG.warn("Unsupported request type: " + request.getClass().getName());
     }
   }
 
-  public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
+  @Override
+  protected void encodeBeginField(FacesContext facesContext, UIComponent component) throws IOException {
 
     final AbstractUIFile file = (AbstractUIFile) component;
     final String clientId = file.getClientId(facesContext);
-    final Style style = new Style(facesContext, file);
+    final String accept = createAcceptFromValidators(file);
 
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
-    writer.startElement(HtmlElements.DIV, file);
-    writer.writeIdAttribute(clientId);
-    writer.writeClassAttribute(Classes.create(file));
+    writer.startElement(HtmlElements.DIV);
+    writer.writeClassAttribute(Classes.create(file), file.getCustomClass());
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, file);
-    writer.writeStyleAttribute(style);
+    writer.writeStyleAttribute(file.getStyle());
 
     // visible fake input for a pretty look
-    final Style inputStyle = new Style();
-    final Measure prettyWidthSub = getResourceManager().getThemeMeasure(facesContext, file, "prettyWidthSub");
-    inputStyle.setWidth(style.getWidth().subtract(prettyWidthSub));
-    writer.startElement(HtmlElements.INPUT, file);
-    writer.writeIdAttribute(clientId + ComponentUtils.SUB_SEPARATOR + "pretty");
-    writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.TEXT, false);
-    writer.writeClassAttribute(Classes.create(file, "pretty"));
-    writer.writeStyleAttribute(inputStyle);
-    writer.writeAttribute(HtmlAttributes.DISABLED, true);
+    writer.startElement(HtmlElements.DIV);
+    writer.writeClassAttribute(BootstrapClass.INPUT_GROUP);
+    writer.startElement(HtmlElements.INPUT);
+    writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.TEXT);
+    writer.writeAttribute(HtmlAttributes.ACCEPT, accept, true);
+    writer.writeAttribute(HtmlAttributes.TABINDEX, -1);
+    writer.writeClassAttribute(Classes.create(file, "pretty"), BootstrapClass.FORM_CONTROL);
     // TODO Focus
     //HtmlRendererUtils.renderFocus(clientId, file.isFocus(), ComponentUtils.isError(file), facesContext, writer);
     writer.endElement(HtmlElements.INPUT);
 
+    writer.startElement(HtmlElements.SPAN);
+    writer.writeClassAttribute(BootstrapClass.INPUT_GROUP_BTN);
+    writer.startElement(HtmlElements.BUTTON);
+    writer.writeAttribute(HtmlAttributes.TABINDEX, file.getTabIndex());
+    writer.writeClassAttribute(BootstrapClass.BTN, BootstrapClass.BTN_SECONDARY);
+    writer.writeAttribute(HtmlAttributes.TYPE, HtmlButtonTypes.BUTTON);
+    writer.writeIcon(Icons.FOLDER_OPEN);
+    writer.endElement(HtmlElements.BUTTON);
+    writer.endElement(HtmlElements.SPAN);
+    writer.endElement(HtmlElements.DIV);
+
     // invisible file input
-    writer.startElement(HtmlElements.INPUT, file);
+    writer.startElement(HtmlElements.INPUT);
+    writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.FILE);
+    writer.writeAttribute(HtmlAttributes.ACCEPT, accept, true);
+    writer.writeAttribute(HtmlAttributes.TABINDEX, -1);
     writer.writeIdAttribute(clientId + ComponentUtils.SUB_SEPARATOR + "real");
-    writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.FILE, false);
     writer.writeClassAttribute(Classes.create(file, "real"));
     writer.writeNameAttribute(clientId);
     // readonly seems not making sense in browsers.
     writer.writeAttribute(HtmlAttributes.DISABLED, file.isDisabled() || file.isReadonly());
     writer.writeAttribute(HtmlAttributes.READONLY, file.isReadonly());
     writer.writeAttribute(HtmlAttributes.REQUIRED, file.isRequired());
-    writer.writeAttribute(HtmlAttributes.SIZE, "1024", false);
-    final Integer tabIndex = file.getTabIndex();
-    if (tabIndex != null) {
-      writer.writeAttribute(HtmlAttributes.TABINDEX, tabIndex);
-    }
     final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, file);
     if (title != null) {
       writer.writeAttribute(HtmlAttributes.TITLE, title, true);
     }
-    writer.endElement(HtmlElements.INPUT);
 
+    final String commands = RenderUtils.getBehaviorCommands(facesContext, file);
+    if (commands != null) {
+      writer.writeAttribute(DataAttributes.COMMANDS, commands, true);
+    }
+
+    writer.endElement(HtmlElements.INPUT);
+  }
+
+  private String createAcceptFromValidators(final AbstractUIFile file) {
+    final StringBuilder builder = new StringBuilder();
+    for (Validator validator : file.getValidators()) {
+      if (validator instanceof FileItemValidator) {
+        final FileItemValidator fileItemValidator = (FileItemValidator) validator;
+        for (final String contentType : fileItemValidator.getContentType()) {
+          builder.append(",");
+          builder.append(contentType);
+        }
+      }
+    }
+    if (builder.length() > 0) {
+      return builder.substring(1);
+    } else {
+      return null;
+    }
+  }
+
+  @Override
+  protected void encodeEndField(FacesContext facesContext, UIComponent component) throws IOException {
+    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
     writer.endElement(HtmlElements.DIV);
   }
 }

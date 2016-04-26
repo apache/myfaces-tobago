@@ -19,12 +19,10 @@
 
 package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.component.UITreeSelect;
 import org.apache.myfaces.tobago.internal.component.AbstractUIData;
 import org.apache.myfaces.tobago.internal.component.AbstractUITreeListbox;
-import org.apache.myfaces.tobago.internal.component.AbstractUITreeNode;
+import org.apache.myfaces.tobago.internal.component.AbstractUITreeNodeBase;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.model.Selectable;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
@@ -35,6 +33,8 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UINamingContainer;
@@ -45,10 +45,11 @@ public class TreeSelectRenderer extends RendererBase {
 
   private static final Logger LOG = LoggerFactory.getLogger(TreeSelectRenderer.class);
 
+  @Override
   public void decode(final FacesContext facesContext, final UIComponent component) {
 
     final UITreeSelect select = (UITreeSelect) component;
-    final AbstractUITreeNode node = ComponentUtils.findAncestor(select, AbstractUITreeNode.class);
+    final AbstractUITreeNodeBase node = ComponentUtils.findAncestor(select, AbstractUITreeNodeBase.class);
     final AbstractUIData data = ComponentUtils.findAncestor(node, AbstractUIData.class);
 
     if (ComponentUtils.isOutputOnly(select)) {
@@ -57,13 +58,13 @@ public class TreeSelectRenderer extends RendererBase {
 
     final String clientId = select.getClientId(facesContext);
     final String name;
-    if (data.getSelectableAsEnum().isSingle()) {
+    if (data.getSelectable().isSingle()) {
       name = getClientIdWithoutRowIndex(data, clientId);
     } else {
       name = clientId;
     }
 
-    final String parameter = (String) facesContext.getExternalContext().getRequestParameterMap().get(name);
+    final String parameter = facesContext.getExternalContext().getRequestParameterMap().get(name);
 
     if (LOG.isDebugEnabled()) {
       LOG.debug("parameter = '" + parameter + "'");
@@ -79,7 +80,7 @@ public class TreeSelectRenderer extends RendererBase {
   public void encodeBegin(final FacesContext facesContext, final UIComponent component) throws IOException {
 
     final UITreeSelect select = (UITreeSelect) component;
-    final AbstractUITreeNode node = ComponentUtils.findAncestor(select, AbstractUITreeNode.class);
+    final AbstractUITreeNodeBase node = ComponentUtils.findAncestor(select, AbstractUITreeNodeBase.class);
     final AbstractUIData data = ComponentUtils.findAncestor(node, AbstractUIData.class);
 
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
@@ -99,22 +100,21 @@ public class TreeSelectRenderer extends RendererBase {
     }
 
     final boolean folder = data.isFolder();
-    final Selectable selectable = data.getSelectableAsEnum();
+    final Selectable selectable = data.getSelectable();
 
-
-    writer.startElement(HtmlElements.SPAN, null);
+    writer.startElement(HtmlElements.SPAN);
     writer.writeClassAttribute(Classes.create(select));
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, select);
 
     if (select.isShowCheckbox()
-        && selectable != Selectable.NONE
+        && selectable != Selectable.none
         && (!selectable.isLeafOnly() || !folder)) {
-      writer.startElement(HtmlElements.INPUT, null);
+      writer.startElement(HtmlElements.INPUT);
       if (selectable.isSingle()) {
-        writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.RADIO, false);
+        writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.RADIO);
         writer.writeNameAttribute(getClientIdWithoutRowIndex(data, id));
       } else {
-        writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.CHECKBOX, false);
+        writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.CHECKBOX);
         writer.writeNameAttribute(id);
       }
       writer.writeAttribute(HtmlAttributes.VALUE, id, false);
@@ -127,7 +127,7 @@ public class TreeSelectRenderer extends RendererBase {
     // label
     final String label = select.getLabel();
     if (StringUtils.isNotEmpty(label)) {
-      writer.startElement(HtmlElements.LABEL, null);
+      writer.startElement(HtmlElements.LABEL);
       writer.writeClassAttribute(Classes.create(select, "label"));
       final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, select);
       if (title != null) {

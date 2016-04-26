@@ -19,7 +19,7 @@
 
 package org.apache.myfaces.tobago.internal.layout;
 
-import org.apache.myfaces.tobago.layout.LayoutComponent;
+import javax.faces.component.UIComponent;
 
 public class SpanCell implements Cell {
 
@@ -33,26 +33,32 @@ public class SpanCell implements Cell {
     this.verticalFirst = verticalFirst;
   }
 
-  public LayoutComponent getComponent() {
+  @Override
+  public UIComponent getComponent() {
     return origin.getComponent();
   }
 
+  @Override
   public OriginCell getOrigin() {
     return origin;
   }
 
+  @Override
   public boolean isHorizontalFirst() {
     return horizontalFirst;
   }
 
+  @Override
   public boolean isVerticalFirst() {
     return verticalFirst;
   }
 
+  @Override
   public int getColumnSpan() {
     return origin.getColumnSpan();
   }
 
+  @Override
   public int getRowSpan() {
     return origin.getRowSpan();
   }

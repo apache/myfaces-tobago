@@ -41,7 +41,7 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * <p><pre>
+ * <pre>
  * &lt;servlet&gt;
  *   &lt;servlet-name&gt;ResourceServlet&lt;/servlet-name&gt;
  *   &lt;servlet-class&gt;org.apache.myfaces.tobago.servlet.ResourceServlet&lt;/servlet-class&gt;
@@ -62,7 +62,7 @@ import java.util.Set;
  *   &lt;servlet-name&gt;ResourceServlet&lt;/servlet-name&gt;
  *   &lt;url-pattern&gt;/org/apache/myfaces/tobago/renderkit/*&lt;/url-pattern&gt;
  * &lt;/servlet-mapping&gt;
- * </pre><p>
+ * </pre>
  *
  * @since 1.0.7
  */
@@ -152,7 +152,8 @@ public class ResourceServlet extends HttpServlet {
         ResponseUtils.ensureNosniffHeader(response);
       }
     } else {
-      LOG.warn("Unsupported mime type of resource='" + resource + "' (because of security reasons)");
+      final String message = "Unsupported mime type of resource='" + resource + "'";
+      LOG.warn(message + " (because of security reasons)");
       response.setStatus(HttpServletResponse.SC_FORBIDDEN);
       return;
     }

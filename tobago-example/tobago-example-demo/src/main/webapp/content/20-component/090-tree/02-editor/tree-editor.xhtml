@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+-->
+
+<ui:composition template="/main.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:tc="http://myfaces.apache.org/tobago/component"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core">
+  <ui:param name="title" value="#{overviewBundle.tree_editor}"/>
+  <p>This is an example, to show how to edit a tree.</p>
+
+  <tc:button label="New">
+    <f:facet name="popup">
+      <tc:popup id="createPopup">
+        <tc:box label="New">
+          <tc:in label="New Name" value="#{treeEditorController.name}"/>
+          <tc:button label="OK" action="#{treeEditorController.create}">
+            <tc:attribute name="popupClose" value="afterSubmit"/>
+          </tc:button>
+          <tc:button label="Cancel">
+            <tc:attribute name="popupClose" value="immediate"/>
+          </tc:button>
+        </tc:box>
+      </tc:popup>
+    </f:facet>
+  </tc:button>
+  <tc:button label="Rename">
+    <f:facet name="popup">
+      <tc:popup id="renamePopup">
+        <tc:box label="Rename">
+          <tc:in label="New Name" value="#{treeEditorController.name}"/>
+          <tc:button label="OK" action="#{treeEditorController.rename}">
+            <tc:attribute name="popupClose" value="afterSubmit"/>
+          </tc:button>
+          <tc:button label="Cancel">
+            <tc:attribute name="popupClose" value="immediate"/>
+          </tc:button>
+        </tc:box>
+      </tc:popup>
+    </f:facet>
+  </tc:button>
+
+  <p>Currently, the buttons 'New' and 'Rename' doesn't work in the toolbar. Use the alternative buttons above.</p>
+  <tc:toolBar>
+    <tc:toolBarCommand label="New" omit="true" image="fa-file-o">
+      <tc:dataAttribute name="alert-text" value="Not implemented yet"/>
+    </tc:toolBarCommand>
+    <tc:toolBarCommand label="Delete" image="fa-trash-o" action="#{treeEditorController.delete}"/>
+    <tc:toolBarCommand label="Rename" omit="true" image="fa-edit">
+      <tc:dataAttribute name="alert-text" value="Not implemented yet"/>
+    </tc:toolBarCommand>
+    <tc:toolBarCommand label="Cut" action="#{treeEditorController.cut}" image="fa-cut"/>
+    <tc:toolBarCommand label="Copy" action="#{treeEditorController.copy}" image="fa-copy"/>
+    <tc:toolBarCommand label="Paste" action="#{treeEditorController.paste}" image="fa-paste"/>
+    <tc:toolBarCommand label="Up" action="#{treeEditorController.moveUp}" image="fa-level-up"/>
+    <tc:toolBarCommand label="Down" action="#{treeEditorController.moveDown}" image="fa-level-down"/>
+    <tc:toolBarCommand label="Reset" action="#{treeEditorController.reset}" image="fa-undo"/>
+  </tc:toolBar>
+
+  <tc:tree value="#{treeEditorController.categoryTree}" var="node"
+           showRoot="true" showRootJunction="true" selectable="single">
+    <tc:treeNode>
+      <tc:treeIndent showJunctions="true"/>
+      <tc:treeSelect label="#{node.userObject.name}" value="#{node.userObject.selected}"/>
+    </tc:treeNode>
+  </tc:tree>
+</ui:composition>

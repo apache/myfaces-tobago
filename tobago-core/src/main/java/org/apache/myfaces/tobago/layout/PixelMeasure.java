@@ -22,7 +22,7 @@ package org.apache.myfaces.tobago.layout;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public final class PixelMeasure extends Measure {
+public final class PixelMeasure /*extends Measure*/ {
 
   private static final Logger LOG = LoggerFactory.getLogger(PixelMeasure.class);
 
@@ -49,61 +49,8 @@ public final class PixelMeasure extends Measure {
     return new PixelMeasure(value);
   }
   
-  public Measure add(final Measure m) {
-    if (m == null) {
-      return this;
-    } else {
-      return pixelValueOf(pixel + m.getPixel());
-    }
-  }
-
-  public Measure add(final int m) {
-    return pixelValueOf(pixel + m);
-  }
-
-  public Measure multiply(final int times) {
-    return pixelValueOf(pixel * times);
-  }
-
-  public Measure divide(final int times) {
-    return pixelValueOf(pixel / times);
-  }
-
-  public Measure subtractNotNegative(final Measure m) {
-    if (m == null) {
-      return this;
-    } else if (m.getPixel() > pixel) {
-      LOG.warn("Not enough space! value=" + pixel);
-      return ZERO;
-    } else {
-      return pixelValueOf(pixel - m.getPixel());
-    }
-  }
-
-  public Measure subtract(final Measure m) {
-    if (m == null) {
-      return this;
-    } else {
-      return pixelValueOf(pixel - m.getPixel());
-    }
-  }
-
-  public Measure subtract(final int m) {
-      return pixelValueOf(pixel - m);
-  }
-
   public int getPixel() {
     return pixel;
-  }
-
-  @Override
-  public String toString() {
-    return serialize();
-  }
-
-  @Override
-  public String serialize() {
-    return pixel + "px";
   }
 
   @Override

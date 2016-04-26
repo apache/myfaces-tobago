@@ -19,9 +19,8 @@
 
 package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
-import org.apache.myfaces.tobago.component.UIHidden;
+import org.apache.myfaces.tobago.internal.component.AbstractUIHidden;
 import org.apache.myfaces.tobago.layout.Display;
-import org.apache.myfaces.tobago.renderkit.InputRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
@@ -34,30 +33,36 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 
-// TODO: Its not nice, that the base class use layout
-public class HiddenRenderer extends InputRendererBase {
+public class HiddenRenderer extends DecodingRendererBase {
 
-  public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
+  @Override
+  public void encodeBegin(FacesContext facesContext, UIComponent component) throws IOException {
 
-    final String clientId = component.getClientId(facesContext);
-    final String value = RenderUtils.currentValue(component);
+    final AbstractUIHidden hidden = (AbstractUIHidden) component;
+    final String clientId = hidden.getClientId(facesContext);
+    final String value = RenderUtils.currentValue(hidden);
 
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
-    writer.startElement(HtmlElements.INPUT, component);
-    if (component instanceof UIHidden && ((UIHidden) component).isDisabled()) {
-      writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.TEXT, false);
+    writer.startElement(HtmlElements.INPUT);
+    if (hidden.isDisabled()) {
+      writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.TEXT);
       final Style style = new Style();
-      style.setDisplay(Display.NONE);
+      style.setDisplay(Display.none);
       writer.writeStyleAttribute(style);
       writer.writeAttribute(HtmlAttributes.DISABLED, true);
     } else {
-      writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN, false);
+      writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN);
     }
     writer.writeNameAttribute(clientId);
     writer.writeIdAttribute(clientId);
-    HtmlRendererUtils.writeDataAttributes(facesContext, writer, component);
+    HtmlRendererUtils.writeDataAttributes(facesContext, writer, hidden);
     writer.writeAttribute(HtmlAttributes.VALUE, value != null ? value : "", true);
+  }
+
+  @Override
+  public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
+    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
     writer.endElement(HtmlElements.INPUT);
   }
 }

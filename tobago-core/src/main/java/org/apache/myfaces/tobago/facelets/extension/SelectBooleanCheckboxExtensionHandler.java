@@ -29,15 +29,20 @@ import javax.faces.view.facelets.ComponentConfig;
 import javax.faces.view.facelets.FaceletContext;
 import javax.faces.view.facelets.TagAttribute;
 
+/**
+ * @deprecated since Tobago 3.0. The tx-library is deprecated, please use the tc-library.
+ */
+@Deprecated
 public class SelectBooleanCheckboxExtensionHandler extends TobagoLabelExtensionHandler {
 
   private TagAttribute itemLabelAttribute;
 
   public SelectBooleanCheckboxExtensionHandler(final ComponentConfig config) {
     super(config);
-    itemLabelAttribute = getAttribute(Attributes.ITEM_LABEL);
+    itemLabelAttribute = getAttribute(Attributes.itemLabel.getName());
   }
 
+  @Override
   protected void enrichInput(final FaceletContext faceletContext, final UIComponent input) {
     super.enrichInput(faceletContext, input);
     final UISelectBooleanCheckbox checkbox = (UISelectBooleanCheckbox) input;
@@ -46,17 +51,19 @@ public class SelectBooleanCheckboxExtensionHandler extends TobagoLabelExtensionH
         checkbox.setItemLabel(itemLabelAttribute.getValue(faceletContext));
       } else {
         final ValueExpression expression = itemLabelAttribute.getValueExpression(faceletContext, String.class);
-        checkbox.setValueExpression(Attributes.ITEM_LABEL, expression);
+        checkbox.setValueExpression(Attributes.itemLabel.getName(), expression);
       }
     } else {
       checkbox.setItemLabel(""); // for compatibility (TOBAGO-1093)
     }
   }
 
+  @Override
   protected String getSubComponentType() {
     return UISelectBooleanCheckbox.COMPONENT_TYPE;
   }
 
+  @Override
   protected String getSubRendererType() {
     return RendererTypes.SELECT_BOOLEAN_CHECKBOX;
   }

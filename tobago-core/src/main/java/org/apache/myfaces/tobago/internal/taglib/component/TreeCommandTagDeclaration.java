@@ -23,34 +23,36 @@ import org.apache.myfaces.tobago.apt.annotation.BodyContentDescription;
 import org.apache.myfaces.tobago.apt.annotation.Facet;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
-import org.apache.myfaces.tobago.component.ComponentTypes;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.RendererTypes;
-import org.apache.myfaces.tobago.internal.taglib.declaration.AbstractCommandTagDeclaration;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasCurrentMarkup;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasAction;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasActionListener;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabelAndAccessKey;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasLink;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasRenderedPartially;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasResource;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTabIndex;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasTarget;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
-import org.apache.myfaces.tobago.internal.taglib.declaration.IsDisabled;
-import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutComponent;
+import org.apache.myfaces.tobago.internal.taglib.declaration.IsDisabledBySecurity;
+import org.apache.myfaces.tobago.internal.taglib.declaration.IsImmediateCommand;
+import org.apache.myfaces.tobago.internal.taglib.declaration.IsOmit;
+import org.apache.myfaces.tobago.internal.taglib.declaration.IsTransition;
+import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
 
 import javax.faces.component.UICommand;
 
 /**
  * Renders a command inside of a tree.
  */
-@Tag(
-    name = "treeCommand",
-    tagExtraInfoClassName = "org.apache.myfaces.tobago.internal.taglib.component.CommandTagExtraInfo")
+@Tag(name = "treeCommand")
 @BodyContentDescription(anyTagOf = "facestag")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UITreeCommand",
     uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUITreeCommand",
     uiComponentFacesClass = "javax.faces.component.UICommand",
     interfaces = {
-        "org.apache.myfaces.tobago.layout.LayoutBase",
         "org.apache.myfaces.tobago.component.SupportsAccessKey"
     },
     componentFamily = UICommand.COMPONENT_FAMILY,
@@ -59,13 +61,14 @@ import javax.faces.component.UICommand;
         @Facet(
             name = Facets.CONFIRMATION,
             description = "Contains a UIOutput instance with the confirmation message.",
-            allowedChildComponenents = ComponentTypes.OUT),
+            allowedChildComponenents = "org.apache.myfaces.tobago.Out"),
         @Facet(
             name = Facets.POPUP,
             description = "Contains a UIPopup instance.",
             allowedChildComponenents = "org.apache.myfaces.tobago.Popup")},
     rendererType = RendererTypes.TREE_COMMAND)
 public interface TreeCommandTagDeclaration
-    extends AbstractCommandTagDeclaration, HasIdBindingAndRendered, IsDisabled,
-    HasLabelAndAccessKey, HasTip, HasMarkup, HasCurrentMarkup, HasTabIndex, IsGridLayoutComponent {
+    extends HasIdBindingAndRendered, HasAction, HasActionListener, IsImmediateCommand,
+    HasLink, HasResource, IsTransition, HasTarget, HasRenderedPartially, IsDisabledBySecurity, IsOmit,
+    HasLabelAndAccessKey, HasTip, HasTabIndex, IsVisual {
 }

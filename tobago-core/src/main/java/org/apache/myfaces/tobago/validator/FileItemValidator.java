@@ -19,7 +19,6 @@
 
 package org.apache.myfaces.tobago.validator;
 
-import org.apache.commons.fileupload.FileItem;
 import org.apache.myfaces.tobago.internal.component.AbstractUIFile;
 import org.apache.myfaces.tobago.internal.util.ContentType;
 import org.apache.myfaces.tobago.util.MessageUtils;
@@ -30,6 +29,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.validator.Validator;
 import javax.faces.validator.ValidatorException;
+import javax.servlet.http.Part;
 import java.util.Arrays;
 
 /**
@@ -51,10 +51,11 @@ public class FileItemValidator implements Validator, StateHolder {
   public FileItemValidator() {
   }
 
+  @Override
   public void validate(final FacesContext facesContext, final UIComponent component, final Object value)
       throws ValidatorException {
     if (value != null && component instanceof AbstractUIFile) {
-      final FileItem file = (FileItem) value;
+      final Part file = (Part) value;
       if (maxSize != null && file.getSize() > maxSize) {
         final FacesMessage facesMessage = MessageUtils.getMessage(
             facesContext, facesContext.getViewRoot().getLocale(), FacesMessage.SEVERITY_ERROR,
@@ -104,6 +105,7 @@ public class FileItemValidator implements Validator, StateHolder {
     this.contentType = contentType;
   }
 
+  @Override
   public Object saveState(final FacesContext context) {
     final Object[] values = new Object[2];
     values[0] = maxSize;
@@ -111,16 +113,19 @@ public class FileItemValidator implements Validator, StateHolder {
     return values;
   }
 
+  @Override
   public void restoreState(final FacesContext context, final Object state) {
     final Object[] values = (Object[]) state;
     maxSize = (Integer) values[0];
     contentType = (String[]) values[1];
   }
 
+  @Override
   public boolean isTransient() {
     return transientValue;
   }
 
+  @Override
   public void setTransient(final boolean newTransientValue) {
     this.transientValue = newTransientValue;
   }

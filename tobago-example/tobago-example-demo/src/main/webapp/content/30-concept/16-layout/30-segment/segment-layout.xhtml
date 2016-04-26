@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+-->
+
+<ui:composition template="/main.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:tc="http://myfaces.apache.org/tobago/component"
+                xmlns:ui="http://java.sun.com/jsf/facelets">
+  <ui:param name="title" value="#{overviewBundle.segment_layout}  &lt;tc:segmentLayout>"/>
+  <p>The segment layout is basicly a grid with 12 columns.
+    The number and the proportion of the columns can be set with
+    <code>large</code>, <code>medium</code>, <code>small</code> or <code>extraSmall</code>.
+    Every attribute has a different css class, but the usage is the same.
+    The value is a semicolon separated list of integers, which sum has to be '12'.
+    A value of n will use n columns from the grid.</p>
+  <tc:link label="Tag Library Documentation" image="image/feather-leaf.png"
+           link="#{overviewBundle.tagDocUrl}/segmentLayout.html"/>
+
+  <tc:section label="Basics">
+    <p>This example show a segment layout with four columns and a segment layout with three columns.
+      The numbers are displayed via the <code class="language-markup">&lt;tc:label/></code> tag.
+      The space is set via the <code class="language-markup">&lt;tc:hidden/></code> tag.</p>
+    <tc:section label="4 Columns">
+      <pre><code class="language-markup">&lt;tc:segmentLayout medium="2;4;3;3"></code></pre>
+      <tc:segmentLayout medium="2;4;3;3">
+        <tc:label value="1"/>
+        <tc:label value="2"/>
+        <tc:label value="3"/>
+        <tc:label value="4"/>
+        <tc:hidden/>
+        <tc:label value="5"/>
+      </tc:segmentLayout>
+    </tc:section>
+    <tc:section label="3 Columns">
+      <pre><code class="language-markup">&lt;tc:segmentLayout medium="2;4;6"></code></pre>
+      <tc:segmentLayout medium="2;4;6">
+        <tc:label value="1"/>
+        <tc:label value="2"/>
+        <tc:label value="3"/>
+        <tc:label value="4"/>
+        <tc:hidden/>
+        <tc:label value="5"/>
+      </tc:segmentLayout>
+    </tc:section>
+  </tc:section>
+
+  <tc:section label="Extra Small">
+    <p>This segment layout use the attribute <code>extraSmall</code> with the value '5;7'.
+      This means, that the css class <code class="language-css">.col-xs-5</code> and
+      <code class="language-css">.col-xs-7</code> is used.
+      For those classes, a smaller font-size is defined in the <code>demo.css</code>.</p>
+    <tc:segmentLayout extraSmall="5;7">
+      <tc:label value="1"/>
+      <tc:label value="2"/>
+      <tc:label value="3"/>
+      <tc:label value="4"/>
+      <tc:hidden/>
+      <tc:label value="5"/>
+    </tc:segmentLayout>
+  </tc:section>
+</ui:composition>

@@ -20,7 +20,6 @@
 package org.apache.myfaces.tobago.internal.mock.servlet;
 
 import org.apache.commons.collections.iterators.IteratorEnumeration;
-import org.apache.commons.lang.ArrayUtils;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
@@ -33,67 +32,84 @@ public class MockHttpSession implements HttpSession {
 
   private Map attributes = new HashMap();
 
+  @Override
   public Object getAttribute(final String s) {
     return attributes.get(s);
   }
 
+  @Override
   public Enumeration getAttributeNames() {
     return (new IteratorEnumeration(attributes.keySet().iterator()));
   }
 
+  @Override
   public long getCreationTime() {
     return 0;
   }
 
+  @Override
   public String getId() {
     return null;
   }
 
+  @Override
   public long getLastAccessedTime() {
     return 0;
   }
 
+  @Override
   public int getMaxInactiveInterval() {
     return 0;
   }
 
   /** @deprecated */
+  @Override
   public HttpSessionContext getSessionContext() {
     return null;
   }
 
+  @Override
   public Object getValue(final String s) {
     return null;
   }
 
+  @Override
   public String[] getValueNames() {
-    return ArrayUtils.EMPTY_STRING_ARRAY;
+    return new String[0];
   }
 
+  @Override
   public void invalidate() {
   }
 
+  @Override
   public boolean isNew() {
     return false;
   }
 
+  @Override
   public void putValue(final String s, final Object o) {
   }
 
+  @Override
   public void removeAttribute(final String s) {
     attributes.remove(s);
   }
 
+  @Override
   public void removeValue(final String s) {
   }
 
+  @Override
   public void setAttribute(final String s, final Object o) {
     attributes.put(s, o);
   }
 
+  @Override
   public void setMaxInactiveInterval(final int i) {
   }
 
+  @Override
   public ServletContext getServletContext() {
     return null;
   }

@@ -20,6 +20,7 @@
 package org.apache.myfaces.tobago.component;
 
 import org.apache.myfaces.tobago.internal.config.AbstractTobagoTestBase;
+import org.apache.myfaces.tobago.layout.OrderBy;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -30,6 +31,7 @@ import java.util.List;
 
 public class UIMessagesUnitTest extends AbstractTobagoTestBase {
 
+  @Override
   @Before
   public void setUp() throws Exception {
     super.setUp();
@@ -119,7 +121,7 @@ public class UIMessagesUnitTest extends AbstractTobagoTestBase {
   public void testCreateMessageListOrderBySeverity() {
 
     final UIMessages component = new UIMessages();
-    component.setOrderBy(UIMessages.OrderBy.SEVERITY);
+    component.setOrderBy(OrderBy.severity);
     final List<UIMessages.Item> messages = component.createMessageList(getFacesContext());
 
     int mustShrink = FacesMessage.SEVERITY_FATAL.getOrdinal();
@@ -129,12 +131,4 @@ public class UIMessagesUnitTest extends AbstractTobagoTestBase {
       mustShrink = newValue;
     }
   }
-
-  @Test
-  public void testOrderByEnum() {
-    Assert.assertEquals(2, UIMessages.OrderBy.values().length);
-    Assert.assertEquals(UIMessages.OrderBy.OCCURRENCE, UIMessages.OrderBy.parse(UIMessages.OrderBy.OCCURRENCE_STRING));
-    Assert.assertEquals(UIMessages.OrderBy.SEVERITY, UIMessages.OrderBy.parse(UIMessages.OrderBy.SEVERITY_STRING));
-  }
-
 }

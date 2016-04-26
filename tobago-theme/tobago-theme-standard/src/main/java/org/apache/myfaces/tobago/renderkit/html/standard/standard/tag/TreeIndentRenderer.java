@@ -24,11 +24,11 @@ import org.apache.myfaces.tobago.component.UITreeIndent;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.internal.component.AbstractUIData;
-import org.apache.myfaces.tobago.internal.component.AbstractUITreeNode;
-import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
+import org.apache.myfaces.tobago.internal.component.AbstractUITreeNodeBase;
+import org.apache.myfaces.tobago.renderkit.RendererBase;
+import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
-import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
-import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
+import org.apache.myfaces.tobago.renderkit.css.Icons;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
@@ -39,13 +39,13 @@ import javax.faces.context.FacesContext;
 import java.io.IOException;
 import java.util.List;
 
-public class TreeIndentRenderer extends LayoutComponentRendererBase {
+public class TreeIndentRenderer extends RendererBase {
 
   @Override
   public void encodeBegin(final FacesContext facesContext, final UIComponent component) throws IOException {
 
     final UITreeIndent indent = (UITreeIndent) component;
-    final AbstractUITreeNode node = ComponentUtils.findAncestor(indent, AbstractUITreeNode.class);
+    final AbstractUITreeNodeBase node = ComponentUtils.findAncestor(indent, AbstractUITreeNodeBase.class);
     final AbstractUIData data = ComponentUtils.findAncestor(indent, AbstractUIData.class);
 
     final boolean folder = node.isFolder();
@@ -61,9 +61,10 @@ public class TreeIndentRenderer extends LayoutComponentRendererBase {
 
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
-    writer.startElement(HtmlElements.SPAN, indent);
+    writer.startElement(HtmlElements.SPAN);
     writer.writeIdAttribute(indent.getClientId(facesContext));
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, indent);
+    writer.writeClassAttribute(Classes.create(node, "toggle", Markup.NULL));
 
     encodeIndent(
         facesContext, writer, node, showLines, showIcons, showRootJunction, showRoot, junctions);
@@ -79,7 +80,7 @@ public class TreeIndentRenderer extends LayoutComponentRendererBase {
   }
 
   private void encodeIndent(
-      final FacesContext facesContext, final TobagoResponseWriter writer, final AbstractUITreeNode node,
+      final FacesContext facesContext, final TobagoResponseWriter writer, final AbstractUITreeNodeBase node,
       final boolean showLines, final boolean showIcons, final boolean showRootJunction, final boolean showRoot,
       final List<Boolean> junctions)
       throws IOException {
@@ -90,20 +91,23 @@ public class TreeIndentRenderer extends LayoutComponentRendererBase {
 
     for (int i = dropFirst ? 1 : 0; i < junctions.size() - 1; i++) {
       final Boolean junction = junctions.get(i);
+/*
       writer.startElement(HtmlElements.IMG, null);
       writer.writeClassAttribute(Classes.create(node, "junction"));
-      writer.writeAttribute(HtmlAttributes.ALT, "", false);
+      writer.writeAttribute(HtmlAttributes.alt, "", false);
       if (junction && showLines) {
         writer.writeAttribute("src", perpendicular, true);
       } else {
         writer.writeAttribute("src", blank, true);
       }
       writer.endElement(HtmlElements.IMG);
+*/
+      writer.writeIcon(Icons.SQUARE_O, BootstrapClass.INVISIBLE); // FIXME TOBAGO-1495
     }
   }
 
   private void encodeTreeJunction(
-      final FacesContext facesContext, final TobagoResponseWriter writer, final AbstractUITreeNode node,
+      final FacesContext facesContext, final TobagoResponseWriter writer, final AbstractUITreeNodeBase node,
       final boolean showLines, final boolean showIcons, final boolean showRootJunction, final List<Boolean> junctions,
       final boolean expanded, final boolean folder, final boolean root)
       throws IOException {
@@ -111,6 +115,10 @@ public class TreeIndentRenderer extends LayoutComponentRendererBase {
       return;
     }
     final boolean hasNextSibling = junctions.get(junctions.size() - 1); // last element
+
+    writer.writeIcon(folder ? expanded ? Icons.MINUS_SQUARE_O : Icons.PLUS_SQUARE_O : Icons.SQUARE_O);
+
+/*
     writer.startElement(HtmlElements.IMG, null);
     writer.writeClassAttribute(Classes.create(node, "toggle", Markup.NULL));
 
@@ -152,13 +160,14 @@ public class TreeIndentRenderer extends LayoutComponentRendererBase {
     final String srcOpen = ResourceManagerUtils.getImage(facesContext, "image/" + open);
     final String srcClose = ResourceManagerUtils.getImage(facesContext, "image/" + close);
     final String src = expanded ? srcOpen : srcClose;
-    writer.writeAttribute(HtmlAttributes.SRC, src, true);
+    writer.writeAttribute(HtmlAttributes.src, src, true);
     if (folder) {
       writer.writeAttribute(DataAttributes.SRC_OPEN, srcOpen, true);
       writer.writeAttribute(DataAttributes.SRC_CLOSE, srcClose, true);
     }
-    writer.writeAttribute(HtmlAttributes.ALT, "", false);
+    writer.writeAttribute(HtmlAttributes.alt, "", false);
     writer.endElement(HtmlElements.IMG);
+*/
   }
 
 }

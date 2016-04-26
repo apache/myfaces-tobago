@@ -36,18 +36,23 @@ import javax.faces.view.facelets.MetaRuleset;
 import javax.faces.view.facelets.TagAttribute;
 import java.io.IOException;
 
+/**
+ * @deprecated since Tobago 3.0. The tx-library is deprecated, please use the tc-library.
+ */
+@Deprecated
 public class SeparatorExtensionHandler extends ComponentHandler {
   private TagAttribute labelAttribute;
 
   public SeparatorExtensionHandler(final ComponentConfig config) {
     super(config);
-    labelAttribute = getAttribute(Attributes.LABEL);
+    labelAttribute = getAttribute(Attributes.label.getName());
   }
 
+  @Override
   public void applyNextHandler(final FaceletContext faceletContext, final UIComponent separator)
       throws IOException, ELException {
     if (ComponentHandler.isNew(separator)) {
-      final UIComponent component = (UIComponent) separator.getFacets().remove(Facets.LABEL);
+      final UIComponent component = separator.getFacets().remove(Facets.LABEL);
       nextHandler.apply(faceletContext, component);
       separator.getFacets().put(Facets.LABEL, component);
     } else {
@@ -55,6 +60,7 @@ public class SeparatorExtensionHandler extends ComponentHandler {
     }
   }
 
+  @Override
   public void onComponentCreated(
       final FaceletContext faceletContext, final UIComponent separator, final UIComponent parent) {
     final Application application = faceletContext.getFacesContext().getApplication();
@@ -68,15 +74,16 @@ public class SeparatorExtensionHandler extends ComponentHandler {
         label.setValue(labelAttribute.getValue(faceletContext));
       } else {
         final ValueExpression expression = labelAttribute.getValueExpression(faceletContext, String.class);
-        label.setValueExpression(Attributes.VALUE, expression);
+        label.setValueExpression(Attributes.value.getName(), expression);
       }
     }
   }
 
+  @Override
   protected MetaRuleset createMetaRuleset(final Class aClass) {
     final MetaRuleset metaRuleset = super.createMetaRuleset(aClass);
     if (UISeparator.class.isAssignableFrom(aClass)) {
-      metaRuleset.ignore(Attributes.LABEL);
+      metaRuleset.ignore(Attributes.label.getName());
       return metaRuleset;
     } else {
       final TagAttribute[] attrs = tag.getAttributes().getAll();

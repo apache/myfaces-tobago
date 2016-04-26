@@ -20,6 +20,7 @@
 package org.apache.myfaces.tobago.facelets.extension;
 
 import org.apache.myfaces.tobago.component.Attributes;
+import org.apache.myfaces.tobago.internal.util.Deprecation;
 
 import javax.faces.application.Application;
 import javax.faces.component.UIComponent;
@@ -35,6 +36,10 @@ import java.io.IOException;
 /**
  * Base class of the Facelets handlers for the &lt;tx:menuXXX /> extension tags.
  */
+/**
+ * @deprecated since Tobago 3.0. The tx-library is deprecated, please use the tc-library.
+ */
+@Deprecated
 public abstract class TobagoMenuExtensionHandler extends ComponentHandler {
 
   private Class subComponentLastType = Object.class;
@@ -52,8 +57,11 @@ public abstract class TobagoMenuExtensionHandler extends ComponentHandler {
 
   protected abstract String getFacetName();
 
+  @Override
   public void applyNextHandler(final FaceletContext faceletContext, final UIComponent menuCommand) throws IOException {
     if (ComponentHandler.isNew(menuCommand)) {
+      Deprecation.LOG.warn("The tx library is deprecated, please use the tc library. "
+          + "See 'Migration to 3.0' on the web site.");
       final UIComponent component = menuCommand.getFacets().remove(getFacetName());
       nextHandler.apply(faceletContext, component);
       menuCommand.getFacets().put(getFacetName(), component);
@@ -62,6 +70,7 @@ public abstract class TobagoMenuExtensionHandler extends ComponentHandler {
     }
   }
 
+  @Override
   public void onComponentCreated(
       final FaceletContext faceletContext, final UIComponent menuCommand, final UIComponent parent) {
 
@@ -92,18 +101,19 @@ public abstract class TobagoMenuExtensionHandler extends ComponentHandler {
     final TagAttribute [] attrs = tag.getAttributes().getAll();
     for (int i = 0; i < attrs.length; i++) {
       final TagAttribute attr = attrs[i];
-      if (!(attr.getLocalName().equals(Attributes.CONVERTER)
-          || attr.getLocalName().equals(Attributes.VALUE))) {
+      if (!(attr.getLocalName().equals(Attributes.converter.getName())
+          || attr.getLocalName().equals(Attributes.value.getName()))) {
         metaRuleset.ignore(attr.getLocalName());
       }
     }
     return metaRuleset;
   }
 
+  @Override
   protected MetaRuleset createMetaRuleset(final Class aClass) {
     final MetaRuleset metaRuleset = super.createMetaRuleset(aClass);
-    metaRuleset.ignore(Attributes.CONVERTER);
-    metaRuleset.ignore(Attributes.VALUE);
+    metaRuleset.ignore(Attributes.converter.getName());
+    metaRuleset.ignore(Attributes.value.getName());
     return metaRuleset;
   }
 }

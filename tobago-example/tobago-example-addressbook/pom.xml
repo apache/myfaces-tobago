@@ -20,12 +20,18 @@
   <parent>
     <groupId>org.apache.myfaces.tobago</groupId>
     <artifactId>tobago-example</artifactId>
-    <version>2.0.10-SNAPSHOT</version>
+    <version>3.0.0-beta-1-SNAPSHOT</version>
   </parent>
   <artifactId>tobago-example-addressbook</artifactId>
   <packaging>war</packaging>
-  <name>Tobago Example Addressbook</name>
+  <name>Tobago Example Addressbook (Java EE 6)</name>
   <description>A simple, but full functional application with persistence.</description>
+
+  <properties>
+    <openjpa.version>2.3.0</openjpa.version>
+    <openwebbeans.version>1.1.7</openwebbeans.version>
+    <deltaspike.version>1.2.1</deltaspike.version>
+  </properties>
 
   <build>
     <finalName>tobago-example-addressbook</finalName>
@@ -58,27 +64,14 @@
           </loginServices>
           <stopKey>stopKey</stopKey>
           <stopPort>9999</stopPort>
+          <systemProperties>
+            <systemProperty>
+              <name>derby.stream.error.file</name>
+              <value>target/derby.log</value>
+            </systemProperty>
+          </systemProperties>
         </configuration>
         <dependencies>
-         <!--
-          <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <version>1.6.1</version>
-            <type>jar</type>
-          </dependency>-->
-        <!--dependency>
-          <groupId>org.slf4j</groupId>
-          <artifactId>slf4j-jcl</artifactId>
-          <version>1.0.1</version>
-          <type>jar</type>
-        </dependency>
-        <dependency>
-          <groupId>log4j</groupId>
-          <artifactId>log4j</artifactId>
-          <version>1.2.14</version>
-          <type>jar</type>
-        </dependency-->
        </dependencies>
       </plugin>
       <plugin>
@@ -111,11 +104,114 @@
 
   <dependencies>
     <dependency>
+      <groupId>org.apache.geronimo.specs</groupId>
+      <artifactId>geronimo-jcdi_1.0_spec</artifactId>
+      <version>1.0</version>
+      <!-- XXX websphere-provided -->
+<!--
+        <scope>provided</scope>
+-->
+    </dependency>
+    <dependency>
+      <groupId>org.apache.geronimo.specs</groupId>
+      <artifactId>geronimo-validation_1.0_spec</artifactId>
+      <version>1.1</version>
+      <!-- XXX websphere-provided -->
+<!--
+        <scope>provided</scope>
+-->
+    </dependency>
+    <dependency>
+      <groupId>org.apache.geronimo.specs</groupId>
+      <artifactId>geronimo-atinject_1.0_spec</artifactId>
+      <version>1.0</version>
+      <!-- XXX websphere-provided -->
+<!--
+        <scope>provided</scope>
+-->
+    </dependency>
+    <dependency>
+      <groupId>org.apache.geronimo.specs</groupId>
+      <artifactId>geronimo-interceptor_1.1_spec</artifactId>
+      <version>1.0</version>
+      <!-- XXX websphere-provided -->
+<!--
+        <scope>provided</scope>
+-->
+    </dependency>
+    <dependency>
+      <groupId>org.apache.geronimo.specs</groupId>
+      <artifactId>geronimo-annotation_1.1_spec</artifactId>
+      <version>1.0.1</version>
+      <scope>provided</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.openwebbeans</groupId>
+      <artifactId>openwebbeans-impl</artifactId>
+      <version>${openwebbeans.version}</version>
+    <!-- XXX websphere-provided -->
+<!--
+      <scope>provided</scope>
+-->
+    </dependency>
+    <dependency>
+      <groupId>javassist</groupId>
+      <artifactId>javassist</artifactId>
+      <version>3.12.1.GA</version>
+    <!-- XXX websphere-provided -->
+<!--
+      <scope>provided</scope>
+-->
+    </dependency>
+    <dependency>
+      <groupId>org.apache.openwebbeans</groupId>
+      <artifactId>openwebbeans-spi</artifactId>
+      <version>${openwebbeans.version}</version>
+    <!-- XXX websphere-provided -->
+<!--
+      <scope>provided</scope>
+-->
+    </dependency>
+    <dependency>
+      <groupId>org.apache.openwebbeans</groupId>
+      <artifactId>openwebbeans-web</artifactId>
+      <version>${openwebbeans.version}</version>
+    <!-- XXX websphere-provided -->
+<!--
+      <scope>provided</scope>
+-->
+    </dependency>
+    <dependency>
+      <groupId>org.apache.openwebbeans</groupId>
+      <artifactId>openwebbeans-resource</artifactId>
+      <version>${openwebbeans.version}</version>
+      <!-- XXX websphere-provided -->
+<!--
+        <scope>provided</scope>
+-->
+    </dependency>
+
+    <!-- DeltaSpike -->
+    <dependency>
+      <groupId>org.apache.deltaspike.modules</groupId>
+      <artifactId>deltaspike-jsf-module-impl</artifactId>
+      <version>${deltaspike.version}</version>
+    </dependency>
+
+    <!-- which repository-->
+    <dependency>
         <groupId>org.tango-project</groupId>
         <artifactId>tango-icon-theme</artifactId>
         <version>0.8.0</version>
     </dependency>
-   <!-- <dependency>
+    <dependency>
+    	<groupId>org.apache.geronimo.specs</groupId>
+    	<artifactId>geronimo-jpa_3.0_spec</artifactId>
+    	<version>1.1.1</version>
+      <scope>provided</scope>
+    </dependency>
+    <!-- <dependency>
       <groupId>org.apache.openjpa</groupId>
       <artifactId>openjpa</artifactId>
       <version>${openjpa.version}</version>
@@ -139,16 +235,6 @@
       <groupId>org.apache.openjpa</groupId>
       <artifactId>openjpa-persistence-jdbc</artifactId>
       <version>${openjpa.version}</version>
-      <exclusions>
-        <exclusion>
-          <groupId>hsqldb</groupId>
-          <artifactId>hsqldb</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>ant</groupId>
-          <artifactId>ant</artifactId>
-        </exclusion>
-      </exclusions>
     </dependency>
     <!--dependency>
       <groupId>org.apache.openjpa</groupId>
@@ -162,37 +248,8 @@
       </exclusions>
     </dependency-->
     <dependency>
-      <groupId>org.apache.myfaces.tobago</groupId>
-      <artifactId>tobago-fileupload</artifactId>
-      <version>${project.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.myfaces.tobago</groupId>
-      <artifactId>tobago-security</artifactId>
-      <version>${project.version}</version>
-    </dependency>
-    <dependency>
       <groupId>commons-io</groupId>
       <artifactId>commons-io</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.geronimo.specs</groupId>
-      <artifactId>geronimo-annotation_1.0_spec</artifactId>
-      <!-- compile or provided depends on the used server -->
-      <scope>compile</scope>
-    </dependency>
-    <dependency>
-      <groupId>log4j</groupId>
-      <artifactId>log4j</artifactId>
-      <scope>compile</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>slf4j-api</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>slf4j-log4j12</artifactId>
     </dependency>
     <dependency>
       <groupId>org.apache.derby</groupId>
@@ -200,41 +257,177 @@
       <version>10.12.1.1</version>
     </dependency>
     <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-orm</artifactId>
-      <version>${spring.version}</version>
-    </dependency>
-     <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-jdbc</artifactId>
-      <version>${spring.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-web</artifactId>
-      <version>${spring.version}</version>
-      <exclusions>
-        <exclusion>
-          <groupId>aopalliance</groupId>
-          <artifactId>aopalliance</artifactId>
-        </exclusion>
-      </exclusions>
-    </dependency>
-    <dependency>
-      <groupId>javax.servlet</groupId>
-      <artifactId>jstl</artifactId>
-      <exclusions>
-        <exclusion>
-          <groupId>javax.servlet</groupId>
-          <artifactId>jsp-api</artifactId>
-        </exclusion>
-      </exclusions>
+       <groupId>org.apache.geronimo.specs</groupId>
+       <artifactId>geronimo-servlet_3.0_spec</artifactId>
+       <version>1.0</version>
+       <scope>provided</scope>
     </dependency>
   </dependencies>
 
-  <properties>
-    <openjpa.version>1.0.4</openjpa.version>
-    <spring.version>3.2.16.RELEASE</spring.version>
-  </properties>
+  <profiles>
+
+    <profile>
+      <id>jsf-provided</id>
+      <activation>
+        <property>
+          <name>jsf</name>
+          <value>provided</value>
+        </property>
+      </activation>
+    </profile>
+
+    <profile>
+      <id>default</id>
+      <activation>
+        <property>
+          <name>!jsf</name>
+        </property>
+      </activation>
+      <dependencies>
+
+        <!-- Specs -->
+        <dependency>
+          <groupId>org.apache.geronimo.specs</groupId>
+          <artifactId>geronimo-jcdi_1.0_spec</artifactId>
+          <version>1.0</version>
+        </dependency>
+        <dependency>
+          <groupId>org.apache.geronimo.specs</groupId>
+          <artifactId>geronimo-validation_1.0_spec</artifactId>
+          <version>1.1</version>
+        </dependency>
+        <dependency>
+          <groupId>org.apache.geronimo.specs</groupId>
+          <artifactId>geronimo-atinject_1.0_spec</artifactId>
+          <version>1.0</version>
+        </dependency>
+        <dependency>
+          <groupId>org.apache.geronimo.specs</groupId>
+          <artifactId>geronimo-interceptor_1.1_spec</artifactId>
+          <version>1.0</version>
+        </dependency>
+
+        <!-- OWB -->
+        <dependency>
+          <groupId>org.apache.openwebbeans</groupId>
+          <artifactId>openwebbeans-jsf</artifactId>
+          <version>${openwebbeans.version}</version>
+        </dependency>
+        <dependency>
+          <groupId>org.apache.openwebbeans</groupId>
+          <artifactId>openwebbeans-web</artifactId>
+          <version>${openwebbeans.version}</version>
+        </dependency>
+        <dependency>
+          <groupId>org.apache.openwebbeans</groupId>
+          <artifactId>openwebbeans-resource</artifactId>
+          <version>${openwebbeans.version}</version>
+        </dependency>
+
+      </dependencies>
+    </profile>
+
+    <profile>
+      <id>myfaces-2.0</id>
+      <activation>
+        <property>
+          <name>jsf</name>
+          <value>myfaces-2.0</value>
+        </property>
+      </activation>
+      <dependencies>
+        <dependency>
+          <groupId>org.apache.openwebbeans</groupId>
+          <artifactId>openwebbeans-jsf</artifactId>
+          <version>${openwebbeans.version}</version>
+        </dependency>
+      </dependencies>
+    </profile>
+
+    <profile>
+      <id>myfaces-2.1</id>
+      <activation>
+        <property>
+          <name>jsf</name>
+          <value>myfaces-2.1</value>
+        </property>
+      </activation>
+      <dependencies>
+        <dependency>
+          <groupId>org.apache.openwebbeans</groupId>
+          <artifactId>openwebbeans-jsf</artifactId>
+          <version>${openwebbeans.version}</version>
+        </dependency>
+      </dependencies>
+    </profile>
+
+    <profile>
+      <id>myfaces-2.2</id>
+      <activation>
+        <property>
+          <name>jsf</name>
+          <value>myfaces-2.2</value>
+        </property>
+      </activation>
+      <dependencies>
+        <dependency>
+          <groupId>org.apache.openwebbeans</groupId>
+          <artifactId>openwebbeans-jsf</artifactId>
+          <version>${openwebbeans.version}</version>
+        </dependency>
+      </dependencies>
+    </profile>
+
+    <profile>
+      <id>mojarra-2.0</id>
+      <activation>
+        <property>
+          <name>jsf</name>
+          <value>mojarra-2.0</value>
+        </property>
+      </activation>
+      <dependencies>
+        <dependency>
+          <groupId>org.apache.openwebbeans</groupId>
+          <artifactId>openwebbeans-jsf</artifactId>
+          <version>${openwebbeans.version}</version>
+        </dependency>
+      </dependencies>
+    </profile>
+
+    <profile>
+      <id>mojarra-2.1</id>
+      <activation>
+        <property>
+          <name>jsf</name>
+          <value>mojarra-2.1</value>
+        </property>
+      </activation>
+      <dependencies>
+        <dependency>
+          <groupId>org.apache.openwebbeans</groupId>
+          <artifactId>openwebbeans-jsf</artifactId>
+          <version>${openwebbeans.version}</version>
+        </dependency>
+      </dependencies>
+    </profile>
+
+    <profile>
+      <id>mojarra-2.2</id>
+      <activation>
+        <property>
+          <name>jsf</name>
+          <value>mojarra-2.2</value>
+        </property>
+      </activation>
+      <dependencies>
+        <dependency>
+          <groupId>org.apache.openwebbeans</groupId>
+          <artifactId>openwebbeans-jsf</artifactId>
+          <version>${openwebbeans.version}</version>
+        </dependency>
+      </dependencies>
+    </profile>
+  </profiles>
 
 </project>

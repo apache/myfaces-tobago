@@ -35,10 +35,6 @@
 		<source>date.xml</source>
 	</tag>
   <tag>
-		<tag-name>time</tag-name>
-		<source>time.xml</source>
-	</tag>
-  <tag>
 		<tag-name>textarea</tag-name>
 		<source>textarea.xml</source>
 	</tag>
@@ -74,44 +70,4 @@
 		<tag-name>menuCheckbox</tag-name>
 		<source>menuCheckbox.xml</source>
 	</tag>
-  <tag>
-    <tag-name>wizard</tag-name>
-    <component>
-      <component-type>org.apache.myfaces.tobago.Wizard</component-type>
-      <renderer-type>Wizard</renderer-type>
-      <handler-class>org.apache.myfaces.tobago.facelets.WizardComponentHandler</handler-class>
-    </component>
-  </tag>
-  <tag>
-    <tag-name>wizard-goto</tag-name>
-    <source>wizard-goto.xml</source>
-  </tag>
-  <tag>
-    <tag-name>wizardExtension</tag-name>
-    <source>wizardExtension.xml</source>
-  </tag>
-  <tag>
-    <tag-name>wizardTrain</tag-name>
-    <source>wizardTrain.xml</source>
-  </tag>
-  <tag>
-    <tag-name>wizardPrevious</tag-name>
-    <source>wizardPrevious.xml</source>
-  </tag>
-  <tag>
-    <tag-name>wizardNext</tag-name>
-    <source>wizardNext.xml</source>
-  </tag>
-  <tag>
-    <tag-name>wizardFinish</tag-name>
-    <source>wizardFinish.xml</source>
-  </tag>
-  <tag>
-    <tag-name>wizardCancel</tag-name>
-    <source>wizardCancel.xml</source>
-  </tag>
-  <tag>
-    <tag-name>wizard-navigation</tag-name>
-    <source>wizard-navigation.xml</source>
-  </tag>
 </facelet-taglib>

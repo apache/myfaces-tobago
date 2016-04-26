@@ -32,7 +32,6 @@
     </locale-config>
     <action-listener>org.apache.myfaces.tobago.util.DebugActionListener</action-listener>
     <navigation-handler>org.apache.myfaces.tobago.util.DebugNavigationHandler</navigation-handler>
-    <variable-resolver>org.springframework.web.jsf.DelegatingVariableResolver</variable-resolver>
     <message-bundle>error.messages</message-bundle>
   </application>
 
@@ -42,21 +41,6 @@
 -->
     <phase-listener>org.apache.myfaces.tobago.example.addressbook.web.StartupPhaseListener</phase-listener>
   </lifecycle>
-
-  <converter>
-    <converter-for-class>java.util.Locale</converter-for-class>
-    <converter-class>org.apache.myfaces.tobago.example.addressbook.web.LocaleConverter</converter-class>
-  </converter>
-
-  <validator>
-    <validator-id>EmailAddressValidator</validator-id>
-    <validator-class>org.apache.myfaces.tobago.example.addressbook.web.EmailAddressValidator</validator-class>
-  </validator>
-
-  <converter>
-    <converter-for-class>org.apache.myfaces.tobago.example.addressbook.EmailAddress</converter-for-class>
-    <converter-class>org.apache.myfaces.tobago.example.addressbook.web.EmailAddressConverter</converter-class>
-  </converter>
 
   <navigation-rule>
     <navigation-case>

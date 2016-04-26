@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+-->
+
+<ui:composition template="/main.xhtml"
+                xmlns:tc="http://myfaces.apache.org/tobago/component"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core">
+  <ui:param name="title" value="The Data Attributes"/>
+
+  <tc:script file="content/70-dataAttribute/dataAttribute.js"/>
+
+  <tc:panel>
+    <f:facet name="layout">
+      <tc:gridLayout rows="100px;*;*" columns="*;*"/>
+    </f:facet>
+
+    <tc:out escape="false" value="Each box contains a panel with a tc:dataAttribute.
+      It contains a color code which will be used by JavaScript which is included into this page.
+      &lt;br&gt;
+      Demo: Try to click or double-click in the content area of the boxes.
+      &lt;ul&gt;
+      &lt;li&gt; click: get the color from the data-colored attribute and set the background-color with it.
+      &lt;/li&gt;
+      &lt;li&gt; double-click: reset the background-color.
+      &lt;/li&gt;
+      &lt;/ul&gt;
+      ">
+      <tc:gridLayoutConstraint columnSpan="2"/>
+    </tc:out>
+
+    <tc:box label="Green">
+      <tc:panel>
+        <tc:dataAttribute name="color" value="#00ff00"/>
+      </tc:panel>
+    </tc:box>
+
+    <tc:box label="Red">
+      <tc:panel>
+        <tc:dataAttribute name="color" value="#ff0000"/>
+      </tc:panel>
+    </tc:box>
+
+    <tc:box label="Yellow">
+      <tc:panel>
+        <tc:dataAttribute name="color" value="#ffff00"/>
+      </tc:panel>
+    </tc:box>
+
+    <tc:box label="Blue">
+      <tc:panel>
+        <tc:dataAttribute name="color" value="#0000ff"/>
+      </tc:panel>
+    </tc:box>
+
+  </tc:panel>
+</ui:composition>

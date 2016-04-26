@@ -28,15 +28,14 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.RendererTypes;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasCurrentMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasRenderedPartially;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasVar;
-import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutComponent;
-import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutContainer;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsShowRoot;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsShowRootJunction;
+import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
+import org.apache.myfaces.tobago.layout.ShowPosition;
+import org.apache.myfaces.tobago.model.Selectable;
 
 import javax.faces.component.UIData;
 
@@ -58,11 +57,10 @@ import javax.faces.component.UIData;
     facets = {@Facet(name = Facets.RELOAD, description = "Contains an instance of UIReload",
                      allowedChildComponenents = "org.apache.myfaces.tobago.Reload")})
 public interface SheetTagDeclaration 
-    extends HasIdBindingAndRendered, IsGridLayoutComponent, IsGridLayoutContainer, HasMarkup, HasCurrentMarkup,
-    HasRenderedPartially, IsShowRoot, IsShowRootJunction, HasVar {
+    extends HasIdBindingAndRendered, IsVisual, HasRenderedPartially, IsShowRoot, IsShowRootJunction, HasVar {
   /**
    * LayoutConstraints for column layout.
-   * Semicolon separated list of layout tokens ('&lt;x>*', '&lt;x>px' or '&lt;x>%').
+   * Semicolon separated list of layout tokens ('&lt;x&gt;*', '&lt;x&gt;px' or '&lt;x&gt;%') or "auto"
    */
   @TagAttribute
   @UIComponentTagAttribute()
@@ -78,7 +76,7 @@ public interface SheetTagDeclaration
   /**
    * The number of rows to display, starting with the one identified by the
    * "first" property.
-   * <br/> The default has been changed from 100 to 0 because this is the default
+   * <br> The default has been changed from 100 to 0 because this is the default
    * in the JSF standard (since Tobago 1.5).
    */
   @TagAttribute
@@ -106,17 +104,17 @@ public interface SheetTagDeclaration
   void setValue(String value);
 
   /**
-   * Flag indicating whether or not the paging panel should be display, if it is not needed for paging.<br />
+   * Flag indicating whether or not the paging panel should be display, if it is not needed for paging.<br>
    * <ul>
    * <li>showPagingAlways="false" which is the default means, that the paging footer should be displayed,
-   * only when it is needed.</li>
+   * only when it is needed.
    * <ul>
-   * <li>When the rows="0" paging is not needed, so the footer will not be rendered,</li>
+   * <li>When the rows="0" paging is not needed, so the footer will not be rendered,
    * <li>when rows="N", N &gt; 0 and the size of the data value is &lt;= N paging is not needed
-   * and the footer will not be rendered,</li>
-   * <li>in any other case the paging footer will be displayed.</li>
+   * and the footer will not be rendered,
+   * <li>in any other case the paging footer will be displayed.
    * </ul>
-   * <li>showPagingAlways="true" means, that the paging footer should be displayed in any case.</li>
+   * <li>showPagingAlways="true" means, that the paging footer should be displayed in any case.
    * </ul>
    */
   @TagAttribute
@@ -124,7 +122,7 @@ public interface SheetTagDeclaration
   void setShowPagingAlways(String showPagingAlways);
 
   /**
-   * The count of rendered direct paging links in the sheet's footer.<br />
+   * The count of rendered direct paging links in the sheet's footer.<br>
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "java.lang.Integer", defaultValue = "9")
@@ -132,7 +130,7 @@ public interface SheetTagDeclaration
 
   /**
    * Flag indicating whether or not this sheet should reserve space for
-   * vertical toolbar when calculating column width's.<br />
+   * vertical toolbar when calculating column width's.<br>
    * Possible values are: <pre>
    *      'auto'  : sheet try to estimate the need of scrollbar.
    *      'true'  : space for scrollbar is reserved.
@@ -149,8 +147,13 @@ public interface SheetTagDeclaration
    * rendered in the sheet's footer.
    */
   @TagAttribute
-  @UIComponentTagAttribute(defaultValue = "center",
-      allowedValues = {"left", "center", "right", "none"})
+  @UIComponentTagAttribute(
+      type = "org.apache.myfaces.tobago.layout.ShowPosition",
+      defaultValue = ShowPosition.CENTER,
+      allowedValues = {
+          ShowPosition.LEFT, ShowPosition.CENTER, ShowPosition.RIGHT, ShowPosition.NONE
+      },
+      defaultCode = "org.apache.myfaces.tobago.layout.ShowPosition.center")
   void setShowDirectLinks(String showDirectLinks);
 
   /**
@@ -159,8 +162,13 @@ public interface SheetTagDeclaration
    * capability to enter the index displayed page directly.
    */
   @TagAttribute
-  @UIComponentTagAttribute(defaultValue = "right",
-      allowedValues = {"left", "center", "right", "none"})
+  @UIComponentTagAttribute(
+      type = "org.apache.myfaces.tobago.layout.ShowPosition",
+      defaultValue = ShowPosition.RIGHT,
+      allowedValues = {
+          ShowPosition.LEFT, ShowPosition.CENTER, ShowPosition.RIGHT, ShowPosition.NONE
+      },
+      defaultCode = "org.apache.myfaces.tobago.layout.ShowPosition.right")
   void setShowPageRange(String showPageRange);
 
   /**
@@ -169,16 +177,26 @@ public interface SheetTagDeclaration
    * capability to enter the index of the start row directly.
    */
   @TagAttribute
-  @UIComponentTagAttribute(defaultValue = "left",
-      allowedValues = {"left", "center", "right", "none"})
+  @UIComponentTagAttribute(
+      type = "org.apache.myfaces.tobago.layout.ShowPosition",
+      defaultValue = ShowPosition.LEFT,
+      allowedValues = {
+          ShowPosition.LEFT, ShowPosition.CENTER, ShowPosition.RIGHT, ShowPosition.NONE
+      },
+      defaultCode = "org.apache.myfaces.tobago.layout.ShowPosition.left")
   void setShowRowRange(String showRowRange);
 
   /**
-   * Flag indicating whether or not the sheet should be selectable.
+   * Indicating the selection mode of the sheet.
    */
   @TagAttribute
-  @UIComponentTagAttribute(defaultValue = "multi",
-      allowedValues = {"none", "single", "singleOrNone", "multi"})
+  @UIComponentTagAttribute(
+      type = "org.apache.myfaces.tobago.model.Selectable",
+      defaultValue = Selectable.STRING_MULTI,
+      allowedValues = {
+          Selectable.STRING_NONE, Selectable.STRING_SINGLE, Selectable.STRING_SINGLE_OR_NONE, Selectable.STRING_MULTI
+      },
+      defaultCode = "org.apache.myfaces.tobago.model.Selectable.multi")
   void setSelectable(String selectable);
 
   /**
@@ -222,20 +240,21 @@ public interface SheetTagDeclaration
       methodSignature = "javax.faces.event.ActionEvent")
   void setSortActionListener(String sortActionListener);
 
-  /**
-   * Flag indicating if paging arrows are shown near direct links
-   * @since 2.0.0
-   */
-  @TagAttribute
-  @UIComponentTagAttribute(type = "boolean", defaultValue = "false")
-  void setShowDirectLinksArrows(String showDirectLinksArrows);
 
-  /**
-   * Flag indicating if paging arrows are shown near page range
-   * @since 2.0.0
-   */
-  @TagAttribute
-  @UIComponentTagAttribute(type = "boolean", defaultValue = "true")
-  void setShowPageRangeArrows(String showPageRangeArrows);
+    /**
+     * Flag indicating if paging arrows are shown near direct links
+     * @since 2.0.0
+     */
+    @TagAttribute
+    @UIComponentTagAttribute(type = "boolean", defaultValue = "false")
+    void setShowDirectLinksArrows(String showDirectLinksArrows);
+
+    /**
+     * Flag indicating if paging arrows are shown near page range
+     * @since 2.0.0
+     */
+    @TagAttribute
+    @UIComponentTagAttribute(type = "boolean", defaultValue = "true")
+    void setShowPageRangeArrows(String showPageRangeArrows);
 
 }

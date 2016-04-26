@@ -22,15 +22,17 @@ package org.apache.myfaces.tobago.example.demo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class UploadItem {
+import java.io.Serializable;
+
+public class UploadItem implements Serializable {
 
   private static final Logger LOG = LoggerFactory.getLogger(UploadItem.class);
 
   private String name;
-  private int size;
+  private long size;
   private String type;
 
-  public UploadItem(final String name, final int size, final String type) {
+  public UploadItem(final String name, final long size, final String type) {
     this.name = name;
     this.size = size;
     this.type = type;
@@ -44,11 +46,11 @@ public class UploadItem {
     this.name = name;
   }
 
-  public int getSize() {
+  public long getSize() {
     return size;
   }
 
-  public void setSize(final int size) {
+  public void setSize(final long size) {
     this.size = size;
   }
 

@@ -20,7 +20,7 @@
   <parent>
     <groupId>org.apache.myfaces.tobago</groupId>
     <artifactId>tobago-example</artifactId>
-    <version>2.0.10-SNAPSHOT</version>
+    <version>3.0.0-beta-1-SNAPSHOT</version>
   </parent>
   <artifactId>tobago-example-demo</artifactId>
   <packaging>war</packaging>
@@ -29,7 +29,7 @@
 
   <properties>
     <openwebbeans.version>1.1.7</openwebbeans.version>
-    <deltaspike.version>1.5.2</deltaspike.version>
+    <deltaspike.version>1.2.1</deltaspike.version>
   </properties>
   <build>
     <finalName>tobago-example-demo</finalName>
@@ -58,39 +58,6 @@
         </configuration>
       </plugin>
       <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>xml-maven-plugin</artifactId>
-        <version>1.0</version>
-        <executions>
-          <execution>
-            <phase>generate-resources</phase>
-            <goals>
-              <goal>transform</goal>
-            </goals>
-          </execution>
-        </executions>
-        <configuration>
-          <transformationSets>
-            <transformationSet>
-              <dir>src/main/webapp</dir>
-              <outputDir>${project.build.directory}/tobago-example-demo</outputDir>
-              <stylesheet>src/main/xslt/facelet2jsp.xsl</stylesheet>
-              <includes>
-                <include>init.xhtml</include>
-                <include>content/**/*.xhtml</include>
-                <include>reference/**/*.xhtml</include>
-              </includes>
-              <fileMappers>
-                <fileMapper implementation="org.codehaus.plexus.components.io.filemappers.RegExpFileMapper">
-                  <pattern>(.*).xhtml</pattern>
-                  <replacement>$1.jspx</replacement>
-                </fileMapper>
-              </fileMappers>
-            </transformationSet>
-          </transformationSets>
-        </configuration>
-      </plugin>
-      <plugin>
         <!-- TODO test glassfish -->
         <groupId>org.glassfish</groupId>
         <artifactId>maven-embedded-glassfish-plugin</artifactId>
@@ -101,28 +68,38 @@
           <autoDelete>true</autoDelete>
         </configuration>
       </plugin>
+      <plugin>
+        <groupId>org.eclipse.jetty</groupId>
+        <artifactId>jetty-maven-plugin</artifactId>
+        <configuration>
+          <loginServices>
+            <loginService implementation="org.eclipse.jetty.security.HashLoginService">
+              <name>demo-realm</name>
+              <config>src/test/resources/realm.properties</config>
+            </loginService>
+          </loginServices>
+          <stopKey>stopKey</stopKey>
+          <stopPort>9999</stopPort>
+          <systemProperties>
+            <systemProperty>
+              <name>derby.stream.error.file</name>
+              <value>target/derby.log</value>
+            </systemProperty>
+          </systemProperties>
+        </configuration>
+        <dependencies>
+        </dependencies>
+      </plugin>
     </plugins>
   </build>
 
   <dependencies>
+
+    <!-- Tobago -->
     <dependency>
       <groupId>org.apache.myfaces.tobago</groupId>
       <artifactId>tobago-example-data</artifactId>
       <version>${project.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.myfaces.tobago</groupId>
-      <artifactId>tobago-fileupload</artifactId>
-      <version>${project.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>log4j</groupId>
-      <artifactId>log4j</artifactId>
-      <scope>runtime</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>slf4j-log4j12</artifactId>
     </dependency>
     <dependency>
       <groupId>oro</groupId>
@@ -161,9 +138,9 @@
     </dependency>
 
     <dependency>
-        <groupId>org.hibernate</groupId>
-        <artifactId>hibernate-validator</artifactId>
-        <version>4.2.0.Final</version>
+      <groupId>org.hibernate</groupId>
+      <artifactId>hibernate-validator</artifactId>
+      <version>4.3.2.Final</version>
     </dependency>
 
   </dependencies>
@@ -256,12 +233,6 @@
           <version>${openwebbeans.version}</version>
         </dependency>
 
-        <!-- for JSF 2.0 and Bean Validation (JSR-303)  -->
-        <dependency>
-          <groupId>org.glassfish.web</groupId>
-          <artifactId>javax.el</artifactId>
-        </dependency>
-
       </dependencies>
     </profile>
 
@@ -312,12 +283,6 @@
           <groupId>org.apache.openwebbeans</groupId>
           <artifactId>openwebbeans-resource</artifactId>
           <version>${openwebbeans.version}</version>
-        </dependency>
-
-        <!-- for JSF 2.0 and Bean Validation (JSR-303)  -->
-        <dependency>
-          <groupId>org.glassfish.web</groupId>
-          <artifactId>javax.el</artifactId>
         </dependency>
 
       </dependencies>
@@ -372,12 +337,6 @@
           <version>${openwebbeans.version}</version>
         </dependency>
 
-        <!-- for JSF 2.0 and Bean Validation (JSR-303)  -->
-        <dependency>
-          <groupId>org.glassfish.web</groupId>
-          <artifactId>javax.el</artifactId>
-        </dependency>
-
       </dependencies>
     </profile>
 
@@ -428,12 +387,6 @@
           <groupId>org.apache.openwebbeans</groupId>
           <artifactId>openwebbeans-resource</artifactId>
           <version>${openwebbeans.version}</version>
-        </dependency>
-
-        <!-- for JSF 2.0 and Bean Validation (JSR-303)  -->
-        <dependency>
-          <groupId>org.glassfish.web</groupId>
-          <artifactId>javax.el</artifactId>
         </dependency>
 
       </dependencies>
@@ -488,12 +441,6 @@
           <version>${openwebbeans.version}</version>
         </dependency>
 
-        <!-- for JSF 2.0 and Bean Validation (JSR-303)  -->
-        <dependency>
-          <groupId>org.glassfish.web</groupId>
-          <artifactId>javax.el</artifactId>
-        </dependency>
-
       </dependencies>
     </profile>
 
@@ -546,36 +493,33 @@
           <version>${openwebbeans.version}</version>
         </dependency>
 
-        <!-- for JSF 2.0 and Bean Validation (JSR-303)  -->
-        <dependency>
-          <groupId>org.glassfish.web</groupId>
-          <artifactId>javax.el</artifactId>
-        </dependency>
-
       </dependencies>
     </profile>
 
     <profile>
       <!--
-       mvn package cargo:start -Ptomcat6x
+       mvn package cargo:start -Ptomcat7x
+       XXX not working yet
       -->
-      <id>tomcat6x</id>
+      <id>tomcat7x</id>
       <build>
         <plugins>
           <plugin>
             <groupId>org.codehaus.cargo</groupId>
             <artifactId>cargo-maven2-plugin</artifactId>
-            <version>1.0</version>
+            <version>1.4.6</version>
             <configuration>
               <container>
-                <containerId>tomcat6x</containerId>
+                <containerId>tomcat7x</containerId>
                 <zipUrlInstaller>
-                  <url>http://archive.apache.org/dist/tomcat/tomcat-6/v6.0.33/bin/apache-tomcat-6.0.33.zip</url>
-                  <installDir>${project.build.directory}/tomcat6</installDir>
+                  <url>http://archive.apache.org/dist/tomcat/tomcat-7/v7.0.50/bin/apache-tomcat-7.0.50.zip</url>
                 </zipUrlInstaller>
+                <output>${project.build.directory}/tomcat7/container.log</output>
+                <append>false</append>
+                <log>${project.build.directory}/tomcat7/cargo.log</log>
               </container>
               <configuration>
-                <home>${project.build.directory}/tomcat6/container</home>
+                <home>${project.build.directory}/tomcat7/container</home>
               </configuration>
             </configuration>
           </plugin>
@@ -584,25 +528,28 @@
     </profile>
     <profile>
       <!--
-       mvn package cargo:start -Ptomcat5x
+       mvn package cargo:start -Ptomcat8x
+       XXX not working yet
       -->
-      <id>tomcat5x</id>
+      <id>tomcat8x</id>
       <build>
         <plugins>
           <plugin>
             <groupId>org.codehaus.cargo</groupId>
             <artifactId>cargo-maven2-plugin</artifactId>
-            <version>1.0</version>
+            <version>1.4.6</version>
             <configuration>
               <container>
-                <containerId>tomcat5x</containerId>
+                <containerId>tomcat8x</containerId>
                 <zipUrlInstaller>
-                  <url>http://archive.apache.org/dist/tomcat/tomcat-5/v5.5.33/bin/apache-tomcat-5.5.33.zip</url>
-                  <installDir>${project.build.directory}/tomcat5</installDir>
+                  <url>http://archive.apache.org/dist/tomcat/tomcat-8/v8.0.1/bin/apache-tomcat-8.0.1.zip</url>
                 </zipUrlInstaller>
+                <output>${project.build.directory}/tomcat8/container.log</output>
+                <append>false</append>
+                <log>${project.build.directory}/tomcat8/cargo.log</log>
               </container>
               <configuration>
-                <home>${project.build.directory}/tomcat5/container</home>
+                <home>${project.build.directory}/tomcat8/container</home>
               </configuration>
             </configuration>
           </plugin>
@@ -617,10 +564,9 @@
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-checkstyle-plugin</artifactId>
-            <version>2.9</version>
             <configuration>
               <configLocation>META-INF/checkstyle-tobago.xml</configLocation>
-              <includes>**/*.xhtml,**/*.jsp,**/*.tag</includes>
+              <includes>**/*.xhtml</includes>
               <excludes>**/*.java</excludes>
               <sourceDirectory>src/main/webapp</sourceDirectory>
             </configuration>

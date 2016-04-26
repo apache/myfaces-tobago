@@ -21,7 +21,6 @@ package org.apache.myfaces.tobago.example.test;
 
 import org.junit.Assert;
 import org.junit.Test;
-import org.openqa.selenium.OutputType;
 
 public class SimpleSeleniumTest extends SeleniumTest {
 
@@ -30,9 +29,7 @@ public class SimpleSeleniumTest extends SeleniumTest {
     getSelenium().open("/faces/simple.xhtml");
     getSelenium().checkPage();
     Assert.assertEquals("Simple Test", getSelenium().getValue("page:in"));
-    String base64 = getSelenium().captureScreenshotToString();
-    Assert.assertNotNull(base64);
-    OutputType.FILE.convertFromBase64Png(base64);
+    getSelenium().captureScreenshot(SimpleSeleniumTest.class.getName() + ".testHelloWorld.png");
   }
 
 }

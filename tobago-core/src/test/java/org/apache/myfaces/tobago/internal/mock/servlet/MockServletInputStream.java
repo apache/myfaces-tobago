@@ -32,6 +32,7 @@ public class MockServletInputStream extends ServletInputStream {
     this.body = body;
   }
 
+  @Override
   public int read() throws IOException {
     if (next < body.length) {
       return body[next++];

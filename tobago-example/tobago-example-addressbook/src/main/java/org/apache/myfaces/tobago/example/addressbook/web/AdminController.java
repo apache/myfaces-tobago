@@ -19,19 +19,20 @@
 
 package org.apache.myfaces.tobago.example.addressbook.web;
 
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
-
+import javax.annotation.PostConstruct;
 import javax.annotation.security.RolesAllowed;
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Named;
 import javax.swing.BoundedRangeModel;
 import javax.swing.DefaultBoundedRangeModel;
+import java.io.Serializable;
 import java.lang.management.ManagementFactory;
 import java.lang.management.MemoryMXBean;
 import java.lang.management.MemoryUsage;
 
-@Component("admin")
-@Scope("session")
-public class AdminController {
+@Named("admin")
+@ApplicationScoped
+public class AdminController implements Serializable {
 
   private static final String OUTCOME_ADMIN = "admin";
 
@@ -43,12 +44,13 @@ public class AdminController {
     return OUTCOME_ADMIN;
   }
 
-  public boolean getUpdateMemory() {
+  @PostConstruct
+  public void update() {
     final MemoryMXBean memoryBean = ManagementFactory.getMemoryMXBean();
     final MemoryUsage memory = memoryBean.getHeapMemoryUsage();
-    memoryUsage = new DefaultBoundedRangeModel(Long.valueOf(memory.getUsed()/1024).intValue(),
-        0, 0, Long.valueOf(memory.getMax()/1024).intValue());
-    final int percentValue = memoryUsage.getValue()/(memoryUsage.getMaximum()*100);
+    memoryUsage = new DefaultBoundedRangeModel(Long.valueOf(memory.getUsed() / 1024).intValue(),
+        0, 0, Long.valueOf(memory.getMax() / 1024).intValue());
+    final int percentValue = memoryUsage.getValue() / (memoryUsage.getMaximum() * 100);
     if (percentValue <= 80) {
       state = "ok";
     } else if (percentValue > 95) {
@@ -56,21 +58,18 @@ public class AdminController {
     } else {
       state = "warn";
     }
+  }
 
+  public boolean getUpdateMemory() {
+    update();
     return true;
   }
 
   public BoundedRangeModel getMemory() {
-    if (memoryUsage == null) {
-      getUpdateMemory();
-    }
     return memoryUsage;
   }
 
   public String getState() {
-    if (memoryUsage == null) {
-      getUpdateMemory();
-    }
     return state;
   }
 }

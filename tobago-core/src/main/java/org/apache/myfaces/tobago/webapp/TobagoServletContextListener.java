@@ -35,6 +35,7 @@ public class TobagoServletContextListener implements ServletContextListener {
 
   private static final Logger LOG = LoggerFactory.getLogger(TobagoServletContextListener.class);
 
+  @Override
   public void contextInitialized(final ServletContextEvent event) {
 
     if (LOG.isInfoEnabled()) {
@@ -72,6 +73,7 @@ public class TobagoServletContextListener implements ServletContextListener {
     }
   }
 
+  @Override
   public void contextDestroyed(final ServletContextEvent event) {
     if (LOG.isInfoEnabled()) {
       LOG.info("*** contextDestroyed ***\n--- snip ---------"

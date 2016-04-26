@@ -66,7 +66,9 @@ public abstract class TobagoConfig {
   public abstract Map<String, String> getMimeTypes();
 
   /**
-   * For backward compatibility. The default is false.
+   * @return false
+   * @deprecated since Tobago 3.0.0
    */
+  @Deprecated
   public abstract boolean isClassicDateTimePicker();
 }

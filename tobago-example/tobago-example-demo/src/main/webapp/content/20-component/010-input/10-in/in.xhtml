@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+-->
+
+<ui:composition template="/main.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:tc="http://myfaces.apache.org/tobago/component"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core">
+  <ui:param name="title" value="#{overviewBundle.in} &lt;tc:in&gt;"/>
+  <p>The <code class="language-markup">&lt;tc:in/&gt;</code> tag create a classic inputfield.</p>
+  <tc:link label="Tag Library Documentation" image="image/feather-leaf.png" link="#{overviewBundle.tagDocUrl}/in.html"/>
+  <tc:section label="Basics">
+    <p>In the most cases, a label should be placed in front of every inputfield. For this use the attribute
+      <code>label</code>.</p>
+    <pre><code class="language-markup">&lt;tc:in label="Input" value="Some Text"/&gt;</code></pre>
+    <tc:in id="i1" label="Input" value="Some Text"/>
+    <tc:in id="i2" label="Read Only" readonly="true" value="Some Text"/>
+    <tc:in id="i3" label="Disabled" disabled="true" value="Some Text"/>
+    <tc:in id="i4" value="Input without a label"/>
+  </tc:section>
+
+  <tc:section label="Focus">
+    <p>The following inputfield should be selected after reloading the page. Use the <code>focus</code> attribute.</p>
+    <pre><code class="language-markup">&lt;tc:in label="Input (focus)" focus="true" value="Some Text"/&gt;</code></pre>
+    <tc:in id="i5" label="Input (focus)" focus="true" value="Some Text"/>
+  </tc:section>
+
+  <tc:section label="Password">
+    <p>To create an inputfield for passwords, set the
+      <code>password</code> attribute to 'true'. It will hide the text as shown in the following example.</p>
+        <pre><code id="c3"
+                   class="language-markup">&lt;tc:in label="Password" password="true" value="password"/&gt;</code></pre>
+    <tc:in id="i6" label="Password" password="true" value="password"/>
+  </tc:section>
+
+  <tc:section label="Placeholder">
+    <p>Another way to tell the user the meaning of a field is the <code>placeholder</code> attribute.</p>
+    <p>The text of the placeholder will only be shown, if the value is an empty string.</p>
+    <pre><code class="language-markup">&lt;tc:in label="Placeholder" placeholder="Grey Text"/&gt;</code></pre>
+    <tc:in id="i7" label="Placeholder" placeholder="Short description of the field." value=""/>
+  </tc:section>
+
+  <tc:section label="Ajax">
+    <p>The outputfield in this example, display the given value on the server.
+      With <code class="language-markup">&lt;f:ajax render="outputfield" listener="\#{inController.update}"/></code>,
+      the outputfield will be rerendered, after the value has been changed.
+      This is because <code>outputfield</code> is the id of the <code>&lt;tc:out/></code> tag.
+      and the default event for <code class="language-markup">&lt;tc:in/></code> is <code>change</code>.
+
+      Additional, the <code>listener</code> attribute is set. The given method is called after the inputfield
+      loose focus.</p>
+    <tc:in id="i8" label="On Change" value="#{inController.changeValue}">
+      <f:ajax render="outputfield" listener="#{inController.update}"/>
+    </tc:in>
+    <tc:out id="outputfield" label="On Server" value="#{inController.changeValue}"/>
+  </tc:section>
+</ui:composition>

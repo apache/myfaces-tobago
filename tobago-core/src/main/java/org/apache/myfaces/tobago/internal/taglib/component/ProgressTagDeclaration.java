@@ -27,11 +27,9 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.RendererTypes;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasCurrentMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
-import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutComponent;
+import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
 
 import javax.faces.component.UIOutput;
 
@@ -41,7 +39,7 @@ import javax.faces.component.UIOutput;
 @Tag(name = "progress")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIProgress",
-    uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUIOut",
+    uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUIProgress",
     uiComponentFacesClass = "javax.faces.component.UIOutput",
     componentFamily = UIOutput.COMPONENT_FAMILY,
     rendererType = RendererTypes.PROGRESS,
@@ -52,15 +50,22 @@ import javax.faces.component.UIOutput;
             "Contains an instance of UICommand (tc:command). The action is invoked if the full progress has reached",
         allowedChildComponenents = "org.apache.myfaces.tobago.Command")})
         
-public interface ProgressTagDeclaration
-    extends HasIdBindingAndRendered, HasTip, HasMarkup, HasCurrentMarkup, IsGridLayoutComponent {
+public interface ProgressTagDeclaration extends HasIdBindingAndRendered, HasTip, IsVisual {
 
   /**
-   * The current value of this component.
+   * The current value of this component. May be a java.lang.Number or a javax.swing.BoundedRangeModel
    */
   @TagAttribute
   @UIComponentTagAttribute(
-      type = { "javax.swing.BoundedRangeModel" },
+      type = { "javax.swing.BoundedRangeModel", "java.lang.Double" },
       expression = DynamicExpression.VALUE_EXPRESSION_REQUIRED)
   void setValue(String value);
+
+  /**
+   * The maximum of the value of the progress.
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(
+      type = { "java.lang.Double" })
+  void setMax(String max);
 }

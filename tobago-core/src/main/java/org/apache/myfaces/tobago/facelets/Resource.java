@@ -54,7 +54,6 @@ public final class Resource {
    * @param ctx  the faces context from which to retrieve the resource
    * @param path an URL path
    * @return an url representing the URL and on which getInputStream() can be called to get the resource
-   * @throws java.net.MalformedURLException
    */
   public static URL getResourceUrl(final FacesContext ctx, final String path) throws MalformedURLException {
     final ExternalContext externalContext = ctx.getExternalContext();
@@ -107,12 +106,15 @@ public final class Resource {
   private static URL getUrlForResourceAsStream(final ExternalContext externalContext, final String path)
       throws MalformedURLException {
     final URLStreamHandler handler = new URLStreamHandler() {
+      @Override
       protected URLConnection openConnection(final URL u) throws IOException {
         final String file = u.getFile();
         return new URLConnection(u) {
+          @Override
           public void connect() throws IOException {
           }
 
+          @Override
           public InputStream getInputStream() throws IOException {
             if (LOG.isTraceEnabled()) {
               LOG.trace("Opening internal url to " + file);

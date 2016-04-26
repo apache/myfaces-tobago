@@ -25,7 +25,7 @@
 
   <application>
     <navigation-handler>
-      org.apache.myfaces.tobago.example.demo.MultiplePageDeclarationLanguageNavigationHandler
+      org.apache.myfaces.tobago.example.demo.PrettyUrlForMenuNavigationHandler
     </navigation-handler>
     <locale-config>
       <default-locale>en</default-locale>
@@ -54,28 +54,10 @@
     <converter-class>org.apache.myfaces.tobago.example.data.SalutationConverter</converter-class>
   </converter>
 
-  <managed-bean>
-    <managed-bean-name>treeController</managed-bean-name>
-    <managed-bean-class>org.apache.myfaces.tobago.example.demo.TreeController</managed-bean-class>
-    <managed-bean-scope>session</managed-bean-scope>
-  </managed-bean>
-
   <lifecycle>
     <phase-listener>org.apache.myfaces.tobago.example.demo.SynchronizeNavigationPhaseListener</phase-listener>
     <!--<phase-listener>org.apache.myfaces.tobago.util.DebugPhaseListener</phase-listener>-->
   </lifecycle>
-
-  <managed-bean>
-    <managed-bean-name>info</managed-bean-name>
-    <managed-bean-class>org.apache.myfaces.tobago.example.demo.ServerInfo</managed-bean-class>
-    <managed-bean-scope>application</managed-bean-scope>
-  </managed-bean>
-
-  <managed-bean>
-    <managed-bean-name>pageDeclarationLanguage</managed-bean-name>
-    <managed-bean-class>org.apache.myfaces.tobago.example.demo.PageDeclarationLanguageBean</managed-bean-class>
-    <managed-bean-scope>session</managed-bean-scope>
-  </managed-bean>
 
   <!--  overview  -->
 
@@ -91,51 +73,13 @@
     <managed-bean-scope>session</managed-bean-scope>
   </managed-bean>
 
-  <!--<navigation-rule>
-    <from-view-id>/tobago-module-client/clientConfig.jsp</from-view-id>
-    <navigation-case>
-      <from-action>#{clientConfigController.submit}</from-action>
-      <to-view-id>/tobago-module-client/clientConfig.jsp</to-view-id>
-    </navigation-case>
-  </navigation-rule>-->
-
   <managed-bean>
     <managed-bean-name>clientConfigController2</managed-bean-name>
     <managed-bean-class>org.apache.myfaces.tobago.example.demo.clientConfig.ClientConfigController</managed-bean-class>
     <managed-bean-scope>session</managed-bean-scope>
   </managed-bean>
 
-  <managed-bean>
-    <managed-bean-name>validationSeverity</managed-bean-name>
-    <managed-bean-class>org.apache.myfaces.tobago.example.demo.overview.ValidationSeverity</managed-bean-class>
-    <managed-bean-scope>none</managed-bean-scope>
-  </managed-bean>
-
   <!--best practice-->
-
-  <managed-bean>
-    <managed-bean-name>bestPracticeController</managed-bean-name>
-    <managed-bean-class>org.apache.myfaces.tobago.example.demo.bestpractice.BestPracticeController</managed-bean-class>
-    <managed-bean-scope>request</managed-bean-scope>
-  </managed-bean>
-
-  <managed-bean>
-    <managed-bean-name>birdController</managed-bean-name>
-    <managed-bean-class>org.apache.myfaces.tobago.example.demo.BirdController</managed-bean-class>
-    <managed-bean-scope>session</managed-bean-scope>
-  </managed-bean>
-
-  <managed-bean>
-    <managed-bean-name>transitionController</managed-bean-name>
-    <managed-bean-class>org.apache.myfaces.tobago.example.demo.bestpractice.TransitionController</managed-bean-class>
-    <managed-bean-scope>request</managed-bean-scope>
-  </managed-bean>
-
-  <managed-bean>
-    <managed-bean-name>customizer</managed-bean-name>
-    <managed-bean-class>org.apache.myfaces.tobago.example.demo.bestpractice.ToolBarCustomizer</managed-bean-class>
-    <managed-bean-scope>session</managed-bean-scope>
-  </managed-bean>
 
   <navigation-rule>
     <navigation-case>
@@ -176,11 +120,11 @@
     <from-view-id>/content/12-best-practice/00/error.xhtml</from-view-id>
     <navigation-case>
       <from-outcome>error-404</from-outcome>
-      <to-view-id>/content/12-best-practice/00/x-not-existing-page.jsp</to-view-id>
+      <to-view-id>/content/12-best-practice/00/x-not-existing-page.xhtml</to-view-id>
     </navigation-case>
     <navigation-case>
       <from-outcome>syntax</from-outcome>
-      <to-view-id>/content/12-best-practice/00/x-error-in-syntax.jsp</to-view-id>
+      <to-view-id>/content/12-best-practice/00/x-error-in-syntax.xhtml</to-view-id>
     </navigation-case>
   </navigation-rule>
 
@@ -194,23 +138,5 @@
       org.apache.myfaces.tobago.example.demo.TestExceptionHandlerFactory
     </exception-handler-factory>
   </factory>
-
-  <managed-bean>
-    <managed-bean-name>upload</managed-bean-name>
-    <managed-bean-class>org.apache.myfaces.tobago.example.demo.Upload</managed-bean-class>
-    <managed-bean-scope>session</managed-bean-scope>
-  </managed-bean>
-
-  <managed-bean>
-    <managed-bean-name>treeEditor</managed-bean-name>
-    <managed-bean-class>org.apache.myfaces.tobago.example.demo.TreeEditor</managed-bean-class>
-    <managed-bean-scope>session</managed-bean-scope>
-  </managed-bean>
-
-  <managed-bean>
-    <managed-bean-name>fishPond</managed-bean-name>
-    <managed-bean-class>org.apache.myfaces.tobago.example.demo.nonfacesrequest.FishPond</managed-bean-class>
-    <managed-bean-scope>session</managed-bean-scope>
-  </managed-bean>
 
 </faces-config>

@@ -20,28 +20,13 @@
 package org.apache.myfaces.tobago.internal.component;
 
 import org.apache.myfaces.tobago.ajax.AjaxUtils;
-import org.apache.myfaces.tobago.component.Attributes;
-import org.apache.myfaces.tobago.component.ComponentTypes;
-import org.apache.myfaces.tobago.component.DeprecatedDimension;
-import org.apache.myfaces.tobago.component.Facets;
-import org.apache.myfaces.tobago.component.OnComponentPopulated;
-import org.apache.myfaces.tobago.component.RendererTypes;
+import org.apache.myfaces.tobago.component.Visual;
 import org.apache.myfaces.tobago.internal.ajax.AjaxInternalUtils;
 import org.apache.myfaces.tobago.internal.ajax.AjaxResponseRenderer;
 import org.apache.myfaces.tobago.internal.layout.LayoutUtils;
-import org.apache.myfaces.tobago.internal.util.Deprecation;
 import org.apache.myfaces.tobago.internal.util.FacesContextUtils;
-import org.apache.myfaces.tobago.internal.webapp.TobagoMultipartFormdataRequest;
-import org.apache.myfaces.tobago.layout.Box;
-import org.apache.myfaces.tobago.layout.LayoutComponent;
-import org.apache.myfaces.tobago.layout.LayoutContainer;
-import org.apache.myfaces.tobago.layout.LayoutManager;
-import org.apache.myfaces.tobago.layout.Measure;
-import org.apache.myfaces.tobago.model.PageState;
-import org.apache.myfaces.tobago.model.PageStateImpl;
 import org.apache.myfaces.tobago.util.ApplyRequestValuesCallback;
 import org.apache.myfaces.tobago.util.ComponentUtils;
-import org.apache.myfaces.tobago.util.CreateComponentUtils;
 import org.apache.myfaces.tobago.util.DebugUtils;
 import org.apache.myfaces.tobago.util.FacesVersion;
 import org.apache.myfaces.tobago.util.ProcessValidationsCallback;
@@ -50,22 +35,15 @@ import org.apache.myfaces.tobago.util.UpdateModelValuesCallback;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.el.ELContext;
-import javax.el.ValueExpression;
-import javax.faces.application.FacesMessage;
 import javax.faces.component.ContextCallback;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
-import javax.servlet.ServletRequest;
-import javax.servlet.http.HttpServletRequestWrapper;
 import java.io.IOException;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 
-public abstract class AbstractUIPage extends AbstractUIForm
-    implements OnComponentPopulated, LayoutContainer, DeprecatedDimension {
+public abstract class AbstractUIPage extends AbstractUIForm implements Visual {
 
   private static final Logger LOG = LoggerFactory.getLogger(AbstractUIPage.class);
 
@@ -78,10 +56,6 @@ public abstract class AbstractUIPage extends AbstractUIForm
   private static final ContextCallback UPDATE_MODEL_VALUES_CALLBACK = new UpdateModelValuesCallback();
 
   private String formId;
-
-  private String actionId;
-
-  private Box actionPosition;
 
   @Override
   public boolean getRendersChildren() {
@@ -99,7 +73,10 @@ public abstract class AbstractUIPage extends AbstractUIForm
   public void encodeBegin(final FacesContext facesContext) throws IOException {
     if (!AjaxUtils.isAjaxRequest(facesContext)) {
       super.encodeBegin(facesContext);
-      ((AbstractUILayoutBase) getLayoutManager()).encodeBegin(facesContext);
+      final UIComponent layoutManager = LayoutUtils.getLayoutManager(this);
+      if (layoutManager != null) {
+        layoutManager.encodeBegin(facesContext);
+      }
     }
   }
 
@@ -108,14 +85,22 @@ public abstract class AbstractUIPage extends AbstractUIForm
     if (AjaxUtils.isAjaxRequest(facesContext)) {
       new AjaxResponseRenderer().renderResponse(facesContext);
     } else {
-      ((AbstractUILayoutBase) getLayoutManager()).encodeChildren(facesContext);
+      final UIComponent layoutManager = LayoutUtils.getLayoutManager(this);
+      if (layoutManager != null) {
+        layoutManager.encodeChildren(facesContext);
+      } else {
+        super.encodeChildren(facesContext);
+      }
     }
   }
 
   @Override
   public void encodeEnd(final FacesContext facesContext) throws IOException {
     if (!AjaxUtils.isAjaxRequest(facesContext)) {
-      ((AbstractUILayoutBase) getLayoutManager()).encodeEnd(facesContext);
+      final UIComponent layoutManager = LayoutUtils.getLayoutManager(this);
+      if (layoutManager != null) {
+        layoutManager.encodeEnd(facesContext);
+      }
       super.encodeEnd(facesContext);
     }
     if (LOG.isTraceEnabled()) {
@@ -124,8 +109,6 @@ public abstract class AbstractUIPage extends AbstractUIForm
   }
 
   private void processDecodes0(final FacesContext facesContext) {
-
-    checkTobagoRequest(facesContext);
 
     decode(facesContext);
 
@@ -234,27 +217,32 @@ public abstract class AbstractUIPage extends AbstractUIForm
     // find the form of the action command and set submitted to it and all
     // children
 
+    final UIViewRoot viewRoot = facesContext.getViewRoot();
+
     // reset old submitted state
     setSubmitted(false);
 
-    String currentActionId = getActionId();
-    if (LOG.isDebugEnabled()) {
-      LOG.debug("actionId = '" + currentActionId + "'");
+    String sourceId = facesContext.getExternalContext().getRequestParameterMap().get("javax.faces.source");
+    UIComponent command = null;
+    if (sourceId != null) {
+      if (LOG.isDebugEnabled()) {
+        LOG.debug("sourceId = '" + sourceId + "'");
+      }
+      command = viewRoot.findComponent(sourceId);
+    } else {
+      LOG.warn("No sourceId found!");
     }
-
-    final UIViewRoot viewRoot = facesContext.getViewRoot();
-    UIComponent command = viewRoot.findComponent(currentActionId);
 
     // TODO: remove this if block if proven this never happens anymore
     if (command == null
-        && currentActionId != null && currentActionId.matches(".*:\\d+:.*")) {
+        && sourceId != null && sourceId.matches(".*:\\d+:.*")) {
       // If currentActionId component was inside a sheet the id contains the
       // rowIndex and is therefore not found here.
       // We do not need the row here because we want just to find the
       // related form, so removing the rowIndex will help here.
-      currentActionId = currentActionId.replaceAll(":\\d+:", ":");
+      sourceId = sourceId.replaceAll(":\\d+:", ":");
       try {
-        command = viewRoot.findComponent(currentActionId);
+        command = viewRoot.findComponent(sourceId);
         //LOG.info("command = \"" + command + "\"", new Exception());
       } catch (final Exception e) {
         // ignore
@@ -262,7 +250,7 @@ public abstract class AbstractUIPage extends AbstractUIForm
     }
 
     if (LOG.isTraceEnabled()) {
-      LOG.trace(currentActionId);
+      LOG.trace(sourceId);
       LOG.trace("command:{}", command);
       LOG.trace(DebugUtils.toString(viewRoot, 0));
     }
@@ -283,118 +271,10 @@ public abstract class AbstractUIPage extends AbstractUIForm
     }
   }
 
-  private void checkTobagoRequest(final FacesContext facesContext) {
-    // multipart/form-data must use TobagoMultipartFormdataRequest
-    final String contentType = facesContext.getExternalContext().getRequestHeaderMap().get("content-type");
-    if (contentType != null && contentType.startsWith("multipart/form-data")) {
-      final Object request = facesContext.getExternalContext().getRequest();
-      boolean okay = false;
-      if (request instanceof TobagoMultipartFormdataRequest) {
-        okay = true;
-      } else if (request instanceof HttpServletRequestWrapper) {
-        final ServletRequest wrappedRequest = ((HttpServletRequestWrapper) request).getRequest();
-        if (wrappedRequest instanceof TobagoMultipartFormdataRequest) {
-          okay = true;
-        }
-      }
-      // TODO PortletRequest ??
-      if (!okay) {
-        LOG.error("Can't process multipart/form-data without TobagoRequest. "
-            + "Please check the web.xml and define a TobagoMultipartFormdataFilter. "
-            + "See documentation for <tc:file>");
-        facesContext.addMessage(null, new FacesMessage("An error has occurred!"));
-      }
-    }
-  }
-
-  /**
-   * @deprecated PageState is deprecated since 1.5.0
-   */
+  /** @deprecated XXX delete me */
   @Deprecated
-  public void updatePageState(final FacesContext facesContext) {
-  }
-
-  /**
-   * @deprecated PageState is deprecated since 1.5.0
-   */
-  @Deprecated
-  public PageState getPageState(final FacesContext facesContext) {
-    final ValueExpression expression = getValueExpression(Attributes.STATE);
-    if (expression != null) {
-      final ELContext elContext = facesContext.getELContext();
-      PageState state = (PageState) expression.getValue(elContext);
-      if (state == null) {
-        state = new PageStateImpl();
-        expression.setValue(elContext, state);
-      }
-      return state;
-    } else {
-      return null;
-    }
-  }
-
-  public String getActionId() {
-    return actionId;
-  }
-
-  public void setActionId(final String actionId) {
-    this.actionId = actionId;
-  }
-
-  public Box getActionPosition() {
-    return actionPosition;
-  }
-
-  public void setActionPosition(final Box actionPosition) {
-    this.actionPosition = actionPosition;
-  }
-
-  /**
-   * @deprecated since 1.5.7 and 2.0.0
-   */
-  public String getDefaultActionId() {
-    Deprecation.LOG.error("The default action handling has been changed!");
+  private String getActionId() {
+    LOG.warn("XXX should not be called, because of AJAX cleanup...");
     return null;
   }
-
-  /**
-   * @deprecated since 1.5.7 and 2.0.0
-   */
-  public void setDefaultActionId(final String defaultActionId) {
-    Deprecation.LOG.error("The default action handling has been changed!");
-  }
-
-  public void onComponentPopulated(final FacesContext facesContext, final UIComponent parent) {
-    if (getLayoutManager() == null) {
-      setLayoutManager(CreateComponentUtils.createAndInitLayout(
-          facesContext, ComponentTypes.GRID_LAYOUT, RendererTypes.GRID_LAYOUT, parent));
-    }
-  }
-
-  public List<LayoutComponent> getComponents() {
-    return LayoutUtils.findLayoutChildren(this);
-  }
-
-  public LayoutManager getLayoutManager() {
-    final UIComponent facet = getFacet(Facets.LAYOUT);
-    if (facet == null) {
-      return null;
-    } else if (facet instanceof LayoutManager) {
-      return (LayoutManager) facet;
-    } else {
-      return (LayoutManager) ComponentUtils.findChild(facet, AbstractUILayoutBase.class);
-    }
-  }
-
-  public void setLayoutManager(final LayoutManager layoutManager) {
-    getFacets().put(Facets.LAYOUT, (AbstractUILayoutBase) layoutManager);
-  }
-
-  public boolean isLayoutChildren() {
-    return isRendered();
-  }
-
-  public abstract Measure getWidth();
-
-  public abstract Measure getHeight();
 }

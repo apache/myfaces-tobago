@@ -20,22 +20,24 @@
 package org.apache.myfaces.tobago.example.addressbook.web;
 
 import org.apache.commons.io.IOUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.example.addressbook.Address;
 import org.apache.myfaces.tobago.example.addressbook.Picture;
 import org.apache.myfaces.tobago.servlet.NonFacesRequestServlet;
 import org.apache.myfaces.tobago.util.VariableResolverUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.faces.context.FacesContext;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletResponse;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 
-
+@WebServlet("/faces/picture")
 public class PictureServlet extends NonFacesRequestServlet {
   private static final Logger LOG = LoggerFactory.getLogger(PictureServlet.class);
 
+  @Override
   public String invokeApplication(final FacesContext facesContext) {
     final Controller controller = (Controller) VariableResolverUtils.resolveVariable(facesContext, "controller");
     final Address address = controller.getCurrentAddress();

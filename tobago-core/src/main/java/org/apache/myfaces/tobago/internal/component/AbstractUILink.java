@@ -26,10 +26,4 @@ public abstract class AbstractUILink extends AbstractUICommand implements Suppor
   public abstract java.lang.String getImage();
 
   public abstract Integer getTabIndex();
-
-  public abstract String getTip();
-
-  public abstract boolean isDisabled();
-
-  public abstract Character getAccessKey();
 }

@@ -24,6 +24,7 @@ import org.slf4j.LoggerFactory;
 
 import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.event.AjaxBehaviorEvent;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
 import javax.inject.Named;
@@ -81,9 +82,8 @@ public class Controller implements Serializable {
     return vehicle;
   }
 
-  public String action() {
+  public void action(AjaxBehaviorEvent event) {
     LOG.info("Action invoked");
-    return null;
   }
 
   public void setVehicle(final int vehicle) {

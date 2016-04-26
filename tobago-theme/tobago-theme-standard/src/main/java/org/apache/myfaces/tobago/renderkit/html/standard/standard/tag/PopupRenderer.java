@@ -20,94 +20,64 @@
 package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
 import org.apache.myfaces.tobago.component.UIPopup;
-import org.apache.myfaces.tobago.context.Markup;
-import org.apache.myfaces.tobago.internal.component.AbstractUIPage;
-import org.apache.myfaces.tobago.internal.layout.LayoutContext;
 import org.apache.myfaces.tobago.internal.util.FacesContextUtils;
-import org.apache.myfaces.tobago.layout.Measure;
-import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
-import org.apache.myfaces.tobago.renderkit.css.Classes;
-import org.apache.myfaces.tobago.renderkit.css.Style;
+import org.apache.myfaces.tobago.renderkit.RendererBase;
+import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
+import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
+import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
+import org.apache.myfaces.tobago.renderkit.html.HtmlRoleValues;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
-import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ComponentSystemEvent;
+import javax.faces.event.ComponentSystemEventListener;
+import javax.faces.event.ListenerFor;
+import javax.faces.event.PostAddToViewEvent;
 import java.io.IOException;
 
-public class PopupRenderer extends LayoutComponentRendererBase {
-
-  private static final Logger LOG = LoggerFactory.getLogger(PopupRenderer.class);
-
-  @Override
-  public boolean getRendersChildren() {
-    return true;
-  }
+@ListenerFor(systemEventClass = PostAddToViewEvent.class)
+public class PopupRenderer extends RendererBase implements ComponentSystemEventListener {
 
   @Override
-  public void prepareRender(final FacesContext facesContext, final UIComponent component) throws IOException {
-
-    final UIPopup popup = (UIPopup) component;
+  public void processEvent(ComponentSystemEvent event) {
+    final FacesContext facesContext = FacesContext.getCurrentInstance();
+    final UIPopup popup = (UIPopup) event.getComponent();
     FacesContextUtils.addPopup(facesContext, popup);
-
-    super.prepareRender(facesContext, popup);
-
-    if (popup.isModal()) {
-      ComponentUtils.addCurrentMarkup(popup, Markup.MODAL);
-    }
   }
 
   @Override
-  public void encodeBegin(final FacesContext facesContext, final UIComponent component) throws IOException {
-
-    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+  public void encodeBegin(FacesContext facesContext, UIComponent component) throws IOException {
     final UIPopup popup = (UIPopup) component;
-
-    final LayoutContext layoutContext = new LayoutContext(popup);
-    layoutContext.layout();
-
-    // XXX fixing invisible popups
-    if (popup.getCurrentWidth() == null || popup.getCurrentWidth().equals(Measure.ZERO)) {
-      LOG.warn("Undefined width of popup with id='" + popup.getClientId(facesContext) + "'");
-      popup.setCurrentWidth(getPreferredWidth(facesContext, popup));
-    }
-    if (popup.getCurrentHeight() == null || popup.getCurrentHeight().equals(Measure.ZERO)) {
-      LOG.warn("Undefined height of popup with id='" + popup.getClientId(facesContext) + "'");
-      popup.setCurrentHeight(getPreferredHeight(facesContext, popup));
-    }
-
-    final String clientId = popup.getClientId(facesContext);
-
-    // XXX May be computed in the "Layout Manager Phase"
-    final AbstractUIPage page = ComponentUtils.findPage(facesContext);
-    if (popup.getLeft() == null) {
-      popup.setLeft(page.getCurrentWidth().subtract(popup.getCurrentWidth()).divide(2));
-    }
-    if (popup.getTop() == null) {
-      popup.setTop(page.getCurrentHeight().subtract(popup.getCurrentHeight()).divide(2));
-    }
-
-    writer.startElement(HtmlElements.DIV, popup);
-    writer.writeIdAttribute(clientId);
-    HtmlRendererUtils.writeDataAttributes(facesContext, writer, popup);
-    final Style style = new Style(facesContext, popup);
-    Integer zIndex = popup.getZIndex();
-    if (zIndex == null) {
-      zIndex = 100;
-      LOG.warn("No z-index found for UIPopup. Set to " + zIndex);
-    }
-    style.setZIndex(zIndex);
+    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+    writer.startElement(HtmlElements.DIV);
+    writer.writeClassAttribute(TobagoClass.POPUP, BootstrapClass.MODAL, BootstrapClass.FADE);
+    writer.writeIdAttribute(popup.getClientId(facesContext));
+    writer.writeAttribute(HtmlAttributes.TABINDEX, -1);
+    writer.writeAttribute(HtmlAttributes.ROLE, HtmlRoleValues.DIALOG.toString(), false);
+    // todo: aria-labelledby
+    writer.startElement(HtmlElements.DIV);
+    writer.writeClassAttribute(BootstrapClass.MODAL_DIALOG);
+    writer.writeAttribute(HtmlAttributes.ROLE, HtmlRoleValues.DOCUMENT.toString(), false);
+/*
+    final Style style = new Style();
+    style.setWidth(popup.getWidth());
+    style.setHeight(popup.getHeight());
     writer.writeStyleAttribute(style);
-    writer.writeClassAttribute(Classes.create(popup));
+*/
+    writer.startElement(HtmlElements.DIV);
+    writer.writeClassAttribute(BootstrapClass.MODAL_CONTENT);
   }
 
   @Override
-  public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
+  public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
+
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
     writer.endElement(HtmlElements.DIV);
+    writer.endElement(HtmlElements.DIV);
+    writer.endElement(HtmlElements.DIV);
+
   }
 }

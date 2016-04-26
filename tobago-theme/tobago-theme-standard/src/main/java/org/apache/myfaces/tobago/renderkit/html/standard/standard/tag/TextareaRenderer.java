@@ -19,19 +19,17 @@
 
 package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
-import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.UITextarea;
-import org.apache.myfaces.tobago.sanitizer.Sanitizer;
 import org.apache.myfaces.tobago.config.TobagoConfig;
-import org.apache.myfaces.tobago.renderkit.InputRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
-import org.apache.myfaces.tobago.renderkit.css.Style;
-import org.apache.myfaces.tobago.renderkit.html.Command;
-import org.apache.myfaces.tobago.renderkit.html.CommandMap;
+import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
+import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
+import org.apache.myfaces.tobago.sanitizer.SanitizeMode;
+import org.apache.myfaces.tobago.sanitizer.Sanitizer;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import org.slf4j.Logger;
@@ -43,12 +41,12 @@ import javax.faces.validator.LengthValidator;
 import javax.faces.validator.Validator;
 import java.io.IOException;
 
-public class TextareaRenderer extends InputRendererBase {
+public class TextareaRenderer extends LabelLayoutRendererBase {
 
   private static final Logger LOG = LoggerFactory.getLogger(TextareaRenderer.class);
 
   @Override
-  public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
+  public void encodeBeginField(final FacesContext facesContext, final UIComponent component) throws IOException {
     if (!(component instanceof UITextarea)) {
       LOG.error("Wrong type: Need " + UITextarea.class.getName() + ", but was " + component.getClass().getName());
       return;
@@ -57,37 +55,23 @@ public class TextareaRenderer extends InputRendererBase {
     final UITextarea input = (UITextarea) component;
     final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, component);
     final String clientId = input.getClientId(facesContext);
+    final String fieldId = clientId + ComponentUtils.SUB_SEPARATOR + "field";
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
-
-    writer.startElement(HtmlElements.TEXTAREA, input);
-    writer.writeNameAttribute(clientId);
-    writer.writeIdAttribute(clientId);
-    HtmlRendererUtils.writeDataAttributes(facesContext, writer, input);
     final Integer rows = input.getRows();
-    if (rows != null) {
-      writer.writeAttribute(HtmlAttributes.ROWS, rows);
-    }
-    if (title != null) {
-      writer.writeAttribute(HtmlAttributes.TITLE, title, true);
-    }
+
+    writer.startElement(HtmlElements.TEXTAREA);
+    writer.writeNameAttribute(clientId);
+    writer.writeIdAttribute(fieldId);
+    HtmlRendererUtils.writeDataAttributes(facesContext, writer, input);
+    writer.writeAttribute(HtmlAttributes.ROWS, rows);
+    writer.writeAttribute(HtmlAttributes.TITLE, title, true);
     writer.writeAttribute(HtmlAttributes.READONLY, input.isReadonly());
     writer.writeAttribute(HtmlAttributes.DISABLED, input.isDisabled());
     writer.writeAttribute(HtmlAttributes.REQUIRED, input.isRequired());
-    final Integer tabIndex = input.getTabIndex();
-    if (tabIndex != null) {
-      writer.writeAttribute(HtmlAttributes.TABINDEX, tabIndex);
-    }
+    writer.writeAttribute(HtmlAttributes.TABINDEX, input.getTabIndex());
 
-    writer.writeClassAttribute(Classes.create(input));
-    final Style style = new Style(facesContext, input);
-    writer.writeStyleAttribute(style);
-    final String onchange = ComponentUtils.getStringAttribute(input, Attributes.ONCHANGE);
-    if (onchange != null) {
-      final CommandMap map = new CommandMap();
-      final Command change = new Command();
-      change.setScript(onchange);
-      map.addCommand("change", change);
-    }
+    writer.writeClassAttribute(Classes.create(input), BootstrapClass.FORM_CONTROL, input.getCustomClass());
+    writer.writeStyleAttribute(input.getStyle());
     int maxLength = -1;
     final String pattern = null;
     for (final Validator validator : input.getValidators()) {
@@ -106,7 +90,14 @@ public class TextareaRenderer extends InputRendererBase {
     if (pattern != null) {
       writer.writeAttribute(HtmlAttributes.PATTERN, pattern, false);
     }
-    HtmlRendererUtils.renderCommandFacet(input, facesContext, writer);
+
+    final String commands = RenderUtils.getBehaviorCommands(facesContext, input);
+    if (commands != null) {
+      writer.writeAttribute(DataAttributes.COMMANDS, commands, true);
+    } else { // old
+      HtmlRendererUtils.renderCommandFacet(input, facesContext, writer);
+    }
+
     HtmlRendererUtils.renderFocus(clientId, input.isFocus(), ComponentUtils.isError(input), facesContext, writer);
 
     /*String placeholder = input.getPlaceholder();
@@ -116,7 +107,7 @@ public class TextareaRenderer extends InputRendererBase {
     String currentValue = RenderUtils.currentValue(input);
     if (currentValue != null) {
       if (ComponentUtils.getDataAttribute(input, "html-editor") != null
-          && "auto".equals(input.getSanitize())) {
+          && SanitizeMode.auto == input.getSanitize()) {
         final Sanitizer sanitizer = TobagoConfig.getInstance(facesContext).getSanitizer();
         currentValue = sanitizer.sanitize(currentValue);
       }
@@ -130,11 +121,11 @@ public class TextareaRenderer extends InputRendererBase {
       }
       writer.writeText(currentValue);
     }
-    writer.endElement(HtmlElements.TEXTAREA);
-    /*if (placeholder != null && !VariableResolverUtils.resolveClientProperties(facesContext)
-        .getUserAgent().hasCapability(Capability.PLACEHOLDER)) {
-      HtmlRendererUtils.createPlaceholderDiv(input, currentValue, placeholder, style, writer);
-    }*/
+  }
 
+  @Override
+  protected void encodeEndField(FacesContext facesContext, UIComponent component) throws IOException {
+    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+    writer.endElement(HtmlElements.TEXTAREA);
   }
 }

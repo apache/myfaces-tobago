@@ -25,31 +25,37 @@ import org.apache.myfaces.tobago.component.UISelectBooleanCheckbox;
 import javax.faces.view.facelets.ComponentConfig;
 
 /**
- * Facelets handler for the <code>&lt;tx:menuCheckbox></code> extension tag.
+ * Facelets handler for the <code>&lt;tx:menuCheckbox&gt;</code> extension tag.
  * <pre>
- * &lt;tx:menuCheckbox/></pre>
+ * &lt;tx:menuCheckbox/&gt;</pre>
  * is the short form of
  * <pre>
- * &lt;tc:menuCommand>
- *   &lt;f:facet name="checkbox">
- *     &lt;tc:selectBooleanCheckbox/>
- *   &lt;/f:facet>
- * &lt;/tc:menuCommand></pre>
+ * &lt;tc:menuCommand&gt;
+ *   &lt;f:facet name="checkbox"&gt;
+ *     &lt;tc:selectBooleanCheckbox/&gt;
+ *   &lt;/f:facet&gt;
+ * &lt;/tc:menuCommand&gt;</pre>
+ *
+ * @deprecated since Tobago 3.0. The tx-library is deprecated, please use the tc-library.
  */
+@Deprecated
 public class MenuCheckboxExtensionHandler extends TobagoMenuExtensionHandler {
 
   public MenuCheckboxExtensionHandler(final ComponentConfig config) {
     super(config);
   }
 
+  @Override
   protected String getSubComponentType() {
     return UISelectBooleanCheckbox.COMPONENT_TYPE;
   }
 
+  @Override
   protected String getSubRendererType() {
     return "SelectBooleanCheckbox";
   }
 
+  @Override
   protected String getFacetName() {
     return Facets.CHECKBOX;
   }

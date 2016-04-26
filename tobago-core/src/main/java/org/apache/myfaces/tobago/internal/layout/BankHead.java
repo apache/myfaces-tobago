@@ -20,7 +20,6 @@
 package org.apache.myfaces.tobago.internal.layout;
 
 import org.apache.myfaces.tobago.layout.LayoutToken;
-import org.apache.myfaces.tobago.layout.Measure;
 
 /**
  * BankHead represents the head information of a bank like the token for this bank, the computed
@@ -29,10 +28,6 @@ import org.apache.myfaces.tobago.layout.Measure;
 public class BankHead {
 
   private LayoutToken token;
-
-  private IntervalList intervalList;
-
-  private Measure current;
 
   private boolean rendered;
 
@@ -49,22 +44,6 @@ public class BankHead {
     this.token = token;
   }
 
-  public IntervalList getIntervalList() {
-    return intervalList;
-  }
-
-  public void setIntervalList(final IntervalList intervalList) {
-    this.intervalList = intervalList;
-  }
-
-  public Measure getCurrent() {
-    return current;
-  }
-
-  public void setCurrent(final Measure current) {
-    this.current = current;
-  }
-
   public boolean isRendered() {
     return rendered;
   }
@@ -75,11 +54,6 @@ public class BankHead {
 
   @Override
   public String toString() {
-    return "BankHead{"
-        + token
-        + "," + intervalList
-        + "," + current
-        + "," + rendered
-        + '}';
+    return "BankHead{" + token + "," + rendered + '}';
   }
 }

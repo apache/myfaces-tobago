@@ -19,7 +19,6 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
-import org.apache.myfaces.tobago.layout.LayoutComponent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -29,7 +28,7 @@ import javax.faces.event.FacesEvent;
 import java.io.IOException;
 import java.util.Map;
 
-public abstract class AbstractUIMediator extends AbstractUIPanelBase implements LayoutComponent {
+public abstract class AbstractUIMediator extends AbstractUIPanel {
 
   private static final Logger LOG = LoggerFactory.getLogger(AbstractUIMediator.class);
 

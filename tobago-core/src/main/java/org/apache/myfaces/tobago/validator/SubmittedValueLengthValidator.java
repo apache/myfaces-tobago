@@ -53,26 +53,31 @@ public class SubmittedValueLengthValidator extends LengthValidator {
     setMinimum(minimum);
   }
 
+  @Override
   public int getMinimum() {
     return minimum != null ? minimum : 0;
   }
 
+  @Override
   public void setMinimum(final int minimum) {
     if (minimum > 0) {
       this.minimum = minimum;
     }
   }
 
+  @Override
   public int getMaximum() {
     return maximum != null ? maximum : 0;
   }
 
+  @Override
   public void setMaximum(final int maximum) {
     if (maximum > 0) {
       this.maximum = maximum;
     }
   }
 
+  @Override
   public void validate(final FacesContext facesContext, final UIComponent uiComponent, final Object value)
       throws ValidatorException {
     if (value != null && uiComponent instanceof EditableValueHolder) {
@@ -92,6 +97,7 @@ public class SubmittedValueLengthValidator extends LengthValidator {
     }
   }
 
+  @Override
   public Object saveState(final FacesContext context) {
     final Object[] values = new Object[2];
     values[0] = maximum;
@@ -99,6 +105,7 @@ public class SubmittedValueLengthValidator extends LengthValidator {
     return values;
   }
 
+  @Override
   public void restoreState(final FacesContext context, final Object state) {
     final Object[] values = (Object[]) state;
     maximum = (Integer) values[0];

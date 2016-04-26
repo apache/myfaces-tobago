@@ -32,7 +32,7 @@ import java.util.Map;
 public final class ClientPropertiesKey implements Serializable {
 
   private static final String KEY_IN_FACES_CONTEXT = ClientPropertiesKey.class.getName();
-  
+
   private final String contentType;
   private final Theme theme;
   private final UserAgent userAgent;
@@ -55,7 +55,7 @@ public final class ClientPropertiesKey implements Serializable {
     final Map<Object, Object> attributes = facesContext.getAttributes();
     attributes.remove(KEY_IN_FACES_CONTEXT);
   }
-  
+
   private ClientPropertiesKey(final ClientProperties clientProperties, final UIViewRoot viewRoot) {
     contentType = clientProperties.getContentType();
     theme = clientProperties.getTheme();

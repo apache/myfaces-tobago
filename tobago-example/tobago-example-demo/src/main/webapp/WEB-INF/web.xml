@@ -17,17 +17,19 @@
  * limitations under the License.
 -->
 
-<web-app xmlns="http://java.sun.com/xml/ns/javaee"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
-         version="2.5">
+<web-app
+    xmlns="http://java.sun.com/xml/ns/javaee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+    version="3.0">
 
   <display-name>Tobago Demo Application</display-name>
 
+  <!-- for jetty also check override-myfaces-web.xml or override-mojarra-web.xml -->
   <context-param>
     <param-name>javax.faces.PROJECT_STAGE</param-name>
-    <param-value>Development</param-value>
-    <!--<param-value>Production</param-value>-->
+    <!--<param-value>Development</param-value>-->
+    <param-value>Production</param-value>
   </context-param>
 
   <context-param>
@@ -61,40 +63,14 @@
     <param-value>true</param-value>
   </context-param>
 
-  <filter>
-    <filter-name>multipartFormdataFilter</filter-name>
-    <filter-class>org.apache.myfaces.tobago.webapp.TobagoMultipartFormdataFilter</filter-class>
-    <init-param>
-      <description>Set the size limit for uploaded files. Default value is 1 MB.
-        Format: 10 = 10 bytes
-        10k = 10 KB
-        10m = 10 MB
-        1g = 1 GB
-      </description>
-      <param-name>uploadMaxFileSize</param-name>
-      <param-value>20m</param-value>
-    </init-param>
-    <!--<init-param>
-      <description>Set the upload repository path for uploaded files. Default value is java.io.tmpdir.</description>
-      <param-name>uploadRepositoryPath</param-name>
-      <param-value>/tmp</param-value>
-    </init-param>-->
-  </filter>
-  <filter-mapping>
-    <filter-name>multipartFormdataFilter</filter-name>
-    <url-pattern>/faces/*</url-pattern>
-  </filter-mapping>
+  <context-param>
+    <param-name>javax.faces.DATETIMECONVERTER_DEFAULT_TIMEZONE_IS_SYSTEM_TIMEZONE</param-name>
+    <param-value>true</param-value>
+  </context-param>
 
   <listener>
     <listener-class>org.apache.myfaces.tobago.example.demo.info.ActivitySessionListener</listener-class>
   </listener>
-
-  <!--  workaround (e.g. for Oracle AS 10.1.2.0.0)-->
-  <!--
-  <listener>
-    <listener-class>org.apache.myfaces.tobago.webapp.TobagoServletContextListener</listener-class>
-  </listener>
-  -->
 
   <!-- activate this for some containers -->
   <!--
@@ -129,18 +105,28 @@
   </listener>
 -->
 
+  <filter>
+    <filter-name>LoggingMdcFilter</filter-name>
+    <filter-class>org.apache.myfaces.tobago.internal.webapp.LoggingMdcFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>LoggingMdcFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+
   <!-- FacesServlet -->
 
   <servlet>
     <servlet-name>FacesServlet</servlet-name>
     <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+    <load-on-startup>3</load-on-startup>
+    <!-- This is needed, for file upload e.g. <tc:file> with JSF 2.0 or 2.1, JSF 2.2 doesn't need it. -->
+    <multipart-config/>
   </servlet>
 
   <servlet-mapping>
     <servlet-name>FacesServlet</servlet-name>
     <url-pattern>/faces/*</url-pattern>
-    <!-- if changing this, also change MultiplePageDeclarationLanguageNavigationHandler -->
-    <!-- <url-pattern>*.jsf</url-pattern> -->
   </servlet-mapping>
 
   <!-- ResourceServlet -->
@@ -173,23 +159,44 @@
     <location>/faces/error/exception.xhtml</location>
   </error-page>
 
-  <error-page>
-    <exception-type>javax.faces.application.ViewExpiredException</exception-type>
-    <location>/faces/error/view-expired.xhtml</location>
-  </error-page>
-
   <!-- The Usual Welcome File List -->
   <welcome-file-list>
-    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>index.html</welcome-file>
   </welcome-file-list>
 
-  <jsp-config>
+  <session-config>
+    <cookie-config>
+      <http-only>true</http-only>
+    </cookie-config>
+  </session-config>
 
-  <!--To make Umlauts possible on JSP-Pages-->
-    <jsp-property-group>
-      <url-pattern>*.jsp</url-pattern>
-      <page-encoding>UTF-8</page-encoding>
-    </jsp-property-group>
-  </jsp-config>
+  <security-constraint>
+    <display-name>Security Constraint</display-name>
+    <web-resource-collection>
+      <web-resource-name>Application Area</web-resource-name>
+      <url-pattern>/faces/content/30-concept/80-security/20-roles/*</url-pattern>
+      <url-pattern>/content/30-concept/80-security/20-roles/*</url-pattern>
+    </web-resource-collection>
+    <auth-constraint>
+      <role-name>demo-admin</role-name>
+      <role-name>demo-guest</role-name>
+    </auth-constraint>
+  </security-constraint>
+
+  <login-config>
+    <auth-method>FORM</auth-method>
+    <realm-name>demo-realm</realm-name>
+    <form-login-config>
+      <form-login-page>/faces/login.xhtml</form-login-page>
+      <form-error-page>/faces/login.xhtml</form-error-page>
+    </form-login-config>
+  </login-config>
+
+  <security-role>
+    <role-name>demo-admin</role-name>
+  </security-role>
+  <security-role>
+    <role-name>demo-guest</role-name>
+  </security-role>
 
 </web-app>

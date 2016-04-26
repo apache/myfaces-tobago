@@ -19,17 +19,34 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
-import org.apache.myfaces.tobago.component.SupportsMarkup;
-import org.apache.myfaces.tobago.layout.LayoutComponent;
+import org.apache.myfaces.tobago.component.Visual;
 import org.apache.myfaces.tobago.util.MessageUtils;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UISelectBoolean;
+import javax.faces.component.behavior.ClientBehaviorHolder;
 import javax.faces.context.FacesContext;
+import java.util.Arrays;
+import java.util.Collection;
 
-public abstract class AbstractUISelectBooleanCheckbox extends UISelectBoolean
-    implements LayoutComponent, SupportsMarkup {
+public abstract class AbstractUISelectBooleanCheckbox extends UISelectBoolean implements Visual, ClientBehaviorHolder {
 
+  // todo generate
+  private static final Collection<String> EVENT_NAMES = Arrays.asList("change");
+
+  // todo generate
+  @Override
+  public String getDefaultEventName() {
+    return "change";
+  }
+
+  // todo generate
+  @Override
+  public Collection<String> getEventNames() {
+    return EVENT_NAMES;
+  }
+
+  @Override
   public boolean isSelected() {
     Object value = getSubmittedValue();
     if (value == null) {
@@ -42,6 +59,7 @@ public abstract class AbstractUISelectBooleanCheckbox extends UISelectBoolean
     }
   }
 
+  @Override
   protected void validateValue(final FacesContext facesContext, final Object convertedValue) {
     if (isRequired()) {
       if (convertedValue instanceof Boolean && !((Boolean) convertedValue)

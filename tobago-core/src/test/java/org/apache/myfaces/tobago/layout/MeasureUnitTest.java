@@ -22,52 +22,34 @@ package org.apache.myfaces.tobago.layout;
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.util.Arrays;
-
 public class MeasureUnitTest {
-
-  private static Measure px(final int pixel) {
-    return Measure.valueOf(pixel);
-  }
-
-  @Test
-  public void testMinList() {
-    Assert.assertEquals(px(5), Measure.min(Arrays.asList(px(5), px(10), px(20))));
-    Assert.assertEquals(px(5), Measure.min(Arrays.asList(px(5), null, px(20))));
-    Assert.assertEquals(Measure.MAX, Measure.min(Arrays.asList((Measure) null, null, null)));
-    Assert.assertEquals(Measure.MAX, Measure.min(Arrays.<Measure>asList()));
-  }
-
-  @Test
-  public void testMaxList() {
-    Assert.assertEquals(px(20), Measure.max(Arrays.asList(px(5), px(10), px(20))));
-    Assert.assertEquals(px(20), Measure.max(Arrays.asList(px(5), null, px(20))));
-    Assert.assertEquals(Measure.ZERO, Measure.max(Arrays.asList((Measure) null, null, null)));
-    Assert.assertEquals(Measure.ZERO, Measure.max(Arrays.<Measure>asList()));
-  }
-
-  @Test
-  public void testMin2() {
-    Assert.assertEquals(px(5), Measure.min(px(5), px(10)));
-    Assert.assertEquals(px(10), Measure.min(null, px(10)));
-    Assert.assertEquals(px(5), Measure.min(px(5), null));
-    Assert.assertEquals(Measure.MAX, Measure.min(null, null));
-  }
-
-  @Test
-  public void testMax2() {
-    Assert.assertEquals(px(10), Measure.max(px(5), px(10)));
-    Assert.assertEquals(px(10), Measure.max(null, px(10)));
-    Assert.assertEquals(px(5), Measure.max(px(5), null));
-    Assert.assertEquals(Measure.ZERO, Measure.max(null, null));
-  }
 
   @Test
   public void testDecimal() {
-    Assert.assertEquals(Measure.valueOf("13.3px"), px(13));
-    Assert.assertEquals(Measure.valueOf("13.7px"), px(13));
-    Assert.assertEquals(Measure.valueOf("13.3"), px(13));
-    Assert.assertEquals(Measure.valueOf("13.7"), px(13));
-    Assert.assertEquals(Measure.valueOf(".7"), px(0));
+    Assert.assertEquals("13.3px", "" + Measure.valueOf("13.3px"));
+    Assert.assertEquals("13.7px", "" + Measure.valueOf("13.7px"));
+    Assert.assertEquals("13.3px", "" + Measure.valueOf("13.3"));
+    Assert.assertEquals("13.7px", "" + Measure.valueOf("13.7"));
+    Assert.assertEquals("0.7px", "" + Measure.valueOf(".7"));
+    Assert.assertEquals("0px", "" + Measure.valueOf("0"));
+    Assert.assertEquals(null, Measure.valueOf(""));
   }
+
+  @Test
+  public void testOther() {
+    Assert.assertEquals("13.3cm", "" + Measure.valueOf("13.3cm"));
+    Assert.assertEquals("13.7mm", "" + Measure.valueOf("13.7mm"));
+    Assert.assertEquals("13.7ex", "" + Measure.valueOf("13.7ex"));
+    Assert.assertEquals("13.7em", "" + Measure.valueOf("13.7em"));
+    Assert.assertEquals("13.7in", "" + Measure.valueOf("13.7in"));
+    Assert.assertEquals("13.7%", "" + Measure.valueOf("13.7%"));
+  }
+
+  @Test
+  public void testWrong() {
+    Assert.assertNull("Not parsable, so get null", Measure.valueOf("13.3xx"));
+    Assert.assertNull("Not parsable, so get null", Measure.valueOf("13.3x"));
+    Assert.assertNull("Not parsable, so get null", Measure.valueOf("13.3mmm"));
+  }
+
 }

@@ -20,10 +20,9 @@
 package org.apache.myfaces.tobago.internal.component;
 
 import org.apache.myfaces.tobago.component.Attributes;
-import org.apache.myfaces.tobago.internal.util.Deprecation;
-import org.apache.myfaces.tobago.layout.LayoutComponent;
+import org.apache.myfaces.tobago.component.Visual;
 import org.apache.myfaces.tobago.model.ExpandedState;
-import org.apache.myfaces.tobago.model.MixedTreeModel;
+import org.apache.myfaces.tobago.model.ScrollPosition;
 import org.apache.myfaces.tobago.model.SelectedState;
 import org.apache.myfaces.tobago.model.TreeState;
 
@@ -33,9 +32,7 @@ import javax.faces.component.NamingContainer;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
-public abstract class AbstractUITree extends AbstractUIData
-// extends javax.faces.component.UIInput
-    implements NamingContainer, LayoutComponent {
+public abstract class AbstractUITree extends AbstractUIData implements NamingContainer, Visual {
 
   public static final String MESSAGE_NOT_LEAF = "tobago.tree.MESSAGE_NOT_LEAF";
 
@@ -96,22 +93,10 @@ public abstract class AbstractUITree extends AbstractUIData
   public UIComponent getRoot() {
     // find the UITreeNode in the children.
     for (final UIComponent child : getChildren()) {
-      if (child instanceof AbstractUITreeNode) {
-        return child;
-      }
-      if (child instanceof AbstractUITreeData) {
+      if (child instanceof AbstractUITreeNodeBase) {
         return child;
       }
     }
-    return null;
-  }
-
-  /**
-   * @deprecated Since 2.0.0.
-   */
-  @Deprecated
-  public MixedTreeModel getModel() {
-    Deprecation.LOG.error("Doesn't work anymore.");
     return null;
   }
 
@@ -156,7 +141,7 @@ public abstract class AbstractUITree extends AbstractUIData
       context.addMessage(getClientId(context), facesMessage);
     }
 
-    String selectable = ComponentUtils.getStringAttribute(this, SELECTABLE);
+    String selectable = ComponentUtils.getStringAttribute(this, selectable);
     if (selectable != null && selectable.endsWith("LeafOnly")) {
 
       Set<DefaultMutableTreeNode> selection = getState().getSelection();
@@ -207,18 +192,18 @@ public abstract class AbstractUITree extends AbstractUIData
     }
 
     final ELContext elContext = FacesContext.getCurrentInstance().getELContext();
-    final ValueExpression expression = getValueExpression(Attributes.STATE);
+    final ValueExpression expression = getValueExpression(Attributes.state.getName());
 
     if (expression != null) {
       TreeState state = (TreeState) expression.getValue(elContext);
       if (state == null) {
-        state = new TreeState(new ExpandedState(2), new SelectedState());
+        state = new TreeState(new ExpandedState(2), new SelectedState(), new ScrollPosition());
         expression.setValue(elContext, state);
       }
       return state;
     }
 
-    state = new TreeState(new ExpandedState(2), new SelectedState());
+    state = new TreeState(new ExpandedState(2), new SelectedState(), new ScrollPosition());
     return state;
   }
 

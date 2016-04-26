@@ -31,6 +31,7 @@ public class AjaxNavigationListener implements PhaseListener {
 
   private static final Logger LOG = LoggerFactory.getLogger(AjaxNavigationListener.class);
 
+  @Override
   public void afterPhase(final PhaseEvent phaseEvent) {
     final FacesContext facesContext = phaseEvent.getFacesContext();
     debug(facesContext);
@@ -44,6 +45,7 @@ public class AjaxNavigationListener implements PhaseListener {
     debug(facesContext);
   }
 
+  @Override
   public void beforePhase(final PhaseEvent phaseEvent) {
     final FacesContext facesContext = phaseEvent.getFacesContext();
     debug(facesContext);
@@ -62,6 +64,7 @@ public class AjaxNavigationListener implements PhaseListener {
     }
   }
 
+  @Override
   public PhaseId getPhaseId() {
     return PhaseId.ANY_PHASE;
   }

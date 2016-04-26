@@ -20,10 +20,6 @@
 package org.apache.myfaces.tobago.context;
 
 import org.apache.myfaces.tobago.config.TobagoConfig;
-import org.apache.myfaces.tobago.internal.component.AbstractUIPage;
-import org.apache.myfaces.tobago.layout.Box;
-import org.apache.myfaces.tobago.layout.Dimension;
-import org.apache.myfaces.tobago.util.ComponentUtils;
 
 import javax.faces.context.FacesContext;
 
@@ -31,22 +27,6 @@ public class TobagoContext {
 
   private static final TobagoResourceBundle RESOURCE_BUNDLE = new TobagoResourceBundle();
   private static final TobagoMessageBundle MESSAGE_BUNDLE = new TobagoMessageBundle();
-
-  public Box getActionPosition() {
-    final FacesContext facesContext = FacesContext.getCurrentInstance();
-    final AbstractUIPage page = ComponentUtils.findPage(facesContext);
-    return page.getActionPosition();
-  }
-
-  /**
-   * Returns the dimension of the page. Might be useful to set the size of a popup.
-   * E. g. <code>width="#{tobagoContext.pageDimension.width.pixel - 100}"</code>
-   */
-  public Dimension getPageDimension() {
-    final FacesContext facesContext = FacesContext.getCurrentInstance();
-    final AbstractUIPage page = ComponentUtils.findPage(facesContext);
-    return new Dimension(page.getWidth(), page.getHeight());
-  }
 
   public TobagoResourceBundle getResourceBundle() {
     return RESOURCE_BUNDLE;

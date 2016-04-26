@@ -35,6 +35,7 @@ public class ScriptHandler extends ComponentHandler {
     super(config);
   }
 
+  @Override
   public void onComponentCreated(final FaceletContext context, final UIComponent component, final UIComponent parent) {
     final FaceletHandler next = getComponentConfig().getNextHandler();
     if (next instanceof TextHandler) {
@@ -45,6 +46,7 @@ public class ScriptHandler extends ComponentHandler {
     }
   }
 
+  @Override
   public void applyNextHandler(final FaceletContext ctx, final UIComponent c) {
   }
 }

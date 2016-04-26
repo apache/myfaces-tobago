@@ -20,13 +20,13 @@
 package org.apache.myfaces.tobago.internal.component;
 
 import org.apache.myfaces.tobago.component.Attributes;
-import org.apache.myfaces.tobago.config.Configurable;
+import org.apache.myfaces.tobago.component.Visual;
 
 import javax.el.ValueExpression;
 import javax.faces.component.UISelectBoolean;
 import javax.faces.context.FacesContext;
 
-public abstract class AbstractUITreeSelect extends UISelectBoolean implements Configurable {
+public abstract class AbstractUITreeSelect extends UISelectBoolean implements Visual {
 
   @Override
   public void updateModel(final FacesContext context) {
@@ -39,7 +39,7 @@ public abstract class AbstractUITreeSelect extends UISelectBoolean implements Co
    * @return Is the value stored in the state of the UITree parent object?
    */
   public boolean isValueStoredInState() {
-    final ValueExpression valueExpression = getValueExpression(Attributes.VALUE);
+    final ValueExpression valueExpression = getValueExpression(Attributes.value.getName());
     return valueExpression == null;
   }
 }

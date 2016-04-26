@@ -29,9 +29,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SheetState implements Serializable {
+public class SheetState implements Serializable, ScrollPositionState {
 
-  private static final long serialVersionUID = 7765536344426661777L;
+  private static final long serialVersionUID = 2L;
 
   private static final Logger LOG = LoggerFactory.getLogger(SheetState.class);
 
@@ -41,9 +41,9 @@ public class SheetState implements Serializable {
   private String sortedColumnId;
   private boolean ascending;
   private boolean toBeSorted;
-  private String columnWidths;
+  private List<Integer> columnWidths;
   private List<Integer> selectedRows;
-  private Integer[] scrollPosition;
+  private ScrollPosition scrollPosition;
   private ExpandedState expandedState;
   private SelectedState selectedState;
 
@@ -64,7 +64,11 @@ public class SheetState implements Serializable {
     if (selectedState != null) {
       selectedState.clear();
     }
-    scrollPosition = null;
+    if (scrollPosition != null) {
+      scrollPosition.clear();
+    } else {
+      scrollPosition = new ScrollPosition();
+    }
   }
 
   public void resetSelected() {
@@ -102,11 +106,11 @@ public class SheetState implements Serializable {
     }
   }
 
-  public String getColumnWidths() {
+  public List<Integer> getColumnWidths() {
     return columnWidths;
   }
 
-  public void setColumnWidths(final String columnWidths) {
+  public void setColumnWidths(final List<Integer> columnWidths) {
     this.columnWidths = columnWidths;
   }
 
@@ -130,11 +134,12 @@ public class SheetState implements Serializable {
     }
   }
 
-  public Integer[] getScrollPosition() {
+  @Override
+  public ScrollPosition getScrollPosition() {
     return scrollPosition;
   }
 
-  public void setScrollPosition(final Integer[] scrollPosition) {
+  public void setScrollPosition(final ScrollPosition scrollPosition) {
     this.scrollPosition = scrollPosition;
   }
 

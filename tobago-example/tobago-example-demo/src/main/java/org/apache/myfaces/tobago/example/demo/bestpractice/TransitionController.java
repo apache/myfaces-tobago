@@ -22,6 +22,11 @@ package org.apache.myfaces.tobago.example.demo.bestpractice;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.enterprise.context.RequestScoped;
+import javax.inject.Named;
+
+@RequestScoped
+@Named
 public class TransitionController {
 
   private static final Logger LOG = LoggerFactory.getLogger(TransitionController.class);
@@ -31,6 +36,6 @@ public class TransitionController {
     LOG.info("Waiting " + sleep + " millis.");
     Thread.sleep(sleep);
 
-    return "best-practice/transition-after-sleep";
+    return "/content/30-concept/23-transition/x-transition-after-sleep.xhtml";
   }
 }

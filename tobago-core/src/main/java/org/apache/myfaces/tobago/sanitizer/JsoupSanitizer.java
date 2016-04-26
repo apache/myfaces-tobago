@@ -24,7 +24,6 @@ import org.jsoup.safety.Whitelist;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.Enumeration;
 import java.util.Properties;
 
 /**
@@ -39,6 +38,7 @@ public class JsoupSanitizer implements Sanitizer {
 
   private boolean unmodifiable = false;
 
+  @Override
   public String sanitize(final String html) {
 
     final String safe = Jsoup.clean(html, whitelist);
@@ -48,14 +48,13 @@ public class JsoupSanitizer implements Sanitizer {
     return safe;
   }
 
+  @Override
   public void setProperties(final Properties configuration) {
     checkLocked();
 
     unmodifiable = true;
 
-    final Enumeration<String> enumeration = (Enumeration<String>) configuration.propertyNames();
-    while (enumeration.hasMoreElements()) {
-      String key =  enumeration.nextElement();
+    for (final String key : configuration.stringPropertyNames()) {
       if ("whitelist".equals(key)) {
         whitelistName = configuration.getProperty(key);
         if ("basic".equals(whitelistName)) {

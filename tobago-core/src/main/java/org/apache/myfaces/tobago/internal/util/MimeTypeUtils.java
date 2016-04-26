@@ -65,6 +65,9 @@ public final class MimeTypeUtils {
         if (file.endsWith("ttf")) {
           return "application/x-font-ttf";
         }
+        if (file.endsWith("eot")) {
+          return "application/vnd.ms-fontobject";
+        }
       }
     } else if (file.charAt(length - 3) == '.') {
       if (file.endsWith("js")) {
@@ -76,6 +79,10 @@ public final class MimeTypeUtils {
       }
       if (file.endsWith("html")) {
         return "text/html";
+      }
+    } else if (file.charAt(length - 6) == '.') {
+      if (file.endsWith("woff2")) {
+        return "application/font-woff2";
       }
     }
 

@@ -22,6 +22,7 @@ package org.apache.myfaces.tobago.internal.webapp;
 import org.apache.myfaces.tobago.internal.util.FastStringWriter;
 import org.apache.myfaces.tobago.internal.util.JavascriptWriterUtils;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
+import org.apache.myfaces.tobago.renderkit.html.MarkupLanguageAttributes;
 import org.apache.myfaces.tobago.util.FacesVersion;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -93,6 +94,7 @@ public class JsonResponseWriter extends HtmlResponseWriter {
     encodeInJavascriptBlock.writeText(script);
   }
 
+  @Override
   public String getJavascript() {
     return javascriptWriter.toString();
   }
@@ -110,17 +112,13 @@ public class JsonResponseWriter extends HtmlResponseWriter {
   }
 
   @Override
-  protected void endElementInternal(final Writer writer, final String name) throws IOException {
-    if (EMPTY_TAG.contains(name)) {
-        writer.write(">");
-    } else {
-      if (isStartStillOpen()) {
-        writer.write(">");
-      }
-      writer.write("</");
-      writer.write(name);
+  protected void endElementInternal(final Writer writer, final String name, final boolean inline) throws IOException {
+    if (isStartStillOpen()) {
       writer.write(">");
     }
+    writer.write("</");
+    writer.write(name);
+    writer.write(">");
     setStartStillOpen(false);
   }
 
@@ -133,8 +131,13 @@ public class JsonResponseWriter extends HtmlResponseWriter {
   }
 
   @Override
+  protected final void closeEmptyTag() throws IOException {
+    getWriter().write(">");
+  }
+
+  @Override
   protected void writeAttributeInternal(
-      final Writer writer, final String name, final String value, final boolean escape)
+      final Writer writer, final MarkupLanguageAttributes name, final String value, final boolean escape)
       throws IOException {
     if (!isStartStillOpen()) {
       final String trace = getCallingClassStackTraceElementString();
@@ -148,7 +151,7 @@ public class JsonResponseWriter extends HtmlResponseWriter {
 
     if (value != null) {
       writer.write(' ');
-      writer.write(name);
+      writer.write(name.getValue());
       writer.write("='");
 
       if (escape) {
@@ -160,6 +163,7 @@ public class JsonResponseWriter extends HtmlResponseWriter {
     }
   }
 
+  @Override
   public void writeText(final Object text, final String property)
       throws IOException {
     closeOpenTag();
@@ -175,6 +179,7 @@ public class JsonResponseWriter extends HtmlResponseWriter {
   }
 */
 
+  @Override
   public ResponseWriter cloneWithWriter(final Writer originalWriter) {
      return new JsonResponseWriter(
          originalWriter, getContentType(), getCharacterEncoding());

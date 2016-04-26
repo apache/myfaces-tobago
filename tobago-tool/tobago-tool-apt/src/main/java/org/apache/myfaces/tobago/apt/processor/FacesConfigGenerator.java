@@ -70,8 +70,7 @@ import java.util.Set;
     "org.apache.myfaces.tobago.apt.annotation.Validator"})
 @SupportedOptions({
     FacesConfigGenerator.SOURCE_FACES_CONFIG,
-    FacesConfigGenerator.TARGET_FACES_CONFIG,
-    FacesConfigGenerator.JSF_VERSION})
+    FacesConfigGenerator.TARGET_FACES_CONFIG})
 public class FacesConfigGenerator extends AbstractGenerator {
 
   static final String SOURCE_FACES_CONFIG = "sourceFacesConfig";
@@ -121,17 +120,18 @@ public class FacesConfigGenerator extends AbstractGenerator {
   private static final String RENDER_KIT_CLASS = "render-kit-class";
   private static final String RENDERER_TYPE = "renderer-type";
   private static final String RENDERER_CLASS = "renderer-class";
+  private static final String CLIENT_BEHAVIOR_RENDERER = "client-behavior-renderer";
+  private static final String CLIENT_BEHAVIOR_RENDERER_TYPE = "client-behavior-renderer-type";
+  private static final String CLIENT_BEHAVIOR_RENDERER_CLASS = "client-behavior-renderer-class";
 
   private static final Set<String> IGNORED_PROPERTIES = new HashSet<String>(Arrays.asList("binding"));
 
-  private String jsfVersion;
   private String sourceFacesConfigFile;
   private String targetFacesConfigFile;
 
   @Override
   public void configure() {
     final Map<String, String> options = processingEnv.getOptions();
-    jsfVersion = options.get(JSF_VERSION);
     sourceFacesConfigFile = options.get(SOURCE_FACES_CONFIG);
     targetFacesConfigFile = options.get(TARGET_FACES_CONFIG);
 
@@ -139,7 +139,6 @@ public class FacesConfigGenerator extends AbstractGenerator {
     info("Options:");
     info(SOURCE_FACES_CONFIG + ": " + sourceFacesConfigFile);
     info(TARGET_FACES_CONFIG + ": " + targetFacesConfigFile);
-    info(JSF_VERSION + ": " + jsfVersion);
   }
 
   @Override
@@ -206,6 +205,16 @@ public class FacesConfigGenerator extends AbstractGenerator {
         renderKitClass.setText("org.apache.myfaces.tobago.renderkit.TobagoRenderKit");
         renderKit.addContent(renderKitClass);
         renderKit.addContent(newRenderer);
+
+        final org.jdom.Element clientBehaviorRender = new org.jdom.Element(CLIENT_BEHAVIOR_RENDERER, namespace);
+        final org.jdom.Element clientBehaviorType = new org.jdom.Element(CLIENT_BEHAVIOR_RENDERER_TYPE, namespace);
+        clientBehaviorType.setText("javax.faces.behavior.Ajax");
+        clientBehaviorRender.addContent(clientBehaviorType);
+        final org.jdom.Element clientBehaviorClass = new org.jdom.Element(CLIENT_BEHAVIOR_RENDERER_CLASS, namespace);
+        clientBehaviorClass.setText("org.apache.myfaces.tobago.renderkit.html.AjaxClientBehaviorRenderer");
+        clientBehaviorRender.addContent(clientBehaviorClass);
+        renderKit.addContent(clientBehaviorRender);
+
         final int lastIndex = getIndexAfter(rootElement, CONVERTER, COMPONENT, FACTORY, APPLICATION);
         rootElement.addContent(lastIndex, renderKit);
       }
@@ -361,7 +370,10 @@ public class FacesConfigGenerator extends AbstractGenerator {
       elementType.setText(rendererType);
       element.addContent(elementType);
       final org.jdom.Element elementClass = new org.jdom.Element(RENDERER_CLASS, namespace);
-      final String className = "org.apache.myfaces.tobago.renderkit." + rendererType + "Renderer";
+//      final String className = "org.apache.myfaces.tobago.renderkit." + rendererType + "Renderer";
+      // TBD: support different Renderer Classes per Theme any longer? Or how?
+      final String className
+          = "org.apache.myfaces.tobago.renderkit.html.standard.standard.tag." + rendererType + "Renderer";
       elementClass.setText(className);
       element.addContent(elementClass);
       renderer.add(element);
@@ -588,6 +600,7 @@ public class FacesConfigGenerator extends AbstractGenerator {
             addAttributes(typeElement, attributes, properties, namespace);
             if (!attributes.isEmpty()) {
               Collections.sort(attributes, new Comparator<org.jdom.Element>() {
+                @Override
                 public int compare(final org.jdom.Element d1, final org.jdom.Element d2) {
                   return d1.getChildText(ATTRIBUTE_NAME, namespace).compareTo(
                       d2.getChildText(ATTRIBUTE_NAME, namespace));
@@ -597,6 +610,7 @@ public class FacesConfigGenerator extends AbstractGenerator {
             }
             if (!properties.isEmpty()) {
               Collections.sort(properties, new Comparator<org.jdom.Element>() {
+                @Override
                 public int compare(final org.jdom.Element d1, final org.jdom.Element d2) {
                   return d1.getChildText(PROPERTY_NAME, namespace).compareTo(
                       d2.getChildText(PROPERTY_NAME, namespace));
@@ -621,9 +635,5 @@ public class FacesConfigGenerator extends AbstractGenerator {
       final Comment c = (Comment) i.next();
       c.setText(c.getText().replaceAll("\n", SEPARATOR));
     }
-  }
-
-  private boolean is20() {
-    return "2.0".equals(jsfVersion);
   }
 }

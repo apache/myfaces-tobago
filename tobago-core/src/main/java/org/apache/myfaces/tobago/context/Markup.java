@@ -32,26 +32,34 @@ import java.util.Iterator;
 import java.util.List;
 
 /**
+ * <p>
  * A markup signs a component to be rendered different from the normal.
  * E. g. <code>markup="emphasized"</code> might be rendered bold
  * or a <code>markup="deleted"</code> might be rendered with line-through style.
  * The concrete rendering depends from the theme.
- * <p/>
+ * </p>
+ * <p>
  * The markup can also hold more than one value, e. g. <code>markup="emphasized, deleted"</code>.
- * <p/>
+ * </p>
+ * <p>
  * The value of the markup is unmodifiable.
- * <p/>
+ * </p>
+ * <p>
  * A markup must be registered for a component, before it can be used.
- * <p/>
+ * </p>
+ * <p>
  * A markup should only contain ASCII characters and digits.
- * <p/>
+ * </p>
+ * <p>
  * In JSPs the class {@link org.apache.myfaces.tobago.context.MarkupEditor} will convert the string literals.
+ * </p>
  */
 public final class Markup implements Serializable, Iterable<String> {
 
   public static final Markup NULL = new Markup((String) null);
 
   public static final Markup ASCENDING = valueOf("ascending");
+  public static final Markup BIG = valueOf("big");
   public static final Markup CENTER = valueOf("center");
   public static final Markup CLICKABLE = valueOf("clickable");
   public static final Markup DEFAULT = valueOf("default");
@@ -67,6 +75,7 @@ public final class Markup implements Serializable, Iterable<String> {
   public static final Markup FOLDER = valueOf("folder");
   public static final Markup INFO = valueOf("info");
   public static final Markup INLINE = valueOf("inline");
+  public static final Markup JUSTIFY = valueOf("justify");
   public static final Markup LEFT = valueOf("left");
   public static final Markup MARKED = valueOf("marked");
   public static final Markup MODAL = valueOf("modal");
@@ -86,6 +95,7 @@ public final class Markup implements Serializable, Iterable<String> {
   public static final Markup SORTABLE = valueOf("sortable");
   public static final Markup STRONG = valueOf("strong");
   public static final Markup TOP = valueOf("top");
+  public static final Markup VERTICALLY = valueOf("vertically");
   public static final Markup WARN = valueOf("warn");
 
   /* Just one of "values" and "value" must be null */
@@ -180,6 +190,7 @@ public final class Markup implements Serializable, Iterable<String> {
     return result;
   }
 
+  @Override
   public Iterator<String> iterator() {
     if (value != null) {
       return new SingletonIterator(value);

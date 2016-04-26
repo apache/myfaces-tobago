@@ -21,26 +21,26 @@ package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.UICommand;
+import org.apache.myfaces.tobago.component.UINav;
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.internal.component.AbstractUIImage;
-import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
+import org.apache.myfaces.tobago.renderkit.RendererBase;
+import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
-import org.apache.myfaces.tobago.renderkit.css.Style;
+import org.apache.myfaces.tobago.renderkit.css.FontAwesomeIconEncoder;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
+import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 
-public class ImageRenderer extends LayoutComponentRendererBase {
+public class ImageRenderer extends RendererBase {
 
-  private static final Logger LOG = LoggerFactory.getLogger(ImageRenderer.class);
-
+  @Override
   public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
 
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
@@ -48,15 +48,18 @@ public class ImageRenderer extends LayoutComponentRendererBase {
     final AbstractUIImage image = (AbstractUIImage) component;
     final String value = image.getUrl();
     final String src;
+    boolean fontAwesome = false;
     if (value != null) {
       if (ResourceManagerUtils.isAbsoluteResource(value)) {
         // absolute Path to image : nothing to do
         src = value;
       } else {
-        final int dot = ResourceManagerUtils.indexOfExtension(value);
         final boolean disabled = isDisabled(image);
-        if (dot != -1) {
+        if (ResourceManagerUtils.indexOfExtension(value) > -1) { // has extension
           src = ResourceManagerUtils.getImageOrDisabledImageWithPath(facesContext, value, disabled);
+        } else if (value.startsWith("fa-")) {
+          fontAwesome = true;
+          src = null;
         } else {
           src = ResourceManagerUtils.getImageOrDisabledImage(facesContext, value, disabled);
         }
@@ -65,46 +68,36 @@ public class ImageRenderer extends LayoutComponentRendererBase {
       src = null;
     }
 
-    String border = (String) image.getAttributes().get(Attributes.BORDER);
-    if (border == null) {
-      border = "0";
-    }
-    String alt = (String) image.getAttributes().get(Attributes.ALT);
-    if (alt == null) {
-      alt = "";
-    }
+    final String alt = ComponentUtils.getStringAttribute(image, Attributes.alt, "");
 
-    writer.startElement(HtmlElements.IMG, image);
-    final String clientId = image.getClientId(facesContext);
-    writer.writeIdAttribute(clientId);
-    HtmlRendererUtils.writeDataAttributes(facesContext, writer, image);
-    if (src != null) {
-      writer.writeAttribute(HtmlAttributes.SRC, src, true);
-    }
-    writer.writeAttribute(HtmlAttributes.ALT, alt, true);
-    final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, image);
-    if (title != null) {
-      writer.writeAttribute(HtmlAttributes.TITLE, title, true);
-    }
-    writer.writeAttribute(HtmlAttributes.BORDER, border, false);
-    final Style style = new Style(facesContext, image);
-    writer.writeStyleAttribute(style);
-    writer.writeClassAttribute(Classes.create(image));
-    writer.endElement(HtmlElements.IMG);
-  }
-
-  private String createSrc(final String src, final String ext) {
-    final int dot = src.lastIndexOf('.');
-    if (dot == -1) {
-      LOG.warn("Image src without extension: '" + src + "'");
-      return src;
+    if (fontAwesome) {
+      // todo: should not be static
+      writer.writeIcon(null, image.getStyle(), FontAwesomeIconEncoder.generateClass(value));
     } else {
-      return src.substring(0, dot) + ext + src.substring(dot);
+      writer.startElement(HtmlElements.IMG);
+      writer.writeIdAttribute(image.getClientId(facesContext));
+      HtmlRendererUtils.writeDataAttributes(facesContext, writer, image);
+      if (src != null) {
+        writer.writeAttribute(HtmlAttributes.SRC, src, true);
+      }
+      writer.writeAttribute(HtmlAttributes.ALT, alt, true);
+      final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, image);
+      if (title != null) {
+        writer.writeAttribute(HtmlAttributes.TITLE, title, true);
+      }
+      // todo: may set a marker in the context in the
+      // todo: NavRenderer, or the additional class, to avoid tree traversing
+      writer.writeClassAttribute(
+          Classes.create(image),
+          ComponentUtils.findAncestor(image, UINav.class) != null ? BootstrapClass.NAVBAR_BRAND : null,
+          image.getCustomClass());
+      writer.writeStyleAttribute(image.getStyle());
+      writer.endElement(HtmlElements.IMG);
     }
   }
 
   private boolean isDisabled(final AbstractUIImage graphic) {
-    return graphic.isDisabled() 
+    return graphic.isDisabled()
         || (graphic.getParent() instanceof UICommand && ((UICommand) graphic.getParent()).isDisabled());
   }
 }

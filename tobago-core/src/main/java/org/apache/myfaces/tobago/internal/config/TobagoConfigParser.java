@@ -75,6 +75,7 @@ public class TobagoConfigParser extends TobagoConfigEntityResolver {
   private static final int FALLBACK = 761243362;
   private static final int VERSIONED = -1407102089;
   private static final int RESOURCES = -1983070683;
+  private static final int EXCLUDES = 1994055129;
   private static final int SANITIZER = 1807639849;
   private static final int SANITIZER_CLASS = -974266412;
   private static final int SCRIPT = -907685685;
@@ -82,7 +83,6 @@ public class TobagoConfigParser extends TobagoConfigEntityResolver {
   private static final int PROPERTIES = -926053069;
   private static final int ENTRY = 96667762;
   private static final int AUTO_ACCESS_KEY_FROM_LABEL = 2070339882;
-  private static final int CLASSIC_DATE_TIME_PICKER = -879394870; // "classic-date-time-picker".hashCode()
   private static final int MIME_TYPES = 1081186720;
   private static final int MIME_TYPE = -242217677;
   private static final int EXTENSION = -612557761;
@@ -92,6 +92,7 @@ public class TobagoConfigParser extends TobagoConfigEntityResolver {
   private RendererConfig currentRenderer;
   private ThemeImpl currentTheme;
   private Boolean production;
+  private boolean exclude;
   private StringBuilder buffer;
   private Properties properties;
   private String entryKey;
@@ -193,13 +194,17 @@ public class TobagoConfigParser extends TobagoConfigEntityResolver {
         production = Boolean.parseBoolean(attributes.getValue("production"));
         break;
 
+      case EXCLUDES:
+        exclude = true;
+        break;
+
       case SCRIPT:
         final ThemeScript script = new ThemeScript();
         script.setName(attributes.getValue("name"));
         if (production) {
-          currentTheme.getProductionResources().addScript(script);
+          currentTheme.getProductionResources().addScript(script, exclude);
         } else {
-          currentTheme.getResources().addScript(script);
+          currentTheme.getResources().addScript(script, exclude);
         }
         break;
 
@@ -207,9 +212,9 @@ public class TobagoConfigParser extends TobagoConfigEntityResolver {
         final ThemeStyle style = new ThemeStyle();
         style.setName(attributes.getValue("name"));
         if (production) {
-          currentTheme.getProductionResources().addStyle(style);
+          currentTheme.getProductionResources().addStyle(style, exclude);
         } else {
-          currentTheme.getResources().addStyle(style);
+          currentTheme.getResources().addStyle(style, exclude);
         }
         break;
 
@@ -244,7 +249,6 @@ public class TobagoConfigParser extends TobagoConfigEntityResolver {
       case SANITIZER:
       case SANITIZER_CLASS:
       case AUTO_ACCESS_KEY_FROM_LABEL:
-      case CLASSIC_DATE_TIME_PICKER:
       case MIME_TYPES:
       case MIME_TYPE:
       case EXTENSION:
@@ -252,7 +256,7 @@ public class TobagoConfigParser extends TobagoConfigEntityResolver {
         break;
 
       default:
-        LOG.warn("Ignoring unknown start tag <" + qName + ">");
+        LOG.warn("Ignoring unknown start tag <" + qName + "> with hashCode=" + qName.hashCode());
     }
   }
 
@@ -364,6 +368,10 @@ public class TobagoConfigParser extends TobagoConfigEntityResolver {
         production = null;
         break;
 
+      case EXCLUDES:
+        exclude = false;
+        break;
+
       case SANITIZER_CLASS:
         tobagoConfig.setSanitizerClass(text);
         break;
@@ -382,10 +390,6 @@ public class TobagoConfigParser extends TobagoConfigEntityResolver {
 
       case AUTO_ACCESS_KEY_FROM_LABEL:
         tobagoConfig.setAutoAccessKeyFromLabel(Boolean.parseBoolean(text));
-        break;
-
-      case CLASSIC_DATE_TIME_PICKER:
-        tobagoConfig.setClassicDateTimePicker(text);
         break;
 
       case EXTENSION:
@@ -443,7 +447,9 @@ public class TobagoConfigParser extends TobagoConfigEntityResolver {
 
     final SchemaFactory schemaFactory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
     final Schema schema;
-    if ("2.0.6".equals(version.getVersion())) {
+    if ("3.0".equals(version.getVersion())) {
+      schema = schemaFactory.newSchema(getClass().getResource(TOBAGO_CONFIG_XSD_3_0));
+    } else if ("2.0.6".equals(version.getVersion())) {
       schema = schemaFactory.newSchema(getClass().getResource(TOBAGO_CONFIG_XSD_2_0_6));
     } else if ("2.0".equals(version.getVersion())) {
       schema = schemaFactory.newSchema(getClass().getResource(TOBAGO_CONFIG_XSD_2_0));

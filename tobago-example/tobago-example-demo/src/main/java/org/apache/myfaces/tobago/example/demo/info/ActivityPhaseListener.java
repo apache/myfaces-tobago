@@ -38,6 +38,7 @@ public class ActivityPhaseListener implements PhaseListener {
   public ActivityPhaseListener() {
   }
 
+  @Override
   public void beforePhase(final PhaseEvent event) {
     final FacesContext facesContext = event.getFacesContext();
     final String sessionId = ((HttpSession) facesContext.getExternalContext().getSession(true)).getId();
@@ -49,9 +50,11 @@ public class ActivityPhaseListener implements PhaseListener {
     }
   }
 
+  @Override
   public void afterPhase(final PhaseEvent event) {
   }
 
+  @Override
   public PhaseId getPhaseId() {
     return PhaseId.RENDER_RESPONSE;
   }

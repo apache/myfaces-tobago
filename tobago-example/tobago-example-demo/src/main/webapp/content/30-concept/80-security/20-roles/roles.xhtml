@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+-->
+
+<ui:composition template="/main.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:tc="http://myfaces.apache.org/tobago/component"
+                xmlns:ui="http://java.sun.com/jsf/facelets">
+  <ui:param name="title" value="#{overviewBundle.roles}"/>
+  <p>It is possible to define roles for users. Based on this roles, components with an <code>action</code> attribute
+    like a button are enabled or disabled for the current user.</p>
+
+  <tc:section label="Basics">
+    <p>To allow an action only for a specific role, you have to annotate a method with
+      <code class="language-java">@RolesAllowed({"role1", "role2"})</code>.
+      This method must not have a parameter.</p>
+    <p>Also, the name of the beans must be distinct.
+      Tobago only read an el expression once and put it in the cache including the annotation.
+      After that, Tobago only work with the cache.</p>
+    <p>There are different ways to define roles for Tomcat and Jetty.</p>
+    <tc:section label="Tomcat">
+      <p>Roles are defined in a tomcat-users.xml within the <code class="language-markup">&lt;tomcat-users></code>
+        tag.</p>
+      <pre><code class="language-markup">&lt;tomcat-users>
+  &lt;user username="guest" password="guest" roles="demo-guest"/>
+  &lt;user username="admin" password="admin" roles="demo-admin"/>
+&lt;/tomcat-users></code></pre>
+    </tc:section>
+    <tc:section label="Jetty">
+      <p>For Jetty, roles are defined in a config file. This config file could be set in the configuration of the
+        jetty-plugin in the pom file.</p>
+      <pre><code class="language-markup"># username: password [,rolename ...]
+guest: guest,demo-guest
+admin: admin,demo-admin</code></pre>
+    </tc:section>
+  </tc:section>
+
+  <tc:section label="Example">
+    <p>In this example there are two content boxes. The left one is for admin users.
+      The right one is for guests and admins.</p>
+    <p>If you run the demo on your local machine, you may change the scope of the
+      <code>RoleController</code> from <code class="language-java">@SessionScoped</code> to
+      <code class="language-java">@ApplicationScoped</code>.
+      In that case, the guest can read the text added by the admin.</p>
+    <tc:segmentLayout medium="6;6">
+      <tc:box label="Admin Box">
+        <p>This is a box only for admins. A text can be added in the inputfield.
+          The submit button is only enabled for admin users.
+          Notice, that the method set in the <code>action</code> attribute of the
+          <code class="language-markup">&lt;tc:button/></code> have the annotation
+          <code class="language-java">@RolesAllowed({"admin"})</code>.</p>
+        <tc:in id="i1" label="Input" value="#{roleController.text}"/>
+        <tc:button label="Submit" action="#{roleController.admin}"/>
+      </tc:box>
+      <tc:box label="Guest Box">
+        <p>This is a box for guests and admins. It displays the text which is set by an admin on the left.
+          You also can hit the logout button to relogin.</p>
+        <tc:out id="o1" label="Output" value="#{roleController.text}"/>
+        <tc:separator/>
+        <tc:form>
+          <tc:button label="Logout" action="#{login.logout}"/>
+        </tc:form>
+      </tc:box>
+    </tc:segmentLayout>
+  </tc:section>
+</ui:composition>

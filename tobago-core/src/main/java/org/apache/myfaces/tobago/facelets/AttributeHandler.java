@@ -21,10 +21,10 @@ package org.apache.myfaces.tobago.facelets;
 
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.myfaces.tobago.component.Attributes;
-import org.apache.myfaces.tobago.component.SupportsMarkup;
+import org.apache.myfaces.tobago.component.Visual;
 import org.apache.myfaces.tobago.component.SupportsRenderedPartially;
 import org.apache.myfaces.tobago.context.Markup;
-import org.apache.myfaces.tobago.el.ConstantMethodBinding;
+import org.apache.myfaces.tobago.el.ConstantMethodExpression;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.slf4j.Logger;
@@ -65,11 +65,12 @@ public final class AttributeHandler extends TagHandler {
 
   public AttributeHandler(final TagConfig config) {
     super(config);
-    this.name = getRequiredAttribute(Attributes.NAME);
-    this.value = getRequiredAttribute(Attributes.VALUE);
-    this.mode = getAttribute(Attributes.MODE);
+    this.name = getRequiredAttribute(Attributes.name.getName());
+    this.value = getRequiredAttribute(Attributes.value.getName());
+    this.mode = getAttribute(Attributes.mode.getName());
   }
 
+  @Override
   public void apply(final FaceletContext faceletContext, final UIComponent parent) throws ELException {
     if (parent == null) {
       throw new TagException(tag, "Parent UIComponent was null");
@@ -182,7 +183,7 @@ public final class AttributeHandler extends TagHandler {
         } else if ("actionFromValue".equals(mode.getValue())) {
           if (!value.isLiteral()) {
             final String result = value.getValue(faceletContext);
-            parent.getAttributes().put(name.getValue(), new ConstantMethodBinding(result));
+            parent.getAttributes().put(name.getValue(), new ConstantMethodExpression(result));
           }
         } else if ("valueIfSet".equals(mode.getValue())) {
           String expressionString = value.getValue();
@@ -214,68 +215,62 @@ public final class AttributeHandler extends TagHandler {
         }
       } else {
 
-        final String nameValue = name.getValue(faceletContext);
-        if (Attributes.RENDERED.equals(nameValue)) {
+        final Attributes nameValue = Attributes.valueOfFailsafe(name.getValue(faceletContext));
+        if (Attributes.rendered == nameValue) {
           if (value.isLiteral()) {
             parent.setRendered(value.getBoolean(faceletContext));
           } else {
-            parent.setValueExpression(nameValue, value.getValueExpression(faceletContext, Boolean.class));
+            parent.setValueExpression(nameValue.getName(), value.getValueExpression(faceletContext, Boolean.class));
           }
-        } else if (Attributes.RENDERED_PARTIALLY.equals(nameValue)
-            && parent instanceof SupportsRenderedPartially) {
-
+        } else if (Attributes.renderedPartially == nameValue && parent instanceof SupportsRenderedPartially) {
           if (value.isLiteral()) {
             final String[] components = ComponentUtils.splitList(value.getValue());
             ((SupportsRenderedPartially) parent).setRenderedPartially(components);
           } else {
-            parent.setValueExpression(nameValue, value.getValueExpression(faceletContext, Object.class));
+            parent.setValueExpression(nameValue.getName(), value.getValueExpression(faceletContext, Object.class));
           }
-        } else if (Attributes.STYLE_CLASS.equals(nameValue)) {
-          // TODO expression
-          ComponentUtils.setStyleClasses(parent, value.getValue());
-        } else if (Attributes.MARKUP.equals(nameValue)) {
-          if (parent instanceof SupportsMarkup) {
+        } else if (Attributes.markup == nameValue) {
+          if (parent instanceof Visual) {
             if (value.isLiteral()) {
-              ((SupportsMarkup) parent).setMarkup(Markup.valueOf(value.getValue()));
+              ((Visual) parent).setMarkup(Markup.valueOf(value.getValue()));
             } else {
               final ValueExpression expression = value.getValueExpression(faceletContext, Object.class);
-              parent.setValueExpression(nameValue, expression);
+              parent.setValueExpression(nameValue.getName(), expression);
             }
           } else {
-            LOG.error("Component is not instanceof SupportsMarkup. Instance is: " + parent.getClass().getName());
+            LOG.error("Component is not instanceof Visual. Instance is: " + parent.getClass().getName());
           }
-        } else if (parent instanceof EditableValueHolder && Attributes.VALIDATOR.equals(nameValue)) {
+        } else if (parent instanceof EditableValueHolder && Attributes.validator == nameValue) {
           final MethodExpression methodExpression
               = getMethodExpression(faceletContext, null, ComponentUtils.VALIDATOR_ARGS);
           if (methodExpression != null) {
             ((EditableValueHolder) parent).addValidator(new MethodExpressionValidator(methodExpression));
           }
-        } else if (parent instanceof EditableValueHolder
-            && Attributes.VALUE_CHANGE_LISTENER.equals(nameValue)) {
+        } else if (parent instanceof EditableValueHolder && Attributes.valueChangeListener == nameValue) {
           final MethodExpression methodExpression =
               getMethodExpression(faceletContext, null, ComponentUtils.VALUE_CHANGE_LISTENER_ARGS);
           if (methodExpression != null) {
             ((EditableValueHolder) parent).addValueChangeListener(
                 new MethodExpressionValueChangeListener(methodExpression));
           }
-        } else if (parent instanceof ValueHolder && Attributes.CONVERTER.equals(nameValue)) {
-          setConverter(faceletContext, parent, nameValue);
-        } else if (parent instanceof ActionSource && Attributes.ACTION.equals(nameValue)) {
+        } else if (parent instanceof ValueHolder && Attributes.converter == nameValue) {
+          setConverter(faceletContext, parent, nameValue.getName());
+        } else if (parent instanceof ActionSource && Attributes.action.equals(nameValue)) {
           final MethodExpression action = getMethodExpression(faceletContext, String.class, ComponentUtils.ACTION_ARGS);
           if (action != null) {
             ((ActionSource2) parent).setActionExpression(action);
           }
-        } else if (parent instanceof ActionSource && Attributes.ACTION_LISTENER.equals(nameValue)) {
+        } else if (parent instanceof ActionSource && Attributes.actionListener == nameValue) {
           final MethodExpression action
               = getMethodExpression(faceletContext, null, ComponentUtils.ACTION_LISTENER_ARGS);
           if (action != null) {
             ((ActionSource) parent).addActionListener(new MethodExpressionActionListener(action));
           }
-        } else if (!parent.getAttributes().containsKey(nameValue)) {
+        } else if (!parent.getAttributes().containsKey(nameValue.getName())) {
           if (value.isLiteral()) {
-            parent.getAttributes().put(nameValue, value.getValue());
+            parent.getAttributes().put(nameValue.getName(), value.getValue());
           } else {
-            parent.setValueExpression(nameValue, value.getValueExpression(faceletContext, Object.class));
+            parent.setValueExpression(nameValue.getName(), value.getValueExpression(faceletContext, Object.class));
           }
         }
       }

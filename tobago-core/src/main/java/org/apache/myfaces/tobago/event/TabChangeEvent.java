@@ -37,7 +37,7 @@ public class TabChangeEvent extends ActionEvent {
   }
   
   /**
-   * @deprecated Please use {@link TabChangeEvent(UIComponent, Integer, Integer)}
+   * @deprecated Please use {@link #TabChangeEvent(UIComponent, Integer, Integer)}
    */
   @Deprecated
   public TabChangeEvent(final UIComponent uiComponent, final Object oldState, final Object newState) {
@@ -46,10 +46,12 @@ public class TabChangeEvent extends ActionEvent {
     setNewState(newState);
   }
 
+  @Override
   public boolean isAppropriateListener(final FacesListener facesListener) {
     return facesListener instanceof TabChangeListener;
   }
 
+  @Override
   public void processListener(final FacesListener facesListener) {
     if (facesListener instanceof TabChangeListener) {
       ((TabChangeListener) facesListener).processTabChange(this);

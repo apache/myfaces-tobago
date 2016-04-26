@@ -23,48 +23,44 @@
     xmlns:h="http://java.sun.com/jsf/html"
     xmlns:f="http://java.sun.com/jsf/core">
   <tc:page id="page" label="Tobago Example Test">
-    <f:facet name="layout">
-      <tc:gridLayout columns="300px;*"/>
-    </f:facet>
-    <tc:gridLayoutConstraint width="1300px" height="1000px"/>
-
-    <tc:panel>
-      <f:facet name="layout">
-        <!--todo replace 20px with "auto" -->
-        <tc:gridLayout rows="auto;*"/>
-      </f:facet>
-
+    <tc:flexLayout columns="300px;*">
       <tc:panel>
         <f:facet name="layout">
-          <tc:gridLayout columns="*;30px" rows="auto;auto"/>
+          <!--todo replace 20px with "auto" -->
+          <tc:gridLayout rows="auto;*"/>
         </f:facet>
 
-        <tx:selectOneChoice value="#{clientConfig.theme}" label="Theme">
-          <f:selectItems value="#{clientConfig.themeItems}"/>
-        </tx:selectOneChoice>
-        <tc:button action="#{clientConfig.submit}" label="OK">
-          <tc:gridLayoutConstraint rowSpan="2"/>
-        </tc:button>
-        <tx:selectOneChoice value="#{clientConfig.locale}" label="Locale">
-          <f:selectItems value="#{clientConfig.localeItems}"/>
-        </tx:selectOneChoice>
+        <tc:panel>
+          <f:facet name="layout">
+            <tc:gridLayout columns="*;30px" rows="auto;auto"/>
+          </f:facet>
+
+          <tx:selectOneChoice value="#{clientConfig.theme}" label="Theme">
+            <f:selectItems value="#{clientConfig.themeItems}"/>
+          </tx:selectOneChoice>
+          <tc:button action="#{clientConfig.submit}" label="OK">
+            <tc:gridLayoutConstraint rowSpan="2"/>
+          </tc:button>
+          <tx:selectOneChoice value="#{clientConfig.locale}" label="Locale">
+            <f:selectItems value="#{clientConfig.localeItems}"/>
+          </tx:selectOneChoice>
+        </tc:panel>
+
+        <tc:tree value="#{browser.tree}" var="node">
+          <tc:treeNode disabled="#{node.disabled}">
+            <tc:treeIndent/>
+            <tc:treeIcon/>
+            <tc:treeCommand link="#{node.resource}" label="#{node.label}" target="content"
+                            rendered="#{node.childCount == 0}" markup="#{node.markup}"/>
+            <tc:treeLabel value="#{node.label}" rendered="#{node.childCount > 0}"/>
+          </tc:treeNode>
+        </tc:tree>
       </tc:panel>
 
-      <tc:tree value="#{browser.tree}" var="node">
-        <tc:treeNode disabled="#{node.disabled}">
-          <tc:treeIndent/>
-          <tc:treeIcon/>
-          <tc:treeCommand link="#{node.resource}" label="#{node.label}" target="content"
-                          rendered="#{node.childCount == 0}" markup="#{node.markup}"/>
-          <tc:treeLabel value="#{node.label}" rendered="#{node.childCount > 0}"/>
-        </tc:treeNode>
-      </tc:tree>
-    </tc:panel>
+      <!-- src will be set via <tc:treeNode target="page:content"> -->
+      <tc:object name="content"/>
 
-    <!-- src will be set via <tc:treeNode target="content"> -->
-    <tc:object name="content"/>
-
-    <!--<tc:script file="http://getfirebug.com/releases/lite/1.2/firebug-lite-compressed.js"/>-->
-
+      <!--<tc:script file="http://getfirebug.com/releases/lite/1.2/firebug-lite-compressed.js"/>-->
+    </tc:flexLayout>
   </tc:page>
 </f:view>

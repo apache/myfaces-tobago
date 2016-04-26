@@ -20,7 +20,6 @@
 package org.apache.myfaces.tobago.internal.context;
 
 import org.apache.myfaces.tobago.context.ResourceManager;
-import org.apache.myfaces.tobago.internal.config.ThemeBuilder;
 import org.apache.myfaces.tobago.internal.config.TobagoConfigImpl;
 
 import javax.faces.context.FacesContext;
@@ -54,10 +53,8 @@ public final class ResourceManagerFactory {
     assert !initialized;
     final ResourceManagerImpl resourceManager = new ResourceManagerImpl(tobagoConfig);
 
-    final ThemeBuilder themeBuilder = new ThemeBuilder(tobagoConfig);
-    final ResourceLocator resourceLocator = new ResourceLocator(servletContext, resourceManager, themeBuilder);
+    final ResourceLocator resourceLocator = new ResourceLocator(servletContext, resourceManager);
     resourceLocator.locate();
-    themeBuilder.resolveThemes();
 
     servletContext.setAttribute(RESOURCE_MANAGER, resourceManager);
 

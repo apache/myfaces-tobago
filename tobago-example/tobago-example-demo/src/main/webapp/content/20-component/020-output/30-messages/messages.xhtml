@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+-->
+
+<ui:composition template="/main.xhtml"
+                xmlns:tc="http://myfaces.apache.org/tobago/component"
+                xmlns:ui="http://java.sun.com/jsf/facelets">
+  <ui:param name="title" value="#{overviewBundle.messages} &lt;tc:messages>"/>
+  <p>Messages are displayed via <code class="language-markup">&lt;tc:messages/></code> tag.</p>
+  <tc:link label="Tag Library Documentation" image="image/feather-leaf.png"
+           link="#{overviewBundle.tagDocUrl}/messages.html"/>
+
+  <tc:section label="Create Message">
+    <p>To create messages, press one of the following buttons. The message will be displayed in the tabgroup.</p>
+    <tc:button label="Fatal" action="#{messagesController.createFatalMessage}"/>
+    <tc:button label="Error" action="#{messagesController.createErrorMessage}"/>
+    <tc:button label="Warn" action="#{messagesController.createWarnMessage}"/>
+    <tc:button label="Info" action="#{messagesController.createInfoMessage}"/>
+    <tc:button label="7 Messages" action="#{messagesController.createSevenMessages}"/>
+  </tc:section>
+
+  <tc:tabGroup switchType="reloadPage">
+    <tc:tab label="Number of messages">
+      <p>A limit for the number of messages can be set with the <code>maxNumber</code> attribute.</p>
+      <pre><code class="language-markup">&lt;tc:messages maxNumber="2"/></code></pre>
+      <tc:messages maxNumber="2"/>
+    </tc:tab>
+
+    <tc:tab label="Severity">
+      <p>The range, which severities are displayed, can be set with <code>minSeverity</code> and
+        <code>maxSeverity</code>. In this example, only warnings and error should be displayed.</p>
+      <pre><code
+              class="language-markup">&lt;tc:messages minSeverity="#{messagesController.severityWarn}" maxSeverity="#{messagesController.severityError}"/></code></pre>
+      <tc:messages minSeverity="#{messagesController.severityWarn}" maxSeverity="#{messagesController.severityError}"/>
+    </tc:tab>
+
+    <tc:tab label="Details">
+      <p>A message can also contain 'details', you can show it with <code>showDetail</code>.</p>
+      <pre><code class="language-markup">&lt;tc:messages showDetail="true"/></code></pre>
+      <tc:messages showDetail="true"/>
+    </tc:tab>
+
+    <tc:tab label="Hide summary">
+      <p>In this example, only the details are shown. To hide the summary, use <code>showSummary</code>.</p>
+      <pre><code class="language-markup">&lt;tc:messages showSummary="false" showDetail="true"/></code></pre>
+      <tc:messages showSummary="false" showDetail="true"/>
+    </tc:tab>
+
+    <tc:tab label="Order">
+      <tc:segmentLayout medium="6;6">
+        <tc:box label="severity">
+          <p>By default, messages are sorted by severity.
+            Therefor, the <code>orderBy</code> attribute is not needed in this case.</p>
+          <pre><code class="language-markup">&lt;tc:messages orderBy="severity"/></code></pre>
+          <tc:messages orderBy="severity"/>
+        </tc:box>
+        <tc:box label="occurrence">
+          <p>Messages displayed in the order they occurred.</p>
+          <pre><code class="language-markup">&lt;tc:messages orderBy="occurrence"/></code></pre>
+          <tc:messages orderBy="occurrence"/>
+        </tc:box>
+      </tc:segmentLayout>
+    </tc:tab>
+  </tc:tabGroup>
+</ui:composition>

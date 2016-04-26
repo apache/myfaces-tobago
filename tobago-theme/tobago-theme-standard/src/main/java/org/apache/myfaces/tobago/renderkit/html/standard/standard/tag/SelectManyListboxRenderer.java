@@ -20,73 +20,71 @@
 package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
 import org.apache.myfaces.tobago.component.UISelectManyListbox;
-import org.apache.myfaces.tobago.renderkit.SelectManyRendererBase;
+import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
-import org.apache.myfaces.tobago.renderkit.css.Style;
+import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
+import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
 import org.apache.myfaces.tobago.renderkit.util.SelectItemUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import java.io.IOException;
+import java.util.List;
 
 public class SelectManyListboxRenderer extends SelectManyRendererBase {
 
-  private static final Logger LOG = LoggerFactory.getLogger(SelectManyListboxRenderer.class);
-
+  @Override
   public boolean getRendersChildren() {
     return true;
   }
 
-  public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
-    if (!(component instanceof UISelectManyListbox)) {
-      LOG.error("Wrong type: Need " + UISelectManyListbox.class.getName() 
-          + ", but was " + component.getClass().getName());
-      return;
-    }
-
+  @Override
+  public void encodeBeginField(final FacesContext facesContext, final UIComponent component) throws IOException {
     final UISelectManyListbox select = (UISelectManyListbox) component;
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
     final String id = select.getClientId(facesContext);
-    final Iterable<SelectItem> items = SelectItemUtils.getItemIterator(facesContext, select);
+    final List<SelectItem> items = SelectItemUtils.getItemList(facesContext, select);
     final boolean readonly = select.isReadonly();
     final boolean disabled = !items.iterator().hasNext() || select.isDisabled() || readonly;
+    Integer size = select.getSize();
+    size = Math.max(size != null ? size : items.size(), 2); // must be > 1
 
     final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, select);
-    writer.startElement(HtmlElements.SELECT, select);
+    writer.startElement(HtmlElements.SELECT);
     writer.writeNameAttribute(id);
-    writer.writeIdAttribute(id);
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, select);
     writer.writeAttribute(HtmlAttributes.DISABLED, disabled);
     writer.writeAttribute(HtmlAttributes.READONLY, readonly);
     writer.writeAttribute(HtmlAttributes.REQUIRED, select.isRequired());
     HtmlRendererUtils.renderFocus(id, select.isFocus(), ComponentUtils.isError(select), facesContext, writer);
-    final Integer tabIndex = select.getTabIndex();
-    if (tabIndex != null) {
-      writer.writeAttribute(HtmlAttributes.TABINDEX, tabIndex);
+    writer.writeAttribute(HtmlAttributes.TABINDEX, select.getTabIndex());
+    writer.writeStyleAttribute(select.getStyle());
+    writer.writeClassAttribute(Classes.create(select), BootstrapClass.FORM_CONTROL, select.getCustomClass());
+    writer.writeAttribute(HtmlAttributes.MULTIPLE, true);
+    writer.writeAttribute(HtmlAttributes.SIZE, size);
+    writer.writeAttribute(HtmlAttributes.TITLE, title, true);
+    final String commands = RenderUtils.getBehaviorCommands(facesContext, select);
+    if (commands != null) {
+      writer.writeAttribute(DataAttributes.COMMANDS, commands, true);
+    } else { // old
+      HtmlRendererUtils.renderCommandFacet(select, facesContext, writer);
     }
-    final Style style = new Style(facesContext, select);
-    writer.writeStyleAttribute(style);
-    writer.writeClassAttribute(Classes.create(select));
-    writer.writeAttribute(HtmlAttributes.MULTIPLE, HtmlAttributes.MULTIPLE, false);
-    if (title != null) {
-      writer.writeAttribute(HtmlAttributes.TITLE, title, true);
-    }
-    HtmlRendererUtils.renderCommandFacet(select, facesContext, writer);
     final Object[] values = select.getSelectedValues();
     final String[] submittedValues = getSubmittedValues(select);
-    HtmlRendererUtils.renderSelectItems(select, items, values, submittedValues, writer, facesContext);
 
-    writer.endElement(HtmlElements.SELECT);
+    HtmlRendererUtils.renderSelectItems(select, items, values, submittedValues, writer, facesContext);
   }
 
+  @Override
+  public void encodeEndField(final FacesContext facesContext, final UIComponent component) throws IOException {
+    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+    writer.endElement(HtmlElements.SELECT);
+  }
 }
-

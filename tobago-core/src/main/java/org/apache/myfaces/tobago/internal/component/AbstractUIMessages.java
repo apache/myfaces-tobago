@@ -20,7 +20,8 @@
 package org.apache.myfaces.tobago.internal.component;
 
 import org.apache.commons.collections.iterators.SingletonIterator;
-import org.apache.myfaces.tobago.layout.LayoutComponent;
+import org.apache.myfaces.tobago.component.Visual;
+import org.apache.myfaces.tobago.layout.OrderBy;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -31,7 +32,7 @@ import java.util.Iterator;
 import java.util.List;
 
 public abstract class AbstractUIMessages extends javax.faces.component.UIMessages
-    implements LayoutComponent {
+    implements Visual {
 
   public List<Item> createMessageList(final FacesContext facesContext) {
 
@@ -47,7 +48,7 @@ public abstract class AbstractUIMessages extends javax.faces.component.UIMessage
     final List<Item> messages = collectMessageList(facesContext, clientIds);
 
     // todo
-    if (OrderBy.SEVERITY.equals(getOrderBy())) {
+    if (OrderBy.severity == getOrderBy()) {
       // sort
       Collections.sort(messages, new ItemComparator());
     }
@@ -56,7 +57,7 @@ public abstract class AbstractUIMessages extends javax.faces.component.UIMessage
 
   private List<Item> collectMessageList(final FacesContext facesContext, final Iterator clientIds) {
     final List<Item> messages = new ArrayList<Item>();
-    while(clientIds.hasNext()) {
+    while (clientIds.hasNext()) {
       final String clientId = (String) clientIds.next();
       final Iterator<FacesMessage> i = facesContext.getMessages(clientId);
       while (i.hasNext()) {
@@ -104,6 +105,7 @@ public abstract class AbstractUIMessages extends javax.faces.component.UIMessage
   }
 
   public static class ItemComparator implements Comparator<Item> {
+    @Override
     public int compare(final Item item1, final Item item2) {
       return item2.getFacesMessage().getSeverity().getOrdinal() - item1.getFacesMessage().getSeverity().getOrdinal();
     }
@@ -121,16 +123,4 @@ public abstract class AbstractUIMessages extends javax.faces.component.UIMessage
   public abstract String getFor();
 */
 
-  public static enum OrderBy {
-
-    OCCURRENCE,
-    SEVERITY;
-
-    public static final String OCCURRENCE_STRING = "occurrence";
-    public static final String SEVERITY_STRING = "severity";
-
-    public static OrderBy parse(final String key) {
-      return valueOf(key.toUpperCase());
-    }
-  }
 }

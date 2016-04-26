@@ -75,6 +75,7 @@ public class CheckstyleConfigGenerator extends AbstractGenerator {
 
   private String targetCheckstyle;
 
+  @Override
   public void configure() {
     final Map<String, String> options = processingEnv.getOptions();
     targetCheckstyle = options.get(TARGET_CHECKSTYLE);
@@ -84,6 +85,7 @@ public class CheckstyleConfigGenerator extends AbstractGenerator {
     info(TARGET_CHECKSTYLE + ": " + targetCheckstyle);
   }
 
+  @Override
   public void generate() throws ParserConfigurationException, IOException, TransformerException,
       ClassNotFoundException {
     final DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
@@ -238,6 +240,7 @@ public class CheckstyleConfigGenerator extends AbstractGenerator {
     final List<? extends javax.lang.model.element.Element> members
         = new ArrayList<javax.lang.model.element.Element>(processingEnv.getElementUtils().getAllMembers(type));
     Collections.sort(members, new Comparator<javax.lang.model.element.Element>() {
+      @Override
       public int compare(final javax.lang.model.element.Element d1, final javax.lang.model.element.Element d2) {
         return d1.getSimpleName().toString().compareTo(d2.getSimpleName().toString());
       }

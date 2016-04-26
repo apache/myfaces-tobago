@@ -19,31 +19,70 @@
 
 package org.apache.myfaces.tobago.example.demo;
 
-import javax.enterprise.context.SessionScoped;
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 import java.io.Serializable;
 
-@SessionScoped
+@RequestScoped
 @Named
 public class SelectBooleanCheckboxController implements Serializable {
 
-  private String onOffString = "on";
-  private boolean normalBoolean = true;
+  private boolean a;
+  private boolean b;
+  private boolean c;
+  private boolean d;
+  private boolean e;
+  private boolean f;
 
-  public String getOnOffString() {
-    return onOffString;
+  public boolean isA() {
+    return a;
   }
 
-  public void setOnOffString(final String onOffString) {
-    this.onOffString = onOffString;
+  public void setA(boolean a) {
+    this.a = a;
   }
 
-  public boolean isNormalBoolean() {
-    return normalBoolean;
+  public boolean isB() {
+    return b;
   }
 
-  public void setNormalBoolean(final boolean normalBoolean) {
-    this.normalBoolean = normalBoolean;
+  public void setB(boolean b) {
+    this.b = b;
   }
 
+  public boolean isC() {
+    return c;
+  }
+
+  public void setC(boolean c) {
+    this.c = c;
+  }
+
+  public boolean isD() {
+    return d;
+  }
+
+  public void setD(boolean d) {
+    this.d = d;
+  }
+
+  public boolean isE() {
+    return e;
+  }
+
+  public void setE(boolean e) {
+    this.e = e;
+  }
+
+  public boolean isF() {
+    return f;
+  }
+
+  public void setF(boolean f) {
+    this.f = f;
+  }
+
+  public String getSelectedItems() {
+    return (a ? "A " : "") + (b ? "B " : "") + (c ? "C " : "");
+  }
 }

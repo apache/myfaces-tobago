@@ -16,113 +16,86 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-
 package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
 import org.apache.myfaces.tobago.component.Facets;
-import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.component.UIBox;
 import org.apache.myfaces.tobago.component.UIMenuBar;
-import org.apache.myfaces.tobago.context.ClientProperties;
-import org.apache.myfaces.tobago.layout.Measure;
-import org.apache.myfaces.tobago.renderkit.BoxRendererBase;
+import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
-import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIPanel;
 import javax.faces.context.FacesContext;
-import javax.faces.context.ResponseWriter;
 import java.io.IOException;
 
 public class BoxRenderer extends BoxRendererBase {
 
-  @Override
-  public void encodeBegin(final FacesContext facesContext, final UIComponent component) throws IOException {
+    private static final Logger LOG = LoggerFactory.getLogger(BoxRenderer.class);
 
-    final UIBox box = (UIBox) component;
-    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+    @Override
+    public void encodeBegin(final FacesContext facesContext, final UIComponent component) throws IOException {
 
-    final UIComponent label = box.getFacet(Facets.LABEL);
-    final String labelString = box.getLabel();
-    final UIPanel toolbar = (UIPanel) box.getFacet(Facets.TOOL_BAR);
-    final Style style = new Style(facesContext, box);
-    if (toolbar != null) {
-      final Measure padding = getResourceManager().getThemeMeasure(facesContext, box, "paddingTopWhenToolbar");
-      style.setPaddingTop(padding);
-      style.setPaddingBottom(Measure.ZERO);
+        final UIBox box = (UIBox) component;
+        final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+
+        final UIComponent label = ComponentUtils.getFacet(box, Facets.label);
+        final String labelString = box.getLabel();
+
+        final UIPanel toolbar = (UIPanel) ComponentUtils.getFacet(box, Facets.toolBar); //XXX todo
+
+        writer.startElement(HtmlElements.DIV);
+        writer.writeClassAttribute(
+            Classes.create(box), BootstrapClass.CARD, box.getCustomClass());
+        writer.writeIdAttribute(box.getClientId(facesContext));
+        final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, box);
+        if (title != null) {
+            writer.writeAttribute(HtmlAttributes.TITLE, title, true);
+        }
+        HtmlRendererUtils.writeDataAttributes(facesContext, writer, box);
+        writer.writeStyleAttribute(box.getStyle());
+
+        if (label != null || labelString != null || toolbar != null) {
+            writer.startElement(HtmlElements.DIV);
+            writer.writeClassAttribute(BootstrapClass.CARD_HEADER);
+
+            writer.startElement(HtmlElements.H3);
+            if (label != null) {
+                RenderUtils.encode(facesContext, label);
+            } else if (labelString != null) {
+                writer.writeText(labelString);
+            }
+            writer.endElement(HtmlElements.H3);
+
+            if (toolbar != null) {
+                RenderUtils.encode(facesContext, toolbar);
+            }
+
+            writer.endElement(HtmlElements.DIV);
+        }
+
+        final UIMenuBar menuBar = ComponentUtils.findFacetDescendant(box, Facets.menuBar, UIMenuBar.class);
+        if (menuBar != null) {
+            RenderUtils.encode(facesContext, menuBar);
+        }
+
+        writer.startElement(HtmlElements.DIV);
+        writer.writeClassAttribute(BootstrapClass.CARD_BLOCK);
     }
 
-    writer.startElement(HtmlElements.FIELDSET, box);
-    writer.writeClassAttribute(Classes.create(box));
-    final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, box);
-    if (title != null) {
-      writer.writeAttribute(HtmlAttributes.TITLE, title, true);
-    }
-    HtmlRendererUtils.writeDataAttributes(facesContext, writer, box);
-    writer.writeStyleAttribute(style);
-
-    if (label != null || labelString != null) {
-      writer.startElement(HtmlElements.LEGEND, box);
-      writer.writeClassAttribute(Classes.create(box, "legend"));
-
-      if (label != null) {
-        RenderUtils.encode(facesContext, label);
-      } else {
-        writer.writeText(labelString);
-      }
-      writer.endElement(HtmlElements.LEGEND);
+    @Override
+    public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
+        final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+        writer.endElement(HtmlElements.DIV);
+        writer.endElement(HtmlElements.DIV);
     }
 
-    final Style contentStyle = new Style(facesContext, box);
-    if (toolbar != null) {
-      writer.startElement(HtmlElements.DIV, null);
-      writer.writeClassAttribute(Classes.create(box, "toolbarOuter"));
-      writer.startElement(HtmlElements.DIV, null);
-      writer.writeClassAttribute(Classes.create(box, "toolbarInner"));
-      toolbar.setRendererType(RendererTypes.BOX_TOOL_BAR);
-      RenderUtils.encode(facesContext, toolbar);
-      writer.endElement(HtmlElements.DIV);
-      writer.endElement(HtmlElements.DIV);
-      if (ClientProperties.getInstance(facesContext).getUserAgent().isMsie()) {
-// XXX check for what is this, and delete or comment it
-        contentStyle.setTop(Measure.valueOf(-10));
-      }
-    }
-
-    final UIMenuBar menuBar = ComponentUtils.findFacetDescendant(box, Facets.MENUBAR, UIMenuBar.class);
-    if (menuBar != null) {
-      RenderUtils.encode(facesContext, menuBar);
-    }
-    
-    writer.startElement(HtmlElements.DIV, box);
-    writer.writeClassAttribute(Classes.create(box, "content")); // needed to be scrollable inside of the box
-    final Measure borderLeft = getBorderLeft(facesContext, box);
-    final Measure borderRight = getBorderRight(facesContext, box);
-    final Measure borderTop = getBorderTop(facesContext, box);
-    final Measure borderBottom = getBorderBottom(facesContext, box);
-    contentStyle.setWidth(contentStyle.getWidth().subtract(borderLeft).subtract(borderRight));
-    contentStyle.setHeight(contentStyle.getHeight().subtract(borderTop).subtract(borderBottom));
-    contentStyle.setLeft(borderLeft);
-    contentStyle.setTop(borderTop);
-    writer.writeStyleAttribute(contentStyle);
-  }
-
-  @Override
-  public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
-    final ResponseWriter writer = facesContext.getResponseWriter();
-    writer.endElement(HtmlElements.DIV);
-    writer.endElement(HtmlElements.FIELDSET);
-  }
-
-  @Override
-  public boolean getRendersChildren() {
-    return true;
-  }
 }

@@ -20,7 +20,7 @@
   <parent>
     <groupId>org.apache.myfaces.tobago</groupId>
     <artifactId>tobago-example</artifactId>
-    <version>2.0.10-SNAPSHOT</version>
+    <version>3.0.0-beta-1-SNAPSHOT</version>
   </parent>
   <artifactId>tobago-example-test</artifactId>
   <packaging>war</packaging>
@@ -55,38 +55,6 @@
         </configuration>
       </plugin>
       <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>xml-maven-plugin</artifactId>
-        <version>1.0</version>
-        <executions>
-          <execution>
-            <phase>generate-resources</phase>
-            <goals>
-              <goal>transform</goal>
-            </goals>
-          </execution>
-        </executions>
-        <configuration>
-          <transformationSets>
-            <transformationSet>
-              <dir>src/main/webapp</dir>
-              <outputDir>${project.build.directory}/tobago-example-test</outputDir>
-              <!-- not nice, but works... -->
-              <stylesheet>../tobago-example-demo/src/main/xslt/facelet2jsp.xsl</stylesheet>
-              <includes>
-                <include>**/*.xhtml</include>
-              </includes>
-              <fileMappers>
-                <fileMapper implementation="org.codehaus.plexus.components.io.filemappers.RegExpFileMapper">
-                  <pattern>(.*).xhtml</pattern>
-                  <replacement>$1.jspx</replacement>
-                </fileMapper>
-              </fileMappers>
-            </transformationSet>
-          </transformationSets>
-        </configuration>
-      </plugin>
-      <plugin>
         <artifactId>maven-surefire-plugin</artifactId>
         <configuration>
           <skip>false</skip>
@@ -110,33 +78,6 @@
       <artifactId>tobago-sandbox</artifactId>
       <version>${project.version}</version>
     </dependency>
-    <dependency>
-      <groupId>org.apache.myfaces.tobago</groupId>
-      <artifactId>tobago-fileupload</artifactId>
-      <version>${project.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.myfaces.tomahawk</groupId>
-      <artifactId>tomahawk20</artifactId>
-      <version>1.1.13</version>
-      <exclusions>
-        <exclusion>
-          <groupId>javax.servlet</groupId>
-          <artifactId>jstl</artifactId>
-        </exclusion>
-      </exclusions>
-    </dependency>
-    <dependency>
-      <groupId>log4j</groupId>
-      <artifactId>log4j</artifactId>
-      <scope>runtime</scope>
-    </dependency>
-<!--
-    <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>slf4j-log4j12</artifactId>
-    </dependency>
--->
     <dependency>
       <groupId>oro</groupId>
       <artifactId>oro</artifactId>
@@ -245,6 +186,7 @@
           -->
           <plugin>
             <groupId>org.eclipse.jetty</groupId>
+            <!--<groupId>org.eclipse.jetty</groupId>-->
             <artifactId>jetty-maven-plugin</artifactId>
             <configuration>
               <httpConnector>

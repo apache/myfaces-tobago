@@ -29,6 +29,7 @@ public class UIMenuSelectOne extends javax.faces.component.UISelectOne {
 
   // hack to made decoding of menuRadio work
   // selectItems are located at parent component
+  @Override
   public List<UIComponent> getChildren() {
     return getParent().getChildren();
   }

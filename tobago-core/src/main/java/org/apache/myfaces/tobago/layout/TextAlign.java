@@ -19,53 +19,71 @@
 
 package org.apache.myfaces.tobago.layout;
 
-
-import java.util.HashMap;
-import java.util.Map;
-
-
+/**
+ * Values for text alignments used with CSS.
+ *
+ * Note: the enums are not capitalized, because of problems with {@link java.beans.PropertyEditor}.
+ */
 public enum TextAlign {
 
-  LEFT("left"),
-  RIGHT("right"),
-  CENTER("center"),
-  JUSTIFY("justify");
+  left,
+  right,
+  center,
+  justify;
 
+  /**
+   * @deprecated Since Tobago 3.0.0 Please use {@link TextAlign#left}
+   */
+  public static final TextAlign LEFT = left;
+
+  /**
+   * @deprecated Since Tobago 3.0.0 Please use {@link TextAlign#right}
+   */
+  public static final TextAlign RIGHT = right;
+
+  /**
+   * @deprecated Since Tobago 3.0.0 Please use {@link TextAlign#center}
+   */
+  public static final TextAlign CENTER = center;
+
+  /**
+   * @deprecated Since Tobago 3.0.0 Please use {@link TextAlign#justify}
+   */
+  public static final TextAlign JUSTIFY = justify;
+
+  /**
+   * Internal constant to use in annotations. Please use {@link TextAlign#left}
+   */
   public static final String STRING_LEFT = "left";
+
+  /**
+   * Internal constant to use in annotations. Please use {@link TextAlign#right}
+   */
   public static final String STRING_RIGHT = "right";
+
+  /**
+   * Internal constant to use in annotations. Please use {@link TextAlign#center}
+   */
   public static final String STRING_CENTER = "center";
+
+  /**
+   * Internal constant to use in annotations. Please use {@link TextAlign#justify}
+   */
   public static final String STRING_JUSTIFY = "justify";
 
-  private final String value;
-
-  TextAlign(final String value) {
-    this.value = value;
-  }
-
+  /**
+   * @deprecated Since Tobago 3.0.0 Please use {@link TextAlign#name}
+   */
   public String getValue() {
-    return value;
+    return name();
   }
 
-  private static final Map<String, TextAlign> MAPPING;
-
-  static {
-    MAPPING = new HashMap<String, TextAlign>();
-
-    for (final TextAlign textAlign : TextAlign.values()) {
-      MAPPING.put(textAlign.getValue(), textAlign);
-    }
-  }
-
+  /**
+   * @deprecated Since Tobago 3.0.0 Please use {@link TextAlign#valueOf}
+   */
+  @Deprecated
   public static TextAlign parse(final String string) {
-    if (string == null) {
-      return null;
-    }
-    final TextAlign value = MAPPING.get(string);
-    if (value != null) {
-      return value;
-    } else {
-      throw new IllegalArgumentException("Unknown value for TextAlign: '" + string + "'");
-    }
+    return valueOf(string);
   }
 
 }

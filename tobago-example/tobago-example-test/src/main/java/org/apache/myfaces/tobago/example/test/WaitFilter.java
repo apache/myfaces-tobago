@@ -37,9 +37,11 @@ public class WaitFilter implements Filter {
 
   private static final Logger LOG = LoggerFactory.getLogger(WaitFilter.class);
 
+  @Override
   public void init(final FilterConfig filterConfig) throws ServletException {
   }
 
+  @Override
   public void doFilter(final ServletRequest request, final ServletResponse response, final FilterChain chain)
       throws IOException, ServletException {
 
@@ -56,6 +58,7 @@ public class WaitFilter implements Filter {
     chain.doFilter(request, response);
   }
 
+  @Override
   public void destroy() {
   }
 }

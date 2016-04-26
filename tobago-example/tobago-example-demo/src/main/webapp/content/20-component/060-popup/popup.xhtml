@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+-->
+
+<ui:composition template="/main.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:tc="http://myfaces.apache.org/tobago/component"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core">
+  <ui:param name="title" value="#{overviewBundle.popup} &lt;tc:popup>"/>
+  <p>A popup dialog is created with <code class="language-markup">&lt;tc:popup/></code>.
+    It can be filled with components like other container.</p>
+  <p>Tag Library Documentation:
+    <tc:link label="&lt;tc:popup/>" image="image/feather-leaf.png"
+             link="#{overviewBundle.tagDocUrl}/popup.html"/>
+    |
+    <tc:link label="&lt;f:facet/>"
+             link="https://docs.oracle.com/javaee/6/javaserverfaces/2.0/docs/pdldocs/facelets/f/facet.html"/>
+    |
+    <tc:link label="&lt;tc:popupReference/>" image="image/feather-leaf.png"
+             link="#{overviewBundle.tagDocUrl}/popupReference.html"/>
+    |
+    <tc:link label="&lt;tc:attribute/>" image="image/feather-leaf.png"
+             link="#{overviewBundle.tagDocUrl}/attribute.html"/></p>
+
+  <tc:section label="Basics">
+    <p>There are basically two ways to open a popup dialog.
+      First, put the <code class="language-markup">&lt;tc:popup/></code> tag within an opening component,
+      like a button or a link. The second one is to use the
+      <code class="language-markup">&lt;tc:popupReference/></code> tag.</p>
+    <tc:section label="Popup within button">
+      <p>In this example, the popup should be within a button. To make this happen, the facet-tag is also needed.
+        In detail:<br/>
+        The <code class="language-markup">&lt;tc:button label="Open Popup 1"></code> contain
+        <code class="language-markup">&lt;f:facet name="popup"></code>, which contain
+        <code class="language-markup">&lt;tc:popup id="popup1"></code>.</p>
+      <tc:button id="b1" label="Open Popup 1">
+        <f:facet name="popup">
+          <tc:popup id="popup1">
+            <p>This is a popup dialog.</p>
+          </tc:popup>
+        </f:facet>
+      </tc:button>
+    </tc:section>
+    <tc:section label="Reference to popup">
+      <p>The link tag contain a <code class="language-markup">&lt;tc:popupReference for="popup1"/></code>.
+        The value of the <code>for</code> attribute has to be the ID of a popup dialog.</p>
+      <tc:link id="l1" label="Open Popup 1">
+        <tc:popupReference for="popup1"/>
+      </tc:link>
+    </tc:section>
+  </tc:section>
+
+  <tc:section label="Close Popup">
+    <p>A popup can be closed with or without submitting the entered values.</p>
+    <p>To create a 'OK'-button, insert
+      <code class="language-markup">&lt;tc:attribute name="popupClose" value="afterSubmit"/></code>
+      into the button tag.</p>
+    <p>To create a 'Cancel'-button, insert
+      <code class="language-markup">&lt;tc:attribute name="popupClose" value="immediate"/></code>
+      into the button tag.</p>
+    <tc:popup id="popup2">
+      <tc:box label="Popup 2">
+        <tc:in id="i1" label="Textfield" value="#{popupController.text}"/>
+        <tc:button label="OK">
+          <tc:attribute name="popupClose" value="afterSubmit"/>
+        </tc:button>
+        <tc:button label="Cancel">
+          <tc:attribute name="popupClose" value="immediate"/>
+        </tc:button>
+      </tc:box>
+    </tc:popup>
+    <tc:button id="b2" label="Open Popup 2">
+      <tc:popupReference for="popup2"/>
+    </tc:button>
+    <tc:out id="o2" label="Text from Popup" value="#{popupController.text}"/>
+  </tc:section>
+</ui:composition>

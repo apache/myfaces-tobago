@@ -23,10 +23,13 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
+import javax.faces.convert.FacesConverter;
 import java.util.Locale;
 
+@FacesConverter(forClass = Locale.class)
 public class LocaleConverter implements Converter {
 
+  @Override
   public Object getAsObject(
       final FacesContext facesContext, final UIComponent component, final String value) {
     final Locale locale = createLocale(value);
@@ -37,6 +40,7 @@ public class LocaleConverter implements Converter {
     return locale;
   }
 
+  @Override
   public String getAsString(
       final FacesContext facesContext, final UIComponent component, final Object value) {
     return value == null ? null : value.toString();

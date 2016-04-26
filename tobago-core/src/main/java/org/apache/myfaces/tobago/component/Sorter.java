@@ -95,15 +95,15 @@ public class Sorter {
         final UIComponent child = getFirstSortableChild(column.getChildren());
         if (child != null) {
 
-          final String attributeName = child instanceof AbstractUICommand ? Attributes.LABEL : Attributes.VALUE;
-          if (child.getValueExpression(attributeName) != null) {
+          final Attributes attribute = child instanceof AbstractUICommand ? Attributes.label : Attributes.value;
+          if (child.getValueExpression(attribute.getName()) != null) {
             final String var = data.getVar();
             if (var == null) {
                 LOG.error("No sorting performed. Property var of sheet is not set!");
                 unsetSortableAttribute(column);
                 return;
             }
-            String expressionString = child.getValueExpression(attributeName).getExpressionString();
+            String expressionString = child.getValueExpression(attribute.getName()).getExpressionString();
             if (isSimpleProperty(expressionString)) {
               if (expressionString.startsWith("#{")
                   && expressionString.endsWith("}")) {
@@ -218,7 +218,7 @@ public class Sorter {
 
   private void unsetSortableAttribute(final UIColumn uiColumn) {
     LOG.warn("removing attribute sortable from column " + uiColumn.getId());
-    uiColumn.getAttributes().put(Attributes.SORTABLE, Boolean.FALSE);
+    uiColumn.getAttributes().put(Attributes.sortable.getName(), Boolean.FALSE);
   }
 
   private UIComponent getFirstSortableChild(final List<UIComponent> children) {

@@ -20,14 +20,11 @@
 package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
 import org.apache.myfaces.tobago.component.UISelectOneRadio;
-import org.apache.myfaces.tobago.config.Configurable;
-import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.internal.util.ObjectUtils;
-import org.apache.myfaces.tobago.layout.Measure;
-import org.apache.myfaces.tobago.renderkit.SelectOneRendererBase;
+import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
-import org.apache.myfaces.tobago.renderkit.css.Style;
+import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
@@ -38,22 +35,14 @@ import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
-import javax.faces.component.UISelectOne;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import java.io.IOException;
 
 public class SelectOneRadioRenderer extends SelectOneRendererBase {
 
-  public void prepareRender(final FacesContext facesContext, final UIComponent component) throws IOException {
-    final UISelectOne select = (UISelectOne) component;
-    super.prepareRender(facesContext, select);
-    if (select instanceof UISelectOneRadio && ((UISelectOneRadio) select).isInline()) {
-      ComponentUtils.addCurrentMarkup(((UISelectOneRadio) select), Markup.INLINE);
-    }
-  }
-
-  public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
+  @Override
+  protected void encodeBeginField(FacesContext facesContext, UIComponent component) throws IOException {
     final UISelectOneRadio select = (UISelectOneRadio) component;
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
@@ -62,15 +51,11 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
     final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, select);
     final boolean disabled = select.isDisabled();
     final boolean readonly = select.isReadonly();
-    final Style style = new Style(facesContext, select);
     final boolean required = select.isRequired();
-    // fixme: use CSS, not the Style Attribute for "display"
-    style.setDisplay(null);
 
-    writer.startElement(HtmlElements.OL, select);
-    writer.writeIdAttribute(id);
-    writer.writeStyleAttribute(style);
-    writer.writeClassAttribute(Classes.create(select));
+    writer.startElement(HtmlElements.OL);
+    writer.writeStyleAttribute(select.getStyle());
+    writer.writeClassAttribute(Classes.create(select), select.getCustomClass());
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, select);
     if (title != null) {
       writer.writeAttribute(HtmlAttributes.TITLE, title, true);
@@ -80,10 +65,17 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
     final String submittedValue = (String) select.getSubmittedValue();
     int i = 0;
     for (final SelectItem item : items) {
+      final boolean itemDisabled = item.isDisabled() || disabled;
       final String itemId = id + ComponentUtils.SUB_SEPARATOR + i++;
-      writer.startElement(HtmlElements.LI, select);
-      writer.startElement(HtmlElements.INPUT, select);
-      writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.RADIO, false);
+      writer.startElement(HtmlElements.LI);
+      if (itemDisabled) {
+        writer.writeClassAttribute(BootstrapClass.RADIO, BootstrapClass.DISABLED);
+      } else {
+        writer.writeClassAttribute(BootstrapClass.RADIO);
+      }
+      writer.startElement(HtmlElements.LABEL);
+      writer.startElement(HtmlElements.INPUT);
+      writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.RADIO);
       final String formattedValue = RenderUtils.getFormattedValue(facesContext, select, item.getValue());
       boolean checked;
       if (submittedValue == null) {
@@ -95,18 +87,20 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
       writer.writeNameAttribute(id);
       writer.writeIdAttribute(itemId);
       writer.writeAttribute(HtmlAttributes.VALUE, formattedValue, true);
-      writer.writeAttribute(HtmlAttributes.DISABLED, item.isDisabled() || disabled);
+      writer.writeAttribute(HtmlAttributes.DISABLED, itemDisabled);
       writer.writeAttribute(HtmlAttributes.READONLY, readonly);
       writer.writeAttribute(HtmlAttributes.REQUIRED, required);
       if (first) {
         HtmlRendererUtils.renderFocus(id, select.isFocus(), ComponentUtils.isError(select), facesContext, writer);
         first = false;
       }
-      final Integer tabIndex = select.getTabIndex();
-      if (tabIndex != null) {
-        writer.writeAttribute(HtmlAttributes.TABINDEX, tabIndex);
+      writer.writeAttribute(HtmlAttributes.TABINDEX, select.getTabIndex());
+      final String commands = RenderUtils.getBehaviorCommands(facesContext, select);
+      if (commands != null) {
+        writer.writeAttribute(DataAttributes.COMMANDS, commands, true);
+      } else { // old
+        HtmlRendererUtils.renderCommandFacet(select, itemId, facesContext, writer);
       }
-      HtmlRendererUtils.renderCommandFacet(select, itemId, facesContext, writer);
       writer.endElement(HtmlElements.INPUT);
 
       if (item instanceof org.apache.myfaces.tobago.model.SelectItem) {
@@ -115,7 +109,7 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
         if (image != null) {
           final String imageToRender
               = ResourceManagerUtils.getImageOrDisabledImageWithPath(facesContext, image, item.isDisabled());
-          writer.startElement(HtmlElements.IMG, select);
+          writer.startElement(HtmlElements.IMG);
           writer.writeAttribute(HtmlAttributes.SRC, imageToRender, true);
           writer.writeAttribute(HtmlAttributes.ALT, "", false);
           writer.endElement(HtmlElements.IMG);
@@ -124,30 +118,17 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
 
       final String label = item.getLabel();
       if (label != null) {
-        writer.startElement(HtmlElements.LABEL, select);
-        writer.writeAttribute(HtmlAttributes.FOR, itemId, false);
         writer.writeText(label);
-        writer.endElement(HtmlElements.LABEL);
       }
 
+      writer.endElement(HtmlElements.LABEL);
       writer.endElement(HtmlElements.LI);
     }
-    writer.endElement(HtmlElements.OL);
-
   }
 
   @Override
-  public Measure getHeight(final FacesContext facesContext, final Configurable component) {
-    final UISelectOneRadio select = (UISelectOneRadio) component;
-    final Measure heightOfOne = super.getHeight(facesContext, component);
-    if (select.isInline()) {
-      return heightOfOne;
-    } else {
-      int count = 0;
-      for(SelectItem ignored : SelectItemUtils.getItemIterator(facesContext, (UISelectOne) component)) {
-        count++;
-      }
-      return heightOfOne.multiply(count);
-    }
+  protected void encodeEndField(FacesContext facesContext, UIComponent component) throws IOException {
+    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+    writer.endElement(HtmlElements.OL);
   }
 }

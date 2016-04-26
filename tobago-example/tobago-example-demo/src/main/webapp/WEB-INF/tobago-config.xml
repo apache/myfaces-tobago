@@ -32,18 +32,16 @@
   </ordering>
 
   <theme-config>
-    <default-theme>speyside</default-theme>
+    <default-theme>standard</default-theme>
     <supported-theme>scarborough</supported-theme>
     <supported-theme>richmond</supported-theme>
     <supported-theme>charlotteville</supported-theme>
+    <supported-theme>speyside</supported-theme>
   </theme-config>
 
   <resource-dir>tobago-resource</resource-dir>
 
-<!--
-  <classic-date-time-picker>true</classic-date-time-picker>
--->
-
+  <!-- XXX With CSP Tobago 3.0.x is currently not working 100% see TOBAGO-1534 -->
   <content-security-policy mode="report-only">
     <directive>frame-src https://maps.google.com</directive>
   </content-security-policy>

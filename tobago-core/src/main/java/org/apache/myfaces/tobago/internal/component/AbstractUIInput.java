@@ -19,16 +19,36 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
-import org.apache.myfaces.tobago.component.SupportsMarkup;
-import org.apache.myfaces.tobago.layout.LayoutComponent;
+import org.apache.myfaces.tobago.component.SupportsLabelLayout;
+import org.apache.myfaces.tobago.component.Visual;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 
+import javax.faces.component.behavior.ClientBehaviorHolder;
 import javax.faces.context.FacesContext;
+import java.util.Arrays;
+import java.util.Collection;
 
 public abstract class AbstractUIInput extends javax.faces.component.UIInput
-    implements SupportsMarkup, LayoutComponent {
+    implements SupportsLabelLayout, Visual, ClientBehaviorHolder {
+
+  // todo generate
+  private static final Collection<String> EVENT_NAMES = Arrays.asList("change");
+
+  // todo generate
+  @Override
+  public String getDefaultEventName() {
+    return "change";
+  }
+
+  // todo generate
+  @Override
+  public Collection<String> getEventNames() {
+    return EVENT_NAMES;
+  }
+
 
   // TODO can this removed?
+  @Override
   public void updateModel(final FacesContext facesContext) {
     if (ComponentUtils.mayUpdateModel(this)) {
       super.updateModel(facesContext);

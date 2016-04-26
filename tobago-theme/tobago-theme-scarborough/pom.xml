@@ -20,7 +20,7 @@
   <parent>
     <groupId>org.apache.myfaces.tobago</groupId>
     <artifactId>tobago-theme</artifactId>
-    <version>2.0.10-SNAPSHOT</version>
+    <version>3.0.0-beta-1-SNAPSHOT</version>
   </parent>
   <artifactId>tobago-theme-scarborough</artifactId>
   <packaging>jar</packaging>
@@ -34,74 +34,13 @@
         <configuration>
           <childDelegation>true</childDelegation>
           <excludes>
-            <exclude>**/DateUnitTest*</exclude>
-            <exclude>**/GridLayoutUnitTest*</exclude>  
+            <exclude>**/GridLayoutUnitTest*</exclude>
           </excludes>
         </configuration>
       </plugin>
       <plugin>
-        <artifactId>maven-antrun-plugin</artifactId>
-        <version>1.6</version>
-        <executions>
-          <execution>
-            <id>strip-javascript</id>
-            <goals>
-              <goal>run</goal>
-            </goals>
-            <phase>compile</phase>
-            <configuration>
-              <target>
-                <concat destfile="${project.build.directory}/javascript-min/scarborough/script/tobago.min.js" force="no">
-                  <filelist dir="${basedir}/src/main/resources/org/apache/myfaces/tobago/renderkit/html/scarborough/standard/script" files="tobago.js" />
-                </concat>
-                <replaceregexp match="^.*//.*@DEV_ONLY.*$" replace="" byline="true">
-                  <fileset dir="${project.build.directory}/javascript-min">
-                    <include name="**/tobago.min.js" />
-                  </fileset>
-                </replaceregexp>
-              </target>
-            </configuration>
-          </execution>
-        </executions>
-        <dependencies>
-          <dependency>
-            <groupId>ant</groupId>
-            <artifactId>ant-apache-regexp</artifactId>
-            <version>1.6.5</version>
-          </dependency>
-        </dependencies>
-      </plugin>
-      <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>exec-maven-plugin</artifactId>
-        <version>1.1</version>
-        <executions>
-          <execution>
-            <id>compress-standard</id>
-            <goals>
-              <goal>exec</goal>
-            </goals>
-            <phase>compile</phase>
-            <configuration>
-              <executable>java</executable>
-              <arguments>
-                <argument>-jar</argument>
-                <argument>../tobago-theme-standard/lib/compiler-20120430.jar</argument>
-                <argument>--js</argument>
-                <argument>${project.build.directory}/javascript-min/scarborough/script/tobago.min.js</argument>
-                <argument>--js_output_file</argument>
-                <argument>
-                  target/classes/org/apache/myfaces/tobago/renderkit/html/scarborough/standard/script/tobago.min.js
-                </argument>
-              </arguments>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
-      <plugin>
         <groupId>net.alchim31.maven</groupId>
         <artifactId>yuicompressor-maven-plugin</artifactId>
-        <version>1.1</version>
         <executions>
           <execution>
             <goals>
@@ -129,22 +68,6 @@
       <groupId>org.apache.myfaces.tobago</groupId>
       <artifactId>tobago-core</artifactId>
       <version>${project.version}</version>
-      <exclusions>
-        <exclusion>
-          <groupId>sun.jdk</groupId>
-          <artifactId>tools</artifactId>
-        </exclusion>
-      </exclusions>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.geronimo.specs</groupId>
-      <artifactId>geronimo-el_2.2_spec</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>rhino</groupId>
-      <artifactId>js</artifactId>
-      <version>1.6R2</version>
-      <scope>test</scope>
     </dependency>
   </dependencies>
 </project>

@@ -20,17 +20,16 @@
 package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
 import org.apache.myfaces.tobago.component.Attributes;
-import org.apache.myfaces.tobago.internal.component.AbstractUIIn;
 import org.apache.myfaces.tobago.internal.component.AbstractUIInput;
-import org.apache.myfaces.tobago.internal.util.FacesContextUtils;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
-import org.apache.myfaces.tobago.renderkit.InputRendererBase;
+import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
-import org.apache.myfaces.tobago.renderkit.css.Style;
+import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
+import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import org.slf4j.Logger;
@@ -42,42 +41,33 @@ import javax.faces.validator.LengthValidator;
 import javax.faces.validator.Validator;
 import java.io.IOException;
 
-public class InRenderer extends InputRendererBase {
+public class InRenderer extends LabelLayoutRendererBase {
 
   private static final Logger LOG = LoggerFactory.getLogger(InRenderer.class);
 
   @Override
-  public void decode(final FacesContext facesContext, final UIComponent component) {
-    super.decode(facesContext, component);
-    final String clientId = component.getClientId(facesContext);
-    if (clientId.equals(FacesContextUtils.getActionId(facesContext))) {
-      // this is a inputSuggest request -> render response
-      facesContext.renderResponse();
-    }
-  }
-
-  @Override
-  public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
-
+  protected void encodeBeginField(FacesContext facesContext, UIComponent component)
+      throws IOException {
     final AbstractUIInput input = (AbstractUIInput) component;
     final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, input);
     final String currentValue = getCurrentValue(facesContext, input);
-    final boolean password = ComponentUtils.getBooleanAttribute(input, Attributes.PASSWORD);
+    final boolean password = ComponentUtils.getBooleanAttribute(input, Attributes.password);
     if (LOG.isDebugEnabled()) {
       LOG.debug("currentValue = '{}'", StringUtils.toConfidentialString(currentValue, password));
     }
-    final String type = password ? HtmlInputTypes.PASSWORD : HtmlInputTypes.TEXT;
-    final String id = input.getClientId(facesContext);
+    final HtmlInputTypes type = password ? HtmlInputTypes.PASSWORD : HtmlInputTypes.TEXT;
+    final String clientId = input.getClientId(facesContext);
+    final String fieldId = clientId + ComponentUtils.SUB_SEPARATOR + "field";
     final boolean readonly = input.isReadonly();
     final boolean disabled = input.isDisabled();
-    final boolean required = ComponentUtils.getBooleanAttribute(input, Attributes.REQUIRED);
+    final boolean required = ComponentUtils.getBooleanAttribute(input, Attributes.required);
 
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
-    writer.startElement(HtmlElements.INPUT, input);
-    writer.writeAttribute(HtmlAttributes.TYPE, type, false);
-    writer.writeNameAttribute(id);
-    writer.writeIdAttribute(id);
+    writer.startElement(HtmlElements.INPUT);
+    writer.writeAttribute(HtmlAttributes.TYPE, type);
+    writer.writeNameAttribute(clientId);
+    writer.writeIdAttribute(fieldId);
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, input);
     if (currentValue != null) {
       writer.writeAttribute(HtmlAttributes.VALUE, currentValue, true);
@@ -105,35 +95,31 @@ public class InRenderer extends InputRendererBase {
     }
     writer.writeAttribute(HtmlAttributes.READONLY, readonly);
     writer.writeAttribute(HtmlAttributes.DISABLED, disabled);
-    final Integer tabIndex = input.getTabIndex();
-    if (tabIndex != null) {
-      writer.writeAttribute(HtmlAttributes.TABINDEX, tabIndex);
-    }
-    final Style style = new Style(facesContext, input);
-    writer.writeStyleAttribute(style);
+    writer.writeAttribute(HtmlAttributes.TABINDEX, input.getTabIndex());
+    writer.writeStyleAttribute(input.getStyle());
 
     final String placeholder = input.getPlaceholder();
     if (!disabled && !readonly && StringUtils.isNotBlank(placeholder)) {
       writer.writeAttribute(HtmlAttributes.PLACEHOLDER, placeholder, true);
     }
 
-    if (input instanceof AbstractUIIn && ((AbstractUIIn) input).getSuggest() != null) {
-      writer.writeAttribute(HtmlAttributes.AUTOCOMPLETE, "off", false);
+    writer.writeClassAttribute(Classes.create(input), BootstrapClass.FORM_CONTROL, input.getCustomClass());
+    writer.writeAttribute(HtmlAttributes.REQUIRED, required);
+    HtmlRendererUtils.renderFocus(clientId, input.isFocus(), ComponentUtils.isError(input), facesContext, writer);
+    writeAdditionalAttributes(facesContext, writer, input);
+
+    final String commands = RenderUtils.getBehaviorCommands(facesContext, input);
+    if (commands != null) {
+      writer.writeAttribute(DataAttributes.COMMANDS, commands, true);
+    } else { // old
+      HtmlRendererUtils.renderCommandFacet(input, facesContext, writer);
     }
 
-    writer.writeClassAttribute(Classes.create(input));
-      /*if (component instanceof AbstractUIInput) {
-       String onchange = HtmlUtils.generateOnchange((AbstractUIInput) component, facesContext);
-       if (onchange != null) {
-         // TODO: create and use utility method to write attributes without quoting
-     //      writer.writeAttribute(HtmlAttributes.ONCHANGE, onchange, null);
-       }
-     } */
-    writer.writeAttribute(HtmlAttributes.REQUIRED, required);
-    HtmlRendererUtils.renderFocus(id, input.isFocus(), ComponentUtils.isError(input), facesContext, writer);
-    writeAdditionalAttributes(facesContext, writer, input);
-    HtmlRendererUtils.renderCommandFacet(input, facesContext, writer);
     writer.endElement(HtmlElements.INPUT);
+  }
+
+  @Override
+  protected void encodeEndField(FacesContext facesContext, UIComponent component) throws IOException {
   }
 
   protected void writeAdditionalAttributes(

@@ -19,12 +19,12 @@
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 
 <properties>
- <entry key="tobago_version">MyFaces Tobago 1.0.7</entry>
  <entry key="tobago_url">http://myfaces.apache.org/tobago</entry>
 
+  <entry key="notTranslated">Sorry, not completely translated yet.</entry>
+  <entry key="pageTitle">Tobago Demo</entry>
 
-<entry key="notTranslated">Sorry, not completely translated yet.</entry>
-<entry key="pageTitle">Tobago Demo</entry>
+  <entry key="login">Login</entry>
 
 <!-- menu -->
   <entry key="menu_navigate">_Navigation</entry>
@@ -32,26 +32,88 @@
   <entry key="menu_help">_Help</entry>
   <entry key="menu_themes">_Themes</entry>
   <entry key="menu_locale">_Locale</entry>
-  <entry key="menu_debug">Debug Mode</entry>
   <entry key="menu_about">About</entry>
 
-<!-- navigate -->
-  <entry key="overview">Overview</entry>
+  <!-- navigate -->
   <entry key="intro">Intro</entry>
-  <entry key="basic">Basic Controls</entry>
-  <entry key="sheet">Sheet Control</entry>
-  <entry key="tree">Tree Control</entry>
-  <entry key="tree-editor">Editor</entry>
-  <entry key="tree-command-types">Command Types</entry>
-  <entry key="tab">Tab Control</entry>
+
+  <!-- navigate : components -->
+  <entry key="component">Components</entry>
+  <entry key="input">Input Fields</entry>
+  <entry key="in">Input</entry>
+  <entry key="suggest">Suggest</entry>
+  <entry key="textarea">Text Area</entry>
+  <entry key="date">Date</entry>
+  <entry key="output">Output Fields</entry>
+  <entry key="out">Output</entry>
+  <entry key="label">Label</entry>
+  <entry key="messages">Messages</entry>
+  <entry key="image">Image</entry>
+  <entry key="progress">Progress Bar</entry>
+  <entry key="object">External Object (iframe)</entry>
+  <entry key="select">Select Controls</entry>
+  <entry key="selectBooleanCheckbox">Checkbox</entry>
+  <entry key="selectOneChoice">Dropdown Box</entry>
+  <entry key="selectOneRadio">Radio Button</entry>
+  <entry key="selectOneListbox">Singleselection List</entry>
+  <entry key="selectManyCheckbox">Checkbox Group</entry>
+  <entry key="selectManyListbox">Multiselection List</entry>
+  <entry key="selectManyShuttle">Shuttle List</entry>
+  <entry key="default_command">Default Command</entry>
+  <entry key="button_link">Link</entry>
   <entry key="toolBar">Toolbar</entry>
+  <entry key="menu">Menubar</entry>
+  <entry key="container">Container</entry>
+  <entry key="box">Content Box</entry>
+  <entry key="panel">Panel</entry>
+  <entry key="separator">Separator</entry>
+  <entry key="section">Section</entry>
+  <entry key="header_footer">Header / Footer</entry>
+  <entry key="popup">Popup Dialog</entry>
+  <entry key="tab">Tab Group</entry>
+  <entry key="tab_client">Client sided</entry>
+  <entry key="tab_ajax">Ajax</entry>
+  <entry key="tab_server">Server sided</entry>
+  <entry key="sheet">Sheet Control</entry>
+  <entry key="sheet_column_content">Column Content</entry>
+  <entry key="sheet_sorting">Sorting</entry>
+  <entry key="sheet_column_selector">Column Selector</entry>
+  <entry key="sheet_column_event">Column Event</entry>
+  <entry key="sheet_dropdown">Dropdown Box</entry>
+  <entry key="sheet_filter">Filtering</entry>
+  <entry key="sheet_header">Header</entry>
+  <entry key="sheet_tree">Column Tree</entry>
+  <entry key="tree">Tree Control</entry>
+  <entry key="tree_command_types">Command</entry>
+  <entry key="tree_select">Select</entry>
+  <entry key="tree_editor">Tree Editor</entry>
+  <entry key="tree_menu">Tree Menu</entry>
+  <entry key="tree_listbox">Tree List</entry>
+  <entry key="upload">File Upload</entry>
+  <entry key="wysiwyg_editor">WYSIWYG Editor</entry>
+  <entry key="tinymce">TinyMCE</entry>
+  <entry key="ckeditor">CKEditor</entry>
+
+  <!-- navigate : concept -->
+  <entry key="concept">Concepts</entry>
   <entry key="validation">Validation</entry>
-  <entry key="validation-severity">Severity</entry>
+  <entry key="validation_jsr303">JSR 303: Bean Validation</entry>
+  <entry key="conversion">Conversion</entry>
   <entry key="form">Forms</entry>
   <entry key="theme">Themes</entry>
+  <entry key="layout">Layout</entry>
+  <entry key="flow_layout">FlowLayout</entry>
+  <entry key="flex_layout">FlexLayout</entry>
+  <entry key="segment_layout">SegmentLayout</entry>
+  <entry key="labeled_layout">LabeledLayout</entry>
+  <entry key="grid_layout">GridLayout</entry>
+  <entry key="format">Formatting</entry>
+  <entry key="roles">Roles</entry>
+
+
+  <entry key="validation-severity">Severity</entry>
   <entry key="browser">Browser</entry>
   <entry key="locale">Locale</entry>
-  <entry key="layout">Layout</entry>
 
   <entry key="bestPractice">Best Practice</entry>
   <entry key="error">Error Handling</entry>
@@ -60,12 +122,11 @@
   <entry key="nonFacesResponse">Non Faces Resp.</entry>
   <entry key="toolBarCustomizer">User Customized UI</entry>
   <entry key="faceletsAsResources">Facelets As Resource</entry>
-  <entry key="non-faces-request">Non Faces Request (Facelets only)</entry>
+  <entry key="non-faces-request">Non Faces Request</entry>
 
   <entry key="reference_intro">Ref. (under constr.)</entry>
   <entry key="reference_command">Command</entry>
   <entry key="reference_container">Container</entry>
-  <entry key="reference_input">Input</entry>
   <entry key="reference_inputSuggest">Input suggest</entry>
   <entry key="reference_menu">Menu</entry>
   <entry key="reference_output">Output</entry>
@@ -88,24 +149,8 @@
   <entry key="footer_next">Next</entry>
   <entry key="footer_viewSource">View Source</entry>
 
-
-<!--  intro -->
-<entry key="intro_text">&lt;p&gt;Tobago is a user interface framework for developing webapplications.
-  The technical basis of the framework is JavaServer Faces. The main core represents a theme oriented
-  JSF Render Kit.&lt;/p&gt;
-  &lt;p&gt;&lt;b&gt;Basic Controls&lt;/b&gt;&lt;br/&gt;
-  Tobago provides all standard controls of HTML like inputs, textareas, radiobuttons, checkboxes and buttons.
-  Additionally Tobago provides you with complex controls, which are not natively supportet by simple HTML,
-  including sheets, trees and tabs.&lt;/p&gt;
-  &lt;p&gt;&lt;b&gt;Validation&lt;/b&gt;&lt;br/&gt;
-  The main goal of Tobago is the development of applications which are interactive from the users point of view.
-  Tobago makes it easy to validate input and helps the user to enter correct data.&lt;/p&gt;
-  &lt;p&gt;&lt;b&gt;Layout&lt;/b&gt;&lt;br/&gt;
-  Tobago provides a sophisticated layout managing mechanism which can be seen as a mixture of classic HTML table
-  layout and Swing Gridbag layout.&lt;/p&gt;
-  &lt;p&gt;&lt;b&gt;Additional Features&lt;/b&gt;&lt;br/&gt;
-  Themes, Browser, Internationalisation.&lt;/p&gt;
-</entry>
+  <!-- Tag Library Documentation URL -->
+  <entry key="tagDocUrl">https://myfaces.apache.org/tobago/doc/2.0.9/tld/tc</entry>
 
 <!--  basicControls -->
   <entry key="basic_sampleInputTitle">Basic Input Examples</entry>
@@ -266,15 +311,6 @@
 &lt;li style="line-height: 130%;"&gt;If the first input contains an error but the second
   one validates, the validation of the first form is deactivated.&lt;/li&gt;
   </entry>
-<entry key="form_text2">Tobago supports nested forms and can treat each form seperatly:
-&lt;ul style="margin-top: 2px;"&gt;
-&lt;li style="line-height: 130%;"&gt;Values can be stored seperatly into the model
-  while already filled in input elements keep their values (temporarily)&lt;/li&gt;
-&lt;li style="line-height: 130%;"&gt;If the validation of a form is activated
-  but the actual value of this form is only stored temporarily, the validation
-  is deactivated until the value is definitly stored into the model. &lt;/li&gt;
-&lt;/ul&gt;
-  </entry>
 <entry key="form_in1Title">First inner form</entry>
 <entry key="form_in2Title">Second inner form</entry>
 <entry key="newValue1">New model-value</entry>
@@ -290,8 +326,6 @@
 
 <!--  theme -->
 <entry key="theme_title">Theme settings</entry>
-<entry key="theme_label">Theme</entry>
-<entry key="theme_submit">Submit</entry>
 <entry key="theme_text">Tobago supports a big variety of displaying controls,
   so called designs or themes.
     &lt;ul style="margin-top: 2px;"&gt;
@@ -326,25 +360,6 @@
     &lt;/ul&gt;
 </entry>
 
-<!--  layout -->
-<entry key="layout_exampleTitle">Layout Example: Personal Information</entry>
-<entry key="layout_salutation">Salutation</entry>
-<entry key="layout_firstName">First Name</entry>
-<entry key="layout_lastName">Last Name</entry>
-<entry key="layout_co">c/o</entry>
-<entry key="layout_street">Street</entry>
-<entry key="layout_streetNumber">No</entry>
-<entry key="layout_zipCode">ZIP</entry>
-<entry key="layout_city">City</entry>
-<entry key="layout_note">Note</entry>
-<entry key="layout_text">Tobago simplifies the design of websites.
-    &lt;ul style="margin-top: 2px;"&gt;
-    &lt;li style="line-height: 130%;"&gt;Easy to use development of single- and   multicolumn forms.&lt;/li&gt;
-    &lt;li style="line-height: 130%;"&gt;Cells can span over multiple rows and colums.&lt;/li&gt;
-    &lt;li style="line-height: 130%;"&gt;Automatic alignment of input field labels.&lt;/li&gt;
-    &lt;/ul&gt;
-</entry>
-
   <!-- Themes -->
   <entry key="themesText1">&lt;b&gt;Theme configuration&lt;/b&gt; &lt;br /&gt;&lt;br
     /&gt;
@@ -362,16 +377,14 @@
             &lt;resource-dir&gt;tobago&lt;/resource-dir&gt;
 &lt;/tobago-config&gt;
 ...</entry>
-  <entry key="theme_photo">Photo of the location</entry>
+  <entry key="theme_photo">The Standard Theme don't have a photo to show</entry>
 
   <entry key="foreach_text">
     There are two possibilities to use iterators:&lt;br/>
     This example uses &lt;b>&amp;lt;c:forEach&gt;&lt;/b>. It works well with the layout manager.&lt;br/>
     Using &lt;b>&amp;lt;ui:repeat&gt;&lt;/b> doesn't work with the grid layout manager in the moment.
     The iterated components are on top of each other in the HTML document,
-    because they got have all the same position attributes.&lt;br/>
-    The JSP variant works not correctly, when you call the page the first time
-    and the session object is not initialized.&lt;br/></entry>
+    because they got have all the same position attributes.&lt;br/></entry>
 
   <!-- faceletsAsResources -->
   <entry key="faceletsAsResources_text">
@@ -384,5 +397,10 @@
     &lt;/context-param>
 
     The content has to reside in the /META-INF/resources directory.</entry>
+
+  <entry key="format1">The equatorial radius of the sun is {0} km.</entry>
+  <entry key="format3">The temperature of the sun is {0} K on the surface, but {1} K in the center and {2} K in the corona.</entry>
+  <entry key="format9">Just reordering: {4} - {1} - {6} - {8} - {5} - {3} - {0} - {7} - {2}</entry>
+
 
 </properties>

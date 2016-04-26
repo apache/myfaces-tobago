@@ -22,10 +22,6 @@ package org.apache.myfaces.tobago.util;
 
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Facets;
-import org.apache.myfaces.tobago.internal.layout.LayoutContext;
-import org.apache.myfaces.tobago.layout.LayoutContainer;
-import org.apache.myfaces.tobago.layout.Measure;
-import org.apache.myfaces.tobago.renderkit.util.EncodeUtils;
 
 import javax.faces.FacesException;
 import javax.faces.component.UIComponent;
@@ -35,30 +31,18 @@ import java.io.IOException;
 
 public class EncodeAjaxCallback implements TobagoCallback {
 
+  @Override
   public void invokeContextCallback(final FacesContext facesContext, final UIComponent component) {
     try {
-       final UIComponent reload = component.getFacet(Facets.RELOAD);
+       final UIComponent reload = ComponentUtils.getFacet(component, Facets.reload);
        if (reload != null && reload.isRendered()) {
-         final Boolean immediate = (Boolean) reload.getAttributes().get(Attributes.IMMEDIATE);
-         if (immediate != null && !immediate) {
-           final Boolean update = (Boolean) reload.getAttributes().get(Attributes.UPDATE);
-           if (update != null && !update) {
+         final Boolean immediate = ComponentUtils.getBooleanAttribute(reload, Attributes.immediate);
+         if (!immediate) {
+           final Boolean update = ComponentUtils.getBooleanAttribute(reload, Attributes.update);
+           if (!update) {
              return;
            }
          }
-      }
-      EncodeUtils.prepareRendererAll(facesContext, component);
-      if (component instanceof LayoutContainer) {
-        final LayoutContainer layoutContainer = (LayoutContainer) component;
-        final Measure width = layoutContainer.getCurrentWidth();
-        final Measure height = layoutContainer.getCurrentHeight();
-        final Measure oldWidth = layoutContainer.getWidth();
-        final Measure oldHeight = layoutContainer.getHeight();
-        layoutContainer.setWidth(width);
-        layoutContainer.setHeight(height);
-        new LayoutContext(layoutContainer).layout();
-        layoutContainer.setWidth(oldWidth);
-        layoutContainer.setHeight(oldHeight);
       }
       component.encodeAll(facesContext);
     } catch (final IOException e) {
@@ -66,24 +50,9 @@ public class EncodeAjaxCallback implements TobagoCallback {
     }
   }
   
+  @Override
   public PhaseId getPhaseId() {
       return PhaseId.RENDER_RESPONSE;
   }
   
-  /**
-   * @deprecated since 2.0.0, please use component.encodeAll()
-   */
-  @Deprecated
-  public static void encodeAll(final FacesContext facesContext, final UIComponent component) throws IOException {
-    component.encodeAll(facesContext);
-  }
-
-  /**
-   * @deprecated since 2.0.0, please use EncodeUtils.prepareRendererAll()
-   */
-  @Deprecated
-  public static void prepareRendererAll(final FacesContext facesContext, final UIComponent component)
-      throws IOException {
-    EncodeUtils.prepareRendererAll(facesContext, component);
-  }
 }

@@ -78,10 +78,10 @@ public class ExpandedState implements Serializable {
   /**
    * Expands a single node.
    *
-   * @param node The node to expand.
+   * @param node The node to expand. Also the parents will be expanded since Tobago 3.0.0.
    */
   public void expand(final TreeNode node) {
-    expand(node, false);
+    expand(node, true);
   }
 
   /**
@@ -98,10 +98,10 @@ public class ExpandedState implements Serializable {
   /**
    * Expands a single node.
    *
-   * @param path The path of the node to expand.
+   * @param path The path of the node to expand. Also the parents will be expanded since Tobago 3.0.0.
    */
   public void expand(final TreePath path) {
-    expand(path, false);
+    expand(path, true);
   }
 
   /**

@@ -21,16 +21,17 @@ package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
+import org.apache.myfaces.tobago.renderkit.RendererBase;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 
-public class SubviewRenderer extends LayoutComponentRendererBase {
+public class SubviewRenderer extends RendererBase {
 
     private static final Logger LOG = LoggerFactory.getLogger(SubviewRenderer.class);
 
+  @Override
   public void encodeBegin(final FacesContext facesContext, final UIComponent component)
       throws IOException {
     if (LOG.isInfoEnabled()) {
@@ -39,8 +40,9 @@ public class SubviewRenderer extends LayoutComponentRendererBase {
     super.encodeBegin(facesContext, component);
   }
 
+  @Override
   public void encodeEnd(final FacesContext facesContext,
-      final UIComponent component) throws IOException {
+                        final UIComponent component) throws IOException {
 
   }
 

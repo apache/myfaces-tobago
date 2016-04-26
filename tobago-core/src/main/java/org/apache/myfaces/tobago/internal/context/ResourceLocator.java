@@ -20,7 +20,6 @@
 package org.apache.myfaces.tobago.internal.context;
 
 import org.apache.myfaces.tobago.context.ThemeImpl;
-import org.apache.myfaces.tobago.internal.config.ThemeBuilder;
 import org.apache.myfaces.tobago.internal.config.TobagoConfigFragment;
 import org.apache.myfaces.tobago.internal.config.TobagoConfigParser;
 import org.apache.myfaces.tobago.internal.util.IoUtils;
@@ -69,13 +68,10 @@ class ResourceLocator {
 
   private ServletContext servletContext;
   private ResourceManagerImpl resourceManager;
-  private ThemeBuilder themeBuilder;
 
-  public ResourceLocator(
-      final ServletContext servletContext, final ResourceManagerImpl resourceManager, final ThemeBuilder themeBuilder) {
+  public ResourceLocator(final ServletContext servletContext, final ResourceManagerImpl resourceManager) {
     this.servletContext = servletContext;
     this.resourceManager = resourceManager;
-    this.themeBuilder = themeBuilder;
   }
 
   public void locate()
@@ -154,7 +150,6 @@ class ResourceLocator {
         final TobagoConfigFragment tobagoConfig = new TobagoConfigParser().parse(tobagoConfigUrl);
         for (final ThemeImpl theme : tobagoConfig.getThemeDefinitions()) {
           detectThemeVersion(tobagoConfigUrl, theme);
-          themeBuilder.addTheme(theme);
           final String prefix = ensureSlash(theme.getResourcePath());
           final String protocol = tobagoConfigUrl.getProtocol();
           // tomcat uses jar // weblogic uses zip // IBM WebSphere uses wsjar

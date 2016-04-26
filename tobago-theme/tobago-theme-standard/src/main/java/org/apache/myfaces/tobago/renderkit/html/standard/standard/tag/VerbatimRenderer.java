@@ -19,35 +19,30 @@
 
 package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.component.Attributes;
-import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
+import org.apache.myfaces.tobago.renderkit.RendererBase;
+import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
+import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
-import javax.faces.context.ResponseWriter;
 import java.io.IOException;
 
-public class VerbatimRenderer extends LayoutComponentRendererBase {
+public class VerbatimRenderer extends RendererBase {
 
-  private static final Logger LOG = LoggerFactory.getLogger(VerbatimRenderer.class);
+  @Override
+  public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
 
-  public void encodeEnd(final FacesContext facesContext,
-      final UIComponent component) throws IOException {
-
-    LOG.info("HI! " + component.getClientId(facesContext), new Exception());
-
-    final ResponseWriter writer = facesContext.getResponseWriter();
+    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
     final String value = RenderUtils.currentValue(component);
     if (value == null) {
       return;
     }
 
-    if (ComponentUtils.getBooleanAttribute(component, Attributes.ESCAPE)) {
+    if (ComponentUtils.getBooleanAttribute(component, Attributes.escape)) {
       writer.writeText(value, null);
     } else {
       writer.write(value);

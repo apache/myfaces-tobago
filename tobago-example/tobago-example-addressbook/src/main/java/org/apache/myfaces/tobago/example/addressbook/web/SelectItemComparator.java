@@ -26,6 +26,7 @@ import java.util.Comparator;
 public class SelectItemComparator implements Comparator<SelectItem>, Serializable {
   private static final long serialVersionUID = -1581955960510873296L;
 
+  @Override
   public int compare(final SelectItem s1, final SelectItem s2) {
     return s1.getLabel().compareTo(s2.getLabel());
   }

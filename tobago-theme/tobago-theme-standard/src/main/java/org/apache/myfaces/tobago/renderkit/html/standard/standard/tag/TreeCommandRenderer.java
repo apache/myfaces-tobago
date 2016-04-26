@@ -20,9 +20,7 @@
 package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
 import org.apache.myfaces.tobago.component.UITreeCommand;
-import org.apache.myfaces.tobago.component.UITreeNode;
 import org.apache.myfaces.tobago.internal.util.AccessKeyLogger;
-import org.apache.myfaces.tobago.renderkit.CommandRendererBase;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.Style;
@@ -33,28 +31,13 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.JsonUtils;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
-import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
-import javax.faces.context.ResponseWriter;
 import java.io.IOException;
 
 public class TreeCommandRenderer extends CommandRendererBase {
-
-  private static final Logger LOG = LoggerFactory.getLogger(TreeCommandRenderer.class);
-
-  @Override
-  public void prepareRender(final FacesContext facesContext, final UIComponent component) throws IOException {
-    final UITreeCommand command = (UITreeCommand) component;
-    final UITreeNode node = ComponentUtils.findAncestor(command, UITreeNode.class);
-    // Todo: use an expression?
-    command.setDisabled(node.isDisabled());
-    super.prepareRender(facesContext, component);
-  }
 
   @Override
   public void encodeBegin(final FacesContext facesContext, final UIComponent component) throws IOException {
@@ -66,14 +49,14 @@ public class TreeCommandRenderer extends CommandRendererBase {
     final boolean disabled = command.isDisabled();
 
     if (disabled) {
-      writer.startElement(HtmlElements.SPAN, command);
+      writer.startElement(HtmlElements.SPAN);
     } else {
-      writer.startElement(HtmlElements.A, command);
+      writer.startElement(HtmlElements.A);
       final CommandMap map = new CommandMap(new Command(facesContext, command));
       writer.writeAttribute(DataAttributes.COMMANDS, JsonUtils.encode(map), true);
       writer.writeNameAttribute(clientId);
     }
-    writer.writeStyleAttribute(createStyle(facesContext, command));
+    writer.writeStyleAttribute(command.getStyle() != null ? command.getStyle() : new Style());
     writer.writeClassAttribute(Classes.create(command));
     writer.writeIdAttribute(clientId);
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, command);
@@ -90,14 +73,10 @@ public class TreeCommandRenderer extends CommandRendererBase {
     HtmlRendererUtils.writeLabelWithAccessKey(writer, label);
   }
 
-  protected Style createStyle(final FacesContext facesContext, final UITreeCommand link) {
-    return new Style(facesContext, link);
-  }
-
   @Override
   public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
     final UITreeCommand command = (UITreeCommand) component;
-    final ResponseWriter writer = facesContext.getResponseWriter();
+    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
     if (command.isDisabled()) {
       writer.endElement(HtmlElements.SPAN);
     } else {

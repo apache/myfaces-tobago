@@ -33,6 +33,7 @@ import java.util.Currency;
 @org.apache.myfaces.tobago.apt.annotation.Converter(forClass = "java.util.Currency")
 public class CurrencyConverter implements Converter {
 
+  @Override
   public Object getAsObject(final FacesContext facesContext, final UIComponent component, final String string)
       throws ConverterException {
     if (StringUtils.isBlank(string)) {
@@ -42,6 +43,7 @@ public class CurrencyConverter implements Converter {
     }
   }
 
+  @Override
   public String getAsString(final FacesContext facesContext, final UIComponent component, final Object object)
       throws ConverterException {
     if (object == null) {

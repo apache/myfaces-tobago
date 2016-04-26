@@ -46,6 +46,7 @@ public class ConverterHandler extends TagHandler {
     converterId = getAttribute("type");
   }
 
+  @Override
   public void apply(final FaceletContext faceletContext, final UIComponent parent)
       throws IOException, ELException {
     if (parent instanceof ValueHolder) {

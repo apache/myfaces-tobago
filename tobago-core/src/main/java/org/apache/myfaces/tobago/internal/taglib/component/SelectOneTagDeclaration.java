@@ -19,9 +19,16 @@
 
 package org.apache.myfaces.tobago.internal.taglib.component;
 
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasCurrentMarkup;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
-import org.apache.myfaces.tobago.internal.taglib.declaration.InputTagDeclaration;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasConverterMessage;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasRequiredMessage;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasTabIndex;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasValidator;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasValidatorMessage;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasValue;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasValueChangeListener;
+import org.apache.myfaces.tobago.internal.taglib.declaration.IsFocus;
+import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
 
-public interface SelectOneTagDeclaration extends InputTagDeclaration, HasMarkup, HasCurrentMarkup {
+public interface SelectOneTagDeclaration extends HasValidator, HasValue, HasValueChangeListener, HasTabIndex, IsFocus,
+    IsVisual, HasValidatorMessage, HasConverterMessage, HasRequiredMessage {
 }

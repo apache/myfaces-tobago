@@ -20,17 +20,15 @@
     xmlns:tc="http://myfaces.apache.org/tobago/component"
     xmlns:tx="http://myfaces.apache.org/tobago/extension"
     xmlns:ui="http://java.sun.com/jsf/facelets"
-    xmlns:f="http://java.sun.com/jsf/core">
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns="http://www.w3.org/1999/xhtml">
 
   <tc:page id="page">
     <f:facet name="layout">
       <tc:gridLayout rows="160px;auto" columns="600px"/>
     </f:facet>
 
-    <tc:panel>
-      <f:facet name="layout">
-        <tc:flowLayout />
-      </f:facet>
+    <tc:flowLayout>
 
       <ul>
         <li>
@@ -62,7 +60,7 @@
         </li>
       </ol>
 
-    </tc:panel>
+    </tc:flowLayout>
 
     <tc:sheet value="#{sheet.solarArray}" id="sheet" columns="auto;*;*" var="luminary" rows="20">
 

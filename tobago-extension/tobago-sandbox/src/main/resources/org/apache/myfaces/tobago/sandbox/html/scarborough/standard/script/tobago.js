@@ -57,7 +57,15 @@ Tobago.SplitLayout = {
     }
     var panel = Tobago.SplitLayout.findParentElementWithId(ui.helper);
     var clientId = panel.id;
-    Tobago.reloadComponent(panel, clientId, ui.helper.get(0).id);
+    //Tobago.reloadComponent(panel, clientId, ui.helper.get(0).id);
+    jsf.ajax.request(
+        ui.helper.get(0).id,
+        event,
+        {
+          //"javax.faces.behavior.event": "click",
+          execute: clientId,
+          render: clientId
+        });
   },
 
   findParentElementWithId: function(element) {

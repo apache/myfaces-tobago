@@ -19,16 +19,19 @@
 
 package org.apache.myfaces.tobago.model;
 
-import org.apache.myfaces.tobago.component.SupportsMarkup;
+import org.apache.myfaces.tobago.component.Visual;
 import org.apache.myfaces.tobago.context.Markup;
+import org.apache.myfaces.tobago.renderkit.css.CustomClass;
+import org.apache.myfaces.tobago.renderkit.css.Style;
 
-public class SelectItem extends javax.faces.model.SelectItem implements SupportsMarkup {
+public class SelectItem extends javax.faces.model.SelectItem implements Visual {
 
   private static final long serialVersionUID = 2582455665060354639L;
 
   private String image;
   private Markup markup = Markup.NULL;
-  private Markup currentMarkup = null;
+  private Style style;
+  private CustomClass customClass;
 
   public SelectItem() {
     super();
@@ -50,15 +53,6 @@ public class SelectItem extends javax.faces.model.SelectItem implements Supports
     this(value, label, tip, false, image);
   }
 
-  /**
-   * @deprecated since 1.5.0
-   */
-  @Deprecated
-  public SelectItem(
-      final Object value, final String label, final String tip, final String image, final String[] markup) {
-    this(value, label, tip, false, image, markup);
-  }
-
   public SelectItem(
       final Object value, final String label, final String tip, final String image, final Markup markup) {
     this(value, label, tip, false, image, markup);
@@ -67,15 +61,6 @@ public class SelectItem extends javax.faces.model.SelectItem implements Supports
   public SelectItem(
       final Object value, final String label, final String tip, final boolean disabled, final String image) {
     this(value, label, tip, disabled, image, Markup.NULL);
-  }
-
-  /**
-   * @deprecated since 1.5.0
-   */
-  public SelectItem(
-      final Object value, final String label, final String tip, final boolean disabled, final String image,
-      final String[] markup) {
-    this(value, label, tip, disabled, image, Markup.valueOf(markup));
   }
 
   public SelectItem(
@@ -108,19 +93,38 @@ public class SelectItem extends javax.faces.model.SelectItem implements Supports
     this.image = image;
   }
 
+  @Override
   public Markup getMarkup() {
     return markup;
   }
 
+  @Override
   public void setMarkup(final Markup markup) {
     this.markup = markup;
   }
 
-  public Markup getCurrentMarkup() {
-    return currentMarkup;
+  @Override
+  public Style getStyle() {
+    return style;
   }
 
-  public void setCurrentMarkup(final Markup currentMarkup) {
-    this.currentMarkup = currentMarkup;
+  @Override
+  public void setStyle(Style style) {
+    this.style = style;
+  }
+
+  @Override
+  public CustomClass getCustomClass() {
+    return customClass;
+  }
+
+  @Override
+  public void setCustomClass(CustomClass customClass) {
+    this.customClass = customClass;
+  }
+
+  @Override
+  public String getRendererType() {
+    throw new UnsupportedOperationException();
   }
 }

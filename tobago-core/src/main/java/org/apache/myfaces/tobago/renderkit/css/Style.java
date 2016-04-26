@@ -19,117 +19,96 @@
 
 package org.apache.myfaces.tobago.renderkit.css;
 
-import org.apache.myfaces.tobago.context.ResourceManagerUtils;
+import org.apache.myfaces.tobago.component.UIStyle;
 import org.apache.myfaces.tobago.layout.Display;
-import org.apache.myfaces.tobago.layout.LayoutBase;
-import org.apache.myfaces.tobago.layout.LayoutComponent;
-import org.apache.myfaces.tobago.layout.LayoutContainer;
 import org.apache.myfaces.tobago.layout.Measure;
+import org.apache.myfaces.tobago.layout.Overflow;
+import org.apache.myfaces.tobago.layout.Position;
 import org.apache.myfaces.tobago.layout.TextAlign;
 
-import javax.faces.context.FacesContext;
 import java.io.Serializable;
 
+/**
+ * A subset of the CSS style used by Tobago. It's more or less the layout specific part.
+ */
 public class Style implements Serializable {
-                                          
-  private static final long serialVersionUID = 4L;
+
+  private static final long serialVersionUID = 5L;
 
   private Measure width;
   private Measure height;
+
+  private Measure minWidth;
+  private Measure minHeight;
+  private Measure maxWidth;
+  private Measure maxHeight;
+
   private Measure left;
+  private Measure right;
   private Measure top;
-  private Display display;
-  private Position position;
-  private Overflow overflowX;
-  private Overflow overflowY;
-  private Measure marginLeft;
-  private Measure marginRight;
-  private Measure marginTop;
-  private Measure marginBottom;
-  private Measure margin;
+  private Measure bottom;
+
   private Measure paddingLeft;
   private Measure paddingRight;
   private Measure paddingTop;
   private Measure paddingBottom;
-  private Measure padding;
+
+  private Measure marginLeft;
+  private Measure marginRight;
+  private Measure marginTop;
+  private Measure marginBottom;
+
+  private Overflow overflowX;
+  private Overflow overflowY;
+  private Display display;
+  private Position position;
+
   private String backgroundImage;
   private String backgroundPosition;
-  private Integer zIndex;
+  private Integer zIndex; // TBD
   private TextAlign textAlign;
+
+  private Boolean empty;
 
   public Style() {
   }
 
-  public Style(final Style map) {
-    this.width = map.width;
-    this.height = map.height;
-    this.left = map.left;
-    this.top = map.top;
-    this.display = map.display;
-    this.position = map.position;
-    this.overflowX = map.overflowX;
-    this.overflowY = map.overflowY;
-    this.marginLeft = map.marginLeft;
-    this.marginRight = map.marginRight;
-    this.marginTop = map.marginTop;
-    this.marginBottom = map.marginBottom;
-    this.margin = map.margin;
-    this.paddingLeft = map.paddingLeft;
-    this.paddingRight = map.paddingRight;
-    this.paddingTop = map.paddingTop;
-    this.paddingBottom = map.paddingBottom;
-    this.padding = map.padding;
-    this.backgroundImage = map.backgroundImage;
-    this.backgroundPosition = map.backgroundPosition;
-    this.zIndex = map.zIndex;
-    this.textAlign = map.textAlign;
-  }
+  public Style(final UIStyle style) {
 
-  public Style(final FacesContext facesContext, final LayoutBase layout) {
+    width = style.getWidth();
+    height = style.getHeight();
 
-    final String rendererType = layout.getRendererType();
-    
-    width = layout.getCurrentWidth();
-    if (width != null) {
-      // TODO: Make configurable: this is needed if the box-sizing is border-box, not content-box (see CSS3)
-      width = width.subtractNotNegative(
-          ResourceManagerUtils.getThemeMeasure(facesContext, layout, "css.border-left-width"));
-      width = width.subtractNotNegative(
-          ResourceManagerUtils.getThemeMeasure(facesContext, layout, "css.padding-left"));
-      width = width.subtractNotNegative(
-          ResourceManagerUtils.getThemeMeasure(facesContext, layout, "css.padding-right"));
-      width = width.subtractNotNegative(
-          ResourceManagerUtils.getThemeMeasure(facesContext, layout, "css.border-right-width"));
-    }
-    height = layout.getCurrentHeight();
-    if (height != null) {
-      // TODO: Make configurable: this is needed if the box-sizing is border-box, not content-box (see CSS3)
-      height = height.subtractNotNegative(
-          ResourceManagerUtils.getThemeMeasure(facesContext, layout, "css.border-top-width"));
-      height = height.subtractNotNegative(
-          ResourceManagerUtils.getThemeMeasure(facesContext, layout, "css.padding-top"));
-      height = height.subtractNotNegative(
-          ResourceManagerUtils.getThemeMeasure(facesContext, layout, "css.padding-bottom"));
-      height = height.subtractNotNegative(
-          ResourceManagerUtils.getThemeMeasure(facesContext, layout, "css.border-bottom-width"));
-    }
-    this.left = layout.getLeft();
-    this.top = layout.getTop();
+    minWidth = style.getMinWidth();
+    minHeight = style.getMinHeight();
+    maxWidth = style.getMaxWidth();
+    maxHeight = style.getMaxHeight();
 
-    // if there are a position coordinates, activate absolute positioning
-    // XXX String "Page" is not nice here
-    if ((left != null || top != null) && !rendererType.contains("Page")) {
-      position = Position.ABSOLUTE;
-    }
+    left = style.getLeft();
+    right = style.getRight();
+    top = style.getTop();
+    bottom = style.getBottom();
 
-    if (layout instanceof LayoutComponent) { // fixme
-      display = ((LayoutComponent) layout).getDisplay();
-    }
+    paddingLeft = style.getPaddingLeft();
+    paddingRight = style.getPaddingRight();
+    paddingTop = style.getPaddingTop();
+    paddingBottom = style.getPaddingBottom();
 
-    if (layout instanceof LayoutContainer) {
-      overflowX = ((LayoutContainer) layout).isOverflowX() ? Overflow.AUTO : null;
-      overflowY = ((LayoutContainer) layout).isOverflowY() ? Overflow.AUTO : null;
-    }
+    marginLeft = style.getMarginLeft();
+    marginRight = style.getMarginRight();
+    marginTop = style.getMarginTop();
+    marginBottom = style.getMarginBottom();
+
+    overflowX = style.getOverflowX();
+    overflowY = style.getOverflowY();
+    display = style.getDisplay();
+    position = style.getPosition();
+
+    // tbd: backgroundImage from UIStyle?
+    // tbd: backgroundPosition from UIStyle?
+    // tbd: zIndex from UIStyle?
+    textAlign = style.getTextAlign();
+
+    checkEmptiness();
   }
 
   /**
@@ -139,6 +118,49 @@ public class Style implements Serializable {
    */
   public boolean needsToBeEscaped() {
     return backgroundImage != null;
+  }
+
+  public boolean isEmpty() {
+    if (empty == null) {
+      checkEmptiness();
+    }
+    return empty;
+  }
+
+  public void checkEmptiness() {
+    empty
+        = width == null
+        && height == null
+
+        && minWidth == null
+        && minHeight == null
+        && maxWidth == null
+        && maxHeight == null
+
+        && left == null
+        && right == null
+        && top == null
+        && bottom == null
+
+        && marginLeft == null
+        && marginRight == null
+        && marginTop == null
+        && marginBottom == null
+
+        && paddingLeft == null
+        && paddingRight == null
+        && paddingTop == null
+        && paddingBottom == null
+
+        && display == null
+        && position == null
+        && overflowX == null
+        && overflowY == null
+
+        && backgroundImage == null
+        && backgroundPosition == null
+        && zIndex == null
+        && textAlign == null;
   }
 
   public String encode() {
@@ -153,9 +175,24 @@ public class Style implements Serializable {
       buf.append(height.serialize());
       buf.append(';');
     }
-    if (top != null) {
-      buf.append("top:");
-      buf.append(top.serialize());
+    if (minWidth != null) {
+      buf.append("min-width:");
+      buf.append(minWidth.serialize());
+      buf.append(';');
+    }
+    if (minHeight != null) {
+      buf.append("min-height:");
+      buf.append(minHeight.serialize());
+      buf.append(';');
+    }
+    if (maxWidth != null) {
+      buf.append("max-width:");
+      buf.append(maxWidth.serialize());
+      buf.append(';');
+    }
+    if (maxHeight != null) {
+      buf.append("max-height:");
+      buf.append(maxHeight.serialize());
       buf.append(';');
     }
     if (left != null) {
@@ -163,49 +200,19 @@ public class Style implements Serializable {
       buf.append(left.serialize());
       buf.append(';');
     }
-    if (display != null) {
-      buf.append("display:");
-      buf.append(display.getValue());
+    if (right != null) {
+      buf.append("right:");
+      buf.append(right.serialize());
       buf.append(';');
     }
-    if (position != null) {
-      buf.append("position:");
-      buf.append(position.getValue());
+    if (top != null) {
+      buf.append("top:");
+      buf.append(top.serialize());
       buf.append(';');
     }
-    if (overflowX != null) {
-      buf.append("overflow-x:");
-      buf.append(overflowX.getValue());
-      buf.append(';');
-    }
-    if (overflowY != null) {
-      buf.append("overflow-y:");
-      buf.append(overflowY.getValue());
-      buf.append(';');
-    }
-    if (marginLeft != null) {
-      buf.append("margin-left:");
-      buf.append(marginLeft.serialize());
-      buf.append(';');
-    }
-    if (marginRight != null) {
-      buf.append("margin-right:");
-      buf.append(marginRight.serialize());
-      buf.append(';');
-    }
-    if (marginTop != null) {
-      buf.append("margin-top:");
-      buf.append(marginTop.serialize());
-      buf.append(';');
-    }
-    if (marginBottom != null) {
-      buf.append("margin-bottom:");
-      buf.append(marginBottom.serialize());
-      buf.append(';');
-    }
-    if (margin != null) {
-      buf.append("margin:");
-      buf.append(margin.serialize());
+    if (bottom != null) {
+      buf.append("bottom:");
+      buf.append(bottom.serialize());
       buf.append(';');
     }
     if (paddingLeft != null) {
@@ -228,9 +235,44 @@ public class Style implements Serializable {
       buf.append(paddingBottom.serialize());
       buf.append(';');
     }
-    if (padding != null) {
-      buf.append("padding:");
-      buf.append(padding.serialize());
+    if (marginLeft != null) {
+      buf.append("margin-left:");
+      buf.append(marginLeft.serialize());
+      buf.append(';');
+    }
+    if (marginRight != null) {
+      buf.append("margin-right:");
+      buf.append(marginRight.serialize());
+      buf.append(';');
+    }
+    if (marginTop != null) {
+      buf.append("margin-top:");
+      buf.append(marginTop.serialize());
+      buf.append(';');
+    }
+    if (marginBottom != null) {
+      buf.append("margin-bottom:");
+      buf.append(marginBottom.serialize());
+      buf.append(';');
+    }
+    if (overflowX != null) {
+      buf.append("overflow-x:");
+      buf.append(overflowX.name());
+      buf.append(';');
+    }
+    if (overflowY != null) {
+      buf.append("overflow-y:");
+      buf.append(overflowY.name());
+      buf.append(';');
+    }
+    if (display != null) {
+      buf.append("display:");
+      buf.append(display.name());
+      buf.append(';');
+    }
+    if (position != null) {
+      buf.append("position:");
+      buf.append(position.name());
       buf.append(';');
     }
     if (backgroundImage != null) {
@@ -250,7 +292,7 @@ public class Style implements Serializable {
     }
     if (textAlign != null) {
       buf.append("text-align:");
-      buf.append(textAlign.getValue());
+      buf.append(textAlign.name());
       buf.append(';');
     }
 
@@ -269,9 +311,24 @@ public class Style implements Serializable {
       buf.append(height.serialize());
       buf.append("\",");
     }
-    if (top != null) {
-      buf.append("\"top\":\"");
-      buf.append(top.serialize());
+    if (minWidth != null) {
+      buf.append("\"minWidth\":\"");
+      buf.append(minWidth.serialize());
+      buf.append("\",");
+    }
+    if (minHeight != null) {
+      buf.append("\"minHeight\":\"");
+      buf.append(minHeight.serialize());
+      buf.append("\",");
+    }
+    if (maxWidth != null) {
+      buf.append("\"maxWidth\":\"");
+      buf.append(maxWidth.serialize());
+      buf.append("\",");
+    }
+    if (maxHeight != null) {
+      buf.append("\"maxHeight\":\"");
+      buf.append(maxHeight.serialize());
       buf.append("\",");
     }
     if (left != null) {
@@ -279,49 +336,19 @@ public class Style implements Serializable {
       buf.append(left.serialize());
       buf.append("\",");
     }
-    if (display != null) {
-      buf.append("\"display\":\"");
-      buf.append(display.getValue());
+    if (right != null) {
+      buf.append("\"right\":\"");
+      buf.append(right.serialize());
       buf.append("\",");
     }
-    if (position != null) {
-      buf.append("\"position\":\"");
-      buf.append(position.getValue());
+    if (top != null) {
+      buf.append("\"top\":\"");
+      buf.append(top.serialize());
       buf.append("\",");
     }
-    if (overflowX != null) {
-      buf.append("\"overflowX\":\"");
-      buf.append(overflowX.getValue());
-      buf.append("\",");
-    }
-    if (overflowY != null) {
-      buf.append("\"overflowY\":\"");
-      buf.append(overflowY.getValue());
-      buf.append("\",");
-    }
-    if (marginLeft != null) {
-      buf.append("\"marginLeft\":\"");
-      buf.append(marginLeft.serialize());
-      buf.append("\",");
-    }
-    if (marginRight != null) {
-      buf.append("\"marginRight\":\"");
-      buf.append(marginRight.serialize());
-      buf.append("\",");
-    }
-    if (marginTop != null) {
-      buf.append("\"marginTop\":\"");
-      buf.append(marginTop.serialize());
-      buf.append("\",");
-    }
-    if (marginBottom != null) {
-      buf.append("\"marginBottom\":\"");
-      buf.append(marginBottom.serialize());
-      buf.append("\",");
-    }
-    if (margin != null) {
-      buf.append("\"margin\":\"");
-      buf.append(margin.serialize());
+    if (bottom != null) {
+      buf.append("\"bottom\":\"");
+      buf.append(bottom.serialize());
       buf.append("\",");
     }
     if (paddingLeft != null) {
@@ -344,9 +371,44 @@ public class Style implements Serializable {
       buf.append(paddingBottom.serialize());
       buf.append("\",");
     }
-    if (padding != null) {
-      buf.append("\"padding\":\"");
-      buf.append(padding.serialize());
+    if (marginLeft != null) {
+      buf.append("\"marginLeft\":\"");
+      buf.append(marginLeft.serialize());
+      buf.append("\",");
+    }
+    if (marginRight != null) {
+      buf.append("\"marginRight\":\"");
+      buf.append(marginRight.serialize());
+      buf.append("\",");
+    }
+    if (marginTop != null) {
+      buf.append("\"marginTop\":\"");
+      buf.append(marginTop.serialize());
+      buf.append("\",");
+    }
+    if (marginBottom != null) {
+      buf.append("\"marginBottom\":\"");
+      buf.append(marginBottom.serialize());
+      buf.append("\",");
+    }
+    if (overflowX != null) {
+      buf.append("\"overflowX\":\"");
+      buf.append(overflowX.name());
+      buf.append("\",");
+    }
+    if (overflowY != null) {
+      buf.append("\"overflowY\":\"");
+      buf.append(overflowY.name());
+      buf.append("\",");
+    }
+    if (display != null) {
+      buf.append("\"display\":\"");
+      buf.append(display.name());
+      buf.append("\",");
+    }
+    if (position != null) {
+      buf.append("\"position\":\"");
+      buf.append(position.name());
       buf.append("\",");
     }
     if (backgroundImage != null) {
@@ -362,11 +424,11 @@ public class Style implements Serializable {
     if (zIndex != null) {
       buf.append("\"zIndex\":");
       buf.append(zIndex);
-      buf.append(";");
+      buf.append(",");
     }
     if (textAlign != null) {
       buf.append("\"textAlign\":\"");
-      buf.append(textAlign.getValue());
+      buf.append(textAlign.name());
       buf.append("\",");
     }
 
@@ -383,6 +445,7 @@ public class Style implements Serializable {
   }
 
   public void setWidth(final Measure width) {
+    empty = null;
     this.width = width;
   }
 
@@ -391,7 +454,44 @@ public class Style implements Serializable {
   }
 
   public void setHeight(final Measure height) {
+    empty = null;
     this.height = height;
+  }
+
+  public Measure getMinWidth() {
+    return minWidth;
+  }
+
+  public void setMinWidth(Measure minWidth) {
+    empty = null;
+    this.minWidth = minWidth;
+  }
+
+  public Measure getMinHeight() {
+    return minHeight;
+  }
+
+  public void setMinHeight(Measure minHeight) {
+    empty = null;
+    this.minHeight = minHeight;
+  }
+
+  public Measure getMaxWidth() {
+    return maxWidth;
+  }
+
+  public void setMaxWidth(Measure maxWidth) {
+    empty = null;
+    this.maxWidth = maxWidth;
+  }
+
+  public Measure getMaxHeight() {
+    return maxHeight;
+  }
+
+  public void setMaxHeight(Measure maxHeight) {
+    empty = null;
+    this.maxHeight = maxHeight;
   }
 
   public Measure getLeft() {
@@ -399,7 +499,17 @@ public class Style implements Serializable {
   }
 
   public void setLeft(final Measure left) {
+    empty = null;
     this.left = left;
+  }
+
+  public Measure getRight() {
+    return right;
+  }
+
+  public void setRight(Measure right) {
+    empty = null;
+    this.right = right;
   }
 
   public Measure getTop() {
@@ -407,7 +517,17 @@ public class Style implements Serializable {
   }
 
   public void setTop(final Measure top) {
+    empty = null;
     this.top = top;
+  }
+
+  public Measure getBottom() {
+    return bottom;
+  }
+
+  public void setBottom(Measure bottom) {
+    empty = null;
+    this.bottom = bottom;
   }
 
   public Display getDisplay() {
@@ -415,6 +535,7 @@ public class Style implements Serializable {
   }
 
   public void setDisplay(final Display display) {
+    empty = null;
     this.display = display;
   }
 
@@ -423,6 +544,7 @@ public class Style implements Serializable {
   }
 
   public void setPosition(final Position position) {
+    empty = null;
     this.position = position;
   }
 
@@ -431,6 +553,7 @@ public class Style implements Serializable {
   }
 
   public void setOverflowX(final Overflow overflowX) {
+    empty = null;
     this.overflowX = overflowX;
   }
 
@@ -439,6 +562,7 @@ public class Style implements Serializable {
   }
 
   public void setOverflowY(final Overflow overflowY) {
+    empty = null;
     this.overflowY = overflowY;
   }
 
@@ -447,6 +571,7 @@ public class Style implements Serializable {
   }
 
   public void setMarginLeft(final Measure marginLeft) {
+    empty = null;
     this.marginLeft = marginLeft;
   }
 
@@ -455,6 +580,7 @@ public class Style implements Serializable {
   }
 
   public void setMarginRight(final Measure marginRight) {
+    empty = null;
     this.marginRight = marginRight;
   }
 
@@ -463,6 +589,7 @@ public class Style implements Serializable {
   }
 
   public void setMarginTop(final Measure marginTop) {
+    empty = null;
     this.marginTop = marginTop;
   }
 
@@ -471,15 +598,8 @@ public class Style implements Serializable {
   }
 
   public void setMarginBottom(final Measure marginBottom) {
+    empty = null;
     this.marginBottom = marginBottom;
-  }
-
-  public Measure getMargin() {
-    return margin;
-  }
-
-  public void setMargin(final Measure margin) {
-    this.margin = margin;
   }
 
   public Measure getPaddingLeft() {
@@ -487,6 +607,7 @@ public class Style implements Serializable {
   }
 
   public void setPaddingLeft(final Measure paddingLeft) {
+    empty = null;
     this.paddingLeft = paddingLeft;
   }
 
@@ -495,6 +616,7 @@ public class Style implements Serializable {
   }
 
   public void setPaddingRight(final Measure paddingRight) {
+    empty = null;
     this.paddingRight = paddingRight;
   }
 
@@ -503,6 +625,7 @@ public class Style implements Serializable {
   }
 
   public void setPaddingTop(final Measure paddingTop) {
+    empty = null;
     this.paddingTop = paddingTop;
   }
 
@@ -511,22 +634,15 @@ public class Style implements Serializable {
   }
 
   public void setPaddingBottom(final Measure paddingBottom) {
+    empty = null;
     this.paddingBottom = paddingBottom;
-  }
-
-  public Measure getPadding() {
-    return padding;
-  }
-
-  public void setPadding(final Measure padding) {
-    this.padding = padding;
   }
 
   public String getBackgroundImage() {
     return backgroundImage;
   }
 
-  public void setBackgroundImage(final String backgroundImage) {
+  public void setBackgroundImage(String backgroundImage) {
     this.backgroundImage = backgroundImage;
   }
 
@@ -543,6 +659,7 @@ public class Style implements Serializable {
   }
 
   public void setZIndex(final Integer zIndex) {
+    empty = null;
     this.zIndex = zIndex;
   }
 
@@ -551,6 +668,12 @@ public class Style implements Serializable {
   }
 
   public void setTextAlign(final TextAlign textAlign) {
+    empty = null;
     this.textAlign = textAlign;
+  }
+
+  @Override
+  public String toString() {
+    return encode();
   }
 }

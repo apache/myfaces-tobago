@@ -37,7 +37,7 @@ Addressbook.prepareQuickLinks = function() {
 Addressbook.prepareLoginForm = function() {
   jQuery(Tobago.Utils.escapeClientId("page:j_username")).attr("name", "j_username");
   jQuery(Tobago.Utils.escapeClientId("page:j_password")).attr("name", "j_password");
-  jQuery(Tobago.Utils.escapeClientId("page::form")).attr("action", Tobago.contextPath.value + "/j_security_check");
+  jQuery(Tobago.Utils.escapeClientId("page::form")).attr("action", jQuery("[data-tobago-context-path]").data("tobago-context-path") + "/j_security_check");
 };
 
 Tobago.registerListener(Addressbook.prepareQuickLinks, Tobago.Phase.DOCUMENT_READY);

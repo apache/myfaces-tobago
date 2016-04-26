@@ -24,21 +24,23 @@ import org.apache.myfaces.tobago.component.UISelectManyCheckbox;
 
 import javax.faces.view.facelets.ComponentConfig;
 
+/**
+ * @deprecated since Tobago 3.0. The tx-library is deprecated, please use the tc-library.
+ */
+@Deprecated
 public class SelectManyCheckboxExtensionHandler extends TobagoLabelExtensionHandler {
 
   public SelectManyCheckboxExtensionHandler(final ComponentConfig config) {
     super(config);
   }
 
+  @Override
   protected String getSubComponentType() {
     return UISelectManyCheckbox.COMPONENT_TYPE;
   }
 
+  @Override
   protected String getSubRendererType() {
     return RendererTypes.SELECT_MANY_CHECKBOX;
-  }
-
-  protected String getRows() {
-    return "1*";
   }
 }

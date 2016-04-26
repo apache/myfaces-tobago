@@ -23,35 +23,19 @@ import org.apache.myfaces.tobago.component.UIScript;
 import org.apache.myfaces.tobago.internal.util.FacesContextUtils;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 
-import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
-import java.io.IOException;
+import javax.faces.event.ComponentSystemEvent;
+import javax.faces.event.ComponentSystemEventListener;
+import javax.faces.event.ListenerFor;
+import javax.faces.event.PostAddToViewEvent;
 
-public class ScriptRenderer extends RendererBase {
+@ListenerFor(systemEventClass = PostAddToViewEvent.class)
+public class ScriptRenderer extends RendererBase implements ComponentSystemEventListener {
 
-  public void prepareRender(final FacesContext facesContext, final UIComponent component) throws IOException {
-    super.prepareRender(facesContext, component);
-    final UIScript scriptComponent = (UIScript) component;
-    final String exit = scriptComponent.getOnexit();
-    if (exit != null) {
-      FacesContextUtils.addOnexitScript(facesContext, exit);
-    }
-    final String submit = scriptComponent.getOnsubmit();
-    if (submit != null) {
-      FacesContextUtils.addOnsubmitScript(facesContext, submit);
-    }
-    final String load = scriptComponent.getOnload();
-    if (load != null) {
-      FacesContextUtils.addOnloadScript(facesContext, load);
-    }
-    final String unload = scriptComponent.getOnunload();
-    if (unload != null) {
-      FacesContextUtils.addOnunloadScript(facesContext, unload);
-    }
-    final String script = scriptComponent.getScript();
-    if (script != null) {
-      FacesContextUtils.addScriptBlock(facesContext, script);
-    }
+  @Override
+  public void processEvent(ComponentSystemEvent event) {
+    final FacesContext facesContext = FacesContext.getCurrentInstance();
+    final UIScript scriptComponent = (UIScript) event.getComponent();
     final String file = scriptComponent.getFile();
     if (file != null) {
       FacesContextUtils.addScriptFile(facesContext, file);

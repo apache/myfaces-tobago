@@ -29,14 +29,24 @@ import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasBinding;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasConverter;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasConverterMessage;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasId;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasInputLabel;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabelLayout;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasRenderRange;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasRequiredMessage;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasTabIndex;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasValidator;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasValidatorMessage;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasValue;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasValueChangeListener;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsDisabled;
+import org.apache.myfaces.tobago.internal.taglib.declaration.IsFocus;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsInline;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsReadonly;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsRendered;
+import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
 
 import javax.faces.component.UISelectOne;
 
@@ -65,8 +75,10 @@ import javax.faces.component.UISelectOne;
             "This facet can contain a UICommand that is invoked in case of a change event from the component",
         allowedChildComponenents = "org.apache.myfaces.tobago.Command")
         })
-public interface SelectOneRadioTagDeclaration extends SelectOneTagDeclaration, IsDisabled, IsReadonly, HasId,
-    HasTip, IsInline, HasRenderRange, IsRendered, HasBinding, HasConverter, HasInputLabel {
+public interface SelectOneRadioTagDeclaration
+    extends HasValidator, HasValue, HasValueChangeListener, HasTabIndex, IsFocus, IsVisual,
+    HasValidatorMessage, HasConverterMessage, HasRequiredMessage, IsDisabled, IsReadonly, HasId, HasTip, IsInline,
+    HasRenderRange, IsRendered, HasBinding, HasConverter, HasInputLabel, HasLabelLayout {
 
   /**
    * Flag indicating that selecting an Item representing a Value is Required.

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+-->
+
+<ui:composition template="/main.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:tc="http://myfaces.apache.org/tobago/component"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core">
+  <ui:param name="title" value="#{overviewBundle.selectBooleanCheckbox} &lt;tc:selectBooleanCheckbox&gt;"/>
+  <p>The tag <code class="language-markup">&lt;tc:selectBooleanCheckbox/></code> generate a classic boolean
+    checkbox.</p>
+  <tc:link label="Tag Library Documentation" image="image/feather-leaf.png"
+           link="#{overviewBundle.tagDocUrl}/selectBooleanCheckbox.html"/>
+  <tc:section label="Basics">
+    <pre><code class="language-markup">&lt;tc:selectBooleanCheckbox label="Checkbox" value="true"/&gt;</code></pre>
+    <tc:selectBooleanCheckbox id="s1" label="Checkbox" value="true"/>
+    <tc:selectBooleanCheckbox id="s2" label="Read Only" readonly="true" value="true"/>
+    <tc:selectBooleanCheckbox id="s3" label="Disabled" disabled="true" value="true"/>
+  </tc:section>
+
+  <tc:section label="Simple Usage">
+    <p>In this example, the selected items are displayed in an outputfield after the submit-button is pressed.</p>
+    <pre><code class="language-markup">&lt;tc:selectBooleanCheckbox label="A" value="\#{selectBooleanCheckboxController.a}"/>
+&lt;tc:out label="Selected items: " value="\#{selectBooleanCheckboxController.selectedItems}"/></code></pre>
+    <tc:selectBooleanCheckbox id="s4" label="A" value="#{selectBooleanCheckboxController.a}"/>
+    <tc:selectBooleanCheckbox id="s5" label="B" value="#{selectBooleanCheckboxController.b}"/>
+    <tc:selectBooleanCheckbox id="s6" label="C" value="#{selectBooleanCheckboxController.c}"/>
+    <tc:out id="o1" label="Selected items: " value="#{selectBooleanCheckboxController.selectedItems}"/>
+    <tc:button id="b1" label="Submit"/>
+  </tc:section>
+
+  <tc:section label="Ajax">
+    <p>The outputfields always shows the current value of the checkbox.
+      With <code class="language-markup">&lt;f:ajax render="output"/></code>, the outputfield will be rerendered,
+      after the value changed in the
+      <code class="language-markup">&lt;tc:selectBooleanCheckbox label="Character" value="#{selectBooleanCheckboxController.d}"/></code>.
+      The ID of the outputfield and the value in the <code>render</code> attribute of the ajax tag
+      has to be the same.</p>
+    <tc:selectBooleanCheckbox id="s7" label="D" value="#{selectBooleanCheckboxController.d}">
+      <f:ajax render="outputD"/>
+    </tc:selectBooleanCheckbox>
+    <tc:out id="outputD" label="Value is" value="#{selectBooleanCheckboxController.d}"/>
+    <tc:selectBooleanCheckbox id="s8" label="E" value="#{selectBooleanCheckboxController.e}">
+      <f:ajax render="outputE"/>
+    </tc:selectBooleanCheckbox>
+    <tc:out id="outputE" label="Value is" value="#{selectBooleanCheckboxController.e}"/>
+    <tc:selectBooleanCheckbox id="s9" label="F" value="#{selectBooleanCheckboxController.f}">
+      <f:ajax render="outputF"/>
+    </tc:selectBooleanCheckbox>
+    <tc:out id="outputF" label="Value is" value="#{selectBooleanCheckboxController.f}"/>
+  </tc:section>
+</ui:composition>

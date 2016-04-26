@@ -22,7 +22,6 @@ package org.apache.myfaces.tobago.internal.config;
 import org.apache.myfaces.test.base.junit4.AbstractJsfTestCase;
 import org.apache.myfaces.test.mock.MockFacesContext;
 import org.apache.myfaces.test.mock.MockHttpServletRequest;
-import org.apache.myfaces.tobago.component.ComponentTypes;
 import org.apache.myfaces.tobago.component.UIButton;
 import org.apache.myfaces.tobago.component.UICommand;
 import org.apache.myfaces.tobago.component.UIIn;
@@ -33,6 +32,7 @@ import org.apache.myfaces.tobago.component.UIPopup;
 import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.context.ClientProperties;
 import org.apache.myfaces.tobago.context.Theme;
+import org.apache.myfaces.tobago.context.ThemeImpl;
 import org.apache.myfaces.tobago.internal.context.ResourceManagerFactory;
 import org.apache.myfaces.tobago.internal.mock.faces.MockTheme;
 import org.apache.myfaces.tobago.internal.util.MimeTypeUtils;
@@ -41,11 +41,8 @@ import org.junit.Before;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.Arrays;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.Locale;
-import java.util.Map;
 
 /**
  * <p>Abstract JUnit test case base class, which sets up the JavaServer Faces
@@ -64,6 +61,7 @@ public abstract class AbstractTobagoTestBase extends AbstractJsfTestCase {
   /**
    * <p>Set up instance variables required by Tobago test cases.</p>
    */
+  @Override
   @Before
   public void setUp() throws Exception {
 
@@ -72,12 +70,10 @@ public abstract class AbstractTobagoTestBase extends AbstractJsfTestCase {
     // Tobago specific extensions
 
     final TobagoConfigImpl tobagoConfig = TobagoConfigMergingUnitTest.loadAndMerge("tobago-config-for-unit-tests.xml");
-    final Theme theme = new MockTheme("default", "Default Mock Theme", Collections.<Theme>emptyList());
-    final Theme one = new MockTheme("one", "Mock Theme One", Arrays.asList(theme));
-    final Map<String, Theme> availableThemes = new HashMap<String, Theme>();
-    availableThemes.put(theme.getName(), theme);
-    availableThemes.put(one.getName(), one);
-    tobagoConfig.setAvailableThemes(availableThemes);
+    final ThemeImpl theme = new MockTheme("default", "Default Mock Theme", Collections.<Theme>emptyList());
+    final ThemeImpl one = new MockTheme("one", "Mock Theme One", Collections.singletonList((Theme) theme));
+    tobagoConfig.addAvailableTheme(theme);
+    tobagoConfig.addAvailableTheme(one);
     tobagoConfig.resolveThemes();
     tobagoConfig.initProjectState(servletContext);
     tobagoConfig.initDefaultValidatorInfo();
@@ -90,18 +86,19 @@ public abstract class AbstractTobagoTestBase extends AbstractJsfTestCase {
 
     final ClientProperties clientProperties = new ClientProperties();
     clientProperties.setTheme(one);
-    clientProperties.setLocale(Locale.ENGLISH);
+    facesContext.getViewRoot().setLocale(Locale.ENGLISH);
     session.setAttribute(ClientProperties.MANAGED_BEAN_NAME, clientProperties);
 
     // XXX is there a better way? Get it from Tobagos generated faces-config.xml?
-    application.addComponent(ComponentTypes.IN, UIIn.class.getName());
-    application.addComponent(ComponentTypes.OUT, UIOut.class.getName());
-    application.addComponent(ComponentTypes.PANEL, UIPanel.class.getName());
-    application.addComponent("javax.faces.Command", javax.faces.component.UICommand.class.getName());
-    application.addComponent(ComponentTypes.COMMAND, UICommand.class.getName());
-    application.addComponent(ComponentTypes.LINK, UILink.class.getName());
-    application.addComponent(ComponentTypes.BUTTON, UIButton.class.getName());
-    application.addComponent(ComponentTypes.POPUP, UIPopup.class.getName());
+    application.addComponent(UIIn.COMPONENT_TYPE, UIIn.class.getName());
+    application.addComponent(UIOut.COMPONENT_TYPE, UIOut.class.getName());
+    application.addComponent(UIPanel.COMPONENT_TYPE, UIPanel.class.getName());
+    application.addComponent(
+        javax.faces.component.UICommand.COMPONENT_TYPE, javax.faces.component.UICommand.class.getName());
+    application.addComponent(UICommand.COMPONENT_TYPE, UICommand.class.getName());
+    application.addComponent(UILink.COMPONENT_TYPE, UILink.class.getName());
+    application.addComponent(UIButton.COMPONENT_TYPE, UIButton.class.getName());
+    application.addComponent(UIPopup.COMPONENT_TYPE, UIPopup.class.getName());
 
     try {
       ResourceManagerFactory.init(servletContext, tobagoConfig);
@@ -112,6 +109,7 @@ public abstract class AbstractTobagoTestBase extends AbstractJsfTestCase {
     tobagoConfig.lock();
   }
 
+  @Override
   @After
   public void tearDown() throws Exception {
     try {

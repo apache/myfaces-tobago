@@ -31,6 +31,7 @@ public class TobagoValidateHandler extends ValidatorHandler {
     super(config);
   }
 
+  @Override
   protected MetaRuleset createMetaRuleset(final Class aClass) {
     final MetaRuleset metaRuleset = super.createMetaRuleset(aClass);
     if (FileItemValidator.class.isAssignableFrom(aClass)) {

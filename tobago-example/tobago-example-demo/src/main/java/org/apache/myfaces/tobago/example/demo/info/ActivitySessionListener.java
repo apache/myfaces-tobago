@@ -27,6 +27,7 @@ import javax.servlet.http.HttpSessionListener;
 
 public class ActivitySessionListener implements HttpSessionListener {
 
+  @Override
   public void sessionCreated(final HttpSessionEvent event) {
     final HttpSession session = event.getSession();
     final ActivityList activityList = BeanProvider.getContextualReference(ActivityList.class);
@@ -34,6 +35,7 @@ public class ActivitySessionListener implements HttpSessionListener {
     activityList.add(new Activity(session));
   }
 
+  @Override
   public void sessionDestroyed(final HttpSessionEvent event) {
     final HttpSession session = event.getSession();
     final ActivityList activityList = BeanProvider.getContextualReference(ActivityList.class);

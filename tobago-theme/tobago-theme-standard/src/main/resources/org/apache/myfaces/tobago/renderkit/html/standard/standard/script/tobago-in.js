@@ -26,25 +26,19 @@ Tobago.In = function(inId, required, requiredClass, maxLength) {
 Tobago.In.init = function(elements) {
   var ins = Tobago.Utils.selectWithJQuery(elements, ".tobago-in");
   ins.each(function(){
-    var id = jQuery(this).attr("id");
+    var id = jQuery(this).closest("[id]").attr("id");
     var required = jQuery(this).attr("required") != undefined;
     new Tobago.In(id, required, 'tobago-in-markup-required');
   });
   ins = Tobago.Utils.selectWithJQuery(elements, ".tobago-date");
   ins.each(function(){
-    var id = jQuery(this).attr("id");
+    var id = jQuery(this).closest("[id]").attr("id");
     var required = jQuery(this).attr("required") != undefined;
       new Tobago.In(id, required, 'tobago-date-markup-required');
   });
-  ins = Tobago.Utils.selectWithJQuery(elements, "input.tobago-time");
-  ins.each(function(){
-    var id = jQuery(this).attr("id");
-    var required = jQuery(this).attr("required") != undefined;
-      new Tobago.In(id, required, 'tobago-time-markup-required');
-  });
   ins = Tobago.Utils.selectWithJQuery(elements, ".tobago-textarea");
   ins.each(function(){
-    var id = jQuery(this).attr("id");
+    var id = jQuery(this).closest("[id]").attr("id");
     var required = jQuery(this).attr("required") != undefined;
     new Tobago.In(id, required, 'tobago-textarea-markup-required');
   });

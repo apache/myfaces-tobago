@@ -70,7 +70,6 @@ import java.util.Set;
     "org.apache.myfaces.tobago.apt.annotation.TagAttribute",
     "org.apache.myfaces.tobago.apt.annotation.Taglib"})
 @SupportedOptions({
-    TaglibGenerator.JSF_VERSION,
     TaglibGenerator.TARGET_TAGLIB})
 public class TaglibGenerator extends AbstractGenerator {
 
@@ -80,31 +79,29 @@ public class TaglibGenerator extends AbstractGenerator {
   private Set<String> attributeSet = new HashSet<String>();
   private String currentTag;
 
-  private String jsfVersion;
   private String targetTaglib;
 
+  @Override
   public void configure() {
     final Map<String, String> options = processingEnv.getOptions();
-    jsfVersion = options.get(JSF_VERSION);
     targetTaglib = options.get(TARGET_TAGLIB);
 
     info("Generating the *.tld and *.taglib.xml");
     info("Options:");
-    info(JSF_VERSION + ": " + jsfVersion);
     info(TARGET_TAGLIB + ": " + targetTaglib);
   }
 
+  @Override
   public void generate()
       throws IOException, TransformerException, ParserConfigurationException, ClassNotFoundException {
     for (final PackageElement packageElement : getPackages()) {
       final Taglib taglibAnnotation = packageElement.getAnnotation(Taglib.class);
 
-      createTaglib(taglibAnnotation, packageElement, Type.JSP);
-      createTaglib(taglibAnnotation, packageElement, Type.FACELETS);
+      createTaglib(taglibAnnotation, packageElement);
     }
   }
 
-  protected void createTaglib(final Taglib taglibAnnotation, final PackageElement packageElement, final Type type)
+  protected void createTaglib(final Taglib taglibAnnotation, final PackageElement packageElement)
       throws ParserConfigurationException, ClassNotFoundException, IOException, TransformerException {
     resetDuplicateList();
     final DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
@@ -115,7 +112,7 @@ public class TaglibGenerator extends AbstractGenerator {
     final DocumentBuilder parser = dbf.newDocumentBuilder();
     final Document document = parser.newDocument();
 
-    final Element taglib = type.createTaglib(document);
+    final Element taglib = createTaglib(document);
     final String description = processingEnv.getElementUtils().getDocComment(packageElement);
 
     addComment("The next tags are commented because of MYFACES-3537. "
@@ -131,13 +128,22 @@ public class TaglibGenerator extends AbstractGenerator {
     addLeafTextElement(taglibAnnotation.displayName(), "display-name", taglib, document);
 */
 
-    type.addMisc(taglib, document, taglibAnnotation);
+    addLeafTextElement(taglibAnnotation.uri(), "namespace", taglib, document);
 
-    type.addListeners(taglib, document, taglibAnnotation);
+    // XXX hack: should be configurable or generated from annotations.
+    if ("http://myfaces.apache.org/tobago/component".equals(taglibAnnotation.uri())) {
+      addFunction(document, taglib, "columnPartition", "org.apache.myfaces.tobago.layout.ColumnPartition",
+          "org.apache.myfaces.tobago.layout.ColumnPartition valueOf(java.lang.String)");
+
+      for (int i = 1; i < 10; i++) {
+        addFunction(document, taglib, "format" + i, "org.apache.myfaces.tobago.util.MessageFormat",
+            "java.lang.String format(java.lang.String"+ StringUtils.repeat(", java.lang.Object", i) +")");
+      }
+    }
 
     for (final TypeElement typeElement : getTypes()) {
       if (processingEnv.getElementUtils().getPackageOf(typeElement).equals(packageElement)) {
-        appendTag(typeElement, taglib, document, type);
+        appendTag(typeElement, taglib, document);
       }
     }
     document.appendChild(taglib);
@@ -146,8 +152,9 @@ public class TaglibGenerator extends AbstractGenerator {
 
     Writer writer = null;
     try {
-      final String name
-          = type.filename(targetTaglib, packageElement.getQualifiedName().toString(), taglibAnnotation.name());
+      String target = targetTaglib;
+      target = StringUtils.isNotBlank(target) ? target + '/' : "";
+      final String name = target + taglibAnnotation.name() + ".taglib.xml";
       final FileObject resource = processingEnv.getFiler().createResource(StandardLocation.SOURCE_OUTPUT, "", name);
       info("Writing to file: " + resource.toUri());
       writer = resource.openWriter();
@@ -162,43 +169,53 @@ public class TaglibGenerator extends AbstractGenerator {
     }
   }
 
+  private void addFunction(Document document, Element taglib, String functionName, String functionClass,
+                           String functionSignature) {
+    final Element function = document.createElement("function");
+    taglib.appendChild(function);
+    addLeafTextElement(functionName, "function-name", function, document);
+    addLeafTextElement(functionClass, "function-class", function, document);
+    addLeafTextElement(functionSignature, "function-signature", function, document);
+  }
+
   protected void appendTag(
-      final TypeElement typeElement, final Element parent, final Document document, final Type type)
+      final TypeElement typeElement, final Element parent, final Document document)
       throws ClassNotFoundException {
     final Tag annotationTag = typeElement.getAnnotation(Tag.class);
     if (annotationTag != null) {
       checkDuplicates(annotationTag.name());
       resetAttributeDuplicateList();
       // TODO configure replacement
-      final String className;
-      if (typeElement.getAnnotation(SimpleTag.class) != null || typeElement.getAnnotation(ValidatorTag.class) != null) {
-        className = AnnotationUtils.generatedTagName(typeElement);
-      } else if (typeElement.getAnnotation(ExtensionTag.class) != null) {
-        className = typeElement.getQualifiedName().toString();
-      } else if (typeElement.getAnnotation(UIComponentTag.class) != null) {
-        className = "org.apache.myfaces.tobago.internal.taglib." + StringUtils.capitalize(annotationTag.name())
-            + "Tag";
-      } else {
-        throw new RuntimeException("Not supported: " + typeElement.getQualifiedName());
-      }
-      info("Replacing: " + typeElement.getQualifiedName() + " -> " + className);
-      final Element tag = createTag(typeElement, annotationTag, className, document, false, type);
-      addAttributes(typeElement, tag, document, type);
+//      final String className;
+//      if (typeElement.getAnnotation(SimpleTag.class) != null
+// || typeElement.getAnnotation(ValidatorTag.class) != null) {
+//        className = AnnotationUtils.generatedTagName(typeElement);
+//      } else if (typeElement.getAnnotation(ExtensionTag.class) != null) {
+//        className = typeElement.getQualifiedName().toString();
+//      } else if (typeElement.getAnnotation(UIComponentTag.class) != null) {
+//        className = "org.apache.myfaces.tobago.internal.taglib." + StringUtils.capitalize(annotationTag.name())
+//            + "Tag";
+//      } else {
+//        throw new RuntimeException("Not supported: " + typeElement.getQualifiedName());
+//      }
+//      info("Replacing: " + typeElement.getQualifiedName() + " -> " + className);
+      final Element tag = createTag(typeElement, annotationTag, document, false);
+      addAttributes(typeElement, tag, document);
       parent.appendChild(tag);
       if (annotationTag.deprecatedName() != null && annotationTag.deprecatedName().length() > 0) {
-        final Element deprecatedTag = createTag(typeElement, annotationTag, className, document, true, type);
-        addAttributes(typeElement, deprecatedTag, document, type);
+        final Element deprecatedTag = createTag(typeElement, annotationTag, document, true);
+        addAttributes(typeElement, deprecatedTag, document);
         parent.appendChild(deprecatedTag);
       }
     }
   }
 
   protected Element createTag(
-      final TypeElement typeElement, final Tag annotationTag, final String className, final Document document,
-      final boolean deprecated, final Type type) {
+      final TypeElement typeElement, final Tag annotationTag, final Document document,
+      final boolean deprecated) {
     final Element tagElement = document.createElement("tag");
     addDescription(typeElement, tagElement, document, deprecated);
-    type.addTagContent(typeElement, tagElement, document, deprecated, annotationTag, className);
+    addTagContent(typeElement, tagElement, document, deprecated, annotationTag);
     return tagElement;
   }
 
@@ -217,11 +234,6 @@ public class TaglibGenerator extends AbstractGenerator {
     } else {
       tagSet.add(tagName);
     }
-  }
-
-  protected void addDescription(
-      final javax.lang.model.element.Element typeElement, final Element element, final Document document) {
-    addDescription(typeElement, element, document, false);
   }
 
   protected void addDescription(
@@ -362,7 +374,7 @@ public class TaglibGenerator extends AbstractGenerator {
   }
 
   protected void addAttributes(
-      final TypeElement typeElement, final Element tagElement, final Document document, final Type type)
+      final TypeElement typeElement, final Element tagElement, final Document document)
       throws ClassNotFoundException {
 
     for (final javax.lang.model.element.Element element : getAllMembers(typeElement)) {
@@ -372,7 +384,7 @@ public class TaglibGenerator extends AbstractGenerator {
             && executableElement.getAnnotation(UIComponentTagAttribute.class) == null) {
           continue;
         }
-        addAttribute(executableElement, tagElement, document, type);
+        addAttribute(executableElement, tagElement, document);
       }
     }
   }
@@ -381,6 +393,7 @@ public class TaglibGenerator extends AbstractGenerator {
     final List<? extends javax.lang.model.element.Element> members
         = new ArrayList<javax.lang.model.element.Element>(processingEnv.getElementUtils().getAllMembers(type));
     Collections.sort(members, new Comparator<javax.lang.model.element.Element>() {
+      @Override
       public int compare(final javax.lang.model.element.Element d1, final javax.lang.model.element.Element d2) {
         return d1.getSimpleName().toString().compareTo(d2.getSimpleName().toString());
       }
@@ -397,7 +410,7 @@ public class TaglibGenerator extends AbstractGenerator {
   }
 
   protected void addAttribute(
-      final ExecutableElement element, final Element tagElement, final Document document, final Type type)
+      final ExecutableElement element, final Element tagElement, final Document document)
       throws ClassNotFoundException {
     final TagAttribute tagAttribute = element.getAnnotation(TagAttribute.class);
     if (tagAttribute != null) {
@@ -414,7 +427,7 @@ public class TaglibGenerator extends AbstractGenerator {
 
         addLeafTextElement(Boolean.toString(tagAttribute.required()), "required", attribute, document);
         final UIComponentTagAttribute componentTagAttribute = element.getAnnotation(UIComponentTagAttribute.class);
-        type.addAttributeType(attribute, tagAttribute, componentTagAttribute, document, attributeName);
+        addAttributeType(attribute, tagAttribute, componentTagAttribute, document);
         tagElement.appendChild(attribute);
       } else {
         throw new IllegalArgumentException("Only setter allowed found: " + simpleName);
@@ -422,188 +435,96 @@ public class TaglibGenerator extends AbstractGenerator {
     }
   }
 
-  protected static void addComment(final String text, final org.w3c.dom.Element parent, final Document document) {
+  protected void addComment(final String text, final org.w3c.dom.Element parent, final Document document) {
     final Comment comment = document.createComment(text);
     parent.appendChild(comment);
   }
 
-  protected static void addLeafTextElement(
+  protected void addLeafTextElement(
       final String text, final String node, final org.w3c.dom.Element parent, final Document document) {
     final org.w3c.dom.Element element = document.createElement(node);
     element.appendChild(document.createTextNode(text));
     parent.appendChild(element);
   }
 
-  protected static void addLeafCDATAElement(
+  protected void addLeafCDATAElement(
       final String text, final String node, final org.w3c.dom.Element parent, final Document document) {
     final org.w3c.dom.Element element = document.createElement(node);
     element.appendChild(document.createCDATASection(text));
     parent.appendChild(element);
   }
 
-  protected static enum Type {
-    JSP,
-    FACELETS;
+  protected Element createTaglib(final Document document) {
+    final Element taglib;
+    taglib = document.createElement("facelet-taglib");
+    taglib.setAttribute("xmlns", "http://java.sun.com/xml/ns/javaee");
+    taglib.setAttribute("xmlns:xsi", "http://www.w3.org/2001/XMLSchema-instance");
+    taglib.setAttribute("xsi:schemaLocation",
+        "http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facelettaglibrary_2_0.xsd");
+    taglib.setAttribute("version", "2.0");
+    return taglib;
+  }
 
-    public String filename(String target, final String path, final String name) {
-      target = StringUtils.isNotBlank(target) ? target + '/' : "";
-      switch (this) {
-        case JSP:
-          return target + path.replace('.', '/') + '/' + name + ".tld";
-        case FACELETS:
-          return target + name + ".taglib.xml";
-        default:
-          throw new IllegalArgumentException("Program error");
-      }
+  protected void addTagContent(
+      final TypeElement typeElement, final Element tagElement, final Document document, final boolean deprecated,
+      final Tag annotationTag) {
+    if (deprecated) {
+      addLeafTextElement(annotationTag.deprecatedName(), "tag-name", tagElement, document);
+    } else {
+      addLeafTextElement(annotationTag.name(), "tag-name", tagElement, document);
     }
 
-    public Element createTaglib(final Document document) {
-      final Element taglib;
-      switch (this) {
-        case JSP:
-          taglib = document.createElement("taglib");
-          taglib.setAttribute("xmlns", "http://java.sun.com/xml/ns/javaee");
-          taglib.setAttribute("xmlns:xsi", "http://www.w3.org/2001/XMLSchema-instance");
-          taglib.setAttribute("xsi:schemaLocation",
-              "http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-jsptaglibrary_2_1.xsd");
-          taglib.setAttribute("version", "2.1");
-          break;
-        case FACELETS:
-          taglib = document.createElement("facelet-taglib");
-          taglib.setAttribute("xmlns", "http://java.sun.com/xml/ns/javaee");
-          taglib.setAttribute("xmlns:xsi", "http://www.w3.org/2001/XMLSchema-instance");
-          taglib.setAttribute("xsi:schemaLocation",
-              "http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facelettaglibrary_2_0.xsd");
-          taglib.setAttribute("version", "2.0");
-          break;
-        default:
-          throw new IllegalArgumentException("Program error");
+    final UIComponentTag componentTag = typeElement.getAnnotation(UIComponentTag.class);
+    if (componentTag != null) {
+      final Element componentElement = document.createElement("component");
+      tagElement.appendChild(componentElement);
+      addLeafTextElement(
+          AnnotationUtils.componentType(componentTag), "component-type", componentElement, document);
+      if (StringUtils.isNotBlank(componentTag.rendererType())) {
+        addLeafTextElement(componentTag.rendererType(), "renderer-type", componentElement, document);
       }
-      return taglib;
+      addLeafTextElement(componentTag.faceletHandler(), "handler-class", componentElement, document);
     }
 
-    public void addMisc(final Element taglib, final Document document, final Taglib taglibAnnotation) {
-      switch (this) {
-        case JSP:
-          addLeafTextElement("1.2", "tlib-version", taglib, document);
-          addLeafTextElement(taglibAnnotation.shortName(), "short-name", taglib, document);
-          addLeafTextElement(taglibAnnotation.uri(), "uri", taglib, document);
-          break;
-        case FACELETS:
-          addLeafTextElement(taglibAnnotation.uri(), "namespace", taglib, document);
-          break;
-        default:
-          throw new IllegalArgumentException("Program error");
-      }
+    final ExtensionTag extensionTag = typeElement.getAnnotation(ExtensionTag.class);
+    if (extensionTag != null) {
+      final Element componentElement = document.createElement("component");
+      tagElement.appendChild(componentElement);
+      addLeafTextElement(extensionTag.componentType(), "component-type", componentElement, document);
+      addLeafTextElement(extensionTag.rendererType(), "renderer-type", componentElement, document);
+      addLeafTextElement(extensionTag.faceletHandler(), "handler-class", componentElement, document);
     }
 
-    public void addListeners(final Element taglib, final Document document, final Taglib taglibAnnotation) {
-      switch (this) {
-        case JSP:
-          for (final String listenerClass : taglibAnnotation.listener()) {
-            final Element listener = document.createElement("listener");
-            addLeafTextElement(listenerClass, "listener-class", listener, document);
-            taglib.appendChild(listener);
-          }
-          break;
-        case FACELETS:
-          break;
-        default:
-          throw new IllegalArgumentException("Program error");
-      }
+    final SimpleTag simpleTag = typeElement.getAnnotation(SimpleTag.class);
+    if (simpleTag != null) {
+      addLeafTextElement(simpleTag.faceletHandler(), "handler-class", tagElement, document);
     }
 
-    public void addTagContent(
-        final TypeElement typeElement, final Element tagElement, final Document document, final boolean deprecated,
-        final Tag annotationTag, final String className) {
-      switch (this) {
-        case JSP:
-          if (deprecated) {
-            addLeafTextElement(annotationTag.deprecatedName(), "name", tagElement, document);
-          } else {
-            addLeafTextElement(annotationTag.name(), "name", tagElement, document);
-          }
-          addLeafTextElement(className, "tag-class", tagElement, document);
-          final String tagExtraInfo = annotationTag.tagExtraInfoClassName();
-          if (tagExtraInfo != null && tagExtraInfo.length() > 0) {
-            // TODO check tagExtraInfo extends TagExtraInfo
-            addLeafTextElement(tagExtraInfo, "tei-class", tagElement, document);
-          }
-          addLeafTextElement(annotationTag.bodyContent().toString(), "body-content", tagElement, document);
-          break;
-        case FACELETS:
-          if (deprecated) {
-            addLeafTextElement(annotationTag.deprecatedName(), "tag-name", tagElement, document);
-          } else {
-            addLeafTextElement(annotationTag.name(), "tag-name", tagElement, document);
-          }
-
-          final UIComponentTag componentTag = typeElement.getAnnotation(UIComponentTag.class);
-          if (componentTag != null) {
-            final Element componentElement = document.createElement("component");
-            tagElement.appendChild(componentElement);
-            addLeafTextElement(
-                AnnotationUtils.componentType(componentTag), "component-type", componentElement, document);
-            if (StringUtils.isNotBlank(componentTag.rendererType())) {
-              addLeafTextElement(componentTag.rendererType(), "renderer-type", componentElement, document);
-            }
-            addLeafTextElement(componentTag.faceletHandler(), "handler-class", componentElement, document);
-          }
-
-          final ExtensionTag extensionTag = typeElement.getAnnotation(ExtensionTag.class);
-          if (extensionTag != null) {
-            final Element componentElement = document.createElement("component");
-            tagElement.appendChild(componentElement);
-            addLeafTextElement(extensionTag.componentType(), "component-type", componentElement, document);
-            addLeafTextElement(extensionTag.rendererType(), "renderer-type", componentElement, document);
-            addLeafTextElement(extensionTag.faceletHandler(), "handler-class", componentElement, document);
-          }
-
-          final SimpleTag simpleTag = typeElement.getAnnotation(SimpleTag.class);
-          if (simpleTag != null) {
-            addLeafTextElement(simpleTag.faceletHandler(), "handler-class", tagElement, document);
-          }
-
-          final ValidatorTag validatorTag = typeElement.getAnnotation(ValidatorTag.class);
-          if (validatorTag != null) {
-            final Element validatorElement = document.createElement("validator");
-            tagElement.appendChild(validatorElement);
-            addLeafTextElement(validatorTag.validatorId(), "validator-id", validatorElement, document);
-            if (StringUtils.isNotBlank(validatorTag.faceletHandler())) {
-              addLeafTextElement(validatorTag.faceletHandler(), "handler-class", validatorElement, document);
-            }
-          }
-          break;
-        default:
-          throw new IllegalArgumentException("Program error");
+    final ValidatorTag validatorTag = typeElement.getAnnotation(ValidatorTag.class);
+    if (validatorTag != null) {
+      final Element validatorElement = document.createElement("validator");
+      tagElement.appendChild(validatorElement);
+      addLeafTextElement(validatorTag.validatorId(), "validator-id", validatorElement, document);
+      if (StringUtils.isNotBlank(validatorTag.faceletHandler())) {
+        addLeafTextElement(validatorTag.faceletHandler(), "handler-class", validatorElement, document);
       }
     }
+  }
 
-    public void addAttributeType(
-        final Element attribute, final TagAttribute tagAttribute, final UIComponentTagAttribute componentTagAttribute,
-        final Document document, final String attributeName) {
-      switch (this) {
-        case JSP:
-          if (!tagAttribute.rtexprvalue()) {
-            if (componentTagAttribute != null) {
-              if (componentTagAttribute.expression().isMethodExpression()) {
-                final Element deferredMethod = document.createElement("deferred-method");
-                addLeafTextElement(
-                    componentTagAttribute.methodReturnType() + " " + attributeName + "("
-                        + StringUtils.join(componentTagAttribute.methodSignature(), ", ")
-                        + ")", "method-signature", deferredMethod, document);
-                attribute.appendChild(deferredMethod);
-              } else if (componentTagAttribute.expression().isValueExpression()) {
-                final Element deferredValue = document.createElement("deferred-value");
-                String clazz;
-                if (componentTagAttribute.type().length == 1
-                    // XXX This is because an enum will not be converted in JSP with the PropertyEditor
-                    && !"org.apache.myfaces.tobago.layout.TextAlign".equals(componentTagAttribute.type()[0])
-                    && !"org.apache.myfaces.tobago.model.SuggestFilter".equals(componentTagAttribute.type()[0])) {
-                  clazz = componentTagAttribute.type()[0];
-                  final Class wrapper = ClassUtils.getWrapper(clazz);
-                  if (wrapper != null) {
-                    clazz = wrapper.getName(); // primitive types aren't allowed here
+  protected void addAttributeType(
+      final Element attribute, final TagAttribute tagAttribute, final UIComponentTagAttribute componentTagAttribute,
+      final Document document) {
+    if (!tagAttribute.rtexprvalue()) {
+      if (componentTagAttribute != null) {
+        if (componentTagAttribute.expression().isMethodExpression()) {
+          // todo
+        } else if (componentTagAttribute.expression().isValueExpression()) {
+          String clazz;
+          if (componentTagAttribute.type().length == 1) {
+            clazz = componentTagAttribute.type()[0];
+            final Class wrapper = ClassUtils.getWrapper(clazz);
+            if (wrapper != null) {
+              clazz = wrapper.getName(); // primitive types aren't allowed here
       /*                } else {
                       XXX what is with inner classes and arrays?
                       if (clazz.endsWith("[]")) {
@@ -612,58 +533,15 @@ public class TaglibGenerator extends AbstractGenerator {
                         Class.forName(clazz); // type check
                       }
       */
-                  }
-                } else {
-                  clazz = "java.lang.Object";
-                }
-                addLeafTextElement(clazz, "type", deferredValue, document);
-                attribute.appendChild(deferredValue);
-              }
-            } else {
-              final Element deferredValue = document.createElement("deferred-value");
-              addLeafTextElement(tagAttribute.type(), "type", deferredValue, document);
-              attribute.appendChild(deferredValue);
             }
+          } else {
+            clazz = "java.lang.Object";
           }
-          if (tagAttribute.rtexprvalue()) {
-            addLeafTextElement(Boolean.toString(tagAttribute.rtexprvalue()), "rtexprvalue", attribute, document);
-          }
-          break;
-        case FACELETS:
-          if (!tagAttribute.rtexprvalue()) {
-            if (componentTagAttribute != null) {
-              if (componentTagAttribute.expression().isMethodExpression()) {
-                // todo
-              } else if (componentTagAttribute.expression().isValueExpression()) {
-                String clazz;
-                if (componentTagAttribute.type().length == 1) {
-                  clazz = componentTagAttribute.type()[0];
-                  final Class wrapper = ClassUtils.getWrapper(clazz);
-                  if (wrapper != null) {
-                    clazz = wrapper.getName(); // primitive types aren't allowed here
-      /*                } else {
-                      XXX what is with inner classes and arrays?
-                      if (clazz.endsWith("[]")) {
-                        Class.forName(clazz.substring(0, clazz.length() - 2)); // type check
-                      } else {
-                        Class.forName(clazz); // type check
-                      }
-      */
-                  }
-                } else {
-                  clazz = "java.lang.Object";
-                }
-                addLeafTextElement(clazz, "type", attribute, document);
-              }
-            } else {
-              addLeafTextElement(tagAttribute.type(), "type", attribute, document);
-            }
-          }
-          break;
-        default:
-          throw new IllegalArgumentException("Program error");
+          addLeafTextElement(clazz, "type", attribute, document);
+        }
+      } else {
+        addLeafTextElement(tagAttribute.type(), "type", attribute, document);
       }
-
     }
   }
 }

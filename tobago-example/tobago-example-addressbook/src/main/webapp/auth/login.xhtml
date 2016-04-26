@@ -18,63 +18,64 @@
 -->
 
 <f:view xmlns:tc="http://myfaces.apache.org/tobago/component"
-        xmlns:tx="http://myfaces.apache.org/tobago/extension"
         xmlns:f="http://java.sun.com/jsf/core"
         locale="#{controller.language}">
+
   <tc:loadBundle basename="resource" var="bundle"/>
 
   <tc:page id="page" label="Login">
-    <f:facet name="layout">
-      <tc:gridLayout rows="*;auto;*" columns="*;400px;*"/>
-    </f:facet>
+    <tc:flexLayout rows="*;auto;*">
+
+      <tc:out/>
+
+      <tc:panel>
+        <tc:flexLayout columns="*;auto;*">
+
+          <tc:out/>
+
+          <tc:box label="Login">
+            <f:facet name="layout">
+              <tc:gridLayout rows="auto;auto;auto;auto"/>
+            </f:facet>
+
+            <tc:flowLayout>
+              <tc:out value="#{bundle.loginIntro}"/>
+              (
+              <tc:link label="guest/guest" image="image/org/tango-project/tango-icon-theme/16x16/apps/system-users.png"
+                       omit="true">
+                <tc:dataAttribute name="login" value='{"username": "guest", "password": "guest"}'/>
+              </tc:link>
+              or
+              <tc:link label="admin/admin" image="image/org/tango-project/tango-icon-theme/16x16/apps/system-users.png"
+                       omit="true">
+                <tc:dataAttribute name="login" value='{"username": "admin", "password": "admin"}'/>
+              </tc:link>
+              )
+            </tc:flowLayout>
+
+            <tc:in id="j_username" label="#{bundle.loginUser}"/>
+            <tc:in id="j_password" password="true" label="#{bundle.loginPassword}"/>
+
+            <tc:panel>
+              <f:facet name="layout">
+                <tc:gridLayout columns="*;auto"/>
+              </f:facet>
+
+              <tc:panel/>
+              <tc:button label="#{bundle.loginLogin}" defaultCommand="true"/>
+            </tc:panel>
+          </tc:box>
+
+          <tc:out/>
+
+        </tc:flexLayout>
+      </tc:panel>
+
+      <tc:out/>
+
+    </tc:flexLayout>
 
     <tc:script file="auth/login.js"/>
-
-    <tc:panel>
-      <tc:gridLayoutConstraint columnSpan="3"/>
-    </tc:panel>
-
-    <tc:panel/>
-    <tc:box label="Login">
-      <f:facet name="layout">
-        <tc:gridLayout rows="auto;auto;auto;auto"/>
-      </f:facet>
-
-      <tc:panel>
-        <f:facet name="layout">
-          <tc:gridLayout rows="20px;20px" columns="2*;*"/>
-        </f:facet>
-        <tc:out value="#{bundle.loginIntro}"/>
-        <tc:link label="guest/guest" image="image/org/tango-project/tango-icon-theme/16x16/apps/system-users.png"
-                 omit="true">
-          <tc:dataAttribute name="login" value='{"username": "guest", "password": "guest"}'/>
-        </tc:link>
-
-        <tc:panel/>
-        <tc:link label="admin/admin" image="image/org/tango-project/tango-icon-theme/16x16/apps/system-users.png"
-                 omit="true">
-          <tc:dataAttribute name="login" value='{"username": "admin", "password": "admin"}'/>
-        </tc:link>
-      </tc:panel>
-
-      <tx:in fieldId="j_username" label="#{bundle.loginUser}"/>
-      <tx:in fieldId="j_password" password="true" label="#{bundle.loginPassword}"/>
-
-      <tc:panel>
-        <f:facet name="layout">
-          <tc:gridLayout columns="*;auto"/>
-        </f:facet>
-
-        <tc:panel/>
-        <tc:button label="#{bundle.loginLogin}" defaultCommand="true"/>
-      </tc:panel>
-    </tc:box>
-
-    <tc:panel/>
-
-    <tc:panel>
-      <tc:gridLayoutConstraint columnSpan="3"/>
-    </tc:panel>
 
   </tc:page>
 </f:view>

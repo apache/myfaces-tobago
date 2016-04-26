@@ -24,121 +24,32 @@ import org.apache.myfaces.tobago.apt.annotation.ExtensionTag;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
-import org.apache.myfaces.tobago.internal.taglib.OutTag;
 
 import javax.el.ValueExpression;
-import javax.servlet.jsp.JspException;
 
 /**
  * Renders a text output field with a label.
- * <br />
+ * <br>
  * Short syntax of:
- * <p/>
  * <pre>
- * &lt;tc:panel>
- *   &lt;f:facet name="layout">
- *     &lt;tc:gridLayout columns="auto;*"/>
- *   &lt;/f:facet>
- *   &lt;tc:label value="#{label}" for="@auto"/>
- *   &lt;tc:out value="#{value}">
+ * &lt;tc:panel&gt;
+ *   &lt;f:facet name="layout"&gt;
+ *     &lt;tc:gridLayout columns="auto;*"/&gt;
+ *   &lt;/f:facet&gt;
+ *   &lt;tc:label value="#{label}" for="@auto"/&gt;
+ *   &lt;tc:out value="#{value}"&gt;
  *     ...
- *   &lt;/tc:out>
- * &lt;/tc:panel>
+ *   &lt;/tc:out&gt;
+ * &lt;/tc:panel&gt;
  * </pre>
+ *
+ * @deprecated since Tobago 3.0. The tx-library is deprecated, please use the tc-library.
  */
-
 @Tag(name = "out")
 @ExtensionTag(
     baseClassName = "org.apache.myfaces.tobago.internal.taglib.OutTag",
     faceletHandler = "org.apache.myfaces.tobago.facelets.extension.OutExtensionHandler")
-public class OutExtensionTag extends TobagoExtensionBodyTagSupport {
-
-  private ValueExpression binding;
-  private ValueExpression converter;
-  private ValueExpression label;
-  private ValueExpression rendered;
-  private ValueExpression tip;
-  private ValueExpression value;
-  private ValueExpression markup;
-  private ValueExpression labelWidth;
-  private String fieldId;
-
-  private LabelExtensionTag labelTag;
-  private OutTag outTag;
-
-  @Override
-  public int doStartTag() throws JspException {
-
-    labelTag = new LabelExtensionTag();
-    labelTag.setPageContext(pageContext);
-    if (id != null) {
-      labelTag.setId(id);
-    }
-    if (label != null) {
-      labelTag.setValue(label);
-    }
-    if (tip != null) {
-      labelTag.setTip(tip);
-    }
-    if (rendered != null) {
-      labelTag.setRendered(rendered);
-    }
-    if (labelWidth != null) {
-      labelTag.setColumns(createStringValueExpression(labelWidth.getExpressionString() + ";*"));
-    }
-    if (markup != null) {
-      labelTag.setMarkup(markup);
-    }
-    labelTag.setParent(getParent());
-    labelTag.setJspId(nextJspId());
-    labelTag.doStartTag();
-
-    outTag = new OutTag();
-    outTag.setPageContext(pageContext);
-    if (value != null) {
-      outTag.setValue(value);
-    }
-    if (binding != null) {
-      outTag.setBinding(binding);
-    }
-    if (converter != null) {
-      outTag.setConverter(converter);
-    }
-    if (fieldId != null) {
-      outTag.setId(fieldId);
-    }
-    if (markup != null) {
-      outTag.setMarkup(markup);
-    }
-    outTag.setParent(labelTag);
-    outTag.setJspId(nextJspId());
-    outTag.doStartTag();
-
-    return super.doStartTag();
-  }
-
-  @Override
-  public int doEndTag() throws JspException {
-    outTag.doEndTag();
-    labelTag.doEndTag();
-    return super.doEndTag();
-  }
-
-  @Override
-  public void release() {
-    super.release();
-    binding = null;
-    converter = null;
-    labelWidth = null;
-    label = null;
-    rendered = null;
-    tip = null;
-    value = null;
-    markup = null;
-    outTag = null;
-    labelTag = null;
-    fieldId = null;
-  }
+public interface OutExtensionTag  {
 
   /**
    * Indicate markup of this component.
@@ -146,18 +57,14 @@ public class OutExtensionTag extends TobagoExtensionBodyTagSupport {
    */
   @TagAttribute
   @UIComponentTagAttribute(defaultValue = "none", type = "java.lang.String[]")
-  public void setMarkup(final ValueExpression markup) {
-    this.markup = markup;
-  }
+  void setMarkup(final ValueExpression markup);
 
   /**
    * The current value of this component.
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "java.lang.Object")
-  public void setValue(final ValueExpression value) {
-    this.value = value;
-  }
+  void setValue(final ValueExpression value);
 
   /**
    * Text value to display as label.
@@ -165,9 +72,7 @@ public class OutExtensionTag extends TobagoExtensionBodyTagSupport {
    */
   @TagAttribute
   @UIComponentTagAttribute()
-  public void setLabel(final ValueExpression label) {
-    this.label = label;
-  }
+  void setLabel(final ValueExpression label);
 
   /**
    * The value binding expression linking this
@@ -175,9 +80,7 @@ public class OutExtensionTag extends TobagoExtensionBodyTagSupport {
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "javax.faces.component.UIComponent")
-  public void setBinding(final ValueExpression binding) {
-    this.binding = binding;
-  }
+  void setBinding(final ValueExpression binding);
 
   /**
    * Flag indicating whether or not this component should be rendered
@@ -185,9 +88,7 @@ public class OutExtensionTag extends TobagoExtensionBodyTagSupport {
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "boolean", defaultValue = "true")
-  public void setRendered(final ValueExpression rendered) {
-    this.rendered = rendered;
-  }
+  void setRendered(final ValueExpression rendered);
 
   /**
    * An expression that specifies the Converter for this component.
@@ -201,18 +102,14 @@ public class OutExtensionTag extends TobagoExtensionBodyTagSupport {
   @TagAttribute
   @UIComponentTagAttribute(type = "javax.faces.convert.Converter",
       expression = DynamicExpression.VALUE_EXPRESSION)
-  public void setConverter(final ValueExpression converter) {
-    this.converter = converter;
-  }
+  void setConverter(final ValueExpression converter);
 
   /**
    * Text value to display as tooltip.
    */
   @TagAttribute
   @UIComponentTagAttribute()
-  public void setTip(final ValueExpression tip) {
-    this.tip = tip;
-  }
+  void setTip(final ValueExpression tip);
 
   /**
    * The width for the label component. Default: 'auto'.
@@ -221,9 +118,7 @@ public class OutExtensionTag extends TobagoExtensionBodyTagSupport {
    */
   @TagAttribute
   @UIComponentTagAttribute()
-  public void setLabelWidth(final ValueExpression labelWidth) {
-    this.labelWidth = labelWidth;
-  }
+  void setLabelWidth(final ValueExpression labelWidth);
 
   /**
    * The component identifier for the input field component inside of the container.
@@ -231,9 +126,7 @@ public class OutExtensionTag extends TobagoExtensionBodyTagSupport {
    */
   @TagAttribute(rtexprvalue = true)
   @UIComponentTagAttribute
-  public void setFieldId(final String fieldId) {
-    this.fieldId = fieldId;
-  }
+  void setFieldId(final String fieldId);
 
   /**
    * The component identifier for this component.
@@ -243,7 +136,5 @@ public class OutExtensionTag extends TobagoExtensionBodyTagSupport {
    */
   @TagAttribute(rtexprvalue = true)
   @UIComponentTagAttribute
-  public void setId(final String id) {
-    super.setId(id);
-  }
+  void setId(final String id);
 }

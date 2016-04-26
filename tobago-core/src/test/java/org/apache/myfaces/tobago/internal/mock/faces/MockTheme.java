@@ -20,11 +20,12 @@
 package org.apache.myfaces.tobago.internal.mock.faces;
 
 import org.apache.myfaces.tobago.context.Theme;
+import org.apache.myfaces.tobago.context.ThemeImpl;
 import org.apache.myfaces.tobago.internal.config.RenderersConfig;
 
 import java.util.List;
 
-public class MockTheme implements Theme {
+public class MockTheme extends ThemeImpl {
 
   private String name;
 
@@ -44,46 +45,57 @@ public class MockTheme implements Theme {
     this.fallbackThemeList = fallbackThemeList;
   }
 
+  @Override
   public String getName() {
     return name;
   }
 
+  @Override
   public List<Theme> getFallbackList() {
     return fallbackThemeList;
   }
 
+  @Override
   public String getDisplayName() {
     return displayName;
   }
 
+  @Override
   public String getResourcePath() {
     return null;
   }
 
+  @Override
   public RenderersConfig getRenderersConfig() {
     return config;
   }
 
+  @Override
   public String[] getScriptResources(final boolean production) {
     return new String[0];
   }
 
+  @Override
   public String[] getStyleResources(final boolean production) {
     return new String[0];
   }
 
+  @Override
   public boolean isVersioned() {
     return versioned;
   }
 
+  @Override
   public void setVersioned(final boolean versioned) {
     this.versioned = versioned;
   }
 
+  @Override
   public String getVersion() {
     return version;
   }
 
+  @Override
   public void setVersion(final String version) {
     this.version = version;
   }

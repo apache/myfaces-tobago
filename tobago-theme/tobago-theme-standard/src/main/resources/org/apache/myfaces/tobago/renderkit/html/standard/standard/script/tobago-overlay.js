@@ -56,64 +56,49 @@ Tobago.Config.set("Ajax", "waitOverlayDelay", 1000);
         this.overlay.addClass("tobago-page-overlay-markup-wait");
       }
 
-      this.overlay.outerWidth(this.element.outerWidth());
-      this.overlay.outerHeight(this.element.outerHeight());
-      this.overlay.offset(this.element.offset());
+      if (this.element.is("body")) {
+        this.overlay.css({
+          position: "fixed",
+          zIndex: 1500 // greater than the bootstrap navbar
+        });
+      } else {
+        this.overlay.outerWidth(this.element.outerWidth());
+        this.overlay.outerHeight(this.element.outerHeight());
+        this.overlay.offset(this.element.offset());
+        this.overlay.css({
+          position: "absolute" // XXX is set via class, but seams to be overridden in IE11?
+        });
+      }
 
-      jQuery(".tobago-page-menuStore").append(this.overlay);
+      jQuery("body").append(this.overlay);
 
       var wait = jQuery("<div>").addClass("tobago-page-overlayCenter");
       this.overlay.append(wait);
 
-      var image = jQuery(this.options.error
-          ? "body>.tobago-page-overlayErrorPreloadedImage"
-          : "body>.tobago-page-overlayWaitPreloadedImage");
-
-      // in case of AJAX, we may need more of these objects, on the other side, on an normal submit
-      // the animation stops, if we use the clone (don't know why, seems to be needed only in WebKit)
-      if (this.options.ajax) {
-        image = image.clone();
+      var image = jQuery("<i>");
+      if (this.options.error) {
+        image.addClass("fa fa-flash fa-3x");
+        wait.addClass("alert-danger");
+      } else {
+        image.addClass("fa fa-refresh fa-3x fa-spin").css({opacity: 0.4});
       }
-
-      image.appendTo(wait);
-      image.removeClass(this.options.error
-          ? "tobago-page-overlayErrorPreloadedImage"
-          : "tobago-page-overlayWaitPreloadedImage");
+      wait.append(image);
       wait.show();
 
       var waitOverlayDelay = this.options.waitOverlayDelay
           ? this.options.waitOverlayDelay
           : Tobago.Config.get(this.options.ajax ? "Ajax" : "Tobago", "waitOverlayDelay");
 
+      if (Tobago.browser.isMsie678) {
+        this.overlay.css({filter: 'alpha(opacity=80)'});
+      }
+
       this.overlay.css({
         backgroundColor: jQuery('.tobago-page').css("background-color"),
-        filter: 'alpha(opacity=80)', //IE
         opacity: 0})
           .show()
           .delay(this.options.error ? 0 : waitOverlayDelay)
-          .animate({opacity: '0.8'}, this.options.error ? 0 : 250, "linear", function () {
-
-            // fix for IE6: reset the src attribute to enable animation
-            if (Tobago.browser.isMsie6) {
-              image.attr("src", image.attr("src"));
-            }
-          });
-
-      // create an iframe for IE6
-
-      if (Tobago.browser.isMsie6) {
-        var iframe = jQuery("<iframe>").addClass("tobago-page-overlay-ie6bugfix");
-        iframe.prop("frameBorder", 0);
-        iframe.attr("src", Tobago.blankPage);
-        iframe.css({
-          position: 'absolute',
-          top: '0px',
-          left: '0px',
-          width: this.overlay.width() + 'px',
-          height: this.overlay.height() + 'px'
-        });
-        this.overlay.append(iframe);
-      }
+          .animate({opacity: '0.8'}, this.options.error ? 0 : 250, "linear");
     },
 
     _setOption: function (key, value) {

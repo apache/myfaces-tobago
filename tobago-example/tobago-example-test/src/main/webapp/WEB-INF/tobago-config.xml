@@ -22,7 +22,7 @@
    version="2.0">
 
   <theme-config>
-    <default-theme>speyside</default-theme>
+    <default-theme>standard</default-theme>
     <supported-theme>scarborough</supported-theme>
     <supported-theme>richmond</supported-theme>
     <supported-theme>charlotteville</supported-theme>
@@ -35,6 +35,7 @@
   <auto-access-key-from-label>false</auto-access-key-from-label>
 
   <!-- this disables CSP -->
+  <!-- XXX With CSP Tobago 3.0.x is currently not working 100% see TOBAGO-1534 -->
   <content-security-policy mode="report-only"/>
 
   <renderers>

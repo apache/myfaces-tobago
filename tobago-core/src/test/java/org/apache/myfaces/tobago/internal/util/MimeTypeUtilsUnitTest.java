@@ -22,14 +22,8 @@ package org.apache.myfaces.tobago.internal.util;
 import org.apache.myfaces.tobago.internal.config.AbstractTobagoTestBase;
 import org.junit.Assert;
 import org.junit.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class MimeTypeUtilsUnitTest extends AbstractTobagoTestBase {
-
-  private static final Logger LOG = LoggerFactory.getLogger(MimeTypeUtilsUnitTest.class);
-
-  public static final int INT = 100000000;
 
   public static final String GIF = "http:///localhost:8080/demo/demo.gif";
   public static final String PNG = "http:///localhost:8080/demo/demo.png";
@@ -41,7 +35,9 @@ public class MimeTypeUtilsUnitTest extends AbstractTobagoTestBase {
   public static final String HTM = "http:///localhost:8080/demo/demo.htm";
   public static final String MAP = "http:///localhost:8080/demo/demo.map";
   public static final String WOFF = "http:///localhost:8080/demo/demo.woff";
+  public static final String WOFF2 = "http:///localhost:8080/demo/demo.woff2";
   public static final String TTF = "http:///localhost:8080/demo/demo.ttf";
+  public static final String EOT = "http:///localhost:8080/demo/demo.eot";
   public static final String SVG = "http:///localhost:8080/demo/demo.svg";
   public static final String ODT = "http:///localhost:8080/demo/demo.odt";
 
@@ -65,7 +61,9 @@ public class MimeTypeUtilsUnitTest extends AbstractTobagoTestBase {
     Assert.assertEquals("text/html", MimeTypeUtils.getMimeTypeForFile(HTM));
     Assert.assertEquals("application/json", MimeTypeUtils.getMimeTypeForFile(MAP));
     Assert.assertEquals("application/font-woff", MimeTypeUtils.getMimeTypeForFile(WOFF));
+    Assert.assertEquals("application/font-woff2", MimeTypeUtils.getMimeTypeForFile(WOFF2));
     Assert.assertEquals("application/x-font-ttf", MimeTypeUtils.getMimeTypeForFile(TTF));
+    Assert.assertEquals("application/vnd.ms-fontobject", MimeTypeUtils.getMimeTypeForFile(EOT));
     Assert.assertEquals("image/svg+xml", MimeTypeUtils.getMimeTypeForFile(SVG));
   }
 
@@ -82,28 +80,8 @@ public class MimeTypeUtilsUnitTest extends AbstractTobagoTestBase {
 
   @Test
   public void testMimeTypesConfigured() {
-
+    // comes from tobago-config-for-unit-tests.xml
     Assert.assertEquals("application/vnd.oasis.opendocument.text", MimeTypeUtils.getMimeTypeForFile(ODT));
-  }
-
-  @SuppressWarnings("unused")
-//  @Test
-  public void testPerformance() {
-    final long start = System.currentTimeMillis();
-    for (int i = 0; i < INT; i++) {
-      MimeTypeUtils.getMimeTypeForFile(GIF);
-      MimeTypeUtils.getMimeTypeForFile(PNG);
-      MimeTypeUtils.getMimeTypeForFile(JPG);
-      MimeTypeUtils.getMimeTypeForFile(JS);
-      MimeTypeUtils.getMimeTypeForFile(CSS);
-      MimeTypeUtils.getMimeTypeForFile(ICO);
-      MimeTypeUtils.getMimeTypeForFile(HTML);
-      MimeTypeUtils.getMimeTypeForFile(HTM);
-      MimeTypeUtils.getMimeTypeForFile(MAP);
-      MimeTypeUtils.getMimeTypeForFile(WOFF);
-      MimeTypeUtils.getMimeTypeForFile(UNKNOWN0);
-    }
-    LOG.info("-----------------------> " + (System.currentTimeMillis() - start) + " ms");
   }
 
 }

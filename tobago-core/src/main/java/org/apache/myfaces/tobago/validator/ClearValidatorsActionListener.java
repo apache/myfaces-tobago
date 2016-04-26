@@ -39,6 +39,7 @@ public class ClearValidatorsActionListener implements ActionListener {
     return PhaseId.APPLY_REQUEST_VALUES;
   }
 
+  @Override
   public void processAction(final ActionEvent actionEvent) throws AbortProcessingException {
     if (LOG.isDebugEnabled()) {
       LOG.debug("actionEvent = '" + actionEvent + "'");

@@ -27,11 +27,14 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
+import javax.faces.convert.FacesConverter;
 
+@FacesConverter(forClass = EmailAddress.class)
 public class EmailAddressConverter implements Converter {
 
   private static final Logger LOG = LoggerFactory.getLogger(EmailAddressConverter.class);
 
+  @Override
   public Object getAsObject(
       final FacesContext facesContext, final UIComponent component, final String reference) {
     if (reference == null || reference.length() == 0) {
@@ -39,14 +42,13 @@ public class EmailAddressConverter implements Converter {
     }
     final String[] parts = reference.split("@");
     if (parts == null || parts.length != 2) {
-      throw new ConverterException(MessageUtils.createErrorMessage(
-          "converterEmailParts", facesContext));
+      throw new ConverterException(MessageUtils.createErrorMessage("converterEmailParts", facesContext));
     }
     return new EmailAddress(reference);
   }
 
-  public String getAsString(
-      final FacesContext facesContext, final UIComponent component, final Object object) {
+  @Override
+  public String getAsString(final FacesContext facesContext, final UIComponent component, final Object object) {
     return object.toString();
   }
 

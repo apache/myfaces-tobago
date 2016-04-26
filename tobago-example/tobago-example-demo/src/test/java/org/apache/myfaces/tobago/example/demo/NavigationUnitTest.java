@@ -36,7 +36,7 @@ public class NavigationUnitTest extends AbstractTobagoTestBase {
       "/content/01/test.xhtml",
       "/content/00/00/test-4.xhtml",
       "/content/bad.jsp",
-      "/content/00_00_bad.gif"
+      "/content/00_00_bad.png"
   ));
 
   @Test

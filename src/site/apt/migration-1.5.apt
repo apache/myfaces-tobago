@@ -1,0 +1,218 @@
+ ~~ Licensed to the Apache Software Foundation (ASF) under one or more
+ ~~ contributor license agreements.  See the NOTICE file distributed with
+ ~~ this work for additional information regarding copyright ownership.
+ ~~ The ASF licenses this file to You under the Apache License, Version 2.0
+ ~~ (the "License"); you may not use this file except in compliance with
+ ~~ the License.  You may obtain a copy of the License at
+ ~~
+ ~~      http://www.apache.org/licenses/LICENSE-2.0
+ ~~
+ ~~ Unless required by applicable law or agreed to in writing, software
+ ~~ distributed under the License is distributed on an "AS IS" BASIS,
+ ~~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ ~~ See the License for the specific language governing permissions and
+ ~~ limitations under the License.
+
+ ------
+ Migration from Tobago 1.0 to 1.5
+ ------
+
+Migration from Tobago 1.0 to 1.5
+
+   Tobago 1.5 has a lot of changes compared to Tobago 1.0.
+
+   The good news: Most of these changes are made internally in Tobago.
+   If you use Tobago, you don't have to change too much.
+
+   The amount of things you have to change in your application depends
+   on how do you use it.
+   On the Tobago Tag Library are very few changes made.
+   On the Tobago Java Classes and the Themes are more changes.
+   Here you can see which changes has been made.
+
+Deprecated
+
+   There are also <<<@Deprecated>>> annotations in the code and some
+   logging warning when using deprecated code via the <<<Deprecation>>> logging category.
+   Before migrating you should check your application about that.
+
+   For the migration phase you may add the tobago-deprecation.jar as dependency to your project.
+   It contains classes that has been moved (e. g. to the new <<<internal>>> package) or removed.
+   So you can resolve any migration steps step by step.
+   It is not recommended to use the tobago-deprecation.jar for production.
+
+Internal
+
+   The new <<<internal>>> package contains classes that should not be used directly in an application.
+   This classes may change in minor revisions without announcement. Classes in the <<<renderkit>>>
+   package a handled in the same manner.
+
+Tag Library
+
+  The main changes in the tag library are
+
+*--+--+
+| <<deprecated>> | <<replacement>> |
+*--+--+
+| <<<tc:menuCheckbox>>> | <<<tx:menuCheckbox>>> |
+*--+--+
+| <<<tc:menuItem>>> | <<<tc:menuCommand>>> |
+*--+--+
+| <<<tc:message>>> | <<<tc:messages>>> |
+*--+--+
+
+   In <<<tc:sheet>>> the default for <<<rows>>> has been changed from 100 to 0, which means "unlimited".
+
+   For JSP and the <<<tx:>>> library all <<<id>>> attributes have to be renamed to <<<fieldId>>>.
+   This is to adjust the JSP library to the Facelet library.
+
+   The tree tag <<<tc:tree>>> has changed comprehensive. Please check the documentation and demo examples.
+
+   The <<<type>>> attribute of commands has been removed. It is no longer needed, when using
+   <<<action>>>, <<<onclick>>> or <<<link>>>.
+
+Layout Manager
+
+   On of the basic changes in Tobago 1.5 is the reimplementation of the layout manager.
+   The usage if it, has only been changed a bit. The most important is that
+   the constraints will be set with the <<<tc:gridLayoutConstraint>>> tag.
+   The <<<tc:cell>>> tag is deprecated now.
+   Spans can be set directly into the component with the <<<tc:gridLayoutConstraint>>> tag.
+
+   The keyword "fixed" has been renamed to "auto".
+
+UIComponent Classes
+  
+   Some of the UIComponent classes has been renamed or restructured,
+   to get a consistent naming schema. The used UIComponents where generated
+   and have super classes with an "Abstract" as prefix.
+   All getters and setters are generated in the UIComponent classes.
+   The following code will not work in 1.5 <<<uiComponent.getAttributes().remove("attributeName")>>>. Please set the value to null.
+
+   \ 
+
+*--+--+--+--+                                                                                                                                                                   
+|  | <<old name>> | <<new name>> 
+*--+--+--+--+
+| divided | org.apache.myfaces.tobago.component.UISelectOne | org.apache.myfaces.tobago.internal.component.AbstractUISelectOneBase
+*--+--+--+--+                                                                                                                                                                   
+|  |  |                                                                 
+*--+--+--+--+                                                                                                                                                                   
+| ... |  |                                                                  
+*--+--+--+--+                                                                                                                                                            
+
+Naming Container
+
+  UITab is now a naming container, so you may have to change ids of AJAX calls in your application.
+  
+Other API Classes
+
+*--+--+--+--+                                                                                                                                                                   
+|  | <<old name>> | <<new name>> 
+*--+--+--+--+
+| moved | org.apache.myfaces.tobago.OnComponentCreated | org.apache.myfaces.tobago.component.OnComponentCreated                                               
+*--+--+--+--+                                                                                                                                                                   
+| moved | org.apache.myfaces.tobago.component.ComponentUtil | org.apache.myfaces.tobago.util.ComponentUtils                                               
+*--+--+--+--+                                                                                                                                                                   
+| moved | org.apache.myfaces.tobago.renderkit.RenderUtil | org.apache.myfaces.tobago.renderkit.util.RenderUtils
+*--+--+--+--+
+| renamed | org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil | org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils
+*--+--+--+--+                                                                                                                                                                   
+|  |  |                                                                 
+*--+--+--+--+                                                                                                                                                                   
+| ... |  |                                                                  
+*--+--+--+--+                                                                                                                                                            
+
+Themes and CSS
+
+  Note: This effects your application only, when you've written your own theme, or using this classes in a
+  separate style file.
+
+  The basic changes in CSS are:
+
+  [[1]] Using CSS 2.1 compliant content box model instead of <Quirks mode> border box model.
+
+  [[1]] Changed HTML structure for some components.
+
+  The CSS class name schema has been revised. See the JavaDoc of the <<<Classes>>> class
+  to check the naming schema.
+
+*--+--+--+--+
+|  | <<old name>> | <<new name>>
+*--+--+--+--+
+| renamed | <<<tobago->>><tagName><<<-default>>> | <<<tobago->>><tagName> |
+*--+--+--+--+
+| renamed | <<<tobago->>><tagName><<<-error>>> | <<<tobago->>><tagName><<<-markup-error>>> | 
+*--+--+--+--+
+| renamed | <<<tobago->>><tagName><<<-required>>> | <<<tobago->>><tagName><<<-markup-required>>> |
+*--+--+--+--+
+| renamed | <<<tobago->>><tagName><<<-readonly>>> | <<<tobago->>><tagName><<<-markup-readonly>>> |
+*--+--+--+--+
+| renamed | <<<tobago->>><tagName><<<-disabled>>> | <<<tobago->>><tagName><<<-markup-disabled>>> |
+*--+--+--+--+
+| renamed | <<<tree-junction>>> | <<<tobago-treeNode-junction>>> |
+*--+--+--+--+
+| renamed | <<<tree->>>* | <<<tobago-treeNode->>>* |
+*--+--+--+--+
+| renamed | <<<tobago-input-picker>>> | <<<tobago-datePicker-icon>>> |
+*--+--+--+--+
+| renamed | <<<tobago-popup-iframe>>> | <<<tobago-popup-ie6bugfix>>> |
+*--+--+--+--+
+| renamed | <<<tobago-textArea->>>* | <<<tobago-textarea->>>* |
+*--+--+--+--+
+| renamed | <<<tobago-progress-color1->>>* | <<<tobago-progress-value->>>* |
+*--+--+--+--+
+| deleted | <<<tobago-progress-color2->>>* | |
+*--+--+--+--+
+
+JavaScript
+
+   The JavaScript API has been refactored. Most application do not use the Tobago JavaScript API directly.
+   But if it does, you have to apply some changes.
+
+   The most important things, is the additional first parameter
+   on the submitting functions to compute the position of the action element.
+
+   If you are using <<<submitAction()>>> in the old code, you have to add the action element or just <<<null>>>.
+   If you are using <<<submitAction2()>>> in the old code, you have to rename it to <<<submitAction()>>>.
+
+*--+--+--+--+
+| added first parameter and put all parameters after the second to an options map | <<<submitAction()>>> | |
+*--+--+--+--+
+| renamed | <<<submitAction2()>>> | <<<submitAction()>>> |
+*--+--+--+--+
+| added first parameter | <<<openPopupWithAction()>>> | |
+*--+--+--+--+
+| renamed | <<<openPopupWithAction2()>>> | <<<openPopupWithAction()>>> |
+*--+--+--+--+
+| added first parameter | <<<reloadComponent()>>> | |
+*--+--+--+--+
+| renamed | <<<reloadComponent2()>>> | <<<reloadComponent()>>> |
+*--+--+--+--+
+| added first parameter | <<<Updater.update()>>> | |
+*--+--+--+--+
+| renamed | <<<Updater.update2()>>> | <<<Updater.update()>>> |
+*--+--+--+--+
+| added first parameter | <<<Sheet.reloadWithAction()>>> | |
+*--+--+--+--+
+| renamed | <<<Sheet.reloadWithAction2()>>> | <<<Sheet.reloadWithAction()>>> |
+*--+--+--+--+
+| added first parameter | <<<TabGroup.reloadWithAction()>>> | |
+*--+--+--+--+
+| renamed | <<<TabGroup.reloadWithAction2()>>> | <<<TabGroup.reloadWithAction()>>> |
+*--+--+--+--+
+
+Configuration
+
+  To define an own theme, please use now a file tobago-config.xml instead of tobago-theme.xml.
+  The content of tobago-theme.xml is a subset of the tobago-config.xml, you have only to
+  change the root node.
+
+  Please use the tobago-config-1.5.xsd to validate the configuration.
+
+Own Components and Renderers
+
+  The renderers must now declared inside the <<<faces-config.xml>>>.
+
+  For the Tobago classes, this will be generated at compile time from annotations like in e. g.
+  <<<org.apache.myfaces.tobago.internal.taglib.component.BoxTagDeclaration>>>.

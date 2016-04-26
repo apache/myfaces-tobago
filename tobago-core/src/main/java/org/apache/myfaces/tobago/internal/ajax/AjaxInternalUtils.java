@@ -239,7 +239,6 @@ public final class AjaxInternalUtils {
   }
 
   private static void redirectInternal(final Writer writer, final String url) throws IOException {
-    writer.flush(); // is needed in some cases, e. g. TOBAGO-1094
     writer.write("{\n  \"tobagoAjaxResponse\": true,\n");
     writer.write("  \"responseCode\": 302,\n");
     writer.write("  \"location\": \"");
@@ -248,8 +247,7 @@ public final class AjaxInternalUtils {
     writer.flush();
   }
 
-  public static void requestNavigationReload(FacesContext facesContext, AjaxNavigationState navigationState)
-      throws IOException {
+  public static void requestNavigationReload(FacesContext facesContext) throws IOException {
     final ExternalContext externalContext = facesContext.getExternalContext();
     final String pathPrefix = externalContext.getRequestContextPath() + externalContext.getRequestServletPath();
     final HttpServletResponse response = (HttpServletResponse) externalContext.getResponse();
@@ -257,11 +255,11 @@ public final class AjaxInternalUtils {
     ResponseUtils.ensureContentTypeHeader(response, contentType);
     ResponseUtils.ensureNoCacheHeader(response);
     final Writer writer = response.getWriter();
-    writer.flush(); // is needed in some cases, e. g. TOBAGO-1094
     writer.write("{\n  \"tobagoAjaxResponse\": true,\n");
     writer.write("  \"responseCode\": " + AjaxResponseRenderer.CODE_RELOAD_REQUIRED + ",\n");
-    writer.write("  \"location\": \"" + pathPrefix + facesContext.getViewRoot().getViewId() + "?");
-    writer.write("navigationViewIdToken=" + navigationState.getSessionKey() + "\"\n}\n");
+    writer.write("  \"location\": \"");
+    writer.write(pathPrefix + facesContext.getViewRoot().getViewId());
+    writer.write("\"\n}\n");
     writer.flush();
     facesContext.responseComplete();
   }

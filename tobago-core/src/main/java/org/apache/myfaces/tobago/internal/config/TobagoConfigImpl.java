@@ -43,9 +43,12 @@ import java.util.Map;
 import java.util.Set;
 
 /**
+ * <p>
  * Implementation of the Tobago configuration.
- * <p/>
+ * </p>
+ * <p>
  * All setters must are protected, so EL can't modify this config.
+ * </p>
  */
 public class TobagoConfigImpl extends TobagoConfig {
 
@@ -56,7 +59,7 @@ public class TobagoConfigImpl extends TobagoConfig {
   private Theme defaultTheme;
   private String defaultThemeName;
   private List<String> resourceDirs;
-  private Map<String, Theme> availableThemes;
+  private Map<String, ThemeImpl> availableThemes;
   private RenderersConfig renderersConfig;
   private ProjectStage projectStage;
   private boolean createSessionSecret;
@@ -67,7 +70,6 @@ public class TobagoConfigImpl extends TobagoConfig {
   private Map<String, String> defaultValidatorInfo;
   private Sanitizer sanitizer;
   private boolean autoAccessKeyFromLabel;
-  private boolean classicDateTimePicker;
   private Map<String, String> mimeTypes;
 
   private boolean unmodifiable = false;
@@ -75,6 +77,7 @@ public class TobagoConfigImpl extends TobagoConfig {
   protected TobagoConfigImpl() {
     supportedThemeNames = new ArrayList<String>();
     supportedThemes = new ArrayList<Theme>();
+    availableThemes = new HashMap<String, ThemeImpl>();
     resourceDirs = new ArrayList<String>();
     createSessionSecret = true;
     checkSessionSecret = true;
@@ -82,7 +85,6 @@ public class TobagoConfigImpl extends TobagoConfig {
     setNosniffHeader = true;
     contentSecurityPolicy = new ContentSecurityPolicy(ContentSecurityPolicy.Mode.OFF.getValue());
     autoAccessKeyFromLabel = true;
-    classicDateTimePicker = false;
     mimeTypes = new HashMap<String, String>();
   }
 
@@ -121,6 +123,11 @@ public class TobagoConfigImpl extends TobagoConfig {
   // TODO one init method
   protected void resolveThemes() {
     checkLocked();
+
+    for (final Theme theme : availableThemes.values()) {
+      addResourceDir(theme.getResourcePath());
+    }
+
     if (defaultThemeName != null) {
       defaultTheme = availableThemes.get(defaultThemeName);
       checkThemeIsAvailable(defaultThemeName, defaultTheme);
@@ -130,7 +137,7 @@ public class TobagoConfigImpl extends TobagoConfig {
       }
     } else {
       int deep = 0;
-      for (final Map.Entry<String, Theme> entry : availableThemes.entrySet()) {
+      for (final Map.Entry<String, ThemeImpl> entry : availableThemes.entrySet()) {
         final Theme theme = entry.getValue();
         if (theme.getFallbackList().size() > deep) {
           defaultTheme = theme;
@@ -172,6 +179,7 @@ public class TobagoConfigImpl extends TobagoConfig {
     }
   }
 
+  @Override
   public Theme getTheme(final String name) {
     if (name == null) {
       LOG.debug("searching theme: null");
@@ -194,6 +202,7 @@ public class TobagoConfigImpl extends TobagoConfig {
     this.defaultThemeName = defaultThemeName;
   }
 
+  @Override
   public List<Theme> getSupportedThemes() {
     return supportedThemes;
   }
@@ -212,16 +221,18 @@ public class TobagoConfigImpl extends TobagoConfig {
     return resourceDirs;
   }
 
+  @Override
   public Theme getDefaultTheme() {
     return defaultTheme;
   }
 
-  protected void setAvailableThemes(final Map<String, Theme> availableThemes) {
+  protected void addAvailableTheme(ThemeImpl availableTheme) {
     checkLocked();
-    this.availableThemes = availableThemes;
-    for (final Theme theme : this.availableThemes.values()) {
-      addResourceDir(theme.getResourcePath());
-    }
+    availableThemes.put(availableTheme.getName(), availableTheme);
+  }
+
+  public Map<String, ThemeImpl> getAvailableThemes() {
+    return availableThemes;
   }
 
   protected RenderersConfig getRenderersConfig() {
@@ -233,6 +244,7 @@ public class TobagoConfigImpl extends TobagoConfig {
     this.renderersConfig = renderersConfig;
   }
 
+  @Override
   public ProjectStage getProjectStage() {
     return projectStage;
   }
@@ -294,12 +306,13 @@ public class TobagoConfigImpl extends TobagoConfig {
           defaultValidatorInfo = Collections.emptyMap();
         }
       } catch (final Exception e) {
-        LOG.error("Can't initialize default validators (this happens with some JBoss servers).");
+        LOG.error("Can't initialize default validators (this happens with JBoss GateIn 3.6.0).", e);
         defaultValidatorInfo = Collections.emptyMap();
       }
     }
   }
 
+  @Override
   public boolean isCreateSessionSecret() {
     return createSessionSecret;
   }
@@ -309,6 +322,7 @@ public class TobagoConfigImpl extends TobagoConfig {
     this.createSessionSecret = createSessionSecret;
   }
 
+  @Override
   public boolean isCheckSessionSecret() {
     return checkSessionSecret;
   }
@@ -319,6 +333,7 @@ public class TobagoConfigImpl extends TobagoConfig {
   }
 
 
+  @Override
   public boolean isPreventFrameAttacks() {
     return preventFrameAttacks;
   }
@@ -328,10 +343,12 @@ public class TobagoConfigImpl extends TobagoConfig {
     this.preventFrameAttacks = preventFrameAttacks;
   }
 
+  @Override
   public ContentSecurityPolicy getContentSecurityPolicy() {
     return contentSecurityPolicy;
   }
 
+  @Override
   public boolean isSetNosniffHeader() {
     return setNosniffHeader;
   }
@@ -349,6 +366,7 @@ public class TobagoConfigImpl extends TobagoConfig {
     return defaultValidatorInfo;
   }
 
+  @Override
   public Sanitizer getSanitizer() {
     return sanitizer;
   }
@@ -358,6 +376,7 @@ public class TobagoConfigImpl extends TobagoConfig {
     this.sanitizer = sanitizer;
   }
 
+  @Override
   public boolean isAutoAccessKeyFromLabel() {
     return autoAccessKeyFromLabel;
   }
@@ -372,13 +391,13 @@ public class TobagoConfigImpl extends TobagoConfig {
     return mimeTypes;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
+  @Deprecated
   public boolean isClassicDateTimePicker() {
-    return classicDateTimePicker;
-  }
-
-  public void setClassicDateTimePicker(boolean classicDateTimePicker) {
-    this.classicDateTimePicker = classicDateTimePicker;
+    return false;
   }
 
   @Override
@@ -391,7 +410,7 @@ public class TobagoConfigImpl extends TobagoConfig {
       builder.append(", ");
     }
     builder.append("], \ndefaultTheme=");
-    builder.append(defaultTheme.getName());
+    builder.append(defaultTheme != null ? defaultTheme.getName() : null);
     builder.append(", \nresourceDirs=");
     builder.append(resourceDirs);
     builder.append(", \navailableThemes=");
@@ -414,8 +433,6 @@ public class TobagoConfigImpl extends TobagoConfig {
     builder.append(sanitizer);
     builder.append(", \nautoAccessKeyFromLabel=");
     builder.append(autoAccessKeyFromLabel);
-    builder.append(", \n=classicDateTimePicker");
-    builder.append(classicDateTimePicker);
     // to see only different (ignore alternative names for the same theme)
     builder.append(", \nthemes=");
     final Set<Theme> all = new HashSet<Theme>(availableThemes.values());

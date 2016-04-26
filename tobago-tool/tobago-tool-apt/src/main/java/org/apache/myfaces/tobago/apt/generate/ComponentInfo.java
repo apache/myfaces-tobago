@@ -69,10 +69,12 @@ public class ComponentInfo extends TagInfo {
     return transientProperties;
   }
 
+  @Override
   public int getPropertiesSize() {
     return index;
   }
 
+  @Override
   public int getPropertiesSizePlusOne() {
     return index + 1;
   }

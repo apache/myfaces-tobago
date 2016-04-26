@@ -54,5 +54,6 @@
   <entry key="listDelete">Delete</entry>
   <entry key="listFirstName">First Name</entry>
   <entry key="listLastName">Last Name</entry>
+  <entry key="listBirthday">Day of Birth</entry>
   <entry key="listDeleteConfirmation">Do you want to delete the selected addresses?</entry>
 </properties>

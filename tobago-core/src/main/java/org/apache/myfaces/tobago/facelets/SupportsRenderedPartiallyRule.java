@@ -35,9 +35,11 @@ public class SupportsRenderedPartiallyRule extends MetaRule {
 
   public static final SupportsRenderedPartiallyRule INSTANCE = new SupportsRenderedPartiallyRule();
 
+  @Override
   public Metadata applyRule(final String name, final TagAttribute attribute, final MetadataTarget metadataTarget) {
     if (metadataTarget.isTargetInstanceOf(SupportsRenderedPartially.class)) {
-      if (Attributes.RENDERED_PARTIALLY.equals(name)) {
+      Attributes a = Attributes.valueOfFailsafe(name);
+      if (Attributes.renderedPartially == a) {
         return new SupportsRenderedPartiallyMapper(attribute);
       }
     }
@@ -52,13 +54,14 @@ public class SupportsRenderedPartiallyRule extends MetaRule {
       this.attribute = attribute;
     }
 
+    @Override
     public void applyMetadata(final FaceletContext ctx, final Object instance) {
       if (attribute.isLiteral()) {
         final String[] components = ComponentUtils.splitList(attribute.getValue());
         ((SupportsRenderedPartially) instance).setRenderedPartially(components);
       } else {
         final ValueExpression expression = attribute.getValueExpression(ctx, Object.class);
-        ((UIComponent) instance).setValueExpression(Attributes.RENDERED_PARTIALLY, expression);
+        ((UIComponent) instance).setValueExpression(Attributes.renderedPartially.getName(), expression);
       }
     }
   }

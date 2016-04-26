@@ -20,88 +20,59 @@
 package org.apache.myfaces.tobago.example.demo;
 
 import org.apache.myfaces.tobago.example.data.CategoryTree;
-import org.apache.myfaces.tobago.example.data.MixedCommandTree;
-import org.apache.myfaces.tobago.example.data.NamedNode;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
-import javax.faces.event.ActionEvent;
+import javax.enterprise.context.SessionScoped;
+import javax.inject.Named;
 import javax.swing.tree.DefaultMutableTreeNode;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.io.Serializable;
 
-public class TreeController {
+@SessionScoped
+@Named
+public class TreeController implements Serializable {
 
-  private static final Logger LOG = LoggerFactory.getLogger(TreeController.class);
-
-  private static final String STRONG = "strong";
-
-  private DefaultMutableTreeNode tree;
-
-  private NamedNode mixed;
+  private DefaultMutableTreeNode sample;
+  private boolean treeShowRoot = false;
+  private boolean treeShowRootJunction = false;
+  private boolean treeIndentRendered = true;
+  private boolean treeIndentShowJunction = true;
 
   public TreeController() {
-    // tree
-    tree = CategoryTree.createSample2();
-    mixed = MixedCommandTree.createSample();
+    sample = CategoryTree.createSample();
   }
 
-  public String action1() {
-    LOG.info("action 1");
-    return null;
+  public DefaultMutableTreeNode getSample() {
+    return sample;
   }
 
-  public String action2() {
-    LOG.info("action 2");
-    return null;
+  public boolean isTreeShowRoot() {
+    return treeShowRoot;
   }
 
-  public void actionListener(final ActionEvent event) {
-    LOG.info("actionListener");
+  public void setTreeShowRoot(boolean treeShowRoot) {
+    this.treeShowRoot = treeShowRoot;
   }
 
-  public String action3() {
-    LOG.info("action 3");
-    return null;
+  public boolean isTreeShowRootJunction() {
+    return treeShowRootJunction;
   }
 
-  public String createNode() {
-/*
-    DefaultMutableTreeNode marker = state.getMarker();
-    if (marker != null) {
-      marker.insert(new DefaultMutableTreeNode(new Node("New Node")), 0);
-    } else {
-      // todo: print a warning or use root?
-    }
-*/
-    return null;
+  public void setTreeShowRootJunction(boolean treeShowRootJunction) {
+    this.treeShowRootJunction = treeShowRootJunction;
   }
 
-  public String deleteNode() {
-/*
-    DefaultMutableTreeNode marker = state.getMarker();
-    if (marker != null) {
-      marker.removeFromParent();
-    } else {
-      // todo: print a warning or use root?
-    }
-*/
-    return null;
+  public boolean isTreeIndentRendered() {
+    return treeIndentRendered;
   }
 
-  public String getCurrentTime() {
-    return new SimpleDateFormat("hh:MM:ss").format(new Date());
+  public void setTreeIndentRendered(boolean treeIndentRendered) {
+    this.treeIndentRendered = treeIndentRendered;
   }
 
-  public DefaultMutableTreeNode getTree() {
-    return tree;
+  public boolean isTreeIndentShowJunction() {
+    return treeIndentShowJunction;
   }
 
-  public void setTree(final DefaultMutableTreeNode tree) {
-    this.tree = tree;
-  }
-
-  public NamedNode getMixed() {
-    return mixed;
+  public void setTreeIndentShowJunction(boolean treeIndentShowJunction) {
+    this.treeIndentShowJunction = treeIndentShowJunction;
   }
 }

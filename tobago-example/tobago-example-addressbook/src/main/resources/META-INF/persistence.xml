@@ -20,6 +20,12 @@
              xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd" version="1.0">
 
     <persistence-unit name="addressBook" transaction-type="RESOURCE_LOCAL">
+
+      <jta-data-source>addressBookDataSource</jta-data-source>
+<!--
+      <non-jta-data-source>addressBookDatabaseNotManaged</non-jta-data-source>
+-->
+
       <class>org.apache.myfaces.tobago.example.addressbook.Address</class>
       <class>org.apache.myfaces.tobago.example.addressbook.Picture</class>
 

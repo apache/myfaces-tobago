@@ -67,6 +67,7 @@ public class SeleniumScript {
       final DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
       final DocumentBuilder parser = factory.newDocumentBuilder();
       parser.setEntityResolver(new EntityResolver() {
+        @Override
         public InputSource resolveEntity(final String publicId, final String systemId)
             throws SAXException, IOException {
           // do not any resource resolving

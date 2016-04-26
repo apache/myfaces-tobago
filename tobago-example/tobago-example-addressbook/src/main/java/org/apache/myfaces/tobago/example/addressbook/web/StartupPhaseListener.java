@@ -37,10 +37,12 @@ public class StartupPhaseListener implements PhaseListener {
   public static final String LOGGED_IN = StartupPhaseListener.class.getName() + ".LOGGED_IN";
   public static final String PRINCIPAL = StartupPhaseListener.class.getName() + ".PRINCIPAL";
 
+  @Override
   public PhaseId getPhaseId() {
     return PhaseId.RESTORE_VIEW;
   }
 
+  @Override
   public void beforePhase(final PhaseEvent event) {
 
     final FacesContext facesContext = event.getFacesContext();
@@ -80,6 +82,7 @@ public class StartupPhaseListener implements PhaseListener {
     }
   }
 
+  @Override
   public void afterPhase(final PhaseEvent event) {
   }
 }

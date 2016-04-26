@@ -25,19 +25,4 @@
 
   <!-- TBD: the future of this lib -->
 
-  <tag>
-    <tag-name>crud</tag-name>
-    <source>crud.xml</source>
-  </tag>
-
-  <tag>
-    <tag-name>crud-master-navigation</tag-name>
-    <source>crud-master-navigation.xml</source>
-  </tag>
-
-  <tag>
-    <tag-name>crud-detail-navigation</tag-name>
-    <source>crud-detail-navigation.xml</source>
-  </tag>
-
 </facelet-taglib>

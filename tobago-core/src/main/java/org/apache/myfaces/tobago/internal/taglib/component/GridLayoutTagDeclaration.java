@@ -26,15 +26,11 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.internal.component.AbstractUIGridLayout;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasBinding;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasBorder;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasColumnLayout;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasCurrentMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasId;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasMargin;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasMargins;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasRowLayout;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasSpacing;
+import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
 
 /**
  * Renders a GridLayout.
@@ -46,8 +42,8 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasSpacing;
  * PIXEL        ::= NUMBER "px"
  * PROPORTIONAL ::= [NUMBER] "*"
  * </pre>
- * <p/>
  * <table border="1">
+ * <caption>GridLayout</caption>
  * <tr>
  * <th>Parent</th>
  * <th>Child</th>
@@ -64,7 +60,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasSpacing;
  * <td>AUTO</td>
  * <td>any combination with at least one PROPORTIONAL</td>
  * <td>wrong</td>
- * <td>LayoutManager cannot compute the auto value.</td>
+ * <td>Layout manager cannot compute the auto value.</td>
  * </tr>
  * <tr>
  * <td>PIXEL</td>
@@ -100,27 +96,9 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasSpacing;
     uiComponentFacesClass = "javax.faces.component.UIComponentBase",
     componentFamily = AbstractUIGridLayout.COMPONENT_FAMILY,
     rendererType = RendererTypes.GRID_LAYOUT,
-    allowedChildComponenents = "NONE", isLayout = true)
-public interface GridLayoutTagDeclaration extends HasId, HasBorder, HasSpacing, HasMargin,
-    HasMargins, HasColumnLayout, HasRowLayout, HasBinding, HasMarkup, HasCurrentMarkup {
-
-  /**
-   * This attribute is a hint for the layout manager. Should not be used in most cases.
-   *
-   * @param columnOverflow Does the component need a horizontal scrollbar?
-   */
-  @TagAttribute
-  @UIComponentTagAttribute(type = "boolean")
-  void setColumnOverflow(String columnOverflow);
-
-  /**
-   * This attribute is a hint for the layout manager. Should not be used in most cases.
-   *
-   * @param rowOverflow Does the component need a vertical scrollbar?
-   */
-  @TagAttribute
-  @UIComponentTagAttribute(type = "boolean")
-  void setRowOverflow(String rowOverflow);
+    allowedChildComponenents = "NONE")
+public interface GridLayoutTagDeclaration extends HasId, HasSpacing,
+    HasColumnLayout, HasRowLayout, HasBinding, IsVisual {
 
   /**
    * This attribute advises the layout manager, to not use space that comes from non rendered components.

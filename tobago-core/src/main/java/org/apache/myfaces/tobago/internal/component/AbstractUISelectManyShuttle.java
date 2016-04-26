@@ -19,7 +19,7 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
-public abstract class AbstractUISelectManyShuttle extends AbstractUISelectMany {
+public abstract class AbstractUISelectManyShuttle extends AbstractUISelectManyBase {
 
   public abstract String getSelectedLabel();
 

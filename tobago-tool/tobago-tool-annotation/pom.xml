@@ -20,30 +20,9 @@
   <parent>
     <groupId>org.apache.myfaces.tobago</groupId>
     <artifactId>tobago-tool</artifactId>
-    <version>2.0.10-SNAPSHOT</version>
+    <version>3.0.0-beta-1-SNAPSHOT</version>
   </parent>
   <artifactId>tobago-tool-annotation</artifactId>
   <packaging>jar</packaging>
   <name>Tobago Tool Annotation</name>
-
-  <profiles>
-    <!-- Apples JDK (until 1.6) has not a tools.jar -->
-    <profile>
-      <id>tools.jar</id>
-      <activation>
-        <os><family>!mac</family></os>
-        <jdk>1.7</jdk>
-      </activation>
-      <dependencies>
-        <dependency>
-          <groupId>sun.jdk</groupId>
-          <artifactId>tools</artifactId>
-          <version>1.5.0</version>
-          <scope>system</scope>
-          <systemPath>${java.home}/../lib/tools.jar</systemPath>
-        </dependency>
-      </dependencies>
-    </profile>
-
-  </profiles>
 </project>

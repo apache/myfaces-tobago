@@ -20,26 +20,53 @@
 package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
 import org.apache.myfaces.tobago.component.UIStyle;
+import org.apache.myfaces.tobago.component.Visual;
 import org.apache.myfaces.tobago.internal.util.FacesContextUtils;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
+import org.apache.myfaces.tobago.renderkit.css.CustomClass;
+import org.apache.myfaces.tobago.renderkit.css.Style;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
-import java.io.IOException;
+import javax.faces.event.ComponentSystemEvent;
+import javax.faces.event.ComponentSystemEventListener;
+import javax.faces.event.ListenerFor;
+import javax.faces.event.PostAddToViewEvent;
 
+@ListenerFor(systemEventClass = PostAddToViewEvent.class)
+public class StyleRenderer extends RendererBase implements ComponentSystemEventListener {
 
-public class StyleRenderer extends RendererBase {
+  private static final Logger LOG = LoggerFactory.getLogger(StyleRenderer.class);
 
-  public void prepareRender(final FacesContext facesContext, final UIComponent component) throws IOException {
-    super.prepareRender(facesContext, component);
-    final UIStyle styleComponent = (UIStyle) component;
+  @Override
+  public void processEvent(ComponentSystemEvent event) {
+    final FacesContext facesContext = FacesContext.getCurrentInstance();
+    final UIStyle styleComponent = (UIStyle) event.getComponent();
     final String file = styleComponent.getFile();
     if (file != null) {
       FacesContextUtils.addStyleFile(facesContext, file);
     }
-    final String style = styleComponent.getStyle();
-    if (style != null) {
-      FacesContextUtils.addStyleBlock(facesContext, style);
+
+    final Style style = new Style(styleComponent);
+    if (!style.isEmpty()) {
+      final UIComponent parent = styleComponent.getParent();
+      if (parent instanceof Visual) {
+        ((Visual) parent).setStyle(style);
+      } else {
+        LOG.warn("The parent of a style component doesn't support style: " + parent.getClientId(facesContext));
+      }
+    }
+
+    final CustomClass customClass = styleComponent.getCustomClass();
+    if (customClass != null) {
+      final UIComponent parent = styleComponent.getParent();
+      if (parent instanceof Visual) {
+        ((Visual) parent).setCustomClass(customClass);
+      } else {
+        LOG.warn("The parent of a style component doesn't support style: " + parent.getClientId(facesContext));
+      }
     }
   }
 }

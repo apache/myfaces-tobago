@@ -29,9 +29,11 @@ public class ClientConfigPhaseListener implements PhaseListener {
   public static final String[] BEAN_NAMES
       = {"clientConfigController", "clientConfigController2"};
 
+  @Override
   public void afterPhase(final PhaseEvent event) {
   }
 
+  @Override
   public void beforePhase(final PhaseEvent event) {
     final FacesContext facesContext = FacesContext.getCurrentInstance();
     for (int i = 0; i < BEAN_NAMES.length; i++) {
@@ -45,6 +47,7 @@ public class ClientConfigPhaseListener implements PhaseListener {
     }
   }
 
+  @Override
   public PhaseId getPhaseId() {
     return PhaseId.RENDER_RESPONSE;
   }

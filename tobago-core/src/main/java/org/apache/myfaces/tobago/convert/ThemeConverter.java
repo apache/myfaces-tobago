@@ -36,6 +36,7 @@ public class ThemeConverter implements Converter {
 
   public static final String CONVERTER_ID = "org.apache.myfaces.tobago.Theme";
 
+  @Override
   public String getAsString(
       final FacesContext facesContext, final UIComponent component, final Object object)
       throws ConverterException {
@@ -46,6 +47,7 @@ public class ThemeConverter implements Converter {
     }
   }
 
+  @Override
   public Object getAsObject(
       final FacesContext facesContext, final UIComponent component, final String string)
       throws ConverterException {

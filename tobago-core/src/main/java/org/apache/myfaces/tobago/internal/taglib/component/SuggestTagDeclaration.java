@@ -25,9 +25,7 @@ import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.component.RendererTypes;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasCurrentMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
 import org.apache.myfaces.tobago.model.SuggestFilter;
 
 import javax.faces.component.UIInput;
@@ -53,19 +51,18 @@ import javax.faces.component.UIInput;
     uiComponentFacesClass = "javax.faces.component.UIComponentBase",
     componentFamily = UIInput.COMPONENT_FAMILY,
     rendererType = RendererTypes.SUGGEST,
-    isTransparentForLayout = true,
     allowedChildComponenents = "NONE")
-public interface SuggestTagDeclaration extends HasIdBindingAndRendered, HasMarkup, HasCurrentMarkup {
+public interface SuggestTagDeclaration extends HasIdBindingAndRendered {
 
   /**
    * MethodBinding which generates a list of suggested input values based on
    * the currently entered text, which could be retrieved via getSubmittedValue() on the UIIn.
    * The expression has to evaluate to a public method which has a javax.faces.component.UIInput parameter
-   * and returns a List&lt;String>, a List&lt;org.apache.myfaces.tobago.model.AutoSuggestItem>
+   * and returns a List&lt;String&gt;, a List&lt;org.apache.myfaces.tobago.model.AutoSuggestItem&gt;
    * or a org.apache.myfaces.tobago.model.AutoSuggestItems.
    *
-   * @deprecated Please use an <code>&lt;tc:selectItems></code> tag or a list of <code>&lt;tc:selectItem></code> tags
-   * (TODO: not implemented yet).
+   * @deprecated Please use an <code>&lt;tc:selectItems&gt;</code> tag or a list of <code>&lt;tc:selectItem&gt;</code>
+   * tags (TODO: not implemented yet).
    */
   @Deprecated
   @TagAttribute
@@ -110,12 +107,14 @@ public interface SuggestTagDeclaration extends HasIdBindingAndRendered, HasMarku
 
   /**
    * TODO: not implemented yet
-   * <p/>
+   * <p>
    * Additional client side filtering of the result list.
    * This is useful when sending the full list initially to the client and
    * setting <code>update=false</code>.
-   * <p/>
+   * </p>
+   * <p>
    * Possible values are:
+   * </p>
    * <dl>
    *   <dt>all</dt>
    *   <dd>no filtering</dd>
@@ -124,9 +123,10 @@ public interface SuggestTagDeclaration extends HasIdBindingAndRendered, HasMarku
    *   <dt>contains</dt>
    *   <dd>checks if the typed text is inside of the suggested string</dd>
    * </dl>
-   * <p/>
+   * <p>
    * The filter will only applied on the client side and
    * only if server updated (by AJAX) are turned off (<code>update=false</code>);
+   * </p>
    */
   @TagAttribute
   @UIComponentTagAttribute(
@@ -140,9 +140,10 @@ public interface SuggestTagDeclaration extends HasIdBindingAndRendered, HasMarku
 
   /**
    * TODO: not implemented yet
-   * <p/>
+   * <p>
    * Should the list be updated while typing (via AJAX). This is the default behaviour.
-   * If you set this value to <code>false</code>, please set the <code>minimumCharacters="0"</pre>.
+   * If you set this value to <code>false</code>, please set the <code>minimumCharacters="0"</code>.
+   * </p>
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "boolean", defaultValue = "true")

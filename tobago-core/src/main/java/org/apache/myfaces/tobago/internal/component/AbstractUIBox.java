@@ -48,8 +48,4 @@ public abstract class AbstractUIBox extends AbstractUIPanel {
 
   public abstract boolean isCollapsed();
 
-  @Override
-  public boolean isLayoutChildren() {
-    return isRendered() && !isCollapsed();
-  }
 }

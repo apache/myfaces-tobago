@@ -19,25 +19,28 @@
 
 package org.apache.myfaces.tobago.facelets.extension;
 
-import javax.faces.view.facelets.ComponentConfig;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.component.UISelectOneListbox;
 
+import javax.faces.view.facelets.ComponentConfig;
+
+/**
+ * @deprecated since Tobago 3.0. The tx-library is deprecated, please use the tc-library.
+ */
+@Deprecated
 public class SelectOneListboxExtensionHandler extends TobagoLabelExtensionHandler {
 
   public SelectOneListboxExtensionHandler(final ComponentConfig config) {
     super(config);
   }
 
+  @Override
   protected String getSubComponentType() {
     return UISelectOneListbox.COMPONENT_TYPE;
   }
 
+  @Override
   protected String getSubRendererType() {
     return RendererTypes.SELECT_ONE_LISTBOX;
-  }
-
-  protected String getRows() {
-    return "1*";
   }
 }

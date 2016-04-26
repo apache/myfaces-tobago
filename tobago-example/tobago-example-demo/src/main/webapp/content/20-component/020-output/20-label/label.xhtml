@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+-->
+
+<ui:composition template="/main.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:tc="http://myfaces.apache.org/tobago/component"
+                xmlns:ui="http://java.sun.com/jsf/facelets">
+  <ui:param name="title" value="#{overviewBundle.label} &lt;tc:label&gt;"/>
+  <p>With <code class="language-markup">&lt;tc:label/></code>, a single label can be created.
+    Some components already have a <code>label</code> attribute to combine it with a label,
+    which should be used in general.</p>
+  <tc:link label="Tag Library Documentation" image="image/feather-leaf.png" link="#{overviewBundle.tagDocUrl}/label.html"/>
+  <tc:section label="Basics">
+    <pre><code class="language-markup">&lt;tc:label value="Single Label"/&gt;</code></pre>
+    <tc:label id="l1" value="Single Label"/>
+  </tc:section>
+
+  <tc:section label="Input Field">
+    <p>With <code class="language-markup">&lt;tc:flexLayout columns="250px;*;200px"></code> a label is set
+      in front and after an inputfield. The <code>label</code> attribute is not used for
+      <code class="language-markup">&lt;tc:in/></code>.</p>
+    <tc:flexLayout columns="250px;*;200px">
+      <tc:label id="l2" value="Label in front of inputfield"/>
+      <tc:in id="i1" placeholder="Inputfield"/>
+      <tc:label id="l3" value="Label after inputfield"/>
+    </tc:flexLayout>
+  </tc:section>
+
+  <tc:section label="Automatic Label">
+    See <tc:link label="Labeled Layout" link="../../../30-concept/16-layout/00/labeled-layout.xhtml"/>
+  </tc:section>
+
+  <tc:section label="Progress Bar">
+    <p>Some components like <code class="language-markup">&lt;tc:progress/></code> do not have a <code>label</code>
+      attribute. In this example, a label is combined with a progressbar using
+      <code class="language-markup">&lt;tc:flowLayout/></code>.</p>
+    <tc:flowLayout>
+      <tc:label id="l4" value="Progress:"/>
+      <tc:progress value="0.4" max="1"/>
+    </tc:flowLayout>
+  </tc:section>
+</ui:composition>

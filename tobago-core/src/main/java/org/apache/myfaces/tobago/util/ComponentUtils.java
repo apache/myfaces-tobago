@@ -22,9 +22,6 @@ package org.apache.myfaces.tobago.util;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Facets;
-import org.apache.myfaces.tobago.component.RendererTypes;
-import org.apache.myfaces.tobago.component.SupportsMarkup;
-import org.apache.myfaces.tobago.component.UISheet;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.context.TransientStateHolder;
 import org.apache.myfaces.tobago.event.AbstractPopupActionListener;
@@ -32,27 +29,20 @@ import org.apache.myfaces.tobago.internal.component.AbstractUIForm;
 import org.apache.myfaces.tobago.internal.component.AbstractUIInput;
 import org.apache.myfaces.tobago.internal.component.AbstractUIPage;
 import org.apache.myfaces.tobago.internal.component.AbstractUIPopup;
-import org.apache.myfaces.tobago.internal.util.ArrayUtils;
-import org.apache.myfaces.tobago.internal.util.Deprecation;
-import org.apache.myfaces.tobago.internal.util.ObjectUtils;
+import org.apache.myfaces.tobago.internal.component.AbstractUISheet;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
+import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.faces.FactoryFinder;
-import javax.faces.application.Application;
 import javax.faces.application.FacesMessage;
-import javax.faces.component.ActionSource;
-import javax.faces.component.ContextCallback;
-import javax.faces.component.EditableValueHolder;
 import javax.faces.component.NamingContainer;
 import javax.faces.component.UICommand;
 import javax.faces.component.UIComponent;
-import javax.faces.component.UIGraphic;
 import javax.faces.component.UIInput;
 import javax.faces.component.UINamingContainer;
-import javax.faces.component.UIOutput;
 import javax.faces.component.UIParameter;
 import javax.faces.component.UISelectMany;
 import javax.faces.component.UIViewRoot;
@@ -63,12 +53,10 @@ import javax.faces.el.ValueBinding;
 import javax.faces.event.ActionEvent;
 import javax.faces.event.ActionListener;
 import javax.faces.event.ValueChangeEvent;
-import javax.faces.model.SelectItem;
 import javax.faces.render.RenderKit;
 import javax.faces.render.RenderKitFactory;
 import javax.faces.render.Renderer;
 import javax.faces.view.facelets.FaceletContext;
-import javax.servlet.jsp.JspException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -281,9 +269,9 @@ public final class ComponentUtils {
    * Searches the component tree beneath the component and return the first component matching the type.
    */
   public static <T extends UIComponent> T findFacetDescendant(
-      final UIComponent component, final String facet, final Class<T> type) {
+      final UIComponent component, final Facets facet, final Class<T> type) {
 
-    final UIComponent facetComponent = component.getFacet(facet);
+    final UIComponent facetComponent = component.getFacet(facet.name());
     if (facetComponent != null) {
       if (type.isAssignableFrom(facetComponent.getClass())) {
         return (T) facetComponent;
@@ -347,7 +335,7 @@ public final class ComponentUtils {
   }
 
   public static UIComponent findFor(final UIComponent component) {
-    final String forValue = (String) component.getAttributes().get(Attributes.FOR);
+    final String forValue = getStringAttribute(component, Attributes.forValue);
     if (forValue == null) {
       return component.getParent();
     }
@@ -357,33 +345,11 @@ public final class ComponentUtils {
   /**
    * Looks for the attribute "for" of the component.
    * In case that the value is equals to "@auto" the children of the parent will be
-   * checked if they are a UIInput. The "id" of the first one will be used to reset the "for"
-   * attribute of the component.
-   * @deprecated
-   */
-  @Deprecated
-  public static void evaluateAutoFor(final UIComponent component) {
-    final String forComponent = (String) component.getAttributes().get(Attributes.FOR);
-    if (LOG.isDebugEnabled()) {
-      LOG.debug("for = '" + forComponent + "'");
-    }
-    if ("@auto".equals(forComponent)) {
-      for (final UIComponent child : component.getParent().getChildren()) {
-        if (setForToInput(component, child, AbstractUIInput.class, false)) {
-          break;
-        }
-      }
-    }
-  }
-
-  /**
-   * Looks for the attribute "for" of the component.
-   * In case that the value is equals to "@auto" the children of the parent will be
    * checked if they are of the type of the parameter clazz. The "id" of the first one will be used to reset the "for"
    * attribute of the component.
    */
   public static void evaluateAutoFor(final UIComponent component, final Class<? extends UIComponent> clazz) {
-    final String forComponent = (String) component.getAttributes().get(Attributes.FOR);
+    final String forComponent = getStringAttribute(component, Attributes.forValue);
     if (LOG.isDebugEnabled()) {
       LOG.debug("for = '" + forComponent + "'");
     }
@@ -413,7 +379,7 @@ public final class ComponentUtils {
       } else {
         forComponent = child.getId();
       }
-      component.getAttributes().put(Attributes.FOR, forComponent);
+      ComponentUtils.setAttribute(component, Attributes.forValue, forComponent);
       return true;
     }
     return false;
@@ -460,8 +426,8 @@ public final class ComponentUtils {
   }
 
   public static boolean isOutputOnly(final UIComponent component) {
-    return getBooleanAttribute(component, Attributes.DISABLED)
-        || getBooleanAttribute(component, Attributes.READONLY);
+    return getBooleanAttribute(component, Attributes.disabled)
+        || getBooleanAttribute(component, Attributes.readonly);
   }
 
   public static boolean mayValidate(final UIComponent component) {
@@ -473,79 +439,43 @@ public final class ComponentUtils {
     return mayValidate(component);
   }
 
-  public static boolean getBooleanAttribute(final UIComponent component, final String name) {
+  public static Object getAttribute(final UIComponent component, final Attributes name) {
+    return component.getAttributes().get(name.getName());
+  }
 
-    Object bool = component.getAttributes().get(name);
+  public static boolean getBooleanAttribute(final UIComponent component, final Attributes name) {
+    return getBooleanAttribute(component, name, false);
+  }
+
+  public static boolean getBooleanAttribute(
+      final UIComponent component, final Attributes name, final boolean defaultValue) {
+
+    Object bool = component.getAttributes().get(name.getName());
     if (bool == null) {
-      return false;
-    }
-    if (bool instanceof ValueBinding) {
-      bool = ((ValueBinding) bool).getValue(FacesContext.getCurrentInstance());
-    }
-    if (bool instanceof Boolean) {
+      return defaultValue;
+    } else if (bool instanceof Boolean) {
       return (Boolean) bool;
-    } else if (bool instanceof String) {
-      LOG.warn("Searching for a boolean, but find a String. Should not happen. "
-          + "attribute: '" + name + "' id: '" + component.getClientId(FacesContext.getCurrentInstance())
-          + "' comp: '" + component + "'");
-      return Boolean.valueOf((String) bool);
     } else {
-      LOG.warn("Unknown type '" + bool.getClass().getName()
-          + "' for boolean attribute: " + name + " id: " + component.getClientId(FacesContext.getCurrentInstance())
-          + " comp: " + component);
-      return false;
+      return Boolean.valueOf(bool.toString());
     }
   }
 
-  /**
-   * @deprecated since 2.0.0
-   */
-  @Deprecated
-  public static ValueBinding createValueBinding(final String value) {
-    return FacesContext.getCurrentInstance().getApplication().createValueBinding(value);
+  public static String getStringAttribute(final UIComponent component, final Attributes name) {
+    return getStringAttribute(component, name, null);
   }
 
-  /**
-   * @deprecated since 1.5.0
-   * Please define a {@link Markup} and set it to the component with
-   * {@link SupportsMarkup#setMarkup(Markup markup)} before the rendering phase.
-   */
-  @Deprecated
-  public static void setStyleClasses(final UIComponent component, final String styleClasses) {
-    Deprecation.LOG.warn("style class " + styleClasses);
+  public static String getStringAttribute(
+      final UIComponent component, final Attributes name, final String defaultValue) {
+    final String result = (String) getAttribute(component, name);
+    return result != null ? result : defaultValue;
   }
 
-  /**
-   * @deprecated since 1.5.0
-   */
-  @Deprecated
-  public static void setMarkup(final UIComponent markupComponent, final String markup) {
-    Deprecation.LOG.error("markup=" + markup);
-  }
-
-  public static Object getAttribute(final UIComponent component, final String name) {
-    Object value = component.getAttributes().get(name);
-    if (value instanceof ValueBinding) {
-      value = ((ValueBinding) value).getValue(FacesContext.getCurrentInstance());
-    }
-    return value;
-  }
-
-  public static Object getObjectAttribute(final UIComponent component, final String name) {
-    return getAttribute(component, name);
-  }
-
-  public static String getStringAttribute(final UIComponent component, final String name) {
-    return (String) getAttribute(component, name);
-  }
-
-  public static int getIntAttribute(final UIComponent component, final String name) {
+  public static int getIntAttribute(final UIComponent component, final Attributes name) {
     return getIntAttribute(component, name, 0);
   }
 
-  public static int getIntAttribute(final UIComponent component, final String name,
-      final int defaultValue) {
-    final Object integer = component.getAttributes().get(name);
+  public static int getIntAttribute(final UIComponent component, final Attributes name, final int defaultValue) {
+    final Object integer = component.getAttributes().get(name.getName());
     if (integer instanceof Number) {
       return ((Number) integer).intValue();
     } else if (integer instanceof String) {
@@ -564,8 +494,8 @@ public final class ComponentUtils {
     }
   }
 
-  public static Character getCharacterAttribute(final UIComponent component, final String name) {
-    final Object character = component.getAttributes().get(name);
+  public static Character getCharacterAttribute(final UIComponent component, final Attributes name) {
+    final Object character = getAttribute(component, name);
     if (character == null) {
       return null;
     } else if (character instanceof Character) {
@@ -578,6 +508,22 @@ public final class ComponentUtils {
           + "' for integer attribute: " + name + " comp: " + component);
       return null;
     }
+  }
+
+  public static void setAttribute(final UIComponent component, final Attributes name, final Object value) {
+    component.getAttributes().put(name.getName(), value);
+  }
+
+  public static void removeAttribute(final UIComponent component, final Attributes name) {
+    component.getAttributes().remove(name.getName());
+  }
+
+  public static UIComponent getFacet(final UIComponent component, final Facets facet) {
+    return component.getFacet(facet.name());
+  }
+
+  public static void setFacet(final UIComponent component, final Facets facet, final UIComponent child) {
+    component.getFacets().put(facet.name(), child);
   }
 
   public static boolean isFacetOf(final UIComponent component, final UIComponent parent) {
@@ -600,7 +546,7 @@ public final class ComponentUtils {
       return null;
     }
 
-    final Map<String, Object> requestMap = (Map<String, Object>) facesContext.getExternalContext().getRequestMap();
+    final Map<String, Object> requestMap = facesContext.getExternalContext().getRequestMap();
     final StringBuilder key = new StringBuilder(RENDER_KEY_PREFIX);
     key.append(rendererType);
     RendererBase renderer = (RendererBase) requestMap.get(key.toString());
@@ -643,267 +589,9 @@ public final class ComponentUtils {
   }
 
   /**
-   * @deprecated since 2.0.0
-   */
-  @Deprecated
-  public static ActionListener createActionListener(final String type)
-      throws JspException {
-    try {
-      ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-      if (classLoader == null) {
-        classLoader = type.getClass().getClassLoader();
-      }
-      final Class clazz = classLoader.loadClass(type);
-      return (ActionListener) clazz.newInstance();
-    } catch (final Exception e) {
-      if (LOG.isDebugEnabled()) {
-        LOG.debug("type=" + type, e);
-      }
-      throw new JspException(e);
-    }
-  }
-
-  /**
-   * @deprecated since 2.0.0
-   */
-  @Deprecated
-  public static UIGraphic getFirstGraphicChild(final UIComponent component) {
-    UIGraphic graphic = null;
-    for (final UIComponent child : component.getChildren()) {
-      if (child instanceof UIGraphic) {
-        graphic = (UIGraphic) child;
-        break;
-      }
-    }
-    return graphic;
-  }
-
-  /**
-   * @deprecated since 2.0.0
-   */
-  @Deprecated
-  public static boolean isHoverEnabled(final UIComponent component) {
-    return ComponentUtils.getBooleanAttribute(component, Attributes.HOVER);
-  }
-
-  /**
-   * @deprecated since 2.0.0
-   */
-  @Deprecated
-  public static UIOutput getFirstNonGraphicChild(final UIComponent component) {
-    for (final UIComponent child : component.getChildren()) {
-      if (child instanceof UIOutput) {
-        return (UIOutput) child;
-      }
-    }
-    return null;
-  }
-
-  /**
-   * @deprecated since 1.5.0
-   */
-  @Deprecated
-  public static void setIntegerSizeProperty(final UIComponent component, final String name, final String value) {
-    Deprecation.LOG.error("name=" + name + " value=" + value);
-  }
-
-  /**
-   * @deprecated since 2.0.0
-   */
-  @Deprecated
-  public static String removePx(String value) {
-    if (value != null && value.endsWith("px")) {
-      value = value.substring(0, value.length() - 2);
-    }
-    return value;
-  }
-
-  /**
-   * @deprecated since 2.0.0
-   */
-  @Deprecated
-  public static void setValueForValueBinding(final String name, final Object value) {
-    final FacesContext context = FacesContext.getCurrentInstance();
-    final ValueBinding valueBinding = context.getApplication().createValueBinding(name);
-    valueBinding.setValue(context, value);
-  }
-
-  /**
-   * @deprecated Since Tobago 2.0
-   */
-  @Deprecated
-  public static boolean hasSelectedValue(final List<SelectItem> items, final Object value) {
-    for (final SelectItem item : items) {
-      if (ObjectUtils.equals(item.getValue(), value)) {
-        return true;
-      }
-    }
-    return false;
-  }
-
-  /**
-   * @deprecated since 2.0.0
-   */
-  @Deprecated
-  public static int getIntValue(final ValueBinding valueBinding) {
-    return getAsInt(valueBinding.getValue(FacesContext.getCurrentInstance()));
-  }
-
-  /**
-   * @deprecated since 2.0.0
-   */
-  @Deprecated
-  private static int getAsInt(final Object value) {
-    final int result;
-    if (value instanceof Number) {
-      result = ((Number) value).intValue();
-    } else if (value instanceof String) {
-      result = Integer.parseInt((String) value);
-    } else {
-      throw new IllegalArgumentException("Can't convert " + value + " to int!");
-    }
-    return result;
-  }
-
-  /**
-   * @deprecated since 2.0.0
-   */
-  @Deprecated
-  public static String createPickerId(
-      final FacesContext facesContext, final UIComponent component, final String postfix) {
-    //String id = component.getId();
-    final String id = getComponentId(facesContext, component);
-    return id + "_picker" + postfix;
-  }
-
-  /**
-   * @deprecated since 2.0.0
-   */
-  @Deprecated
-  public static String getComponentId(final FacesContext facesContext, final UIComponent component) {
-    final String id = component.getId();
-    //if (id == null) {
-    // XXX What is this?
-    //  id = component.getClientId(facesContext).substring(id.lastIndexOf('_'));
-    //}
-    return id;
-  }
-
-  /**
-   * Checks if the Component has a label facet and if not creates one with the label attribute.
-   * @deprecated since 2.0.0
-   */
-  @Deprecated
-  public static UIComponent provideLabel(final FacesContext facesContext, final UIComponent component) {
-    UIComponent label = component.getFacet(Facets.LABEL);
-
-    if (label == null) {
-      final Map attributes = component.getAttributes();
-      Object labelText = component.getValueBinding(Attributes.LABEL);
-      if (labelText == null) {
-        labelText = attributes.get(Attributes.LABEL);
-      }
-
-      if (labelText != null) {
-        final Application application = FacesContext.getCurrentInstance().getApplication();
-        label = application.createComponent(UIOutput.COMPONENT_TYPE);
-        label.setRendererType(RendererTypes.LABEL);
-        final String idprefix = ComponentUtils.getComponentId(facesContext, component);
-        label.setId(idprefix + "_" + Facets.LABEL);
-        label.setRendered(true);
-
-        if (labelText instanceof ValueBinding) {
-          label.setValueBinding(Attributes.VALUE, (ValueBinding) labelText);
-        } else {
-          label.getAttributes().put(Attributes.VALUE, labelText);
-        }
-
-        component.getFacets().put(Facets.LABEL, label);
-      }
-    }
-    return label;
-  }
-
-  /**
-   * @deprecated since 1.5.0
-   */
-  @Deprecated
-  public static void setValidator(final EditableValueHolder editableValueHolder, final String validator) {
-    Deprecation.LOG.error("validator=" + validator);
-  }
-
-  /**
-   * @deprecated since 1.5.0
-   */
-  @Deprecated
-  public static void setConverter(final ValueHolder valueHolder, final String converterId) {
-    Deprecation.LOG.error("converterId=" + converterId);
-  }
-
-  /**
-   * @deprecated since 1.5.0
-   */
-  @Deprecated
-  public static void setAction(final ActionSource component, final String action) {
-    Deprecation.LOG.error("action=" + action);
-  }
-
-  /**
-   * @deprecated since 1.5.0
-   */
-  @Deprecated
-  public static void setActionListener(final ActionSource command, final String actionListener) {
-    Deprecation.LOG.error("actionListener=" + actionListener);
-  }
-
-  /**
-   * @deprecated since 1.5.0
-   */
-  @Deprecated
-  public static void setValueChangeListener(final EditableValueHolder valueHolder, final String valueChangeListener) {
-    Deprecation.LOG.error("valueChangeListener=" + valueChangeListener);
-  }
-
-  /**
-   * @deprecated since 1.5.0
-   */
-  @Deprecated
-  public static void setValueBinding(final UIComponent component, final String name, final String state) {
-    Deprecation.LOG.error("name=" + name + " state=" + state);
-  }
-
-  /**
-   * @deprecated since 1.5
-   */
-  @Deprecated
-  public static String[] getMarkupBinding(final FacesContext facesContext, final SupportsMarkup component) {
-    final ValueBinding vb = ((UIComponent) component).getValueBinding(Attributes.MARKUP);
-    if (vb != null) {
-      final Object markups = vb.getValue(facesContext);
-      if (markups instanceof String[]) {
-        return (String[]) markups;
-      } else if (markups instanceof String) {
-        final String[] strings = StringUtils.split((String) markups, ", ");
-        final List<String> result = new ArrayList<String>(strings.length);
-        for (final String string : strings) {
-          if (string.trim().length() != 0) {
-            result.add(string.trim());
-          }
-        }
-        return result.toArray(new String[result.size()]);
-      } else if (markups == null) {
-        return ArrayUtils.EMPTY_STRING_ARRAY;
-      } else {
-        return new String[]{markups.toString()};
-      }
-    }
-
-    return ArrayUtils.EMPTY_STRING_ARRAY;
-  }
-
-  /**
    * <p>
    * The search depends on the number of prefixed colons in the relativeId:
+   * </p>
    * <dl>
    *   <dd>number of prefixed colons == 0</dd>
    *   <dt>fully relative</dt>
@@ -913,10 +601,9 @@ public final class ComponentUtils {
    *   <dt>search in the current naming container (same as 0 colons)</dt>
    *   <dd>number of prefixed colons == 3</dd>
    *   <dt>search in the parent naming container of the current naming container</dt>
-   *   <dd>number of prefixed colons > 3</dd>
+   *   <dd>number of prefixed colons &gt; 3</dd>
    *   <dt>go to the next parent naming container for each additional colon</dt>
    * </dl>
-   * </p>
    * <p>
    * If a literal is specified: to use more than one identifier the identifiers must be space delimited.
    * </p>
@@ -961,7 +648,7 @@ public final class ComponentUtils {
   /**
    * Resolves the real clientIds.
    */
-  public static String[] evaluateClientIds(
+  public static String evaluateClientIds(
       final FacesContext context, final UIComponent component, final String[] componentIds) {
     final List<String> result = new ArrayList<String>(componentIds.length);
     for (final String id : componentIds) {
@@ -972,7 +659,11 @@ public final class ComponentUtils {
         }
       }
     }
-    return (String[]) result.toArray(new String[result.size()]);
+    if (result.isEmpty()) {
+      return null;
+    } else {
+      return StringUtils.join(result, ' ');
+    }
   }
 
   /**
@@ -983,8 +674,8 @@ public final class ComponentUtils {
     final UIComponent partiallyComponent = ComponentUtils.findComponent(component, componentId);
     if (partiallyComponent != null) {
       final String clientId = partiallyComponent.getClientId(context);
-      if (partiallyComponent instanceof UISheet) {
-        final int rowIndex = ((UISheet) partiallyComponent).getRowIndex();
+      if (partiallyComponent instanceof AbstractUISheet) {
+        final int rowIndex = ((AbstractUISheet) partiallyComponent).getRowIndex();
         if (rowIndex >= 0 && clientId.endsWith(Integer.toString(rowIndex))) {
           return clientId.substring(0, clientId.lastIndexOf(UINamingContainer.getSeparatorChar(context)));
         }
@@ -1037,10 +728,10 @@ public final class ComponentUtils {
     if (markup == null) {
       markup = Markup.NULL;
     }
-    if (ComponentUtils.getBooleanAttribute(component, Attributes.DISABLED)) {
+    if (ComponentUtils.getBooleanAttribute(component, Attributes.disabled)) {
       markup = markup.add(Markup.DISABLED);
     }
-    if (ComponentUtils.getBooleanAttribute(component, Attributes.READONLY)) {
+    if (ComponentUtils.getBooleanAttribute(component, Attributes.readonly)) {
       markup = markup.add(Markup.READONLY);
     }
     if (component instanceof UIInput) {
@@ -1069,27 +760,6 @@ public final class ComponentUtils {
     return null;
   }
 
-  public static void addCurrentMarkup(final SupportsMarkup component, final Markup markup) {
-    component.setCurrentMarkup(markup.add(component.getCurrentMarkup()));
-  }
-
-  /**
-   * @deprecated since 2.0.0
-   */
-  @Deprecated
-  public static boolean hasChildrenWithMessages(final FacesContext facesContext, final NamingContainer  container) {
-    if (container instanceof UIComponent) {
-      final String clientId = ((UIComponent) container).getClientId(facesContext);
-      for (final Iterator ids = facesContext.getClientIdsWithMessages(); ids.hasNext();) {
-        final String id = (String) ids.next();
-        if (id.startsWith(clientId)) {
-          return true;
-        }
-      }
-    }
-    return false;
-  }
-
   public static FacesMessage.Severity getMaximumSeverityOfChildrenMessages(
       final FacesContext facesContext, final NamingContainer container) {
     if (container instanceof UIComponent) {
@@ -1113,31 +783,13 @@ public final class ComponentUtils {
   }
 
   /**
-   * @deprecated since 2.0.0
-   */
-  @Deprecated
-  public static String[] getChildrenWithMessages(final FacesContext facesContext, final NamingContainer container) {
-    if (container instanceof UIComponent) {
-      final List<String> clientIds = new ArrayList<String>();
-      final String clientId = ((UIComponent) container).getClientId(facesContext);
-      for (final Iterator ids = facesContext.getClientIdsWithMessages(); ids.hasNext();) {
-        final String id = (String) ids.next();
-        if (id.startsWith(clientId)) {
-          clientIds.add(id);
-        }
-      }
-      return clientIds.toArray(new String[clientIds.size()]);
-    }
-    return ArrayUtils.EMPTY_STRING_ARRAY;
-  }
-
-  /**
    * Adding a data attribute to the component. 
    * The name must start with "data-", e. g. "data-tobago-foo" or "data-bar"
    */
-  public static void putDataAttributeWithPrefix(final UIComponent component, final String name, final Object value) {
-    if (name.startsWith("data-")) {
-      putDataAttribute(component, name.substring(5), value);
+  public static void putDataAttributeWithPrefix(
+      final UIComponent component, final DataAttributes name, final Object value) {
+    if (name.getValue().startsWith("data-")) {
+      putDataAttribute(component, name.getValue().substring(5), value);
     } else {
       LOG.error("The name must start with 'data-' but it doesn't: '" + name + "'");
     }
@@ -1164,15 +816,5 @@ public final class ComponentUtils {
   public static Object getDataAttribute(final UIComponent component, final String name) {
     Map<Object, Object> map = getDataAttributes(component);
     return map != null ? map.get(name) : null;
-  }
-
-  /**
-   * @deprecated since 2.0.0, please use
-   * {@link javax.faces.component.UIComponent#invokeOnComponent(javax.faces.context.FacesContext, java.lang.String,
-      javax.faces.component.ContextCallback) }
-   */
-  public static boolean invokeOnComponent(
-      final FacesContext context, final UIComponent component, final String clientId, final ContextCallback callback) {
-    return component.invokeOnComponent(context, clientId, callback);
   }
 }

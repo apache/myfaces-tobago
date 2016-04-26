@@ -21,15 +21,13 @@ package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.UIButton;
-import org.apache.myfaces.tobago.config.Configurable;
-import org.apache.myfaces.tobago.context.ResourceManagerUtils;
+import org.apache.myfaces.tobago.internal.component.AbstractUICommand;
 import org.apache.myfaces.tobago.internal.component.AbstractUIForm;
+import org.apache.myfaces.tobago.internal.component.AbstractUIToolBar;
 import org.apache.myfaces.tobago.internal.util.AccessKeyLogger;
-import org.apache.myfaces.tobago.layout.Measure;
-import org.apache.myfaces.tobago.renderkit.CommandRendererBase;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
+import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
-import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.Command;
 import org.apache.myfaces.tobago.renderkit.html.CommandMap;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
@@ -52,17 +50,18 @@ public class ButtonRenderer extends CommandRendererBase {
 
   private static final Logger LOG = LoggerFactory.getLogger(ButtonRenderer.class);
 
+  @Override
   public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
 
-    final UIButton button = (UIButton) component;
+    final AbstractUICommand button = (AbstractUICommand) component;
     final String clientId = button.getClientId(facesContext);
     final boolean disabled = button.isDisabled();
     final LabelWithAccessKey label = new LabelWithAccessKey(button);
 
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
-    writer.startElement(HtmlElements.BUTTON, button);
-    writer.writeAttribute(HtmlAttributes.TYPE, HtmlButtonTypes.BUTTON, false);
+    writer.startElement(HtmlElements.BUTTON);
+    writer.writeAttribute(HtmlAttributes.TYPE, HtmlButtonTypes.BUTTON);
     writer.writeNameAttribute(clientId);
     writer.writeIdAttribute(clientId);
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, button);
@@ -73,9 +72,6 @@ public class ButtonRenderer extends CommandRendererBase {
     writer.writeAttribute(HtmlAttributes.DISABLED, disabled);
 
     if (!disabled) {
-      final CommandMap map = new CommandMap(new Command(facesContext, button));
-      writer.writeAttribute(DataAttributes.COMMANDS, JsonUtils.encode(map), true);
-
       writer.writeAttribute(HtmlAttributes.HREF, "#", false);
 
       if (label.getAccessKey() != null) {
@@ -83,64 +79,40 @@ public class ButtonRenderer extends CommandRendererBase {
         AccessKeyLogger.addAccessKey(facesContext, label.getAccessKey(), clientId);
       }
 
-      final Integer tabIndex = button.getTabIndex();
-      if (tabIndex != null) {
-        writer.writeAttribute(HtmlAttributes.TABINDEX, tabIndex);
+      if (button instanceof UIButton) {
+        writer.writeAttribute(HtmlAttributes.TABINDEX, ((UIButton) button).getTabIndex());
       }
+
+      String commands = RenderUtils.getBehaviorCommands(facesContext, button);
+      if (commands == null) { // old way
+        final CommandMap map = new CommandMap(new Command(facesContext, button));
+        commands =  JsonUtils.encode(map);
+      }
+      writer.writeAttribute(DataAttributes.COMMANDS, commands, true);
     }
 
-    final Style style = new Style(facesContext, button);
-    writer.writeStyleAttribute(style);
-    writer.writeClassAttribute(Classes.create(button));
-    if (((UIButton) component).isDefaultCommand()) {
-      final AbstractUIForm form = ComponentUtils.findAncestor(component, AbstractUIForm.class);
+    writer.writeStyleAttribute(button.getStyle());
+
+    final boolean defaultCommand = ComponentUtils.getBooleanAttribute(button, Attributes.defaultCommand);
+    // TODO this might be too expensive:
+    // TODO please put a flag in the ToolBar-handler and Button-handler (facelets-handler)
+    final boolean insideToolbar = ComponentUtils.findAncestor(button, AbstractUIToolBar.class) != null;
+    writer.writeClassAttribute(
+        Classes.create(button),
+        BootstrapClass.BTN,
+        defaultCommand ? BootstrapClass.BTN_PRIMARY : BootstrapClass.BTN_SECONDARY,
+        insideToolbar ? BootstrapClass.NAVBAR_BTN : null,
+        button.getCustomClass());
+
+    if (defaultCommand) {
+      final AbstractUIForm form = ComponentUtils.findAncestor(button, AbstractUIForm.class);
       writer.writeAttribute(DataAttributes.DEFAULT, form.getClientId(facesContext), false);
     }
     writer.flush(); // force closing the start tag
 
-    String image = (String) button.getAttributes().get(Attributes.IMAGE);
-    if (image != null) {
-      if (ResourceManagerUtils.isAbsoluteResource(image)) {
-        // absolute Path to image : nothing to do
-      } else {
-        image = getImageWithPath(facesContext, image, disabled);
-      }
-      writer.startElement(HtmlElements.IMG, null);
-      writer.writeAttribute(HtmlAttributes.SRC, image, true);
-      final String tip = button.getTip();
-      writer.writeAttribute(HtmlAttributes.ALT, tip != null ? tip : "", true);
-      writer.endElement(HtmlElements.IMG);
-    }
-
-    if (label.getLabel() != null) {
-      writer.startElement(HtmlElements.SPAN, null);
-      HtmlRendererUtils.writeLabelWithAccessKey(writer, label);
-      writer.endElement(HtmlElements.SPAN);
-    }
+    String image = ComponentUtils.getStringAttribute(button, Attributes.image);
+    HtmlRendererUtils.encodeIconWithLabel(writer, facesContext, image, label, disabled);
 
     writer.endElement(HtmlElements.BUTTON);
-  }
-
-  @Override
-  public Measure getPreferredWidth(final FacesContext facesContext, final Configurable component) {
-
-    if (!(component instanceof UIButton)) {
-      return Measure.valueOf(100);
-    }
-
-    final UIButton button = (UIButton) component;
-    Measure width = Measure.ZERO;
-    final boolean image = button.getImage() != null;
-    if (image) {
-      width = getResourceManager().getThemeMeasure(facesContext, button, "imageWidth");
-    }
-    final LabelWithAccessKey label = new LabelWithAccessKey(button);
-
-    width = width.add(RenderUtils.calculateStringWidth(facesContext, button, label.getLabel()));
-    final Measure padding = getResourceManager().getThemeMeasure(facesContext, button, "paddingWidth");
-    // left padding, right padding and when an image and an text then a middle padding.
-    width = width.add(padding.multiply(image && label.getLabel() != null ? 3 : 2));
-
-    return width;
   }
 }

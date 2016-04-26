@@ -19,38 +19,143 @@
 
 package org.apache.myfaces.tobago.component;
 
-public final class Facets {
+public enum Facets {
 
-  public static final String ACTION = "action";
-  public static final String CHANGE = "change";
-  public static final String CHECKBOX = "checkbox";
-  public static final String CLICK = "click";
-  public static final String COMPLETE = "complete";
-  public static final String CONFIRMATION = "confirmation";
-  public static final String CONSTRAINTS = "constraints";
-  public static final String CONTEXT_MENU = "contextMenu";
-  public static final String DROP_DOWN_MENU = "dropDownMenu";
-  public static final String LABEL = "label";
-  public static final String LAYOUT = "layout";
-  public static final String LAYOUT_DEFAULT = "layoutDefault";
-  public static final String MENUBAR = "menuBar";
-  public static final String PAGER_PAGE = "pagerPage";
-  public static final String PAGER_ROW = "pagerRow";
-  public static final String POPUP = "popup";
-  public static final String RADIO = "radio";
-  public static final String RELOAD = "reload";
-  public static final String RESIZE = "resize";
-  public static final String SORTER = "sorter";
-  public static final String TOOL_BAR = "toolBar";
-
-  private Facets() {
-    // to prevent instantiation
-  }
-
+  action,
+  change,
+  checkbox,
+  click,
+  complete,
+  confirmation,
+  constraints,
+  contextMenu,
+  dropDownMenu,
+  label,
   /**
-   * @deprecated since 2.0.0. Please use {@link #POPUP}
-   * Using compatible names for  backward compatibility.
+   * @deprecated since 3.0.0. The layout manager tag should surround the content instead.
    */
   @Deprecated
-  public static final String PICKER_POPUP = POPUP;
+  layout,
+  layoutDefault,
+  menuBar,
+  pagerPage,
+  pagerPageDirect,
+  pagerRow,
+  popup,
+  radio,
+  reload,
+  resize,
+  sorter,
+  toolBar;
+
+  /**
+   * @deprecated since 3.0.0. Try to use the enum.
+   */
+  @Deprecated
+  public static final String ACTION = "action";
+  /**
+   * @deprecated since 3.0.0. Try to use the enum.
+   */
+  @Deprecated
+  public static final String CHANGE = "change";
+  /**
+   * @deprecated since 3.0.0. Try to use the enum.
+   */
+  @Deprecated
+  public static final String CHECKBOX = "checkbox";
+  /**
+   * @deprecated since 3.0.0. Try to use the enum.
+   */
+  @Deprecated
+  public static final String CLICK = "click";
+  /**
+   * @deprecated since 3.0.0. Try to use the enum.
+   */
+  @Deprecated
+  public static final String COMPLETE = "complete";
+  /**
+   * @deprecated since 3.0.0. Try to use the enum.
+   */
+  @Deprecated
+  public static final String CONFIRMATION = "confirmation";
+  /**
+   * @deprecated since 3.0.0. Try to use the enum.
+   */
+  @Deprecated
+  public static final String CONSTRAINTS = "constraints";
+  /**
+   * @deprecated since 3.0.0. Try to use the enum.
+   */
+  @Deprecated
+  public static final String CONTEXT_MENU = "contextMenu";
+  /**
+   * @deprecated since 3.0.0. Try to use the enum.
+   */
+  @Deprecated
+  public static final String DROP_DOWN_MENU = "dropDownMenu";
+  /**
+   * @deprecated since 3.0.0. Try to use the enum.
+   */
+  @Deprecated
+  public static final String LABEL = "label";
+  /**
+   * @deprecated since 3.0.0. The layout manager tag should surround the content instead. Try to use the enum.
+   */
+  @Deprecated
+  public static final String LAYOUT = "layout";
+  /**
+   * @deprecated since 3.0.0. Try to use the enum.
+   */
+  @Deprecated
+  public static final String LAYOUT_DEFAULT = "layoutDefault";
+  /**
+   * @deprecated since 3.0.0. Try to use the enum.
+   */
+  @Deprecated
+  public static final String MENUBAR = "menuBar";
+  /**
+   * @deprecated since 3.0.0. Try to use the enum.
+   */
+  @Deprecated
+  public static final String PAGER_PAGE = "pagerPage";
+  /**
+   * @deprecated since 3.0.0. Try to use the enum.
+   */
+  @Deprecated
+  public static final String PAGER_PAGE_DIRECT = "pagerPageDirect";
+  /**
+   * @deprecated since 3.0.0. Try to use the enum.
+   */
+  @Deprecated
+  public static final String PAGER_ROW = "pagerRow";
+  /**
+   * @deprecated since 3.0.0. Try to use the enum.
+   */
+  @Deprecated
+  public static final String POPUP = "popup";
+  /**
+   * @deprecated since 3.0.0. Try to use the enum.
+   */
+  @Deprecated
+  public static final String RADIO = "radio";
+  /**
+   * @deprecated since 3.0.0. Try to use the enum.
+   */
+  @Deprecated
+  public static final String RELOAD = "reload";
+  /**
+   * @deprecated since 3.0.0. Try to use the enum.
+   */
+  @Deprecated
+  public static final String RESIZE = "resize";
+  /**
+   * @deprecated since 3.0.0. Try to use the enum.
+   */
+  @Deprecated
+  public static final String SORTER = "sorter";
+  /**
+   * @deprecated since 3.0.0. Try to use the enum.
+   */
+  @Deprecated
+  public static final String TOOL_BAR = "toolBar";
 }

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+-->
+
+<ui:composition template="/main.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:tc="http://myfaces.apache.org/tobago/component"
+                xmlns:ui="http://java.sun.com/jsf/facelets">
+  <ui:param name="title" value="#{overviewBundle.image} &lt;tc:image&gt;"/>
+  <p>Create an image with <code class="language-markup">&lt;tc:image/&gt;</code>.</p>
+  <tc:link label="Tag Library Documentation" image="image/feather-leaf.png" link="#{overviewBundle.tagDocUrl}/image.html"/>
+  <tc:section label="Basics">
+    <pre><code class="language-markup">&lt;tc:image value="image/tobago_head.png"/&gt;</code></pre>
+    <tc:image id="i1" value="image/tobago_head.png"/>
+  </tc:section>
+  <tc:section label="Set width">
+    <p>To set the size of an image, <code>&lt;tc:style/&gt;</code> can be used.</p>
+    <pre><code class="language-markup">&lt;tc:image value="image/tobago_head.png"&gt;
+  &lt;tc:style width="20%"/&gt;
+&lt;/tc:image&gt;</code></pre>
+    <tc:image id="i2" value="image/tobago_head.png">
+      <tc:style width="20%"/>
+    </tc:image>
+  </tc:section>
+  <tc:section label="Disable">
+    <p>The <code>disabled</code> attribute can be used, to let the picture look more 'disabled'.</p>
+    <tc:section label="Disabled off">
+      <p>Disabled is 'false' by default.</p>
+      <pre><code class="language-markup">&lt;tc:image disabled="false" value="image/alps.png"/&gt;</code></pre>
+      <tc:image id="i3" disabled="false" value="image/alps.png"/>
+    </tc:section>
+    <tc:section label="Disabled on">
+      <pre><code class="language-markup">&lt;tc:image disabled="true" value="image/alps.png"/&gt;</code></pre>
+      <tc:image id="i4" disabled="true" value="image/alps.png"/>
+    </tc:section>
+  </tc:section>
+</ui:composition>

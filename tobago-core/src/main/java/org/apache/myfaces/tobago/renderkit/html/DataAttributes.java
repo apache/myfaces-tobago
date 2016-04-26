@@ -24,242 +24,205 @@ package org.apache.myfaces.tobago.renderkit.html;
  * These attributes may transport data to DOM which are not standardized.
  * The format is "data-tobago-*" which is conform to HTML 5, but also works in older browsers.
  */
-public final class DataAttributes {
+public enum DataAttributes implements MarkupLanguageAttributes {
 
   /**
    * The index of the column of a sheet. This index means the position of the rendered column. It can differ, if there
    * are tc:column with rendered=false.
    */
-  public static final String COLUMN_INDEX = "data-tobago-column-index";
-
-  /** @deprecated Since 1.5.11 */
-  @Deprecated
-  public static final String COLUMNINDEX = COLUMN_INDEX;
+  COLUMN_INDEX("data-tobago-column-index"),
 
   /**
-   * TBD: needed? may replace with VALUE?
    * Custom command attribute. Is used to mark different client side JavaScript buttons.
    * Should only contain the command name as a keyword, for security reasons.
    */
-  public static final String COMMAND = "data-tobago-command";
+  COMMAND("data-tobago-command"),
 
   /**
    * The list of commands attached to an element.
    */
-  public static final String COMMANDS = "data-tobago-commands";
+  COMMANDS("data-tobago-commands"),
 
   /**
-   * Reference to the corresponding date input field. Used for date picker popups.
-   *
-   * @deprecated Since 2.0.0. It's no longer needed, because this is resolved by JavaScript now.
+   * The context path of the application, may be needed in the Client.
    */
-  @Deprecated
-  public static final String DATE_INPUT_ID = "data-tobago-date-input-id";
+  CONTEXT_PATH("data-tobago-context-path"),
 
-  /** @deprecated Since 1.5.11 */
-  @Deprecated
-  public static final String DATEINPUTID = DATE_INPUT_ID;
-
-  /**
-   * Marker for the compatibility mode.
-   */
-  public static final String CLASSIC_DATE_TIME_PICKER = "data-tobago-classic-date-time-picker";
-
-  /**
-   * Marker for the OK-button of the date picker popup.
-   *
-   * @deprecated Since 2.0.0. It's no longer needed, because this is resolved by JavaScript now.
-   */
-  @Deprecated
-  public static final String DATE_PICKER_OK = "data-tobago-date-picker-ok";
-
-  /** @deprecated Since 1.5.11 */
-  @Deprecated
-  public static final String DATEPICKEROK = DATE_PICKER_OK;
-
-  public static final String DATE_TIME_I18N = "data-tobago-date-time-i18n";
-
-  public static final String DATE_TIME_ICON = "data-tobago-date-time-icon";
+  DATE_TIME_I18N("data-tobago-date-time-i18n"),
 
   /**
    * Holds the day of a calendar control.
    */
-  public static final String DAY = "data-tobago-day";
+  DAY("data-tobago-day"),
 
   /**
    * Custom disabled attribute. Use for element, that don't have the disabled attribute.
    */
-  public static final String DISABLED = "data-tobago-disabled";
+  DISABLED("data-tobago-disabled"),
+
+  DISMISS("data-dismiss"),
 
   /**
    * Custom form attribute. Used to show the virtual form of the component.
    */
-  public static final String DEFAULT = "data-tobago-default";
+  DEFAULT("data-tobago-default"),
 
-  public static final String DELAY = "data-tobago-delay";
+  DELAY("data-tobago-delay"),
 
-  public static final String FOR = "data-tobago-for";
+  FOR("data-tobago-for"),
 
   /**
    * Holds the id of the first row in a sheet.
    */
-  public static final String FIRST = "data-tobago-first";
+  FIRST("data-tobago-first"),
 
   /*
    * Holds the index of the row in a sheet, if the sheed has a rowRendered attribute.
    */
-  public static final String ROW_INDEX = "data-tobago-row-index";
+  ROW_INDEX("data-tobago-row-index"),
 
   /**
    * Holds the first day of a week of a calendar control.
    */
-  public static final String FIRST_DAY_OF_WEEK = "data-tobago-first-day-of-week";
-
-  /** @deprecated Since 1.5.11 */
-  @Deprecated
-  public static final String FIRSTDAYOFWEEK = FIRST_DAY_OF_WEEK;
+  FIRST_DAY_OF_WEEK("data-tobago-first-day-of-week"),
 
   /**
    * Defines a maximum value.
    */
-  public static final String MAX = "data-tobago-max";
+  LAYOUT("data-tobago-layout"),
+
+  /**
+   * Defines a maximum value.
+   */
+  MAX("data-tobago-max"),
 
   /**
    * Holds the month of a calendar control.
    */
-  public static final String MONTH = "data-tobago-month";
+  MONTH("data-tobago-month"),
 
   /**
    * Holds the names of the months of a calendar control.
    */
-  public static final String MONTH_NAMES = "data-tobago-month-names";
+  MONTH_NAMES("data-tobago-month-names"),
 
-  /** @deprecated Since 1.5.11 */
-  @Deprecated
-  public static final String MONTHNAMES = MONTH_NAMES;
+  PARTIAL_IDS("data-tobago-partial-ids"),
 
-  public static final String PARTIAL_IDS = "data-tobago-partial-ids";
-
-  public static final String PARTIAL_ACTION = "data-tobago-partial-action";
+  PARTIAL_ACTION("data-tobago-partial-action"),
 
   /**
    * Custom attribute to describe a pattern, e. g. for an date input field.
    */
-  public static final String PATTERN = "data-tobago-pattern";
+  PATTERN("data-tobago-pattern"),
 
   /**
    * Custom reload attribute. Used to reload a panel.
    */
-  public static final String RELOAD = "data-tobago-reload";
+  RELOAD("data-tobago-reload"),
 
-  public static final String ROW_ACTION = "data-tobago-row-action";
+  ROW_ACTION("data-tobago-row-action"),
 
-  /** @deprecated Since 1.5.11 */
-  @Deprecated
-  public static final String ROWACTION = ROW_ACTION;
-
-  public static final String SELECTION_MODE = "data-tobago-selection-mode";
-
-  /** @deprecated Since 1.5.11 */
-  @Deprecated
-  public static final String SELECTIONMODE = SELECTION_MODE;
+  SELECTION_MODE("data-tobago-selection-mode"),
 
   /**
    * The selectable attribute e. g. for trees.
    */
-  public static final String SELECTABLE = "data-tobago-selectable";
+  SELECTABLE("data-tobago-selectable"),
 
   /**
    * Reference to a sheet.
    */
-  public static final String SHEET_ID = "data-tobago-sheet-id";
-
-  /** @deprecated Since 1.5.11 */
-  @Deprecated
-  public static final String SHEETID = SHEET_ID;
+  SHEET_ID("data-tobago-sheet-id"),
 
   /**
    * Alternate to the src attribute, to implement a hover effect.
    */
-  public static final String SRC_HOVER = "data-tobago-src-hover";
-
-  /** @deprecated Since 1.5.11 */
-  @Deprecated
-  public static final String SRCHOVER = SRC_HOVER;
+  SRC_HOVER("data-tobago-src-hover"),
 
   /**
    * Alternate to the src attribute, to implement a hover effect.
    */
-  public static final String SRC_DEFAULT = "data-tobago-src-default";
-
-  /** @deprecated Since 1.5.11 */
-  @Deprecated
-  public static final String SRCDEFAULT = SRC_DEFAULT;
+  SRC_DEFAULT("data-tobago-src-default"),
 
   /**
    * Alternate to the src attribute, icon open and close.
    */
-  public static final String SRC_CLOSE = "data-tobago-src-close";
-
-  /** @deprecated Since 1.5.11 */
-  @Deprecated
-  public static final String SRCCLOSE = SRC_CLOSE;
+  SRC_CLOSE("data-tobago-src-close"),
 
   /**
    * Alternate to the src attribute, icon open and close.
    */
-  public static final String SRC_OPEN = "data-tobago-src-open";
-
-  /** @deprecated Since 1.5.11 */
-  @Deprecated
-  public static final String SRCOPEN = SRC_OPEN;
+  SRC_OPEN("data-tobago-src-open"),
 
   /**
    * A way to transport style data in JSON format to the browser. With CSP the normal style attribute isn't allowed.
    */
-  public static final String STYLE = "data-tobago-style";
+  STYLE("data-tobago-style"),
 
-  /**
-   * Custom suggest attribute. Used for input suggest.
-   * @deprecated Since Tobago 2.0.0. No longer needed.
-   */
-  @Deprecated
-  public static final String SUGGEST = "data-tobago-suggest";
+  SCROLL_PANEL("data-tobago-scroll-panel"),
 
-  public static final String SUGGEST_DELAY = "data-tobago-suggest-delay";
+  SCROLL_POSITION("data-tobago-scroll-position"),
 
-  public static final String SUGGEST_MAX_ITEMS = "data-tobago-suggest-max-items";
+  SUGGEST_DATA("data-tobago-suggest-data"),
 
-  public static final String SUGGEST_MIN_CHARS = "data-tobago-suggest-min-chars";
+  SUGGEST_DELAY("data-tobago-suggest-delay"),
 
-  public static final String SUGGEST_TOTAL_COUNT = "data-tobago-suggest-total-count";
+  SUGGEST_FOR("data-tobago-suggest-for"),
 
-  public static final String SUGGEST_UPDATE = "data-tobago-suggest-update";
+  SUGGEST_MAX_ITEMS("data-tobago-suggest-max-items"),
 
-  public static final String TRANSITION = "data-tobago-transition";
+  SUGGEST_MIN_CHARS("data-tobago-suggest-min-chars"),
+
+  SUGGEST_TOTAL_COUNT("data-tobago-suggest-total-count"),
+
+  SUGGEST_UPDATE("data-tobago-suggest-update"),
+
+  TARGET("data-target"),
+
+  TO_PAGE("data-tobago-to-page"),
+
+  TOGGLE("data-toggle"),
+
+  TRANSITION("data-tobago-transition"),
 
   /**
    * Id of the parent node in a tree node.
    */
-  public static final String TREE_PARENT = "data-tobago-tree-parent";
-
-  /** @deprecated Since 1.5.11 */
-  @Deprecated
-  public static final String TREEPARENT = TREE_PARENT;
+  TREE_PARENT("data-tobago-tree-parent"),
 
   /**
    * Defines the unit, e. g. to differ between hours, minutes and seconds in a time control.
    */
-  public static final String UNIT = "data-tobago-unit";
+  UNIT("data-tobago-unit"),
 
   /**
    * Holds the value (for tags, that don't have a value in HTML).
    */
-  public static final String VALUE = "data-tobago-value";
+  VALUE("data-tobago-value"),
 
   /**
    * Holds the year of a calendar control.
    */
-  public static final String YEAR = "data-tobago-year";
+  YEAR("data-tobago-year");
+
+  private final String value;
+
+  DataAttributes(String value) {
+    this.value = value;
+  }
+
+  @Override
+  public String getValue() {
+    return value;
+  }
+
+  public static MarkupLanguageAttributes dynamic(final String withoutPrefix) {
+    return new MarkupLanguageAttributes() {
+      @Override
+      public String getValue() {
+        return "data-" + withoutPrefix;
+      }
+    };
+  }
 
 }

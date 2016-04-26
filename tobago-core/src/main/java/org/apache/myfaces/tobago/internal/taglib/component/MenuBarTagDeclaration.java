@@ -23,17 +23,15 @@ import org.apache.myfaces.tobago.apt.annotation.BodyContentDescription;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.component.RendererTypes;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasCurrentMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
-import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutComponent;
+import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
 
 import javax.faces.component.UIPanel;
 
 /**
-* Renders a menu bar.<br />
+* Renders a menu bar.<br>
 * Add menu bar as facet name="menuBar" to page tag or use it anywhere
-* on page.<br />
+* on page.
 */
 @Tag(name = "menuBar")
 @BodyContentDescription(
@@ -57,5 +55,5 @@ import javax.faces.component.UIPanel;
         "org.apache.myfaces.tobago.MenuSeparator"
         })
 public interface MenuBarTagDeclaration
-    extends HasIdBindingAndRendered, IsGridLayoutComponent, HasMarkup, HasCurrentMarkup {
+    extends HasIdBindingAndRendered, IsVisual {
 }

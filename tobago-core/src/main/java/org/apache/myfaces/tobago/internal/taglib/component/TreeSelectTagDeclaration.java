@@ -26,10 +26,8 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasConverter;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasConverterMessage;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasCurrentMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabel;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasRequiredMessageForSelect;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasValidatorMessage;
@@ -37,6 +35,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasValue;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasValueChangeListener;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsDisabled;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsRequiredForSelect;
+import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
 
 import javax.faces.component.UISelectBoolean;
 
@@ -52,7 +51,7 @@ import javax.faces.component.UISelectBoolean;
     rendererType = RendererTypes.TREE_SELECT,
     allowedChildComponenents = "NONE")
 public interface TreeSelectTagDeclaration
-    extends HasIdBindingAndRendered, HasLabel, HasTip, HasMarkup, HasCurrentMarkup, HasValue, HasValueChangeListener,
+    extends HasIdBindingAndRendered, HasLabel, HasTip, IsVisual, HasValue, HasValueChangeListener,
         IsDisabled, IsRequiredForSelect, HasConverter,
         HasValidatorMessage, HasRequiredMessageForSelect, HasConverterMessage {
 

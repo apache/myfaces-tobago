@@ -26,9 +26,9 @@ public class TextAlignUnitTest {
 
   @Test
   public void testConstants() {
-    Assert.assertEquals(TextAlign.LEFT.getValue(), TextAlign.STRING_LEFT);
-    Assert.assertEquals(TextAlign.RIGHT.getValue(), TextAlign.STRING_RIGHT);
-    Assert.assertEquals(TextAlign.CENTER.getValue(), TextAlign.STRING_CENTER);
-    Assert.assertEquals(TextAlign.JUSTIFY.getValue(), TextAlign.STRING_JUSTIFY);
+    Assert.assertEquals(TextAlign.left.name(), TextAlign.STRING_LEFT);
+    Assert.assertEquals(TextAlign.right.name(), TextAlign.STRING_RIGHT);
+    Assert.assertEquals(TextAlign.center.name(), TextAlign.STRING_CENTER);
+    Assert.assertEquals(TextAlign.justify.name(), TextAlign.STRING_JUSTIFY);
   }
 }

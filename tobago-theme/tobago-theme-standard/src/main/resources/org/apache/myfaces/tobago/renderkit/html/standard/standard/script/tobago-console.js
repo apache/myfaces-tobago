@@ -291,16 +291,14 @@ if (!console.trace) {
   };
 }
 
-console.TOBAGO_HIDE_CONSOLE = "tobagoHideConsole";
-
 console.hideConsoleForThisSession = function() {
-  document.cookie = console.TOBAGO_HIDE_CONSOLE;
+  document.cookie = "tobagoHideConsole";
 };
 
 console.isConsoleHidden = function () {
   var part = document.cookie.split(';');
   for (var i = 0; i < part.length; i++) {
-    if (console.TOBAGO_HIDE_CONSOLE == part[i]) {
+    if ("tobagoHideConsole" == part[i]) {
       return true;
     }
   }

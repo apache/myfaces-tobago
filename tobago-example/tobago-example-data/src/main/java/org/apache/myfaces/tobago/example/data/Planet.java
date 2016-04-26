@@ -22,6 +22,7 @@ package org.apache.myfaces.tobago.example.data;
 import java.util.ArrayList;
 import java.util.List;
 
+@Deprecated
 public class Planet {
 
   public static final Planet MERCURY

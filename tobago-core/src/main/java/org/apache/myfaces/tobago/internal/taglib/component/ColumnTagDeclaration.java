@@ -26,12 +26,10 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.RendererTypes;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasCurrentMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabel;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
-import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutContainer;
+import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
 
 import javax.faces.component.UIColumn;
 
@@ -51,7 +49,7 @@ import javax.faces.component.UIColumn;
             allowedChildComponenents = "org.apache.myfaces.tobago.Menu")
     })
 public interface ColumnTagDeclaration
-    extends HasIdBindingAndRendered, HasLabel, HasTip, HasMarkup, HasCurrentMarkup, IsGridLayoutContainer {
+    extends HasIdBindingAndRendered, HasLabel, HasTip, IsVisual {
   /**
    * Alignment of this column.
    */
@@ -80,7 +78,9 @@ public interface ColumnTagDeclaration
    * Allowd layout tokens ('*', '&lt;x>*', '&lt;x>px' or '&lt;x>%').
    * Where '*' is equivalent to '1*'.
    */
+/* TBD
   @TagAttribute
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure")
   void setWidth(String width);
+*/
 }

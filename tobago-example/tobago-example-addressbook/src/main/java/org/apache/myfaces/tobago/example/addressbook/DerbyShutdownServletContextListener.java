@@ -24,16 +24,22 @@ import org.slf4j.LoggerFactory;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
+import javax.servlet.annotation.WebListener;
 import java.sql.DriverManager;
 
+@WebListener
 public class DerbyShutdownServletContextListener implements ServletContextListener {
 
   private static final Logger LOG = LoggerFactory.getLogger(DerbyShutdownServletContextListener.class);
 
+  @Override
   public void contextInitialized(final ServletContextEvent servletContextEvent) {
 
   }
 
+  // todo: should not be shut down in case of the "InMemoryAddressDao" alternative
+
+  @Override
   public void contextDestroyed(final ServletContextEvent servletContextEvent) {
     try {
       DriverManager.getConnection("jdbc:derby:target/addressDB;shutdown=true");

@@ -23,34 +23,38 @@ import org.apache.myfaces.tobago.apt.annotation.BodyContentDescription;
 import org.apache.myfaces.tobago.apt.annotation.Facet;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
-import org.apache.myfaces.tobago.component.ComponentTypes;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.RendererTypes;
-import org.apache.myfaces.tobago.internal.taglib.declaration.AbstractCommandTagDeclaration;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasCurrentMarkup;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasAction;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasActionListener;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasImage;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabelAndAccessKey;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasLink;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasRenderedPartially;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasResource;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTabIndex;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasTarget;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsDefaultCommand;
-import org.apache.myfaces.tobago.internal.taglib.declaration.IsDisabled;
-import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutComponent;
+import org.apache.myfaces.tobago.internal.taglib.declaration.IsDisabledBySecurity;
+import org.apache.myfaces.tobago.internal.taglib.declaration.IsImmediateCommand;
+import org.apache.myfaces.tobago.internal.taglib.declaration.IsOmit;
+import org.apache.myfaces.tobago.internal.taglib.declaration.IsTransition;
+import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
 
 import javax.faces.component.UICommand;
 
 /**
  * Renders a button element.
  */
-@Tag(name = "button", tagExtraInfoClassName = "org.apache.myfaces.tobago.internal.taglib.component.CommandTagExtraInfo")
+@Tag(name = "button")
 @BodyContentDescription(anyTagOf = "facestag")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIButton",
-    uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUICommand",
+    uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUIButton",
     uiComponentFacesClass = "javax.faces.component.UICommand",
     interfaces = {
-        "org.apache.myfaces.tobago.layout.LayoutComponent",
         "org.apache.myfaces.tobago.component.SupportsAccessKey"
     },
     componentFamily = UICommand.COMPONENT_FAMILY,
@@ -58,11 +62,12 @@ import javax.faces.component.UICommand;
     allowedChildComponenents = "NONE",
     facets = {
         @Facet(name = Facets.CONFIRMATION, description = "Contains a UIOutput instance with the confirmation message.",
-            allowedChildComponenents = ComponentTypes.OUT),
+            allowedChildComponenents = "org.apache.myfaces.tobago.Out"),
         @Facet(name = Facets.POPUP, description = "Contains a UIPopup instance.",
             allowedChildComponenents = "org.apache.myfaces.tobago.Popup")})
 public interface ButtonTagDeclaration
-    extends AbstractCommandTagDeclaration, HasIdBindingAndRendered, HasLabelAndAccessKey, HasImage,
-    IsDisabled, IsDefaultCommand, HasTip,
-    HasMarkup, HasCurrentMarkup, HasTabIndex, IsGridLayoutComponent {
+    extends HasAction, HasActionListener, IsImmediateCommand,
+    HasLink, HasResource, IsTransition, HasTarget, HasRenderedPartially,
+    IsOmit, HasIdBindingAndRendered, HasLabelAndAccessKey, HasImage,
+    IsDisabledBySecurity, IsDefaultCommand, HasTip, HasTabIndex, IsVisual {
 }

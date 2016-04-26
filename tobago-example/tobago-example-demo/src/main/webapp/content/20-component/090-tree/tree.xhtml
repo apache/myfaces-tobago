@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+-->
+
+<ui:composition template="/main.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:tc="http://myfaces.apache.org/tobago/component"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core">
+  <ui:param name="title" value="#{overviewBundle.tree} &lt;tc:tree>"/>
+  <p>A classic tree can created with the <code class="language-markup">&lt;tc:tree/></code> tag.
+    Tobage knows two more presentations of a tree. As a <tc:link label="menu" link="03-menu/tree-menu.xhtml"/>
+    and as a <tc:link label="list" link="04-listbox/tree-listbox.xhtml"/>.</p>
+  <p>Tag Library Documentation:
+    <tc:link label="&lt;tc:tree/>" image="image/feather-leaf.png"
+             link="#{overviewBundle.tagDocUrl}/tree.html"/>
+    |
+    <tc:link label="&lt;tc:treeNode/>" image="image/feather-leaf.png"
+             link="#{overviewBundle.tagDocUrl}/treeNode.html"/>
+    |
+    <tc:link label="&lt;tc:treeIndent/>" image="image/feather-leaf.png"
+             link="#{overviewBundle.tagDocUrl}/treeIndent.html"/>
+    |
+    <tc:link label="&lt;tc:treeLabel/>" image="image/feather-leaf.png"
+             link="#{overviewBundle.tagDocUrl}/treeLabel.html"/>
+    |
+    <tc:link label="&lt;tc:treeIcon/>" image="image/feather-leaf.png"
+             link="#{overviewBundle.tagDocUrl}/treeIcon.html"/></p>
+
+  <tc:section label="Basics">
+    <p>The tree tag has two attributes, <code>value</code> and <code>var</code>. The attribute <code>value</code>
+      contain a DefaultMutableTreeNode, which represent the tree.
+      The <code>var</code> attribute is the name of the variable, to get specific content.</p>
+    <pre><code class="language-markup">&lt;tc:tree value="#{treeController.sample}" var="node"></code></pre>
+    <p>In every tree, a <code class="language-markup">&lt;tc:treeNode/></code> has to be added.
+      A <code class="language-markup">&lt;tc:treeNode/></code> can contain several tags to describe the node.
+      In this example, two tags are used.<br/>
+      The <code class="language-markup">&lt;tc:treeIndent/></code> tag, which add an indent besides a node
+      and <code class="language-markup">&lt;tc:treeLabel value="\#{node.userObject.name}"/></code>, which contain the
+      String for the label. Notice that 'node' is the value of the <code>var</code> attribute from the tree tag.</p>
+    <tc:tree value="#{treeController.sample}" var="node">
+      <tc:treeNode>
+        <tc:treeIndent/>
+        <tc:treeLabel value="#{node.userObject.name}"/>
+      </tc:treeNode>
+    </tc:tree>
+  </tc:section>
+
+  <tc:section label="Icon">
+    <p>An icon can be added to a node with
+      <code class="language-markup">&lt;tc:treeIcon value="image/feather.png"/></code>.
+      In this case, the targeted image is 'feather.png'. It is displayed for closed nodes.
+      For opened nodes, an image with a '-open'-suffix is used, here it's 'feather-open.png'.
+      For the leafs of the tree, an image with a '-leaf'-suffix is used. Therefor 'feather-leaf.png' is the displayed
+      image.</p>
+    <tc:tree value="#{treeController.sample}" var="node">
+      <tc:treeNode>
+        <tc:treeIndent/>
+        <tc:treeIcon value="image/feather.png"/>
+        <tc:treeLabel value="#{node.userObject.name}"/>
+      </tc:treeNode>
+    </tc:tree>
+  </tc:section>
+
+  <tc:section label="Additional Attributes">
+    <p>In this example, some boolean attributes can be activated and deactivated in the right boxes for
+      <code class="language-markup">&lt;tc:tree/></code> and
+      <code class="language-markup">&lt;tc:treeIndent/></code>.</p>
+    <tc:panel id="p1">
+      <tc:flexLayout columns="*;auto">
+        <tc:tree value="#{treeController.sample}" var="node" showRoot="#{treeController.treeShowRoot}"
+                 showRootJunction="#{treeController.treeShowRootJunction}">
+          <tc:treeNode>
+            <tc:treeIndent rendered="#{treeController.treeIndentRendered}"
+                           showJunctions="#{treeController.treeIndentShowJunction}"/>
+            <tc:treeLabel value="#{node.userObject.name}"/>
+          </tc:treeNode>
+        </tc:tree>
+        <tc:panel>
+          <tc:box label="&lt;tc:tree/>">
+            <tc:selectBooleanCheckbox label="showRoot" value="#{treeController.treeShowRoot}">
+              <f:ajax render="p1"/>
+            </tc:selectBooleanCheckbox>
+            <tc:selectBooleanCheckbox label="showRootJunction" value="#{treeController.treeShowRootJunction}">
+              <f:ajax render="p1"/>
+            </tc:selectBooleanCheckbox>
+          </tc:box>
+          <tc:box label="&lt;tc:treeIndent/>">
+            <tc:selectBooleanCheckbox label="rendered" value="#{treeController.treeIndentRendered}">
+              <f:ajax render="p1"/>
+            </tc:selectBooleanCheckbox>
+            <tc:selectBooleanCheckbox label="showJunction" value="#{treeController.treeIndentShowJunction}">
+              <f:ajax render="p1"/>
+            </tc:selectBooleanCheckbox>
+          </tc:box>
+        </tc:panel>
+      </tc:flexLayout>
+    </tc:panel>
+  </tc:section>
+</ui:composition>

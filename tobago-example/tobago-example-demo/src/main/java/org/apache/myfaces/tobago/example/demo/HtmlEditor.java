@@ -37,11 +37,11 @@ public class HtmlEditor implements Serializable {
   public HtmlEditor() {
     ckeditorAvailable = ResourceManagerUtils.getScripts(
         FacesContext.getCurrentInstance(),
-        "content/35-wysiwyg/01-ckeditor/ckeditor/ckeditor.js")
+        "content/20-component/110-wysiwyg/01-ckeditor/ckeditor/ckeditor.js")
         .size() != 0;
     tinymceAvailable = ResourceManagerUtils.getScripts(
         FacesContext.getCurrentInstance(),
-        "content/35-wysiwyg/00-tinymce/tinymce/js/tinymce/tinymce.min.js")
+        "content/20-component/110-wysiwyg/00-tinymce/tinymce/js/tinymce/tinymce.min.js")
         .size() != 0;
     text = "<h1>Sonne</h1>"
         + "<p>Die Sonne ist ein Stern in der Galaxie Milchstraße.</p>";

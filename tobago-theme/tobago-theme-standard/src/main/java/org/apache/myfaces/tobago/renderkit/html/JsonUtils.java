@@ -20,10 +20,22 @@
 package org.apache.myfaces.tobago.renderkit.html;
 
 import org.apache.myfaces.tobago.internal.context.DateTimeI18n;
+import org.apache.myfaces.tobago.layout.AutoLayoutToken;
+import org.apache.myfaces.tobago.layout.LayoutToken;
+import org.apache.myfaces.tobago.layout.LayoutTokens;
+import org.apache.myfaces.tobago.layout.MeasureLayoutToken;
+import org.apache.myfaces.tobago.layout.RelativeLayoutToken;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
+import java.util.StringTokenizer;
 
 public class JsonUtils {
+
+  private static final Logger LOG = LoggerFactory.getLogger(JsonUtils.class);
 
   private JsonUtils() {
   }
@@ -46,6 +58,19 @@ public class JsonUtils {
       builder.append("\"");
       builder.append(item);
       builder.append("\"");
+      colon = true;
+    }
+    builder.append("]");
+  }
+
+  public static void encode(StringBuilder builder, List<Integer> value) {
+    builder.append("[");
+    boolean colon = false;
+    for (final Integer item : value) {
+      if (colon) {
+        builder.append(",");
+      }
+      builder.append(item);
       colon = true;
     }
     builder.append("]");
@@ -124,13 +149,9 @@ public class JsonUtils {
     if (url != null) {
       encode(builder, "url", url);
     }
-    final String[] partially = command.getPartially();
-    if (partially != null && partially.length > 0) {
-      if (partially.length == 1) {
-        encode(builder, "partially", partially[0]);
-      } else {
-        encode(builder, "partially", partially);
-      }
+    final String partially = command.getPartially();
+    if (partially != null) {
+      encode(builder, "partially", partially);
     }
     final String focus = command.getFocus();
     if (focus != null) {
@@ -147,10 +168,6 @@ public class JsonUtils {
     final Popup popup = command.getPopup();
     if (popup != null) {
       encode(builder, "popup", popup);
-    }
-    final String script = command.getScript();
-    if (script != null) {
-      encode(builder, "script", script);
     }
     final Boolean omit = command.getOmit();
     if (omit != null && omit) { // false is the default, so encoding is needed.
@@ -214,5 +231,58 @@ public class JsonUtils {
     final StringBuilder builder = new StringBuilder();
     encode(builder, strings);
     return builder.toString();
+  }
+
+  public static String encode(final List<Integer> integers) {
+    if (integers == null) {
+      return null;
+    }
+    final StringBuilder builder = new StringBuilder();
+    encode(builder, integers);
+    return builder.toString();
+  }
+
+  public static void encode(final LayoutTokens bankHeads, final StringBuilder builder) {
+    builder.append("[");
+    for (final LayoutToken token : bankHeads.getTokens()) {
+      if (token instanceof RelativeLayoutToken) {
+        final int factor = ((RelativeLayoutToken) token).getFactor();
+        builder.append(factor);
+      } else if (token instanceof AutoLayoutToken) {
+        builder.append("\"auto\"");
+      } else if (token instanceof MeasureLayoutToken) {
+        builder.append("{\"measure\":\"");
+        builder.append(((MeasureLayoutToken) token).getMeasure());
+        builder.append("\"}");
+      } else {
+        LOG.warn("Not supported: " + token);
+      }
+      builder.append(',');
+    }
+    if (builder.charAt(builder.length() - 1) == ',') {
+      builder.deleteCharAt(builder.length() - 1);
+    }
+    builder.append("]");
+  }
+
+  public static List<Integer> decodeIntegerArray(String json) {
+    json = json.trim();
+    if (json.length() < 2 || json.charAt(0) != '[' || json.charAt(json.length() - 1) != ']') {
+      LOG.error("Can't parse JSON array: no surrounding square brackets []: '{}'", json);
+      return null;
+    }
+    json = json.substring(1, json.length() - 1);
+    final List<Integer> result = new ArrayList<Integer>();
+    final StringTokenizer tokenizer = new StringTokenizer(json, ",");
+    while (tokenizer.hasMoreTokens()) {
+      final String token = tokenizer.nextToken().trim();
+      try {
+        result.add(Integer.parseInt(token));
+      } catch (NumberFormatException e) {
+        LOG.error("Can't parse JSON array: not an integer token: '{}'", token);
+        // ignoring so far
+      }
+    }
+    return result;
   }
 }

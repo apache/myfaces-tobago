@@ -17,22 +17,17 @@
  * limitations under the License.
 -->
 
-<ui:composition template="/WEB-INF/tags/layout/overview.xhtml"
+<ui:composition template="/plain.xhtml"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
-                xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:f="http://java.sun.com/jsf/core">
+                xmlns:ui="http://java.sun.com/jsf/facelets">
   <ui:param name="title" value="Sorry, an error has occured!"/>
 
-  <tc:panel>
-    <f:facet name="layout">
-      <tc:gridLayout rows="auto;*"/>
-    </f:facet>
-
     <tc:messages/>
-    <tc:panel>
+    <tc:section label="An error has occurred!">
+      <!-- TODO
       <tc:out value="#{exceptionContext.exception}" escape="false"/>
 
-<!-- TODO
+
       <%!
         public static String exceptionToString(Throwable exception) {
           if (exception == null) {
@@ -52,7 +47,6 @@
       %>
 -->
 
-    </tc:panel>
-  </tc:panel>
+    </tc:section>
 
 </ui:composition>

@@ -44,6 +44,7 @@ public class TobagoBundle extends ResourceBundle {
     this.bundleName = bundleName;
   }
 
+  @Override
   protected Object handleGetObject(final String key) {
     if (LOG.isDebugEnabled()) {
       LOG.debug("Searching for '{}' in bundle '{}'", key, bundleName);
@@ -52,6 +53,7 @@ public class TobagoBundle extends ResourceBundle {
     return ResourceManagerUtils.getProperty(facesContext, bundleName, key);
   }
 
+  @Override
   public Enumeration<String> getKeys() {
     return Collections.enumeration(Collections.<String>emptyList());
   }

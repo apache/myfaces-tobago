@@ -29,8 +29,6 @@ public class TestPageFilter {
   public static final List<String> ALLOWED = Arrays.asList(
       ".*\\/",
       ".*\\.xhtml",
-      ".*\\.jsp",
-      ".*\\.jspx",
       ".*\\.html"
   );
 
@@ -54,7 +52,6 @@ public class TestPageFilter {
    */
   public static final Set<String> DISABLED = new HashSet<String>(Arrays.asList(
       ".*-fragment\\.xhtml", // intern
-      ".*-fragment\\.jspx", // intern
 
       "/index.html", // intern
       "/navigation.*", // intern
@@ -63,38 +60,22 @@ public class TestPageFilter {
       "/500.*", // meta test
 
       "/meta-test/meta-1.*", // meta test
-      "/meta-test/meta-2.*\\.jspx", // meta test
       "/meta-test/meta-3.*\\.xhtml", // meta test
       "/meta-test/meta-4.*", // meta test
       "/meta-test/meta-5.*", // meta test
 
-      "/partially/encoding.jspx", // not possible in JSP
-      "/test/attribute/mode-valueIfSet.jspx", // set id="${id}" not possible with JSP.
-      "/test/attribute/popup-modal.jspx", // not possible with JSP.
-      "/test/tree/tree-simple-with-data.jspx", // not possible in JSP
-      "/test/forEach/.*\\.jspx", // not possible in JSP
       "/test/button/plain.html", // intern
-      "/test/button/plain_de.html", // intern
-
-      "/tf/.*jspx" // tf: library doen't work with JSP
+      "/test/button/plain_de.html" // intern
   ));
 
   /**
    * Switched off temporary.
    */
-  public static final Set<String> TODO = new HashSet<String>(Arrays.asList(
-      "/test/gridLayout/rendered-combinations.jspx", // uses facelets templates
+  private static final Set<String> TODO = new HashSet<String>(Arrays.asList(
       "/test/gridLayout/scrolling-2-levels.*", // todo: ?
       "/test/gridLayout/scrolling-tab.*", // todo: measurement problem with firefox?
-      "/test/gridLayout/transparent-for-layout.jspx", // uses facelets templates
-      "/test/mediator/tomahawk-inputHtml.*", // todo
       "/test/treeListbox/*", // todo
-      "/test/label/label-tx.xhtml", // todo see TOBAGO-993
-      "/tf/.*", // TBD
-      "/test/tree/tree-marked-with-model.*", // todo
-      "/test/tree/tree-marked-without-model.*", // todo
-      "/test/sheet/sheet-auto-width.*", // todo
-      "/test/type/measure-image-without-constraints.jspx" // todo: to be analysed
+      "/test/label/label-tx.xhtml" // todo see TOBAGO-993
   ));
 
   public static boolean isValid(final String name) {

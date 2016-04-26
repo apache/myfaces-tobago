@@ -50,10 +50,12 @@ public class NavigationNode extends DefaultMutableTreeNode implements Comparable
     branch = matcher.group(1);
     name = matcher.group(2);
     final String extension = matcher.group(3);
-    final String t = ResourceManagerUtils.getProperty(FacesContext.getCurrentInstance(), "overview", name);
+    final String key = name.replaceAll("\\+|\\-", "_");
+    final String t = ResourceManagerUtils.getProperty(FacesContext.getCurrentInstance(), "overview", key);
     title = t != null ? t : name;
   }
 
+  @Override
   public int compareTo(final Object o) {
     final NavigationNode other = (NavigationNode) o;
     return branch.compareTo(other.getBranch());
@@ -68,10 +70,12 @@ public class NavigationNode extends DefaultMutableTreeNode implements Comparable
     treePath = new TreePath(this);
   }
 
+  @Override
   public NavigationNode getNextNode() {
     return (NavigationNode) super.getNextNode();
   }
 
+  @Override
   public NavigationNode getPreviousNode() {
     return (NavigationNode) super.getPreviousNode();
   }

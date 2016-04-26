@@ -19,13 +19,9 @@
 
 package org.apache.myfaces.tobago.renderkit;
 
-import org.apache.myfaces.tobago.component.SupportsMarkup;
-import org.apache.myfaces.tobago.config.Configurable;
-import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.context.ResourceManager;
 import org.apache.myfaces.tobago.internal.context.ResourceManagerFactory;
 import org.apache.myfaces.tobago.layout.Measure;
-import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -39,49 +35,12 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
 import javax.faces.render.Renderer;
-import java.io.IOException;
-import java.util.Locale;
 
 public class RendererBase extends Renderer {
 
   private static final Logger LOG = LoggerFactory.getLogger(RendererBase.class);
 
   private ResourceManager resourceManager;
-
-  /**
-   * Hook to e. g. register resources, etc.
-   */
-  public void prepareRender(final FacesContext facesContext, final UIComponent component) throws IOException {
-
-    if (component instanceof SupportsMarkup) {
-      final SupportsMarkup supportsMarkup = (SupportsMarkup) component;
-      final Markup markup = ComponentUtils.updateMarkup(component, supportsMarkup.getMarkup());
-      supportsMarkup.setCurrentMarkup(markup);
-    }
-  }
-
-  public boolean getPrepareRendersChildren() {
-    return false;
-  }
-
-  public void prepareRendersChildren(final FacesContext context, final UIComponent component) throws IOException {
-  }
-
-  /**
-   * @deprecated todo: should be done in the StyleClasses class.
-   */
-  @Deprecated
-  protected String getRendererName(final String rendererType) {
-    return rendererType.substring(0, 1).toLowerCase(Locale.ENGLISH) + rendererType.substring(1);
-  }
-
-  /**
-   * @deprecated since 1.5.0, please use getResourceManager().getThemeMeasure()
-   */
-  @Deprecated
-  public int getConfiguredValue(final FacesContext facesContext, final UIComponent component, final String key) {
-    return getResourceManager().getThemeMeasure(facesContext, (Configurable) component, key).getPixel();
-  }
 
   protected Object getCurrentValueAsObject(final UIInput input) {
     final Object submittedValue = input.getSubmittedValue();

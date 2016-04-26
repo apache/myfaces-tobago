@@ -46,57 +46,56 @@ public class TobagoResponseWriterUnitTest {
     writer.startDocument();
     writer.endDocument();
     Assert.assertEquals("content expected",
-        "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01//EN\" \"http://www.w3.org/TR/html4/strict.dtd\">\n" 
-        + "<html\n"
-        + "></html>", stringWriter.toString());
+        "<!DOCTYPE html>\n\n<html>\n</html>", stringWriter.toString());
   }
 
   @Test
   public void testEmptyTag() throws IOException {
-    writer.startElement(HtmlElements.INPUT, null);
+    writer.startElement(HtmlElements.INPUT);
     writer.endElement(HtmlElements.INPUT);
-    Assert.assertEquals("empty tag", "<input\n>", stringWriter.toString());
+    Assert.assertEquals("empty tag", "\n<input>", stringWriter.toString());
   }
 
   @Test
   public void testNormalTag() throws IOException {
-    writer.startElement(HtmlElements.SELECT, null);
+    writer.startElement(HtmlElements.SELECT);
     writer.endElement(HtmlElements.SELECT);
-    Assert.assertEquals("normal tag", "<select\n></select>", stringWriter.toString());
+    Assert.assertEquals("normal tag", "\n<select></select>", stringWriter.toString());
   }
 
   @Test
   public void testAttribute() throws IOException {
-    writer.startElement(HtmlElements.SELECT, null);
-    writer.writeAttribute(HtmlAttributes.VALUE, "0", null);
+    writer.startElement(HtmlElements.SELECT);
+    writer.writeAttribute(HtmlAttributes.VALUE, 0);
     writer.endElement(HtmlElements.SELECT);
-    Assert.assertEquals("attr tag", "<select value='0'\n></select>", stringWriter.toString());
+    Assert.assertEquals("attr tag", "\n<select value='0'></select>", stringWriter.toString());
   }
   
   @Test
   public void testURIAttribute() throws IOException {
-    writer.startElement(HtmlElements.A, null);
-    writer.writeURIAttribute(HtmlAttributes.HREF, "http://example.org/web?text=äöüß", null);
+    writer.startElement(HtmlElements.A);
+    writer.writeURIAttribute(HtmlAttributes.HREF, "http://example.org/web?text=äöüß");
     writer.endElement(HtmlElements.A);
-    Assert.assertEquals("uri attr tag",
-        "<a href='http:&#x2F;&#x2F;example.org&#x2F;web?text=%C3%A4%C3%B6%C3%BC%C3%9F'\n></a>",
+    Assert.assertEquals(
+        "uri attr tag",
+        "\n<a href='http:&#x2F;&#x2F;example.org&#x2F;web?text=%C3%A4%C3%B6%C3%BC%C3%9F'></a>",
         stringWriter.toString());
   }
 
   @Test
   public void testAttributeQuoting() throws IOException {
-    writer.startElement(HtmlElements.SELECT, null);
-    writer.writeAttribute(HtmlAttributes.VALUE, "-<->-ü-€-", null);
+    writer.startElement(HtmlElements.SELECT);
+    writer.writeAttribute(HtmlAttributes.VALUE, "-<->-ü-€-", true);
     writer.endElement(HtmlElements.SELECT);
-    Assert.assertEquals("attr tag", "<select value='-&lt;-&gt;-ü-€-'\n></select>", stringWriter.toString());
+    Assert.assertEquals("attr tag", "\n<select value='-&lt;-&gt;-ü-€-'></select>", stringWriter.toString());
   }
 
   @Test
   public void testTextQuoting() throws IOException {
-    writer.startElement(HtmlElements.TEXTAREA, null);
-    writer.writeText("-<->-ü-€-", null);
-    writer.endElement("textarea");
-    Assert.assertEquals("attr tag", "<textarea\n>-&lt;-&gt;-ü-€-</textarea>", stringWriter.toString());
+    writer.startElement(HtmlElements.TEXTAREA);
+    writer.writeText("-<->-ü-€-");
+    writer.endElement(HtmlElements.TEXTAREA);
+    Assert.assertEquals("attr tag", "\n<textarea>-&lt;-&gt;-ü-€-</textarea>", stringWriter.toString());
   }
 
   @Test
@@ -107,16 +106,16 @@ public class TobagoResponseWriterUnitTest {
 
   @Test
   public void testManyChars() throws IOException {
-    writer.startElement(HtmlElements.SELECT, null);
-    final StringBuffer buffer = new StringBuffer();
+    writer.startElement(HtmlElements.SELECT);
+    final StringBuilder buffer = new StringBuilder();
     for (char c = 0x20; c < 0x7F; c++) {
       buffer.append(c);
     }
     for (char c = 0xA0; c < 0x1ff; c++) {
       buffer.append(c);
     }
-    writer.writeAttribute(HtmlAttributes.VALUE, buffer, null);
-    writer.writeText(buffer, null);
+    writer.writeAttribute(HtmlAttributes.VALUE, buffer.toString(), true);
+    writer.writeText(buffer.toString());
     writer.endElement(HtmlElements.SELECT);
 
     String result = buffer.toString(); // all the same but this 4 items
@@ -126,19 +125,19 @@ public class TobagoResponseWriterUnitTest {
     result = result.replace("/", "&#x2F;");
     result = result.replace("<", "&lt;");
     result = result.replace(">", "&gt;");
-    Assert.assertEquals("all chars", "<select value='" + result + "'\n>" + result + "</select>",
+    Assert.assertEquals("all chars", "\n<select value='" + result + "'>" + result + "</select>",
         stringWriter.toString());
   }
 
   @Test
   public void testNonUtf8() throws IOException {
     final TobagoResponseWriter writer1 = new HtmlResponseWriter(stringWriter, "", "ISO-8859-1");
-    writer1.startElement(HtmlElements.INPUT, null);
-    writer1.writeAttribute(HtmlAttributes.VALUE, "Gutschein über 100 €.", null);
+    writer1.startElement(HtmlElements.INPUT);
+    writer1.writeAttribute(HtmlAttributes.VALUE, "Gutschein über 100 €.", true);
     writer1.writeAttribute(HtmlAttributes.READONLY, true);
     writer1.endElement(HtmlElements.INPUT);
     writer1.close();
-    Assert.assertEquals("<input value='Gutschein &uuml;ber 100 &euro;.' readonly='readonly'\n>",
+    Assert.assertEquals("\n<input value='Gutschein &uuml;ber 100 &euro;.' readonly='readonly'>",
         stringWriter.toString());
   }
 

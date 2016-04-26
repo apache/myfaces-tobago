@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+-->
+
+<ui:composition template="/main.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:tc="http://myfaces.apache.org/tobago/component"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core">
+  <ui:param name="title" value="#{overviewBundle.selectManyCheckbox} &lt;tc:selectManyCheckbox>"/>
+  <p>With <code class="language-markup">&lt;tc:selectManyCheckbox/></code>, you can create a group of checkboxes.
+    The items are added via <code class="language-markup">&lt;tc:selectItem/></code> for static entries or
+    <code class="language-markup">&lt;tc:selectItems value="\#{controller.list}"/></code> for entries from a
+    controller.</p>
+  <p>Tag Library Documentation:
+    <tc:link label="&lt;tc:selectManyCheckbox/>" image="image/feather-leaf.png"
+             link="#{overviewBundle.tagDocUrl}/selectManyCheckbox.html"/>
+    |
+    <tc:link label="&lt;tc:selectItem/>" image="image/feather-leaf.png"
+             link="#{overviewBundle.tagDocUrl}/selectItem.html"/>
+    |
+    <tc:link label="&lt;tc:selectItems/>" image="image/feather-leaf.png"
+             link="#{overviewBundle.tagDocUrl}/selectItems.html"/></p>
+
+  <tc:section label="Basics">
+    <p>Checkbox Group with two items. The second one is disabled.</p>
+    <pre><code class="language-markup">&lt;tc:selectManyCheckbox label="Checkbox Group"></code></pre>
+    <tc:selectManyCheckbox label="Checkbox Group">
+      <tc:selectItem itemLabel="Item One" itemValue="one"/>
+      <tc:selectItem itemLabel="Item Two (disabled)" itemValue="two" itemDisabled="true"/>
+    </tc:selectManyCheckbox>
+    <tc:selectManyCheckbox label="Read Only" readonly="true">
+      <tc:selectItem itemLabel="Item One" itemValue="one"/>
+      <tc:selectItem itemLabel="Item Two (disabled)" itemValue="two" itemDisabled="true"/>
+    </tc:selectManyCheckbox>
+    <tc:selectManyCheckbox label="Disabled" disabled="true">
+      <tc:selectItem itemLabel="Item One" itemValue="one"/>
+      <tc:selectItem itemLabel="Item Two (disabled)" itemValue="two" itemDisabled="true"/>
+    </tc:selectManyCheckbox>
+  </tc:section>
+
+  <tc:section label="Simple Usage">
+    <p>Select an animal. The selection is shown in the outputfield, after pressing 'Submit'.</p>
+    <p><code
+            class="language-markup">&lt;tc:selectManyCheckbox label="Checkbox Group" value="\#{selectManyCheckboxController.animals}"></code>
+      save the selected value in the controller.
+      The available items are added with <code class="language-markup">&lt;tc:selectItem .../></code>.
+      The
+      <code class="language-markup">&lt;tc:out ... value="\#{selectManyCheckboxController.animal}"/></code>
+      get the value from the controller.</p>
+    <tc:selectManyCheckbox label="Checkbox Group" value="#{selectManyCheckboxController.animals}">
+      <tc:selectItem itemLabel="Cat" itemValue="Cat"/>
+      <tc:selectItem itemLabel="Dog" itemValue="Dog"/>
+      <tc:selectItem itemLabel="Fox" itemValue="Fox"/>
+      <tc:selectItem itemLabel="Rabbit" itemValue="Rabbit"/>
+    </tc:selectManyCheckbox>
+    <tc:out id="o1" label="Selected Animals" value="#{selectManyCheckboxController.animal}"/>
+    <tc:button id="b1" label="Submit"/>
+  </tc:section>
+
+  <tc:section label="Ajax">
+    <p>Select a number. Those numbers are added and displayed in the
+      <code class="language-markup">&lt;tc:out id="resultOutput" .../></code>.
+      <code class="language-markup">&lt;tc:selectManyCheckbox .../></code> contain a
+      <code class="language-markup">&lt;f:ajax render="resultOutput"/></code>, which rerenders the outputfield after
+      check/uncheck a checkbox.</p>
+    <tc:selectManyCheckbox label="Checkbox Group" value="#{selectManyCheckboxController.numbers}">
+      <tc:selectItem itemLabel="One" itemValue="1"/>
+      <tc:selectItem itemLabel="Two" itemValue="2"/>
+      <tc:selectItem itemLabel="Three" itemValue="3"/>
+      <tc:selectItem itemLabel="Four" itemValue="4"/>
+      <f:ajax render="resultOutput"/>
+    </tc:selectManyCheckbox>
+    <tc:out id="resultOutput" label="Selected Animals" value="#{selectManyCheckboxController.result}"/>
+  </tc:section>
+</ui:composition>
