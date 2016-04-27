@@ -26,6 +26,8 @@ public enum RendererTypes {
 
   Box,
   BoxToolBar,
+  /** @deprecated */
+  @Deprecated
   Button,
   Calendar,
   Column,
@@ -44,6 +46,8 @@ public enum RendererTypes {
   Hidden,
   In,
   Image,
+  /** @deprecated */
+  @Deprecated
   Link,
   Label,
   Mediator,
@@ -93,6 +97,8 @@ public enum RendererTypes {
 
   public static final String BOX = "Box";
   public static final String BOX_TOOL_BAR = "BoxToolBar";
+  /** @deprecated */
+  @Deprecated
   public static final String BUTTON = "Button";
   public static final String CALENDAR = "Calendar";
   public static final String COLUMN = "Column";
@@ -111,6 +117,8 @@ public enum RendererTypes {
   public static final String HIDDEN = "Hidden";
   public static final String IN = "In";
   public static final String IMAGE = "Image";
+  /** @deprecated */
+  @Deprecated
   public static final String LINK = "Link";
   public static final String LABEL = "Label";
   public static final String MEDIATOR = "Mediator";

@@ -20,99 +20,46 @@
 package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
 import org.apache.myfaces.tobago.component.Attributes;
-import org.apache.myfaces.tobago.component.UIButton;
 import org.apache.myfaces.tobago.internal.component.AbstractUICommand;
-import org.apache.myfaces.tobago.internal.component.AbstractUIForm;
-import org.apache.myfaces.tobago.internal.component.AbstractUIToolBar;
-import org.apache.myfaces.tobago.internal.util.AccessKeyLogger;
-import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
-import org.apache.myfaces.tobago.renderkit.css.Classes;
-import org.apache.myfaces.tobago.renderkit.html.Command;
-import org.apache.myfaces.tobago.renderkit.html.CommandMap;
-import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
+import org.apache.myfaces.tobago.renderkit.css.CssItem;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlButtonTypes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
-import org.apache.myfaces.tobago.renderkit.html.JsonUtils;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
-import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
-import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
+import java.util.List;
 
 public class ButtonRenderer extends CommandRendererBase {
 
-  private static final Logger LOG = LoggerFactory.getLogger(ButtonRenderer.class);
-
   @Override
-  public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
-
-    final AbstractUICommand button = (AbstractUICommand) component;
-    final String clientId = button.getClientId(facesContext);
-    final boolean disabled = button.isDisabled();
-    final LabelWithAccessKey label = new LabelWithAccessKey(button);
-
+  protected void encodeBeginElement(final FacesContext facesContext, final AbstractUICommand command)
+      throws IOException {
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
-
     writer.startElement(HtmlElements.BUTTON);
     writer.writeAttribute(HtmlAttributes.TYPE, HtmlButtonTypes.BUTTON);
-    writer.writeNameAttribute(clientId);
-    writer.writeIdAttribute(clientId);
-    HtmlRendererUtils.writeDataAttributes(facesContext, writer, button);
-    final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, button);
-    if (title != null) {
-      writer.writeAttribute(HtmlAttributes.TITLE, title, true);
-    }
-    writer.writeAttribute(HtmlAttributes.DISABLED, disabled);
+  }
 
-    if (!disabled) {
-      writer.writeAttribute(HtmlAttributes.HREF, "#", false);
-
-      if (label.getAccessKey() != null) {
-        writer.writeAttribute(HtmlAttributes.ACCESSKEY, Character.toString(label.getAccessKey()), false);
-        AccessKeyLogger.addAccessKey(facesContext, label.getAccessKey(), clientId);
-      }
-
-      if (button instanceof UIButton) {
-        writer.writeAttribute(HtmlAttributes.TABINDEX, ((UIButton) button).getTabIndex());
-      }
-
-      String commands = RenderUtils.getBehaviorCommands(facesContext, button);
-      if (commands == null) { // old way
-        final CommandMap map = new CommandMap(new Command(facesContext, button));
-        commands =  JsonUtils.encode(map);
-      }
-      writer.writeAttribute(DataAttributes.COMMANDS, commands, true);
-    }
-
-    writer.writeStyleAttribute(button.getStyle());
-
-    final boolean defaultCommand = ComponentUtils.getBooleanAttribute(button, Attributes.defaultCommand);
-    // TODO this might be too expensive:
-    // TODO please put a flag in the ToolBar-handler and Button-handler (facelets-handler)
-    final boolean insideToolbar = ComponentUtils.findAncestor(button, AbstractUIToolBar.class) != null;
-    writer.writeClassAttribute(
-        Classes.create(button),
-        BootstrapClass.BTN,
-        defaultCommand ? BootstrapClass.BTN_PRIMARY : BootstrapClass.BTN_SECONDARY,
-        insideToolbar ? BootstrapClass.NAVBAR_BTN : null,
-        button.getCustomClass());
-
-    if (defaultCommand) {
-      final AbstractUIForm form = ComponentUtils.findAncestor(button, AbstractUIForm.class);
-      writer.writeAttribute(DataAttributes.DEFAULT, form.getClientId(facesContext), false);
-    }
-    writer.flush(); // force closing the start tag
-
-    String image = ComponentUtils.getStringAttribute(button, Attributes.image);
-    HtmlRendererUtils.encodeIconWithLabel(writer, facesContext, image, label, disabled);
-
+  @Override
+  protected void encodeEndElement(final FacesContext facesContext, final AbstractUICommand command)
+      throws IOException {
+    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
     writer.endElement(HtmlElements.BUTTON);
   }
+
+  @Override
+  protected void addCssItems(
+      final FacesContext facesContext, final AbstractUICommand command, final List<CssItem> collected) {
+
+    final boolean defaultCommand = ComponentUtils.getBooleanAttribute(command, Attributes.defaultCommand);
+
+    collected.add(BootstrapClass.BTN);
+    collected.add(defaultCommand ? BootstrapClass.BTN_PRIMARY : BootstrapClass.BTN_SECONDARY);
+// todo    collected.add(insideToolbar ? BootstrapClass.NAVBAR_BTN : null);
+  }
+
 }
