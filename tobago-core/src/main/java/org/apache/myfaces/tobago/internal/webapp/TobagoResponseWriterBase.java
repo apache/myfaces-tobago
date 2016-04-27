@@ -195,12 +195,20 @@ public abstract class TobagoResponseWriterBase extends TobagoResponseWriter {
 
   @Override
   public void startElement(final String name, final UIComponent currentComponent) throws IOException {
+    final boolean inline = HtmlElements.isInline(name);
+    if (inline) {
+      inlineStack++;
+    }
     this.component = currentComponent;
     startElementInternal(writer, name, HtmlElements.isInline(name));
   }
 
   @Override
   public void startElement(final HtmlElements name) throws IOException {
+    final boolean inline = name.isInline();
+    if (inline) {
+      inlineStack++;
+    }
     startElementInternal(writer, name.getValue(), name.isInline());
     if (!name.isVoid()) {
       i++;
@@ -213,16 +221,13 @@ public abstract class TobagoResponseWriterBase extends TobagoResponseWriter {
     if (startStillOpen) {
       writer.write(">");
     }
-    if (!ajax && inlineStack <= 0) {
+    if (!ajax && inlineStack <= 1) {
       writer.write("\n");
       writer.write(StringUtils.repeat("  ", i));
     }
     writer.write("<");
     writer.write(name);
     startStillOpen = true;
-    if (inline) {
-      inlineStack++;
-    }
   }
 
   @Override
