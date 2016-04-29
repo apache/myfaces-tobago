@@ -16,6 +16,7 @@
 -->
 
 <ui:composition template="/main.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:c="http://java.sun.com/jsp/jstl/core">
@@ -27,7 +28,7 @@
     <tc:form>
       <tc:in label="Name" value="#{forEachController.name}" required="true"/>
       <tc:in label="Length (km)" value="#{forEachController.length}" required="true" markup="number"/>
-      <tc:in label="Discharge (m^3/s)" value="#{forEachController.discharge}" required="true"/>
+      <tc:in label="Discharge (m³/s)" value="#{forEachController.discharge}" required="true"/>
       <tc:button label="Add" action="#{forEachController.addNewRiver}" defaultCommand="true"/>
     </tc:form>
     <tc:form>
@@ -40,7 +41,7 @@
       <c:forEach items="#{forEachController.rivers}" var="river">
         <tc:box label="#{river.name}">
           <tc:out label="Length" value="#{river.length} km" markup="number"/>
-          <tc:out label="Discharge" value="#{river.discharge} m^3/s" markup="number"/>
+          <tc:out label="Discharge" value="#{river.discharge} m³/s" markup="number"/>
         </tc:box>
       </c:forEach>
     </tc:segmentLayout>
@@ -51,7 +52,7 @@
       <ui:repeat value="#{forEachController.rivers}" var="river">
         <tc:box label="#{river.name}">
           <tc:out label="Length" value="#{river.length} km" markup="number"/>
-          <tc:out label="Discharge" value="#{river.discharge} m^3/s" markup="number"/>
+          <tc:out label="Discharge" value="#{river.discharge} m³/s" markup="number"/>
         </tc:box>
       </ui:repeat>
     </tc:segmentLayout>
