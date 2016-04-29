@@ -22,16 +22,16 @@
 
 Checking Out
 
-  Check out the 2.0.x sources by running the following:
+  Check out the 3.0.x sources (alpha) by running the following:
 
 +----------------------------------------
   svn checkout http://svn.apache.org/repos/asf/myfaces/tobago/trunk tobago
 +----------------------------------------
 
-  Check out the 3.0.x sources (alpha) by running the following:
+  Check out the 2.0.x sources by running the following:
 
 +----------------------------------------
-  svn checkout http://svn.apache.org/repos/asf/myfaces/tobago/branches/tobago-3.0.x tobago-3.0.x
+  svn checkout http://svn.apache.org/repos/asf/myfaces/tobago/branches/tobago-2.0.x tobago-2.0.x
 +----------------------------------------
 
   Check out the 1.5.x sources by running the following:
@@ -49,11 +49,10 @@ Checking Out
 
 Building
 
-  You need {{{http://maven.apache.org/download.html}Maven 2}} (at least 2.2.1)
-  and {{{http://www.oracle.com/technetwork/java/javase/downloads/index.html}Java 5}} to build Tobago 1.0.x.\
-  You need {{{http://maven.apache.org/download.html}Maven}} (at least 3.0.4)
-  and {{{http://www.oracle.com/technetwork/java/javase/downloads/index.html}Java 6 or 7}} to build Tobago 1.5.x and
-  Tobago 2.0.x.
+  You need {{{http://maven.apache.org/download.html}Maven 2}} (at least 2.2.1) Java 5 to build Tobago 1.0.x.\
+  You need {{{http://maven.apache.org/download.html}Maven 2}} (at least 3.0.4) Java 6 or 7 to build Tobago 1.5.x.
+  You need {{{http://maven.apache.org/download.html}Maven 2}} (at least 3.0.4) Java 8 to build Tobago 2.0.x and
+  Tobago 3.0.x.
 
   In the
   {{{http://svn.apache.org/repos/asf/myfaces/tobago/trunk/}main directory}}
