@@ -78,6 +78,8 @@ needed for popups
     display: -webkit-flex; /* needed e.g. for Safari 8.0.2 */
     display: -ms-flexbox; /* needed for IE 10 */
     display: flex;
+    min-width: 0; /* without this, Firefox/Webkit are different from IE:
+    currently e.g. PRE-code blocks in the demo are too wide. XXX */
 }
 
 .tobago-flexLayout-markup-vertically {
