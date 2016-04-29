@@ -20,11 +20,11 @@
 <ui:composition template="/main.xhtml"
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
-                xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:f="http://java.sun.com/jsf/core">
+                xmlns:ui="http://java.sun.com/jsf/facelets">
   <ui:param name="title" value="#{overviewBundle.popup} &lt;tc:popup>"/>
   <p>A popup dialog is created with <code class="language-markup">&lt;tc:popup/></code>.
-    It can be filled with components like other container.</p>
+    It can be filled with components like other container.
+    To open the popup dialog, use <code class="language-markup">&lt;tc:popupReference/></code>.</p>
   <p>Tag Library Documentation:
     <tc:link label="&lt;tc:popup/>" image="image/feather-leaf.png"
              link="#{overviewBundle.tagDocUrl}/popup.html"/>
@@ -39,31 +39,18 @@
              link="#{overviewBundle.tagDocUrl}/attribute.html"/></p>
 
   <tc:section label="Basics">
-    <p>There are basically two ways to open a popup dialog.
-      First, put the <code class="language-markup">&lt;tc:popup/></code> tag within an opening component,
-      like a button or a link. The second one is to use the
-      <code class="language-markup">&lt;tc:popupReference/></code> tag.</p>
-    <tc:section label="Popup within button">
-      <p>In this example, the popup should be within a button. To make this happen, the facet-tag is also needed.
-        In detail:<br/>
-        The <code class="language-markup">&lt;tc:button label="Open Popup 1"></code> contain
-        <code class="language-markup">&lt;f:facet name="popup"></code>, which contain
-        <code class="language-markup">&lt;tc:popup id="popup1"></code>.</p>
-      <tc:button id="b1" label="Open Popup 1">
-        <f:facet name="popup">
-          <tc:popup id="popup1">
-            <p>This is a popup dialog.</p>
-          </tc:popup>
-        </f:facet>
-      </tc:button>
-    </tc:section>
-    <tc:section label="Reference to popup">
-      <p>The link tag contain a <code class="language-markup">&lt;tc:popupReference for="popup1"/></code>.
-        The value of the <code>for</code> attribute has to be the ID of a popup dialog.</p>
-      <tc:link id="l1" label="Open Popup 1">
-        <tc:popupReference for="popup1"/>
-      </tc:link>
-    </tc:section>
+    <p>Press the button or click the link to open a popup dialog.
+      Both button and link contain a <code class="language-markup">&lt;tc:popupReference for="popup1"/></code> tag.
+      The value of the <code>for</code> attribute has to be the ID of a popup dialog.</p>
+    <tc:popup id="popup1">
+      <p>This is a popup dialog.</p>
+    </tc:popup>
+    <tc:button id="b1" label="Open Popup 1">
+      <tc:popupReference for="popup1"/>
+    </tc:button>
+    <tc:link id="l1" label="Open Popup 1">
+      <tc:popupReference for="popup1"/>
+    </tc:link>
   </tc:section>
 
   <tc:section label="Close Popup">

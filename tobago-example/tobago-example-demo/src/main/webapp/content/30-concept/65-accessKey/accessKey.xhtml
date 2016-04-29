@@ -16,26 +16,72 @@
 -->
 
 <ui:composition template="/main.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:f="http://java.sun.com/jsf/core"
-                xmlns="http://www.w3.org/1999/xhtml">
-  <ui:param name="title" value="Access Keys"/>
+                xmlns:f="http://java.sun.com/jsf/core">
+  <ui:param name="title" value="#{overviewBundle.accessKey}"/>
+  <p>The <code>accessKey</code> attribute is available for many components like buttons, labels, checkboxes or links.
+    A component with this attribute is accessible by the given character. The character is not case sensitive.</p>
 
-  <tc:flowLayout>
-    <p>
-      Todo: describe the usage:
-    </p>
-    <ul>
-      <li>keyboard usage</li>
-      <li>browser support: different extra keys</li>
-      <li>double possible</li>
-      <li>configuration: auto from label</li>
-    </ul>
 
-    <p>
-      To log the use of the accessKey attribute please configure
-      the category <code>org.apache.myfaces.tobago.internal.util.AccessKeyLogger</code> to log level "debug".
-    </p>
-  </tc:flowLayout>
+  <p>
+    To log the use of the accessKey attribute please configure
+    the category <code>org.apache.myfaces.tobago.internal.util.AccessKeyLogger</code> to log level "debug".
+  </p>
+
+  <p>The usage of accesskeys is different for every OS and browser.<br/>
+    For example, in Firefox for Windows, you have to press 'Alt + Shift + key'. In Chrome it's only 'Alt + key'.
+    A complete listing can be found
+    <tc:link label="here" link="https://developer.mozilla.org/de/docs/Web/HTML/Global_attributes/accesskey"/>.</p>
+  <p>Tag Library Documentation:
+    <tc:link label="&lt;tc:button/>" image="image/feather-leaf.png"
+             link="#{overviewBundle.tagDocUrl}/button.html"/>
+    |
+    <tc:link label="&lt;tc:checkbox/>" image="image/feather-leaf.png"
+             link="#{overviewBundle.tagDocUrl}/checkbox.html"/>
+    |
+    <tc:link label="&lt;tc:link/>" image="image/feather-leaf.png"
+             link="#{overviewBundle.tagDocUrl}/link.html"/>
+    |
+    <tc:link label="&lt;tc:label/>" image="image/feather-leaf.png"
+             link="#{overviewBundle.tagDocUrl}/label.html"/></p>
+
+
+  <tc:section label="Basics">
+    <p>The access key is set to 'a'. Notice, that the 'A' in the label of the button has an underscore.</p>
+    <pre><code class="language-markup">&lt;tc:button label="Button AccessKey" accessKey="a"></code></pre>
+    <tc:button label="Button AccessKey" accessKey="a">
+      <f:facet name="confirmation">
+        <tc:out value="'Button AccessKey' pressed"/>
+      </f:facet>
+    </tc:button>
+  </tc:section>
+
+  <tc:section label="Invisible Key">
+    <p>Access key is '3'. Because the value of the label doesn't contain a '3', nothing is underlined.</p>
+    <tc:button label="Button Three" accessKey="3">
+      <f:facet name="confirmation">
+        <tc:out value="Button 3 pressed"/>
+      </f:facet>
+    </tc:button>
+  </tc:section>
+
+  <tc:section label="Same Key">
+    TODO
+    <tc:button label="Same Key 1" accessKey="S">
+      <f:facet name="confirmation">
+        <tc:out value="Button 'Same Key 1' pressed"/>
+      </f:facet>
+    </tc:button>
+    <tc:button label="Same Key 2" accessKey="S">
+      <f:facet name="confirmation">
+        <tc:out value="Button 'Same Key 2' pressed"/>
+      </f:facet>
+    </tc:button>
+  </tc:section>
+
+  <tc:section label="Label">
+    TODO
+  </tc:section>
 </ui:composition>

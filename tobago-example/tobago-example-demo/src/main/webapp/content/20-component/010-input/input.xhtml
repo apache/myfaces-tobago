@@ -22,7 +22,7 @@
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
                 xmlns:ui="http://java.sun.com/jsf/facelets">
   <ui:param name="title" value="#{overviewBundle.input}"/>
-  <p>With the input components, a text or a date can be entered.
+  <p>With input components, a text or a date can be entered.
     Input components should always use the <code>label</code> attribute.</p>
 
   <tc:section label="#{overviewBundle.in}">
@@ -31,7 +31,12 @@
   </tc:section>
 
   <tc:section label="#{overviewBundle.suggest}">
-    <pre><code class="language-markup"></code></pre>
+    <pre><code class="language-markup">&lt;tc:in label="Language" value="\#{suggestController.suggestInput}">
+    &lt;tc:suggest suggestMethod="\#{suggestController.getInputSuggestItems}"/>
+&lt;/tc:in></code></pre>
+    <tc:in id="i2" label="Language" value="#{suggestController.suggestInput}">
+      <tc:suggest suggestMethod="#{suggestController.getInputSuggestItems}"/>
+    </tc:in>
   </tc:section>
 
   <tc:section label="#{overviewBundle.textarea}">

@@ -60,7 +60,7 @@
   <entry key="selectManyListbox">Multiselection List</entry>
   <entry key="selectManyShuttle">Shuttle List</entry>
   <entry key="default_command">Default Command</entry>
-  <entry key="button_link">Link</entry>
+  <entry key="button_link">Link &amp; Button</entry>
   <entry key="toolBar">Toolbar</entry>
   <entry key="menu">Menubar</entry>
   <entry key="container">Container</entry>
@@ -81,7 +81,8 @@
   <entry key="sheet_column_event">Column Event</entry>
   <entry key="sheet_dropdown">Dropdown Box</entry>
   <entry key="sheet_filter">Filtering</entry>
-  <entry key="sheet_header">Header</entry>
+  <entry key="sheet_static_header">Static Header</entry>
+  <entry key="sheet_multi_header">Multi Header</entry>
   <entry key="sheet_tree">Column Tree</entry>
   <entry key="tree">Tree Control</entry>
   <entry key="tree_command_types">Command</entry>
@@ -108,6 +109,11 @@
   <entry key="labeled_layout">LabeledLayout</entry>
   <entry key="grid_layout">GridLayout</entry>
   <entry key="format">Formatting</entry>
+  <entry key="transition">Transition</entry>
+  <entry key="for_each">For Each</entry>
+  <entry key="collapsible">Collapsible</entry>
+  <entry key="accessKey">Access Keys</entry>
+  <entry key="dataAttribute">Data Attributes</entry>
   <entry key="roles">Roles</entry>
 
 

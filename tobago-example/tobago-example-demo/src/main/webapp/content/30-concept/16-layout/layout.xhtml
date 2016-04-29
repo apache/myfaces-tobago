@@ -18,50 +18,45 @@
 -->
 
 <ui:composition template="/main.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
-                xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:f="http://java.sun.com/jsf/core">
+                xmlns:ui="http://java.sun.com/jsf/facelets">
   <ui:param name="title" value="#{overviewBundle.layout}"/>
-  <tc:panel>
-    <f:facet name="layout">
-      <tc:gridLayout rows="2*;7*"/>
-    </f:facet>
+  <p>Tobago provide several layout options.</p>
 
-    <tc:out escape="false" value="#{overviewBundle.layout_text}"/>
-    <tc:box label="#{overviewBundle.layout_exampleTitle}">
-      <f:facet name="layout">
-        <tc:gridLayout columns="*;*" rows="auto;auto;auto;auto;auto;*"/>
-      </f:facet>
+  <tc:section label="#{overviewBundle.flow_layout}">
+    <tc:flowLayout>
+      <tc:button label="Button"/>
+      <tc:button label="Button"/>
+      <tc:button label="Button"/>
+      <tc:button label="Button"/>
+      <tc:button label="Button"/>
+    </tc:flowLayout>
+  </tc:section>
 
-      <!-- 1 -->
-      <tc:selectOneChoice value="#{overviewController.singleValue}"
-                          label="#{overviewBundle.layout_salutation}"
-                          converter="salutationId">
-        <f:selectItems value="#{overviewController.items}"/>
-      </tc:selectOneChoice>
-      <tc:panel/>
+  <tc:section label="#{overviewBundle.flex_layout}">
+    <tc:flexLayout columns="200px;auto;1*;3*;1*">
+      <tc:button label="Button"/>
+      <tc:button label="Button"/>
+      <tc:button label="Button"/>
+      <tc:button label="Button"/>
+      <tc:button label="Button"/>
+    </tc:flexLayout>
+  </tc:section>
 
-      <!-- 2 -->
-      <tc:in value="" label="#{overviewBundle.layout_firstName}"/>
-      <tc:in value="" label="#{overviewBundle.layout_lastName}"/>
+  <tc:section label="#{overviewBundle.segment_layout}">
+    <tc:segmentLayout medium="4;4;4">
+      <tc:button label="Button"/>
+      <tc:button label="Button"/>
+      <tc:button label="Button"/>
+      <tc:button label="Button"/>
+      <tc:button label="Button"/>
+    </tc:segmentLayout>
+  </tc:section>
 
-      <!-- 3 -->
-      <tc:in value="" label="#{overviewBundle.layout_co}">
-        <tc:gridLayoutConstraint columnSpan="2"/>
-      </tc:in>
-
-      <!-- 4 -->
-      <tc:in value="" label="#{overviewBundle.layout_street}"/>
-      <tc:in value="" label="#{overviewBundle.layout_streetNumber}"/>
-
-      <!-- 5 -->
-      <tc:in value="" label="#{overviewBundle.layout_zipCode}"/>
-      <tc:in value="" label="#{overviewBundle.layout_city}"/>
-
-      <!-- 6 -->
-      <tc:textarea value="" label="#{overviewBundle.layout_note}">
-        <tc:gridLayoutConstraint columnSpan="2"/>
-      </tc:textarea>
-    </tc:box>
-  </tc:panel>
+  <tc:section label="#{overviewBundle.labeled_layout}">
+    <p>For many components, a <code>label</code> attribute is available, which place a label in front
+      of the according component.</p>
+    <tc:in label="Input"/>
+  </tc:section>
 </ui:composition>

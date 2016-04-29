@@ -39,8 +39,12 @@
     <tc:section label="Collapsible with the rendered attribute">
 
       <tc:segmentLayout medium="12" id="collapsible2">
-        <tc:button action="#{collapsible.toggle2}" label="Toggle" immediate="true" renderedPartially="collapsible2"/>
         <tc:box label="Collapsible">
+          <f:facet name="toolBar">
+            <tc:toolBar>
+              <tc:toolBarCommand action="#{collapsible.toggle2}" label="Toggle" immediate="true" renderedPartially="collapsible2"/>
+            </tc:toolBar>
+          </f:facet>
           <tc:panel rendered="#{!collapsible.collapsed2}">
             Hallo, collapsible box.
             <tc:in required="true" label="Required"/>

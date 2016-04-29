@@ -26,7 +26,7 @@
   <p>The <code class="language-markup">&lt;tc:in/&gt;</code> tag create a classic inputfield.</p>
   <tc:link label="Tag Library Documentation" image="image/feather-leaf.png" link="#{overviewBundle.tagDocUrl}/in.html"/>
   <tc:section label="Basics">
-    <p>In the most cases, a label should be placed in front of every inputfield. For this use the attribute
+    <p>In most cases, a label should be placed in front of every inputfield. Use the attribute
       <code>label</code>.</p>
     <pre><code class="language-markup">&lt;tc:in label="Input" value="Some Text"/&gt;</code></pre>
     <tc:in id="i1" label="Input" value="Some Text"/>
@@ -50,14 +50,14 @@
   </tc:section>
 
   <tc:section label="Placeholder">
-    <p>Another way to tell the user the meaning of a field is the <code>placeholder</code> attribute.</p>
-    <p>The text of the placeholder will only be shown, if the value is an empty string.</p>
+    <p>A <code>placeholder</code> attribute can be used for explaining a user the meaning of a field.</p>
+    <p>The text of the placeholder is only shown if the value is an empty string.</p>
     <pre><code class="language-markup">&lt;tc:in label="Placeholder" placeholder="Grey Text"/&gt;</code></pre>
     <tc:in id="i7" label="Placeholder" placeholder="Short description of the field." value=""/>
   </tc:section>
 
   <tc:section label="Ajax">
-    <p>The outputfield in this example, display the given value on the server.
+    <p>The outputfield in this example, displays the given value on the server.
       With <code class="language-markup">&lt;f:ajax render="outputfield" listener="\#{inController.update}"/></code>,
       the outputfield will be rerendered, after the value has been changed.
       This is because <code>outputfield</code> is the id of the <code>&lt;tc:out/></code> tag.

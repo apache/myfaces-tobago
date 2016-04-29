@@ -20,17 +20,44 @@
 <ui:composition template="/main.xhtml"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:f="http://java.sun.com/jsf/core">
-  <ui:param name="title" value="Transitions between pages"/>
+>
+  <ui:param name="title" value="#{overviewBundle.transition}"/>
+  <p>For command components like a link or a button, the <code>transition</code> attribute is available.
+    It shows a loading animation if the site don't respond in a certain amount of time.
+    By default, the value is 'true'.</p>
+  <p>Tag Library Documentation:
+    <tc:link label="&lt;tc:link/>" image="image/feather-leaf.png" link="#{overviewBundle.tagDocUrl}/link.html"/>
+    |
+    <tc:link label="&lt;tc:button/>" image="image/feather-leaf.png" link="#{overviewBundle.tagDocUrl}/button.html"/></p>
 
-    <tc:panel>
-      <f:facet name="layout">
-        <tc:gridLayout rows="auto;auto;auto" />
-      </f:facet>
+  <tc:section label="Basics">
+    <p>By following one of the links, the site waits five seconds.
+      After that, you will be redirected to another page.</p>
+    <pre><code class="language-markup">&lt;tc:link label="link with transition ON"
+action="\#{transitionController.sleep5sAndRedirect}"/>
+&lt;tc:link label="link with transition OFF" transition="false"
+action="\#{transitionController.sleep5sAndRedirect}"/></code></pre>
 
-      <tc:out value="Prevent double-clicks" />
-      <tc:button label="Sleep 5 s (transition=true)" action="#{transitionController.sleep5s}"/>
-      <tc:button label="Sleep 5 s (transition=false)" action="#{transitionController.sleep5s}" transition="false"/>
+    <tc:link label="link with transition ON" action="#{transitionController.sleep5sAndRedirect}"/>
+    <br/>
+    <tc:link label="link with transition OFF" transition="false" action="#{transitionController.sleep5sAndRedirect}"/>
+  </tc:section>
 
-    </tc:panel>
-  </ui:composition>
+  <tc:section label="Popup">
+    <p>In this example, a popup dialog is shown five seconds after pressing one of the buttons.</p>
+    <tc:popup id="popup">
+      <tc:box label="Info">
+        <p>Button pressed</p>
+        <tc:button label="Close">
+          <tc:attribute name="popupClose" value="immediate"/>
+        </tc:button>
+      </tc:box>
+    </tc:popup>
+    <tc:button label="Open Popup (transition ON)" action="#{transitionController.sleep5s}">
+      <tc:popupReference for="popup"/>
+    </tc:button>
+    <tc:button label="Open Popup (transition OFF)" action="#{transitionController.sleep5s}" transition="false">
+      <tc:popupReference for="popup"/>
+    </tc:button>
+  </tc:section>
+</ui:composition>

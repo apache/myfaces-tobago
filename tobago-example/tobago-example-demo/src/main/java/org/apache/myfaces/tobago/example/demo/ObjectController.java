@@ -19,23 +19,13 @@
 
 package org.apache.myfaces.tobago.example.demo;
 
-import org.apache.commons.io.IOUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import javax.enterprise.context.SessionScoped;
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
 import javax.inject.Named;
-import java.io.IOException;
-import java.io.InputStream;
 import java.io.Serializable;
 
 @SessionScoped
 @Named
-public class ObjectController implements Serializable {
-
-  private static final Logger LOG = LoggerFactory.getLogger(ObjectController.class);
+public class ObjectController extends SourceFileReader implements Serializable {
 
   private boolean collapsed;
 
@@ -56,19 +46,6 @@ public class ObjectController implements Serializable {
   }
 
   public String getJavaScriptSource() {
-    final FacesContext facesContext = FacesContext.getCurrentInstance();
-    final ExternalContext externalContext = facesContext.getExternalContext();
-    final String viewId = facesContext.getViewRoot().getViewId();
-    final String objectjs = viewId.substring(0, viewId.lastIndexOf("/")) + "/object.js";
-    InputStream resourceAsStream = null;
-    try {
-      resourceAsStream = externalContext.getResourceAsStream(objectjs);
-      return IOUtils.toString(resourceAsStream, "UTF-8");
-    } catch (final IOException e) {
-      LOG.error("", e);
-      return "error";
-    } finally {
-      IOUtils.closeQuietly(resourceAsStream);
-    }
+    return getSource("object.js");
   }
 }

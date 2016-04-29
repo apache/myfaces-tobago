@@ -50,7 +50,8 @@
 
   <tc:section id="s2" label="Content type">
     <p>You can filter files using the <code class="language-markup">&lt;tc:validateFileItem/></code> tag within
-      the <code class="language-markup">&lt;tc:file/></code>.</p>
+      the <code class="language-markup">&lt;tc:file/></code>.
+      In the following example only images and PDF files are excepted.</p>
     <tc:file label="Upload image" value="#{uploadController.fileContentType}">
       <tc:validateFileItem contentType="image/*,application/pdf"/>
     </tc:file>
@@ -60,7 +61,7 @@
   <tc:section id="s3" label="Ajax">
     <p>Ajax can be activated by adding <code class="language-markup">&lt;f:ajax/></code>
       to the <code class="language-markup">&lt;tc:file/></code> tag.</p>
-    <p>The Ajax feature of file upload currently only works with JSF 2.2 (not with JSF 2.0 or 2.1)!</p>
+    <p>The Ajax feature of file upload currently works with JSF 2.2 only!</p>
 
     <tc:file label="Ajax" value="#{uploadController.fileAjax}">
       <f:ajax listener="#{uploadController.uploadAjax}" render="s3"/>

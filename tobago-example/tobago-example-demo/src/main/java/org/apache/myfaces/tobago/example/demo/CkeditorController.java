@@ -19,6 +19,7 @@
 
 package org.apache.myfaces.tobago.example.demo;
 
+import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 
 import javax.enterprise.context.SessionScoped;
@@ -28,23 +29,33 @@ import java.io.Serializable;
 
 @SessionScoped
 @Named
-public class HtmlEditor implements Serializable {
+public class CkeditorController extends SourceFileReader implements Serializable {
 
+  private boolean editorAvailable;
+  private String contentSecurityPolicyMode;
   private String text;
-  private boolean ckeditorAvailable;
-  private boolean tinymceAvailable;
+  private boolean collapsed;
 
-  public HtmlEditor() {
-    ckeditorAvailable = ResourceManagerUtils.getScripts(
-        FacesContext.getCurrentInstance(),
-        "content/20-component/110-wysiwyg/01-ckeditor/ckeditor/ckeditor.js")
-        .size() != 0;
-    tinymceAvailable = ResourceManagerUtils.getScripts(
-        FacesContext.getCurrentInstance(),
-        "content/20-component/110-wysiwyg/00-tinymce/tinymce/js/tinymce/tinymce.min.js")
-        .size() != 0;
-    text = "<h1>Sonne</h1>"
-        + "<p>Die Sonne ist ein Stern in der Galaxie Milchstraße.</p>";
+  public CkeditorController() {
+    editorAvailable = ResourceManagerUtils.getScripts(
+            FacesContext.getCurrentInstance(),
+            "content/20-component/110-wysiwyg/01-ckeditor/ckeditor/ckeditor.js")
+            .size() != 0;
+
+    final TobagoConfig tobagoConfig = TobagoConfig.getInstance(FacesContext.getCurrentInstance());
+    contentSecurityPolicyMode = tobagoConfig.getContentSecurityPolicy().getMode().getValue();
+
+    text = "<p><strong>Sun</strong></p>"
+            + "<p>The sun is a star in our galaxy.</p>";
+    collapsed = true;
+  }
+
+  public boolean isEditorAvailable() {
+    return editorAvailable;
+  }
+
+  public String getContentSecurityPolicyMode() {
+    return contentSecurityPolicyMode;
   }
 
   public String getText() {
@@ -55,12 +66,19 @@ public class HtmlEditor implements Serializable {
     this.text = text;
   }
 
-  public boolean isCkeditorAvailable() {
-    return ckeditorAvailable;
+  public boolean isCollapsed() {
+    return collapsed;
   }
 
-  public boolean isTinymceAvailable() {
-    return tinymceAvailable;
+  public void setCollapsed(boolean collapsed) {
+    this.collapsed = collapsed;
   }
 
+  public void switchCollapsed() {
+    collapsed = !collapsed;
+  }
+
+  public String getSource() {
+    return getSource("ckeditor.js");
+  }
 }
