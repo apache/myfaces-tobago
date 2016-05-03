@@ -21,8 +21,10 @@ package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.LabelLayout;
+import org.apache.myfaces.tobago.component.SupportsAccessKey;
 import org.apache.myfaces.tobago.component.SupportsLabelLayout;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
+import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.CssItem;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
@@ -188,8 +190,12 @@ public abstract class LabelLayoutRendererBase extends DecodingRendererBase {
       writer.startElement(HtmlElements.LABEL);
       writer.writeAttribute(HtmlAttributes.FOR, component.getClientId(), false);
       writer.writeClassAttribute(TobagoClass.LABEL, BootstrapClass.FORM_CONTROL_LABEL);
-      // todo: label with accesskey
-      writer.writeText(label);
+      if (component instanceof SupportsAccessKey) {
+        LabelWithAccessKey labelWithAccessKey = new LabelWithAccessKey((SupportsAccessKey) component);
+        HtmlRendererUtils.writeLabelWithAccessKey(writer, labelWithAccessKey);
+      } else {
+        writer.writeText(label);
+      }
       writer.endElement(HtmlElements.LABEL);
     }
   }

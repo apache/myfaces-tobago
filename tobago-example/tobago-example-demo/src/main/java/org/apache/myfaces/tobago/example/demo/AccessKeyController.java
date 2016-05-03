@@ -5,6 +5,7 @@ import org.apache.myfaces.tobago.component.UILabel;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 import java.io.Serializable;
+import java.util.Date;
 
 @SessionScoped
 @Named
@@ -33,5 +34,9 @@ public class AccessKeyController implements Serializable {
     }
 
     this.labelComponent = labelComponent;
+  }
+
+  public Date getCurrentDate() {
+    return new Date();
   }
 }

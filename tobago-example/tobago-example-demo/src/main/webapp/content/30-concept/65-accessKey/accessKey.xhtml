@@ -23,17 +23,14 @@
   <ui:param name="title" value="#{overviewBundle.accessKey}"/>
   <p>The <code>accessKey</code> attribute is available for many components like buttons, labels, checkboxes or links.
     A component with this attribute is accessible by the given character. The character is not case sensitive.</p>
-
-
-  <p>
-    To log the use of the accessKey attribute please configure
-    the category <code>org.apache.myfaces.tobago.internal.util.AccessKeyLogger</code> to log level "debug".
-  </p>
+  <p>To log the use of the accessKey attribute please configure
+    the category <code>org.apache.myfaces.tobago.internal.util.AccessKeyLogger</code> to log level "debug".</p>
 
   <p>The usage of accesskeys is different for every OS and browser.<br/>
     For example, in Firefox for Windows, you have to press 'Alt + Shift + key'. In Chrome it's only 'Alt + key'.
-    A complete listing can be found
-    <tc:link label="here" link="https://developer.mozilla.org/de/docs/Web/HTML/Global_attributes/accesskey"/>.</p>
+    A complete listing can be found at the
+    <tc:link label="Mozilla Developer Network"
+             link="https://developer.mozilla.org/de/docs/Web/HTML/Global_attributes/accesskey"/>.</p>
   <p>Tag Library Documentation:
     <tc:link label="&lt;tc:button/>" image="image/feather-leaf.png"
              link="#{overviewBundle.tagDocUrl}/button.html"/>
@@ -46,7 +43,6 @@
     |
     <tc:link label="&lt;tc:label/>" image="image/feather-leaf.png"
              link="#{overviewBundle.tagDocUrl}/label.html"/></p>
-
 
   <tc:section label="Basics">
     <p>The access key is set to 'a'. Notice, that the 'A' in the label of the button has an underscore.</p>
@@ -81,10 +77,19 @@
     </tc:button>
   </tc:section>
 
+  <tc:section label="Inputfields">
+    <tc:in label="Input" accessKey="i"/>
+    <tc:textarea label="Textarea" accessKey="t"/>
+    <tc:date label="Date" accessKey="d" value="#{accessKeyController.currentDate}">
+      <f:convertDateTime pattern="yyyy-MM-dd"/>
+    </tc:date>
+  </tc:section>
+
   <tc:section label="Label">
-    <tc:label value="Test" accessKey="e" for="@auto"/> (todo: fix, this is because of the change, that the local root element has now the clientId, need ::filed suffix)
-    <tc:in />
-    <tc:in label="Test" accessKey="s" />
-    <tc:selectBooleanCheckbox label="Test" accessKey="s" />
+    (todo: fix, this is because of the change, that the local root element has now the clientId, need ::filed suffix)
+    <tc:label value="Test" accessKey="e" for="@auto"/>
+    <tc:in id="in1" />
+    <!--<tc:in label="Test" accessKey="s" />-->
+    <!--<tc:selectBooleanCheckbox label="Test" accessKey="s" />-->
   </tc:section>
 </ui:composition>

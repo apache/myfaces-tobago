@@ -21,8 +21,9 @@ package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
 import org.apache.myfaces.tobago.component.UITextarea;
 import org.apache.myfaces.tobago.config.TobagoConfig;
-import org.apache.myfaces.tobago.renderkit.css.Classes;
+import org.apache.myfaces.tobago.internal.util.AccessKeyLogger;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
+import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
@@ -69,6 +70,11 @@ public class TextareaRenderer extends LabelLayoutRendererBase {
     writer.writeAttribute(HtmlAttributes.DISABLED, input.isDisabled());
     writer.writeAttribute(HtmlAttributes.REQUIRED, input.isRequired());
     writer.writeAttribute(HtmlAttributes.TABINDEX, input.getTabIndex());
+
+    if (input.getAccessKey() != null) {
+      writer.writeAttribute(HtmlAttributes.ACCESSKEY, Character.toString(input.getAccessKey()), false);
+      AccessKeyLogger.addAccessKey(facesContext, input.getAccessKey(), clientId);
+    }
 
     writer.writeClassAttribute(Classes.create(input), BootstrapClass.FORM_CONTROL, input.getCustomClass());
     writer.writeStyleAttribute(input.getStyle());
