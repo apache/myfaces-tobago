@@ -154,6 +154,12 @@
     <location>/faces/error/exception.xhtml</location>
   </error-page>
 
+
+  <error-page>
+    <exception-type>java.io.FileNotFoundException</exception-type>
+    <location>/faces/error/404.xhtml</location>
+  </error-page>
+
   <error-page>
     <exception-type>java.lang.Exception</exception-type>
     <location>/faces/error/exception.xhtml</location>
