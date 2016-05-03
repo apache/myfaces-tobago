@@ -79,6 +79,8 @@ needed for popups
     display: -ms-flexbox; /* needed for IE 10 */
     display: flex;
     min-width: 0; /* without this, Firefox/Webkit are different from IE:
+    Set the minimal width to zero make flex-layout responsive for the width,
+    even if there is overflowing content.
     currently e.g. PRE-code blocks in the demo are too wide. XXX */
 }
 

@@ -98,6 +98,7 @@
   <!-- navigate : concept -->
   <entry key="concept">Concepts</entry>
   <entry key="validation">Validation</entry>
+  <entry key="content_validation">Content Validation</entry>
   <entry key="validation_jsr303">JSR 303: Bean Validation</entry>
   <entry key="conversion">Conversion</entry>
   <entry key="form">Forms</entry>
