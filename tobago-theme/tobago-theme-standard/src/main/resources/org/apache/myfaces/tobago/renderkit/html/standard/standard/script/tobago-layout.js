@@ -187,7 +187,14 @@ function layoutFlex(container, orientation) {
           }
           // using "0px" and not "0", because IE11 needs the "px"
           //container.children().eq(i).css(Modernizr.prefixed("flex"), tokens[i] + " 0 0px");  // todo: modernizr
-          container.children().eq(i).css(flex, tokens[i] + " 0 0px");
+
+          var child = container.children().eq(i);
+          if (typeof child != 'undefined' && child.hasClass('tobago-box')) {
+            // XXX Is needed for IE11, otherwise tc:box doesn't displayed properly.
+            container.children().eq(i).css(flex, tokens[i] + " 0 auto");
+          } else {
+            container.children().eq(i).css(flex, tokens[i] + " 0 0px");
+          }
           break;
         case "string":
           // a string, currently only "auto" is supported
