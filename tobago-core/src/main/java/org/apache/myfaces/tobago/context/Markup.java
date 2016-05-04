@@ -71,6 +71,10 @@ public final class Markup implements Serializable, Iterable<String> {
   public static final Markup EXPANDED = valueOf("expanded");
   public static final Markup FILLER = valueOf("filler");
   public static final Markup FATAL = valueOf("fatal");
+  /**
+   * @deprecated Can be selected via CSS3.
+   */
+  @Deprecated
   public static final Markup FIRST = valueOf("first");
   public static final Markup FOLDER = valueOf("folder");
   public static final Markup INFO = valueOf("info");

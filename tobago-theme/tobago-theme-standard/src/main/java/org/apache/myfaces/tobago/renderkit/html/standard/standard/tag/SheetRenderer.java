@@ -35,6 +35,7 @@ import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.event.PageAction;
 import org.apache.myfaces.tobago.internal.component.AbstractUIColumnBase;
+import org.apache.myfaces.tobago.internal.component.AbstractUIColumnEvent;
 import org.apache.myfaces.tobago.internal.component.AbstractUIColumnNode;
 import org.apache.myfaces.tobago.internal.component.AbstractUICommand;
 import org.apache.myfaces.tobago.internal.component.AbstractUIData;
@@ -158,23 +159,25 @@ public class SheetRenderer extends RendererBase {
       final List<AbstractUIColumnBase> columns = sheet.getAllColumns();
       int i = 0;
       for (final AbstractUIColumnBase column : columns) {
-        final AbstractUIOut out = (AbstractUIOut) CreateComponentUtils.createComponent(
-            facesContext, UIOut.COMPONENT_TYPE, RendererTypes.Out, "_col" + i);
-        out.setTransient(true);
+        if (!(column instanceof AbstractUIColumnEvent)) {
+          final AbstractUIOut out = (AbstractUIOut) CreateComponentUtils.createComponent(
+              facesContext, UIOut.COMPONENT_TYPE, RendererTypes.Out, "_col" + i);
+          out.setTransient(true);
 //        out.setValue(column.getLabel());
-        ValueExpression valueExpression = column.getValueExpression(Attributes.label.getName());
-        if (valueExpression != null) {
-          out.setValueExpression(Attributes.value.getName(), valueExpression);
-        } else {
-          out.setValue(ComponentUtils.getAttribute(column, Attributes.label));
+          ValueExpression valueExpression = column.getValueExpression(Attributes.label.getName());
+          if (valueExpression != null) {
+            out.setValueExpression(Attributes.value.getName(), valueExpression);
+          } else {
+            out.setValue(ComponentUtils.getAttribute(column, Attributes.label));
+          }
+          valueExpression = column.getValueExpression(Attributes.rendered.getName());
+          if (valueExpression != null) {
+            out.setValueExpression(Attributes.rendered.getName(), valueExpression);
+          } else {
+            out.setRendered(ComponentUtils.getBooleanAttribute(column, Attributes.rendered));
+          }
+          header.getChildren().add(out);
         }
-        valueExpression = column.getValueExpression(Attributes.rendered.getName());
-        if (valueExpression != null) {
-          out.setValueExpression(Attributes.rendered.getName(), valueExpression);
-        } else {
-          out.setRendered(ComponentUtils.getBooleanAttribute(column, Attributes.rendered));
-        }
-        header.getChildren().add(out);
         i++;
       }
       sheet.setHeader(header);
@@ -225,8 +228,7 @@ public class SheetRenderer extends RendererBase {
     final SheetState state = sheet.getSheetState(facesContext);
     final List<Integer> columnWidths = sheet.getState().getColumnWidths();
     final List<Integer> selectedRows = getSelectedRows(sheet, state);
-    final List<AbstractUIColumnBase> renderedColumnList = sheet.getRenderedColumns();
-    final List<AbstractUIColumnBase> allColumnList = sheet.getAllColumns();
+    final List<AbstractUIColumnBase> columns = sheet.getAllColumns();
     final boolean showHeader = sheet.isShowHeader();
     final boolean autoLayout = sheet.isAutoLayout();
 
@@ -279,10 +281,10 @@ public class SheetRenderer extends RendererBase {
       writer.writeClassAttribute(Classes.create(sheet, "headerTable"),
           BootstrapClass.TABLE, BootstrapClass.TABLE_BORDERED, TobagoClass.TABLE_LAYOUT__FIXED);
 
-      writeColgroup(writer, columnWidths, allColumnList);
+      writeColgroup(writer, columnWidths, columns);
 
       writer.startElement(HtmlElements.TBODY);
-      encodeHeaderRows(facesContext, sheet, writer, renderedColumnList);
+      encodeHeaderRows(facesContext, sheet, writer, columns);
       writer.endElement(HtmlElements.TBODY);
       writer.endElement(HtmlElements.TABLE);
       writer.endElement(HtmlElements.HEADER);
@@ -306,10 +308,10 @@ public class SheetRenderer extends RendererBase {
 
     if (autoLayout) {
       writer.startElement(HtmlElements.THEAD);
-      encodeHeaderRows(facesContext, sheet, writer, renderedColumnList);
+      encodeHeaderRows(facesContext, sheet, writer, columns);
       writer.endElement(HtmlElements.THEAD);
     } else {
-      writeColgroup(writer, columnWidths, allColumnList);
+      writeColgroup(writer, columnWidths, columns);
     }
 
     // Print the Content
@@ -376,65 +378,60 @@ public class SheetRenderer extends RendererBase {
         writer.writeAttribute(DataAttributes.TREE_PARENT, parentId, false);
       }
 
-      int columnIndex = -1;
-      for (final UIColumn column : renderedColumnList) {
-        columnIndex++;
-
-        writer.startElement(HtmlElements.TD);
-
-        Markup markup = column instanceof Visual ? ((Visual) column).getMarkup() : Markup.NULL;
-        if (markup == null) {
-          markup = Markup.NULL;
-        }
-        if (columnIndex == 0) {
-          markup = markup.add(Markup.FIRST);
-        }
-        if (rowAction) {
-          markup = markup.add(Markup.CLICKABLE);
-        }
-        if (isPure(column)) {
-          markup = markup.add(Markup.PURE);
-        }
-        final String textAlign = ComponentUtils.getStringAttribute(column, Attributes.align);
-        if (textAlign != null) {
-          switch (TextAlign.valueOf(textAlign)) {
-            case right:
-              markup = markup.add(Markup.RIGHT);
-              break;
-            case center:
-              markup = markup.add(Markup.CENTER);
-              break;
-            case justify:
-              markup = markup.add(Markup.JUSTIFY);
-              break;
-            default:
-              // nothing to do
+      for (final UIColumn column : columns) {
+        if (!(column instanceof AbstractUIColumnEvent)) {
+          writer.startElement(HtmlElements.TD);
+          Markup markup = column instanceof Visual ? ((Visual) column).getMarkup() : Markup.NULL;
+          if (markup == null) {
+            markup = Markup.NULL;
           }
-        }
-        writer.writeClassAttribute(Classes.create(sheet, "cell", markup));
+          if (rowAction) {
+            markup = markup.add(Markup.CLICKABLE);
+          }
+          if (isPure(column)) {
+            markup = markup.add(Markup.PURE);
+          }
+          final String textAlign = ComponentUtils.getStringAttribute(column, Attributes.align);
+          if (textAlign != null) {
+            switch (TextAlign.valueOf(textAlign)) {
+              case right:
+                markup = markup.add(Markup.RIGHT);
+                break;
+              case center:
+                markup = markup.add(Markup.CENTER);
+                break;
+              case justify:
+                markup = markup.add(Markup.JUSTIFY);
+                break;
+              default:
+                // nothing to do
+            }
+          }
+          writer.writeClassAttribute(Classes.create(sheet, "cell", markup));
 
-        if (column instanceof UIColumnSelector) {
-          UIColumnSelector selector = (UIColumnSelector) column;
-          writer.startElement(HtmlElements.INPUT);
-          if (selectable.isSingle()) {
-            writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.RADIO);
+          if (column instanceof UIColumnSelector) {
+            UIColumnSelector selector = (UIColumnSelector) column;
+            writer.startElement(HtmlElements.INPUT);
+            if (selectable.isSingle()) {
+              writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.RADIO);
+            } else {
+              writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.CHECKBOX);
+            }
+            writer.writeAttribute(HtmlAttributes.CHECKED, selected);
+            writer.writeAttribute(HtmlAttributes.DISABLED, selector.isDisabled());
+            writer.writeClassAttribute(Classes.create(sheet, "columnSelector"));
+            writer.endElement(HtmlElements.INPUT);
+          } else if (column instanceof AbstractUIColumnNode) {
+            RenderUtils.encode(facesContext, column);
           } else {
-            writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.CHECKBOX);
+            final List<UIComponent> children = sheet.getRenderedChildrenOf(column);
+            for (final UIComponent grandKid : children) {
+              RenderUtils.encode(facesContext, grandKid);
+            }
           }
-          writer.writeAttribute(HtmlAttributes.CHECKED, selected);
-          writer.writeAttribute(HtmlAttributes.DISABLED, selector.isDisabled());
-          writer.writeClassAttribute(Classes.create(sheet, "columnSelector"));
-          writer.endElement(HtmlElements.INPUT);
-        } else if (column instanceof AbstractUIColumnNode) {
-          RenderUtils.encode(facesContext, column);
-        } else {
-          final List<UIComponent> children = sheet.getRenderedChildrenOf(column);
-          for (final UIComponent grandKid : children) {
-            RenderUtils.encode(facesContext, grandKid);
-          }
-        }
 
-        writer.endElement(HtmlElements.TD);
+          writer.endElement(HtmlElements.TD);
+        }
       }
 
       if (!autoLayout) {
@@ -453,19 +450,20 @@ public class SheetRenderer extends RendererBase {
 
     if (emptySheet && showHeader) {
       writer.startElement(HtmlElements.TR);
-      int columnIndex = -1;
-      for (final UIColumn ignored : renderedColumnList) {
-        columnIndex++;
-        writer.startElement(HtmlElements.TD);
-        writer.startElement(HtmlElements.DIV);
-        if (columnWidths != null) {
-          final Integer divWidth = columnWidths.get(columnIndex);
-          final Style divStyle = new Style();
-          divStyle.setWidth(Measure.valueOf(divWidth));
-          writer.writeStyleAttribute(divStyle);
+      for (int j = 0; j < columns.size(); j++) {
+        final UIColumn column = columns.get(j);
+        if (!(column instanceof AbstractUIColumnEvent)) {
+          writer.startElement(HtmlElements.TD);
+          writer.startElement(HtmlElements.DIV);
+          if (columnWidths != null) {
+            final Integer divWidth = columnWidths.get(j);
+            final Style divStyle = new Style();
+            divStyle.setWidth(Measure.valueOf(divWidth));
+            writer.writeStyleAttribute(divStyle);
+          }
+          writer.endElement(HtmlElements.DIV);
+          writer.endElement(HtmlElements.TD);
         }
-        writer.endElement(HtmlElements.DIV);
-        writer.endElement(HtmlElements.TD);
       }
       if (!autoLayout) {
         writer.startElement(HtmlElements.TD);
@@ -679,12 +677,13 @@ public class SheetRenderer extends RendererBase {
 
   private void encodeHeaderRows(
       final FacesContext facesContext, final UISheet sheet, final TobagoResponseWriter writer,
-      final List<AbstractUIColumnBase> renderedColumnList)
+      final List<AbstractUIColumnBase> columns)
       throws IOException {
 
     final Selectable selectable = sheet.getSelectable();
     final Grid grid = sheet.getHeaderGrid();
     final boolean autoLayout = sheet.isAutoLayout();
+    int offset = 0;
 
     for (int i = 0; i < grid.getRowCount(); i++) {
       writer.startElement(HtmlElements.TR);
@@ -705,7 +704,7 @@ public class SheetRenderer extends RendererBase {
           writer.startElement(HtmlElements.DIV);
           writer.writeClassAttribute(Classes.create(sheet, "headerCell"));
           writer.startElement(HtmlElements.SPAN);
-          final AbstractUIColumnBase column = renderedColumnList.get(j);
+          final AbstractUIColumnBase column = columns.get(j + offset);
           Icons sorterIcon = null;
           Markup markup = Markup.NULL;
           String tip = ComponentUtils.getStringAttribute(column, Attributes.tip);
@@ -760,9 +759,6 @@ public class SheetRenderer extends RendererBase {
             }
           }
 
-          if (j == 0) {
-            markup = markup.add(Markup.FIRST);
-          }
           if (pure) {
             markup = markup.add(Markup.PURE);
           }
@@ -836,8 +832,8 @@ public class SheetRenderer extends RendererBase {
 
           writer.endElement(HtmlElements.SPAN);
           if (!autoLayout) {
-            if (renderedColumnList.get(j).isResizable()) {
-              encodeResizing(writer, sheet, j + cell.getColumnSpan() - 1);
+            if (column.isResizable()) {
+              encodeResizing(writer, sheet, j + offset + cell.getColumnSpan() - 1);
             }
           }
           writer.endElement(HtmlElements.DIV);
@@ -867,11 +863,11 @@ public class SheetRenderer extends RendererBase {
 
   private void writeColgroup(
       final TobagoResponseWriter writer, final List<Integer> columnWidths,
-      final List<AbstractUIColumnBase> columnList) throws IOException {
+      final List<AbstractUIColumnBase> columns) throws IOException {
     writer.startElement(HtmlElements.COLGROUP);
-    for (int i = 0; i < columnList.size(); i++) {
-      final AbstractUIColumnBase column =  columnList.get(i);
-      if (column.isRendered()) {
+    for (int i = 0; i < columns.size(); i++) {
+      final AbstractUIColumnBase column =  columns.get(i);
+      if (column.isRendered() && !(column instanceof AbstractUIColumnEvent)) {
         writeCol(writer, columnWidths != null ? columnWidths.get(i) : null);
       }
     }

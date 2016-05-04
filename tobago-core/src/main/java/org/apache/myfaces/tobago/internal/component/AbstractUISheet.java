@@ -338,20 +338,12 @@ public abstract class AbstractUISheet extends AbstractUIData
     return result;
   }
 
-  // TODO remove
-  @Deprecated
-  public List<AbstractUIColumnBase> getRenderedColumns() {
-    ArrayList<AbstractUIColumnBase> result = new ArrayList<AbstractUIColumnBase>();
-    findColumns(this, result, false);
-    return result;
-  }
-
   private void findColumns(final UIComponent component, final List<AbstractUIColumnBase> result, final boolean all) {
     for (final UIComponent child : component.getChildren()) {
       if (all || child.isRendered()) {
         if (child instanceof AbstractUIColumnBase) {
           result.add((AbstractUIColumnBase) child);
-        } else if (child instanceof AbstractUIData){
+        } else if (child instanceof AbstractUIData) {
           // ignore columns of nested sheets
         } else {
           findColumns(child, result, all);
@@ -416,14 +408,16 @@ public abstract class AbstractUISheet extends AbstractUIData
       LOG.warn("This should not happen. Please file a bug in the issue tracker to reproduce this case.");
       return;
     }
-    final LayoutTokens columns = new LayoutTokens();
-    final List<AbstractUIColumnBase> renderedColumns = getRenderedColumns();
-    for (final AbstractUIColumnBase ignored : renderedColumns) {
-      columns.addToken(RelativeLayoutToken.DEFAULT_INSTANCE);
+    final LayoutTokens tokens = new LayoutTokens();
+    final List<AbstractUIColumnBase> columns = getAllColumns();
+    for (final UIColumn column : columns) {
+      if (!(column instanceof AbstractUIColumnEvent)) {
+        tokens.addToken(RelativeLayoutToken.DEFAULT_INSTANCE);
+      }
     }
     final LayoutTokens rows = new LayoutTokens();
     rows.addToken(AutoLayoutToken.INSTANCE);
-    final Grid grid = new Grid(columns, rows);
+    final Grid grid = new Grid(tokens, rows);
 
     for(final UIComponent child : header.getChildren()) {
         if (child.isRendered()) {
