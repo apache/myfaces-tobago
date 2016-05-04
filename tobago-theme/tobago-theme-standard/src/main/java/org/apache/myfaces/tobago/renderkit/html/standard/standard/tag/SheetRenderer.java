@@ -833,8 +833,10 @@ public class SheetRenderer extends RendererBase {
           writer.writeIcon(sorterIcon);
 
           writer.endElement(HtmlElements.SPAN);
-          if (renderedColumnList.get(j).isResizable()) {
-            encodeResizing(writer, sheet, j + cell.getColumnSpan() - 1);
+          if (!autoLayout) {
+            if (renderedColumnList.get(j).isResizable()) {
+              encodeResizing(writer, sheet, j + cell.getColumnSpan() - 1);
+            }
           }
           writer.endElement(HtmlElements.DIV);
 
