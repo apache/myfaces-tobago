@@ -830,7 +830,9 @@ public class SheetRenderer extends RendererBase {
 
           }
 
-          writer.writeIcon(sorterIcon);
+          if (sorterIcon != null) {
+            writer.writeIcon(sorterIcon);
+          }
 
           writer.endElement(HtmlElements.SPAN);
           if (!autoLayout) {
