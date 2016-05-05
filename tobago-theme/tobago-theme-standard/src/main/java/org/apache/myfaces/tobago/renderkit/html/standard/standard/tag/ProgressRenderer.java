@@ -22,6 +22,7 @@ package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 import org.apache.myfaces.tobago.component.UICommand;
 import org.apache.myfaces.tobago.component.UIProgress;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
+import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
@@ -55,7 +56,7 @@ public class ProgressRenderer extends RendererBase {
 
     writer.startElement(HtmlElements.PROGRESS);
     writer.writeIdAttribute(progress.getClientId(facesContext));
-    writer.writeClassAttribute(Classes.create(progress), progress.getCustomClass());
+    writer.writeClassAttribute(Classes.create(progress), progress.getCustomClass(), BootstrapClass.PROGRESS);
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, progress);
     writer.writeStyleAttribute(progress.getStyle());
     writer.writeAttribute(HtmlAttributes.TITLE, title, true);

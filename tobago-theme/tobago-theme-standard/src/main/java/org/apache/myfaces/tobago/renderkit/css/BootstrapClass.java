@@ -140,6 +140,7 @@ public enum BootstrapClass implements CssItem {
   PAGE_ITEM("page-item"),
   PAGE_LINK("page-link"),
   PAGINATION("pagination"),
+  PROGRESS("progress"),
   RADIO("radio"),
   ROW("row"),
   SR_ONLY("sr-only"),
