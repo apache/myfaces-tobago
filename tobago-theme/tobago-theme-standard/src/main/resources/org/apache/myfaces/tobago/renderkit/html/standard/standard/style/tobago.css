@@ -396,24 +396,38 @@ h6 > .fa:first-child {
 
 /* separator -------------------------------------------------------------- */
 hr.tobago-separator {
-  border-top: 1px solid #e5e5e5;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
 }
 
-fieldset.tobago-separator {
-  border-top: 1px solid #e5e5e5;
-  border-bottom: none;
-  border-left: none;
-  border-right: none;
+p.tobago-separator {
+  text-align: center;
+  border: 0;
+  white-space: nowrap;
   display: block;
-  margin: 1rem 0rem;
+  overflow: hidden;
+  padding: 0;
+  margin-top: 1em;
+  margin-bottom: 1em;
 }
 
-fieldset.tobago-separator legend {
-  width: initial;
-  margin-left: 25px;
-  padding-left: 10px;
-  padding-right: 10px;
-  font-size: 12pt;
+p.tobago-separator:before, p.tobago-separator:after {
+  content: "";
+  height: 1px;
+  background-color: rgba(0, 0, 0, 0.1);
+  display: inline-block;
+  vertical-align: middle;
+}
+
+p.tobago-separator:before {
+  width: 80px;
+  margin-left: 0;
+  margin-right: 5px;
+}
+
+p.tobago-separator:after {
+  width: 100%;
+  margin-left: 5px;
+  margin-right: 0;
 }
 
 /* sheet -------------------------------------------------------------- */

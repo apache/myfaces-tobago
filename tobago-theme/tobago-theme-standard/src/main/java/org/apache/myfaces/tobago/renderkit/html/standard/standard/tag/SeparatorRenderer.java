@@ -24,9 +24,7 @@ import org.apache.myfaces.tobago.component.UILabel;
 import org.apache.myfaces.tobago.component.UISeparator;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
-import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
-import org.apache.myfaces.tobago.renderkit.html.HtmlRoleValues;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
@@ -42,24 +40,18 @@ public class SeparatorRenderer extends RendererBase {
 
     final UISeparator separator = (UISeparator) component;
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+    final String clientId = separator.getClientId(facesContext);
     final String label = getLabel(separator);
 
     if (label != null) {
-      writer.startElement(HtmlElements.FIELDSET);
-      writer.writeAttribute(HtmlAttributes.ROLE, HtmlRoleValues.PRESENTATION.toString(), false);
-      writer.writeIdAttribute(separator.getClientId(facesContext));
+      writer.startElement(HtmlElements.P);
+      writer.writeIdAttribute(clientId);
       writer.writeClassAttribute(Classes.create(separator), separator.getCustomClass());
-      HtmlRendererUtils.writeDataAttributes(facesContext, writer, separator);
-
-      writer.startElement(HtmlElements.LEGEND);
-      writer.writeClassAttribute(Classes.create(separator, "label"));
       writer.writeText(label);
-      writer.endElement(HtmlElements.LEGEND);
-
-      writer.endElement(HtmlElements.FIELDSET);
+      writer.endElement(HtmlElements.P);
     } else {
       writer.startElement(HtmlElements.HR);
-      writer.writeIdAttribute(separator.getClientId(facesContext));
+      writer.writeIdAttribute(clientId);
       writer.writeClassAttribute(Classes.create(separator), separator.getCustomClass());
       writer.endElement(HtmlElements.HR);
     }
