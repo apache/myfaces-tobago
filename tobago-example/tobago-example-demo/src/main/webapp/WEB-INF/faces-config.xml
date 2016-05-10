@@ -79,55 +79,6 @@
     <managed-bean-scope>session</managed-bean-scope>
   </managed-bean>
 
-  <!--best practice-->
-
-  <navigation-rule>
-    <navigation-case>
-      <from-outcome>best-practice/intro</from-outcome>
-      <to-view-id>/content/12-best-practice/best-practice.xhtml</to-view-id>
-    </navigation-case>
-    <navigation-case>
-      <from-outcome>best-practice/error</from-outcome>
-      <to-view-id>/content/12-best-practice/00/error.xhtml</to-view-id>
-    </navigation-case>
-    <navigation-case>
-      <from-outcome>best-practice/theme</from-outcome>
-      <to-view-id>/content/12-best-practice/01/theme.xhtml</to-view-id>
-    </navigation-case>
-    <navigation-case>
-      <from-outcome>best-practice/transition</from-outcome>
-      <to-view-id>/content/12-best-practice/02/transition.xhtml</to-view-id>
-    </navigation-case>
-    <navigation-case>
-      <from-outcome>best-practice/transition-after-sleep</from-outcome>
-      <to-view-id>/content/12-best-practice/02/x-transition-after-sleep.xhtml</to-view-id>
-    </navigation-case>
-    <navigation-case>
-      <from-outcome>best-practice/non-faces-response</from-outcome>
-      <to-view-id>/content/12-best-practice/03/non-faces-response.xhtml</to-view-id>
-    </navigation-case>
-    <navigation-case>
-      <from-outcome>best-practice/tool-bar-customizer</from-outcome>
-      <to-view-id>/content/05-toolBar/00/tool-bar-customizer.xhtml</to-view-id>
-    </navigation-case>
-    <navigation-case>
-      <from-outcome>best-practice/facelets-as-resources</from-outcome>
-      <to-view-id>/content/12-best-practice/04/facelets-as-resources.xhtml</to-view-id>
-    </navigation-case>
-  </navigation-rule>
-
-  <navigation-rule>
-    <from-view-id>/content/12-best-practice/00/error.xhtml</from-view-id>
-    <navigation-case>
-      <from-outcome>error-404</from-outcome>
-      <to-view-id>/content/12-best-practice/00/x-not-existing-page.xhtml</to-view-id>
-    </navigation-case>
-    <navigation-case>
-      <from-outcome>syntax</from-outcome>
-      <to-view-id>/content/12-best-practice/00/x-error-in-syntax.xhtml</to-view-id>
-    </navigation-case>
-  </navigation-rule>
-
   <converter>
     <converter-id>org.apache.myfaces.tobago.example.demo.OnOffConverter</converter-id>
     <converter-class>org.apache.myfaces.tobago.example.demo.OnOffConverter</converter-class>
