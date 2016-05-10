@@ -21,6 +21,7 @@ package org.apache.myfaces.tobago.internal.component;
 
 import org.apache.myfaces.tobago.component.Form;
 import org.apache.myfaces.tobago.util.ComponentUtils;
+import org.apache.myfaces.tobago.util.FacesVersion;
 import org.apache.myfaces.tobago.util.TobagoCallback;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -109,7 +110,24 @@ public abstract class AbstractUIForm extends UIForm implements Form {
 
   @Override
   public void queueEvent(FacesEvent event) {
-    if (event instanceof AjaxBehaviorEvent) {
+
+    Class<?> wrapper = null;
+
+    try {
+      if (FacesVersion.isMyfaces()) {
+        // XXX hack for MyFaces
+        wrapper = Class.forName("javax.faces.component.UIData$FacesEventWrapper");
+      } else if (FacesVersion.isMojarra()) {
+        // XXX hack for Mojarra
+        wrapper = Class.forName("javax.faces.component.WrapperEvent");
+      } else {
+        LOG.warn("Can't identify JSF implementation. Events in sheet may not work.");
+      }
+    } catch (ClassNotFoundException e) {
+      LOG.error("Can't find specific wrapper class.", e);
+    }
+
+    if (event instanceof AjaxBehaviorEvent || (wrapper != null && wrapper.equals(event.getClass()))) {
       if (LOG.isDebugEnabled()) {
         LOG.debug("event={}", event);
       }

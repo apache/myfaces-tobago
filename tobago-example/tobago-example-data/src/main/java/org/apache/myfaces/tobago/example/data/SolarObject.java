@@ -19,6 +19,10 @@
 
 package org.apache.myfaces.tobago.example.data;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import javax.faces.event.AjaxBehaviorEvent;
 import javax.swing.tree.DefaultMutableTreeNode;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -28,6 +32,8 @@ import java.util.List;
 import java.util.Map;
 
 public class SolarObject {
+
+  private static final Logger LOG = LoggerFactory.getLogger(SolarObject.class);
 
   private String name;
 
@@ -68,6 +74,10 @@ public class SolarObject {
 
   public String getName() {
     return name;
+  }
+
+  public void update(AjaxBehaviorEvent event) {
+    LOG.info("AjaxBehaviorEvent called. New value: '{}' event: {}", name, event);
   }
 
   public void setName(final String name) {
