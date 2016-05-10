@@ -19,13 +19,23 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
-public abstract class AbstractUISelectManyShuttle extends AbstractUISelectManyBase {
+import org.apache.myfaces.tobago.component.SupportFieldId;
+import org.apache.myfaces.tobago.util.ComponentUtils;
+
+import javax.faces.context.FacesContext;
+
+public abstract class AbstractUISelectManyShuttle extends AbstractUISelectManyBase implements SupportFieldId {
 
   public abstract String getSelectedLabel();
 
   public abstract String getUnselectedLabel();
 
   public boolean hasLabel() {
-     return getSelectedLabel() != null || getUnselectedLabel() != null;
+    return getSelectedLabel() != null || getUnselectedLabel() != null;
+  }
+
+  @Override
+  public String getFieldId(final FacesContext facesContext) {
+    return getClientId(facesContext) + ComponentUtils.SUB_SEPARATOR + "unselected";
   }
 }

@@ -58,7 +58,7 @@ public class InRenderer extends LabelLayoutRendererBase {
     }
     final HtmlInputTypes type = password ? HtmlInputTypes.PASSWORD : HtmlInputTypes.TEXT;
     final String clientId = input.getClientId(facesContext);
-    final String fieldId = clientId + ComponentUtils.SUB_SEPARATOR + "field";
+    final String fieldId = input.getFieldId(facesContext);
     final boolean readonly = input.isReadonly();
     final boolean disabled = input.isDisabled();
     final boolean required = ComponentUtils.getBooleanAttribute(input, Attributes.required);

@@ -81,6 +81,7 @@ public class SelectBooleanCheckboxRenderer extends RendererBase {
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
     final String clientId = select.getClientId(facesContext);
+    final String fieldId = select.getFieldId(facesContext);
     final String currentValue = getCurrentValue(facesContext, select);
     final boolean checked = "true".equals(currentValue);
     final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, select);
@@ -88,6 +89,7 @@ public class SelectBooleanCheckboxRenderer extends RendererBase {
     final LabelWithAccessKey label = new LabelWithAccessKey(select);
 
     writer.startElement(HtmlElements.DIV);
+    writer.writeIdAttribute(clientId);
     writer.writeStyleAttribute(select.getStyle());
     writer.writeClassAttribute(
         Classes.create(select),
@@ -109,7 +111,7 @@ public class SelectBooleanCheckboxRenderer extends RendererBase {
     writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.CHECKBOX);
     writer.writeAttribute(HtmlAttributes.VALUE, "true", false);
     writer.writeNameAttribute(clientId);
-    writer.writeIdAttribute(clientId);
+    writer.writeIdAttribute(fieldId);
     writer.writeAttribute(HtmlAttributes.CHECKED, checked);
     writer.writeAttribute(HtmlAttributes.READONLY, select.isReadonly());
     writer.writeAttribute(HtmlAttributes.DISABLED, disabled);

@@ -19,5 +19,15 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
-public abstract class AbstractUISelectOneListbox extends AbstractUISelectOneBase {
+import org.apache.myfaces.tobago.component.SupportFieldId;
+import org.apache.myfaces.tobago.util.ComponentUtils;
+
+import javax.faces.context.FacesContext;
+
+public abstract class AbstractUISelectOneListbox extends AbstractUISelectOneBase implements SupportFieldId {
+
+  @Override
+  public String getFieldId(final FacesContext facesContext) {
+    return getClientId(facesContext) + ComponentUtils.SUB_SEPARATOR + "field";
+  }
 }

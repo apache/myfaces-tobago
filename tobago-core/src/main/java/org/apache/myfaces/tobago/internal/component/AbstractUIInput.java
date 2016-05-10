@@ -19,6 +19,7 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
+import org.apache.myfaces.tobago.component.SupportFieldId;
 import org.apache.myfaces.tobago.component.SupportsAccessKey;
 import org.apache.myfaces.tobago.component.SupportsLabelLayout;
 import org.apache.myfaces.tobago.component.Visual;
@@ -30,7 +31,7 @@ import java.util.Arrays;
 import java.util.Collection;
 
 public abstract class AbstractUIInput extends javax.faces.component.UIInput
-    implements SupportsAccessKey, SupportsLabelLayout, Visual, ClientBehaviorHolder {
+    implements SupportsAccessKey, SupportsLabelLayout, Visual, ClientBehaviorHolder, SupportFieldId {
 
   // todo generate
   private static final Collection<String> EVENT_NAMES = Arrays.asList("change");
@@ -66,4 +67,8 @@ public abstract class AbstractUIInput extends javax.faces.component.UIInput
 
   public abstract String getPlaceholder();
 
+  @Override
+  public String getFieldId(final FacesContext facesContext) {
+    return getClientId(facesContext) + ComponentUtils.SUB_SEPARATOR + "field";
+  }
 }

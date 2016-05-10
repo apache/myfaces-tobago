@@ -19,7 +19,9 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
+import org.apache.myfaces.tobago.component.SupportFieldId;
 import org.apache.myfaces.tobago.component.Visual;
+import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.util.MessageUtils;
 
 import javax.faces.application.FacesMessage;
@@ -29,7 +31,8 @@ import javax.faces.context.FacesContext;
 import java.util.Arrays;
 import java.util.Collection;
 
-public abstract class AbstractUISelectBooleanCheckbox extends UISelectBoolean implements Visual, ClientBehaviorHolder {
+public abstract class AbstractUISelectBooleanCheckbox extends UISelectBoolean
+        implements Visual, ClientBehaviorHolder, SupportFieldId {
 
   // todo generate
   private static final Collection<String> EVENT_NAMES = Arrays.asList("change");
@@ -75,4 +78,9 @@ public abstract class AbstractUISelectBooleanCheckbox extends UISelectBoolean im
   }
 
   public abstract String getLabel();
+
+  @Override
+  public String getFieldId(final FacesContext facesContext) {
+    return getClientId(facesContext) + ComponentUtils.SUB_SEPARATOR + "field";
+  }
 }

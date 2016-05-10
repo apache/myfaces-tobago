@@ -97,6 +97,7 @@ public class FileRenderer extends LabelLayoutRendererBase implements ComponentSy
 
     final AbstractUIFile file = (AbstractUIFile) component;
     final String clientId = file.getClientId(facesContext);
+    final String fieldId = file.getFieldId(facesContext);
     final String accept = createAcceptFromValidators(file);
 
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
@@ -134,7 +135,7 @@ public class FileRenderer extends LabelLayoutRendererBase implements ComponentSy
     writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.FILE);
     writer.writeAttribute(HtmlAttributes.ACCEPT, accept, true);
     writer.writeAttribute(HtmlAttributes.TABINDEX, -1);
-    writer.writeIdAttribute(clientId + ComponentUtils.SUB_SEPARATOR + "real");
+    writer.writeIdAttribute(fieldId);
     writer.writeClassAttribute(Classes.create(file, "real"));
     writer.writeNameAttribute(clientId);
     // readonly seems not making sense in browsers.

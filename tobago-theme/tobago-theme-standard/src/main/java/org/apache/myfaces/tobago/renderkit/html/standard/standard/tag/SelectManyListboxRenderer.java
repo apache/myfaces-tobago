@@ -49,7 +49,8 @@ public class SelectManyListboxRenderer extends SelectManyRendererBase {
     final UISelectManyListbox select = (UISelectManyListbox) component;
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
-    final String id = select.getClientId(facesContext);
+    final String clientId = select.getClientId(facesContext);
+    final String fieldId = select.getFieldId(facesContext);
     final List<SelectItem> items = SelectItemUtils.getItemList(facesContext, select);
     final boolean readonly = select.isReadonly();
     final boolean disabled = !items.iterator().hasNext() || select.isDisabled() || readonly;
@@ -58,12 +59,13 @@ public class SelectManyListboxRenderer extends SelectManyRendererBase {
 
     final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, select);
     writer.startElement(HtmlElements.SELECT);
-    writer.writeNameAttribute(id);
+    writer.writeIdAttribute(fieldId);
+    writer.writeNameAttribute(clientId);
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, select);
     writer.writeAttribute(HtmlAttributes.DISABLED, disabled);
     writer.writeAttribute(HtmlAttributes.READONLY, readonly);
     writer.writeAttribute(HtmlAttributes.REQUIRED, select.isRequired());
-    HtmlRendererUtils.renderFocus(id, select.isFocus(), ComponentUtils.isError(select), facesContext, writer);
+    HtmlRendererUtils.renderFocus(clientId, select.isFocus(), ComponentUtils.isError(select), facesContext, writer);
     writer.writeAttribute(HtmlAttributes.TABINDEX, select.getTabIndex());
     writer.writeStyleAttribute(select.getStyle());
     writer.writeClassAttribute(Classes.create(select), BootstrapClass.FORM_CONTROL, select.getCustomClass());

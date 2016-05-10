@@ -17,17 +17,11 @@
  * under the License.
  */
 
-package org.apache.myfaces.tobago.internal.component;
-
-import org.apache.myfaces.tobago.component.SupportFieldId;
-import org.apache.myfaces.tobago.util.ComponentUtils;
+package org.apache.myfaces.tobago.component;
 
 import javax.faces.context.FacesContext;
 
-public abstract class AbstractUISelectOneChoice extends AbstractUISelectOneBase implements SupportFieldId {
+public interface SupportFieldId {
 
-  @Override
-  public String getFieldId(final FacesContext facesContext) {
-    return getClientId(facesContext) + ComponentUtils.SUB_SEPARATOR + "field";
-  }
+  String getFieldId(final FacesContext facesContext);
 }

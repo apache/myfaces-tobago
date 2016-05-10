@@ -48,13 +48,15 @@ public class SelectOneChoiceRenderer extends SelectOneRendererBase {
     final UISelectOneChoice select = (UISelectOneChoice) component;
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
-    final String id = select.getClientId(facesContext);
+    final String clientId = select.getClientId(facesContext);
+    final String fieldId = select.getFieldId(facesContext);
     final Iterable<SelectItem> items = SelectItemUtils.getItemIterator(facesContext, select);
     final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, select);
     final boolean disabled = !items.iterator().hasNext() || select.isDisabled() || select.isReadonly();
 
     writer.startElement(HtmlElements.SELECT);
-    writer.writeNameAttribute(id);
+    writer.writeIdAttribute(fieldId);
+    writer.writeNameAttribute(clientId);
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, select);
     writer.writeAttribute(HtmlAttributes.DISABLED, disabled);
     writer.writeAttribute(HtmlAttributes.TABINDEX, select.getTabIndex());
@@ -69,7 +71,7 @@ public class SelectOneChoiceRenderer extends SelectOneRendererBase {
     } else { // old
       HtmlRendererUtils.renderCommandFacet(select, facesContext, writer);
     }
-    HtmlRendererUtils.renderFocus(id, select.isFocus(), ComponentUtils.isError(select), facesContext, writer);
+    HtmlRendererUtils.renderFocus(clientId, select.isFocus(), ComponentUtils.isError(select), facesContext, writer);
 
     HtmlRendererUtils.renderSelectItems(select, items, select.getValue(), (String) select.getSubmittedValue(), writer,
         facesContext);

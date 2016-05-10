@@ -19,6 +19,7 @@
 
 package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
+import org.apache.myfaces.tobago.component.SupportFieldId;
 import org.apache.myfaces.tobago.component.UILabel;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.internal.util.AccessKeyLogger;
@@ -55,7 +56,12 @@ public class LabelRenderer extends RendererBase implements ComponentSystemEventL
     final UILabel label = (UILabel) component;
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
     final UIComponent corresponding = ComponentUtils.findFor(label);
-    final String forId = corresponding != null ? corresponding.getClientId(facesContext) : null;
+    final String forId;
+    if (corresponding instanceof SupportFieldId) {
+      forId = ((SupportFieldId) corresponding).getFieldId(facesContext);
+    } else {
+      forId = corresponding != null ? corresponding.getClientId(facesContext) : null;
+    }
     final String clientId = label.getClientId(facesContext);
 
     // TBD: want to do this in JavaScript in Browser (or CSS)?

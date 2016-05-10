@@ -49,19 +49,21 @@ public class SelectOneListboxRenderer extends SelectOneRendererBase {
     final UISelectOneListbox select = (UISelectOneListbox) component;
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
-    final String id = select.getClientId(facesContext);
+    final String clientId = select.getClientId(facesContext);
+    final String fieldId = clientId + ComponentUtils.SUB_SEPARATOR + "field";
     final List<SelectItem> items = SelectItemUtils.getItemList(facesContext, select);
     final boolean disabled = !items.iterator().hasNext() || select.isDisabled() || select.isReadonly();
     Integer size = select.getSize();
     size = Math.max(size != null ? size : items.size(), 2); // must be > 1
 
     writer.startElement(HtmlElements.SELECT);
-    writer.writeNameAttribute(id);
+    writer.writeIdAttribute(fieldId);
+    writer.writeNameAttribute(clientId);
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, select);
     writer.writeAttribute(HtmlAttributes.DISABLED, disabled);
     writer.writeAttribute(HtmlAttributes.READONLY, select.isReadonly());
     writer.writeAttribute(HtmlAttributes.REQUIRED, select.isRequired());
-    HtmlRendererUtils.renderFocus(id, select.isFocus(), ComponentUtils.isError(select), facesContext, writer);
+    HtmlRendererUtils.renderFocus(clientId, select.isFocus(), ComponentUtils.isError(select), facesContext, writer);
 
     writer.writeAttribute(HtmlAttributes.TABINDEX, select.getTabIndex());
     writer.writeStyleAttribute(select.getStyle());
