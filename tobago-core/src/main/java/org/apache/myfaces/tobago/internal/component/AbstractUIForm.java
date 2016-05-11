@@ -31,6 +31,7 @@ import javax.faces.component.ContextCallback;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIForm;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
 import javax.faces.event.AjaxBehaviorEvent;
 import javax.faces.event.FacesEvent;
 import javax.faces.event.PhaseId;
@@ -109,11 +110,25 @@ public abstract class AbstractUIForm extends UIForm implements Form {
   }
 
   @Override
-  public void queueEvent(FacesEvent event) {
+  public void queueEvent(final FacesEvent event) {
 
-    Class<?> wrapper = null;
+    if (event instanceof ActionEvent || event instanceof AjaxBehaviorEvent || isWrapped(event)) {
+      if (LOG.isDebugEnabled()) {
+        LOG.debug("processing event={}", event);
+      }
+      setSubmitted(true);
+    } else {
+      if (LOG.isDebugEnabled()) {
+        LOG.debug("ignoring event={}", event);
+      }
+    }
+    super.queueEvent(event);
+  }
 
+  // TBD: is it sufficient to check against the wrapper or must we analyse the wrapped?
+  private boolean isWrapped(final FacesEvent event) {
     try {
+      Class<?> wrapper = null;
       if (FacesVersion.isMyfaces()) {
         // XXX hack for MyFaces
         wrapper = Class.forName("javax.faces.component.UIData$FacesEventWrapper");
@@ -123,17 +138,11 @@ public abstract class AbstractUIForm extends UIForm implements Form {
       } else {
         LOG.warn("Can't identify JSF implementation. Events in sheet may not work.");
       }
+      return wrapper != null && wrapper.equals(event.getClass());
     } catch (ClassNotFoundException e) {
       LOG.error("Can't find specific wrapper class.", e);
+      return false;
     }
-
-    if (event instanceof AjaxBehaviorEvent || (wrapper != null && wrapper.equals(event.getClass()))) {
-      if (LOG.isDebugEnabled()) {
-        LOG.debug("event={}", event);
-      }
-      setSubmitted(true);
-    }
-    super.queueEvent(event);
   }
 
   @Override
