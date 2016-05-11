@@ -25,7 +25,7 @@ import javax.faces.context.FacesContext;
 import javax.inject.Named;
 
 @Named
-public class ValidationSeverity {
+public class SeverityController {
 
   public void addFatal(final FacesContext facesContext, final UIComponent component, final Object value) {
     final FacesMessage message = new FacesMessage(
