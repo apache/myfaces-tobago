@@ -69,7 +69,6 @@ public class TobagoConfigImpl extends TobagoConfig {
   private boolean setNosniffHeader;
   private Map<String, String> defaultValidatorInfo;
   private Sanitizer sanitizer;
-  private boolean autoAccessKeyFromLabel;
   private Map<String, String> mimeTypes;
 
   private boolean unmodifiable = false;
@@ -84,7 +83,6 @@ public class TobagoConfigImpl extends TobagoConfig {
     preventFrameAttacks = true;
     setNosniffHeader = true;
     contentSecurityPolicy = new ContentSecurityPolicy(ContentSecurityPolicy.Mode.OFF.getValue());
-    autoAccessKeyFromLabel = true;
     mimeTypes = new HashMap<String, String>();
   }
 
@@ -377,16 +375,6 @@ public class TobagoConfigImpl extends TobagoConfig {
   }
 
   @Override
-  public boolean isAutoAccessKeyFromLabel() {
-    return autoAccessKeyFromLabel;
-  }
-
-  public void setAutoAccessKeyFromLabel(boolean autoAccessKeyFromLabel) {
-    checkLocked();
-    this.autoAccessKeyFromLabel = autoAccessKeyFromLabel;
-  }
-
-  @Override
   public Map<String, String> getMimeTypes() {
     return mimeTypes;
   }
@@ -431,8 +419,6 @@ public class TobagoConfigImpl extends TobagoConfig {
     builder.append(defaultValidatorInfo);
     builder.append(", \nsanitizer=");
     builder.append(sanitizer);
-    builder.append(", \nautoAccessKeyFromLabel=");
-    builder.append(autoAccessKeyFromLabel);
     // to see only different (ignore alternative names for the same theme)
     builder.append(", \nthemes=");
     final Set<Theme> all = new HashSet<Theme>(availableThemes.values());

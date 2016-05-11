@@ -61,8 +61,6 @@ public abstract class TobagoConfig {
 
   public abstract Sanitizer getSanitizer();
 
-  public abstract boolean isAutoAccessKeyFromLabel();
-
   public abstract Map<String, String> getMimeTypes();
 
   /**
