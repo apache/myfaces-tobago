@@ -22,6 +22,13 @@ Tobago.DateTime.init = function (elements) {
   // time input fields
 //  jQuery.datepicker.setDefaults(jQuery.datepicker.regional['de']);
 
+  // XXX Hack: reset the value, if it will be changed by the picker.
+  Tobago.Utils.selectWithJQuery(elements, ".tobago-date[readonly]")
+      .change(function(event) {
+        var date = jQuery(this);
+        date.val(date.attr("value"));
+      });
+
   Tobago.Utils.selectWithJQuery(elements, ".tobago-date")
       .not("[disabled]")
       .not("[readonly]")
