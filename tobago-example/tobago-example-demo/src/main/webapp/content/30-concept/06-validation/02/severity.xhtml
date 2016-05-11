@@ -22,14 +22,12 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets">
   <ui:param name="title" value="todo"/>
 
-  <tc:in label="Fatal" value="something" validator="#{severityController.addFatal}"/>
-  <tc:out value="(Validator creates an fatal error)"/>
-  <tc:in label="Error" value="something" validator="#{severityController.addError}"/>
-  <tc:out value="(Validator creates an error)"/>
-  <tc:in label="Warn" value="something" validator="#{severityController.addWarn}"/>
-  <tc:out value="(Validator creates a warning)"/>
-  <tc:in label="Info" value="something" validator="#{severityController.addInfo}"/>
-  <tc:out value="(Validator creates an info)"/>
+  The validator of each field creates a FacesMessage with the given severity.
 
-      <tc:button label="Submit"/>
+  <tc:in label="Fatal" value="something" validator="#{severityController.addFatal}"/>
+  <tc:in label="Error" value="something" validator="#{severityController.addError}"/>
+  <tc:in label="Warn" value="something" validator="#{severityController.addWarn}"/>
+  <tc:in label="Info" value="something" validator="#{severityController.addInfo}"/>
+
+  <tc:button label="Submit" defaultCommand="true"/>
 </ui:composition>
