@@ -130,7 +130,11 @@ public abstract class LabelLayoutRendererBase extends DecodingRendererBase {
     // TODO: optimize findAncestor() -> set a marker in UINav?
 
 //    writer.writeClassAttribute(divClass, extra, BootstrapClass.maximumSeverity(component));
-    writer.writeClassAttribute(divClass, BootstrapClass.FORM_GROUP, BootstrapClass.maximumSeverity(component));
+    writer.writeClassAttribute(
+        divClass,
+        BootstrapClass.FORM_GROUP,
+        BootstrapClass.maximumSeverity(component),
+        ComponentUtils.getBooleanAttribute(component, Attributes.required) ? TobagoClass.REQUIRED : null);
 
     switch (labelLayout) {
       case flexLeft:
