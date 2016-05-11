@@ -110,7 +110,7 @@ public enum BootstrapClass implements CssItem {
   FORM_CONTROL_STATIC("form-control-static"),
   FORM_GROUP("form-group"),
   FORM_INLINE("form-inline"),
-  HAS_ERROR("has-error"),
+  HAS_DANGER("has-danger"),
   HAS_SUCCESS("has-success"),
   HAS_WARNING("has-warning"),
   HIDDEN_SM_UP("hidden-sm-up"),
@@ -192,9 +192,11 @@ public enum BootstrapClass implements CssItem {
     if (maximumSeverity == null) {
       return null;
     } else if (maximumSeverity.getOrdinal() >= SEVERITY_ERROR) {
-      return HAS_ERROR;
+      return HAS_DANGER;
     } else if (maximumSeverity.getOrdinal() >= SEVERITY_WARN) {
       return HAS_WARNING;
+    } else if (maximumSeverity.getOrdinal() >= SEVERITY_INFO) {
+      return TobagoClass.HAS_INFO;
     } else {
       return null;
     }

@@ -38,6 +38,8 @@ public enum TobagoClass implements CssItem {
   DROPDOWN_SUBMENU("dropdown-submenu"),
   TABLE_LAYOUT__FIXED("tableLayout-fixed"),
 
+  HAS_INFO("has-info"),
+
   FLEX_LAYOUT("tobago-flexLayout"),
   LABEL("tobago-label"),
   MENU_BAR("tobago-menuBar"),
