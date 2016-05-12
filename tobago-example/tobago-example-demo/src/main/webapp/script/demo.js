@@ -39,7 +39,8 @@ var initInspect = function (elements) {
 
   jQuery("code").find("br").replaceWith("\n");
 
-  var tobagoElements = Tobago.Utils.selectWithJQuery(elements, ".tobago-in,.tobago-out,.tobago-date");
+  // var tobagoElements = Tobago.Utils.selectWithJQuery(elements, ".tobago-in,.tobago-out,.tobago-date");
+  var tobagoElements = Tobago.Utils.selectWithJQuery(elements, ".tobago-flexLayout");
 
   tobagoElements = tobagoElements.filter(function () {
     return jQuery(this).parents("#page\\:content").length == 1;
