@@ -56,7 +56,7 @@ public class TextareaRenderer extends LabelLayoutRendererBase {
     final UITextarea input = (UITextarea) component;
     final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, component);
     final String clientId = input.getClientId(facesContext);
-    final String fieldId = clientId + ComponentUtils.SUB_SEPARATOR + "field";
+    final String fieldId = input.getFieldId(facesContext);
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
     final Integer rows = input.getRows();
 

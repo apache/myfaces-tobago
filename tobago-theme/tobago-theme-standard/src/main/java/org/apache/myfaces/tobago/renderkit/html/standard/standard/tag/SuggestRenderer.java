@@ -98,8 +98,7 @@ public class SuggestRenderer extends RendererBase {
     writer.writeNameAttribute(clientId);
     writer.writeAttribute(HtmlAttributes.VALUE, ComponentUtils.getStringAttribute(suggest, Attributes.value), true);
 
-    writer.writeAttribute(DataAttributes.SUGGEST_FOR,
-        in.getClientId(facesContext) + ComponentUtils.SUB_SEPARATOR + "field", false);
+    writer.writeAttribute(DataAttributes.SUGGEST_FOR, in.getFieldId(facesContext), false);
     writer.writeAttribute(DataAttributes.SUGGEST_MIN_CHARS, suggest.getMinimumCharacters());
     writer.writeAttribute(DataAttributes.SUGGEST_DELAY, suggest.getDelay());
     writer.writeAttribute(DataAttributes.SUGGEST_MAX_ITEMS, suggest.getMaximumItems());

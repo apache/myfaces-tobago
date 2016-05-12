@@ -50,7 +50,7 @@ public class SelectOneListboxRenderer extends SelectOneRendererBase {
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
     final String clientId = select.getClientId(facesContext);
-    final String fieldId = clientId + ComponentUtils.SUB_SEPARATOR + "field";
+    final String fieldId = select.getFieldId(facesContext);
     final List<SelectItem> items = SelectItemUtils.getItemList(facesContext, select);
     final boolean disabled = !items.iterator().hasNext() || select.isDisabled() || select.isReadonly();
     Integer size = select.getSize();
