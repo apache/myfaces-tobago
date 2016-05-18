@@ -22,7 +22,9 @@ package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 import org.apache.myfaces.tobago.internal.component.AbstractUIDate;
 import org.apache.myfaces.tobago.internal.component.AbstractUIInput;
 import org.apache.myfaces.tobago.internal.context.DateTimeI18n;
+import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
+import org.apache.myfaces.tobago.renderkit.css.DatePickerClass;
 import org.apache.myfaces.tobago.renderkit.css.Icons;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
@@ -32,12 +34,16 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.JsonUtils;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 
 public class DateRenderer extends InRenderer {
+
+  private static final Logger LOG = LoggerFactory.getLogger(DateRenderer.class);
 
   @Override
   protected void writeAdditionalAttributes(
@@ -77,19 +83,21 @@ public class DateRenderer extends InRenderer {
     writer.startElement(HtmlElements.SPAN);
     writer.writeClassAttribute(BootstrapClass.INPUT_GROUP_BTN);
     writer.startElement(HtmlElements.BUTTON);
-    writer.writeClassAttribute(BootstrapClass.BTN, BootstrapClass.BTN_SECONDARY);
+    writer.writeClassAttribute(BootstrapClass.BTN, BootstrapClass.BTN_SECONDARY, DatePickerClass.DATEPICKERBUTTON);
     writer.writeAttribute(HtmlAttributes.TYPE, HtmlButtonTypes.BUTTON);
     writer.writeAttribute(HtmlAttributes.DISABLED, date.isDisabled() || date.isReadonly());
-    if (pattern.contains("m")) { // simple guessing
-      if (pattern.contains("d")) {
-        writer.writeIcon(Icons.CALENDAR);
-        writer.writeIcon(Icons.CLOCK_O);
-      } else {
-        writer.writeIcon(Icons.CLOCK_O);
-      }
-    } else {
+
+    if (StringUtils.containsAny(pattern, "yYMDdE")) {
       writer.writeIcon(Icons.CALENDAR);
     }
+    if (StringUtils.containsAny(pattern, "Hhms")) {
+      writer.writeIcon(Icons.CLOCK_O);
+    }
+
+    if (StringUtils.containsAny(pattern, "GWFKzX")) {
+      LOG.warn("Pattern chars 'G', 'W', 'F', 'K', 'z' and 'X' are not supported: " + pattern);
+    }
+
     writer.endElement(HtmlElements.BUTTON);
     writer.endElement(HtmlElements.SPAN);
 

@@ -656,3 +656,14 @@ fixme: there is a problem with the selectManyShuttle with this style.
   content:"*";
   color:red;
 }
+
+/* Bootstrap datetimepicker workarounds ------------------------------------------------------------------ */
+
+/*
+ * CSS extension for bootstrap3-datetimepicker to fit with bootstrap4.
+ */
+
+.bootstrap-datetimepicker-widget th,
+.bootstrap-datetimepicker-widget td {
+  padding: 5px;
+}

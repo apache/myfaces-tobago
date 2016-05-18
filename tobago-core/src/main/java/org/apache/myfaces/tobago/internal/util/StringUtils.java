@@ -501,4 +501,77 @@ public final class StringUtils {
     return string.regionMatches(0, prefix, 0, prefix.length());
   }
 
+  /**
+   * <p>
+   * Checks if the String contains any character in the given set of characters.
+   * </p>
+   *
+   * <p>
+   * A <code>null</code> String will return <code>false</code>. A <code>null</code> search string will return
+   * <code>false</code>.
+   * </p>
+   *
+   * <pre>
+   * StringUtils.containsAny(null, *)            = false
+   * StringUtils.containsAny("", *)              = false
+   * StringUtils.containsAny(*, null)            = false
+   * StringUtils.containsAny(*, "")              = false
+   * StringUtils.containsAny("zzabyycdxx", "za") = true
+   * StringUtils.containsAny("zzabyycdxx", "by") = true
+   * StringUtils.containsAny("aba","z")          = false
+   * </pre>
+   *
+   * @param str the String to check, may be null
+   * @param searchChars the chars to search for, may be null
+   * @return the <code>true</code> if any of the chars are found, <code>false</code> if no match or null input
+   *
+   * Basically taken from commons-lang
+   */
+  public static boolean containsAny(String str, String searchChars) {
+    if (searchChars == null) {
+      return false;
+    }
+    char[] searchChars1 = searchChars.toCharArray();
+    if (isEmpty(str) || org.apache.commons.lang.ArrayUtils.isEmpty(searchChars1)) {
+      return false;
+    }
+    int csLength = str.length();
+    int searchLength = searchChars1.length;
+    int csLast = csLength - 1;
+    int searchLast = searchLength - 1;
+    for (int i = 0; i < csLength; i++) {
+      char ch = str.charAt(i);
+      for (int j = 0; j < searchLength; j++) {
+        if (searchChars1[j] == ch) {
+          if (isHighSurrogate(ch)) {
+            if (j == searchLast) {
+              // missing low surrogate, fine, like String.indexOf(String)
+              return true;
+            }
+            if (i < csLast && searchChars1[j + 1] == str.charAt(i + 1)) {
+              return true;
+            }
+          } else {
+            // ch is in the Basic Multilingual Plane
+            return true;
+          }
+        }
+      }
+    }
+    return false;
+  }
+
+  /**
+   * Indicates whether {@code ch} is a high- (or leading-) surrogate code unit
+   * that is used for representing supplementary characters in UTF-16
+   * encoding.
+   *
+   * @param ch the character to test.
+   * @return {@code true} if {@code ch} is a high-surrogate code unit;
+   *         {@code false} otherwise.
+   */
+  private static boolean isHighSurrogate(char ch) {
+    return ('\uD800' <= ch && '\uDBFF' >= ch);
+  }
+
 }
