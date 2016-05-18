@@ -85,7 +85,7 @@ public interface SuggestTagDeclaration extends HasIdBindingAndRendered {
    * Time in milli seconds before the list will be requested (by AJAX).
    */
   @TagAttribute
-  @UIComponentTagAttribute(type = "java.lang.Integer", defaultValue = "300")
+  @UIComponentTagAttribute(type = "java.lang.Integer", defaultValue = "200")
   void setDelay(String delay);
 
   /**

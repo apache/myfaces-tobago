@@ -19,7 +19,7 @@ Tobago.Suggest = {};
 
 Tobago.Suggest.loadFromServer = function (input) {
 
-  // var timeout;
+  var timeout;
 
   return function findMatches(query, syncResults, asyncResults) {
 
@@ -27,13 +27,13 @@ Tobago.Suggest.loadFromServer = function (input) {
 
     if (suggest.val() != query) {
 
-      // if (timeout) {
-      //   clearTimeout(timeout);
-      // }
+      if (timeout) {
+        clearTimeout(timeout);
+      }
 
-      // var delay = suggest.data("tobago-suggest-delay");
+      var delay = suggest.data("tobago-suggest-delay");
 
-      // timeout = setTimeout(function() {
+      timeout = setTimeout(function() {
         suggest.val(query);
         suggest.data("tobago-suggest-callback", asyncResults);
         suggest.removeData("tobago-suggest-data"); // clear jQuery-data-cache
@@ -48,7 +48,7 @@ Tobago.Suggest.loadFromServer = function (input) {
               execute: id,
               render: id
             });
-      // }, delay);
+      }, delay);
 
     }
   };
@@ -65,7 +65,6 @@ Tobago.Suggest.init = function (elements) {
     var minChars = suggest.data("tobago-suggest-min-chars");
     var maxItems = suggest.data("tobago-suggest-max-items");
 
-    var delay = suggest.data("tobago-suggest-delay"); // todo
     var update = suggest.data("tobago-suggest-update"); // todo
     var totalCount = suggest.data("tobago-suggest-total-count"); // todo
 
