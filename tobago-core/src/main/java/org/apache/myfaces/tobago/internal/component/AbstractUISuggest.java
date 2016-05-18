@@ -23,21 +23,49 @@ import org.apache.myfaces.tobago.component.InputSuggest2;
 import org.apache.myfaces.tobago.model.SuggestFilter;
 
 import javax.faces.component.UIComponentBase;
+import javax.faces.component.behavior.ClientBehaviorHolder;
+import java.util.Arrays;
+import java.util.Collection;
 
 public abstract class AbstractUISuggest
-    extends UIComponentBase implements InputSuggest2 {
+    extends UIComponentBase implements InputSuggest2, ClientBehaviorHolder {
 
   public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.Suggest";
   public static final String COMPONENT_FAMILY = "org.apache.myfaces.tobago.Suggest";
+
+  // todo generate
+  private static final Collection<String> EVENT_NAMES = Arrays.asList("suggest");
+
+  // todo generate
+  @Override
+  public String getDefaultEventName() {
+    return "suggest";
+  }
+
+  // todo generate
+  @Override
+  public Collection<String> getEventNames() {
+    return EVENT_NAMES;
+  }
 
   @Override
   public String getFamily() {
     return COMPONENT_FAMILY;
   }
 
+  public abstract Integer getDelay();
+
   public abstract void setDelay(Integer delay);
+
+  public abstract Integer getMinimumCharacters();
 
   public abstract void setMinimumCharacters(Integer minimumCharacters);
 
   public abstract void setFilter(SuggestFilter filter);
+
+  public abstract boolean isUpdate();
+
+  public abstract Integer getTotalCount();
+
+  public abstract Integer getMaximumItems();
 }

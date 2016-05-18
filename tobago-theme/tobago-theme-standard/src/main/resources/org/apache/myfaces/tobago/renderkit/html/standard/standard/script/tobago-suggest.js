@@ -19,23 +19,37 @@ Tobago.Suggest = {};
 
 Tobago.Suggest.loadFromServer = function (input) {
 
+  // var timeout;
+
   return function findMatches(query, syncResults, asyncResults) {
 
     var suggest = jQuery(Tobago.Utils.escapeClientId(input.data("tobago-suggest-for")));
+
     if (suggest.val() != query) {
-      suggest.val(query);
-      input.data("tobago-suggest-callback", asyncResults);
-      var id = suggest.attr("id");
-      console.info("query: '" + query + "'");
-      Tobago.Updater.update(suggest, id, id, {});
-      //jsf.ajax.request( // TODO: need a behavior handling for new AJAX...
-      //    id,
-      //    null, // todo: event
-      //    {
-      //      "javax.faces.behavior.event": "suggest",
-      //      execute: id,
-      //      render: id
-      //    });
+
+      // if (timeout) {
+      //   clearTimeout(timeout);
+      // }
+
+      // var delay = suggest.data("tobago-suggest-delay");
+
+      // timeout = setTimeout(function() {
+        suggest.val(query);
+        suggest.data("tobago-suggest-callback", asyncResults);
+        suggest.removeData("tobago-suggest-data"); // clear jQuery-data-cache
+        var id = suggest.attr("id");
+        console.info("query: '" + query + "'"); // @DEV_ONLY
+
+        jsf.ajax.request(
+            id,
+            null, // todo: event?
+            {
+              "javax.faces.behavior.event": "suggest",
+              execute: id,
+              render: id
+            });
+      // }, delay);
+
     }
   };
 };
@@ -47,7 +61,6 @@ Tobago.Suggest.init = function (elements) {
   suggests.each(function () {
     var suggest = jQuery(this);
     var input = jQuery(Tobago.Utils.escapeClientId(suggest.data("tobago-suggest-for")));
-    input.data("tobago-suggest-for", suggest.attr("id"));
 
     var minChars = suggest.data("tobago-suggest-min-chars");
     var maxItems = suggest.data("tobago-suggest-max-items");
@@ -58,13 +71,15 @@ Tobago.Suggest.init = function (elements) {
 
     var list = suggest.data("tobago-suggest-data");
 
-    input.attr("autocomplete", "off");
-
-    var asyncResults = input.data("tobago-suggest-callback");
-    if (asyncResults) {
-      console.info("data from server: '" + list + "'");
-      asyncResults(list);
-    } else {
+    if (input.hasClass("tt-input")) { // already initialized: so only update data
+      var asyncResults = suggest.data("tobago-suggest-callback"); // comes from "findMatches()"
+      if (asyncResults) {
+        var data = suggest.data("tobago-suggest-data");
+        asyncResults(data);
+      }
+    } else { // new
+      input.data("tobago-suggest-for", suggest.attr("id"));
+      input.attr("autocomplete", "off");
       input.typeahead({
         minLength: minChars,
         hint: true,// todo

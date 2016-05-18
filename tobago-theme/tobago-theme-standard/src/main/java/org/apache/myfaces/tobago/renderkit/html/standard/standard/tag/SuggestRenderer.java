@@ -19,9 +19,9 @@
 
 package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
-import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.UIIn;
-import org.apache.myfaces.tobago.component.UISuggest;
+import org.apache.myfaces.tobago.internal.component.AbstractUIInput;
+import org.apache.myfaces.tobago.internal.component.AbstractUISuggest;
 import org.apache.myfaces.tobago.model.AutoSuggestItem;
 import org.apache.myfaces.tobago.model.AutoSuggestItems;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
@@ -51,9 +51,8 @@ public class SuggestRenderer extends RendererBase {
   private static final Logger LOG = LoggerFactory.getLogger(SuggestRenderer.class);
 
   @Override
-  public void decode(final FacesContext facesContext, final UIComponent component) {
-
-    final UISuggest suggest = (UISuggest) component;
+  public void decode(FacesContext facesContext, UIComponent component) {
+    final AbstractUISuggest suggest = (AbstractUISuggest) component;
     final String clientId = suggest.getClientId(facesContext);
     final Map<String, String> requestParameterMap = facesContext.getExternalContext().getRequestParameterMap();
     if (requestParameterMap.containsKey(clientId)) {
@@ -61,14 +60,14 @@ public class SuggestRenderer extends RendererBase {
       if (LOG.isDebugEnabled()) {
         LOG.debug("suggest query='{}'", query);
       }
-      final UIIn in = ComponentUtils.findAncestor(suggest, UIIn.class);
-      in.setSubmittedValue(query);
+      final AbstractUIInput input = ComponentUtils.findAncestor(suggest, AbstractUIInput.class);
+      input.setSubmittedValue(query);
     }
   }
 
   @Override
   public void encodeBegin(FacesContext facesContext, UIComponent component) throws IOException {
-    final UISuggest suggest = (UISuggest) component;
+    final AbstractUISuggest suggest = (AbstractUISuggest) component;
     final UIIn in = ComponentUtils.findAncestor(suggest, UIIn.class);
     final MethodExpression suggestMethodExpression = suggest.getSuggestMethodExpression();
     // tbd: may use "suggest" instead of "in" for the method call?
@@ -96,8 +95,6 @@ public class SuggestRenderer extends RendererBase {
     final String clientId = suggest.getClientId(facesContext);
     writer.writeIdAttribute(clientId);
     writer.writeNameAttribute(clientId);
-    writer.writeAttribute(HtmlAttributes.VALUE, ComponentUtils.getStringAttribute(suggest, Attributes.value), true);
-
     writer.writeAttribute(DataAttributes.SUGGEST_FOR, in.getFieldId(facesContext), false);
     writer.writeAttribute(DataAttributes.SUGGEST_MIN_CHARS, suggest.getMinimumCharacters());
     writer.writeAttribute(DataAttributes.SUGGEST_DELAY, suggest.getDelay());

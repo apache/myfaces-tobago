@@ -147,4 +147,9 @@ public class JsonUtilsUnitTest extends AbstractTobagoTestBase {
     Assert.assertEquals(null, JsonUtils.decodeIntegerArray("1,2,3,4"));
   }
 
+  @Test
+  public void encodeStringArray() {
+    Assert.assertEquals("[\"A-rập Xê-út (Tiếng A-rập)\"]", JsonUtils.encode(new String[]{"A-rập Xê-út (Tiếng A-rập)"}));
+  }
+
 }
