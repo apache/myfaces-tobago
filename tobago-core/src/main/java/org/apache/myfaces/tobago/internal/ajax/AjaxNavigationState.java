@@ -193,7 +193,8 @@ public final class AjaxNavigationState {
   }
 
   public static void afterInvokeApplication(FacesContext facesContext) {
-    if (/*AjaxUtils.isAjaxRequest(facesContext) */ false && isNavigation(facesContext)) {
+//    if (AjaxUtils.isAjaxRequest(facesContext) && isNavigation(facesContext)) {
+    if (false) {
       try {
         facesContext.getExternalContext().getSessionMap().put(SESSION_KEY, new AjaxNavigationState(facesContext));
         AjaxInternalUtils.requestNavigationReload(facesContext);
