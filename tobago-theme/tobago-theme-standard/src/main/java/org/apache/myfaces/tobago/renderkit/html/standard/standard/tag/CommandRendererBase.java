@@ -22,7 +22,6 @@ package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.internal.component.AbstractUICommand;
 import org.apache.myfaces.tobago.internal.component.AbstractUIForm;
-import org.apache.myfaces.tobago.internal.component.AbstractUIToolBar;
 import org.apache.myfaces.tobago.internal.util.AccessKeyLogger;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
@@ -131,16 +130,6 @@ public abstract class CommandRendererBase extends RendererBase {
     }
 
     final boolean defaultCommand = ComponentUtils.getBooleanAttribute(command, Attributes.defaultCommand);
-    // TODO this might be too expensive:
-    // TODO please put a flag in the ToolBar-handler and Button-handler (facelets-handler)
-    final boolean insideToolbar = ComponentUtils.findAncestor(command, AbstractUIToolBar.class) != null;
-    writer.writeClassAttribute(
-        Classes.create(command),
-        BootstrapClass.BTN,
-        defaultCommand ? BootstrapClass.BTN_PRIMARY : BootstrapClass.BTN_SECONDARY,
-        insideToolbar ? BootstrapClass.NAVBAR_BTN : null,
-        command.getCustomClass());
-
     if (defaultCommand) {
       final AbstractUIForm form = ComponentUtils.findAncestor(command, AbstractUIForm.class);
       writer.writeAttribute(DataAttributes.DEFAULT, form.getClientId(facesContext), false);
