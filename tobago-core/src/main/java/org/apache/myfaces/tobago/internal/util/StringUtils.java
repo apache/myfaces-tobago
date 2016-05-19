@@ -532,7 +532,7 @@ public final class StringUtils {
       return false;
     }
     char[] searchChars1 = searchChars.toCharArray();
-    if (isEmpty(str) || org.apache.commons.lang.ArrayUtils.isEmpty(searchChars1)) {
+    if (isEmpty(str) || searchChars1.length == 0) {
       return false;
     }
     int csLength = str.length();
