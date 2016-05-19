@@ -19,7 +19,6 @@
 
 package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
-import org.apache.myfaces.tobago.ajax.AjaxUtils;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.RendererTypes;
@@ -204,13 +203,8 @@ public class TabGroupRenderer extends RendererBase {
           }
           if (!disabled && switchType == SwitchType.client) {
             writer.writeAttribute(HtmlAttributes.HREF, '#' + getTabPanelId(facesContext, tab), false);
-            if (AjaxUtils.isAjaxRequest(facesContext)) {
-              writer.writeAttribute(
-                  DataAttributes.TARGET, '#' + getTabPanelId(facesContext, tab).replaceAll(":", "\\\\\\\\:"), false);
-            } else {
-              writer.writeAttribute(
-                  DataAttributes.TARGET, '#' + getTabPanelId(facesContext, tab).replaceAll(":", "\\\\:"), false);
-            }
+            writer.writeAttribute(
+                DataAttributes.TARGET, '#' + getTabPanelId(facesContext, tab).replaceAll(":", "\\\\:"), false);
           }
           final String tabId = tab.getClientId(facesContext);
           writer.writeIdAttribute(tabId);

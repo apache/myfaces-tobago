@@ -19,8 +19,6 @@
 
 package org.apache.myfaces.tobago.internal.ajax;
 
-import org.apache.myfaces.tobago.ajax.AjaxUtils;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -37,6 +35,11 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * XXX this must be refactored, because of TOBAGO-1524 (see TOBAGO-1563)
+ * @deprecated
+ */
+@Deprecated
 public final class AjaxNavigationState {
 
   private static final Logger LOG = LoggerFactory.getLogger(AjaxNavigationState.class);
@@ -158,7 +161,7 @@ public final class AjaxNavigationState {
           final ExternalContext externalContext = facesContext.getExternalContext();
           final String url = externalContext.getRequestContextPath()
                        + externalContext.getRequestServletPath() + externalContext.getRequestPathInfo();
-          AjaxUtils.redirect(facesContext, url);
+          AjaxInternalUtils.redirect(facesContext, url);
           facesContext.responseComplete();
         } catch (IOException e1) {
           LOG.error("Caught: " + e1.getMessage(), e);
@@ -190,7 +193,7 @@ public final class AjaxNavigationState {
   }
 
   public static void afterInvokeApplication(FacesContext facesContext) {
-    if (AjaxUtils.isAjaxRequest(facesContext) && isNavigation(facesContext)) {
+    if (/*AjaxUtils.isAjaxRequest(facesContext) &&*/ isNavigation(facesContext)) {
       try {
         facesContext.getExternalContext().getSessionMap().put(SESSION_KEY, new AjaxNavigationState(facesContext));
         AjaxInternalUtils.requestNavigationReload(facesContext);

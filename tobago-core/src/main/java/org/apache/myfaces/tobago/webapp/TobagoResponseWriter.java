@@ -19,7 +19,6 @@
 
 package org.apache.myfaces.tobago.webapp;
 
-import org.apache.myfaces.tobago.ajax.AjaxUtils;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.CssItem;
@@ -34,7 +33,6 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlTypes;
 import org.apache.myfaces.tobago.renderkit.html.MarkupLanguageAttributes;
 
 import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import java.io.IOException;
 import java.io.Writer;
@@ -210,11 +208,7 @@ public abstract class TobagoResponseWriter extends ResponseWriter {
     if (style != null) {
       final String json = style.encodeJson();
       if (json.length() > 2) { // empty "{}" needs not to be written
-        final FacesContext facesContext = FacesContext.getCurrentInstance();
-        writeAttribute(
-            DataAttributes.STYLE, json, style.needsToBeEscaped() || AjaxUtils.isAjaxRequest(facesContext));
-        // in case of AJAX we need to escape the " as long we use
-        // org.apache.myfaces.tobago.internal.webapp.JsonResponseWriter
+        writeAttribute(DataAttributes.STYLE, json, style.needsToBeEscaped());
       }
     }
   }

@@ -22,19 +22,15 @@ package org.apache.myfaces.tobago.internal.component;
 import org.apache.myfaces.tobago.component.Form;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.util.FacesVersion;
-import org.apache.myfaces.tobago.util.TobagoCallback;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.faces.FacesException;
-import javax.faces.component.ContextCallback;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIForm;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.faces.event.AjaxBehaviorEvent;
 import javax.faces.event.FacesEvent;
-import javax.faces.event.PhaseId;
 import java.util.Iterator;
 
 public abstract class AbstractUIForm extends UIForm implements Form {
@@ -42,7 +38,6 @@ public abstract class AbstractUIForm extends UIForm implements Form {
   private static final Logger LOG = LoggerFactory.getLogger(AbstractUIForm.class);
 
   public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.Form";
-  public static final String SUBMITTED_MARKER = COMPONENT_TYPE + ".InSubmitted";
 
   @Override
   public void processDecodes(final FacesContext facesContext) {
@@ -143,19 +138,5 @@ public abstract class AbstractUIForm extends UIForm implements Form {
       LOG.error("Can't find specific wrapper class.", e);
       return false;
     }
-  }
-
-  @Override
-  public boolean invokeOnComponent(final FacesContext context, final String clientId, final ContextCallback callback)
-      throws FacesException {
-    // TODO is this needed?
-    if (callback instanceof TobagoCallback) {
-      if (PhaseId.APPLY_REQUEST_VALUES.equals(((TobagoCallback) callback).getPhaseId())) {
-        decode(context);
-      }
-    }
-    context.getExternalContext().getRequestMap().put(AbstractUIForm.SUBMITTED_MARKER, isSubmitted());
-
-    return super.invokeOnComponent(context, clientId, callback);
   }
 }

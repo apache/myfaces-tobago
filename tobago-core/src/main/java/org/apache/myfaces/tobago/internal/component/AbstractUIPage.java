@@ -19,29 +19,18 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
-import org.apache.myfaces.tobago.ajax.AjaxUtils;
 import org.apache.myfaces.tobago.component.Visual;
-import org.apache.myfaces.tobago.internal.ajax.AjaxInternalUtils;
-import org.apache.myfaces.tobago.internal.ajax.AjaxResponseRenderer;
 import org.apache.myfaces.tobago.internal.layout.LayoutUtils;
-import org.apache.myfaces.tobago.internal.util.FacesContextUtils;
-import org.apache.myfaces.tobago.util.ApplyRequestValuesCallback;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.util.DebugUtils;
-import org.apache.myfaces.tobago.util.FacesVersion;
-import org.apache.myfaces.tobago.util.ProcessValidationsCallback;
-import org.apache.myfaces.tobago.util.TobagoCallback;
-import org.apache.myfaces.tobago.util.UpdateModelValuesCallback;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.faces.component.ContextCallback;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 import java.util.Iterator;
-import java.util.Map;
 
 public abstract class AbstractUIPage extends AbstractUIForm implements Visual {
 
@@ -50,10 +39,6 @@ public abstract class AbstractUIPage extends AbstractUIForm implements Visual {
   public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.Page";
 
   public static final String FORM_ACCEPT_CHARSET = "utf-8";
-
-  private static final TobagoCallback APPLY_REQUEST_VALUES_CALLBACK = new ApplyRequestValuesCallback();
-  private static final ContextCallback PROCESS_VALIDATION_CALLBACK = new ProcessValidationsCallback();
-  private static final ContextCallback UPDATE_MODEL_VALUES_CALLBACK = new UpdateModelValuesCallback();
 
   private String formId;
 
@@ -71,145 +56,46 @@ public abstract class AbstractUIPage extends AbstractUIForm implements Visual {
 
   @Override
   public void encodeBegin(final FacesContext facesContext) throws IOException {
-    if (!AjaxUtils.isAjaxRequest(facesContext)) {
-      super.encodeBegin(facesContext);
-      final UIComponent layoutManager = LayoutUtils.getLayoutManager(this);
-      if (layoutManager != null) {
-        layoutManager.encodeBegin(facesContext);
-      }
+    super.encodeBegin(facesContext);
+    final UIComponent layoutManager = LayoutUtils.getLayoutManager(this);
+    if (layoutManager != null) {
+      layoutManager.encodeBegin(facesContext);
     }
   }
 
   @Override
   public void encodeChildren(final FacesContext facesContext) throws IOException {
-    if (AjaxUtils.isAjaxRequest(facesContext)) {
-      new AjaxResponseRenderer().renderResponse(facesContext);
+    final UIComponent layoutManager = LayoutUtils.getLayoutManager(this);
+    if (layoutManager != null) {
+      layoutManager.encodeChildren(facesContext);
     } else {
-      final UIComponent layoutManager = LayoutUtils.getLayoutManager(this);
-      if (layoutManager != null) {
-        layoutManager.encodeChildren(facesContext);
-      } else {
-        super.encodeChildren(facesContext);
-      }
+      super.encodeChildren(facesContext);
     }
   }
 
   @Override
   public void encodeEnd(final FacesContext facesContext) throws IOException {
-    if (!AjaxUtils.isAjaxRequest(facesContext)) {
-      final UIComponent layoutManager = LayoutUtils.getLayoutManager(this);
-      if (layoutManager != null) {
-        layoutManager.encodeEnd(facesContext);
-      }
-      super.encodeEnd(facesContext);
+    final UIComponent layoutManager = LayoutUtils.getLayoutManager(this);
+    if (layoutManager != null) {
+      layoutManager.encodeEnd(facesContext);
     }
+    super.encodeEnd(facesContext);
     if (LOG.isTraceEnabled()) {
       LOG.trace(DebugUtils.toString(this.getParent(), 0));
     }
   }
 
-  private void processDecodes0(final FacesContext facesContext) {
+  @Override
+  public void processDecodes(final FacesContext context) {
 
-    decode(facesContext);
+    decode(context);
 
-    markSubmittedForm(facesContext);
+    markSubmittedForm(context);
 
     // invoke processDecodes() on children
     for (final Iterator kids = getFacetsAndChildren(); kids.hasNext();) {
       final UIComponent kid = (UIComponent) kids.next();
-      kid.processDecodes(facesContext);
-    }
-  }
-
-  @Override
-  public void processDecodes(final FacesContext context) {
-    if (context == null) {
-      throw new NullPointerException("context");
-    }
-    final Map<String, UIComponent> ajaxComponents = AjaxInternalUtils.parseAndStoreComponents(context);
-    if (ajaxComponents != null) {
-      // first decode the page
-      final AbstractUIPage page = ComponentUtils.findPage(context);
-      page.decode(context);
-      page.markSubmittedForm(context);
-      FacesContextUtils.setAjax(context, true);
-
-      // decode the action if actionComponent not inside one of the ajaxComponents
-      // otherwise it is decoded there
-      decodeActionComponent(context, page, ajaxComponents);
-
-      // and all ajax components
-      for (final Map.Entry<String, UIComponent> entry : ajaxComponents.entrySet()) {
-        FacesContextUtils.setAjaxComponentId(context, entry.getKey());
-        invokeOnComponent(context, entry.getKey(), APPLY_REQUEST_VALUES_CALLBACK);
-      }
-    } else {
-      processDecodes0(context);
-    }
-  }
-
-  private void decodeActionComponent(
-      final FacesContext facesContext, final AbstractUIPage page, final Map<String,
-      UIComponent> ajaxComponents) {
-    final String actionId = page.getActionId();
-    UIComponent actionComponent = null;
-    if (actionId != null) {
-      actionComponent = findComponent(actionId);
-      if (actionComponent == null && FacesVersion.supports20() && FacesVersion.isMyfaces()) {
-        final String bugActionId = actionId.replaceAll(":\\d+:", ":");
-        try {
-          actionComponent = findComponent(bugActionId);
-          //LOG.info("command = \"" + actionComponent + "\"", new Exception());
-        } catch (final Exception e) {
-          // ignore
-        }
-      }
-    }
-    if (actionComponent == null) {
-      return;
-    }
-    for (final UIComponent ajaxComponent : ajaxComponents.values()) {
-      UIComponent component = actionComponent;
-      while (component != null) {
-        if (component == ajaxComponent) {
-          return;
-        }
-        component = component.getParent();
-      }
-    }
-    invokeOnComponent(facesContext, actionId, APPLY_REQUEST_VALUES_CALLBACK);
-  }
-
-
-  @Override
-  public void processValidators(final FacesContext context) {
-    if (context == null) {
-      throw new NullPointerException("context");
-    }
-
-    final Map<String, UIComponent> ajaxComponents = AjaxInternalUtils.getAjaxComponents(context);
-    if (ajaxComponents != null) {
-      for (final Map.Entry<String, UIComponent> entry : ajaxComponents.entrySet()) {
-        FacesContextUtils.setAjaxComponentId(context, entry.getKey());
-        invokeOnComponent(context, entry.getKey(), PROCESS_VALIDATION_CALLBACK);
-      }
-    } else {
-      super.processValidators(context);
-    }
-  }
-
-  @Override
-  public void processUpdates(final FacesContext context) {
-    if (context == null) {
-      throw new NullPointerException("context");
-    }
-    final Map<String, UIComponent> ajaxComponents = AjaxInternalUtils.getAjaxComponents(context);
-    if (ajaxComponents != null) {
-      for (final Map.Entry<String, UIComponent> entry : ajaxComponents.entrySet()) {
-        invokeOnComponent(context, entry.getKey(), UPDATE_MODEL_VALUES_CALLBACK);
-      }
-    } else {
-      super.processUpdates(context);
+      kid.processDecodes(context);
     }
   }
 
@@ -269,12 +155,5 @@ public abstract class AbstractUIPage extends AbstractUIForm implements Visual {
       }
       facesContext.renderResponse();
     }
-  }
-
-  /** @deprecated XXX delete me */
-  @Deprecated
-  private String getActionId() {
-    LOG.warn("XXX should not be called, because of AJAX cleanup...");
-    return null;
   }
 }

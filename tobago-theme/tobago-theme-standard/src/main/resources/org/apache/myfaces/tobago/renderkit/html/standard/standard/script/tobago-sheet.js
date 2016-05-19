@@ -87,10 +87,8 @@ Tobago.Sheet.init = function(elements) {
 Tobago.registerListener(Tobago.Sheet.init, Tobago.Phase.DOCUMENT_READY);
 Tobago.registerListener(Tobago.Sheet.init, Tobago.Phase.AFTER_UPDATE);
 
-Tobago.Sheet.prototype.reloadWithAction = function(source, action, options) {
+Tobago.Sheet.prototype.reloadWithAction = function(source, action) {
     console.debug("reload sheet with action '" + action + "'"); // @DEV_ONLY
-    //Tobago.Updater.update(source, action, this.renderedPartially ? this.renderedPartially : this.id, options);
-  // todo: options
   var reloadIds =  this.renderedPartially ? this.renderedPartially : this.id;
   jsf.ajax.request(
       action,
@@ -100,18 +98,6 @@ Tobago.Sheet.prototype.reloadWithAction = function(source, action, options) {
         execute: reloadIds,
         render: reloadIds
       });
-};
-
-Tobago.Sheet.prototype.afterDoUpdateSuccess = function() {
-  this.setup();
-};
-
-Tobago.Sheet.prototype.afterDoUpdateNotModified = function() {
-  this.initReload();
-};
-
-Tobago.Sheet.prototype.afterDoUpdateError = function() {
-  this.initReload();
 };
 
 Tobago.Sheet.setup2 = function (sheets) {

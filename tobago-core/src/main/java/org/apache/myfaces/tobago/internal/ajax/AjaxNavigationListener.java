@@ -27,6 +27,11 @@ import javax.faces.event.PhaseEvent;
 import javax.faces.event.PhaseId;
 import javax.faces.event.PhaseListener;
 
+/**
+ * XXX this must be refactored, because of TOBAGO-1524 (see TOBAGO-1563)
+ * @deprecated
+ */
+@Deprecated
 public class AjaxNavigationListener implements PhaseListener {
 
   private static final Logger LOG = LoggerFactory.getLogger(AjaxNavigationListener.class);

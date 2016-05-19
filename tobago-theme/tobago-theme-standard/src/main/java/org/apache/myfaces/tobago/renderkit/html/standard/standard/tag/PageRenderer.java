@@ -28,7 +28,6 @@ import org.apache.myfaces.tobago.context.ClientProperties;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.context.Theme;
-import org.apache.myfaces.tobago.internal.ajax.AjaxInternalUtils;
 import org.apache.myfaces.tobago.internal.component.AbstractUIPage;
 import org.apache.myfaces.tobago.internal.util.AccessKeyLogger;
 import org.apache.myfaces.tobago.internal.util.FacesContextUtils;
@@ -354,16 +353,6 @@ public class PageRenderer extends RendererBase {
       writer.writeAttribute(HtmlAttributes.NAME, "tobago.dummy", false);
       writer.writeAttribute(HtmlAttributes.TABINDEX, -1);
       writer.writeAttribute(HtmlAttributes.STYLE, "visibility:hidden;display:none;", false);
-      writer.endElement(HtmlElements.INPUT);
-    }
-
-    final List<String> messageClientIds = AjaxInternalUtils.getMessagesClientIds(facesContext);
-    if (messageClientIds != null) {
-      writer.startElement(HtmlElements.INPUT);
-      writer.writeAttribute(HtmlAttributes.VALUE, StringUtils.join(messageClientIds, ','), true);
-      writer.writeAttribute(HtmlAttributes.ID, clientId + ComponentUtils.SUB_SEPARATOR + "messagesClientIds", false);
-      writer.writeAttribute(HtmlAttributes.NAME, clientId + ComponentUtils.SUB_SEPARATOR + "messagesClientIds", false);
-      writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN);
       writer.endElement(HtmlElements.INPUT);
     }
 

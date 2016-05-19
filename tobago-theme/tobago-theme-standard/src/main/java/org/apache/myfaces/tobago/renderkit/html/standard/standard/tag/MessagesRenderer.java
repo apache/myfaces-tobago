@@ -19,7 +19,6 @@
 
 package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
-import org.apache.myfaces.tobago.ajax.AjaxUtils;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.component.UIBox;
@@ -28,7 +27,6 @@ import org.apache.myfaces.tobago.component.UIMessages;
 import org.apache.myfaces.tobago.component.UIPanel;
 import org.apache.myfaces.tobago.component.UIPopup;
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
-import org.apache.myfaces.tobago.internal.ajax.AjaxInternalUtils;
 import org.apache.myfaces.tobago.internal.util.FacesContextUtils;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
@@ -155,9 +153,6 @@ public class MessagesRenderer extends RendererBase {
         writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN);
         writer.endElement(HtmlElements.INPUT);
       }
-    }
-    if (messages.getFor() == null && !AjaxUtils.isAjaxRequest(facesContext)) {
-      AjaxInternalUtils.storeMessagesClientIds(facesContext, messages);
     }
   }
 

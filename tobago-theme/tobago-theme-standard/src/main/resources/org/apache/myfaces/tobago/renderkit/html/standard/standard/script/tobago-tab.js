@@ -43,12 +43,10 @@ Tobago.TabGroup.init = function(elements) {
               if (!partialIds) {
                 partialIds = tabGroup.attr("id");
               }
-              //Tobago.Updater.update(tabGroup, tabGroup.attr("id"), partialIds, {});
               jsf.ajax.request(
                   tabGroup.attr("id"),
                   event,
                   {
-                    //"javax.faces.behavior.event": "click",
                     execute: partialIds,
                     render: partialIds
                   });

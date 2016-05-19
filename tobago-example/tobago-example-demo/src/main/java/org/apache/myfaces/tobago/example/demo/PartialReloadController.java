@@ -19,7 +19,6 @@
 
 package org.apache.myfaces.tobago.example.demo;
 
-import org.apache.myfaces.tobago.ajax.AjaxUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -76,12 +75,6 @@ public class PartialReloadController {
   public String navigateAction() {
     final FacesContext facesContext = FacesContext.getCurrentInstance();
 
-    // in case of both the select control is not processed during lifecycle
-    // we need to get the value from the request params
-//    navigateAction = (String) facesContext.getExternalContext().getRequestParameterMap().get("page:navSelect");
-
-    AjaxUtils.removeAjaxComponent(facesContext, "page:navTest");
-
     if (navigationState == null) {
       final ELContext elContext = facesContext.getELContext();
       final ValueExpression expression = facesContext.getApplication().getExpressionFactory()
@@ -93,21 +86,21 @@ public class PartialReloadController {
     if (navigateAction == null) {
       return logAndNavigate(null);
     } else if ("left".equals(navigateAction)) {
-      AjaxUtils.addAjaxComponent(facesContext, "page:left");
+//      AjaxUtils.addAjaxComponent(facesContext, "page:left");
       navigateAction = null;
       return logAndNavigate(null);
     } else if ("right".equals(navigateAction)) {
-      AjaxUtils.addAjaxComponent(facesContext, "page:right");
+//      AjaxUtils.addAjaxComponent(facesContext, "page:right");
       navigateAction = null;
       return logAndNavigate(null);
     } else if ("both".equals(navigateAction)) {
-      AjaxUtils.addAjaxComponent(facesContext, "page:left");
-      AjaxUtils.addAjaxComponent(facesContext, "page:right");
+//      AjaxUtils.addAjaxComponent(facesContext, "page:left");
+//      AjaxUtils.addAjaxComponent(facesContext, "page:right");
       navigateAction = null;
       return logAndNavigate(null);
     } else if ("parent".equals(navigateAction)) {
       navigateAction = null;
-      AjaxUtils.addAjaxComponent(facesContext, "page:parent");
+//      AjaxUtils.addAjaxComponent(facesContext, "page:parent");
       return logAndNavigate(null);
     } else if ("prev".equals(navigateAction)) {
       navigateAction = null;

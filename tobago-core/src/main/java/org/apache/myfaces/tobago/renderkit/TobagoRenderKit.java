@@ -19,12 +19,10 @@
 
 package org.apache.myfaces.tobago.renderkit;
 
-import org.apache.myfaces.tobago.ajax.AjaxUtils;
 import org.apache.myfaces.tobago.application.ProjectStage;
 import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.internal.webapp.DebugResponseWriterWrapper;
 import org.apache.myfaces.tobago.internal.webapp.HtmlResponseWriter;
-import org.apache.myfaces.tobago.internal.webapp.JsonResponseWriter;
 import org.apache.myfaces.tobago.internal.webapp.XmlResponseWriter;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import org.slf4j.Logger;
@@ -83,21 +81,13 @@ public class TobagoRenderKit extends RenderKit {
       final Writer writer, final String contentTypeList, final String characterEncoding) {
     String contentType;
     final FacesContext facesContext = FacesContext.getCurrentInstance();
-    if (AjaxUtils.isAjaxRequest(facesContext)) {
-      return new JsonResponseWriter(writer, "application/json", characterEncoding);
-    }
     if (facesContext.getPartialViewContext().isAjaxRequest()) {
       contentType = "text/xml";
     } else if (contentTypeList == null) {
       contentType = "text/html";
-    } else if (contentTypeList.contains("text/html")) {
-      contentType = "text/html";
-      LOG.warn("patching content type from " + contentTypeList + " to " + contentType + "'");
-    } else if (contentTypeList.contains("application/json")) {
-      return new JsonResponseWriter(writer, "application/json", characterEncoding);
     } else {
       contentType = "text/html";
-      LOG.warn("Content-Type '" + contentTypeList + "' not supported! Using text/html");
+      LOG.warn("Content-Type '{}' not supported! Using ''{}", contentTypeList, contentType);
     }
 
 // XXX enable xhtml here, by hand:
