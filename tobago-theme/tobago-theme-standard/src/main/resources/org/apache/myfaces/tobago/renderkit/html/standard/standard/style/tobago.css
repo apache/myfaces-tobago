@@ -51,6 +51,14 @@ needed for popups
   z-index: 2000 !important;
 }
 
+/*
+XXX need for fixing wrong positioning of bootstrap datepicker.
+See https://github.com/Eonasdan/bootstrap-datetimepicker/issues/790 for more information.
+*/
+body {
+  position: relative;
+}
+
 /* file -------------------------------------------------------------- */
 
 .tobago-file {

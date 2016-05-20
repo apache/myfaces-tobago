@@ -38,7 +38,8 @@ Tobago.DateTime.init = function (elements) {
             today: 'fa fa-calendar-check-o',
             clear: 'fa fa-trash',
             close: 'fa fa-times'
-          }
+          },
+          widgetParent: '.tobago-page'
         };
 
         var i18n = date.data("tobago-date-time-i18n");
@@ -70,6 +71,33 @@ Tobago.DateTime.init = function (elements) {
         }
 
         date.parent().datetimepicker(options);
+
+        /*
+         XXX need for fixing wrong positioning of bootstrap datepicker.
+         See https://github.com/Eonasdan/bootstrap-datetimepicker/issues/790 for more information.
+         */
+        date.parent().on('dp.show', function () {
+          var datepicker = jQuery('.bootstrap-datetimepicker-widget');
+          var $div = jQuery(this);
+          if (datepicker.hasClass('bottom')) {
+            var top = $div.offset().top + $div.outerHeight() - jQuery("body").offset().top;
+            var left = $div.offset().left;
+            datepicker.css({
+              'top': top + 'px',
+              'bottom': 'auto',
+              'left': left + 'px'
+            });
+          }
+          else if (datepicker.hasClass('top')) {
+            var top = $div.offset().top - datepicker.outerHeight() - jQuery("body").offset().top;
+            var left = $div.offset().left;
+            datepicker.css({
+              'top': top + 'px',
+              'bottom': 'auto',
+              'left': left + 'px'
+            });
+          }
+        });
       });
 };
 
@@ -90,35 +118,66 @@ Tobago.DateTime.analyzePattern = function (pattern) {
     pattern = "";
   }
 
-  pattern = pattern.replace(/y/g, "Y");
-  pattern = pattern.replace(/\bY\b/g, "YYYY");
-  pattern = pattern.replace(/\bYYY\b/g, "YY");
-  pattern = pattern.replace(/YYYYY(Y)+/g, "YYYYY");
+  if (pattern.search("y") > -1) {
+    pattern = pattern.replace(/y/g, "Y");
+  }
+  if (pattern.search("Y") > -1) {
+    pattern = pattern.replace(/\bY\b/g, "YYYY");
+    pattern = pattern.replace(/\bYYY\b/g, "YY");
+    pattern = pattern.replace(/YYYYYY+/g, "YYYYY");
+  }
 
-  pattern = pattern.replace(/MMMM(M)+/g, "MMMM");
+  if (pattern.search("MMMMM") > -1) {
+    pattern = pattern.replace(/MMMMM+/g, "MMMM");
+  }
 
-  pattern = pattern.replace(/\bw\b/g, "W");
-  pattern = pattern.replace(/ww(w)+/g, "WW");
+  if (pattern.search("w") > -1) {
+    pattern = pattern.replace(/\bw\b/g, "W");
+    pattern = pattern.replace(/www+/g, "WW");
+  }
 
-  pattern = pattern.replace(/DDD(D)*/g, "DDDD");
-  pattern = pattern.replace(/\bD{1,2}\b/g, "DDD");
+  if (pattern.search("D") > -1) {
+    pattern = pattern.replace(/DDD+/g, "DDDD");
+    pattern = pattern.replace(/\bD{1,2}\b/g, "DDD");
+  }
 
-  pattern = pattern.replace(/dd(d)*/g, "DD");
-  pattern = pattern.replace(/\bd\b/g, "D");
+  if (pattern.search("d") > -1) {
+    pattern = pattern.replace(/dd+/g, "DD");
+    pattern = pattern.replace(/\bd\b/g, "D");
+  }
 
-  pattern = pattern.replace(/\bE{1,3}\b/g, "dd");
-  pattern = pattern.replace(/EEEE(E)*/g, "dddd");
+  if (pattern.search("E") > -1) {
+    pattern = pattern.replace(/\bE{1,3}\b/g, "dd");
+    pattern = pattern.replace(/EEEE+/g, "dddd");
+  }
 
-  pattern = pattern.replace(/u(u)*/g, "E");
-  pattern = pattern.replace(/a(a)*/g, "A");
-  pattern = pattern.replace(/HH(H)*/g, "HH");
-  pattern = pattern.replace(/kk(k)*/g, "kk");
-  pattern = pattern.replace(/hh(h)*/g, "hh");
-  pattern = pattern.replace(/mm(m)*/g, "mm");
-  pattern = pattern.replace(/ss(s)*/g, "ss");
-  pattern = pattern.replace(/SSS(S)*/g, "SSS");
-
-  pattern = pattern.replace(/ZZ(Z)*/g, "ZZ");
+  if (pattern.search("u") > -1) {
+    pattern = pattern.replace(/u+/g, "E");
+  }
+  if (pattern.search("a") > -1) {
+    pattern = pattern.replace(/a+/g, "A");
+  }
+  if (pattern.search("HHH") > -1) {
+    pattern = pattern.replace(/HHH+/g, "HH");
+  }
+  if (pattern.search("kkk") > -1) {
+    pattern = pattern.replace(/kkk+/g, "kk");
+  }
+  if (pattern.search("hhh") > -1) {
+    pattern = pattern.replace(/hhh+/g, "hh");
+  }
+  if (pattern.search("mmm") > -1) {
+    pattern = pattern.replace(/mmm+/g, "mm");
+  }
+  if (pattern.search("sss") > -1) {
+    pattern = pattern.replace(/sss+/g, "ss");
+  }
+  if (pattern.search("SSSS") > -1) {
+    pattern = pattern.replace(/SSSS+/g, "SSS");
+  }
+  if (pattern.search("ZZZ") > -1) {
+    pattern = pattern.replace(/ZZZ+/g, "ZZ");
+  }
 
   return pattern;
 };
