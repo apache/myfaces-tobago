@@ -19,11 +19,10 @@
 
 package org.apache.myfaces.tobago.example.demo;
 
-import java.net.URL;
-
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.drone.api.annotation.Drone;
+import org.jboss.arquillian.graphene.findby.FindByJQuery;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
@@ -36,41 +35,68 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
+import java.net.URL;
+
 @RunWith(Arquillian.class)
 @RunAsClient
 public class ArquillianTest {
 
-    @Drone
-    private WebDriver browser;
+  @Drone
+  private WebDriver browser;
 
-    @ArquillianResource
-    private URL contextPath;
+  @ArquillianResource
+  private URL contextPath;
 
-    @FindBy(id = "page:i8::field")
-    private WebElement inputField;
+  @FindBy(id = "page:i8::field")
+  private WebElement input;
 
-    @FindBy(id = "page:outputfield")
-    private WebElement outputField;
+  @FindBy(id = "page:outputfield")
+  private WebElement output;
 
-    @Deployment
-    public static WebArchive createDeployment() {
-        WebArchive webArchive = ShrinkWrap.create(MavenImporter.class).
-                loadPomFromFile("pom.xml", "jsf-provided", "!myfaces-2.0").importBuildOutput()
-                .as(WebArchive.class);
-        webArchive.addClass(ArquillianTest.class);
-        // XXX there should be a proper profile in POM for that
-        webArchive.delete("/WEB-INF/lib/hibernate-validator-4.3.2.Final.jar");
-        return webArchive;
+  @FindByJQuery("#page\\:outputfield > label")
+  private WebElement outputLabel;
+
+  @FindByJQuery("#page\\:outputfield > span")
+  private WebElement outputField;
+
+  @Deployment
+  public static WebArchive createDeployment() {
+    WebArchive webArchive = ShrinkWrap.create(MavenImporter.class).
+        loadPomFromFile("pom.xml", "jsf-provided", "!myfaces-2.0").importBuildOutput()
+        .as(WebArchive.class);
+    webArchive.addClass(ArquillianTest.class);
+    // XXX there should be a proper profile in POM for that
+    webArchive.delete("/WEB-INF/lib/hibernate-validator-4.3.2.Final.jar");
+    return webArchive;
+  }
+
+  @Test
+  public void ajaxOnChange() {
+    browser.get(contextPath + "/faces/content/20-component/010-input/10-in/in.xhtml");
+
+    Assert.assertEquals("On Server", outputLabel.getText());
+    // TODO results in "Refused to evaluate a string as JavaScript because 'unsafe-eval'
+    // is not an allowed source of script in the following Content Security Policy directive"
+
+    Assert.assertEquals("", outputField.getText());
+
+    final String text = "Testtext";
+    input.sendKeys(text);
+    output.click();
+//    Graphene.waitAjax();
+/*
+    try {
+      Thread.sleep(30000);
+    } catch (InterruptedException e) {
+      e.printStackTrace();
     }
+*/
 
-    @Test
-    public void shouldCreate() {
-        browser.get(contextPath + "/faces/content/20-component/010-input/10-in/in.xhtml");
+    Assert.assertEquals(text, outputField.getText());
 
-        Assert.assertEquals("On Server", outputField.getText());
-        // TODO results in "Refused to evaluate a string as JavaScript because 'unsafe-eval'
-        // is not an allowed source of script in the following Content Security Policy directive"
-//        Graphene.guardAjax(inputField).sendKeys("Testtext");
 
-    }
+//    JavascriptExecutor js = (JavascriptExecutor) browser;
+//    js.executeScript("$(Tobago.Utils.escapeClientId('{}')).blur();", output.getAttribute("id"));
+
+  }
 }
