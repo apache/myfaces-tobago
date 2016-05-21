@@ -19,6 +19,8 @@
 
 package org.apache.myfaces.tobago.example.demo;
 
+import java.net.URL;
+
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.drone.api.annotation.Drone;
@@ -35,8 +37,11 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-import java.net.URL;
-
+/**
+ * if PhantomJS is configured, ensure that content-security-policy mode="off" is in tobago-config.xml otherwise it will result in
+ * "Refused to evaluate a string as JavaScript because 'unsafe-eval' is not an allowed source of script in the following Content Security Policy directive"
+ * see: https://github.com/ariya/phantomjs/issues/13114
+ */
 @RunWith(Arquillian.class)
 @RunAsClient
 public class ArquillianTest {
@@ -59,12 +64,11 @@ public class ArquillianTest {
   @FindByJQuery("#page\\:outputfield > span")
   private WebElement outputField;
 
-  @Deployment
+  @Deployment(testable = false)
   public static WebArchive createDeployment() {
     WebArchive webArchive = ShrinkWrap.create(MavenImporter.class).
-        loadPomFromFile("pom.xml", "jsf-provided", "!myfaces-2.0").importBuildOutput()
-        .as(WebArchive.class);
-    webArchive.addClass(ArquillianTest.class);
+            loadPomFromFile("pom.xml", "jsf-provided", "!myfaces-2.0").importBuildOutput()
+            .as(WebArchive.class);
     // XXX there should be a proper profile in POM for that
     webArchive.delete("/WEB-INF/lib/hibernate-validator-4.3.2.Final.jar");
     return webArchive;
@@ -75,9 +79,6 @@ public class ArquillianTest {
     browser.get(contextPath + "/faces/content/20-component/010-input/10-in/in.xhtml");
 
     Assert.assertEquals("On Server", outputLabel.getText());
-    // TODO results in "Refused to evaluate a string as JavaScript because 'unsafe-eval'
-    // is not an allowed source of script in the following Content Security Policy directive"
-
     Assert.assertEquals("", outputField.getText());
 
     final String text = "Testtext";
