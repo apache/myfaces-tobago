@@ -38,8 +38,9 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 /**
- * if PhantomJS is configured, ensure that content-security-policy mode="off" is in tobago-config.xml otherwise it will result in
- * "Refused to evaluate a string as JavaScript because 'unsafe-eval' is not an allowed source of script in the following Content Security Policy directive"
+ * if PhantomJS is configured, ensure that content-security-policy mode="off" is in tobago-config.xml otherwise
+ * it will result in "Refused to evaluate a string as JavaScript because 'unsafe-eval' is not an allowed
+ * source of script in the following Content Security Policy directive"
  * see: https://github.com/ariya/phantomjs/issues/13114
  */
 @RunWith(Arquillian.class)
