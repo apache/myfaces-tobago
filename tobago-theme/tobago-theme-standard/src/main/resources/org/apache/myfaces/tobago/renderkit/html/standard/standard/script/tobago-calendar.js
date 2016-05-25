@@ -23,9 +23,9 @@ Tobago.DateTime.init = function (elements) {
       .not("[disabled]")
       .not("[readonly]")
       .each(function () {
-        var date = jQuery(this);
+        var $date = jQuery(this);
 
-        var analyzed = Tobago.DateTime.analyzePattern(date.data("tobago-pattern"));
+        var analyzed = Tobago.DateTime.analyzePattern($date.data("tobago-pattern"));
         var options = {
           format: analyzed,
           icons: {
@@ -42,7 +42,7 @@ Tobago.DateTime.init = function (elements) {
           widgetParent: '.tobago-page'
         };
 
-        var i18n = date.data("tobago-date-time-i18n");
+        var i18n = $date.data("tobago-date-time-i18n");
         if (i18n) {
           var monthNames = i18n.monthNames;
           if (monthNames) {
@@ -70,13 +70,34 @@ Tobago.DateTime.init = function (elements) {
           }
         }
 
-        date.parent().datetimepicker(options);
+        $date.parent().datetimepicker(options);
+
+        // we need to add the change listener here, because
+        // in line 1307 of bootstrap-datetimepicker.js
+        // the 'stopImmediatePropagation()' stops the change-event
+        // execution of line 686 in tobago.js
+        $date.parent().on('dp.change', function (event) {
+          var commands = jQuery(this).find("input").data("tobago-commands");
+          if (commands.change.partially) {
+            //Tobago.reloadComponent(this, commands.change.partially, commands.change.action, commands.change);
+            jsf.ajax.request(
+                jQuery(this).find("input").attr("name"),
+                event,
+                {
+                  "javax.faces.behavior.event": "change",
+                  execute: commands.change.partially,
+                  render: commands.change.partially
+                });
+          } else {
+            Tobago.submitAction(this.firstElementChild, commands.change.action, commands.change);
+          }
+        });
 
         /*
          XXX need for fixing wrong positioning of bootstrap datepicker.
          See https://github.com/Eonasdan/bootstrap-datetimepicker/issues/790 for more information.
          */
-        date.parent().on('dp.show', function () {
+        $date.parent().on('dp.show', function () {
           var datepicker = jQuery('.bootstrap-datetimepicker-widget');
           var $div = jQuery(this);
           if (datepicker.hasClass('bottom')) {
