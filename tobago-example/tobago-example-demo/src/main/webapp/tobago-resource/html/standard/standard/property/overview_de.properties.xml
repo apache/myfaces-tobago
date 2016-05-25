@@ -24,16 +24,10 @@
 
 <!--  menu -->
   <entry key="menu_navigate">_Navigation</entry>
-  <entry key="menu_config">_Konfiguration</entry>
-  <entry key="menu_help">_Hilfe</entry>
-  <entry key="menu_themes">_Themes</entry>
-  <entry key="menu_locale">_Sprachen</entry>
-  <entry key="menu_about">Über</entry>
 
 <!--  navigate -->
   <entry key="overview">Übersicht</entry>
   <entry key="toolbar">Toolbar</entry>
-  <entry key="validation">Validierung</entry>
   <entry key="themes">Designs</entry>
 <!-- browser=Browser -->
   <entry key="locale">Lokalisierung</entry>

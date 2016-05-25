@@ -25,7 +25,9 @@ import org.slf4j.LoggerFactory;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 import java.io.Serializable;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.TimeZone;
 
 @RequestScoped
 @Named
@@ -34,11 +36,12 @@ public class DateController implements Serializable {
   private static final Logger LOG = LoggerFactory.getLogger(DateController.class);
 
   private Date once;
-
   private Date onchange;
+  private Date randomTimeZoneDate;
 
   public DateController() {
     once = new Date();
+    randomTimeZoneDate = new Date();
   }
 
   public Date getOnce() {
@@ -55,5 +58,16 @@ public class DateController implements Serializable {
 
   public void setOnchange(Date onchange) {
     this.onchange = onchange;
+  }
+
+  public Date getNow() {
+    return new Date();
+  }
+
+  public Date getDateWithRandomTimezone() {
+    Calendar cal = Calendar.getInstance();
+    int i = (int) (Math.random() * TimeZone.getAvailableIDs().length);
+    cal.setTimeZone(TimeZone.getTimeZone(TimeZone.getAvailableIDs()[i]));
+    return cal.getTime();
   }
 }

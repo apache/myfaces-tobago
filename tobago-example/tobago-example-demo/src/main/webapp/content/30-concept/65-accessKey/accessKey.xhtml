@@ -21,13 +21,14 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:f="http://java.sun.com/jsf/core">
   <ui:param name="title" value="#{overviewBundle.accessKey}"/>
-  <p>The <code>accessKey</code> attribute is available for many components like buttons, labels, checkboxes or links.
+  <p>The <code>accessKey</code> attribute is available for many components like buttons, checkboxes or links.
     A component with this attribute is accessible by the given character. The character is not case sensitive.</p>
-  <p>To log the use of the accessKey attribute please configure
-    the category <code>org.apache.myfaces.tobago.internal.util.AccessKeyLogger</code> to log level "debug".</p>
+  <p>Logging the accessKey can be configured by setting the category
+    <code>org.apache.myfaces.tobago.internal.util.AccessKeyLogger</code> to log level "debug".</p>
 
   <p>The usage of accesskeys is different for every OS and browser.<br/>
-    For example, in Firefox for Windows, you have to press 'Alt + Shift + key'. In Chrome it's only 'Alt + key'.
+    For example, in the Windows-Firefox, you have to press 'Alt + Shift + key'.
+    In Chrome for Mac OS X it's only 'Control + Alt + key'.
     A complete listing can be found at the
     <tc:link label="Mozilla Developer Network"
              link="https://developer.mozilla.org/de/docs/Web/HTML/Global_attributes/accesskey"/>.</p>
@@ -45,7 +46,7 @@
              link="#{overviewBundle.tagDocUrl}/label.html"/></p>
 
   <tc:section label="Basics">
-    <p>The access key is set to 'a'. Notice, that the 'A' in the label of the button has an underscore.</p>
+    <p>The accesskey is set to 'a'. Notice, that the 'A' in the label of the button has an underscore.</p>
     <pre><code class="language-markup">&lt;tc:button label="Button AccessKey" accessKey="a"></code></pre>
     <tc:button label="Button AccessKey" accessKey="a">
       <f:facet name="confirmation">
@@ -55,7 +56,8 @@
   </tc:section>
 
   <tc:section label="Invisible Key">
-    <p>Access key is '3'. Because the value of the label doesn't contain a '3', nothing is underlined.</p>
+    <p>The accesskey is '3'. Nothing is underlinded, because the value of the label doesn't contain a '3'.</p>
+    <pre><code class="language-markup">&lt;tc:button label="Button Three" accessKey="3"></code></pre>
     <tc:button label="Button Three" accessKey="3">
       <f:facet name="confirmation">
         <tc:out value="Button 3 pressed"/>
@@ -63,33 +65,29 @@
     </tc:button>
   </tc:section>
 
-  <tc:section label="Same Key">
-    TODO
-    <tc:button label="Same Key 1" accessKey="S">
-      <f:facet name="confirmation">
-        <tc:out value="Button 'Same Key 1' pressed"/>
-      </f:facet>
-    </tc:button>
-    <tc:button label="Same Key 2" accessKey="S">
-      <f:facet name="confirmation">
-        <tc:out value="Button 'Same Key 2' pressed"/>
-      </f:facet>
-    </tc:button>
-  </tc:section>
-
-  <tc:section label="Inputfields">
-    <tc:in label="Input" accessKey="i"/>
-    <tc:textarea label="Textarea" accessKey="t"/>
-    <tc:date label="Date" accessKey="d" value="#{accessKeyController.currentDate}">
-      <f:convertDateTime pattern="yyyy-MM-dd"/>
-    </tc:date>
+  <tc:section label="#{overviewBundle.input}">
+    <p>The <code>accessKey</code> is also available for input fields.
+      An input field will get the focus after pressing the accesskey.</p>
+    <tc:section label="#{overviewBundle.in}">
+      <pre><code class="language-markup">&lt;tc:in label="Input" accessKey="i"/></code></pre>
+      <tc:in label="Input" accessKey="i"/>
+    </tc:section>
+    <tc:section label="#{overviewBundle.textarea}">
+      <pre><code class="language-markup">&lt;tc:textarea label="Textarea" accessKey="t"/></code></pre>
+      <tc:textarea label="Textarea" accessKey="t"/>
+    </tc:section>
   </tc:section>
 
   <tc:section label="Label">
-    (todo: fix, this is because of the change, that the local root element has now the clientId, need ::filed suffix)
-    <tc:label value="Test" accessKey="e" for="@auto"/>
-    <tc:in id="in1" />
-    <!--<tc:in label="Test" accessKey="s" />-->
-    <!--<tc:selectBooleanCheckbox label="Test" accessKey="s" />-->
+    <p>For the <code class="language-markup">&lt;tc:label/></code> tag
+      an accesskey can be set in combination with the <code>for</code> attribute.</p>
+    <p>The following example show a label which is automatically bound to the inputfield after that.</p>
+    <pre><code class="language-markup">&lt;tc:label value="Label" accessKey="l" for="@auto"/>
+&lt;tc:in/></code></pre>
+    <tc:flowLayout>
+      <tc:style textAlign="right"/>
+      <tc:label value="Label" accessKey="l" for="@auto"/>
+      <tc:in/>
+    </tc:flowLayout>
   </tc:section>
 </ui:composition>

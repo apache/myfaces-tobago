@@ -32,7 +32,6 @@
     <tc:in id="i1" label="Input" value="Some Text"/>
     <tc:in id="i2" label="Read Only" readonly="true" value="Some Text"/>
     <tc:in id="i3" label="Disabled" disabled="true" value="Some Text"/>
-    <tc:in id="i3a" label="Required" required="true"/>
     <tc:in id="i4" value="Input without a label"/>
   </tc:section>
 
@@ -40,6 +39,15 @@
     <p>The following inputfield should be selected after reloading the page. Use the <code>focus</code> attribute.</p>
     <pre><code class="language-markup">&lt;tc:in label="Input (focus)" focus="true" value="Some Text"/&gt;</code></pre>
     <tc:in id="i5" label="Input (focus)" focus="true" value="Some Text"/>
+  </tc:section>
+
+  <tc:section label="Required">
+    <p>An inputfield can be set as required with the <code>required</code> attribute.
+      Such an inputfield must contain a value, otherwise a submit is not possible.
+      Leave the field blank and press 'submit' to see the errormessage.</p>
+    <pre><code class="language-markup">&lt;tc:in label="Input (required)" required="true"/></code></pre>
+    <tc:in id="ireq" label="Input (required)" required="true"/>
+    <tc:button label="Submit"/>
   </tc:section>
 
   <tc:section label="Password">

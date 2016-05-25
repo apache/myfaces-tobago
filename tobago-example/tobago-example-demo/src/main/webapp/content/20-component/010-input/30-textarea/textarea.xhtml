@@ -43,6 +43,16 @@
     <pre><code class="language-markup">&lt;tc:textarea label="Text Area (focus)" focus="true" value="Some Text"/&gt;</code></pre>
     <tc:textarea id="t5" label="Text Area (focus)" focus="true" value="Some Text"/>
   </tc:section>
+
+  <tc:section label="Required">
+    <p>A textarea can be set as required with the <code>required</code> attribute.
+      Such a textarea must contain a value, otherwise a submit is not possible.
+      Leave the field blank and press 'submit' to see the errormessage.</p>
+    <pre><code class="language-markup">&lt;tc:textarea id="treq" label="Text Area" required="true"/></code></pre>
+    <tc:textarea id="treq" label="Text Area" required="true"/>
+    <tc:button label="Submit"/>
+  </tc:section>
+
   <tc:section label="Rows">
     <p>With the <code>rows</code> attribute, the initial size of the textbox can be set. A value less than 1 has no effect.</p>
     <p>The following example show a textarea with five rows.</p>

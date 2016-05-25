@@ -29,14 +29,12 @@ import org.apache.myfaces.tobago.example.data.Solar;
 import org.apache.myfaces.tobago.example.data.SolarObject;
 import org.apache.myfaces.tobago.model.ExpandedState;
 import org.apache.myfaces.tobago.model.SheetState;
-import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
-import javax.faces.component.UIData;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
@@ -72,10 +70,6 @@ public class TobagoDemoController implements Serializable {
   private String[] text;
 
   private SolarObject[] solarArray;
-
-  private List<SolarObject> solarList;
-
-  private SolarObject currentSolarObject;
 
   private DefaultMutableTreeNode solarTree;
 
@@ -157,7 +151,6 @@ public class TobagoDemoController implements Serializable {
         = "**strong text**\n\n__emphasis__\n\nnormaler text\n\n__dieses "
         + "ist emphasis__\n\n**und nochmal strong**\n\n**__ strong und emphasis__**";
     solarArray = SolarObject.getArray();
-    solarList = SolarObject.getList();
     solarTree = SolarObject.getTree();
     sheetTreeState = new SheetState();
     sheetTreeState.setExpandedState(new ExpandedState(1));
@@ -314,59 +307,8 @@ public class TobagoDemoController implements Serializable {
     this.solarArray = solarArray;
   }
 
-  public List<SolarObject> getSolarList() {
-    return solarList;
-  }
-
   public DefaultMutableTreeNode getSolarTree() {
     return solarTree;
-  }
-
-  public void selectOrbit(final ActionEvent event) {
-    final SolarObject clicked = (SolarObject) ComponentUtils.findParameter(event.getComponent(), "luminary");
-    boolean add = false;
-    final List<Integer> selectedRows = sheetState.getSelectedRows();
-    for (int i = 0; i < solarList.size(); i++) {
-      if (clicked.getOrbit().equals(solarList.get(i).getOrbit())) {
-        add = !selectedRows.contains(i);
-        LOG.info(" add = " + add);
-        LOG.info(" i = " + i);
-        break;
-      }
-    }
-
-    for (int i = 0; i < solarList.size(); i++) {
-      if (clicked.getOrbit().equals(solarList.get(i).getOrbit())) {
-        if (add && !selectedRows.contains(i)) {
-          selectedRows.add(i);
-        } else {
-          selectedRows.remove((Object) i);
-        }
-      }
-    }
-  }
-
-
-  public void selectLuminary(final ActionEvent actionEvent) {
-    LOG.info("actionEvent=" + actionEvent);
-//    final List<Integer> selectedRows = sheetState.getSelectedRows();
-    final UIData data = ComponentUtils.findAncestor(actionEvent.getComponent(), UIData.class);
-    if (data != null) {
-      currentSolarObject = (SolarObject) data.getRowData();
-      LOG.info("Selected: " + currentSolarObject.getName());
-    } else {
-      currentSolarObject = null;
-      LOG.info("Deselect.");
-    }
-  }
-
-  public String resetLuminary() {
-    currentSolarObject = null;
-    return null;
-  }
-
-  public void setSolarList(final List<SolarObject> solarList) {
-    this.solarList = solarList;
   }
 
   public DefaultMutableTreeNode getTree() {
@@ -634,10 +576,6 @@ public class TobagoDemoController implements Serializable {
 
   public void setNull(final Object o) {
 
-  }
-
-  public SolarObject getCurrentSolarObject() {
-    return currentSolarObject;
   }
 
   public void hideTab2(ActionEvent actionEvent) {

@@ -26,12 +26,11 @@
 
   <entry key="login">Login</entry>
 
-<!-- menu -->
-  <entry key="menu_navigate">_Navigation</entry>
-  <entry key="menu_config">_Configuration</entry>
-  <entry key="menu_help">_Help</entry>
-  <entry key="menu_themes">_Themes</entry>
-  <entry key="menu_locale">_Locale</entry>
+  <!-- menu -->
+  <entry key="menu_config">Configuration</entry>
+  <entry key="menu_themes">Theme</entry>
+  <entry key="menu_locale">Language</entry>
+  <entry key="menu_help">Help</entry>
   <entry key="menu_about">About</entry>
 
   <!-- navigate -->
@@ -84,6 +83,7 @@
   <entry key="sheet_static_header">Static Header</entry>
   <entry key="sheet_multi_header">Multi Header</entry>
   <entry key="sheet_tree">Column Tree</entry>
+  <entry key="sheet_editable">Editable Sheet</entry>
   <entry key="tree">Tree Control</entry>
   <entry key="tree_command_types">Command</entry>
   <entry key="tree_select">Select</entry>
@@ -103,6 +103,8 @@
   <entry key="severity">Severity</entry>
   <entry key="conversion">Conversion</entry>
   <entry key="form">Forms</entry>
+  <entry key="form_required">Required Forms</entry>
+  <entry key="form_ajax">Ajax Forms</entry>
   <entry key="theme">Themes</entry>
   <entry key="layout">Layout</entry>
   <entry key="flow_layout">FlowLayout</entry>

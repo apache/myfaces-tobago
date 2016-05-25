@@ -42,16 +42,16 @@
         <pre><code class="language-markup">&lt;tc:date label="Date" value="18.03.2016"&gt;
   &lt;f:convertDateTime pattern="dd.MM.yyyy"/&gt;
 &lt;/tc:date&gt;</code></pre>
-    <tc:date id="d1" label="Date" value="#{dateController.once}">
+    <tc:date id="d1" label="Date" value="#{dateController.now}">
       <f:convertDateTime pattern="dd.MM.yyyy"/>
     </tc:date>
-    <tc:date id="d2" label="Read Only" readonly="true" value="#{dateController.once}">
+    <tc:date id="d2" label="Read Only" readonly="true" value="#{dateController.now}">
       <f:convertDateTime pattern="dd.MM.yyyy"/>
     </tc:date>
-    <tc:date id="d3" label="Disabled" disabled="true" value="#{dateController.once}">
+    <tc:date id="d3" label="Disabled" disabled="true" value="#{dateController.now}">
       <f:convertDateTime pattern="dd.MM.yyyy"/>
     </tc:date>
-    <tc:date id="d4" value="#{dateController.once}">
+    <tc:date id="d4" value="#{dateController.now}">
       <f:convertDateTime pattern="dd.MM.yyyy"/>
     </tc:date>
   </tc:section>
@@ -64,13 +64,28 @@
       <f:convertDateTime pattern="dd.MM.yyyy"/>
     </tc:date>
   </tc:section>
+
+  <tc:section label="Required">
+    <p>A date can be set as required with the <code>required</code> attribute.
+      Such a date must contain a value, otherwise a submit is not possible.
+      Leave the field blank and press 'submit' to see the errormessage.</p>
+    <pre><code class="language-markup">&lt;tc:date label="Date (required)" required="true"
+    value="\#{dateController.once}"></code></pre>
+    <tc:form>
+      <tc:date id="dreq" label="Date (required)" required="true" value="#{dateController.once}">
+        <f:convertDateTime pattern="dd.MM.yyyy"/>
+      </tc:date>
+      <tc:button label="Submit"/>
+    </tc:form>
+  </tc:section>
+
   <tc:section label="Outputfields">
     <p>A date can also be displayed in other components.</p>
     <tc:section label="Input">
             <pre><code class="language-markup">&lt;tc:in label="Date in Textfield" value="\#{dateController.today}"&gt;
   &lt;f:convertDateTime pattern="dd.MM.yyyy"/&gt;
 &lt;/tc:in&gt;</code></pre>
-      <tc:in id="i1" label="Date in Textfield" value="#{dateController.once}">
+      <tc:in id="i1" label="Date in Textfield" value="#{dateController.now}">
         <f:convertDateTime pattern="dd.MM.yyyy"/>
       </tc:in>
     </tc:section>
@@ -78,7 +93,7 @@
             <pre><code class="language-markup">&lt;tc:textarea label="Date in Text Area" value="\#{dateController.today}"&gt;
   &lt;f:convertDateTime pattern="dd.MM.yyyy"/&gt;
 &lt;/tc:textarea&gt;</code></pre>
-      <tc:textarea id="t1" label="Date in Text Area" value="#{dateController.once}">
+      <tc:textarea id="t1" label="Date in Text Area" value="#{dateController.now}">
         <f:convertDateTime pattern="dd.MM.yyyy"/>
       </tc:textarea>
     </tc:section>
@@ -86,7 +101,7 @@
             <pre><code class="language-markup">&lt;tc:out label="Date in Output" value="\#{dateController.today}"&gt;
   &lt;f:convertDateTime pattern="dd.MM.yyyy"/&gt;
 &lt;/tc:out&gt;</code></pre>
-      <tc:out id="o1" label="Date in Output" value="#{dateController.once}">
+      <tc:out id="o1" label="Date in Output" value="#{dateController.now}">
         <f:convertDateTime pattern="dd.MM.yyyy"/>
       </tc:out>
     </tc:section>
@@ -94,7 +109,7 @@
             <pre><code class="language-markup">&lt;tc:label value="\#{dateController.today}"&gt;
   &lt;f:convertDateTime pattern="dd.MM.yyyy"/&gt;
 &lt;/tc:label&gt;</code></pre>
-      <tc:label id="l1" value="#{dateController.once}">
+      <tc:label id="l1" value="#{dateController.now}">
         <f:convertDateTime pattern="dd.MM.yyyy"/>
       </tc:label>
     </tc:section>
@@ -106,7 +121,7 @@
             <pre><code class="language-markup">&lt;tc:date label="Month" value="\#{dateController.today}"&gt;
   &lt;f:convertDateTime pattern="MM/yyyy" type="date"/&gt;
 &lt;/tc:date&gt;</code></pre>
-      <tc:date id="d6" label="Month" value="#{dateController.once}">
+      <tc:date id="d6" label="Month" value="#{dateController.now}">
         <f:convertDateTime pattern="MM/yyyy" type="date"/>
       </tc:date>
     </tc:section>
@@ -114,7 +129,7 @@
             <pre><code class="language-markup">&lt;tc:date label="Time" value="\#{dateController.today}"&gt;
   &lt;f:convertDateTime pattern="HH:mm" type="time"/&gt;
 &lt;/tc:date&gt;</code></pre>
-      <tc:date id="d7" label="Time" value="#{dateController.once}">
+      <tc:date id="d7" label="Time" value="#{dateController.now}">
         <f:convertDateTime pattern="HH:mm" type="time"/>
       </tc:date>
     </tc:section>
@@ -122,7 +137,7 @@
             <pre><code class="language-markup">&lt;tc:date label="Time" value="\#{dateController.today}"&gt;
   &lt;f:convertDateTime pattern="HH:mm:ss" type="time"/&gt;
 &lt;/tc:date&gt;</code></pre>
-      <tc:date id="d8" label="Time" value="#{dateController.once}">
+      <tc:date id="d8" label="Time" value="#{dateController.now}">
         <f:convertDateTime pattern="HH:mm:ss" type="time"/>
       </tc:date>
     </tc:section>
@@ -130,7 +145,7 @@
             <pre><code class="language-markup">&lt;tc:date label="Date and time" value="\#{dateController.today}"&gt;
   &lt;f:convertDateTime pattern="dd.MM. - HH:mm" type="both"/&gt;
 &lt;/tc:date&gt;</code></pre>
-      <tc:date id="d9" label="Date and time" value="#{dateController.once}">
+      <tc:date id="d9" label="Date and time" value="#{dateController.now}">
         <f:convertDateTime pattern="dd.MM. - HH:mm" type="both"/>
       </tc:date>
     </tc:section>
@@ -138,16 +153,16 @@
   <tc:section label="Styles">
     <p>Styles can be set with the attributes <code>dateStyle</code> and <code>timeStyle</code>.
       Possible values are 'short', 'medium', 'long' and 'full'.</p>
-    <tc:date id="d10" label="Short style" value="#{dateController.once}">
+    <tc:date id="d10" label="Short style" value="#{dateController.now}">
       <f:convertDateTime dateStyle="short" timeStyle="short" type="both"/>
     </tc:date>
-    <tc:date id="d11" label="Medium Style" value="#{dateController.once}">
+    <tc:date id="d11" label="Medium Style" value="#{dateController.now}">
       <f:convertDateTime dateStyle="medium" timeStyle="medium" type="both"/>
     </tc:date>
-    <tc:date id="d12" label="Long Style" value="#{dateController.once}">
+    <tc:date id="d12" label="Long Style" value="#{dateController.now}">
       <f:convertDateTime dateStyle="long" timeStyle="long" type="both"/>
     </tc:date>
-    <tc:date id="d13" label="Full Style" value="#{dateController.once}">
+    <tc:date id="d13" label="Full Style" value="#{dateController.now}">
       <f:convertDateTime dateStyle="full" timeStyle="full" type="both"/>
     </tc:date>
   </tc:section>
@@ -162,6 +177,8 @@
       <f:convertDateTime pattern="dd.MM.yyyy"/>
       <f:ajax render="outputfield"/>
     </tc:date>
-    <tc:out id="outputfield" label="On Server" value="#{dateController.onchange}"/>
+    <tc:out id="outputfield" label="On Server" value="#{dateController.onchange}">
+      <f:convertDateTime pattern="dd.MM.yyyy"/>
+    </tc:out>
   </tc:section>
 </ui:composition>
