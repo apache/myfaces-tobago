@@ -100,9 +100,10 @@ Tobago.DateTime.init = function (elements) {
         $date.parent().on('dp.show', function () {
           var datepicker = jQuery('.bootstrap-datetimepicker-widget');
           var $div = jQuery(this);
+          var top, left;
           if (datepicker.hasClass('bottom')) {
-            var top = $div.offset().top + $div.outerHeight() - jQuery("body").offset().top;
-            var left = $div.offset().left;
+            top = $div.offset().top + $div.outerHeight() - jQuery("body").offset().top;
+            left = $div.offset().left;
             datepicker.css({
               'top': top + 'px',
               'bottom': 'auto',
@@ -110,8 +111,8 @@ Tobago.DateTime.init = function (elements) {
             });
           }
           else if (datepicker.hasClass('top')) {
-            var top = $div.offset().top - datepicker.outerHeight() - jQuery("body").offset().top;
-            var left = $div.offset().left;
+            top = $div.offset().top - datepicker.outerHeight() - jQuery("body").offset().top;
+            left = $div.offset().left;
             datepicker.css({
               'top': top + 'px',
               'bottom': 'auto',
