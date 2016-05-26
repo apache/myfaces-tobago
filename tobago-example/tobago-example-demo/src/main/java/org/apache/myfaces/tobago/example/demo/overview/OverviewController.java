@@ -22,7 +22,6 @@ package org.apache.myfaces.tobago.example.demo.overview;
 import org.apache.commons.lang.StringUtils;
 import org.apache.deltaspike.core.api.scope.WindowScoped;
 import org.apache.myfaces.tobago.component.UISheet;
-import org.apache.myfaces.tobago.component.UIToolBar;
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.example.data.LocaleList;
 import org.apache.myfaces.tobago.example.data.Salutation;
@@ -95,15 +94,6 @@ public class OverviewController implements Serializable {
 
   private SheetConfig sheetConfig;
 
-  private String toolbarIconSize;
-
-  private SelectItem[] toolbarIconItems;
-
-  private String toolbarTextPosition;
-
-  private SelectItem[] toolbarTextItems;
-
-
   public OverviewController() {
     radioValue = "JPY";
     currencyItems = new Currency[]{
@@ -117,21 +107,6 @@ public class OverviewController implements Serializable {
     treeListboxSelectMode = TREELISTBOX_SELECT_MODE_KEYS[0];
     multiValue = new Salutation[0];
     sheetConfig = new SheetConfig();
-    final String[] toolbarIconKeys
-        = {UIToolBar.ICON_OFF, UIToolBar.ICON_SMALL, UIToolBar.ICON_BIG};
-    toolbarIconItems = new SelectItem[toolbarIconKeys.length];
-    for (int i = 0; i < toolbarIconKeys.length; i++) {
-      toolbarIconItems[i] = new SelectItem(toolbarIconKeys[i], toolbarIconKeys[i]);
-    }
-    toolbarIconSize = UIToolBar.ICON_SMALL;
-
-    final String[] toolbarTextKeys =
-        {UIToolBar.LABEL_OFF, UIToolBar.LABEL_BOTTOM, UIToolBar.LABEL_RIGHT};
-    toolbarTextItems = new SelectItem[toolbarTextKeys.length];
-    for (int i = 0; i < toolbarTextKeys.length; i++) {
-      toolbarTextItems[i] = new SelectItem(toolbarTextKeys[i], toolbarTextKeys[i]);
-    }
-    toolbarTextPosition = UIToolBar.LABEL_BOTTOM;
   }
 
   private static SelectItem[] getSalutationSelectItems(final String bundle) {
@@ -324,38 +299,6 @@ public class OverviewController implements Serializable {
   public void setSheetConfig(final SheetConfig sheetConfig) {
     this.sheetConfig = sheetConfig;
   }
-
-    public String getToolbarIconSize() {
-        return toolbarIconSize;
-    }
-
-    public void setToolbarIconSize(final String toolbarIconSize) {
-        this.toolbarIconSize = toolbarIconSize;
-    }
-
-    public SelectItem[] getToolbarIconItems() {
-        return toolbarIconItems;
-    }
-
-    public void setToolbarIconItems(final SelectItem[] toolbarIconItems) {
-        this.toolbarIconItems = toolbarIconItems;
-    }
-
-    public String getToolbarTextPosition() {
-        return toolbarTextPosition;
-    }
-
-    public void setToolbarTextPosition(final String toolbarTextPosition) {
-        this.toolbarTextPosition = toolbarTextPosition;
-    }
-
-    public SelectItem[] getToolbarTextItems() {
-        return toolbarTextItems;
-    }
-
-    public void setToolbarTextItems(final SelectItem[] toolbarTextItems) {
-        this.toolbarTextItems = toolbarTextItems;
-    }
 
   public List<String> getInputSuggestItems(final UIInput component) {
     String substring = (String) component.getSubmittedValue();

@@ -19,13 +19,12 @@
 
 package org.apache.myfaces.tobago.internal.taglib.component;
 
-import org.apache.myfaces.tobago.apt.annotation.BodyContentDescription;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
-import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
-import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.component.RendererTypes;
-import org.apache.myfaces.tobago.internal.component.AbstractUIToolBar;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
+import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
 
 import javax.faces.component.UIPanel;
 
@@ -33,62 +32,15 @@ import javax.faces.component.UIPanel;
  * Renders a toolbar.<br>
  * Allowed subcomponents are subtypes of UICommand i.e.
  * <code>'button'</code> and <code>'link'</code> tags.
- * These are rendered by ToolbarRenderer, so the result has
- * no difference.<br>
- * To add an drop down menu to a button add a facet <code>'dropDownMenu'</code>
- * containing a
- * <a href="menu.html"><code>&lt;tc:menu&gt;</code></a>
- * tag to the button. Label's and Image's on those menu tag's are ignored
- * and replaced by the renderer.
- * <pre>
- *      &lt;tc:button onclick="alert('test 0')"
- *          label="Alert 0" &gt;
- *        &lt;f:facet name="dropDownMenu"&gt;
- *          &lt;tc:menu&gt;
- *            &lt;tc:menuCommand onclick="alert('test 1')" label="Alert 1"/&gt;
- *            &lt;tc:menuCommand onclick="alert('test 2')" label="Alert 2"/&gt;
- *            &lt;tc:menuCommand onclick="alert('test 3')" label="Alert 3"/&gt;
- *          &lt;/tc:menu&gt;
- *        &lt;/f:facet&gt;
- *      &lt;/tc:button&gt;
- *      </pre>
  */
 
 @Tag(name = "toolBar")
-@BodyContentDescription(anyTagOf = "(<tc:toolBarCommand>|<tc:toolBarSelectBoolean>|<tc:toolBarSelectOne>)* ")
+// TODO: @BodyContentDescription(anyTagOf = "(<tc:command>|<tc:selectBoolean>|<tc:selectOne>)* ")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIToolBar",
     uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUIToolBar",
     uiComponentFacesClass = "javax.faces.component.UIPanel",
     componentFamily = UIPanel.COMPONENT_FAMILY,
-    rendererType = RendererTypes.TOOL_BAR,
-    allowedChildComponenents = {
-        "org.apache.myfaces.tobago.SelectOneCommand",
-        "org.apache.myfaces.tobago.SelectBooleanCommand",
-        "org.apache.myfaces.tobago.Command"})
-public interface ToolBarTagDeclaration extends PanelTagDeclaration {
-  /**
-   * Position of the button label, possible values are: right, bottom, off.
-   * If toolbar is facet of box: bottom is changed to right!
-   */
-  @TagAttribute
-  @UIComponentTagAttribute(defaultValue = AbstractUIToolBar.LABEL_BOTTOM,
-      allowedValues = {AbstractUIToolBar.LABEL_BOTTOM, AbstractUIToolBar.LABEL_RIGHT, AbstractUIToolBar.LABEL_OFF})
-  void setLabelPosition(String labelPosition);
-
-  /**
-   * Size of button images, possible values are: small, big, off.
-   */
-  @TagAttribute
-  @UIComponentTagAttribute(defaultValue = AbstractUIToolBar.ICON_SMALL,
-      allowedValues = {AbstractUIToolBar.ICON_SMALL, AbstractUIToolBar.ICON_BIG, AbstractUIToolBar.ICON_OFF})
-  void setIconSize(String iconSize);
-
-  /**
-   * Orientation of toolbar
-   */
-  @TagAttribute
-  @UIComponentTagAttribute(defaultValue = AbstractUIToolBar.ORIENTATION_LEFT,
-      allowedValues = {AbstractUIToolBar.ORIENTATION_LEFT, AbstractUIToolBar.ORIENTATION_RIGHT})
-  void setOrientation(String orientation);
+    rendererType = RendererTypes.TOOL_BAR)
+public interface ToolBarTagDeclaration extends HasIdBindingAndRendered, IsVisual, HasTip {
 }

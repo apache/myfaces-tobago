@@ -19,9 +19,9 @@
 
 package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
-import org.apache.myfaces.tobago.component.UINav;
-import org.apache.myfaces.tobago.context.ResourceManagerUtils;
-import org.apache.myfaces.tobago.internal.component.AbstractUICommandGroup;
+import org.apache.myfaces.tobago.component.Facets;
+import org.apache.myfaces.tobago.component.UIBar;
+import org.apache.myfaces.tobago.internal.component.AbstractUICommands;
 import org.apache.myfaces.tobago.internal.component.AbstractUIForm;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
@@ -33,32 +33,34 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRoleValues;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.JQueryUtils;
+import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
+import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 
-public class NavRenderer extends RendererBase {
+public class BarRenderer extends RendererBase {
 
   @Override
   public void encodeBegin(FacesContext facesContext, UIComponent component) throws IOException {
 
-    final UINav nav = (UINav) component;
+    final UIBar bar = (UIBar) component;
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
-    final String clientId = nav.getClientId(facesContext);
+    final String clientId = bar.getClientId(facesContext);
     final String navbarId = clientId + "::navbar";
 
-    writer.startElement(HtmlElements.NAV);
+    writer.startElement(HtmlElements.DIV);
     writer.writeIdAttribute(clientId);
     writer.writeAttribute(HtmlAttributes.ROLE, HtmlRoleValues.NAVIGATION.toString(), false);
-    HtmlRendererUtils.writeDataAttributes(facesContext, writer, nav);
+    HtmlRendererUtils.writeDataAttributes(facesContext, writer, bar);
 
     writer.startElement(HtmlElements.DIV);
     writer.writeClassAttribute(BootstrapClass.CONTAINER_FLUID);
 
-    encodeOpener(facesContext, nav, writer, navbarId);
+    encodeOpener(facesContext, bar, writer, navbarId);
 
     writer.startElement(HtmlElements.DIV);
     writer.writeIdAttribute(navbarId);
@@ -83,7 +85,7 @@ public class NavRenderer extends RendererBase {
         if (child instanceof AbstractUIForm) {
           helper.mayEnd();
           encodeChildren(facesContext, child);
-        } else if (child instanceof AbstractUICommandGroup) {
+        } else if (child instanceof AbstractUICommands) {
           helper.mayEnd();
           child.encodeAll(facesContext);
         } else {
@@ -101,11 +103,11 @@ public class NavRenderer extends RendererBase {
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
     writer.endElement(HtmlElements.DIV);
     writer.endElement(HtmlElements.DIV);
-    writer.endElement(HtmlElements.NAV);
+    writer.endElement(HtmlElements.DIV);
   }
 
   private void encodeOpener(
-      FacesContext facesContext, UINav nav, TobagoResponseWriter writer, String navbarId) throws IOException {
+      FacesContext facesContext, UIBar bar, TobagoResponseWriter writer, String navbarId) throws IOException {
 
     // todo: consolidate this rendering with ToolBarRenderer
 
@@ -128,23 +130,11 @@ public class NavRenderer extends RendererBase {
 
     writer.endElement(HtmlElements.BUTTON);
 
-    final String image = nav.getImage();
-    if (image != null) {
-      final String src = ResourceManagerUtils.getImageWithPath(facesContext, image);
-      if (src != null) {
-        writer.startElement(HtmlElements.IMG);
-        writer.writeClassAttribute(BootstrapClass.NAVBAR_BRAND);
-        writer.writeAttribute(HtmlAttributes.SRC, src, true);
-        writer.writeAttribute(HtmlAttributes.ALT, "", false);
-        writer.endElement(HtmlElements.IMG);
-      }
-    }
-
-    final String label = nav.getLabel();
-    if (label != null) {
+    final UIComponent brand = ComponentUtils.getFacet(bar, Facets.brand);
+    if (brand != null) {
       writer.startElement(HtmlElements.SPAN);
       writer.writeClassAttribute(BootstrapClass.NAVBAR_BRAND);
-      writer.writeText(label);
+      RenderUtils.encode(facesContext, brand);
       writer.endElement(HtmlElements.SPAN);
     }
 

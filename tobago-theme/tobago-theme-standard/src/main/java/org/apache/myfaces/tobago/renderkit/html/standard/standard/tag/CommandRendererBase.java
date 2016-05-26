@@ -53,7 +53,6 @@ import java.util.List;
 public abstract class CommandRendererBase extends RendererBase {
 
   private static final Logger LOG = LoggerFactory.getLogger(CommandRendererBase.class);
-  private CssItem cssItems;
 
   @Override
   public void decode(final FacesContext facesContext, final UIComponent component) {
@@ -85,6 +84,10 @@ public abstract class CommandRendererBase extends RendererBase {
 
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
+    if (command.isParentOfCommands()) {
+      encodeBeginOuter(facesContext, command);
+    }
+
     encodeBeginElement(facesContext, command);
     writer.writeIdAttribute(clientId);
     writer.writeNameAttribute(clientId);
@@ -114,20 +117,25 @@ public abstract class CommandRendererBase extends RendererBase {
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, command);
     writer.writeStyleAttribute(command.getStyle());
 
+    final List<CssItem> cssItems = new ArrayList<CssItem>();
     if (command.isParentOfCommands()) {
-      // XXX BootstrapClass.NAV_LINK should only be shown inside of UINav or UIButtonGroup
-      writer.writeClassAttribute(BootstrapClass.DROPDOWN_TOGGLE, BootstrapClass.NAV_LINK); // todo: CSS classes
+      // XXX BootstrapClass.NAV_LINK should only be shown inside of UICommands or UIButtons
+      cssItems.add(BootstrapClass.DROPDOWN_TOGGLE);
+      cssItems.add(BootstrapClass.NAV_LINK);
       writer.writeAttribute(DataAttributes.TOGGLE, "dropdown", false);
-    } else {
-      final List<CssItem> cssItems = new ArrayList<CssItem>();
-      cssItems.add(command.getCustomClass());
-      addCssItems(facesContext, command, cssItems);
-      writer.writeClassAttribute(Classes.create(command), cssItems.toArray(new CssItem[cssItems.size()]));
     }
+    cssItems.add(command.getCustomClass());
+    addCssItems(facesContext, command, cssItems);
     final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, command);
     if (title != null) {
       writer.writeAttribute(HtmlAttributes.TITLE, title, true);
     }
+
+    cssItems.add(command.getCustomClass());
+
+    writer.writeClassAttribute(
+        Classes.create(command),
+        cssItems.toArray(new CssItem[cssItems.size()]));
 
     final boolean defaultCommand = ComponentUtils.getBooleanAttribute(command, Attributes.defaultCommand);
     if (defaultCommand) {
@@ -202,26 +210,29 @@ public abstract class CommandRendererBase extends RendererBase {
   @Override
   public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
 
-    final AbstractUICommand link = (AbstractUICommand) component;
+    final AbstractUICommand command = (AbstractUICommand) component;
 
-    if (link.isParentOfCommands()) {
+    if (command.isParentOfCommands()) {
       final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
       writer.endElement(HtmlElements.UL);
     }
 
+    if (command.isParentOfCommands()) {
+      encodeEndOuter(facesContext, command);
+    }
   }
 
-  protected void encodeBeginElement(final FacesContext facesContext, final AbstractUICommand command)
-      throws IOException {
-    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
-    writer.startElement(HtmlElements.A);
-  }
+  abstract protected void encodeBeginElement(final FacesContext facesContext, final AbstractUICommand command)
+      throws IOException;
 
-  protected void encodeEndElement(final FacesContext facesContext, final AbstractUICommand command)
-      throws IOException {
-    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
-    writer.endElement(HtmlElements.A);
-  }
+  abstract protected void encodeEndElement(final FacesContext facesContext, final AbstractUICommand command)
+      throws IOException;
+
+  abstract protected void encodeBeginOuter(final FacesContext facesContext, final AbstractUICommand command)
+      throws IOException;
+
+  abstract protected void encodeEndOuter(final FacesContext facesContext, final AbstractUICommand command)
+      throws IOException;
 
   protected void commandActivated(final UIComponent component) {
     component.queueEvent(new ActionEvent(component));

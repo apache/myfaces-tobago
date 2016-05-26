@@ -142,7 +142,6 @@
   <entry key="toolbar_popupText">Zum schließen dieses Fensters den Button drücken.</entry>
   <entry key="toolbar_dropDownAction">DropDown</entry>
   <entry key="toolbar_buttonAction">Text Button</entry>
-  <entry key="toolbar_imageButtonAction">Image Button</entry>
   <entry key="toolbar_sampleTitle">Toolbar Beispiel</entry>
   <entry key="toolbar_text1">Toolbars werden genutzt um kontextabhängige Aktionen in Box Elementen zur Verfügung zu stellen:
   &lt;ul style="margin-top: 2px;"&gt;

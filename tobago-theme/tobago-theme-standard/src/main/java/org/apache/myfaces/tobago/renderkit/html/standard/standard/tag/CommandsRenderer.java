@@ -19,13 +19,11 @@
 
 package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
-import org.apache.myfaces.tobago.component.UINav;
+import org.apache.myfaces.tobago.internal.component.AbstractUICommands;
 import org.apache.myfaces.tobago.internal.component.AbstractUIForm;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
-import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
-import org.apache.myfaces.tobago.renderkit.html.HtmlRoleValues;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
@@ -34,25 +32,15 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 
-public class CommandGroupRenderer extends RendererBase {
+public class CommandsRenderer extends RendererBase {
 
   @Override
   public void encodeBegin(FacesContext facesContext, UIComponent component) throws IOException {
+
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
-
-    // fixme: only a temporary workaround
-    final UINav nav = ComponentUtils.findAncestor(component, UINav.class);
-
-    if (nav == null) {
-      writer.startElement(HtmlElements.DIV);
-      writer.writeClassAttribute(BootstrapClass.BTN_GROUP, BootstrapClass.NAVBAR_NAV);
-      writer.writeIdAttribute(component.getClientId(facesContext));
-      writer.writeAttribute(HtmlAttributes.ROLE, HtmlRoleValues.GROUP.toString(), false);
-    } else {
-      writer.startElement(HtmlElements.UL);
-      writer.writeClassAttribute(BootstrapClass.NAV, BootstrapClass.NAVBAR_NAV);
-      writer.writeIdAttribute(component.getClientId(facesContext));
-    }
+    writer.startElement(HtmlElements.UL);
+    writer.writeClassAttribute(BootstrapClass.NAV, BootstrapClass.NAVBAR_NAV);
+    writer.writeIdAttribute(component.getClientId(facesContext));
   }
 
   @Override
@@ -70,15 +58,11 @@ public class CommandGroupRenderer extends RendererBase {
           encodeChildren(facesContext, child);
         } else {
           // fixme: only a temporary workaround
-          final UINav nav = ComponentUtils.findAncestor(component, UINav.class);
-          if (nav == null) {
-            child.encodeAll(facesContext);
-          } else {
-            writer.startElement(HtmlElements.LI);
-            writer.writeClassAttribute(BootstrapClass.NAV_ITEM, BootstrapClass.DROPDOWN);
-            child.encodeAll(facesContext);
-            writer.endElement(HtmlElements.LI);
-          }
+          final AbstractUICommands commands = ComponentUtils.findAncestor(component, AbstractUICommands.class);
+          writer.startElement(HtmlElements.LI);
+          writer.writeClassAttribute(BootstrapClass.NAV_ITEM, BootstrapClass.DROPDOWN);
+          child.encodeAll(facesContext);
+          writer.endElement(HtmlElements.LI);
         }
       }
     }
@@ -87,12 +71,6 @@ public class CommandGroupRenderer extends RendererBase {
   @Override
   public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
-    // fixme: only a temporary workaround
-    final UINav nav = ComponentUtils.findAncestor(component, UINav.class);
-    if (nav == null) {
-      writer.endElement(HtmlElements.DIV);
-    } else {
-      writer.endElement(HtmlElements.UL);
-    }
+    writer.endElement(HtmlElements.UL);
   }
 }

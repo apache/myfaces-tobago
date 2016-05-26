@@ -19,19 +19,30 @@
 
 package org.apache.myfaces.tobago.internal.taglib.component;
 
+import org.apache.myfaces.tobago.apt.annotation.Facet;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
+import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
+import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
 
 import javax.faces.component.UIPanel;
 
-@Tag(name = "commandGroup")
-@UIComponentTag(uiComponent = "org.apache.myfaces.tobago.component.UICommandGroup",
-    uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUICommandGroup",
-    uiComponentFacesClass = "javax.faces.component.UIPanel",
+/**
+ * Defines a container for navigation elements, branding, ...
+ */
+@Tag(name = "bar")
+@UIComponentTag(
+    uiComponent = "org.apache.myfaces.tobago.component.UIBar",
+    uiComponentBaseClass = "javax.faces.component.UIPanel",
     componentFamily = UIPanel.COMPONENT_FAMILY,
-    rendererType = RendererTypes.COMMAND_GROUP,
-    allowedChildComponenents = "ALL")
-public interface CommandGroupTagDeclaration extends HasIdBindingAndRendered {
+    rendererType = RendererTypes.BAR,
+facets = {
+    @Facet(
+        name = Facets.BRAND,
+        description = "Contains an element which will get a 'navbar-brand' style, e.g. use <tc:link> ")})
+public interface BarTagDeclaration
+    extends HasIdBindingAndRendered, HasTip, IsVisual {
 }

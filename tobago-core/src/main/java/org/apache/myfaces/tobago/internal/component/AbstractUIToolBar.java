@@ -22,16 +22,4 @@ package org.apache.myfaces.tobago.internal.component;
 import org.apache.myfaces.tobago.component.Visual;
 
 public abstract class AbstractUIToolBar extends javax.faces.component.UIPanel implements Visual {
-
-  public static final String LABEL_BOTTOM = "bottom";
-  public static final String LABEL_RIGHT = "right";
-  public static final String LABEL_OFF = "off";
-
-  public static final String ICON_SMALL = "small";
-  public static final String ICON_BIG = "big";
-  public static final String ICON_OFF = "off";
-
-  public static final String ORIENTATION_LEFT = "left";
-  public static final String ORIENTATION_RIGHT = "right";
-
 }

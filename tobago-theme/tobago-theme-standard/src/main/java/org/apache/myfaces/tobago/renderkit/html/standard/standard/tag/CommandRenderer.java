@@ -19,6 +19,46 @@
 
 package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
+import org.apache.myfaces.tobago.internal.component.AbstractUICommand;
+import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
+import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
+import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
+
+import javax.faces.context.FacesContext;
+import java.io.IOException;
+
 public class CommandRenderer extends CommandRendererBase {
 
+  @Override
+  protected void encodeBeginElement(final FacesContext facesContext, final AbstractUICommand command)
+      throws IOException {
+    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+    writer.startElement(HtmlElements.A);
+  }
+
+  @Override
+  protected void encodeEndElement(final FacesContext facesContext, final AbstractUICommand command)
+      throws IOException {
+    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+    writer.endElement(HtmlElements.A);
+  }
+
+  @Override
+  protected void encodeBeginOuter(final FacesContext facesContext, final AbstractUICommand command)
+      throws IOException {
+    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+
+//    writer.startElement(HtmlElements.SPAN);
+    // XXX this class fixes the problem, that the submenu are not opened at correct position, but
+    // the name doesn't suggest, that it is correct.
+//    writer.writeClassAttribute(BootstrapClass.BTN_GROUP);
+  }
+
+  @Override
+  protected void encodeEndOuter(final FacesContext facesContext, final AbstractUICommand command)
+      throws IOException {
+    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+
+//    writer.endElement(HtmlElements.SPAN);
+  }
 }

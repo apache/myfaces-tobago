@@ -17,9 +17,22 @@
  * under the License.
  */
 
-package org.apache.myfaces.tobago.internal.component;
+package org.apache.myfaces.tobago.internal.taglib.component;
+
+import org.apache.myfaces.tobago.apt.annotation.Tag;
+import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
+import org.apache.myfaces.tobago.component.RendererTypes;
 
 import javax.faces.component.UIPanel;
 
-public class AbstractUICommandGroup extends UIPanel {
+/**
+ * Defines a navigation element, which contains a menu-like structure
+ */
+@Tag(name = "commands")
+@UIComponentTag(
+    uiComponent = "org.apache.myfaces.tobago.component.UICommands",
+    uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUICommands",
+    componentFamily = UIPanel.COMPONENT_FAMILY,
+    rendererType = RendererTypes.COMMANDS)
+public interface CommandsTagDeclaration {
 }

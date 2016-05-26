@@ -21,11 +21,9 @@ package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.UICommand;
-import org.apache.myfaces.tobago.component.UINav;
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.internal.component.AbstractUIImage;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
-import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.FontAwesomeIconEncoder;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
@@ -85,12 +83,7 @@ public class ImageRenderer extends RendererBase {
       if (title != null) {
         writer.writeAttribute(HtmlAttributes.TITLE, title, true);
       }
-      // todo: may set a marker in the context in the
-      // todo: NavRenderer, or the additional class, to avoid tree traversing
-      writer.writeClassAttribute(
-          Classes.create(image),
-          ComponentUtils.findAncestor(image, UINav.class) != null ? BootstrapClass.NAVBAR_BRAND : null,
-          image.getCustomClass());
+      writer.writeClassAttribute(Classes.create(image), image.getCustomClass());
       writer.writeStyleAttribute(image.getStyle());
       writer.endElement(HtmlElements.IMG);
     }

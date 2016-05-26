@@ -40,6 +40,7 @@ public enum BootstrapClass implements CssItem {
   BTN_GROUP("btn-group"),
   BTN_PRIMARY("btn-primary"),
   BTN_SECONDARY("btn-secondary"),
+  BTN_TOOLBAR("btn-toolbar"),
   CARD("card"),
   CARD_BLOCK("card-block"),
   CARD_HEADER("card-header"),

@@ -33,6 +33,7 @@ import org.slf4j.LoggerFactory;
 import javax.el.MethodExpression;
 import javax.faces.component.UICommand;
 import javax.faces.component.UIComponent;
+import javax.faces.component.UIInput;
 import javax.faces.component.behavior.ClientBehaviorHolder;
 import javax.faces.context.FacesContext;
 import javax.faces.event.FacesEvent;
@@ -110,7 +111,7 @@ public abstract class AbstractUICommand
     if (parentOfCommands == null) {
       parentOfCommands = false;
       for (UIComponent child : getChildren()) {
-        if (child instanceof UICommand) {
+        if (child instanceof UICommand || child instanceof UIInput) {
           parentOfCommands = true;
           break;
         }

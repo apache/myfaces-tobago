@@ -20,9 +20,7 @@
 package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
 import org.apache.myfaces.tobago.component.UIToolBar;
-import org.apache.myfaces.tobago.layout.TextAlign;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
-import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
@@ -45,12 +43,6 @@ public class ToolBarRendererOld extends ToolBarRendererBase {
     writer.writeIdAttribute(toolBar.getClientId(facesContext));
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, toolBar);
     writer.writeClassAttribute(Classes.create(toolBar));
-    final Style style = toolBar.getStyle();
-    final boolean right = UIToolBar.ORIENTATION_RIGHT.equals(toolBar.getOrientation());
-    if (right) {
-      style.setTextAlign(TextAlign.right);
-    }
-    writer.writeStyleAttribute(style);
     super.encodeEnd(facesContext, toolBar);
     writer.endElement(HtmlElements.DIV);
   }

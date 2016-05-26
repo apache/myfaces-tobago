@@ -257,7 +257,6 @@ public class TabGroupRenderer extends RendererBase {
       throws IOException {
     writer.startElement(HtmlElements.SPAN);
     writer.writeClassAttribute(Classes.create(tab, "toolBar"));
-    toolbar.setRendererType("TabGroupToolBar");
     RenderUtils.encode(facesContext, toolbar);
     writer.endElement(HtmlElements.SPAN);
   }
@@ -320,7 +319,6 @@ public class TabGroupRenderer extends RendererBase {
     }
     final UIToolBar toolBar = (UIToolBar) application.createComponent(UIToolBar.COMPONENT_TYPE);
     toolBar.setId(viewRoot.createUniqueId());
-    toolBar.setRendererType("TabGroupToolBar");
     toolBar.setTransient(true);
     toolBar.getChildren().add(previous);
     toolBar.getChildren().add(next);

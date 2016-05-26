@@ -59,37 +59,12 @@ import javax.faces.model.SelectItem;
 import java.io.IOException;
 import java.util.List;
 
+/** XXX
+*/
+@Deprecated
 public abstract class ToolBarRendererBase extends RendererBase {
 
   private static final Logger LOG = LoggerFactory.getLogger(ToolBarRendererBase.class);
-
-  protected String getLabelPosition(final UIComponent component) {
-    return ComponentUtils.getStringAttribute(component, Attributes.labelPosition);
-  }
-
-  // XXX remove it, after removing subclasses
-  protected String getIconSize(final UIComponent component) {
-    return ComponentUtils.getStringAttribute(component, Attributes.iconSize);
-  }
-
-  protected boolean isRightAligned(final UIToolBar toolBar) {
-    return UIToolBar.ORIENTATION_RIGHT.equals(toolBar.getOrientation());
-  }
-
-  @Override
-  public void encodeBegin(FacesContext context, UIComponent component) throws IOException {
-    super.encodeBegin(context, component);
-
-/* XXX
-    final UIToolBar toolBar = (UIToolBar) component;
-    if ("big".equals(getIconSize(toolBar))) {
-      toolBar.setCurrentMarkup(Markup.BIG.add(toolBar.getCurrentMarkup()));
-    }
-    if ("right".equals(getLabelPosition(toolBar))) {
-      toolBar.setCurrentMarkup(Markup.RIGHT.add(toolBar.getCurrentMarkup()));
-    }
-*/
-  }
 
   @Override
   public void encodeEnd(final FacesContext context, final UIComponent component) throws IOException {
@@ -238,19 +213,6 @@ public abstract class ToolBarRendererBase extends RendererBase {
         ? new LabelWithAccessKey(command)
         : new LabelWithAccessKey(command.getLabel());
     final AbstractUIMenu dropDownMenu = FacetUtils.getDropDownMenu(command);
-//    final ResourceManager resources = getResourceManager();
-
-    final String labelPosition = getLabelPosition(command.getParent());
-    final String iconSize = getIconSize(command.getParent());
-    final String iconName = ComponentUtils.getStringAttribute(command, Attributes.image, "image/blank");
-    final String image = getImage(facesContext, iconName, iconSize, disabled, selected);
-
-    final boolean showIcon = !UIToolBar.ICON_OFF.equals(iconSize);
-    final boolean iconBig = UIToolBar.ICON_BIG.equals(iconSize);
-
-    final boolean showLabelBottom = UIToolBar.LABEL_BOTTOM.equals(labelPosition);
-    final boolean showLabelRight = UIToolBar.LABEL_RIGHT.equals(labelPosition);
-    final boolean showLabel = showLabelBottom || showLabelRight;
     final boolean showDropDownMenu = dropDownMenu != null && dropDownMenu.isRendered();
     // two separate buttons for the command and the sub menu
     final boolean separateButtons = hasAnyCommand(command) && showDropDownMenu;
@@ -285,34 +247,6 @@ public abstract class ToolBarRendererBase extends RendererBase {
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, command);
     if (value != null) {
       writer.writeAttribute(DataAttributes.VALUE, value, true);
-    }
-
-    // render icon
-    if (showIcon) {
-      writer.startElement(HtmlElements.IMG);
-      if (iconBig) {
-        writer.writeClassAttribute(Classes.create(toolBar, "image32"));
-      } else {
-        writer.writeClassAttribute(Classes.create(toolBar, "image16"));
-      }
-      writer.writeAttribute(HtmlAttributes.SRC, image, false);
-      writer.writeAttribute(HtmlAttributes.ALT, label.getLabel(), true);
-      writer.endElement(HtmlElements.IMG);
-    }
-    // render label
-    if (showLabel) {
-      writer.startElement(HtmlElements.SPAN);
-      if (showLabelRight) {
-        writer.writeClassAttribute(Classes.create(toolBar, "labelHorizontal"));
-      } else {
-        writer.writeClassAttribute(Classes.create(toolBar, "labelVertical"));
-      }
-      if (label.getLabel() != null) {
-        HtmlRendererUtils.writeLabelWithAccessKey(writer, label);
-      } else {
-        writer.writeText(" "); // this is a non-breaking-space
-      }
-      writer.endElement(HtmlElements.SPAN);
     }
 
     if (separateButtons) {
@@ -365,82 +299,6 @@ public abstract class ToolBarRendererBase extends RendererBase {
     return command.getActionExpression() == null
         && command.getActionListeners().length == 0
         && command.getLink() == null;
-  }
-
-  private String getImage(
-      final FacesContext facesContext, final String name, final String iconSize, final boolean disabled,
-      final boolean selected) {
-    final int dot = ResourceManagerUtils.indexOfExtension(name);
-    final int pos = dot == -1 ? name.length() : dot; // avoid exception if no '.' in name
-    final String key = name.substring(0, pos);
-    final String ext = name.substring(pos);
-
-    String size = "";
-    if (UIToolBar.ICON_SMALL.equals(iconSize)) {
-      size = "16";
-    } else if (UIToolBar.ICON_BIG.equals(iconSize)) {
-      size = "32";
-    }
-    String image = null;
-
-    if (disabled && selected) {
-      if (dot != -1) {
-        image = ResourceManagerUtils.getImageWithPath(facesContext, key + "SelectedDisabled" + size + ext, true);
-      } else {
-        image = ResourceManagerUtils.getImage(facesContext, key + "SelectedDisabled" + size, true);
-      }
-      if (image == null) {
-        if (dot != -1) {
-          image = ResourceManagerUtils.getImageWithPath(facesContext, key + "SelectedDisabled" + ext, true);
-        } else {
-          image = ResourceManagerUtils.getImage(facesContext, key + "SelectedDisabled", true);
-        }
-      }
-    }
-    if (image == null && disabled) {
-      if (dot != -1) {
-        image = ResourceManagerUtils.getImageWithPath(facesContext, key + "Disabled" + size + ext, true);
-      } else {
-        image = ResourceManagerUtils.getImage(facesContext, key + "Disabled" + size, true);
-      }
-      if (image == null) {
-        if (dot != -1) {
-          image = ResourceManagerUtils.getImageWithPath(facesContext, key + "Disabled" + ext, true);
-        } else {
-          image = ResourceManagerUtils.getImage(facesContext, key + "Disabled", true);
-        }
-      }
-    }
-    if (image == null && selected) {
-      if (dot != -1) {
-        image = ResourceManagerUtils.getImageWithPath(facesContext, key + "Selected" + size + ext, true);
-      } else {
-        image = ResourceManagerUtils.getImage(facesContext, key + "Selected" + size, true);
-      }
-      if (image == null) {
-        if (dot != -1) {
-          image = ResourceManagerUtils.getImageWithPath(facesContext, key + "Selected" + ext, true);
-        } else {
-          image = ResourceManagerUtils.getImage(facesContext, key + "Selected", true);
-        }
-      }
-    }
-    if (image == null) {
-      if (dot != -1) {
-        image = ResourceManagerUtils.getImageWithPath(facesContext, key + size + ext, true);
-      } else {
-        image = ResourceManagerUtils.getImage(facesContext, key + size, true);
-      }
-      if (image == null) {
-        if (dot != -1) {
-          image = ResourceManagerUtils.getImageWithPath(facesContext, key + ext, true);
-        } else {
-          image = ResourceManagerUtils.getImage(facesContext, key, true);
-        }
-      }
-    }
-
-    return image;
   }
 
   public static void renderDropDownMenu(

@@ -19,10 +19,77 @@
 
 <ui:composition template="/main.xhtml"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
-                xmlns:ui="http://java.sun.com/jsf/facelets">
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core">
 
   <ui:param name="title" value="TODO"/>
 
-TODO
+  <hr/>
+  toolbar
+  <hr/>
+
+  <tc:toolBar>
+    <tc:buttons>
+      <tc:button image="fa-universal-access" label="Hallo 1"/>
+      <tc:button image="fa-hand-paper-o" label="Hallo"/>
+    </tc:buttons>
+    <tc:button image="fa-hourglass" label="Hallo"/>
+    <tc:in label="Search"/>
+  </tc:toolBar>
+
+  <hr/>
+  bar
+  <hr/>
+
+  <tc:bar>
+    <f:facet name="brand">
+      <tc:link image="image/feather-leaf.png" label="Tobago Demo"/>
+    </f:facet>
+
+
+    <tc:commands>
+      <tc:buttons>
+        <tc:button image="fa-universal-access" label="Hallo 2"/>
+        <tc:button image="fa-hand-paper-o" label="Hallo"/>
+      </tc:buttons>
+      <tc:button image="fa-hourglass" label="Hallo"/>
+    </tc:commands>
+
+    <tc:flowLayout>
+      <tc:style textAlign="right" />
+      <tc:in label="Search"/>
+    </tc:flowLayout>
+  </tc:bar>
+
+  <hr/>
+  other
+  <hr/>
+
+  <tc:link image="fa-hourglass" label="Hallo 3" omit="true">
+    <tc:link image="fa-universal-access" label="Hallo"/>
+    <tc:link image="fa-hand-paper-o" label="Hallo"/>
+  </tc:link>
+
+  <tc:buttons>
+    <tc:button id="b1" image="fa-hourglass" label="Hallo 4" omit="true">
+      <tc:link image="fa-universal-access" label="Hallo 4a"/>
+      <tc:link image="fa-hand-paper-o" label="Hallo 4b"/>
+    </tc:button>
+
+    <tc:button id="b2" image="fa-hourglass" label="Hallo 5" omit="true">
+      <tc:link image="fa-universal-access" label="Hallo 5a"/>
+      <tc:link image="fa-hand-paper-o" label="Hallo 5b"/>
+    </tc:button>
+  </tc:buttons>
+
+  <tc:button label="Theme" omit="true">
+    <tc:selectOneRadio value="#{clientConfigController.theme}">
+      <f:facet name="change">
+        <tc:command action="#{clientConfigController.submit}"/>
+      </f:facet>
+      <tc:selectItems value="#{clientConfigController.themeItems}"/>
+    </tc:selectOneRadio>
+  </tc:button>
+
 
 </ui:composition>

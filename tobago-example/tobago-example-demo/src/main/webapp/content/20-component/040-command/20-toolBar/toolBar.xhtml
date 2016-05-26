@@ -32,22 +32,19 @@
 
   <tc:box label="#{overviewBundle.toolbar_sampleTitle}" id="boxToolbar">
 
-    <f:facet name="layout">
-      <tc:gridLayout rows="auto;auto;auto" columns="2*;1*;1*" id="boxToolbarLayout"/>
-    </f:facet>
-
     <f:facet name="toolBar">
       <tc:toolBar>
-        <tc:toolBarCommand id="button" action="overview/toolbar"
+        <tc:buttons>
+        <tc:button id="button" action="overview/toolbar"
                            actionListener="#{overviewController.click}"
                            label="#{overviewBundle.toolbar_buttonAction}"/>
 
         <tc:toolBarCommand id="imageButton" action="#{overviewController.ping}"
                            actionListener="#{overviewController.click}"
-                           label="#{overviewBundle.toolbar_imageButtonAction}"
-                           image="image/toolbar_example_button.png"/>
+                           tip="Bicycle"
+                           image="fa-bicycle"/>
 
-        <tc:toolBarCommand id="popupButton"
+        <tc:button id="popupButton" image="Bus"
                            actionListener="#{overviewController.click}"
                            label="#{overviewBundle.toolbar_popupButtonAction}">
 
@@ -74,9 +71,9 @@
 
             </tc:popup>
           </f:facet>
-        </tc:toolBarCommand>
+        </tc:button>
 
-        <tc:toolBarCommand id="DropDown"
+        <tc:button id="DropDown"
                            label="#{overviewBundle.toolbar_dropDownAction}"
                            omit="true">
           <f:facet name="dropDownMenu">
@@ -91,14 +88,12 @@
                               actionListener="#{overviewController.click}" label="Action 3"/>
             </tc:menu>
           </f:facet>
-        </tc:toolBarCommand>
-
+        </tc:button>
+        </tc:buttons>
       </tc:toolBar>
     </f:facet>
 
-    <tc:toolBar iconSize="#{overviewController.toolbarIconSize}"
-                labelPosition="#{overviewController.toolbarTextPosition}"
-                orientation="left">
+    <tc:toolBar orientation="left">
       <tc:gridLayoutConstraint columnSpan="3"/>
       <tc:toolBarCommand id="button2" action="overview/toolbar"
                          actionListener="#{overviewController.click}"
@@ -106,7 +101,7 @@
 
       <tc:toolBarCommand id="imageButton2" action="overview/toolbar"
                          actionListener="#{overviewController.click}"
-                         label="#{overviewBundle.toolbar_imageButtonAction}"
+                         label="Hallo"
                          image="image/toolbar_example_button.png"/>
 
 
@@ -136,13 +131,6 @@
 
     <tc:in value="#{overviewController.lastAction}" readonly="true"
            label="#{overviewBundle.basic_lastActionLabel}"/>
-
-    <tc:selectOneChoice value="#{overviewController.toolbarTextPosition}">
-      <f:selectItems value="#{overviewController.toolbarTextItems}"/>
-    </tc:selectOneChoice>
-    <tc:selectOneChoice value="#{overviewController.toolbarIconSize}">
-      <f:selectItems value="#{overviewController.toolbarIconItems}"/>
-    </tc:selectOneChoice>
 
     <tc:panel/>
     <tc:button label="updateView">

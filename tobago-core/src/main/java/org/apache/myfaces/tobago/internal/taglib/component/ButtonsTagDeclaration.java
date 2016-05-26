@@ -19,20 +19,26 @@
 
 package org.apache.myfaces.tobago.internal.taglib.component;
 
+import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.component.RendererTypes;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
+import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
 
 import javax.faces.component.UIPanel;
 
+/**
+ * Renders a group of buttons.
+ */
+@Tag(name = "buttons")
 @UIComponentTag(
-    uiComponent = "org.apache.myfaces.tobago.component.UIToolBar",
-    uiComponentFacesClass = "javax.faces.component.UIPanel",
-    generate = false,
+    uiComponent = "org.apache.myfaces.tobago.component.UIButtons",
+    uiComponentBaseClass = "javax.faces.component.UIPanel",
     componentFamily = UIPanel.COMPONENT_FAMILY,
-    rendererType = RendererTypes.BOX_TOOL_BAR,
-    allowedChildComponenents = {
-        "org.apache.myfaces.tobago.SelectOneCommand",
-        "org.apache.myfaces.tobago.SelectBooleanCommand",
-        "org.apache.myfaces.tobago.Command"})
-public interface BoxToolBarTagDeclaration extends ToolBarTagDeclaration{
+    rendererType = RendererTypes.BUTTONS)
+
+public interface ButtonsTagDeclaration
+    extends HasIdBindingAndRendered, IsVisual, HasTip {
+
 }

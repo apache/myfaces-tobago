@@ -270,7 +270,6 @@
 <entry key="toolbar_popupText">To close this popup window click close button.</entry>
 <entry key="toolbar_dropDownAction">DropDown</entry>
 <entry key="toolbar_buttonAction">Text Button</entry>
-<entry key="toolbar_imageButtonAction">Image Button</entry>
 <entry key="toolbar_sampleTitle">Toolbar Example</entry>
 <entry key="toolbar_text1">Toolbars can be used for context sensitive actions inside box controls.
 &lt;ul style="margin-top: 2px;"&gt;

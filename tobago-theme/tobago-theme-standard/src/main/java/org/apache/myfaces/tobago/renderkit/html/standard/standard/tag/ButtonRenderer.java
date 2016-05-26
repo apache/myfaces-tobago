@@ -40,6 +40,7 @@ public class ButtonRenderer extends CommandRendererBase {
   protected void encodeBeginElement(final FacesContext facesContext, final AbstractUICommand command)
       throws IOException {
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+
     writer.startElement(HtmlElements.BUTTON);
     writer.writeAttribute(HtmlAttributes.TYPE, HtmlButtonTypes.BUTTON);
   }
@@ -48,7 +49,29 @@ public class ButtonRenderer extends CommandRendererBase {
   protected void encodeEndElement(final FacesContext facesContext, final AbstractUICommand command)
       throws IOException {
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+
     writer.endElement(HtmlElements.BUTTON);
+  }
+
+  @Override
+  protected void encodeBeginOuter(final FacesContext facesContext, final AbstractUICommand command)
+      throws IOException {
+    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+
+//    if (isMarked(facesContext, MARKER)) { // this is only needed, if button has a sub-menu (dropdown)
+      writer.startElement(HtmlElements.SPAN);
+      writer.writeClassAttribute(BootstrapClass.BTN_GROUP);
+//    }
+  }
+
+  @Override
+  protected void encodeEndOuter(final FacesContext facesContext, final AbstractUICommand command)
+      throws IOException {
+    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+
+//    if (isMarked(facesContext, MARKER)) {
+      writer.endElement(HtmlElements.SPAN);
+//    }
   }
 
   @Override

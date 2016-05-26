@@ -19,12 +19,14 @@
 
 package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
-import org.apache.myfaces.tobago.component.UIHeader;
+import org.apache.myfaces.tobago.component.UIButtons;
+import org.apache.myfaces.tobago.internal.component.AbstractUIButtons;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
+import org.apache.myfaces.tobago.renderkit.html.HtmlRoleValues;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
@@ -32,30 +34,29 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 
-public class HeaderRenderer extends RendererBase {
+public class ButtonsRenderer extends RendererBase {
 
   @Override
   public void encodeBegin(FacesContext facesContext, UIComponent component) throws IOException {
+
+    final AbstractUIButtons buttons = (AbstractUIButtons) component;
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
-    final UIHeader header = (UIHeader) component;
-    writer.startElement(HtmlElements.HEADER);
-    writer.writeIdAttribute(component.getClientId(facesContext));
-    // TBD: NAVBAR_DARK and BG_INVERSE should not be the default
-    // TBD: how to configure it when it is needed, with customClass, or with markup?
-    writer.writeClassAttribute(
-        Classes.create(header),
-        BootstrapClass.NAVBAR, /*BootstrapClass.NAVBAR_DARK, BootstrapClass.BG_INVERSE,*/
-        header.isFixed() ? BootstrapClass.NAVBAR_FIXED_TOP : null,
-        header.getCustomClass());
-// TBD: should NAVBAR class be in the CommandsRenderer?
-    writer.writeAttribute(HtmlAttributes.TITLE, header.getTip(), true);
-    writer.writeStyleAttribute(header.getStyle());
-    HtmlRendererUtils.writeDataAttributes(facesContext, writer, header);
+
+    writer.startElement(HtmlElements.DIV);
+    writer.writeIdAttribute(buttons.getClientId(facesContext));
+      writer.writeClassAttribute(BootstrapClass.BTN_GROUP, BootstrapClass.NAVBAR_NAV);
+      writer.writeAttribute(HtmlAttributes.ROLE, HtmlRoleValues.GROUP.toString(), false);
+    writer.writeClassAttribute(Classes.create(buttons), buttons.getCustomClass(), BootstrapClass.BTN_TOOLBAR);
+    writer.writeStyleAttribute(buttons.getStyle());
+    HtmlRendererUtils.writeDataAttributes(facesContext, writer, buttons);
+    if (buttons.getTip() != null) {
+      writer.writeAttribute(HtmlAttributes.TITLE, buttons.getTip(), true);
+    }
   }
 
   @Override
   public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
-    writer.endElement(HtmlElements.HEADER);
+    writer.endElement(HtmlElements.DIV);
   }
 }

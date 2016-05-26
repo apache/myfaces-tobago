@@ -24,17 +24,18 @@ package org.apache.myfaces.tobago.component;
  */
 public enum RendererTypes {
 
+  Bar,
   Box,
-  BoxToolBar,
   /** @deprecated */
   @Deprecated
   Button,
+  Buttons,
   Calendar,
   Column,
   SegmentLayout,
   ColumnSelector,
   Command,
-  CommandGroup,
+  Commands,
   Date,
   File,
   FlexLayout,
@@ -56,7 +57,6 @@ public enum RendererTypes {
   MenuBar,
   MenuCommand,
   MenuSeparator,
-  Nav,
   Object,
   Out,
   Page,
@@ -80,7 +80,6 @@ public enum RendererTypes {
   Textarea,
   Tab,
   TabGroup,
-  TabGroupToolBar,
   Time,
   ToolBar,
   Tree,
@@ -95,17 +94,18 @@ public enum RendererTypes {
   TreeSelect,
   Sheet;
 
+  public static final String BAR = "Bar";
   public static final String BOX = "Box";
-  public static final String BOX_TOOL_BAR = "BoxToolBar";
   /** @deprecated */
   @Deprecated
   public static final String BUTTON = "Button";
+  public static final String BUTTONS = "Buttons";
   public static final String CALENDAR = "Calendar";
   public static final String COLUMN = "Column";
   public static final String SEGMENT_LAYOUT = "SegmentLayout";
   public static final String COLUMN_SELECTOR = "ColumnSelector";
   public static final String COMMAND = "Command";
-  public static final String COMMAND_GROUP = "CommandGroup";
+  public static final String COMMANDS = "Commands";
   public static final String DATE = "Date";
   public static final String FILE = "File";
   public static final String FLEX_LAYOUT = "FlexLayout";
@@ -127,7 +127,6 @@ public enum RendererTypes {
   public static final String MENU_BAR = "MenuBar";
   public static final String MENU_COMMAND = "MenuCommand";
   public static final String MENU_SEPARATOR = "MenuSeparator";
-  public static final String NAV = "Nav";
   public static final String OBJECT = "Object";
   public static final String OUT = "Out";
   public static final String PAGE = "Page";
@@ -151,7 +150,6 @@ public enum RendererTypes {
   public static final String TEXTAREA = "Textarea";
   public static final String TAB = "Tab";
   public static final String TAB_GROUP = "TabGroup";
-  public static final String TAB_GROUP_TOOL_BAR = "TabGroupToolBar";
   public static final String TIME = "Time";
   public static final String TOOL_BAR = "ToolBar";
   public static final String TREE = "Tree";

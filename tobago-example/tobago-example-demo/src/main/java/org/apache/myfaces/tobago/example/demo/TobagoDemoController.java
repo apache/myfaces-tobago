@@ -109,14 +109,6 @@ public class TobagoDemoController implements Serializable {
 
   private SheetState sheetTreeState;
 
-  private String toolbarIconSize;
-
-  private SelectItem[] toolbarIconItems;
-
-  private String toolbarTextPosition;
-
-  private SelectItem[] toolbarTextItems;
-
   private TabChangeListener tabChangeListener;
 
   private String[] selectManyShuttle;
@@ -166,16 +158,6 @@ public class TobagoDemoController implements Serializable {
     showRootJunction = true;
 
     solar = new Solar();
-
-    final String[] toolbarIconKeys
-        = {UIToolBar.ICON_OFF, UIToolBar.ICON_SMALL, UIToolBar.ICON_BIG};
-    toolbarIconItems = getSelectItems(toolbarIconKeys, "demo");
-    toolbarIconSize = UIToolBar.ICON_SMALL;
-
-    final String[] toolbarTextKeys =
-        {UIToolBar.LABEL_OFF, UIToolBar.LABEL_BOTTOM, UIToolBar.LABEL_RIGHT};
-    toolbarTextItems = getSelectItems(toolbarTextKeys, "demo");
-    toolbarTextPosition = UIToolBar.LABEL_BOTTOM;
   }
 
 
@@ -544,30 +526,6 @@ public class TobagoDemoController implements Serializable {
       throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, "Please type in 'Tobago'",
           "Please type in 'Tobago'"));
     }
-  }
-
-  public SelectItem[] getToolbarIconItems() {
-    return toolbarIconItems;
-  }
-
-  public String getToolbarIconSize() {
-    return toolbarIconSize;
-  }
-
-  public void setToolbarIconSize(final String toolbarIconSize) {
-    this.toolbarIconSize = toolbarIconSize;
-  }
-
-  public SelectItem[] getToolbarTextItems() {
-    return toolbarTextItems;
-  }
-
-  public String getToolbarTextPosition() {
-    return toolbarTextPosition;
-  }
-
-  public void setToolbarTextPosition(final String toolbarTextPosition) {
-    this.toolbarTextPosition = toolbarTextPosition;
   }
 
   public Object getNull() {
