@@ -222,16 +222,16 @@ public abstract class CommandRendererBase extends RendererBase {
     }
   }
 
-  abstract protected void encodeBeginElement(final FacesContext facesContext, final AbstractUICommand command)
+  protected abstract void encodeBeginElement(final FacesContext facesContext, final AbstractUICommand command)
       throws IOException;
 
-  abstract protected void encodeEndElement(final FacesContext facesContext, final AbstractUICommand command)
+  protected abstract void encodeEndElement(final FacesContext facesContext, final AbstractUICommand command)
       throws IOException;
 
-  abstract protected void encodeBeginOuter(final FacesContext facesContext, final AbstractUICommand command)
+  protected abstract void encodeBeginOuter(final FacesContext facesContext, final AbstractUICommand command)
       throws IOException;
 
-  abstract protected void encodeEndOuter(final FacesContext facesContext, final AbstractUICommand command)
+  protected abstract void encodeEndOuter(final FacesContext facesContext, final AbstractUICommand command)
       throws IOException;
 
   protected void commandActivated(final UIComponent component) {

@@ -20,7 +20,6 @@
 package org.apache.myfaces.tobago.example.demo;
 
 import org.apache.myfaces.tobago.component.UISheet;
-import org.apache.myfaces.tobago.component.UIToolBar;
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.event.SortActionEvent;
 import org.apache.myfaces.tobago.event.TabChangeListener;
