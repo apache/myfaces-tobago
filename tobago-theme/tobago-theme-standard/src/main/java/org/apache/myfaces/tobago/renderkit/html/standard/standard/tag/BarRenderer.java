@@ -25,6 +25,7 @@ import org.apache.myfaces.tobago.internal.component.AbstractUICommands;
 import org.apache.myfaces.tobago.internal.component.AbstractUIForm;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
+import org.apache.myfaces.tobago.renderkit.css.Icons;
 import org.apache.myfaces.tobago.renderkit.html.Arias;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
@@ -121,7 +122,7 @@ public class BarRenderer extends RendererBase {
     writer.writeAttribute(Arias.EXPANDED, Boolean.FALSE.toString(), false);
     writer.writeAttribute(Arias.CONTROLS, navbarId, false);
 
-    writer.writeText("☰");
+    writer.writeIcon(Icons.BARS);
 
     writer.startElement(HtmlElements.SPAN);
     writer.writeClassAttribute(BootstrapClass.SR_ONLY);

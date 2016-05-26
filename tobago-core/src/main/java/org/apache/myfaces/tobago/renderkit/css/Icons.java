@@ -28,6 +28,7 @@ public enum Icons {
   ANGLE_RIGHT,
   ANGLE_UP,
   BACKWARD,
+  BARS,
   CALENDAR,
   CLOCK_O,
   ELLIPSIS_H,
