@@ -66,4 +66,6 @@ public abstract class AbstractUIPanel extends javax.faces.component.UIPanel
   @Override
   public void onComponentPopulated(final FacesContext facesContext, final UIComponent parent) {
   }
+
+  public abstract java.lang.String getTip();
 }

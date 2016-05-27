@@ -25,6 +25,7 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
 
 import javax.faces.component.UIPanel;
@@ -42,7 +43,7 @@ import javax.faces.component.UIPanel;
     rendererType = RendererTypes.MEDIATOR,
     interfaces = {"org.apache.myfaces.tobago.component.Visual"})
 public interface MediatorTagDeclaration
-    extends HasIdBindingAndRendered, IsVisual {
+    extends HasIdBindingAndRendered, IsVisual, HasTip {
 
   /**
    * Name of a request-scope attribute under which this component is accessible.

@@ -22,6 +22,9 @@ package org.apache.myfaces.tobago.internal.taglib.component;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.component.RendererTypes;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
+import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
 
 import javax.faces.component.UIPanel;
 
@@ -32,7 +35,8 @@ import javax.faces.component.UIPanel;
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UICommands",
     uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUICommands",
+    uiComponentFacesClass = "javax.faces.component.UIPanel",
     componentFamily = UIPanel.COMPONENT_FAMILY,
     rendererType = RendererTypes.COMMANDS)
-public interface CommandsTagDeclaration {
+public interface CommandsTagDeclaration extends HasIdBindingAndRendered, IsVisual, HasTip {
 }

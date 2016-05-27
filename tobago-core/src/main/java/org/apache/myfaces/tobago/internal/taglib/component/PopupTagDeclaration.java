@@ -27,6 +27,7 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
 
 import javax.faces.component.UIPanel;
@@ -49,7 +50,7 @@ import javax.faces.component.UIPanel;
             + "The layout manager tag should surround the content instead.")}
 )
 public interface PopupTagDeclaration
-    extends HasIdBindingAndRendered, IsVisual {
+    extends HasIdBindingAndRendered, IsVisual, HasTip {
 
   /**
    * The rest of the page will be faded off for the time the popup is displayed.
