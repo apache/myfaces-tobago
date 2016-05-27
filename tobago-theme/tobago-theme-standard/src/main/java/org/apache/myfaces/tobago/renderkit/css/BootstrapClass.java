@@ -118,6 +118,7 @@ public enum BootstrapClass implements CssItem {
   ICON_BAR("icon-bar"),
   INFO("info"),
   INPUT_GROUP("input-group"),
+  INPUT_GROUP_ADDON("input-group-addon"),
   INPUT_GROUP_BTN("input-group-btn"),
   INVISIBLE("invisible"),
   MODAL("modal"),

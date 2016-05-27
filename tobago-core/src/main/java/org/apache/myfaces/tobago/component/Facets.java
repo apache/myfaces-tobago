@@ -21,7 +21,9 @@ package org.apache.myfaces.tobago.component;
 
 public enum Facets {
 
+  after,
   action,
+  before,
   brand,
   change,
   checkbox,
@@ -49,7 +51,9 @@ public enum Facets {
   sorter,
   toolBar;
 
+  public static final String AFTER = "after";
   public static final String ACTION = "action";
+  public static final String BEFORE = "before";
   public static final String BRAND = "brand";
   public static final String CHANGE = "change";
   public static final String CHECKBOX = "checkbox";

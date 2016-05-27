@@ -66,7 +66,13 @@ import javax.faces.component.UIInput;
     facets = {
     @Facet(name = Facets.CHANGE,
         description =
-            "This facet can contain a UICommand that is invoked in a case of a change event from the component")
+            "This facet can contain a UICommand that is invoked in a case of a change event from the component"),
+    @Facet(name = Facets.BEFORE,
+        description =
+            "This facet can contain a part for input groups."),
+    @Facet(name = Facets.AFTER,
+        description =
+            "This facet can contain a part for input groups.")
         })
 public interface InTagDeclaration
     extends HasIdBindingAndRendered, HasConverter, IsReadonly, IsDisabled, IsRequired, HasTip, IsPassword,

@@ -20,6 +20,7 @@
 package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
 import org.apache.myfaces.tobago.component.Attributes;
+import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.internal.component.AbstractUIInput;
 import org.apache.myfaces.tobago.internal.util.AccessKeyLogger;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
@@ -64,6 +65,20 @@ public class InRenderer extends LabelLayoutRendererBase {
     final boolean required = ComponentUtils.getBooleanAttribute(input, Attributes.required);
 
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+
+    final UIComponent after = ComponentUtils.getFacet(input, Facets.after);
+    final UIComponent before = ComponentUtils.getFacet(input, Facets.before);
+
+    if (after != null || before != null) {
+      writer.startElement(HtmlElements.DIV);
+      writer.writeClassAttribute(BootstrapClass.INPUT_GROUP);
+    }
+    if (before != null) {
+      writer.startElement(HtmlElements.SPAN);
+      writer.writeClassAttribute(BootstrapClass.INPUT_GROUP_ADDON);
+      RenderUtils.encode(facesContext, before);
+      writer.endElement(HtmlElements.SPAN);
+    }
 
     writer.startElement(HtmlElements.INPUT);
 
@@ -123,6 +138,16 @@ public class InRenderer extends LabelLayoutRendererBase {
     }
 
     writer.endElement(HtmlElements.INPUT);
+
+    if (after != null) {
+      writer.startElement(HtmlElements.SPAN);
+      writer.writeClassAttribute(BootstrapClass.INPUT_GROUP_ADDON);
+      RenderUtils.encode(facesContext, after);
+      writer.endElement(HtmlElements.SPAN);
+    }
+    if (after != null || before != null) {
+      writer.endElement(HtmlElements.DIV);
+    }
   }
 
   @Override
