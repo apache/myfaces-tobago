@@ -33,6 +33,7 @@ import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.event.TabChangeEvent;
 import org.apache.myfaces.tobago.internal.component.AbstractUIPanel;
 import org.apache.myfaces.tobago.internal.util.AccessKeyLogger;
+import org.apache.myfaces.tobago.internal.util.Deprecation;
 import org.apache.myfaces.tobago.model.SwitchType;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
@@ -237,7 +238,13 @@ public class TabGroupRenderer extends RendererBase {
 
           final UIPanel toolbar = (UIPanel) ComponentUtils.getFacet(tab, Facets.toolBar);
           if (toolbar != null) {
+            Deprecation.LOG.warn("Facet {} is deprecated for <tc:box>", Facets.toolBar.name());
             renderTabToolbar(facesContext, writer, tab, toolbar);
+          }
+
+          final UIComponent bar = ComponentUtils.getFacet(tab, Facets.bar);
+          if (bar != null) {
+            RenderUtils.encode(facesContext, bar);
           }
 
           writer.endElement(HtmlElements.LI);

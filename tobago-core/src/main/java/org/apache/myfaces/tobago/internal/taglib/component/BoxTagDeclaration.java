@@ -43,9 +43,14 @@ import javax.faces.component.UIPanel;
     componentFamily = UIPanel.COMPONENT_FAMILY,
     rendererType = RendererTypes.BOX,
     facets = {
-        @Facet(name = Facets.TOOL_BAR, description = "Contains an instance of UIToolBar",
+        @Facet(name = Facets.BAR,
+            description = "Contains some code to be placed in the header at the bar position."),
+        @Facet(name = Facets.LABEL,
+            description = "Contains some code to be placed in the header at the label position."),
+        @Facet(name = Facets.TOOL_BAR, description = "Deprecated! Contains an instance of UIToolBar",
             allowedChildComponenents = "org.apache.myfaces.tobago.ToolBar"),
-        @Facet(name=Facets.LAYOUT, description = "Deprecated. Contains an layout manager. "
+        @Facet(name = Facets.MENU_BAR, description = "Deprecated!"),
+        @Facet(name=Facets.LAYOUT, description = "Deprecated! Contains an layout manager. "
             + "The layout manager tag should surround the content instead.")})
 
 public interface BoxTagDeclaration

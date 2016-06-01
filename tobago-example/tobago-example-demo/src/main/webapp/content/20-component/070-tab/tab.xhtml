@@ -20,7 +20,7 @@
 <ui:composition template="/main.xhtml"
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
-                xmlns:ui="http://java.sun.com/jsf/facelets">
+                xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core">
   <ui:param name="title" value="#{overviewBundle.tab}"/>
   <p>A <code class="language-markup">&lt;tc:tabGroup/></code> can contain several
     <code class="language-markup">&lt;tc:tab/></code> tags.
@@ -59,6 +59,11 @@
         <p>Content of tab one.</p>
       </tc:tab>
       <tc:tab label="Tab Two">
+        <f:facet name="bar">
+          <tc:link image="fa-remove">
+            <tc:dataAttribute name="alert-text" value="Not implemented yet!"/>
+          </tc:link>
+        </f:facet>
         <p>Content of tab two.</p>
       </tc:tab>
     </tc:tabGroup>

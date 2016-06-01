@@ -48,7 +48,9 @@ import javax.faces.component.UIPanel;
     componentFamily = UIPanel.COMPONENT_FAMILY,
     rendererType = RendererTypes.TAB,
     facets = {
-        @Facet(name = Facets.TOOL_BAR, description = "Contains an instance of UIToolBar",
+        @Facet(name = Facets.BAR,
+            description = "Contains some code to be placed in the header at the bar position."),
+        @Facet(name = Facets.TOOL_BAR, description = "Deprecated! Contains an instance of UIToolBar",
             allowedChildComponenents = "org.apache.myfaces.tobago.ToolBar")})
 public interface TabTagDeclaration
     extends HasIdBindingAndRendered, IsVisual, HasLabelAndAccessKey, HasTip, IsDisabled, HasImage {

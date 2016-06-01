@@ -44,15 +44,19 @@
     </tc:segmentLayout>
   </tc:section>
 
-  <tc:section label="Toolbar">
-    <p>It's possible to add a toobar to the header of a contentbox. For that, the contentbox must contain the tag
-      <code class="language-markup">&lt;f:facet name="toolBar"></code>. The facet contain the
-      <code class="language-markup">&lt;tc:toolBar></code> tag.</p>
+  <tc:section label="Bar">
+    <p>It's possible to add a bar to the header of a content box. For that, the content box must contain the tag
+      <code class="language-markup">&lt;f:facet name="bar"></code>. The facet may contain
+      <code class="language-markup">&lt;tc:bar></code> or other suitable tags.</p>
     <tc:box>
-      <f:facet name="toolBar">
-        <tc:toolBar>
-          <tc:toolBarCommand label="Toolbar Entry"/>
-        </tc:toolBar>
+      <f:facet name="label">
+        Label
+      </f:facet>
+      <f:facet name="bar">
+        <tc:buttons>
+          <tc:button label="Button 1"/>
+          <tc:button label="Button 2"/>
+        </tc:buttons>
       </f:facet>
       Content
     </tc:box>

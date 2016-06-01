@@ -20,6 +20,14 @@
  * agent: standard
  */
 
+/* box -------------------------------------------------------------- */
+
+.tobago-box > .card-header {
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
+}
+
 /* button -------------------------------------------------------------- */
 
 /* XXX fixes a problem with image in button inside a segmentLayout (with FF40 and IE11)
@@ -567,6 +575,14 @@ table.tobago-sheet-bodyTable>tbody>tr>td {
 
 .tt-suggestion p {
   margin: 0;
+}
+
+/* tree ---------------------------------------------------------------------- */
+
+.tobago-tab {
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
 }
 
 /* tree ---------------------------------------------------------------------- */

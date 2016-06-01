@@ -23,6 +23,7 @@ public enum Facets {
 
   after,
   action,
+  bar,
   before,
   brand,
   change,
@@ -40,6 +41,10 @@ public enum Facets {
   @Deprecated
   layout,
   layoutDefault,
+  /**
+   * @deprecated since 3.0.0. Menu bar is no longer supported.
+   */
+  @Deprecated
   menuBar,
   pagerPage,
   pagerPageDirect,
@@ -53,6 +58,7 @@ public enum Facets {
 
   public static final String AFTER = "after";
   public static final String ACTION = "action";
+  public static final String BAR = "bar";
   public static final String BEFORE = "before";
   public static final String BRAND = "brand";
   public static final String CHANGE = "change";
@@ -70,7 +76,11 @@ public enum Facets {
   @Deprecated
   public static final String LAYOUT = "layout";
   public static final String LAYOUT_DEFAULT = "layoutDefault";
-  public static final String MENUBAR = "menuBar";
+  /**
+   * @deprecated since 3.0.0. Menu bar is no longer supported.
+   */
+  @Deprecated
+  public static final String MENU_BAR = "menuBar";
   public static final String PAGER_PAGE = "pagerPage";
   public static final String PAGER_PAGE_DIRECT = "pagerPageDirect";
   public static final String PAGER_ROW = "pagerRow";

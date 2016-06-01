@@ -21,6 +21,7 @@ package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.UIBox;
 import org.apache.myfaces.tobago.component.UIMenuBar;
+import org.apache.myfaces.tobago.internal.util.Deprecation;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
@@ -40,76 +41,81 @@ import java.io.IOException;
 
 public class BoxRenderer extends RendererBase {
 
-    private static final Logger LOG = LoggerFactory.getLogger(BoxRenderer.class);
+  private static final Logger LOG = LoggerFactory.getLogger(BoxRenderer.class);
 
-    @Override
-    public void encodeBegin(final FacesContext facesContext, final UIComponent component) throws IOException {
+  @Override
+  public void encodeBegin(final FacesContext facesContext, final UIComponent component) throws IOException {
 
-        final UIBox box = (UIBox) component;
-        final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+    final UIBox box = (UIBox) component;
+    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
-        final UIComponent label = ComponentUtils.getFacet(box, Facets.label);
-        final String labelString = box.getLabel();
+    final UIComponent label = ComponentUtils.getFacet(box, Facets.label);
+    final String labelString = box.getLabel();
+    final UIPanel toolbar = (UIPanel) ComponentUtils.getFacet(box, Facets.toolBar);
+    final UIComponent bar = ComponentUtils.getFacet(box, Facets.bar);
 
-        final UIPanel toolbar = (UIPanel) ComponentUtils.getFacet(box, Facets.toolBar); //XXX todo
+    writer.startElement(HtmlElements.DIV);
+    writer.writeClassAttribute(Classes.create(box), BootstrapClass.CARD, box.getCustomClass());
+    writer.writeIdAttribute(box.getClientId(facesContext));
+    final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, box);
+    if (title != null) {
+      writer.writeAttribute(HtmlAttributes.TITLE, title, true);
+    }
+    HtmlRendererUtils.writeDataAttributes(facesContext, writer, box);
+    writer.writeStyleAttribute(box.getStyle());
 
-        writer.startElement(HtmlElements.DIV);
-        writer.writeClassAttribute(
-            Classes.create(box), BootstrapClass.CARD, box.getCustomClass());
-        writer.writeIdAttribute(box.getClientId(facesContext));
-        final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, box);
-        if (title != null) {
-            writer.writeAttribute(HtmlAttributes.TITLE, title, true);
-        }
-        HtmlRendererUtils.writeDataAttributes(facesContext, writer, box);
-        writer.writeStyleAttribute(box.getStyle());
+    if (label != null || labelString != null || bar != null || toolbar != null) {
+      writer.startElement(HtmlElements.DIV);
+      writer.writeClassAttribute(BootstrapClass.CARD_HEADER);
 
-        if (label != null || labelString != null || toolbar != null) {
-            writer.startElement(HtmlElements.DIV);
-            writer.writeClassAttribute(BootstrapClass.CARD_HEADER);
+      writer.startElement(HtmlElements.H3);
+      if (label != null) {
+        RenderUtils.encode(facesContext, label);
+      } else if (labelString != null) {
+        writer.writeText(labelString);
+      }
+      writer.endElement(HtmlElements.H3);
 
-            writer.startElement(HtmlElements.H3);
-            if (label != null) {
-                RenderUtils.encode(facesContext, label);
-            } else if (labelString != null) {
-                writer.writeText(labelString);
-            }
-            writer.endElement(HtmlElements.H3);
+      if (toolbar != null) {
+        Deprecation.LOG.warn("Facet {} is deprecated for <tc:box>", Facets.toolBar.name());
+        RenderUtils.encode(facesContext, toolbar);
+      }
 
-            if (toolbar != null) {
-                RenderUtils.encode(facesContext, toolbar);
-            }
+      if (bar != null) {
+        RenderUtils.encode(facesContext, bar);
+      }
 
-            writer.endElement(HtmlElements.DIV);
-        }
-
-        final UIMenuBar menuBar = ComponentUtils.findFacetDescendant(box, Facets.menuBar, UIMenuBar.class);
-        if (menuBar != null) {
-            RenderUtils.encode(facesContext, menuBar);
-        }
-
-        writer.startElement(HtmlElements.DIV);
-        writer.writeClassAttribute(BootstrapClass.CARD_BLOCK);
+      writer.endElement(HtmlElements.DIV);
     }
 
-    @Override
-    public boolean getRendersChildren() {
-        return true;
+    final UIMenuBar menuBar = ComponentUtils.findFacetDescendant(box, Facets.menuBar, UIMenuBar.class);
+    if (menuBar != null) {
+      Deprecation.LOG.warn("Facet {} is deprecated for <tc:box>", Facets.menuBar.name());
+      RenderUtils.encode(facesContext, menuBar);
     }
 
-    @Override
-    public void encodeChildren(final FacesContext facesContext, final UIComponent component) throws IOException {
-        if (component instanceof UIBox && ((UIBox) component).isCollapsed()) {
-            return;
-        }
-        super.encodeChildren(facesContext, component);
-    }
+    writer.startElement(HtmlElements.DIV);
+    writer.writeClassAttribute(BootstrapClass.CARD_BLOCK);
+  }
 
-    @Override
-    public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
-        final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
-        writer.endElement(HtmlElements.DIV);
-        writer.endElement(HtmlElements.DIV);
+  @Override
+  public boolean getRendersChildren() {
+    return true;
+  }
+
+  @Override
+  public void encodeChildren(final FacesContext facesContext, final UIComponent component) throws IOException {
+    if (component instanceof UIBox && ((UIBox) component).isCollapsed()) {
+      return;
     }
+    super.encodeChildren(facesContext, component);
+  }
+
+  @Override
+  public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
+    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+    writer.endElement(HtmlElements.DIV);
+    writer.endElement(HtmlElements.DIV);
+  }
 
 }

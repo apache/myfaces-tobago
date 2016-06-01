@@ -51,9 +51,10 @@ import javax.faces.component.UIForm;
                 description ="Contains an instance of UICommand which will be executed when the"
                     + "size of the user agent was changed. Typically a <tc:command immediate='true' />",
                 allowedChildComponenents = {"org.apache.myfaces.tobago.Command", "org.apache.myfaces.tobago.Form"}),
-          @Facet(name = Facets.MENUBAR, description = "Menubar",
+          @Facet(name = Facets.MENU_BAR, description = "Deprecated! Please consult the demo how to build a "
+              + "menu bar on the top of the page.",
                 allowedChildComponenents = "javax.faces.component.UIPanel"), //fake
-          @Facet(name=Facets.LAYOUT, description = "Deprecated. Contains an layout manager. "
+          @Facet(name=Facets.LAYOUT, description = "Deprecated! Contains an layout manager. "
               + "The layout manager tag should surround the content instead.")})
 
 public interface PageTagDeclaration
