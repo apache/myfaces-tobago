@@ -64,7 +64,7 @@ public abstract class AbstractUIProgress extends UIOutput implements Visual, Com
       } else {
         if (model instanceof Number) {
           rangeValue = ((Number) model).doubleValue();
-        } else {
+        } else if (model != null) {
           rangeValue = Double.parseDouble("" + model);
         }
         if (getMax() != null) {
