@@ -83,7 +83,7 @@ public class ToolBarCustomizer implements Serializable {
 
     private Item(final String label) {
       this.label = label;
-      this.name = "x-tool-bar-item-" + label.toLowerCase(Locale.ENGLISH) + ".xhtml";
+      this.name = "x-buttons-item-" + label.toLowerCase(Locale.ENGLISH) + ".xhtml";
     }
 
     public String getLabel() {
