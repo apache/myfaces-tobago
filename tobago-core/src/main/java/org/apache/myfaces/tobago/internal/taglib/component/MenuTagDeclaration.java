@@ -34,7 +34,7 @@ import javax.faces.component.UIPanel;
 /**
  * Container component to hold submenus and items.
  *
- * @deprecated Menu can be build with &lt;tc:bar> and &lt;tc:commands>.
+ * @deprecated Menu can be build with &lt;tc:bar&gt; and &lt;tc:commands&gt;.
  */
 @Deprecated
 @Tag(name = "menu")

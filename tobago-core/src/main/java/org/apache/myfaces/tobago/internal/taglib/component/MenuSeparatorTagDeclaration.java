@@ -31,7 +31,7 @@ import javax.faces.component.UIOutput;
 /**
  * Renders a separator inside of a menu.
  *
- * @deprecated Menu can be build with &lt;tc:bar> and &lt;tc:commands>.
+ * @deprecated Menu can be build with &lt;tc:bar&gt; and &lt;tc:commands&gt;.
  */
 @Deprecated
 @Tag(name = "menuSeparator")
