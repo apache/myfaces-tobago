@@ -21,7 +21,6 @@ package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.UIBar;
-import org.apache.myfaces.tobago.internal.component.AbstractUICommands;
 import org.apache.myfaces.tobago.internal.component.AbstractUIForm;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
@@ -41,6 +40,8 @@ import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class BarRenderer extends RendererBase {
 
@@ -79,24 +80,26 @@ public class BarRenderer extends RendererBase {
 
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
-    final DivHelper helper = new DivHelper(writer);
+    List<UIComponent> itemsToEncode = new ArrayList<UIComponent>();
+    collectItemsToEncode(component, itemsToEncode);
+    for (UIComponent child : itemsToEncode) {
+      writer.startElement(HtmlElements.DIV);
+      writer.writeClassAttribute(BootstrapClass.FORM_INLINE);
+      child.encodeAll(facesContext);
+      writer.endElement(HtmlElements.DIV);
+    }
+  }
 
+  private void collectItemsToEncode(final UIComponent component, List<UIComponent> result) {
     for (UIComponent child : component.getChildren()) {
       if (child.isRendered()) {
         if (child instanceof AbstractUIForm) {
-          helper.mayEnd();
-          encodeChildren(facesContext, child);
-        } else if (child instanceof AbstractUICommands) {
-          helper.mayEnd();
-          child.encodeAll(facesContext);
+          collectItemsToEncode(child, result);
         } else {
-          helper.mayStart();
-          child.encodeAll(facesContext);
+          result.add(child);
         }
       }
     }
-
-    helper.mayEnd();
   }
 
   @Override
@@ -109,8 +112,6 @@ public class BarRenderer extends RendererBase {
 
   private void encodeOpener(
       FacesContext facesContext, UIBar bar, TobagoResponseWriter writer, String navbarId) throws IOException {
-
-    // todo: consolidate this rendering with ToolBarRenderer
 
     writer.startElement(HtmlElements.DIV);
 
@@ -141,35 +142,4 @@ public class BarRenderer extends RendererBase {
 
     writer.endElement(HtmlElements.DIV);
   }
-
-  /**
-   * This class helps to put some tags of specific type into one DIV.
-   */
-  public static class DivHelper {
-
-    private TobagoResponseWriter writer;
-
-    private boolean isInDiv = false;
-
-
-    public DivHelper(final TobagoResponseWriter writer) {
-      this.writer = writer;
-    }
-
-    public void mayStart() throws IOException {
-      if (!isInDiv) {
-        writer.startElement(HtmlElements.DIV);
-        writer.writeClassAttribute(BootstrapClass.FORM_INLINE);
-        isInDiv = true;
-      }
-    }
-
-    public void mayEnd() throws IOException {
-      if(isInDiv) {
-        writer.endElement(HtmlElements.DIV);
-      }
-    }
-
-  }
-
 }
