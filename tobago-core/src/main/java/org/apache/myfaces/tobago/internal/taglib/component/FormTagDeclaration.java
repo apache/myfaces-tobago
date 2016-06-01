@@ -32,7 +32,6 @@ import javax.faces.component.UIForm;
     uiComponent = "org.apache.myfaces.tobago.component.UIForm",
     uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUIForm",
     uiComponentFacesClass = "javax.faces.component.UIForm",
-    interfaces = "org.apache.myfaces.tobago.component.Form",
     componentFamily = UIForm.COMPONENT_FAMILY,
     rendererType = RendererTypes.FORM,
     allowedChildComponenents = "ALL")
