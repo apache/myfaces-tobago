@@ -33,7 +33,7 @@ import javax.faces.component.UIPanel;
 * Add menu bar as facet name="menuBar" to page tag or use it anywhere
 * on page.
  *
- * @deprecated Menu can be build with <tc:bar> and <tc:commands>.
+ * @deprecated Menu can be build with &lt;tc:bar> and &lt;tc:commands>.
  */
 @Deprecated
 @Tag(name = "menuBar")
