@@ -21,6 +21,7 @@ package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.UIBox;
 import org.apache.myfaces.tobago.component.UIMenuBar;
+import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
@@ -37,7 +38,7 @@ import javax.faces.component.UIPanel;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 
-public class BoxRenderer extends BoxRendererBase {
+public class BoxRenderer extends RendererBase {
 
     private static final Logger LOG = LoggerFactory.getLogger(BoxRenderer.class);
 
@@ -89,6 +90,19 @@ public class BoxRenderer extends BoxRendererBase {
 
         writer.startElement(HtmlElements.DIV);
         writer.writeClassAttribute(BootstrapClass.CARD_BLOCK);
+    }
+
+    @Override
+    public boolean getRendersChildren() {
+        return true;
+    }
+
+    @Override
+    public void encodeChildren(final FacesContext facesContext, final UIComponent component) throws IOException {
+        if (component instanceof UIBox && ((UIBox) component).isCollapsed()) {
+            return;
+        }
+        super.encodeChildren(facesContext, component);
     }
 
     @Override
