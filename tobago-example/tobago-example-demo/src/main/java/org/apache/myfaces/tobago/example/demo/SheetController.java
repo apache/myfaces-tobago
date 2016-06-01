@@ -70,12 +70,8 @@ public class SheetController implements Serializable {
     }
   }
 
-  public String getSelectedSolarObject() {
-    if (selectedSolarObject != null) {
-      return selectedSolarObject.getName();
-    } else {
-      return "Nothing selected";
-    }
+  public SolarObject getSelectedSolarObject() {
+    return selectedSolarObject;
   }
 
   public int getNumberOfSelections() {

@@ -32,13 +32,13 @@
     <p>Select an object from the SolarObjects list.</p>
     <tc:segmentLayout medium="5;7">
       <tc:box label="Solar Objects">
-        <tc:sheet id="s1" value="#{demo.solarList}" var="solarobject" columns="1*">
+        <tc:sheet id="s1" value="#{sheetController.solarList}" var="solarobject" columns="1*">
           <tc:style maxHeight="486px"/>
           <tc:column label="#{overviewBundle.solarArrayName}" id="name">
             <tc:out value="#{solarobject.name}" id="t_name"/>
           </tc:column>
           <tc:columnEvent event="click">
-            <tc:command actionListener="#{demo.selectLuminary}" immediate="true">
+            <tc:command actionListener="#{sheetController.selectSolarObject}" immediate="true">
               <tc:resetInputActionListener/>
               <f:ajax render=":page:detail"/>
             </tc:command>
@@ -47,19 +47,19 @@
       </tc:box>
 
       <tc:box id="detail" label="Details">
-        <tc:panel rendered="#{demo.currentSolarObject != null}">
-          <tc:in label="Name" value="#{demo.currentSolarObject.name}" required="true"/>
-          <tc:in label="Number" value="#{demo.currentSolarObject.number}"/>
-          <tc:in label="Orbit" value="#{demo.currentSolarObject.orbit}"/>
-          <tc:in label="Distance" value="#{demo.currentSolarObject.distance}"/>
-          <tc:in label="Period" value="#{demo.currentSolarObject.period}"/>
-          <tc:in label="Obliquity" value="#{demo.currentSolarObject.incl}"/>
-          <tc:in label="Eccentricity" value="#{demo.currentSolarObject.eccen}"/>
-          <tc:in label="Discoverer" value="#{demo.currentSolarObject.discoverer}"/>
-          <tc:in label="Discover Year" value="#{demo.currentSolarObject.discoverYear}"/>
+        <tc:panel rendered="#{sheetController.selectedSolarObject != null}">
+          <tc:in label="Name" value="#{sheetController.selectedSolarObject.name}" required="true"/>
+          <tc:in label="Number" value="#{sheetController.selectedSolarObject.number}"/>
+          <tc:in label="Orbit" value="#{sheetController.selectedSolarObject.orbit}"/>
+          <tc:in label="Distance" value="#{sheetController.selectedSolarObject.distance}"/>
+          <tc:in label="Period" value="#{sheetController.selectedSolarObject.period}"/>
+          <tc:in label="Obliquity" value="#{sheetController.selectedSolarObject.incl}"/>
+          <tc:in label="Eccentricity" value="#{sheetController.selectedSolarObject.eccen}"/>
+          <tc:in label="Discoverer" value="#{sheetController.selectedSolarObject.discoverer}"/>
+          <tc:in label="Discover Year" value="#{sheetController.selectedSolarObject.discoverYear}"/>
         </tc:panel>
 
-        <tc:panel rendered="#{demo.currentSolarObject == null}">
+        <tc:panel rendered="#{sheetController.selectedSolarObject == null}">
           <tc:out value="Please select a solar object on the left side to show its details."/>
         </tc:panel>
       </tc:box>
