@@ -153,6 +153,14 @@ public class JsonUtils {
     if (partially != null) {
       encode(builder, "partially", partially);
     }
+    final String execute = command.getExecute();
+    if (execute != null) {
+      encode(builder, "execute", execute);
+    }
+    final String render = command.getRender();
+    if (render != null) {
+      encode(builder, "render", render);
+    }
     final String focus = command.getFocus();
     if (focus != null) {
       encode(builder, "focus", focus);

@@ -42,6 +42,7 @@ public class AjaxClientBehaviorRenderer extends ClientBehaviorRenderer {
 
     final AjaxBehavior ajaxBehavior = (AjaxBehavior) behavior;
     final FacesContext facesContext = behaviorContext.getFacesContext();
+    final Collection<String> execute = ajaxBehavior.getExecute();
     final Collection<String> render = ajaxBehavior.getRender();
     final UIComponent uiComponent = behaviorContext.getComponent();
 
@@ -53,6 +54,7 @@ public class AjaxClientBehaviorRenderer extends ClientBehaviorRenderer {
           component.isTransition(),
           component.getTarget(),
           RenderUtils.generateUrl(facesContext, component),
+          ComponentUtils.evaluateClientIds(facesContext, component, execute.toArray(new String[execute.size()])),
           ComponentUtils.evaluateClientIds(facesContext, component, render.toArray(new String[render.size()])),
           null,
           null, // getConfirmation(command), // todo
@@ -70,6 +72,7 @@ public class AjaxClientBehaviorRenderer extends ClientBehaviorRenderer {
           null,
           null,
           null,
+          ComponentUtils.evaluateClientIds(facesContext, uiComponent, execute.toArray(new String[execute.size()])),
           ComponentUtils.evaluateClientIds(facesContext, uiComponent, render.toArray(new String[render.size()])),
           null,
           null,

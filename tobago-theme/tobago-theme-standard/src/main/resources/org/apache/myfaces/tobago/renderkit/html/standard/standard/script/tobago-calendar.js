@@ -78,15 +78,15 @@ Tobago.DateTime.init = function (elements) {
         // execution of line 686 in tobago.js
         $date.parent().on('dp.change', function (event) {
           var commands = jQuery(this).find("input").data("tobago-commands");
-          if (commands.change.partially) {
+          if (commands.change.execute || commands.change.render) {
             //Tobago.reloadComponent(this, commands.change.partially, commands.change.action, commands.change);
             jsf.ajax.request(
                 jQuery(this).find("input").attr("name"),
                 event,
                 {
                   "javax.faces.behavior.event": "change",
-                  execute: commands.change.partially,
-                  render: commands.change.partially
+                  execute: commands.change.execute,
+                  render: commands.change.render
                 });
           } else {
             Tobago.submitAction(this.firstElementChild, commands.change.action, commands.change);

@@ -33,31 +33,32 @@
     <pre><code class="language-markup"></code></pre>
 
     <tc:box label="Outer Form">
-      <tc:form>
+      <tc:form id="outerform">
         <tc:box label="Inner Form 1">
-          <tc:form>
-            <tc:in id="innervalue1in" label="Inner Value 1" value="#{formRequiredController.innerValue1}"/>
-            <tc:out id="innervalue1out" label="Inner Value 1 in Model" value="#{formRequiredController.innerValue1}"/>
+          <tc:form id="form1">
+            <tc:in id="in" label="Inner Value 1" value="#{formRequiredController.innerValue1}"/>
+            <tc:out id="out" label="Inner Value 1 in Model" value="#{formRequiredController.innerValue1}"/>
             <tc:button label="Submit">
-              <f:ajax render="innervalue1in innervalue1out"/>
+              <f:ajax execute="in" render="out"/>
             </tc:button>
           </tc:form>
         </tc:box>
         <tc:box label="Inner Form 2">
-          <tc:form>
-            <tc:in id="innervalue2in" label="Inner Value 2" required="true"
+          <tc:form id="form2">
+            <tc:in id="in" label="Inner Value 2" required="true"
                    value="#{formRequiredController.innerValue2}"/>
-            <tc:out id="innervalue2out" label="Inner Value 2 in Model" value="#{formRequiredController.innerValue2}"/>
+            <tc:out id="out" label="Inner Value 2 in Model" value="#{formRequiredController.innerValue2}"/>
             <tc:button label="Submit">
-              <f:ajax render="innervalue2in innervalue2out"/>
+              <f:ajax execute="in" render="out"/>
             </tc:button>
           </tc:form>
         </tc:box>
         <tc:separator/>
-        <tc:in id="outervaluein" label="Outer Value" required="true" value="#{formRequiredController.outerValue}"/>
-        <tc:out id="outervalueout" label="Outer Value in Model" value="#{formRequiredController.outerValue}"/>
+        <tc:in id="in" label="Outer Value" required="true" value="#{formRequiredController.outerValue}"/>
+        <tc:out id="out" label="Outer Value in Model" value="#{formRequiredController.outerValue}"/>
         <tc:button label="Submit">
-          <f:ajax render="innervalue1in innervalue1out innervalue2in innervalue2out outervaluein outervalueout"/>
+          <f:ajax execute=":page:outerform:form1:in :page:outerform:form2:in in"
+                  render=":page:outerform:form1:out :page:outerform:form2:out out"/>
         </tc:button>
       </tc:form>
     </tc:box>

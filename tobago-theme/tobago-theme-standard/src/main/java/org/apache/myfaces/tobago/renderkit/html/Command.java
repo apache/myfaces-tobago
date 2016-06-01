@@ -46,6 +46,8 @@ public class Command {
   private String target;
   private String url;
   private String partially;
+  private String execute;
+  private String render;
   private String focus;
   private String confirmation;
   private Integer delay;
@@ -55,6 +57,27 @@ public class Command {
   public Command() {
   }
 
+  public Command(
+      final String action, final Boolean transition, final String target, final String url, final String execute,
+      final String render, final String focus, final String confirmation, final Integer delay, final Popup popup,
+      final Boolean omit) {
+    this.action = action;
+    this.transition = transition;
+    this.target = target;
+    this.url = url;
+    setExecute(execute);
+    setRender(render);
+    this.focus = focus;
+    this.confirmation = confirmation;
+    this.delay = delay;
+    this.popup = popup;
+    this.omit = omit;
+  }
+
+  /**
+   * @deprecated use with "execute" and "render" instead
+   */
+  @Deprecated
   public Command(
       final String action, final Boolean transition, final String target, final String url, final String partially,
       final String focus, final String confirmation, final Integer delay, final Popup popup, final Boolean omit) {
@@ -169,13 +192,41 @@ public class Command {
     this.url = url;
   }
 
+  /**
+   * @deprecated use getExecute() getRender() instead
+   */
+  @Deprecated
   public String getPartially() {
     return partially;
   }
 
+  /**
+   * @deprecated use setExecute() setRender() instead
+   */
+  @Deprecated
   public void setPartially(final String partially) {
     if (StringUtils.isNotBlank(partially)) {
       this.partially = partially;
+    }
+  }
+
+  public String getExecute() {
+    return execute;
+  }
+
+  public void setExecute(String execute) {
+    if (StringUtils.isNotBlank(execute)) {
+      this.execute = execute;
+    }
+  }
+
+  public String getRender() {
+    return render;
+  }
+
+  public void setRender(String render) {
+    if (StringUtils.isNotBlank(render)) {
+      this.render = render;
     }
   }
 

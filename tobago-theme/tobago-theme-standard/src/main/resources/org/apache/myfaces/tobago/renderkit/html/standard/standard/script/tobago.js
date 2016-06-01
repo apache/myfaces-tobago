@@ -645,16 +645,14 @@ var Tobago = {
               Tobago.Popup.close(this);
             } else {
               var action = commands.click.action ? commands.click.action : jQuery(this).attr("id");
-              if (commands.click.partially) {
-                //Tobago.reloadComponent(this, commands.click.partially, action, commands.click);
+              if (commands.click.execute || commands.click.render) {
                 jsf.ajax.request(
                     jQuery(this).attr("id"),
                     event,
                     {
-                      // TODO: check difference between f:ajax and renderPartially
                       "javax.faces.behavior.event": "click",
-                      execute: commands.click.partially,
-                      render: commands.click.partially
+                      execute: commands.click.execute,
+                      render: commands.click.render
                     });
                 event.preventDefault();
                 event.stopPropagation();
@@ -683,15 +681,14 @@ var Tobago = {
     }
     if (commands.change) {
       command.change(function(event) {
-        if (commands.change.partially) {
-          //Tobago.reloadComponent(this, commands.change.partially, commands.change.action, commands.change);
+        if (commands.change.execute || commands.change.render) {
           jsf.ajax.request(
               jQuery(this).attr("name"),
               event,
               {
                 "javax.faces.behavior.event": "change",
-                execute: commands.change.partially,
-                render: commands.change.partially
+                execute: commands.change.execute,
+                render: commands.change.render
               });
         } else {
           Tobago.submitAction(this, commands.change.action, commands.change);
@@ -699,15 +696,14 @@ var Tobago = {
       });
     }
     if (commands.complete) {
-      if (commands.complete.partially) {
-        //Tobago.reloadComponent(this, commands.complete.partially, commands.complete.action, commands.complete);
+      if (commands.complete.execute || commands.complete.render) {
         jsf.ajax.request(
             jQuery(this).attr("id"),
             null,
             {
               "javax.faces.behavior.event": "complete",
-              execute: commands.complete.partially,
-              render: commands.complete.partially
+              execute: commands.complete.execute,
+              render: commands.complete.render
             });
       } else {
         Tobago.submitAction(this, commands.complete.action, commands.complete);
