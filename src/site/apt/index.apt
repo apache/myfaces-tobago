@@ -47,18 +47,17 @@ Apache Tobago
 
 News
 
-* ..., 2016 - MyFaces Tobago 3.0.0-beta-1 Released
+* June 1, 2016 - Changes in the trunk
 
-      TODO:
+      There are some refactorings in the trunk, if using the trunk please follow these steps:
 
-      Rename tc:nav to tc:bar
+      * Rename <<<\<tc:nav\>>>> to <<<\<tc:bar\>>>>
 
-      Rename tc:commandGroup to tc:commands
+      * Rename <<<\<tc:commandGroup\>>>> to <<<\<tc:commands\>>>>
 
-      New tc:buttons
+      * <<<\<tc:nav\>>>> attributes label and image was removed: use <<<\<f:facet name="brand"\>>>> with a <<<\<tc:link\>>>> inside
 
-      tc:nav attributes label and image was removed: use <f:facet
-      name="brand"> with a <tc:link> inside
+      * The attribute <<<execute>>> of <<<\<f:ajax\>>>> is now implemented.
 
 * April 26, 2016 - Switching Subversion trunk to Tobago 3.0.x
 
