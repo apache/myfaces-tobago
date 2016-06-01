@@ -22,50 +22,113 @@
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:f="http://java.sun.com/jsf/core">
+  <ui:param name="title" value="#{overviewBundle.group} &lt;tc:in>"/>
 
-  <tc:section label="Input Groups">
+  <p>The <code class="language-markup">&lt;tc:in/></code> tag may be extended with the facet tags
+    <code class="language-markup">&lt;f:facet name="before"></code>
+    and <code class="language-markup">&lt;f:facet name="after"></code>.
+    With these, you can add text and dropdown menus to an input field.</p>
+  <tc:link label="Tag Library Documentation" image="image/feather-leaf.png" link="#{overviewBundle.tagDocUrl}/in.html"/>
 
-    <tc:in id="nogroup" label="No group"/>
-
-    <tc:in id="group" label="Group">
-      <f:facet name="before">
-        <i class="fa fa-money"/>
-      </f:facet>
-      <f:facet name="after">€</f:facet>
-    </tc:in>
-
-    <tc:in id="links" label="Links">
-      <f:facet name="before">
-        <tc:link image="fa-money"/>
-      </f:facet>
-      <f:facet name="after">
-        Some text ...
-      </f:facet>
-    </tc:in>
-
-    <tc:in id="singleselect" label="Single Select">
-      <f:facet name="before">
-        <tc:link omit="true">
-          <tc:selectOneRadio value="#{clientConfigController.theme}">
-            <f:facet name="change">
-              <tc:command action="#{clientConfigController.submit}"/>
-            </f:facet>
-            <tc:selectItems value="#{clientConfigController.themeItems}"/>
-          </tc:selectOneRadio>
-        </tc:link>
-      </f:facet>
-      <f:facet name="after">
-        <tc:link omit="true">
-          <tc:selectOneRadio value="#{clientConfigController.theme}">
-            <f:facet name="change">
-              <tc:command action="#{clientConfigController.submit}"/>
-            </f:facet>
-            <tc:selectItems value="#{clientConfigController.themeItems}"/>
-          </tc:selectOneRadio>
-        </tc:link>
-      </f:facet>
-    </tc:in>
-
+  <tc:section label="Text">
+    <p>The following example show how to add a text-label inside an input field.</p>
+    <tc:section label="Before">
+      <pre><code class="language-markup">&lt;tc:in>
+  &lt;f:facet name="before">https://example.com/&lt;/f:facet>
+&lt;/tc:in></code></pre>
+      <tc:in id="itextbefore">
+        <f:facet name="before">https://example.com/</f:facet>
+      </tc:in>
+    </tc:section>
+    <tc:section label="After">
+      <pre><code class="language-markup">&lt;tc:in label="Price">
+  &lt;f:facet name="after">.00 €&lt;/f:facet>
+&lt;/tc:in></code></pre>
+      <tc:in id="ipriceafter" label="Price">
+        <f:facet name="after">.00 €</f:facet>
+      </tc:in>
+    </tc:section>
   </tc:section>
 
+  <tc:section label="Commands">
+    <p>Press the 'Send'-Button to add your message to the chat.</p>
+    <pre><code class="language-markup">&lt;tc:in value="\#{groupController.newMessage}">
+  ...
+  &lt;f:facet name="after">
+    &lt;tc:command label="Send" action="\#{groupController.sendChat}">
+      &lt;f:ajax execute="inewmessage" render="tachatlog"/>
+    &lt;/tc:command>
+  &lt;/f:facet>
+&lt;/tc:in></code></pre>
+    <tc:textarea id="tachatlog" label="Chat" labelLayout="top" rows="5" value="#{groupController.chatlog}"/>
+    <tc:in id="inewmessage" value="#{groupController.newMessage}">
+      <f:facet name="before">User Two</f:facet>
+      <f:facet name="after">
+        <tc:command label="Send" action="#{groupController.sendChat}">
+          <f:ajax execute="inewmessage" render="tachatlog"/>
+        </tc:command>
+      </f:facet>
+    </tc:in>
+  </tc:section>
+
+  <tc:section label="Dropdown Menu">
+    <p>The following two examples show an input field with a dropdown element in front of.
+      Pressing the "SendTo"-Button will display a selectable list.
+      This list is different in the examples.
+      Notice that the <code>omit</code> attribute is set for <code class="language-markup">&lt;tc:link/></code>.</p>
+
+    <tc:section label="Commands">
+      <pre><code class="language-markup">&lt;tc:in placeholder="type a message">
+  &lt;f:facet name="before">
+    &lt;tc:link id="lsendtoc" label="\#{groupController.sendTo}" omit="true">
+      &lt;tc:command label="SendTo: Peter" actionListener="\#{groupController.sendToListener}">
+        &lt;f:ajax render="lsendtoc"/>
+      &lt;/tc:command>
+      ...
+    &lt;/tc:link>
+  &lt;/f:facet>
+&lt;/tc:in></code></pre>
+      <tc:in id="isendtoc" placeholder="type a message">
+        <f:facet name="before">
+          <tc:link id="lsendtoc" label="#{groupController.sendTo}" omit="true">
+            <tc:command label="SendTo: Peter" actionListener="#{groupController.sendToListener}">
+              <f:ajax render="lsendtoc"/>
+            </tc:command>
+            <tc:command label="SendTo: Bob" actionListener="#{groupController.sendToListener}">
+              <f:ajax render="lsendtoc"/>
+            </tc:command>
+            <tc:command label="SendTo: All" actionListener="#{groupController.sendToListener}">
+              <f:ajax render="lsendtoc"/>
+            </tc:command>
+          </tc:link>
+        </f:facet>
+      </tc:in>
+    </tc:section>
+
+    <tc:section label="Radio Buttons">
+      <pre><code class="language-markup">&lt;tc:in placeholder="type a message">
+  &lt;f:facet name="before">
+    &lt;tc:link id="lsendtorb" label="#{groupController.sendTo}" omit="true">
+      &lt;tc:selectOneRadio value="#{groupController.sendTo}">
+        &lt;tc:selectItem itemValue="SendTo: Peter"/>
+        ...
+        &lt;f:ajax render="lsendtorb"/>
+      &lt;/tc:selectOneRadio>
+    &lt;/tc:link>
+  &lt;/f:facet>
+&lt;/tc:in></code></pre>
+      <tc:in id="isendtorb" placeholder="type a message">
+        <f:facet name="before">
+          <tc:link id="lsendtorb" label="#{groupController.sendTo}" omit="true">
+            <tc:selectOneRadio value="#{groupController.sendTo}">
+              <tc:selectItem itemValue="SendTo: Peter"/>
+              <tc:selectItem itemValue="SendTo: Bob"/>
+              <tc:selectItem itemValue="SendTo: All"/>
+              <f:ajax render="lsendtorb"/>
+            </tc:selectOneRadio>
+          </tc:link>
+        </f:facet>
+      </tc:in>
+    </tc:section>
+  </tc:section>
 </ui:composition>

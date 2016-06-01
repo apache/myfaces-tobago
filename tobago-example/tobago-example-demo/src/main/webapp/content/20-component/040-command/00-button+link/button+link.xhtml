@@ -21,14 +21,16 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:f="http://java.sun.com/jsf/core">
   <ui:param name="title" value="#{overviewBundle.button_link} &lt;tc:link> &lt;tc:button>"/>
-  <p>The classic link can be set with the <code class="language-markup">&lt;tc:link/></code> tag.
-    You can also set a link by <code class="language-markup">&lt;tc:button/></code>.</p>
+  <p>A classic link can be set with the <code class="language-markup">&lt;tc:link/></code> tag.
+    You can also set a link by <code class="language-markup">&lt;tc:button/></code>.
+    The behavior of a link and a button is the same, it differs in the appearance.</p>
   <p>Tag Library Documentation:
     <tc:link label="&lt;tc:link/>" image="image/feather-leaf.png" link="#{overviewBundle.tagDocUrl}/link.html"/>
     |
     <tc:link label="&lt;tc:button/>" image="image/feather-leaf.png" link="#{overviewBundle.tagDocUrl}/button.html"/></p>
 
   <tc:section label="Basics">
+    <p>The next two sections show how a link and a button is set.</p>
     <tc:section label="&lt;tc:link>">
       <pre><code class="language-markup">&lt;tc:link label="apache.org" link="https://www.apache.org/"/></code></pre>
       <tc:link id="l1" label="apache.org" link="https://www.apache.org/"/>
@@ -41,7 +43,6 @@
       |
       <tc:link id="l5" label="Link with an image" image="image/feather-leaf.png" link="https://www.apache.org/"/>
     </tc:section>
-
     <tc:section label="&lt;tc:button>">
       <pre><code class="language-markup">&lt;tc:button label="apache.org" link="https://www.apache.org/"/></code></pre>
       <tc:button id="b1" label="apache.org" link="https://www.apache.org/"/>
@@ -49,6 +50,52 @@
       <tc:button id="b3" label="Resource" resource="faces/content/20-component/component.xhtml"/>
       <tc:button id="b4" label="Action" action="#{buttonLinkController.linkToComponentsRoot}"/>
       <tc:button id="b5" image="image/feather-leaf.png" link="https://www.apache.org/"/>
+    </tc:section>
+  </tc:section>
+
+  <tc:section label="Dropdown">
+    <p>Links and buttons can also be dropdown elements.
+      You can just put a link tag in another link or button tag
+      and set the <code>omit</code> attribute for the parent.</p>
+
+    <tc:section label="Dropdown Link">
+      <pre><code class="language-markup">&lt;tc:link label="MusicPlayer" omit="true">
+  &lt;tc:link image="fa-play-circle" label="Play"/>
+  ...
+&lt;/tc:link></code></pre>
+      <tc:link label="MusicPlayer" omit="true">
+        <tc:link image="fa-play-circle" label="Play"/>
+        <tc:link image="fa-pause-circle" label="Pause"/>
+        <tc:link image="fa-stop-circle" label="Stop"/>
+      </tc:link>
+    </tc:section>
+
+    <tc:section label="Dropdown Button">
+      <pre><code class="language-markup">&lt;tc:button label="MusicPlayer" omit="true">
+  &lt;tc:link image="fa-play-circle" label="Play"/>
+  ...
+&lt;/tc:button></code></pre>
+      <tc:button label="MusicPlayer" omit="true">
+        <tc:link image="fa-play-circle" label="Play"/>
+        <tc:link image="fa-pause-circle" label="Pause"/>
+        <tc:link image="fa-stop-circle" label="Stop"/>
+      </tc:button>
+    </tc:section>
+
+    <tc:section label="Dropdown with Radio Buttons">
+      <pre><code class="language-markup">&lt;tc:button label="Options" omit="true">
+  &lt;tc:selectOneRadio>
+    &lt;tc:selectItem itemValue="Option 1"/>
+    ...
+  &lt;/tc:selectOneRadio>
+&lt;/tc:button></code></pre>
+      <tc:button label="Options" omit="true">
+        <tc:selectOneRadio>
+          <tc:selectItem itemValue="Option 1"/>
+          <tc:selectItem itemValue="Option 2"/>
+          <tc:selectItem itemValue="Option 3"/>
+        </tc:selectOneRadio>
+      </tc:button>
     </tc:section>
   </tc:section>
 
@@ -90,9 +137,10 @@
       For example a new window/tab or a specific iframe (<code class="language-markup">&lt;tc:object/></code>).</p>
     <tc:section label="New Window">
       <pre><code
-              class="language-markup">&lt;tc:link label="open link in new window"
+              class="language-markup">&lt;tc:link label="open https://www.apache.org/ in new window"
         link="https://www.apache.org/" target="_blank"/></code></pre>
-      <p><tc:link label="open link in new window" link="https://www.apache.org/" target="_blank"/></p>
+      <p><tc:link label="open https://www.apache.org/ in new window" link="https://www.apache.org/" target="_blank"/>
+      </p>
     </tc:section>
     <tc:section label="IFrame">
       <p>The iframe is set with <code class="language-markup">&lt;tc:object name="objectframe" .../></code>

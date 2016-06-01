@@ -43,6 +43,7 @@
   <entry key="suggest">Suggest</entry>
   <entry key="textarea">Text Area</entry>
   <entry key="date">Date</entry>
+  <entry key="group">Input Group</entry>
   <entry key="output">Output Fields</entry>
   <entry key="out">Output</entry>
   <entry key="label">Label</entry>
@@ -58,9 +59,9 @@
   <entry key="selectManyCheckbox">Checkbox Group</entry>
   <entry key="selectManyListbox">Multiselection List</entry>
   <entry key="selectManyShuttle">Shuttle List</entry>
-  <entry key="default_command">Default Command</entry>
   <entry key="button_link">Link &amp; Button</entry>
-  <entry key="toolBar">Toolbar</entry>
+  <entry key="default_command">Default Command</entry>
+  <entry key="buttons">Button Group</entry>
   <entry key="menu">Menubar</entry>
   <entry key="container">Container</entry>
   <entry key="box">Content Box</entry>
@@ -68,6 +69,7 @@
   <entry key="separator">Separator</entry>
   <entry key="section">Section</entry>
   <entry key="header_footer">Header / Footer</entry>
+  <entry key="bar">Bar</entry>
   <entry key="popup">Popup Dialog</entry>
   <entry key="tab">Tab Group</entry>
   <entry key="tab_client">Client sided</entry>
@@ -120,6 +122,9 @@
   <entry key="dataAttribute">Data Attributes</entry>
   <entry key="roles">Roles</entry>
 
+  <!-- navigate : deprecated -->
+  <entry key="deprecated">Deprecated</entry>
+  <entry key="toolBar">Toolbar</entry>
 
   <entry key="validation-severity">Severity</entry>
   <entry key="browser">Browser</entry>
