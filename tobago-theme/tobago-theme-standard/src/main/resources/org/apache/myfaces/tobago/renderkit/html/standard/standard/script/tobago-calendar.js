@@ -134,7 +134,40 @@ Tobago.DateTime.analyzePattern = function (pattern) {
     console.warn("Pattern not supported: " + pattern);  // @DEV_ONLY
     pattern = "";
   }
-  if(pattern.search("G") > -1 || pattern.search("W") > -1 || pattern.search("F") > -1
+
+  var analyzedPattern = "";
+  var nextSegment = "";
+  var escMode = false;
+  for (i = 0; i < pattern.length; i++) {
+    var currentChar = pattern.charAt(i);
+    if (currentChar == "'" && escMode == false) {
+      escMode = true;
+      analyzedPattern += Tobago.DateTime.analyzePatternPart(nextSegment);
+      nextSegment = "";
+    } else if (currentChar == "'" && pattern.charAt(i + 1) == "'") {
+      if (escMode) {
+        nextSegment += "\\";
+      }
+      nextSegment += "'";
+      i++;
+    } else if (currentChar == "'" && escMode == true) {
+      escMode = false;
+      analyzedPattern += nextSegment;
+      nextSegment = "";
+    } else {
+      if (escMode) {
+        nextSegment += "\\";
+      }
+      nextSegment += currentChar;
+    }
+  }
+
+  return analyzedPattern;
+};
+
+Tobago.DateTime.analyzePatternPart = function (pattern) {
+
+  if (pattern.search("G") > -1 || pattern.search("W") > -1 || pattern.search("F") > -1
       || pattern.search("K") > -1 || pattern.search("z") > -1 || pattern.search("X") > -1) {
     console.warn("Pattern chars 'G', 'W', 'F', 'K', 'z' and 'X' are not supported: " + pattern); // @DEV_ONLY
     pattern = "";
@@ -197,7 +230,8 @@ Tobago.DateTime.analyzePattern = function (pattern) {
   if (pattern.search("SSSS") > -1) {
     pattern = pattern.replace(/SSSS+/g, "SSS");
   }
-  if (pattern.search("ZZZ") > -1) {
+  if (pattern.search("Z") > -1) {
+    pattern = pattern.replace(/\bZ\b/g, "ZZ");
     pattern = pattern.replace(/ZZZ+/g, "ZZ");
   }
 
