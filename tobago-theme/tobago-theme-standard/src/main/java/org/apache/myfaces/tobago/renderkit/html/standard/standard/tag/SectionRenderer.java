@@ -19,11 +19,15 @@
 
 package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
+import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.UISection;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
+import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
+import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
+import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
@@ -65,10 +69,19 @@ public class SectionRenderer extends RendererBase {
                 tag = HtmlElements.H6;
         }
 
+        writer.startElement(HtmlElements.DIV);
+        writer.writeClassAttribute(TobagoClass.SECTION__HEADER);
         writer.startElement(tag);
         final String image = section.getImage();
         HtmlRendererUtils.encodeIconWithLabel(writer, image, label);
         writer.endElement(tag);
+
+        final UIComponent bar = ComponentUtils.getFacet(section, Facets.bar);
+        if (bar != null) {
+            RenderUtils.encode(facesContext, bar);
+        }
+
+        writer.endElement(HtmlElements.DIV);
     }
 
     @Override

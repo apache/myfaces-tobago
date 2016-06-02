@@ -339,6 +339,12 @@ h6 > .fa:first-child {
   margin-right: 0.7em;
 }
 
+.tobago-section-header {
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
+}
+
 /* selectBooleanCheckbox ----------------------------------------------- */
 .tobago-selectBooleanCheckbox input {
   margin-right: 6px;
