@@ -25,6 +25,7 @@ import org.apache.myfaces.tobago.internal.util.Deprecation;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
+import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
@@ -67,6 +68,8 @@ public class BoxRenderer extends RendererBase {
     if (label != null || labelString != null || bar != null || toolbar != null) {
       writer.startElement(HtmlElements.DIV);
       writer.writeClassAttribute(BootstrapClass.CARD_HEADER);
+      writer.startElement(HtmlElements.DIV);
+      writer.writeClassAttribute(TobagoClass.BOX__HEADER);
 
       writer.startElement(HtmlElements.H3);
       if (label != null) {
@@ -85,6 +88,7 @@ public class BoxRenderer extends RendererBase {
         RenderUtils.encode(facesContext, bar);
       }
 
+      writer.endElement(HtmlElements.DIV);
       writer.endElement(HtmlElements.DIV);
     }
 

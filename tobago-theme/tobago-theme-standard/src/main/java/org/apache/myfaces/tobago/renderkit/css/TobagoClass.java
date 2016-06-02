@@ -41,6 +41,7 @@ public enum TobagoClass implements CssItem {
   HAS_INFO("has-info"),
   REQUIRED("required"),
 
+  BOX__HEADER("tobago-box-header"),
   FLEX_LAYOUT("tobago-flexLayout"),
   LABEL("tobago-label"),
   MENU_BAR("tobago-menuBar"),
