@@ -161,6 +161,13 @@ Tobago.DateTime.analyzePattern = function (pattern) {
       nextSegment += currentChar;
     }
   }
+  if (nextSegment != "") {
+    if (escMode) {
+      analyzedPattern += nextSegment;
+    } else {
+      analyzedPattern += Tobago.DateTime.analyzePatternPart(nextSegment);
+    }
+  }
 
   return analyzedPattern;
 };
