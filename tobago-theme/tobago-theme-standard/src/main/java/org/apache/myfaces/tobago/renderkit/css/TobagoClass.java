@@ -53,6 +53,9 @@ public enum TobagoClass implements CssItem {
   SECTION__HEADER("tobago-section-header"),
   SHEET__PAGING_INPUT("tobago-sheet-pagingInput"),
   SHEET__PAGING_OUTPUT("tobago-sheet-pagingOutput"),
+  SHEET__CELL__MARKUP__RIGHT("tobago-sheet-cell-markup-right"),
+  SHEET__CELL__MARKUP__CENTER("tobago-sheet-cell-markup-center"),
+  SHEET__CELL__MARKUP__JUSTIFY("tobago-sheet-cell-markup-justify"),
   SUGGEST("tobago-suggest");
 
   private static final Logger LOG = LoggerFactory.getLogger(TobagoClass.class);

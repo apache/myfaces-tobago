@@ -391,22 +391,7 @@ public class SheetRenderer extends RendererBase {
           if (isPure(column)) {
             markup = markup.add(Markup.PURE);
           }
-          final String textAlign = ComponentUtils.getStringAttribute(column, Attributes.align);
-          if (textAlign != null) {
-            switch (TextAlign.valueOf(textAlign)) {
-              case right:
-                markup = markup.add(Markup.RIGHT);
-                break;
-              case center:
-                markup = markup.add(Markup.CENTER);
-                break;
-              case justify:
-                markup = markup.add(Markup.JUSTIFY);
-                break;
-              default:
-                // nothing to do
-            }
-          }
+          markup = markup.add(getMarkupForAlign(column));
           writer.writeClassAttribute(Classes.create(sheet, "cell", markup));
 
           if (column instanceof UIColumnSelector) {
@@ -675,6 +660,23 @@ public class SheetRenderer extends RendererBase {
     writer.endElement(HtmlElements.DIV);
   }
 
+  private Markup getMarkupForAlign(UIColumn column) {
+    final String textAlign = ComponentUtils.getStringAttribute(column, Attributes.align);
+    if (textAlign != null) {
+      switch (TextAlign.valueOf(textAlign)) {
+        case right:
+          return Markup.RIGHT;
+        case center:
+          return Markup.CENTER;
+        case justify:
+          return Markup.JUSTIFY;
+        default:
+          // nothing to do
+      }
+    }
+    return null;
+  }
+
   private void encodeHeaderRows(
       final FacesContext facesContext, final UISheet sheet, final TobagoResponseWriter writer,
       final List<AbstractUIColumnBase> columns)
@@ -687,9 +689,13 @@ public class SheetRenderer extends RendererBase {
 
     for (int i = 0; i < grid.getRowCount(); i++) {
       writer.startElement(HtmlElements.TR);
-      for (int j = 0; j < grid.getColumnCount(); j++) {
-        final Cell cell = grid.getCell(j, i);
-        if (cell instanceof OriginCell) {
+      for (int j = 0; j < columns.size(); j++) {
+        final AbstractUIColumnBase column = columns.get(j);
+        if (column instanceof AbstractUIColumnEvent) {
+          offset++;
+        } else {
+         final Cell cell = grid.getCell(j - offset , i);
+         if (cell instanceof OriginCell) {
           writer.startElement(HtmlElements.TH);
           if (cell.getColumnSpan() > 1) {
             writer.writeAttribute(HtmlAttributes.COLSPAN, cell.getColumnSpan());
@@ -702,9 +708,27 @@ public class SheetRenderer extends RendererBase {
           final boolean pure = !(cellComponent instanceof UIOut);
 
           writer.startElement(HtmlElements.DIV);
-          writer.writeClassAttribute(Classes.create(sheet, "headerCell"));
+          final CssItem align;
+          final String alignString = ComponentUtils.getStringAttribute(column, Attributes.align);
+          if (alignString != null) {
+            switch (TextAlign.valueOf(alignString)) {
+              case right:
+                align = TobagoClass.SHEET__CELL__MARKUP__RIGHT;
+                break;
+              case center:
+                align = TobagoClass.SHEET__CELL__MARKUP__CENTER;
+                break;
+              case justify:
+                align = TobagoClass.SHEET__CELL__MARKUP__JUSTIFY;
+                break;
+              default:
+                align = null;
+            }
+          } else {
+            align = null;
+          }
+          writer.writeClassAttribute(Classes.create(sheet, "headerCell"), align);
           writer.startElement(HtmlElements.SPAN);
-          final AbstractUIColumnBase column = columns.get(j + offset);
           Icons sorterIcon = null;
           Markup markup = Markup.NULL;
           String tip = ComponentUtils.getStringAttribute(column, Attributes.tip);
@@ -833,12 +857,13 @@ public class SheetRenderer extends RendererBase {
           writer.endElement(HtmlElements.SPAN);
           if (!autoLayout) {
             if (column.isResizable()) {
-              encodeResizing(writer, sheet, j + offset + cell.getColumnSpan() - 1);
+              encodeResizing(writer, sheet, j + cell.getColumnSpan() - 1);
             }
           }
           writer.endElement(HtmlElements.DIV);
 
           writer.endElement(HtmlElements.TH);
+        }
         }
       }
       if (!autoLayout) {
