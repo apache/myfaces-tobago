@@ -19,6 +19,7 @@
 
 package org.apache.myfaces.tobago.example.demo;
 
+import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.example.data.SolarObject;
 import org.apache.myfaces.tobago.model.SheetState;
 import org.apache.myfaces.tobago.util.ComponentUtils;
@@ -41,6 +42,8 @@ public class SheetController implements Serializable {
   private List<SolarObject> solarList;
   private SheetState sheetState;
   private SolarObject selectedSolarObject;
+  private boolean automaticLayout;
+  private List<Markup> markup;
 
   public SheetController() {
     solarList = SolarObject.getList();
@@ -84,5 +87,21 @@ public class SheetController implements Serializable {
     } else {
       return sheetState.getSelectedRows().get(0);
     }
+  }
+
+  public boolean isAutomaticLayout() {
+    return automaticLayout;
+  }
+
+  public void setAutomaticLayout(boolean automaticLayout) {
+    this.automaticLayout = automaticLayout;
+  }
+
+  public List<Markup> getMarkup() {
+    return markup;
+  }
+
+  public void setMarkup(List<Markup> markup) {
+    this.markup = markup;
   }
 }

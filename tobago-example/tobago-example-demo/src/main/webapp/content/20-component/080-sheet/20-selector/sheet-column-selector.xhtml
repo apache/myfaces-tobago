@@ -43,23 +43,23 @@
       &lt;tc:out value="\#{solarobject.name}"/>
     &lt;/tc:column>
     ...</code></pre>
-    <tc:sheet id="s4" value="#{sheetController.solarList}" var="solarobject" rows="2"
+    <tc:sheet id="s4" value="#{sheetController.solarList}" var="object" rows="2"
               selectable="singleOrNone" state="#{sheetController.sheetState}">
       <tc:columnSelector/>
       <tc:column label="Name">
-        <tc:out value="#{solarobject.name}"/>
+        <tc:out value="#{object.name}"/>
       </tc:column>
       <tc:column label="Orbit">
-        <tc:out value="#{solarobject.orbit}"/>
+        <tc:out value="#{object.orbit}"/>
       </tc:column>
       <tc:column label="Period (Days)">
-        <tc:out value="#{solarobject.period}"/>
+        <tc:out value="#{object.period}"/>
       </tc:column>
       <tc:column label="Discoverer">
-        <tc:out value="#{solarobject.discoverer}"/>
+        <tc:out value="#{object.discoverer}"/>
       </tc:column>
       <tc:column label="Year">
-        <tc:out value="#{solarobject.discoverYear}"/>
+        <tc:out value="#{object.discoverYear}"/>
       </tc:column>
     </tc:sheet>
 

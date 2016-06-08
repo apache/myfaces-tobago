@@ -20,32 +20,34 @@
 <ui:composition template="/main.xhtml"
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
-                xmlns:ui="http://java.sun.com/jsf/facelets">
-  <ui:param name="title" value="#{overviewBundle.sheet} &lt;tc:sheet>"/>
-  <p>A <code class="language-markup">&lt;tc:sheet/></code> tag can contain any number of
-    <code class="language-markup">&lt;tc:column/></code> tags.
-    The <code class="language-markup">&lt;tc:column/></code> tag is a container, which may contain
-    outputfields, labels, progress bars or even tab groups.</p>
-  <p>Tag Library Documentation:
-    <tc:link label="&lt;tc:sheet/>" image="image/feather-leaf.png"
-             link="#{overviewBundle.tagDocUrl}/sheet.html"/>
-    |
-    <tc:link label="&lt;tc:column/>" image="image/feather-leaf.png"
-             link="#{overviewBundle.tagDocUrl}/column.html"/></p>
+                xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core">
+  <ui:param name="title" value="#{overviewBundle.sheet} markups"/>
+  <p>This example, demonstrate the different markups defined for sheet.
+    These markups reflecting the styles from bootstrap.
+    <tc:selectOneRadio value="#{sheetController.automaticLayout}">
+      <f:facet name="change">
+        <tc:command/>
+      </f:facet>
+      <tc:selectItem itemLabel="Automatic table layout" itemValue="true"/>
+      <tc:selectItem itemLabel="Managed table layout" itemValue="false"/>
+    </tc:selectOneRadio>
 
-  <tc:section label="Basics">
-    <p>Two attributes should be recognized in a sheet.
-      The data of the sheet is set in the <code>value</code> attribute.
-      The variablename of a single entry is set by the <code>var</code> attribute, which can be used in the
-      <code class="language-markup">&lt;tc:column/></code> tags.
-      In this example, also the <code>rows</code> attribute is set. So only four rows are shown at a time.</p>
-    <pre><code class="language-markup">&lt;tc:sheet value="\#{sheetController.solarList}"
-    var="solarobject" rows="4">
-  &lt;tc:column label="Name">
-    &lt;tc:out value="\#{solarobject.name}"/>
-      ...</code></pre>
-    <tc:sheet id="s1" value="#{sheetController.solarList}" var="object" rows="4">
-      <tc:style maxHeight="500px"/>
+    <tc:selectManyShuttle value="#{sheetController.markup}">
+      <f:facet name="change">
+        <tc:command/>
+      </f:facet>
+      <tc:selectItem itemLabel="Inverse" itemValue="inverse"/>
+      <tc:selectItem itemLabel="Striped" itemValue="striped"/>
+      <tc:selectItem itemLabel="Bordered" itemValue="bordered"/>
+      <tc:selectItem itemLabel="Hover" itemValue="hover"/>
+      <tc:selectItem itemLabel="Small" itemValue="small"/>
+    </tc:selectManyShuttle>
+  </p>
+
+  <tc:section label="Markup: inverse">
+    <pre><code class="language-markup">&lt;tc:sheet markup="inverse" ...></code></pre>
+    <tc:sheet markup="#{sheetController.markup}" value="#{sheetController.solarList}" var="object" rows="4"
+              columns="#{sheetController.automaticLayout ? '*;*;*;*;*' : null}">
       <tc:column label="Name">
         <tc:out value="#{object.name}"/>
       </tc:column>
@@ -63,4 +65,5 @@
       </tc:column>
     </tc:sheet>
   </tc:section>
+
 </ui:composition>

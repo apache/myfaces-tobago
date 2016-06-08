@@ -129,6 +129,11 @@
         <renderer>
           <name>Menu</name>
           <supported-markup>
+            <markup>inverse</markup>
+            <markup>striped</markup>
+            <markup>bordered</markup>
+            <markup>hover</markup>
+            <markup>small</markup>
             <!-- internal: for the root of the menu -->
             <markup>top</markup>
             <!-- internal: to mark "cursor" position in the menu -->

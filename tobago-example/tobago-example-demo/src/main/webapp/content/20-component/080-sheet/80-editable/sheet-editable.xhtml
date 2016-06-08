@@ -25,13 +25,13 @@
   <ui:param name="title" value="#{overviewBundle.sheet_editable} &lt;tc:sheet>"/>
 
   <tc:section label="Editable Sheet" id="basics">
-    <tc:sheet id="s1" value="#{sheetController.solarList}" var="solarobject" rows="5">
+    <tc:sheet id="s1" value="#{sheetController.solarList}" var="object" rows="5">
       <tc:style maxHeight="500px"/>
       <tc:column label="Name">
-        <tc:in value="#{solarobject.name}"/>
+        <tc:in value="#{object.name}"/>
       </tc:column>
       <tc:column label="Distance">
-        <tc:in value="#{solarobject.distance}"/>
+        <tc:in value="#{object.distance}"/>
       </tc:column>
 <!-- XXX discoverYear year doesn't work, because the java.util.Date conflicts with java.lang.Interger
       <tc:column label="discoverYear">

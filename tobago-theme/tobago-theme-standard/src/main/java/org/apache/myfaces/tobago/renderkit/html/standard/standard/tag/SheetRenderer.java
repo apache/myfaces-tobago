@@ -231,6 +231,7 @@ public class SheetRenderer extends RendererBase {
     final List<AbstractUIColumnBase> columns = sheet.getAllColumns();
     final boolean showHeader = sheet.isShowHeader();
     final boolean autoLayout = sheet.isAutoLayout();
+    Markup sheetMarkup = sheet.getMarkup() != null ? sheet.getMarkup() : Markup.NULL;
 
     if (!autoLayout) {
       writer.startElement(HtmlElements.INPUT);
@@ -267,6 +268,30 @@ public class SheetRenderer extends RendererBase {
       expandedValue = new StringBuilder(",");
     }
 
+    final List<CssItem> cssItems = new ArrayList<CssItem>();
+    cssItems.add(BootstrapClass.TABLE);
+    if (sheetMarkup.contains(Markup.INVERSE)) {
+      cssItems.add(BootstrapClass.TABLE_INVERSE);
+    }
+    if (sheetMarkup.contains(Markup.STRIPED)) {
+      cssItems.add(BootstrapClass.TABLE_STRIPED);
+    }
+    if (sheetMarkup.contains(Markup.BORDERED)) {
+      cssItems.add(BootstrapClass.TABLE_BORDERED);
+    }
+    if (sheetMarkup.contains(Markup.HOVER)) {
+      cssItems.add(BootstrapClass.TABLE_HOVER);
+    }
+    if (sheetMarkup.contains(Markup.SMALL)) {
+      cssItems.add(BootstrapClass.TABLE_SM);
+    }
+    if (!autoLayout) {
+      cssItems.add(TobagoClass.TABLE_LAYOUT__FIXED);
+    }
+    if (selectable != Selectable.none) {
+      cssItems.add(BootstrapClass.TABLE_HOVER);
+    }
+
 // BEGIN RENDER BODY CONTENT
 
     if (showHeader && !autoLayout) {
@@ -278,8 +303,7 @@ public class SheetRenderer extends RendererBase {
       writer.writeAttribute(HtmlAttributes.CELLSPACING, "0", false);
       writer.writeAttribute(HtmlAttributes.CELLPADDING, "0", false);
       writer.writeAttribute(HtmlAttributes.SUMMARY, "", false);
-      writer.writeClassAttribute(Classes.create(sheet, "headerTable"),
-          BootstrapClass.TABLE, BootstrapClass.TABLE_BORDERED, TobagoClass.TABLE_LAYOUT__FIXED);
+      writer.writeClassAttribute(Classes.create(sheet, "headerTable"), cssItems.toArray(new CssItem[cssItems.size()]));
 
       writeColgroup(writer, columnWidths, columns);
 
@@ -298,13 +322,7 @@ public class SheetRenderer extends RendererBase {
     writer.writeAttribute(HtmlAttributes.CELLSPACING, "0", false);
     writer.writeAttribute(HtmlAttributes.CELLPADDING, "0", false);
     writer.writeAttribute(HtmlAttributes.SUMMARY, "", false);
-    writer.writeClassAttribute(
-        Classes.create(sheet, "bodyTable"),
-        BootstrapClass.TABLE,
-        BootstrapClass.TABLE_BORDERED,
-        BootstrapClass.TABLE_SM,
-        selectable != Selectable.none ? BootstrapClass.TABLE_HOVER : null,
-        autoLayout ? null : TobagoClass.TABLE_LAYOUT__FIXED);
+    writer.writeClassAttribute(Classes.create(sheet, "bodyTable"), cssItems.toArray(new CssItem[cssItems.size()]));
 
     if (autoLayout) {
       writer.startElement(HtmlElements.THEAD);

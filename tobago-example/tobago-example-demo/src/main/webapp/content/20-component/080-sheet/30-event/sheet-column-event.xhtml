@@ -32,10 +32,10 @@
     <p>Select an object from the SolarObjects list.</p>
     <tc:segmentLayout medium="5;7">
       <tc:box label="Solar Objects">
-        <tc:sheet id="s1" value="#{sheetController.solarList}" var="solarobject" columns="1*">
+        <tc:sheet id="s1" value="#{sheetController.solarList}" var="object" columns="1*">
           <tc:style maxHeight="486px"/>
           <tc:column label="#{overviewBundle.solarArrayName}" id="name">
-            <tc:out value="#{solarobject.name}" id="t_name"/>
+            <tc:out value="#{object.name}" id="t_name"/>
           </tc:column>
           <tc:columnEvent event="click">
             <tc:command actionListener="#{sheetController.selectSolarObject}" immediate="true">
