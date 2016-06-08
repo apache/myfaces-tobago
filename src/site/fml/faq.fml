@@ -295,6 +295,50 @@ resource-path/content-type/theme/client/[tag(for renderer)|property|style|script
 mvn compile checkstyle:check</source>
       </answer>
     </faq>
+    <faq id="checkstyle-vdl">
+      <question>How do I check the syntax of Facelet-Files (*.xhtml) with respect to the Taglib?</question>
+      <answer>
+        <p>
+        The problem is, that there is no concept for <em>deprecation</em> in Taglibs.
+        The tobago-core.jar contains a generated checkstyle configuration to perform
+        a syntax check via the maven checkstyle plugin.
+        </p>
+
+        <p>
+        Configure in the applications pom.xml an entry like this example
+        <source>    &lt;profile>
+      &lt;id>checkstyle-for-view-definition-language&lt;/id>
+      &lt;build>
+        &lt;plugins>
+          &lt;plugin>
+            &lt;groupId>org.apache.maven.plugins&lt;/groupId>
+            &lt;artifactId>maven-checkstyle-plugin&lt;/artifactId>
+            &lt;configuration>
+              &lt;configLocation>META-INF/checkstyle-tobago.xml&lt;/configLocation>
+              &lt;includes>**/*.xhtml&lt;/includes>
+              &lt;excludes>**/*.java&lt;/excludes>
+              &lt;sourceDirectory>src/main/webapp&lt;/sourceDirectory>
+            &lt;/configuration>
+            &lt;dependencies>
+              &lt;dependency>
+                &lt;groupId>org.apache.myfaces.tobago&lt;/groupId>
+                &lt;artifactId>tobago-core&lt;/artifactId>
+                &lt;version>${tobago.version}&lt;/version>
+              &lt;/dependency>
+            &lt;/dependencies>
+          &lt;/plugin>
+        &lt;/plugins>
+      &lt;/build>
+    &lt;/profile>
+        </source>
+        </p>
+        <p>
+        To perform a check call
+        <source>
+mvn checkstyle:check -Pcheckstyle-for-view-definition-language</source>
+          You will find the result in target/checkstyle-result.xml
+        </p>      </answer>
+    </faq>
     <faq id="max-path">
       <question>Why my Subversion checkout fails on Windows?</question>
       <answer>
