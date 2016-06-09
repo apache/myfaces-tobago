@@ -20,7 +20,8 @@
 <ui:composition template="/main.xhtml"
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
-                xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core">
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core">
   <ui:param name="title" value="#{overviewBundle.sheet} markups"/>
   <p>This example, demonstrate the different markups defined for sheet.
     These markups reflecting the styles from bootstrap.
@@ -44,10 +45,10 @@
     </tc:selectManyShuttle>
   </p>
 
-  <tc:section label="Markup: inverse">
-    <pre><code class="language-markup">&lt;tc:sheet markup="inverse" ...></code></pre>
+  <tc:section label="Markup">
+    <pre><code class="language-markup">&lt;tc:sheet markup="inverse hover" ...></code></pre>
     <tc:sheet markup="#{sheetController.markup}" value="#{sheetController.solarList}" var="object" rows="4"
-              columns="#{sheetController.automaticLayout ? '*;*;*;*;*' : null}">
+              columns="#{sheetController.automaticLayout ? null : '*;*;*;*;*'}">
       <tc:column label="Name">
         <tc:out value="#{object.name}"/>
       </tc:column>
