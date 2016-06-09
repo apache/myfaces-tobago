@@ -288,9 +288,6 @@ public class SheetRenderer extends RendererBase {
     if (!autoLayout) {
       cssItems.add(TobagoClass.TABLE_LAYOUT__FIXED);
     }
-    if (selectable != Selectable.none) {
-      cssItems.add(BootstrapClass.TABLE_HOVER);
-    }
 
 // BEGIN RENDER BODY CONTENT
 
