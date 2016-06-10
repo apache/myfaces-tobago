@@ -73,7 +73,7 @@ public class SelectManyCheckboxRenderer extends SelectManyRendererBase {
       writer.startElement(HtmlElements.LABEL);
       writer.startElement(HtmlElements.INPUT);
       writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.CHECKBOX);
-      final String formattedValue = RenderUtils.getFormattedValue(facesContext, select, item.getValue());
+      final String formattedValue = ComponentUtils.getFormattedValue(facesContext, select, item.getValue());
       boolean checked;
       if (submittedValues == null) {
         checked = RenderUtils.contains(values, item.getValue());

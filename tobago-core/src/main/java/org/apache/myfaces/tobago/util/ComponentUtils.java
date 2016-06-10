@@ -36,6 +36,7 @@ import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.el.ValueExpression;
 import javax.faces.FactoryFinder;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.NamingContainer;
@@ -49,6 +50,7 @@ import javax.faces.component.UIViewRoot;
 import javax.faces.component.ValueHolder;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
+import javax.faces.convert.ConverterException;
 import javax.faces.el.ValueBinding;
 import javax.faces.event.ActionEvent;
 import javax.faces.event.ActionListener;
@@ -69,7 +71,7 @@ public final class ComponentUtils {
   private static final Logger LOG = LoggerFactory.getLogger(ComponentUtils.class);
 
   public static final String SUB_SEPARATOR = "::";
-  
+
   private static final String RENDER_KEY_PREFIX
       = "org.apache.myfaces.tobago.util.ComponentUtils.RendererKeyPrefix_";
 
@@ -83,6 +85,7 @@ public final class ComponentUtils {
 
   /**
    * Name of the map for data attributes in components. New in JSF 2.2.
+   *
    * @since 2.0.0
    */
   public static final String DATA_ATTRIBUTES_KEY = "javax.faces.component.DATA_ATTRIBUTES_KEY";
@@ -302,7 +305,7 @@ public final class ComponentUtils {
   public static <T extends UIComponent> List<T> findDescendantList(final UIComponent component, final Class<T> type) {
 
     final List<T> result = new ArrayList<T>();
-    
+
     for (final UIComponent child : component.getChildren()) {
       if (type.isAssignableFrom(child.getClass())) {
         result.add((T) child);
@@ -593,16 +596,16 @@ public final class ComponentUtils {
    * The search depends on the number of prefixed colons in the relativeId:
    * </p>
    * <dl>
-   *   <dd>number of prefixed colons == 0</dd>
-   *   <dt>fully relative</dt>
-   *   <dd>number of prefixed colons == 1</dd>
-   *   <dt>absolute (still normal findComponent syntax)</dt>
-   *   <dd>number of prefixed colons == 2</dd>
-   *   <dt>search in the current naming container (same as 0 colons)</dt>
-   *   <dd>number of prefixed colons == 3</dd>
-   *   <dt>search in the parent naming container of the current naming container</dt>
-   *   <dd>number of prefixed colons &gt; 3</dd>
-   *   <dt>go to the next parent naming container for each additional colon</dt>
+   * <dd>number of prefixed colons == 0</dd>
+   * <dt>fully relative</dt>
+   * <dd>number of prefixed colons == 1</dd>
+   * <dt>absolute (still normal findComponent syntax)</dt>
+   * <dd>number of prefixed colons == 2</dd>
+   * <dt>search in the current naming container (same as 0 colons)</dt>
+   * <dd>number of prefixed colons == 3</dd>
+   * <dt>search in the parent naming container of the current naming container</dt>
+   * <dd>number of prefixed colons &gt; 3</dd>
+   * <dt>go to the next parent naming container for each additional colon</dt>
    * </dl>
    * <p>
    * If a literal is specified: to use more than one identifier the identifiers must be space delimited.
@@ -783,7 +786,7 @@ public final class ComponentUtils {
   }
 
   /**
-   * Adding a data attribute to the component. 
+   * Adding a data attribute to the component.
    * The name must start with "data-", e. g. "data-tobago-foo" or "data-bar"
    */
   public static void putDataAttributeWithPrefix(
@@ -817,4 +820,41 @@ public final class ComponentUtils {
     Map<Object, Object> map = getDataAttributes(component);
     return map != null ? map.get(name) : null;
   }
+
+  public static Converter getConverter(final FacesContext facesContext, final UIComponent component) {
+
+    Converter converter = null;
+    if (component instanceof ValueHolder) {
+      converter = ((ValueHolder) component).getConverter();
+    }
+
+    if (converter == null) {
+      final ValueExpression valueExpression = component.getValueExpression("value");
+      if (valueExpression != null) {
+        final Class converterType = valueExpression.getType(facesContext.getELContext());
+        if (converterType != null && converterType != String.class && converterType != Object.class) {
+          converter = facesContext.getApplication().createConverter(converterType);
+        }
+      }
+    }
+
+    return converter;
+  }
+
+  public static String getFormattedValue(
+      final FacesContext facesContext, final UIComponent component, final Object currentValue)
+      throws ConverterException {
+
+    if (currentValue == null) {
+      return "";
+    }
+
+    final Converter converter = ComponentUtils.getConverter(facesContext, component);
+    if (converter != null) {
+      return converter.getAsString(facesContext, component, currentValue);
+    } else {
+      return currentValue.toString();
+    }
+  }
+
 }

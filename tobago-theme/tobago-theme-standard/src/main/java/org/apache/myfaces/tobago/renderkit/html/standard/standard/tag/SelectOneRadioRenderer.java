@@ -76,7 +76,7 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
       writer.startElement(HtmlElements.LABEL);
       writer.startElement(HtmlElements.INPUT);
       writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.RADIO);
-      final String formattedValue = RenderUtils.getFormattedValue(facesContext, select, item.getValue());
+      final String formattedValue = ComponentUtils.getFormattedValue(facesContext, select, item.getValue());
       boolean checked;
       if (submittedValue == null) {
         checked = ObjectUtils.equals(item.getValue(), value);

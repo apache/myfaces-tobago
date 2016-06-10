@@ -24,7 +24,6 @@ import org.apache.myfaces.tobago.internal.context.ResourceManagerFactory;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
-import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
 import java.io.IOException;
 
@@ -59,11 +58,6 @@ public abstract class AbstractRendererBaseWrapper extends RendererBase {
   @Override
   protected final Object getValue(final UIComponent component) {
     return getRenderer(FacesContext.getCurrentInstance()).getValue(component);
-  }
-
-  @Override
-  public final Converter getConverter(final FacesContext facesContext, final UIComponent component) {
-    return getRenderer(facesContext).getConverter(facesContext, component);
   }
 
   @Override

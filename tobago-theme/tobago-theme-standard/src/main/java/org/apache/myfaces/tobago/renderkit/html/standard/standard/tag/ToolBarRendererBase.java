@@ -148,7 +148,7 @@ public abstract class ToolBarRendererBase extends RendererBase {
         ComponentUtils.setAttribute(command, Attributes.tip, item.getDescription());
       }
 
-      final String formattedValue = RenderUtils.getFormattedValue(facesContext, radio, item.getValue());
+      final String formattedValue = ComponentUtils.getFormattedValue(facesContext, radio, item.getValue());
       final boolean checked;
       if (ObjectUtils.equals(item.getValue(), value) || markFirst) {
         checked = true;

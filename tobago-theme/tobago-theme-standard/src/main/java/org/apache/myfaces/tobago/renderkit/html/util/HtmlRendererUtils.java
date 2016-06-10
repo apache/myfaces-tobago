@@ -224,7 +224,7 @@ public final class HtmlRendererUtils {
         if (itemValue instanceof String && values != null && values.length > 0 && !(values[0] instanceof String)) {
           itemValue = ComponentUtils.getConvertedValue(facesContext, component, (String) itemValue);
         }
-        final String formattedValue = RenderUtils.getFormattedValue(facesContext, component, itemValue);
+        final String formattedValue = ComponentUtils.getFormattedValue(facesContext, component, itemValue);
         boolean contains;
         if (submittedValues == null) {
           contains = RenderUtils.contains(values, itemValue);

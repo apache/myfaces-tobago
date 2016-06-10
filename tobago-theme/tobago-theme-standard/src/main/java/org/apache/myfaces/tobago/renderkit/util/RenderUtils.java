@@ -42,8 +42,6 @@ import javax.faces.component.behavior.ClientBehaviorContext;
 import javax.faces.component.behavior.ClientBehaviorHolder;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
-import javax.faces.convert.Converter;
-import javax.faces.convert.ConverterException;
 import javax.faces.render.ClientBehaviorRenderer;
 import java.io.IOException;
 import java.net.URLDecoder;
@@ -115,47 +113,6 @@ public final class RenderUtils {
     return false;
   }
 
-  public static String getFormattedValue(final FacesContext facesContext, final UIComponent component) {
-    Object value = null;
-    if (component instanceof ValueHolder) {
-      value = ((ValueHolder) component).getLocalValue();
-      if (value == null) {
-        value = ((ValueHolder) component).getValue();
-      }
-    }
-    return getFormattedValue(facesContext, component, value);
-  }
-
-  // Copy from RendererBase
-  public static String getFormattedValue(
-      final FacesContext context, final UIComponent component, final Object currentValue)
-      throws ConverterException {
-
-    if (currentValue == null) {
-      return "";
-    }
-
-    if (!(component instanceof ValueHolder)) {
-      return currentValue.toString();
-    }
-
-    Converter converter = ((ValueHolder) component).getConverter();
-
-    if (converter == null) {
-      if (currentValue instanceof String) {
-        return (String) currentValue;
-      }
-      final Class converterType = currentValue.getClass();
-      converter = context.getApplication().createConverter(converterType);
-    }
-
-    if (converter == null) {
-      return currentValue.toString();
-    } else {
-      return converter.getAsString(context, component, currentValue);
-    }
-  }
-
   public static String currentValue(final UIComponent component) {
     String currentValue = null;
     if (component instanceof ValueHolder) {
@@ -169,18 +126,7 @@ public final class RenderUtils {
 
       value = ((ValueHolder) component).getValue();
       if (value != null) {
-        Converter converter = ((ValueHolder) component).getConverter();
-        if (converter == null) {
-          final FacesContext context = FacesContext.getCurrentInstance();
-          converter = context.getApplication().createConverter(value.getClass());
-        }
-        if (converter != null) {
-          currentValue =
-              converter.getAsString(FacesContext.getCurrentInstance(),
-                  component, value);
-        } else {
-          currentValue = value.toString();
-        }
+        currentValue = ComponentUtils.getFormattedValue(FacesContext.getCurrentInstance(), component, value);
       }
     }
     return currentValue;

@@ -21,12 +21,10 @@ package org.apache.myfaces.tobago.renderkit;
 
 import org.apache.myfaces.tobago.context.ResourceManager;
 import org.apache.myfaces.tobago.internal.context.ResourceManagerFactory;
-import org.apache.myfaces.tobago.layout.Measure;
+import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.el.ValueExpression;
-import javax.faces.FacesException;
 import javax.faces.component.EditableValueHolder;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
@@ -62,40 +60,9 @@ public class RendererBase extends Renderer {
     String currentValue = null;
     final Object currentObj = getValue(component);
     if (currentObj != null) {
-      currentValue = getFormattedValue(facesContext, component, currentObj);
+      currentValue = ComponentUtils.getFormattedValue(facesContext, component, currentObj);
     }
     return currentValue;
-  }
-
-  protected String getFormattedValue(final FacesContext context, final UIComponent component, final Object currentValue)
-      throws ConverterException {
-
-    if (currentValue == null) {
-      return "";
-    }
-
-    if (!(component instanceof ValueHolder)) {
-      return currentValue.toString();
-    }
-
-    Converter converter = ((ValueHolder) component).getConverter();
-
-    if (converter == null) {
-      if (currentValue instanceof String) {
-        return (String) currentValue;
-      }
-      if (currentValue instanceof Measure) {
-        return ((Measure) currentValue).serialize();
-      }
-      final Class converterType = currentValue.getClass();
-      converter = context.getApplication().createConverter(converterType);
-    }
-
-    if (converter == null) {
-      return currentValue.toString();
-    } else {
-      return converter.getAsString(context, component, currentValue);
-    }
   }
 
   protected Object getValue(final UIComponent component) {
@@ -106,36 +73,13 @@ public class RendererBase extends Renderer {
     }
   }
 
-  public Converter getConverter(final FacesContext context, final UIComponent component) {
-    Converter converter = null;
-    if (component instanceof ValueHolder) {
-      converter = ((ValueHolder) component).getConverter();
-    }
-    if (converter == null) {
-      final ValueExpression valueExpression = component.getValueExpression("value");
-      if (valueExpression != null) {
-        final Class converterType = valueExpression.getType(context.getELContext());
-        if (converterType == null || converterType == String.class
-            || converterType == Object.class) {
-          return null;
-        }
-        try {
-          converter = context.getApplication().createConverter(converterType);
-        } catch (final FacesException e) {
-          LOG.error("No Converter found for type " + converterType);
-        }
-      }
-    }
-    return converter;
-  }
-
   @Override
   public Object getConvertedValue(final FacesContext context, final UIComponent component, final Object submittedValue)
       throws ConverterException {
     if (!(submittedValue instanceof String)) {
       return submittedValue;
     }
-    final Converter converter = getConverter(context, component);
+    final Converter converter = ComponentUtils.getConverter(context, component);
     if (converter != null) {
       return converter.getAsObject(context, component, (String) submittedValue);
     } else {
