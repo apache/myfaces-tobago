@@ -27,6 +27,12 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasId;
 
 import javax.faces.component.UIForm;
 
+/**
+ * If an action is preformed, everything within the next parent form belongs to the submit-area.
+ * An action could be a button which is pressed.
+ * tc:page is a form.
+ * Everything in the submit-area is written into the model, even other forms.
+ */
 @Tag(name = "form")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIForm",

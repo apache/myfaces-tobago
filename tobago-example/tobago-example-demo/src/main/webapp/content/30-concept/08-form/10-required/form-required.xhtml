@@ -53,16 +53,16 @@
 &lt;/tc:box></code></pre>
 
     <tc:box label="Outer Form">
-      <tc:form>
+      <tc:form id="outer">
         <tc:box label="Inner Form 1">
-          <tc:form>
+          <tc:form id="inner1">
             <tc:in id="innervalue1in" label="Inner Value 1" value="#{formRequiredController.innerValue1}"/>
             <tc:out id="innervalue1out" label="Inner Value 1 in Model" value="#{formRequiredController.innerValue1}"/>
             <tc:button label="Submit"/>
           </tc:form>
         </tc:box>
         <tc:box label="Inner Form 2">
-          <tc:form>
+          <tc:form id="inner2">
             <tc:in id="innervalue2in" label="Inner Value 2" required="true"
                    value="#{formRequiredController.innerValue2}"/>
             <tc:out id="innervalue2out" label="Inner Value 2 in Model" value="#{formRequiredController.innerValue2}"/>

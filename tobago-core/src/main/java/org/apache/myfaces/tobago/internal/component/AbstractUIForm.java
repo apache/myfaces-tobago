@@ -27,7 +27,6 @@ import org.slf4j.LoggerFactory;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIForm;
 import javax.faces.context.FacesContext;
-import javax.faces.event.ActionEvent;
 import javax.faces.event.AjaxBehaviorEvent;
 import javax.faces.event.FacesEvent;
 import java.util.Iterator;
@@ -106,7 +105,7 @@ public abstract class AbstractUIForm extends UIForm {
   @Override
   public void queueEvent(final FacesEvent event) {
 
-    if (event instanceof ActionEvent || event instanceof AjaxBehaviorEvent || isWrapped(event)) {
+    if (event instanceof AjaxBehaviorEvent || isWrapped(event)) {
       if (LOG.isDebugEnabled()) {
         LOG.debug("processing event={}", event);
       }
