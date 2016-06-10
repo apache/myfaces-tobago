@@ -114,7 +114,7 @@
 
           </tc:button>
         </tc:form>
-        <tc:form>
+        <tc:form id="navbtns">
           <tc:button immediate="true" id="previous"
                      image="fa-angle-left"
                      action="#{navigationState.gotoPrevious}"
@@ -128,6 +128,13 @@
           <tc:button action="#{navigationState.toggleViewSource}"
                      image="fa-code"
                      immediate="true" tip="#{overviewBundle.footer_viewSource}"/>
+          <tc:button id="runtest"
+                     link="/faces/test.xhtml"
+                     label="Run Test"
+                     immediate="true" tip="Run Test">
+            <f:param name="page" value="#{testController.page}"/>
+            <f:param name="testjs" value="#{testController.testJs}"/>
+          </tc:button>
         </tc:form>
       </tc:flowLayout>
 

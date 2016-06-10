@@ -19,6 +19,7 @@
 
 package org.apache.myfaces.tobago.example.demo;
 
+import java.io.File;
 import java.net.URL;
 
 import org.jboss.arquillian.container.test.api.Deployment;
@@ -53,22 +54,23 @@ public class ArquillianTest {
   @ArquillianResource
   private URL contextPath;
 
-  @FindBy(id = "page:i8::field")
+  @FindBy(id = "page:iajax::field")
   private WebElement input;
 
-  @FindBy(id = "page:outputfield")
+  @FindBy(id = "page:oajax")
   private WebElement output;
 
-  @FindByJQuery("#page\\:outputfield > label")
+  @FindByJQuery("#page\\:oajax > label")
   private WebElement outputLabel;
 
-  @FindByJQuery("#page\\:outputfield > span")
+  @FindByJQuery("#page\\:oajax > span")
   private WebElement outputField;
 
   @Deployment(testable = false)
   public static WebArchive createDeployment() {
+    File pom = new File("tobago-example/tobago-example-demo/pom.xml");
     WebArchive webArchive = ShrinkWrap.create(MavenImporter.class).
-            loadPomFromFile("pom.xml", "jsf-provided", "!myfaces-2.0").importBuildOutput()
+            loadPomFromFile(pom, "jsf-provided", "!myfaces-2.0").importBuildOutput()
             .as(WebArchive.class);
     // XXX there should be a proper profile in POM for that
     webArchive.delete("/WEB-INF/lib/hibernate-validator-4.3.2.Final.jar");
