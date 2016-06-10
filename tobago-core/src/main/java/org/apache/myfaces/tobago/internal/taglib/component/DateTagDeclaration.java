@@ -48,8 +48,10 @@ import javax.faces.component.UIInput;
 
 /**
  * Renders a date input field.
- *
+ * <p>
  * For a time input field set you'll need to set the &lt;f:convertDateTime type="time"&gt; inside the &lt;tc:date&gt;.
+ * <p>
+ * If there is no converter given, a default instance of {@link javax.faces.convert.DateTimeConverter} will be used.
  */
 @Tag(name = "date")
 @UIComponentTag(
@@ -60,10 +62,10 @@ import javax.faces.component.UIInput;
     rendererType = RendererTypes.DATE,
     allowedChildComponenents = "NONE",
     facets = {
-    @Facet(name = Facets.CHANGE,
-        description =
-            "This facet can contain a UICommand that is invoked in a case of a change event from the component")
-        })
+        @Facet(name = Facets.CHANGE,
+            description =
+                "This facet can contain a UICommand that is invoked in a case of a change event from the component")
+    })
 public interface DateTagDeclaration
     extends HasAccessKey, HasValidator, HasValue, HasValueChangeListener, HasTabIndex, IsFocus, IsVisual,
     HasValidatorMessage, HasConverterMessage, HasRequiredMessage, HasIdBindingAndRendered, IsReadonly,

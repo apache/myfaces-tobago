@@ -66,7 +66,7 @@ public final class DateFormatUtils {
     return pattern;
   }
 
-  public static DateFormat getDateFormat(
+  private static DateFormat getDateFormat(
       final String type, final String dateStyle, final String timeStyle, final Locale locale) {
     final DateFormat format;
     if (type.equals(TYPE_DATE)) {

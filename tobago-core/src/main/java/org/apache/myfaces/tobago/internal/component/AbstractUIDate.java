@@ -20,9 +20,11 @@
 package org.apache.myfaces.tobago.internal.component;
 
 import org.apache.myfaces.tobago.internal.util.DateFormatUtils;
+import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.DateTimeConverter;
 
@@ -32,15 +34,16 @@ public abstract class AbstractUIDate extends AbstractUIInput {
 
   public String getPattern() {
     String pattern = null;
-    final Converter help = getConverter();
-    if (help instanceof DateTimeConverter) {
-      final DateTimeConverter converter = (DateTimeConverter) help;
-      pattern = DateFormatUtils.findPattern(converter);
+    final FacesContext facesContext = getFacesContext();
+    final Converter converter = ComponentUtils.getConverter(facesContext, this);
+    if (converter instanceof DateTimeConverter) {
+      pattern = DateFormatUtils.findPattern((DateTimeConverter) converter);
     }
     if (pattern == null) {
-      pattern = "yyyy-MM-dd";
-      LOG.warn("Can't find the pattern for the converter! DatePicker may not work correctly. "
-          + "Trying to use: '" + pattern + "'");
+      if (LOG.isWarnEnabled()) {
+        LOG.warn("Can't find the pattern for the converter in component {}! DatePicker may not work correctly.",
+            getClientId(facesContext));
+      }
     }
     return pattern;
   }

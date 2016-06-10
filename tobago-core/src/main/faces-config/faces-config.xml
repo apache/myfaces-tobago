@@ -43,12 +43,16 @@
     <component-class>org.apache.myfaces.tobago.component.UIMenuSelectOne</component-class>
   </component>
 
+  <converter>
+    <converter-for-class>java.util.Date</converter-for-class>
+    <converter-class>javax.faces.convert.DateTimeConverter</converter-class>
+  </converter>
+
   <managed-bean>
     <managed-bean-name>tobagoClientProperties</managed-bean-name>
     <managed-bean-class>org.apache.myfaces.tobago.context.ClientProperties</managed-bean-class>
     <managed-bean-scope>session</managed-bean-scope>
   </managed-bean>
-
   <managed-bean>
     <managed-bean-name>tobagoContext</managed-bean-name>
     <managed-bean-class>org.apache.myfaces.tobago.context.TobagoContext</managed-bean-class>
