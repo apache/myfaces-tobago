@@ -39,6 +39,14 @@
   margin-bottom: -1px;
 }
 
+/* collapsible -------------------------------------------------------------- */
+
+/*.tobago-collapsed.tobago-box .card-block,*/
+/*.tobago-collapsed.tobago-section .tobago-section-content,*/
+/*.tobago-collapsed.tobago-panel {*/
+  /*display: none;*/
+/*}*/
+
 /* date -------------------------------------------------------------- */
 
 /* XXX hack */
@@ -191,6 +199,10 @@ table.tobago-gridLayout > tbody > tr:first-child > td {
 }
 
 /* messages ----------------------------------------------------------- */
+
+.tobago-messages label {
+  display: block;
+}
 
 .tobago-messages label:last-child {
   margin-bottom: 0;
