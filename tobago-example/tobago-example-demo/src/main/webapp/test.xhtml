@@ -21,6 +21,7 @@
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns="http://www.w3.org/1999/xhtml">
+  <tc:script file="script/demo.js"/>
   <tc:script file="script/qunit-1.23.1.js"/>
   <tc:style file="style/qunit-1.23.1.css"/>
   <tc:script file="#{param['testjs']}"/>
@@ -29,6 +30,6 @@
   <div id="qunit-fixture"></div>
 
   <tc:object id="testframe" src="#{param['page']}">
-    <tc:style width="100%" height="800px"/>
+    <tc:style width="100%"/>
   </tc:object>
 </ui:composition>

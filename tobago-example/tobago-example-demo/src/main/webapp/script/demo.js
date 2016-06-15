@@ -70,6 +70,28 @@ var initInspect = function (elements) {
 Tobago.registerListener(initInspect, Tobago.Phase.DOCUMENT_READY);
 Tobago.registerListener(initInspect, Tobago.Phase.AFTER_UPDATE);
 
+var initTestButtons = function () {
+  var $runButton = jQuery("#page\\:navbtns\\:runtest");
+  var $closeButton = jQuery("#page\\:navbtns\\:closetest");
+
+  if (jQuery(parent.document.getElementById("qunit")).length) {
+    $runButton.hide();
+    $closeButton.attr("onclick", "window.top.location.href = location.href");
+  } else {
+    $closeButton.hide();
+  }
+};
+
+Tobago.registerListener(initTestButtons, Tobago.Phase.DOCUMENT_READY);
+Tobago.registerListener(initTestButtons, Tobago.Phase.AFTER_UPDATE);
+
+var initTestframe = function () {
+  jQuery("#page\\:testframe").attr("onload", "this.height = this.contentWindow.jQuery('body').prop('scrollHeight');");
+};
+
+Tobago.registerListener(initTestframe, Tobago.Phase.DOCUMENT_READY);
+Tobago.registerListener(initTestframe, Tobago.Phase.AFTER_UPDATE);
+
 Demo = {};
 
 /**

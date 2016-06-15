@@ -15,24 +15,10 @@
  * limitations under the License.
  */
 
+function jQueryFrame(expression) {
+  return document.getElementById("page:testframe").contentWindow.jQuery(expression);
+}
+
 QUnit.test("suggest test", function (assert) {
   assert.equal("not implemented", "not implemented yet");
-  // var $inputField = jQuery(document).find("#page\\:in\\:\\:field");
-  // var $outputField = jQuery(document).find("#page\\:out > span:first");
-  // var $button = jQuery(document).find("#page\\:button");
-
-  // assert.equal($inputField.val(), "");
-  // assert.equal($outputField.text(), "");
-  //
-  // $inputField.val("abc");
-  // assert.equal($inputField.val(), "abc");
-  // // assert.equal("123", "qwe");
-  // assert.equal($outputField.text(), "");
-  //
-  // $button.click();
-  // var done = assert.async();
-  // setTimeout(function () {
-  //   assert.equal(content().find("#page\\:out > span:first").text(), "abc");
-  //   done();
-  // }, 500);
 });

@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-function jQueryFrame(expression){
+function jQueryFrame(expression) {
   return document.getElementById("page:testframe").contentWindow.jQuery(expression);
 }
 
@@ -27,12 +27,7 @@ QUnit.test("inputfield with label", function (assert) {
   assert.equal($inputField.val(), "Some Text");
 
   $inputField.val("abc");
-
-  var done = assert.async();
-  setTimeout(function () {
-    assert.equal($inputField.val(), "abc");
-    done();
-  }, 50);
+  assert.equal($inputField.val(), "abc");
 });
 
 QUnit.test("ajax change event", function (assert) {

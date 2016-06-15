@@ -131,10 +131,13 @@
           <tc:button id="runtest"
                      link="/faces/test.xhtml"
                      label="Run Test"
-                     immediate="true" tip="Run Test">
+                     immediate="true" tip="Run Test"
+                     rendered="#{testController.testJs != null}">
             <f:param name="page" value="#{testController.page}"/>
             <f:param name="testjs" value="#{testController.testJs}"/>
           </tc:button>
+          <tc:button id="closetest" label="Close Test"
+                     immediate="true" tip="Close test window"/>
         </tc:form>
       </tc:flowLayout>
 
