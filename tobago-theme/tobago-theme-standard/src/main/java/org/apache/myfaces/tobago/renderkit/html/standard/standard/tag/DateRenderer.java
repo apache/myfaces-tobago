@@ -87,10 +87,13 @@ public class DateRenderer extends InRenderer {
     writer.writeAttribute(HtmlAttributes.TYPE, HtmlButtonTypes.BUTTON);
     writer.writeAttribute(HtmlAttributes.DISABLED, date.isDisabled() || date.isReadonly());
 
-    if (StringUtils.containsAny(pattern, "yYMDdE")) {
+    final boolean hasDate = StringUtils.containsAny(pattern, "yYMDdE");
+    final boolean hasTime = StringUtils.containsAny(pattern, "Hhms");
+
+    if (hasDate || !hasTime) { //  || !hasTime is, to have at least one icon
       writer.writeIcon(Icons.CALENDAR);
     }
-    if (StringUtils.containsAny(pattern, "Hhms")) {
+    if (hasTime) {
       writer.writeIcon(Icons.CLOCK_O);
     }
 
