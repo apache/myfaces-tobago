@@ -821,7 +821,8 @@ public final class ComponentUtils {
     return map != null ? map.get(name) : null;
   }
 
-  public static Converter getConverter(final FacesContext facesContext, final UIComponent component) {
+  public static Converter getConverter(
+      final FacesContext facesContext, final UIComponent component, final Object value) {
 
     Converter converter = null;
     if (component instanceof ValueHolder) {
@@ -831,7 +832,16 @@ public final class ComponentUtils {
     if (converter == null) {
       final ValueExpression valueExpression = component.getValueExpression("value");
       if (valueExpression != null) {
-        final Class converterType = valueExpression.getType(facesContext.getELContext());
+        Class converterType = null;
+        if (value != null) {
+          converterType = value.getClass();
+        } else {
+          try {
+            converterType = valueExpression.getType(facesContext.getELContext());
+          } catch (Exception e) {
+            // ignore, seems not to be possible, when EL is a funktion like #{bean.getName(item.id)}
+          }
+        }
         if (converterType != null && converterType != String.class && converterType != Object.class) {
           converter = facesContext.getApplication().createConverter(converterType);
         }
@@ -849,7 +859,7 @@ public final class ComponentUtils {
       return "";
     }
 
-    final Converter converter = ComponentUtils.getConverter(facesContext, component);
+    final Converter converter = ComponentUtils.getConverter(facesContext, component, currentValue);
     if (converter != null) {
       return converter.getAsString(facesContext, component, currentValue);
     } else {

@@ -35,7 +35,7 @@ public abstract class AbstractUIDate extends AbstractUIInput {
   public String getPattern() {
     String pattern = null;
     final FacesContext facesContext = getFacesContext();
-    final Converter converter = ComponentUtils.getConverter(facesContext, this);
+    final Converter converter = ComponentUtils.getConverter(facesContext, this, getSubmittedValue());
     if (converter instanceof DateTimeConverter) {
       pattern = DateFormatUtils.findPattern((DateTimeConverter) converter);
     }

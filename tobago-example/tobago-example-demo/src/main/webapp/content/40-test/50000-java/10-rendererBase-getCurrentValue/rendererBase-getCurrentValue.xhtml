@@ -19,14 +19,20 @@
 
 <ui:composition template="/main.xhtml"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
-                xmlns:ui="http://java.sun.com/jsf/facelets">
+                xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html">
 
   <ui:param name="title" value="Test: RendererBase.getCurrentValue()"/>
 
   <tc:out id="outString" labelLayout="none" value="#{currentValueController.string}"/>
 
+  <tc:out id="outStringFromMethod" labelLayout="none" value="#{currentValueController.toUpperCase('Hello world!')}"/>
+
   <tc:out id="outDate" labelLayout="none" value="#{currentValueController.date}"/>
 
-  <tc:out id="outMethod" labelLayout="none" value="#{currentValueController.toUpperCase('Hello world!')}"/>
+  <tc:out id="outDateFromMethod" labelLayout="none" value="#{currentValueController.plus50(currentValueController.date)}"/>
+
+  <tc:out id="outCurrency" labelLayout="none" value="#{currentValueController.currency}"/>
+
+  <tc:out id="outCurrencyFromMethod" labelLayout="none" value="#{currentValueController.toCurrency('ISK')}"/>
 
 </ui:composition>

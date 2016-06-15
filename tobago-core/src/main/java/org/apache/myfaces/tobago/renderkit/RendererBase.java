@@ -79,7 +79,7 @@ public class RendererBase extends Renderer {
     if (!(submittedValue instanceof String)) {
       return submittedValue;
     }
-    final Converter converter = ComponentUtils.getConverter(context, component);
+    final Converter converter = ComponentUtils.getConverter(context, component, submittedValue);
     if (converter != null) {
       return converter.getAsObject(context, component, (String) submittedValue);
     } else {

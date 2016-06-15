@@ -106,7 +106,7 @@ public class QUnitTests {
 
   @Test
   public void allPages() {
-
+    LOG.warn("Not implemented yet!");
   }
 
   @Test
@@ -124,6 +124,12 @@ public class QUnitTests {
   @Test
   public void date() {
     String page = "content/40-test/1040-date/date.xhtml";
+    checkResults(page);
+  }
+
+  @Test
+  public void rendererBase_getCurrentValue() {
+    String page = "content/40-test/50000-java/10-rendererBase-getCurrentValue/rendererBase-getCurrentValue.xhtml";
     checkResults(page);
   }
 }

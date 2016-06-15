@@ -19,18 +19,31 @@ function jQueryFrame(expression) {
   return document.getElementById("page:testframe").contentWindow.jQuery(expression);
 }
 
+function test(assert, idSuffix, expectedText) {
+  var $out = jQueryFrame("#page\\:" + idSuffix);
+  assert.equal($out.text().trim(), expectedText);
+}
+
 QUnit.test("formatted values: out string", function (assert) {
-  var $out = jQueryFrame("#page\\:outString");
-  assert.equal($out.text().trim(), "simple string");
+  test(assert, "outString", "simple string");
+});
+
+QUnit.test("formatted values: out string from method", function (assert) {
+  test(assert, "outStringFromMethod", "HELLO WORLD!");
 });
 
 QUnit.test("formatted values: out date", function (assert) {
-  var $out = jQueryFrame("#page\\:outDate");
-  assert.equal($out.text().trim(), "24.07.1969");
+  test(assert, "outDate", "24.07.1969");
 });
 
-// TODO: we may need not trim() below, if we have a labelLayout="skip" freature to skip the sourounging container.
-QUnit.test("formatted values: out method", function (assert) {
-  var $out = jQueryFrame("#page\\:outMethod");
-  assert.equal($out.text().trim(), "HELLO WORLD!");
+QUnit.test("formatted values: out date from method", function (assert) {
+  test(assert, "outDateFromMethod", "24.07.2019");
+});
+
+QUnit.test("formatted values: out currency", function (assert) {
+  test(assert, "outCurrency", "TTD");
+});
+
+QUnit.test("formatted values: out currency from method", function (assert) {
+  test(assert, "outCurrencyFromMethod", "ISK");
 });
