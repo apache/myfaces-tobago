@@ -25,9 +25,9 @@ import org.slf4j.LoggerFactory;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 import java.io.Serializable;
-import java.util.Calendar;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.TimeZone;
 
 @RequestScoped
 @Named
@@ -37,11 +37,16 @@ public class DateController implements Serializable {
 
   private Date once;
   private Date onchange;
-  private Date randomTimeZoneDate;
+  private Date submitDate;
 
   public DateController() {
     once = new Date();
-    randomTimeZoneDate = new Date();
+    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+    try {
+      submitDate = sdf.parse("2016-05-22");
+    } catch (ParseException e) {
+      LOG.error("", e);
+    }
   }
 
   public Date getOnce() {
@@ -64,10 +69,11 @@ public class DateController implements Serializable {
     return new Date();
   }
 
-  public Date getDateWithRandomTimezone() {
-    Calendar cal = Calendar.getInstance();
-    int i = (int) (Math.random() * TimeZone.getAvailableIDs().length);
-    cal.setTimeZone(TimeZone.getTimeZone(TimeZone.getAvailableIDs()[i]));
-    return cal.getTime();
+  public Date getSubmitDate() {
+    return submitDate;
+  }
+
+  public void setSubmitDate(Date submitDate) {
+    this.submitDate = submitDate;
   }
 }

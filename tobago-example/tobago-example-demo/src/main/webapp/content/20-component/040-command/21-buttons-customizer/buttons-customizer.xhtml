@@ -18,15 +18,19 @@
 -->
 
 <ui:composition
-    template="/main.xhtml"
-    xmlns:tc="http://myfaces.apache.org/tobago/component"
-    xmlns:ui="http://java.sun.com/jsf/facelets"
-    xmlns:f="http://java.sun.com/jsf/core"
-    xmlns:c="http://java.sun.com/jsp/jstl/core">
-  <tc:box label="Customizable Buttons">
+        template="/main.xhtml"
+        xmlns:tc="http://myfaces.apache.org/tobago/component"
+        xmlns:ui="http://java.sun.com/jsf/facelets"
+        xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:c="http://java.sun.com/jsp/jstl/core">
+  <ui:param name="title" value="#{overviewBundle.buttons_customizer}  &lt;tc:buttons>"/>
+  <p>The data of the model can also be loaded directly from the webapp directory.
+    So we can define an item for each facelet matching buttons-item-*.xhtml.
+    With this, we can create applications with pluggable UI. And we don't have to fight with bindings and
+    creating components in Java code.</p>
 
-    <tc:out value="This page shows a flexible possiblility, but for most cases there are
-    much simpler solutions."/>
+  <tc:section label="Customizable Button Group">
+    <p>This example shows a flexible possiblility, but for most cases there are much simpler solutions.</p>
 
     <tc:buttons id="buttons">
       <c:forEach items="#{customizer.list}" var="item">
@@ -60,10 +64,5 @@
     </tc:sheet>
 
     <tc:button label="Reset List" action="#{customizer.resetList}" image="fa-refresh"/>
-
-    <tc:out value="The data of the model may also be loaded directly from the webapp directory.
-       So we can define an Item for each facelet matching .../x-buttons-item-*.xhtml.
-       With this, we can create applications with pluggable UI. And we don't have to fight with bindings and
-       creating components in Java code."/>
-  </tc:box>
+  </tc:section>
 </ui:composition>

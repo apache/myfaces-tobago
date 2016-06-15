@@ -62,6 +62,7 @@
   <entry key="button_link">Link &amp; Button</entry>
   <entry key="default_command">Default Command</entry>
   <entry key="buttons">Button Group</entry>
+  <entry key="buttons_customizer">Button Group Customizer</entry>
   <entry key="menu">Menubar</entry>
   <entry key="container">Container</entry>
   <entry key="box">Content Box</entry>
@@ -124,6 +125,7 @@
 
   <!-- navigate : deprecated -->
   <entry key="deprecated">Deprecated</entry>
+  <entry key="tx">TX Tag Library</entry>
   <entry key="toolBar">Toolbar</entry>
 
   <entry key="validation-severity">Severity</entry>

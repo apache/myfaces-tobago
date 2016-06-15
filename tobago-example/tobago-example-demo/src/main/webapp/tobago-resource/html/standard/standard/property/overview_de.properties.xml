@@ -39,10 +39,6 @@
   <entry key="submit">Übernehmen</entry>
   <entry key="cancel">Abbrechen</entry>
 
-  <entry key="footer_previous">Zurück</entry>
-  <entry key="footer_next">Weiter</entry>
-  <entry key="footer_viewSource">Zeige Quellcode</entry>
-
 <!--  intro -->
   <entry key="intro_text">&lt;p&gt;Tobago ist ein User-Interface-Framework zur Erstellung von Webanwendungen.
     Das Framework stützt sich auf JavaServer Faces ab. Das Kernstück bildet ein Theme-orientiertes

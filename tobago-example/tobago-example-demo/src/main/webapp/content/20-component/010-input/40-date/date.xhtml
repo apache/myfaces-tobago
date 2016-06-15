@@ -39,13 +39,13 @@
     <p>The <code>value</code> must be a
       <tc:link label="Date" link="https://docs.oracle.com/javase/8/docs/api/java/util/Date.html"/>
       or a string with a matching pattern.</p>
-        <pre><code class="language-markup">&lt;tc:date label="Date" value="18.03.2016"&gt;
+        <pre><code class="language-markup">&lt;tc:date label="Date" value=\#{dateController.now}"&gt;
   &lt;f:convertDateTime pattern="dd.MM.yyyy"/&gt;
 &lt;/tc:date&gt;</code></pre>
-    <tc:date id="d1" label="Date" value="#{dateController.now}">
+    <tc:date id="dnormal" label="Date" value="#{dateController.now}">
       <f:convertDateTime pattern="dd.MM.yyyy"/>
     </tc:date>
-    <tc:date id="d2" label="Read Only" readonly="true" value="#{dateController.now}">
+    <tc:date id="dreadonly" label="Read Only" readonly="true" value="#{dateController.now}">
       <f:convertDateTime pattern="dd.MM.yyyy"/>
     </tc:date>
     <tc:date id="d3" label="Disabled" disabled="true" value="#{dateController.now}">
@@ -56,7 +56,8 @@
     </tc:date>
   </tc:section>
   <tc:section label="Focus">
-    <p>The following date should be selected after reloading the page. This can be done with the attribute <code>focus</code>.</p>
+    <p>The following date should be selected after reloading the page. This can be done with the attribute
+      <code>focus</code>.</p>
         <pre><code class="language-markup">&lt;tc:date label="Date (focus)" focus="true"&gt;
   &lt;f:convertDateTime pattern="dd.MM.yyyy"/&gt;
 &lt;/tc:date&gt;</code></pre>
@@ -166,6 +167,19 @@
       <f:convertDateTime dateStyle="full" timeStyle="full" type="both"/>
     </tc:date>
   </tc:section>
+  <tc:section label="Submit">
+    <tc:form id="fsbmt">
+      <p>Press the button to submit the date to the server. The output field show the current value.
+        The date can be changed with the datepicker or by entering a valid date in the textfield.</p>
+      <tc:date id="sbmtinput" label="Input" value="#{dateController.submitDate}">
+        <f:convertDateTime pattern="dd.MM.yyyy"/>
+      </tc:date>
+      <tc:out id="sbmtoutput" label="Output" value="#{dateController.submitDate}">
+        <f:convertDateTime pattern="dd.MM.yyyy"/>
+      </tc:out>
+      <tc:button id="sbmtbutton" label="Submit"/>
+    </tc:form>
+  </tc:section>
   <tc:section label="Ajax">
     <p>The outputfield in this example, display the given date.
       With <code class="language-markup">&lt;f:ajax render="outputfield"/></code>,
@@ -173,7 +187,7 @@
       after the date changed.
       The date can be changed by button or by entering a valid date in the textfield. If the date is not valid,
       it won't be adopted.</p>
-    <tc:date id="d14" label="On Change" value="#{dateController.onchange}">
+    <tc:date id="ajaxinput" label="On Change" value="#{dateController.onchange}">
       <f:convertDateTime pattern="dd.MM.yyyy"/>
       <f:ajax render="outputfield"/>
     </tc:date>
