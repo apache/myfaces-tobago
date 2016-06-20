@@ -435,7 +435,8 @@ public final class ComponentUtils {
 
   public static boolean mayValidate(final UIComponent component) {
     return !isOutputOnly(component)
-        && ComponentUtils.isInActiveForm(component);
+        && (FacesContext.getCurrentInstance().getPartialViewContext().isAjaxRequest()
+        || ComponentUtils.isInActiveForm(component));
   }
 
   public static boolean mayUpdateModel(final UIComponent component) {
