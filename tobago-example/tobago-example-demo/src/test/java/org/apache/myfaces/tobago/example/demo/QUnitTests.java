@@ -128,7 +128,7 @@ public class QUnitTests {
   }
 
   @Test
-  public void rendererBase_getCurrentValue() {
+  public void rendererBaseGetCurrentValue() {
     String page = "content/40-test/50000-java/10-rendererBase-getCurrentValue/rendererBase-getCurrentValue.xhtml";
     checkResults(page);
   }
