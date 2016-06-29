@@ -17,7 +17,20 @@
  * under the License.
  */
 
-package org.apache.myfaces.tobago.internal.component;
+package org.apache.myfaces.tobago.model;
 
-public abstract class AbstractUIPanel extends AbstractUICollapsiblePanel {
+public enum CollapseState {
+
+  visible,
+  hidden,
+  absent;
+
+  public static final String VISIBLE = "visible";
+  public static final String HIDDEN = "hidden";
+  public static final String ABSENT = "absent";
+
+  public boolean isSkipLifecycle() {
+    return this == absent;
+  }
+
 }

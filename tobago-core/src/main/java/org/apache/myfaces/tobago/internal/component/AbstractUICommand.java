@@ -24,6 +24,7 @@ import org.apache.myfaces.tobago.component.OnComponentPopulated;
 import org.apache.myfaces.tobago.component.SupportsAccessKey;
 import org.apache.myfaces.tobago.component.SupportsRenderedPartially;
 import org.apache.myfaces.tobago.component.Visual;
+import org.apache.myfaces.tobago.event.CollapsibleActionListener;
 import org.apache.myfaces.tobago.event.PopupFacetActionListener;
 import org.apache.myfaces.tobago.internal.util.AuthorizationHelper;
 import org.apache.myfaces.tobago.util.ComponentUtils;
@@ -41,6 +42,7 @@ import javax.faces.event.PhaseId;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.List;
 
 public abstract class AbstractUICommand
     extends UICommand
@@ -65,6 +67,10 @@ public abstract class AbstractUICommand
       if (!ComponentUtils.containsPopupActionListener(this)) {
         addActionListener(new PopupFacetActionListener());
       }
+    }
+    final List<AbstractUIOperation> list = ComponentUtils.findDescendantList(this, AbstractUIOperation.class);
+    for (AbstractUIOperation operation : list) {
+      addActionListener(new CollapsibleActionListener(this, operation.getFor()));
     }
   }
 

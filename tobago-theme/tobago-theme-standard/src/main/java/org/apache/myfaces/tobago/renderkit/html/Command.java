@@ -51,7 +51,9 @@ public class Command {
   private String focus;
   private String confirmation;
   private Integer delay;
+  @Deprecated
   private Popup popup;
+  private Collapse collapse;
   private Boolean omit;
 
   public Command() {
@@ -59,8 +61,8 @@ public class Command {
 
   public Command(
       final String action, final Boolean transition, final String target, final String url, final String execute,
-      final String render, final String focus, final String confirmation, final Integer delay, final Popup popup,
-      final Boolean omit) {
+      final String render, final String focus, final String confirmation, final Integer delay,
+      @Deprecated final Popup popup, final Collapse collapse, final Boolean omit) {
     this.action = action;
     this.transition = transition;
     this.target = target;
@@ -71,6 +73,7 @@ public class Command {
     this.confirmation = confirmation;
     this.delay = delay;
     this.popup = popup;
+    this.collapse = collapse;
     this.omit = omit;
   }
 
@@ -80,7 +83,8 @@ public class Command {
   @Deprecated
   public Command(
       final String action, final Boolean transition, final String target, final String url, final String partially,
-      final String focus, final String confirmation, final Integer delay, final Popup popup, final Boolean omit) {
+      final String focus, final String confirmation, final Integer delay, final Popup popup, final Collapse collapse,
+      final Boolean omit) {
     this.action = action;
     this.transition = transition;
     this.target = target;
@@ -90,6 +94,7 @@ public class Command {
     this.confirmation = confirmation;
     this.delay = delay;
     this.popup = popup;
+    this.collapse = collapse;
     this.omit = omit;
   }
 
@@ -104,6 +109,7 @@ public class Command {
         getConfirmation(command),
         null,
         Popup.createPopup(command),
+        AjaxClientBehaviorRenderer.createCollapsible(facesContext, command),
         command.isOmit());
   }
 
@@ -118,6 +124,7 @@ public class Command {
         getConfirmation(command),
         null,
         Popup.createPopup(command),
+        AjaxClientBehaviorRenderer.createCollapsible(facesContext, command),
         command.isOmit());
   }
 
@@ -260,6 +267,14 @@ public class Command {
 
   public void setPopup(final Popup popup) {
     this.popup = popup;
+  }
+
+  public Collapse getCollapse() {
+    return collapse;
+  }
+
+  public void setCollapse(Collapse collapse) {
+    this.collapse = collapse;
   }
 
   public Boolean getOmit() {

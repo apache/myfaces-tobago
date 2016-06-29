@@ -20,18 +20,16 @@
 package org.apache.myfaces.tobago.internal.component;
 
 import org.apache.myfaces.tobago.component.Facets;
-import org.apache.myfaces.tobago.component.Visual;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.faces.component.UIComponent;
-import javax.faces.component.UIComponentBase;
 import javax.faces.component.UIOutput;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 
-public abstract class AbstractUISection extends UIComponentBase implements Visual {
+public abstract class AbstractUISection extends AbstractUICollapsiblePanel {
 
   private static final Logger LOG = LoggerFactory.getLogger(AbstractUISection.class);
 
@@ -50,6 +48,8 @@ public abstract class AbstractUISection extends UIComponentBase implements Visua
   }
 
   public abstract String getLabel();
+
+  public abstract String getImage();
 
   @Override
   public void encodeBegin(FacesContext context) throws IOException {

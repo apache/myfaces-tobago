@@ -17,7 +17,27 @@
  * under the License.
  */
 
-package org.apache.myfaces.tobago.internal.component;
+package org.apache.myfaces.tobago.renderkit.html;
 
-public abstract class AbstractUIPanel extends AbstractUICollapsiblePanel {
+public class Collapse {
+
+  private Action action;
+  private String forId;
+
+  public Collapse(Action action, String forId) {
+    this.action = action;
+    this.forId = forId;
+  }
+
+  public Action getAction() {
+    return action;
+  }
+
+  public String getFor() {
+    return forId;
+  }
+
+  public enum Action {
+    show, hide, drop
+  }
 }

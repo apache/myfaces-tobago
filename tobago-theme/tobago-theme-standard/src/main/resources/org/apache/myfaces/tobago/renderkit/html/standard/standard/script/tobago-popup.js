@@ -35,3 +35,41 @@ Tobago.Popup.close = function(button) {
 
 Tobago.registerListener(Tobago.Popup.init, Tobago.Phase.DOCUMENT_READY);
 Tobago.registerListener(Tobago.Popup.init, Tobago.Phase.AFTER_UPDATE);
+
+Tobago.Collapse = {};
+
+Tobago.Collapse.findHidden = function ($element) {
+  return jQuery(Tobago.Utils.escapeClientId($element.attr("id") + "::collapse"));
+};
+
+Tobago.Collapse.execute = function (collapse) {
+  var transition = collapse.transition;
+  var $for = jQuery(Tobago.Utils.escapeClientId(collapse.forId));
+  var $hidden = Tobago.Collapse.findHidden($for);
+  var state = $hidden.val();
+  var newState;
+  switch (transition) {
+    case "hide":
+      newState = "hidden";
+      break;
+    case "show":
+      newState = "visible";
+      break;
+    case "drop":
+      newState = "absent";
+      break;
+    default:
+      console.error("unknown transition: '" + transition + "'");
+  }
+  if (newState == "visible") {
+    $for.removeClass("tobago-collapsed");
+  } else {
+    $for.addClass("tobago-collapsed");
+  }
+  var serverRequestRequired = state == "absent" || newState == "absent";
+  if (serverRequestRequired) {
+    console.info("serverRequestRequired!"); // todo: remove var serverRequestRequired: is not needed.
+    // tbd. this this must be done be the deveopoer manually
+  }
+  $hidden.val(newState);
+};

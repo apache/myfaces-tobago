@@ -17,7 +17,33 @@
  * under the License.
  */
 
-package org.apache.myfaces.tobago.internal.component;
+package org.apache.myfaces.tobago.event;
 
-public abstract class AbstractUIPanel extends AbstractUICollapsiblePanel {
+
+import org.apache.myfaces.tobago.model.CollapseState;
+
+import javax.faces.component.UIComponent;
+import javax.faces.event.ActionEvent;
+import javax.faces.event.PhaseId;
+
+
+public class CollapsibleActionEvent extends ActionEvent {
+
+  private static final long serialVersionUID = 1L;
+
+  private CollapseState newState;
+
+  public CollapsibleActionEvent(final UIComponent component, final CollapseState newState) {
+    super(component);
+    this.newState = newState;
+    setPhaseId(PhaseId.INVOKE_APPLICATION);
+  }
+
+  public CollapseState getNewState() {
+    return newState;
+  }
+
+  public void setNewState(CollapseState newState) {
+    this.newState = newState;
+  }
 }

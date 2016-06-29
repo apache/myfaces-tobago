@@ -330,6 +330,10 @@ SanitizeModeProperty(property) ::= <<
 <NormalProperty(property)>
 >>
 
+CollapseStateProperty(property) ::= <<
+<NormalProperty(property)>
+>>
+
 ShowPositionProperty(property) ::= <<
 <NormalProperty(property)>
 >>

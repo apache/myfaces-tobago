@@ -31,7 +31,7 @@ import org.apache.myfaces.tobago.component.UIToolBar;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.event.TabChangeEvent;
-import org.apache.myfaces.tobago.internal.component.AbstractUIPanel;
+import org.apache.myfaces.tobago.internal.component.AbstractUIPanelBase;
 import org.apache.myfaces.tobago.internal.util.AccessKeyLogger;
 import org.apache.myfaces.tobago.internal.util.Deprecation;
 import org.apache.myfaces.tobago.model.SwitchType;
@@ -133,7 +133,7 @@ public class TabGroupRenderer extends RendererBase {
     int closestRenderedTabIndex = -1;
     for (final UIComponent tab : tabGroup.getChildren()) {
       index++;
-      if (tab instanceof AbstractUIPanel) {
+      if (tab instanceof AbstractUIPanelBase) {
         if (index == activeIndex) {
           if (tab.isRendered()) {
             return index;

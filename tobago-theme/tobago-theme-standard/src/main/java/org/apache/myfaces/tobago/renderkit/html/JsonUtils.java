@@ -161,6 +161,10 @@ public class JsonUtils {
     if (render != null) {
       encode(builder, "render", render);
     }
+    final Collapse collapse = command.getCollapse();
+    if (collapse != null) {
+      encode(builder, "collapse", collapse);
+    }
     final String focus = command.getFocus();
     if (focus != null) {
       encode(builder, "focus", focus);
@@ -203,6 +207,28 @@ public class JsonUtils {
     final Boolean immediate = popup.isImmediate();
     if (immediate != null) {
       encode(builder, "immediate", immediate);
+    }
+    if (builder.length() - initialLength > 0) {
+      assert builder.charAt(builder.length() - 1) == ',';
+      builder.deleteCharAt(builder.length() - 1);
+    }
+
+    builder.append("},");
+  }
+
+  static void encode(final StringBuilder builder, final String name, final Collapse collapse) {
+    builder.append("\"");
+    builder.append(name);
+    builder.append("\":{");
+    final int initialLength = builder.length();
+
+    final Collapse.Action action = collapse.getAction();
+    if (action != null) {
+      encode(builder, "transition", action.name());
+    }
+    final String forId = collapse.getFor();
+    if (forId != null) {
+      encode(builder, "forId", forId);
     }
     if (builder.length() - initialLength > 0) {
       assert builder.charAt(builder.length() - 1) == ',';

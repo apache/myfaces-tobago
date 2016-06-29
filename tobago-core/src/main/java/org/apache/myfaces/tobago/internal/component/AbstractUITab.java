@@ -19,7 +19,7 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
-public abstract class AbstractUITab extends AbstractUIPanel {
+public abstract class AbstractUITab extends AbstractUIPanelBase {
 
   public abstract String getLabel();
 

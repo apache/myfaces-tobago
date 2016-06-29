@@ -41,11 +41,11 @@
 
 /* collapsible -------------------------------------------------------------- */
 
-/*.tobago-collapsed.tobago-box .card-block,*/
-/*.tobago-collapsed.tobago-section .tobago-section-content,*/
-/*.tobago-collapsed.tobago-panel {*/
-  /*display: none;*/
-/*}*/
+.tobago-collapsed.tobago-box .card-block,
+.tobago-collapsed.tobago-section .tobago-section-content,
+.tobago-collapsed.tobago-panel {
+  display: none;
+}
 
 /* date -------------------------------------------------------------- */
 

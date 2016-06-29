@@ -1,5 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
 <!--
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
@@ -21,43 +19,12 @@
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:f="http://java.sun.com/jsf/core">
-  <ui:param name="title" value="Container"/>
+  <ui:param name="title" value="Collapsible"/>
 
-    <tc:section label="Collapsible with the box collapsed attribute">
+  <tc:section label="TODO: description of the concept">
 
-      <tc:segmentLayout medium="12" id="collapsible">
-        <tc:button action="#{collapsible.toggle1}" label="Toggle" immediate="true" renderedPartially="collapsible"/>
-        <tc:box label="Collapsible" collapsed="#{collapsible.collapsed1}">
-          Hallo, collapsible box.
-          <tc:in required="true" label="Required"/>
-        </tc:box>
-        <tc:out value="Requests: #{activityList.values[0].jsfRequest} / AJAX: #{activityList.values[0].ajaxRequest}"/>
-      </tc:segmentLayout>
+    <tc:link link="https://issues.apache.org/jira/browse/TOBAGO-1565" label="See in Jira"/>
 
-    </tc:section>
-
-    <tc:section label="Collapsible with the rendered attribute">
-
-      <tc:segmentLayout medium="12" id="collapsible2">
-        <tc:box label="Collapsible">
-          <f:facet name="toolBar">
-            <tc:toolBar>
-              <tc:toolBarCommand action="#{collapsible.toggle2}" label="Toggle" immediate="true" renderedPartially="collapsible2"/>
-            </tc:toolBar>
-          </f:facet>
-          <tc:panel rendered="#{!collapsible.collapsed2}">
-            Hallo, collapsible box.
-            <tc:in required="true" label="Required"/>
-          </tc:panel>
-        </tc:box>
-        <tc:out value="Requests: #{activityList.values[0].jsfRequest} / AJAX: #{activityList.values[0].ajaxRequest}"/>
-      </tc:segmentLayout>
-
-    </tc:section>
-
-    <tc:flowLayout>
-      <tc:style textAlign="right"/>
-      <tc:button label="Submit"/>
-    </tc:flowLayout>
+  </tc:section>
 
 </ui:composition>

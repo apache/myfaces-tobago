@@ -27,6 +27,8 @@ import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasImage;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabel;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
+import org.apache.myfaces.tobago.internal.taglib.declaration.IsCollapsible;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
 
 /**
@@ -36,7 +38,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UISection",
     uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUISection",
-    uiComponentFacesClass = "javax.faces.component.UIComponentBase",
+    uiComponentFacesClass = "javax.faces.component.UIPanel",
     componentFamily = "org.apache.myfaces.tobago.Section",
     rendererType = RendererTypes.SECTION,
     facets = {
@@ -44,5 +46,6 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
             description = "This facet contains a UILabel",
             allowedChildComponenents = "org.apache.myfaces.tobago.Label")})
 
-public interface SectionTagDeclaration extends HasIdBindingAndRendered, HasLabel, IsVisual, HasImage {
+public interface SectionTagDeclaration
+    extends HasIdBindingAndRendered, HasLabel, IsVisual, HasImage, IsCollapsible, HasTip {
 }

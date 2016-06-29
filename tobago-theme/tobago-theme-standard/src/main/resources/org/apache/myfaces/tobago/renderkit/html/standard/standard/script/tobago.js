@@ -638,8 +638,14 @@ var Tobago = {
 
     if (commands.click) {
       command.click(function(event) {
-        if (commands.click.omit != true) {
-          if (commands.click.confirmation == null || confirm(commands.click.confirmation)) {
+        if (commands.click.confirmation == null || confirm(commands.click.confirmation)) {
+
+          var collapse = commands.click.collapse;
+          if (collapse) {
+            Tobago.Collapse.execute(collapse);
+          }
+
+          if (commands.click.omit != true) {
             var popup = commands.click.popup;
             if (popup && popup.command == "close" && popup.immediate) {
               Tobago.Popup.close(this);

@@ -47,7 +47,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class AbstractUITabGroup extends AbstractUIPanel
+public abstract class AbstractUITabGroup extends AbstractUIPanelBase
     implements TabChangeSource2, ActionSource2, OnComponentPopulated, SupportsRenderedPartially, Visual {
 
   private static final Logger LOG = LoggerFactory.getLogger(AbstractUITabGroup.class);

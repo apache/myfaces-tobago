@@ -42,6 +42,7 @@ public enum TobagoClass implements CssItem {
   REQUIRED("required"),
 
   BOX__HEADER("tobago-box-header"),
+  COLLAPSED("tobago-collapsed"),
   FLEX_LAYOUT("tobago-flexLayout"),
   LABEL("tobago-label"),
   MENU_BAR("tobago-menuBar"),
@@ -51,6 +52,7 @@ public enum TobagoClass implements CssItem {
   PANEL("tobago-panel"),
   POPUP("tobago-popup"),
   SECTION__HEADER("tobago-section-header"),
+  SECTION__CONTENT("tobago-section-content"),
   SHEET__PAGING_INPUT("tobago-sheet-pagingInput"),
   SHEET__PAGING_OUTPUT("tobago-sheet-pagingOutput"),
   SHEET__CELL__MARKUP__RIGHT("tobago-sheet-cell-markup-right"),

@@ -19,5 +19,11 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
-public abstract class AbstractUIPanel extends AbstractUICollapsiblePanel {
+import javax.faces.component.UIComponentBase;
+
+public abstract class AbstractUIOperation extends UIComponentBase {
+
+  public abstract String getName();
+
+  public abstract String getFor();
 }

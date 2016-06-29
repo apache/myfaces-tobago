@@ -33,7 +33,7 @@ import javax.faces.context.FacesContext;
 import java.io.IOException;
 import java.util.Iterator;
 
-public abstract class AbstractUIPopup extends AbstractUIPanel
+public abstract class AbstractUIPopup extends AbstractUIPanelBase
     implements NamingContainer, Visual {
 
   private boolean activated;

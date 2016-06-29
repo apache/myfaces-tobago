@@ -58,6 +58,7 @@ public enum RendererTypes {
   MenuCommand,
   MenuSeparator,
   Object,
+  Operation,
   Out,
   Page,
   Panel,
@@ -128,6 +129,7 @@ public enum RendererTypes {
   public static final String MENU_COMMAND = "MenuCommand";
   public static final String MENU_SEPARATOR = "MenuSeparator";
   public static final String OBJECT = "Object";
+  public static final String OPERATION = "Operation";
   public static final String OUT = "Out";
   public static final String PAGE = "Page";
   public static final String PANEL = "Panel";

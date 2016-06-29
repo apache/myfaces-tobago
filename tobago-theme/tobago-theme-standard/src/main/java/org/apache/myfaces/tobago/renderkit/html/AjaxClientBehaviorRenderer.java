@@ -20,6 +20,7 @@
 package org.apache.myfaces.tobago.renderkit.html;
 
 import org.apache.myfaces.tobago.internal.component.AbstractUICommand;
+import org.apache.myfaces.tobago.internal.component.AbstractUIOperation;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 
@@ -34,6 +35,7 @@ import javax.faces.event.AjaxBehaviorEvent;
 import javax.faces.event.PhaseId;
 import javax.faces.render.ClientBehaviorRenderer;
 import java.util.Collection;
+import java.util.List;
 
 public class AjaxClientBehaviorRenderer extends ClientBehaviorRenderer {
 
@@ -45,6 +47,9 @@ public class AjaxClientBehaviorRenderer extends ClientBehaviorRenderer {
     final Collection<String> execute = ajaxBehavior.getExecute();
     final Collection<String> render = ajaxBehavior.getRender();
     final UIComponent uiComponent = behaviorContext.getComponent();
+
+    //// TBD: is this nice? May be implemented with a JSF behaviour?
+    final Collapse collapse = createCollapsible(facesContext, uiComponent);
 
     if (uiComponent instanceof AbstractUICommand) {
       final AbstractUICommand component = (AbstractUICommand) uiComponent;
@@ -60,6 +65,7 @@ public class AjaxClientBehaviorRenderer extends ClientBehaviorRenderer {
           null, // getConfirmation(command), // todo
           null,
           Popup.createPopup(component),
+          collapse,
           component.isOmit());
 
       final CommandMap map = new CommandMap();
@@ -78,6 +84,7 @@ public class AjaxClientBehaviorRenderer extends ClientBehaviorRenderer {
           null,
           null,
           null,
+          collapse,
           null);
 
       final CommandMap map = new CommandMap();
@@ -116,4 +123,24 @@ public class AjaxClientBehaviorRenderer extends ClientBehaviorRenderer {
     }
     return false;
   }
+
+  public static Collapse createCollapsible(FacesContext facesContext, UIComponent component) {
+    //// TBD: is this nice? May be implemented with a JSF behaviour?
+    //// BEGIN
+
+    // XXX too complicated
+    final List<AbstractUIOperation> operations =
+        ComponentUtils.findDescendantList(component, AbstractUIOperation.class);
+    Collapse collapse = null;
+    if (operations.size() > 0) {
+      final AbstractUIOperation operation = operations.get(0);
+      final String forId = ComponentUtils.evaluateClientId(facesContext, component, operation.getFor());
+      collapse = new Collapse(Collapse.Action.valueOf(operation.getName()), forId);
+    }
+
+    //// TBD: is this nice?
+    //// END
+    return collapse;
+  }
+
 }

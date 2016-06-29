@@ -28,7 +28,7 @@ import javax.faces.event.FacesEvent;
 import java.io.IOException;
 import java.util.Map;
 
-public abstract class AbstractUIMediator extends AbstractUIPanel {
+public abstract class AbstractUIMediator extends AbstractUIPanelBase {
 
   private static final Logger LOG = LoggerFactory.getLogger(AbstractUIMediator.class);
 

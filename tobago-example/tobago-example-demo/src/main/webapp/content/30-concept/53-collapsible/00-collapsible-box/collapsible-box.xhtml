@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+-->
+
+<ui:composition template="/main.xhtml"
+                xmlns:tc="http://myfaces.apache.org/tobago/component"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core">
+  <ui:param name="title" value="Container"/>
+
+  <tc:section label="Collapsible box without server request" id="section1">
+
+    Here we have the transitions <code>show</code> and <code>hide</code> and there is no server request needed.
+    The buttons have set <code>omit="true"</code>.
+
+    <tc:box label="Collapsible box (Client only)" id="box1">
+      <f:facet name="bar">
+        <tc:buttons>
+          <tc:button label="show" omit="true" id="show1">
+            <tc:operation name="show" for="box1"/>
+          </tc:button>
+          <tc:button label="hide" omit="true" id="hide1">
+            <tc:operation name="hide" for="box1"/>
+          </tc:button>
+        </tc:buttons>
+      </f:facet>
+      <tc:panel>
+        Hallo, collapsible box.
+        <tc:in required="true" label="Required"/>
+      </tc:panel>
+    </tc:box>
+
+  </tc:section>
+
+  <tc:section label="Collapsible section with AJAX server request" id="section2">
+
+    Here we have the transitions <code>show</code> and <code>drop</code> and there is no server request needed.
+    The buttons have set <code>omit="false"</code> which is the default.
+
+    <tc:box label="Collapsible box (AJAX)" id="box2">
+      <f:facet name="bar">
+        <tc:buttons>
+          <tc:button label="show" id="show2">
+            <f:ajax execute="box2" render="box2"/>
+            <tc:operation name="show" for="box2"/>
+          </tc:button>
+          <tc:button label="drop" id="drop2">
+            <f:ajax execute="box2" render="box2"/>
+            <tc:operation name="drop" for="box2"/>
+          </tc:button>
+        </tc:buttons>
+      </f:facet>
+      <tc:panel>
+        Hallo, collapsible box.
+        <tc:in required="true" label="Required"/>
+      </tc:panel>
+    </tc:box>
+
+  </tc:section>
+
+  <tc:section label="Collapsible section with full server request" id="section3">
+
+    Here we have the transitions <code>show</code> and <code>drop</code> and there is no server request needed.
+    The buttons have set <code>omit="false"</code> which is the default.
+
+    <tc:box label="Collapsible box (full request)" id="box3">
+      <f:facet name="bar">
+        <tc:buttons>
+          <tc:button label="show" id="show3">
+            <tc:operation name="show" for="box3"/>
+          </tc:button>
+          <tc:button label="drop" id="drop3">
+            <tc:operation name="drop" for="box3"/>
+          </tc:button>
+        </tc:buttons>
+      </f:facet>
+      <tc:panel>
+        Hallo, collapsible box.
+        <tc:in required="true" label="Required"/>
+      </tc:panel>
+    </tc:box>
+
+  </tc:section>
+
+  <tc:out value="Requests: #{activityList.values[0].jsfRequest} / AJAX: #{activityList.values[0].ajaxRequest}"/>
+
+  <tc:flowLayout>
+    <tc:style textAlign="right"/>
+    <tc:button label="Submit"/>
+  </tc:flowLayout>
+
+</ui:composition>

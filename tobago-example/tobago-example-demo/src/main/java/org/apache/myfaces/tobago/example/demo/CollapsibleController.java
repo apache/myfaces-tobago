@@ -28,45 +28,57 @@ import java.io.Serializable;
 
 @SessionScoped
 @Named
-public class Collapsible implements Serializable {
+public class CollapsibleController implements Serializable {
 
-  private static final Logger LOG = LoggerFactory.getLogger(Collapsible.class);
+  private static final Logger LOG = LoggerFactory.getLogger(CollapsibleController.class);
 
-  private boolean collapsed1;
-  private boolean collapsed2;
+/* TODO
+  private CollapseState collapsed1;
+  private CollapseState collapsed2;
 
-  public Collapsible() {
+  public CollapsibleController() {
   }
 
   public String toggle1() {
-    collapsed1 = !collapsed1;
+    collapsed1 = collapsed1 == CollapseState.visible ? CollapseState.hidden : CollapseState.visible; // todo: define toggle in the "enum".
 
-    LOG.info("collapsed1={}", collapsed1);
+    LOG.info("new value of collapsed1={}", collapsed1);
 
     return null;
   }
 
   public String toggle2() {
-    collapsed2 = !collapsed2;
+    collapsed2 = collapsed2 == CollapseState.visible ? CollapseState.hidden : CollapseState.visible; // todo: define toggle in the "enum".
 
-    LOG.info("collapsed2={}", collapsed2);
+    LOG.info("new value of collapsed2={}", collapsed2);
 
     return null;
   }
 
-  public boolean isCollapsed1() {
+  public String action() {
+    LOG.info("action(): collapsed2={}", collapsed2);
+    return null;
+  }
+
+  public String cancel() {
+    LOG.info("cancel(): collapsed2={}", collapsed2);
+    return null;
+  }
+
+  public CollapseState getCollapsed1() {
     return collapsed1;
   }
 
-  public void setCollapsed1(boolean collapsed1) {
+  public void setCollapsed1(CollapseState collapsed1) {
     this.collapsed1 = collapsed1;
   }
 
-  public boolean isCollapsed2() {
+  public CollapseState getCollapsed2() {
     return collapsed2;
   }
 
-  public void setCollapsed2(boolean collapsed2) {
+  public void setCollapsed2(CollapseState collapsed2) {
     this.collapsed2 = collapsed2;
   }
+*/
 }

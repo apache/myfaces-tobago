@@ -766,7 +766,8 @@ public class SheetRenderer extends RendererBase {
               }
               final CommandMap map = new CommandMap();
               final Command click = new Command(
-                  sortCommand.getClientId(facesContext), null, null, null, clientIds, null, null, null, null, null);
+                  sortCommand.getClientId(facesContext), null, null, null, clientIds, null, null, null, null, null,
+                  null);
               map.setClick(click);
               writer.writeAttribute(DataAttributes.COMMANDS, JsonUtils.encode(map), true);
 

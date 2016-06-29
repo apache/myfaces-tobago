@@ -19,5 +19,5 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
-public abstract class AbstractUIButtons extends AbstractUIPanel {
+public abstract class AbstractUIButtons extends AbstractUIPanelBase {
 }

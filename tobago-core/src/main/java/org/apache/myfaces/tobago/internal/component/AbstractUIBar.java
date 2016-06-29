@@ -19,7 +19,7 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
-public abstract class AbstractUIBar extends AbstractUIPanel {
+public abstract class AbstractUIBar extends AbstractUIPanelBase {
 
 
 }

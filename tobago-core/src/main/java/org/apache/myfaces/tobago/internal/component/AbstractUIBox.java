@@ -19,33 +19,7 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
-import javax.faces.context.FacesContext;
+public abstract class AbstractUIBox extends AbstractUICollapsiblePanel {
 
-public abstract class AbstractUIBox extends AbstractUIPanel {
-
-  @Override
-  public void processDecodes(final FacesContext context) {
-    if (isCollapsed()) {
-      decode(context);
-    } else {
-      super.processDecodes(context);
-    }
-  }
-
-  @Override
-  public void processValidators(final FacesContext context) {
-    if (!isCollapsed()) {
-      super.processValidators(context);
-    }
-  }
-
-  @Override
-  public void processUpdates(final FacesContext context) {
-    if (!isCollapsed()) {
-      super.processUpdates(context);
-    }
-  }
-
-  public abstract boolean isCollapsed();
-
+  public abstract String getLabel();
 }

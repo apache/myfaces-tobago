@@ -19,10 +19,10 @@
 package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
 import org.apache.myfaces.tobago.component.Facets;
-import org.apache.myfaces.tobago.component.UIBox;
 import org.apache.myfaces.tobago.component.UIMenuBar;
+import org.apache.myfaces.tobago.internal.component.AbstractUIBox;
 import org.apache.myfaces.tobago.internal.util.Deprecation;
-import org.apache.myfaces.tobago.renderkit.RendererBase;
+import org.apache.myfaces.tobago.model.CollapseState;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
@@ -32,22 +32,18 @@ import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIPanel;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 
-public class BoxRenderer extends RendererBase {
-
-  private static final Logger LOG = LoggerFactory.getLogger(BoxRenderer.class);
+public class BoxRenderer extends PanelRendererBase {
 
   @Override
   public void encodeBegin(final FacesContext facesContext, final UIComponent component) throws IOException {
 
-    final UIBox box = (UIBox) component;
+    final AbstractUIBox box = (AbstractUIBox) component;
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
     final UIComponent label = ComponentUtils.getFacet(box, Facets.label);
@@ -56,14 +52,22 @@ public class BoxRenderer extends RendererBase {
     final UIComponent bar = ComponentUtils.getFacet(box, Facets.bar);
 
     writer.startElement(HtmlElements.DIV);
-    writer.writeClassAttribute(Classes.create(box), BootstrapClass.CARD, box.getCustomClass());
-    writer.writeIdAttribute(box.getClientId(facesContext));
+    final CollapseState collapsed = box.getCollapsed();
+    writer.writeClassAttribute(
+        Classes.create(box),
+        collapsed == CollapseState.visible ? null : TobagoClass.COLLAPSED,
+        BootstrapClass.CARD,
+        box.getCustomClass());
+    final String clientId = box.getClientId(facesContext);
+    writer.writeIdAttribute(clientId);
     final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, box);
     if (title != null) {
       writer.writeAttribute(HtmlAttributes.TITLE, title, true);
     }
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, box);
     writer.writeStyleAttribute(box.getStyle());
+
+    encodeHidden(writer, clientId);
 
     if (label != null || labelString != null || bar != null || toolbar != null) {
       writer.startElement(HtmlElements.DIV);
@@ -100,19 +104,6 @@ public class BoxRenderer extends RendererBase {
 
     writer.startElement(HtmlElements.DIV);
     writer.writeClassAttribute(BootstrapClass.CARD_BLOCK);
-  }
-
-  @Override
-  public boolean getRendersChildren() {
-    return true;
-  }
-
-  @Override
-  public void encodeChildren(final FacesContext facesContext, final UIComponent component) throws IOException {
-    if (component instanceof UIBox && ((UIBox) component).isCollapsed()) {
-      return;
-    }
-    super.encodeChildren(facesContext, component);
   }
 
   @Override

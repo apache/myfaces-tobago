@@ -23,13 +23,13 @@ import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.UIPanel;
 import org.apache.myfaces.tobago.component.UIReload;
 import org.apache.myfaces.tobago.internal.util.FacesContextUtils;
-import org.apache.myfaces.tobago.renderkit.RendererBase;
+import org.apache.myfaces.tobago.model.CollapseState;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
+import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
-import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
@@ -37,31 +37,22 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 
-public class PanelRenderer extends RendererBase {
-
-  @Override
-  public boolean getRendersChildren() {
-    return true;
-  }
-
-  @Override
-  public void encodeChildren(final FacesContext facesContext, final UIComponent component) throws IOException {
-    final UIPanel panel = (UIPanel) component;
-    for (final UIComponent child : panel.getChildren()) {
-      RenderUtils.encode(facesContext, child);
-    }
-  }
+public class PanelRenderer extends PanelRendererBase {
 
   @Override
   public void encodeBegin(final FacesContext facesContext, final UIComponent component) throws IOException {
 
     final UIPanel panel = (UIPanel) component;
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
-
     final String clientId = panel.getClientId(facesContext);
+    final CollapseState collapsed = panel.getCollapsed();
+
     writer.startElement(HtmlElements.DIV);
     writer.writeIdAttribute(clientId);
-    writer.writeClassAttribute(Classes.create(panel), panel.getCustomClass());
+    writer.writeClassAttribute(
+        Classes.create(panel),
+        panel.getCustomClass(),
+        collapsed == CollapseState.visible ? null : TobagoClass.COLLAPSED);
     writer.writeStyleAttribute(panel.getStyle());
 
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, panel);
@@ -79,6 +70,8 @@ public class PanelRenderer extends RendererBase {
     }
     HtmlRendererUtils.renderCommandFacet(panel, facesContext, writer);
     HtmlRendererUtils.encodeContextMenu(facesContext, writer, panel);
+
+    encodeHidden(writer, clientId);
   }
 
   @Override

@@ -21,12 +21,17 @@ package org.apache.myfaces.tobago.internal.taglib.declaration;
 
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
+import org.apache.myfaces.tobago.model.CollapseState;
 
 public interface IsCollapsible {
+
   /**
-   * Flag indicating whether or not this component is collapsed.
+   * Enum indicating the collapsed state of this component.
    */
   @TagAttribute
-  @UIComponentTagAttribute(type = "boolean", defaultValue = "false")
-  void setCollapsed(String rendered);
+  @UIComponentTagAttribute(
+      type = "org.apache.myfaces.tobago.model.CollapseState",
+      defaultValue = CollapseState.VISIBLE,
+      defaultCode = "org.apache.myfaces.tobago.model.CollapseState.visible")
+  void setCollapsed(String collapsed);
 }
