@@ -19,15 +19,10 @@
 
 package org.apache.myfaces.tobago.renderkit;
 
-import org.apache.myfaces.tobago.context.ResourceManager;
-import org.apache.myfaces.tobago.internal.context.ResourceManagerFactory;
 import org.apache.myfaces.tobago.util.ComponentUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.faces.component.EditableValueHolder;
 import javax.faces.component.UIComponent;
-import javax.faces.component.UIInput;
 import javax.faces.component.ValueHolder;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
@@ -36,38 +31,23 @@ import javax.faces.render.Renderer;
 
 public class RendererBase extends Renderer {
 
-  private static final Logger LOG = LoggerFactory.getLogger(RendererBase.class);
-
-  private ResourceManager resourceManager;
-
-  protected Object getCurrentValueAsObject(final UIInput input) {
-    final Object submittedValue = input.getSubmittedValue();
-    if (submittedValue != null) {
-      return submittedValue;
-    }
-    return getValue(input);
-  }
-
   protected String getCurrentValue(final FacesContext facesContext, final UIComponent component) {
 
-    if (component instanceof EditableValueHolder) {
-      final EditableValueHolder editableValueHolder = (EditableValueHolder) component;
-      final Object submittedValue = editableValueHolder.getSubmittedValue();
-      if (submittedValue != null || !editableValueHolder.isValid()) {
-        return (String) submittedValue;
-      }
-    }
-    String currentValue = null;
-    final Object currentObj = getValue(component);
-    if (currentObj != null) {
-      currentValue = ComponentUtils.getFormattedValue(facesContext, component, currentObj);
-    }
-    return currentValue;
-  }
-
-  protected Object getValue(final UIComponent component) {
     if (component instanceof ValueHolder) {
-      return ((ValueHolder) component).getValue();
+      final ValueHolder valueHolder = (ValueHolder) component;
+      if (valueHolder instanceof EditableValueHolder) {
+        final EditableValueHolder editableValueHolder = (EditableValueHolder) component;
+        final Object submittedValue = editableValueHolder.getSubmittedValue();
+        if (submittedValue != null || !editableValueHolder.isValid()) {
+          return (String) submittedValue;
+        }
+      }
+      String currentValue = null;
+      final Object result = ((ValueHolder) component).getValue();
+      if (result != null) {
+        currentValue = ComponentUtils.getFormattedValue(facesContext, component, result);
+      }
+      return currentValue;
     } else {
       return null;
     }
@@ -89,12 +69,5 @@ public class RendererBase extends Renderer {
 
   public void onComponentCreated(
       final FacesContext facesContext, final UIComponent component, final UIComponent parent) {
-  }
-  
-  protected synchronized ResourceManager getResourceManager() {
-    if (resourceManager == null) {
-      resourceManager = ResourceManagerFactory.getResourceManager(FacesContext.getCurrentInstance());
-    }
-    return resourceManager;
   }
 }

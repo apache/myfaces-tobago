@@ -22,7 +22,6 @@ package org.apache.myfaces.tobago.renderkit;
 import org.apache.myfaces.tobago.internal.context.ResourceManagerFactory;
 
 import javax.faces.component.UIComponent;
-import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.ConverterException;
 import java.io.IOException;
@@ -44,20 +43,10 @@ public abstract class AbstractRendererBaseWrapper extends RendererBase {
   public final void decode(final FacesContext facesContext, final UIComponent component) {
     getRenderer(facesContext).decode(facesContext, component);
   }
-  
-  @Override
-  protected final Object getCurrentValueAsObject(final UIInput input) {
-    return getRenderer(FacesContext.getCurrentInstance()).getCurrentValueAsObject(input);
-  }
 
   @Override
   protected final String getCurrentValue(final FacesContext facesContext, final UIComponent component) {
     return getRenderer(facesContext).getCurrentValue(facesContext, component);
-  }
-
-  @Override
-  protected final Object getValue(final UIComponent component) {
-    return getRenderer(FacesContext.getCurrentInstance()).getValue(component);
   }
 
   @Override
