@@ -834,14 +834,13 @@ public final class ComponentUtils {
       final ValueExpression valueExpression = component.getValueExpression("value");
       if (valueExpression != null) {
         Class converterType = null;
-        if (value != null) {
+        try {
+          converterType = valueExpression.getType(facesContext.getELContext());
+        } catch (Exception e) {
+          // ignore, seems not to be possible, when EL is a function like #{bean.getName(item.id)}
+        }
+        if (converterType == null) {
           converterType = value.getClass();
-        } else {
-          try {
-            converterType = valueExpression.getType(facesContext.getELContext());
-          } catch (Exception e) {
-            // ignore, seems not to be possible, when EL is a funktion like #{bean.getName(item.id)}
-          }
         }
         if (converterType != null && converterType != String.class && converterType != Object.class) {
           converter = facesContext.getApplication().createConverter(converterType);
