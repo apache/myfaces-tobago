@@ -33,12 +33,10 @@ QUnit.test("ajax excecute", function (assert) {
   $in2 = jQueryFrame("#page\\:in2\\:\\:field");
   $in3 = jQueryFrame("#page\\:in3\\:\\:field");
   $in4 = jQueryFrame("#page\\:in4\\:\\:field");
-
   assert.equal($in1.val(), "");
   assert.equal($in2.val(), "");
   assert.equal($in3.val(), "");
   assert.equal($in4.val(), "");
-
   $in1.val("a");
   $in2.val("b");
   $in3.val("c");
@@ -46,6 +44,16 @@ QUnit.test("ajax excecute", function (assert) {
 
   var $submitButton = jQueryFrame("#page\\:clear");
   $submitButton.click();
+
+  $in1 = jQueryFrame("#page\\:in1\\:\\:field");
+  $in2 = jQueryFrame("#page\\:in2\\:\\:field");
+  $in3 = jQueryFrame("#page\\:in3\\:\\:field");
+  $in4 = jQueryFrame("#page\\:in4\\:\\:field");
+  assert.equal($in1.val(), "a");
+  assert.equal($in2.val(), "b");
+  assert.equal($in3.val(), "c");
+  assert.equal($in4.val(), "");
+
 
   // todo: to be continued...
 
