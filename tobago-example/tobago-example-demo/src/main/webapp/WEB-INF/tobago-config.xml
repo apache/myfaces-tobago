@@ -44,8 +44,10 @@
   <!-- This is needed for the testing functionality of the demo, it works with iframes -->
   <prevent-frame-attacks>false</prevent-frame-attacks>
 
-  <content-security-policy mode="on">
-    <!-- XXX With CSP Tobago 3.0.x is currently not working 100% see TOBAGO-1534, because of JSF-AJAX -->
+  <!-- XXX for the jQuery tests we need 'report-only' here -->
+  <content-security-policy mode="report-only">
+    <!-- XXX With CSP Tobago 3.0.x is currently not working 100% see TOBAGO-1534,
+         XXX because of JSF-AJAX we need 'unsafe-eval' -->
     <directive>script-src 'self' 'unsafe-eval'</directive>
     <directive>frame-src https://maps.google.com</directive>
   </content-security-policy>
