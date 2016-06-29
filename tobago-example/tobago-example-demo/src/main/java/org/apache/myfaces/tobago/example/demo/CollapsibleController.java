@@ -40,7 +40,8 @@ public class CollapsibleController implements Serializable {
   }
 
   public String toggle1() {
-    collapsed1 = collapsed1 == CollapseState.visible ? CollapseState.hidden : CollapseState.visible; // todo: define toggle in the "enum".
+    collapsed1 = collapsed1 == CollapseState.visible ? CollapseState.hidden : CollapseState.visible;
+    // todo: define toggle in the "enum".
 
     LOG.info("new value of collapsed1={}", collapsed1);
 
@@ -48,7 +49,8 @@ public class CollapsibleController implements Serializable {
   }
 
   public String toggle2() {
-    collapsed2 = collapsed2 == CollapseState.visible ? CollapseState.hidden : CollapseState.visible; // todo: define toggle in the "enum".
+    collapsed2 = collapsed2 == CollapseState.visible ? CollapseState.hidden : CollapseState.visible;
+    // todo: define toggle in the "enum".
 
     LOG.info("new value of collapsed2={}", collapsed2);
 
