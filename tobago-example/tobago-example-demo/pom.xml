@@ -33,6 +33,7 @@
     <arquillian.browser>firefox</arquillian.browser>
     <!-- phantomjs works not with CSP (report-only) -->
     <!--<arquillian.browser>phantomjs</arquillian.browser>-->
+    <selenium.version>2.53.0</selenium.version>
   </properties>
   <build>
     <finalName>tobago-example-demo</finalName>
@@ -122,7 +123,7 @@
         <configuration>
           <images>
             <image>
-              <name>selenium/standalone-firefox:2.53.0</name>
+              <name>selenium/standalone-firefox:${selenium.version}</name>
               <run>
                 <ports>
                   <port>4444:4444</port>
@@ -154,7 +155,7 @@
       <dependency>
         <groupId>org.jboss.arquillian.selenium</groupId>
         <artifactId>selenium-bom</artifactId>
-        <version>2.53.0</version>
+        <version>${selenium.version}</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
