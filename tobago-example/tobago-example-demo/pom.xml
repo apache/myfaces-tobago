@@ -115,6 +115,23 @@
           </includes>
         </configuration>
       </plugin>
+      <plugin>
+        <groupId>io.fabric8</groupId>
+        <artifactId>docker-maven-plugin</artifactId>
+        <version>0.15.9</version>
+        <configuration>
+          <images>
+            <image>
+              <name>selenium/standalone-firefox:2.53.0</name>
+              <run>
+                <ports>
+                  <port>4444:4444</port>
+                </ports>
+              </run>
+            </image>
+          </images>
+        </configuration>
+      </plugin>
     </plugins>
   </build>
 
