@@ -19,8 +19,8 @@
 
 <ui:composition template="/main.xhtml"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
-                xmlns:ui="http://java.sun.com/jsf/facelets"
->
+                xmlns:ui="http://java.sun.com/jsf/facelets">
+
   <ui:param name="title" value="#{overviewBundle.transition}"/>
   <p>For command components like a link or a button, the <code>transition</code> attribute is available.
     It shows a loading animation if the site don't respond in a certain amount of time.
@@ -48,16 +48,16 @@ action="\#{transitionController.sleep5sAndRedirect}"/></code></pre>
     <tc:popup id="popup">
       <tc:box label="Info">
         <p>Button pressed</p>
-        <tc:button label="Close">
-          <tc:attribute name="popupClose" value="immediate"/>
+        <tc:button label="Close" omit="true">
+          <tc:operation name="hide" for="popup"/>
         </tc:button>
       </tc:box>
     </tc:popup>
     <tc:button label="Open Popup (transition ON)" action="#{transitionController.sleep5s}">
-      <tc:popupReference for="popup"/>
+      <tc:operation name="show" for="popup"/>
     </tc:button>
     <tc:button label="Open Popup (transition OFF)" action="#{transitionController.sleep5s}" transition="false">
-      <tc:popupReference for="popup"/>
+      <tc:operation name="show" for="popup"/>
     </tc:button>
   </tc:section>
 </ui:composition>
