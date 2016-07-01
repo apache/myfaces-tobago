@@ -92,6 +92,12 @@ Migration from Tobago 2.0 to 3.0 (work in progress)
     * If using <<<org.apache.myfaces.tobago.component.Attributes>>> you may use the enum value instead of the
       String contant.
 
+* Reimplementation of Popup
+
+    * Remove tc:popupReference
+
+    * No longer as "facet"
+
 * No longer supported
 
     Because of the changed layout model (no longer on the server, but with browser CSS) there a some

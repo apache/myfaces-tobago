@@ -67,7 +67,7 @@ public class BoxRenderer extends PanelRendererBase {
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, box);
     writer.writeStyleAttribute(box.getStyle());
 
-    encodeHidden(writer, clientId);
+    encodeHidden(writer, clientId, collapsed);
 
     if (label != null || labelString != null || bar != null || toolbar != null) {
       writer.startElement(HtmlElements.DIV);

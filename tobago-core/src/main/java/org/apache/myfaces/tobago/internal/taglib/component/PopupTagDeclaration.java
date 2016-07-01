@@ -19,46 +19,26 @@
 
 package org.apache.myfaces.tobago.internal.taglib.component;
 
-import org.apache.myfaces.tobago.apt.annotation.Facet;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
-import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
-import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
-import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.RendererTypes;
+import org.apache.myfaces.tobago.internal.component.AbstractUIPopup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
+import org.apache.myfaces.tobago.internal.taglib.declaration.IsCollapsible;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
-
-import javax.faces.component.UIPanel;
 
 /**
  * Renders a popup panel.
- * The popup gets a grid layout manager with columns="auto" and rows="auto" as definition.
- * So a popup should contain only one layout component.
- * The default layout manager can be overwritten with the layout facet.
  */
 @Tag(name = "popup")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIPopup",
     uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUIPopup",
     uiComponentFacesClass = "javax.faces.component.UIPanel",
-    componentFamily = UIPanel.COMPONENT_FAMILY,
-    rendererType = RendererTypes.POPUP,
-    facets = {
-        @Facet(name = Facets.LAYOUT, description = "Deprecated. Contains an layout manager. "
-            + "The layout manager tag should surround the content instead.")}
+    componentFamily = AbstractUIPopup.COMPONENT_FAMILY,
+    rendererType = RendererTypes.POPUP
 )
 public interface PopupTagDeclaration
-    extends HasIdBindingAndRendered, IsVisual, HasTip {
-
-  /**
-   * The rest of the page will be faded off for the time the popup is displayed.
-   * <br>
-   * XXX Currently (since 3.0 branch) non-modal is not supported.
-   */
-  @TagAttribute
-  @UIComponentTagAttribute(type = "boolean", defaultValue = "true")
-  void setModal(String modal);
-
+    extends HasIdBindingAndRendered, IsVisual, IsCollapsible, HasTip {
 }

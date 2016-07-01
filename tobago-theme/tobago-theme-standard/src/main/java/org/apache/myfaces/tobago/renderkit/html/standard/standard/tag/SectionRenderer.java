@@ -74,7 +74,7 @@ public class SectionRenderer extends PanelRendererBase {
         tag = HtmlElements.H6;
     }
 
-    encodeHidden(writer, clientId);
+    encodeHidden(writer, clientId, collapsed);
 
     writer.startElement(HtmlElements.DIV);
     writer.writeClassAttribute(TobagoClass.SECTION__HEADER);

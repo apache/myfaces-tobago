@@ -177,37 +177,11 @@ public class JsonUtils {
     if (delay != null) {
       encode(builder, "delay", delay);
     }
-    final Popup popup = command.getPopup();
-    if (popup != null) {
-      encode(builder, "popup", popup);
-    }
     final Boolean omit = command.getOmit();
     if (omit != null && omit) { // false is the default, so encoding is needed.
       encode(builder, "omit", omit);
     }
 
-    if (builder.length() - initialLength > 0) {
-      assert builder.charAt(builder.length() - 1) == ',';
-      builder.deleteCharAt(builder.length() - 1);
-    }
-
-    builder.append("},");
-  }
-
-  static void encode(final StringBuilder builder, final String name, final Popup popup) {
-    builder.append("\"");
-    builder.append(name);
-    builder.append("\":{");
-    final int initialLength = builder.length();
-
-    final String command = popup.getCommand();
-    if (command != null) {
-      encode(builder, "command", command);
-    }
-    final Boolean immediate = popup.isImmediate();
-    if (immediate != null) {
-      encode(builder, "immediate", immediate);
-    }
     if (builder.length() - initialLength > 0) {
       assert builder.charAt(builder.length() - 1) == ',';
       builder.deleteCharAt(builder.length() - 1);

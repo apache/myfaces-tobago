@@ -24,7 +24,6 @@ import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.UIMenuBar;
 import org.apache.myfaces.tobago.component.UIPage;
-import org.apache.myfaces.tobago.component.UIPopup;
 import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.context.ClientProperties;
 import org.apache.myfaces.tobago.context.Markup;
@@ -340,16 +339,6 @@ public class PageRenderer extends RendererBase {
 /*
     writer.endElement(HtmlElements.DIV);
 */
-
-    // write popup components
-    // beware of ConcurrentModificationException in cascading popups!
-    // no foreach
-
-    final UIPopup[] popupArray = FacesContextUtils.getPopups(facesContext).toArray(
-        new UIPopup[FacesContextUtils.getPopups(facesContext).size()]);
-    for (final UIPopup popup : popupArray) {
-      RenderUtils.encode(facesContext, popup);
-    }
 
     final String clientId = page.getClientId(facesContext);
     final ClientProperties clientProperties = ClientProperties.getInstance(facesContext);

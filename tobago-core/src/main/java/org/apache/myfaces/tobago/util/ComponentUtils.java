@@ -24,7 +24,6 @@ import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.context.TransientStateHolder;
-import org.apache.myfaces.tobago.event.AbstractPopupActionListener;
 import org.apache.myfaces.tobago.internal.component.AbstractUIForm;
 import org.apache.myfaces.tobago.internal.component.AbstractUIInput;
 import org.apache.myfaces.tobago.internal.component.AbstractUIPage;
@@ -40,7 +39,6 @@ import javax.el.ValueExpression;
 import javax.faces.FactoryFinder;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.NamingContainer;
-import javax.faces.component.UICommand;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
 import javax.faces.component.UINamingContainer;
@@ -53,7 +51,6 @@ import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
 import javax.faces.el.ValueBinding;
 import javax.faces.event.ActionEvent;
-import javax.faces.event.ActionListener;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.render.RenderKit;
 import javax.faces.render.RenderKitFactory;
@@ -97,16 +94,6 @@ public final class ComponentUtils {
     for (final Iterator iter = context.getMessages(); iter.hasNext();) {
       final FacesMessage message = (FacesMessage) iter.next();
       if (FacesMessage.SEVERITY_ERROR.compareTo(message.getSeverity()) <= 0) {
-        return true;
-      }
-    }
-    return false;
-  }
-
-  public static boolean containsPopupActionListener(final UICommand command) {
-    final ActionListener[] actionListeners = command.getActionListeners();
-    for (final ActionListener actionListener : actionListeners) {
-      if (actionListener instanceof AbstractPopupActionListener) {
         return true;
       }
     }

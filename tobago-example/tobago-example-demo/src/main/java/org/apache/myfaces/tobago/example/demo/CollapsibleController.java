@@ -19,6 +19,7 @@
 
 package org.apache.myfaces.tobago.example.demo;
 
+import org.apache.myfaces.tobago.model.CollapseState;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -32,55 +33,23 @@ public class CollapsibleController implements Serializable {
 
   private static final Logger LOG = LoggerFactory.getLogger(CollapsibleController.class);
 
-/* TODO
-  private CollapseState collapsed1;
-  private CollapseState collapsed2;
-
-  public CollapsibleController() {
-  }
-
-  public String toggle1() {
-    collapsed1 = collapsed1 == CollapseState.visible ? CollapseState.hidden : CollapseState.visible;
-    // todo: define toggle in the "enum".
-
-    LOG.info("new value of collapsed1={}", collapsed1);
-
-    return null;
-  }
-
-  public String toggle2() {
-    collapsed2 = collapsed2 == CollapseState.visible ? CollapseState.hidden : CollapseState.visible;
-    // todo: define toggle in the "enum".
-
-    LOG.info("new value of collapsed2={}", collapsed2);
-
-    return null;
-  }
+  private CollapseState collapsed = CollapseState.hidden;
 
   public String action() {
-    LOG.info("action(): collapsed2={}", collapsed2);
+    LOG.info("action(): collapsed={}", collapsed);
     return null;
   }
 
   public String cancel() {
-    LOG.info("cancel(): collapsed2={}", collapsed2);
+    LOG.info("cancel(): collapsed={}", collapsed);
     return null;
   }
 
-  public CollapseState getCollapsed1() {
-    return collapsed1;
+  public CollapseState getCollapsed() {
+    return collapsed;
   }
 
-  public void setCollapsed1(CollapseState collapsed1) {
-    this.collapsed1 = collapsed1;
+  public void setCollapsed(CollapseState collapsed) {
+    this.collapsed = collapsed;
   }
-
-  public CollapseState getCollapsed2() {
-    return collapsed2;
-  }
-
-  public void setCollapsed2(CollapseState collapsed2) {
-    this.collapsed2 = collapsed2;
-  }
-*/
 }

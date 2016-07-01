@@ -19,13 +19,11 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
-import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.OnComponentPopulated;
 import org.apache.myfaces.tobago.component.SupportsAccessKey;
 import org.apache.myfaces.tobago.component.SupportsRenderedPartially;
 import org.apache.myfaces.tobago.component.Visual;
 import org.apache.myfaces.tobago.event.CollapsibleActionListener;
-import org.apache.myfaces.tobago.event.PopupFacetActionListener;
 import org.apache.myfaces.tobago.internal.util.AuthorizationHelper;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.slf4j.Logger;
@@ -62,12 +60,7 @@ public abstract class AbstractUICommand
 
   @Override
   public void onComponentPopulated(final FacesContext facesContext, final UIComponent parent) {
-    final AbstractUIPopup popup = (AbstractUIPopup) ComponentUtils.getFacet(this, Facets.popup);
-    if (popup != null) {
-      if (!ComponentUtils.containsPopupActionListener(this)) {
-        addActionListener(new PopupFacetActionListener());
-      }
-    }
+
     final List<AbstractUIOperation> list = ComponentUtils.findDescendantList(this, AbstractUIOperation.class);
     for (AbstractUIOperation operation : list) {
       addActionListener(new CollapsibleActionListener(this, operation.getFor()));

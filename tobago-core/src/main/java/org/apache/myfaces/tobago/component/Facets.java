@@ -49,6 +49,10 @@ public enum Facets {
   pagerPage,
   pagerPageDirect,
   pagerRow,
+  /**
+   * @deprecated since 3.0.0. Popup can now be placed normally in the code.
+   */
+  @Deprecated
   popup,
   radio,
   reload,

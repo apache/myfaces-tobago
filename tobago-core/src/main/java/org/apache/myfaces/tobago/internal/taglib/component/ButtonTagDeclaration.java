@@ -62,9 +62,8 @@ import javax.faces.component.UICommand;
     allowedChildComponenents = "NONE",
     facets = {
         @Facet(name = Facets.CONFIRMATION, description = "Contains a UIOutput instance with the confirmation message.",
-            allowedChildComponenents = "org.apache.myfaces.tobago.Out"),
-        @Facet(name = Facets.POPUP, description = "Contains a UIPopup instance.",
-            allowedChildComponenents = "org.apache.myfaces.tobago.Popup")})
+            allowedChildComponenents = "org.apache.myfaces.tobago.Out")
+    })
 public interface ButtonTagDeclaration
     extends HasAction, HasActionListener, IsImmediateCommand,
     HasLink, HasResource, IsTransition, HasTarget, HasRenderedPartially,

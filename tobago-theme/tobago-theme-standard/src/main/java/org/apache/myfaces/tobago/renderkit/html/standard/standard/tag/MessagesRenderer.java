@@ -19,15 +19,7 @@
 
 package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
-import org.apache.myfaces.tobago.component.Attributes;
-import org.apache.myfaces.tobago.component.RendererTypes;
-import org.apache.myfaces.tobago.component.UIBox;
-import org.apache.myfaces.tobago.component.UIButton;
 import org.apache.myfaces.tobago.component.UIMessages;
-import org.apache.myfaces.tobago.component.UIPanel;
-import org.apache.myfaces.tobago.component.UIPopup;
-import org.apache.myfaces.tobago.context.ResourceManagerUtils;
-import org.apache.myfaces.tobago.internal.util.FacesContextUtils;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
@@ -40,7 +32,6 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRoleValues;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
-import org.apache.myfaces.tobago.util.CreateComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -55,16 +46,13 @@ public class MessagesRenderer extends RendererBase {
 
   private static final Logger LOG = LoggerFactory.getLogger(MessagesRenderer.class);
 
-  public static final String CLOSE_POPUP = "closePopup";
-
   @Override
   public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
 
     final UIMessages messages = (UIMessages) component;
 
     if (messages.isConfirmation()) {
-      createPopup(facesContext, messages);
-      return;
+      LOG.warn("'confirmation' is currently not supported for tc:messages!");
     }
 
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
@@ -154,58 +142,6 @@ public class MessagesRenderer extends RendererBase {
         writer.endElement(HtmlElements.INPUT);
       }
     }
-  }
-
-  private void createPopup(final FacesContext facesContext, final UIMessages messages) {
-    if (LOG.isDebugEnabled()) {
-      LOG.debug("POPUP");
-    }
-    final String id
-        = messages.getId() != null ? messages.getId() + "popup" : facesContext.getViewRoot().createUniqueId();
-    final UIPopup popup = (UIPopup)
-        CreateComponentUtils.createComponent(facesContext, UIPopup.COMPONENT_TYPE, RendererTypes.Popup, id);
-    ComponentUtils.setAttribute(popup, Attributes.zIndex, 10);
-
-    popup.setRendered(true);
-    popup.setActivated(true);
-    popup.onComponentPopulated(facesContext, messages);
-    FacesContextUtils.addPopup(facesContext, popup);
-    ComponentUtils.setAttribute(popup, Attributes.popupReset, Boolean.TRUE);
-
-    final UIComponent box = CreateComponentUtils.createComponent(
-        facesContext, UIBox.COMPONENT_TYPE, RendererTypes.Box, "box");
-    popup.getChildren().add(box);
-    box.setId("box");
-    // TODO: set string resources in renderer
-    final String label
-        = ResourceManagerUtils.getPropertyNotNull(facesContext, "tobago", "tobago.message.confirmation.title");
-    ComponentUtils.setAttribute(box, Attributes.label, label);
-
-    final UIPanel scrollPanel = (UIPanel)
-        CreateComponentUtils.createComponent(facesContext, UIPanel.COMPONENT_TYPE, RendererTypes.Panel, "messagePanel");
-    box.getChildren().add(scrollPanel);
-
-    messages.getParent().getChildren().remove(messages);
-    messages.setConfirmation(false);
-    scrollPanel.onComponentPopulated(facesContext, messages);
-    scrollPanel.getChildren().add(messages);
-
-    final UIComponent buttonPanel = CreateComponentUtils.createComponent(
-        facesContext, UIPanel.COMPONENT_TYPE, RendererTypes.Panel, "buttonPanel");
-
-    box.getChildren().add(buttonPanel);
-
-    final UIPanel space = (UIPanel)
-        CreateComponentUtils.createComponent(facesContext, UIPanel.COMPONENT_TYPE, RendererTypes.Panel, "space");
-    buttonPanel.getChildren().add(space);
-    space.onComponentPopulated(facesContext, messages);
-
-    final UIButton okButton = (UIButton) CreateComponentUtils.createComponent(
-        facesContext, UIButton.COMPONENT_TYPE, RendererTypes.Button, CLOSE_POPUP);
-    buttonPanel.getChildren().add(okButton);
-    okButton.setLabel(
-        ResourceManagerUtils.getPropertyNotNull(facesContext, "tobago", "tobago.message.confirmation.okay"));
-    ComponentUtils.setAttribute(okButton, Attributes.popupClose, "immediate");
   }
 
   private void encodeMessage(

@@ -17,38 +17,50 @@
  * limitations under the License.
 -->
 
-<ui:composition template="/plain.xhtml"
+<ui:composition template="/main.xhtml"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:f="http://java.sun.com/jsf/core">
-  <ui:param name="title" value="Container"/>
+  <ui:param name="title" value="Popup"/>
 
-  <tc:form>
-    <h1>Currently this is not a popup, but should work the same manner!</h1>
+  <tc:section label="Collapsible Popup">
 
-    <tc:button label="Open">
-      <tc:operation name="show" for="popup"/>
-    </tc:button>
-
-    <tc:box label="Test for Popup" id="popup" collapsed="#{collapsibleController.collapsed2}">
-      Hallo, collapsible popup.
-      <tc:in required="true" label="Required"/>
-      <tc:button label="Cancel and Close (immediate)" immediate="true" action="#{collapsibleController.cancel}">
-        <tc:operation name="drop" for="popup"/>
+    <tc:buttons>
+      <tc:button label="Open (client site)" omit="true">
+        <tc:operation name="show" for="popup"/>
       </tc:button>
-      <tc:button label="Submit and Close" action="#{collapsibleController.action}">
-        <tc:operation name="drop" for="popup"/>
+      <tc:button label="Open (server site)">
+        <tc:operation name="show" for="popup"/>
       </tc:button>
-    </tc:box>
+    </tc:buttons>
+
+    <!--<tc:popup id="popup" collapsed="hidden">-->
+    <tc:popup id="popup" collapsed="#{collapsibleController.collapsed}">
+      <tc:box label="Test for Popup">
+        Hallo, collapsible popup.
+        <tc:in required="true" label="Required"/>
+        <tc:buttons>
+          <tc:button label="Close (on client)" omit="true">
+            <tc:operation name="hide" for="popup"/>
+          </tc:button>
+          <tc:button label="Cancel and Close (immediate with action)" immediate="true"
+                     action="#{collapsibleController.cancel}">
+            <tc:operation name="drop" for="popup"/>
+          </tc:button>
+          <tc:button label="Submit and Close" action="#{collapsibleController.action}">
+            <tc:operation name="hide" for="popup"/>
+          </tc:button>
+        </tc:buttons>
+      </tc:box>
+    </tc:popup>
 
     <tc:out value="Requests: #{activityList.values[0].jsfRequest} / AJAX: #{activityList.values[0].ajaxRequest}"/>
-    <tc:selectBooleanCheckbox readonly="true" value="true" label="A" itemLabel="B"/>
-    <tc:out value="#{collapsibleController.collapsed2}" label="collapsed2"/>
+    <!--<tc:out value="#{collapsibleController.collapsed}" label="collapsed"/>-->
 
     <tc:flowLayout>
       <tc:style textAlign="right"/>
       <tc:button label="Submit"/>
     </tc:flowLayout>
-  </tc:form>
+  </tc:section>
 
 </ui:composition>

@@ -61,11 +61,7 @@ import javax.faces.component.UICommand;
         @Facet(
             name = Facets.CONFIRMATION,
             description = "Contains a UIOutput instance with the confirmation message.",
-            allowedChildComponenents = "org.apache.myfaces.tobago.Out"),
-        @Facet(
-            name = Facets.POPUP,
-            description = "Contains a UIPopup instance.",
-            allowedChildComponenents = "org.apache.myfaces.tobago.Popup")})
+            allowedChildComponenents = "org.apache.myfaces.tobago.Out")})
 public interface LinkTagDeclaration
     extends HasIdBindingAndRendered, HasLabelAndAccessKey, HasAction, HasActionListener, IsImmediateCommand,
     HasLink, HasResource, IsTransition, HasTarget, HasRenderedPartially, IsDisabledBySecurity, IsOmit,

@@ -19,10 +19,8 @@
 
 package org.apache.myfaces.tobago.internal.taglib.component;
 
-import org.apache.myfaces.tobago.apt.annotation.Facet;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
-import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasAction;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasActionListener;
@@ -51,12 +49,7 @@ import javax.faces.component.UICommand;
     uiComponentFacesClass = "javax.faces.component.UICommand",
     componentFamily = UICommand.COMPONENT_FAMILY,
     rendererType = RendererTypes.COMMAND,
-    allowedChildComponenents = "NONE",
-    facets = {
-        @Facet(
-            name = Facets.POPUP,
-            description = "Contains a UIPopup instance.",
-            allowedChildComponenents = "org.apache.myfaces.tobago.Popup")})
+    allowedChildComponenents = "NONE")
 public interface CommandTagDeclaration
     extends HasIdBindingAndRendered, HasAction, HasActionListener, IsImmediateCommand,
     HasLink, HasResource, IsTransition, HasTarget, HasRenderedPartially, IsDisabledBySecurity,

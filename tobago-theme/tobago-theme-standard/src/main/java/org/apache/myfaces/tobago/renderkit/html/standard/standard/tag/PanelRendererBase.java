@@ -53,11 +53,13 @@ public class PanelRendererBase extends RendererBase {
     }
   }
 
-  protected void encodeHidden(final TobagoResponseWriter writer, final String clientId) throws IOException {
+  protected void encodeHidden(final TobagoResponseWriter writer, final String clientId, final CollapseState collapsed)
+      throws IOException {
     writer.startElement(HtmlElements.INPUT);
     writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN);
     writer.writeNameAttribute(clientId + ComponentUtils.SUB_SEPARATOR + "collapse");
     writer.writeIdAttribute(clientId + ComponentUtils.SUB_SEPARATOR + "collapse");
+    writer.writeAttribute(HtmlAttributes.VALUE, collapsed.name(), false);
     writer.endElement(HtmlElements.INPUT);
   }
 

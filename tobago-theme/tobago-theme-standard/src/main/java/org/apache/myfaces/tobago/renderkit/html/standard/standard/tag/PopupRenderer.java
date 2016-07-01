@@ -19,9 +19,8 @@
 
 package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
-import org.apache.myfaces.tobago.component.UIPopup;
-import org.apache.myfaces.tobago.internal.util.FacesContextUtils;
-import org.apache.myfaces.tobago.renderkit.RendererBase;
+import org.apache.myfaces.tobago.internal.component.AbstractUIPopup;
+import org.apache.myfaces.tobago.model.CollapseState;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
@@ -32,29 +31,21 @@ import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
-import javax.faces.event.ComponentSystemEvent;
-import javax.faces.event.ComponentSystemEventListener;
-import javax.faces.event.ListenerFor;
-import javax.faces.event.PostAddToViewEvent;
 import java.io.IOException;
 
-@ListenerFor(systemEventClass = PostAddToViewEvent.class)
-public class PopupRenderer extends RendererBase implements ComponentSystemEventListener {
-
-  @Override
-  public void processEvent(ComponentSystemEvent event) {
-    final FacesContext facesContext = FacesContext.getCurrentInstance();
-    final UIPopup popup = (UIPopup) event.getComponent();
-    FacesContextUtils.addPopup(facesContext, popup);
-  }
+public class PopupRenderer extends PanelRendererBase {
 
   @Override
   public void encodeBegin(FacesContext facesContext, UIComponent component) throws IOException {
-    final UIPopup popup = (UIPopup) component;
+
+    final AbstractUIPopup popup = (AbstractUIPopup) component;
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+    final String clientId = popup.getClientId(facesContext);
+    final CollapseState collapsed = popup.getCollapsed();
+
     writer.startElement(HtmlElements.DIV);
     writer.writeClassAttribute(TobagoClass.POPUP, BootstrapClass.MODAL, BootstrapClass.FADE);
-    writer.writeIdAttribute(popup.getClientId(facesContext));
+    writer.writeIdAttribute(clientId);
     writer.writeAttribute(HtmlAttributes.TABINDEX, -1);
     writer.writeAttribute(HtmlAttributes.ROLE, HtmlRoleValues.DIALOG.toString(), false);
     // todo: aria-labelledby
@@ -69,6 +60,8 @@ public class PopupRenderer extends RendererBase implements ComponentSystemEventL
 */
     writer.startElement(HtmlElements.DIV);
     writer.writeClassAttribute(BootstrapClass.MODAL_CONTENT);
+
+    encodeHidden(writer, clientId, collapsed);
   }
 
   @Override

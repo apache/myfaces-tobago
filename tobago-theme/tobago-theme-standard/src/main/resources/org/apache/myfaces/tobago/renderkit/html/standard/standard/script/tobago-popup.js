@@ -24,7 +24,13 @@ Tobago.Popup.init = function(elements) {
 
   var popups = Tobago.Utils.selectWithJQuery(elements, ".modal");
   popups.each(function() {
-    jQuery(this).modal(); // opens the popup
+    var $popup = jQuery(this);
+    var $hidden = Tobago.Collapse.findHidden($popup);
+    if ($hidden.val() == "visible") {
+      jQuery(this).modal(); // inits and opens the popup
+    } else {
+      jQuery(this).modal("hide"); // inits and hides the popup
+    }
   });
 };
 
@@ -46,6 +52,7 @@ Tobago.Collapse.execute = function (collapse) {
   var transition = collapse.transition;
   var $for = jQuery(Tobago.Utils.escapeClientId(collapse.forId));
   var $hidden = Tobago.Collapse.findHidden($for);
+  var isPopup = $for.hasClass("tobago-popup");
   var state = $hidden.val();
   var newState;
   switch (transition) {
@@ -61,11 +68,20 @@ Tobago.Collapse.execute = function (collapse) {
     default:
       console.error("unknown transition: '" + transition + "'");
   }
-  if (newState == "visible") {
-    $for.removeClass("tobago-collapsed");
-  } else {
-    $for.addClass("tobago-collapsed");
-  }
+  if (newState == "hidden") {
+    if (isPopup) {
+      $for.modal("hide");
+    } else {
+      $for.addClass("tobago-collapsed");
+    }
+  } else if (newState == "visible") {
+    if (isPopup) {
+      $for.modal("show");
+    } else {
+      $for.removeClass("tobago-collapsed");
+    }
+  } // else (absent): nothing to do, because here comes an update from the server
+
   var serverRequestRequired = state == "absent" || newState == "absent";
   if (serverRequestRequired) {
     console.info("serverRequestRequired!"); // todo: remove var serverRequestRequired: is not needed.

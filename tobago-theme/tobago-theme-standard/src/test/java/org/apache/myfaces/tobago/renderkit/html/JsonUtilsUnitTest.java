@@ -91,7 +91,7 @@ public class JsonUtilsUnitTest extends AbstractTobagoTestBase {
         "_blank", "http://www.apache.org/",
         StringUtils.join(Arrays.asList("id1", "id2"), ' '),
         "id_focus",
-        "Really?", 1000, Popup.createPopup(command), null, true));
+        "Really?", 1000, new Collapse(Collapse.Action.show, "myId"), true));
     final String expected = (
         "{"
             + "'click':{"
@@ -100,13 +100,13 @@ public class JsonUtilsUnitTest extends AbstractTobagoTestBase {
             + "'target':'_blank',"
             + "'url':'http://www.apache.org/',"
             + "'partially':'id1 id2',"
+            + "'collapse':{"
+            + "'transition':'show',"
+            + "'forId':'myId'"
+            + "},"
             + "'focus':'id_focus',"
             + "'confirmation':'Really?',"
             + "'delay':1000,"
-            + "'popup':{"
-            + "'command':'close',"
-            + "'immediate':true"
-            + "},"
             + "'omit':true"
             + "}"
             + "}").replaceAll("'", "\"");

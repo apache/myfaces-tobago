@@ -64,7 +64,6 @@ public class AjaxClientBehaviorRenderer extends ClientBehaviorRenderer {
           null,
           null, // getConfirmation(command), // todo
           null,
-          Popup.createPopup(component),
           collapse,
           component.isOmit());
 
@@ -80,7 +79,6 @@ public class AjaxClientBehaviorRenderer extends ClientBehaviorRenderer {
           null,
           ComponentUtils.evaluateClientIds(facesContext, uiComponent, execute.toArray(new String[execute.size()])),
           ComponentUtils.evaluateClientIds(facesContext, uiComponent, render.toArray(new String[render.size()])),
-          null,
           null,
           null,
           null,

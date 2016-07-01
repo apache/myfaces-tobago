@@ -71,7 +71,7 @@ public class PanelRenderer extends PanelRendererBase {
     HtmlRendererUtils.renderCommandFacet(panel, facesContext, writer);
     HtmlRendererUtils.encodeContextMenu(facesContext, writer, panel);
 
-    encodeHidden(writer, clientId);
+    encodeHidden(writer, clientId, collapsed);
   }
 
   @Override
