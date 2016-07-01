@@ -35,12 +35,15 @@
 
   <tc:section label="Collapse/Expand">
     <p>A contentbox can be collapsed via <code>collapsed</code> attribute.
+      Possible values are 'visible' (content is shown), 'hidden' (content is hidden) and
+      'absent' (content is not rendered).
       Also have a look at <tc:link label="#{overviewBundle.collapsible}"
                                    link="/faces/content/30-concept/53-collapsible/collapsible.xhtml"/>.</p>
-    <pre><code class="language-markup">&lt;tc:box label="Collapsed" collapsed="true">Content&lt;/tc:box></code></pre>
-    <tc:segmentLayout medium="6;6">
-      <tc:box label="Collapsed" collapsed="true">Content</tc:box>
-      <tc:box label="Expanded" collapsed="false">Content</tc:box>
+    <pre><code class="language-markup">&lt;tc:box label="Collapsed" collapsed="visible">Content&lt;/tc:box></code></pre>
+    <tc:segmentLayout medium="4;4;4">
+      <tc:box label="Visible" collapsed="visible">Content</tc:box>
+      <tc:box label="Hidden" collapsed="hidden">Content</tc:box>
+      <tc:box label="Absent" collapsed="absent">Content</tc:box>
     </tc:segmentLayout>
   </tc:section>
 

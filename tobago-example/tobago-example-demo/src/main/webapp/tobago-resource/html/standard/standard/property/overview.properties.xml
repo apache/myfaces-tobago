@@ -59,6 +59,7 @@
   <entry key="selectManyCheckbox">Checkbox Group</entry>
   <entry key="selectManyListbox">Multiselection List</entry>
   <entry key="selectManyShuttle">Shuttle List</entry>
+  <entry key="command">Commands</entry>
   <entry key="button_link">Link &amp; Button</entry>
   <entry key="default_command">Default Command</entry>
   <entry key="buttons">Button Group</entry>
@@ -127,6 +128,9 @@
   <entry key="deprecated">Deprecated</entry>
   <entry key="tx">TX Tag Library</entry>
   <entry key="toolBar">Toolbar</entry>
+
+  <!-- navigate : test -->
+  <entry key="test">Tests</entry>
 
   <entry key="validation-severity">Severity</entry>
   <entry key="browser">Browser</entry>
