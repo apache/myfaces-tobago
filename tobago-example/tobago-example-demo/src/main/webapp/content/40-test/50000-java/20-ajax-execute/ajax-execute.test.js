@@ -20,41 +20,75 @@ function jQueryFrame(expression) {
 }
 
 QUnit.test("ajax excecute", function (assert) {
+  assert.expect(12);
+  var done = assert.async(3);
+  var step = 1;
 
   var $in1;
   var $in2;
   var $in3;
   var $in4;
 
-  var $clearButton = jQueryFrame("#page\\:clear");
+  var $clearButton = jQueryFrame("#page\\:mainForm\\:clear");
   $clearButton.click();
 
-  $in1 = jQueryFrame("#page\\:in1\\:\\:field");
-  $in2 = jQueryFrame("#page\\:in2\\:\\:field");
-  $in3 = jQueryFrame("#page\\:in3\\:\\:field");
-  $in4 = jQueryFrame("#page\\:in4\\:\\:field");
-  assert.equal($in1.val(), "");
-  assert.equal($in2.val(), "");
-  assert.equal($in3.val(), "");
-  assert.equal($in4.val(), "");
-  $in1.val("a");
-  $in2.val("b");
-  $in3.val("c");
-  $in4.val("d");
+  jQuery("#page\\:testframe").load(function () {
+    if (step == 1) {
+      $in1 = jQueryFrame("#page\\:mainForm\\:in1\\:\\:field");
+      $in2 = jQueryFrame("#page\\:mainForm\\:in2\\:\\:field");
+      $in3 = jQueryFrame("#page\\:mainForm\\:in3\\:\\:field");
+      $in4 = jQueryFrame("#page\\:mainForm\\:in4\\:\\:field");
 
-  var $submitButton = jQueryFrame("#page\\:clear");
-  $submitButton.click();
+      assert.equal($in1.val(), "");
+      assert.equal($in2.val(), "");
+      assert.equal($in3.val(), "");
+      assert.equal($in4.val(), "");
 
-  $in1 = jQueryFrame("#page\\:in1\\:\\:field");
-  $in2 = jQueryFrame("#page\\:in2\\:\\:field");
-  $in3 = jQueryFrame("#page\\:in3\\:\\:field");
-  $in4 = jQueryFrame("#page\\:in4\\:\\:field");
-  assert.equal($in1.val(), "a");
-  assert.equal($in2.val(), "b");
-  assert.equal($in3.val(), "c");
-  assert.equal($in4.val(), "");
+      $in1 = jQueryFrame("#page\\:mainForm\\:in1\\:\\:field");
+      $in2 = jQueryFrame("#page\\:mainForm\\:in2\\:\\:field");
+      $in3 = jQueryFrame("#page\\:mainForm\\:in3\\:\\:field");
+      $in4 = jQueryFrame("#page\\:mainForm\\:in4\\:\\:field");
+      $in1.val("a");
+      $in2.val("b");
+      $in3.val("c");
+      $in4.val("d");
 
+      var $submitButton = jQueryFrame("#page\\:mainForm\\:submit");
+      $submitButton.click();
 
-  // todo: to be continued...
+      $.ajax({
+        type: 'GET',
+        url: 'content/40-test/50000-java/20-ajax-execute/ajax-execute.xhtml'
+      }).done(function () {
 
+        $in1 = jQueryFrame("#page\\:mainForm\\:in1\\:\\:field");
+        $in2 = jQueryFrame("#page\\:mainForm\\:in2\\:\\:field");
+        $in3 = jQueryFrame("#page\\:mainForm\\:in3\\:\\:field");
+        $in4 = jQueryFrame("#page\\:mainForm\\:in4\\:\\:field");
+
+        assert.equal($in1.val(), "a");
+        assert.equal($in2.val(), "b");
+        assert.equal($in3.val(), "c");
+        assert.equal($in4.val(), "");
+
+        var $reloadButton = jQueryFrame("#page\\:mainForm\\:reload");
+        $reloadButton.click();
+
+        done();
+      });
+    } else if (step == 2) {
+      $in1 = jQueryFrame("#page\\:mainForm\\:in1\\:\\:field");
+      $in2 = jQueryFrame("#page\\:mainForm\\:in2\\:\\:field");
+      $in3 = jQueryFrame("#page\\:mainForm\\:in3\\:\\:field");
+      $in4 = jQueryFrame("#page\\:mainForm\\:in4\\:\\:field");
+
+      assert.equal($in1.val(), "a");
+      assert.equal($in2.val(), "");
+      assert.equal($in3.val(), "c");
+      assert.equal($in4.val(), "");
+    }
+
+    step++;
+    done();
+  });
 });

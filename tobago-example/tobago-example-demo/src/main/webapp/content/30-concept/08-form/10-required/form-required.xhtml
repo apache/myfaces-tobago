@@ -24,6 +24,7 @@
   <ui:param name="title" value="#{overviewBundle.form_required} &lt;tc:form>"/>
   <p>If the validation of a form is activated and the actual value of this form is only stored temporarily,
     the validation is deactivated until the value is definitely stored into the model.</p>
+  <p>For example, if only the value in 'Inner Form 1' is set, the validation of the other forms are turned off.</p>
   <tc:link label="Tag Library Documentation" image="image/feather-leaf.png"
            link="#{overviewBundle.tagDocUrl}/form.html"/>
 
@@ -37,8 +38,8 @@
   &lt;tc:form>
     &lt;tc:box label="Inner Form 1">
       &lt;tc:form>
-        &lt;tc:in label="Inner Value 1" value="#{formRequiredController.innerValue1}"/>
-        &lt;tc:out label="Inner Value 1 in Model" value="#{formRequiredController.innerValue1}"/>
+        &lt;tc:in label="Inner Value 1"/>
+        &lt;tc:out label="Inner Value 1 in Model"/>
         &lt;tc:button label="Submit"/>
       &lt;/tc:form>
     &lt;/tc:box>
@@ -46,33 +47,33 @@
       ...
     &lt;/tc:box>
     &lt;tc:separator/>
-    &lt;tc:in label="Outer Value" required="true" value="#{formRequiredController.outerValue}"/>
-    &lt;tc:out label="Outer Value in Model" value="#{formRequiredController.outerValue}"/>
+    &lt;tc:in label="Outer Value" required="true"/>
+    &lt;tc:out label="Outer Value in Model"/>
     &lt;tc:button label="Submit"/>
   &lt;/tc:form>
 &lt;/tc:box></code></pre>
 
     <tc:box label="Outer Form">
-      <tc:form id="outer">
+      <tc:form id="outerForm">
         <tc:box label="Inner Form 1">
-          <tc:form id="inner1">
-            <tc:in id="innervalue1in" label="Inner Value 1" value="#{formRequiredController.innerValue1}"/>
-            <tc:out id="innervalue1out" label="Inner Value 1 in Model" value="#{formRequiredController.innerValue1}"/>
-            <tc:button label="Submit"/>
+          <tc:form id="innerForm1">
+            <tc:in id="in" label="Inner Value 1" value="#{formRequiredController.innerValue1}"/>
+            <tc:out id="out" label="Value in Model" value="#{formRequiredController.innerValue1}"/>
+            <tc:button id="submit" label="Submit"/>
           </tc:form>
         </tc:box>
         <tc:box label="Inner Form 2">
-          <tc:form id="inner2">
-            <tc:in id="innervalue2in" label="Inner Value 2" required="true"
+          <tc:form id="innerForm2">
+            <tc:in id="in" label="Inner Value 2" required="true"
                    value="#{formRequiredController.innerValue2}"/>
-            <tc:out id="innervalue2out" label="Inner Value 2 in Model" value="#{formRequiredController.innerValue2}"/>
-            <tc:button label="Submit"/>
+            <tc:out id="out" label="Value in Model" value="#{formRequiredController.innerValue2}"/>
+            <tc:button id="submit" label="Submit"/>
           </tc:form>
         </tc:box>
         <tc:separator/>
-        <tc:in id="outervaluein" label="Outer Value" required="true" value="#{formRequiredController.outerValue}"/>
-        <tc:out id="outervalueout" label="Outer Value in Model" value="#{formRequiredController.outerValue}"/>
-        <tc:button label="Submit"/>
+        <tc:in id="in" label="Outer Value" required="true" value="#{formRequiredController.outerValue}"/>
+        <tc:out id="out" label="Value in Model" value="#{formRequiredController.outerValue}"/>
+        <tc:button id="submit" label="Submit"/>
       </tc:form>
     </tc:box>
   </tc:section>

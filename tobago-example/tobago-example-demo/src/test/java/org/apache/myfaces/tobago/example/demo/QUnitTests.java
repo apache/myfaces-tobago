@@ -39,6 +39,7 @@ import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 
 @RunWith(Arquillian.class)
@@ -51,9 +52,6 @@ public class QUnitTests {
   private WebDriver browser;
   @ArquillianResource
   private URL contextPath;
-
-  @FindByJQuery("#page\\:navbtns\\:toggletest")
-  private WebElement toggletest;
   @FindByJQuery("#qunit")
   private WebElement qunit;
 
@@ -87,12 +85,15 @@ public class QUnitTests {
         WebElement assertList = testCase.findElement(By.className("qunit-assert-list"));
         List<WebElement> asserts = assertList.findElements(By.tagName("li"));
 
-        int assertionCount = 1;
+        int assertionCount = 0;
         for (WebElement assertion : asserts) {
+          assertionCount++;
           if ("pass".equals(assertion.getAttribute("class"))) {
             Assert.assertTrue(true);
           } else if ("fail".equals(assertion.getAttribute("class"))) {
-            LOG.warn("test '" + testName + "' for " + page + " failed on assertion " + assertionCount);
+            WebElement source = assertion.findElement(By.className("test-source"));
+            LOG.warn("test '" + testName + "' for " + page + " failed on assertion " + assertionCount
+                    + "\n" + source.getText());
             String expected = assertion.findElement(By.className("test-expected")).getText();
             expected = expected.substring(12, expected.length() - 1);
             String actual = assertion.findElement(By.className("test-actual")).getText();
@@ -100,13 +101,40 @@ public class QUnitTests {
             Assert.assertEquals(expected, actual);
           }
         }
+      } else if ("running".equals(testCase.getAttribute("class"))) {
+        LOG.warn("test '" + testName + "' for " + page + " is still running...");
+        Assert.fail();
+      } else {
+        LOG.warn("unexpected error on test '" + testName + "' for " + page);
+        Assert.fail();
       }
     }
   }
 
-  @Test
+  //  @Test
   public void allPages() {
-    LOG.warn("Not implemented yet!");
+    File dir = new File("tobago-example/tobago-example-demo/src/main/webapp/content");
+    List<String> testablePages = getTestablePages(dir);
+
+    for (String page : testablePages) {
+      checkResults(page);
+    }
+  }
+
+  private List<String> getTestablePages(File dir) {
+    List<String> testablePages = new ArrayList<String>();
+    for (File file : dir.listFiles()) {
+      if (file.isDirectory()) {
+        testablePages.addAll(getTestablePages(file));
+      } else if (file.getName().endsWith(".test.js")) {
+        String path = file.getPath().substring(
+                "tobago-example/tobago-example-demo/src/main/webapp/".length(),
+                file.getPath().length() - 8)
+                .concat(".xhtml");
+        testablePages.add(path);
+      }
+    }
+    return testablePages;
   }
 
   @Test
@@ -116,13 +144,61 @@ public class QUnitTests {
   }
 
   @Test
-  public void suggest() {
-    String page = "content/20-component/010-input/20-suggest/suggest.xhtml";
+  public void date() {
+    String page = "content/20-component/010-input/40-date/date.xhtml";
     checkResults(page);
   }
 
   @Test
-  public void date() {
+  public void selectBooleanCheckbox() {
+    String page = "content/20-component/030-select/10-selectBooleanCheckbox/selectBooleanCheckbox.xhtml";
+    checkResults(page);
+  }
+
+  @Test
+  public void selectOneChoice() {
+    String page = "content/20-component/030-select/20-selectOneChoice/selectOneChoice.xhtml";
+    checkResults(page);
+  }
+
+  @Test
+  public void selectOneRadio() {
+    String page = "content/20-component/030-select/30-selectOneRadio/selectOneRadio.xhtml"; // TODO: fails
+    checkResults(page);
+  }
+
+  @Test
+  public void selectOneListbox() {
+    String page = "content/20-component/030-select/40-selectOneListbox/selectOneListbox.xhtml";
+    checkResults(page);
+  }
+
+  @Test
+  public void selectManyCheckbox() {
+    String page = "content/20-component/030-select/50-selectManyCheckbox/selectManyCheckbox.xhtml";
+    checkResults(page);
+  }
+
+  @Test
+  public void form() {
+    String page = "content/30-concept/08-form/form.xhtml";
+    checkResults(page);
+  }
+
+  @Test
+  public void formRequired() {
+    String page = "content/30-concept/08-form/10-required/form-required.xhtml";
+    checkResults(page);
+  }
+
+  @Test
+  public void formAjax() {
+    String page = "content/30-concept/08-form/20-ajax/form-ajax.xhtml";
+    checkResults(page);
+  }
+
+  @Test
+  public void testDate() {
     String page = "content/40-test/1040-date/date.xhtml";
     checkResults(page);
   }
@@ -130,6 +206,12 @@ public class QUnitTests {
   @Test
   public void rendererBaseGetCurrentValue() {
     String page = "content/40-test/50000-java/10-rendererBase-getCurrentValue/rendererBase-getCurrentValue.xhtml";
+    checkResults(page);
+  }
+
+  @Test
+  public void ajaxExecute() {
+    String page = "content/40-test/50000-java/20-ajax-execute/ajax-execute.xhtml";
     checkResults(page);
   }
 }

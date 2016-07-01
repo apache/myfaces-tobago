@@ -20,7 +20,7 @@ function jQueryFrame(expression) {
 }
 
 function test(assert, idSuffix, expectedText) {
-  var $out = jQueryFrame("#page\\:" + idSuffix);
+  var $out = jQueryFrame("#page\\:mainForm\\:" + idSuffix);
   assert.equal($out.text().trim(), expectedText);
 }
 

@@ -29,7 +29,7 @@
     <p>In most cases, a label should be placed in front of every inputfield. Use the attribute
       <code>label</code>.</p>
     <pre><code class="language-markup">&lt;tc:in label="Input" value="Some Text"/&gt;</code></pre>
-    <tc:in id="inormal" label="Input" value="Some Text"/>
+    <tc:in id="iNormal" label="Input" value="Some Text"/>
     <tc:in id="ireadonly" label="Read Only" readonly="true" value="Some Text"/>
     <tc:in id="i3" label="Disabled" disabled="true" value="Some Text"/>
     <tc:in id="i4" value="Input without a label"/>
@@ -67,16 +67,16 @@
 
   <tc:section label="Ajax">
     <p>The outputfield in this example, displays the given value on the server.
-      With <code class="language-markup">&lt;f:ajax render="outputfield" listener="\#{inController.update}"/></code>,
+      With <code class="language-markup">&lt;f:ajax render="outputAjax" listener="\#{inController.update}"/></code>,
       the outputfield will be rerendered, after the value has been changed.
-      This is because <code>outputfield</code> is the id of the <code>&lt;tc:out/></code> tag.
+      This is because <code>outputAjax</code> is the id of the <code>&lt;tc:out/></code> tag.
       and the default event for <code class="language-markup">&lt;tc:in/></code> is <code>change</code>.
 
       Additional, the <code>listener</code> attribute is set. The given method is called after the inputfield
       loose focus.</p>
-    <tc:in id="iajax" label="On Change" value="#{inController.changeValue}">
-      <f:ajax render="oajax" listener="#{inController.update}"/>
+    <tc:in id="inputAjax" label="On Change" value="#{inController.changeValue}">
+      <f:ajax render="outputAjax" listener="#{inController.update}"/>
     </tc:in>
-    <tc:out id="oajax" label="On Server" value="#{inController.changeValue}"/>
+    <tc:out id="outputAjax" label="On Server" value="#{inController.changeValue}"/>
   </tc:section>
 </ui:composition>

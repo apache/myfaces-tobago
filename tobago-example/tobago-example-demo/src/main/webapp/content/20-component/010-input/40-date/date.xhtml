@@ -42,10 +42,10 @@
         <pre><code class="language-markup">&lt;tc:date label="Date" value=\#{dateController.now}"&gt;
   &lt;f:convertDateTime pattern="dd.MM.yyyy"/&gt;
 &lt;/tc:date&gt;</code></pre>
-    <tc:date id="dnormal" label="Date" value="#{dateController.now}">
+    <tc:date id="dNormal" label="Date" value="#{dateController.now}">
       <f:convertDateTime pattern="dd.MM.yyyy"/>
     </tc:date>
-    <tc:date id="dreadonly" label="Read Only" readonly="true" value="#{dateController.now}">
+    <tc:date id="dReadonly" label="Read Only" readonly="true" value="#{dateController.now}">
       <f:convertDateTime pattern="dd.MM.yyyy"/>
     </tc:date>
     <tc:date id="d3" label="Disabled" disabled="true" value="#{dateController.now}">
@@ -168,16 +168,16 @@
     </tc:date>
   </tc:section>
   <tc:section label="Submit">
-    <tc:form id="fsbmt">
+    <tc:form id="formSubmit">
       <p>Press the button to submit the date to the server. The output field show the current value.
         The date can be changed with the datepicker or by entering a valid date in the textfield.</p>
-      <tc:date id="sbmtinput" label="Input" value="#{dateController.submitDate}">
+      <tc:date id="input" label="Input" value="#{dateController.submitDate}">
         <f:convertDateTime pattern="dd.MM.yyyy"/>
       </tc:date>
-      <tc:out id="sbmtoutput" label="Output" value="#{dateController.submitDate}">
+      <tc:out id="output" label="Output" value="#{dateController.submitDate}">
         <f:convertDateTime pattern="dd.MM.yyyy"/>
       </tc:out>
-      <tc:button id="sbmtbutton" label="Submit"/>
+      <tc:button id="button" label="Submit"/>
     </tc:form>
   </tc:section>
   <tc:section label="Ajax">

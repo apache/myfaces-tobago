@@ -20,8 +20,8 @@ function jQueryFrame(expression) {
 }
 
 QUnit.test("inputfield with label", function (assert) {
-  var $label = jQueryFrame("#page\\:inormal > label");
-  var $inputField = jQueryFrame("#page\\:inormal\\:\\:field");
+  var $label = jQueryFrame("#page\\:mainForm\\:iNormal > label");
+  var $inputField = jQueryFrame("#page\\:mainForm\\:iNormal\\:\\:field");
 
   assert.equal($label.text(), "Input");
   assert.equal($inputField.val(), "Some Text");
@@ -31,8 +31,11 @@ QUnit.test("inputfield with label", function (assert) {
 });
 
 QUnit.test("ajax change event", function (assert) {
-  var $inputField = jQueryFrame("#page\\:iajax\\:\\:field");
-  var $outputField = jQueryFrame("#page\\:oajax > span:first");
+  assert.expect(4);
+  var done = assert.async();
+
+  var $inputField = jQueryFrame("#page\\:mainForm\\:inputAjax\\:\\:field");
+  var $outputField = jQueryFrame("#page\\:mainForm\\:outputAjax > span:first");
 
   assert.equal($inputField.val(), "");
   assert.equal($outputField.text(), "");
@@ -40,9 +43,11 @@ QUnit.test("ajax change event", function (assert) {
   $inputField.val("qwe").trigger("change");
   assert.equal($inputField.val(), "qwe");
 
-  var done = assert.async();
-  setTimeout(function () {
-    assert.equal(jQueryFrame("#page\\:oajax > span:first").text(), "qwe");
+  $.ajax({
+    type: 'GET',
+    url: 'content/20-component/010-input/10-in/in.xhtml'
+  }).done(function () {
+    assert.equal(jQueryFrame("#page\\:mainForm\\:outputAjax > span:first").text(), "qwe");
     done();
-  }, 500);
+  });
 });

@@ -63,14 +63,14 @@
       The
       <code class="language-markup">&lt;tc:out ... value="\#{selectManyCheckboxController.animal}"/></code>
       get the value from the controller.</p>
-    <tc:selectManyCheckbox label="Checkbox Group" value="#{selectManyCheckboxController.animals}">
+    <tc:selectManyCheckbox id="animals" label="Checkbox Group" value="#{selectManyCheckboxController.animals}">
       <tc:selectItem itemLabel="Cat" itemValue="Cat"/>
       <tc:selectItem itemLabel="Dog" itemValue="Dog"/>
       <tc:selectItem itemLabel="Fox" itemValue="Fox"/>
       <tc:selectItem itemLabel="Rabbit" itemValue="Rabbit"/>
     </tc:selectManyCheckbox>
-    <tc:out id="o1" label="Selected Animals" value="#{selectManyCheckboxController.animal}"/>
-    <tc:button id="b1" label="Submit"/>
+    <tc:out id="animalsOutput" label="Selected Animals" value="#{selectManyCheckboxController.animal}"/>
+    <tc:button id="submit" label="Submit"/>
   </tc:section>
 
   <tc:section label="Ajax">
@@ -79,7 +79,7 @@
       <code class="language-markup">&lt;tc:selectManyCheckbox .../></code> contain a
       <code class="language-markup">&lt;f:ajax render="resultOutput"/></code>, which rerenders the outputfield after
       check/uncheck a checkbox.</p>
-    <tc:selectManyCheckbox label="Checkbox Group" value="#{selectManyCheckboxController.numbers}">
+    <tc:selectManyCheckbox id="numbers" label="Checkbox Group" value="#{selectManyCheckboxController.numbers}">
       <tc:selectItem itemLabel="One" itemValue="1"/>
       <tc:selectItem itemLabel="Two" itemValue="2"/>
       <tc:selectItem itemLabel="Three" itemValue="3"/>

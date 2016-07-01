@@ -69,15 +69,15 @@
       outputfield.</p>
     <p>Items are added with
       <code class="language-markup">&lt;tc:selectItem itemLabel="Nile" itemValue="6853 km"/></code>.</p>
-    <tc:selectOneListbox id="s4" label="River" value="#{selectOneListboxController.river}">
+    <tc:selectOneListbox id="riverList" label="River" value="#{selectOneListboxController.river}">
       <tc:selectItem itemLabel="Nile" itemValue="6853 km"/>
       <tc:selectItem itemLabel="Amazon" itemValue="6437 km"/>
       <tc:selectItem itemLabel="Yangtze" itemValue="6300 km"/>
       <tc:selectItem itemLabel="Yellow River" itemValue="5464 km"/>
       <tc:selectItem itemLabel="Paraná River" itemValue="4880 km"/>
     </tc:selectOneListbox>
-    <tc:out id="o1" label="Length" value="#{selectOneListboxController.river}"/>
-    <tc:button id="b1" label="Submit"/>
+    <tc:out id="riverOutput" label="Length" value="#{selectOneListboxController.river}"/>
+    <tc:button id="riverSubmit" label="Submit"/>
   </tc:section>
 
   <tc:section label="Ajax">
@@ -85,7 +85,7 @@
       <code class="language-markup">&lt;tc:out id="selectedMountain" .../></code>. The
       <code class="language-markup">&lt;tc:selectOneListbox/></code> contain a
       <code class="language-markup">&lt;f:ajax render="selectedMountain"/></code>, which rerender the outputfield.</p>
-    <tc:selectOneListbox id="s5" label="Mountains" value="#{selectOneListboxController.mountain}">
+    <tc:selectOneListbox id="mountainList" label="Mountains" value="#{selectOneListboxController.mountain}">
       <tc:selectItems value="#{selectOneListboxController.mountains}" var="mountain"
                       itemLabel="#{mountain.label}" itemValue="#{mountain.value}"/>
       <f:ajax render="selectedMountain"/>

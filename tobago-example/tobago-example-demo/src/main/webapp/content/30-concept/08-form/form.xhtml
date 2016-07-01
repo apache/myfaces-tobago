@@ -45,17 +45,17 @@
   ...
 &lt;/tc:box></code></pre>
     <tc:box label="Form 1">
-      <tc:form>
-        <tc:in id="ivalue1" label="Value 1" value="#{formController.value1}"/>
-        <tc:out id="ovalue1" label="Value 1 in Model" value="#{formController.value1}"/>
-        <tc:button label="Submit"/>
+      <tc:form id="form1">
+        <tc:in id="in" label="Value 1" value="#{formController.value1}"/>
+        <tc:out id="out" label="Value 1 in Model" value="#{formController.value1}"/>
+        <tc:button id="submit" label="Submit"/>
       </tc:form>
     </tc:box>
     <tc:box label="Form 2">
-      <tc:form>
-        <tc:in id="ivalue2" label="Value 2" value="#{formController.value2}"/>
-        <tc:out id="ovalue2" label="Value 2 in Model" value="#{formController.value2}"/>
-        <tc:button label="Submit"/>
+      <tc:form id="form2">
+        <tc:in id="in" label="Value 2" value="#{formController.value2}"/>
+        <tc:out id="out" label="Value 2 in Model" value="#{formController.value2}"/>
+        <tc:button id="submit" label="Submit"/>
       </tc:form>
     </tc:box>
   </tc:section>

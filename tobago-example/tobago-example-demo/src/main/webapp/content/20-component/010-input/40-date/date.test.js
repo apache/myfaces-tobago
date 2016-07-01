@@ -1,5 +1,18 @@
-/**
- * Created by henning on 15.06.16.
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 
 function jQueryFrame(expression) {
@@ -21,9 +34,9 @@ function getToday() {
 }
 
 QUnit.test("date with label", function (assert) {
-  var $label = jQueryFrame("#page\\:dnormal > label");
-  var $dateField = jQueryFrame("#page\\:dnormal\\:\\:field");
-  var $dateButton = jQueryFrame("#page\\:dnormal button");
+  var $label = jQueryFrame("#page\\:mainForm\\:dNormal > label");
+  var $dateField = jQueryFrame("#page\\:mainForm\\:dNormal\\:\\:field");
+  var $dateButton = jQueryFrame("#page\\:mainForm\\:dNormal button");
   var today = getToday();
 
   assert.equal($label.text(), "Date");
@@ -36,10 +49,13 @@ QUnit.test("date with label", function (assert) {
 });
 
 QUnit.test("submit", function (assert) {
-  var $dateField = jQueryFrame("#page\\:fsbmt\\:sbmtinput\\:\\:field");
-  var $dateButton = jQueryFrame("#page\\:fsbmt\\:sbmtinput button");
-  var $outField = jQueryFrame("#page\\:fsbmt\\:sbmtoutput span");
-  var $submitButton = jQueryFrame("#page\\:fsbmt\\:sbmtbutton");
+  assert.expect(5);
+  var done = assert.async();
+
+  var $dateField = jQueryFrame("#page\\:mainForm\\:formSubmit\\:input\\:\\:field");
+  var $dateButton = jQueryFrame("#page\\:mainForm\\:formSubmit\\:input button");
+  var $outField = jQueryFrame("#page\\:mainForm\\:formSubmit\\:output span");
+  var $submitButton = jQueryFrame("#page\\:mainForm\\:formSubmit\\:button");
 
   assert.equal($dateField.val(), "22.05.2016");
   assert.equal($outField.text(), "22.05.2016");
@@ -51,18 +67,20 @@ QUnit.test("submit", function (assert) {
   assert.equal($dateField.val(), "01.06.2016");
   $submitButton.click();
 
-  var done = assert.async();
-  setTimeout(function () {
-    $outField = jQueryFrame("#page\\:fsbmt\\:sbmtoutput span");
+  jQuery("#page\\:testframe").load(function () {
+    $outField = jQueryFrame("#page\\:mainForm\\:formSubmit\\:output span");
     assert.equal($outField.text(), "01.06.2016");
     done();
-  }, 500);
+  });
 });
 
 QUnit.test("ajax", function (assert) {
-  var $dateField = jQueryFrame("#page\\:ajaxinput\\:\\:field");
-  var $dateButton = jQueryFrame("#page\\:ajaxinput button");
-  var $outField = jQueryFrame("#page\\:outputfield span");
+  assert.expect(5);
+  var done = assert.async();
+
+  var $dateField = jQueryFrame("#page\\:mainForm\\:ajaxinput\\:\\:field");
+  var $dateButton = jQueryFrame("#page\\:mainForm\\:ajaxinput button");
+  var $outField = jQueryFrame("#page\\:mainForm\\:outputfield span");
   var today = getToday();
 
   assert.equal($dateField.val(), "");
@@ -73,10 +91,12 @@ QUnit.test("ajax", function (assert) {
   assert.ok(jQueryFrame(".bootstrap-datetimepicker-widget").get(0));
   assert.equal($dateField.val(), today);
 
-  var done = assert.async();
-  setTimeout(function () {
-    $outField = jQueryFrame("#page\\:outputfield span");
+  $.ajax({
+    type: 'GET',
+    url: 'content/20-component/010-input/40-date/date.xhtml'
+  }).done(function () {
+    $outField = jQueryFrame("#page\\:mainForm\\:outputfield span");
     assert.equal($outField.text(), today);
     done();
-  }, 500);
+  });
 });

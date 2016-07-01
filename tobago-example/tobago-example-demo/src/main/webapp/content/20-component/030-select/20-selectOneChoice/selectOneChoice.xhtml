@@ -25,7 +25,7 @@
   <ui:param name="title" value="#{overviewBundle.selectOneChoice} &lt;tc:selectOneChoice>"/>
   <p>The tag <code class="language-markup">&lt;tc:selectOneChoice/&gt;</code> create a dropdownbox,
     which contain<br/>
-  <code class="language-markup">&lt;tc:selectItem/></code> for static entries or<br/>
+    <code class="language-markup">&lt;tc:selectItem/></code> for static entries or<br/>
     <code class="language-markup">&lt;tc:selectItems value="\#{controller.list}"/></code> for entries from
     a controller.</p>
   <p>Tag Library Documentation:
@@ -61,12 +61,12 @@
       After submitting, the value of the item is shown in the outputfield.
       So, if 'Alice' is selected, the text in the outputfield is 'Alice Anderson'.</p>
     <pre><code class="language-markup">&lt;tc:selectItem itemLabel="Alice" itemValue="Alice Anderson"/></code></pre>
-    <tc:selectOneChoice id="s4" label="Person" value="#{selectOneChoiceController.person}">
+    <tc:selectOneChoice id="selectPerson" label="Person" value="#{selectOneChoiceController.person}">
       <tc:selectItem itemLabel="Alice" itemValue="Alice Anderson"/>
       <tc:selectItem itemLabel="Bob" itemValue="Bob Brunch"/>
     </tc:selectOneChoice>
-    <tc:out id="o1" label="Selected Person" value="#{selectOneChoiceController.person}"/>
-    <tc:button id="b1" label="Submit"/>
+    <tc:out id="outputPerson" label="Selected Person" value="#{selectOneChoiceController.person}"/>
+    <tc:button id="submit" label="Submit"/>
   </tc:section>
 
   <tc:section label="Ajax">
@@ -81,7 +81,7 @@
 &lt;tc:selectOneChoice id="moonbox" label="Moon">
   &lt;f:selectItems value="\#{selectOneChoiceController.moons}"/>
 &lt;/tc:selectOneChoice></code></pre>
-    <tc:selectOneChoice id="s5" label="Planet" value="#{selectOneChoiceController.planet}">
+    <tc:selectOneChoice id="selectPlanet" label="Planet" value="#{selectOneChoiceController.planet}">
       <f:selectItems value="#{selectOneChoiceController.planets}"/>
       <f:ajax render="moonbox"/>
     </tc:selectOneChoice>
