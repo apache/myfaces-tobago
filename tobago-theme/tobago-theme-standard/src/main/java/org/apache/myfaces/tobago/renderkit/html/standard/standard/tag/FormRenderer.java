@@ -20,21 +20,6 @@
 package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
 import org.apache.myfaces.tobago.renderkit.RendererBase;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
 
 public class FormRenderer extends RendererBase {
-
-  private static final Logger LOG = LoggerFactory.getLogger(FormRenderer.class);
-
-  @Override
-  public void decode(final FacesContext facesContext, final UIComponent component) {
-
-    LOG.info("Do nothing spectial in form '{}'", component.getClientId(facesContext));
-
-    super.decode(facesContext, component);
-  }
 }
