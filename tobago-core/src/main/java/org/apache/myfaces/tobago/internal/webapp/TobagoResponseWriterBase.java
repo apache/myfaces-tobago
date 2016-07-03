@@ -98,19 +98,15 @@ public abstract class TobagoResponseWriterBase extends TobagoResponseWriter {
       } else {
         final String trace = getCallingClassStackTraceElementString();
         LOG.error("Don't know what to do! "
-            + "Property defined, but no component to get a value. "
+            + "Property defined, but no component to get a value. (value=null, property='" + property + "') "
             + trace.substring(trace.indexOf('(')));
-        LOG.error("value = 'null'");
-        LOG.error("property = '" + property + "'");
         return null;
       }
     } else {
       final String trace = getCallingClassStackTraceElementString();
       LOG.error("Don't know what to do! "
-          + "No value and no property defined. "
+          + "No value and no property defined. (value=null, property=null)"
           + trace.substring(trace.indexOf('(')));
-      LOG.error("value = 'null'");
-      LOG.error("property = 'null'");
       return null;
     }
   }
