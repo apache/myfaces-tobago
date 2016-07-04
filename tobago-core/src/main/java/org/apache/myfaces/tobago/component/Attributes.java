@@ -31,6 +31,7 @@ public enum Attributes {
   action,
   actionListener,
   align,
+  alignItems,
   alt,
   applicationIcon,
   autoReload,
@@ -207,7 +208,6 @@ public enum Attributes {
   scrollPosition,
   selectedIndex,
   selectedListString,
-  sortable,
   selectable,
   showDirectLinks,
   showDirectLinksArrows,
@@ -222,6 +222,8 @@ public enum Attributes {
   showRowRange,
   showSummary,
   showDetail,
+  size,
+  sortable,
   sortActionListener,
   small,
   spanX,
@@ -297,6 +299,9 @@ public enum Attributes {
   /** @deprecated Since Tobago 3.0.0. Please use the enum */
   @Deprecated
   public static final String ALIGN = "align";
+  /** @deprecated Since Tobago 3.0.0. Please use the enum */
+  @Deprecated
+  public static final String ALIGN_ITEMS = "alignItems";
   /** @deprecated Since Tobago 3.0.0. Please use the enum */
   @Deprecated
   public static final String ALT = "alt";
@@ -673,9 +678,6 @@ public enum Attributes {
   public static final String SELECTED_LIST_STRING = "selectedListString";
   /** @deprecated Since Tobago 3.0.0. Please use the enum */
   @Deprecated
-  public static final String SORTABLE = "sortable";
-  /** @deprecated Since Tobago 3.0.0. Please use the enum */
-  @Deprecated
   public static final String SELECTABLE = "selectable";
   /** @deprecated Since Tobago 3.0.0. Please use the enum */
   @Deprecated
@@ -709,7 +711,13 @@ public enum Attributes {
   public static final String SHOW_DETAIL = "showDetail";
   /** @deprecated Since Tobago 3.0.0. Please use the enum */
   @Deprecated
+  public static final String SIZE = "size";
+  /** @deprecated Since Tobago 3.0.0. Please use the enum */
+  @Deprecated
   public static final String SMALL = "small";
+  /** @deprecated Since Tobago 3.0.0. Please use the enum */
+  @Deprecated
+  public static final String SORTABLE = "sortable";
   /** @deprecated Since Tobago 3.0.0. Please use the enum */
   @Deprecated
   public static final String SPAN_X = "spanX";
