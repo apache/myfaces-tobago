@@ -275,20 +275,20 @@ public class JsonUtils {
 
   public static List<Integer> decodeIntegerArray(String json) {
     json = json.trim();
+    final List<Integer> result = new ArrayList<Integer>();
     if (json.length() < 2 || json.charAt(0) != '[' || json.charAt(json.length() - 1) != ']') {
       LOG.error("Can't parse JSON array: no surrounding square brackets []: '{}'", json);
-      return null;
-    }
-    json = json.substring(1, json.length() - 1);
-    final List<Integer> result = new ArrayList<Integer>();
-    final StringTokenizer tokenizer = new StringTokenizer(json, ",");
-    while (tokenizer.hasMoreTokens()) {
-      final String token = tokenizer.nextToken().trim();
-      try {
-        result.add(Integer.parseInt(token));
-      } catch (NumberFormatException e) {
-        LOG.error("Can't parse JSON array: not an integer token: '{}'", token);
-        // ignoring so far
+    } else {
+      json = json.substring(1, json.length() - 1);
+      final StringTokenizer tokenizer = new StringTokenizer(json, ",");
+      while (tokenizer.hasMoreTokens()) {
+        final String token = tokenizer.nextToken().trim();
+        try {
+          result.add(Integer.parseInt(token));
+        } catch (NumberFormatException e) {
+          LOG.error("Can't parse JSON array: not an integer token: '{}'", token);
+          // ignoring so far
+        }
       }
     }
     return result;

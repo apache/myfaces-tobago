@@ -150,7 +150,7 @@ public class OverviewController implements Serializable {
   public void resetColumnWidths(final ActionEvent event) {
     final UISheet sheet = (UISheet) event.getComponent().findComponent("sheet");
     if (sheet != null) {
-      sheet.getState().setColumnWidths(null);
+      sheet.getState().setColumnWidths(new ArrayList<Integer>());
     } else {
       LOG.warn("Didn't find sheet component!");
     }

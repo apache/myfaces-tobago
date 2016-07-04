@@ -105,13 +105,15 @@ public class SheetRenderer extends RendererBase {
   public void decode(final FacesContext facesContext, final UIComponent component) {
 
     final UISheet sheet = (UISheet) component;
+    final List<AbstractUIColumnBase> columns = sheet.getAllColumns();
     final String clientId = sheet.getClientId(facesContext);
 
     String key = clientId + SUFFIX_WIDTHS;
     final Map requestParameterMap = facesContext.getExternalContext().getRequestParameterMap();
+    final SheetState state = sheet.getState();
     if (requestParameterMap.containsKey(key)) {
       final String widths = (String) requestParameterMap.get(key);
-      sheet.getState().setColumnWidths(JsonUtils.decodeIntegerArray(widths));
+      ensureColumnWidthsSize(state.getColumnWidths(), columns, JsonUtils.decodeIntegerArray(widths));
     }
 
     key = clientId + SUFFIX_SELECTED;
@@ -134,7 +136,7 @@ public class SheetRenderer extends RendererBase {
     final String value
         = facesContext.getExternalContext().getRequestParameterMap().get(clientId + SUFFIX_SCROLL_POSITION);
     if (value != null) {
-      sheet.getState().getScrollPosition().update(value);
+      state.getScrollPosition().update(value);
     }
     RenderUtils.decodedStateOfTreeData(facesContext, sheet);
 
@@ -227,18 +229,31 @@ public class SheetRenderer extends RendererBase {
     final Application application = facesContext.getApplication();
     final SheetState state = sheet.getSheetState(facesContext);
     final List<Integer> columnWidths = sheet.getState().getColumnWidths();
+    final boolean cleanColumnWidths = columnWidths.size() == 0;
     final List<Integer> selectedRows = getSelectedRows(sheet, state);
     final List<AbstractUIColumnBase> columns = sheet.getAllColumns();
     final boolean showHeader = sheet.isShowHeader();
     final boolean autoLayout = sheet.isAutoLayout();
     Markup sheetMarkup = sheet.getMarkup() != null ? sheet.getMarkup() : Markup.NULL;
 
+    ensureColumnWidthsSize(columnWidths, columns, Collections.<Integer>emptyList());
+
     if (!autoLayout) {
       writer.startElement(HtmlElements.INPUT);
       writer.writeIdAttribute(sheetId + SUFFIX_WIDTHS);
       writer.writeNameAttribute(sheetId + SUFFIX_WIDTHS);
       writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN);
-      writer.writeAttribute(HtmlAttributes.VALUE, JsonUtils.encode(columnWidths), false);
+      if (!cleanColumnWidths) {
+        final List<Integer> encodedWidths = new ArrayList<Integer>(columnWidths.size());
+        for (int i = 0; i < columns.size(); i++) {
+          AbstractUIColumnBase column = columns.get(i);
+          if (column.isRendered()) {
+            final Integer width = columnWidths.get(i);
+            encodedWidths.add(width > -1 ? width : 100);
+          }
+        }
+        writer.writeAttribute(HtmlAttributes.VALUE, JsonUtils.encode(encodedWidths), false);
+      }
       writer.endElement(HtmlElements.INPUT);
     }
 
@@ -455,12 +470,10 @@ public class SheetRenderer extends RendererBase {
         if (!(column instanceof AbstractUIColumnEvent)) {
           writer.startElement(HtmlElements.TD);
           writer.startElement(HtmlElements.DIV);
-          if (columnWidths != null) {
-            final Integer divWidth = columnWidths.get(j);
-            final Style divStyle = new Style();
-            divStyle.setWidth(Measure.valueOf(divWidth));
-            writer.writeStyleAttribute(divStyle);
-          }
+          final Integer divWidth = columnWidths.get(j);
+          final Style divStyle = new Style();
+          divStyle.setWidth(Measure.valueOf(divWidth));
+          writer.writeStyleAttribute(divStyle);
           writer.endElement(HtmlElements.DIV);
           writer.endElement(HtmlElements.TD);
         }
@@ -673,6 +686,29 @@ public class SheetRenderer extends RendererBase {
     }
 
     writer.endElement(HtmlElements.DIV);
+  }
+
+  private void ensureColumnWidthsSize(
+      final List<Integer> columnWidths, final List<AbstractUIColumnBase> columns, final List<Integer> samples) {
+    // we have to fill the non rendered positions with some values.
+    // on client site, we don't know nothing about the non-rendered columns.
+    for (int i = 0, j = 0; i < columns.size(); i++) {
+      AbstractUIColumnBase column = columns.get(i);
+      Integer newValue;
+      if (column.isRendered() && j < samples.size()) {
+        newValue = samples.get(j);
+        j++;
+      } else {
+        newValue = null;
+      }
+      if (columnWidths.size() > i) {
+        if (newValue != null) {
+          columnWidths.set(i, newValue);
+        }
+      } else {
+        columnWidths.add(newValue != null ? newValue : -1); // -1 means unknown or undefined
+      }
+    }
   }
 
   private Markup getMarkupForAlign(UIColumn column) {
@@ -909,7 +945,8 @@ public class SheetRenderer extends RendererBase {
     for (int i = 0; i < columns.size(); i++) {
       final AbstractUIColumnBase column =  columns.get(i);
       if (column.isRendered() && !(column instanceof AbstractUIColumnEvent)) {
-        writeCol(writer, columnWidths != null ? columnWidths.get(i) : null);
+        final Integer width = columnWidths.get(i);
+        writeCol(writer, width >= 0 ? width : null);
       }
     }
     writeCol(writer, null); // extra entry for resizing...
