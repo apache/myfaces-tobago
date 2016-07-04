@@ -394,7 +394,7 @@ public class SheetRenderer extends RendererBase {
       }
 
       for (final UIColumn column : columns) {
-        if (!(column instanceof AbstractUIColumnEvent)) {
+        if (column.isRendered() && !(column instanceof AbstractUIColumnEvent)) {
           writer.startElement(HtmlElements.TD);
           Markup markup = column instanceof Visual ? ((Visual) column).getMarkup() : Markup.NULL;
           if (markup == null) {
