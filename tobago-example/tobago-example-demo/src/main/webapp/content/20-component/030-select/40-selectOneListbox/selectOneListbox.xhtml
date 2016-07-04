@@ -38,25 +38,26 @@
 
   <tc:section label="Basics">
     <p>If the number of rows is not set, die height of the list depends on the number of entries.
-      The number of rows can be set by the <code>size</code> attribute. A list has always two rows, therefor values
+      The number of rows can be set by the <code>size</code> attribute.
+      A list has at least two rows, therefor values
       less than two have no effect.</p>
-    <pre><code class="language-markup">&lt;tc:selectOneListbox label="List" size="2">
+    <pre><code class="language-markup">&lt;tc:selectOneListbox label="List" size="3">
   &lt;tc:selectItem itemLabel="Alpha"/>
   ...
 &lt;/tc:selectOneListbox></code></pre>
-    <tc:selectOneListbox id="s1" label="List" size="2">
+    <tc:selectOneListbox id="s1" label="List" size="3">
       <tc:selectItem itemLabel="Alpha"/>
       <tc:selectItem itemLabel="Beta"/>
       <tc:selectItem itemLabel="Gamma"/>
       <tc:selectItem itemLabel="Delta"/>
     </tc:selectOneListbox>
-    <tc:selectOneListbox id="s2" label="Read Only" readonly="true" size="2">
+    <tc:selectOneListbox id="s2" label="Read Only" readonly="true" size="3">
       <tc:selectItem itemLabel="Alpha"/>
       <tc:selectItem itemLabel="Beta"/>
       <tc:selectItem itemLabel="Gamma"/>
       <tc:selectItem itemLabel="Delta"/>
     </tc:selectOneListbox>
-    <tc:selectOneListbox id="s3" label="Disabled" disabled="true" size="2">
+    <tc:selectOneListbox id="s3" label="Disabled" disabled="true" size="3">
       <tc:selectItem itemLabel="Alpha"/>
       <tc:selectItem itemLabel="Beta"/>
       <tc:selectItem itemLabel="Gamma"/>
