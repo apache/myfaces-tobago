@@ -54,14 +54,14 @@
           <f:ajax execute="section2" render="section2"/>
           <tc:operation name="show" for="section2"/>
         </tc:button>
-        <tc:button label="drop" id="drop2">
+        <tc:button label="hide" id="hide2">
           <f:ajax execute="section2" render="section2"/>
           <tc:operation name="hide" for="section2"/>
         </tc:button>
       </tc:buttons>
     </f:facet>
 
-    Here we have the transitions <code>show</code> and <code>drop</code> and there is no server request needed.
+    Here we have the transitions <code>show</code> and <code>hide</code> with AJAX request.
     The buttons have set <code>omit="false"</code> which is the default.
 
     <tc:panel>
@@ -78,13 +78,13 @@
         <tc:button label="show" id="show3">
           <tc:operation name="show" for="section3"/>
         </tc:button>
-        <tc:button label="drop" id="drop3">
+        <tc:button label="hide" id="hide3">
           <tc:operation name="hide" for="section3"/>
         </tc:button>
       </tc:buttons>
     </f:facet>
 
-    Here we have the transitions <code>show</code> and <code>drop</code> and there is no server request needed.
+    Here we have the transitions <code>show</code> and <code>hide</code> with normal server request.
     The buttons have set <code>omit="false"</code> which is the default.
 
     <tc:panel>
