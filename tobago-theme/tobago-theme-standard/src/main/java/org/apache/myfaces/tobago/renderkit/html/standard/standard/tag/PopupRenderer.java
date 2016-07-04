@@ -20,7 +20,6 @@
 package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
 import org.apache.myfaces.tobago.internal.component.AbstractUIPopup;
-import org.apache.myfaces.tobago.model.CollapseState;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
@@ -41,7 +40,7 @@ public class PopupRenderer extends PanelRendererBase {
     final AbstractUIPopup popup = (AbstractUIPopup) component;
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
     final String clientId = popup.getClientId(facesContext);
-    final CollapseState collapsed = popup.getCollapsed();
+    final boolean collapsed = popup.isCollapsed();
 
     writer.startElement(HtmlElements.DIV);
     writer.writeClassAttribute(TobagoClass.POPUP, BootstrapClass.MODAL, BootstrapClass.FADE);

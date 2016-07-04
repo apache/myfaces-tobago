@@ -21,7 +21,6 @@ package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
 import org.apache.myfaces.tobago.internal.component.AbstractUICollapsiblePanel;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
-import org.apache.myfaces.tobago.model.CollapseState;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
@@ -48,18 +47,19 @@ public class PanelRendererBase extends RendererBase {
     if (requestParameterMap.containsKey(hiddenId)) {
       final String newValue = requestParameterMap.get(hiddenId);
       if (StringUtils.isNotBlank(newValue)) {
-        collapsible.setNextState(CollapseState.valueOf(newValue));
+        collapsible.setNextState(Boolean.valueOf(newValue));
       }
     }
   }
 
-  protected void encodeHidden(final TobagoResponseWriter writer, final String clientId, final CollapseState collapsed)
+  protected void encodeHidden(final TobagoResponseWriter writer, final String clientId, final boolean collapsed)
       throws IOException {
+    final String hiddenId = clientId + ComponentUtils.SUB_SEPARATOR + "collapse";
     writer.startElement(HtmlElements.INPUT);
     writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN);
-    writer.writeNameAttribute(clientId + ComponentUtils.SUB_SEPARATOR + "collapse");
-    writer.writeIdAttribute(clientId + ComponentUtils.SUB_SEPARATOR + "collapse");
-    writer.writeAttribute(HtmlAttributes.VALUE, collapsed.name(), false);
+    writer.writeNameAttribute(hiddenId);
+    writer.writeIdAttribute(hiddenId);
+    writer.writeAttribute(HtmlAttributes.VALUE, Boolean.toString(collapsed), false);
     writer.endElement(HtmlElements.INPUT);
   }
 
@@ -70,9 +70,8 @@ public class PanelRendererBase extends RendererBase {
 
   @Override
   public void encodeChildren(final FacesContext facesContext, final UIComponent component) throws IOException {
-    if (((AbstractUICollapsiblePanel) component).getCollapsed().isSkipLifecycle()) {
-      return;
+    if (((AbstractUICollapsiblePanel) component).isNormalLifecycle()) {
+      super.encodeChildren(facesContext, component);
     }
-    super.encodeChildren(facesContext, component);
   }
 }

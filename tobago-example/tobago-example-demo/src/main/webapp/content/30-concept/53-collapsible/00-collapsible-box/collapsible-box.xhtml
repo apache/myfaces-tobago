@@ -46,7 +46,6 @@
     </tc:box>
 
   </tc:section>
-
   <tc:section label="Collapsible section with AJAX server request" id="section2">
 
     Here we have the transitions <code>show</code> and <code>drop</code> and there is no server request needed.
@@ -59,9 +58,9 @@
             <f:ajax execute="box2" render="box2"/>
             <tc:operation name="show" for="box2"/>
           </tc:button>
-          <tc:button label="drop" id="drop2">
+          <tc:button label="hide" id="hide2">
             <f:ajax execute="box2" render="box2"/>
-            <tc:operation name="drop" for="box2"/>
+            <tc:operation name="hide" for="box2"/>
           </tc:button>
         </tc:buttons>
       </f:facet>
@@ -84,8 +83,8 @@
           <tc:button label="show" id="show3">
             <tc:operation name="show" for="box3"/>
           </tc:button>
-          <tc:button label="drop" id="drop3">
-            <tc:operation name="drop" for="box3"/>
+          <tc:button label="hide" id="hide3">
+            <tc:operation name="hide" for="box3"/>
           </tc:button>
         </tc:buttons>
       </f:facet>

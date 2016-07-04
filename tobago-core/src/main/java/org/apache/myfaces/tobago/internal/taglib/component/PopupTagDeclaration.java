@@ -23,6 +23,7 @@ import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.internal.component.AbstractUIPopup;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasCollapsedMode;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsCollapsible;
@@ -40,5 +41,5 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
     rendererType = RendererTypes.POPUP
 )
 public interface PopupTagDeclaration
-    extends HasIdBindingAndRendered, IsVisual, IsCollapsible, HasTip {
+    extends HasIdBindingAndRendered, IsVisual, IsCollapsible, HasCollapsedMode, HasTip {
 }

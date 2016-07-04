@@ -21,7 +21,6 @@ package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.internal.component.AbstractUISection;
-import org.apache.myfaces.tobago.model.CollapseState;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
@@ -42,13 +41,13 @@ public class SectionRenderer extends PanelRendererBase {
     final AbstractUISection section = (AbstractUISection) component;
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
     final String clientId = section.getClientId(facesContext);
-    final CollapseState collapsed = section.getCollapsed();
+    final boolean collapsed = section.isCollapsed();
 
     writer.startElement(HtmlElements.DIV);
     writer.writeIdAttribute(clientId);
     writer.writeClassAttribute(
         Classes.create(section),
-        collapsed == CollapseState.visible ? null : TobagoClass.COLLAPSED,
+        collapsed ? TobagoClass.COLLAPSED : null,
         section.getCustomClass());
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, section);
 

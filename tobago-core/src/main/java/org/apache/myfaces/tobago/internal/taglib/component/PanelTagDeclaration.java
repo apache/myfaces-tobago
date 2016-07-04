@@ -24,6 +24,7 @@ import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.RendererTypes;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasCollapsedMode;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsCollapsible;
@@ -49,5 +50,5 @@ import javax.faces.component.UIPanel;
         @Facet(name = Facets.LAYOUT, description = "Deprecated. Contains an layout manager. "
             + "The layout manager tag should surround the content instead.")})
 public interface PanelTagDeclaration
-    extends HasIdBindingAndRendered, IsVisual, IsCollapsible, HasTip {
+    extends HasIdBindingAndRendered, IsVisual, IsCollapsible, HasCollapsedMode, HasTip {
 }

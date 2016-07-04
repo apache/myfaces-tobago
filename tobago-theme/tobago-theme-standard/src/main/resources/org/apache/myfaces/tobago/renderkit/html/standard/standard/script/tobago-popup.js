@@ -20,13 +20,13 @@ Tobago.Popup = {};
 /**
  * Init popup for bootstrap
  */
-Tobago.Popup.init = function(elements) {
+Tobago.Popup.init = function (elements) {
 
   var popups = Tobago.Utils.selectWithJQuery(elements, ".modal");
-  popups.each(function() {
+  popups.each(function () {
     var $popup = jQuery(this);
     var $hidden = Tobago.Collapse.findHidden($popup);
-    if ($hidden.val() == "visible") {
+    if ($hidden.val() == "false") {
       jQuery(this).modal(); // inits and opens the popup
     } else {
       jQuery(this).modal("hide"); // inits and hides the popup
@@ -34,7 +34,7 @@ Tobago.Popup.init = function(elements) {
   });
 };
 
-Tobago.Popup.close = function(button) {
+Tobago.Popup.close = function (button) {
   jQuery(button).parents('.modal:first').modal("hide");
 
 };
@@ -53,39 +53,29 @@ Tobago.Collapse.execute = function (collapse) {
   var $for = jQuery(Tobago.Utils.escapeClientId(collapse.forId));
   var $hidden = Tobago.Collapse.findHidden($for);
   var isPopup = $for.hasClass("tobago-popup");
-  var state = $hidden.val();
-  var newState;
+  var newCollapsed;
   switch (transition) {
     case "hide":
-      newState = "hidden";
+      newCollapsed = true;
       break;
     case "show":
-      newState = "visible";
-      break;
-    case "drop":
-      newState = "absent";
+      newCollapsed = false;
       break;
     default:
       console.error("unknown transition: '" + transition + "'");
   }
-  if (newState == "hidden") {
+  if (newCollapsed) {
     if (isPopup) {
       $for.modal("hide");
     } else {
       $for.addClass("tobago-collapsed");
     }
-  } else if (newState == "visible") {
+  } else {
     if (isPopup) {
       $for.modal("show");
     } else {
       $for.removeClass("tobago-collapsed");
     }
-  } // else (absent): nothing to do, because here comes an update from the server
-
-  var serverRequestRequired = state == "absent" || newState == "absent";
-  if (serverRequestRequired) {
-    console.info("serverRequestRequired!"); // todo: remove var serverRequestRequired: is not needed.
-    // tbd. this this must be done be the deveopoer manually
   }
-  $hidden.val(newState);
+  $hidden.val(newCollapsed);
 };

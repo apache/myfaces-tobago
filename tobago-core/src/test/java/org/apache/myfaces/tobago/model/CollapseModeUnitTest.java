@@ -19,18 +19,13 @@
 
 package org.apache.myfaces.tobago.model;
 
-public enum CollapseState {
+import org.apache.myfaces.tobago.util.EnumUnitTest;
+import org.junit.Test;
 
-  visible,
-  hidden,
-  absent;
+public class CollapseModeUnitTest extends EnumUnitTest {
 
-  public static final String VISIBLE = "visible";
-  public static final String HIDDEN = "hidden";
-  public static final String ABSENT = "absent";
-
-  public boolean isSkipLifecycle() {
-    return this == absent;
+  @Test
+  public void testNames() throws IllegalAccessException, NoSuchFieldException {
+    testNames(CollapseMode.class);
   }
-
 }

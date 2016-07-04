@@ -22,7 +22,6 @@ import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.UIMenuBar;
 import org.apache.myfaces.tobago.internal.component.AbstractUIBox;
 import org.apache.myfaces.tobago.internal.util.Deprecation;
-import org.apache.myfaces.tobago.model.CollapseState;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
@@ -52,10 +51,10 @@ public class BoxRenderer extends PanelRendererBase {
     final UIComponent bar = ComponentUtils.getFacet(box, Facets.bar);
 
     writer.startElement(HtmlElements.DIV);
-    final CollapseState collapsed = box.getCollapsed();
+    final boolean collapsed = box.isCollapsed();
     writer.writeClassAttribute(
         Classes.create(box),
-        collapsed == CollapseState.visible ? null : TobagoClass.COLLAPSED,
+        collapsed ? TobagoClass.COLLAPSED : null,
         BootstrapClass.CARD,
         box.getCustomClass());
     final String clientId = box.getClientId(facesContext);

@@ -38,6 +38,6 @@ public class Collapse {
   }
 
   public enum Action {
-    show, hide, drop
+    show, hide
   }
 }

@@ -19,7 +19,6 @@
 
 package org.apache.myfaces.tobago.example.demo;
 
-import org.apache.myfaces.tobago.model.CollapseState;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -33,7 +32,7 @@ public class CollapsibleController implements Serializable {
 
   private static final Logger LOG = LoggerFactory.getLogger(CollapsibleController.class);
 
-  private CollapseState collapsed = CollapseState.hidden;
+  private boolean collapsed = true;
 
   public String action() {
     LOG.info("action(): collapsed={}", collapsed);
@@ -45,11 +44,11 @@ public class CollapsibleController implements Serializable {
     return null;
   }
 
-  public CollapseState getCollapsed() {
+  public boolean isCollapsed() {
     return collapsed;
   }
 
-  public void setCollapsed(CollapseState collapsed) {
+  public void setCollapsed(boolean collapsed) {
     this.collapsed = collapsed;
   }
 }

@@ -20,7 +20,7 @@
 package org.apache.myfaces.tobago.internal.component;
 
 import org.apache.myfaces.tobago.component.Facets;
-import org.apache.myfaces.tobago.model.CollapseState;
+import org.apache.myfaces.tobago.model.CollapseMode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -31,7 +31,7 @@ public abstract class AbstractUICollapsiblePanel extends AbstractUIPanelBase {
 
   private static final Logger LOG = LoggerFactory.getLogger(AbstractUICollapsiblePanel.class);
 
-  private volatile CollapseState nextState;
+  private transient Boolean nextState;
 
   @Override
   public void processDecodes(final FacesContext facesContext) {
@@ -70,19 +70,17 @@ public abstract class AbstractUICollapsiblePanel extends AbstractUIPanelBase {
     }
   }
 
-  private boolean isNormalLifecycle() {
-    return !getCollapsed().isSkipLifecycle();
+  public boolean isNormalLifecycle() {
+    return getCollapsedMode() == CollapseMode.hidden || !isCollapsed();
   }
 
-  public abstract CollapseState getCollapsed();
+  public abstract boolean isCollapsed();
 
-  public abstract void setCollapsed(final CollapseState collapsed);
+  public abstract void setCollapsed(final boolean collapsed);
 
-  public CollapseState getNextState() {
-    return nextState;
-  }
+  public abstract CollapseMode getCollapsedMode();
 
-  public void setNextState(CollapseState nextState) {
+  public void setNextState(Boolean nextState) {
     this.nextState = nextState;
   }
 

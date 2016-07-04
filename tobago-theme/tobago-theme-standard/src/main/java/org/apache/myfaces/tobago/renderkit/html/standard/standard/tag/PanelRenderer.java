@@ -23,7 +23,6 @@ import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.UIPanel;
 import org.apache.myfaces.tobago.component.UIReload;
 import org.apache.myfaces.tobago.internal.util.FacesContextUtils;
-import org.apache.myfaces.tobago.model.CollapseState;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
@@ -45,14 +44,14 @@ public class PanelRenderer extends PanelRendererBase {
     final UIPanel panel = (UIPanel) component;
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
     final String clientId = panel.getClientId(facesContext);
-    final CollapseState collapsed = panel.getCollapsed();
+    final boolean collapsed = panel.isCollapsed();
 
     writer.startElement(HtmlElements.DIV);
     writer.writeIdAttribute(clientId);
     writer.writeClassAttribute(
         Classes.create(panel),
         panel.getCustomClass(),
-        collapsed == CollapseState.visible ? null : TobagoClass.COLLAPSED);
+        collapsed ? TobagoClass.COLLAPSED : null);
     writer.writeStyleAttribute(panel.getStyle());
 
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, panel);

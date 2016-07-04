@@ -17,33 +17,21 @@
  * under the License.
  */
 
-package org.apache.myfaces.tobago.event;
+package org.apache.myfaces.tobago.internal.taglib.declaration;
 
+import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
+import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
+import org.apache.myfaces.tobago.model.CollapseMode;
 
-import org.apache.myfaces.tobago.model.CollapseState;
+public interface HasCollapsedMode {
 
-import javax.faces.component.UIComponent;
-import javax.faces.event.ActionEvent;
-import javax.faces.event.PhaseId;
-
-
-public class CollapsibleActionEvent extends ActionEvent {
-
-  private static final long serialVersionUID = 1L;
-
-  private CollapseState newState;
-
-  public CollapsibleActionEvent(final UIComponent component, final CollapseState newState) {
-    super(component);
-    this.newState = newState;
-    setPhaseId(PhaseId.INVOKE_APPLICATION);
-  }
-
-  public CollapseState getNewState() {
-    return newState;
-  }
-
-  public void setNewState(CollapseState newState) {
-    this.newState = newState;
-  }
+  /**
+   * Enum indicating the mode of the collapsed state of this component.
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(
+          type = "org.apache.myfaces.tobago.model.CollapseMode",
+          defaultValue = CollapseMode.ABSENT,
+          defaultCode = "org.apache.myfaces.tobago.model.CollapseMode.absent")
+  void setCollapsedMode(String collapsed);
 }
