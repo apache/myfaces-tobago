@@ -44,12 +44,12 @@
   &lt;tc:column label="Name">
     &lt;tc:out value="\#{solarobject.name}"/>
       ...</code></pre>
-    <tc:sheet id="s1" value="#{sheetController.solarList}" var="object" rows="4" columns="*;*;*;*;*">
+    <tc:sheet id="s1" value="#{sheetController.solarList}" var="object" rows="4">
       <tc:style maxHeight="500px"/>
       <tc:column label="Name">
         <tc:out value="#{object.name}"/>
       </tc:column>
-      <tc:column label="Orbit" rendered="false">
+      <tc:column label="Orbit">
         <tc:out value="#{object.orbit}"/>
       </tc:column>
       <tc:column label="Period (Days)">
