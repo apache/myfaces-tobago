@@ -25,7 +25,7 @@
 
   <display-name>Tobago Demo Application</display-name>
 
-  <!-- for jetty also check override-myfaces-web.xml or override-mojarra-web.xml -->
+  <!-- for jetty also check src/test/jetty/override-myfaces-web.xml or src/test/jetty/override-mojarra-web.xml -->
   <context-param>
     <param-name>javax.faces.PROJECT_STAGE</param-name>
     <!--<param-value>Development</param-value>-->
