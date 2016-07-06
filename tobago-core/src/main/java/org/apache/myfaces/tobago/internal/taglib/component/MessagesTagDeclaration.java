@@ -51,7 +51,7 @@ public interface MessagesTagDeclaration
    * particular UIComponent should be displayed. That are messages without clientId.
    */
   @TagAttribute
-  @UIComponentTagAttribute(defaultValue = "false")
+  @UIComponentTagAttribute(type = "boolean", defaultValue = "false")
   void setGlobalOnly(String globalOnly);
 
   /**
