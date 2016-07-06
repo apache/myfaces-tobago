@@ -20,6 +20,7 @@
 package org.apache.myfaces.tobago.renderkit.css;
 
 import org.apache.myfaces.tobago.layout.AlignItems;
+import org.apache.myfaces.tobago.layout.JustifyContent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -35,6 +36,13 @@ public enum TobagoClass implements CssItem {
   ALIGN_ITEMS__FLEX_END("alignItems-flexEnd"),
   ALIGN_ITEMS__FLEX_START("alignItems-flexStart"),
   ALIGN_ITEMS__STRETCH("alignItems-stretch"),
+
+  JUSTIFY_CONTENT__CENTER("justifyContent-center"),
+  JUSTIFY_CONTENT__FLEX_START("justifyContent-flexStart"),
+  JUSTIFY_CONTENT__FLEX_END("justifyContent-flexEnd"),
+  JUSTIFY_CONTENT__SPACE_BETWEEN("justifyContent-spaceBetween"),
+  JUSTIFY_CONTENT__SPACE_AROUND("justifyContent-spaceAround"),
+
   DROPDOWN_SUBMENU("dropdown-submenu"),
   TABLE_LAYOUT__FIXED("tableLayout-fixed"),
 
@@ -90,6 +98,28 @@ public enum TobagoClass implements CssItem {
           return ALIGN_ITEMS__STRETCH;
         default:
           LOG.warn("Undefined alignItems: '{}'.", alignItems);
+          return null;
+      }
+    }
+  }
+
+  public static TobagoClass valueOf(JustifyContent justifyContent) {
+    if (justifyContent == null) {
+      return null;
+    } else {
+      switch (justifyContent) {
+        case center:
+          return JUSTIFY_CONTENT__CENTER;
+        case flexEnd:
+          return JUSTIFY_CONTENT__FLEX_END;
+        case flexStart:
+          return JUSTIFY_CONTENT__FLEX_START;
+        case spaceBetween:
+          return JUSTIFY_CONTENT__SPACE_BETWEEN;
+        case spaceAround:
+          return JUSTIFY_CONTENT__SPACE_AROUND;
+        default:
+          LOG.warn("Undefined justifyContent: '{}'.", justifyContent);
           return null;
       }
     }

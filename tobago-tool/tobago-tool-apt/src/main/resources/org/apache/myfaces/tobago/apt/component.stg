@@ -358,6 +358,10 @@ AlignItemsProperty(property) ::= <<
 <NormalProperty(property)>
 >>
 
+JustifyContentProperty(property) ::= <<
+<NormalProperty(property)>
+>>
+
 SwitchTypeProperty(property) ::= <<
 <NormalProperty(property)>
 >>

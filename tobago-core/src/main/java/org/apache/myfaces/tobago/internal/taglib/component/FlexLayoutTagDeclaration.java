@@ -30,6 +30,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRend
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasRowLayout;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
 import org.apache.myfaces.tobago.layout.AlignItems;
+import org.apache.myfaces.tobago.layout.JustifyContent;
 
 /**
  * Renders a flex layout (CSS3 feature).
@@ -59,5 +60,19 @@ public interface FlexLayoutTagDeclaration
           AlignItems.FLEX_START, AlignItems.FLEX_END, AlignItems.BASELINE, AlignItems.CENTER, AlignItems.STRETCH
       })
   void setAlignItems(String alignItems);
+
+  /**
+   * This value defines CSS justify-content value of the flex layout.
+   *
+   * @since 3.0.0
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(
+      type = "org.apache.myfaces.tobago.layout.JustifyContent",
+      allowedValues = {
+          JustifyContent.FLEX_START, JustifyContent.FLEX_END, JustifyContent.CENTER, JustifyContent.SPACE_BETWEEN,
+          JustifyContent.SPACE_AROUND
+      })
+  void setJustifyContent(String justifyContent);
 
 }

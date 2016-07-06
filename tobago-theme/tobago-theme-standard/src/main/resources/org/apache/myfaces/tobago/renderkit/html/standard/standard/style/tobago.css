@@ -144,6 +144,26 @@ body {
   align-items: stretch;
 }
 
+.justifyContent-center {
+  justify-content: center;
+}
+
+.justifyContent-flexStart {
+  justify-content: flex-start;
+}
+
+.justifyContent-flexEnd{
+  justify-content: flex-end;
+}
+
+.justifyContent-spaceBetween{
+  justify-content: space-between;
+}
+
+.justifyContent-spaceAround{
+  justify-content: space-around;
+}
+
 /* footer -------------------------------------------------------------- */
 
 .tobago-footer {
