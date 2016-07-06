@@ -26,6 +26,7 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRoleValues;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
+import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
@@ -42,11 +43,14 @@ public class PopupRenderer extends PanelRendererBase {
     final String clientId = popup.getClientId(facesContext);
     final boolean collapsed = popup.isCollapsed();
 
+    ComponentUtils.putDataAttribute(popup, "backdrop", "static");
+
     writer.startElement(HtmlElements.DIV);
     writer.writeClassAttribute(TobagoClass.POPUP, BootstrapClass.MODAL, BootstrapClass.FADE);
     writer.writeIdAttribute(clientId);
     writer.writeAttribute(HtmlAttributes.TABINDEX, -1);
     writer.writeAttribute(HtmlAttributes.ROLE, HtmlRoleValues.DIALOG.toString(), false);
+    HtmlRendererUtils.writeDataAttributes(facesContext, writer, popup);
     // todo: aria-labelledby
     writer.startElement(HtmlElements.DIV);
     writer.writeClassAttribute(BootstrapClass.MODAL_DIALOG);
