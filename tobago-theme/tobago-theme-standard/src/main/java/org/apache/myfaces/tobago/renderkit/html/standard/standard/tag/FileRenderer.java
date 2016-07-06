@@ -100,7 +100,7 @@ public class FileRenderer extends LabelLayoutRendererBase implements ComponentSy
     final String fieldId = file.getFieldId(facesContext);
     final String accept = createAcceptFromValidators(file);
 
-    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+    final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
     writer.startElement(HtmlElements.DIV);
     writer.writeClassAttribute(Classes.create(file), file.getCustomClass());
@@ -175,7 +175,7 @@ public class FileRenderer extends LabelLayoutRendererBase implements ComponentSy
 
   @Override
   protected void encodeEndField(FacesContext facesContext, UIComponent component) throws IOException {
-    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+    final TobagoResponseWriter writer = getResponseWriter(facesContext);
     writer.endElement(HtmlElements.DIV);
   }
 }

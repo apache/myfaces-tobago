@@ -39,7 +39,7 @@ public class ButtonsRenderer extends RendererBase {
   public void encodeBegin(FacesContext facesContext, UIComponent component) throws IOException {
 
     final AbstractUIButtons buttons = (AbstractUIButtons) component;
-    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+    final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
     writer.startElement(HtmlElements.DIV);
     writer.writeIdAttribute(buttons.getClientId(facesContext));
@@ -55,7 +55,7 @@ public class ButtonsRenderer extends RendererBase {
 
   @Override
   public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
-    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+    final TobagoResponseWriter writer = getResponseWriter(facesContext);
     writer.endElement(HtmlElements.DIV);
   }
 }

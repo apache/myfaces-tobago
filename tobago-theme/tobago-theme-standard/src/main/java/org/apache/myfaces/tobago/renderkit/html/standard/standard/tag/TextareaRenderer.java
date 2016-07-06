@@ -57,7 +57,7 @@ public class TextareaRenderer extends LabelLayoutRendererBase {
     final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, component);
     final String clientId = input.getClientId(facesContext);
     final String fieldId = input.getFieldId(facesContext);
-    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+    final TobagoResponseWriter writer = getResponseWriter(facesContext);
     final Integer rows = input.getRows();
 
     writer.startElement(HtmlElements.TEXTAREA);
@@ -131,7 +131,7 @@ public class TextareaRenderer extends LabelLayoutRendererBase {
 
   @Override
   protected void encodeEndField(FacesContext facesContext, UIComponent component) throws IOException {
-    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+    final TobagoResponseWriter writer = getResponseWriter(facesContext);
     writer.endElement(HtmlElements.TEXTAREA);
   }
 }

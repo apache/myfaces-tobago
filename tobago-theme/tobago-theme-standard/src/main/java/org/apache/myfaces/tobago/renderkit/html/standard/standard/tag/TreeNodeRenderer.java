@@ -121,7 +121,7 @@ public class TreeNodeRenderer extends RendererBase {
     final boolean visible = data.isRowVisible();
     final boolean folder = node.isFolder();
 
-    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+    final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
     if (data instanceof AbstractUITreeListbox) {
       writer.startElement(HtmlElements.OPTION);
@@ -178,7 +178,7 @@ public class TreeNodeRenderer extends RendererBase {
     final boolean expanded = folder && data.getExpandedState().isExpanded(node.getPath()) || level == 0;
     final boolean isMenu = data instanceof AbstractUITreeMenu;
 
-    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+    final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
     if (data instanceof AbstractUITreeListbox) {
       if (folder) {

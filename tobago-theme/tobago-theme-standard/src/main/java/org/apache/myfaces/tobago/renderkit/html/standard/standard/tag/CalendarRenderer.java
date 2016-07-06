@@ -37,7 +37,7 @@ public class CalendarRenderer extends RendererBase {
     final UICalendar output = (UICalendar) component;
     final String id = output.getClientId(facesContext);
 
-    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+    final TobagoResponseWriter writer = getResponseWriter(facesContext);
     writer.startElement(HtmlElements.SPAN);
     writer.writeIdAttribute(id);
     writer.writeText("[tc:calender is currently not implemented]");

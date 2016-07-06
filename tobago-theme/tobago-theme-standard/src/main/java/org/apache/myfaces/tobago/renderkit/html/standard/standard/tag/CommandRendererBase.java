@@ -82,7 +82,7 @@ public abstract class CommandRendererBase extends RendererBase {
     final boolean disabled = command.isDisabled();
     final LabelWithAccessKey label = new LabelWithAccessKey(command);
 
-    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+    final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
     if (command.isParentOfCommands()) {
       encodeBeginOuter(facesContext, command);
@@ -188,7 +188,7 @@ public abstract class CommandRendererBase extends RendererBase {
     final AbstractUICommand link = (AbstractUICommand) component;
 
     if (link.isParentOfCommands()) {
-      final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+      final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
       for (UIComponent child : component.getChildren()) {
         if (child.isRendered()) {
@@ -213,7 +213,7 @@ public abstract class CommandRendererBase extends RendererBase {
     final AbstractUICommand command = (AbstractUICommand) component;
 
     if (command.isParentOfCommands()) {
-      final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+      final TobagoResponseWriter writer = getResponseWriter(facesContext);
       writer.endElement(HtmlElements.UL);
     }
 

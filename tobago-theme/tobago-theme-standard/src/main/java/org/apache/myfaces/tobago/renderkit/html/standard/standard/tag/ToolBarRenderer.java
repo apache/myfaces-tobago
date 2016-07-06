@@ -44,7 +44,7 @@ public class ToolBarRenderer extends RendererBase {
   @Override
   public void encodeBegin(final FacesContext facesContext, final UIComponent component) throws IOException {
     final UIToolBar toolBar = (UIToolBar) component;
-    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+    final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
     writer.startElement(HtmlElements.NAV);
     writer.writeClassAttribute(BootstrapClass.NAVBAR);
@@ -146,7 +146,7 @@ public class ToolBarRenderer extends RendererBase {
   @Override
   public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
     final UIToolBar toolBar = (UIToolBar) component;
-    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+    final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
 /*
 

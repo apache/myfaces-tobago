@@ -52,7 +52,7 @@ public class ProgressRenderer extends RendererBase {
       title = Integer.toString((int) (value / max)) + " %";
     }
 
-    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+    final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
     writer.startElement(HtmlElements.PROGRESS);
     writer.writeIdAttribute(progress.getClientId(facesContext));
@@ -72,7 +72,7 @@ public class ProgressRenderer extends RendererBase {
   @Override
   public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
 
-    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+    final TobagoResponseWriter writer = getResponseWriter(facesContext);
     writer.endElement(HtmlElements.PROGRESS);
   }
 }

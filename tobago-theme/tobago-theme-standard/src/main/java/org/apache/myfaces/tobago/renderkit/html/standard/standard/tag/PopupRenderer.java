@@ -38,7 +38,7 @@ public class PopupRenderer extends PanelRendererBase {
   public void encodeBegin(FacesContext facesContext, UIComponent component) throws IOException {
 
     final AbstractUIPopup popup = (AbstractUIPopup) component;
-    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+    final TobagoResponseWriter writer = getResponseWriter(facesContext);
     final String clientId = popup.getClientId(facesContext);
     final boolean collapsed = popup.isCollapsed();
 
@@ -66,7 +66,7 @@ public class PopupRenderer extends PanelRendererBase {
   @Override
   public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
 
-    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+    final TobagoResponseWriter writer = getResponseWriter(facesContext);
     writer.endElement(HtmlElements.DIV);
     writer.endElement(HtmlElements.DIV);
     writer.endElement(HtmlElements.DIV);

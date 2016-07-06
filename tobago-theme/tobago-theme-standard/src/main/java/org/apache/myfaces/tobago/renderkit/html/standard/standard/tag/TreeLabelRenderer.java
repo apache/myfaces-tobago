@@ -48,7 +48,7 @@ public class TreeLabelRenderer extends RendererBase {
     final boolean listbox = data instanceof AbstractUITreeListbox;
 
     final UITreeLabel label = (UITreeLabel) component;
-    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+    final TobagoResponseWriter writer = getResponseWriter(facesContext);
     final String text = StringUtils.defaultString((String) label.getValue());
 
     if (listbox) {

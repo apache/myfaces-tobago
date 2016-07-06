@@ -104,7 +104,7 @@ public class PageRenderer extends RendererBase {
     if (FacesContextUtils.getFocusId(facesContext) == null && !StringUtils.isBlank(page.getFocusId())) {
       FacesContextUtils.setFocusId(facesContext, page.getFocusId());
     }
-    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+    final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
     // reset responseWriter and render page
     facesContext.setResponseWriter(writer);
@@ -334,7 +334,7 @@ public class PageRenderer extends RendererBase {
   public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
 
     final UIPage page = (UIPage) component;
-    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+    final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
 /*
     writer.endElement(HtmlElements.DIV);

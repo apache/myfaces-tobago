@@ -78,7 +78,7 @@ public class SelectBooleanCheckboxRenderer extends RendererBase {
   public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
 
     final UISelectBooleanCheckbox select = (UISelectBooleanCheckbox) component;
-    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+    final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
     final String clientId = select.getClientId(facesContext);
     final String fieldId = select.getFieldId(facesContext);

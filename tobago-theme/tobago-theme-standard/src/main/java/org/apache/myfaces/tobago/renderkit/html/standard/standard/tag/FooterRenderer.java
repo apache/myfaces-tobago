@@ -36,7 +36,7 @@ public class FooterRenderer extends RendererBase {
 
   @Override
   public void encodeBegin(FacesContext facesContext, UIComponent component) throws IOException {
-    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+    final TobagoResponseWriter writer = getResponseWriter(facesContext);
     final UIFooter footer = (UIFooter) component;
     writer.startElement(HtmlElements.FOOTER);
     writer.writeIdAttribute(component.getClientId(facesContext));
@@ -51,7 +51,7 @@ public class FooterRenderer extends RendererBase {
 
   @Override
   public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
-    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+    final TobagoResponseWriter writer = getResponseWriter(facesContext);
     writer.endElement(HtmlElements.FOOTER);
   }
 }

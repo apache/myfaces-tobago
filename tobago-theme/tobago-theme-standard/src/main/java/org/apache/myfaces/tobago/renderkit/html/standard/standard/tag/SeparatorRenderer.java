@@ -39,7 +39,7 @@ public class SeparatorRenderer extends RendererBase {
   public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
 
     final UISeparator separator = (UISeparator) component;
-    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+    final TobagoResponseWriter writer = getResponseWriter(facesContext);
     final String clientId = separator.getClientId(facesContext);
     final String label = getLabel(separator);
 

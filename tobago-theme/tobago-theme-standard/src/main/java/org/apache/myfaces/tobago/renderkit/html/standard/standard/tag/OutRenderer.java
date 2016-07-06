@@ -48,7 +48,7 @@ public class OutRenderer extends LabelLayoutRendererBase {
       text = "";
     }
 
-    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+    final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
     final boolean escape = out.isEscape();
     final boolean createSpan = out.isCreateSpan();
@@ -87,7 +87,7 @@ public class OutRenderer extends LabelLayoutRendererBase {
   public void encodeEndField(final FacesContext facesContext, final UIComponent component) throws IOException {
 
     final UIOut out = (UIOut) component;
-    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+    final TobagoResponseWriter writer = getResponseWriter(facesContext);
     final boolean createSpan = out.isCreateSpan();
 
     if (createSpan) {

@@ -96,7 +96,7 @@ public abstract class LabelLayoutRendererBase extends DecodingRendererBase {
   protected void encodeBeginSurrounding(final FacesContext facesContext, final UIComponent component)
       throws IOException {
 
-    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+    final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
     // possible values:
     // - none
@@ -170,7 +170,7 @@ public abstract class LabelLayoutRendererBase extends DecodingRendererBase {
 
   protected void encodeEndSurrounding(final FacesContext facesContext, final UIComponent component) throws IOException {
 
-    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+    final TobagoResponseWriter writer = getResponseWriter(facesContext);
     final LabelLayout labelLayout = getType(component);
 
     switch (labelLayout) {

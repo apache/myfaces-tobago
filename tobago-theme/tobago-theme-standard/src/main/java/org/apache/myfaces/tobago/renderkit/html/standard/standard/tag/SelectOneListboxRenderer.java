@@ -47,7 +47,7 @@ public class SelectOneListboxRenderer extends SelectOneRendererBase {
   @Override
   public void encodeBeginField(final FacesContext facesContext, final UIComponent component) throws IOException {
     final UISelectOneListbox select = (UISelectOneListbox) component;
-    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+    final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
     final String clientId = select.getClientId(facesContext);
     final String fieldId = select.getFieldId(facesContext);
@@ -84,7 +84,7 @@ public class SelectOneListboxRenderer extends SelectOneRendererBase {
 
   @Override
   protected void encodeEndField(FacesContext facesContext, UIComponent component) throws IOException {
-    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+    final TobagoResponseWriter writer = getResponseWriter(facesContext);
     writer.endElement(HtmlElements.SELECT);
   }
 }

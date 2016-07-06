@@ -59,7 +59,7 @@ public class TreeIndentRenderer extends RendererBase {
     final boolean showLines = showJunctions && data instanceof UITree; // sheet should not show lines
     final boolean showIcons = showJunctions;
 
-    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+    final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
     writer.startElement(HtmlElements.SPAN);
     writer.writeIdAttribute(indent.getClientId(facesContext));
@@ -75,7 +75,7 @@ public class TreeIndentRenderer extends RendererBase {
 
   @Override
   public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
-    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+    final TobagoResponseWriter writer = getResponseWriter(facesContext);
     writer.endElement(HtmlElements.SPAN);
   }
 

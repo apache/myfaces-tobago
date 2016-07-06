@@ -39,7 +39,7 @@ public class SectionRenderer extends PanelRendererBase {
   public void encodeBegin(final FacesContext facesContext, final UIComponent component) throws IOException {
 
     final AbstractUISection section = (AbstractUISection) component;
-    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+    final TobagoResponseWriter writer = getResponseWriter(facesContext);
     final String clientId = section.getClientId(facesContext);
     final boolean collapsed = section.isCollapsed();
 
@@ -96,7 +96,7 @@ public class SectionRenderer extends PanelRendererBase {
   @Override
   public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
 
-    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+    final TobagoResponseWriter writer = getResponseWriter(facesContext);
     writer.endElement(HtmlElements.DIV);
     writer.endElement(HtmlElements.DIV);
   }

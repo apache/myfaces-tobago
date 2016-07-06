@@ -39,7 +39,7 @@ public class MediatorRenderer extends RendererBase {
   public void encodeBegin(final FacesContext facesContext, final UIComponent component) throws IOException {
 
     final UIMediator mediator = (UIMediator) component;
-    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+    final TobagoResponseWriter writer = getResponseWriter(facesContext);
     writer.startElement(HtmlElements.DIV);
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, mediator);
     writer.writeStyleAttribute(mediator.getStyle());
@@ -49,7 +49,7 @@ public class MediatorRenderer extends RendererBase {
   @Override
   public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
 
-    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+    final TobagoResponseWriter writer = getResponseWriter(facesContext);
     writer.endElement(HtmlElements.DIV);
   }
 }

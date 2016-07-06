@@ -148,6 +148,9 @@ public final class HtmlRendererUtils {
     }
   }
 
+  /**
+   * @deprecated since 3.0.0, use {@link org.apache.myfaces.tobago.renderkit.RendererBase#getResponseWriter}
+   */
   public static TobagoResponseWriter getTobagoResponseWriter(final FacesContext facesContext) {
 
     final ResponseWriter writer = facesContext.getResponseWriter();

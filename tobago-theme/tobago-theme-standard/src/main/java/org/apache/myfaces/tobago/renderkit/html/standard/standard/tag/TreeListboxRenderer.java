@@ -54,7 +54,7 @@ public class TreeListboxRenderer extends RendererBase {
 
     final UITreeListbox tree = (UITreeListbox) component;
     final String clientId = tree.getClientId(facesContext);
-    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+    final TobagoResponseWriter writer = getResponseWriter(facesContext);
     //    final Style scrollDivStyle = new Style();
 
     writer.startElement(HtmlElements.DIV);

@@ -36,7 +36,7 @@ public class ObjectRenderer extends RendererBase {
   @Override
   public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
     final UIObject object = (UIObject) component;
-    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+    final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
     writer.startElement(HtmlElements.IFRAME);
     writer.writeAttribute(HtmlAttributes.FRAMEBORDER, "0", false);

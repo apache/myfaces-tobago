@@ -70,7 +70,7 @@ public abstract class ToolBarRendererBase extends RendererBase {
   public void encodeEnd(final FacesContext context, final UIComponent component) throws IOException {
     final UIToolBar toolBar = (UIToolBar) component;
 
-    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(context);
+    final TobagoResponseWriter writer = getResponseWriter(context);
 
     for (final UIComponent command : toolBar.getChildren()) {
       if (command instanceof AbstractUICommand) {

@@ -37,7 +37,7 @@ public class ToolBarRendererOld extends ToolBarRendererBase {
 
     final UIToolBar toolBar = (UIToolBar) component;
 
-    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+    final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
     writer.startElement(HtmlElements.DIV);
     writer.writeIdAttribute(toolBar.getClientId(facesContext));

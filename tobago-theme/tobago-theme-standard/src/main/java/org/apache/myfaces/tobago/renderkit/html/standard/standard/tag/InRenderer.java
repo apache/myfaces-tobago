@@ -64,7 +64,7 @@ public class InRenderer extends LabelLayoutRendererBase {
     final boolean disabled = input.isDisabled();
     final boolean required = ComponentUtils.getBooleanAttribute(input, Attributes.required);
 
-    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+    final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
     final UIComponent after = ComponentUtils.getFacet(input, Facets.after);
     final UIComponent before = ComponentUtils.getFacet(input, Facets.before);

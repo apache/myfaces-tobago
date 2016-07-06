@@ -32,21 +32,21 @@ public class CommandRenderer extends CommandRendererBase {
   @Override
   protected void encodeBeginElement(final FacesContext facesContext, final AbstractUICommand command)
       throws IOException {
-    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+    final TobagoResponseWriter writer = getResponseWriter(facesContext);
     writer.startElement(HtmlElements.A);
   }
 
   @Override
   protected void encodeEndElement(final FacesContext facesContext, final AbstractUICommand command)
       throws IOException {
-    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+    final TobagoResponseWriter writer = getResponseWriter(facesContext);
     writer.endElement(HtmlElements.A);
   }
 
   @Override
   protected void encodeBeginOuter(final FacesContext facesContext, final AbstractUICommand command)
       throws IOException {
-    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+    final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
 //    writer.startElement(HtmlElements.SPAN);
     // XXX this class fixes the problem, that the submenu are not opened at correct position, but
@@ -57,7 +57,7 @@ public class CommandRenderer extends CommandRendererBase {
   @Override
   protected void encodeEndOuter(final FacesContext facesContext, final AbstractUICommand command)
       throws IOException {
-    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+    final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
 //    writer.endElement(HtmlElements.SPAN);
   }

@@ -19,12 +19,15 @@
 
 package org.apache.myfaces.tobago.renderkit;
 
+import org.apache.myfaces.tobago.internal.webapp.TobagoResponseWriterWrapper;
 import org.apache.myfaces.tobago.util.ComponentUtils;
+import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.EditableValueHolder;
 import javax.faces.component.UIComponent;
 import javax.faces.component.ValueHolder;
 import javax.faces.context.FacesContext;
+import javax.faces.context.ResponseWriter;
 import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
 import javax.faces.render.Renderer;
@@ -69,5 +72,14 @@ public class RendererBase extends Renderer {
 
   public void onComponentCreated(
       final FacesContext facesContext, final UIComponent component, final UIComponent parent) {
+  }
+
+  public TobagoResponseWriter getResponseWriter(final FacesContext facesContext) {
+    final ResponseWriter writer = facesContext.getResponseWriter();
+    if (writer instanceof TobagoResponseWriter) {
+      return (TobagoResponseWriter) writer;
+    } else {
+      return new TobagoResponseWriterWrapper(writer);
+    }
   }
 }

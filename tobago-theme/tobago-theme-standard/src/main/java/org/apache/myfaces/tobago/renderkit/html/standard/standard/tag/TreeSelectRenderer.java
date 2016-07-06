@@ -83,7 +83,7 @@ public class TreeSelectRenderer extends RendererBase {
     final AbstractUITreeNodeBase node = ComponentUtils.findAncestor(select, AbstractUITreeNodeBase.class);
     final AbstractUIData data = ComponentUtils.findAncestor(node, AbstractUIData.class);
 
-    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+    final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
     if (data instanceof AbstractUITreeListbox) {
       writer.write(StringUtils.defaultString(select.getLabel()));

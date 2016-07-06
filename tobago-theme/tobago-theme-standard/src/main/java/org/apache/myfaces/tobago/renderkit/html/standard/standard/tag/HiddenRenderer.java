@@ -42,7 +42,7 @@ public class HiddenRenderer extends DecodingRendererBase {
     final String clientId = hidden.getClientId(facesContext);
     final String value = RenderUtils.currentValue(hidden);
 
-    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+    final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
     writer.startElement(HtmlElements.INPUT);
     if (hidden.isDisabled()) {
@@ -62,7 +62,7 @@ public class HiddenRenderer extends DecodingRendererBase {
 
   @Override
   public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
-    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+    final TobagoResponseWriter writer = getResponseWriter(facesContext);
     writer.endElement(HtmlElements.INPUT);
   }
 }

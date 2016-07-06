@@ -44,7 +44,7 @@ public class MenuRenderer extends RendererBase {
   public void encodeBegin(final FacesContext facesContext, final UIComponent component) throws IOException {
 
     final UIMenu menu = (UIMenu) component;
-    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+    final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
     final LabelWithAccessKey label = new LabelWithAccessKey(menu);
     final boolean disabled = menu.isDisabled();
@@ -113,7 +113,7 @@ public class MenuRenderer extends RendererBase {
   public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
 
     final UIMenu menu = (UIMenu) component;
-    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+    final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
     final boolean isParentMenu = menu.getChildCount() > 0; // todo: may be not correct
     if (isParentMenu) {

@@ -152,7 +152,7 @@ public class SheetRenderer extends RendererBase {
 
     final UISheet sheet = (UISheet) component;
     final String sheetId = sheet.getClientId(facesContext);
-    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+    final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
     UIComponent header = sheet.getHeader();
     if (header == null) {
@@ -221,7 +221,7 @@ public class SheetRenderer extends RendererBase {
   public void encodeEnd(final FacesContext facesContext, final UIComponent uiComponent) throws IOException {
 
     final UISheet sheet = (UISheet) uiComponent;
-    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+    final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
     final boolean rowAction = renderSheetCommands(sheet, facesContext, writer);
     final String sheetId = sheet.getClientId(facesContext);
@@ -1024,7 +1024,7 @@ public class SheetRenderer extends RendererBase {
     final String message = ResourceManagerUtils.getPropertyNotNull(facesContext, "tobago", "sheet" + action.getToken());
     final String tip = new MessageFormat(message, locale).format(new Integer[]{target}); // needed fot ToPage
 
-    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+    final TobagoResponseWriter writer = getResponseWriter(facesContext);
     writer.startElement(HtmlElements.LI);
     writer.writeClassAttribute(liClass, disabled ? BootstrapClass.DISABLED : null, BootstrapClass.PAGE_ITEM);
     writer.startElement(HtmlElements.A);

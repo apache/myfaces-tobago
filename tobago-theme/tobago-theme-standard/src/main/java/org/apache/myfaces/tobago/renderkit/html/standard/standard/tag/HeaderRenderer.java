@@ -36,7 +36,7 @@ public class HeaderRenderer extends RendererBase {
 
   @Override
   public void encodeBegin(FacesContext facesContext, UIComponent component) throws IOException {
-    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+    final TobagoResponseWriter writer = getResponseWriter(facesContext);
     final UIHeader header = (UIHeader) component;
     writer.startElement(HtmlElements.HEADER);
     writer.writeIdAttribute(component.getClientId(facesContext));
@@ -55,7 +55,7 @@ public class HeaderRenderer extends RendererBase {
 
   @Override
   public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
-    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+    final TobagoResponseWriter writer = getResponseWriter(facesContext);
     writer.endElement(HtmlElements.HEADER);
   }
 }

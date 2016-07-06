@@ -60,7 +60,7 @@ public class DateRenderer extends InRenderer {
 
   @Override
   protected void encodeBeginField(FacesContext facesContext, UIComponent component) throws IOException {
-    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+    final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
     writer.startElement(HtmlElements.DIV);
     writer.writeClassAttribute(TobagoClass.PANEL);
@@ -78,7 +78,7 @@ public class DateRenderer extends InRenderer {
 
     final AbstractUIDate date = (AbstractUIDate) component;
     final String pattern = date.getPattern();
-    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+    final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
     writer.startElement(HtmlElements.SPAN);
     writer.writeClassAttribute(BootstrapClass.INPUT_GROUP_BTN);

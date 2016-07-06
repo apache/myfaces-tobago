@@ -55,7 +55,7 @@ public class MessagesRenderer extends RendererBase {
       LOG.warn("'confirmation' is currently not supported for tc:messages!");
     }
 
-    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+    final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
     if (LOG.isDebugEnabled()) {
       LOG.debug("facesContext is " + facesContext.getClass().getName());

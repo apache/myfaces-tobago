@@ -37,7 +37,7 @@ public class CommandsRenderer extends RendererBase {
   @Override
   public void encodeBegin(FacesContext facesContext, UIComponent component) throws IOException {
 
-    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+    final TobagoResponseWriter writer = getResponseWriter(facesContext);
     writer.startElement(HtmlElements.UL);
     writer.writeClassAttribute(BootstrapClass.NAV, BootstrapClass.NAVBAR_NAV);
     writer.writeIdAttribute(component.getClientId(facesContext));
@@ -50,7 +50,7 @@ public class CommandsRenderer extends RendererBase {
 
   @Override
   public void encodeChildren(FacesContext facesContext, UIComponent component) throws IOException {
-    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+    final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
     for (UIComponent child : component.getChildren()) {
       if (child.isRendered()) {
@@ -70,7 +70,7 @@ public class CommandsRenderer extends RendererBase {
 
   @Override
   public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
-    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+    final TobagoResponseWriter writer = getResponseWriter(facesContext);
     writer.endElement(HtmlElements.UL);
   }
 }

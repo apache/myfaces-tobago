@@ -84,7 +84,7 @@ public class SplitLayoutRenderer extends GridLayoutRenderer {
   protected void encodeHandle(final FacesContext facesContext, final AbstractUISplitLayout layout) throws IOException {
     final String id = layout.getClientId(facesContext);
 
-    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+    final TobagoResponseWriter writer = getResponseWriter(facesContext);
     writer.startElement(HtmlElements.SPAN);
     writer.writeIdAttribute(id);
     writer.writeAttribute(SPLIT_LAYOUT, layout.getOrientation().name(), false);

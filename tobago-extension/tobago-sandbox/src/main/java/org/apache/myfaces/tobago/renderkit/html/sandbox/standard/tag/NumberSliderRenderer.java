@@ -54,7 +54,7 @@ public class NumberSliderRenderer extends RendererBase {
     final boolean disabled = slider.isDisabled();
     final Integer min = slider.getMin();
     final Integer max = slider.getMax();
-    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+    final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
 //    final Style style = slider.getStyle();
 //    final int width = -1;

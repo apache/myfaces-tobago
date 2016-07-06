@@ -49,7 +49,7 @@ public class BarRenderer extends RendererBase {
   public void encodeBegin(FacesContext facesContext, UIComponent component) throws IOException {
 
     final UIBar bar = (UIBar) component;
-    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+    final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
     final String clientId = bar.getClientId(facesContext);
     final String navbarId = clientId + "::navbar";
@@ -78,7 +78,7 @@ public class BarRenderer extends RendererBase {
   @Override
   public void encodeChildren(FacesContext facesContext, UIComponent component) throws IOException {
 
-    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+    final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
     List<UIComponent> itemsToEncode = new ArrayList<UIComponent>();
     collectItemsToEncode(component, itemsToEncode);
@@ -104,7 +104,7 @@ public class BarRenderer extends RendererBase {
 
   @Override
   public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
-    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+    final TobagoResponseWriter writer = getResponseWriter(facesContext);
     writer.endElement(HtmlElements.DIV);
     writer.endElement(HtmlElements.DIV);
     writer.endElement(HtmlElements.DIV);

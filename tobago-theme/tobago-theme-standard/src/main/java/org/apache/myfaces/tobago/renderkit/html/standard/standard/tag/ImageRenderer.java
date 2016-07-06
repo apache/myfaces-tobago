@@ -41,7 +41,7 @@ public class ImageRenderer extends RendererBase {
   @Override
   public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
 
-    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+    final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
     final AbstractUIImage image = (AbstractUIImage) component;
     final String value = image.getUrl();

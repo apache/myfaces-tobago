@@ -54,7 +54,7 @@ public class LabelRenderer extends RendererBase implements ComponentSystemEventL
   public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
 
     final UILabel label = (UILabel) component;
-    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+    final TobagoResponseWriter writer = getResponseWriter(facesContext);
     final UIComponent corresponding = ComponentUtils.findFor(label);
     final String forId;
     if (corresponding instanceof SupportFieldId) {

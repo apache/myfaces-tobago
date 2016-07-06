@@ -42,7 +42,7 @@ public class PanelRenderer extends PanelRendererBase {
   public void encodeBegin(final FacesContext facesContext, final UIComponent component) throws IOException {
 
     final UIPanel panel = (UIPanel) component;
-    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+    final TobagoResponseWriter writer = getResponseWriter(facesContext);
     final String clientId = panel.getClientId(facesContext);
     final boolean collapsed = panel.isCollapsed();
 
@@ -75,7 +75,7 @@ public class PanelRenderer extends PanelRendererBase {
 
   @Override
   public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
-    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+    final TobagoResponseWriter writer = getResponseWriter(facesContext);
     writer.endElement(HtmlElements.DIV);
   }
 }
