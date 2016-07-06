@@ -33,7 +33,10 @@ import java.util.Map;
 /**
  * In some cases the rendered output must be places in the Response in a different order than it was rendered.
  * The <code>ResponseWriterDivider</code> helps to manage a list of buffers which holds the temporary output.
+ *
+ * @deprecated Since Tobago 2.0.9, no longer needed.
  */
+@Deprecated
 public final class ResponseWriterDivider {
 
   private static final Logger LOG = LoggerFactory.getLogger(ResponseWriterDivider.class);
