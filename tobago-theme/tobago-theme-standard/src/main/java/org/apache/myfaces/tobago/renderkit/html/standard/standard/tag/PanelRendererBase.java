@@ -35,26 +35,28 @@ import java.util.Map;
 
 public class PanelRendererBase extends RendererBase {
 
+  private static final String SUFFIX_COLLAPSE = "collapse";
+
   @Override
   public void decode(final FacesContext facesContext, final UIComponent component) {
     super.decode(facesContext, component);
 
     final AbstractUICollapsiblePanel collapsible = (AbstractUICollapsiblePanel) component;
     final String clientId = collapsible.getClientId(facesContext);
-    final String hiddenId = clientId + ComponentUtils.SUB_SEPARATOR + "collapse";
+    final String hiddenId = clientId + ComponentUtils.SUB_SEPARATOR + SUFFIX_COLLAPSE;
 
     final Map<String, String> requestParameterMap = facesContext.getExternalContext().getRequestParameterMap();
     if (requestParameterMap.containsKey(hiddenId)) {
       final String newValue = requestParameterMap.get(hiddenId);
       if (StringUtils.isNotBlank(newValue)) {
-        collapsible.setNextState(Boolean.valueOf(newValue));
+        collapsible.setSubmittedCollapsed(Boolean.valueOf(newValue));
       }
     }
   }
 
   protected void encodeHidden(final TobagoResponseWriter writer, final String clientId, final boolean collapsed)
       throws IOException {
-    final String hiddenId = clientId + ComponentUtils.SUB_SEPARATOR + "collapse";
+    final String hiddenId = clientId + ComponentUtils.SUB_SEPARATOR + SUFFIX_COLLAPSE;
     writer.startElement(HtmlElements.INPUT);
     writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN);
     writer.writeNameAttribute(hiddenId);

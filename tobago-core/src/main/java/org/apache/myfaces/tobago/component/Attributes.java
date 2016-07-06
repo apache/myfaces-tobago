@@ -55,6 +55,8 @@ public enum Attributes {
   borderTop,
   charset,
   clientProperties,
+  collapsed,
+  collapsedMode,
   columnSpan,
   columnSpacing,
   columns,

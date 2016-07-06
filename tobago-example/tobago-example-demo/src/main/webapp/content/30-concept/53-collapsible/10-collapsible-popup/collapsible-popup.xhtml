@@ -34,7 +34,6 @@
       </tc:button>
     </tc:buttons>
 
-    <!--<tc:popup id="popup" collapsed="hidden">-->
     <tc:popup id="popup" collapsed="#{collapsibleController.collapsed}">
       <tc:box label="Test for Popup">
         Hallo, collapsible popup.
@@ -50,6 +49,7 @@
           <tc:button label="Submit and Close" action="#{collapsibleController.action}">
             <tc:operation name="hide" for="popup"/>
           </tc:button>
+          <tc:button label="Submit and Keep Open" action="#{collapsibleController.action}"/>
         </tc:buttons>
       </tc:box>
     </tc:popup>

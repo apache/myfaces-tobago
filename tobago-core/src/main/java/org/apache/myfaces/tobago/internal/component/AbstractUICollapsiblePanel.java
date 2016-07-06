@@ -19,11 +19,13 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
+import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.model.CollapseMode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.el.ValueExpression;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
@@ -31,7 +33,7 @@ public abstract class AbstractUICollapsiblePanel extends AbstractUIPanelBase {
 
   private static final Logger LOG = LoggerFactory.getLogger(AbstractUICollapsiblePanel.class);
 
-  private transient Boolean nextState;
+  private transient Boolean submittedCollapsed;
 
   @Override
   public void processDecodes(final FacesContext facesContext) {
@@ -80,14 +82,19 @@ public abstract class AbstractUICollapsiblePanel extends AbstractUIPanelBase {
 
   public abstract CollapseMode getCollapsedMode();
 
-  public void setNextState(Boolean nextState) {
-    this.nextState = nextState;
+  public void setSubmittedCollapsed(Boolean submittedCollapsed) {
+    this.submittedCollapsed = submittedCollapsed;
   }
 
   public void processState() {
-    if (nextState != null) {
-      setCollapsed(nextState);
-      nextState = null;
+    if (submittedCollapsed != null) {
+      final ValueExpression valueExpression = getValueExpression(Attributes.collapsed.name());
+      if (valueExpression != null) {
+        valueExpression.setValue(FacesContext.getCurrentInstance().getELContext(), submittedCollapsed);
+      } else {
+        setCollapsed(submittedCollapsed);
+      }
+      submittedCollapsed = null;
     }
   }
 }
