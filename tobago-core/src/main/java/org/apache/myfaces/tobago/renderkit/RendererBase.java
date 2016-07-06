@@ -74,7 +74,7 @@ public class RendererBase extends Renderer {
       final FacesContext facesContext, final UIComponent component, final UIComponent parent) {
   }
 
-  public TobagoResponseWriter getResponseWriter(final FacesContext facesContext) {
+  protected TobagoResponseWriter getResponseWriter(final FacesContext facesContext) {
     final ResponseWriter writer = facesContext.getResponseWriter();
     if (writer instanceof TobagoResponseWriter) {
       return (TobagoResponseWriter) writer;
