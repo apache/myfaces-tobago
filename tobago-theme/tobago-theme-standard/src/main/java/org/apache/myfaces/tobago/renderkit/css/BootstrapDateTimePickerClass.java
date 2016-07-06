@@ -19,13 +19,18 @@
 
 package org.apache.myfaces.tobago.renderkit.css;
 
-public enum DatePickerClass implements CssItem  {
+/**
+ * CSS classes for the Bootstrap-DateTimePicker-Library.
+ *
+ * @since 3.0.0
+ */
+public enum BootstrapDateTimePickerClass implements CssItem  {
 
   DATEPICKERBUTTON("datepickerbutton");
 
   private final String name;
 
-  DatePickerClass(final String name) {
+  BootstrapDateTimePickerClass(final String name) {
     this.name = name;
   }
 

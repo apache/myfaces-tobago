@@ -24,7 +24,7 @@ import org.apache.myfaces.tobago.internal.component.AbstractUIInput;
 import org.apache.myfaces.tobago.internal.context.DateTimeI18n;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
-import org.apache.myfaces.tobago.renderkit.css.DatePickerClass;
+import org.apache.myfaces.tobago.renderkit.css.BootstrapDateTimePickerClass;
 import org.apache.myfaces.tobago.renderkit.css.Icons;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
@@ -32,7 +32,6 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlButtonTypes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.JsonUtils;
-import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -83,7 +82,10 @@ public class DateRenderer extends InRenderer {
     writer.startElement(HtmlElements.SPAN);
     writer.writeClassAttribute(BootstrapClass.INPUT_GROUP_BTN);
     writer.startElement(HtmlElements.BUTTON);
-    writer.writeClassAttribute(BootstrapClass.BTN, BootstrapClass.BTN_SECONDARY, DatePickerClass.DATEPICKERBUTTON);
+    writer.writeClassAttribute(
+        BootstrapClass.BTN,
+        BootstrapClass.BTN_SECONDARY,
+        BootstrapDateTimePickerClass.DATEPICKERBUTTON);
     writer.writeAttribute(HtmlAttributes.TYPE, HtmlButtonTypes.BUTTON);
     writer.writeAttribute(HtmlAttributes.DISABLED, date.isDisabled() || date.isReadonly());
 

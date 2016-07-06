@@ -19,12 +19,17 @@
 
 package org.apache.myfaces.tobago.renderkit.css;
 
+import org.apache.myfaces.tobago.layout.ColumnPartition;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
+ * CSS classes for the Bootstrap-DateTimePicker-Library.
+ *
  * @since 3.0.0
  */
 public enum BootstrapClass implements CssItem {
@@ -202,6 +207,70 @@ public enum BootstrapClass implements CssItem {
       return TobagoClass.HAS_INFO;
     } else {
       return null;
+    }
+  }
+
+  public static class Generator {
+
+    private static final BootstrapClass[] EXTRA_SMALL = new BootstrapClass[]{
+        COL_XS_1, COL_XS_2, COL_XS_3, COL_XS_4,
+        COL_XS_5, COL_XS_6, COL_XS_7, COL_XS_8,
+        COL_XS_9, COL_XS_10, COL_XS_11, COL_XS_12,
+    };
+    private static final BootstrapClass[] SMALL = new BootstrapClass[]{
+        COL_SM_1, COL_SM_2, COL_SM_3, COL_SM_4,
+        COL_SM_5, COL_SM_6, COL_SM_7, COL_SM_8,
+        COL_SM_9, COL_SM_10, COL_SM_11, COL_SM_12,
+    };
+    private static final BootstrapClass[] MEDIUM = new BootstrapClass[]{
+        COL_MD_1, COL_MD_2, COL_MD_3, COL_MD_4,
+        COL_MD_5, COL_MD_6, COL_MD_7, COL_MD_8,
+        COL_MD_9, COL_MD_10, COL_MD_11, COL_MD_12,
+    };
+    private static final BootstrapClass[] LARGE = new BootstrapClass[]{
+        COL_LG_1, COL_LG_2, COL_LG_3, COL_LG_4,
+        COL_LG_5, COL_LG_6, COL_LG_7, COL_LG_8,
+        COL_LG_9, COL_LG_10, COL_LG_11, COL_LG_12,
+    };
+
+    private ColumnPartition extraSmall;
+    private ColumnPartition small;
+    private ColumnPartition medium;
+    private ColumnPartition large;
+
+    private int index = 0;
+
+    public Generator(
+        final ColumnPartition extraSmall, final ColumnPartition small, final ColumnPartition medium,
+        final ColumnPartition large) {
+      this.extraSmall = extraSmall;
+      this.small = small;
+      this.medium = medium;
+      this.large = large;
+    }
+
+    public void reset() {
+      index = 0;
+    }
+
+    public void next() {
+      index++;
+    }
+
+    public BootstrapClass[] generate() {
+      ArrayList<BootstrapClass> result = new ArrayList<BootstrapClass>(4);
+      generate(result, extraSmall, EXTRA_SMALL);
+      generate(result, small, SMALL);
+      generate(result, medium, MEDIUM);
+      generate(result, large, LARGE);
+      return result.toArray(new BootstrapClass[result.size()]);
+    }
+
+    private void generate(
+        final List<BootstrapClass> result, final ColumnPartition partition, final BootstrapClass[] values) {
+      if (partition != null) {
+        result.add(values[partition.getPart(index % partition.getSize()) - 1]);
+      }
     }
   }
 }

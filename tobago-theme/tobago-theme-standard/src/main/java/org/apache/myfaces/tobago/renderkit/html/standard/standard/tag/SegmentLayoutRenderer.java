@@ -26,10 +26,8 @@ import org.apache.myfaces.tobago.component.UISegmentLayout;
 import org.apache.myfaces.tobago.internal.component.AbstractUISegmentLayout;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
-import org.apache.myfaces.tobago.renderkit.css.BootstrapClassGenerator;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
-import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import org.slf4j.Logger;
@@ -74,7 +72,7 @@ public class SegmentLayoutRenderer extends RendererBase {
     }
 
     final List<UIComponent> children = segmentLayout.getChildren();
-    final BootstrapClassGenerator generator = new BootstrapClassGenerator(
+    final BootstrapClass.Generator generator = new BootstrapClass.Generator(
         segmentLayout.getExtraSmall(),
         segmentLayout.getSmall(),
         segmentLayout.getMedium(),
@@ -94,7 +92,7 @@ public class SegmentLayoutRenderer extends RendererBase {
 
   private void encodeChild(
       final FacesContext facesContext, final TobagoResponseWriter writer,
-      final BootstrapClassGenerator generator, final UIComponent child) throws IOException {
+      final BootstrapClass.Generator generator, final UIComponent child) throws IOException {
 
     if (child instanceof SupportsLabelLayout
         && LabelLayout.isSegment(((SupportsLabelLayout) child).getLabelLayout())) {
@@ -117,7 +115,7 @@ public class SegmentLayoutRenderer extends RendererBase {
   }
 
   private void encodeDiv(
-      FacesContext facesContext, TobagoResponseWriter writer, BootstrapClassGenerator generator, UIComponent child)
+      FacesContext facesContext, TobagoResponseWriter writer, BootstrapClass.Generator generator, UIComponent child)
       throws IOException {
     writer.startElement(HtmlElements.DIV);
     writer.writeClassAttribute(null, null, generator.generate());
