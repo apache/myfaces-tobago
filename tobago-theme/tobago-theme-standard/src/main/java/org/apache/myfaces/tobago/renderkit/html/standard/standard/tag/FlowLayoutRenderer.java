@@ -20,8 +20,10 @@
 package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
 import org.apache.myfaces.tobago.component.UIFlowLayout;
+import org.apache.myfaces.tobago.layout.TextAlign;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
+import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
@@ -35,12 +37,21 @@ public class FlowLayoutRenderer extends RendererBase {
 
   @Override
   public void encodeBegin(final FacesContext facesContext, final UIComponent component) throws IOException {
+
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
     final UIFlowLayout layout = (UIFlowLayout) component;
+
     writer.startElement(HtmlElements.DIV);
     writer.writeIdAttribute(layout.getClientId());
     writer.writeClassAttribute(Classes.create(layout), layout.getCustomClass());
-    writer.writeStyleAttribute(layout.getStyle());
+
+    Style style = layout.getStyle();
+    final TextAlign textAlign = layout.getTextAlign();
+    if (style == null && textAlign != null) {
+      style = new Style();
+      style.setTextAlign(textAlign);
+    }
+    writer.writeStyleAttribute(style);
   }
 
   @Override

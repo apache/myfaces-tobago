@@ -255,13 +255,15 @@ public interface StyleTagDeclaration extends HasIdBindingAndRendered {
    * {@link TextAlign#right},
    * {@link TextAlign#center} and
    * {@link TextAlign#justify}.
+   *
    * @since 3.0.0
    */
-  @TagAttribute()
+  @TagAttribute
   @UIComponentTagAttribute(
       type = {"org.apache.myfaces.tobago.layout.TextAlign"},
       allowedValues = {
-          TextAlign.STRING_LEFT, TextAlign.STRING_RIGHT, TextAlign.STRING_CENTER, TextAlign.STRING_JUSTIFY})
+          TextAlign.LEFT, TextAlign.RIGHT, TextAlign.CENTER, TextAlign.JUSTIFY
+      })
   void setTextAlign(String textAlign);
 
 }
