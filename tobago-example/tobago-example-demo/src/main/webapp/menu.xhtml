@@ -37,25 +37,19 @@
 
       <tc:form id="header">
 
-        <tc:commands id="XXX">
+        <tc:commands id="commands">
 
-          <tc:command id="CCC" label="#{overviewBundle.menu_config}" omit="true">
+          <tc:command id="config" label="#{overviewBundle.menu_config}" omit="true">
             <tc:command label="#{overviewBundle.menu_themes}" omit="true">
-              <!-- XXX this is a workaround until TOBAGO-1506 is resolved
-              the next sourrounding tag <tc:command> should not be needed.
-              -->
-              <!--<tc:command omit="true">-->
-                <tc:selectOneRadio value="#{clientConfigController.theme}">
-                  <f:facet name="change">
-                    <tc:command action="#{clientConfigController.submit}"/>
-                  </f:facet>
-                  <tc:selectItems value="#{clientConfigController.themeItems}"/>
-                </tc:selectOneRadio>
-              <!--</tc:command>-->
+              <tc:selectOneRadio value="#{clientConfigController.theme}">
+                <f:facet name="change">
+                  <tc:command action="#{clientConfigController.submit}"/>
+                </f:facet>
+                <tc:selectItems value="#{clientConfigController.themeItems}"/>
+              </tc:selectOneRadio>
             </tc:command>
             <tc:command label="#{overviewBundle.menu_locale}">
               <tc:selectOneRadio value="#{clientConfigController.locale}">
-                <!-- XXX this is a workaround until TOBAGO-1506 is resolved -->
                 <f:facet name="change">
                   <tc:command action="#{clientConfigController.submit}"/>
                 </f:facet>

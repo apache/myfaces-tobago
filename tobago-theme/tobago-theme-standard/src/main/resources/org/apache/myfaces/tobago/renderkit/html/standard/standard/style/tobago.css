@@ -294,7 +294,12 @@ table.tobago-gridLayout > tbody > tr:first-child > td {
   border-radius: 6px 0 6px 6px;
 }
 
-/* out -------------------------------------------------------------------- */
+.dropdown-menu .radio, .dropdown-menu .checkbox {
+  display: block;
+  margin-left: -40px; /* XXX comes the value from "list-style: outside none none" of .tobago-selectOneRadio ? */
+}
+
+  /* out -------------------------------------------------------------------- */
 
 .tobago-out-markup-strong {
   font-weight: bold;
