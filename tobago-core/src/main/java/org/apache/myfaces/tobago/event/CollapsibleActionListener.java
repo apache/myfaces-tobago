@@ -24,6 +24,7 @@ import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.faces.component.StateHolder;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
@@ -31,15 +32,19 @@ import javax.faces.event.AbortProcessingException;
 import javax.faces.event.ActionEvent;
 import javax.faces.event.ActionListener;
 
-public class CollapsibleActionListener implements ActionListener {
+public class CollapsibleActionListener implements ActionListener, StateHolder {
 
   private static final Logger LOG = LoggerFactory.getLogger(CollapsibleActionListener.class);
 
-  private UIComponent component;
   private String forId;
 
-  public CollapsibleActionListener(final UIComponent component, final String forId) {
-    this.component = component;
+  private boolean transientFlag;
+
+  public CollapsibleActionListener() {
+    // for state holder
+  }
+
+  public CollapsibleActionListener(final String forId) {
     this.forId = forId;
   }
 
@@ -48,7 +53,7 @@ public class CollapsibleActionListener implements ActionListener {
     final FacesContext facesContext = FacesContext.getCurrentInstance();
     final UIViewRoot viewRoot = facesContext.getViewRoot();
     if (viewRoot != null) {
-      final String forClientId = ComponentUtils.evaluateClientId(facesContext, component, forId);
+      final String forClientId = ComponentUtils.evaluateClientId(facesContext, actionEvent.getComponent(), forId);
 
       final UIComponent component = viewRoot.findComponent(forClientId);
       if (component instanceof AbstractUICollapsiblePanel) {
@@ -58,5 +63,25 @@ public class CollapsibleActionListener implements ActionListener {
             forClientId, component.getClass().getName(), AbstractUICollapsiblePanel.class.getName());
       }
     }
+  }
+
+  @Override
+  public Object saveState(FacesContext context) {
+    return forId;
+  }
+
+  @Override
+  public void restoreState(FacesContext context, Object state) {
+    this.forId = (String) state;
+  }
+
+  @Override
+  public boolean isTransient() {
+    return transientFlag;
+  }
+
+  @Override
+  public void setTransient(boolean transientFlag) {
+    this.transientFlag = transientFlag;
   }
 }

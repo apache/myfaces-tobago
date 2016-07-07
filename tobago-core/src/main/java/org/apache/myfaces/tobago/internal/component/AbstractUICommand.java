@@ -63,7 +63,7 @@ public abstract class AbstractUICommand
 
     final List<AbstractUIOperation> list = ComponentUtils.findDescendantList(this, AbstractUIOperation.class);
     for (AbstractUIOperation operation : list) {
-      addActionListener(new CollapsibleActionListener(this, operation.getFor()));
+      addActionListener(new CollapsibleActionListener(operation.getFor()));
     }
   }
 

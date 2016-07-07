@@ -23,6 +23,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.enterprise.context.SessionScoped;
+import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import java.io.Serializable;
 
@@ -33,6 +34,11 @@ public class CollapsibleController implements Serializable {
   private static final Logger LOG = LoggerFactory.getLogger(CollapsibleController.class);
 
   private boolean collapsed = true;
+
+  public String submit() {
+    LOG.info("submit(): collapsed={}", collapsed);
+    return FacesContext.getCurrentInstance().getViewRoot().getViewId();
+  }
 
   public String action() {
     LOG.info("action(): collapsed={}", collapsed);
