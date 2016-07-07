@@ -19,8 +19,6 @@
 
 package org.apache.myfaces.tobago.webapp;
 
-import org.apache.myfaces.tobago.internal.util.StringUtils;
-import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.CssItem;
 import org.apache.myfaces.tobago.renderkit.css.FontAwesomeIconEncoder;
 import org.apache.myfaces.tobago.renderkit.css.IconEncoder;
@@ -151,54 +149,64 @@ public abstract class TobagoResponseWriter extends ResponseWriter {
 
   /**
    * Write the class attribute. The value will not escaped.
-   * @param classes The abstract representation of the css class string, normally created by the renderer.
    */
-  public void writeClassAttribute(final Classes classes) throws IOException {
-    final String stringValue = classes.getStringValue();
-    if (StringUtils.isNotBlank(stringValue)) {
-      writeAttribute(HtmlAttributes.CLASS, stringValue, false);
-    }
-  }
-
   public void writeClassAttribute(final CssItem first) throws IOException {
-    writeClassAttribute(first, null, NO_CSS_ITEMS);
-  }
-
-  public void writeClassAttribute(final CssItem first, final CssItem second) throws IOException {
-    writeClassAttribute(first, second, NO_CSS_ITEMS);
-  }
-
-  public void writeClassAttribute(final CssItem first, final CssItem second, final CssItem... others)
-      throws IOException {
-    StringBuilder builder = new StringBuilder();
     if (first != null) {
+      final StringBuilder builder = new StringBuilder();
       builder.append(first.getName());
       builder.append(' ');
-    }
-    if (second != null) {
-      builder.append(second.getName());
-      builder.append(' ');
-    }
-    for (CssItem other : others) {
-      if (other != null) {
-        builder.append(other.getName());
-        builder.append(' ');
-      }
-    }
-    if (builder.length() > 0) {
       writeAttribute(HtmlAttributes.CLASS, builder.deleteCharAt(builder.length() - 1).toString(), false);
     }
   }
 
-  public void writeClassAttribute(final Classes classes, final CssItem... others) throws IOException {
-    StringBuilder builder = new StringBuilder(classes.getStringValue());
+  /**
+   * Write the class attribute. The value will not escaped.
+   */
+  public void writeClassAttribute(final CssItem first, final CssItem second) throws IOException {
+    final StringBuilder builder = new StringBuilder();
+    boolean render = false;
+    if (first != null) {
+      builder.append(first.getName());
+      builder.append(' ');
+      render = true;
+    }
+    if (second != null) {
+      builder.append(second.getName());
+      builder.append(' ');
+      render = true;
+    }
+    if (render) {
+      writeAttribute(HtmlAttributes.CLASS, builder.deleteCharAt(builder.length() - 1).toString(), false);
+    }
+  }
+
+  /**
+   * Write the class attribute. The value will not escaped.
+   */
+  public void writeClassAttribute(final CssItem first, final CssItem second, final CssItem... others)
+      throws IOException {
+    final StringBuilder builder = new StringBuilder();
+    boolean render = false;
+    if (first != null) {
+      builder.append(first.getName());
+      builder.append(' ');
+      render = true;
+    }
+    if (second != null) {
+      builder.append(second.getName());
+      builder.append(' ');
+      render = true;
+    }
     for (CssItem other : others) {
       if (other != null) {
-        builder.append(' ');
         builder.append(other.getName());
+        builder.append(' ');
+        render = true;
       }
     }
-    writeAttribute(HtmlAttributes.CLASS, builder.toString(), false);
+    if (render) {
+      writeAttribute(HtmlAttributes.CLASS, builder.deleteCharAt(builder.length() - 1).toString(), false);
+    }
   }
 
   /**

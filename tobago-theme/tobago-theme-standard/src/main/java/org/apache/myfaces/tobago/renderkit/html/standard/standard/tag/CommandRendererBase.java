@@ -135,6 +135,7 @@ public abstract class CommandRendererBase extends RendererBase {
 
     writer.writeClassAttribute(
         Classes.create(command),
+        null,
         cssItems.toArray(new CssItem[cssItems.size()]));
 
     final boolean defaultCommand = ComponentUtils.getBooleanAttribute(command, Attributes.defaultCommand);

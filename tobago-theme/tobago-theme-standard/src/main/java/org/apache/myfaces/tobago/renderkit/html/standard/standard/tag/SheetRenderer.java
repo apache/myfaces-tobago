@@ -283,39 +283,24 @@ public class SheetRenderer extends RendererBase {
       expandedValue = new StringBuilder(",");
     }
 
-    final List<CssItem> cssItems = new ArrayList<CssItem>();
-    cssItems.add(BootstrapClass.TABLE);
-    if (sheetMarkup.contains(Markup.INVERSE)) {
-      cssItems.add(BootstrapClass.TABLE_INVERSE);
-    }
-    if (sheetMarkup.contains(Markup.STRIPED)) {
-      cssItems.add(BootstrapClass.TABLE_STRIPED);
-    }
-    if (sheetMarkup.contains(Markup.BORDERED)) {
-      cssItems.add(BootstrapClass.TABLE_BORDERED);
-    }
-    if (sheetMarkup.contains(Markup.HOVER)) {
-      cssItems.add(BootstrapClass.TABLE_HOVER);
-    }
-    if (sheetMarkup.contains(Markup.SMALL)) {
-      cssItems.add(BootstrapClass.TABLE_SM);
-    }
-    if (!autoLayout) {
-      cssItems.add(TobagoClass.TABLE_LAYOUT__FIXED);
-    }
-
 // BEGIN RENDER BODY CONTENT
 
     if (showHeader && !autoLayout) {
       // if no autoLayout, we render the header in a separate table.
 
       writer.startElement(HtmlElements.HEADER);
-      writer.writeClassAttribute(Classes.create(sheet, "header"));
+      writer.writeClassAttribute(TobagoClass.SHEET__HEADER);
       writer.startElement(HtmlElements.TABLE);
       writer.writeAttribute(HtmlAttributes.CELLSPACING, "0", false);
       writer.writeAttribute(HtmlAttributes.CELLPADDING, "0", false);
       writer.writeAttribute(HtmlAttributes.SUMMARY, "", false);
-      writer.writeClassAttribute(Classes.create(sheet, "headerTable"), cssItems.toArray(new CssItem[cssItems.size()]));
+      writer.writeClassAttribute(
+          BootstrapClass.TABLE,
+          TobagoClass.SHEET__HEADER_TABLE,
+          sheetMarkup.contains(Markup.INVERSE) ? BootstrapClass.TABLE_INVERSE : null,
+          sheetMarkup.contains(Markup.BORDERED) ? BootstrapClass.TABLE_BORDERED : null,
+          sheetMarkup.contains(Markup.SMALL) ? BootstrapClass.TABLE_SM : null,
+          !autoLayout ? TobagoClass.TABLE_LAYOUT__FIXED : null);
 
       writeColgroup(writer, columnWidths, columns);
 
@@ -334,7 +319,15 @@ public class SheetRenderer extends RendererBase {
     writer.writeAttribute(HtmlAttributes.CELLSPACING, "0", false);
     writer.writeAttribute(HtmlAttributes.CELLPADDING, "0", false);
     writer.writeAttribute(HtmlAttributes.SUMMARY, "", false);
-    writer.writeClassAttribute(Classes.create(sheet, "bodyTable"), cssItems.toArray(new CssItem[cssItems.size()]));
+    writer.writeClassAttribute(
+        BootstrapClass.TABLE,
+        TobagoClass.SHEET__BODY_TABLE,
+        sheetMarkup.contains(Markup.INVERSE) ? BootstrapClass.TABLE_INVERSE : null,
+        sheetMarkup.contains(Markup.STRIPED) ? BootstrapClass.TABLE_STRIPED : null,
+        sheetMarkup.contains(Markup.BORDERED) ? BootstrapClass.TABLE_BORDERED : null,
+        sheetMarkup.contains(Markup.HOVER) ? BootstrapClass.TABLE_HOVER : null,
+        sheetMarkup.contains(Markup.SMALL) ? BootstrapClass.TABLE_SM : null,
+        !autoLayout ? TobagoClass.TABLE_LAYOUT__FIXED : null);
 
     if (autoLayout) {
       writer.startElement(HtmlElements.THEAD);

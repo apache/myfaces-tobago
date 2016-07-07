@@ -55,8 +55,11 @@ import javax.faces.context.FacesContext;
  * markup</li> </ul> If the markup contains more than one name, there will be generated more than one output string.
  * E.g.: UIIn with Markup [readonly, error] will get the class "tobago-in tobago-in-markup-readonly
  * tobago-in-markup-error".
+ *
+ * @deprecated since Tobago 3.0.0
  */
-public final class Classes {
+@Deprecated
+public final class Classes implements CssItem {
 
   private static final Logger LOG = LoggerFactory.getLogger(Classes.class);
 
@@ -146,7 +149,7 @@ public final class Classes {
     this.stringValue = builder.toString();
   }
 
-  public String getStringValue() {
+  public String getName() {
     return stringValue;
   }
 }
