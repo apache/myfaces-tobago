@@ -26,8 +26,6 @@ public enum RendererTypes {
 
   Bar,
   Box,
-  /** @deprecated */
-  @Deprecated
   Button,
   Buttons,
   Calendar,
@@ -47,8 +45,6 @@ public enum RendererTypes {
   Hidden,
   In,
   Image,
-  /** @deprecated */
-  @Deprecated
   Link,
   Label,
   Mediator,
@@ -97,8 +93,6 @@ public enum RendererTypes {
 
   public static final String BAR = "Bar";
   public static final String BOX = "Box";
-  /** @deprecated */
-  @Deprecated
   public static final String BUTTON = "Button";
   public static final String BUTTONS = "Buttons";
   public static final String CALENDAR = "Calendar";
@@ -118,8 +112,6 @@ public enum RendererTypes {
   public static final String HIDDEN = "Hidden";
   public static final String IN = "In";
   public static final String IMAGE = "Image";
-  /** @deprecated */
-  @Deprecated
   public static final String LINK = "Link";
   public static final String LABEL = "Label";
   public static final String MEDIATOR = "Mediator";

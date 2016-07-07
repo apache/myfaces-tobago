@@ -63,7 +63,7 @@ import javax.faces.component.UICommand;
             description = "Contains a UIOutput instance with the confirmation message.",
             allowedChildComponenents = "org.apache.myfaces.tobago.Out")})
 public interface LinkTagDeclaration
-    extends HasIdBindingAndRendered, HasLabelAndAccessKey, HasAction, HasActionListener, IsImmediateCommand,
-    HasLink, HasResource, IsTransition, HasTarget, HasRenderedPartially, IsDisabledBySecurity, IsOmit,
-    HasTip, HasImage, HasTabIndex, IsVisual {
+    extends HasIdBindingAndRendered, HasAction, HasActionListener, IsImmediateCommand,
+    HasLink, HasResource, IsTransition, HasTarget, HasRenderedPartially, IsDisabledBySecurity,
+    IsOmit, HasImage, HasTabIndex, IsVisual, HasLabelAndAccessKey, HasTip {
 }

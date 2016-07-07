@@ -65,8 +65,8 @@ import javax.faces.component.UICommand;
             allowedChildComponenents = "org.apache.myfaces.tobago.Out")
     })
 public interface ButtonTagDeclaration
-    extends HasAction, HasActionListener, IsImmediateCommand,
-    HasLink, HasResource, IsTransition, HasTarget, HasRenderedPartially,
-    IsOmit, HasIdBindingAndRendered, HasLabelAndAccessKey, HasImage,
-    IsDisabledBySecurity, IsDefaultCommand, HasTip, HasTabIndex, IsVisual {
+    extends HasIdBindingAndRendered, HasAction, HasActionListener, IsImmediateCommand,
+    HasLink, HasResource, IsTransition, HasTarget, HasRenderedPartially, IsDisabledBySecurity,
+    IsOmit, IsVisual, HasLabelAndAccessKey, HasTip, HasImage,
+    IsDefaultCommand, HasTabIndex {
 }
