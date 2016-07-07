@@ -1149,17 +1149,15 @@ public class SheetRenderer extends RendererBase {
       final UISheet sheet, final FacesContext facesContext, final TobagoResponseWriter writer) throws IOException {
     CommandMap commandMap = null;
     for (final UIComponent child : sheet.getChildren()) {
-      if (child instanceof UIColumnEvent) {
+      if (child instanceof UIColumnEvent && child.isRendered()) {
         final UIColumnEvent columnEvent = (UIColumnEvent) child;
-        if (columnEvent.isRendered()) {
-          final UIComponent selectionChild = child.getChildren().get(0);
-          if (selectionChild != null && selectionChild instanceof AbstractUICommand && selectionChild.isRendered()) {
-            final UICommand action = (UICommand) selectionChild;
-            if (commandMap == null) {
-              commandMap = new CommandMap();
-            }
-            commandMap.addCommand(columnEvent.getEvent(), new Command(facesContext, action, (String) null));
+        final UIComponent selectionChild = child.getChildren().get(0);
+        if (selectionChild != null && selectionChild instanceof AbstractUICommand && selectionChild.isRendered()) {
+          final UICommand action = (UICommand) selectionChild;
+          if (commandMap == null) {
+            commandMap = new CommandMap();
           }
+          commandMap.addCommand(columnEvent.getEvent(), new Command(facesContext, action, (String) null));
         }
       }
     }
