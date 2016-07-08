@@ -898,6 +898,12 @@
               <!-- bootstrap -->
               <exclude>**/org/apache/myfaces/tobago/renderkit/html/standard/standard/bootstrap/**/bootstrap*.*</exclude>
 
+              <!-- bootstrap datetimepicker -->
+              <exclude>**/org/apache/myfaces/tobago/renderkit/html/standard/standard/bootstrap-datetimepicker/**/bootstrap*.*</exclude>
+
+              <!-- moment -->
+              <exclude>**/org/apache/myfaces/tobago/renderkit/html/standard/standard/moment/**/moment*.*</exclude>
+
               <!-- tether -->
               <exclude>**/org/apache/myfaces/tobago/renderkit/html/standard/standard/tether/**/tether*.*</exclude>
 
