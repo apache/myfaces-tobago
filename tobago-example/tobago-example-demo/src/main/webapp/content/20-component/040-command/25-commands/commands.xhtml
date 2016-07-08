@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+-->
+
+<ui:composition template="/main.xhtml"
+                xmlns:tc="http://myfaces.apache.org/tobago/component"
+                xmlns:ui="http://java.sun.com/jsf/facelets">
+  <ui:param name="title" value="#{overviewBundle.commands}  &lt;tc:buttons>"/>
+  <p>Links/Commands can be grouped with the <code class="language-markup">&lt;tc:commands/></code> tag.
+    Just add some <code class="language-markup">&lt;tc:link/></code> or
+    <code class="language-markup">&lt;tc:commands/></code> tags.</p>
+  <p>Currently there is no difference between <code class="language-markup">&lt;tc:link/></code> and
+    <code class="language-markup">&lt;tc:commands/></code>.</p>
+  <tc:link label="Tag Library Documentation" image="image/feather-leaf.png"
+           link="#{overviewBundle.tagDocUrl}/buttons.html"/>
+  <p>Tag Library Documentation:
+    <tc:link label="&lt;tc:commands/>" image="image/feather-leaf.png" link="#{overviewBundle.tagDocUrl}/commands.html"/>
+    |
+    <tc:link label="&lt;tc:link/>" image="image/feather-leaf.png" link="#{overviewBundle.tagDocUrl}/link.html"/></p>
+
+  <tc:section label="Basics">
+    <p>A simple example with three links.</p>
+    <pre><code class="language-markup">&lt;tc:commands>
+  &lt;tc:link label="Left"/>
+  &lt;tc:link label="Center"/>
+  &lt;tc:link label="Right"/>
+&lt;/tc:commands></code></pre>
+    <tc:commands>
+      <tc:link label="Left"/>
+      <tc:link label="Center"/>
+      <tc:link label="Right"/>
+    </tc:commands>
+  </tc:section>
+
+  <tc:section label="Dropdown Button">
+    <p>A dropdown menu can also be created.</p>
+    <pre><code class="language-markup">&lt;tc:commands>
+  &lt;tc:link label="Dropdown" omit="true">
+    &lt;tc:link label="Action 1"/>
+    ...
+  &lt;/tc:link>
+  &lt;tc:link label="Center"/>
+  &lt;tc:link label="Right"/>
+&lt;/tc:commands></code></pre>
+    <tc:commands>
+      <tc:link label="Dropdown" omit="true">
+        <tc:link label="Action 1"/>
+        <tc:link label="Action 2"/>
+        <tc:link label="Action 3"/>
+      </tc:link>
+      <tc:link label="Center"/>
+      <tc:link label="Right"/>
+    </tc:commands>
+  </tc:section>
+</ui:composition>

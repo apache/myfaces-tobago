@@ -133,7 +133,6 @@
   <entry key="solarPagingSheet">Tabelle mit Seitenverwaltung</entry>
 
 <!--  toolbar -->
-  <entry key="toolbar_popupButtonAction">Popup öffnen</entry>
   <entry key="toolbar_closePopupAction">Popup Fenster schließen</entry>
   <entry key="toolbar_popupText">Zum schließen dieses Fensters den Button drücken.</entry>
   <entry key="toolbar_dropDownAction">DropDown</entry>

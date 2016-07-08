@@ -31,9 +31,9 @@
     <tc:out value="For simple column headers, use the lable attribute of the tc:column.
     For more complex headers, which can span over columns and/or rows use a &lt;f:facet name='header'&gt; in the sheet." />
 
-    <tc:sheet value="#{demo.solarList}" id="sheet"
+    <tc:sheet value="#{sheetController.solarList}" id="sheet"
               columns="3*;2*;30px;2*;2*;2*;2*;2*;2*" var="luminary"
-              state="#{demo.sheetState}"
+              state="#{sheetController.sheetState}"
               showRowRange="left"
               showPageRange="right"
               showDirectLinks="center">

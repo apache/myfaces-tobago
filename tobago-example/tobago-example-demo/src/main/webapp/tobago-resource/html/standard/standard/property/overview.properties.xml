@@ -64,6 +64,7 @@
   <entry key="default_command">Default Command</entry>
   <entry key="buttons">Button Group</entry>
   <entry key="buttons_customizer">Button Group Customizer</entry>
+  <entry key="commands">Command Group</entry>
   <entry key="menu">Menubar</entry>
   <entry key="container">Container</entry>
   <entry key="box">Content Box</entry>
@@ -120,6 +121,10 @@
   <entry key="transition">Transition</entry>
   <entry key="for_each">For Each</entry>
   <entry key="collapsible">Collapsible</entry>
+  <entry key="collapsible_box">Content Box</entry>
+  <entry key="collapsible_popup">Popup</entry>
+  <entry key="collapsible_panel">Panel</entry>
+  <entry key="collapsible_section">Section</entry>
   <entry key="accessKey">Access Keys</entry>
   <entry key="dataAttribute">Data Attributes</entry>
   <entry key="roles">Roles</entry>
@@ -276,11 +281,9 @@
 
 
 <!--  toolbar -->
-<entry key="toolbar_popupButtonAction">Open popup</entry>
 <entry key="toolbar_closePopupAction">Close popup window</entry>
 <entry key="toolbar_popupText">To close this popup window click close button.</entry>
 <entry key="toolbar_dropDownAction">DropDown</entry>
-<entry key="toolbar_buttonAction">Text Button</entry>
 <entry key="toolbar_sampleTitle">Toolbar Example</entry>
 <entry key="toolbar_text1">Toolbars can be used for context sensitive actions inside box controls.
 &lt;ul style="margin-top: 2px;"&gt;
