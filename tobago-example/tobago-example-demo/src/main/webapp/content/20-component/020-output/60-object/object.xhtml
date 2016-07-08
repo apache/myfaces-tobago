@@ -42,31 +42,31 @@
     </tc:object>
   </tc:section>
   <tc:section label="Tool Bar">
-    <p>There are two <code class="language-markup">&lt;tc:toolBarCommand/></code>
-      within a <code class="language-markup">&lt;tc:toolBar/></code> in this example.
+    <p>There are two <code class="language-markup">&lt;tc:button/></code>
+      within a <code class="language-markup">&lt;tc:buttons/></code> in this example.
       The first show the island Tobago,
       the second show the worldmap in <code class="language-markup">&lt;tc:object id="map"></code>.
-      The toolbarcommands send the parameter (maps-position, maps-zoom, maps-target) to an <code>object.js</code>,
+      The buttons send the parameter (maps-position, maps-zoom, maps-target) to an <code>object.js</code>,
       which is shown in the objects.js-box. The JavaScript build the URL for the iframe.</p>
-    <pre><code class="language-markup">&lt;tc:toolBarCommand label="Show Tobago" omit="true"&gt;
+    <pre><code class="language-markup">&lt;tc:button label="Show Tobago" omit="true"&gt;
   &lt;tc:dataAttribute name="maps-position" value="11.249123,-60.687103"/&gt;
   &lt;tc:dataAttribute name="maps-zoom" value="12"/&gt;
   &lt;tc:dataAttribute name="maps-target" value="page:map"/&gt;
-&lt;/tc:toolBarCommand&gt;</code></pre>
+&lt;/tc:button&gt;</code></pre>
     <tc:button label="show/hide" action="#{objectController.switchCollapsed}"/>
     <tc:box label="object.js" collapsed="#{objectController.collapsed}">
       <pre><code class="language-javascript"><tc:out value="#{objectController.javaScriptSource}"/></code></pre>
     </tc:box>
-    <tc:toolBar id="t1" iconSize="off">
-      <tc:toolBarCommand id="c1" label="Show Tobago" omit="true">
+    <tc:buttons id="t1">
+      <tc:button id="c1" label="Show Tobago" omit="true">
         <tc:dataAttribute name="maps-position" value="11.249123,-60.687103"/>
         <tc:dataAttribute name="maps-zoom" value="12"/>
         <tc:dataAttribute name="maps-target" value="page:map"/>
-      </tc:toolBarCommand>
-      <tc:toolBarCommand id="c2" label="Show World" omit="true">
+      </tc:button>
+      <tc:button id="c2" label="Show World" omit="true">
         <tc:dataAttribute name="maps-target" value="page:map"/>
-      </tc:toolBarCommand>
-    </tc:toolBar>
+      </tc:button>
+    </tc:buttons>
     <tc:object id="map">
       <tc:style width="100%" height="500px"/>
     </tc:object>

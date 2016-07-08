@@ -888,7 +888,8 @@ public class SheetRenderer extends RendererBase {
               writer.writeAttribute(HtmlAttributes.TITLE, "", false);
               writer.writeAttribute(HtmlAttributes.SRC, menuImage, false);
               writer.endElement(HtmlElements.IMG);
-              ToolBarRendererBase.renderDropDownMenu(facesContext, writer, dropDownMenu);
+
+//              ToolBarRendererBase.renderDropDownMenu(facesContext, writer, dropDownMenu);
 
               writer.endElement(HtmlElements.SPAN);
             }
