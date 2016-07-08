@@ -25,10 +25,10 @@ QUnit.test("submit: select cat", function (assert) {
   var $animals = jQueryFrame("#page\\:mainForm\\:animals input");
   var $submit = jQueryFrame("#page\\:mainForm\\:submit");
 
-  $animals.eq(0).attr("checked", "checked");
-  $animals.eq(1).removeAttr("checked");
-  $animals.eq(2).removeAttr("checked");
-  $animals.eq(3).removeAttr("checked");
+  $animals.eq(0).prop("checked", true);
+  $animals.eq(1).prop("checked", false);
+  $animals.eq(2).prop("checked", false);
+  $animals.eq(3).prop("checked", false);
   $submit.click();
 
   jQuery("#page\\:testframe").load(function () {
@@ -44,10 +44,10 @@ QUnit.test("submit: select fox and rabbit", function (assert) {
   var $animals = jQueryFrame("#page\\:mainForm\\:animals input");
   var $submit = jQueryFrame("#page\\:mainForm\\:submit");
 
-  $animals.eq(0).removeAttr("checked");
-  $animals.eq(1).removeAttr("checked");
-  $animals.eq(2).attr("checked", "checked");
-  $animals.eq(3).attr("checked", "checked");
+  $animals.eq(0).prop("checked", false);
+  $animals.eq(1).prop("checked", false);
+  $animals.eq(2).prop("checked", true);
+  $animals.eq(3).prop("checked", true);
   $submit.click();
 
   jQuery("#page\\:testframe").load(function () {
@@ -66,10 +66,10 @@ QUnit.test("ajax: click 'Two'", function (assert) {
   var newOutputValue;
 
   if ($number2.attr("checked") === "checked") {
-    $number2.removeAttr("checked").trigger("change");
+    $number2.prop("checked", false).trigger("change");
     newOutputValue = parseInt($output.text()) - 2;
   } else {
-    $number2.attr("checked", "checked").trigger("change");
+    $number2.prop("checked", true).trigger("change");
     newOutputValue = parseInt($output.text()) + 2;
   }
 
@@ -91,11 +91,11 @@ QUnit.test("ajax: click 'Three'", function (assert) {
 
   var newOutputValue;
 
-  if ($number3.attr("checked") === "checked") {
-    $number3.removeAttr("checked").trigger("change");
+  if ($number3.prop("checked")) {
+    $number3.prop("checked", false).trigger("change");
     newOutputValue = parseInt($output.text()) - 3;
   } else {
-    $number3.attr("checked", "checked").trigger("change");
+    $number3.prop("checked", true).trigger("change");
     newOutputValue = parseInt($output.text()) + 3;
   }
 
@@ -117,11 +117,11 @@ QUnit.test("ajax: click 'Two'", function (assert) {
 
   var newOutputValue;
 
-  if ($number2.attr("checked") === "checked") {
-    $number2.removeAttr("checked").trigger("change");
+  if ($number2.prop("checked")) {
+    $number2.prop("checked", false).trigger("change");
     newOutputValue = parseInt($output.text()) - 2;
   } else {
-    $number2.attr("checked", "checked").trigger("change");
+    $number2.prop("checked", true).trigger("change");
     newOutputValue = parseInt($output.text()) + 2;
   }
 

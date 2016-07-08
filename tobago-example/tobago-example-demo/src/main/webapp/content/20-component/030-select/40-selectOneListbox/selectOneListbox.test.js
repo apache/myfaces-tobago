@@ -25,11 +25,11 @@ QUnit.test("submit: select 'Nile'", function (assert) {
   var $rivers = jQueryFrame("#page\\:mainForm\\:riverList option");
   var $submit = jQueryFrame("#page\\:mainForm\\:riverSubmit");
 
-  $rivers.eq(0).attr("selected", "selected"); // Nile
-  $rivers.eq(1).removeAttr("selected"); // Amazon
-  $rivers.eq(2).removeAttr("selected"); // Yangtze
-  $rivers.eq(3).removeAttr("selected"); // Yellow River
-  $rivers.eq(4).removeAttr("selected"); // Paraná River
+  $rivers.eq(0).prop("selected", true); // Nile
+  $rivers.eq(1).prop("selected", false); // Amazon
+  $rivers.eq(2).prop("selected", false); // Yangtze
+  $rivers.eq(3).prop("selected", false); // Yellow River
+  $rivers.eq(4).prop("selected", false); // Paraná River
   $submit.click();
 
   jQuery("#page\\:testframe").load(function () {
@@ -45,11 +45,11 @@ QUnit.test("submit: select 'Yangtze'", function (assert) {
   var $rivers = jQueryFrame("#page\\:mainForm\\:riverList option");
   var $submit = jQueryFrame("#page\\:mainForm\\:riverSubmit");
 
-  $rivers.eq(0).removeAttr("selected"); // Nile
-  $rivers.eq(1).removeAttr("selected"); // Amazon
-  $rivers.eq(2).attr("selected", "selected"); // Yangtze
-  $rivers.eq(3).removeAttr("selected"); // Yellow River
-  $rivers.eq(4).removeAttr("selected"); // Paraná River
+  $rivers.eq(0).prop("selected", false); // Nile
+  $rivers.eq(1).prop("selected", false); // Amazon
+  $rivers.eq(2).prop("selected", true); // Yangtze
+  $rivers.eq(3).prop("selected", false); // Yellow River
+  $rivers.eq(4).prop("selected", false); // Paraná River
   $submit.click();
 
   jQuery("#page\\:testframe").load(function () {
@@ -64,11 +64,11 @@ QUnit.test("ajax: select Everest", function (assert) {
   var done = assert.async();
   var $mountains = jQueryFrame("#page\\:mainForm\\:mountainList option");
 
-  $mountains.eq(1).removeAttr("selected");
-  $mountains.eq(2).removeAttr("selected");
-  $mountains.eq(3).removeAttr("selected");
-  $mountains.eq(4).removeAttr("selected");
-  $mountains.eq(0).attr("selected", "selected").trigger("change"); // Everest
+  $mountains.eq(1).prop("selected", false);
+  $mountains.eq(2).prop("selected", false);
+  $mountains.eq(3).prop("selected", false);
+  $mountains.eq(4).prop("selected", false);
+  $mountains.eq(0).prop("selected", true).trigger("change"); // Everest
 
   $.ajax({
     type: 'GET',
@@ -85,11 +85,11 @@ QUnit.test("ajax: select Makalu", function (assert) {
   var done = assert.async();
   var $mountains = jQueryFrame("#page\\:mainForm\\:mountainList option");
 
-  $mountains.eq(0).removeAttr("selected");
-  $mountains.eq(1).removeAttr("selected");
-  $mountains.eq(2).removeAttr("selected");
-  $mountains.eq(3).removeAttr("selected");
-  $mountains.eq(4).attr("selected", "selected").trigger("change"); // Everest
+  $mountains.eq(0).prop("selected", false);
+  $mountains.eq(1).prop("selected", false);
+  $mountains.eq(2).prop("selected", false);
+  $mountains.eq(3).prop("selected", false);
+  $mountains.eq(4).prop("selected", true).trigger("change"); // Everest
 
   $.ajax({
     type: 'GET',

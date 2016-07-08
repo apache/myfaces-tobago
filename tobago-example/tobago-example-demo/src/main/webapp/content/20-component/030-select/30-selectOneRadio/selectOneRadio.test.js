@@ -26,12 +26,12 @@ QUnit.test("submit: Addition (2 + 4)", function (assert) {
   var $number2 = jQueryFrame("#page\\:mainForm\\:selectNum2 input");
   var $submitAdd = jQueryFrame("#page\\:mainForm\\:submitAdd");
 
-  $number1.eq(0).removeAttr("checked");
-  $number1.eq(1).attr("checked", "checked"); // Select 2
-  $number1.eq(2).removeAttr("checked");
-  $number2.eq(0).removeAttr("checked");
-  $number2.eq(1).removeAttr("checked");
-  $number2.eq(2).attr("checked", "checked"); // Select 4
+  $number1.eq(0).prop("checked", false);
+  $number1.eq(1).prop("checked", true); // Select 2
+  $number1.eq(2).prop("checked", false);
+  $number2.eq(0).prop("checked", false);
+  $number2.eq(1).prop("checked", false);
+  $number2.eq(2).prop("checked", true); // Select 4
   $submitAdd.click();
 
   jQuery("#page\\:testframe").load(function () {
@@ -48,12 +48,12 @@ QUnit.test("submit: Subtraction (4 - 1)", function (assert) {
   var $number2 = jQueryFrame("#page\\:mainForm\\:selectNum2 input");
   var $submitSub = jQueryFrame("#page\\:mainForm\\:submitSub");
 
-  $number1.eq(0).removeAttr("checked");
-  $number1.eq(1).removeAttr("checked");
-  $number1.eq(2).attr("checked", "checked"); // Select 4
-  $number2.eq(0).attr("checked", "checked"); // Select 1
-  $number2.eq(1).removeAttr("checked");
-  $number2.eq(2).removeAttr("checked");
+  $number1.eq(0).prop("checked", false);
+  $number1.eq(1).prop("checked", false);
+  $number1.eq(2).prop("checked", true); // Select 4
+  $number2.eq(0).prop("checked", true); // Select 1
+  $number2.eq(1).prop("checked", false);
+  $number2.eq(2).prop("checked", false);
   $submitSub.click();
 
   jQuery("#page\\:testframe").load(function () {
@@ -68,9 +68,9 @@ QUnit.test("ajax: select Mars", function (assert) {
   var done = assert.async();
   var $planet = jQueryFrame("#page\\:mainForm\\:selectPlanet input");
 
-  $planet.eq(0).removeAttr("checked");
-  $planet.eq(2).removeAttr("checked");
-  $planet.eq(1).attr("checked", "checked").trigger("change"); // Mars.
+  $planet.eq(0).prop("checked", false);
+  $planet.eq(2).prop("checked", false);
+  $planet.eq(1).prop("checked", true).trigger("change"); // Mars.
 
   $.ajax({
     type: 'GET',
@@ -88,9 +88,9 @@ QUnit.test("ajax: select Jupiter", function (assert) {
   var done = assert.async();
   var $planet = jQueryFrame("#page\\:mainForm\\:selectPlanet input");
 
-  $planet.eq(0).removeAttr("checked");
-  $planet.eq(1).removeAttr("checked");
-  $planet.eq(2).attr("checked", "checked").trigger("change"); // Jupiter.
+  $planet.eq(0).prop("checked", false);
+  $planet.eq(1).prop("checked", false);
+  $planet.eq(2).prop("checked", true).trigger("change"); // Jupiter.
 
   $.ajax({
     type: 'GET',

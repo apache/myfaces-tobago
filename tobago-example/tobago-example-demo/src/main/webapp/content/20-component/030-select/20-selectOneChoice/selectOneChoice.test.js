@@ -26,8 +26,8 @@ QUnit.test("submit: Alice", function (assert) {
   var $bob = jQueryFrame("#page\\:mainForm\\:selectPerson\\:\\:field option:contains('Bob')");
   var $submit = jQueryFrame("#page\\:mainForm\\:submit");
 
-  $alice.attr("selected", "selected");
-  $bob.removeAttr("selected");
+  $alice.prop("selected", true);
+  $bob.prop("selected", false);
   $submit.click();
 
   jQuery("#page\\:testframe").load(function () {
@@ -44,8 +44,8 @@ QUnit.test("submit: Bob", function (assert) {
   var $bob = jQueryFrame("#page\\:mainForm\\:selectPerson\\:\\:field option:contains('Bob')");
   var $submit = jQueryFrame("#page\\:mainForm\\:submit");
 
-  $alice.removeAttr("selected");
-  $bob.attr("selected", "selected");
+  $alice.prop("selected", false);
+  $bob.prop("selected", true);
   $submit.click();
 
   jQuery("#page\\:testframe").load(function () {
@@ -61,8 +61,8 @@ QUnit.test("ajax: select Mars", function (assert) {
   var $mars = jQueryFrame("#page\\:mainForm\\:selectPlanet\\:\\:field option:contains('Mars')");
   var $jupiter = jQueryFrame("#page\\:mainForm\\:selectPlanet\\:\\:field option:contains('Jupiter')");
 
-  $jupiter.removeAttr("selected");
-  $mars.attr("selected", "selected").trigger("change");
+  $jupiter.prop("selected", false);
+  $mars.prop("selected", true).trigger("change");
 
   $.ajax({
     type: 'GET',
@@ -81,8 +81,8 @@ QUnit.test("ajax: select Jupiter", function (assert) {
   var $mars = jQueryFrame("#page\\:mainForm\\:selectPlanet\\:\\:field option:contains('Mars')");
   var $jupiter = jQueryFrame("#page\\:mainForm\\:selectPlanet\\:\\:field option:contains('Jupiter')");
 
-  $mars.removeAttr("selected");
-  $jupiter.attr("selected", "selected").trigger("change");
+  $mars.prop("selected", false);
+  $jupiter.prop("selected", true).trigger("change");
 
   $.ajax({
     type: 'GET',

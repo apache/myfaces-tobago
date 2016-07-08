@@ -28,6 +28,7 @@ import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.jboss.shrinkwrap.resolver.api.maven.archive.importer.MavenImporter;
+import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -38,8 +39,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
+import java.io.UnsupportedEncodingException;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 @RunWith(Arquillian.class)
@@ -47,6 +51,7 @@ import java.util.List;
 public class QUnitTests {
 
   private static final Logger LOG = LoggerFactory.getLogger(QUnitTests.class);
+  private static List<String> testedPages = new LinkedList<String>();
 
   @Drone
   private WebDriver browser;
@@ -66,10 +71,21 @@ public class QUnitTests {
     return webArchive;
   }
 
-  private void checkResults(String page) {
-    String testJs = page.substring(0, page.length() - 6) + ".test.js";
-    browser.get(contextPath + "/faces/test.xhtml?page=" + page + "&testjs=" + testJs);
+  private void setupBrowser(String page, String testJs) throws UnsupportedEncodingException {
+    browser.get(contextPath + "/faces/test.xhtml?page=" + URLEncoder.encode(page, "UTF-8") + "&testjs="
+            + URLEncoder.encode(testJs, "UTF-8"));
+  }
 
+  private void runStandardTest(String page) throws UnsupportedEncodingException {
+    testedPages.add(page);
+
+    String testJs = page.substring(0, page.length() - 6) + ".test.js";
+    setupBrowser(page, testJs);
+
+    checkQUnitResults(page);
+  }
+
+  private void checkQUnitResults(String page) {
     WebElement qunitTests = qunit.findElement(By.id("qunit-tests"));
     List<WebElement> testCases = qunitTests.findElements(By.xpath("li"));
     Assert.assertTrue("There must be at least one test case.", testCases.size() > 0);
@@ -111,17 +127,27 @@ public class QUnitTests {
     }
   }
 
-  //  @Test
-  public void allPages() {
-    File dir = new File("tobago-example/tobago-example-demo/src/main/webapp/content");
-    List<String> testablePages = getTestablePages(dir);
+  @AfterClass
+  public static void checkMissingTests() {
+    if (testedPages.size() > 1) {
+      File dir = new File("tobago-example/tobago-example-demo/src/main/webapp/content");
+      List<String> testablePages = getTestablePages(dir);
 
-    for (String page : testablePages) {
-      checkResults(page);
+      StringBuilder stringBuilder = new StringBuilder();
+      for (String testablePage : testablePages) {
+        if (!testedPages.contains(testablePage)) {
+          String errorString = "missing testmethod for " + testablePage;
+          LOG.warn(errorString);
+          stringBuilder.append("\n");
+          stringBuilder.append(errorString);
+        }
+      }
+
+      Assert.assertEquals(stringBuilder.toString(), testablePages.size(), testedPages.size());
     }
   }
 
-  private List<String> getTestablePages(File dir) {
+  private static List<String> getTestablePages(File dir) {
     List<String> testablePages = new ArrayList<String>();
     for (File file : dir.listFiles()) {
       if (file.isDirectory()) {
@@ -138,80 +164,118 @@ public class QUnitTests {
   }
 
   @Test
-  public void in() {
+  public void testAccessAllPages() throws UnsupportedEncodingException {
+    File dir = new File("tobago-example/tobago-example-demo/src/main/webapp/content");
+    List<String> pages = getXHTMLs(dir);
+    String testJs = "error/error.test.js";
+    List<WebElement> results;
+
+    // Test if 'has no exception' test is correct.
+    setupBrowser("error/exception.xhtml", testJs);
+    results = qunit.findElement(By.id("qunit-tests")).findElements(By.xpath("li"));
+    Assert.assertEquals(results.get(0).getAttribute("class"), "fail");
+    Assert.assertEquals(results.get(1).getAttribute("class"), "pass");
+
+    // Test if 'has no 404' test is correct.
+    setupBrowser("error/404.xhtml", testJs);
+    results = qunit.findElement(By.id("qunit-tests")).findElements(By.xpath("li"));
+    Assert.assertEquals(results.get(0).getAttribute("class"), "pass");
+    Assert.assertEquals(results.get(1).getAttribute("class"), "fail");
+
+    for (String page : pages) {
+      setupBrowser(page, testJs);
+      checkQUnitResults(page);
+    }
+  }
+
+  private List<String> getXHTMLs(File dir) {
+    List<String> xhtmls = new ArrayList<String>();
+    for (File file : dir.listFiles()) {
+      if (file.isDirectory()) {
+        xhtmls.addAll(getXHTMLs(file));
+      } else if (!file.getName().startsWith("x-") && file.getName().endsWith(".xhtml")) {
+        String path = file.getPath().substring("tobago-example/tobago-example-demo/src/main/webapp/".length());
+        xhtmls.add(path);
+      }
+    }
+    return xhtmls;
+  }
+
+  @Test
+  public void in() throws UnsupportedEncodingException {
     String page = "content/20-component/010-input/10-in/in.xhtml";
-    checkResults(page);
+    runStandardTest(page);
   }
 
   @Test
-  public void date() {
+  public void date() throws UnsupportedEncodingException {
     String page = "content/20-component/010-input/40-date/date.xhtml";
-    checkResults(page);
+    runStandardTest(page);
   }
 
   @Test
-  public void selectBooleanCheckbox() {
+  public void selectBooleanCheckbox() throws UnsupportedEncodingException {
     String page = "content/20-component/030-select/10-selectBooleanCheckbox/selectBooleanCheckbox.xhtml";
-    checkResults(page);
+    runStandardTest(page);
   }
 
   @Test
-  public void selectOneChoice() {
+  public void selectOneChoice() throws UnsupportedEncodingException {
     String page = "content/20-component/030-select/20-selectOneChoice/selectOneChoice.xhtml";
-    checkResults(page);
+    runStandardTest(page);
   }
 
   @Test
-  public void selectOneRadio() {
-    String page = "content/20-component/030-select/30-selectOneRadio/selectOneRadio.xhtml"; // TODO: fails
-    checkResults(page);
+  public void selectOneRadio() throws UnsupportedEncodingException {
+    String page = "content/20-component/030-select/30-selectOneRadio/selectOneRadio.xhtml";
+    runStandardTest(page);
   }
 
   @Test
-  public void selectOneListbox() {
+  public void selectOneListbox() throws UnsupportedEncodingException {
     String page = "content/20-component/030-select/40-selectOneListbox/selectOneListbox.xhtml";
-    checkResults(page);
+    runStandardTest(page);
   }
 
   @Test
-  public void selectManyCheckbox() {
+  public void selectManyCheckbox() throws UnsupportedEncodingException {
     String page = "content/20-component/030-select/50-selectManyCheckbox/selectManyCheckbox.xhtml";
-    checkResults(page);
+    runStandardTest(page);
   }
 
   @Test
-  public void form() {
+  public void form() throws UnsupportedEncodingException {
     String page = "content/30-concept/08-form/form.xhtml";
-    checkResults(page);
+    runStandardTest(page);
   }
 
   @Test
-  public void formRequired() {
+  public void formRequired() throws UnsupportedEncodingException {
     String page = "content/30-concept/08-form/10-required/form-required.xhtml";
-    checkResults(page);
+    runStandardTest(page);
   }
 
   @Test
-  public void formAjax() {
+  public void formAjax() throws UnsupportedEncodingException {
     String page = "content/30-concept/08-form/20-ajax/form-ajax.xhtml";
-    checkResults(page);
+    runStandardTest(page);
   }
 
   @Test
-  public void testDate() {
+  public void testDate() throws UnsupportedEncodingException {
     String page = "content/40-test/1040-date/date.xhtml";
-    checkResults(page);
+    runStandardTest(page);
   }
 
   @Test
-  public void rendererBaseGetCurrentValue() {
+  public void rendererBaseGetCurrentValue() throws UnsupportedEncodingException {
     String page = "content/40-test/50000-java/10-rendererBase-getCurrentValue/rendererBase-getCurrentValue.xhtml";
-    checkResults(page);
+    runStandardTest(page);
   }
 
   @Test
-  public void ajaxExecute() {
+  public void ajaxExecute() throws UnsupportedEncodingException {
     String page = "content/40-test/50000-java/20-ajax-execute/ajax-execute.xhtml";
-    checkResults(page);
+    runStandardTest(page);
   }
 }

@@ -1,6 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
-<!--
+/*
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
  * this work for additional information regarding copyright ownership.
@@ -15,19 +13,18 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
--->
+ */
 
-<ui:composition template="/main.xhtml"
-                xmlns:tc="http://myfaces.apache.org/tobago/component"
-                xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:f="http://java.sun.com/jsf/core">
-  <ui:param name="title" value="Error 404"/>
-    <tc:panel>
-      <f:facet name="layout">
-        <tc:gridLayout rows="auto;*" />
-      </f:facet>
+function jQueryFrame(expression) {
+  return document.getElementById("page:testframe").contentWindow.jQuery(expression);
+}
 
-      <tc:messages />
-      <tc:out id="pageNotFoundMessage" value="The page was not found!"/>
-    </tc:panel>
-</ui:composition>
+QUnit.test("has no exception", function (assert) {
+  var $error = jQueryFrame("#page\\:errorSection .tobago-section-header span");
+  assert.notEqual($error.text(), "An error has occurred!");
+});
+
+QUnit.test("has no 404", function (assert) {
+  var $error404 = jQueryFrame("#page\\:mainForm\\:pageNotFoundMessage span");
+  assert.notEqual($error404.text(), "The page was not found!");
+});

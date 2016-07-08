@@ -27,9 +27,9 @@ QUnit.test("submit: select A", function (assert) {
   var $selectC = jQueryFrame("#page\\:mainForm\\:selectC input");
   var $submit = jQueryFrame("#page\\:mainForm\\:submit");
 
-  $selectA.attr("checked", "checked");
-  $selectB.removeAttr("checked");
-  $selectC.removeAttr("checked");
+  $selectA.prop("checked", true);
+  $selectB.prop("checked", false);
+  $selectC.prop("checked", false);
   $submit.click();
 
   jQuery("#page\\:testframe").load(function () {
@@ -47,9 +47,9 @@ QUnit.test("submit: select B and C", function (assert) {
   var $selectC = jQueryFrame("#page\\:mainForm\\:selectC input");
   var $submit = jQueryFrame("#page\\:mainForm\\:submit");
 
-  $selectA.removeAttr("checked");
-  $selectB.attr("checked", "checked");
-  $selectC.attr("checked", "checked");
+  $selectA.prop("checked", false);
+  $selectB.prop("checked", true);
+  $selectC.prop("checked", true);
   $submit.click();
 
   jQuery("#page\\:testframe").load(function () {
@@ -63,7 +63,7 @@ QUnit.test("ajax: select D", function (assert) {
   assert.expect(1);
   var done = assert.async();
   var $selectD = jQueryFrame("#page\\:mainForm\\:selectD input");
-  $selectD.attr("checked", "checked").trigger("change");
+  $selectD.prop("checked", true).trigger("change");
 
   $.ajax({
     type: 'GET',
@@ -79,7 +79,7 @@ QUnit.test("ajax: deselect D", function (assert) {
   assert.expect(1);
   var done = assert.async();
   var $selectD = jQueryFrame("#page\\:mainForm\\:selectD input");
-  $selectD.removeAttr("checked").trigger("change");
+  $selectD.prop("checked", false).trigger("change");
 
   $.ajax({
     type: 'GET',
@@ -95,7 +95,7 @@ QUnit.test("ajax: select E", function (assert) {
   assert.expect(1);
   var done = assert.async();
   var $selectE = jQueryFrame("#page\\:mainForm\\:selectE input");
-  $selectE.attr("checked", "checked").trigger("change");
+  $selectE.prop("checked", true).trigger("change");
 
   $.ajax({
     type: 'GET',
@@ -111,7 +111,7 @@ QUnit.test("ajax: deselect E", function (assert) {
   assert.expect(1);
   var done = assert.async();
   var $selectE = jQueryFrame("#page\\:mainForm\\:selectE input");
-  $selectE.removeAttr("checked").trigger("change");
+  $selectE.prop("checked", false).trigger("change");
 
   $.ajax({
     type: 'GET',
@@ -127,7 +127,7 @@ QUnit.test("ajax: select F", function (assert) {
   assert.expect(1);
   var done = assert.async();
   var $selectF = jQueryFrame("#page\\:mainForm\\:selectF input");
-  $selectF.attr("checked", "checked").trigger("change");
+  $selectF.prop("checked", true).trigger("change");
 
   $.ajax({
     type: 'GET',
@@ -143,7 +143,7 @@ QUnit.test("ajax: deselect F", function (assert) {
   assert.expect(1);
   var done = assert.async();
   var $selectF = jQueryFrame("#page\\:mainForm\\:selectF input");
-  $selectF.removeAttr("checked").trigger("change");
+  $selectF.prop("checked", false).trigger("change");
 
   $.ajax({
     type: 'GET',
