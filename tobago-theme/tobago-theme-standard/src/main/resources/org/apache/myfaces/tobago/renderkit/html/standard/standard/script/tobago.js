@@ -1817,6 +1817,7 @@ Tobago.Transport = {
   requests: [],
   currentActionId: null,
   pageSubmitted: false,
+  pageAborted: false,
   ajaxTransport: undefined,
 
   initTransport: function() {
@@ -1879,7 +1880,7 @@ Tobago.Transport = {
     this.requests.shift();
     this.currentActionId = null;
     console.debug('Request complete! Duration: ' + (new Date().getTime() - this.startTime) + 'ms; Queue size : ' + this.requests.length); // @DEV_ONLY
-    if (!this.pageSubmitted && this.requests.length > 0) {
+    if (!this.pageAborted && this.requests.length > 0) {
       console.debug('Execute request!'); // @DEV_ONLY
       this.startTime = new Date().getTime();
       this.requests[0]();
@@ -2125,11 +2126,11 @@ Tobago.Updater = {
       if (Tobago.Updater.WAIT_ON_RELOAD) {
         alert('wait: full reload requeste: responseCode = ' + requestOptions.resultData.responseCode);
       }
-      Tobago.Transport.pageSubmitted = true;
+      Tobago.Transport.pageAborted = true;
       Tobago.navigateToUrl(requestOptions.resultData.location);
       return;
     } else if (requestOptions.resultData.responseCode == Tobago.Updater.CODE_REDIRECT) {
-      Tobago.Transport.pageSubmitted = true;
+      Tobago.Transport.pageAborted = true;
       window.location = requestOptions.resultData.location;
       return;
     }
