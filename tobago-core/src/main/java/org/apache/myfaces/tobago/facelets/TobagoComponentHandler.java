@@ -22,8 +22,8 @@ package org.apache.myfaces.tobago.facelets;
 import org.apache.myfaces.tobago.component.InputSuggest;
 import org.apache.myfaces.tobago.component.OnComponentCreated;
 import org.apache.myfaces.tobago.component.OnComponentPopulated;
+import org.apache.myfaces.tobago.component.SupportsAjaxBehaviorHolder;
 import org.apache.myfaces.tobago.component.Visual;
-import org.apache.myfaces.tobago.component.SupportsRenderedPartially;
 import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.event.SheetStateChangeSource;
 import org.apache.myfaces.tobago.event.SortActionSource;
@@ -71,8 +71,8 @@ public class TobagoComponentHandler extends ComponentHandler {
     if (InputSuggest.class.isAssignableFrom(aClass)) {
       metaRuleset.addRule(SuggestMethodRule.INSTANCE);
     }
-    if (SupportsRenderedPartially.class.isAssignableFrom(aClass)) {
-      metaRuleset.addRule(SupportsRenderedPartiallyRule.INSTANCE);
+    if (SupportsAjaxBehaviorHolder.class.isAssignableFrom(aClass)) {
+      metaRuleset.addRule(SupportsAjaxBehaviorHolderRule.INSTANCE);
     }
 
     return metaRuleset;

@@ -21,6 +21,7 @@ package org.apache.myfaces.tobago.internal.component;
 
 import org.apache.myfaces.tobago.component.OnComponentPopulated;
 import org.apache.myfaces.tobago.component.SupportsAccessKey;
+import org.apache.myfaces.tobago.component.SupportsAjaxBehaviorHolder;
 import org.apache.myfaces.tobago.component.SupportsRenderedPartially;
 import org.apache.myfaces.tobago.component.Visual;
 import org.apache.myfaces.tobago.event.CollapsibleActionListener;
@@ -44,7 +45,8 @@ import java.util.List;
 
 public abstract class AbstractUICommand
     extends UICommand
-    implements SupportsRenderedPartially, SupportsAccessKey, OnComponentPopulated, Visual, ClientBehaviorHolder {
+    implements SupportsRenderedPartially, SupportsAjaxBehaviorHolder, SupportsAccessKey, OnComponentPopulated, Visual,
+               ClientBehaviorHolder {
 
   private static final Logger LOG = LoggerFactory.getLogger(AbstractUICommand.class);
 
@@ -177,6 +179,12 @@ public abstract class AbstractUICommand
 
   @Override
   public abstract String[] getRenderedPartially();
+
+  @Override
+  public abstract String[] getRenderPartially();
+
+  @Override
+  public abstract String[] getExecutePartially();
 
   public abstract boolean isOmit();
 

@@ -19,7 +19,7 @@
 
 package org.apache.myfaces.tobago.component;
 
-
+@Deprecated
 public interface SupportsRenderedPartially {
 
   String[] getRenderedPartially();

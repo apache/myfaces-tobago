@@ -71,6 +71,7 @@ public enum Attributes {
   disabled,
   enctype,
   escape,
+  executePartially,
   expanded,
   execute,
   event,
@@ -190,9 +191,14 @@ public enum Attributes {
   reference,
   relative,
   rendered,
+  /**
+   * @deprecated since Tobago 3.0.0
+   */
+  @Deprecated
   renderedPartially,
   rendererType,
   renderAs,
+  renderPartially,
   renderRange,
   renderRangeExtern,
   required,
