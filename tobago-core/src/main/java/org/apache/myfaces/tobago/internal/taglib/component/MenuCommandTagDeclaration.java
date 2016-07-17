@@ -57,6 +57,6 @@ import javax.faces.component.UICommand;
     allowedChildComponenents = "NONE")
 public interface MenuCommandTagDeclaration
     extends HasAction, HasActionListener, IsImmediateCommand,
-            HasLink, HasResource, IsTransition, HasTarget, HasRenderedPartially, HasAjaxBehavior, IsDisabledBySecurity, IsOmit, IsVisual,
-            HasIdBindingAndRendered, HasLabelAndAccessKey, HasTip, HasImage {
+            HasLink, HasResource, IsTransition, HasTarget, HasRenderedPartially, HasAjaxBehavior, IsDisabledBySecurity,
+            IsOmit, IsVisual, HasIdBindingAndRendered, HasLabelAndAccessKey, HasTip, HasImage {
 }

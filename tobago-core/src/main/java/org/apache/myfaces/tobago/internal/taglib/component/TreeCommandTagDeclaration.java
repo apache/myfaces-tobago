@@ -66,6 +66,6 @@ import javax.faces.component.UICommand;
     rendererType = RendererTypes.TREE_COMMAND)
 public interface TreeCommandTagDeclaration
     extends HasIdBindingAndRendered, HasAction, HasActionListener, IsImmediateCommand,
-            HasLink, HasResource, IsTransition, HasTarget, HasRenderedPartially, HasAjaxBehavior, IsDisabledBySecurity, IsOmit,
-            HasLabelAndAccessKey, HasTip, HasTabIndex, IsVisual {
+            HasLink, HasResource, IsTransition, HasTarget, HasRenderedPartially, HasAjaxBehavior, IsDisabledBySecurity,
+            IsOmit, HasLabelAndAccessKey, HasTip, HasTabIndex, IsVisual {
 }

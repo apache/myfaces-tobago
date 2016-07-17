@@ -21,10 +21,7 @@ package org.apache.myfaces.tobago.facelets;
 
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.SupportsAjaxBehaviorHolder;
-import org.apache.myfaces.tobago.util.ComponentUtils;
 
-import javax.el.ValueExpression;
-import javax.faces.component.UIComponent;
 import javax.faces.component.behavior.AjaxBehavior;
 import javax.faces.component.behavior.ClientBehavior;
 import javax.faces.view.facelets.FaceletContext;
@@ -49,6 +46,7 @@ public class SupportsAjaxBehaviorHolderRule extends MetaRule {
           case renderedPartially:
           case executePartially:
             return new SupportsAjaxBehaviorHolderMapper(attribute, a);
+          default:
         }
       }
     }
@@ -86,11 +84,12 @@ public class SupportsAjaxBehaviorHolderRule extends MetaRule {
         case executePartially:
           ajaxBehavior.setValueExpression("execute", tagAttribute.getValueExpression(faceletContext, Object.class));
           break;
+        default:
       }
     }
 
-    private AjaxBehavior findAjaxBehavior(SupportsAjaxBehaviorHolder ajaxBehaviorHolder, FaceletContext faceletContext) {
-      Map<String, List<ClientBehavior>> clientBehaviors = ajaxBehaviorHolder.getClientBehaviors();
+    private AjaxBehavior findAjaxBehavior(SupportsAjaxBehaviorHolder behaviorHolder, FaceletContext faceletContext) {
+      Map<String, List<ClientBehavior>> clientBehaviors = behaviorHolder.getClientBehaviors();
 
       for (List<ClientBehavior> behaviors : clientBehaviors.values()) {
         if (behaviors != null && !behaviors.isEmpty()) {
@@ -103,7 +102,7 @@ public class SupportsAjaxBehaviorHolderRule extends MetaRule {
       }
       final AjaxBehavior ajaxBehavior
           = (AjaxBehavior) faceletContext.getFacesContext().getApplication().createBehavior(AjaxBehavior.BEHAVIOR_ID);
-      ajaxBehaviorHolder.addClientBehavior(ajaxBehaviorHolder.getDefaultEventName(), ajaxBehavior);
+      behaviorHolder.addClientBehavior(behaviorHolder.getDefaultEventName(), ajaxBehavior);
       return ajaxBehavior;
     }
   }
