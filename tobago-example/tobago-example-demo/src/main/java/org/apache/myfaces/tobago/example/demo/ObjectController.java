@@ -27,24 +27,6 @@ import java.io.Serializable;
 @Named
 public class ObjectController extends SourceFileReader implements Serializable {
 
-  private boolean collapsed;
-
-  public ObjectController() {
-    collapsed = true;
-  }
-
-  public boolean isCollapsed() {
-    return collapsed;
-  }
-
-  public void setCollapsed(boolean collapsed) {
-    this.collapsed = collapsed;
-  }
-
-  public void switchCollapsed() {
-    collapsed = !collapsed;
-  }
-
   public String getJavaScriptSource() {
     return getSource("object.js");
   }

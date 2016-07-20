@@ -20,14 +20,16 @@
 <ui:composition template="/main.xhtml"
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
-                xmlns:ui="http://java.sun.com/jsf/facelets">
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core">
   <ui:param name="title" value="#{overviewBundle.object} &lt;tc:object&gt;"/>
   <tc:script file="content/20-component/020-output/60-object/object.js"/>
 
   <p>The <code class="language-markup">&lt;tc:object/></code> tag create an iframe.
     External objects can be included, when Content Security Policy is activated.
     You may add a frame-src policy to the 'tobago-config.xml'.</p>
-  <tc:link label="Tag Library Documentation" image="image/feather-leaf.png" link="#{overviewBundle.tagDocUrl}/object.html"/>
+  <tc:link label="Tag Library Documentation" image="image/feather-leaf.png"
+           link="#{overviewBundle.tagDocUrl}/object.html"/>
   <tc:section label="Basics">
     <pre><code class="language-markup">&lt;tc:object src="https://www.google.com/maps/..."/&gt;</code></pre>
     <tc:object id="o1"
@@ -53,18 +55,27 @@
   &lt;tc:dataAttribute name="maps-zoom" value="12"/&gt;
   &lt;tc:dataAttribute name="maps-target" value="page:map"/&gt;
 &lt;/tc:button&gt;</code></pre>
-    <tc:button label="show/hide" action="#{objectController.switchCollapsed}"/>
-    <tc:box label="object.js" collapsed="#{objectController.collapsed}">
+    <tc:box id="objectJsBox" label="object.js" collapsed="true" collapsedMode="hidden">
+      <f:facet name="bar">
+        <tc:buttons>
+          <tc:button label="show" omit="true">
+            <tc:operation name="show" for="objectJsBox"/>
+          </tc:button>
+          <tc:button label="hide" omit="true">
+            <tc:operation name="hide" for="objectJsBox"/>
+          </tc:button>
+        </tc:buttons>
+      </f:facet>
       <pre><code class="language-javascript"><tc:out value="#{objectController.javaScriptSource}"/></code></pre>
     </tc:box>
     <tc:buttons id="t1">
       <tc:button id="c1" label="Show Tobago" omit="true">
         <tc:dataAttribute name="maps-position" value="11.249123,-60.687103"/>
         <tc:dataAttribute name="maps-zoom" value="12"/>
-        <tc:dataAttribute name="maps-target" value="page:map"/>
+        <tc:dataAttribute name="maps-target" value="page:mainForm:map"/>
       </tc:button>
       <tc:button id="c2" label="Show World" omit="true">
-        <tc:dataAttribute name="maps-target" value="page:map"/>
+        <tc:dataAttribute name="maps-target" value="page:mainForm:map"/>
       </tc:button>
     </tc:buttons>
     <tc:object id="map">
@@ -72,3 +83,4 @@
     </tc:object>
   </tc:section>
 </ui:composition>
+

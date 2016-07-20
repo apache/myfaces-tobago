@@ -21,77 +21,102 @@
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:f="http://java.sun.com/jsf/core">
-  <ui:param name="title" value="Container"/>
+  <ui:param name="title" value="#{overviewBundle.collapsible_panel} &lt;tc:panel>"/>
+  <p>This page show some examples for the collapsible concept of a
+    <tc:link label="#{overviewBundle.panel}" link="/faces/content/20-component/050-container/20-panel/panel.xhtml"/>.
+    Every panel contain a required inputfield to see if a validation occur while submitting.
+    For better visibility every panel has a border.</p>
+  <tc:section label="Simple Panel">
+    <p>A simple panel using an controller for the collapsible state.
+      For the 'hide'-Button is the attribute <code>immediate="true"</code> set to submitting without validation.
+      So the panel could be hide even if the inputfield is empty.</p>
+    <p>The <code>collapsibleMode</code> is not set.
+      The 'Submit'-button can be executed without violation if the panel is in the hidden state.</p>
+    <tc:form>
+      <tc:buttons>
+        <tc:button label="show" action="#{collapsiblePanelController.showPanel}"/>
+        <tc:button label="hide" action="#{collapsiblePanelController.hidePanel}" immediate="true"/>
+      </tc:buttons>
+      <tc:button label="Submit"/>
+      <tc:panel id="simplePanel" collapsed="#{collapsiblePanelController.panelCollapsed}">
+        <tc:style customClass="demo-data-attribute"/>
+        <tc:in label="Required" required="true"/>
+      </tc:panel>
+    </tc:form>
+  </tc:section>
 
-  <tc:separator label="Collapsible panel without server request"/>
-  <tc:buttons>
-    <tc:button label="show" omit="true" id="show1">
-      <tc:operation name="show" for="panel1"/>
-    </tc:button>
-    <tc:button label="hide" omit="true" id="hide1">
-      <tc:operation name="hide" for="panel1"/>
-    </tc:button>
-  </tc:buttons>
-  <tc:panel id="panel1">
+  <tc:section label="Full Server Request">
+    <p>In this example the collapsible state is changed by <code class="language-markup">&lt;tc:operation/></code>
+      with full server request. So the server get the current state.</p>
+    <p>The <code>collapsibleMode</code> is not set.
+      The 'Submit'-button can be executed without violation if the panel is hidden.</p>
+    <p>For the 'hide'-Button the attribute <code>immediate="true"</code> is set to submitting without validation.</p>
+    <tc:form>
+      <tc:buttons>
+        <tc:button label="show">
+          <tc:operation name="show" for="serverPanel"/>
+        </tc:button>
+        <tc:button label="hide" immediate="true">
+          <tc:operation name="hide" for="serverPanel"/>
+        </tc:button>
+      </tc:buttons>
+      <tc:button label="Submit"/>
+      <tc:panel id="serverPanel">
+        <tc:style customClass="demo-data-attribute"/>
+        <tc:in label="Required" required="true"/>
+      </tc:panel>
+    </tc:form>
+  </tc:section>
 
-    Here we have the transitions <code>show</code> and <code>hide</code> and there is no server request needed.
-    The buttons have set <code>omit="true"</code>.
+  <tc:section label="Client Sided">
+    <p>A panel which is opened and closed only by the client.
+      The attribute <code>omit="true"</code> is set for the 'show'-button and the 'hide'-button.</p>
+    <p>For the panel <code>collapsibleMode="hidden"</code> is set.
+      After the 'hide' transition, the panel will be in the 'hidden' state - not the 'absent' state.
+      The content of the hidden panel will also be validated.<br/>
+      So, if the inputfield is empty and the panel is hidden, a violation occur when pressing the 'Submit'-button.</p>
+    <tc:form>
+      <tc:buttons>
+        <tc:button label="show" omit="true">
+          <tc:operation name="show" for="clientPanel"/>
+        </tc:button>
+        <tc:button label="hide" omit="true" immediate="true">
+          <tc:operation name="hide" for="clientPanel"/>
+        </tc:button>
+      </tc:buttons>
+      <tc:button label="Submit"/>
+      <tc:panel id="clientPanel" collapsedMode="hidden">
+        <tc:style customClass="demo-data-attribute"/>
+        <tc:in label="Required" required="true"/>
+      </tc:panel>
+    </tc:form>
+  </tc:section>
 
-    <tc:panel>
-      Hallo, collapsible panel.
-      <tc:in required="true" label="Required"/>
-    </tc:panel>
-
-  </tc:panel>
-
-  <tc:separator label="Collapsible panel with AJAX server request"/>
-  <tc:buttons>
-    <tc:button label="show" id="show2">
-      <f:ajax execute="panel2" render="panel2"/>
-      <tc:operation name="show" for="panel2"/>
-    </tc:button>
-    <tc:button label="hide" id="hide2">
-      <f:ajax execute="panel2" render="panel2"/>
-      <tc:operation name="hide" for="panel2"/>
-    </tc:button>
-  </tc:buttons>
-  <tc:panel id="panel2">
-
-    Here we have the transitions <code>show</code> and <code>hide</code> with AJAX request.
-    The buttons have set <code>omit="false"</code> which is the default.
-
-    <tc:panel>
-      Hallo, collapsible panel.
-      <tc:in required="true" label="Required"/>
-    </tc:panel>
-
-  </tc:panel>
-
-  <tc:separator label="Collapsible panel with full server request"/>
-  <tc:buttons>
-    <tc:button label="show" id="show3">
-      <tc:operation name="show" for="panel3"/>
-    </tc:button>
-    <tc:button label="hide" id="hide3">
-      <tc:operation name="hide" for="panel3"/>
-    </tc:button>
-  </tc:buttons>
-  <tc:panel id="panel3">
-
-    Here we have the transitions <code>show</code> and <code>hide</code> with normal server request.
-    The buttons have set <code>omit="false"</code> which is the default.
-
-    <tc:panel>
-      Hallo, collapsible panel.
-      <tc:in required="true" label="Required"/>
-    </tc:panel>
-
-  </tc:panel>
-
-  <tc:out value="Requests: #{activityList.values[0].jsfRequest} / AJAX: #{activityList.values[0].ajaxRequest}"/>
-
-  <tc:flowLayout textAlign="right">
-    <tc:button label="Submit"/>
-  </tc:flowLayout>
-
+  <tc:section label="Ajax">
+    <p>Here we have the transitions <code>show</code> and <code>hide</code> with AJAX request.
+      The buttons have set <code>immediate="true"</code> to execute the transition without validation.</p>
+    <p>The <code>collapsibleMode</code> is not set.
+      The 'Submit'-button can be executed without violation if the panel is hidden.</p>
+    <pre><code class="language-markup">&lt;tc:button label="show" immediate="true">
+  &lt;f:ajax execute="ajaxPanel" render="ajaxPanel"/>
+  &lt;tc:operation name="show" for="ajaxPanel"/>
+&lt;/tc:button></code></pre>
+    <tc:form>
+      <tc:buttons>
+        <tc:button label="show" immediate="true">
+          <f:ajax execute="ajaxPanel" render="ajaxPanel"/>
+          <tc:operation name="show" for="ajaxPanel"/>
+        </tc:button>
+        <tc:button label="hide" immediate="true">
+          <f:ajax execute="ajaxPanel" render="ajaxPanel"/>
+          <tc:operation name="hide" for="ajaxPanel"/>
+        </tc:button>
+      </tc:buttons>
+      <tc:button label="Submit"/>
+      <tc:panel id="ajaxPanel">
+        <tc:style customClass="demo-data-attribute"/>
+        <tc:in label="Required" required="true"/>
+      </tc:panel>
+    </tc:form>
+  </tc:section>
 </ui:composition>

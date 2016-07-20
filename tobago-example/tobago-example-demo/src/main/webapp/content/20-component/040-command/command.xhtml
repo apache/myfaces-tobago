@@ -18,64 +18,43 @@
 -->
 
 <ui:composition template="/main.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
-                xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:f="http://java.sun.com/jsf/core">
+                xmlns:ui="http://java.sun.com/jsf/facelets">
+  <ui:param name="title" value="#{overviewBundle.command}"/>
+  <p>Commands are ways to execute actions after clicked by a user.</p>
 
-  <ui:param name="title" value="TODO"/>
+  <tc:section label="Link">
+    <pre><code class="language-markup">&lt;tc:link label="Apache Website" link="https://www.apache.org"/></code></pre>
+    <tc:link label="Apache Website" link="https://www.apache.org"/>
+  </tc:section>
 
-  <hr/>
-  bar
-  <hr/>
+  <tc:section label="Button">
+    <pre><code class="language-markup">&lt;tc:button label="Submit"/></code></pre>
+    <tc:button label="Submit"/>
+  </tc:section>
 
-  <tc:bar>
-    <f:facet name="brand">
-      <tc:link image="image/feather-leaf.png" label="Tobago Demo"/>
-    </f:facet>
+  <tc:section label="#{overviewBundle.buttons}">
+    <pre><code class="language-markup">&lt;tc:buttons>
+  &lt;tc:button label="Left" omit="true"/>
+  &lt;tc:button label="Center" omit="true"/>
+  &lt;tc:button label="Right" omit="true"/>
+&lt;/tc:buttons></code></pre>
+    <tc:buttons>
+      <tc:button label="Left" omit="true"/>
+      <tc:button label="Center" omit="true"/>
+      <tc:button label="Right" omit="true"/>
+    </tc:buttons>
+  </tc:section>
 
-
+  <tc:section label="#{overviewBundle.commands}">
+    <pre><code class="language-markup">&lt;tc:commands>
+  &lt;tc:link label="Apache Website" link="https://www.apache.org"/>
+  &lt;tc:link label="Wikipedia" link="https://en.wikipedia.org/wiki/Apache_Software_Foundation"/>
+&lt;/tc:commands></code></pre>
     <tc:commands>
-      <tc:buttons>
-        <tc:button image="fa-universal-access" label="Hallo 2"/>
-        <tc:button image="fa-hand-paper-o" label="Hallo"/>
-      </tc:buttons>
-      <tc:button image="fa-hourglass" label="Hallo"/>
+      <tc:link label="Apache Website" link="https://www.apache.org"/>
+      <tc:link label="Wikipedia" link="https://en.wikipedia.org/wiki/Apache_Software_Foundation"/>
     </tc:commands>
-
-    <tc:flowLayout textAlign="right">
-      <tc:in label="Search"/>
-    </tc:flowLayout>
-  </tc:bar>
-
-  <hr/>
-  other
-  <hr/>
-
-  <tc:link image="fa-hourglass" label="Hallo 3" omit="true">
-    <tc:link image="fa-universal-access" label="Hallo"/>
-    <tc:link image="fa-hand-paper-o" label="Hallo"/>
-  </tc:link>
-
-  <tc:buttons>
-    <tc:button id="b1" image="fa-hourglass" label="Hallo 4" omit="true">
-      <tc:link image="fa-universal-access" label="Hallo 4a"/>
-      <tc:link image="fa-hand-paper-o" label="Hallo 4b"/>
-    </tc:button>
-
-    <tc:button id="b2" image="fa-hourglass" label="Hallo 5" omit="true">
-      <tc:link image="fa-universal-access" label="Hallo 5a"/>
-      <tc:link image="fa-hand-paper-o" label="Hallo 5b"/>
-    </tc:button>
-  </tc:buttons>
-
-  <tc:button label="Theme" omit="true">
-    <tc:selectOneRadio value="#{clientConfigController.theme}">
-      <f:facet name="change">
-        <tc:command action="#{clientConfigController.submit}"/>
-      </f:facet>
-      <tc:selectItems value="#{clientConfigController.themeItems}"/>
-    </tc:selectOneRadio>
-  </tc:button>
-
-
+  </tc:section>
 </ui:composition>

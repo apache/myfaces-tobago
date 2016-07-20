@@ -116,7 +116,6 @@
   <entry key="flex_layout">FlexLayout</entry>
   <entry key="segment_layout">SegmentLayout</entry>
   <entry key="labeled_layout">LabeledLayout</entry>
-  <entry key="grid_layout">GridLayout</entry>
   <entry key="format">Formatting</entry>
   <entry key="transition">Transition</entry>
   <entry key="for_each">For Each</entry>
@@ -133,6 +132,7 @@
   <entry key="deprecated">Deprecated</entry>
   <entry key="tx">TX Tag Library</entry>
   <entry key="toolBar">Toolbar</entry>
+  <entry key="grid_layout">GridLayout</entry>
 
   <!-- navigate : test -->
   <entry key="test">Tests</entry>

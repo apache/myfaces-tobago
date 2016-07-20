@@ -187,9 +187,13 @@ public class TabGroupRenderer extends RendererBase {
           }
 
           writer.startElement(HtmlElements.A);
-          writer.writeAttribute(DataAttributes.TOGGLE, "tab", false);
+          if (!tab.isDisabled()) {
+            writer.writeAttribute(DataAttributes.TOGGLE, "tab", false);
+          }
           if (activeIndex == index) {
             writer.writeClassAttribute(BootstrapClass.NAV_LINK, BootstrapClass.ACTIVE);
+          } else if (tab.isDisabled()) {
+            writer.writeClassAttribute(BootstrapClass.NAV_LINK, BootstrapClass.DISABLED);
           } else {
             writer.writeClassAttribute(BootstrapClass.NAV_LINK);
           }

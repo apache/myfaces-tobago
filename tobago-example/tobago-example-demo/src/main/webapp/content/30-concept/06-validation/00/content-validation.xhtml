@@ -37,9 +37,9 @@
     <p>A simple way of validation is the <code>required</code> attribute in some input components.
       The text area must not empty if the submit button is pressed. Otherwise a error message is displayed.</p>
     <pre><code class="language-markup">&lt;tc:textarea label="Text Area" required="true"/></code></pre>
-    <tc:form>
-      <tc:textarea id="t1" label="Text Area" required="true"/>
-      <tc:button label="Submit"/>
+    <tc:form id="required">
+      <tc:textarea id="textarea" label="Text Area" required="true"/>
+      <tc:button id="submit" label="Submit"/>
     </tc:form>
   </tc:section>
 
@@ -47,14 +47,15 @@
     <p>The length of a value can be validated by the <code class="language-markup">&lt;f:validateLength/></code> tag.
       Length means the number of characters.
       In this example, the given string must have at least two characters and maximal four characters.</p>
+    <p>Please note, an empty string will not be validated.</p>
     <pre><code class="language-markup">&lt;tc:in label="Input">
   &lt;f:validateLength minimum="2" maximum="4"/>
 &lt;/tc:in></code></pre>
-    <tc:form>
-      <tc:in id="i1" label="Text">
+    <tc:form id="validateLength">
+      <tc:in id="in" label="Text">
         <f:validateLength minimum="2" maximum="4"/>
       </tc:in>
-      <tc:button label="Submit"/>
+      <tc:button id="submit" label="Submit"/>
     </tc:form>
   </tc:section>
 
@@ -65,11 +66,11 @@
     <pre><code class="language-markup">&lt;tc:in label="Number" markup="number">
   &lt;f:validateLongRange minimum="3" maximum="77"/>
 &lt;/tc:in></code></pre>
-    <tc:form>
-      <tc:in id="i2" label="Number" markup="number">
+    <tc:form id="validateRange">
+      <tc:in id="in" label="Number" markup="number">
         <f:validateLongRange minimum="3" maximum="77"/>
       </tc:in>
-      <tc:button label="Submit"/>
+      <tc:button id="submit" label="Submit"/>
     </tc:form>
   </tc:section>
 
@@ -79,21 +80,21 @@
     <pre><code class="language-markup">&lt;tc:in label="Letter &amp; Number" >
   &lt;f:validateRegex pattern="[A-Za-z][0-9]"/>
 &lt;/tc:in></code></pre>
-    <tc:form>
+    <tc:form id="regexValidation">
       <p>The value in the field must be a word character combined with a number. For example 'T3'.</p>
-      <tc:in id="i3" label="Letter &amp; Number">
+      <tc:in id="in" label="Letter &amp; Number">
         <f:validateRegex pattern="[A-Za-z][0-9]"/>
       </tc:in>
-      <tc:button label="Submit"/>
+      <tc:button id="submit" label="Submit"/>
     </tc:form>
   </tc:section>
 
   <tc:section label="Custom Validator">
     <p>It's also possible to add custom validators using the <code>validator</code> attribute of an input component.
-      In this case, only the string 'Tobago' is accepted.</p>
-    <tc:form>
-      <tc:in id="i4" label="Text" validator="#{validationController.customValidator}"/>
-      <tc:button label="Submit"/>
+      In this case, only the string 'Tobago' (uppercase/lowercase ignored) is accepted.</p>
+    <tc:form id="customValidator">
+      <tc:in id="in" label="Text" validator="#{validationController.customValidator}"/>
+      <tc:button id="submit" label="Submit"/>
     </tc:form>
   </tc:section>
 </ui:composition>

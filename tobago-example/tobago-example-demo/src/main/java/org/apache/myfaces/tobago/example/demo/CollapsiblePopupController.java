@@ -19,48 +19,29 @@
 
 package org.apache.myfaces.tobago.example.demo;
 
-
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 import java.io.Serializable;
 
 @SessionScoped
 @Named
-public class PopupController implements Serializable {
+public class CollapsiblePopupController implements Serializable {
 
-  private boolean popup1Collapsed = true;
-  private String popup1Text;
-  private String popup2Text;
+  private boolean collapsed = true;
 
-  public boolean isPopup1Collapsed() {
-    return popup1Collapsed;
+  public boolean isCollapsed() {
+    return collapsed;
   }
 
-  public void setPopup1Collapsed(boolean popup1Collapsed) {
-    this.popup1Collapsed = popup1Collapsed;
+  public void setCollapsed(boolean collapsed) {
+    this.collapsed = collapsed;
   }
 
-  public void openPopup1() {
-    popup1Collapsed = false;
+  public void open() {
+    collapsed = false;
   }
 
-  public void closePopup1() {
-    popup1Collapsed = true;
-  }
-
-  public String getPopup1Text() {
-    return popup1Text;
-  }
-
-  public void setPopup1Text(String popup1Text) {
-    this.popup1Text = popup1Text;
-  }
-
-  public String getPopup2Text() {
-    return popup2Text;
-  }
-
-  public void setPopup2Text(String popup2Text) {
-    this.popup2Text = popup2Text;
+  public void close() {
+    collapsed = true;
   }
 }

@@ -37,18 +37,18 @@
     <tc:section label="New River">
       <p>You can add a new river to the list
         or reset the list to the default value of 'Nile', 'Amazon' and 'Yangtze'.</p>
-      <tc:form>
-        <tc:in label="Name" value="#{forEachController.name}" required="true"/>
-        <tc:in label="Length (km)" value="#{forEachController.length}" required="true" markup="number"/>
-        <tc:in label="Discharge (m³/s)" value="#{forEachController.discharge}" required="true"/>
-        <tc:button label="Add" action="#{forEachController.addNewRiver}" defaultCommand="true"/>
+      <tc:form id="add">
+        <tc:in id="inName" label="Name" value="#{forEachController.name}" required="true"/>
+        <tc:in id="inLength" label="Length (km)" value="#{forEachController.length}" required="true" markup="number"/>
+        <tc:in id="inDischarge" label="Discharge (m³/s)" value="#{forEachController.discharge}" required="true"/>
+        <tc:button id="button" label="Add" action="#{forEachController.addNewRiver}" defaultCommand="true"/>
       </tc:form>
-      <tc:form>
-        <tc:button label="Reset" action="#{forEachController.reset}"/>
+      <tc:form id="reset">
+        <tc:button id="button" label="Reset" action="#{forEachController.reset}"/>
       </tc:form>
     </tc:section>
 
-    <tc:section label="For Each">
+    <tc:section id="forEach" label="For Each">
       <p>The rivers are displayed as <code class="language-markup">&lt;tc:box/></code>
         tags withing a <code class="language-markup">&lt;tc:segmentLayout/></code>.</p>
     <pre><code class="language-markup">&lt;tc:segmentLayout medium="6;6">
@@ -65,7 +65,7 @@
       </tc:segmentLayout>
     </tc:section>
 
-    <tc:section label="UI:Repeat">
+    <tc:section id="uiRepeat" label="UI:Repeat">
       <p>In this example, the each data of a river is put in a <code class="language-markup">&lt;tc:section/></code></p>
     <pre><code class="language-markup">&lt;ui:repeat value="\#{forEachController.rivers}" var="river">
   &lt;tc:section label="\#{river.name}">

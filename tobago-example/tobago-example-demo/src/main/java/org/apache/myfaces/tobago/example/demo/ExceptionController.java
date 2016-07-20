@@ -19,20 +19,23 @@
 
 package org.apache.myfaces.tobago.example.demo;
 
-import org.apache.myfaces.tobago.config.TobagoConfig;
-
-import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.context.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
+import java.io.PrintWriter;
+import java.io.Serializable;
+import java.io.StringWriter;
 
+@RequestScoped
 @Named
-@ApplicationScoped
-public class AppInfo {
+public class ExceptionController implements Serializable {
 
-  // todo: may be put the TobagoConfig in the TobagoContext. But think about security...
-
-  public String getProjectStage() {
-    final TobagoConfig tobagoConfig = TobagoConfig.getInstance(FacesContext.getCurrentInstance());
-    return tobagoConfig.getProjectStage().name();
+  public String getStackTrace() {
+    Exception exception = (Exception) FacesContext.getCurrentInstance().getExternalContext()
+            .getRequestMap().get("javax.servlet.error.exception");
+    StringWriter stringWriter = new StringWriter();
+    PrintWriter printWriter = new PrintWriter(stringWriter);
+    exception.printStackTrace(printWriter);
+    return stringWriter.toString();
   }
 }

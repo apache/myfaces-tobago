@@ -53,21 +53,24 @@
 
   <tc:section label="Header">
     <p>This example show the different headers if the <code>label</code> or the <code>image</code> is used.</p>
-    <tc:tabGroup id="tg2" switchType="reloadTab">
-      <tc:tab id="t21" label="Only label">
+    <tc:tabGroup id="tabGroupHead" switchType="reloadTab">
+      <tc:tab id="tabHead1" label="Only label">
         <p>Only a label is set.</p>
-        <pre><code class="language-markup">&lt;tc:tab label="Only label"/></code></pre>
+        <pre><code id="tabHead1Code" class="language-markup">&lt;tc:tab label="Only label"/></code></pre>
+        <f:verbatim><script type="text/javascript">Prism.highlightElement($('#tabHead1Code')[0]);</script></f:verbatim>
       </tc:tab>
-      <tc:tab id="t22" label="Label with image" image="image/feather-leaf.png">
+      <tc:tab id="tabHead2" label="Label with image" image="image/feather-leaf.png">
         <p>A label and an image are set.</p>
-        <pre><code
+        <pre><code id="tabHead2Code"
                 class="language-markup">&lt;tc:tab label="Label with image" image="image/feather-leaf.png"></code></pre>
+        <f:verbatim><script type="text/javascript">Prism.highlightElement($('#tabHead2Code')[0]);</script></f:verbatim>
       </tc:tab>
-      <tc:tab id="t23" image="image/feather-leaf.png">
+      <tc:tab id="tabHead3" image="image/feather-leaf.png">
         <p>Only an image is set.</p>
-        <pre><code class="language-markup">&lt;tc:tab image="image/feather-leaf.png"></code></pre>
+        <pre><code id="tabHead3Code" class="language-markup">&lt;tc:tab image="image/feather-leaf.png"></code></pre>
+        <f:verbatim><script type="text/javascript">Prism.highlightElement($('#tabHead3Code')[0]);</script></f:verbatim>
       </tc:tab>
-      <tc:tab id="t24">
+      <tc:tab id="tabHead4">
         <p>Neither a label or an image are set. In this case the header gets a label with the indexnumber of the tab in
           the tabgroup.</p>
       </tc:tab>

@@ -39,6 +39,14 @@
     <tc:progress value="14.9" max="20"/>
   </tc:section>
 
+  <tc:section label="Style">
+    <p>A static progressbar containing a <code class="language-markup">&lt;tc:style width="50%" height="2px"/></code>
+      tag.</p>
+    <tc:progress value="14.9" max="20">
+      <tc:style width="50%" height="2px"/>
+    </tc:progress>
+  </tc:section>
+
   <tc:section label="Button">
     <p>By pressing the button, progress is added to the progressbar.</p>
     <pre><code class="language-markup">&lt;tc:button label="Add Progress" action="\#{progressController.addProgress}"/>

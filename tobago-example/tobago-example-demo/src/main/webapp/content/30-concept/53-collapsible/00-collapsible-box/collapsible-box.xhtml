@@ -18,88 +18,132 @@
 -->
 
 <ui:composition template="/main.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:f="http://java.sun.com/jsf/core">
-  <ui:param name="title" value="Container"/>
+  <ui:param name="title" value="#{overviewBundle.collapsible_box} &lt;tc:box>"/>
+  <p>On this page the collapsible concept is explained for a
+    <tc:link label="#{overviewBundle.box}" link="/faces/content/20-component/050-container/10-box/box.xhtml"/>.</p>
 
-  <tc:section label="Collapsible box without server request" id="section1">
-
-    Here we have the transitions <code>show</code> and <code>hide</code> and there is no server request needed.
-    The buttons have set <code>omit="true"</code>.
-
-    <tc:box label="Collapsible box (Client only)" id="box1">
-      <f:facet name="bar">
-        <tc:buttons>
-          <tc:button label="show" omit="true" id="show1">
-            <tc:operation name="show" for="box1"/>
-          </tc:button>
-          <tc:button label="hide" omit="true" id="hide1">
-            <tc:operation name="hide" for="box1"/>
-          </tc:button>
-        </tc:buttons>
-      </f:facet>
-      <tc:panel>
-        Hallo, collapsible box.
-        <tc:in required="true" label="Required"/>
-      </tc:panel>
-    </tc:box>
-
-  </tc:section>
-  <tc:section label="Collapsible section with AJAX server request" id="section2">
-
-    Here we have the transitions <code>show</code> and <code>hide</code> with AJAX request.
-    The buttons have set <code>omit="false"</code> which is the default.
-
-    <tc:box label="Collapsible box (AJAX)" id="box2">
-      <f:facet name="bar">
-        <tc:buttons>
-          <tc:button label="show" id="show2">
-            <f:ajax execute="box2" render="box2"/>
-            <tc:operation name="show" for="box2"/>
-          </tc:button>
-          <tc:button label="hide" id="hide2">
-            <f:ajax execute="box2" render="box2"/>
-            <tc:operation name="hide" for="box2"/>
-          </tc:button>
-        </tc:buttons>
-      </f:facet>
-      <tc:panel>
-        Hallo, collapsible box.
-        <tc:in required="true" label="Required"/>
-      </tc:panel>
-    </tc:box>
-
+  <tc:section label="Simple Collapsible Box">
+    <tc:form id="controller">
+      <p>This is a simple collapsible box which open and close the content via a controller.</p>
+      <pre><code class="language-markup">&lt;tc:button label="show" immediate="true"
+        action="\#{collapsibleBoxController.showCollapsed1}"/></code></pre>
+      <tc:box label="Box" collapsed="#{collapsibleBoxController.collapsed}" collapsedMode="absent">
+        <f:facet name="bar">
+          <tc:buttons>
+            <tc:button id="show" label="show" immediate="true" action="#{collapsibleBoxController.show}"/>
+            <tc:button id="hide" label="hide" immediate="true" action="#{collapsibleBoxController.hide}"/>
+          </tc:buttons>
+        </f:facet>
+        <tc:out id="content" value="Content"/>
+      </tc:box>
+    </tc:form>
   </tc:section>
 
-  <tc:section label="Collapsible section with full server request" id="section3">
-
-    Here we have the transitions <code>show</code> and <code>hide</code> with normal server request.
-    The buttons have set <code>omit="false"</code> which is the default.
-
-    <tc:box label="Collapsible box (full request)" id="box3">
-      <f:facet name="bar">
-        <tc:buttons>
-          <tc:button label="show" id="show3">
-            <tc:operation name="show" for="box3"/>
-          </tc:button>
-          <tc:button label="hide" id="hide3">
-            <tc:operation name="hide" for="box3"/>
-          </tc:button>
-        </tc:buttons>
-      </f:facet>
-      <tc:panel>
-        Hallo, collapsible box.
-        <tc:in required="true" label="Required"/>
-      </tc:panel>
-    </tc:box>
-
+  <tc:section label="Full Server Request">
+    <tc:form id="server">
+      <p>In this example, the operaction tag is used to change the state of the boxes.</p>
+      <pre><code class="language-markup">&lt;tc:box id="box1" label="Full Request Box 1">
+  &lt;f:facet name="bar">
+    &lt;tc:buttons>
+      &lt;tc:button label="show">
+        &lt;tc:operation name="show" for="box1"/>
+      ...</code></pre>
+      <tc:box id="box1" label="Full Request Box 1">
+        <f:facet name="bar">
+          <tc:buttons>
+            <tc:button id="show1" label="show">
+              <tc:operation name="show" for="box1"/>
+            </tc:button>
+            <tc:button id="hide1" label="hide">
+              <tc:operation name="hide" for="box1"/>
+            </tc:button>
+          </tc:buttons>
+        </f:facet>
+        <tc:out id="content1" value="Content"/>
+      </tc:box>
+      <tc:box id="box2" label="Full Request Box 2">
+        <f:facet name="bar">
+          <tc:buttons>
+            <tc:button id="show2" label="show">
+              <tc:operation name="show" for="box2"/>
+            </tc:button>
+            <tc:button id="hide2" label="hide">
+              <tc:operation name="hide" for="box2"/>
+            </tc:button>
+          </tc:buttons>
+        </f:facet>
+        <tc:out id="content2" value="Content"/>
+      </tc:box>
+    </tc:form>
   </tc:section>
 
-  <tc:out value="Requests: #{activityList.values[0].jsfRequest} / AJAX: #{activityList.values[0].ajaxRequest}"/>
+  <tc:section label="Client Sided">
+    <tc:form id="client">
+      <p>This example show a content box which could be opened and closed without a server request.<br/>
+        To render the hidden content of the box, <code>collapsedMode="hidden"</code> must be set.
+        The content is hidden by CSS display property.</p>
+      <p>Also the content contain a required inputfield.
+        This field will be also validated if the content is hidden.<br/>
+        To demonstrate that, leave the inputfield blank, hide the content and press the 'Submit'-button.</p>
+      <p>Notice the <code>omit</code> attribute of the buttons is set to avoid server request.</p>
+      <pre><code class="language-markup">&lt;tc:box id="noRequestBox" label="No Request Box"
+        collapsed="true" collapsedMode="hidden">
+  &lt;tc:button label="show" omit="true">
+    &lt;tc:operation name="show" for="noRequestBox"/>
+  ...</code></pre>
+      <tc:box id="noRequestBox" label="No Request Box" collapsed="true" collapsedMode="hidden">
+        <f:facet name="bar">
+          <tc:buttons>
+            <tc:button id="show" label="show" omit="true">
+              <tc:operation name="show" for="noRequestBox"/>
+            </tc:button>
+            <tc:button id="hide" label="hide" omit="true">
+              <tc:operation name="hide" for="noRequestBox"/>
+            </tc:button>
+          </tc:buttons>
+        </f:facet>
+        <tc:in id="in" label="Required" required="true"/>
+      </tc:box>
+      <tc:button id="submit" label="Submit"/>
+    </tc:form>
+  </tc:section>
 
-  <tc:flowLayout textAlign="right">
-    <tc:button label="Submit"/>
-  </tc:flowLayout>
-
+  <tc:section label="Ajax">
+    <tc:form id="ajax">
+      <p>Here we have the transitions <code>show</code> and <code>hide</code> with AJAX request.
+        The buttons have set <code>omit="false"</code> which is the default.
+        Also the attribute <code>immediate="true"</code> is set to execute the transition without validation.</p>
+      <p>The mode is set to <code>collapsedMode="absent"</code> (default), so the hidden content won't be rendered
+        and therefor not validated.</p>
+      <p>You can press the 'Submit'-button after hiding the blank inputfield.
+        The submit will be executed without validation.
+        If the content is shown and the field is empty, a violation occurs after hitting 'Submit'.</p>
+      <pre><code class="language-markup">&lt;tc:box id="ajaxBox" label="Collapsible Box (AJAX)" collapsedMode="absent">
+  ...
+    &lt;tc:button label="show" immediate="true">
+      &lt;f:ajax execute="ajaxBox" render="ajaxBox"/>
+      &lt;tc:operation name="show" for="ajaxBox"/>
+    ...</code></pre>
+      <tc:box id="ajaxBox" label="Ajax Box" collapsedMode="absent">
+        <f:facet name="bar">
+          <tc:buttons>
+            <tc:button id="show" label="show" immediate="true">
+              <f:ajax execute="ajaxBox" render="ajaxBox"/>
+              <tc:operation name="show" for="ajaxBox"/>
+            </tc:button>
+            <tc:button id="hide" label="hide" immediate="true">
+              <f:ajax execute="ajaxBox" render="ajaxBox"/>
+              <tc:operation name="hide" for="ajaxBox"/>
+            </tc:button>
+          </tc:buttons>
+        </f:facet>
+        <tc:in id="in" label="Required" required="true"/>
+      </tc:box>
+      <tc:button id="submit" label="Submit"/>
+    </tc:form>
+  </tc:section>
 </ui:composition>

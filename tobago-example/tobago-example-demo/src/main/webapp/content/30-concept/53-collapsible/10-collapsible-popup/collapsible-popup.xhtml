@@ -18,45 +18,79 @@
 -->
 
 <ui:composition template="/main.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
-                xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:f="http://java.sun.com/jsf/core">
-  <ui:param name="title" value="Popup"/>
+                xmlns:ui="http://java.sun.com/jsf/facelets">
+  <ui:param name="title" value="#{overviewBundle.collapsible_popup} &lt;tc:popup>"/>
+  <p>This page contain some examples for the collapsible concept of a popup. Please have a look at the
+    <tc:link label="#{overviewBundle.popup}" link="/faces/content/20-component/060-popup/popup.xhtml"/> page
+    in the components section for more details.</p>
 
-  <tc:section label="Collapsible Popup">
-
-    <tc:buttons>
-      <tc:button label="Open (server site)">
-        <tc:operation name="show" for="popup"/>
-      </tc:button>
-    </tc:buttons>
-
-    <tc:popup id="popup" collapsed="#{collapsibleController.collapsed}">
-      <tc:box label="Test for Popup">
-        Hallo, collapsible popup.
-        <tc:in required="true" label="Required"/>
-        <tc:buttons>
-          <tc:button label="Close (on client)" omit="true">
-            <tc:operation name="hide" for="popup"/>
-          </tc:button>
-          <tc:button label="Cancel and Close (immediate with action)" immediate="true"
-                     action="#{collapsibleController.cancel}">
-            <tc:operation name="hide" for="popup"/>
-          </tc:button>
-          <tc:button label="Submit and Close" action="#{collapsibleController.action}">
-            <tc:operation name="hide" for="popup"/>
-          </tc:button>
-          <tc:button label="Submit and Keep Open" action="#{collapsibleController.action}"/>
-        </tc:buttons>
-      </tc:box>
-    </tc:popup>
-
-    <tc:out value="Requests: #{activityList.values[0].jsfRequest} / AJAX: #{activityList.values[0].ajaxRequest}"/>
-    <!--<tc:out value="#{collapsibleController.collapsed}" label="collapsed"/>-->
-
-    <tc:flowLayout textAlign="right">
-      <tc:button label="Submit" action="#{collapsibleController.submit}"/>
-    </tc:flowLayout>
+  <tc:section label="Simple Popup">
+    <tc:form id="simple">
+      <p>A popup opened with the help of a controller. The popup contain a required inputfield.
+        The attribute <code>collapsedMode="absent"</code> is set,
+        so the 'Submit'-button outside the popup could be executed while popup is hidden.
+        Even if the required inputfield is empty.</p>
+      <tc:button id="open" label="Open" action="#{collapsiblePopupController.open}"/>
+      <tc:button id="submitOnPage" label="Submit"/>
+      <tc:popup id="controllerPopup" collapsed="#{collapsiblePopupController.collapsed}">
+        <tc:box label="Simple Popup">
+          <tc:in id="in" label="Required" required="true"/>
+          <tc:button id="submitOnPopup" label="Submit"/>
+          <tc:button id="close" label="Close" immediate="true" action="#{collapsiblePopupController.close}"/>
+        </tc:box>
+      </tc:popup>
+    </tc:form>
   </tc:section>
 
+  <tc:section label="Full Server Request">
+    <tc:form id="server">
+      <p>Server sided popup with <code class="language-markup">&lt;tc:operation/></code>.
+        The attribute <code>collapsedMode="absent"</code> is set by default.
+        If you press the 'Submit'-button in the popup, the popup remains open,
+        because the server know the current state.</p>
+      <tc:button id="open" label="Open">
+        <tc:operation name="show" for="fullServerRequestPopup"/>
+      </tc:button>
+      <tc:button id="submitOnPage" label="Submit"/>
+      <tc:popup id="fullServerRequestPopup" collapsed="true">
+        <tc:box label="Full Server Request">
+          <tc:in id="in" label="Required" required="true"/>
+          <tc:button id="submitOnPopup" label="Submit"/>
+          <tc:button id="close" label="Close" immediate="true">
+            <tc:operation name="hide" for="fullServerRequestPopup"/>
+          </tc:button>
+        </tc:box>
+      </tc:popup>
+    </tc:form>
+  </tc:section>
+
+  <tc:section label="Client Sided">
+    <tc:form id="client">
+      <p>For the client sided popup the attribute <code>collapsedMode="hidden"</code> must be set.
+        So the hidden popup is already rendered on the site. Otherwise a client sided opened popup has no content.</p>
+      <p>This leads to the problem of violations of hidden content.
+        In this case you cannot press the 'Submit'-button if the required field is empty.
+        Even if the popup is hidden.</p>
+      <p>The 'Submit'-button in the popup will close the popup, because the server didn't know the current state.</p>
+      <p>To avoid server request, the attribute <code>omit="true"</code>
+        is added to the 'Open'-button and the 'Close'-button.</p>
+      <tc:button id="open" label="Open" omit="true">
+        <tc:operation name="show" for="clientPopup"/>
+      </tc:button>
+      <tc:button id="submitOnPage" label="Submit"/>
+      <tc:popup id="clientPopup" collapsed="true" collapsedMode="hidden">
+        <tc:box label="Full Server Request">
+          <p>The opening of the popup is client sided.
+            Therefor the popup will be closed after pressing the 'Submit'-button which reload the page.</p>
+          <tc:in id="in" label="Required" required="true"/>
+          <tc:button id="submitOnPopup" label="Submit"/>
+          <tc:button id="close" label="Close" omit="true">
+            <tc:operation name="hide" for="clientPopup"/>
+          </tc:button>
+        </tc:box>
+      </tc:popup>
+    </tc:form>
+  </tc:section>
 </ui:composition>

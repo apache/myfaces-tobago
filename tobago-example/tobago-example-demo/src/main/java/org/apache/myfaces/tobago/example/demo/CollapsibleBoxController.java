@@ -19,20 +19,29 @@
 
 package org.apache.myfaces.tobago.example.demo;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
+import java.io.Serializable;
 
+@SessionScoped
 @Named
-@ApplicationScoped
-public class Command {
+public class CollapsibleBoxController implements Serializable {
 
-  private static final Logger LOG = LoggerFactory.getLogger(Command.class);
+  private boolean collapsed = false;
 
-  public String action() {
-    LOG.info("action");
-    return "/content/20-component/040-command/10-button+link/button+link.xhtml";
+  public boolean isCollapsed() {
+    return collapsed;
+  }
+
+  public void setCollapsed(boolean collapsed) {
+    this.collapsed = collapsed;
+  }
+
+  public void show() {
+    collapsed = false;
+  }
+
+  public void hide() {
+    collapsed = true;
   }
 }
