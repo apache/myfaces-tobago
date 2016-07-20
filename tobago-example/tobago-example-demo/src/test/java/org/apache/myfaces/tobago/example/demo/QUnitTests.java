@@ -244,6 +244,24 @@ public class QUnitTests {
   }
 
   @Test
+  public void popup() throws UnsupportedEncodingException {
+    String page = "content/20-component/060-popup/popup.xhtml";
+    runStandardTest(page);
+  }
+
+  @Test
+  public void contentValidation() throws UnsupportedEncodingException {
+    String page = "content/30-concept/06-validation/00/content-validation.xhtml";
+    runStandardTest(page);
+  }
+
+  @Test
+  public void validationJsr303() throws UnsupportedEncodingException {
+    String page = "content/30-concept/06-validation/01/validation-jsr303.xhtml";
+    runStandardTest(page);
+  }
+
+  @Test
   public void form() throws UnsupportedEncodingException {
     String page = "content/30-concept/08-form/form.xhtml";
     runStandardTest(page);
@@ -258,6 +276,18 @@ public class QUnitTests {
   @Test
   public void formAjax() throws UnsupportedEncodingException {
     String page = "content/30-concept/08-form/20-ajax/form-ajax.xhtml";
+    runStandardTest(page);
+  }
+
+  @Test
+  public void collapsibleBox() throws UnsupportedEncodingException {
+    String page = "content/30-concept/53-collapsible/00-collapsible-box/collapsible-box.xhtml";
+    runStandardTest(page);
+  }
+
+  @Test
+  public void collapsiblePopup() throws UnsupportedEncodingException {
+    String page = "content/30-concept/53-collapsible/10-collapsible-popup/collapsible-popup.xhtml";
     runStandardTest(page);
   }
 
