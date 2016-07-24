@@ -31,7 +31,6 @@ import javax.faces.component.behavior.AjaxBehavior;
 import javax.faces.component.behavior.ClientBehavior;
 import javax.faces.component.behavior.ClientBehaviorContext;
 import javax.faces.context.FacesContext;
-import javax.faces.event.ActionEvent;
 import javax.faces.event.AjaxBehaviorEvent;
 import javax.faces.event.PhaseId;
 import javax.faces.render.ClientBehaviorRenderer;
@@ -78,7 +77,7 @@ public class AjaxClientBehaviorRenderer extends ClientBehaviorRenderer {
         null, // getConfirmation(command), // todo
         null,
         collapse,
-        (component instanceof AbstractUICommand) ? ((AbstractUICommand)component).isOmit() : null);
+        (component instanceof AbstractUICommand) ? ((AbstractUICommand) component).isOmit() : null);
 
     final CommandMap map = new CommandMap();
     map.addCommand(behaviorContext.getEventName(), command);
