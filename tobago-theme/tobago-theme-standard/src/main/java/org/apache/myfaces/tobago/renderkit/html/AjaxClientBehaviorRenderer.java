@@ -31,6 +31,7 @@ import javax.faces.component.behavior.AjaxBehavior;
 import javax.faces.component.behavior.ClientBehavior;
 import javax.faces.component.behavior.ClientBehaviorContext;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
 import javax.faces.event.AjaxBehaviorEvent;
 import javax.faces.event.PhaseId;
 import javax.faces.render.ClientBehaviorRenderer;
@@ -51,44 +52,38 @@ public class AjaxClientBehaviorRenderer extends ClientBehaviorRenderer {
     //// TBD: is this nice? May be implemented with a JSF behaviour?
     final Collapse collapse = createCollapsible(facesContext, uiComponent);
 
+    final UIComponent component;
     if (uiComponent instanceof AbstractUICommand) {
-      final AbstractUICommand component = (AbstractUICommand) uiComponent;
-
-      final Command command = new Command(
-          null,
-          component.isTransition(),
-          component.getTarget(),
-          RenderUtils.generateUrl(facesContext, component),
-          ComponentUtils.evaluateClientIds(facesContext, component, execute.toArray(new String[execute.size()])),
-          ComponentUtils.evaluateClientIds(facesContext, component, render.toArray(new String[render.size()])),
-          null,
-          null, // getConfirmation(command), // todo
-          null,
-          collapse,
-          component.isOmit());
-
-      final CommandMap map = new CommandMap();
-      map.addCommand(behaviorContext.getEventName(), command);
-      return JsonUtils.encode(map);
+      component = uiComponent;
     } else {
-      // todo
-      final Command command = new Command(
-          null,
-          null,
-          null,
-          null,
-          ComponentUtils.evaluateClientIds(facesContext, uiComponent, execute.toArray(new String[execute.size()])),
-          ComponentUtils.evaluateClientIds(facesContext, uiComponent, render.toArray(new String[render.size()])),
-          null,
-          null,
-          null,
-          collapse,
-          null);
-
-      final CommandMap map = new CommandMap();
-      map.addCommand(behaviorContext.getEventName(), command);
-      return JsonUtils.encode(map);
+      final UIComponent facetComponent = uiComponent.getFacet(behaviorContext.getEventName());
+      if (facetComponent instanceof AbstractUICommand) {
+        component = facetComponent;
+      } else {
+        component = uiComponent;
+      }
     }
+
+    final String url = (component instanceof AbstractUICommand)
+                       ? RenderUtils.generateUrl(facesContext, (AbstractUICommand) component)
+                       : null;
+    final Command command = new Command(
+        component.getClientId(facesContext),
+        (component instanceof AbstractUICommand) ? ((AbstractUICommand) component).isTransition() : null,
+        (component instanceof AbstractUICommand) ? ((AbstractUICommand) component).getTarget() : null,
+        url,
+        ComponentUtils.evaluateClientIds(facesContext, component, execute.toArray(new String[execute.size()])),
+        ComponentUtils.evaluateClientIds(facesContext, component, render.toArray(new String[render.size()])),
+        null,
+        null, // getConfirmation(command), // todo
+        null,
+        collapse,
+        (component instanceof AbstractUICommand) ? ((AbstractUICommand)component).isOmit() : null);
+
+    final CommandMap map = new CommandMap();
+    map.addCommand(behaviorContext.getEventName(), command);
+    return JsonUtils.encode(map);
+
   }
 
   @Override

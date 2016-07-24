@@ -51,7 +51,7 @@ public abstract class AbstractUICommand
   private static final Logger LOG = LoggerFactory.getLogger(AbstractUICommand.class);
 
   // todo generate
-  private static final Collection<String> EVENT_NAMES = Arrays.asList("click");
+  private static final Collection<String> EVENT_NAMES = Arrays.asList("click", "change");
 
   enum PropertyKeys {
     disabled,

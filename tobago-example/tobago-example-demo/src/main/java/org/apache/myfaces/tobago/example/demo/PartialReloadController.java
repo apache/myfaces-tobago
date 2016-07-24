@@ -86,21 +86,21 @@ public class PartialReloadController {
     if (navigateAction == null) {
       return logAndNavigate(null);
     } else if ("left".equals(navigateAction)) {
-//      AjaxUtils.addAjaxComponent(facesContext, "page:left");
+      facesContext.getPartialViewContext().getRenderIds().add("page:mainForm:left");
       navigateAction = null;
       return logAndNavigate(null);
     } else if ("right".equals(navigateAction)) {
-//      AjaxUtils.addAjaxComponent(facesContext, "page:right");
+      facesContext.getPartialViewContext().getRenderIds().add("page:mainForm:right");
       navigateAction = null;
       return logAndNavigate(null);
     } else if ("both".equals(navigateAction)) {
-//      AjaxUtils.addAjaxComponent(facesContext, "page:left");
-//      AjaxUtils.addAjaxComponent(facesContext, "page:right");
+      facesContext.getPartialViewContext().getRenderIds().add("page:mainForm:left");
+      facesContext.getPartialViewContext().getRenderIds().add("page:mainForm:right");
       navigateAction = null;
       return logAndNavigate(null);
     } else if ("parent".equals(navigateAction)) {
       navigateAction = null;
-//      AjaxUtils.addAjaxComponent(facesContext, "page:parent");
+      facesContext.getPartialViewContext().getRenderIds().add("page:mainForm:parent");
       return logAndNavigate(null);
     } else if ("prev".equals(navigateAction)) {
       navigateAction = null;

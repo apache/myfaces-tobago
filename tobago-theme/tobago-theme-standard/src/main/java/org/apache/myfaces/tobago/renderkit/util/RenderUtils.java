@@ -42,9 +42,12 @@ import javax.faces.component.behavior.ClientBehaviorContext;
 import javax.faces.component.behavior.ClientBehaviorHolder;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
 import javax.faces.render.ClientBehaviorRenderer;
 import java.io.IOException;
 import java.net.URLDecoder;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -258,12 +261,39 @@ public final class RenderUtils {
     return url;
   }
 
-  public static String getBehaviorCommands(final FacesContext facesContext, final ClientBehaviorHolder button) {
-    final Map<String, List<ClientBehavior>> behaviors = button.getClientBehaviors();
+  public static String getBehaviorCommands(final FacesContext facesContext, final ClientBehaviorHolder holder) {
+    final Map<String, List<ClientBehavior>> behaviors;
+    if (holder instanceof AbstractUICommand) {
+      behaviors = holder.getClientBehaviors();
+    } else {
+      // search for clientBehaviorHolder in facets
+      behaviors = new HashMap<String, List<ClientBehavior>>();
+      for (Map.Entry<String, UIComponent> facetEntry : ((UIComponent) holder).getFacets().entrySet()) {
+        if (facetEntry.getValue() instanceof ClientBehaviorHolder) {
+          final ClientBehaviorHolder behaviorHolder = (ClientBehaviorHolder) facetEntry.getValue();
+          final Map<String, List<ClientBehavior>> behaviorsMap = behaviorHolder.getClientBehaviors();
+          final List<ClientBehavior> clientBehaviors = new ArrayList<ClientBehavior>();
+          final String facetName = facetEntry.getKey();
+          if (behaviorsMap.get(facetName) != null) {
+            clientBehaviors.addAll(behaviorsMap.get(facetName));
+          }
+          // if facet name != "click" and the behaviorCommands are added as default they must moved to the correct map
+          if (clientBehaviors.isEmpty() && behaviorsMap.get("click") != null) {
+            final List<ClientBehavior> clickBehaviors = behaviorsMap.get("click");
+            for (ClientBehavior behavior : clickBehaviors) {
+              behaviorHolder.addClientBehavior(facetName, behavior);
+              clientBehaviors.add(behavior);
+            }
+            clickBehaviors.clear();
+          }
+          behaviors.put(facetName, clientBehaviors);
+        }
+      }
+    }
     for (Map.Entry<String, List<ClientBehavior>> behavior : behaviors.entrySet()) {
       final String key = behavior.getKey();
       final ClientBehaviorContext context = ClientBehaviorContext.createClientBehaviorContext(
-          facesContext, (UIComponent) button, key, ((UIComponent) button).getClientId(facesContext), null);
+          facesContext, (UIComponent) holder, key, ((UIComponent) holder).getClientId(facesContext), null);
       for (ClientBehavior clientBehavior : behavior.getValue()) {
         if (clientBehavior instanceof ClientBehaviorBase) {
           final String type = ((ClientBehaviorBase) clientBehavior).getRendererType();
@@ -281,20 +311,30 @@ public final class RenderUtils {
 
   public static void decodeClientBehaviors(final FacesContext facesContext, final UIComponent component) {
     if (component instanceof ClientBehaviorHolder) {
-      final ClientBehaviorHolder clientBehaviorHolder = (ClientBehaviorHolder) component;
+      final Map<String, String> paramMap = facesContext.getExternalContext().getRequestParameterMap();
+      final String behaviorEventName = paramMap.get("javax.faces.behavior.event");
+      if (behaviorEventName == null) {
+        return;
+      }
+
+      final ClientBehaviorHolder clientBehaviorHolder;
+      if ("click".equals(behaviorEventName)) {
+        clientBehaviorHolder = (ClientBehaviorHolder) component;
+      } else if (component.getFacet(behaviorEventName) instanceof ClientBehaviorHolder) {
+        clientBehaviorHolder = (ClientBehaviorHolder) component.getFacet(behaviorEventName);
+      } else {
+        return;
+      }
       final Map<String, List<ClientBehavior>> clientBehaviors = clientBehaviorHolder.getClientBehaviors();
       if (clientBehaviors != null && !clientBehaviors.isEmpty()) {
-        final Map<String, String> paramMap = facesContext.getExternalContext().getRequestParameterMap();
-        final String behaviorEventName = paramMap.get("javax.faces.behavior.event");
-        if (behaviorEventName != null) {
-          final List<ClientBehavior> clientBehaviorList = clientBehaviors.get(behaviorEventName);
-          if (clientBehaviorList != null && !clientBehaviorList.isEmpty()) {
-            final String clientId = paramMap.get("javax.faces.source");
-            if (component.getClientId(facesContext).equals(clientId)) {
-              for (ClientBehavior clientBehavior : clientBehaviorList) {
-                clientBehavior.decode(facesContext, component);
-              }
+        List<ClientBehavior> clientBehaviorList = clientBehaviors.get(behaviorEventName);
+        if (clientBehaviorList != null && !clientBehaviorList.isEmpty()) {
+          final String clientId = paramMap.get("javax.faces.source");
+          if (component.getClientId(facesContext).equals(clientId)) {
+            for (ClientBehavior clientBehavior : clientBehaviorList) {
+              clientBehavior.decode(facesContext, component);
             }
+            ((UIComponent) clientBehaviorHolder).queueEvent(new ActionEvent((UIComponent) clientBehaviorHolder));
           }
         }
       }
