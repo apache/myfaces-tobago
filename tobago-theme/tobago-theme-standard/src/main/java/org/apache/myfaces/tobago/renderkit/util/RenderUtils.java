@@ -278,6 +278,7 @@ public final class RenderUtils {
             clientBehaviors.addAll(behaviorsMap.get(facetName));
           }
           // if facet name != "click" and the behaviorCommands are added as default they must moved to the correct map
+          // "click" is default behavior of tc:command which should be the facet
           if (clientBehaviors.isEmpty() && behaviorsMap.get("click") != null) {
             final List<ClientBehavior> clickBehaviors = behaviorsMap.get("click");
             for (ClientBehavior behavior : clickBehaviors) {
@@ -288,6 +289,10 @@ public final class RenderUtils {
           }
           behaviors.put(facetName, clientBehaviors);
         }
+      }
+      // add f:ajax behaviors, note:facet behaviors overrules f:ajax
+      if (behaviors.isEmpty()) {
+        behaviors.putAll(holder.getClientBehaviors());
       }
     }
     for (Map.Entry<String, List<ClientBehavior>> behavior : behaviors.entrySet()) {
@@ -318,12 +323,11 @@ public final class RenderUtils {
       }
 
       final ClientBehaviorHolder clientBehaviorHolder;
-      if ("click".equals(behaviorEventName)) {
-        clientBehaviorHolder = (ClientBehaviorHolder) component;
-      } else if (component.getFacet(behaviorEventName) instanceof ClientBehaviorHolder) {
+
+      if (component.getFacet(behaviorEventName) instanceof ClientBehaviorHolder) {
         clientBehaviorHolder = (ClientBehaviorHolder) component.getFacet(behaviorEventName);
       } else {
-        return;
+        clientBehaviorHolder = (ClientBehaviorHolder) component;
       }
       final Map<String, List<ClientBehavior>> clientBehaviors = clientBehaviorHolder.getClientBehaviors();
       if (clientBehaviors != null && !clientBehaviors.isEmpty()) {

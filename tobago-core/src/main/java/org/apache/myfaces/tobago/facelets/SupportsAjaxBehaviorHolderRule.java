@@ -21,6 +21,8 @@ package org.apache.myfaces.tobago.facelets;
 
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.SupportsAjaxBehaviorHolder;
+import org.apache.myfaces.tobago.component.SupportsRenderedPartially;
+import org.apache.myfaces.tobago.util.ComponentUtils;
 
 import javax.faces.component.behavior.AjaxBehavior;
 import javax.faces.component.behavior.ClientBehavior;
@@ -38,12 +40,13 @@ public class SupportsAjaxBehaviorHolderRule extends MetaRule {
 
   @Override
   public Metadata applyRule(final String name, final TagAttribute attribute, final MetadataTarget metadataTarget) {
-    if (metadataTarget.isTargetInstanceOf(SupportsAjaxBehaviorHolder.class)) {
+    if (metadataTarget.isTargetInstanceOf(SupportsAjaxBehaviorHolder.class)
+        || metadataTarget.isTargetInstanceOf(SupportsRenderedPartially.class)) {
       Attributes a = Attributes.valueOfFailsafe(name);
       if (a != null) {
         switch (a) {
-          case renderPartially:
           case renderedPartially:
+          case renderPartially:
           case executePartially:
             return new SupportsAjaxBehaviorHolderMapper(attribute, a);
           default:
@@ -66,23 +69,28 @@ public class SupportsAjaxBehaviorHolderRule extends MetaRule {
     @Override
     public void applyMetadata(final FaceletContext faceletContext, final Object instance) {
 
-      final SupportsAjaxBehaviorHolder ajaxBehaviorHolder = (SupportsAjaxBehaviorHolder) instance;
-
-      AjaxBehavior ajaxBehavior = findAjaxBehavior(ajaxBehaviorHolder, faceletContext);
-
+      AjaxBehavior ajaxBehavior = null;
+      if (instance instanceof SupportsAjaxBehaviorHolder) {
+        final SupportsAjaxBehaviorHolder ajaxBehaviorHolder = (SupportsAjaxBehaviorHolder) instance;
+        ajaxBehavior = findAjaxBehavior(ajaxBehaviorHolder, faceletContext);
+      }
 
       switch (tobagoAttribute) {
         case renderedPartially:
-//          if (tagAttribute.isLiteral()) {
-//        final String[] components = ComponentUtils.splitList(tagAttribute.getValue());
-//          } else {
-//          }
-//          break;
+          if (ajaxBehavior == null && instance instanceof SupportsRenderedPartially) {
+            SupportsRenderedPartially supportsRenderedPartially = (SupportsRenderedPartially) instance;
+            supportsRenderedPartially.setRenderedPartially(ComponentUtils.splitList(tagAttribute.getValue()));
+            break;
+          }
         case renderPartially:
-          ajaxBehavior.setValueExpression("render", tagAttribute.getValueExpression(faceletContext, Object.class));
+          if (ajaxBehavior != null) {
+            ajaxBehavior.setValueExpression("render", tagAttribute.getValueExpression(faceletContext, Object.class));
+          }
           break;
         case executePartially:
-          ajaxBehavior.setValueExpression("execute", tagAttribute.getValueExpression(faceletContext, Object.class));
+          if (ajaxBehavior != null) {
+            ajaxBehavior.setValueExpression("execute", tagAttribute.getValueExpression(faceletContext, Object.class));
+          }
           break;
         default:
       }

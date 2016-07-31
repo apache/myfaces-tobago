@@ -34,7 +34,6 @@ import javax.el.MethodExpression;
 import javax.faces.component.UICommand;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
-import javax.faces.component.behavior.ClientBehaviorHolder;
 import javax.faces.context.FacesContext;
 import javax.faces.event.FacesEvent;
 import javax.faces.event.PhaseId;
@@ -45,8 +44,7 @@ import java.util.List;
 
 public abstract class AbstractUICommand
     extends UICommand
-    implements SupportsRenderedPartially, SupportsAjaxBehaviorHolder, SupportsAccessKey, OnComponentPopulated, Visual,
-               ClientBehaviorHolder {
+    implements SupportsRenderedPartially, SupportsAjaxBehaviorHolder, SupportsAccessKey, OnComponentPopulated, Visual {
 
   private static final Logger LOG = LoggerFactory.getLogger(AbstractUICommand.class);
 
