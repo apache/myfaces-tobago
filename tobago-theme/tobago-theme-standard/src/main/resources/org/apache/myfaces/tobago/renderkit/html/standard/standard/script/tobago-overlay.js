@@ -56,15 +56,16 @@ Tobago.Config.set("Ajax", "waitOverlayDelay", 1000);
         this.overlay.addClass("tobago-page-overlay-markup-wait");
       }
 
+      var overlayOffset = {top: 0, left: 0};
       if (this.element.is("body")) {
         this.overlay.css({
           position: "fixed",
           zIndex: 1500 // greater than the bootstrap navbar
         });
       } else {
+        overlayOffset = this.element.offset();
         this.overlay.outerWidth(this.element.outerWidth());
         this.overlay.outerHeight(this.element.outerHeight());
-        this.overlay.offset(this.element.offset());
         this.overlay.css({
           position: "absolute" // XXX is set via class, but seams to be overridden in IE11?
         });
@@ -97,6 +98,7 @@ Tobago.Config.set("Ajax", "waitOverlayDelay", 1000);
         backgroundColor: jQuery('.tobago-page').css("background-color"),
         opacity: 0})
           .show()
+          .offset(overlayOffset)
           .delay(this.options.error ? 0 : waitOverlayDelay)
           .animate({opacity: '0.8'}, this.options.error ? 0 : 250, "linear");
     },

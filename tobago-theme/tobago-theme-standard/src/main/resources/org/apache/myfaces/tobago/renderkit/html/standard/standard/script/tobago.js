@@ -268,6 +268,21 @@ var Tobago = {
     Tobago.transition = Tobago.oldTransition;
   },
 
+  preparePartialOverlay: function(options) {
+    if (options.transition === undefined || options.transition == null || options.transition) {
+      console.info("options.render: " + options.render); // @DEV_ONLY
+      if (options.render) {
+        var partialIds = options.render.split(" ");
+        for (var i = 0; i < partialIds.length; i++) {
+          console.info("partialId: " + partialIds[i]); // @DEV_ONLY
+          var element = jQuery(Tobago.Utils.escapeClientId(partialIds[i]));
+          element.data("tobago-partial-overlay-set", true);
+          element.overlay({ajax: true});
+        }
+      }
+    }
+  },
+
   /**
    * Wrapper function to call application generated onunload function
    */
@@ -652,6 +667,7 @@ var Tobago = {
             } else {
               var action = commands.click.action ? commands.click.action : jQuery(this).attr("id");
               if (commands.click.execute || commands.click.render) {
+                Tobago.preparePartialOverlay(commands.click);
                 jsf.ajax.request(
                     jQuery(this).attr("id"),
                     event,
@@ -2092,6 +2108,18 @@ jsf.ajax.addOnEvent(function (event) {
         var list = Tobago.listeners.afterUpdate[order];
         for (var i = 0; i < list.length; i++) {
           list[i](newElement);
+        }
+      }
+    });
+  } else if (event.status == "complete") {
+    console.log("complete");// @DEV_ONLY
+    jQuery(event.responseXML).find("update").each(function () {
+      var updateId = jQuery(this).attr("id");
+      if ("javax.faces.ViewState" != updateId) {
+        var oldElement = jQuery(Tobago.Utils.escapeClientId(updateId));
+        console.info("Update after jsf.ajax complete: id='" + oldElement.attr("id") + "'"); // @DEV_ONLY
+        if (oldElement.data("tobago-partial-overlay-set")) {
+          oldElement.overlay("destroy")
         }
       }
     });
