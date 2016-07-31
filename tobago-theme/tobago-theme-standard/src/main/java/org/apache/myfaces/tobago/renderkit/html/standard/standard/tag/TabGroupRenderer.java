@@ -52,6 +52,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.component.UIPanel;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Map;
 
 public class TabGroupRenderer extends RendererBase {

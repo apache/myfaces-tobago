@@ -40,8 +40,10 @@ Tobago.TabGroup.init = function(elements) {
               console.debug("todo: ajax reload, activeIndex=" + activeIndex); // @DEV_ONLY
               var tabGroup = tab.parents(".tobago-tabGroup:first");
               var partialIds = tabGroup.data("tobago-partial-ids");
-              if (!partialIds) {
-                partialIds = tabGroup.attr("id");
+              if (partialIds) {
+                partialIds = partialIds + " " + tabGroup.attr("id");
+              } else {
+                partialIds =  tabGroup.attr("id");
               }
               jsf.ajax.request(
                   tabGroup.attr("id"),
