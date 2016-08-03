@@ -114,21 +114,12 @@ public class FileRenderer extends LabelLayoutRendererBase implements ComponentSy
     writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.TEXT);
     writer.writeAttribute(HtmlAttributes.ACCEPT, accept, true);
     writer.writeAttribute(HtmlAttributes.TABINDEX, -1);
+    writer.writeAttribute(HtmlAttributes.DISABLED, file.isDisabled() || file.isReadonly());
+    writer.writeAttribute(HtmlAttributes.READONLY, file.isReadonly());
     writer.writeClassAttribute(Classes.create(file, "pretty"), BootstrapClass.FORM_CONTROL);
     // TODO Focus
     //HtmlRendererUtils.renderFocus(clientId, file.isFocus(), ComponentUtils.isError(file), facesContext, writer);
     writer.endElement(HtmlElements.INPUT);
-
-    writer.startElement(HtmlElements.SPAN);
-    writer.writeClassAttribute(BootstrapClass.INPUT_GROUP_BTN);
-    writer.startElement(HtmlElements.BUTTON);
-    writer.writeAttribute(HtmlAttributes.TABINDEX, file.getTabIndex());
-    writer.writeClassAttribute(BootstrapClass.BTN, BootstrapClass.BTN_SECONDARY);
-    writer.writeAttribute(HtmlAttributes.TYPE, HtmlButtonTypes.BUTTON);
-    writer.writeIcon(Icons.FOLDER_OPEN);
-    writer.endElement(HtmlElements.BUTTON);
-    writer.endElement(HtmlElements.SPAN);
-    writer.endElement(HtmlElements.DIV);
 
     // invisible file input
     writer.startElement(HtmlElements.INPUT);
@@ -151,8 +142,19 @@ public class FileRenderer extends LabelLayoutRendererBase implements ComponentSy
     if (commands != null) {
       writer.writeAttribute(DataAttributes.COMMANDS, commands, true);
     }
-
     writer.endElement(HtmlElements.INPUT);
+
+    writer.startElement(HtmlElements.SPAN);
+    writer.writeClassAttribute(BootstrapClass.INPUT_GROUP_BTN);
+    writer.startElement(HtmlElements.BUTTON);
+    writer.writeAttribute(HtmlAttributes.TABINDEX, file.getTabIndex());
+    writer.writeClassAttribute(BootstrapClass.BTN, BootstrapClass.BTN_SECONDARY);
+    writer.writeAttribute(HtmlAttributes.TYPE, HtmlButtonTypes.BUTTON);
+    writer.writeAttribute(HtmlAttributes.DISABLED, file.isDisabled() || file.isReadonly());
+    writer.writeIcon(Icons.FOLDER_OPEN);
+    writer.endElement(HtmlElements.BUTTON);
+    writer.endElement(HtmlElements.SPAN);
+    writer.endElement(HtmlElements.DIV);
   }
 
   private String createAcceptFromValidators(final AbstractUIFile file) {
