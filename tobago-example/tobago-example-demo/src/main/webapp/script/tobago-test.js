@@ -1,6 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
-<!--
+/*
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
  * this work for additional information regarding copyright ownership.
@@ -15,22 +13,27 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
--->
+ */
 
-<ui:composition template="/plain.xhtml"
-                xmlns:tc="http://myfaces.apache.org/tobago/component"
-                xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns="http://www.w3.org/1999/xhtml">
-  <tc:script file="script/demo.js"/>
-  <tc:script file="script/qunit-1.23.1.js"/>
-  <tc:script file="script/tobago-test.js"/>
-  <tc:style file="style/qunit-1.23.1.css"/>
-  <tc:script file="#{param['testjs']}"/>
+function jQueryFrame(expression) {
+  return document.getElementById("page:testframe").contentWindow.jQuery(expression);
+}
 
-  <div id="qunit"></div>
-  <div id="qunit-fixture"></div>
-
-  <tc:object id="testframe" src="#{param['page']}">
-    <tc:style width="100%"/>
-  </tc:object>
-</ui:composition>
+/**
+ * Wait for ajax requests. Can be used with PhantomJs.
+ * @param waitingDone return false if still waiting, true if waiting done
+ * @param executeWhenDone is executed after waiting
+ */
+function waitForAjax(waitingDone, executeWhenDone) {
+  var startTime = new Date().getTime();
+  var maxWait = 20000;
+  var stillWaiting = true;
+  var interval = setInterval(function () {
+    if (new Date().getTime() - startTime < maxWait && stillWaiting) {
+      stillWaiting = !waitingDone();
+    } else {
+      executeWhenDone();
+      clearInterval(interval);
+    }
+  }, 50);
+}

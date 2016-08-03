@@ -18,6 +18,7 @@
 -->
 
 <ui:composition template="/main.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:f="http://java.sun.com/jsf/core">
@@ -32,15 +33,15 @@
       So the panel could be hide even if the inputfield is empty.</p>
     <p>The <code>collapsibleMode</code> is not set.
       The 'Submit'-button can be executed without violation if the panel is in the hidden state.</p>
-    <tc:form>
+    <tc:form id="simple">
       <tc:buttons>
-        <tc:button label="show" action="#{collapsiblePanelController.showPanel}"/>
-        <tc:button label="hide" action="#{collapsiblePanelController.hidePanel}" immediate="true"/>
+        <tc:button id="show" label="show" action="#{collapsiblePanelController.showPanel}"/>
+        <tc:button id="hide" label="hide" action="#{collapsiblePanelController.hidePanel}" immediate="true"/>
       </tc:buttons>
-      <tc:button label="Submit"/>
+      <tc:button id="submit" label="Submit"/>
       <tc:panel id="simplePanel" collapsed="#{collapsiblePanelController.panelCollapsed}">
         <tc:style customClass="demo-data-attribute"/>
-        <tc:in label="Required" required="true"/>
+        <tc:in id="in" label="Required" required="true"/>
       </tc:panel>
     </tc:form>
   </tc:section>
@@ -51,19 +52,19 @@
     <p>The <code>collapsibleMode</code> is not set.
       The 'Submit'-button can be executed without violation if the panel is hidden.</p>
     <p>For the 'hide'-Button the attribute <code>immediate="true"</code> is set to submitting without validation.</p>
-    <tc:form>
+    <tc:form id="server">
       <tc:buttons>
-        <tc:button label="show">
+        <tc:button id="show" label="show">
           <tc:operation name="show" for="serverPanel"/>
         </tc:button>
-        <tc:button label="hide" immediate="true">
+        <tc:button id="hide" label="hide" immediate="true">
           <tc:operation name="hide" for="serverPanel"/>
         </tc:button>
       </tc:buttons>
-      <tc:button label="Submit"/>
+      <tc:button id="submit" label="Submit"/>
       <tc:panel id="serverPanel">
         <tc:style customClass="demo-data-attribute"/>
-        <tc:in label="Required" required="true"/>
+        <tc:in id="in" label="Required" required="true"/>
       </tc:panel>
     </tc:form>
   </tc:section>
@@ -75,19 +76,19 @@
       After the 'hide' transition, the panel will be in the 'hidden' state - not the 'absent' state.
       The content of the hidden panel will also be validated.<br/>
       So, if the inputfield is empty and the panel is hidden, a violation occur when pressing the 'Submit'-button.</p>
-    <tc:form>
+    <tc:form id="client">
       <tc:buttons>
-        <tc:button label="show" omit="true">
+        <tc:button id="show" label="show" omit="true">
           <tc:operation name="show" for="clientPanel"/>
         </tc:button>
-        <tc:button label="hide" omit="true" immediate="true">
+        <tc:button id="hide" label="hide" omit="true" immediate="true">
           <tc:operation name="hide" for="clientPanel"/>
         </tc:button>
       </tc:buttons>
-      <tc:button label="Submit"/>
+      <tc:button id="submit" label="Submit"/>
       <tc:panel id="clientPanel" collapsedMode="hidden">
         <tc:style customClass="demo-data-attribute"/>
-        <tc:in label="Required" required="true"/>
+        <tc:in id="in" label="Required" required="true"/>
       </tc:panel>
     </tc:form>
   </tc:section>
@@ -101,21 +102,21 @@
   &lt;f:ajax execute="ajaxPanel" render="ajaxPanel"/>
   &lt;tc:operation name="show" for="ajaxPanel"/>
 &lt;/tc:button></code></pre>
-    <tc:form>
+    <tc:form id="ajax">
       <tc:buttons>
-        <tc:button label="show" immediate="true">
+        <tc:button id="show" label="show" immediate="true">
           <f:ajax execute="ajaxPanel" render="ajaxPanel"/>
           <tc:operation name="show" for="ajaxPanel"/>
         </tc:button>
-        <tc:button label="hide" immediate="true">
+        <tc:button id="hide" label="hide" immediate="true">
           <f:ajax execute="ajaxPanel" render="ajaxPanel"/>
           <tc:operation name="hide" for="ajaxPanel"/>
         </tc:button>
       </tc:buttons>
-      <tc:button label="Submit"/>
+      <tc:button id="submit" label="Submit"/>
       <tc:panel id="ajaxPanel">
         <tc:style customClass="demo-data-attribute"/>
-        <tc:in label="Required" required="true"/>
+        <tc:in id="in" label="Required" required="true"/>
       </tc:panel>
     </tc:form>
   </tc:section>

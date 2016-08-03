@@ -15,10 +15,6 @@
  * limitations under the License.
  */
 
-function jQueryFrame(expression) {
-  return document.getElementById("page:testframe").contentWindow.jQuery(expression);
-}
-
 function getToday() {
   var now = new Date();
   var dd = now.getDate();
@@ -91,11 +87,11 @@ QUnit.test("ajax", function (assert) {
   assert.ok(jQueryFrame(".bootstrap-datetimepicker-widget").get(0));
   assert.equal($dateField.val(), today);
 
-  $.ajax({
-    type: 'GET',
-    url: 'content/20-component/010-input/40-date/date.xhtml'
-  }).done(function () {
-    $outField = jQueryFrame("#page\\:mainForm\\:outputfield span");
+  waitForAjax(function () {
+    $outField = jQueryFrame($outField.selector);
+    return $outField.text() == today;
+  }, function () {
+    $outField = jQueryFrame($outField.selector);
     assert.equal($outField.text(), today);
     done();
   });

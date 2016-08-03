@@ -15,10 +15,6 @@
  * limitations under the License.
  */
 
-function jQueryFrame(expression) {
-  return document.getElementById("page:testframe").contentWindow.jQuery(expression);
-}
-
 QUnit.test("inputfield with label", function (assert) {
   var $label = jQueryFrame("#page\\:mainForm\\:iNormal > label");
   var $inputField = jQueryFrame("#page\\:mainForm\\:iNormal\\:\\:field");
@@ -43,11 +39,12 @@ QUnit.test("ajax change event", function (assert) {
   $inputField.val("qwe").trigger("change");
   assert.equal($inputField.val(), "qwe");
 
-  $.ajax({
-    type: 'GET',
-    url: 'content/20-component/010-input/10-in/in.xhtml'
-  }).done(function () {
-    assert.equal(jQueryFrame("#page\\:mainForm\\:outputAjax > span:first").text(), "qwe");
+  waitForAjax(function () {
+    $outputField = jQueryFrame($outputField.selector);
+    return $outputField.text() == "qwe";
+  }, function () {
+    $outputField = jQueryFrame($outputField.selector);
+    assert.equal($outputField.text(), "qwe");
     done();
   });
 });

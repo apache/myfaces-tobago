@@ -15,10 +15,6 @@
  * limitations under the License.
  */
 
-function jQueryFrame(expression) {
-  return document.getElementById("page:testframe").contentWindow.jQuery(expression);
-}
-
 QUnit.test("Add a river and reset.", function (assert) {
   assert.expect(6);
   var done = assert.async(3);

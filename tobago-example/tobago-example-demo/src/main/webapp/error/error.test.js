@@ -15,10 +15,6 @@
  * limitations under the License.
  */
 
-function jQueryFrame(expression) {
-  return document.getElementById("page:testframe").contentWindow.jQuery(expression);
-}
-
 QUnit.test("has no exception", function (assert) {
   var $error = jQueryFrame("#page\\:errorSection .tobago-section-header span");
   assert.notEqual($error.text(), "An error has occurred!");

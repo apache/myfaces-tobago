@@ -15,10 +15,6 @@
  * limitations under the License.
  */
 
-function jQueryFrame(expression) {
-  return document.getElementById("page:testframe").contentWindow.jQuery(expression);
-}
-
 QUnit.test("Simple Popup", function (assert) {
   assert.expect(9);
   var done = assert.async(5);

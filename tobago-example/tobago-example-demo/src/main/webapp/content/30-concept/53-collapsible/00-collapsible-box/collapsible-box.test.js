@@ -15,18 +15,14 @@
  * limitations under the License.
  */
 
-function jQueryFrame(expression) {
-  return document.getElementById("page:testframe").contentWindow.jQuery(expression);
-}
-
 QUnit.test("Simple Collapsible Box: show -> hide transition", function (assert) {
   assert.expect(2);
   var done = assert.async(2);
   var step = 1;
 
-  $show = jQueryFrame("#page\\:mainForm\\:controller\\:show");
-  $hide = jQueryFrame("#page\\:mainForm\\:controller\\:hide");
-  $content = jQueryFrame("#page\\:mainForm\\:controller\\:content");
+  var $show = jQueryFrame("#page\\:mainForm\\:controller\\:show");
+  var $hide = jQueryFrame("#page\\:mainForm\\:controller\\:hide");
+  var $content = jQueryFrame("#page\\:mainForm\\:controller\\:content");
 
   $show.click();
 
@@ -38,15 +34,16 @@ QUnit.test("Simple Collapsible Box: show -> hide transition", function (assert) 
       assert.equal($content.length, 1);
       $hide.click();
 
+      step++;
       done();
     } else if (step == 2) {
       $content = jQueryFrame($content.selector);
 
       assert.equal($content.length, 0);
 
+      step++;
       done();
     }
-    step++;
   });
 });
 
@@ -55,9 +52,9 @@ QUnit.test("Simple Collapsible Box: hide -> show transition", function (assert) 
   var done = assert.async(2);
   var step = 1;
 
-  $show = jQueryFrame("#page\\:mainForm\\:controller\\:show");
-  $hide = jQueryFrame("#page\\:mainForm\\:controller\\:hide");
-  $content = jQueryFrame("#page\\:mainForm\\:controller\\:content");
+  var $show = jQueryFrame("#page\\:mainForm\\:controller\\:show");
+  var $hide = jQueryFrame("#page\\:mainForm\\:controller\\:hide");
+  var $content = jQueryFrame("#page\\:mainForm\\:controller\\:content");
 
   $hide.click();
 
@@ -69,15 +66,16 @@ QUnit.test("Simple Collapsible Box: hide -> show transition", function (assert) 
       assert.equal($content.length, 0);
       $show.click();
 
+      step++;
       done();
     } else if (step == 2) {
       $content = jQueryFrame($content.selector);
 
       assert.equal($content.length, 1);
 
+      step++;
       done();
     }
-    step++;
   });
 });
 
@@ -86,11 +84,11 @@ QUnit.test("Full Server Request: open both boxes", function (assert) {
   var done = assert.async(2);
   var step = 1;
 
-  $show1 = jQueryFrame("#page\\:mainForm\\:server\\:show1");
-  $show2 = jQueryFrame("#page\\:mainForm\\:server\\:show2");
-  $content1 = jQueryFrame("#page\\:mainForm\\:server\\:content1");
-  $content2 = jQueryFrame("#page\\:mainForm\\:server\\:content2");
-  content2Length = $content2.length;
+  var $show1 = jQueryFrame("#page\\:mainForm\\:server\\:show1");
+  var $show2 = jQueryFrame("#page\\:mainForm\\:server\\:show2");
+  var $content1 = jQueryFrame("#page\\:mainForm\\:server\\:content1");
+  var $content2 = jQueryFrame("#page\\:mainForm\\:server\\:content2");
+  var content2Length = $content2.length;
 
   $show1.click();
 
@@ -104,6 +102,7 @@ QUnit.test("Full Server Request: open both boxes", function (assert) {
       assert.equal($content2.length, content2Length);
       $show2.click();
 
+      step++;
       done();
     } else if (step == 2) {
       $content1 = jQueryFrame($content1.selector);
@@ -112,9 +111,9 @@ QUnit.test("Full Server Request: open both boxes", function (assert) {
       assert.equal($content1.length, 1);
       assert.equal($content2.length, 1);
 
+      step++;
       done();
     }
-    step++;
   });
 });
 
@@ -123,11 +122,11 @@ QUnit.test("Full Server Request: open box 1, close box 2", function (assert) {
   var done = assert.async(2);
   var step = 1;
 
-  $show1 = jQueryFrame("#page\\:mainForm\\:server\\:show1");
-  $hide2 = jQueryFrame("#page\\:mainForm\\:server\\:hide2");
-  $content1 = jQueryFrame("#page\\:mainForm\\:server\\:content1");
-  $content2 = jQueryFrame("#page\\:mainForm\\:server\\:content2");
-  content2Length = $content2.length;
+  var $show1 = jQueryFrame("#page\\:mainForm\\:server\\:show1");
+  var $hide2 = jQueryFrame("#page\\:mainForm\\:server\\:hide2");
+  var $content1 = jQueryFrame("#page\\:mainForm\\:server\\:content1");
+  var $content2 = jQueryFrame("#page\\:mainForm\\:server\\:content2");
+  var content2Length = $content2.length;
 
   $show1.click();
 
@@ -141,6 +140,7 @@ QUnit.test("Full Server Request: open box 1, close box 2", function (assert) {
       assert.equal($content2.length, content2Length);
       $hide2.click();
 
+      step++;
       done();
     } else if (step == 2) {
       $content1 = jQueryFrame($content1.selector);
@@ -149,9 +149,9 @@ QUnit.test("Full Server Request: open box 1, close box 2", function (assert) {
       assert.equal($content1.length, 1);
       assert.equal($content2.length, 0);
 
+      step++;
       done();
     }
-    step++;
   });
 });
 
@@ -160,11 +160,11 @@ QUnit.test("Full Server Request: close box 1, open box 2", function (assert) {
   var done = assert.async(2);
   var step = 1;
 
-  $hide1 = jQueryFrame("#page\\:mainForm\\:server\\:hide1");
-  $show2 = jQueryFrame("#page\\:mainForm\\:server\\:show2");
-  $content1 = jQueryFrame("#page\\:mainForm\\:server\\:content1");
-  $content2 = jQueryFrame("#page\\:mainForm\\:server\\:content2");
-  content2Length = $content2.length;
+  var $hide1 = jQueryFrame("#page\\:mainForm\\:server\\:hide1");
+  var $show2 = jQueryFrame("#page\\:mainForm\\:server\\:show2");
+  var $content1 = jQueryFrame("#page\\:mainForm\\:server\\:content1");
+  var $content2 = jQueryFrame("#page\\:mainForm\\:server\\:content2");
+  var content2Length = $content2.length;
 
   $hide1.click();
 
@@ -178,6 +178,7 @@ QUnit.test("Full Server Request: close box 1, open box 2", function (assert) {
       assert.equal($content2.length, content2Length);
       $show2.click();
 
+      step++;
       done();
     } else if (step == 2) {
       $content1 = jQueryFrame($content1.selector);
@@ -186,9 +187,9 @@ QUnit.test("Full Server Request: close box 1, open box 2", function (assert) {
       assert.equal($content1.length, 0);
       assert.equal($content2.length, 1);
 
+      step++;
       done();
     }
-    step++;
   });
 });
 
@@ -197,11 +198,11 @@ QUnit.test("Full Server Request: close both boxes", function (assert) {
   var done = assert.async(2);
   var step = 1;
 
-  $hide1 = jQueryFrame("#page\\:mainForm\\:server\\:hide1");
-  $hide2 = jQueryFrame("#page\\:mainForm\\:server\\:hide2");
-  $content1 = jQueryFrame("#page\\:mainForm\\:server\\:content1");
-  $content2 = jQueryFrame("#page\\:mainForm\\:server\\:content2");
-  content2Length = $content2.length;
+  var $hide1 = jQueryFrame("#page\\:mainForm\\:server\\:hide1");
+  var $hide2 = jQueryFrame("#page\\:mainForm\\:server\\:hide2");
+  var $content1 = jQueryFrame("#page\\:mainForm\\:server\\:content1");
+  var $content2 = jQueryFrame("#page\\:mainForm\\:server\\:content2");
+  var content2Length = $content2.length;
 
   $hide1.click();
 
@@ -215,6 +216,7 @@ QUnit.test("Full Server Request: close both boxes", function (assert) {
       assert.equal($content2.length, content2Length);
       $hide2.click();
 
+      step++;
       done();
     } else if (step == 2) {
       $content1 = jQueryFrame($content1.selector);
@@ -223,18 +225,18 @@ QUnit.test("Full Server Request: close both boxes", function (assert) {
       assert.equal($content1.length, 0);
       assert.equal($content2.length, 0);
 
+      step++;
       done();
     }
-    step++;
   });
 });
 
 QUnit.test("Client Sided: show -> hide transition", function (assert) {
   assert.expect(2);
 
-  $show = jQueryFrame("#page\\:mainForm\\:client\\:show");
-  $hide = jQueryFrame("#page\\:mainForm\\:client\\:hide");
-  $box = jQueryFrame("#page\\:mainForm\\:client\\:noRequestBox");
+  var $show = jQueryFrame("#page\\:mainForm\\:client\\:show");
+  var $hide = jQueryFrame("#page\\:mainForm\\:client\\:hide");
+  var $box = jQueryFrame("#page\\:mainForm\\:client\\:noRequestBox");
 
   $show.click();
   assert.equal($box.hasClass("tobago-collapsed"), false);
@@ -246,9 +248,9 @@ QUnit.test("Client Sided: show -> hide transition", function (assert) {
 QUnit.test("Client Sided: hide -> show transition", function (assert) {
   assert.expect(2);
 
-  $show = jQueryFrame("#page\\:mainForm\\:client\\:show");
-  $hide = jQueryFrame("#page\\:mainForm\\:client\\:hide");
-  $box = jQueryFrame("#page\\:mainForm\\:client\\:noRequestBox");
+  var $show = jQueryFrame("#page\\:mainForm\\:client\\:show");
+  var $hide = jQueryFrame("#page\\:mainForm\\:client\\:hide");
+  var $box = jQueryFrame("#page\\:mainForm\\:client\\:noRequestBox");
 
   $hide.click();
   assert.equal($box.hasClass("tobago-collapsed"), true);
@@ -261,12 +263,12 @@ QUnit.test("Client Sided: hide content and submit empty string", function (asser
   assert.expect(2);
   var done = assert.async();
 
-  $messages = jQueryFrame("#page\\:messages .tobago-messages");
-  $show = jQueryFrame("#page\\:mainForm\\:client\\:show");
-  $hide = jQueryFrame("#page\\:mainForm\\:client\\:hide");
-  $box = jQueryFrame("#page\\:mainForm\\:client\\:noRequestBox");
-  $in = jQueryFrame("#page\\:mainForm\\:client\\:in\\:\\:field");
-  $submit = jQueryFrame("#page\\:mainForm\\:client\\:submit");
+  var $messages = jQueryFrame("#page\\:messages .tobago-messages");
+  var $show = jQueryFrame("#page\\:mainForm\\:client\\:show");
+  var $hide = jQueryFrame("#page\\:mainForm\\:client\\:hide");
+  var $box = jQueryFrame("#page\\:mainForm\\:client\\:noRequestBox");
+  var $in = jQueryFrame("#page\\:mainForm\\:client\\:in\\:\\:field");
+  var $submit = jQueryFrame("#page\\:mainForm\\:client\\:submit");
 
   $hide.click();
   assert.equal($box.hasClass("tobago-collapsed"), true);
@@ -284,65 +286,72 @@ QUnit.test("Client Sided: hide content and submit empty string", function (asser
 QUnit.test("Ajax: show -> hide transition", function (assert) {
   assert.expect(2);
   var done = assert.async(2);
+  var step = 1;
 
-  $show = jQueryFrame("#page\\:mainForm\\:ajax\\:show");
-  $hide = jQueryFrame("#page\\:mainForm\\:ajax\\:hide");
-  $in = jQueryFrame("#page\\:mainForm\\:ajax\\:in\\:\\:field");
+  var $show = jQueryFrame("#page\\:mainForm\\:ajax\\:show");
+  var $hide = jQueryFrame("#page\\:mainForm\\:ajax\\:hide");
+  var $in = jQueryFrame("#page\\:mainForm\\:ajax\\:in\\:\\:field");
 
   $show.click();
 
-  $.ajax({
-    type: 'GET',
-    url: 'content/30-concept/53-collapsible/00-collapsible-box/collapsible-box.xhtml'
-  }).done(function () {
+  waitForAjax(function () {
+    $in = jQueryFrame($in.selector);
+    console.log("step: " + step + " active: " + jQuery.active);
+    return step == 1 && jQuery.active == 0;
+  }, function () {
     $hide = jQueryFrame($hide.selector);
     $in = jQueryFrame($in.selector);
 
+    console.log("$hide.selector: " + $hide.selector);
     assert.equal($in.length, 1);
     $hide.click();
 
-    $.ajax({
-      type: 'GET',
-      url: 'content/30-concept/53-collapsible/00-collapsible-box/collapsible-box.xhtml'
-    }).done(function () {
-      $in = jQueryFrame($in.selector);
-      assert.equal($in.length, 0);
-      done();
-    });
+    step++;
+    done();
+  });
 
+  waitForAjax(function () {
+    $in = jQueryFrame($in.selector);
+    return step == 2 && $in.length == 0;
+  }, function () {
+    $in = jQueryFrame($in.selector);
+    assert.equal($in.length, 0);
     done();
   });
 });
 
+
 QUnit.test("Ajax: hide -> show transition", function (assert) {
   assert.expect(2);
   var done = assert.async(2);
+  var step = 1;
 
-  $show = jQueryFrame("#page\\:mainForm\\:ajax\\:show");
-  $hide = jQueryFrame("#page\\:mainForm\\:ajax\\:hide");
-  $in = jQueryFrame("#page\\:mainForm\\:ajax\\:in\\:\\:field");
+  var $show = jQueryFrame("#page\\:mainForm\\:ajax\\:show");
+  var $hide = jQueryFrame("#page\\:mainForm\\:ajax\\:hide");
+  var $in = jQueryFrame("#page\\:mainForm\\:ajax\\:in\\:\\:field");
 
   $hide.click();
 
-  $.ajax({
-    type: 'GET',
-    url: 'content/30-concept/53-collapsible/00-collapsible-box/collapsible-box.xhtml'
-  }).done(function () {
+  waitForAjax(function () {
+    $in = jQueryFrame($in.selector);
+    return step == 1 && $in.length == 0;
+  }, function () {
     $show = jQueryFrame($show.selector);
     $in = jQueryFrame($in.selector);
 
     assert.equal($in.length, 0);
     $show.click();
 
-    $.ajax({
-      type: 'GET',
-      url: 'content/30-concept/53-collapsible/00-collapsible-box/collapsible-box.xhtml'
-    }).done(function () {
-      $in = jQueryFrame($in.selector);
-      assert.equal($in.length, 1);
-      done();
-    });
+    step++;
+    done();
+  });
 
+  waitForAjax(function () {
+    $in = jQueryFrame($in.selector);
+    return step == 2 && $in.length == 1;
+  }, function () {
+    $in = jQueryFrame($in.selector);
+    assert.equal($in.length, 1);
     done();
   });
 });
@@ -350,19 +359,20 @@ QUnit.test("Ajax: hide -> show transition", function (assert) {
 QUnit.test("Client Sided: hide content and submit empty string", function (assert) {
   assert.expect(3);
   var done = assert.async(3);
+  var step = 1;
 
-  $messages = jQueryFrame("#page\\:messages .tobago-messages");
-  $show = jQueryFrame("#page\\:mainForm\\:ajax\\:show");
-  $hide = jQueryFrame("#page\\:mainForm\\:ajax\\:hide");
-  $in = jQueryFrame("#page\\:mainForm\\:ajax\\:in\\:\\:field");
-  $submit = jQueryFrame("#page\\:mainForm\\:ajax\\:submit");
+  var $messages = jQueryFrame("#page\\:messages .tobago-messages");
+  var $show = jQueryFrame("#page\\:mainForm\\:ajax\\:show");
+  var $hide = jQueryFrame("#page\\:mainForm\\:ajax\\:hide");
+  var $in = jQueryFrame("#page\\:mainForm\\:ajax\\:in\\:\\:field");
+  var $submit = jQueryFrame("#page\\:mainForm\\:ajax\\:submit");
 
   $show.click();
 
-  $.ajax({
-    type: 'GET',
-    url: 'content/30-concept/53-collapsible/00-collapsible-box/collapsible-box.xhtml'
-  }).done(function () {
+  waitForAjax(function () {
+    $in = jQueryFrame($in.selector);
+    return step == 1 && $in.length == 1;
+  }, function () {
     $hide = jQueryFrame($hide.selector);
     $in = jQueryFrame($in.selector);
 
@@ -370,24 +380,29 @@ QUnit.test("Client Sided: hide content and submit empty string", function (asser
     $in.val("");
     $hide.click();
 
-    $.ajax({
-      type: 'GET',
-      url: 'content/30-concept/53-collapsible/00-collapsible-box/collapsible-box.xhtml'
-    }).done(function () {
-      $in = jQueryFrame($in.selector);
-      $submit = jQueryFrame($submit.selector);
+    step++;
+    done();
+  });
 
-      assert.equal($in.length, 0);
-      $submit.click();
-      done();
-    });
+  waitForAjax(function () {
+    $in = jQueryFrame($in.selector);
+    return step == 2 && $in.length == 0;
+  }, function () {
+    $in = jQueryFrame($in.selector);
+    $submit = jQueryFrame($submit.selector);
 
+    assert.equal($in.length, 0);
+    $submit.click();
+
+    step++;
     done();
   });
 
   jQuery("#page\\:testframe").load(function () {
-    $messages = jQueryFrame($messages.selector);
-    assert.equal($messages.length, 0);
-    done();
+    if (step == 3) {
+      $messages = jQueryFrame($messages.selector);
+      assert.equal($messages.length, 0);
+      done();
+    }
   });
 });

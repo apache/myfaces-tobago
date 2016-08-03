@@ -15,10 +15,6 @@
  * limitations under the License.
  */
 
-function jQueryFrame(expression) {
-  return document.getElementById("page:testframe").contentWindow.jQuery(expression);
-}
-
 QUnit.test("submit: select A", function (assert) {
   assert.expect(1);
   var done = assert.async();
@@ -63,13 +59,15 @@ QUnit.test("ajax: select D", function (assert) {
   assert.expect(1);
   var done = assert.async();
   var $selectD = jQueryFrame("#page\\:mainForm\\:selectD input");
+  var $outputD = jQueryFrame("#page\\:mainForm\\:outputD span");
+
   $selectD.prop("checked", true).trigger("change");
 
-  $.ajax({
-    type: 'GET',
-    url: 'content/20-component/030-select/10-selectBooleanCheckbox/selectBooleanCheckbox.xhtml'
-  }).done(function () {
-    var $outputD = jQueryFrame("#page\\:mainForm\\:outputD span");
+  waitForAjax(function () {
+    $outputD = jQueryFrame($outputD.selector);
+    return $outputD.text() == "true";
+  }, function () {
+    $outputD = jQueryFrame($outputD.selector);
     assert.equal($outputD.text(), "true");
     done();
   });
@@ -79,13 +77,15 @@ QUnit.test("ajax: deselect D", function (assert) {
   assert.expect(1);
   var done = assert.async();
   var $selectD = jQueryFrame("#page\\:mainForm\\:selectD input");
+  var $outputD = jQueryFrame("#page\\:mainForm\\:outputD span");
+
   $selectD.prop("checked", false).trigger("change");
 
-  $.ajax({
-    type: 'GET',
-    url: 'content/20-component/030-select/10-selectBooleanCheckbox/selectBooleanCheckbox.xhtml'
-  }).done(function () {
-    var $outputD = jQueryFrame("#page\\:mainForm\\:outputD span");
+  waitForAjax(function () {
+    $outputD = jQueryFrame($outputD.selector);
+    return $outputD.text() == "false";
+  }, function () {
+    $outputD = jQueryFrame($outputD.selector);
     assert.equal($outputD.text(), "false");
     done();
   });
@@ -95,13 +95,15 @@ QUnit.test("ajax: select E", function (assert) {
   assert.expect(1);
   var done = assert.async();
   var $selectE = jQueryFrame("#page\\:mainForm\\:selectE input");
+  var $outputE = jQueryFrame("#page\\:mainForm\\:outputE span");
+
   $selectE.prop("checked", true).trigger("change");
 
-  $.ajax({
-    type: 'GET',
-    url: 'content/20-component/030-select/10-selectBooleanCheckbox/selectBooleanCheckbox.xhtml'
-  }).done(function () {
-    var $outputE = jQueryFrame("#page\\:mainForm\\:outputE span");
+  waitForAjax(function () {
+    $outputE = jQueryFrame($outputE.selector);
+    return $outputE.text() == "true";
+  }, function () {
+    $outputE = jQueryFrame($outputE.selector);
     assert.equal($outputE.text(), "true");
     done();
   });
@@ -111,13 +113,15 @@ QUnit.test("ajax: deselect E", function (assert) {
   assert.expect(1);
   var done = assert.async();
   var $selectE = jQueryFrame("#page\\:mainForm\\:selectE input");
+  var $outputE = jQueryFrame("#page\\:mainForm\\:outputE span");
+
   $selectE.prop("checked", false).trigger("change");
 
-  $.ajax({
-    type: 'GET',
-    url: 'content/20-component/030-select/10-selectBooleanCheckbox/selectBooleanCheckbox.xhtml'
-  }).done(function () {
-    var $outputE = jQueryFrame("#page\\:mainForm\\:outputE span");
+  waitForAjax(function () {
+    $outputE = jQueryFrame($outputE.selector);
+    return $outputE.text() == "false";
+  }, function () {
+    $outputE = jQueryFrame($outputE.selector);
     assert.equal($outputE.text(), "false");
     done();
   });
@@ -127,13 +131,15 @@ QUnit.test("ajax: select F", function (assert) {
   assert.expect(1);
   var done = assert.async();
   var $selectF = jQueryFrame("#page\\:mainForm\\:selectF input");
+  var $outputF = jQueryFrame("#page\\:mainForm\\:outputF span");
+
   $selectF.prop("checked", true).trigger("change");
 
-  $.ajax({
-    type: 'GET',
-    url: 'content/20-component/030-select/10-selectBooleanCheckbox/selectBooleanCheckbox.xhtml'
-  }).done(function () {
-    var $outputF = jQueryFrame("#page\\:mainForm\\:outputF span");
+  waitForAjax(function () {
+    $outputF = jQueryFrame($outputF.selector);
+    return $outputF.text() == "true";
+  }, function () {
+    $outputF = jQueryFrame($outputF.selector);
     assert.equal($outputF.text(), "true");
     done();
   });
@@ -143,13 +149,15 @@ QUnit.test("ajax: deselect F", function (assert) {
   assert.expect(1);
   var done = assert.async();
   var $selectF = jQueryFrame("#page\\:mainForm\\:selectF input");
+  var $outputF = jQueryFrame("#page\\:mainForm\\:outputF span");
+
   $selectF.prop("checked", false).trigger("change");
 
-  $.ajax({
-    type: 'GET',
-    url: 'content/20-component/030-select/10-selectBooleanCheckbox/selectBooleanCheckbox.xhtml'
-  }).done(function () {
-    var $outputF = jQueryFrame("#page\\:mainForm\\:outputF span");
+  waitForAjax(function () {
+    $outputF = jQueryFrame($outputF.selector);
+    return $outputF.text() == "false";
+  }, function () {
+    $outputF = jQueryFrame($outputF.selector);
     assert.equal($outputF.text(), "false");
     done();
   });

@@ -30,9 +30,9 @@
   <properties>
     <openwebbeans.version>1.1.7</openwebbeans.version>
     <deltaspike.version>1.2.1</deltaspike.version>
-    <arquillian.browser>firefox</arquillian.browser>
+    <!--<arquillian.browser>firefox</arquillian.browser>-->
     <!-- phantomjs works not with CSP (report-only) -->
-    <!--<arquillian.browser>phantomjs</arquillian.browser>-->
+    <arquillian.browser>phantomjs</arquillian.browser>
     <selenium.version>2.53.1</selenium.version>
   </properties>
   <build>
@@ -666,6 +666,47 @@
 
     <profile>
       <id>tomee</id>
+      <dependencies>
+        <dependency>
+          <groupId>org.apache.tomee</groupId>
+          <artifactId>apache-tomee</artifactId>
+          <version>7.0.0-M3</version>
+          <classifier>webprofile</classifier>
+          <type>zip</type>
+          <scope>test</scope>
+        </dependency>
+        <dependency>
+          <groupId>org.apache.tomee</groupId>
+          <artifactId>arquillian-tomee-remote</artifactId>
+          <version>7.0.0-M3</version>
+          <scope>test</scope>
+        </dependency>
+      </dependencies>
+    </profile>
+
+    <profile>
+      <id>qunit-integration-tests</id>
+      <build>
+        <plugins>
+          <plugin>
+            <artifactId>maven-failsafe-plugin</artifactId>
+            <configuration>
+              <includes>
+                <include>**/QUnitTests.java</include>
+              </includes>
+              <forkMode>never</forkMode>
+            </configuration>
+            <executions>
+              <execution>
+                <goals>
+                  <goal>integration-test</goal>
+                  <goal>verify</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
       <dependencies>
         <dependency>
           <groupId>org.apache.tomee</groupId>

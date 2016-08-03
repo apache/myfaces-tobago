@@ -15,10 +15,6 @@
  * limitations under the License.
  */
 
-function jQueryFrame(expression) {
-  return document.getElementById("page:testframe").contentWindow.jQuery(expression);
-}
-
 QUnit.test("submit inner form 1 without violations", function (assert) {
   assert.expect(3);
   var done = assert.async();

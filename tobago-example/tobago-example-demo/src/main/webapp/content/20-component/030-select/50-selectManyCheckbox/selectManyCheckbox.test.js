@@ -15,10 +15,6 @@
  * limitations under the License.
  */
 
-function jQueryFrame(expression) {
-  return document.getElementById("page:testframe").contentWindow.jQuery(expression);
-}
-
 QUnit.test("submit: select cat", function (assert) {
   assert.expect(1);
   var done = assert.async();
@@ -73,10 +69,10 @@ QUnit.test("ajax: click 'Two'", function (assert) {
     newOutputValue = parseInt($output.text()) + 2;
   }
 
-  $.ajax({
-    type: 'GET',
-    url: 'content/20-component/030-select/50-selectManyCheckbox/selectManyCheckbox.xhtml'
-  }).done(function () {
+  waitForAjax(function () {
+    $output = jQueryFrame($output.selector);
+    return $output.text() == newOutputValue;
+  }, function () {
     $output = jQueryFrame($output.selector);
     assert.equal($output.text(), newOutputValue);
     done();
@@ -99,10 +95,10 @@ QUnit.test("ajax: click 'Three'", function (assert) {
     newOutputValue = parseInt($output.text()) + 3;
   }
 
-  $.ajax({
-    type: 'GET',
-    url: 'content/20-component/030-select/50-selectManyCheckbox/selectManyCheckbox.xhtml'
-  }).done(function () {
+  waitForAjax(function () {
+    $output = jQueryFrame($output.selector);
+    return $output.text() == newOutputValue;
+  }, function () {
     $output = jQueryFrame($output.selector);
     assert.equal($output.text(), newOutputValue);
     done();
@@ -125,10 +121,10 @@ QUnit.test("ajax: click 'Two'", function (assert) {
     newOutputValue = parseInt($output.text()) + 2;
   }
 
-  $.ajax({
-    type: 'GET',
-    url: 'content/20-component/030-select/50-selectManyCheckbox/selectManyCheckbox.xhtml'
-  }).done(function () {
+  waitForAjax(function () {
+    $output = jQueryFrame($output.selector);
+    return $output.text() == newOutputValue;
+  }, function () {
     $output = jQueryFrame($output.selector);
     assert.equal($output.text(), newOutputValue);
     done();

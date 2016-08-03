@@ -15,10 +15,6 @@
  * limitations under the License.
  */
 
-function jQueryFrame(expression) {
-  return document.getElementById("page:testframe").contentWindow.jQuery(expression);
-}
-
 function test(assert, idSuffix, expectedText) {
   var $out = jQueryFrame("#page\\:mainForm\\:" + idSuffix);
   assert.equal($out.text().trim(), expectedText);

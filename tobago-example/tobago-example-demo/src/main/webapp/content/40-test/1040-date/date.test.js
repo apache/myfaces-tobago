@@ -15,10 +15,6 @@
  * limitations under the License.
  */
 
-function jQueryFrame(expression) {
-  return document.getElementById("page:testframe").contentWindow.jQuery(expression);
-}
-
 QUnit.test("inputfield with label", function (assert) {
   var $dateField = jQueryFrame("#page\\:mainForm\\:dateNoPattern\\:\\:field");
   var $dateButton = jQueryFrame("#page\\:mainForm\\:dateNoPattern button");

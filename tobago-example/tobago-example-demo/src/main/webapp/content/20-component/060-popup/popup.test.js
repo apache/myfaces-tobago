@@ -15,10 +15,6 @@
  * limitations under the License.
  */
 
-function jQueryFrame(expression) {
-  return document.getElementById("page:testframe").contentWindow.jQuery(expression);
-}
-
 QUnit.test("Open 'Simple Popup' and press 'Cancel'.", function (assert) {
   assert.expect(3);
   var done = assert.async(2);
@@ -39,6 +35,7 @@ QUnit.test("Open 'Simple Popup' and press 'Cancel'.", function (assert) {
       $cancelButton = jQueryFrame($cancelButton.selector);
       $cancelButton.click();
 
+      step++;
       done();
     } else if (step == 2) {
       $popup = jQueryFrame($popup.selector);
@@ -46,7 +43,6 @@ QUnit.test("Open 'Simple Popup' and press 'Cancel'.", function (assert) {
 
       done();
     }
-    step++;
   });
 });
 
@@ -76,6 +72,7 @@ QUnit.test("Open 'Simple Popup', press 'Submit' while field is empty. Press 'Can
       $inputField.val("");
       $submitButton.click();
 
+      step++;
       done();
     } else if (step == 2) {
       $popup = jQueryFrame($popup.selector);
@@ -84,6 +81,7 @@ QUnit.test("Open 'Simple Popup', press 'Submit' while field is empty. Press 'Can
       assert.equal($popup.attr("value"), "false");
       $cancelButton.click();
 
+      step++;
       done();
     } else if (step == 3) {
       $popup = jQueryFrame($popup.selector);
@@ -94,7 +92,6 @@ QUnit.test("Open 'Simple Popup', press 'Submit' while field is empty. Press 'Can
 
       done();
     }
-    step++;
   });
 });
 
@@ -123,6 +120,7 @@ QUnit.test("Open 'Simple Popup', press 'Submit' while field has content. Press '
       $inputField.val("Hello Popup!");
       $submitButton.click();
 
+      step++;
       done();
     } else if (step == 2) {
       $popup = jQueryFrame($popup.selector);
@@ -131,6 +129,7 @@ QUnit.test("Open 'Simple Popup', press 'Submit' while field has content. Press '
       assert.equal($popup.attr("value"), "false");
       $cancelButton.click();
 
+      step++;
       done();
     } else if (step == 3) {
       $popup = jQueryFrame($popup.selector);
@@ -141,7 +140,6 @@ QUnit.test("Open 'Simple Popup', press 'Submit' while field has content. Press '
 
       done();
     }
-    step++;
   });
 });
 
@@ -171,6 +169,7 @@ QUnit.test("Open 'Simple Popup', press 'Submit & Close' while field is empty. Pr
       $inputField.val("");
       $submitCloseButton.click();
 
+      step++;
       done();
     } else if (step == 2) {
       $popup = jQueryFrame($popup.selector);
@@ -179,6 +178,7 @@ QUnit.test("Open 'Simple Popup', press 'Submit & Close' while field is empty. Pr
       assert.equal($popup.attr("value"), "false");
       $cancelButton.click();
 
+      step++;
       done();
     } else if (step == 3) {
       $popup = jQueryFrame($popup.selector);
@@ -189,7 +189,6 @@ QUnit.test("Open 'Simple Popup', press 'Submit & Close' while field is empty. Pr
 
       done();
     }
-    step++;
   });
 });
 
@@ -218,6 +217,7 @@ QUnit.test("Open 'Simple Popup', press 'Submit & Close' while field has content.
       $inputField.val("press submit and close test");
       $submitCloseButton.click();
 
+      step++;
       done();
     } else if (step == 2) {
       $popup = jQueryFrame($popup.selector);
@@ -228,13 +228,11 @@ QUnit.test("Open 'Simple Popup', press 'Submit & Close' while field has content.
 
       done();
     }
-    step++;
   });
 });
 
 QUnit.test("Open 'Client Popup' and press 'Cancel'.", function (assert) {
   assert.expect(3);
-  // var done = assert.async(2);
   var step = 1;
 
   var $popup = jQueryFrame("#page\\:mainForm\\:form2\\:clientPopup input");
@@ -267,10 +265,10 @@ QUnit.test("Open 'Client Popup', press 'Submit' while field is empty. Press 'Can
   $inputField.val("");
   $submitButton.click();
 
-  $.ajax({
-    type: 'GET',
-    url: 'content/20-component/060-popup/popup.xhtml'
-  }).done(function () {
+  waitForAjax(function () {
+    $messages = jQueryFrame($messages.selector);
+    return $messages.length == 1;
+  }, function () {
     $output = jQueryFrame($output.selector);
     $messages = jQueryFrame($messages.selector);
     $cancelButton = jQueryFrame($cancelButton.selector);
@@ -302,10 +300,10 @@ QUnit.test("Open 'Client Popup', press 'Submit' while field has content. Press '
   $inputField.val("test client popup - submit button");
   $submitButton.click();
 
-  $.ajax({
-    type: 'GET',
-    url: 'content/20-component/060-popup/popup.xhtml'
-  }).done(function () {
+  waitForAjax(function () {
+    $messages = jQueryFrame($messages.selector);
+    return $messages.length == 0;
+  }, function () {
     $output = jQueryFrame($output.selector);
     $messages = jQueryFrame($messages.selector);
     $cancelButton = jQueryFrame($cancelButton.selector);

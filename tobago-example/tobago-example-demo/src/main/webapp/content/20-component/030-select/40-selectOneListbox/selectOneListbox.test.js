@@ -15,10 +15,6 @@
  * limitations under the License.
  */
 
-function jQueryFrame(expression) {
-  return document.getElementById("page:testframe").contentWindow.jQuery(expression);
-}
-
 QUnit.test("submit: select 'Nile'", function (assert) {
   assert.expect(1);
   var done = assert.async();
@@ -63,6 +59,7 @@ QUnit.test("ajax: select Everest", function (assert) {
   assert.expect(1);
   var done = assert.async();
   var $mountains = jQueryFrame("#page\\:mainForm\\:mountainList option");
+  var $output = jQueryFrame("#page\\:mainForm\\:selectedMountain span");
 
   $mountains.eq(1).prop("selected", false);
   $mountains.eq(2).prop("selected", false);
@@ -70,11 +67,11 @@ QUnit.test("ajax: select Everest", function (assert) {
   $mountains.eq(4).prop("selected", false);
   $mountains.eq(0).prop("selected", true).trigger("change"); // Everest
 
-  $.ajax({
-    type: 'GET',
-    url: 'content/20-component/030-select/40-selectOneListbox/selectOneListbox.xhtml'
-  }).done(function () {
-    var $output = jQueryFrame("#page\\:mainForm\\:selectedMountain span");
+  waitForAjax(function () {
+    $output = jQueryFrame($output.selector);
+    return $output.text() == "8848 m";
+  }, function () {
+    $output = jQueryFrame($output.selector);
     assert.equal($output.text(), "8848 m");
     done();
   });
@@ -84,6 +81,7 @@ QUnit.test("ajax: select Makalu", function (assert) {
   assert.expect(1);
   var done = assert.async();
   var $mountains = jQueryFrame("#page\\:mainForm\\:mountainList option");
+  var $output = jQueryFrame("#page\\:mainForm\\:selectedMountain span");
 
   $mountains.eq(0).prop("selected", false);
   $mountains.eq(1).prop("selected", false);
@@ -91,11 +89,11 @@ QUnit.test("ajax: select Makalu", function (assert) {
   $mountains.eq(3).prop("selected", false);
   $mountains.eq(4).prop("selected", true).trigger("change"); // Everest
 
-  $.ajax({
-    type: 'GET',
-    url: 'content/20-component/030-select/40-selectOneListbox/selectOneListbox.xhtml'
-  }).done(function () {
-    var $output = jQueryFrame("#page\\:mainForm\\:selectedMountain span");
+  waitForAjax(function () {
+    $output = jQueryFrame($output.selector);
+    return $output.text() == "8481 m";
+  }, function () {
+    $output = jQueryFrame($output.selector);
     assert.equal($output.text(), "8481 m");
     done();
   });
