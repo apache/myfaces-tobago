@@ -65,7 +65,7 @@
     <release>
       <Version>
         <name>Latest alpha release of 3.0.x</name>
-        <created>2016-04-20</created>
+        <created>2016-07-17</created>
         <revision>3.0.0-alpha-4</revision>
         <file-release>http://www.apache.org/dyn/closer.lua/myfaces/binaries/myfaces-tobago-3.0.0-alpha-4-dist.tar.gz</file-release>
         <file-release>http://www.apache.org/dyn/closer.lua/myfaces/binaries/myfaces-tobago-3.0.0-alpha-4-dist.zip</file-release>
