@@ -233,17 +233,21 @@ public enum BootstrapClass implements CssItem {
         COL_LG_9, COL_LG_10, COL_LG_11, COL_LG_12,
     };
 
-    private ColumnPartition extraSmall;
-    private ColumnPartition small;
-    private ColumnPartition medium;
-    private ColumnPartition large;
+    private final ColumnPartition extraSmall;
+    private final ColumnPartition small;
+    private final ColumnPartition medium;
+    private final ColumnPartition large;
 
     private int index = 0;
 
     public Generator(
         final ColumnPartition extraSmall, final ColumnPartition small, final ColumnPartition medium,
         final ColumnPartition large) {
-      this.extraSmall = extraSmall;
+      if (extraSmall == null && small == null && medium == null && large == null) {
+        this.extraSmall = ColumnPartition.PARTITION_12;
+      } else  {
+        this.extraSmall = extraSmall;
+      }
       this.small = small;
       this.medium = medium;
       this.large = large;

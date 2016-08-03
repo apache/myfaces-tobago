@@ -30,6 +30,9 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
 
 /**
  * Renders a layout using a 12 columns grid.
+ * Find more information on how the grid works in the Twitter Bootstrap documentation.
+ *
+ * If no attribute is defined, extraSmall="12" will be used as default.
  * @since 3.0.0
  */
 @Tag(name = "segmentLayout")
@@ -43,28 +46,28 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
 public interface SegmentLayoutTagDeclaration extends HasIdBindingAndRendered, IsVisual {
 
   /**
-   * TODO
+   * The semicolon-separated definition of the columns for extra small devices. The sum must be 12.
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.ColumnPartition")
   void setExtraSmall(String extraSmall);
 
   /**
-   * TODO
+   * The semicolon-separated definition of the columns for small devices. The sum must be 12.
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.ColumnPartition")
   void setSmall(String small);
 
   /**
-   * TODO
+   * The semicolon-separated definition of the columns for medium devices. The sum must be 12.
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.ColumnPartition")
   void setMedium(String medium);
 
   /**
-   * TODO
+   * The semicolon-separated definition of the columns for large devices. The sum must be 12.
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.ColumnPartition")
