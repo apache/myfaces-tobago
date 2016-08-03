@@ -114,6 +114,11 @@ body {
     -ms-flex-direction: column;
 }
 
+/* XXX this fixes the margin left from .btn:nth-child(n+2), but is ugly */
+.tobago-flexLayout-markup-vertically > .btn:nth-child(n+2) {
+  margin-left: 0 !important;
+}
+
 .tobago-flexLayout > .form-control:nth-child(n+2),
 .tobago-flexLayout > .input-group:nth-child(n+2),
 .tobago-flexLayout > .tobago-out:nth-child(n+2),
