@@ -83,6 +83,7 @@
   <entry key="sheet_sorting">Sorting</entry>
   <entry key="sheet_column_selector">Column Selector</entry>
   <entry key="sheet_column_event">Column Event</entry>
+  <entry key="sheet_markup">Markup</entry>
   <entry key="sheet_dropdown">Dropdown Box</entry>
   <entry key="sheet_filter">Filtering</entry>
   <entry key="sheet_static_header">Static Header</entry>

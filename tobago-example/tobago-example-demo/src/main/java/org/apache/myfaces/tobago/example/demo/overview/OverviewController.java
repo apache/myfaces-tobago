@@ -300,24 +300,6 @@ public class OverviewController implements Serializable {
     this.sheetConfig = sheetConfig;
   }
 
-  public List<String> getInputSuggestItems(final UIInput component) {
-    String substring = (String) component.getSubmittedValue();
-    if (substring == null) {
-      substring = "";
-    }
-    LOG.info("Creating items for substring: '" + substring + "'");
-    final List<String> result = new ArrayList<String>();
-    for (final String name : LocaleList.COUNTRY_LANGUAGE) {
-      if (StringUtils.containsIgnoreCase(name, substring)) {
-        result.add(name);
-      }
-      if (result.size() > 100) { // this value should not be smaller than the value of the suggest control
-        break;
-      }
-    }
-    return result;
-  }
-
   public String noop() {
     LOG.info("noop");
     return null;

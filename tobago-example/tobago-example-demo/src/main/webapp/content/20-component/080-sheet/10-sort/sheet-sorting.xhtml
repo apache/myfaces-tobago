@@ -61,7 +61,7 @@
       ...
     </code></pre>
 
-    <tc:sheet id="s2" value="#{sheetSortingController.solarList}" var="solarobject" rows="4"
+    <tc:sheet id="s2" value="#{sheetSortingController.solarList}" var="object" rows="4"
               sortActionListener="#{sheetSortingController.sheetSorter}">
       <tc:column id="namecol" label="Name" sortable="true">
         <tc:out value="#{object.name}"/>
