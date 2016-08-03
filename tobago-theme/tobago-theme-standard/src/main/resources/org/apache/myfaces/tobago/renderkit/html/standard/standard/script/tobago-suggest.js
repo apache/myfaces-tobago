@@ -92,5 +92,7 @@ Tobago.Suggest.init = function (elements) {
   });
 };
 
-Tobago.registerListener(Tobago.Suggest.init, Tobago.Phase.DOCUMENT_READY);
-Tobago.registerListener(Tobago.Suggest.init, Tobago.Phase.AFTER_UPDATE);
+// using "EARLY", because it must be called before Tobago.Layout.init
+// this is because the suggest puts a span around the input field and doesn't copy the style.
+Tobago.registerListener(Tobago.Suggest.init, Tobago.Phase.DOCUMENT_READY, Tobago.Phase.Order.EARLY);
+Tobago.registerListener(Tobago.Suggest.init, Tobago.Phase.AFTER_UPDATE, Tobago.Phase.Order.EARLY);
