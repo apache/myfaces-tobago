@@ -19,11 +19,9 @@
 
 package org.apache.myfaces.tobago.example.demo.overview;
 
-import org.apache.commons.lang.StringUtils;
 import org.apache.deltaspike.core.api.scope.WindowScoped;
 import org.apache.myfaces.tobago.component.UISheet;
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
-import org.apache.myfaces.tobago.example.data.LocaleList;
 import org.apache.myfaces.tobago.example.data.Salutation;
 import org.apache.myfaces.tobago.model.SelectItem;
 import org.apache.myfaces.tobago.model.Selectable;
@@ -32,7 +30,6 @@ import org.slf4j.LoggerFactory;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
-import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.faces.validator.ValidatorException;
@@ -41,7 +38,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Currency;
 import java.util.Date;
-import java.util.List;
 
 @WindowScoped
 @Named(value = "overviewController")
