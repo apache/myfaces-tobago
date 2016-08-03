@@ -47,6 +47,30 @@ Apache Tobago
 
 News
 
+* July 17, 2016 - MyFaces Tobago 3.0.0-alpha-4 Released
+
+      The MyFaces Tobago component library in version 3.0.0-alpha-4 has been released.
+
+      Release notes can be found in
+      {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12337842}Jira}}.
+
+      Major changes are:
+
+      * buttons-, nav-, bar-tags
+
+      * collapsible (also for popups)
+
+      * security annotations
+
+      * new date/time-picker
+
+      []
+
+      Also see section: {{{./new-3.0.html} What's new in Tobago 3.0?}}
+
+      \ {}
+      ~~ hack for a bit space
+
 * June 1, 2016 - Changes in the trunk
 
       There are some refactorings in the trunk, if using the trunk please follow these steps:
