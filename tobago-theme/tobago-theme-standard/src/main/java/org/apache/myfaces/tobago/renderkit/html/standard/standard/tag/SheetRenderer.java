@@ -197,8 +197,10 @@ public class SheetRenderer extends RendererBase {
       final UIReload update = (UIReload) facetReload;
       writer.writeAttribute(DataAttributes.RELOAD, update.getFrequency());
     }
-    writer.writeAttribute(DataAttributes.PARTIAL_IDS,
-        ComponentUtils.evaluateClientIds(facesContext, sheet, sheet.getRenderedPartially()), false);
+    final String partialIds = ComponentUtils.evaluateClientIds(facesContext, sheet, sheet.getRenderedPartially());
+    if (partialIds != null) {
+      writer.writeAttribute(DataAttributes.PARTIAL_IDS, partialIds, false);
+    }
     writer.writeAttribute(DataAttributes.SELECTION_MODE, sheet.getSelectable().name(), false);
     writer.writeAttribute(DataAttributes.FIRST, Integer.toString(sheet.getFirst()), false);
     final StringBuilder builder = new StringBuilder();

@@ -289,7 +289,7 @@ public abstract class TobagoResponseWriterBase extends TobagoResponseWriter {
   protected final String getCallingClassStackTraceElementString() {
     final StackTraceElement[] stackTrace = new Exception().getStackTrace();
     int i = 1;
-    while (stackTrace[i].getClassName().contains("TobagoResponseWriter")) {
+    while (stackTrace[i].getClassName().contains("ResponseWriter")) {
       i++;
     }
     return stackTrace[i].toString();
