@@ -19,10 +19,15 @@
 
 package org.apache.myfaces.tobago.component;
 
+/**
+ * @deprecated since Tobago 3.0, replaced by standard AJAX {@link SupportsAjaxBehaviorHolder}
+ */
 @Deprecated
 public interface SupportsRenderedPartially {
 
+  @Deprecated
   String[] getRenderedPartially();
 
+  @Deprecated
   void setRenderedPartially(String[] renderedPartially);
 }
