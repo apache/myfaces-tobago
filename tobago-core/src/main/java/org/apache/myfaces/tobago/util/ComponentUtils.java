@@ -829,7 +829,7 @@ public final class ComponentUtils {
         if (converterType == null) {
           converterType = value.getClass();
         }
-        if (converterType != null && converterType != String.class && converterType != Object.class) {
+        if (converterType != null && converterType != Object.class) {
           converter = facesContext.getApplication().createConverter(converterType);
         }
       }
