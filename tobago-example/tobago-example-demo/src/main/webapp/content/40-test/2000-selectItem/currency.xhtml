@@ -23,18 +23,13 @@
     xmlns:f="http://java.sun.com/jsf/core">
 
   <tc:page label="Sample with model">
-    <tc:gridLayoutConstraint width="700px" height="600px"/>
-    <f:facet name="layout">
-      <!-- fixme: rows="20px" -->
-      <tc:gridLayout rows="auto;20px;auto;auto;auto;*"/>
-    </f:facet>
 
     <tc:messages/>
 
     <tc:label value="required input"/>
 
     <tx:selectOneChoice required="true" value="#{selectItemModel.currency}" label="Input:">
-        <tc:selectItem itemLabel="&lt;please select>"/>
+      <tc:selectItem itemLabel="&lt;please select>"/>
       <tc:selectItems value="#{selectItemModel.availableCurrencies}"/>
     </tx:selectOneChoice>
 
@@ -42,7 +37,5 @@
 
     <tc:button label="submit"/>
 
-    <tc:panel/>
-    
   </tc:page>
 </f:view>

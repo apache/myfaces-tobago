@@ -17,21 +17,23 @@
  * under the License.
  */
 
-package org.apache.myfaces.tobago.example.test;
+package org.apache.myfaces.tobago.example.demo;
 
 import org.apache.myfaces.tobago.model.SelectItem;
 
+import javax.enterprise.context.SessionScoped;
+import javax.inject.Named;
 import java.io.Serializable;
 import java.util.Currency;
 
+@Named
+@SessionScoped
 public class SelectItemModel implements Serializable {
 
   private int number = 3;
 
   private Currency currency = Currency.getInstance("JPY");
-
-  private boolean switch1;
-  private boolean switch2 = true;
+  private Currency currency2;
 
   private final SelectItem[] availableCurrencies;
 
@@ -74,6 +76,14 @@ public class SelectItemModel implements Serializable {
     return currency;
   }
 
+  public Currency getCurrency2() {
+    return currency2;
+  }
+
+  public void setCurrency2(Currency currency2) {
+    this.currency2 = currency2;
+  }
+
   public int getTwo() {
     return 2;
   }
@@ -88,21 +98,5 @@ public class SelectItemModel implements Serializable {
 
   public Currency getEur() {
     return Currency.getInstance("EUR");
-  }
-
-  public boolean isSwitch1() {
-    return switch1;
-  }
-
-  public void setSwitch1(final boolean switch1) {
-    this.switch1 = switch1;
-  }
-
-  public boolean isSwitch2() {
-    return switch2;
-  }
-
-  public void setSwitch2(final boolean switch2) {
-    this.switch2 = switch2;
   }
 }
