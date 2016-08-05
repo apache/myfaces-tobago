@@ -111,8 +111,6 @@ public final class LayoutTokens implements Iterable<LayoutToken> {
         return AutoLayoutToken.INSTANCE;
       } else if ("minimum".equals(token)) {
         return new MinimumLayoutToken();
-      } else if (isPercentToken(token)) {
-        return new PercentLayoutToken(Integer.parseInt(removeSuffix(token, PercentLayoutToken.SUFFIX)));
       } else if (isRelativeToken(token)) {
         return new RelativeLayoutToken(Integer.parseInt(removeSuffix(token, RelativeLayoutToken.SUFFIX)));
       } else {
@@ -122,10 +120,6 @@ public final class LayoutTokens implements Iterable<LayoutToken> {
       LOG.error("Error parsing layout token '" + token + "'! Using 'auto' instead.");
       return AutoLayoutToken.INSTANCE;
     }
-  }
-
-  static boolean isPercentToken(final String token) {
-    return isNumberAndSuffix(token, PercentLayoutToken.SUFFIX);
   }
 
   static boolean isRelativeToken(final String token) {
