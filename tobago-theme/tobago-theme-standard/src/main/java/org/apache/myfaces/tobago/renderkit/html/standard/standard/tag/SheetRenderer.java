@@ -795,7 +795,7 @@ public class SheetRenderer extends RendererBase {
               }
               final CommandMap map = new CommandMap();
               final Command click = new Command(
-                  sortCommand.getClientId(facesContext), null, null, null, clientIds, null, null, null, null, null,
+                  sortCommand.getClientId(facesContext), null, null, null, clientIds, clientIds, null, null, null, null,
                   null);
               map.setClick(click);
               writer.writeAttribute(DataAttributes.COMMANDS, JsonUtils.encode(map), true);
@@ -1012,7 +1012,7 @@ public class SheetRenderer extends RendererBase {
     if (target != null) {
       ComponentUtils.setAttribute(command, Attributes.pagingTarget, target);
     }
-    command.setRenderedPartially(new String[]{data.getId()});
+    command.setRenderPartially(new String[]{data.getId()});
 
     final Locale locale = facesContext.getViewRoot().getLocale();
     final String message = ResourceManagerUtils.getPropertyNotNull(facesContext, "tobago", "sheet" + action.getToken());
