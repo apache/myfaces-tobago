@@ -222,4 +222,16 @@
   <entry key="layout_note">Anmerkung</entry>
   <entry key="layout_text">Tobago vereinfacht das Gestalten von Webseiten. &lt;ul style="margin-top: 2px;"&gt; &lt;li style="line-height: 130%;"&gt;Bequeme Erstellung von ein- und mehrspaltigen Formularen&lt;/li&gt; &lt;li style="line-height: 130%;"&gt;Zellen können mehrere Zeilen und Spalten überspannen&lt;/li&gt; &lt;li style="line-height: 130%;"&gt;Automatisches Ausrichten von Beschriftungen für Eingabefelder&lt;/li&gt; &lt;/ul&gt;</entry>
 
+  <entry key="layout_splitLayout_title">SplitLayout Beispiel</entry>
+  <entry key="layout_splitLayout_description">Das SplitLayout ist ein Layout für zwei Komponenten die durch einen Schieber
+    eingestellt werden können. &lt;br/>
+    Verschiebe den Schieber zwischen den Boxen zum Testen</entry>
+  <entry key="layout_splitLayout_topLeftTitle">Obere linke Box</entry>
+  <entry key="layout_splitLayout_topRightTitle">Obere rechte Box</entry>
+  <entry key="layout_splitLayout_bottomTitle">Untere Box</entry>
+  <entry key="layout_splitLayout_layoutVerticalFirstValue">Aktueller erster Wert im vertikalen Layout:</entry>
+  <entry key="layout_splitLayout_layoutVerticalSecondValue">Aktueller zweiter Wert im vertikalen Layout:</entry>
+  <entry key="layout_splitLayout_layoutHorizontalFirstValue">Aktueller erster Wert im horizontalen Layout:</entry>
+  <entry key="layout_splitLayout_layoutHorizontalSecondValue">Aktueller erster Wert im horizontalen Layout:</entry>
+
 </properties>

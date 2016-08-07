@@ -17,9 +17,8 @@
  * under the License.
  */
 
-package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
+package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
-import org.apache.myfaces.tobago.renderkit.html.standard.standard.tag.GridLayoutRenderer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

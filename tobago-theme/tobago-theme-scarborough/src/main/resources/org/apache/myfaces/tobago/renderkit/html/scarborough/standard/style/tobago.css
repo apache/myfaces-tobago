@@ -1170,6 +1170,22 @@ a:active.tobago-sheet-pagingLink {
   margin-left: 1px;
 }
 
+/* splitLayout ---------------------------------------------------------------------- */
+
+.tobago-splitLayout-vertical:hover {
+  cursor: n-resize;
+  border: dotted #000000 thin;
+  /*background-color: blue;*/
+  z-index: 10000;
+}
+
+.tobago-splitLayout-horizontal:hover {
+  cursor: e-resize;
+  border: dotted #000000 thin;
+  /*background-color: blue;*/
+  z-index: 10000;
+}
+
 /* suggest ---------------------------------------------------------------------- */
 
 .tobago-suggest {

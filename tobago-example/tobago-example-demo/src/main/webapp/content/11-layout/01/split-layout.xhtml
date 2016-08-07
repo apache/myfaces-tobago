@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+-->
+
+<ui:composition template="/WEB-INF/tags/layout/overview.xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:tc="http://myfaces.apache.org/tobago/component">
+
+  <ui:param name="title" value="#{overviewBundle.layout_splitLayout_title}"/>
+
+  <tc:panel>
+    <f:facet name="layout">
+      <tc:gridLayout rows="50px;*"/>
+    </f:facet>
+
+    <tc:out escape="false" value="#{overviewBundle.layout_splitLayout_description}"/>
+
+    <tc:panel>
+      <f:facet name="layout">
+        <tc:splitLayout layout="#{splitLayoutController.verticalLayout}" orientation="VERTICAL"/>
+      </f:facet>
+
+      <tc:panel>
+        <tc:gridLayoutConstraint minimumHeight="20px"/>
+        <f:facet name="layout">
+          <tc:splitLayout orientation="HORIZONTAL" layout="#{splitLayoutController.horizontalLayout}"/>
+        </f:facet>
+        <tc:box label="#{overviewBundle.layout_splitLayout_topLeftTitle}">
+          <tc:gridLayoutConstraint minimumWidth="20px"/>
+          <f:facet name="layout">
+            <tc:gridLayout rows="18px;18px;1*"/>
+          </f:facet>
+          <tc:out value="#{overviewBundle.layout_splitLayout_layoutVerticalFirstValue} #{splitLayoutController.verticalLayoutFirstToken}"/>
+          <tc:out value="#{overviewBundle.layout_splitLayout_layoutHorizontalFirstValue} #{splitLayoutController.horizontalLayoutFirstToken}"/>
+          <tc:panel/>
+        </tc:box>
+        <tc:box label="#{overviewBundle.layout_splitLayout_topRightTitle}">
+          <tc:gridLayoutConstraint minimumWidth="20px"/>
+          <f:facet name="layout">
+            <tc:gridLayout rows="auto;auto;1*"/>
+          </f:facet>
+          <tc:out value="#{overviewBundle.layout_splitLayout_layoutVerticalFirstValue} #{splitLayoutController.verticalLayoutFirstToken}"/>
+          <tc:out value="#{overviewBundle.layout_splitLayout_layoutHorizontalSecondValue} #{splitLayoutController.horizontalLayoutSecondToken}"/>
+          <tc:panel/>
+        </tc:box>
+      </tc:panel>
+
+      <tc:box label="#{overviewBundle.layout_splitLayout_bottomTitle}">
+        <tc:gridLayoutConstraint minimumHeight="20px"/>
+        <tc:out value="#{overviewBundle.layout_splitLayout_layoutVerticalSecondValue} #{splitLayoutController.verticalLayoutSecondToken}"/>
+      </tc:box>
+    </tc:panel>
+  </tc:panel>
+
+</ui:composition>

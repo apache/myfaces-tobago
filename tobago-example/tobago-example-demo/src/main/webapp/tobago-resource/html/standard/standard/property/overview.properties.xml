@@ -345,6 +345,18 @@
     &lt;/ul&gt;
 </entry>
 
+  <entry key="layout_splitLayout_title">SplitLayout Example</entry>
+  <entry key="layout_splitLayout_description">The SplitLayout implements a two component layout with a divider between
+  the components to adjust the space between the components. &lt;br/>
+  Drag the divder between the boxes to see the effect</entry>
+  <entry key="layout_splitLayout_topLeftTitle">Top left box</entry>
+  <entry key="layout_splitLayout_topRightTitle">Top right box</entry>
+  <entry key="layout_splitLayout_bottomTitle">Bottom box</entry>
+  <entry key="layout_splitLayout_layoutVerticalFirstValue">Current vertical layout first value:</entry>
+  <entry key="layout_splitLayout_layoutVerticalSecondValue">Current vertical layout second value:</entry>
+  <entry key="layout_splitLayout_layoutHorizontalFirstValue">Current horizontal layout first value:</entry>
+  <entry key="layout_splitLayout_layoutHorizontalSecondValue">Current horizontal layout second value:</entry>
+
   <!-- Themes -->
   <entry key="themesText1">&lt;b&gt;Theme configuration&lt;/b&gt; &lt;br /&gt;&lt;br
     /&gt;
