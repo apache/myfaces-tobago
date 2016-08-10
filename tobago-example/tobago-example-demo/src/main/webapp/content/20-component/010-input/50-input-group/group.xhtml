@@ -55,18 +55,19 @@
     <pre><code class="language-markup">&lt;tc:in value="\#{groupController.newMessage}">
   ...
   &lt;f:facet name="after">
-    &lt;tc:command label="Send" action="\#{groupController.sendChat}">
+    &lt;tc:button label="Send" action="\#{groupController.sendChat}">
       &lt;f:ajax execute="inewmessage" render="tachatlog"/>
-    &lt;/tc:command>
+    &lt;/tc:button>
   &lt;/f:facet>
 &lt;/tc:in></code></pre>
-    <tc:textarea id="tachatlog" label="Chat" labelLayout="top" rows="5" value="#{groupController.chatlog}"/>
+    <tc:textarea id="tachatlog" label="Chat" labelLayout="top" rows="5" value="#{groupController.chatlog}"
+    readonly="true"/>
     <tc:in id="inewmessage" value="#{groupController.newMessage}">
       <f:facet name="before">User Two</f:facet>
       <f:facet name="after">
-        <tc:command label="Send" action="#{groupController.sendChat}">
+        <tc:button label="Send" action="#{groupController.sendChat}">
           <f:ajax execute="inewmessage" render="tachatlog"/>
-        </tc:command>
+        </tc:button>
       </f:facet>
     </tc:in>
   </tc:section>
@@ -80,17 +81,17 @@
     <tc:section label="Commands">
       <pre><code class="language-markup">&lt;tc:in placeholder="type a message">
   &lt;f:facet name="before">
-    &lt;tc:link id="lsendtoc" label="\#{groupController.sendTo}" omit="true">
+    &lt;tc:button id="lsendtoc" label="\#{groupController.sendTo}" omit="true">
       &lt;tc:command label="SendTo: Peter" actionListener="\#{groupController.sendToListener}">
         &lt;f:ajax render="lsendtoc"/>
       &lt;/tc:command>
       ...
-    &lt;/tc:link>
+    &lt;/tc:button>
   &lt;/f:facet>
 &lt;/tc:in></code></pre>
       <tc:in id="isendtoc" placeholder="type a message">
         <f:facet name="before">
-          <tc:link id="lsendtoc" label="#{groupController.sendTo}" omit="true">
+          <tc:button id="lsendtoc" label="#{groupController.sendTo}" omit="true">
             <tc:command label="SendTo: Peter" actionListener="#{groupController.sendToListener}">
               <f:ajax render="lsendtoc"/>
             </tc:command>
@@ -100,7 +101,7 @@
             <tc:command label="SendTo: All" actionListener="#{groupController.sendToListener}">
               <f:ajax render="lsendtoc"/>
             </tc:command>
-          </tc:link>
+          </tc:button>
         </f:facet>
       </tc:in>
     </tc:section>
@@ -108,25 +109,25 @@
     <tc:section label="Radio Buttons">
       <pre><code class="language-markup">&lt;tc:in placeholder="type a message">
   &lt;f:facet name="before">
-    &lt;tc:link id="lsendtorb" label="#{groupController.sendTo}" omit="true">
+    &lt;tc:button id="lsendtorb" label="#{groupController.sendTo}" omit="true">
       &lt;tc:selectOneRadio value="#{groupController.sendTo}">
         &lt;tc:selectItem itemValue="SendTo: Peter"/>
         ...
         &lt;f:ajax render="lsendtorb"/>
       &lt;/tc:selectOneRadio>
-    &lt;/tc:link>
+    &lt;/tc:button>
   &lt;/f:facet>
 &lt;/tc:in></code></pre>
       <tc:in id="isendtorb" placeholder="type a message">
-        <f:facet name="before">
-          <tc:link id="lsendtorb" label="#{groupController.sendTo}" omit="true">
+        <f:facet name="after">
+          <tc:button id="lsendtorb" label="#{groupController.sendTo}" omit="true">
             <tc:selectOneRadio value="#{groupController.sendTo}">
               <tc:selectItem itemValue="SendTo: Peter"/>
               <tc:selectItem itemValue="SendTo: Bob"/>
               <tc:selectItem itemValue="SendTo: All"/>
               <f:ajax render="lsendtorb"/>
             </tc:selectOneRadio>
-          </tc:link>
+          </tc:button>
         </f:facet>
       </tc:in>
     </tc:section>

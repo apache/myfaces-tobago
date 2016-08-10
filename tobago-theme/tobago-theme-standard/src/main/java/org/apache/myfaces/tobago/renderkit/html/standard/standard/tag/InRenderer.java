@@ -21,6 +21,7 @@ package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Facets;
+import org.apache.myfaces.tobago.internal.component.AbstractUIButton;
 import org.apache.myfaces.tobago.internal.component.AbstractUIInput;
 import org.apache.myfaces.tobago.internal.util.AccessKeyLogger;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
@@ -73,12 +74,7 @@ public class InRenderer extends LabelLayoutRendererBase {
       writer.startElement(HtmlElements.DIV);
       writer.writeClassAttribute(BootstrapClass.INPUT_GROUP);
     }
-    if (before != null) {
-      writer.startElement(HtmlElements.SPAN);
-      writer.writeClassAttribute(BootstrapClass.INPUT_GROUP_ADDON);
-      RenderUtils.encode(facesContext, before);
-      writer.endElement(HtmlElements.SPAN);
-    }
+    encodeGroupAddon(facesContext, writer, before);
 
     writer.startElement(HtmlElements.INPUT);
 
@@ -139,14 +135,22 @@ public class InRenderer extends LabelLayoutRendererBase {
 
     writer.endElement(HtmlElements.INPUT);
 
-    if (after != null) {
-      writer.startElement(HtmlElements.SPAN);
-      writer.writeClassAttribute(BootstrapClass.INPUT_GROUP_ADDON);
-      RenderUtils.encode(facesContext, after);
-      writer.endElement(HtmlElements.SPAN);
-    }
+    encodeGroupAddon(facesContext, writer, after);
+
     if (after != null || before != null) {
       writer.endElement(HtmlElements.DIV);
+    }
+  }
+
+  private void encodeGroupAddon(FacesContext facesContext, TobagoResponseWriter writer, UIComponent addon)
+      throws IOException {
+    if (addon != null) {
+      writer.startElement(HtmlElements.SPAN);
+      final BootstrapClass css
+          = addon instanceof AbstractUIButton ? BootstrapClass.INPUT_GROUP_BTN : BootstrapClass.INPUT_GROUP_ADDON;
+      writer.writeClassAttribute(css);
+      RenderUtils.encode(facesContext, addon);
+      writer.endElement(HtmlElements.SPAN);
     }
   }
 
