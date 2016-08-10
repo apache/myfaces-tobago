@@ -158,14 +158,12 @@ public class SheetRenderer extends RendererBase {
     UIComponent header = sheet.getHeader();
     if (header == null) {
       header = CreateComponentUtils.createComponent(facesContext, UIPanel.COMPONENT_TYPE, null, "_header");
-      header.setTransient(true);
       final List<AbstractUIColumnBase> columns = sheet.getAllColumns();
       int i = 0;
       for (final AbstractUIColumnBase column : columns) {
         if (!(column instanceof AbstractUIColumnEvent)) {
           final AbstractUIOut out = (AbstractUIOut) CreateComponentUtils.createComponent(
               facesContext, UIOut.COMPONENT_TYPE, RendererTypes.Out, "_col" + i);
-          out.setTransient(true);
 //        out.setValue(column.getLabel());
           ValueExpression valueExpression = column.getValueExpression(Attributes.label.getName());
           if (valueExpression != null) {
