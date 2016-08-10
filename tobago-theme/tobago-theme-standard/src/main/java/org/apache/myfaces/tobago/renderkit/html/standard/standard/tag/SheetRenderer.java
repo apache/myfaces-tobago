@@ -97,6 +97,7 @@ public class SheetRenderer extends RendererBase {
   private static final Logger LOG = LoggerFactory.getLogger(SheetRenderer.class);
 
   private static final String SUFFIX_WIDTHS = ComponentUtils.SUB_SEPARATOR + "widths";
+  private static final String SUFFIX_COLUMN_RENDERED = ComponentUtils.SUB_SEPARATOR + "rendered";
   private static final String SUFFIX_SCROLL_POSITION = ComponentUtils.SUB_SEPARATOR + "scrollPosition";
   private static final String SUFFIX_SELECTED = ComponentUtils.SUB_SEPARATOR + "selected";
   private static final String SUFFIX_SELECTOR_DROPDOWN = ComponentUtils.SUB_SEPARATOR + "selectorDropdown";
@@ -231,7 +232,7 @@ public class SheetRenderer extends RendererBase {
     final Application application = facesContext.getApplication();
     final SheetState state = sheet.getSheetState(facesContext);
     final List<Integer> columnWidths = sheet.getState().getColumnWidths();
-    final boolean cleanColumnWidths = columnWidths.size() == 0;
+    final boolean definedColumnWidths = sheet.getState().isDefinedColumnWidths();
     final List<Integer> selectedRows = getSelectedRows(sheet, state);
     final List<AbstractUIColumnBase> columns = sheet.getAllColumns();
     final boolean showHeader = sheet.isShowHeader();
@@ -245,17 +246,25 @@ public class SheetRenderer extends RendererBase {
       writer.writeIdAttribute(sheetId + SUFFIX_WIDTHS);
       writer.writeNameAttribute(sheetId + SUFFIX_WIDTHS);
       writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN);
-      if (!cleanColumnWidths) {
+      if (definedColumnWidths) {
         final List<Integer> encodedWidths = new ArrayList<Integer>(columnWidths.size());
         for (int i = 0; i < columns.size(); i++) {
-          AbstractUIColumnBase column = columns.get(i);
-          if (column.isRendered()) {
-            final Integer width = columnWidths.get(i);
-            encodedWidths.add(width > -1 ? width : 100);
-          }
+          final Integer width = columnWidths.get(i);
+          encodedWidths.add(width > -1 ? width : 100);
         }
         writer.writeAttribute(HtmlAttributes.VALUE, JsonUtils.encode(encodedWidths), false);
       }
+      writer.endElement(HtmlElements.INPUT);
+
+      writer.startElement(HtmlElements.INPUT);
+      writer.writeIdAttribute(sheetId + SUFFIX_COLUMN_RENDERED);
+      writer.writeNameAttribute(sheetId + SUFFIX_COLUMN_RENDERED);
+      writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN);
+      final String[] encodedRendered = new String[columns.size()];
+      for (int i = 0; i < encodedRendered.length; i++) {
+        encodedRendered[i] = columns.get(i).isRendered() ? "true" : "false";
+      }
+      writer.writeAttribute(HtmlAttributes.VALUE, JsonUtils.encode(encodedRendered), false);
       writer.endElement(HtmlElements.INPUT);
     }
 
@@ -331,11 +340,13 @@ public class SheetRenderer extends RendererBase {
         sheetMarkup.contains(Markup.SMALL) ? BootstrapClass.TABLE_SM : null,
         !autoLayout ? TobagoClass.TABLE_LAYOUT__FIXED : null);
 
-    if (autoLayout) {
+    if (showHeader && autoLayout) {
       writer.startElement(HtmlElements.THEAD);
       encodeHeaderRows(facesContext, sheet, writer, columns);
       writer.endElement(HtmlElements.THEAD);
-    } else {
+    }
+
+    if (!autoLayout) {
       writeColgroup(writer, columnWidths, columns);
     }
 
@@ -690,7 +701,7 @@ public class SheetRenderer extends RendererBase {
     for (int i = 0, j = 0; i < columns.size(); i++) {
       AbstractUIColumnBase column = columns.get(i);
       Integer newValue;
-      if (column.isRendered() && j < samples.size()) {
+      if (j < samples.size()) {
         newValue = samples.get(j);
         j++;
       } else {
@@ -731,6 +742,7 @@ public class SheetRenderer extends RendererBase {
     final Selectable selectable = sheet.getSelectable();
     final Grid grid = sheet.getHeaderGrid();
     final boolean autoLayout = sheet.isAutoLayout();
+    final boolean multiHeader = grid.getRowCount() > 1;
     int offset = 0;
 
     for (int i = 0; i < grid.getRowCount(); i++) {
@@ -756,7 +768,9 @@ public class SheetRenderer extends RendererBase {
           writer.startElement(HtmlElements.DIV);
           final CssItem align;
           final String alignString = ComponentUtils.getStringAttribute(column, Attributes.align);
-          if (alignString != null) {
+          if(multiHeader && cell.getColumnSpan() > 1) {
+            align = TobagoClass.SHEET__CELL__MARKUP__CENTER;
+          } else if (alignString != null) {
             switch (TextAlign.valueOf(alignString)) {
               case right:
                 align = TobagoClass.SHEET__CELL__MARKUP__RIGHT;
@@ -1014,6 +1028,7 @@ public class SheetRenderer extends RendererBase {
     if (target != null) {
       ComponentUtils.setAttribute(command, Attributes.pagingTarget, target);
     }
+    command.setExecutePartially(new String[]{data.getId()});
     command.setRenderPartially(new String[]{data.getId()});
 
     final Locale locale = facesContext.getViewRoot().getLocale();

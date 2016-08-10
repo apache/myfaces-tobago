@@ -419,11 +419,12 @@ public abstract class AbstractUISheet extends AbstractUIData
     rows.addToken(AutoLayoutToken.INSTANCE);
     final Grid grid = new Grid(tokens, rows);
 
-    for(final UIComponent child : header.getChildren()) {
-        if (child.isRendered()) {
-//     XXX not implemented in the moment     grid.add(new OriginCell(child), c.getColumnSpan(), c.getRowSpan());
-          grid.add(new OriginCell(child), 1, 1);
-        }
+    for (final UIComponent child : header.getChildren()) {
+      if (child.isRendered()) {
+        int columnSpan = ComponentUtils.getIntAttribute(child, Attributes.columnSpan, 1);
+        int rowSpan = ComponentUtils.getIntAttribute(child, Attributes.rowSpan, 1);
+        grid.add(new OriginCell(child), columnSpan, rowSpan);
+      }
     }
     setHeaderGrid(grid);
   }

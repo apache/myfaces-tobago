@@ -114,6 +114,15 @@ public class SheetState implements Serializable, ScrollPositionState {
     this.columnWidths = columnWidths;
   }
 
+  public boolean isDefinedColumnWidths() {
+    for (Integer columnWidth : columnWidths) {
+      if(columnWidth < 0) {
+        return false;
+      }
+    }
+    return columnWidths.size() > 0;
+  }
+
   public int getFirst() {
     return first;
   }
