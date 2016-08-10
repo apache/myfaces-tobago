@@ -111,13 +111,11 @@ public class SheetRenderer extends LayoutComponentRendererBase {
     UIComponent header = sheet.getHeader();
     if (header == null) {
       header = CreateComponentUtils.createComponent(facesContext, ComponentTypes.PANEL, null, "_header");
-      header.setTransient(true);
       final List<AbstractUIColumn> columns = sheet.getAllColumns();
       int i = 0;
       for (final AbstractUIColumn column : columns) {
         final AbstractUIOut out = (AbstractUIOut) CreateComponentUtils.createComponent(
             facesContext, ComponentTypes.OUT, RendererTypes.OUT, "_col" + i);
-        out.setTransient(true);
 //        out.setValue(column.getLabel());
         ValueExpression valueExpression = column.getValueExpression(Attributes.LABEL);
         if (valueExpression != null) {
