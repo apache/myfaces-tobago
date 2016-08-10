@@ -93,13 +93,13 @@
         <f:facet name="before">
           <tc:button id="lsendtoc" label="#{groupController.sendTo}" omit="true">
             <tc:command label="SendTo: Peter" actionListener="#{groupController.sendToListener}">
-              <f:ajax render="isendtoc"/>
+              <f:ajax render="isendtoc" execute="isendtoc"/>
             </tc:command>
             <tc:command label="SendTo: Bob" actionListener="#{groupController.sendToListener}">
-              <f:ajax render="isendtoc"/>
+              <f:ajax render="isendtoc" execute="isendtoc"/>
             </tc:command>
             <tc:command label="SendTo: All" actionListener="#{groupController.sendToListener}">
-              <f:ajax render="isendtoc"/>
+              <f:ajax render="isendtoc" execute="isendtoc"/>
             </tc:command>
           </tc:button>
         </f:facet>
