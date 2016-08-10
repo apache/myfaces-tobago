@@ -19,6 +19,7 @@
 
 package org.apache.myfaces.tobago.renderkit.util;
 
+import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.internal.component.AbstractUICommand;
 import org.apache.myfaces.tobago.internal.component.AbstractUIData;
@@ -269,6 +270,12 @@ public final class RenderUtils {
       // search for clientBehaviorHolder in facets
       behaviors = new HashMap<String, List<ClientBehavior>>();
       for (Map.Entry<String, UIComponent> facetEntry : ((UIComponent) holder).getFacets().entrySet()) {
+
+        // XXX hack to make after and before facets runable with AJAX buttons
+        if (facetEntry.getKey().equals(Facets.before.name()) || facetEntry.getKey().equals(Facets.after.name())) {
+          break;
+        }
+
         if (facetEntry.getValue() instanceof ClientBehaviorHolder) {
           final ClientBehaviorHolder behaviorHolder = (ClientBehaviorHolder) facetEntry.getValue();
           final Map<String, List<ClientBehavior>> behaviorsMap = behaviorHolder.getClientBehaviors();
