@@ -23,6 +23,8 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.myfaces.tobago.example.data.SolarObject;
 import org.apache.myfaces.tobago.model.SelectItem;
 import org.apache.myfaces.tobago.model.SheetState;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.enterprise.context.RequestScoped;
 import javax.faces.component.UIComponent;
@@ -38,6 +40,8 @@ import java.util.List;
 @RequestScoped
 @Named
 public class SheetFilter {
+
+  private static final Logger LOG = LoggerFactory.getLogger(SheetFilter.class);
 
   private static final DistanceRange ANY = new DistanceRange(0, Integer.MAX_VALUE);
 
@@ -68,14 +72,14 @@ public class SheetFilter {
         new DistanceRange(1000000, Integer.MAX_VALUE)
     );
     distanceItems = new SelectItem[]{
-        new SelectItem(Integer.toString(0), "any"),
-        new SelectItem(Integer.toString(1), "≤ 10"),
-        new SelectItem(Integer.toString(2), "10 < x ≤ 100"),
-        new SelectItem(Integer.toString(3), "100 < x ≤ 1000"),
-        new SelectItem(Integer.toString(4), "1000 < x ≤ 10000"),
-        new SelectItem(Integer.toString(5), "10000 < x ≤ 100000"),
-        new SelectItem(Integer.toString(6), "100000 < x ≤ 1000000"),
-        new SelectItem(Integer.toString(7), "1000000 < x"),
+        new SelectItem(distanceRangeList.get(0), "any"),
+        new SelectItem(distanceRangeList.get(1), "≤ 10"),
+        new SelectItem(distanceRangeList.get(2), "10 < x ≤ 100"),
+        new SelectItem(distanceRangeList.get(3), "100 < x ≤ 1000"),
+        new SelectItem(distanceRangeList.get(4), "1000 < x ≤ 10000"),
+        new SelectItem(distanceRangeList.get(5), "10000 < x ≤ 100000"),
+        new SelectItem(distanceRangeList.get(6), "100000 < x ≤ 1000000"),
+        new SelectItem(distanceRangeList.get(7), "1000000 < x"),
     };
 
     converter = new DistanceRangeConverter();
@@ -195,19 +199,24 @@ public class SheetFilter {
   public class DistanceRangeConverter implements Converter {
     public Object getAsObject(final FacesContext context, final UIComponent component, final String value)
         throws ConverterException {
-      if (StringUtils.isBlank(value)) {
+      try {
+        if (StringUtils.isBlank(value)) {
+          return distanceRangeList.get(0);
+        } else {
+          return distanceRangeList.get(Integer.valueOf(value));
+        }
+      } catch (RuntimeException e) {
+        LOG.warn("unknown value='" + value + "'", e);
         return distanceRangeList.get(0);
-      } else {
-        return distanceRangeList.get(Integer.valueOf(value));
       }
     }
 
     public String getAsString(
         final FacesContext context, final UIComponent component, final Object value) throws ConverterException {
-      if (value == null) {
-        return Integer.toString(0);
-      } else {
+      if (value instanceof DistanceRange) {
         return Integer.toString(distanceRangeList.indexOf(value));
+      } else {
+        return Integer.toString(0);
       }
     }
   }
