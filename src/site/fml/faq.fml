@@ -351,8 +351,8 @@ mvn checkstyle:check -Pcheckstyle-for-view-definition-language</source>
 SUBST X: "C:\Dokumente und Einstellungen\MyUser\Apache Projects\"</source>
       </answer>
     </faq>
-    <faq id="selenium">
-      <question>How can I run the Selenium tests?</question>
+    <faq id="seleniumTobago12">
+      <question>How can I run the Selenium tests? (Tobago 1 and 2)</question>
       <answer>
       <p>
         In the tobago-example-test application, the pages can be checked with selenium since Tobago 1.5.
@@ -375,6 +375,17 @@ mvn selenium:start-server</source>
           Sometimes there is a problem with Firefox. You may try to use a different version, or an installation without
           plugins.
         </p>
+      </answer>
+    </faq>
+    <faq id="integrationTestTobago3">
+      <question>How can I run the integration tests? (Tobago 3)</question>
+      <answer>
+        <p>In the tobago-example-demo application, the pages can be checked with QUnit/Arquillian.
+          To run the full test automatically call <source>mvn verify -Pqunit-integration-tests</source>
+          The default arquillian browser is 'phantomjs'.
+          You can change it in tobago-example-demo/pom.xml &lt;arquillian.browser>.</p>
+        <p>If you want to run the tests from your IDE, please use the maven profile 'tomee'.
+          After that, you can start the test from the QUnitTests class.</p>
       </answer>
     </faq>
     <faq id="liberty">
