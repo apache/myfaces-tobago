@@ -83,7 +83,7 @@
   &lt;f:facet name="before">
     &lt;tc:button id="lsendtoc" label="\#{groupController.sendTo}" omit="true">
       &lt;tc:command label="SendTo: Peter" actionListener="\#{groupController.sendToListener}">
-        &lt;f:ajax render="lsendtoc"/>
+        &lt;f:ajax render="isendtoc"/>
       &lt;/tc:command>
       ...
     &lt;/tc:button>
@@ -93,13 +93,13 @@
         <f:facet name="before">
           <tc:button id="lsendtoc" label="#{groupController.sendTo}" omit="true">
             <tc:command label="SendTo: Peter" actionListener="#{groupController.sendToListener}">
-              <f:ajax render="lsendtoc"/>
+              <f:ajax render="isendtoc"/>
             </tc:command>
             <tc:command label="SendTo: Bob" actionListener="#{groupController.sendToListener}">
-              <f:ajax render="lsendtoc"/>
+              <f:ajax render="isendtoc"/>
             </tc:command>
             <tc:command label="SendTo: All" actionListener="#{groupController.sendToListener}">
-              <f:ajax render="lsendtoc"/>
+              <f:ajax render="isendtoc"/>
             </tc:command>
           </tc:button>
         </f:facet>
@@ -107,25 +107,26 @@
     </tc:section>
 
     <tc:section label="Radio Buttons">
-      <pre><code class="language-markup">&lt;tc:in placeholder="type a message">
+      <pre><code class="language-markup">&lt;tc:in id="isendtorb" placeholder="type a message">
   &lt;f:facet name="before">
     &lt;tc:button id="lsendtorb" label="#{groupController.sendTo}" omit="true">
       &lt;tc:selectOneRadio value="#{groupController.sendTo}">
         &lt;tc:selectItem itemValue="SendTo: Peter"/>
         ...
-        &lt;f:ajax render="lsendtorb"/>
+        &lt;f:ajax render="isendtorb"/>
       &lt;/tc:selectOneRadio>
     &lt;/tc:button>
   &lt;/f:facet>
 &lt;/tc:in></code></pre>
       <tc:in id="isendtorb" placeholder="type a message">
         <f:facet name="after">
+          Send To:
           <tc:button id="lsendtorb" label="#{groupController.sendTo}" omit="true">
             <tc:selectOneRadio value="#{groupController.sendTo}">
-              <tc:selectItem itemValue="SendTo: Peter"/>
-              <tc:selectItem itemValue="SendTo: Bob"/>
-              <tc:selectItem itemValue="SendTo: All"/>
-              <f:ajax render="lsendtorb"/>
+              <tc:selectItem itemValue="Peter"/>
+              <tc:selectItem itemValue="Bob"/>
+              <tc:selectItem itemValue="All"/>
+              <f:ajax render="isendtorb"/>
             </tc:selectOneRadio>
           </tc:button>
         </f:facet>

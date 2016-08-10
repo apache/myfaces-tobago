@@ -37,7 +37,7 @@ public class GroupController implements Serializable {
   public GroupController() {
     chatlog = "Peter: Hi, how are you?";
     newMessage = "I'm fine.";
-    sendTo = "SendTo:";
+    sendTo = "";
   }
 
   public String getChatlog() {

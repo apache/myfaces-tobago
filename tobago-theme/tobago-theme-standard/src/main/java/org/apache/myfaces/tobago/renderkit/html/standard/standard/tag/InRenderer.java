@@ -39,10 +39,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.faces.component.UIComponent;
+import javax.faces.component.UIPanel;
 import javax.faces.context.FacesContext;
 import javax.faces.validator.LengthValidator;
 import javax.faces.validator.Validator;
 import java.io.IOException;
+import java.util.Collections;
+import java.util.List;
 
 public class InRenderer extends LabelLayoutRendererBase {
 
@@ -145,12 +148,20 @@ public class InRenderer extends LabelLayoutRendererBase {
   private void encodeGroupAddon(FacesContext facesContext, TobagoResponseWriter writer, UIComponent addon)
       throws IOException {
     if (addon != null) {
-      writer.startElement(HtmlElements.SPAN);
-      final BootstrapClass css
-          = addon instanceof AbstractUIButton ? BootstrapClass.INPUT_GROUP_BTN : BootstrapClass.INPUT_GROUP_ADDON;
-      writer.writeClassAttribute(css);
-      RenderUtils.encode(facesContext, addon);
-      writer.endElement(HtmlElements.SPAN);
+      final List<UIComponent> children;
+      if (addon instanceof UIPanel) {
+        children = addon.getChildren();
+      } else {
+        children = Collections.singletonList(addon);
+      }
+      for (UIComponent child : children) {
+        writer.startElement(HtmlElements.SPAN);
+        final BootstrapClass css
+            = child instanceof AbstractUIButton ? BootstrapClass.INPUT_GROUP_BTN : BootstrapClass.INPUT_GROUP_ADDON;
+        writer.writeClassAttribute(css);
+        RenderUtils.encode(facesContext, child);
+        writer.endElement(HtmlElements.SPAN);
+      }
     }
   }
 
