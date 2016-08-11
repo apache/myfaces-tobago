@@ -383,7 +383,7 @@
         </renderer>
       </renderers>
       <resources production="true">
-        <script name="jquery/jquery-2.2.0.js"/>
+        <script name="jquery/jquery-2.2.4.js"/>
         <script name="script/contrib/jquery-ui-1.10.4.custom.js"/>
         <script name="tether/1.1.1/js/tether.js"/>
         <script name="bootstrap/4.0.0-alpha.3/js/bootstrap.js"/>
@@ -398,7 +398,7 @@
         <style name="bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.css"/>
       </resources>
       <resources production="false">
-        <script name="jquery/jquery-2.2.0.js"/>
+        <script name="jquery/jquery-2.2.4.js"/>
         <script name="script/contrib/jquery-ui-1.10.4.custom.js"/>
         <script name="tether/1.1.1/js/tether.js"/>
         <script name="bootstrap/4.0.0-alpha.3/js/bootstrap.js"/>
