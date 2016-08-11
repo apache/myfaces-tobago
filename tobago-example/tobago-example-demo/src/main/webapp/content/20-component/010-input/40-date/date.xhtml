@@ -39,7 +39,7 @@
     <p>The <code>value</code> must be a
       <tc:link label="Date" link="https://docs.oracle.com/javase/8/docs/api/java/util/Date.html"/>
       or a string with a matching pattern.</p>
-        <pre><code class="language-markup">&lt;tc:date label="Date" value=\#{dateController.now}"&gt;
+        <pre><code class="language-markup">&lt;tc:date label="Date" value="\#{dateController.now}"&gt;
   &lt;f:convertDateTime pattern="dd.MM.yyyy"/&gt;
 &lt;/tc:date&gt;</code></pre>
     <tc:date id="dNormal" label="Date" value="#{dateController.now}">
