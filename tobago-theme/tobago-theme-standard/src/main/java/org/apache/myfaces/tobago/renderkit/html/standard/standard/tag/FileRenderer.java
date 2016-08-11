@@ -49,6 +49,8 @@ import javax.faces.validator.Validator;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.Part;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 @ListenerFor(systemEventClass = PostAddToViewEvent.class)
 public class FileRenderer extends LabelLayoutRendererBase implements ComponentSystemEventListener {
@@ -72,20 +74,32 @@ public class FileRenderer extends LabelLayoutRendererBase implements ComponentSy
       return;
     }
 
-    final AbstractUIFile input = (AbstractUIFile) component;
+    final AbstractUIFile file = (AbstractUIFile) component;
     final Object request = facesContext.getExternalContext().getRequest();
     if (request instanceof HttpServletRequest) {
       try {
         HttpServletRequest httpServletRequest = (HttpServletRequest) request;
-        final Part part = httpServletRequest.getPart(input.getClientId(facesContext));
-        if (LOG.isDebugEnabled()) {
-          LOG.debug("Uploaded file '{}', size={}, type='{}'",
-              PartUtils.getSubmittedFileName(part), part.getSize(), part.getContentType());
+        if (file.isMultiple()) {
+          List<Part> parts = new ArrayList<Part>();
+          for (Part part : httpServletRequest.getParts()) {
+            if (file.getClientId(facesContext).equals(part.getName())) {
+              LOG.debug("Uploaded file '{}', size={}, type='{}'",
+                  PartUtils.getSubmittedFileName(part), part.getSize(), part.getContentType());
+              parts.add(new HttpPartWrapper(part));
+            }
+            file.setSubmittedValue(parts.toArray(new Part[parts.size()]));
+          }
+        } else {
+          final Part part = httpServletRequest.getPart(file.getClientId(facesContext));
+          if (LOG.isDebugEnabled()) {
+            LOG.debug("Uploaded file '{}', size={}, type='{}'",
+                PartUtils.getSubmittedFileName(part), part.getSize(), part.getContentType());
+          }
+          file.setSubmittedValue(new HttpPartWrapper(part));
         }
-        input.setSubmittedValue(new HttpPartWrapper(part));
       } catch (Exception e) {
         LOG.error("", e);
-        input.setValid(false);
+        file.setValid(false);
       }
     } else { // todo: PortletRequest
       LOG.warn("Unsupported request type: " + request.getClass().getName());
@@ -123,6 +137,7 @@ public class FileRenderer extends LabelLayoutRendererBase implements ComponentSy
 
     // invisible file input
     writer.startElement(HtmlElements.INPUT);
+    writer.writeAttribute(HtmlAttributes.MULTIPLE, file.isMultiple());
     writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.FILE);
     writer.writeAttribute(HtmlAttributes.ACCEPT, accept, true);
     writer.writeAttribute(HtmlAttributes.TABINDEX, -1);

@@ -38,6 +38,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasValidatorMessage
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasValueChangeListener;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsDisabled;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsFocus;
+import org.apache.myfaces.tobago.internal.taglib.declaration.IsMultiple;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsReadonly;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsRequired;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
@@ -62,7 +63,7 @@ import javax.faces.component.UIInput;
     allowedChildComponenents = "NONE")
 public interface FileTagDeclaration
     extends HasValidator, HasValidatorMessage, HasRequiredMessage, HasConverterMessage,
-    HasValueChangeListener, HasIdBindingAndRendered, IsDisabled, IsFocus,
+    HasValueChangeListener, HasIdBindingAndRendered, IsDisabled, IsFocus, IsMultiple,
     HasLabel, HasLabelLayout, HasAccessKey, HasTip, IsReadonly, IsRequired, HasTabIndex, IsVisual {
 
   /**
@@ -72,7 +73,7 @@ public interface FileTagDeclaration
    */
   @TagAttribute()
   @UIComponentTagAttribute(
-      type = { "javax.servlet.http.Part" },
+      type = { "javax.servlet.http.Part", "javax.servlet.http.Part[]" },
       expression = DynamicExpression.VALUE_EXPRESSION_REQUIRED)
   void setValue(String value);
 }

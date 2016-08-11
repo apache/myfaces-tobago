@@ -58,6 +58,19 @@
     <tc:button label="Submit" action="#{uploadController.uploadContentType}"/>
   </tc:section>
 
+  <p>
+    <input type="file" multiple="multiple"/>
+  </p>
+
+  <tc:section id="upload-multi" label="Multiple files">
+    <p>
+      You can upload multiple files in one selection and request.
+      Use the <code class="language-markup">multiple="true"</code> attribute.
+    </p>
+    <tc:file label="Multiple" value="#{uploadController.fileMulti}" multiple="true"/>
+    <tc:button label="Submit" action="#{uploadController.uploadMulti}"/>
+  </tc:section>
+
   <tc:section id="s3" label="Ajax">
 
     <p>
