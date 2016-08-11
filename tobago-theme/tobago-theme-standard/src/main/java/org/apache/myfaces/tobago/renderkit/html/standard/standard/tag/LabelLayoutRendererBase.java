@@ -194,7 +194,7 @@ public abstract class LabelLayoutRendererBase extends DecodingRendererBase {
     if (StringUtils.isNotBlank(label)) {
       writer.startElement(HtmlElements.LABEL);
       writer.writeAttribute(HtmlAttributes.FOR, component.getClientId(), false);
-      writer.writeClassAttribute(TobagoClass.LABEL, BootstrapClass.FORM_CONTROL_LABEL);
+      writer.writeClassAttribute(TobagoClass.LABEL, BootstrapClass.COL_FORM_LABEL);
       if (component instanceof SupportsAccessKey) {
         LabelWithAccessKey labelWithAccessKey = new LabelWithAccessKey((SupportsAccessKey) component);
         HtmlRendererUtils.writeLabelWithAccessKey(writer, labelWithAccessKey);

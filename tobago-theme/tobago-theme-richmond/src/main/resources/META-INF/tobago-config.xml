@@ -38,8 +38,8 @@
 <!--
       <resources production="true">
         <excludes>
-          <script name="bootstrap/4.0.0-alpha.2/js/bootstrap.js"/>
-          <style name="bootstrap/4.0.0-alpha.2/css/bootstrap.css"/>
+          <script name="bootstrap/4.0.0-alpha.3/js/bootstrap.js"/>
+          <style name="bootstrap/4.0.0-alpha.3/css/bootstrap.css"/>
         </excludes>
         <script name="bootstrap-richmond/3.3.6/js/bootstrap.js"/>
         <style name="bootstrap-richmond/3.3.6/css/bootstrap.css"/>
@@ -47,8 +47,8 @@
       </resources>
       <resources production="false">
         <excludes>
-          <script name="bootstrap/4.0.0-alpha.2/js/bootstrap.js"/>
-          <style name="bootstrap/4.0.0-alpha.2/css/bootstrap.css"/>
+          <script name="bootstrap/4.0.0-alpha.3/js/bootstrap.js"/>
+          <style name="bootstrap/4.0.0-alpha.3/css/bootstrap.css"/>
         </excludes>
         <script name="bootstrap-richmond/3.3.6/js/bootstrap.js"/>
         <style name="bootstrap-richmond/3.3.6/css/bootstrap.css"/>

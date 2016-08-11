@@ -693,7 +693,7 @@ fixme: there is a problem with the selectManyShuttle with this style.
   display: none;
 }
 
-.has-info .text-help,
+.has-info .form-control-feedback,
 .has-info .form-control-label,
 .has-info .radio,
 .has-info .checkbox,

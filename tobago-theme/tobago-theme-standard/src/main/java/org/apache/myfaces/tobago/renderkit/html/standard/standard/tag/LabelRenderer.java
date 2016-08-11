@@ -74,7 +74,7 @@ public class LabelRenderer extends RendererBase implements ComponentSystemEventL
     writer.startElement(HtmlElements.LABEL);
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, label);
     writer.writeClassAttribute(
-        Classes.create(label, correspondingMarkup), BootstrapClass.FORM_CONTROL_LABEL, label.getCustomClass());
+        Classes.create(label, correspondingMarkup), BootstrapClass.COL_FORM_LABEL, label.getCustomClass());
     writer.writeStyleAttribute(label.getStyle());
     writer.writeIdAttribute(clientId);
     if (forId != null) {
