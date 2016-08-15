@@ -41,10 +41,10 @@ public class GroupController implements Serializable {
   private double value;
   private double valueInEuro;
   private Currency currency;
-  private static final Currency[] currencies;
+  private static final Currency[] CURRENCIES;
 
   static {
-    currencies = new Currency[]{
+    CURRENCIES = new Currency[]{
         Currency.getInstance("JPY"),
         Currency.getInstance("TTD"),
         Currency.getInstance("USD"),
@@ -136,6 +136,6 @@ public class GroupController implements Serializable {
   }
 
   public Currency[] getCurrencies() {
-    return currencies;
+    return CURRENCIES;
   }
 }
