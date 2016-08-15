@@ -21,7 +21,7 @@ package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
 import org.apache.myfaces.tobago.internal.component.AbstractUIPopup;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
-import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
+import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRoleValues;
@@ -46,7 +46,11 @@ public class PopupRenderer extends PanelRendererBase {
     ComponentUtils.putDataAttribute(popup, "backdrop", "static");
 
     writer.startElement(HtmlElements.DIV);
-    writer.writeClassAttribute(TobagoClass.POPUP, BootstrapClass.MODAL, BootstrapClass.FADE);
+    writer.writeClassAttribute(
+        Classes.create(popup),
+        BootstrapClass.MODAL,
+        BootstrapClass.FADE,
+        popup.getCustomClass());
     writer.writeIdAttribute(clientId);
     writer.writeAttribute(HtmlAttributes.TABINDEX, -1);
     writer.writeAttribute(HtmlAttributes.ROLE, HtmlRoleValues.DIALOG.toString(), false);
