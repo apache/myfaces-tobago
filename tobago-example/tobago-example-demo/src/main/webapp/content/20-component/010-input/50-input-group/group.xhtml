@@ -66,7 +66,7 @@
       <f:facet name="before">User Two</f:facet>
       <f:facet name="after">
         <tc:button label="Send" action="#{groupController.sendChat}">
-          <f:ajax execute="inewmessage" render="tachatlog"/>
+          <f:ajax execute="inewmessage" render="tachatlog inewmessage"/>
         </tc:button>
       </f:facet>
     </tc:in>
@@ -92,14 +92,14 @@
       <tc:in id="isendtoc" placeholder="type a message">
         <f:facet name="before">
           <tc:button id="lsendtoc" label="#{groupController.sendTo}" omit="true">
-            <tc:command label="SendTo: Peter" actionListener="#{groupController.sendToListener}">
-              <f:ajax render="isendtoc" execute="isendtoc"/>
+            <tc:command label="SendTo: Peter">
+              <f:ajax render="isendtoc" execute="isendtoc" listener="#{groupController.sendToListener}"/>
             </tc:command>
-            <tc:command label="SendTo: Bob" actionListener="#{groupController.sendToListener}">
-              <f:ajax render="isendtoc" execute="isendtoc"/>
+            <tc:command label="SendTo: Bob">
+              <f:ajax render="isendtoc" execute="isendtoc" listener="#{groupController.sendToListener}"/>
             </tc:command>
-            <tc:command label="SendTo: All" actionListener="#{groupController.sendToListener}">
-              <f:ajax render="isendtoc" execute="isendtoc"/>
+            <tc:command label="SendTo: All">
+              <f:ajax render="isendtoc" execute="isendtoc" listener="#{groupController.sendToListener}"/>
             </tc:command>
           </tc:button>
         </f:facet>
@@ -109,8 +109,8 @@
     <tc:section label="Radio Buttons">
       <pre><code class="language-markup">&lt;tc:in id="isendtorb" placeholder="type a message">
   &lt;f:facet name="before">
-    &lt;tc:button id="lsendtorb" label="#{groupController.sendTo}" omit="true">
-      &lt;tc:selectOneRadio value="#{groupController.sendTo}">
+    &lt;tc:button id="lsendtorb" label="\#{groupController.sendTo}" omit="true">
+      &lt;tc:selectOneRadio value="\#{groupController.sendTo}">
         &lt;tc:selectItem itemValue="SendTo: Peter"/>
         ...
         &lt;f:ajax render="isendtorb"/>
@@ -132,5 +132,22 @@
         </f:facet>
       </tc:in>
     </tc:section>
+
+    <tc:section label="Choice">
+      <tc:in id="value" placeholder="type an amount" value="#{groupController.value}">
+        <f:convertNumber maxFractionDigits="2" minFractionDigits="2"/>
+        <f:facet name="after">
+          <tc:selectOneChoice value="#{groupController.currency}">
+            <f:selectItems value="#{groupController.currencies}" var="currency"
+                           itemValue="#{currency}" itemLabel="#{currency.displayName}"/>
+            <f:ajax listener="#{groupController.compute}" render="valueInEuro" execute="value"/>
+          </tc:selectOneChoice>
+        </f:facet>
+      </tc:in>
+      <tc:out id="valueInEuro" label="Demo value in €" value="#{groupController.valueInEuro}">
+        <f:convertNumber maxFractionDigits="2" minFractionDigits="2" currencySymbol="€"/>
+      </tc:out>
+    </tc:section>
+
   </tc:section>
 </ui:composition>
