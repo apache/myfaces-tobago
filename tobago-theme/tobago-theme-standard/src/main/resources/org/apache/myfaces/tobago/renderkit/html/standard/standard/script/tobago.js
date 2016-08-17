@@ -1804,12 +1804,6 @@ Tobago.Command.initInputElements = function(elements) {
         id = Tobago.Utils.getNamingContainerId(id);
       }
     }
-
-    if (command.size() > 0) {
-      // add new classes
-      command.filter("a").addClass("tobago-link-markup-default");
-      command.filter("button").addClass("tobago-button-markup-default");
-    }
   });
   inputElements.blur(function (event) {
     var target = event.target;
@@ -1825,12 +1819,6 @@ Tobago.Command.initInputElements = function(elements) {
         }
         id = Tobago.Utils.getNamingContainerId(id);
       }
-    }
-
-    if (command.size() > 0) {
-      // remove old
-      command.filter("a").removeClass("tobago-link-markup-default");
-      command.filter("button").removeClass("tobago-button-markup-default");
     }
   });
 };
