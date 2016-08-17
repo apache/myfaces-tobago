@@ -29,9 +29,9 @@
     FacesServlet in the <code>web.xml</code> file. Since JSF 2.2 this is not required.</p>
   <p>Here you can configure some more general information.</p>
     <pre><code class="language-markup">&lt;multipart-config>
-  &lt;location>/tmp&lt;/location>
   &lt;max-file-size>20848820&lt;/max-file-size>
   &lt;max-request-size>418018841&lt;/max-request-size>
+  &lt;location>/tmp&lt;/location>
   &lt;file-size-threshold>1048576&lt;/file-size-threshold>
 &lt;/multipart-config></code></pre>
   <p>If using Servlet API 3.1 you may call <code>part.getSubmittedFileName()</code>, for 3.0 you may use the Utility
