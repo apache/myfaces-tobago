@@ -85,7 +85,7 @@
     <p>The Ajax feature of file upload currently works with JSF 2.2 only!</p>
 
     <tc:file label="Ajax" value="#{uploadController.fileAjax}">
-      <f:ajax listener="#{uploadController.uploadAjax}" render="s3 messages"/>
+      <f:ajax listener="#{uploadController.uploadAjax}" render="s3 :page:messages"/>
     </tc:file>
 
     <tc:section id="s4" label="Uploaded Files">
