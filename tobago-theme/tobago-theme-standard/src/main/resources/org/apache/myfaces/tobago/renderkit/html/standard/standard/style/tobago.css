@@ -223,6 +223,16 @@ table.tobago-gridLayout > tbody > tr:first-child > td {
   text-align: right;
 }
 
+/* link ----------------------------------------------------------- */
+
+.tobago-link {
+  white-space: nowrap;
+}
+
+.tobago-link span {
+  white-space: normal
+}
+
 /* messages ----------------------------------------------------------- */
 
 .tobago-messages label {
