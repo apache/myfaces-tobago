@@ -34,6 +34,7 @@
     <!-- phantomjs works not with CSP (report-only) -->
     <arquillian.browser>phantomjs</arquillian.browser>
     <selenium.version>2.53.1</selenium.version>
+    <tomee.version>7.0.1</tomee.version>
   </properties>
   <build>
     <finalName>tobago-example-demo</finalName>
@@ -670,7 +671,7 @@
         <dependency>
           <groupId>org.apache.tomee</groupId>
           <artifactId>apache-tomee</artifactId>
-          <version>7.0.0-M3</version>
+          <version>${tomee.version}</version>
           <classifier>webprofile</classifier>
           <type>zip</type>
           <scope>test</scope>
@@ -678,7 +679,7 @@
         <dependency>
           <groupId>org.apache.tomee</groupId>
           <artifactId>arquillian-tomee-remote</artifactId>
-          <version>7.0.0-M3</version>
+          <version>${tomee.version}</version>
           <scope>test</scope>
         </dependency>
       </dependencies>
@@ -711,7 +712,7 @@
         <dependency>
           <groupId>org.apache.tomee</groupId>
           <artifactId>apache-tomee</artifactId>
-          <version>7.0.0-M3</version>
+          <version>${tomee.version}</version>
           <classifier>webprofile</classifier>
           <type>zip</type>
           <scope>test</scope>
@@ -719,7 +720,7 @@
         <dependency>
           <groupId>org.apache.tomee</groupId>
           <artifactId>arquillian-tomee-remote</artifactId>
-          <version>7.0.0-M3</version>
+          <version>${tomee.version}</version>
           <scope>test</scope>
         </dependency>
       </dependencies>
