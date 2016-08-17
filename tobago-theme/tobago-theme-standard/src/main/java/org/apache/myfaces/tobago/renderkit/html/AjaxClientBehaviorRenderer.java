@@ -66,12 +66,20 @@ public class AjaxClientBehaviorRenderer extends ClientBehaviorRenderer {
     final String url = (component instanceof AbstractUICommand)
                        ? RenderUtils.generateUrl(facesContext, (AbstractUICommand) component)
                        : null;
+    final String clientId = component.getClientId(facesContext);
+    String executeIds =
+        ComponentUtils.evaluateClientIds(facesContext, component, execute.toArray(new String[execute.size()]));
+    if (executeIds != null) {
+      executeIds = executeIds + " " + clientId;
+    } else {
+      executeIds = clientId;
+    }
     final Command command = new Command(
-        component.getClientId(facesContext),
+        clientId,
         (component instanceof AbstractUICommand) ? ((AbstractUICommand) component).isTransition() : null,
         (component instanceof AbstractUICommand) ? ((AbstractUICommand) component).getTarget() : null,
         url,
-        ComponentUtils.evaluateClientIds(facesContext, component, execute.toArray(new String[execute.size()])),
+        executeIds,
         ComponentUtils.evaluateClientIds(facesContext, component, render.toArray(new String[render.size()])),
         null,
         null, // getConfirmation(command), // todo
