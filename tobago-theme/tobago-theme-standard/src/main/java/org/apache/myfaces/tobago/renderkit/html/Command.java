@@ -74,39 +74,6 @@ public class Command {
     this.omit = omit;
   }
 
-  /**
-   * @deprecated use with "execute" and "render" instead
-   */
-  @Deprecated
-  public Command(
-      final String action, final Boolean transition, final String target, final String url, final String partially,
-      final String focus, final String confirmation, final Integer delay, final Collapse collapse, final Boolean omit) {
-    this.action = action;
-    this.transition = transition;
-    this.target = target;
-    this.url = url;
-    setPartially(partially);
-    this.focus = focus;
-    this.confirmation = confirmation;
-    this.delay = delay;
-    this.collapse = collapse;
-    this.omit = omit;
-  }
-
-  public Command(final FacesContext facesContext, final AbstractUICommand command, String[] ids) {
-    this(
-        null,
-        command.isTransition(),
-        command.getTarget(),
-        RenderUtils.generateUrl(facesContext, command),
-        ComponentUtils.evaluateClientIds(facesContext, command, ids),
-        null,
-        getConfirmation(command),
-        null,
-        AjaxClientBehaviorRenderer.createCollapsible(facesContext, command),
-        command.isOmit());
-  }
-
   public Command(final FacesContext facesContext, final AbstractUICommand command) {
     this(
         null,

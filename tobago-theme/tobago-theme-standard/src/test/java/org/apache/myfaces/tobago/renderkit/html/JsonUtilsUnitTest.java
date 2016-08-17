@@ -90,6 +90,7 @@ public class JsonUtilsUnitTest extends AbstractTobagoTestBase {
         false,
         "_blank", "http://www.apache.org/",
         StringUtils.join(Arrays.asList("id1", "id2"), ' '),
+        StringUtils.join(Arrays.asList("id1", "id2"), ' '),
         "id_focus",
         "Really?", 1000, new Collapse(Collapse.Action.show, "myId"), true));
     final String expected = (
@@ -99,7 +100,8 @@ public class JsonUtilsUnitTest extends AbstractTobagoTestBase {
             + "'transition':false,"
             + "'target':'_blank',"
             + "'url':'http://www.apache.org/',"
-            + "'partially':'id1 id2',"
+            + "'execute':'id1 id2',"
+            + "'render':'id1 id2',"
             + "'collapse':{"
             + "'transition':'show',"
             + "'forId':'myId'"
