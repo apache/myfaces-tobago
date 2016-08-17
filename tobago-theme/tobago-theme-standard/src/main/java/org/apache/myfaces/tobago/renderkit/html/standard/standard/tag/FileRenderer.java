@@ -104,6 +104,8 @@ public class FileRenderer extends LabelLayoutRendererBase implements ComponentSy
     } else { // todo: PortletRequest
       LOG.warn("Unsupported request type: " + request.getClass().getName());
     }
+
+    RenderUtils.decodeClientBehaviors(facesContext, component);
   }
 
   @Override
