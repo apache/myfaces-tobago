@@ -62,6 +62,7 @@ public class FileExtensionTag extends TobagoExtensionBodyTagSupport {
   private MethodExpression validator;
   private ValueExpression disabled;
   private ValueExpression rendered;
+  private ValueExpression multiple;
   private ValueExpression tip;
   private ValueExpression onchange;
   private ValueExpression labelWidth;
@@ -120,6 +121,9 @@ public class FileExtensionTag extends TobagoExtensionBodyTagSupport {
     if (disabled != null) {
       fileTag.setDisabled(disabled);
     }
+    if (multiple != null) {
+      fileTag.setDisabled(multiple);
+    }
     if (fieldId != null) {
       fileTag.setId(fieldId);
     }
@@ -167,6 +171,7 @@ public class FileExtensionTag extends TobagoExtensionBodyTagSupport {
     binding = null;
     validator = null;
     disabled = null;
+    multiple = null;
     label = null;
     accessKey = null;
     labelWidth = null;
@@ -281,6 +286,15 @@ public class FileExtensionTag extends TobagoExtensionBodyTagSupport {
   @UIComponentTagAttribute(type = "boolean", defaultValue = "false")
   public void setDisabled(final ValueExpression disabled) {
     this.disabled = disabled;
+  }
+
+  /**
+   * Flag indicating that this element is for multiple files.
+   */
+  @TagAttribute()
+  @UIComponentTagAttribute(type = "boolean", defaultValue = "false")
+  public void setMultiple(final ValueExpression multiple) {
+    this.multiple = multiple;
   }
 
   /**

@@ -41,6 +41,10 @@
         <tc:validateFileItem contentType="image/*"/>
       </tx:file>
       <tc:panel/>
+
+      <tx:file multiple="true" label="Upload multiple:" value="#{upload.fileMulti}" tip="multiple files"/>
+      <tc:panel/>
+
     </tc:panel>
 
     <tc:sheet var="entry" value="#{upload.list}" columns="*;*;*">

@@ -42,6 +42,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsFocus;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutComponent;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsReadonly;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsRequired;
+import org.apache.myfaces.tobago.internal.taglib.declaration.IsMultiple;
 
 import javax.faces.component.UIInput;
 
@@ -64,7 +65,7 @@ import javax.faces.component.UIInput;
     allowedChildComponenents = "NONE")
 public interface FileTagDeclaration
     extends HasValidator, HasValidatorMessage, HasRequiredMessage, HasConverterMessage, HasOnchange,
-    HasValueChangeListener, HasIdBindingAndRendered, IsDisabled, HasMarkup, HasCurrentMarkup, IsFocus,
+    HasValueChangeListener, HasIdBindingAndRendered, IsDisabled, HasMarkup, HasCurrentMarkup, IsFocus, IsMultiple,
     HasLabel, HasTip, IsReadonly, IsRequired, HasTabIndex, IsGridLayoutComponent {
 
   /**
@@ -74,7 +75,7 @@ public interface FileTagDeclaration
    */
   @TagAttribute()
   @UIComponentTagAttribute(
-      type = { "org.apache.commons.fileupload.FileItem" },
+      type = { "org.apache.commons.fileupload.FileItem", "org.apache.commons.fileupload.FileItem[]" },
       expression = DynamicExpression.VALUE_EXPRESSION_REQUIRED)
   void setValue(String value);
 }

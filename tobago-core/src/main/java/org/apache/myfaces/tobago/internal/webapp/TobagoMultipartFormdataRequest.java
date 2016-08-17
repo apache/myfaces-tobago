@@ -23,15 +23,16 @@ import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import org.apache.myfaces.tobago.internal.component.AbstractUIPage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.apache.myfaces.tobago.internal.component.AbstractUIPage;
 
 import javax.faces.FacesException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
 import java.io.File;
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Enumeration;
@@ -50,7 +51,7 @@ public class TobagoMultipartFormdataRequest extends HttpServletRequestWrapper {
 
   private Map<String, String[]> parameters;
 
-  private Map<String, FileItem> fileItems;
+  private Map<String, List<FileItem>> fileItems;
 
   public TobagoMultipartFormdataRequest(final HttpServletRequest request) {
     this(request, System.getProperty("java.io.tmpdir"), ONE_MB);
@@ -69,7 +70,7 @@ public class TobagoMultipartFormdataRequest extends HttpServletRequestWrapper {
       throw new FacesException(errorText);
     } else {
       parameters = new HashMap<String, String[]>();
-      fileItems = new HashMap<String, FileItem>();
+      fileItems = new HashMap<String, List<FileItem>>();
       final DiskFileItemFactory factory = new DiskFileItemFactory();
 
       factory.setRepository(new File(repositoryPath));
@@ -114,7 +115,12 @@ public class TobagoMultipartFormdataRequest extends HttpServletRequestWrapper {
 
           addParameter(key, newValue);
         } else {
-          fileItems.put(key, item);
+          List<FileItem> help = this.fileItems.get(key);
+          if (help == null) {
+            help = new ArrayList<FileItem>();
+            this.fileItems.put(key, help);
+          }
+          help.add(item);
         }
       }
 
@@ -148,7 +154,20 @@ public class TobagoMultipartFormdataRequest extends HttpServletRequestWrapper {
 
   public FileItem getFileItem(final String key) {
     if (fileItems != null) {
-      return fileItems.get(key);
+      final List<FileItem> fileItems = this.fileItems.get(key);
+      if (fileItems.size() > 0) {
+        return fileItems.get(0);
+      } else {
+        return null;
+      }
+    }
+    return null;
+  }
+
+  public FileItem[] getFileItems(final String key) {
+    if (fileItems != null) {
+      final List<FileItem> fileItems = this.fileItems.get(key);
+      return fileItems.toArray(new FileItem[fileItems.size()]);
     }
     return null;
   }

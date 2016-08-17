@@ -81,13 +81,23 @@ public class FileRenderer extends InputRendererBase {
           + "See documentation for <tc:file>");
     } else {
 
-      final FileItem item = request.getFileItem(input.getClientId(facesContext));
-
-      if (LOG.isDebugEnabled()) {
-        LOG.debug("Uploaded file name : \"" + item.getName()
-            + "\"  size = " + item.getSize());
+      if (input.isMultiple()) {
+        final FileItem[] items = request.getFileItems(input.getClientId(facesContext));
+        if (LOG.isDebugEnabled()) {
+          for (FileItem item : items) {
+            LOG.debug("Uploaded file name : \"" + item.getName()
+                + "\"  size = " + item.getSize());
+          }
+        }
+        input.setSubmittedValue(items);
+      } else {
+        final FileItem item = request.getFileItem(input.getClientId(facesContext));
+        if (LOG.isDebugEnabled()) {
+          LOG.debug("Uploaded file name : \"" + item.getName()
+              + "\"  size = " + item.getSize());
+        }
+        input.setSubmittedValue(item);
       }
-      input.setSubmittedValue(item);
       //TODO remove this
       input.setValid(true);
     }
@@ -123,6 +133,7 @@ public class FileRenderer extends InputRendererBase {
 
     // invisible file input
     writer.startElement(HtmlElements.INPUT, file);
+    writer.writeAttribute(HtmlAttributes.MULTIPLE, file.isMultiple());
     writer.writeIdAttribute(clientId + ComponentUtils.SUB_SEPARATOR + "real");
     writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.FILE, false);
     writer.writeClassAttribute(Classes.create(file, "real"));

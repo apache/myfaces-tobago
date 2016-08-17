@@ -55,5 +55,7 @@ public abstract class AbstractUIFile extends UIInput implements LayoutComponent,
 
   public abstract boolean isReadonly();
 
+  public abstract boolean isMultiple();
+
   public abstract Integer getTabIndex();
 }

@@ -2754,13 +2754,18 @@ Tobago.File.init = function(elements) {
   files.change(function () {
     var file = jQuery(this);
     var pretty = file.prev();
-    var filename = file.val();
-    // remove path, if any. Some old browsers set the path, others like webkit uses the prefix "C:\facepath\".
-    var pos = Math.max(filename.lastIndexOf('/'), filename.lastIndexOf('\\'));
-    if (pos >= 0) {
-      filename = filename.substr(pos + 1);
+    var text;
+    if (file.prop("multiple")) {
+      text = file.prop("files").length  + " files"; // todo i18n
+    } else {
+      text = file.val();
+      // remove path, if any. Some old browsers set the path, others like webkit uses the prefix "C:\facepath\".
+      var pos = Math.max(text.lastIndexOf('/'), text.lastIndexOf('\\'));
+      if (pos >= 0) {
+        text = text.substr(pos + 1);
+      }
     }
-    pretty.val(filename);
+    pretty.val(text);
   });
   if (files.length > 0) {
     jQuery("form").attr('enctype', 'multipart/form-data')

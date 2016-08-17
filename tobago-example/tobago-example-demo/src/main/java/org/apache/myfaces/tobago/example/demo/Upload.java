@@ -32,14 +32,22 @@ public class Upload {
 
   private FileItem file1;
   private FileItem file2;
+  private FileItem[] fileMulti;
 
   private List<UploadItem> list = new ArrayList<UploadItem>();
 
   public String upload() {
    upload(file1);
    upload(file2);
+   upload(fileMulti);
       return null;
     }
+
+  public void upload(FileItem[] files) {
+    for (FileItem file : files) {
+      upload(file);
+    }
+  }
 
   public void upload(FileItem file) {
     LOG.info("checking file item");
@@ -73,6 +81,14 @@ public class Upload {
 
   public void setFile2(FileItem file2) {
     this.file2 = file2;
+  }
+
+  public FileItem[] getFileMulti() {
+    return fileMulti;
+  }
+
+  public void setFileMulti(FileItem[] fileMulti) {
+    this.fileMulti = fileMulti;
   }
 
   public List<UploadItem> getList() {
