@@ -21,6 +21,7 @@ package org.apache.myfaces.tobago.internal.taglib.component;
 
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
+import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasAction;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasActionListener;
@@ -44,7 +45,9 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
 import javax.faces.component.UICommand;
 
 /**
- * A general command.
+ * Use this tag only as a facet for the client events "click", "change"
+ * in selectOneRadio, selectBooleanCheckbox, selectManyCheckbox, selectOneChoice, etc.
+ * TODO: may add some events and components. See {@link Facets#isEvent(String)}
  */
 @Tag(name = "command")
 @UIComponentTag(uiComponent = "org.apache.myfaces.tobago.component.UICommand",

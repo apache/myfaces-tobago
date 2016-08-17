@@ -271,9 +271,7 @@ public final class RenderUtils {
       behaviors = new HashMap<String, List<ClientBehavior>>();
       for (Map.Entry<String, UIComponent> facetEntry : ((UIComponent) holder).getFacets().entrySet()) {
 
-        // XXX hack to make after and before facets runable with AJAX buttons
-        if (!facetEntry.getKey().equals(Facets.click.name())
-            && !facetEntry.getKey().equals(Facets.change.name())) {
+        if (!Facets.isEvent(facetEntry.getKey())) {
           break;
         }
 

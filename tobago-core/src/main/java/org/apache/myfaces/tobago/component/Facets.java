@@ -25,15 +25,18 @@ public enum Facets {
   action,
   bar,
   before,
+  blur(true),
   brand,
-  change,
+  change(true),
   checkbox,
-  click,
+  click(true),
   complete,
   confirmation,
   constraints,
   contextMenu,
   dropDownMenu,
+  focus(true),
+  hover(true),
   label,
   /**
    * @deprecated since 3.0.0. The layout manager tag should surround the content instead.
@@ -55,15 +58,25 @@ public enum Facets {
   @Deprecated
   popup,
   radio,
-  reload,
+  reload(true),
   resize,
   sorter,
   toolBar;
+
+  private boolean event;
+
+  Facets() {
+  }
+
+  Facets(boolean event) {
+    this.event = event;
+  }
 
   public static final String AFTER = "after";
   public static final String ACTION = "action";
   public static final String BAR = "bar";
   public static final String BEFORE = "before";
+  public static final String BLUR = "blur";
   public static final String BRAND = "brand";
   public static final String CHANGE = "change";
   public static final String CHECKBOX = "checkbox";
@@ -73,6 +86,8 @@ public enum Facets {
   public static final String CONSTRAINTS = "constraints";
   public static final String CONTEXT_MENU = "contextMenu";
   public static final String DROP_DOWN_MENU = "dropDownMenu";
+  public static final String FOCUS = "focus";
+  public static final String HOVER = "hover";
   public static final String LABEL = "label";
   /**
    * @deprecated since 3.0.0. The layout manager tag should surround the content instead.
@@ -94,4 +109,13 @@ public enum Facets {
   public static final String RESIZE = "resize";
   public static final String SORTER = "sorter";
   public static final String TOOL_BAR = "toolBar";
+
+  public static boolean isEvent(final String string) {
+    try {
+      return valueOf(string).event;
+    } catch (IllegalArgumentException e) {
+      // ignore
+      return false;
+    }
+  }
 }
