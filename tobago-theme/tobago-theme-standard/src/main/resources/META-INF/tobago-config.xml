@@ -404,6 +404,7 @@
         <script name="bootstrap/4.0.0-alpha.3/js/bootstrap.js"/>
         <script name="moment/2.13.0/moment-with-locales.js"/>
         <script name="bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.js"/>
+        <script name="script/tobago-jsf.js"/>
         <script name="script/tobago.js"/>
         <script name="script/tobago-calendar.js"/>
         <script name="script/tobago-console.js"/>

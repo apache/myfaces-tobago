@@ -53,7 +53,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.faces.application.Application;
-import javax.faces.application.ResourceDependency;
 import javax.faces.application.ViewHandler;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIViewRoot;
@@ -67,7 +66,8 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
-@ResourceDependency(name="jsf.js", library="javax.faces", target="head")
+// currently using tobago-jsf.js instead
+//@ResourceDependency(name="jsf.js", library="javax.faces", target="head")
 public class PageRenderer extends RendererBase {
 
   private static final Logger LOG = LoggerFactory.getLogger(PageRenderer.class);
