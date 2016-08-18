@@ -27,7 +27,11 @@ Tobago.Popup.init = function (elements) {
     var $popup = jQuery(this);
     var $hidden = Tobago.Collapse.findHidden($popup);
     if ($hidden.val() == "false") {
-      jQuery(this).modal(); // inits and opens the popup
+      // XXX hack: this is needed for popups open by AJAX.
+      // XXX currently the DOM replacement done by Tobago doesn't remove the modal-backdrop
+      jQuery(".modal-backdrop").remove();
+
+      jQuery(this).modal("show"); // inits and opens the popup
     } else {
       jQuery(this).modal("hide"); // inits and hides the popup
     }

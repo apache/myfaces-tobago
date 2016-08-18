@@ -2029,8 +2029,10 @@ Tobago.File.init = function(elements) {
     if (myfaces) {
       // XXX This hack is currently needed for MyFaces 2.0 and 2.1 for File Upload with AJAX
       // XXX to enable multipart-formdata
-      myfaces.config = myfaces.config || {};
-      myfaces.config["transportAutoSelection"] = true;
+
+      // XXX TOBAGO-JSF-JS this hack is not needed with tobago-jsf.js
+      // myfaces.config = myfaces.config || {};
+      // myfaces.config["transportAutoSelection"] = true;
     }
   }
 };

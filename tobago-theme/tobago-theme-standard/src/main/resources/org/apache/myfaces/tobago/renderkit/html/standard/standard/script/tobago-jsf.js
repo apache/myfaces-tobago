@@ -15,8 +15,8 @@
  */
 
 /*
- * This is a modified copy of MyFaces 2.2.10 jsf-uncompressed-full.js
- * Modifications are marked with TOBAGO-MOD
+ * XXX This is a modified copy of MyFaces 2.2.10 jsf-uncompressed-full.js
+ * XXX Modifications are marked with TOBAGO-JSF-JS
  */
 
 /**
@@ -6405,7 +6405,7 @@ _MF_CLS(_PFX_XHR + "engine.IFrame", myfaces._impl.xhrCore.engine.BaseRequest,
              *
              * @param args
              */
-            /* TOBAGO-MOD: rename "arguments" with "args", because the compressor would fail */
+            /* TOBAGO-JSF-JS: rename "arguments" with "args", because the compressor would fail */
             constructor_: function (args) {
                 //we fetch in the standard arguments
 
@@ -7064,7 +7064,7 @@ _MF_CLS(_PFX_XHR + "_MultipartAjaxRequestLevel2", myfaces._impl.xhrCore._AjaxReq
 
     _sourceForm:null,
 
-    /* TOBAGO-MOD: rename "arguments" with "args", because the compressor would fail */
+    /* TOBAGO-JSF-JS: rename "arguments" with "args", because the compressor would fail */
     constructor_:function (args) {
         this._callSuper("constructor_", args);
         //TODO xhr level2 can deal with real props
@@ -7114,7 +7114,7 @@ _MF_CLS(_PFX_XHR + "_AjaxRequestLevel2", myfaces._impl.xhrCore._AjaxRequest, {
 
     _sourceForm:null,
 
-    /* TOBAGO-MOD: rename "arguments" with "args", because the compressor would fail */
+    /* TOBAGO-JSF-JS: rename "arguments" with "args", because the compressor would fail */
     constructor_:function (args) {
         this._callSuper("constructor_", args);
         //TODO xhr level2 can deal with real props
@@ -7173,7 +7173,7 @@ _MF_CLS(_PFX_XHR+"_IFrameRequest", myfaces._impl.xhrCore._AjaxRequest,
     MF_PART_FACES_REQUEST: "javax.faces.request",
 
 
-    /* TOBAGO-MOD: rename "arguments" with "args", because the compressor would fail */
+    /* TOBAGO-JSF-JS: rename "arguments" with "args", because the compressor would fail */
     constructor_: function(args) {
         this._callSuper("constructor_", args);
     },
