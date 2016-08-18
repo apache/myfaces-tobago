@@ -20,6 +20,8 @@
 package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
 import org.apache.commons.fileupload.FileItem;
+
+import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.internal.component.AbstractUIFile;
 import org.apache.myfaces.tobago.internal.util.FacesContextUtils;
 import org.apache.myfaces.tobago.internal.webapp.TobagoMultipartFormdataRequest;
@@ -138,6 +140,8 @@ public class FileRenderer extends InputRendererBase {
     writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.FILE, false);
     writer.writeClassAttribute(Classes.create(file, "real"));
     writer.writeNameAttribute(clientId);
+    String multiFormat = ResourceManagerUtils.getPropertyNotNull(facesContext, "tobago", "tobago.file.multiFormat");
+    writer.writeAttribute("data-tobago-file-multi-format", multiFormat, true);
     // readonly seems not making sense in browsers.
     writer.writeAttribute(HtmlAttributes.DISABLED, file.isDisabled() || file.isReadonly());
     writer.writeAttribute(HtmlAttributes.READONLY, file.isReadonly());
