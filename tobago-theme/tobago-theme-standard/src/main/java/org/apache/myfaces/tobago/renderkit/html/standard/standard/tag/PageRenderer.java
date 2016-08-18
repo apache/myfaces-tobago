@@ -208,6 +208,13 @@ public class PageRenderer extends RendererBase {
 
       for (int i = 0, childCount = componentResources.size(); i < childCount; i++) {
         UIComponent child = componentResources.get(i);
+        // XXX hack to remove jsf.js
+        if ("jsf.js".equals(child.getAttributes().get("name"))) {
+          if (LOG.isDebugEnabled()) {
+            LOG.debug("Skip rendering resource jsf.js");
+          }
+          continue;
+        }
         child.encodeAll(facesContext);
       }
 
