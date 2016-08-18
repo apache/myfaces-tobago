@@ -27,24 +27,23 @@ import org.slf4j.LoggerFactory;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.DateTimeConverter;
+import java.util.Date;
 
 public abstract class AbstractUIDate extends AbstractUIInput {
 
   private static final Logger LOG = LoggerFactory.getLogger(AbstractUIDate.class);
 
   public String getPattern() {
-    String pattern = null;
     final FacesContext facesContext = getFacesContext();
-    final Converter converter = ComponentUtils.getConverter(facesContext, this, getSubmittedValue());
-    if (converter instanceof DateTimeConverter) {
-      pattern = DateFormatUtils.findPattern((DateTimeConverter) converter);
-    }
-    if (pattern == null) {
+    Converter converter = ComponentUtils.getConverter(facesContext, this, getSubmittedValue());
+    if (!(converter instanceof DateTimeConverter)) {
+      // hack for prototyping, if there is no value behind the component.
+      converter = facesContext.getApplication().createConverter(Date.class);
       if (LOG.isWarnEnabled()) {
-        LOG.warn("Can't find the pattern for the converter in component {}! DatePicker may not work correctly.",
+        LOG.warn("Can't find a converter to get a pattern in component {}! Using default.",
             getClientId(facesContext));
       }
     }
-    return pattern;
+    return DateFormatUtils.findPattern((DateTimeConverter) converter);
   }
 }
