@@ -19,6 +19,7 @@
 
 package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
+import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.internal.component.AbstractUIFile;
 import org.apache.myfaces.tobago.internal.util.FacesContextUtils;
 import org.apache.myfaces.tobago.internal.util.PartUtils;
@@ -146,6 +147,8 @@ public class FileRenderer extends LabelLayoutRendererBase implements ComponentSy
     writer.writeIdAttribute(fieldId);
     writer.writeClassAttribute(Classes.create(file, "real"));
     writer.writeNameAttribute(clientId);
+    String multiFormat = ResourceManagerUtils.getPropertyNotNull(facesContext, "tobago", "tobago.file.multiFormat");
+    writer.writeAttribute(DataAttributes.dynamic("tobago-file-multi-format"), multiFormat, true);
     // readonly seems not making sense in browsers.
     writer.writeAttribute(HtmlAttributes.DISABLED, file.isDisabled() || file.isReadonly());
     writer.writeAttribute(HtmlAttributes.READONLY, file.isReadonly());

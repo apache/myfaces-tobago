@@ -35,6 +35,9 @@
   <entry key="configButtonText">Configuracion</entry>
   <entry key="configCachecoverage">Cobertura de cache</entry>
 
+  <!-- File-->
+  <entry key="tobago.file.multiFormat">{} archivos seleccionados</entry>
+
   <!-- Sheet -->
   <entry key="sheetFirst">Primera Página</entry>
   <entry key="sheetPrev">Página Anterior</entry>

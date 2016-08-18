@@ -2006,7 +2006,8 @@ Tobago.File.init = function(elements) {
     var pretty = file.parent().find(".tobago-file-pretty");
     var text;
     if (file.prop("multiple")) {
-      text = file.prop("files").length  + " files"; // todo i18n
+      var format = file.data("tobago-file-multi-format");
+      text = format.replace("{}", file.prop("files").length);
     } else {
       text = file.val();
       // remove path, if any. Some old browsers set the path, others like webkit uses the prefix "C:\facepath\".
