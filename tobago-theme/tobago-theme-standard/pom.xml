@@ -20,7 +20,7 @@
   <parent>
     <groupId>org.apache.myfaces.tobago</groupId>
     <artifactId>tobago-theme</artifactId>
-    <version>3.0.0-beta-1-SNAPSHOT</version>
+    <version>3.0.0-alpha-5</version>
   </parent>
   <artifactId>tobago-theme-standard</artifactId>
   <packaging>jar</packaging>
@@ -59,9 +59,7 @@
             <configuration>
               <target>
                 <concat destfile="${project.build.directory}/javascript-min/standard/script/tobago.min.js" force="no">
-                  <filelist
-                      dir="${basedir}/src/main/resources/org/apache/myfaces/tobago/renderkit/html/standard/standard/script"
-                      files="tobago-jsf.js,tobago.js,tobago-calendar.js,tobago-in.js,tobago-layout.js,tobago-menu.js,tobago-overlay.js,tobago-popup.js,tobago-sheet.js,tobago-suggest.js,tobago-tab.js,tobago-tree.js,tobago-utils.js" />
+                  <filelist dir="${basedir}/src/main/resources/org/apache/myfaces/tobago/renderkit/html/standard/standard/script" files="tobago-jsf.js,tobago.js,tobago-calendar.js,tobago-in.js,tobago-layout.js,tobago-menu.js,tobago-overlay.js,tobago-popup.js,tobago-sheet.js,tobago-suggest.js,tobago-tab.js,tobago-tree.js,tobago-utils.js" />
                 </concat>
                 <replaceregexp match="^.*//.*@DEV_ONLY.*$" replace="" byline="true">
                   <fileset dir="${project.build.directory}/javascript-min">
