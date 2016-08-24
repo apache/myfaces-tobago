@@ -33,15 +33,6 @@ var Tobago = {
    */
   SUB_COMPONENT_SEP: '::',
 
-  EMPTY_HREF: window.all ? '#' : 'javascript:;',
-
-  /**
-   *  regexp to find non valid javascript name characters in scriptIds
-   */
-  // scriptIdRegExp: new RegExp('[/.-]', 'g'),
-
-  // scriptFragmentRegExp: /(?:<script(?:\n|.)*?>)(?:(?:\n|\s)*?<!--)?((\n|.)*?)(?:<\/script>)/,
-
   // -------- Variables -------------------------------------------------------
 
   /**
@@ -101,17 +92,6 @@ var Tobago = {
     isGecko: false,
     isWebkit: false
   },
-
-  /**
-   * Object to store already loaded script files
-   * to prevent multiple loading via Ajax requests.
-   */
-  // registeredScripts: {},
-
-  /**
-   * Array to queue ScriptLoaders.
-   */
-  // scriptLoaders: [],
 
   /**
    * Flag indicating that the page is completely loaded.
@@ -216,11 +196,6 @@ var Tobago = {
   },
 
   finishPageLoading: function() {
-    // Tobago.registerCurrentScripts();
-    // console.time("[tobago] startScriptLoaders"); // @DEV_ONLY
-    // Tobago.startScriptLoaders();
-    // console.timeEnd("[tobago] startScriptLoaders"); // @DEV_ONLY
-    // Tobago.pageIsComplete = true;
     Tobago.setFocus();
     console.timeEnd("[tobago] init"); // @DEV_ONLY
   },
@@ -492,35 +467,6 @@ var Tobago = {
   },
 
   /**
-   * Register a script file to prevent multiple loadings via Ajax.
-   */
-/*
-  registerScript: function(scriptId) {
-    console.debug('register: ' + scriptId); // @DEV_ONLY
-    this.registeredScripts[this.genScriptId(scriptId)] = true;
-  },
-*/
-
-  /**
-   * Check if a script is already registered.
-   */
-/*
-  hasScript: function(scriptId) {
-    return this.registeredScripts[this.genScriptId(scriptId)];
-  },
-*/
-
-  /**
-   * Generate an id usable as javascript name.
-   */
-/*
-  genScriptId: function(script) {
-    script = script.substring(script.indexOf('/html/'));
-    return script.replace(this.scriptIdRegExp, '_');
-  },
-*/
-
-  /**
    * Check if a style file is already loaded, to prevent multiple loadings
    * from Ajax requests.
    */
@@ -561,66 +507,6 @@ var Tobago = {
       this.ensureStyleFile(names[i]);
     }
   },
-
-  /**
-   * Register all already loaded script files.
-   */
-/*
-  registerCurrentScripts: function() {
-    var children = document.getElementsByTagName('head')[0].childNodes;
-    for (var i = 0; i < children.length; i++) {
-      var child = children[i];
-      if (child.nodeType == 1 && child.tagName.toUpperCase() == 'SCRIPT' && typeof child.src == 'string') {
-        Tobago.registerScript(child.src);
-      }
-    }
-  },
-*/
-
-  /**
-   * Add a scriptLoader to the queue or start it directly.
-   */
-/*
-  addScriptLoader: function(scriptLoader) {
-    if (! this.pageIsComplete || this.scriptLoadingActive) {
-//      console.debug("add one scriptLoader");
-      this.scriptLoaders.push(scriptLoader);
-    } else {
-//     console.debug("executing one scriptLoader");
-      this.scriptLoadingActive = true;
-      scriptLoader.ensureScripts();
-    }
-  },
-*/
-
-  /**
-   * Start script loaders from queue
-   */
-/*
-  startScriptLoaders: function() {
-    if (! this.pageIsComplete) {
-      while (this.scriptLoaders.length > 0) {
-        var scriptLoader = this.scriptLoaders.shift();
-        scriptLoader.executeCommands();
-      }
-    } else {
-      var start = new Date().getTime(); // @DEV_ONLY
-      console.debug('start 1 of ' + this.scriptLoaders.length + ' Loaders'); // @DEV_ONLY
-      if (this.tbgScLoSt) { // @DEV_ONLY
-        console.debug('time scriptLoader ' + (start - this.tbgScLoSt)); // @DEV_ONLY
-      } // @DEV_ONLY
-      this.tbgScLoSt = start; // @DEV_ONLY
-      if (this.scriptLoaders.length > 0) {
-        this.scriptLoadingActive = true;
-        this.scriptLoaders.shift().ensureScripts();
-      } else {
-        this.scriptLoadingActive = false;
-        console.debug('last time scriptLoader ' + (new Date().getTime() - this.tbgScLoSt)); // @DEV_ONLY
-        delete this.tbgScLoSt;
-      }
-    }
-  },
-*/
 
   /**
    * Focus function for toolbar buttons.
@@ -1567,95 +1453,6 @@ Tobago.EventListener = function(element, event, func) {
   this.func = func;
   Tobago.eventListeners[Tobago.eventListeners.length] = this;
 };
-
-/*Tobago.ScriptLoader = function(names, doAfter) {
-  this.scriptIndex = 0;
-  this.names = names;
-  this.doAfter = doAfter || ';';
-
-  this.ensureScript = function(src) {
-    this.actualScript = src;
-    if (!Tobago.hasScript(this.actualScript)) {
-      console.debug('Load script ' + src); // @DEV_ONLY
-      this.scriptElement = document.createElement('script');
-      this.scriptElement.type = 'text/javascript';
-      this.scriptElement.src = src;
-      if (typeof(this.scriptElement.onreadystatechange) != 'undefined') {
-//        console.debug("Set script.onreadystatechange ");
-        this.scriptElement.onreadystatechange = Tobago.bind(this, 'stateReady');
-      } else {
-//        console.debug("Set script.onload");
-        this.scriptElement.onload = Tobago.bind(this, 'stateOnLoad');
-      }
-      var head = document.getElementsByTagName('head')[0];
-      head.appendChild(this.scriptElement);
-    } else {
-     console.debug('found script ' + src); // @DEV_ONLY
-      this.ensureScripts();
-    }
-
-  };
-
-  this.stateReady = function() {
-//      console.debug("State " + window.event.srcElement.readyState + " : " + this.actualScript);
-    if (window.event.srcElement.readyState == 'loaded'
-        || window.event.srcElement.readyState == 'complete') {
-      this.scriptElement.onreadystatechange = null;
-      Tobago.registerScript(this.actualScript);
-      this.ensureScripts();
-    }
-  };
-
-  this.stateOnLoad = function() {
-//    console.debug("OnLoad " + this.actualScript);
-    this.scriptElement.onload = null;
-    Tobago.registerScript(this.actualScript);
-    this.ensureScripts();
-  };
-
-  this.ensureScripts = function() {
-//      console.debug("scriptIndex =  " + this.scriptIndex + "/" + this.names.length );
-    if (this.scriptIndex < this.names.length) {
-      this.ensureScript(this.names[this.scriptIndex++]);
-    } else {
-//      console.debug("now do After() : file=" + this.actualScript);
-//          if (this.actualScript.indexOf('tabgroup') > -1) {
-//      console.debug("doAfter=" + this.doAfter);
-//              }
-      this.executeCommands();
-//          } else {
-//              console.debug("doAfter = " + this.doAfter)
-//          }
-      if (this.scriptElement) {
-        if (this.scriptElement.onreadystatechange) {
-          delete this.scriptElement.onreadystatechange;
-        }
-        if (this.scriptElement.onload) {
-          delete this.scriptElement.onload;
-        }
-        if (this.scriptElement) {
-          delete this.scriptElement;
-        }
-      }
-      delete this.actualScript;
-      delete this.names;
-      delete this.doAfter;
-      Tobago.startScriptLoaders();
-    }
-  };
-
-  this.executeCommands = function() {
-    try {
-      eval(this.doAfter);
-    } catch (ex) {
-      console.error(ex); // @DEV_ONLY
-      console.error('errorCode: ' + this.doAfter.valueOf()); // @DEV_ONLY
-      throw ex;
-    }
-  };
-
-  Tobago.addScriptLoader(this);
-}*/;
 
 Tobago.Transport = {
   requests: [],
