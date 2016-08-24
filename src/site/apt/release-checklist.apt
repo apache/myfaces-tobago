@@ -129,7 +129,7 @@ cd /Volumes/tobago-site
 svn co https://svn.apache.org/repos/asf/myfaces/tobago/trunk tobago
 svn co https://svn.apache.org/repos/asf/myfaces/site/publish/tobago tobago-publish
 cd tobago
-export MAVEN_OPTS="-Xmx1500m -XX:MaxPermSize=512m ${MAVEN_OPTS}"
+export MAVEN_OPTS="-Xmx1500m ${MAVEN_OPTS}"
 mvn package -Pattach-source
 mvn site:site
 mvn site:stage -DstagingDirectory=/Volumes/tobago-site/tobago-publish
