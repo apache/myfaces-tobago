@@ -132,6 +132,7 @@
   <!-- navigate : deprecated -->
   <entry key="deprecated">Deprecated</entry>
   <entry key="tx">TX Tag Library</entry>
+  <entry key="suggest_method">SuggestMethod</entry>
   <entry key="toolBar">Toolbar</entry>
   <entry key="grid_layout">GridLayout</entry>
 

@@ -19,7 +19,6 @@
 
 package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
-import org.apache.myfaces.tobago.component.UIIn;
 import org.apache.myfaces.tobago.internal.component.AbstractUIInput;
 import org.apache.myfaces.tobago.internal.component.AbstractUISuggest;
 import org.apache.myfaces.tobago.model.AutoSuggestItem;
@@ -31,6 +30,7 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
 import org.apache.myfaces.tobago.renderkit.html.JsonUtils;
+import org.apache.myfaces.tobago.renderkit.util.SelectItemUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import org.slf4j.Logger;
@@ -39,6 +39,7 @@ import org.slf4j.LoggerFactory;
 import javax.el.MethodExpression;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
+import javax.faces.model.SelectItem;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -55,35 +56,53 @@ public class SuggestRenderer extends RendererBase {
     final String clientId = suggest.getClientId(facesContext);
     final Map<String, String> requestParameterMap = facesContext.getExternalContext().getRequestParameterMap();
     if (requestParameterMap.containsKey(clientId)) {
-      String query = requestParameterMap.get(clientId);
+      final String query = requestParameterMap.get(clientId);
       if (LOG.isDebugEnabled()) {
         LOG.debug("suggest query='{}'", query);
       }
+      // XXX this is for the old way: for "suggestMethod"
       final AbstractUIInput input = ComponentUtils.findAncestor(suggest, AbstractUIInput.class);
-      input.setSubmittedValue(query);
+      if (input != null) {
+        input.setSubmittedValue(query);
+      }
+      // this is the new way: for select items
+      suggest.setQuery(query);
     }
   }
 
   @Override
   public void encodeBegin(FacesContext facesContext, UIComponent component) throws IOException {
     final AbstractUISuggest suggest = (AbstractUISuggest) component;
-    final UIIn in = ComponentUtils.findAncestor(suggest, UIIn.class);
+    final AbstractUIInput input = ComponentUtils.findAncestor(suggest, AbstractUIInput.class);
     final MethodExpression suggestMethodExpression = suggest.getSuggestMethodExpression();
-    // tbd: may use "suggest" instead of "in" for the method call?
-    final AutoSuggestItems items
-        = createAutoSuggestItems(suggestMethodExpression.invoke(facesContext.getELContext(), new Object[]{in}));
+
     int totalCount = suggest.getTotalCount();
-    final List<AutoSuggestItem> list = items.getItems();
-    if (totalCount == -1) {
-      totalCount = list.size();
-    }
+    String[] array;
 
-// tbd    final String title
-// tbd       = ResourceManagerUtils.getPropertyNotNull(facesContext, "tobago", "tobago.in.inputSuggest.moreElements");
+    if (suggestMethodExpression != null && input != null) { // old way (deprecated)
+      final AutoSuggestItems autoSuggestItems
+          = createAutoSuggestItems(suggestMethodExpression.invoke(facesContext.getELContext(), new Object[]{input}));
+      final List<AutoSuggestItem> items = autoSuggestItems.getItems();
 
-    String[] array = new String[list.size()];
-    for (int i = 0; i < totalCount; i++) {
-      array[i] = list.get(i).getLabel();
+      if (totalCount == -1 || items.size() < totalCount) {
+        totalCount = items.size();
+      }
+
+      array = new String[totalCount];
+      for (int i = 0; i < totalCount; i++) {
+        array[i] = items.get(i).getLabel();
+      }
+    } else {
+      final List<SelectItem> items = SelectItemUtils.getItemList(facesContext, suggest);
+
+      if (totalCount == -1 || items.size() < totalCount) {
+        totalCount = items.size();
+      }
+
+      array = new String[totalCount];
+      for (int i = 0; i < totalCount; i++) {
+        array[i] = items.get(i).getLabel();
+      }
     }
 
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
@@ -94,7 +113,11 @@ public class SuggestRenderer extends RendererBase {
     final String clientId = suggest.getClientId(facesContext);
     writer.writeIdAttribute(clientId);
     writer.writeNameAttribute(clientId);
-    writer.writeAttribute(DataAttributes.SUGGEST_FOR, in.getFieldId(facesContext), false);
+    if (input != null) {
+      writer.writeAttribute(DataAttributes.SUGGEST_FOR, input.getFieldId(facesContext), false);
+    } else {
+      LOG.error("No ancestor with type AbstractUIInput found for suggest id={}", clientId);
+    }
     writer.writeAttribute(DataAttributes.SUGGEST_MIN_CHARS, suggest.getMinimumCharacters());
     writer.writeAttribute(DataAttributes.SUGGEST_DELAY, suggest.getDelay());
     writer.writeAttribute(DataAttributes.SUGGEST_MAX_ITEMS, suggest.getMaximumItems());

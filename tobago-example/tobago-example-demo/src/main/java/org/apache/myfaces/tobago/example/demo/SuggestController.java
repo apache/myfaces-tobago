@@ -21,7 +21,6 @@ package org.apache.myfaces.tobago.example.demo;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.myfaces.tobago.example.data.LocaleList;
-import org.apache.myfaces.tobago.model.SuggestFilter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -37,16 +36,36 @@ import java.util.List;
 public class SuggestController implements Serializable {
 
   private static final Logger LOG = LoggerFactory.getLogger(SuggestController.class);
-  private String suggestInput;
+  private String query;
 
-  public String getSuggestInput() {
-    return suggestInput;
+  public String getQuery() {
+    return query;
   }
 
-  public void setSuggestInput(String suggestInput) {
-    this.suggestInput = suggestInput;
+  public void setQuery(String query) {
+    this.query = query;
   }
 
+  public List<String> getLanguages() {
+    final String substring = query != null ? query : "";
+    LOG.info("Creating items for substring: '" + substring + "'");
+    final List<String> result = new ArrayList<String>(LocaleList.COUNTRY_LANGUAGE.size());
+    for (final String name : LocaleList.COUNTRY_LANGUAGE) {
+      if (StringUtils.containsIgnoreCase(name, substring)) {
+        result.add(name);
+      }
+    }
+    return result;
+  }
+
+  public List<String> getAllLanguages() {
+    return LocaleList.COUNTRY_LANGUAGE;
+  }
+
+  /*
+   * use <tc:selectItems/> instead
+   */
+  @Deprecated
   public List<String> getInputSuggestItems(final UIInput component) {
     String substring = (String) component.getSubmittedValue();
     if (substring == null) {
@@ -63,13 +82,5 @@ public class SuggestController implements Serializable {
       }
     }
     return result;
-  }
-
-  public SuggestFilter getFilter() {
-    return SuggestFilter.PREFIX;
-  }
-
-  public List<String> getCountryLanguageList(final UIInput component) {
-    return LocaleList.COUNTRY_LANGUAGE;
   }
 }

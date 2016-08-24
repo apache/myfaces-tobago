@@ -67,8 +67,8 @@ public class QUnitTests {
       pom = new File("pom.xml"); // Jenkins.
     }
     WebArchive webArchive = ShrinkWrap.create(MavenImporter.class).
-            loadPomFromFile(pom, "jsf-provided", "!myfaces-2.0").importBuildOutput()
-            .as(WebArchive.class);
+        loadPomFromFile(pom, "jsf-provided", "!myfaces-2.0").importBuildOutput()
+        .as(WebArchive.class);
     // XXX there should be a proper profile in POM for that
     webArchive.delete("/WEB-INF/lib/hibernate-validator-4.3.2.Final.jar");
     return webArchive;
@@ -77,7 +77,7 @@ public class QUnitTests {
   private void setupBrowser(String page, String testJs) throws UnsupportedEncodingException {
     LOG.info("setup browser for: " + page);
     browser.get(contextPath + "/faces/test.xhtml?page=" + URLEncoder.encode(page, "UTF-8") + "&testjs="
-            + URLEncoder.encode(testJs, "UTF-8"));
+        + URLEncoder.encode(testJs, "UTF-8"));
   }
 
   private void runStandardTest(String page) throws UnsupportedEncodingException, InterruptedException {
@@ -95,10 +95,9 @@ public class QUnitTests {
     Assert.assertTrue("There must be at least one test case.", testCases.size() > 0);
 
     for (WebElement testCase : testCases) {
+      finishTestCaseExecution(testCase);
       String testName = testCase.findElement(By.className("test-name")).getText();
       String runtime = testCase.findElement(By.className("runtime")).getText();
-
-      finishTestCaseExecution(testCase);
 
       if ("pass".equals(testCase.getAttribute("class"))) {
         LOG.info("test '" + testName + "' for " + page + " passed in " + runtime);
@@ -115,7 +114,7 @@ public class QUnitTests {
           } else if ("fail".equals(assertion.getAttribute("class"))) {
             WebElement source = assertion.findElement(By.className("test-source"));
             LOG.warn("test '" + testName + "' for " + page + " failed on assertion " + assertionCount
-                    + "\n" + source.getText());
+                + "\n" + source.getText());
             String expected = assertion.findElement(By.className("test-expected")).getText();
             expected = expected.substring(12, expected.length() - 1);
             String actual = assertion.findElement(By.className("test-actual")).getText();
@@ -153,7 +152,7 @@ public class QUnitTests {
     while (System.currentTimeMillis() < endTime && !testExecuted) {
       if ("running".equals(testCase.getAttribute("class"))) {
         testExecuted = false;
-        LOG.info("wait for test execution finished... (" + (endTime - System.currentTimeMillis()) + "ms left)");
+        LOG.info("wait for test execution... (" + (endTime - System.currentTimeMillis()) + "ms left)");
         Thread.sleep(50);
       } else {
         testExecuted = true;
@@ -233,6 +232,12 @@ public class QUnitTests {
   @Test
   public void in() throws UnsupportedEncodingException, InterruptedException {
     String page = "content/20-component/010-input/10-in/in.xhtml";
+    runStandardTest(page);
+  }
+
+  @Test
+  public void suggest() throws UnsupportedEncodingException, InterruptedException {
+    String page = "content/20-component/010-input/20-suggest/suggest.xhtml";
     runStandardTest(page);
   }
 
@@ -335,6 +340,12 @@ public class QUnitTests {
   @Test
   public void collapsibleSection() throws UnsupportedEncodingException, InterruptedException {
     String page = "content/30-concept/53-collapsible/30-collapsible-section/collapsible-section.xhtml";
+    runStandardTest(page);
+  }
+
+  @Test
+  public void suggestMethod() throws UnsupportedEncodingException, InterruptedException {
+    String page = "content/35-deprecated/15-suggest-method/suggest-method.xhtml";
     runStandardTest(page);
   }
 

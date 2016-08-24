@@ -54,6 +54,18 @@ Tobago.Suggest.loadFromServer = function (input) {
   };
 };
 
+Tobago.Suggest.fromClient = function (data) {
+  return function findMatches(query, syncResults) {
+    var result = [];
+    for (i = 0; i < data.length; i++) {
+      if (data[i].indexOf(query) >= 0) {
+        result.push(data[i]);
+      }
+    }
+    syncResults(result);
+  };
+};
+
 Tobago.Suggest.init = function (elements) {
 
   var suggests = Tobago.Utils.selectWithJQuery(elements, ".tobago-suggest");
@@ -65,20 +77,27 @@ Tobago.Suggest.init = function (elements) {
     var minChars = suggest.data("tobago-suggest-min-chars");
     var maxItems = suggest.data("tobago-suggest-max-items");
 
-    var update = suggest.data("tobago-suggest-update"); // todo
+    var update = typeof suggest.data("tobago-suggest-update") != "undefined";
     var totalCount = suggest.data("tobago-suggest-total-count"); // todo
 
-    var list = suggest.data("tobago-suggest-data");
-
-    if (input.hasClass("tt-input")) { // already initialized: so only update data
+    if (update && input.hasClass("tt-input")) { // already initialized: so only update data
       var asyncResults = suggest.data("tobago-suggest-callback"); // comes from "findMatches()"
       if (asyncResults) {
-        var data = suggest.data("tobago-suggest-data");
-        asyncResults(data);
+        var data1 = suggest.data("tobago-suggest-data");
+        asyncResults(data1);
       }
     } else { // new
       input.data("tobago-suggest-for", suggest.attr("id"));
       input.attr("autocomplete", "off");
+
+      var source;
+      if (update) {
+        source = Tobago.Suggest.loadFromServer(input);
+      } else {
+        var data2 = suggest.data("tobago-suggest-data");
+        source = Tobago.Suggest.fromClient(data2);
+      }
+
       input.typeahead({
         minLength: minChars,
         hint: true,// todo
@@ -86,7 +105,7 @@ Tobago.Suggest.init = function (elements) {
       }, {
         //name: 'test',// todo
         limit: maxItems,
-        source: Tobago.Suggest.loadFromServer(input)
+        source: source
       });
     }
   });
