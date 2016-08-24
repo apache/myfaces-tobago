@@ -82,8 +82,8 @@
       <pre><code class="language-markup">&lt;tc:in placeholder="type a message">
   &lt;f:facet name="before">
     &lt;tc:button id="lsendtoc" label="\#{groupController.sendTo}" omit="true">
-      &lt;tc:command label="SendTo: Peter" actionListener="\#{groupController.sendToListener}">
-        &lt;f:ajax render="isendtoc"/>
+      &lt;tc:command label="SendTo: Peter">
+        &lt;f:ajax render="isendtoc" execute="isendtoc" listener="\#{groupController.sendToListener}"/>
       &lt;/tc:command>
       ...
     &lt;/tc:button>
