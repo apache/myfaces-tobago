@@ -186,9 +186,9 @@ public abstract class CommandRendererBase extends RendererBase {
   @Override
   public void encodeChildren(final FacesContext facesContext, final UIComponent component) throws IOException {
 
-    final AbstractUICommand link = (AbstractUICommand) component;
+    final AbstractUICommand command = (AbstractUICommand) component;
 
-    if (link.isParentOfCommands()) {
+    if (command.isParentOfCommands()) {
       final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
       for (UIComponent child : component.getChildren()) {
