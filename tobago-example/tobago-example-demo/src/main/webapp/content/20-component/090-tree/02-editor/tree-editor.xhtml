@@ -23,50 +23,16 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:f="http://java.sun.com/jsf/core">
   <ui:param name="title" value="#{overviewBundle.tree_editor}"/>
-  <p>This is an example, to show how to edit a tree.</p>
+  <p>This is an example, to show how to write an editor for a tree.
+  Some commands are using popups and AJAX.</p>
 
-  <!-- todo -->
-  <p>TODO: to be refactored because of TOBAGO-1565. Replace attribute "popupClose" with tc:operation</p>
-
-  <tc:button label="New">
-    <f:facet name="popup">
-      <tc:popup id="createPopup">
-        <tc:box label="New">
-          <tc:in label="New Name" value="#{treeEditorController.name}"/>
-          <tc:button label="OK" action="#{treeEditorController.create}">
-            <tc:attribute name="popupClose" value="afterSubmit"/>
-          </tc:button>
-          <tc:button label="Cancel">
-            <tc:attribute name="popupClose" value="immediate"/>
-          </tc:button>
-        </tc:box>
-      </tc:popup>
-    </f:facet>
-  </tc:button>
-  <tc:button label="Rename">
-    <f:facet name="popup">
-      <tc:popup id="renamePopup">
-        <tc:box label="Rename">
-          <tc:in label="New Name" value="#{treeEditorController.name}"/>
-          <tc:button label="OK" action="#{treeEditorController.rename}">
-            <tc:attribute name="popupClose" value="afterSubmit"/>
-          </tc:button>
-          <tc:button label="Cancel">
-            <tc:attribute name="popupClose" value="immediate"/>
-          </tc:button>
-        </tc:box>
-      </tc:popup>
-    </f:facet>
-  </tc:button>
-
-  <p>Currently, the buttons 'New' and 'Rename' doesn't work in the toolbar. Use the alternative buttons above.</p>
   <tc:buttons>
     <tc:button label="New" omit="true" image="fa-file-o">
-      <tc:dataAttribute name="alert-text" value="Not implemented yet"/>
+      <tc:operation name="show" for="createPopup"/>
     </tc:button>
     <tc:button label="Delete" image="fa-trash-o" action="#{treeEditorController.delete}"/>
     <tc:button label="Rename" omit="true" image="fa-edit">
-      <tc:dataAttribute name="alert-text" value="Not implemented yet"/>
+      <tc:operation name="show" for="renamePopup"/>
     </tc:button>
     <tc:button label="Cut" action="#{treeEditorController.cut}" image="fa-cut"/>
     <tc:button label="Copy" action="#{treeEditorController.copy}" image="fa-copy"/>
@@ -76,11 +42,38 @@
     <tc:button label="Reset" action="#{treeEditorController.reset}" image="fa-undo"/>
   </tc:buttons>
 
-  <tc:tree value="#{treeEditorController.categoryTree}" var="node"
+  <tc:popup id="createPopup" collapsedMode="hidden">
+    <tc:box label="New">
+      <tc:in label="New Name" id="newName" value="#{treeEditorController.name}"/>
+      <tc:button label="OK" action="#{treeEditorController.create}">
+        <f:ajax render=":::tree" execute=":::tree newName"/>
+        <tc:operation name="hide" for="createPopup"/>
+      </tc:button>
+      <tc:button label="Cancel" omit="true">
+        <tc:operation name="hide" for="createPopup"/>
+      </tc:button>
+    </tc:box>
+  </tc:popup>
+
+  <tc:popup id="renamePopup" collapsedMode="hidden">
+    <tc:box label="Rename">
+      <tc:in label="New Name" id="renameName" value="#{treeEditorController.name}"/>
+      <tc:button label="OK" action="#{treeEditorController.rename}">
+        <f:ajax render=":::tree" execute=":::tree renameName"/>
+        <tc:operation name="hide" for="renamePopup"/>
+      </tc:button>
+      <tc:button label="Cancel" omit="true">
+        <tc:operation name="hide" for="renamePopup"/>
+      </tc:button>
+    </tc:box>
+  </tc:popup>
+
+  <tc:tree value="#{treeEditorController.categoryTree}" var="node" id="tree"
            showRoot="true" showRootJunction="true" selectable="single">
     <tc:treeNode>
       <tc:treeIndent showJunctions="true"/>
       <tc:treeSelect label="#{node.userObject.name}" value="#{node.userObject.selected}"/>
     </tc:treeNode>
   </tc:tree>
+
 </ui:composition>

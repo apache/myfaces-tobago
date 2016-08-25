@@ -53,7 +53,7 @@ public class TreeEditorController implements Serializable {
   }
 
   public String getName() {
-    return "";
+    return name;
   }
 
   public void setName(String name) {
@@ -64,6 +64,9 @@ public class TreeEditorController implements Serializable {
     final DefaultMutableTreeNode node = findFirstSelected();
     if (node != null) {
       node.insert(CategoryTree.createNode(name, "id" + System.identityHashCode(name)), 0);
+      LOG.debug("Creating one node in {}", node.getUserObject());
+    } else {
+      LOG.warn("No node selected.");
     }
     return null;
   }
@@ -77,6 +80,8 @@ public class TreeEditorController implements Serializable {
         FacesContext.getCurrentInstance().addMessage(null,
                 new FacesMessage(FacesMessage.SEVERITY_INFO, "Root node cannot be removed", null));
       }
+    } else {
+      LOG.warn("No node selected.");
     }
     return null;
   }
@@ -84,7 +89,11 @@ public class TreeEditorController implements Serializable {
   public String rename() {
     final DefaultMutableTreeNode node = findFirstSelected();
     if (node != null && node.getUserObject() instanceof Node) {
-      ((Node) node.getUserObject()).setName(name);
+      final Node userObject = (Node) node.getUserObject();
+      LOG.debug("Renaming node from {} to {}", userObject.getName(), name);
+      userObject.setName(name);
+    } else {
+      LOG.warn("No node selected.");
     }
     return null;
   }
