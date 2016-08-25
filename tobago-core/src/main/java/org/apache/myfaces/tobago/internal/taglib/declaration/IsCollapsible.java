@@ -25,7 +25,7 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 public interface IsCollapsible {
 
   /**
-   * Enum indicating the collapsed state of this component.
+   * Indicating the collapsed state of this component.
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "boolean", defaultValue = "false")

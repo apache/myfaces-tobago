@@ -77,11 +77,12 @@
         If <code>collapsedMode="absent"</code>, which is default, a hidden popup dialog will no be rendered.
         If <code>collapsedMode="hidden"</code>, a hidden popup dialog will be rendered ob the page, but hidden by CSS.
       </p>
-      <p>Be careful with validations. For example, hidden required inputfields will be validated after submit.</p>
+      <p>Be careful with validations. For example, hidden required input fields will be validated after submit.</p>
       <p>So to create the popup, use
-        <code class="language-markup">&lt;tc:popup collapsed="true" collapsedMode="hidden"></code>.
-        This is because the popup should not be opened after reloading the page
-        and the hidden popup must be already rendered, so the client don't have to send any requests to the server.</p>
+        <code class="language-markup">&lt;tc:popup collapsedMode="hidden"></code>.
+        The attribute <code class="language-markup">collapsed="true"</code> is default,
+        because the popup should normally not be opened after loading the page.
+        The hidden popup must be already rendered, so the client don't have to send any requests to the server.</p>
       <p>Client sided opening and closing can be done with the
         <code class="language-markup">&lt;tc:operation name="show|hide" for="[ID]"/></code> tag.
         The attribute <code>name</code> must be set and can have the value 'show' and 'hide'
@@ -97,7 +98,7 @@
       </tc:button>
       <tc:out id="out" label="Text from Popup" value="#{popupController.popup2Text}"/>
 
-      <tc:popup id="clientPopup" collapsed="true" collapsedMode="hidden">
+      <tc:popup id="clientPopup" collapsedMode="hidden">
         <tc:box label="Client Sided Popup">
           <tc:panel id="clientPopupMessages">
             <tc:messages id="messages"/>

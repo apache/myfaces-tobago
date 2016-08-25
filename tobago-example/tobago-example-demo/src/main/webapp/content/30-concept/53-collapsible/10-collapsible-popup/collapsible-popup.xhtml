@@ -32,13 +32,13 @@
         The attribute <code>collapsedMode="absent"</code> is set,
         so the 'Submit'-button outside the popup could be executed while popup is hidden.
         Even if the required inputfield is empty.</p>
-      <tc:button id="open" label="Open" action="#{collapsiblePopupController.open}"/>
-      <tc:button id="submitOnPage" label="Submit"/>
+      <tc:button id="open1" label="Open" action="#{collapsiblePopupController.open}"/>
+      <tc:button id="submitOnPage1" label="Submit"/>
       <tc:popup id="controllerPopup" collapsed="#{collapsiblePopupController.collapsed}">
         <tc:box label="Simple Popup">
-          <tc:in id="in" label="Required" required="true"/>
-          <tc:button id="submitOnPopup" label="Submit"/>
-          <tc:button id="close" label="Close" immediate="true" action="#{collapsiblePopupController.close}"/>
+          <tc:in id="in1" label="Required" required="true"/>
+          <tc:button id="submitOnPopup1" label="Submit"/>
+          <tc:button id="close1" label="Close" immediate="true" action="#{collapsiblePopupController.close}"/>
         </tc:box>
       </tc:popup>
     </tc:form>
@@ -50,15 +50,15 @@
         The attribute <code>collapsedMode="absent"</code> is set by default.
         If you press the 'Submit'-button in the popup, the popup remains open,
         because the server know the current state.</p>
-      <tc:button id="open" label="Open">
+      <tc:button id="open2" label="Open">
         <tc:operation name="show" for="fullServerRequestPopup"/>
       </tc:button>
-      <tc:button id="submitOnPage" label="Submit"/>
-      <tc:popup id="fullServerRequestPopup" collapsed="true">
+      <tc:button id="submitOnPage2" label="Submit"/>
+      <tc:popup id="fullServerRequestPopup">
         <tc:box label="Full Server Request">
-          <tc:in id="in" label="Required" required="true"/>
-          <tc:button id="submitOnPopup" label="Submit"/>
-          <tc:button id="close" label="Close" immediate="true">
+          <tc:in id="in2" label="Required" required="true"/>
+          <tc:button id="submitOnPopup2" label="Submit"/>
+          <tc:button id="close2" label="Close" immediate="true">
             <tc:operation name="hide" for="fullServerRequestPopup"/>
           </tc:button>
         </tc:box>
@@ -76,17 +76,17 @@
       <p>The 'Submit'-button in the popup will close the popup, because the server didn't know the current state.</p>
       <p>To avoid server request, the attribute <code>omit="true"</code>
         is added to the 'Open'-button and the 'Close'-button.</p>
-      <tc:button id="open" label="Open" omit="true">
+      <tc:button id="open3" label="Open" omit="true">
         <tc:operation name="show" for="clientPopup"/>
       </tc:button>
-      <tc:button id="submitOnPage" label="Submit"/>
-      <tc:popup id="clientPopup" collapsed="true" collapsedMode="hidden">
+      <tc:button id="submitOnPage3" label="Submit"/>
+      <tc:popup id="clientPopup" collapsedMode="hidden">
         <tc:box label="Full Server Request">
           <p>The opening of the popup is client sided.
             Therefor the popup will be closed after pressing the 'Submit'-button which reload the page.</p>
-          <tc:in id="in" label="Required" required="true"/>
-          <tc:button id="submitOnPopup" label="Submit"/>
-          <tc:button id="close" label="Close" omit="true">
+          <tc:in id="in3" label="Required" required="true"/>
+          <tc:button id="submitOnPopup3" label="Submit"/>
+          <tc:button id="close3" label="Close" omit="true">
             <tc:operation name="hide" for="clientPopup"/>
           </tc:button>
         </tc:box>
