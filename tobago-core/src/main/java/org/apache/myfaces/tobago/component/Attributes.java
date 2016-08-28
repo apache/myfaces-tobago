@@ -71,7 +71,6 @@ public enum Attributes {
   disabled,
   enctype,
   escape,
-  executePartially,
   expanded,
   execute,
   event,
@@ -191,14 +190,9 @@ public enum Attributes {
   reference,
   relative,
   rendered,
-  /**
-   * @deprecated since Tobago 3.0.0
-   */
-  @Deprecated
-  renderedPartially,
   rendererType,
   renderAs,
-  renderPartially,
+  renderedPartially,
   renderRange,
   renderRangeExtern,
   required,
@@ -628,9 +622,6 @@ public enum Attributes {
   /** @deprecated Since Tobago 3.0.0. Please use the enum */
   @Deprecated
   public static final String RENDERED = "rendered";
-  /** @deprecated Since Tobago 3.0.0. Please use the enum */
-  @Deprecated
-  public static final String RENDERED_PARTIALLY = "renderedPartially";
   /** @deprecated Since Tobago 3.0.0. Please use the enum */
   @Deprecated
   public static final String RENDERER_TYPE = "rendererType";

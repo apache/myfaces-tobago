@@ -56,7 +56,9 @@
         <tc:gridLayout rows="auto;*"/>
       </f:facet>
 
-      <tc:button label="Reload List" renderedPartially="list"/>
+      <tc:button label="Reload List">
+        <f:ajax render="list" execute="list"/>
+      </tc:button>
 
       <tc:sheet value="#{scriptEvent.items}" var="item">
         <tc:column label="Event">

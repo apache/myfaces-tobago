@@ -42,9 +42,7 @@
           <tc:treeNode>
             <tc:treeIndent/>
             <tc:treeSelect label="#{node.userObject.name}" value="#{node.userObject.selected}">
-              <f:facet name="change">
-                <tc:command renderedPartially="selectedNodesOutput"/>
-              </f:facet>
+              <f:ajax execute="selectedNodesOutput" render="selectedNodesOutput"/>
             </tc:treeSelect>
           </tc:treeNode>
         </tc:tree>

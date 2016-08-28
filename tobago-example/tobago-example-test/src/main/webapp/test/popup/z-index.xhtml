@@ -350,7 +350,9 @@
                         <tc:button label="Cancel">
                           <tc:attribute name="popupClose" value="immediate"/>
                         </tc:button>
-                        <tc:button label="Redisplay" renderedPartially="box-2"/>
+                        <tc:button label="Redisplay">
+                          <f:ajax render="box-2" execute="box-2"/>
+                        </tc:button>
                         <tc:button label="Ok">
                           <tc:attribute name="popupClose" value="afterSubmit"/>
                         </tc:button>
@@ -359,13 +361,16 @@
                   </tc:popup>
                 </f:facet>
               </tc:button>
-              <tc:button label="Open Popup (AJAX)" renderedPartially="popup-2">
+              <tc:button label="Open Popup (AJAX)">
+                <f:ajax render="popup-2" execute="popup-2"/>
                 <tc:popupReference for="popup-2"/>
               </tc:button>
               <tc:button label="Cancel">
                 <tc:attribute name="popupClose" value="immediate"/>
               </tc:button>
-              <tc:button label="Redisplay" renderedPartially="box-1"/>
+              <tc:button label="Redisplay">
+                <f:ajax render="box-1" execute="box-1"/>
+              </tc:button>
               <tc:button label="Ok">
                 <tc:attribute name="popupClose" value="afterSubmit"/>
               </tc:button>
@@ -374,7 +379,8 @@
         </tc:popup>
       </f:facet>
     </tc:button>
-    <tc:button label="Open Popup (AJAX)" renderedPartially="popup-1">
+    <tc:button label="Open Popup (AJAX)">
+      <f:ajax render="popup-1" execute="popup-1"/>
       <tc:popupReference for="popup-1"/>
     </tc:button>
     <tc:button label="Update"/>

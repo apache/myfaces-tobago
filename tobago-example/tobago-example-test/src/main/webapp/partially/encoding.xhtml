@@ -47,7 +47,9 @@
         <tc:panel/>
         <tc:button label="Info" onclick="info();"/>
         <tc:button label="Full Reload" action="#{partially.reload}"/>
-        <tc:button label="AJAX Reload" action="#{partially.reload}" renderedPartially="box"/>
+        <tc:button label="AJAX Reload" action="#{partially.reload}">
+          <f:ajax render="box" execute="box"/>
+        </tc:button>
 
       </tc:panel>
 

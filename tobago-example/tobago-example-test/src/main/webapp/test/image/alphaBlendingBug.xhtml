@@ -49,7 +49,9 @@
 
       <tc:out value="Images loaded with AJAX must also be fixed."/>
 
-      <tc:button label="partial reload (right)" renderedPartially="ajax"/>
+      <tc:button label="partial reload (right)">
+        <f:ajax render="ajax" execute="ajax"/>
+      </tc:button>
     </tc:panel>
 
   </tc:page>

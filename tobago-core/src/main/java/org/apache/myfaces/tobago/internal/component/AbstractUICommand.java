@@ -21,8 +21,6 @@ package org.apache.myfaces.tobago.internal.component;
 
 import org.apache.myfaces.tobago.component.OnComponentPopulated;
 import org.apache.myfaces.tobago.component.SupportsAccessKey;
-import org.apache.myfaces.tobago.component.SupportsAjaxBehaviorHolder;
-import org.apache.myfaces.tobago.component.SupportsRenderedPartially;
 import org.apache.myfaces.tobago.component.Visual;
 import org.apache.myfaces.tobago.event.CollapsibleActionListener;
 import org.apache.myfaces.tobago.internal.util.AuthorizationHelper;
@@ -34,6 +32,7 @@ import javax.el.MethodExpression;
 import javax.faces.component.UICommand;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
+import javax.faces.component.behavior.ClientBehaviorHolder;
 import javax.faces.context.FacesContext;
 import javax.faces.event.FacesEvent;
 import javax.faces.event.PhaseId;
@@ -42,9 +41,8 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
-public abstract class AbstractUICommand
-    extends UICommand
-    implements SupportsRenderedPartially, SupportsAjaxBehaviorHolder, SupportsAccessKey, OnComponentPopulated, Visual {
+public abstract class AbstractUICommand extends UICommand
+    implements SupportsAccessKey, OnComponentPopulated, Visual, ClientBehaviorHolder {
 
   private static final Logger LOG = LoggerFactory.getLogger(AbstractUICommand.class);
 
@@ -174,15 +172,6 @@ public abstract class AbstractUICommand
   public abstract String getTarget();
 
   public abstract boolean isTransition();
-
-  @Override
-  public abstract String[] getRenderedPartially();
-
-  @Override
-  public abstract String[] getRenderPartially();
-
-  @Override
-  public abstract String[] getExecutePartially();
 
   public abstract boolean isOmit();
 

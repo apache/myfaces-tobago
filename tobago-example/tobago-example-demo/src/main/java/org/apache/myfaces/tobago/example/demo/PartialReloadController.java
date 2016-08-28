@@ -19,16 +19,19 @@
 
 package org.apache.myfaces.tobago.example.demo;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.myfaces.tobago.util.AjaxUtils;
 
 import javax.el.ELContext;
 import javax.el.ValueExpression;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.event.AjaxBehaviorEvent;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.util.Date;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @RequestScoped
 @Named
@@ -72,7 +75,7 @@ public class PartialReloadController {
     return logAndNavigate(null);
   }
 
-  public String navigateAction() {
+  public void navigateAction(AjaxBehaviorEvent event) {
     final FacesContext facesContext = FacesContext.getCurrentInstance();
 
     if (navigationState == null) {
@@ -84,32 +87,31 @@ public class PartialReloadController {
 
     LOG.info("navigateAction = \"" + navigateAction + "\"");
     if (navigateAction == null) {
-      return logAndNavigate(null);
+      logAndNavigate(null);
     } else if ("left".equals(navigateAction)) {
-      facesContext.getPartialViewContext().getRenderIds().add("page:mainForm:left");
+      AjaxUtils.addRenderIds("page:mainForm:left");
       navigateAction = null;
-      return logAndNavigate(null);
+      logAndNavigate(null);
     } else if ("right".equals(navigateAction)) {
-      facesContext.getPartialViewContext().getRenderIds().add("page:mainForm:right");
+      AjaxUtils.addRenderIds("page:mainForm:right");
       navigateAction = null;
-      return logAndNavigate(null);
+      logAndNavigate(null);
     } else if ("both".equals(navigateAction)) {
-      facesContext.getPartialViewContext().getRenderIds().add("page:mainForm:left");
-      facesContext.getPartialViewContext().getRenderIds().add("page:mainForm:right");
+      AjaxUtils.addRenderIds("page:mainForm:left", "page:mainForm:right");
       navigateAction = null;
-      return logAndNavigate(null);
+      logAndNavigate(null);
     } else if ("parent".equals(navigateAction)) {
       navigateAction = null;
-      facesContext.getPartialViewContext().getRenderIds().add("page:mainForm:parent");
-      return logAndNavigate(null);
+      AjaxUtils.addRenderIds("page:mainForm:parent");
+      logAndNavigate(null);
     } else if ("prev".equals(navigateAction)) {
       navigateAction = null;
-      return logAndNavigate(navigationState.gotoPrevious());
+      AjaxUtils.navigate(facesContext, logAndNavigate(navigationState.gotoPrevious()));
     } else if ("next".equals(navigateAction)) {
       navigateAction = null;
-      return logAndNavigate(navigationState.gotoNext());
+      AjaxUtils.navigate(facesContext, logAndNavigate(navigationState.gotoNext()));
     }
-    return logAndNavigate(null);
+    logAndNavigate(null);
   }
 
   private String logAndNavigate(final String navValue) {

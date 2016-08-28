@@ -163,13 +163,6 @@ public interface MenuRadioExtensionTag {
   void setConverter(final javax.el.ValueExpression converter);
 
   /**
-   * Indicate the partially rendered Components in a case of a submit.
-   */
-  @TagAttribute
-  @UIComponentTagAttribute(type = "java.lang.String[]")
-  void setRenderedPartially(final javax.el.ValueExpression renderedPartially);
-
-  /**
    * The component identifier for the input field component inside of the container.
    * This value must be unique within the closest parent component that is a naming container.
    */

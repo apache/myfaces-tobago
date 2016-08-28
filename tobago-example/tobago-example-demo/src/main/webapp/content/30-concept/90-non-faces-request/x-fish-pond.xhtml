@@ -42,7 +42,9 @@
       <f:facet name="layout">
         <tc:gridLayout columns="auto;auto;*"/>
       </f:facet>
-      <tc:button label="random" action="#{fishPond.random}" renderedPartially="pond :page:header:headerInfo"/>
+      <tc:button label="random" action="#{fishPond.random}">
+        <f:ajax render="pond :page:header:headerInfo" execute="pond"/>
+      </tc:button>
       <tc:button label="back to start" action="/content/90-non-faces-request/non-faces-request.xhtml"/>
     </tc:panel>
 

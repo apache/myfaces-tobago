@@ -38,16 +38,24 @@
           <tc:gridLayout rows="auto;auto;auto;auto;*"/>
         </f:facet>
 
-        <tc:button label="Button" action="#{partially.reload}" renderedPartially="partial"/>
+        <tc:button label="Button" action="#{partially.reload}">
+          <f:ajax render="partial" execute="partial"/>
+        </tc:button>
 
-        <tc:link label="Link" action="#{partially.reload}" renderedPartially="partial"/>
+        <tc:link label="Link" action="#{partially.reload}">
+          <f:ajax render="partial" execute="partial"/>
+        </tc:link>
 
         <tc:toolBar iconSize="off">
-          <tc:toolBarCommand label="ToolBarCommand" action="#{partially.reload}" renderedPartially="partial"/>
+          <tc:toolBarCommand label="ToolBarCommand" action="#{partially.reload}">
+            <f:ajax render="partial" execute="partial"/>
+          </tc:toolBarCommand>
         </tc:toolBar>
 
         <tc:menuBar>
-          <tc:menuCommand label="MenuCommand" action="#{partially.reload}" renderedPartially="partial"/>
+          <tc:menuCommand label="MenuCommand" action="#{partially.reload}">
+            <f:ajax render="partial" execute="partial"/>
+          </tc:menuCommand>
         </tc:menuBar>
 
         <tc:panel/>

@@ -21,7 +21,6 @@ package org.apache.myfaces.tobago.renderkit.html;
 
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Facets;
-import org.apache.myfaces.tobago.component.UICommand;
 import org.apache.myfaces.tobago.component.UIForm;
 import org.apache.myfaces.tobago.internal.component.AbstractUICommand;
 import org.apache.myfaces.tobago.internal.util.Deprecation;
@@ -80,8 +79,8 @@ public class Command {
         command.isTransition(),
         command.getTarget(),
         RenderUtils.generateUrl(facesContext, command),
-        ComponentUtils.evaluateClientIds(facesContext, command, command.getExecutePartially()),
-        ComponentUtils.evaluateClientIds(facesContext, command, command.getRenderPartially()),
+        null,
+        null,
         null,
         getConfirmation(command),
         null,
@@ -103,15 +102,16 @@ public class Command {
     if (target != null) {
       this.target = target;
     }
-    if (facetComponent instanceof AbstractUICommand
-        && ((AbstractUICommand) facetComponent).getRenderedPartially().length > 0) {
-      setPartially(ComponentUtils.evaluateClientIds(
-          facesContext, facetComponent, ((UICommand) facetComponent).getRenderedPartially()));
-    } else {
+    // TODO: TOBAGO-1572
+//    if (facetComponent instanceof AbstractUICommand
+//        && ((AbstractUICommand) facetComponent).getRenderedPartially().length > 0) {
+//      setPartially(ComponentUtils.evaluateClientIds(
+//          facesContext, facetComponent, ((UICommand) facetComponent).getRenderedPartially()));
+//    } else {
       if (focusId != null) {
         this.focus = focusId;
       }
-    }
+//    }
 
     final int delay = ComponentUtils.getIntAttribute(facetComponent, Attributes.delay);
     if (delay > 0) {

@@ -19,16 +19,12 @@
 
 package org.apache.myfaces.tobago.facelets;
 
-import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Visual;
-import org.apache.myfaces.tobago.component.SupportsRenderedPartially;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.el.ConstantMethodExpression;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.el.ELException;
 import javax.el.ExpressionFactory;
@@ -52,6 +48,10 @@ import javax.faces.view.facelets.TagException;
 import javax.faces.view.facelets.TagHandler;
 import java.beans.IntrospectionException;
 import java.beans.PropertyDescriptor;
+
+import org.apache.commons.beanutils.PropertyUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public final class AttributeHandler extends TagHandler {
 
@@ -221,13 +221,6 @@ public final class AttributeHandler extends TagHandler {
             parent.setRendered(value.getBoolean(faceletContext));
           } else {
             parent.setValueExpression(nameValue.getName(), value.getValueExpression(faceletContext, Boolean.class));
-          }
-        } else if (Attributes.renderedPartially == nameValue && parent instanceof SupportsRenderedPartially) {
-          if (value.isLiteral()) {
-            final String[] components = ComponentUtils.splitList(value.getValue());
-            ((SupportsRenderedPartially) parent).setRenderedPartially(components);
-          } else {
-            parent.setValueExpression(nameValue.getName(), value.getValueExpression(faceletContext, Object.class));
           }
         } else if (Attributes.markup == nameValue) {
           if (parent instanceof Visual) {

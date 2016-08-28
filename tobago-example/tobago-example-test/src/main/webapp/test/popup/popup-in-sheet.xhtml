@@ -31,8 +31,8 @@
                 var="entry" columns="1*;1*;1*;1*" value="#{popupReference.sheet}">
 
         <tc:column label="Column 1">
-          <tc:link label="#{entry.column1}" actionListener="#{popupReference.selectEntry}"
-                   renderedPartially=":page:popup1">
+          <tc:link label="#{entry.column1}" actionListener="#{popupReference.selectEntry}">
+            <f:ajax render=":page:popup1" execute=":page:popup1"/>
             <tc:popupReference for=":page:popup1"/>
           </tc:link>
         </tc:column>
@@ -46,8 +46,8 @@
         </tc:column>
 
         <tc:column label="Edit">
-          <tc:button label="Edit" actionListener="#{popupReference.selectEntry}"
-                     renderedPartially=":page:popup2">
+          <tc:button label="Edit" actionListener="#{popupReference.selectEntry}">
+            <f:ajax render=":page:popup2" execute=":page:popup2"/>
             <tc:popupReference for=":page:popup2"/>
           </tc:button>
         </tc:column>
@@ -67,8 +67,8 @@
               <tc:gridLayout columns="1*;auto;auto"/>
             </f:facet>
             <tc:panel/>
-            <tc:button label="Save" actionListener="#{popupReference.saveChanges}"
-                       renderedPartially=":page:sheet">
+            <tc:button label="Save" actionListener="#{popupReference.saveChanges}">
+              <f:ajax render=":page:sheet" execute=":page:sheet"/>
               <tc:attribute name="popupClose" value="afterSubmit"/>
             </tc:button>
             <tc:button label="Cancel">
@@ -93,8 +93,8 @@
               <tc:gridLayout columns="1*;auto;auto"/>
             </f:facet>
             <tc:panel/>
-            <tc:button label="Save" actionListener="#{popupReference.saveChanges}"
-                       renderedPartially=":page:sheet">
+            <tc:button label="Save" actionListener="#{popupReference.saveChanges}">
+              <f:ajax render=":page:sheet" execute=":page:sheet"/>
               <tc:attribute name="popupClose" value="afterSubmit"/>
             </tc:button>
             <tc:button label="Cancel">

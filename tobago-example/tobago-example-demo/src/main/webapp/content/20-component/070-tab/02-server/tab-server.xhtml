@@ -20,7 +20,7 @@
 <ui:composition template="/main.xhtml"
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
-                xmlns:ui="http://java.sun.com/jsf/facelets">
+                xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://xmlns.jcp.org/jsf/core">
   <ui:param name="title" value="#{overviewBundle.tab} - #{overviewBundle.tab_server} &lt;tc:tab>"/>
   <p>Tabs can be created with one or more <code class="language-markup">&lt;tc:tab/></code> within a
     <code class="language-markup">&lt;tc:tabGroup></code>.
@@ -97,7 +97,8 @@
     <code class="language-markup">&lt;tc:tabChangeListener type="org.apache.myfaces.tobago.example
       .demo.actionlistener.SimpleTabChangeListener"
       binding="\#{tabController.tabChangeListener}"/></code>
-    <tc:tabGroup switchType="reloadPage" renderedPartially="tabChangeListenerSection">
+    <tc:tabGroup switchType="reloadPage">
+      <f:ajax render="tabChangeListenerSection"/>
       <tc:tabChangeListener type="org.apache.myfaces.tobago.example.demo.actionlistener.SimpleTabChangeListener"
                             binding="#{tabController.tabChangeListener}"/>
       <tc:tab label="One">

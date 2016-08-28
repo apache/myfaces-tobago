@@ -19,7 +19,6 @@
 
 package org.apache.myfaces.tobago.renderkit.util;
 
-import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.internal.component.AbstractUICommand;
 import org.apache.myfaces.tobago.internal.component.AbstractUIData;
@@ -28,8 +27,6 @@ import org.apache.myfaces.tobago.model.ExpandedState;
 import org.apache.myfaces.tobago.model.SelectedState;
 import org.apache.myfaces.tobago.model.TreePath;
 import org.apache.myfaces.tobago.util.ComponentUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.faces.application.Application;
 import javax.faces.application.ViewHandler;
@@ -43,14 +40,14 @@ import javax.faces.component.behavior.ClientBehaviorContext;
 import javax.faces.component.behavior.ClientBehaviorHolder;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
-import javax.faces.event.ActionEvent;
 import javax.faces.render.ClientBehaviorRenderer;
 import java.io.IOException;
 import java.net.URLDecoder;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public final class RenderUtils {
 
@@ -263,44 +260,7 @@ public final class RenderUtils {
   }
 
   public static String getBehaviorCommands(final FacesContext facesContext, final ClientBehaviorHolder holder) {
-    final Map<String, List<ClientBehavior>> behaviors;
-    if (holder instanceof AbstractUICommand) {
-      behaviors = holder.getClientBehaviors();
-    } else {
-      // search for clientBehaviorHolder in facets
-      behaviors = new HashMap<String, List<ClientBehavior>>();
-      for (Map.Entry<String, UIComponent> facetEntry : ((UIComponent) holder).getFacets().entrySet()) {
-
-        if (!Facets.isEvent(facetEntry.getKey())) {
-          break;
-        }
-
-        if (facetEntry.getValue() instanceof ClientBehaviorHolder) {
-          final ClientBehaviorHolder behaviorHolder = (ClientBehaviorHolder) facetEntry.getValue();
-          final Map<String, List<ClientBehavior>> behaviorsMap = behaviorHolder.getClientBehaviors();
-          final List<ClientBehavior> clientBehaviors = new ArrayList<ClientBehavior>();
-          final String facetName = facetEntry.getKey();
-          if (behaviorsMap.get(facetName) != null) {
-            clientBehaviors.addAll(behaviorsMap.get(facetName));
-          }
-          // if facet name != "click" and the behaviorCommands are added as default they must moved to the correct map
-          // "click" is default behavior of tc:command which should be the facet
-          if (clientBehaviors.isEmpty() && behaviorsMap.get("click") != null) {
-            final List<ClientBehavior> clickBehaviors = behaviorsMap.get("click");
-            for (ClientBehavior behavior : clickBehaviors) {
-              behaviorHolder.addClientBehavior(facetName, behavior);
-              clientBehaviors.add(behavior);
-            }
-            clickBehaviors.clear();
-          }
-          behaviors.put(facetName, clientBehaviors);
-        }
-      }
-      // add f:ajax behaviors, note:facet behaviors overrules f:ajax
-      if (behaviors.isEmpty()) {
-        behaviors.putAll(holder.getClientBehaviors());
-      }
-    }
+    final Map<String, List<ClientBehavior>> behaviors = holder.getClientBehaviors();
     for (Map.Entry<String, List<ClientBehavior>> behavior : behaviors.entrySet()) {
       final String key = behavior.getKey();
       final ClientBehaviorContext context = ClientBehaviorContext.createClientBehaviorContext(
@@ -310,8 +270,7 @@ public final class RenderUtils {
           final String type = ((ClientBehaviorBase) clientBehavior).getRendererType();
           final ClientBehaviorRenderer clientBehaviorRenderer
               = facesContext.getRenderKit().getClientBehaviorRenderer(type);
-          final String commands = clientBehaviorRenderer.getScript(context, clientBehavior);
-          return commands;
+          return clientBehaviorRenderer.getScript(context, clientBehavior);
         } else {
           LOG.warn("Ignoring: '{}'", clientBehavior);
         }
@@ -322,29 +281,20 @@ public final class RenderUtils {
 
   public static void decodeClientBehaviors(final FacesContext facesContext, final UIComponent component) {
     if (component instanceof ClientBehaviorHolder) {
-      final Map<String, String> paramMap = facesContext.getExternalContext().getRequestParameterMap();
-      final String behaviorEventName = paramMap.get("javax.faces.behavior.event");
-      if (behaviorEventName == null) {
-        return;
-      }
-
-      final ClientBehaviorHolder clientBehaviorHolder;
-
-      if (component.getFacet(behaviorEventName) instanceof ClientBehaviorHolder) {
-        clientBehaviorHolder = (ClientBehaviorHolder) component.getFacet(behaviorEventName);
-      } else {
-        clientBehaviorHolder = (ClientBehaviorHolder) component;
-      }
+      final ClientBehaviorHolder clientBehaviorHolder = (ClientBehaviorHolder) component;
       final Map<String, List<ClientBehavior>> clientBehaviors = clientBehaviorHolder.getClientBehaviors();
       if (clientBehaviors != null && !clientBehaviors.isEmpty()) {
-        List<ClientBehavior> clientBehaviorList = clientBehaviors.get(behaviorEventName);
-        if (clientBehaviorList != null && !clientBehaviorList.isEmpty()) {
-          final String clientId = paramMap.get("javax.faces.source");
-          if (component.getClientId(facesContext).equals(clientId)) {
-            for (ClientBehavior clientBehavior : clientBehaviorList) {
-              clientBehavior.decode(facesContext, component);
+        final Map<String, String> paramMap = facesContext.getExternalContext().getRequestParameterMap();
+        final String behaviorEventName = paramMap.get("javax.faces.behavior.event");
+        if (behaviorEventName != null) {
+          final List<ClientBehavior> clientBehaviorList = clientBehaviors.get(behaviorEventName);
+          if (clientBehaviorList != null && !clientBehaviorList.isEmpty()) {
+            final String clientId = paramMap.get("javax.faces.source");
+            if (component.getClientId(facesContext).equals(clientId)) {
+              for (ClientBehavior clientBehavior : clientBehaviorList) {
+                clientBehavior.decode(facesContext, component);
+              }
             }
-            ((UIComponent) clientBehaviorHolder).queueEvent(new ActionEvent((UIComponent) clientBehaviorHolder));
           }
         }
       }

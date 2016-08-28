@@ -24,12 +24,10 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasAction;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasActionListener;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasAjaxBehavior;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasImage;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabelAndAccessKey;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasLink;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasRenderedPartially;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasResource;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTarget;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
@@ -57,7 +55,7 @@ import javax.faces.component.UICommand;
     allowedChildComponenents = "NONE")
 public interface CommandTagDeclaration
     extends HasIdBindingAndRendered, HasAction, HasActionListener, IsImmediateCommand,
-    HasLink, HasResource, IsTransition, HasTarget, HasRenderedPartially, HasAjaxBehavior, IsDisabledBySecurity,
+    HasLink, HasResource, IsTransition, HasTarget, IsDisabledBySecurity,
     IsOmit, HasValue, IsVisual, HasLabelAndAccessKey, HasTip, HasImage,
     IsDefaultCommand {
 }

@@ -52,7 +52,8 @@
                   <tc:gridLayout rows="*;auto"/>
                 </f:facet>
                 <tx:in label="Edit Value" value="#{popupData.value}" fieldId="in"/>
-                <tc:button label="Save and Close" id="close" renderedPartially=":page:global">
+                <tc:button label="Save and Close" id="close">
+                  <f:ajax render=":page:global" execute=":page:global"/>
                   <tc:attribute name="popupClose" value="afterSubmit"/>
                 </tc:button>
               </tc:box>

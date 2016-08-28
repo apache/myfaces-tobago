@@ -83,7 +83,7 @@
 
       <tc:panel>
         <f:facet name="layout">
-          <tc:gridLayout columns="*;*" rows="auto;auto;auto;auto;auto;auto;auto"/>
+          <tc:gridLayout columns="*;*" rows="auto;auto;auto;auto;auto;auto;auto;auto"/>
         </f:facet>
 
         <!--renderedPartially="left :page:header:headerInfo"-->
@@ -93,28 +93,34 @@
         </tc:button>
 
         <tc:button label="Reload right" tip="Reload right side box"
-                   action="#{partialReloadController.reload}" renderPartially="right :page:header:headerInfo"/>
+                   action="#{partialReloadController.reload}">
+          <f:ajax render="right :page:header:headerInfo"/>
+        </tc:button>
 
         <tc:button label="Reload both" tip="Reload both boxes"
-                   action="#{partialReloadController.reload}" renderedPartially="left right :page:header:headerInfo">
+                   action="#{partialReloadController.reload}">
+          <f:ajax render="left right :page:header:headerInfo"/>
           <tc:gridLayoutConstraint columnSpan="2"/>
         </tc:button>
 
         <tc:button label="Reload full panel"
                    tip="Reload the full area inside the outer box"
-                   action="#{partialReloadController.reload}" renderedPartially="parent :page:header:headerInfo">
+                   action="#{partialReloadController.reload}">
+          <f:ajax render="parent :page:header:headerInfo"/>
           <tc:gridLayoutConstraint columnSpan="2"/>
         </tc:button>
 
         <tc:button label="Reload both (wait 3 s)"
                    tip="Reload both boxes, but the server has a delay of 3 seconds"
-                   action="#{partialReloadController.waitAndReload3}" renderedPartially="left right :page:header:headerInfo">
+                   action="#{partialReloadController.waitAndReload3}">
+          <f:ajax render="left right :page:header:headerInfo"/>
           <tc:gridLayoutConstraint columnSpan="2"/>
         </tc:button>
 
         <tc:button label="Reload both (wait 7 s, timeout)"
                    tip="Reload both boxes, but the server has a delay of 7 seconds, this is more than the default timeout for AJAX"
-                   action="#{partialReloadController.waitAndReload7}" renderedPartially="left right :page:header:headerInfo">
+                   action="#{partialReloadController.waitAndReload7}">
+          <f:ajax render="left right :page:header:headerInfo"/>
           <tc:gridLayoutConstraint columnSpan="2"/>
         </tc:button>
 
@@ -122,10 +128,9 @@
           <tc:gridLayoutConstraint columnSpan="2"/>
 
           <tc:selectOneChoice fieldId="navSelect" value="#{partialReloadController.navigateAction}" label="On Change">
-            <f:facet name="change">
-              <tc:command action="#{partialReloadController.navigateAction}"
-                          renderedPartially="navTest :page:header:headerInfo"/>
-            </f:facet>
+            <f:ajax execute="navTest"
+                    render="navTest :page:header:headerInfo"
+                    listener="#{partialReloadController.navigateAction}"/>
             <f:selectItem itemLabel="Select action" itemValue=""/>
             <f:selectItem itemLabel="Reload left" itemValue="left"/>
             <f:selectItem itemLabel="Reload right" itemValue="right"/>
@@ -138,10 +143,14 @@
         </tc:panel>
 
         <tc:button label="Error left" tip="Reload left side box, but an exception occures"
-                   action="#{partialReloadController.error}" renderedPartially="left :page:header:headerInfo"/>
+                   action="#{partialReloadController.error}">
+          <f:ajax render="left :page:header:headerInfo"/>
+        </tc:button>
 
         <tc:button label="Error right" tip="Reload right side box, but an exception occures"
-                   action="#{partialReloadController.error}" renderedPartially="right :page:header:headerInfo"/>
+                   action="#{partialReloadController.error}">
+          <f:ajax render="right :page:header:headerInfo"/>
+        </tc:button>
 
       </tc:panel>
 

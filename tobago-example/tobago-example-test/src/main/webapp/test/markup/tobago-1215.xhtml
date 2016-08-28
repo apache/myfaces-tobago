@@ -33,7 +33,9 @@
 
       <tx:in label="Counter" fieldId="counter" value="#{reload.counter}" readonly="true"/>
 
-      <tc:button label="Reload (AJAX)" id="button" action="#{reload.tick}" renderedPartially="panel"/>
+      <tc:button label="Reload (AJAX)" id="button" action="#{reload.tick}">
+        <f:ajax render="panel" execute="panel"/>
+      </tc:button>
 
       <tc:button label="Reset Counter" action="#{reload.reset}"/>
 

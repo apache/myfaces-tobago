@@ -83,10 +83,12 @@ import javax.el.ValueExpression;
 import javax.faces.application.Application;
 import javax.faces.component.UIColumn;
 import javax.faces.component.UIComponent;
+import javax.faces.component.behavior.AjaxBehavior;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 import java.text.MessageFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
@@ -1026,8 +1028,8 @@ public class SheetRenderer extends RendererBase {
     if (target != null) {
       ComponentUtils.setAttribute(command, Attributes.pagingTarget, target);
     }
-    command.setExecutePartially(new String[]{data.getId()});
-    command.setRenderPartially(new String[]{data.getId()});
+//    command.setExecutePartially(new String[]{data.getId()});
+//    command.setRenderPartially(new String[]{data.getId()});
 
     final Locale locale = facesContext.getViewRoot().getLocale();
     final String message = ResourceManagerUtils.getPropertyNotNull(facesContext, "tobago", "sheet" + action.getToken());
@@ -1042,8 +1044,8 @@ public class SheetRenderer extends RendererBase {
     writer.writeIdAttribute(command.getClientId(facesContext));
     writer.writeAttribute(HtmlAttributes.TITLE, tip, true);
     if (!disabled) {
-      final CommandMap map = new CommandMap(new Command(facesContext, command));
-      writer.writeAttribute(DataAttributes.COMMANDS, JsonUtils.encode(map), true);
+      final String commands = RenderUtils.getBehaviorCommands(facesContext, command);
+      writer.writeAttribute(DataAttributes.COMMANDS, commands, true);
     }
     writer.writeAttribute(HtmlAttributes.DISABLED, disabled);
     if (icon != null) {
@@ -1157,6 +1159,17 @@ public class SheetRenderer extends RendererBase {
       ComponentUtils.setAttribute(command, Attributes.pageAction, action);
       command.setDisabled(disabled);
       facets.put(facet, command);
+
+      // add AjaxBehavior
+      final ArrayList<String> ids = new ArrayList<String>();
+      ids.add(sheet.getId());
+      if (sheet.getRenderedPartially() != null) {
+        ids.addAll(Arrays.asList(sheet.getRenderedPartially()));
+      }
+      final AjaxBehavior behavior = new AjaxBehavior();
+      behavior.setExecute(ids);
+      behavior.setRender(ids);
+      command.addClientBehavior("click", behavior);
     }
     return command;
   }
@@ -1169,6 +1182,7 @@ public class SheetRenderer extends RendererBase {
         final UIColumnEvent columnEvent = (UIColumnEvent) child;
         final UIComponent selectionChild = child.getChildren().get(0);
         if (selectionChild != null && selectionChild instanceof AbstractUICommand && selectionChild.isRendered()) {
+          // TODO: TOBAGO-1572
           final UICommand action = (UICommand) selectionChild;
           if (commandMap == null) {
             commandMap = new CommandMap();
