@@ -43,6 +43,7 @@ public enum BootstrapClass implements CssItem {
   BG_INVERSE("bg-inverse"),
   BTN("btn"),
   BTN_GROUP("btn-group"),
+  BTN_LINK("btn-link"),
   BTN_PRIMARY("btn-primary"),
   BTN_SECONDARY("btn-secondary"),
   BTN_TOOLBAR("btn-toolbar"),

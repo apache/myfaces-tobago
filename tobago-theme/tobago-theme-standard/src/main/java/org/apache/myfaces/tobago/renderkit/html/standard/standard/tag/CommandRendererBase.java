@@ -33,6 +33,7 @@ import org.apache.myfaces.tobago.renderkit.html.Command;
 import org.apache.myfaces.tobago.renderkit.html.CommandMap;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
+import org.apache.myfaces.tobago.renderkit.html.HtmlButtonTypes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRoleValues;
 import org.apache.myfaces.tobago.renderkit.html.JsonUtils;
@@ -81,14 +82,29 @@ public abstract class CommandRendererBase extends RendererBase {
     final String clientId = command.getClientId(facesContext);
     final boolean disabled = command.isDisabled();
     final LabelWithAccessKey label = new LabelWithAccessKey(command);
+    final String href = command.getLink();
+    final boolean link = href != null;
 
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
     if (command.isParentOfCommands()) {
-      encodeBeginOuter(facesContext, command);
+      if (link) {
+        writer.startElement(HtmlElements.SPAN);
+        writer.writeClassAttribute(BootstrapClass.BTN_GROUP);
+      }
     }
 
-    encodeBeginElement(facesContext, command);
+    if (link) {
+      writer.startElement(HtmlElements.A);
+      if (disabled) {
+        writer.writeAttribute(HtmlAttributes.HREF, "#/", false);
+      } else {
+        writer.writeAttribute(HtmlAttributes.HREF, href, false);
+      }
+    } else {
+      writer.startElement(HtmlElements.BUTTON);
+      writer.writeAttribute(HtmlAttributes.TYPE, HtmlButtonTypes.BUTTON);
+    }
     writer.writeIdAttribute(clientId);
     writer.writeNameAttribute(clientId);
     writer.writeAttribute(HtmlAttributes.DISABLED, disabled);
@@ -100,8 +116,6 @@ public abstract class CommandRendererBase extends RendererBase {
         commands = JsonUtils.encode(map);
       }
       writer.writeAttribute(DataAttributes.COMMANDS, commands, true);
-
-      writer.writeAttribute(HtmlAttributes.HREF, "#", false);
 
       if (label.getAccessKey() != null) {
         writer.writeAttribute(HtmlAttributes.ACCESSKEY, Character.toString(label.getAccessKey()), false);
@@ -124,7 +138,6 @@ public abstract class CommandRendererBase extends RendererBase {
       cssItems.add(BootstrapClass.NAV_LINK);
       writer.writeAttribute(DataAttributes.TOGGLE, "dropdown", false);
     }
-    cssItems.add(command.getCustomClass());
     addCssItems(facesContext, command, cssItems);
     final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, command);
     if (title != null) {
@@ -169,7 +182,11 @@ public abstract class CommandRendererBase extends RendererBase {
     final String image = ComponentUtils.getStringAttribute(command, Attributes.image);
     HtmlRendererUtils.encodeIconWithLabel(writer, facesContext, image, label, disabled);
 
-    encodeEndElement(facesContext, command);
+    if (link) {
+      writer.endElement(HtmlElements.A);
+    } else {
+      writer.endElement(HtmlElements.BUTTON);
+    }
 
     if (command.isParentOfCommands()) {
       writer.startElement(HtmlElements.UL);
@@ -191,10 +208,10 @@ public abstract class CommandRendererBase extends RendererBase {
     if (command.isParentOfCommands()) {
       final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
-      for (UIComponent child : component.getChildren()) {
+      for (final UIComponent child : component.getChildren()) {
         if (child.isRendered()) {
           writer.startElement(HtmlElements.LI);
-          CssItem submenu = child instanceof AbstractUICommand && ((AbstractUICommand) child).isParentOfCommands()
+          final CssItem submenu = child instanceof AbstractUICommand && ((AbstractUICommand) child).isParentOfCommands()
               ? TobagoClass.DROPDOWN_SUBMENU : null;
           // fixme: this name comes not from bootstrap, using prefix? tobago-command-dropdown-submenu
           writer.writeClassAttribute(BootstrapClass.DROPDOWN_ITEM, submenu);
@@ -212,28 +229,20 @@ public abstract class CommandRendererBase extends RendererBase {
   public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
 
     final AbstractUICommand command = (AbstractUICommand) component;
+    final boolean link = command.getLink() != null;
+
+    final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
     if (command.isParentOfCommands()) {
-      final TobagoResponseWriter writer = getResponseWriter(facesContext);
       writer.endElement(HtmlElements.UL);
     }
 
     if (command.isParentOfCommands()) {
-      encodeEndOuter(facesContext, command);
+      if (link) {
+        writer.endElement(HtmlElements.SPAN);
+      }
     }
   }
-
-  protected abstract void encodeBeginElement(final FacesContext facesContext, final AbstractUICommand command)
-      throws IOException;
-
-  protected abstract void encodeEndElement(final FacesContext facesContext, final AbstractUICommand command)
-      throws IOException;
-
-  protected abstract void encodeBeginOuter(final FacesContext facesContext, final AbstractUICommand command)
-      throws IOException;
-
-  protected abstract void encodeEndOuter(final FacesContext facesContext, final AbstractUICommand command)
-      throws IOException;
 
   protected void commandActivated(final UIComponent component) {
     component.queueEvent(new ActionEvent(component));

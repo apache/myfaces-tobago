@@ -19,5 +19,9 @@
 
 package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
-public class MenuCommandRenderer extends ButtonRenderer {
+/**
+ * @deprecated
+ */
+@Deprecated
+public class MenuCommandRenderer extends CommandRenderer {
 }

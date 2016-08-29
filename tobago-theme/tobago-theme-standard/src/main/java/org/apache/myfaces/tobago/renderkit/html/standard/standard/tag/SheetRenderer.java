@@ -1040,7 +1040,7 @@ public class SheetRenderer extends RendererBase {
     writer.writeClassAttribute(liClass, disabled ? BootstrapClass.DISABLED : null, BootstrapClass.PAGE_ITEM);
     writer.startElement(HtmlElements.A);
     writer.writeClassAttribute(BootstrapClass.PAGE_LINK);
-    writer.writeAttribute(HtmlAttributes.HREF, "#", false);
+    writer.writeAttribute(HtmlAttributes.HREF, "#/", false);
     writer.writeIdAttribute(command.getClientId(facesContext));
     writer.writeAttribute(HtmlAttributes.TITLE, tip, true);
     if (!disabled) {

@@ -23,55 +23,12 @@ import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.internal.component.AbstractUICommand;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.CssItem;
-import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
-import org.apache.myfaces.tobago.renderkit.html.HtmlButtonTypes;
-import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.util.ComponentUtils;
-import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.context.FacesContext;
-import java.io.IOException;
 import java.util.List;
 
 public class ButtonRenderer extends CommandRendererBase {
-
-  @Override
-  protected void encodeBeginElement(final FacesContext facesContext, final AbstractUICommand command)
-      throws IOException {
-    final TobagoResponseWriter writer = getResponseWriter(facesContext);
-
-    writer.startElement(HtmlElements.BUTTON);
-    writer.writeAttribute(HtmlAttributes.TYPE, HtmlButtonTypes.BUTTON);
-  }
-
-  @Override
-  protected void encodeEndElement(final FacesContext facesContext, final AbstractUICommand command)
-      throws IOException {
-    final TobagoResponseWriter writer = getResponseWriter(facesContext);
-
-    writer.endElement(HtmlElements.BUTTON);
-  }
-
-  @Override
-  protected void encodeBeginOuter(final FacesContext facesContext, final AbstractUICommand command)
-      throws IOException {
-    final TobagoResponseWriter writer = getResponseWriter(facesContext);
-
-//    if (isMarked(facesContext, MARKER)) { // this is only needed, if button has a sub-menu (dropdown)
-      writer.startElement(HtmlElements.SPAN);
-      writer.writeClassAttribute(BootstrapClass.BTN_GROUP);
-//    }
-  }
-
-  @Override
-  protected void encodeEndOuter(final FacesContext facesContext, final AbstractUICommand command)
-      throws IOException {
-    final TobagoResponseWriter writer = getResponseWriter(facesContext);
-
-//    if (isMarked(facesContext, MARKER)) {
-      writer.endElement(HtmlElements.SPAN);
-//    }
-  }
 
   @Override
   protected void addCssItems(

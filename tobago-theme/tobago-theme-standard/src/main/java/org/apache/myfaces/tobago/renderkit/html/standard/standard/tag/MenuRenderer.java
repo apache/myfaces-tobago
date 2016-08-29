@@ -88,7 +88,7 @@ public class MenuRenderer extends RendererBase {
       writer.writeStyleAttribute(style);
     }
     writer.startElement(HtmlElements.A);
-    writer.writeAttribute(HtmlAttributes.HREF, "#", false);
+    writer.writeAttribute(HtmlAttributes.HREF, "#/", false);
     if (!component.isTransient()) {
       writer.writeIdAttribute(component.getClientId(facesContext));
     }
