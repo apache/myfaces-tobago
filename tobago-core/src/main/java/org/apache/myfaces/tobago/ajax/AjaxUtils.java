@@ -29,16 +29,11 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Set;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 /**
  * @deprecated use org.apache.myfaces.tobago.util.AjaxUtils
  */
 @Deprecated
 public final class AjaxUtils {
-
-  private static final Logger LOG = LoggerFactory.getLogger(AjaxUtils.class);
 
   private AjaxUtils() {
   }
