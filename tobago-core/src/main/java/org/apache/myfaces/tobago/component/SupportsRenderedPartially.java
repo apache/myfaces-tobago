@@ -20,7 +20,7 @@
 package org.apache.myfaces.tobago.component;
 
 /**
- * @deprecated since Tobago 3.0, replaced by standard AJAX {@link SupportsAjaxBehaviorHolder}
+ * @deprecated since Tobago 3.0, replaced by standard AJAX
  */
 @Deprecated
 public interface SupportsRenderedPartially {
