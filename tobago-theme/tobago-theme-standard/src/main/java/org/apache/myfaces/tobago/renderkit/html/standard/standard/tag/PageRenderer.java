@@ -21,8 +21,6 @@ package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
 import org.apache.myfaces.tobago.application.ProjectStage;
 import org.apache.myfaces.tobago.component.Attributes;
-import org.apache.myfaces.tobago.component.Facets;
-import org.apache.myfaces.tobago.component.UIMenuBar;
 import org.apache.myfaces.tobago.component.UIPage;
 import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.context.ClientProperties;
@@ -31,7 +29,6 @@ import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.context.Theme;
 import org.apache.myfaces.tobago.internal.component.AbstractUIPage;
 import org.apache.myfaces.tobago.internal.util.AccessKeyLogger;
-import org.apache.myfaces.tobago.internal.util.Deprecation;
 import org.apache.myfaces.tobago.internal.util.FacesContextUtils;
 import org.apache.myfaces.tobago.internal.util.MimeTypeUtils;
 import org.apache.myfaces.tobago.internal.util.ResponseUtils;
@@ -95,11 +92,6 @@ public class PageRenderer extends RendererBase {
 
     final UIPage page = (UIPage) component;
     final TobagoConfig tobagoConfig = TobagoConfig.getInstance(facesContext);
-
-    final UIMenuBar menuBar = ComponentUtils.findFacetDescendant(page, Facets.menuBar, UIMenuBar.class);
-    if (menuBar != null) {
-      Deprecation.LOG.error("Facet {} is deprecated for <tc:page>", Facets.menuBar.name());
-    }
 
     if (FacesContextUtils.getFocusId(facesContext) == null && !StringUtils.isBlank(page.getFocusId())) {
       FacesContextUtils.setFocusId(facesContext, page.getFocusId());

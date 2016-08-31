@@ -20,7 +20,7 @@
 package org.apache.myfaces.tobago.util;
 
 import org.apache.myfaces.tobago.component.Facets;
-import org.apache.myfaces.tobago.internal.component.AbstractUIMenu;
+import org.apache.myfaces.tobago.internal.component.AbstractUICommands;
 
 import javax.faces.component.UIComponent;
 
@@ -35,22 +35,12 @@ public final class FacetUtils {
   /**
    * A type save utility to get the facet <code>contextMenu</code> from a component.
    */
-  public static AbstractUIMenu getContextMenu(final UIComponent component) {
-    return (AbstractUIMenu) ComponentUtils.getFacet(component, Facets.contextMenu);
+  public static AbstractUICommands getContextMenu(final UIComponent component) {
+    return (AbstractUICommands) ComponentUtils.getFacet(component, Facets.contextMenu);
   }
 
-  public static void setContextMenu(final UIComponent component, final AbstractUIMenu menu) {
+  public static void setContextMenu(final UIComponent component, final AbstractUICommands menu) {
     ComponentUtils.setFacet(component, Facets.contextMenu, menu);
   }
 
-  /**
-   * A type save utility to get the facet <code>dropDownMenu</code> from a component.
-   */
-  public static AbstractUIMenu getDropDownMenu(final UIComponent component) {
-    return (AbstractUIMenu) ComponentUtils.getFacet(component, Facets.dropDownMenu);
-  }
-
-  public static void setDropDownMenu(final UIComponent component, final AbstractUIMenu menu) {
-    ComponentUtils.setFacet(component, Facets.dropDownMenu, menu);
-  }
 }

@@ -19,7 +19,6 @@
 package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
 import org.apache.myfaces.tobago.component.Facets;
-import org.apache.myfaces.tobago.component.UIMenuBar;
 import org.apache.myfaces.tobago.internal.component.AbstractUIBox;
 import org.apache.myfaces.tobago.internal.util.Deprecation;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
@@ -93,12 +92,6 @@ public class BoxRenderer extends PanelRendererBase {
 
       writer.endElement(HtmlElements.DIV);
       writer.endElement(HtmlElements.DIV);
-    }
-
-    final UIMenuBar menuBar = ComponentUtils.findFacetDescendant(box, Facets.menuBar, UIMenuBar.class);
-    if (menuBar != null) {
-      Deprecation.LOG.warn("Facet {} is deprecated for <tc:box>", Facets.menuBar.name());
-      RenderUtils.encode(facesContext, menuBar);
     }
 
     writer.startElement(HtmlElements.DIV);

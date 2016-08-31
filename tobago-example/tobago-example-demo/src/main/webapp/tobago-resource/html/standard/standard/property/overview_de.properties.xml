@@ -145,11 +145,6 @@
   &lt;li style="line-height: 130%;"&gt;Aktionen können als Drop Down Menü dargestellt werden.&lt;/li&gt;
   &lt;/ul&gt;
     </entry>
-  <entry key="toolbar_linkClickme">Klick mich</entry>
-  <entry key="toolbar_selectSingleselect">Einfachauswahl</entry>
-
-  <entry key="toolbar_sampleTitle2">Menubar Beispiel</entry>
-  <entry key="toolbar_text2">Der Menubar beinhaltet Aktionen, die auf allen Applikationseiten zur Verfügung stehen sollen. &lt;ul style="margin-top: 2px;"&gt;   &lt;li style="line-height: 130%;"&gt;Ein Menü kann mehrere Ebenen beinhalten.&lt;/li&gt;  &lt;li style="line-height: 130%;"&gt;Die Menü-Items können Client oder Serverseitig ausgeführt werden.&lt;/li&gt;  &lt;li style="line-height: 130%;"&gt;Der Status einzelner Menü Items kann angezeigt werden.&lt;/li&gt;&lt;/ul&gt;</entry>
 
 <!--  validation -->
   <entry key="validation_description">Beschreibung</entry>

@@ -294,16 +294,6 @@
 &lt;li style="line-height: 130%;"&gt;Actions can be displayed as drop down menues.&lt;/li&gt;
 &lt;/ul&gt;
   </entry>
-<entry key="toolbar_sampleTitle2">Menubar Example</entry>
-<entry key="toolbar_text2">The menubar contains actions which are available application wide.
-&lt;ul style="margin-top: 2px;"&gt;
-  &lt;li style="line-height: 130%;"&gt;A menu is multilayer capable.&lt;/li&gt;
-  &lt;li style="line-height: 130%;"&gt;Menu actions can be executed on server- or clientside.&lt;/li&gt;
-  &lt;li style="line-height: 130%;"&gt;The actual status of menu entries can be displayed.&lt;/li&gt;
-&lt;/ul&gt;
-  </entry>
-<entry key="toolbar_linkClickme">click me</entry>
-<entry key="toolbar_selectSingleselect">Single selection</entry>
 <entry key="right">right</entry>
 <entry key="bottom">bottom</entry>
 <entry key="off">off</entry>

@@ -39,7 +39,6 @@ import org.apache.myfaces.tobago.internal.component.AbstractUIColumnEvent;
 import org.apache.myfaces.tobago.internal.component.AbstractUIColumnNode;
 import org.apache.myfaces.tobago.internal.component.AbstractUICommand;
 import org.apache.myfaces.tobago.internal.component.AbstractUIData;
-import org.apache.myfaces.tobago.internal.component.AbstractUIMenu;
 import org.apache.myfaces.tobago.internal.component.AbstractUIOut;
 import org.apache.myfaces.tobago.internal.component.AbstractUISheet;
 import org.apache.myfaces.tobago.internal.layout.Cell;
@@ -74,7 +73,6 @@ import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.util.CreateComponentUtils;
-import org.apache.myfaces.tobago.util.FacetUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -890,26 +888,6 @@ public class SheetRenderer extends RendererBase {
             writer.endElement(HtmlElements.DIV);
           } else {
             RenderUtils.encode(facesContext, cellComponent);
-
-            final AbstractUIMenu dropDownMenu = FacetUtils.getDropDownMenu(column);
-            // render sub menu popup button
-            if (dropDownMenu != null && dropDownMenu.isRendered()) {
-
-              writer.startElement(HtmlElements.SPAN);
-              writer.writeClassAttribute(Classes.create(column, "menu"));
-
-              writer.startElement(HtmlElements.IMG);
-              final String menuImage
-                  = ResourceManagerUtils.getImage(facesContext, "image/sheetSelectorMenu");
-              writer.writeAttribute(HtmlAttributes.TITLE, "", false);
-              writer.writeAttribute(HtmlAttributes.SRC, menuImage, false);
-              writer.endElement(HtmlElements.IMG);
-
-//              ToolBarRendererBase.renderDropDownMenu(facesContext, writer, dropDownMenu);
-
-              writer.endElement(HtmlElements.SPAN);
-            }
-
           }
 
           if (sorterIcon != null) {

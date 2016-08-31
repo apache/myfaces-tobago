@@ -59,9 +59,6 @@ public class TobagoDemoController implements Serializable {
 
   private SelectItem[] salutationItems;
 
-  // XXX jetty 6.1.22 has problems with boolean[] (primitive), see: http://jira.codehaus.org/browse/JETTY-1181
-  private Boolean[] bool;
-
   private boolean update;
 
   private Boolean boolTest;
@@ -123,9 +120,6 @@ public class TobagoDemoController implements Serializable {
 
     salutationItems = getSelectItems(salutationKeys, "demo");
     this.salutation = new String[]{"", "", "", ""};
-
-    bool = new Boolean[]{true, false, true, false, true, false, true, false, true, false};
-    boolTest = Boolean.TRUE;
 
     text = new String[11];
     text[0] = "Value 1";
@@ -235,11 +229,6 @@ public class TobagoDemoController implements Serializable {
 
   }
 
-  public String clickButton() {
-    LOG.info("clickButton");
-    return "display";
-  }
-
   public String getSelectable() {
     return multiselect ? "multi" : "none";
   }
@@ -258,18 +247,6 @@ public class TobagoDemoController implements Serializable {
 
   public void setSalutationItems(final SelectItem[] salutationItems) {
     this.salutationItems = salutationItems;
-  }
-
-  public Boolean[] getBool() {
-    return this.bool;
-  }
-
-  public Boolean getBoolTest() {
-    return boolTest;
-  }
-
-  public void setBoolTest(final Boolean boolTest) {
-    this.boolTest = boolTest;
   }
 
   public String[] getText() {

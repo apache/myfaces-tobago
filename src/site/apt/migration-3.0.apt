@@ -69,6 +69,12 @@ Migration from Tobago 2.0 to 3.0 (work in progress)
 
 * tc:image has no longer the attributes width and height, please use a tc:style child tag instead.
 
+* tc:column with f:facet name="dropDownBox" can now easily and much more flexible implemented with
+  the header facet of the tc:sheet. Example: Demo -> Components -> Sheet -> Filter
+
+* The Menu tags tc:menu, tc:menuBar, tc:menuCommand and tc:menuSeparator are no longer available and
+  needs to be migrated to tc:commands or tc:bar or tc:buttons with tc:command and tc:separator inside.
+
 * File upload now uses the Servlet 3.0 features.
 
   * You no long need to define a TobagoMultipartFormdataFilter in the web.xml

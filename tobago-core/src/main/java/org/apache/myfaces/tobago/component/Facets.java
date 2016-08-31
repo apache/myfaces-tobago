@@ -34,6 +34,10 @@ public enum Facets {
   confirmation,
   constraints,
   contextMenu,
+  /**
+   * @deprecated since 3.0.0. is no longer supported, use explicit header facet in sheet.
+   */
+  @Deprecated
   dropDownMenu,
   focus(true),
   hover(true),
@@ -85,6 +89,10 @@ public enum Facets {
   public static final String CONFIRMATION = "confirmation";
   public static final String CONSTRAINTS = "constraints";
   public static final String CONTEXT_MENU = "contextMenu";
+  /**
+   * @deprecated since 3.0.0. is no longer supported, use explicit header facet in sheet.
+   */
+  @Deprecated
   public static final String DROP_DOWN_MENU = "dropDownMenu";
   public static final String FOCUS = "focus";
   public static final String HOVER = "hover";

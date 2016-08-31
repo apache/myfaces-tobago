@@ -65,5 +65,19 @@
         <tc:button label="Go"/>
       </tc:flowLayout>
     </tc:bar>
+
   </tc:section>
+
+  <tc:section label="TODO: radio: (also for tc:commands)">
+    <tc:bar>
+      <tc:link omit="true" label="Radio">
+        <tc:selectOneRadio value="#{overviewController.radioValue}">
+          <tc:selectItems value="#{overviewController.currencyItems}"
+                          var="currency" itemValue="#{currency.currencyCode}" itemLabel="#{currency.displayName}"
+                          itemImage="data/#{currency.currencyCode}-14.png" />
+        </tc:selectOneRadio>
+      </tc:link>
+    </tc:bar>
+  </tc:section>
+
 </ui:composition>
