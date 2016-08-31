@@ -234,22 +234,22 @@ table.tobago-gridLayout > tbody > tr:first-child > td {
 }
 
 .tobago-link-markup-disabled {
-  color: #909090;
+  cursor: not-allowed;
+  opacity: .65;
 }
 
-.tobago-link-markup-disabled:focus, .tobago-link-markup-disabled:hover {
-  color: #484848;
-}
-
-button.tobago-link, button.tobago-command {
+button.tobago-link, button.tobago-command, button.tobago-treeCommand {
   font-weight: normal;
   color: #0275d8;
   border-width: 0;
   padding: 0;
   background-color: transparent;
+  text-align: left;
 }
 
-button.tobago-link:focus, button.tobago-link:hover, button.tobago-command:focus, button.tobago-command:hover {
+button.tobago-link:focus, button.tobago-link:hover,
+button.tobago-command:focus, button.tobago-command:hover,
+button.tobago-treeCommand:focus, button.tobago-treeCommand:hover {
   color: #014c8c;
   text-decoration: underline;
   background-color: transparent;
@@ -313,18 +313,19 @@ button.tobago-link:focus, button.tobago-link:hover, button.tobago-command:focus,
   display: block;
 }
 
-.dropdown-submenu > a:after, .dropdown-submenu > button:after {
-  display: block;
+.dropdown-submenu:after {
   content: " ";
   float: right;
-  width: 0;
-  height: 0;
   border-color: transparent;
   border-style: solid;
   border-width: 5px 0 5px 5px;
   border-left-color: #cccccc;
   margin-top: 7px;
   margin-right: -10px;
+}
+
+.dropdown-submenu > button:after {
+  display: none;
 }
 
 .dropdown-submenu:hover > a:after {

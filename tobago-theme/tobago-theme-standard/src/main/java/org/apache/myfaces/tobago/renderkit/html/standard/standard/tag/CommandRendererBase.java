@@ -108,9 +108,7 @@ public abstract class CommandRendererBase extends RendererBase {
     writer.writeNameAttribute(clientId);
     writer.writeAttribute(HtmlAttributes.DISABLED, disabled);
 
-    if (disabled) {
-      writer.writeAttribute(HtmlAttributes.HREF, "#/", false);
-    } else {
+    if (!disabled) {
       final String href;
       String commands = RenderUtils.getBehaviorCommands(facesContext, command);
       if (commands == null) { // old way
@@ -125,7 +123,6 @@ public abstract class CommandRendererBase extends RendererBase {
         writer.writeAttribute(HtmlAttributes.TARGET, target, false);
       } else {
         writer.writeAttribute(DataAttributes.COMMANDS, commands, true);
-        writer.writeAttribute(HtmlAttributes.HREF, "#/", false);
       }
 
       if (label.getAccessKey() != null) {
