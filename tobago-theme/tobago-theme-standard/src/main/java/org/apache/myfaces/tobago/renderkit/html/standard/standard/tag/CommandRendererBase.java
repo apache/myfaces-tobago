@@ -20,6 +20,8 @@
 package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
 import org.apache.myfaces.tobago.component.Attributes;
+import org.apache.myfaces.tobago.component.UICommands;
+import org.apache.myfaces.tobago.internal.component.AbstractUIButton;
 import org.apache.myfaces.tobago.internal.component.AbstractUICommand;
 import org.apache.myfaces.tobago.internal.component.AbstractUIForm;
 import org.apache.myfaces.tobago.internal.util.AccessKeyLogger;
@@ -82,25 +84,22 @@ public abstract class CommandRendererBase extends RendererBase {
     final String clientId = command.getClientId(facesContext);
     final boolean disabled = command.isDisabled();
     final LabelWithAccessKey label = new LabelWithAccessKey(command);
-    final String href = command.getLink();
-    final boolean link = href != null;
+    final boolean link = command.getLink() != null && !disabled;
+    final String target = command.getTarget();
 
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
-    if (command.isParentOfCommands()) {
-      if (link) {
-        writer.startElement(HtmlElements.SPAN);
+    if (needsExtraSpanElement(command)) {
+      writer.startElement(HtmlElements.SPAN);
+      if (component instanceof AbstractUIButton) { // todo: check if we should differ here
         writer.writeClassAttribute(BootstrapClass.BTN_GROUP);
+      } else {
+        writer.writeClassAttribute(BootstrapClass.DROPDOWN);
       }
     }
 
     if (link) {
       writer.startElement(HtmlElements.A);
-      if (disabled) {
-        writer.writeAttribute(HtmlAttributes.HREF, "#/", false);
-      } else {
-        writer.writeAttribute(HtmlAttributes.HREF, href, false);
-      }
     } else {
       writer.startElement(HtmlElements.BUTTON);
       writer.writeAttribute(HtmlAttributes.TYPE, HtmlButtonTypes.BUTTON);
@@ -109,13 +108,25 @@ public abstract class CommandRendererBase extends RendererBase {
     writer.writeNameAttribute(clientId);
     writer.writeAttribute(HtmlAttributes.DISABLED, disabled);
 
-    if (!disabled) {
+    if (disabled) {
+      writer.writeAttribute(HtmlAttributes.HREF, "#/", false);
+    } else {
+      final String href;
       String commands = RenderUtils.getBehaviorCommands(facesContext, command);
       if (commands == null) { // old way
         final CommandMap map = new CommandMap(new Command(facesContext, command));
         commands = JsonUtils.encode(map);
+        href = map.getClick().getUrl();
+      } else {
+        href = RenderUtils.generateUrl(facesContext, command);
       }
-      writer.writeAttribute(DataAttributes.COMMANDS, commands, true);
+      if (link) {
+        writer.writeAttribute(HtmlAttributes.HREF, href, false);
+        writer.writeAttribute(HtmlAttributes.TARGET, target, false);
+      } else {
+        writer.writeAttribute(DataAttributes.COMMANDS, commands, true);
+        writer.writeAttribute(HtmlAttributes.HREF, "#/", false);
+      }
 
       if (label.getAccessKey() != null) {
         writer.writeAttribute(HtmlAttributes.ACCESSKEY, Character.toString(label.getAccessKey()), false);
@@ -135,7 +146,6 @@ public abstract class CommandRendererBase extends RendererBase {
     if (command.isParentOfCommands()) {
       // XXX BootstrapClass.NAV_LINK should only be shown inside of UICommands or UIButtons
       cssItems.add(BootstrapClass.DROPDOWN_TOGGLE);
-      cssItems.add(BootstrapClass.NAV_LINK);
       writer.writeAttribute(DataAttributes.TOGGLE, "dropdown", false);
     }
     addCssItems(facesContext, command, cssItems);
@@ -229,18 +239,14 @@ public abstract class CommandRendererBase extends RendererBase {
   public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
 
     final AbstractUICommand command = (AbstractUICommand) component;
-    final boolean link = command.getLink() != null;
-
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
     if (command.isParentOfCommands()) {
       writer.endElement(HtmlElements.UL);
     }
 
-    if (command.isParentOfCommands()) {
-      if (link) {
-        writer.endElement(HtmlElements.SPAN);
-      }
+    if (needsExtraSpanElement(command)) {
+      writer.endElement(HtmlElements.SPAN);
     }
   }
 
@@ -250,5 +256,14 @@ public abstract class CommandRendererBase extends RendererBase {
 
   protected void addCssItems(
       final FacesContext facesContext, final AbstractUICommand command, final List<CssItem> collected) {
+  }
+
+  /**
+   * We need an extra SPAN element with position: relative or absolute for positioning the dropdown
+   * */
+  private boolean needsExtraSpanElement(AbstractUICommand command) {
+    return !(command.getParent() instanceof AbstractUICommand) // only needed for top elements
+        && !(command.getParent() instanceof UICommands) // not needed inside of tc:commands
+        && command.isParentOfCommands(); // only needed for sub-menus
   }
 }

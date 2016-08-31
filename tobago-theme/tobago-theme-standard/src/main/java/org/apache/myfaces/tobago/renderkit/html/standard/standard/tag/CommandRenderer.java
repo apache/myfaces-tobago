@@ -19,20 +19,5 @@
 
 package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
-import org.apache.myfaces.tobago.internal.component.AbstractUICommand;
-import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
-import org.apache.myfaces.tobago.renderkit.css.CssItem;
-
-import javax.faces.context.FacesContext;
-import java.util.List;
-
 public class CommandRenderer extends CommandRendererBase {
-
-  @Override
-  protected void addCssItems(
-      final FacesContext facesContext, final AbstractUICommand command, final List<CssItem> collected) {
-
-    collected.add(BootstrapClass.BTN);
-    collected.add(BootstrapClass.BTN_LINK);
-  }
 }

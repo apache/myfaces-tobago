@@ -21,11 +21,11 @@ QUnit.test("Simple Popup", function (assert) {
   var step = 1;
 
   var $messages = jQueryFrame("#page\\:messages .tobago-messages");
-  var $open = jQueryFrame("#page\\:mainForm\\:simple\\:open");
-  var $submitOnPage = jQueryFrame("#page\\:mainForm\\:simple\\:submitOnPage");
-  var $in = jQueryFrame("#page\\:mainForm\\:simple\\:controllerPopup\\:in\\:\\:field");
-  var $submitOnPopup = jQueryFrame("#page\\:mainForm\\:simple\\:controllerPopup\\:submitOnPopup");
-  var $close = jQueryFrame("#page\\:mainForm\\:simple\\:controllerPopup\\:close");
+  var $open = jQueryFrame("#page\\:mainForm\\:simple\\:open1");
+  var $submitOnPage = jQueryFrame("#page\\:mainForm\\:simple\\:submitOnPage1");
+  var $in = jQueryFrame("#page\\:mainForm\\:simple\\:controllerPopup\\:in1\\:\\:field");
+  var $submitOnPopup = jQueryFrame("#page\\:mainForm\\:simple\\:controllerPopup\\:submitOnPopup1");
+  var $close = jQueryFrame("#page\\:mainForm\\:simple\\:controllerPopup\\:close1");
 
   $open.click();
 
@@ -87,11 +87,11 @@ QUnit.test("Full Server Request", function (assert) {
   var step = 1;
 
   var $messages = jQueryFrame("#page\\:messages .tobago-messages");
-  var $open = jQueryFrame("#page\\:mainForm\\:server\\:open");
-  var $submitOnPage = jQueryFrame("#page\\:mainForm\\:server\\:submitOnPage");
-  var $in = jQueryFrame("#page\\:mainForm\\:server\\:fullServerRequestPopup\\:in\\:\\:field");
-  var $submitOnPopup = jQueryFrame("#page\\:mainForm\\:server\\:fullServerRequestPopup\\:submitOnPopup");
-  var $close = jQueryFrame("#page\\:mainForm\\:server\\:fullServerRequestPopup\\:close");
+  var $open = jQueryFrame("#page\\:mainForm\\:server\\:open2");
+  var $submitOnPage = jQueryFrame("#page\\:mainForm\\:server\\:submitOnPage2");
+  var $in = jQueryFrame("#page\\:mainForm\\:server\\:fullServerRequestPopup\\:in2\\:\\:field");
+  var $submitOnPopup = jQueryFrame("#page\\:mainForm\\:server\\:fullServerRequestPopup\\:submitOnPopup2");
+  var $close = jQueryFrame("#page\\:mainForm\\:server\\:fullServerRequestPopup\\:close2");
 
   $open.click();
 
@@ -153,12 +153,12 @@ QUnit.test("Client Sided", function (assert) {
   var step = 1;
 
   var $messages = jQueryFrame("#page\\:messages .tobago-messages");
-  var $open = jQueryFrame("#page\\:mainForm\\:client\\:open");
-  var $submitOnPage = jQueryFrame("#page\\:mainForm\\:client\\:submitOnPage");
+  var $open = jQueryFrame("#page\\:mainForm\\:client\\:open3");
+  var $submitOnPage = jQueryFrame("#page\\:mainForm\\:client\\:submitOnPage3");
   var $popupCollapsed = jQueryFrame("#page\\:mainForm\\:client\\:clientPopup\\:\\:collapse");
-  var $in = jQueryFrame("#page\\:mainForm\\:client\\:clientPopup\\:in\\:\\:field");
-  var $submitOnPopup = jQueryFrame("#page\\:mainForm\\:client\\:clientPopup\\:submitOnPopup");
-  var $close = jQueryFrame("#page\\:mainForm\\:client\\:clientPopup\\:close");
+  var $in = jQueryFrame("#page\\:mainForm\\:client\\:clientPopup\\:in3\\:\\:field");
+  var $submitOnPopup = jQueryFrame("#page\\:mainForm\\:client\\:clientPopup\\:submitOnPopup3");
+  var $close = jQueryFrame("#page\\:mainForm\\:client\\:clientPopup\\:close3");
 
   $open.click();
   assert.equal($popupCollapsed.val(), "false");

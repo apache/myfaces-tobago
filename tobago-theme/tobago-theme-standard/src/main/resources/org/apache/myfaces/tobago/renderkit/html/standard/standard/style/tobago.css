@@ -233,6 +233,24 @@ table.tobago-gridLayout > tbody > tr:first-child > td {
   white-space: normal
 }
 
+.tobago-link-markup-disabled {
+  color: #909090;
+}
+
+.tobago-link-markup-disabled:focus, .tobago-link-markup-disabled:hover {
+  color: #484848;
+}
+
+button.tobago-link {
+  font-weight: normal;
+  color: #0275d8;
+  border-width: 0;
+  padding: 0;
+  background-color: transparent;
+
+  /* todo: to be continued... */
+}
+
 /* messages ----------------------------------------------------------- */
 
 .tobago-messages label {
@@ -244,6 +262,17 @@ table.tobago-gridLayout > tbody > tr:first-child > td {
 }
 
 /* nav ----------------------------------------------------------- */
+
+.nav-item > .tobago-link, .nav-item > .tobago-command {
+  padding-top: .425rem;
+  padding-bottom: .425rem;
+  display: inline-block;
+}
+
+/* styles for drop down menu first level */
+.dropdown-toggle:focus, .dropdown-toggle:hover {
+  text-decoration: none;
+}
 
 /* styles for drop down menu with deeper level */
 .dropdown-submenu {
@@ -270,9 +299,9 @@ table.tobago-gridLayout > tbody > tr:first-child > td {
   left: 100%;
   margin-top: -6px;
   margin-left: -1px;
-  -webkit-border-radius: 0 6px 6px 6px;
-  -moz-border-radius: 0 6px 6px 6px;
-  border-radius: 0 6px 6px 6px;
+  -webkit-border-radius: 6px 6px 6px 6px;
+  -moz-border-radius: 6px 6px 6px 6px;
+  border-radius: 6px 6px 6px 6px;
 }
 
 .dropdown-submenu:hover > .dropdown-menu {
