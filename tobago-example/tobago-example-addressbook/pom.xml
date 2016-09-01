@@ -29,8 +29,8 @@
 
   <properties>
     <openjpa.version>2.3.0</openjpa.version>
-    <openwebbeans.version>1.1.7</openwebbeans.version>
-    <deltaspike.version>1.2.1</deltaspike.version>
+    <openwebbeans.version>1.6.3</openwebbeans.version>
+    <deltaspike.version>1.7.1</deltaspike.version>
   </properties>
 
   <build>

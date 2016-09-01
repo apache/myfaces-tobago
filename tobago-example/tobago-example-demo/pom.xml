@@ -28,8 +28,8 @@
   <description>Demonstration and documentation application.</description>
 
   <properties>
-    <openwebbeans.version>1.1.7</openwebbeans.version>
-    <deltaspike.version>1.2.1</deltaspike.version>
+    <openwebbeans.version>1.6.3</openwebbeans.version>
+    <deltaspike.version>1.7.1</deltaspike.version>
     <!--<arquillian.browser>firefox</arquillian.browser>-->
     <!-- phantomjs works not with CSP (report-only) -->
     <arquillian.browser>phantomjs</arquillian.browser>
