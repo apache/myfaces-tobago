@@ -60,6 +60,12 @@
           </supported-markup>
         </renderer>
         <renderer>
+          <name>Command</name>
+          <supported-markup>
+            <markup>disabled</markup>
+          </supported-markup>
+        </renderer>
+        <renderer>
           <name>Date</name>
           <supported-markup>
             <markup>disabled</markup>
@@ -271,6 +277,11 @@
             <markup>left</markup>
             <markup>center</markup>
             <markup>right</markup>
+            <markup>inverse</markup>
+            <markup>striped</markup>
+            <markup>bordered</markup>
+            <markup>hover</markup>
+            <markup>small</markup>
           </supported-markup>
         </renderer>
         <renderer>
