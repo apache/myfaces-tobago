@@ -135,8 +135,14 @@
     <p>A confirmation dialog can be added to a link or a button via
       <code class="language-markup">&lt;f:facet name="confirmation"></code>.
       The messagetext is added with <code class="language-markup">&lt;tc:out/></code>.</p>
-    <tc:link id="l6" label="apache.org" confirmation="Are you sure?"/>
+    <tc:link id="l6" label="apache.org" link="https://www.apache.org/" confirmation="Are you sure?"/>
     <tc:button id="b6" label="apache.org" link="https://www.apache.org/">
+      <f:facet name="confirmation">
+        <tc:out value="Are you sure?"/>
+      </f:facet>
+    </tc:button>
+    <tc:link id="l7" label="Action" confirmation="Are you sure?"/>
+    <tc:button id="b7" label="Action">
       <f:facet name="confirmation">
         <tc:out value="Are you sure?"/>
       </f:facet>
