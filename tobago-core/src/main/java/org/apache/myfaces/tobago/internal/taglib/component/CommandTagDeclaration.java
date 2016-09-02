@@ -19,11 +19,14 @@
 
 package org.apache.myfaces.tobago.internal.taglib.component;
 
+import org.apache.myfaces.tobago.apt.annotation.Facet;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
+import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasAction;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasActionListener;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasConfirmation;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasImage;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabelAndAccessKey;
@@ -52,9 +55,14 @@ import javax.faces.component.UICommand;
     uiComponentFacesClass = "javax.faces.component.UICommand",
     componentFamily = UICommand.COMPONENT_FAMILY,
     rendererType = RendererTypes.COMMAND,
-    allowedChildComponenents = "NONE")
+    allowedChildComponenents = "NONE",
+    facets = {
+        @Facet(
+            name = Facets.CONFIRMATION,
+            description = "Contains a UIOutput instance with the confirmation message.",
+            allowedChildComponenents = "org.apache.myfaces.tobago.Out")})
 public interface CommandTagDeclaration
-    extends HasIdBindingAndRendered, HasAction, HasActionListener, IsImmediateCommand,
+    extends HasIdBindingAndRendered, HasAction, HasActionListener, IsImmediateCommand, HasConfirmation,
     HasLink, HasResource, IsTransition, HasTarget, IsDisabledBySecurity,
     IsOmit, HasValue, IsVisual, HasLabelAndAccessKey, HasTip, HasImage,
     IsDefaultCommand {

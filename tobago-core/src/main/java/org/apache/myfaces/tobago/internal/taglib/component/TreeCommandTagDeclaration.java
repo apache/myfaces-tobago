@@ -27,6 +27,7 @@ import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasAction;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasActionListener;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasConfirmation;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabelAndAccessKey;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasLink;
@@ -63,7 +64,7 @@ import javax.faces.component.UICommand;
             allowedChildComponenents = "org.apache.myfaces.tobago.Out")},
     rendererType = RendererTypes.TREE_COMMAND)
 public interface TreeCommandTagDeclaration
-    extends HasIdBindingAndRendered, HasAction, HasActionListener, IsImmediateCommand,
+    extends HasIdBindingAndRendered, HasAction, HasActionListener, IsImmediateCommand, HasConfirmation,
             HasLink, HasResource, IsTransition, HasTarget, IsDisabledBySecurity,
             IsOmit, HasLabelAndAccessKey, HasTip, HasTabIndex, IsVisual {
 }

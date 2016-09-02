@@ -23,7 +23,6 @@ import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.UIForm;
 import org.apache.myfaces.tobago.internal.component.AbstractUICommand;
-import org.apache.myfaces.tobago.internal.util.Deprecation;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
@@ -31,6 +30,8 @@ import org.apache.myfaces.tobago.util.ComponentUtils;
 import javax.faces.component.UIComponent;
 import javax.faces.component.ValueHolder;
 import javax.faces.context.FacesContext;
+
+import static org.apache.myfaces.tobago.internal.util.Deprecation.LOG;
 
 /**
  * @since 2.0.0
@@ -90,7 +91,7 @@ public class Command {
 
   public Command(final FacesContext facesContext, UIComponent facetComponent, final String focusId) {
     if (facetComponent instanceof UIForm && facetComponent.getChildCount() == 1) {
-      Deprecation.LOG.warn("Please don't use a form, but a command with immediate=true instead.");
+      LOG.warn("Please don't use a form, but a command with immediate=true instead.");
       facetComponent = facetComponent.getChildren().get(0);
     }
     this.action = facetComponent.getClientId(facesContext);
@@ -124,8 +125,18 @@ public class Command {
   }
 
   private static String getConfirmation(final AbstractUICommand command) {
-    final ValueHolder facet = (ValueHolder) ComponentUtils.getFacet(command, Facets.confirmation);
-    return facet != null ? "" + facet.getValue() : null;
+    final String confirmation = command.getConfirmation();
+    if (confirmation != null) {
+      return confirmation;
+    }
+    final UIComponent facet = ComponentUtils.getFacet(command, Facets.confirmation);
+    if (facet instanceof ValueHolder) {
+      final ValueHolder valueHolder = (ValueHolder) facet;
+      return "" + valueHolder.getValue();
+    } else if (facet != null) {
+      LOG.warn("The content of a confirmation facet must be a ValueHolder. Use e. g. <tc:out>.");
+    }
+    return null;
   }
 
   public String getAction() {

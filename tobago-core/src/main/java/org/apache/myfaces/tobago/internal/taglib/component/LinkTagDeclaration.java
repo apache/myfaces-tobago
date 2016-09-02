@@ -27,6 +27,7 @@ import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasAction;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasActionListener;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasConfirmation;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasImage;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabelAndAccessKey;
@@ -62,7 +63,7 @@ import javax.faces.component.UICommand;
             description = "Contains a UIOutput instance with the confirmation message.",
             allowedChildComponenents = "org.apache.myfaces.tobago.Out")})
 public interface LinkTagDeclaration
-    extends HasIdBindingAndRendered, HasAction, HasActionListener, IsImmediateCommand,
+    extends HasIdBindingAndRendered, HasAction, HasActionListener, IsImmediateCommand, HasConfirmation,
             HasLink, HasResource, IsTransition, HasTarget, IsDisabledBySecurity,
             IsOmit, HasImage, HasTabIndex, IsVisual, HasLabelAndAccessKey, HasTip {
 }

@@ -177,5 +177,7 @@ public abstract class AbstractUICommand extends UICommand
 
   public abstract String getTip();
 
+  public abstract String getConfirmation();
+
 //  public abstract Integer getTabIndex();
 }
