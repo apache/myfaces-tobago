@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suppressions xmlns="https://www.owasp.org/index.php/OWASP_Dependency_Check_Suppression">
+  <suppress>
+    <notes>
+      The dependecy-check-plugin missinterprets dependecy to o.a.m.tobago.*:2.0.10
+      as dependency to o.a.myfaces:2.0.10
+    </notes>
+    <cve>CVE-2011-4367</cve>
+  </suppress>
+</suppressions>

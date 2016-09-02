@@ -235,9 +235,9 @@
       <artifactId>geronimo-el_2.2_spec</artifactId>
     </dependency>
     <dependency>
-      <groupId>fop</groupId>
+      <groupId>org.apache.xmlgraphics</groupId>
       <artifactId>fop</artifactId>
-      <version>0.20.5</version>
+      <version>2.1</version>
       <scope>provided</scope>
       <optional>true</optional>
     </dependency>
@@ -245,7 +245,7 @@
     <dependency>
       <groupId>avalon-framework</groupId>
       <artifactId>avalon-framework</artifactId>
-      <version>20020627</version>
+      <version>4.1.5</version>
       <!-- XXX wrong date -->
       <scope>provided</scope>
       <optional>true</optional>
@@ -318,4 +318,8 @@
     </profile>
 
   </profiles>
+
+  <properties>
+    <tobago.basedir>${project.basedir}/../..</tobago.basedir>
+  </properties>
 </project>

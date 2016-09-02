@@ -60,4 +60,7 @@
         <version>1.0</version>
       </dependency>
   </dependencies>
+  <properties>
+    <tobago.basedir>${project.basedir}/../..</tobago.basedir>
+  </properties>
 </project>

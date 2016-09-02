@@ -440,7 +440,7 @@
       <dependency>
         <groupId>commons-beanutils</groupId>
         <artifactId>commons-beanutils</artifactId>
-        <version>1.8.3</version>
+        <version>1.9.2</version>
       </dependency>
       <dependency>
         <groupId>commons-collections</groupId>
@@ -1013,6 +1013,7 @@
           <configuration>
             <!-- TBD: check which score can be accepted -->
             <failBuildOnCVSS>1</failBuildOnCVSS>
+            <suppressionFile>${tobago.basedir}/dependency-check-suppression.xml</suppressionFile>
           </configuration>
         </plugin>
       </plugins>
@@ -1529,5 +1530,6 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <jsf.target>2.0</jsf.target>
     <required.maven.version>2.2.1</required.maven.version>
+    <tobago.basedir>${project.basedir}</tobago.basedir>
   </properties>
 </project>

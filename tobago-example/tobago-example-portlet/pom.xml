@@ -30,9 +30,12 @@
 
     <!-- for JSF 2.0 and Bean Validation (JSR-303)  -->
     <dependency>
-      <groupId>org.glassfish.web</groupId>
-      <artifactId>javax.el</artifactId>
+      <groupId>javax.el</groupId>
+      <artifactId>javax.el-api</artifactId>
     </dependency>
 
   </dependencies>
+  <properties>
+    <tobago.basedir>${project.basedir}/../..</tobago.basedir>
+  </properties>
 </project>

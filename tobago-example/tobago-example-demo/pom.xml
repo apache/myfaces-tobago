@@ -30,6 +30,7 @@
   <properties>
     <openwebbeans.version>1.1.7</openwebbeans.version>
     <deltaspike.version>1.5.2</deltaspike.version>
+    <tobago.basedir>${project.basedir}/../..</tobago.basedir>
   </properties>
   <build>
     <finalName>tobago-example-demo</finalName>
@@ -163,7 +164,7 @@
     <dependency>
         <groupId>org.hibernate</groupId>
         <artifactId>hibernate-validator</artifactId>
-        <version>4.2.0.Final</version>
+        <version>4.3.2.Final</version>
     </dependency>
 
   </dependencies>
@@ -258,8 +259,8 @@
 
         <!-- for JSF 2.0 and Bean Validation (JSR-303)  -->
         <dependency>
-          <groupId>org.glassfish.web</groupId>
-          <artifactId>javax.el</artifactId>
+          <groupId>javax.el</groupId>
+          <artifactId>javax.el-api</artifactId>
         </dependency>
 
       </dependencies>

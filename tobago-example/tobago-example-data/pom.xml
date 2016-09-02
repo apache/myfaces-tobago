@@ -34,4 +34,7 @@
     </dependency>
   </dependencies>
 
+  <properties>
+    <tobago.basedir>${project.basedir}/../..</tobago.basedir>
+  </properties>
 </project>

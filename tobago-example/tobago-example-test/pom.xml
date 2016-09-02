@@ -124,8 +124,48 @@
           <groupId>javax.servlet</groupId>
           <artifactId>jstl</artifactId>
         </exclusion>
+        <!-- BEGIN exclude some tomahawk20 dependencies -->
+        <exclusion>
+          <groupId>batik</groupId>
+          <artifactId>batik-awt-util</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>batik</groupId>
+          <artifactId>batik-gui-util</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>batik</groupId>
+          <artifactId>batik-util</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>commons-validator</groupId>
+          <artifactId>commons-validator</artifactId>
+        </exclusion>
+        <!-- END exclude some tomahawk20 dependencies -->
       </exclusions>
     </dependency>
+    <!-- BEGIN replace tomahawk20 excluded dependencies -->
+    <dependency>
+      <groupId>org.apache.xmlgraphics</groupId>
+      <artifactId>batik-awt-util</artifactId>
+      <version>1.8</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.xmlgraphics</groupId>
+      <artifactId>batik-gui-util</artifactId>
+      <version>1.8</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.xmlgraphics</groupId>
+      <artifactId>batik-util</artifactId>
+      <version>1.8</version>
+    </dependency>
+    <dependency>
+      <groupId>commons-validator</groupId>
+      <artifactId>commons-validator</artifactId>
+      <version>1.5.0</version>
+    </dependency>
+    <!-- END replace tomahawk20 excluded dependencies -->
     <dependency>
       <groupId>log4j</groupId>
       <artifactId>log4j</artifactId>
@@ -360,4 +400,7 @@
     </profile>
   </profiles>
 
+  <properties>
+    <tobago.basedir>${project.basedir}/../..</tobago.basedir>
+  </properties>
 </project>

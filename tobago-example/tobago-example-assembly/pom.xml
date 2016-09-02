@@ -87,5 +87,8 @@
       </build>
     </profile>
   </profiles>
+  <properties>
+    <tobago.basedir>${project.basedir}/../..</tobago.basedir>
+  </properties>
 
  </project>

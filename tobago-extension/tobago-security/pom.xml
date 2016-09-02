@@ -41,4 +41,7 @@
       <artifactId>geronimo-el_2.2_spec</artifactId>
     </dependency>
   </dependencies>
+  <properties>
+    <tobago.basedir>${project.basedir}/../..</tobago.basedir>
+  </properties>
 </project>

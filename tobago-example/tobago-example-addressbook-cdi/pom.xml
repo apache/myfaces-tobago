@@ -28,9 +28,10 @@
   <description>A simple, but full functional application with persistence.</description>
 
   <properties>
-    <openjpa.version>1.0.4</openjpa.version>
+    <openjpa.version>1.2.3</openjpa.version>
     <openwebbeans.version>1.1.7</openwebbeans.version>
     <deltaspike.version>1.3.0</deltaspike.version>
+    <tobago.basedir>${project.basedir}/../..</tobago.basedir>
   </properties>
   <build>
     <finalName>tobago-example-addressbook-cdi</finalName>
