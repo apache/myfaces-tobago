@@ -39,18 +39,25 @@ Tobago.TabGroup.init = function(elements) {
               var activeIndex = Tobago.TabGroup.updateHidden(tab);
               console.debug("todo: ajax reload, activeIndex=" + activeIndex); // @DEV_ONLY
               var tabGroup = tab.parents(".tobago-tabGroup:first");
-              var partialIds = tabGroup.data("tobago-partial-ids");
-              if (partialIds) {
-                partialIds = partialIds + " " + tabGroup.attr("id");
-              } else {
-                partialIds =  tabGroup.attr("id");
+              var tabGroupId = tabGroup.attr("id");
+              var executeIds = tabGroupId;
+              var renderIds = tabGroupId;
+              var behaviorCommands = tabGroup.data("tobago-behavior-commands");
+              if (behaviorCommands && behaviorCommands.reload) {
+                if (behaviorCommands.reload.execute) {
+                  executeIds = behaviorCommands.reload.execute;
+                }
+                if (behaviorCommands.reload.render) {
+                  renderIds +=  " " + behaviorCommands.reload.render;
+                }
               }
+
               jsf.ajax.request(
-                  tabGroup.attr("id"),
+                  tabGroupId,
                   event,
                   {
-                    execute: partialIds,
-                    render: partialIds
+                    execute: executeIds,
+                    render: renderIds
                   });
             })
   });

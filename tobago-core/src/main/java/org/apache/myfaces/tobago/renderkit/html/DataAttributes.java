@@ -27,6 +27,11 @@ package org.apache.myfaces.tobago.renderkit.html;
 public enum DataAttributes implements MarkupLanguageAttributes {
 
   /**
+   * Ajax behaviors execute and render attributes for TabGroup and Sheet reload
+   */
+  BEHAVIOR_COMMANDS("data-tobago-behavior-commands"),
+
+  /**
    * The index of the column of a sheet. This index means the position of the rendered column. It can differ, if there
    * are tc:column with rendered=false.
    */

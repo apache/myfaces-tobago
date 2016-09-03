@@ -23,7 +23,6 @@ import org.apache.myfaces.tobago.compat.FacesUtilsEL;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.OnComponentPopulated;
-import org.apache.myfaces.tobago.component.SupportsRenderedPartially;
 import org.apache.myfaces.tobago.component.UITab;
 import org.apache.myfaces.tobago.component.Visual;
 import org.apache.myfaces.tobago.event.TabChangeEvent;
@@ -38,6 +37,7 @@ import javax.el.MethodExpression;
 import javax.el.ValueExpression;
 import javax.faces.component.ActionSource2;
 import javax.faces.component.UIComponent;
+import javax.faces.component.behavior.ClientBehaviorHolder;
 import javax.faces.context.FacesContext;
 import javax.faces.event.AbortProcessingException;
 import javax.faces.event.ActionListener;
@@ -45,13 +45,17 @@ import javax.faces.event.FacesEvent;
 import javax.faces.event.PhaseId;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 public abstract class AbstractUITabGroup extends AbstractUIPanelBase
-    implements TabChangeSource2, ActionSource2, OnComponentPopulated, SupportsRenderedPartially, Visual {
+    implements TabChangeSource2, ActionSource2, OnComponentPopulated, ClientBehaviorHolder, Visual {
 
   private static final Logger LOG = LoggerFactory.getLogger(AbstractUITabGroup.class);
 
+  // todo generate
+  private static final Collection<String> EVENT_NAMES = Collections.singletonList("reload");
   @Override
   public void encodeChildren(final FacesContext facesContext) throws IOException {
   }
@@ -292,5 +296,15 @@ public abstract class AbstractUITabGroup extends AbstractUIPanelBase
   @Override
   public void onComponentPopulated(final FacesContext facesContext, final UIComponent parent) {
     super.onComponentPopulated(facesContext, parent);
+  }
+
+  @Override
+  public String getDefaultEventName() {
+    return "reload";
+  }
+
+  @Override
+  public Collection<String> getEventNames() {
+    return EVENT_NAMES;
   }
 }

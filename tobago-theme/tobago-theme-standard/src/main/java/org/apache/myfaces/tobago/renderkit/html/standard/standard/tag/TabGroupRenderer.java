@@ -100,8 +100,9 @@ public class TabGroupRenderer extends RendererBase {
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, tabGroup);
     writer.writeStyleAttribute(tabGroup.getStyle());
     writer.writeAttribute(HtmlAttributes.SWITCHTYPE, switchType.name(), false);
-    writer.writeAttribute(DataAttributes.PARTIAL_IDS,
-        ComponentUtils.evaluateClientIds(facesContext, tabGroup, tabGroup.getRenderedPartially()), false);
+
+    final String commands = RenderUtils.getBehaviorCommands(facesContext, tabGroup);
+    writer.writeAttribute(DataAttributes.BEHAVIOR_COMMANDS, commands, false);
 
     writer.startElement(HtmlElements.INPUT);
     writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN);
