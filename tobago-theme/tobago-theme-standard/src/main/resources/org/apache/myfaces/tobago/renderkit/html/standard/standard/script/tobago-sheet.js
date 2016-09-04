@@ -407,7 +407,8 @@ Tobago.Sheet.setup2 = function (sheets) {
             var commands = sheet.data("tobago-row-action");
             var click = commands ? commands.click : undefined;
             var clickActionId = click ? click.action : undefined;
-            var clickReloadComponentId = click ? click.partially : undefined;
+            var clickExecuteIds = click ? click.execute : undefined;
+            var clickRenderIds = click ? click.render : undefined;
 
             var id = $sheet.attr("id");
 
@@ -420,15 +421,15 @@ Tobago.Sheet.setup2 = function (sheets) {
               } else {
                 action = id + ":" + rowIndex + ":" + clickActionId;
               }
-              if (clickReloadComponentId && clickReloadComponentId.length > 0) {
+              if (clickExecuteIds && clickExecuteIds.length > 0) {
                 //Tobago.reloadComponent($target.get(0), clickReloadComponentId, action)
                 jsf.ajax.request(
                     action,
                     event,
                     {
                       //"javax.faces.behavior.event": "click",
-                      execute: clickReloadComponentId,
-                      render: clickReloadComponentId
+                      execute: clickExecuteIds,
+                      render: clickRenderIds
                     });
               } else {
                 Tobago.submitAction($target.get(0), action);

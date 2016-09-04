@@ -61,8 +61,6 @@ import org.apache.myfaces.tobago.renderkit.css.Icons;
 import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.Arias;
-import org.apache.myfaces.tobago.renderkit.html.Command;
-import org.apache.myfaces.tobago.renderkit.html.CommandMap;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlButtonTypes;
@@ -223,7 +221,7 @@ public class SheetRenderer extends RendererBase {
     final UISheet sheet = (UISheet) uiComponent;
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
-    final boolean rowAction = renderSheetCommands(sheet, facesContext, writer);
+    final String rowActionId = renderSheetCommands(sheet, facesContext, writer);
     final String sheetId = sheet.getClientId(facesContext);
     final Selectable selectable = sheet.getSelectable();
     final Application application = facesContext.getApplication();
@@ -391,6 +389,12 @@ public class SheetRenderer extends RendererBase {
         // if rowRendered attribute is set we need the rowIndex on the client
         writer.writeAttribute(DataAttributes.ROW_INDEX, rowIndex);
       }
+
+      if (rowActionId != null) {
+        // dirty hack: we need this id in the dom to allow ajax action on columnEvent
+        writer.writeIdAttribute(sheetId + ":" + sheet.getRowIndex() + ":" + rowActionId);
+      }
+
       final boolean selected = selectedRows.contains(rowIndex);
       final String[] rowMarkups = (String[]) sheet.getAttributes().get("rowMarkup");
       Markup rowMarkup = Markup.NULL;
@@ -418,7 +422,7 @@ public class SheetRenderer extends RendererBase {
           if (markup == null) {
             markup = Markup.NULL;
           }
-          if (rowAction) {
+          if (rowActionId != null) {
             markup = markup.add(Markup.CLICKABLE);
           }
           if (isPure(column)) {
@@ -1169,28 +1173,27 @@ public class SheetRenderer extends RendererBase {
     }
   }
 
-  private static boolean renderSheetCommands(
+  private static String renderSheetCommands(
       final UISheet sheet, final FacesContext facesContext, final TobagoResponseWriter writer) throws IOException {
-    CommandMap commandMap = null;
+    // TODO: TOBAGO-1572
+    String commands = null;
+    String rowActionId = null;
     for (final UIComponent child : sheet.getChildren()) {
       if (child instanceof UIColumnEvent && child.isRendered()) {
         final UIColumnEvent columnEvent = (UIColumnEvent) child;
-        final UIComponent selectionChild = child.getChildren().get(0);
-        if (selectionChild != null && selectionChild instanceof AbstractUICommand && selectionChild.isRendered()) {
-          // TODO: TOBAGO-1572
-          final UICommand action = (UICommand) selectionChild;
-          if (commandMap == null) {
-            commandMap = new CommandMap();
+        if (columnEvent.getChildCount() > 0) {
+          final UIComponent selectionChild = columnEvent.getChildren().get(0);
+          if (selectionChild != null && selectionChild instanceof AbstractUICommand && selectionChild.isRendered()) {
+            commands = RenderUtils.getBehaviorCommands(facesContext, (ClientBehaviorHolder) selectionChild);
+            rowActionId = selectionChild.getId();
           }
-          commandMap.addCommand(columnEvent.getEvent(), new Command(facesContext, action, (String) null));
         }
       }
     }
-    if (commandMap != null) {
-      writer.writeAttribute(DataAttributes.ROW_ACTION, JsonUtils.encode(commandMap), true);
-      return true;
+    if (commands != null) {
+      writer.writeAttribute(DataAttributes.ROW_ACTION, commands, true);
     }
-    return false;
+    return rowActionId;
   }
 
 }
