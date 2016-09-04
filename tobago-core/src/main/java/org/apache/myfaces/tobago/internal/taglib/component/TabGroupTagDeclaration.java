@@ -29,7 +29,6 @@ import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasAction;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasActionListener;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasRenderedPartially;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsImmediateCommand;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
@@ -52,8 +51,7 @@ import javax.faces.component.UIPanel;
     allowedChildComponenents = "org.apache.myfaces.tobago.Tab")
 
 public interface TabGroupTagDeclaration
-    extends HasIdBindingAndRendered, IsImmediateCommand, HasAction, HasActionListener, IsVisual, HasRenderedPartially,
-    HasTip {
+    extends HasIdBindingAndRendered, IsImmediateCommand, HasAction, HasActionListener, IsVisual, HasTip {
 
   /**
    * Flag indicating that the tab navigation bar is rendered.

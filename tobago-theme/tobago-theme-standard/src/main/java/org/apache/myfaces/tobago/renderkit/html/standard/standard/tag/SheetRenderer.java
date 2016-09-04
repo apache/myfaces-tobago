@@ -82,11 +82,12 @@ import javax.faces.application.Application;
 import javax.faces.component.UIColumn;
 import javax.faces.component.UIComponent;
 import javax.faces.component.behavior.AjaxBehavior;
+import javax.faces.component.behavior.ClientBehavior;
+import javax.faces.component.behavior.ClientBehaviorHolder;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 import java.text.MessageFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
@@ -196,10 +197,8 @@ public class SheetRenderer extends RendererBase {
       final UIReload update = (UIReload) facetReload;
       writer.writeAttribute(DataAttributes.RELOAD, update.getFrequency());
     }
-    final String partialIds = ComponentUtils.evaluateClientIds(facesContext, sheet, sheet.getRenderedPartially());
-    if (partialIds != null) {
-      writer.writeAttribute(DataAttributes.PARTIAL_IDS, partialIds, false);
-    }
+    final String commands = RenderUtils.getBehaviorCommands(facesContext, sheet);
+    writer.writeAttribute(DataAttributes.BEHAVIOR_COMMANDS, commands, false);
     writer.writeAttribute(DataAttributes.SELECTION_MODE, sheet.getSelectable().name(), false);
     writer.writeAttribute(DataAttributes.FIRST, Integer.toString(sheet.getFirst()), false);
     final StringBuilder builder = new StringBuilder();
@@ -800,19 +799,13 @@ public class SheetRenderer extends RendererBase {
                 final String sorterId = columnId.substring(columnId.lastIndexOf(":") + 1) + "_" + UISheet.SORTER_ID;
                 sortCommand = (UICommand) CreateComponentUtils.createComponent(
                     facesContext, UICommand.COMPONENT_TYPE, RendererTypes.Link, sorterId);
+                final AjaxBehavior reloadBehavior = createReloadBehavior(sheet);
+                sortCommand.addClientBehavior("click", reloadBehavior);
                 ComponentUtils.setFacet(column, Facets.sorter, sortCommand);
               }
               writer.writeIdAttribute(sortCommand.getClientId(facesContext));
-              String clientIds = ComponentUtils.evaluateClientIds(facesContext, sheet, sheet.getRenderedPartially());
-              if (clientIds == null) {
-                clientIds = sheet.getClientId(facesContext);
-              }
-              final CommandMap map = new CommandMap();
-              final Command click = new Command(
-                  sortCommand.getClientId(facesContext), null, null, null, clientIds, clientIds, null, null, null, null,
-                  null);
-              map.setClick(click);
-              writer.writeAttribute(DataAttributes.COMMANDS, JsonUtils.encode(map), true);
+              final String commands = RenderUtils.getBehaviorCommands(facesContext, sortCommand);
+              writer.writeAttribute(DataAttributes.COMMANDS, commands, true);
 
               if (tip == null) {
                 tip = "";
@@ -1139,17 +1132,41 @@ public class SheetRenderer extends RendererBase {
       facets.put(facet, command);
 
       // add AjaxBehavior
-      final ArrayList<String> ids = new ArrayList<String>();
-      ids.add(sheet.getId());
-      if (sheet.getRenderedPartially() != null) {
-        ids.addAll(Arrays.asList(sheet.getRenderedPartially()));
-      }
-      final AjaxBehavior behavior = new AjaxBehavior();
-      behavior.setExecute(ids);
-      behavior.setRender(ids);
+      final AjaxBehavior behavior = createReloadBehavior(sheet);
       command.addClientBehavior("click", behavior);
     }
     return command;
+  }
+
+  private AjaxBehavior createReloadBehavior(UISheet sheet) {
+    AjaxBehavior reloadBehavior = findReloadBehavior(sheet);
+    final ArrayList<String> renderIds = new ArrayList<String>();
+    if (!renderIds.contains(sheet.getId())) {
+      renderIds.add(sheet.getId());
+    }
+    if (reloadBehavior != null) {
+      renderIds.addAll(reloadBehavior.getRender());
+    }
+    final ArrayList<String> executeIds = new ArrayList<String>();
+    if (!executeIds.contains(sheet.getId())) {
+      executeIds.add(sheet.getId());
+    }
+    if (reloadBehavior != null) {
+      executeIds.addAll(reloadBehavior.getExecute());
+    }
+    final AjaxBehavior behavior = new AjaxBehavior();
+    behavior.setExecute(executeIds);
+    behavior.setRender(renderIds);
+    return behavior;
+  }
+
+  private AjaxBehavior findReloadBehavior(ClientBehaviorHolder holder) {
+    final List<ClientBehavior> reload = holder.getClientBehaviors().get("reload");
+    if (reload != null && !reload.isEmpty() && reload.get(0) instanceof AjaxBehavior) {
+      return (AjaxBehavior) reload.get(0);
+    } else {
+      return null;
+    }
   }
 
   private static boolean renderSheetCommands(

@@ -29,7 +29,7 @@ Tobago.Sheets = {
 
 Tobago.Sheet = function(
     sheetId, unused1, unused2, unused3, unused4,
-    clickActionId, clickReloadComponentId, dblClickActionId, dblClickReloadComponentId, renderedPartially) {
+    clickActionId, clickReloadComponentId, dblClickActionId, dblClickReloadComponentId, behaviorCommands) {
   console.debug("New Sheet with id " + sheetId); // @DEV_ONLY
   console.time("[tobago-sheet] constructor"); // @DEV_ONLY
   this.id = sheetId;
@@ -38,7 +38,7 @@ Tobago.Sheet = function(
   this.clickReloadComponentId = clickReloadComponentId;
   this.dblClickActionId = dblClickActionId;
   this.dblClickReloadComponentId = dblClickReloadComponentId;
-  this.renderedPartially = renderedPartially;
+  this.behaviorCommands = behaviorCommands;
 
   this.setup();
 
@@ -59,7 +59,7 @@ Tobago.Sheet.init = function(elements) {
         click != undefined ? click.partially : undefined,
         dblclick != undefined ? dblclick.action : undefined,
         dblclick != undefined ? dblclick.partially: undefined,
-        sheet.data("tobago-partial-ids")); // type array
+        sheet.data("tobago-behavior-commands")); // type array
 
     //////////////////////////////////////////////
     // XXX bugfix for IE11 (lower than IE11 isn't supported for that feature)
@@ -89,14 +89,23 @@ Tobago.registerListener(Tobago.Sheet.init, Tobago.Phase.AFTER_UPDATE);
 
 Tobago.Sheet.prototype.reloadWithAction = function(source, action) {
     console.debug("reload sheet with action '" + action + "'"); // @DEV_ONLY
-  var reloadIds =  this.renderedPartially ? this.renderedPartially : this.id;
+  var executeIds = this.id;
+  var renderIds = this.id;
+  if (this.behaviorCommands && this.behaviorCommands.reload) {
+    if (this.behaviorCommands.reload.execute) {
+      executeIds +=  " " + behaviorCommands.reload.execute;
+    }
+    if (this.behaviorCommands.reload.render) {
+      renderIds +=  " " + this.behaviorCommands.reload.render;
+    }
+  }
   jsf.ajax.request(
       action,
       null,
       {
         "javax.faces.behavior.event": "reload",
-        execute: reloadIds,
-        render: reloadIds
+        execute: executeIds,
+        render: renderIds
       });
 };
 
