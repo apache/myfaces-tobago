@@ -117,7 +117,9 @@ public class TreePath implements Serializable {
   }
 
   public TreePath getParent() {
-    return new TreePath(Arrays.copyOf(path, path.length - 1));
+    final int[] newPath = new int[path.length - 1];
+    System.arraycopy(path, 0, newPath, 0, newPath.length);
+    return new TreePath(newPath);
   }
 
   public boolean isRoot() {
