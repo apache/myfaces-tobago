@@ -564,15 +564,6 @@ var Tobago = {
                     });
                 event.preventDefault();
                 event.stopPropagation();
-              } else if (commands.click.url) {
-                if (commands.click.target) {
-                  window.open(commands.click.url, commands.click.target)
-                } else {
-                  Tobago.navigateToUrl(commands.click.url);
-                  event.preventDefault();
-                  event.stopPropagation();
-                  return false;
-                }
               } else if (commands.click.script) { // XXX this case is deprecated.
                 // not allowed with Content Security Policy (CSP)
                 new Function('event' , commands.click.script)(event);

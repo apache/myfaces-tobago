@@ -24,7 +24,6 @@ import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.UIForm;
 import org.apache.myfaces.tobago.internal.component.AbstractUICommand;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
-import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 
 import javax.faces.component.UIComponent;
@@ -44,7 +43,6 @@ public class Command {
   private String action;
   private Boolean transition;
   private String target;
-  private String url;
   private String partially;
   private String execute;
   private String render;
@@ -58,13 +56,12 @@ public class Command {
   }
 
   public Command(
-      final String action, final Boolean transition, final String target, final String url, final String execute,
+      final String action, final Boolean transition, final String target, final String execute,
       final String render, final String focus, final String confirmation, final Integer delay,
       final Collapse collapse, final Boolean omit) {
     this.action = action;
     this.transition = transition;
     this.target = target;
-    this.url = url;
     setExecute(execute);
     setRender(render);
     this.focus = focus;
@@ -79,7 +76,6 @@ public class Command {
         null,
         command.isTransition(),
         command.getTarget(),
-        RenderUtils.generateUrl(facesContext, command),
         null,
         null,
         null,
@@ -161,14 +157,6 @@ public class Command {
 
   public void setTarget(final String target) {
     this.target = target;
-  }
-
-  public String getUrl() {
-    return url;
-  }
-
-  public void setUrl(final String url) {
-    this.url = url;
   }
 
   /**

@@ -47,7 +47,7 @@ public class JsonUtilsUnitTest extends AbstractTobagoTestBase {
   @Test
   public void click() {
     final CommandMap map = new CommandMap();
-    map.setClick(new Command(null, null, null, null, "", null, null, null, null, null, null));
+    map.setClick(new Command(null, null, null, "", null, null, null, null, null, null));
     final String expected = "{'click':{}}".replaceAll("'", "\"");
     Assert.assertEquals(expected, JsonUtils.encode(map));
   }
@@ -55,7 +55,7 @@ public class JsonUtilsUnitTest extends AbstractTobagoTestBase {
   @Test
   public void change() {
     final CommandMap map = new CommandMap();
-    map.addCommand("change", new Command(null, null, null, null, null, null, null, null, null, null, null));
+    map.addCommand("change", new Command(null, null, null, null, null, null, null, null, null, null));
     final String expected = "{'change':{}}".replaceAll("'", "\"");
     Assert.assertEquals(expected, JsonUtils.encode(map));
   }
@@ -63,8 +63,8 @@ public class JsonUtilsUnitTest extends AbstractTobagoTestBase {
   @Test
   public void two() {
     final CommandMap map = new CommandMap();
-    map.addCommand("click", new Command(null, null, "target", null, null, null, null, null, null, null, null));
-    map.addCommand("change", new Command(null, null, null, null, null, null, null, null, null, null, null));
+    map.addCommand("click", new Command(null, null, "target", null, null, null, null, null, null, null));
+    map.addCommand("change", new Command(null, null, null, null, null, null, null, null, null, null));
     final String expected = "{'click':{'target':'target'},'change':{}}".replaceAll("'", "\"");
     Assert.assertEquals(expected, JsonUtils.encode(map));
   }
@@ -72,7 +72,7 @@ public class JsonUtilsUnitTest extends AbstractTobagoTestBase {
   @Test
   public void transition() {
     final CommandMap commandMap = new CommandMap();
-    commandMap.setClick(new Command(null, false, null, null, null, null, null, null, null, null, null));
+    commandMap.setClick(new Command(null, false, null, null, null, null, null, null, null, null));
     final String expected = "{'click':{'transition':false}}".replaceAll("'", "\"");
     Assert.assertEquals(expected, JsonUtils.encode(commandMap));
   }
@@ -88,7 +88,7 @@ public class JsonUtilsUnitTest extends AbstractTobagoTestBase {
     map.setClick(new Command(
         "ns:actionId",
         false,
-        "_blank", "http://www.apache.org/",
+        "_blank",
         StringUtils.join(Arrays.asList("id1", "id2"), ' '),
         StringUtils.join(Arrays.asList("id1", "id2"), ' '),
         "id_focus",
@@ -99,7 +99,6 @@ public class JsonUtilsUnitTest extends AbstractTobagoTestBase {
             + "'action':'ns:actionId',"
             + "'transition':false,"
             + "'target':'_blank',"
-            + "'url':'http://www.apache.org/',"
             + "'execute':'id1 id2',"
             + "'render':'id1 id2',"
             + "'collapse':{"

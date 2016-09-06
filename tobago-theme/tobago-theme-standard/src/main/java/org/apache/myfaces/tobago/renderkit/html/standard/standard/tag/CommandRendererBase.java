@@ -84,7 +84,7 @@ public abstract class CommandRendererBase extends RendererBase {
     final String clientId = command.getClientId(facesContext);
     final boolean disabled = command.isDisabled();
     final LabelWithAccessKey label = new LabelWithAccessKey(command);
-    final boolean link = command.getLink() != null && !disabled;
+    final boolean link = (command.getLink() != null || command.getResource() != null) && !disabled;
     final String target = command.getTarget();
 
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
@@ -109,21 +109,18 @@ public abstract class CommandRendererBase extends RendererBase {
     writer.writeAttribute(HtmlAttributes.DISABLED, disabled);
 
     if (!disabled) {
-      final String href;
+      if (link) {
+        final String href = RenderUtils.generateUrl(facesContext, command);
+        writer.writeAttribute(HtmlAttributes.HREF, href, false);
+        writer.writeAttribute(HtmlAttributes.TARGET, target, false);
+      }
+
       String commands = RenderUtils.getBehaviorCommands(facesContext, command);
       if (commands == null) { // old way
         final CommandMap map = new CommandMap(new Command(facesContext, command));
         commands = JsonUtils.encode(map);
-        href = map.getClick().getUrl();
-      } else {
-        href = RenderUtils.generateUrl(facesContext, command);
       }
-      if (link) {
-        writer.writeAttribute(HtmlAttributes.HREF, href, false);
-        writer.writeAttribute(HtmlAttributes.TARGET, target, false);
-      } else {
-        writer.writeAttribute(DataAttributes.COMMANDS, commands, true);
-      }
+      writer.writeAttribute(DataAttributes.COMMANDS, commands, true);
 
       if (label.getAccessKey() != null) {
         writer.writeAttribute(HtmlAttributes.ACCESSKEY, Character.toString(label.getAccessKey()), false);

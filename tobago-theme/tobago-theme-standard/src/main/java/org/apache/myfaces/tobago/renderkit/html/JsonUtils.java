@@ -76,7 +76,7 @@ public class JsonUtils {
     builder.append("]");
   }
 
-  static void encode(final StringBuilder builder, final String name, final Boolean value) {
+  private static void encode(final StringBuilder builder, final String name, final Boolean value) {
     builder.append("\"");
     builder.append(name);
     builder.append("\":");
@@ -84,7 +84,7 @@ public class JsonUtils {
     builder.append(",");
   }
 
-  static void encode(final StringBuilder builder, final String name, final Integer value) {
+  private static void encode(final StringBuilder builder, final String name, final Integer value) {
     builder.append("\"");
     builder.append(name);
     builder.append("\":");
@@ -92,7 +92,7 @@ public class JsonUtils {
     builder.append(",");
   }
 
-  static void encode(final StringBuilder builder, final String name, String value) {
+  private static void encode(final StringBuilder builder, final String name, String value) {
     value = value.replaceAll("\\\"", "\\\\\\\""); // todo: optimize
     builder.append("\"");
     builder.append(name);
@@ -127,7 +127,7 @@ public class JsonUtils {
     return builder.toString();
   }
 
-  static void encode(final StringBuilder builder, final String name, final Command command) {
+  private static void encode(final StringBuilder builder, final String name, final Command command) {
     builder.append("\"");
     builder.append(name);
     builder.append("\":{");
@@ -144,10 +144,6 @@ public class JsonUtils {
     final String target = command.getTarget();
     if (target != null) {
       encode(builder, "target", target);
-    }
-    final String url = command.getUrl();
-    if (url != null) {
-      encode(builder, "url", url);
     }
     final String partially = command.getPartially();
     if (partially != null) {
@@ -179,7 +175,7 @@ public class JsonUtils {
     }
     final Boolean omit = command.getOmit();
     if (omit != null && omit) { // false is the default, so encoding is needed.
-      encode(builder, "omit", omit);
+      encode(builder, "omit", true);
     }
 
     if (builder.length() - initialLength > 0) {
@@ -190,7 +186,7 @@ public class JsonUtils {
     builder.append("},");
   }
 
-  static void encode(final StringBuilder builder, final String name, final Collapse collapse) {
+  private static void encode(final StringBuilder builder, final String name, final Collapse collapse) {
     builder.append("\"");
     builder.append(name);
     builder.append("\":{");

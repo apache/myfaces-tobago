@@ -21,6 +21,7 @@ package org.apache.myfaces.tobago.renderkit.html;
 
 import org.apache.myfaces.tobago.internal.component.AbstractUICommand;
 import org.apache.myfaces.tobago.internal.component.AbstractUIOperation;
+import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 
@@ -63,9 +64,11 @@ public class AjaxClientBehaviorRenderer extends ClientBehaviorRenderer {
       }
     }
 
-    final String url = (component instanceof AbstractUICommand)
-                       ? RenderUtils.generateUrl(facesContext, (AbstractUICommand) component)
-                       : null;
+    boolean omit = component instanceof AbstractUICommand &&
+        (((AbstractUICommand) component).isOmit()
+            // if it is a link, the default submit must not be called.
+            || StringUtils.isNotBlank(RenderUtils.generateUrl(facesContext, (AbstractUICommand) component)));
+
     final String clientId = component.getClientId(facesContext);
     String executeIds =
         ComponentUtils.evaluateClientIds(facesContext, component, execute.toArray(new String[execute.size()]));
@@ -78,14 +81,13 @@ public class AjaxClientBehaviorRenderer extends ClientBehaviorRenderer {
         clientId,
         (component instanceof AbstractUICommand) ? ((AbstractUICommand) component).isTransition() : null,
         (component instanceof AbstractUICommand) ? ((AbstractUICommand) component).getTarget() : null,
-        url,
         executeIds,
         ComponentUtils.evaluateClientIds(facesContext, component, render.toArray(new String[render.size()])),
         null,
         null, // getConfirmation(command), // todo
         null,
         collapse,
-        (component instanceof AbstractUICommand) ? ((AbstractUICommand) component).isOmit() : null);
+        omit);
 
     final CommandMap map = new CommandMap();
     map.addCommand(behaviorContext.getEventName(), command);
