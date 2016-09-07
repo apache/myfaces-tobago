@@ -93,16 +93,6 @@ var Tobago = {
     isWebkit: false
   },
 
-  /**
-   * Flag indicating that the page is completely loaded.
-   */
-  // pageIsComplete: false,
-
-  /**
-   * Flag indicating that currently a scriptLoader is running.
-   */
-  // scriptLoadingActive: false,
-
   isSubmit: false,
 
   initMarker: false,
@@ -346,15 +336,6 @@ var Tobago = {
   },
 
   /**
-   * return true if page loading is complete.
-   */
-/*
-  isPageComplete: function() {
-    return this.pageIsComplete;
-  },
-*/
-
-  /**
    * Submitting the page with specified actionId.
    * options.transition
    * options.target
@@ -564,9 +545,6 @@ var Tobago = {
                     });
                 event.preventDefault();
                 event.stopPropagation();
-              } else if (commands.click.script) { // XXX this case is deprecated.
-                // not allowed with Content Security Policy (CSP)
-                new Function('event' , commands.click.script)(event);
               } else {
                 Tobago.submitAction(this, action, commands.click);
               }
