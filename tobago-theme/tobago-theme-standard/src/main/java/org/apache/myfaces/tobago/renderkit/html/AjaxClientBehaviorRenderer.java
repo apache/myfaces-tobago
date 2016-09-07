@@ -64,8 +64,8 @@ public class AjaxClientBehaviorRenderer extends ClientBehaviorRenderer {
       }
     }
 
-    boolean omit = component instanceof AbstractUICommand &&
-        (((AbstractUICommand) component).isOmit()
+    boolean omit = component instanceof AbstractUICommand
+        && (((AbstractUICommand) component).isOmit()
             // if it is a link, the default submit must not be called.
             || StringUtils.isNotBlank(RenderUtils.generateUrl(facesContext, (AbstractUICommand) component)));
 
