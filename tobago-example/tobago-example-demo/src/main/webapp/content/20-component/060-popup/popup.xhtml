@@ -59,11 +59,11 @@
             <br/>The 'Cancel'-button calls the close-method in the controller and
             has <code>immediate="true"</code>, so no submit is executed.</p>
 
-          <tc:in id="in" label="Required Field" required="true" value="#{popupController.popup1Text}"/>
+          <tc:in id="in1" label="Required Field" required="true" value="#{popupController.popup1Text}"/>
           <tc:buttons>
-            <tc:button id="submit" label="Submit"/>
-            <tc:button id="submitClose" label="Submit &amp; Close" action="#{popupController.closePopup1}"/>
-            <tc:button id="cancel" label="Cancel" immediate="true" action="#{popupController.closePopup1}"/>
+            <tc:button id="submit1" label="Submit"/>
+            <tc:button id="submitClose1" label="Submit &amp; Close" action="#{popupController.closePopup1}"/>
+            <tc:button id="cancel1" label="Cancel" immediate="true" action="#{popupController.closePopup1}"/>
           </tc:buttons>
         </tc:box>
       </tc:popup>
@@ -125,15 +125,15 @@
           <p>The 'Cancel'-button execute a 'hide'-operation to close the popup.
             Also the attribute <code>omit="true"</code> is set to prevent submit.</p>
 
-          <tc:in id="in" label="Required Field" required="true" value="#{popupController.popup2Text}"/>
+          <tc:in id="in2" label="Required Field" required="true" value="#{popupController.popup2Text}"/>
           <tc:buttons>
-            <tc:button id="submit" label="Submit">
-              <f:ajax execute="in" render="in :::out clientPopupMessages"/>
+            <tc:button id="submit2" label="Submit">
+              <f:ajax execute="in2" render="in2 :::out clientPopupMessages"/>
             </tc:button>
-            <tc:button id="submitClose" label="Submit &amp; Close">
+            <tc:button id="submitClose2" label="Submit &amp; Close">
               <tc:operation name="hide" for="clientPopup"/>
             </tc:button>
-            <tc:button id="cancel" label="Cancel" omit="true">
+            <tc:button id="cancel2" label="Cancel" omit="true">
               <tc:operation name="hide" for="clientPopup"/>
             </tc:button>
           </tc:buttons>
