@@ -56,10 +56,10 @@
     <release>
       <Version>
         <name>Latest stable release of 2.0.x</name>
-        <created>2016-02-01</created>
-        <revision>2.0.9</revision>
-        <file-release>http://www.apache.org/dyn/closer.lua/myfaces/binaries/myfaces-tobago-2.0.9-dist.tar.gz</file-release>
-        <file-release>http://www.apache.org/dyn/closer.lua/myfaces/binaries/myfaces-tobago-2.0.9-dist.zip</file-release>
+        <created>2016-09-08</created>
+        <revision>2.0.10</revision>
+        <file-release>http://www.apache.org/dyn/closer.lua/myfaces/binaries/myfaces-tobago-2.0.10-dist.tar.gz</file-release>
+        <file-release>http://www.apache.org/dyn/closer.lua/myfaces/binaries/myfaces-tobago-2.0.10-dist.zip</file-release>
       </Version>
     </release>
     <release>

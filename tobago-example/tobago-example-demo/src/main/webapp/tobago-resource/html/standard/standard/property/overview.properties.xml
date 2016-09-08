@@ -178,7 +178,7 @@
   <entry key="footer_viewSource">View Source</entry>
 
   <!-- Tag Library Documentation URL -->
-  <entry key="tagDocUrl">https://myfaces.apache.org/tobago/doc/2.0.9/tld/tc</entry>
+  <entry key="tagDocUrl">https://myfaces.apache.org/tobago/doc/2.0.10/tld/tc</entry>
 
 <!--  basicControls -->
   <entry key="basic_sampleInputTitle">Basic Input Examples</entry>

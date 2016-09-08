@@ -47,6 +47,22 @@ Apache Tobago
 
 News
 
+* September 8, 2016 - MyFaces Tobago 2.0.10 Released
+
+      The MyFaces Tobago component library in version 2.0.10 has been released.
+
+      Release notes can be found in
+      {{{https://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&version=12334742}Jira}}.
+
+      Major changes are:
+
+      * Multifile-Upload Component
+      * New SplitLayout Component in tobago-core
+
+      \ {}
+      ~~ hack for a bit space
+
+
 * August 28, 2016 - MyFaces Tobago 3.0.0-alpha-5 Released
 
       The MyFaces Tobago component library in version 3.0.0-alpha-5 has been released.
