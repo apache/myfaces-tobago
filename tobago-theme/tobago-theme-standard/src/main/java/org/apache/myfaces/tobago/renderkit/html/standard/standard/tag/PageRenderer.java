@@ -267,8 +267,8 @@ public class PageRenderer extends RendererBase {
 
     writer.startElement(HtmlElements.INPUT);
     writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN);
-    writer.writeNameAttribute(clientId + ComponentUtils.SUB_SEPARATOR + "form-clientDimension");
-    writer.writeIdAttribute(clientId + ComponentUtils.SUB_SEPARATOR + "form-clientDimension");
+    writer.writeNameAttribute(clientId + ComponentUtils.SUB_SEPARATOR + "lastFocusId");
+    writer.writeIdAttribute(clientId + ComponentUtils.SUB_SEPARATOR + "lastFocusId");
     writer.endElement(HtmlElements.INPUT);
 
     if (TobagoConfig.getInstance(FacesContext.getCurrentInstance()).isCheckSessionSecret()) {

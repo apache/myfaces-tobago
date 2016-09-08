@@ -36,12 +36,6 @@ var Tobago = {
   // -------- Variables -------------------------------------------------------
 
   /**
-   * the html body object of current page.
-   * set via init function
-   */
-  page: null,
-
-  /**
    * The html form object of current page.
    * set via init function
    */
@@ -141,6 +135,22 @@ var Tobago = {
     phaseMap[order].push(listener);
   },
 
+  findPage: function() {
+    return jQuery(".tobago-page");
+  },
+
+  findForm: function() {
+    return Tobago.findSubElementOfPage("form");
+  },
+
+  /**
+   * Find a sub-element of the page. Like the form with id e.g. page::form
+   * @param suffix
+   */
+  findSubElementOfPage: function(suffix) {
+    return jQuery(Tobago.Utils.escapeClientId(Tobago.findPage().attr("id") + Tobago.SUB_COMPONENT_SEP + suffix));
+  },
+
   /**
    * Tobago's central init function.
    * Called when the document (DOM) is ready
@@ -154,10 +164,7 @@ var Tobago = {
 
     console.time("[tobago] init"); // @DEV_ONLY
     console.time("[tobago] init (main thread)"); // @DEV_ONLY
-    var page = jQuery(".tobago-page");
-    this.page = page.get(0);
-    this.form = page.find("form").get(0); // find() seems to be faster than children()
-    this.addBindEventListener(this.form, 'submit', this, 'onSubmit');
+    this.addBindEventListener(Tobago.findForm().get(0), 'submit', this, 'onSubmit');
 
     this.addBindEventListener(window, 'unload', this, 'onUnload');
 
@@ -212,18 +219,9 @@ var Tobago = {
 
     this.isSubmit = true;
 
-    Tobago.storeClientDimension();
-
     Tobago.onBeforeUnload();
 
     return true;
-  },
-
-  storeClientDimension: function() {
-    var page = jQuery(".tobago-page");
-    page.children("form").first()
-        .children(Tobago.Utils.escapeClientId(this.page.id + this.SUB_COMPONENT_SEP + 'form-clientDimension'))
-        .val(Math.floor(page.width()) + ';' + Math.floor(page.height()));
   },
 
   onBeforeUnload: function() {
@@ -287,9 +285,6 @@ var Tobago = {
     }
     this.jsObjects.length = 0;
     delete this.jsObjects;
-
-    delete this.page;
-    delete this.form;
     delete this.lastFocusId;
   },
 
@@ -346,20 +341,18 @@ var Tobago = {
 
     var transition = options.transition === undefined || options.transition == null || options.transition;
 
-    if (options.focus) {
-      var lastFocusId = this.createInput('hidden', this.page.id + this.SUB_COMPONENT_SEP + 'lastFocusId', options.focus);
-      this.form.appendChild(lastFocusId);
-    }
+    Tobago.findSubElementOfPage("lastFocusId").val(options.focus);
 
     Tobago.Transport.request(function() {
       if (!this.isSubmit) {
         this.isSubmit = true;
-        var oldTarget = Tobago.form.target;
+        var form = Tobago.findForm();
+        var oldTarget = form.attr("target");
         var $sourceHidden = jQuery(Tobago.Utils.escapeClientId("javax.faces.source"));
         $sourceHidden.prop("disabled", false);
         $sourceHidden.val(actionId);
         if (options.target) {
-          Tobago.form.target = options.target;
+          form.attr("target", options.target);
         }
         Tobago.oldTransition = Tobago.transition;
         Tobago.transition = transition && !options.target;
@@ -373,20 +366,20 @@ var Tobago = {
         if (onSubmitResult) {
           try {
             // console.debug("submit form with action: " + Tobago.action.value);
-            Tobago.form.submit();
+            form.get(0).submit();
             if (Tobago.browser.isMsie) {
               // without this "redundant" code the animation will not be animated in IE (tested with 6,7,8,9,10,11)
               var image = jQuery(".tobago-page-overlayCenter img");
               image.appendTo(image.parent());
             }
           } catch (e) {
-            jQuery(".tobago-page").overlay("destroy");
+            Tobago.findPage().overlay("destroy");
             Tobago.isSubmit = false;
             alert('Submit failed: ' + e); // XXX localization, better error handling
           }
         }
         if (options.target) {
-          Tobago.form.target = oldTarget;
+          form.attr("target", oldTarget);
         }
         if (options.target || !transition || !onSubmitResult) {
           this.isSubmit = false;
@@ -402,8 +395,8 @@ var Tobago = {
   },
 
   getJsfState: function() {
-    var stateContainer = Tobago.element(Tobago.page.id + Tobago.SUB_COMPONENT_SEP + 'jsf-state-container');
-    var jsfState = '';
+    var stateContainer = Tobago.findSubElementOfPage("jsf-state-container").get(0);
+    var jsfState = "";
     if (stateContainer) {
       for (var i = 0; i < stateContainer.childNodes.length; i++) {
         var child = stateContainer.childNodes[i];
@@ -431,62 +424,6 @@ var Tobago = {
   addReloadTimeout: function(id, func, time) {
     Tobago.clearReloadTimer(id);
     Tobago.reloadTimer[id] = setTimeout(func, time);
-  },
-
-  /**
-   * Reset the form element.
-   */
-  resetForm: function() {
-    this.form.reset();
-  },
-
-  /**
-   * Load a specified URL into client
-   */
-  navigateToUrl: function(toUrl) {
-    document.location.href = toUrl;
-  },
-
-  /**
-   * Check if a style file is already loaded, to prevent multiple loadings
-   * from Ajax requests.
-   */
-  styleFileLoaded: function(name) {
-    var children = document.getElementsByTagName('head')[0].childNodes;
-    for (var i = 0; i < children.length; i++) {
-      var child = children[i];
-      if (child.tagName && child.tagName.toUpperCase() == 'LINK') {
-        if (child.rel == 'stylesheet'
-            && child.type == 'text/css'
-            && name == child.href.replace(/^http:\/\/.*?\//, '/')) {
-          return true;
-        }
-      }
-    }
-    return false;
-  },
-
-  /**
-   * Ensure that a style file is loaded.
-   */
-  ensureStyleFile: function(name) {
-    if (!this.styleFileLoaded(name)) {
-      var style = document.createElement('link');
-      style.rel = 'stylesheet';
-      style.type = 'text/css';
-      style.href = name;
-      var head = document.getElementsByTagName('head')[0];
-      head.appendChild(style);
-    }
-  },
-
-  /**
-   * Ensure that an array of style files is loaded.
-   */
-  ensureStyleFiles: function(names) {
-    for (var i = 0; i < names.length; i++) {
-      this.ensureStyleFile(names[i]);
-    }
   },
 
   /**
@@ -735,7 +672,7 @@ var Tobago = {
       jQuery(".tobago-page-preventFrameAttacks").removeClass("tobago-page-preventFrameAttacks");
     } else {
       if (jQuery(".tobago-page-preventFrameAttacks").size() > 0) { // preventFrameAttacks is true
-        var page = jQuery(".tobago-page");
+        var page = Tobago.findPage();
         page.attr("title", "This application can't be used embedded inside an other site " +
         "(configuration: prevent-frame-attacks=true)!");
         jQuery("<i>")
@@ -750,46 +687,6 @@ var Tobago = {
 // -------- Util functions ----------------------------------------------------
 
   /**
-   * @deprecated Please use Tobago.Utils.escapeClientId()
-   */
-  escapeClientId: function(id) {
-    console.warn("Deprecated method was called. Please use Tobago.Utils.escapeClientId()"); // @DEV_ONLY
-    return Tobago.Utils.escapeClientId(id);
-  },
-
-  /**
-   * @deprecated Please use Tobago.Utils.selectWithJQuery()
-   */
-  selectWithJQuery: function(elements, selector) {
-    console.warn("Deprecated method was called. Please use Tobago.Utils.selectWithJQuery()"); // @DEV_ONLY
-    return Tobago.Utils.selectWithJQuery(elements, selector);
-  },
-
-  clickOnElement: function(id) {
-    var element = this.element(id);
-//    console.debug("id = " + id + "  element = " + typeof element);
-    if (element) {
-      if (element.click) {
-//        console.debug("click on element");
-        element.click();
-      } else {
-//        console.debug("click on new button");
-        var a = document.createElement('input');
-        a.type = 'button';
-        a.style.width = '0px;';
-        a.style.height = '0px;';
-        a.style.border = '0px;';
-        a.style.padding = '0px;';
-        a.style.margin = '0px;';
-//        a.addEventListener("click", function(event) {console.debug("button onclick : event " + typeof event);}, false);
-        element.appendChild(a);
-        a.click();
-        element.removeChild(a);
-      }
-    }
-  },
-
-  /**
    * Sets the focus to the requested element or to the first possible if
    * no element is explicitly requested.
    */
@@ -802,21 +699,19 @@ var Tobago = {
     } else {
       elementId = this.focusId;
     }
-    var focusElement = this.element(elementId);
-    if (!focusElement && elementId !== undefined) {
-      // search for input elements in tc:select*  controls
-      var elements = document.getElementsByName(elementId);
-      if (elements.length > 0) {
-        focusElement = elements[0];
+    if (elementId != null) {
+      var $focusElement = jQuery(Tobago.Utils.escapeClientId(elementId));
+      if ($focusElement.size() > 0) {
+        try { // focus() on not visible elements breaks IE
+          $focusElement.focus();
+          return;
+        } catch (ex) {
+          console.warn('Exception when setting focus on : \"' + elementId + '\"'); // @DEV_ONLY
+        }
       }
     }
-    if (focusElement) {
-      try { // focus() on not visible elements breaks IE
-        focusElement.focus();
-      } catch (ex) {
-        console.warn('Exception when setting focus on : \"' + this.focusId + '\"'); // @DEV_ONLY
-      }
-    } else if (typeof this.focusId == 'undefined') {
+
+    if (typeof this.focusId == 'undefined') {
       var lowestTabIndex = 32768; // HTML max tab index value + 1
       var candidate = null;
       var candidateWithTabIndexZero = null;
@@ -905,28 +800,6 @@ var Tobago = {
   },
 
   /**
-   * Add a CSS class name to the className property of an HTML element
-   */
-  addCssClass: function(element, className) {
-    element = Tobago.element(element);
-    element.className = element.className + ' ' + className;
-  },
-
-  /**
-   * remove a CSS class name from the className property of an HTML element
-   */
-  removeCssClass: function(element, className) {
-    element = Tobago.element(element);
-    var classes = ' ' + element.className + ' ';
-    var re = new RegExp(' ' + className + ' ', 'g');
-    while (classes.match(re)) {
-      classes = classes.replace(re, ' ');
-    }
-    classes = classes.replace(/  /g, ' ');
-    element.className = classes;
-  },
-
-  /**
    * Clear the selection.
    */
   clearSelection: function() {
@@ -938,39 +811,6 @@ var Tobago = {
       }
     } else if (window.getSelection) {  // GECKO
       window.getSelection().removeAllRanges();
-    }
-  },
-
-  /**
-   * Returns the computedStyle of an HTML element
-   */
-  getRuntimeStyle: function(element) {
-    if (element.runtimeStyle) { // IE
-      return element.runtimeStyle;
-    } else {
-      return document.defaultView.getComputedStyle(element, null);
-    }
-  },
-
-  /**
-   * Return ancestor with given type.
-   */
-  // TODO what if no ancestor found? XXX rename anchestor -> ancestor
-  findAnchestorWithTagName: function(element, tagName) {
-    element = this.element(element);
-    while (element.parentNode && (!element.tagName ||
-        (element.tagName.toUpperCase() != tagName.toUpperCase())))
-      element = element.parentNode;
-    return element;
-  },
-
-  /**
-   * Set the width of an HTML element via style
-   */
-  setElementWidth: function(id, width) {
-    var element = this.element(id);
-    if (element) {
-      element.style.width = width;
     }
   },
 
@@ -1106,128 +946,11 @@ var Tobago = {
     return Math.max(top, 0);
   },
 
-  getWidth: function(element) {
-    var width = 0;
-    if (element) {
-      width = element.offsetWidth;
-      if (width === undefined) {
-        width = 0;
-      }
-    }
-    return width;
-  },
-
-  getHeight: function(element) {
-    var height = 0;
-    if (element) {
-      height = element.offsetHeight;
-      if (height === undefined) {
-        height = 0;
-      }
-    }
-    return height;
-  },
-
-
-  /**
-   * Returns the absolute left, related to the body element, value for an HTML element.
-   * @deprecated since Tobago 2.0.0
-   */
-  getAbsoluteLeft: function(element) {
-    console.error("getAbsoluteLeft() is no long functional!"); // @DEV_ONLY
-    return 0;
-  },
-
-  /**
-   * Returns the scroll-x value of the body element.
-   * @deprecated since Tobago 2.0.0
-   */
-  getBrowserInnerLeft: function() {
-    console.error("getBrowserInnerLeft() is no long functional!"); // @DEV_ONLY
-    return 0;
-  },
-
-  /**
-   * Returns the scroll-y value of the body element.
-   * @deprecated since Tobago 2.0.0
-   */
-  getBrowserInnerTop: function() {
-    console.error("getBrowserInnerTop() is no long functional!"); // @DEV_ONLY
-    return 0;
-  },
-
-  /**
-   *  @deprecated since Tobago 2.0.0
-   */
-  doEditorCommand: function(element, id) {
-    console.error("doEditorCommand() is no long functional!"); // @DEV_ONLY
-  },
-
-  /**
-   * Returns an HTML element.
-   * valid input types are:
-   * 'string'      : returns the result of document.getElementById()
-   * 'Event'       : returns the currentTarget/srcElement property
-   * 'HtmlElement' : returns the element itself
-   * For all other types return 'undefined'
-   */
-  element: function(arg) {
-//    console.debug("arg = " + arg);
-
-    try {
-      if (typeof arg === 'string') {
-//        console.debug("arg is string ");
-        return document.getElementById(arg);
-      }
-      if (typeof arg.currentTarget == 'object') {
-//        console.debug("arg is DOM event ");
-        return arg.currentTarget;
-      }
-      if (typeof arg.srcElement == 'object') {
-//        console.debug("arg is IE event ");
-        return arg.srcElement;  // IE doesn't support currentTarget, hope src target helps
-      }
-      if (typeof arg.tagName == 'string') {
-//        console.debug("arg is HTML element ");
-        return arg;
-      }
-
-    } catch (ex) {
-      return undefined;
-    }
-    if (! (arg === undefined)) { // @DEV_ONLY
-      console.debug('arg is unknown: ' + typeof arg + ' : ' + arg); // @DEV_ONLY
-    } // @DEV_ONLY
-    return undefined;
-  },
-
   extend: function(target, source) {
     for (var property in source) {
       target[property] = source[property];
     }
     return target;
-  },
-
-  fixPngAlphaAll: function() {
-    // we need only an implementation in the IE6 file.
-  },
-
-  fixPngAlpha: function(element) {
-    // we need only an implementation in the IE6 file.
-  },
-
-  /** @deprecated since Tobago 2.0.0 */
-  replaceElement: function(item, newTag) {
-    console.error("replaceElement() is no long functional!"); // @DEV_ONLY
-  },
-
-  /** @deprecated since Tobago 1.5.7 and 2.0.0 */
-  setDefaultAction: function(defaultActionId) {
-    console.error("setDefaultAction() is no long functional!"); // @DEV_ONLY
-  },
-
-  isFunction: function(func) {
-    return (typeof func == 'function') || ((typeof func == 'object') && func.call);
   },
 
   raiseEvent: function(eventType, element) {
@@ -1792,15 +1515,7 @@ Tobago.File.init = function(elements) {
     });
   });
   if (files.length > 0) {
-    jQuery("form").attr('enctype', 'multipart/form-data');
-    if (myfaces) {
-      // XXX This hack is currently needed for MyFaces 2.0 and 2.1 for File Upload with AJAX
-      // XXX to enable multipart-formdata
-
-      // XXX TOBAGO-JSF-JS this hack is not needed with tobago-jsf.js
-      // myfaces.config = myfaces.config || {};
-      // myfaces.config["transportAutoSelection"] = true;
-    }
+    Tobago.findForm().attr('enctype', 'multipart/form-data');
   }
 };
 
@@ -1817,10 +1532,11 @@ Tobago.Codi = {};
  */
 Tobago.Codi.init = function() {
 
-  var form = document.forms[0];
-  var windowIdEnabled = Tobago.Codi.hasUrlWindowId(form.action);
+  var form = Tobago.findForm();
+  var action = form.attr("action");
+  var windowIdEnabled = Tobago.Codi.hasUrlWindowId(action);
   if (windowIdEnabled && window.name == "") {
-    form.action = Tobago.Codi.urlWithoutWindowId(form.action);
+    form.attr("action", Tobago.Codi.urlWithoutWindowId(action));
     window.name = "window";
     Tobago.submitAction();
   }

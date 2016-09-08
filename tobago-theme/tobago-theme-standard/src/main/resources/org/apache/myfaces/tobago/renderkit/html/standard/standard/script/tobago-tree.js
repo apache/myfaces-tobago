@@ -32,7 +32,6 @@ Tobago.Tree.toggleNode = function(element, event) {
         src = jQuery(this).data("tobago-src-open");
       }
       jQuery(this).attr("src", src);
-      Tobago.fixPngAlpha(this);
     });
     expanded.val(expanded.val().replace(new RegExp("," + rowIndex + ","), ","));
     node.filter(".tobago-treeNode").removeClass("tobago-treeNode-markup-expanded");
@@ -57,7 +56,6 @@ Tobago.Tree.toggleNode = function(element, event) {
           src = jQuery(this).data("tobago-src-close");
         }
         jQuery(this).attr("src", src);
-        Tobago.fixPngAlpha(this);
       });
       node.filter(".tobago-treeNode").addClass("tobago-treeNode-markup-expanded");
       node.filter(".tobago-treeMenuNode").addClass("tobago-treeMenuNode-markup-expanded");

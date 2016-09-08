@@ -562,7 +562,7 @@ Tobago.Sheet.prototype.doDblClick = function(event) {
     }
 
     if (!Tobago.Sheet.isInputElement(jQuery(srcElement))) {
-      var row = jQuery(Tobago.element(event)).closest("tr");
+      var row = jQuery(srcElement).closest("tr");
       var sheet = row.closest(".tobago-sheet");
       var rowIndex = row.index() + sheet.data("tobago-first");
       if (this.dblClickActionId) {
