@@ -20,7 +20,10 @@
 <ui:composition template="/plain.xhtml"
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
-                xmlns:ui="http://java.sun.com/jsf/facelets">
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+  <tc:panel id="panel">
 
   <tc:in required="true" label="Required"/>
 
@@ -31,20 +34,55 @@
 
     <tc:form id="form">
 
-      <tc:sheet id="sheet" value="#{sheetController.solarList}" var="object" rows="5">
+      <tc:in required="true" label="Required"/>
+
+      <tc:sheet id="sheet" value="#{sheetController.solarList}" var="object" rows="2">
         <tc:column label="Name">
-          <tc:button label="#{object.name}"/>
+          <tc:out value="#{object.name}"/>
         </tc:column>
-        <tc:column label="Orbit">
-          <tc:out value="#{object.orbit}"/>
+        <tc:column label="Actions">
+          <tc:buttons>
+            <tc:button label="Submit #0"/>
+            <tc:button label="AJAX (self) #0">
+              <f:ajax />
+            </tc:button>
+            <tc:button label="AJAX (panel) #0">
+              <f:ajax render="::::panel" execute="::::panel"/>
+            </tc:button>
+          </tc:buttons>
+        </tc:column>
+        <tc:column label="Input">
+          <tc:in required="true"/>
         </tc:column>
       </tc:sheet>
 
-      <tc:button label="Submit 1"/>
+      <tc:buttons>
+        <tc:button label="Submit #1"/>
+        <tc:button label="AJAX (self) #1">
+          <f:ajax />
+        </tc:button>
+        <tc:button label="AJAX (panel) #1">
+          <f:ajax render=":::panel" execute=":::panel"/>
+        </tc:button>
+      </tc:buttons>
 
     </tc:form>
   </tc:box>
 
-  <tc:button label="Submit 2"/>
+  <tc:buttons>
+    <tc:button label="Submit #2"/>
+    <tc:button label="AJAX (self) #2">
+      <f:ajax />
+    </tc:button>
+    <tc:button label="AJAX (panel) #2">
+      <f:ajax render="::panel" execute="::panel"/>
+    </tc:button>
+  </tc:buttons>
+
+  <tc:buttons>
+    <tc:button label="Reset" defaultCommand="true" immediate="true"/>
+  </tc:buttons>
+
+  </tc:panel>
 
 </ui:composition>
