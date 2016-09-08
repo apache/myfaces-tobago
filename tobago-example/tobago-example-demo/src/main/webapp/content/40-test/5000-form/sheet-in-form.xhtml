@@ -17,7 +17,7 @@
  * limitations under the License.
 -->
 
-<ui:composition template="/main.xhtml"
+<ui:composition template="/plain.xhtml"
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
                 xmlns:ui="http://java.sun.com/jsf/facelets">
@@ -25,6 +25,10 @@
   <tc:in required="true" label="Required"/>
 
   <tc:box id="box" label="Form">
+
+    Here pressing planet names and "Submit 1" should not validate the required field.
+    Only pressing "Submit 2" should validate the required field.
+
     <tc:form id="form">
 
       <tc:sheet id="sheet" value="#{sheetController.solarList}" var="object" rows="5">
@@ -36,11 +40,11 @@
         </tc:column>
       </tc:sheet>
 
-      <tc:button label="Submit"/>
+      <tc:button label="Submit 1"/>
 
     </tc:form>
   </tc:box>
 
-  <tc:button label="Submit"/>
+  <tc:button label="Submit 2"/>
 
 </ui:composition>
