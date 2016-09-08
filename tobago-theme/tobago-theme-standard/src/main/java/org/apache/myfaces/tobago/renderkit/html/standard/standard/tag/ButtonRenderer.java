@@ -38,7 +38,6 @@ public class ButtonRenderer extends CommandRendererBase {
 
     collected.add(BootstrapClass.BTN);
     collected.add(defaultCommand ? BootstrapClass.BTN_PRIMARY : BootstrapClass.BTN_SECONDARY);
-// todo    collected.add(insideToolbar ? BootstrapClass.NAVBAR_BTN : null);
   }
 
 }
