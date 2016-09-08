@@ -19,7 +19,33 @@
 
 package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
+import org.apache.myfaces.tobago.internal.component.AbstractUIForm;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
+import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
+import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
+import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
+
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import java.io.IOException;
 
 public class FormRenderer extends RendererBase {
+
+  @Override
+  public void encodeBegin(final FacesContext facesContext, final UIComponent component) throws IOException {
+    final AbstractUIForm form = (AbstractUIForm) component;
+    final TobagoResponseWriter writer = getResponseWriter(facesContext);
+    final String clientId = form.getClientId(facesContext);
+
+    writer.startElement(HtmlElements.DIV);
+    writer.writeIdAttribute(clientId);
+    writer.writeClassAttribute(TobagoClass.FORM);;
+  }
+
+  @Override
+  public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
+    final TobagoResponseWriter writer = getResponseWriter(facesContext);
+    writer.endElement(HtmlElements.DIV);
+  }
+
 }
