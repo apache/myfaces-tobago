@@ -59,7 +59,7 @@
             <br/>The 'Cancel'-button calls the close-method in the controller and
             has <code>immediate="true"</code>, so no submit is executed.</p>
 
-          <tc:in id="in1" label="Required Field" required="true" value="#{popupController.popup1Text}"/>
+          <tc:in focus="true" id="in1" label="Required Field" required="true" value="#{popupController.popup1Text}"/>
           <tc:buttons>
             <tc:button id="submit1" label="Submit"/>
             <tc:button id="submitClose1" label="Submit &amp; Close" action="#{popupController.closePopup1}"/>
