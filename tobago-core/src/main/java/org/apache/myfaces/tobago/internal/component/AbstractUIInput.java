@@ -48,15 +48,6 @@ public abstract class AbstractUIInput extends javax.faces.component.UIInput
     return EVENT_NAMES;
   }
 
-
-  // TODO can this removed?
-  @Override
-  public void updateModel(final FacesContext facesContext) {
-    if (ComponentUtils.mayUpdateModel(this)) {
-      super.updateModel(facesContext);
-    }
-  }
-
   public abstract Integer getTabIndex();
 
   public abstract boolean isFocus();

@@ -420,16 +420,6 @@ public final class ComponentUtils {
         || getBooleanAttribute(component, Attributes.readonly);
   }
 
-  public static boolean mayValidate(final UIComponent component) {
-    return !isOutputOnly(component)
-        && (FacesContext.getCurrentInstance().getPartialViewContext().isAjaxRequest()
-        || ComponentUtils.isInActiveForm(component));
-  }
-
-  public static boolean mayUpdateModel(final UIComponent component) {
-    return mayValidate(component);
-  }
-
   public static Object getAttribute(final UIComponent component, final Attributes name) {
     return component.getAttributes().get(name.getName());
   }
