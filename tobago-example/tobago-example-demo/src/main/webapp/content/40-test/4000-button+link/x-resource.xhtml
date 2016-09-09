@@ -15,12 +15,13 @@
  * limitations under the License.
 -->
 
-<ui:composition template="/main.xhtml"
+<ui:composition template="/plain.xhtml"
                 xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:tc="http://myfaces.apache.org/tobago/component"
                 xmlns:ui="http://java.sun.com/jsf/facelets">
-  <ui:param name="title" value="#{overviewBundle.button_link} &lt;tc:link> &lt;tc:button>"/>
-  <tc:section label="Resource">
+  <script src="/org/apache/myfaces/tobago/renderkit/html/standard/standard/jquery/jquery-2.2.4.js"
+          type="text/javascript"/>
+  <div id="page:mainForm:resourceSection">
     <p>This page should be accessed by an link/button with <code>resource</code> attribute.</p>
-  </tc:section>
+    <a id="page:mainForm:back" href="/faces/content/40-test/4000-button+link/button+link.xhtml">Back</a>
+  </div>
 </ui:composition>

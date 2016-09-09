@@ -356,6 +356,12 @@ public class QUnitTests {
   }
 
   @Test
+  public void testButtonLink() throws UnsupportedEncodingException, InterruptedException {
+    String page = "content/40-test/4000-button+link/button+link.xhtml";
+    runStandardTest(page);
+  }
+
+  @Test
   public void rendererBaseGetCurrentValue() throws UnsupportedEncodingException, InterruptedException {
     String page = "content/40-test/50000-java/10-rendererBase-getCurrentValue/rendererBase-getCurrentValue.xhtml";
     runStandardTest(page);

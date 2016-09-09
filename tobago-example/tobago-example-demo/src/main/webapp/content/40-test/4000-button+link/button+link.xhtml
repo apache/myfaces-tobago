@@ -21,78 +21,107 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:f="http://java.sun.com/jsf/core">
   <ui:param name="title" value="#{overviewBundle.button_link}"/>
+
   <tc:section label="Standard">
-    <tc:link id="standardLinkAction" label="Action" action="#{buttonLinkController.actionPage}"/>
-    | <tc:link id="standardLinkOnClick" label="OnClick" disabled="true" link="https://www.apache.org/"/>
-    | <tc:link id="standardLinkLink" label="Link" link="https://www.apache.org/"/>
-    | <tc:link id="standardLinkResource" label="Resource"
-               resource="faces/content/40-test/4000-button+link/x-resource.xhtml"/>
+    <tc:buttons>
+      <tc:button id="standardButtonAction" label="Action" action="#{buttonLinkController.actionPage}"/>
+      <tc:button id="standardButtonLink" label="Link" link="x-link.xhtml"/>
+      <tc:button id="standardButtonResource" label="Resource"
+                 resource="content/40-test/4000-button+link/x-resource.xhtml"/>
+    </tc:buttons>
+    <tc:commands>
+      <tc:link id="standardLinkAction" label="Action" action="#{buttonLinkController.actionPage}"/>
+      <tc:link id="standardLinkLink" label="Link" link="x-link.xhtml"/>
+      <tc:link id="standardLinkResource" label="Resource" resource="content/40-test/4000-button+link/x-resource.xhtml"/>
+    </tc:commands>
     <br/>
-    <tc:button id="standardButtonAction" label="Action" action="#{buttonLinkController.actionPage}"/>
-    <tc:button id="standardButtonOnClick" label="OnClick" disabled="true" link="https://www.apache.org/"/>
-    <tc:button id="standardButtonLink" label="Link" link="https://www.apache.org/"/>
-    <tc:button id="standardButtonResource" label="Resource"
-               resource="faces/content/40-test/4000-button+link/x-resource.xhtml"/>
+    <br/>
   </tc:section>
+
   <tc:section label="Confirmation">
-    <tc:link id="confirmationLinkAction" label="Action" action="#{buttonLinkController.actionPage}">
+    <tc:buttons>
+      <tc:button id="confirmationButtonAction" label="Action" action="#{buttonLinkController.actionPage}">
+        <f:facet name="confirmation">
+          <tc:out value="Are you sure?"/>
+        </f:facet>
+      </tc:button>
+      <tc:button id="confirmationButtonLink" label="Link" link="x-link.xhtml">
+        <f:facet name="confirmation">
+          <tc:out value="Are you sure?"/>
+        </f:facet>
+      </tc:button>
+      <tc:button id="confirmationButtonResource" label="Resource"
+                 resource="faces/content/40-test/4000-button+link/x-resource.xhtml">
+        <f:facet name="confirmation">
+          <tc:out value="Are you sure?"/>
+        </f:facet>
+      </tc:button>
+    </tc:buttons>
+    <tc:commands>
+      <tc:link id="confirmationLinkAction" label="Action" action="#{buttonLinkController.actionPage}">
+        <f:facet name="confirmation">
+          <tc:out value="Are you sure?"/>
+        </f:facet>
+      </tc:link>
+      <tc:link id="confirmationLinkLink" label="Link" link="x-link.xhtml">
+        <f:facet name="confirmation">
+          <tc:out value="Are you sure?"/>
+        </f:facet>
+      </tc:link>
+      <tc:link id="confirmationLinkResource" label="Resource"
+               resource="faces/content/40-test/4000-button+link/x-resource.xhtml">
+        <f:facet name="confirmation">
+          <tc:out value="Are you sure?"/>
+        </f:facet>
+      </tc:link>
+    </tc:commands>
+    <br/>
+    <br/>
+  </tc:section>
+
+  <tc:section label="Target">
+    <tc:buttons>
+      <tc:button id="targetButtonAction" label="Action" actions="#{buttonLinkController.actionPage}"
+                 target="targetFrame"/>
+      <tc:button id="targetButtonLink" label="Link" link="x-link.xhtml" target="targetFrame"/>
+      <tc:button id="targetButtonResource" label="Resource"
+                 resource="content/40-test/4000-button+link/x-resource.xhtml"
+                 target="targetFrame"/>
+    </tc:buttons>
+    <tc:commands>
+      <tc:link id="targetLinkAction" label="Action" action="#{buttonLinkController.actionPage}" target="targetFrame"/>
+      <tc:link id="targetLinkLink" label="Link" link="x-link.xhtml" target="targetFrame"/>
+      <tc:link id="targetLinkResource" label="Resource"
+               resource="content/40-test/4000-button+link/x-resource.xhtml"
+               target="targetFrame"/>
+    </tc:commands>
+    <br/>
+    <br/>
+    <tc:object id="targetFrame" name="targetFrame">
+      <tc:style width="100%" height="150px"/>
+    </tc:object>
+  </tc:section>
+
+  <tc:section label="Resource + Language">
+    <p>Resource should lead to different HTMLs based on the current language.</p>
+  </tc:section>
+
+  <tc:section label="JavaScript">
+    <p>Execute JavaScript on click.</p>
+    <tc:link label="JavaScript"/>
+    <tc:button label="JavaScript"/>
+
+    |
+    <tc:link label="OnClick Confirm" disabled="true" link="x-link.xhtml">
       <f:facet name="confirmation">
         <tc:out value="Are you sure?"/>
       </f:facet>
     </tc:link>
-    | <tc:link id="confirmationLinkOnClick" label="OnClick" disabled="true" link="https://www.apache.org/">
-    <f:facet name="confirmation">
-      <tc:out value="Are you sure?"/>
-    </f:facet>
-  </tc:link>
-    | <tc:link id="confirmationLinkLink" label="Link" link="https://www.apache.org/">
-    <f:facet name="confirmation">
-      <tc:out value="Are you sure?"/>
-    </f:facet>
-  </tc:link>
-    | <tc:link id="confirmationLinkResource" label="Resource"
-               resource="faces/content/40-test/4000-button+link/x-resource.xhtml">
-    <f:facet name="confirmation">
-      <tc:out value="Are you sure?"/>
-    </f:facet>
-  </tc:link>
-    <br/>
-    <tc:button id="confirmationButtonAction" label="Action" action="#{buttonLinkController.actionPage}">
+    <tc:button label="OnClick Confirm" disabled="true" link="x-link.xhtml">
       <f:facet name="confirmation">
         <tc:out value="Are you sure?"/>
       </f:facet>
     </tc:button>
-    <tc:button id="confirmationButtonOnClick" label="OnClick" disabled="true" link="https://www.apache.org/">
-      <f:facet name="confirmation">
-        <tc:out value="Are you sure?"/>
-      </f:facet>
-    </tc:button>
-    <tc:button id="confirmationButtonLink" label="Link" link="https://www.apache.org/">
-      <f:facet name="confirmation">
-        <tc:out value="Are you sure?"/>
-      </f:facet>
-    </tc:button>
-    <tc:button id="confirmationButtonResource" label="Resource"
-               resource="faces/content/40-test/4000-button+link/x-resource.xhtml">
-      <f:facet name="confirmation">
-        <tc:out value="Are you sure?"/>
-      </f:facet>
-    </tc:button>
-  </tc:section>
-  <tc:section label="Target">
-    <tc:link id="targetLinkAction" label="Action" action="#{buttonLinkController.actionPage}" target="_blank"/>
-    | <tc:link id="targetLinkOnClick" label="OnClick" disabled="true" link="https://www.apache.org/" target="_blank"/>
-    | <tc:link id="targetLinkLink" label="Link" link="https://www.apache.org/" target="_blank"/>
-    | <tc:link id="targetLinkResource" label="Resource"
-               resource="faces/content/40-test/4000-button+link/x-resource.xhtml"
-               target="_blank"/>
-    <br/>
-    <tc:button id="targetButtonAction" label="Action" action="#{buttonLinkController.actionPage}" target="_blank"/>
-    <tc:button id="targetButtonOnClick" label="OnClick" disabled="true" link="https://www.apache.org/"
-               target="_blank"/>
-    <tc:button id="targetButtonLink" label="Link" link="https://www.apache.org/" target="_blank"/>
-    <tc:button id="targetButtonResource" label="Resource"
-               resource="faces/content/40-test/4000-button+link/x-resource.xhtml"
-               target="_blank"/>
+    <p>target geht nicht</p>
   </tc:section>
 </ui:composition>
