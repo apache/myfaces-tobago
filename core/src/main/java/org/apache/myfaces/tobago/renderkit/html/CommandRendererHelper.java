@@ -23,16 +23,6 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.TobagoConstants;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ACTION_LINK;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ACTION_ONCLICK;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DEFAULT_COMMAND;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_POPUP_CLOSE;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_RESOURCE;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TARGET;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TRANSITION;
-import static org.apache.myfaces.tobago.TobagoConstants.FACET_CONFIRMATION;
-import static org.apache.myfaces.tobago.TobagoConstants.FACET_POPUP;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UIPopup;
 import org.apache.myfaces.tobago.context.ClientProperties;
@@ -47,9 +37,21 @@ import javax.faces.component.UIParameter;
 import javax.faces.component.ValueHolder;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
-import java.net.URLDecoder;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.Arrays;
 import java.util.List;
+
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ACTION_LINK;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ACTION_ONCLICK;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DEFAULT_COMMAND;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_POPUP_CLOSE;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_RESOURCE;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TARGET;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TRANSITION;
+import static org.apache.myfaces.tobago.TobagoConstants.FACET_CONFIRMATION;
+import static org.apache.myfaces.tobago.TobagoConstants.FACET_POPUP;
 
 public class CommandRendererHelper {
 
@@ -229,8 +231,14 @@ public class CommandRendererHelper {
           builder.append(parameter.getName());
           builder.append("=");
           Object value = parameter.getValue();
-          // TODO encoding
-          builder.append(value != null ? URLDecoder.decode(value.toString()) : null);
+          if (value != null) {
+            final String characterEncoding = facesContext.getResponseWriter().getCharacterEncoding();
+            try {
+              builder.append(URLEncoder.encode(value.toString(), characterEncoding));
+            } catch (UnsupportedEncodingException e) {
+              LOG.error("", e);
+            }
+          }
         }
       }
       url = builder.toString();
