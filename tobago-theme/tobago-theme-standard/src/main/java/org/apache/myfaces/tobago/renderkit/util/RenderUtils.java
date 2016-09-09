@@ -52,7 +52,8 @@ import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
 import javax.faces.model.SelectItem;
 import java.io.IOException;
-import java.net.URLDecoder;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -561,8 +562,14 @@ public class RenderUtils {
           builder.append(parameter.getName());
           builder.append("=");
           final Object value = parameter.getValue();
-          // TODO encoding
-          builder.append(value != null ? URLDecoder.decode(value.toString()) : null);
+          if (value != null) {
+            final String characterEncoding = facesContext.getResponseWriter().getCharacterEncoding();
+            try {
+              builder.append(URLEncoder.encode(value.toString(), characterEncoding));
+            } catch (UnsupportedEncodingException e) {
+              LOG.error("", e);
+            }
+          }
         }
       }
       url = builder.toString();
