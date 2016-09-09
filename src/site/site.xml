@@ -31,7 +31,7 @@
   <skin>
     <groupId>org.apache.myfaces.maven</groupId>
     <artifactId>myfaces-site-skin</artifactId>
-    <version>3</version>
+    <version>4-SNAPSHOT</version>
   </skin>
   <body>
     <links>
