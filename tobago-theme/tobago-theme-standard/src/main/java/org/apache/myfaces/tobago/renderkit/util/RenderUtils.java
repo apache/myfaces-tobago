@@ -27,6 +27,8 @@ import org.apache.myfaces.tobago.model.ExpandedState;
 import org.apache.myfaces.tobago.model.SelectedState;
 import org.apache.myfaces.tobago.model.TreePath;
 import org.apache.myfaces.tobago.util.ComponentUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.faces.application.Application;
 import javax.faces.application.ViewHandler;
@@ -42,12 +44,10 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.render.ClientBehaviorRenderer;
 import java.io.IOException;
-import java.net.URLDecoder;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.List;
 import java.util.Map;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public final class RenderUtils {
 
@@ -249,8 +249,14 @@ public final class RenderUtils {
           builder.append(parameter.getName());
           builder.append("=");
           final Object value = parameter.getValue();
-          // TODO encoding
-          builder.append(value != null ? URLDecoder.decode(value.toString()) : null);
+          if (value != null) {
+            final String characterEncoding = facesContext.getResponseWriter().getCharacterEncoding();
+            try {
+              builder.append(URLEncoder.encode(value.toString(), characterEncoding));
+            } catch (UnsupportedEncodingException e) {
+              LOG.error("", e);
+            }
+          }
         }
       }
       url = builder.toString();
