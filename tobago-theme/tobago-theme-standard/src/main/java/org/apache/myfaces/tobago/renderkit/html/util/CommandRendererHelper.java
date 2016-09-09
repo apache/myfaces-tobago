@@ -37,7 +37,8 @@ import javax.faces.component.UIParameter;
 import javax.faces.component.ValueHolder;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
-import java.net.URLDecoder;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.Arrays;
 import java.util.List;
 
@@ -197,8 +198,14 @@ public class CommandRendererHelper {
           builder.append(parameter.getName());
           builder.append("=");
           Object value = parameter.getValue();
-          // TODO encoding
-          builder.append(value != null ? URLDecoder.decode(value.toString()) : null);
+          if (value != null) {
+            final String characterEncoding = facesContext.getResponseWriter().getCharacterEncoding();
+            try {
+              builder.append(URLEncoder.encode(value.toString(), characterEncoding));
+            } catch (UnsupportedEncodingException e) {
+              LOG.error("", e);
+            }
+          }
         }
       }
       url = builder.toString();
