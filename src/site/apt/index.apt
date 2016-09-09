@@ -57,6 +57,7 @@ News
       Major changes are:
 
       * Multifile-Upload Component
+
       * New SplitLayout Component in tobago-core
 
       \ {}
