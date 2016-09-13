@@ -56,7 +56,7 @@ public class SplitLayoutRenderer extends GridLayoutRenderer {
       // only decode and update layout at resize request
       final Map<String, String> parameterMap = facesContext.getExternalContext().getRequestParameterMap();
       final String position = parameterMap.get(clientId + POSITION_ID_POSTFIX);
-      ((AbstractUISplitLayout) component).updateLayout(Integer.parseInt(position));
+      ((AbstractUISplitLayout) component).updateLayout(Double.valueOf(position).intValue());
     }
   }
 
