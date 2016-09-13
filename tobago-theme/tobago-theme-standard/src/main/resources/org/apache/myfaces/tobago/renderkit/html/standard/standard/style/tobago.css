@@ -233,7 +233,6 @@ table.tobago-gridLayout > tbody > tr:first-child > td {
 }
 
 button.tobago-link, button.tobago-command, button.tobago-treeCommand {
-  font-weight: normal;
   color: #0275d8;
   border-width: 0;
   padding: 0;
