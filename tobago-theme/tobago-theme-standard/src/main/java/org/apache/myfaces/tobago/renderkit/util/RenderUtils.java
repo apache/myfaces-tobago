@@ -272,7 +272,11 @@ public final class RenderUtils {
 
     final CommandMap map = new CommandMap();
     addBehaviorCommands(facesContext, holder, map);
-    return JsonUtils.encode(map);
+    if (map.isEmpty()) {
+      return null;
+    } else {
+      return JsonUtils.encode(map);
+    }
   }
 
   public static void addBehaviorCommands(
