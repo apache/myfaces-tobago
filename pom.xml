@@ -1023,6 +1023,17 @@
     </site>
   </distributionManagement>
 
+  <!-- Use this to include the staging repository for testing a new unreleased myfaces core.
+  Change the number 1085 for that. -->
+<!--
+  <repositories>
+    <repository>
+      <id>myfaces-staging</id>
+      <url>https://repository.apache.org/content/repositories/orgapachemyfaces-1085/</url>
+    </repository>
+  </repositories>
+-->
+
   <profiles>
     <profile>
       <id>apache-release</id>
