@@ -37,7 +37,6 @@ import org.apache.myfaces.tobago.event.PageAction;
 import org.apache.myfaces.tobago.internal.component.AbstractUIColumnBase;
 import org.apache.myfaces.tobago.internal.component.AbstractUIColumnEvent;
 import org.apache.myfaces.tobago.internal.component.AbstractUIColumnNode;
-import org.apache.myfaces.tobago.internal.component.AbstractUICommand;
 import org.apache.myfaces.tobago.internal.component.AbstractUIData;
 import org.apache.myfaces.tobago.internal.component.AbstractUIOut;
 import org.apache.myfaces.tobago.internal.component.AbstractUISheet;
@@ -61,6 +60,8 @@ import org.apache.myfaces.tobago.renderkit.css.Icons;
 import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.Arias;
+import org.apache.myfaces.tobago.renderkit.html.Command;
+import org.apache.myfaces.tobago.renderkit.html.CommandMap;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlButtonTypes;
@@ -1176,22 +1177,27 @@ public class SheetRenderer extends RendererBase {
   private static String renderSheetCommands(
       final UISheet sheet, final FacesContext facesContext, final TobagoResponseWriter writer) throws IOException {
     // TODO: TOBAGO-1572
-    String commands = null;
+    final CommandMap commandMap = new CommandMap();
     String rowActionId = null;
     for (final UIComponent child : sheet.getChildren()) {
       if (child instanceof UIColumnEvent && child.isRendered()) {
         final UIColumnEvent columnEvent = (UIColumnEvent) child;
-        if (columnEvent.getChildCount() > 0) {
-          final UIComponent selectionChild = columnEvent.getChildren().get(0);
-          if (selectionChild != null && selectionChild instanceof AbstractUICommand && selectionChild.isRendered()) {
-            commands = RenderUtils.getBehaviorCommands(facesContext, (ClientBehaviorHolder) selectionChild);
-            rowActionId = selectionChild.getId();
+        for (UIComponent uiCommand : columnEvent.getChildren()) {
+          if (uiCommand.isRendered()) {
+            if (uiCommand instanceof ClientBehaviorHolder) {
+              RenderUtils.addBehaviorCommands(facesContext, (ClientBehaviorHolder) uiCommand, commandMap);
+              rowActionId = uiCommand.getId();
+            }
+            final String event = columnEvent.getEvent();
+            if (event != null) {
+              commandMap.addCommand(event, new Command(facesContext, uiCommand, null));
+            }
           }
         }
       }
     }
-    if (commands != null) {
-      writer.writeAttribute(DataAttributes.ROW_ACTION, commands, true);
+    if (!commandMap.isEmpty()) {
+      writer.writeAttribute(DataAttributes.ROW_ACTION, JsonUtils.encode(commandMap), true);
     }
     return rowActionId;
   }

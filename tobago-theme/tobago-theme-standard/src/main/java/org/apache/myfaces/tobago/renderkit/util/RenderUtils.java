@@ -26,6 +26,9 @@ import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.model.ExpandedState;
 import org.apache.myfaces.tobago.model.SelectedState;
 import org.apache.myfaces.tobago.model.TreePath;
+import org.apache.myfaces.tobago.renderkit.html.AjaxClientBehaviorRenderer;
+import org.apache.myfaces.tobago.renderkit.html.CommandMap;
+import org.apache.myfaces.tobago.renderkit.html.JsonUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -266,6 +269,14 @@ public final class RenderUtils {
   }
 
   public static String getBehaviorCommands(final FacesContext facesContext, final ClientBehaviorHolder holder) {
+
+    final CommandMap map = new CommandMap();
+    addBehaviorCommands(facesContext, holder, map);
+    return JsonUtils.encode(map);
+  }
+
+  public static void addBehaviorCommands(
+      final FacesContext facesContext, final ClientBehaviorHolder holder, final CommandMap commandMap) {
     final Map<String, List<ClientBehavior>> behaviors = holder.getClientBehaviors();
     for (Map.Entry<String, List<ClientBehavior>> behavior : behaviors.entrySet()) {
       final String key = behavior.getKey();
@@ -276,13 +287,17 @@ public final class RenderUtils {
           final String type = ((ClientBehaviorBase) clientBehavior).getRendererType();
           final ClientBehaviorRenderer clientBehaviorRenderer
               = facesContext.getRenderKit().getClientBehaviorRenderer(type);
-          return clientBehaviorRenderer.getScript(context, clientBehavior);
+          final String marker = clientBehaviorRenderer.getScript(context, clientBehavior);
+          if (AjaxClientBehaviorRenderer.COMMAND_MAP.equals(marker)) {
+            commandMap.merge((CommandMap) facesContext.getAttributes().get(AjaxClientBehaviorRenderer.COMMAND_MAP));
+          } else {
+            LOG.error("Can't find prepared command map in faces context.");
+          }
         } else {
           LOG.warn("Ignoring: '{}'", clientBehavior);
         }
       }
     }
-    return null;
   }
 
   public static void decodeClientBehaviors(final FacesContext facesContext, final UIComponent component) {

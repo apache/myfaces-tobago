@@ -29,18 +29,35 @@
   </p>
 
   <tc:section label="Example">
+    Here are different examples:
+    <tc:selectOneRadio value="#{sheetController.columnEventSample}">
+      <tc:selectItem itemValue="0" itemLabel="on click with AJAX"/>
+      <tc:selectItem itemValue="1" itemLabel="on click with full request"/>
+      <tc:selectItem itemValue="2" itemLabel="on double click with full request"/>
+      <f:ajax render="example"/>
+    </tc:selectOneRadio>
     <p>Select an object from the SolarObjects list.</p>
-    <tc:segmentLayout medium="5;7">
+    <tc:segmentLayout id="example" medium="5;7">
       <tc:box label="Solar Objects">
         <tc:sheet id="s1" value="#{sheetController.solarList}" var="object" columns="1*">
           <tc:style maxHeight="486px"/>
           <tc:column label="#{overviewBundle.solarArrayName}" id="name">
             <tc:out value="#{object.name}" id="t_name"/>
           </tc:column>
-          <tc:columnEvent event="click">
-            <tc:command actionListener="#{sheetController.selectSolarObject}" immediate="true">
+          <tc:columnEvent id="sample0" rendered="#{sheetController.columnEventSample == 0}">
+            <tc:command actionListener="#{sheetController.selectSolarObject}" immediate="true" id="columnEventAjax">
               <tc:resetInputActionListener/>
               <f:ajax render=":::detail"/>
+            </tc:command>
+          </tc:columnEvent>
+          <tc:columnEvent id="sample1" rendered="#{sheetController.columnEventSample == 1}" event="click">
+            <tc:command actionListener="#{sheetController.selectSolarObject}" immediate="true" id="columnEventClick">
+              <tc:resetInputActionListener/>
+            </tc:command>
+          </tc:columnEvent>
+          <tc:columnEvent id="sample2" rendered="#{sheetController.columnEventSample == 2}" event="dblclick">
+            <tc:command actionListener="#{sheetController.selectSolarObject}" immediate="true" id="columnEventDblClick">
+              <tc:resetInputActionListener/>
             </tc:command>
           </tc:columnEvent>
         </tc:sheet>

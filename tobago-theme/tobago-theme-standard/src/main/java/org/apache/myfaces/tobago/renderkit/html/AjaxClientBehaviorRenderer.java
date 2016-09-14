@@ -40,6 +40,8 @@ import java.util.List;
 
 public class AjaxClientBehaviorRenderer extends ClientBehaviorRenderer {
 
+  public static final String COMMAND_MAP = AjaxClientBehaviorRenderer.class.getName() + ".CommandMap";
+
   @Override
   public String getScript(ClientBehaviorContext behaviorContext, ClientBehavior behavior) {
 
@@ -91,8 +93,10 @@ public class AjaxClientBehaviorRenderer extends ClientBehaviorRenderer {
 
     final CommandMap map = new CommandMap();
     map.addCommand(behaviorContext.getEventName(), command);
-    return JsonUtils.encode(map);
+    facesContext.getAttributes().put(COMMAND_MAP, map);
 
+    // XXX the return value is a string, but we should use a CommandMap
+    return COMMAND_MAP;
   }
 
   @Override

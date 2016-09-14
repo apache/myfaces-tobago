@@ -76,4 +76,19 @@ public class CommandMap {
       return null;
     }
   }
+
+  public void merge(final CommandMap commandMap) {
+    final Command click = commandMap.getClick();
+    if (click != null) {
+      setClick(click);
+    } else {
+      for (Map.Entry<String, Command> entry : commandMap.getOther().entrySet()) {
+        addCommand(entry.getKey(), entry.getValue());
+      }
+    }
+  }
+
+  public boolean isEmpty() {
+    return click == null && other == null;
+  }
 }

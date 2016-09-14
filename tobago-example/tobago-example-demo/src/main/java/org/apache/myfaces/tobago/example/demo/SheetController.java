@@ -44,6 +44,7 @@ public class SheetController implements Serializable {
   private SolarObject selectedSolarObject;
   private boolean automaticLayout;
   private List<Markup> markup;
+  private int columnEventSample;
 
   public SheetController() {
     solarList = SolarObject.getList();
@@ -103,5 +104,13 @@ public class SheetController implements Serializable {
 
   public void setMarkup(List<Markup> markup) {
     this.markup = markup;
+  }
+
+  public void setColumnEventSample(int columnEventSample) {
+    this.columnEventSample = columnEventSample;
+  }
+
+  public int getColumnEventSample() {
+    return columnEventSample;
   }
 }
