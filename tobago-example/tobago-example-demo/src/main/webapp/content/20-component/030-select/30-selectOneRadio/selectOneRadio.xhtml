@@ -68,13 +68,13 @@
       <code class="language-markup">&lt;tc:button label="Addition" action="\#{selectOneRadioController.add}"/></code>
     </p>
     <tc:segmentLayout large="6;6">
-      <tc:selectOneRadio id="selectNum1" label="Number 1" labelLayout="top"
+      <tc:selectOneRadio id="selectNum1" label="Number 1" labelLayout="top" required="true"
                          value="#{selectOneRadioController.numberOne}">
         <tc:selectItem itemLabel="1" itemValue="1"/>
         <tc:selectItem itemLabel="2" itemValue="2"/>
         <tc:selectItem itemLabel="4" itemValue="4"/>
       </tc:selectOneRadio>
-      <tc:selectOneRadio id="selectNum2" label="Number 2" labelLayout="top"
+      <tc:selectOneRadio id="selectNum2" label="Number 2" labelLayout="top" required="true"
                          value="#{selectOneRadioController.numberTwo}">
         <tc:selectItem itemLabel="1" itemValue="1"/>
         <tc:selectItem itemLabel="2" itemValue="2"/>
