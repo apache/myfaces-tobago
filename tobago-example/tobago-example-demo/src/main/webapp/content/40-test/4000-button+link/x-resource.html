@@ -15,13 +15,15 @@
  * limitations under the License.
 -->
 
-<ui:composition template="/plain.xhtml"
-                xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:ui="http://java.sun.com/jsf/facelets">
+<html>
+<head>
   <script src="/org/apache/myfaces/tobago/renderkit/html/standard/standard/jquery/jquery-2.2.4.js"
-          type="text/javascript"/>
-  <div id="page:mainForm:resourceSection">
-    <p>This page should be accessed by an link/button with <code>resource</code> attribute.</p>
-    <a id="page:mainForm:back" href="/faces/content/40-test/4000-button+link/button+link.xhtml">Back</a>
-  </div>
-</ui:composition>
+          type="text/javascript"></script>
+</head>
+<body id="page">
+<div id="page:resourceSection">
+  <p>This page should be accessed by an link/button with <code>resource</code> attribute.</p>
+  <a id="page:back" href="/faces/content/40-test/4000-button+link/button+link.xhtml">Back</a>
+</div>
+</body>
+</html>

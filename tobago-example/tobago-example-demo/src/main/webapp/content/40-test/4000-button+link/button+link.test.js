@@ -33,7 +33,8 @@ QUnit.test("Standard Link Button", function(assert) {
   testStandardCommands($command, $destinationSection, assert, done);
 });
 
-/*QUnit.test("Standard Resource Button", function(assert) {
+/* PhantomJs don't work with 'resource' attribute. The value for 'href' leads to an nonexisting site.
+QUnit.test("Standard Resource Button", function(assert) {
   assert.expect(2);
   var done = assert.async(2);
 
@@ -60,7 +61,8 @@ QUnit.test("Standard Link Link", function(assert) {
   testStandardCommands($command, $destinationSection, assert, done);
 });
 
-/*QUnit.test("Standard Resource Link", function(assert) {
+/* PhantomJs don't work with 'resource' attribute. The value for 'href' leads to an nonexisting site.
+QUnit.test("Standard Resource Link", function(assert) {
   assert.expect(2);
   var done = assert.async(2);
 
@@ -91,7 +93,79 @@ function testStandardCommands($command, $destinationSection, assert, done) {
 
 // TODO: Test Confirmation: Mock Alerts with sinon
 
+QUnit.test("Target Action Button", function(assert) {
+  assert.expect(1);
+  var done = assert.async();
+
+  var $command = jQueryFrame("#page\\:mainForm\\:targetButtonAction");
+  var $destinationSection = jQueryTargetFrame("#page\\:actionSection");
+  testTargetCommands($command, $destinationSection, assert, done);
+});
+
+QUnit.test("Target Link Button", function(assert) {
+  assert.expect(1);
+  var done = assert.async();
+
+  var $command = jQueryFrame("#page\\:mainForm\\:targetButtonLink");
+  var $destinationSection = jQueryTargetFrame("#page\\:linkSection");
+  testTargetCommands($command, $destinationSection, assert, done);
+});
+
+/* PhantomJs don't work with 'resource' attribute. The value for 'href' leads to an nonexisting site.
+QUnit.test("Target Resource Button", function(assert) {
+  assert.expect(1);
+  var done = assert.async();
+
+  var $command = jQueryFrame("#page\\:mainForm\\:targetButtonResource");
+  var $destinationSection = jQueryTargetFrame("#page\\:resourceSection");
+  testTargetCommands($command, $destinationSection, assert, done);
+});*/
+
+QUnit.test("Target Action Link", function(assert) {
+  assert.expect(1);
+  var done = assert.async();
+
+  var $command = jQueryFrame("#page\\:mainForm\\:targetLinkAction");
+  var $destinationSection = jQueryTargetFrame("#page\\:actionSection");
+  testTargetCommands($command, $destinationSection, assert, done);
+});
+
+QUnit.test("Target Link Link", function(assert) {
+  assert.expect(1);
+  var done = assert.async();
+
+  var $command = jQueryFrame("#page\\:mainForm\\:targetLinkLink");
+  var $destinationSection = jQueryTargetFrame("#page\\:linkSection");
+  testTargetCommands($command, $destinationSection, assert, done);
+});
+
+/* PhantomJs don't work with 'resource' attribute. The value for 'href' leads to an nonexisting site.
+QUnit.test("Target Resource Link", function(assert) {
+  assert.expect(1);
+  var done = assert.async();
+
+  var $command = jQueryFrame("#page\\:mainForm\\:targetLinkResource");
+  var $destinationSection = jQueryTargetFrame("#page\\:resourceSection");
+  testTargetCommands($command, $destinationSection, assert, done);
+});*/
+
+function testTargetCommands($command, $destinationSection, assert, done) {
+  $command[0].click();
+
+  /*
+   * phantomJs don't recognize jQueryFrame("#page\\:mainForm\\:targetFrame").load(),
+   * so the waitForAjax() method is used instead.
+   */
+  waitForAjax(function() {
+    $destinationSection = jQueryTargetFrame($destinationSection.selector);
+    return $destinationSection.length == 1;
+  }, function() {
+    $destinationSection = jQueryTargetFrame($destinationSection.selector);
+    assert.equal($destinationSection.length, 1);
+    done();
+  });
+}
 
 function jQueryTargetFrame(expression) {
-  return document.getElementById("page:testframe").contentWindow.jQuery(expression);
+  return jQueryFrame("#page\\:mainForm\\:targetFrame").contents().find(expression);
 }

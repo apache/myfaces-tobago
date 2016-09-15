@@ -116,9 +116,7 @@ public class QUnitTests {
             LOG.warn("test '" + testName + "' for " + page + " failed on assertion " + assertionCount
                 + "\n" + source.getText());
             String expected = assertion.findElement(By.className("test-expected")).getText();
-            expected = expected.substring(12, expected.length() - 1);
             String actual = assertion.findElement(By.className("test-actual")).getText();
-            actual = actual.substring(10, actual.length() - 1);
             Assert.assertEquals(expected, actual);
           }
         }
