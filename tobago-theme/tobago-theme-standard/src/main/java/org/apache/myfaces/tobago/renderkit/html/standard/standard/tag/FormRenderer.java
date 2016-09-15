@@ -37,7 +37,7 @@ public class FormRenderer extends RendererBase {
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
     final String clientId = form.getClientId(facesContext);
 
-    writer.startElement(HtmlElements.DIV);
+    writer.startElement(HtmlElements.SPAN);
     writer.writeIdAttribute(clientId);
     writer.writeClassAttribute(TobagoClass.FORM);;
   }
@@ -45,7 +45,7 @@ public class FormRenderer extends RendererBase {
   @Override
   public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
-    writer.endElement(HtmlElements.DIV);
+    writer.endElement(HtmlElements.SPAN);
   }
 
 }
