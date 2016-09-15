@@ -38,8 +38,8 @@
 <!--
       <resources production="true">
         <excludes>
-          <script name="bootstrap/4.0.0-alpha.3/js/bootstrap.js"/>
-          <style name="bootstrap/4.0.0-alpha.3/css/bootstrap.css"/>
+          <script name="bootstrap/4.0.0-alpha.4/js/bootstrap.js"/>
+          <style name="bootstrap/4.0.0-alpha.4/css/bootstrap.css"/>
         </excludes>
         <script name="bootstrap-scarborough/3.3.6/js/bootstrap.js"/>
         <style name="bootstrap-scarborough/3.3.6/css/bootstrap.css"/>
@@ -47,8 +47,8 @@
       </resources>
       <resources production="false">
         <excludes>
-          <script name="bootstrap/4.0.0-alpha.3/js/bootstrap.js"/>
-          <style name="bootstrap/4.0.0-alpha.3/css/bootstrap.css"/>
+          <script name="bootstrap/4.0.0-alpha.4/js/bootstrap.js"/>
+          <style name="bootstrap/4.0.0-alpha.4/css/bootstrap.css"/>
         </excludes>
         <script name="bootstrap-scarborough/3.3.6/js/bootstrap.js"/>
         <style name="bootstrap-scarborough/3.3.6/css/bootstrap.css"/>

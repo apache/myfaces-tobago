@@ -370,13 +370,13 @@
         <script name="jquery/jquery-2.2.4.js"/>
         <script name="script/contrib/jquery-ui-1.10.4.custom.js"/>
         <script name="tether/1.1.1/js/tether.js"/>
-        <script name="bootstrap/4.0.0-alpha.3/js/bootstrap.js"/>
+        <script name="bootstrap/4.0.0-alpha.4/js/bootstrap.js"/>
         <script name="moment/2.13.0/moment-with-locales.js"/>
         <script name="bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.js"/>
         <script name="script/tobago.js"/>
         <script name="typeahead/0.11.1-patched-with-1212/typeahead.js"/>
         <style name="tether/1.1.1/css/tether.css"/>
-        <style name="bootstrap/4.0.0-alpha.3/css/bootstrap.css"/>
+        <style name="bootstrap/4.0.0-alpha.4/css/bootstrap.css"/>
         <style name="font-awesome/4.6.1/css/font-awesome.css"/>
         <style name="style/tobago.css"/>
         <style name="bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.css"/>
@@ -385,7 +385,7 @@
         <script name="jquery/jquery-2.2.4.js"/>
         <script name="script/contrib/jquery-ui-1.10.4.custom.js"/>
         <script name="tether/1.1.1/js/tether.js"/>
-        <script name="bootstrap/4.0.0-alpha.3/js/bootstrap.js"/>
+        <script name="bootstrap/4.0.0-alpha.4/js/bootstrap.js"/>
         <script name="moment/2.13.0/moment-with-locales.js"/>
         <script name="bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.js"/>
         <script name="script/tobago-jsf.js"/>
@@ -404,7 +404,7 @@
         <script name="script/tobago-utils.js"/>
         <script name="typeahead/0.11.1-patched-with-1212/typeahead.js"/>
         <style name="tether/1.1.1/css/tether.css"/>
-        <style name="bootstrap/4.0.0-alpha.3/css/bootstrap.css"/>
+        <style name="bootstrap/4.0.0-alpha.4/css/bootstrap.css"/>
         <style name="font-awesome/4.6.1/css/font-awesome.css"/>
         <style name="style/tobago.css"/>
         <style name="bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.css"/>
