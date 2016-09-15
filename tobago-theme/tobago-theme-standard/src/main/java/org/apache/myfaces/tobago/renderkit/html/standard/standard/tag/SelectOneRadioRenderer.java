@@ -68,12 +68,11 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
       final boolean itemDisabled = item.isDisabled() || disabled;
       final String itemId = id + ComponentUtils.SUB_SEPARATOR + i++;
       writer.startElement(HtmlElements.LI);
-      if (itemDisabled) {
-        writer.writeClassAttribute(BootstrapClass.RADIO, BootstrapClass.DISABLED);
-      } else {
-        writer.writeClassAttribute(BootstrapClass.RADIO);
-      }
+      writer.writeClassAttribute(
+          BootstrapClass.FORM_CHECK,
+          itemDisabled ? BootstrapClass.DISABLED : null);
       writer.startElement(HtmlElements.LABEL);
+      writer.writeClassAttribute(BootstrapClass.FORM_CHECK_LABEL);
       writer.startElement(HtmlElements.INPUT);
       writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.RADIO);
       final String formattedValue = ComponentUtils.getFormattedValue(facesContext, select, item.getValue());

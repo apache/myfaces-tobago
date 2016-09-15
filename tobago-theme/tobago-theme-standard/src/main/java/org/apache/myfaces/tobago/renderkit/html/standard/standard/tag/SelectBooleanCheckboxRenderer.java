@@ -93,7 +93,7 @@ public class SelectBooleanCheckboxRenderer extends RendererBase {
     writer.writeStyleAttribute(select.getStyle());
     writer.writeClassAttribute(
         Classes.create(select),
-        BootstrapClass.CHECKBOX,
+        BootstrapClass.FORM_CHECK,
         disabled ? BootstrapClass.DISABLED : null,
         select.getCustomClass());
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, select);
@@ -102,6 +102,7 @@ public class SelectBooleanCheckboxRenderer extends RendererBase {
     }
 
     writer.startElement(HtmlElements.LABEL);
+    writer.writeClassAttribute(BootstrapClass.FORM_CHECK_LABEL);
     if (!disabled && label.getAccessKey() != null) {
       writer.writeAttribute(HtmlAttributes.ACCESSKEY, Character.toString(label.getAccessKey()), false);
       AccessKeyLogger.addAccessKey(facesContext, label.getAccessKey(), clientId);

@@ -442,7 +442,9 @@ public class SheetRenderer extends RendererBase {
             }
             writer.writeAttribute(HtmlAttributes.CHECKED, selected);
             writer.writeAttribute(HtmlAttributes.DISABLED, selector.isDisabled());
-            writer.writeClassAttribute(Classes.create(sheet, "columnSelector"));
+            writer.writeClassAttribute(
+                BootstrapClass.FORM_CHECK_INLINE,
+                Classes.create(sheet, "columnSelector"));
             writer.endElement(HtmlElements.INPUT);
           } else if (column instanceof AbstractUIColumnNode) {
             RenderUtils.encode(facesContext, column);

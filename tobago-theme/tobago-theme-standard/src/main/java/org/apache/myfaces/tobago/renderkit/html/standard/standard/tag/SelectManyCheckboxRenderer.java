@@ -65,12 +65,11 @@ public class SelectManyCheckboxRenderer extends SelectManyRendererBase {
       final boolean itemDisabled = item.isDisabled() || disabled;
       final String itemId = id + ComponentUtils.SUB_SEPARATOR + i++;
       writer.startElement(HtmlElements.LI);
-      if (itemDisabled) {
-        writer.writeClassAttribute(BootstrapClass.CHECKBOX, BootstrapClass.DISABLED);
-      } else {
-        writer.writeClassAttribute(BootstrapClass.CHECKBOX);
-      }
+      writer.writeClassAttribute(
+          BootstrapClass.FORM_CHECK,
+          itemDisabled ? BootstrapClass.DISABLED: null);
       writer.startElement(HtmlElements.LABEL);
+      writer.writeClassAttribute(BootstrapClass.FORM_CHECK_LABEL);
       writer.startElement(HtmlElements.INPUT);
       writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.CHECKBOX);
       final String formattedValue = ComponentUtils.getFormattedValue(facesContext, select, item.getValue());

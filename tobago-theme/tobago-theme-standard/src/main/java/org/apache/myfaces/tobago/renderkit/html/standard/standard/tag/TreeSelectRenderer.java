@@ -26,6 +26,7 @@ import org.apache.myfaces.tobago.internal.component.AbstractUITreeNodeBase;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.model.Selectable;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
+import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
@@ -112,6 +113,7 @@ public class TreeSelectRenderer extends RendererBase {
         && selectable != Selectable.none
         && (!selectable.isLeafOnly() || !folder)) {
       writer.startElement(HtmlElements.INPUT);
+      writer.writeClassAttribute(BootstrapClass.FORM_CHECK_INLINE);
       if (selectable.isSingle()) {
         writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.RADIO);
         writer.writeNameAttribute(getClientIdWithoutRowIndex(data, id));
