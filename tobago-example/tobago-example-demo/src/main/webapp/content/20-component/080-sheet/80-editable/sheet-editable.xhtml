@@ -33,13 +33,9 @@
       <tc:column label="Distance">
         <tc:in value="#{object.distance}"/>
       </tc:column>
-<!-- XXX discoverYear year doesn't work, because the java.util.Date conflicts with java.lang.Interger
       <tc:column label="discoverYear">
-        <tc:date value="#{solarobject.discoverYear}">
-          <f:convertDateTime pattern="yyyy"/>
-        </tc:date>
+        <tc:date value="#{object.discoverYear}" converter="#{sheetController.yearConverter}"/>
       </tc:column>
--->
     </tc:sheet>
     <tc:button label="Submit"/>
   </tc:section>
