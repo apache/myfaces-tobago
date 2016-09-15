@@ -339,7 +339,7 @@ button.tobago-treeCommand:focus, button.tobago-treeCommand:hover {
 
 .dropdown-menu .radio, .dropdown-menu .checkbox {
   display: block;
-  margin-left: -40px; /* XXX comes the value from "list-style: outside none none" of .tobago-selectOneRadio ? */
+  /*margin-left: -40px; !* XXX comes the value from "list-style: outside none none" of .tobago-selectOneRadio ? *!*/
 }
 
   /* out -------------------------------------------------------------------- */
@@ -433,6 +433,7 @@ h6 > .fa:first-child {
 /* selectManyCheckbox ----------------------------------------------------------- */
 
 .tobago-selectManyCheckbox {
+  padding-left: 0;
   list-style: none;
 }
 
@@ -477,6 +478,7 @@ h6 > .fa:first-child {
 /* selectOneRadio ---------------------------------------------------------- */
 
 .tobago-selectOneRadio {
+  padding-left: 0;
   list-style: none;
 }
 
