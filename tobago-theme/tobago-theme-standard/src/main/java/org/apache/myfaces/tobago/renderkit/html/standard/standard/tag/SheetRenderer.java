@@ -405,7 +405,7 @@ public class SheetRenderer extends RendererBase {
       if (rowMarkups != null) {
         rowMarkup = rowMarkup.add(Markup.valueOf(rowMarkups));
       }
-      writer.writeClassAttribute(Classes.create(sheet, "row", rowMarkup), selected ? BootstrapClass.INFO : null);
+      writer.writeClassAttribute(Classes.create(sheet, "row", rowMarkup), selected ? BootstrapClass.TABLE_INFO : null);
       if (!sheet.isRowVisible()) {
         final Style rowStyle = new Style();
         rowStyle.setDisplay(Display.none);
