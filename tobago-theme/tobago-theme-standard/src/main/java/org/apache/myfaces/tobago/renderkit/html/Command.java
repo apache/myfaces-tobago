@@ -99,16 +99,9 @@ public class Command {
     if (target != null) {
       this.target = target;
     }
-    // TODO: TOBAGO-1572
-//    if (facetComponent instanceof AbstractUICommand
-//        && ((AbstractUICommand) facetComponent).getRenderedPartially().length > 0) {
-//      setPartially(ComponentUtils.evaluateClientIds(
-//          facesContext, facetComponent, ((UICommand) facetComponent).getRenderedPartially()));
-//    } else {
-      if (focusId != null) {
-        this.focus = focusId;
-      }
-//    }
+    if (focusId != null) {
+      this.focus = focusId;
+    }
 
     final int delay = ComponentUtils.getIntAttribute(facetComponent, Attributes.delay);
     if (delay > 0) {

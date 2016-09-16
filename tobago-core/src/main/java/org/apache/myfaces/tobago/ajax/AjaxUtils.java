@@ -62,11 +62,6 @@ public final class AjaxUtils {
     return org.apache.myfaces.tobago.util.AjaxUtils.getRenderIds(facesContext);
   }
 
-  public static boolean addUIMessagesToRenderedPartially(final FacesContext facesContext) {
-    final String message = "org.apache.myfaces.tobago.ajax.AjaxUtils.addUIMessagesToRenderedPartially";
-    throw new UnsupportedOperationException(message);
-  }
-
   public static boolean redirect(final FacesContext facesContext, final String url) throws IOException {
     return AjaxInternalUtils.redirect(facesContext, url);
   }

@@ -192,7 +192,6 @@ public enum Attributes {
   rendered,
   rendererType,
   renderAs,
-  renderedPartially,
   renderRange,
   renderRangeExtern,
   required,

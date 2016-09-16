@@ -77,13 +77,12 @@ public class JsonUtilsUnitTest extends AbstractTobagoTestBase {
     Assert.assertEquals(expected, JsonUtils.encode(commandMap));
   }
 
-//  @Test
+  @Test
   public void more() {
     final CommandMap map = new CommandMap();
     final AbstractUICommand command = (AbstractUICommand)
         CreateComponentUtils.createComponent(facesContext, UIButton.COMPONENT_TYPE, RendererTypes.Button, "command");
     ComponentUtils.setAttribute(command, Attributes.popupClose, "immediate");
-//    command.setRenderedPartially(new String[]{"popup"});
 
     map.setClick(new Command(
         "ns:actionId",
