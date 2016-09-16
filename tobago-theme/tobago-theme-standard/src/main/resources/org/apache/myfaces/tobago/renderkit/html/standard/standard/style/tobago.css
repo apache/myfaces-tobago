@@ -346,9 +346,8 @@ button.tobago-treeCommand:focus, button.tobago-treeCommand:hover {
   border-radius: 6px 0 6px 6px;
 }
 
-.dropdown-menu .radio, .dropdown-menu .checkbox {
+.dropdown-menu .form-check {
   display: block;
-  /*margin-left: -40px; !* XXX comes the value from "list-style: outside none none" of .tobago-selectOneRadio ? *!*/
 }
 
   /* out -------------------------------------------------------------------- */
@@ -744,14 +743,9 @@ fixme: there is a problem with the selectManyShuttle with this style.
 
 .has-info .form-control-feedback,
 .has-info .form-control-label,
-.has-info .radio,
-.has-info .checkbox,
-.has-info .radio-inline,
-.has-info .checkbox-inline,
-.has-info.radio label,
-.has-info.checkbox label,
-.has-info.radio-inline label,
-.has-info.checkbox-inline label {
+.has-info .form-check-label,
+.has-info .form-check-inline,
+.has-info .custom-control {
   color: #5bc0de;
 }
 
