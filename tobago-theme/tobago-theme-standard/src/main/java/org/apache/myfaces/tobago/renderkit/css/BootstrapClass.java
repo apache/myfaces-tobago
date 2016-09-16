@@ -53,7 +53,6 @@ public enum BootstrapClass implements CssItem {
   CARD_TITLE("card-title"),
   CLOSE("close"),
   COLLAPSE("collapse"),
-  COLLAPSED("collapsed"),
   COL_FORM_LABEL("col-form-label"),
   COL_LG_1("col-lg-1"),
   COL_LG_2("col-lg-2"),
@@ -105,7 +104,6 @@ public enum BootstrapClass implements CssItem {
   COL_XS_12("col-xs-12"),
   CONTAINER("container"),
   CONTAINER_FLUID("container-fluid"),
-  DANGER("danger"),
   DISABLED("disabled"),
   DROPDOWN("dropdown"),
   DROPDOWN_ITEM("dropdown-item"),
@@ -123,7 +121,6 @@ public enum BootstrapClass implements CssItem {
   HAS_SUCCESS("has-success"),
   HAS_WARNING("has-warning"),
   HIDDEN_SM_UP("hidden-sm-up"),
-  ICON_BAR("icon-bar"),
   INPUT_GROUP("input-group"),
   INPUT_GROUP_ADDON("input-group-addon"),
   INPUT_GROUP_BTN("input-group-btn"),
@@ -137,8 +134,6 @@ public enum BootstrapClass implements CssItem {
   NAV_TABS("nav-tabs"),
   NAVBAR("navbar"),
   NAVBAR_BRAND("navbar-brand"),
-  NAVBAR_BTN("navbar-btn"),
-  NAVBAR_COLLAPSE("navbar-collapse"),
   NAVBAR_DARK("navbar-dark"),
   NAVBAR_FIXED_BOTTOM("navbar-fixed-bottom"),
   NAVBAR_FIXED_TOP("navbar-fixed-top"),
@@ -150,7 +145,6 @@ public enum BootstrapClass implements CssItem {
   PAGE_LINK("page-link"),
   PAGINATION("pagination"),
   PROGRESS("progress"),
-  RADIO("radio"),
   ROW("row"),
   SR_ONLY("sr-only"),
   TAB_CONTENT("tab-content"),
@@ -161,8 +155,7 @@ public enum BootstrapClass implements CssItem {
   TABLE_INFO("table-info"),
   TABLE_INVERSE("table-inverse"),
   TABLE_SM("table-sm"),
-  TABLE_STRIPED("table-striped"),
-  WARNING("warning");
+  TABLE_STRIPED("table-striped");
 
   private static final int SEVERITY_ERROR = FacesMessage.SEVERITY_ERROR.getOrdinal();
   private static final int SEVERITY_WARN = FacesMessage.SEVERITY_WARN.getOrdinal();
