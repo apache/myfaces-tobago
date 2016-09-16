@@ -49,6 +49,15 @@
 
 /* date -------------------------------------------------------------- */
 
+.tobago-date {
+  min-width: 7em;
+}
+
+/* Remove IE10's "clear field" X button */
+.tobago-date::-ms-clear {
+  display: none;
+}
+
 /* for pickers with more than one icon, e.g. date-time picker */
 .btn > .fa:nth-child(n+2) {
   margin-left: .3em;
