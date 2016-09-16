@@ -25,7 +25,7 @@
   <name>tobago-theme-speyside</name>
   <ordering>
     <after>
-      <name>tobago-theme-scarborough</name>
+      <name>tobago-theme-standard</name>
     </after>
   </ordering>
   <resource-dir>org/apache/myfaces/tobago/renderkit</resource-dir>

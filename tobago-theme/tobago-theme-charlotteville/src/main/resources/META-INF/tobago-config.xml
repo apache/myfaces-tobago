@@ -25,7 +25,7 @@
   <name>tobago-theme-charlotteville</name>
   <ordering>
     <after>
-      <name>tobago-theme-speyside</name>
+      <name>tobago-theme-standard</name>
     </after>
   </ordering>
   <theme-definitions>
