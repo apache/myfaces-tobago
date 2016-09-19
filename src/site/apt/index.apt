@@ -47,6 +47,30 @@ Apache Tobago
 
 News
 
+* September 20, 2016 - MyFaces Tobago 3.0.0-alpha-6 Released
+
+      The MyFaces Tobago component library in version 3.0.0-alpha-6 has been released.
+
+      Release notes can be found in
+      {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12338231}Jira}}.
+
+      Major changes are:
+
+      * HTML of tc:button and tc:link changed
+
+      * Removing old tags tc:menu*
+
+      * Update Bootstrap alpha 4
+
+      * some bug fixes
+
+      []
+
+      Also see section: {{{./new-3.0.html} What's new in Tobago 3.0?}}
+
+      \ {}
+      ~~ hack for a bit space
+
 * September 8, 2016 - MyFaces Tobago 2.0.10 Released
 
       The MyFaces Tobago component library in version 2.0.10 has been released.
