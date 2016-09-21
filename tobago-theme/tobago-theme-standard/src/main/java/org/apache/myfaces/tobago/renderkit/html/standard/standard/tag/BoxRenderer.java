@@ -74,10 +74,11 @@ public class BoxRenderer extends PanelRendererBase {
       writer.writeClassAttribute(TobagoClass.BOX__HEADER);
 
       writer.startElement(HtmlElements.H3);
+      if (labelString != null) {
+        writer.writeText(labelString);
+      }
       if (label != null) {
         RenderUtils.encode(facesContext, label);
-      } else if (labelString != null) {
-        writer.writeText(labelString);
       }
       writer.endElement(HtmlElements.H3);
 
