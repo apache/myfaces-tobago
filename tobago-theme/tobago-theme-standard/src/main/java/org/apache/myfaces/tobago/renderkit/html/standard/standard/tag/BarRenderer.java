@@ -21,7 +21,7 @@ package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.UIBar;
-import org.apache.myfaces.tobago.internal.component.AbstractUIForm;
+import org.apache.myfaces.tobago.internal.component.AbstractUIFormBase;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.Icons;
@@ -93,7 +93,7 @@ public class BarRenderer extends RendererBase {
   private void collectItemsToEncode(final UIComponent component, List<UIComponent> result) {
     for (UIComponent child : component.getChildren()) {
       if (child.isRendered()) {
-        if (child instanceof AbstractUIForm) {
+        if (child instanceof AbstractUIFormBase) {
           collectItemsToEncode(child, result);
         } else {
           result.add(child);

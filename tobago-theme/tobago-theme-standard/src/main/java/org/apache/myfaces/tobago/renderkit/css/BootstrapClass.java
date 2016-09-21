@@ -104,6 +104,7 @@ public enum BootstrapClass implements CssItem {
   COL_XS_12("col-xs-12"),
   CONTAINER("container"),
   CONTAINER_FLUID("container-fluid"),
+  D_INLINE("d-inline"),
   DISABLED("disabled"),
   DROPDOWN("dropdown"),
   DROPDOWN_ITEM("dropdown-item"),

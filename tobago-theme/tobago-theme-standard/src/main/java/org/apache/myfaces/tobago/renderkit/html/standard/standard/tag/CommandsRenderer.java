@@ -20,7 +20,7 @@
 package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
 import org.apache.myfaces.tobago.internal.component.AbstractUICommands;
-import org.apache.myfaces.tobago.internal.component.AbstractUIForm;
+import org.apache.myfaces.tobago.internal.component.AbstractUIFormBase;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
@@ -53,7 +53,7 @@ public class CommandsRenderer extends RendererBase {
 
     for (UIComponent child : component.getChildren()) {
       if (child.isRendered()) {
-        if (child instanceof AbstractUIForm) { // XXX hack! TBD: How to walk through the children, or do that in JS?
+        if (child instanceof AbstractUIFormBase) { // XXX hack! TBD: How to walk through the children, or do that in JS?
           encodeChildren(facesContext, child);
         } else {
           // fixme: only a temporary workaround

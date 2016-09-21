@@ -25,6 +25,7 @@ import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.context.TransientStateHolder;
 import org.apache.myfaces.tobago.internal.component.AbstractUIForm;
+import org.apache.myfaces.tobago.internal.component.AbstractUIFormBase;
 import org.apache.myfaces.tobago.internal.component.AbstractUIInput;
 import org.apache.myfaces.tobago.internal.component.AbstractUIPage;
 import org.apache.myfaces.tobago.internal.component.AbstractUIPopup;
@@ -194,10 +195,10 @@ public final class ComponentUtils {
   }
 
 
-  public static AbstractUIForm findForm(UIComponent component) {
+  public static AbstractUIFormBase findForm(UIComponent component) {
     while (component != null) {
-      if (component instanceof AbstractUIForm) {
-        return (AbstractUIForm) component;
+      if (component instanceof AbstractUIFormBase) {
+        return (AbstractUIFormBase) component;
       }
       component = component.getParent();
     }
@@ -377,8 +378,8 @@ public final class ComponentUtils {
 
   public static boolean isInActiveForm(UIComponent component) {
     while (component != null) {
-      if (component instanceof AbstractUIForm) {
-        final AbstractUIForm form = (AbstractUIForm) component;
+      if (component instanceof AbstractUIFormBase) {
+        final AbstractUIFormBase form = (AbstractUIFormBase) component;
         if (form.isSubmitted()) {
           return true;
         }

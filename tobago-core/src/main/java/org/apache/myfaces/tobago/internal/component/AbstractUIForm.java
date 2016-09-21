@@ -19,84 +19,9 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
-import org.apache.myfaces.tobago.util.AjaxUtils;
-import org.apache.myfaces.tobago.util.ComponentUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import javax.faces.component.UIComponent;
-import javax.faces.component.UIForm;
-import javax.faces.context.FacesContext;
-import java.util.Iterator;
-
-public abstract class AbstractUIForm extends UIForm {
-
-  private static final Logger LOG = LoggerFactory.getLogger(AbstractUIForm.class);
+public abstract class AbstractUIForm extends AbstractUIFormBase {
 
   public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.Form";
 
-  @Override
-  public void processDecodes(final FacesContext facesContext) {
-
-    // Process this component first
-    // to know the active actionId
-    // for the following children
-    decode(facesContext);
-
-    final Iterator kids = getFacetsAndChildren();
-    while (kids.hasNext()) {
-      final UIComponent kid = (UIComponent) kids.next();
-      kid.processDecodes(facesContext);
-    }
-  }
-
-  @Override
-  public void setSubmitted(final boolean b) {
-    super.setSubmitted(b);
-
-    // set submitted for all subforms
-    for (final AbstractUIForm subForm : ComponentUtils.findSubForms(this)) {
-      subForm.setSubmitted(b);
-    }
-  }
-
-  @Override
-  public void processValidators(final FacesContext facesContext) {
-    // if we're not the submitted form, only process subforms.
-    if (LOG.isDebugEnabled()) {
-      LOG.debug("processValidators for form: {}", getClientId(facesContext));
-    }
-    if (isSubmitted() || AjaxUtils.isAjaxRequest(facesContext)) {
-      // Process all facets and children of this component
-      final Iterator kids = getFacetsAndChildren();
-      while (kids.hasNext()) {
-        final UIComponent kid = (UIComponent) kids.next();
-        kid.processValidators(facesContext);
-      }
-    } else {
-      for (final AbstractUIForm subForm : ComponentUtils.findSubForms(this)) {
-        subForm.processValidators(facesContext);
-      }
-    }
-  }
-
-  @Override
-  public void processUpdates(final FacesContext facesContext) {
-    // if we're not the submitted form, only process subforms.
-    if (LOG.isDebugEnabled()) {
-      LOG.debug("processUpdates for form: {}", getClientId(facesContext));
-    }
-    if (isSubmitted() || AjaxUtils.isAjaxRequest(facesContext)) {
-      // Process all facets and children of this component
-      final Iterator kids = getFacetsAndChildren();
-      while (kids.hasNext()) {
-        final UIComponent kid = (UIComponent) kids.next();
-        kid.processUpdates(facesContext);
-      }
-    } else {
-      for (final AbstractUIForm subForm : ComponentUtils.findSubForms(this)) {
-        subForm.processUpdates(facesContext);
-      }
-    }
-  }
+  public abstract boolean isInline();
 }

@@ -32,7 +32,7 @@ import javax.faces.context.FacesContext;
 import java.io.IOException;
 import java.util.Iterator;
 
-public abstract class AbstractUIPage extends AbstractUIForm implements Visual {
+public abstract class AbstractUIPage extends AbstractUIFormBase implements Visual {
 
   private static final Logger LOG = LoggerFactory.getLogger(AbstractUIPage.class);
 
@@ -142,7 +142,7 @@ public abstract class AbstractUIPage extends AbstractUIForm implements Visual {
     }
 
     if (command != null) {
-      final AbstractUIForm form = ComponentUtils.findForm(command);
+      final AbstractUIFormBase form = ComponentUtils.findForm(command);
       form.setSubmitted(true);
 
       if (LOG.isTraceEnabled()) {

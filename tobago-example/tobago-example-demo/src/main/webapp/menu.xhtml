@@ -35,7 +35,7 @@
         <tc:link image="image/feather-leaf.png" label="Tobago Demo" id="brand" link="/"/>
       </f:facet>
 
-      <tc:form id="header">
+      <tc:form id="header" inline="true">
 
         <tc:commands id="commands">
 
@@ -99,7 +99,7 @@
       </tc:form>
 
       <tc:flowLayout textAlign="right">
-        <tc:form>
+        <tc:form inline="true">
           <tc:in placeholder="Search"/>
           <tc:button defaultCommand="true" omit="true" label="go">
             <tc:dataAttribute name="alert-text"
@@ -107,7 +107,7 @@
 
           </tc:button>
         </tc:form>
-        <tc:form id="navbtns">
+        <tc:form id="navbtns" inline="true">
           <tc:button immediate="true" id="previous"
                      image="fa-angle-left"
                      action="#{navigationState.gotoPrevious}"

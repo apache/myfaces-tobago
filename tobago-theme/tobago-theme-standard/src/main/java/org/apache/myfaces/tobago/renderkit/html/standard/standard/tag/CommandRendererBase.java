@@ -23,7 +23,7 @@ import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.UICommands;
 import org.apache.myfaces.tobago.internal.component.AbstractUIButton;
 import org.apache.myfaces.tobago.internal.component.AbstractUICommand;
-import org.apache.myfaces.tobago.internal.component.AbstractUIForm;
+import org.apache.myfaces.tobago.internal.component.AbstractUIFormBase;
 import org.apache.myfaces.tobago.internal.util.AccessKeyLogger;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
@@ -157,7 +157,7 @@ public abstract class CommandRendererBase extends RendererBase {
 
     final boolean defaultCommand = ComponentUtils.getBooleanAttribute(command, Attributes.defaultCommand);
     if (defaultCommand) {
-      final AbstractUIForm form = ComponentUtils.findAncestor(command, AbstractUIForm.class);
+      final AbstractUIFormBase form = ComponentUtils.findAncestor(command, AbstractUIFormBase.class);
       writer.writeAttribute(DataAttributes.DEFAULT, form.getClientId(facesContext), false);
     }
 

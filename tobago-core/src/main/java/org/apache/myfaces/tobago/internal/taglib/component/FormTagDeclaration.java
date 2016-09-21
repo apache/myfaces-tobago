@@ -24,6 +24,7 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasBinding;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasId;
+import org.apache.myfaces.tobago.internal.taglib.declaration.IsInline;
 
 import javax.faces.component.UIForm;
 
@@ -41,13 +42,5 @@ import javax.faces.component.UIForm;
     componentFamily = UIForm.COMPONENT_FAMILY,
     rendererType = RendererTypes.FORM,
     allowedChildComponenents = "ALL")
-public interface FormTagDeclaration extends HasBinding, HasId {
-
-  /**
-   *   
-
-  @TagAttribute
-  @UIComponentTagAttribute(type = "java.lang.String")
-  void setNotFor(String notFor);
-  */
+public interface FormTagDeclaration extends HasBinding, HasId, IsInline {
 }
