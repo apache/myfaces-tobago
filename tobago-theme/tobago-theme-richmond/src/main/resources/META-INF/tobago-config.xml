@@ -35,26 +35,22 @@
       <resource-path>org/apache/myfaces/tobago/renderkit</resource-path>
       <fallback>standard</fallback>
       <versioned>true</versioned>
-<!--
       <resources production="true">
         <excludes>
           <script name="bootstrap/4.0.0-alpha.4/js/bootstrap.js"/>
           <style name="bootstrap/4.0.0-alpha.4/css/bootstrap.css"/>
         </excludes>
-        <script name="bootstrap-richmond/3.3.6/js/bootstrap.js"/>
-        <style name="bootstrap-richmond/3.3.6/css/bootstrap.css"/>
-        <style name="bootstrap-richmond/3.3.6/css/bootstrap-theme.css"/>
+        <script name="bootstrap/4.0.0-alpha.4-richmond/js/bootstrap.js"/>
+        <style name="bootstrap/4.0.0-alpha.4-richmond/css/bootstrap.css"/>
       </resources>
       <resources production="false">
         <excludes>
           <script name="bootstrap/4.0.0-alpha.4/js/bootstrap.js"/>
           <style name="bootstrap/4.0.0-alpha.4/css/bootstrap.css"/>
         </excludes>
-        <script name="bootstrap-richmond/3.3.6/js/bootstrap.js"/>
-        <style name="bootstrap-richmond/3.3.6/css/bootstrap.css"/>
-        <style name="bootstrap-richmond/3.3.6/css/bootstrap-theme.css"/>
+        <script name="bootstrap/4.0.0-alpha.4-richmond/js/bootstrap.js"/>
+        <style name="bootstrap/4.0.0-alpha.4-richmond/css/bootstrap.css"/>
       </resources>
--->
     </theme-definition>
   </theme-definitions>
 </tobago-config>

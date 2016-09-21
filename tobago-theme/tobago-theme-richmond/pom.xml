@@ -15,8 +15,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
+
   <parent>
     <groupId>org.apache.myfaces.tobago</groupId>
     <artifactId>tobago-theme</artifactId>
@@ -25,25 +27,152 @@
   <artifactId>tobago-theme-richmond</artifactId>
   <packaging>jar</packaging>
   <name>Tobago Theme Richmond</name>
+
+  <properties>
+    <bootstrap.version>4.0.0-alpha.4</bootstrap.version>
+  </properties>
+
   <build>
     <plugins>
+
       <plugin>
-        <groupId>net.alchim31.maven</groupId>
-        <artifactId>yuicompressor-maven-plugin</artifactId>
+        <artifactId>maven-scm-plugin</artifactId>
         <executions>
           <execution>
+            <id>copy-bootstrap</id>
+            <phase>generate-resources</phase>
             <goals>
-              <goal>compress</goal>
+              <goal>checkout</goal>
             </goals>
+            <configuration>
+              <connectionUrl>scm:git:https://github.com/twbs/bootstrap</connectionUrl>
+              <skipCheckoutIfExists>true</skipCheckoutIfExists>
+              <scmVersion>v${bootstrap.version}</scmVersion>
+              <scmVersionType>branch</scmVersionType>
+            </configuration>
           </execution>
         </executions>
-        <configuration>
-          <suffix>.min</suffix>
-          <excludes>
-            <exclude>**/*.js</exclude>
-          </excludes>
-        </configuration>
       </plugin>
+
+      <plugin>
+        <artifactId>maven-resources-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>copy-bootstrap</id>
+            <phase>generate-resources</phase>
+            <goals>
+              <goal>copy-resources</goal>
+            </goals>
+            <configuration>
+              <outputDirectory>${project.build.directory}/bootstrap</outputDirectory>
+              <resources>
+                <resource>
+                  <directory>${project.build.directory}/checkout</directory>
+                  <exclude>scss/_custom.scss</exclude>
+                </resource>
+              </resources>
+            </configuration>
+          </execution>
+          <execution>
+            <id>copy-custom</id>
+            <phase>generate-resources</phase>
+            <goals>
+              <goal>copy-resources</goal>
+            </goals>
+            <configuration>
+              <outputDirectory>${project.build.directory}/bootstrap</outputDirectory>
+              <resources>
+                <resource>
+                  <directory>src/main/resources/org/apache/myfaces/tobago/renderkit/html/richmond/standard</directory>
+                  <includes>
+                    <include>scss/*</include>
+                  </includes>
+                </resource>
+              </resources>
+            </configuration>
+          </execution>
+          <execution>
+            <id>copy-bootstrap-dist</id>
+            <phase>process-resources</phase>
+            <goals>
+              <goal>copy-resources</goal>
+            </goals>
+            <configuration>
+              <outputDirectory>
+                ${project.build.directory}/classes/org/apache/myfaces/tobago/renderkit/html/richmond/standard/bootstrap/${bootstrap.version}-richmond
+              </outputDirectory>
+              <resources>
+                <resource>
+                  <directory>${project.build.directory}/bootstrap/dist</directory>
+                </resource>
+              </resources>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
+      <plugin>
+        <groupId>com.github.eirslett</groupId>
+        <artifactId>frontend-maven-plugin</artifactId>
+        <version>1.0</version>
+
+        <!-- optional -->
+        <configuration>
+          <nodeVersion>v6.5.0</nodeVersion>
+          <npmVersion>3.10.8</npmVersion>
+          <!-- optional: where to download node and npm from. Defaults to https://nodejs.org/dist/ -->
+          <!--<downloadRoot>http://myproxy.example.org/nodejs/dist/</downloadRoot>-->
+          <!-- optional: where to install node and npm. Defaults to the working directory -->
+          <installDirectory>${project.build.directory}/frontend</installDirectory>
+          <workingDirectory>${project.build.directory}/bootstrap</workingDirectory>
+        </configuration>
+
+        <executions>
+
+          <execution>
+            <id>install node and npm</id>
+            <goals>
+              <goal>install-node-and-npm</goal>
+            </goals>
+            <phase>generate-resources</phase>
+          </execution>
+
+          <execution>
+            <id>npm install grunt-cli</id>
+            <goals>
+              <goal>npm</goal>
+            </goals>
+            <phase>generate-resources</phase>
+            <configuration>
+              <arguments>install grunt-cli</arguments>
+            </configuration>
+          </execution>
+
+          <execution>
+            <id>npm install</id>
+            <goals>
+              <goal>npm</goal>
+            </goals>
+            <phase>generate-resources</phase>
+            <configuration>
+              <arguments>install</arguments>
+            </configuration>
+          </execution>
+
+          <execution>
+            <id>grunt build</id>
+            <goals>
+              <goal>grunt</goal>
+            </goals>
+            <phase>generate-resources</phase>
+            <configuration>
+              <arguments>dist</arguments>
+            </configuration>
+          </execution>
+
+        </executions>
+      </plugin>
+
     </plugins>
   </build>
 
@@ -59,4 +188,5 @@
       <version>${project.version}</version>
     </dependency>
   </dependencies>
+
 </project>
