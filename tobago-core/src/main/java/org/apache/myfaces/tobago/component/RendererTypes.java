@@ -35,6 +35,7 @@ public enum RendererTypes {
   Command,
   Commands,
   Date,
+  Figure,
   File,
   FlexLayout,
   FlowLayout,
@@ -102,6 +103,7 @@ public enum RendererTypes {
   public static final String COMMAND = "Command";
   public static final String COMMANDS = "Commands";
   public static final String DATE = "Date";
+  public static final String FIGURE = "Figure";
   public static final String FILE = "File";
   public static final String FLEX_LAYOUT = "FlexLayout";
   public static final String FLOW_LAYOUT = "FlowLayout";
