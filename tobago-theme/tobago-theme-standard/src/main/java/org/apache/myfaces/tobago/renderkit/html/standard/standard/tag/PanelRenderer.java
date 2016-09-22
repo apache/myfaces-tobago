@@ -55,8 +55,9 @@ public class PanelRenderer extends PanelRendererBase {
     writer.writeStyleAttribute(panel.getStyle());
 
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, panel);
-    if (panel.getTip() != null) {
-      writer.writeAttribute(HtmlAttributes.TITLE, panel.getTip(), true);
+    final String tip = panel.getTip();
+    if (tip != null) {
+      writer.writeAttribute(HtmlAttributes.TITLE, tip, true);
     }
 
     // TODO check ajax id?

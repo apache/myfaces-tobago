@@ -48,8 +48,9 @@ public class ButtonsRenderer extends RendererBase {
     writer.writeClassAttribute(Classes.create(buttons), buttons.getCustomClass(), BootstrapClass.BTN_TOOLBAR);
     writer.writeStyleAttribute(buttons.getStyle());
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, buttons);
-    if (buttons.getTip() != null) {
-      writer.writeAttribute(HtmlAttributes.TITLE, buttons.getTip(), true);
+    final String tip = buttons.getTip();
+    if (tip != null) {
+      writer.writeAttribute(HtmlAttributes.TITLE, tip, true);
     }
   }
 
