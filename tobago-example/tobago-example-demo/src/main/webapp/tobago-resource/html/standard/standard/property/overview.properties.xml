@@ -139,6 +139,7 @@
   <!-- navigate : test -->
   <entry key="test">Tests</entry>
   <entry key="sheet_types">Sheet Content</entry>
+  <entry key="manual">Manual Tests</entry>
 
   <entry key="validation-severity">Severity</entry>
   <entry key="browser">Browser</entry>

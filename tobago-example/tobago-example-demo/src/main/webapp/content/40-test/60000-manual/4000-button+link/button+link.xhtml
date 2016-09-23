@@ -1,0 +1,71 @@
+<!--
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+-->
+
+<ui:composition template="/main.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:tc="http://myfaces.apache.org/tobago/component"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core">
+  <ui:param name="title" value="#{overviewBundle.button_link} &lt;tc:link> &lt;tc:button>"/>
+  <tc:section label="&lt;button> - &lt;a>">
+    <p>The left link is rendered as a <code>&lt;button></code>, the right side is rendered as an <code>&lt;a></code>.
+      Both representations have to be similar.</p>
+    <tc:segmentLayout extraSmall="6;6">
+      <tc:flexLayout columns="auto;auto" id="fl1">
+        <tc:in id="action"/>
+        <tc:link label="actionLink" action="#{buttonLinkController.linkToComponentsRoot}"/>
+      </tc:flexLayout>
+
+      <tc:flexLayout columns="auto;auto" id="fl2">
+        <tc:out label="label" value="value"/>
+        <tc:in id="href"/>
+        <tc:link label="hrefLink" link="https://www.apache.com/"/>
+      </tc:flexLayout>
+    </tc:segmentLayout>
+  </tc:section>
+
+  <tc:section label="New Tab">
+    <p>Open a new tab on each link. Make sure you test the confirmation-link with "OK" and "Cancel".</p>
+    <ul>
+      <li>Right-click -> New Tab</li>
+      <li>Middle-click</li>
+      <li>CMD/CTRL + Left-click</li>
+    </ul>
+
+    <tc:buttons>
+      <tc:button id="standardButton" label="Standard" link="https://www.apache.org/"/>
+      <tc:button id="confirmationButton" label="Confirmation" link="https://www.apache.org/"
+                 confirmation="Are you sure?"/>
+      <tc:button id="targetButton" label="Target" link="https://www.apache.org/" target="targetFrame"/>
+    </tc:buttons>
+    <tc:commands>
+      <tc:link id="standardLink" label="Standard" link="https://www.apache.org/"/>
+      <tc:link id="confirmationLink" label="Confirmation" link="https://www.apache.org/"
+               confirmation="Are you sure?"/>
+      <tc:link id="targetLink" label="Target" link="https://www.apache.org/" target="targetFrame"/>
+    </tc:commands>
+    <br/>
+    <br/>
+    <tc:button id="resetTarget" label="Reset Target Frame">
+      <f:ajax render="targetFrame"/>
+    </tc:button>
+    <tc:object id="targetFrame" name="targetFrame">
+      <tc:style width="100%" height="300px"/>
+    </tc:object>
+  </tc:section>
+
+</ui:composition>
