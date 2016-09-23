@@ -193,7 +193,8 @@ Announcement template
 Subject: [ANNOUNCE] Apache Tobago <version>
 
  The Apache MyFaces team is pleased to announce the release of Apache Tobago <v>.
- Apache Tobago is a component library for JavaServer Faces (JSF) that allows to create applications without the need for HTML design.
+ Apache Tobago is a component library for JavaServer Faces (JSF) that allows to write web-applications
+ without the need of coding HTML, CSS and JavaScript
 
  Main new features
  -----------------

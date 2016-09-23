@@ -25,8 +25,8 @@ Apache Tobago
   Tobago is more than just a tag library. The following statements characterize
   Tobago and make it different from other frameworks:
 
-  * The focus of Tobago is to create business applications without the need for HTML
-    design. The development of Tobago pages follows more the development of
+  * The focus of Tobago is to create business applications without the need of coding
+    HTML, CSS and JavaScript. The development of Tobago pages follows more the development of
     conventional user interfaces than the creation of web pages.
 
   * The UI components are abstracted from HTML and any layout information that does
