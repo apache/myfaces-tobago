@@ -415,6 +415,11 @@ button.tobago-treeCommand:focus, button.tobago-treeCommand:hover {
   display: none;
 }
 
+/* popup ------------------------------------------------------------- */
+.modal-content > .card {
+  margin-bottom: 0;
+}
+
 /* section ----------------------------------------------------------- */
 
 /* to separate the icon from the rest of the title */
@@ -616,6 +621,10 @@ table.tobago-sheet-bodyTable>tbody>tr>td {
   height: 100%;
   z-index: 1;
   cursor: col-resize;
+}
+
+.tobago-sheet-cell > .form-group {
+  margin-bottom: 0;
 }
 
 /* suggest ---------------------------------------------------------------------- */
