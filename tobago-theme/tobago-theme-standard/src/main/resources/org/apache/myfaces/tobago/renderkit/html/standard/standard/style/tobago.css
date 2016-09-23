@@ -214,6 +214,16 @@ table.tobago-gridLayout > tbody > tr:first-child > td {
     border-top: 0;
 }
 
+/* header ----------------------------------------------------------- */
+
+.tobago-header {
+    margin-bottom: 1rem;
+}
+
+.tobago-header.navbar-fixed-top {
+    margin-bottom: 0;
+}
+
 /* image ----------------------------------------------------------- */
 
 .tobago-image-markup-disabled {
@@ -366,6 +376,10 @@ button.tobago-treeCommand:focus, button.tobago-treeCommand:hover {
 }
 
 /* page ----------------------------------------------------------- */
+
+.tobago-page {
+  padding-top: 1rem;
+}
 
 .tobago-page-overlay {
   display: table;
