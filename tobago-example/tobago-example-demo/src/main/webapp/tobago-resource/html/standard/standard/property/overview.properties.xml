@@ -65,7 +65,6 @@
   <entry key="buttons">Button Group</entry>
   <entry key="buttons_customizer">Button Group Customizer</entry>
   <entry key="commands">Command Group</entry>
-  <entry key="menu">Menubar</entry>
   <entry key="container">Container</entry>
   <entry key="box">Content Box</entry>
   <entry key="panel">Panel</entry>
@@ -134,10 +133,12 @@
   <entry key="tx">TX Tag Library</entry>
   <entry key="suggest_method">SuggestMethod</entry>
   <entry key="toolBar">Toolbar</entry>
+  <entry key="menubar">Menubar</entry>
   <entry key="grid_layout">GridLayout</entry>
 
   <!-- navigate : test -->
   <entry key="test">Tests</entry>
+  <entry key="sheet_types">Sheet Content</entry>
 
   <entry key="validation-severity">Severity</entry>
   <entry key="browser">Browser</entry>

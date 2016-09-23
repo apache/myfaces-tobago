@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+-->
+
+<ui:composition template="/main.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:tc="http://myfaces.apache.org/tobago/component"
+                xmlns:ui="http://java.sun.com/jsf/facelets">
+  <ui:param name="title" value="#{overviewBundle.sheet_types}"/>
+  <tc:sheet value="#{sheetController.solarList}" id="sheet" var="luminary"
+            columns="50px;70px;70px;10px;90px;115px;100px;70px;180px;90px;130px"
+            rows="10">
+    <tc:columnSelector/>
+    <tc:column label="&lt;tc:out>" id="c_out">
+      <tc:out value="#{luminary.name}"/>
+    </tc:column>x
+    <tc:column label="&lt;tc:out>" align="right" id="c_out_r">
+      <tc:out value="#{luminary.name}"/>
+    </tc:column>
+    <tc:column id="c_not_rendered" rendered="false">
+      <tc:out value="#{luminary.name}"/>
+    </tc:column>
+    <tc:column label="&lt;tc:in>" id="c_in">
+      <tc:in value="#{luminary.name}" id="in"/>
+    </tc:column>
+    <tc:column label="&lt;tc:date>" id="c_date">
+      <tc:date value="#{luminary.discoverYear}" converter="#{sheetController.yearConverter}">
+        <tc:style minWidth="0"/>
+      </tc:date>
+    </tc:column>
+    <tc:column label="&lt;tc:button>" id="c_button">
+      <tc:button label="#{luminary.name}"/>
+    </tc:column>
+    <tc:column label="&lt;tc:link>" id="c_link">
+      <tc:link label="#{luminary.name}" link="https://en.wikipedia.org/wiki/#{luminary.name}"/>
+    </tc:column>
+    <tc:column label="&lt;tc:selectOneChoice>" id="c_selectOneChoice">
+      <tc:selectOneChoice>
+        <tc:selectItem itemLabel="first" itemValue="1"/>
+        <tc:selectItem itemLabel="second" itemValue="2"/>
+        <tc:selectItem itemLabel="third" itemValue="3"/>
+      </tc:selectOneChoice>
+    </tc:column>
+    <tc:column label="&lt;tc:image>" align="center" id="c_image">
+      <tc:image value="image/alps.png">
+        <tc:style width="72px" height="30px"/>
+      </tc:image>
+    </tc:column>
+    <tc:column label="&lt;tc:flexLayout>" id="c_panel">
+      <tc:flexLayout columns="1*;10px;1*">
+        <tc:in value="1st"/>
+        <tc:out value="/"/>
+        <tc:in value="2nd"/>
+      </tc:flexLayout>
+    </tc:column>
+  </tc:sheet>
+</ui:composition>

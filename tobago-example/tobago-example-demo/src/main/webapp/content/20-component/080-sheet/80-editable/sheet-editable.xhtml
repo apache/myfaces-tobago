@@ -23,20 +23,59 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:f="http://java.sun.com/jsf/core">
   <ui:param name="title" value="#{overviewBundle.sheet_editable} &lt;tc:sheet>"/>
+  <p>Not only a sheet can be used to display data, it may also contain inputfields to edit the data.</p>
+  <p>Tag Library Documentation:
+    <tc:link label="&lt;tc:sheet/>" image="image/feather-leaf.png"
+             link="#{overviewBundle.tagDocUrl}/sheet.html"/>
+    |
+    <tc:link label="&lt;tc:column/>" image="image/feather-leaf.png"
+             link="#{overviewBundle.tagDocUrl}/column.html"/></p>
 
   <tc:section label="Editable Sheet" id="basics">
-    <tc:sheet id="s1" value="#{sheetController.solarList}" var="object" rows="5">
-      <tc:style maxHeight="500px"/>
+    <p>In this sheet you can edit the data of solar objects. Press the 'Submit' button to see the results in the
+      'Result' section.</p>
+    <tc:sheet id="editSheet" value="#{sheetController.solarList}" var="object" rows="5">
       <tc:column label="Name">
-        <tc:in value="#{object.name}"/>
+        <tc:in id="nameCol" value="#{object.name}">
+          <f:ajax execute="nameCol" render="resultSheet"/>
+        </tc:in>
       </tc:column>
-      <tc:column label="Distance">
-        <tc:in value="#{object.distance}"/>
+      <tc:column label="Orbit">
+        <tc:in value="#{object.orbit}"/>
       </tc:column>
-      <tc:column label="discoverYear">
+      <tc:column label="Period (Days)">
+        <tc:in value="#{object.period}"/>
+      </tc:column>
+      <tc:column label="Discoverer">
+        <tc:in value="#{object.discoverer}"/>
+      </tc:column>
+      <tc:column label="Year">
         <tc:date value="#{object.discoverYear}" converter="#{sheetController.yearConverter}"/>
       </tc:column>
     </tc:sheet>
-    <tc:button label="Submit"/>
+    <tc:button label="Submit">
+      <f:ajax execute="editSheet" render="resultSheet"/>
+    </tc:button>
+  </tc:section>
+
+  <tc:section label="Result">
+    <p>The sheet in this section is for verifying the submitted data.</p>
+    <tc:sheet id="resultSheet" var="object" value="#{sheetController.solarList}">
+      <tc:column label="Name">
+        <tc:out value="#{object.name}"/>
+      </tc:column>
+      <tc:column label="Orbit">
+        <tc:out value="#{object.orbit}"/>
+      </tc:column>
+      <tc:column label="Period (Days)">
+        <tc:out value="#{object.period}"/>
+      </tc:column>
+      <tc:column label="Discoverer">
+        <tc:out value="#{object.discoverer}"/>
+      </tc:column>
+      <tc:column label="Year">
+        <tc:out value="#{object.discoverYear}"/>
+      </tc:column>
+    </tc:sheet>
   </tc:section>
 </ui:composition>

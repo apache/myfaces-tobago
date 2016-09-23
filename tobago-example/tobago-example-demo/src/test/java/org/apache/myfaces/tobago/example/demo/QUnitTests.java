@@ -115,9 +115,10 @@ public class QUnitTests {
             WebElement source = assertion.findElement(By.className("test-source"));
             LOG.warn("test '" + testName + "' for " + page + " failed on assertion " + assertionCount
                 + "\n" + source.getText());
+            String message = assertion.findElement(By.className("test-message")).getText();
             String expected = assertion.findElement(By.className("test-expected")).getText();
             String actual = assertion.findElement(By.className("test-actual")).getText();
-            Assert.assertEquals(expected, actual);
+            Assert.assertEquals(message, expected, actual);
           }
         }
       } else if ("running".equals(testCase.getAttribute("class"))) {
@@ -356,6 +357,12 @@ public class QUnitTests {
   @Test
   public void testButtonLink() throws UnsupportedEncodingException, InterruptedException {
     String page = "content/40-test/4000-button+link/button+link.xhtml";
+    runStandardTest(page);
+  }
+
+  @Test
+  public void testSheetTypes() throws UnsupportedEncodingException, InterruptedException {
+    String page = "content/40-test/8000-sheet/10-sheet-types/sheet-types.xhtml";
     runStandardTest(page);
   }
 

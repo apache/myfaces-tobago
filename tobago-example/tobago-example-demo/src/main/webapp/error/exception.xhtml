@@ -46,8 +46,9 @@
         request.setAttribute("exceptionText", exceptionToString(exception));
       %>
 -->
-
-      <tc:out escape="false" value="#{exceptionController.stackTrace}"/>
+      <pre>
+        <tc:out value="#{exceptionController.stackTrace}"/>
+      </pre>
     </tc:section>
 
 </ui:composition>
