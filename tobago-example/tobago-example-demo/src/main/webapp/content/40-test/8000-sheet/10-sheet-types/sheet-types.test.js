@@ -47,7 +47,7 @@ QUnit.test("Column 4: tc:date", function(assert) {
   assert.expect(4);
 
   var $column = getColumn(4);
-  testWidthHeight(assert, $column, 115, 57, 115, 38);
+  testWidthHeight(assert, $column, 160, 57, 160, 38);
 });
 
 QUnit.test("Column 5: tc:button", function(assert) {

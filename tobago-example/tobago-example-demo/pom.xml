@@ -46,6 +46,31 @@
     </testResources>
     <plugins>
       <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>xml-maven-plugin</artifactId>
+        <version>1.0.1</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>validate</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <validationSets>
+            <validationSet>
+              <dir>src/main/webapp</dir>
+              <includes>
+                <include>**/*.xhtml</include>
+              </includes>
+              <excludes>
+                  <exclude>**/x-error-in-syntax.xhtml</exclude>
+              </excludes>
+            </validationSet>
+          </validationSets>
+        </configuration>
+      </plugin>
+      <plugin>
         <groupId>org.apache.myfaces.tobago</groupId>
         <artifactId>tobago-theme-plugin</artifactId>
         <executions>

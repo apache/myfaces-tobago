@@ -360,7 +360,7 @@ button.tobago-treeCommand:focus, button.tobago-treeCommand:hover {
   display: block;
 }
 
-  /* out -------------------------------------------------------------------- */
+/* out -------------------------------------------------------------------- */
 
 .tobago-out-markup-strong {
   font-weight: bold;
@@ -373,6 +373,11 @@ button.tobago-treeCommand:focus, button.tobago-treeCommand:hover {
 .tobago-out-markup-number {
   display: block;
   text-align: right;
+}
+
+/* make sure, tc:out has always the same height, no matter if value is empty */
+span.tobago-out:empty:before {
+  content: "\200b";
 }
 
 /* page ----------------------------------------------------------- */
