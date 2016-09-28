@@ -37,15 +37,15 @@
     <p>In this example, the <code>sortable</code> attribute is 'true' for all columns.
       Notice, that there are negative periods.</p>
     <pre><code class="language-markup">&lt;tc:column label="Name" sortable="true"></code></pre>
-    <tc:sheet id="s1" value="#{sheetSortingController.solarList}" var="object" rows="4">
+    <tc:sheet id="s1" value="#{sheetSortingController.solarList}" var="object" rows="4" markup="small">
       <tc:column label="Name" sortable="true">
-        <tc:out value="#{object.name}"/>
+        <tc:out value="#{object.name}" labelLayout="skip"/>
       </tc:column>
       <tc:column label="Period (Days)" sortable="true">
-        <tc:out value="#{object.period}"/>
+        <tc:out value="#{object.period}" labelLayout="skip"/>
       </tc:column>
       <tc:column label="Discovery Year" sortable="true">
-        <tc:out value="#{object.discoverYear}"/>
+        <tc:out value="#{object.discoverYear}" labelLayout="skip"/>
       </tc:column>
     </tc:sheet>
   </tc:section>
@@ -62,15 +62,15 @@
     </code></pre>
 
     <tc:sheet id="s2" value="#{sheetSortingController.solarList}" var="object" rows="4"
-              sortActionListener="#{sheetSortingController.sheetSorter}">
+              sortActionListener="#{sheetSortingController.sheetSorter}" markup="small">
       <tc:column id="namecol" label="Name" sortable="true">
-        <tc:out value="#{object.name}"/>
+        <tc:out value="#{object.name}" labelLayout="skip"/>
       </tc:column>
       <tc:column id="periodcol" label="Period (Days)" sortable="true">
-        <tc:out value="#{object.period}"/>
+        <tc:out value="#{object.period}" labelLayout="skip"/>
       </tc:column>
       <tc:column id="yearcol" label="Discovery Year" sortable="true">
-        <tc:out value="#{object.discoverYear}"/>
+        <tc:out value="#{object.discoverYear}" labelLayout="skip"/>
       </tc:column>
     </tc:sheet>
   </tc:section>

@@ -21,11 +21,11 @@ package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Facets;
+import org.apache.myfaces.tobago.component.LabelLayout;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.component.UIColumnEvent;
 import org.apache.myfaces.tobago.component.UIColumnSelector;
 import org.apache.myfaces.tobago.component.UICommand;
-import org.apache.myfaces.tobago.component.UILink;
 import org.apache.myfaces.tobago.component.UIOut;
 import org.apache.myfaces.tobago.component.UIPanel;
 import org.apache.myfaces.tobago.component.UIReload;
@@ -177,6 +177,7 @@ public class SheetRenderer extends RendererBase {
           } else {
             out.setRendered(ComponentUtils.getBooleanAttribute(column, Attributes.rendered));
           }
+          out.setLabelLayout(LabelLayout.skip);
           header.getChildren().add(out);
         }
         i++;
@@ -425,9 +426,6 @@ public class SheetRenderer extends RendererBase {
           }
           if (rowActionId != null) {
             markup = markup.add(Markup.CLICKABLE);
-          }
-          if (isPure(column)) {
-            markup = markup.add(Markup.PURE);
           }
           markup = markup.add(getMarkupForAlign(column));
           writer.writeClassAttribute(Classes.create(sheet, "cell", markup));
@@ -767,7 +765,6 @@ public class SheetRenderer extends RendererBase {
           }
 
           final UIComponent cellComponent = cell.getComponent();
-          final boolean pure = !(cellComponent instanceof UIOut);
 
           writer.startElement(HtmlElements.DIV);
           final CssItem align;
@@ -842,9 +839,6 @@ public class SheetRenderer extends RendererBase {
             }
           }
 
-          if (pure) {
-            markup = markup.add(Markup.PURE);
-          }
           writer.writeClassAttribute(Classes.create(sheet, "header", markup));
           writer.writeAttribute(HtmlAttributes.TITLE, tip, true);
 
@@ -946,23 +940,6 @@ public class SheetRenderer extends RendererBase {
     writer.startElement(HtmlElements.COL);
     writer.writeAttribute(HtmlAttributes.WIDTH, columnWidth);
     writer.endElement(HtmlElements.COL);
-  }
-
-  /**
-   * Differ between simple content and complex content.
-   * Decide if the content of a cell needs usually the whole possible space or
-   * is the character of the content like flowing text.
-   * In the second case, the style usually sets a padding.<br/>
-   * Pure is needed for &lt;tc:panel>,  &lt;tc:in>, etc.<br/>
-   * Pure is not needed for  &lt;tc:out> and &lt;tc:link>
-   */
-  private boolean isPure(final UIColumn column) {
-    for (final UIComponent child : column.getChildren()) {
-      if (!(child instanceof UIOut) && !(child instanceof UILink)) {
-        return true;
-      }
-    }
-    return false;
   }
 
   private Markup markupForLeftCenterRight(final ShowPosition position) {

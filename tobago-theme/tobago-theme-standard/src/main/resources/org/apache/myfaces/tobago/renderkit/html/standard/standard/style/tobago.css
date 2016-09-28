@@ -610,11 +610,6 @@ p.tobago-separator:after {
   cursor: pointer;
 }
 
-table.tobago-sheet-headerTable>tbody>tr>th,
-table.tobago-sheet-bodyTable>tbody>tr>td {
-  padding: 0;
-}
-
 .tobago-sheet-body {
   overflow-y: auto;
   flex: 1 1 auto;
@@ -640,10 +635,6 @@ table.tobago-sheet-bodyTable>tbody>tr>td {
   height: 100%;
   z-index: 1;
   cursor: col-resize;
-}
-
-.tobago-sheet-cell > .form-group {
-  margin-bottom: 0;
 }
 
 /* suggest ---------------------------------------------------------------------- */

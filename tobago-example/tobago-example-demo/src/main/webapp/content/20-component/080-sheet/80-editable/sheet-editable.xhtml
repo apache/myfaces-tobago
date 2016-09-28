@@ -36,21 +36,21 @@
       'Result' section.</p>
     <tc:sheet id="editSheet" value="#{sheetController.solarList}" var="object" rows="5">
       <tc:column label="Name">
-        <tc:in id="nameCol" value="#{object.name}">
+        <tc:in id="nameCol" value="#{object.name}" labelLayout="skip">
           <f:ajax execute="nameCol" render="resultSheet"/>
         </tc:in>
       </tc:column>
       <tc:column label="Orbit">
-        <tc:in value="#{object.orbit}"/>
+        <tc:in value="#{object.orbit}" labelLayout="skip"/>
       </tc:column>
       <tc:column label="Period (Days)">
-        <tc:in value="#{object.period}"/>
+        <tc:in value="#{object.period}" labelLayout="skip"/>
       </tc:column>
       <tc:column label="Discoverer">
-        <tc:in value="#{object.discoverer}"/>
+        <tc:in value="#{object.discoverer}" labelLayout="skip"/>
       </tc:column>
       <tc:column label="Year">
-        <tc:date value="#{object.discoverYear}" converter="#{sheetController.yearConverter}"/>
+        <tc:date value="#{object.discoverYear}" converter="#{sheetController.yearConverter}" labelLayout="skip"/>
       </tc:column>
     </tc:sheet>
     <tc:button label="Submit">

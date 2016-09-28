@@ -47,19 +47,19 @@
     <tc:sheet id="s1" value="#{sheetController.solarList}" var="object" rows="4">
       <tc:style maxHeight="500px"/>
       <tc:column label="Name">
-        <tc:out value="#{object.name}"/>
+        <tc:out value="#{object.name}" labelLayout="skip"/>
       </tc:column>
       <tc:column label="Orbit">
-        <tc:out value="#{object.orbit}"/>
+        <tc:out value="#{object.orbit}" labelLayout="skip"/>
       </tc:column>
       <tc:column label="Period (Days)">
-        <tc:out value="#{object.period}"/>
+        <tc:out value="#{object.period}" labelLayout="skip"/>
       </tc:column>
       <tc:column label="Discoverer">
-        <tc:out value="#{object.discoverer}"/>
+        <tc:out value="#{object.discoverer}" labelLayout="skip"/>
       </tc:column>
       <tc:column label="Year">
-        <tc:out value="#{object.discoverYear}"/>
+        <tc:out value="#{object.discoverYear}" labelLayout="skip"/>
       </tc:column>
     </tc:sheet>
   </tc:section>

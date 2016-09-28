@@ -110,6 +110,9 @@ public abstract class LabelLayoutRendererBase extends DecodingRendererBase {
     final LabelLayout labelLayout = getType(component);
     final CssItem divClass;
     switch (labelLayout) {
+      case skip:
+        // skip rendering the surrounding element
+        return;
       case flexLeft:
       case flexRight:
         divClass = TobagoClass.FLEX_LAYOUT;
@@ -174,6 +177,8 @@ public abstract class LabelLayoutRendererBase extends DecodingRendererBase {
     final LabelLayout labelLayout = getType(component);
 
     switch (labelLayout) {
+      case skip:
+        return;
       case flexRight:
       case flowRight:
         encodeLabel(component, writer, labelLayout);

@@ -53,13 +53,6 @@
           </supported-markup>
         </renderer>
         <renderer>
-          <name>Column</name>
-          <supported-markup>
-            <!-- XXX needed for "cell", is here to ignore the warning -->
-            <markup>pure</markup>
-          </supported-markup>
-        </renderer>
-        <renderer>
           <name>Command</name>
           <supported-markup>
             <markup>disabled</markup>
@@ -272,7 +265,6 @@
             <markup>clickable</markup>
             <markup>filler</markup>
             <markup>first</markup>
-            <markup>pure</markup>
             <!-- internal: for the paging fields -->
             <markup>left</markup>
             <markup>center</markup>
