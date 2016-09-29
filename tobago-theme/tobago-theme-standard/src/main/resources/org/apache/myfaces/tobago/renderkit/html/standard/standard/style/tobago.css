@@ -460,6 +460,8 @@ h6 > .fa:first-child {
 /* selectBooleanCheckbox ----------------------------------------------- */
 .tobago-selectBooleanCheckbox input {
   margin-right: 6px;
+  margin-bottom: 3px;
+  vertical-align: text-bottom;
 }
 
 /* selectManyCheckbox ----------------------------------------------------------- */
@@ -471,6 +473,8 @@ h6 > .fa:first-child {
 
 .tobago-selectManyCheckbox input {
   margin-right: 6px;
+  margin-bottom: 3px;
+  vertical-align: text-bottom;
 }
 
 /* selectManyShuttle ----------------------------------------------------------- */
@@ -516,6 +520,8 @@ h6 > .fa:first-child {
 
 .tobago-selectOneRadio input {
   margin-right: 6px;
+  margin-bottom: 3px;
+  vertical-align: text-bottom;
 }
 
 /* segmentLayout ----------------------------------------------------------- */
