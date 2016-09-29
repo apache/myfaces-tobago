@@ -21,7 +21,6 @@ package org.apache.myfaces.tobago.renderkit;
 
 import org.apache.myfaces.tobago.component.SupportsAccessKey;
 import org.apache.myfaces.tobago.component.UISelectBooleanCheckbox;
-import org.apache.myfaces.tobago.internal.util.Deprecation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -34,24 +33,6 @@ public final class LabelWithAccessKey {
   private final String label;
   private final Character accessKey;
   private final int pos;
-
-  /**
-   * @deprecated since 2.0.0. This is a workaround.
-   */
-  @Deprecated
-  public LabelWithAccessKey(final String label) {
-    this(new SupportsAccessKey() {
-      @Override
-      public Character getAccessKey() {
-        return null;
-      }
-
-      @Override
-      public String getLabel() {
-        return label;
-      }
-    });
-  }
 
   public LabelWithAccessKey(final SupportsAccessKey component) {
 
@@ -87,30 +68,6 @@ public final class LabelWithAccessKey {
     pos = pos0;
   }
 
-  /**
-   * @deprecated since 2.0.0. Attributes are final now, use a new instance.
-   */
-  @Deprecated
-  public void setup(final String label) {
-    Deprecation.LOG.error("Ignoring label: " + label);
-  }
-
-  /**
-   * @deprecated since 2.0.0. Attributes are final now, use a new instance.
-   */
-  @Deprecated
-  public void reset() {
-    Deprecation.LOG.error("Ignoring reset.");
-  }
-
-  /**
-   * @deprecated since 2.0.0. Please use {@link #getLabel()}.
-   */
-  @Deprecated
-  public String getText() {
-    return label;
-  }
-
   public String getLabel() {
     return label;
   }
@@ -121,22 +78,6 @@ public final class LabelWithAccessKey {
 
   public int getPos() {
     return pos;
-  }
-
-  /**
-   * @deprecated since 2.0.0. Attributes are final now, use a new instance.
-   */
-  @Deprecated
-  public void setText(final String text) {
-    Deprecation.LOG.error("Ignoring label: " + text);
-  }
-
-  /**
-   * @deprecated since 2.0.0. Attributes are final now, use a new instance.
-   */
-  @Deprecated
-  public void setAccessKey(Character accessKey) {
-    Deprecation.LOG.error("Ignoring accessKey: " + accessKey);
   }
 
   /**
