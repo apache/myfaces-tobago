@@ -27,19 +27,19 @@
             rows="10">
     <tc:columnSelector/>
     <tc:column label="&lt;tc:out>" id="c_out">
-      <tc:out value="#{luminary.name}"/>
+      <tc:out value="#{luminary.name}" labelLayout="skip"/>
     </tc:column>
     <tc:column label="&lt;tc:out>" align="right" id="c_out_r">
-      <tc:out value="#{luminary.name}"/>
+      <tc:out value="#{luminary.name}" labelLayout="skip"/>
     </tc:column>
     <tc:column id="c_not_rendered" rendered="false">
-      <tc:out value="#{luminary.name}"/>
+      <tc:out value="#{luminary.name}" labelLayout="skip"/>
     </tc:column>
     <tc:column label="&lt;tc:in>" id="c_in">
-      <tc:in value="#{luminary.name}" id="in"/>
+      <tc:in value="#{luminary.name}" id="in" labelLayout="skip"/>
     </tc:column>
     <tc:column label="&lt;tc:date>" id="c_date">
-      <tc:date value="#{luminary.discoverYear}" converter="#{sheetController.yearConverter}"/>
+      <tc:date value="#{luminary.discoverYear}" converter="#{sheetController.yearConverter}" labelLayout="skip"/>
     </tc:column>
     <tc:column label="&lt;tc:button>" id="c_button">
       <tc:button label="#{luminary.name}"/>
@@ -48,7 +48,7 @@
       <tc:link label="#{luminary.name}" link="https://en.wikipedia.org/wiki/#{luminary.name}"/>
     </tc:column>
     <tc:column label="&lt;tc:selectOneChoice>" id="c_selectOneChoice">
-      <tc:selectOneChoice>
+      <tc:selectOneChoice labelLayout="skip">
         <tc:selectItem itemLabel="first" itemValue="1"/>
         <tc:selectItem itemLabel="second" itemValue="2"/>
         <tc:selectItem itemLabel="third" itemValue="3"/>
@@ -61,9 +61,9 @@
     </tc:column>
     <tc:column label="&lt;tc:flexLayout>" id="c_panel">
       <tc:flexLayout columns="1*;10px;1*">
-        <tc:in value="1st"/>
-        <tc:out value="/"/>
-        <tc:in value="2nd"/>
+        <tc:in value="1st" labelLayout="skip"/>
+        <tc:out value="/" labelLayout="skip"/>
+        <tc:in value="2nd" labelLayout="skip"/>
       </tc:flexLayout>
     </tc:column>
   </tc:sheet>
