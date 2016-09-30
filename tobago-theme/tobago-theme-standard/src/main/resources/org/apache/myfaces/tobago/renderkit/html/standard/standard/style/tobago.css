@@ -464,6 +464,11 @@ h6 > .fa:first-child {
   vertical-align: text-bottom;
 }
 
+.tobago-selectBooleanCheckbox .form-check-label {
+  margin-top: 0.5ex;
+  vertical-align: text-top;
+}
+
 /* selectManyCheckbox ----------------------------------------------------------- */
 
 .tobago-selectManyCheckbox {

@@ -25,11 +25,12 @@ import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.RendererTypes;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasAccessKey;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasAction;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasActionListener;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasConfirmation;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabelAndAccessKey;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabel;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasLink;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasResource;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTabIndex;
@@ -66,5 +67,5 @@ import javax.faces.component.UICommand;
 public interface TreeCommandTagDeclaration
     extends HasIdBindingAndRendered, HasAction, HasActionListener, IsImmediateCommand, HasConfirmation,
             HasLink, HasResource, IsTransition, HasTarget, IsDisabledBySecurity,
-            IsOmit, HasLabelAndAccessKey, HasTip, HasTabIndex, IsVisual {
+            IsOmit, HasLabel, HasAccessKey, HasTip, HasTabIndex, IsVisual {
 }

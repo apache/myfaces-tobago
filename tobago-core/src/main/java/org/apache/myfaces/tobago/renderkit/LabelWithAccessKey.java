@@ -19,11 +19,13 @@
 
 package org.apache.myfaces.tobago.renderkit;
 
+import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.SupportsAccessKey;
-import org.apache.myfaces.tobago.component.UISelectBooleanCheckbox;
+import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.faces.component.UIComponent;
 import java.util.Locale;
 
 public final class LabelWithAccessKey {
@@ -35,6 +37,10 @@ public final class LabelWithAccessKey {
   private final int pos;
 
   public LabelWithAccessKey(final SupportsAccessKey component) {
+    this(component, false);
+  }
+
+  public LabelWithAccessKey(final SupportsAccessKey component, final boolean preferItemLabel) {
 
     String label0;
     Character accessKey0;
@@ -43,8 +49,8 @@ public final class LabelWithAccessKey {
     label0 = component.getLabel();
 
     // compatibility since TOBAGO-1093
-    if (component instanceof UISelectBooleanCheckbox) {
-      final String itemLabel = ((UISelectBooleanCheckbox) component).getItemLabel();
+    if (preferItemLabel) {
+      final String itemLabel = ComponentUtils.getStringAttribute((UIComponent) component, Attributes.itemLabel);
       if (itemLabel != null) {
         label0 = itemLabel;
       }

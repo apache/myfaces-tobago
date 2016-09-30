@@ -19,10 +19,9 @@
 
 package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
-import org.apache.myfaces.tobago.component.UISelectBooleanCheckbox;
+import org.apache.myfaces.tobago.internal.component.AbstractUISelectBooleanCheckbox;
 import org.apache.myfaces.tobago.internal.util.AccessKeyLogger;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
-import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
@@ -41,7 +40,7 @@ import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 
-public class SelectBooleanCheckboxRenderer extends RendererBase {
+public class SelectBooleanCheckboxRenderer extends LabelLayoutRendererBase {
 
   private static final Logger LOG = LoggerFactory.getLogger(SelectBooleanCheckboxRenderer.class);
 
@@ -66,18 +65,9 @@ public class SelectBooleanCheckboxRenderer extends RendererBase {
     RenderUtils.decodeClientBehaviors(facesContext, input);
   }
 
-//  public Object getConvertedValue(
-//      FacesContext context, UIComponent component, Object submittedValue)
-//      throws ConverterException {
-//
-//      return Boolean.valueOf((String)submittedValue);
-//  }
-
-  //
   @Override
-  public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
-
-    final UISelectBooleanCheckbox select = (UISelectBooleanCheckbox) component;
+  protected void encodeBeginField(FacesContext facesContext, UIComponent component) throws IOException {
+    final AbstractUISelectBooleanCheckbox select = (AbstractUISelectBooleanCheckbox) component;
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
     final String clientId = select.getClientId(facesContext);
@@ -86,7 +76,7 @@ public class SelectBooleanCheckboxRenderer extends RendererBase {
     final boolean checked = "true".equals(currentValue);
     final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, select);
     final boolean disabled = select.isDisabled();
-    final LabelWithAccessKey label = new LabelWithAccessKey(select);
+    final LabelWithAccessKey label = new LabelWithAccessKey(select, true);
 
     writer.startElement(HtmlElements.DIV);
     writer.writeIdAttribute(clientId);
@@ -135,8 +125,12 @@ public class SelectBooleanCheckboxRenderer extends RendererBase {
       HtmlRendererUtils.writeLabelWithAccessKey(writer, label);
     }
 
+  }
+
+  @Override
+  protected void encodeEndField(FacesContext facesContext, UIComponent component) throws IOException {
+    final TobagoResponseWriter writer = getResponseWriter(facesContext);
     writer.endElement(HtmlElements.LABEL);
     writer.endElement(HtmlElements.DIV);
-
   }
 }

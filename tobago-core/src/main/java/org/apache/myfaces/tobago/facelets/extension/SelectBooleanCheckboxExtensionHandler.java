@@ -22,6 +22,7 @@ package org.apache.myfaces.tobago.facelets.extension;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.component.UISelectBooleanCheckbox;
+import org.apache.myfaces.tobago.internal.component.AbstractUISelectBooleanCheckbox;
 
 import javax.el.ValueExpression;
 import javax.faces.component.UIComponent;
@@ -45,7 +46,7 @@ public class SelectBooleanCheckboxExtensionHandler extends TobagoLabelExtensionH
   @Override
   protected void enrichInput(final FaceletContext faceletContext, final UIComponent input) {
     super.enrichInput(faceletContext, input);
-    final UISelectBooleanCheckbox checkbox = (UISelectBooleanCheckbox) input;
+    final AbstractUISelectBooleanCheckbox checkbox = (AbstractUISelectBooleanCheckbox) input;
     if (itemLabelAttribute != null) {
       if (itemLabelAttribute.isLiteral()) {
         checkbox.setItemLabel(itemLabelAttribute.getValue(faceletContext));

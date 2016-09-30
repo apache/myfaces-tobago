@@ -30,7 +30,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasAutocomplete;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasConverter;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasConverterMessage;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasInputLabel;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabel;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabelLayout;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasPlaceholder;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasRequiredMessage;
@@ -77,7 +77,7 @@ import javax.faces.component.UIInput;
 public interface InTagDeclaration
     extends HasIdBindingAndRendered, HasConverter, IsReadonly, IsDisabled, IsRequired, HasTip, IsPassword,
     HasAccessKey, HasValidator, HasValue, HasValueChangeListener, HasTabIndex, IsFocus, IsVisual,
-    HasValidatorMessage, HasConverterMessage, HasRequiredMessage, HasInputLabel, HasLabelLayout,
+    HasValidatorMessage, HasConverterMessage, HasRequiredMessage, HasLabel, HasLabelLayout,
     HasAutocomplete, HasPlaceholder {
 
 }

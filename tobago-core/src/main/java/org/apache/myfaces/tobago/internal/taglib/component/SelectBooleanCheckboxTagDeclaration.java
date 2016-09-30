@@ -25,11 +25,13 @@ import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.RendererTypes;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasAccessKey;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasConverter;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasConverterMessage;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabel;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasItemLabel;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabelAndAccessKey;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabelLayout;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasRequiredMessageForSelect;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTabIndex;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
@@ -54,7 +56,6 @@ import javax.faces.component.UISelectBoolean;
     uiComponent = "org.apache.myfaces.tobago.component.UISelectBooleanCheckbox",
     uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUISelectBooleanCheckbox",
     uiComponentFacesClass = "javax.faces.component.UISelectBoolean",
-    interfaces = "org.apache.myfaces.tobago.component.SupportsAccessKey",
     componentFamily = UISelectBoolean.COMPONENT_FAMILY,
     rendererType = RendererTypes.SELECT_BOOLEAN_CHECKBOX,
     allowedChildComponenents = "NONE",
@@ -70,7 +71,8 @@ import javax.faces.component.UISelectBoolean;
     })
 
 public interface SelectBooleanCheckboxTagDeclaration extends HasValidator,
-    HasValueChangeListener, HasIdBindingAndRendered, HasLabelAndAccessKey, HasValue, IsDisabled,
+    HasValueChangeListener, HasIdBindingAndRendered, HasValue, IsDisabled,
     HasTip, IsReadonly, HasTabIndex, IsRequiredForSelect, HasConverter, IsFocus,
-    HasValidatorMessage, HasRequiredMessageForSelect, HasConverterMessage, IsVisual, HasItemLabel {
+    HasValidatorMessage, HasRequiredMessageForSelect, HasConverterMessage, IsVisual,
+    HasAccessKey, HasItemLabel, HasLabel, HasLabelLayout {
 }
