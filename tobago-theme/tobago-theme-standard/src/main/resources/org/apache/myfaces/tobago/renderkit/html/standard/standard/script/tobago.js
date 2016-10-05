@@ -1280,46 +1280,7 @@ Tobago.Command.initEnter = function(elements) {
     }
   })};
 
-Tobago.Command.initInputElements = function(elements) {
-  var inputElements = Tobago.Utils.selectWithJQuery(elements, "input, select, textarea, a, button");
-  inputElements.focus(function (event) {
-    var target = event.target;
-    var id = target.id;
-    var command;
-    if (target.tagName == "A" || target.tagName == "BUTTON") {
-      command = jQuery(target);
-    } else {
-      while (id != null) {
-        command = jQuery("[data-tobago-default='" + id + "']");
-        if (command.size() > 0) {
-          break;
-        }
-        id = Tobago.Utils.getNamingContainerId(id);
-      }
-    }
-  });
-  inputElements.blur(function (event) {
-    var target = event.target;
-    var id = target.id;
-    var command;
-    if (target.tagName == "A" || target.tagName == "BUTTON") {
-      command = jQuery(target);
-    } else {
-      while (id != null) {
-        command = jQuery("[data-tobago-default='" + id + "']");
-        if (command.size() > 0) {
-          break;
-        }
-        id = Tobago.Utils.getNamingContainerId(id);
-      }
-    }
-  });
-};
-
 Tobago.registerListener(Tobago.Command.initEnter, Tobago.Phase.DOCUMENT_READY);
-
-Tobago.registerListener(Tobago.Command.initInputElements, Tobago.Phase.DOCUMENT_READY);
-Tobago.registerListener(Tobago.Command.initInputElements, Tobago.Phase.AFTER_UPDATE);
 
 // ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
