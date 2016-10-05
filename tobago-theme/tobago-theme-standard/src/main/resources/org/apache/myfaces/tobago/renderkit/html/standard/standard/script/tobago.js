@@ -426,18 +426,6 @@ var Tobago = {
     Tobago.reloadTimer[id] = setTimeout(func, time);
   },
 
-  /**
-   * Focus function for toolbar buttons.
-   *  IE only.
-   */
-  toolbarFocus: function(element, event) {
-    if (window.event && event.altKey) {
-      // ie only set focus on keyboard access, so do the click here.
-      //console.debug(" alt=" + event.altKey + "  keycode=" + event.keyCode)
-      element.click();
-    }
-  },
-
   resizePage: function(event) {
     Tobago.resizeEventCount++;
     window.setTimeout(Tobago.resizePageAction, 250);
