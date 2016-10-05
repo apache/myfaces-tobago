@@ -51,13 +51,6 @@ var Tobago = {
 
   lastFocusId: undefined,
 
-  /**
-   * The resize action is a function which should be executed when the window was resized.
-   * Can be defined as facet in the page.
-   */
-  resizeAction: undefined,
-  resizeEventCount: 0,
-
   htmlIdIndex: 0,
 
   createHtmlId: function() {
@@ -183,11 +176,6 @@ var Tobago = {
     }
     console.timeEnd("[tobago] applicationOnload"); // @DEV_ONLY
 
-    if (Tobago.resizeAction) {
-      // firefox submits an onresize event
-      window.setTimeout(Tobago.registerResizeAction, 1000);
-    }
-
     window.setTimeout(Tobago.finishPageLoading, 1);
     console.timeEnd("[tobago] init (main thread)"); // @DEV_ONLY
   },
@@ -195,10 +183,6 @@ var Tobago = {
   finishPageLoading: function() {
     Tobago.setFocus();
     console.timeEnd("[tobago] init"); // @DEV_ONLY
-  },
-
-  registerResizeAction: function() {
-    Tobago.addEventListener(window, 'resize', Tobago.resizePage);
   },
 
   onSubmit: function(listenerOptions) {
@@ -426,18 +410,6 @@ var Tobago = {
     Tobago.reloadTimer[id] = setTimeout(func, time);
   },
 
-  resizePage: function(event) {
-    Tobago.resizeEventCount++;
-    window.setTimeout(Tobago.resizePageAction, 250);
-  },
-
-  resizePageAction: function() {
-    Tobago.resizeEventCount--;
-    if (Tobago.resizeEventCount == 0) {
-      Tobago.resizeAction();
-    }
-  },
-
   initCommand: function(command) {
     // command is jQuery object
     // setupInputFacetCommand
@@ -516,9 +488,10 @@ var Tobago = {
       }
     }
     if (commands.resize) {
-      Tobago.resizeAction = function() {
+      jQuery(window).resize(function() {
+        console.debug("window resize event: " + commands.resize); // @DEV_ONLY
         Tobago.submitAction(this, commands.resize.action, commands.resize);
-      }
+      });
     }
     if (commands.action) {
       setTimeout(function () {
