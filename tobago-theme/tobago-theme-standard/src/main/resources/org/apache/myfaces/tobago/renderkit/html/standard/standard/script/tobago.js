@@ -41,16 +41,6 @@ var Tobago = {
    */
   form: null,
 
-  /**
-   * The id of the element which should became the focus after loading.
-   * Set via renderer if requested.
-   */
-  focusId: undefined,
-
-  errorFocusId: undefined,
-
-  lastFocusId: undefined,
-
   htmlIdIndex: 0,
 
   createHtmlId: function() {
@@ -156,7 +146,6 @@ var Tobago = {
     this.initMarker = true;
 
     console.time("[tobago] init"); // @DEV_ONLY
-    console.time("[tobago] init (main thread)"); // @DEV_ONLY
     this.addBindEventListener(Tobago.findForm().get(0), 'submit', this, 'onSubmit');
 
     this.addBindEventListener(window, 'unload', this, 'onUnload');
@@ -176,12 +165,6 @@ var Tobago = {
     }
     console.timeEnd("[tobago] applicationOnload"); // @DEV_ONLY
 
-    window.setTimeout(Tobago.finishPageLoading, 1);
-    console.timeEnd("[tobago] init (main thread)"); // @DEV_ONLY
-  },
-
-  finishPageLoading: function() {
-    Tobago.setFocus();
     console.timeEnd("[tobago] init"); // @DEV_ONLY
   },
 
@@ -269,7 +252,6 @@ var Tobago = {
     }
     this.jsObjects.length = 0;
     delete this.jsObjects;
-    delete this.lastFocusId;
   },
 
   removeEventListeners: function() {
@@ -318,14 +300,11 @@ var Tobago = {
    * Submitting the page with specified actionId.
    * options.transition
    * options.target
-   * options.focus
    */
   submitAction: function(source, actionId, options) {
     options = options || {};
 
     var transition = options.transition === undefined || options.transition == null || options.transition;
-
-    Tobago.findSubElementOfPage("lastFocusId").val(options.focus);
 
     Tobago.Transport.request(function() {
       if (!this.isSubmit) {
@@ -504,12 +483,7 @@ var Tobago = {
   initDom: function(elements) {
 
     // focus
-    var autofocus = Tobago.Utils.selectWithJQuery(elements, '[autofocus]');
-    autofocus.each(function () {
-      // setupFocus
-      Tobago.focusId = jQuery(this).attr("id");
-      Tobago.setFocus();
-    });
+    Tobago.initFocus(elements);
 
     // commands
     Tobago.Utils.selectWithJQuery(elements, '[data-tobago-commands]')
@@ -654,96 +628,65 @@ var Tobago = {
   /**
    * Sets the focus to the requested element or to the first possible if
    * no element is explicitly requested.
+   *
+   * The priority order is:
+   * - error (the first error element gets the focus)
+   * - auto (the element with the tobago tag attribute focus="true" gets the focus)
+   * - last (the element from the last request with same id gets the focus, not AJAX)
+   * - first (the first input element (without tabindex=-1) gets the focus, not AJAX)
    */
-  setFocus: function() {
-    var elementId;
-    if (this.errorFocusId !== undefined) {
-      elementId = this.errorFocusId;
-    } else if (this.lastFocusId !== undefined) {
-      elementId = this.lastFocusId;
-    } else {
-      elementId = this.focusId;
-    }
-    if (elementId != null) {
-      var $focusElement = jQuery(Tobago.Utils.escapeClientId(elementId));
-      if ($focusElement.size() > 0) {
-        try { // focus() on not visible elements breaks IE
-          $focusElement.focus();
-          return;
-        } catch (ex) {
-          console.warn('Exception when setting focus on : \"' + elementId + '\"'); // @DEV_ONLY
-        }
-      }
+  initFocus: function(elements) {
+
+    var $focusable = jQuery(":input:enabled:visible:not(button):not([tabindex='-1'])");
+    $focusable.focus(function () {
+      // remember the last focused element, for later
+      Tobago.findSubElementOfPage("lastFocusId").val(jQuery(this).attr("id"));
+    });
+
+    var $hasDanger = Tobago.Utils.selectWithJQuery(elements, '.has-danger');
+    var $dangerInput = $hasDanger.find("*").filter(":input:enabled:visible:first");
+    if ($dangerInput.size() > 0) {
+      Tobago.setFocus($dangerInput);
+      return;
     }
 
-    if (typeof this.focusId == 'undefined') {
-      var lowestTabIndex = 32768; // HTML max tab index value + 1
-      var candidate = null;
-      var candidateWithTabIndexZero = null;
-      foriLoop: for (var i = 0; i < document.forms.length; i++) {
-        var form = document.forms[i];
-        if (form != null) {
-          for (var j = 0; j < form.elements.length; j++) {
-            var element = form.elements[j];
-            if (element != null) {
-              if (!element.disabled && !element.readOnly
-                  && this.isFocusType(element.type)) {
-                if (lowestTabIndex > element.tabIndex && element.tabIndex > 0) {
-                  lowestTabIndex = element.tabIndex;
-                  candidate = element;
-                  if (lowestTabIndex == 1) {
-                    // optimization: stop on first field with lowest possible tab index 1
-                    break foriLoop;
-                  }
-                }
-                if (candidateWithTabIndexZero == null && element.tabIndex == 0) {
-                  candidateWithTabIndexZero = element;
-                }
-              }
-            }
-          }
-        }
-      }
-      if (candidate != null) {
-        try {
-          // focus() on not visible elements breaks IE
-          candidate.focus();
-        } catch (ex) {
-        }
-      } else if (candidateWithTabIndexZero != null) {
-        try {
-          // focus() on not visible elements breaks IE
-          candidateWithTabIndexZero.focus();
-        } catch (ex) {
-        }
-      }
-    } else if (this.focusId.length > 0) {
-      console.warn('Cannot find component to set focus : \"' + this.focusId + '\"'); // @DEV_ONLY
+    var $autoFocus = Tobago.Utils.selectWithJQuery(elements, '[autofocus]');
+    var hasAutoFocus = $autoFocus.size() > 0;
+    if (hasAutoFocus) {
+      // nothing to do, because the browser make the work.
+
+      // autofocus in popups doesn't work automatically... so we fix that here
+      jQuery('.modal').on('shown.bs.modal', function() {
+        Tobago.setFocus(jQuery(this).find('[autofocus]'));
+      });
+
+      return;
     }
 
+    if (elements) {
+      // seems to be AJAX, so end here
+      return;
+    }
+
+    var lastFocusId = Tobago.findSubElementOfPage("lastFocusId").val();
+    if (lastFocusId) {
+      Tobago.setFocus(jQuery(Tobago.Utils.escapeClientId(lastFocusId)));
+      return;
+    }
+
+    var $firstInput = jQuery(":input:enabled:visible:not(button):not([tabindex='-1']):first");
+    if ($firstInput.size() > 0) {
+      Tobago.setFocus($firstInput);
+      return;
+    }
   },
 
-
-  /**
-   * check if a component type is valid to receive the focus
-   */
-  isFocusType: function(type) {
-    if (type == 'text'
-        || type == 'textarea'
-        || type == 'select-one'
-        || type == 'select-multiple'
-      //       ||  type == 'button'
-        || type == 'checkbox'
-      // || type == 'file'
-        || type == 'password'
-        || type == 'radio'
-        || type == 'reset'
-        || type == 'submit'
-        ) {
-      return true;
-    }
-    else {
-      return false;
+  setFocus: function($element) {
+    try {
+      // focus() on not visible elements breaks some IE
+      $element.focus();
+    } catch (e) {
+      console.error("element-id=" + $element.attr("id") + " exception=" + e); // @DEV_ONLY
     }
   },
 
