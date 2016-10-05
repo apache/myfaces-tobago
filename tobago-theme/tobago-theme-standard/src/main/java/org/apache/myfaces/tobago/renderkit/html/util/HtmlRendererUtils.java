@@ -20,6 +20,7 @@
 package org.apache.myfaces.tobago.renderkit.html.util;
 
 import org.apache.myfaces.tobago.component.Attributes;
+import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.UIForm;
 import org.apache.myfaces.tobago.component.Visual;
 import org.apache.myfaces.tobago.context.Markup;
@@ -299,12 +300,13 @@ public final class HtmlRendererUtils {
     final Map<String, UIComponent> facets = component.getFacets();
     for (final Map.Entry<String, UIComponent> entry : facets.entrySet()) {
       final UIComponent facetComponent = entry.getValue();
+      final String key = entry.getKey();
       if (facetComponent.isRendered()
-          && (facetComponent instanceof AbstractUICommand || facetComponent instanceof UIForm)) {
+          && (facetComponent instanceof AbstractUICommand || facetComponent instanceof UIForm)
+          && Facets.isEvent(key)) {
         if (commandMap == null) {
           commandMap = new CommandMap();
         }
-        final String key = entry.getKey();
         commandMap.addCommand(key, new Command(facesContext, entry.getValue(), id));
       }
     }

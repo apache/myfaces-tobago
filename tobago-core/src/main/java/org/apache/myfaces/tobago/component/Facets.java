@@ -63,7 +63,7 @@ public enum Facets {
   popup,
   radio,
   reload(true),
-  resize,
+  resize(true),
   sorter,
   toolBar;
 
