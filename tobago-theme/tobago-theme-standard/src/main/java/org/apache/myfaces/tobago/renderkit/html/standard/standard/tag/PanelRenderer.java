@@ -22,7 +22,6 @@ package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.UIPanel;
 import org.apache.myfaces.tobago.component.UIReload;
-import org.apache.myfaces.tobago.internal.util.FacesContextUtils;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
@@ -60,14 +59,12 @@ public class PanelRenderer extends PanelRendererBase {
       writer.writeAttribute(HtmlAttributes.TITLE, tip, true);
     }
 
-    // TODO check ajax id?
-    if (!FacesContextUtils.isAjax(facesContext)) {
-      final UIComponent facetReload = ComponentUtils.getFacet(panel, Facets.reload);
-      if (facetReload != null && facetReload instanceof UIReload && facetReload.isRendered()) {
-        final UIReload update = (UIReload) facetReload;
-        writer.writeAttribute(DataAttributes.RELOAD, Integer.toString(update.getFrequency()), false);
-      }
+    final UIComponent reloadFacet = ComponentUtils.getFacet(panel, Facets.reload);
+    if (reloadFacet instanceof UIReload && reloadFacet.isRendered()) {
+      final UIReload update = (UIReload) reloadFacet;
+      writer.writeAttribute(DataAttributes.RELOAD, Integer.toString(update.getFrequency()), false);
     }
+
     HtmlRendererUtils.renderCommandFacet(panel, facesContext, writer);
     HtmlRendererUtils.encodeContextMenu(facesContext, writer, panel);
 

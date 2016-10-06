@@ -60,7 +60,7 @@
     <p>In this example, the current time is displayed as progressbars.</p>
     <pre><code
             class="language-markup">&lt;tc:progress value="\#{progressController.currentHours}" max="23"/></code></pre>
-    <tc:panel>
+    <tc:panel id="reloadPanel">
       <f:facet name="reload">
         <tc:reload frequency="1000" update="true"/>
       </f:facet>
