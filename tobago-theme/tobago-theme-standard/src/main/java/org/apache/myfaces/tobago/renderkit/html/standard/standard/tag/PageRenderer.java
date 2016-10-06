@@ -138,7 +138,7 @@ public class PageRenderer extends RendererBase {
     final boolean productionMode = tobagoConfig.getProjectStage() == ProjectStage.Production;
     final boolean preventFrameAttacks = tobagoConfig.isPreventFrameAttacks();
 
-    if (!FacesContextUtils.isAjax(facesContext)) {
+    if (!facesContext.getPartialViewContext().isAjaxRequest()) {
       final String title = page.getLabel();
 
       writer.startElement(HtmlElements.HEAD);
@@ -236,7 +236,7 @@ public class PageRenderer extends RendererBase {
     HtmlRendererUtils.renderCommandFacet(page, facesContext, writer);
 
     writer.startElement(HtmlElements.FORM);
-    if (preventFrameAttacks && !FacesContextUtils.isAjax(facesContext)) {
+    if (preventFrameAttacks && !facesContext.getPartialViewContext().isAjaxRequest()) {
       writer.writeClassAttribute(Classes.create(page, "preventFrameAttacks", Markup.NULL));
     }
     writer.writeAttribute(HtmlAttributes.ACTION, formAction, true);
@@ -364,7 +364,7 @@ public class PageRenderer extends RendererBase {
     writer.startElement(HtmlElements.SPAN);
     writer.writeIdAttribute(clientId + ComponentUtils.SUB_SEPARATOR + "jsf-state-container");
     writer.flush();
-    if (!FacesContextUtils.isAjax(facesContext)) {
+    if (!facesContext.getPartialViewContext().isAjaxRequest()) {
       viewHandler.writeState(facesContext);
     }
     writer.endElement(HtmlElements.SPAN);

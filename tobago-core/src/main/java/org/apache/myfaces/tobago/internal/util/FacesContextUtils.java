@@ -31,21 +31,12 @@ import java.util.Set;
 @SuppressWarnings("unchecked")
 public final class FacesContextUtils {
 
-  private static final String TOBAGO_AJAX = "org.apache.myfaces.tobago.ajax";
   private static final String TOBAGO_ENCTYPE = "org.apache.myfaces.tobago.enctype";
   private static final String TOBAGO_SCRIPT_FILES = "org.apache.myfaces.tobago.scriptFiles";
   private static final String TOBAGO_STYLE_FILES = "org.apache.myfaces.tobago.styleFiles";
   private static final String TOBAGO_FOCUS_ID = "org.apache.myfaces.tobago.focusId";
 
   private FacesContextUtils() {
-  }
-
-  public static boolean isAjax(final FacesContext context) {
-    return context.getAttributes().containsKey(TOBAGO_AJAX);
-  }
-
-  public static void setAjax(final FacesContext context, final boolean ajax) {
-    context.getAttributes().put(TOBAGO_AJAX, ajax);
   }
 
   public static void setFocusId(final FacesContext context, final String focusId) {
