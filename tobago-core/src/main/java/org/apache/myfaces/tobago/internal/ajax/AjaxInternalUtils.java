@@ -39,9 +39,6 @@ public final class AjaxInternalUtils {
   }
 
   public static boolean redirect(final FacesContext facesContext, final String url) throws IOException {
-//    if (!AjaxUtils.isAjaxRequest(facesContext)) {
-//      return false;
-//    }
     redirect((HttpServletResponse) facesContext.getExternalContext().getResponse(), url);
     facesContext.responseComplete();
     return true;

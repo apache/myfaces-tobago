@@ -19,6 +19,7 @@
 
 package org.apache.myfaces.tobago.internal.ajax;
 
+import org.apache.myfaces.tobago.util.AjaxUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -193,8 +194,7 @@ public final class AjaxNavigationState {
   }
 
   public static void afterInvokeApplication(FacesContext facesContext) {
-//    if (AjaxUtils.isAjaxRequest(facesContext) && isNavigation(facesContext)) {
-    if (false) {
+    if (AjaxUtils.isAjaxRequest(facesContext) && isNavigation(facesContext)) {
       try {
         facesContext.getExternalContext().getSessionMap().put(SESSION_KEY, new AjaxNavigationState(facesContext));
         AjaxInternalUtils.requestNavigationReload(facesContext);
