@@ -466,17 +466,17 @@ var Tobago = {
         Tobago.submitAction(this, commands.complete.action, commands.complete);
       }
     }
+    if (commands.load) {
+      setTimeout(function() {
+            Tobago.submitAction(this, commands.load.action, commands.load);
+          },
+          commands.load.delay || 100);
+    }
     if (commands.resize) {
       jQuery(window).resize(function() {
         console.debug("window resize event: " + commands.resize); // @DEV_ONLY
         Tobago.submitAction(this, commands.resize.action, commands.resize);
       });
-    }
-    if (commands.action) {
-      setTimeout(function () {
-            Tobago.submitAction(this, commands.action.action, commands.action);
-          },
-          commands.action.delay || 100);
     }
   },
 

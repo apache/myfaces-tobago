@@ -44,7 +44,7 @@ import javax.faces.component.UIForm;
     componentFamily = UIForm.COMPONENT_FAMILY,
     rendererType = RendererTypes.PAGE,
     facets =
-        { @Facet(name = Facets.ACTION,
+        { @Facet(name = Facets.LOAD,
                 description ="Contains an instance of UICommand (tc:command) for an auto-action",
                 allowedChildComponenents = "org.apache.myfaces.tobago.Command"),
           @Facet(name = Facets.RESIZE,

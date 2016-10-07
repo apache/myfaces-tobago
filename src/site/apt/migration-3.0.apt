@@ -129,3 +129,7 @@ Migration from Tobago 2.0 to 3.0 (work in progress)
     * <<<\<tc:toolBar\>>>> -> <<<\<tc:buttons\>>>>
 
 * If using <<<\<tc:page\>>>> with the attributes state, width, height: remove the attributes
+
+* Replace facet 'action' with 'load' for <<<\<tc:page\>>>>
+
+    <<<\<f:facet name="load"\>>>> contain an instance of UICommand (tc:command).

@@ -22,6 +22,9 @@ package org.apache.myfaces.tobago.component;
 public enum Facets {
 
   after,
+  /**
+   * @deprecated since 3.0.0. is no longer supported, use "load".
+   */
   action,
   bar,
   before,
@@ -48,6 +51,7 @@ public enum Facets {
   @Deprecated
   layout,
   layoutDefault,
+  load(true),
   /**
    * @deprecated since 3.0.0. Menu bar is no longer supported.
    */
@@ -103,6 +107,7 @@ public enum Facets {
   @Deprecated
   public static final String LAYOUT = "layout";
   public static final String LAYOUT_DEFAULT = "layoutDefault";
+  public static final String LOAD = "load";
   /**
    * @deprecated since 3.0.0. Menu bar is no longer supported.
    */
