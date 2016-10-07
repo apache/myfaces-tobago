@@ -64,14 +64,12 @@ QUnit.test("Column 6: tc:link", function(assert) {
   testWidthHeight(assert, $column, 70, 57, 29, 20);
 });
 
-/* PhantomJs miscalculate the height of the dropdown box
 QUnit.test("Column 7: tc:selectOneChoice", function(assert) {
   assert.expect(4);
 
   var $column = getColumn(7);
   testWidthHeight(assert, $column, 180, 57, 180, 40);
 });
-*/
 
 QUnit.test("Column 8: tc:image", function(assert) {
   assert.expect(4);

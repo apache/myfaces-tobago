@@ -39,10 +39,15 @@
       The variablename of a single entry is set by the <code>var</code> attribute, which can be used in the
       <code class="language-markup">&lt;tc:column/></code> tags.
       In this example, also the <code>rows</code> attribute is set. So only four rows are shown at a time.</p>
+    <p>In most cases, you should set <code class="language-markup">labelLayout="skip"</code> for
+      components which have usually a label.
+      Otherwise those components have a negative affect on the proportion of the sheet.<br/>
+      For components with a label the attribute <code class="language-css">margin-bottom</code> is set.
+      The margin is add to the height of a row.</p>
     <pre><code class="language-markup">&lt;tc:sheet value="\#{sheetController.solarList}"
     var="solarobject" rows="4">
   &lt;tc:column label="Name">
-    &lt;tc:out value="\#{solarobject.name}"/>
+    &lt;tc:out value="\#{solarobject.name}" labelLayout="skip"/>
       ...</code></pre>
     <tc:sheet id="s1" value="#{sheetController.solarList}" var="object" rows="4">
       <tc:style maxHeight="500px"/>

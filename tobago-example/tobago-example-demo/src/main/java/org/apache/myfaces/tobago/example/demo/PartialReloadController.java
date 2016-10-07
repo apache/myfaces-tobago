@@ -20,6 +20,8 @@
 package org.apache.myfaces.tobago.example.demo;
 
 import org.apache.myfaces.tobago.util.AjaxUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.el.ELContext;
 import javax.el.ValueExpression;
@@ -29,9 +31,6 @@ import javax.faces.event.AjaxBehaviorEvent;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.util.Date;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 @RequestScoped
 @Named

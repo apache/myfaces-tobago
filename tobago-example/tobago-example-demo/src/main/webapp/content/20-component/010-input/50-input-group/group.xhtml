@@ -108,7 +108,7 @@
 
     <tc:section label="Radio Buttons">
       <pre><code class="language-markup">&lt;tc:in id="isendtorb" placeholder="type a message">
-  &lt;f:facet name="before">
+  &lt;f:facet name="after">
     &lt;tc:button id="lsendtorb" label="\#{groupController.sendTo}" omit="true">
       &lt;tc:selectOneRadio value="\#{groupController.sendTo}">
         &lt;tc:selectItem itemValue="SendTo: Peter"/>
@@ -138,13 +138,13 @@
         <f:convertNumber maxFractionDigits="2" minFractionDigits="2"/>
         <f:facet name="after">
           <tc:selectOneChoice value="#{groupController.currency}">
-            <f:selectItems value="#{groupController.currencies}" var="currency"
+            <tc:selectItems value="#{groupController.currencies}" var="currency"
                            itemValue="#{currency}" itemLabel="#{currency.displayName}"/>
             <f:ajax listener="#{groupController.compute}" render="valueInEuro" execute="value"/>
           </tc:selectOneChoice>
         </f:facet>
       </tc:in>
-      <tc:out id="valueInEuro" label="Demo value in €" value="#{groupController.valueInEuro}">
+      <tc:out id="valueInEuro" label="Value in €" value="#{groupController.valueInEuro}">
         <f:convertNumber maxFractionDigits="2" minFractionDigits="2" currencySymbol="€"/>
       </tc:out>
     </tc:section>

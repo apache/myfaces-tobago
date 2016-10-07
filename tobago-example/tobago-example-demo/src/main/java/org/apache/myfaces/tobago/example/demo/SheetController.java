@@ -34,6 +34,7 @@ import javax.faces.convert.DateTimeConverter;
 import javax.faces.event.ActionEvent;
 import javax.inject.Named;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -46,6 +47,7 @@ public class SheetController implements Serializable {
   private static final Logger LOG = LoggerFactory.getLogger(SheetController.class);
 
   private List<SolarObject> solarList;
+  private List<SolarObject> hugeSolarList;
   private SheetState sheetState;
   private SolarObject selectedSolarObject;
   private boolean automaticLayout;
@@ -54,10 +56,23 @@ public class SheetController implements Serializable {
 
   public SheetController() {
     solarList = SolarObject.getList();
+
+    hugeSolarList = new ArrayList<SolarObject>();
+    for (int i = 1; i <= 12; i++) {
+      for (SolarObject solarObject : solarList) {
+        SolarObject solarObjectClone = new SolarObject(solarObject);
+        solarObjectClone.setName(solarObject.getName() + " (" + i + ". entry)");
+        hugeSolarList.add(solarObjectClone);
+      }
+    }
   }
 
   public List<SolarObject> getSolarList() {
     return solarList;
+  }
+
+  public List<SolarObject> getHugeSolarList() {
+    return hugeSolarList;
   }
 
   public SheetState getSheetState() {

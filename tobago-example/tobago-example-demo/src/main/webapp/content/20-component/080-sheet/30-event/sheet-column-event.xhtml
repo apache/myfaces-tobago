@@ -30,7 +30,7 @@
 
   <tc:section label="Example">
     Here are different examples:
-    <tc:selectOneRadio value="#{sheetController.columnEventSample}">
+    <tc:selectOneRadio id="changeExample" value="#{sheetController.columnEventSample}">
       <tc:selectItem itemValue="0" itemLabel="on click with AJAX"/>
       <tc:selectItem itemValue="1" itemLabel="on click with full request"/>
       <tc:selectItem itemValue="2" itemLabel="on double click with full request"/>
@@ -39,10 +39,10 @@
     <p>Select an object from the SolarObjects list.</p>
     <tc:segmentLayout id="example" medium="5;7">
       <tc:box label="Solar Objects">
-        <tc:sheet id="s1" value="#{sheetController.solarList}" var="object" columns="1*">
+        <tc:sheet id="s1" value="#{sheetController.solarList}" var="object" columns="1*" markup="small">
           <tc:style maxHeight="486px"/>
-          <tc:column label="#{overviewBundle.solarArrayName}" id="name">
-            <tc:out value="#{object.name}" id="t_name"/>
+          <tc:column label="#{overviewBundle.solarArrayName}">
+            <tc:out value="#{object.name}" id="t_name" labelLayout="skip"/>
           </tc:column>
           <tc:columnEvent id="sample0" rendered="#{sheetController.columnEventSample == 0}">
             <tc:command actionListener="#{sheetController.selectSolarObject}" immediate="true" id="columnEventAjax">
@@ -65,7 +65,7 @@
 
       <tc:box id="detail" label="Details">
         <tc:panel rendered="#{sheetController.selectedSolarObject != null}">
-          <tc:in label="Name" value="#{sheetController.selectedSolarObject.name}" required="true"/>
+          <tc:in id="name" label="Name" value="#{sheetController.selectedSolarObject.name}" required="true"/>
           <tc:in label="Number" value="#{sheetController.selectedSolarObject.number}"/>
           <tc:in label="Orbit" value="#{sheetController.selectedSolarObject.orbit}"/>
           <tc:in label="Distance" value="#{sheetController.selectedSolarObject.distance}"/>

@@ -21,25 +21,23 @@
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
                 xmlns:ui="http://java.sun.com/jsf/facelets">
-  <ui:param name="title" value="#{overviewBundle.header_footer} &lt;tc:header> &lt;tc:footer>"/>
-  <p>A header / footer can be set via the <code class="language-markup">&lt;tc:header/></code>
-    respectively <code class="language-markup">&lt;tc:footer/></code> tag.</p>
-
-  <tc:section label="Basics">
-    <p>In this simple example, a <code class="language-markup">&lt;tc:object/></code> show a page with a fixed
-      header and footer. Also you can access this site in a
-      <tc:link label="new tab" link="x-header-footer-example.xhtml" target="_blank"/>.</p>
-    <pre><code class="language-markup">&lt;tc:header fixed="true">
-  &lt;tc:style customClass="bg-inverse"/>
-    &lt;p>This is the header.&lt;/p>
-  &lt;/tc:header>
-  &lt;p>Content between header and footer.&lt;/p>
-  ...
-  &lt;tc:footer fixed="true">
-    &lt;p>This is the footer.&lt;/p>
-&lt;/tc:footer></code></pre>
-    <tc:object src="x-header-footer-example.xhtml">
-      <tc:style height="300px" width="100%"/>
-    </tc:object>
-  </tc:section>
+  <ui:param name="title" value="#{overviewBundle.sheet_types}"/>
+  <tc:sheet value="#{sheetController.hugeSolarList}" id="sheet" var="luminary"
+            rows="10" markup="small" >
+    <tc:column label="Name">
+      <tc:out value="#{luminary.name}" labelLayout="skip"/>
+    </tc:column>
+    <tc:column label="Orbit">
+      <tc:out value="#{luminary.orbit}" labelLayout="skip"/>
+    </tc:column>
+    <tc:column label="Period (Days)">
+      <tc:out value="#{luminary.period}" labelLayout="skip"/>
+    </tc:column>
+    <tc:column label="Discoverer">
+      <tc:out value="#{luminary.discoverer}" labelLayout="skip"/>
+    </tc:column>
+    <tc:column label="Year">
+      <tc:out value="#{luminary.discoverYear}" labelLayout="skip"/>
+    </tc:column>
+  </tc:sheet>
 </ui:composition>
