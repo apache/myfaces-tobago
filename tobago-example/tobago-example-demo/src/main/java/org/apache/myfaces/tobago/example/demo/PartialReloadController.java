@@ -38,7 +38,7 @@ public class PartialReloadController {
 
   private static final Logger LOG = LoggerFactory.getLogger(PartialReloadController.class);
 
-  private String navigateAction;
+  private String navigateActionValue;
 
   @Inject
   private NavigationState navigationState;
@@ -84,30 +84,30 @@ public class PartialReloadController {
       navigationState = (NavigationState) expression.getValue(elContext);
     }
 
-    LOG.info("navigateAction = \"" + navigateAction + "\"");
-    if (navigateAction == null) {
+    LOG.info("navigateActionValue = \"" + navigateActionValue + "\"");
+    if (navigateActionValue == null) {
       logAndNavigate(null);
-    } else if ("left".equals(navigateAction)) {
+    } else if ("left".equals(navigateActionValue)) {
       AjaxUtils.addRenderIds("page:mainForm:left");
-      navigateAction = null;
+      navigateActionValue = null;
       logAndNavigate(null);
-    } else if ("right".equals(navigateAction)) {
+    } else if ("right".equals(navigateActionValue)) {
       AjaxUtils.addRenderIds("page:mainForm:right");
-      navigateAction = null;
+      navigateActionValue = null;
       logAndNavigate(null);
-    } else if ("both".equals(navigateAction)) {
+    } else if ("both".equals(navigateActionValue)) {
       AjaxUtils.addRenderIds("page:mainForm:left", "page:mainForm:right");
-      navigateAction = null;
+      navigateActionValue = null;
       logAndNavigate(null);
-    } else if ("parent".equals(navigateAction)) {
-      navigateAction = null;
+    } else if ("parent".equals(navigateActionValue)) {
+      navigateActionValue = null;
       AjaxUtils.addRenderIds("page:mainForm:parent");
       logAndNavigate(null);
-    } else if ("prev".equals(navigateAction)) {
-      navigateAction = null;
+    } else if ("prev".equals(navigateActionValue)) {
+      navigateActionValue = null;
       AjaxUtils.navigate(facesContext, logAndNavigate(navigationState.gotoPrevious()));
-    } else if ("next".equals(navigateAction)) {
-      navigateAction = null;
+    } else if ("next".equals(navigateActionValue)) {
+      navigateActionValue = null;
       AjaxUtils.navigate(facesContext, logAndNavigate(navigationState.gotoNext()));
     }
     logAndNavigate(null);
@@ -119,11 +119,11 @@ public class PartialReloadController {
   }
 
 
-  public String getNavigateAction() {
-    return navigateAction;
+  public String getNavigateActionValue() {
+    return navigateActionValue;
   }
 
-  public void setNavigateAction(final String navigateAction) {
-    this.navigateAction = navigateAction;
+  public void setNavigateActionValue(final String navigateActionValue) {
+    this.navigateActionValue = navigateActionValue;
   }
 }

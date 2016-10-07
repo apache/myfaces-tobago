@@ -126,7 +126,7 @@
         <tc:panel id="navTest">
           <tc:gridLayoutConstraint columnSpan="2"/>
 
-          <tc:selectOneChoice fieldId="navSelect" value="#{partialReloadController.navigateAction}" label="On Change">
+          <tc:selectOneChoice fieldId="navSelect" value="#{partialReloadController.navigateActionValue}" label="On Change">
             <f:ajax execute="navTest"
                     render="navTest :page:header:headerInfo"
                     listener="#{partialReloadController.navigateAction}"/>
