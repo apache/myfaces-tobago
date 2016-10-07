@@ -113,6 +113,8 @@ public abstract class CommandRendererBase extends RendererBase {
         final String href = RenderUtils.generateUrl(facesContext, command);
         writer.writeAttribute(HtmlAttributes.HREF, href, false);
         writer.writeAttribute(HtmlAttributes.TARGET, target, false);
+
+        command.setOmit(true);
       }
 
       String commands = RenderUtils.getBehaviorCommands(facesContext, command);
@@ -254,7 +256,7 @@ public abstract class CommandRendererBase extends RendererBase {
 
   /**
    * We need an extra SPAN element with position: relative or absolute for positioning the dropdown
-   * */
+   */
   private boolean needsExtraSpanElement(AbstractUICommand command) {
     return !(command.getParent() instanceof AbstractUICommand) // only needed for top elements
         && !(command.getParent() instanceof UICommands) // not needed inside of tc:commands

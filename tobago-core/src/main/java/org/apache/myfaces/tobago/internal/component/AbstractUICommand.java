@@ -175,6 +175,8 @@ public abstract class AbstractUICommand extends UICommand
 
   public abstract boolean isOmit();
 
+  public abstract void setOmit(boolean omit);
+
   public abstract String getTip();
 
   public abstract String getConfirmation();
