@@ -42,3 +42,12 @@ pre, code {
   display: none;
 }
 */
+
+/* Prism and Bootstrap both use "tag" as CSS class name. */
+.language-markup .token.tag {
+  font-weight: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  display: inherit;
+  white-space: inherit;
+}
