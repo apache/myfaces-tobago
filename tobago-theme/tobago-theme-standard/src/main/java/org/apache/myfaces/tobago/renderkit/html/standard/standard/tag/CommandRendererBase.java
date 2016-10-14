@@ -84,7 +84,7 @@ public abstract class CommandRendererBase extends RendererBase {
     final String clientId = command.getClientId(facesContext);
     final boolean disabled = command.isDisabled();
     final LabelWithAccessKey label = new LabelWithAccessKey(command);
-    final boolean link = (command.getLink() != null || command.getResource() != null) && !disabled;
+    final boolean link = command.getLink() != null && !disabled;
     final String target = command.getTarget();
 
     final TobagoResponseWriter writer = getResponseWriter(facesContext);

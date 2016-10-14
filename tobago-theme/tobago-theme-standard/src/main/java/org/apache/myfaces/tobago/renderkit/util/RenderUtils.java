@@ -19,7 +19,6 @@
 
 package org.apache.myfaces.tobago.renderkit.util;
 
-import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.internal.component.AbstractUICommand;
 import org.apache.myfaces.tobago.internal.component.AbstractUIData;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
@@ -213,21 +212,7 @@ public final class RenderUtils {
 
     String url = null;
 
-    if (component.getResource() != null) {
-      final boolean jsfResource = component.isJsfResource();
-      url = ResourceManagerUtils.getPageWithoutContextPath(facesContext, component.getResource());
-      if (url != null) {
-        if (jsfResource) {
-          url = viewHandler.getActionURL(facesContext, url);
-          url = externalContext.encodeActionURL(url);
-        } else {
-          url = viewHandler.getResourceURL(facesContext, url);
-          url = externalContext.encodeResourceURL(url);
-        }
-      } else {
-        url = "";
-      }
-    } else if (component.getLink() != null) {
+    if (component.getLink() != null) {
 
       final String link = component.getLink();
       if (link.startsWith("/")) { // internal absolute link

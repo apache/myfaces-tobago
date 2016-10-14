@@ -33,15 +33,6 @@ QUnit.test("Standard Link Button", function(assert) {
   testStandardCommands($command, $destinationSection, assert, done);
 });
 
-QUnit.test("Standard Resource Button", function(assert) {
-  assert.expect(2);
-  var done = assert.async(2);
-
-  var $command = jQueryFrame("#page\\:mainForm\\:standardButtonResource");
-  var $destinationSection = jQueryFrame("#page\\:resourceSection");
-  testStandardCommands($command, $destinationSection, assert, done);
-});
-
 QUnit.test("Standard Action Link", function(assert) {
   assert.expect(2);
   var done = assert.async(2);
@@ -57,15 +48,6 @@ QUnit.test("Standard Link Link", function(assert) {
 
   var $command = jQueryFrame("#page\\:mainForm\\:standardLinkLink");
   var $destinationSection = jQueryFrame("#page\\:linkSection");
-  testStandardCommands($command, $destinationSection, assert, done);
-});
-
-QUnit.test("Standard Resource Link", function(assert) {
-  assert.expect(2);
-  var done = assert.async(2);
-
-  var $command = jQueryFrame("#page\\:mainForm\\:standardLinkResource");
-  var $destinationSection = jQueryFrame("#page\\:resourceSection");
   testStandardCommands($command, $destinationSection, assert, done);
 });
 
@@ -107,15 +89,6 @@ QUnit.test("Target Link Button", function(assert) {
   testTargetCommands($command, $destinationSection, assert, done);
 });
 
-QUnit.test("Target Resource Button", function(assert) {
-  assert.expect(1);
-  var done = assert.async();
-
-  var $command = jQueryFrame("#page\\:mainForm\\:targetButtonResource");
-  var $destinationSection = jQueryTargetFrame("#page\\:resourceSection");
-  testTargetCommands($command, $destinationSection, assert, done);
-});
-
 QUnit.test("Target Action Link", function(assert) {
   assert.expect(1);
   var done = assert.async();
@@ -131,15 +104,6 @@ QUnit.test("Target Link Link", function(assert) {
 
   var $command = jQueryFrame("#page\\:mainForm\\:targetLinkLink");
   var $destinationSection = jQueryTargetFrame("#page\\:linkSection");
-  testTargetCommands($command, $destinationSection, assert, done);
-});
-
-QUnit.test("Target Resource Link", function(assert) {
-  assert.expect(1);
-  var done = assert.async();
-
-  var $command = jQueryFrame("#page\\:mainForm\\:targetLinkResource");
-  var $destinationSection = jQueryTargetFrame("#page\\:resourceSection");
   testTargetCommands($command, $destinationSection, assert, done);
 });
 

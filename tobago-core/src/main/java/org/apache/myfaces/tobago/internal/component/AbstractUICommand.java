@@ -163,10 +163,6 @@ public abstract class AbstractUICommand extends UICommand
   @Override
   public abstract String getLabel();
 
-  public abstract boolean isJsfResource();
-
-  public abstract String getResource();
-
   public abstract String getLink();
 
   public abstract String getTarget();

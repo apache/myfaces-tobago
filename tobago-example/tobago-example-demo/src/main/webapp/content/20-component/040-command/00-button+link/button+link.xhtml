@@ -33,7 +33,6 @@
     <p>The next two sections show how a link and a button is set.</p>
     <p>'apache.org' leads to the appropriated website.<br/>
       'Disable' show a disabled link/button.<br/>
-      'Resource' use the <code>resource</code> attribute, leading to the #{overviewBundle.component} section.<br/>
       'Action' use the <code>action</code> attribute to link the #{overviewBundle.component} section.<br/>
       The image leads to www.apache.org.</p>
     <tc:section label="&lt;tc:link>">
@@ -41,8 +40,6 @@
       <tc:link id="l1" label="apache.org" link="https://www.apache.org/"/>
       |
       <tc:link id="l2" label="Disabled" disabled="true" link="https://www.apache.org/"/>
-      |
-      <tc:link id="l3" label="Resource" resource="faces/content/20-component/component.xhtml"/>
       |
       <tc:link id="l4" label="Action" action="#{buttonLinkController.linkToComponentsRoot}"/>
       |
@@ -52,7 +49,6 @@
       <pre><code class="language-markup">&lt;tc:button label="apache.org" link="https://www.apache.org/"/></code></pre>
       <tc:button id="b1" label="apache.org" link="https://www.apache.org/"/>
       <tc:button id="b2" label="Disabled" disabled="true" link="https://www.apache.org/"/>
-      <tc:button id="b3" label="Resource" resource="faces/content/20-component/component.xhtml"/>
       <tc:button id="b4" label="Action" action="#{buttonLinkController.linkToComponentsRoot}"/>
       <tc:button id="b5" image="image/feather-leaf.png" link="https://www.apache.org/"/>
     </tc:section>
@@ -114,23 +110,6 @@
     </tc:section>
   </tc:section>
 
-  <tc:section label="Localization">
-    <p>When configured, a link leads to a localized resource. Languages can be configured in the faces-config.xml.</p>
-      <pre><code class="language-markup">&lt;application>
-  &lt;locale-config>
-    &lt;default-locale>en&lt;/default-locale>
-    &lt;supported-locale>de&lt;/supported-locale>
-    ...</code></pre>
-    <p>In addition, a localized file must be available.</p>
-    <p>In this example, <tc:link label="this link"
-                                 resource="content/20-component/040-command/00-button+link/sample.html"/>
-      leads to a 'sample.html'. When the language is german, it leads to 'sample_de.html'.</p>
-    <tc:selectOneChoice label="#{overviewBundle.locale}" value="#{clientConfigController2.locale}">
-      <f:selectItems value="#{clientConfigController2.localeItems}"/>
-    </tc:selectOneChoice>
-    <tc:button action="#{clientConfigController2.submit}" label="#{overviewBundle.locale_submit}"/>
-  </tc:section>
-
   <tc:section label="Confirmation">
     <p>A confirmation dialog can be added to a link or a button via
       <code class="language-markup">&lt;f:facet name="confirmation"></code>.
@@ -162,7 +141,7 @@
     <tc:section label="IFrame">
       <p>The iframe is set with <code class="language-markup">&lt;tc:object name="objectframe" .../></code>
         (see <tc:link label="#{overviewBundle.object}"
-                      resource="content/20-component/020-output/60-object/object.xhtml"/>).
+                      link="/faces/content/20-component/020-output/60-object/object.xhtml"/>).
         The value of the <code>target</code> attribute is in this case 'objectframe'.</p>
       <p><tc:link label="apache.org" link="https://www.apache.org/" target="objectframe"/>
         |

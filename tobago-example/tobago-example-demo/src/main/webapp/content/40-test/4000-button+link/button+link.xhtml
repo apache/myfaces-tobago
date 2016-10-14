@@ -26,13 +26,10 @@
     <tc:buttons>
       <tc:button id="standardButtonAction" label="Action" action="#{buttonLinkController.actionPage}"/>
       <tc:button id="standardButtonLink" label="Link" link="x-link.xhtml"/>
-      <tc:button id="standardButtonResource" label="Resource"
-                 resource="content/40-test/4000-button+link/x-resource.html"/>
     </tc:buttons>
     <tc:commands>
       <tc:link id="standardLinkAction" label="Action" action="#{buttonLinkController.actionPage}"/>
       <tc:link id="standardLinkLink" label="Link" link="x-link.xhtml"/>
-      <tc:link id="standardLinkResource" label="Resource" resource="content/40-test/4000-button+link/x-resource.html"/>
     </tc:commands>
     <br/>
     <br/>
@@ -43,17 +40,11 @@
       <tc:button id="confirmationButtonAction" label="Action" action="#{buttonLinkController.actionPage}"
                  confirmation="Are you sure?"/>
       <tc:button id="confirmationButtonLink" label="Link" link="x-link.xhtml" confirmation="Are you sure?"/>
-      <tc:button id="confirmationButtonResource" label="Resource"
-                 resource="faces/content/40-test/4000-button+link/x-resource.html"
-                 confirmation="Are you sure?"/>
     </tc:buttons>
     <tc:commands>
       <tc:link id="confirmationLinkAction" label="Action" action="#{buttonLinkController.actionPage}"
                confirmation="Are you sure?"/>
       <tc:link id="confirmationLinkLink" label="Link" link="x-link.xhtml"
-               confirmation="Are you sure?"/>
-      <tc:link id="confirmationLinkResource" label="Resource"
-               resource="faces/content/40-test/4000-button+link/x-resource.html"
                confirmation="Are you sure?"/>
     </tc:commands>
     <br/>
@@ -65,26 +56,16 @@
       <tc:button id="targetButtonAction" label="Action" action="#{buttonLinkController.actionPage}"
                  target="targetFrame"/>
       <tc:button id="targetButtonLink" label="Link" link="x-link.xhtml" target="targetFrame"/>
-      <tc:button id="targetButtonResource" label="Resource"
-                 resource="content/40-test/4000-button+link/x-resource.html"
-                 target="targetFrame"/>
     </tc:buttons>
     <tc:commands>
       <tc:link id="targetLinkAction" label="Action" action="#{buttonLinkController.actionPage}" target="targetFrame"/>
       <tc:link id="targetLinkLink" label="Link" link="x-link.xhtml" target="targetFrame"/>
-      <tc:link id="targetLinkResource" label="Resource"
-               resource="content/40-test/4000-button+link/x-resource.html"
-               target="targetFrame"/>
     </tc:commands>
     <br/>
     <br/>
     <tc:object id="targetFrame" name="targetFrame">
       <tc:style width="100%" height="150px"/>
     </tc:object>
-  </tc:section>
-
-  <tc:section label="Resource + Language">
-    <p>Resource should lead to different HTMLs based on the current language.</p>
   </tc:section>
 
   <tc:section label="JavaScript">

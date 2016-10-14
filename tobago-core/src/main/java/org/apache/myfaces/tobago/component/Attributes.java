@@ -103,7 +103,6 @@ public enum Attributes {
   itemLabel,
   itemImage,
   itemValue,
-  jsfResource,
   label,
   labelLayout,
   labelPosition,
@@ -196,7 +195,6 @@ public enum Attributes {
   renderRangeExtern,
   required,
   resizable,
-  resource,
   rowId,
   rowSpan,
   rowSpacing,
@@ -458,9 +456,6 @@ public enum Attributes {
   public static final String ITEM_VALUE = "itemValue";
   /** @deprecated Since Tobago 3.0.0. Please use the enum */
   @Deprecated
-  public static final String JSF_RESOURCE = "jsfResource";
-  /** @deprecated Since Tobago 3.0.0. Please use the enum */
-  @Deprecated
   public static final String LABEL = "label";
   /** @deprecated Since Tobago 3.0.0. Please use the enum */
   @Deprecated
@@ -639,9 +634,6 @@ public enum Attributes {
   /** @deprecated Since Tobago 3.0.0. Please use the enum */
   @Deprecated
   public static final String RESIZABLE = "resizable";
-  /** @deprecated Since Tobago 3.0.0. Please use the enum */
-  @Deprecated
-  public static final String RESOURCE = "resource";
   /** @deprecated Since Tobago 3.0.0. Please use the enum */
   @Deprecated
   public static final String ROW_ID = "rowId";
