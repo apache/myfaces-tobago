@@ -237,7 +237,7 @@ public class QUnitTests {
     //PhantomJs don't work with 'resource' attribute.
     ignore.add("content/40-test/4000-button+link/button+link.xhtml");
     //PhantomJs miscalculate the height of the dropdown box
-    ignore.add("content/40-test/8000-sheet/10-sheet-types/sheet-types.xhtml");
+    ignore.add("content/40-test/3000-sheet/10-sheet-types/sheet-types.xhtml");
     return ignore;
   }
 
@@ -387,7 +387,7 @@ public class QUnitTests {
 
   @Test
   public void testSheetTypes() throws UnsupportedEncodingException, InterruptedException {
-    String page = "content/40-test/8000-sheet/10-sheet-types/sheet-types.xhtml";
+    String page = "content/40-test/3000-sheet/10-sheet-types/sheet-types.xhtml";
     runStandardTest(page);
   }
 
