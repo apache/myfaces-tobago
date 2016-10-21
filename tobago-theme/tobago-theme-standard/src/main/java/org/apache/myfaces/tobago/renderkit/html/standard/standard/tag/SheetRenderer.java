@@ -700,7 +700,7 @@ public class SheetRenderer extends RendererBase {
     int i = 0;
     int j = 0;
     for (AbstractUIColumnBase column : columns) {
-      if (column instanceof org.apache.myfaces.tobago.component.UIColumn) {
+      if (!(column instanceof AbstractUIColumnEvent)) {
         Integer newValue;
         if (j < samples.size()) {
           newValue = samples.get(j);
@@ -928,7 +928,7 @@ public class SheetRenderer extends RendererBase {
 
     int i = 0;
     for (AbstractUIColumnBase column : columns) {
-      if (column instanceof org.apache.myfaces.tobago.component.UIColumn) {
+      if (!(column instanceof AbstractUIColumnEvent)) {
         if (column.isRendered()) {
           final Integer width = columnWidths.get(i);
           writeCol(writer, width >= 0 ? width : null);
