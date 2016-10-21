@@ -243,12 +243,7 @@ public class SheetRenderer extends RendererBase {
       writer.writeNameAttribute(sheetId + SUFFIX_WIDTHS);
       writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN);
       if (definedColumnWidths) {
-        final List<Integer> encodedWidths = new ArrayList<Integer>(columnWidths.size());
-        for (int i = 0; i < columns.size(); i++) {
-          final Integer width = columnWidths.get(i);
-          encodedWidths.add(width > -1 ? width : 100);
-        }
-        writer.writeAttribute(HtmlAttributes.VALUE, JsonUtils.encode(encodedWidths), false);
+        writer.writeAttribute(HtmlAttributes.VALUE, JsonUtils.encode(columnWidths), false);
       }
       writer.endElement(HtmlElements.INPUT);
 
@@ -256,11 +251,14 @@ public class SheetRenderer extends RendererBase {
       writer.writeIdAttribute(sheetId + SUFFIX_COLUMN_RENDERED);
       writer.writeNameAttribute(sheetId + SUFFIX_COLUMN_RENDERED);
       writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN);
-      final String[] encodedRendered = new String[columns.size()];
-      for (int i = 0; i < encodedRendered.length; i++) {
-        encodedRendered[i] = columns.get(i).isRendered() ? "true" : "false";
+      final ArrayList<String> encodedRendered = new ArrayList<String>();
+      for (AbstractUIColumnBase column : columns) {
+        if (!(column instanceof AbstractUIColumnEvent)) {
+          encodedRendered.add(Boolean.toString(column.isRendered()));
+        }
       }
-      writer.writeAttribute(HtmlAttributes.VALUE, JsonUtils.encode(encodedRendered), false);
+      writer.writeAttribute(HtmlAttributes.VALUE,
+          JsonUtils.encode(encodedRendered.toArray(new String[encodedRendered.size()])), false);
       writer.endElement(HtmlElements.INPUT);
     }
 
@@ -309,7 +307,7 @@ public class SheetRenderer extends RendererBase {
           sheetMarkup.contains(Markup.SMALL) ? BootstrapClass.TABLE_SM : null,
           !autoLayout ? TobagoClass.TABLE_LAYOUT__FIXED : null);
 
-      writeColgroup(writer, columnWidths, columns);
+      writeColgroup(writer, columnWidths, columns, true);
 
       writer.startElement(HtmlElements.TBODY);
       encodeHeaderRows(facesContext, sheet, writer, columns);
@@ -343,7 +341,7 @@ public class SheetRenderer extends RendererBase {
     }
 
     if (!autoLayout) {
-      writeColgroup(writer, columnWidths, columns);
+      writeColgroup(writer, columnWidths, columns, false);
     }
 
     // Print the Content
@@ -699,21 +697,25 @@ public class SheetRenderer extends RendererBase {
       final List<Integer> columnWidths, final List<AbstractUIColumnBase> columns, final List<Integer> samples) {
     // we have to fill the non rendered positions with some values.
     // on client site, we don't know nothing about the non-rendered columns.
-    for (int i = 0, j = 0; i < columns.size(); i++) {
-      AbstractUIColumnBase column = columns.get(i);
-      Integer newValue;
-      if (j < samples.size()) {
-        newValue = samples.get(j);
-        j++;
-      } else {
-        newValue = null;
-      }
-      if (columnWidths.size() > i) {
-        if (newValue != null) {
-          columnWidths.set(i, newValue);
+    int i = 0;
+    int j = 0;
+    for (AbstractUIColumnBase column : columns) {
+      if (column instanceof org.apache.myfaces.tobago.component.UIColumn) {
+        Integer newValue;
+        if (j < samples.size()) {
+          newValue = samples.get(j);
+          j++;
+        } else {
+          newValue = null;
         }
-      } else {
-        columnWidths.add(newValue != null ? newValue : -1); // -1 means unknown or undefined
+        if (columnWidths.size() > i) {
+          if (newValue != null) {
+            columnWidths.set(i, newValue);
+          }
+        } else {
+          columnWidths.add(newValue != null ? newValue : -1); // -1 means unknown or undefined
+        }
+        i++;
       }
     }
   }
@@ -765,7 +767,6 @@ public class SheetRenderer extends RendererBase {
 
           final UIComponent cellComponent = cell.getComponent();
 
-          writer.startElement(HtmlElements.DIV);
           final CssItem align;
           final String alignString = ComponentUtils.getStringAttribute(column, Attributes.align);
           if(multiHeader && cell.getColumnSpan() > 1) {
@@ -890,47 +891,55 @@ public class SheetRenderer extends RendererBase {
           writer.endElement(HtmlElements.SPAN);
           if (!autoLayout) {
             if (column.isResizable()) {
-              encodeResizing(writer, sheet, j + cell.getColumnSpan() - 1);
+              encodeResizing(writer, sheet, j - offset + cell.getColumnSpan() - 1);
             }
           }
-          writer.endElement(HtmlElements.DIV);
 
           writer.endElement(HtmlElements.TH);
         }
         }
       }
       if (!autoLayout) {
-        // add a filler column
-        writer.startElement(HtmlElements.TH);
-        writer.startElement(HtmlElements.DIV);
-        // todo: is the filler class needed here?
-        writer.writeClassAttribute(Classes.create(sheet, "headerCell", Markup.FILLER));
-        writer.startElement(HtmlElements.SPAN);
-        writer.writeClassAttribute(Classes.create(sheet, "header"));
-        final Style headerStyle = new Style();
-        headerStyle.setHeight(Measure.valueOf(14)); // XXX todo
-        writer.writeStyleAttribute(headerStyle);
-        writer.endElement(HtmlElements.SPAN);
-        writer.endElement(HtmlElements.DIV);
-        writer.endElement(HtmlElements.TH);
+        // Add two filler columns. The second one get the size of the scrollBar via JavaScript.
+        encodeHeaderFiller(writer, sheet);
+        encodeHeaderFiller(writer, sheet);
       }
 
       writer.endElement(HtmlElements.TR);
     }
   }
 
+  private void encodeHeaderFiller(final TobagoResponseWriter writer, final UISheet sheet) throws IOException {
+    writer.startElement(HtmlElements.TH);
+    writer.writeClassAttribute(Classes.create(sheet, "headerCell", Markup.FILLER));
+    writer.startElement(HtmlElements.SPAN);
+    writer.writeClassAttribute(Classes.create(sheet, "header"));
+    final Style headerStyle = new Style();
+    headerStyle.setHeight(Measure.valueOf(14)); // XXX todo
+    writer.writeStyleAttribute(headerStyle);
+    writer.endElement(HtmlElements.SPAN);
+    writer.endElement(HtmlElements.TH);
+  }
+
   private void writeColgroup(
       final TobagoResponseWriter writer, final List<Integer> columnWidths,
-      final List<AbstractUIColumnBase> columns) throws IOException {
+      final List<AbstractUIColumnBase> columns, boolean isHeader) throws IOException {
     writer.startElement(HtmlElements.COLGROUP);
-    for (int i = 0; i < columns.size(); i++) {
-      final AbstractUIColumnBase column =  columns.get(i);
-      if (column.isRendered() && !(column instanceof AbstractUIColumnEvent)) {
-        final Integer width = columnWidths.get(i);
-        writeCol(writer, width >= 0 ? width : null);
+
+    int i = 0;
+    for (AbstractUIColumnBase column : columns) {
+      if (column instanceof org.apache.myfaces.tobago.component.UIColumn) {
+        if (column.isRendered()) {
+          final Integer width = columnWidths.get(i);
+          writeCol(writer, width >= 0 ? width : null);
+        }
+        i++;
       }
     }
     writeCol(writer, null); // extra entry for resizing...
+    if (isHeader) {
+      writeCol(writer, null); // extra entry for headerFiller
+    }
     // TODO: the value should be added to the list
     writer.endElement(HtmlElements.COLGROUP);
   }

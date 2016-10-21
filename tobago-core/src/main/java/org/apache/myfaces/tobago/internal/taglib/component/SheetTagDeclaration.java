@@ -128,20 +128,6 @@ public interface SheetTagDeclaration
   void setDirectLinkCount(String directLinkCount);
 
   /**
-   * Flag indicating whether or not this sheet should reserve space for
-   * vertical toolbar when calculating column width's.<br>
-   * Possible values are: <pre>
-   *      'auto'  : sheet try to estimate the need of scrollbar.
-   *      'true'  : space for scrollbar is reserved.
-   *      'false' : no space is reserved.
-   *      </pre>
-   */
-  @TagAttribute
-  @UIComponentTagAttribute(defaultValue = "auto",
-      allowedValues = {"auto", "true", "false"})
-  void setForceVerticalScrollbar(String forceVerticalScrollbar);
-
-  /**
    * Flag indicating whether or not a range of direct paging links should be
    * rendered in the sheet's footer.
    */

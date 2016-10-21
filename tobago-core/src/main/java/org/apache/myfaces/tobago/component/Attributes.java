@@ -81,11 +81,6 @@ public enum Attributes {
   frequency,
   focus,
   focusId,
-  /**
-   * @deprecated since Tobago 3.0.0
-   */
-  @Deprecated
-  forceVerticalScrollbar,
   formatPattern,
   forValue("for"),
   globalOnly,
