@@ -19,5 +19,7 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
-public class AbstractUIColumnEvent extends AbstractUIColumnBase {
+public abstract class AbstractUIColumnEvent extends AbstractUIColumnBase {
+
+  public abstract String getEvent();
 }

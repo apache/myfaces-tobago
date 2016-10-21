@@ -23,7 +23,6 @@ import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.LabelLayout;
 import org.apache.myfaces.tobago.component.RendererTypes;
-import org.apache.myfaces.tobago.component.UIColumnEvent;
 import org.apache.myfaces.tobago.component.UIColumnSelector;
 import org.apache.myfaces.tobago.component.UICommand;
 import org.apache.myfaces.tobago.component.UIOut;
@@ -1159,8 +1158,8 @@ public class SheetRenderer extends RendererBase {
     final CommandMap commandMap = new CommandMap();
     String rowActionId = null;
     for (final UIComponent child : sheet.getChildren()) {
-      if (child instanceof UIColumnEvent && child.isRendered()) {
-        final UIColumnEvent columnEvent = (UIColumnEvent) child;
+      if (child instanceof AbstractUIColumnEvent && child.isRendered()) {
+        final AbstractUIColumnEvent columnEvent = (AbstractUIColumnEvent) child;
         for (UIComponent uiCommand : columnEvent.getChildren()) {
           if (uiCommand.isRendered()) {
             if (uiCommand instanceof ClientBehaviorHolder) {
