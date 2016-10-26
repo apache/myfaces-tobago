@@ -25,7 +25,6 @@
   <!-- Client Configuration -->
   <entry key="configTitle">Client configuration of the Tobago framework</entry>
   <entry key="configTheme">Theme</entry>
-  <entry key="configThemeWithAccessKey">_Theme</entry>
   <entry key="configThemeText">Which theme should be used?</entry>
   <entry key="configLocale">Locale</entry>
   <entry key="configLocaleText">Which locale should be used?</entry>
