@@ -23,7 +23,6 @@ package org.apache.myfaces.tobago.apt.processor;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.myfaces.tobago.apt.AnnotationUtils;
-import org.apache.myfaces.tobago.apt.annotation.ExtensionTag;
 import org.apache.myfaces.tobago.apt.annotation.SimpleTag;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
@@ -151,8 +150,6 @@ public class CheckstyleConfigGenerator extends AbstractGenerator {
       final String className;
       if (typeElement.getAnnotation(SimpleTag.class) != null || typeElement.getAnnotation(ValidatorTag.class) != null) {
         className = AnnotationUtils.generatedTagName(typeElement);
-      } else if (typeElement.getAnnotation(ExtensionTag.class) != null) {
-        className = typeElement.getQualifiedName().toString();
       } else if (typeElement.getAnnotation(UIComponentTag.class) != null) {
         className = "org.apache.myfaces.tobago.internal.taglib." + StringUtils.capitalize(annotationTag.name())
             + "Tag";

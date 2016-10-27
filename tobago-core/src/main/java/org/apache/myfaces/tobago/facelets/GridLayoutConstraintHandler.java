@@ -20,7 +20,6 @@
 package org.apache.myfaces.tobago.facelets;
 
 import org.apache.myfaces.tobago.component.Attributes;
-import org.apache.myfaces.tobago.component.UIExtensionPanel;
 
 import javax.faces.component.UIComponent;
 import javax.faces.view.facelets.FaceletContext;
@@ -48,12 +47,6 @@ public class GridLayoutConstraintHandler extends TagHandler {
   @Override
   public void apply(final FaceletContext faceletContext, UIComponent parent) throws IOException {
     final Map<String, Object> attributes = parent.getAttributes();
-    if (parent.getParent() != null && parent.getParent() instanceof UIExtensionPanel) {
-      parent = parent.getParent();
-    } else if (attributes.get("tobago.panel") != null
-        && attributes.get("tobago.panel") instanceof UIExtensionPanel) {
-      parent = (UIComponent) attributes.get("tobago.panel");
-    }
 
     if (columnSpan != null) {
       if (columnSpan.isLiteral()) {

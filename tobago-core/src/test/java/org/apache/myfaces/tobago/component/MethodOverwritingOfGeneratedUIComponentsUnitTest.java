@@ -39,7 +39,6 @@ public class MethodOverwritingOfGeneratedUIComponentsUnitTest {
 
   private static final List<String> IGNORED_METHODS = Arrays.asList("getFamily", "saveState", "restoreState");
   private static final List<String> IGNORED_COMPONENTS = Arrays.asList(
-      UIExtensionPanel.class.getSimpleName(),
       UIMenuSelectOne.class.getSimpleName());
   private static final MethodOfComponentList IGNORED_METHODS_PER_COMPONENT = new MethodOfComponentList();
 

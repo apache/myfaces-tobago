@@ -21,7 +21,6 @@ package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
 import org.apache.myfaces.tobago.component.LabelLayout;
 import org.apache.myfaces.tobago.component.SupportsLabelLayout;
-import org.apache.myfaces.tobago.component.UIExtensionPanel;
 import org.apache.myfaces.tobago.component.UISegmentLayout;
 import org.apache.myfaces.tobago.internal.component.AbstractUISegmentLayout;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
@@ -79,13 +78,7 @@ public class SegmentLayoutRenderer extends RendererBase {
         segmentLayout.getLarge());
     for (UIComponent child : children) {
       if (child.isRendered()) {
-        if (child instanceof UIExtensionPanel) {
-          for (UIComponent subChild : child.getChildren()) {
-            encodeChild(facesContext, writer, generator, subChild);
-          }
-        } else {
-          encodeChild(facesContext, writer, generator, child);
-        }
+        encodeChild(facesContext, writer, generator, child);
       }
     }
   }

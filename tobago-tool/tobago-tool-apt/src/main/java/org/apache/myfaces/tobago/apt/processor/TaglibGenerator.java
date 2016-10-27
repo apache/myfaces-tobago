@@ -22,7 +22,6 @@ package org.apache.myfaces.tobago.apt.processor;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.myfaces.tobago.apt.AnnotationUtils;
-import org.apache.myfaces.tobago.apt.annotation.ExtensionTag;
 import org.apache.myfaces.tobago.apt.annotation.Facet;
 import org.apache.myfaces.tobago.apt.annotation.Preliminary;
 import org.apache.myfaces.tobago.apt.annotation.SimpleTag;
@@ -301,21 +300,6 @@ public class TaglibGenerator extends AbstractGenerator {
             .append("</code>");
       }
     }
-    final ExtensionTag extensionTag = typeElement.getAnnotation(ExtensionTag.class);
-    if (extensionTag != null) {
-      final String baseName = extensionTag.baseClassName();
-      description.append("<p><b>Extended tag: </b>");
-      description.append(baseName);
-      description.append("</p>");
-
-      final TypeElement declaration = getInterfaceDeclaration(baseName + "Declaration");
-      if (declaration != null) {
-        final UIComponentTag baseComponentTag = declaration.getAnnotation(UIComponentTag.class);
-        if (baseComponentTag != null) {
-          description.append(createDescription(baseComponentTag));
-        }
-      }
-    }
     if (description.length() > 0) {
       addLeafCDATAElement(description.toString(), "description", element, document);
     }
@@ -484,15 +468,6 @@ public class TaglibGenerator extends AbstractGenerator {
         addLeafTextElement(componentTag.rendererType(), "renderer-type", componentElement, document);
       }
       addLeafTextElement(componentTag.faceletHandler(), "handler-class", componentElement, document);
-    }
-
-    final ExtensionTag extensionTag = typeElement.getAnnotation(ExtensionTag.class);
-    if (extensionTag != null) {
-      final Element componentElement = document.createElement("component");
-      tagElement.appendChild(componentElement);
-      addLeafTextElement(extensionTag.componentType(), "component-type", componentElement, document);
-      addLeafTextElement(extensionTag.rendererType(), "renderer-type", componentElement, document);
-      addLeafTextElement(extensionTag.faceletHandler(), "handler-class", componentElement, document);
     }
 
     final SimpleTag simpleTag = typeElement.getAnnotation(SimpleTag.class);
