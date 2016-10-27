@@ -19,7 +19,6 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
-import org.apache.myfaces.tobago.component.OnComponentPopulated;
 import org.apache.myfaces.tobago.component.Visual;
 import org.apache.myfaces.tobago.internal.layout.LayoutUtils;
 
@@ -27,8 +26,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 
-public abstract class AbstractUIPanelBase extends javax.faces.component.UIPanel
-    implements OnComponentPopulated, Visual {
+public abstract class AbstractUIPanelBase extends javax.faces.component.UIPanel implements Visual {
 
   @Override
   public void encodeBegin(final FacesContext facesContext) throws IOException {
@@ -61,10 +59,6 @@ public abstract class AbstractUIPanelBase extends javax.faces.component.UIPanel
     }
 
     super.encodeEnd(facesContext);
-  }
-
-  @Override
-  public void onComponentPopulated(final FacesContext facesContext, final UIComponent parent) {
   }
 
   public abstract java.lang.String getTip();

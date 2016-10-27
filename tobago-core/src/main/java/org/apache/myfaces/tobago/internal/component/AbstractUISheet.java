@@ -20,7 +20,6 @@
 package org.apache.myfaces.tobago.internal.component;
 
 import org.apache.myfaces.tobago.component.Attributes;
-import org.apache.myfaces.tobago.component.OnComponentPopulated;
 import org.apache.myfaces.tobago.component.Sorter;
 import org.apache.myfaces.tobago.component.Visual;
 import org.apache.myfaces.tobago.event.PageActionEvent;
@@ -65,7 +64,7 @@ import java.util.List;
 
 @ListenerFor(systemEventClass = PreRenderComponentEvent.class)
 public abstract class AbstractUISheet extends AbstractUIData
-    implements SheetStateChangeSource2, SortActionSource2, OnComponentPopulated, ClientBehaviorHolder, Visual,
+    implements SheetStateChangeSource2, SortActionSource2, ClientBehaviorHolder, Visual,
                ComponentSystemEventListener {
 
   private static final Logger LOG = LoggerFactory.getLogger(AbstractUISheet.class);
@@ -131,6 +130,8 @@ public abstract class AbstractUISheet extends AbstractUIData
 
   @Override
   public void processEvent(ComponentSystemEvent event) throws AbortProcessingException {
+
+    super.processEvent(event);
 
     if (event instanceof PreRenderComponentEvent) {
       final String columns = getColumns();
@@ -551,10 +552,6 @@ public abstract class AbstractUISheet extends AbstractUIData
     }
 
     getState().setFirst(first);
-  }
-
-  @Override
-  public void onComponentPopulated(final FacesContext facesContext, final UIComponent parent) {
   }
 
   @Override

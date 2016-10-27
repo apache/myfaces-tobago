@@ -22,7 +22,6 @@ package org.apache.myfaces.tobago.internal.component;
 import org.apache.myfaces.tobago.compat.FacesUtilsEL;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Facets;
-import org.apache.myfaces.tobago.component.OnComponentPopulated;
 import org.apache.myfaces.tobago.component.UITab;
 import org.apache.myfaces.tobago.component.Visual;
 import org.apache.myfaces.tobago.event.TabChangeEvent;
@@ -50,7 +49,7 @@ import java.util.Collections;
 import java.util.List;
 
 public abstract class AbstractUITabGroup extends AbstractUIPanelBase
-    implements TabChangeSource2, ActionSource2, OnComponentPopulated, ClientBehaviorHolder, Visual {
+    implements TabChangeSource2, ActionSource2, ClientBehaviorHolder, Visual {
 
   private static final Logger LOG = LoggerFactory.getLogger(AbstractUITabGroup.class);
 
@@ -291,11 +290,6 @@ public abstract class AbstractUITabGroup extends AbstractUIPanelBase
   @Override
   public void removeActionListener(final ActionListener listener) {
     removeFacesListener(listener);
-  }
-
-  @Override
-  public void onComponentPopulated(final FacesContext facesContext, final UIComponent parent) {
-    super.onComponentPopulated(facesContext, parent);
   }
 
   @Override

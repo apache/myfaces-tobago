@@ -50,6 +50,8 @@ public abstract class AbstractUIProgress extends UIOutput implements Visual, Com
   @Override
   public void processEvent(ComponentSystemEvent event) throws AbortProcessingException {
 
+    super.processEvent(event);
+
     if (event instanceof PreRenderComponentEvent) {
       Object model = getValue();
       if (model instanceof BoundedRangeModel) {

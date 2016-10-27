@@ -19,7 +19,6 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
-import org.apache.myfaces.tobago.component.OnComponentPopulated;
 import org.apache.myfaces.tobago.component.SupportsAccessKey;
 import org.apache.myfaces.tobago.component.Visual;
 import org.apache.myfaces.tobago.event.CollapsibleActionListener;
@@ -34,15 +33,20 @@ import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
 import javax.faces.component.behavior.ClientBehaviorHolder;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ComponentSystemEvent;
+import javax.faces.event.ComponentSystemEventListener;
 import javax.faces.event.FacesEvent;
+import javax.faces.event.ListenerFor;
 import javax.faces.event.PhaseId;
+import javax.faces.event.PostAddToViewEvent;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
+@ListenerFor(systemEventClass = PostAddToViewEvent.class)
 public abstract class AbstractUICommand extends UICommand
-    implements SupportsAccessKey, OnComponentPopulated, Visual, ClientBehaviorHolder {
+    implements SupportsAccessKey, Visual, ClientBehaviorHolder, ComponentSystemEventListener {
 
   private static final Logger LOG = LoggerFactory.getLogger(AbstractUICommand.class);
 
@@ -57,11 +61,14 @@ public abstract class AbstractUICommand extends UICommand
   private Boolean parentOfCommands;
 
   @Override
-  public void onComponentPopulated(final FacesContext facesContext, final UIComponent parent) {
+  public void processEvent(ComponentSystemEvent event) {
+    super.processEvent(event);
 
-    final List<AbstractUIOperation> list = ComponentUtils.findDescendantList(this, AbstractUIOperation.class);
-    for (AbstractUIOperation operation : list) {
-      addActionListener(new CollapsibleActionListener(operation.getFor()));
+    if (event instanceof PostAddToViewEvent) {
+      final List<AbstractUIOperation> list = ComponentUtils.findDescendantList(this, AbstractUIOperation.class);
+      for (AbstractUIOperation operation : list) {
+        addActionListener(new CollapsibleActionListener(operation.getFor()));
+      }
     }
   }
 
@@ -176,6 +183,4 @@ public abstract class AbstractUICommand extends UICommand
   public abstract String getTip();
 
   public abstract String getConfirmation();
-
-//  public abstract Integer getTabIndex();
 }
