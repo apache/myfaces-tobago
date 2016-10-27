@@ -48,11 +48,6 @@
     </dependency>
     <dependency>
       <groupId>org.apache.myfaces.tobago</groupId>
-      <artifactId>tobago-deprecation</artifactId>
-      <version>${project.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.myfaces.tobago</groupId>
       <artifactId>tobago-sandbox</artifactId>
       <version>${project.version}</version>
       <scope>provided</scope>

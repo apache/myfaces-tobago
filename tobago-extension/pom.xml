@@ -26,7 +26,6 @@
   <artifactId>tobago-extension</artifactId>
 
   <modules>
-    <module>tobago-deprecation</module>
     <module>tobago-sandbox</module>
   </modules>
 
