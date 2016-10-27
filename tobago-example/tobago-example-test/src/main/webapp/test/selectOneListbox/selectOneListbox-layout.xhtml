@@ -19,7 +19,6 @@
 
 <f:view
     xmlns:tc="http://myfaces.apache.org/tobago/component"
-    xmlns:tx="http://myfaces.apache.org/tobago/extension"
     xmlns:f="http://java.sun.com/jsf/core">
 
   <tc:page id="page">
@@ -35,10 +34,10 @@
       <tc:selectItem itemValue="a" itemLabel="A Value"/>
       <tc:selectItem itemValue="b" itemLabel="An Alternative"/>
     </tc:selectOneListbox>
-    <tx:selectOneListbox value="b" label="normal" fieldId="s2">
+    <tc:selectOneListbox value="b" label="normal" fieldId="s2">
       <tc:selectItem itemValue="a" itemLabel="A Value"/>
       <tc:selectItem itemValue="b" itemLabel="An Alternative"/>
-    </tx:selectOneListbox>
+    </tc:selectOneListbox>
 
     <tc:script file="script/tobago-assert.js"/>
 

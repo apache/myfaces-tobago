@@ -20,17 +20,15 @@
 <ui:composition
     xmlns="http://www.w3.org/1999/xhtml"
     xmlns:f="http://java.sun.com/jsf/core"
-    xmlns:h="http://java.sun.com/jsf/html"
     xmlns:ui="http://java.sun.com/jsf/facelets"
-    xmlns:tc="http://myfaces.apache.org/tobago/component"
-    xmlns:tx="http://myfaces.apache.org/tobago/extension">
+    xmlns:tc="http://myfaces.apache.org/tobago/component">
 
   <tc:panel>
     <f:facet name="layout">
       <tc:gridLayout margin="10px" columns="500px" rows="auto;auto"/>
     </f:facet>
     <tc:separator label="Panel Two"/>
-    <tx:in label="First Name" value="#{panel2.firstName}" />
-    <tx:in label="Second Name" value="#{panel2.secondName}" />
+    <tc:in label="First Name" value="#{panel2.firstName}" />
+    <tc:in label="Second Name" value="#{panel2.secondName}" />
   </tc:panel>
 </ui:composition>

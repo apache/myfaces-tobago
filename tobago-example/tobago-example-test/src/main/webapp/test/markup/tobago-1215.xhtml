@@ -18,8 +18,7 @@
 
 <f:view
     xmlns:tc="http://myfaces.apache.org/tobago/component"
-    xmlns:f="http://java.sun.com/jsf/core"
-    xmlns:tx="http://myfaces.apache.org/tobago/extension">
+    xmlns:f="http://java.sun.com/jsf/core">
   <tc:page id="page" width="300px" height="600px">
     <tc:panel id="panel">
 
@@ -31,7 +30,7 @@
 
       <tc:image markup="double" value="pidgeon-point.jpg" id="image"/>
 
-      <tx:in label="Counter" fieldId="counter" value="#{reload.counter}" readonly="true"/>
+      <tc:in label="Counter" fieldId="counter" value="#{reload.counter}" readonly="true"/>
 
       <tc:button label="Reload (AJAX)" id="button" action="#{reload.tick}">
         <f:ajax render="panel" execute="panel"/>

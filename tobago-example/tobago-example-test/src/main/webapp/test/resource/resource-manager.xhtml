@@ -17,7 +17,6 @@
 -->
 
 <f:view
-    xmlns:tx="http://myfaces.apache.org/tobago/extension"
     xmlns:tc="http://myfaces.apache.org/tobago/component"
     xmlns:f="http://java.sun.com/jsf/core">
 
@@ -28,7 +27,7 @@
     </f:facet>
     <tc:gridLayoutConstraint width="600px" height="300px"/>
 
-    <tx:in label="Fails" markup="#{resourceBean.fails == 2 ? '' : 'error' }"
+    <tc:in label="Fails" markup="#{resourceBean.fails == 2 ? '' : 'error' }"
            value="#{resourceBean.fails}" tip="expected are 2"/>
 
     <tc:messages/>

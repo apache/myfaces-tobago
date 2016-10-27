@@ -18,7 +18,6 @@
 
 <f:view
     xmlns:tc="http://myfaces.apache.org/tobago/component"
-    xmlns:tx="http://myfaces.apache.org/tobago/extension"
     xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:f="http://java.sun.com/jsf/core">
 
@@ -48,11 +47,11 @@
       <f:facet name="layout">
         <tc:gridLayout columns="2*;*"/>
       </f:facet>
-      <tx:in readonly="true" label="Select 1st row"/>
+      <tc:in readonly="true" label="Select 1st row"/>
       <tc:button label="Run" omit="true">
         <tc:dataAttribute name="clickrow" value="0"/>
       </tc:button>
-      <tx:in readonly="true" label="Select 2nd row"/>
+      <tc:in readonly="true" label="Select 2nd row"/>
       <tc:button label="Run" omit="true">
         <tc:dataAttribute name="clickrow" value="1"/>
       </tc:button>

@@ -18,7 +18,6 @@
 
 <f:view
     xmlns:tc="http://myfaces.apache.org/tobago/component"
-    xmlns:tx="http://myfaces.apache.org/tobago/extension"
     xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:f="http://java.sun.com/jsf/core">
 
@@ -270,9 +269,9 @@
     </f:facet>
 
     <tc:link label="Link to Apache" link="http://www.apache.org/"/>
-    <tx:date label="Date">
+    <tc:date label="Date">
       <f:convertDateTime pattern="dd/MM/yyyy"/>
-    </tx:date>
+    </tc:date>
   </tc:panel>
   <tc:selectOneChoice>
     <tc:selectItem itemLabel="AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" itemValue="A"/>
@@ -288,9 +287,9 @@
     <f:facet name="layout">
       <tc:gridLayout columns="*;*"/>
     </f:facet>
-    <tx:selectBooleanCheckbox label="1st Popup Modal" value="#{zIndex.modal1}" id="modal1st"/>
+    <tc:selectBooleanCheckbox label="1st Popup Modal" value="#{zIndex.modal1}" id="modal1st"/>
     <tc:panel/>
-    <tx:selectBooleanCheckbox label="2nd Popup Modal" value="#{zIndex.modal2}"/>
+    <tc:selectBooleanCheckbox label="2nd Popup Modal" value="#{zIndex.modal2}"/>
     <tc:panel/>
   </tc:panel>
   <tc:panel>
@@ -304,9 +303,9 @@
             <f:facet name="layout">
               <tc:gridLayout rows="auto;auto;*;auto"/>
             </f:facet>
-            <tx:date label="Date">
+            <tc:date label="Date">
               <f:convertDateTime pattern="dd/MM/yyyy"/>
-            </tx:date>
+            </tc:date>
             <tc:selectOneChoice>
               <tc:selectItem itemLabel="AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" itemValue="A"/>
               <tc:selectItem itemLabel="BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB" itemValue="B"/>
@@ -328,9 +327,9 @@
                       <f:facet name="layout">
                         <tc:gridLayout rows="auto;auto;*;auto"/>
                       </f:facet>
-                      <tx:date label="Date">
+                      <tc:date label="Date">
                         <f:convertDateTime pattern="dd/MM/yyyy"/>
-                      </tx:date>
+                      </tc:date>
                       <tc:selectOneChoice>
                         <tc:selectItem itemLabel="AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" itemValue="A"/>
                         <tc:selectItem itemLabel="BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB" itemValue="B"/>

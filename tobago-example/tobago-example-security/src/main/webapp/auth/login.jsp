@@ -15,7 +15,6 @@
  * limitations under the License.
 --%>
 <%@ taglib uri="http://myfaces.apache.org/tobago/component" prefix="tc" %>
-<%@ taglib uri="http://myfaces.apache.org/tobago/extension" prefix="tx" %>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 <%@ taglib tagdir="/WEB-INF/tags/layout" prefix="layout" %>
 
@@ -27,10 +26,10 @@
       <tc:gridLayout/>
     </f:facet>
 
-    <tx:in id="j_username" required="true"
+    <tc:in id="j_username" required="true"
         label="Username"/>
 
-    <tx:in id="j_password" required="true" password="true"
+    <tc:in id="j_password" required="true" password="true"
         label="Password"/>
 
     <tc:panel>

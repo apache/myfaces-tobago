@@ -18,8 +18,6 @@
 
 <f:view
     xmlns:tc="http://myfaces.apache.org/tobago/component"
-    xmlns:tx="http://myfaces.apache.org/tobago/extension"
-    xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:f="http://java.sun.com/jsf/core">
 
   <tc:page width="700px" height="600px">
@@ -32,21 +30,21 @@
       <tc:messages/>
     </tc:panel>
 
-    <tx:selectOneListbox value="#{selectItemModel.number}" label="Model: int" labelWidth="160px">
+    <tc:selectOneListbox value="#{selectItemModel.number}" label="Model: int" labelWidth="160px">
       <f:selectItem itemValue="1" itemLabel="f:selectItem 1 (literal), works not with JSF 1.1"/>
       <f:selectItem itemValue="#{selectItemModel.two}" itemLabel="f:selectItem 2 (model)"/>
       <tc:selectItem itemValue="3" itemLabel="tc:selectItem 3 (literal)"/>
       <tc:selectItem itemValue="#{selectItemModel.four}" itemLabel="tc:selectItem 4 (model)"/>
-    </tx:selectOneListbox>
+    </tc:selectOneListbox>
 
     <tc:in readonly="true" value="#{selectItemModel.number}"/>
 
-    <tx:selectOneListbox value="#{selectItemModel.currency}" label="Model: java.util.Currency" labelWidth="160px">
+    <tc:selectOneListbox value="#{selectItemModel.currency}" label="Model: java.util.Currency" labelWidth="160px">
       <f:selectItem itemValue="TTD" itemLabel="f:selectItem TTD (literal), works not with JSF 1.1 and Sun-RI 1.2"/>
       <f:selectItem itemValue="#{selectItemModel.usd}" itemLabel="f:selectItem USD (model)"/>
       <tc:selectItem itemValue="JPY" itemLabel="tc:selectItem JPY (literal)"/>
       <tc:selectItem itemValue="#{selectItemModel.eur}" itemLabel="tc:selectItem EUR (model)"/>
-    </tx:selectOneListbox>
+    </tc:selectOneListbox>
 
     <tc:in readonly="true" value="#{selectItemModel.currency}"/>
 

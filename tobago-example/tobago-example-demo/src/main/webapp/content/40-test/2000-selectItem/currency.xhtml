@@ -18,8 +18,6 @@
 
 <f:view
     xmlns:tc="http://myfaces.apache.org/tobago/component"
-    xmlns:tx="http://myfaces.apache.org/tobago/extension"
-    xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:f="http://java.sun.com/jsf/core">
 
   <tc:page label="Sample with model">
@@ -28,12 +26,12 @@
 
     <tc:label value="required input"/>
 
-    <tx:selectOneChoice required="true" value="#{selectItemModel.currency}" label="Input:">
+    <tc:selectOneChoice required="true" value="#{selectItemModel.currency}" label="Input:">
       <tc:selectItem itemLabel="&lt;please select>"/>
       <tc:selectItems value="#{selectItemModel.availableCurrencies}"/>
-    </tx:selectOneChoice>
+    </tc:selectOneChoice>
 
-    <tx:in readonly="true" value="#{selectItemModel.currency}" label="Model:"/>
+    <tc:in readonly="true" value="#{selectItemModel.currency}" label="Model:"/>
 
     <tc:button label="submit"/>
 

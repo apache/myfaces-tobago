@@ -19,8 +19,7 @@
 <f:view
     xmlns:tc="http://myfaces.apache.org/tobago/component"
     xmlns:ui="http://java.sun.com/jsf/facelets"
-    xmlns:f="http://java.sun.com/jsf/core"
-    xmlns:tx="http://myfaces.apache.org/tobago/extension">
+    xmlns:f="http://java.sun.com/jsf/core">
 
   <tc:page>
     <f:facet name="layout">
@@ -28,7 +27,7 @@
     </f:facet>
     <tc:gridLayoutConstraint width="600px" height="300px"/>
 
-    <tx:in value="some value" required="true" label="Suggest"
+    <tc:in value="some value" required="true" label="Suggest"
            tip="test" suggestMethod="#{inputSuggest.inputSuggestItems}"/>
 
   </tc:page>
