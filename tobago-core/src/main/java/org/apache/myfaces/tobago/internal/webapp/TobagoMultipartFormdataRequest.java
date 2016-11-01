@@ -154,9 +154,9 @@ public class TobagoMultipartFormdataRequest extends HttpServletRequestWrapper {
 
   public FileItem getFileItem(final String key) {
     if (fileItems != null) {
-      final List<FileItem> fileItems = this.fileItems.get(key);
-      if (fileItems.size() > 0) {
-        return fileItems.get(0);
+      final List<FileItem> fileItemsForKey = this.fileItems.get(key);
+      if (fileItemsForKey != null && fileItemsForKey.size() > 0) {
+        return fileItemsForKey.get(0);
       } else {
         return null;
       }
@@ -166,8 +166,10 @@ public class TobagoMultipartFormdataRequest extends HttpServletRequestWrapper {
 
   public FileItem[] getFileItems(final String key) {
     if (fileItems != null) {
-      final List<FileItem> fileItems = this.fileItems.get(key);
-      return fileItems.toArray(new FileItem[fileItems.size()]);
+      final List<FileItem> fileItemsForKey = this.fileItems.get(key);
+      if (fileItemsForKey != null) {
+        return fileItemsForKey.toArray(new FileItem[fileItemsForKey.size()]);
+      }
     }
     return null;
   }

@@ -44,8 +44,10 @@ public class Upload {
     }
 
   public void upload(FileItem[] files) {
-    for (FileItem file : files) {
-      upload(file);
+    if (files != null) {
+      for (FileItem file : files) {
+        upload(file);
+      }
     }
   }
 
