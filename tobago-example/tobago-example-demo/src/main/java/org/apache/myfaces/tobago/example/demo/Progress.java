@@ -54,6 +54,6 @@ public class Progress implements Serializable {
 
   public String reset() {
     progress.setValue(0);
-    return "reset";
+    return null;
   }
 }
