@@ -19,7 +19,7 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
-import org.apache.myfaces.tobago.compat.FacesUtilsEL;
+import org.apache.myfaces.tobago.util.FacesELUtils;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.UITab;
@@ -193,7 +193,7 @@ public abstract class AbstractUITabGroup extends AbstractUIPanelBase
 
       final MethodExpression methodExpression = getTabChangeListenerExpression();
       if (methodExpression != null) {
-        FacesUtilsEL.invokeMethodExpression(FacesContext.getCurrentInstance(), methodExpression, facesEvent);
+        FacesELUtils.invokeMethodExpression(FacesContext.getCurrentInstance(), methodExpression, facesEvent);
       }
 
 // switched off, because this is already called in super.broadcast()

@@ -19,7 +19,7 @@
 
 package org.apache.myfaces.tobago.event;
 
-import org.apache.myfaces.tobago.compat.FacesUtilsEL;
+import org.apache.myfaces.tobago.util.FacesELUtils;
 
 import javax.el.ELContext;
 import javax.el.MethodExpression;
@@ -42,7 +42,7 @@ public class MethodExpressionTreeExpansionListener implements TreeExpansionListe
 
   @Override
   public void treeExpanded(final TreeExpansionEvent event) {
-    FacesUtilsEL.invokeMethodExpression(FacesContext.getCurrentInstance(), methodExpression, event);
+    FacesELUtils.invokeMethodExpression(FacesContext.getCurrentInstance(), methodExpression, event);
   }
 
   private ELContext elContext() {

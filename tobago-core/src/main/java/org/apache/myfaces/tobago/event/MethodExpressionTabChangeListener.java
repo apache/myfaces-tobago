@@ -19,7 +19,7 @@
 
 package org.apache.myfaces.tobago.event;
 
-import org.apache.myfaces.tobago.compat.FacesUtilsEL;
+import org.apache.myfaces.tobago.util.FacesELUtils;
 
 import javax.el.MethodExpression;
 import javax.faces.component.StateHolder;
@@ -41,7 +41,7 @@ public class MethodExpressionTabChangeListener implements TabChangeListener, Sta
 
   @Override
   public void processTabChange(final TabChangeEvent actionEvent) throws AbortProcessingException {
-     FacesUtilsEL.invokeMethodExpression(FacesContext.getCurrentInstance(), methodExpression, actionEvent);
+     FacesELUtils.invokeMethodExpression(FacesContext.getCurrentInstance(), methodExpression, actionEvent);
   }
 
   @Override

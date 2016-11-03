@@ -17,16 +17,16 @@
  * under the License.
  */
 
-package org.apache.myfaces.tobago.compat;
+package org.apache.myfaces.tobago.util;
 
 import javax.el.MethodExpression;
 import javax.faces.context.FacesContext;
 import javax.faces.event.AbortProcessingException;
 import javax.faces.event.FacesEvent;
 
-public final class FacesUtilsEL {
+public final class FacesELUtils {
 
-  private FacesUtilsEL() {
+  private FacesELUtils() {
     // prevent object creation
   }
 
