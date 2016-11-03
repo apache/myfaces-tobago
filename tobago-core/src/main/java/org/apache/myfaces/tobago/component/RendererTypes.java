@@ -79,7 +79,6 @@ public enum RendererTypes {
   Textarea,
   Tab,
   TabGroup,
-  Time,
   ToolBar,
   Tree,
   TreeData,
@@ -147,7 +146,6 @@ public enum RendererTypes {
   public static final String TEXTAREA = "Textarea";
   public static final String TAB = "Tab";
   public static final String TAB_GROUP = "TabGroup";
-  public static final String TIME = "Time";
   public static final String TOOL_BAR = "ToolBar";
   public static final String TREE = "Tree";
   public static final String TREE_DATA = "TreeData";
