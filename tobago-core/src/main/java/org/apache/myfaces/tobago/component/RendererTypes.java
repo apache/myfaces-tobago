@@ -30,7 +30,6 @@ public enum RendererTypes {
   Buttons,
   Calendar,
   Column,
-  SegmentLayout,
   ColumnSelector,
   Command,
   Commands,
@@ -63,6 +62,7 @@ public enum RendererTypes {
   Progress,
   Script,
   Section,
+  SegmentLayout,
   SelectBooleanCheckbox,
   SelectManyCheckbox,
   SelectManyListbox,
@@ -72,6 +72,7 @@ public enum RendererTypes {
   SelectOneListbox,
   SelectReference,
   Separator,
+  Sheet,
   SheetPageCommand,
   Style,
   Suggest,
@@ -89,8 +90,7 @@ public enum RendererTypes {
   TreeListbox,
   TreeMenu,
   TreeNode,
-  TreeSelect,
-  Sheet;
+  TreeSelect;
 
   public static final String BAR = "Bar";
   public static final String BOX = "Box";
@@ -98,7 +98,6 @@ public enum RendererTypes {
   public static final String BUTTONS = "Buttons";
   public static final String CALENDAR = "Calendar";
   public static final String COLUMN = "Column";
-  public static final String SEGMENT_LAYOUT = "SegmentLayout";
   public static final String COLUMN_SELECTOR = "ColumnSelector";
   public static final String COMMAND = "Command";
   public static final String COMMANDS = "Commands";
@@ -131,6 +130,7 @@ public enum RendererTypes {
   public static final String PROGRESS = "Progress";
   public static final String SCRIPT = "Script";
   public static final String SECTION = "Section";
+  public static final String SEGMENT_LAYOUT = "SegmentLayout";
   public static final String SELECT_BOOLEAN_CHECKBOX = "SelectBooleanCheckbox";
   public static final String SELECT_MANY_CHECKBOX = "SelectManyCheckbox";
   public static final String SELECT_MANY_LISTBOX = "SelectManyListbox";
@@ -140,6 +140,7 @@ public enum RendererTypes {
   public static final String SELECT_ONE_LISTBOX = "SelectOneListbox";
   public static final String SELECT_REFERENCE = "SelectReference";
   public static final String SEPARATOR = "Separator";
+  public static final String SHEET = "Sheet";
   public static final String SHEET_PAGE_COMMAND = "SheetPageCommand";
   public static final String STYLE = "Style";
   public static final String SUGGEST = "Suggest";
@@ -158,5 +159,4 @@ public enum RendererTypes {
   public static final String TREE_MENU = "TreeMenu";
   public static final String TREE_NODE = "TreeNode";
   public static final String TREE_SELECT = "TreeSelect";
-  public static final String SHEET = "Sheet";
 }
