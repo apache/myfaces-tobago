@@ -19,7 +19,6 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
-import org.apache.myfaces.tobago.util.FacesELUtils;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.UITab;
@@ -29,6 +28,7 @@ import org.apache.myfaces.tobago.event.TabChangeListener;
 import org.apache.myfaces.tobago.event.TabChangeSource2;
 import org.apache.myfaces.tobago.model.SwitchType;
 import org.apache.myfaces.tobago.util.ComponentUtils;
+import org.apache.myfaces.tobago.util.FacesELUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -44,8 +44,6 @@ import javax.faces.event.FacesEvent;
 import javax.faces.event.PhaseId;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 
 public abstract class AbstractUITabGroup extends AbstractUIPanelBase
@@ -53,8 +51,6 @@ public abstract class AbstractUITabGroup extends AbstractUIPanelBase
 
   private static final Logger LOG = LoggerFactory.getLogger(AbstractUITabGroup.class);
 
-  // todo generate
-  private static final Collection<String> EVENT_NAMES = Collections.singletonList("reload");
   @Override
   public void encodeChildren(final FacesContext facesContext) throws IOException {
   }
@@ -290,15 +286,5 @@ public abstract class AbstractUITabGroup extends AbstractUIPanelBase
   @Override
   public void removeActionListener(final ActionListener listener) {
     removeFacesListener(listener);
-  }
-
-  @Override
-  public String getDefaultEventName() {
-    return "reload";
-  }
-
-  @Override
-  public Collection<String> getEventNames() {
-    return EVENT_NAMES;
   }
 }

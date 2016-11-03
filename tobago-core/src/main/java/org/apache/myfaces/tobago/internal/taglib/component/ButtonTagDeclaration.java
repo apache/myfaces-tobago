@@ -19,10 +19,12 @@
 
 package org.apache.myfaces.tobago.internal.taglib.component;
 
+import org.apache.myfaces.tobago.apt.annotation.Behavior;
 import org.apache.myfaces.tobago.apt.annotation.BodyContentDescription;
 import org.apache.myfaces.tobago.apt.annotation.Facet;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
+import org.apache.myfaces.tobago.component.ClientBehaviors;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasAccessKey;
@@ -61,8 +63,18 @@ import javax.faces.component.UICommand;
     rendererType = RendererTypes.BUTTON,
     allowedChildComponenents = "NONE",
     facets = {
-        @Facet(name = Facets.CONFIRMATION, description = "Contains a UIOutput instance with the confirmation message.",
+        @Facet(
+            name = Facets.CONFIRMATION,
+            description = "Contains a UIOutput instance with the confirmation message.",
             allowedChildComponenents = "org.apache.myfaces.tobago.Out")
+    },
+    behaviors = {
+        @Behavior(
+            name = ClientBehaviors.CLICK,
+            description = "Behavior of a click event.",
+            isDefault = true),
+        @Behavior(
+            name = ClientBehaviors.DBLCLICK)
     })
 public interface ButtonTagDeclaration
     extends HasIdBindingAndRendered, HasAction, HasActionListener, IsImmediateCommand, HasConfirmation,

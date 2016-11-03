@@ -19,8 +19,10 @@
 
 package org.apache.myfaces.tobago.internal.taglib.component;
 
+import org.apache.myfaces.tobago.apt.annotation.Behavior;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
+import org.apache.myfaces.tobago.component.ClientBehaviors;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
 
 /**
@@ -31,6 +33,14 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRend
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIRow",
     uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUIRow",
-    uiComponentFacesClass = "javax.faces.component.UIColumn")
+    uiComponentFacesClass = "javax.faces.component.UIColumn",
+    behaviors = {
+        @Behavior(
+            name = ClientBehaviors.CLICK,
+            description = "Behavior of a click event.",
+            isDefault = true),
+        @Behavior(
+            name = ClientBehaviors.DBLCLICK)
+    })
 public interface RowTagDeclaration extends HasIdBindingAndRendered {
 }

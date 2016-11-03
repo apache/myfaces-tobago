@@ -19,11 +19,13 @@
 
 package org.apache.myfaces.tobago.internal.taglib.component;
 
+import org.apache.myfaces.tobago.apt.annotation.Behavior;
 import org.apache.myfaces.tobago.apt.annotation.DynamicExpression;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
+import org.apache.myfaces.tobago.component.ClientBehaviors;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasAccessKey;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasConverterMessage;
@@ -60,7 +62,12 @@ import javax.faces.component.UIInput;
     uiComponentFacesClass = "javax.faces.component.UIInput",
     componentFamily = UIInput.COMPONENT_FAMILY,
     rendererType = RendererTypes.FILE,
-    allowedChildComponenents = "NONE")
+    allowedChildComponenents = "NONE",
+    behaviors = {
+        @Behavior(
+            name = ClientBehaviors.CHANGE,
+            isDefault = true)
+    })
 public interface FileTagDeclaration
     extends HasValidator, HasValidatorMessage, HasRequiredMessage, HasConverterMessage,
     HasValueChangeListener, HasIdBindingAndRendered, IsDisabled, IsFocus, IsMultiple,

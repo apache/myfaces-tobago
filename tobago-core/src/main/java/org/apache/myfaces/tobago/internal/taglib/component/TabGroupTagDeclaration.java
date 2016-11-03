@@ -19,12 +19,14 @@
 
 package org.apache.myfaces.tobago.internal.taglib.component;
 
+import org.apache.myfaces.tobago.apt.annotation.Behavior;
 import org.apache.myfaces.tobago.apt.annotation.BodyContentDescription;
 import org.apache.myfaces.tobago.apt.annotation.DynamicExpression;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
+import org.apache.myfaces.tobago.component.ClientBehaviors;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasAction;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasActionListener;
@@ -48,8 +50,12 @@ import javax.faces.component.UIPanel;
     componentFamily = UIPanel.COMPONENT_FAMILY,
     rendererType = RendererTypes.TAB_GROUP,
     interfaces = "javax.faces.component.ActionSource2",
-    allowedChildComponenents = "org.apache.myfaces.tobago.Tab")
-
+    allowedChildComponenents = "org.apache.myfaces.tobago.Tab",
+    behaviors = {
+        @Behavior(
+            name = ClientBehaviors.RELOAD,
+            isDefault = true)
+    })
 public interface TabGroupTagDeclaration
     extends HasIdBindingAndRendered, IsImmediateCommand, HasAction, HasActionListener, IsVisual, HasTip {
 

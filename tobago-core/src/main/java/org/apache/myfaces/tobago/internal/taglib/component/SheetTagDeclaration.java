@@ -19,6 +19,7 @@
 
 package org.apache.myfaces.tobago.internal.taglib.component;
 
+import org.apache.myfaces.tobago.apt.annotation.Behavior;
 import org.apache.myfaces.tobago.apt.annotation.BodyContentDescription;
 import org.apache.myfaces.tobago.apt.annotation.DynamicExpression;
 import org.apache.myfaces.tobago.apt.annotation.Facet;
@@ -26,6 +27,7 @@ import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
+import org.apache.myfaces.tobago.component.ClientBehaviors;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
@@ -53,9 +55,17 @@ import javax.faces.component.UIData;
     allowedChildComponenents = {
         "javax.faces.Column",
         "org.apache.myfaces.tobago.ColumnSelector"},
-    facets = {@Facet(name = Facets.RELOAD, description = "Contains an instance of UIReload",
-                     allowedChildComponenents = "org.apache.myfaces.tobago.Reload")})
-public interface SheetTagDeclaration 
+    facets = {
+        @Facet(
+            name = Facets.RELOAD,
+            description = "Contains an instance of UIReload",
+            allowedChildComponenents = "org.apache.myfaces.tobago.Reload")},
+    behaviors = {
+        @Behavior(
+            name = ClientBehaviors.RELOAD,
+            isDefault = true)
+    })
+public interface SheetTagDeclaration
     extends HasIdBindingAndRendered, IsVisual, IsShowRoot, IsShowRootJunction, HasVar {
   /**
    * LayoutConstraints for column layout.
@@ -197,8 +207,8 @@ public interface SheetTagDeclaration
   /**
    * Method binding representing a stateChangeListener method that will be
    * notified when the state was changed by the user.
-    * The expression must evaluate to a public method that takes a
-    * SheetStateChangeEvent parameter, with a return type of void.
+   * The expression must evaluate to a public method that takes a
+   * SheetStateChangeEvent parameter, with a return type of void.
    */
   @TagAttribute
   @UIComponentTagAttribute(type = {},
@@ -226,20 +236,22 @@ public interface SheetTagDeclaration
   void setSortActionListener(String sortActionListener);
 
 
-    /**
-     * Flag indicating if paging arrows are shown near direct links
-     * @since 2.0.0
-     */
-    @TagAttribute
-    @UIComponentTagAttribute(type = "boolean", defaultValue = "false")
-    void setShowDirectLinksArrows(String showDirectLinksArrows);
+  /**
+   * Flag indicating if paging arrows are shown near direct links
+   *
+   * @since 2.0.0
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(type = "boolean", defaultValue = "false")
+  void setShowDirectLinksArrows(String showDirectLinksArrows);
 
-    /**
-     * Flag indicating if paging arrows are shown near page range
-     * @since 2.0.0
-     */
-    @TagAttribute
-    @UIComponentTagAttribute(type = "boolean", defaultValue = "true")
-    void setShowPageRangeArrows(String showPageRangeArrows);
+  /**
+   * Flag indicating if paging arrows are shown near page range
+   *
+   * @since 2.0.0
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(type = "boolean", defaultValue = "true")
+  void setShowPageRangeArrows(String showPageRangeArrows);
 
 }

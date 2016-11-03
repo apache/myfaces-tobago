@@ -22,6 +22,7 @@ package org.apache.myfaces.tobago.apt.processor;
 import org.antlr.stringtemplate.StringTemplate;
 import org.antlr.stringtemplate.StringTemplateGroup;
 import org.apache.commons.io.IOUtils;
+import org.apache.myfaces.tobago.apt.annotation.Behavior;
 import org.apache.myfaces.tobago.apt.annotation.DynamicExpression;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
@@ -117,6 +118,26 @@ public class ClassesGenerator extends AbstractGenerator {
       componentInfo.setDeprecated(declaration.getAnnotation(Deprecated.class) != null);
       for (final String interfaces : componentTag.interfaces()) {
         componentInfo.addInterface(interfaces);
+      }
+
+      if (componentTag.behaviors().length > 0) {
+        for (Behavior behavior : componentTag.behaviors()) {
+          info("*************** ----------------------" + componentTag.behaviors().length);
+          info("*************** " + behavior.name());
+          info("*************** " + componentInfo.getBehaviors());
+          componentInfo.getBehaviors().add(behavior.name());
+          if (behavior.isDefault()) {
+            if (componentInfo.getDefaultBehavior() != null) {
+              throw new RuntimeException("defaultBehavior '" + componentInfo.getDefaultBehavior()
+                  + "' will be overwritten with '" + behavior.name()
+                  + "' in component '" + componentInfo.getSourceClass() + "'");
+            }
+            componentInfo.setDefaultBehavior(behavior.name());
+          }
+        }
+        if (componentInfo.getDefaultBehavior() == null) {
+          throw new RuntimeException("defaultBehavior not set in component '" + componentInfo.getSourceClass() + "'");
+        }
       }
 
       final Class<? extends UIComponent> facesClass

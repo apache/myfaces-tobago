@@ -21,10 +21,26 @@ package org.apache.myfaces.tobago.component;
 
 public enum ClientBehaviors {
 
+  change,
   click,
-  change;
+  complete,
+  dblclick,
+  load,
+  mouseover,
+  mouseout,
+  reload, // tbd
+  resize,
+  suggest; // tbd
 
+  public static final String CHANGE = "change";
   public static final String CLICK = "click";
-  public static final String CHANGE = "click";
+  public static final String COMPLETE = "complete";
+  public static final String DBLCLICK = "dblclick";
+  public static final String LOAD = "load";
+  public static final String MOUSEOVER = "mouseover";
+  public static final String MOUSEOUT = "mouseout";
+  public static final String RELOAD = "reload"; // tbd
+  public static final String RESIZE = "resize";
+  public static final String SUGGEST = "suggest"; // tbd
 
 }

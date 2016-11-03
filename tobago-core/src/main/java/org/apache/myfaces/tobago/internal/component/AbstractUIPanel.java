@@ -20,24 +20,6 @@
 package org.apache.myfaces.tobago.internal.component;
 
 import javax.faces.component.behavior.ClientBehaviorHolder;
-import java.util.Arrays;
-import java.util.Collection;
 
 public abstract class AbstractUIPanel extends AbstractUICollapsiblePanel implements ClientBehaviorHolder {
-
-  // todo generate
-  private static final Collection<String> EVENT_NAMES = Arrays.asList("click", "mouseover", "mouseout");
-
-  // todo generate
-  @Override
-  public String getDefaultEventName() {
-    return "click";
-  }
-
-  // todo generate
-  @Override
-  public Collection<String> getEventNames() {
-    return EVENT_NAMES;
-  }
-
 }

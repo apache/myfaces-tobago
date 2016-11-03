@@ -28,8 +28,6 @@ import javax.el.ValueExpression;
 import javax.faces.component.UIComponentBase;
 import javax.faces.component.behavior.ClientBehaviorHolder;
 import javax.faces.context.FacesContext;
-import java.util.Arrays;
-import java.util.Collection;
 
 public abstract class AbstractUISuggest
     extends UIComponentBase implements InputSuggest2, ClientBehaviorHolder {
@@ -39,22 +37,7 @@ public abstract class AbstractUISuggest
   public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.Suggest";
   public static final String COMPONENT_FAMILY = "org.apache.myfaces.tobago.Suggest";
 
-  // todo generate
-  private static final Collection<String> EVENT_NAMES = Arrays.asList("suggest");
-
   private transient String query;
-
-  // todo generate
-  @Override
-  public String getDefaultEventName() {
-    return "suggest";
-  }
-
-  // todo generate
-  @Override
-  public Collection<String> getEventNames() {
-    return EVENT_NAMES;
-  }
 
   @Override
   public String getFamily() {

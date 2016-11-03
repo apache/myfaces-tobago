@@ -31,29 +31,12 @@ import javax.faces.event.ComponentSystemEventListener;
 import javax.faces.event.ListenerFor;
 import javax.faces.event.PreRenderComponentEvent;
 import javax.swing.BoundedRangeModel;
-import java.util.Arrays;
-import java.util.Collection;
 
 @ListenerFor(systemEventClass = PreRenderComponentEvent.class)
 public abstract class AbstractUIProgress extends UIOutput
     implements Visual, ComponentSystemEventListener, ClientBehaviorHolder {
 
   private static final Logger LOG = LoggerFactory.getLogger(AbstractUIProgress.class);
-
-  // todo generate
-  private static final Collection<String> EVENT_NAMES = Arrays.asList("complete");
-
-  // todo generate
-  @Override
-  public String getDefaultEventName() {
-    return "complete";
-  }
-
-  // todo generate
-  @Override
-  public Collection<String> getEventNames() {
-    return EVENT_NAMES;
-  }
 
   private double rangeValue;
   private double rangeMax;

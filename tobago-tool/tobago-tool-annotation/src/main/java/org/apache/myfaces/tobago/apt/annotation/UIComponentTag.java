@@ -49,6 +49,8 @@ public @interface UIComponentTag {
 
   Facet[] facets() default {};
 
+  Behavior[] behaviors() default {};
+
   boolean generate() default true;
 
   boolean isComponentAlreadyDefined() default false;

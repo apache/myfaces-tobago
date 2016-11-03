@@ -19,11 +19,13 @@
 
 package org.apache.myfaces.tobago.internal.taglib.component;
 
+import org.apache.myfaces.tobago.apt.annotation.Behavior;
 import org.apache.myfaces.tobago.apt.annotation.BodyContentDescription;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
+import org.apache.myfaces.tobago.component.ClientBehaviors;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasBinding;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasConverter;
@@ -57,7 +59,12 @@ import javax.faces.component.UISelectMany;
     rendererType = RendererTypes.SELECT_MANY_SHUTTLE,
     allowedChildComponenents = {
         "javax.faces.SelectItem",
-        "javax.faces.SelectItems"})
+        "javax.faces.SelectItems"},
+    behaviors = {
+        @Behavior(
+            name = ClientBehaviors.CHANGE,
+            isDefault = true)
+    })
 public interface SelectManyShuttleTagDeclaration extends
     IsDisabled, HasId, HasTip, IsRendered, IsRequiredForSelect, HasBinding, IsReadonly, HasConverter,
     HasLabel, HasValidator, HasValueChangeListener, HasLabelLayout,

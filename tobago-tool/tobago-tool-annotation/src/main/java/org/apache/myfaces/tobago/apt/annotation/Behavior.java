@@ -17,26 +17,17 @@
  * under the License.
  */
 
-package org.apache.myfaces.tobago.internal.component;
+package org.apache.myfaces.tobago.apt.annotation;
 
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
-import org.apache.myfaces.tobago.component.SupportsLabelLayout;
-import org.apache.myfaces.tobago.component.Visual;
-
-import javax.faces.component.UISelectMany;
-import javax.faces.component.behavior.ClientBehaviorHolder;
-import java.util.Collection;
-
-public abstract class AbstractUISelectManyBase extends UISelectMany
-    implements Visual, SupportsLabelLayout, ClientBehaviorHolder {
-
-  @Override
-  public Object[] getSelectedValues() {
-    final Object value = getValue();
-    if (value instanceof Collection) {
-      return ((Collection) value).toArray();
-    } else {
-      return (Object[]) value;
-    }
-  }
+@Retention(value = RetentionPolicy.SOURCE)
+@Target(value = ElementType.TYPE)
+public @interface Behavior {
+  String name();
+  String description() default "";
+  boolean isDefault() default false;
 }

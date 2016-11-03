@@ -27,28 +27,11 @@ import javax.faces.application.FacesMessage;
 import javax.faces.component.UIInput;
 import javax.faces.component.behavior.ClientBehaviorHolder;
 import javax.faces.context.FacesContext;
-import java.util.Arrays;
-import java.util.Collection;
 
 public abstract class AbstractUISelectOneBase extends javax.faces.component.UISelectOne
     implements Visual, SupportsLabelLayout, ClientBehaviorHolder {
 
   public static final String MESSAGE_VALUE_REQUIRED = "tobago.SelectOne.MESSAGE_VALUE_REQUIRED";
-
-  // todo generate
-  private static final Collection<String> EVENT_NAMES = Arrays.asList("change");
-
-  // todo generate
-  @Override
-  public String getDefaultEventName() {
-    return "change";
-  }
-
-  // todo generate
-  @Override
-  public Collection<String> getEventNames() {
-    return EVENT_NAMES;
-  }
 
   @Override
   public void validate(final FacesContext facesContext) {

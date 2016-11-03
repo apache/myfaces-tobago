@@ -19,9 +19,11 @@
 
 package org.apache.myfaces.tobago.internal.taglib.component;
 
+import org.apache.myfaces.tobago.apt.annotation.Behavior;
 import org.apache.myfaces.tobago.apt.annotation.Facet;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
+import org.apache.myfaces.tobago.component.ClientBehaviors;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasAccessKey;
@@ -48,7 +50,10 @@ import javax.faces.component.UICommand;
  * Use this tag only as a facet for the client events "click", "change"
  * in selectOneRadio, selectBooleanCheckbox, selectManyCheckbox, selectOneChoice, etc.
  * TODO: may add some events and components. See {@link org.apache.myfaces.tobago.component.Facets#isEvent(String)}
+ *
+ * @deprecated Functionality will be moved to tc:event!
  */
+@Deprecated
 @Tag(name = "command")
 @UIComponentTag(uiComponent = "org.apache.myfaces.tobago.component.UICommand",
     uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUICommand",
@@ -60,7 +65,15 @@ import javax.faces.component.UICommand;
         @Facet(
             name = Facets.CONFIRMATION,
             description = "Contains a UIOutput instance with the confirmation message.",
-            allowedChildComponenents = "org.apache.myfaces.tobago.Out")})
+            allowedChildComponenents = "org.apache.myfaces.tobago.Out")},
+    behaviors = {
+        @Behavior(
+            name = ClientBehaviors.CLICK,
+            description = "Behavior of a click event.",
+            isDefault = true),
+        @Behavior(
+            name = ClientBehaviors.DBLCLICK)
+    })
 public interface CommandTagDeclaration
     extends HasIdBindingAndRendered, HasAction, HasActionListener, IsImmediateCommand, HasConfirmation,
     HasLink, IsTransition, HasTarget, IsDisabledBySecurity,

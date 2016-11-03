@@ -54,7 +54,12 @@ import javax.faces.component.UIInput;
     allowedChildComponenents = {
         "org.apache.myfaces.tobago.SelectItems",
         "org.apache.myfaces.tobago.SelectItem"
-    })
+    }/* todo ,
+    behaviors = {
+        @Behavior(
+            name = ClientBehaviors.SUGGEST,
+            isDefault = true)
+    }*/)
 public interface SuggestTagDeclaration extends HasIdBindingAndRendered {
 
   /**

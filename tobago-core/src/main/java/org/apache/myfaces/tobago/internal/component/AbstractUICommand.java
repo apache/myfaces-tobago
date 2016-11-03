@@ -28,16 +28,11 @@ import javax.faces.component.UICommand;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
 import javax.faces.component.behavior.ClientBehaviorHolder;
-import java.util.Arrays;
-import java.util.Collection;
 
 public abstract class AbstractUICommand extends AbstractUICommandBase
     implements SupportsAccessKey, Visual, ClientBehaviorHolder {
 
   private static final Logger LOG = LoggerFactory.getLogger(AbstractUICommand.class);
-
-  // todo generate
-  private static final Collection<String> EVENT_NAMES = Arrays.asList("click", "change");
 
   enum PropertyKeys {
     disabled,
@@ -57,18 +52,6 @@ public abstract class AbstractUICommand extends AbstractUICommandBase
       }
     }
     return parentOfCommands;
-  }
-
-  // todo generate
-  @Override
-  public String getDefaultEventName() {
-    return "click";
-  }
-
-  // todo generate
-  @Override
-  public Collection<String> getEventNames() {
-    return EVENT_NAMES;
   }
 
   @Override

@@ -58,7 +58,6 @@ import javax.faces.event.PhaseId;
 import javax.faces.event.PreRenderComponentEvent;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -72,9 +71,6 @@ public abstract class AbstractUISheet extends AbstractUIData
   public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.Data";
 
   public static final String SORTER_ID = "sorter";
-
-  // todo generate
-  private static final Collection<String> EVENT_NAMES = Collections.singletonList("reload");
 
   private SheetState state;
   private transient LayoutTokens columnLayout;
@@ -577,15 +573,5 @@ public abstract class AbstractUISheet extends AbstractUIData
 
   public void setHeaderGrid(final Grid headerGrid) {
     this.headerGrid = headerGrid;
-  }
-
-  @Override
-  public String getDefaultEventName() {
-    return "reload";
-  }
-
-  @Override
-  public Collection<String> getEventNames() {
-    return EVENT_NAMES;
   }
 }

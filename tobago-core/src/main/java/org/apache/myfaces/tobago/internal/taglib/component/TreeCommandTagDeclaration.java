@@ -19,10 +19,12 @@
 
 package org.apache.myfaces.tobago.internal.taglib.component;
 
+import org.apache.myfaces.tobago.apt.annotation.Behavior;
 import org.apache.myfaces.tobago.apt.annotation.BodyContentDescription;
 import org.apache.myfaces.tobago.apt.annotation.Facet;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
+import org.apache.myfaces.tobago.component.ClientBehaviors;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasAccessKey;
@@ -62,6 +64,14 @@ import javax.faces.component.UICommand;
             name = Facets.CONFIRMATION,
             description = "Contains a UIOutput instance with the confirmation message.",
             allowedChildComponenents = "org.apache.myfaces.tobago.Out")},
+    behaviors = {
+        @Behavior(
+            name = ClientBehaviors.CLICK,
+            description = "Behavior of a click event.",
+            isDefault = true),
+        @Behavior(
+            name = ClientBehaviors.DBLCLICK)
+    },
     rendererType = RendererTypes.TREE_COMMAND)
 public interface TreeCommandTagDeclaration
     extends HasIdBindingAndRendered, HasAction, HasActionListener, IsImmediateCommand, HasConfirmation,

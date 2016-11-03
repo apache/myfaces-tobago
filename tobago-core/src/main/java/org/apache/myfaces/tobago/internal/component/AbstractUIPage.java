@@ -31,8 +31,6 @@ import javax.faces.component.UIViewRoot;
 import javax.faces.component.behavior.ClientBehaviorHolder;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.Iterator;
 
 public abstract class AbstractUIPage extends AbstractUIFormBase implements Visual, ClientBehaviorHolder {
@@ -44,22 +42,6 @@ public abstract class AbstractUIPage extends AbstractUIFormBase implements Visua
   public static final String FORM_ACCEPT_CHARSET = "utf-8";
 
   private String formId;
-
-  // todo generate
-  private static final Collection<String> EVENT_NAMES = Arrays.asList("click", "resize", "load");
-
-  // todo generate
-  @Override
-  public String getDefaultEventName() {
-    return "click";
-  }
-
-  // todo generate
-  @Override
-  public Collection<String> getEventNames() {
-    return EVENT_NAMES;
-  }
-
 
   @Override
   public boolean getRendersChildren() {

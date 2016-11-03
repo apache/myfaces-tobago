@@ -19,12 +19,14 @@
 
 package org.apache.myfaces.tobago.internal.taglib.component;
 
+import org.apache.myfaces.tobago.apt.annotation.Behavior;
 import org.apache.myfaces.tobago.apt.annotation.DynamicExpression;
 import org.apache.myfaces.tobago.apt.annotation.Facet;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
+import org.apache.myfaces.tobago.component.ClientBehaviors;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
@@ -45,11 +47,17 @@ import javax.faces.component.UIOutput;
     rendererType = RendererTypes.PROGRESS,
     allowedChildComponenents = "NONE",
     facets = {@Facet(
-        name= Facets.COMPLETE,
+        name = Facets.COMPLETE,
         description =
             "Contains an instance of UICommand (tc:command). The action is invoked if the full progress has reached",
-        allowedChildComponenents = "org.apache.myfaces.tobago.Command")})
-        
+        allowedChildComponenents = "org.apache.myfaces.tobago.Command")},
+    behaviors = {
+        @Behavior(
+            name = ClientBehaviors.COMPLETE,
+            isDefault = true)
+    }
+)
+
 public interface ProgressTagDeclaration extends HasIdBindingAndRendered, HasTip, IsVisual {
 
   /**
@@ -57,7 +65,7 @@ public interface ProgressTagDeclaration extends HasIdBindingAndRendered, HasTip,
    */
   @TagAttribute
   @UIComponentTagAttribute(
-      type = { "javax.swing.BoundedRangeModel", "java.lang.Double" },
+      type = {"javax.swing.BoundedRangeModel", "java.lang.Double"},
       expression = DynamicExpression.VALUE_EXPRESSION_REQUIRED)
   void setValue(String value);
 
@@ -66,6 +74,6 @@ public interface ProgressTagDeclaration extends HasIdBindingAndRendered, HasTip,
    */
   @TagAttribute
   @UIComponentTagAttribute(
-      type = { "java.lang.Double" })
+      type = {"java.lang.Double"})
   void setMax(String max);
 }

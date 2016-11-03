@@ -26,25 +26,8 @@ import javax.el.ValueExpression;
 import javax.faces.component.UISelectBoolean;
 import javax.faces.component.behavior.ClientBehaviorHolder;
 import javax.faces.context.FacesContext;
-import java.util.Arrays;
-import java.util.Collection;
 
 public abstract class AbstractUITreeSelect extends UISelectBoolean implements Visual, ClientBehaviorHolder {
-
-  // todo generate
-  private static final Collection<String> EVENT_NAMES = Arrays.asList("change");
-
-  // todo generate
-  @Override
-  public String getDefaultEventName() {
-    return "change";
-  }
-
-  // todo generate
-  @Override
-  public Collection<String> getEventNames() {
-    return EVENT_NAMES;
-  }
 
   @Override
   public void updateModel(final FacesContext context) {
