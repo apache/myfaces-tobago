@@ -115,8 +115,6 @@ public class SelectBooleanCheckboxRenderer extends LabelLayoutRendererBase {
     final String commands = RenderUtils.getBehaviorCommands(facesContext, select);
     if (commands != null) {
       writer.writeAttribute(DataAttributes.COMMANDS, commands, true);
-    } else { // old
-      HtmlRendererUtils.renderCommandFacet(select, facesContext, writer);
     }
 
     writer.endElement(HtmlElements.INPUT);

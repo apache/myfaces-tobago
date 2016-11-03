@@ -34,6 +34,7 @@ public enum RendererTypes {
   Command,
   Commands,
   Date,
+  Event,
   Figure,
   File,
   FlexLayout,
@@ -100,6 +101,7 @@ public enum RendererTypes {
   public static final String COLUMN_SELECTOR = "ColumnSelector";
   public static final String COMMAND = "Command";
   public static final String COMMANDS = "Commands";
+  public static final String EVENT = "Event";
   public static final String DATE = "Date";
   public static final String FIGURE = "Figure";
   public static final String FILE = "File";

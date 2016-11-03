@@ -233,7 +233,12 @@ public class PageRenderer extends RendererBase {
         page.getCustomClass());
     writer.writeIdAttribute(clientId);
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, page);
-    HtmlRendererUtils.renderCommandFacet(page, facesContext, writer);
+
+
+    final String commands = RenderUtils.getBehaviorCommands(facesContext, page);
+    if (commands != null) {
+      writer.writeAttribute(DataAttributes.COMMANDS, commands, true);
+    }
 
     writer.startElement(HtmlElements.FORM);
     if (preventFrameAttacks && !facesContext.getPartialViewContext().isAjaxRequest()) {

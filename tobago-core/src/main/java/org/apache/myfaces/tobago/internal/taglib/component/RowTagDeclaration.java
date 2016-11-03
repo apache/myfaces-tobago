@@ -20,23 +20,17 @@
 package org.apache.myfaces.tobago.internal.taglib.component;
 
 import org.apache.myfaces.tobago.apt.annotation.Tag;
-import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
-import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
 
 /**
- * This component creates an event in a UISheet for each row.
+ * This component creates a representative in a UISheet for each row.
+ * The tag must be a subtag of &lt;tc:sheet>
  */
-@Tag(name = "columnEvent")
+@Tag(name = "row")
 @UIComponentTag(
-    uiComponent = "org.apache.myfaces.tobago.component.UIColumnEvent",
-    uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUIColumnEvent",
-    uiComponentFacesClass = "javax.faces.component.UIColumn",
-    interfaces = "org.apache.myfaces.tobago.component.ColumnEvent")
-public interface ColumnEventTagDeclaration extends HasIdBindingAndRendered {
-
-  @TagAttribute
-  @UIComponentTagAttribute(type = "java.lang.String", allowedValues = {"click", "dblclick"})
-  void setEvent(String event);
+    uiComponent = "org.apache.myfaces.tobago.component.UIRow",
+    uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUIRow",
+    uiComponentFacesClass = "javax.faces.component.UIColumn")
+public interface RowTagDeclaration extends HasIdBindingAndRendered {
 }

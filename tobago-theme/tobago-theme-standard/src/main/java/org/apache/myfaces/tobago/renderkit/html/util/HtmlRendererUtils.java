@@ -20,12 +20,9 @@
 package org.apache.myfaces.tobago.renderkit.html.util;
 
 import org.apache.myfaces.tobago.component.Attributes;
-import org.apache.myfaces.tobago.component.Facets;
-import org.apache.myfaces.tobago.component.UIForm;
 import org.apache.myfaces.tobago.component.Visual;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
-import org.apache.myfaces.tobago.internal.component.AbstractUICommand;
 import org.apache.myfaces.tobago.internal.util.FacesContextUtils;
 import org.apache.myfaces.tobago.internal.webapp.TobagoResponseWriterWrapper;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
@@ -33,12 +30,9 @@ import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.FontAwesomeIconEncoder;
 import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
-import org.apache.myfaces.tobago.renderkit.html.Command;
-import org.apache.myfaces.tobago.renderkit.html.CommandMap;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
-import org.apache.myfaces.tobago.renderkit.html.JsonUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.util.FacetUtils;
@@ -272,46 +266,6 @@ public final class HtmlRendererUtils {
         writer.writeText(item.getLabel());
         writer.endElement(HtmlElements.OPTION);
       }
-    }
-  }
-
-  /**
-   * @deprecated Use client behaviour instead.
-   */
-  @Deprecated
-  public static void renderCommandFacet(
-      final UIComponent component, final FacesContext facesContext, final TobagoResponseWriter writer)
-      throws IOException {
-    renderCommandFacet(component, component.getClientId(facesContext), facesContext, writer);
-  }
-
-  /**
-   * @deprecated Use client behaviour instead.
-   */
-  @Deprecated
-  public static void renderCommandFacet(
-      final UIComponent component, final String id, final FacesContext facesContext, final TobagoResponseWriter writer)
-      throws IOException {
-    if (ComponentUtils.getBooleanAttribute(component, Attributes.readonly)
-        || ComponentUtils.getBooleanAttribute(component, Attributes.disabled)) {
-      return;
-    }
-    CommandMap commandMap = null;
-    final Map<String, UIComponent> facets = component.getFacets();
-    for (final Map.Entry<String, UIComponent> entry : facets.entrySet()) {
-      final UIComponent facetComponent = entry.getValue();
-      final String key = entry.getKey();
-      if (facetComponent.isRendered()
-          && (facetComponent instanceof AbstractUICommand || facetComponent instanceof UIForm)
-          && Facets.isEvent(key)) {
-        if (commandMap == null) {
-          commandMap = new CommandMap();
-        }
-        commandMap.addCommand(key, new Command(facesContext, entry.getValue(), id));
-      }
-    }
-    if (commandMap != null) {
-      writer.writeAttribute(DataAttributes.COMMANDS, JsonUtils.encode(commandMap), true);
     }
   }
 

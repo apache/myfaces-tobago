@@ -20,6 +20,7 @@
 package org.apache.myfaces.tobago.renderkit.html;
 
 import org.apache.myfaces.tobago.component.Attributes;
+import org.apache.myfaces.tobago.component.ClientBehaviors;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.component.UIButton;
 import org.apache.myfaces.tobago.internal.component.AbstractUICommand;
@@ -55,7 +56,7 @@ public class JsonUtilsUnitTest extends AbstractTobagoTestBase {
   @Test
   public void change() {
     final CommandMap map = new CommandMap();
-    map.addCommand("change", new Command(null, null, null, null, null, null, null, null, null, null));
+    map.addCommand(ClientBehaviors.change, new Command(null, null, null, null, null, null, null, null, null, null));
     final String expected = "{'change':{}}".replaceAll("'", "\"");
     Assert.assertEquals(expected, JsonUtils.encode(map));
   }
@@ -63,8 +64,8 @@ public class JsonUtilsUnitTest extends AbstractTobagoTestBase {
   @Test
   public void two() {
     final CommandMap map = new CommandMap();
-    map.addCommand("click", new Command(null, null, "target", null, null, null, null, null, null, null));
-    map.addCommand("change", new Command(null, null, null, null, null, null, null, null, null, null));
+    map.addCommand(ClientBehaviors.click, new Command(null, null, "target", null, null, null, null, null, null, null));
+    map.addCommand(ClientBehaviors.change, new Command(null, null, null, null, null, null, null, null, null, null));
     final String expected = "{'click':{'target':'target'},'change':{}}".replaceAll("'", "\"");
     Assert.assertEquals(expected, JsonUtils.encode(map));
   }

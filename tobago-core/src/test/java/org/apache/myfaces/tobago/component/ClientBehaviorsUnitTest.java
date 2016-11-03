@@ -17,27 +17,16 @@
  * under the License.
  */
 
-package org.apache.myfaces.tobago.internal.component;
+package org.apache.myfaces.tobago.component;
 
-import javax.faces.component.behavior.ClientBehaviorHolder;
-import java.util.Arrays;
-import java.util.Collection;
+import org.apache.myfaces.tobago.util.EnumUnitTest;
+import org.junit.Test;
 
-public abstract class AbstractUIPanel extends AbstractUICollapsiblePanel implements ClientBehaviorHolder {
+public class ClientBehaviorsUnitTest extends EnumUnitTest {
 
-  // todo generate
-  private static final Collection<String> EVENT_NAMES = Arrays.asList("click", "mouseover", "mouseout");
-
-  // todo generate
-  @Override
-  public String getDefaultEventName() {
-    return "click";
-  }
-
-  // todo generate
-  @Override
-  public Collection<String> getEventNames() {
-    return EVENT_NAMES;
+  @Test
+  public void testNames() throws IllegalAccessException, NoSuchFieldException {
+    testNames(Facets.class);
   }
 
 }

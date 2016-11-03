@@ -17,7 +17,12 @@
  * under the License.
  */
 
-package org.apache.myfaces.tobago.component;
+package org.apache.myfaces.tobago.internal.component;
 
-public interface ColumnEvent {
+import org.apache.myfaces.tobago.component.ClientBehaviors;
+
+public abstract class AbstractUIEvent extends AbstractUICommandBase {
+
+  public abstract ClientBehaviors getEvent();
+
 }

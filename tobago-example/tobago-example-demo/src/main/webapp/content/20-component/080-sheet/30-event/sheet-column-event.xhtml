@@ -39,27 +39,27 @@
     <p>Select an object from the SolarObjects list.</p>
     <tc:segmentLayout id="example" medium="5;7">
       <tc:box label="Solar Objects">
-        <tc:sheet id="s1" value="#{sheetController.solarList}" var="object" columns="1*" markup="small">
+        <tc:sheet id="s1" value="#{sheetController.solarList}" var="object" columns="*" markup="small">
           <tc:style maxHeight="486px"/>
           <tc:column label="#{overviewBundle.solarArrayName}">
             <tc:out value="#{object.name}" id="t_name" labelLayout="skip"/>
           </tc:column>
-          <tc:columnEvent id="sample0" rendered="#{sheetController.columnEventSample == 0}">
-            <tc:command actionListener="#{sheetController.selectSolarObject}" immediate="true" id="columnEventAjax">
+          <tc:row id="sample0" rendered="#{sheetController.columnEventSample == 0}">
+            <!-- todo: immediate? -->
+            <f:ajax render=":::detail" listener="#{sheetController.selectSolarObject}" id="columnEventAjax"/>
+          </tc:row>
+          <tc:row id="sample1" rendered="#{sheetController.columnEventSample == 1}">
+            <tc:event actionListener="#{sheetController.selectSolarObject}" immediate="true" id="columnEventClick"
+                      event="click">
               <tc:resetInputActionListener/>
-              <f:ajax render=":::detail"/>
-            </tc:command>
-          </tc:columnEvent>
-          <tc:columnEvent id="sample1" rendered="#{sheetController.columnEventSample == 1}" event="click">
-            <tc:command actionListener="#{sheetController.selectSolarObject}" immediate="true" id="columnEventClick">
+            </tc:event>
+          </tc:row>
+          <tc:row id="sample2" rendered="#{sheetController.columnEventSample == 2}">
+            <tc:event actionListener="#{sheetController.selectSolarObject}" immediate="true" id="columnEventDblClick"
+                      event="dblclick">
               <tc:resetInputActionListener/>
-            </tc:command>
-          </tc:columnEvent>
-          <tc:columnEvent id="sample2" rendered="#{sheetController.columnEventSample == 2}" event="dblclick">
-            <tc:command actionListener="#{sheetController.selectSolarObject}" immediate="true" id="columnEventDblClick">
-              <tc:resetInputActionListener/>
-            </tc:command>
-          </tc:columnEvent>
+            </tc:event>
+          </tc:row>
         </tc:sheet>
       </tc:box>
 

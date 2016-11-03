@@ -19,6 +19,7 @@
 
 package org.apache.myfaces.tobago.renderkit.html;
 
+import org.apache.myfaces.tobago.component.ClientBehaviors;
 import org.apache.myfaces.tobago.internal.context.DateTimeI18n;
 import org.apache.myfaces.tobago.layout.AutoLayoutToken;
 import org.apache.myfaces.tobago.layout.LayoutToken;
@@ -108,12 +109,12 @@ public class JsonUtils {
 
     final Command click = commandMap.getClick();
     if (click != null) {
-      encode(builder, "click", click);
+      encode(builder, ClientBehaviors.click, click);
     }
 
-    final Map<String, Command> other = commandMap.getOther();
+    final Map<ClientBehaviors, Command> other = commandMap.getOther();
     if (other != null) {
-      for(final Map.Entry<String, Command> entry : other.entrySet()) {
+      for(final Map.Entry<ClientBehaviors, Command> entry : other.entrySet()) {
         encode(builder, entry.getKey(), entry.getValue());
       }
     }
@@ -127,7 +128,7 @@ public class JsonUtils {
     return builder.toString();
   }
 
-  private static void encode(final StringBuilder builder, final String name, final Command command) {
+  private static void encode(final StringBuilder builder, final ClientBehaviors name, final Command command) {
     builder.append("\"");
     builder.append(name);
     builder.append("\":{");
@@ -144,10 +145,6 @@ public class JsonUtils {
     final String target = command.getTarget();
     if (target != null) {
       encode(builder, "target", target);
-    }
-    final String partially = command.getPartially();
-    if (partially != null) {
-      encode(builder, "partially", partially);
     }
     final String execute = command.getExecute();
     if (execute != null) {

@@ -42,7 +42,7 @@ import javax.faces.component.UIData;
  * Render a sheet element.
  */
 @Tag(name = "sheet")
-@BodyContentDescription(anyTagOf = "<tc:column>* <tc:columnSelector>? <tc:columnEvent>?")
+@BodyContentDescription(anyTagOf = "<tc:column>* <tc:columnSelector>? <tc:row>?")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UISheet",
     uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUISheet",

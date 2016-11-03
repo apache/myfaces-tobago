@@ -19,45 +19,14 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
-import org.apache.myfaces.tobago.component.SupportsAccessKey;
-import org.apache.myfaces.tobago.component.Visual;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import javax.faces.component.UICommand;
-import javax.faces.component.UIComponent;
-import javax.faces.component.UIInput;
 import javax.faces.component.behavior.ClientBehaviorHolder;
 import java.util.Arrays;
 import java.util.Collection;
 
-public abstract class AbstractUICommand extends AbstractUICommandBase
-    implements SupportsAccessKey, Visual, ClientBehaviorHolder {
-
-  private static final Logger LOG = LoggerFactory.getLogger(AbstractUICommand.class);
+public class AbstractUIRow extends AbstractUIColumnBase implements ClientBehaviorHolder {
 
   // todo generate
-  private static final Collection<String> EVENT_NAMES = Arrays.asList("click", "change");
-
-  enum PropertyKeys {
-    disabled,
-  }
-
-  // todo: transient
-  private Boolean parentOfCommands;
-
-  public boolean isParentOfCommands() {
-    if (parentOfCommands == null) {
-      parentOfCommands = false;
-      for (UIComponent child : getChildren()) {
-        if (child instanceof UICommand || child instanceof UIInput) {
-          parentOfCommands = true;
-          break;
-        }
-      }
-    }
-    return parentOfCommands;
-  }
+  private static final Collection<String> EVENT_NAMES = Arrays.asList("click", "dblclick");
 
   // todo generate
   @Override
@@ -65,12 +34,13 @@ public abstract class AbstractUICommand extends AbstractUICommandBase
     return "click";
   }
 
+
+
+
   // todo generate
   @Override
   public Collection<String> getEventNames() {
     return EVENT_NAMES;
   }
 
-  @Override
-  public abstract String getLabel();
 }

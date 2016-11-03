@@ -100,8 +100,6 @@ public class TextareaRenderer extends LabelLayoutRendererBase {
     final String commands = RenderUtils.getBehaviorCommands(facesContext, input);
     if (commands != null) {
       writer.writeAttribute(DataAttributes.COMMANDS, commands, true);
-    } else { // old
-      HtmlRendererUtils.renderCommandFacet(input, facesContext, writer);
     }
 
     HtmlRendererUtils.renderFocus(clientId, input.isFocus(), ComponentUtils.isError(input), facesContext, writer);

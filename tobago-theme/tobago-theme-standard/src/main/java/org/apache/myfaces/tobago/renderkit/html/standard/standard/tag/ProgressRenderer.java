@@ -19,14 +19,15 @@
 
 package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
-import org.apache.myfaces.tobago.component.UICommand;
 import org.apache.myfaces.tobago.component.UIProgress;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
+import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
+import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -63,9 +64,9 @@ public class ProgressRenderer extends RendererBase {
     writer.writeAttribute(HtmlAttributes.MAX, Double.toString(max), false);
     writer.writeAttribute(HtmlAttributes.VALUE, Double.toString(value), false);
 
-    final UIComponent facet = progress.getFacet("complete");
-    if (value == max && facet instanceof UICommand) {
-      HtmlRendererUtils.renderCommandFacet(progress, facesContext, writer);
+    final String commands = RenderUtils.getBehaviorCommands(facesContext, progress);
+    if (commands != null) {
+      writer.writeAttribute(DataAttributes.COMMANDS, commands, true);
     }
   }
 

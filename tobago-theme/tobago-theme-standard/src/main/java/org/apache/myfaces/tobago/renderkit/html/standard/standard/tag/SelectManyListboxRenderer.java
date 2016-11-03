@@ -75,8 +75,6 @@ public class SelectManyListboxRenderer extends SelectManyRendererBase {
     final String commands = RenderUtils.getBehaviorCommands(facesContext, select);
     if (commands != null) {
       writer.writeAttribute(DataAttributes.COMMANDS, commands, true);
-    } else { // old
-      HtmlRendererUtils.renderCommandFacet(select, facesContext, writer);
     }
     final Object[] values = select.getSelectedValues();
     final String[] submittedValues = getSubmittedValues(select);

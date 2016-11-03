@@ -29,15 +29,15 @@ import org.apache.myfaces.tobago.component.UIOut;
 import org.apache.myfaces.tobago.component.UIPanel;
 import org.apache.myfaces.tobago.component.UIReload;
 import org.apache.myfaces.tobago.component.UISheet;
-import org.apache.myfaces.tobago.component.Visual;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.event.PageAction;
+import org.apache.myfaces.tobago.internal.component.AbstractUIColumn;
 import org.apache.myfaces.tobago.internal.component.AbstractUIColumnBase;
-import org.apache.myfaces.tobago.internal.component.AbstractUIColumnEvent;
 import org.apache.myfaces.tobago.internal.component.AbstractUIColumnNode;
 import org.apache.myfaces.tobago.internal.component.AbstractUIData;
 import org.apache.myfaces.tobago.internal.component.AbstractUIOut;
+import org.apache.myfaces.tobago.internal.component.AbstractUIRow;
 import org.apache.myfaces.tobago.internal.component.AbstractUISheet;
 import org.apache.myfaces.tobago.internal.layout.Cell;
 import org.apache.myfaces.tobago.internal.layout.Grid;
@@ -59,8 +59,6 @@ import org.apache.myfaces.tobago.renderkit.css.Icons;
 import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.Arias;
-import org.apache.myfaces.tobago.renderkit.html.Command;
-import org.apache.myfaces.tobago.renderkit.html.CommandMap;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlButtonTypes;
@@ -160,7 +158,7 @@ public class SheetRenderer extends RendererBase {
       final List<AbstractUIColumnBase> columns = sheet.getAllColumns();
       int i = 0;
       for (final AbstractUIColumnBase column : columns) {
-        if (!(column instanceof AbstractUIColumnEvent)) {
+        if (!(column instanceof AbstractUIRow)) {
           final AbstractUIOut out = (AbstractUIOut) CreateComponentUtils.createComponent(
               facesContext, UIOut.COMPONENT_TYPE, RendererTypes.Out, "_col" + i);
 //        out.setValue(column.getLabel());
@@ -222,7 +220,6 @@ public class SheetRenderer extends RendererBase {
     final UISheet sheet = (UISheet) uiComponent;
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
-    final String rowActionId = renderSheetCommands(sheet, facesContext, writer);
     final String sheetId = sheet.getClientId(facesContext);
     final Selectable selectable = sheet.getSelectable();
     final Application application = facesContext.getApplication();
@@ -253,7 +250,7 @@ public class SheetRenderer extends RendererBase {
       writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN);
       final ArrayList<String> encodedRendered = new ArrayList<String>();
       for (AbstractUIColumnBase column : columns) {
-        if (!(column instanceof AbstractUIColumnEvent)) {
+        if (!(column instanceof AbstractUIRow)) {
           encodedRendered.add(Boolean.toString(column.isRendered()));
         }
       }
@@ -389,11 +386,6 @@ public class SheetRenderer extends RendererBase {
         writer.writeAttribute(DataAttributes.ROW_INDEX, rowIndex);
       }
 
-      if (rowActionId != null) {
-        // dirty hack: we need this id in the dom to allow ajax action on columnEvent
-        writer.writeIdAttribute(sheetId + ":" + sheet.getRowIndex() + ":" + rowActionId);
-      }
-
       final boolean selected = selectedRows.contains(rowIndex);
       final String[] rowMarkups = (String[]) sheet.getAttributes().get("rowMarkup");
       Markup rowMarkup = Markup.NULL;
@@ -415,42 +407,55 @@ public class SheetRenderer extends RendererBase {
       }
 
       for (final UIColumn column : columns) {
-        if (column.isRendered() && !(column instanceof AbstractUIColumnEvent)) {
-          writer.startElement(HtmlElements.TD);
-          Markup markup = column instanceof Visual ? ((Visual) column).getMarkup() : Markup.NULL;
-          if (markup == null) {
-            markup = Markup.NULL;
-          }
-          if (rowActionId != null) {
-            markup = markup.add(Markup.CLICKABLE);
-          }
-          markup = markup.add(getMarkupForAlign(column));
-          writer.writeClassAttribute(Classes.create(sheet, "cell", markup));
+        if (column.isRendered()) {
+          if (column instanceof AbstractUIRow) {
+            final AbstractUIRow row = (AbstractUIRow) column;
+            final String commands = RenderUtils.getBehaviorCommands(facesContext, row);
+            writer.writeAttribute(DataAttributes.COMMANDS, commands, true);
+            writer.writeIdAttribute(row.getClientId(facesContext));
 
-          if (column instanceof UIColumnSelector) {
-            UIColumnSelector selector = (UIColumnSelector) column;
-            writer.startElement(HtmlElements.INPUT);
-            if (selectable.isSingle()) {
-              writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.RADIO);
+            // todo: Markup.CLICKABLE ???
+          }
+        }
+      }
+
+      for (final UIColumn column : columns) {
+        if (column.isRendered()) {
+          if (column instanceof AbstractUIColumn) {
+            AbstractUIColumn normalColumn = (AbstractUIColumn) column;
+            writer.startElement(HtmlElements.TD);
+            Markup markup = normalColumn.getMarkup();
+            if (markup == null) {
+              markup = Markup.NULL;
+            }
+            markup = markup.add(getMarkupForAlign(normalColumn));
+            writer.writeClassAttribute(Classes.create(sheet, "cell", markup));
+
+            if (normalColumn instanceof UIColumnSelector) {
+              UIColumnSelector selector = (UIColumnSelector) normalColumn;
+              writer.startElement(HtmlElements.INPUT);
+              if (selectable.isSingle()) {
+                writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.RADIO);
+              } else {
+                writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.CHECKBOX);
+              }
+              writer.writeAttribute(HtmlAttributes.CHECKED, selected);
+              writer.writeAttribute(HtmlAttributes.DISABLED, selector.isDisabled());
+              writer.writeClassAttribute(
+                  BootstrapClass.FORM_CHECK_INLINE,
+                  Classes.create(sheet, "columnSelector"));
+              writer.endElement(HtmlElements.INPUT);
+            } else if (normalColumn instanceof AbstractUIColumnNode) {
+              RenderUtils.encode(facesContext, normalColumn);
             } else {
-              writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.CHECKBOX);
+              final List<UIComponent> children = sheet.getRenderedChildrenOf(normalColumn);
+              for (final UIComponent grandKid : children) {
+                RenderUtils.encode(facesContext, grandKid);
+              }
             }
-            writer.writeAttribute(HtmlAttributes.CHECKED, selected);
-            writer.writeAttribute(HtmlAttributes.DISABLED, selector.isDisabled());
-            writer.writeClassAttribute(
-                BootstrapClass.FORM_CHECK_INLINE,
-                Classes.create(sheet, "columnSelector"));
-            writer.endElement(HtmlElements.INPUT);
-          } else if (column instanceof AbstractUIColumnNode) {
-            RenderUtils.encode(facesContext, column);
-          } else {
-            final List<UIComponent> children = sheet.getRenderedChildrenOf(column);
-            for (final UIComponent grandKid : children) {
-              RenderUtils.encode(facesContext, grandKid);
-            }
-          }
 
-          writer.endElement(HtmlElements.TD);
+            writer.endElement(HtmlElements.TD);
+          }
         }
       }
 
@@ -472,7 +477,7 @@ public class SheetRenderer extends RendererBase {
       writer.startElement(HtmlElements.TR);
       for (int j = 0; j < columns.size(); j++) {
         final UIColumn column = columns.get(j);
-        if (!(column instanceof AbstractUIColumnEvent)) {
+        if (!(column instanceof AbstractUIRow)) {
           writer.startElement(HtmlElements.TD);
           writer.startElement(HtmlElements.DIV);
           final Integer divWidth = columnWidths.get(j);
@@ -700,7 +705,7 @@ public class SheetRenderer extends RendererBase {
     int i = 0;
     int j = 0;
     for (AbstractUIColumnBase column : columns) {
-      if (!(column instanceof AbstractUIColumnEvent)) {
+      if (!(column instanceof AbstractUIRow)) {
         Integer newValue;
         if (j < samples.size()) {
           newValue = samples.get(j);
@@ -752,7 +757,7 @@ public class SheetRenderer extends RendererBase {
       writer.startElement(HtmlElements.TR);
       for (int j = 0; j < columns.size(); j++) {
         final AbstractUIColumnBase column = columns.get(j);
-        if (column instanceof AbstractUIColumnEvent) {
+        if (column instanceof AbstractUIRow) {
           offset++;
         } else {
          final Cell cell = grid.getCell(j - offset , i);
@@ -928,7 +933,7 @@ public class SheetRenderer extends RendererBase {
 
     int i = 0;
     for (AbstractUIColumnBase column : columns) {
-      if (!(column instanceof AbstractUIColumnEvent)) {
+      if (!(column instanceof AbstractUIRow)) {
         if (column.isRendered()) {
           final Integer width = columnWidths.get(i);
           writeCol(writer, width >= 0 ? width : null);
@@ -991,8 +996,6 @@ public class SheetRenderer extends RendererBase {
     if (target != null) {
       ComponentUtils.setAttribute(command, Attributes.pagingTarget, target);
     }
-//    command.setExecutePartially(new String[]{data.getId()});
-//    command.setRenderPartially(new String[]{data.getId()});
 
     final Locale locale = facesContext.getViewRoot().getLocale();
     final String message = ResourceManagerUtils.getPropertyNotNull(facesContext, "tobago", "sheet" + action.getToken());
@@ -1160,33 +1163,4 @@ public class SheetRenderer extends RendererBase {
       return null;
     }
   }
-
-  private static String renderSheetCommands(
-      final UISheet sheet, final FacesContext facesContext, final TobagoResponseWriter writer) throws IOException {
-    // TODO: TOBAGO-1572
-    final CommandMap commandMap = new CommandMap();
-    String rowActionId = null;
-    for (final UIComponent child : sheet.getChildren()) {
-      if (child instanceof AbstractUIColumnEvent && child.isRendered()) {
-        final AbstractUIColumnEvent columnEvent = (AbstractUIColumnEvent) child;
-        for (UIComponent uiCommand : columnEvent.getChildren()) {
-          if (uiCommand.isRendered()) {
-            if (uiCommand instanceof ClientBehaviorHolder) {
-              RenderUtils.addBehaviorCommands(facesContext, (ClientBehaviorHolder) uiCommand, commandMap);
-              rowActionId = uiCommand.getId();
-            }
-            final String event = columnEvent.getEvent();
-            if (event != null) {
-              commandMap.addCommand(event, new Command(facesContext, uiCommand, null));
-            }
-          }
-        }
-      }
-    }
-    if (!commandMap.isEmpty()) {
-      writer.writeAttribute(DataAttributes.ROW_ACTION, JsonUtils.encode(commandMap), true);
-    }
-    return rowActionId;
-  }
-
 }

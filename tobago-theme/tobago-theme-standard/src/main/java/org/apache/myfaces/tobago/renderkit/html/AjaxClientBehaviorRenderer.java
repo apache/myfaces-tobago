@@ -19,11 +19,16 @@
 
 package org.apache.myfaces.tobago.renderkit.html;
 
+import org.apache.myfaces.tobago.component.ClientBehaviors;
+import org.apache.myfaces.tobago.internal.behavior.EventBehavior;
 import org.apache.myfaces.tobago.internal.component.AbstractUICommand;
+import org.apache.myfaces.tobago.internal.component.AbstractUIEvent;
 import org.apache.myfaces.tobago.internal.component.AbstractUIOperation;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.faces.component.ActionSource;
 import javax.faces.component.EditableValueHolder;
@@ -40,51 +45,64 @@ import java.util.List;
 
 public class AjaxClientBehaviorRenderer extends ClientBehaviorRenderer {
 
+  private static final Logger LOG = LoggerFactory.getLogger(AjaxClientBehaviorRenderer.class);
+
   public static final String COMMAND_MAP = AjaxClientBehaviorRenderer.class.getName() + ".CommandMap";
 
   @Override
   public String getScript(ClientBehaviorContext behaviorContext, ClientBehavior behavior) {
 
-    final AjaxBehavior ajaxBehavior = (AjaxBehavior) behavior;
     final FacesContext facesContext = behaviorContext.getFacesContext();
-    final Collection<String> execute = ajaxBehavior.getExecute();
-    final Collection<String> render = ajaxBehavior.getRender();
     final UIComponent uiComponent = behaviorContext.getComponent();
+    final ClientBehaviors eventName = ClientBehaviors.valueOf(behaviorContext.getEventName());
 
     //// TBD: is this nice? May be implemented with a JSF behaviour?
     final Collapse collapse = createCollapsible(facesContext, uiComponent);
 
-    final UIComponent component;
-    if (uiComponent instanceof AbstractUICommand) {
-      component = uiComponent;
-    } else {
-      final UIComponent facetComponent = uiComponent.getFacet(behaviorContext.getEventName());
-      if (facetComponent instanceof AbstractUICommand) {
-        component = facetComponent;
+    String executeIds = null;
+    String renderIds = null;
+    Boolean transition = null;
+    String target = null;
+    String actionId = null;
+    boolean omit = false;
+    if (behavior instanceof AjaxBehavior) {
+      AjaxBehavior ajaxBehavior = (AjaxBehavior) behavior;
+      final Collection<String> execute = ajaxBehavior.getExecute();
+      final Collection<String> render = ajaxBehavior.getRender();
+      final String clientId = uiComponent.getClientId(facesContext);
+
+      executeIds
+          = ComponentUtils.evaluateClientIds(facesContext, uiComponent, execute.toArray(new String[execute.size()]));
+      if (executeIds != null) {
+        executeIds = executeIds + " " + clientId;
       } else {
-        component = uiComponent;
+        executeIds = clientId;
       }
-    }
-
-    boolean omit = component instanceof AbstractUICommand
-        && (((AbstractUICommand) component).isOmit()
-            // if it is a link, the default submit must not be called.
-            || StringUtils.isNotBlank(RenderUtils.generateUrl(facesContext, (AbstractUICommand) component)));
-
-    final String clientId = component.getClientId(facesContext);
-    String executeIds =
-        ComponentUtils.evaluateClientIds(facesContext, component, execute.toArray(new String[execute.size()]));
-    if (executeIds != null) {
-      executeIds = executeIds + " " + clientId;
+      if (uiComponent instanceof AbstractUICommand) { // <f:ajax> inside of a command
+        AbstractUICommand command = (AbstractUICommand) uiComponent;
+        transition = command.isTransition();
+        target = command.getTarget();
+        omit = command.isOmit() || StringUtils.isNotBlank(RenderUtils.generateUrl(facesContext, command));
+      }
+      renderIds =
+          ComponentUtils.evaluateClientIds(facesContext, uiComponent, render.toArray(new String[render.size()]));
+      actionId = clientId;
+    } else if (behavior instanceof EventBehavior) { // <tc:event>
+      AbstractUIEvent event = findEvent(uiComponent, eventName);
+      transition = event.isTransition();
+      target = event.getTarget();
+      actionId = event.getClientId(facesContext);
+      omit = event.isOmit() || StringUtils.isNotBlank(RenderUtils.generateUrl(facesContext, event));
     } else {
-      executeIds = clientId;
+      LOG.warn("Unknown behavior '{}'!", behavior.getClass().getName());
     }
+
     final Command command = new Command(
-        clientId,
-        (component instanceof AbstractUICommand) ? ((AbstractUICommand) component).isTransition() : null,
-        (component instanceof AbstractUICommand) ? ((AbstractUICommand) component).getTarget() : null,
+        actionId,
+        transition,
+        target,
         executeIds,
-        ComponentUtils.evaluateClientIds(facesContext, component, render.toArray(new String[render.size()])),
+        renderIds,
         null,
         null, // getConfirmation(command), // todo
         null,
@@ -92,11 +110,23 @@ public class AjaxClientBehaviorRenderer extends ClientBehaviorRenderer {
         omit);
 
     final CommandMap map = new CommandMap();
-    map.addCommand(behaviorContext.getEventName(), command);
+    map.addCommand(eventName, command);
     facesContext.getAttributes().put(COMMAND_MAP, map);
 
     // XXX the return value is a string, but we should use a CommandMap
     return COMMAND_MAP;
+  }
+
+  private AbstractUIEvent findEvent(final UIComponent component, final ClientBehaviors eventName) {
+    for (UIComponent child : component.getChildren()) {
+      if (child instanceof AbstractUIEvent) {
+        AbstractUIEvent event = (AbstractUIEvent) child;
+        if (eventName == event.getEvent()) {
+          return event;
+        }
+      }
+    }
+    return null;
   }
 
   @Override

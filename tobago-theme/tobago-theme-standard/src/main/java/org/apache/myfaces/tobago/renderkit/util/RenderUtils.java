@@ -19,21 +19,22 @@
 
 package org.apache.myfaces.tobago.renderkit.util;
 
+import org.apache.myfaces.tobago.component.ClientBehaviors;
 import org.apache.myfaces.tobago.internal.component.AbstractUICommand;
+import org.apache.myfaces.tobago.internal.component.AbstractUICommandBase;
 import org.apache.myfaces.tobago.internal.component.AbstractUIData;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.model.ExpandedState;
 import org.apache.myfaces.tobago.model.SelectedState;
 import org.apache.myfaces.tobago.model.TreePath;
 import org.apache.myfaces.tobago.renderkit.html.AjaxClientBehaviorRenderer;
+import org.apache.myfaces.tobago.renderkit.html.Command;
 import org.apache.myfaces.tobago.renderkit.html.CommandMap;
 import org.apache.myfaces.tobago.renderkit.html.JsonUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.faces.application.Application;
-import javax.faces.application.ViewHandler;
 import javax.faces.component.EditableValueHolder;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIParameter;
@@ -204,10 +205,8 @@ public final class RenderUtils {
     return null;
   }
 
-  public static String generateUrl(final FacesContext facesContext, final AbstractUICommand component) {
+  public static String generateUrl(final FacesContext facesContext, final AbstractUICommandBase component) {
 
-    final Application application = facesContext.getApplication();
-    final ViewHandler viewHandler = application.getViewHandler();
     final ExternalContext externalContext = facesContext.getExternalContext();
 
     String url = null;
@@ -257,6 +256,13 @@ public final class RenderUtils {
 
     final CommandMap map = new CommandMap();
     addBehaviorCommands(facesContext, holder, map);
+
+    // if there is no explicit behavior (with f:ajax or tc:event), use the command properties as default.
+    // tbd: think about refactoring: put this into ClientBehaviorRenderer
+    if (map.isEmpty() && holder instanceof AbstractUICommand) {
+      map.addCommand(ClientBehaviors.click, new Command(facesContext, (AbstractUICommand) holder));
+    }
+
     if (map.isEmpty()) {
       return null;
     } else {

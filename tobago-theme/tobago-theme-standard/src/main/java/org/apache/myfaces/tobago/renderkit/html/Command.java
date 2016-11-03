@@ -43,7 +43,6 @@ public class Command {
   private String action;
   private Boolean transition;
   private String target;
-  private String partially;
   private String execute;
   private String render;
   private String focus;
@@ -150,24 +149,6 @@ public class Command {
 
   public void setTarget(final String target) {
     this.target = target;
-  }
-
-  /**
-   * @deprecated use getExecute() getRender() instead
-   */
-  @Deprecated
-  public String getPartially() {
-    return partially;
-  }
-
-  /**
-   * @deprecated use setExecute() setRender() instead
-   */
-  @Deprecated
-  public void setPartially(final String partially) {
-    if (StringUtils.isNotBlank(partially)) {
-      this.partially = partially;
-    }
   }
 
   public String getExecute() {

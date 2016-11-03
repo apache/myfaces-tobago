@@ -97,8 +97,6 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
       final String commands = RenderUtils.getBehaviorCommands(facesContext, select);
       if (commands != null) {
         writer.writeAttribute(DataAttributes.COMMANDS, commands, true);
-      } else { // old
-        HtmlRendererUtils.renderCommandFacet(select, itemId, facesContext, writer);
       }
       writer.endElement(HtmlElements.INPUT);
 

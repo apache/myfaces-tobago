@@ -416,7 +416,7 @@ public abstract class AbstractUISheet extends AbstractUIData
     final LayoutTokens tokens = new LayoutTokens();
     final List<AbstractUIColumnBase> columns = getAllColumns();
     for (final UIColumn column : columns) {
-      if (!(column instanceof AbstractUIColumnEvent)) {
+      if (!(column instanceof AbstractUIRow)) {
         tokens.addToken(RelativeLayoutToken.DEFAULT_INSTANCE);
       }
     }

@@ -26,19 +26,15 @@ import org.apache.myfaces.tobago.internal.component.AbstractUICommand;
 import org.apache.myfaces.tobago.internal.component.AbstractUIFormBase;
 import org.apache.myfaces.tobago.internal.util.AccessKeyLogger;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
-import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.CssItem;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
-import org.apache.myfaces.tobago.renderkit.html.Command;
-import org.apache.myfaces.tobago.renderkit.html.CommandMap;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlButtonTypes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRoleValues;
-import org.apache.myfaces.tobago.renderkit.html.JsonUtils;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
@@ -48,34 +44,13 @@ import org.slf4j.LoggerFactory;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
-import javax.faces.event.ActionEvent;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class CommandRendererBase extends RendererBase {
+public abstract class CommandRendererBase extends EventRenderer {
 
   private static final Logger LOG = LoggerFactory.getLogger(CommandRendererBase.class);
-
-  @Override
-  public void decode(final FacesContext facesContext, final UIComponent component) {
-
-    if (ComponentUtils.isOutputOnly(component)) {
-      return;
-    }
-    final String sourceId = facesContext.getExternalContext().getRequestParameterMap().get("javax.faces.source");
-    final String clientId = component.getClientId(facesContext);
-    if (LOG.isDebugEnabled()) {
-      LOG.debug("sourceId = '" + sourceId + "'");
-      LOG.debug("clientId = '" + clientId + "'");
-    }
-    if (clientId.equals(sourceId)) {
-      if (LOG.isDebugEnabled()) {
-        LOG.debug("queueEvent = '" + clientId + "'");
-      }
-      commandActivated(component);
-    }
-  }
 
   @Override
   public void encodeBegin(final FacesContext facesContext, final UIComponent component) throws IOException {
@@ -117,12 +92,10 @@ public abstract class CommandRendererBase extends RendererBase {
         command.setOmit(true);
       }
 
-      String commands = RenderUtils.getBehaviorCommands(facesContext, command);
-      if (commands == null) { // old way
-        final CommandMap map = new CommandMap(new Command(facesContext, command));
-        commands = JsonUtils.encode(map);
+      final String commands = RenderUtils.getBehaviorCommands(facesContext, command);
+      if (commands != null) {
+        writer.writeAttribute(DataAttributes.COMMANDS, commands, true);
       }
-      writer.writeAttribute(DataAttributes.COMMANDS, commands, true);
 
       if (label.getAccessKey() != null) {
         writer.writeAttribute(HtmlAttributes.ACCESSKEY, Character.toString(label.getAccessKey()), false);
@@ -244,10 +217,6 @@ public abstract class CommandRendererBase extends RendererBase {
     if (needsExtraSpanElement(command)) {
       writer.endElement(HtmlElements.SPAN);
     }
-  }
-
-  protected void commandActivated(final UIComponent component) {
-    component.queueEvent(new ActionEvent(component));
   }
 
   protected void addCssItems(

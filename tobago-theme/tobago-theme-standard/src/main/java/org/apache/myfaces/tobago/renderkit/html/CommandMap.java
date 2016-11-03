@@ -19,6 +19,8 @@
 
 package org.apache.myfaces.tobago.renderkit.html;
 
+import org.apache.myfaces.tobago.component.ClientBehaviors;
+
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -32,7 +34,7 @@ import java.util.Map;
 public class CommandMap {
 
   private Command click;
-  private Map<String, Command> other;
+  private Map<ClientBehaviors, Command> other;
 
   /**
    * Creates an empty command map, which may hold different command triggered by different keys.
@@ -55,21 +57,19 @@ public class CommandMap {
     return click;
   }
 
-  public void addCommand(final String name, final Command command) {
-    if (name.equals("click")) {
+  public void addCommand(final ClientBehaviors name, final Command command) {
+    if (name == ClientBehaviors.click) {
       setClick(command);
     } else {
       if (other == null) {
-        other = new HashMap<String, Command>();
+        other = new HashMap<ClientBehaviors, Command>();
       }
-
-      assert name.matches("[a-z]+");
 
       other.put(name, command);
     }
   }
 
-  public Map<String, Command> getOther() {
+  public Map<ClientBehaviors, Command> getOther() {
     if (other != null) {
       return Collections.unmodifiableMap(other);
     } else {
@@ -82,7 +82,7 @@ public class CommandMap {
     if (click != null) {
       setClick(click);
     } else {
-      for (Map.Entry<String, Command> entry : commandMap.getOther().entrySet()) {
+      for (Map.Entry<ClientBehaviors, Command> entry : commandMap.getOther().entrySet()) {
         addCommand(entry.getKey(), entry.getValue());
       }
     }

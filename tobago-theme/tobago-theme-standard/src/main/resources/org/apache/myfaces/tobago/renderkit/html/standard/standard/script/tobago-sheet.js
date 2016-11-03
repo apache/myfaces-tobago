@@ -56,9 +56,9 @@ Tobago.Sheet.init = function(elements) {
     var dblclick = commands ? commands.dblclick : undefined;
     new Tobago.Sheet(id, undefined, undefined, undefined, undefined,
         click != undefined ? click.action  : undefined,
-        click != undefined ? click.partially : undefined,
+        click != undefined ? click.partially : undefined, // fixme: partially no longer used
         dblclick != undefined ? dblclick.action : undefined,
-        dblclick != undefined ? dblclick.partially: undefined,
+        dblclick != undefined ? dblclick.partially: undefined, // fixme: partially no longer used
         sheet.data("tobago-behavior-commands")); // type array
 
     //////////////////////////////////////////////

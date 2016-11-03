@@ -34,7 +34,7 @@ public abstract class AbstractUIInput extends javax.faces.component.UIInput
     implements SupportsAccessKey, SupportsLabelLayout, Visual, ClientBehaviorHolder, SupportFieldId {
 
   // todo generate
-  private static final Collection<String> EVENT_NAMES = Arrays.asList("change");
+  private static final Collection<String> EVENT_NAMES = Arrays.asList("change", "click");
 
   // todo generate
   @Override

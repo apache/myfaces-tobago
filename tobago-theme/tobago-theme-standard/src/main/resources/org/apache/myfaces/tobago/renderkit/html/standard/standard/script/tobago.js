@@ -453,17 +453,19 @@ var Tobago = {
       });
     }
     if (commands.complete) {
-      if (commands.complete.execute || commands.complete.render) {
-        jsf.ajax.request(
-            jQuery(this).attr("id"),
-            null,
-            {
-              "javax.faces.behavior.event": "complete",
-              execute: commands.complete.execute,
-              render: commands.complete.render
-            });
-      } else {
-        Tobago.submitAction(this, commands.complete.action, commands.complete);
+      if (command.val() >= parseFloat(command.attr("max"))) {
+        if (commands.complete.execute || commands.complete.render) {
+          jsf.ajax.request(
+              jQuery(this).attr("id"),
+              null,
+              {
+                "javax.faces.behavior.event": "complete",
+                execute: commands.complete.execute,
+                render: commands.complete.render
+              });
+        } else {
+          Tobago.submitAction(this, commands.complete.action, commands.complete);
+        }
       }
     }
     if (commands.load) {

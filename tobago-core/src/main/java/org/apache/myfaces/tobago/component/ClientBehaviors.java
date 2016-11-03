@@ -17,9 +17,14 @@
  * under the License.
  */
 
-package org.apache.myfaces.tobago.internal.component;
+package org.apache.myfaces.tobago.component;
 
-public abstract class AbstractUIColumnEvent extends AbstractUIColumnBase {
+public enum ClientBehaviors {
 
-  public abstract String getEvent();
+  click,
+  change;
+
+  public static final String CLICK = "click";
+  public static final String CHANGE = "click";
+
 }

@@ -31,7 +31,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.component.UIData;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.DateTimeConverter;
-import javax.faces.event.ActionEvent;
+import javax.faces.event.FacesEvent;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -83,7 +83,7 @@ public class SheetController implements Serializable {
     this.sheetState = sheetState;
   }
 
-  public void selectSolarObject(final ActionEvent actionEvent) {
+  public void selectSolarObject(final FacesEvent actionEvent) {
     LOG.info("actionEvent=" + actionEvent);
     final UIData data = ComponentUtils.findAncestor(actionEvent.getComponent(), UIData.class);
     if (data != null) {

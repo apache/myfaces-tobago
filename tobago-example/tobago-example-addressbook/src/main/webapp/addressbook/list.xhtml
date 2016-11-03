@@ -109,9 +109,9 @@
                 var="address" state="#{controller.selectedAddresses}"
                 sortActionListener="#{controller.sheetSorter}" rows="15"
                 showRowRange="left" showPageRange="right" showDirectLinks="center">
-        <tc:columnEvent event="dblclick">
-          <tc:command action="#{controller.editAddress}"/>
-        </tc:columnEvent>
+        <tc:row>
+          <tc:event event="dblclick" action="#{controller.editAddress}"/>
+        </tc:row>
         <tc:column id="firstName" label="#{bundle.listFirstName}" sortable="true"
                    rendered="#{controller.renderFirstName}">
           <tc:out value="#{address.firstName}"/>
