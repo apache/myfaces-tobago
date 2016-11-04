@@ -394,7 +394,7 @@ var Tobago = {
     // setupInputFacetCommand
     var commands = element.data("tobago-commands");
 
-    var normalEvents = [];
+    var normalEvents = []; // todo: find a better way to do that in JS
     if (commands.click) {
       normalEvents.push({event: "click", command: commands.click});
     }
