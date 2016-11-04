@@ -17,7 +17,7 @@
  * limitations under the License.
 -->
 
-<ui:composition template="/main.xhtml"
+<ui:composition template="/plain.xhtml"
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
@@ -45,7 +45,6 @@
             <tc:out value="#{object.name}" id="t_name" labelLayout="skip"/>
           </tc:column>
           <tc:row id="sample0" rendered="#{sheetController.columnEventSample == 0}">
-            <!-- todo: immediate? -->
             <f:ajax render=":::detail" listener="#{sheetController.selectSolarObject}" id="columnEventAjax"/>
           </tc:row>
           <tc:row id="sample1" rendered="#{sheetController.columnEventSample == 1}">
