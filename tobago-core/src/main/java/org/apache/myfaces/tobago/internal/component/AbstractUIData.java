@@ -31,6 +31,9 @@ import org.slf4j.LoggerFactory;
 
 import javax.faces.FacesException;
 import javax.faces.component.ContextCallback;
+import javax.faces.component.UIComponent;
+import javax.faces.component.visit.VisitCallback;
+import javax.faces.component.visit.VisitContext;
 import javax.faces.context.FacesContext;
 import javax.faces.model.DataModel;
 import javax.swing.tree.TreeNode;
@@ -107,8 +110,9 @@ public abstract class AbstractUIData extends javax.faces.component.UIData implem
    * Creates the TreeDataModel which should be used.
    * Override this method to use a custom model for an unsupported tree model.
    * (Currently Tobago supports {@link TreeNode} out of the box.
-   * @param value The reference to the data model
-   *              (comes from the value attribute of the {@link javax.faces.component.UIData})
+   *
+   * @param value    The reference to the data model
+   *                 (comes from the value attribute of the {@link javax.faces.component.UIData})
    * @param showRoot comes from the showRoot attribute.
    */
   protected void createTreeDataModel(final Object value, final boolean showRoot) {
@@ -255,4 +259,56 @@ public abstract class AbstractUIData extends javax.faces.component.UIData implem
       return null;
     }
   }
+
+  /**
+   * This is, because we need to visit the UIRow for each row, which is not done in the base implementation.
+   */
+  @Override
+  public boolean visitTree(VisitContext context, VisitCallback callback) {
+
+    if (super.visitTree(context, callback)) {
+      return true;
+    }
+
+    // save the current row index
+    int oldRowIndex = getRowIndex();
+    // set row index to -1 to process the facets and to get the rowless clientId
+    setRowIndex(-1);
+    // push the Component to EL
+    pushComponentToEL(context.getFacesContext(), this);
+
+    try {
+      // iterate over the rows
+      int rowsToProcess = getRows();
+      // if getRows() returns 0, all rows have to be processed
+      if (rowsToProcess == 0) {
+        rowsToProcess = getRowCount();
+      }
+      int rowIndex = getFirst();
+      for (int rowsProcessed = 0; rowsProcessed < rowsToProcess; rowsProcessed++, rowIndex++) {
+        setRowIndex(rowIndex);
+        if (!isRowAvailable()) {
+          return false;
+        }
+        // visit the children of every child of the UIData that is an instance of UIColumn
+        for (int i = 0, childCount = getChildCount(); i < childCount; i++) {
+          UIComponent child = getChildren().get(i);
+          if (child instanceof AbstractUIRow) {
+            if (child.visitTree(context, callback)) {
+              return true;
+            }
+
+          }
+        }
+      }
+    } finally {
+      // pop the component from EL and restore the old row index
+      popComponentFromEL(context.getFacesContext());
+      setRowIndex(oldRowIndex);
+    }
+
+    // Return false to allow the visiting to continue
+    return false;
+  }
+
 }

@@ -19,40 +19,5 @@
 
 package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
-import org.apache.myfaces.tobago.renderkit.RendererBase;
-import org.apache.myfaces.tobago.util.ComponentUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.event.ActionEvent;
-
-public class EventRenderer extends RendererBase {
-
-  private static final Logger LOG = LoggerFactory.getLogger(EventRenderer.class);
-
-  @Override
-  public void decode(final FacesContext facesContext, final UIComponent component) {
-
-    if (ComponentUtils.isOutputOnly(component)) {
-      return;
-    }
-    final String sourceId = facesContext.getExternalContext().getRequestParameterMap().get("javax.faces.source");
-    final String clientId = component.getClientId(facesContext);
-    if (LOG.isDebugEnabled()) {
-      LOG.debug("sourceId = '" + sourceId + "'");
-      LOG.debug("clientId = '" + clientId + "'");
-    }
-    if (clientId.equals(sourceId)) {
-      if (LOG.isDebugEnabled()) {
-        LOG.debug("queueEvent = '" + clientId + "'");
-      }
-      commandActivated(component);
-    }
-  }
-
-  protected void commandActivated(final UIComponent component) {
-    component.queueEvent(new ActionEvent(component));
-  }
+public class EventRenderer extends DecodingCommandRendererBase {
 }

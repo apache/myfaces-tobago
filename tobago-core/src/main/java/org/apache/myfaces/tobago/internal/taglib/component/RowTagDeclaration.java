@@ -23,6 +23,7 @@ import org.apache.myfaces.tobago.apt.annotation.Behavior;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.component.ClientBehaviors;
+import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
 
 /**
@@ -34,6 +35,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRend
     uiComponent = "org.apache.myfaces.tobago.component.UIRow",
     uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUIRow",
     uiComponentFacesClass = "javax.faces.component.UIColumn",
+    rendererType = RendererTypes.ROW,
     behaviors = {
         @Behavior(
             name = ClientBehaviors.CLICK,

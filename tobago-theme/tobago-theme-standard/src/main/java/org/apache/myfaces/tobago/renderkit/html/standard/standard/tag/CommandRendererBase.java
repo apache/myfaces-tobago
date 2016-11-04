@@ -48,7 +48,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class CommandRendererBase extends EventRenderer {
+public abstract class CommandRendererBase extends DecodingCommandRendererBase {
 
   private static final Logger LOG = LoggerFactory.getLogger(CommandRendererBase.class);
 

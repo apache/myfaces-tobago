@@ -43,7 +43,7 @@ import java.io.IOException;
  * Manages the rendering of the <b>label</b> and the <b>field</b> together with different possibilities for
  * the position of the label (defined by {@link org.apache.myfaces.tobago.component.Attributes#labelLayout}
  */
-public abstract class LabelLayoutRendererBase extends DecodingRendererBase {
+public abstract class LabelLayoutRendererBase extends DecodingInputRendererBase {
 
   @Override
   public void encodeBegin(final FacesContext facesContext, final UIComponent component) throws IOException {

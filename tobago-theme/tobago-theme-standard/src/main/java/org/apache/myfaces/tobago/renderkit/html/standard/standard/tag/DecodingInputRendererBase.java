@@ -36,9 +36,9 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.util.Map;
 
-public abstract class DecodingRendererBase extends RendererBase {
+public abstract class DecodingInputRendererBase extends RendererBase {
 
-  private static final Logger LOG = LoggerFactory.getLogger(DecodingRendererBase.class);
+  private static final Logger LOG = LoggerFactory.getLogger(DecodingInputRendererBase.class);
 
   @Override
   public void decode(final FacesContext facesContext, final UIComponent component) {

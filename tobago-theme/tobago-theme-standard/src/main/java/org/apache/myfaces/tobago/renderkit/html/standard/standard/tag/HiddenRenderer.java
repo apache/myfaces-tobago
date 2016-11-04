@@ -33,7 +33,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 
-public class HiddenRenderer extends DecodingRendererBase {
+public class HiddenRenderer extends DecodingInputRendererBase {
 
   @Override
   public void encodeBegin(FacesContext facesContext, UIComponent component) throws IOException {
