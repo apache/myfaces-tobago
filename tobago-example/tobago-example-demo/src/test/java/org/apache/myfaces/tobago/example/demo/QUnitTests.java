@@ -302,8 +302,8 @@ public class QUnitTests {
   }
 
   @Test
-  public void sheetColumnEvent() throws UnsupportedEncodingException, InterruptedException {
-    String page = "content/20-component/080-sheet/30-event/sheet-column-event.xhtml";
+  public void sheetEvent() throws UnsupportedEncodingException, InterruptedException {
+    String page = "content/20-component/080-sheet/30-event/sheet-event.xhtml";
     runStandardTest(page);
   }
 
