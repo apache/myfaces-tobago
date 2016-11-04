@@ -19,7 +19,7 @@
 
 package org.apache.myfaces.tobago.example.demo;
 
-import org.apache.myfaces.tobago.component.UICommand;
+import org.apache.myfaces.tobago.internal.component.AbstractUICommand;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -88,8 +88,8 @@ public class GroupController implements Serializable {
 
     LOG.info("AjaxBehaviorEvent called.");
 
-    if (event != null && event.getComponent() instanceof UICommand) {
-      UICommand command = (UICommand) event.getComponent();
+    if (event != null && event.getComponent() instanceof AbstractUICommand) {
+      AbstractUICommand command = (AbstractUICommand) event.getComponent();
       sendTo = command.getLabel();
       LOG.info("AjaxBehaviorEvent called. Current label: '{}'", sendTo);
     }

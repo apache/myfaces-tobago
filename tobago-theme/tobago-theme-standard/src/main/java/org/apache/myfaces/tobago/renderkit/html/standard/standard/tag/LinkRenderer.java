@@ -19,5 +19,5 @@
 
 package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
-public class LinkRenderer extends CommandRenderer {
+public class LinkRenderer extends CommandRendererBase {
 }

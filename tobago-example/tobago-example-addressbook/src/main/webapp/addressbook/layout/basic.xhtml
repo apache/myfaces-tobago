@@ -88,9 +88,7 @@
           <tc:selectOneChoice label="#{bundle.footerLanguage}"
                               value="#{controller.language}">
             <f:selectItems value="#{controller.languages}"/>
-            <f:facet name="change">
-              <tc:command action="#{controller.languageChangedList}"/>
-            </f:facet>
+            <tc:event action="#{controller.languageChangedList}"/>
           </tc:selectOneChoice>
           <!--
                 </tc:form>
@@ -102,9 +100,7 @@
           -->
           <tc:selectOneChoice label="#{bundle.footerTheme}" value="#{controller.theme}">
             <f:selectItems value="#{controller.themeItems}"/>
-            <f:facet name="change">
-              <tc:command action="#{controller.themeChanged}"/>
-            </f:facet>
+            <tc:event action="#{controller.themeChanged}"/>
           </tc:selectOneChoice>
           <!--
                 </tc:form>

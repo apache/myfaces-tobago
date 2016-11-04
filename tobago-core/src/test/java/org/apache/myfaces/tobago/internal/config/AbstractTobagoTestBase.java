@@ -23,7 +23,6 @@ import org.apache.myfaces.test.base.junit4.AbstractJsfTestCase;
 import org.apache.myfaces.test.mock.MockFacesContext;
 import org.apache.myfaces.test.mock.MockHttpServletRequest;
 import org.apache.myfaces.tobago.component.UIButton;
-import org.apache.myfaces.tobago.component.UICommand;
 import org.apache.myfaces.tobago.component.UIIn;
 import org.apache.myfaces.tobago.component.UILink;
 import org.apache.myfaces.tobago.component.UIOut;
@@ -95,7 +94,6 @@ public abstract class AbstractTobagoTestBase extends AbstractJsfTestCase {
     application.addComponent(UIPanel.COMPONENT_TYPE, UIPanel.class.getName());
     application.addComponent(
         javax.faces.component.UICommand.COMPONENT_TYPE, javax.faces.component.UICommand.class.getName());
-    application.addComponent(UICommand.COMPONENT_TYPE, UICommand.class.getName());
     application.addComponent(UILink.COMPONENT_TYPE, UILink.class.getName());
     application.addComponent(UIButton.COMPONENT_TYPE, UIButton.class.getName());
     application.addComponent(UIPopup.COMPONENT_TYPE, UIPopup.class.getName());

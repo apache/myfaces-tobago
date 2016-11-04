@@ -26,17 +26,13 @@
   <p>This example, demonstrate the different markups defined for sheet.
     These markups reflecting the styles from bootstrap.
     <tc:selectOneRadio value="#{sheetController.automaticLayout}">
-      <f:facet name="change">
-        <tc:command/>
-      </f:facet>
+      <tc:event/>
       <tc:selectItem itemLabel="Automatic table layout" itemValue="true"/>
       <tc:selectItem itemLabel="Managed table layout" itemValue="false"/>
     </tc:selectOneRadio>
 
     <tc:selectManyShuttle value="#{sheetController.markup}">
-      <f:facet name="change">
-        <tc:command/>
-      </f:facet>
+      <tc:event/>
       <tc:selectItem itemLabel="Inverse" itemValue="inverse"/>
       <tc:selectItem itemLabel="Striped" itemValue="striped"/>
       <tc:selectItem itemLabel="Bordered" itemValue="bordered"/>

@@ -20,8 +20,8 @@
 package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
 import org.apache.myfaces.tobago.component.Attributes;
-import org.apache.myfaces.tobago.component.UICommand;
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
+import org.apache.myfaces.tobago.internal.component.AbstractUICommandBase;
 import org.apache.myfaces.tobago.internal.component.AbstractUIImage;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
@@ -91,6 +91,7 @@ public class ImageRenderer extends RendererBase {
 
   private boolean isDisabled(final AbstractUIImage graphic) {
     return graphic.isDisabled()
-        || (graphic.getParent() instanceof UICommand && ((UICommand) graphic.getParent()).isDisabled());
+        || (graphic.getParent() instanceof AbstractUICommandBase
+        && ((AbstractUICommandBase) graphic.getParent()).isDisabled());
   }
 }

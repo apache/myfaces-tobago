@@ -39,61 +39,61 @@
 
         <tc:commands id="commands">
 
-          <tc:command id="config" label="#{overviewBundle.menu_config}" omit="true">
-            <tc:command label="#{overviewBundle.menu_themes}" omit="true">
+          <tc:link id="config" label="#{overviewBundle.menu_config}" omit="true">
+            <tc:link label="#{overviewBundle.menu_themes}" omit="true">
               <tc:selectOneRadio value="#{clientConfigController.theme}">
                 <f:facet name="change">
-                  <tc:command action="#{clientConfigController.submit}"/>
+                  <tc:link action="#{clientConfigController.submit}"/>
                 </f:facet>
                 <tc:selectItems value="#{clientConfigController.themeItems}"/>
               </tc:selectOneRadio>
-            </tc:command>
-            <tc:command label="#{overviewBundle.menu_locale}">
+            </tc:link>
+            <tc:link label="#{overviewBundle.menu_locale}">
               <tc:selectOneRadio value="#{clientConfigController.locale}">
                 <f:facet name="change">
-                  <tc:command action="#{clientConfigController.submit}"/>
+                  <tc:link action="#{clientConfigController.submit}"/>
                 </f:facet>
                 <tc:selectItems value="#{clientConfigController.localeItems}"/>
               </tc:selectOneRadio>
-            </tc:command>
-            <tc:command action="#{demo.resetSession}" label="Reset"/>
-          </tc:command>
+            </tc:link>
+            <tc:link action="#{demo.resetSession}" label="Reset"/>
+          </tc:link>
 
-          <tc:command label="#{overviewBundle.menu_help}" omit="true">
-            <tc:command label="#{overviewBundle.menu_about}" omit="true">
+          <tc:link label="#{overviewBundle.menu_help}" omit="true">
+            <tc:link label="#{overviewBundle.menu_about}" omit="true">
               <tc:dataAttribute name="alert-text"
                                 value="#{overviewBundle.pageTitle} - #{info.version} - #{overviewBundle.tobago_url}"/>
-            </tc:command>
-            <tc:command link="http://myfaces.apache.org/tobago" label="Tobago in the Web"/>
-            <tc:command action="/server-info.xhtml" immediate="true" label="Server Info" disabled="#{! info.enabled}"/>
-            <tc:command action="/logging-info.xhtml" immediate="true" label="Logging Info"
+            </tc:link>
+            <tc:link link="http://myfaces.apache.org/tobago" label="Tobago in the Web"/>
+            <tc:link action="/server-info.xhtml" immediate="true" label="Server Info" disabled="#{! info.enabled}"/>
+            <tc:link action="/logging-info.xhtml" immediate="true" label="Logging Info"
                         disabled="#{! info.enabled}"/>
             <tc:separator/>
-            <tc:command label="Sub-Menu" omit="true">
-              <tc:command label="Sub 1" omit="true"/>
-              <tc:command label="Sub 2" omit="true"/>
-              <tc:command label="Sub 3" omit="true"/>
-              <tc:command action="doit" label="Sub 4 ich kann auch selber was" omit="true">
-                <tc:command label="Sub 4 1" omit="true"/>
-                <tc:command label="Sub 4 2" omit="true"/>
-              </tc:command>
-              <tc:command label="Sub 5" omit="true">
-                <tc:command label="Sub 5 1" omit="true"/>
-                <tc:command label="Sub 5 2" omit="true"/>
-              </tc:command>
-            </tc:command>
-          </tc:command>
+            <tc:link label="Sub-Menu" omit="true">
+              <tc:link label="Sub 1" omit="true"/>
+              <tc:link label="Sub 2" omit="true"/>
+              <tc:link label="Sub 3" omit="true"/>
+              <tc:link action="doit" label="Sub 4 ich kann auch selber was" omit="true">
+                <tc:link label="Sub 4 1" omit="true"/>
+                <tc:link label="Sub 4 2" omit="true"/>
+              </tc:link>
+              <tc:link label="Sub 5" omit="true">
+                <tc:link label="Sub 5 1" omit="true"/>
+                <tc:link label="Sub 5 2" omit="true"/>
+              </tc:link>
+            </tc:link>
+          </tc:link>
 
           <!-- TBD: this is not nice: can we put tc:out or tc:label into the menu?
           or we do that with a popup, oder a lighter variant of a popup -->
-          <tc:command omit="true" label="Info">
-            <tc:command omit="true" label="Theme: #{clientConfigController.localizedTheme}" disabled="true"/>
-            <tc:command omit="true" label="Locale: #{clientConfigController.localizedLocale}"/>
-            <tc:command omit="true" label="Project Stage: #{tobagoContext.tobagoConfig.projectStage}"/>
-            <tc:command omit="true" label="CSP mode: #{tobagoContext.tobagoConfig.contentSecurityPolicy.mode}"/>
-            <tc:command omit="true"
+          <tc:link omit="true" label="Info">
+            <tc:link omit="true" label="Theme: #{clientConfigController.localizedTheme}" disabled="true"/>
+            <tc:link omit="true" label="Locale: #{clientConfigController.localizedLocale}"/>
+            <tc:link omit="true" label="Project Stage: #{tobagoContext.tobagoConfig.projectStage}"/>
+            <tc:link omit="true" label="CSP mode: #{tobagoContext.tobagoConfig.contentSecurityPolicy.mode}"/>
+            <tc:link omit="true"
                         label="Requests: #{activityList.values[0].jsfRequest} / AJAX: #{activityList.values[0].ajaxRequest}"/>
-          </tc:command>
+          </tc:link>
 
         </tc:commands>
       </tc:form>

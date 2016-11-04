@@ -24,7 +24,7 @@ import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.LabelLayout;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.component.UIColumnSelector;
-import org.apache.myfaces.tobago.component.UICommand;
+import org.apache.myfaces.tobago.component.UILink;
 import org.apache.myfaces.tobago.component.UIOut;
 import org.apache.myfaces.tobago.component.UIPanel;
 import org.apache.myfaces.tobago.component.UIReload;
@@ -513,7 +513,7 @@ public class SheetRenderer extends RendererBase {
       // show row range
       final Markup showRowRange = markupForLeftCenterRight(sheet.getShowRowRange());
       if (showRowRange != Markup.NULL) {
-        final UICommand command
+        final UILink command
             = ensurePagingCommand(application, sheet, Facets.pagerRow.name(), PageAction.TO_ROW, false);
         final String pagerCommandId = command.getClientId(facesContext);
 
@@ -604,7 +604,7 @@ public class SheetRenderer extends RendererBase {
       // show page range
       final Markup showPageRange = markupForLeftCenterRight(sheet.getShowPageRange());
       if (showPageRange != Markup.NULL) {
-        final UICommand command
+        final UILink command
             = ensurePagingCommand(application, sheet, Facets.pagerPage.name(), PageAction.TO_PAGE, false);
         final String pagerCommandId = command.getClientId(facesContext);
 
@@ -802,12 +802,12 @@ public class SheetRenderer extends RendererBase {
           if (cell.getColumnSpan() == 1 && cellComponent instanceof UIOut) {
             final boolean sortable = ComponentUtils.getBooleanAttribute(column, Attributes.sortable);
             if (sortable) {
-              UICommand sortCommand = (UICommand) ComponentUtils.getFacet(column, Facets.sorter);
+              UILink sortCommand = (UILink) ComponentUtils.getFacet(column, Facets.sorter);
               if (sortCommand == null) {
                 final String columnId = column.getClientId(facesContext);
                 final String sorterId = columnId.substring(columnId.lastIndexOf(":") + 1) + "_" + UISheet.SORTER_ID;
-                sortCommand = (UICommand) CreateComponentUtils.createComponent(
-                    facesContext, UICommand.COMPONENT_TYPE, RendererTypes.Link, sorterId);
+                sortCommand = (UILink) CreateComponentUtils.createComponent(
+                    facesContext, UILink.COMPONENT_TYPE, RendererTypes.Link, sorterId);
                 final AjaxBehavior reloadBehavior = createReloadBehavior(sheet);
                 sortCommand.addClientBehavior("click", reloadBehavior);
                 ComponentUtils.setFacet(column, Facets.sorter, sortCommand);
@@ -992,7 +992,7 @@ public class SheetRenderer extends RendererBase {
     final String facet = action == PageAction.TO_PAGE || action == PageAction.TO_ROW
         ? action.getToken() + "-" + target
         : action.getToken();
-    final UICommand command = ensurePagingCommand(application, data, facet, action, disabled);
+    final UILink command = ensurePagingCommand(application, data, facet, action, disabled);
     if (target != null) {
       ComponentUtils.setAttribute(command, Attributes.pagingTarget, target);
     }
@@ -1040,7 +1040,7 @@ public class SheetRenderer extends RendererBase {
       final FacesContext facesContext, final Application application, final UISheet sheet)
       throws IOException {
 
-    final UICommand command
+    final UILink command
         = ensurePagingCommand(application, sheet, Facets.PAGER_PAGE_DIRECT, PageAction.TO_PAGE, false);
     int linkCount = ComponentUtils.getIntAttribute(sheet, Attributes.directLinkCount);
     linkCount--;  // current page needs no link
@@ -1111,14 +1111,14 @@ public class SheetRenderer extends RendererBase {
     }
   }
 
-  private UICommand ensurePagingCommand(
+  private UILink ensurePagingCommand(
       final Application application, final UISheet sheet, final String facet, final PageAction action,
       final boolean disabled) {
 
     final Map<String, UIComponent> facets = sheet.getFacets();
-    UICommand command = (UICommand) facets.get(facet);
+    UILink command = (UILink) facets.get(facet);
     if (command == null) {
-      command = (UICommand) application.createComponent(UICommand.COMPONENT_TYPE);
+      command = (UILink) application.createComponent(UILink.COMPONENT_TYPE);
       command.setRendererType(RendererTypes.SHEET_PAGE_COMMAND);
 //      command.addActionListener(new SheetActionListener()); XXX to activate: remove RendererType
       command.setRendered(true);

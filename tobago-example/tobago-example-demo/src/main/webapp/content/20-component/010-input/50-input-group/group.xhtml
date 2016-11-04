@@ -92,15 +92,15 @@
       <tc:in id="isendtoc" placeholder="type a message">
         <f:facet name="before">
           <tc:button id="lsendtoc" label="#{groupController.sendTo}" omit="true">
-            <tc:command label="SendTo: Peter">
+            <tc:link label="SendTo: Peter">
               <f:ajax render="isendtoc" execute="isendtoc" listener="#{groupController.sendToListener}"/>
-            </tc:command>
-            <tc:command label="SendTo: Bob">
+            </tc:link>
+            <tc:link label="SendTo: Bob">
               <f:ajax render="isendtoc" execute="isendtoc" listener="#{groupController.sendToListener}"/>
-            </tc:command>
-            <tc:command label="SendTo: All">
+            </tc:link>
+            <tc:link label="SendTo: All">
               <f:ajax render="isendtoc" execute="isendtoc" listener="#{groupController.sendToListener}"/>
-            </tc:command>
+            </tc:link>
           </tc:button>
         </f:facet>
       </tc:in>

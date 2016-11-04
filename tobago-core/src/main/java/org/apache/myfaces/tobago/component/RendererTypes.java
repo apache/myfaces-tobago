@@ -31,7 +31,6 @@ public enum RendererTypes {
   Calendar,
   Column,
   ColumnSelector,
-  Command,
   Commands,
   Date,
   Event,
@@ -100,7 +99,6 @@ public enum RendererTypes {
   public static final String CALENDAR = "Calendar";
   public static final String COLUMN = "Column";
   public static final String COLUMN_SELECTOR = "ColumnSelector";
-  public static final String COMMAND = "Command";
   public static final String COMMANDS = "Commands";
   public static final String EVENT = "Event";
   public static final String DATE = "Date";
