@@ -74,7 +74,11 @@ import javax.faces.component.UICommand;
             description = "Behavior of a click event.",
             isDefault = true),
         @Behavior(
-            name = ClientBehaviors.DBLCLICK)
+            name = ClientBehaviors.DBLCLICK),
+        @Behavior(
+            name = ClientBehaviors.FOCUS),
+        @Behavior(
+            name = ClientBehaviors.BLUR)
     })
 public interface ButtonTagDeclaration
     extends HasIdBindingAndRendered, HasAction, HasActionListener, IsImmediateCommand, HasConfirmation,

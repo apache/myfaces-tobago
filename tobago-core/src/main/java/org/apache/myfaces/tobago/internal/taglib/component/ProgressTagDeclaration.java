@@ -21,13 +21,11 @@ package org.apache.myfaces.tobago.internal.taglib.component;
 
 import org.apache.myfaces.tobago.apt.annotation.Behavior;
 import org.apache.myfaces.tobago.apt.annotation.DynamicExpression;
-import org.apache.myfaces.tobago.apt.annotation.Facet;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.component.ClientBehaviors;
-import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
@@ -46,11 +44,6 @@ import javax.faces.component.UIOutput;
     componentFamily = UIOutput.COMPONENT_FAMILY,
     rendererType = RendererTypes.PROGRESS,
     allowedChildComponenents = "NONE",
-    facets = {@Facet(
-        name = Facets.COMPLETE,
-        description =
-            "Contains an instance of UICommand (tc:command). The action is invoked if the full progress has reached",
-        allowedChildComponenents = "org.apache.myfaces.tobago.Command")},
     behaviors = {
         @Behavior(
             name = ClientBehaviors.COMPLETE,

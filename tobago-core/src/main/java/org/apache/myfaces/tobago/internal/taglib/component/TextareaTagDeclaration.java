@@ -66,7 +66,11 @@ import javax.faces.component.UIInput;
         @Behavior(
             name = ClientBehaviors.CLICK),
         @Behavior(
-            name = ClientBehaviors.DBLCLICK)
+            name = ClientBehaviors.DBLCLICK),
+        @Behavior(
+            name = ClientBehaviors.FOCUS),
+        @Behavior(
+            name = ClientBehaviors.BLUR)
     })
 public interface TextareaTagDeclaration
     extends HasIdBindingAndRendered, HasConverter, IsReadonly, IsDisabled, IsRequired, HasLabel, HasLabelLayout, HasTip,

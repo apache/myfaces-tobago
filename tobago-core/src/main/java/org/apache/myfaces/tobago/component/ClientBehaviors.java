@@ -21,10 +21,12 @@ package org.apache.myfaces.tobago.component;
 
 public enum ClientBehaviors {
 
+  blur,
   change,
   click,
   complete,
   dblclick,
+  focus,
   load,
   mouseover,
   mouseout,
@@ -32,10 +34,12 @@ public enum ClientBehaviors {
   resize,
   suggest; // tbd
 
+  public static final String BLUR = "blur";
   public static final String CHANGE = "change";
   public static final String CLICK = "click";
   public static final String COMPLETE = "complete";
   public static final String DBLCLICK = "dblclick";
+  public static final String FOCUS = "focus";
   public static final String LOAD = "load";
   public static final String MOUSEOVER = "mouseover";
   public static final String MOUSEOUT = "mouseout";

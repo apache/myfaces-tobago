@@ -70,7 +70,11 @@ import javax.faces.component.UIInput;
         @Behavior(
             name = ClientBehaviors.CLICK),
         @Behavior(
-            name = ClientBehaviors.DBLCLICK)
+            name = ClientBehaviors.DBLCLICK),
+        @Behavior(
+            name = ClientBehaviors.FOCUS),
+        @Behavior(
+            name = ClientBehaviors.BLUR)
     })
 public interface FileTagDeclaration
     extends HasValidator, HasValidatorMessage, HasRequiredMessage, HasConverterMessage,

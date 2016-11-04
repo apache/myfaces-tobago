@@ -66,9 +66,6 @@ import javax.faces.component.UIInput;
         "org.apache.myfaces.tobago.Suggest"
     },
     facets = {
-    @Facet(name = Facets.CHANGE,
-        description =
-            "This facet can contain a UICommand that is invoked in a case of a change event from the component"),
     @Facet(name = Facets.BEFORE,
         description =
             "This facet can contain a part for input groups."),
@@ -83,7 +80,11 @@ import javax.faces.component.UIInput;
         @Behavior(
             name = ClientBehaviors.CLICK),
         @Behavior(
-            name = ClientBehaviors.DBLCLICK)
+            name = ClientBehaviors.DBLCLICK),
+        @Behavior(
+            name = ClientBehaviors.FOCUS),
+        @Behavior(
+            name = ClientBehaviors.BLUR)
     })
 public interface InTagDeclaration
     extends HasIdBindingAndRendered, HasConverter, IsReadonly, IsDisabled, IsRequired, HasTip, IsPassword,

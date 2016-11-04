@@ -22,18 +22,10 @@ package org.apache.myfaces.tobago.component;
 public enum Facets {
 
   after,
-  /**
-   * @deprecated since 3.0.0. is no longer supported, use "load".
-   */
-  action,
   bar,
   before,
-  blur(true),
   brand,
-  change(true),
   checkbox,
-  click(true),
-  complete,
   confirmation,
   constraints,
   contextMenu,
@@ -42,16 +34,13 @@ public enum Facets {
    */
   @Deprecated
   dropDownMenu,
-  focus(true),
-  hover(true),
   label,
   /**
    * @deprecated since 3.0.0. The layout manager tag should surround the content instead.
+   * Is only for &lt;tc:gridLayout&gt; needed.
    */
   @Deprecated
   layout,
-  layoutDefault,
-  load(true),
   /**
    * @deprecated since 3.0.0. Menu bar is no longer supported.
    */
@@ -67,7 +56,6 @@ public enum Facets {
   popup,
   radio,
   reload(true),
-  resize(true),
   sorter,
   toolBar;
 
@@ -81,15 +69,10 @@ public enum Facets {
   }
 
   public static final String AFTER = "after";
-  public static final String ACTION = "action";
   public static final String BAR = "bar";
   public static final String BEFORE = "before";
-  public static final String BLUR = "blur";
   public static final String BRAND = "brand";
-  public static final String CHANGE = "change";
   public static final String CHECKBOX = "checkbox";
-  public static final String CLICK = "click";
-  public static final String COMPLETE = "complete";
   public static final String CONFIRMATION = "confirmation";
   public static final String CONSTRAINTS = "constraints";
   public static final String CONTEXT_MENU = "contextMenu";
@@ -98,16 +81,12 @@ public enum Facets {
    */
   @Deprecated
   public static final String DROP_DOWN_MENU = "dropDownMenu";
-  public static final String FOCUS = "focus";
-  public static final String HOVER = "hover";
   public static final String LABEL = "label";
   /**
    * @deprecated since 3.0.0. The layout manager tag should surround the content instead.
    */
   @Deprecated
   public static final String LAYOUT = "layout";
-  public static final String LAYOUT_DEFAULT = "layoutDefault";
-  public static final String LOAD = "load";
   /**
    * @deprecated since 3.0.0. Menu bar is no longer supported.
    */
@@ -118,8 +97,10 @@ public enum Facets {
   public static final String PAGER_ROW = "pagerRow";
   public static final String POPUP = "popup";
   public static final String RADIO = "radio";
+  /**
+   * TODO: Must be replaced by a behavior
+   */
   public static final String RELOAD = "reload";
-  public static final String RESIZE = "resize";
   public static final String SORTER = "sorter";
   public static final String TOOL_BAR = "toolBar";
 

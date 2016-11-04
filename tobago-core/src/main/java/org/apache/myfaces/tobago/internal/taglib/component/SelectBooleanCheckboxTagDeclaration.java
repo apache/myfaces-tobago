@@ -21,18 +21,16 @@ package org.apache.myfaces.tobago.internal.taglib.component;
 
 import org.apache.myfaces.tobago.apt.annotation.Behavior;
 import org.apache.myfaces.tobago.apt.annotation.BodyContentDescription;
-import org.apache.myfaces.tobago.apt.annotation.Facet;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.component.ClientBehaviors;
-import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasAccessKey;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasConverter;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasConverterMessage;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabel;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasItemLabel;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabel;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabelLayout;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasRequiredMessageForSelect;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTabIndex;
@@ -61,16 +59,6 @@ import javax.faces.component.UISelectBoolean;
     componentFamily = UISelectBoolean.COMPONENT_FAMILY,
     rendererType = RendererTypes.SELECT_BOOLEAN_CHECKBOX,
     allowedChildComponenents = "NONE",
-    facets = {
-        @Facet(name = Facets.CLICK,
-            description =
-                "This facet can contain a UICommand that is invoked in case of a click event from the component",
-            allowedChildComponenents = "org.apache.myfaces.tobago.Command"),
-        @Facet(name = Facets.CHANGE,
-            description =
-                "This facet can contain a UICommand that is invoked in case of a change event from the component",
-            allowedChildComponenents = "org.apache.myfaces.tobago.Command")
-    },
     behaviors = {
         @Behavior(
             name = ClientBehaviors.CHANGE,
@@ -78,7 +66,11 @@ import javax.faces.component.UISelectBoolean;
         @Behavior(
             name = ClientBehaviors.CLICK),
         @Behavior(
-            name = ClientBehaviors.DBLCLICK)
+            name = ClientBehaviors.DBLCLICK),
+        @Behavior(
+            name = ClientBehaviors.FOCUS),
+        @Behavior(
+            name = ClientBehaviors.BLUR)
     })
 
 public interface SelectBooleanCheckboxTagDeclaration extends HasValidator,
