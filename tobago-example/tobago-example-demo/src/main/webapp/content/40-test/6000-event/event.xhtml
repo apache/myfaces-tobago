@@ -21,123 +21,170 @@
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:f="http://java.sun.com/jsf/core">
-
-  <tc:section label="Checking different solutions to adjust f:ajax and the old tobago event facets.">
-
-    <tc:box label="Panel with reload, every 10 seconds">
-
-      <tc:section label="Old">
-        <tc:panel>
-          <f:facet name="reload">
-            <tc:reload frequency="10000"/>
-          </f:facet>
-          Panel content
-        </tc:panel>
-      </tc:section>
-
-      <tc:section label="New">
-        <tc:panel>
-          <tc:reload frequency="10000"/>
-          Panel content
-        </tc:panel>
-      </tc:section>
-
-    </tc:box>
-
-    <tc:box label="Send AJAX call on change event on input field.">
-
-      <tc:section label="Old = New">
-        <tc:in label="input">
-          <f:ajax/>
-        </tc:in>
-      </tc:section>
-
-    </tc:box>
-
-    <tc:box label="Send normal call on change event on input field.">
-
-      <tc:section label="Old">
-        <tc:in label="input">
-          <f:facet name="change">
-            <tc:command/>
-          </f:facet>
-        </tc:in>
-      </tc:section>
-
-      <tc:section label="New">
-        <tc:in label="input">
-          <tc:event event="change"/>
-        </tc:in>
-      </tc:section>
-
-    </tc:box>
-
-    <tc:box label="Sheet: click in a row (AJAX)">
-
-      <tc:section label="Old">
-        <tc:sheet markup="small,hover" value="#{sheetController.solarList}" var="object" rows="3">
-          <tc:columnEvent>
-            <tc:command>
-              <f:ajax/>
-            </tc:command>
-          </tc:columnEvent>
-          <tc:column label="Name">
-            <tc:out value="#{object.name}" labelLayout="skip"/>
-          </tc:column>
-        </tc:sheet>
-        Remark: event attribute of tc:columnEvent must not be defined.
-      </tc:section>
-
-      <tc:section label="New">
-        <tc:sheet markup="small,hover" value="#{sheetController.solarList}" var="object" rows="3">
-          <tc:row>
-            <f:ajax/>
-          </tc:row>
-          <tc:column label="Name">
-            <tc:out value="#{object.name}" labelLayout="skip"/>
-          </tc:column>
-        </tc:sheet>
-      </tc:section>
-
-    </tc:box>
-
-    <tc:box label="Sheet: click in a row (no AJAX, normal request)">
-
-      <tc:section label="Old">
-        <tc:sheet markup="small,hover" value="#{sheetController.solarList}" var="object" rows="3">
-          <tc:columnEvent event="click">
-            <tc:command action="..."/>
-          </tc:columnEvent>
-          <tc:column label="Name">
-            <tc:out value="#{object.name}" labelLayout="skip"/>
-          </tc:column>
-        </tc:sheet>
-      </tc:section>
-
-      <tc:section label="New">
-        <tc:sheet markup="small,hover" value="#{sheetController.solarList}" var="object" rows="3">
-          <tc:row>
-            <tc:event event="click" action="..."/>
-          </tc:row>
-          <tc:column label="Name">
-            <tc:out value="#{object.name}" labelLayout="skip"/>
-          </tc:column>
-        </tc:sheet>
-      </tc:section>
-
-    </tc:box>
-
-    <tc:box label="TODO">
-
-      <tc:section label="Old">
-      </tc:section>
-
-      <tc:section label="New">
-      </tc:section>
-
-    </tc:box>
-
+                xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html">
+  <ui:param name="title" value="&lt;tc:event>"/>
+  <tc:box id="metrics" label="Metrics">
+    <f:facet name="bar">
+      <tc:button label="Reset" action="#{eventController.reset}"/>
+    </f:facet>
+    <tc:out id="outAction" label="Action" value="#{eventController.actionCount}"/>
+    <tc:out id="outActionListener" label="ActionListener" value="#{eventController.actionListenerCount}"/>
+    <tc:out id="outAjaxListener" label="AjaxListener" value="#{eventController.ajaxListenerCount}"/>
+    <tc:out id="outValueChangeListener" label="ValueChange-Listener"
+            value="#{eventController.valueChangeListenerCount}"/>
+    <tc:separator/>
+    <tc:out id="outTimestamp" label="Timestamp" value="#{eventController.currentTimestamp}"/>
+    <tc:in id="inPlanet" label="Selected planet" value="#{eventController.selectedPlanet}"/>
+  </tc:box>
+  <tc:section label="&lt;tc:in>">
+    <tc:segmentLayout medium="6;6">
+      <tc:box label="&lt;tc:event>">
+        <tc:section label="change">
+          <tc:in id="inEventChange" valueChangeListener="#{eventController.valueChangeListener}">
+            <tc:event event="change" action="#{eventController.action}"
+                      actionListener="#{eventController.actionListener}"/>
+          </tc:in>
+        </tc:section>
+        <tc:section label="click">
+          <tc:in id="inEventClick" valueChangeListener="#{eventController.valueChangeListener}">
+            <tc:event event="click" action="#{eventController.action}"
+                      actionListener="#{eventController.actionListener}"/>
+          </tc:in>
+        </tc:section>
+        <tc:section label="change + click">
+          <tc:in id="inEventChangeClick" valueChangeListener="#{eventController.valueChangeListener}">
+            <tc:event event="change" action="#{eventController.action}"
+                      actionListener="#{eventController.actionListener}"/>
+            <tc:event event="click" action="#{eventController.action}"
+                      actionListener="#{eventController.actionListener}"/>
+          </tc:in>
+        </tc:section>
+      </tc:box>
+      <tc:box label="&lt;f:ajax>">
+        <tc:section label="change">
+          <tc:in id="inAjaxChange" valueChangeListener="#{eventController.valueChangeListener}">
+            <f:ajax render="metrics" listener="#{eventController.ajaxListener}"/>
+          </tc:in>
+        </tc:section>
+        <tc:section label="click">
+          <tc:in id="inAjaxClick" valueChangeListener="#{eventController.valueChangeListener}">
+            <f:ajax event="click" render="metrics" listener="#{eventController.ajaxListener}"/>
+          </tc:in>
+          <p>AjaxListener doesn't work for click!</p>
+        </tc:section>
+        <tc:section label="change + click">
+          <tc:in id="inAjaxChangeClick" valueChangeListener="#{eventController.valueChangeListener}">
+            <f:ajax event="change" render="metrics" listener="#{eventController.ajaxListener}"/>
+            <f:ajax event="click" render="metrics" listener="#{eventController.ajaxListener}"/>
+          </tc:in>
+          <p>AjaxListener doesn't work for click!</p>
+        </tc:section>
+      </tc:box>
+    </tc:segmentLayout>
   </tc:section>
-
+  <tc:section label="&lt;tc:button>">
+    <tc:segmentLayout medium="6;6">
+      <tc:box label="&lt;tc:event>">
+        <tc:section label="click">
+          <tc:button id="buttonEventClick" label="Button" action="#{eventController.action}"
+                     actionListener="#{eventController.actionListener}"/>
+        </tc:section>
+        <tc:section label="dblclick">
+          <p>Not implemented yet!</p>
+        </tc:section>
+        <tc:section label="mousedown">
+          <p>Not implemented yet!</p>
+        </tc:section>
+      </tc:box>
+      <tc:box label="&lt;f:ajax>">
+        <tc:section label="click">
+          <tc:button id="buttonAjaxClick" label="Button" action="#{eventController.action}"
+                     actionListener="#{eventController.actionListener}">
+            <f:ajax render="metrics" listener="#{eventController.ajaxListener}"/>
+          </tc:button>
+          <p>AjaxListener doesn't work for click!</p>
+        </tc:section>
+        <tc:section label="dblclick">
+          <!--<tc:button id="buttonAjaxDblclick" label="Button" action="#{eventController.action}" actionListener="#{eventController.actionListener}">
+            <f:ajax event="dblclick" render="metrics" listener="#{eventController.ajaxListener}"/>
+          </tc:button>-->
+          <p>Not implemented yet!</p>
+        </tc:section>
+        <tc:section label="mousedown">
+          <!--<tc:button id="buttonAjaxMousedown" label="Button" action="#{eventController.action}" actionListener="#{eventController.actionListener}">
+            <f:ajax event="mousedown" render="metrics" listener="#{eventController.ajaxListener}"/>
+          </tc:button>-->
+          <p>Not implemented yet!</p>
+        </tc:section>
+      </tc:box>
+    </tc:segmentLayout>
+  </tc:section>
+  <!--<tc:section label="&lt;tc:panel>">
+    <tc:box label="Reload">
+      <tc:panel>
+        <f:facet name="reload">
+          <tc:reload frequency="1000"/>
+        </f:facet>
+        <p>Still old implementation!</p>
+        <tc:progress id="progessReload" value="#{progressController.currentSeconds}" max="59"/>
+      </tc:panel>
+    </tc:box>
+  </tc:section>-->
+  <tc:section label="&lt;tc:sheet>">
+    <tc:segmentLayout medium="6;6">
+      <tc:box label="&lt;tc:event>">
+        <tc:section label="click">
+          <tc:sheet id="sheetEventClick" value="#{eventController.planets}" var="planet" markup="small">
+            <tc:style maxHeight="200px"/>
+            <tc:column label="Planet">
+              <tc:out value="#{planet.name}" labelLayout="skip"/>
+            </tc:column>
+            <tc:row>
+              <tc:event event="click" action="#{eventController.action}"
+                        actionListener="#{eventController.selectPlanet}"/>
+            </tc:row>
+          </tc:sheet>
+          <p>ActionListener doesn't work!</p>
+        </tc:section>
+        <tc:section label="dblclick">
+          <!--<tc:sheet id="sheetEventDblclick" value="#{eventController.planets}" var="planet" markup="small">
+            <tc:style maxHeight="200px"/>
+            <tc:column label="Planet">
+              <tc:out value="#{planet.name}" labelLayout="skip"/>
+            </tc:column>
+            <tc:row>
+              <tc:event event="dblclick" action="#{eventController.action}" actionListener="#{eventController.selectPlanet}"/>
+            </tc:row>
+          </tc:sheet>-->
+          <p>Not implemented yet!</p>
+        </tc:section>
+      </tc:box>
+      <tc:box label="&lt;f:ajax>">
+        <tc:section label="click">
+          <tc:sheet id="sheetAjaxClick" value="#{eventController.planets}" var="planet" markup="small">
+            <tc:style maxHeight="200px"/>
+            <tc:column label="Planet">
+              <tc:out value="#{planet.name}" labelLayout="skip"/>
+            </tc:column>
+            <tc:row>
+              <f:ajax render="::metrics" listener="#{eventController.ajaxListener}"/>
+            </tc:row>
+          </tc:sheet>
+          <p>Not implemented yet</p>
+        </tc:section>
+        <tc:section label="dblclick">
+          <!--<tc:sheet id="sheetAjaxClick" value="#{eventController.planets}" var="planet" markup="small">
+            <tc:style maxHeight="200px"/>
+            <tc:column label="Planet">
+              <tc:out value="#{planet.name}" labelLayout="skip"/>
+            </tc:column>
+            <tc:row>
+              <f:ajax event="dblclick" render="::metrics" listener="#{eventController.ajaxListener}"/>
+            </tc:row>
+          </tc:sheet>-->
+          <p>Not implemented yet!</p>
+        </tc:section>
+      </tc:box>
+    </tc:segmentLayout>
+  </tc:section>
 </ui:composition>
