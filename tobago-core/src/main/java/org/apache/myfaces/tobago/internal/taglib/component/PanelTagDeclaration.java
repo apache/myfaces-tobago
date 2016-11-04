@@ -56,6 +56,8 @@ import javax.faces.component.UIPanel;
             name = ClientBehaviors.CLICK,
             isDefault = true),
         @Behavior(
+            name = ClientBehaviors.DBLCLICK),
+        @Behavior(
             name = ClientBehaviors.MOUSEOVER),
         @Behavior(
             name = ClientBehaviors.MOUSEOUT)

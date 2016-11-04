@@ -71,7 +71,11 @@ import javax.faces.component.UIInput;
     behaviors = {
         @Behavior(
             name = ClientBehaviors.CHANGE,
-            isDefault = true)
+            isDefault = true),
+        @Behavior(
+            name = ClientBehaviors.CLICK),
+        @Behavior(
+            name = ClientBehaviors.DBLCLICK)
     })
 public interface DateTagDeclaration
     extends HasAccessKey, HasValidator, HasValue, HasValueChangeListener, HasTabIndex, IsFocus, IsVisual,

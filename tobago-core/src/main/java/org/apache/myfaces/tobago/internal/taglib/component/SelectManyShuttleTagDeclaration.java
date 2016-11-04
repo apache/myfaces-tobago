@@ -63,7 +63,11 @@ import javax.faces.component.UISelectMany;
     behaviors = {
         @Behavior(
             name = ClientBehaviors.CHANGE,
-            isDefault = true)
+            isDefault = true),
+        @Behavior(
+            name = ClientBehaviors.CLICK),
+        @Behavior(
+            name = ClientBehaviors.DBLCLICK)
     })
 public interface SelectManyShuttleTagDeclaration extends
     IsDisabled, HasId, HasTip, IsRendered, IsRequiredForSelect, HasBinding, IsReadonly, HasConverter,

@@ -63,6 +63,8 @@ import javax.faces.component.UIForm;
             name = ClientBehaviors.CLICK,
             isDefault = true),
         @Behavior(
+            name = ClientBehaviors.DBLCLICK),
+        @Behavior(
             name = ClientBehaviors.LOAD),
         @Behavior(
             name = ClientBehaviors.RESIZE)

@@ -74,7 +74,11 @@ import javax.faces.component.UISelectBoolean;
     behaviors = {
         @Behavior(
             name = ClientBehaviors.CHANGE,
-            isDefault = true)
+            isDefault = true),
+        @Behavior(
+            name = ClientBehaviors.CLICK),
+        @Behavior(
+            name = ClientBehaviors.DBLCLICK)
     })
 
 public interface SelectBooleanCheckboxTagDeclaration extends HasValidator,

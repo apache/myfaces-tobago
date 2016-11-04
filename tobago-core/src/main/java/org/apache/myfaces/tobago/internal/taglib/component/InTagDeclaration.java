@@ -79,7 +79,11 @@ import javax.faces.component.UIInput;
     behaviors = {
         @Behavior(
             name = ClientBehaviors.CHANGE,
-            isDefault = true)
+            isDefault = true),
+        @Behavior(
+            name = ClientBehaviors.CLICK),
+        @Behavior(
+            name = ClientBehaviors.DBLCLICK)
     })
 public interface InTagDeclaration
     extends HasIdBindingAndRendered, HasConverter, IsReadonly, IsDisabled, IsRequired, HasTip, IsPassword,

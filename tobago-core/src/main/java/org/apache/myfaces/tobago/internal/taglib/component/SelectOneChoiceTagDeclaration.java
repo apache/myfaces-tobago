@@ -78,7 +78,11 @@ import javax.faces.component.UISelectOne;
     behaviors = {
         @Behavior(
             name = ClientBehaviors.CHANGE,
-            isDefault = true)
+            isDefault = true),
+        @Behavior(
+            name = ClientBehaviors.CLICK),
+        @Behavior(
+            name = ClientBehaviors.DBLCLICK)
     })
 public interface SelectOneChoiceTagDeclaration
     extends HasValidator, HasValue, HasValueChangeListener, HasTabIndex, IsFocus, IsVisual,
