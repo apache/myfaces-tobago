@@ -19,8 +19,10 @@
 
 package org.apache.myfaces.tobago.facelets;
 
-import org.apache.myfaces.tobago.internal.behavior.EventBehavior;
 import org.apache.myfaces.tobago.component.Attributes;
+import org.apache.myfaces.tobago.component.ClientBehaviors;
+import org.apache.myfaces.tobago.component.UIEvent;
+import org.apache.myfaces.tobago.internal.behavior.EventBehavior;
 
 import javax.el.MethodExpression;
 import javax.faces.component.PartialStateHolder;
@@ -91,25 +93,25 @@ public class EventHandler extends TobagoComponentHandler implements BehaviorHold
     if (!ComponentHandler.isNew(parent)) {
       return;
     }
-      if (parent instanceof ClientBehaviorHolder) {
-        //Apply this handler directly over the parent
-        applyAttachedObject(ctx.getFacesContext(), parent);
+    if (parent instanceof ClientBehaviorHolder) {
+      //Apply this handler directly over the parent
+      applyAttachedObject(ctx.getFacesContext(), parent);
 //todo      } else if (UIComponent.isCompositeComponent(parent)) {
 //todo        FaceletCompositionContext mctx = FaceletCompositionContext.getCurrentInstance(ctx);
-        // It is supposed that for composite components, this tag should
-        // add itself as a target, but note that on whole api does not exists
-        // some tag that expose client behaviors as targets for composite
-        // components. In RI, there exists a tag called composite:clientBehavior,
-        // but does not appear on spec or javadoc, maybe because this could be
-        // understand as an implementation detail, after all there exists a key
-        // called AttachedObjectTarget.ATTACHED_OBJECT_TARGETS_KEY that could be
-        // used to create a tag outside jsf implementation to attach targets.
+      // It is supposed that for composite components, this tag should
+      // add itself as a target, but note that on whole api does not exists
+      // some tag that expose client behaviors as targets for composite
+      // components. In RI, there exists a tag called composite:clientBehavior,
+      // but does not appear on spec or javadoc, maybe because this could be
+      // understand as an implementation detail, after all there exists a key
+      // called AttachedObjectTarget.ATTACHED_OBJECT_TARGETS_KEY that could be
+      // used to create a tag outside jsf implementation to attach targets.
 //todo        mctx.addAttachedObjectHandler(parent, this);
-      } else {
-        throw new TagException(this.tag,
-            "Parent is not composite component or of type ClientBehaviorHolder, type is: "
-                + parent);
-      }
+    } else {
+      throw new TagException(this.tag,
+          "Parent is not composite component or of type ClientBehaviorHolder, type is: "
+              + parent);
+    }
   }
 
   /**
@@ -144,10 +146,10 @@ public class EventHandler extends TobagoComponentHandler implements BehaviorHold
     if (eventName == null) {
       eventName = cvh.getDefaultEventName();
       if (eventName == null) {
-          throw new TagAttributeException(_event, "eventName could not be defined for f:ajax tag with no wrap mode.");
+        throw new TagAttributeException(_event, "eventName could not be defined for f:ajax tag with no wrap mode.");
       }
     } else if (!cvh.getEventNames().contains(eventName)) {
-        throw new TagAttributeException(_event, "event it is not a valid eventName defined for this component");
+      throw new TagAttributeException(_event, "event it is not a valid eventName defined for this component");
     }
 
     Map<String, List<ClientBehavior>> clientBehaviors = cvh.getClientBehaviors();
@@ -172,6 +174,17 @@ public class EventHandler extends TobagoComponentHandler implements BehaviorHold
 
   protected EventBehavior createBehavior(FacesContext context) {
     return (EventBehavior) context.getApplication().createBehavior(EventBehavior.BEHAVIOR_ID);
+  }
+
+  @Override
+  public void onComponentCreated(FaceletContext faceletContext, UIComponent component, UIComponent parent) {
+    super.onComponentCreated(faceletContext, component, parent);
+
+    final UIEvent event = (UIEvent) component;
+    if (event.getEvent() == null) {
+      final ClientBehaviorHolder cvh = (ClientBehaviorHolder) parent;
+      event.setEvent(ClientBehaviors.valueOf(cvh.getDefaultEventName()));
+    }
   }
 
   /**
