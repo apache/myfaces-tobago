@@ -40,16 +40,16 @@
           <script name="bootstrap/4.0.0-alpha.4/js/bootstrap.js"/>
           <style name="bootstrap/4.0.0-alpha.4/css/bootstrap.css"/>
         </excludes>
-        <script name="bootstrap/4.0.0-alpha.4-richmond/js/bootstrap.js"/>
-        <style name="bootstrap/4.0.0-alpha.4-richmond/css/bootstrap.css"/>
+        <script name="bootstrap-richmond/4.0.0-alpha.4/js/bootstrap.js"/>
+        <style name="bootstrap-richmond/4.0.0-alpha.4/css/bootstrap.css"/>
       </resources>
       <resources production="false">
         <excludes>
           <script name="bootstrap/4.0.0-alpha.4/js/bootstrap.js"/>
           <style name="bootstrap/4.0.0-alpha.4/css/bootstrap.css"/>
         </excludes>
-        <script name="bootstrap/4.0.0-alpha.4-richmond/js/bootstrap.js"/>
-        <style name="bootstrap/4.0.0-alpha.4-richmond/css/bootstrap.css"/>
+        <script name="bootstrap-richmond/4.0.0-alpha.4/js/bootstrap.js"/>
+        <style name="bootstrap-richmond/4.0.0-alpha.4/css/bootstrap.css"/>
       </resources>
     </theme-definition>
   </theme-definitions>
