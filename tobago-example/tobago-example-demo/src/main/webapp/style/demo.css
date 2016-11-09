@@ -43,11 +43,13 @@ pre, code {
 }
 */
 
-/* Prism and Bootstrap both use "tag" as CSS class name. */
+/* Prism and Bootstrap both use "tag" as CSS class name. So we need to "fix" some stuff. */
 .language-markup .token.tag {
   font-weight: inherit;
   font-size: inherit;
   line-height: inherit;
-  display: inherit;
+  /*display: inherit;*/
   white-space: inherit;
+  text-align: inherit;
+  padding: inherit;
 }
