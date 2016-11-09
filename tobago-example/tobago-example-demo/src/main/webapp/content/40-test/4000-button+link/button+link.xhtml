@@ -27,10 +27,10 @@
       <tc:button id="standardButtonAction" label="Action" action="#{buttonLinkController.actionPage}"/>
       <tc:button id="standardButtonLink" label="Link" link="x-link.xhtml"/>
     </tc:buttons>
-    <tc:commands>
+    <tc:links>
       <tc:link id="standardLinkAction" label="Action" action="#{buttonLinkController.actionPage}"/>
       <tc:link id="standardLinkLink" label="Link" link="x-link.xhtml"/>
-    </tc:commands>
+    </tc:links>
     <br/>
     <br/>
   </tc:section>
@@ -41,12 +41,12 @@
                  confirmation="Are you sure?"/>
       <tc:button id="confirmationButtonLink" label="Link" link="x-link.xhtml" confirmation="Are you sure?"/>
     </tc:buttons>
-    <tc:commands>
+    <tc:links>
       <tc:link id="confirmationLinkAction" label="Action" action="#{buttonLinkController.actionPage}"
                confirmation="Are you sure?"/>
       <tc:link id="confirmationLinkLink" label="Link" link="x-link.xhtml"
                confirmation="Are you sure?"/>
-    </tc:commands>
+    </tc:links>
     <br/>
     <br/>
   </tc:section>
@@ -57,10 +57,10 @@
                  target="targetFrame"/>
       <tc:button id="targetButtonLink" label="Link" link="x-link.xhtml" target="targetFrame"/>
     </tc:buttons>
-    <tc:commands>
+    <tc:links>
       <tc:link id="targetLinkAction" label="Action" action="#{buttonLinkController.actionPage}" target="targetFrame"/>
       <tc:link id="targetLinkLink" label="Link" link="x-link.xhtml" target="targetFrame"/>
-    </tc:commands>
+    </tc:links>
     <br/>
     <br/>
     <tc:object id="targetFrame" name="targetFrame">

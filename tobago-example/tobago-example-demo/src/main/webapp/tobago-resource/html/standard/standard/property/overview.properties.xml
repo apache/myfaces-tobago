@@ -64,7 +64,7 @@
   <entry key="default_command">Default Command</entry>
   <entry key="buttons">Button Group</entry>
   <entry key="buttons_customizer">Button Group Customizer</entry>
-  <entry key="commands">Command Group</entry>
+  <entry key="links">Link Group</entry>
   <entry key="container">Container</entry>
   <entry key="box">Content Box</entry>
   <entry key="panel">Panel</entry>

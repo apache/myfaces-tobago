@@ -31,12 +31,12 @@ import javax.faces.component.UIPanel;
 /**
  * Defines a navigation element, which contains a menu-like structure
  */
-@Tag(name = "commands")
+@Tag(name = "links")
 @UIComponentTag(
-    uiComponent = "org.apache.myfaces.tobago.component.UICommands",
-    uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUICommands",
+    uiComponent = "org.apache.myfaces.tobago.component.UILinks",
+    uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUILinks",
     uiComponentFacesClass = "javax.faces.component.UIPanel",
     componentFamily = UIPanel.COMPONENT_FAMILY,
-    rendererType = RendererTypes.COMMANDS)
-public interface CommandsTagDeclaration extends HasIdBindingAndRendered, IsVisual, HasTip {
+    rendererType = RendererTypes.LINKS)
+public interface LinksTagDeclaration extends HasIdBindingAndRendered, IsVisual, HasTip {
 }

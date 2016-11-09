@@ -31,7 +31,6 @@ public enum RendererTypes {
   Calendar,
   Column,
   ColumnSelector,
-  Commands,
   Date,
   Event,
   Figure,
@@ -46,6 +45,7 @@ public enum RendererTypes {
   In,
   Image,
   Link,
+  Links,
   Label,
   Mediator,
   Messages,
@@ -99,7 +99,6 @@ public enum RendererTypes {
   public static final String CALENDAR = "Calendar";
   public static final String COLUMN = "Column";
   public static final String COLUMN_SELECTOR = "ColumnSelector";
-  public static final String COMMANDS = "Commands";
   public static final String EVENT = "Event";
   public static final String DATE = "Date";
   public static final String FIGURE = "Figure";
@@ -114,6 +113,7 @@ public enum RendererTypes {
   public static final String IN = "In";
   public static final String IMAGE = "Image";
   public static final String LINK = "Link";
+  public static final String LINKS = "Links";
   public static final String LABEL = "Label";
   public static final String MEDIATOR = "Mediator";
   public static final String MESSAGES = "Messages";

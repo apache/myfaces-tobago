@@ -129,9 +129,9 @@ public abstract class LabelLayoutRendererBase extends DecodingInputRendererBase 
     // todo: check if BootstrapClass.FORM_GROUP is needed, I've removed it, because of it's margin-bottom: 15px;
     // todo: so we lost too much space
     // todo: without it, e. g. an input field in the header will not be layouted correctly
-//    CssItem extra = ComponentUtils.findAncestor(component, AbstractUICommands.class) != null
+//    CssItem extra = ComponentUtils.findAncestor(component, AbstractUILinks.class) != null
 // ? BootstrapClass.FORM_GROUP : null;
-    // TODO: optimize findAncestor() -> set a marker in AbstractUICommands?
+    // TODO: optimize findAncestor() -> set a marker in AbstractUILinks?
 
 //    writer.writeClassAttribute(divClass, extra, BootstrapClass.maximumSeverity(component));
     writer.writeClassAttribute(

@@ -20,10 +20,10 @@
 package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
 import org.apache.myfaces.tobago.component.Attributes;
-import org.apache.myfaces.tobago.component.UICommands;
 import org.apache.myfaces.tobago.internal.component.AbstractUIButton;
 import org.apache.myfaces.tobago.internal.component.AbstractUICommand;
 import org.apache.myfaces.tobago.internal.component.AbstractUIFormBase;
+import org.apache.myfaces.tobago.internal.component.AbstractUILinks;
 import org.apache.myfaces.tobago.internal.util.AccessKeyLogger;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
@@ -228,7 +228,7 @@ public abstract class CommandRendererBase extends DecodingCommandRendererBase {
    */
   private boolean needsExtraSpanElement(AbstractUICommand command) {
     return !(command.getParent() instanceof AbstractUICommand) // only needed for top elements
-        && !(command.getParent() instanceof UICommands) // not needed inside of tc:commands
+        && !(command.getParent() instanceof AbstractUILinks) // not needed inside of tc:links
         && command.isParentOfCommands(); // only needed for sub-menus
   }
 }

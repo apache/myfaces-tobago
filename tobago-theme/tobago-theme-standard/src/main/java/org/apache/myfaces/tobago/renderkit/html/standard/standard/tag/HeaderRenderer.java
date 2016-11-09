@@ -47,7 +47,7 @@ public class HeaderRenderer extends RendererBase {
         BootstrapClass.NAVBAR, /*BootstrapClass.NAVBAR_DARK, BootstrapClass.BG_INVERSE,*/
         header.isFixed() ? BootstrapClass.NAVBAR_FIXED_TOP : null,
         header.getCustomClass());
-// TBD: should NAVBAR class be in the CommandsRenderer?
+// TBD: should NAVBAR class be in the LinksRenderer?
     writer.writeAttribute(HtmlAttributes.TITLE, header.getTip(), true);
     writer.writeStyleAttribute(header.getStyle());
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, header);

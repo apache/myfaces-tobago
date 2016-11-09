@@ -19,7 +19,7 @@
 
 package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
-import org.apache.myfaces.tobago.internal.component.AbstractUICommands;
+import org.apache.myfaces.tobago.internal.component.AbstractUILinks;
 import org.apache.myfaces.tobago.internal.component.AbstractUIFormBase;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
@@ -31,7 +31,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 
-public class CommandsRenderer extends RendererBase {
+public class LinksRenderer extends RendererBase {
 
   @Override
   public void encodeBegin(FacesContext facesContext, UIComponent component) throws IOException {
@@ -57,7 +57,7 @@ public class CommandsRenderer extends RendererBase {
           encodeChildren(facesContext, child);
         } else {
           // fixme: only a temporary workaround
-          final AbstractUICommands commands = ComponentUtils.findAncestor(component, AbstractUICommands.class);
+          final AbstractUILinks commands = ComponentUtils.findAncestor(component, AbstractUILinks.class);
           writer.startElement(HtmlElements.LI);
           writer.writeClassAttribute(BootstrapClass.NAV_ITEM, BootstrapClass.DROPDOWN);
           child.encodeAll(facesContext);

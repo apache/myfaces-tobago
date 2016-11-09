@@ -38,7 +38,7 @@
       <f:facet name="brand">
         <tc:link id="brand" label="Tobago Demo" image="image/feather-leaf.png" link="/"/>
       </f:facet>
-      <tc:commands>
+      <tc:links>
         <tc:link label="Home"/>
         <tc:link label="Configuration" omit="true">
           <tc:link label="Theme" omit="true">
@@ -58,7 +58,7 @@
           <tc:link label="Reset"/>
         </tc:link>
         <tc:link image="fa-info" label="Help"/>
-      </tc:commands>
+      </tc:links>
       <tc:flowLayout>
         <tc:style textAlign="right"/>
         <tc:in placeholder="Search"/>
@@ -68,7 +68,7 @@
 
   </tc:section>
 
-  <tc:section label="TODO: radio: (also for tc:commands)">
+  <tc:section label="TODO: radio: (also for tc:links)">
     <tc:bar>
       <tc:link omit="true" label="Radio">
         <tc:selectOneRadio value="#{overviewController.radioValue}">

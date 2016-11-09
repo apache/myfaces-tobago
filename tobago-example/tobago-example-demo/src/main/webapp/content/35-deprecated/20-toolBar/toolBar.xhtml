@@ -26,21 +26,21 @@
     <code class="language-markup">&lt;tc:toolBarCommand/></code> are deprecated.
     To replace a toolbar in the header of a component use <tc:link label="#{overviewBundle.buttons}"
                                                                    link="/faces/content/20-component/040-command/20-buttons/buttons.xhtml"/> or
-    <tc:link label="#{overviewBundle.commands}"
-             link="/faces/content/20-component/040-command/25-commands/commands.xhtml"/> instead.
+    <tc:link label="#{overviewBundle.links}"
+             link="/faces/content/20-component/040-command/25-links/links.xhtml"/> instead.
     To replace a plain toolbar, use
     <tc:link label="#{overviewBundle.bar}"
              link="/faces/content/20-component/050-container/60-bar/bar.xhtml"/>.</p>
 
   <tc:section label="Content Box Header">
     <p>The first box show the deprecated version of a toolbar.
-      The second and the third one are solutions with #{overviewBundle.buttons} and #{overviewBundle.commands}.</p>
+      The second and the third one are solutions with #{overviewBundle.buttons} and #{overviewBundle.links}.</p>
 
     <p>Instead of <code class="language-markup">&lt;f:facet name="toolBar"/></code>
       use <code class="language-markup">&lt;f:facet name="bar"/></code>.</p>
     <p>Instead of <code class="language-markup">&lt;tc:toolBar/></code>
       use <code class="language-markup">&lt;tc:buttons/></code>
-      or <code class="language-markup">&lt;tc:commands/></code>.</p>
+      or <code class="language-markup">&lt;tc:links/></code>.</p>
     <p>Instead of <code class="language-markup">&lt;tc:toolBarCommand/></code>
       use <code class="language-markup">&lt;tc:button/></code>
       or <code class="language-markup">&lt;tc:link/></code>.</p>
@@ -59,9 +59,9 @@
       </f:facet>
       <p>Content</p>
     </tc:box>
-    <tc:box label="#{overviewBundle.commands}">
+    <tc:box label="#{overviewBundle.links}">
       <f:facet name="bar">
-        <tc:commands>
+        <tc:links>
           <tc:link label="Text Link"/>
           <tc:link label="Image Link" image="fa-cube"/>
           <tc:link label="Dropdown" omit="true">
@@ -69,7 +69,7 @@
             <tc:link label="Action 2"/>
             <tc:link label="Action 3"/>
           </tc:link>
-        </tc:commands>
+        </tc:links>
       </f:facet>
       <p>Content</p>
     </tc:box>

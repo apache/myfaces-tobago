@@ -19,5 +19,5 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
-public abstract class AbstractUICommands extends AbstractUIPanelBase {
+public abstract class AbstractUILinks extends AbstractUIPanelBase {
 }

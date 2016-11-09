@@ -73,7 +73,7 @@ Migration from Tobago 2.0 to 3.0 (work in progress)
   the header facet of the tc:sheet. Example: Demo -> Components -> Sheet -> Filter
 
 * The Menu tags tc:menu, tc:menuBar, tc:menuCommand and tc:menuSeparator are no longer available and
-  needs to be migrated to tc:commands or tc:bar or tc:buttons with tc:command and tc:separator inside.
+  needs to be migrated to tc:links or tc:bar or tc:buttons with tc:link and tc:separator inside.
 
 * File upload now uses the Servlet 3.0 features.
 

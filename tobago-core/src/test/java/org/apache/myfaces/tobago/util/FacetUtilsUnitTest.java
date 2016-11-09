@@ -19,7 +19,7 @@
 
 package org.apache.myfaces.tobago.util;
 
-import org.apache.myfaces.tobago.component.UICommands;
+import org.apache.myfaces.tobago.component.UILinks;
 import org.apache.myfaces.tobago.component.UIPanel;
 import org.junit.Assert;
 import org.junit.Test;
@@ -30,7 +30,7 @@ public class FacetUtilsUnitTest {
   public void testContextMenu() {
     final UIPanel panel = new UIPanel();
     Assert.assertNull(FacetUtils.getContextMenu(panel));
-    final UICommands menu = new UICommands();
+    final UILinks menu = new UILinks();
     FacetUtils.setContextMenu(panel, menu);
     Assert.assertEquals(menu, FacetUtils.getContextMenu(panel));
   }
