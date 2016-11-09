@@ -28,7 +28,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRend
 
 /**
  * This component creates a representative in a UISheet for each row.
- * The tag must be a subtag of &lt;tc:sheet>
+ * The tag must be a subtag of &lt;tc:sheet&gt;
  */
 @Tag(name = "row")
 @UIComponentTag(

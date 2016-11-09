@@ -47,7 +47,7 @@ public class EventBehavior extends ClientBehaviorBase {
    * not needed anymore but enforced by the spec
    * theoretically a
    *
-   * @FacesBehavior(value = "javax.faces.behavior.Ajax")
+   * @ FacesBehavior(value = "javax.faces.behavior.Ajax")
    * could do it
    */
   public static final String BEHAVIOR_ID = "org.apache.myfaces.tobago.behavior.Event";
