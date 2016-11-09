@@ -68,20 +68,19 @@ import java.util.Map;
  * to define a target for a behavior. See comment inside apply() method.</li>
  * </ul>
  *
- * @author Leonardo Uribe (latest modification by $Author: lu4242 $)
- * @version $Revision: 1177714 $ $Date: 2011-09-30 15:51:51 +0000 (Fri, 30 Sep 2011) $
+ * @since 3.0.0
  */
 public class EventHandler extends TobagoComponentHandler implements BehaviorHolderAttachedObjectHandler {
 
-  public final static Class<?>[] AJAX_BEHAVIOR_LISTENER_SIG = new Class<?>[]{AjaxBehaviorEvent.class};
+  public static final Class<?>[] AJAX_BEHAVIOR_LISTENER_SIG = new Class<?>[]{AjaxBehaviorEvent.class};
 
-  private final TagAttribute _event;
+  private final TagAttribute event;
 
 // todo (see original AjaxHandler impl)  private final boolean _wrapMode;
 
   public EventHandler(ComponentConfig config) {
     super(config);
-    _event = getAttribute(Attributes.event.getName());
+    event = getAttribute(Attributes.event.getName());
   }
 
   public void apply(FaceletContext ctx, UIComponent parent)
@@ -119,10 +118,10 @@ public class EventHandler extends TobagoComponentHandler implements BehaviorHold
    * if the the target to be processed is applicable for this handler
    */
   public String getEventName() {
-    if (_event == null) {
+    if (event == null) {
       return null;
     } else {
-      return _event.getValue();
+      return event.getValue();
     }
   }
 
@@ -146,10 +145,10 @@ public class EventHandler extends TobagoComponentHandler implements BehaviorHold
     if (eventName == null) {
       eventName = cvh.getDefaultEventName();
       if (eventName == null) {
-        throw new TagAttributeException(_event, "eventName could not be defined for f:ajax tag with no wrap mode.");
+        throw new TagAttributeException(event, "eventName could not be defined for f:ajax tag with no wrap mode.");
       }
     } else if (!cvh.getEventNames().contains(eventName)) {
-      throw new TagAttributeException(_event, "event it is not a valid eventName defined for this component");
+      throw new TagAttributeException(event, "event it is not a valid eventName defined for this component");
     }
 
     Map<String, List<ClientBehavior>> clientBehaviors = cvh.getClientBehaviors();
@@ -199,57 +198,57 @@ public class EventHandler extends TobagoComponentHandler implements BehaviorHold
   /**
    * Wraps a method expression in a AjaxBehaviorListener
    */
-  public final static class AjaxBehaviorListenerImpl implements
+  public static final class AjaxBehaviorListenerImpl implements
       AjaxBehaviorListener, PartialStateHolder {
-    private MethodExpression _expr;
-    private boolean _transient;
-    private boolean _initialStateMarked;
+    private MethodExpression expression;
+    private boolean transientBoolean;
+    private boolean initialStateMarked;
 
     public AjaxBehaviorListenerImpl() {
     }
 
     public AjaxBehaviorListenerImpl(MethodExpression expr) {
-      _expr = expr;
+      expression = expr;
     }
 
     public void processAjaxBehavior(AjaxBehaviorEvent event)
         throws AbortProcessingException {
-      _expr.invoke(FacesContext.getCurrentInstance().getELContext(),
+      expression.invoke(FacesContext.getCurrentInstance().getELContext(),
           new Object[]{event});
     }
 
     public boolean isTransient() {
-      return _transient;
+      return transientBoolean;
     }
 
     public void restoreState(FacesContext context, Object state) {
       if (state == null) {
         return;
       }
-      _expr = (MethodExpression) state;
+      expression = (MethodExpression) state;
     }
 
     public Object saveState(FacesContext context) {
       if (initialStateMarked()) {
         return null;
       }
-      return _expr;
+      return expression;
     }
 
     public void setTransient(boolean newTransientValue) {
-      _transient = newTransientValue;
+      transientBoolean = newTransientValue;
     }
 
     public void clearInitialState() {
-      _initialStateMarked = false;
+      initialStateMarked = false;
     }
 
     public boolean initialStateMarked() {
-      return _initialStateMarked;
+      return initialStateMarked;
     }
 
     public void markInitialState() {
-      _initialStateMarked = true;
+      initialStateMarked = true;
     }
   }
 }
