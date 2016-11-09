@@ -42,17 +42,13 @@
           <tc:link id="config" label="#{overviewBundle.menu_config}" omit="true">
             <tc:link label="#{overviewBundle.menu_themes}" omit="true">
               <tc:selectOneRadio value="#{clientConfigController.theme}">
-                <f:facet name="change">
-                  <tc:link action="#{clientConfigController.submit}"/>
-                </f:facet>
+                <tc:event action="#{clientConfigController.submit}"/>
                 <tc:selectItems value="#{clientConfigController.themeItems}"/>
               </tc:selectOneRadio>
             </tc:link>
             <tc:link label="#{overviewBundle.menu_locale}">
               <tc:selectOneRadio value="#{clientConfigController.locale}">
-                <f:facet name="change">
-                  <tc:link action="#{clientConfigController.submit}"/>
-                </f:facet>
+                <tc:event action="#{clientConfigController.submit}"/>
                 <tc:selectItems value="#{clientConfigController.localeItems}"/>
               </tc:selectOneRadio>
             </tc:link>
