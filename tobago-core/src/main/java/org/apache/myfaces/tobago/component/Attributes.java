@@ -227,7 +227,6 @@ public enum Attributes {
   stateChangeListener,
   statePreview,
   style,
-  suppressToolbarContainer,
   switchType,
   tabIndex,
   target,
@@ -724,9 +723,6 @@ public enum Attributes {
   /** @deprecated Since Tobago 3.0.0. Please use the enum */
   @Deprecated
   public static final String STYLE_CLASS = "styleClass";
-  /** @deprecated Since Tobago 3.0.0. Please use the enum */
-  @Deprecated
-  public static final String SUPPRESS_TOOLBAR_CONTAINER = "suppressToolbarContainer";
   /** @deprecated Since Tobago 3.0.0. Please use the enum */
   @Deprecated
   public static final String SWITCH_TYPE = "switchType";

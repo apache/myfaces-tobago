@@ -267,9 +267,7 @@ Tobago.Menu.switchOn = function(menuBar, menu) {
       .bind(compatibleKeyEvent(), Tobago.Menu.handelKey);
   var a = menu.children('a');
   if (! a.data("tobago-ignore-focus")) { // can be removed, after refactoring to a jQuery widget variable
-    if (menu.parents(".tobago-toolBar").size() == 0
-        && menu.parents(".tobago-box-headerToolBar").size() == 0
-        && menu.parents(".tobago-column-menu").size() == 0) {
+    if (menu.parents(".tobago-column-menu").size() == 0) {
       a.trigger("focus");
     } else {
       // XXX the call in the previous line doesn't work with toolBar -> dropDown (don't know why), so using direct call
@@ -361,8 +359,7 @@ Tobago.Menu.init = function(elements) {
 
 //  jQuery(".tobago-page-menuStore").append(menus.children("ol"));
 
-  var toolBarMenu = Tobago.Utils.selectWithJQuery(
-      elements, ".tobago-toolBar-menu, .tobago-column-menu");
+  var toolBarMenu = Tobago.Utils.selectWithJQuery(elements, ".tobago-column-menu");
   // a click on toolBar menu opener -> forward to .tobago-menu-markup-top
   toolBarMenu.click(function(event) {
     jQuery(this).find('a').click();

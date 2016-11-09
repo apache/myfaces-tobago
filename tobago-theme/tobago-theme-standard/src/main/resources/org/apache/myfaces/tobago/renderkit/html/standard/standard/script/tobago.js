@@ -1142,20 +1142,6 @@ Tobago.ToolBar.init = function(elements) {
           event.stopPropagation();
         })
       });
-
-  Tobago.Utils.selectWithJQuery(elements, ".tobago-toolBar-selectOne").find(".tobago-toolBar-button")
-      .click(function () {
-        var button = jQuery(this);
-        var hidden = button.closest(".tobago-toolBar-selectOne").children("input[type=hidden]");
-        hidden.val(button.data("tobago-value"));
-      });
-
-  Tobago.Utils.selectWithJQuery(elements, ".tobago-toolBar-selectBoolean").find(".tobago-toolBar-button")
-      .click(function () {
-        var button = jQuery(this);
-        var hidden = button.closest(".tobago-toolBar-selectBoolean").children("input[type=hidden]");
-        hidden.val(hidden.val() == "true" ? "false" : "true");
-      });
 };
 
 Tobago.registerListener(Tobago.ToolBar.init, Tobago.Phase.DOCUMENT_READY);
