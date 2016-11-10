@@ -22,9 +22,9 @@ package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 import org.apache.myfaces.tobago.component.UISelectManyListbox;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
-import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
+import org.apache.myfaces.tobago.renderkit.html.JsonUtils;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
 import org.apache.myfaces.tobago.renderkit.util.SelectItemUtils;
@@ -72,10 +72,7 @@ public class SelectManyListboxRenderer extends SelectManyRendererBase {
     writer.writeAttribute(HtmlAttributes.MULTIPLE, true);
     writer.writeAttribute(HtmlAttributes.SIZE, size);
     writer.writeAttribute(HtmlAttributes.TITLE, title, true);
-    final String commands = RenderUtils.getBehaviorCommands(facesContext, select);
-    if (commands != null) {
-      writer.writeAttribute(DataAttributes.COMMANDS, commands, true);
-    }
+    writer.writeCommandMapAttribute(JsonUtils.encode(RenderUtils.getBehaviorCommands(facesContext, select)));
     final Object[] values = select.getSelectedValues();
     final String[] submittedValues = getSubmittedValues(select);
 

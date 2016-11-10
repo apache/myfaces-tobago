@@ -27,10 +27,9 @@ import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.model.ExpandedState;
 import org.apache.myfaces.tobago.model.SelectedState;
 import org.apache.myfaces.tobago.model.TreePath;
-import org.apache.myfaces.tobago.renderkit.html.AjaxClientBehaviorRenderer;
+import org.apache.myfaces.tobago.renderkit.html.TobagoClientBehaviorRenderer;
 import org.apache.myfaces.tobago.renderkit.html.Command;
 import org.apache.myfaces.tobago.renderkit.html.CommandMap;
-import org.apache.myfaces.tobago.renderkit.html.JsonUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -45,7 +44,6 @@ import javax.faces.component.behavior.ClientBehaviorContext;
 import javax.faces.component.behavior.ClientBehaviorHolder;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
-import javax.faces.render.ClientBehaviorRenderer;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -252,26 +250,8 @@ public final class RenderUtils {
     return url;
   }
 
-  public static String getBehaviorCommands(final FacesContext facesContext, final ClientBehaviorHolder holder) {
-
-    final CommandMap map = new CommandMap();
-    addBehaviorCommands(facesContext, holder, map);
-
-    // if there is no explicit behavior (with f:ajax or tc:event), use the command properties as default.
-    // tbd: think about refactoring: put this into ClientBehaviorRenderer
-    if (map.isEmpty() && holder instanceof AbstractUICommand) {
-      map.addCommand(ClientBehaviors.click, new Command(facesContext, (AbstractUICommand) holder));
-    }
-
-    if (map.isEmpty()) {
-      return null;
-    } else {
-      return JsonUtils.encode(map);
-    }
-  }
-
-  public static void addBehaviorCommands(
-      final FacesContext facesContext, final ClientBehaviorHolder holder, final CommandMap commandMap) {
+  public static CommandMap getBehaviorCommands(final FacesContext facesContext, final ClientBehaviorHolder holder) {
+    CommandMap map = null;
     final Map<String, List<ClientBehavior>> behaviors = holder.getClientBehaviors();
     for (Map.Entry<String, List<ClientBehavior>> behavior : behaviors.entrySet()) {
       final String key = behavior.getKey();
@@ -280,11 +260,15 @@ public final class RenderUtils {
       for (ClientBehavior clientBehavior : behavior.getValue()) {
         if (clientBehavior instanceof ClientBehaviorBase) {
           final String type = ((ClientBehaviorBase) clientBehavior).getRendererType();
-          final ClientBehaviorRenderer clientBehaviorRenderer
+          final javax.faces.render.ClientBehaviorRenderer clientBehaviorRenderer
               = facesContext.getRenderKit().getClientBehaviorRenderer(type);
           final String marker = clientBehaviorRenderer.getScript(context, clientBehavior);
-          if (AjaxClientBehaviorRenderer.COMMAND_MAP.equals(marker)) {
-            commandMap.merge((CommandMap) facesContext.getAttributes().get(AjaxClientBehaviorRenderer.COMMAND_MAP));
+          if (TobagoClientBehaviorRenderer.COMMAND_MAP.equals(marker)) {
+            if (map == null) {
+              map = new CommandMap();
+            }
+            // todo: optimize empty command maps
+            map.merge((CommandMap) facesContext.getAttributes().get(TobagoClientBehaviorRenderer.COMMAND_MAP));
           } else {
             LOG.error("Can't find prepared command map in faces context.");
           }
@@ -293,6 +277,17 @@ public final class RenderUtils {
         }
       }
     }
+
+    // if there is no explicit behavior (with f:ajax or tc:event), use the command properties as default.
+    // tbd: think about refactoring: put this into TobagoClientBehaviorRenderer
+    if ((map == null || map.isEmpty()) && holder instanceof AbstractUICommand) {
+      if (map == null) {
+        map = new CommandMap();
+      }
+      map.addCommand(ClientBehaviors.click, new Command(facesContext, (AbstractUICommand) holder));
+    }
+
+    return map;
   }
 
   public static void decodeClientBehaviors(final FacesContext facesContext, final UIComponent component) {

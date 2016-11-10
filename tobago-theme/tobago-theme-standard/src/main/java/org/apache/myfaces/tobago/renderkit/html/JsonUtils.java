@@ -103,6 +103,11 @@ public class JsonUtils {
   }
 
   public static String encode(final CommandMap commandMap) {
+
+    if (commandMap == null) {
+      return null;
+    }
+
     final StringBuilder builder = new StringBuilder();
     builder.append("{");
     final int initialLength = builder.length();

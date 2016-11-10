@@ -39,15 +39,14 @@ import javax.faces.component.behavior.ClientBehaviorContext;
 import javax.faces.context.FacesContext;
 import javax.faces.event.AjaxBehaviorEvent;
 import javax.faces.event.PhaseId;
-import javax.faces.render.ClientBehaviorRenderer;
 import java.util.Collection;
 import java.util.List;
 
-public class AjaxClientBehaviorRenderer extends ClientBehaviorRenderer {
+public class TobagoClientBehaviorRenderer extends javax.faces.render.ClientBehaviorRenderer {
 
-  private static final Logger LOG = LoggerFactory.getLogger(AjaxClientBehaviorRenderer.class);
+  private static final Logger LOG = LoggerFactory.getLogger(TobagoClientBehaviorRenderer.class);
 
-  public static final String COMMAND_MAP = AjaxClientBehaviorRenderer.class.getName() + ".CommandMap";
+  public static final String COMMAND_MAP = TobagoClientBehaviorRenderer.class.getName() + ".CommandMap";
 
   @Override
   public String getScript(ClientBehaviorContext behaviorContext, ClientBehavior behavior) {
@@ -160,6 +159,9 @@ public class AjaxClientBehaviorRenderer extends ClientBehaviorRenderer {
     return false;
   }
 
+  /**
+   * @deprecated TBD
+   */
   public static Collapse createCollapsible(FacesContext facesContext, UIComponent component) {
     //// TBD: is this nice? May be implemented with a JSF behaviour?
     //// BEGIN

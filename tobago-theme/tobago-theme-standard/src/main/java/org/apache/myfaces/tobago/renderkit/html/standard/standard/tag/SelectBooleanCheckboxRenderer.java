@@ -24,10 +24,10 @@ import org.apache.myfaces.tobago.internal.util.AccessKeyLogger;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
-import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
+import org.apache.myfaces.tobago.renderkit.html.JsonUtils;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
@@ -107,16 +107,9 @@ public class SelectBooleanCheckboxRenderer extends LabelLayoutRendererBase {
     writer.writeAttribute(HtmlAttributes.READONLY, select.isReadonly());
     writer.writeAttribute(HtmlAttributes.DISABLED, disabled);
     writer.writeAttribute(HtmlAttributes.REQUIRED, select.isRequired());
-
     HtmlRendererUtils.renderFocus(clientId, select.isFocus(), ComponentUtils.isError(select), facesContext, writer);
-
     writer.writeAttribute(HtmlAttributes.TABINDEX, select.getTabIndex());
-
-    final String commands = RenderUtils.getBehaviorCommands(facesContext, select);
-    if (commands != null) {
-      writer.writeAttribute(DataAttributes.COMMANDS, commands, true);
-    }
-
+    writer.writeCommandMapAttribute(JsonUtils.encode(RenderUtils.getBehaviorCommands(facesContext, select)));
     writer.endElement(HtmlElements.INPUT);
 
     if (label.getLabel() != null) {

@@ -28,6 +28,7 @@ public enum DataAttributes implements MarkupLanguageAttributes {
 
   /**
    * Ajax behaviors execute and render attributes for TabGroup and Sheet reload
+   * @deprecated please use COMMANDS
    */
   BEHAVIOR_COMMANDS("data-tobago-behavior-commands"),
 

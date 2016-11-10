@@ -27,6 +27,7 @@ import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
+import org.apache.myfaces.tobago.renderkit.html.JsonUtils;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
@@ -66,10 +67,8 @@ public class PanelRenderer extends PanelRendererBase {
       writer.writeAttribute(DataAttributes.RELOAD, Integer.toString(update.getFrequency()), false);
     }
 
-    final String commands = RenderUtils.getBehaviorCommands(facesContext, panel);
-    if (commands != null) {
-      writer.writeAttribute(DataAttributes.COMMANDS, commands, true);
-    }
+    writer.writeCommandMapAttribute(JsonUtils.encode(RenderUtils.getBehaviorCommands(facesContext, panel)));
+
     HtmlRendererUtils.encodeContextMenu(facesContext, writer, panel);
 
     encodeHidden(writer, clientId, collapsed);

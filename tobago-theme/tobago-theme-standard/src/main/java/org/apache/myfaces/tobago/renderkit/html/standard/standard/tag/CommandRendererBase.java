@@ -35,6 +35,7 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlButtonTypes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRoleValues;
+import org.apache.myfaces.tobago.renderkit.html.JsonUtils;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
@@ -92,10 +93,7 @@ public abstract class CommandRendererBase extends DecodingCommandRendererBase {
         command.setOmit(true);
       }
 
-      final String commands = RenderUtils.getBehaviorCommands(facesContext, command);
-      if (commands != null) {
-        writer.writeAttribute(DataAttributes.COMMANDS, commands, true);
-      }
+      writer.writeCommandMapAttribute(JsonUtils.encode(RenderUtils.getBehaviorCommands(facesContext, command)));
 
       if (label.getAccessKey() != null) {
         writer.writeAttribute(HtmlAttributes.ACCESSKEY, Character.toString(label.getAccessKey()), false);

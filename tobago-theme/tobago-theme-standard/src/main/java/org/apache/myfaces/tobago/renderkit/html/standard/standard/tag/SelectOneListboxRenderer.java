@@ -22,9 +22,9 @@ package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 import org.apache.myfaces.tobago.component.UISelectOneListbox;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
-import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
+import org.apache.myfaces.tobago.renderkit.html.JsonUtils;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
 import org.apache.myfaces.tobago.renderkit.util.SelectItemUtils;
@@ -71,10 +71,7 @@ public class SelectOneListboxRenderer extends SelectOneRendererBase {
     final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, select);
     writer.writeAttribute(HtmlAttributes.TITLE, title, true);
     writer.writeAttribute(HtmlAttributes.SIZE, size);
-    final String commands = RenderUtils.getBehaviorCommands(facesContext, select);
-    if (commands != null) {
-      writer.writeAttribute(DataAttributes.COMMANDS, commands, true);
-    }
+    writer.writeCommandMapAttribute(JsonUtils.encode(RenderUtils.getBehaviorCommands(facesContext, select)));
     HtmlRendererUtils.renderSelectItems(select, items, select.getValue(), (String) select.getSubmittedValue(),
         writer, facesContext);
 

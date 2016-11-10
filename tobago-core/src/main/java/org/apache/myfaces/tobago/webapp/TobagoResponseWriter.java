@@ -152,10 +152,21 @@ public abstract class TobagoResponseWriter extends ResponseWriter {
    */
   public void writeClassAttribute(final CssItem first) throws IOException {
     if (first != null) {
+      // todo: optimize me, do not use StringBuilder
       final StringBuilder builder = new StringBuilder();
       builder.append(first.getName());
       builder.append(' ');
       writeAttribute(HtmlAttributes.CLASS, builder.deleteCharAt(builder.length() - 1).toString(), false);
+    }
+  }
+
+  /**
+   * Write the command map data attribute.
+   */
+  public void writeCommandMapAttribute(final String map) throws IOException { // XXX use CommandMap instead of String
+    if (map != null) {
+      // XXX
+      writeAttribute(DataAttributes.COMMANDS, map, true);
     }
   }
 

@@ -23,10 +23,10 @@ import org.apache.myfaces.tobago.component.UISelectManyShuttle;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.Icons;
-import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlButtonTypes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
+import org.apache.myfaces.tobago.renderkit.html.JsonUtils;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
 import org.apache.myfaces.tobago.renderkit.util.SelectItemUtils;
@@ -126,12 +126,8 @@ public class SelectManyShuttleRenderer extends SelectManyRendererBase {
     writer.writeNameAttribute(clientId);
     writer.writeAttribute(HtmlAttributes.MULTIPLE, true);
     writer.writeAttribute(HtmlAttributes.REQUIRED, select.isRequired());
-    final String commands = RenderUtils.getBehaviorCommands(facesContext, select);
-    if (commands != null) {
-      writer.writeAttribute(DataAttributes.COMMANDS, commands, true);
-    }
+    writer.writeCommandMapAttribute(JsonUtils.encode(RenderUtils.getBehaviorCommands(facesContext, select)));
     HtmlRendererUtils.renderSelectItems(select, items, values, submittedValues, writer, facesContext);
-
     writer.endElement(HtmlElements.SELECT);
   }
 

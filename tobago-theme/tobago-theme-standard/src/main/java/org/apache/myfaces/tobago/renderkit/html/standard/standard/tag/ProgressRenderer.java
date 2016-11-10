@@ -23,9 +23,9 @@ import org.apache.myfaces.tobago.component.UIProgress;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
-import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
+import org.apache.myfaces.tobago.renderkit.html.JsonUtils;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
@@ -64,10 +64,7 @@ public class ProgressRenderer extends RendererBase {
     writer.writeAttribute(HtmlAttributes.MAX, Double.toString(max), false);
     writer.writeAttribute(HtmlAttributes.VALUE, Double.toString(value), false);
 
-    final String commands = RenderUtils.getBehaviorCommands(facesContext, progress);
-    if (commands != null) {
-      writer.writeAttribute(DataAttributes.COMMANDS, commands, true);
-    }
+    writer.writeCommandMapAttribute(JsonUtils.encode(RenderUtils.getBehaviorCommands(facesContext, progress)));
   }
 
   @Override

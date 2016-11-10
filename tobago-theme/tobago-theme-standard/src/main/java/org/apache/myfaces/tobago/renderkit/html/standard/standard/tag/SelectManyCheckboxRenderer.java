@@ -22,10 +22,10 @@ package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 import org.apache.myfaces.tobago.component.UISelectManyCheckbox;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
-import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
+import org.apache.myfaces.tobago.renderkit.html.JsonUtils;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
 import org.apache.myfaces.tobago.renderkit.util.SelectItemUtils;
@@ -91,10 +91,7 @@ public class SelectManyCheckboxRenderer extends SelectManyRendererBase {
         first = false;
       }
       writer.writeAttribute(HtmlAttributes.TABINDEX, select.getTabIndex());
-      final String commands = RenderUtils.getBehaviorCommands(facesContext, select);
-      if (commands != null) {
-        writer.writeAttribute(DataAttributes.COMMANDS, commands, true);
-      }
+      writer.writeCommandMapAttribute(JsonUtils.encode(RenderUtils.getBehaviorCommands(facesContext, select)));
       writer.endElement(HtmlElements.INPUT);
 
       final String label = item.getLabel();

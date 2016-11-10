@@ -41,6 +41,7 @@ import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
+import org.apache.myfaces.tobago.renderkit.html.JsonUtils;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
@@ -235,10 +236,7 @@ public class PageRenderer extends RendererBase {
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, page);
 
 
-    final String commands = RenderUtils.getBehaviorCommands(facesContext, page);
-    if (commands != null) {
-      writer.writeAttribute(DataAttributes.COMMANDS, commands, true);
-    }
+    writer.writeCommandMapAttribute(JsonUtils.encode(RenderUtils.getBehaviorCommands(facesContext, page)));
 
     writer.startElement(HtmlElements.FORM);
     if (preventFrameAttacks && !facesContext.getPartialViewContext().isAjaxRequest()) {

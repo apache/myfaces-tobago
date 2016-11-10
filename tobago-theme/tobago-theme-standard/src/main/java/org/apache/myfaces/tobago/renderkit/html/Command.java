@@ -80,7 +80,7 @@ public class Command {
         null,
         getConfirmation(command),
         null,
-        AjaxClientBehaviorRenderer.createCollapsible(facesContext, command),
+        TobagoClientBehaviorRenderer.createCollapsible(facesContext, command),
         command.isOmit());
   }
 

@@ -223,7 +223,7 @@ public class FacesConfigGenerator extends AbstractGenerator {
         clientBehaviorType.setText("javax.faces.behavior.Ajax");
         clientBehaviorRender.addContent(clientBehaviorType);
         final org.jdom.Element clientBehaviorClass = new org.jdom.Element(CLIENT_BEHAVIOR_RENDERER_CLASS, namespace);
-        clientBehaviorClass.setText("org.apache.myfaces.tobago.renderkit.html.AjaxClientBehaviorRenderer");
+        clientBehaviorClass.setText("org.apache.myfaces.tobago.renderkit.html.TobagoClientBehaviorRenderer");
         clientBehaviorRender.addContent(clientBehaviorClass);
         renderKit.addContent(clientBehaviorRender);
 
@@ -232,7 +232,7 @@ public class FacesConfigGenerator extends AbstractGenerator {
         clientBehaviorType2.setText("org.apache.myfaces.tobago.behavior.Event");
         clientBehaviorRender2.addContent(clientBehaviorType2);
         final org.jdom.Element clientBehaviorClass2 = new org.jdom.Element(CLIENT_BEHAVIOR_RENDERER_CLASS, namespace);
-        clientBehaviorClass2.setText("org.apache.myfaces.tobago.renderkit.html.AjaxClientBehaviorRenderer");
+        clientBehaviorClass2.setText("org.apache.myfaces.tobago.renderkit.html.TobagoClientBehaviorRenderer");
         clientBehaviorRender2.addContent(clientBehaviorClass2);
         renderKit.addContent(clientBehaviorRender2);
 

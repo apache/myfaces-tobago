@@ -34,11 +34,13 @@ import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
+import org.apache.myfaces.tobago.renderkit.html.CommandMap;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRoleValues;
+import org.apache.myfaces.tobago.renderkit.html.JsonUtils;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
@@ -101,8 +103,9 @@ public class TabGroupRenderer extends RendererBase {
     writer.writeStyleAttribute(tabGroup.getStyle());
     writer.writeAttribute(HtmlAttributes.SWITCHTYPE, switchType.name(), false);
 
-    final String commands = RenderUtils.getBehaviorCommands(facesContext, tabGroup);
-    writer.writeAttribute(DataAttributes.BEHAVIOR_COMMANDS, commands, false);
+// todo    writer.writeCommandMapAttribute(JsonUtils.encode(RenderUtils.getBehaviorCommands(facesContext, tabGroup)));
+    final CommandMap commands = RenderUtils.getBehaviorCommands(facesContext, tabGroup);
+    writer.writeAttribute(DataAttributes.BEHAVIOR_COMMANDS, JsonUtils.encode(commands), false);
 
     writer.startElement(HtmlElements.INPUT);
     writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN);

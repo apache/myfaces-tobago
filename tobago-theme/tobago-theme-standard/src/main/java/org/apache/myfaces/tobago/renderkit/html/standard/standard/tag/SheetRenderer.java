@@ -59,6 +59,7 @@ import org.apache.myfaces.tobago.renderkit.css.Icons;
 import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.Arias;
+import org.apache.myfaces.tobago.renderkit.html.CommandMap;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlButtonTypes;
@@ -194,8 +195,9 @@ public class SheetRenderer extends RendererBase {
       final UIReload update = (UIReload) facetReload;
       writer.writeAttribute(DataAttributes.RELOAD, update.getFrequency());
     }
-    final String commands = RenderUtils.getBehaviorCommands(facesContext, sheet);
-    writer.writeAttribute(DataAttributes.BEHAVIOR_COMMANDS, commands, false);
+// todo    writer.writeCommandMapAttribute(JsonUtils.encode(RenderUtils.getBehaviorCommands(facesContext, sheet)));
+    final CommandMap commands = RenderUtils.getBehaviorCommands(facesContext, sheet);
+    writer.writeAttribute(DataAttributes.BEHAVIOR_COMMANDS, JsonUtils.encode(commands), false);
     writer.writeAttribute(DataAttributes.SELECTION_MODE, sheet.getSelectable().name(), false);
     writer.writeAttribute(DataAttributes.FIRST, Integer.toString(sheet.getFirst()), false);
     final StringBuilder builder = new StringBuilder();
@@ -410,8 +412,7 @@ public class SheetRenderer extends RendererBase {
         if (column.isRendered()) {
           if (column instanceof AbstractUIRow) {
             final AbstractUIRow row = (AbstractUIRow) column;
-            final String commands = RenderUtils.getBehaviorCommands(facesContext, row);
-            writer.writeAttribute(DataAttributes.COMMANDS, commands, true);
+            writer.writeCommandMapAttribute(JsonUtils.encode(RenderUtils.getBehaviorCommands(facesContext, row)));
             writer.writeIdAttribute(row.getClientId(facesContext));
 
             // todo: Markup.CLICKABLE ???
@@ -813,8 +814,8 @@ public class SheetRenderer extends RendererBase {
                 ComponentUtils.setFacet(column, Facets.sorter, sortCommand);
               }
               writer.writeIdAttribute(sortCommand.getClientId(facesContext));
-              final String commands = RenderUtils.getBehaviorCommands(facesContext, sortCommand);
-              writer.writeAttribute(DataAttributes.COMMANDS, commands, true);
+              writer.writeCommandMapAttribute(
+                  JsonUtils.encode(RenderUtils.getBehaviorCommands(facesContext, sortCommand)));
 
               if (tip == null) {
                 tip = "";
@@ -1010,8 +1011,7 @@ public class SheetRenderer extends RendererBase {
     writer.writeIdAttribute(command.getClientId(facesContext));
     writer.writeAttribute(HtmlAttributes.TITLE, tip, true);
     if (!disabled) {
-      final String commands = RenderUtils.getBehaviorCommands(facesContext, command);
-      writer.writeAttribute(DataAttributes.COMMANDS, commands, true);
+      writer.writeCommandMapAttribute(JsonUtils.encode(RenderUtils.getBehaviorCommands(facesContext, command)));
     }
     writer.writeAttribute(HtmlAttributes.DISABLED, disabled);
     if (icon != null) {

@@ -31,6 +31,7 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlButtonTypes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
+import org.apache.myfaces.tobago.renderkit.html.JsonUtils;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.HttpPartWrapper;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
@@ -158,10 +159,8 @@ public class FileRenderer extends LabelLayoutRendererBase implements ComponentSy
       writer.writeAttribute(HtmlAttributes.TITLE, title, true);
     }
 
-    final String commands = RenderUtils.getBehaviorCommands(facesContext, file);
-    if (commands != null) {
-      writer.writeAttribute(DataAttributes.COMMANDS, commands, true);
-    }
+    writer.writeCommandMapAttribute(JsonUtils.encode(RenderUtils.getBehaviorCommands(facesContext, file)));
+
     writer.endElement(HtmlElements.INPUT);
 
     writer.startElement(HtmlElements.SPAN);
