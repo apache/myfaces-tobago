@@ -47,7 +47,6 @@ public enum RendererTypes {
   Link,
   Links,
   Label,
-  Mediator,
   Messages,
   Menu,
   MenuBar,
@@ -115,7 +114,6 @@ public enum RendererTypes {
   public static final String LINK = "Link";
   public static final String LINKS = "Links";
   public static final String LABEL = "Label";
-  public static final String MEDIATOR = "Mediator";
   public static final String MESSAGES = "Messages";
   public static final String MENU = "Menu";
   public static final String MENU_BAR = "MenuBar";
