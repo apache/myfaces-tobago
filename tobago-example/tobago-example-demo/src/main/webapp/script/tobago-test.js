@@ -23,12 +23,13 @@ function jQueryFrame(expression) {
  * Wait for ajax requests. Can be used with PhantomJs.
  * @param waitingDone return false if still waiting, true if waiting done
  * @param executeWhenDone is executed after waiting
+ * @param maxWait set the maximal waiting time in ms; default is 20000
  */
-function waitForAjax(waitingDone, executeWhenDone) {
+function waitForAjax(waitingDone, executeWhenDone, maxWait) {
   var startTime = new Date().getTime();
-  var maxWait = 20000;
+  maxWait = maxWait != null ? maxWait : 20000;
   var stillWaiting = true;
-  var interval = setInterval(function () {
+  var interval = setInterval(function() {
     if (new Date().getTime() - startTime < maxWait && stillWaiting) {
       stillWaiting = !waitingDone();
     } else {

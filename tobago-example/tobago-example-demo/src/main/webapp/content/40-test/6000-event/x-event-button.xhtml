@@ -17,25 +17,15 @@
  * limitations under the License.
 -->
 
-<ui:composition template="/plain.xhtml"
-                xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:tc="http://myfaces.apache.org/tobago/component"
+<ui:composition xmlns:tc="http://myfaces.apache.org/tobago/component"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:f="http://java.sun.com/jsf/core">
-
-  <ui:param name="title" value="#{overviewBundle.progress} &lt;tc:progress>"/>
-
-  <tc:section label="Event: complete">
-
-    <tc:panel id="panel">
-      <tc:label value="Progress"/>
-      <tc:progress value="#{progressController.progress}">
-        <tc:event event="complete" actionListener="#{progressController.resetProgress}"/>
-      </tc:progress>
-      <tc:button label="+1" action="#{progressController.addProgress}">
-        <!--<f:ajax render="panel"/>-->
-      </tc:button>
-    </tc:panel>
+                xmlns="http://www.w3.org/1999/xhtml">
+  <tc:section label="#{event}">
+    <tc:button id="button#{type}#{event}" label="Button">
+      <ui:include src="x-event-component-content.xhtml">
+        <ui:param name="type" value="#{type}"/>
+        <ui:param name="event" value="#{event}"/>
+      </ui:include>
+    </tc:button>
   </tc:section>
-
 </ui:composition>

@@ -15,330 +15,321 @@
  * limitations under the License.
  */
 
+QUnit.test("tc:button tc:event - blur", function(assert) {
+  testButtonEvent(assert, "blur");
+});
+
+QUnit.test("tc:button tc:event - click", function(assert) {
+  testButtonEvent(assert, "click");
+});
+
+QUnit.test("tc:button tc:event - dblclick", function(assert) {
+  testButtonEvent(assert, "dblclick");
+});
+
+QUnit.test("tc:button tc:event - focus", function(assert) {
+  testButtonEvent(assert, "focus");
+});
+
+QUnit.test("tc:button f:ajax - blur", function(assert) {
+  testButtonAjax(assert, "blur");
+});
+
+QUnit.test("tc:button f:ajax - click", function(assert) {
+  testButtonAjax(assert, "click");
+});
+
+QUnit.test("tc:button f:ajax - dblclick", function(assert) {
+  testButtonAjax(assert, "dblclick");
+});
+
+QUnit.test("tc:button f:ajax - focus", function(assert) {
+  testButtonAjax(assert, "focus");
+});
+
+QUnit.test("tc:in tc:event - blur", function(assert) {
+  testInEvent(assert, "blur");
+});
+
 QUnit.test("tc:in tc:event - change", function(assert) {
-  assert.expect(4);
-  var done = assert.async();
-
-  var oldActionCount = getActionCount();
-  var oldActionListenerCount = getActionListenerCount();
-  var oldAjaxListenerCount = getAjaxListenerCount();
-  var oldValueChangeListenerCount = getValueChangeListenerCount();
-
-  var $inputField = jQueryFrame("#page\\:mainForm\\:inEventChange\\:\\:field");
-  var newValue = "hello";
-  if (newValue == $inputField.val()) {
-    newValue = "hi there";
-  }
-  $inputField.val(newValue).trigger("change");
-
-  jQuery("#page\\:testframe").load(function() {
-    var newActionCount = getActionCount();
-    var newActionListenerCount = getActionListenerCount();
-    var newAjaxListenerCount = getAjaxListenerCount();
-    var newValueChangeListenerCount = getValueChangeListenerCount();
-
-    assert.ok(newActionCount > oldActionCount);
-    assert.ok(newActionListenerCount > oldActionListenerCount);
-    assert.ok(newAjaxListenerCount == oldAjaxListenerCount);
-    assert.ok(newValueChangeListenerCount > oldValueChangeListenerCount);
-
-    done();
-  });
+  testInEvent(assert, "change");
 });
 
 QUnit.test("tc:in tc:event - click", function(assert) {
-  assert.expect(4);
-  var done = assert.async();
-
-  var oldActionCount = getActionCount();
-  var oldActionListenerCount = getActionListenerCount();
-  var oldAjaxListenerCount = getAjaxListenerCount();
-  var oldValueChangeListenerCount = getValueChangeListenerCount();
-
-  var $inputField = jQueryFrame("#page\\:mainForm\\:inEventClick\\:\\:field");
-  $inputField.trigger("click");
-
-  jQuery("#page\\:testframe").load(function() {
-    var newActionCount = getActionCount();
-    var newActionListenerCount = getActionListenerCount();
-    var newAjaxListenerCount = getAjaxListenerCount();
-    var newValueChangeListenerCount = getValueChangeListenerCount();
-
-    assert.ok(newActionCount > oldActionCount);
-    assert.ok(newActionListenerCount > oldActionListenerCount);
-    assert.ok(newAjaxListenerCount == oldAjaxListenerCount);
-    assert.ok(newValueChangeListenerCount == oldValueChangeListenerCount);
-
-    done();
-  });
+  testInEvent(assert, "click");
 });
 
-QUnit.test("tc:in tc:event - change + click", function(assert) {
-  assert.expect(8);
-  var done = assert.async(2);
-  var step = 1;
-
-  var oldActionCount = getActionCount();
-  var oldActionListenerCount = getActionListenerCount();
-  var oldAjaxListenerCount = getAjaxListenerCount();
-  var oldValueChangeListenerCount = getValueChangeListenerCount();
-  var newActionCount;
-  var newActionListenerCount;
-  var newAjaxListenerCount;
-  var newValueChangeListenerCount;
-
-  var $inputField = jQueryFrame("#page\\:mainForm\\:inEventChangeClick\\:\\:field");
-  $inputField.trigger("click");
-
-  jQuery("#page\\:testframe").load(function() {
-    if (step == 1) {
-      newActionCount = getActionCount();
-      newActionListenerCount = getActionListenerCount();
-      newAjaxListenerCount = getAjaxListenerCount();
-      newValueChangeListenerCount = getValueChangeListenerCount();
-
-      assert.ok(newActionCount > oldActionCount);
-      assert.ok(newActionListenerCount > oldActionListenerCount);
-      assert.ok(newAjaxListenerCount == oldAjaxListenerCount);
-      assert.ok(newValueChangeListenerCount == oldValueChangeListenerCount);
-
-      $inputField = jQueryFrame($inputField.selector);
-      var newValue = "hello";
-      if (newValue == $inputField.val()) {
-        newValue = "hi there";
-      }
-      $inputField.val(newValue).trigger("change");
-    } else if (step == 2) {
-      newActionCount = getActionCount();
-      newActionListenerCount = getActionListenerCount();
-      newAjaxListenerCount = getAjaxListenerCount();
-      newValueChangeListenerCount = getValueChangeListenerCount();
-
-      assert.ok(newActionCount > oldActionCount);
-      assert.ok(newActionListenerCount > oldActionListenerCount);
-      assert.ok(newAjaxListenerCount == oldAjaxListenerCount);
-      assert.ok(newValueChangeListenerCount > oldValueChangeListenerCount);
-
-      oldActionCount = getActionCount();
-      oldActionListenerCount = getActionListenerCount();
-      oldAjaxListenerCount = getAjaxListenerCount();
-      oldValueChangeListenerCount = getValueChangeListenerCount();
-    }
-
-    step++;
-    done();
-  });
+QUnit.test("tc:in tc:event - dblclick", function(assert) {
+  testInEvent(assert, "dblclick");
 });
 
-QUnit.test("tc:in tc:ajax - change", function(assert) {
-  assert.expect(4);
-  var done = assert.async();
-
-  var oldActionCount = getActionCount();
-  var oldActionListenerCount = getActionListenerCount();
-  var oldAjaxListenerCount = getAjaxListenerCount();
-  var oldValueChangeListenerCount = getValueChangeListenerCount();
-  var newActionCount;
-  var newActionListenerCount;
-  var newAjaxListenerCount;
-  var newValueChangeListenerCount;
-
-  var $inputField = jQueryFrame("#page\\:mainForm\\:inAjaxChange\\:\\:field");
-  var newValue = "hello";
-  if (newValue == $inputField.val()) {
-    newValue = "hi there";
-  }
-  $inputField.val(newValue).trigger("change");
-
-  waitForAjax(function() {
-    newActionCount = getActionCount();
-    newActionListenerCount = getActionListenerCount();
-    newAjaxListenerCount = getAjaxListenerCount();
-    newValueChangeListenerCount = getValueChangeListenerCount();
-    return (newActionCount == oldActionCount)
-        && (newActionListenerCount == oldActionListenerCount)
-        && (newAjaxListenerCount > oldAjaxListenerCount)
-        && (newValueChangeListenerCount > oldValueChangeListenerCount);
-  }, function() {
-    newActionCount = getActionCount();
-    newActionListenerCount = getActionListenerCount();
-    newAjaxListenerCount = getAjaxListenerCount();
-    newValueChangeListenerCount = getValueChangeListenerCount();
-
-    assert.ok(newActionCount == oldActionCount);
-    assert.ok(newActionListenerCount == oldActionListenerCount);
-    assert.ok(newAjaxListenerCount > oldAjaxListenerCount);
-    assert.ok(newValueChangeListenerCount > oldValueChangeListenerCount);
-
-    done();
-  });
+QUnit.test("tc:in tc:event - focus", function(assert) {
+  testInEvent(assert, "focus");
 });
 
-/*QUnit.test("tc:in tc:ajax - click", function(assert) {
-  assert.expect(4);
-  var done = assert.async();
+QUnit.test("tc:in f:ajax - blur", function(assert) {
+  testInAjax(assert, "blur");
+});
 
-  var oldActionCount = getActionCount();
-  var oldActionListenerCount = getActionListenerCount();
-  var oldAjaxListenerCount = getAjaxListenerCount();
-  var oldValueChangeListenerCount = getValueChangeListenerCount();
-  var newActionCount;
-  var newActionListenerCount;
-  var newAjaxListenerCount;
-  var newValueChangeListenerCount;
+QUnit.test("tc:in f:ajax - change", function(assert) {
+  testInAjax(assert, "change");
+});
+QUnit.test("tc:in f:ajax - click", function(assert) {
+  testInAjax(assert, "click");
+});
+QUnit.test("tc:in f:ajax - dblclick", function(assert) {
+  testInAjax(assert, "dblclick");
+});
+QUnit.test("tc:in f:ajax - focus", function(assert) {
+  testInAjax(assert, "focus");
+});
 
-  var $inputField = jQueryFrame("#page\\:mainForm\\:inAjaxClick\\:\\:field");
-  $inputField.trigger("click");
+QUnit.test("tc:row tc:event - click", function(assert) {
+  testRowEvent(assert, "click");
+});
 
-  waitForAjax(function() {
-    newActionCount = getActionCount();
-    newActionListenerCount = getActionListenerCount();
-    newAjaxListenerCount = getAjaxListenerCount();
-    newValueChangeListenerCount = getValueChangeListenerCount();
-    return (newActionCount == oldActionCount)
-        && (newActionListenerCount == oldActionListenerCount)
-        && (newAjaxListenerCount > oldAjaxListenerCount)
-        && (newValueChangeListenerCount == oldValueChangeListenerCount);
-  }, function() {
-    newActionCount = getActionCount();
-    newActionListenerCount = getActionListenerCount();
-    newAjaxListenerCount = getAjaxListenerCount();
-    newValueChangeListenerCount = getValueChangeListenerCount();
+QUnit.test("tc:row tc:event - dblclick", function(assert) {
+  testRowEvent(assert, "dblclick");
+});
 
-    assert.ok(newActionCount == oldActionCount);
-    assert.ok(newActionListenerCount == oldActionListenerCount);
-    assert.ok(newAjaxListenerCount > oldAjaxListenerCount);
-    assert.ok(newValueChangeListenerCount == oldValueChangeListenerCount);
+QUnit.test("tc:row f:ajax - click", function(assert) {
+  testRowAjax(assert, "click");
+});
 
-    done();
-  });
-});*/
+QUnit.test("tc:row f:ajax - dblclick", function(assert) {
+  testRowAjax(assert, "dblclick");
+});
 
-/*QUnit.test("tc:in tc:ajax - change + click", function(assert) {
-  assert.expect(8);
-  var done = assert.async();
-  var step = 1;
+function testButtonEvent(assert, eventName) {
+  testEvent(assert, "button", function() {
+    return jQueryFrame("#page\\:mainForm\\:buttonevent" + eventName + "\\:\\:command");
+  }, eventName, true, true, false, false, false);
+}
 
-  var oldActionCount = getActionCount();
-  var oldActionListenerCount = getActionListenerCount();
-  var oldAjaxListenerCount = getAjaxListenerCount();
-  var oldValueChangeListenerCount = getValueChangeListenerCount();
-  var newActionCount;
-  var newActionListenerCount;
-  var newAjaxListenerCount;
-  var newValueChangeListenerCount;
+function testButtonAjax(assert, eventName) {
+  testAjax(assert, "button", function() {
+    return jQueryFrame("#page\\:mainForm\\:buttonajax" + eventName);
+  }, eventName, false, false, true, false, false);
+}
 
-  var $inputField = jQueryFrame("#page\\:mainForm\\:inAjaxChangeClick\\:\\:field");
-  $inputField.trigger("click");
-
-  waitForAjax(function() {
-    newActionCount = getActionCount();
-    newActionListenerCount = getActionListenerCount();
-    newAjaxListenerCount = getAjaxListenerCount();
-    newValueChangeListenerCount = getValueChangeListenerCount();
-    return step == 1
-        && (newActionCount == oldActionCount)
-        && (newActionListenerCount == oldActionListenerCount)
-        && (newAjaxListenerCount > oldAjaxListenerCount)
-        && (newValueChangeListenerCount == oldValueChangeListenerCount);
-  }, function() {
-    newActionCount = getActionCount();
-    newActionListenerCount = getActionListenerCount();
-    newAjaxListenerCount = getAjaxListenerCount();
-    newValueChangeListenerCount = getValueChangeListenerCount();
-
-    assert.ok(newActionCount > oldActionCount);
-    assert.ok(newActionListenerCount > oldActionListenerCount);
-    assert.ok(newAjaxListenerCount == oldAjaxListenerCount);
-    assert.ok(newValueChangeListenerCount > oldValueChangeListenerCount);
-
-    $inputField = jQueryFrame($inputField.selector);
+function testInEvent(assert, eventName) {
+  testEvent(assert, "in", function() {
+    var $inputField = jQueryFrame("#page\\:mainForm\\:inevent" + eventName + "\\:\\:field");
     var newValue = "hello";
     if (newValue == $inputField.val()) {
       newValue = "hi there";
     }
-    $inputField.val(newValue).trigger("change");
+    $inputField.val(newValue);
+    return $inputField;
+  }, eventName, true, true, false, true, false);
+}
 
-    waitForAjax(function() {
-      newActionCount = getActionCount();
-      newActionListenerCount = getActionListenerCount();
-      newAjaxListenerCount = getAjaxListenerCount();
-      newValueChangeListenerCount = getValueChangeListenerCount();
-      return step == 2
-          && (newActionCount == oldActionCount)
-          && (newActionListenerCount == oldActionListenerCount)
-          && (newAjaxListenerCount > oldAjaxListenerCount)
-          && (newValueChangeListenerCount > oldValueChangeListenerCount);
-    }, function() {
-      newActionCount = getActionCount();
-      newActionListenerCount = getActionListenerCount();
-      newAjaxListenerCount = getAjaxListenerCount();
-      newValueChangeListenerCount = getValueChangeListenerCount();
+function testInAjax(assert, eventName) {
+  testAjax(assert, "in", function() {
+    var $inputField = jQueryFrame("#page\\:mainForm\\:inajax" + eventName + "\\:\\:field");
+    var newValue = "hello";
+    if (newValue == $inputField.val()) {
+      newValue = "hi there";
+    }
+    $inputField.val(newValue);
+    return $inputField;
+  }, eventName, false, false, true, true, false);
+}
 
-      assert.ok(newActionCount == oldActionCount);
-      assert.ok(newActionListenerCount == oldActionListenerCount);
-      assert.ok(newAjaxListenerCount > oldAjaxListenerCount);
-      assert.ok(newValueChangeListenerCount > oldValueChangeListenerCount);
+function testRowEvent(assert, eventName) {
+  var newSelectedPlanet = "Venus";
+  testEvent(assert, "row", function() {
+    var $row = jQueryFrame("#page\\:mainForm\\:sheetevent" + eventName + "\\:1\\:selectPlanet");
+    if (getSelectedPlanet() == newSelectedPlanet) {
+      $row = jQueryFrame("#page\\:mainForm\\:sheetevent" + eventName + "\\:4\\:selectPlanet");
+      newSelectedPlanet = "Jupiter";
+    }
+    return $row;
+  }, eventName, true, false, false, false, true);
+}
+
+function testRowAjax(assert, eventName) {
+  var newSelectedPlanet = "Venus";
+  testAjax(assert, "row", function() {
+    var $row = jQueryFrame("#page\\:mainForm\\:sheetajax" + eventName + "\\:1\\:selectPlanet");
+    if (getSelectedPlanet() == newSelectedPlanet) {
+      $row = jQueryFrame("#page\\:mainForm\\:sheetajax" + eventName + "\\:4\\:selectPlanet");
+      newSelectedPlanet = "Jupiter";
+    }
+    return $row;
+  }, eventName, false, false, false, false, true);
+}
+
+function testEvent(assert, componentName, componentFunc, event,
+                   incAction, incActionListener, incAjaxListener, incValueChangeListener, changePlanet) {
+  assert.expect(6);
+  var changeActiveComponent = jQueryFrame("#page\\:mainForm\\:compTestSection > div > h1 > span").text()
+      != "<tc:" + componentName + ">";
+  var done = assert.async(1 + changeActiveComponent);
+
+  var oldActionCount;
+  var oldActionListenerCount;
+  var oldAjaxListenerCount;
+  var oldValueChangeListenerCount;
+  var oldTimestamp;
+  var oldPlanet;
+
+  if (changeActiveComponent) {
+    activateComponent(componentName);
+    var step = 1;
+
+    jQuery("#page\\:testframe").load(function() {
+      if (step == 1) {
+        oldActionCount = getActionCount();
+        oldActionListenerCount = getActionListenerCount();
+        oldAjaxListenerCount = getAjaxListenerCount();
+        oldValueChangeListenerCount = getValueChangeListenerCount();
+        oldTimestamp = getTimestamp();
+        oldPlanet = getSelectedPlanet();
+
+        componentFunc().trigger(event);
+      } else if (step == 2) {
+        validateEvent(assert, oldActionCount, oldActionListenerCount, oldAjaxListenerCount,
+            oldValueChangeListenerCount, oldTimestamp, oldPlanet, incAction, incActionListener, incAjaxListener,
+            incValueChangeListener, changePlanet);
+      }
+      step++;
+      done();
     });
+  } else {
+    oldActionCount = getActionCount();
+    oldActionListenerCount = getActionListenerCount();
+    oldAjaxListenerCount = getAjaxListenerCount();
+    oldValueChangeListenerCount = getValueChangeListenerCount();
+    oldTimestamp = getTimestamp();
+    oldPlanet = getSelectedPlanet();
 
-    step++;
-    done();
-  });
-});*/
+    componentFunc().trigger(event);
 
-QUnit.test("tc:button tc:event - click", function(assert) {
-  assert.expect(4);
-  var done = assert.async();
+    jQuery("#page\\:testframe").load(function() {
+      validateEvent(assert, oldActionCount, oldActionListenerCount, oldAjaxListenerCount, oldValueChangeListenerCount,
+          oldTimestamp, oldPlanet, incAction, incActionListener, incAjaxListener, incValueChangeListener, changePlanet);
 
-  var oldActionCount = getActionCount();
-  var oldActionListenerCount = getActionListenerCount();
-  var oldAjaxListenerCount = getAjaxListenerCount();
-  var oldValueChangeListenerCount = getValueChangeListenerCount();
+      done();
+    });
+  }
+}
 
-  var button = jQueryFrame("#page\\:mainForm\\:buttonEventClick");
-  button.click();
+function validateEvent(assert, oldActionCount, oldActionListenerCount, oldAjaxListenerCount,
+                       oldValueChangeListenerCount, oldTimestamp, oldPlanet, incAction, incActionListener,
+                       incAjaxListener, incValueChangeListener, changePlanet) {
+  var newActionCount = getActionCount();
+  var newActionListenerCount = getActionListenerCount();
+  var newAjaxListenerCount = getAjaxListenerCount();
+  var newValueChangeListenerCount = getValueChangeListenerCount();
+  var newTimestamp = getTimestamp();
+  var newPlanet = getSelectedPlanet();
 
-  jQuery("#page\\:testframe").load(function() {
+  assert.equal(newActionCount, oldActionCount + incAction, "action");
+  assert.equal(newActionListenerCount, oldActionListenerCount + incActionListener, "actionListener");
+  assert.equal(newAjaxListenerCount, oldAjaxListenerCount + incAjaxListener, "ajaxListener");
+  assert.equal(newValueChangeListenerCount, oldValueChangeListenerCount + incValueChangeListener,
+      "valueChangeListener");
+  assert.ok(newTimestamp > oldTimestamp, "timestamp");
+  if (changePlanet) {
+    assert.notEqual(newPlanet, oldPlanet, "selectedPlanet");
+  } else {
+    assert.equal(newPlanet, oldPlanet, "selectedPlanet");
+  }
+}
+
+function testAjax(assert, componentName, componentFunc, event,
+                  incAction, incActionListener, incAjaxListener, incValueChangeListener, changePlanet) {
+  assert.expect(6);
+  var changeActiveComponent = jQueryFrame("#page\\:mainForm\\:compTestSection > div > h1 > span").text()
+      != "<tc:" + componentName + ">";
+  var done = assert.async(1 + changeActiveComponent);
+
+  var oldActionCount;
+  var oldActionListenerCount;
+  var oldAjaxListenerCount;
+  var oldValueChangeListenerCount;
+  var oldTimestamp;
+  var oldPlanet;
+
+  if (changeActiveComponent) {
+    activateComponent(componentName);
+    var step = 1;
+
+    jQuery("#page\\:testframe").load(function() {
+      if (step == 1) {
+        oldActionCount = getActionCount();
+        oldActionListenerCount = getActionListenerCount();
+        oldAjaxListenerCount = getAjaxListenerCount();
+        oldValueChangeListenerCount = getValueChangeListenerCount();
+        oldTimestamp = getTimestamp();
+        oldPlanet = getSelectedPlanet();
+
+        componentFunc().trigger(event);
+
+        validateAjax(assert, done, oldActionCount, oldActionListenerCount, oldAjaxListenerCount,
+            oldValueChangeListenerCount, oldTimestamp, oldPlanet, incAction, incActionListener, incAjaxListener,
+            incValueChangeListener, changePlanet);
+      }
+      step++;
+      done();
+    });
+  } else {
+    oldActionCount = getActionCount();
+    oldActionListenerCount = getActionListenerCount();
+    oldAjaxListenerCount = getAjaxListenerCount();
+    oldValueChangeListenerCount = getValueChangeListenerCount();
+    oldTimestamp = getTimestamp();
+    oldPlanet = getSelectedPlanet();
+
+    componentFunc().trigger(event);
+
+    validateAjax(assert, done, oldActionCount, oldActionListenerCount, oldAjaxListenerCount,
+        oldValueChangeListenerCount, oldTimestamp, oldPlanet, incAction, incActionListener, incAjaxListener,
+        incValueChangeListener, changePlanet);
+  }
+}
+
+function validateAjax(assert, done, oldActionCount, oldActionListenerCount, oldAjaxListenerCount,
+                      oldValueChangeListenerCount, oldTimestamp, oldPlanet, incAction, incActionListener,
+                      incAjaxListener, incValueChangeListener, changePlanet) {
+  waitForAjax(function() {
     var newActionCount = getActionCount();
     var newActionListenerCount = getActionListenerCount();
     var newAjaxListenerCount = getAjaxListenerCount();
     var newValueChangeListenerCount = getValueChangeListenerCount();
+    var newTimestamp = getTimestamp();
+    var newPlanet = getSelectedPlanet();
 
-    assert.ok(newActionCount > oldActionCount);
-    assert.ok(newActionListenerCount > oldActionListenerCount);
-    assert.ok(newAjaxListenerCount == oldAjaxListenerCount);
-    assert.ok(newValueChangeListenerCount == oldValueChangeListenerCount);
-
-    done();
-  });
-});
-
-QUnit.test("tc:sheet tc:event - click", function(assert) {
-  assert.expect(4);
-  var done = assert.async();
-
-  var oldActionCount = getActionCount();
-  var oldActionListenerCount = getActionListenerCount();
-  var oldAjaxListenerCount = getAjaxListenerCount();
-  var oldValueChangeListenerCount = getValueChangeListenerCount();
-
-  var button = jQueryFrame("#page\\:mainForm\\:buttonEventClick");
-  button.click();
-
-  jQuery("#page\\:testframe").load(function() {
+    return newActionCount == (oldActionCount + incAction)
+    && newActionListenerCount == (oldActionListenerCount + incActionListener)
+    && newAjaxListenerCount == (oldAjaxListenerCount + incAjaxListener)
+    && newValueChangeListenerCount == (oldValueChangeListenerCount + incValueChangeListener)
+    && newTimestamp > oldTimestamp
+    && changePlanet ? newPlanet != oldPlanet : newPlanet == oldPlanet;
+  }, function() {
     var newActionCount = getActionCount();
     var newActionListenerCount = getActionListenerCount();
     var newAjaxListenerCount = getAjaxListenerCount();
     var newValueChangeListenerCount = getValueChangeListenerCount();
+    var newTimestamp = getTimestamp();
+    var newPlanet = getSelectedPlanet();
 
-    assert.ok(newActionCount > oldActionCount);
-    assert.ok(newActionListenerCount > oldActionListenerCount);
-    assert.ok(newAjaxListenerCount == oldAjaxListenerCount);
-    assert.ok(newValueChangeListenerCount == oldValueChangeListenerCount);
+    assert.equal(newActionCount, oldActionCount + incAction, "action");
+    assert.equal(newActionListenerCount, oldActionListenerCount + incActionListener, "actionListener");
+    assert.equal(newAjaxListenerCount, oldAjaxListenerCount + incAjaxListener, "ajaxListener");
+    assert.equal(newValueChangeListenerCount, oldValueChangeListenerCount + incValueChangeListener,
+        "valueChangeListener");
+    assert.ok(newTimestamp > oldTimestamp, "timestamp");
+    if (changePlanet) {
+      assert.notEqual(newPlanet, oldPlanet, "selectedPlanet");
+    } else {
+      assert.equal(newPlanet, oldPlanet, "selectedPlanet");
+    }
 
     done();
-  });
-});
+  }, 3000);
+}
 
 function getActionCount() {
   return parseInt(jQueryFrame("#page\\:mainForm\\:outAction span").text());
@@ -361,5 +352,13 @@ function getTimestamp() {
 }
 
 function getSelectedPlanet() {
-  return jQueryFrame("#page\\:mainForm\\:outPlanet span").text();
+  return jQueryFrame("#page\\:mainForm\\:inPlanet\\:\\:field").val()
+}
+
+function activateComponent(componentName) {
+  jQueryFrame("#page\\:mainForm\\:componentTable .tobago-sheet-row").each(function() {
+    if (jQuery(this).find("td").eq(0).find("span").text() == componentName) {
+      this.click();
+    }
+  });
 }

@@ -1,4 +1,6 @@
-/*
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
  * this work for additional information regarding copyright ownership.
@@ -13,24 +15,17 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- */
+-->
 
-.tobago-sheet-cell-markup-sun {
-  background-color: #fffacd;
-}
-
-.tobago-sheet-cell-markup-planet {
-  background-color: #ffb6c1;
-}
-
-.tobago-sheet-cell-markup-moon {
-  background-color: #6495ed;
-}
-
-.tobago-sheet-cell-markup-lightgreen {
-  background-color: #ddffdd;
-}
-
-.tobago-sheet-cell-markup-lightred {
-  background-color: #ffdddd;
-}
+<ui:composition xmlns:tc="http://myfaces.apache.org/tobago/component"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns="http://www.w3.org/1999/xhtml">
+  <tc:section label="#{event}">
+    <tc:in id="in#{type}#{event}" valueChangeListener="#{eventController.valueChangeListener}">
+      <ui:include src="x-event-component-content.xhtml">
+        <ui:param name="type" value="#{type}"/>
+        <ui:param name="event" value="#{event}"/>
+      </ui:include>
+    </tc:in>
+  </tc:section>
+</ui:composition>
