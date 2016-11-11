@@ -62,7 +62,7 @@ import javax.faces.component.UIData;
             allowedChildComponenents = "org.apache.myfaces.tobago.Reload")},
     behaviors = {
         @Behavior(
-            name = ClientBehaviors.RELOAD,
+            name = ClientBehaviors.RELOAD, // XXX replace by click
             isDefault = true)
     })
 public interface SheetTagDeclaration

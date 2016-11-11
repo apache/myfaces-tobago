@@ -20,6 +20,7 @@
 package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
 import org.apache.myfaces.tobago.component.Attributes;
+import org.apache.myfaces.tobago.component.ClientBehaviors;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.UITab;
 import org.apache.myfaces.tobago.component.UITabGroup;
@@ -29,11 +30,13 @@ import org.apache.myfaces.tobago.event.TabChangeEvent;
 import org.apache.myfaces.tobago.internal.component.AbstractUIPanelBase;
 import org.apache.myfaces.tobago.internal.util.AccessKeyLogger;
 import org.apache.myfaces.tobago.internal.util.Deprecation;
+import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.model.SwitchType;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
+import org.apache.myfaces.tobago.renderkit.html.Command;
 import org.apache.myfaces.tobago.renderkit.html.CommandMap;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
@@ -56,11 +59,42 @@ import javax.faces.context.FacesContext;
 import java.io.IOException;
 import java.util.Map;
 
+//@ListenerFor(systemEventClass = PostAddToViewEvent.class)
+//public class TabGroupRenderer extends RendererBase implements ComponentSystemEventListener {
 public class TabGroupRenderer extends RendererBase {
 
   private static final Logger LOG = LoggerFactory.getLogger(TabGroupRenderer.class);
 
   private static final String ACTIVE_INDEX_POSTFIX = ComponentUtils.SUB_SEPARATOR + "activeIndex";
+
+/* todo
+  @Override
+  public void processEvent(ComponentSystemEvent event) {
+
+    final UITabGroup tabGroup = (UITabGroup) event.getComponent();
+
+    for (final UIComponent child : tabGroup.getChildren()) {
+      if (child instanceof UITab) {
+        final UITab tab = (UITab) child;
+        if (tab.isRendered()) {
+          switch (tabGroup.getSwitchType()) {
+            case client:
+              // todo: implement a client behavior which can call local scripts (respect CSP)
+              break;
+            case reloadTab:
+              final AjaxBehavior ajaxBehavior = new AjaxBehavior();
+              tab.addClientBehavior("click", ajaxBehavior);
+              break;
+            case reloadPage:
+              final EventBehavior eventBehavior = new EventBehavior();
+              tab.addClientBehavior("click", eventBehavior);
+              break;
+          }
+        }
+      }
+    }
+  }
+*/
 
   @Override
   public void decode(final FacesContext facesContext, final UIComponent component) {
@@ -102,10 +136,6 @@ public class TabGroupRenderer extends RendererBase {
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, tabGroup);
     writer.writeStyleAttribute(tabGroup.getStyle());
     writer.writeAttribute(HtmlAttributes.SWITCHTYPE, switchType.name(), false);
-
-// todo    writer.writeCommandMapAttribute(JsonUtils.encode(RenderUtils.getBehaviorCommands(facesContext, tabGroup)));
-    final CommandMap commands = RenderUtils.getBehaviorCommands(facesContext, tabGroup);
-    writer.writeAttribute(DataAttributes.BEHAVIOR_COMMANDS, JsonUtils.encode(commands), false);
 
     writer.startElement(HtmlElements.INPUT);
     writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN);
@@ -165,6 +195,8 @@ public class TabGroupRenderer extends RendererBase {
     writer.startElement(HtmlElements.UL);
     writer.writeClassAttribute(Classes.create(tabGroup, "header"), BootstrapClass.NAV, BootstrapClass.NAV_TABS);
     writer.writeAttribute(HtmlAttributes.ROLE, HtmlRoleValues.TABLIST.toString(), false);
+    final String tabGroupId = tabGroup.getClientId(facesContext);
+    final CommandMap additionalCommands = RenderUtils.getBehaviorCommands(facesContext, tabGroup);
 
     int index = 0;
     for (final UIComponent child : tabGroup.getChildren()) {
@@ -173,6 +205,7 @@ public class TabGroupRenderer extends RendererBase {
         if (tab.isRendered()) {
           final LabelWithAccessKey label = new LabelWithAccessKey(tab);
           final boolean disabled = tab.isDisabled();
+          final String tabId = tab.getClientId(facesContext);
 
           Markup markup = activeIndex == index ? Markup.SELECTED : Markup.NULL;
           final FacesMessage.Severity maxSeverity
@@ -182,6 +215,7 @@ public class TabGroupRenderer extends RendererBase {
           }
 
           writer.startElement(HtmlElements.LI);
+          writer.writeIdAttribute(tabId);
           writer.writeClassAttribute(Classes.create(tab, markup), BootstrapClass.NAV_ITEM);
           writer.writeAttribute(HtmlAttributes.ROLE, HtmlRoleValues.PRESENTATION.toString(), false);
           writer.writeAttribute(HtmlAttributes.TABGROUPINDEX, index);
@@ -189,6 +223,49 @@ public class TabGroupRenderer extends RendererBase {
           if (title != null) {
             writer.writeAttribute(HtmlAttributes.TITLE, title, true);
           }
+
+// TODO: to be refactored
+//
+//
+//
+//
+          CommandMap map = RenderUtils.getBehaviorCommands(facesContext, tab);
+
+          if (map == null) {
+            map = new CommandMap();
+          }
+
+          // XXX temporary implementation
+          switch (tabGroup.getSwitchType()) {
+            case client:
+              // todo: implement a client behavior which can call local scripts (respect CSP)
+              break;
+            case reloadTab:
+
+              final Command additionalClick = additionalCommands != null ? additionalCommands.getClick() : null;
+
+              String execute = additionalClick != null && StringUtils.isNotBlank(additionalClick.getExecute())
+                  ? additionalClick.getExecute() + " " + tabGroupId : tabGroupId;
+              String render = additionalClick != null && StringUtils.isNotBlank(additionalClick.getRender())
+                  ? additionalClick.getRender() + " " + tabGroupId : tabGroupId;
+
+              final Command click = map.getClick();
+              if (click != null) {
+
+                execute = StringUtils.isNotBlank(click.getExecute()) ? click.getExecute() + " " + execute : execute;
+                render  = StringUtils.isNotBlank(click.getRender())  ? click.getRender() + " " + render : render;
+
+              }
+              map.addCommand(ClientBehaviors.click,
+                  new Command(tabId, null, null, execute, render, null, null, null, null, null));
+              break;
+            case reloadPage:
+              map.addCommand(ClientBehaviors.click,
+                  new Command(tabId, null, null, null, null, null, null, null, null, null));
+              break;
+          }
+
+          writer.writeAttribute(DataAttributes.COMMANDS, JsonUtils.encode(map), false);
 
           writer.startElement(HtmlElements.A);
           if (!tab.isDisabled()) {
@@ -206,8 +283,6 @@ public class TabGroupRenderer extends RendererBase {
             writer.writeAttribute(
                 DataAttributes.TARGET, '#' + getTabPanelId(facesContext, tab).replaceAll(":", "\\\\:"), false);
           }
-          final String tabId = tab.getClientId(facesContext);
-          writer.writeIdAttribute(tabId);
 
           if (!disabled && label.getAccessKey() != null) {
             writer.writeAttribute(HtmlAttributes.ACCESSKEY, Character.toString(label.getAccessKey()), false);

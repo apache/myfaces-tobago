@@ -53,7 +53,7 @@ import javax.faces.component.UIPanel;
     allowedChildComponenents = "org.apache.myfaces.tobago.Tab",
     behaviors = {
         @Behavior(
-            name = ClientBehaviors.RELOAD,
+            name = ClientBehaviors.CLICK,
             isDefault = true)
     })
 public interface TabGroupTagDeclaration

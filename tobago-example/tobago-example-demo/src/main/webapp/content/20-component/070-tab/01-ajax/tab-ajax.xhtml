@@ -108,16 +108,17 @@
         <p>Changed to tab one.</p>
       </tc:tab>
       <tc:tab label="Two">
+       <!-- <f:ajax render=":page:header:headerInfo"/> -->
         <p>Changed to tab two.</p>
       </tc:tab>
       <tc:tab label="Three">
         <p>Changed to tab three.</p>
       </tc:tab>
     </tc:tabGroup>
-    <tc:panel id="outPanel">
+    <tc:box label="Data from the tab group above" id="outPanel">
       <tc:out label="NewTabIndex" value="#{tabController.newTabIndex}"/>
       <tc:out label="ClientID" value="#{tabController.clientId}"/>
       <tc:out label="TabChangedCount" value="#{tabController.count}"/>
-    </tc:panel>
+    </tc:box>
   </tc:section>
 </ui:composition>

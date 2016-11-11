@@ -19,7 +19,9 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
-public abstract class AbstractUITab extends AbstractUIPanelBase {
+import javax.faces.component.behavior.ClientBehaviorHolder;
+
+public abstract class AbstractUITab extends AbstractUIPanelBase implements ClientBehaviorHolder {
 
   public abstract String getLabel();
 
