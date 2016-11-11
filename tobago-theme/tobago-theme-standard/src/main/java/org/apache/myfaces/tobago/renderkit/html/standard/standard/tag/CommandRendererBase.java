@@ -23,7 +23,6 @@ import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.internal.component.AbstractUIButton;
 import org.apache.myfaces.tobago.internal.component.AbstractUICommand;
 import org.apache.myfaces.tobago.internal.component.AbstractUIFormBase;
-import org.apache.myfaces.tobago.internal.component.AbstractUILinks;
 import org.apache.myfaces.tobago.internal.util.AccessKeyLogger;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
@@ -62,11 +61,13 @@ public abstract class CommandRendererBase extends DecodingCommandRendererBase {
     final LabelWithAccessKey label = new LabelWithAccessKey(command);
     final boolean link = command.getLink() != null && !disabled;
     final String target = command.getTarget();
+    final boolean parentOfCommands = command.isParentOfCommands();
 
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
-    if (needsExtraSpanElement(command)) {
+    if (parentOfCommands) { // extra span
       writer.startElement(HtmlElements.SPAN);
+      writer.writeIdAttribute(clientId);
       if (component instanceof AbstractUIButton) { // todo: check if we should differ here
         writer.writeClassAttribute(BootstrapClass.BTN_GROUP);
       } else {
@@ -80,7 +81,11 @@ public abstract class CommandRendererBase extends DecodingCommandRendererBase {
       writer.startElement(HtmlElements.BUTTON);
       writer.writeAttribute(HtmlAttributes.TYPE, HtmlButtonTypes.BUTTON);
     }
-    writer.writeIdAttribute(clientId);
+    if (parentOfCommands) {
+      writer.writeIdAttribute(command.getFieldId(facesContext));
+    } else {
+      writer.writeIdAttribute(clientId);
+    }
     writer.writeNameAttribute(clientId);
     writer.writeAttribute(HtmlAttributes.DISABLED, disabled);
 
@@ -110,7 +115,7 @@ public abstract class CommandRendererBase extends DecodingCommandRendererBase {
     writer.writeStyleAttribute(command.getStyle());
 
     final List<CssItem> cssItems = new ArrayList<CssItem>();
-    if (command.isParentOfCommands()) {
+    if (parentOfCommands) {
       // XXX BootstrapClass.NAV_LINK should only be shown inside of UICommands or UIButtons
       cssItems.add(BootstrapClass.DROPDOWN_TOGGLE);
       writer.writeAttribute(DataAttributes.TOGGLE, "dropdown", false);
@@ -165,7 +170,7 @@ public abstract class CommandRendererBase extends DecodingCommandRendererBase {
       writer.endElement(HtmlElements.BUTTON);
     }
 
-    if (command.isParentOfCommands()) {
+    if (parentOfCommands) {
       writer.startElement(HtmlElements.UL);
       writer.writeClassAttribute(BootstrapClass.DROPDOWN_MENU);
       writer.writeAttribute(HtmlAttributes.ROLE, HtmlRoleValues.MENU.toString(), false);
@@ -210,9 +215,6 @@ public abstract class CommandRendererBase extends DecodingCommandRendererBase {
 
     if (command.isParentOfCommands()) {
       writer.endElement(HtmlElements.UL);
-    }
-
-    if (needsExtraSpanElement(command)) {
       writer.endElement(HtmlElements.SPAN);
     }
   }
@@ -221,12 +223,4 @@ public abstract class CommandRendererBase extends DecodingCommandRendererBase {
       final FacesContext facesContext, final AbstractUICommand command, final List<CssItem> collected) {
   }
 
-  /**
-   * We need an extra SPAN element with position: relative or absolute for positioning the dropdown
-   */
-  private boolean needsExtraSpanElement(AbstractUICommand command) {
-    return !(command.getParent() instanceof AbstractUICommand) // only needed for top elements
-        && !(command.getParent() instanceof AbstractUILinks) // not needed inside of tc:links
-        && command.isParentOfCommands(); // only needed for sub-menus
-  }
 }
