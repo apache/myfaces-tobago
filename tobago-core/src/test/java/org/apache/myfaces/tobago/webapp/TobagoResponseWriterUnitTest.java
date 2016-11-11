@@ -48,7 +48,7 @@ public class TobagoResponseWriterUnitTest extends AbstractJsfTestCase {
     writer.startDocument();
     writer.endDocument();
     Assert.assertEquals("content expected",
-        "<!DOCTYPE html>\n\n<html>\n</html>", stringWriter.toString());
+        "<!DOCTYPE html>\n\n<html lang='en'>\n</html>", stringWriter.toString());
   }
 
   @Test

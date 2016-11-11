@@ -167,7 +167,7 @@
               <tc:out value="#{planet.name}" labelLayout="skip"/>
             </tc:column>
             <tc:row>
-              <f:ajax render=":::metrics" listener="#{eventController.ajaxListener}"/>
+              <f:ajax render="::metrics" listener="#{eventController.ajaxListener}"/>
             </tc:row>
           </tc:sheet>
           <p>Not implemented yet</p>
@@ -179,7 +179,7 @@
               <tc:out value="#{planet.name}" labelLayout="skip"/>
             </tc:column>
             <tc:row>
-              <f:ajax event="dblclick" render=":::metrics" listener="#{eventController.ajaxListener}"/>
+              <f:ajax event="dblclick" render="::metrics" listener="#{eventController.ajaxListener}"/>
             </tc:row>
           </tc:sheet>-->
           <p>Not implemented yet!</p>

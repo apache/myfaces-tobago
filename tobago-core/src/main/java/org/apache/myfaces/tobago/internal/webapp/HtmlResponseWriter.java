@@ -27,10 +27,12 @@ import org.apache.myfaces.tobago.internal.util.WriterUtils;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 
+import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import java.io.IOException;
 import java.io.Writer;
 import java.util.Arrays;
+import java.util.Locale;
 
 public class HtmlResponseWriter extends TobagoResponseWriterBase {
 
@@ -145,6 +147,13 @@ public class HtmlResponseWriter extends TobagoResponseWriterBase {
     getWriter().write(HTML_DOCTYPE);
     getWriter().write('\n');
     startElement(HtmlElements.HTML);
+    final Locale locale = FacesContext.getCurrentInstance().getViewRoot().getLocale();
+    if (locale != null) {
+      final String language = locale.getLanguage();
+      if (language != null) {
+        writeAttribute(HtmlAttributes.LANG, language, false);
+      }
+    }
   }
 
   @Override
