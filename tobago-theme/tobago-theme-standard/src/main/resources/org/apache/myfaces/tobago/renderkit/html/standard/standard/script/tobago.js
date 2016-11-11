@@ -401,6 +401,12 @@ var Tobago = {
     if (commands.dblclick) {
       normalEvents.push({event: "dblclick", command: commands.dblclick});
     }
+    if (commands.focus) {
+      normalEvents.push({event: "focus", command: commands.focus});
+    }
+    if (commands.blur) {
+      normalEvents.push({event: "blur", command: commands.blur});
+    }
 
     for (var i in normalEvents) {
 
