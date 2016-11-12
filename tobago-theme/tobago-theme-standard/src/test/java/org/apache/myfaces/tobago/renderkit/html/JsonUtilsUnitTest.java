@@ -26,9 +26,13 @@ import org.apache.myfaces.tobago.component.UIButton;
 import org.apache.myfaces.tobago.internal.component.AbstractUICommand;
 import org.apache.myfaces.tobago.internal.config.AbstractTobagoTestBase;
 import org.apache.myfaces.tobago.internal.context.DateTimeI18n;
+import org.apache.myfaces.tobago.internal.renderkit.Collapse;
+import org.apache.myfaces.tobago.internal.renderkit.Command;
+import org.apache.myfaces.tobago.internal.renderkit.CommandMap;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.util.CreateComponentUtils;
+import org.apache.myfaces.tobago.internal.util.JsonUtils;
 import org.junit.Assert;
 import org.junit.Test;
 

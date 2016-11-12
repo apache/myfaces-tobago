@@ -20,13 +20,10 @@
 package org.apache.myfaces.tobago.context;
 
 import javax.faces.context.FacesContext;
-import javax.faces.render.Renderer;
 
 public interface ResourceManager {
 
   String getProperty(FacesContext facesContext, String bundle, String propertyKey);
-
-  Renderer getRenderer(FacesContext facesContext, String rendererType);
 
   String[] getScripts(FacesContext facesContext, String name);
 

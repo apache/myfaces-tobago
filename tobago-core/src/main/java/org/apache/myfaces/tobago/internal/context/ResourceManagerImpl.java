@@ -20,7 +20,6 @@
 package org.apache.myfaces.tobago.internal.context;
 
 import org.apache.myfaces.tobago.application.ProjectStage;
-import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.context.ResourceManager;
 import org.apache.myfaces.tobago.context.Theme;
 import org.apache.myfaces.tobago.context.UserAgent;
@@ -30,7 +29,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.faces.context.FacesContext;
-import javax.faces.render.Renderer;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -41,39 +39,29 @@ public class ResourceManagerImpl implements ResourceManager {
 
   private static final Logger LOG = LoggerFactory.getLogger(ResourceManagerImpl.class);
   private static final String PROPERTY = "property";
-  private static final String JSP = "jsp";
-  private static final String TAG = "tag";
   private static final String MINIMIZE_SUFFIX = ".min";
 
-  public static final String[] EXT_NONE = new String[]{""};
-  public static final String[] EXT_JS = new String[]{".js"};
-  public static final String[] EXT_CSS = new String[]{".css"};
-  public static final String[] EXT_GIF = new String[]{".gif"};
-  public static final String[] EXT_PNG = new String[]{".png"};
-  public static final String[] EXT_JPG = new String[]{".jpg"};
-  public static final String[] EXT_ICO = new String[]{".ico"};
-  public static final String[] EXT_IMAGES = new String[]{".png", ".gif", ".jpg"};
-  public static final String[] EXT_JSP= new String[]{".jsp"};
-  public static final String[] EXT_JSPX= new String[]{".jspx"};
-  public static final String[] EXT_XHTML= new String[]{".xhtml"};
+  private static final String[] EXT_NONE = new String[]{""};
+  private static final String[] EXT_JS = new String[]{".js"};
+  private static final String[] EXT_CSS = new String[]{".css"};
+  private static final String[] EXT_GIF = new String[]{".gif"};
+  private static final String[] EXT_PNG = new String[]{".png"};
+  private static final String[] EXT_JPG = new String[]{".jpg"};
+  private static final String[] EXT_ICO = new String[]{".ico"};
+  private static final String[] EXT_IMAGES = new String[]{".png", ".gif", ".jpg"};
+  private static final String[] EXT_XHTML= new String[]{".xhtml"};
 
   private boolean production;
 
   private final Map<String, String> resourceList
       = new ConcurrentHashMap<String, String>(100, 0.75f, 1);
 
-  private final Map<RendererCacheKey, Renderer> rendererCache
-      = new ConcurrentHashMap<RendererCacheKey, Renderer>(100, 0.75f, 1);
   private final Map<ImageCacheKey, StringValue> imageCache
       = new ConcurrentHashMap<ImageCacheKey, StringValue>(100, 0.75f, 1);
-  private final Map<JspCacheKey, String> jspCache
-      = new ConcurrentHashMap<JspCacheKey, String>(100, 0.75f, 1);
   private final Map<MiscCacheKey, String[]> miscCache
       = new ConcurrentHashMap<MiscCacheKey, String[]>(100, 0.75f, 1);
   private final Map<PropertyCacheKey, StringValue> propertyCache
       = new ConcurrentHashMap<PropertyCacheKey, StringValue>(100, 0.75f, 1);
-  private final Map<ThemeConfigCacheKey, MeasureValue> themeCache
-      = new ConcurrentHashMap<ThemeConfigCacheKey, MeasureValue>(100, 0.75f, 1);
   private final Map<String, String[]> extensionCache
       = new ConcurrentHashMap<String, String[]>(10, 0.75f, 1);
 
@@ -90,8 +78,6 @@ public class ResourceManagerImpl implements ResourceManager {
     extensionCache.put(".png", EXT_PNG);
     extensionCache.put(".jpg", EXT_JPG);
     extensionCache.put(".ico", EXT_ICO);
-    extensionCache.put(".jsp", EXT_JSP);
-    extensionCache.put(".jspx", EXT_JSPX);
     extensionCache.put(".xhtml", EXT_XHTML);
   }
 
@@ -119,7 +105,7 @@ public class ResourceManagerImpl implements ResourceManager {
       StringValue result = propertyCache.get(cacheKey);
       if (result == null) {
         final List properties
-            = getPaths(clientKey, "", PROPERTY, bundle, EXT_NONE, false, true, false, propertyKey, true, false);
+            = getPaths(clientKey, PROPERTY, bundle, EXT_NONE, false, true, false, propertyKey, false);
         if (properties != null) {
           result = new StringValue((String) properties.get(0));
         } else {
@@ -130,39 +116,6 @@ public class ResourceManagerImpl implements ResourceManager {
       return result.getValue();
     }
     return null;
-  }
-
-  @Override
-  public Renderer getRenderer(final FacesContext facesContext, final String rendererType) {
-    Renderer renderer = null;
-
-    if (rendererType != null) {
-      final ClientPropertiesKey clientKey = ClientPropertiesKey.get(facesContext);
-      final RendererCacheKey cacheKey = new RendererCacheKey(clientKey, rendererType);
-
-      renderer = rendererCache.get(cacheKey);
-      if (renderer != null) {
-        return renderer;
-      }
-      String simpleClassName = null;
-      try {
-        simpleClassName = getRendererClassName(rendererType);
-        final List<Class> classes
-            = getPaths(clientKey, "", TAG, simpleClassName, EXT_NONE, false, true, true, null, false, false);
-        if (classes != null && !classes.isEmpty()) {
-          final Class clazz = classes.get(0);
-          renderer = (Renderer) clazz.newInstance();
-          rendererCache.put(cacheKey, renderer);
-        } else {
-          LOG.error("Don't find any RendererClass for " + simpleClassName + ". Please check you configuration.");
-        }
-      } catch (final InstantiationException e) {
-        LOG.error("name = '" + simpleClassName + "' clientProperties = '" + clientKey.toString() + "'", e);
-      } catch (final IllegalAccessException e) {
-        LOG.error("name = '" + simpleClassName + "' clientProperties = '" + clientKey.toString() + "'", e);
-      }
-    }
-    return renderer;
   }
 
   @Override
@@ -213,7 +166,7 @@ public class ResourceManagerImpl implements ResourceManager {
       StringValue result = imageCache.get(cacheKey);
       if (result == null) {
         final List paths
-            = getPaths(clientKey, "", null, name, extensions, false, true, true, null, true, ignoreMissing);
+            = getPaths(clientKey, null, name, extensions, false, true, true, null, ignoreMissing);
         if (paths != null) {
           result = new StringValue((String) paths.get(0));
         } else {
@@ -234,10 +187,10 @@ public class ResourceManagerImpl implements ResourceManager {
   }
 
   private List getPaths(
-      final ClientPropertiesKey clientKey, final String prefix, final String subDir, final String name,
+      final ClientPropertiesKey clientKey, final String subDir, final String name,
       final String[] extensions, final boolean reverseOrder, final boolean single, final boolean returnKey,
-      final String key, final boolean returnStrings, boolean ignoreMissing) {
-    final List matches = new ArrayList();
+      final String key, boolean ignoreMissing) {
+    final List<String> matches = new ArrayList<String>();
     final String contentType = clientKey.getContentType();
     final Theme theme = clientKey.getTheme();
     final UserAgent browser = clientKey.getUserAgent();
@@ -247,22 +200,22 @@ public class ResourceManagerImpl implements ResourceManager {
     for (final String localeSuffix : locales) {
       for (final String extension : extensions) {
         if (production) {
-          boolean found = checkPath(prefix, reverseOrder, returnKey, returnStrings, matches,
+          boolean found = checkPath(reverseOrder, returnKey, matches,
               name, MINIMIZE_SUFFIX, localeSuffix, extension, key);
-          if (found && (single || !returnStrings)) {
+          if (found && single) {
             return matches;
           }
           if (!found) {
-            found = checkPath(prefix, reverseOrder, returnKey, returnStrings, matches,
+            found = checkPath(reverseOrder, returnKey, matches,
                 name, null, localeSuffix, extension, key);
-            if (found && (single || !returnStrings)) {
+            if (found && single) {
               return matches;
             }
           }
         } else {
-          final boolean found = checkPath(prefix, reverseOrder, returnKey, returnStrings, matches,
+          final boolean found = checkPath(reverseOrder, returnKey, matches,
               name, null, localeSuffix, extension, key);
-          if (found && (single || !returnStrings)) {
+          if (found && single) {
             return matches;
           }
         }
@@ -277,25 +230,25 @@ public class ResourceManagerImpl implements ResourceManager {
           for (final String localeSuffix : locales) { // locale loop
             for (final String extension : extensions) { // extensions loop
               if (production) {
-                boolean found = checkPath(prefix, reverseOrder, returnKey, returnStrings, matches,
+                boolean found = checkPath(reverseOrder, returnKey, matches,
                     resourceDirectory, contentType, currentTheme, browserType, subDir, name, MINIMIZE_SUFFIX,
                     localeSuffix, extension, key);
-                if (found && (single || !returnStrings)) {
+                if (found && single) {
                   return matches;
                 }
                 if (!found) {
-                  found = checkPath(prefix, reverseOrder, returnKey, returnStrings, matches,
+                  found = checkPath(reverseOrder, returnKey, matches,
                       resourceDirectory, contentType, currentTheme, browserType, subDir, name, null,
                       localeSuffix, extension, key);
-                  if (found && (single || !returnStrings)) {
+                  if (found && single) {
                     return matches;
                   }
                 }
               } else {
-                final boolean found = checkPath(prefix, reverseOrder, returnKey, returnStrings, matches,
+                final boolean found = checkPath(reverseOrder, returnKey, matches,
                     resourceDirectory, contentType, currentTheme, browserType, subDir, name, null,
                     localeSuffix, extension, key);
-                if (found && (single || !returnStrings)) {
+                if (found && single) {
                   return matches;
                 }
               }
@@ -332,15 +285,15 @@ public class ResourceManagerImpl implements ResourceManager {
   }
 
   private boolean checkPath(
-      final String prefix, final boolean reverseOrder, final boolean returnKey, final boolean returnStrings,
-      final List matches, final String name, final String minimizeSuffix, final String localeSuffix,
+      final boolean reverseOrder, final boolean returnKey,
+      final List<String> matches, final String name, final String minimizeSuffix, final String localeSuffix,
       final String extension, final String key) {
     String path = makePath(name, minimizeSuffix, localeSuffix, extension, key);
-    if (returnStrings && resourceList.containsKey(path)) {
+    if (resourceList.containsKey(path)) {
       final String result =
           returnKey
-              ? prefix + path
-              : prefix + resourceList.get(path);
+              ? path
+              : resourceList.get(path);
 
       if (reverseOrder) {
         matches.add(0, result);
@@ -352,21 +305,6 @@ public class ResourceManagerImpl implements ResourceManager {
       }
 
       return true;
-    } else if (!returnStrings) {
-      try {
-        path = path.substring(1).replace('/', '.');
-        final Class clazz = Class.forName(path);
-        if (LOG.isTraceEnabled()) {
-          LOG.trace("testing path: " + path + " *"); // match
-        }
-        matches.add(clazz);
-        return true;
-      } catch (final ClassNotFoundException e) {
-        // not found
-        if (LOG.isTraceEnabled()) {
-          LOG.trace("testing path: " + path); // no match
-        }
-      }
     } else {
       if (LOG.isTraceEnabled()) {
         LOG.trace("testing path: " + path); // no match
@@ -376,20 +314,19 @@ public class ResourceManagerImpl implements ResourceManager {
   }
 
   private boolean checkPath(
-      final String prefix, final boolean reverseOrder, final boolean returnKey, final boolean returnStrings,
-      final List matches, final String resourceDirectory, final String contentType, final Theme currentTheme,
+      final boolean reverseOrder, final boolean returnKey,
+      final List<String> matches, final String resourceDirectory, final String contentType, final Theme currentTheme,
       final String browserType, final String subDir, final String name, final String minimizeSuffix,
       final String localeSuffix, final String extension, final String key) {
     String path = makePath(resourceDirectory, contentType, currentTheme, browserType, subDir, name, minimizeSuffix,
         localeSuffix, extension, key, null);
-    if (returnStrings && resourceList.containsKey(path)) {
+    if (resourceList.containsKey(path)) {
       final String result;
-      if (prefix.length() == 0 && returnKey && resourceDirectory.equals(currentTheme.getResourcePath())) {
+      if (returnKey && resourceDirectory.equals(currentTheme.getResourcePath())) {
         result = makePath(resourceDirectory, contentType, currentTheme, browserType, subDir, name, minimizeSuffix,
             localeSuffix, extension, key, currentTheme.getVersion());
       } else {
-        result = returnKey
-            ? prefix + path : prefix + resourceList.get(path);
+        result = returnKey ? path : resourceList.get(path);
       }
       if (reverseOrder) {
         matches.add(0, result);
@@ -401,21 +338,6 @@ public class ResourceManagerImpl implements ResourceManager {
       }
 
       return true;
-    } else if (!returnStrings) {
-      try {
-        path = path.substring(1).replace('/', '.');
-        final Class clazz = Class.forName(path);
-        if (LOG.isTraceEnabled()) {
-          LOG.trace("testing path: " + path + " *"); // match
-        }
-        matches.add(clazz);
-        return true;
-      } catch (final ClassNotFoundException e) {
-        // not found
-        if (LOG.isTraceEnabled()) {
-          LOG.trace("testing path: " + path); // no match
-        }
-      }
     } else {
       if (LOG.isTraceEnabled()) {
         LOG.trace("testing path: " + path); // no match
@@ -428,76 +350,57 @@ public class ResourceManagerImpl implements ResourceManager {
       final String project, final String language, final Theme theme, final String browser, final String subDir,
       final String name, final String minimizeSuffix, final String localeSuffix, final String extension,
       final String key, final String version) {
-    final StringBuilder searchtext = new StringBuilder(64);
+    final StringBuilder search = new StringBuilder(64);
 
-    searchtext.append('/');
-    searchtext.append(project);
+    search.append('/');
+    search.append(project);
     if (version != null) {
-      searchtext.append('/');
-      searchtext.append(version);
+      search.append('/');
+      search.append(version);
     }
-    searchtext.append('/');
-    searchtext.append(language);
-    searchtext.append('/');
-    searchtext.append(theme.getName());
-    searchtext.append('/');
-    searchtext.append(browser);
+    search.append('/');
+    search.append(language);
+    search.append('/');
+    search.append(theme.getName());
+    search.append('/');
+    search.append(browser);
     if (subDir != null) {
-      searchtext.append('/');
-      searchtext.append(subDir);
+      search.append('/');
+      search.append(subDir);
     }
-    searchtext.append('/');
-    searchtext.append(name);
+    search.append('/');
+    search.append(name);
     if (minimizeSuffix != null) {
-      searchtext.append(minimizeSuffix);
+      search.append(minimizeSuffix);
     }
-    searchtext.append(localeSuffix);
-    searchtext.append(extension);
+    search.append(localeSuffix);
+    search.append(extension);
     if (key != null) {
-      searchtext.append('/');
-      searchtext.append(key);
+      search.append('/');
+      search.append(key);
     }
 
-    return searchtext.toString();
+    return search.toString();
   }
 
   private String makePath(
       final String name, final String minimizeSuffix, final String localeSuffix, final String extension,
       final String key) {
-    final StringBuilder searchtext = new StringBuilder(64);
+    final StringBuilder search = new StringBuilder(64);
 
-    searchtext.append('/');
-    searchtext.append(name);
+    search.append('/');
+    search.append(name);
     if (minimizeSuffix != null) {
-      searchtext.append(minimizeSuffix);
+      search.append(minimizeSuffix);
     }
-    searchtext.append(localeSuffix);
-    searchtext.append(extension);
+    search.append(localeSuffix);
+    search.append(extension);
     if (key != null) {
-      searchtext.append('/');
-      searchtext.append(key);
+      search.append('/');
+      search.append(key);
     }
 
-    return searchtext.toString();
-  }
-
-  private String getRendererClassName(final String rendererType) {
-    String name;
-    if (LOG.isDebugEnabled()) {
-      LOG.debug("rendererType = '{}'", rendererType);
-    }
-    if ("javax.faces.Text".equals(rendererType)) { // TODO: find a better way
-      name = RendererTypes.Out.name();
-    } else {
-      name = rendererType;
-    }
-    name = name + "Renderer";
-    if (name.startsWith("javax.faces.")) { // FIXME: this is a hotfix from jsf1.0beta to jsf1.0fr
-      LOG.warn("patching renderer from {}", name);
-      name = name.substring("javax.faces.".length());
-      LOG.warn("patching renderer to {}", name);
-    }
-    return name;
+    return search.toString();
   }
 
   private String[] getStrings(final FacesContext facesContext, final String name, final String type) {
@@ -522,8 +425,7 @@ public class ResourceManagerImpl implements ResourceManager {
         return cacheResult;
       }
       try {
-        final List matches = getPaths(key, "", type,
-            nameWithoutExtension, extensions, true, false, true, null, true, false);
+        final List matches = getPaths(key, type, nameWithoutExtension, extensions, true, false, true, null, false);
         if (matches != null) {
           result = (String[]) matches.toArray(new String[matches.size()]);
         }
@@ -555,12 +457,9 @@ public class ResourceManagerImpl implements ResourceManager {
     return "ResourceManagerImpl{"
         + "production=" + production
         + ", resourceList=" + resourceList.size()
-        + ", rendererCache=" + rendererCache.size()
         + ", imageCache=" + imageCache.size()
-        + ", jspCache=" + jspCache.size()
         + ", miscCache=" + miscCache.size()
         + ", propertyCache=" + propertyCache.size()
-        + ", themeCache=" + themeCache.size()
         + ", extensionCache=" + extensionCache.size()
         + '}';
   }

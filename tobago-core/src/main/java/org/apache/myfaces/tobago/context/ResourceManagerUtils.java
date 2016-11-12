@@ -75,25 +75,6 @@ public final class ResourceManagerUtils {
   }
 
   /**
-   * Searches for an file and return it with the context path.
-   *
-   * @param facesContext the current FacesContext
-   * @param name the name of the file without extension
-   * @param extension the file extension
-   * @param ignoreMissing if set to false, an error message will be logged, when image is missing
-   */
-  public static String getFile(
-      final FacesContext facesContext, final String name, final String extension, final boolean ignoreMissing) {
-    final String image = ResourceManagerFactory.getResourceManager(facesContext)
-        .getImage(facesContext, name, extension, ignoreMissing);
-    if (image == null) {
-      return null;
-    } else {
-      return facesContext.getExternalContext().getRequestContextPath() + image;
-    }
-  }
-
-  /**
    * Searches for an image and return it with the context path.
    * The extension of the image will be automatically extended (.png, .gif, .jpg).
    * A missing image will be logged as an error.

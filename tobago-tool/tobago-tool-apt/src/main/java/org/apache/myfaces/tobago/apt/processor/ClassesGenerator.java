@@ -31,7 +31,6 @@ import org.apache.myfaces.tobago.apt.generate.ClassInfo;
 import org.apache.myfaces.tobago.apt.generate.ComponentInfo;
 import org.apache.myfaces.tobago.apt.generate.ComponentPropertyInfo;
 import org.apache.myfaces.tobago.apt.generate.PropertyInfo;
-import org.apache.myfaces.tobago.apt.generate.RendererInfo;
 
 import javax.annotation.processing.SupportedAnnotationTypes;
 import javax.faces.component.UIComponent;
@@ -64,20 +63,13 @@ import java.util.Set;
     "org.apache.myfaces.tobago.apt.annotation.SimpleTag"})
 public class ClassesGenerator extends AbstractGenerator {
 
-  private StringTemplateGroup rendererStringTemplateGroup;
   private StringTemplateGroup componentStringTemplateGroup;
-  private Set<String> renderer = new HashSet<String>();
   private Set<String> ignoredProperties;
 
   @Override
   public void configure() {
 
-    info("Generating the classes *Component, *Renderer");
-
-    final InputStream rendererStream
-        = getClass().getClassLoader().getResourceAsStream("org/apache/myfaces/tobago/apt/renderer.stg");
-    final Reader rendererReader = new InputStreamReader(rendererStream);
-    rendererStringTemplateGroup = new StringTemplateGroup(rendererReader);
+    info("Generating the classes *Component");
 
     final InputStream componentStream
         = getClass().getClassLoader().getResourceAsStream("org/apache/myfaces/tobago/apt/component.stg");
@@ -95,7 +87,6 @@ public class ClassesGenerator extends AbstractGenerator {
     for (final TypeElement element : getTypes()) {
       if (element.getAnnotation(UIComponentTag.class) != null) {
         try {
-          createRenderer(element);
           createTagOrComponent(element);
         } catch (final Exception e) {
           throw new RuntimeException(
@@ -182,26 +173,6 @@ public class ClassesGenerator extends AbstractGenerator {
     }
     componentInfo.addPropertyInfo(componentPropertyInfo);
     return componentPropertyInfo;
-  }
-
-  private void createRenderer(final TypeElement declaration) throws IOException {
-
-    final UIComponentTag componentTag = declaration.getAnnotation(UIComponentTag.class);
-    final String rendererType = componentTag.rendererType();
-
-    if (rendererType != null && rendererType.length() > 0) {
-      final String className = "org.apache.myfaces.tobago.renderkit." + rendererType + "Renderer";
-      if (renderer.contains(className)) {
-        // already created
-        return;
-      }
-      renderer.add(className);
-      final RendererInfo info = new RendererInfo(declaration.getQualifiedName().toString(), className, rendererType);
-      info.setSuperClass("org.apache.myfaces.tobago.renderkit.AbstractRendererBaseWrapper");
-      final StringTemplate stringTemplate = rendererStringTemplateGroup.getInstanceOf("renderer");
-      stringTemplate.setAttribute("renderInfo", info);
-      writeFile(info, stringTemplate);
-    }
   }
 
   protected void addProperties(final TypeElement type, final Map<String, PropertyInfo> properties) {

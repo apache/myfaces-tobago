@@ -39,7 +39,7 @@ import java.io.IOException;
  * </p>
  *
  */
-public class InRenderer extends org.apache.myfaces.tobago.renderkit.html.standard.standard.tag.InRenderer {
+public class InRenderer extends org.apache.myfaces.tobago.internal.renderkit.renderer.InRenderer {
 
   @Override
   public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
