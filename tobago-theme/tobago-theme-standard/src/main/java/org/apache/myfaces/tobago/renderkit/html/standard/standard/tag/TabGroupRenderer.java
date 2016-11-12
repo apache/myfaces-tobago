@@ -182,10 +182,12 @@ public class TabGroupRenderer extends LayoutComponentRendererBase {
 
     final Measure width = tabGroup.getCurrentWidth();
     final Measure headerHeight = getResourceManager().getThemeMeasure(facesContext, tabGroup, "headerHeight");
-    final Measure toolBarWidth = getResourceManager().getThemeMeasure(facesContext, tabGroup, "toolBarWidth");
     final Style header = new Style();
     header.setPosition(Position.RELATIVE);
-    header.setWidth(width.subtractNotNegative(toolBarWidth));
+    if (tabGroup.isShowNavigationBar()) {
+      final Measure toolBarWidth = getResourceManager().getThemeMeasure(facesContext, tabGroup, "toolBarWidth");
+      header.setWidth(width.subtractNotNegative(toolBarWidth));
+    }
     header.setHeight(headerHeight);
     writer.startElement(HtmlElements.DIV, tabGroup);
     writer.writeClassAttribute(Classes.create(tabGroup, "header"));
