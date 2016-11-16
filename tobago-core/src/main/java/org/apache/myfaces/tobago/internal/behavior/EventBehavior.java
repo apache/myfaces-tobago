@@ -33,14 +33,12 @@ import java.util.EnumSet;
 import java.util.Map;
 import java.util.Set;
 
-import static org.apache.myfaces.tobago.internal.behavior.EventBehavior.BEHAVIOR_ID;
-
 // todo: clean up (is a copy of MyFaces, but not all stuff is refactored)
 
 /**
  * @since 3.0.0
  */
-@FacesBehavior(value = BEHAVIOR_ID)
+@FacesBehavior(value = EventBehavior.BEHAVIOR_ID)
 public class EventBehavior extends ClientBehaviorBase {
 
   /**

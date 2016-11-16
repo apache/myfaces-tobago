@@ -34,6 +34,11 @@
     <phase-listener>org.apache.myfaces.tobago.lifecycle.SecretPhaseListener</phase-listener>
   </lifecycle>
 
+  <behavior>
+    <behavior-id>org.apache.myfaces.tobago.behavior.Event</behavior-id>
+    <behavior-class>org.apache.myfaces.tobago.internal.behavior.EventBehavior</behavior-class>
+  </behavior>
+
   <component>
     <component-type>javax.faces.NamingContainer</component-type>
     <component-class>org.apache.myfaces.tobago.component.UINamingContainer</component-class>

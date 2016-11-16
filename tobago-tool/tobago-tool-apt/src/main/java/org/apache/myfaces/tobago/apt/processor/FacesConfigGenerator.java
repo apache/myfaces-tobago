@@ -209,15 +209,6 @@ public class FacesConfigGenerator extends AbstractGenerator {
         renderKit.addContent(renderKitClass);
         renderKit.addContent(newRenderer);
 
-        final org.jdom.Element behavior = new org.jdom.Element(BEHAVIOR, namespace);
-        final org.jdom.Element behaviorId = new org.jdom.Element(BEHAVIOR_ID, namespace);
-        behaviorId.setText("org.apache.myfaces.tobago.behavior.Event");
-        behavior.addContent(behaviorId);
-        final org.jdom.Element behaviorClass = new org.jdom.Element(BEHAVIOR_CLASS, namespace);
-        behaviorClass.setText("org.apache.myfaces.tobago.behavior.EventBehavior");
-        behavior.addContent(behaviorClass);
-        renderKit.addContent(behavior);
-
         final org.jdom.Element clientBehaviorRender = new org.jdom.Element(CLIENT_BEHAVIOR_RENDERER, namespace);
         final org.jdom.Element clientBehaviorType = new org.jdom.Element(CLIENT_BEHAVIOR_RENDERER_TYPE, namespace);
         clientBehaviorType.setText("javax.faces.behavior.Ajax");
@@ -236,12 +227,12 @@ public class FacesConfigGenerator extends AbstractGenerator {
         clientBehaviorRender2.addContent(clientBehaviorClass2);
         renderKit.addContent(clientBehaviorRender2);
 
-        final int lastIndex = getIndexAfter(rootElement, CONVERTER, COMPONENT, FACTORY, APPLICATION);
-        rootElement.addContent(lastIndex, renderKit);
+        final int last = getIndexAfter(rootElement, CONVERTER, COMPONENT, FACTORY, APPLICATION, BEHAVIOR);
+        rootElement.addContent(last, renderKit);
       }
       if (!newConverters.isEmpty()) {
-        final int lastIndex = getIndexAfter(rootElement, RENDER_KIT, CONVERTER, COMPONENT, FACTORY, APPLICATION);
-        rootElement.addContent(lastIndex, newConverters);
+        final int last = getIndexAfter(rootElement, RENDER_KIT, CONVERTER, COMPONENT, FACTORY, APPLICATION, BEHAVIOR);
+        rootElement.addContent(last, newConverters);
       }
       if (!newValidators.isEmpty()) {
         rootElement.addContent(newValidators);
