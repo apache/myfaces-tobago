@@ -69,7 +69,6 @@ import org.apache.myfaces.tobago.internal.util.JsonUtils;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.internal.util.RenderUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
-import org.apache.myfaces.tobago.util.CreateComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -155,12 +154,12 @@ public class SheetRenderer extends RendererBase {
 
     UIComponent header = sheet.getHeader();
     if (header == null) {
-      header = CreateComponentUtils.createComponent(facesContext, UIPanel.COMPONENT_TYPE, null, "_header");
+      header = ComponentUtils.createComponent(facesContext, UIPanel.COMPONENT_TYPE, null, "_header");
       final List<AbstractUIColumnBase> columns = sheet.getAllColumns();
       int i = 0;
       for (final AbstractUIColumnBase column : columns) {
         if (!(column instanceof AbstractUIRow)) {
-          final AbstractUIOut out = (AbstractUIOut) CreateComponentUtils.createComponent(
+          final AbstractUIOut out = (AbstractUIOut) ComponentUtils.createComponent(
               facesContext, UIOut.COMPONENT_TYPE, RendererTypes.Out, "_col" + i);
 //        out.setValue(column.getLabel());
           ValueExpression valueExpression = column.getValueExpression(Attributes.label.getName());
@@ -807,7 +806,7 @@ public class SheetRenderer extends RendererBase {
               if (sortCommand == null) {
                 final String columnId = column.getClientId(facesContext);
                 final String sorterId = columnId.substring(columnId.lastIndexOf(":") + 1) + "_" + UISheet.SORTER_ID;
-                sortCommand = (UILink) CreateComponentUtils.createComponent(
+                sortCommand = (UILink) ComponentUtils.createComponent(
                     facesContext, UILink.COMPONENT_TYPE, RendererTypes.Link, sorterId);
                 final AjaxBehavior reloadBehavior = createReloadBehavior(sheet);
                 sortCommand.addClientBehavior("click", reloadBehavior);
