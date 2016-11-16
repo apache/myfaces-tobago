@@ -35,7 +35,7 @@ import java.util.Scanner;
 public class CssClassCompareUnitTest extends AbstractTobagoTestBase {
 
   @Test
-  public void testCompareBootstapCss() throws FileNotFoundException {
+  public void testCompareBootstrapCss() throws FileNotFoundException {
     File bootstrapCss = new File(
         "src/main/resources/org/apache/myfaces/"
             + "tobago/renderkit/html/standard/standard/bootstrap/4.0.0-alpha.4/css/bootstrap.css");
