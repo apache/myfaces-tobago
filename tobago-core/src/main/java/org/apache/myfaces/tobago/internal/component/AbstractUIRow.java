@@ -21,5 +21,5 @@ package org.apache.myfaces.tobago.internal.component;
 
 import javax.faces.component.behavior.ClientBehaviorHolder;
 
-public class AbstractUIRow extends AbstractUIColumnBase implements ClientBehaviorHolder {
+public abstract class AbstractUIRow extends AbstractUIColumnBase implements ClientBehaviorHolder {
 }

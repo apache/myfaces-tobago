@@ -25,6 +25,7 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.component.ClientBehaviors;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
+import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
 
 /**
  * This component creates a representative in a UISheet for each row.
@@ -44,5 +45,5 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRend
         @Behavior(
             name = ClientBehaviors.DBLCLICK)
     })
-public interface RowTagDeclaration extends HasIdBindingAndRendered {
+public interface RowTagDeclaration extends HasIdBindingAndRendered, IsVisual {
 }

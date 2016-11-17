@@ -42,6 +42,10 @@ import org.apache.myfaces.tobago.internal.component.AbstractUISheet;
 import org.apache.myfaces.tobago.internal.layout.Cell;
 import org.apache.myfaces.tobago.internal.layout.Grid;
 import org.apache.myfaces.tobago.internal.layout.OriginCell;
+import org.apache.myfaces.tobago.internal.renderkit.CommandMap;
+import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
+import org.apache.myfaces.tobago.internal.util.JsonUtils;
+import org.apache.myfaces.tobago.internal.util.RenderUtils;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.layout.Display;
 import org.apache.myfaces.tobago.layout.Measure;
@@ -59,15 +63,11 @@ import org.apache.myfaces.tobago.renderkit.css.Icons;
 import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.Arias;
-import org.apache.myfaces.tobago.internal.renderkit.CommandMap;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlButtonTypes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
-import org.apache.myfaces.tobago.internal.util.JsonUtils;
-import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
-import org.apache.myfaces.tobago.internal.util.RenderUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import org.slf4j.Logger;
@@ -429,7 +429,8 @@ public class SheetRenderer extends RendererBase {
               markup = Markup.NULL;
             }
             markup = markup.add(getMarkupForAlign(normalColumn));
-            writer.writeClassAttribute(Classes.create(sheet, "cell", markup));
+            writer.writeClassAttribute(Classes.create(sheet, "cell", markup), normalColumn.getCustomClass());
+            writer.writeStyleAttribute(normalColumn.getStyle());
 
             if (normalColumn instanceof UIColumnSelector) {
               UIColumnSelector selector = (UIColumnSelector) normalColumn;
@@ -763,6 +764,8 @@ public class SheetRenderer extends RendererBase {
           final Cell cell = grid.getCell(j - offset, i);
           if (cell instanceof OriginCell) {
             writer.startElement(HtmlElements.TH);
+            writer.writeClassAttribute(column.getCustomClass());
+            writer.writeStyleAttribute(column.getStyle());
             if (cell.getColumnSpan() > 1) {
               writer.writeAttribute(HtmlAttributes.COLSPAN, cell.getColumnSpan());
             }

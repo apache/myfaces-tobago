@@ -19,9 +19,11 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
+import org.apache.myfaces.tobago.component.Visual;
+
 import javax.faces.component.UIColumn;
 
-public class AbstractUIColumnBase extends UIColumn {
+public abstract class AbstractUIColumnBase extends UIColumn implements Visual {
 
   public boolean isResizable() {
     return false;
