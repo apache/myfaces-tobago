@@ -35,7 +35,8 @@
     <tc:link label="&lt;tc:operation/>" image="image/feather-leaf.png"
              link="#{overviewBundle.tagDocUrl}/operation.html"/></p>
 
-  <tc:section label="Simple Popup">
+  <!--todo: use tc:operations-->
+  <tc:section label="Simple Popup (to be refactored with tc:operations)">
     <tc:form id="form1">
       <p>A simple popup realised with a controller. The open button calls the <code>openPopup1</code> action.</p>
       <tc:button id="openPopup" label="Open" action="#{popupController.openPopup1}"/>
