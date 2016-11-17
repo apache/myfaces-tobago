@@ -31,7 +31,7 @@ QUnit.test("ajax change event", function (assert) {
   var done = assert.async();
 
   var $inputField = jQueryFrame("#page\\:mainForm\\:inputAjax\\:\\:field");
-  var $outputField = jQueryFrame("#page\\:mainForm\\:outputAjax > span:first");
+  var $outputField = jQueryFrame("#page\\:mainForm\\:outputAjax span:first");
 
   assert.equal($inputField.val(), "");
   assert.equal($outputField.text(), "");

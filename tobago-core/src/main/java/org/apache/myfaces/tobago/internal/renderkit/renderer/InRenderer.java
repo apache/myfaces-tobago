@@ -24,15 +24,15 @@ import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.internal.component.AbstractUIButton;
 import org.apache.myfaces.tobago.internal.component.AbstractUIInput;
 import org.apache.myfaces.tobago.internal.util.AccessKeyLogger;
+import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
+import org.apache.myfaces.tobago.internal.util.JsonUtils;
+import org.apache.myfaces.tobago.internal.util.RenderUtils;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
-import org.apache.myfaces.tobago.internal.util.JsonUtils;
-import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
-import org.apache.myfaces.tobago.internal.util.RenderUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import org.slf4j.Logger;
@@ -74,6 +74,7 @@ public class InRenderer extends LabelLayoutRendererBase {
     final UIComponent before = ComponentUtils.getFacet(input, Facets.before);
 
     if (after != null || before != null) {
+      writer.startElement(HtmlElements.DIV); // Wrapping the field to fix input groups with flexLeft/flexRight
       writer.startElement(HtmlElements.DIV);
       writer.writeClassAttribute(BootstrapClass.INPUT_GROUP);
     }
@@ -136,6 +137,7 @@ public class InRenderer extends LabelLayoutRendererBase {
     encodeGroupAddon(facesContext, writer, after);
 
     if (after != null || before != null) {
+      writer.endElement(HtmlElements.DIV);
       writer.endElement(HtmlElements.DIV);
     }
   }
