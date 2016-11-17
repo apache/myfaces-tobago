@@ -506,11 +506,11 @@ public class RenderUtils {
         LOG.warn("Can't parse: '{}'", value);
         return null;
       }
-      final int left = Integer.parseInt(value.substring(0, sep));
-      final int top = Integer.parseInt(value.substring(sep + 1));
+      final Double left = Double.parseDouble(value.substring(0, sep));
+      final Double top = Double.parseDouble(value.substring(sep + 1));
       position = new Integer[2];
-      position[0] = left;
-      position[1] = top;
+      position[0] = left.intValue();
+      position[1] = top.intValue();
     }
     return position;
   }
