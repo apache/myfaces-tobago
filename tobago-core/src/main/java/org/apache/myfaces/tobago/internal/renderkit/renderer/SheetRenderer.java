@@ -621,7 +621,7 @@ public class SheetRenderer extends RendererBase {
         writer.startElement(HtmlElements.SPAN);
         writer.writeClassAttribute(Classes.create(sheet, "pagingText"), BootstrapClass.PAGE_LINK);
         writer.writeAttribute(HtmlAttributes.TITLE,
-                ResourceManagerUtils.getPropertyNotNull(facesContext, "tobago", "sheetPagingInfoPagePagingTip"), true);
+            ResourceManagerUtils.getPropertyNotNull(facesContext, "tobago", "sheetPagingInfoPagePagingTip"), true);
         if (sheet.getRowCount() != 0) {
           final Locale locale = facesContext.getViewRoot().getLocale();
           final int first = sheet.getCurrentPage() + 1;
@@ -760,148 +760,149 @@ public class SheetRenderer extends RendererBase {
         if (column instanceof AbstractUIRow) {
           offset++;
         } else {
-         final Cell cell = grid.getCell(j - offset , i);
-         if (cell instanceof OriginCell) {
-          writer.startElement(HtmlElements.TH);
-          if (cell.getColumnSpan() > 1) {
-            writer.writeAttribute(HtmlAttributes.COLSPAN, cell.getColumnSpan());
-          }
-          if (cell.getRowSpan() > 1) {
-            writer.writeAttribute(HtmlAttributes.ROWSPAN, cell.getRowSpan());
-          }
-
-          final UIComponent cellComponent = cell.getComponent();
-
-          final CssItem align;
-          final String alignString = ComponentUtils.getStringAttribute(column, Attributes.align);
-          if(multiHeader && cell.getColumnSpan() > 1) {
-            align = TobagoClass.SHEET__CELL__MARKUP__CENTER;
-          } else if (alignString != null) {
-            switch (TextAlign.valueOf(alignString)) {
-              case right:
-                align = TobagoClass.SHEET__CELL__MARKUP__RIGHT;
-                break;
-              case center:
-                align = TobagoClass.SHEET__CELL__MARKUP__CENTER;
-                break;
-              case justify:
-                align = TobagoClass.SHEET__CELL__MARKUP__JUSTIFY;
-                break;
-              default:
-                align = null;
+          final Cell cell = grid.getCell(j - offset, i);
+          if (cell instanceof OriginCell) {
+            writer.startElement(HtmlElements.TH);
+            if (cell.getColumnSpan() > 1) {
+              writer.writeAttribute(HtmlAttributes.COLSPAN, cell.getColumnSpan());
             }
-          } else {
-            align = null;
-          }
-          writer.writeClassAttribute(Classes.create(sheet, "headerCell"), align);
-          writer.startElement(HtmlElements.SPAN);
-          Icons sorterIcon = null;
-          Markup markup = Markup.NULL;
-          String tip = ComponentUtils.getStringAttribute(column, Attributes.tip);
-          // sorter icons should only displayed when there is only 1 column and not input
-          if (cell.getColumnSpan() == 1 && cellComponent instanceof UIOut) {
-            final boolean sortable = ComponentUtils.getBooleanAttribute(column, Attributes.sortable);
-            if (sortable) {
-              UILink sortCommand = (UILink) ComponentUtils.getFacet(column, Facets.sorter);
-              if (sortCommand == null) {
-                final String columnId = column.getClientId(facesContext);
-                final String sorterId = columnId.substring(columnId.lastIndexOf(":") + 1) + "_" + UISheet.SORTER_ID;
-                sortCommand = (UILink) ComponentUtils.createComponent(
-                    facesContext, UILink.COMPONENT_TYPE, RendererTypes.Link, sorterId);
-                final AjaxBehavior reloadBehavior = createReloadBehavior(sheet);
-                sortCommand.addClientBehavior("click", reloadBehavior);
-                ComponentUtils.setFacet(column, Facets.sorter, sortCommand);
+            if (cell.getRowSpan() > 1) {
+              writer.writeAttribute(HtmlAttributes.ROWSPAN, cell.getRowSpan());
+            }
+
+            final UIComponent cellComponent = cell.getComponent();
+
+            final CssItem align;
+            final String alignString = ComponentUtils.getStringAttribute(column, Attributes.align);
+            if (multiHeader && cell.getColumnSpan() > 1) {
+              align = TobagoClass.SHEET__CELL__MARKUP__CENTER;
+            } else if (alignString != null) {
+              switch (TextAlign.valueOf(alignString)) {
+                case right:
+                  align = TobagoClass.SHEET__CELL__MARKUP__RIGHT;
+                  break;
+                case center:
+                  align = TobagoClass.SHEET__CELL__MARKUP__CENTER;
+                  break;
+                case justify:
+                  align = TobagoClass.SHEET__CELL__MARKUP__JUSTIFY;
+                  break;
+                default:
+                  align = null;
               }
-              writer.writeIdAttribute(sortCommand.getClientId(facesContext));
-              writer.writeCommandMapAttribute(
-                  JsonUtils.encode(RenderUtils.getBehaviorCommands(facesContext, sortCommand)));
+            } else {
+              align = null;
+            }
+            writer.writeClassAttribute(Classes.create(sheet, "headerCell"), align);
+            writer.startElement(HtmlElements.SPAN);
+            Icons sorterIcon = null;
+            Markup markup = Markup.NULL;
+            String tip = ComponentUtils.getStringAttribute(column, Attributes.tip);
+            // sorter icons should only displayed when there is only 1 column and not input
+            if (cell.getColumnSpan() == 1 && cellComponent instanceof UIOut) {
+              final boolean sortable = ComponentUtils.getBooleanAttribute(column, Attributes.sortable);
+              if (sortable) {
+                UILink sortCommand = (UILink) ComponentUtils.getFacet(column, Facets.sorter);
+                if (sortCommand == null) {
+                  final String columnId = column.getClientId(facesContext);
+                  final String sorterId = columnId.substring(columnId.lastIndexOf(":") + 1) + "_" + UISheet.SORTER_ID;
+                  sortCommand = (UILink) ComponentUtils.createComponent(
+                      facesContext, UILink.COMPONENT_TYPE, RendererTypes.Link, sorterId);
+                  final AjaxBehavior reloadBehavior = createReloadBehavior(sheet);
+                  sortCommand.addClientBehavior("click", reloadBehavior);
+                  ComponentUtils.setFacet(column, Facets.sorter, sortCommand);
+                }
+                writer.writeIdAttribute(sortCommand.getClientId(facesContext));
+                writer.writeCommandMapAttribute(
+                    JsonUtils.encode(RenderUtils.getBehaviorCommands(facesContext, sortCommand)));
 
-              if (tip == null) {
-                tip = "";
-              } else {
-                tip += " - ";
-              }
-              tip += ResourceManagerUtils.getPropertyNotNull(facesContext, "tobago", "sheetTipSorting");
-
-              markup = markup.add(Markup.SORTABLE);
-
-              final SheetState sheetState = sheet.getSheetState(facesContext);
-              if (column.getId().equals(sheetState.getSortedColumnId())) {
-                final String sortTitle;
-                if (sheetState.isAscending()) {
-                  sorterIcon = Icons.ANGLE_UP;
-                  sortTitle = ResourceManagerUtils.getPropertyNotNull(facesContext, "tobago", "sheetAscending");
-                  markup = markup.add(Markup.ASCENDING);
+                if (tip == null) {
+                  tip = "";
                 } else {
-                  sorterIcon = Icons.ANGLE_DOWN;
-                  sortTitle = ResourceManagerUtils.getPropertyNotNull(facesContext, "tobago", "sheetDescending");
-                  markup = markup.add(Markup.DESCENDING);
+                  tip += " - ";
                 }
-                if (sortTitle != null) {
-                  tip += " - " + sortTitle;
+                tip += ResourceManagerUtils.getPropertyNotNull(facesContext, "tobago", "sheetTipSorting");
+
+                markup = markup.add(Markup.SORTABLE);
+
+                final SheetState sheetState = sheet.getSheetState(facesContext);
+                if (column.getId().equals(sheetState.getSortedColumnId())) {
+                  final String sortTitle;
+                  if (sheetState.isAscending()) {
+                    sorterIcon = Icons.ANGLE_UP;
+                    sortTitle = ResourceManagerUtils.getPropertyNotNull(facesContext, "tobago", "sheetAscending");
+                    markup = markup.add(Markup.ASCENDING);
+                  } else {
+                    sorterIcon = Icons.ANGLE_DOWN;
+                    sortTitle = ResourceManagerUtils.getPropertyNotNull(facesContext, "tobago", "sheetDescending");
+                    markup = markup.add(Markup.DESCENDING);
+                  }
+                  if (sortTitle != null) {
+                    tip += " - " + sortTitle;
+                  }
                 }
               }
             }
-          }
 
-          writer.writeClassAttribute(Classes.create(sheet, "header", markup));
-          writer.writeAttribute(HtmlAttributes.TITLE, tip, true);
+            writer.writeClassAttribute(Classes.create(sheet, "header", markup));
+            writer.writeAttribute(HtmlAttributes.TITLE, tip, true);
 
-          if (column instanceof UIColumnSelector && selectable.isMulti()) {
-            writer.writeClassAttribute(Classes.create(sheet, "selectorDropdown"));
+            if (column instanceof UIColumnSelector && selectable.isMulti()) {
+              writer.writeClassAttribute(Classes.create(sheet, "selectorDropdown"));
 
-            writer.startElement(HtmlElements.DIV);
-            writer.writeClassAttribute(BootstrapClass.DROPDOWN);
-            writer.startElement(HtmlElements.BUTTON);
-            writer.writeClassAttribute(
-                BootstrapClass.BTN, BootstrapClass.BTN_SECONDARY, BootstrapClass.DROPDOWN_TOGGLE);
-            writer.writeAttribute(HtmlAttributes.TYPE, HtmlButtonTypes.BUTTON);
-            writer.writeIdAttribute(sheet.getClientId(facesContext) + SUFFIX_SELECTOR_DROPDOWN);
-            writer.writeAttribute(DataAttributes.TOGGLE, "dropdown", false);
-            writer.writeAttribute(Arias.HASPOPUP, Boolean.TRUE.toString(), false);
-            writer.writeAttribute(Arias.EXPANDED, Boolean.FALSE.toString(), false);
-            writer.endElement(HtmlElements.BUTTON);
-            writer.startElement(HtmlElements.DIV);
-            writer.writeClassAttribute(BootstrapClass.DROPDOWN_MENU);
-            writer.writeAttribute(Arias.LABELLEDBY, sheet.getClientId(facesContext) + SUFFIX_SELECTOR_DROPDOWN, false);
-            writer.startElement(HtmlElements.BUTTON);
-            writer.writeClassAttribute(BootstrapClass.DROPDOWN_ITEM);
-            writer.writeAttribute(HtmlAttributes.TYPE, HtmlButtonTypes.BUTTON);
-            writer.writeAttribute(DataAttributes.COMMAND, "sheetSelectAll", false);
-            writer.writeText(ResourceManagerUtils.getPropertyNotNull(facesContext, "tobago", "sheetMenuSelect"));
-            writer.endElement(HtmlElements.BUTTON);
-            writer.startElement(HtmlElements.BUTTON);
-            writer.writeClassAttribute(BootstrapClass.DROPDOWN_ITEM);
-            writer.writeAttribute(HtmlAttributes.TYPE, HtmlButtonTypes.BUTTON);
-            writer.writeAttribute(DataAttributes.COMMAND, "sheetDeselectAll", false);
-            writer.writeText(ResourceManagerUtils.getPropertyNotNull(facesContext, "tobago", "sheetMenuUnselect"));
-            writer.endElement(HtmlElements.BUTTON);
-            writer.startElement(HtmlElements.BUTTON);
-            writer.writeClassAttribute(BootstrapClass.DROPDOWN_ITEM);
-            writer.writeAttribute(HtmlAttributes.TYPE, HtmlButtonTypes.BUTTON);
-            writer.writeAttribute(DataAttributes.COMMAND, "sheetToggleAll", false);
-            writer
-                .writeText(ResourceManagerUtils.getPropertyNotNull(facesContext, "tobago", "sheetMenuToggleselect"));
-            writer.endElement(HtmlElements.BUTTON);
-            writer.endElement(HtmlElements.DIV);
-            writer.endElement(HtmlElements.DIV);
-          } else {
-            RenderUtils.encode(facesContext, cellComponent);
-          }
-
-          if (sorterIcon != null) {
-            writer.writeIcon(sorterIcon);
-          }
-
-          writer.endElement(HtmlElements.SPAN);
-          if (!autoLayout) {
-            if (column.isResizable()) {
-              encodeResizing(writer, sheet, j - offset + cell.getColumnSpan() - 1);
+              writer.startElement(HtmlElements.DIV);
+              writer.writeClassAttribute(BootstrapClass.DROPDOWN);
+              writer.startElement(HtmlElements.BUTTON);
+              writer.writeClassAttribute(
+                  BootstrapClass.BTN, BootstrapClass.BTN_SECONDARY, BootstrapClass.DROPDOWN_TOGGLE);
+              writer.writeAttribute(HtmlAttributes.TYPE, HtmlButtonTypes.BUTTON);
+              writer.writeIdAttribute(sheet.getClientId(facesContext) + SUFFIX_SELECTOR_DROPDOWN);
+              writer.writeAttribute(DataAttributes.TOGGLE, "dropdown", false);
+              writer.writeAttribute(Arias.HASPOPUP, Boolean.TRUE.toString(), false);
+              writer.writeAttribute(Arias.EXPANDED, Boolean.FALSE.toString(), false);
+              writer.endElement(HtmlElements.BUTTON);
+              writer.startElement(HtmlElements.DIV);
+              writer.writeClassAttribute(BootstrapClass.DROPDOWN_MENU);
+              writer
+                  .writeAttribute(Arias.LABELLEDBY, sheet.getClientId(facesContext) + SUFFIX_SELECTOR_DROPDOWN, false);
+              writer.startElement(HtmlElements.BUTTON);
+              writer.writeClassAttribute(BootstrapClass.DROPDOWN_ITEM);
+              writer.writeAttribute(HtmlAttributes.TYPE, HtmlButtonTypes.BUTTON);
+              writer.writeAttribute(DataAttributes.COMMAND, "sheetSelectAll", false);
+              writer.writeText(ResourceManagerUtils.getPropertyNotNull(facesContext, "tobago", "sheetMenuSelect"));
+              writer.endElement(HtmlElements.BUTTON);
+              writer.startElement(HtmlElements.BUTTON);
+              writer.writeClassAttribute(BootstrapClass.DROPDOWN_ITEM);
+              writer.writeAttribute(HtmlAttributes.TYPE, HtmlButtonTypes.BUTTON);
+              writer.writeAttribute(DataAttributes.COMMAND, "sheetDeselectAll", false);
+              writer.writeText(ResourceManagerUtils.getPropertyNotNull(facesContext, "tobago", "sheetMenuUnselect"));
+              writer.endElement(HtmlElements.BUTTON);
+              writer.startElement(HtmlElements.BUTTON);
+              writer.writeClassAttribute(BootstrapClass.DROPDOWN_ITEM);
+              writer.writeAttribute(HtmlAttributes.TYPE, HtmlButtonTypes.BUTTON);
+              writer.writeAttribute(DataAttributes.COMMAND, "sheetToggleAll", false);
+              writer
+                  .writeText(ResourceManagerUtils.getPropertyNotNull(facesContext, "tobago", "sheetMenuToggleselect"));
+              writer.endElement(HtmlElements.BUTTON);
+              writer.endElement(HtmlElements.DIV);
+              writer.endElement(HtmlElements.DIV);
+            } else {
+              RenderUtils.encode(facesContext, cellComponent);
             }
-          }
 
-          writer.endElement(HtmlElements.TH);
-        }
+            if (sorterIcon != null) {
+              writer.writeIcon(sorterIcon);
+            }
+
+            writer.endElement(HtmlElements.SPAN);
+            if (!autoLayout) {
+              if (column.isResizable()) {
+                encodeResizing(writer, sheet, j - offset + cell.getColumnSpan() - 1);
+              }
+            }
+
+            writer.endElement(HtmlElements.TH);
+          }
         }
       }
       if (!autoLayout) {
