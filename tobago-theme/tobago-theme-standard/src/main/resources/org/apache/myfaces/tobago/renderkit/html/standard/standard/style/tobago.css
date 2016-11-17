@@ -246,11 +246,6 @@ table.tobago-gridLayout > tbody > tr:first-child > td {
   white-space: normal
 }
 
-.tobago-link-markup-disabled {
-  cursor: not-allowed;
-  opacity: .65;
-}
-
 button.tobago-link, button.tobago-command, button.tobago-treeCommand {
   color: #0275d8;
   border-width: 0;
@@ -266,6 +261,16 @@ button.tobago-treeCommand:focus, button.tobago-treeCommand:hover {
   text-decoration: underline;
   background-color: transparent;
   outline: none;
+}
+
+button.tobago-link-markup-disabled, button.tobago-command-markup-disabled {
+  cursor: not-allowed;
+  opacity: .65;
+}
+
+button.tobago-link-markup-disabled:hover, button.tobago-command-markup-disabled:hover {
+  color: #0275d8;
+  text-decoration: none;
 }
 
 /* messages ----------------------------------------------------------- */

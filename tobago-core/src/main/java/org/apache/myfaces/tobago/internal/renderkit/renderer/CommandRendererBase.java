@@ -24,6 +24,9 @@ import org.apache.myfaces.tobago.internal.component.AbstractUIButton;
 import org.apache.myfaces.tobago.internal.component.AbstractUICommand;
 import org.apache.myfaces.tobago.internal.component.AbstractUIFormBase;
 import org.apache.myfaces.tobago.internal.util.AccessKeyLogger;
+import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
+import org.apache.myfaces.tobago.internal.util.JsonUtils;
+import org.apache.myfaces.tobago.internal.util.RenderUtils;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
@@ -34,9 +37,6 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlButtonTypes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRoleValues;
-import org.apache.myfaces.tobago.internal.util.JsonUtils;
-import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
-import org.apache.myfaces.tobago.internal.util.RenderUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import org.slf4j.Logger;
@@ -193,10 +193,18 @@ public abstract class CommandRendererBase extends DecodingCommandRendererBase {
       for (final UIComponent child : component.getChildren()) {
         if (child.isRendered()) {
           writer.startElement(HtmlElements.LI);
-          final CssItem submenu = child instanceof AbstractUICommand && ((AbstractUICommand) child).isParentOfCommands()
-              ? TobagoClass.DROPDOWN_SUBMENU : null;
-          // fixme: this name comes not from bootstrap, using prefix? tobago-command-dropdown-submenu
-          writer.writeClassAttribute(BootstrapClass.DROPDOWN_ITEM, submenu);
+          final CssItem submenu;
+          final CssItem disabled;
+          if (child instanceof AbstractUICommand) {
+            final AbstractUICommand c = (AbstractUICommand) child;
+            // fixme: this name comes not from bootstrap, using prefix? tobago-command-dropdown-submenu
+            submenu = c.isParentOfCommands() ? TobagoClass.DROPDOWN_SUBMENU : null;
+            disabled = c.isDisabled() ? BootstrapClass.DISABLED : null;
+          } else {
+            submenu = null;
+            disabled = null;
+          }
+          writer.writeClassAttribute(BootstrapClass.DROPDOWN_ITEM, submenu, disabled);
           child.encodeAll(facesContext);
           writer.endElement(HtmlElements.LI);
         }
