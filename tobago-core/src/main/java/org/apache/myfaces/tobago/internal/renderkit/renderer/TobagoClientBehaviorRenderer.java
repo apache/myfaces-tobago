@@ -49,8 +49,6 @@ public class TobagoClientBehaviorRenderer extends javax.faces.render.ClientBehav
 
   private static final Logger LOG = LoggerFactory.getLogger(TobagoClientBehaviorRenderer.class);
 
-  public static final String COMMAND_MAP = TobagoClientBehaviorRenderer.class.getName() + ".CommandMap";
-
   @Override
   public String getScript(ClientBehaviorContext behaviorContext, ClientBehavior behavior) {
 
@@ -113,10 +111,10 @@ public class TobagoClientBehaviorRenderer extends javax.faces.render.ClientBehav
 
     final CommandMap map = new CommandMap();
     map.addCommand(eventName, command);
-    facesContext.getAttributes().put(COMMAND_MAP, map);
+    CommandMap.storeCommandMap(facesContext, map);
 
     // XXX the return value is a string, but we should use a CommandMap
-    return COMMAND_MAP;
+    return "dummy";
   }
 
   private AbstractUIEvent findEvent(final UIComponent component, final ClientBehaviors eventName) {

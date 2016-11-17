@@ -23,12 +23,11 @@ import org.apache.myfaces.tobago.component.ClientBehaviors;
 import org.apache.myfaces.tobago.internal.component.AbstractUICommand;
 import org.apache.myfaces.tobago.internal.component.AbstractUICommandBase;
 import org.apache.myfaces.tobago.internal.component.AbstractUIData;
+import org.apache.myfaces.tobago.internal.renderkit.Command;
+import org.apache.myfaces.tobago.internal.renderkit.CommandMap;
 import org.apache.myfaces.tobago.model.ExpandedState;
 import org.apache.myfaces.tobago.model.SelectedState;
 import org.apache.myfaces.tobago.model.TreePath;
-import org.apache.myfaces.tobago.internal.renderkit.renderer.TobagoClientBehaviorRenderer;
-import org.apache.myfaces.tobago.internal.renderkit.Command;
-import org.apache.myfaces.tobago.internal.renderkit.CommandMap;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -43,6 +42,7 @@ import javax.faces.component.behavior.ClientBehaviorContext;
 import javax.faces.component.behavior.ClientBehaviorHolder;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.faces.render.ClientBehaviorRenderer;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -252,25 +252,16 @@ public final class RenderUtils {
   public static CommandMap getBehaviorCommands(final FacesContext facesContext, final ClientBehaviorHolder holder) {
     CommandMap map = null;
     final Map<String, List<ClientBehavior>> behaviors = holder.getClientBehaviors();
-    for (Map.Entry<String, List<ClientBehavior>> behavior : behaviors.entrySet()) {
-      final String key = behavior.getKey();
+    for (Map.Entry<String, List<ClientBehavior>> behaviorMap : behaviors.entrySet()) {
+      final String key = behaviorMap.getKey();
       final ClientBehaviorContext context = ClientBehaviorContext.createClientBehaviorContext(
           facesContext, (UIComponent) holder, key, ((UIComponent) holder).getClientId(facesContext), null);
-      for (ClientBehavior clientBehavior : behavior.getValue()) {
+      for (ClientBehavior clientBehavior : behaviorMap.getValue()) {
         if (clientBehavior instanceof ClientBehaviorBase) {
           final String type = ((ClientBehaviorBase) clientBehavior).getRendererType();
-          final javax.faces.render.ClientBehaviorRenderer clientBehaviorRenderer
-              = facesContext.getRenderKit().getClientBehaviorRenderer(type);
-          final String marker = clientBehaviorRenderer.getScript(context, clientBehavior);
-          if (TobagoClientBehaviorRenderer.COMMAND_MAP.equals(marker)) {
-            if (map == null) {
-              map = new CommandMap();
-            }
-            // todo: optimize empty command maps
-            map.merge((CommandMap) facesContext.getAttributes().get(TobagoClientBehaviorRenderer.COMMAND_MAP));
-          } else {
-            LOG.error("Can't find prepared command map in faces context.");
-          }
+          final ClientBehaviorRenderer renderer = facesContext.getRenderKit().getClientBehaviorRenderer(type);
+          final String dummy = renderer.getScript(context, clientBehavior);
+          map = CommandMap.merge(map, CommandMap.restoreCommandMap(facesContext));
         } else {
           LOG.warn("Ignoring: '{}'", clientBehavior);
         }

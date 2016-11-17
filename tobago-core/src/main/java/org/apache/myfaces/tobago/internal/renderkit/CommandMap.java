@@ -21,6 +21,7 @@ package org.apache.myfaces.tobago.internal.renderkit;
 
 import org.apache.myfaces.tobago.component.ClientBehaviors;
 
+import javax.faces.context.FacesContext;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -32,6 +33,8 @@ import java.util.Map;
  * @since 2.0.0
  */
 public class CommandMap {
+
+  private static final String KEY = CommandMap.class.getName() + ".KEY";
 
   private Command click;
   private Map<ClientBehaviors, Command> other;
@@ -77,15 +80,52 @@ public class CommandMap {
     }
   }
 
-  public void merge(final CommandMap commandMap) {
-    final Command click = commandMap.getClick();
-    if (click != null) {
-      setClick(click);
+  /**
+   * Merges these two maps.
+   * If one is null, the other one will be return. It may also return null.
+   * If both are not null, m1 will be filled with the data of m2.
+   * @param m1 map 1
+   * @param m2 map 2
+   * @return m1 or m2
+   */
+  public static CommandMap merge(final CommandMap m1, final CommandMap m2) {
+    if (m1 == null) {
+      return m2;
     } else {
-      for (Map.Entry<ClientBehaviors, Command> entry : commandMap.getOther().entrySet()) {
-        addCommand(entry.getKey(), entry.getValue());
+      if (m2 == null) {
+        return m1;
+      } else {
+        final Command c2 = m2.getClick();
+        if (c2 != null) {
+          final Command c1 = m1.getClick();
+          if (c1 == null) {
+            m1.setClick(c2);
+          } else {
+            c1.merge(c2);
+          }
+        } else {
+          for (Map.Entry<ClientBehaviors, Command> entry : m2.getOther().entrySet()) {
+            ClientBehaviors key = entry.getKey();
+            Command value = entry.getValue();
+            if (m1.other.containsKey(key)) {
+              final Command command = m1.other.get(key);
+              command.merge(value);
+            } else {
+              m1.addCommand(key, value);
+            }
+          }
+        }
+        return m1;
       }
     }
+  }
+
+  public static CommandMap restoreCommandMap(final FacesContext facesContext) {
+    return (CommandMap) facesContext.getAttributes().get(KEY);
+  }
+
+  public static void storeCommandMap(final FacesContext facesContext, final CommandMap map) {
+    facesContext.getAttributes().put(KEY, map);
   }
 
   public boolean isEmpty() {

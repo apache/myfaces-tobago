@@ -211,4 +211,49 @@ public class Command {
   public void setOmit(final Boolean omit) {
     this.omit = omit;
   }
+
+  public void merge(Command c) {
+
+    //XXX TBD: check if this is okay.
+    // we need at least this for "execute" and "render" in the moment.
+
+    if (action == null) {
+      action = c.action;
+    }
+    if (transition == null) {
+      transition = c.transition;
+    }
+    if (target == null) {
+      target = c.target;
+    }
+    if (execute != null) {
+      if (c.execute != null) {
+        execute += " " + c.execute;
+      }
+    } else {
+      execute = c.execute;
+    }
+    if (render != null) {
+      if (c.render != null) {
+        render += " " + c.render;
+      }
+    } else {
+      render = c.render;
+    }
+    if (focus == null) {
+      focus = c.focus;
+    }
+    if (confirmation == null) {
+      confirmation = c.confirmation;
+    }
+    if (delay == null) {
+      delay = c.delay;
+    }
+    if (collapse == null) {
+      collapse = c.collapse;
+    }
+    if (omit == null) {
+      omit = c.omit;
+    }
+  }
 }
