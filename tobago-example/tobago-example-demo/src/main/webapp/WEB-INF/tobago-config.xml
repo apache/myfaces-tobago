@@ -72,6 +72,8 @@
         <markup>sun</markup>
         <markup>planet</markup>
         <markup>moon</markup>
+        <markup>lightred</markup>
+        <markup>lightgreen</markup>
       </supported-markup>
     </renderer>
 
