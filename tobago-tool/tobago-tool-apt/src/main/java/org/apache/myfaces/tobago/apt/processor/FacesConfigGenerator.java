@@ -209,23 +209,23 @@ public class FacesConfigGenerator extends AbstractGenerator {
         renderKit.addContent(renderKitClass);
         renderKit.addContent(newRenderer);
 
-        final org.jdom.Element clientBehaviorRender = new org.jdom.Element(CLIENT_BEHAVIOR_RENDERER, namespace);
-        final org.jdom.Element clientBehaviorType = new org.jdom.Element(CLIENT_BEHAVIOR_RENDERER_TYPE, namespace);
-        clientBehaviorType.setText("javax.faces.behavior.Ajax");
-        clientBehaviorRender.addContent(clientBehaviorType);
-        final org.jdom.Element clientBehaviorClass = new org.jdom.Element(CLIENT_BEHAVIOR_RENDERER_CLASS, namespace);
-        clientBehaviorClass.setText("org.apache.myfaces.tobago.internal.renderkit.renderer.TobagoClientBehaviorRenderer");
-        clientBehaviorRender.addContent(clientBehaviorClass);
-        renderKit.addContent(clientBehaviorRender);
+        final org.jdom.Element behaviorRender = new org.jdom.Element(CLIENT_BEHAVIOR_RENDERER, namespace);
+        final org.jdom.Element behaviorType = new org.jdom.Element(CLIENT_BEHAVIOR_RENDERER_TYPE, namespace);
+        behaviorType.setText("javax.faces.behavior.Ajax");
+        behaviorRender.addContent(behaviorType);
+        final org.jdom.Element behaviorClass = new org.jdom.Element(CLIENT_BEHAVIOR_RENDERER_CLASS, namespace);
+        behaviorClass.setText("org.apache.myfaces.tobago.internal.renderkit.renderer.TobagoClientBehaviorRenderer");
+        behaviorRender.addContent(behaviorClass);
+        renderKit.addContent(behaviorRender);
 
-        final org.jdom.Element clientBehaviorRender2 = new org.jdom.Element(CLIENT_BEHAVIOR_RENDERER, namespace);
-        final org.jdom.Element clientBehaviorType2 = new org.jdom.Element(CLIENT_BEHAVIOR_RENDERER_TYPE, namespace);
-        clientBehaviorType2.setText("org.apache.myfaces.tobago.behavior.Event");
-        clientBehaviorRender2.addContent(clientBehaviorType2);
-        final org.jdom.Element clientBehaviorClass2 = new org.jdom.Element(CLIENT_BEHAVIOR_RENDERER_CLASS, namespace);
-        clientBehaviorClass2.setText("org.apache.myfaces.tobago.internal.renderkit.renderer.TobagoClientBehaviorRenderer");
-        clientBehaviorRender2.addContent(clientBehaviorClass2);
-        renderKit.addContent(clientBehaviorRender2);
+        final org.jdom.Element baviorRender2 = new org.jdom.Element(CLIENT_BEHAVIOR_RENDERER, namespace);
+        final org.jdom.Element behaviorType2 = new org.jdom.Element(CLIENT_BEHAVIOR_RENDERER_TYPE, namespace);
+        behaviorType2.setText("org.apache.myfaces.tobago.behavior.Event");
+        baviorRender2.addContent(behaviorType2);
+        final org.jdom.Element behaviorClass2 = new org.jdom.Element(CLIENT_BEHAVIOR_RENDERER_CLASS, namespace);
+        behaviorClass2.setText("org.apache.myfaces.tobago.internal.renderkit.renderer.TobagoClientBehaviorRenderer");
+        baviorRender2.addContent(behaviorClass2);
+        renderKit.addContent(baviorRender2);
 
         final int last = getIndexAfter(rootElement, CONVERTER, COMPONENT, FACTORY, APPLICATION, BEHAVIOR);
         rootElement.addContent(last, renderKit);
