@@ -794,33 +794,33 @@ fixme: there is a problem with the selectManyShuttle with this style.
   display: none;
 }
 
-.has-info .form-control-feedback,
-.has-info .form-control-label,
-.has-info .form-check-label,
-.has-info .form-check-inline,
-.has-info .custom-control {
+.tobago-has-info .form-control-feedback,
+.tobago-has-info .form-control-label,
+.tobago-has-info .form-check-label,
+.tobago-has-info .form-check-inline,
+.tobago-has-info .custom-control {
   color: #5bc0de;
 }
 
-.has-info .form-control {
+.tobago-has-info .form-control {
   border-color: #5bc0de;
 }
 
-.has-info .input-group-addon {
+.tobago-has-info .input-group-addon {
   color: #5bc0de;
   background-color: #eaf6ea;
   border-color: #5bc0de;
 }
 
-.has-info .form-control-feedback {
+.tobago-has-info .form-control-feedback {
   color: #5bc0de;
 }
 
-.has-info .form-control-success {
+.tobago-has-info .form-control-success {
   background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2MTIgNzkyIj48cGF0aCBmaWxsPSIjNWNiODVjIiBkPSJNMjMzLjggNjEwYy0xMy4zIDAtMjYtNi0zNC0xNi44TDkwLjUgNDQ4LjhDNzYuMyA0MzAgODAgNDAzLjMgOTguOCAzODljMTguOC0xNC4yIDQ1LjUtMTAuNCA1OS44IDguNGw3MiA5NUw0NTEuMyAyNDJjMTIuNS0yMCAzOC44LTI2LjIgNTguOC0xMy43IDIwIDEyLjQgMjYgMzguNyAxMy43IDU4LjhMMjcwIDU5MGMtNy40IDEyLTIwLjIgMTkuNC0zNC4zIDIwaC0yeiIvPjwvc3ZnPg==");
 }
 
-.required .tobago-label:after {
+.tobago-required .tobago-label:after {
   content:"*";
   color:red;
 }
