@@ -20,9 +20,9 @@ QUnit.test("On click with ajax", function(assert) {
   var done = assert.async(4);
 
   $oneClickAjax = jQueryFrame("#page\\:mainForm\\:changeExample\\:\\:0");
-  $venus = jQueryFrame("#page\\:mainForm\\:s1\\:2\\:columnEventAjax");
-  $jupiter = jQueryFrame("#page\\:mainForm\\:s1\\:5\\:columnEventAjax");
-  $saturn = jQueryFrame("#page\\:mainForm\\:s1\\:6\\:columnEventAjax");
+  $venus = jQueryFrame("#page\\:mainForm\\:s1\\:2\\:sample0");
+  $jupiter = jQueryFrame("#page\\:mainForm\\:s1\\:5\\:sample0");
+  $saturn = jQueryFrame("#page\\:mainForm\\:s1\\:6\\:sample0");
   $namefield = jQueryFrame("#page\\:mainForm\\:name\\:\\:field");
 
   $oneClickAjax.click();
@@ -82,9 +82,9 @@ QUnit.test("On click with full request", function(assert) {
   var step = 1;
 
   $oneClickFullRequest = jQueryFrame("#page\\:mainForm\\:changeExample\\:\\:1");
-  $venus = jQueryFrame("#page\\:mainForm\\:s1\\:2\\:columnEventClick");
-  $jupiter = jQueryFrame("#page\\:mainForm\\:s1\\:5\\:columnEventClick");
-  $saturn = jQueryFrame("#page\\:mainForm\\:s1\\:6\\:columnEventClick");
+  $venus = jQueryFrame("#page\\:mainForm\\:s1\\:2\\:sample1");
+  $jupiter = jQueryFrame("#page\\:mainForm\\:s1\\:5\\:sample1");
+  $saturn = jQueryFrame("#page\\:mainForm\\:s1\\:6\\:sample1");
   $namefield = jQueryFrame("#page\\:mainForm\\:name\\:\\:field");
 
   $oneClickFullRequest.click();
@@ -139,9 +139,9 @@ QUnit.test("On double click with full request", function(assert) {
   var step = 1;
 
   $doubleClickFullRequest = jQueryFrame("#page\\:mainForm\\:changeExample\\:\\:2");
-  $venus = jQueryFrame("#page\\:mainForm\\:s1\\:2\\:columnEventDblClick");
-  $jupiter = jQueryFrame("#page\\:mainForm\\:s1\\:5\\:columnEventDblClick");
-  $saturn = jQueryFrame("#page\\:mainForm\\:s1\\:6\\:columnEventDblClick");
+  $venus = jQueryFrame("#page\\:mainForm\\:s1\\:2\\:sample2");
+  $jupiter = jQueryFrame("#page\\:mainForm\\:s1\\:5\\:sample2");
+  $saturn = jQueryFrame("#page\\:mainForm\\:s1\\:6\\:sample2");
   $namefield = jQueryFrame("#page\\:mainForm\\:name\\:\\:field");
 
   $doubleClickFullRequest.click();

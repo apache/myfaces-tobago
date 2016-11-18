@@ -234,10 +234,10 @@ public class QUnitTests {
     List<String> ignore = new ArrayList<String>();
     //Knows bugs
     ignore.add("content/20-component/010-input/50-input-group/group.xhtml");
-    //PhantomJs don't work with 'resource' attribute.
-    ignore.add("content/40-test/4000-button+link/button+link.xhtml");
     //PhantomJs miscalculate the height of the dropdown box
     ignore.add("content/40-test/3000-sheet/10-sheet-types/sheet-types.xhtml");
+    //ajaxListener doesn't work for <tc:in> events: focus, blur, click, dblclick
+    ignore.add("content/40-test/6000-event/event.xhtml");
     return ignore;
   }
 
@@ -388,6 +388,12 @@ public class QUnitTests {
   @Test
   public void testSheetTypes() throws UnsupportedEncodingException, InterruptedException {
     String page = "content/40-test/3000-sheet/10-sheet-types/sheet-types.xhtml";
+    runStandardTest(page);
+  }
+
+  @Test
+  public void testEvent() throws UnsupportedEncodingException, InterruptedException {
+    String page = "content/40-test/6000-event/event.xhtml";
     runStandardTest(page);
   }
 
