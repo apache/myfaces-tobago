@@ -28,7 +28,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasCollapsedMode;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabel;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
-import org.apache.myfaces.tobago.internal.taglib.declaration.IsCollapsible;
+import org.apache.myfaces.tobago.internal.taglib.declaration.IsCollapsed;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
 
 import javax.faces.component.UIPanel;
@@ -53,5 +53,5 @@ import javax.faces.component.UIPanel;
             + "The layout manager tag should surround the content instead.")})
 
 public interface BoxTagDeclaration
-    extends HasIdBindingAndRendered, IsVisual, HasLabel, HasTip, IsCollapsible, HasCollapsedMode {
+    extends HasIdBindingAndRendered, IsVisual, HasLabel, HasTip, IsCollapsed, HasCollapsedMode {
 }

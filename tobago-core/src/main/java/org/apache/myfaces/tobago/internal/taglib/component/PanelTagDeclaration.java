@@ -29,7 +29,7 @@ import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasCollapsedMode;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
-import org.apache.myfaces.tobago.internal.taglib.declaration.IsCollapsible;
+import org.apache.myfaces.tobago.internal.taglib.declaration.IsCollapsed;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
 
 import javax.faces.component.UIPanel;
@@ -63,5 +63,5 @@ import javax.faces.component.UIPanel;
             name = ClientBehaviors.MOUSEOUT)
     })
 public interface PanelTagDeclaration
-    extends HasIdBindingAndRendered, IsVisual, IsCollapsible, HasCollapsedMode, HasTip {
+    extends HasIdBindingAndRendered, IsVisual, IsCollapsed, HasCollapsedMode, HasTip {
 }

@@ -29,7 +29,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRend
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasImage;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabel;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
-import org.apache.myfaces.tobago.internal.taglib.declaration.IsCollapsible;
+import org.apache.myfaces.tobago.internal.taglib.declaration.IsCollapsed;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
 
 /**
@@ -48,5 +48,5 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
             allowedChildComponenents = "org.apache.myfaces.tobago.Label")})
 
 public interface SectionTagDeclaration
-    extends HasIdBindingAndRendered, HasLabel, IsVisual, HasImage, IsCollapsible, HasCollapsedMode, HasTip {
+    extends HasIdBindingAndRendered, HasLabel, IsVisual, HasImage, IsCollapsed, HasCollapsedMode, HasTip {
 }
