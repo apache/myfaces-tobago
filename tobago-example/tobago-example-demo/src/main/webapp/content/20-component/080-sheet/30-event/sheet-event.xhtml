@@ -84,9 +84,6 @@
             <tc:in label="Eccentricity" value="#{sheetController.selectedSolarObject.eccen}"/>
             <tc:in label="Discoverer" value="#{sheetController.selectedSolarObject.discoverer}"/>
             <tc:in label="Discover Year" value="#{sheetController.selectedSolarObject.discoverYear}"/>
-            <tc:button>
-              <tc:operation name="hide" for="popup"/>
-            </tc:button>
             <tc:buttons>
               <tc:button id="submit" label="Submit" action="#{popupController.closePopup1}">
                 <f:ajax execute="popup" render=":::example"/>
