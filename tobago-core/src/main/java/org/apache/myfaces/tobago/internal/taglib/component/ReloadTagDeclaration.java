@@ -27,6 +27,11 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRend
 
 /**
  * Update the parent component
+ *
+ * ********************* &lt;br/&gt;
+ * WARNING &lt;br/&gt;
+ * ********************* &lt;br/&gt;
+ * This feature is preliminary and may be subject of change in later versions!  &lt;br/&gt;
  */
 @Tag(name = "reload")
 @UIComponentTag(

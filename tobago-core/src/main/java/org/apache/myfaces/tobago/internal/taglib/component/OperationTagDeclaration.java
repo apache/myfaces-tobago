@@ -27,6 +27,11 @@ import org.apache.myfaces.tobago.component.RendererTypes;
 
 /**
  * An operation describes an Tobago command, which will usually executed on client side.
+ *
+ * ********************* &lt;br/&gt;
+ * WARNING &lt;br/&gt;
+ * ********************* &lt;br/&gt;
+ * This feature is preliminary and may be subject of change in later versions!  &lt;br/&gt;
  */
 @Tag(name = "operation")
 @UIComponentTag(
