@@ -71,33 +71,6 @@
         </tc:sheet>
       </tc:box>
 
-      <tc:panel id="reloadable">
-
-        <tc:popup id="popup">
-          <tc:box label="Details">
-            <tc:in label="Name" value="#{sheetController.selectedSolarObject.name}" required="true"/>
-            <tc:in label="Number" value="#{sheetController.selectedSolarObject.number}"/>
-            <tc:in label="Orbit" value="#{sheetController.selectedSolarObject.orbit}"/>
-            <tc:in label="Distance" value="#{sheetController.selectedSolarObject.distance}"/>
-            <tc:in label="Period" value="#{sheetController.selectedSolarObject.period}"/>
-            <tc:in label="Obliquity" value="#{sheetController.selectedSolarObject.incl}"/>
-            <tc:in label="Eccentricity" value="#{sheetController.selectedSolarObject.eccen}"/>
-            <tc:in label="Discoverer" value="#{sheetController.selectedSolarObject.discoverer}"/>
-            <tc:in label="Discover Year" value="#{sheetController.selectedSolarObject.discoverYear}"/>
-            <tc:buttons>
-              <tc:button id="submit" label="Submit" action="#{popupController.closePopup1}">
-                <f:ajax execute="popup" render=":::example"/>
-                <tc:operation name="hide" for="popup"/>
-              </tc:button>
-              <tc:button id="cancel" label="Cancel" omit="true">
-                <tc:operation name="hide" for="popup"/>
-              </tc:button>
-            </tc:buttons>
-          </tc:box>
-        </tc:popup>
-
-      </tc:panel>
-
       <tc:box id="detail" label="Details" rendered="#{sheetController.columnEventSample le 2}">
         <tc:panel rendered="#{sheetController.selectedSolarObject != null}">
           <tc:in id="name" label="Name" value="#{sheetController.selectedSolarObject.name}" required="true"/>
@@ -116,6 +89,33 @@
         </tc:panel>
       </tc:box>
     </tc:segmentLayout>
+
+    <tc:panel id="reloadable">
+
+      <tc:popup id="popup">
+        <tc:box label="Details">
+          <tc:in label="Name" value="#{sheetController.selectedSolarObject.name}" required="true"/>
+          <tc:in label="Number" value="#{sheetController.selectedSolarObject.number}"/>
+          <tc:in label="Orbit" value="#{sheetController.selectedSolarObject.orbit}"/>
+          <tc:in label="Distance" value="#{sheetController.selectedSolarObject.distance}"/>
+          <tc:in label="Period" value="#{sheetController.selectedSolarObject.period}"/>
+          <tc:in label="Obliquity" value="#{sheetController.selectedSolarObject.incl}"/>
+          <tc:in label="Eccentricity" value="#{sheetController.selectedSolarObject.eccen}"/>
+          <tc:in label="Discoverer" value="#{sheetController.selectedSolarObject.discoverer}"/>
+          <tc:in label="Discover Year" value="#{sheetController.selectedSolarObject.discoverYear}"/>
+          <tc:buttons>
+            <tc:button id="submit" label="Submit" action="#{popupController.closePopup1}">
+              <f:ajax execute="popup" render=":::example"/>
+              <tc:operation name="hide" for="popup"/>
+            </tc:button>
+            <tc:button id="cancel" label="Cancel" omit="true">
+              <tc:operation name="hide" for="popup"/>
+            </tc:button>
+          </tc:buttons>
+        </tc:box>
+      </tc:popup>
+
+    </tc:panel>
 
   </tc:section>
 </ui:composition>
