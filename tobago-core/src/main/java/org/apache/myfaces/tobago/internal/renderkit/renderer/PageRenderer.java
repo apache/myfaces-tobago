@@ -152,6 +152,11 @@ public class PageRenderer extends RendererBase {
       writer.writeAttribute(HtmlAttributes.CONTENT, contentType, false);
       writer.endElement(HtmlElements.META);
 
+      writer.startElement(HtmlElements.META);
+      writer.writeAttribute(HtmlAttributes.NAME, "viewport", false);
+      writer.writeAttribute(HtmlAttributes.CONTENT, "width=device-width, initial-scale=1.0", false);
+      writer.endElement(HtmlElements.META);
+
       // title
       writer.startElement(HtmlElements.TITLE);
       writer.writeText(title != null ? title : "");
