@@ -19,5 +19,27 @@
 
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
+import org.apache.myfaces.tobago.internal.component.AbstractUIEvent;
+
+import javax.faces.component.UIComponent;
+import javax.faces.event.ActionEvent;
+
 public class RowRenderer extends DecodingCommandRendererBase {
+
+  // XXX hack to fix TOBAGO-1572
+  @Override
+  protected void commandActivated(UIComponent component) {
+
+    AbstractUIEvent event = null;
+    for (UIComponent uiComponent : component.getChildren()) {
+      if (uiComponent instanceof AbstractUIEvent) {
+        event = (AbstractUIEvent) uiComponent;
+      }
+    }
+    if (event != null) {
+      event.queueEvent(new ActionEvent(event));
+    } else {
+      component.queueEvent(new ActionEvent(component));
+    }
+  }
 }
