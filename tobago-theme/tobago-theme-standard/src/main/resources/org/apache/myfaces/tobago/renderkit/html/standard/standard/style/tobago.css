@@ -132,43 +132,43 @@ body {
     margin-left: 5px;
 }
 
-.alignItems-baseline {
+.tobago-alignItems-baseline {
   align-items: baseline;
 }
 
-.alignItems-center {
+.tobago-alignItems-center {
   align-items: center;
 }
 
-.alignItems-flexEnd {
+.tobago-alignItems-flexEnd {
   align-items: flex-end;
 }
 
-.alignItems-flexStart {
+.tobago-alignItems-flexStart {
   align-items: flex-start;
 }
 
-.alignItems-stretch {
+.tobago-alignItems-stretch {
   align-items: stretch;
 }
 
-.justifyContent-center {
+.tobago-justifyContent-center {
   justify-content: center;
 }
 
-.justifyContent-flexStart {
+.tobago-justifyContent-flexStart {
   justify-content: flex-start;
 }
 
-.justifyContent-flexEnd{
+.tobago-justifyContent-flexEnd{
   justify-content: flex-end;
 }
 
-.justifyContent-spaceBetween{
+.tobago-justifyContent-spaceBetween{
   justify-content: space-between;
 }
 
-.justifyContent-spaceAround{
+.tobago-justifyContent-spaceAround{
   justify-content: space-around;
 }
 
@@ -297,7 +297,7 @@ button.tobago-link-markup-disabled:hover, button.tobago-command-markup-disabled:
 }
 
 /* styles for drop down menu with deeper level */
-.dropdown-submenu {
+.tobago-dropdown-submenu {
   position: relative;
 }
 
@@ -316,12 +316,12 @@ button.tobago-link-markup-disabled:hover, button.tobago-command-markup-disabled:
   border-bottom: #dddddd;
 }
 
-.dropdown-submenu > span {
+.tobago-dropdown-submenu > span {
   display: inline-block;
   width: 100%;
 }
 
-.dropdown-submenu > span > .dropdown-menu {
+.tobago-dropdown-submenu > span > .dropdown-menu {
   top: 0;
   left: 100%;
   margin-top: -6px;
@@ -331,11 +331,11 @@ button.tobago-link-markup-disabled:hover, button.tobago-command-markup-disabled:
   border-radius: 6px 6px 6px 6px;
 }
 
-.dropdown-submenu:hover > span > .dropdown-menu {
+.tobago-dropdown-submenu:hover > span > .dropdown-menu {
   display: block;
 }
 
-.dropdown-submenu:after {
+.tobago-dropdown-submenu:after {
   content: " ";
   float: right;
   border-color: transparent;
@@ -346,19 +346,19 @@ button.tobago-link-markup-disabled:hover, button.tobago-command-markup-disabled:
   margin-right: -10px;
 }
 
-.dropdown-submenu > span > button:after {
+.tobago-dropdown-submenu > span > button:after {
   display: none;
 }
 
-.dropdown-submenu:hover > span > a:after {
+.tobago-dropdown-submenu:hover > span > a:after {
   border-left-color: #ffffff;
 }
 
-.dropdown-submenu.pull-left {
+.tobago-dropdown-submenu.pull-left {
   float: none;
 }
 
-.dropdown-submenu.pull-left > .dropdown-menu {
+.tobago-dropdown-submenu.pull-left > .dropdown-menu {
   left: -100%;
   margin-left: 10px;
   -webkit-border-radius: 6px 0 6px 6px;

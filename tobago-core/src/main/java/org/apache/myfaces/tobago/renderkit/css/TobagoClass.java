@@ -31,19 +31,19 @@ import org.slf4j.LoggerFactory;
  */
 public enum TobagoClass implements CssItem {
 
-  ALIGN_ITEMS__BASELINE("alignItems-baseline"),
-  ALIGN_ITEMS__CENTER("alignItems-center"),
-  ALIGN_ITEMS__FLEX_END("alignItems-flexEnd"),
-  ALIGN_ITEMS__FLEX_START("alignItems-flexStart"),
-  ALIGN_ITEMS__STRETCH("alignItems-stretch"),
+  ALIGN_ITEMS__BASELINE("tobago-alignItems-baseline"),
+  ALIGN_ITEMS__CENTER("tobago-alignItems-center"),
+  ALIGN_ITEMS__FLEX_END("tobago-alignItems-flexEnd"),
+  ALIGN_ITEMS__FLEX_START("tobago-alignItems-flexStart"),
+  ALIGN_ITEMS__STRETCH("tobago-alignItems-stretch"),
 
-  JUSTIFY_CONTENT__CENTER("justifyContent-center"),
-  JUSTIFY_CONTENT__FLEX_START("justifyContent-flexStart"),
-  JUSTIFY_CONTENT__FLEX_END("justifyContent-flexEnd"),
-  JUSTIFY_CONTENT__SPACE_BETWEEN("justifyContent-spaceBetween"),
-  JUSTIFY_CONTENT__SPACE_AROUND("justifyContent-spaceAround"),
+  JUSTIFY_CONTENT__CENTER("tobago-justifyContent-center"),
+  JUSTIFY_CONTENT__FLEX_START("tobago-justifyContent-flexStart"),
+  JUSTIFY_CONTENT__FLEX_END("tobago-justifyContent-flexEnd"),
+  JUSTIFY_CONTENT__SPACE_BETWEEN("tobago-justifyContent-spaceBetween"),
+  JUSTIFY_CONTENT__SPACE_AROUND("tobago-justifyContent-spaceAround"),
 
-  DROPDOWN_SUBMENU("dropdown-submenu"),
+  DROPDOWN_SUBMENU("tobago-dropdown-submenu"),
   TABLE_LAYOUT__FIXED("tableLayout-fixed"),
 
   HAS_INFO("has-info"),

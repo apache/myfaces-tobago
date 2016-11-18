@@ -197,7 +197,6 @@ public abstract class CommandRendererBase extends DecodingCommandRendererBase {
           final CssItem disabled;
           if (child instanceof AbstractUICommand) {
             final AbstractUICommand c = (AbstractUICommand) child;
-            // fixme: this name comes not from bootstrap, using prefix? tobago-command-dropdown-submenu
             submenu = c.isParentOfCommands() ? TobagoClass.DROPDOWN_SUBMENU : null;
             disabled = c.isDisabled() ? BootstrapClass.DISABLED : null;
           } else {
