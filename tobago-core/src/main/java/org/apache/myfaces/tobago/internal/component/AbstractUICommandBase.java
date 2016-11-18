@@ -87,12 +87,29 @@ public abstract class AbstractUICommandBase extends UICommand
     }
   }
 
+  @Override
+  public boolean isRendered() {
+    return super.isRendered() && isAllowed();
+  }
+
   /**
    Flag indicating that this element is disabled.
    <br>Default: <code>false</code>
    */
   public boolean isDisabled() {
 
+    if (!isAllowed()) {
+      return true;
+    }
+
+    Boolean bool = (Boolean) getStateHelper().eval(AbstractUICommand.PropertyKeys.disabled);
+    if (bool != null) {
+      return bool;
+    }
+    return false;
+  }
+
+  private boolean isAllowed() {
     final FacesContext facesContext = getFacesContext();
     // todo: get from configuration tobago-config.xml
     if (true) {
@@ -102,16 +119,11 @@ public abstract class AbstractUICommandBase extends UICommand
         final boolean authorized =
             authorizationHelper.isAuthorized(facesContext, actionExpression.getExpressionString());
         if (!authorized) {
-          return true;
+          return false;
         }
       }
     }
-
-    Boolean bool = (Boolean) getStateHelper().eval(AbstractUICommand.PropertyKeys.disabled);
-    if (bool != null) {
-      return bool;
-    }
-    return false;
+    return true;
   }
 
   public void setDisabled(boolean disabled) {

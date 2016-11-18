@@ -98,12 +98,11 @@ Demo = {};
  * Copies the values from the data-login attribute to the username/password fields.
  */
 Demo.prepareQuickLinks = function() {
-  jQuery("a[data-login]").click(function() {
+  jQuery("button[data-login]").click(function() {
     var link = jQuery(this);
     var login = link.data("login");
-    jQuery(Tobago.Utils.escapeClientId("page:username")).find("input").val(login.username);
-    jQuery(Tobago.Utils.escapeClientId("page:password")).find("input").val(login.password);
-    jQuery(Tobago.Utils.escapeClientId("page:login")).click();
+    jQuery(Tobago.Utils.escapeClientId("page:mainForm:username::field")).val(login.username);
+    jQuery(Tobago.Utils.escapeClientId("page:mainForm:password::field")).val(login.password);
     return false;
   });
 };
