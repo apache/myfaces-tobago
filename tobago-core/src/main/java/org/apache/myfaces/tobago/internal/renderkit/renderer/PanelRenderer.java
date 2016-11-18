@@ -69,8 +69,6 @@ public class PanelRenderer extends PanelRendererBase {
 
     writer.writeCommandMapAttribute(JsonUtils.encode(RenderUtils.getBehaviorCommands(facesContext, panel)));
 
-    HtmlRendererUtils.encodeContextMenu(facesContext, writer, panel);
-
     encodeHidden(writer, clientId, collapsed);
   }
 

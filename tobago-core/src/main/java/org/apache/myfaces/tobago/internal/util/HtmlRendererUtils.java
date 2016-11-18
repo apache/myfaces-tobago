@@ -28,12 +28,10 @@ import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.FontAwesomeIconEncoder;
 import org.apache.myfaces.tobago.renderkit.css.Style;
-import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.util.ComponentUtils;
-import org.apache.myfaces.tobago.util.FacetUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -264,18 +262,6 @@ public final class HtmlRendererUtils {
         writer.writeText(item.getLabel());
         writer.endElement(HtmlElements.OPTION);
       }
-    }
-  }
-
-  public static void encodeContextMenu(
-      final FacesContext facesContext, final TobagoResponseWriter writer, final UIComponent parent)
-      throws IOException {
-    final UIComponent contextMenu = FacetUtils.getContextMenu(parent);
-    if (contextMenu != null) {
-      writer.startElement(HtmlElements.OL);
-      writer.writeClassAttribute(TobagoClass.MENU_BAR, TobagoClass.MENU__CONTEXT_MENU);
-      RenderUtils.encode(facesContext, contextMenu);
-      writer.endElement(HtmlElements.OL);
     }
   }
 
