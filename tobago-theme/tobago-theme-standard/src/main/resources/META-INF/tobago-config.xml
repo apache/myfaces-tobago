@@ -386,7 +386,6 @@
         <script name="script/tobago-console.js"/>
         <script name="script/tobago-in.js"/>
         <script name="script/tobago-layout.js"/>
-        <script name="script/tobago-menu.js"/>
         <script name="script/tobago-overlay.js"/>
         <script name="script/tobago-popup.js"/>
         <script name="script/tobago-sheet.js"/>

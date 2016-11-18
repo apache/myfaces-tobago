@@ -48,7 +48,6 @@ import javax.faces.component.UIPanel;
             description = "Contains some code to be placed in the header at the bar position."),
         @Facet(name = Facets.LABEL,
             description = "Contains some code to be placed in the header at the label position."),
-        @Facet(name = Facets.MENU_BAR, description = "Deprecated!"),
         @Facet(name=Facets.LAYOUT, description = "Deprecated! Contains an layout manager. "
             + "The layout manager tag should surround the content instead.")})
 

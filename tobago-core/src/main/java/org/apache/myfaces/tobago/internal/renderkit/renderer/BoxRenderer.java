@@ -20,19 +20,17 @@ package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.internal.component.AbstractUIBox;
-import org.apache.myfaces.tobago.internal.util.Deprecation;
+import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
+import org.apache.myfaces.tobago.internal.util.RenderUtils;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
-import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
-import org.apache.myfaces.tobago.internal.util.RenderUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
-import javax.faces.component.UIPanel;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 
@@ -46,7 +44,6 @@ public class BoxRenderer extends PanelRendererBase {
 
     final UIComponent label = ComponentUtils.getFacet(box, Facets.label);
     final String labelString = box.getLabel();
-    final UIPanel toolbar = (UIPanel) ComponentUtils.getFacet(box, Facets.toolBar);
     final UIComponent bar = ComponentUtils.getFacet(box, Facets.bar);
 
     writer.startElement(HtmlElements.DIV);
@@ -67,7 +64,7 @@ public class BoxRenderer extends PanelRendererBase {
 
     encodeHidden(writer, clientId, collapsed);
 
-    if (label != null || labelString != null || bar != null || toolbar != null) {
+    if (label != null || labelString != null || bar != null) {
       writer.startElement(HtmlElements.DIV);
       writer.writeClassAttribute(BootstrapClass.CARD_HEADER);
       writer.startElement(HtmlElements.DIV);
@@ -81,11 +78,6 @@ public class BoxRenderer extends PanelRendererBase {
         RenderUtils.encode(facesContext, label);
       }
       writer.endElement(HtmlElements.H3);
-
-      if (toolbar != null) {
-        Deprecation.LOG.warn("Facet {} is deprecated for <tc:box>", Facets.toolBar.name());
-        RenderUtils.encode(facesContext, toolbar);
-      }
 
       if (bar != null) {
         RenderUtils.encode(facesContext, bar);

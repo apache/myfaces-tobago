@@ -361,11 +361,6 @@ public class PageRenderer extends RendererBase {
       writer.endElement(HtmlElements.INPUT);
     }
 
-    // placeholder for menus
-    writer.startElement(HtmlElements.DIV);
-    writer.writeClassAttribute(Classes.create(page, "menuStore"));
-    writer.endElement(HtmlElements.DIV);
-
     final Application application = facesContext.getApplication();
     final ViewHandler viewHandler = application.getViewHandler();
 

@@ -33,7 +33,6 @@ import org.apache.myfaces.tobago.internal.behavior.EventBehavior;
 import org.apache.myfaces.tobago.internal.component.AbstractUIPanelBase;
 import org.apache.myfaces.tobago.internal.renderkit.CommandMap;
 import org.apache.myfaces.tobago.internal.util.AccessKeyLogger;
-import org.apache.myfaces.tobago.internal.util.Deprecation;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.internal.util.JsonUtils;
 import org.apache.myfaces.tobago.internal.util.RenderUtils;
@@ -56,7 +55,6 @@ import javax.el.ValueExpression;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UINamingContainer;
-import javax.faces.component.UIPanel;
 import javax.faces.component.behavior.AjaxBehavior;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ComponentSystemEvent;
@@ -290,12 +288,6 @@ public class TabGroupRenderer extends RendererBase implements ComponentSystemEve
           }
           writer.endElement(HtmlElements.A);
 
-          final UIPanel toolbar = (UIPanel) ComponentUtils.getFacet(tab, Facets.toolBar);
-          if (toolbar != null) {
-            Deprecation.LOG.warn("Facet {} is deprecated for <tc:tabGroup>", Facets.toolBar.name());
-            renderTabToolbar(facesContext, writer, tab, toolbar);
-          }
-
           final UIComponent bar = ComponentUtils.getFacet(tab, Facets.bar);
           if (bar != null) {
             RenderUtils.encode(facesContext, bar);
@@ -312,15 +304,6 @@ public class TabGroupRenderer extends RendererBase implements ComponentSystemEve
 //      final UIToolBar toolBar = createToolBar(facesContext, tabGroup);
 //      renderToolBar(facesContext, writer, tabGroup, toolBar);
     }
-  }
-
-  protected void renderTabToolbar(
-      final FacesContext facesContext, final TobagoResponseWriter writer, final UITab tab, final UIPanel toolbar)
-      throws IOException {
-    writer.startElement(HtmlElements.SPAN);
-    writer.writeClassAttribute(Classes.create(tab, "toolBar"));
-    RenderUtils.encode(facesContext, toolbar);
-    writer.endElement(HtmlElements.SPAN);
   }
 
   protected void encodeContent(

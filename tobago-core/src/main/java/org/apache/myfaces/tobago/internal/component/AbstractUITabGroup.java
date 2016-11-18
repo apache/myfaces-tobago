@@ -20,14 +20,12 @@
 package org.apache.myfaces.tobago.internal.component;
 
 import org.apache.myfaces.tobago.component.Attributes;
-import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.UITab;
 import org.apache.myfaces.tobago.component.Visual;
 import org.apache.myfaces.tobago.event.TabChangeEvent;
 import org.apache.myfaces.tobago.event.TabChangeListener;
 import org.apache.myfaces.tobago.event.TabChangeSource2;
 import org.apache.myfaces.tobago.model.SwitchType;
-import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.util.FacesELUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -116,11 +114,6 @@ public abstract class AbstractUITabGroup extends AbstractUIPanelBase
           if (tab.isRendered()) {
             if (getRenderedIndex() == index) {
               tab.processDecodes(context);
-            } else {
-              UIComponent facet = ComponentUtils.getFacet(tab, Facets.toolBar);
-              if (facet != null) {
-                facet.processDecodes(context);
-              }
             }
           }
           index++;
@@ -145,9 +138,6 @@ public abstract class AbstractUITabGroup extends AbstractUIPanelBase
   @Override
   public void processValidators(final FacesContext context) {
     if (!(getSwitchType() == SwitchType.client)) {
-      if (context == null) {
-        throw new NullPointerException("context");
-      }
       if (!isRendered()) {
         return;
       }
@@ -164,9 +154,6 @@ public abstract class AbstractUITabGroup extends AbstractUIPanelBase
   @Override
   public void processUpdates(final FacesContext context) {
     if (!(getSwitchType() == SwitchType.client)) {
-      if (context == null) {
-        throw new NullPointerException("context");
-      }
       if (!isRendered()) {
         return;
       }

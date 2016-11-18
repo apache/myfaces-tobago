@@ -1126,33 +1126,6 @@ Tobago.Transport = {
   }
 };
 
-// -------- ToolBar ----------------------------------------------------
-
-Tobago.ToolBar = {};
-
-/**
- * Initializes the tool bars.
- * @param elements  a jQuery object to initialize (ajax) or null for initializing the whole document (full load).
- */
-Tobago.ToolBar.init = function(elements) {
-
-  Tobago.Utils.selectWithJQuery(elements, ".tobago-tabGroup-toolBar")
-      .find(".tobago-menu[data-tobago-index]").each(function () {
-        var menu = jQuery(this);
-        menu.data("tobago-tabGroup", menu.closest(".tobago-tabGroup"));
-        menu.click(function (event) {
-          var menu = jQuery(this);
-          var tabGroup = menu.data("tobago-tabGroup");
-          var tab = tabGroup.find(".tobago-tab[tabgroupindex=" + menu.data("tobago-index") + "]");
-          tab.click();
-          event.stopPropagation();
-        })
-      });
-};
-
-Tobago.registerListener(Tobago.ToolBar.init, Tobago.Phase.DOCUMENT_READY);
-Tobago.registerListener(Tobago.ToolBar.init, Tobago.Phase.AFTER_UPDATE);
-
 // ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Commands
 

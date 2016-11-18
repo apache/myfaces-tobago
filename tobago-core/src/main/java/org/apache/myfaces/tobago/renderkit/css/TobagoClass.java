@@ -55,8 +55,6 @@ public enum TobagoClass implements CssItem {
   FIGURE("tobago-figure"),
   FORM("tobago-form"),
   LABEL("tobago-label"),
-  MENU_BAR("tobago-menuBar"),
-  MENU__CONTEXT_MENU("tobago-menu-contextMenu"),
   MESSAGES("tobago-messages"),
   PANEL("tobago-panel"),
   POPUP("tobago-popup"),

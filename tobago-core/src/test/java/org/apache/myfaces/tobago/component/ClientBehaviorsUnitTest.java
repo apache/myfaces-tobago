@@ -26,7 +26,7 @@ public class ClientBehaviorsUnitTest extends EnumUnitTest {
 
   @Test
   public void testNames() throws IllegalAccessException, NoSuchFieldException {
-    testNames(Facets.class);
+    testNames(ClientBehaviors.class);
   }
 
 }

@@ -71,14 +71,6 @@ Tobago.TabGroup.init = function(elements) {
   });
 
 
-  // initialize menu
-  // XXX ":last" is dangerous, please define e.g. a unique class for "menu"
-//  tabGroups.find(".tobago-tabGroupToolBar-button:last").find(".tobago-menu").click(function() {
-//    var index = jQuery(this).prevAll().size();
-//    var tabGroup = jQuery(this).parents(".tobago-tabGroup:first");
-//    var selected = tabGroup.find(".tobago-tab").eq(index).click();
-//  });
-
   // XXX hack for webkit to avoid scrollbars in box
 //  jQuery('.tobago-tabGroup').hide();
 //  jQuery('.tobago-tabGroup').show();

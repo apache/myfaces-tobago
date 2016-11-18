@@ -28,12 +28,11 @@ public enum Facets {
   checkbox,
   confirmation,
   constraints,
-  contextMenu,
   /**
-   * @deprecated since 3.0.0. is no longer supported, use explicit header facet in sheet.
+  * @deprecated currently not supported
    */
   @Deprecated
-  dropDownMenu,
+  contextMenu,
   label,
   /**
    * @deprecated since 3.0.0. The layout manager tag should surround the content instead.
@@ -41,31 +40,18 @@ public enum Facets {
    */
   @Deprecated
   layout,
-  /**
-   * @deprecated since 3.0.0. Menu bar is no longer supported.
-   */
-  @Deprecated
-  menuBar,
   pagerPage,
   pagerPageDirect,
   pagerRow,
-  /**
-   * @deprecated since 3.0.0. Popup can now be placed normally in the code.
-   */
-  @Deprecated
-  popup,
   radio,
   reload(true),
-  sorter,
-  toolBar;
-
-  private boolean event;
+  sorter;
 
   Facets() {
   }
 
+  @Deprecated
   Facets(boolean event) {
-    this.event = event;
   }
 
   public static final String AFTER = "after";
@@ -75,41 +61,24 @@ public enum Facets {
   public static final String CHECKBOX = "checkbox";
   public static final String CONFIRMATION = "confirmation";
   public static final String CONSTRAINTS = "constraints";
-  public static final String CONTEXT_MENU = "contextMenu";
   /**
-   * @deprecated since 3.0.0. is no longer supported, use explicit header facet in sheet.
+   * @deprecated currently not supported
    */
   @Deprecated
-  public static final String DROP_DOWN_MENU = "dropDownMenu";
+  public static final String CONTEXT_MENU = "contextMenu";
   public static final String LABEL = "label";
   /**
    * @deprecated since 3.0.0. The layout manager tag should surround the content instead.
    */
   @Deprecated
   public static final String LAYOUT = "layout";
-  /**
-   * @deprecated since 3.0.0. Menu bar is no longer supported.
-   */
-  @Deprecated
-  public static final String MENU_BAR = "menuBar";
   public static final String PAGER_PAGE = "pagerPage";
   public static final String PAGER_PAGE_DIRECT = "pagerPageDirect";
   public static final String PAGER_ROW = "pagerRow";
-  public static final String POPUP = "popup";
   public static final String RADIO = "radio";
   /**
    * TODO: Must be replaced by a behavior
    */
   public static final String RELOAD = "reload";
   public static final String SORTER = "sorter";
-  public static final String TOOL_BAR = "toolBar";
-
-  public static boolean isEvent(final String string) {
-    try {
-      return valueOf(string).event;
-    } catch (IllegalArgumentException e) {
-      // ignore
-      return false;
-    }
-  }
 }

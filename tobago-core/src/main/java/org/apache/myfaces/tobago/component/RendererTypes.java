@@ -48,10 +48,6 @@ public enum RendererTypes {
   Links,
   Label,
   Messages,
-  Menu,
-  MenuBar,
-  MenuCommand,
-  MenuSeparator,
   Object,
   Operation,
   Out,
@@ -115,10 +111,6 @@ public enum RendererTypes {
   public static final String LINKS = "Links";
   public static final String LABEL = "Label";
   public static final String MESSAGES = "Messages";
-  public static final String MENU = "Menu";
-  public static final String MENU_BAR = "MenuBar";
-  public static final String MENU_COMMAND = "MenuCommand";
-  public static final String MENU_SEPARATOR = "MenuSeparator";
   public static final String OBJECT = "Object";
   public static final String OPERATION = "Operation";
   public static final String OUT = "Out";
