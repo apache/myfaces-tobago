@@ -360,7 +360,7 @@
       </renderers>
       <resources production="true">
         <script name="jquery/jquery-2.2.4.js"/>
-        <script name="script/contrib/jquery-ui-1.10.4.custom.js"/>
+        <script name="jquery-ui/1.12.1.custom/jquery-ui.js"/>
         <script name="tether/1.1.1/js/tether.js"/>
         <script name="bootstrap/4.0.0-alpha.4/js/bootstrap.js"/>
         <script name="moment/2.13.0/moment-with-locales.js"/>
@@ -375,7 +375,7 @@
       </resources>
       <resources production="false">
         <script name="jquery/jquery-2.2.4.js"/>
-        <script name="script/contrib/jquery-ui-1.10.4.custom.js"/>
+        <script name="jquery-ui/1.12.1.custom/jquery-ui.js"/>
         <script name="tether/1.1.1/js/tether.js"/>
         <script name="bootstrap/4.0.0-alpha.4/js/bootstrap.js"/>
         <script name="moment/2.13.0/moment-with-locales.js"/>
