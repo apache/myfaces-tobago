@@ -726,12 +726,19 @@ p.tobago-separator:after {
   margin: 0;
 }
 
-/* tree ---------------------------------------------------------------------- */
+/* tab / tab-group ----------------------------------------------------------------- */
 
 .tobago-tab {
   display: flex;
   justify-content: space-between;
   align-content: center;
+  margin-left: 0.2rem;
+}
+
+.tab-content {
+  border: 1px solid #ddd;
+  border-radius: 0.25rem;
+  padding: 0.3rem;
 }
 
 /* tree ---------------------------------------------------------------------- */
