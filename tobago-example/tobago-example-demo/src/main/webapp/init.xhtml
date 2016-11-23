@@ -24,6 +24,7 @@
   <tc:loadBundle basename="overview" var="overviewBundle"/>
   <tc:page applicationIcon="icon/favicon.ico" label="#{overviewBundle.pageTitle}" id="page">
 
+    <!-- this event will forward to the first node of the navitation menu after loading -->
     <tc:event event="load" action="#{navigationState.gotoFirst}"/>
 
     <!-- todo: justifyContent -->
