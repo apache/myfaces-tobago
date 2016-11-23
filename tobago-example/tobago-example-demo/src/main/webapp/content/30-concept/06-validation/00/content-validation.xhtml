@@ -97,4 +97,21 @@
       <tc:button id="submit" label="Submit"/>
     </tc:form>
   </tc:section>
+
+  <tc:section label="Two Field Validation">
+    <p>A validator check the password against the confirmation field.
+      To get access to the confirmation field from the validator a binding with the <code>binding</code> attribute
+      and the <code class="language-markup">&lt;f:attribute/></code> tag is created.</p>
+    <pre><code class="language-markup">&lt;tc:in label="Password" value="qwe" validator="\#{validationController.passwordValidator}">
+  &lt;f:attribute name="confirmationField" value="\#{confirmBinding}"/>
+&lt;/tc:in>
+&lt;tc:in label="Confirmation" value="asdf" binding="\#{confirmBinding}"/></code></pre>
+    <tc:form>
+      <tc:in label="Password" required="true" validator="#{validationController.passwordValidator}">
+        <f:attribute name="confirmationField" value="#{confirmBinding}"/>
+      </tc:in>
+      <tc:in label="Confirmation" required="true" binding="#{confirmBinding}"/>
+      <tc:button label="Submit"/>
+    </tc:form>
+  </tc:section>
 </ui:composition>

@@ -21,17 +21,27 @@
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
                 xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core">
-  <ui:param name="title" value="#{overviewBundle.image} &lt;tc:image&gt;"/>
-  <p>Create an figure with <code class="language-markup">&lt;tc:figure/&gt;</code> around an image, video or something else.
-  The label can be set via the label attribute or with the label facet.</p>
+  <ui:param name="title" value="#{overviewBundle.figure} &lt;tc:figure>"/>
+  <p>Create a figure with <code class="language-markup">&lt;tc:figure/&gt;</code> around an image,
+    video or something else. The label can be set via the label attribute or with the label facet.</p>
+  <tc:link label="Tag Library Documentation" image="image/feather-leaf.png"
+           link="#{overviewBundle.tagDocUrl}/figure.html"/>
 
-  <tc:section label="Basics">
-    <pre><code class="language-markup">&lt;tc:figure&gt;
-  &lt;f:facet name="label"&gt;Label Text&lt;/f:facet&gt;
-  &lt;tc:image value=.../&gt;
-&lt;/tc:figure&gt;</code></pre>
-    <tc:figure id="figure">
-      <f:facet name="label">Label Text</f:facet>
+  <tc:section label="Label attribute">
+    <p>For simple captions use the <code>label</code> attribute.</p>
+    <pre><code class="language-markup">&lt;tc:figure label="Picture of the alps.">
+  &lt;tc:image value="image/alps.png"/>
+&lt;/tc:figure></code></pre>
+    <tc:figure label="Picture of the alps.">
+      <tc:image value="image/alps.png"/>
+    </tc:figure>
+  </tc:section>
+
+  <tc:section label="Label facet">
+    <p>For more complex captions use <code class="language-markup">&lt;f:facet name="label"></code>.
+      In this example the word 'tobago' is colored red.</p>
+    <tc:figure>
+      <f:facet name="label">The <span style="color: red">tobago</span> logo.</f:facet>
       <tc:image id="image" value="image/tobago_head.png"/>
     </tc:figure>
   </tc:section>
