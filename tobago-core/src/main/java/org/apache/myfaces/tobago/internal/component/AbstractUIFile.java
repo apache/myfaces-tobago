@@ -19,6 +19,7 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
+import org.apache.myfaces.tobago.component.LabelLayout;
 import org.apache.myfaces.tobago.component.SupportFieldId;
 import org.apache.myfaces.tobago.component.SupportsLabelLayout;
 import org.apache.myfaces.tobago.component.Visual;
@@ -32,7 +33,7 @@ import javax.faces.context.FacesContext;
 import javax.servlet.http.Part;
 
 public abstract class AbstractUIFile extends UIInput implements SupportsLabelLayout, Visual, ClientBehaviorHolder,
-        SupportFieldId {
+    SupportFieldId {
 
   @Override
   public void validate(final FacesContext facesContext) {
@@ -66,6 +67,10 @@ public abstract class AbstractUIFile extends UIInput implements SupportsLabelLay
 
   @Override
   public String getFieldId(final FacesContext facesContext) {
-    return getClientId(facesContext) + ComponentUtils.SUB_SEPARATOR + "real";
+    if (getLabelLayout() == LabelLayout.skip) {
+      return getClientId(facesContext);
+    } else {
+      return getClientId(facesContext) + ComponentUtils.SUB_SEPARATOR + "real";
+    }
   }
 }

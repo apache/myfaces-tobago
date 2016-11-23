@@ -19,6 +19,7 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
+import org.apache.myfaces.tobago.component.LabelLayout;
 import org.apache.myfaces.tobago.component.SupportFieldId;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 
@@ -36,6 +37,10 @@ public abstract class AbstractUISelectManyShuttle extends AbstractUISelectManyBa
 
   @Override
   public String getFieldId(final FacesContext facesContext) {
-    return getClientId(facesContext) + ComponentUtils.SUB_SEPARATOR + "unselected";
+    if (getLabelLayout() == LabelLayout.skip) {
+      return getClientId(facesContext);
+    } else {
+      return getClientId(facesContext) + ComponentUtils.SUB_SEPARATOR + "unselected";
+    }
   }
 }

@@ -62,6 +62,10 @@ public abstract class AbstractUICommand extends AbstractUICommandBase
 
   @Override
   public String getFieldId(final FacesContext facesContext) {
-    return getClientId(facesContext) + ComponentUtils.SUB_SEPARATOR + "command";
+    if(isParentOfCommands()) {
+      return getClientId(facesContext) + ComponentUtils.SUB_SEPARATOR + "command";
+    } else {
+      return getClientId(facesContext);
+    }
   }
 }

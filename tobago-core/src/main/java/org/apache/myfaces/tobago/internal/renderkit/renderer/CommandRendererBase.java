@@ -81,11 +81,7 @@ public abstract class CommandRendererBase extends DecodingCommandRendererBase {
       writer.startElement(HtmlElements.BUTTON);
       writer.writeAttribute(HtmlAttributes.TYPE, HtmlButtonTypes.BUTTON);
     }
-    if (parentOfCommands) {
-      writer.writeIdAttribute(command.getFieldId(facesContext));
-    } else {
-      writer.writeIdAttribute(clientId);
-    }
+    writer.writeIdAttribute(command.getFieldId(facesContext));
     writer.writeNameAttribute(clientId);
     writer.writeAttribute(HtmlAttributes.DISABLED, disabled);
 

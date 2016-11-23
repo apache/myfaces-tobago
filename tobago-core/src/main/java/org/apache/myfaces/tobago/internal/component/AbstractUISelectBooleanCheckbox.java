@@ -19,6 +19,7 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
+import org.apache.myfaces.tobago.component.LabelLayout;
 import org.apache.myfaces.tobago.component.SupportFieldId;
 import org.apache.myfaces.tobago.component.SupportsAccessKey;
 import org.apache.myfaces.tobago.component.SupportsLabelLayout;
@@ -32,7 +33,7 @@ import javax.faces.component.behavior.ClientBehaviorHolder;
 import javax.faces.context.FacesContext;
 
 public abstract class AbstractUISelectBooleanCheckbox extends UISelectBoolean
-        implements Visual, ClientBehaviorHolder, SupportFieldId, SupportsAccessKey, SupportsLabelLayout {
+    implements Visual, ClientBehaviorHolder, SupportFieldId, SupportsAccessKey, SupportsLabelLayout {
 
   @Override
   public boolean isSelected() {
@@ -78,6 +79,10 @@ public abstract class AbstractUISelectBooleanCheckbox extends UISelectBoolean
 
   @Override
   public String getFieldId(final FacesContext facesContext) {
-    return getClientId(facesContext) + ComponentUtils.SUB_SEPARATOR + "field";
+    if (getLabelLayout() == LabelLayout.skip) {
+      return getClientId(facesContext);
+    } else {
+      return getClientId(facesContext) + ComponentUtils.SUB_SEPARATOR + "field";
+    }
   }
 }
