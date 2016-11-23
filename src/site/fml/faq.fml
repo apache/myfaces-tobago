@@ -217,7 +217,8 @@ resource-path/content-type/theme/client/[tag(for renderer)|property|style|script
           The standard markup is defined in tobago-config.xml of the tobago-theme-standard.
           This can be extended in your own theme.
           The markup attribute is rendered as a CSS class tobago-[renderer-name.toLowerCase]-markup-[markup].
-          For an example please look at the markup number and the CSS class tobago-in-markup-number for UIIn in theme/scarborough/src/main/resources/org/apache/myfaces/tobago/renderkit/html/scarborough/standard/style/tobago.css
+          For an example please look at the markup number and the CSS class tobago-in-markup-number for UIIn
+          in theme/scarborough/src/main/resources/org/apache/myfaces/tobago/renderkit/html/scarborough/standard/style/tobago.css
           </p>
       </answer>
     </faq>

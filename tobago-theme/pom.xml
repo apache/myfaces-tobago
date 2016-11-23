@@ -66,7 +66,6 @@
     <module>tobago-theme-speyside</module>
     <module>tobago-theme-richmond</module>
     <module>tobago-theme-charlotteville</module>
-    <module>tobago-theme-example</module>
   </modules>
 
   <dependencies>
@@ -136,7 +135,7 @@
                   <outputDirectory>${project.build.directory}/bootstrap</outputDirectory>
                   <resources>
                     <resource>
-                      <directory>src/main/resources/org/apache/myfaces/tobago/renderkit/html/richmond/standard
+                      <directory>src/main
                       </directory>
                       <includes>
                         <include>scss/*</include>
@@ -154,7 +153,7 @@
                 </goals>
                 <configuration>
                   <outputDirectory>
-                    ${basedir}/src/main/resources/org/apache/myfaces/tobago/renderkit/html/richmond/standard/bootstrap-richmond/${bootstrap.version}
+                    ${basedir}/src/main/resources/META-INF/resources/org/apache/myfaces/tobago/renderkit/html/richmond/standard/bootstrap-richmond/${bootstrap.version}
                   </outputDirectory>
                   <resources>
                     <resource>

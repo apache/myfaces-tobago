@@ -134,6 +134,7 @@
 
   <!-- ResourceServlet -->
 
+<!--
   <servlet>
     <servlet-name>ResourceServlet</servlet-name>
     <servlet-class>org.apache.myfaces.tobago.servlet.ResourceServlet</servlet-class>
@@ -144,6 +145,7 @@
     <url-pattern>/org/apache/myfaces/tobago/renderkit/*</url-pattern>
     <url-pattern>/org/apache/myfaces/tobago/sandbox/*</url-pattern>
   </servlet-mapping>
+-->
 
   <!-- Error Page -->
 
