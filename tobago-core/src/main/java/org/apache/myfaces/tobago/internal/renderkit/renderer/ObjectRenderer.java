@@ -20,12 +20,12 @@
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
 import org.apache.myfaces.tobago.component.UIObject;
-import org.apache.myfaces.tobago.context.ResourceManagerUtils;
+import org.apache.myfaces.tobago.context.TobagoResourceBundle;
+import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
-import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
@@ -48,23 +48,17 @@ public class ObjectRenderer extends RendererBase {
     }
     writer.writeNameAttribute(name);
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, object);
-    final String src = object.getSrc();
-    if (src != null) {
-      writer.writeAttribute(HtmlAttributes.SRC, src, true);
-    } else {
-      writer.writeAttribute(HtmlAttributes.SRC, ResourceManagerUtils.getBlankPage(facesContext), false);
-    }
+    writer.writeAttribute(HtmlAttributes.SRC, object.getSrc(), true);
     writer.writeClassAttribute(Classes.create(object), object.getCustomClass());
     writer.writeStyleAttribute(object.getStyle());
 
-    String noframes = ResourceManagerUtils.getPropertyNotNull(
-        facesContext, "tobago", "browser.noframe.message.prefix");
+    String noframes = TobagoResourceBundle.getString(facesContext, "browser.noframe.message.prefix");
     writer.writeText(noframes);
     writer.writeText(" ");
-    if (src != null) {
-      writer.writeText(src);
+    if (object.getSrc() != null) {
+      writer.writeText(object.getSrc());
     }
-    noframes = ResourceManagerUtils.getPropertyNotNull(facesContext, "tobago", "browser.noframe.message.postfix");
+    noframes = TobagoResourceBundle.getString(facesContext, "browser.noframe.message.postfix");
     writer.writeText(" " + noframes);
 
     writer.endElement(HtmlElements.IFRAME);

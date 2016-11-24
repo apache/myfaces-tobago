@@ -27,7 +27,6 @@ import org.apache.myfaces.tobago.component.UIEvent;
 import org.apache.myfaces.tobago.component.UITab;
 import org.apache.myfaces.tobago.component.UITabGroup;
 import org.apache.myfaces.tobago.context.Markup;
-import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.event.TabChangeEvent;
 import org.apache.myfaces.tobago.internal.behavior.EventBehavior;
 import org.apache.myfaces.tobago.internal.component.AbstractUIPanelBase;
@@ -271,11 +270,12 @@ public class TabGroupRenderer extends RendererBase implements ComponentSystemEve
           String image = tab.getImage();
           // tab.getImage() resolves to empty string if el-expression resolves to null
           if (image != null && !image.isEmpty()) {
-            if (ResourceManagerUtils.isAbsoluteResource(image)) {
+// XXX RM
+            //            if (ResourceManagerUtils.isAbsoluteResource(image)) {
               // absolute Path to image : nothing to do
-            } else {
-              image = ResourceManagerUtils.getImageOrDisabledImageWithPath(facesContext, image, disabled);
-            }
+//            } else {
+//              image = ResourceManagerUtils.getImageOrDisabledImageWithPath(facesContext, image, disabled);
+//            }
             writer.startElement(HtmlElements.IMG);
             writer.writeAttribute(HtmlAttributes.SRC, image, true);
 // TBD      writer.writeClassAttribute(Classes.create(tab, (label.getLabel() != null? "image-right-margin" : "image")));

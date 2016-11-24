@@ -22,12 +22,12 @@ package org.apache.myfaces.tobago.internal.renderkit.renderer;
 import org.apache.myfaces.tobago.component.UITreeNode;
 import org.apache.myfaces.tobago.component.UITreeSelect;
 import org.apache.myfaces.tobago.context.Markup;
-import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.internal.component.AbstractUIData;
 import org.apache.myfaces.tobago.internal.component.AbstractUITree;
 import org.apache.myfaces.tobago.internal.component.AbstractUITreeListbox;
 import org.apache.myfaces.tobago.internal.component.AbstractUITreeMenu;
 import org.apache.myfaces.tobago.internal.component.AbstractUITreeNodeBase;
+import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.layout.Display;
 import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.model.Selectable;
@@ -37,7 +37,6 @@ import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
-import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import org.slf4j.Logger;
@@ -197,6 +196,8 @@ public class TreeNodeRenderer extends RendererBase {
       final FacesContext facesContext, final TobagoResponseWriter writer, final boolean expanded,
       final AbstractUITreeNodeBase node)
       throws IOException {
+    LOG.warn("todo: font-awesome icons");
+/* XXX
     final String srcOpen = ResourceManagerUtils.getImage(facesContext, "image/treeMenuOpen");
     final String srcClose = ResourceManagerUtils.getImage(facesContext, "image/treeMenuClose");
     final String src = expanded ? srcOpen : srcClose;
@@ -204,9 +205,10 @@ public class TreeNodeRenderer extends RendererBase {
     writer.writeClassAttribute(Classes.create(node, "toggle"));
     writer.writeAttribute(HtmlAttributes.SRC, src, false);
     writer.writeAttribute(DataAttributes.SRC_OPEN, srcOpen, false);
-    writer.writeAttribute(DataAttributes.SRC_CLOSE, srcClose, false);
+    writer.writeAttribute(DataAttributes.SRC_CLOSED, srcClose, false);
     writer.writeAttribute(HtmlAttributes.ALT, "", false);
     writer.endElement(HtmlElements.IMG);
+*/
   }
 
   protected Measure leftOffset(AbstractUIData data, int level, boolean showRoot) {

@@ -20,7 +20,6 @@
 package org.apache.myfaces.tobago.example.demo;
 
 import org.apache.myfaces.tobago.config.TobagoConfig;
-import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 
 import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
@@ -37,10 +36,12 @@ public class CkeditorController extends SourceFileReader implements Serializable
   private boolean collapsed;
 
   public CkeditorController() {
+/* XXX RM
     editorAvailable = ResourceManagerUtils.getScripts(
             FacesContext.getCurrentInstance(),
             "content/20-component/110-wysiwyg/01-ckeditor/ckeditor/ckeditor.js")
             .size() != 0;
+*/
 
     final TobagoConfig tobagoConfig = TobagoConfig.getInstance(FacesContext.getCurrentInstance());
     contentSecurityPolicyMode = tobagoConfig.getContentSecurityPolicy().getMode().getValue();

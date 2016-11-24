@@ -30,10 +30,10 @@
             <tc:dataAttribute name="tobago-log-level" value="DEBUG"/>
       -->
 
-      <tc:script file="script/demo.js"/>
-      <tc:script file="script/prism.js"/>
-      <tc:style file="style/demo.css"/>
-      <tc:style file="style/prism.css"/>
+      <tc:script file="#{request.contextPath}/script/demo.js"/>
+      <tc:script file="#{request.contextPath}/script/prism.js"/>
+      <tc:style file="#{request.contextPath}/style/demo.css"/>
+      <tc:style file="#{request.contextPath}/style/prism.css"/>
 
       <ui:include src="/menu.xhtml"/>
 

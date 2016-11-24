@@ -54,7 +54,7 @@ public final class ResourceManagerFactory {
     final ResourceManagerImpl resourceManager = new ResourceManagerImpl(tobagoConfig);
 
     final ResourceLocator resourceLocator = new ResourceLocator(servletContext, resourceManager);
-    resourceLocator.locate();
+//    resourceLocator.locate();
 
     servletContext.setAttribute(RESOURCE_MANAGER, resourceManager);
 

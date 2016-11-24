@@ -52,14 +52,16 @@ public class ImageRenderer extends RendererBase {
         // absolute Path to image : nothing to do
         src = value;
       } else {
-        final boolean disabled = isDisabled(image);
+//        final boolean disabled = isDisabled(image);
         if (ResourceManagerUtils.indexOfExtension(value) > -1) { // has extension
-          src = ResourceManagerUtils.getImageOrDisabledImageWithPath(facesContext, value, disabled);
+          src = value;
+// XXX RM         src = ResourceManagerUtils.getImageOrDisabledImageWithPath(facesContext, value, disabled);
         } else if (value.startsWith("fa-")) {
           fontAwesome = true;
           src = null;
         } else {
-          src = ResourceManagerUtils.getImageOrDisabledImage(facesContext, value, disabled);
+          src = value;
+// XXX RM         src = ResourceManagerUtils.getImageOrDisabledImage(facesContext, value, disabled);
         }
       }
     } else {

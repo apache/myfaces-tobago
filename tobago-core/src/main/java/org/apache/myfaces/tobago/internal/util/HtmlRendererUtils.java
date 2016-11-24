@@ -22,7 +22,6 @@ package org.apache.myfaces.tobago.internal.util;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Visual;
 import org.apache.myfaces.tobago.context.Markup;
-import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.internal.webapp.TobagoResponseWriterWrapper;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
@@ -111,11 +110,12 @@ public final class HtmlRendererUtils {
       if (image.startsWith("fa-")) {
         writer.writeIcon(null, FontAwesomeIconEncoder.generateClass(image)); // todo: should not be static
       } else {
-        if (ResourceManagerUtils.isAbsoluteResource(image)) {
+        // XXX RM
+//        if (ResourceManagerUtils.isAbsoluteResource(image)) {
           // absolute Path to image: nothing to do
-        } else {
-          image = getImageWithPath(facesContext, image, disabled);
-        }
+//        } else {
+//          image = getImageWithPath(facesContext, image, disabled);
+//        }
         writer.startElement(HtmlElements.IMG);
         writer.writeAttribute(HtmlAttributes.SRC, image, true);
         writer.writeAttribute(HtmlAttributes.ALT, "", false);
@@ -130,6 +130,8 @@ public final class HtmlRendererUtils {
     }
   }
 
+  // XXX RM
+/*
   public static String getImageWithPath(final FacesContext facesContext, final String image, final boolean disabled) {
     final int indexOfExtension = ResourceManagerUtils.indexOfExtension(image);
     if (indexOfExtension == -1) {
@@ -138,6 +140,7 @@ public final class HtmlRendererUtils {
       return ResourceManagerUtils.getImageOrDisabledImageWithPath(facesContext, image, disabled);
     }
   }
+*/
 
   /**
    * @deprecated since 3.0.0, use {@link org.apache.myfaces.tobago.renderkit.RendererBase#getResponseWriter}
@@ -243,7 +246,9 @@ public final class HtmlRendererUtils {
           if (image != null) {
             final Style style = new Style();
             style.setBackgroundImage("url('"
-                + ResourceManagerUtils.getImageOrDisabledImageWithPath(facesContext, image, item.isDisabled())
+// XXX RM
+                + image
+//                + ResourceManagerUtils.getImageOrDisabledImageWithPath(facesContext, image, item.isDisabled())
                 + "')");
             writer.writeStyleAttribute(style);
           }

@@ -22,15 +22,14 @@ package org.apache.myfaces.tobago.internal.renderkit.renderer;
 import org.apache.myfaces.tobago.component.UITree;
 import org.apache.myfaces.tobago.component.UITreeIndent;
 import org.apache.myfaces.tobago.context.Markup;
-import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.internal.component.AbstractUIData;
 import org.apache.myfaces.tobago.internal.component.AbstractUITreeNodeBase;
+import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.Icons;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
-import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
@@ -86,8 +85,8 @@ public class TreeIndentRenderer extends RendererBase {
       throws IOException {
 
     final boolean dropFirst = !showRoot || !showRootJunction && (showLines || showIcons);
-    final String blank = ResourceManagerUtils.getImage(facesContext, "image/blank");
-    final String perpendicular = ResourceManagerUtils.getImage(facesContext, "image/I");
+//    final String blank = ResourceManagerUtils.getImage(facesContext, "image/blank");
+//    final String perpendicular = ResourceManagerUtils.getImage(facesContext, "image/I");
 
     for (int i = dropFirst ? 1 : 0; i < junctions.size() - 1; i++) {
       final Boolean junction = junctions.get(i);
@@ -163,7 +162,7 @@ public class TreeIndentRenderer extends RendererBase {
     writer.writeAttribute(HtmlAttributes.src, src, true);
     if (folder) {
       writer.writeAttribute(DataAttributes.SRC_OPEN, srcOpen, true);
-      writer.writeAttribute(DataAttributes.SRC_CLOSE, srcClose, true);
+      writer.writeAttribute(DataAttributes.SRC_CLOSED, srcClose, true);
     }
     writer.writeAttribute(HtmlAttributes.alt, "", false);
     writer.endElement(HtmlElements.IMG);

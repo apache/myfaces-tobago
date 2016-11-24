@@ -19,11 +19,6 @@
 
 package org.apache.myfaces.tobago.context;
 
-import org.apache.myfaces.tobago.internal.context.ResourceManagerFactory;
-
-import javax.faces.context.FacesContext;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Locale;
 
 public final class ResourceManagerUtils {
@@ -32,6 +27,8 @@ public final class ResourceManagerUtils {
     // no instance
   }
 
+  //XXX RM
+/*
   public static String getProperty(final FacesContext facesContext, final String bundle, final String key) {
     return ResourceManagerFactory.getResourceManager(facesContext).getProperty(facesContext, bundle, key);
   }
@@ -45,6 +42,7 @@ public final class ResourceManagerUtils {
       return result;
     }
   }
+*/
 
   /**
    * Searches for an image and return it with the context path
@@ -52,9 +50,12 @@ public final class ResourceManagerUtils {
    * @param facesContext the current FacesContext
    * @param name the name of the image with extension
    */
+  //XXX RM
+/*
   public static String getImageWithPath(final FacesContext facesContext, final String name) {
     return getImageWithPath(facesContext, name, false);
   }
+*/
 
   /**
    * Searches for an image and return it with the context path
@@ -63,6 +64,8 @@ public final class ResourceManagerUtils {
    * @param name the name of the image with extension
    * @param ignoreMissing if set to false, an error message will be logged, when image is missing
    */
+  //XXX RM
+/*
   public static String getImageWithPath(
       final FacesContext facesContext, final String name, final boolean ignoreMissing) {
     final String image
@@ -73,6 +76,7 @@ public final class ResourceManagerUtils {
       return facesContext.getExternalContext().getRequestContextPath() + image;
     }
   }
+*/
 
   /**
    * Searches for an image and return it with the context path.
@@ -82,10 +86,13 @@ public final class ResourceManagerUtils {
    * @param facesContext the current FacesContext
    * @param name the name of the image without extension
    */
+  //XXX RM
+/*
   public static String getImage(
       final FacesContext facesContext, final String name) {
     return getImage(facesContext, name, false);
   }
+*/
 
   /**
    * Searches for an image and return it with the context path.
@@ -95,6 +102,8 @@ public final class ResourceManagerUtils {
    * @param name the name of the image without extension
    * @param ignoreMissing if set to false, an error message will be logged, when image is missing
    */
+  //XXX RM
+/*
   public static String getImage(
       final FacesContext facesContext, final String name, final boolean ignoreMissing) {
     final String image
@@ -105,7 +114,10 @@ public final class ResourceManagerUtils {
       return facesContext.getExternalContext().getRequestContextPath() + image;
     }
   }
+*/
 
+  //XXX RM
+/*
   public static List<String> getStyles(final FacesContext facesContext, final String name) {
     final String contextPath = facesContext.getExternalContext().getRequestContextPath();
     final String[] styles = ResourceManagerFactory.getResourceManager(facesContext).getStyles(facesContext, name);
@@ -119,7 +131,10 @@ public final class ResourceManagerUtils {
     }
     return withContext;
   }
+*/
 
+//XXX RM
+  /*
   public static List<String> getScripts(final FacesContext facesContext, final String name) {
     final String contextPath = facesContext.getExternalContext().getRequestContextPath();
     final String[] scripts = ResourceManagerFactory.getResourceManager(facesContext).getScripts(facesContext, name);
@@ -136,18 +151,7 @@ public final class ResourceManagerUtils {
                                                 final boolean ignoreMissing) {
     return getImage(facesContext, image + "Disabled", ignoreMissing);
   }
-
-  /**
-   * Blank page e. g. useful to set src of iframes (to prevent https problems in ie, see TOBAGO-538)
-   */
-  public static String getBlankPage(final FacesContext facesContext) {
-    return facesContext.getExternalContext().getRequestContextPath()
-        + "/org/apache/myfaces/tobago/renderkit/html/standard/blank.html";
-  }
-
-  public static String getPageWithoutContextPath(final FacesContext facesContext, final String name) {
-    return ResourceManagerUtils.getImageWithPath(facesContext, name);
-  }
+*/
 
   /**
    * Detects if the value is an absolute resource or if the value has to be processed by the theme mechanism. A resource
@@ -180,6 +184,8 @@ public final class ResourceManagerUtils {
     return dot > slash ? dot : -1;
   }
 
+//  XXX RM
+/*
   public static String getImageOrDisabledImageWithPath(
       final FacesContext facesContext, final String image, final boolean disabled) {
     return getImageOrDisabledImageWithPath(facesContext, image, disabled, false);
@@ -196,7 +202,10 @@ public final class ResourceManagerUtils {
     }
     return imageWithPath;
   }
+*/
 
+//  XXX RM
+/*
   public static String getImageOrDisabledImage(
       final FacesContext facesContext, final String image, final boolean disabled) {
     return getImageOrDisabledImage(facesContext, image, disabled, false);
@@ -213,4 +222,5 @@ public final class ResourceManagerUtils {
     }
     return imageWithPath;
   }
+*/
 }

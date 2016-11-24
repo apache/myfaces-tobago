@@ -30,7 +30,7 @@ import org.apache.myfaces.tobago.component.UIPanel;
 import org.apache.myfaces.tobago.component.UIReload;
 import org.apache.myfaces.tobago.component.UISheet;
 import org.apache.myfaces.tobago.context.Markup;
-import org.apache.myfaces.tobago.context.ResourceManagerUtils;
+import org.apache.myfaces.tobago.context.TobagoResourceBundle;
 import org.apache.myfaces.tobago.event.PageAction;
 import org.apache.myfaces.tobago.internal.component.AbstractUIColumn;
 import org.apache.myfaces.tobago.internal.component.AbstractUIColumnBase;
@@ -523,7 +523,7 @@ public class SheetRenderer extends RendererBase {
         writer.startElement(HtmlElements.LI);
         writer.writeClassAttribute(BootstrapClass.PAGE_ITEM);
         writer.writeAttribute(HtmlAttributes.TITLE,
-            ResourceManagerUtils.getPropertyNotNull(facesContext, "tobago", "sheetPagingInfoRowPagingTip"), true);
+            TobagoResourceBundle.getString(facesContext, "sheetPagingInfoRowPagingTip"), true);
         writer.startElement(HtmlElements.SPAN);
         writer.writeClassAttribute(Classes.create(sheet, "pagingText"), BootstrapClass.PAGE_LINK);
         if (sheet.getRowCount() != 0) {
@@ -550,7 +550,7 @@ public class SheetRenderer extends RendererBase {
           final String inputMarker = "{#}";
           final Object[] args = {inputMarker, last1 == -1 ? "?" : last1, unknown ? "" : sheet.getRowCount()};
           final MessageFormat detail = new MessageFormat(
-              ResourceManagerUtils.getPropertyNotNull(facesContext, "tobago", key), locale);
+              TobagoResourceBundle.getString(facesContext, key), locale);
           final String formatted = detail.format(args);
           final int pos = formatted.indexOf(inputMarker);
           if (pos >= 0) {
@@ -574,7 +574,7 @@ public class SheetRenderer extends RendererBase {
             writer.writeText(formatted);
           }
         } else {
-          writer.write(ResourceManagerUtils.getPropertyNotNull(facesContext, "tobago", "sheetPagingInfoEmptyRow"));
+          writer.write(TobagoResourceBundle.getString(facesContext, "sheetPagingInfoEmptyRow"));
         }
         writer.endElement(HtmlElements.SPAN);
         writer.endElement(HtmlElements.LI);
@@ -622,7 +622,7 @@ public class SheetRenderer extends RendererBase {
         writer.startElement(HtmlElements.SPAN);
         writer.writeClassAttribute(Classes.create(sheet, "pagingText"), BootstrapClass.PAGE_LINK);
         writer.writeAttribute(HtmlAttributes.TITLE,
-            ResourceManagerUtils.getPropertyNotNull(facesContext, "tobago", "sheetPagingInfoPagePagingTip"), true);
+            TobagoResourceBundle.getString(facesContext, "sheetPagingInfoPagePagingTip"), true);
         if (sheet.getRowCount() != 0) {
           final Locale locale = facesContext.getViewRoot().getLocale();
           final int first = sheet.getCurrentPage() + 1;
@@ -645,7 +645,7 @@ public class SheetRenderer extends RendererBase {
           final String inputMarker = "{#}";
           final Object[] args = {inputMarker, pages == -1 ? "?" : pages};
           final MessageFormat detail = new MessageFormat(
-              ResourceManagerUtils.getPropertyNotNull(facesContext, "tobago", key), locale);
+              TobagoResourceBundle.getString(facesContext, key), locale);
           final String formatted = detail.format(args);
           final int pos = formatted.indexOf(inputMarker);
           if (pos >= 0) {
@@ -669,7 +669,7 @@ public class SheetRenderer extends RendererBase {
             writer.writeText(formatted);
           }
         } else {
-          writer.writeText(ResourceManagerUtils.getPropertyNotNull(facesContext, "tobago", "sheetPagingInfoEmptyPage"));
+          writer.writeText(TobagoResourceBundle.getString(facesContext, "sheetPagingInfoEmptyPage"));
         }
         writer.endElement(HtmlElements.SPAN);
         writer.endElement(HtmlElements.LI);
@@ -824,7 +824,7 @@ public class SheetRenderer extends RendererBase {
                 } else {
                   tip += " - ";
                 }
-                tip += ResourceManagerUtils.getPropertyNotNull(facesContext, "tobago", "sheetTipSorting");
+                tip += TobagoResourceBundle.getString(facesContext, "sheetTipSorting");
 
                 markup = markup.add(Markup.SORTABLE);
 
@@ -833,11 +833,11 @@ public class SheetRenderer extends RendererBase {
                   final String sortTitle;
                   if (sheetState.isAscending()) {
                     sorterIcon = Icons.ANGLE_UP;
-                    sortTitle = ResourceManagerUtils.getPropertyNotNull(facesContext, "tobago", "sheetAscending");
+                    sortTitle = TobagoResourceBundle.getString(facesContext, "sheetAscending");
                     markup = markup.add(Markup.ASCENDING);
                   } else {
                     sorterIcon = Icons.ANGLE_DOWN;
-                    sortTitle = ResourceManagerUtils.getPropertyNotNull(facesContext, "tobago", "sheetDescending");
+                    sortTitle = TobagoResourceBundle.getString(facesContext, "sheetDescending");
                     markup = markup.add(Markup.DESCENDING);
                   }
                   if (sortTitle != null) {
@@ -872,20 +872,20 @@ public class SheetRenderer extends RendererBase {
               writer.writeClassAttribute(BootstrapClass.DROPDOWN_ITEM);
               writer.writeAttribute(HtmlAttributes.TYPE, HtmlButtonTypes.BUTTON);
               writer.writeAttribute(DataAttributes.COMMAND, "sheetSelectAll", false);
-              writer.writeText(ResourceManagerUtils.getPropertyNotNull(facesContext, "tobago", "sheetMenuSelect"));
+              writer.writeText(TobagoResourceBundle.getString(facesContext, "sheetMenuSelect"));
               writer.endElement(HtmlElements.BUTTON);
               writer.startElement(HtmlElements.BUTTON);
               writer.writeClassAttribute(BootstrapClass.DROPDOWN_ITEM);
               writer.writeAttribute(HtmlAttributes.TYPE, HtmlButtonTypes.BUTTON);
               writer.writeAttribute(DataAttributes.COMMAND, "sheetDeselectAll", false);
-              writer.writeText(ResourceManagerUtils.getPropertyNotNull(facesContext, "tobago", "sheetMenuUnselect"));
+              writer.writeText(TobagoResourceBundle.getString(facesContext, "sheetMenuUnselect"));
               writer.endElement(HtmlElements.BUTTON);
               writer.startElement(HtmlElements.BUTTON);
               writer.writeClassAttribute(BootstrapClass.DROPDOWN_ITEM);
               writer.writeAttribute(HtmlAttributes.TYPE, HtmlButtonTypes.BUTTON);
               writer.writeAttribute(DataAttributes.COMMAND, "sheetToggleAll", false);
               writer
-                  .writeText(ResourceManagerUtils.getPropertyNotNull(facesContext, "tobago", "sheetMenuToggleselect"));
+                  .writeText(TobagoResourceBundle.getString(facesContext, "sheetMenuToggleselect"));
               writer.endElement(HtmlElements.BUTTON);
               writer.endElement(HtmlElements.DIV);
               writer.endElement(HtmlElements.DIV);
@@ -1002,7 +1002,7 @@ public class SheetRenderer extends RendererBase {
     }
 
     final Locale locale = facesContext.getViewRoot().getLocale();
-    final String message = ResourceManagerUtils.getPropertyNotNull(facesContext, "tobago", "sheet" + action.getToken());
+    final String message = TobagoResourceBundle.getString(facesContext, "sheet" + action.getToken());
     final String tip = new MessageFormat(message, locale).format(new Integer[]{target}); // needed fot ToPage
 
     final TobagoResponseWriter writer = getResponseWriter(facesContext);

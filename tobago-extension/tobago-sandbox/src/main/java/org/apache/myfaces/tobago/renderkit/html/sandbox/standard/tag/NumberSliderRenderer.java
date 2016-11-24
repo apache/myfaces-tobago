@@ -19,17 +19,16 @@
 
 package org.apache.myfaces.tobago.renderkit.html.sandbox.standard.tag;
 
-import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.internal.component.AbstractUINumberSlider;
+import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.layout.Measure;
+import org.apache.myfaces.tobago.layout.Position;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
-import org.apache.myfaces.tobago.layout.Position;
 import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRoleValues;
-import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
@@ -172,8 +171,8 @@ public class NumberSliderRenderer extends RendererBase {
   }
 
   private String getAbsoluteImagePath(final FacesContext facesContext, final String relativeImagePath) {
-    return facesContext.getExternalContext().getRequestContextPath()
-        + ResourceManagerUtils.getImage(facesContext, relativeImagePath);
+    return facesContext.getExternalContext().getRequestContextPath()/*
+        + ResourceManagerUtils.getImage(facesContext, relativeImagePath)*/;
   }
 
   private String getIdForInputField(final FacesContext context, final UIComponent component) {

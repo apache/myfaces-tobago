@@ -21,7 +21,6 @@ package org.apache.myfaces.tobago.example.demo;
 
 import org.apache.deltaspike.core.api.scope.WindowScoped;
 import org.apache.myfaces.tobago.component.UISheet;
-import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.example.data.Salutation;
 import org.apache.myfaces.tobago.model.SelectItem;
 import org.apache.myfaces.tobago.model.Selectable;
@@ -105,33 +104,25 @@ public class DemoController implements Serializable {
     sheetConfig = new SheetConfig();
   }
 
-  private static SelectItem[] getSalutationSelectItems(final String bundle) {
+  private static SelectItem[] getSalutationSelectItems() {
     final Salutation[] salutations = Salutation.values();
     final SelectItem[] items = new SelectItem[salutations.length];
     for (int i = 0; i < items.length; i++) {
-      String label = ResourceManagerUtils.getProperty(
-          FacesContext.getCurrentInstance(), bundle, salutations[i].getKey());
+      String label = DemoBundle.getString(FacesContext.getCurrentInstance(),salutations[i].getKey());
       if (LOG.isTraceEnabled()) {
         LOG.trace("label = " + label + "");
-      }
-      if (label == null) {
-        label = salutations[i].getKey();
       }
       items[i] = new SelectItem(salutations[i], label);
     }
     return items;
   }
 
-  private static SelectItem[] getSelectItems(final Selectable[] keys, final String bundle) {
+  private static SelectItem[] getSelectItems(final Selectable[] keys) {
     final SelectItem[] items = new SelectItem[keys.length];
     for (int i = 0; i < items.length; i++) {
-      String label = ResourceManagerUtils.getProperty(
-          FacesContext.getCurrentInstance(), bundle, keys[i].name());
+      String label = DemoBundle.getString(FacesContext.getCurrentInstance(), keys[i].name());
       if (LOG.isTraceEnabled()) {
         LOG.trace("label = " + label + "");
-      }
-      if (label == null) {
-        label = keys[i].name();
       }
       items[i] = new SelectItem(keys[i], label);
     }
@@ -177,22 +168,22 @@ public class DemoController implements Serializable {
   }
 
   public SelectItem[] getItems() {
-    return getSalutationSelectItems("demo");
+    return getSalutationSelectItems();
   }
 
   public SelectItem[] getItems2() {
-    return getSelectItems(TREE_SELECT_MODE_KEYS, "demo");
+    return getSelectItems(TREE_SELECT_MODE_KEYS);
 
   }
 
 
   public SelectItem[] getTreeSelectModeItems() {
-    return getSelectItems(TREE_SELECT_MODE_KEYS, "demo");
+    return getSelectItems(TREE_SELECT_MODE_KEYS);
 
   }
 
   public SelectItem[] getTreeListboxSelectModeItems() {
-    return getSelectItems(TREELISTBOX_SELECT_MODE_KEYS, "demo");
+    return getSelectItems(TREELISTBOX_SELECT_MODE_KEYS);
 
   }
 

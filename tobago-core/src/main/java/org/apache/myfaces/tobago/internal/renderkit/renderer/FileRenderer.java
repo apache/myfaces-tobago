@@ -19,10 +19,14 @@
 
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
-import org.apache.myfaces.tobago.context.ResourceManagerUtils;
+import org.apache.myfaces.tobago.context.TobagoResourceBundle;
 import org.apache.myfaces.tobago.internal.component.AbstractUIFile;
 import org.apache.myfaces.tobago.internal.util.FacesContextUtils;
+import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
+import org.apache.myfaces.tobago.internal.util.HttpPartWrapper;
+import org.apache.myfaces.tobago.internal.util.JsonUtils;
 import org.apache.myfaces.tobago.internal.util.PartUtils;
+import org.apache.myfaces.tobago.internal.util.RenderUtils;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.Icons;
@@ -31,10 +35,6 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlButtonTypes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
-import org.apache.myfaces.tobago.internal.util.JsonUtils;
-import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
-import org.apache.myfaces.tobago.internal.util.HttpPartWrapper;
-import org.apache.myfaces.tobago.internal.util.RenderUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.validator.FileItemValidator;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
@@ -148,7 +148,7 @@ public class FileRenderer extends LabelLayoutRendererBase implements ComponentSy
     writer.writeIdAttribute(fieldId);
     writer.writeClassAttribute(Classes.create(file, "real"));
     writer.writeNameAttribute(clientId);
-    String multiFormat = ResourceManagerUtils.getPropertyNotNull(facesContext, "tobago", "tobago.file.multiFormat");
+    String multiFormat = TobagoResourceBundle.getString(facesContext, "tobago.file.multiFormat");
     writer.writeAttribute(DataAttributes.dynamic("tobago-file-multi-format"), multiFormat, true);
     // readonly seems not making sense in browsers.
     writer.writeAttribute(HtmlAttributes.DISABLED, file.isDisabled() || file.isReadonly());

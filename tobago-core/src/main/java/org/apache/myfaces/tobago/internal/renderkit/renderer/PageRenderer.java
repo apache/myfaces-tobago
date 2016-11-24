@@ -25,12 +25,15 @@ import org.apache.myfaces.tobago.component.UIPage;
 import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.context.ClientProperties;
 import org.apache.myfaces.tobago.context.Markup;
-import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.context.Theme;
+import org.apache.myfaces.tobago.context.TobagoResourceBundle;
 import org.apache.myfaces.tobago.internal.component.AbstractUIPage;
 import org.apache.myfaces.tobago.internal.util.AccessKeyLogger;
 import org.apache.myfaces.tobago.internal.util.FacesContextUtils;
+import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
+import org.apache.myfaces.tobago.internal.util.JsonUtils;
 import org.apache.myfaces.tobago.internal.util.MimeTypeUtils;
+import org.apache.myfaces.tobago.internal.util.RenderUtils;
 import org.apache.myfaces.tobago.internal.util.ResponseUtils;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.portlet.PortletUtils;
@@ -41,9 +44,6 @@ import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
-import org.apache.myfaces.tobago.internal.util.JsonUtils;
-import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
-import org.apache.myfaces.tobago.internal.util.RenderUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.Secret;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
@@ -61,6 +61,7 @@ import javax.portlet.ResourceURL;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -178,28 +179,17 @@ public class PageRenderer extends RendererBase {
 
       final String icon = page.getApplicationIcon();
       if (icon != null) {
-        final String href;
-        if (ResourceManagerUtils.isAbsoluteResource(icon)) {
-          href = icon;
+        writer.startElement(HtmlElements.LINK);
+        if (icon.endsWith(".ico")) {
+          writer.writeAttribute(HtmlAttributes.REL, "shortcut icon", false);
+          writer.writeAttribute(HtmlAttributes.HREF, icon, true);
         } else {
-          href = ResourceManagerUtils.getImageWithPath(facesContext, icon);
+          // XXX IE only supports ICO files for favicons
+          writer.writeAttribute(HtmlAttributes.REL, "icon", false);
+          writer.writeAttribute(HtmlAttributes.TYPE, MimeTypeUtils.getMimeTypeForFile(icon), true);
+          writer.writeAttribute(HtmlAttributes.HREF, icon, true);
         }
-
-        if (href != null) {
-          writer.startElement(HtmlElements.LINK);
-          if (href.endsWith(".ico")) {
-            writer.writeAttribute(HtmlAttributes.REL, "shortcut icon", false);
-            writer.writeAttribute(HtmlAttributes.HREF, href, true);
-          } else {
-            // XXX IE only supports ICO files for favicons
-            writer.writeAttribute(HtmlAttributes.REL, "icon", false);
-            writer.writeAttribute(HtmlAttributes.TYPE, MimeTypeUtils.getMimeTypeForFile(href), true);
-            writer.writeAttribute(HtmlAttributes.HREF, href, true);
-          }
-          writer.endElement(HtmlElements.LINK);
-        } else {
-          LOG.warn("Application icon '" + icon + "' not found!");
-        }
+        writer.endElement(HtmlElements.LINK);
       }
       UIViewRoot root = facesContext.getViewRoot();
       List<UIComponent> componentResources = root.getComponentResources(facesContext, HEAD_TARGET);
@@ -319,7 +309,9 @@ public class PageRenderer extends RendererBase {
 
   private void writeStyle(final FacesContext facesContext, final TobagoResponseWriter writer, final String styleFile)
       throws IOException {
-    final List<String> styles = ResourceManagerUtils.getStyles(facesContext, styleFile);
+//    XXX RM
+    final List<String> styles = Collections.singletonList(styleFile);
+//    final List<String> styles = ResourceManagerUtils.getStyles(facesContext, styleFile);
     for (final String styleString : styles) {
       if (styleString.length() > 0) {
         writer.startElement(HtmlElements.LINK);
@@ -378,7 +370,7 @@ public class PageRenderer extends RendererBase {
     writer.startElement(HtmlElements.NOSCRIPT);
     writer.startElement(HtmlElements.DIV);
     writer.writeClassAttribute(Classes.create(page, "noscript"));
-    writer.writeText(ResourceManagerUtils.getPropertyNotNull(facesContext, "tobago", "pageNoscript"));
+    writer.writeText(TobagoResourceBundle.getString(facesContext, "pageNoscript"));
     writer.endElement(HtmlElements.DIV);
     writer.endElement(HtmlElements.NOSCRIPT);
 
@@ -432,12 +424,13 @@ public class PageRenderer extends RendererBase {
   private void encodeScript(final FacesContext facesContext, final TobagoResponseWriter writer, final String script)
       throws IOException {
     final List<String> list;
-    if (ResourceManagerUtils.isAbsoluteResource(script)) {
+//    XXX RM
+//    if (ResourceManagerUtils.isAbsoluteResource(script)) {
       list = new ArrayList<String>();
       list.add(script);
-    } else {
-      list = ResourceManagerUtils.getScripts(facesContext, script);
-    }
+//    } else {
+//      list = ResourceManagerUtils.getScripts(facesContext, script);
+//    }
     for (final String src : list) {
       if (StringUtils.isNotBlank(src)) {
         writer.startElement(HtmlElements.SCRIPT);

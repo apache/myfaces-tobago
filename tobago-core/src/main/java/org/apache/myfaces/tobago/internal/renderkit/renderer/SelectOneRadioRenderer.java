@@ -20,17 +20,16 @@
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
 import org.apache.myfaces.tobago.component.UISelectOneRadio;
-import org.apache.myfaces.tobago.context.ResourceManagerUtils;
+import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
+import org.apache.myfaces.tobago.internal.util.JsonUtils;
 import org.apache.myfaces.tobago.internal.util.ObjectUtils;
+import org.apache.myfaces.tobago.internal.util.RenderUtils;
+import org.apache.myfaces.tobago.internal.util.SelectItemUtils;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
-import org.apache.myfaces.tobago.internal.util.JsonUtils;
-import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
-import org.apache.myfaces.tobago.internal.util.RenderUtils;
-import org.apache.myfaces.tobago.internal.util.SelectItemUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
@@ -102,7 +101,8 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
         final String image = tobagoItem.getImage();
         if (image != null) {
           final String imageToRender
-              = ResourceManagerUtils.getImageOrDisabledImageWithPath(facesContext, image, item.isDisabled());
+              = image;
+// XXX RM              = ResourceManagerUtils.getImageOrDisabledImageWithPath(facesContext, image, item.isDisabled());
           writer.startElement(HtmlElements.IMG);
           writer.writeAttribute(HtmlAttributes.SRC, imageToRender, true);
           writer.writeAttribute(HtmlAttributes.ALT, "", false);
