@@ -21,11 +21,22 @@ package org.apache.myfaces.tobago.example.demo;
 
 import org.apache.myfaces.tobago.context.TobagoBundle;
 
+import javax.faces.context.FacesContext;
+
 /**
  * Resources of the demo application.
  */
 public class DemoBundle extends TobagoBundle {
+
+  public static final String VAR = "demoBundle";
+  public static final String BUNDLE_NAME = "org.apache.myfaces.tobago.example.demo.Demo";
+
   public DemoBundle() {
-    super("demo");
+    super(BUNDLE_NAME);
   }
+
+  public static String getString(final FacesContext facesContext, final String key) {
+    return facesContext.getApplication().getResourceBundle(facesContext, VAR).getString(key);
+  }
+
 }
