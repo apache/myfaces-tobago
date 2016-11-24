@@ -66,9 +66,9 @@ public class DemoController implements Serializable {
 
   private Salutation[] multiValue;
 
-/*
-  @Required
-*/
+  /*
+    @Required
+  */
   private String basicInput;
 
   private String suggestInput;
@@ -108,7 +108,7 @@ public class DemoController implements Serializable {
     final Salutation[] salutations = Salutation.values();
     final SelectItem[] items = new SelectItem[salutations.length];
     for (int i = 0; i < items.length; i++) {
-      String label = DemoBundle.getString(FacesContext.getCurrentInstance(),salutations[i].getKey());
+      String label = DemoBundle.getString(FacesContext.getCurrentInstance(), salutations[i].getKey());
       if (LOG.isTraceEnabled()) {
         LOG.trace("label = " + label + "");
       }
