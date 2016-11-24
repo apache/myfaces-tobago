@@ -38,7 +38,7 @@ import java.util.Set;
 /**
  * This class works like the Java resource bundle mechanism for a named resource bundle
  * and adds the functionality of the tobago themes and also supports XML properties files.
- * This class might be used in the faces-config.xml as an alternative to the tc:loadBundle tag.
+ * This class should be extended and used in the faces-config.xml.
  *
  * @since 1.5.0
  */
