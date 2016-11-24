@@ -17,7 +17,7 @@
  * under the License.
  */
 
-package org.apache.myfaces.tobago.example.demo.overview;
+package org.apache.myfaces.tobago.example.demo;
 
 import org.apache.myfaces.tobago.layout.ShowPosition;
 import org.apache.myfaces.tobago.model.Selectable;

@@ -21,23 +21,23 @@
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
                 xmlns:ui="http://java.sun.com/jsf/facelets">
-  <ui:param name="title" value="#{overviewBundle.labeled_layout}"/>
+  <ui:param name="title" value="#{demoBundle.labeled_layout}"/>
   <p>For many components, a <code>label</code> attribute is available, which place a label in front
     of the according component.
     With the <code>labelLayout</code> you can adjust this label.
     The following examples use an inputfield to show, how this works.</p>
   <p>Tag Library Documentation:
     <tc:link label="&lt;tc:in/>" image="image/feather-leaf.png"
-             link="#{overviewBundle.tagDocUrl}/in.html"/>
+             link="#{demoBundle.tagDocUrl}/in.html"/>
     |
     <tc:link label="&lt;tc:flowLayout/>" image="image/feather-leaf.png"
-             link="#{overviewBundle.tagDocUrl}/flowLayout.html"/>
+             link="#{demoBundle.tagDocUrl}/flowLayout.html"/>
     |
     <tc:link label="&lt;tc:flexLayout/>" image="image/feather-leaf.png"
-             link="#{overviewBundle.tagDocUrl}/flexLayout.html"/>
+             link="#{demoBundle.tagDocUrl}/flexLayout.html"/>
     |
     <tc:link label="&lt;tc:segmentLayout/>" image="image/feather-leaf.png"
-             link="#{overviewBundle.tagDocUrl}/segmentLayout.html"/></p>
+             link="#{demoBundle.tagDocUrl}/segmentLayout.html"/></p>
 
   <tc:section label="Basics">
     <tc:section label="Default value">
@@ -57,21 +57,21 @@
     </tc:section>
   </tc:section>
 
-  <tc:section label="#{overviewBundle.flow_layout}">
+  <tc:section label="#{demoBundle.flow_layout}">
     <pre><code class="language-markup">&lt;tc:in label="Input" labelLayout="flowLeft"/>
 &lt;tc:in label="Input" labelLayout="flowRight"/></code></pre>
     <tc:in label="Input" labelLayout="flowLeft"/>
     <tc:in label="Input" labelLayout="flowRight"/>
   </tc:section>
 
-  <tc:section label="#{overviewBundle.flex_layout}">
+  <tc:section label="#{demoBundle.flex_layout}">
     <pre><code class="language-markup">&lt;tc:in label="Input" labelLayout="flexLeft"/>
 &lt;tc:in label="Input" labelLayout="flexRight"/></code></pre>
     <tc:in label="Input" labelLayout="flexLeft"/>
     <tc:in label="Input" labelLayout="flexRight"/>
   </tc:section>
 
-  <tc:section label="#{overviewBundle.segment_layout}">
+  <tc:section label="#{demoBundle.segment_layout}">
     <p>The segment layout is divided in two columns. The right one is three times bigger.
       The 'segmentLeft' and 'segmentRight' put the label in the left or in the right column.</p>
     <pre><code class="language-markup">&lt;tc:segmentLayout medium="3;9">

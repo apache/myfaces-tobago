@@ -21,16 +21,16 @@
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:f="http://java.sun.com/jsf/core">
-  <ui:param name="title" value="#{overviewBundle.locale} - #{overviewBundle.locale_title}"/>
+  <ui:param name="title" value="#{demoBundle.locale} - #{demoBundle.locale_title}"/>
   <tc:panel>
     <f:facet name="layout">
       <tc:gridLayout rows="80px;auto;auto;auto"/>
     </f:facet>
 
-    <tc:out escape="false" value="#{overviewBundle.locale_text}"/>
+    <tc:out escape="false" value="#{demoBundle.locale_text}"/>
 
       <tc:selectOneChoice value="#{clientConfigController2.locale}"
-                          label="#{overviewBundle.locale}">
+                          label="#{demoBundle.locale}">
         <f:selectItems value="#{clientConfigController2.localeItems}"/>
       </tc:selectOneChoice>
 
@@ -47,7 +47,7 @@
           <tc:gridLayout rows="*;auto "/>
 
           <tc:panel/>
-          <tc:button action="#{clientConfigController2.submit}" label="#{overviewBundle.locale_submit}"/>
+          <tc:button action="#{clientConfigController2.submit}" label="#{demoBundle.locale_submit}"/>
         </tc:panel>
       </tc:panel>
   </tc:panel>

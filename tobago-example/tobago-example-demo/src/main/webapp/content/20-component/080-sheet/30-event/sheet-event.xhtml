@@ -22,7 +22,7 @@
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:f="http://java.sun.com/jsf/core">
-  <ui:param name="title" value="#{overviewBundle.sheet_event} &lt;tc:row>"/>
+  <ui:param name="title" value="#{demoBundle.sheet_event} &lt;tc:row>"/>
   <p>A <code class="language-markup">&lt;tc:sheet/></code> can contain a
     <code class="language-markup">&lt;tc:columnEvent/></code> tag, which knows two types of events.
     The event type can be set by the <code>event</code> attribute. Possible values are 'click' and 'dblclick'.
@@ -42,7 +42,7 @@
       <tc:box label="Solar Objects">
         <tc:sheet id="s1" value="#{sheetController.solarList}" var="object" columns="*" markup="small">
           <tc:style maxHeight="486px"/>
-          <tc:column label="#{overviewBundle.solarArrayName}">
+          <tc:column label="#{demoBundle.solarArrayName}">
             <tc:out value="#{object.name}" id="t_name" labelLayout="skip"/>
           </tc:column>
           <tc:row id="sample0" rendered="#{sheetController.columnEventSample == 0}">

@@ -22,17 +22,17 @@
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:f="http://java.sun.com/jsf/core">
-  <ui:param name="title" value="#{overviewBundle.form_ajax} &lt;tc:form>"/>
+  <ui:param name="title" value="#{demoBundle.form_ajax} &lt;tc:form>"/>
   <p>The <code class="language-markup">&lt;f:ajax execute="..." render="..."/></code> tag ignore the
     <code class="language-markup">&lt;tc:form></code> tag.
     The form is only used as a naming container.</p>
 
   <tc:link label="Tag Library Documentation" image="image/feather-leaf.png"
-           link="#{overviewBundle.tagDocUrl}/form.html"/>
+           link="#{demoBundle.tagDocUrl}/form.html"/>
 
   <tc:section label="Example">
     <p>The structure of this example is similar to the
-      <tc:link label="#{overviewBundle.form_required}" link="../10-required/form-required.xhtml"/> example.
+      <tc:link label="#{demoBundle.form_required}" link="../10-required/form-required.xhtml"/> example.
       Every form in this example is surrounded by a content box.
       The submit buttons in the inner forms only put the inner value into the model.
       The submit button in the outer form put all values into the model.

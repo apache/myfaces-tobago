@@ -21,17 +21,17 @@
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
                 xmlns:ui="http://java.sun.com/jsf/facelets">
-  <ui:param name="title" value="#{overviewBundle.sheet_tree} &lt;tc:columnNode/>"/>
+  <ui:param name="title" value="#{demoBundle.sheet_tree} &lt;tc:columnNode/>"/>
   <p>A tree can be added into a sheet. To do so, there are two steps which must be done.
     First, the <code>value</code> attribute of the sheet must refer to a method, which return a tree instead of a list.
     Second, to display the tree, use the <code class="language-markup">&lt;tc:columnNode/></code> tag.</p>
 
   <p>Tag Library Documentation:
     <tc:link label="&lt;tc:sheet/>" image="image/feather-leaf.png"
-             link="#{overviewBundle.tagDocUrl}/sheet.html"/>
+             link="#{demoBundle.tagDocUrl}/sheet.html"/>
     |
     <tc:link label="&lt;tc:columnNode/>" image="image/feather-leaf.png"
-             link="#{overviewBundle.tagDocUrl}/columnNode.html"/></p>
+             link="#{demoBundle.tagDocUrl}/columnNode.html"/></p>
 
   <tc:section label="Column Tree">
     <p>There is a tree in the first column. You can expand and collapse the items.

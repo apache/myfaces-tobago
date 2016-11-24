@@ -17,7 +17,7 @@
  * under the License.
  */
 
-package org.apache.myfaces.tobago.example.demo.overview;
+package org.apache.myfaces.tobago.example.demo;
 
 import org.apache.deltaspike.core.api.scope.WindowScoped;
 import org.apache.myfaces.tobago.component.UISheet;
@@ -40,10 +40,10 @@ import java.util.Currency;
 import java.util.Date;
 
 @WindowScoped
-@Named(value = "overviewController")
-public class OverviewController implements Serializable {
+@Named(value = "demoController")
+public class DemoController implements Serializable {
 
-  private static final Logger LOG = LoggerFactory.getLogger(OverviewController.class);
+  private static final Logger LOG = LoggerFactory.getLogger(DemoController.class);
 
   private static final Selectable[] TREE_SELECT_MODE_KEYS = {
       Selectable.none,
@@ -90,7 +90,7 @@ public class OverviewController implements Serializable {
 
   private SheetConfig sheetConfig;
 
-  public OverviewController() {
+  public DemoController() {
     radioValue = "JPY";
     currencyItems = new Currency[]{
         Currency.getInstance("JPY"),
@@ -177,22 +177,22 @@ public class OverviewController implements Serializable {
   }
 
   public SelectItem[] getItems() {
-    return getSalutationSelectItems("overview");
+    return getSalutationSelectItems("demo");
   }
 
   public SelectItem[] getItems2() {
-    return getSelectItems(TREE_SELECT_MODE_KEYS, "overview");
+    return getSelectItems(TREE_SELECT_MODE_KEYS, "demo");
 
   }
 
 
   public SelectItem[] getTreeSelectModeItems() {
-    return getSelectItems(TREE_SELECT_MODE_KEYS, "overview");
+    return getSelectItems(TREE_SELECT_MODE_KEYS, "demo");
 
   }
 
   public SelectItem[] getTreeListboxSelectModeItems() {
-    return getSelectItems(TREELISTBOX_SELECT_MODE_KEYS, "overview");
+    return getSelectItems(TREELISTBOX_SELECT_MODE_KEYS, "demo");
 
   }
 

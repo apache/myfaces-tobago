@@ -17,7 +17,7 @@
  * under the License.
  */
 
-package org.apache.myfaces.tobago.example.demo.overview;
+package org.apache.myfaces.tobago.example.demo;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;

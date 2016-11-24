@@ -20,20 +20,20 @@
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:f="http://java.sun.com/jsf/core">
-  <ui:param name="title" value="#{overviewBundle.button_link} &lt;tc:link> &lt;tc:button>"/>
+  <ui:param name="title" value="#{demoBundle.button_link} &lt;tc:link> &lt;tc:button>"/>
   <p>A classic link can be set with the <code class="language-markup">&lt;tc:link/></code> tag.
     You can also set a link by <code class="language-markup">&lt;tc:button/></code>.
     The behavior of a link and a button is the same, it differs in the appearance.</p>
   <p>Tag Library Documentation:
-    <tc:link label="&lt;tc:link/>" image="image/feather-leaf.png" link="#{overviewBundle.tagDocUrl}/link.html"/>
+    <tc:link label="&lt;tc:link/>" image="image/feather-leaf.png" link="#{demoBundle.tagDocUrl}/link.html"/>
     |
-    <tc:link label="&lt;tc:button/>" image="image/feather-leaf.png" link="#{overviewBundle.tagDocUrl}/button.html"/></p>
+    <tc:link label="&lt;tc:button/>" image="image/feather-leaf.png" link="#{demoBundle.tagDocUrl}/button.html"/></p>
 
   <tc:section label="Basics">
     <p>The next two sections show how a link and a button is set.</p>
     <p>'apache.org' leads to the appropriated website.<br/>
       'Disable' show a disabled link/button.<br/>
-      'Action' use the <code>action</code> attribute to link the #{overviewBundle.component} section.<br/>
+      'Action' use the <code>action</code> attribute to link the #{demoBundle.component} section.<br/>
       The image leads to www.apache.org.</p>
     <tc:section label="&lt;tc:link>">
       <pre><code class="language-markup">&lt;tc:link label="apache.org" link="https://www.apache.org/"/></code></pre>
@@ -140,7 +140,7 @@
     </tc:section>
     <tc:section label="IFrame">
       <p>The iframe is set with <code class="language-markup">&lt;tc:object name="objectframe" .../></code>
-        (see <tc:link label="#{overviewBundle.object}"
+        (see <tc:link label="#{demoBundle.object}"
                       link="/faces/content/20-component/020-output/60-object/object.xhtml"/>).
         The value of the <code>target</code> attribute is in this case 'objectframe'.</p>
       <p><tc:link label="apache.org" link="https://www.apache.org/" target="objectframe"/>

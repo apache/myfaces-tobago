@@ -21,25 +21,25 @@
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
                 xmlns:ui="http://java.sun.com/jsf/facelets">
-  <ui:param name="title" value="#{overviewBundle.select}"/>
+  <ui:param name="title" value="#{demoBundle.select}"/>
   <p>Tobago provides several ways to select an option.
     Entries are added with <code class="language-markup">&lt;tc:selectItem/></code> or
     <code class="language-markup">&lt;tc:selectItems value="\#{controller.list}"/></code>
     for most select components.</p>
 
-  <tc:section label="#{overviewBundle.selectBooleanCheckbox}">
+  <tc:section label="#{demoBundle.selectBooleanCheckbox}">
     <pre><code class="language-markup">&lt;tc:selectBooleanCheckbox label="Checkbox"/></code></pre>
     <tc:selectBooleanCheckbox label="Checkbox" itemLabel="OK?"/>
   </tc:section>
 
-  <tc:section label="#{overviewBundle.selectOneChoice}">
+  <tc:section label="#{demoBundle.selectOneChoice}">
     <pre><code class="language-markup">&lt;tc:selectOneChoice label="Dropdown Box"></code></pre>
     <tc:selectOneChoice label="Dropdown Box">
       <tc:selectItems value="#{selectController.entries}"/>
     </tc:selectOneChoice>
   </tc:section>
 
-  <tc:section label="#{overviewBundle.selectOneRadio}">
+  <tc:section label="#{demoBundle.selectOneRadio}">
     <pre><code class="language-markup">&lt;tc:selectOneRadio label="Radio Group" labelLayout="top"></code></pre>
     <tc:selectOneRadio id="radio" label="Radio Group" labelLayout="top">
       <tc:selectItem itemLabel="Option One"/>
@@ -47,14 +47,14 @@
     </tc:selectOneRadio>
   </tc:section>
 
-  <tc:section label="#{overviewBundle.selectOneListbox}">
+  <tc:section label="#{demoBundle.selectOneListbox}">
     <pre><code class="language-markup">&lt;tc:selectOneListbox label="Listbox" size="3"></code></pre>
     <tc:selectOneListbox label="Listbox" size="3">
       <tc:selectItems value="#{selectController.entries}"/>
     </tc:selectOneListbox>
   </tc:section>
 
-  <tc:section label="#{overviewBundle.selectManyCheckbox}">
+  <tc:section label="#{demoBundle.selectManyCheckbox}">
     <pre><code class="language-markup">&lt;tc:selectManyCheckbox label="Checkbox Group" labelLayout="top"></code></pre>
     <tc:selectManyCheckbox label="Checkbox Group" labelLayout="top">
       <tc:selectItem itemLabel="Checkbox One"/>
@@ -62,14 +62,14 @@
     </tc:selectManyCheckbox>
   </tc:section>
 
-  <tc:section label="#{overviewBundle.selectManyListbox}">
+  <tc:section label="#{demoBundle.selectManyListbox}">
     <pre><code class="language-markup">&lt;tc:selectManyListbox label="List" size="3"></code></pre>
     <tc:selectManyListbox label="List" size="3">
       <tc:selectItems value="#{selectController.entries}"/>
     </tc:selectManyListbox>
   </tc:section>
 
-  <tc:section label="#{overviewBundle.selectManyShuttle}">
+  <tc:section label="#{demoBundle.selectManyShuttle}">
     <pre><code class="language-markup">&lt;tc:selectManyShuttle label="Shuttle List" size="7"></code></pre>
     <tc:selectManyShuttle label="Shuttle List" size="7">
       <tc:selectItems value="#{selectController.entries}"/>

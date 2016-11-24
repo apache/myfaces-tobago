@@ -21,36 +21,36 @@
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
                 xmlns:ui="http://java.sun.com/jsf/facelets">
 
-  <ui:param name="title" value="#{overviewBundle.output}"/>
+  <ui:param name="title" value="#{demoBundle.output}"/>
   <p>The output components display data in different ways.</p>
 
-  <tc:section label="#{overviewBundle.output}">
+  <tc:section label="#{demoBundle.output}">
     <pre><code class="language-markup">&lt;tc:out label="Output" value="Some Text"/></code></pre>
     <tc:out id="o1" label="Output" value="Some Text"/>
   </tc:section>
 
-  <tc:section label="#{overviewBundle.label}">
+  <tc:section label="#{demoBundle.label}">
     <pre><code class="language-markup">&lt;tc:label value="Some Text"/></code></pre>
     <tc:label value="Some Text"/>
   </tc:section>
 
-  <tc:section label="#{overviewBundle.messages}">
+  <tc:section label="#{demoBundle.messages}">
     <pre><code class="language-markup">&lt;tc:messages/></code></pre>
     <tc:messages/>
     <tc:button id="b1" label="Create Info Message" action="#{messagesController.createInfoMessage}"/>
   </tc:section>
 
-  <tc:section label="#{overviewBundle.image}">
+  <tc:section label="#{demoBundle.image}">
     <pre><code class="language-markup">&lt;tc:image value="image/tobago_head.png"/></code></pre>
     <tc:image value="image/tobago_head.png"/>
   </tc:section>
 
-  <tc:section label="#{overviewBundle.progress}">
+  <tc:section label="#{demoBundle.progress}">
     <pre><code class="language-markup">&lt;tc:progress value="2" max="3"/></code></pre>
     <tc:progress value="2" max="3"/>
   </tc:section>
 
-  <tc:section label="#{overviewBundle.object}">
+  <tc:section label="#{demoBundle.object}">
     <pre><code class="language-markup">&lt;tc:object src="https://www.google.com/maps/..."/></code></pre>
     <tc:object
             src="https://www.google.com/maps/embed?pb=!1m10!1m8!1m3!1d137123.69440217633!2d-60.687103!3d11.249123!3m2!1i1024!2i768!4f13.1!5e1!3m2!1sde!2sus!4v1458208065829"/>

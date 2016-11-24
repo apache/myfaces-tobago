@@ -21,7 +21,7 @@
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:f="http://java.sun.com/jsf/core">
-  <ui:param name="title" value="#{overviewBundle.bar} &lt;tc:bar>"/>
+  <ui:param name="title" value="#{demoBundle.bar} &lt;tc:bar>"/>
   <p><code class="language-markup">&lt;tc:bar/></code> is a container which display elements in one single line
     as long as there is enough space.
     If space is too narrow, the bar collapse. Hidden items are accessible by clicking on the bar-icon.
@@ -29,7 +29,7 @@
   <p>Additionally the facet <code class="language-markup">&lt;f:facet name="brand"/></code> can be added.
     It show the 'brand', a logo a text or both on the left site of the bar.</p>
   <tc:link label="Tag Library Documentation" image="image/feather-leaf.png"
-           link="#{overviewBundle.tagDocUrl}/bar.html"/>
+           link="#{demoBundle.tagDocUrl}/bar.html"/>
 
   <tc:section label="Example">
     <p>This example show a Bar with a 'brand' facet and several components.
@@ -71,8 +71,8 @@
   <tc:section label="TODO: radio: (also for tc:links)">
     <tc:bar>
       <tc:link omit="true" label="Radio">
-        <tc:selectOneRadio value="#{overviewController.radioValue}">
-          <tc:selectItems value="#{overviewController.currencyItems}"
+        <tc:selectOneRadio value="#{demoController.radioValue}">
+          <tc:selectItems value="#{demoController.currencyItems}"
                           var="currency" itemValue="#{currency.currencyCode}" itemLabel="#{currency.displayName}"
                           itemImage="data/#{currency.currencyCode}-14.png" />
         </tc:selectOneRadio>

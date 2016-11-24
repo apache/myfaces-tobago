@@ -19,7 +19,7 @@
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
                 xmlns:ui="http://java.sun.com/jsf/facelets">
-  <ui:param name="title" value="#{overviewBundle.collapsible}"/>
+  <ui:param name="title" value="#{demoBundle.collapsible}"/>
 
   <p>
     <span class="tag tag-danger">Warning!</span>
@@ -27,19 +27,19 @@
   </p>
 
   <p>The collapsible concept is the base for
-    <tc:link label="#{overviewBundle.box}" link="/faces/content/20-component/050-container/10-box/box.xhtml"/>,
-    <tc:link label="#{overviewBundle.popup}" link="/faces/content/20-component/060-popup/popup.xhtml"/>,
-    <tc:link label="#{overviewBundle.panel}" link="/faces/content/20-component/050-container/20-panel/panel.xhtml"/>
+    <tc:link label="#{demoBundle.box}" link="/faces/content/20-component/050-container/10-box/box.xhtml"/>,
+    <tc:link label="#{demoBundle.popup}" link="/faces/content/20-component/060-popup/popup.xhtml"/>,
+    <tc:link label="#{demoBundle.panel}" link="/faces/content/20-component/050-container/20-panel/panel.xhtml"/>
     and
-    <tc:link label="#{overviewBundle.section}"
+    <tc:link label="#{demoBundle.section}"
              link="/faces/content/20-component/050-container/40-section/section.xhtml"/>.
     It determines how parts or whole components are shown or hidden.
-    For example, a #{overviewBundle.popup} is hidden completely while for #{overviewBundle.box} only the content
+    For example, a #{demoBundle.popup} is hidden completely while for #{demoBundle.box} only the content
     could be hidden.</p>
 
   <tc:section label="States">
     <p>There are three possible states - visible, hidden and absent.
-      The states are explained using the following #{overviewBundle.box}es.</p>
+      The states are explained using the following #{demoBundle.box}es.</p>
     <p>The 'visible' state show the content of the box like you expected.
       <br/>
       The 'hidden' state hide the content via CSS. You can see is still in the source code.

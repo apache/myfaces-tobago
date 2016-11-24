@@ -22,19 +22,19 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns="http://www.w3.org/1999/xhtml">
-  <ui:param name="title" value="#{overviewBundle.sheet_filter} &lt;tc:sheet/>"/>
+  <ui:param name="title" value="#{demoBundle.sheet_filter} &lt;tc:sheet/>"/>
   <p>Filtering is not a explicit feature of the sheet. It is done in the controller.</p>
   <p>To add filtering components to the header of a sheet, use
     <code class="language-markup">&lt;f:facet name="header"></code>.</p>
   <p><b>Warning:</b> Paging currently doesn't work with filters!</p>
   <p>Tag Library Documentation:
     <tc:link label="&lt;tc:sheet/>" image="image/feather-leaf.png"
-             link="#{overviewBundle.tagDocUrl}/sheet.html"/>
+             link="#{demoBundle.tagDocUrl}/sheet.html"/>
     |
     <tc:link label="&lt;tc:column/>" image="image/feather-leaf.png"
-             link="#{overviewBundle.tagDocUrl}/column.html"/></p>
+             link="#{demoBundle.tagDocUrl}/column.html"/></p>
 
-  <tc:section label="#{overviewBundle.sheet_filter}">
+  <tc:section label="#{demoBundle.sheet_filter}">
     <p>Add a search string to the inputfield or change the value of the dropdown boxes to filter the sheet.
       If an inputfield lost focus the filtering will be executed.</p>
     <tc:sheet id="sheet" value="#{sheetFilterController.filteredSolarList}" var="object" rows="15">

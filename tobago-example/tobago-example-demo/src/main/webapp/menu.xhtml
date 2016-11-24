@@ -39,14 +39,14 @@
 
         <tc:links id="commands">
 
-          <tc:link id="config" label="#{overviewBundle.menu_config}" omit="true">
-            <tc:link label="#{overviewBundle.menu_themes}" omit="true">
+          <tc:link id="config" label="#{demoBundle.menu_config}" omit="true">
+            <tc:link label="#{demoBundle.menu_themes}" omit="true">
               <tc:selectOneRadio value="#{clientConfigController.theme}">
                 <tc:event action="#{clientConfigController.submit}"/>
                 <tc:selectItems value="#{clientConfigController.themeItems}"/>
               </tc:selectOneRadio>
             </tc:link>
-            <tc:link label="#{overviewBundle.menu_locale}">
+            <tc:link label="#{demoBundle.menu_locale}">
               <tc:selectOneRadio value="#{clientConfigController.locale}">
                 <tc:event action="#{clientConfigController.submit}"/>
                 <tc:selectItems value="#{clientConfigController.localeItems}"/>
@@ -55,10 +55,10 @@
             <tc:link action="#{demo.resetSession}" label="Reset"/>
           </tc:link>
 
-          <tc:link label="#{overviewBundle.menu_help}" omit="true">
-            <tc:link label="#{overviewBundle.menu_about}" omit="true">
+          <tc:link label="#{demoBundle.menu_help}" omit="true">
+            <tc:link label="#{demoBundle.menu_about}" omit="true">
               <tc:dataAttribute name="alert-text"
-                                value="#{overviewBundle.pageTitle} - #{info.version} - #{overviewBundle.tobago_url}"/>
+                                value="#{demoBundle.pageTitle} - #{info.version} - #{demoBundle.tobago_url}"/>
             </tc:link>
             <tc:link link="http://myfaces.apache.org/tobago" label="Tobago in the Web"/>
             <tc:link action="/server-info.xhtml" immediate="true" label="Server Info" disabled="#{! info.enabled}"/>
@@ -108,15 +108,15 @@
                      image="fa-angle-left"
                      action="#{navigationState.gotoPrevious}"
                      disabled="#{navigationState.first}"
-                     tip="#{overviewBundle.footer_previous}"/>
+                     tip="#{demoBundle.footer_previous}"/>
           <tc:button immediate="true" id="next"
                      image="fa-angle-right"
                      action="#{navigationState.gotoNext}"
                      disabled="#{navigationState.last}"
-                     tip="#{overviewBundle.footer_next}"/>
+                     tip="#{demoBundle.footer_next}"/>
           <tc:button action="#{navigationState.toggleViewSource}"
                      image="fa-code"
-                     immediate="true" tip="#{overviewBundle.footer_viewSource}"/>
+                     immediate="true" tip="#{demoBundle.footer_viewSource}"/>
           <tc:button id="runtest"
                      link="/faces/test.xhtml"
                      label="Run Test"

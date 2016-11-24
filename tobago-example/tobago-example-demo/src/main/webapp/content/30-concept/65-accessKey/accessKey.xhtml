@@ -20,7 +20,7 @@
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:f="http://java.sun.com/jsf/core">
-  <ui:param name="title" value="#{overviewBundle.accessKey}"/>
+  <ui:param name="title" value="#{demoBundle.accessKey}"/>
   <p>The <code>accessKey</code> attribute is available for many components like buttons, checkboxes or links.
     A component with this attribute is accessible by the given character. The character is not case sensitive.</p>
   <p>Logging the accessKey can be configured by setting the category
@@ -34,16 +34,16 @@
              link="https://developer.mozilla.org/de/docs/Web/HTML/Global_attributes/accesskey"/>.</p>
   <p>Tag Library Documentation:
     <tc:link label="&lt;tc:button/>" image="image/feather-leaf.png"
-             link="#{overviewBundle.tagDocUrl}/button.html"/>
+             link="#{demoBundle.tagDocUrl}/button.html"/>
     |
     <tc:link label="&lt;tc:checkbox/>" image="image/feather-leaf.png"
-             link="#{overviewBundle.tagDocUrl}/checkbox.html"/>
+             link="#{demoBundle.tagDocUrl}/checkbox.html"/>
     |
     <tc:link label="&lt;tc:link/>" image="image/feather-leaf.png"
-             link="#{overviewBundle.tagDocUrl}/link.html"/>
+             link="#{demoBundle.tagDocUrl}/link.html"/>
     |
     <tc:link label="&lt;tc:label/>" image="image/feather-leaf.png"
-             link="#{overviewBundle.tagDocUrl}/label.html"/></p>
+             link="#{demoBundle.tagDocUrl}/label.html"/></p>
 
   <tc:section label="Basics">
     <p>The accesskey is set to 'a'. Notice, that the 'A' in the label of the button has an underscore.</p>
@@ -65,14 +65,14 @@
     </tc:button>
   </tc:section>
 
-  <tc:section label="#{overviewBundle.input}">
+  <tc:section label="#{demoBundle.input}">
     <p>The <code>accessKey</code> is also available for input fields.
       An input field will get the focus after pressing the accesskey.</p>
-    <tc:section label="#{overviewBundle.in}">
+    <tc:section label="#{demoBundle.in}">
       <pre><code class="language-markup">&lt;tc:in label="Input" accessKey="i"/></code></pre>
       <tc:in label="Input" accessKey="i"/>
     </tc:section>
-    <tc:section label="#{overviewBundle.textarea}">
+    <tc:section label="#{demoBundle.textarea}">
       <pre><code class="language-markup">&lt;tc:textarea label="Textarea" accessKey="t"/></code></pre>
       <tc:textarea label="Textarea" accessKey="t"/>
     </tc:section>

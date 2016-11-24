@@ -26,6 +26,6 @@ import org.apache.myfaces.tobago.context.TobagoBundle;
  */
 public class DemoBundle extends TobagoBundle {
   public DemoBundle() {
-    super("overview");
+    super("demo");
   }
 }

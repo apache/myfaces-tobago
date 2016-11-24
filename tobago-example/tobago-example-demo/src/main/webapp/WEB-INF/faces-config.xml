@@ -45,7 +45,7 @@
     </locale-config>
     <resource-bundle>
       <base-name>org.apache.myfaces.tobago.example.demo.DemoBundle</base-name>
-      <var>overviewBundle</var>
+      <var>demoBundle</var>
     </resource-bundle>
   </application>
 
@@ -58,8 +58,6 @@
     <phase-listener>org.apache.myfaces.tobago.example.demo.SynchronizeNavigationPhaseListener</phase-listener>
     <!--<phase-listener>org.apache.myfaces.tobago.util.DebugPhaseListener</phase-listener>-->
   </lifecycle>
-
-  <!--  overview  -->
 
   <lifecycle>
     <phase-listener>

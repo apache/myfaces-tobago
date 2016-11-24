@@ -21,16 +21,16 @@
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
                 xmlns:ui="http://java.sun.com/jsf/facelets">
-  <ui:param name="title" value="#{overviewBundle.input}"/>
+  <ui:param name="title" value="#{demoBundle.input}"/>
   <p>With input components, a text or a date can be entered.
     Input components should always use the <code>label</code> attribute.</p>
 
-  <tc:section label="#{overviewBundle.in}">
+  <tc:section label="#{demoBundle.in}">
     <pre><code class="language-markup">&lt;tc:in label="Input" value="Some Text"/></code></pre>
     <tc:in id="i1" label="Input" value="Some Text"/>
   </tc:section>
 
-  <tc:section label="#{overviewBundle.suggest}">
+  <tc:section label="#{demoBundle.suggest}">
     <pre><code class="language-markup">&lt;tc:in label="Language">
   &lt;tc:suggest query="\#{suggestController.query}">
     &lt;tc:selectItems value="\#{suggestController.languages}" var="language" itemValue="\#{language}"/>
@@ -43,12 +43,12 @@
     </tc:in>
   </tc:section>
 
-  <tc:section label="#{overviewBundle.textarea}">
+  <tc:section label="#{demoBundle.textarea}">
     <pre><code class="language-markup">&lt;tc:textarea label="Text Area" value="Some Text"/></code></pre>
     <tc:textarea id="t1" label="Text Area" value="Some Text"/>
   </tc:section>
 
-  <tc:section label="#{overviewBundle.date}">
+  <tc:section label="#{demoBundle.date}">
     <pre><code class="language-markup">&lt;tc:date label="Date" value="2015-12-21"/></code></pre>
     <tc:date id="d1" label="Date" value="2015-12-21"/>
   </tc:section>

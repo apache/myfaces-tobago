@@ -20,11 +20,11 @@
 <ui:composition template="/main.xhtml"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
                 xmlns:ui="http://java.sun.com/jsf/facelets">
-  <ui:param name="title" value="#{overviewBundle.sheet}"/>
+  <ui:param name="title" value="#{demoBundle.sheet}"/>
 
     <tc:sheet value="#{demo.solarList}" id="sheet"
               columns="*;2*" var="luminary">
-      <tc:column label="#{overviewBundle.solarArrayName}" id="name" sortable="true" markup="#{luminary.markup}">
+      <tc:column label="#{demoBundle.solarArrayName}" id="name" sortable="true" markup="#{luminary.markup}">
         <tc:out value="#{luminary.name}" id="t_name"/>
       </tc:column>
       <tc:column label="Chemical Composition" id="cc" sortable="false" resizable="false"
