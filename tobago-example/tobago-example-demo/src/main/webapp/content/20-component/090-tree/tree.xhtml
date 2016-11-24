@@ -71,13 +71,10 @@
     <tc:tree value="#{treeController.sample}" var="node">
       <tc:treeNode>
         <tc:treeIndent/>
-        <tc:treeIcon value="image/feather.png" />
-<!-- todo TOBAGO-1503 -->
-<!--
-        <tc:image value="fa-folder-o"/>
-        <tc:image value="fa-folder-open-o"/>
--->
-        <tc:treeLabel value="#{node.userObject.name}"/>
+        <tc:treeIcon value="#{request.contextPath}/image/feather.png" />
+        <tc:treeIcon value="fa-file-o"
+                     closed="fa-folder-o" open="fa-folder-open-o" />
+        <tc:treeLabel value="#{node.userObject.name}" />
       </tc:treeNode>
     </tc:tree>
   </tc:section>

@@ -45,9 +45,23 @@ import javax.faces.component.UIGraphic;
 public interface TreeIconTagDeclaration extends HasIdBindingAndRendered, HasTip, IsDisabled, IsVisual {
 
   /**
-   * Absolute url to an image or image name to lookup in tobago resource path
+   * Name of the icon.
    */
   @TagAttribute
   @UIComponentTagAttribute
   void setValue(String value);
+
+  /**
+   * Name of the folder icon, if not set "value" will be used.
+   */
+  @TagAttribute
+  @UIComponentTagAttribute
+  void setClosed(String closed);
+
+  /**
+   * Name of the open folder icon, if not set "closed" will be used.
+   */
+  @TagAttribute
+  @UIComponentTagAttribute
+  void setOpen(String open);
 }

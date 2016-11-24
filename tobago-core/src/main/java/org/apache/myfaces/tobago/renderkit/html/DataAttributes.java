@@ -141,19 +141,9 @@ public enum DataAttributes implements MarkupLanguageAttributes {
   SHEET_ID("data-tobago-sheet-id"),
 
   /**
-   * Alternate to the src attribute, to implement a hover effect.
-   */
-  SRC_HOVER("data-tobago-src-hover"),
-
-  /**
-   * Alternate to the src attribute, to implement a hover effect.
-   */
-  SRC_DEFAULT("data-tobago-src-default"),
-
-  /**
    * Alternate to the src attribute, icon open and close.
    */
-  SRC_CLOSE("data-tobago-src-close"),
+  SRC_CLOSED("data-tobago-src-closed"),
 
   /**
    * Alternate to the src attribute, icon open and close.

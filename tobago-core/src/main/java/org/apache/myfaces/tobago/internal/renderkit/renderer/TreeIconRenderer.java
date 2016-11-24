@@ -22,14 +22,15 @@ package org.apache.myfaces.tobago.internal.renderkit.renderer;
 import org.apache.myfaces.tobago.component.UITreeIcon;
 import org.apache.myfaces.tobago.component.UITreeNode;
 import org.apache.myfaces.tobago.context.Markup;
-import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.internal.component.AbstractUIData;
+import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
+import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
+import org.apache.myfaces.tobago.renderkit.css.FontAwesomeIconEncoder;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
-import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
@@ -52,69 +53,36 @@ public class TreeIconRenderer extends RendererBase {
     final boolean folder = node.isFolder();
     final boolean expanded = folder && data.getExpandedState().isExpanded(node.getPath());
 
-    String source;
-    final String openSource;
-    final String closedSource;
+    String value = (String) image.getValue();
+    String closed = image.getClosed();
+    String open = image.getOpen();
 
-    String imageUrl = (String) image.getValue();
-    String imageExtension = null;
-    if (imageUrl != null) {
-      final int dot = imageUrl.lastIndexOf('.');
-      if (dot > -1) {
-        imageExtension = imageUrl.substring(dot);
-        imageUrl = imageUrl.substring(0, dot);
-      }
-    }
-    if (imageUrl != null) { // application image
-      if (imageExtension != null) {
-        closedSource = ResourceManagerUtils.getImageWithPath(facesContext, imageUrl + imageExtension);
-      } else {
-        closedSource = ResourceManagerUtils.getImage(facesContext, imageUrl);
-      }
-    } else { // theme image
-      closedSource = ResourceManagerUtils.getImage(facesContext, CLOSED_FOLDER);
-    }
+    final String source;
     if (folder) {
-      if (imageUrl != null) { // application image
-        if (imageExtension != null) {
-          openSource = ResourceManagerUtils.getImageWithPath(facesContext, imageUrl + "-open" + imageExtension, true);
-        } else {
-          openSource = ResourceManagerUtils.getImage(facesContext, imageUrl + "-open", true);
-        }
-      } else { // theme image
-        openSource = ResourceManagerUtils.getImage(facesContext, OPEN_FOLDER);
+      if (expanded) {
+        source = open;
+      } else {
+        source = closed;
       }
-      source = expanded ? openSource : closedSource;
     } else {
-      openSource = null;
-      if (imageUrl != null) { // application image
-        if (imageExtension != null) {
-          source = ResourceManagerUtils.getImageWithPath(facesContext, imageUrl + "-leaf" + imageExtension, true);
-        } else {
-          source = ResourceManagerUtils.getImage(facesContext, imageUrl + "-leaf", true);
-        }
-      } else { // theme image
-        source = ResourceManagerUtils.getImage(facesContext, LEAF);
-      }
-    }
-    if (source == null) {
-      source = closedSource;
-    }
-    if (source == null) {
-      source = openSource;
+      source = value;
     }
 
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
-    writer.startElement(HtmlElements.IMG);
-    writer.writeClassAttribute(Classes.create(node, "toggle", Markup.NULL));
-    HtmlRendererUtils.writeDataAttributes(facesContext, writer, image);
-    writer.writeAttribute(HtmlAttributes.SRC, source, true);
-    if (folder) {
-      writer.writeAttribute(DataAttributes.SRC_OPEN, openSource, true);
-      writer.writeAttribute(DataAttributes.SRC_CLOSE, closedSource, true);
+    if (StringUtils.startsWith(source, "fa-")) {
+      writer.writeIcon(null, image.getStyle(), FontAwesomeIconEncoder.generateClass(source));
+    } else {
+      writer.startElement(HtmlElements.IMG);
+      writer.writeClassAttribute(Classes.create(node, "toggle", Markup.NULL));
+      HtmlRendererUtils.writeDataAttributes(facesContext, writer, image);
+      writer.writeAttribute(HtmlAttributes.SRC, source, true);
+      if (folder) {
+        writer.writeAttribute(DataAttributes.SRC_OPEN, open, true);
+        writer.writeAttribute(DataAttributes.SRC_CLOSED, closed, true);
+      }
+      writer.writeAttribute(HtmlAttributes.ALT, "", false);
+      writer.endElement(HtmlElements.IMG);
     }
-    writer.writeAttribute(HtmlAttributes.ALT, "", false);
-    writer.endElement(HtmlElements.IMG);
   }
 }
