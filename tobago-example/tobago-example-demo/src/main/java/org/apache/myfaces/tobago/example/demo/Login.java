@@ -29,6 +29,7 @@ import javax.inject.Named;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 @Named
@@ -62,6 +63,19 @@ public class Login {
 
     response.sendRedirect(response.encodeRedirectURL(
             request.getContextPath() + "/faces/content/30-concept/80-security/20-roles/roles.xhtml"));
+  }
+
+  public String resetSession() throws IOException {
+    LOG.info("Resetting the session.");
+    final FacesContext facesContext = FacesContext.getCurrentInstance();
+    final HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(false);
+    if (session != null) {
+      session.invalidate();
+    }
+    final ExternalContext externalContext = facesContext.getExternalContext();
+    externalContext.redirect(externalContext.getRequestContextPath() + "/");
+    facesContext.responseComplete();
+    return null;
   }
 
   public String getUsername() {
