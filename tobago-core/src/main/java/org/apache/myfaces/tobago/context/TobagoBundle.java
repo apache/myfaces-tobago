@@ -97,8 +97,9 @@ public class TobagoBundle extends ResourceBundle {
         return Collections.singletonList(XML);
       }
 
-      public ResourceBundle newBundle(String baseName, Locale locale, String format,
-                                      ClassLoader loader, boolean reload) throws IllegalAccessException, InstantiationException,
+      public ResourceBundle newBundle(
+          String baseName, Locale locale, String format, ClassLoader loader, boolean reload)
+          throws IllegalAccessException, InstantiationException,
           IOException {
 
         if ((baseName == null) || (locale == null) || (format == null) || (loader == null)) {
