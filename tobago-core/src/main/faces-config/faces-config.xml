@@ -27,6 +27,11 @@
 
   <application>
     <default-render-kit-id>tobago</default-render-kit-id>
+    <message-bundle>org.apache.myfaces.tobago.context.TobagoResourceBundle</message-bundle>
+    <resource-bundle>
+      <base-name>org.apache.myfaces.tobago.context.TobagoResourceBundle</base-name>
+      <var>tobagoResourceBundle</var>
+    </resource-bundle>
   </application>
 
   <lifecycle>

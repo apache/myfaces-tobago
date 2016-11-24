@@ -19,14 +19,23 @@
 
 package org.apache.myfaces.tobago.context;
 
+import javax.faces.context.FacesContext;
+
 /**
  * This ResourceBundle encapsulate string resources of Tobago components.
- * This class works like the Java resource bundle mechanism for the resource bundle "tobago"
- * and adds the functionality of the tobago themes and also supports XML properties files.
+ * This class works like the Java resource bundle mechanism for the resource bundle {@value BUNDLE_NAME}.
+ * Supports XML properties files.
  */
 public class TobagoResourceBundle extends TobagoBundle {
 
+  public static final String VAR = "tobagoResourceBundle";
+  public static final String BUNDLE_NAME = "org.apache.myfaces.tobago.context.TobagoResource";
+
   public TobagoResourceBundle() {
-    super("tobago");
+    super(BUNDLE_NAME);
+  }
+
+  public static String getString(final FacesContext facesContext, final String key) {
+    return facesContext.getApplication().getResourceBundle(facesContext, VAR).getString(key);
   }
 }

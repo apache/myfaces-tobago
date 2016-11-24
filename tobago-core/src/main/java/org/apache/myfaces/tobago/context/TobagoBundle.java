@@ -22,10 +22,18 @@ package org.apache.myfaces.tobago.context;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.faces.context.FacesContext;
+import java.io.BufferedInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.Collections;
 import java.util.Enumeration;
+import java.util.List;
+import java.util.Locale;
+import java.util.Properties;
 import java.util.ResourceBundle;
+import java.util.Set;
 
 /**
  * This class works like the Java resource bundle mechanism for a named resource bundle
@@ -39,9 +47,11 @@ public class TobagoBundle extends ResourceBundle {
   private static final Logger LOG = LoggerFactory.getLogger(TobagoBundle.class);
 
   private String bundleName;
+  private ResourceBundle bundle;
 
   public TobagoBundle(final String bundleName) {
     this.bundleName = bundleName;
+    this.bundle = ResourceBundle.getBundle(bundleName, new XmlTobagoBundle.XMLResourceBundleControl());
   }
 
   @Override
@@ -49,8 +59,7 @@ public class TobagoBundle extends ResourceBundle {
     if (LOG.isDebugEnabled()) {
       LOG.debug("Searching for '{}' in bundle '{}'", key, bundleName);
     }
-    final FacesContext facesContext = FacesContext.getCurrentInstance();
-    return ResourceManagerUtils.getProperty(facesContext, bundleName, key);
+    return bundle.getObject(key);
   }
 
   @Override
@@ -60,5 +69,69 @@ public class TobagoBundle extends ResourceBundle {
 
   public String getBundleName() {
     return bundleName;
+  }
+
+  public static class XmlTobagoBundle extends ResourceBundle {
+
+    private static final String XML = "xml";
+
+    private Properties props;
+
+    private XmlTobagoBundle(InputStream stream) throws IOException {
+      props = new Properties();
+      props.loadFromXML(stream);
+    }
+
+    protected Object handleGetObject(String key) {
+      return props.getProperty(key);
+    }
+
+    public Enumeration<String> getKeys() {
+      Set<String> handleKeys = props.stringPropertyNames();
+      return Collections.enumeration(handleKeys);
+    }
+
+    public static class XMLResourceBundleControl extends Control {
+
+      public List<String> getFormats(String baseName) {
+        return Collections.singletonList(XML);
+      }
+
+      public ResourceBundle newBundle(String baseName, Locale locale, String format,
+                                      ClassLoader loader, boolean reload) throws IllegalAccessException, InstantiationException,
+          IOException {
+
+        if ((baseName == null) || (locale == null) || (format == null) || (loader == null)) {
+          throw new NullPointerException();
+        }
+        ResourceBundle bundle = null;
+        if (!format.equals(XML)) {
+          return null;
+        }
+
+        String bundleName = toBundleName(baseName, locale);
+        String resourceName = toResourceName(bundleName, format);
+        URL url = loader.getResource(resourceName);
+        if (url == null) {
+          return null;
+        }
+        URLConnection connection = url.openConnection();
+        if (connection == null) {
+          return null;
+        }
+        if (reload) {
+          connection.setUseCaches(false);
+        }
+        InputStream stream = connection.getInputStream();
+        if (stream == null) {
+          return null;
+        }
+        BufferedInputStream bis = new BufferedInputStream(stream);
+        bundle = new XmlTobagoBundle(bis);
+        bis.close();
+
+        return bundle;
+      }
+    }
   }
 }
