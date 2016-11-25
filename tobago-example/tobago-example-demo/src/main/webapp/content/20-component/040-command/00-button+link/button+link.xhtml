@@ -25,9 +25,9 @@
     You can also set a link by <code class="language-markup">&lt;tc:button/></code>.
     The behavior of a link and a button is the same, it differs in the appearance.</p>
   <p>Tag Library Documentation:
-    <tc:link label="&lt;tc:link/>" image="image/feather-leaf.png" link="#{demoBundle.tagDocUrl}/link.html"/>
+    <tc:link label="&lt;tc:link/>" image="/image/feather-leaf.png" link="#{demoBundle.tagDocUrl}/link.html"/>
     |
-    <tc:link label="&lt;tc:button/>" image="image/feather-leaf.png" link="#{demoBundle.tagDocUrl}/button.html"/></p>
+    <tc:link label="&lt;tc:button/>" image="/image/feather-leaf.png" link="#{demoBundle.tagDocUrl}/button.html"/></p>
 
   <tc:section label="Basics">
     <p>The next two sections show how a link and a button is set.</p>
@@ -43,14 +43,14 @@
       |
       <tc:link id="l4" label="Action" action="#{buttonLinkController.linkToComponentsRoot}"/>
       |
-      <tc:link id="l5" label="Link with an image" image="image/feather-leaf.png" link="https://www.apache.org/"/>
+      <tc:link id="l5" label="Link with an image" image="/image/feather-leaf.png" link="https://www.apache.org/"/>
     </tc:section>
     <tc:section label="&lt;tc:button>">
       <pre><code class="language-markup">&lt;tc:button label="apache.org" link="https://www.apache.org/"/></code></pre>
       <tc:button id="b1" label="apache.org" link="https://www.apache.org/"/>
       <tc:button id="b2" label="Disabled" disabled="true" link="https://www.apache.org/"/>
       <tc:button id="b4" label="Action" action="#{buttonLinkController.linkToComponentsRoot}"/>
-      <tc:button id="b5" image="image/feather-leaf.png" link="https://www.apache.org/"/>
+      <tc:button id="b5" image="/image/feather-leaf.png" link="https://www.apache.org/"/>
     </tc:section>
   </tc:section>
 
