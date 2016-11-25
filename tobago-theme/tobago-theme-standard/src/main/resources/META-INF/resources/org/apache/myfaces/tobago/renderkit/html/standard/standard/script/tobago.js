@@ -433,7 +433,7 @@ var Tobago = {
             if (command.execute || command.render) {
               Tobago.preparePartialOverlay(command);
               jsf.ajax.request(
-                  jQuery(this).attr("id"),
+                  action,
                   event,
                   {
                     "javax.faces.behavior.event": event.type,

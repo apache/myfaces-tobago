@@ -43,4 +43,8 @@ public abstract class AbstractUISelectManyShuttle extends AbstractUISelectManyBa
       return getClientId(facesContext) + ComponentUtils.SUB_SEPARATOR + "unselected";
     }
   }
+
+  public boolean isLabelLayoutSkip() {
+    return getLabelLayout() == LabelLayout.skip;
+  }
 }

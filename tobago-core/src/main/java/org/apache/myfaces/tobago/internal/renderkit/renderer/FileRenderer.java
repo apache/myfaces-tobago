@@ -122,6 +122,9 @@ public class FileRenderer extends LabelLayoutRendererBase implements ComponentSy
 
     writer.startElement(HtmlElements.DIV);
     writer.writeClassAttribute(Classes.create(file), file.getCustomClass());
+    if (file.isLabelLayoutSkip()) {
+      writer.writeIdAttribute(clientId);
+    }
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, file);
     writer.writeStyleAttribute(file.getStyle());
 

@@ -73,4 +73,8 @@ public abstract class AbstractUIFile extends UIInput implements SupportsLabelLay
       return getClientId(facesContext) + ComponentUtils.SUB_SEPARATOR + "real";
     }
   }
+
+  public boolean isLabelLayoutSkip() {
+    return getLabelLayout() == LabelLayout.skip;
+  }
 }

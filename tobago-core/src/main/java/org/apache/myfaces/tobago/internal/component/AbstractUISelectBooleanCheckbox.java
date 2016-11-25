@@ -19,7 +19,6 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
-import org.apache.myfaces.tobago.component.LabelLayout;
 import org.apache.myfaces.tobago.component.SupportFieldId;
 import org.apache.myfaces.tobago.component.SupportsAccessKey;
 import org.apache.myfaces.tobago.component.SupportsLabelLayout;
@@ -79,10 +78,6 @@ public abstract class AbstractUISelectBooleanCheckbox extends UISelectBoolean
 
   @Override
   public String getFieldId(final FacesContext facesContext) {
-    if (getLabelLayout() == LabelLayout.skip) {
-      return getClientId(facesContext);
-    } else {
-      return getClientId(facesContext) + ComponentUtils.SUB_SEPARATOR + "field";
-    }
+    return getClientId(facesContext) + ComponentUtils.SUB_SEPARATOR + "field";
   }
 }

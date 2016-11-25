@@ -44,10 +44,13 @@ public class SelectManyShuttleRenderer extends SelectManyRendererBase {
   @Override
   public void encodeBeginField(final FacesContext facesContext, final UIComponent component) throws IOException {
     final UISelectManyShuttle select = (UISelectManyShuttle) component;
+    final String clientId = select.getClientId(facesContext);
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
     writer.startElement(HtmlElements.DIV);
+    if(select.isLabelLayoutSkip()) {
+      writer.writeIdAttribute(clientId);
+    }
     writer.writeClassAttribute(Classes.create(select), select.getCustomClass());
-    final String clientId = select.getClientId(facesContext);
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, select);
     final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, select);
     if (title != null) {
