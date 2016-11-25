@@ -35,9 +35,7 @@
     <module>tobago-example-blank</module>
     <module>tobago-example-data</module>
     <module>tobago-example-demo</module>
-    <!--<module>tobago-example-issuetracker</module>-->
     <module>tobago-example-portlet</module>
-    <module>tobago-example-security</module>
     <module>tobago-example-test</module>
     <module>tobago-example-assembly</module>
   </modules>
