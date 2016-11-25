@@ -27,7 +27,7 @@
   <artifactId>tobago-theme</artifactId>
 
   <properties>
-    <bootstrap.version>4.0.0-alpha.4</bootstrap.version>
+    <bootstrap.version>4.0.0-alpha.5</bootstrap.version>
   </properties>
 
   <build>

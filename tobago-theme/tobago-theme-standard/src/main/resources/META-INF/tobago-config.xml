@@ -363,13 +363,13 @@
         <script name="/org/apache/myfaces/tobago/renderkit/html/standard/standard/jquery/jquery-2.2.4.js"/>
         <script name="/org/apache/myfaces/tobago/renderkit/html/standard/standard/jquery-ui/1.12.1.custom/jquery-ui.js"/>
         <script name="/org/apache/myfaces/tobago/renderkit/html/standard/standard/tether/1.1.1/js/tether.js"/>
-        <script name="/org/apache/myfaces/tobago/renderkit/html/standard/standard/bootstrap/4.0.0-alpha.4/js/bootstrap.js"/>
+        <script name="/org/apache/myfaces/tobago/renderkit/html/standard/standard/bootstrap/4.0.0-alpha.5/js/bootstrap.js"/>
         <script name="/org/apache/myfaces/tobago/renderkit/html/standard/standard/moment/2.13.0/moment-with-locales.js"/>
         <script name="/org/apache/myfaces/tobago/renderkit/html/standard/standard/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.js"/>
         <script name="/org/apache/myfaces/tobago/renderkit/html/standard/standard/script/tobago.js"/>
         <script name="/org/apache/myfaces/tobago/renderkit/html/standard/standard/typeahead/0.11.1-patched-with-1212/typeahead.js"/>
         <style name="/org/apache/myfaces/tobago/renderkit/html/standard/standard/tether/1.1.1/css/tether.css"/>
-        <style name="/org/apache/myfaces/tobago/renderkit/html/standard/standard/bootstrap/4.0.0-alpha.4/css/bootstrap.css"/>
+        <style name="/org/apache/myfaces/tobago/renderkit/html/standard/standard/bootstrap/4.0.0-alpha.5/css/bootstrap.css"/>
         <style name="/org/apache/myfaces/tobago/renderkit/html/standard/standard/font-awesome/4.6.1/css/font-awesome.css"/>
         <style name="/org/apache/myfaces/tobago/renderkit/html/standard/standard/style/tobago.css"/>
         <style name="/org/apache/myfaces/tobago/renderkit/html/standard/standard/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.css"/>
@@ -378,7 +378,7 @@
         <script name="/org/apache/myfaces/tobago/renderkit/html/standard/standard/jquery/jquery-2.2.4.js"/>
         <script name="/org/apache/myfaces/tobago/renderkit/html/standard/standard/jquery-ui/1.12.1.custom/jquery-ui.js"/>
         <script name="/org/apache/myfaces/tobago/renderkit/html/standard/standard/tether/1.1.1/js/tether.js"/>
-        <script name="/org/apache/myfaces/tobago/renderkit/html/standard/standard/bootstrap/4.0.0-alpha.4/js/bootstrap.js"/>
+        <script name="/org/apache/myfaces/tobago/renderkit/html/standard/standard/bootstrap/4.0.0-alpha.5/js/bootstrap.js"/>
         <script name="/org/apache/myfaces/tobago/renderkit/html/standard/standard/moment/2.13.0/moment-with-locales.js"/>
         <script name="/org/apache/myfaces/tobago/renderkit/html/standard/standard/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.js"/>
         <script name="/org/apache/myfaces/tobago/renderkit/html/standard/standard/script/tobago-jsf.js"/>
@@ -396,7 +396,7 @@
         <script name="/org/apache/myfaces/tobago/renderkit/html/standard/standard/script/tobago-utils.js"/>
         <script name="/org/apache/myfaces/tobago/renderkit/html/standard/standard/typeahead/0.11.1-patched-with-1212/typeahead.js"/>
         <style name="/org/apache/myfaces/tobago/renderkit/html/standard/standard/tether/1.1.1/css/tether.css"/>
-        <style name="/org/apache/myfaces/tobago/renderkit/html/standard/standard/bootstrap/4.0.0-alpha.4/css/bootstrap.css"/>
+        <style name="/org/apache/myfaces/tobago/renderkit/html/standard/standard/bootstrap/4.0.0-alpha.5/css/bootstrap.css"/>
         <style name="/org/apache/myfaces/tobago/renderkit/html/standard/standard/font-awesome/4.6.1/css/font-awesome.css"/>
         <style name="/org/apache/myfaces/tobago/renderkit/html/standard/standard/style/tobago.css"/>
         <style name="/org/apache/myfaces/tobago/renderkit/html/standard/standard/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.css"/>
