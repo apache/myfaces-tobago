@@ -62,10 +62,6 @@ public class TobagoConfigParserUnitTest {
     Assert.assertEquals("my-before-1", fragment.getBefore().get(0));
     Assert.assertEquals("my-before-2", fragment.getBefore().get(1));
 
-    Assert.assertEquals(2, fragment.getResourceDirs().size());
-    Assert.assertEquals("my-resource-1", fragment.getResourceDirs().get(0));
-    Assert.assertEquals("my-resource-2", fragment.getResourceDirs().get(1));
-
     Assert.assertEquals(false, fragment.getCreateSessionSecret().booleanValue());
     Assert.assertEquals(false, fragment.getCheckSessionSecret().booleanValue());
     Assert.assertEquals(false, fragment.getPreventFrameAttacks().booleanValue());
@@ -83,7 +79,6 @@ public class TobagoConfigParserUnitTest {
     final ThemeImpl theme1 = fragment.getThemeDefinitions().get(0);
     Assert.assertEquals("my-theme-1", theme1.getName());
     Assert.assertEquals("My Theme 1", theme1.getDisplayName());
-    Assert.assertEquals("/my/path-1", theme1.getResourcePath());
     Assert.assertTrue(theme1.isVersioned());
     Assert.assertTrue(theme1.getRenderersConfig().isMarkupSupported("themeRenderer", "theme-markup"));
     Assert.assertTrue(theme1.getProductionResources().isProduction());
@@ -93,7 +88,6 @@ public class TobagoConfigParserUnitTest {
     final ThemeImpl theme2 = fragment.getThemeDefinitions().get(1);
     Assert.assertEquals("my-theme-2", theme2.getName());
     Assert.assertEquals("my-theme-1", theme2.getFallbackName());
-    Assert.assertEquals("/my/path-2", theme2.getResourcePath());
     Assert.assertFalse(theme2.isVersioned());
     Assert.assertFalse(theme2.getResources().isProduction());
     Assert.assertEquals(0, theme2.getResources().getScriptList().size());

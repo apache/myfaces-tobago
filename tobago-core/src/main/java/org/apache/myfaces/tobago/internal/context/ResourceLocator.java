@@ -150,13 +150,14 @@ class ResourceLocator {
         final TobagoConfigFragment tobagoConfig = new TobagoConfigParser().parse(tobagoConfigUrl);
         for (final ThemeImpl theme : tobagoConfig.getThemeDefinitions()) {
           detectThemeVersion(tobagoConfigUrl, theme);
-          final String prefix = ensureSlash(theme.getResourcePath());
-          final String protocol = tobagoConfigUrl.getProtocol();
+          //XXX RM
+//          final String prefix = ensureSlash(theme.getResourcePath());
+//          final String protocol = tobagoConfigUrl.getProtocol();
           // tomcat uses jar // weblogic uses zip // IBM WebSphere uses wsjar
-          if (!"jar".equals(protocol) && !"zip".equals(protocol) && !"wsjar".equals(protocol)) {
-            LOG.warn("Unknown protocol '" + tobagoConfigUrl + "'");
-          }
-          addResources(resources, tobagoConfigUrl, prefix, 0);
+//          if (!"jar".equals(protocol) && !"zip".equals(protocol) && !"wsjar".equals(protocol)) {
+//            LOG.warn("Unknown protocol '" + tobagoConfigUrl + "'");
+//          }
+//          addResources(resources, tobagoConfigUrl, prefix, 0);
         }
       }
     } catch (final Exception e) {

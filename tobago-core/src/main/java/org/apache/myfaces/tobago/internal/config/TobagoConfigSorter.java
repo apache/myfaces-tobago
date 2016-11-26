@@ -91,11 +91,6 @@ public class TobagoConfigSorter implements Comparator<TobagoConfigFragment> {
         result.addSupportedThemeName(supported);
       }
 
-      // resource dirs
-      for (final String dir : fragment.getResourceDirs()) {
-        result.addResourceDir(dir);
-      }
-
       // renderers config
       if (fragment.getRenderersConfig() != null) {
         if (result.getRenderersConfig() instanceof RenderersConfigImpl) {

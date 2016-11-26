@@ -19,10 +19,8 @@
 
 package org.apache.myfaces.tobago.internal.context;
 
-import org.apache.myfaces.tobago.context.ResourceManager;
 import org.apache.myfaces.tobago.internal.config.TobagoConfigImpl;
 
-import javax.faces.context.FacesContext;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 
@@ -35,17 +33,6 @@ public final class ResourceManagerFactory {
   }
 
   private static boolean initialized;
-
-  public static ResourceManager getResourceManager(final FacesContext facesContext) {
-    assert initialized;
-    return (ResourceManager) facesContext.getExternalContext()
-        .getApplicationMap().get(RESOURCE_MANAGER);
-  }
-
-  public static ResourceManager getResourceManager(final ServletContext servletContext) {
-    assert initialized;
-    return (ResourceManager) servletContext.getAttribute(RESOURCE_MANAGER);
-  }
 
   public static void init(
       final ServletContext servletContext, final TobagoConfigImpl tobagoConfig)

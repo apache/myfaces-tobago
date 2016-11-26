@@ -40,7 +40,6 @@ public class TobagoConfigFragment {
 
   private List<String> supportedThemeNames;
   private String defaultThemeName;
-  private List<String> resourceDirs;
   private RenderersConfig renderersConfig;
   private Boolean createSessionSecret;
   private Boolean checkSessionSecret;
@@ -57,7 +56,6 @@ public class TobagoConfigFragment {
     before = new ArrayList<String>();
     after = new ArrayList<String>();
     supportedThemeNames = new ArrayList<String>();
-    resourceDirs = new ArrayList<String>();
     themeDefinitions = new ArrayList<ThemeImpl>();
     mimeTypes = new HashMap<String, String>();
   }
@@ -76,19 +74,6 @@ public class TobagoConfigFragment {
 
   public void setDefaultThemeName(final String defaultThemeName) {
     this.defaultThemeName = defaultThemeName;
-  }
-
-  public void addResourceDir(final String resourceDir) {
-    if (!resourceDirs.contains(resourceDir)) {
-      if (LOG.isInfoEnabled()) {
-        LOG.info("adding resourceDir = '{}'", resourceDir);
-      }
-      resourceDirs.add(resourceDir);
-    }
-  }
-
-  public List<String> getResourceDirs() {
-    return resourceDirs;
   }
 
   public RenderersConfig getRenderersConfig() {

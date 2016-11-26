@@ -21,7 +21,6 @@ package org.apache.myfaces.tobago.servlet;
 
 import org.apache.myfaces.tobago.application.ProjectStage;
 import org.apache.myfaces.tobago.config.TobagoConfig;
-import org.apache.myfaces.tobago.context.Theme;
 import org.apache.myfaces.tobago.internal.util.IoUtils;
 import org.apache.myfaces.tobago.internal.util.MimeTypeUtils;
 import org.apache.myfaces.tobago.internal.util.ResponseUtils;
@@ -36,9 +35,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 
 /**
  * <pre>
@@ -74,7 +70,6 @@ public class ResourceServlet extends HttpServlet {
 
   private Long expires;
   private int bufferSize;
-  private Set<String> resourceDirs = new HashSet<String>();
   private boolean nosniffHeader;
 
   @Override
@@ -84,9 +79,6 @@ public class ResourceServlet extends HttpServlet {
     if (tobagoConfig.getProjectStage() == ProjectStage.Production) {
        expires = 24 * 60 * 60 * 1000L;
     }
-    final Theme defaultTheme = tobagoConfig.getDefaultTheme();
-    addResourceDir(defaultTheme.getFallbackList());
-    addResourceDir(tobagoConfig.getSupportedThemes());
 
     final String expiresString = servletConfig.getInitParameter("expires");
     if (expiresString != null) {
@@ -108,21 +100,6 @@ public class ResourceServlet extends HttpServlet {
     nosniffHeader = tobagoConfig.isSetNosniffHeader();
   }
 
-  private void addResourceDir(final List<Theme> themes) {
-    for (final Theme theme : themes) {
-        addResourceDir(theme);
-    }
-  }
-
-  private void addResourceDir(final Theme theme) {
-    final String dir = theme.getResourcePath();
-    if (dir.startsWith("/")) {
-      resourceDirs.add(dir.substring(1));
-    } else {
-      resourceDirs.add(dir);
-    }
-  }
-
     @Override
   protected void doGet(
       final HttpServletRequest request, final HttpServletResponse response)
@@ -130,16 +107,6 @@ public class ResourceServlet extends HttpServlet {
 
     final String requestURI = request.getRequestURI();
     String resource = requestURI.substring(request.getContextPath().length() + 1);
-    for (final String resourceDir : resourceDirs) {
-      if (resource.startsWith(resourceDir)) {
-        final int dirLength = resourceDir.length();
-        if (dirLength < resource.length() && Character.isDigit(resource.charAt(dirLength + 1))) {
-          // cut off the version number
-          resource = resourceDir + resource.substring(resource.indexOf('/', dirLength + 1));
-        }
-        break;
-      }
-    }
     if (expires != null) {
       response.setDateHeader("Last-Modified", 0);
       response.setHeader("Cache-Control", "Public, max-age=" + expires);

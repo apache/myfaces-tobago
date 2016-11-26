@@ -98,12 +98,6 @@ public abstract class AbstractTobagoTestBase extends AbstractJsfTestCase {
     application.addComponent(UIButton.COMPONENT_TYPE, UIButton.class.getName());
     application.addComponent(UIPopup.COMPONENT_TYPE, UIPopup.class.getName());
 
-    try {
-      ResourceManagerFactory.init(servletContext, tobagoConfig);
-    } catch (final AssertionError e) {
-      // ignored in the moment. TODO
-      LOG.error("Todo: remove this hack", e);
-    }
     tobagoConfig.lock();
   }
 

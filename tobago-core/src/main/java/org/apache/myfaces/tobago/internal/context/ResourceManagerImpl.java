@@ -225,20 +225,19 @@ public class ResourceManagerImpl implements ResourceManager {
     // after that check the whole resources tree
     // e.g. 1. application, 2. library or renderkit
     for (final Theme currentTheme : theme.getFallbackList()) {// theme loop
-      for (final String resourceDirectory : tobagoConfig.getResourceDirs()) {
         for (final String browserType : browser.getFallbackList()) { // browser loop
           for (final String localeSuffix : locales) { // locale loop
             for (final String extension : extensions) { // extensions loop
               if (production) {
                 boolean found = checkPath(reverseOrder, returnKey, matches,
-                    resourceDirectory, contentType, currentTheme, browserType, subDir, name, MINIMIZE_SUFFIX,
+                    "dummy", contentType, currentTheme, browserType, subDir, name, MINIMIZE_SUFFIX,
                     localeSuffix, extension, key);
                 if (found && single) {
                   return matches;
                 }
                 if (!found) {
                   found = checkPath(reverseOrder, returnKey, matches,
-                      resourceDirectory, contentType, currentTheme, browserType, subDir, name, null,
+                      "dummy", contentType, currentTheme, browserType, subDir, name, null,
                       localeSuffix, extension, key);
                   if (found && single) {
                     return matches;
@@ -246,7 +245,7 @@ public class ResourceManagerImpl implements ResourceManager {
                 }
               } else {
                 final boolean found = checkPath(reverseOrder, returnKey, matches,
-                    resourceDirectory, contentType, currentTheme, browserType, subDir, name, null,
+                    "dummy", contentType, currentTheme, browserType, subDir, name, null,
                     localeSuffix, extension, key);
                 if (found && single) {
                   return matches;
@@ -255,7 +254,6 @@ public class ResourceManagerImpl implements ResourceManager {
             }
           }
         }
-      }
     }
 
     if (matches.isEmpty()) {
@@ -268,8 +266,7 @@ public class ResourceManagerImpl implements ResourceManager {
 
       if (!production && !ignoreMissing) {
         LOG.warn("Path not found, and no fallback (using empty string) "
-            + "resourceDirs='" + tobagoConfig.getResourceDirs()
-            + "' contentType='" + contentType
+            + "contentType='" + contentType
             + "' theme='" + theme.getName()
             + "' browser='" + browser
             + "' subDir='" + subDir
@@ -322,12 +319,13 @@ public class ResourceManagerImpl implements ResourceManager {
         localeSuffix, extension, key, null);
     if (resourceList.containsKey(path)) {
       final String result;
-      if (returnKey && resourceDirectory.equals(currentTheme.getResourcePath())) {
-        result = makePath(resourceDirectory, contentType, currentTheme, browserType, subDir, name, minimizeSuffix,
-            localeSuffix, extension, key, currentTheme.getVersion());
-      } else {
+      //XXX RM
+//      if (returnKey && resourceDirectory.equals(currentTheme.getResourcePath())) {
+//        result = makePath(resourceDirectory, contentType, currentTheme, browserType, subDir, name, minimizeSuffix,
+//            localeSuffix, extension, key, currentTheme.getVersion());
+//      } else {
         result = returnKey ? path : resourceList.get(path);
-      }
+//      }
       if (reverseOrder) {
         matches.add(0, result);
       } else {

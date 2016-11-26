@@ -58,7 +58,6 @@ public class TobagoConfigImpl extends TobagoConfig {
   private List<String> supportedThemeNames;
   private Theme defaultTheme;
   private String defaultThemeName;
-  private List<String> resourceDirs;
   private Map<String, ThemeImpl> availableThemes;
   private RenderersConfig renderersConfig;
   private ProjectStage projectStage;
@@ -77,7 +76,6 @@ public class TobagoConfigImpl extends TobagoConfig {
     supportedThemeNames = new ArrayList<String>();
     supportedThemes = new ArrayList<Theme>();
     availableThemes = new HashMap<String, ThemeImpl>();
-    resourceDirs = new ArrayList<String>();
     createSessionSecret = true;
     checkSessionSecret = true;
     preventFrameAttacks = true;
@@ -96,7 +94,6 @@ public class TobagoConfigImpl extends TobagoConfig {
       ((ThemeImpl) theme).lock();
     }
     supportedThemeNames = Collections.unmodifiableList(supportedThemeNames);
-    resourceDirs = Collections.unmodifiableList(resourceDirs);
     availableThemes = Collections.unmodifiableMap(availableThemes);
 
     if (renderersConfig instanceof RenderersConfigImpl) {
@@ -121,10 +118,6 @@ public class TobagoConfigImpl extends TobagoConfig {
   // TODO one init method
   protected void resolveThemes() {
     checkLocked();
-
-    for (final Theme theme : availableThemes.values()) {
-      addResourceDir(theme.getResourcePath());
-    }
 
     if (defaultThemeName != null) {
       defaultTheme = availableThemes.get(defaultThemeName);
@@ -203,20 +196,6 @@ public class TobagoConfigImpl extends TobagoConfig {
   @Override
   public List<Theme> getSupportedThemes() {
     return supportedThemes;
-  }
-
-  protected void addResourceDir(final String resourceDir) {
-    checkLocked();
-    if (!resourceDirs.contains(resourceDir)) {
-      if (LOG.isInfoEnabled()) {
-        LOG.info("adding resourceDir = '{}'", resourceDir);
-      }
-      resourceDirs.add(0, resourceDir);
-    }
-  }
-
-  public List<String> getResourceDirs() {
-    return resourceDirs;
   }
 
   @Override
@@ -399,8 +378,6 @@ public class TobagoConfigImpl extends TobagoConfig {
     }
     builder.append("], \ndefaultTheme=");
     builder.append(defaultTheme != null ? defaultTheme.getName() : null);
-    builder.append(", \nresourceDirs=");
-    builder.append(resourceDirs);
     builder.append(", \navailableThemes=");
     builder.append(availableThemes.keySet());
     builder.append(", \nprojectStage=");

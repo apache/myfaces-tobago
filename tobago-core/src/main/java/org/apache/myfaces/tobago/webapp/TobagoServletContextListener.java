@@ -69,7 +69,6 @@ public class TobagoServletContextListener implements ServletContextListener {
       builder.append("\n*************************************************************************************");
       final String note = builder.toString();
       LOG.info(note);
-      LOG.info("ResourcesManager: " + ResourceManagerFactory.getResourceManager(servletContext));
     }
   }
 

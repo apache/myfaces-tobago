@@ -38,7 +38,6 @@ public class ThemeImpl implements Theme, Serializable {
 
   private String name;
   private String displayName;
-  private String resourcePath;
   private ThemeImpl fallback;
   private String fallbackName;
   private List<Theme> fallbackList;
@@ -90,16 +89,6 @@ public class ThemeImpl implements Theme, Serializable {
   public void setDisplayName(final String displayName) {
     checkLocked();
     this.displayName = displayName;
-  }
-
-  @Override
-  public String getResourcePath() {
-    return resourcePath;
-  }
-
-  public void setResourcePath(final String resourcePath) {
-    checkLocked();
-    this.resourcePath = resourcePath;
   }
 
   public ThemeImpl getFallback() {
