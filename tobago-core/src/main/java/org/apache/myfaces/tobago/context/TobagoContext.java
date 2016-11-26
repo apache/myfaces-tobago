@@ -20,13 +20,27 @@
 package org.apache.myfaces.tobago.context;
 
 import org.apache.myfaces.tobago.config.TobagoConfig;
+import org.apache.myfaces.tobago.util.VariableResolverUtils;
 
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 
+@ManagedBean
+@RequestScoped
 public class TobagoContext {
+
+  public static final String BEAN_NAME = "tobagoContext";
 
   private static final TobagoResourceBundle RESOURCE_BUNDLE = new TobagoResourceBundle();
   private static final TobagoMessageBundle MESSAGE_BUNDLE = new TobagoMessageBundle();
+
+  private Theme theme;
+  private UserAgent userAgent = UserAgent.DEFAULT;
+
+  public TobagoContext() {
+    this.theme = getTobagoConfig().getDefaultTheme();
+  }
 
   public TobagoResourceBundle getResourceBundle() {
     return RESOURCE_BUNDLE;
@@ -38,5 +52,25 @@ public class TobagoContext {
 
   public TobagoConfig getTobagoConfig() {
     return TobagoConfig.getInstance(FacesContext.getCurrentInstance());
+  }
+
+  public Theme getTheme() {
+    return theme;
+  }
+
+  public void setTheme(Theme theme) {
+    this.theme = theme;
+  }
+
+  public UserAgent getUserAgent() {
+    return userAgent;
+  }
+
+  public void setUserAgent(UserAgent userAgent) {
+    this.userAgent = userAgent;
+  }
+
+  public static TobagoContext getInstance(FacesContext facesContext) {
+    return (TobagoContext) VariableResolverUtils.resolveVariable(facesContext, BEAN_NAME);
   }
 }

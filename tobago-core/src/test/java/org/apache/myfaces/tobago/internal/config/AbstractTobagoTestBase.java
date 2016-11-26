@@ -29,9 +29,9 @@ import org.apache.myfaces.tobago.component.UIOut;
 import org.apache.myfaces.tobago.component.UIPanel;
 import org.apache.myfaces.tobago.component.UIPopup;
 import org.apache.myfaces.tobago.config.TobagoConfig;
-import org.apache.myfaces.tobago.context.ClientProperties;
 import org.apache.myfaces.tobago.context.Theme;
 import org.apache.myfaces.tobago.context.ThemeImpl;
+import org.apache.myfaces.tobago.context.TobagoContext;
 import org.apache.myfaces.tobago.internal.mock.faces.MockTheme;
 import org.apache.myfaces.tobago.internal.util.MimeTypeUtils;
 import org.junit.After;
@@ -82,10 +82,10 @@ public abstract class AbstractTobagoTestBase extends AbstractJsfTestCase {
       // ignoring double call
     }
 
-    final ClientProperties clientProperties = new ClientProperties();
-    clientProperties.setTheme(one);
+    final TobagoContext tobagoContext = new TobagoContext();
+    tobagoContext.setTheme(one);
     facesContext.getViewRoot().setLocale(Locale.ENGLISH);
-    session.setAttribute(ClientProperties.MANAGED_BEAN_NAME, clientProperties);
+    request.setAttribute(TobagoContext.BEAN_NAME, tobagoContext);
 
     // XXX is there a better way? Get it from Tobagos generated faces-config.xml?
     application.addComponent(UIIn.COMPONENT_TYPE, UIIn.class.getName());

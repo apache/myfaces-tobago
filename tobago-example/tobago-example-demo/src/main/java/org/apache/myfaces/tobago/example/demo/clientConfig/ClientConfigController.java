@@ -20,8 +20,8 @@
 package org.apache.myfaces.tobago.example.demo.clientConfig;
 
 import org.apache.myfaces.tobago.config.TobagoConfig;
-import org.apache.myfaces.tobago.context.ClientProperties;
 import org.apache.myfaces.tobago.context.Theme;
+import org.apache.myfaces.tobago.context.TobagoContext;
 import org.apache.myfaces.tobago.internal.util.ObjectUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -64,7 +64,7 @@ public class ClientConfigController {
 
     // load
 
-    loadFromClientProperties();
+    loadFromTobagoContext();
   }
 
   public String submit() {
@@ -73,7 +73,7 @@ public class ClientConfigController {
     }
     final FacesContext facesContext = FacesContext.getCurrentInstance();
 
-    storeInClientProperties();
+    storeInTobagoContext();
 
     for (int i = 0; i < ClientConfigPhaseListener.BEAN_NAMES.length; i++) {
       final String beanName = ClientConfigPhaseListener.BEAN_NAMES[i];
@@ -89,14 +89,15 @@ public class ClientConfigController {
 
 // ///////////////////////////////////////////// logic
 
-  public void storeInClientProperties() {
-    final ClientProperties client = ClientProperties.getInstance(FacesContext.getCurrentInstance());
-    client.setTheme(theme);
+  public void storeInTobagoContext() {
+    final TobagoContext tobagoContext = TobagoContext.getInstance(FacesContext.getCurrentInstance());
+    LOG.info("XXXXXXXXX " + theme);
+    tobagoContext.setTheme(theme);
   }
 
-  public void loadFromClientProperties() {
-    final ClientProperties client = ClientProperties.getInstance(FacesContext.getCurrentInstance());
-    theme = client.getTheme();
+  public void loadFromTobagoContext() {
+    final TobagoContext tobagoContext = TobagoContext.getInstance(FacesContext.getCurrentInstance());
+    theme = tobagoContext.getTheme();
   }
 
   public List<SelectItem> getLocaleItems() {

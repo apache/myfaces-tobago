@@ -19,8 +19,6 @@
 
 package org.apache.myfaces.tobago.util;
 
-import org.apache.myfaces.tobago.context.ClientProperties;
-
 import javax.el.ELContext;
 import javax.faces.context.FacesContext;
 
@@ -38,17 +36,6 @@ public final class VariableResolverUtils {
     return elContext.getELResolver().getValue(elContext, null, variable);
   }
 
-  /**
-   * Returns the ClientProperties object configured in the faces-config.
-   *
-   * @deprecated Since 2.0.0. Please use
-   * {@link org.apache.myfaces.tobago.context.ClientProperties#getInstance(javax.faces.context.FacesContext)}
-   */
-  @Deprecated
-  public static ClientProperties resolveClientProperties(final FacesContext facesContext) {
-    return ClientProperties.getInstance(facesContext);
-  }
-  
   /**
    * Clears the value of the variable.
    * Useful for cleaning up e.g. a session or application variable

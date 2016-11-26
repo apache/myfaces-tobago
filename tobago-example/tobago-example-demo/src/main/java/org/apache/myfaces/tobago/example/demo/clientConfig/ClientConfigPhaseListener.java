@@ -42,7 +42,7 @@ public class ClientConfigPhaseListener implements PhaseListener {
           .getCurrentInstance(facesContext, beanName);
 
       if (controller != null) {
-        controller.loadFromClientProperties();
+        controller.loadFromTobagoContext();
       }
     }
   }

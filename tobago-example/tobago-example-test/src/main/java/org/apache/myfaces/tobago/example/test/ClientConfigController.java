@@ -20,8 +20,8 @@
 package org.apache.myfaces.tobago.example.test;
 
 import org.apache.myfaces.tobago.config.TobagoConfig;
-import org.apache.myfaces.tobago.context.ClientProperties;
 import org.apache.myfaces.tobago.context.Theme;
+import org.apache.myfaces.tobago.context.TobagoContext;
 import org.apache.myfaces.tobago.internal.util.ObjectUtils;
 
 import javax.faces.application.Application;
@@ -72,13 +72,11 @@ public class ClientConfigController implements Serializable {
 // ///////////////////////////////////////////// logic
 
   public void storeInClientProperties() {
-    final ClientProperties client = ClientProperties.getInstance(FacesContext.getCurrentInstance());
-    client.setTheme(theme);
+    TobagoContext.getInstance(FacesContext.getCurrentInstance()).setTheme(theme);
   }
 
   public void loadFromClientProperties() {
-    final ClientProperties client = ClientProperties.getInstance(FacesContext.getCurrentInstance());
-    theme = client.getTheme();
+    theme = TobagoContext.getInstance(FacesContext.getCurrentInstance()).getTheme();
   }
 
   public List<SelectItem> getLocaleItems() {

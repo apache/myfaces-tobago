@@ -21,9 +21,9 @@ package org.apache.myfaces.tobago.renderkit.css;
 
 import org.apache.commons.collections.map.MultiKeyMap;
 import org.apache.myfaces.tobago.component.Visual;
-import org.apache.myfaces.tobago.context.ClientProperties;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.context.Theme;
+import org.apache.myfaces.tobago.context.TobagoContext;
 import org.apache.myfaces.tobago.internal.util.Deprecation;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
@@ -127,7 +127,7 @@ public final class Classes implements CssItem {
       builder.append(sub);
     }
     if (markup != null) {
-      final Theme theme = ClientProperties.getInstance(FacesContext.getCurrentInstance()).getTheme();
+      final Theme theme = TobagoContext.getInstance(FacesContext.getCurrentInstance()).getTheme();
       for (final String markupString : markup) {
         if (ignoreMarkupCheck || theme.getRenderersConfig().isMarkupSupported(rendererName, markupString)) {
           builder.append(' ');

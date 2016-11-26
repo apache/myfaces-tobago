@@ -54,15 +54,4 @@
     <converter-class>javax.faces.convert.DateTimeConverter</converter-class>
   </converter>
 
-  <managed-bean>
-    <managed-bean-name>tobagoClientProperties</managed-bean-name>
-    <managed-bean-class>org.apache.myfaces.tobago.context.ClientProperties</managed-bean-class>
-    <managed-bean-scope>session</managed-bean-scope>
-  </managed-bean>
-  <managed-bean>
-    <managed-bean-name>tobagoContext</managed-bean-name>
-    <managed-bean-class>org.apache.myfaces.tobago.context.TobagoContext</managed-bean-class>
-    <managed-bean-scope>none</managed-bean-scope>
-  </managed-bean>
-
 </faces-config>
