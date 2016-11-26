@@ -71,17 +71,6 @@
         </configuration>
       </plugin>
       <plugin>
-        <groupId>org.apache.myfaces.tobago</groupId>
-        <artifactId>tobago-theme-plugin</artifactId>
-        <executions>
-          <execution>
-            <goals>
-              <goal>resources</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-      <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-war-plugin</artifactId>
         <configuration>

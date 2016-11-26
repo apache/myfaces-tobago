@@ -599,7 +599,6 @@
                   <banRelease>true</banRelease>
                   <unCheckedPlugins>
                     <unCheckedPlugin>org.apache.maven.plugins:maven-eclipse-plugin</unCheckedPlugin>
-                    <unCheckedPlugin>org.apache.myfaces.tobago:tobago-theme-plugin</unCheckedPlugin>
                   </unCheckedPlugins>
                 </requirePluginVersions>
                 <requireJavaVersion>
@@ -691,11 +690,6 @@
     </plugins>
     <pluginManagement>
       <plugins>
-        <plugin>
-          <groupId>org.apache.myfaces.tobago</groupId>
-          <artifactId>tobago-theme-plugin</artifactId>
-          <version>${project.version}</version>
-        </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-pmd-plugin</artifactId>
