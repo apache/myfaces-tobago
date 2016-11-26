@@ -22,7 +22,6 @@ package org.apache.myfaces.tobago.webapp;
 import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.internal.config.ContentSecurityPolicy;
 import org.apache.myfaces.tobago.internal.config.TobagoConfigBuilder;
-import org.apache.myfaces.tobago.internal.context.ResourceManagerFactory;
 import org.apache.myfaces.tobago.internal.util.MimeTypeUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -82,11 +81,6 @@ public class TobagoServletContextListener implements ServletContextListener {
     final ServletContext servletContext = event.getServletContext();
 
     servletContext.removeAttribute(TobagoConfig.TOBAGO_CONFIG);
-
-    ResourceManagerFactory.release(servletContext);
-
-    //LogFactory.releaseAll();
-//    LogManager.shutdown();
   }
 
 }

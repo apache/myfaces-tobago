@@ -32,7 +32,6 @@ import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.context.ClientProperties;
 import org.apache.myfaces.tobago.context.Theme;
 import org.apache.myfaces.tobago.context.ThemeImpl;
-import org.apache.myfaces.tobago.internal.context.ResourceManagerFactory;
 import org.apache.myfaces.tobago.internal.mock.faces.MockTheme;
 import org.apache.myfaces.tobago.internal.util.MimeTypeUtils;
 import org.junit.After;
@@ -104,13 +103,6 @@ public abstract class AbstractTobagoTestBase extends AbstractJsfTestCase {
   @Override
   @After
   public void tearDown() throws Exception {
-    try {
-      ResourceManagerFactory.release(servletContext);
-    } catch (final AssertionError e) {
-      // ignored in the moment. TODO
-      LOG.error("Todo: remove this hack", e);
-    }
-
     super.tearDown();
   }
 
