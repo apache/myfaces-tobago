@@ -37,19 +37,19 @@
       <versioned>true</versioned>
       <resources production="true">
         <excludes>
-          <script name="bootstrap/4.0.0-alpha.5/js/bootstrap.js"/>
-          <style name="bootstrap/4.0.0-alpha.5/css/bootstrap.css"/>
+          <script name="/org/apache/myfaces/tobago/renderkit/html/standard/standard/bootstrap/4.0.0-alpha.5/js/bootstrap.js"/>
+          <style name="/org/apache/myfaces/tobago/renderkit/html/standard/standard/bootstrap/4.0.0-alpha.5/css/bootstrap.css"/>
         </excludes>
-        <script name="bootstrap-richmond/4.0.0-alpha.5/js/bootstrap.js"/>
-        <style name="bootstrap-richmond/4.0.0-alpha.5/css/bootstrap.css"/>
+        <script name="/org/apache/myfaces/tobago/renderkit/html/richmond/standard/bootstrap-richmond/4.0.0-alpha.5/js/bootstrap.js"/>
+        <style name="/org/apache/myfaces/tobago/renderkit/html/richmond/standard/bootstrap-richmond/4.0.0-alpha.5/css/bootstrap.css"/>
       </resources>
       <resources production="false">
         <excludes>
-          <script name="bootstrap/4.0.0-alpha.5/js/bootstrap.js"/>
-          <style name="bootstrap/4.0.0-alpha.5/css/bootstrap.css"/>
+          <script name="/org/apache/myfaces/tobago/renderkit/html/standard/standard/bootstrap/4.0.0-alpha.5/js/bootstrap.js"/>
+          <style name="/org/apache/myfaces/tobago/renderkit/html/standard/standard/bootstrap/4.0.0-alpha.5/css/bootstrap.css"/>
         </excludes>
-        <script name="bootstrap-richmond/4.0.0-alpha.5/js/bootstrap.js"/>
-        <style name="bootstrap-richmond/4.0.0-alpha.5/css/bootstrap.css"/>
+        <script name="/org/apache/myfaces/tobago/renderkit/html/richmond/standard/bootstrap-richmond/4.0.0-alpha.5/js/bootstrap.js"/>
+        <style name="/org/apache/myfaces/tobago/renderkit/html/richmond/standard/bootstrap-richmond/4.0.0-alpha.5/css/bootstrap.css"/>
       </resources>
     </theme-definition>
   </theme-definitions>
