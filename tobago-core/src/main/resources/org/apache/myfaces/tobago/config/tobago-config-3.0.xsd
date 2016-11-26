@@ -62,7 +62,6 @@
       <xs:element name="name" type="tobago:name-type" minOccurs="0"/>
       <xs:element name="ordering" type="tobago:ordering-type" minOccurs="0"/>
       <xs:element name="theme-config" type="tobago:theme-config-type" minOccurs="0"/>
-      <xs:element name="resource-dir" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
       <xs:element name="create-session-secret" type="xs:boolean" minOccurs="0" default="true"/>
       <xs:element name="check-session-secret" type="xs:boolean" minOccurs="0" default="true"/>
       <xs:element name="prevent-frame-attacks" type="xs:boolean" minOccurs="0" default="true"/>

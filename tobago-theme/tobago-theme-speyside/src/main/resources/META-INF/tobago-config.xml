@@ -28,7 +28,6 @@
       <name>tobago-theme-standard</name>
     </after>
   </ordering>
-  <resource-dir>org/apache/myfaces/tobago/renderkit</resource-dir>
   <theme-definitions>
     <theme-definition>
       <name>speyside</name>
