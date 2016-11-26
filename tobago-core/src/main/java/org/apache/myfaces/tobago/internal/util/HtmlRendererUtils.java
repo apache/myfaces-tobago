@@ -110,12 +110,6 @@ public final class HtmlRendererUtils {
       if (image.startsWith("fa-")) {
         writer.writeIcon(null, FontAwesomeIconEncoder.generateClass(image)); // todo: should not be static
       } else {
-        // XXX RM
-//        if (ResourceManagerUtils.isAbsoluteResource(image)) {
-          // absolute Path to image: nothing to do
-//        } else {
-//          image = getImageWithPath(facesContext, image, disabled);
-//        }
         writer.startElement(HtmlElements.IMG);
         writer.writeAttribute(HtmlAttributes.SRC, image, true);
         writer.writeAttribute(HtmlAttributes.ALT, "", false);
@@ -129,18 +123,6 @@ public final class HtmlRendererUtils {
       writer.endElement(HtmlElements.SPAN);
     }
   }
-
-  // XXX RM
-/*
-  public static String getImageWithPath(final FacesContext facesContext, final String image, final boolean disabled) {
-    final int indexOfExtension = ResourceManagerUtils.indexOfExtension(image);
-    if (indexOfExtension == -1) {
-      return ResourceManagerUtils.getImageOrDisabledImage(facesContext, image, disabled);
-    } else {
-      return ResourceManagerUtils.getImageOrDisabledImageWithPath(facesContext, image, disabled);
-    }
-  }
-*/
 
   /**
    * @deprecated since 3.0.0, use {@link org.apache.myfaces.tobago.renderkit.RendererBase#getResponseWriter}
@@ -245,11 +227,7 @@ public final class HtmlRendererUtils {
           final String image = ((org.apache.myfaces.tobago.model.SelectItem) item).getImage();
           if (image != null) {
             final Style style = new Style();
-            style.setBackgroundImage("url('"
-// XXX RM
-                + image
-//                + ResourceManagerUtils.getImageOrDisabledImageWithPath(facesContext, image, item.isDisabled())
-                + "')");
+            style.setBackgroundImage("url('" + image + "')");
             writer.writeStyleAttribute(style);
           }
         }

@@ -135,28 +135,6 @@ public abstract class CommandRendererBase extends DecodingCommandRendererBase {
       writer.writeAttribute(DataAttributes.DEFAULT, form.getClientId(facesContext), false);
     }
 
-/*
-//  image
-
-    String image = command instanceof AbstractUILink ? ((AbstractUILink) command).getImage() : null;
-    if (image != null) {
-      if (ResourceManagerUtils.isAbsoluteResource(image)) {
-        // absolute Path to image : nothing to do
-      } else {
-        image = HtmlRendererUtils.getImageWithPath(facesContext, image, disabled);
-      }
-      HtmlRendererUtils.encodeIconWithLabel(writer, facesContext, image, label, disabled);
-    }
-
-//  label
-    if (label.getLabel() != null) {
-      if (image != null) {
-        writer.write(" "); // separator: e.g. &nbsp;
-      }
-      HtmlRendererUtils.writeLabelWithAccessKey(writer, label);
-    }
-*/
-
     final String image = ComponentUtils.getStringAttribute(command, Attributes.image);
     HtmlRendererUtils.encodeIconWithLabel(writer, facesContext, image, label, disabled);
 

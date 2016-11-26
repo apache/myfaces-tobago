@@ -166,11 +166,11 @@ public class PageRenderer extends RendererBase {
 
       // style files
       for (final String styleFile : theme.getStyleResources(productionMode)) {
-        writeStyle(facesContext, writer, styleFile);
+        writeStyle(writer, styleFile);
       }
 
       for (final String styleFile : FacesContextUtils.getStyleFiles(facesContext)) {
-        writeStyle(facesContext, writer, styleFile);
+        writeStyle(writer, styleFile);
       }
 
       if (!productionMode) {
@@ -307,11 +307,9 @@ public class PageRenderer extends RendererBase {
     }
   }
 
-  private void writeStyle(final FacesContext facesContext, final TobagoResponseWriter writer, final String styleFile)
+  private void writeStyle(final TobagoResponseWriter writer, final String styleFile)
       throws IOException {
-//    XXX RM
     final List<String> styles = Collections.singletonList(styleFile);
-//    final List<String> styles = ResourceManagerUtils.getStyles(facesContext, styleFile);
     for (final String styleString : styles) {
       if (styleString.length() > 0) {
         writer.startElement(HtmlElements.LINK);
@@ -424,13 +422,8 @@ public class PageRenderer extends RendererBase {
   private void encodeScript(final FacesContext facesContext, final TobagoResponseWriter writer, final String script)
       throws IOException {
     final List<String> list;
-//    XXX RM
-//    if (ResourceManagerUtils.isAbsoluteResource(script)) {
-      list = new ArrayList<String>();
-      list.add(script);
-//    } else {
-//      list = ResourceManagerUtils.getScripts(facesContext, script);
-//    }
+    list = new ArrayList<String>();
+    list.add(script);
     for (final String src : list) {
       if (StringUtils.isNotBlank(src)) {
         writer.startElement(HtmlElements.SCRIPT);
@@ -442,40 +435,6 @@ public class PageRenderer extends RendererBase {
       }
     }
   }
-
-  /* TODO: this may be written in to a HTML5 data-attribute and be logged to the console
-  private void errorMessageForDebugging(final String id, final FacesMessage message, final ResponseWriter writer)
-      throws IOException {
-    writer.startElement(HtmlElements.DIV, null);
-    writer.writeAttribute(HtmlAttributes.style, "color: red", null);
-    writer.write("[");
-    writer.write(id != null ? id : "null");
-    writer.write("]");
-    writer.write("[");
-    writer.write(message.getSummary() == null ? "null" : message.getSummary());
-    writer.write("/");
-    writer.write(message.getDetail() == null ? "null" : message.getDetail());
-    writer.write("]");
-    writer.endElement(HtmlElements.DIV);
-    writer.startElement(HtmlElements.BR, null);
-    writer.endElement(HtmlElements.BR);
-  }
-
-  private String errorMessageForDebugging(final String id, final FacesMessage message) {
-    final StringBuilder sb = new StringBuilder("LOG.info(\"FacesMessage: [");
-    sb.append(id != null ? id : "null");
-    sb.append("][");
-    sb.append(message.getSummary() == null ? "null" : escape(message.getSummary()));
-    sb.append("/");
-    sb.append(message.getDetail() == null ? "null" : escape(message.getDetail()));
-    sb.append("]\");");
-    return sb.toString();
-  }
-
-  private String escape(final String s) {
-    return StringUtils.replace(StringUtils.replace(s, "\\", "\\\\"), "\"", "\\\"");
-  }
-*/
 
   private String getMethod(final UIPage page) {
     return ComponentUtils.getStringAttribute(page, Attributes.method, "post");

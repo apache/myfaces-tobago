@@ -270,12 +270,6 @@ public class TabGroupRenderer extends RendererBase implements ComponentSystemEve
           String image = tab.getImage();
           // tab.getImage() resolves to empty string if el-expression resolves to null
           if (image != null && !image.isEmpty()) {
-// XXX RM
-            //            if (ResourceManagerUtils.isAbsoluteResource(image)) {
-              // absolute Path to image : nothing to do
-//            } else {
-//              image = ResourceManagerUtils.getImageOrDisabledImageWithPath(facesContext, image, disabled);
-//            }
             writer.startElement(HtmlElements.IMG);
             writer.writeAttribute(HtmlAttributes.SRC, image, true);
 // TBD      writer.writeClassAttribute(Classes.create(tab, (label.getLabel() != null? "image-right-margin" : "image")));

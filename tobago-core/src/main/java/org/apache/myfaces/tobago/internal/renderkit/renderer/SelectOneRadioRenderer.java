@@ -100,11 +100,8 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
         org.apache.myfaces.tobago.model.SelectItem tobagoItem = (org.apache.myfaces.tobago.model.SelectItem) item;
         final String image = tobagoItem.getImage();
         if (image != null) {
-          final String imageToRender
-              = image;
-// XXX RM              = ResourceManagerUtils.getImageOrDisabledImageWithPath(facesContext, image, item.isDisabled());
           writer.startElement(HtmlElements.IMG);
-          writer.writeAttribute(HtmlAttributes.SRC, imageToRender, true);
+          writer.writeAttribute(HtmlAttributes.SRC, image, true);
           writer.writeAttribute(HtmlAttributes.ALT, "", false);
           writer.endElement(HtmlElements.IMG);
         }
