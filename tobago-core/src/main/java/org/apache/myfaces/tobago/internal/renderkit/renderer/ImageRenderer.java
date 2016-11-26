@@ -19,17 +19,16 @@
 
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
-import org.apache.myfaces.tobago.component.Attributes;
-import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.internal.component.AbstractUICommandBase;
 import org.apache.myfaces.tobago.internal.component.AbstractUIImage;
+import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
+import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
+import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.FontAwesomeIconEncoder;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
-import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
-import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
@@ -45,55 +44,33 @@ public class ImageRenderer extends RendererBase {
 
     final AbstractUIImage image = (AbstractUIImage) component;
     final String value = image.getUrl();
-    final String src;
-    boolean fontAwesome = false;
-    if (value != null) {
-      if (ResourceManagerUtils.isAbsoluteResource(value)) {
-        // absolute Path to image : nothing to do
-        src = value;
-      } else {
-//        final boolean disabled = isDisabled(image);
-        if (ResourceManagerUtils.indexOfExtension(value) > -1) { // has extension
-          src = value;
-// XXX RM         src = ResourceManagerUtils.getImageOrDisabledImageWithPath(facesContext, value, disabled);
-        } else if (value.startsWith("fa-")) {
-          fontAwesome = true;
-          src = null;
-        } else {
-          src = value;
-// XXX RM         src = ResourceManagerUtils.getImageOrDisabledImage(facesContext, value, disabled);
-        }
-      }
-    } else {
-      src = null;
-    }
-
-    final String alt = ComponentUtils.getStringAttribute(image, Attributes.alt, "");
-
+    boolean fontAwesome = StringUtils.startsWith(value, "fa-");
     if (fontAwesome) {
       // todo: should not be static
       writer.writeIcon(null, image.getStyle(), FontAwesomeIconEncoder.generateClass(value));
     } else {
+      final String alt = image.getAlt();
       writer.startElement(HtmlElements.IMG);
       writer.writeIdAttribute(image.getClientId(facesContext));
       HtmlRendererUtils.writeDataAttributes(facesContext, writer, image);
-      if (src != null) {
-        writer.writeAttribute(HtmlAttributes.SRC, src, true);
-      }
-      writer.writeAttribute(HtmlAttributes.ALT, alt, true);
+      writer.writeAttribute(HtmlAttributes.SRC, value, true);
+      writer.writeAttribute(HtmlAttributes.ALT, alt != null ? alt : "", true);
       final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, image);
       if (title != null) {
         writer.writeAttribute(HtmlAttributes.TITLE, title, true);
       }
-      writer.writeClassAttribute(Classes.create(image), image.getCustomClass());
+      writer.writeClassAttribute(
+          Classes.create(image),
+          isDisabled(image) ? BootstrapClass.DISABLED : null,
+          image.getCustomClass());
       writer.writeStyleAttribute(image.getStyle());
       writer.endElement(HtmlElements.IMG);
     }
   }
 
-  private boolean isDisabled(final AbstractUIImage graphic) {
-    return graphic.isDisabled()
-        || (graphic.getParent() instanceof AbstractUICommandBase
-        && ((AbstractUICommandBase) graphic.getParent()).isDisabled());
+  private boolean isDisabled(final AbstractUIImage image) {
+    return image.isDisabled()
+        || (image.getParent() instanceof AbstractUICommandBase
+        && ((AbstractUICommandBase) image.getParent()).isDisabled());
   }
 }

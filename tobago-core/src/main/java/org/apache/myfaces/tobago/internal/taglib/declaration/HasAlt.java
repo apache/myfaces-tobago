@@ -17,15 +17,16 @@
  * under the License.
  */
 
-package org.apache.myfaces.tobago.internal.component;
+package org.apache.myfaces.tobago.internal.taglib.declaration;
 
-import org.apache.myfaces.tobago.component.Visual;
+import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
+import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 
-import javax.faces.component.UIGraphic;
-
-public abstract class AbstractUIImage extends UIGraphic
-    implements Visual {
-
-  public abstract boolean isDisabled();
-  public abstract String getAlt();
+public interface HasAlt {
+  /**
+   * Alternate textual description of the image rendered by this component.
+   */
+  @TagAttribute
+  @UIComponentTagAttribute()
+  void setAlt(String alt);
 }
