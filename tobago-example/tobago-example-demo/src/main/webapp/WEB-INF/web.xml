@@ -132,21 +132,6 @@
     <url-pattern>/faces/*</url-pattern>
   </servlet-mapping>
 
-  <!-- ResourceServlet -->
-
-<!--
-  <servlet>
-    <servlet-name>ResourceServlet</servlet-name>
-    <servlet-class>org.apache.myfaces.tobago.servlet.ResourceServlet</servlet-class>
-  </servlet>
-
-  <servlet-mapping>
-    <servlet-name>ResourceServlet</servlet-name>
-    <url-pattern>/org/apache/myfaces/tobago/renderkit/*</url-pattern>
-    <url-pattern>/org/apache/myfaces/tobago/sandbox/*</url-pattern>
-  </servlet-mapping>
--->
-
   <!-- Error Page -->
 
   <error-page>

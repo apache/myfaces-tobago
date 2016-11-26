@@ -77,19 +77,6 @@
   </servlet-mapping>
 
   <servlet>
-    <servlet-name>ResourceServlet</servlet-name>
-    <servlet-class>org.apache.myfaces.tobago.servlet.ResourceServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>ResourceServlet</servlet-name>
-    <url-pattern>/org/apache/myfaces/tobago/renderkit/*</url-pattern>
-  </servlet-mapping>
-  <servlet-mapping>
-    <servlet-name>ResourceServlet</servlet-name>
-    <url-pattern>/org/apache/myfaces/tobago/sandbox/*</url-pattern>
-  </servlet-mapping>
-
-  <servlet>
     <servlet-name>KillSessionServlet</servlet-name>
     <servlet-class>org.apache.myfaces.tobago.example.test.KillSession</servlet-class>
   </servlet>

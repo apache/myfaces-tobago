@@ -69,34 +69,9 @@
     <multipart-config/>
   </servlet>
 
-  <servlet>
-    <servlet-name>ResourceServlet</servlet-name>
-    <servlet-class>org.apache.myfaces.tobago.servlet.ResourceServlet</servlet-class>
-    <init-param>
-      <description>Include the WEB-INF/resources directory from the classpath as root for resources.</description>
-      <param-name>include-webinf-resources</param-name>
-      <param-value>true</param-value>
-    </init-param>
-  </servlet>
-
   <servlet-mapping>
     <servlet-name>FacesServlet</servlet-name>
     <url-pattern>/faces/*</url-pattern>
-  </servlet-mapping>
-
-  <servlet-mapping>
-    <servlet-name>ResourceServlet</servlet-name>
-    <url-pattern>/org/apache/myfaces/tobago/renderkit/*</url-pattern>
-  </servlet-mapping>
-
-  <servlet-mapping>
-    <servlet-name>ResourceServlet</servlet-name>
-    <url-pattern>/addressbook-resource/*</url-pattern>
-  </servlet-mapping>
-
-  <servlet-mapping>
-    <servlet-name>ResourceServlet</servlet-name>
-    <url-pattern>/org/tango-project/*</url-pattern>
   </servlet-mapping>
 
   <!-- XXX websphere-provided -->

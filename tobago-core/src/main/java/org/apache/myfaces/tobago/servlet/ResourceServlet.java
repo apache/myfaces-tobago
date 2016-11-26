@@ -61,7 +61,9 @@ import java.io.OutputStream;
  * </pre>
  *
  * @since 1.0.7
+ * @deprecated since Tobago 3.0.x this is no longer needed
  */
+@Deprecated
 public class ResourceServlet extends HttpServlet {
 
   private static final long serialVersionUID = -4491419290205206466L;
