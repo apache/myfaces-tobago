@@ -15,19 +15,9 @@
  * limitations under the License.
  */
 
-/*
- * theme: speyside
- * agent: standard
- */
+// Bootstrap overrides
+//
+// Copy variables from `_variables.scss` to this file to override default values
+// without modifying source files.
 
-/*
-TODO: use Bootstrap 4 and SCSS to customize themes
-*/
-
-@backgroundColor: #E2E2E2;
-
-/* page -------------------------------------------------------------------- */
-
-.tobago-page {
-  background: @backgroundColor;
-}
+$body-bg:    #e2e2e2 !default;
