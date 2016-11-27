@@ -395,7 +395,6 @@
         <style name="/org/apache/myfaces/tobago/renderkit/html/standard/standard/tether/1.1.1/css/tether.css"/>
         <style name="/org/apache/myfaces/tobago/renderkit/html/standard/standard/bootstrap/4.0.0-alpha.5/css/bootstrap.css"/>
         <style name="/org/apache/myfaces/tobago/renderkit/html/standard/standard/font-awesome/4.6.1/css/font-awesome.css"/>
-        <style name="/org/apache/myfaces/tobago/renderkit/html/standard/standard/style/tobago.css"/>
         <style name="/org/apache/myfaces/tobago/renderkit/html/standard/standard/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.css"/>
       </resources>
     </theme-definition>

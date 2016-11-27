@@ -16,6 +16,14 @@
  */
 
 /*
+Todo: check, if this is needed? (It doesn't work with the build system)
+
+.tobago-file-real {
+  filter: alpha(opacity: 0);
+}
+*/
+
+/*
  * theme: standard
  * agent: standard
  */
@@ -95,7 +103,6 @@ body {
   bottom: 0;
   opacity: 0;
   width: 100%;
-  filter: alpha(opacity: 0);
   z-index: 2;
 }
 

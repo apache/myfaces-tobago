@@ -25,28 +25,13 @@
   <artifactId>tobago-theme-standard</artifactId>
   <packaging>jar</packaging>
   <name>Tobago Theme Standard</name>
+
+  <properties>
+    <theme.name>standard</theme.name>
+  </properties>
+
   <build>
     <plugins>
-      <!--<plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>wagon-maven-plugin</artifactId>
-        <version>1.0-beta-3</version>
-        <executions>
-          <execution>
-            <id>closure-compiler</id>
-            <phase>initialize</phase>
-            <goals>
-              <goal>download-single</goal>
-            </goals>
-            <configuration>
-              <serverId>code-google</serverId>
-              <url>http://closure-compiler.googlecode.com/files/</url>
-              <fromFile>compiler-20120430.zip</fromFile>
-              <toDir>${project.build.directory}/closure-compiler</toDir>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>-->
       <plugin>
         <artifactId>maven-antrun-plugin</artifactId>
         <executions>
