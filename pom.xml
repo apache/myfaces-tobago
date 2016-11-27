@@ -415,6 +415,11 @@
         <artifactId>logback-classic</artifactId>
         <version>${logback.version}</version>
       </dependency>
+      <dependency>
+        <groupId>ch.qos.logback</groupId>
+        <artifactId>logback-core</artifactId>
+        <version>${logback.version}</version>
+      </dependency>
       <!-- only needed to build Tobago and for some examples, but not for runtime -->
       <dependency>
         <groupId>commons-io</groupId>

@@ -26,10 +26,6 @@
   <name>Tobago Examples</name>
   <artifactId>tobago-example</artifactId>
 
-  <properties>
-    <logback.version>1.1.1</logback.version>
-  </properties>
-
   <modules>
     <module>tobago-example-addressbook</module>
     <module>tobago-example-blank</module>
@@ -166,13 +162,11 @@
     <dependency>
       <groupId>ch.qos.logback</groupId>
       <artifactId>logback-classic</artifactId>
-      <version>${logback.version}</version>
       <scope>runtime</scope>
     </dependency>
     <dependency>
       <groupId>ch.qos.logback</groupId>
       <artifactId>logback-core</artifactId>
-      <version>${logback.version}</version>
       <scope>runtime</scope>
     </dependency>
   </dependencies>
