@@ -346,7 +346,7 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   font-size: 1rem;
   line-height: 1.5;
-  color: #d265c8;
+  color: #5facff;
   background-color: #eceeef;
 }
 
@@ -3006,7 +3006,7 @@ tbody.collapse.in {
   padding: 0.5rem 0;
   margin: 0.125rem 0 0;
   font-size: 1rem;
-  color: #d265c8;
+  color: #5facff;
   text-align: left;
   list-style: none;
   background-color: #fff;
