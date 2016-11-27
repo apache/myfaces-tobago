@@ -15,17 +15,9 @@
  * limitations under the License.
  */
 
-/*
- * theme:  charlotteville
- * agent:  standard
- */
+// Bootstrap overrides
+//
+// Copy variables from `_variables.scss` to this file to override default values
+// without modifying source files.
 
-/*
-TODO: use Bootstrap 4 and SCSS to customize themes
-*/
-
-/* page -------------------------------------------------------------------- */
-
-.tobago-page {
-  background: #FFEECF;
-}
+$body-bg:    #ffeecf !default;

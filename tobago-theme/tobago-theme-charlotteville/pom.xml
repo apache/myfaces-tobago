@@ -24,6 +24,11 @@
   </parent>
   <artifactId>tobago-theme-charlotteville</artifactId>
   <name>Tobago Theme Charlotteville</name>
+
+  <properties>
+    <theme.name>charlotteville</theme.name>
+  </properties>
+
   <build>
     <plugins>
       <plugin>
