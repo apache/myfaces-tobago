@@ -140,7 +140,7 @@
                 </goals>
                 <configuration>
                   <outputDirectory>
-                    ${basedir}/src/main/resources/META-INF/resources/org/apache/myfaces/tobago/renderkit/html/richmond/standard/bootstrap-richmond/${bootstrap.version}
+                    ${basedir}/src/main/resources/META-INF/resources/org/apache/myfaces/tobago/renderkit/html/${theme.name}/standard/bootstrap/${bootstrap.version}
                   </outputDirectory>
                   <resources>
                     <resource>

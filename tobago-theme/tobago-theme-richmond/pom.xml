@@ -28,6 +28,10 @@
   <packaging>jar</packaging>
   <name>Tobago Theme Richmond</name>
 
+  <properties>
+    <theme.name>charlotteville</theme.name>
+  </properties>
+
   <dependencies>
     <dependency>
       <groupId>org.apache.myfaces.tobago</groupId>
