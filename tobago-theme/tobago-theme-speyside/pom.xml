@@ -42,62 +42,6 @@
   <build>
     <plugins>
       <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-dependency-plugin</artifactId>
-        <executions>
-          <execution>
-            <id>unpack-external-images</id>
-            <phase>process-resources</phase>
-            <goals>
-              <goal>unpack</goal>
-            </goals>
-            <configuration>
-              <artifactItems>
-                <artifactItem>
-                  <groupId>org.tango-project</groupId>
-                  <artifactId>tango-icon-theme</artifactId>
-                  <version>0.8.0</version>
-                </artifactItem>
-              </artifactItems>
-              <outputDirectory>${project.build.directory}/external-images</outputDirectory>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
-      <plugin>
-        <artifactId>maven-resources-plugin</artifactId>
-        <executions>
-          <execution>
-            <id>copy-external-images</id>
-            <phase>process-resources</phase>
-            <goals>
-              <goal>copy-resources</goal>
-            </goals>
-            <configuration>
-              <outputDirectory>${project.build.outputDirectory}</outputDirectory>
-              <resources>
-                <resource>
-                  <targetPath>org/apache/myfaces/tobago/renderkit/html/speyside/standard/image</targetPath>
-                  <directory>${project.build.directory}/external-images/org/tango-project/tango-icon-theme/16x16/status</directory>
-                  <includes>
-                    <include>dialog-error.png</include>
-                    <include>dialog-information.png</include>
-                    <include>dialog-warning.png</include>
-                  </includes>
-                </resource>
-                <resource>
-                  <targetPath>org/apache/myfaces/tobago/renderkit/html/speyside/standard/image</targetPath>
-                  <directory>${project.build.directory}/external-images/org/tango-project/tango-icon-theme/16x16/actions</directory>
-                  <includes>
-                    <include>process-stop.png</include>
-                  </includes>
-                </resource>
-              </resources>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
-      <plugin>
         <groupId>org.lesscss</groupId>
         <artifactId>lesscss-maven-plugin</artifactId>
         <version>1.7.0.1.1</version>

@@ -27,32 +27,32 @@
     <tc:buttons>
 <!--
       <tc:button label="#{bundle.toolbarAddressList}" action="#{controller.search}" immediate="true"
-                 image="image/org/tango-project/tango-icon-theme/32x32/mimetypes/x-office-address-book.png"
+                 image="fa-question"
                  disabled="#{facesContext.viewRoot.viewId == '/addressbook/list.xhtml'}"/>
 -->
       <tc:button label="#{bundle.listNew}" action="#{controller.createAddress}"
-                 image="image/org/tango-project/tango-icon-theme/16x16/actions/contact-new.png"/>
+                 image="fa-question"/>
       <tc:button label="#{bundle.listEdit}" action="#{controller.editAddress}"
-                         image="image/org/tango-project/tango-icon-theme/16x16/apps/accessories-text-editor.png"/>
+                         image="fa-question"/>
       <tc:button label="#{bundle.listDelete}" action="#{controller.deleteAddresses}"
-                         image="image/org/tango-project/tango-icon-theme/16x16/places/user-trash.png">
+                         image="fa-question">
         <f:facet name="confirmation">
           <tc:out value="#{bundle.listDeleteConfirmation}"/>
         </f:facet>
         <tc:style customClass="btn-danger"/>
       </tc:button>
       <tc:button label="#{bundle.toolbarAbout}"
-                 image="image/org/tango-project/tango-icon-theme/16x16/apps/help-browser.png">
+                 image="fa-question">
         <tc:popupReference for=":page:about"/>
       </tc:button>
       <tc:button label="#{bundle.admin}" action="#{admin.admin}"
-                 image="image/org/tango-project/tango-icon-theme/16x16/categories/preferences-system.png"/>
+                 image="fa-question"/>
 
       <tc:in value="#{controller.searchCriterion}" placeholder="#{bundle.listFilter}" tip="#{bundle.listFilter}"/>
       <tc:button action="#{controller.search}" label="#{bundle.listSearch}"
                  defaultCommand="true"/>
       <tc:button tip="Logout" action="#{controller.logout}" immediate="true"
-                      image="image/org/tango-project/tango-icon-theme/16x16/actions/system-log-out.png"/>
+                      image="fa-question"/>
       <tc:style customClass="btn-danger"/>
     </tc:buttons>
 
@@ -64,17 +64,17 @@
       <f:facet name="toolBar">
         <tc:toolBar>
           <tc:toolBarCommand label="#{bundle.listNew}" action="#{controller.createAddress}"
-                             image="image/org/tango-project/tango-icon-theme/16x16/actions/contact-new.png"/>
+                             image="fa-question"/>
           <tc:toolBarCommand label="#{bundle.listEdit}" action="#{controller.editAddress}"
-                             image="image/org/tango-project/tango-icon-theme/16x16/apps/accessories-text-editor.png"/>
+                             image="fa-question"/>
           <tc:toolBarCommand label="#{bundle.listDelete}" action="#{controller.deleteAddresses}"
-                             image="image/org/tango-project/tango-icon-theme/16x16/places/user-trash.png">
+                             image="fa-question">
             <f:facet name="confirmation">
               <tc:out value="#{bundle.listDeleteConfirmation}"/>
             </f:facet>
           </tc:toolBarCommand>
           <tc:toolBarCommand label="Select Columns" action="#{controller.selectColumns}"
-                             image="image/org/tango-project/tango-icon-theme/16x16/categories/applications-system.png">
+                             image="fa-question">
             <f:facet name="popup">
               <tc:popup width="300" height="200" left="200" top="200"
                         rendered="#{controller.renderPopup}" id="popup">

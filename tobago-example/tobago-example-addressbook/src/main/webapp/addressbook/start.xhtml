@@ -20,8 +20,6 @@
 <f:view xmlns:tc="http://myfaces.apache.org/tobago/component"
         xmlns:f="http://java.sun.com/jsf/core">
 
-  <tc:loadBundle basename="addressbook" var="bundle"/>
-
   <tc:page label="#{bundle.editorTitle}">
     <f:facet name="load">
       <tc:link action="list"/>
@@ -42,8 +40,9 @@
           <tc:gridLayout rows="150px" columns="150px;250px"/>
         </f:facet>
 
-        <tc:image value="image/org/tango-project/tango-icon-theme/address-book-splash-screen.png" width="150"
-                  height="150"/>
+        <tc:image value="fa-address-book">
+          <tc:style width="150" height="150"/>
+        </tc:image>
         <tc:panel>
           <f:facet name="layout">
             <tc:gridLayout rows="auto;auto;auto;*"/>

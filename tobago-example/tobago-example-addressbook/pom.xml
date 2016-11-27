@@ -74,31 +74,6 @@
         <dependencies>
        </dependencies>
       </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-dependency-plugin</artifactId>
-        <executions>
-          <execution>
-            <id>unpack</id>
-            <phase>package</phase>
-            <goals>
-              <goal>unpack</goal>
-            </goals>
-            <configuration>
-              <artifactItems>
-                <artifactItem>
-                  <groupId>org.tango-project</groupId>
-                  <artifactId>tango-icon-theme</artifactId>
-                  <version>0.8.0</version>
-                </artifactItem>
-              </artifactItems>
-              <outputDirectory>
-                ${project.build.directory}/${project.build.finalName}/image
-              </outputDirectory>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
     </plugins>
   </build>
 
@@ -199,12 +174,6 @@
       <version>${deltaspike.version}</version>
     </dependency>
 
-    <!-- which repository-->
-    <dependency>
-        <groupId>org.tango-project</groupId>
-        <artifactId>tango-icon-theme</artifactId>
-        <version>0.8.0</version>
-    </dependency>
     <dependency>
     	<groupId>org.apache.geronimo.specs</groupId>
     	<artifactId>geronimo-jpa_3.0_spec</artifactId>

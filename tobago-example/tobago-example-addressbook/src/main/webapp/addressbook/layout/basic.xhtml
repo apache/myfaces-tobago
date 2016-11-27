@@ -21,7 +21,6 @@
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
                 xmlns:ui="http://java.sun.com/jsf/facelets">
   <f:view locale="#{controller.language}">
-    <tc:loadBundle basename="resource" var="bundle"/>
 
     <tc:page applicationIcon="icon/favicon.ico" label="${title}" id="page">
 
@@ -29,20 +28,20 @@
 
         <tc:script file="auth/logout.js"/>
 
-        <!--
+<!--
               <f:facet name="menuBar">
                 <tc:menuBar>
                   <tc:form>
                     <tc:menu label="#{bundle.menuFile}">
                       <tc:menuCommand label="#{bundle.menuFileNew}" action="#{controller.createAddress}" immediate="true"
-                                   image="image/org/tango-project/tango-icon-theme/16x16/actions/contact-new.png"/>
+                                   image="fa-question"/>
                       <tc:menuCommand label="Add Dummy Addresses" action="#{controller.addDummyAddresses}" immediate="true"/>
                       <tc:menuSeparator/>
                       <tc:menuCommand label="#{bundle.admin}" action="#{admin.admin}"
-                                   image="image/org/tango-project/tango-icon-theme/16x16/categories/preferences-system.png"/>
+                                   image="fa-question"/>
                       <tc:menuSeparator/>
                       <tc:menuCommand label="Logout" action="#{controller.logout}"
-                                   image="image/org/tango-project/tango-icon-theme/16x16/actions/system-log-out.png"/>
+                                   image="fa-question"/>
                     </tc:menu>
 
                     <tc:menu label="#{bundle.menuSettings}">
@@ -63,14 +62,14 @@
 
                     <tc:menu label="#{bundle.menuHelp}">
                       <tc:menuCommand label="#{bundle.menuHelpAbout}"
-                                   image="image/org/tango-project/tango-icon-theme/16x16/apps/help-browser.png">
+                                   image="fa-question">
                         <tc:popupReference for=":page:about"/>
                       </tc:menuCommand>
                     </tc:menu>
                   </tc:form>
                 </tc:menuBar>
               </f:facet>
-        -->
+-->
 
         <tc:flowLayout>
           <ui:insert/>
@@ -106,7 +105,7 @@
                 </tc:form>
           -->
           <tc:button label="Dummy" action="#{controller.addDummyAddresses}" immediate="true"
-                     image="image/org/tango-project/tango-icon-theme/16x16/actions/contact-new.png"/>
+                     image="fa-user"/>
 
         </tc:panel>
 
@@ -117,8 +116,9 @@
                 <tc:gridLayout rows="150px;*;auto" columns="150px;*"/>
               </f:facet>
 
-              <tc:image value="image/org/tango-project/tango-icon-theme/address-book-splash-screen.png" width="150"
-                        height="150"/>
+              <tc:image value="fa-user">
+                <tc:style width="150" height="150"/>
+              </tc:image>
               <tc:panel>
                 <f:facet name="layout">
                   <tc:gridLayout rows="auto;auto;auto;*"/>
