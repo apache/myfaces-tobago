@@ -395,7 +395,7 @@
             &lt;resource-dir&gt;tobago&lt;/resource-dir&gt;
 &lt;/tobago-config&gt;
 ...</entry>
-  <entry key="theme_photo">The Standard Theme don't have a photo to show</entry>
+  <entry key="theme_photo">The Standard Theme doesn't have a photo to show</entry>
 
   <entry key="foreach_text">
     There are two possibilities to use iterators:&lt;br/>

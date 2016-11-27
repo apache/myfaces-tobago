@@ -35,8 +35,13 @@
     <tc:button label="Submit" action="#{themeController.submit}"/>
 
     <tc:separator/>
-    <tc:image value="image/theme-photo.jpg"/>
-    <tc:out id="o1" value="#{demoBundle.theme_photo}"/>
+    <tc:figure>
+      <f:facet name="label">
+        <!-- todo: theme dependent text -->
+        <tc:out id="o1" value="#{demoBundle.theme_photo} (TODO: theme dependent text)"/>
+      </f:facet>
+      <tc:image value="/image/#{tobagoContext.theme.name}/theme-photo.jpg"/>
+    </tc:figure>
   </tc:section>
 
   <tc:section label="Configuration">
