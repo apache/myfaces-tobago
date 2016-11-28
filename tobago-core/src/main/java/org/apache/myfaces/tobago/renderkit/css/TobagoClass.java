@@ -54,6 +54,7 @@ public enum TobagoClass implements CssItem {
   FLEX_LAYOUT("tobago-flexLayout"),
   FIGURE("tobago-figure"),
   FORM("tobago-form"),
+  INPUT_GROUP_OUTER("tobago-input-group-outer"),
   LABEL("tobago-label"),
   MESSAGES("tobago-messages"),
   PANEL("tobago-panel"),
