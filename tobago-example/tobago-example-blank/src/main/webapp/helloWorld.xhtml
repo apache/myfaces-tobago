@@ -24,11 +24,11 @@
 
     <tc:in label="Name" value="#{hello.name}">
       <f:facet name="after">
-        <tc:button label="Submit" defaultCommand="true"/>
+        <tc:button label="Submit" defaultCommand="true" action="#{hello.sayHello}"/>
       </f:facet>
     </tc:in>
 
-    <tc:out value="Hello #{hello.name}!" rendered="#{not empty hello.name}"/>
+    <tc:out value="Hello, #{hello.name}!" rendered="#{not empty hello.name}"/>
 
   </tc:page>
 </f:view>

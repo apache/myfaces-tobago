@@ -22,11 +22,20 @@ package org.apache.myfaces.tobago.example.blank;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 
+import static org.apache.myfaces.tobago.internal.util.Deprecation.LOG;
+
 @ManagedBean
 @RequestScoped
 public class Hello {
 
   private String name;
+
+  public String sayHello() {
+    if (LOG.isInfoEnabled()) {
+      LOG.info("Action was called, name is '{}'", name);
+    }
+    return null;
+  }
 
   public String getName() {
     return name;
