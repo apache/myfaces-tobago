@@ -22,7 +22,11 @@
 
   <tc:page>
 
-    <tc:in label="Name" value="#{hello.name}"/>
+    <tc:in label="Name" value="#{hello.name}">
+      <f:facet name="after">
+        <tc:button label="Submit" defaultCommand="true"/>
+      </f:facet>
+    </tc:in>
 
     <tc:out value="Hello #{hello.name}!" rendered="#{not empty hello.name}"/>
 
