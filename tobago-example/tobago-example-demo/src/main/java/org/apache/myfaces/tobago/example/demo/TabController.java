@@ -34,8 +34,8 @@ public class TabController implements Serializable {
 
   private static final Logger LOG = LoggerFactory.getLogger(TabController.class);
 
-  private String open = "image/feather-open.png";
-  private String close = "image/feather.png";
+  private String open = "/image/feather-open.png";
+  private String close = "/image/feather.png";
   private int index;
   private SimpleTabChangeListener tabChangeListener;
 

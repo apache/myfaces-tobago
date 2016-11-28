@@ -80,14 +80,14 @@
   <tc:section label="Open Folder Example">
     <p>The image in the header depends on what tab is currently selected.</p>
     <pre><code class="language-markup">&lt;tc:tabGroup selectedIndex="\#{tabController.index}"></code></pre>
-    <tc:tabGroup switchType="reloadTab" selectedIndex="#{tabController.index}">
-      <tc:tab label="One" image="#{tabController.tabOneImage}">
+    <tc:tabGroup id="ft" switchType="reloadTab" selectedIndex="#{tabController.index}">
+      <tc:tab id="ft1" label="One" image="#{tabController.tabOneImage}">
         <p>First folder open.</p>
       </tc:tab>
-      <tc:tab label="Two" image="#{tabController.tabTwoImage}">
+      <tc:tab id="ft2" label="Two" image="#{tabController.tabTwoImage}">
         <p>Second folder open.</p>
       </tc:tab>
-      <tc:tab label="Three" image="#{tabController.tabThreeImage}">
+      <tc:tab id="ft3" label="Three" image="#{tabController.tabThreeImage}">
         <p>Third folder open.</p>
       </tc:tab>
     </tc:tabGroup>
@@ -119,6 +119,32 @@
       <tc:out label="NewTabIndex" value="#{tabController.newTabIndex}"/>
       <tc:out label="ClientID" value="#{tabController.clientId}"/>
       <tc:out label="TabChangedCount" value="#{tabController.count}"/>
+    </tc:box>
+  </tc:section>
+
+  <tc:section label="SwitchType='none'">
+    <p>If no switch type is activated with <code>switchType="none"</code>, you have full control over the tab group.
+      In this example the tabs are used as buttons to refresh the timestamps. The functionallity of
+    switching the tab comes explicitly by adding the id of the tab group to the ajax tag.</p>
+    <tc:tabGroup id="tabGroupSwitchTypeNone" switchType="none">
+      <tc:tab id="nt1" label="One">
+        <f:ajax execute="::tabGroupSwitchTypeNone" render="::tabGroupSwitchTypeNone ::outTimestamp1"/>
+        One
+      </tc:tab>
+      <tc:tab id="nt2" label="Two">
+        <f:ajax execute="::tabGroupSwitchTypeNone" render="::tabGroupSwitchTypeNone ::outTimestamp2"/>
+        Two
+      </tc:tab>
+      <tc:tab id="nt3" label="Three">
+        <f:ajax execute="::tabGroupSwitchTypeNone" render="::tabGroupSwitchTypeNone ::outTimestamp3"/>
+        Three
+      </tc:tab>
+    </tc:tabGroup>
+
+    <tc:box label="Area outsite of the tab group">
+      <tc:out id="outTimestamp1" label="Timestamp One" value="#{eventController.currentTimestamp}"/>
+      <tc:out id="outTimestamp2" label="Timestamp Two" value="#{eventController.currentTimestamp}"/>
+      <tc:out id="outTimestamp3" label="Timestamp Three" value="#{eventController.currentTimestamp}"/>
     </tc:box>
   </tc:section>
 </ui:composition>
