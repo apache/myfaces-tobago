@@ -25,11 +25,11 @@ Compatibility
   \ 
 
 *--+--+--+--+--+
-|| <<Tobago Version>>  || <<1.0.x>>                 || <<1.5.x>>                                   || <<2.0.x>>                             || <<3.0.x>> \[tbd\]
+|| <<Tobago Version>>  || <<1.0.x>>                 || <<1.5.x>>                                   || <<2.0.x>>                             || <<3.0.x>>
 *--+--+--+--+--+
 || <<Specifications>>  ||                           ||                                             ||                                       ||
 *--+--+--+--+--+
-| Java                 | 1.4\[retro\], <<1.5>>, 1.6, 1.7 | 1.5, 1.6, 1.7, 1.8                      | 1.5, 1.6, 1.7, 1.8                     | 1.6\[tbd\], 1.7, 1.8
+| Java                 | 1.4\[retro\], <<1.5>>, 1.6, 1.7 | 1.5, 1.6, 1.7, 1.8                      | 1.5, 1.6, 1.7, 1.8                     | 1.6, 1.7, 1.8
 *--+--+--+--+--+
 | JSF                  | <<1.1>>, 1.2               | 1.2, 2.0\[disable vh\], 2.1\[disable vh\]    | 2.0, 2.1, 2.2                          | 2.0, 2.1, 2.2
 *--+--+--+--+--+
@@ -65,15 +65,15 @@ Compatibility
 *--+--+--+--+--+
 | Internet Explorer    | 6, 7, 8, 9, 10, 11         | 6, 7, 8, 9, 10, 11, ...                      | 6\[lim\], 7\[lim\], 8\[lim\], 9, 10, 11, ... | 10\[lim\], 11, ...
 *--+--+--+--+--+
-| Firefox              | 2, 3, 4, ...               | 2, 3, 4, ...                                 | 2\[lim\], 3, 4, ...                    | 4, ...
+| Firefox              | 2, 3, 4, ...               | 2, 3, 4, ...                                 | 2\[lim\], 3, 4, ...                    | \[latest\]
 *--+--+--+--+--+
-| Safari               |                            | 4, 5, 6, ...                                 | 4, 5, 6, ...                           | 4\[tbd\], 5, 6
+| Safari               |                            | 4, 5, 6, ...                                 | 4, 5, 6, ...                           | \[latest\]
 *--+--+--+--+--+
-| Chrome               |                            | 5, ...                                       | 5, ...                                 | 5\[tbd\], ...
+| Chrome               |                            | 5, ...                                       | 5, ...                                 | \[latest\]
 *--+--+--+--+--+
-| Opera                |                            | 10, 11                                       | 10, 11, ...                            | 10\[tbd\], 11, ...
+| Opera                |                            | 10, 11                                       | 10, 11, ...                            | \[latest\]
 *--+--+--+--+--+
-| others               |                            | \[other browsers\]                           | \[other browsers\]                     | \[other browsers\]
+| others               |                            | \[other browsers\]                           | \[other browsers\]                     | \[latest\]
 *--+--+--+--+--+
 |                      |                            |                                              |                                        |
 *--+--+--+--+--+
@@ -109,6 +109,8 @@ Compatibility
   \[facelets only\]: it works with facelets, but not with JSP, because JSF 1.2 requires JSP 2.1
 
   \[other servers\]: other servers should work, when they are compliant to the named specifications
+
+  \[latest\]: all browser supported by Bootstrap 4 are supported, these are usually the latest, stable releases
 
   \[other browsers\]: other browsers should work, in their actual version, when they are standard compliant to HTML 4 and CSS 2.1
 
