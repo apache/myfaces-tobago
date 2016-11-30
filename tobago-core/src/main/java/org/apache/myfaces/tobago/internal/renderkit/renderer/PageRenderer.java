@@ -279,7 +279,7 @@ public class PageRenderer extends RendererBase {
         page.getCustomClass());
     writer.writeIdAttribute(clientId);
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, page);
-//    writer.writeStyleAttribute(page.getStyle());
+    writer.writeStyleAttribute(page.getStyle());
 
     writer.writeCommandMapAttribute(JsonUtils.encode(RenderUtils.getBehaviorCommands(facesContext, page)));
 
