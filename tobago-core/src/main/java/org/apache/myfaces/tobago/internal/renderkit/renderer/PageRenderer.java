@@ -329,8 +329,6 @@ public class PageRenderer extends RendererBase {
       RenderUtils.encode(facesContext, hidden);
     }
 
-    //checkForCommandFacet(component, facesContext, writer);
-
 // TODO: this is needed for the "BACK-BUTTON-PROBLEM"
 // but may no longer needed
 /*
@@ -371,11 +369,6 @@ public class PageRenderer extends RendererBase {
 
     final UIPage page = (UIPage) component;
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
-
-/*
-    writer.endElement(HtmlElements.DIV);
-*/
-
     final String clientId = page.getClientId(facesContext);
     final Application application = facesContext.getApplication();
     final ViewHandler viewHandler = application.getViewHandler();
@@ -409,39 +402,6 @@ public class PageRenderer extends RendererBase {
 
     if (facesContext.getExternalContext().getRequestParameterMap().get("X") != null) {
       throw new RuntimeException("Debugging activated via X parameter");
-    }
-  }
-
-  private void writeEventFunction(
-      final TobagoResponseWriter writer, final Collection<String> eventFunctions, final String event,
-      final boolean returnBoolean)
-      throws IOException {
-    if (!eventFunctions.isEmpty()) {
-      writer.write("Tobago.applicationOn");
-      writer.write(event);
-      writer.write(" = function(listenerOptions) {\n");
-      if (returnBoolean) {
-        writer.write("  var result;\n");
-      }
-      for (final String function : eventFunctions) {
-        if (returnBoolean) {
-          writer.write("  result = ");
-        } else {
-          writer.write("  ");
-        }
-        writer.write(function);
-        if (!function.trim().endsWith(";")) {
-          writer.write(";\n");
-        } else {
-          writer.write("\n");
-        }
-        if (returnBoolean) {
-          writer.write("  if (typeof result == \"boolean\" && ! result) {\n");
-          writer.write("    return false;\n");
-          writer.write("  }\n");
-        }
-      }
-      writer.write("\n  return true;\n}\n");
     }
   }
 

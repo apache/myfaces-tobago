@@ -159,12 +159,6 @@ var Tobago = {
       }
     }
 
-    console.time("[tobago] applicationOnload"); // @DEV_ONLY
-    if (this.applicationOnload) {
-      this.applicationOnload();
-    }
-    console.timeEnd("[tobago] applicationOnload"); // @DEV_ONLY
-
     console.timeEnd("[tobago] init"); // @DEV_ONLY
   },
 
@@ -227,12 +221,6 @@ var Tobago = {
       }
     }
 
-    // deprecated:
-    if (this.isSubmit && this.applicationOnunload) {
-      this.applicationOnunload();
-    } else if (!this.isSubmit && this.applicationOnexit) {
-      this.applicationOnexit();
-    }
     this.destroyObjects();
   },
 
