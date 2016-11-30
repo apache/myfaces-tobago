@@ -37,11 +37,11 @@
       <versioned>true</versioned>
       <resources production="true">
         <excludes>
-          <script name="/org/apache/myfaces/tobago/renderkit/html/standard/standard/bootstrap/4.0.0-alpha.5/js/bootstrap.js"/>
-          <style name="/org/apache/myfaces/tobago/renderkit/html/standard/standard/bootstrap/4.0.0-alpha.5/css/bootstrap.css"/>
+          <script name="/org/apache/myfaces/tobago/renderkit/html/standard/standard/bootstrap/4.0.0-alpha.5/js/bootstrap.min.js"/>
+          <style name="/org/apache/myfaces/tobago/renderkit/html/standard/standard/bootstrap/4.0.0-alpha.5/css/bootstrap.min.css"/>
         </excludes>
-        <script name="/org/apache/myfaces/tobago/renderkit/html/scarborough/standard/bootstrap/4.0.0-alpha.5/js/bootstrap.js"/>
-        <style name="/org/apache/myfaces/tobago/renderkit/html/scarborough/standard/bootstrap/4.0.0-alpha.5/css/bootstrap.css"/>
+        <script name="/org/apache/myfaces/tobago/renderkit/html/scarborough/standard/bootstrap/4.0.0-alpha.5/js/bootstrap.min.js"/>
+        <style name="/org/apache/myfaces/tobago/renderkit/html/scarborough/standard/bootstrap/4.0.0-alpha.5/css/bootstrap.min.css"/>
       </resources>
       <resources production="false">
         <excludes>

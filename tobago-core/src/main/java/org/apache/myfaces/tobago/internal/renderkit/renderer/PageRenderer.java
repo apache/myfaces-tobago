@@ -19,23 +19,6 @@
 
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-import javax.faces.application.Application;
-import javax.faces.application.ViewHandler;
-import javax.faces.component.UIComponent;
-import javax.faces.component.UIViewRoot;
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
-import javax.portlet.MimeResponse;
-import javax.portlet.ResourceURL;
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import org.apache.myfaces.tobago.application.ProjectStage;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.UIPage;
@@ -67,6 +50,22 @@ import org.apache.myfaces.tobago.webapp.Secret;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import javax.faces.application.Application;
+import javax.faces.application.ViewHandler;
+import javax.faces.component.UIComponent;
+import javax.faces.component.UIViewRoot;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
+import javax.portlet.MimeResponse;
+import javax.portlet.ResourceURL;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
 
 // currently using tobago-jsf.js instead
 //@ResourceDependency(name="jsf.js", library="javax.faces", target="head")
@@ -150,6 +149,7 @@ public class PageRenderer extends RendererBase {
     }
 
     final ExternalContext externalContext = facesContext.getExternalContext();
+    final String contextPath = externalContext.getRequestContextPath();
     final Object response = externalContext.getResponse();
     final Application application = facesContext.getApplication();
     final ViewHandler viewHandler = application.getViewHandler();
@@ -216,7 +216,7 @@ public class PageRenderer extends RendererBase {
 
       // style files
       for (final String styleFile : theme.getStyleResources(productionMode)) {
-        writeStyle(writer, styleFile);
+        writeStyle(writer, contextPath + styleFile);
       }
 
       for (final String styleFile : FacesContextUtils.getStyleFiles(facesContext)) {
@@ -258,11 +258,11 @@ public class PageRenderer extends RendererBase {
 
       // render remaining script tags
       for (final String scriptFile : theme.getScriptResources(productionMode)) {
-        encodeScript(facesContext, writer, scriptFile);
+        encodeScript(writer, contextPath + scriptFile);
       }
 
       for (final String scriptFile : FacesContextUtils.getScriptFiles(facesContext)) {
-        encodeScript(facesContext, writer, scriptFile);
+        encodeScript(writer, scriptFile);
       }
 
       if (!productionMode) {
@@ -279,7 +279,7 @@ public class PageRenderer extends RendererBase {
         page.getCustomClass());
     writer.writeIdAttribute(clientId);
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, page);
-
+//    writer.writeStyleAttribute(page.getStyle());
 
     writer.writeCommandMapAttribute(JsonUtils.encode(RenderUtils.getBehaviorCommands(facesContext, page)));
 
@@ -304,7 +304,7 @@ public class PageRenderer extends RendererBase {
     writer.writeAttribute(HtmlAttributes.ACCEPT_CHARSET, AbstractUIPage.FORM_ACCEPT_CHARSET, false);
     // TODO evaluate 'accept' attribute usage
     //writer.writeAttribute(HtmlAttributes.ACCEPT, );
-    writer.writeAttribute(DataAttributes.CONTEXT_PATH, externalContext.getRequestContextPath(), true);
+    writer.writeAttribute(DataAttributes.CONTEXT_PATH, contextPath, true);
 
     writer.startElement(HtmlElements.INPUT);
     writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN);
@@ -357,26 +357,14 @@ public class PageRenderer extends RendererBase {
     }
   }
 
-  private void writeStyle(final TobagoResponseWriter writer, final String styleFile)
-      throws IOException {
-    final List<String> styles = Collections.singletonList(styleFile);
-    for (final String styleString : styles) {
-      if (styleString.length() > 0) {
-        writer.startElement(HtmlElements.LINK);
-        writer.writeAttribute(HtmlAttributes.REL, "stylesheet", false);
-        writer.writeAttribute(HtmlAttributes.HREF, styleString, true);
-//          writer.writeAttribute(HtmlAttributes.MEDIA, "screen", false);
-        writer.writeAttribute(HtmlAttributes.TYPE, "text/css", false);
-        writer.endElement(HtmlElements.LINK);
-      }
-    }
+  private void writeStyle(final TobagoResponseWriter writer, final String style) throws IOException {
+    writer.startElement(HtmlElements.LINK);
+    writer.writeAttribute(HtmlAttributes.REL, "stylesheet", false);
+    writer.writeAttribute(HtmlAttributes.HREF, style, true);
+//    writer.writeAttribute(HtmlAttributes.MEDIA, "screen", false);
+    writer.writeAttribute(HtmlAttributes.TYPE, "text/css", false);
+    writer.endElement(HtmlElements.LINK);
   }
-
-//  @Override
-//  public void encodeChildren(FacesContext facesContext, UIComponent component) throws IOException {
-//    UIPage page = (UIPage) component;
-//    page.encodeLayoutChildren(facesContext);
-//  }
 
   @Override
   public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
@@ -457,21 +445,13 @@ public class PageRenderer extends RendererBase {
     }
   }
 
-  private void encodeScript(final FacesContext facesContext, final TobagoResponseWriter writer, final String script)
-      throws IOException {
-    final List<String> list;
-    list = new ArrayList<String>();
-    list.add(script);
-    for (final String src : list) {
-      if (StringUtils.isNotBlank(src)) {
-        writer.startElement(HtmlElements.SCRIPT);
-        writer.writeAttribute(HtmlAttributes.SRC, src, true);
+  private void encodeScript(final TobagoResponseWriter writer, final String script) throws IOException {
+    writer.startElement(HtmlElements.SCRIPT);
+    writer.writeAttribute(HtmlAttributes.SRC, script, true);
 //   XXX with defer activated, pages are not shown reliable
 //        writer.writeAttribute(HtmlAttributes.DEFER, true);
-        writer.writeAttribute(HtmlAttributes.TYPE, "text/javascript", false);
-        writer.endElement(HtmlElements.SCRIPT);
-      }
-    }
+    writer.writeAttribute(HtmlAttributes.TYPE, "text/javascript", false);
+    writer.endElement(HtmlElements.SCRIPT);
   }
 
   private String getMethod(final UIPage page) {
