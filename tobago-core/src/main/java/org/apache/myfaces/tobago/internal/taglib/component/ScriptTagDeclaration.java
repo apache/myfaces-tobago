@@ -42,56 +42,13 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRend
 public interface ScriptTagDeclaration extends HasIdBindingAndRendered {
 
   /**
-   * File name to include into the rendered page.
+   * File name to include into the rendered page. The name must be full qualified, or relative.
+   * If using a complete path from root, you'll need to add the contextPath from the web application.
+   * This can be done with the EL #{request.contextPath}.
    * @param file A JavaScript file.
    */
   @TagAttribute()
   @UIComponentTagAttribute()
   void setFile(String file);
-
-  /**
-   * @deprecated Since 2.0.0. Please include a custom script file via the file attribute and use
-   * <code>Tobago.registerListener(myFunction, Tobago.Phase.DOCUMENT_READY);</code> or
-   * <code>Tobago.registerListener(myFunction, Tobago.Phase.WINDOW_LOAD);</code>
-   */
-  @Deprecated
-  @TagAttribute()
-  @UIComponentTagAttribute()
-  void setOnload(String onload);
-
-  /**
-   * @deprecated Since 2.0.0. Please include a custom script file via the file attribute and use
-   * <code>Tobago.registerListener(myFunction, Tobago.Phase.BEFORE_UNLOAD);</code>
-   */
-  @Deprecated
-  @TagAttribute()
-  @UIComponentTagAttribute()
-  void setOnunload(String onunload);
-
-  /**
-   * @deprecated Since 2.0.0. Please include a custom script file via the file attribute and use
-   * <code>Tobago.registerListener(myFunction, Tobago.Phase.BEFORE_EXIT);</code>
-   */
-  @Deprecated
-  @TagAttribute()
-  @UIComponentTagAttribute()
-  void setOnexit(String onexit);
-
-  /**
-   * @deprecated Since 2.0.0. Please include a custom script file via the file attribute and use
-   * <code>Tobago.registerListener(myFunction, Tobago.Phase.BEFORE_SUBMIT);</code>
-   */
-  @Deprecated
-  @TagAttribute()
-  @UIComponentTagAttribute()
-  void setOnsubmit(String onsubmit);
-
-  /**
-   * @deprecated Since 2.0.0. Please include a custom script file via the file attribute.
-   */
-  @Deprecated
-  @TagAttribute(bodyContent = true)
-  @UIComponentTagAttribute()
-  void setScript(String script);
 
 }
