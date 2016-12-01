@@ -111,7 +111,7 @@ public class TaglibGenerator extends AbstractGenerator {
     final DocumentBuilder parser = dbf.newDocumentBuilder();
     final Document document = parser.newDocument();
 
-    final Element taglib = createTaglib(document);
+    final Element taglib = createTaglib(document, taglibAnnotation);
     final String description = processingEnv.getElementUtils().getDocComment(packageElement);
 
     addComment("The next tags are commented because of MYFACES-3537. "
@@ -438,9 +438,10 @@ public class TaglibGenerator extends AbstractGenerator {
     parent.appendChild(element);
   }
 
-  protected Element createTaglib(final Document document) {
+  protected Element createTaglib(final Document document, Taglib taglibAnnotation) {
     final Element taglib;
     taglib = document.createElement("facelet-taglib");
+    taglib.setAttribute("id", taglibAnnotation.shortName());
     taglib.setAttribute("xmlns", "http://java.sun.com/xml/ns/javaee");
     taglib.setAttribute("xmlns:xsi", "http://www.w3.org/2001/XMLSchema-instance");
     taglib.setAttribute("xsi:schemaLocation",

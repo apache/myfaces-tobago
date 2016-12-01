@@ -186,12 +186,18 @@
     <plugins>
 
       <plugin>
-        <groupId>net.sourceforge.maven-taglib</groupId>
-        <artifactId>maven-taglib-plugin</artifactId>
+        <groupId>com.github.matinh.vdldoc</groupId>
+        <artifactId>vdldoc-maven-plugin</artifactId>
         <configuration>
-          <taglib.src.dir>${project.build.directory}/generated</taglib.src.dir>
-          <tldDocDir>${project.build.directory}/site/tlddoc</tldDocDir>
-          <parseHtml>true</parseHtml>
+          <destDir>tlddoc</destDir>
+          <documentTitle>Tag Library Documentation</documentTitle>
+          <excludes>
+            <exclude>target/classes/**</exclude>
+          </excludes>
+          <includes>
+            <include>target/generated/META-INF/tobago-sandbox.taglib.xml</include>
+          </includes>
+          <reportOutputDirectory>target</reportOutputDirectory>
         </configuration>
       </plugin>
 
@@ -240,16 +246,26 @@
       <build>
         <plugins>
           <plugin>
-            <groupId>net.sourceforge.maven-taglib</groupId>
-            <artifactId>maven-taglib-plugin</artifactId>
+            <groupId>com.github.matinh.vdldoc</groupId>
+            <artifactId>vdldoc-maven-plugin</artifactId>
             <configuration>
-              <taglib.src.dir>${project.build.directory}/generated</taglib.src.dir>
-              <tldDocDir>${project.build.directory}/tlddoc</tldDocDir>
+              <destDir>tlddoc</destDir>
+              <documentTitle>Tag Library Documentation</documentTitle>
+              <excludes>
+                <exclude>target/classes/**</exclude>
+              </excludes>
+              <includes>
+                <include>target/generated/META-INF/tobago.taglib.xml</include>
+              </includes>
+              <reportOutputDirectory>target</reportOutputDirectory>
             </configuration>
             <executions>
               <execution>
                 <id>attach-tlddoc</id>
-                <goals><goal>taglibdocjar</goal></goals>
+                <phase>generate-sources</phase>
+                <goals>
+                  <goal>vdldoc</goal>
+                </goals>
               </execution>
             </executions>
           </plugin>
