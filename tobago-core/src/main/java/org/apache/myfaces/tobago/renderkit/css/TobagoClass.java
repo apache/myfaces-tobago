@@ -25,7 +25,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * TBD: preliminary
+ * Declaration of the Tobago CSS classes.
  *
  * @since 3.0.0
  */
