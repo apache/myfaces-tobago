@@ -189,8 +189,8 @@ function layoutFlex(container, orientation) {
           //container.children().eq(i).css(Modernizr.prefixed("flex"), tokens[i] + " 0 0px");  // todo: modernizr
 
           var child = container.children().eq(i);
-          if (typeof child != 'undefined' && child.hasClass('tobago-box')) {
-            // XXX Is needed for IE11, otherwise tc:box doesn't displayed properly.
+          if (typeof child != 'undefined' && child.hasClass('tobago-box')
+              && orientation == Tobago.Layout.Orientation.VERTICAL) {
             container.children().eq(i).css(flex, tokens[i] + " 0 auto");
           } else {
             container.children().eq(i).css(flex, tokens[i] + " 0 0px");

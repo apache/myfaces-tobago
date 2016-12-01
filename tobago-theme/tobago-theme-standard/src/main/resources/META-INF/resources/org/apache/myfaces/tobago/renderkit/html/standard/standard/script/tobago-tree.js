@@ -27,7 +27,7 @@ Tobago.Tree.toggleNode = function(element, event) {
   if (Tobago.Tree.isExpanded(node, expanded)) {
     Tobago.Tree.hideChildren(node);
     toggle.each(function() {
-      src = jQuery(this).data("tobago-src-close");
+      src = jQuery(this).data("tobago-src-closed");
       if (src == null) { // use the open icon if there is no close icon
         src = jQuery(this).data("tobago-src-open");
       }
@@ -53,7 +53,7 @@ Tobago.Tree.toggleNode = function(element, event) {
       toggle.each(function() {
         src = jQuery(this).data("tobago-src-open");
         if (src == null) { // use the close icon if there is no open icon
-          src = jQuery(this).data("tobago-src-close");
+          src = jQuery(this).data("tobago-src-closed");
         }
         jQuery(this).attr("src", src);
       });

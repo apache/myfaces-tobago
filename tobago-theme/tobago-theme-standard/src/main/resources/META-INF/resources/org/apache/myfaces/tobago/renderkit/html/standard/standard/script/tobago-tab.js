@@ -25,53 +25,17 @@ Tobago.TabGroup.init = function(elements) {
 
   var tabGroups = Tobago.Utils.selectWithJQuery(elements, ".tobago-tabGroup");
 
-  // initialize the tab header elements
-  // reload tab case
-  tabGroups.filter("[switchType='reloadTab']").each(function() {
-    jQuery(this)
-        .find(".tobago-tabGroup-header")
-        .first()
-        .children(".tobago-tab")
-        .not(".tobago-tab-markup-disabled")
-        .click(
-            function (event) {
-              var tab = jQuery(this);
-              var activeIndex = Tobago.TabGroup.updateHidden(tab);
-              console.debug("todo: ajax reload, activeIndex=" + activeIndex); // @DEV_ONLY
-              var tabGroup = tab.parents(".tobago-tabGroup:first");
-              var tabGroupId = tabGroup.attr("id");
-              var executeIds = tabGroupId;
-              var renderIds = tabGroupId;
-              var behaviorCommands = tabGroup.data("tobago-behavior-commands");
-              if (behaviorCommands && behaviorCommands.reload) {
-                if (behaviorCommands.reload.execute) {
-                  executeIds = behaviorCommands.reload.execute;
-                }
-                if (behaviorCommands.reload.render) {
-                  renderIds +=  " " + behaviorCommands.reload.render;
-                }
-              }
-
-              jsf.ajax.request(
-                  tabGroupId,
-                  event,
-                  {
-                    execute: executeIds,
-                    render: renderIds
-                  });
-            })
-  });
-
-  // initialize the tab header elements
-  // reload page case
-  tabGroups.filter("[switchType='reloadPage']").each(function() {
-    jQuery(this).find(".tobago-tabGroup-header").first()
-      .children(".tobago-tab").not(".tobago-tab-markup-disabled").click(function() {
-          var activeIndex = Tobago.TabGroup.updateHidden(jQuery(this));
-          console.debug("todo: full reload, activeIndex=" + activeIndex); // @DEV_ONLY
-          var tabGroup = jQuery(this).parents(".tobago-tabGroup:first");
-          Tobago.submitAction(tabGroup.eq(0), tabGroup.attr("id"));
-        })
+  // setting the active index
+  tabGroups.each(function () {
+    jQuery(this).find(".tobago-tabGroup-header").first().children(".tobago-tab").not(".tobago-tab-markup-disabled")
+        .click(function () {
+      // Update the hidden field for the active index.
+      var tab = jQuery(this);
+      var tabGroup = tab.parents(".tobago-tabGroup:first");
+      var hidden = tabGroup.children("input");
+      var activeIndex = tab.attr("tabgroupindex");
+      hidden.val(activeIndex);
+    })
   });
 
   // initialize previous button
@@ -107,29 +71,9 @@ Tobago.TabGroup.init = function(elements) {
   });
 
 
-  // initialize menu
-  // XXX ":last" is dangerous, please define e.g. a unique class for "menu"
-//  tabGroups.find(".tobago-tabGroupToolBar-button:last").find(".tobago-menu").click(function() {
-//    var index = jQuery(this).prevAll().size();
-//    var tabGroup = jQuery(this).parents(".tobago-tabGroup:first");
-//    var selected = tabGroup.find(".tobago-tab").eq(index).click();
-//  });
-
   // XXX hack for webkit to avoid scrollbars in box
 //  jQuery('.tobago-tabGroup').hide();
 //  jQuery('.tobago-tabGroup').show();
-};
-
-/**
- * Update the hidden field for the active index.
- * @param tab is a jQuery object which represents the clicked tab area.
- */
-Tobago.TabGroup.updateHidden = function(tab) {
-  var tabGroup = tab.parents(".tobago-tabGroup:first");
-  var hidden = tabGroup.children("input");
-  var activeIndex = tab.attr("tabgroupindex");
-  hidden.val(activeIndex);
-  return activeIndex;
 };
 
 Tobago.TabGroup.ensureScrollPosition = function (header) {
