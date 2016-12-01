@@ -733,7 +733,7 @@ p.tobago-separator:after {
   margin-bottom: 0;
 }
 
-.tableLayout-fixed {
+.tobago-tableLayout-fixed {
   table-layout: fixed;
 }
 

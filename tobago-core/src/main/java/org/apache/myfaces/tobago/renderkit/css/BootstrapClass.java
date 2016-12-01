@@ -28,7 +28,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * CSS classes for the Bootstrap-DateTimePicker-Library.
+ * CSS classes for the Bootstrap Library.
  *
  * @since 3.0.0
  */

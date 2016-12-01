@@ -31,6 +31,8 @@ import org.slf4j.LoggerFactory;
  */
 public enum TobagoClass implements CssItem {
 
+  // general classes
+
   ALIGN_ITEMS__BASELINE("tobago-alignItems-baseline"),
   ALIGN_ITEMS__CENTER("tobago-alignItems-center"),
   ALIGN_ITEMS__FLEX_END("tobago-alignItems-flexEnd"),
@@ -44,10 +46,12 @@ public enum TobagoClass implements CssItem {
   JUSTIFY_CONTENT__SPACE_AROUND("tobago-justifyContent-spaceAround"),
 
   DROPDOWN_SUBMENU("tobago-dropdown-submenu"),
-  TABLE_LAYOUT__FIXED("tableLayout-fixed"),
+  TABLE_LAYOUT__FIXED("tobago-tableLayout-fixed"),
 
   HAS_INFO("tobago-has-info"),
   REQUIRED("tobago-required"),
+
+  // component based classes
 
   BOX__HEADER("tobago-box-header"),
   COLLAPSED("tobago-collapsed"),

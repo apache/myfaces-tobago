@@ -25,6 +25,8 @@ import org.apache.myfaces.tobago.renderkit.css.CssItem;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.junit.Assert;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -32,8 +34,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * Test if every in Java declared CSS class has really an entry in a CSS file.
+ */
 public class CssClassCompareUnitTest extends AbstractTobagoTestBase {
 
+  private static final Logger LOG = LoggerFactory.getLogger(CssClassCompareUnitTest.class);
+
+  /**
+   * This test checks, if every item of the {@link BootstrapClass} occurs in the bootstrap.css.
+   */
   @Test
   public void testCompareBootstrapCss() throws FileNotFoundException {
     File bootstrapCss = new File(
@@ -42,6 +52,9 @@ public class CssClassCompareUnitTest extends AbstractTobagoTestBase {
     compareCss(bootstrapCss, BootstrapClass.values());
   }
 
+  /**
+   * This test checks, if every item of the {@link TobagoClass} occurs in the _tobago.scss.
+   */
   @Test
   public void testCompareTobagoCss() throws FileNotFoundException {
     File tobagoCss = new File(
