@@ -65,6 +65,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Collection;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 // currently using tobago-jsf.js instead
@@ -153,7 +154,8 @@ public class PageRenderer extends RendererBase {
     final Object response = externalContext.getResponse();
     final Application application = facesContext.getApplication();
     final ViewHandler viewHandler = application.getViewHandler();
-    final String viewId = facesContext.getViewRoot().getViewId();
+    final UIViewRoot viewRoot = facesContext.getViewRoot();
+    final String viewId = viewRoot.getViewId();
     final String formAction = externalContext.encodeActionURL(viewHandler.getActionURL(facesContext, viewId));
     final String partialAction;
     final boolean portlet = PortletUtils.isPortletApiAvailable() && response instanceof MimeResponse;
@@ -193,6 +195,17 @@ public class PageRenderer extends RendererBase {
 
     if (!facesContext.getPartialViewContext().isAjaxRequest()) {
       final String title = page.getLabel();
+
+      if (!PortletUtils.isPortletApiAvailable() || !(response instanceof MimeResponse)) {
+        writer.startElement(HtmlElements.HTML);
+        final Locale locale = viewRoot.getLocale();
+        if (locale != null) {
+          final String language = locale.getLanguage();
+          if (language != null) {
+            writer.writeAttribute(HtmlAttributes.LANG, language, false);
+          }
+        }
+      }
 
       writer.startElement(HtmlElements.HEAD);
 
@@ -241,8 +254,7 @@ public class PageRenderer extends RendererBase {
         }
         writer.endElement(HtmlElements.LINK);
       }
-      UIViewRoot root = facesContext.getViewRoot();
-      List<UIComponent> componentResources = root.getComponentResources(facesContext, HEAD_TARGET);
+      List<UIComponent> componentResources = viewRoot.getComponentResources(facesContext, HEAD_TARGET);
 
       for (int i = 0, childCount = componentResources.size(); i < childCount; i++) {
         UIComponent child = componentResources.get(i);
@@ -381,7 +393,6 @@ public class PageRenderer extends RendererBase {
     }
     writer.endElement(HtmlElements.SPAN);
 
-
     writer.endElement(HtmlElements.FORM);
 
     writer.startElement(HtmlElements.NOSCRIPT);
@@ -396,6 +407,7 @@ public class PageRenderer extends RendererBase {
       writer.endElement(HtmlElements.DIV);
     } else {
       writer.endElement(HtmlElements.BODY);
+      writer.endElement(HtmlElements.HTML);
     }
 
     AccessKeyLogger.logStatus(facesContext);
