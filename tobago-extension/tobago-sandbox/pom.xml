@@ -255,7 +255,7 @@
                 <exclude>target/classes/**</exclude>
               </excludes>
               <includes>
-                <include>target/generated/META-INF/tobago.taglib.xml</include>
+                <include>target/generated/META-INF/tobago-sandbox.taglib.xml</include>
               </includes>
               <reportOutputDirectory>target</reportOutputDirectory>
             </configuration>
