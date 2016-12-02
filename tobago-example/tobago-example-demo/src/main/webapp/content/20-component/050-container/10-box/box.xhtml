@@ -24,7 +24,7 @@
                 xmlns:f="http://java.sun.com/jsf/core">
   <ui:param name="title" value="#{demoBundle.box} &lt;tc:box>"/>
   <p>A content box is created with <code class="language-markup">&lt;tc:box/></code>.</p>
-  <tc:link label="Tag Library Documentation" image="/image/feather-leaf.png"
+  <tc:link label="Tag Library Documentation" image="#{request.contextPath}/image/feather-leaf.png"
            link="#{demoBundle.tagDocUrl}/box.html"/>
   <tc:section label="Basics">
     <p>The title of the box is set by the <code>label</code> attribute.</p>

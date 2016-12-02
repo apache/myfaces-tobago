@@ -29,11 +29,11 @@
   <p>To activate Ajax, the <code>switchType</code> attribute must have the value "reloadTab".
     On all tabgroups on this page, Ajax is activated.</p>
   <p>Tag Library Documentation:
-    <tc:link label="&lt;tc:tabGroup/>" image="/image/feather-leaf.png" link="#{demoBundle.tagDocUrl}/tabGroup.html"/>
+    <tc:link label="&lt;tc:tabGroup/>" image="#{request.contextPath}/image/feather-leaf.png" link="#{demoBundle.tagDocUrl}/tabGroup.html"/>
     |
-    <tc:link label="&lt;tc:tab/>" image="/image/feather-leaf.png" link="#{demoBundle.tagDocUrl}/tab.html"/>
+    <tc:link label="&lt;tc:tab/>" image="#{request.contextPath}/image/feather-leaf.png" link="#{demoBundle.tagDocUrl}/tab.html"/>
     |
-    <tc:link label="&lt;tc:tabChangeListener/>" image="/image/feather-leaf.png"
+    <tc:link label="&lt;tc:tabChangeListener/>" image="#{request.contextPath}/image/feather-leaf.png"
              link="#{demoBundle.tagDocUrl}/tabChangeListener.html"/></p>
 
   <tc:section label="Basics">
@@ -59,15 +59,15 @@
         <pre><code id="tabHead1Code" class="language-markup">&lt;tc:tab label="Only label"/></code></pre>
         <f:verbatim><script type="text/javascript">Prism.highlightElement($('#tabHead1Code')[0]);</script></f:verbatim>
       </tc:tab>
-      <tc:tab id="tabHead2" label="Label with image" image="/image/feather-leaf.png">
+      <tc:tab id="tabHead2" label="Label with image" image="#{request.contextPath}/image/feather-leaf.png">
         <p>A label and an image are set.</p>
         <pre><code id="tabHead2Code"
-                class="language-markup">&lt;tc:tab label="Label with image" image="/image/feather-leaf.png"></code></pre>
+                class="language-markup">&lt;tc:tab label="Label with image" image="\#{request.contextPath}/image/feather-leaf.png"></code></pre>
         <f:verbatim><script type="text/javascript">Prism.highlightElement($('#tabHead2Code')[0]);</script></f:verbatim>
       </tc:tab>
-      <tc:tab id="tabHead3" image="/image/feather-leaf.png">
+      <tc:tab id="tabHead3" image="#{request.contextPath}/image/feather-leaf.png">
         <p>Only an image is set.</p>
-        <pre><code id="tabHead3Code" class="language-markup">&lt;tc:tab image="/image/feather-leaf.png"></code></pre>
+        <pre><code id="tabHead3Code" class="language-markup">&lt;tc:tab image="\#{request.contextPath}/image/feather-leaf.png"></code></pre>
         <f:verbatim><script type="text/javascript">Prism.highlightElement($('#tabHead3Code')[0]);</script></f:verbatim>
       </tc:tab>
       <tc:tab id="tabHead4">

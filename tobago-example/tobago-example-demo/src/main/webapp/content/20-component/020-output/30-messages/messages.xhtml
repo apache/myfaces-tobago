@@ -23,7 +23,7 @@
                 xmlns:f="http://java.sun.com/jsf/core">
   <ui:param name="title" value="#{demoBundle.messages} &lt;tc:messages>"/>
   <p>Messages are displayed via <code class="language-markup">&lt;tc:messages/></code> tag.</p>
-  <tc:link label="Tag Library Documentation" image="/image/feather-leaf.png"
+  <tc:link label="Tag Library Documentation" image="#{request.contextPath}/image/feather-leaf.png"
            link="#{demoBundle.tagDocUrl}/messages.html"/>
 
   <tc:section label="Create Message">

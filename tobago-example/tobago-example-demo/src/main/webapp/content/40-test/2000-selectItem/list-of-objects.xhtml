@@ -41,7 +41,7 @@
       <tc:selectItems
           value="#{selectItemModel.availableCurrenciesAsObject}" var="currency"
           itemValue="#{currency}" itemLabel="#{currency.displayName}"
-          itemImage="data/#{currency.currencyCode}-14.png"/>
+          itemImage="#{request.contextPath}/data/#{currency.currencyCode}-14.png"/>
     </tc:selectOneRadio>
 
       <tc:out value="Current value on server: #{selectItemModel.currency2.displayName}"/>

@@ -23,7 +23,7 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets">
   <ui:param name="title" value="#{demoBundle.out} &lt;tc:out&gt;"/>
   <p>The <code class="language-markup">&lt;tc:out/></code> display an outputtext combined with a label.</p>
-  <tc:link label="Tag Library Documentation" image="/image/feather-leaf.png" link="#{demoBundle.tagDocUrl}/out.html"/>
+  <tc:link label="Tag Library Documentation" image="#{request.contextPath}/image/feather-leaf.png" link="#{demoBundle.tagDocUrl}/out.html"/>
   <tc:section label="Basics">
     <p>To put a label in front of a outputtext, use the <code>label</code> attribute.</p>
     <pre><code class="language-markup">&lt;tc:out label="Output" value="Some Text"/&gt;</code></pre>
