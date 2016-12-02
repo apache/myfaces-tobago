@@ -77,7 +77,7 @@ public class QUnitTests {
   private void setupBrowser(String page, String testJs) throws UnsupportedEncodingException {
     LOG.info("setup browser for: " + page);
     browser.get(contextPath + "/faces/test.xhtml?page=" + URLEncoder.encode(page, "UTF-8") + "&testjs="
-        + URLEncoder.encode(testJs, "UTF-8"));
+        + contextPath + URLEncoder.encode(testJs, "UTF-8"));
   }
 
   private void runStandardTest(String page) throws UnsupportedEncodingException, InterruptedException {

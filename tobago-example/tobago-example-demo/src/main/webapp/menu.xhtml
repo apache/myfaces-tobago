@@ -122,8 +122,8 @@
                      label="Run Test"
                      immediate="true" tip="Run Test"
                      rendered="#{testController.testJs != null}">
-            <f:param name="page" value="#{testController.page}"/>
-            <f:param name="testjs" value="#{testController.testJs}"/>
+            <f:param name="page" value="#{request.contextPath}#{testController.page}"/>
+            <f:param name="testjs" value="#{request.contextPath}/#{testController.testJs}"/>
           </tc:button>
           <tc:button id="closetest" label="Close Test"
                      immediate="true" tip="Close test window"/>

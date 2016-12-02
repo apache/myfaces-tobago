@@ -21,10 +21,10 @@
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns="http://www.w3.org/1999/xhtml">
-  <tc:script file="script/demo.js"/>
-  <tc:script file="script/qunit-1.23.1.js"/>
-  <tc:script file="script/tobago-test.js"/>
-  <tc:style file="style/qunit-1.23.1.css"/>
+  <tc:script file="#{request.contextPath}/script/demo.js"/>
+  <tc:script file="#{request.contextPath}/script/qunit-1.23.1.js"/>
+  <tc:script file="#{request.contextPath}/script/tobago-test.js"/>
+  <tc:style file="#{request.contextPath}/style/qunit-1.23.1.css"/>
   <tc:script file="#{param['testjs']}"/>
 
   <div id="qunit"></div>
