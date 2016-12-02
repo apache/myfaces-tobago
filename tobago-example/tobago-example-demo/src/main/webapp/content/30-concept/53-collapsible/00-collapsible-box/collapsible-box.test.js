@@ -234,8 +234,8 @@ QUnit.test("Full Server Request: close both boxes", function (assert) {
 QUnit.test("Client Sided: show -> hide transition", function (assert) {
   assert.expect(2);
 
-  var $show = jQueryFrame("#page\\:mainForm\\:client\\:show");
-  var $hide = jQueryFrame("#page\\:mainForm\\:client\\:hide");
+  var $show = jQueryFrame("#page\\:mainForm\\:client\\:showNoRequestBox");
+  var $hide = jQueryFrame("#page\\:mainForm\\:client\\:hideNoRequestBox");
   var $box = jQueryFrame("#page\\:mainForm\\:client\\:noRequestBox");
 
   $show.click();
@@ -248,8 +248,8 @@ QUnit.test("Client Sided: show -> hide transition", function (assert) {
 QUnit.test("Client Sided: hide -> show transition", function (assert) {
   assert.expect(2);
 
-  var $show = jQueryFrame("#page\\:mainForm\\:client\\:show");
-  var $hide = jQueryFrame("#page\\:mainForm\\:client\\:hide");
+  var $show = jQueryFrame("#page\\:mainForm\\:client\\:showNoRequestBox");
+  var $hide = jQueryFrame("#page\\:mainForm\\:client\\:hideNoRequestBox");
   var $box = jQueryFrame("#page\\:mainForm\\:client\\:noRequestBox");
 
   $hide.click();
@@ -264,11 +264,11 @@ QUnit.test("Client Sided: hide content and submit empty string", function (asser
   var done = assert.async();
 
   var $messages = jQueryFrame("#page\\:messages .tobago-messages");
-  var $show = jQueryFrame("#page\\:mainForm\\:client\\:show");
-  var $hide = jQueryFrame("#page\\:mainForm\\:client\\:hide");
+  var $show = jQueryFrame("#page\\:mainForm\\:client\\:showNoRequestBox");
+  var $hide = jQueryFrame("#page\\:mainForm\\:client\\:hideNoRequestBox");
   var $box = jQueryFrame("#page\\:mainForm\\:client\\:noRequestBox");
-  var $in = jQueryFrame("#page\\:mainForm\\:client\\:in\\:\\:field");
-  var $submit = jQueryFrame("#page\\:mainForm\\:client\\:submit");
+  var $in = jQueryFrame("#page\\:mainForm\\:client\\:inNoRequestBox\\:\\:field");
+  var $submit = jQueryFrame("#page\\:mainForm\\:client\\:submitNoRequestBox");
 
   $hide.click();
   assert.equal($box.hasClass("tobago-collapsed"), true);
@@ -288,9 +288,9 @@ QUnit.test("Ajax: show -> hide transition", function (assert) {
   var done = assert.async(2);
   var step = 1;
 
-  var $show = jQueryFrame("#page\\:mainForm\\:ajax\\:show");
-  var $hide = jQueryFrame("#page\\:mainForm\\:ajax\\:hide");
-  var $in = jQueryFrame("#page\\:mainForm\\:ajax\\:in\\:\\:field");
+  var $show = jQueryFrame("#page\\:mainForm\\:ajax\\:showAjaxBox");
+  var $hide = jQueryFrame("#page\\:mainForm\\:ajax\\:hideAjaxBox");
+  var $in = jQueryFrame("#page\\:mainForm\\:ajax\\:inAjaxBox\\:\\:field");
 
   $show.click();
 
@@ -326,9 +326,9 @@ QUnit.test("Ajax: hide -> show transition", function (assert) {
   var done = assert.async(2);
   var step = 1;
 
-  var $show = jQueryFrame("#page\\:mainForm\\:ajax\\:show");
-  var $hide = jQueryFrame("#page\\:mainForm\\:ajax\\:hide");
-  var $in = jQueryFrame("#page\\:mainForm\\:ajax\\:in\\:\\:field");
+  var $show = jQueryFrame("#page\\:mainForm\\:ajax\\:showAjaxBox");
+  var $hide = jQueryFrame("#page\\:mainForm\\:ajax\\:hideAjaxBox");
+  var $in = jQueryFrame("#page\\:mainForm\\:ajax\\:inAjaxBox\\:\\:field");
 
   $hide.click();
 
@@ -356,16 +356,16 @@ QUnit.test("Ajax: hide -> show transition", function (assert) {
   });
 });
 
-QUnit.test("Client Sided: hide content and submit empty string", function (assert) {
+QUnit.test("Ajax: hide content and submit empty string", function (assert) {
   assert.expect(3);
   var done = assert.async(3);
   var step = 1;
 
   var $messages = jQueryFrame("#page\\:messages .tobago-messages");
-  var $show = jQueryFrame("#page\\:mainForm\\:ajax\\:show");
-  var $hide = jQueryFrame("#page\\:mainForm\\:ajax\\:hide");
-  var $in = jQueryFrame("#page\\:mainForm\\:ajax\\:in\\:\\:field");
-  var $submit = jQueryFrame("#page\\:mainForm\\:ajax\\:submit");
+  var $show = jQueryFrame("#page\\:mainForm\\:ajax\\:showAjaxBox");
+  var $hide = jQueryFrame("#page\\:mainForm\\:ajax\\:hideAjaxBox");
+  var $in = jQueryFrame("#page\\:mainForm\\:ajax\\:inAjaxBox\\:\\:field");
+  var $submit = jQueryFrame("#page\\:mainForm\\:ajax\\:submitAjaxBox");
 
   $show.click();
 

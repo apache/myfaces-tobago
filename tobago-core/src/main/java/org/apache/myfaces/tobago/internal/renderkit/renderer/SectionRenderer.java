@@ -21,6 +21,7 @@ package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.internal.component.AbstractUISection;
+import org.apache.myfaces.tobago.model.CollapseMode;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
@@ -73,7 +74,9 @@ public class SectionRenderer extends PanelRendererBase {
         tag = HtmlElements.H6;
     }
 
-    encodeHidden(writer, clientId, collapsed);
+    if (section.getCollapsedMode() != CollapseMode.none) {
+      encodeHidden(writer, clientId, collapsed);
+    }
 
     writer.startElement(HtmlElements.DIV);
     writer.writeClassAttribute(TobagoClass.SECTION__HEADER);

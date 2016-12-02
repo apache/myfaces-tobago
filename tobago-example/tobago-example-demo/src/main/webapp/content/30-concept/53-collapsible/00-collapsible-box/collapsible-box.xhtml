@@ -46,13 +46,13 @@
   <tc:section label="Full Server Request">
     <tc:form id="server">
       <p>In this example, the operaction tag is used to change the state of the boxes.</p>
-      <pre><code class="language-markup">&lt;tc:box id="box1" label="Full Request Box 1">
+      <pre><code class="language-markup">&lt;tc:box id="box1" label="Full Request Box 1" collapsedMode="absent">
   &lt;f:facet name="bar">
     &lt;tc:buttons>
       &lt;tc:button label="show">
         &lt;tc:operation name="show" for="box1"/>
       ...</code></pre>
-      <tc:box id="box1" label="Full Request Box 1">
+      <tc:box id="box1" label="Full Request Box 1" collapsedMode="absent">
         <f:facet name="bar">
           <tc:buttons>
             <tc:button id="show1" label="show">
@@ -65,7 +65,7 @@
         </f:facet>
         <tc:out id="content1" value="Content"/>
       </tc:box>
-      <tc:box id="box2" label="Full Request Box 2">
+      <tc:box id="box2" label="Full Request Box 2" collapsedMode="absent">
         <f:facet name="bar">
           <tc:buttons>
             <tc:button id="show2" label="show">
@@ -98,17 +98,17 @@
       <tc:box id="noRequestBox" label="No Request Box" collapsed="true" collapsedMode="hidden">
         <f:facet name="bar">
           <tc:buttons>
-            <tc:button id="show" label="show" omit="true">
+            <tc:button id="showNoRequestBox" label="show" omit="true">
               <tc:operation name="show" for="noRequestBox"/>
             </tc:button>
-            <tc:button id="hide" label="hide" omit="true">
+            <tc:button id="hideNoRequestBox" label="hide" omit="true">
               <tc:operation name="hide" for="noRequestBox"/>
             </tc:button>
           </tc:buttons>
         </f:facet>
-        <tc:in id="in" label="Required" required="true"/>
+        <tc:in id="inNoRequestBox" label="Required" required="true"/>
       </tc:box>
-      <tc:button id="submit" label="Submit"/>
+      <tc:button id="submitNoRequestBox" label="Submit"/>
     </tc:form>
   </tc:section>
 
@@ -131,19 +131,19 @@
       <tc:box id="ajaxBox" label="Ajax Box" collapsedMode="absent">
         <f:facet name="bar">
           <tc:buttons>
-            <tc:button id="show" label="show" immediate="true">
+            <tc:button id="showAjaxBox" label="show" immediate="true">
               <f:ajax execute="ajaxBox" render="ajaxBox"/>
               <tc:operation name="show" for="ajaxBox"/>
             </tc:button>
-            <tc:button id="hide" label="hide" immediate="true">
+            <tc:button id="hideAjaxBox" label="hide" immediate="true">
               <f:ajax execute="ajaxBox" render="ajaxBox"/>
               <tc:operation name="hide" for="ajaxBox"/>
             </tc:button>
           </tc:buttons>
         </f:facet>
-        <tc:in id="in" label="Required" required="true"/>
+        <tc:in id="inAjaxBox" label="Required" required="true"/>
       </tc:box>
-      <tc:button id="submit" label="Submit"/>
+      <tc:button id="submitAjaxBox" label="Submit"/>
     </tc:form>
   </tc:section>
 </ui:composition>

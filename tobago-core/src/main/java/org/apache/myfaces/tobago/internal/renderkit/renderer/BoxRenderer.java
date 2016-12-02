@@ -22,6 +22,7 @@ import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.internal.component.AbstractUIBox;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.internal.util.RenderUtils;
+import org.apache.myfaces.tobago.model.CollapseMode;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
@@ -62,7 +63,9 @@ public class BoxRenderer extends PanelRendererBase {
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, box);
     writer.writeStyleAttribute(box.getStyle());
 
-    encodeHidden(writer, clientId, collapsed);
+    if (box.getCollapsedMode() != CollapseMode.none) {
+      encodeHidden(writer, clientId, collapsed);
+    }
 
     if (label != null || labelString != null || bar != null) {
       writer.startElement(HtmlElements.DIV);

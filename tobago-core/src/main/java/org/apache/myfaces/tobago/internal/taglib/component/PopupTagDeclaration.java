@@ -25,10 +25,10 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.internal.component.AbstractUIPopup;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasCollapsedMode;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
+import org.apache.myfaces.tobago.model.CollapseMode;
 
 /**
  * Renders a popup panel.
@@ -42,7 +42,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
     rendererType = RendererTypes.POPUP
 )
 public interface PopupTagDeclaration
-    extends HasIdBindingAndRendered, IsVisual, HasCollapsedMode, HasTip {
+    extends HasIdBindingAndRendered, IsVisual, HasTip {
 
   /**
    * Indicating the collapsed state of this component.
@@ -51,4 +51,10 @@ public interface PopupTagDeclaration
   @UIComponentTagAttribute(type = "boolean", defaultValue = "true")
   void setCollapsed(String collapsed);
 
+  @TagAttribute
+  @UIComponentTagAttribute(
+      type = "org.apache.myfaces.tobago.model.CollapseMode",
+      defaultValue = CollapseMode.ABSENT,
+      defaultCode = "org.apache.myfaces.tobago.model.CollapseMode.absent")
+  void setCollapsedMode(String collapsed);
 }

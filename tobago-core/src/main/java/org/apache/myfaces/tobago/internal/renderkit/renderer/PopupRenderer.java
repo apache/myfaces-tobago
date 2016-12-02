@@ -20,6 +20,7 @@
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
 import org.apache.myfaces.tobago.internal.component.AbstractUIPopup;
+import org.apache.myfaces.tobago.model.CollapseMode;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
@@ -68,7 +69,9 @@ public class PopupRenderer extends PanelRendererBase {
     writer.startElement(HtmlElements.DIV);
     writer.writeClassAttribute(BootstrapClass.MODAL_CONTENT);
 
-    encodeHidden(writer, clientId, collapsed);
+    if (popup.getCollapsedMode() != CollapseMode.none) {
+      encodeHidden(writer, clientId, collapsed);
+    }
   }
 
   @Override

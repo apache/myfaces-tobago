@@ -21,11 +21,11 @@ QUnit.test("Simple Panel", function (assert) {
   var step = 1;
 
   var $messages = jQueryFrame("#page\\:messages .tobago-messages");
-  var $submit = jQueryFrame("#\\page\\:mainForm\\:simple\\:submit");
-  var $show = jQueryFrame("#\\page\\:mainForm\\:simple\\:show");
-  var $hide = jQueryFrame("#\\page\\:mainForm\\:simple\\:hide");
+  var $submit = jQueryFrame("#\\page\\:mainForm\\:simple\\:submitSimple");
+  var $show = jQueryFrame("#\\page\\:mainForm\\:simple\\:showSimple");
+  var $hide = jQueryFrame("#\\page\\:mainForm\\:simple\\:hideSimple");
   var $sectionCollapsed = jQueryFrame("#page\\:mainForm\\:simple\\:simpleSection\\:\\:collapse");
-  var $in = jQueryFrame("#page\\:mainForm\\:simple\\:in\\:\\:field");
+  var $in = jQueryFrame("#page\\:mainForm\\:simple\\:inSimple\\:\\:field");
 
   $show.click();
 
@@ -102,11 +102,11 @@ QUnit.test("Full Server Request", function (assert) {
   var step = 1;
 
   var $messages = jQueryFrame("#page\\:messages .tobago-messages");
-  var $submit = jQueryFrame("#\\page\\:mainForm\\:server\\:submit");
-  var $show = jQueryFrame("#\\page\\:mainForm\\:server\\:show");
-  var $hide = jQueryFrame("#\\page\\:mainForm\\:server\\:hide");
+  var $submit = jQueryFrame("#\\page\\:mainForm\\:server\\:submitServer");
+  var $show = jQueryFrame("#\\page\\:mainForm\\:server\\:showServer");
+  var $hide = jQueryFrame("#\\page\\:mainForm\\:server\\:hideServer");
   var $sectionCollapsed = jQueryFrame("#page\\:mainForm\\:server\\:fullRequestSection\\:\\:collapse");
-  var $in = jQueryFrame("#page\\:mainForm\\:server\\:in\\:\\:field");
+  var $in = jQueryFrame("#page\\:mainForm\\:server\\:inServer\\:\\:field");
 
   $show.click();
 
@@ -183,11 +183,11 @@ QUnit.test("Client Sided", function (assert) {
   var step = 1;
 
   var $messages = jQueryFrame("#page\\:messages .tobago-messages");
-  var $submit = jQueryFrame("#\\page\\:mainForm\\:client\\:submit");
-  var $show = jQueryFrame("#\\page\\:mainForm\\:client\\:show");
-  var $hide = jQueryFrame("#\\page\\:mainForm\\:client\\:hide");
+  var $submit = jQueryFrame("#\\page\\:mainForm\\:client\\:submitClient");
+  var $show = jQueryFrame("#\\page\\:mainForm\\:client\\:showClient");
+  var $hide = jQueryFrame("#\\page\\:mainForm\\:client\\:hideClient");
   var $sectionCollapsed = jQueryFrame("#page\\:mainForm\\:client\\:clientSection\\:\\:collapse");
-  var $in = jQueryFrame("#page\\:mainForm\\:client\\:in\\:\\:field");
+  var $in = jQueryFrame("#page\\:mainForm\\:client\\:inClient\\:\\:field");
 
   $show.click();
   assert.equal($sectionCollapsed.val(), "false");
@@ -249,11 +249,11 @@ QUnit.test("Ajax", function (assert) {
   var step = 1;
 
   var $messages = jQueryFrame("#page\\:messages .tobago-messages");
-  var $submit = jQueryFrame("#\\page\\:mainForm\\:ajax\\:submit");
-  var $show = jQueryFrame("#\\page\\:mainForm\\:ajax\\:show");
-  var $hide = jQueryFrame("#\\page\\:mainForm\\:ajax\\:hide");
+  var $submit = jQueryFrame("#\\page\\:mainForm\\:ajax\\:submitAjax");
+  var $show = jQueryFrame("#\\page\\:mainForm\\:ajax\\:showAjax");
+  var $hide = jQueryFrame("#\\page\\:mainForm\\:ajax\\:hideAjax");
   var $sectionCollapsed = jQueryFrame("#page\\:mainForm\\:ajax\\:ajaxSection\\:\\:collapse");
-  var $in = jQueryFrame("#page\\:mainForm\\:ajax\\:in\\:\\:field");
+  var $in = jQueryFrame("#page\\:mainForm\\:ajax\\:inAjax\\:\\:field");
 
   $show.click();
 

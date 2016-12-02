@@ -22,8 +22,10 @@ package org.apache.myfaces.tobago.model;
 public enum CollapseMode {
 
   hidden,
-  absent;
+  absent,
+  none;
 
   public static final String HIDDEN = "hidden";
   public static final String ABSENT = "absent";
+  public static final String NONE = "none";
 }
