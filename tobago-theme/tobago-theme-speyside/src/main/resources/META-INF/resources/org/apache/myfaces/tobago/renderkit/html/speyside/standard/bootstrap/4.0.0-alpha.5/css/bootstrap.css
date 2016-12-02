@@ -833,6 +833,10 @@ p.tobago-separator:after {
   padding: 0.3rem;
 }
 
+.tobago-tabGroup > .tobago-tabGroup-header.nav-tabs {
+  border-bottom-width: 0;
+}
+
 /* tree ---------------------------------------------------------------------- */
 .tobago-treeCommand {
   cursor: pointer;
