@@ -30,6 +30,8 @@ Release Checklist (Developer Info)
 
   * Ensure that all examples are working with the release candidate.
 
+  * Check the scheduled version number against "semantic versioning".
+
   * Post a note on the list and ask for problems with the release candidate.
 
   * Install (or unpack) a jdk 1.4 on your computer (only for Tobago 1.0.x).
