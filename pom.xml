@@ -915,12 +915,10 @@
               <exclude>**/org/apache/myfaces/tobago/renderkit/html/standard/standard/typeahead/**/typeahead*.*</exclude>
 
               <!-- prism (tobago-example-demo) -->
-              <exclude>**/src/main/webapp/script/prism*.js</exclude>
-              <exclude>**/src/main/webapp/style/prism*.css</exclude>
+              <exclude>**/src/main/webapp/script/prism*.*</exclude>
 
               <!-- qunit (tobago-example-demo) -->
-              <exclude>**/src/main/webapp/script/qunit-1.23.1.js</exclude>
-              <exclude>**/src/main/webapp/style/qunit-1.23.1.css</exclude>
+              <exclude>**/src/main/webapp/script/qunit*.*</exclude>
 
               <!-- log files -->
               <exclude>**/*.log</exclude>
