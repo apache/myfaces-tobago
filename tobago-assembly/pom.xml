@@ -196,12 +196,6 @@ XXX TOBAGO-1654
                     </artifactItem>
                     <artifactItem>
                       <groupId>${project.groupId}</groupId>
-                      <artifactId>tobago-deprecation</artifactId>
-                      <version>${project.version}</version>
-                      <classifier>sources</classifier>
-                    </artifactItem>
-                    <artifactItem>
-                      <groupId>${project.groupId}</groupId>
                       <artifactId>tobago-theme-charlotteville</artifactId>
                       <version>${project.version}</version>
                       <classifier>sources</classifier>
