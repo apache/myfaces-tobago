@@ -26,7 +26,7 @@
   <artifactId>tobago</artifactId>
   <packaging>pom</packaging>
   <name>Apache Tobago</name>
-  <version>3.0.0-beta-1</version>
+  <version>3.0.0-beta-2-SNAPSHOT</version>
   <description>The goal of Tobago is to provide the community with a well designed set of user interface components based on JSF and run on MyFaces.</description>
   <prerequisites>
     <maven>3.0.4</maven>
@@ -539,9 +539,9 @@
   </dependencies>
 
   <scm>
-    <connection>scm:svn:http://svn.apache.org/repos/asf/myfaces/tobago/tags/tobago-3.0.0-beta-1</connection>
-    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/myfaces/tobago/tags/tobago-3.0.0-beta-1</developerConnection>
-    <url>http://svn.eu.apache.org/viewvc/myfaces/tobago/tags/tobago-3.0.0-beta-1</url>
+    <connection>scm:svn:http://svn.apache.org/repos/asf/myfaces/tobago/trunk</connection>
+    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/myfaces/tobago/trunk</developerConnection>
+    <url>http://svn.eu.apache.org/viewvc/myfaces/tobago/trunk</url>
   </scm>
 
   <build>
