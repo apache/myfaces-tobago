@@ -891,7 +891,7 @@
               <exclude>DEPENDENCIES</exclude>
 
               <!-- bootstrap -->
-              <exclude>**/org/apache/myfaces/tobago/renderkit/html/standard/standard/bootstrap/**/bootstrap*.*</exclude>
+              <exclude>**/org/apache/myfaces/tobago/renderkit/html/*/standard/bootstrap/**/bootstrap*.*</exclude>
 
               <!-- bootstrap datetimepicker -->
               <exclude>**/org/apache/myfaces/tobago/renderkit/html/standard/standard/bootstrap-datetimepicker/**/bootstrap*.*</exclude>
@@ -916,9 +916,11 @@
 
               <!-- prism (tobago-example-demo) -->
               <exclude>**/src/main/webapp/script/prism*.*</exclude>
+              <exclude>**/src/main/webapp/style/prism*.*</exclude>
 
               <!-- qunit (tobago-example-demo) -->
               <exclude>**/src/main/webapp/script/qunit*.*</exclude>
+              <exclude>**/src/main/webapp/style/qunit*.*</exclude>
 
               <!-- log files -->
               <exclude>**/*.log</exclude>
