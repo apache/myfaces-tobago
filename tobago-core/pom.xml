@@ -263,12 +263,31 @@
             <executions>
               <execution>
                 <id>attach-tlddoc</id>
-                <phase>generate-sources</phase>
+                <phase>generate-resources</phase>
                 <goals>
                   <goal>vdldoc</goal>
                 </goals>
               </execution>
             </executions>
+          </plugin>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-assembly-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>tlddoc-jar</id>
+                <phase>process-resources</phase>
+                <goals>
+                  <goal>assembly</goal>
+                </goals>
+              </execution>
+            </executions>
+            <configuration>
+              <classifier>tlddoc</classifier>
+              <descriptors>
+                <descriptor>assembly-tlddoc.xml</descriptor>
+              </descriptors>
+            </configuration>
           </plugin>
         </plugins>
       </build>
