@@ -73,13 +73,15 @@ public class SheetPageCommandRenderer extends LinkRenderer {
               break;
             }
           }
-          ((PageActionEvent)event).setValue(target);
+          ((PageActionEvent) event).setValue(target);
           break;
         case sort:
           final UIColumn column = (UIColumn) component.getParent();
           final UIData data = (UIData) column.getParent();
           event = new SortActionEvent(data, column);
           break;
+        default:
+          LOG.error("Unknown action '{}' found!", action);
       }
       component.queueEvent(event);
     }
