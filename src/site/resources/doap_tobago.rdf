@@ -65,10 +65,10 @@
     <release>
       <Version>
         <name>Latest alpha release of 3.0.x</name>
-        <created>2016-09-20</created>
-        <revision>3.0.0-alpha-7</revision>
-        <file-release>http://www.apache.org/dyn/closer.lua/myfaces/binaries/myfaces-tobago-3.0.0-alpha-7-dist.tar.gz</file-release>
-        <file-release>http://www.apache.org/dyn/closer.lua/myfaces/binaries/myfaces-tobago-3.0.0-alpha-7-dist.zip</file-release>
+        <created>2016-12-07</created>
+        <revision>3.0.0-beta-1</revision>
+        <file-release>http://www.apache.org/dyn/closer.lua/myfaces/binaries/myfaces-tobago-3.0.0-beta-1-dist.tar.gz</file-release>
+        <file-release>http://www.apache.org/dyn/closer.lua/myfaces/binaries/myfaces-tobago-3.0.0-beta-1-dist.zip</file-release>
       </Version>
     </release>
     <repository>
