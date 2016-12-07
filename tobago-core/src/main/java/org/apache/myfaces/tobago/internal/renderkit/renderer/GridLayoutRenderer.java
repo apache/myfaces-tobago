@@ -82,16 +82,14 @@ public class GridLayoutRenderer extends RendererBase {
   }
 
   @Override
-  public void encodeChildren(final FacesContext facesContext, final UIComponent component) throws IOException {
-    final AbstractUIGridLayout gridLayout = (AbstractUIGridLayout) component;
-/*
-    final UIComponent container = gridLayout.getParent();
-    if (!container.isRendered()) {
-      return;
-    }
-    RenderUtils.encodeChildren(facesContext, container);
-*/
+  public boolean getRendersChildren() {
+    return true;
+  }
 
+  @Override
+  public void encodeChildren(final FacesContext facesContext, final UIComponent component) throws IOException {
+
+    final AbstractUIGridLayout gridLayout = (AbstractUIGridLayout) component;
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
     final Grid grid = gridLayout.getGrid();
     final int columns = grid.getColumnCount();

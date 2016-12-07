@@ -22,16 +22,14 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:f="http://java.sun.com/jsf/core">
 
-  <ui:param name="title" value="Sample Error Scenarios (Todo: is to be optimized) " />
+  <ui:param name="title" value="Sample Error Scenarios (Todo: is to be optimized) "/>
 
-  <tc:panel>
-    <f:facet name="layout">
-      <tc:gridLayout rows="35px;35px;35px;35px" columns="100px;*"/>
-    </f:facet>
+  <tc:gridLayout rows="35px;35px;35px;35px" columns="100px;*">
 
     <tc:flowLayout>
       <tc:gridLayoutConstraint columnSpan="2"/>
-      <tc:out value="When using MyFaces or Facelets you have to turn off the exception mechanism of them to use this demo. See in the MyFaces Wiki: "/>
+      <tc:out
+          value="When using MyFaces or Facelets you have to turn off the exception mechanism of them to use this demo. See in the MyFaces Wiki: "/>
       <tc:link link="http://wiki.apache.org/myfaces/Handling_Server_Errors" label="Handling Server Errors"/>
     </tc:flowLayout>
 
@@ -46,6 +44,6 @@
     <tc:button action="syntax" label="Syntax Error"/>
     <tc:out value="The navigation handler refers to a page with a syntax error."/>
 
-  </tc:panel>
+  </tc:gridLayout>
 
 </ui:composition>

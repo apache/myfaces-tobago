@@ -32,9 +32,16 @@ import org.slf4j.LoggerFactory;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
+import javax.faces.event.AbortProcessingException;
+import javax.faces.event.ComponentSystemEvent;
+import javax.faces.event.ComponentSystemEventListener;
+import javax.faces.event.ListenerFor;
+import javax.faces.event.PreRenderComponentEvent;
 import java.util.List;
 
-public abstract class AbstractUIGridLayout extends AbstractUILayoutBase implements Visual {
+@ListenerFor(systemEventClass = PreRenderComponentEvent.class)
+public abstract class AbstractUIGridLayout extends AbstractUILayoutBase
+    implements Visual, ComponentSystemEventListener {
 
   private static final Logger LOG = LoggerFactory.getLogger(AbstractUIGridLayout.class);
 
@@ -45,22 +52,27 @@ public abstract class AbstractUIGridLayout extends AbstractUILayoutBase implemen
   /**
    * Initialize the grid and remove the current width and height values from the component, recursively.
    */
-  public void init() {
+  @Override
+  public void processEvent(ComponentSystemEvent event) throws AbortProcessingException {
 
-    final UIComponent parent = getParent();
-    if (!parent.isRendered()) {
+    super.processEvent(event);
+
+    if (!isRendered()) {
       return;
     }
 
-    grid = new Grid(LayoutTokens.parse(getColumns()), LayoutTokens.parse(getRows()));
+    if (event instanceof PreRenderComponentEvent) {
 
-    final List<UIComponent> components = LayoutUtils.findLayoutChildren(parent);
-    for (final UIComponent component : components) {
-      final int columnSpan = ComponentUtils.getIntAttribute(component, Attributes.columnSpan, 1);
-      final int rowSpan = ComponentUtils.getIntAttribute(component, Attributes.rowSpan, 1);
-      grid.add(new OriginCell(component), columnSpan, rowSpan);
-      if (LOG.isDebugEnabled()) {
-        LOG.debug("\n" + grid);
+      grid = new Grid(LayoutTokens.parse(getColumns()), LayoutTokens.parse(getRows()));
+
+      final List<UIComponent> components = LayoutUtils.findLayoutChildren(this);
+      for (final UIComponent component : components) {
+        final int columnSpan = ComponentUtils.getIntAttribute(component, Attributes.columnSpan, 1);
+        final int rowSpan = ComponentUtils.getIntAttribute(component, Attributes.rowSpan, 1);
+        grid.add(new OriginCell(component), columnSpan, rowSpan);
+        if (LOG.isDebugEnabled()) {
+          LOG.debug("\n" + grid);
+        }
       }
     }
   }
@@ -76,15 +88,7 @@ public abstract class AbstractUIGridLayout extends AbstractUILayoutBase implemen
   public abstract boolean isRigid();
 
   public Grid getGrid() {
-    if (grid == null) {
-      init();
-    }
     return grid;
-  }
-
-  @Override
-  public boolean getRendersChildren() {
-    return false;
   }
 
   public String toString() {

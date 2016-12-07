@@ -38,32 +38,31 @@
 
   <tc:section label="GridLayout">
     <tc:box label="Personal Information">
-      <f:facet name="layout">
-        <tc:gridLayout columns="*;*" rows="auto;auto;auto;auto;auto;*"/>
-      </f:facet>
-      <tc:selectOneChoice label="Salutation">
-        <f:selectItem itemLabel="none"/>
-        <f:selectItem itemLabel="Mr."/>
-        <f:selectItem itemLabel="Mrs."/>
-      </tc:selectOneChoice>
-      <tc:panel/>
+      <tc:gridLayout columns="*;*" rows="auto;auto;auto;auto;auto;*">
+        <tc:selectOneChoice label="Salutation">
+          <f:selectItem itemLabel="none"/>
+          <f:selectItem itemLabel="Mr."/>
+          <f:selectItem itemLabel="Mrs."/>
+        </tc:selectOneChoice>
+        <tc:panel/>
 
-      <tc:in label="First Name"/>
-      <tc:in label="Last Name"/>
+        <tc:in label="First Name"/>
+        <tc:in label="Last Name"/>
 
-      <tc:in label="c/o">
-        <tc:gridLayoutConstraint columnSpan="2"/>
-      </tc:in>
+        <tc:in label="c/o">
+          <tc:gridLayoutConstraint columnSpan="2"/>
+        </tc:in>
 
-      <tc:in label="Street"/>
-      <tc:in label="No"/>
+        <tc:in label="Street"/>
+        <tc:in label="No"/>
 
-      <tc:in label="ZIP"/>
-      <tc:in label="City"/>
+        <tc:in label="ZIP"/>
+        <tc:in label="City"/>
 
-      <tc:textarea label="Note">
-        <tc:gridLayoutConstraint columnSpan="2"/>
-      </tc:textarea>
+        <tc:textarea label="Note">
+          <tc:gridLayoutConstraint columnSpan="2"/>
+        </tc:textarea>
+      </tc:gridLayout>
     </tc:box>
   </tc:section>
 
