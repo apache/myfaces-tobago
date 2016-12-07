@@ -136,6 +136,11 @@ Migration from Tobago 2.0 to 3.0 (work in progress)
 
 * TODO: attribute renderPartially is replaced by f:ajax
 
+Tango Icons
+
+  Tango icon lib is no longer part of Tobago. Replaced by Font Awesome. If you need it, please
+  include it in the application.
+
 Dependencies to JS/CSS libs: jQuery UI
 
     Tobago uses the jQuery UI library. The library is customizable to limit the amount of JS and CSS content.
