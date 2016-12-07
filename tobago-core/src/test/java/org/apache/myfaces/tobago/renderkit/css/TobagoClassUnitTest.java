@@ -22,7 +22,7 @@ package org.apache.myfaces.tobago.renderkit.css;
 import org.junit.Assert;
 import org.junit.Test;
 
-public class TobagoClassUniTest {
+public class TobagoClassUnitTest {
 
   // todo: common enum naming check
 
