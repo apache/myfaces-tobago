@@ -135,3 +135,39 @@ Migration from Tobago 2.0 to 3.0 (work in progress)
     <<<\<f:facet name="load"\>>>> contain an instance of UICommand (tc:command).
 
 * TODO: attribute renderPartially is replaced by f:ajax
+
+Dependencies to JS/CSS libs: jQuery UI
+
+    Tobago uses the jQuery UI library. The library is customizable to limit the amount of JS and CSS content.
+    You will find the used modules in the header of each jQuery UI file.
+
+    * E. g. Tobago 2.0.10 contains jQuery UI 1.10.4 with these contents:
+
+      * jquery.ui.core.js
+
+      * jquery.ui.widget.js
+
+      * jquery.ui.mouse.js
+
+      * jquery.ui.position.js
+
+      * jquery.ui.draggable.js
+
+      * jquery.ui.datepicker.js
+
+      * jquery.ui.slider.js
+
+      * jquery.ui.core.css
+
+      * jquery.ui.datepicker.css
+
+      * jquery.ui.slider.css
+
+      * jquery.ui.theme.css
+
+    * Tobago 3.0.0 contains jQuery UI 1.12.1 with this component:
+
+      * widget.js
+
+    If you are using jQuery UI directly, you may add the required resources via the <<<tobago-config.xml>>>
+    and exclude the jQuery UI resource that comes with Tobago.
