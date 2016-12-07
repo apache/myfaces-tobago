@@ -20,8 +20,8 @@
 <tobago-config
     xmlns="http://myfaces.apache.org/tobago/tobago-config"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://myfaces.apache.org/tobago/tobago-config http://myfaces.apache.org/tobago/tobago-config-2.0.xsd"
-    version="2.0">
+    xsi:schemaLocation="http://myfaces.apache.org/tobago/tobago-config http://myfaces.apache.org/tobago/tobago-config-3.0.xsd"
+    version="3.0">
   <name>tobago-sandbox</name>
   <ordering>
     <after>
@@ -32,7 +32,6 @@
     <theme-definition>
       <name>sandbox</name>
       <display-name>Sandbox Theme</display-name>
-      <resource-path>org/apache/myfaces/tobago/sandbox</resource-path>
       <fallback>speyside</fallback>
       <versioned>false</versioned>
       <resources production="true">

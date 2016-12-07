@@ -32,7 +32,6 @@
     <theme-definition>
       <name>charlotteville</name>
       <display-name>Charlotteville</display-name>
-      <resource-path>org/apache/myfaces/tobago/renderkit</resource-path>
       <fallback>standard</fallback>
       <versioned>true</versioned>
       <resources production="true">
