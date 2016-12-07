@@ -891,28 +891,28 @@
               <exclude>DEPENDENCIES</exclude>
 
               <!-- bootstrap -->
-              <exclude>**/org/apache/myfaces/tobago/renderkit/html/*/standard/bootstrap/**/bootstrap*.*</exclude>
+              <exclude>**/tobago/*/bootstrap/**/bootstrap*.*</exclude>
 
               <!-- bootstrap datetimepicker -->
-              <exclude>**/org/apache/myfaces/tobago/renderkit/html/standard/standard/bootstrap-datetimepicker/**/bootstrap*.*</exclude>
+              <exclude>**/tobago/standard/bootstrap-datetimepicker/**/bootstrap*.*</exclude>
 
               <!-- font-awesome -->
-              <exclude>**/org/apache/myfaces/tobago/renderkit/html/standard/standard/font-awesome/**/font*awesome*.*</exclude>
+              <exclude>**/tobago/standard/font-awesome/**/font*awesome*.*</exclude>
 
               <!-- jQuery -->
-              <exclude>**/org/apache/myfaces/tobago/renderkit/html/standard/standard/jquery/**/jquery*.*</exclude>
+              <exclude>**/tobago/standard/jquery/**/jquery*.*</exclude>
 
               <!-- jQuery UI -->
-              <exclude>**/org/apache/myfaces/tobago/renderkit/html/standard/standard/jquery-ui/**/jquery*.*</exclude>
+              <exclude>**/tobago/standard/jquery-ui/**/jquery*.*</exclude>
 
               <!-- moment -->
-              <exclude>**/org/apache/myfaces/tobago/renderkit/html/standard/standard/moment/**/moment*.*</exclude>
+              <exclude>**/tobago/standard/moment/**/moment*.*</exclude>
 
               <!-- tether -->
-              <exclude>**/org/apache/myfaces/tobago/renderkit/html/standard/standard/tether/**/tether*.*</exclude>
+              <exclude>**/tobago/standard/tether/**/tether*.*</exclude>
 
               <!-- typeahead -->
-              <exclude>**/org/apache/myfaces/tobago/renderkit/html/standard/standard/typeahead/**/typeahead*.*</exclude>
+              <exclude>**/tobago/standard/typeahead/**/typeahead*.*</exclude>
 
               <!-- prism (tobago-example-demo) -->
               <exclude>**/src/main/webapp/script/prism*.*</exclude>

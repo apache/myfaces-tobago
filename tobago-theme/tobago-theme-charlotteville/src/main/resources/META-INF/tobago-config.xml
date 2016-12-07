@@ -36,19 +36,19 @@
       <versioned>true</versioned>
       <resources production="true">
         <excludes>
-          <script name="/org/apache/myfaces/tobago/renderkit/html/standard/standard/bootstrap/4.0.0-alpha.5/js/bootstrap.min.js"/>
-          <style name="/org/apache/myfaces/tobago/renderkit/html/standard/standard/bootstrap/4.0.0-alpha.5/css/bootstrap.min.css"/>
+          <script name="/tobago/standard/bootstrap/4.0.0-alpha.5/js/bootstrap.min.js"/>
+          <style name="/tobago/standard/bootstrap/4.0.0-alpha.5/css/bootstrap.min.css"/>
         </excludes>
-        <script name="/org/apache/myfaces/tobago/renderkit/html/charlotteville/standard/bootstrap/4.0.0-alpha.5/js/bootstrap.min.js"/>
-        <style name="/org/apache/myfaces/tobago/renderkit/html/charlotteville/standard/bootstrap/4.0.0-alpha.5/css/bootstrap.min.css"/>
+        <script name="/tobago/charlotteville/bootstrap/4.0.0-alpha.5/js/bootstrap.min.js"/>
+        <style name="/tobago/charlotteville/bootstrap/4.0.0-alpha.5/css/bootstrap.min.css"/>
       </resources>
       <resources production="false">
         <excludes>
-          <script name="/org/apache/myfaces/tobago/renderkit/html/standard/standard/bootstrap/4.0.0-alpha.5/js/bootstrap.js"/>
-          <style name="/org/apache/myfaces/tobago/renderkit/html/standard/standard/bootstrap/4.0.0-alpha.5/css/bootstrap.css"/>
+          <script name="/tobago/standard/bootstrap/4.0.0-alpha.5/js/bootstrap.js"/>
+          <style name="/tobago/standard/bootstrap/4.0.0-alpha.5/css/bootstrap.css"/>
         </excludes>
-        <script name="/org/apache/myfaces/tobago/renderkit/html/charlotteville/standard/bootstrap/4.0.0-alpha.5/js/bootstrap.js"/>
-        <style name="/org/apache/myfaces/tobago/renderkit/html/charlotteville/standard/bootstrap/4.0.0-alpha.5/css/bootstrap.css"/>
+        <script name="/tobago/charlotteville/bootstrap/4.0.0-alpha.5/js/bootstrap.js"/>
+        <style name="/tobago/charlotteville/bootstrap/4.0.0-alpha.5/css/bootstrap.css"/>
       </resources>
     </theme-definition>
   </theme-definitions>

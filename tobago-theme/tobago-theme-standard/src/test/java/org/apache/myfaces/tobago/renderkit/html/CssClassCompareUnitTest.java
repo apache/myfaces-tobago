@@ -47,8 +47,7 @@ public class CssClassCompareUnitTest extends AbstractTobagoTestBase {
   @Test
   public void testCompareBootstrapCss() throws FileNotFoundException {
     File bootstrapCss = new File(
-        "src/main/resources/META-INF/resources/org/apache/myfaces/"
-            + "tobago/renderkit/html/standard/standard/bootstrap/4.0.0-alpha.5/css/bootstrap.css");
+        "src/main/resources/META-INF/resources/tobago/standard/bootstrap/4.0.0-alpha.5/css/bootstrap.css");
     compareCss(bootstrapCss, BootstrapClass.values());
   }
 

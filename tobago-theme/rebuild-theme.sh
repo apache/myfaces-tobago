@@ -31,19 +31,19 @@ echo check ok, building now...
 mvn clean
 
 mvn -P rebuild-theme -f tobago-theme-charlotteville/pom.xml
-rm tobago-theme-charlotteville/src/main/resources/META-INF/resources/org/apache/myfaces/tobago/renderkit/html/charlotteville/standard/bootstrap/4.0.0-alpha.5/css/bootstrap-*
+rm tobago-theme-charlotteville/src/main/resources/META-INF/resources/tobago/charlotteville/bootstrap/4.0.0-alpha.5/css/bootstrap-*
 
 mvn -P rebuild-theme -f tobago-theme-richmond/pom.xml
-rm tobago-theme-richmond/src/main/resources/META-INF/resources/org/apache/myfaces/tobago/renderkit/html/richmond/standard/bootstrap/4.0.0-alpha.5/css/bootstrap-*
+rm tobago-theme-richmond/src/main/resources/META-INF/resources/tobago/richmond/bootstrap/4.0.0-alpha.5/css/bootstrap-*
 
 mvn -P rebuild-theme -f tobago-theme-scarborough/pom.xml
-rm tobago-theme-scarborough/src/main/resources/META-INF/resources/org/apache/myfaces/tobago/renderkit/html/scarborough/standard/bootstrap/4.0.0-alpha.5/css/bootstrap-*
+rm tobago-theme-scarborough/src/main/resources/META-INF/resources/tobago/scarborough/bootstrap/4.0.0-alpha.5/css/bootstrap-*
 
 mvn -P rebuild-theme -f tobago-theme-speyside/pom.xml
-rm tobago-theme-speyside/src/main/resources/META-INF/resources/org/apache/myfaces/tobago/renderkit/html/speyside/standard/bootstrap/4.0.0-alpha.5/css/bootstrap-*
+rm tobago-theme-speyside/src/main/resources/META-INF/resources/tobago/speyside/bootstrap/4.0.0-alpha.5/css/bootstrap-*
 
 mvn -P rebuild-theme -f tobago-theme-standard/pom.xml
-rm tobago-theme-standard/src/main/resources/META-INF/resources/org/apache/myfaces/tobago/renderkit/html/standard/standard/bootstrap/4.0.0-alpha.5/css/bootstrap-*
+rm tobago-theme-standard/src/main/resources/META-INF/resources/tobago/standard/bootstrap/4.0.0-alpha.5/css/bootstrap-*
 
 mvn install
 
