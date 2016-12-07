@@ -17,12 +17,15 @@
  * under the License.
  */
 
-package org.apache.myfaces.tobago.sanitizer;
+package org.apache.myfaces.tobago.layout;
 
-public enum SanitizeMode {
-  auto,
-  never;
+import org.apache.myfaces.tobago.util.EnumUnitTest;
+import org.junit.Test;
 
-  public static final String AUTO = "auto";
-  public static final String NEVER = "never";
+public class JustifyContentUnitTest extends EnumUnitTest {
+
+  @Test
+  public void testNames() throws IllegalAccessException, NoSuchFieldException {
+    testNames(JustifyContent.class);
+  }
 }

@@ -70,67 +70,31 @@ public enum Selectable {
    */
   multiCascade;
 
-  /** @deprecated  */
-  @Deprecated
-  public static final Selectable NONE = none;
+  public static final String NONE = "none";
 
-  /** @deprecated  */
-  @Deprecated
-  public static final Selectable MULTI = multi;
+  public static final String MULTI = "multi";
 
-  /** @deprecated  */
-  @Deprecated
-  public static final Selectable SINGLE = single;
+  public static final String SINGLE = "single";
 
-  /** @deprecated  */
-  @Deprecated
-  public static final Selectable SINGLE_OR_NONE = singleOrNone;
+  public static final String SINGLE_OR_NONE = "singleOrNone";
 
-  /** @deprecated  */
-  @Deprecated
-  public static final Selectable MULTI_LEAF_ONLY = multiLeafOnly;
+  public static final String MULTI_LEAF_ONLY = "multiLeafOnly";
 
-  /** @deprecated  */
-  @Deprecated
-  public static final Selectable SINGLE_LEAF_ONLY = singleLeafOnly;
+  public static final String SINGLE_LEAF_ONLY = "singleLeafOnly";
 
-  /** @deprecated  */
-  @Deprecated
-  public static final Selectable SIBLING = sibling;
+  public static final String SIBLING = "sibling";
 
-  /** @deprecated  */
-  @Deprecated
-  public static final Selectable SIBLING_LEAF_ONLY = siblingLeafOnly;
+  public static final String SIBLING_LEAF_ONLY = "siblingLeafOnly";
 
-  /** @deprecated  */
-  @Deprecated
-  public static final Selectable MULTI_CASCADE = multiCascade;
+  public static final String MULTI_CASCADE = "multiCascade";
 
-  public static final String STRING_NONE = "none";
-
-  public static final String STRING_MULTI = "multi";
-
-  public static final String STRING_SINGLE = "single";
-
-  public static final String STRING_SINGLE_OR_NONE = "singleOrNone";
-
-  public static final String STRING_MULTI_LEAF_ONLY = "multiLeafOnly";
-
-  public static final String STRING_SINGLE_LEAF_ONLY = "singleLeafOnly";
-
-  public static final String STRING_SIBLING = "sibling";
-
-  public static final String STRING_SIBLING_LEAF_ONLY = "siblingLeafOnly";
-
-  public static final String STRING_MULTI_CASCADE = "multiCascade";
-
-  public static final Set<Selectable> SHEET_VALUES = EnumSet.of(
+  private static final Set<Selectable> SHEET_VALUES = EnumSet.of(
       none,
       multi,
       single,
       singleOrNone);
 
-  public static final Set<Selectable> TREE_VALUES = EnumSet.of(
+  private static final Set<Selectable> TREE_VALUES = EnumSet.of(
       none,
       multi,
       single,
@@ -138,7 +102,7 @@ public enum Selectable {
       singleLeafOnly,
       multiCascade);
 
-  public static final Set<Selectable> TREE_LISTBOX_VALUES = EnumSet.of(
+  private static final Set<Selectable> TREE_LISTBOX_VALUES = EnumSet.of(
       single,
       singleLeafOnly,
       multiLeafOnly);

@@ -23,6 +23,8 @@ import org.apache.myfaces.tobago.layout.ShowPosition;
 import org.apache.myfaces.tobago.model.Selectable;
 
 import javax.faces.model.SelectItem;
+import java.util.HashSet;
+import java.util.Set;
 
 public class SheetConfig {
 
@@ -53,7 +55,13 @@ public class SheetConfig {
     sheetDirectPagingPosition = ShowPosition.center;
     sheetPagePagingPosition = ShowPosition.right;
     sheetPagingPositionItems = createSheetItems(ShowPosition.values());
-    sheetSelectableItems = createSheetItems(Selectable.SHEET_VALUES.toArray());
+    final Set<Selectable> selectableSupportedBySheet = new HashSet<Selectable>();
+    for (Selectable selectable : Selectable.values()) {
+      if (selectable.isSupportedBySheet()) {
+        selectableSupportedBySheet.add(selectable);
+      }
+    }
+    sheetSelectableItems = createSheetItems(selectableSupportedBySheet.toArray());
     selectable = Selectable.singleOrNone;
     showDirectLinksArrows = false;
     showPageRangeArrows = true;

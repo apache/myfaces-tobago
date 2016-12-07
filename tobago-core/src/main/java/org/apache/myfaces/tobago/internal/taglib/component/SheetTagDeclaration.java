@@ -187,9 +187,9 @@ public interface SheetTagDeclaration
   @TagAttribute
   @UIComponentTagAttribute(
       type = "org.apache.myfaces.tobago.model.Selectable",
-      defaultValue = Selectable.STRING_MULTI,
+      defaultValue = Selectable.MULTI,
       allowedValues = {
-          Selectable.STRING_NONE, Selectable.STRING_SINGLE, Selectable.STRING_SINGLE_OR_NONE, Selectable.STRING_MULTI
+          Selectable.NONE, Selectable.SINGLE, Selectable.SINGLE_OR_NONE, Selectable.MULTI
       },
       defaultCode = "org.apache.myfaces.tobago.model.Selectable.multi")
   void setSelectable(String selectable);
