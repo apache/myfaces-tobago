@@ -39,7 +39,6 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UISegmentLayout",
     uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUISegmentLayout",
-    uiComponentFacesClass = "javax.faces.component.UIComponentBase",
     componentFamily = AbstractUISegmentLayout.COMPONENT_FAMILY,
     rendererType = RendererTypes.SEGMENT_LAYOUT,
     allowedChildComponenents = "NONE")

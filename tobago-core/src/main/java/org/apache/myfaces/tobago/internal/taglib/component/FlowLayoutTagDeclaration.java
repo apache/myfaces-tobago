@@ -36,7 +36,6 @@ import org.apache.myfaces.tobago.layout.TextAlign;
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIFlowLayout",
     uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUIFlowLayout",
-    uiComponentFacesClass = "javax.faces.component.UIComponentBase",
     componentFamily = AbstractUIFlowLayout.COMPONENT_FAMILY,
     rendererType = RendererTypes.FLOW_LAYOUT,
     allowedChildComponenents = "NONE")

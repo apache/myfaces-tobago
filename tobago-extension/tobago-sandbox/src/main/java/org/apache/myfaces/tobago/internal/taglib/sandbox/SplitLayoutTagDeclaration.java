@@ -39,7 +39,6 @@ import org.apache.myfaces.tobago.layout.Orientation;
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UISplitLayout",
     uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUISplitLayout",
-    uiComponentFacesClass = "javax.faces.component.UIComponentBase",
     componentFamily = AbstractUIGridLayout.COMPONENT_FAMILY,
     rendererType = "SplitLayout",
     allowedChildComponenents = "NONE")

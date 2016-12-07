@@ -35,7 +35,6 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UISeparator",
     uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUISeparator",
-    uiComponentFacesClass = "javax.faces.component.UIComponentBase",
     componentFamily = "org.apache.myfaces.tobago.Separator",
     rendererType = RendererTypes.SEPARATOR,
     allowedChildComponenents = "NONE",

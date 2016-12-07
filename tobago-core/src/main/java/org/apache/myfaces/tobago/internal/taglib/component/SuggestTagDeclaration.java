@@ -48,7 +48,6 @@ import javax.faces.component.UIInput;
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UISuggest",
     uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUISuggest",
-    uiComponentFacesClass = "javax.faces.component.UIComponentBase",
     componentFamily = UIInput.COMPONENT_FAMILY,
     rendererType = RendererTypes.SUGGEST,
     allowedChildComponenents = {
