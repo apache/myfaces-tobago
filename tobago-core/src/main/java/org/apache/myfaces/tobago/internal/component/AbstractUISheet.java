@@ -366,15 +366,7 @@ public abstract class AbstractUISheet extends AbstractUIData
       facesEvent.setPhaseId(PhaseId.INVOKE_APPLICATION);
       parent.queueEvent(facesEvent);
     } else {
-      final UIComponent source = facesEvent.getComponent();
-      final UIComponent sourceParent = source.getParent();
-      if (sourceParent.getParent() == this
-          && source.getId() != null && source.getId().endsWith(SORTER_ID)) {
-        facesEvent.setPhaseId(PhaseId.INVOKE_APPLICATION);
-        parent.queueEvent(new SortActionEvent(this, (UIColumn) sourceParent));
-      } else {
-        super.queueEvent(facesEvent);
-      }
+      super.queueEvent(facesEvent);
     }
   }
 
@@ -437,6 +429,7 @@ public abstract class AbstractUISheet extends AbstractUIData
       if (expression != null) {
         try {
           if (event == null) {
+            // initial sorting
             event =
                 new SortActionEvent(this, (UIColumn) findComponent(getSheetState(facesContext).getSortedColumnId()));
           }
@@ -496,14 +489,14 @@ public abstract class AbstractUISheet extends AbstractUIData
     }
 
     switch (pageEvent.getAction()) {
-      case FIRST:
+      case first:
         first = 0;
         break;
-      case PREV:
+      case prev:
         first = getFirst() - getRows();
         first = first < 0 ? 0 : first;
         break;
-      case NEXT:
+      case next:
         if (hasRowCount()) {
           first = getFirst() + getRows();
           first = first > getRowCount() ? getFirstRowIndexOfLastPage() : first;
@@ -515,10 +508,10 @@ public abstract class AbstractUISheet extends AbstractUIData
           }
         }
         break;
-      case LAST:
+      case last:
         first = getFirstRowIndexOfLastPage();
         break;
-      case TO_ROW:
+      case toRow:
         first = pageEvent.getValue() - 1;
         if (hasRowCount() && first > getFirstRowIndexOfLastPage()) {
           first = getFirstRowIndexOfLastPage();
@@ -526,7 +519,7 @@ public abstract class AbstractUISheet extends AbstractUIData
           first = 0;
         }
         break;
-      case TO_PAGE:
+      case toPage:
         final int pageIndex = pageEvent.getValue() - 1;
         first = pageIndex * getRows();
         if (hasRowCount() && first > getFirstRowIndexOfLastPage()) {

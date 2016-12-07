@@ -28,18 +28,18 @@ public class PageActionEvent extends ActionEvent {
 
   private static final long serialVersionUID = 3364193750247386220L;
 
-  private PageAction action;
+  private SheetAction action;
   private int value;
 
-  public PageActionEvent(final UIComponent component, final PageAction action) {
+  public PageActionEvent(final UIComponent component, final SheetAction action) {
     super(component);
     this.action = action;
   }
 
   /**
-   * Returns the action type ({@link PageAction}).
+   * Returns the action type ({@link SheetAction}).
    */
-  public PageAction getAction() {
+  public SheetAction getAction() {
     return action;
   }
 
@@ -48,8 +48,8 @@ public class PageActionEvent extends ActionEvent {
   }
 
   /**
-   * Returns the value for action types {@link PageAction#TO_ROW}
-   * and {@link PageAction#TO_PAGE}.
+   * Returns the value for action types {@link SheetAction#toRow}
+   * and {@link SheetAction#toPage}.
    */
   public int getValue() {
     return value;

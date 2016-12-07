@@ -20,14 +20,18 @@
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
 import org.apache.myfaces.tobago.component.Attributes;
-import org.apache.myfaces.tobago.event.PageAction;
+import org.apache.myfaces.tobago.event.SheetAction;
 import org.apache.myfaces.tobago.event.PageActionEvent;
+import org.apache.myfaces.tobago.event.SortActionEvent;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.faces.component.UIColumn;
 import javax.faces.component.UIComponent;
+import javax.faces.component.UIData;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
 import java.util.Map;
 
 public class SheetPageCommandRenderer extends LinkRenderer {
@@ -45,12 +49,19 @@ public class SheetPageCommandRenderer extends LinkRenderer {
 
     if (clientId.equals(sourceId)) {
 
-      final PageAction action = (PageAction) ComponentUtils.getAttribute(component, Attributes.pageAction);
-      final PageActionEvent event = new PageActionEvent(component.getParent(), action);
+      final SheetAction action = (SheetAction) ComponentUtils.getAttribute(component, Attributes.sheetAction);
+      ActionEvent event = null;
 
       switch (action) {
-        case TO_PAGE:
-        case TO_ROW:
+        case first:
+        case prev:
+        case next:
+        case last:
+          event = new PageActionEvent(component.getParent(), action);
+          break;
+        case toPage:
+        case toRow:
+          event = new PageActionEvent(component.getParent(), action);
           Integer target = (Integer) ComponentUtils.getAttribute(component, Attributes.pagingTarget);
           if (target == null) {
             final Map map = facesContext.getExternalContext().getRequestParameterMap();
@@ -62,10 +73,13 @@ public class SheetPageCommandRenderer extends LinkRenderer {
               break;
             }
           }
-          event.setValue(target);
+          ((PageActionEvent)event).setValue(target);
           break;
-        default:
-          // nothing more to do
+        case sort:
+          final UIColumn column = (UIColumn) component.getParent();
+          final UIData data = (UIData) column.getParent();
+          event = new SortActionEvent(data, column);
+          break;
       }
       component.queueEvent(event);
     }

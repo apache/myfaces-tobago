@@ -19,73 +19,52 @@
 
 package org.apache.myfaces.tobago.event;
 
-import java.util.HashMap;
-import java.util.Map;
+import org.apache.myfaces.tobago.internal.util.StringUtils;
 
-public enum PageAction {
+public enum SheetAction {
 
   /**
    * First page is requested
    */
-  FIRST("First"),
+  first,
 
   /**
    * Previous page is requested
    */
-  PREV("Prev"),
+  prev,
 
   /**
    * Next page is requested
    */
-  NEXT("Next"),
+  next,
 
   /**
    * Last page is requested
    */
-  LAST("Last"),
+  last,
 
   /**
    * A specified row is requested
    */
-  TO_ROW("ToRow"),
+  toRow,
 
   /**
    * A specified page is requested
    */
-  TO_PAGE("ToPage");
-
-  private String token;
-
-  PageAction(final String token) {
-    this.token = token;
-  }
-
-  public String getToken() {
-    return token;
-  }
-  
-  private static final Map<String, PageAction> MAPPING;
-
-  static {
-    MAPPING = new HashMap<String, PageAction>();
-
-    for (final PageAction action : PageAction.values()) {
-      MAPPING.put(action.getToken(), action);
-    }
-  }
+  toPage,
 
   /**
-   * 
-   * @param name Name of the PageAction
-   * @return The matching page action (can't be null).
-   * @throws IllegalArgumentException When the name doesn't match any PageAction.
+   * Sorting
    */
-  public static PageAction parse(final String name) throws IllegalArgumentException {
-    final PageAction value = MAPPING.get(name);
-    if (value != null) {
-      return value;
-    } else {
-      throw new IllegalArgumentException("Unknown name for PageAction: '" + name + "'");
-    }
+  sort;
+
+  private String bundleKey;
+
+  SheetAction() {
+    this.bundleKey = "sheet" + StringUtils.firstToUpperCase(name());
+  }
+
+  public String getBundleKey() {
+    return bundleKey;
   }
 }

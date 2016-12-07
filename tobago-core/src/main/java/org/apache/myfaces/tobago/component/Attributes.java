@@ -169,7 +169,6 @@ public enum Attributes {
    * Used by a layout manager
    */
   paddingTop,
-  pageAction,
   pagingTarget,
   password,
   placeholder,
@@ -203,6 +202,7 @@ public enum Attributes {
   selectedIndex,
   selectedListString,
   selectable,
+  sheetAction,
   showDirectLinks,
   showDirectLinksArrows,
   showHeader,
@@ -570,7 +570,7 @@ public enum Attributes {
   public static final String PADDING_TOP = "paddingTop";
   /** @deprecated Since Tobago 3.0.0. Please use the enum */
   @Deprecated
-  public static final String PAGE_ACTION = "pageAction";
+  public static final String PAGE_ACTION = "sheetAction";
   /** @deprecated Since Tobago 3.0.0. Please use the enum */
   @Deprecated
   public static final String PAGING_TARGET = "pagingTarget";

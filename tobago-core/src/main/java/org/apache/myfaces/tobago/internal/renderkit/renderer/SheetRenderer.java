@@ -31,7 +31,7 @@ import org.apache.myfaces.tobago.component.UIReload;
 import org.apache.myfaces.tobago.component.UISheet;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.context.TobagoResourceBundle;
-import org.apache.myfaces.tobago.event.PageAction;
+import org.apache.myfaces.tobago.event.SheetAction;
 import org.apache.myfaces.tobago.internal.component.AbstractUIColumn;
 import org.apache.myfaces.tobago.internal.component.AbstractUIColumnBase;
 import org.apache.myfaces.tobago.internal.component.AbstractUIColumnNode;
@@ -515,7 +515,7 @@ public class SheetRenderer extends RendererBase {
       final Markup showRowRange = markupForLeftCenterRight(sheet.getShowRowRange());
       if (showRowRange != Markup.NULL) {
         final UILink command
-            = ensurePagingCommand(application, sheet, Facets.pagerRow.name(), PageAction.TO_ROW, false);
+            = ensurePagingCommand(application, sheet, Facets.pagerRow.name(), SheetAction.toRow, false);
         final String pagerCommandId = command.getClientId(facesContext);
 
         writer.startElement(HtmlElements.UL);
@@ -589,14 +589,14 @@ public class SheetRenderer extends RendererBase {
             Classes.create(sheet, "paging", showDirectLinks), BootstrapClass.PAGINATION);
         if (sheet.isShowDirectLinksArrows()) {
           final boolean disabled = sheet.isAtBeginning();
-          encodeLink(facesContext, sheet, application, disabled, PageAction.FIRST, null, Icons.STEP_BACKWARD, null);
-          encodeLink(facesContext, sheet, application, disabled, PageAction.PREV, null, Icons.BACKWARD, null);
+          encodeLink(facesContext, sheet, application, disabled, SheetAction.first, null, Icons.STEP_BACKWARD, null);
+          encodeLink(facesContext, sheet, application, disabled, SheetAction.prev, null, Icons.BACKWARD, null);
         }
         encodeDirectPagingLinks(facesContext, application, sheet);
         if (sheet.isShowDirectLinksArrows()) {
           final boolean disabled = sheet.isAtEnd();
-          encodeLink(facesContext, sheet, application, disabled, PageAction.NEXT, null, Icons.FORWARD, null);
-          encodeLink(facesContext, sheet, application, disabled || !sheet.hasRowCount(), PageAction.LAST, null,
+          encodeLink(facesContext, sheet, application, disabled, SheetAction.next, null, Icons.FORWARD, null);
+          encodeLink(facesContext, sheet, application, disabled || !sheet.hasRowCount(), SheetAction.last, null,
               Icons.STEP_FORWARD, null);
         }
         writer.endElement(HtmlElements.UL);
@@ -606,7 +606,7 @@ public class SheetRenderer extends RendererBase {
       final Markup showPageRange = markupForLeftCenterRight(sheet.getShowPageRange());
       if (showPageRange != Markup.NULL) {
         final UILink command
-            = ensurePagingCommand(application, sheet, Facets.pagerPage.name(), PageAction.TO_PAGE, false);
+            = ensurePagingCommand(application, sheet, Facets.pagerPage.name(), SheetAction.toPage, false);
         final String pagerCommandId = command.getClientId(facesContext);
 
         writer.startElement(HtmlElements.UL);
@@ -614,8 +614,8 @@ public class SheetRenderer extends RendererBase {
 
         if (sheet.isShowPageRangeArrows()) {
           final boolean disabled = sheet.isAtBeginning();
-          encodeLink(facesContext, sheet, application, disabled, PageAction.FIRST, null, Icons.STEP_BACKWARD, null);
-          encodeLink(facesContext, sheet, application, disabled, PageAction.PREV, null, Icons.BACKWARD, null);
+          encodeLink(facesContext, sheet, application, disabled, SheetAction.first, null, Icons.STEP_BACKWARD, null);
+          encodeLink(facesContext, sheet, application, disabled, SheetAction.prev, null, Icons.BACKWARD, null);
         }
         writer.startElement(HtmlElements.LI);
         writer.writeClassAttribute(BootstrapClass.PAGE_ITEM);
@@ -675,8 +675,8 @@ public class SheetRenderer extends RendererBase {
         writer.endElement(HtmlElements.LI);
         if (sheet.isShowPageRangeArrows()) {
           final boolean disabled = sheet.isAtEnd();
-          encodeLink(facesContext, sheet, application, disabled, PageAction.NEXT, null, Icons.FORWARD, null);
-          encodeLink(facesContext, sheet, application, disabled || !sheet.hasRowCount(), PageAction.LAST, null,
+          encodeLink(facesContext, sheet, application, disabled, SheetAction.next, null, Icons.FORWARD, null);
+          encodeLink(facesContext, sheet, application, disabled || !sheet.hasRowCount(), SheetAction.last, null,
               Icons.STEP_FORWARD, null);
         }
         writer.endElement(HtmlElements.UL);
@@ -813,6 +813,8 @@ public class SheetRenderer extends RendererBase {
                       facesContext, UILink.COMPONENT_TYPE, RendererTypes.Link, sorterId);
                   final AjaxBehavior reloadBehavior = createReloadBehavior(sheet);
                   sortCommand.addClientBehavior("click", reloadBehavior);
+                  sortCommand.setRendererType(RendererTypes.SHEET_PAGE_COMMAND);
+                  ComponentUtils.setAttribute(sortCommand, Attributes.sheetAction, SheetAction.sort);
                   ComponentUtils.setFacet(column, Facets.sorter, sortCommand);
                 }
                 writer.writeIdAttribute(sortCommand.getClientId(facesContext));
@@ -990,24 +992,25 @@ public class SheetRenderer extends RendererBase {
 
   private void encodeLink(
       final FacesContext facesContext, final UISheet data, final Application application,
-      final boolean disabled, final PageAction action, Integer target, Icons icon, CssItem liClass)
+      final boolean disabled, final SheetAction action, Integer target, Icons icon, CssItem liClass)
       throws IOException {
 
-    final String facet = action == PageAction.TO_PAGE || action == PageAction.TO_ROW
-        ? action.getToken() + "-" + target
-        : action.getToken();
+    final String facet = action == SheetAction.toPage || action == SheetAction.toRow
+        ? action.name() + "-" + target
+        : action.name();
     final UILink command = ensurePagingCommand(application, data, facet, action, disabled);
     if (target != null) {
       ComponentUtils.setAttribute(command, Attributes.pagingTarget, target);
     }
 
     final Locale locale = facesContext.getViewRoot().getLocale();
-    final String message = TobagoResourceBundle.getString(facesContext, "sheet" + action.getToken());
+    final String message = TobagoResourceBundle.getString(facesContext, action.getBundleKey());
     final String tip = new MessageFormat(message, locale).format(new Integer[]{target}); // needed fot ToPage
 
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
     writer.startElement(HtmlElements.LI);
     writer.writeClassAttribute(liClass, disabled ? BootstrapClass.DISABLED : null, BootstrapClass.PAGE_ITEM);
+// todo button
     writer.startElement(HtmlElements.A);
     writer.writeClassAttribute(BootstrapClass.PAGE_LINK);
     writer.writeAttribute(HtmlAttributes.HREF, "#/", false);
@@ -1044,7 +1047,7 @@ public class SheetRenderer extends RendererBase {
       throws IOException {
 
     final UILink command
-        = ensurePagingCommand(application, sheet, Facets.PAGER_PAGE_DIRECT, PageAction.TO_PAGE, false);
+        = ensurePagingCommand(application, sheet, Facets.PAGER_PAGE_DIRECT, SheetAction.toPage, false);
     int linkCount = ComponentUtils.getIntAttribute(sheet, Attributes.directLinkCount);
     linkCount--;  // current page needs no link
     final ArrayList<Integer> prevs = new ArrayList<Integer>(linkCount);
@@ -1091,16 +1094,16 @@ public class SheetRenderer extends RendererBase {
       if (skip < 1) {
         skip = 1;
       }
-      encodeLink(facesContext, sheet, application, false, PageAction.TO_PAGE, skip, Icons.ELLIPSIS_H, null);
+      encodeLink(facesContext, sheet, application, false, SheetAction.toPage, skip, Icons.ELLIPSIS_H, null);
     }
     for (final Integer prev : prevs) {
-      encodeLink(facesContext, sheet, application, false, PageAction.TO_PAGE, prev, null, null);
+      encodeLink(facesContext, sheet, application, false, SheetAction.toPage, prev, null, null);
     }
-    encodeLink(facesContext, sheet, application, false, PageAction.TO_PAGE,
+    encodeLink(facesContext, sheet, application, false, SheetAction.toPage,
         sheet.getCurrentPage() + 1, null, BootstrapClass.ACTIVE);
 
     for (final Integer next : nexts) {
-      encodeLink(facesContext, sheet, application, false, PageAction.TO_PAGE, next, null, null);
+      encodeLink(facesContext, sheet, application, false, SheetAction.toPage, next, null, null);
     }
 
     skip = nexts.size() > 0 ? nexts.get(nexts.size() - 1) : pages;
@@ -1110,12 +1113,12 @@ public class SheetRenderer extends RendererBase {
       if (skip > pages) {
         skip = pages;
       }
-      encodeLink(facesContext, sheet, application, false, PageAction.TO_PAGE, skip, Icons.ELLIPSIS_H, null);
+      encodeLink(facesContext, sheet, application, false, SheetAction.toPage, skip, Icons.ELLIPSIS_H, null);
     }
   }
 
   private UILink ensurePagingCommand(
-      final Application application, final UISheet sheet, final String facet, final PageAction action,
+      final Application application, final UISheet sheet, final String facet, final SheetAction action,
       final boolean disabled) {
 
     final Map<String, UIComponent> facets = sheet.getFacets();
@@ -1125,7 +1128,7 @@ public class SheetRenderer extends RendererBase {
       command.setRendererType(RendererTypes.SHEET_PAGE_COMMAND);
 //      command.addActionListener(new SheetActionListener()); XXX to activate: remove RendererType
       command.setRendered(true);
-      ComponentUtils.setAttribute(command, Attributes.pageAction, action);
+      ComponentUtils.setAttribute(command, Attributes.sheetAction, action);
       command.setDisabled(disabled);
       facets.put(facet, command);
 

@@ -113,6 +113,10 @@ public final class StringUtils {
     return builder.toString();
   }
 
+  public static String firstToUpperCase(final String string) {
+    return string.substring(0, 1).toUpperCase(Locale.ENGLISH) + string.substring(1);
+  }
+
   /**
    * Is the same string, by ignoring differences that are only whitespaces.
    * (null and "" are not equal)
