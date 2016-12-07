@@ -27,9 +27,9 @@
     The facet could be filled with <code class="language-markup">&lt;tc:out/></code> tags
     to set the names of the header.
     Such an outputfield tag may also contain
-    <code class="language-markup">&lt;tc:gridLayoutConstraint columnSpan="..."/></code>
+    <code class="language-markup">&lt;tc:span column="..."/></code>
     or
-    <code class="language-markup">&lt;tc:gridLayoutConstraint rowSpan="..."/></code>
+    <code class="language-markup">&lt;tc:span row="..."/></code>
     to set a span over columns or rows.</p>
   <p>Tag Library Documentation:
     <tc:link label="&lt;tc:sheet/>" image="#{request.contextPath}/image/feather-leaf.png"
@@ -38,7 +38,7 @@
     <tc:link label="&lt;tc:column/>" image="#{request.contextPath}/image/feather-leaf.png"
              link="#{demoBundle.tagDocUrl}/column.html"/>
     |
-    <tc:link label="&lt;tc:gridLayoutConstraint/>" image="#{request.contextPath}/image/feather-leaf.png"
+    <tc:link label="&lt;tc:span/>" image="#{request.contextPath}/image/feather-leaf.png"
              link="#{demoBundle.tagDocUrl}/gridLayoutConstraint.html"/></p>
 
   <tc:section label="Multi-Header">
@@ -47,39 +47,39 @@
     columns="3*;2*;30px;2*;2*;2*;2*;2*;2*" markup="bordered">
   &lt;f:facet name="header">
     &lt;tc:out value="Name">
-      &lt;tc:gridLayoutConstraint rowSpan="3"/>
+      &lt;tc:span row="3"/>
     &lt;/tc:out>
     &lt;tc:out value="Information">
-      &lt;tc:gridLayoutConstraint columnSpan="2"/>
+      &lt;tc:span column="2"/>
     ...</code></pre>
     <tc:sheet value="#{sheetController.solarList}" var="luminary" rows="11"
               columns="3*;2*;30px;2*;2*;2*;2*;2*;2*" markup="bordered">
       <f:facet name="header">
         <tc:panel>
           <tc:out value="Name">
-            <tc:gridLayoutConstraint rowSpan="3"/>
+            <tc:span row="3"/>
           </tc:out>
           <tc:out value="Information">
-            <tc:gridLayoutConstraint columnSpan="2"/>
+            <tc:span column="2"/>
           </tc:out>
           <tc:out value="Data">
-            <tc:gridLayoutConstraint columnSpan="4"/>
+            <tc:span column="4"/>
           </tc:out>
           <tc:out value="Discovery">
-            <tc:gridLayoutConstraint columnSpan="2"/>
+            <tc:span column="2"/>
           </tc:out>
 
           <tc:out value="Orbit">
-            <tc:gridLayoutConstraint columnSpan="3"/>
+            <tc:span column="3"/>
           </tc:out>
           <tc:out value="Orb">
-            <tc:gridLayoutConstraint columnSpan="3"/>
+            <tc:span column="3"/>
           </tc:out>
           <tc:out value="Name">
-            <tc:gridLayoutConstraint rowSpan="2"/>
+            <tc:span row="2"/>
           </tc:out>
           <tc:out value="Year">
-            <tc:gridLayoutConstraint rowSpan="2"/>
+            <tc:span row="2"/>
           </tc:out>
 
           <tc:out value="of"/>

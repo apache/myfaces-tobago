@@ -82,32 +82,32 @@
         <tc:button label="Reload both" tip="Reload both boxes"
                    action="#{partialReloadController.reload}">
           <f:ajax render="left right :page:header:headerInfo"/>
-          <tc:gridLayoutConstraint columnSpan="2"/>
+          <tc:span column="2"/>
         </tc:button>
 
         <tc:button label="Reload full panel"
                    tip="Reload the full area inside the outer box"
                    action="#{partialReloadController.reload}">
           <f:ajax render="parent :page:header:headerInfo"/>
-          <tc:gridLayoutConstraint columnSpan="2"/>
+          <tc:span column="2"/>
         </tc:button>
 
         <tc:button label="Reload both (wait 3 s)"
                    tip="Reload both boxes, but the server has a delay of 3 seconds"
                    action="#{partialReloadController.waitAndReload3}">
           <f:ajax render="left right :page:header:headerInfo"/>
-          <tc:gridLayoutConstraint columnSpan="2"/>
+          <tc:span column="2"/>
         </tc:button>
 
         <tc:button label="Reload both (wait 7 s, timeout)"
                    tip="Reload both boxes, but the server has a delay of 7 seconds, this is more than the default timeout for AJAX"
                    action="#{partialReloadController.waitAndReload7}">
           <f:ajax render="left right :page:header:headerInfo"/>
-          <tc:gridLayoutConstraint columnSpan="2"/>
+          <tc:span column="2"/>
         </tc:button>
 
         <tc:panel id="navTest">
-          <tc:gridLayoutConstraint columnSpan="2"/>
+          <tc:span column="2"/>
 
           <tc:selectOneChoice fieldId="navSelect" value="#{partialReloadController.navigateActionValue}"
                               label="On Change">

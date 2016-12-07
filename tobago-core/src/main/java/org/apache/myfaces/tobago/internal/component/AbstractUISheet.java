@@ -414,8 +414,8 @@ public abstract class AbstractUISheet extends AbstractUIData
 
     for (final UIComponent child : header.getChildren()) {
       if (child.isRendered()) {
-        int columnSpan = ComponentUtils.getIntAttribute(child, Attributes.columnSpan, 1);
-        int rowSpan = ComponentUtils.getIntAttribute(child, Attributes.rowSpan, 1);
+        int columnSpan = ComponentUtils.getIntAttribute(child, Attributes.column, 1);
+        int rowSpan = ComponentUtils.getIntAttribute(child, Attributes.row, 1);
         grid.add(new OriginCell(child), columnSpan, rowSpan);
       }
     }

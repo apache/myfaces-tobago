@@ -57,7 +57,7 @@ public enum Attributes {
   clientProperties,
   collapsed,
   collapsedMode,
-  columnSpan,
+  column,
   columnSpacing,
   columns,
   converter,
@@ -190,7 +190,7 @@ public enum Attributes {
   required,
   resizable,
   rowId,
-  rowSpan,
+  row,
   rowSpacing,
   rows,
   scriptFiles,
@@ -330,7 +330,7 @@ public enum Attributes {
   public static final String CLIENT_PROPERTIES = "clientProperties";
   /** @deprecated Since Tobago 3.0.0. Please use the enum */
   @Deprecated
-  public static final String COLUMN_SPAN = "columnSpan";
+  public static final String COLUMN_SPAN = "column";
   /** @deprecated Since Tobago 3.0.0. Please use the enum */
   @Deprecated
   public static final String COLUMN_SPACING = "columnSpacing";
@@ -633,7 +633,7 @@ public enum Attributes {
   public static final String ROW_ID = "rowId";
   /** @deprecated Since Tobago 3.0.0. Please use the enum */
   @Deprecated
-  public static final String ROW_SPAN = "rowSpan";
+  public static final String ROW_SPAN = "row";
   /** @deprecated Since Tobago 3.0.0. Please use the enum */
   @Deprecated
   public static final String ROW_SPACING = "rowSpacing";

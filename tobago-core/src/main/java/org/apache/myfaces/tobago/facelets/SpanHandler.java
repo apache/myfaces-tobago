@@ -30,39 +30,38 @@ import java.io.IOException;
 import java.util.Map;
 
 /**
- * @deprecated since 3.0.0
+ * @since 3.0.0
  */
-@Deprecated
-public class GridLayoutConstraintHandler extends TagHandler {
+public class SpanHandler extends TagHandler {
 
-  private final TagAttribute columnSpan;
-  private final TagAttribute rowSpan;
+  private final TagAttribute column;
+  private final TagAttribute row;
 
-  public GridLayoutConstraintHandler(final TagConfig config) {
+  public SpanHandler(final TagConfig config) {
     super(config);
-    columnSpan = getAttribute(Attributes.columnSpan.getName());
-    rowSpan = getAttribute(Attributes.rowSpan.getName());
+    column = getAttribute(Attributes.column.getName());
+    row = getAttribute(Attributes.row.getName());
   }
 
   @Override
   public void apply(final FaceletContext faceletContext, UIComponent parent) throws IOException {
     final Map<String, Object> attributes = parent.getAttributes();
 
-    if (columnSpan != null) {
-      if (columnSpan.isLiteral()) {
-        attributes.put(Attributes.columnSpan.getName(), Integer.valueOf(columnSpan.getValue()));
+    if (column != null) {
+      if (column.isLiteral()) {
+        attributes.put(Attributes.column.getName(), Integer.valueOf(column.getValue()));
       } else {
-        parent.setValueExpression(Attributes.columnSpan.getName(),
-            columnSpan.getValueExpression(faceletContext, Integer.TYPE));
+        parent.setValueExpression(Attributes.column.getName(),
+            column.getValueExpression(faceletContext, Integer.TYPE));
       }
     }
 
-    if (rowSpan != null) {
-      if (rowSpan.isLiteral()) {
-        attributes.put(Attributes.rowSpan.getName(), Integer.valueOf(rowSpan.getValue()));
+    if (row != null) {
+      if (row.isLiteral()) {
+        attributes.put(Attributes.row.getName(), Integer.valueOf(row.getValue()));
       } else {
-        parent.setValueExpression(Attributes.rowSpan.getName(),
-            rowSpan.getValueExpression(faceletContext, Integer.TYPE));
+        parent.setValueExpression(Attributes.row.getName(),
+            row.getValueExpression(faceletContext, Integer.TYPE));
       }
     }
   }
