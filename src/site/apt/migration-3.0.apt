@@ -136,6 +136,8 @@ Migration from Tobago 2.0 to 3.0 (work in progress)
 
 * TODO: attribute renderPartially is replaced by f:ajax
 
+* TODO: Move data from ClientProperties to TobagoContext
+
 Tango Icons
 
   Tango icon lib is no longer part of Tobago. Replaced by Font Awesome. If you need it, please
