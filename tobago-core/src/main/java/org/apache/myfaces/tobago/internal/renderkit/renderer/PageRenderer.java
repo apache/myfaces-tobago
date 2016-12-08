@@ -184,11 +184,12 @@ public class PageRenderer extends RendererBase {
       writer.writeText(title != null ? title : "");
       writer.endElement(HtmlElements.TITLE);
 
-      // style files
+      // style files from theme
       for (final String styleFile : theme.getStyleResources(productionMode)) {
         writeStyle(writer, contextPath + styleFile);
       }
 
+      // style files individual files
       for (final String styleFile : FacesContextUtils.getStyleFiles(facesContext)) {
         writeStyle(writer, styleFile);
       }
@@ -225,11 +226,12 @@ public class PageRenderer extends RendererBase {
         child.encodeAll(facesContext);
       }
 
-      // render remaining script tags
+      // script files from theme
       for (final String scriptFile : theme.getScriptResources(productionMode)) {
         encodeScript(writer, contextPath + scriptFile);
       }
 
+      // script files individual files
       for (final String scriptFile : FacesContextUtils.getScriptFiles(facesContext)) {
         encodeScript(writer, scriptFile);
       }
