@@ -24,7 +24,12 @@
     version="3.0">
 
   <theme-config>
-    <default-theme>speyside</default-theme>
+    <default-theme>standard</default-theme>
   </theme-config>
+
+<!--
+  <create-session-secret>false</create-session-secret>
+  <check-session-secret>false</check-session-secret>
+-->
 
 </tobago-config>
