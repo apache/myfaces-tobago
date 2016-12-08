@@ -27,9 +27,9 @@ import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.context.Theme;
 import org.apache.myfaces.tobago.context.TobagoContext;
 import org.apache.myfaces.tobago.context.TobagoResourceBundle;
-import org.apache.myfaces.tobago.context.UserAgent;
 import org.apache.myfaces.tobago.internal.component.AbstractUIPage;
 import org.apache.myfaces.tobago.internal.util.AccessKeyLogger;
+import org.apache.myfaces.tobago.internal.util.CookieUtils;
 import org.apache.myfaces.tobago.internal.util.FacesContextUtils;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.internal.util.JsonUtils;
@@ -59,7 +59,6 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.portlet.MimeResponse;
 import javax.portlet.ResourceURL;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -76,7 +75,6 @@ public class PageRenderer extends RendererBase {
 
   private static final String LAST_FOCUS_ID = "lastFocusId";
   private static final String HEAD_TARGET = "head";
-  public static final String THEME_PARAMETER = "tobago.theme";
 
   @Override
   public void decode(final FacesContext facesContext, final UIComponent component) {
@@ -84,43 +82,12 @@ public class PageRenderer extends RendererBase {
     final AbstractUIPage page = (AbstractUIPage) component;
     final String clientId = page.getClientId(facesContext);
     final ExternalContext externalContext = facesContext.getExternalContext();
-    final TobagoConfig config = TobagoConfig.getInstance(facesContext);
-    final TobagoContext tobagoContext = TobagoContext.getInstance(facesContext);
 
     // last focus
     final String lastFocusId =
         externalContext.getRequestParameterMap().get(clientId + ComponentUtils.SUB_SEPARATOR + LAST_FOCUS_ID);
     if (lastFocusId != null) {
       FacesContextUtils.setFocusId(facesContext, lastFocusId);
-    }
-
-    // user agent
-    final String requestUserAgent = externalContext.getRequestHeaderMap().get("User-Agent");
-    final UserAgent userAgent = UserAgent.getInstance(requestUserAgent);
-    if (LOG.isDebugEnabled()) {
-      LOG.debug("userAgent='" + userAgent + "' from header " + "'User-Agent: " + requestUserAgent + "'");
-    }
-    tobagoContext.setUserAgent(userAgent);
-
-    // theme
-    String themeName = null;
-    Object request = externalContext.getRequest();
-    if (request instanceof HttpServletRequest) {
-      HttpServletRequest httpServletRequest = (HttpServletRequest) request;
-      Cookie[] cookies = httpServletRequest.getCookies();
-      for (Cookie cookie : cookies) {
-        if (THEME_PARAMETER.equals(cookie.getName())) {
-          themeName = cookie.getValue();
-          if (LOG.isDebugEnabled()) {
-            LOG.debug("theme from cookie {}='{}'", THEME_PARAMETER, themeName);
-          }
-          break;
-        }
-      }
-    }
-    tobagoContext.setTheme(config.getTheme(themeName));
-    if (LOG.isDebugEnabled()) {
-      LOG.debug("theme='{}'", tobagoContext.getTheme().getName());
     }
   }
 
@@ -151,6 +118,7 @@ public class PageRenderer extends RendererBase {
 
     final ExternalContext externalContext = facesContext.getExternalContext();
     final String contextPath = externalContext.getRequestContextPath();
+    final Object request = externalContext.getRequest();
     final Object response = externalContext.getResponse();
     final Application application = facesContext.getApplication();
     final ViewHandler viewHandler = application.getViewHandler();
@@ -174,19 +142,8 @@ public class PageRenderer extends RendererBase {
     }
 
     final Theme theme = TobagoContext.getInstance(facesContext).getTheme();
-    if (response instanceof HttpServletResponse) {
-      LOG.info("--------------------------------------------------------------------");
-      final HttpServletResponse servletResponse = (HttpServletResponse) response;
-      for (String s : servletResponse.getHeaderNames()) {
-        LOG.info("'{}' -> '{}'", s, servletResponse.getHeaders(s));
-      }
-      Cookie cookie = new Cookie(THEME_PARAMETER, theme.getName());
-      servletResponse.addCookie(cookie);
-      LOG.info("--------------------------------------------------------------------");
-      for (String s : servletResponse.getHeaderNames()) {
-        LOG.info("'{}' -> '{}'", s, servletResponse.getHeaders(s));
-      }
-      LOG.info("--------------------------------------------------------------------");
+    if (response instanceof HttpServletResponse && request instanceof HttpServletRequest) {
+      CookieUtils.setThemeNameToCookie((HttpServletRequest) request, (HttpServletResponse) response, theme.getName());
     }
 
     final String clientId = page.getClientId(facesContext);

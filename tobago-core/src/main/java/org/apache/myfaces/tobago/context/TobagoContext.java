@@ -20,15 +20,22 @@
 package org.apache.myfaces.tobago.context;
 
 import org.apache.myfaces.tobago.config.TobagoConfig;
+import org.apache.myfaces.tobago.internal.util.CookieUtils;
 import org.apache.myfaces.tobago.util.VariableResolverUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletRequest;
 
 @ManagedBean
 @RequestScoped
 public class TobagoContext {
+
+  private static final Logger LOG = LoggerFactory.getLogger(TobagoContext.class);
 
   public static final String BEAN_NAME = "tobagoContext";
 
@@ -36,11 +43,7 @@ public class TobagoContext {
   private static final TobagoMessageBundle MESSAGE_BUNDLE = new TobagoMessageBundle();
 
   private Theme theme;
-  private UserAgent userAgent = UserAgent.DEFAULT;
-
-  public TobagoContext() {
-    this.theme = getTobagoConfig().getDefaultTheme();
-  }
+  private UserAgent userAgent;
 
   public TobagoResourceBundle getResourceBundle() {
     return RESOURCE_BUNDLE;
@@ -55,6 +58,25 @@ public class TobagoContext {
   }
 
   public Theme getTheme() {
+
+    if (theme == null) {
+      final FacesContext facesContext = FacesContext.getCurrentInstance();
+      final ExternalContext externalContext = facesContext.getExternalContext();
+
+      final String themeName;
+      Object request = externalContext.getRequest();
+      if (request instanceof HttpServletRequest) {
+        themeName = CookieUtils.getThemeNameFromCookie((HttpServletRequest) request);
+      } else {
+        themeName = null;
+      }
+
+      theme = getTobagoConfig().getTheme(themeName);
+      if (LOG.isDebugEnabled()) {
+        LOG.debug("theme='{}'", theme.getName());
+      }
+    }
+
     return theme;
   }
 
@@ -63,6 +85,18 @@ public class TobagoContext {
   }
 
   public UserAgent getUserAgent() {
+
+    if (userAgent == null) {
+      final FacesContext facesContext = FacesContext.getCurrentInstance();
+      final ExternalContext externalContext = facesContext.getExternalContext();
+
+      final String requestUserAgent = externalContext.getRequestHeaderMap().get("User-Agent");
+      userAgent = UserAgent.getInstance(requestUserAgent);
+      if (LOG.isDebugEnabled()) {
+        LOG.debug("userAgent='" + userAgent + "' from header " + "'User-Agent: " + requestUserAgent + "'");
+      }
+    }
+
     return userAgent;
   }
 

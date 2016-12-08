@@ -46,13 +46,14 @@
                 <tc:selectItems value="#{clientConfigController.themeItems}"/>
               </tc:selectOneRadio>
             </tc:link>
+            <!--<tc:link action="#{clientConfigController.resetTheme}" label="Reset Theme"/>-->
             <tc:link label="#{demoBundle.menu_locale}">
               <tc:selectOneRadio value="#{clientConfigController.locale}">
                 <tc:event action="#{clientConfigController.submit}"/>
                 <tc:selectItems value="#{clientConfigController.localeItems}"/>
               </tc:selectOneRadio>
             </tc:link>
-            <tc:link action="#{login.resetSession}" label="Reset"/>
+            <tc:link action="#{login.resetSession}" label="Reset Session"/>
           </tc:link>
 
           <tc:link label="#{demoBundle.menu_help}" omit="true">

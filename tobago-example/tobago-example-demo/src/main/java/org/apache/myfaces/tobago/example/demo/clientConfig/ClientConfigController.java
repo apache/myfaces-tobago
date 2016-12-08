@@ -87,11 +87,23 @@ public class ClientConfigController {
     return null;
   }
 
+/*
+  public String resetTheme() {
+    final ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+    final Object request = externalContext.getRequest();
+    final Object response = externalContext.getResponse();
+    if (response instanceof HttpServletResponse && request instanceof HttpServletRequest) {
+      CookieUtils.removeThemeNameCookie((HttpServletRequest) request, (HttpServletResponse) response);
+    }
+
+    return null;
+  }
+*/
+
 // ///////////////////////////////////////////// logic
 
   public void storeInTobagoContext() {
     final TobagoContext tobagoContext = TobagoContext.getInstance(FacesContext.getCurrentInstance());
-    LOG.info("XXXXXXXXX " + theme);
     tobagoContext.setTheme(theme);
   }
 
