@@ -758,7 +758,7 @@ public class SheetRenderer extends RendererBase {
       writer.startElement(HtmlElements.TR);
       for (int j = 0; j < columns.size(); j++) {
         final AbstractUIColumnBase column = columns.get(j);
-        if (column instanceof AbstractUIRow) {
+        if (!column.isRendered() || column instanceof AbstractUIRow) {
           offset++;
         } else {
           final Cell cell = grid.getCell(j - offset, i);
