@@ -25,6 +25,13 @@
 
   <display-name>Blank Tobago Application</display-name>
 
+<!--
+  <context-param>
+    <param-name>javax.faces.STATE_SAVING_METHOD</param-name>
+    <param-value>client</param-value>
+  </context-param>
+-->
+
   <!-- servlet -->
   <servlet>
     <servlet-name>FacesServlet</servlet-name>
