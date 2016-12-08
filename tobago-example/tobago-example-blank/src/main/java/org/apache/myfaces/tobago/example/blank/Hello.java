@@ -19,14 +19,17 @@
 
 package org.apache.myfaces.tobago.example.blank;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
-
-import static org.apache.myfaces.tobago.internal.util.Deprecation.LOG;
 
 @ManagedBean
 @RequestScoped
 public class Hello {
+
+  private static final Logger LOG = LoggerFactory.getLogger(Hello.class);
 
   private String name;
 
