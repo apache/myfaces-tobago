@@ -26,17 +26,19 @@ import org.apache.myfaces.tobago.internal.component.AbstractUICommand;
 import org.apache.myfaces.tobago.internal.renderkit.renderer.TobagoClientBehaviorRenderer;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.ValueHolder;
 import javax.faces.context.FacesContext;
 
-import static org.apache.myfaces.tobago.internal.util.Deprecation.LOG;
-
 /**
  * @since 2.0.0
  */
 public class Command {
+
+  private static final Logger LOG = LoggerFactory.getLogger(Command.class);
 
   /**
    * The action is only needed if the action is not the HTML element itself.

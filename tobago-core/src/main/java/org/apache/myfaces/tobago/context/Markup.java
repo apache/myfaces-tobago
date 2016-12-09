@@ -316,11 +316,11 @@ public final class Markup implements Serializable, Iterable<String> {
       return value.equals(markup);
     }
     for (final String value : values) {
-        if (value.equals(markup)) {
-          return true;
-        }
+      if (value.equals(markup)) {
+        return true;
       }
-      return false;
+    }
+    return false;
   }
 
   public boolean contains(final Markup markup) {
