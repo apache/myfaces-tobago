@@ -19,14 +19,12 @@
 
 set -e
 
-# all _tobago.css must be the same. Later we delete the duplicates...
+# all _tobago.css must be the same. TODO: Later we delete the duplicates...
 
-cmp tobago-theme-standard/src/main/scss/_tobago.scss tobago-theme-charlotteville/src/main/scss/_tobago.scss || exit 1
-cmp tobago-theme-standard/src/main/scss/_tobago.scss tobago-theme-richmond/src/main/scss/_tobago.scss || exit 1
-cmp tobago-theme-standard/src/main/scss/_tobago.scss tobago-theme-scarborough/src/main/scss/_tobago.scss || exit 1
-cmp tobago-theme-standard/src/main/scss/_tobago.scss tobago-theme-speyside/src/main/scss/_tobago.scss || exit 1
-
-echo check ok, building now...
+cp tobago-theme-standard/src/main/scss/_tobago.scss tobago-theme-charlotteville/src/main/scss/_tobago.scss
+cp tobago-theme-standard/src/main/scss/_tobago.scss tobago-theme-richmond/src/main/scss/_tobago.scss
+cp tobago-theme-standard/src/main/scss/_tobago.scss tobago-theme-scarborough/src/main/scss/_tobago.scss
+cp tobago-theme-standard/src/main/scss/_tobago.scss tobago-theme-speyside/src/main/scss/_tobago.scss
 
 mvn clean
 
