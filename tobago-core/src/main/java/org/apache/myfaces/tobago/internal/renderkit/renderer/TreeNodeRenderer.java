@@ -196,7 +196,7 @@ public class TreeNodeRenderer extends RendererBase {
       final FacesContext facesContext, final TobagoResponseWriter writer, final boolean expanded,
       final AbstractUITreeNodeBase node)
       throws IOException {
-    LOG.warn("todo: font-awesome icons");
+//    LOG.warn("todo: font-awesome icons");
 /* XXX
     final String srcOpen = ResourceManagerUtils.getImage(facesContext, "image/treeMenuOpen");
     final String srcClose = ResourceManagerUtils.getImage(facesContext, "image/treeMenuClose");
