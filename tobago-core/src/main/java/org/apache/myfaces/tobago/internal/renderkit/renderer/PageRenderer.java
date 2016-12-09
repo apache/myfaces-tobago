@@ -41,6 +41,7 @@ import org.apache.myfaces.tobago.portlet.PortletUtils;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
+import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
@@ -149,6 +150,8 @@ public class PageRenderer extends RendererBase {
     final String clientId = page.getClientId(facesContext);
     final boolean productionMode = tobagoConfig.getProjectStage() == ProjectStage.Production;
     final boolean preventFrameAttacks = tobagoConfig.isPreventFrameAttacks();
+    final Markup markup = page.getMarkup();
+    final TobagoClass spread = markup != null && markup.contains(Markup.SPREAD) ? TobagoClass.SPREAD : null;
 
     if (!facesContext.getPartialViewContext().isAjaxRequest()) {
       final String title = page.getLabel();
@@ -163,6 +166,7 @@ public class PageRenderer extends RendererBase {
           }
         }
       }
+      writer.writeClassAttribute(spread);
 
       writer.startElement(HtmlElements.HEAD);
 
@@ -247,6 +251,7 @@ public class PageRenderer extends RendererBase {
     writer.writeClassAttribute(
         portlet ? Classes.create(page, Markup.PORTLET) : Classes.create(page),
         BootstrapClass.CONTAINER_FLUID,
+        spread,
         page.getCustomClass());
     writer.writeIdAttribute(clientId);
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, page);
@@ -255,9 +260,11 @@ public class PageRenderer extends RendererBase {
     writer.writeCommandMapAttribute(JsonUtils.encode(RenderUtils.getBehaviorCommands(facesContext, page)));
 
     writer.startElement(HtmlElements.FORM);
-    if (preventFrameAttacks && !facesContext.getPartialViewContext().isAjaxRequest()) {
-      writer.writeClassAttribute(Classes.create(page, "preventFrameAttacks", Markup.NULL));
-    }
+    writer.writeClassAttribute(
+        preventFrameAttacks && !facesContext.getPartialViewContext().isAjaxRequest()
+            ? Classes.create(page, "preventFrameAttacks", Markup.NULL)
+            : null,
+        spread);
     writer.writeAttribute(HtmlAttributes.ACTION, formAction, true);
     if (partialAction != null) {
       writer.writeAttribute(DataAttributes.PARTIAL_ACTION, partialAction, true);

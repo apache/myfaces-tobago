@@ -212,6 +212,7 @@ table.tobago-gridLayout > tbody > tr > td {
     padding: 0;
     border-left: 5px solid transparent;
     border-top: 5px solid transparent;
+    height: 100%; /* needed for Firefox */
 }
 
 table.tobago-gridLayout > tbody > tr > td:first-child {
@@ -220,6 +221,11 @@ table.tobago-gridLayout > tbody > tr > td:first-child {
 
 table.tobago-gridLayout > tbody > tr:first-child > td {
     border-top: 0;
+}
+
+table.tobago-gridLayout > tbody > tr > td > * {
+  height: 100%;
+  width: 100%;
 }
 
 /* header ----------------------------------------------------------- */
@@ -450,6 +456,10 @@ span.tobago-out:empty:before {
 
 .tobago-page-preventFrameAttacks {
   display: none;
+}
+
+.tobago-spread {
+  height: 100%;
 }
 
 /* popup ------------------------------------------------------------- */

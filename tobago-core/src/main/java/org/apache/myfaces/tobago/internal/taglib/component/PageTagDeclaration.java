@@ -28,6 +28,7 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.component.ClientBehaviors;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.RendererTypes;
+import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasBinding;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasId;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabel;
@@ -36,7 +37,14 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
 import javax.faces.component.UIForm;
 
 /**
+ * <p>
  * Renders a page element.
+ * </p>
+ * <p>
+ * The markup {@link Markup#SPREAD} means the page should spread over the hole available area.
+ * So the content will use the full height of the browser window.
+ * <b>Warning: This feature is preliminary and may change, if necessary, in minor releases!</b>
+ * </p>
  */
 @Tag(name = "page")
 @UIComponentTag(

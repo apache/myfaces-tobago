@@ -50,6 +50,7 @@ public enum TobagoClass implements CssItem {
 
   HAS_INFO("tobago-has-info"),
   REQUIRED("tobago-required"),
+  SPREAD("tobago-spread"),
 
   // component based classes
 

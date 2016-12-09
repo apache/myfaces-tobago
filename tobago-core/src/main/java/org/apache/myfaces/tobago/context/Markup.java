@@ -100,6 +100,7 @@ public final class Markup implements Serializable, Iterable<String> {
   public static final Markup SHEET_TOGGLE_ALL = valueOf("sheetToggleAll");
   public static final Markup SMALL = valueOf("small");
   public static final Markup SORTABLE = valueOf("sortable");
+  public static final Markup SPREAD = valueOf("spread");
   public static final Markup STRIPED = valueOf("striped");
   public static final Markup STRONG = valueOf("strong");
   public static final Markup TOP = valueOf("top");

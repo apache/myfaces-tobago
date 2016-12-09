@@ -116,17 +116,13 @@ public class GridLayoutRenderer extends RendererBase {
           final Measure width = Measure.valueOf(ComponentUtils.getAttribute(element, Attributes.width));
           if (width != null) {
             builder.append("\"width\":");
-//            builder.append("{\"pixel\":");
             builder.append(width.serialize());
-//            builder.append("}");
             builder.append(",");
           }
           final Measure height = Measure.valueOf(ComponentUtils.getAttribute(element, Attributes.height));
           if (height != null) {
             builder.append("\"height\":");
-//            builder.append("{\"pixel\":");
             builder.append(height.serialize());
-//            builder.append("}");
             builder.append(",");
           }
           if (builder.length() > 1) {
