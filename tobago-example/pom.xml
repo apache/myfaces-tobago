@@ -27,12 +27,12 @@
   <artifactId>tobago-example</artifactId>
 
   <modules>
-    <module>tobago-example-addressbook</module>
+    <!--<module>tobago-example-addressbook</module>-->
     <module>tobago-example-blank</module>
     <module>tobago-example-data</module>
     <module>tobago-example-demo</module>
     <module>tobago-example-portlet</module>
-    <module>tobago-example-test</module>
+    <!--<module>tobago-example-test</module>-->
     <module>tobago-example-assembly</module>
   </modules>
 
@@ -131,22 +131,7 @@
   <dependencies>
     <dependency>
       <groupId>org.apache.myfaces.tobago</groupId>
-      <artifactId>tobago-theme-charlotteville</artifactId>
-      <version>${project.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.myfaces.tobago</groupId>
-      <artifactId>tobago-theme-scarborough</artifactId>
-      <version>${project.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.myfaces.tobago</groupId>
       <artifactId>tobago-theme-speyside</artifactId>
-      <version>${project.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.myfaces.tobago</groupId>
-      <artifactId>tobago-theme-richmond</artifactId>
       <version>${project.version}</version>
     </dependency>
     <dependency>
@@ -172,6 +157,32 @@
   </dependencies>
 
   <profiles>
+
+    <profile>
+      <id>all-modules</id>
+      <modules>
+        <module>tobago-example-addressbook</module>
+        <module>tobago-example-test</module>
+      </modules>
+
+      <dependencies>
+        <dependency>
+          <groupId>org.apache.myfaces.tobago</groupId>
+          <artifactId>tobago-theme-charlotteville</artifactId>
+          <version>${project.version}</version>
+        </dependency>
+        <dependency>
+          <groupId>org.apache.myfaces.tobago</groupId>
+          <artifactId>tobago-theme-scarborough</artifactId>
+          <version>${project.version}</version>
+        </dependency>
+        <dependency>
+          <groupId>org.apache.myfaces.tobago</groupId>
+          <artifactId>tobago-theme-richmond</artifactId>
+          <version>${project.version}</version>
+        </dependency>
+      </dependencies>
+    </profile>
 
     <profile>
       <id>jsf-provided</id>

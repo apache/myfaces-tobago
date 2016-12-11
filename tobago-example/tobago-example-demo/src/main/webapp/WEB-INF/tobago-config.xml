@@ -31,12 +31,14 @@
     </after>
   </ordering>
 
+<!-- using all available themes, if this is not set -->
   <theme-config>
     <default-theme>standard</default-theme>
-    <supported-theme>scarborough</supported-theme>
-    <supported-theme>richmond</supported-theme>
-    <supported-theme>charlotteville</supported-theme>
     <supported-theme>speyside</supported-theme>
+    <!-- TODO: Can be removed after closing TOBAGO-1664 -->
+    <!--<supported-theme>scarborough</supported-theme>-->
+    <!--<supported-theme>richmond</supported-theme>-->
+    <!--<supported-theme>charlotteville</supported-theme>-->
   </theme-config>
 
   <resource-dir>tobago-resource</resource-dir>

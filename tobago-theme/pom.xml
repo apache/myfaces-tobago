@@ -49,10 +49,10 @@
 
   <modules>
     <module>tobago-theme-standard</module>
-    <module>tobago-theme-scarborough</module>
+    <!--<module>tobago-theme-scarborough</module>-->
     <module>tobago-theme-speyside</module>
-    <module>tobago-theme-richmond</module>
-    <module>tobago-theme-charlotteville</module>
+    <!--<module>tobago-theme-richmond</module>-->
+    <!--<module>tobago-theme-charlotteville</module>-->
   </modules>
 
   <dependencies>
@@ -64,6 +64,16 @@
   </dependencies>
 
   <profiles>
+
+    <profile>
+      <id>all-modules</id>
+      <modules>
+        <module>tobago-theme-scarborough</module>
+        <module>tobago-theme-richmond</module>
+        <module>tobago-theme-charlotteville</module>
+      </modules>
+    </profile>
+
     <profile>
       <id>rebuild-theme</id>
       <build>
