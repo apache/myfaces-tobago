@@ -19,14 +19,51 @@
 
 <ui:composition template="/main.xhtml"
                 xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:f="http://java.sun.com/jsf/core">
   <ui:param name="title" value="#{demoBundle.in} &lt;tc:in&gt;"/>
   <p>The <code class="language-markup">&lt;tc:in/&gt;</code> tag create a classic inputfield.</p>
-  <tc:link label="Tag Library Documentation" image="#{request.contextPath}/image/feather-leaf.png"
-           link="#{demoBundle.tagDocUrl}/in.html"/>
+  <tc:link label="Tag Library Documentation" image="#{request.contextPath}/image/feather-leaf.png" link="#{demoBundle.tagDocUrl}/in.html"/>
+  <tc:section label="Basics">
+    <p>In most cases, a label should be placed in front of every inputfield. Use the attribute
+      <code>label</code>.</p>
+    <pre><code class="language-markup">&lt;tc:in label="Input" value="Some Text"/&gt;</code></pre>
+    <tc:in id="iNormal" label="Input" value="Some Text"/>
+    <tc:in id="ireadonly" label="Read Only" readonly="true" value="Some Text"/>
+    <tc:in id="i3" label="Disabled" disabled="true" value="Some Text"/>
+    <tc:in id="i4" value="Input without a label"/>
+  </tc:section>
+
+  <tc:section label="Focus">
+    <p>The following inputfield should be selected after reloading the page. Use the <code>focus</code> attribute.</p>
+    <pre><code class="language-markup">&lt;tc:in label="Input (focus)" focus="true" value="Some Text"/&gt;</code></pre>
+    <tc:in id="i5" label="Input (focus)" focus="true" value="Some Text"/>
+  </tc:section>
+
+  <tc:section label="Required">
+    <p>An inputfield can be set as required with the <code>required</code> attribute.
+      Such an inputfield must contain a value, otherwise a submit is not possible.
+      Leave the field blank and press 'submit' to see the errormessage.</p>
+    <pre><code class="language-markup">&lt;tc:in label="Input (required)" required="true"/></code></pre>
+    <tc:in id="ireq" label="Input (required)" required="true"/>
+    <tc:button label="Submit"/>
+  </tc:section>
+
+  <tc:section label="Password">
+    <p>To create an inputfield for passwords, set the
+      <code>password</code> attribute to 'true'. It will hide the text as shown in the following example.</p>
+        <pre><code id="c3"
+                   class="language-markup">&lt;tc:in label="Password" password="true" value="password"/&gt;</code></pre>
+    <tc:in id="i6" label="Password" password="true" value="password"/>
+  </tc:section>
+
+  <tc:section label="Placeholder">
+    <p>A <code>placeholder</code> attribute can be used for explaining a user the meaning of a field.</p>
+    <p>The text of the placeholder is only shown if the value is an empty string.</p>
+    <pre><code class="language-markup">&lt;tc:in label="Placeholder" placeholder="Grey Text"/&gt;</code></pre>
+    <tc:in id="i7" label="Placeholder" placeholder="Short description of the field." value=""/>
+  </tc:section>
 
   <tc:section label="Ajax">
     <p>The outputfield in this example, displays the given value on the server.
@@ -37,14 +74,9 @@
 
       Additional, the <code>listener</code> attribute is set. The given method is called after the inputfield
       loose focus.</p>
-
     <tc:in id="inputAjax" label="On Change" value="#{inController.changeValue}">
-      <!--<f:ajax render="outputAjax" listener="#{inController.update}"/>-->
+      <f:ajax render="outputAjax" listener="#{inController.update}"/>
     </tc:in>
-
-    <h:commandLink value="example" ><f:ajax render="outputAjax"/></h:commandLink>
-
     <tc:out id="outputAjax" label="On Server" value="#{inController.changeValue}"/>
-
   </tc:section>
 </ui:composition>
