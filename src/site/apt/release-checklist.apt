@@ -103,7 +103,7 @@ mvn release:perform
 
 * Voting
 
-  * Propose a vote on the dev list with the staging location.
+  * Propose a vote on the dev list with the staging location (see mail template below).
 
   * For a positive result wait at least 72 hours.
 
@@ -148,7 +148,7 @@ mvn site:stage -DstagingDirectory=/Volumes/tobago-site/tobago-publish
 
   * Delete old snapshots in /www/people.apache.org/builds/myfaces/nightly/ on people.apache.org.
 
-  * Create and send announcement.
+  * Create and send announcement (see mail template below).
 
 
 Vote template
