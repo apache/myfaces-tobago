@@ -122,9 +122,9 @@
                      link="/faces/test.xhtml"
                      label="Run Test"
                      immediate="true" tip="Run Test"
-                     rendered="#{testController.testJs != null}">
-            <f:param name="page" value="#{request.contextPath}#{testController.page}"/>
-            <f:param name="testjs" value="#{request.contextPath}/#{testController.testJs}"/>
+                     rendered="#{testController.testBase != null}">
+            <f:param name="page" value="#{request.contextPath}/faces#{testController.testBase}.xhtml"/>
+            <f:param name="testjs" value="#{request.contextPath}#{testController.testBase}.test.js"/>
           </tc:button>
           <tc:button id="closetest" label="Close Test"
                      immediate="true" tip="Close test window"/>

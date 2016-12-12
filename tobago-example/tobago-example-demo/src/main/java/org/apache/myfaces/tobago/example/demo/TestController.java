@@ -35,35 +35,17 @@ public class TestController implements Serializable {
 
   private static final Logger LOG = LoggerFactory.getLogger(TestController.class);
 
-  public String getPage() {
+  public String getTestBase() {
     final FacesContext facesContext = FacesContext.getCurrentInstance();
     final ExternalContext externalContext = facesContext.getExternalContext();
     final String viewId = facesContext.getViewRoot().getViewId();
-    final String testJs = viewId.substring(0, viewId.length() - 6) + ".test.js";
+    final String base = viewId.substring(0, viewId.length() - 6);
     try {
-      if (externalContext.getResource(testJs) != null) {
-        return "/faces" + viewId;
+      if (externalContext.getResource(base + ".test.js") != null) {
+        return base;
       }
     } catch (MalformedURLException e) {
-      LOG.error("", e);
-      return "error";
-    }
-
-    return null;
-  }
-
-  public String getTestJs() {
-    final FacesContext facesContext = FacesContext.getCurrentInstance();
-    final ExternalContext externalContext = facesContext.getExternalContext();
-    final String viewId = facesContext.getViewRoot().getViewId();
-    final String testJs = viewId.substring(0, viewId.length() - 6) + ".test.js";
-    try {
-      if (externalContext.getResource(testJs) != null) {
-        return testJs.substring(1);
-      }
-    } catch (MalformedURLException e) {
-      LOG.error("", e);
-      return "error";
+      LOG.error("viewId='" + viewId + "'", e);
     }
 
     return null;
