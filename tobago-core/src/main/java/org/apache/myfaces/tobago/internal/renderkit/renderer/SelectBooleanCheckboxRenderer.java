@@ -77,6 +77,7 @@ public class SelectBooleanCheckboxRenderer extends LabelLayoutRendererBase {
     final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, select);
     final boolean disabled = select.isDisabled();
     final LabelWithAccessKey label = new LabelWithAccessKey(select, true);
+    final String itemLabel = select.getItemLabel();
 
     writer.startElement(HtmlElements.DIV);
     writer.writeIdAttribute(clientId);
@@ -112,10 +113,9 @@ public class SelectBooleanCheckboxRenderer extends LabelLayoutRendererBase {
     writer.writeCommandMapAttribute(JsonUtils.encode(RenderUtils.getBehaviorCommands(facesContext, select)));
     writer.endElement(HtmlElements.INPUT);
 
-    if (label.getLabel() != null) {
-      HtmlRendererUtils.writeLabelWithAccessKey(writer, label);
+    if (itemLabel != null) {
+      writer.writeText(itemLabel);
     }
-
   }
 
   @Override

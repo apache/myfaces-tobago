@@ -25,7 +25,7 @@
   <ui:param name="title" value="#{demoBundle.selectBooleanCheckbox} &lt;tc:selectBooleanCheckbox&gt;"/>
   <p>The tag <code class="language-markup">&lt;tc:selectBooleanCheckbox/></code> generate a classic boolean
     checkbox.</p>
-  <tc:link label="Tag Library Documentation" image="image/feather-leaf.png"
+  <tc:link label="Tag Library Documentation" image="#{request.contextPath}/image/feather-leaf.png"
            link="#{demoBundle.tagDocUrl}/selectBooleanCheckbox.html"/>
   <tc:section label="Basics">
     <pre><code class="language-markup">&lt;tc:selectBooleanCheckbox label="Checkbox" value="true"/&gt;</code></pre>
@@ -33,6 +33,14 @@
     <tc:selectBooleanCheckbox id="s2" label="Read Only" readonly="true" value="true"/>
     <tc:selectBooleanCheckbox id="s3" label="Disabled" disabled="true" value="true"/>
     <tc:selectBooleanCheckbox id="s4" label="Required" required="true" value="true"/>
+  </tc:section>
+
+  <tc:section label="ItemLabel">
+    <tc:selectBooleanCheckbox id="checkboxItemlabel1" itemLabel="Normal Checkbox" value="true"/>
+    <tc:selectBooleanCheckbox id="checkboxItemlabel11" label="Large Label" itemLabel="Item Label" value="true"/>
+    <tc:selectBooleanCheckbox id="checkboxItemlabel2" itemLabel="Read Only" readonly="true" value="true"/>
+    <tc:selectBooleanCheckbox id="checkboxItemlabel3" itemLabel="Disabled" disabled="true" value="true"/>
+    <tc:selectBooleanCheckbox id="checkboxItemlabel4" itemLabel="Required" required="true" value="true"/>
   </tc:section>
 
   <tc:section label="Simple Usage">
