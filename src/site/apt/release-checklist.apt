@@ -57,6 +57,9 @@ mvn clean install -Pall-modules && mvn checkstyle:check apache-rat:check animal-
 
 # for Tobago 2.0.9 and higher
 mvn clean install && mvn checkstyle:check apache-rat:check animal-sniffer:check dependency-check:check
+
+# for Tobago 3.0.0 and higher
+mvn clean install -Pall-modules && mvn checkstyle:check apache-rat:check animal-sniffer:check dependency-check:check -Pall-modules
 +------------------------+
 
 * Building the Release (Tobago 1.0.x to 2.0.8)
