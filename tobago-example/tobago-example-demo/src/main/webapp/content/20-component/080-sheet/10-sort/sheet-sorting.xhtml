@@ -44,6 +44,9 @@
       <tc:column id="columnPeriod" label="Period (Days)" sortable="true">
         <tc:out value="#{object.period}" labelLayout="skip"/>
       </tc:column>
+      <tc:column id="columnDistance" label="Distance" sortable="true" rendered="false">
+        <tc:out value="#{object.distance}" labelLayout="skip"/>
+      </tc:column>
       <tc:column id="columnDiscoverYear" label="Discovery Year" sortable="true">
         <tc:out value="#{object.discoverYear}" labelLayout="skip"/>
       </tc:column>
@@ -63,13 +66,16 @@
 
     <tc:sheet id="s2" value="#{sheetSortingController.solarList}" var="object" rows="4"
               sortActionListener="#{sheetSortingController.sheetSorter}" markup="small">
-      <tc:column id="namecol" label="Name" sortable="true">
+      <tc:column id="customColumnName" label="Name" sortable="true">
         <tc:out value="#{object.name}" labelLayout="skip"/>
       </tc:column>
-      <tc:column id="periodcol" label="Period (Days)" sortable="true">
+      <tc:column id="customColumnPeriod" label="Period (Days)" sortable="true">
         <tc:out value="#{object.period}" labelLayout="skip"/>
       </tc:column>
-      <tc:column id="yearcol" label="Discovery Year" sortable="true">
+      <tc:column id="customColumnDistance" label="Period (Days)" sortable="true" rendered="false">
+        <tc:out value="#{object.period}" labelLayout="skip"/>
+      </tc:column>
+      <tc:column id="customColumnYear" label="Discovery Year" sortable="true">
         <tc:out value="#{object.discoverYear}" labelLayout="skip"/>
       </tc:column>
     </tc:sheet>

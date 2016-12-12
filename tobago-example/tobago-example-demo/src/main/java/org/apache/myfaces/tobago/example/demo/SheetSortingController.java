@@ -58,14 +58,14 @@ public class SheetSortingController extends SheetController implements Serializa
 
     Comparator<SolarObject> comparator = null;
 
-    if ("namecol".equals(columnId)) {
+    if ("customColumnName".equals(columnId)) {
       comparator = new Comparator<SolarObject>() {
         @Override
         public int compare(final SolarObject o1, final SolarObject o2) {
           return o1.getName().compareToIgnoreCase(o2.getName());
         }
       };
-    } else if ("periodcol".equals(columnId)) {
+    } else if ("customColumnPeriod".equals(columnId)) {
       comparator = new Comparator<SolarObject>() {
         @Override
         public int compare(final SolarObject o1, final SolarObject o2) {
@@ -74,7 +74,7 @@ public class SheetSortingController extends SheetController implements Serializa
           return period1.compareTo(period2);
         }
       };
-    } else if ("yearcol".equals(columnId)) {
+    } else if ("customColumnYear".equals(columnId)) {
       comparator = new Comparator<SolarObject>() {
         @Override
         public int compare(final SolarObject o1, final SolarObject o2) {
