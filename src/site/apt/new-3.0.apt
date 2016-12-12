@@ -14,12 +14,12 @@
  ~~ limitations under the License.
 
  ------
- What's new in Tobago 3.0 (currently alpha state)?
+ What's new in Tobago 3.0 (currently beta state)?
  ------
 
-{What's new in Tobago 3.0 (currently alpha state)?}
+{What's new in Tobago 3.0 (currently beta state)?}
 
-    In November 2015 the first alpha version of 3.0.0 has been released.
+    In November 2015 the first alpha version of 3.0.0 has been released, the first beta followed in December 2016.
     Here was a quick overview over the features and changes made in the last time
     to release this major revision.
 
@@ -65,7 +65,7 @@ New Features and Enhancements
 
     * Rich variations of positioning the label with new attribute labelLayout
 
-* File upload now uses Servert 3.0 instead of Commons Fileupload. This simplifies the setup.
+* File upload now uses Servlet 3.0 instead of Commons Fileupload. This simplifies the setup.
 
 Internal Refactoring
 
