@@ -23,7 +23,7 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets">
   <ui:param name="title" value="#{demoBundle.image} &lt;tc:image&gt;"/>
   <p>Create an image with <code class="language-markup">&lt;tc:image/&gt;</code>.</p>
-  <tc:link label="Tag Library Documentation" image="#{request.contextPath}/image/feather-leaf.png" link="#{demoBundle.tagDocUrl}/image.html"/>
+  <tc:link label="Tag Library Documentation" image="#{request.contextPath}/image/feather-leaf.png" link="#{demoBundle.tagDocUrl}/#{info.stableVersion}/tld/tc/image.html"/>
   <tc:section label="Basics">
     <pre><code class="language-markup">&lt;tc:image value="\#{request.contextPath}/image/tobago_head.png"/&gt;</code></pre>
     <tc:image id="i1" value="#{request.contextPath}/image/tobago_head.png"/>
