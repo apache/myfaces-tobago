@@ -24,14 +24,39 @@ import org.junit.Test;
 
 public class TobagoClassUnitTest {
 
-  // todo: common enum naming check
-
   @Test
-  public void testPrefix() {
+  public void testNames() throws NoSuchFieldException {
+    final String fieldRegex = "[A-Z_]*[A-Z]";
+    final String nameRegex = "[a-z][a-zA-Z\\-]*[a-z]";
+
     for (TobagoClass value : TobagoClass.values()) {
-      Assert.assertTrue("Class name should start with prefix 'tobago-' but doesn't for class '" + value + "'",
-          value.getName().startsWith("tobago-"));
+      boolean ignoreByTest = TobagoClass.class.getField(value.name()).isAnnotationPresent(Deprecated.class);
+      if (!ignoreByTest) {
+        final String field = value.toString();
+        final String name = value.getName();
+
+        Assert.assertTrue(field.matches(fieldRegex));
+        Assert.assertTrue(name.matches(nameRegex));
+
+        StringBuilder calculatedName = new StringBuilder();
+        calculatedName.append("tobago-");
+        for (int i = 0; i < field.length(); i++) {
+          char c = field.charAt(i);
+          if (c == '_') {
+            char nextChar = field.charAt(i + 1);
+            if (nextChar == '_') {
+              calculatedName.append("-");
+            } else {
+              calculatedName.append(nextChar);
+            }
+            i++;
+          } else {
+            calculatedName.append(Character.toLowerCase(c));
+          }
+        }
+
+        Assert.assertEquals(field, calculatedName.toString(), name);
+      }
     }
   }
-
 }
