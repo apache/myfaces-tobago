@@ -45,10 +45,16 @@ public enum TobagoClass implements CssItem {
   JUSTIFY_CONTENT__SPACE_BETWEEN("tobago-justifyContent-spaceBetween"),
   JUSTIFY_CONTENT__SPACE_AROUND("tobago-justifyContent-spaceAround"),
 
-  DROPDOWN_SUBMENU("tobago-dropdown-submenu"),
+  DROPDOWN__SUBMENU("tobago-dropdown-submenu"),
+  /** @deprecated Since 3.0.1. Please use {@link TobagoClass#DROPDOWN__SUBMENU} */
+  @Deprecated
+  DROPDOWN_SUBMENU(DROPDOWN__SUBMENU.getName()),
   TABLE_LAYOUT__FIXED("tobago-tableLayout-fixed"),
 
-  HAS_INFO("tobago-has-info"),
+  HAS__INFO("tobago-has-info"),
+  /** @deprecated Since 3.0.1. Please use {@link TobagoClass#HAS__INFO} */
+  @Deprecated
+  HAS_INFO(HAS__INFO.getName()),
   REQUIRED("tobago-required"),
   SPREAD("tobago-spread"),
 
@@ -59,7 +65,10 @@ public enum TobagoClass implements CssItem {
   FLEX_LAYOUT("tobago-flexLayout"),
   FIGURE("tobago-figure"),
   FORM("tobago-form"),
-  INPUT_GROUP_OUTER("tobago-input-group-outer"),
+  INPUT__GROUP__OUTER("tobago-input-group-outer"),
+  /** @deprecated Since 3.0.1. Please use {@link TobagoClass#INPUT__GROUP__OUTER} */
+  @Deprecated
+  INPUT_GROUP_OUTER(INPUT__GROUP__OUTER.getName()),
   LABEL("tobago-label"),
   MESSAGES("tobago-messages"),
   PANEL("tobago-panel"),

@@ -171,7 +171,7 @@ public abstract class CommandRendererBase extends DecodingCommandRendererBase {
           final CssItem disabled;
           if (child instanceof AbstractUICommand) {
             final AbstractUICommand c = (AbstractUICommand) child;
-            submenu = c.isParentOfCommands() ? TobagoClass.DROPDOWN_SUBMENU : null;
+            submenu = c.isParentOfCommands() ? TobagoClass.DROPDOWN__SUBMENU : null;
             disabled = c.isDisabled() ? BootstrapClass.DISABLED : null;
           } else {
             submenu = null;

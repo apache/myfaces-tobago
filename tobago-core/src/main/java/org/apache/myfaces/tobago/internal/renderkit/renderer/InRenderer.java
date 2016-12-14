@@ -76,7 +76,7 @@ public class InRenderer extends LabelLayoutRendererBase {
 
     if (after != null || before != null) {
       writer.startElement(HtmlElements.DIV); // Wrapping the field to fix input groups with flexLeft/flexRight
-      writer.writeClassAttribute(TobagoClass.INPUT_GROUP_OUTER);
+      writer.writeClassAttribute(TobagoClass.INPUT__GROUP__OUTER);
       if (input.isLabelLayoutSkip()) {
         writer.writeIdAttribute(clientId);
       }

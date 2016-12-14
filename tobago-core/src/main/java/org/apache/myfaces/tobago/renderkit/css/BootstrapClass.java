@@ -204,7 +204,7 @@ public enum BootstrapClass implements CssItem {
     } else if (maximumSeverity.getOrdinal() >= SEVERITY_WARN) {
       return HAS_WARNING;
     } else if (maximumSeverity.getOrdinal() >= SEVERITY_INFO) {
-      return TobagoClass.HAS_INFO;
+      return TobagoClass.HAS__INFO;
     } else {
       return null;
     }
