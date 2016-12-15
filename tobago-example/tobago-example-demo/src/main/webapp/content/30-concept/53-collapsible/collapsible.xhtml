@@ -38,8 +38,10 @@
     could be hidden.</p>
 
   <tc:section label="States">
-    <p>There are three possible states - visible, hidden and absent.
-      The states are explained using the following #{demoBundle.box}es.</p>
+    <p>There are four possible states - visible, hidden, absent and none.<br/>
+    The value 'none' deactivate this feature and is the default for #{demoBundle.box}, #{demoBundle.panel} and
+     #{demoBundle.section}.</p>
+    <p>The (not-'none') states are explained using the following #{demoBundle.box}es.</p>
     <p>The 'visible' state show the content of the box like you expected.
       <br/>
       The 'hidden' state hide the content via CSS. You can see is still in the source code.
@@ -76,7 +78,7 @@
         Possible values are <code>absent</code> which is the default and <code>hidden</code>.
         It has only an effect if <code>collapsed="true"</code>.</p>
       <ul>
-        <li><code>absent</code> (default): Hidden components have the state 'hidden'.</li>
+        <li><code>absent</code> (default for #{demoBundle.popup}): Hidden components have the state 'hidden'.</li>
         <li><code>hidden</code>: Hidden components have the state 'absent'.</li>
       </ul>
     </tc:section>
