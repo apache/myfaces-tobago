@@ -52,7 +52,7 @@
     <menu name="Documentation">
       <item name="Getting Started" href="http://myfaces.apache.org/tobago/getting-started.html"/>
       <item name="Compatibility" href="http://myfaces.apache.org/tobago/compatibility.html"/>
-      <item name="New in Tobago 3.0 (alpha)" href="http://myfaces.apache.org/tobago/new-3.0.html"/>
+      <item name="New in Tobago 3.0" href="http://www.irian.biz/tobago-example-demo/faces/content/10-intro/30-new+in+3+0/new+in+3+0.xhtml"/>
       <item name="New in Tobago 2.0" href="http://myfaces.apache.org/tobago/new-2.0.html"/>
       <item name="Guide to Tobago" href="http://myfaces.apache.org/tobago/guide.html"/>
       <item name="Test Tobago 3.0 Demo" href="http://myfaces.apache.org/tobago/howto-test.html"/>

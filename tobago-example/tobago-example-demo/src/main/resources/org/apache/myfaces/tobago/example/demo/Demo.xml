@@ -35,6 +35,7 @@
 
   <!-- navigate -->
   <entry key="intro">Intro</entry>
+  <entry key="new_in_3_0">New in Tobago 3.0</entry>
 
   <!-- navigate : components -->
   <entry key="component">Components</entry>
