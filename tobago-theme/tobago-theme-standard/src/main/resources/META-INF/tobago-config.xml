@@ -367,7 +367,6 @@
         <style name="/tobago/standard/tether/1.1.1/css/tether.min.css"/>
         <style name="/tobago/standard/bootstrap/4.0.0-alpha.5/css/bootstrap.min.css"/>
         <style name="/tobago/standard/font-awesome/4.6.1/css/font-awesome.min.css"/>
-        <style name="/tobago/standard/style/tobago.min.css"/>
         <style name="/tobago/standard/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.min.css"/>
       </resources>
       <resources production="false">
