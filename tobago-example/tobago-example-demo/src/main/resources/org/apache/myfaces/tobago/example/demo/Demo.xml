@@ -36,6 +36,10 @@
   <!-- navigate -->
   <entry key="intro">Intro</entry>
   <entry key="new_in_3_0">New in Tobago 3.0</entry>
+  <entry key="migration">Migration</entry>
+  <entry key="migration15">1.0 to 1.5</entry>
+  <entry key="migration20">1.5 to 2.0</entry>
+  <entry key="migration30">2.0 to 3.0</entry>
 
   <!-- navigate : components -->
   <entry key="component">Components</entry>

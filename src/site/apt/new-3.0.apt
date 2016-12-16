@@ -14,59 +14,10 @@
  ~~ limitations under the License.
 
  ------
- What's new in Tobago 3.0 (currently beta state)?
+ What's new in Tobago 3.0?
  ------
 
-{What's new in Tobago 3.0 (currently beta state)?}
+{What's new in Tobago 3.0}
 
-    In November 2015 the first alpha version of 3.0.0 has been released, the first beta followed in December 2016.
-    Here was a quick overview over the features and changes made in the last time
-    to release this major revision.
-
-    Tobago 3.0.0 contains several entries in {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12325880}Jira}}
-    and most of them are exclusive in this version.
-
-    Please take also a look at the {{{./migration-3.0.html}Migration from Tobago 2.0 to 3.0}} guide.
-
-Overview and History
-
-    Until Tobago 2.0 the layout was computed on the server, to make advanced features available for
-    comfortable web application.
-
-    With CSS3 and HTML5 it is possible these days, to make advanced layout managers
-    implemented in the browser.
-
-New Features and Enhancements
-
-* Bootstrap
-
-    The base theme that comes with Tobago is changes from plain CSS to Twitters Bootstrap.
-    So, you applications have the advantage of modern HTML5 web applications, with
-    less coding.
-
-* New Layout Managers
-
-    * Segment Layout (uses the 12 columns layout from Bootstrap)
-
-    * Flex Layout (CSS3)
-    You may replace the <<<GridLayout>>> from Tobago 2.0 with <<<FlexLayout>>>.
-
-    * Flow Layout
-
-    * The new layout managers, have be written be bit more concised: Using as container instead of a facet.
-
-* tx library
-
-    * The tx library no longer needed
-
-    * The label is integrated into the tc library.
-
-    * This results in a more intuitive API
-
-    * Rich variations of positioning the label with new attribute labelLayout
-
-* File upload now uses Servlet 3.0 instead of Commons Fileupload. This simplifies the setup.
-
-Internal Refactoring
-
-    [todo]
+    Please refer the
+    {{{http://www.irian.biz/tobago-example-demo/faces/content/10-intro/30-new+in+3+0/new+in+3+0.xhtml}Demo: New in Tobago 3.0}}.

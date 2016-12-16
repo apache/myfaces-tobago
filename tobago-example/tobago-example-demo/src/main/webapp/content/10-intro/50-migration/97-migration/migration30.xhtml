@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+-->
+
+<ui:composition template="/main.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:tc="http://myfaces.apache.org/tobago/component"
+                xmlns:ui="http://java.sun.com/jsf/facelets">
+  <ui:param name="title" value="#{demoBundle.migration30}"/>
+
+  <tc:section label="Migration from Tobago 2.0 to 3.0">
+
+<p>
+  There a are several migration steps to do, dependent of the application
+  you want to migrate. The steps can be classified by
+</p>
+
+    <ul>
+      <li>Tag library</li>
+      <li>Java API</li>
+      <li>CSS</li>
+      <li>JavaScript</li>
+      <li>External components (for Java, CSS, Javascript)</li>
+    </ul>
+
+    <p>
+      Most of these steps are relatively simple to carry out.
+      Just replace "this" with "that" and so on.
+      Some of them can be done with regular expressions.
+    </p>
+
+    <tc:section label="Tag Library">
+      <tc:section label="JSP">
+        JavaServer Pages are no longer supported. You need to migrate to Facelets as VDL.
+        You may do that before migrating to Tobago 3.
+      </tc:section>
+
+      <tc:section label="Replacing tx with tc">
+        <p>
+          <code class="language-markup">&lt;tx:in label="a" fieldId="b" id="c" /&gt;</code>
+          will be transformed to
+          <code class="language-markup">&lt;tc:in label="a" id="c" /&gt;</code>.
+          The id of the input element in HTML is id="c::field".
+        </p>
+
+        <p> There is a little conflict between the "label" attribute used in the JSF spec. and the Tobago tx: label:
+          Tobago means it should be displayed, and JSF spec. means that this should be used to display messages.
+          In most cases there is no issue for that. But for the case that the application need a message label, but
+          should not be displayed we need a new attribute:
+        </p>
+
+        <p> (preliminary) "labelPosition" or "labelLayout" with value "none"
+          With this attribute we may advise the renderer also the position of the label.
+          Or, using an attribute "renderLable"...
+        </p>
+      </tc:section>
+
+      <tc:section label="&lt;tc:time&gt; -> &lt;tc:date&gt;">
+        You need to set the <code class="language-markup">&lt;f:convertDateTime type="time"\/&gt;</code>
+        inside the <code class="language-markup">&lt;tc:date/&gt;</code>.
+      </tc:section>
+
+      <tc:section label="&lt;tc:cell&gt;">
+        Replace all <code class="language-markup">&lt;tc:cell/&gt;</code>
+        with <code class="language-markup">&lt;tc:panel/&gt;</code>.
+        Dependent of the used layout manager, these tags may be dropped completely.
+      </tc:section>
+
+      <tc:section label="Layout manager no longer as facet.">
+
+        <p>
+          The layout managers are no longer a facet of a container.
+          They are in the tree hierarchy explicitly.
+        </p>
+        <p>
+          Old:
+        </p>
+        <pre><code class="language-markup">&lt;tc:panel&gt;
+  &lt;f:facet name="layout"&gt;
+    &lt;tc:flowLayout/&gt;
+  &lt;/f:facet&gt;
+  ... content ...
+&lt;/tc:panel&gt;</code></pre>
+        <p>
+          New:
+        </p>
+        <pre><code class="language-markup">&lt;tc:flowLayout&gt;
+  ... content ...
+&lt;/tc:flowLayout&gt;</code></pre>
+      </tc:section>
+      <tc:section label="&lt;tc:image&gt;">
+        <code class="language-markup">&lt;tc:image/&gt;</code>
+        has no longer the attributes <code class="language-markup">width</code>
+        and <code class="language-markup">height</code>, please use a
+        <code class="language-markup">&lt;tc:style/&gt;</code>child tag instead.
+      </tc:section>
+      <tc:section label="&lt;tc:sheet&gt;">
+        tc:column with f:facet name="dropDownBox" can now easily and much more flexible implemented with
+        the header facet of the tc:sheet. Example:
+        <tc:link label="Sheet Filter"
+                 link="#{request.contextPath}/faces/content/20-component/080-sheet/50-filter/sheet-filter.xhtml" />
+      </tc:section>
+      <tc:section label="Menu">
+        The Menu tags tc:menu, tc:menuBar, tc:menuCommand and tc:menuSeparator are no longer available and
+        needs to be migrated to tc:links or tc:bar or tc:buttons with tc:link and tc:separator inside.
+      </tc:section>
+      <tc:section label="Popup">
+        The popup was implemented new, using a general concept of collapsible in Tobago.
+        <tc:section label="&lt;tc:popupReference&gt;">
+          This tag is removed.
+        </tc:section>
+        <tc:section label="&lt;tc:popup&gt;">
+          The tc:popup tag is no longer a facet of a command. The tag can be put anywhere on the page.
+          The open/close commands now can be used flexible
+        </tc:section>
+        Example:
+        <tc:link label="popup"
+                 link="#{request.contextPath}/faces/content/30-concept/53-collapsible/10-collapsible-popup/collapsible-popup.xhtml" />
+      </tc:section>
+
+    </tc:section>
+
+    <tc:section label="Java API">
+      <tc:section label="ActionListenerImpl">
+        Class is no longer present, you should use a JSF 2 exception handler instead.
+      </tc:section>
+      <tc:section label="Renderer classes">
+        The API of the RendererBase class has changed a bit.
+        Also the automatic renderer selection has been dropped.
+        If you write your own renderer for existing classes, you now need to register it in
+        the faces-config.xml as ususal in JSF.
+      </tc:section>
+      <tc:section label="Typesafety">
+        <p>
+          To have typesafe code many Java classes to provide constants are migrated to Java enums,
+          e. g. <code>org.apache.myfaces.tobago.component.Attributes</code>.
+        </p>
+      </tc:section>
+
+    </tc:section>
+
+    <tc:section label="CSS">
+      <tc:section label="Bootstrap">
+        Tobago 3 uses the great <tc:link label="Bootstrap" link="http://v4-alpha.getbootstrap.com/"/> CSS library.
+        Currently in version 4.0.0-alpha.5.
+      </tc:section>
+      <tc:section label="Class names">
+        Because of the use of the Bootstrap lib, some Tobago CSS classes are no longer needed, and
+        has been
+      </tc:section>
+      <tc:section label="box-sizing">
+        Changed from content-box to border-box.
+      </tc:section>
+    </tc:section>
+
+    <tc:section label="JavaScript">
+
+    </tc:section>
+
+    <tc:section label="External components and dependencies">
+      <tc:section label="File upload">
+        <tc:section label="Servlet API 3.0">
+          Tobago 3 requires Servlet API 3.0. Tought the file upload uses
+          <code class="language-java">javax.servlet.http.Part</code>
+          instead of <code class="language-java">org.apache.commons.fileupload.FileItem</code>.
+        </tc:section>
+        <tc:section label="Filter">
+          You no long need to define a TobagoMultipartFormdataFilter in the web.xml.
+        </tc:section>
+        <tc:section label="Dependencies">
+          <p>
+            There is no longer a tobago-fileupload.jar.
+          </p>
+          <p>
+            Remove the dependency to commons-fileupload.jar in your web app, if there is any.
+          </p>
+        </tc:section>
+        <tc:section label="FacesServlet Configuration">
+          If using JSF 2.0 or 2.1 you will need to add a tag <code>&lt;multipart-config&gt;</code>
+          Tag to the FacesServlet config in the <code>web.xml</code>. Since JSF 2.2 this is not needed.
+        </tc:section>
+        Example:
+        <tc:link label="File Upload"
+                 link="#{request.contextPath}/faces/content/20-component/100-upload/upload.xhtml" />
+      </tc:section>
+
+    </tc:section>
+
+
+
+
+    <!-- todo: refactor from APT to HTML -->
+
+<pre>
+
+  <b>TODO:</b>
+
+    Because of the changed layout model (no longer on the server, but with browser CSS) there a some
+    classes, methods and parameters removed.
+
+
+    * AbstractUIPage.getActionPosition()
+
+    * AbstractUIPage.setActionPosition()
+
+    * class Box
+
+    * class Dimension
+
+    * class Position
+
+    * ClientProperties.pageWidth
+
+    * ClientProperties.pageHeight
+
+    * <code class="language-markup">&lt;tc:gridLayoutConstraint&gt;</code> -> <code class="language-markup">&lt;tc:span&gt;</code> (only for attributes columnSpan and rowSpan)
+
+    * <code class="language-markup">&lt;tc:gridLayoutConstraint&gt;</code> -> <code class="language-markup">&lt;tc:style&gt;</code> (all other attributes)
+
+    * <code class="language-markup">&lt;tc:toolBar&gt;</code> -> <code class="language-markup">&lt;tc:buttons&gt;</code>
+
+    * If using <code class="language-markup">&lt;tc:page&gt;</code> with the attributes state, width, height: remove the attributes
+
+    * Replace facet 'action' with 'load' for <code class="language-markup">&lt;tc:page&gt;</code>
+
+    <code class="language-markup">&lt;f:facet name="load"&gt;</code> contain an instance of UICommand (tc:command).
+
+    * TODO: attribute renderPartially is replaced by f:ajax
+
+    * TODO: Move data from ClientProperties to TobagoContext
+
+    <code class="language-markup">&lt;tc:mediator&gt;</code> removed
+
+    If you need a Tobago component to set e. g. some style in a renderer as a replacement,
+    use a simple <code class="language-markup">&lt;tc:panel&gt;</code>.
+
+    Tango Icons
+
+    Tango icon lib is no longer part of Tobago. Replaced by Font Awesome. If you need it, please
+    include it in the application.
+
+    Dependencies to JS/CSS libs: jQuery UI
+
+    Tobago uses the jQuery UI library. The library is customizable to limit the amount of JS and CSS content.
+    You will find the used modules in the header of each jQuery UI file.
+
+    * E. g. Tobago 2.0.10 contains jQuery UI 1.10.4 with these contents:
+
+    * jquery.ui.core.js
+
+    * jquery.ui.widget.js
+
+    * jquery.ui.mouse.js
+
+    * jquery.ui.position.js
+
+    * jquery.ui.draggable.js
+
+    * jquery.ui.datepicker.js
+
+    * jquery.ui.slider.js
+
+    * jquery.ui.core.css
+
+    * jquery.ui.datepicker.css
+
+    * jquery.ui.slider.css
+
+    * jquery.ui.theme.css
+
+    * Tobago 3.0.0 contains jQuery UI 1.12.1 with this component:
+
+    * widget.js
+
+    If you are using jQuery UI directly, you may add the required resources via the <code>&lt;tobago-config.xml</code>
+      and exclude the jQuery UI resource that comes with Tobago.
+
+</pre>
+
+    </tc:section>
+
+  </ui:composition>
