@@ -278,7 +278,7 @@ public class JsonUtils {
     json = json.trim();
     final List<Integer> result = new ArrayList<Integer>();
     if (json.length() < 2 || json.charAt(0) != '[' || json.charAt(json.length() - 1) != ']') {
-      LOG.error("Can't parse JSON array: no surrounding square brackets []: '{}'", json);
+      LOG.warn("Can't parse JSON array: no surrounding square brackets []: '{}'", json);
     } else {
       json = json.substring(1, json.length() - 1);
       final StringTokenizer tokenizer = new StringTokenizer(json, ",");
@@ -287,7 +287,7 @@ public class JsonUtils {
         try {
           result.add(Integer.parseInt(token));
         } catch (NumberFormatException e) {
-          LOG.error("Can't parse JSON array: not an integer token: '{}'", token);
+          LOG.warn("Can't parse JSON array: not an integer token: '{}'", token);
           // ignoring so far
         }
       }

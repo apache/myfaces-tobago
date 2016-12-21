@@ -240,9 +240,10 @@ public class SheetRenderer extends RendererBase {
       writer.writeIdAttribute(sheetId + SUFFIX_WIDTHS);
       writer.writeNameAttribute(sheetId + SUFFIX_WIDTHS);
       writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN);
-      if (definedColumnWidths) {
-        writer.writeAttribute(HtmlAttributes.VALUE, JsonUtils.encode(columnWidths), false);
-      }
+      writer.writeAttribute(
+          HtmlAttributes.VALUE,
+          JsonUtils.encode(definedColumnWidths ? columnWidths : Collections.<Integer>emptyList()),
+          false);
       writer.endElement(HtmlElements.INPUT);
 
       writer.startElement(HtmlElements.INPUT);

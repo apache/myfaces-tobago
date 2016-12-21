@@ -92,7 +92,9 @@ public class TobagoResponseWriterWrapper extends TobagoResponseWriter {
   @Override
   public void writeAttribute(final MarkupLanguageAttributes name, final String value, final boolean escape)
       throws IOException {
-    responseWriter.writeAttribute(name.getValue(), value, null);
+    if (value != null) {
+      responseWriter.writeAttribute(name.getValue(), value, null);
+    }
   }
 
   @Override
