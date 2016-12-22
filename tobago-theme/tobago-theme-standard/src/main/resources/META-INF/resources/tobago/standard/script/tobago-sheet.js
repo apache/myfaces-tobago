@@ -136,8 +136,8 @@ Tobago.Sheet.setup2 = function (sheets) {
       // if the hidden has a value, than also the colgroup/col are set correctly
       var columnWidths = jQuery.parseJSON(hidden.val());
       console.info("columnWidths: " + columnWidths); // @DEV_ONLY
-      console.info(columnWidths); // @DEV_ONLY
-    } else {
+    }
+    if (columnWidths.length == 0) {
       // otherwise use the layout definition
       var layout = $sheet.data("tobago-layout");
       if (layout && layout.columns && layout.columns.length > 0) {
@@ -152,6 +152,7 @@ Tobago.Sheet.setup2 = function (sheets) {
         console.assert($headerCol.length - 1 == $bodyCol.length, "header and body column number doesn't match");  // @DEV_ONLY
 
         var i;
+        var intValue;
         var sumRelative = 0;
         var widthRelative = $bodyTable.width();
         for (i = 0; i < tokens.length; i++) {
@@ -159,7 +160,7 @@ Tobago.Sheet.setup2 = function (sheets) {
             if (typeof tokens[i] == "number") {
               sumRelative += tokens[i];
             } else if (typeof tokens[i] == "object" && tokens[i].measure != undefined) {
-              var intValue = parseInt(tokens[i].measure);
+              intValue = parseInt(tokens[i].measure);
               if (tokens[i].measure.lastIndexOf("px") > 0) {
                 widthRelative -= intValue;
               } else if (tokens[i].measure.lastIndexOf("%") > 0) {
@@ -179,7 +180,7 @@ Tobago.Sheet.setup2 = function (sheets) {
             if (typeof tokens[i] == "number") {
               colWidth = parseInt((tokens[i] * widthRelative) / sumRelative);
             } else if (typeof tokens[i] == "object" && tokens[i].measure != undefined) {
-              var intValue = parseInt(tokens[i].measure);
+              intValue = parseInt(tokens[i].measure);
               if (tokens[i].measure.lastIndexOf("px") > 0) {
                 colWidth = intValue;
               } else if (tokens[i].measure.lastIndexOf("%") > 0) {
