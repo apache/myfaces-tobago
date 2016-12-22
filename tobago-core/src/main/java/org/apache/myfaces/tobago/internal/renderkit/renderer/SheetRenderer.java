@@ -477,15 +477,10 @@ public class SheetRenderer extends RendererBase {
 
     if (emptySheet && showHeader) {
       writer.startElement(HtmlElements.TR);
-      for (int j = 0; j < columns.size(); j++) {
-        final UIColumn column = columns.get(j);
+      for (final UIColumn column : columns) {
         if (!(column instanceof AbstractUIRow)) {
           writer.startElement(HtmlElements.TD);
           writer.startElement(HtmlElements.DIV);
-          final Integer divWidth = columnWidths.get(j);
-          final Style divStyle = new Style();
-          divStyle.setWidth(Measure.valueOf(divWidth));
-          writer.writeStyleAttribute(divStyle);
           writer.endElement(HtmlElements.DIV);
           writer.endElement(HtmlElements.TD);
         }
