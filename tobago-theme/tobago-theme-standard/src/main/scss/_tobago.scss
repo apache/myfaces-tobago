@@ -693,6 +693,14 @@ p.tobago-separator:after {
   cursor: col-resize;
 }
 
+.tobago-sheet-headerCell {
+  overflow: hidden;
+}
+
+.tobago-sheet-cell div {
+  overflow: hidden;
+}
+
 /* suggest ---------------------------------------------------------------------- */
 
 .tobago-suggest {
