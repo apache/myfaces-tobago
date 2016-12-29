@@ -241,8 +241,12 @@
     <code class="language-markup">&lt;f:facet name="load"&gt;</code> contain an instance of UICommand (tc:command).
 
     * TODO: attribute renderPartially is replaced by f:ajax
+
     * TODO: use ExternalContext.redirect instead of AjaxUtils.redirect
-    * TODO: how to replace AjaxUtils.getRequestPartialIds?
+
+  * Replace <code>AjaxUtils.getRequestPartialIds()</code> with
+    <code>FacesContext.getPartialViewContext().getExecuteIds()</code> or
+    <code>FacesContext.getPartialViewContext().getRenderIds()</code> respectively.
 
     * TODO: Move data from ClientProperties to TobagoContext
 
