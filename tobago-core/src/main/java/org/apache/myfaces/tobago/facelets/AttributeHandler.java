@@ -259,12 +259,14 @@ public final class AttributeHandler extends TagHandler {
           if (action != null) {
             ((ActionSource) parent).addActionListener(new MethodExpressionActionListener(action));
           }
-        } else if (!parent.getAttributes().containsKey(nameValue.getName())) {
+        } else if (nameValue != null && !parent.getAttributes().containsKey(nameValue.getName())) {
           if (value.isLiteral()) {
             parent.getAttributes().put(nameValue.getName(), value.getValue());
           } else {
             parent.setValueExpression(nameValue.getName(), value.getValueExpression(faceletContext, Object.class));
           }
+        } else if (nameValue == null) {
+          LOG.warn("Null value for {}", name);
         }
       }
     }
