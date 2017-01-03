@@ -137,7 +137,7 @@
         <p>Starting with Tobago 3.0 the Servlet API 3.0 will be used. Some more information about the
           usage you will find in <a href="https://issues.apache.org/jira/browse/TOBAGO-1539">Jira</a>
           and in the <a href="http://www.irian.biz/tobago-example-demo-3.0.x/faces/content/20-component/100-upload/upload.xhtml">Tobago Demo 3.0</a>.
-          There is also a <a href="migration-3.0.html">migration guide</a> available.
+          There is also a <a href="http://www.irian.biz/tobago-example-demo/content/10-intro/50-migration/97-migration/migration30.xhtml">migration guide</a> available.
         </p>
       </answer>
     </faq>
