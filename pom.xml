@@ -47,6 +47,7 @@
     <maven.compile.source>1.6</maven.compile.source>
     <maven.compile.target>1.6</maven.compile.target>
     <maven.compile.encoding>UTF-8</maven.compile.encoding>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <required.maven.version>3.0.4</required.maven.version>
   </properties>
