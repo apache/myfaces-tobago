@@ -137,7 +137,7 @@ Tobago.Sheet.setup2 = function (sheets) {
       var columnWidths = jQuery.parseJSON(hidden.val());
       console.info("columnWidths: " + columnWidths); // @DEV_ONLY
     }
-    if (columnWidths.length == 0) {
+    if (columnWidths != undefined && columnWidths.length == 0) {
       // otherwise use the layout definition
       var layout = $sheet.data("tobago-layout");
       if (layout && layout.columns && layout.columns.length > 0) {
