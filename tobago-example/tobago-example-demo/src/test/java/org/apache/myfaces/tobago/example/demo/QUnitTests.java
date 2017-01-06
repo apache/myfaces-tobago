@@ -39,6 +39,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.net.URLEncoder;
@@ -64,7 +65,15 @@ public class QUnitTests {
   public static WebArchive createDeployment() {
     File pom = new File("tobago-example/tobago-example-demo/pom.xml");
     if (!pom.exists()) {
+      LOG.warn("unable to find pom - fall back");
       pom = new File("pom.xml"); // Jenkins.
+    }
+    if (!pom.exists()) {
+      try {
+        LOG.error("unable to find pom - current path: {}", new File(".").getCanonicalPath());
+      } catch (IOException e) {
+        LOG.error("", e);
+      }
     }
     WebArchive webArchive = ShrinkWrap.create(MavenImporter.class).
         loadPomFromFile(pom, "jsf-provided", "!myfaces-2.0").importBuildOutput()
