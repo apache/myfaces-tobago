@@ -68,19 +68,12 @@ public class QUnitTests {
       LOG.warn("unable to find pom - fall back");
       pom = new File("tobago-example/tobago-example-demo/pom.xml");
     }
-    LOG.info("using pom {}", pom);
-    try {
-      WebArchive webArchive = ShrinkWrap.create(MavenImporter.class).
-         loadPomFromFile(pom, "jsf-provided", "!myfaces-2.0").importBuildOutput()
-         .as(WebArchive.class);
-      // XXX there should be a proper profile in POM for that
-      webArchive.delete("/WEB-INF/lib/hibernate-validator-4.3.2.Final.jar");
-      return webArchive;
-    } catch (Exception e) {
-      e.printStackTrace();
-      LOG.error("", e);
-    }
-    return null;
+    WebArchive webArchive = ShrinkWrap.create(MavenImporter.class).
+       loadPomFromFile(pom, "jsf-provided", "!myfaces-2.0").importBuildOutput()
+       .as(WebArchive.class);
+    // XXX there should be a proper profile in POM for that
+    webArchive.delete("/WEB-INF/lib/hibernate-validator-4.3.2.Final.jar");
+    return webArchive;
   }
 
   private void setupBrowser(String page, String testJs) throws UnsupportedEncodingException {
