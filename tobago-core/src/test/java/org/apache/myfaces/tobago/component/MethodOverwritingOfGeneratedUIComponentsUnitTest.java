@@ -19,7 +19,7 @@
 
 package org.apache.myfaces.tobago.component;
 
-import junit.framework.Assert;
+import org.junit.Assert;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.junit.Before;
 import org.junit.Test;

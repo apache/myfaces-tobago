@@ -19,7 +19,7 @@
 
 package org.apache.myfaces.tobago.internal.config;
 
-import junit.framework.Assert;
+import org.junit.Assert;
 import org.apache.myfaces.tobago.context.ThemeImpl;
 import org.junit.Test;
 import org.xml.sax.SAXException;
