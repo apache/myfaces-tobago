@@ -63,18 +63,10 @@ public class QUnitTests {
 
   @Deployment
   public static WebArchive createDeployment() {
-    LOG.error("XXX Deployment Start XXX");
-    File pom = new File("tobago-example/tobago-example-demo/pom.xml");
+    File pom = new File("pom.xml"); // Jenkins.
     if (!pom.exists()) {
       LOG.warn("unable to find pom - fall back");
-      pom = new File("pom.xml"); // Jenkins.
-    }
-    if (!pom.exists()) {
-      try {
-        LOG.error("unable to find pom - current path: {}", new File(".").getCanonicalPath());
-      } catch (IOException e) {
-        LOG.error("", e);
-      }
+      pom = new File("tobago-example/tobago-example-demo/pom.xml");
     }
     LOG.info("using pom {}", pom);
     try {
