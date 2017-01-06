@@ -62,11 +62,16 @@ public class QUnitTests {
 
   @Deployment
   public static WebArchive createDeployment() {
-    File pom = new File("pom.xml"); // Jenkins.
-    if (!pom.exists()) {
-      LOG.warn("unable to find pom - fall back");
-      pom = new File("tobago-example/tobago-example-demo/pom.xml");
+    WebArchive webArchive;
+    try {
+      webArchive = createWebArchive(new File("tobago-example/tobago-example-demo/pom.xml"));
+    } catch (Exception e) {
+      webArchive = createWebArchive(new File("pom.xml")); // Jenkins
     }
+    return webArchive;
+  }
+
+  private static WebArchive createWebArchive(File pom) {
     WebArchive webArchive = ShrinkWrap.create(MavenImporter.class).
        loadPomFromFile(pom, "jsf-provided", "!myfaces-2.0").importBuildOutput()
        .as(WebArchive.class);
