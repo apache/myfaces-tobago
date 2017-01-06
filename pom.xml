@@ -41,8 +41,8 @@
     <mojarra20.version>2.0.11-04</mojarra20.version>
     <mojarra21.version>2.1.29-08</mojarra21.version>
     <mojarra22.version>2.2.14</mojarra22.version>
-    <slf4j.version>1.7.21</slf4j.version>
-    <logback.version>1.1.7</logback.version>
+    <slf4j.version>1.7.22</slf4j.version>
+    <logback.version>1.1.8</logback.version>
     <commons-collection.version>3.2.2</commons-collection.version>
     <maven.compile.source>1.6</maven.compile.source>
     <maven.compile.target>1.6</maven.compile.target>
