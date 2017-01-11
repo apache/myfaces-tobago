@@ -22,6 +22,7 @@ package org.apache.myfaces.tobago.internal.renderkit.renderer;
 import org.apache.myfaces.tobago.component.UISelectManyCheckbox;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
+import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
@@ -49,10 +50,14 @@ public class SelectManyCheckboxRenderer extends SelectManyRendererBase {
     final boolean disabled = select.isDisabled();
     final boolean readonly = select.isReadonly();
     final boolean required = select.isRequired();
+    final boolean inline = select.isInline();
 
     writer.startElement(HtmlElements.OL);
     writer.writeStyleAttribute(select.getStyle());
-    writer.writeClassAttribute(Classes.create(select), select.getCustomClass());
+    writer.writeClassAttribute(
+        Classes.create(select),
+        inline ? TobagoClass.SELECT_MANY_CHECKBOX__INLINE : null,
+        select.getCustomClass());
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, select);
     if (title != null) {
       writer.writeAttribute(HtmlAttributes.TITLE, title, true);
@@ -67,10 +72,12 @@ public class SelectManyCheckboxRenderer extends SelectManyRendererBase {
       writer.startElement(HtmlElements.LI);
       writer.writeClassAttribute(
           BootstrapClass.FORM_CHECK,
-          itemDisabled ? BootstrapClass.DISABLED: null);
+          inline ? BootstrapClass.FORM_CHECK_INLINE : null,
+          itemDisabled ? BootstrapClass.DISABLED : null);
       writer.startElement(HtmlElements.LABEL);
       writer.writeClassAttribute(BootstrapClass.FORM_CHECK_LABEL);
       writer.startElement(HtmlElements.INPUT);
+      writer.writeClassAttribute(BootstrapClass.FORM_CHECK_INPUT);
       writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.CHECKBOX);
       final String formattedValue = ComponentUtils.getFormattedValue(facesContext, select, item.getValue());
       boolean checked;

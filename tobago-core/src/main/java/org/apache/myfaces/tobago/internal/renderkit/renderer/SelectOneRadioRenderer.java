@@ -27,6 +27,7 @@ import org.apache.myfaces.tobago.internal.util.RenderUtils;
 import org.apache.myfaces.tobago.internal.util.SelectItemUtils;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
+import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
@@ -51,10 +52,14 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
     final boolean disabled = select.isDisabled();
     final boolean readonly = select.isReadonly();
     final boolean required = select.isRequired();
+    final boolean inline = select.isInline();
 
     writer.startElement(HtmlElements.OL);
     writer.writeStyleAttribute(select.getStyle());
-    writer.writeClassAttribute(Classes.create(select), select.getCustomClass());
+    writer.writeClassAttribute(
+        Classes.create(select),
+        inline ? TobagoClass.SELECT_ONE_RADIO__INLINE : null,
+        select.getCustomClass());
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, select);
     if (title != null) {
       writer.writeAttribute(HtmlAttributes.TITLE, title, true);
@@ -69,10 +74,12 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
       writer.startElement(HtmlElements.LI);
       writer.writeClassAttribute(
           BootstrapClass.FORM_CHECK,
+          inline ? BootstrapClass.FORM_CHECK_INLINE : null,
           itemDisabled ? BootstrapClass.DISABLED : null);
       writer.startElement(HtmlElements.LABEL);
       writer.writeClassAttribute(BootstrapClass.FORM_CHECK_LABEL);
       writer.startElement(HtmlElements.INPUT);
+      writer.writeClassAttribute(BootstrapClass.FORM_CHECK_INPUT);
       writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.RADIO);
       final String formattedValue = ComponentUtils.getFormattedValue(facesContext, select, item.getValue());
       boolean checked;

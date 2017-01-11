@@ -75,6 +75,8 @@ public enum TobagoClass implements CssItem {
   POPUP("tobago-popup"),
   SECTION__HEADER("tobago-section-header"),
   SECTION__CONTENT("tobago-section-content"),
+  SELECT_MANY_CHECKBOX__INLINE("tobago-selectManyCheckbox-inline"),
+  SELECT_ONE_RADIO__INLINE("tobago-selectOneRadio-inline"),
   SHEET__HEADER("tobago-sheet-header"),
   SHEET__BODY_TABLE("tobago-sheet-bodyTable"),
   SHEET__HEADER_TABLE("tobago-sheet-headerTable"),

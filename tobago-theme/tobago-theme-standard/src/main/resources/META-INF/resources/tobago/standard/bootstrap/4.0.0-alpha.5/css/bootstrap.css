@@ -564,6 +564,11 @@ h6 > .fa:first-child {
   vertical-align: text-bottom;
 }
 
+.tobago-selectManyCheckbox-inline {
+  margin-left: -1.25rem;
+  margin-top: 6px;
+}
+
 /* selectManyShuttle ----------------------------------------------------------- */
 .tobago-selectManyShuttle {
   display: -webkit-box;
@@ -623,6 +628,11 @@ h6 > .fa:first-child {
   margin-right: 0.3em;
   margin-bottom: 0.4ex;
   vertical-align: text-bottom;
+}
+
+.tobago-selectOneRadio-inline {
+  margin-left: -1.25rem;
+  margin-top: 6px;
 }
 
 .dropdown-menu .tobago-selectOneRadio > .form-check {

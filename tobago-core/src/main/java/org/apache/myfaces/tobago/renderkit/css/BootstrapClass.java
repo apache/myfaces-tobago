@@ -116,6 +116,7 @@ public enum BootstrapClass implements CssItem {
   FIGURE_IMG("figure-img"),
   FORM_CHECK("form-check"),
   FORM_CHECK_INLINE("form-check-inline"),
+  FORM_CHECK_INPUT("form-check-input"),
   FORM_CHECK_LABEL("form-check-label"),
   FORM_CONTROL("form-control"),
   FORM_CONTROL_STATIC("form-control-static"),
