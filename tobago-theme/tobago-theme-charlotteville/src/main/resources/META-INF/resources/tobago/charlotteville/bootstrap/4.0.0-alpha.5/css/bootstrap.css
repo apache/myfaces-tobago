@@ -160,6 +160,7 @@ body {
 .tobago-flexLayout > .input-group:nth-child(n+2),
 .tobago-flexLayout > .tobago-input-group-outer:nth-child(n+2),
 .tobago-flexLayout > .tobago-out:nth-child(n+2),
+.tobago-flexLayout > .tobago-file:nth-child(n+2),
 .tobago-flexLayout > .tobago-panel:nth-child(n+2),
 .tobago-flexLayout > .tobago-label:nth-child(n+2),
 .tobago-flexLayout > .tobago-selectManyShuttle:nth-child(n+2),
