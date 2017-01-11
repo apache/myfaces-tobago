@@ -26,7 +26,7 @@ cp tobago-theme-standard/src/main/scss/_tobago.scss tobago-theme-richmond/src/ma
 cp tobago-theme-standard/src/main/scss/_tobago.scss tobago-theme-scarborough/src/main/scss/_tobago.scss
 cp tobago-theme-standard/src/main/scss/_tobago.scss tobago-theme-speyside/src/main/scss/_tobago.scss
 
-mvn clean
+mvn -P all-modules clean
 
 mvn -P rebuild-theme -f tobago-theme-charlotteville/pom.xml
 rm tobago-theme-charlotteville/src/main/resources/META-INF/resources/tobago/charlotteville/bootstrap/4.0.0-alpha.5/css/bootstrap-*
@@ -43,7 +43,7 @@ rm tobago-theme-speyside/src/main/resources/META-INF/resources/tobago/speyside/b
 mvn -P rebuild-theme -f tobago-theme-standard/pom.xml
 rm tobago-theme-standard/src/main/resources/META-INF/resources/tobago/standard/bootstrap/4.0.0-alpha.5/css/bootstrap-*
 
-mvn install
+mvn -P all-modules install
 
 echo DONE
 echo Now you will find the bootstrap stuff inside the src trees
