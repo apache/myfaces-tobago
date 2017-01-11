@@ -33,7 +33,7 @@
   &lt;tc:image value="image/alps.png"/>
 &lt;/tc:figure></code></pre>
     <tc:figure label="Picture of the alps.">
-      <tc:image value="image/alps.png"/>
+      <tc:image value="#{request.contextPath}/image/alps.png"/>
     </tc:figure>
   </tc:section>
 
@@ -42,7 +42,7 @@
       In this example the word 'tobago' is colored red.</p>
     <tc:figure>
       <f:facet name="label">The <span style="color: red">tobago</span> logo.</f:facet>
-      <tc:image id="image" value="image/tobago_head.png"/>
+      <tc:image id="image" value="#{request.contextPath}/image/tobago_head.png"/>
     </tc:figure>
   </tc:section>
 </ui:composition>
