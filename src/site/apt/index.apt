@@ -47,14 +47,42 @@ Apache Tobago
 
 News
 
+* December 16, 2016 - MyFaces Tobago 3.0.0 Released
+
+      The MyFaces Tobago component library in version 3.0.0 has been released.
+
+      Release notes can be found in
+      {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12325880}Jira}}.
+
+      Major changes (regarding version 2) are:
+
+      * LayoutManager moved from Server to CSS (or JS in limited cases)
+
+      * Themes using CSS lib Bootstrap 4 http://getbootstrap.com/
+
+      * Responsiveness
+
+      * Simplify many things by using current technologies
+
+      * Easier to integrate Tobago in other projects
+
+      * Easier to integrate Libraries in Tobago
+
+      * In general: do less magic, but more standard
+
+      []
+
+      Also see section: {{{http://www.irian.biz/tobago-example-demo/faces/content/10-intro/30-new+in+3+0/new+in+3+0.xhtml} What's new in Tobago 3.0?}}
+
+      \ {}
+      ~~ hack for a bit space
+
 * December 7, 2016 - MyFaces Tobago 3.0.0-beta-1 Released
 
       The MyFaces Tobago component library in version 3.0.0-beta-1 has been released.
 
       Release notes can be found in
       {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12333888}Jira}}.
-
-      Major changes are:
 
       Major changes are:
 
