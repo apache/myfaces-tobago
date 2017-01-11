@@ -149,7 +149,7 @@ public class TreeSelectRenderer extends RendererBase {
 
   private String getClientIdWithoutRowIndex(final AbstractUIData data, final String id) {
     final char separatorChar = UINamingContainer.getSeparatorChar(FacesContext.getCurrentInstance());
-    return id.replace("" + separatorChar + data.getRowIndex() + separatorChar, "" + separatorChar);
+    return id.substring(0, id.indexOf("" + separatorChar + data.getRowIndex() + separatorChar));
   }
 
   @Override

@@ -320,6 +320,12 @@ public class QUnitTests {
   }
 
   @Test
+  public void treeSelect() throws UnsupportedEncodingException, InterruptedException {
+    String page = "content/20-component/090-tree/01-select/tree-select.xhtml";
+    runStandardTest(page);
+  }
+
+  @Test
   public void contentValidation() throws UnsupportedEncodingException, InterruptedException {
     String page = "content/30-concept/06-validation/00/content-validation.xhtml";
     runStandardTest(page);

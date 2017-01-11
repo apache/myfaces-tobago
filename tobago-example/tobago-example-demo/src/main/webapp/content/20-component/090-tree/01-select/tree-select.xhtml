@@ -37,19 +37,19 @@
       The value of the attribute in this example can be changed by the radio buttons in the contentbox on the right.</p>
     <tc:panel id="examplePanel">
       <tc:flexLayout columns="*;auto">
-        <tc:tree value="#{treeSelectController.sample}" var="node" showRoot="true"
+        <tc:tree id="categoriesTree" value="#{treeSelectController.sample}" var="node" showRoot="true"
                  selectable="#{treeSelectController.selectable}">
           <tc:treeNode>
             <tc:treeIndent/>
-            <tc:treeSelect label="#{node.userObject.name}" value="#{node.userObject.selected}">
+            <tc:treeSelect id="select" label="#{node.userObject.name}" value="#{node.userObject.selected}">
               <f:ajax render=":::selectedNodesOutput"/>
             </tc:treeSelect>
           </tc:treeNode>
         </tc:tree>
         <tc:panel>
           <tc:box label="selectable">
-            <tc:selectOneRadio value="#{treeSelectController.selectable}">
-              <f:ajax render="examplePanel"/>
+            <tc:selectOneRadio id="selectable" value="#{treeSelectController.selectable}">
+              <f:ajax render="examplePanel selectedNodesOutput"/>
               <tc:selectItem itemLabel="none" itemValue="none"/>
               <tc:selectItem itemLabel="single" itemValue="single"/>
               <tc:selectItem itemLabel="singleLeafOnly" itemValue="singleLeafOnly"/>
