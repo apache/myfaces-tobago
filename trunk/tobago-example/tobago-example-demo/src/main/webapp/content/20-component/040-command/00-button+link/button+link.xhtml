@@ -1,0 +1,154 @@
+<!--
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+-->
+
+<ui:composition template="/main.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:tc="http://myfaces.apache.org/tobago/component"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core">
+  <ui:param name="title" value="#{demoBundle.button_link} &lt;tc:link> &lt;tc:button>"/>
+  <p>A classic link can be set with the <code class="language-markup">&lt;tc:link/></code> tag.
+    You can also set a link by <code class="language-markup">&lt;tc:button/></code>.
+    The behavior of a link and a button is the same, it differs in the appearance.</p>
+  <p>Tag Library Documentation:
+    <tc:link label="&lt;tc:link/>" image="#{request.contextPath}/image/feather-leaf.png" link="#{demoBundle.tagDocUrl}/#{info.stableVersion}/tld/tc/link.html"/>
+    |
+    <tc:link label="&lt;tc:button/>" image="#{request.contextPath}/image/feather-leaf.png" link="#{demoBundle.tagDocUrl}/#{info.stableVersion}/tld/tc/button.html"/></p>
+
+  <tc:section label="Basics">
+    <p>The next two sections show how a link and a button is set.</p>
+    <p>'apache.org' leads to the appropriated website.<br/>
+      'Disable' show a disabled link/button.<br/>
+      'Action' use the <code>action</code> attribute to link the #{demoBundle.component} section.<br/>
+      The image leads to www.apache.org.</p>
+    <tc:section label="&lt;tc:link>">
+      <pre><code class="language-markup">&lt;tc:link label="apache.org" link="https://www.apache.org/"/></code></pre>
+      <tc:link id="l1" label="apache.org" link="https://www.apache.org/"/>
+      |
+      <tc:link id="l2" label="Disabled" disabled="true" link="https://www.apache.org/"/>
+      |
+      <tc:link id="l4" label="Action" action="#{buttonLinkController.linkToComponentsRoot}"/>
+      |
+      <tc:link id="l5" label="Link with an image" image="#{request.contextPath}/image/feather-leaf.png" link="https://www.apache.org/"/>
+    </tc:section>
+    <tc:section label="&lt;tc:button>">
+      <pre><code class="language-markup">&lt;tc:button label="apache.org" link="https://www.apache.org/"/></code></pre>
+      <tc:button id="b1" label="apache.org" link="https://www.apache.org/"/>
+      <tc:button id="b2" label="Disabled" disabled="true" link="https://www.apache.org/"/>
+      <tc:button id="b4" label="Action" action="#{buttonLinkController.linkToComponentsRoot}"/>
+      <tc:button id="b5" image="#{request.contextPath}/image/feather-leaf.png" link="https://www.apache.org/"/>
+    </tc:section>
+  </tc:section>
+
+  <tc:section label="Dropdown">
+    <p>Links and buttons can also be dropdown elements.
+      You can just put a link tag in another link or button tag
+      and set the <code>omit</code> attribute for the parent.</p>
+
+    <tc:section label="Dropdown Link">
+      <pre><code class="language-markup">&lt;tc:link label="MusicPlayer" omit="true">
+  &lt;tc:link image="fa-play-circle" label="Play"/>
+  ...
+&lt;/tc:link></code></pre>
+      <tc:link label="MusicPlayer" omit="true">
+        <tc:link image="fa-play-circle" label="Play"/>
+        <tc:link image="fa-pause-circle" label="Pause"/>
+        <tc:link image="fa-stop-circle" label="Stop"/>
+        <tc:link label="Track">
+          <tc:link label="1"/>
+          <tc:link label="2"/>
+          <tc:link label="3"/>
+        </tc:link>
+      </tc:link>
+    </tc:section>
+
+    <tc:section label="Dropdown Button">
+      <pre><code class="language-markup">&lt;tc:button label="MusicPlayer" omit="true">
+  &lt;tc:link image="fa-play-circle" label="Play"/>
+  ...
+&lt;/tc:button></code></pre>
+      <tc:button label="MusicPlayer" omit="true">
+        <tc:link image="fa-play-circle" label="Play"/>
+        <tc:link image="fa-pause-circle" label="Pause"/>
+        <tc:link image="fa-stop-circle" label="Stop"/>
+        <tc:link label="Track">
+          <tc:link label="1"/>
+          <tc:link label="2"/>
+          <tc:link label="3"/>
+        </tc:link>
+      </tc:button>
+    </tc:section>
+
+    <tc:section label="Dropdown with Radio Buttons">
+      <pre><code class="language-markup">&lt;tc:button label="Options" omit="true">
+  &lt;tc:selectOneRadio>
+    &lt;tc:selectItem itemValue="Option 1"/>
+    ...
+  &lt;/tc:selectOneRadio>
+&lt;/tc:button></code></pre>
+      <tc:button label="Options" omit="true">
+        <tc:selectOneRadio>
+          <tc:selectItem itemValue="Option 1"/>
+          <tc:selectItem itemValue="Option 2"/>
+          <tc:selectItem itemValue="Option 3"/>
+        </tc:selectOneRadio>
+      </tc:button>
+    </tc:section>
+  </tc:section>
+
+  <tc:section label="Confirmation">
+    <p>A confirmation dialog can be added to a link or a button via
+      <code class="language-markup">&lt;f:facet name="confirmation"></code>.
+      The messagetext is added with <code class="language-markup">&lt;tc:out/></code>.</p>
+    <tc:link id="l6" label="apache.org" link="https://www.apache.org/" confirmation="Are you sure?"/>
+    <tc:button id="b6" label="apache.org" link="https://www.apache.org/">
+      <f:facet name="confirmation">
+        <tc:out value="Are you sure?"/>
+      </f:facet>
+    </tc:button>
+    <tc:link id="l7" label="Action" confirmation="Are you sure?"/>
+    <tc:button id="b7" label="Action">
+      <f:facet name="confirmation">
+        <tc:out value="Are you sure?"/>
+      </f:facet>
+    </tc:button>
+  </tc:section>
+
+  <tc:section label="Target">
+    <p>The destination of the link can be set with the <code>target</code> attribute.
+      For example a new window/tab or a specific iframe (<code class="language-markup">&lt;tc:object/></code>).</p>
+    <tc:section label="New Window">
+      <pre><code
+              class="language-markup">&lt;tc:link label="open https://www.apache.org/ in new window"
+        link="https://www.apache.org/" target="_blank"/></code></pre>
+      <p><tc:link label="open https://www.apache.org/ in new window" link="https://www.apache.org/" target="_blank"/>
+      </p>
+    </tc:section>
+    <tc:section label="IFrame">
+      <p>The iframe is set with <code class="language-markup">&lt;tc:object name="objectframe" .../></code>
+        (see <tc:link label="#{demoBundle.object}"
+                      link="/faces/content/20-component/020-output/60-object/object.xhtml"/>).
+        The value of the <code>target</code> attribute is in this case 'objectframe'.</p>
+      <p><tc:link label="apache.org" link="https://www.apache.org/" target="objectframe"/>
+        |
+        <tc:link label="myfaces.apache.org/tobago" link="https://myfaces.apache.org/tobago/" target="objectframe"/></p>
+      <tc:object id="o1" name="objectframe" src="https://www.apache.org/">
+        <tc:style width="100%" height="500px"/>
+      </tc:object>
+    </tc:section>
+  </tc:section>
+</ui:composition>

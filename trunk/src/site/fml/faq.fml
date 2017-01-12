@@ -1,0 +1,499 @@
+<?xml version="1.0"?>
+
+<!--
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+-->
+
+<!--
+  Note: Please use &lt; instead of < in the source tag, when the example is XML.
+  Otherwise you will lost the attributes.
+-->
+
+<faqs xmlns="http://maven.apache.org/FML/1.0.1"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://maven.apache.org/FML/1.0.1 http://maven.apache.org/xsd/fml-1.0.1.xsd"
+      title="Frequently Asked Questions">
+
+  <part id="faq">
+    <faq id="howto">
+      <question>Where can I find documentation or HowTos for using Tobago?</question>
+      <answer>
+        <p>
+          Please, see
+        </p>
+        <p>
+          <a href="http://www.irian.biz/tobago-example-demo/">Tobago Demo</a>.
+        </p>
+        <p>
+          There is also a demo for
+        </p>
+        <p>
+          <a href="http://www.irian.biz/tobago-example-demo-2.0.x/">
+            Tobago 2.0
+          </a>
+        </p>
+      </answer>
+    </faq>
+    <faq id="hello-world">
+      <question>Where can I find a "Hello World" example and a list of required
+        jars?
+      </question>
+      <answer>
+        <p>
+          Please look at
+          <a href="http://svn.apache.org/repos/asf/myfaces/tobago/trunk/tobago-example/tobago-example-blank/">
+            tobago-example-blank</a> or download the myfaces-tobago-example from the
+          <a href="https://repository.apache.org/content/repositories/snapshots/org/apache/myfaces/tobago/" >nightly builds directory</a>.
+        </p>
+      </answer>
+    </faq>
+    <faq id="tobago/RI">
+      <question>Does Tobago run with the Sun reference implementation (RI)?</question>
+      <answer>
+        <p>Tobago runs with Sun RI and with MyFaces.
+        Please take a look at the <a href="compatibility.html">Compatibility</a> List.</p>
+      </answer>
+    </faq>
+    <faq id="tobago/facelets">
+      <question>Does Tobago supports Facelets?</question>
+      <answer>
+        <p>Tobago 2.0.x:</p>
+        <p>Tobago supports the JSF 2.0 Facelets.
+          Note: Please add following context param in your web.xml</p>
+        <source>
+&lt;context-param>
+  &lt;param-name>javax.faces.FACELETS_SKIP_COMMENTS&lt;/param-name>
+  &lt;param-value>true&lt;/param-value>
+&lt;/context-param></source>
+        <p>Tobago 1.0.x and 1.5.x:</p>
+        <p>Tobago supports Facelets with the tobago-facelets.jar.
+        Note: Please add following context param in your web.xml</p>
+        <source>
+&lt;context-param>
+  &lt;param-name>facelets.SKIP_COMMENTS&lt;/param-name>
+  &lt;param-value>true&lt;/param-value>
+&lt;/context-param></source>
+      </answer>
+    </faq>
+    <faq id="tobago/myfaces extension">
+      <question>Can I mix Tobago and MyFaces extensions in the same web application?
+      </question>
+      <answer>
+        <p>JSF only supports one renderkit (renderkitId) per page (f:view).
+          Because Tobago has it's own renderkitId you cannot use any non-Tobago
+          components that need a renderer.
+        </p>
+      </answer>
+    </faq>
+    <faq id="tobago/layout">
+      <question>How do I use GridLayout in Tobago?</question>
+      <answer>
+        <source>
+&lt;tc:gridLayout rows="fixed;100px;1*;2*" /></source>
+        <p>
+          The attribute 'fixed' means a theme dependent height of one row (i.e. in Speyside
+          a row is typically 20px high.) In a 'fixed' row all one height unit high elements find their place
+          (like buttons, input fields, one row of text...).<br/>
+          Using px heights is at your own risk, but it is sometimes needed for elements like box or sheet.
+        </p>
+        <p>
+          Alternatively you can give elements a proportion with the * notation.<br/>
+          For example rows="1*;2*" gives the first row 1/3 of the available vertical space and the
+          second row 2/3. This works fine for columns, too.
+        </p>
+        <p>
+          You can group elements with a tc:panel element. Such a panel is interpreted as one
+          element regarding layout. The panel itself can have its own layout for multiple elements inside
+          the panel.
+        </p>
+      </answer>
+    </faq>
+
+    <faq id="tobago/fileupload">
+      <question>How do I configure file upload in Tobago?</question>
+      <answer>
+        <p>Till Tobago 2.0 and lower, you have two options.</p>
+        <p>Add a TobagoMultipartFormdataFilter to your web.xml.
+          <a href="http://myfaces.apache.org/tobago/apidocs/org/apache/myfaces/tobago/webapp/TobagoMultipartFormdataFilter.html">JavaDoc Description</a>
+        </p>
+        <p>Add the tobago-fileupload.jar to your project.
+           The tobago-fileupload.jar contains a FacesContextFactory that wraps the
+            multipart-formdata request inside the FacesContext.
+          <a href="http://myfaces.apache.org/tobago/apidocs/org/apache/myfaces/tobago/fileupload/FileUploadFacesContextFactoryImpl.html">JavaDoc Description</a>
+        </p>
+        <p>Starting with Tobago 3.0 the Servlet API 3.0 will be used. Some more information about the
+          usage you will find in <a href="https://issues.apache.org/jira/browse/TOBAGO-1539">Jira</a>
+          and in the <a href="http://www.irian.biz/tobago-example-demo-3.0.x/faces/content/20-component/100-upload/upload.xhtml">Tobago Demo 3.0</a>.
+          There is also a <a href="http://www.irian.biz/tobago-example-demo/faces/content/10-intro/50-migration/97-migration/migration30.xhtml">migration guide</a> available.
+        </p>
+      </answer>
+    </faq>
+
+    <faq id="tobago/form">
+      <question>Do I need a form tag in a normal Tobago page?</question>
+      <answer>
+        <p>The page tag already acts like a form tag. You only need a explicit form tag for partial validation of your data.
+        Please look at the forms example in the
+        <a href="http://www.irian.biz/tobago-example-demo-3.0.x/faces/content/30-concept/08-form/form.xhtml">Tobago demo</a>
+        </p>
+      </answer>
+    </faq>
+
+    <faq id="tobago/browser">
+      <question>Which web browsers are currently supported by Tobago?</question>
+      <answer>
+        <p>Please take a look at the <a href="compatibility.html">Compatibility</a> List.</p>
+      </answer>
+    </faq>
+
+    <faq id="tobago/owntheme">
+      <question>How do I create my own theme?</question>
+      <answer>
+        <p>
+          You have to define a new name for the theme in the META-INF/tobago-config.xml.
+          Choose a fallback theme in the tobago-config.xml.
+          Put the modified resources under the resource-path + theme-name.
+          An example for this is the charlotteville theme. (TODO more details resource handling)
+          </p>
+        <p>
+        Example layout of a theme jar:
+        </p>
+         <source>
+/META-INF/tobago-config.xml
+(resource-path/html/theme-name)
+/org/apache/myfaces/tobago/renderkit/html/xxxxx/standard/style/tobago.css (standard styles)
+/org/apache/myfaces/tobago/renderkit/html/xxxxx/standard/style/tobago-menu.css (menu styles)
+/org/apache/myfaces/tobago/renderkit/html/xxxxx/standard/style/tobago-sheet.css (sheet styles)
+/org/apache/myfaces/tobago/renderkit/html/xxxxx/msie/style/tobago.css (different styles for msie)</source>
+
+           Property and resource loading and renderer loading is done in the following order
+           <source>
+resource-path/content-type/theme/client/[tag(for renderer)|property|style|script|image]_locale
+    .(class|property|property.xml|css|js|gif|png...]</source>
+
+           for example OutRenderer<br/>
+
+           org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag.OutRenderer<br/>
+
+           OutRenderer is getRendererType() + "Renderer"<br/>
+
+        The locale handling is handled like the Properties Class.<br/>
+
+        You have not define everything because the ResourceManager is asking the fallback theme for missing resources<br/>
+
+        The fallback theme of charlotteville is speyside.<br/>
+        The fallback theme of speyside is scarborough.<br/>
+        The fallback theme of scarborough is standard<br/>
+
+        The resource manager looks in the case of the charlotteville theme in<br/>
+        charlotteville -> speyside -> scarborough -> standard
+        <p>
+          Please look at
+          <a href="http://svn.apache.org/repos/asf/myfaces/tobago/trunk/tobago-theme/tobago-theme-example/src/main/resources">
+            tobago-example-theme
+          </a>
+         </p>
+      </answer>
+    </faq>
+
+    <faq id="tobago/custommarkup">
+      <question>How do I use and extend the markup attribute?</question>
+      <answer>
+        <p>UIBox, UIInput and UIOutput support custom markup with the markup attribute.
+          The supported markup is defined in the tobago-config.xml.
+          The standard markup is defined in tobago-config.xml of the tobago-theme-standard.
+          This can be extended in your own theme.
+          The markup attribute is rendered as a CSS class tobago-[renderer-name.toLowerCase]-markup-[markup].
+          For an example please look at the markup number and the CSS class tobago-in-markup-number for UIIn
+          in theme/scarborough/src/main/resources/org/apache/myfaces/tobago/renderkit/html/scarborough/standard/style/tobago.css
+          </p>
+      </answer>
+    </faq>
+
+    <faq id="tobago/container">
+      <question>In which containers was Tobago tested?</question>
+      <answer>
+        <p>Please take a look at the <a href="compatibility.html">Compatibility</a> List.
+        Feel free to post your own experiences.</p>
+      </answer>
+    </faq>
+
+    <faq id="tiles/sitemesh">
+      <question>Can Tobago replace Tiles? Can I ignore Tiles and Sitemesh in
+        favor of Tobago?
+      </question>
+      <answer>
+        <p>Tobago cannot replace it. But sometimes you may not need it, when
+          you are using Tobago.
+          If you want to position and size your components automatically, you
+          can do this with a Tobago LayoutManager.
+          If you want your header and sidebar rendered without writing duplicate
+          code, you may use JSP 2.0 tag files, Facelets or Tiles/Sitemesh.
+        </p>
+      </answer>
+    </faq>
+    <faq id="maven-mirror">
+      <question>How to configure a maven mirror?</question>
+      <answer>
+        <p>
+          If you want to set up a different mirror for some reason, you can use
+          your ~/.m2/settings.xml and add the following lines:
+        </p>
+        <source>
+&lt;mirrors>
+  &lt;mirror>
+    &lt;id>mirror ID&lt;/id>
+    &lt;name>Give it a name&lt;/name>
+    &lt;url>The URL of the mirror&lt;/url>
+    &lt;mirrorOf>The server ID of the repository being mirrored.
+        This must not match the mirror ID&lt;/mirrorOf>
+  &lt;/mirror>
+&lt;/mirrors></source>
+        <p>See:
+          <a href="http://maven.apache.org/guides/mini/guide-mirror-settings.html">
+            Guide to mirror settings
+          </a>
+        </p>
+        <p>Mirrors:
+          <a href="http://docs.codehaus.org/display/MAVENUSER/Mirrors+Repositories">
+            List of mirrors
+          </a>
+        </p>
+      </answer>
+    </faq>
+    <faq id="offline-build">
+      <question>How do I configure an offline build?</question>
+      <answer>
+        <p>
+          If you run into problems with fetching jars from the online
+          repository, you can configure Maven not to fetch them but use
+          the ones already in your local repository by adding the following to your ~/.m2/settings.xml:
+        </p>
+        <source>
+&lt;settings>
+  &lt;offline/>
+&lt;/settings></source>
+        <p>or use the mvn -o switch.</p>
+      </answer>
+    </faq>
+    <faq id="checkstyle">
+      <question>How do I perform a local checkstyle check?</question>
+      <answer>
+        <source>
+mvn compile checkstyle:check</source>
+      </answer>
+    </faq>
+    <faq id="checkstyle-vdl">
+      <question>How do I check the syntax of Facelet-Files (*.xhtml) with respect to the Taglib?</question>
+      <answer>
+        <p>
+        The problem is, that there is no concept for <em>deprecation</em> in Taglibs.
+        The tobago-core.jar contains a generated checkstyle configuration to perform
+        a syntax check via the maven checkstyle plugin.
+        </p>
+
+        <p>
+        Configure in the applications pom.xml an entry like this example
+        <source>    &lt;profile>
+      &lt;id>checkstyle-for-view-definition-language&lt;/id>
+      &lt;build>
+        &lt;plugins>
+          &lt;plugin>
+            &lt;groupId>org.apache.maven.plugins&lt;/groupId>
+            &lt;artifactId>maven-checkstyle-plugin&lt;/artifactId>
+            &lt;configuration>
+              &lt;configLocation>META-INF/checkstyle-tobago.xml&lt;/configLocation>
+              &lt;includes>**/*.xhtml&lt;/includes>
+              &lt;excludes>**/*.java&lt;/excludes>
+              &lt;sourceDirectory>src/main/webapp&lt;/sourceDirectory>
+            &lt;/configuration>
+            &lt;dependencies>
+              &lt;dependency>
+                &lt;groupId>org.apache.myfaces.tobago&lt;/groupId>
+                &lt;artifactId>tobago-core&lt;/artifactId>
+                &lt;version>${tobago.version}&lt;/version>
+              &lt;/dependency>
+            &lt;/dependencies>
+          &lt;/plugin>
+        &lt;/plugins>
+      &lt;/build>
+    &lt;/profile>
+        </source>
+        </p>
+        <p>
+        To perform a check call
+        <source>
+mvn checkstyle:check -Pcheckstyle-for-view-definition-language</source>
+          You will find the result in target/checkstyle-result.xml
+        </p>      </answer>
+    </faq>
+    <faq id="max-path">
+      <question>Why my Subversion checkout fails on Windows?</question>
+      <answer>
+        One reason is, that the checked out files will have a too long path name.
+        Under Windows the MAX_PATH is set to 260 characters. When you try to checkout in
+        a directory like C:\Dokumente und Einstellungen\MyUser\Apache Projects\
+        the path will be too long. A workaround will be checking out in an other directory
+        or register a new drive letter and check it out in X:
+        <source>
+SUBST X: "C:\Dokumente und Einstellungen\MyUser\Apache Projects\"</source>
+      </answer>
+    </faq>
+    <faq id="seleniumTobago12">
+      <question>How can I run the Selenium tests? (Tobago 1 and 2)</question>
+      <answer>
+      <p>
+        In the tobago-example-test application, the pages can be checked with selenium since Tobago 1.5.
+        To run the full test automatically call
+        <source>
+mvn -P integration-test</source>
+        This will start a jetty server and a selenium server and calls every listed page in the test application.
+      </p>
+
+        <p>
+        If you want to run the tests from your IDE, please start the jetty with
+        <source>
+mvn jetty:run</source> or <source>mvn jetty:run-exploded</source>
+        and start the selenium server with
+        <source>
+mvn selenium:start-server</source>
+        Now you can start the selenium tests in the IDE.
+        </p>
+        <p>
+          Sometimes there is a problem with Firefox. You may try to use a different version, or an installation without
+          plugins.
+        </p>
+      </answer>
+    </faq>
+    <faq id="integrationTestTobago3">
+      <question>How can I run the integration tests? (Tobago 3)</question>
+      <answer>
+        <p>In the tobago-example-demo application, the pages can be checked with QUnit/Arquillian.
+          To run the full test automatically call <source>mvn verify -Pqunit-integration-tests</source>
+          The default arquillian browser is 'phantomjs'.
+          You can change it in tobago-example-demo/pom.xml &lt;arquillian.browser>.</p>
+        <p>If you want to run the tests from your IDE, please use the maven profile 'tomee'.
+          After that, you can start the test from the QUnitTests class.</p>
+      </answer>
+    </faq>
+    <faq id="liberty">
+      <question>How can I run the Tobago demo with WebSphere Liberty Profile (WLP) from Maven?</question>
+      <answer>
+        <p>
+          <b>Please use at least Tobago 2.0 for this guidance (in this version the pom.xml files are prepared).</b>
+        </p>
+        <p>
+          You will need to do the following steps for preparation:
+        </p>
+        <ul>
+          <li>Download the server like:
+            <source>wlp-developers-runtime-8.5.5.0.jar</source>
+            from
+            <a href="https://www.ibm.com/developerworks/mydeveloperworks/blogs/wasdev/entry/download?lang=en">IBM</a>
+          </li>
+          <li>
+            Unpack the server anywhere in you file system, e.g. like this
+            <source>mkdir /opt/wlp-developers-runtime-8.5.5.0
+cd /opt/wlp-developers-runtime-8.5.5.0
+java -jar ~/Downloads/wlp-developers-runtime-8.5.5.0.jar
+            </source>
+          </li>
+          <li>
+            Adding your server home to a property in the settings.xml of Maven
+            <source>&lt;wlp.directory&gt;/opt/wlp-developers-runtime-8.5.5.0/wlp&lt;/wlp.directory&gt;</source>
+          </li>
+        </ul>
+        <p>
+          After these steps you can start/stop the server and deploy an built artifact.
+          For these steps, you need to be in the Tobago example demo directory.
+          <source>cd tobago-examples/tobago-example-demo</source>
+          This is <b>important</b> for the first start of the server,
+          because at the first start the server will be initialized.
+          For the setup the file
+          <source>test/resources/server.xml</source>
+          will be read. It contains the features, the WLP server will be support, and other configurations.
+          In our case we have the following features:
+          <source>
+            &lt;feature>cdi-1.0&lt;/feature>
+            &lt;feature>jsp-2.2&lt;/feature>
+            &lt;feature>servlet-3.0&lt;/feature>
+            &lt;feature>jsf-2.0&lt;/feature></source>
+        </p>
+        <ul>
+          <li>
+            Start the server
+            <source>mvn -Pliberty liberty:start-server</source>
+          </li>
+          <li>
+            Build an artifact (you need the "provided" property, because JSF and OWB comes from the server)
+            <source>mvn clean package -Djsf=provided</source>
+          </li>
+          <li>
+            Deploy an artifact
+            <source>mvn -Pliberty liberty:deploy</source>
+          </li>
+          <li>
+            You will find the web application under this URL
+            <source>http://localhost:9080/tobago-example-demo/</source>
+          </li>
+          <li>
+            Redeploy an artifact: The same as deploy.
+          </li>
+          <li>
+            Stop the server
+            <source>mvn -Pliberty liberty:stop-server</source>
+          </li>
+        </ul>
+        <p>
+          The server starts very fast and is simple to use (very different from the full WebSphere installation).
+          The log files you will find here:
+          <source>cd /opt/wlp-developers-8.5.next.beta/wlp/usr/servers/tobago/logs/</source>
+          Sometime you may need to the clean the server, in particular when you are changing JAR dependencies.
+          For doing that
+        </p>
+        <ul>
+          <li>
+            Stop the server
+          </li>
+          <li>
+            Remove the whole concrete server installation
+            <source>rm -r /opt/wlp-developers-8.5.next.beta/wlp/usr/servers/tobago</source>
+          </li>
+          <li>
+            Start the server (don't forget the server.xml)
+          </li>
+          <li>
+            Deploy again
+          </li>
+        </ul>
+        Please also consider the plugin configuration in the tobago-example/pom.xml
+        <source>
+          &lt;groupId>com.ibm.websphere.wlp.maven.plugins&lt;/groupId>
+          &lt;artifactId>liberty-maven-plugin&lt;/artifactId></source>
+      </answer>
+    </faq>
+    <faq id="portlet">
+      <question>How to setup my project to work with Portlets?</question>
+      <answer>
+        <p>
+          There is a basic example for portlets in the Subversion repository in the sub-folder
+          tobago-example/tobago-example-portlet
+          There is no specific configuration to use Tobago in Portlets.
+        </p>
+      </answer>
+    </faq>
+  </part>
+</faqs>

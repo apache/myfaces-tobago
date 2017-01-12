@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+-->
+
+<f:view
+    xmlns:tc="http://myfaces.apache.org/tobago/component"
+    xmlns:f="http://java.sun.com/jsf/core">
+
+  <tc:page id="page">
+    <f:facet name="layout">
+      <tc:gridLayout rows="auto"/>
+    </f:facet>
+    <tc:box label="Related to TOBAGO-1136: for='@auto' attribute">
+      <f:facet name="layout">
+        <tc:gridLayout rows="auto;auto;auto;auto;auto;auto;auto;auto;auto;auto;auto;auto;auto"/>
+      </f:facet>
+
+      <tc:in label="tx:in" id="in_panel" fieldId="in"/>
+
+      <tc:textarea label="tx:textarea" id="textarea_panel" fieldId="textarea"/>
+
+      <tc:time label="tx:time" id="time_panel" fieldId="time"/>
+
+      <tc:date label="tx:date" id="date_panel" fieldId="date"/>
+
+      <tc:selectBooleanCheckbox label="tx:selectBooleanCheckbox" id="check_panel" fieldId="check"/>
+
+      <tc:selectManyCheckbox label="tx:selectManyCheckbox" id="mcheck_panel" fieldId="mcheck">
+        <tc:selectItem itemLabel="Test 1" itemValue="1"/>
+        <tc:selectItem itemLabel="Test 2" itemValue="2"/>
+      </tc:selectManyCheckbox>
+
+      <tc:selectManyListbox label="tx:selectManyListbox" id="mlist_panel" fieldId="mlist">
+        <tc:selectItem itemLabel="Test"/>
+      </tc:selectManyListbox>
+
+      <tc:selectManyShuttle label="tx:selectManyShuttle" id="shuttle_panel" fieldId="shuttle">
+        <tc:selectItem itemLabel="Test 1"/>
+        <tc:selectItem itemLabel="Test 2"/>
+      </tc:selectManyShuttle>
+
+      <tc:selectOneChoice label="tx:selectOneChoice" id="choice_panel" fieldId="choice">
+        <tc:selectItem itemLabel="Test"/>
+      </tc:selectOneChoice>
+
+      <tc:selectOneListbox label="tx:selectOneListbox" id="list_panel" fieldId="list">
+        <tc:selectItem itemLabel="Test"/>
+      </tc:selectOneListbox>
+
+      <tc:selectOneRadio label="tx:selectOneRadio" id="radio_panel" fieldId="radio">
+        <tc:selectItem itemLabel="Test 1" itemValue="1"/>
+        <tc:selectItem itemLabel="Test 2" itemValue="2"/>
+      </tc:selectOneRadio>
+
+      <tc:file label="tx:file" id="file_panel" fieldId="file"/>
+
+      <tc:panel id="tc_in_panel">
+        <f:facet name="layout">
+          <tc:gridLayout columns="200px;*"/>
+        </f:facet>
+
+        <tc:label value="tc:in" for="@auto"/>
+        <tc:in id="tc_in"/>
+      </tc:panel>
+
+    </tc:box>
+
+    <tc:script onload="check()">
+
+      function check() {
+        checkForLabel("page:in_panel", "page:in");
+        checkForLabel("page:textarea_panel", "page:textarea");
+        checkForLabel("page:time_panel", "page:time");
+        checkForLabel("page:date_panel", "page:date");
+        checkForLabel("page:check_panel", "page:check");
+        checkForLabel("page:mcheck_panel", "page:mcheck");
+        checkForLabel("page:mlist_panel", "page:mlist");
+        checkForLabel("page:shuttle_panel", "page:shuttle");
+        checkForLabel("page:choice_panel", "page:choice");
+        checkForLabel("page:list_panel", "page:list");
+        checkForLabel("page:radio_panel", "page:radio");
+        checkForLabel("page:file_panel", "page:file");
+        checkForLabel("page:tc_in_panel", "page:tc_in");
+      }
+
+      function checkForLabel(labelId, componentId) {
+        var label = jQuery(Tobago.Utils.escapeClientId(labelId)).children("label");
+        var component = jQuery(Tobago.Utils.escapeClientId(componentId));
+        if (label.size() != 1) {
+          LOG.error("Label not found with id: '" + labelId + "'");
+        }
+        if (component.size() != 1) {
+          LOG.error("Component not found with id: '" + componentId + "'");
+        }
+        if (label.attr('for') != component.attr('id')) {
+          LOG.error("Missing for attribute for component with id: '" + componentId + "'");
+        }
+      }
+
+    </tc:script>
+
+  </tc:page>
+</f:view>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+-->
+
+<ui:composition template="/main.xhtml"
+                xmlns:tc="http://myfaces.apache.org/tobago/component"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core">
+  <ui:param name="title" value="Content Security Policy"/>
+
+  Tobago supports Content Security Policy (CSP) to prevent cross-site
+  scripting (XSS) and related attacks.
+  <tc:link link="http://www.w3.org/TR/CSP/" label="Specification link"/>.
+  In short: The HTML page doesn't contain any JavaScript or CSS information.
+  All allowed sources for JavaScript, CSS and other resources have to be declared in special header.
+  If you have own renderers or own JavaScript in your application, this code also needs to support SCP, to use this feature.
+
+  <tc:box label="This box may be manipulated by JavaScript">
+    <tc:style maxWidth="400px"/>
+    <tc:panel id="panel">
+      <tc:out value="When you can read this text, it hasn't been manipulated by JavaScript.
+        That means the CSP is working correctly."/>
+    </tc:panel>
+    <script>
+      <![CDATA[
+      function cspDemo() {
+        jQuery(Tobago.Utils.escapeClientId("page:panel")).html(
+            "<span style='color: #ff0000; font-weight: bold;'>Attention: When you can read this text, the content was manipulated by JavaScript."
+            + " It seems, your browser doesn't support CSP!</span>");
+      }
+
+      cspDemo();
+      ]]>
+    </script>
+  </tc:box>
+
+  <h5 class="alert alert-danger">This example is currently not working!</h5>
+
+</ui:composition>

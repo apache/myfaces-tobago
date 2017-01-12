@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+-->
+
+<ui:composition template="/main.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:tc="http://myfaces.apache.org/tobago/component"
+                xmlns:ui="http://java.sun.com/jsf/facelets">
+  <ui:param name="title" value="#{demoBundle.tinymce}"/>
+  <tc:script file="content/20-component/110-wysiwyg/00-tinymce/tinymce/js/tinymce/tinymce.min.js"/>
+  <tc:script file="content/20-component/110-wysiwyg/00-tinymce/tinymce.js"/>
+
+  <tc:section label="Installation">
+    <p>Download <tc:link link="http://www.tinymce.com/" target="_blank" label="TinyMCE"/>
+      and unpack the ZIP file directly beside this XHTML-file.
+      Then restart this application (this is needed, because the resource manager needs to scan the content).</p>
+  </tc:section>
+
+  <tc:section label="Editor">
+    <p>This facelet contains two <code class="language-markup">&lt;tc:script/></code> tags,
+      one for the TinyMCE and the other for the integration in this application.
+      The <code class="language-markup">&lt;tc:textarea/></code> contain
+      <code class="language-markup">&lt;tc:dataAttribute name="html-editor" value=""/></code>,
+      to mark this textarea to be used as rich text editor. The rest does the script: tinymce.js</p>
+
+    <tc:button label="show/hide" action="#{tinymceController.switchCollapsed}"/>
+    <tc:box label="tinymce.js" collapsed="#{tinymceController.collapsed}">
+      <pre><code class="language-javascript"><tc:out value="#{tinymceController.source}"/></code></pre>
+    </tc:box>
+
+    <tc:out markup="strong" rendered="#{not tinymceController.editorAvailable}"
+            value="The TinyMCE is not installed! Using the fallback textarea."/>
+
+    <tc:textarea value="#{tinymceController.text}">
+      <tc:style width="400px" height="300px"/>
+      <tc:dataAttribute name="html-editor" value=""/>
+    </tc:textarea>
+    <tc:button label="Submit"/>
+  </tc:section>
+</ui:composition>

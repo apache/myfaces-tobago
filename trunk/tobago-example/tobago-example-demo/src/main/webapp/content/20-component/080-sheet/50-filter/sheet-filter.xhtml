@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+-->
+
+<ui:composition template="/main.xhtml"
+                xmlns:tc="http://myfaces.apache.org/tobago/component"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns="http://www.w3.org/1999/xhtml">
+  <ui:param name="title" value="#{demoBundle.sheet_filter} &lt;tc:sheet/>"/>
+  <p>Filtering is not a explicit feature of the sheet. It is done in the controller.</p>
+  <p>To add filtering components to the header of a sheet, use
+    <code class="language-markup">&lt;f:facet name="header"></code>.</p>
+  <p><b>Warning:</b> Paging currently doesn't work with filters!</p>
+  <p>Tag Library Documentation:
+    <tc:link label="&lt;tc:sheet/>" image="#{request.contextPath}/image/feather-leaf.png"
+             link="#{demoBundle.tagDocUrl}/#{info.stableVersion}/tld/tc/sheet.html"/>
+    |
+    <tc:link label="&lt;tc:column/>" image="#{request.contextPath}/image/feather-leaf.png"
+             link="#{demoBundle.tagDocUrl}/#{info.stableVersion}/tld/tc/column.html"/></p>
+
+  <tc:section label="#{demoBundle.sheet_filter}">
+    <p>Add a search string to the inputfield or change the value of the dropdown boxes to filter the sheet.
+      If an inputfield lost focus the filtering will be executed.</p>
+    <tc:sheet id="sheet" value="#{sheetFilterController.filteredSolarList}" var="object" rows="15">
+      <f:facet name="header">
+        <tc:form id="headerForm">
+          <tc:panel>
+            <tc:out value="Name"/>
+            <tc:in value="#{sheetFilterController.name}">
+              <f:ajax execute=":::sheet" render=":::sheet" listener="#{sheetFilterController.filter}"/>
+            </tc:in>
+          </tc:panel>
+          <tc:panel>
+            <tc:out value="Orbit"/>
+            <tc:in value="#{sheetFilterController.orbit}">
+              <f:ajax execute=":::sheet" render=":::sheet" listener="#{sheetFilterController.filter}"/>
+            </tc:in>
+          </tc:panel>
+          <tc:panel>
+            <tc:out value="Distance [1000 km]"/>
+            <tc:selectOneChoice value="#{sheetFilterController.distance}"
+                                converter="#{sheetFilterController.distanceRangeConverter}">
+              <tc:selectItems value="#{sheetFilterController.distanceItems}"/>
+              <f:ajax execute=":::sheet" render=":::sheet" listener="#{sheetFilterController.filter}"/>
+            </tc:selectOneChoice>
+          </tc:panel>
+          <tc:out value="Period"/>
+          <tc:panel>
+            <tc:out value="Discoverer"/>
+            <tc:in value="#{sheetFilterController.discoverer}">
+              <f:ajax execute=":::sheet" render=":::sheet" listener="#{sheetFilterController.filter}"/>
+            </tc:in>
+          </tc:panel>
+          <tc:panel>
+            <tc:out value="Year"/>
+            <tc:flexLayout columns="1*;1*">
+              <tc:selectOneChoice value="#{sheetFilterController.minYear}">
+                <tc:style width="70px"/>
+                <tc:selectItems value="#{sheetFilterController.minYearItems}"/>
+                <f:ajax execute=":::sheet" render=":::sheet" listener="#{sheetFilterController.filter}"/>
+              </tc:selectOneChoice>
+              <tc:selectOneChoice value="#{sheetFilterController.maxYear}">
+                <tc:style width="70px"/>
+                <tc:selectItems value="#{sheetFilterController.maxYearItems}"/>
+                <f:ajax execute=":::sheet" render=":::sheet" listener="#{sheetFilterController.filter}"/>
+              </tc:selectOneChoice>
+            </tc:flexLayout>
+          </tc:panel>
+        </tc:form>
+      </f:facet>
+      <tc:column>
+        #{object.name}
+      </tc:column>
+      <tc:column>
+        #{object.orbit}
+      </tc:column>
+      <tc:column>
+        #{object.distance}
+      </tc:column>
+      <tc:column>
+        #{object.period}
+      </tc:column>
+      <tc:column>
+        #{object.discoverer}
+      </tc:column>
+      <tc:column>
+        #{object.discoverYear}
+      </tc:column>
+    </tc:sheet>
+  </tc:section>
+</ui:composition>

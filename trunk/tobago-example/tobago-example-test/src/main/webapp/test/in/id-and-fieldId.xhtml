@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+-->
+
+<f:view
+    xmlns:tc="http://myfaces.apache.org/tobago/component"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core">
+
+  <tc:page id="page">
+    <f:facet name="layout">
+      <tc:gridLayout
+          columns="3*;*;*;*"
+          rows="auto;auto;auto;auto;auto;auto;auto;auto;auto;auto;auto;auto;auto;auto;auto;auto;auto;auto;auto;auto;auto"/>
+    </f:facet>
+    <tc:gridLayoutConstraint width="900px" height="700px"/>
+
+    <tc:messages>
+      <tc:gridLayoutConstraint columnSpan="4"/>
+    </tc:messages>
+
+    <tc:label value="Test Tag"/>
+    <tc:label value="Panel Id"/>
+    <tc:label value="Label Id"/>
+    <tc:label value="Field Id"/>
+
+    <tc:in label="auto id" required="true"/>
+    <tc:in id="panel0"/>
+    <tc:in id="label0"/>
+    <tc:in id="field0"/>
+
+    <tc:in label="auto id"/>
+    <tc:in id="panel1"/>
+    <tc:in id="label1"/>
+    <tc:in id="field1"/>
+
+    <tc:in label="id" id="alpha"/>
+    <tc:in id="panel2"/>
+    <tc:in id="label2"/>
+    <tc:in id="field2"/>
+
+    <tc:in label="fieldId" fieldId="beta"/>
+    <tc:in id="panel3"/>
+    <tc:in id="label3"/>
+    <tc:in id="field3"/>
+
+    <tc:in label="id and fieldId" id="gamma" fieldId="delta"/>
+    <tc:in id="panel4"/>
+    <tc:in id="label4"/>
+    <tc:in id="field4"/>
+
+    <tc:date label="date" id="datePanel" fieldId="dateField"/>
+    <tc:in id="panel5"/>
+    <tc:in id="label5"/>
+    <tc:in id="field5"/>
+
+    <tc:time label="time" id="timePanel" fieldId="timeField"/>
+    <tc:in id="panel6"/>
+    <tc:in id="label6"/>
+    <tc:in id="field6"/>
+
+    <tc:file label="file" id="filePanel" fieldId="fileField"/>
+    <tc:in id="panel7"/>
+    <tc:in id="label7"/>
+    <tc:in id="field7"/>
+
+    <tc:textarea label="textarea" id="textareaPanel" fieldId="textareaField"/>
+    <tc:in id="panel8"/>
+    <tc:in id="label8"/>
+    <tc:in id="field8"/>
+
+    <tc:selectBooleanCheckbox label="selectBooleanCheckbox" id="selectBooleanCheckboxPanel" fieldId="selectBooleanCheckboxField"/>
+    <tc:in id="panel9"/>
+    <tc:in id="label9"/>
+    <tc:in id="field9"/>
+
+    <tc:selectManyCheckbox label="selectManyCheckbox" id="selectManyCheckboxPanel" fieldId="selectManyCheckboxField">
+      <tc:selectItem itemLabel="A"/>
+      <tc:selectItem itemLabel="B"/>
+    </tc:selectManyCheckbox>
+    <tc:in id="panel10"/>
+    <tc:in id="label10"/>
+    <tc:in id="field10"/>
+
+    <tc:selectManyListbox label="selectManyListbox" id="selectManyListboxPanel" fieldId="selectManyListboxField">
+      <tc:selectItem itemLabel="A"/>
+      <tc:selectItem itemLabel="B"/>
+    </tc:selectManyListbox>
+    <tc:in id="panel11"/>
+    <tc:in id="label11"/>
+    <tc:in id="field11"/>
+
+    <tc:selectOneChoice label="selectOneChoice" id="selectOneChoicePanel" fieldId="selectOneChoiceField">
+      <tc:selectItem itemLabel="A"/>
+      <tc:selectItem itemLabel="B"/>
+    </tc:selectOneChoice>
+    <tc:in id="panel12"/>
+    <tc:in id="label12"/>
+    <tc:in id="field12"/>
+
+    <tc:selectOneListbox label="selectOneListbox" id="selectOneListboxPanel" fieldId="selectOneListboxField">
+      <tc:selectItem itemLabel="A"/>
+      <tc:selectItem itemLabel="B"/>
+    </tc:selectOneListbox>
+    <tc:in id="panel13"/>
+    <tc:in id="label13"/>
+    <tc:in id="field13"/>
+
+    <tc:selectOneRadio label="selectOneRadio" id="selectOneRadioPanel" fieldId="selectOneRadioField">
+      <tc:selectItem itemLabel="A"/>
+      <tc:selectItem itemLabel="B"/>
+    </tc:selectOneRadio>
+    <tc:in id="panel14"/>
+    <tc:in id="label14"/>
+    <tc:in id="field14"/>
+
+    <tc:panel/>
+    <tc:panel/>
+    <tc:panel/>
+    <tc:button label="Reload"/>
+
+    <tc:script file="test/in/id-and-fieldId.js"/>
+
+  </tc:page>
+</f:view>

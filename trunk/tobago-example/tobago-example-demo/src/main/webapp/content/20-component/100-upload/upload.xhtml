@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+-->
+
+<ui:composition template="/main.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:tc="http://myfaces.apache.org/tobago/component"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core">
+  <ui:param name="title" value="#{demoBundle.upload} &lt;tc:file/&gt;"/>
+  <p>The <code class="language-markup">&lt;tc:file/></code> create a textfield with a choose directory button on the
+    right.</p>
+  <p>To load up files to the server for JSF 2.0 and 2.1 you will need to add a multipart-config entry to the
+    FacesServlet in the <code>web.xml</code> file. Since JSF 2.2 this is not required.</p>
+  <p>Here you can configure some more general information.</p>
+    <pre><code class="language-markup">&lt;multipart-config>
+  &lt;max-file-size>20848820&lt;/max-file-size>
+  &lt;max-request-size>418018841&lt;/max-request-size>
+  &lt;location>/tmp&lt;/location>
+  &lt;file-size-threshold>1048576&lt;/file-size-threshold>
+&lt;/multipart-config></code></pre>
+  <p>If using Servlet API 3.1 you may call <code>part.getSubmittedFileName()</code>, for 3.0 you may use the Utility
+    <code>org.apache.myfaces.tobago.internal.util.PartUtils.getSubmittedFileName(part)</code>
+    to access to filename of the upload.</p>
+  <tc:link label="Tag Library Documentation" image="image/feather-leaf.png"
+           link="#{demoBundle.tagDocUrl}/#{info.stableVersion}/tld/tc/file.html"/>
+
+  <tc:section id="s1" label="Basics">
+    <pre><code class="language-markup">&lt;tc:file label="Upload" value="\#{uploadController.file1}"/></code></pre>
+    <tc:file label="Upload" value="#{uploadController.fileBasic}"/>
+    <tc:file label="Read Only" readonly="true" value="#{uploadController.fileBasic}"/>
+    <tc:file label="Disabled" disabled="true" value="#{uploadController.fileBasic}"/>
+    <tc:button label="Submit" action="#{uploadController.uploadBasic}"/>
+  </tc:section>
+
+  <tc:section id="s2" label="Content type">
+    <p>You can filter files using the <code class="language-markup">&lt;tc:validateFileItem/></code> tag within
+      the <code class="language-markup">&lt;tc:file/></code>.
+      In the following example only images and PDF files are excepted.</p>
+    <tc:file label="Upload image" value="#{uploadController.fileContentType}">
+      <tc:validateFileItem contentType="image/*,application/pdf"/>
+    </tc:file>
+    <tc:button label="Submit" action="#{uploadController.uploadContentType}"/>
+  </tc:section>
+
+  <tc:section id="upload-multi" label="Multiple files">
+    <p>
+      You can upload multiple files in one selection and request.
+      Use the <code class="language-markup">multiple="true"</code> attribute.
+    </p>
+    <tc:file label="Multiple" value="#{uploadController.fileMulti}" multiple="true"/>
+    <tc:button label="Submit" action="#{uploadController.uploadMulti}"/>
+  </tc:section>
+
+  <tc:section id="s3" label="Ajax">
+
+    <p>Ajax can be activated by adding <code class="language-markup">&lt;f:ajax/></code>
+      to the <code class="language-markup">&lt;tc:file/></code> tag.</p>
+    <p>The Ajax feature of file upload currently works with JSF 2.2 only!</p>
+
+    <tc:file label="Ajax" value="#{uploadController.fileAjax}">
+      <f:ajax listener="#{uploadController.uploadAjax}" render="s3 :page:messages"/>
+    </tc:file>
+
+    <tc:section id="s4" label="Uploaded Files">
+      <tc:sheet value="#{uploadController.uploadItems}" var="item" columns="*;*;*">
+        <tc:column label="Name">
+          <tc:out value="#{item.name}"/>
+        </tc:column>
+        <tc:column label="Type">
+          <tc:out value="#{item.type}"/>
+        </tc:column>
+        <tc:column label="Size">
+          <tc:out value="#{item.size}"/>
+        </tc:column>
+      </tc:sheet>
+    </tc:section>
+  </tc:section>
+</ui:composition>

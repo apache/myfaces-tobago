@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+-->
+
+<ui:composition template="/main.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:tc="http://myfaces.apache.org/tobago/component"
+                xmlns:ui="http://java.sun.com/jsf/facelets">
+  <ui:param name="title" value="#{demoBundle.default_command} &lt;tc:button>"/>
+  <p>A normal button, created with <code class="language-markup">&lt;tc:button/></code>, must be actively pressed,
+    to run the action. A default-button can be activated, even if not selected.
+    For example, the cursor is in an inputfield and the enter key is pressed.</p>
+  <p>A button can be made to a default button with the <code>defaultCommand</code> attribute.
+    The default button is highlighted by another color.</p>
+  <tc:link label="Tag Library Documentation" image="#{request.contextPath}/image/feather-leaf.png"
+           link="#{demoBundle.tagDocUrl}/#{info.stableVersion}/tld/tc/button.html"/>
+
+  <tc:section label="Last Active Button ID">
+    <p>To make the examples more clear, the ID of the last active button is displayed in the
+      following outputfield.</p>
+    <tc:out id="o1" label="Id" value="#{defaultCommandController.lastActiveButtonId}"/>
+  </tc:section>
+
+  <tc:section label="Basics">
+    <p>After writing some text into the textfield, the user can press 'ENTER' to activate the submit-button.</p>
+    <tc:form>
+      <tc:in id="i1" label="Textfield" placeholder="add some text..." value="#{defaultCommandController.value1}"/>
+      <tc:out id="o2" label="Value Textfield" value="#{defaultCommandController.value1}"/>
+      <tc:button id="submit1" label="Submit 1" defaultCommand="true"
+                 actionListener="#{defaultCommandController.click}"/>
+    </tc:form>
+  </tc:section>
+
+  <tc:section label="Multiple Default Buttons">
+    <p>The related default-button is searched in the current <code class="language-markup">&lt;tc:form/></code>.
+      If there no default-button could found, the search is continued in the parent form and so on.
+      If no default-button found on this way, the button is search outside of a form.</p>
+    <p>In this example, the 'Submit A'-button is in a form together with a intputfield and outputfield.
+      The 'Submit B'-button is outside a form.</p>
+    <p>Now, if the cursor is in 'Textfield A' and the enter key is pressed, the 'Submit A'-button is activated.
+      Therefor only the 'Textfield A'-value will be submitted.</p>
+    <p>If the cursor is in 'Textfield B' and the enter key is pressed, the 'Submit B'-button is activated.
+      This will submit the 'Textfield A'-value as well as the 'Textfield B'-value.</p>
+    <tc:form>
+      <tc:box>
+        <tc:form>
+          <tc:in id="i2" label="Textfield A" placeholder="add some text..." value="#{defaultCommandController.value2}"/>
+          <tc:out id="o3" label="Value Textfield A" value="#{defaultCommandController.value2}"/>
+          <tc:button id="submitA" label="Submit A" defaultCommand="true"
+                     actionListener="#{defaultCommandController.click}"/>
+        </tc:form>
+      </tc:box>
+      <tc:box>
+        <tc:form>
+          <tc:in id="i3" label="Textfield B" placeholder="add some text..." value="#{defaultCommandController.value3}"/>
+          <tc:out id="o4" label="Value Textfield B" value="#{defaultCommandController.value3}"/>
+        </tc:form>
+      </tc:box>
+      <tc:button id="submitB" label="Submit B" defaultCommand="true"
+                 actionListener="#{defaultCommandController.click}"/>
+    </tc:form>
+  </tc:section>
+</ui:composition>
