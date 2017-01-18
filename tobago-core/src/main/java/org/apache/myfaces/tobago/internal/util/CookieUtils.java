@@ -40,18 +40,20 @@ public class CookieUtils {
   public static String getThemeNameFromCookie(HttpServletRequest request) {
     String themeName = null;
     final Cookie[] cookies = request.getCookies();
-    for (Cookie cookie : cookies) {
-      if (LOG.isDebugEnabled()) {
-        LOG.debug("cookie name  ='{}'", cookie.getName());
-        LOG.debug("cookie value ='{}'", cookie.getValue());
-        LOG.debug("cookie path  ='{}'", cookie.getPath());
-      }
-      if (THEME_PARAMETER.equals(cookie.getName())) {
-        themeName = cookie.getValue();
+    if (cookies != null) {
+      for (Cookie cookie : cookies) {
         if (LOG.isDebugEnabled()) {
-          LOG.debug("theme from cookie {}='{}'", THEME_PARAMETER, themeName);
+          LOG.debug("cookie name  ='{}'", cookie.getName());
+          LOG.debug("cookie value ='{}'", cookie.getValue());
+          LOG.debug("cookie path  ='{}'", cookie.getPath());
         }
-        break;
+        if (THEME_PARAMETER.equals(cookie.getName())) {
+          themeName = cookie.getValue();
+          if (LOG.isDebugEnabled()) {
+            LOG.debug("theme from cookie {}='{}'", THEME_PARAMETER, themeName);
+          }
+          break;
+        }
       }
     }
     return themeName;
@@ -64,30 +66,32 @@ public class CookieUtils {
     path = StringUtils.isBlank(path) ? "/" : path;
     boolean found = false;
     final Cookie[] cookies = request.getCookies();
-    for (Cookie cookie : cookies) {
-      if (THEME_PARAMETER.equals(cookie.getName())) {
-        if (found) {
-          if (LOG.isDebugEnabled()) {
-            LOG.debug("Found more than one cookie {}, try to remove them...", THEME_PARAMETER);
-          }
-          cookie.setMaxAge(0);
-        } else {
-          found = true;
-          if (StringUtils.notEquals(cookie.getValue(), themeName)) {
+    if (cookies != null) {
+      for (Cookie cookie : cookies) {
+        if (THEME_PARAMETER.equals(cookie.getName())) {
+          if (found) {
             if (LOG.isDebugEnabled()) {
-              LOG.debug("update theme {} -> {}", cookie.getValue(), themeName);
+              LOG.debug("Found more than one cookie {}, try to remove them...", THEME_PARAMETER);
             }
-            cookie.setValue(themeName);
-          }
-          if (StringUtils.notEquals(cookie.getPath(), path)) {
-            if (LOG.isDebugEnabled()) {
-              LOG.debug("update path  {} -> {}", cookie.getPath(), path);
+            cookie.setMaxAge(0);
+          } else {
+            found = true;
+            if (StringUtils.notEquals(cookie.getValue(), themeName)) {
+              if (LOG.isDebugEnabled()) {
+                LOG.debug("update theme {} -> {}", cookie.getValue(), themeName);
+              }
+              cookie.setValue(themeName);
             }
-            cookie.setPath(path);
+            if (StringUtils.notEquals(cookie.getPath(), path)) {
+              if (LOG.isDebugEnabled()) {
+                LOG.debug("update path  {} -> {}", cookie.getPath(), path);
+              }
+              cookie.setPath(path);
+            }
+            cookie.setMaxAge(ONE_YEAR_IN_SECONDS);
           }
-          cookie.setMaxAge(ONE_YEAR_IN_SECONDS);
+          response.addCookie(cookie);
         }
-        response.addCookie(cookie);
       }
     }
     if (!found) {
