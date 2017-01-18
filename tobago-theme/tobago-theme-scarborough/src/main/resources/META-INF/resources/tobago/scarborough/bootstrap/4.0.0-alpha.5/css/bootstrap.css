@@ -688,6 +688,14 @@ p.tobago-separator:after {
 }
 
 /* sheet -------------------------------------------------------------- */
+th.tobago-sheet-headerCell {
+  font-weight: normal;
+}
+
+th.tobago-sheet-headerCell .tobago-out {
+  font-weight: bold;
+}
+
 .tobago-sheet-header {
   overflow: hidden;
   -webkit-flex-shrink: 0;
