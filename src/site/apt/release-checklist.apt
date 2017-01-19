@@ -197,32 +197,32 @@ Announcement template
 
 Subject: [ANNOUNCE] Apache Tobago <version>
 
- The Apache MyFaces team is pleased to announce the release of Apache Tobago <v>.
- Apache Tobago is a component library for JavaServer Faces (JSF) that allows to write web-applications
- without the need of coding HTML, CSS and JavaScript
+The Apache MyFaces team is pleased to announce the release of Apache Tobago <v>.
+Apache Tobago is a component library for JavaServer Faces (JSF) that allows to write web-applications
+without the need of coding HTML, CSS and JavaScript
 
- Main new features
- -----------------
+Main new features
+-----------------
 
- [add main new features here or remove this section]
+[add main new features here or remove this section]
 
- Changes
- -------
+Changes
+-------
 
- Please check the release notes at
- http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=<versionidfromjira>
- for a full list of the changes in version <v>.
+Please check the release notes at
+http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=<versionidfromjira>
+for a full list of the changes in version <v>.
 
- Known limitations and bugs:
- ---------------------------
+Known limitations and bugs:
+---------------------------
 
- [add main limitations and known bugs here or remove this section]
+[add main limitations and known bugs here or remove this section]
 
- For more information about Apache Tobago, please visit
- http://myfaces.apache.org/tobago/.
+For more information about Apache Tobago, please visit
+http://myfaces.apache.org/tobago/.
 
- Have fun,
- -The MyFaces team
+Have fun,
+-The MyFaces team
 
 ----------------------------------------
 
