@@ -156,9 +156,9 @@ mvn site:stage -DstagingDirectory=/Volumes/tobago-site/tobago-publish
 
 Preparation template
 
-  <Replace the variable parts like \<version\>>.
+  Send to: {{mailto:MyFaces Development \<dev@myfaces.apache.org\>}}
 
-  Send to: <dev@myfaces.apache.org>
+  <Replace the variable parts like \<version\>>.
 
 +------------------------+
 
@@ -180,9 +180,9 @@ Regards,
 
 Vote template
 
-  <Replace the variable parts like \<version\>>.
+  Send to: {{mailto:MyFaces Development \<dev@myfaces.apache.org\>}}
 
-  Send to: <dev@myfaces.apache.org>
+  <Replace the variable parts like \<version\>>.
 
 +------------------------+
 
@@ -225,9 +225,11 @@ Regards,
 
 Announcement template
 
-  <Replace the variable parts like \<version\>>.
+  All versions: Send to: {{mailto:MyFaces Discussion \<users@myfaces.apache.org\>}}
 
-  Send to: <users@myfaces.apache.org> and <announce@apache.org>
+  Major versions: Send to: {{mailto:announce@apache.org}}
+
+  <Replace the variable parts like \<version\>>.
 
 +------------------------+
 
