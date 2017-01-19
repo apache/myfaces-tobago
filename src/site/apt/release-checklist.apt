@@ -32,7 +32,7 @@ Release Checklist (Developer Info)
 
   * Check the scheduled version number against "semantic versioning".
 
-  * Post a note on the list and ask for problems with the release candidate.
+  * Post a note and ask for problems with the release candidate (see <preparation template> below).
 
   * Install (or unpack) a jdk 1.4 on your computer (only for Tobago 1.0.x).
 
@@ -106,7 +106,7 @@ mvn release:perform
 
 * Voting
 
-  * Propose a vote on the dev list with the staging location (see mail template below).
+  * Propose a vote on the dev list with the staging location (see <vote template> below).
 
   * For a positive result wait at least 72 hours.
 
@@ -151,12 +151,38 @@ mvn site:stage -DstagingDirectory=/Volumes/tobago-site/tobago-publish
 
   * Delete old snapshots in /www/people.apache.org/builds/myfaces/nightly/ on people.apache.org.
 
-  * Create and send announcement (see mail template below).
+  * Create and send announcement (see <announcement template> below).
+
+
+Preparation template
+
+  <Replace the variable parts like \<version\>>.
+
+  Send to: <dev@myfaces.apache.org>
+
++------------------------+
+
+Subject: [Tobago] Preparation for the <version> release
+
+
+Hi, folks,
+
+I plan to build the <version> of Tobago soon.
+
+If you know any blocking problems with the current SNAPSHOT, give me a hint.
+
+Regards,
+<sender>
+
++------------------------+
+
 
 
 Vote template
 
   <Replace the variable parts like \<version\>>.
+
+  Send to: <dev@myfaces.apache.org>
 
 +------------------------+
 
@@ -190,6 +216,9 @@ Please vote now! (The vote is open for 72h.)
 [ ] +0
 [ ] -1
 
+Regards,
+<sender>
+
 +------------------------+
 
 
@@ -197,6 +226,8 @@ Please vote now! (The vote is open for 72h.)
 Announcement template
 
   <Replace the variable parts like \<version\>>.
+
+  Send to: <users@myfaces.apache.org> and <announce@apache.org>
 
 +------------------------+
 
