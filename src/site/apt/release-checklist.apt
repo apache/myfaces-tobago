@@ -32,7 +32,7 @@ Release Checklist (Developer Info)
 
   * Check the scheduled version number against "semantic versioning".
 
-  * Post a note and ask for problems with the release candidate (see <preparation template> below).
+  * Post a note and ask for problems with the release candidate (see {{Preparation template}} below).
 
   * Install (or unpack) a jdk 1.4 on your computer (only for Tobago 1.0.x).
 
@@ -106,7 +106,7 @@ mvn release:perform
 
 * Voting
 
-  * Propose a vote on the dev list with the staging location (see <vote template> below).
+  * Propose a vote on the dev list with the staging location (see {{Vote template}} below).
 
   * For a positive result wait at least 72 hours.
 
@@ -151,10 +151,10 @@ mvn site:stage -DstagingDirectory=/Volumes/tobago-site/tobago-publish
 
   * Delete old snapshots in /www/people.apache.org/builds/myfaces/nightly/ on people.apache.org.
 
-  * Create and send announcement (see <announcement template> below).
+  * Create and send announcement (see {{Announcement template}} below).
 
 
-Preparation template
+{Preparation template}
 
   Send to: {{mailto:MyFaces Development \<dev@myfaces.apache.org\>}}
 
@@ -178,7 +178,7 @@ Regards,
 
 
 
-Vote template
+{Vote template}
 
   Send to: {{mailto:MyFaces Development \<dev@myfaces.apache.org\>}}
 
@@ -223,7 +223,7 @@ Regards,
 
 
 
-Announcement template
+{Announcement template}
 
   For all versions send to: {{mailto:MyFaces Discussion \<users@myfaces.apache.org\>}}\
   Only for major versions send to: {{mailto:announce@apache.org}}
