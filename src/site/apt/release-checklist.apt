@@ -225,15 +225,14 @@ Regards,
 
 Announcement template
 
-  All versions: Send to: {{mailto:MyFaces Discussion \<users@myfaces.apache.org\>}}
-
-  Major versions: Send to: {{mailto:announce@apache.org}}
+  For all versions send to: {{mailto:MyFaces Discussion \<users@myfaces.apache.org\>}}\
+  Only for major versions send to: {{mailto:announce@apache.org}}
 
   <Replace the variable parts like \<version\>>.
 
 +------------------------+
 
-Subject: [ANNOUNCE] Apache Tobago <version>
+Subject: [ANNOUNCE] Apache Tobago <version> released
 
 
 The Apache MyFaces team is pleased to announce the release of Apache
