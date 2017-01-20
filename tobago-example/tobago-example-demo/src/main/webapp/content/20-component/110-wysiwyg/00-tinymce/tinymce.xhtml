@@ -19,16 +19,17 @@
 
 <ui:composition template="/main.xhtml"
                 xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
                 xmlns:ui="http://java.sun.com/jsf/facelets">
   <ui:param name="title" value="#{demoBundle.tinymce}"/>
-  <tc:script file="content/20-component/110-wysiwyg/00-tinymce/tinymce/js/tinymce/tinymce.min.js"/>
-  <tc:script file="content/20-component/110-wysiwyg/00-tinymce/tinymce.js"/>
+  <tc:script
+          file="#{request.contextPath}/content/20-component/110-wysiwyg/00-tinymce/tinymce/js/tinymce/tinymce.min.js"/>
+  <tc:script file="#{request.contextPath}/content/20-component/110-wysiwyg/00-tinymce/tinymce.js"/>
 
   <tc:section label="Installation">
     <p>Download <tc:link link="http://www.tinymce.com/" target="_blank" label="TinyMCE"/>
-      and unpack the ZIP file directly beside this XHTML-file.
-      Then restart this application (this is needed, because the resource manager needs to scan the content).</p>
+      and unpack the ZIP file directly beside this XHTML-file.</p>
   </tc:section>
 
   <tc:section label="Editor">
@@ -38,15 +39,24 @@
       <code class="language-markup">&lt;tc:dataAttribute name="html-editor" value=""/></code>,
       to mark this textarea to be used as rich text editor. The rest does the script: tinymce.js</p>
 
-    <tc:button label="show/hide" action="#{tinymceController.switchCollapsed}"/>
-    <tc:box label="tinymce.js" collapsed="#{tinymceController.collapsed}">
-      <pre><code class="language-javascript"><tc:out value="#{tinymceController.source}"/></code></pre>
+    <tc:box id="sourceCodeBox" label="tinymce.js" collapsed="true" collapsedMode="hidden">
+      <f:facet name="bar">
+        <tc:buttons>
+          <tc:button label="show" omit="true">
+            <tc:operation name="show" for="sourceCodeBox"/>
+          </tc:button>
+          <tc:button label="hide" omit="true">
+            <tc:operation name="hide" for="sourceCodeBox"/>
+          </tc:button>
+        </tc:buttons>
+      </f:facet>
+      <pre><code class="language-javascript"><tc:out value="#{tinyMceController.source}"/></code></pre>
     </tc:box>
 
-    <tc:out markup="strong" rendered="#{not tinymceController.editorAvailable}"
+    <tc:out markup="strong" rendered="#{not tinyMceController.editorAvailable}"
             value="The TinyMCE is not installed! Using the fallback textarea."/>
 
-    <tc:textarea value="#{tinymceController.text}">
+    <tc:textarea value="#{tinyMceController.text}">
       <tc:style width="400px" height="300px"/>
       <tc:dataAttribute name="html-editor" value=""/>
     </tc:textarea>

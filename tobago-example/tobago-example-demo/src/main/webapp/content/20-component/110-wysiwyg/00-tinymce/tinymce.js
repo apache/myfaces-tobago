@@ -50,6 +50,15 @@
             });
             text.outerHeight(text.outerHeight() - heightDelta);
           }, 50);
+        },
+        setup: function(ed) {
+          ed.on('init', function(args) {
+            // TinyMCE v4
+            if (jQuery("#" + args.target.id.replace(/:/g, "\\:")).attr('readonly') == "readonly") {
+              console.debug("RO!");
+              tinymce.get(args.target.id).setMode('readonly');
+            }
+          });
         }
       });
     },
