@@ -44,21 +44,34 @@ QUnit.test("date with label", function (assert) {
   assert.equal($dateField.val(), today);
 });
 
-QUnit.test("submit", function (assert) {
-  assert.expect(5);
+QUnit.test("submit", function(assert) {
+  assert.expect(6);
   var done = assert.async();
 
   var $dateField = jQueryFrame("#page\\:mainForm\\:formSubmit\\:input\\:\\:field");
   var $dateButton = jQueryFrame("#page\\:mainForm\\:formSubmit\\:input button");
   var $outField = jQueryFrame("#page\\:mainForm\\:formSubmit\\:output span");
   var $submitButton = jQueryFrame("#page\\:mainForm\\:formSubmit\\:button");
+  var $days = jQueryFrame(".bootstrap-datetimepicker-widget .day");
 
   assert.equal($dateField.val(), "22.05.2016");
   assert.equal($outField.text(), "22.05.2016");
 
   $dateButton.click();
-  assert.ok(jQueryFrame(".bootstrap-datetimepicker-widget").get(0));
-  jQueryFrame(".bootstrap-datetimepicker-widget .day").get(37).click(); // Choose '01.06.2016'.
+  assert.ok(jQueryFrame(".bootstrap-datetimepicker-widget").get(0),
+      ".bootstrap-datetimepicker-widget should be available");
+
+  $days = jQueryFrame($days.selector);
+  var day22 = 0;
+  for (i = 0; i < $days.length; i++) {
+    $days = jQueryFrame($days.selector);
+    if ($days.eq(i).text() == "22") {
+      day22 = i;
+      break;
+    }
+  }
+  assert.ok(jQueryFrame(".bootstrap-datetimepicker-widget .day").get(i + 10));
+  jQueryFrame(".bootstrap-datetimepicker-widget .day").get(i + 10).click(); // Choose '01.06.2016'.
 
   assert.equal($dateField.val(), "01.06.2016");
   $submitButton.click();

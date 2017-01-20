@@ -19,7 +19,8 @@
 
 <ui:composition template="/main.xhtml"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
-                xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html">
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core">
 
   <ui:param name="title" value="Test: RendererBase.getCurrentValue()"/>
 
@@ -27,9 +28,14 @@
 
   <tc:out id="outStringFromMethod" labelLayout="none" value="#{currentValueController.toUpperCase('Hello world!')}"/>
 
-  <tc:out id="outDate" labelLayout="none" value="#{currentValueController.date}"/>
+  <tc:out id="outDate" labelLayout="none" value="#{currentValueController.date}">
+    <f:convertDateTime pattern="dd.MM.yyyy"/>
+  </tc:out>
 
-  <tc:out id="outDateFromMethod" labelLayout="none" value="#{currentValueController.plus50(currentValueController.date)}"/>
+  <tc:out id="outDateFromMethod" labelLayout="none"
+          value="#{currentValueController.plus50(currentValueController.date)}">
+    <f:convertDateTime pattern="dd.MM.yyyy"/>
+  </tc:out>
 
   <tc:out id="outCurrency" labelLayout="none" value="#{currentValueController.currency}"/>
 
