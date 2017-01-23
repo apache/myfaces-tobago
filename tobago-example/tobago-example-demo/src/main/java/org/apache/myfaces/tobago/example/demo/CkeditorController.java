@@ -30,29 +30,15 @@ import java.io.Serializable;
 @Named
 public class CkeditorController extends SourceFileReader implements Serializable {
 
-  private boolean editorAvailable;
   private String contentSecurityPolicyMode;
   private String text;
-  private boolean collapsed;
 
   public CkeditorController() {
-/* XXX RM
-    editorAvailable = ResourceManagerUtils.getScripts(
-            FacesContext.getCurrentInstance(),
-            "content/20-component/110-wysiwyg/01-ckeditor/ckeditor/ckeditor.js")
-            .size() != 0;
-*/
-
     final TobagoConfig tobagoConfig = TobagoConfig.getInstance(FacesContext.getCurrentInstance());
     contentSecurityPolicyMode = tobagoConfig.getContentSecurityPolicy().getMode().getValue();
 
     text = "<p><strong>Sun</strong></p>"
-            + "<p>The sun is a star in our galaxy.</p>";
-    collapsed = true;
-  }
-
-  public boolean isEditorAvailable() {
-    return editorAvailable;
+        + "<p>The sun is a star in our galaxy.</p>";
   }
 
   public String getContentSecurityPolicyMode() {
@@ -67,19 +53,11 @@ public class CkeditorController extends SourceFileReader implements Serializable
     this.text = text;
   }
 
-  public boolean isCollapsed() {
-    return collapsed;
-  }
-
-  public void setCollapsed(boolean collapsed) {
-    this.collapsed = collapsed;
-  }
-
-  public void switchCollapsed() {
-    collapsed = !collapsed;
-  }
-
   public String getSource() {
-    return getSource("ckeditor.js");
+    return getSource("demo-ckeditor.js");
+  }
+
+  public boolean isEditorAvailable() {
+    return getSource("ckeditor/ckeditor.js") != null;
   }
 }
