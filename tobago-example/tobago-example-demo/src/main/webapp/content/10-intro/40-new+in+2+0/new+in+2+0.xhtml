@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+-->
+
+<ui:composition template="/main.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:tc="http://myfaces.apache.org/tobago/component"
+                xmlns:ui="http://java.sun.com/jsf/facelets">
+  <ui:param name="title" value="#{demoBundle.new_in_2_0}"/>
+  <p>At July 21, 2014 the version 2.0.0 has been released. Here was a quick overview over the features and changes made
+    in the last time to release this major revision.</p>
+  <p>Tobago 2.0.0 contains 184 entries in
+    <tc:link label="Jira"
+             link="https://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&amp;styleName=Html&amp;version=12321253"/>
+    and most of them are exclusive in this version.</p>
+  <p>Please take also a look at the
+    <tc:link label="Migration from Tobago 1.5 to 2.0"
+             link="#{request.contextPath}/faces/content/10-intro/50-migration/98-migration/migration20.xhtml?dswid=-2767"/>
+    guide.</p>
+  <tc:section label="Enhancements">
+    <b>Date- and Time-Picker</b>
+    <ul>
+      <li>Using jQuery UI Datepicker and TimePicker Addon</li>
+      <li>Faster — no server request</li>
+      <li>Better interactivity</li>
+      <li>Old Date-/TimePicker via <code>tobago-config.xml</code></li>
+    </ul>
+    <p>
+      <b>Draggable Popups</b>
+    </p>
+    <b>Input Suggest</b>
+    <ul>
+      <li>New implementation</li>
+      <li>Sub-Tag <code class="language-markup">&lt;tc:suggest></code></li>
+      <li>More configuration options</li>
+    </ul>
+    <b>Tabs</b>
+    <ul>
+      <li>Icons</li>
+      <li>Toolbar buttons</li>
+    </ul>
+    <b>File upload</b>
+    <ul>
+      <li>Looks pretty now in every browser</li>
+    </ul>
+    <b>Radio Buttons</b>
+    <ul>
+      <li>Icons</li>
+    </ul>
+  </tc:section>
+
+  <tc:section label="New Features">
+    <b>HTML WYSIWYG Editor</b>
+    <ul>
+      <li>Integration example in the demo of <tc:link label="CKEditor™" link="http://ckeditor.com/"/> and
+        <tc:link label="TinyMCE" link="https://www.tinymce.com/"/></li>
+      <li>Not included, because of incompatible licences or breaks CSP</li>
+      <li>Other possible, but many have disadvantages</li>
+    </ul>
+    <b>Default Command for Sub-Forms</b>
+    <ul>
+      <li>Dependent from the focused input, the default command will be selected</li>
+      <li>Markup to show the command to the user</li>
+    </ul>
+    <b>Tree and Tree-Table</b>
+    <ul>
+      <li>Big internal refactoring</li>
+      <li>Work internally now with the JSF <code>UIData</code></li>
+      <li>Free model: <code>DefaultMutableTreeNode</code> is not required any longer, but you can implement
+        <code>javax.faces.model.DataModel</code></li>
+      <li>TreeTable</li>
+      <li>Infinite Trees possible</li>
+      <li>Selectors: sub-tree selection</li>
+    </ul>
+    <b>More</b>
+    <ul>
+      <li>Dynamic lists in <code class="language-markup">&lt;f:selectItems></code> need not glue code (JSF 2.0)</li>
+      <li>Redirect in navigation rules doesn't break layout size</li>
+      <li>Additional possibility to show paging arrows in sheet</li>
+      <li>Automatically create accesskey from underscore is know configurable</li>
+    </ul>
+  </tc:section>
+
+  <tc:section label="Security">
+    <b>Content Security Policy</b>
+    <ul>
+      <li>To prevent XSS</li>
+      <li><tc:link label="W3C Standard" link="https://www.w3.org/TR/CSP/"/></li>
+      <li>Idea:
+        <ul>
+          <li>Don't execute any code inside the HTML file
+            <ul>
+              <li>No content in script tags</li>
+              <li>no onclick, nor on* etc.</li>
+            </ul>
+          </li>
+          <li>Don't execute <code>eval(script)</code></li>
+          <li>Don't apply CSS inside the HTML file</li>
+          <li>Define the sources of any resources</li>
+          <li>Strict separation of code and data
+            <ul>
+              <li>Keep the code in JavaScript Files</li>
+              <li>Put additional data in HTML5 <code>data-*</code> attributes</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li>Browser support: all current, but IE 10 and 11 only "sandbox"</li>
+      <li>Activated by default, can be configured via <code>tobago-config.xml</code></li>
+      <li>There is also a "report-only" mode for development</li>
+    </ul>
+    <b>Content Security Policy and Tobago</b>
+    <ul>
+      <li>All renderers and scripts are refactored to be compliant with CSP</li>
+      <li>Using application specific JavaScript in Tobago
+        <ul>
+          <li>script attribute in command tags is deprecated</li>
+          <li>Problem: when setting non of these attributes: <code>action</code>, <code>script</code>,
+            <code>link</code>, Tobago will create a default action.
+            This can't be changed without breaking compatibility.
+          </li>
+          <li>Solution: <code>omit="true"</code></li>
+        </ul>
+      </li>
+    </ul>
+    <b>Sanitize potentially malicious content (to prevent XSS)</b>
+    <ul>
+      <li><code class="language-markup">&lt;tc:textarea></code>, when it contains a
+        <code class="language-markup">&lt;tc:dataAttribute></code> with <code>name="html-editor"</code></li>
+      <li><code class="language-markup">&lt;tc:out></code>, when <code>escape="false"</code></li>
+      <li>Default implementation:
+        <tc:link label="JSoup" link="https://jsoup.org/cookbook/cleaning-html/whitelist-sanitizer"/> whitelist
+        scanning
+      </li>
+      <li>Configurable via <code>tobago-config.xml</code></li>
+      <li>Why? See
+        <tc:link label="OSWAP"
+                 link="https://www.owasp.org/index.php/XSS_%28Cross_Site_Scripting%29_Prevention_Cheat_Sheet#RULE_.236_-_Sanitize_HTML_Markup_with_a_Library_Designed_for_the_Job"/>
+      </li>
+    </ul>
+    <b>More</b>
+    <ul>
+      <li>Setting nosniff HTTP header (to prevent XSS)</li>
+      <li>Don't allow to be in a frame (to prevent Frame-Attacks)</li>
+      <li>Both are configurable via <code>tobago-config.xml</code>, default is secure</li>
+    </ul>
+  </tc:section>
+
+  <tc:section label="Internal Refactoring">
+    <ul>
+      <li>Tree uses subclass of <code>javax.faces.model.DataModel</code></li>
+      <li>Using Java APT generator</li>
+      <li>Using ' instead of " for HTML attributes (JSON friendly)</li>
+      <li>JavaScript logging via console (plus workaround for old browsers)</li>
+      <li>The <code>theme-config.xml</code> was merged with <code>tobago-config.xml</code></li>
+      <li>Access the Tobago configuration via the <code>TobagoContext</code></li>
+      <li>The <code>TobagoConfig</code> is immutable after initialization</li>
+      <li>Add the version of Tobago into the resource URLs to avoid caching problem after updates</li>
+    </ul>
+  </tc:section>
+</ui:composition>

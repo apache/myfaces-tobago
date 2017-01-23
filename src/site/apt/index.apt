@@ -455,7 +455,7 @@ svn switch https://svn.apache.org/repos/asf/myfaces/tobago/trunk/
       Release notes can be found in
       {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12321253}Jira}}.
 
-      See section: {{{./new-2.0.html} What's new in Tobago 2.0?}}
+      See section: {{{http://www.irian.biz/tobago-example-demo/faces/content/10-intro/40-new+in+2+0/new+in+2+0.xhtml} What's new in Tobago 2.0?}}
 
       \ {}
       ~~ hack for a bit space
