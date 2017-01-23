@@ -41,9 +41,9 @@ public abstract class SourceFileReader {
     try {
       resourceAsStream = externalContext.getResourceAsStream(file);
       return IOUtils.toString(resourceAsStream, "UTF-8");
-    } catch (final IOException e) {
+    } catch (final Exception e) {
       LOG.error("", e);
-      return "error";
+      return null;
     } finally {
       IOUtils.closeQuietly(resourceAsStream);
     }
