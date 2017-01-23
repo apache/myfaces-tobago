@@ -276,7 +276,7 @@ Copy the download artifacts from the repository to the site (release-tobago.sh)
 set -e
 
 #VERSION=2.0.10
-VERSION=3.0.1
+VERSION=3.0.2
 
 MAVEN_REPOSITORY=https://repository.apache.org/content/repositories/releases
 DIST_REPOSITORY=https://dist.apache.org/repos/dist/release/myfaces
