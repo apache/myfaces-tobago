@@ -25,7 +25,6 @@ import org.slf4j.LoggerFactory;
 
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
-import java.io.IOException;
 import java.io.InputStream;
 
 public abstract class SourceFileReader {
