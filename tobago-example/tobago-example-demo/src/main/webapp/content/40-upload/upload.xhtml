@@ -23,7 +23,7 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:f="http://java.sun.com/jsf/core">
   <ui:param name="title" value="File Upload"/>
-  <tc:panel>
+  <tc:panel id="uploadPanel">
     <f:facet name="layout">
       <tc:gridLayout rows="auto;auto;*"/>
     </f:facet>
@@ -43,6 +43,13 @@
       <tc:panel/>
 
       <tx:file multiple="true" label="Upload multiple:" value="#{upload.fileMulti}" tip="multiple files"/>
+      <tc:panel/>
+
+      <tx:file label="Upload ajax:" multiple="true" value="#{upload.fileAjax}" tip="multiple files">
+        <f:facet name="change">
+          <tc:command action="#{upload.upload}" renderedPartially="uploadPanel"/>
+        </f:facet>
+      </tx:file>
       <tc:panel/>
 
     </tc:panel>

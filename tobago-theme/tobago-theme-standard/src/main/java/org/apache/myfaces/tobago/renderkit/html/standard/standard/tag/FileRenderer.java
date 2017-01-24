@@ -155,6 +155,7 @@ public class FileRenderer extends InputRendererBase {
     if (title != null) {
       writer.writeAttribute(HtmlAttributes.TITLE, title, true);
     }
+    HtmlRendererUtils.renderCommandFacet(file, facesContext, writer);
     writer.endElement(HtmlElements.INPUT);
 
     writer.endElement(HtmlElements.DIV);

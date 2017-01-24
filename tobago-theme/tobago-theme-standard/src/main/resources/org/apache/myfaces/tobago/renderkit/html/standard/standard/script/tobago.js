@@ -1929,7 +1929,15 @@ Tobago.Transport.JqueryTransport = {
       requestObject.url = requestOptions.url;
       Tobago.action.value = requestOptions.actionId;
       Tobago.partialRequestIds.value = requestOptions.ajaxComponentIds;
-      requestObject.data = jQuery(Tobago.form).serialize();
+      var form = jQuery(Tobago.form);
+      console.debug("enctype: " + form.attr("enctype")); // @DEV_ONLY
+      if ((form.attr("enctype")|| "").toLocaleLowerCase() == "multipart/form-data") {
+        requestObject.data = new FormData(Tobago.form);
+        requestObject.processData = false;
+        requestObject.contentType = false;
+      } else {
+        requestObject.data = form.serialize();
+      }
       requestOptions.xhr = jQuery.ajax(requestObject);
     }, false, requestOptions.actionId);
   }
