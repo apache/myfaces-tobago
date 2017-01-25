@@ -45,7 +45,7 @@
     &lt;tc:selectItems value="\#{suggestController.languages}" var="language" itemValue="\#{language}"/>
   &lt;/tc:suggest>
 &lt;/tc:in></code></pre>
-    <tc:in id="inBasic" label="Language">
+    <tc:in id="inBasic" >
       <tc:suggest totalCount="10" query="#{suggestController.query}">
         <tc:selectItems value="#{suggestController.languages}" var="language" itemValue="#{language}"/>
       </tc:suggest>

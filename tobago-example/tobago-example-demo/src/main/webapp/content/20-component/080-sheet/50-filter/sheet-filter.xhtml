@@ -43,7 +43,10 @@
           <tc:panel>
             <tc:out value="Name"/>
             <tc:in value="#{sheetFilterController.name}">
-              <f:ajax execute=":::sheet" render=":::sheet" listener="#{sheetFilterController.filter}"/>
+              <tc:suggest totalCount="10" query="#{sheetFilterController.nameSuggestionQuery}">
+                <tc:selectItems value="#{sheetFilterController.suggestionSolarList}" var="name" itemValue="#{name}"/>
+              </tc:suggest>
+              <f:ajax event="blur" execute=":::sheet" render=":::sheet" listener="#{sheetFilterController.filter}"/>
             </tc:in>
           </tc:panel>
           <tc:panel>
