@@ -109,7 +109,7 @@ public class ServerInfo {
   }
 
   public String getStableVersion() {
-    if (version.endsWith("-SNAPSHOT")) {
+    if (version != null && version.endsWith("-SNAPSHOT")) {
       StringTokenizer tokenizer = new StringTokenizer(version, ".-");
       int major = Integer.parseInt(tokenizer.nextToken());
       int minor = Integer.parseInt(tokenizer.nextToken());
