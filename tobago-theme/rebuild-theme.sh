@@ -15,16 +15,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# XXX temporary help script. How to call this like:  mvn -P rebuild-theme without the parent?
+# XXX temporary help script. How to call this like:  mvn -P rebuild-theme only for the children?
 
 set -e
-
-# all _tobago.css must be the same. TODO: Later we delete the duplicates...
-
-cp tobago-theme-standard/src/main/scss/_tobago.scss tobago-theme-charlotteville/src/main/scss/_tobago.scss
-cp tobago-theme-standard/src/main/scss/_tobago.scss tobago-theme-richmond/src/main/scss/_tobago.scss
-cp tobago-theme-standard/src/main/scss/_tobago.scss tobago-theme-scarborough/src/main/scss/_tobago.scss
-cp tobago-theme-standard/src/main/scss/_tobago.scss tobago-theme-speyside/src/main/scss/_tobago.scss
 
 mvn -P all-modules clean
 
@@ -46,5 +39,5 @@ rm tobago-theme-standard/src/main/resources/META-INF/resources/tobago/standard/b
 mvn -P all-modules install
 
 echo DONE
-echo Now you will find the bootstrap stuff inside the src trees
+echo Now you will find the bootstrap stuff inside the src trees. This might be committed.
 echo use: svn status

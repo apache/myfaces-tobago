@@ -86,6 +86,11 @@ body {
   position: relative;
 }
 
+/* figure -------------------------------------------------------------- */
+
+.tobago-figure {
+}
+
 /* file -------------------------------------------------------------- */
 
 .tobago-file {
@@ -193,6 +198,11 @@ body {
 
 .navbar-fixed-bottom {
   margin-top: 10px;
+}
+
+/* form -------------------------------------------------------------- */
+
+.tobago-form {
 }
 
 /* gridLayout -------------------------------------------------------------- */
@@ -464,6 +474,10 @@ span.tobago-out:empty:before {
 }
 
 /* popup ------------------------------------------------------------- */
+
+.tobago-popup {
+}
+
 .modal-content > .card {
   margin-bottom: 0;
 }
@@ -720,6 +734,12 @@ th.tobago-sheet-headerCell .tobago-out {
   overflow: hidden;
 }
 
+.tobago-sheet-bodyTable {
+}
+
+.tobago-sheet-pagingOutput {
+}
+
 /* suggest ---------------------------------------------------------------------- */
 
 .tobago-suggest {
@@ -747,13 +767,23 @@ th.tobago-sheet-headerCell .tobago-out {
 }
 
 .tt-menu {
+  display: none;
+  position: absolute;
+  z-index: 100;
   background-color: #FFFFFF;
   border: 1px solid rgba(0, 0, 0, 0.2);
   border-radius: 3px;
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
   margin-top: 1px;
   padding: 8px 0;
-  min-width: 100%;
+}
+
+.tt-open {
+  display: block;
+}
+
+.tt-empty {
+  display: none;
 }
 
 .tt-suggestion {

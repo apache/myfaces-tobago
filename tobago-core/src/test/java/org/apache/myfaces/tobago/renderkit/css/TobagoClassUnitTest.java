@@ -22,10 +22,13 @@ package org.apache.myfaces.tobago.renderkit.css;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.io.FileNotFoundException;
+
 public class TobagoClassUnitTest {
 
   @Test
   public void testNames() throws NoSuchFieldException {
+
     final String fieldRegex = "[A-Z_]*[A-Z]";
     final String nameRegex = "[a-z][a-zA-Z\\-]*[a-z]";
 
@@ -59,4 +62,14 @@ public class TobagoClassUnitTest {
       }
     }
   }
+
+  /**
+   * This test checks, if every item of the {@link TobagoClass} occurs in the _tobago.scss.
+   */
+  @Test
+  public void testCompareTobagoCss() throws FileNotFoundException {
+
+    CssClassUtils.compareCss("src/main/resources/scss/_tobago.scss", TobagoClass.values());
+  }
+
 }

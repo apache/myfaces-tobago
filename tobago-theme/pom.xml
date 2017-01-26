@@ -143,7 +143,7 @@
               </execution>
               <execution>
                 <!-- copy the result to target/classes -->
-                <id>step #8: copy-bootstrap-dist</id>
+                <id>step #9: copy-bootstrap-dist</id>
                 <phase>process-resources</phase>
                 <goals>
                   <goal>copy-resources</goal>
@@ -157,6 +157,31 @@
                       <directory>${project.build.directory}/bootstrap/dist</directory>
                     </resource>
                   </resources>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <artifactId>maven-dependency-plugin</artifactId>
+            <version>3.0.0</version>
+            <executions>
+              <execution>
+                <!-- copy customization to target/bootstrap -->
+                <id>step #4: unpack-custom</id>
+                <phase>generate-resources</phase>
+                <goals>
+                  <goal>unpack</goal>
+                </goals>
+                <configuration>
+                  <outputDirectory>${project.build.directory}/bootstrap</outputDirectory>
+                  <artifactItems>
+                    <artifactItem>
+                      <groupId>org.apache.myfaces.tobago</groupId>
+                      <artifactId>tobago-core</artifactId>
+                      <version>${project.version}</version>
+                    </artifactItem>
+                  </artifactItems>
+                  <includes>**/*.scss</includes>
                 </configuration>
               </execution>
             </executions>
@@ -182,7 +207,7 @@
 
               <execution>
                 <!-- install "node" and "npm" -->
-                <id>step #4: install node and npm</id>
+                <id>step #5: install node and npm</id>
                 <goals>
                   <goal>install-node-and-npm</goal>
                 </goals>
@@ -191,7 +216,7 @@
 
               <execution>
                 <!-- install "grunt-cli" -->
-                <id>step #5: npm install grunt-cli</id>
+                <id>step #6: npm install grunt-cli</id>
                 <goals>
                   <goal>npm</goal>
                 </goals>
@@ -203,7 +228,7 @@
 
               <execution>
                 <!-- install all other required stuff for "bootstrap" -->
-                <id>step #6: npm install</id>
+                <id>step #7: npm install</id>
                 <goals>
                   <goal>npm</goal>
                 </goals>
@@ -215,7 +240,7 @@
 
               <execution>
                 <!-- build "bootstrap" with "grunt" -->
-                <id>step #7: grunt build</id>
+                <id>step #8: grunt build</id>
                 <goals>
                   <goal>grunt</goal>
                 </goals>
