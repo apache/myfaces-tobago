@@ -427,11 +427,10 @@ java -jar ~/Downloads/wlp-developers-runtime-8.5.5.0.jar</source>
           <source>test/resources/server.xml</source>
           will be read. It contains the features, the WLP server will be support, and other configurations.
           In our case we have the following features:
-          <source>
-            &lt;feature>cdi-1.0&lt;/feature>
-            &lt;feature>jsp-2.2&lt;/feature>
-            &lt;feature>servlet-3.0&lt;/feature>
-            &lt;feature>jsf-2.0&lt;/feature></source>
+          <source>&lt;feature>cdi-1.0&lt;/feature>
+&lt;feature>jsp-2.2&lt;/feature>
+&lt;feature>servlet-3.0&lt;/feature>
+&lt;feature>jsf-2.0&lt;/feature></source>
         </p>
         <ul>
           <li>
