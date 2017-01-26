@@ -49,6 +49,11 @@ public class TobagoClientBehaviorRenderer extends javax.faces.render.ClientBehav
 
   private static final Logger LOG = LoggerFactory.getLogger(TobagoClientBehaviorRenderer.class);
 
+  /**
+   * In standard JSF this method returns a JavaScript string. Because of CSP, Tobago doesn't render JavaScript
+   * into the HTML content. It transports the return value a bit hacky by {@link CommandMap#storeCommandMap}.
+   * @return "dummy" string or null, if nothing to do.
+   */
   @Override
   public String getScript(ClientBehaviorContext behaviorContext, ClientBehavior behavior) {
 
@@ -67,6 +72,9 @@ public class TobagoClientBehaviorRenderer extends javax.faces.render.ClientBehav
     boolean omit = false;
     if (behavior instanceof AjaxBehavior) {
       AjaxBehavior ajaxBehavior = (AjaxBehavior) behavior;
+      if (ajaxBehavior.isDisabled()){
+        return null;
+      }
       final Collection<String> execute = ajaxBehavior.getExecute();
       final Collection<String> render = ajaxBehavior.getRender();
       final String clientId = uiComponent.getClientId(facesContext);
@@ -89,6 +97,9 @@ public class TobagoClientBehaviorRenderer extends javax.faces.render.ClientBehav
       actionId = clientId;
     } else if (behavior instanceof EventBehavior) { // <tc:event>
       AbstractUIEvent event = findEvent(uiComponent, eventName);
+      if (event != null && !event.isRendered()){
+        return null;
+      }
       transition = event.isTransition();
       target = event.getTarget();
       actionId = event.getClientId(facesContext);

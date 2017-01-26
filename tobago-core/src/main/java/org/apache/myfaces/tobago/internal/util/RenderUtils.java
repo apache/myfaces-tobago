@@ -261,7 +261,9 @@ public final class RenderUtils {
           final String type = ((ClientBehaviorBase) clientBehavior).getRendererType();
           final ClientBehaviorRenderer renderer = facesContext.getRenderKit().getClientBehaviorRenderer(type);
           final String dummy = renderer.getScript(context, clientBehavior);
-          map = CommandMap.merge(map, CommandMap.restoreCommandMap(facesContext));
+          if (dummy != null) {
+            map = CommandMap.merge(map, CommandMap.restoreCommandMap(facesContext));
+          }
         } else {
           LOG.warn("Ignoring: '{}'", clientBehavior);
         }

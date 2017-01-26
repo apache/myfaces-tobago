@@ -70,4 +70,16 @@
     </tc:object>
   </tc:section>
 
+  <tc:section label="Event Test">
+    <p>Opens a blank browser tab on click, because rendered attribute is not set in <code>&lt;tc:event></code>.</p>
+    <tc:button id="openTab" label="Open in new Tab">
+      <tc:event target="_blank"/>
+    </tc:button>
+    <p>Simple submit on click because rendered attribute is set to false in
+      <code>&lt;tc:event rendered="false"></code>.</p>
+    <tc:button id="simpleSubmit" label="Simple Submit">
+      <tc:event target="_blank" rendered="false"/>
+    </tc:button>
+  </tc:section>
+
 </ui:composition>
