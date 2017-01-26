@@ -97,13 +97,16 @@ public class TobagoClientBehaviorRenderer extends javax.faces.render.ClientBehav
       actionId = clientId;
     } else if (behavior instanceof EventBehavior) { // <tc:event>
       AbstractUIEvent event = findEvent(uiComponent, eventName);
-      if (event != null && !event.isRendered()){
-        return null;
+      if (event != null) {
+        if (!event.isRendered()) {
+          return null;
+        } else {
+          transition = event.isTransition();
+          target = event.getTarget();
+          actionId = event.getClientId(facesContext);
+          omit = event.isOmit() || StringUtils.isNotBlank(RenderUtils.generateUrl(facesContext, event));
+        }
       }
-      transition = event.isTransition();
-      target = event.getTarget();
-      actionId = event.getClientId(facesContext);
-      omit = event.isOmit() || StringUtils.isNotBlank(RenderUtils.generateUrl(facesContext, event));
     } else {
       LOG.warn("Unknown behavior '{}'!", behavior.getClass().getName());
     }
