@@ -82,7 +82,6 @@
       </tc:section>
 
       <tc:section label="Layout manager no longer as facet.">
-
         <p>
           The layout managers are no longer a facet of a container.
           They are in the tree hierarchy explicitly.
@@ -131,6 +130,15 @@
         Example:
         <tc:link label="popup"
                  link="/faces/content/30-concept/53-collapsible/10-collapsible-popup/collapsible-popup.xhtml" />
+      </tc:section>
+      <tc:section label="facets">
+        <tc:section label="action">
+         Replace <code class="language-markup">&lt;f:facet name="action"&gt;</code> with <code class="language-markup">&lt;tc:event event="load"&gt;</code>
+        </tc:section>
+        <tc:section label="change">
+          The <code class="language-markup">&lt;f:facet name="change"&gt;</code> and the attribute <code class="language-markup">renderedPartially</code> are replaced by <code class="language-markup">&lt;f:ajax&gt;</code>,
+          use <code class="language-markup">&lt;tc:event&gt;</code> instead of <code class="language-markup">&lt;tc:command&gt;</code>
+        </tc:section>
       </tc:section>
 
     </tc:section>
@@ -237,15 +245,9 @@
 
     * If using <code class="language-markup">&lt;tc:page&gt;</code> with the attributes state, width, height: remove the attributes
 
-    * Replace facet 'action' with 'load' for <code class="language-markup">&lt;tc:page&gt;</code>
-
-    <code class="language-markup">&lt;f:facet name="load"&gt;</code> contain an instance of UICommand (tc:command).
-
-    * TODO: attribute renderPartially is replaced by f:ajax
-
     * TODO: use ExternalContext.redirect instead of AjaxUtils.redirect
 
-  * Replace <code>AjaxUtils.getRequestPartialIds()</code> with
+    * Replace <code>AjaxUtils.getRequestPartialIds()</code> with
     <code>FacesContext.getPartialViewContext().getExecuteIds()</code> or
     <code>FacesContext.getPartialViewContext().getRenderIds()</code> respectively.
 
