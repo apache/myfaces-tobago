@@ -53,7 +53,7 @@ public interface EventTagDeclaration
     HasLink, IsTransition, HasTarget, IsDisabledBySecurity, IsOmit {
 
   /**
-   * The name of the event.
+   * The name of the event as an instance of {@link org.apache.myfaces.tobago.component.ClientBehaviors}
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.component.ClientBehaviors")
