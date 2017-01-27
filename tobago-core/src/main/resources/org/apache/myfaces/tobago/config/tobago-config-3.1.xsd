@@ -6,7 +6,7 @@
     xmlns:xs="http://www.w3.org/2001/XMLSchema"
     elementFormDefault="qualified"
     attributeFormDefault="unqualified"
-    version="3.0">
+    version="3.1">
 
   <xs:annotation>
     <xs:documentation>
@@ -32,15 +32,23 @@
   <xs:annotation>
     <xs:documentation>
       <![CDATA[
-      This is the XML schema for the Tobago configuration files version 3.0.
+      ************************************************************************************
+      ************************************************************************************
+      WARNING
+      THIS IS A PRE-RELEASE VERSION OF THIS FILE, PLEASE CHECK IF THERE IS AN UPDATE ON
+      http://myfaces.apache.org/tobago/tobago-config-3.1.xsd
+      ************************************************************************************
+      ************************************************************************************
+
+      This is the XML schema for the Tobago configuration files version 3.1.
 
       Use the following definition:
 
       <tobago-config
           xmlns="http://myfaces.apache.org/tobago/tobago-config"
           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-          xsi:schemaLocation="http://myfaces.apache.org/tobago/tobago-config http://myfaces.apache.org/tobago/tobago-config-3.0.xsd"
-          version="3.0">
+          xsi:schemaLocation="http://myfaces.apache.org/tobago/tobago-config http://myfaces.apache.org/tobago/tobago-config-3.1.xsd"
+          version="3.1">
         ...
       </tobago-config>
       ]]>
@@ -61,6 +69,7 @@
       <xs:element name="classic-date-time-picker" type="xs:boolean" minOccurs="0" default="false"/>
       <xs:element name="content-security-policy" type="tobago:content-security-policy-type" minOccurs="0"/>
       <xs:element name="sanitizer" type="tobago:sanitizer-type" minOccurs="0"/>
+      <xs:element name="check-security-annotations" type="xs:boolean" minOccurs="0" default="true"/>
       <xs:element name="renderers" type="tobago:renderers-type" minOccurs="0"/>
       <xs:element name="theme-definitions" type="tobago:theme-definitions-type" minOccurs="0"/>
     </xs:sequence>
@@ -71,7 +80,7 @@
 
   <xs:simpleType name="tobago-config-version-type">
     <xs:restriction base="xs:token">
-      <xs:enumeration value="3.0"/>
+      <xs:enumeration value="3.1"/>
     </xs:restriction>
   </xs:simpleType>
 

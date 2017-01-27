@@ -65,6 +65,7 @@ public class TobagoConfigImpl extends TobagoConfig {
   private boolean checkSessionSecret;
   private boolean preventFrameAttacks;
   private ContentSecurityPolicy contentSecurityPolicy;
+  private boolean checkSecurityAnnotations;
   private boolean setNosniffHeader;
   private Map<String, String> defaultValidatorInfo;
   private Sanitizer sanitizer;
@@ -80,6 +81,7 @@ public class TobagoConfigImpl extends TobagoConfig {
     checkSessionSecret = true;
     preventFrameAttacks = true;
     setNosniffHeader = true;
+    checkSecurityAnnotations = true;
     contentSecurityPolicy = new ContentSecurityPolicy(ContentSecurityPolicy.Mode.OFF.getValue());
     mimeTypes = new HashMap<String, String>();
   }
@@ -335,6 +337,16 @@ public class TobagoConfigImpl extends TobagoConfig {
     this.setNosniffHeader = setNosniffHeader;
   }
 
+  @Override
+  public boolean isCheckSecurityAnnotations() {
+    return checkSecurityAnnotations;
+  }
+
+  public void setCheckSecurityAnnotations(boolean checkSecurityAnnotations) {
+    checkLocked();
+    this.checkSecurityAnnotations = checkSecurityAnnotations;
+  }
+
   public Map<String, String> getDefaultValidatorInfo() {
     // TODO: if the startup hasn't found a FacesContext and Application, this may depend on the order of the listeners.
     if (defaultValidatorInfo == null) {
@@ -390,6 +402,8 @@ public class TobagoConfigImpl extends TobagoConfig {
     builder.append(preventFrameAttacks);
     builder.append(", \ncontentSecurityPolicy=");
     builder.append(contentSecurityPolicy);
+    builder.append(", \ncheckSecurityAnnotations=");
+    builder.append(checkSecurityAnnotations);
     builder.append(", \nsetNosniffHeader=");
     builder.append(setNosniffHeader);
     builder.append(", \ndefaultValidatorInfo=");

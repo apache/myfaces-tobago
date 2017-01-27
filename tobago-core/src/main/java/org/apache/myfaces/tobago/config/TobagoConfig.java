@@ -59,6 +59,8 @@ public abstract class TobagoConfig {
 
   public abstract boolean isSetNosniffHeader();
 
+  public abstract boolean isCheckSecurityAnnotations();
+
   public abstract Sanitizer getSanitizer();
 
   public abstract Map<String, String> getMimeTypes();

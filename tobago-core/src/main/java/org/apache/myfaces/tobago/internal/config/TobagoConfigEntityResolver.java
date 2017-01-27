@@ -40,6 +40,7 @@ public class TobagoConfigEntityResolver extends DefaultHandler {
   protected static final String TOBAGO_CONFIG_XSD_2_0 = "/org/apache/myfaces/tobago/config/tobago-config-2.0.xsd";
   protected static final String TOBAGO_CONFIG_XSD_2_0_6 = "/org/apache/myfaces/tobago/config/tobago-config-2.0.6.xsd";
   protected static final String TOBAGO_CONFIG_XSD_3_0 = "/org/apache/myfaces/tobago/config/tobago-config-3.0.xsd";
+  protected static final String TOBAGO_CONFIG_XSD_3_1 = "/org/apache/myfaces/tobago/config/tobago-config-3.1.xsd";
 
   private static final Logger LOG = LoggerFactory.getLogger(TobagoConfigEntityResolver.class);
 

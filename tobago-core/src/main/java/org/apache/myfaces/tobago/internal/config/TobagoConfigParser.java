@@ -62,6 +62,7 @@ public class TobagoConfigParser extends TobagoConfigEntityResolver {
   private static final int PREVENT_FRAME_ATTACKS = 270456726;
   private static final int SET_NOSNIFF_HEADER = -1238451304;
   private static final int CONTENT_SECURITY_POLICY = 1207440139;
+  private static final int CHECK_SECURITY_ANNOTATIONS = -1870701636;
   private static final int DIRECTIVE = -962590641;
   private static final int RENDERERS = 1839650832;
   private static final int RENDERER = -494845757;
@@ -234,6 +235,7 @@ public class TobagoConfigParser extends TobagoConfigEntityResolver {
       case MARKUP:
       case CREATE_SESSION_SECRET:
       case CHECK_SESSION_SECRET:
+      case CHECK_SECURITY_ANNOTATIONS:
       case PREVENT_FRAME_ATTACKS:
       case SET_NOSNIFF_HEADER:
       case DIRECTIVE:
@@ -324,6 +326,10 @@ public class TobagoConfigParser extends TobagoConfigEntityResolver {
 
       case SET_NOSNIFF_HEADER:
         tobagoConfig.setSetNosniffHeader(Boolean.parseBoolean(text));
+        break;
+
+      case CHECK_SECURITY_ANNOTATIONS:
+        tobagoConfig.setCheckSecurityAnnotations(Boolean.parseBoolean(text));
         break;
 
       case DIRECTIVE:
@@ -429,7 +435,9 @@ public class TobagoConfigParser extends TobagoConfigEntityResolver {
 
     final SchemaFactory schemaFactory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
     final Schema schema;
-    if ("3.0".equals(version.getVersion())) {
+    if ("3.1".equals(version.getVersion())) {
+      schema = schemaFactory.newSchema(getClass().getResource(TOBAGO_CONFIG_XSD_3_1));
+    } else if ("3.0".equals(version.getVersion())) {
       schema = schemaFactory.newSchema(getClass().getResource(TOBAGO_CONFIG_XSD_3_0));
     } else if ("2.0.6".equals(version.getVersion())) {
       schema = schemaFactory.newSchema(getClass().getResource(TOBAGO_CONFIG_XSD_2_0_6));

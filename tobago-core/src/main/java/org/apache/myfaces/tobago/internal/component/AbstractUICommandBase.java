@@ -19,6 +19,7 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
+import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.event.CollapsibleActionListener;
 import org.apache.myfaces.tobago.internal.util.AuthorizationHelper;
 import org.apache.myfaces.tobago.util.ComponentUtils;
@@ -111,8 +112,8 @@ public abstract class AbstractUICommandBase extends UICommand
 
   private boolean isAllowed() {
     final FacesContext facesContext = getFacesContext();
-    // todo: get from configuration tobago-config.xml
-    if (true) {
+    final TobagoConfig tobagoConfig = TobagoConfig.getInstance(facesContext);
+    if (tobagoConfig.isCheckSecurityAnnotations()) {
       final AuthorizationHelper authorizationHelper = AuthorizationHelper.getInstance(facesContext);
       final MethodExpression actionExpression = getActionExpression();
       if (actionExpression != null) {
