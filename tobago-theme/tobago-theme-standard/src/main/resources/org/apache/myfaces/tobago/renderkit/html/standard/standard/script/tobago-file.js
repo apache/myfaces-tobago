@@ -133,8 +133,23 @@ Tobago.registerListener(Tobago.File.init, Tobago.Phase.AFTER_UPDATE);
         var elementId = this.element.attr("id");
         var prefix = elementId.substring(0, elementId.lastIndexOf(":") + 1);
         return jQuery(Tobago.Utils.escapeClientId(prefix + dropZoneId));
+      } else if (dropZoneId.charAt(0) == ":" && dropZoneId.charAt(1) == ":") {
+        // prepare
+        dropZoneId = dropZoneId.substring(1);
+        elementId = this.element.attr("id");
+        prefix = elementId.substring(0, elementId.lastIndexOf(":"));
+
+        try {
+          // for each ':' cut one namingContainer id
+          while (dropZoneId.charAt(0) == ':') {
+            prefix = prefix.substring(0, prefix.lastIndexOf(":"));
+            dropZoneId = dropZoneId.substring(1);
+          }
+        } catch (e) {
+          console.warn(e)
+        }
+        return jQuery(Tobago.Utils.escapeClientId(prefix + ":" + dropZoneId));
       } else {
-        // TODO resolve relative :: ids
         return jQuery(Tobago.Utils.escapeClientId(dropZoneId));
       }
     },
