@@ -72,7 +72,7 @@ public final class MathUtils {
     Integer indexOfMin = null;
     for (int i = 0; i < list.length; i++) {
       final double remainder = remainder(list[i]);
-      if (remainder == 0) { // is zero
+      if (Double.compare(remainder, 0) == 0) { // is zero
         continue;
       }
       if (remainder < min - EPSILON) {
