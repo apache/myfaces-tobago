@@ -23,7 +23,7 @@ QUnit.test("Deprecated: 'Chile'", function (assert) {
   var done = assert.async();
 
   var $in = jQueryFrame("#page\\:mainForm\\:deprecated\\:\\:field");
-  var $suggestions = jQueryFrame("#page\\:mainForm\\:deprecated .tt-suggestion");
+  var $suggestions = getSuggestions("#page\\:mainForm\\:deprecated");
 
   $in.val(inputString).trigger('input');
 
@@ -50,7 +50,7 @@ QUnit.test("Replacement: 'Chile'", function (assert) {
   var done = assert.async();
 
   var $in = jQueryFrame("#page\\:mainForm\\:replacement\\:\\:field");
-  var $suggestions = jQueryFrame("#page\\:mainForm\\:replacement .tt-suggestion");
+  var $suggestions = getSuggestions("#page\\:mainForm\\:replacement");
 
   $in.val(inputString).trigger('input');
 
@@ -68,3 +68,8 @@ QUnit.test("Replacement: 'Chile'", function (assert) {
     done();
   });
 });
+
+function getSuggestions(id) {
+  return jQueryFrame(Tobago.Utils.escapeClientId(
+          jQueryFrame(id + " .tobago-suggest").attr("id") + "::popup") + " .tt-suggestion");
+}

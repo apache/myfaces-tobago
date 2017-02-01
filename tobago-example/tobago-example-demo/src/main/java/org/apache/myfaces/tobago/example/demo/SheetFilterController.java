@@ -59,6 +59,8 @@ public class SheetFilterController extends SheetController implements Serializab
   private Integer minYear;
   private Integer maxYear;
 
+  private String nameSuggestionQuery;
+
   public SheetFilterController() {
     distanceItems = new SelectItem[]{
         new SelectItem(new DistanceRange(-1, Integer.MAX_VALUE), "any"),
@@ -202,6 +204,27 @@ public class SheetFilterController extends SheetController implements Serializab
 
   public void setMaxYear(Integer maxYear) {
     this.maxYear = maxYear;
+  }
+
+  public String getNameSuggestionQuery() {
+    return nameSuggestionQuery;
+  }
+
+  public void setNameSuggestionQuery(String nameSuggestionQuery) {
+    this.nameSuggestionQuery = nameSuggestionQuery;
+  }
+
+  public List<String> getSuggestionSolarList() {
+    final String substring = nameSuggestionQuery != null ? nameSuggestionQuery : "";
+    LOG.info("Creating items for substring: '" + substring + "'");
+    final List<String> result = new ArrayList<String>();
+    for (final SolarObject solarObject : getSolarList()) {
+      String name = solarObject.getName();
+      if (StringUtils.containsIgnoreCase(name, substring)) {
+        result.add(name);
+      }
+    }
+    return result;
   }
 
   private class DistanceRange {

@@ -17,7 +17,7 @@
 
 Tobago.Suggest = {};
 
-Tobago.Suggest.loadFromServer = function (input) {
+Tobago.Suggest.loadFromServer = function(input) {
 
   var timeout;
 
@@ -54,7 +54,7 @@ Tobago.Suggest.loadFromServer = function (input) {
   };
 };
 
-Tobago.Suggest.fromClient = function (data) {
+Tobago.Suggest.fromClient = function(data) {
   return function findMatches(query, syncResults) {
     var result = [];
     for (i = 0; i < data.length; i++) {
@@ -66,11 +66,11 @@ Tobago.Suggest.fromClient = function (data) {
   };
 };
 
-Tobago.Suggest.init = function (elements) {
+Tobago.Suggest.init = function(elements) {
 
   var suggests = Tobago.Utils.selectWithJQuery(elements, ".tobago-suggest");
 
-  suggests.each(function () {
+  suggests.each(function() {
     var suggest = jQuery(this);
     var input = jQuery(Tobago.Utils.escapeClientId(suggest.data("tobago-suggest-for")));
 
@@ -98,7 +98,17 @@ Tobago.Suggest.init = function (elements) {
         source = Tobago.Suggest.fromClient(data2);
       }
 
+      var $suggestPopup = jQuery(Tobago.Utils.escapeClientId(suggest.attr('id') + "::popup"));
+      if($suggestPopup.length > 0) {
+        $suggestPopup.remove();
+      }
+
+      jQuery(".tobago-page-menuStore")
+          .append("<div id='" + suggest.attr('id') + "::popup" + "' class='tt-menu tt-empty'/>");
+      $suggestPopup = jQuery($suggestPopup.selector);
+
       input.typeahead({
+        menu: $suggestPopup,
         minLength: minChars,
         hint: true,// todo
         highlight: true // todo
@@ -106,6 +116,15 @@ Tobago.Suggest.init = function (elements) {
         //name: 'test',// todo
         limit: maxItems,
         source: source
+      });
+
+      input.bind('typeahead:open', function() {
+        var $input = jQuery(this);
+        var $suggest = $input.parent().siblings(".tobago-suggest");
+        var $suggestPopup = jQuery(Tobago.Utils.escapeClientId($suggest.attr('id') + "::popup"));
+        $suggestPopup.css("top", $input.offset().top + $input.outerHeight() + "px");
+        $suggestPopup.css("left", $input.offset().left + "px");
+        $suggestPopup.css("min-width", $input.outerWidth() + "px");
       });
     }
   });

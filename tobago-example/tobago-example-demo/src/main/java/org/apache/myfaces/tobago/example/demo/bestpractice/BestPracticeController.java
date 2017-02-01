@@ -43,32 +43,32 @@ public class BestPracticeController {
   }
 
   public String viewPdfInBrowser() {
-    return viewPdf(false);
+    return viewFile(false, true);
   }
 
   public String viewPdfOutsideOfBrowser() {
-    return viewPdf(true);
+    return viewFile(true, true);
   }
 
-  private String viewPdf(final boolean outside) {
+  public String viewFile(final boolean outside, final boolean pdf) {
 
     final FacesContext facesContext = FacesContext.getCurrentInstance();
 
     InputStream inputStream = null;
     try {
-      final String path = "content/30-concept/24-non-faces-response/x-sample.pdf";
+      final String path = "content/30-concept/24-non-faces-response/x-sample." + (pdf ? "pdf" : "txt");
       inputStream = facesContext.getExternalContext().getResourceAsStream(path);
       if (inputStream == null) {
         inputStream = facesContext.getExternalContext().getResourceAsStream("/" + path);
       }
       final HttpServletResponse response = (HttpServletResponse) facesContext.getExternalContext().getResponse();
-      response.setContentType("application/pdf");
+      response.setContentType(pdf ? "application/pdf" : "text/plain");
       if (outside) {
-        response.setHeader("Content-Disposition", "attachment; filename=x-sample.pdf");
+        response.setHeader("Content-Disposition", "attachment; filename=x-sample." + (pdf ? "pdf" : "txt"));
       }
       IOUtils.copy(inputStream, response.getOutputStream());
     } catch (final IOException e) {
-      LOG.warn("Cannot deliver pdf", e);
+      LOG.warn("Cannot deliver " + (pdf ? "pdf" : "txt"), e);
       return "error"; // response via faces
     } finally {
       IOUtils.closeQuietly(inputStream);

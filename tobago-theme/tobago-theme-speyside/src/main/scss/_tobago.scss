@@ -747,13 +747,23 @@ th.tobago-sheet-headerCell .tobago-out {
 }
 
 .tt-menu {
+  display: none;
+  position: absolute;
+  z-index: 100;
   background-color: #FFFFFF;
   border: 1px solid rgba(0, 0, 0, 0.2);
   border-radius: 3px;
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
   margin-top: 1px;
   padding: 8px 0;
-  min-width: 100%;
+}
+
+.tt-open {
+  display: block;
+}
+
+.tt-empty {
+  display: none;
 }
 
 .tt-suggestion {

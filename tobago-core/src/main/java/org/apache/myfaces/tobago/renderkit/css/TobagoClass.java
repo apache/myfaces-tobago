@@ -71,6 +71,7 @@ public enum TobagoClass implements CssItem {
   INPUT_GROUP_OUTER(INPUT__GROUP__OUTER.getName()),
   LABEL("tobago-label"),
   MESSAGES("tobago-messages"),
+  PAGE__MENU_STORE("tobago-page-menuStore"),
   PANEL("tobago-panel"),
   POPUP("tobago-popup"),
   SECTION__HEADER("tobago-section-header"),
