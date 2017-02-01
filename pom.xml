@@ -937,6 +937,9 @@
 
               <!-- photo shop -->
               <exclude>**/*.psd</exclude>
+
+              <!-- sample -->
+              <exclude>**/x-sample.txt</exclude>
             </excludes>
           </configuration>
         </plugin>
