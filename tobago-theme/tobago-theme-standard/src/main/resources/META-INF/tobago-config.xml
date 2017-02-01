@@ -402,6 +402,7 @@
         <script name="script/tobago-calendar.js"/>
         <script name="script/tobago-console.js"/>
         <script name="script/tobago-converter.js"/>
+        <script name="script/tobago-file.js"/>
         <script name="script/tobago-in.js"/>
         <script name="script/tobago-menu.js"/>
         <script name="script/tobago-overlay.js"/>

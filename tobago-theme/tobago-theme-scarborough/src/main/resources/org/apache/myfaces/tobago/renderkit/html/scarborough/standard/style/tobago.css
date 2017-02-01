@@ -319,6 +319,29 @@ span.tobago-calendar-header {
   filter: alpha(opacity: 0);
 }
 
+/* fileDrop -------------------------------------------------------------------- */
+
+.tobago-fileDrop {
+  border: 1px dotted #d8e9fb;
+  border-radius: 3px;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  text-align: center;
+}
+.tobago-fileDrop > .tobago-out {
+  min-height: 100%;
+  display: inline-flex;
+  align-content: center;
+}
+
+.tobago-fileDrop-dropZone {
+  border: 2px dashed #d8e9fb;
+  border-radius: 5px;
+  background: rgba(238, 238, 238, .6);
+}
+
 /* formatted --------------------------------------------------------------- */
 
 .tobago-formatted {

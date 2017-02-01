@@ -34,6 +34,7 @@ public class Upload {
   private FileItem file2;
   private FileItem[] fileMulti;
   private FileItem[] fileAjax;
+  private FileItem[] fileDnd;
 
   private List<UploadItem> list = new ArrayList<UploadItem>();
 
@@ -42,6 +43,7 @@ public class Upload {
    upload(file2);
    upload(fileMulti);
    upload(fileAjax);
+   upload(fileDnd);
       return null;
     }
 
@@ -101,6 +103,14 @@ public class Upload {
 
   public void setFileAjax(FileItem[] fileAjax) {
     this.fileAjax = fileAjax;
+  }
+
+  public FileItem[] getFileDnd() {
+    return fileDnd;
+  }
+
+  public void setFileDnd(FileItem[] fileDnd) {
+    this.fileDnd = fileDnd;
   }
 
   public List<UploadItem> getList() {

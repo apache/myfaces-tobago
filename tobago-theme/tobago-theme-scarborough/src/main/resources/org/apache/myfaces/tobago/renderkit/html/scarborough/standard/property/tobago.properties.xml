@@ -37,6 +37,7 @@
 
   <!-- File-->
   <entry key="tobago.file.multiFormat">{} files selected</entry>
+  <entry key="tobago.fileDrop.defaultLabel">Drop files here or click to browse.</entry>
 
   <!-- Sheet -->
   <entry key="sheetFirst">First Page</entry>

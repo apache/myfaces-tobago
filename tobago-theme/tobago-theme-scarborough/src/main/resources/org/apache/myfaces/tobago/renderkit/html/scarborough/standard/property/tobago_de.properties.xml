@@ -39,6 +39,7 @@
 
   <!-- File-->
   <entry key="tobago.file.multiFormat">{} Dateien ausgewählt</entry>
+  <entry key="tobago.fileDrop.defaultLabel">Dateien hier ablegen oder zum Suchen hier Klicken.</entry>
 
   <!-- Sheet -->
   <entry key="sheetFirst">erste Seite</entry>

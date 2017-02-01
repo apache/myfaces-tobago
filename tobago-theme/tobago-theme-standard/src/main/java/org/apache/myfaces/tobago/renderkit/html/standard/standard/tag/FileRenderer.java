@@ -115,30 +115,19 @@ public class FileRenderer extends InputRendererBase {
 
     writer.startElement(HtmlElements.DIV, file);
     writer.writeIdAttribute(clientId);
-    writer.writeClassAttribute(Classes.create(file));
-    HtmlRendererUtils.writeDataAttributes(facesContext, writer, file);
+    writer.writeClassAttribute(getCssClasses(file, null));
+    writeDataAttributes(facesContext, writer, file);
     writer.writeStyleAttribute(style);
 
     // visible fake input for a pretty look
-    final Style inputStyle = new Style();
-    final Measure prettyWidthSub = getResourceManager().getThemeMeasure(facesContext, file, "prettyWidthSub");
-    inputStyle.setWidth(style.getWidth().subtract(prettyWidthSub));
-    writer.startElement(HtmlElements.INPUT, file);
-    writer.writeIdAttribute(clientId + ComponentUtils.SUB_SEPARATOR + "pretty");
-    writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.TEXT, false);
-    writer.writeClassAttribute(Classes.create(file, "pretty"));
-    writer.writeStyleAttribute(inputStyle);
-    writer.writeAttribute(HtmlAttributes.DISABLED, true);
-    // TODO Focus
-    //HtmlRendererUtils.renderFocus(clientId, file.isFocus(), ComponentUtils.isError(file), facesContext, writer);
-    writer.endElement(HtmlElements.INPUT);
+    writeVisibleInput(facesContext, writer, file, clientId, style);
 
     // invisible file input
     writer.startElement(HtmlElements.INPUT, file);
     writer.writeAttribute(HtmlAttributes.MULTIPLE, file.isMultiple());
     writer.writeIdAttribute(clientId + ComponentUtils.SUB_SEPARATOR + "real");
     writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.FILE, false);
-    writer.writeClassAttribute(Classes.create(file, "real"));
+    writer.writeClassAttribute(getCssClasses(file, "real"));
     writer.writeNameAttribute(clientId);
     String multiFormat = ResourceManagerUtils.getPropertyNotNull(facesContext, "tobago", "tobago.file.multiFormat");
     writer.writeAttribute("data-tobago-file-multi-format", multiFormat, true);
@@ -159,5 +148,34 @@ public class FileRenderer extends InputRendererBase {
     writer.endElement(HtmlElements.INPUT);
 
     writer.endElement(HtmlElements.DIV);
+  }
+
+  protected Classes getCssClasses(UIComponent component, String sub) {
+    return Classes.create(component, sub);
+  }
+
+  protected void writeDataAttributes(FacesContext facesContext, TobagoResponseWriter writer, AbstractUIFile file)
+      throws IOException {
+    HtmlRendererUtils.writeDataAttributes(facesContext, writer, file);
+  }
+
+  protected void writeVisibleInput(FacesContext facesContext, TobagoResponseWriter writer, AbstractUIFile file,
+      String clientId, Style style) throws IOException {
+    final Style inputStyle = new Style();
+    final Measure prettyWidthSub = getPrettyWidthSub(facesContext, file);
+    inputStyle.setWidth(style.getWidth().subtract(prettyWidthSub));
+    writer.startElement(HtmlElements.INPUT, file);
+    writer.writeIdAttribute(clientId + ComponentUtils.SUB_SEPARATOR + "pretty");
+    writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.TEXT, false);
+    writer.writeClassAttribute(getCssClasses(file, "pretty"));
+    writer.writeStyleAttribute(inputStyle);
+    writer.writeAttribute(HtmlAttributes.DISABLED, true);
+    // TODO Focus
+    //HtmlRendererUtils.renderFocus(clientId, file.isFocus(), ComponentUtils.isError(file), facesContext, writer);
+    writer.endElement(HtmlElements.INPUT);
+  }
+
+  protected Measure getPrettyWidthSub(FacesContext facesContext, AbstractUIFile file) {
+    return getResourceManager().getThemeMeasure(facesContext, file, "prettyWidthSub");
   }
 }

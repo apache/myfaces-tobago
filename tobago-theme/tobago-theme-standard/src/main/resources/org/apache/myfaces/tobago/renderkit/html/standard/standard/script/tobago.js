@@ -1931,8 +1931,19 @@ Tobago.Transport.JqueryTransport = {
       Tobago.partialRequestIds.value = requestOptions.ajaxComponentIds;
       var form = jQuery(Tobago.form);
       console.debug("enctype: " + form.attr("enctype")); // @DEV_ONLY
-      if ((form.attr("enctype")|| "").toLocaleLowerCase() == "multipart/form-data") {
-        requestObject.data = new FormData(Tobago.form);
+      if ((form.attr("enctype") || "").toLocaleLowerCase() == "multipart/form-data") {
+        var formData = new FormData(Tobago.form);
+        var fileData = form.data("tobago-file-drag-and-drop-files");
+        if (fileData && fileData.files.length > 0) {
+          var clientName = fileData.name;
+          for (var i = 0; i < fileData.files.length; i++) {
+            var file = fileData.files[i];
+            console.info("adding " + clientName + " file " + file.name); // @DEV_ONLY
+            formData.append(clientName, file);
+          }
+          form.removeData("tobago-file-drag-and-drop-files");
+        }
+        requestObject.data = formData;
         requestObject.processData = false;
         requestObject.contentType = false;
       } else {
@@ -2752,37 +2763,6 @@ Tobago.SelectManyCheckbox.init = function(elements) {
 
 Tobago.registerListener(Tobago.SelectManyCheckbox.init, Tobago.Phase.DOCUMENT_READY);
 Tobago.registerListener(Tobago.SelectManyCheckbox.init, Tobago.Phase.AFTER_UPDATE);
-
-// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-Tobago.File = {};
-
-Tobago.File.init = function(elements) {
-  var files = Tobago.Utils.selectWithJQuery(elements, ".tobago-file-real");
-  files.change(function () {
-    var file = jQuery(this);
-    var pretty = file.prev();
-    var text;
-    if (file.prop("multiple")) {
-      var format = file.data("tobago-file-multi-format");
-      text = format.replace("{}", file.prop("files").length);
-    } else {
-      text = file.val();
-      // remove path, if any. Some old browsers set the path, others like webkit uses the prefix "C:\facepath\".
-      var pos = Math.max(text.lastIndexOf('/'), text.lastIndexOf('\\'));
-      if (pos >= 0) {
-        text = text.substr(pos + 1);
-      }
-    }
-    pretty.val(text);
-  });
-  if (files.length > 0) {
-    jQuery("form").attr('enctype', 'multipart/form-data')
-  }
-};
-
-Tobago.registerListener(Tobago.File.init, Tobago.Phase.DOCUMENT_READY);
-Tobago.registerListener(Tobago.File.init, Tobago.Phase.AFTER_UPDATE);
 
 // ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

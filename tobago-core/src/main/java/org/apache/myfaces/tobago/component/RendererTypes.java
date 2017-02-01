@@ -35,6 +35,7 @@ public final class RendererTypes {
   public static final String DATE = "Date";
   public static final String DATE_PICKER = "DatePicker";
   public static final String FILE = "File";
+  public static final String FILE_DROP = "FileDrop";
   public static final String FLOW_LAYOUT = "FlowLayout";
   public static final String FORM = "Form";
   public static final String GRID_LAYOUT = "GridLayout";

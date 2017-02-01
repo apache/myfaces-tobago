@@ -25,7 +25,7 @@
   <ui:param name="title" value="File Upload"/>
   <tc:panel id="uploadPanel">
     <f:facet name="layout">
-      <tc:gridLayout rows="auto;auto;*"/>
+      <tc:gridLayout rows="auto;*"/>
     </f:facet>
 
     <tc:panel>
@@ -54,20 +54,37 @@
 
     </tc:panel>
 
-    <tc:sheet var="entry" value="#{upload.list}" columns="*;*;*">
+    <tc:panel id="fileDropArea">
+      <f:facet name="layout">
+        <tc:gridLayout rows="auto;1*"/>
+      </f:facet>
+      <tc:panel >
+        <tc:fileDrop multiple="true"
+                     value="#{upload.fileDnd}"
+                     action="#{upload.upload}"
+                     dropZoneId=":page:fileDropArea"/>
+                     <!--
+                     label="Drop file or click to browse"
+                     tip="multiple files"
+                     visibleType="BUTTON"
+                     renderedPartially="uploadPanel"
+                     -->
+      </tc:panel>
+      <tc:sheet var="entry" value="#{upload.list}" columns="*;*;*">
 
-      <tc:column label="Name">
-        <tc:out value="#{entry.name}"/>
-      </tc:column>
+        <tc:column label="Name">
+          <tc:out value="#{entry.name}"/>
+        </tc:column>
 
-      <tc:column label="Type">
-        <tc:out value="#{entry.type}"/>
-      </tc:column>
+        <tc:column label="Type">
+          <tc:out value="#{entry.type}"/>
+        </tc:column>
 
-      <tc:column label="Size">
-        <tc:out value="#{entry.size}"/>
-      </tc:column>
+        <tc:column label="Size">
+          <tc:out value="#{entry.size}"/>
+        </tc:column>
 
-    </tc:sheet>
+      </tc:sheet>
+    </tc:panel>
   </tc:panel>
 </ui:composition>
