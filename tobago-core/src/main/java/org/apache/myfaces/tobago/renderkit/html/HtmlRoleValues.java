@@ -24,6 +24,7 @@ public enum HtmlRoleValues {
   ALERT("alert"),
   DIALOG("dialog"),
   DOCUMENT("document"),
+  GROUP("group"),
   MENU("menu"),
   NAVIGATION("navigation"),
   PRESENTATION("presentation"),

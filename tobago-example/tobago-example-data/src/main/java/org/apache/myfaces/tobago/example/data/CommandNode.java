@@ -25,17 +25,15 @@ public class CommandNode extends DefaultMutableTreeNode {
 
   private String name;
   private String action;
-  private String resource;
   private String url;
 
   public CommandNode(String name) {
     this.name = name;
   }
 
-  public CommandNode(String name, String action, String resource, String url) {
+  public CommandNode(String name, String action, String url) {
     this.name = name;
     this.action = action;
-    this.resource = resource;
     this.url = url;
   }
 
@@ -45,10 +43,6 @@ public class CommandNode extends DefaultMutableTreeNode {
 
   public String getAction() {
     return action;
-  }
-
-  public String getResource() {
-    return resource;
   }
 
   public String getUrl() {

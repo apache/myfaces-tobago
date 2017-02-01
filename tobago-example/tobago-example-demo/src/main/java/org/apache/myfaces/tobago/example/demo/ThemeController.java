@@ -20,8 +20,8 @@
 package org.apache.myfaces.tobago.example.demo;
 
 import org.apache.myfaces.tobago.config.TobagoConfig;
-import org.apache.myfaces.tobago.context.ClientProperties;
 import org.apache.myfaces.tobago.context.Theme;
+import org.apache.myfaces.tobago.context.TobagoContext;
 
 import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
@@ -67,8 +67,8 @@ public class ThemeController implements Serializable {
   }
 
   public String submit() {
-    final ClientProperties client = ClientProperties.getInstance(FacesContext.getCurrentInstance());
-    client.setTheme(theme);
+    final TobagoContext tobagoContext = TobagoContext.getInstance(FacesContext.getCurrentInstance());
+    tobagoContext.setTheme(theme);
     return null;
   }
 }

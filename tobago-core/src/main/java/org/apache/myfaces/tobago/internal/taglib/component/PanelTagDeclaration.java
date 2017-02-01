@@ -19,13 +19,17 @@
 
 package org.apache.myfaces.tobago.internal.taglib.component;
 
+import org.apache.myfaces.tobago.apt.annotation.Behavior;
 import org.apache.myfaces.tobago.apt.annotation.Facet;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
+import org.apache.myfaces.tobago.component.ClientBehaviors;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.RendererTypes;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasCollapsedMode;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
+import org.apache.myfaces.tobago.internal.taglib.declaration.IsCollapsed;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
 
 import javax.faces.component.UIPanel;
@@ -46,7 +50,18 @@ import javax.faces.component.UIPanel;
         @Facet(name = Facets.RELOAD, description = "Contains an instance of UIReload",
             allowedChildComponenents = "org.apache.myfaces.tobago.Reload"),
         @Facet(name = Facets.LAYOUT, description = "Deprecated. Contains an layout manager. "
-            + "The layout manager tag should surround the content instead.")})
+            + "The layout manager tag should surround the content instead.")},
+    behaviors = {
+        @Behavior(
+            name = ClientBehaviors.CLICK,
+            isDefault = true),
+        @Behavior(
+            name = ClientBehaviors.DBLCLICK),
+        @Behavior(
+            name = ClientBehaviors.MOUSEOVER),
+        @Behavior(
+            name = ClientBehaviors.MOUSEOUT)
+    })
 public interface PanelTagDeclaration
-    extends HasIdBindingAndRendered, IsVisual, HasTip {
+    extends HasIdBindingAndRendered, IsVisual, IsCollapsed, HasCollapsedMode, HasTip {
 }

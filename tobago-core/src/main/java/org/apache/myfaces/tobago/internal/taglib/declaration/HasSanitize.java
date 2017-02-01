@@ -37,8 +37,8 @@ public interface HasSanitize {
   @TagAttribute
   @UIComponentTagAttribute(
       type = "org.apache.myfaces.tobago.sanitizer.SanitizeMode",
-      defaultValue = SanitizeMode.STRING_AUTO,
-      allowedValues = {SanitizeMode.STRING_AUTO, SanitizeMode.STRING_NEVER},
+      defaultValue = SanitizeMode.AUTO,
+      allowedValues = {SanitizeMode.AUTO, SanitizeMode.NEVER},
       defaultCode = "org.apache.myfaces.tobago.sanitizer.SanitizeMode.auto")
   void setSanitize(String sanitize);
 }

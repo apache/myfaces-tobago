@@ -19,22 +19,33 @@
 
 <ui:composition template="/main.xhtml"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
-                xmlns:ui="http://java.sun.com/jsf/facelets">
-  <ui:param name="title" value="#{overviewBundle.messages} &lt;tc:messages>"/>
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core">
+  <ui:param name="title" value="#{demoBundle.messages} &lt;tc:messages>"/>
   <p>Messages are displayed via <code class="language-markup">&lt;tc:messages/></code> tag.</p>
-  <tc:link label="Tag Library Documentation" image="image/feather-leaf.png"
-           link="#{overviewBundle.tagDocUrl}/messages.html"/>
+  <tc:link label="Tag Library Documentation" image="#{request.contextPath}/image/feather-leaf.png"
+           link="#{demoBundle.tagDocUrl}/#{info.stableVersion}/tld/tc/messages.html"/>
 
   <tc:section label="Create Message">
     <p>To create messages, press one of the following buttons. The message will be displayed in the tabgroup.</p>
+    <p>If you are using ajax, make sure to rerender the <code class="language-markup">&lt;tc:message/></code> tag.</p>
     <tc:button label="Fatal" action="#{messagesController.createFatalMessage}"/>
     <tc:button label="Error" action="#{messagesController.createErrorMessage}"/>
     <tc:button label="Warn" action="#{messagesController.createWarnMessage}"/>
     <tc:button label="Info" action="#{messagesController.createInfoMessage}"/>
     <tc:button label="7 Messages" action="#{messagesController.createSevenMessages}"/>
+    <tc:button label="7 Messages (Ajax)" action="#{messagesController.createSevenMessages}">
+      <f:ajax render="tabGroup"/>
+    </tc:button>
   </tc:section>
 
-  <tc:tabGroup switchType="reloadPage">
+  <tc:tabGroup id="tabGroup" switchType="reloadPage">
+    <tc:tab label="Without attributes">
+      <p>On this tab, you can see how messages are displayed if no attribute are set for the
+        <code class="language-markup">&lt;tc:messages/></code> tag.</p>
+      <tc:messages/>
+    </tc:tab>
+
     <tc:tab label="Number of messages">
       <p>A limit for the number of messages can be set with the <code>maxNumber</code> attribute.</p>
       <pre><code class="language-markup">&lt;tc:messages maxNumber="2"/></code></pre>

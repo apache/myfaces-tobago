@@ -72,13 +72,13 @@ public interface TreeTagDeclaration
   @TagAttribute
   @UIComponentTagAttribute(
       type = "org.apache.myfaces.tobago.model.Selectable",
-      defaultValue = Selectable.STRING_MULTI,
+      defaultValue = Selectable.MULTI,
       allowedValues = {
-          Selectable.STRING_NONE,
-          Selectable.STRING_MULTI,
-          Selectable.STRING_SINGLE,
-          Selectable.STRING_MULTI_LEAF_ONLY,
-          Selectable.STRING_SINGLE_LEAF_ONLY},
+          Selectable.NONE,
+          Selectable.MULTI,
+          Selectable.SINGLE,
+          Selectable.MULTI_LEAF_ONLY,
+          Selectable.SINGLE_LEAF_ONLY},
       defaultCode = "org.apache.myfaces.tobago.model.Selectable.multi")
   void setSelectable(String selectable);
 

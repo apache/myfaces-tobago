@@ -27,9 +27,8 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
 import org.apache.myfaces.tobago.renderkit.html.MarkupLanguageAttributes;
-import org.apache.myfaces.tobago.renderkit.html.standard.standard.tag.GridLayoutRenderer;
-import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
-import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
+import org.apache.myfaces.tobago.internal.renderkit.renderer.GridLayoutRenderer;
+import org.apache.myfaces.tobago.internal.util.RenderUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -84,7 +83,7 @@ public class SplitLayoutRenderer extends GridLayoutRenderer {
   protected void encodeHandle(final FacesContext facesContext, final AbstractUISplitLayout layout) throws IOException {
     final String id = layout.getClientId(facesContext);
 
-    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+    final TobagoResponseWriter writer = getResponseWriter(facesContext);
     writer.startElement(HtmlElements.SPAN);
     writer.writeIdAttribute(id);
     writer.writeAttribute(SPLIT_LAYOUT, layout.getOrientation().name(), false);

@@ -26,7 +26,7 @@
     Tobago 2.0.0 contains 184 entries in {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12321253}Jira}}
     and most of them are exclusive in this version.
 
-    Please take also a look at the {{{./migration-2.0.html}Migration from Tobago 1.5 to 2.0}} guide.
+    Please take also a look at the {{{http://www.irian.biz/tobago-example-demo/faces/content/10-intro/50-migration/98-migration/migration20.xhtml}Migration from Tobago 1.5 to 2.0}} guide.
 
 Enhancements
 

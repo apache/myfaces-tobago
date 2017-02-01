@@ -21,7 +21,6 @@ package org.apache.myfaces.tobago.internal.util;
 
 import org.apache.commons.collections.list.SetUniqueList;
 import org.apache.commons.collections.set.ListOrderedSet;
-import org.apache.myfaces.tobago.internal.component.AbstractUIPopup;
 
 import javax.faces.context.FacesContext;
 import java.util.ArrayList;
@@ -31,23 +30,13 @@ import java.util.Set;
 
 @SuppressWarnings("unchecked")
 public final class FacesContextUtils {
-  private static final String TOBAGO_AJAX = "org.apache.myfaces.tobago.ajax";
-  private static final String TOBAGO_AJAX_COMPONENT_ID = "org.apache.myfaces.tobago.ajaxComponentId";
+
   private static final String TOBAGO_ENCTYPE = "org.apache.myfaces.tobago.enctype";
   private static final String TOBAGO_SCRIPT_FILES = "org.apache.myfaces.tobago.scriptFiles";
   private static final String TOBAGO_STYLE_FILES = "org.apache.myfaces.tobago.styleFiles";
-  private static final String TOBAGO_POPUPS = "org.apache.myfaces.tobago.popups";
   private static final String TOBAGO_FOCUS_ID = "org.apache.myfaces.tobago.focusId";
 
   private FacesContextUtils() {
-  }
-
-  public static boolean isAjax(final FacesContext context) {
-    return context.getAttributes().containsKey(TOBAGO_AJAX);
-  }
-
-  public static void setAjax(final FacesContext context, final boolean ajax) {
-    context.getAttributes().put(TOBAGO_AJAX, ajax);
   }
 
   public static void setFocusId(final FacesContext context, final String focusId) {
@@ -56,14 +45,6 @@ public final class FacesContextUtils {
 
   public static String getFocusId(final FacesContext context) {
     return (String) context.getAttributes().get(TOBAGO_FOCUS_ID);
-  }
-
-  public static String getAjaxComponentId(final FacesContext context) {
-    return (String) context.getAttributes().get(TOBAGO_AJAX_COMPONENT_ID);
-  }
-
-  public static void setAjaxComponentId(final FacesContext context, final String ajaxComponentId) {
-    context.getAttributes().put(TOBAGO_AJAX_COMPONENT_ID, ajaxComponentId);
   }
 
   public static String getEnctype(final FacesContext context) {
@@ -89,7 +70,6 @@ public final class FacesContextUtils {
       context.getAttributes().put(TOBAGO_SCRIPT_FILES, list);
     }
     list.add(file);
-
   }
 
   public static Set<String> getStyleFiles(final FacesContext context) {
@@ -107,22 +87,5 @@ public final class FacesContextUtils {
       context.getAttributes().put(TOBAGO_STYLE_FILES, set);
     }
     set.add(script);
-  }
-
-  public static Set<AbstractUIPopup> getPopups(final FacesContext context) {
-    final Set<AbstractUIPopup> set = (Set<AbstractUIPopup>) context.getAttributes().get(TOBAGO_POPUPS);
-    if (set == null) {
-      return Collections.emptySet();
-    }
-    return set;
-  }
-
-  public static void addPopup(final FacesContext context, final AbstractUIPopup popup) {
-    Set<AbstractUIPopup> set = (Set<AbstractUIPopup>) context.getAttributes().get(TOBAGO_POPUPS);
-    if (set == null) {
-      set = new ListOrderedSet();
-      context.getAttributes().put(TOBAGO_POPUPS, set);
-    }
-    set.add(popup);
   }
 }

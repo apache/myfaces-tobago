@@ -20,33 +20,18 @@
   <parent>
     <groupId>org.apache.myfaces.tobago</groupId>
     <artifactId>tobago-theme</artifactId>
-    <version>3.0.0-beta-1-SNAPSHOT</version>
+    <version>3.0.2</version>
   </parent>
   <artifactId>tobago-theme-standard</artifactId>
   <packaging>jar</packaging>
   <name>Tobago Theme Standard</name>
+
+  <properties>
+    <theme.name>standard</theme.name>
+  </properties>
+
   <build>
     <plugins>
-      <!--<plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>wagon-maven-plugin</artifactId>
-        <version>1.0-beta-3</version>
-        <executions>
-          <execution>
-            <id>closure-compiler</id>
-            <phase>initialize</phase>
-            <goals>
-              <goal>download-single</goal>
-            </goals>
-            <configuration>
-              <serverId>code-google</serverId>
-              <url>http://closure-compiler.googlecode.com/files/</url>
-              <fromFile>compiler-20120430.zip</fromFile>
-              <toDir>${project.build.directory}/closure-compiler</toDir>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>-->
       <plugin>
         <artifactId>maven-antrun-plugin</artifactId>
         <executions>
@@ -59,7 +44,7 @@
             <configuration>
               <target>
                 <concat destfile="${project.build.directory}/javascript-min/standard/script/tobago.min.js" force="no">
-                  <filelist dir="${basedir}/src/main/resources/org/apache/myfaces/tobago/renderkit/html/standard/standard/script" files="tobago.js,tobago-calendar.js,tobago-in.js,tobago-layout.js,tobago-menu.js,tobago-overlay.js,tobago-popup.js,tobago-sheet.js,tobago-suggest.js,tobago-tab.js,tobago-tree.js,tobago-utils.js" />
+                  <filelist dir="${basedir}/src/main/resources/META-INF/resources/tobago/standard/script" files="tobago-jsf.js,tobago.js,tobago-calendar.js,tobago-in.js,tobago-layout.js,tobago-overlay.js,tobago-popup.js,tobago-sheet.js,tobago-suggest.js,tobago-tab.js,tobago-tree.js,tobago-utils.js" />
                 </concat>
                 <replaceregexp match="^.*//.*@DEV_ONLY.*$" replace="" byline="true">
                   <fileset dir="${project.build.directory}/javascript-min">
@@ -96,9 +81,7 @@
                 <argument>--js</argument>
                 <argument>${project.build.directory}/javascript-min/standard/script/tobago.min.js</argument>
                 <argument>--js_output_file</argument>
-                <argument>
-                  target/classes/org/apache/myfaces/tobago/renderkit/html/standard/standard/script/tobago.min.js
-                </argument>
+                <argument>target/classes/META-INF/resources/tobago/standard/script/tobago.min.js</argument>
               </arguments>
             </configuration>
           </execution>

@@ -28,13 +28,39 @@ import java.io.Serializable;
 @Named
 public class PopupController implements Serializable {
 
-  private String text;
+  private boolean popup1Collapsed = true;
+  private String popup1Text;
+  private String popup2Text;
 
-  public String getText() {
-    return text;
+  public boolean isPopup1Collapsed() {
+    return popup1Collapsed;
   }
 
-  public void setText(String text) {
-    this.text = text;
+  public void setPopup1Collapsed(boolean popup1Collapsed) {
+    this.popup1Collapsed = popup1Collapsed;
+  }
+
+  public void openPopup1() {
+    popup1Collapsed = false;
+  }
+
+  public void closePopup1() {
+    popup1Collapsed = true;
+  }
+
+  public String getPopup1Text() {
+    return popup1Text;
+  }
+
+  public void setPopup1Text(String popup1Text) {
+    this.popup1Text = popup1Text;
+  }
+
+  public String getPopup2Text() {
+    return popup2Text;
+  }
+
+  public void setPopup2Text(String popup2Text) {
+    this.popup2Text = popup2Text;
   }
 }

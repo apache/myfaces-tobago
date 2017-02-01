@@ -18,19 +18,11 @@
 -->
 
 <ui:composition template="/main.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
-                xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:f="http://java.sun.com/jsf/core"
-                xmlns="http://www.w3.org/1999/xhtml">
-  <ui:param name="title" value="Editor"/>
-
-
-  <tc:panel>
-    <f:facet name="layout">
-      <tc:flowLayout/>
-    </f:facet>
-
-    <h3>A WYSIWYG HTML editor</h3>
+                xmlns:ui="http://java.sun.com/jsf/facelets">
+  <ui:param name="title" value="#{demoBundle.wysiwyg_editor}"/>
+  <tc:section label="A WYSIWYG HTML Editor">
     <p>
       You can embed HTML editor in Tobago easily,
       but there is no HTML editor component in Tobago.
@@ -56,31 +48,21 @@
       In this application there are two editors embedded as an example.
     </p>
     <ul>
-      <li><tc:link link="http://www.tinymce.com/" target="_blank" label="TinyMCE"/></li>
+      <li><tc:link label="TinyMCE" link="https://www.tinymce.com/" target="_blank"/></li>
       Is using LGPL license.
-      <li><tc:link link="http://ckeditor.com/" target="_blank" label="CKEditor"/></li>
+      <li><tc:link label="CKEditor" link="http://ckeditor.com/" target="_blank"/></li>
       Doesn't work with CSP activated.
       There is an issue #8584 in the
       <tc:link link="https://dev.ckeditor.com/ticket/8584" target="_blank" label="issue tracker"/>
       of the project.
     </ul>
-    <p>
-    </p>
-
-    <h3>About security</h3>
+  </tc:section>
+  <tc:section label="About Security">
     <p>
       The application should be protected against invalid or malicious HTML content.
       If the application uses an HTML editor in the browser, an attacker is able to modify the clean code
       and submit malicious code.
       That must be checked on server side!
     </p>
-
-    <h3>Todos:</h3>
-
-    <ul>
-      <li>todo: view source fragments</li>
-      <li>todo: HTML Filter</li>
-    </ul>
-
-  </tc:panel>
+  </tc:section>
 </ui:composition>

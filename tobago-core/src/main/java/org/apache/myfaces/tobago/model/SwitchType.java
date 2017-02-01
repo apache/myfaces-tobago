@@ -23,10 +23,12 @@ public enum SwitchType {
 
   client,
   reloadPage,
-  reloadTab;
+  reloadTab,
+  none;
 
   public static final String CLIENT = "client";
   public static final String RELOAD_PAGE = "reloadPage";
   public static final String RELOAD_TAB = "reloadTab";
+  public static final String NONE = "none";
 
 }

@@ -23,8 +23,8 @@ import org.apache.deltaspike.core.api.scope.WindowScoped;
 import org.apache.myfaces.tobago.component.UIColumn;
 import org.apache.myfaces.tobago.component.UISheet;
 import org.apache.myfaces.tobago.config.TobagoConfig;
-import org.apache.myfaces.tobago.context.ClientProperties;
 import org.apache.myfaces.tobago.context.Theme;
+import org.apache.myfaces.tobago.context.TobagoContext;
 import org.apache.myfaces.tobago.event.SortActionEvent;
 import org.apache.myfaces.tobago.example.addressbook.Address;
 import org.apache.myfaces.tobago.example.addressbook.AddressDao;
@@ -120,8 +120,7 @@ public class Controller implements Serializable {
       themeItems.add(new SelectItem(theme, theme.getDisplayName()));
     }
 
-    final ClientProperties client = ClientProperties.getInstance(facesContext);
-    theme = client.getTheme();
+    theme = TobagoContext.getInstance(facesContext).getTheme();
     currentAddressList = addressDao.findAddresses(searchCriterion);
   }
 
@@ -215,8 +214,8 @@ public class Controller implements Serializable {
 
   public String themeChanged() {
     final FacesContext facesContext = FacesContext.getCurrentInstance();
-    final ClientProperties client = ClientProperties.getInstance(facesContext);
-    client.setTheme(theme);
+    final TobagoContext tobagoContext = TobagoContext.getInstance(facesContext);
+    tobagoContext.setTheme(theme);
     return null;
   }
 

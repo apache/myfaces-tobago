@@ -20,7 +20,7 @@
 package org.apache.myfaces.tobago.example.test;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.myfaces.tobago.component.UISelectBooleanCheckbox;
+import org.apache.myfaces.tobago.internal.component.AbstractUISelectBooleanCheckbox;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -55,7 +55,7 @@ public class Tobago1041 {
   }
 
   private void createMessage(final FacesContext facesContext, final String id) {
-    String label = ((UISelectBooleanCheckbox) facesContext.getViewRoot().findComponent(id)).getLabel();
+    String label = ((AbstractUISelectBooleanCheckbox) facesContext.getViewRoot().findComponent(id)).getLabel();
     if (StringUtils.isBlank(label)) {
       label = "-";
     }

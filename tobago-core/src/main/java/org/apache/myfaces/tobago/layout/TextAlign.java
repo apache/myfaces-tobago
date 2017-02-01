@@ -32,44 +32,24 @@ public enum TextAlign {
   justify;
 
   /**
-   * @deprecated Since Tobago 3.0.0 Please use {@link TextAlign#left}
-   */
-  public static final TextAlign LEFT = left;
-
-  /**
-   * @deprecated Since Tobago 3.0.0 Please use {@link TextAlign#right}
-   */
-  public static final TextAlign RIGHT = right;
-
-  /**
-   * @deprecated Since Tobago 3.0.0 Please use {@link TextAlign#center}
-   */
-  public static final TextAlign CENTER = center;
-
-  /**
-   * @deprecated Since Tobago 3.0.0 Please use {@link TextAlign#justify}
-   */
-  public static final TextAlign JUSTIFY = justify;
-
-  /**
    * Internal constant to use in annotations. Please use {@link TextAlign#left}
    */
-  public static final String STRING_LEFT = "left";
+  public static final String LEFT = "left";
 
   /**
    * Internal constant to use in annotations. Please use {@link TextAlign#right}
    */
-  public static final String STRING_RIGHT = "right";
+  public static final String RIGHT = "right";
 
   /**
    * Internal constant to use in annotations. Please use {@link TextAlign#center}
    */
-  public static final String STRING_CENTER = "center";
+  public static final String CENTER = "center";
 
   /**
    * Internal constant to use in annotations. Please use {@link TextAlign#justify}
    */
-  public static final String STRING_JUSTIFY = "justify";
+  public static final String JUSTIFY = "justify";
 
   /**
    * @deprecated Since Tobago 3.0.0 Please use {@link TextAlign#name}

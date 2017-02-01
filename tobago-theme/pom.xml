@@ -20,26 +20,17 @@
   <parent>
     <groupId>org.apache.myfaces.tobago</groupId>
     <artifactId>tobago</artifactId>
-    <version>3.0.0-beta-1-SNAPSHOT</version>
+    <version>3.0.2</version>
   </parent>
   <packaging>pom</packaging>
   <name>Tobago Themes</name>
   <artifactId>tobago-theme</artifactId>
 
+  <properties>
+    <bootstrap.version>4.0.0-alpha.5</bootstrap.version>
+  </properties>
+
   <build>
-    <plugins>
-      <plugin>
-        <groupId>org.apache.myfaces.tobago</groupId>
-        <artifactId>tobago-theme-plugin</artifactId>
-        <executions>
-          <execution>
-            <goals>
-              <goal>index</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-    </plugins>
     <pluginManagement>
       <plugins>
         <plugin>
@@ -58,11 +49,10 @@
 
   <modules>
     <module>tobago-theme-standard</module>
-    <module>tobago-theme-scarborough</module>
+    <!--<module>tobago-theme-scarborough</module>-->
     <module>tobago-theme-speyside</module>
-    <module>tobago-theme-richmond</module>
-    <module>tobago-theme-charlotteville</module>
-    <module>tobago-theme-example</module>
+    <!--<module>tobago-theme-richmond</module>-->
+    <!--<module>tobago-theme-charlotteville</module>-->
   </modules>
 
   <dependencies>
@@ -72,5 +62,175 @@
       <optional>true</optional>
     </dependency>
   </dependencies>
+
+  <profiles>
+
+    <profile>
+      <id>all-modules</id>
+      <modules>
+        <module>tobago-theme-scarborough</module>
+        <module>tobago-theme-richmond</module>
+        <module>tobago-theme-charlotteville</module>
+      </modules>
+    </profile>
+
+    <profile>
+      <id>rebuild-theme</id>
+      <build>
+        <plugins>
+
+          <plugin>
+            <artifactId>maven-scm-plugin</artifactId>
+            <version>1.9.5</version>
+            <executions>
+              <execution>
+                <!--load Bootstrap sources via git to target/checkout -->
+                <id>step #1: copy-bootstrap</id>
+                <phase>generate-resources</phase>
+                <goals>
+                  <goal>checkout</goal>
+                </goals>
+                <configuration>
+                  <connectionUrl>scm:git:https://github.com/twbs/bootstrap</connectionUrl>
+                  <skipCheckoutIfExists>true</skipCheckoutIfExists>
+                  <scmVersion>v${bootstrap.version}</scmVersion>
+                  <scmVersionType>branch</scmVersionType>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+
+          <plugin>
+            <artifactId>maven-resources-plugin</artifactId>
+            <version>2.7</version>
+            <executions>
+              <execution>
+                <!-- copy Bootstrap to target/bootstrap -->
+                <id>step #2: copy-bootstrap</id>
+                <phase>generate-resources</phase>
+                <goals>
+                  <goal>copy-resources</goal>
+                </goals>
+                <configuration>
+                  <outputDirectory>${project.build.directory}/bootstrap</outputDirectory>
+                  <resources>
+                    <resource>
+                      <directory>${project.build.directory}/checkout</directory>
+                      <exclude>scss/_custom.scss</exclude>
+                    </resource>
+                  </resources>
+                </configuration>
+              </execution>
+              <execution>
+                <!-- copy customization to target/bootstrap -->
+                <id>step #3: copy-custom</id>
+                <phase>generate-resources</phase>
+                <goals>
+                  <goal>copy-resources</goal>
+                </goals>
+                <configuration>
+                  <outputDirectory>${project.build.directory}/bootstrap</outputDirectory>
+                  <resources>
+                    <resource>
+                      <directory>src/main
+                      </directory>
+                      <includes>
+                        <include>scss/*</include>
+                      </includes>
+                    </resource>
+                  </resources>
+                </configuration>
+              </execution>
+              <execution>
+                <!-- copy the result to target/classes -->
+                <id>step #8: copy-bootstrap-dist</id>
+                <phase>process-resources</phase>
+                <goals>
+                  <goal>copy-resources</goal>
+                </goals>
+                <configuration>
+                  <outputDirectory>
+                    ${basedir}/src/main/resources/META-INF/resources/tobago/${theme.name}/bootstrap/${bootstrap.version}
+                  </outputDirectory>
+                  <resources>
+                    <resource>
+                      <directory>${project.build.directory}/bootstrap/dist</directory>
+                    </resource>
+                  </resources>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+
+          <plugin>
+            <groupId>com.github.eirslett</groupId>
+            <artifactId>frontend-maven-plugin</artifactId>
+            <version>1.0</version>
+
+            <!-- optional -->
+            <configuration>
+              <nodeVersion>v6.5.0</nodeVersion>
+              <npmVersion>3.10.8</npmVersion>
+              <!-- optional: where to download node and npm from. Defaults to https://nodejs.org/dist/ -->
+              <!--<downloadRoot>http://myproxy.example.org/nodejs/dist/</downloadRoot>-->
+              <!-- optional: where to install node and npm. Defaults to the working directory -->
+              <installDirectory>${project.build.directory}/frontend</installDirectory>
+              <workingDirectory>${project.build.directory}/bootstrap</workingDirectory>
+            </configuration>
+
+            <executions>
+
+              <execution>
+                <!-- install "node" and "npm" -->
+                <id>step #4: install node and npm</id>
+                <goals>
+                  <goal>install-node-and-npm</goal>
+                </goals>
+                <phase>generate-resources</phase>
+              </execution>
+
+              <execution>
+                <!-- install "grunt-cli" -->
+                <id>step #5: npm install grunt-cli</id>
+                <goals>
+                  <goal>npm</goal>
+                </goals>
+                <phase>generate-resources</phase>
+                <configuration>
+                  <arguments>install grunt-cli</arguments>
+                </configuration>
+              </execution>
+
+              <execution>
+                <!-- install all other required stuff for "bootstrap" -->
+                <id>step #6: npm install</id>
+                <goals>
+                  <goal>npm</goal>
+                </goals>
+                <phase>generate-resources</phase>
+                <configuration>
+                  <arguments>install</arguments>
+                </configuration>
+              </execution>
+
+              <execution>
+                <!-- build "bootstrap" with "grunt" -->
+                <id>step #7: grunt build</id>
+                <goals>
+                  <goal>grunt</goal>
+                </goals>
+                <phase>generate-resources</phase>
+                <configuration>
+                  <arguments>dist</arguments>
+                </configuration>
+              </execution>
+
+            </executions>
+          </plugin>
+
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
 
 </project>

@@ -21,10 +21,10 @@
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
                 xmlns:ui="http://java.sun.com/jsf/facelets">
-  <ui:param name="title" value="#{overviewBundle.section} &lt;tc:section>"/>
+  <ui:param name="title" value="#{demoBundle.section} &lt;tc:section>"/>
   <p>A section can be added with <code class="language-markup">&lt;tc:section/></code> tag.</p>
-  <tc:link label="Tag Library Documentation" image="image/feather-leaf.png"
-           link="#{overviewBundle.tagDocUrl}/section.html"/>
+  <tc:link label="Tag Library Documentation" image="#{request.contextPath}/image/feather-leaf.png"
+           link="#{demoBundle.tagDocUrl}/#{info.stableVersion}/tld/tc/section.html"/>
 
   <tc:section label="Basics">
     <p>A section can have a title. It is added with the <code>label</code> attribute.
@@ -56,6 +56,11 @@
     <pre><code class="language-markup">&lt;tc:section label="Pie-Chart" image="fa-pie-chart"></code></pre>
     <tc:section label="Pie-Chart" image="fa-pie-chart">
       <p>It's also possible to use image files, instead of font awesome.</p>
+    </tc:section>
+    <tc:section label="Image Files" image="image/alps.png">
+      <p><b>(TODO: currently not working!)</b></p>
+      <!-- todo: this image is only a reminder. -->
+      <tc:image value="image/alps.png"/>
     </tc:section>
   </tc:section>
 </ui:composition>

@@ -20,25 +20,19 @@
   <parent>
     <groupId>org.apache.myfaces.tobago</groupId>
     <artifactId>tobago</artifactId>
-    <version>3.0.0-beta-1-SNAPSHOT</version>
+    <version>3.0.2</version>
   </parent>
   <packaging>pom</packaging>
   <name>Tobago Examples</name>
   <artifactId>tobago-example</artifactId>
 
-  <properties>
-    <logback.version>1.1.1</logback.version>
-  </properties>
-
   <modules>
-    <module>tobago-example-addressbook</module>
+    <!--<module>tobago-example-addressbook</module>-->
     <module>tobago-example-blank</module>
     <module>tobago-example-data</module>
     <module>tobago-example-demo</module>
-    <!--<module>tobago-example-issuetracker</module>-->
     <module>tobago-example-portlet</module>
-    <module>tobago-example-security</module>
-    <module>tobago-example-test</module>
+    <!--<module>tobago-example-test</module>-->
     <module>tobago-example-assembly</module>
   </modules>
 
@@ -76,9 +70,9 @@
         <!-- usage: mvn clean package tomee:run -Djsf=provided -->
         <groupId>org.apache.openejb.maven</groupId>
         <artifactId>tomee-maven-plugin</artifactId>
-        <version>1.7.1</version>
+        <version>1.7.4</version>
         <configuration>
-          <tomeeVersion>1.7.1</tomeeVersion>
+          <tomeeVersion>1.7.4</tomeeVersion>
           <tomeeClassifier>plus</tomeeClassifier>
           <!--<tomeeHttpPort>9090</tomeeHttpPort>-->
           <!--<context>/demo</context>-->
@@ -137,22 +131,7 @@
   <dependencies>
     <dependency>
       <groupId>org.apache.myfaces.tobago</groupId>
-      <artifactId>tobago-theme-charlotteville</artifactId>
-      <version>${project.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.myfaces.tobago</groupId>
-      <artifactId>tobago-theme-scarborough</artifactId>
-      <version>${project.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.myfaces.tobago</groupId>
       <artifactId>tobago-theme-speyside</artifactId>
-      <version>${project.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.myfaces.tobago</groupId>
-      <artifactId>tobago-theme-richmond</artifactId>
       <version>${project.version}</version>
     </dependency>
     <dependency>
@@ -168,18 +147,42 @@
     <dependency>
       <groupId>ch.qos.logback</groupId>
       <artifactId>logback-classic</artifactId>
-      <version>${logback.version}</version>
       <scope>runtime</scope>
     </dependency>
     <dependency>
       <groupId>ch.qos.logback</groupId>
       <artifactId>logback-core</artifactId>
-      <version>${logback.version}</version>
       <scope>runtime</scope>
     </dependency>
   </dependencies>
 
   <profiles>
+
+    <profile>
+      <id>all-modules</id>
+      <modules>
+        <module>tobago-example-addressbook</module>
+        <module>tobago-example-test</module>
+      </modules>
+
+      <dependencies>
+        <dependency>
+          <groupId>org.apache.myfaces.tobago</groupId>
+          <artifactId>tobago-theme-charlotteville</artifactId>
+          <version>${project.version}</version>
+        </dependency>
+        <dependency>
+          <groupId>org.apache.myfaces.tobago</groupId>
+          <artifactId>tobago-theme-scarborough</artifactId>
+          <version>${project.version}</version>
+        </dependency>
+        <dependency>
+          <groupId>org.apache.myfaces.tobago</groupId>
+          <artifactId>tobago-theme-richmond</artifactId>
+          <version>${project.version}</version>
+        </dependency>
+      </dependencies>
+    </profile>
 
     <profile>
       <id>jsf-provided</id>

@@ -33,7 +33,7 @@ public class ScrollPosition implements Serializable {
   private Integer top;
 
   public String encode() {
-    return (left != null ? left : "0") + ":" + (top != null ? top : "0");
+    return (left != null ? left : "0") + ";" + (top != null ? top : "0");
   }
 
   public void clear() {

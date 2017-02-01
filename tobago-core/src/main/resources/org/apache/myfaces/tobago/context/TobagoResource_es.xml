@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+-->
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+
+<properties>
+
+  <!-- Page -->
+  <entry key="pageNoscript">Esta página requiere JavaScript, pero JavaScript no se activa actualmente en su navegador. Para permitir JavaScript usted puede consultar la documentación del navegador.</entry>
+
+  <!-- Client Configuration -->
+  <entry key="configTitle">Configuración cliente del framework Tobago</entry>
+  <entry key="configTheme">Tema</entry>
+  <entry key="configThemeText">¿Que tema debe de ser utilizado?</entry>
+  <entry key="configLocale">Idioma</entry>
+  <entry key="configLocaleText">¿Que idioma debe de ser utilizado?</entry>
+  <entry key="configContentType">Tipo de contenido</entry>
+  <entry key="configContentTypeText">¿Que tipo de contenido debe de ser utilizado?</entry>
+  <entry key="configSubmit">Enviar</entry>
+  <entry key="configButtonText">Configuracion</entry>
+  <entry key="configCachecoverage">Cobertura de cache</entry>
+
+  <!-- File-->
+  <entry key="tobago.file.multiFormat">{} archivos seleccionados</entry>
+
+  <!-- Sheet -->
+  <entry key="sheetFirst">Primera Página</entry>
+  <entry key="sheetPrev">Página Anterior</entry>
+  <entry key="sheetNext">Página Siguiente</entry>
+  <entry key="sheetLast">Última Página</entry>
+  <entry key="sheetToPage">Página {0}</entry>
+  <entry key="sheetTipSorting">Ordenar por esta columna</entry>
+  <entry key="sheetAscending">Ascendente</entry>
+  <entry key="sheetDescending">Descendente</entry>
+  <entry key="sheetPagingInfoRows">Registros {0} {1} de {2}</entry>
+  <entry key="sheetPagingInfoSingleRow">Registro {0} de {2}</entry>
+  <entry key="sheetPagingInfoUndefinedRows">Registros {0} {1}</entry>
+  <entry key="sheetPagingInfoUndefinedSingleRow">Registro {0}</entry>
+  <entry key="sheetPagingInfoEmptyRow">No hay registros disponibles</entry>
+  <entry key="sheetPagingInfoRowPagingTip">Click aqui, para cambiar el primer registro desplegado.</entry>
+  <entry key="sheetPagingInfoPages">Página {0} de {1}</entry>
+  <entry key="sheetPagingInfoSinglePage">Página {0} de {1}</entry>
+  <entry key="sheetPagingInfoUndefinedPages">Página {0}</entry>
+  <entry key="sheetPagingInfoUndefinedSinglePage">Página {0}</entry>
+  <entry key="sheetPagingInfoEmptyPage"/>
+  <entry key="sheetPagingInfoPagePagingTip">Click aquí, para cambiar el nombre desplegado.</entry>
+  <entry key="sheetMenuToggleselect">Invertir seleccion</entry>
+  <entry key="sheetMenuUnselect">Deseleccionar todo</entry>
+  <entry key="sheetMenuSelect">Seleccionar todo</entry>
+
+  <!-- Tree -->
+  <entry key="treeNew">Nuevo</entry>
+  <entry key="treeDelete">Borrar</entry>
+  <entry key="treeEdit">Editar</entry>
+  <entry key="treeCut">Cortar</entry>
+  <entry key="treeCopy">Copiar</entry>
+  <entry key="treePaste">Pegar</entry>
+  <entry key="treeMoveUp">Mover hacia arriba</entry>
+  <entry key="treeMoveDown">Mover hacia abajo</entry>
+  <entry key="treeNodeNew">Nuevo nodo</entry>
+
+  <!-- datePicker -->
+  <entry key="datePickerTitle">Escoger fecha</entry>
+  <entry key="datePickerOk">Enviar</entry>
+  <entry key="datePickerCancel">Cancelar</entry>
+
+  <!-- in - input suggest -->
+  <entry key="tobago.in.inputSuggest.moreElements">Hay más entradas aparejadas…</entry>
+
+  <!-- messages -->
+  <entry key="tobago.message.confirmation.title">Aviso</entry>
+
+  <entry key="tobago.ajax.response.error">Error en el servidor: No hay respuesta del servidor. Probablemente debido a un tiempo agotado de sesion!</entry>
+
+  <entry key="browser.noframe.message.prefix">Tu navegador no soporta frames o está configurado para no desplegar frames. Como sea, puedes visitar el documento relacionado: </entry>
+  <entry key="browser.noframe.message.postfix"></entry>
+
+</properties>

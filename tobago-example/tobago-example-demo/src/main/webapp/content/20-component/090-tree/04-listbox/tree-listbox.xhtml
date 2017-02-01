@@ -21,11 +21,11 @@
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
                 xmlns:ui="http://java.sun.com/jsf/facelets">
-  <ui:param name="title" value="#{overviewBundle.tree_listbox} &lt;tc:treeListbox>"/>
+  <ui:param name="title" value="#{demoBundle.tree_listbox} &lt;tc:treeListbox>"/>
   <p>The <code class="language-markup">&lt;tc:treeListbox/></code> can be used to replace a classic
     <code class="language-markup">&lt;tc:tree/></code>. It displays the tree as a number of lists.</p>
-  <tc:link label="Tag Library Documentation" image="image/feather-leaf.png"
-           link="#{overviewBundle.tagDocUrl}/treeListbox.html"/>
+  <tc:link label="Tag Library Documentation" image="#{request.contextPath}/image/feather-leaf.png"
+           link="#{demoBundle.tagDocUrl}/#{info.stableVersion}/tld/tc/treeListbox.html"/>
 
   <tc:section label="Example">
     <pre><code class="language-markup">&lt;tc:treeListbox value="\#{treeController.sample}" ...></code></pre>

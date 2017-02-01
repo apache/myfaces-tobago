@@ -25,22 +25,14 @@ public class CommandNodeFactory {
     final CommandNode root = new CommandNode("Commands");
 
     final CommandNode actions = new CommandNode("Actions");
-    actions.add(new CommandNode("Action 1", "ActionOne", null, null));
-    actions.add(new CommandNode("Action 2", "ActionTwo", null, null));
+    actions.add(new CommandNode("Action 1", "ActionOne", null));
+    actions.add(new CommandNode("Action 2", "ActionTwo", null));
     root.add(actions);
 
-    final CommandNode resources = new CommandNode("Resources");
-    resources.add(new CommandNode("Input Fields", null, "content/20-component/010-input/input.xhtml", null));
-    resources.add(new CommandNode("Output Fields", null, "content/20-component/020-output/output.xhtml", null));
-    resources.add(new CommandNode("Dropdown Box", null,
-            "content/20-component/030-select/20-selectOneChoice/selectOneChoice.xhtml", null));
-    resources.add(new CommandNode("Popup Dialog", null, "content/20-component/060-popup/popup.xhtml", null));
-    root.add(resources);
-
     final CommandNode links = new CommandNode("Links");
-    links.add(new CommandNode("Apache", null, null, "https://www.apache.org/"));
-    links.add(new CommandNode("MyFaces", null, null, "https://myfaces.apache.org/"));
-    links.add(new CommandNode("Tobago", null, null, "https://myfaces.apache.org/tobago/"));
+    links.add(new CommandNode("Apache", null, "https://www.apache.org/"));
+    links.add(new CommandNode("MyFaces", null, "https://myfaces.apache.org/"));
+    links.add(new CommandNode("Tobago", null, "https://myfaces.apache.org/tobago/"));
     root.add(links);
 
     return root;

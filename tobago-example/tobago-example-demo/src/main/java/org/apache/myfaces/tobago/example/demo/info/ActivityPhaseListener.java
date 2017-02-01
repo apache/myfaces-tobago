@@ -20,7 +20,6 @@
 package org.apache.myfaces.tobago.example.demo.info;
 
 import org.apache.deltaspike.jsf.api.listener.phase.JsfPhaseListener;
-import org.apache.myfaces.tobago.ajax.AjaxUtils;
 
 import javax.faces.context.FacesContext;
 import javax.faces.event.PhaseEvent;
@@ -43,7 +42,7 @@ public class ActivityPhaseListener implements PhaseListener {
     final FacesContext facesContext = event.getFacesContext();
     final String sessionId = ((HttpSession) facesContext.getExternalContext().getSession(true)).getId();
 
-    if (AjaxUtils.isAjaxRequest(facesContext)) {
+    if (facesContext.getPartialViewContext().isAjaxRequest()) {
       activityList.executeAjaxRequest(sessionId);
     } else {
       activityList.executeJsfRequest(sessionId);

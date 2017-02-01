@@ -24,16 +24,16 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns="http://www.w3.org/1999/xhtml">
   <f:view locale="#{clientConfigController.locale}">
-    <tc:page applicationIcon="icon/favicon.ico" label="#{overviewBundle.pageTitle} - #{title}" id="page">
+    <tc:page applicationIcon="#{request.contextPath}/icon/favicon.ico" label="#{demoBundle.pageTitle} - #{title}" id="page">
 
       <!--
             <tc:dataAttribute name="tobago-log-level" value="DEBUG"/>
       -->
 
-      <tc:script file="script/demo.js"/>
-      <tc:script file="script/prism.js"/>
-      <tc:style file="style/demo.css"/>
-      <tc:style file="style/prism.css"/>
+      <tc:script file="#{request.contextPath}/script/demo.js"/>
+      <tc:script file="#{request.contextPath}/script/prism.js"/>
+      <tc:style file="#{request.contextPath}/style/demo.css"/>
+      <tc:style file="#{request.contextPath}/style/prism.css"/>
 
       <ui:include src="/menu.xhtml"/>
 
@@ -52,7 +52,9 @@
             </tc:panel>
 
             <tc:box label="#{title}" id="content">
-              <ui:insert/>
+              <tc:form id="mainForm">
+                <ui:insert/>
+              </tc:form>
             </tc:box>
 
           </tc:flexLayout>
@@ -68,7 +70,7 @@
       </tc:segmentLayout>
 
       <tc:footer fixed="true">
-        © 2016 Apache Software Foundation, Licensed under the <a
+        © 2017 Apache Software Foundation, Licensed under the <a
           href="http://www.apache.org/licenses/LICENSE-2.0">Apache License, Version 2.0</a>.
       </tc:footer>
 

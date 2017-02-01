@@ -27,10 +27,16 @@ import java.io.Serializable;
 
 @Named
 public class ButtonLinkController implements Serializable {
-  private static final Logger LOG = LoggerFactory.getLogger(Command.class);
+
+  private static final Logger LOG = LoggerFactory.getLogger(ButtonLinkController.class);
 
   public String linkToComponentsRoot() {
     LOG.info("link to components root");
     return "/content/20-component/component.xhtml";
+  }
+
+  public String actionPage() {
+    LOG.info("link to components root");
+    return "/content/40-test/4000-button+link/x-action.xhtml";
   }
 }

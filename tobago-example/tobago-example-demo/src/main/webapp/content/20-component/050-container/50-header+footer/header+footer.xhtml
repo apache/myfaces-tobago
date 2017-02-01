@@ -21,43 +21,25 @@
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
                 xmlns:ui="http://java.sun.com/jsf/facelets">
-  <ui:param name="title" value="#{overviewBundle.header_footer} &lt;tc:header> &lt;tc:footer>"/>
+  <ui:param name="title" value="#{demoBundle.header_footer} &lt;tc:header> &lt;tc:footer>"/>
   <p>A header / footer can be set via the <code class="language-markup">&lt;tc:header/></code>
     respectively <code class="language-markup">&lt;tc:footer/></code> tag.</p>
 
   <tc:section label="Basics">
-    <p>In this simple example, a header and a footer are set.
-      By default the value of the <code>fixed</code> attribute is 'false'.
-      The content of the header, footer and the content between are wrapped in
-      <code class="language-markup">&lt;tc:box/></code> tags. The content boxes don't have a label, but a border.
-    </p>
-    <tc:header>
-      <tc:box>
-        <p>This is the header.</p>
-      </tc:box>
-    </tc:header>
-    <tc:box>
-      <p>This is the content between header and footer.</p>
-    </tc:box>
-    <tc:footer>
-      <tc:box>
-        <p>This is the footer.</p>
-      </tc:box>
-    </tc:footer>
-  </tc:section>
-
-  <tc:section label="Header">
-    <p>The header on this site is fixed.
-      It contain the feather icon, the toolbar and the searchbar with the buttons on the right.</p>
+    <p>In this simple example, a <code class="language-markup">&lt;tc:object/></code> show a page with a fixed
+      header and footer. Also you can access this site in a
+      <tc:link label="new tab" link="x-header-footer-example.xhtml" target="_blank"/>.</p>
     <pre><code class="language-markup">&lt;tc:header fixed="true">
-  ...</code></pre>
-  </tc:section>
-
-  <tc:section label="Footer">
-    <p>The footer on this site is fixed.</p>
-    <pre><code class="language-markup">&lt;tc:footer fixed="true">
-  © 2016 Apache Software Foundation, Licensed under the &lt;a
-    href="http://www.apache.org/licenses/LICENSE-2.0">Apache License, Version 2.0&lt;/a>.
+  &lt;tc:style customClass="bg-inverse"/>
+    &lt;p>This is the header.&lt;/p>
+  &lt;/tc:header>
+  &lt;p>Content between header and footer.&lt;/p>
+  ...
+  &lt;tc:footer fixed="true">
+    &lt;p>This is the footer.&lt;/p>
 &lt;/tc:footer></code></pre>
+    <tc:object src="x-header-footer-example.xhtml">
+      <tc:style height="300px" width="100%"/>
+    </tc:object>
   </tc:section>
 </ui:composition>

@@ -39,7 +39,8 @@ var initInspect = function (elements) {
 
   jQuery("code").find("br").replaceWith("\n");
 
-  var tobagoElements = Tobago.Utils.selectWithJQuery(elements, ".tobago-in,.tobago-out,.tobago-date");
+  // var tobagoElements = Tobago.Utils.selectWithJQuery(elements, ".tobago-in,.tobago-out,.tobago-date");
+  var tobagoElements = Tobago.Utils.selectWithJQuery(elements, ".tobago-flexLayout");
 
   tobagoElements = tobagoElements.filter(function () {
     return jQuery(this).parents("#page\\:content").length == 1;
@@ -69,18 +70,39 @@ var initInspect = function (elements) {
 Tobago.registerListener(initInspect, Tobago.Phase.DOCUMENT_READY);
 Tobago.registerListener(initInspect, Tobago.Phase.AFTER_UPDATE);
 
+var initTestButtons = function () {
+  var $runButton = jQuery("#page\\:navbtns\\:runtest");
+  var $closeButton = jQuery("#page\\:navbtns\\:closetest");
+
+  if (jQuery(parent.document.getElementById("qunit")).length) {
+    $runButton.hide();
+    $closeButton.attr("onclick", "window.top.location.href = location.href");
+  } else {
+    $closeButton.hide();
+  }
+};
+
+Tobago.registerListener(initTestButtons, Tobago.Phase.DOCUMENT_READY);
+Tobago.registerListener(initTestButtons, Tobago.Phase.AFTER_UPDATE);
+
+var initTestframe = function () {
+  jQuery("#page\\:testframe").attr("onload", "this.height = this.contentWindow.jQuery('body').prop('scrollHeight');");
+};
+
+Tobago.registerListener(initTestframe, Tobago.Phase.DOCUMENT_READY);
+Tobago.registerListener(initTestframe, Tobago.Phase.AFTER_UPDATE);
+
 Demo = {};
 
 /**
  * Copies the values from the data-login attribute to the username/password fields.
  */
 Demo.prepareQuickLinks = function() {
-  jQuery("a[data-login]").click(function() {
+  jQuery("button[data-login]").click(function() {
     var link = jQuery(this);
     var login = link.data("login");
-    jQuery(Tobago.Utils.escapeClientId("page:username")).find("input").val(login.username);
-    jQuery(Tobago.Utils.escapeClientId("page:password")).find("input").val(login.password);
-    jQuery(Tobago.Utils.escapeClientId("page:login")).click();
+    jQuery(Tobago.Utils.escapeClientId("page:mainForm:username::field")).val(login.username);
+    jQuery(Tobago.Utils.escapeClientId("page:mainForm:password::field")).val(login.password);
     return false;
   });
 };

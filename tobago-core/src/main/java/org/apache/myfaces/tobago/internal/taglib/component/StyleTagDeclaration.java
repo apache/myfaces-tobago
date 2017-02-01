@@ -33,10 +33,8 @@ import org.apache.myfaces.tobago.layout.TextAlign;
 
 /**
  * <p>
- * Add a style tag with the given file name.
- * </p>
- * <p>
- * Remark: Inline styles are deprecated because of CSP.
+ * Add a style tag with the given file name to the header (using file attribute) or add
+ * some CSS styles to the parent component.
  * </p>
  */
 @Tag(name = "style")
@@ -44,13 +42,14 @@ import org.apache.myfaces.tobago.layout.TextAlign;
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIStyle",
     componentFamily = "org.apache.myfaces.tobago.Style",
-    uiComponentFacesClass = "javax.faces.component.UIComponentBase",
     rendererType = RendererTypes.STYLE,
     allowedChildComponenents = "NONE")
 public interface StyleTagDeclaration extends HasIdBindingAndRendered {
 
   /**
-   * Name of the stylesheet file to add to page.
+   * Name of the stylesheet file to add to page. The name must be full qualified, or relative.
+   * If using a complete path from root, you'll need to add the contextPath from the web application.
+   * This can be done with the EL #{request.contextPath}.
    */
   @TagAttribute()
   @UIComponentTagAttribute()
@@ -255,13 +254,15 @@ public interface StyleTagDeclaration extends HasIdBindingAndRendered {
    * {@link TextAlign#right},
    * {@link TextAlign#center} and
    * {@link TextAlign#justify}.
+   *
    * @since 3.0.0
    */
-  @TagAttribute()
+  @TagAttribute
   @UIComponentTagAttribute(
       type = {"org.apache.myfaces.tobago.layout.TextAlign"},
       allowedValues = {
-          TextAlign.STRING_LEFT, TextAlign.STRING_RIGHT, TextAlign.STRING_CENTER, TextAlign.STRING_JUSTIFY})
+          TextAlign.LEFT, TextAlign.RIGHT, TextAlign.CENTER, TextAlign.JUSTIFY
+      })
   void setTextAlign(String textAlign);
 
 }

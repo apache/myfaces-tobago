@@ -57,7 +57,6 @@ public class TobagoConfigParser extends TobagoConfigEntityResolver {
   private static final int THEME_CONFIG = 1930630086;
   private static final int DEFAULT_THEME = -114431171;
   private static final int SUPPORTED_THEME = -822303766;
-  private static final int RESOURCE_DIR = -385546674;
   private static final int CREATE_SESSION_SECRET = 413906616;
   private static final int CHECK_SESSION_SECRET = 275994924;
   private static final int PREVENT_FRAME_ATTACKS = 270456726;
@@ -71,7 +70,6 @@ public class TobagoConfigParser extends TobagoConfigEntityResolver {
   private static final int THEME_DEFINITIONS = -255617156;
   private static final int THEME_DEFINITION = 1515774935;
   private static final int DISPLAY_NAME = 1568910518;
-  private static final int RESOURCE_PATH = 933304964;
   private static final int FALLBACK = 761243362;
   private static final int VERSIONED = -1407102089;
   private static final int RESOURCES = -1983070683;
@@ -82,7 +80,6 @@ public class TobagoConfigParser extends TobagoConfigEntityResolver {
   private static final int STYLE = 109780401;
   private static final int PROPERTIES = -926053069;
   private static final int ENTRY = 96667762;
-  private static final int AUTO_ACCESS_KEY_FROM_LABEL = 2070339882;
   private static final int MIME_TYPES = 1081186720;
   private static final int MIME_TYPE = -242217677;
   private static final int EXTENSION = -612557761;
@@ -230,7 +227,6 @@ public class TobagoConfigParser extends TobagoConfigEntityResolver {
       case ORDERING:
       case BEFORE:
       case AFTER:
-      case RESOURCE_DIR:
       case THEME_CONFIG:
       case DEFAULT_THEME:
       case SUPPORTED_THEME:
@@ -243,12 +239,10 @@ public class TobagoConfigParser extends TobagoConfigEntityResolver {
       case DIRECTIVE:
       case THEME_DEFINITIONS:
       case DISPLAY_NAME:
-      case RESOURCE_PATH:
       case VERSIONED:
       case FALLBACK:
       case SANITIZER:
       case SANITIZER_CLASS:
-      case AUTO_ACCESS_KEY_FROM_LABEL:
       case MIME_TYPES:
       case MIME_TYPE:
       case EXTENSION:
@@ -316,10 +310,6 @@ public class TobagoConfigParser extends TobagoConfigEntityResolver {
         tobagoConfig.addSupportedThemeName(text);
         break;
 
-      case RESOURCE_DIR:
-        tobagoConfig.addResourceDir(text);
-        break;
-
       case CREATE_SESSION_SECRET:
         tobagoConfig.setCreateSessionSecret(text);
         break;
@@ -346,10 +336,6 @@ public class TobagoConfigParser extends TobagoConfigEntityResolver {
 
       case DISPLAY_NAME:
         currentTheme.setDisplayName(text);
-        break;
-
-      case RESOURCE_PATH:
-        currentTheme.setResourcePath(text);
         break;
 
       case FALLBACK:
@@ -386,10 +372,6 @@ public class TobagoConfigParser extends TobagoConfigEntityResolver {
       case ENTRY:
         properties.setProperty(entryKey, text);
         entryKey = null;
-        break;
-
-      case AUTO_ACCESS_KEY_FROM_LABEL:
-        tobagoConfig.setAutoAccessKeyFromLabel(Boolean.parseBoolean(text));
         break;
 
       case EXTENSION:

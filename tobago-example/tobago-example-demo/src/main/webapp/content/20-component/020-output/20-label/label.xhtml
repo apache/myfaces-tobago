@@ -21,11 +21,11 @@
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
                 xmlns:ui="http://java.sun.com/jsf/facelets">
-  <ui:param name="title" value="#{overviewBundle.label} &lt;tc:label&gt;"/>
+  <ui:param name="title" value="#{demoBundle.label} &lt;tc:label&gt;"/>
   <p>With <code class="language-markup">&lt;tc:label/></code>, a single label can be created.
     Some components already have a <code>label</code> attribute to combine it with a label,
     which should be used in general.</p>
-  <tc:link label="Tag Library Documentation" image="image/feather-leaf.png" link="#{overviewBundle.tagDocUrl}/label.html"/>
+  <tc:link label="Tag Library Documentation" image="#{request.contextPath}/image/feather-leaf.png" link="#{demoBundle.tagDocUrl}/#{info.stableVersion}/tld/tc/label.html"/>
   <tc:section label="Basics">
     <pre><code class="language-markup">&lt;tc:label value="Single Label"/&gt;</code></pre>
     <tc:label id="l1" value="Single Label"/>

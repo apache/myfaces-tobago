@@ -19,11 +19,13 @@
 
 package org.apache.myfaces.tobago.internal.taglib.component;
 
+import org.apache.myfaces.tobago.apt.annotation.Behavior;
 import org.apache.myfaces.tobago.apt.annotation.Facet;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
+import org.apache.myfaces.tobago.component.ClientBehaviors;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasBinding;
@@ -34,7 +36,15 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
 import javax.faces.component.UIForm;
 
 /**
+ * <p>
  * Renders a page element.
+ * </p>
+ * <p>
+ * The markup {@link org.apache.myfaces.tobago.context.Markup#SPREAD}
+ * means the page should spread over the hole available area.
+ * So the content will use the full height of the browser window.
+ * <b>Warning: This feature is preliminary and may change, if necessary, in minor releases!</b>
+ * </p>
  */
 @Tag(name = "page")
 @UIComponentTag(
@@ -44,17 +54,19 @@ import javax.faces.component.UIForm;
     componentFamily = UIForm.COMPONENT_FAMILY,
     rendererType = RendererTypes.PAGE,
     facets =
-        { @Facet(name = Facets.ACTION,
-                description ="Contains an instance of UICommand (tc:command) for an auto-action",
-                allowedChildComponenents = "org.apache.myfaces.tobago.Command"),
-          @Facet(name = Facets.RESIZE,
-                description ="Contains an instance of UICommand which will be executed when the"
-                    + "size of the user agent was changed. Typically a <tc:command immediate='true' />",
-                allowedChildComponenents = {"org.apache.myfaces.tobago.Command", "org.apache.myfaces.tobago.Form"}),
-          @Facet(name = Facets.MENUBAR, description = "Menubar",
-                allowedChildComponenents = "javax.faces.component.UIPanel"), //fake
-          @Facet(name=Facets.LAYOUT, description = "Deprecated. Contains an layout manager. "
-              + "The layout manager tag should surround the content instead.")})
+        { @Facet(name=Facets.LAYOUT, description = "Deprecated! Contains an layout manager. "
+              + "The layout manager tag should surround the content instead.")},
+    behaviors = {
+        @Behavior(
+            name = ClientBehaviors.CLICK,
+            isDefault = true),
+        @Behavior(
+            name = ClientBehaviors.DBLCLICK),
+        @Behavior(
+            name = ClientBehaviors.LOAD),
+        @Behavior(
+            name = ClientBehaviors.RESIZE)
+    })
 
 public interface PageTagDeclaration
     extends HasLabel, HasId, HasBinding, IsVisual {

@@ -23,43 +23,32 @@
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns="http://www.w3.org/1999/xhtml">
   <ui:param name="title" value="Partial Update (AJAX)"/>
-  <tc:panel id="parent">
-    <f:facet name="layout">
-      <tc:gridLayout rows="20px;200px;*;auto"/>
-    </f:facet>
+  <tc:gridLayout id="parent" rows="20px;200px;*;auto">
 
     <tc:out value="Demonstration and test of partial reload"/>
 
     <tc:style file="content/50-partial/partial.css"/>
 
-    <tc:panel>
-      <f:facet name="layout">
-        <tc:gridLayout columns="1*;1*"/>
-      </f:facet>
+    <tc:gridLayout columns="1*;1*">
       <tc:box label="Left panel" id="left">
-        <f:facet name="layout">
-          <tc:gridLayout rows="auto;*"/>
-        </f:facet>
-        <tc:label value="Current seconds on server: "/>
-        <tc:out value="#{partialReloadController.currentDate}" markup="demoSeconds">
-          <f:convertDateTime pattern="ss:SSS"/>
-        </tc:out>
+        <tc:gridLayout rows="auto;*">
+          <tc:label value="Current seconds on server: "/>
+          <tc:out value="#{partialReloadController.currentDate}" markup="demoSeconds">
+            <f:convertDateTime pattern="ss:SSS"/>
+          </tc:out>
+        </tc:gridLayout>
       </tc:box>
       <tc:box label="Right panel" id="right">
-        <f:facet name="layout">
-          <tc:gridLayout rows="auto;*"/>
-        </f:facet>
-        <tc:label value="Current seconds on server: "/>
-        <tc:out value="#{partialReloadController.currentDate}" markup="demoSeconds">
-          <f:convertDateTime pattern="ss:SSS"/>
-        </tc:out>
+        <tc:gridLayout rows="auto;*">
+          <tc:label value="Current seconds on server: "/>
+          <tc:out value="#{partialReloadController.currentDate}" markup="demoSeconds">
+            <f:convertDateTime pattern="ss:SSS"/>
+          </tc:out>
+        </tc:gridLayout>
       </tc:box>
-    </tc:panel>
+    </tc:gridLayout>
 
-    <tc:panel>
-      <f:facet name="layout">
-        <tc:flowLayout/>
-      </f:facet>
+    <tc:flowLayout>
       <ul>
         <li>Click on 'Reload Left' button to reload the left panel."</li>
         <li>Click on 'Reload Right' button to reload the right panel."</li>
@@ -72,59 +61,59 @@
           </ul>
         </li>
       </ul>
-    </tc:panel>
+    </tc:flowLayout>
 
-    <tc:panel>
-      <f:facet name="layout">
-        <tc:gridLayout columns="*;205px;*"/>
-      </f:facet>
+    <tc:gridLayout columns="*;205px;*">
 
       <tc:panel/>
 
-      <tc:panel>
-        <f:facet name="layout">
-          <tc:gridLayout columns="*;*" rows="auto;auto;auto;auto;auto;auto;auto"/>
-        </f:facet>
+      <tc:gridLayout columns="*;*" rows="auto;auto;auto;auto;auto;auto;auto;auto">
 
-        <!--renderedPartially="left :page:header:headerInfo"-->
         <tc:button label="Reload left" tip="Reload left side box"
                    action="#{partialReloadController.reload}">
           <f:ajax render="left :page:header:headerInfo"/>
         </tc:button>
 
         <tc:button label="Reload right" tip="Reload right side box"
-                   action="#{partialReloadController.reload}" renderedPartially="right :page:header:headerInfo"/>
+                   action="#{partialReloadController.reload}">
+          <f:ajax render="right :page:header:headerInfo"/>
+        </tc:button>
 
         <tc:button label="Reload both" tip="Reload both boxes"
-                   action="#{partialReloadController.reload}" renderedPartially="left right :page:header:headerInfo">
-          <tc:gridLayoutConstraint columnSpan="2"/>
+                   action="#{partialReloadController.reload}">
+          <f:ajax render="left right :page:header:headerInfo"/>
+          <tc:span column="2"/>
         </tc:button>
 
         <tc:button label="Reload full panel"
                    tip="Reload the full area inside the outer box"
-                   action="#{partialReloadController.reload}" renderedPartially="parent :page:header:headerInfo">
-          <tc:gridLayoutConstraint columnSpan="2"/>
+                   action="#{partialReloadController.reload}">
+          <f:ajax render="parent :page:header:headerInfo"/>
+          <tc:span column="2"/>
         </tc:button>
 
         <tc:button label="Reload both (wait 3 s)"
                    tip="Reload both boxes, but the server has a delay of 3 seconds"
-                   action="#{partialReloadController.waitAndReload3}" renderedPartially="left right :page:header:headerInfo">
-          <tc:gridLayoutConstraint columnSpan="2"/>
+                   action="#{partialReloadController.waitAndReload3}">
+          <f:ajax render="left right :page:header:headerInfo"/>
+          <tc:span column="2"/>
         </tc:button>
 
         <tc:button label="Reload both (wait 7 s, timeout)"
                    tip="Reload both boxes, but the server has a delay of 7 seconds, this is more than the default timeout for AJAX"
-                   action="#{partialReloadController.waitAndReload7}" renderedPartially="left right :page:header:headerInfo">
-          <tc:gridLayoutConstraint columnSpan="2"/>
+                   action="#{partialReloadController.waitAndReload7}">
+          <f:ajax render="left right :page:header:headerInfo"/>
+          <tc:span column="2"/>
         </tc:button>
 
         <tc:panel id="navTest">
-          <tc:gridLayoutConstraint columnSpan="2"/>
+          <tc:span column="2"/>
 
-          <tc:selectOneChoice fieldId="navSelect" value="#{partialReloadController.navigateAction}" label="On Change">
-            <f:facet name="change">
-              <tc:command action="#{partialReloadController.navigateAction}" renderedPartially="navTest :page:header:headerInfo"/>
-            </f:facet>
+          <tc:selectOneChoice fieldId="navSelect" value="#{partialReloadController.navigateActionValue}"
+                              label="On Change">
+            <f:ajax execute="navTest"
+                    render="navTest :page:header:headerInfo"
+                    listener="#{partialReloadController.navigateAction}"/>
             <f:selectItem itemLabel="Select action" itemValue=""/>
             <f:selectItem itemLabel="Reload left" itemValue="left"/>
             <f:selectItem itemLabel="Reload right" itemValue="right"/>
@@ -137,15 +126,19 @@
         </tc:panel>
 
         <tc:button label="Error left" tip="Reload left side box, but an exception occures"
-                   action="#{partialReloadController.error}" renderedPartially="left :page:header:headerInfo"/>
+                   action="#{partialReloadController.error}">
+          <f:ajax render="left :page:header:headerInfo"/>
+        </tc:button>
 
         <tc:button label="Error right" tip="Reload right side box, but an exception occures"
-                   action="#{partialReloadController.error}" renderedPartially="right :page:header:headerInfo"/>
+                   action="#{partialReloadController.error}">
+          <f:ajax render="right :page:header:headerInfo"/>
+        </tc:button>
 
-      </tc:panel>
+      </tc:gridLayout>
 
       <tc:panel/>
 
-    </tc:panel>
-  </tc:panel>
+    </tc:gridLayout>
+  </tc:gridLayout>
 </ui:composition>

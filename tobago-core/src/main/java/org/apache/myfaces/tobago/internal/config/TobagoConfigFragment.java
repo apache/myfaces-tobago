@@ -40,7 +40,6 @@ public class TobagoConfigFragment {
 
   private List<String> supportedThemeNames;
   private String defaultThemeName;
-  private List<String> resourceDirs;
   private RenderersConfig renderersConfig;
   private Boolean createSessionSecret;
   private Boolean checkSessionSecret;
@@ -51,14 +50,12 @@ public class TobagoConfigFragment {
   private URL url;
   private String sanitizerClass;
   private Properties sanitizerProperties;
-  private Boolean autoAccessKeyFromLabel;
   private Map<String, String> mimeTypes;
 
   public TobagoConfigFragment() {
     before = new ArrayList<String>();
     after = new ArrayList<String>();
     supportedThemeNames = new ArrayList<String>();
-    resourceDirs = new ArrayList<String>();
     themeDefinitions = new ArrayList<ThemeImpl>();
     mimeTypes = new HashMap<String, String>();
   }
@@ -77,19 +74,6 @@ public class TobagoConfigFragment {
 
   public void setDefaultThemeName(final String defaultThemeName) {
     this.defaultThemeName = defaultThemeName;
-  }
-
-  public void addResourceDir(final String resourceDir) {
-    if (!resourceDirs.contains(resourceDir)) {
-      if (LOG.isInfoEnabled()) {
-        LOG.info("adding resourceDir = '{}'", resourceDir);
-      }
-      resourceDirs.add(resourceDir);
-    }
-  }
-
-  public List<String> getResourceDirs() {
-    return resourceDirs;
   }
 
   public RenderersConfig getRenderersConfig() {
@@ -194,14 +178,6 @@ public class TobagoConfigFragment {
 
   public void setSanitizerProperties(Properties sanitizerProperties) {
     this.sanitizerProperties = sanitizerProperties;
-  }
-
-  public Boolean getAutoAccessKeyFromLabel() {
-    return autoAccessKeyFromLabel;
-  }
-
-  public void setAutoAccessKeyFromLabel(Boolean autoAccessKeyFromLabel) {
-    this.autoAccessKeyFromLabel = autoAccessKeyFromLabel;
   }
 
   public void addMimeType(String extension, String type) {

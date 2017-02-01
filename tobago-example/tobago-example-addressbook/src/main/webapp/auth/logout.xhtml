@@ -20,7 +20,6 @@
 <f:view xmlns:tc="http://myfaces.apache.org/tobago/component"
         xmlns:f="http://java.sun.com/jsf/core"
         locale="#{controller.language}">
-  <tc:loadBundle basename="resource" var="bundle"/>
 
   <tc:page label="#{bundle.loginLogoutTitle}">
     <f:facet name="layout">
@@ -28,7 +27,7 @@
     </f:facet>
 
     <tc:panel>
-      <tc:gridLayoutConstraint columnSpan="3"/>
+      <tc:span column="3"/>
     </tc:panel>
 
     <tc:panel/>
@@ -50,7 +49,7 @@
     <tc:panel/>
 
     <tc:panel>
-      <tc:gridLayoutConstraint columnSpan="3"/>
+      <tc:span column="3"/>
     </tc:panel>
 
   </tc:page>

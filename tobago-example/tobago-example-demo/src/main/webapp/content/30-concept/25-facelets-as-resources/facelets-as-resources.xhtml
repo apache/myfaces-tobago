@@ -23,15 +23,11 @@
                 xmlns:f="http://java.sun.com/jsf/core">
   <ui:param name="title" value="Loading Facelets from JARs"/>
   <tc:panel>
-    <f:facet name="layout">
-      <tc:gridLayout rows="2*;7*"/>
-    </f:facet>
-
-    <tc:out value="#{overviewBundle.faceletsAsResources_text}"/>
+    <tc:out value="#{demoBundle.faceletsAsResources_text}"/>
 
     <tc:box label="This content is included from a JAR.">
 
-      <ui:include src="/data/edit-solar.xhtml" />
+      <ui:include src="/data/edit-solar.xhtml"/>
 
     </tc:box>
   </tc:panel>

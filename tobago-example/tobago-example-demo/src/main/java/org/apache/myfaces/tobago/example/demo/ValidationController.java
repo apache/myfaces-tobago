@@ -22,6 +22,7 @@ package org.apache.myfaces.tobago.example.demo;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
+import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
 import javax.faces.validator.ValidatorException;
 import javax.inject.Named;
@@ -39,6 +40,22 @@ public class ValidationController implements Serializable {
     if (!"tobago".equalsIgnoreCase(value.toString())) {
       throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, "Please type in 'Tobago'",
               "Please type in 'Tobago'"));
+    }
+  }
+
+  public void passwordValidator(FacesContext context, UIComponent component, Object value) throws ValidatorException {
+    String password = value.toString();
+
+    UIInput confirmationField = (UIInput) component.getAttributes().get("confirmationField");
+    String confirmationFieldValue = confirmationField.getSubmittedValue().toString();
+
+    if (password.isEmpty() || confirmationFieldValue.isEmpty()) {
+      return;
+    }
+
+    if (!password.equals(confirmationFieldValue)) {
+      confirmationField.setValid(false);
+      throw new ValidatorException(new FacesMessage("Passwords must match."));
     }
   }
 }

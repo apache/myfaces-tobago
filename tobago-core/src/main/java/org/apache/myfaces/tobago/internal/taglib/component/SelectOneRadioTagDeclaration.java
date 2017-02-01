@@ -19,19 +19,19 @@
 
 package org.apache.myfaces.tobago.internal.taglib.component;
 
+import org.apache.myfaces.tobago.apt.annotation.Behavior;
 import org.apache.myfaces.tobago.apt.annotation.BodyContentDescription;
-import org.apache.myfaces.tobago.apt.annotation.Facet;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
-import org.apache.myfaces.tobago.component.Facets;
+import org.apache.myfaces.tobago.component.ClientBehaviors;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasBinding;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasConverter;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasConverterMessage;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasId;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasInputLabel;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabel;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabelLayout;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasRenderRange;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasRequiredMessage;
@@ -65,20 +65,23 @@ import javax.faces.component.UISelectOne;
         "javax.faces.SelectItem",
         "javax.faces.SelectItems"
         },
-    facets = {
-    @Facet(name= Facets.CLICK,
-        description =
-            "This facet can contain a UICommand that is invoked in case of a click event from the component",
-        allowedChildComponenents = "org.apache.myfaces.tobago.Command"),
-    @Facet(name=Facets.CHANGE,
-        description =
-            "This facet can contain a UICommand that is invoked in case of a change event from the component",
-        allowedChildComponenents = "org.apache.myfaces.tobago.Command")
-        })
+    behaviors = {
+        @Behavior(
+            name = ClientBehaviors.CHANGE,
+            isDefault = true),
+        @Behavior(
+            name = ClientBehaviors.CLICK),
+        @Behavior(
+            name = ClientBehaviors.DBLCLICK),
+        @Behavior(
+            name = ClientBehaviors.FOCUS),
+        @Behavior(
+            name = ClientBehaviors.BLUR)
+    })
 public interface SelectOneRadioTagDeclaration
     extends HasValidator, HasValue, HasValueChangeListener, HasTabIndex, IsFocus, IsVisual,
     HasValidatorMessage, HasConverterMessage, HasRequiredMessage, IsDisabled, IsReadonly, HasId, HasTip, IsInline,
-    HasRenderRange, IsRendered, HasBinding, HasConverter, HasInputLabel, HasLabelLayout {
+    HasRenderRange, IsRendered, HasBinding, HasConverter, HasLabel, HasLabelLayout {
 
   /**
    * Flag indicating that selecting an Item representing a Value is Required.

@@ -18,7 +18,6 @@
 
 <f:view
     xmlns:tc="http://myfaces.apache.org/tobago/component"
-    xmlns:tx="http://myfaces.apache.org/tobago/extension"
     xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:f="http://java.sun.com/jsf/core">
 
@@ -34,7 +33,7 @@
       <tc:gridLayoutConstraint width="100px" height="106px"/>
     </tc:image>
 
-    <tx:in label="Counter:" value="#{reload.counter}" readonly="true"/>
+    <tc:in label="Counter:" value="#{reload.counter}" readonly="true"/>
 
     <tc:button label="submit" action="#{reload.isReload}"/>
 

@@ -45,7 +45,9 @@ import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.internal.util.Deprecation;
 import javax.el.ELException;
 import javax.faces.FacesException;
+import java.util.Arrays;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import javax.el.MethodExpression;
 import javax.el.ValueExpression;
@@ -73,6 +75,22 @@ public class <componentInfo.className>
   <endif>
   <if(componentInfo.componentFamily)>
   public static final String COMPONENT_FAMILY = "<componentInfo.componentFamily>";
+
+  <endif>
+  <if(componentInfo.behaviors)>
+  private static final Collection\<String\> EVENT_NAMES = Arrays.asList(<first(componentInfo.behaviors):{ it | "<it>"}><rest(componentInfo.behaviors):{ it |, "<it>"}>);
+
+  @Override
+  public Collection\<String\> getEventNames() {
+    return EVENT_NAMES;
+  }
+
+  <endif>
+  <if(componentInfo.defaultBehavior)>
+  @Override
+  public String getDefaultEventName() {
+    return "<componentInfo.defaultBehavior>";
+  }
 
   <endif>
   <componentInfo.transientProperties:field(); separator="\n">
@@ -330,6 +348,10 @@ SanitizeModeProperty(property) ::= <<
 <NormalProperty(property)>
 >>
 
+CollapseModeProperty(property) ::= <<
+<NormalProperty(property)>
+>>
+
 ShowPositionProperty(property) ::= <<
 <NormalProperty(property)>
 >>
@@ -354,6 +376,10 @@ AlignItemsProperty(property) ::= <<
 <NormalProperty(property)>
 >>
 
+JustifyContentProperty(property) ::= <<
+<NormalProperty(property)>
+>>
+
 SwitchTypeProperty(property) ::= <<
 <NormalProperty(property)>
 >>
@@ -371,6 +397,10 @@ ColumnPartitionProperty(property) ::= <<
 >>
 
 LabelLayoutProperty(property) ::= <<
+<NormalProperty(property)>
+>>
+
+ClientBehaviorsProperty(property) ::= <<
 <NormalProperty(property)>
 >>
 
@@ -541,6 +571,10 @@ public void set<property.upperCamelCaseName>(<property.type> <property.propertyN
 >>
 
 enumName() ::= <<
+<it.propertyName>,
+>>
+
+strings() ::= <<
 <it.propertyName>,
 >>
 

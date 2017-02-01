@@ -144,7 +144,6 @@ public class HtmlResponseWriter extends TobagoResponseWriterBase {
   public void startDocument() throws IOException {
     getWriter().write(HTML_DOCTYPE);
     getWriter().write('\n');
-    startElement(HtmlElements.HTML);
   }
 
   @Override
@@ -163,7 +162,5 @@ public class HtmlResponseWriter extends TobagoResponseWriterBase {
 
   @Override
   public void endDocument() throws IOException {
-
-    endElement(HtmlElements.HTML);
   }
 }

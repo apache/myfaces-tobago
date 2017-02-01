@@ -19,9 +19,6 @@
 
 package org.apache.myfaces.tobago.webapp;
 
-import org.apache.myfaces.tobago.ajax.AjaxUtils;
-import org.apache.myfaces.tobago.internal.util.StringUtils;
-import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.CssItem;
 import org.apache.myfaces.tobago.renderkit.css.FontAwesomeIconEncoder;
 import org.apache.myfaces.tobago.renderkit.css.IconEncoder;
@@ -34,7 +31,6 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlTypes;
 import org.apache.myfaces.tobago.renderkit.html.MarkupLanguageAttributes;
 
 import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import java.io.IOException;
 import java.io.Writer;
@@ -153,54 +149,75 @@ public abstract class TobagoResponseWriter extends ResponseWriter {
 
   /**
    * Write the class attribute. The value will not escaped.
-   * @param classes The abstract representation of the css class string, normally created by the renderer.
    */
-  public void writeClassAttribute(final Classes classes) throws IOException {
-    final String stringValue = classes.getStringValue();
-    if (StringUtils.isNotBlank(stringValue)) {
-      writeAttribute(HtmlAttributes.CLASS, stringValue, false);
-    }
-  }
-
   public void writeClassAttribute(final CssItem first) throws IOException {
-    writeClassAttribute(first, null, NO_CSS_ITEMS);
-  }
-
-  public void writeClassAttribute(final CssItem first, final CssItem second) throws IOException {
-    writeClassAttribute(first, second, NO_CSS_ITEMS);
-  }
-
-  public void writeClassAttribute(final CssItem first, final CssItem second, final CssItem... others)
-      throws IOException {
-    StringBuilder builder = new StringBuilder();
     if (first != null) {
+      // todo: optimize me, do not use StringBuilder
+      final StringBuilder builder = new StringBuilder();
       builder.append(first.getName());
       builder.append(' ');
-    }
-    if (second != null) {
-      builder.append(second.getName());
-      builder.append(' ');
-    }
-    for (CssItem other : others) {
-      if (other != null) {
-        builder.append(other.getName());
-        builder.append(' ');
-      }
-    }
-    if (builder.length() > 0) {
       writeAttribute(HtmlAttributes.CLASS, builder.deleteCharAt(builder.length() - 1).toString(), false);
     }
   }
 
-  public void writeClassAttribute(final Classes classes, final CssItem... others) throws IOException {
-    StringBuilder builder = new StringBuilder(classes.getStringValue());
+  /**
+   * Write the command map data attribute.
+   */
+  public void writeCommandMapAttribute(final String map) throws IOException { // XXX use CommandMap instead of String
+    if (map != null) {
+      // XXX
+      writeAttribute(DataAttributes.COMMANDS, map, true);
+    }
+  }
+
+  /**
+   * Write the class attribute. The value will not escaped.
+   */
+  public void writeClassAttribute(final CssItem first, final CssItem second) throws IOException {
+    final StringBuilder builder = new StringBuilder();
+    boolean render = false;
+    if (first != null) {
+      builder.append(first.getName());
+      builder.append(' ');
+      render = true;
+    }
+    if (second != null) {
+      builder.append(second.getName());
+      builder.append(' ');
+      render = true;
+    }
+    if (render) {
+      writeAttribute(HtmlAttributes.CLASS, builder.deleteCharAt(builder.length() - 1).toString(), false);
+    }
+  }
+
+  /**
+   * Write the class attribute. The value will not escaped.
+   */
+  public void writeClassAttribute(final CssItem first, final CssItem second, final CssItem... others)
+      throws IOException {
+    final StringBuilder builder = new StringBuilder();
+    boolean render = false;
+    if (first != null) {
+      builder.append(first.getName());
+      builder.append(' ');
+      render = true;
+    }
+    if (second != null) {
+      builder.append(second.getName());
+      builder.append(' ');
+      render = true;
+    }
     for (CssItem other : others) {
       if (other != null) {
-        builder.append(' ');
         builder.append(other.getName());
+        builder.append(' ');
+        render = true;
       }
     }
-    writeAttribute(HtmlAttributes.CLASS, builder.toString(), false);
+    if (render) {
+      writeAttribute(HtmlAttributes.CLASS, builder.deleteCharAt(builder.length() - 1).toString(), false);
+    }
   }
 
   /**
@@ -210,11 +227,7 @@ public abstract class TobagoResponseWriter extends ResponseWriter {
     if (style != null) {
       final String json = style.encodeJson();
       if (json.length() > 2) { // empty "{}" needs not to be written
-        final FacesContext facesContext = FacesContext.getCurrentInstance();
-        writeAttribute(
-            DataAttributes.STYLE, json, style.needsToBeEscaped() || AjaxUtils.isAjaxRequest(facesContext));
-        // in case of AJAX we need to escape the " as long we use
-        // org.apache.myfaces.tobago.internal.webapp.JsonResponseWriter
+        writeAttribute(DataAttributes.STYLE, json, style.needsToBeEscaped());
       }
     }
   }

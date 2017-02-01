@@ -19,6 +19,7 @@
 
 package org.apache.myfaces.tobago.example.demo;
 
+import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.example.data.SolarObject;
 import org.apache.myfaces.tobago.model.SheetState;
 import org.apache.myfaces.tobago.util.ComponentUtils;
@@ -26,10 +27,17 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.enterprise.context.SessionScoped;
+import javax.faces.component.UIComponent;
 import javax.faces.component.UIData;
-import javax.faces.event.ActionEvent;
+import javax.faces.context.FacesContext;
+import javax.faces.convert.DateTimeConverter;
+import javax.faces.event.FacesEvent;
 import javax.inject.Named;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 @SessionScoped
@@ -39,15 +47,32 @@ public class SheetController implements Serializable {
   private static final Logger LOG = LoggerFactory.getLogger(SheetController.class);
 
   private List<SolarObject> solarList;
+  private List<SolarObject> hugeSolarList;
   private SheetState sheetState;
   private SolarObject selectedSolarObject;
+  private boolean automaticLayout;
+  private List<Markup> markup;
+  private int columnEventSample;
 
   public SheetController() {
     solarList = SolarObject.getList();
+
+    hugeSolarList = new ArrayList<SolarObject>();
+    for (int i = 1; i <= 12; i++) {
+      for (SolarObject solarObject : solarList) {
+        SolarObject solarObjectClone = new SolarObject(solarObject);
+        solarObjectClone.setName(solarObject.getName() + " (" + i + ". entry)");
+        hugeSolarList.add(solarObjectClone);
+      }
+    }
   }
 
   public List<SolarObject> getSolarList() {
     return solarList;
+  }
+
+  public List<SolarObject> getHugeSolarList() {
+    return hugeSolarList;
   }
 
   public SheetState getSheetState() {
@@ -58,7 +83,7 @@ public class SheetController implements Serializable {
     this.sheetState = sheetState;
   }
 
-  public void selectSolarObject(final ActionEvent actionEvent) {
+  public void selectSolarObject(final FacesEvent actionEvent) {
     LOG.info("actionEvent=" + actionEvent);
     final UIData data = ComponentUtils.findAncestor(actionEvent.getComponent(), UIData.class);
     if (data != null) {
@@ -70,12 +95,8 @@ public class SheetController implements Serializable {
     }
   }
 
-  public String getSelectedSolarObject() {
-    if (selectedSolarObject != null) {
-      return selectedSolarObject.getName();
-    } else {
-      return "Nothing selected";
-    }
+  public SolarObject getSelectedSolarObject() {
+    return selectedSolarObject;
   }
 
   public int getNumberOfSelections() {
@@ -88,5 +109,54 @@ public class SheetController implements Serializable {
     } else {
       return sheetState.getSelectedRows().get(0);
     }
+  }
+
+  public boolean isAutomaticLayout() {
+    return automaticLayout;
+  }
+
+  public void setAutomaticLayout(boolean automaticLayout) {
+    this.automaticLayout = automaticLayout;
+  }
+
+  public List<Markup> getMarkup() {
+    return markup;
+  }
+
+  public void setMarkup(List<Markup> markup) {
+    this.markup = markup;
+  }
+
+  public void setColumnEventSample(int columnEventSample) {
+    this.columnEventSample = columnEventSample;
+  }
+
+  public int getColumnEventSample() {
+    return columnEventSample;
+  }
+
+  public javax.faces.convert.Converter getYearConverter() {
+
+    final DateTimeConverter dateTimeConverter = new DateTimeConverter() {
+
+      @Override
+      public Object getAsObject(FacesContext facesContext, UIComponent uiComponent, String value) {
+        final Date date = (Date) super.getAsObject(facesContext, uiComponent, value);
+        final Calendar calendar = GregorianCalendar.getInstance(facesContext.getViewRoot().getLocale());
+        calendar.setTime(date);
+        return calendar.get(Calendar.YEAR);
+      }
+
+      @Override
+      public String getAsString(FacesContext facesContext, UIComponent uiComponent, Object value) {
+        final Calendar calendar = GregorianCalendar.getInstance(facesContext.getViewRoot().getLocale());
+        calendar.set(Calendar.YEAR, (Integer) value);
+        final Date date = calendar.getTime();
+        return super.getAsString(facesContext, uiComponent, date);
+      }
+    };
+
+    dateTimeConverter.setPattern("yyyy");
+    return dateTimeConverter;
   }
 }

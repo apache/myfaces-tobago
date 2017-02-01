@@ -24,9 +24,10 @@ import org.apache.myfaces.tobago.component.Visual;
 
 import javax.el.ValueExpression;
 import javax.faces.component.UISelectBoolean;
+import javax.faces.component.behavior.ClientBehaviorHolder;
 import javax.faces.context.FacesContext;
 
-public abstract class AbstractUITreeSelect extends UISelectBoolean implements Visual {
+public abstract class AbstractUITreeSelect extends UISelectBoolean implements Visual, ClientBehaviorHolder {
 
   @Override
   public void updateModel(final FacesContext context) {

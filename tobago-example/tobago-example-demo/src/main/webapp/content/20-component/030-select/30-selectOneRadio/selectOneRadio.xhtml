@@ -28,14 +28,14 @@
     A list from a controller is added with
     <code class="language-markup">&lt;tc:selectItems value="\#{controller.list}"/></code>.</p>
   <p>Tag Library Documentation:
-    <tc:link label="&lt;tc:selectOneRadio/>" image="image/feather-leaf.png"
-             link="#{overviewBundle.tagDocUrl}/selectOneRadio.html"/>
+    <tc:link label="&lt;tc:selectOneRadio/>" image="#{request.contextPath}/image/feather-leaf.png"
+             link="#{demoBundle.tagDocUrl}/#{info.stableVersion}/tld/tc/selectOneRadio.html"/>
     |
-    <tc:link label="&lt;tc:selectItem/>" image="image/feather-leaf.png"
-             link="#{overviewBundle.tagDocUrl}/selectItem.html"/>
+    <tc:link label="&lt;tc:selectItem/>" image="#{request.contextPath}/image/feather-leaf.png"
+             link="#{demoBundle.tagDocUrl}/#{info.stableVersion}/tld/tc/selectItem.html"/>
     |
-    <tc:link label="&lt;tc:selectItems/>" image="image/feather-leaf.png"
-             link="#{overviewBundle.tagDocUrl}/selectItems.html"/></p>
+    <tc:link label="&lt;tc:selectItems/>" image="#{request.contextPath}/image/feather-leaf.png"
+             link="#{demoBundle.tagDocUrl}/#{info.stableVersion}/tld/tc/selectItems.html"/></p>
 
   <tc:section label="Basics">
     <p>Radiobutton group with a label. The last item is disabled.
@@ -60,6 +60,15 @@
     </tc:segmentLayout>
   </tc:section>
 
+  <tc:section label="Inline">
+    <p>To display the radio buttons horizontally use the <code>inline="true"</code> attribute.</p>
+    <tc:selectOneRadio id="sInline" label="Radio Group" inline="true">
+      <tc:selectItem itemLabel="Sun" itemValue="solis"/>
+      <tc:selectItem itemLabel="Moon" itemValue="luna"/>
+      <tc:selectItem itemLabel="Stars" itemValue="stella"/>
+    </tc:selectOneRadio>
+  </tc:section>
+
   <tc:section label="Simple Usage">
     <p>Add number1 to number2 or subtract number2 from number1.</p>
     <p>The radiobuttons are hardcoded with
@@ -68,21 +77,23 @@
       <code class="language-markup">&lt;tc:button label="Addition" action="\#{selectOneRadioController.add}"/></code>
     </p>
     <tc:segmentLayout large="6;6">
-      <tc:selectOneRadio id="s4" label="Number 1" labelLayout="top" value="#{selectOneRadioController.numberOne}">
+      <tc:selectOneRadio id="selectNum1" label="Number 1" labelLayout="top" required="true"
+                         value="#{selectOneRadioController.numberOne}">
         <tc:selectItem itemLabel="1" itemValue="1"/>
         <tc:selectItem itemLabel="2" itemValue="2"/>
         <tc:selectItem itemLabel="4" itemValue="4"/>
       </tc:selectOneRadio>
-      <tc:selectOneRadio id="s5" label="Number 2" labelLayout="top" value="#{selectOneRadioController.numberTwo}">
+      <tc:selectOneRadio id="selectNum2" label="Number 2" labelLayout="top" required="true"
+                         value="#{selectOneRadioController.numberTwo}">
         <tc:selectItem itemLabel="1" itemValue="1"/>
         <tc:selectItem itemLabel="2" itemValue="2"/>
         <tc:selectItem itemLabel="4" itemValue="4"/>
       </tc:selectOneRadio>
     </tc:segmentLayout>
-    <tc:out id="o1" label="Result" value="#{selectOneRadioController.result}"/>
+    <tc:out id="resultOutput" label="Result" value="#{selectOneRadioController.result}"/>
     <tc:flowLayout>
-      <tc:button id="b1" label="Addition" action="#{selectOneRadioController.add}"/>
-      <tc:button id="b2" label="Subtraction" action="#{selectOneRadioController.subtract}"/>
+      <tc:button id="submitAdd" label="Addition" action="#{selectOneRadioController.add}"/>
+      <tc:button id="submitSub" label="Subtraction" action="#{selectOneRadioController.subtract}"/>
     </tc:flowLayout>
   </tc:section>
 
@@ -95,7 +106,7 @@
       which allows to rerender the radiogroup with the ID 'moonradio' every time, the value changed in the
       planet-radiogroup.</p>
     <tc:segmentLayout large="6;6">
-      <tc:selectOneRadio id="s6" label="Planet" labelLayout="top" value="#{selectOneRadioController.planet}">
+      <tc:selectOneRadio id="selectPlanet" label="Planet" labelLayout="top" value="#{selectOneRadioController.planet}">
         <f:selectItems value="#{selectOneRadioController.planets}"/>
         <f:ajax render="moonradio"/>
       </tc:selectOneRadio>

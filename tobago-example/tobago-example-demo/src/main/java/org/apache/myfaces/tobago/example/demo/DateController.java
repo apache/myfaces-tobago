@@ -25,6 +25,8 @@ import org.slf4j.LoggerFactory;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 import java.io.Serializable;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @RequestScoped
@@ -34,11 +36,17 @@ public class DateController implements Serializable {
   private static final Logger LOG = LoggerFactory.getLogger(DateController.class);
 
   private Date once;
-
   private Date onchange;
+  private Date submitDate;
 
   public DateController() {
     once = new Date();
+    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+    try {
+      submitDate = sdf.parse("2016-05-22");
+    } catch (ParseException e) {
+      LOG.error("", e);
+    }
   }
 
   public Date getOnce() {
@@ -55,5 +63,17 @@ public class DateController implements Serializable {
 
   public void setOnchange(Date onchange) {
     this.onchange = onchange;
+  }
+
+  public Date getNow() {
+    return new Date();
+  }
+
+  public Date getSubmitDate() {
+    return submitDate;
+  }
+
+  public void setSubmitDate(Date submitDate) {
+    this.submitDate = submitDate;
   }
 }

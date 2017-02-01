@@ -68,8 +68,8 @@ public interface TreeListboxTagDeclaration
   @TagAttribute
   @UIComponentTagAttribute(
       type = "org.apache.myfaces.tobago.model.Selectable",
-      defaultValue = Selectable.STRING_SINGLE,
-      allowedValues = {Selectable.STRING_SINGLE, Selectable.STRING_MULTI_LEAF_ONLY, Selectable.STRING_SINGLE_LEAF_ONLY},
+      defaultValue = Selectable.SINGLE,
+      allowedValues = {Selectable.SINGLE, Selectable.MULTI_LEAF_ONLY, Selectable.SINGLE_LEAF_ONLY},
       defaultCode = "org.apache.myfaces.tobago.model.Selectable.single")
   void setSelectable(String selectable);
 

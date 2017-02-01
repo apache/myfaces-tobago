@@ -30,8 +30,6 @@ public interface Theme {
 
   String getDisplayName();
 
-  String getResourcePath();
-
   /**
    * For internal use only.
    */

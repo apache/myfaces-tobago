@@ -60,6 +60,7 @@ public final class Markup implements Serializable, Iterable<String> {
 
   public static final Markup ASCENDING = valueOf("ascending");
   public static final Markup BIG = valueOf("big");
+  public static final Markup BORDERED = valueOf("bordered");
   public static final Markup CENTER = valueOf("center");
   public static final Markup CLICKABLE = valueOf("clickable");
   public static final Markup DEFAULT = valueOf("default");
@@ -71,18 +72,23 @@ public final class Markup implements Serializable, Iterable<String> {
   public static final Markup EXPANDED = valueOf("expanded");
   public static final Markup FILLER = valueOf("filler");
   public static final Markup FATAL = valueOf("fatal");
+  /**
+   * @deprecated Can be selected via CSS3.
+   */
+  @Deprecated
   public static final Markup FIRST = valueOf("first");
   public static final Markup FOLDER = valueOf("folder");
+  public static final Markup HOVER = valueOf("hover");
   public static final Markup INFO = valueOf("info");
   public static final Markup INLINE = valueOf("inline");
   public static final Markup JUSTIFY = valueOf("justify");
+  public static final Markup INVERSE = valueOf("inverse");
   public static final Markup LEFT = valueOf("left");
   public static final Markup MARKED = valueOf("marked");
   public static final Markup MODAL = valueOf("modal");
   public static final Markup NUMBER = valueOf("number");
   public static final Markup ODD = valueOf("odd");
   public static final Markup PORTLET = valueOf("portlet");
-  public static final Markup PURE = valueOf("pure");
   public static final Markup READONLY = valueOf("readonly");
   public static final Markup REQUIRED = valueOf("required");
   public static final Markup RESIZABLE = valueOf("resizable");
@@ -92,7 +98,10 @@ public final class Markup implements Serializable, Iterable<String> {
   public static final Markup SHEET_SELECT_ALL = valueOf("sheetSelectAll");
   public static final Markup SHEET_DESELECT_ALL = valueOf("sheetDeselectAll");
   public static final Markup SHEET_TOGGLE_ALL = valueOf("sheetToggleAll");
+  public static final Markup SMALL = valueOf("small");
   public static final Markup SORTABLE = valueOf("sortable");
+  public static final Markup SPREAD = valueOf("spread");
+  public static final Markup STRIPED = valueOf("striped");
   public static final Markup STRONG = valueOf("strong");
   public static final Markup TOP = valueOf("top");
   public static final Markup VERTICALLY = valueOf("vertically");
@@ -298,7 +307,7 @@ public final class Markup implements Serializable, Iterable<String> {
 
   public boolean contains(final String markup) {
     if (markup == null) {
-      return false;
+      return true;
     }
     if (this == NULL) {
       return this == Markup.valueOf(markup);
@@ -307,11 +316,43 @@ public final class Markup implements Serializable, Iterable<String> {
       return value.equals(markup);
     }
     for (final String value : values) {
-        if (value.equals(markup)) {
-          return true;
-        }
+      if (value.equals(markup)) {
+        return true;
       }
-      return false;
+    }
+    return false;
+  }
+
+  public boolean contains(final Markup markup) {
+    if (markup == null || markup == NULL) {
+      return true;
+    }
+    if (this == NULL) {
+      return this == markup;
+    }
+    if (markup.value != null) {
+      if (value != null) {
+        return value.equals(markup.value);
+      } else {
+        for (final String value : values) {
+          if (value.equals(markup.value)) {
+            return true;
+          }
+        }
+        return false;
+      }
+    } else {
+      if (value != null) {
+        return false;
+      } else {
+        for (final String markupString : markup.values) {
+          if (!contains(markupString)) {
+            return false;
+          }
+        }
+        return true;
+      }
+    }
   }
 
   @Override

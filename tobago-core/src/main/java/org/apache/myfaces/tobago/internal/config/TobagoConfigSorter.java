@@ -91,11 +91,6 @@ public class TobagoConfigSorter implements Comparator<TobagoConfigFragment> {
         result.addSupportedThemeName(supported);
       }
 
-      // resource dirs
-      for (final String dir : fragment.getResourceDirs()) {
-        result.addResourceDir(dir);
-      }
-
       // renderers config
       if (fragment.getRenderersConfig() != null) {
         if (result.getRenderersConfig() instanceof RenderersConfigImpl) {
@@ -128,10 +123,6 @@ public class TobagoConfigSorter implements Comparator<TobagoConfigFragment> {
       if (fragment.getSanitizerClass() != null) {
         sanitizerClass = fragment.getSanitizerClass();
         sanitizerProperties = fragment.getSanitizerProperties();
-      }
-
-      if (fragment.getAutoAccessKeyFromLabel() != null) {
-        result.setAutoAccessKeyFromLabel(fragment.getAutoAccessKeyFromLabel());
       }
 
       // theme definition

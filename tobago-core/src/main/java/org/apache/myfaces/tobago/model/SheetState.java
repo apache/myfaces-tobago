@@ -56,7 +56,7 @@ public class SheetState implements Serializable, ScrollPositionState {
     sortedColumnId = null;
     ascending = true;
     toBeSorted = false;
-    columnWidths = null;
+    columnWidths = new ArrayList<Integer>();
     resetSelected();
     if (expandedState != null) {
       expandedState.reset();
@@ -112,6 +112,15 @@ public class SheetState implements Serializable, ScrollPositionState {
 
   public void setColumnWidths(final List<Integer> columnWidths) {
     this.columnWidths = columnWidths;
+  }
+
+  public boolean isDefinedColumnWidths() {
+    for (Integer columnWidth : columnWidths) {
+      if(columnWidth < 0) {
+        return false;
+      }
+    }
+    return columnWidths.size() > 0;
   }
 
   public int getFirst() {
@@ -171,28 +180,5 @@ public class SheetState implements Serializable, ScrollPositionState {
 
   public void setToBeSorted(boolean toBeSorted) {
     this.toBeSorted = toBeSorted;
-  }
-
-  /**
-   * @deprecated since 2.0.0
-   */
-  @Deprecated
-  public static Integer[] parseScrollPosition(final String value) {
-    Integer[] position = null;
-    if (!StringUtils.isBlank(value)) {
-      final int sep = value.indexOf(";");
-      if (LOG.isInfoEnabled()) {
-        LOG.info("value = \"" + value + "\"  sep = " + sep + "");
-      }
-      if (sep == -1) {
-        throw new NumberFormatException(value);
-      }
-      final int left = Integer.parseInt(value.substring(0, sep));
-      final int top = Integer.parseInt(value.substring(sep + 1));
-      position = new Integer[2];
-      position[0] = left;
-      position[1] = top;
-    }
-    return position;
   }
 }

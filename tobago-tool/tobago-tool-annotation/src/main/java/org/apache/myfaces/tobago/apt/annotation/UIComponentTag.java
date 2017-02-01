@@ -49,12 +49,14 @@ public @interface UIComponentTag {
 
   Facet[] facets() default {};
 
+  Behavior[] behaviors() default {};
+
   boolean generate() default true;
 
   boolean isComponentAlreadyDefined() default false;
 
   /**
-   * Array of supported component-types that explictly enumerates the
+   * Array of supported component-types that explicitly enumerates the
    * set of allowed component children for this component. Other possible values are: ALL...
    */
   String [] allowedChildComponenents() default { "ALL" };

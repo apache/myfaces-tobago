@@ -19,20 +19,22 @@
 
 package org.apache.myfaces.tobago.internal.taglib.component;
 
+import org.apache.myfaces.tobago.apt.annotation.Behavior;
 import org.apache.myfaces.tobago.apt.annotation.BodyContentDescription;
 import org.apache.myfaces.tobago.apt.annotation.Facet;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
+import org.apache.myfaces.tobago.component.ClientBehaviors;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.RendererTypes;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasAccessKey;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasAction;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasActionListener;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasConfirmation;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasImage;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabelAndAccessKey;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabel;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasLink;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasRenderedPartially;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasResource;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTabIndex;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTarget;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
@@ -61,13 +63,26 @@ import javax.faces.component.UICommand;
     rendererType = RendererTypes.BUTTON,
     allowedChildComponenents = "NONE",
     facets = {
-        @Facet(name = Facets.CONFIRMATION, description = "Contains a UIOutput instance with the confirmation message.",
-            allowedChildComponenents = "org.apache.myfaces.tobago.Out"),
-        @Facet(name = Facets.POPUP, description = "Contains a UIPopup instance.",
-            allowedChildComponenents = "org.apache.myfaces.tobago.Popup")})
+        @Facet(
+            name = Facets.CONFIRMATION,
+            description = "Contains a UIOutput instance with the confirmation message.",
+            allowedChildComponenents = "org.apache.myfaces.tobago.Out")
+    },
+    behaviors = {
+        @Behavior(
+            name = ClientBehaviors.CLICK,
+            description = "Behavior of a click event.",
+            isDefault = true),
+        @Behavior(
+            name = ClientBehaviors.DBLCLICK),
+        @Behavior(
+            name = ClientBehaviors.FOCUS),
+        @Behavior(
+            name = ClientBehaviors.BLUR)
+    })
 public interface ButtonTagDeclaration
-    extends HasAction, HasActionListener, IsImmediateCommand,
-    HasLink, HasResource, IsTransition, HasTarget, HasRenderedPartially,
-    IsOmit, HasIdBindingAndRendered, HasLabelAndAccessKey, HasImage,
-    IsDisabledBySecurity, IsDefaultCommand, HasTip, HasTabIndex, IsVisual {
+    extends HasIdBindingAndRendered, HasAction, HasActionListener, IsImmediateCommand, HasConfirmation,
+    HasLink, IsTransition, HasTarget, IsDisabledBySecurity,
+    IsOmit, IsVisual, HasLabel, HasAccessKey, HasTip, HasImage,
+    IsDefaultCommand, HasTabIndex {
 }

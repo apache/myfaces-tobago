@@ -17,40 +17,24 @@
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
+
   <parent>
     <groupId>org.apache.myfaces.tobago</groupId>
     <artifactId>tobago-theme</artifactId>
-    <version>3.0.0-beta-1-SNAPSHOT</version>
+    <version>3.0.2-SNAPSHOT</version>
   </parent>
   <artifactId>tobago-theme-richmond</artifactId>
   <packaging>jar</packaging>
   <name>Tobago Theme Richmond</name>
-  <build>
-    <plugins>
-      <plugin>
-        <groupId>net.alchim31.maven</groupId>
-        <artifactId>yuicompressor-maven-plugin</artifactId>
-        <executions>
-          <execution>
-            <goals>
-              <goal>compress</goal>
-            </goals>
-          </execution>
-        </executions>
-        <configuration>
-          <suffix>.min</suffix>
-          <excludes>
-            <exclude>**/*.js</exclude>
-          </excludes>
-        </configuration>
-      </plugin>
-    </plugins>
-  </build>
+
+  <properties>
+    <theme.name>richmond</theme.name>
+  </properties>
 
   <dependencies>
     <dependency>
       <groupId>org.apache.myfaces.tobago</groupId>
-      <artifactId>tobago-theme-speyside</artifactId>
+      <artifactId>tobago-theme-standard</artifactId>
       <version>${project.version}</version>
     </dependency>
     <dependency>
@@ -59,4 +43,5 @@
       <version>${project.version}</version>
     </dependency>
   </dependencies>
+
 </project>

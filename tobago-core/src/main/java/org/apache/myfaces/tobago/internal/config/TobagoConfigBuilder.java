@@ -21,7 +21,6 @@ package org.apache.myfaces.tobago.internal.config;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.myfaces.tobago.config.TobagoConfig;
-import org.apache.myfaces.tobago.internal.context.ResourceManagerFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.xml.sax.SAXException;
@@ -53,10 +52,7 @@ public final class TobagoConfigBuilder {
     sorter.sort();
     final TobagoConfigImpl tobagoConfig = sorter.merge();
 
-    // todo: cleanup, use one central TobagoConfig, no singleton ResourceManager
-    // resources
     tobagoConfig.initProjectState(servletContext);
-    ResourceManagerFactory.init(servletContext, tobagoConfig);
     // prepare themes
     tobagoConfig.resolveThemes();
 

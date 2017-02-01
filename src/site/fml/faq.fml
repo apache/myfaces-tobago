@@ -35,14 +35,14 @@
           Please, see
         </p>
         <p>
-          <a href="http://www.irian.biz/tobago-example-demo/">Demo</a>
+          <a href="http://www.irian.biz/tobago-example-demo/">Tobago Demo</a>.
         </p>
         <p>
-          and especially the section for best practices:
+          There is also a demo for
         </p>
         <p>
-          <a href="http://www.irian.biz/tobago-example-demo/faces/best-practice/intro.jsp">
-            Best Practices
+          <a href="http://www.irian.biz/tobago-example-demo-2.0.x/">
+            Tobago 2.0
           </a>
         </p>
       </answer>
@@ -136,8 +136,8 @@
         </p>
         <p>Starting with Tobago 3.0 the Servlet API 3.0 will be used. Some more information about the
           usage you will find in <a href="https://issues.apache.org/jira/browse/TOBAGO-1539">Jira</a>
-          and in the <a href="http://www.irian.biz/tobago-example-demo-3.0.x/faces/content/40-upload/upload.xhtml">Tobago Demo 3.0</a>.
-          There is also a <a href="migration-3.0.html">migration guide</a> available.
+          and in the <a href="http://www.irian.biz/tobago-example-demo-3.0.x/faces/content/20-component/100-upload/upload.xhtml">Tobago Demo 3.0</a>.
+          There is also a <a href="http://www.irian.biz/tobago-example-demo/faces/content/10-intro/50-migration/97-migration/migration30.xhtml">migration guide</a> available.
         </p>
       </answer>
     </faq>
@@ -147,7 +147,7 @@
       <answer>
         <p>The page tag already acts like a form tag. You only need a explicit form tag for partial validation of your data.
         Please look at the forms example in the
-        <a href="http://www.irian.biz/tobago-example-demo/faces/content/07-form/form.xhtml">Tobago demo</a>
+        <a href="http://www.irian.biz/tobago-example-demo-3.0.x/faces/content/30-concept/08-form/form.xhtml">Tobago demo</a>
         </p>
       </answer>
     </faq>
@@ -217,7 +217,8 @@ resource-path/content-type/theme/client/[tag(for renderer)|property|style|script
           The standard markup is defined in tobago-config.xml of the tobago-theme-standard.
           This can be extended in your own theme.
           The markup attribute is rendered as a CSS class tobago-[renderer-name.toLowerCase]-markup-[markup].
-          For an example please look at the markup number and the CSS class tobago-in-markup-number for UIIn in theme/scarborough/src/main/resources/org/apache/myfaces/tobago/renderkit/html/scarborough/standard/style/tobago.css
+          For an example please look at the markup number and the CSS class tobago-in-markup-number for UIIn
+          in theme/scarborough/src/main/resources/org/apache/myfaces/tobago/renderkit/html/scarborough/standard/style/tobago.css
           </p>
       </answer>
     </faq>
@@ -295,6 +296,50 @@ resource-path/content-type/theme/client/[tag(for renderer)|property|style|script
 mvn compile checkstyle:check</source>
       </answer>
     </faq>
+    <faq id="checkstyle-vdl">
+      <question>How do I check the syntax of Facelet-Files (*.xhtml) with respect to the Taglib?</question>
+      <answer>
+        <p>
+        The problem is, that there is no concept for <em>deprecation</em> in Taglibs.
+        The tobago-core.jar contains a generated checkstyle configuration to perform
+        a syntax check via the maven checkstyle plugin.
+        </p>
+
+        <p>
+        Configure in the applications pom.xml an entry like this example
+        <source>    &lt;profile>
+      &lt;id>checkstyle-for-view-definition-language&lt;/id>
+      &lt;build>
+        &lt;plugins>
+          &lt;plugin>
+            &lt;groupId>org.apache.maven.plugins&lt;/groupId>
+            &lt;artifactId>maven-checkstyle-plugin&lt;/artifactId>
+            &lt;configuration>
+              &lt;configLocation>META-INF/checkstyle-tobago.xml&lt;/configLocation>
+              &lt;includes>**/*.xhtml&lt;/includes>
+              &lt;excludes>**/*.java&lt;/excludes>
+              &lt;sourceDirectory>src/main/webapp&lt;/sourceDirectory>
+            &lt;/configuration>
+            &lt;dependencies>
+              &lt;dependency>
+                &lt;groupId>org.apache.myfaces.tobago&lt;/groupId>
+                &lt;artifactId>tobago-core&lt;/artifactId>
+                &lt;version>${tobago.version}&lt;/version>
+              &lt;/dependency>
+            &lt;/dependencies>
+          &lt;/plugin>
+        &lt;/plugins>
+      &lt;/build>
+    &lt;/profile>
+        </source>
+        </p>
+        <p>
+        To perform a check call
+        <source>
+mvn checkstyle:check -Pcheckstyle-for-view-definition-language</source>
+          You will find the result in target/checkstyle-result.xml
+        </p>      </answer>
+    </faq>
     <faq id="max-path">
       <question>Why my Subversion checkout fails on Windows?</question>
       <answer>
@@ -307,8 +352,8 @@ mvn compile checkstyle:check</source>
 SUBST X: "C:\Dokumente und Einstellungen\MyUser\Apache Projects\"</source>
       </answer>
     </faq>
-    <faq id="selenium">
-      <question>How can I run the Selenium tests?</question>
+    <faq id="seleniumTobago12">
+      <question>How can I run the Selenium tests? (Tobago 1 and 2)</question>
       <answer>
       <p>
         In the tobago-example-test application, the pages can be checked with selenium since Tobago 1.5.
@@ -331,6 +376,17 @@ mvn selenium:start-server</source>
           Sometimes there is a problem with Firefox. You may try to use a different version, or an installation without
           plugins.
         </p>
+      </answer>
+    </faq>
+    <faq id="integrationTestTobago3">
+      <question>How can I run the integration tests? (Tobago 3)</question>
+      <answer>
+        <p>In the tobago-example-demo application, the pages can be checked with QUnit/Arquillian.
+          To run the full test automatically call <source>mvn verify -Pqunit-integration-tests</source>
+          The default arquillian browser is 'phantomjs'.
+          You can change it in tobago-example-demo/pom.xml &lt;arquillian.browser>.</p>
+        <p>If you want to run the tests from your IDE, please use the maven profile 'tomee'.
+          After that, you can start the test from the QUnitTests class.</p>
       </answer>
     </faq>
     <faq id="liberty">

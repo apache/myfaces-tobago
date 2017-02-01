@@ -19,17 +19,19 @@
 
 package org.apache.myfaces.tobago.internal.taglib.component;
 
+import org.apache.myfaces.tobago.apt.annotation.Behavior;
 import org.apache.myfaces.tobago.apt.annotation.BodyContentDescription;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
+import org.apache.myfaces.tobago.component.ClientBehaviors;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasBinding;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasConverter;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasConverterMessage;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasId;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasInputLabel;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabel;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabelLayout;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasRenderRange;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasRequiredMessageForSelect;
@@ -61,11 +63,24 @@ import javax.faces.component.UISelectMany;
     rendererType = RendererTypes.SELECT_MANY_CHECKBOX,
     allowedChildComponenents = {
         "javax.faces.SelectItem",
-        "javax.faces.SelectItems"})
+        "javax.faces.SelectItems"},
+    behaviors = {
+        @Behavior(
+            name = ClientBehaviors.CHANGE,
+            isDefault = true),
+        @Behavior(
+            name = ClientBehaviors.CLICK),
+        @Behavior(
+            name = ClientBehaviors.DBLCLICK),
+        @Behavior(
+            name = ClientBehaviors.FOCUS),
+        @Behavior(
+            name = ClientBehaviors.BLUR)
+    })
 public interface SelectManyCheckboxTagDeclaration extends
     IsDisabled, HasId, HasTip, IsInline, HasRenderRange, IsRendered, IsRequiredForSelect,
     HasBinding, IsReadonly, HasConverter, HasLabelLayout,
-    HasInputLabel, HasValidator, HasValueChangeListener,
+    HasLabel, HasValidator, HasValueChangeListener,
     HasValidatorMessage, HasConverterMessage, HasRequiredMessageForSelect, HasTabIndex, IsFocus, IsVisual {
 
   /**

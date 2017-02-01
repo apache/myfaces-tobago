@@ -21,10 +21,10 @@
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
                 xmlns:ui="http://java.sun.com/jsf/facelets">
-  <ui:param name="title" value="#{overviewBundle.textarea} &lt;tc:textarea&gt;"/>
+  <ui:param name="title" value="#{demoBundle.textarea} &lt;tc:textarea&gt;"/>
   <p>The <code class="language-markup">&lt;tc:textarea/&gt;</code> tag, creates a textfield with one or more rows.
-    The textarea becomes scrollable, if the containing text could not displayed in the current size.</p>
-  <tc:link label="Tag Library Documentation" image="image/feather-leaf.png" link="#{overviewBundle.tagDocUrl}/textarea.html"/>
+    The textarea becomes scrollable if the containing text could not displayed in the current size.</p>
+  <tc:link label="Tag Library Documentation" image="#{request.contextPath}/image/feather-leaf.png" link="#{demoBundle.tagDocUrl}/#{info.stableVersion}/tld/tc/textarea.html"/>
   <tc:section label="Basics">
     <p>The textarea should always have a label attached. For this, use the <code>label</code> attribute.</p>
     <p>Unlike the inputfield TODO:linkToIn there is no placeholder attribute to describe the meaning of a textarea, when no label is set.</p>
@@ -43,6 +43,16 @@
     <pre><code class="language-markup">&lt;tc:textarea label="Text Area (focus)" focus="true" value="Some Text"/&gt;</code></pre>
     <tc:textarea id="t5" label="Text Area (focus)" focus="true" value="Some Text"/>
   </tc:section>
+
+  <tc:section label="Required">
+    <p>A textarea can be set as required with the <code>required</code> attribute.
+      Such a textarea must contain a value, otherwise a submit is not possible.
+      Leave the field blank and press 'submit' to see the errormessage.</p>
+    <pre><code class="language-markup">&lt;tc:textarea id="treq" label="Text Area" required="true"/></code></pre>
+    <tc:textarea id="treq" label="Text Area" required="true"/>
+    <tc:button label="Submit"/>
+  </tc:section>
+
   <tc:section label="Rows">
     <p>With the <code>rows</code> attribute, the initial size of the textbox can be set. A value less than 1 has no effect.</p>
     <p>The following example show a textarea with five rows.</p>

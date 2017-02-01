@@ -23,36 +23,32 @@
                 xmlns:f="http://java.sun.com/jsf/core">
   <ui:param name="title" value="Content Security Policy"/>
 
-  <tc:panel>
-    <f:facet name="layout">
-      <tc:gridLayout rows="100px;*;*" columns="*;*"/>
-    </f:facet>
+  Tobago supports Content Security Policy (CSP) to prevent cross-site
+  scripting (XSS) and related attacks.
+  <tc:link link="http://www.w3.org/TR/CSP/" label="Specification link"/>.
+  In short: The HTML page doesn't contain any JavaScript or CSS information.
+  All allowed sources for JavaScript, CSS and other resources have to be declared in special header.
+  If you have own renderers or own JavaScript in your application, this code also needs to support SCP, to use this feature.
 
-    <tc:out escape="false" value="  Tobago supports Content Security Policy (CSP) to prevent cross-site
-      scripting (XSS) and related attacks.
-      Specification link http://www.w3.org/TR/CSP/
-      In short: The HTML page doesn't contain any JavaScript or CSS information.
-      All allowed sources for JavaScript, CSS and other resources have to be declared in special header.
-      If you have own renderers or own JavaScript in your application, this code also needs to support SCP, to use this feature.
-    ">
-      <tc:gridLayoutConstraint columnSpan="2"/>
-    </tc:out>
-
-    <tc:box label="This box may be manipulated by JavaScript">
-      <tc:panel id="panel">
-        <tc:out value="When you can read this text, it hasn't been manipulated by JavaScript.
+  <tc:box label="This box may be manipulated by JavaScript">
+    <tc:style maxWidth="400px"/>
+    <tc:panel id="panel">
+      <tc:out value="When you can read this text, it hasn't been manipulated by JavaScript.
         That means the CSP is working correctly."/>
-      </tc:panel>
-      <tc:script onload="cspDemo();">
-        // <![CDATA[
-        function cspDemo() {
-          jQuery(Tobago.Utils.escapeClientId("page:panel")).html(
+    </tc:panel>
+    <script>
+      <![CDATA[
+      function cspDemo() {
+        jQuery(Tobago.Utils.escapeClientId("page:panel")).html(
             "<span style='color: #ff0000; font-weight: bold;'>Attention: When you can read this text, the content was manipulated by JavaScript."
             + " It seems, your browser doesn't support CSP!</span>");
-        }
-        // ]]>
-      </tc:script>
-    </tc:box>
+      }
 
-  </tc:panel>
+      cspDemo();
+      ]]>
+    </script>
+  </tc:box>
+
+  <h5 class="alert alert-danger">This example is currently not working!</h5>
+
 </ui:composition>

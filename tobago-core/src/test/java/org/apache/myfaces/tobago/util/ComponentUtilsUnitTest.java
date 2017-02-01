@@ -27,6 +27,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
 
 public class ComponentUtilsUnitTest extends AbstractTobagoTestBase {
 
@@ -41,8 +42,11 @@ public class ComponentUtilsUnitTest extends AbstractTobagoTestBase {
 
   @Test
   public void testFindDescendant() {
-    final UIComponent p = CreateComponentUtils.createComponent(UIPanel.COMPONENT_TYPE, RendererTypes.Panel, "p");
-    final UIComponent i = CreateComponentUtils.createComponent(UIIn.COMPONENT_TYPE, RendererTypes.In, "i");
+    final FacesContext facesContext = FacesContext.getCurrentInstance();
+    final UIComponent p = ComponentUtils.createComponent(
+        facesContext, UIPanel.COMPONENT_TYPE, RendererTypes.Panel, "p");
+    final UIComponent i = ComponentUtils.createComponent(
+        facesContext, UIIn.COMPONENT_TYPE, RendererTypes.In, "i");
     p.getChildren().add(i);
 
     final UIIn in = ComponentUtils.findDescendant(p, UIIn.class);

@@ -19,12 +19,10 @@
 
 package org.apache.myfaces.tobago.internal.taglib.component;
 
-import org.apache.myfaces.tobago.apt.annotation.Facet;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
-import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabel;
@@ -43,11 +41,7 @@ import javax.faces.component.UIColumn;
     uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUIColumn",
     uiComponentFacesClass = "javax.faces.component.UIColumn",
     componentFamily = UIColumn.COMPONENT_FAMILY,
-    rendererType = RendererTypes.COLUMN,
-    facets = {
-        @Facet(name = Facets.DROP_DOWN_MENU, description = "Contains a UIMenu instance to render a drop down menu.",
-            allowedChildComponenents = "org.apache.myfaces.tobago.Menu")
-    })
+    rendererType = RendererTypes.COLUMN)
 public interface ColumnTagDeclaration
     extends HasIdBindingAndRendered, HasLabel, HasTip, IsVisual {
   /**

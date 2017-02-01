@@ -32,29 +32,24 @@
     <theme-definition>
       <name>scarborough</name>
       <display-name>Scarborough</display-name>
-      <resource-path>org/apache/myfaces/tobago/renderkit</resource-path>
       <fallback>standard</fallback>
       <versioned>true</versioned>
-<!--
       <resources production="true">
         <excludes>
-          <script name="bootstrap/4.0.0-alpha.2/js/bootstrap.js"/>
-          <style name="bootstrap/4.0.0-alpha.2/css/bootstrap.css"/>
+          <script name="/tobago/standard/bootstrap/4.0.0-alpha.5/js/bootstrap.min.js"/>
+          <style name="/tobago/standard/bootstrap/4.0.0-alpha.5/css/bootstrap.min.css"/>
         </excludes>
-        <script name="bootstrap-scarborough/3.3.6/js/bootstrap.js"/>
-        <style name="bootstrap-scarborough/3.3.6/css/bootstrap.css"/>
-        <style name="bootstrap-scarborough/3.3.6/css/bootstrap-theme.css"/>
+        <script name="/tobago/scarborough/bootstrap/4.0.0-alpha.5/js/bootstrap.min.js"/>
+        <style name="/tobago/scarborough/bootstrap/4.0.0-alpha.5/css/bootstrap.min.css"/>
       </resources>
       <resources production="false">
         <excludes>
-          <script name="bootstrap/4.0.0-alpha.2/js/bootstrap.js"/>
-          <style name="bootstrap/4.0.0-alpha.2/css/bootstrap.css"/>
+          <script name="/tobago/standard/bootstrap/4.0.0-alpha.5/js/bootstrap.js"/>
+          <style name="/tobago/standard/bootstrap/4.0.0-alpha.5/css/bootstrap.css"/>
         </excludes>
-        <script name="bootstrap-scarborough/3.3.6/js/bootstrap.js"/>
-        <style name="bootstrap-scarborough/3.3.6/css/bootstrap.css"/>
-        <style name="bootstrap-scarborough/3.3.6/css/bootstrap-theme.css"/>
+        <script name="/tobago/scarborough/bootstrap/4.0.0-alpha.5/js/bootstrap.js"/>
+        <style name="/tobago/scarborough/bootstrap/4.0.0-alpha.5/css/bootstrap.css"/>
       </resources>
--->
     </theme-definition>
   </theme-definitions>
 </tobago-config>

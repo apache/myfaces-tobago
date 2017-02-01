@@ -19,6 +19,7 @@
 
 package org.apache.myfaces.tobago.internal.taglib.component;
 
+import org.apache.myfaces.tobago.apt.annotation.Behavior;
 import org.apache.myfaces.tobago.apt.annotation.BodyContentDescription;
 import org.apache.myfaces.tobago.apt.annotation.DynamicExpression;
 import org.apache.myfaces.tobago.apt.annotation.Facet;
@@ -26,10 +27,10 @@ import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
+import org.apache.myfaces.tobago.component.ClientBehaviors;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasRenderedPartially;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasVar;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsShowRoot;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsShowRootJunction;
@@ -43,7 +44,7 @@ import javax.faces.component.UIData;
  * Render a sheet element.
  */
 @Tag(name = "sheet")
-@BodyContentDescription(anyTagOf = "<tc:column>* <tc:columnSelector>? <tc:columnEvent>?")
+@BodyContentDescription(anyTagOf = "<tc:column>* <tc:columnSelector>? <tc:row>?")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UISheet",
     uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUISheet",
@@ -54,10 +55,18 @@ import javax.faces.component.UIData;
     allowedChildComponenents = {
         "javax.faces.Column",
         "org.apache.myfaces.tobago.ColumnSelector"},
-    facets = {@Facet(name = Facets.RELOAD, description = "Contains an instance of UIReload",
-                     allowedChildComponenents = "org.apache.myfaces.tobago.Reload")})
-public interface SheetTagDeclaration 
-    extends HasIdBindingAndRendered, IsVisual, HasRenderedPartially, IsShowRoot, IsShowRootJunction, HasVar {
+    facets = {
+        @Facet(
+            name = Facets.RELOAD,
+            description = "Contains an instance of UIReload",
+            allowedChildComponenents = "org.apache.myfaces.tobago.Reload")},
+    behaviors = {
+        @Behavior(
+            name = ClientBehaviors.RELOAD, // XXX replace by click
+            isDefault = true)
+    })
+public interface SheetTagDeclaration
+    extends HasIdBindingAndRendered, IsVisual, IsShowRoot, IsShowRootJunction, HasVar {
   /**
    * LayoutConstraints for column layout.
    * Semicolon separated list of layout tokens ('&lt;x&gt;*', '&lt;x&gt;px' or '&lt;x&gt;%') or "auto"
@@ -129,20 +138,6 @@ public interface SheetTagDeclaration
   void setDirectLinkCount(String directLinkCount);
 
   /**
-   * Flag indicating whether or not this sheet should reserve space for
-   * vertical toolbar when calculating column width's.<br>
-   * Possible values are: <pre>
-   *      'auto'  : sheet try to estimate the need of scrollbar.
-   *      'true'  : space for scrollbar is reserved.
-   *      'false' : no space is reserved.
-   *      </pre>
-   */
-  @TagAttribute
-  @UIComponentTagAttribute(defaultValue = "auto",
-      allowedValues = {"auto", "true", "false"})
-  void setForceVerticalScrollbar(String forceVerticalScrollbar);
-
-  /**
    * Flag indicating whether or not a range of direct paging links should be
    * rendered in the sheet's footer.
    */
@@ -192,9 +187,9 @@ public interface SheetTagDeclaration
   @TagAttribute
   @UIComponentTagAttribute(
       type = "org.apache.myfaces.tobago.model.Selectable",
-      defaultValue = Selectable.STRING_MULTI,
+      defaultValue = Selectable.MULTI,
       allowedValues = {
-          Selectable.STRING_NONE, Selectable.STRING_SINGLE, Selectable.STRING_SINGLE_OR_NONE, Selectable.STRING_MULTI
+          Selectable.NONE, Selectable.SINGLE, Selectable.SINGLE_OR_NONE, Selectable.MULTI
       },
       defaultCode = "org.apache.myfaces.tobago.model.Selectable.multi")
   void setSelectable(String selectable);
@@ -212,8 +207,8 @@ public interface SheetTagDeclaration
   /**
    * Method binding representing a stateChangeListener method that will be
    * notified when the state was changed by the user.
-    * The expression must evaluate to a public method that takes a
-    * SheetStateChangeEvent parameter, with a return type of void.
+   * The expression must evaluate to a public method that takes a
+   * SheetStateChangeEvent parameter, with a return type of void.
    */
   @TagAttribute
   @UIComponentTagAttribute(type = {},
@@ -241,20 +236,22 @@ public interface SheetTagDeclaration
   void setSortActionListener(String sortActionListener);
 
 
-    /**
-     * Flag indicating if paging arrows are shown near direct links
-     * @since 2.0.0
-     */
-    @TagAttribute
-    @UIComponentTagAttribute(type = "boolean", defaultValue = "false")
-    void setShowDirectLinksArrows(String showDirectLinksArrows);
+  /**
+   * Flag indicating if paging arrows are shown near direct links
+   *
+   * @since 2.0.0
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(type = "boolean", defaultValue = "false")
+  void setShowDirectLinksArrows(String showDirectLinksArrows);
 
-    /**
-     * Flag indicating if paging arrows are shown near page range
-     * @since 2.0.0
-     */
-    @TagAttribute
-    @UIComponentTagAttribute(type = "boolean", defaultValue = "true")
-    void setShowPageRangeArrows(String showPageRangeArrows);
+  /**
+   * Flag indicating if paging arrows are shown near page range
+   *
+   * @since 2.0.0
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(type = "boolean", defaultValue = "true")
+  void setShowPageRangeArrows(String showPageRangeArrows);
 
 }

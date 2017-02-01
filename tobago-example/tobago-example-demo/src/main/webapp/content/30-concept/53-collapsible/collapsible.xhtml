@@ -1,5 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
 <!--
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
@@ -18,42 +16,86 @@
 -->
 
 <ui:composition template="/main.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
-                xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:f="http://java.sun.com/jsf/core">
-  <ui:param name="title" value="Container"/>
+                xmlns:ui="http://java.sun.com/jsf/facelets">
+  <ui:param name="title" value="#{demoBundle.collapsible}"/>
 
-    <tc:section label="Collapsible with the box collapsed attribute">
+  <p>
+    <span class="tag tag-danger">Warning!</span>
+    <b>This feature is preliminary and may be subject of change in later versions!</b>
+  </p>
 
-      <tc:segmentLayout medium="12" id="collapsible">
-        <tc:button action="#{collapsible.toggle1}" label="Toggle" immediate="true" renderedPartially="collapsible"/>
-        <tc:box label="Collapsible" collapsed="#{collapsible.collapsed1}">
-          Hallo, collapsible box.
-          <tc:in required="true" label="Required"/>
-        </tc:box>
-        <tc:out value="Requests: #{activityList.values[0].jsfRequest} / AJAX: #{activityList.values[0].ajaxRequest}"/>
-      </tc:segmentLayout>
+  <p>The collapsible concept is the base for
+    <tc:link label="#{demoBundle.box}" link="/faces/content/20-component/050-container/10-box/box.xhtml"/>,
+    <tc:link label="#{demoBundle.popup}" link="/faces/content/20-component/060-popup/popup.xhtml"/>,
+    <tc:link label="#{demoBundle.panel}" link="/faces/content/20-component/050-container/20-panel/panel.xhtml"/>
+    and
+    <tc:link label="#{demoBundle.section}"
+             link="/faces/content/20-component/050-container/40-section/section.xhtml"/>.
+    It determines how parts or whole components are shown or hidden.
+    For example, a #{demoBundle.popup} is hidden completely while for #{demoBundle.box} only the content
+    could be hidden.</p>
 
+  <tc:section label="States">
+    <p>There are four possible states - visible, hidden, absent and none.<br/>
+    The value 'none' deactivate this feature and is the default for #{demoBundle.box}, #{demoBundle.panel} and
+     #{demoBundle.section}.</p>
+    <p>The (not-'none') states are explained using the following #{demoBundle.box}es.</p>
+    <p>The 'visible' state show the content of the box like you expected.
+      <br/>
+      The 'hidden' state hide the content via CSS. You can see is still in the source code.
+      This also means that hidden content would be validated when submitted, e. g. a required inputfield.
+      <br/>
+      The 'absent' state don't even render the content of the box.</p>
+    <tc:segmentLayout medium="4;4;4">
+      <tc:box label="Visible" collapsed="false">
+        <p>Content</p>
+      </tc:box>
+      <tc:box label="Hidden" collapsed="true" collapsedMode="hidden">
+        <p>Content</p>
+      </tc:box>
+      <tc:box label="Absent" collapsed="true" collapsedMode="absent">
+        <p>Content</p>
+      </tc:box>
+    </tc:segmentLayout>
+  </tc:section>
+
+  <tc:section label="Attributes">
+    <p>The state can be changed by the server with the attributes
+      <code>collapsed</code> and <code>collapsedMode</code>.</p>
+    <tc:section label="collapsed">
+      <p>The <code>collapsed</code> attribute is of type boolean. The default value is 'false'.</p>
+      <ul>
+        <li><code>false</code> (default): The state is 'visible'.</li>
+        <li><code>true</code>: The state is 'hidden' or 'absent', depending on the
+          <code>collapsedMode</code> attribute.
+        </li>
+      </ul>
     </tc:section>
-
-    <tc:section label="Collapsible with the rendered attribute">
-
-      <tc:segmentLayout medium="12" id="collapsible2">
-        <tc:button action="#{collapsible.toggle2}" label="Toggle" immediate="true" renderedPartially="collapsible2"/>
-        <tc:box label="Collapsible">
-          <tc:panel rendered="#{!collapsible.collapsed2}">
-            Hallo, collapsible box.
-            <tc:in required="true" label="Required"/>
-          </tc:panel>
-        </tc:box>
-        <tc:out value="Requests: #{activityList.values[0].jsfRequest} / AJAX: #{activityList.values[0].ajaxRequest}"/>
-      </tc:segmentLayout>
-
+    <tc:section label="collapsedMode">
+      <p>The attribute <code>collapsedMode</code> determine the behavior of a hidden component.
+        Possible values are <code>absent</code> which is the default and <code>hidden</code>.
+        It has only an effect if <code>collapsed="true"</code>.</p>
+      <ul>
+        <li><code>absent</code> (default for #{demoBundle.popup}): Hidden components have the state 'hidden'.</li>
+        <li><code>hidden</code>: Hidden components have the state 'absent'.</li>
+      </ul>
     </tc:section>
+  </tc:section>
 
-    <tc:flowLayout>
-      <tc:style textAlign="right"/>
-      <tc:button label="Submit"/>
-    </tc:flowLayout>
-
+  <tc:section label="Operation">
+    <pre><code class="language-markup">&lt;tc:operation name="show|hide" for="[ID]"/></code></pre>
+    <p>Operations can be used to change the state client sided. It can be placed
+      within a <code class="language-markup">&lt;tc:button/></code> tag or a
+      <code class="language-markup">&lt;tc:link/></code> tag.
+      The name of the transition can be set in the <code>name</code> attribute. Values are 'show' and 'hide'.</p>
+    <ul>
+      <li><code>show</code>: Change the state to 'visible'.</li>
+      <li><code>hide</code>: Set the state to 'absent' or 'hidden', depending on <code>collapsedMode</code>.</li>
+    </ul>
+    <p>The <code>for</code> attribute has to contain the ID of the component
+      on which the transition should be executed.
+      Both attributes are mandatory.</p>
+  </tc:section>
 </ui:composition>

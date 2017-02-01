@@ -84,12 +84,7 @@ public class RenderersConfigImpl implements RenderersConfig, Serializable {
   @Override
   public boolean isMarkupSupported(final String rendererName, final String markup) {
     final RendererConfig rendererConfig = rendererMap.get(rendererName);
-    if (rendererConfig != null) {
-      return rendererConfig.contains(markup);
-    } else {
-      LOG.error("Calling isMarkupSupported('{}', '{}'), but no configuration found.", rendererName, markup);
-      return false;
-    }
+    return rendererConfig != null && rendererConfig.contains(markup);
   }
 
   public void merge(final RenderersConfig renderersConfig, final boolean override) {

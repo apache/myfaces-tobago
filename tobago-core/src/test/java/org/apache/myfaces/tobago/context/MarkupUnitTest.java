@@ -116,14 +116,33 @@ public class MarkupUnitTest {
   }
 
   @Test
-  public void testContains() {
+  public void testContainsString() {
     final Markup a = Markup.valueOf("a");
     final Markup ab = Markup.valueOf("a,b");
     Assert.assertFalse(Markup.NULL.contains("a"));
     Assert.assertTrue(a.contains("a"));
+    Assert.assertTrue(a.contains((String) null));
     Assert.assertFalse(a.contains("b"));
     Assert.assertTrue(ab.contains("a"));
     Assert.assertTrue(ab.contains("b"));
     Assert.assertFalse(ab.contains("c"));
+  }
+
+  @Test
+  public void testContainsMarkup() {
+    final Markup a = Markup.valueOf("a");
+    final Markup ab = Markup.valueOf("a,b");
+    Assert.assertFalse(Markup.NULL.contains(Markup.valueOf("a")));
+    Assert.assertTrue(a.contains(Markup.NULL));
+    Assert.assertTrue(a.contains((Markup) null));
+    Assert.assertTrue(a.contains(Markup.valueOf("a")));
+    Assert.assertFalse(a.contains(Markup.valueOf("b")));
+    Assert.assertTrue(ab.contains(Markup.valueOf("a")));
+    Assert.assertTrue(ab.contains(Markup.valueOf("b")));
+    Assert.assertFalse(ab.contains(Markup.valueOf("c")));
+    Assert.assertTrue(ab.contains(Markup.valueOf("a,b")));
+    Assert.assertTrue(ab.contains(Markup.valueOf("a,a")));
+    Assert.assertFalse(ab.contains(Markup.valueOf("a,c")));
+    Assert.assertFalse(ab.contains(Markup.valueOf("a,c,d,e,c,f,e,f")));
   }
 }

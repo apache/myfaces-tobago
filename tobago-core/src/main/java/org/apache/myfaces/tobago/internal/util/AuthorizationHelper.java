@@ -86,9 +86,7 @@ public class AuthorizationHelper {
           FacesContext.getCurrentInstance().getExternalContext().getApplicationMap().get(BeanManager.class.getName());
     }
 
-    LOG.info("******************************************************************************************");
-    LOG.info("BEAN_MANAGER {}", beanManager);
-    LOG.info("******************************************************************************************");
+    LOG.info("Using bean manager: '{}'", beanManager);
   }
 
   public static AuthorizationHelper getInstance(final FacesContext facesContext) {

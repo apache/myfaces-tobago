@@ -19,15 +19,10 @@
 
 package org.apache.myfaces.tobago.facelets;
 
-import org.apache.myfaces.tobago.component.UIScript;
-import org.apache.myfaces.tobago.internal.util.StringUtils;
-
 import javax.faces.component.UIComponent;
 import javax.faces.view.facelets.ComponentConfig;
 import javax.faces.view.facelets.ComponentHandler;
 import javax.faces.view.facelets.FaceletContext;
-import javax.faces.view.facelets.FaceletHandler;
-import javax.faces.view.facelets.TextHandler;
 
 public class ScriptHandler extends ComponentHandler {
 
@@ -37,13 +32,6 @@ public class ScriptHandler extends ComponentHandler {
 
   @Override
   public void onComponentCreated(final FaceletContext context, final UIComponent component, final UIComponent parent) {
-    final FaceletHandler next = getComponentConfig().getNextHandler();
-    if (next instanceof TextHandler) {
-      final String script = ((TextHandler) next).getText(context);
-      if (StringUtils.isNotBlank(script)) {
-        ((UIScript) component).setScript(script);
-      }
-    }
   }
 
   @Override

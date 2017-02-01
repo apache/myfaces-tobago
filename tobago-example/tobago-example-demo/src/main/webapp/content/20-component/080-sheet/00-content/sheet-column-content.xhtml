@@ -21,17 +21,17 @@
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
                 xmlns:ui="http://java.sun.com/jsf/facelets">
-  <ui:param name="title" value="#{overviewBundle.sheet_column_content} &lt;tc:column>"/>
+  <ui:param name="title" value="#{demoBundle.sheet_column_content} &lt;tc:column>"/>
   <p>This example, demonstrate the flexiblity of the <code class="language-markup">&lt;tc:column/></code> tag.</p>
   <p>Tag Library Documentation:
-    <tc:link label="&lt;tc:sheet/>" image="image/feather-leaf.png"
-             link="#{overviewBundle.tagDocUrl}/sheet.html"/>
+    <tc:link label="&lt;tc:sheet/>" image="#{request.contextPath}/image/feather-leaf.png"
+             link="#{demoBundle.tagDocUrl}/#{info.stableVersion}/tld/tc/sheet.html"/>
     |
-    <tc:link label="&lt;tc:column/>" image="image/feather-leaf.png"
-             link="#{overviewBundle.tagDocUrl}/column.html"/></p>
+    <tc:link label="&lt;tc:column/>" image="#{request.contextPath}/image/feather-leaf.png"
+             link="#{demoBundle.tagDocUrl}/#{info.stableVersion}/tld/tc/column.html"/></p>
 
   <tc:section label="Example">
-    <p>In this example, the second column contain a tab group. Also a
+    <p>The second column contain a tab group. Also a
       <code class="language-markup"><tc:style/></code> tag is used to set the maximal height of the table.
       As a result, a vertical scrollbar is shown.
       The header is hidden by set <code>showHeader</code> to 'false'.</p>
@@ -45,23 +45,23 @@
     &lt;/tc:tabGroup>
   &lt;/tc:column>
   ...</code></pre>
-    <tc:sheet id="s2" value="#{sheetController.solarList}" var="solarobject" rows="4" showHeader="false">
+    <tc:sheet id="s2" value="#{sheetController.solarList}" var="object" rows="4" showHeader="false">
       <tc:style maxHeight="500px"/>
       <tc:column label="Name">
-        <tc:out value="#{solarobject.name}"/>
+        <tc:out value="#{object.name}"/>
       </tc:column>
       <tc:column label="Orbit &amp; Period">
         <tc:tabGroup>
           <tc:tab label="Orbiting">
-            <tc:out value="#{solarobject.orbit}"/>
+            <tc:out value="#{object.orbit}"/>
           </tc:tab>
           <tc:tab label="Period (Days)">
-            <tc:out value="#{solarobject.period}"/>
+            <tc:out value="#{object.period}"/>
           </tc:tab>
         </tc:tabGroup>
       </tc:column>
       <tc:column label="Discovery">
-        <tc:out value="Discovered by #{solarobject.discoverer} in the year #{solarobject.discoverYear}."/>
+        <tc:out value="Discovered by #{object.discoverer} in the year #{object.discoverYear}."/>
       </tc:column>
     </tc:sheet>
   </tc:section>

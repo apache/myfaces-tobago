@@ -41,32 +41,9 @@ public class UploadController implements Serializable {
 
   private Part fileBasic;
   private Part fileContentType;
+  private Part[] fileMulti;
   private Part fileAjax;
   private List<UploadItem> uploadItems = new ArrayList<UploadItem>();
-
-  public Part getFileBasic() {
-    return fileBasic;
-  }
-
-  public void setFileBasic(Part fileBasic) {
-    this.fileBasic = fileBasic;
-  }
-
-  public Part getFileContentType() {
-    return fileContentType;
-  }
-
-  public void setFileContentType(Part fileContentType) {
-    this.fileContentType = fileContentType;
-  }
-
-  public Part getFileAjax() {
-    return fileAjax;
-  }
-
-  public void setFileAjax(Part fileAjax) {
-    this.fileAjax = fileAjax;
-  }
 
   public String uploadBasic() {
     upload(fileBasic);
@@ -75,6 +52,13 @@ public class UploadController implements Serializable {
 
   public String uploadContentType() {
     upload(fileContentType);
+    return null;
+  }
+
+  public String uploadMulti() {
+    for (Part part : fileMulti) {
+      upload(part);
+    }
     return null;
   }
 
@@ -95,6 +79,38 @@ public class UploadController implements Serializable {
     uploadItems.add(new UploadItem(submittedFileName, part.getSize(), part.getContentType()));
     FacesContext.getCurrentInstance().addMessage(
             null, new FacesMessage(FacesMessage.SEVERITY_INFO, "File was uploaded: " + submittedFileName, null));
+  }
+
+  public Part getFileBasic() {
+    return fileBasic;
+  }
+
+  public void setFileBasic(Part fileBasic) {
+    this.fileBasic = fileBasic;
+  }
+
+  public Part getFileContentType() {
+    return fileContentType;
+  }
+
+  public void setFileContentType(Part fileContentType) {
+    this.fileContentType = fileContentType;
+  }
+
+  public Part[] getFileMulti() {
+    return fileMulti;
+  }
+
+  public void setFileMulti(Part[] fileMulti) {
+    this.fileMulti = fileMulti;
+  }
+
+  public Part getFileAjax() {
+    return fileAjax;
+  }
+
+  public void setFileAjax(Part fileAjax) {
+    this.fileAjax = fileAjax;
   }
 
   public List<UploadItem> getUploadItems() {

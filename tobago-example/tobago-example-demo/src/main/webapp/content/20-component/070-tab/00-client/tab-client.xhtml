@@ -21,18 +21,18 @@
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
                 xmlns:ui="http://java.sun.com/jsf/facelets">
-  <ui:param name="title" value="#{overviewBundle.tab} - #{overviewBundle.tab_client} &lt;tc:tab>"/>
+  <ui:param name="title" value="#{demoBundle.tab} - #{demoBundle.tab_client} &lt;tc:tab>"/>
   <p>Tabs can be created with one or more <code class="language-markup">&lt;tc:tab/></code> within a
     <code class="language-markup">&lt;tc:tabGroup></code>.
     Within a tab, content can be added like in a section or a panel.</p>
   <p>Changing tabs is client sided by default.</p>
   <p>Tag Library Documentation:
-    <tc:link label="&lt;tc:tabGroup/>" image="image/feather-leaf.png" link="#{overviewBundle.tagDocUrl}/tabGroup.html"/>
+    <tc:link label="&lt;tc:tabGroup/>" image="#{request.contextPath}/image/feather-leaf.png" link="#{demoBundle.tagDocUrl}/#{info.stableVersion}/tld/tc/tabGroup.html"/>
     |
-    <tc:link label="&lt;tc:tab/>" image="image/feather-leaf.png" link="#{overviewBundle.tagDocUrl}/tab.html"/>
+    <tc:link label="&lt;tc:tab/>" image="#{request.contextPath}/image/feather-leaf.png" link="#{demoBundle.tagDocUrl}/#{info.stableVersion}/tld/tc/tab.html"/>
     |
-    <tc:link label="&lt;tc:tabChangeListener/>" image="image/feather-leaf.png"
-             link="#{overviewBundle.tagDocUrl}/tabChangeListener.html"/></p>
+    <tc:link label="&lt;tc:tabChangeListener/>" image="#{request.contextPath}/image/feather-leaf.png"
+             link="#{demoBundle.tagDocUrl}/#{info.stableVersion}/tld/tc/tabChangeListener.html"/></p>
 
   <tc:section label="Basics">
     <p>A simple tabgroup. The second tab is disabled.</p>
@@ -50,21 +50,20 @@
   </tc:section>
 
   <tc:section label="Header">
-    <p></p>
-    <p>This example show the different headers, if the <code>label</code> or the <code>image</code> is used.</p>
+    <p>This example show the different headers if the <code>label</code> or the <code>image</code> is used.</p>
     <tc:tabGroup id="tg2">
       <tc:tab id="t21" label="Only label">
         <p>Only a label is set.</p>
         <pre><code class="language-markup">&lt;tc:tab label="Only label"/></code></pre>
       </tc:tab>
-      <tc:tab id="t22" label="Label with image" image="image/feather-leaf.png">
+      <tc:tab id="t22" label="Label with image" image="#{request.contextPath}/image/feather-leaf.png">
         <p>A label and an image are set.</p>
         <pre><code
-                class="language-markup">&lt;tc:tab label="Label with image" image="image/feather-leaf.png"></code></pre>
+                class="language-markup">&lt;tc:tab label="Label with image" image="\#{request.contextPath}/image/feather-leaf.png"></code></pre>
       </tc:tab>
-      <tc:tab id="t23" image="image/feather-leaf.png">
+      <tc:tab id="t23" image="#{request.contextPath}/image/feather-leaf.png">
         <p>Only an image is set.</p>
-        <pre><code class="language-markup">&lt;tc:tab image="image/feather-leaf.png"></code></pre>
+        <pre><code class="language-markup">&lt;tc:tab image="\#{request.contextPath}/image/feather-leaf.png"></code></pre>
       </tc:tab>
       <tc:tab id="t24">
         <p>Neither a label or an image are set. In this case the header gets a label with the indexnumber of the tab in

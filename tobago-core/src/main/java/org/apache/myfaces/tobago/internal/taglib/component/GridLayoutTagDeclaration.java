@@ -33,6 +33,10 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasSpacing;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
 
 /**
+ * <p>
+ * WARNING: This component is preliminary and may be changed without a major release.
+ * </p>
+ *
  * Renders a GridLayout.
  * <pre>
  * columns/rows ::= LAYOUT
@@ -93,7 +97,6 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIGridLayout",
     uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUIGridLayout",
-    uiComponentFacesClass = "javax.faces.component.UIComponentBase",
     componentFamily = AbstractUIGridLayout.COMPONENT_FAMILY,
     rendererType = RendererTypes.GRID_LAYOUT,
     allowedChildComponenents = "NONE")

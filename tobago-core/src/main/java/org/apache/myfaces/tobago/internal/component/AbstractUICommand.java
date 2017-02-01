@@ -19,36 +19,23 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
-import org.apache.myfaces.tobago.component.Facets;
-import org.apache.myfaces.tobago.component.OnComponentPopulated;
+import org.apache.myfaces.tobago.component.SupportFieldId;
 import org.apache.myfaces.tobago.component.SupportsAccessKey;
-import org.apache.myfaces.tobago.component.SupportsRenderedPartially;
 import org.apache.myfaces.tobago.component.Visual;
-import org.apache.myfaces.tobago.event.PopupFacetActionListener;
-import org.apache.myfaces.tobago.internal.util.AuthorizationHelper;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.el.MethodExpression;
 import javax.faces.component.UICommand;
 import javax.faces.component.UIComponent;
+import javax.faces.component.UIInput;
 import javax.faces.component.behavior.ClientBehaviorHolder;
 import javax.faces.context.FacesContext;
-import javax.faces.event.FacesEvent;
-import javax.faces.event.PhaseId;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Iterator;
 
-public abstract class AbstractUICommand
-    extends UICommand
-    implements SupportsRenderedPartially, SupportsAccessKey, OnComponentPopulated, Visual, ClientBehaviorHolder {
+public abstract class AbstractUICommand extends AbstractUICommandBase
+    implements SupportsAccessKey, Visual, ClientBehaviorHolder, SupportFieldId {
 
   private static final Logger LOG = LoggerFactory.getLogger(AbstractUICommand.class);
-
-  // todo generate
-  private static final Collection<String> EVENT_NAMES = Arrays.asList("click");
 
   enum PropertyKeys {
     disabled,
@@ -57,60 +44,11 @@ public abstract class AbstractUICommand
   // todo: transient
   private Boolean parentOfCommands;
 
-  @Override
-  public void onComponentPopulated(final FacesContext facesContext, final UIComponent parent) {
-    final AbstractUIPopup popup = (AbstractUIPopup) ComponentUtils.getFacet(this, Facets.popup);
-    if (popup != null) {
-      if (!ComponentUtils.containsPopupActionListener(this)) {
-        addActionListener(new PopupFacetActionListener());
-      }
-    }
-  }
-
-  @Override
-  public void processDecodes(final FacesContext context) {
-    if (context == null) {
-      throw new NullPointerException();
-    }
-
-    // Skip processing if our rendered flag is false
-    if (!isRendered()) {
-      return;
-    }
-
-    // Process this component itself
-    try {
-      decode(context);
-    } catch (final RuntimeException e) {
-      context.renderResponse();
-      throw e;
-    }
-
-    final Iterator kids = getFacetsAndChildren();
-    while (kids.hasNext()) {
-      final UIComponent kid = (UIComponent) kids.next();
-      kid.processDecodes(context);
-    }
-  }
-
-  @Override
-  public void queueEvent(final FacesEvent facesEvent) {
-    // fix for TOBAGO-262
-    super.queueEvent(facesEvent);
-    if (this == facesEvent.getSource()) {
-      if (isImmediate()) {
-        facesEvent.setPhaseId(PhaseId.APPLY_REQUEST_VALUES);
-      } else {
-        facesEvent.setPhaseId(PhaseId.INVOKE_APPLICATION);
-      }
-    }
-  }
-
   public boolean isParentOfCommands() {
     if (parentOfCommands == null) {
       parentOfCommands = false;
       for (UIComponent child : getChildren()) {
-        if (child instanceof UICommand) {
+        if (child instanceof UICommand || child instanceof UIInput) {
           parentOfCommands = true;
           break;
         }
@@ -119,68 +57,15 @@ public abstract class AbstractUICommand
     return parentOfCommands;
   }
 
-  /**
-   Flag indicating that this element is disabled.
-   <br>Default: <code>false</code>
-   */
-  public boolean isDisabled() {
-
-    final FacesContext facesContext = getFacesContext();
-    // todo: get from configuration tobago-config.xml
-    if (true) {
-      final AuthorizationHelper authorizationHelper = AuthorizationHelper.getInstance(facesContext);
-      final MethodExpression actionExpression = getActionExpression();
-      if (actionExpression != null) {
-        final boolean authorized =
-            authorizationHelper.isAuthorized(facesContext, actionExpression.getExpressionString());
-        if (!authorized) {
-          return true;
-        }
-      }
-    }
-
-    Boolean bool = (Boolean) getStateHelper().eval(PropertyKeys.disabled);
-    if (bool != null) {
-      return bool;
-    }
-    return false;
-  }
-
-  public void setDisabled(boolean disabled) {
-    getStateHelper().put(PropertyKeys.disabled, disabled);
-  }
-
-  // todo generate
-  @Override
-  public String getDefaultEventName() {
-    return "click";
-  }
-
-  // todo generate
-  @Override
-  public Collection<String> getEventNames() {
-    return EVENT_NAMES;
-  }
-
   @Override
   public abstract String getLabel();
 
-  public abstract boolean isJsfResource();
-
-  public abstract String getResource();
-
-  public abstract String getLink();
-
-  public abstract String getTarget();
-
-  public abstract boolean isTransition();
-
   @Override
-  public abstract String[] getRenderedPartially();
-
-  public abstract boolean isOmit();
-
-  public abstract String getTip();
-
-//  public abstract Integer getTabIndex();
+  public String getFieldId(final FacesContext facesContext) {
+    if(isParentOfCommands()) {
+      return getClientId(facesContext) + ComponentUtils.SUB_SEPARATOR + "command";
+    } else {
+      return getClientId(facesContext);
+    }
+  }
 }

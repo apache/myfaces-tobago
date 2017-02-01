@@ -29,7 +29,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * XXX preliminary
+ * Since Tobago 3.0.0
  */
 public class CustomClass implements CssItem {
 

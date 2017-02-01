@@ -19,10 +19,12 @@
 
 package org.apache.myfaces.tobago.internal.taglib.component;
 
+import org.apache.myfaces.tobago.apt.annotation.Behavior;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
+import org.apache.myfaces.tobago.component.ClientBehaviors;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasConverter;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasConverterMessage;
@@ -49,11 +51,24 @@ import javax.faces.component.UISelectBoolean;
     uiComponentFacesClass = "javax.faces.component.UISelectBoolean",
     componentFamily = UISelectBoolean.COMPONENT_FAMILY,
     rendererType = RendererTypes.TREE_SELECT,
-    allowedChildComponenents = "NONE")
+    allowedChildComponenents = "NONE",
+    behaviors = {
+        @Behavior(
+            name = ClientBehaviors.CHANGE,
+            isDefault = true),
+        @Behavior(
+            name = ClientBehaviors.CLICK),
+        @Behavior(
+            name = ClientBehaviors.DBLCLICK),
+        @Behavior(
+            name = ClientBehaviors.FOCUS),
+        @Behavior(
+            name = ClientBehaviors.BLUR)
+    })
 public interface TreeSelectTagDeclaration
     extends HasIdBindingAndRendered, HasLabel, HasTip, IsVisual, HasValue, HasValueChangeListener,
-        IsDisabled, IsRequiredForSelect, HasConverter,
-        HasValidatorMessage, HasRequiredMessageForSelect, HasConverterMessage {
+    IsDisabled, IsRequiredForSelect, HasConverter,
+    HasValidatorMessage, HasRequiredMessageForSelect, HasConverterMessage {
 
   /**
    * Show a checkbox to visualize the selection state.

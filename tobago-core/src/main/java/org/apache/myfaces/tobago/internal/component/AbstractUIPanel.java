@@ -19,51 +19,7 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
-import org.apache.myfaces.tobago.component.OnComponentPopulated;
-import org.apache.myfaces.tobago.component.Visual;
-import org.apache.myfaces.tobago.internal.layout.LayoutUtils;
+import javax.faces.component.behavior.ClientBehaviorHolder;
 
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import java.io.IOException;
-
-public abstract class AbstractUIPanel extends javax.faces.component.UIPanel
-    implements OnComponentPopulated, Visual {
-
-  @Override
-  public void encodeBegin(final FacesContext facesContext) throws IOException {
-
-    super.encodeBegin(facesContext);
-
-    final UIComponent layoutManager = LayoutUtils.getLayoutManager(this);
-    if (layoutManager != null) {
-      layoutManager.encodeBegin(facesContext);
-    }
-  }
-
-  @Override
-  public void encodeChildren(final FacesContext facesContext) throws IOException {
-
-    final UIComponent layoutManager = LayoutUtils.getLayoutManager(this);
-    if (layoutManager != null) {
-      layoutManager.encodeChildren(facesContext);
-    } else {
-      super.encodeChildren(facesContext);
-    }
-  }
-
-  @Override
-  public void encodeEnd(final FacesContext facesContext) throws IOException {
-
-    final UIComponent layoutManager = LayoutUtils.getLayoutManager(this);
-    if (layoutManager != null) {
-      layoutManager.encodeEnd(facesContext);
-    }
-
-    super.encodeEnd(facesContext);
-  }
-
-  @Override
-  public void onComponentPopulated(final FacesContext facesContext, final UIComponent parent) {
-  }
+public abstract class AbstractUIPanel extends AbstractUICollapsiblePanel implements ClientBehaviorHolder {
 }

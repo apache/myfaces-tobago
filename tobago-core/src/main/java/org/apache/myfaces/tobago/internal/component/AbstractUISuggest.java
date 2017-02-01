@@ -21,23 +21,69 @@ package org.apache.myfaces.tobago.internal.component;
 
 import org.apache.myfaces.tobago.component.InputSuggest2;
 import org.apache.myfaces.tobago.model.SuggestFilter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+import javax.el.ValueExpression;
 import javax.faces.component.UIComponentBase;
+import javax.faces.component.behavior.ClientBehaviorHolder;
+import javax.faces.context.FacesContext;
 
 public abstract class AbstractUISuggest
-    extends UIComponentBase implements InputSuggest2 {
+    extends UIComponentBase implements InputSuggest2, ClientBehaviorHolder {
+
+  private static final Logger LOG = LoggerFactory.getLogger(AbstractUISuggest.class);
 
   public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.Suggest";
   public static final String COMPONENT_FAMILY = "org.apache.myfaces.tobago.Suggest";
+
+  private transient String query;
 
   @Override
   public String getFamily() {
     return COMPONENT_FAMILY;
   }
 
+  public abstract Integer getDelay();
+
   public abstract void setDelay(Integer delay);
+
+  public abstract Integer getMinimumCharacters();
 
   public abstract void setMinimumCharacters(Integer minimumCharacters);
 
   public abstract void setFilter(SuggestFilter filter);
+
+  public String getQuery() {
+    final ValueExpression expression = this.getValueExpression("query");
+    if (expression != null) {
+      try {
+        return (String) expression.getValue(FacesContext.getCurrentInstance().getELContext());
+      } catch (Exception e) {
+        LOG.error("", e);
+        return null;
+      }
+    } else {
+      return query;
+    }
+  }
+
+  public void setQuery(String query) {
+    final ValueExpression expression = this.getValueExpression("query");
+    if (expression != null) {
+      try {
+        expression.setValue(FacesContext.getCurrentInstance().getELContext(), query);
+      } catch (Exception e) {
+        LOG.error("query='" + query + "'", e);
+      }
+    } else {
+      this.query = query;
+    }
+  }
+
+  public abstract boolean isUpdate();
+
+  public abstract Integer getTotalCount();
+
+  public abstract Integer getMaximumItems();
 }

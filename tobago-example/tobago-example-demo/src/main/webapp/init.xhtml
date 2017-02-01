@@ -19,19 +19,21 @@
 
 <f:view locale="#{clientConfigController.locale}"
         xmlns:f="http://java.sun.com/jsf/core"
-        xmlns:tc="http://myfaces.apache.org/tobago/component"
-    >
-  <tc:loadBundle basename="overview" var="overviewBundle"/>
-  <tc:page applicationIcon="icon/favicon.ico" label="#{overviewBundle.pageTitle}" id="page">
-    <f:facet name="layout">
-      <tc:gridLayout marginLeft="100px" marginTop="100px" rowSpacing="40px" rows="auto;auto"/>
-    </f:facet>
-    <f:facet name="action">
-      <tc:link action="#{navigationState.gotoFirst}"/>
-    </f:facet>
+        xmlns:tc="http://myfaces.apache.org/tobago/component">
+  <tc:page applicationIcon="#{request.contextPath}/icon/favicon.ico" label="#{demoBundle.pageTitle}" id="page">
 
-    <tc:image value="image/tobago_head.png" width="150px" height="83px"/>
-    <tc:out value="Initializing ..."/>
+    <!-- this event will forward to the first node of the navitation menu after loading -->
+    <tc:event event="load" action="#{navigationState.gotoFirst}"/>
+
+    <!-- todo: justifyContent -->
+    <tc:flexLayout rows="auto;auto" alignItems="center" justifyContent="center">
+
+      <tc:image value="#{request.contextPath}/image/tobago_head.png">
+        <tc:style width="150px" height="83px"/>
+      </tc:image>
+
+      <tc:out value="Initializing ..."/>
+    </tc:flexLayout>
 
   </tc:page>
 </f:view>

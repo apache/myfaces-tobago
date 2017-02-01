@@ -22,20 +22,20 @@
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:f="http://java.sun.com/jsf/core">
-  <ui:param name="title" value="#{overviewBundle.selectManyCheckbox} &lt;tc:selectManyCheckbox>"/>
+  <ui:param name="title" value="#{demoBundle.selectManyCheckbox} &lt;tc:selectManyCheckbox>"/>
   <p>With <code class="language-markup">&lt;tc:selectManyCheckbox/></code>, you can create a group of checkboxes.
     The items are added via <code class="language-markup">&lt;tc:selectItem/></code> for static entries or
     <code class="language-markup">&lt;tc:selectItems value="\#{controller.list}"/></code> for entries from a
     controller.</p>
   <p>Tag Library Documentation:
-    <tc:link label="&lt;tc:selectManyCheckbox/>" image="image/feather-leaf.png"
-             link="#{overviewBundle.tagDocUrl}/selectManyCheckbox.html"/>
+    <tc:link label="&lt;tc:selectManyCheckbox/>" image="#{request.contextPath}/image/feather-leaf.png"
+             link="#{demoBundle.tagDocUrl}/#{info.stableVersion}/tld/tc/selectManyCheckbox.html"/>
     |
-    <tc:link label="&lt;tc:selectItem/>" image="image/feather-leaf.png"
-             link="#{overviewBundle.tagDocUrl}/selectItem.html"/>
+    <tc:link label="&lt;tc:selectItem/>" image="#{request.contextPath}/image/feather-leaf.png"
+             link="#{demoBundle.tagDocUrl}/#{info.stableVersion}/tld/tc/selectItem.html"/>
     |
-    <tc:link label="&lt;tc:selectItems/>" image="image/feather-leaf.png"
-             link="#{overviewBundle.tagDocUrl}/selectItems.html"/></p>
+    <tc:link label="&lt;tc:selectItems/>" image="#{request.contextPath}/image/feather-leaf.png"
+             link="#{demoBundle.tagDocUrl}/#{info.stableVersion}/tld/tc/selectItems.html"/></p>
 
   <tc:section label="Basics">
     <p>Checkbox Group with two items. The second one is disabled.</p>
@@ -54,6 +54,15 @@
     </tc:selectManyCheckbox>
   </tc:section>
 
+  <tc:section label="Inline">
+    <p>To display the radio buttons horizontally use the <code>inline="true"</code> attribute.</p>
+    <tc:selectManyCheckbox id="sInline" label="Checkbox Group" inline="true">
+      <tc:selectItem itemLabel="One" itemValue="one"/>
+      <tc:selectItem itemLabel="Two" itemValue="two"/>
+      <tc:selectItem itemLabel="Three" itemValue="three"/>
+    </tc:selectManyCheckbox>
+  </tc:section>
+
   <tc:section label="Simple Usage">
     <p>Select an animal. The selection is shown in the outputfield, after pressing 'Submit'.</p>
     <p><code
@@ -63,14 +72,14 @@
       The
       <code class="language-markup">&lt;tc:out ... value="\#{selectManyCheckboxController.animal}"/></code>
       get the value from the controller.</p>
-    <tc:selectManyCheckbox label="Checkbox Group" value="#{selectManyCheckboxController.animals}">
+    <tc:selectManyCheckbox id="animals" label="Checkbox Group" value="#{selectManyCheckboxController.animals}">
       <tc:selectItem itemLabel="Cat" itemValue="Cat"/>
       <tc:selectItem itemLabel="Dog" itemValue="Dog"/>
       <tc:selectItem itemLabel="Fox" itemValue="Fox"/>
       <tc:selectItem itemLabel="Rabbit" itemValue="Rabbit"/>
     </tc:selectManyCheckbox>
-    <tc:out id="o1" label="Selected Animals" value="#{selectManyCheckboxController.animal}"/>
-    <tc:button id="b1" label="Submit"/>
+    <tc:out id="animalsOutput" label="Selected Animals" value="#{selectManyCheckboxController.animal}"/>
+    <tc:button id="submit" label="Submit"/>
   </tc:section>
 
   <tc:section label="Ajax">
@@ -79,7 +88,7 @@
       <code class="language-markup">&lt;tc:selectManyCheckbox .../></code> contain a
       <code class="language-markup">&lt;f:ajax render="resultOutput"/></code>, which rerenders the outputfield after
       check/uncheck a checkbox.</p>
-    <tc:selectManyCheckbox label="Checkbox Group" value="#{selectManyCheckboxController.numbers}">
+    <tc:selectManyCheckbox id="numbers" label="Checkbox Group" value="#{selectManyCheckboxController.numbers}">
       <tc:selectItem itemLabel="One" itemValue="1"/>
       <tc:selectItem itemLabel="Two" itemValue="2"/>
       <tc:selectItem itemLabel="Three" itemValue="3"/>

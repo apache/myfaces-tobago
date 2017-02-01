@@ -20,7 +20,7 @@
   <parent>
     <groupId>org.apache.myfaces.tobago</groupId>
     <artifactId>tobago-example</artifactId>
-    <version>3.0.0-beta-1-SNAPSHOT</version>
+    <version>3.0.2-SNAPSHOT</version>
   </parent>
   <artifactId>tobago-example-addressbook</artifactId>
   <packaging>war</packaging>
@@ -29,8 +29,8 @@
 
   <properties>
     <openjpa.version>2.3.0</openjpa.version>
-    <openwebbeans.version>1.1.7</openwebbeans.version>
-    <deltaspike.version>1.2.1</deltaspike.version>
+    <openwebbeans.version>1.2.8</openwebbeans.version>
+    <deltaspike.version>1.7.1</deltaspike.version>
   </properties>
 
   <build>
@@ -73,31 +73,6 @@
         </configuration>
         <dependencies>
        </dependencies>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-dependency-plugin</artifactId>
-        <executions>
-          <execution>
-            <id>unpack</id>
-            <phase>package</phase>
-            <goals>
-              <goal>unpack</goal>
-            </goals>
-            <configuration>
-              <artifactItems>
-                <artifactItem>
-                  <groupId>org.tango-project</groupId>
-                  <artifactId>tango-icon-theme</artifactId>
-                  <version>0.8.0</version>
-                </artifactItem>
-              </artifactItems>
-              <outputDirectory>
-                ${project.build.directory}/${project.build.finalName}/image
-              </outputDirectory>
-            </configuration>
-          </execution>
-        </executions>
       </plugin>
     </plugins>
   </build>
@@ -199,12 +174,6 @@
       <version>${deltaspike.version}</version>
     </dependency>
 
-    <!-- which repository-->
-    <dependency>
-        <groupId>org.tango-project</groupId>
-        <artifactId>tango-icon-theme</artifactId>
-        <version>0.8.0</version>
-    </dependency>
     <dependency>
     	<groupId>org.apache.geronimo.specs</groupId>
     	<artifactId>geronimo-jpa_3.0_spec</artifactId>

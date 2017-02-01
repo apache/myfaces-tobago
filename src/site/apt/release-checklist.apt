@@ -30,7 +30,9 @@ Release Checklist (Developer Info)
 
   * Ensure that all examples are working with the release candidate.
 
-  * Post a note on the list and ask for problems with the release candidate.
+  * Check the scheduled version number against "semantic versioning".
+
+  * Post a note and ask for problems with the release candidate (see {{Preparation template}} below).
 
   * Install (or unpack) a jdk 1.4 on your computer (only for Tobago 1.0.x).
 
@@ -55,6 +57,9 @@ mvn clean install -Pall-modules && mvn checkstyle:check apache-rat:check animal-
 
 # for Tobago 2.0.9 and higher
 mvn clean install && mvn checkstyle:check apache-rat:check animal-sniffer:check dependency-check:check
+
+# for Tobago 3.0.0 and higher
+mvn clean install -Pall-modules && mvn checkstyle:check apache-rat:check animal-sniffer:check dependency-check:check -Pall-modules
 +------------------------+
 
 * Building the Release (Tobago 1.0.x to 2.0.8)
@@ -101,7 +106,7 @@ mvn release:perform
 
 * Voting
 
-  * Propose a vote on the dev list with the staging location.
+  * Propose a vote on the dev list with the staging location (see {{Vote template}} below).
 
   * For a positive result wait at least 72 hours.
 
@@ -129,8 +134,8 @@ cd /Volumes/tobago-site
 svn co https://svn.apache.org/repos/asf/myfaces/tobago/trunk tobago
 svn co https://svn.apache.org/repos/asf/myfaces/site/publish/tobago tobago-publish
 cd tobago
-export MAVEN_OPTS="-Xmx1500m -XX:MaxPermSize=512m ${MAVEN_OPTS}"
-mvn package -Pattach-source
+export MAVEN_OPTS="-Xmx1500m ${MAVEN_OPTS}"
+mvn clean package -Pattach-source
 mvn site:site
 mvn site:stage -DstagingDirectory=/Volumes/tobago-site/tobago-publish
 +------------------------+
@@ -146,79 +151,121 @@ mvn site:stage -DstagingDirectory=/Volumes/tobago-site/tobago-publish
 
   * Delete old snapshots in /www/people.apache.org/builds/myfaces/nightly/ on people.apache.org.
 
-  * Create and send announcement.
+  * Create and send announcement (see {{Announcement template}} below).
 
 
-Vote template
+{Preparation template}
 
------
+  Send to: {{mailto:MyFaces Development \<dev@myfaces.apache.org\>}}
+
+  <Replace the variable parts like \<version\>>.
+
++------------------------+
+
+Subject: [Tobago] Preparation for the <version> release
+
+
+Hi, folks,
+
+I plan to build the <version> of Tobago soon.
+
+If you know any blocking problems with the current SNAPSHOT, give me a hint.
+
+Regards,
+<sender>
+
++------------------------+
+
+
+
+{Vote template}
+
+  Send to: {{mailto:MyFaces Development \<dev@myfaces.apache.org\>}}
+
+  <Replace the variable parts like \<version\>>.
+
++------------------------+
 
 Subject: [VOTE] Release Tobago <version>
 
+
 Hello,
 
-I would like to release Tobago <version>,
+I would like to release Tobago <version>.
 
-This release contains over 70 changes.
-For a detail list please consult the release notes:
+Major changes since last release are:
 
-http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=<versionidfromjira>
+<insert list>
 
-The version is available at the staging location and the
-revision number of the release is 487980 and tagged as tobago-<version>.
+<use one of>
+<a> This is a MAJOR release and may contain incompatible API changes.
+<b> This is a MINOR release with new functionality in a backwards-compatible manner.
+<c> This is a PATCH release with backwards-compatible bug fixes.
 
-Staging distribution:
+For a detail list please consult the release notes at:
 
-http://people.apache.org/
+https://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&version=<version_id_from_jira>
 
-Staging repository:
+The version is available at the staging repository (Nexus) at:
 
-http://people.apache.org/
+https://repository.apache.org/content/repositories/orgapachemyfaces-<id_from_nexus>/
 
-
-The vote is open for 72h.
+Please vote now! (The vote is open for 72h.)
 
 [ ] +1
 [ ] +0
 [ ] -1
 
-------
+Regards,
+<sender>
+
++------------------------+
 
 
 
-Announcement template
+{Announcement template}
 
-----------------------------------------
+  For all versions send to: {{mailto:MyFaces Discussion \<users@myfaces.apache.org\>}}\
+  Only for major versions send to: {{mailto:announce@apache.org}}
 
-Subject: [ANNOUNCE] Apache Tobago <version>
+  <Replace the variable parts like \<version\>>.
 
- The Apache MyFaces team is pleased to announce the release of Apache Tobago <v>.
- Apache Tobago is a component library for JSF.
++------------------------+
 
- Main new features
- -----------------
+Subject: [ANNOUNCE] Apache Tobago <version> released
 
- [add main new features here or remove this section]
 
- Changes
- -------
+The Apache MyFaces team is pleased to announce the release of Apache
+Tobago <version>.
 
- Please check the release notes at
- http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=<versionidfromjira>
- for a full list of the changes in version <v>.
+Apache Tobago is a component library for JavaServer Faces (JSF) that
+allows to write web-applications without the need of coding HTML, CSS
+and JavaScript
 
- Known limitations and bugs:
- ---------------------------
+Main new features
+-----------------
 
- [add main limitations and known bugs here or remove this section]
+<list of main new features here or remove this section>
 
- For more information about Apache Tobago, please visit
- http://myfaces.apache.org/tobago/.
+Changes
+-------
 
- Have fun,
- -The MyFaces team
+Please check the release notes at
+http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=<versionidfromjira>
+for a full list of the changes in this version.
 
-----------------------------------------
+Known limitations and bugs
+--------------------------
+
+<add main limitations and known bugs here or remove this section>
+
+For more information about Apache Tobago, please visit
+http://myfaces.apache.org/tobago/.
+
+Have fun,
+-The MyFaces team
+
++------------------------+
 
 
 
@@ -228,8 +275,8 @@ Copy the download artifacts from the repository to the site (release-tobago.sh)
 #!/bin/sh
 set -e
 
-VERSION=2.0.9
-#VERSION=3.0.0-alpha-2
+#VERSION=2.0.10
+VERSION=3.0.1
 
 MAVEN_REPOSITORY=https://repository.apache.org/content/repositories/releases
 DIST_REPOSITORY=https://dist.apache.org/repos/dist/release/myfaces

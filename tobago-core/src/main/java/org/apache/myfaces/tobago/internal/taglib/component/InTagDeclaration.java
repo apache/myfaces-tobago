@@ -19,17 +19,20 @@
 
 package org.apache.myfaces.tobago.internal.taglib.component;
 
+import org.apache.myfaces.tobago.apt.annotation.Behavior;
 import org.apache.myfaces.tobago.apt.annotation.BodyContentDescription;
 import org.apache.myfaces.tobago.apt.annotation.Facet;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
+import org.apache.myfaces.tobago.component.ClientBehaviors;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.RendererTypes;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasAccessKey;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasAutocomplete;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasConverter;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasConverterMessage;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasInputLabel;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabel;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabelLayout;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasPlaceholder;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasRequiredMessage;
@@ -63,14 +66,30 @@ import javax.faces.component.UIInput;
         "org.apache.myfaces.tobago.Suggest"
     },
     facets = {
-    @Facet(name = Facets.CHANGE,
+    @Facet(name = Facets.BEFORE,
         description =
-            "This facet can contain a UICommand that is invoked in a case of a change event from the component")
-        })
+            "This facet can contain a part for input groups."),
+    @Facet(name = Facets.AFTER,
+        description =
+            "This facet can contain a part for input groups.")
+        },
+    behaviors = {
+        @Behavior(
+            name = ClientBehaviors.CHANGE,
+            isDefault = true),
+        @Behavior(
+            name = ClientBehaviors.CLICK),
+        @Behavior(
+            name = ClientBehaviors.DBLCLICK),
+        @Behavior(
+            name = ClientBehaviors.FOCUS),
+        @Behavior(
+            name = ClientBehaviors.BLUR)
+    })
 public interface InTagDeclaration
     extends HasIdBindingAndRendered, HasConverter, IsReadonly, IsDisabled, IsRequired, HasTip, IsPassword,
-    HasValidator, HasValue, HasValueChangeListener, HasTabIndex, IsFocus, IsVisual,
-    HasValidatorMessage, HasConverterMessage, HasRequiredMessage, HasInputLabel, HasLabelLayout,
+    HasAccessKey, HasValidator, HasValue, HasValueChangeListener, HasTabIndex, IsFocus, IsVisual,
+    HasValidatorMessage, HasConverterMessage, HasRequiredMessage, HasLabel, HasLabelLayout,
     HasAutocomplete, HasPlaceholder {
 
 }

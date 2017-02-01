@@ -18,57 +18,48 @@
 -->
 
 <ui:composition template="/main.xhtml"
-                xmlns:tc="http://myfaces.apache.org/tobago/component"
-                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:f="http://java.sun.com/jsf/core"
-                xmlns="http://www.w3.org/1999/xhtml">
-  <ui:param name="title" value="TinyMCE integration"/>
+                xmlns:tc="http://myfaces.apache.org/tobago/component"
+                xmlns:ui="http://java.sun.com/jsf/facelets">
+  <ui:param name="title" value="#{demoBundle.tinymce}"/>
+  <tc:script
+          file="#{request.contextPath}/content/20-component/110-wysiwyg/00-tinymce/tinymce/js/tinymce/tinymce.min.js"/>
+  <tc:script file="#{request.contextPath}/content/20-component/110-wysiwyg/00-tinymce/tinymce.js"/>
 
-  <tc:script file="content/20-component/110-wysiwyg/00-tinymce/tinymce/js/tinymce/tinymce.min.js"/>
-<!--
-  <tc:script file="content/20-component/110-wysiwyg/00-tinymce/tinymce/js/tinymce/jquery.tinymce.min.js"/>
--->
-  <tc:script file="content/20-component/110-wysiwyg/00-tinymce/tinymce.js"/>
+  <tc:section label="Installation">
+    <p>Download <tc:link link="http://www.tinymce.com/" target="_blank" label="TinyMCE"/>
+      and unpack the ZIP file directly beside this XHTML-file.</p>
+  </tc:section>
 
-  <tc:panel>
-    <f:facet name="layout">
-      <tc:gridLayout rows="20px;110px;*;auto"/>
-    </f:facet>
+  <tc:section label="Editor">
+    <p>This facelet contains two <code class="language-markup">&lt;tc:script/></code> tags,
+      one for the TinyMCE and the other for the integration in this application.
+      The <code class="language-markup">&lt;tc:textarea/></code> contain
+      <code class="language-markup">&lt;tc:dataAttribute name="html-editor" value=""/></code>,
+      to mark this textarea to be used as rich text editor. The rest does the script: tinymce.js</p>
 
-    <tc:out markup="strong" rendered="#{not htmlEditor.tinymceAvailable}"
+    <tc:box id="sourceCodeBox" label="tinymce.js" collapsed="true" collapsedMode="hidden">
+      <f:facet name="bar">
+        <tc:buttons>
+          <tc:button label="show" omit="true">
+            <tc:operation name="show" for="sourceCodeBox"/>
+          </tc:button>
+          <tc:button label="hide" omit="true">
+            <tc:operation name="hide" for="sourceCodeBox"/>
+          </tc:button>
+        </tc:buttons>
+      </f:facet>
+      <pre><code class="language-javascript"><tc:out value="#{tinyMceController.source}"/></code></pre>
+    </tc:box>
+
+    <tc:out markup="strong" rendered="#{not tinyMceController.editorAvailable}"
             value="The TinyMCE is not installed! Using the fallback textarea."/>
 
-    <tc:panel>
-      <f:facet name="layout">
-        <tc:flowLayout/>
-      </f:facet>
-
-      <h3>
-        Installation:
-      </h3>
-      <p>
-        Download <tc:link link="http://www.tinymce.com/" target="_blank" label="TinyMCE"/> und unpack the ZIP file
-        directly beside this XHTML-file.
-        Then restart this application (this is needed, because the resource manager needs to scan the content).
-      </p>
-      <p>
-        This Facelet contains 2 tc:script tags, 1 for the TinyMCE and 1 for the integration in this application.
-        The tc:textarea has a tc:dataAttribute with name="html-editor" set, to mark this textarea to be used as
-        ritch text editor. The rest does the script: demo-tinymce.js
-      </p>
-    </tc:panel>
-
-    <tc:textarea value="#{htmlEditor.text}">
+    <tc:textarea value="#{tinyMceController.text}">
+      <tc:style width="400px" height="300px"/>
       <tc:dataAttribute name="html-editor" value=""/>
     </tc:textarea>
-
-    <tc:panel>
-      <f:facet name="layout">
-        <tc:gridLayout columns="*;auto"/>
-      </f:facet>
-      <tc:panel/>
-      <tc:button label="Submit"/>
-    </tc:panel>
-
-  </tc:panel>
+    <tc:button label="Submit"/>
+  </tc:section>
 </ui:composition>

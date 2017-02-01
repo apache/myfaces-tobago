@@ -48,6 +48,16 @@ public class TreeSelectController implements Serializable {
 
   public void setSelectable(String selectable) {
     this.selectable = selectable;
+    resetSelection(sample);
+  }
+
+  public void resetSelection(DefaultMutableTreeNode node) {
+    Node userObject = (Node) node.getUserObject();
+    userObject.setSelected(false);
+    for (int i = 0; i < node.getChildCount(); i++) {
+      DefaultMutableTreeNode child = (DefaultMutableTreeNode) node.getChildAt(i);
+      resetSelection(child);
+    }
   }
 
   public String getSelectedNodes() {

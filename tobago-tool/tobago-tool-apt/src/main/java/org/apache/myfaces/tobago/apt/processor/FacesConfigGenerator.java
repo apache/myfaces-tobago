@@ -120,6 +120,9 @@ public class FacesConfigGenerator extends AbstractGenerator {
   private static final String RENDER_KIT_CLASS = "render-kit-class";
   private static final String RENDERER_TYPE = "renderer-type";
   private static final String RENDERER_CLASS = "renderer-class";
+  private static final String BEHAVIOR = "behavior";
+  private static final String BEHAVIOR_ID = "behavior-id";
+  private static final String BEHAVIOR_CLASS = "behavior-class";
   private static final String CLIENT_BEHAVIOR_RENDERER = "client-behavior-renderer";
   private static final String CLIENT_BEHAVIOR_RENDERER_TYPE = "client-behavior-renderer-type";
   private static final String CLIENT_BEHAVIOR_RENDERER_CLASS = "client-behavior-renderer-class";
@@ -206,21 +209,30 @@ public class FacesConfigGenerator extends AbstractGenerator {
         renderKit.addContent(renderKitClass);
         renderKit.addContent(newRenderer);
 
-        final org.jdom.Element clientBehaviorRender = new org.jdom.Element(CLIENT_BEHAVIOR_RENDERER, namespace);
-        final org.jdom.Element clientBehaviorType = new org.jdom.Element(CLIENT_BEHAVIOR_RENDERER_TYPE, namespace);
-        clientBehaviorType.setText("javax.faces.behavior.Ajax");
-        clientBehaviorRender.addContent(clientBehaviorType);
-        final org.jdom.Element clientBehaviorClass = new org.jdom.Element(CLIENT_BEHAVIOR_RENDERER_CLASS, namespace);
-        clientBehaviorClass.setText("org.apache.myfaces.tobago.renderkit.html.AjaxClientBehaviorRenderer");
-        clientBehaviorRender.addContent(clientBehaviorClass);
-        renderKit.addContent(clientBehaviorRender);
+        final org.jdom.Element behaviorRender = new org.jdom.Element(CLIENT_BEHAVIOR_RENDERER, namespace);
+        final org.jdom.Element behaviorType = new org.jdom.Element(CLIENT_BEHAVIOR_RENDERER_TYPE, namespace);
+        behaviorType.setText("javax.faces.behavior.Ajax");
+        behaviorRender.addContent(behaviorType);
+        final org.jdom.Element behaviorClass = new org.jdom.Element(CLIENT_BEHAVIOR_RENDERER_CLASS, namespace);
+        behaviorClass.setText("org.apache.myfaces.tobago.internal.renderkit.renderer.TobagoClientBehaviorRenderer");
+        behaviorRender.addContent(behaviorClass);
+        renderKit.addContent(behaviorRender);
 
-        final int lastIndex = getIndexAfter(rootElement, CONVERTER, COMPONENT, FACTORY, APPLICATION);
-        rootElement.addContent(lastIndex, renderKit);
+        final org.jdom.Element baviorRender2 = new org.jdom.Element(CLIENT_BEHAVIOR_RENDERER, namespace);
+        final org.jdom.Element behaviorType2 = new org.jdom.Element(CLIENT_BEHAVIOR_RENDERER_TYPE, namespace);
+        behaviorType2.setText("org.apache.myfaces.tobago.behavior.Event");
+        baviorRender2.addContent(behaviorType2);
+        final org.jdom.Element behaviorClass2 = new org.jdom.Element(CLIENT_BEHAVIOR_RENDERER_CLASS, namespace);
+        behaviorClass2.setText("org.apache.myfaces.tobago.internal.renderkit.renderer.TobagoClientBehaviorRenderer");
+        baviorRender2.addContent(behaviorClass2);
+        renderKit.addContent(baviorRender2);
+
+        final int last = getIndexAfter(rootElement, CONVERTER, COMPONENT, FACTORY, APPLICATION, BEHAVIOR);
+        rootElement.addContent(last, renderKit);
       }
       if (!newConverters.isEmpty()) {
-        final int lastIndex = getIndexAfter(rootElement, RENDER_KIT, CONVERTER, COMPONENT, FACTORY, APPLICATION);
-        rootElement.addContent(lastIndex, newConverters);
+        final int last = getIndexAfter(rootElement, RENDER_KIT, CONVERTER, COMPONENT, FACTORY, APPLICATION, BEHAVIOR);
+        rootElement.addContent(last, newConverters);
       }
       if (!newValidators.isEmpty()) {
         rootElement.addContent(newValidators);
@@ -370,10 +382,7 @@ public class FacesConfigGenerator extends AbstractGenerator {
       elementType.setText(rendererType);
       element.addContent(elementType);
       final org.jdom.Element elementClass = new org.jdom.Element(RENDERER_CLASS, namespace);
-//      final String className = "org.apache.myfaces.tobago.renderkit." + rendererType + "Renderer";
-      // TBD: support different Renderer Classes per Theme any longer? Or how?
-      final String className
-          = "org.apache.myfaces.tobago.renderkit.html.standard.standard.tag." + rendererType + "Renderer";
+      final String className = "org.apache.myfaces.tobago.internal.renderkit.renderer." + rendererType + "Renderer";
       elementClass.setText(className);
       element.addContent(elementClass);
       renderer.add(element);

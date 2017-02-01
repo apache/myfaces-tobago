@@ -31,11 +31,19 @@ public class TransitionController {
 
   private static final Logger LOG = LoggerFactory.getLogger(TransitionController.class);
 
-  public String sleep5s() throws InterruptedException {
+  public String sleep5sAndRedirect() throws InterruptedException {
     final int sleep = 5000;
     LOG.info("Waiting " + sleep + " millis.");
     Thread.sleep(sleep);
 
     return "/content/30-concept/23-transition/x-transition-after-sleep.xhtml";
+  }
+
+  public String sleep5s() throws InterruptedException {
+    final int sleep = 5000;
+    LOG.info("Waiting " + sleep + " millis.");
+    Thread.sleep(sleep);
+
+    return null;
   }
 }

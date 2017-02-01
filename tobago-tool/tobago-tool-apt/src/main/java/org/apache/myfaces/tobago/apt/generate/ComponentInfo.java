@@ -34,6 +34,8 @@ public class ComponentInfo extends TagInfo {
   private boolean deprecated;
   private int index = 0;
   private int nonTransientIndex = 0;
+  private List<String> behaviors = new ArrayList<String>();
+  private String defaultBehavior;
 
   public ComponentInfo(final TypeElement declaration, final UIComponentTag componentTag) {
     super(declaration.getQualifiedName().toString(), componentTag.uiComponent(), componentTag.rendererType());
@@ -109,5 +111,17 @@ public class ComponentInfo extends TagInfo {
 
   public boolean isDeprecated() {
     return deprecated;
+  }
+
+  public List<String> getBehaviors() {
+    return behaviors;
+  }
+
+  public String getDefaultBehavior() {
+    return defaultBehavior;
+  }
+
+  public void setDefaultBehavior(String defaultBehavior) {
+    this.defaultBehavior = defaultBehavior;
   }
 }

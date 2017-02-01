@@ -19,14 +19,13 @@
   <parent>
     <groupId>org.apache.myfaces.tobago</groupId>
     <artifactId>tobago</artifactId>
-    <version>3.0.0-beta-1-SNAPSHOT</version>
+    <version>3.0.2</version>
   </parent>
   <packaging>pom</packaging>
   <name>Tobago Extensions</name>
   <artifactId>tobago-extension</artifactId>
 
   <modules>
-    <module>tobago-deprecation</module>
     <module>tobago-sandbox</module>
   </modules>
 

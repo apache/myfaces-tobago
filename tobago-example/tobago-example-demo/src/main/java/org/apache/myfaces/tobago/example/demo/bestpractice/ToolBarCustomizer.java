@@ -41,12 +41,9 @@ public class ToolBarCustomizer implements Serializable {
 
   public String resetList() {
     list = new ArrayList<Item>(Arrays.asList(
-
-        // TODO: load data from webapp/bestpractice/tool-bar-item*.xhtml
-
-        new Item("New"),
-        new Item("Edit"),
-        new Item("Delete")
+            new Item("new"),
+            new Item("edit"),
+            new Item("delete")
     ));
 
     return null;
@@ -64,7 +61,7 @@ public class ToolBarCustomizer implements Serializable {
   public void itemDown(final ActionEvent event) {
     final Item item = (Item) ((UIParameter) event.getComponent().getChildren().get(0)).getValue();
     final int oldIndex = list.indexOf(item);
-    if (oldIndex < list.size()) {
+    if (oldIndex < list.size() - 1) {
       list.remove(item);
       list.add(oldIndex + 1, item);
     }
@@ -83,7 +80,7 @@ public class ToolBarCustomizer implements Serializable {
 
     private Item(final String label) {
       this.label = label;
-      this.name = "x-tool-bar-item-" + label.toLowerCase(Locale.ENGLISH) + ".xhtml";
+      this.name = "x-buttons-item-" + label.toLowerCase(Locale.ENGLISH) + ".xhtml";
     }
 
     public String getLabel() {

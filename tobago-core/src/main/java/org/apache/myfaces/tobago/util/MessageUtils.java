@@ -145,16 +145,4 @@ public final class MessageUtils {
     }
     return component.getClientId(facesContext);
   }
-
-  /**
-   * @deprecated Since Tobago 2.0.0
-   */
-  @Deprecated
-  public static String getFormatedMessage(final String message, final Locale locale, final Object... args) {
-    if (args != null && args.length > 0 && message != null) {
-      final MessageFormat format = new MessageFormat(message, locale);
-      return format.format(args);
-    }
-    return message;
-  }
 }

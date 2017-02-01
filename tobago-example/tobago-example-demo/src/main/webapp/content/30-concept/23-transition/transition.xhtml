@@ -19,18 +19,45 @@
 
 <ui:composition template="/main.xhtml"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
-                xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:f="http://java.sun.com/jsf/core">
-  <ui:param name="title" value="Transitions between pages"/>
+                xmlns:ui="http://java.sun.com/jsf/facelets">
 
-    <tc:panel>
-      <f:facet name="layout">
-        <tc:gridLayout rows="auto;auto;auto" />
-      </f:facet>
+  <ui:param name="title" value="#{demoBundle.transition}"/>
+  <p>For command components like a link or a button, the <code>transition</code> attribute is available.
+    It shows a loading animation if the site don't respond in a certain amount of time.
+    By default, the value is 'true'.</p>
+  <p>Tag Library Documentation:
+    <tc:link label="&lt;tc:link/>" image="#{request.contextPath}/image/feather-leaf.png" link="#{demoBundle.tagDocUrl}/#{info.stableVersion}/tld/tc/link.html"/>
+    |
+    <tc:link label="&lt;tc:button/>" image="#{request.contextPath}/image/feather-leaf.png" link="#{demoBundle.tagDocUrl}/#{info.stableVersion}/tld/tc/button.html"/></p>
 
-      <tc:out value="Prevent double-clicks" />
-      <tc:button label="Sleep 5 s (transition=true)" action="#{transitionController.sleep5s}"/>
-      <tc:button label="Sleep 5 s (transition=false)" action="#{transitionController.sleep5s}" transition="false"/>
+  <tc:section label="Basics">
+    <p>By following one of the links, the site waits five seconds.
+      After that, you will be redirected to another page.</p>
+    <pre><code class="language-markup">&lt;tc:link label="link with transition ON"
+action="\#{transitionController.sleep5sAndRedirect}"/>
+&lt;tc:link label="link with transition OFF" transition="false"
+action="\#{transitionController.sleep5sAndRedirect}"/></code></pre>
 
-    </tc:panel>
-  </ui:composition>
+    <tc:link label="link with transition ON" action="#{transitionController.sleep5sAndRedirect}"/>
+    <br/>
+    <tc:link label="link with transition OFF" transition="false" action="#{transitionController.sleep5sAndRedirect}"/>
+  </tc:section>
+
+  <tc:section label="Popup">
+    <p>In this example, a popup dialog is shown five seconds after pressing one of the buttons.</p>
+    <tc:popup id="popup">
+      <tc:box label="Info">
+        <p>Button pressed</p>
+        <tc:button label="Close" omit="true">
+          <tc:operation name="hide" for="popup"/>
+        </tc:button>
+      </tc:box>
+    </tc:popup>
+    <tc:button label="Open Popup (transition ON)" action="#{transitionController.sleep5s}">
+      <tc:operation name="show" for="popup"/>
+    </tc:button>
+    <tc:button label="Open Popup (transition OFF)" action="#{transitionController.sleep5s}" transition="false">
+      <tc:operation name="show" for="popup"/>
+    </tc:button>
+  </tc:section>
+</ui:composition>

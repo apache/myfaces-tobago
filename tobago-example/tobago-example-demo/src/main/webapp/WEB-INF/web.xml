@@ -25,7 +25,7 @@
 
   <display-name>Tobago Demo Application</display-name>
 
-  <!-- for jetty also check override-myfaces-web.xml or override-mojarra-web.xml -->
+  <!-- for jetty also check src/test/jetty/override-myfaces-web.xml or src/test/jetty/override-mojarra-web.xml -->
   <context-param>
     <param-name>javax.faces.PROJECT_STAGE</param-name>
     <!--<param-value>Development</param-value>-->
@@ -121,25 +121,15 @@
     <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
     <load-on-startup>3</load-on-startup>
     <!-- This is needed, for file upload e.g. <tc:file> with JSF 2.0 or 2.1, JSF 2.2 doesn't need it. -->
-    <multipart-config/>
+    <multipart-config>
+      <max-request-size>20000000</max-request-size>
+      <max-file-size>1000000</max-file-size>
+    </multipart-config>
   </servlet>
 
   <servlet-mapping>
     <servlet-name>FacesServlet</servlet-name>
     <url-pattern>/faces/*</url-pattern>
-  </servlet-mapping>
-
-  <!-- ResourceServlet -->
-
-  <servlet>
-    <servlet-name>ResourceServlet</servlet-name>
-    <servlet-class>org.apache.myfaces.tobago.servlet.ResourceServlet</servlet-class>
-  </servlet>
-
-  <servlet-mapping>
-    <servlet-name>ResourceServlet</servlet-name>
-    <url-pattern>/org/apache/myfaces/tobago/renderkit/*</url-pattern>
-    <url-pattern>/org/apache/myfaces/tobago/sandbox/*</url-pattern>
   </servlet-mapping>
 
   <!-- Error Page -->
@@ -152,6 +142,12 @@
   <error-page>
     <error-code>500</error-code>
     <location>/faces/error/exception.xhtml</location>
+  </error-page>
+
+
+  <error-page>
+    <exception-type>java.io.FileNotFoundException</exception-type>
+    <location>/faces/error/404.xhtml</location>
   </error-page>
 
   <error-page>

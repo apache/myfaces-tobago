@@ -18,7 +18,6 @@
 
 <f:view
     xmlns:tc="http://myfaces.apache.org/tobago/component"
-    xmlns:tx="http://myfaces.apache.org/tobago/extension"
     xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:f="http://java.sun.com/jsf/core">
 
@@ -53,29 +52,29 @@
       </tc:date>
       <tc:in value="for comparison only" markup="error"/>
 
-      <tx:date label="Date"/>
-      <tx:date label="Date/Time">
+      <tc:date label="Date"/>
+      <tc:date label="Date/Time">
         <f:convertDateTime type="date" pattern="dd.MM.yyyy HH:mm:ss"/>
-      </tx:date>
-      <tx:in label="In" value="for comparison only"/>
+      </tc:date>
+      <tc:in label="In" value="for comparison only"/>
 
-      <tx:date label="Date" readonly="true"/>
-      <tx:date label="Date/Time" readonly="true">
+      <tc:date label="Date" readonly="true"/>
+      <tc:date label="Date/Time" readonly="true">
         <f:convertDateTime type="date" pattern="dd.MM.yyyy HH:mm:ss"/>
-      </tx:date>
-      <tx:in label="In" value="for comparison only" readonly="true"/>
+      </tc:date>
+      <tc:in label="In" value="for comparison only" readonly="true"/>
 
-      <tx:date label="Date" disabled="true"/>
-      <tx:date label="Date/Time" disabled="true">
+      <tc:date label="Date" disabled="true"/>
+      <tc:date label="Date/Time" disabled="true">
         <f:convertDateTime type="date" pattern="dd.MM.yyyy HH:mm:ss"/>
-      </tx:date>
-      <tx:in label="In" value="for comparison only" disabled="true"/>
+      </tc:date>
+      <tc:in label="In" value="for comparison only" disabled="true"/>
 
-      <tx:date label="Date" markup="error"/>
-      <tx:date label="Date/Time" markup="error">
+      <tc:date label="Date" markup="error"/>
+      <tc:date label="Date/Time" markup="error">
         <f:convertDateTime type="date" pattern="dd.MM.yyyy HH:mm:ss"/>
-      </tx:date>
-      <tx:in label="In" value="for comparison only" markup="error"/>
+      </tc:date>
+      <tc:in label="In" value="for comparison only" markup="error"/>
 
       <tc:panel/>
       <tc:panel/>

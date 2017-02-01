@@ -19,12 +19,15 @@
 
 package org.apache.myfaces.tobago.internal.taglib.component;
 
+import org.apache.myfaces.tobago.apt.annotation.Behavior;
 import org.apache.myfaces.tobago.apt.annotation.DynamicExpression;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
+import org.apache.myfaces.tobago.component.ClientBehaviors;
 import org.apache.myfaces.tobago.component.RendererTypes;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasAccessKey;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasConverterMessage;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabel;
@@ -37,6 +40,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasValidatorMessage
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasValueChangeListener;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsDisabled;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsFocus;
+import org.apache.myfaces.tobago.internal.taglib.declaration.IsMultiple;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsReadonly;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsRequired;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
@@ -58,11 +62,24 @@ import javax.faces.component.UIInput;
     uiComponentFacesClass = "javax.faces.component.UIInput",
     componentFamily = UIInput.COMPONENT_FAMILY,
     rendererType = RendererTypes.FILE,
-    allowedChildComponenents = "NONE")
+    allowedChildComponenents = "NONE",
+    behaviors = {
+        @Behavior(
+            name = ClientBehaviors.CHANGE,
+            isDefault = true),
+        @Behavior(
+            name = ClientBehaviors.CLICK),
+        @Behavior(
+            name = ClientBehaviors.DBLCLICK),
+        @Behavior(
+            name = ClientBehaviors.FOCUS),
+        @Behavior(
+            name = ClientBehaviors.BLUR)
+    })
 public interface FileTagDeclaration
     extends HasValidator, HasValidatorMessage, HasRequiredMessage, HasConverterMessage,
-    HasValueChangeListener, HasIdBindingAndRendered, IsDisabled, IsFocus,
-    HasLabel, HasLabelLayout, HasTip, IsReadonly, IsRequired, HasTabIndex, IsVisual {
+    HasValueChangeListener, HasIdBindingAndRendered, IsDisabled, IsFocus, IsMultiple,
+    HasLabel, HasLabelLayout, HasAccessKey, HasTip, IsReadonly, IsRequired, HasTabIndex, IsVisual {
 
   /**
    * Value binding expression pointing to a
@@ -71,7 +88,7 @@ public interface FileTagDeclaration
    */
   @TagAttribute()
   @UIComponentTagAttribute(
-      type = { "javax.servlet.http.Part" },
+      type = { "javax.servlet.http.Part", "javax.servlet.http.Part[]" },
       expression = DynamicExpression.VALUE_EXPRESSION_REQUIRED)
   void setValue(String value);
 }

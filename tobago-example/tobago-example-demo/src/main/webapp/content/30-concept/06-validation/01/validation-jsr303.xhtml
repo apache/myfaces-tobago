@@ -18,10 +18,10 @@
 -->
 
 <ui:composition template="/main.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
-                xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:f="http://java.sun.com/jsf/core">
-  <ui:param name="title" value="#{overviewBundle.validation_jsr303}"/>
+                xmlns:ui="http://java.sun.com/jsf/facelets">
+  <ui:param name="title" value="#{demoBundle.validation_jsr303}"/>
   <p>Tobago has JSR 303 Validation support.
     With it, you can describe the validation in an annotation in the controller.</p>
 
@@ -31,20 +31,21 @@
     <pre><code class="language-markup">&lt;tc:in label="Input" value="\#{validationJsr303Controller.required}"/></code></pre>
     <pre><code class="language-java">@NotNull
 private String required;</code></pre>
-    <tc:form>
-      <tc:in label="Input (required)" value="#{validationJsr303Controller.required}"/>
-      <tc:button label="Submit"/>
+    <tc:form id="required">
+      <tc:in id="in" label="Input (required)" value="#{validationJsr303Controller.required}"/>
+      <tc:button id="submit" label="Submit"/>
     </tc:form>
   </tc:section>
 
   <tc:section label="Length">
     <p>The length of the given string must be between 2 and 4 characters.</p>
-    <pre><code class="language-markup">&lt;tc:in label="Input" value="\#{validationJsr303Controller.length}"/></code></pre>
+    <pre><code
+            class="language-markup">&lt;tc:in label="Input" value="\#{validationJsr303Controller.length}"/></code></pre>
     <pre><code class="language-java">@Size(min = 2, max = 4, message = "Length must be between 2 and 4")
 private String length;</code></pre>
-    <tc:form>
-      <tc:in label="2 to 4 Character" value="#{validationJsr303Controller.length}"/>
-      <tc:button label="Submit"/>
+    <tc:form id="length">
+      <tc:in id="in" label="2 to 4 Character" value="#{validationJsr303Controller.length}"/>
+      <tc:button id="submit" label="Submit"/>
     </tc:form>
   </tc:section>
 </ui:composition>

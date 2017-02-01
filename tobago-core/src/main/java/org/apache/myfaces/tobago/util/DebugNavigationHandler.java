@@ -19,7 +19,6 @@
 
 package org.apache.myfaces.tobago.util;
 
-import org.apache.myfaces.tobago.ajax.AjaxUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -43,7 +42,8 @@ public class DebugNavigationHandler extends NavigationHandler {
           + fromAction + "' outcome: '" + outcome + "'");
     }
 
-    if (outcome != null && AjaxUtils.isAjaxRequest(facesContext)) {
+    // TBD: is this correct?
+    if (outcome != null && facesContext.getPartialViewContext().isAjaxRequest()) {
         LOG.warn("An AJAX-Request should not have an outcome set: outcome='" + outcome + "'");
     }
 

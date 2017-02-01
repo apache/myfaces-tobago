@@ -19,6 +19,10 @@
 
 package org.apache.myfaces.tobago.example.data;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import javax.faces.event.AjaxBehaviorEvent;
 import javax.swing.tree.DefaultMutableTreeNode;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -28,6 +32,8 @@ import java.util.List;
 import java.util.Map;
 
 public class SolarObject {
+
+  private static final Logger LOG = LoggerFactory.getLogger(SolarObject.class);
 
   private String name;
 
@@ -66,8 +72,26 @@ public class SolarObject {
     this.population = "Earth".equals(name) ? "ca. 6.800.000.000" : "0";
   }
 
+  public SolarObject(final SolarObject solarObject) {
+    this.name = solarObject.getName();
+    this.number = solarObject.getNumber();
+    this.orbit = solarObject.getOrbit();
+    this.distance = solarObject.getDistance();
+    this.period = solarObject.getPeriod();
+    this.incl = solarObject.getIncl();
+    this.eccen = solarObject.getEccen();
+    this.discoverer = solarObject.getDiscoverer();
+    this.discoverYear = solarObject.getDiscoverYear();
+    this.population = getPopulation();
+  }
+
+
   public String getName() {
     return name;
+  }
+
+  public void update(AjaxBehaviorEvent event) {
+    LOG.info("AjaxBehaviorEvent called. New value: '{}' event: {}", name, event);
   }
 
   public void setName(final String name) {
@@ -224,7 +248,7 @@ public class SolarObject {
 
 
   public static final SolarObject SUN = new SolarObject("Sun", "-", "-", 0, 0.0, 0.0, 0.0, "-", null);
-  public static final SolarObject EARTH =new SolarObject("Earth", "III", "Sun", 149600, 365.26, 0.00, 0.02, "-", null);
+  public static final SolarObject EARTH = new SolarObject("Earth", "III", "Sun", 149600, 365.26, 0.00, 0.02, "-", null);
   public static final SolarObject MOON = new SolarObject("Moon", "I", "Earth", 384, 27.32, 5.14, 0.05, "-", null);
 
   public static final SolarObject[] DATA = {

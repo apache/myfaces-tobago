@@ -19,7 +19,7 @@
 
 package org.apache.myfaces.tobago.internal.util;
 
-import org.apache.myfaces.tobago.context.ClientProperties;
+import org.apache.myfaces.tobago.context.TobagoContext;
 import org.apache.myfaces.tobago.context.UserAgent;
 import org.apache.myfaces.tobago.internal.config.ContentSecurityPolicy;
 import org.apache.myfaces.tobago.portlet.PortletUtils;
@@ -99,7 +99,7 @@ public final class ResponseUtils {
     final Object response = facesContext.getExternalContext().getResponse();
     if (response instanceof HttpServletResponse) {
       final HttpServletResponse servletResponse = (HttpServletResponse) response;
-      final UserAgent userAgent = ClientProperties.getInstance(facesContext).getUserAgent();
+      final UserAgent userAgent = TobagoContext.getInstance(facesContext).getUserAgent();
       final String[] cspHeaders;
       switch (contentSecurityPolicy.getMode()) {
         case OFF:

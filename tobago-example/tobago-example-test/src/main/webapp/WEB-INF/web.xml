@@ -66,24 +66,14 @@
     <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
     <load-on-startup>3</load-on-startup>
     <!-- This is needed, for file upload e.g. <tc:file> with JSF 2.0 or 2.1, JSF 2.2 doesn't need it. -->
-    <multipart-config/>
+    <multipart-config>
+      <max-request-size>20000000</max-request-size>
+      <max-file-size>1000000</max-file-size>
+    </multipart-config>
   </servlet>
   <servlet-mapping>
     <servlet-name>FacesServlet</servlet-name>
     <url-pattern>/faces/*</url-pattern>
-  </servlet-mapping>
-
-  <servlet>
-    <servlet-name>ResourceServlet</servlet-name>
-    <servlet-class>org.apache.myfaces.tobago.servlet.ResourceServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>ResourceServlet</servlet-name>
-    <url-pattern>/org/apache/myfaces/tobago/renderkit/*</url-pattern>
-  </servlet-mapping>
-  <servlet-mapping>
-    <servlet-name>ResourceServlet</servlet-name>
-    <url-pattern>/org/apache/myfaces/tobago/sandbox/*</url-pattern>
   </servlet-mapping>
 
   <servlet>

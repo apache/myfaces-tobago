@@ -18,14 +18,15 @@
 -->
 
 <ui:composition template="/main.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
                 xmlns:ui="http://java.sun.com/jsf/facelets">
-  <ui:param name="title" value="#{overviewBundle.flex_layout}  &lt;tc:flexLayout>"/>
+  <ui:param name="title" value="#{demoBundle.flex_layout}  &lt;tc:flexLayout>"/>
   <p>The flex layout can be used with the <code>&lt;tc:flexLayout/></code> tag.
     The two most important attributes are <code>columns</code> and <code>rows</code>.
     If both attributes are set, only <code>rows</code> has an effect.</p>
-  <tc:link label="Tag Library Documentation" image="image/feather-leaf.png"
-           link="#{overviewBundle.tagDocUrl}/flexLayout.html"/>
+  <tc:link label="Tag Library Documentation" image="#{request.contextPath}/image/feather-leaf.png"
+           link="#{demoBundle.tagDocUrl}/#{info.stableVersion}/tld/tc/flexLayout.html"/>
 
   <tc:section label="Basics">
     <p>If no attributes set, the behavior of the flex layout is like a flow layout.</p>
@@ -72,6 +73,23 @@
       <tc:button label="Button"/>
       <tc:button label="Button"/>
       <tc:button label="Button"/>
+      <tc:button label="Button"/>
+      <tc:button label="Button"/>
+    </tc:flexLayout>
+  </tc:section>
+
+  <tc:section label="Cascade">
+    <p>You can also put a flex layout within a flex layout. In this case the second row is another flex layout.</p>
+    <tc:flexLayout rows="100px;auto;80px;1*">
+      <tc:style height="400px"/>
+      <tc:button label="Button"/>
+      <tc:flexLayout columns="200px;auto;1*;2*;1*">
+        <tc:button label="Button"/>
+        <tc:button label="Button"/>
+        <tc:button label="Button"/>
+        <tc:button label="Button"/>
+        <tc:button label="Button"/>
+      </tc:flexLayout>
       <tc:button label="Button"/>
       <tc:button label="Button"/>
     </tc:flexLayout>

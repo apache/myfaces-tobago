@@ -22,10 +22,10 @@
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:f="http://java.sun.com/jsf/core">
-  <ui:param name="title" value="#{overviewBundle.box} &lt;tc:box>"/>
+  <ui:param name="title" value="#{demoBundle.box} &lt;tc:box>"/>
   <p>A content box is created with <code class="language-markup">&lt;tc:box/></code>.</p>
-  <tc:link label="Tag Library Documentation" image="image/feather-leaf.png"
-           link="#{overviewBundle.tagDocUrl}/box.html"/>
+  <tc:link label="Tag Library Documentation" image="#{request.contextPath}/image/feather-leaf.png"
+           link="#{demoBundle.tagDocUrl}/#{info.stableVersion}/tld/tc/box.html"/>
   <tc:section label="Basics">
     <p>The title of the box is set by the <code>label</code> attribute.</p>
     <pre><code class="language-markup">&lt;tc:box label="Box">Content&lt;/tc:box></code></pre>
@@ -34,23 +34,28 @@
   </tc:section>
 
   <tc:section label="Collapse/Expand">
-    <p>A contentbox can be collapsed via <code>collapsed</code> attribute.</p>
-    <pre><code class="language-markup">&lt;tc:box label="Collapsed" collapsed="true">Content&lt;/tc:box></code></pre>
-    <tc:segmentLayout medium="6;6">
-      <tc:box label="Collapsed" collapsed="true">Content</tc:box>
-      <tc:box label="Expanded" collapsed="false">Content</tc:box>
-    </tc:segmentLayout>
+    <p>A contentbox can be collapsed or expanded via the <code>collapsed</code> attribute.
+      To define the behavior of hidden content, use the <code>collapseMode</code> attribute.
+      For more information have a look at the
+      <tc:link label="#{demoBundle.collapsible_box}"
+               link="/faces/content/30-concept/53-collapsible/00-collapsible-box/collapsible-box.xhtml"/> page
+      in the <tc:link label="#{demoBundle.collapsible}"
+                      link="/faces/content/30-concept/53-collapsible/collapsible.xhtml"/> section.</p>
   </tc:section>
 
-  <tc:section label="Toolbar">
-    <p>It's possible to add a toobar to the header of a contentbox. For that, the contentbox must contain the tag
-      <code class="language-markup">&lt;f:facet name="toolBar"></code>. The facet contain the
-      <code class="language-markup">&lt;tc:toolBar></code> tag.</p>
+  <tc:section label="Bar">
+    <p>It's possible to add a bar to the header of a content box. For that, the content box must contain the tag
+      <code class="language-markup">&lt;f:facet name="bar"></code>. The facet may contain
+      <code class="language-markup">&lt;tc:bar></code> or other suitable tags.</p>
     <tc:box>
-      <f:facet name="toolBar">
-        <tc:toolBar>
-          <tc:toolBarCommand label="Toolbar Entry"/>
-        </tc:toolBar>
+      <f:facet name="label">
+        Label
+      </f:facet>
+      <f:facet name="bar">
+        <tc:buttons>
+          <tc:button label="Button 1"/>
+          <tc:button label="Button 2"/>
+        </tc:buttons>
       </f:facet>
       Content
     </tc:box>

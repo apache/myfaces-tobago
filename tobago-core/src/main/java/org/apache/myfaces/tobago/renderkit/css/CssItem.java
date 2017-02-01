@@ -22,7 +22,7 @@ package org.apache.myfaces.tobago.renderkit.css;
 import java.io.Serializable;
 
 /**
- * TBD: preliminary
+ * @since Tobago 3.0.0
  */
 public interface CssItem extends Serializable {
 

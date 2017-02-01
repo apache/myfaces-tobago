@@ -48,10 +48,17 @@ import javax.faces.component.UIInput;
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UISuggest",
     uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUISuggest",
-    uiComponentFacesClass = "javax.faces.component.UIComponentBase",
     componentFamily = UIInput.COMPONENT_FAMILY,
     rendererType = RendererTypes.SUGGEST,
-    allowedChildComponenents = "NONE")
+    allowedChildComponenents = {
+        "org.apache.myfaces.tobago.SelectItems",
+        "org.apache.myfaces.tobago.SelectItem"
+    }/* todo ,
+    behaviors = {
+        @Behavior(
+            name = ClientBehaviors.SUGGEST,
+            isDefault = true)
+    }*/)
 public interface SuggestTagDeclaration extends HasIdBindingAndRendered {
 
   /**
@@ -85,7 +92,7 @@ public interface SuggestTagDeclaration extends HasIdBindingAndRendered {
    * Time in milli seconds before the list will be requested (by AJAX).
    */
   @TagAttribute
-  @UIComponentTagAttribute(type = "java.lang.Integer", defaultValue = "300")
+  @UIComponentTagAttribute(type = "java.lang.Integer", defaultValue = "200")
   void setDelay(String delay);
 
   /**
@@ -149,4 +156,10 @@ public interface SuggestTagDeclaration extends HasIdBindingAndRendered {
   @UIComponentTagAttribute(type = "boolean", defaultValue = "true")
   void setUpdate(String update);
 
+  /**
+   * The query is the string typed by the user.
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(generate = false, isTransient = true)
+  void setQuery(String query);
 }

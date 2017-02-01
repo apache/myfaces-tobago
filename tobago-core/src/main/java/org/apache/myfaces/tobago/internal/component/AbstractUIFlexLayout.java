@@ -21,14 +21,12 @@ package org.apache.myfaces.tobago.internal.component;
 
 import org.apache.myfaces.tobago.component.Visual;
 
-import javax.faces.component.UIComponentBase;
-
 /**
  * A layout manager which uses the CSS flex feature.
  *
  * @since 3.0.0
  */
-public abstract class AbstractUIFlexLayout extends UIComponentBase implements Visual {
+public abstract class AbstractUIFlexLayout extends AbstractUILayoutBase implements Visual {
 
   public static final String COMPONENT_FAMILY = "org.apache.myfaces.tobago.FlexLayout";
 }

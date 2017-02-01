@@ -25,26 +25,21 @@
 
   <ui:define name="metadata">
     <f:metadata>
-      <f:viewParam name="fishId" value="#{fishPond.selectedFishId}" />
+      <f:viewParam name="fishId" value="#{fishPond.selectedFishId}"/>
       <f:event type="preRenderView" listener="#{fishPond.action}"/>
     </f:metadata>
   </ui:define>
 
   <tc:panel id="pond">
 
-    <f:facet name="layout">
-      <tc:gridLayout rows="auto;auto" margin="20px"/>
-    </f:facet>
-
     <tc:in label="Selected:" value="#{fishPond.selectedFish}" readonly="true"/>
 
-    <tc:panel>
-      <f:facet name="layout">
-        <tc:gridLayout columns="auto;auto;*"/>
-      </f:facet>
-      <tc:button label="random" action="#{fishPond.random}" renderedPartially="pond :page:header:headerInfo"/>
-      <tc:button label="back to start" action="/content/90-non-faces-request/non-faces-request.xhtml"/>
-    </tc:panel>
+    <tc:buttons>
+      <tc:button label="random" action="#{fishPond.random}">
+        <f:ajax render="pond :page:header:headerInfo" execute="pond"/>
+      </tc:button>
+      <tc:button label="back to start" action="/content/30-concept/90-non-faces-request/non-faces-request.xhtml"/>
+    </tc:buttons>
 
   </tc:panel>
 

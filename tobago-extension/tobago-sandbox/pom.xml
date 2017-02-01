@@ -20,7 +20,7 @@
   <parent>
     <groupId>org.apache.myfaces.tobago</groupId>
     <artifactId>tobago-extension</artifactId>
-    <version>3.0.0-beta-1-SNAPSHOT</version>
+    <version>3.0.2</version>
   </parent>
   <artifactId>tobago-sandbox</artifactId>
   <packaging>jar</packaging>
@@ -186,12 +186,18 @@
     <plugins>
 
       <plugin>
-        <groupId>net.sourceforge.maven-taglib</groupId>
-        <artifactId>maven-taglib-plugin</artifactId>
+        <groupId>com.github.matinh.vdldoc</groupId>
+        <artifactId>vdldoc-maven-plugin</artifactId>
         <configuration>
-          <taglib.src.dir>${project.build.directory}/generated</taglib.src.dir>
-          <tldDocDir>${project.build.directory}/site/tlddoc</tldDocDir>
-          <parseHtml>true</parseHtml>
+          <destDir>tlddoc</destDir>
+          <documentTitle>Tag Library Documentation</documentTitle>
+          <excludes>
+            <exclude>target/classes/**</exclude>
+          </excludes>
+          <includes>
+            <include>target/generated/META-INF/tobago-sandbox.taglib.xml</include>
+          </includes>
+          <reportOutputDirectory>target</reportOutputDirectory>
         </configuration>
       </plugin>
 
@@ -213,12 +219,7 @@
     </dependency>
     <dependency>
       <groupId>org.apache.myfaces.tobago</groupId>
-      <artifactId>tobago-theme-standard</artifactId>
-      <version>${project.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.myfaces.tobago</groupId>
-      <artifactId>tobago-theme-scarborough</artifactId>
+      <artifactId>tobago-core</artifactId>
       <version>${project.version}</version>
     </dependency>
     <dependency>
@@ -240,16 +241,26 @@
       <build>
         <plugins>
           <plugin>
-            <groupId>net.sourceforge.maven-taglib</groupId>
-            <artifactId>maven-taglib-plugin</artifactId>
+            <groupId>com.github.matinh.vdldoc</groupId>
+            <artifactId>vdldoc-maven-plugin</artifactId>
             <configuration>
-              <taglib.src.dir>${project.build.directory}/generated</taglib.src.dir>
-              <tldDocDir>${project.build.directory}/tlddoc</tldDocDir>
+              <destDir>tlddoc</destDir>
+              <documentTitle>Tag Library Documentation</documentTitle>
+              <excludes>
+                <exclude>target/classes/**</exclude>
+              </excludes>
+              <includes>
+                <include>target/generated/META-INF/tobago-sandbox.taglib.xml</include>
+              </includes>
+              <reportOutputDirectory>target</reportOutputDirectory>
             </configuration>
             <executions>
               <execution>
                 <id>attach-tlddoc</id>
-                <goals><goal>taglibdocjar</goal></goals>
+                <phase>generate-sources</phase>
+                <goals>
+                  <goal>vdldoc</goal>
+                </goals>
               </execution>
             </executions>
           </plugin>

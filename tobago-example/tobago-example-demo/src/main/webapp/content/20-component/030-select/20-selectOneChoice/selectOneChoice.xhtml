@@ -22,21 +22,21 @@
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:f="http://java.sun.com/jsf/core">
-  <ui:param name="title" value="#{overviewBundle.selectOneChoice} &lt;tc:selectOneChoice>"/>
+  <ui:param name="title" value="#{demoBundle.selectOneChoice} &lt;tc:selectOneChoice>"/>
   <p>The tag <code class="language-markup">&lt;tc:selectOneChoice/&gt;</code> create a dropdownbox,
     which contain<br/>
-  <code class="language-markup">&lt;tc:selectItem/></code> for static entries or<br/>
+    <code class="language-markup">&lt;tc:selectItem/></code> for static entries or<br/>
     <code class="language-markup">&lt;tc:selectItems value="\#{controller.list}"/></code> for entries from
     a controller.</p>
   <p>Tag Library Documentation:
-    <tc:link label="&lt;tc:selectOneChoice/>" image="image/feather-leaf.png"
-             link="#{overviewBundle.tagDocUrl}/selectOneChoice.html"/>
+    <tc:link label="&lt;tc:selectOneChoice/>" image="#{request.contextPath}/image/feather-leaf.png"
+             link="#{demoBundle.tagDocUrl}/#{info.stableVersion}/tld/tc/selectOneChoice.html"/>
     |
-    <tc:link label="&lt;tc:selectItem/>" image="image/feather-leaf.png"
-             link="#{overviewBundle.tagDocUrl}/selectItem.html"/>
+    <tc:link label="&lt;tc:selectItem/>" image="#{request.contextPath}/image/feather-leaf.png"
+             link="#{demoBundle.tagDocUrl}/#{info.stableVersion}/tld/tc/selectItem.html"/>
     |
-    <tc:link label="&lt;tc:selectItems/>" image="image/feather-leaf.png"
-             link="#{overviewBundle.tagDocUrl}/selectItems.html"/></p>
+    <tc:link label="&lt;tc:selectItems/>" image="#{request.contextPath}/image/feather-leaf.png"
+             link="#{demoBundle.tagDocUrl}/#{info.stableVersion}/tld/tc/selectItems.html"/></p>
 
   <tc:section label="Basics">
     <p>Dropdown Box with hardcoded items. The second item is disabled.
@@ -61,12 +61,12 @@
       After submitting, the value of the item is shown in the outputfield.
       So, if 'Alice' is selected, the text in the outputfield is 'Alice Anderson'.</p>
     <pre><code class="language-markup">&lt;tc:selectItem itemLabel="Alice" itemValue="Alice Anderson"/></code></pre>
-    <tc:selectOneChoice id="s4" label="Person" value="#{selectOneChoiceController.person}">
+    <tc:selectOneChoice id="selectPerson" label="Person" value="#{selectOneChoiceController.person}">
       <tc:selectItem itemLabel="Alice" itemValue="Alice Anderson"/>
       <tc:selectItem itemLabel="Bob" itemValue="Bob Brunch"/>
     </tc:selectOneChoice>
-    <tc:out id="o1" label="Selected Person" value="#{selectOneChoiceController.person}"/>
-    <tc:button id="b1" label="Submit"/>
+    <tc:out id="outputPerson" label="Selected Person" value="#{selectOneChoiceController.person}"/>
+    <tc:button id="submit" label="Submit"/>
   </tc:section>
 
   <tc:section label="Ajax">
@@ -81,7 +81,7 @@
 &lt;tc:selectOneChoice id="moonbox" label="Moon">
   &lt;f:selectItems value="\#{selectOneChoiceController.moons}"/>
 &lt;/tc:selectOneChoice></code></pre>
-    <tc:selectOneChoice id="s5" label="Planet" value="#{selectOneChoiceController.planet}">
+    <tc:selectOneChoice id="selectPlanet" label="Planet" value="#{selectOneChoiceController.planet}">
       <f:selectItems value="#{selectOneChoiceController.planets}"/>
       <f:ajax render="moonbox"/>
     </tc:selectOneChoice>

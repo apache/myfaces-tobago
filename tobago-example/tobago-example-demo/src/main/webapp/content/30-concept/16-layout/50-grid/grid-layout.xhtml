@@ -18,84 +18,13 @@
 -->
 
 <ui:composition template="/main.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
-                xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:f="http://java.sun.com/jsf/core">
-  <ui:param name="title" value="#{overviewBundle.grid_layout} (deprecated)"/>
-  <p>The GridLayout is deprecated. Instead you should use FlexLayout or SegmentLayout.
-    In the first section on this page, there is a typical GridLayout example.
-    The second section show how it's done with FlexLayout.</p>
-  <p>Tag Library Documentation:
-    <tc:link label="&lt;tc:gridLayout/>" image="image/feather-leaf.png"
-             link="#{overviewBundle.tagDocUrl}/gridLayout.html"/>
-    |
-    <tc:link label="&lt;tc:flexLayout/>" image="image/feather-leaf.png"
-             link="#{overviewBundle.tagDocUrl}/flexLayout.html"/>
-    |
-    <tc:link label="&lt;tc:segmentLayout/>" image="image/feather-leaf.png"
-             link="#{overviewBundle.tagDocUrl}/segmentLayout.html"/></p>
-
-  <tc:section label="GridLayout">
-    <tc:box label="Personal Information">
-      <f:facet name="layout">
-        <tc:gridLayout columns="*;*" rows="auto;auto;auto;auto;auto;*"/>
-      </f:facet>
-      <tc:selectOneChoice label="Salutation">
-        <f:selectItem itemLabel="none"/>
-        <f:selectItem itemLabel="Mr."/>
-        <f:selectItem itemLabel="Mrs."/>
-      </tc:selectOneChoice>
-      <tc:panel/>
-
-      <tc:in label="First Name"/>
-      <tc:in label="Last Name"/>
-
-      <tc:in label="c/o">
-        <tc:gridLayoutConstraint columnSpan="2"/>
-      </tc:in>
-
-      <tc:in label="Street"/>
-      <tc:in label="No"/>
-
-      <tc:in label="ZIP"/>
-      <tc:in label="City"/>
-
-      <tc:textarea label="Note">
-        <tc:gridLayoutConstraint columnSpan="2"/>
-      </tc:textarea>
-    </tc:box>
-  </tc:section>
-
-  <tc:section label="FlexLayout">
-    <tc:box label="Personal Information">
-      <tc:flexLayout rows="1;*">
-        <tc:flexLayout columns="auto">
-          <tc:selectOneChoice label="Salutation">
-            <f:selectItem itemLabel="none"/>
-            <f:selectItem itemLabel="Mr."/>
-            <f:selectItem itemLabel="Mrs."/>
-          </tc:selectOneChoice>
-        </tc:flexLayout>
-
-        <tc:flexLayout columns="1;1">
-          <tc:in label="First Name"/>
-          <tc:in label="Last Name"/>
-        </tc:flexLayout>
-
-        <tc:in label="c/o"/>
-
-        <tc:flexLayout columns="1;1">
-          <tc:in label="Street"/>
-          <tc:in label="No"/>
-        </tc:flexLayout>
-
-        <tc:flexLayout columns="1;1">
-          <tc:in label="ZIP"/>
-          <tc:in label="City"/>
-        </tc:flexLayout>
-
-        <tc:textarea label="Note"/>
-      </tc:flexLayout>
-    </tc:box>
-  </tc:section>
+                xmlns:ui="http://java.sun.com/jsf/facelets">
+  <ui:param name="title" value="#{demoBundle.grid_layout} (deprecated)"/>
+  <p>The GridLayout is deprecated. Take a look at
+    <tc:link label="#{demoBundle.grid_layout}"
+             link="/faces/content/35-deprecated/70-grid-layout/grid-layout.xhtml"/>
+    in the #{demoBundle.deprecated} section.
+  </p>
 </ui:composition>

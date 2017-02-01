@@ -24,86 +24,79 @@
   <!-- tbd: how to solve this? -->
   <tc:style customClass="bg-inverse"/>
 
+<!--
   <tc:flexLayout columns="auto;*" alignItems="center">
 
     <tc:image value="image/feather-leaf.png"/>
+-->
 
-    <tc:nav label="Tobago Demo">
+    <tc:bar id="bar">
+      <f:facet name="brand">
+        <tc:link image="#{request.contextPath}/image/feather-leaf.png" label="Tobago Demo" id="brand" link="/"/>
+      </f:facet>
 
-      <tc:form id="header">
+      <tc:form id="header" inline="true">
 
-        <tc:commandGroup>
+        <tc:links id="commands">
 
-          <tc:command label="#{overviewBundle.menu_config}" omit="true">
-            <tc:command label="Hier sind die themes" omit="true">
-              <!-- XXX this is a workaround until TOBAGO-1506 is resolved
-              the next sourrounding tag <tc:command> should not be needed.
-              -->
-              <tc:command omit="true">
-                <tc:selectOneRadio value="#{clientConfigController.theme}">
-                  <f:facet name="change">
-                    <tc:command action="#{clientConfigController.submit}"/>
-                  </f:facet>
-                  <tc:selectItems value="#{clientConfigController.themeItems}"/>
-                </tc:selectOneRadio>
-              </tc:command>
-            </tc:command>
-            <tc:command label="#{overviewBundle.menu_locale}">
-              <tc:command action="#{clientConfigController.submit}">
-                <tc:selectOneRadio value="#{clientConfigController.locale}">
-                  <!-- XXX this is a workaround until TOBAGO-1506 is resolved -->
-                  <f:facet name="change">
-                    <tc:command action="#{clientConfigController.submit}"/>
-                  </f:facet>
-                  <tc:selectItems value="#{clientConfigController.localeItems}"/>
-                </tc:selectOneRadio>
-              </tc:command>
-            </tc:command>
-            <tc:command action="#{demo.resetSession}" label="Reset"/>
-          </tc:command>
+          <tc:link id="config" label="#{demoBundle.menu_config}" omit="true">
+            <tc:link label="#{demoBundle.menu_themes}" omit="true">
+              <tc:selectOneRadio value="#{clientConfigController.theme}">
+                <tc:event action="#{clientConfigController.submit}"/>
+                <tc:selectItems value="#{clientConfigController.themeItems}"/>
+              </tc:selectOneRadio>
+            </tc:link>
+            <!--<tc:link action="#{clientConfigController.resetTheme}" label="Reset Theme"/>-->
+            <tc:link label="#{demoBundle.menu_locale}">
+              <tc:selectOneRadio value="#{clientConfigController.locale}">
+                <tc:event action="#{clientConfigController.submit}"/>
+                <tc:selectItems value="#{clientConfigController.localeItems}"/>
+              </tc:selectOneRadio>
+            </tc:link>
+            <tc:link action="#{login.resetSession}" label="Reset Session"/>
+          </tc:link>
 
-          <tc:command label="#{overviewBundle.menu_help}" omit="true">
-            <tc:command label="#{overviewBundle.menu_about}" omit="true">
+          <tc:link label="#{demoBundle.menu_help}" omit="true">
+            <tc:link label="#{demoBundle.menu_about}" omit="true">
               <tc:dataAttribute name="alert-text"
-                                value="#{overviewBundle.pageTitle} - #{info.version} - #{overviewBundle.tobago_url}"/>
-            </tc:command>
-            <tc:command link="http://myfaces.apache.org/tobago" label="Tobago in the Web"/>
-            <tc:command action="/server-info.xhtml" immediate="true" label="Server Info" disabled="#{! info.enabled}"/>
-            <tc:command action="/logging-info.xhtml" immediate="true" label="Logging Info"
+                                value="#{demoBundle.pageTitle} - #{info.version} - #{demoBundle.tobago_url}"/>
+            </tc:link>
+            <tc:link link="http://myfaces.apache.org/tobago" label="Tobago in the Web"/>
+            <tc:link action="/server-info.xhtml" immediate="true" label="Server Info" disabled="#{! info.enabled}"/>
+            <tc:link action="/logging-info.xhtml" immediate="true" label="Logging Info"
                         disabled="#{! info.enabled}"/>
             <tc:separator/>
-            <tc:command label="Sub-Menu" omit="true">
-              <tc:command label="Sub 1" omit="true"/>
-              <tc:command label="Sub 2" omit="true"/>
-              <tc:command label="Sub 3" omit="true"/>
-              <tc:command action="doit" label="Sub 4 ich kann auch selber was" omit="true">
-                <tc:command label="Sub 4 1" omit="true"/>
-                <tc:command label="Sub 4 2" omit="true"/>
-              </tc:command>
-              <tc:command label="Sub 5" omit="true">
-                <tc:command label="Sub 5 1" omit="true"/>
-                <tc:command label="Sub 5 2" omit="true"/>
-              </tc:command>
-            </tc:command>
-          </tc:command>
+            <tc:link label="Sub-Menu" omit="true">
+              <tc:link label="Sub 1" omit="true"/>
+              <tc:link label="Sub 2" omit="true"/>
+              <tc:link label="Sub 3" omit="true"/>
+              <tc:link action="doit" label="Sub 4 ich kann auch selber was" omit="true">
+                <tc:link label="Sub 4 1" omit="true"/>
+                <tc:link label="Sub 4 2" omit="true"/>
+              </tc:link>
+              <tc:link label="Sub 5" omit="true">
+                <tc:link label="Sub 5 1" omit="true"/>
+                <tc:link label="Sub 5 2" omit="true"/>
+              </tc:link>
+            </tc:link>
+          </tc:link>
 
-        </tc:commandGroup>
-        <!-- TBD: this is not nice: can we put tc:out or tc:label into the menu?  -->
-        <tc:commandGroup id="headerInfo">
-          <tc:command omit="true" label="Info">
-            <tc:command omit="true" label="Theme: #{clientConfigController.localizedTheme}"/>
-            <tc:command omit="true" label="Locale: #{clientConfigController.localizedLocale}"/>
-            <tc:command omit="true" label="Project Stage: #{tobagoContext.tobagoConfig.projectStage}"/>
-            <tc:command omit="true" label="CSP mode: #{tobagoContext.tobagoConfig.contentSecurityPolicy.mode}"/>
-            <tc:command omit="true"
+          <!-- TBD: this is not nice: can we put tc:out or tc:label into the menu?
+          or we do that with a popup, oder a lighter variant of a popup -->
+          <tc:link omit="true" label="Info" id="headerInfo">
+            <tc:link omit="true" label="Theme: #{clientConfigController.localizedTheme}" disabled="true"/>
+            <tc:link omit="true" label="Locale: #{clientConfigController.localizedLocale}"/>
+            <tc:link omit="true" label="Project Stage: #{tobagoContext.tobagoConfig.projectStage}"/>
+            <tc:link omit="true" label="CSP mode: #{tobagoContext.tobagoConfig.contentSecurityPolicy.mode}"/>
+            <tc:link omit="true"
                         label="Requests: #{activityList.values[0].jsfRequest} / AJAX: #{activityList.values[0].ajaxRequest}"/>
-          </tc:command>
-        </tc:commandGroup>
+          </tc:link>
+
+        </tc:links>
       </tc:form>
 
-      <tc:flowLayout>
-        <tc:style textAlign="right"/>
-        <tc:form>
+      <tc:flowLayout textAlign="right">
+        <tc:form inline="true">
           <tc:in placeholder="Search"/>
           <tc:button defaultCommand="true" omit="true" label="go">
             <tc:dataAttribute name="alert-text"
@@ -111,25 +104,37 @@
 
           </tc:button>
         </tc:form>
-        <tc:form>
+        <tc:form id="navbtns" inline="true">
           <tc:button immediate="true" id="previous"
-                     image="fa-chevron-left"
+                     image="fa-angle-left"
                      action="#{navigationState.gotoPrevious}"
                      disabled="#{navigationState.first}"
-                     tip="#{overviewBundle.footer_previous}"/>
+                     tip="#{demoBundle.footer_previous}"/>
           <tc:button immediate="true" id="next"
-                     image="fa-chevron-right"
+                     image="fa-angle-right"
                      action="#{navigationState.gotoNext}"
                      disabled="#{navigationState.last}"
-                     tip="#{overviewBundle.footer_next}"/>
+                     tip="#{demoBundle.footer_next}"/>
           <tc:button action="#{navigationState.toggleViewSource}"
-                     image="fa-eye"
-                     immediate="true" tip="#{overviewBundle.footer_viewSource}"/>
+                     image="fa-code"
+                     immediate="true" tip="#{demoBundle.footer_viewSource}"/>
+          <tc:button id="runtest"
+                     link="/faces/test.xhtml"
+                     label="Run Test"
+                     immediate="true" tip="Run Test"
+                     rendered="#{testController.testBase != null}">
+            <f:param name="page" value="#{request.contextPath}/faces#{testController.testBase}.xhtml"/>
+            <f:param name="testjs" value="#{request.contextPath}#{testController.testBase}.test.js"/>
+          </tc:button>
+          <tc:button id="closetest" label="Close Test"
+                     immediate="true" tip="Close test window"/>
         </tc:form>
       </tc:flowLayout>
 
-    </tc:nav>
+    </tc:bar>
 
+<!--
   </tc:flexLayout>
+-->
 
 </tc:header>

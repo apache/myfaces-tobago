@@ -20,9 +20,7 @@
 package org.apache.myfaces.tobago.internal.component;
 
 import org.apache.myfaces.tobago.component.Attributes;
-import org.apache.myfaces.tobago.component.OnComponentPopulated;
 import org.apache.myfaces.tobago.component.Sorter;
-import org.apache.myfaces.tobago.component.SupportsRenderedPartially;
 import org.apache.myfaces.tobago.component.Visual;
 import org.apache.myfaces.tobago.event.PageActionEvent;
 import org.apache.myfaces.tobago.event.SheetStateChangeEvent;
@@ -49,6 +47,7 @@ import javax.el.ValueExpression;
 import javax.faces.component.UIColumn;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UINamingContainer;
+import javax.faces.component.behavior.ClientBehaviorHolder;
 import javax.faces.context.FacesContext;
 import javax.faces.event.AbortProcessingException;
 import javax.faces.event.ComponentSystemEvent;
@@ -64,8 +63,8 @@ import java.util.List;
 
 @ListenerFor(systemEventClass = PreRenderComponentEvent.class)
 public abstract class AbstractUISheet extends AbstractUIData
-    implements SheetStateChangeSource2, SortActionSource2, OnComponentPopulated, SupportsRenderedPartially, Visual,
-        ComponentSystemEventListener {
+    implements SheetStateChangeSource2, SortActionSource2, ClientBehaviorHolder, Visual,
+               ComponentSystemEventListener {
 
   private static final Logger LOG = LoggerFactory.getLogger(AbstractUISheet.class);
 
@@ -127,6 +126,8 @@ public abstract class AbstractUISheet extends AbstractUIData
 
   @Override
   public void processEvent(ComponentSystemEvent event) throws AbortProcessingException {
+
+    super.processEvent(event);
 
     if (event instanceof PreRenderComponentEvent) {
       final String columns = getColumns();
@@ -338,20 +339,12 @@ public abstract class AbstractUISheet extends AbstractUIData
     return result;
   }
 
-  // TODO remove
-  @Deprecated
-  public List<AbstractUIColumnBase> getRenderedColumns() {
-    ArrayList<AbstractUIColumnBase> result = new ArrayList<AbstractUIColumnBase>();
-    findColumns(this, result, false);
-    return result;
-  }
-
   private void findColumns(final UIComponent component, final List<AbstractUIColumnBase> result, final boolean all) {
     for (final UIComponent child : component.getChildren()) {
       if (all || child.isRendered()) {
         if (child instanceof AbstractUIColumnBase) {
           result.add((AbstractUIColumnBase) child);
-        } else if (child instanceof AbstractUIData){
+        } else if (child instanceof AbstractUIData) {
           // ignore columns of nested sheets
         } else {
           findColumns(child, result, all);
@@ -373,15 +366,7 @@ public abstract class AbstractUISheet extends AbstractUIData
       facesEvent.setPhaseId(PhaseId.INVOKE_APPLICATION);
       parent.queueEvent(facesEvent);
     } else {
-      final UIComponent source = facesEvent.getComponent();
-      final UIComponent sourceParent = source.getParent();
-      if (sourceParent.getParent() == this
-          && source.getId() != null && source.getId().endsWith(SORTER_ID)) {
-        facesEvent.setPhaseId(PhaseId.INVOKE_APPLICATION);
-        parent.queueEvent(new SortActionEvent(this, (UIColumn) sourceParent));
-      } else {
-        super.queueEvent(facesEvent);
-      }
+      super.queueEvent(facesEvent);
     }
   }
 
@@ -416,20 +401,23 @@ public abstract class AbstractUISheet extends AbstractUIData
       LOG.warn("This should not happen. Please file a bug in the issue tracker to reproduce this case.");
       return;
     }
-    final LayoutTokens columns = new LayoutTokens();
-    final List<AbstractUIColumnBase> renderedColumns = getRenderedColumns();
-    for (final AbstractUIColumnBase ignored : renderedColumns) {
-      columns.addToken(RelativeLayoutToken.DEFAULT_INSTANCE);
+    final LayoutTokens tokens = new LayoutTokens();
+    final List<AbstractUIColumnBase> columns = getAllColumns();
+    for (final UIColumn column : columns) {
+      if (!(column instanceof AbstractUIRow)) {
+        tokens.addToken(RelativeLayoutToken.DEFAULT_INSTANCE);
+      }
     }
     final LayoutTokens rows = new LayoutTokens();
     rows.addToken(AutoLayoutToken.INSTANCE);
-    final Grid grid = new Grid(columns, rows);
+    final Grid grid = new Grid(tokens, rows);
 
-    for(final UIComponent child : header.getChildren()) {
-        if (child.isRendered()) {
-//     XXX not implemented in the moment     grid.add(new OriginCell(child), c.getColumnSpan(), c.getRowSpan());
-          grid.add(new OriginCell(child), 1, 1);
-        }
+    for (final UIComponent child : header.getChildren()) {
+      if (child.isRendered()) {
+        int columnSpan = ComponentUtils.getIntAttribute(child, Attributes.column, 1);
+        int rowSpan = ComponentUtils.getIntAttribute(child, Attributes.row, 1);
+        grid.add(new OriginCell(child), columnSpan, rowSpan);
+      }
     }
     setHeaderGrid(grid);
   }
@@ -441,6 +429,7 @@ public abstract class AbstractUISheet extends AbstractUIData
       if (expression != null) {
         try {
           if (event == null) {
+            // initial sorting
             event =
                 new SortActionEvent(this, (UIColumn) findComponent(getSheetState(facesContext).getSortedColumnId()));
           }
@@ -500,14 +489,14 @@ public abstract class AbstractUISheet extends AbstractUIData
     }
 
     switch (pageEvent.getAction()) {
-      case FIRST:
+      case first:
         first = 0;
         break;
-      case PREV:
+      case prev:
         first = getFirst() - getRows();
         first = first < 0 ? 0 : first;
         break;
-      case NEXT:
+      case next:
         if (hasRowCount()) {
           first = getFirst() + getRows();
           first = first > getRowCount() ? getFirstRowIndexOfLastPage() : first;
@@ -519,10 +508,10 @@ public abstract class AbstractUISheet extends AbstractUIData
           }
         }
         break;
-      case LAST:
+      case last:
         first = getFirstRowIndexOfLastPage();
         break;
-      case TO_ROW:
+      case toRow:
         first = pageEvent.getValue() - 1;
         if (hasRowCount() && first > getFirstRowIndexOfLastPage()) {
           first = getFirstRowIndexOfLastPage();
@@ -530,7 +519,7 @@ public abstract class AbstractUISheet extends AbstractUIData
           first = 0;
         }
         break;
-      case TO_PAGE:
+      case toPage:
         final int pageIndex = pageEvent.getValue() - 1;
         first = pageIndex * getRows();
         if (hasRowCount() && first > getFirstRowIndexOfLastPage()) {
@@ -552,10 +541,6 @@ public abstract class AbstractUISheet extends AbstractUIData
     }
 
     getState().setFirst(first);
-  }
-
-  @Override
-  public void onComponentPopulated(final FacesContext facesContext, final UIComponent parent) {
   }
 
   @Override

@@ -20,7 +20,7 @@
   <parent>
     <groupId>org.apache.myfaces.tobago</groupId>
     <artifactId>tobago-example</artifactId>
-    <version>3.0.0-beta-1-SNAPSHOT</version>
+    <version>3.0.2</version>
   </parent>
   <artifactId>tobago-example-demo</artifactId>
   <packaging>war</packaging>
@@ -28,22 +28,47 @@
   <description>Demonstration and documentation application.</description>
 
   <properties>
-    <openwebbeans.version>1.1.7</openwebbeans.version>
-    <deltaspike.version>1.2.1</deltaspike.version>
+    <openwebbeans.version>1.2.8</openwebbeans.version>
+    <deltaspike.version>1.7.1</deltaspike.version>
+    <!--<arquillian.browser>firefox</arquillian.browser>-->
+    <!-- phantomjs works not with CSP (report-only) -->
+    <arquillian.browser>phantomjs</arquillian.browser>
+    <selenium.version>3.0.1</selenium.version>
+    <tomee.version>7.0.1</tomee.version>
   </properties>
   <build>
     <finalName>tobago-example-demo</finalName>
+    <testResources>
+      <testResource>
+        <directory>src/test/resources</directory>
+        <filtering>true</filtering>
+      </testResource>
+    </testResources>
     <plugins>
       <plugin>
-        <groupId>org.apache.myfaces.tobago</groupId>
-        <artifactId>tobago-theme-plugin</artifactId>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>xml-maven-plugin</artifactId>
+        <version>1.0.1</version>
         <executions>
           <execution>
             <goals>
-              <goal>resources</goal>
+              <goal>validate</goal>
             </goals>
           </execution>
         </executions>
+        <configuration>
+          <validationSets>
+            <validationSet>
+              <dir>src/main/webapp</dir>
+              <includes>
+                <include>**/*.xhtml</include>
+              </includes>
+              <excludes>
+                  <exclude>**/x-error-in-syntax.xhtml</exclude>
+              </excludes>
+            </validationSet>
+          </validationSets>
+        </configuration>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -90,8 +115,74 @@
         <dependencies>
         </dependencies>
       </plugin>
+      <plugin>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <configuration>
+          <excludes><!-- TODO define group for ArquillianTests and use excludeGroups -->
+            <exclude>**/ArquillianTest.java</exclude>
+          </excludes>
+        </configuration>
+      </plugin>
+      <plugin>
+        <artifactId>maven-failsafe-plugin</artifactId>
+        <configuration>
+          <includes><!-- TODO define group for ArquillianTests or use convention *IT.java, *ITCase.java -->
+            <include>**/ArquillianTest.java</include>
+          </includes>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>io.fabric8</groupId>
+        <artifactId>docker-maven-plugin</artifactId>
+        <version>0.15.9</version>
+        <configuration>
+          <images>
+            <image>
+              <name>selenium/standalone-firefox:${selenium.version}</name>
+              <run>
+                <ports>
+                  <port>4444:4444</port>
+                </ports>
+              </run>
+            </image>
+          </images>
+        </configuration>
+      </plugin>
     </plugins>
   </build>
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>org.jboss.arquillian</groupId>
+        <artifactId>arquillian-bom</artifactId>
+        <version>1.1.12.Final</version>
+        <scope>import</scope>
+        <type>pom</type>
+      </dependency>
+      <dependency>
+        <groupId>org.jboss.arquillian.selenium</groupId>
+        <artifactId>selenium-bom</artifactId>
+        <version>${selenium.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.jboss.arquillian.extension</groupId>
+        <artifactId>arquillian-drone-bom</artifactId>
+        <version>2.0.1.Final</version>
+        <scope>import</scope>
+        <type>pom</type>
+      </dependency>
+      <dependency>
+        <groupId>org.jboss.arquillian.graphene</groupId>
+        <artifactId>graphene-webdriver</artifactId>
+        <version>2.1.0.Final</version>
+        <type>pom</type>
+        <scope>test</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
 
   <dependencies>
 
@@ -143,6 +234,22 @@
       <version>4.3.2.Final</version>
     </dependency>
 
+    <dependency>
+      <groupId>org.jboss.arquillian.junit</groupId>
+      <artifactId>arquillian-junit-container</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.jboss.shrinkwrap.resolver</groupId>
+      <artifactId>shrinkwrap-resolver-impl-maven</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.jboss.arquillian.graphene</groupId>
+      <artifactId>graphene-webdriver</artifactId>
+      <type>pom</type>
+      <scope>test</scope>
+    </dependency>
   </dependencies>
 
   <profiles>
@@ -555,6 +662,99 @@
           </plugin>
         </plugins>
       </build>
+      <dependencies>
+        <dependency>
+          <groupId>org.jboss.arquillian.container</groupId>
+          <artifactId>arquillian-tomcat-embedded-8</artifactId>
+          <version>1.0.0.CR7</version>
+          <scope>test</scope>
+        </dependency>
+      </dependencies>
+    </profile>
+
+    <profile>
+      <id>tomee</id>
+      <dependencies>
+        <dependency>
+          <groupId>org.apache.tomee</groupId>
+          <artifactId>apache-tomee</artifactId>
+          <version>${tomee.version}</version>
+          <classifier>webprofile</classifier>
+          <type>zip</type>
+          <scope>test</scope>
+          <exclusions>
+            <exclusion>
+              <groupId>org.slf4j</groupId>
+              <artifactId>slf4j-jdk14</artifactId>
+            </exclusion>
+          </exclusions>
+        </dependency>
+        <dependency>
+          <groupId>org.apache.tomee</groupId>
+          <artifactId>arquillian-tomee-remote</artifactId>
+          <version>${tomee.version}</version>
+          <scope>test</scope>
+          <exclusions>
+            <exclusion>
+              <groupId>org.slf4j</groupId>
+              <artifactId>slf4j-jdk14</artifactId>
+            </exclusion>
+          </exclusions>
+        </dependency>
+      </dependencies>
+    </profile>
+
+    <profile>
+      <id>qunit-integration-tests</id>
+      <build>
+        <plugins>
+          <plugin>
+            <artifactId>maven-failsafe-plugin</artifactId>
+            <configuration>
+              <includes>
+                <include>**/QUnitTests.java</include>
+              </includes>
+              <forkMode>never</forkMode>
+            </configuration>
+            <executions>
+              <execution>
+                <goals>
+                  <goal>integration-test</goal>
+                  <goal>verify</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+      <dependencies>
+        <dependency>
+          <groupId>org.apache.tomee</groupId>
+          <artifactId>apache-tomee</artifactId>
+          <version>${tomee.version}</version>
+          <classifier>webprofile</classifier>
+          <type>zip</type>
+          <scope>test</scope>
+          <exclusions>
+            <exclusion>
+              <groupId>org.slf4j</groupId>
+              <artifactId>slf4j-jdk14</artifactId>
+            </exclusion>
+          </exclusions>
+        </dependency>
+        <dependency>
+          <groupId>org.apache.tomee</groupId>
+          <artifactId>arquillian-tomee-remote</artifactId>
+          <version>${tomee.version}</version>
+          <scope>test</scope>
+          <exclusions>
+            <exclusion>
+              <groupId>org.slf4j</groupId>
+              <artifactId>slf4j-jdk14</artifactId>
+            </exclusion>
+          </exclusions>
+        </dependency>
+      </dependencies>
     </profile>
 
     <profile>

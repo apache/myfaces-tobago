@@ -32,6 +32,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import java.util.StringTokenizer;
 
 /**
  * The server info class makes some information about the system and application available in the demo.
@@ -39,7 +40,6 @@ import java.util.Properties;
  * <code>{@value #ENABLED_KEY}</code>.
  * The default file name is <code>{@value #CONFIG_FILE_DEFAULT}</code>.
  * The file name can be changed with a system property with name <code>{@value #CONFIG_FILE}</code>.
- *
  */
 @ApplicationScoped
 @Named("info")
@@ -106,5 +106,21 @@ public class ServerInfo {
 
   public boolean isEnabled() {
     return enabled;
+  }
+
+  public String getStableVersion() {
+    if (version.endsWith("-SNAPSHOT")) {
+      StringTokenizer tokenizer = new StringTokenizer(version, ".-");
+      int major = Integer.parseInt(tokenizer.nextToken());
+      int minor = Integer.parseInt(tokenizer.nextToken());
+      int fix = Integer.parseInt(tokenizer.nextToken());
+      if (fix == 0) {
+        return major + "." + (minor - 1) + ".0";
+      } else {
+        return major + "." + minor + "." + (fix - 1);
+      }
+    } else {
+      return version;
+    }
   }
 }

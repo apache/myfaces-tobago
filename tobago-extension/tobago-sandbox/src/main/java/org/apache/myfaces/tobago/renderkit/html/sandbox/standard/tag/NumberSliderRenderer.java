@@ -19,17 +19,16 @@
 
 package org.apache.myfaces.tobago.renderkit.html.sandbox.standard.tag;
 
-import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.internal.component.AbstractUINumberSlider;
+import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.layout.Measure;
+import org.apache.myfaces.tobago.layout.Position;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
-import org.apache.myfaces.tobago.layout.Position;
 import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRoleValues;
-import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
@@ -40,8 +39,6 @@ import java.io.IOException;
 import java.util.Map;
 
 public class NumberSliderRenderer extends RendererBase {
-
-  private static final String SLIDER_WIDTH_PERCENT = "sliderWidthPercent";
 
   @Override
   public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
@@ -54,7 +51,7 @@ public class NumberSliderRenderer extends RendererBase {
     final boolean disabled = slider.isDisabled();
     final Integer min = slider.getMin();
     final Integer max = slider.getMax();
-    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+    final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
 //    final Style style = slider.getStyle();
 //    final int width = -1;
@@ -143,7 +140,7 @@ public class NumberSliderRenderer extends RendererBase {
     handleStyle.setHeight(Measure.valueOf(6));
     writer.writeStyleAttribute(handleStyle); // todo: why not do that via the class?
     writer.startElement(HtmlElements.IMG);
-    writer.writeAttribute(HtmlAttributes.SRC, getAbsoluteImagePath(facesContext, "image/sliderTriangle"), true);
+    writer.writeAttribute(HtmlAttributes.SRC, facesContext.getExternalContext().getRequestContextPath(), true);
     writer.endElement(HtmlElements.IMG);
     writer.endElement(HtmlElements.DIV);
     writer.endElement(HtmlElements.DIV);
@@ -169,11 +166,6 @@ public class NumberSliderRenderer extends RendererBase {
       final String newValue = (String) requestParameterMap.get(inputId);
       uiInput.setSubmittedValue(newValue);
     }
-  }
-
-  private String getAbsoluteImagePath(final FacesContext facesContext, final String relativeImagePath) {
-    return facesContext.getExternalContext().getRequestContextPath()
-        + ResourceManagerUtils.getImage(facesContext, relativeImagePath);
   }
 
   private String getIdForInputField(final FacesContext context, final UIComponent component) {

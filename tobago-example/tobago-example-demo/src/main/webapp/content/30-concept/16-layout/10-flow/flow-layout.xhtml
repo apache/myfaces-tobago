@@ -20,11 +20,11 @@
 <ui:composition template="/main.xhtml"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
                 xmlns:ui="http://java.sun.com/jsf/facelets">
-  <ui:param name="title" value="#{overviewBundle.flow_layout} &lt;tc:flowLayout>"/>
+  <ui:param name="title" value="#{demoBundle.flow_layout} &lt;tc:flowLayout>"/>
   <p>The flow layout can be used with the <code>&lt;tc:flowLayout/></code> tag.
     By default, the content is displayed in a flow layout.</p>
-  <tc:link label="Tag Library Documentation" image="image/feather-leaf.png"
-           link="#{overviewBundle.tagDocUrl}/flowLayout.html"/>
+  <tc:link label="Tag Library Documentation" image="#{request.contextPath}/image/feather-leaf.png"
+           link="#{demoBundle.tagDocUrl}/#{info.stableVersion}/tld/tc/flowLayout.html"/>
 
   <tc:section label="Basics">
     <p>The buttons are displayed successively at the same line.
@@ -42,9 +42,8 @@
   </tc:section>
 
   <tc:section label="Align: left (default)">
-    TODO
-    <tc:flowLayout>
-      <tc:style textAlign="left"/>
+    <pre><code class="language-markup">&lt;tc:flowLayout textAlign="left"></code></pre>
+    <tc:flowLayout textAlign="left">
       <tc:button label="Button"/>
       <tc:button label="Button"/>
       <tc:button label="Button"/>
@@ -56,9 +55,8 @@
   </tc:section>
 
   <tc:section label="Align: right">
-    TODO
-    <tc:flowLayout>
-      <tc:style textAlign="right"/>
+    <pre><code class="language-markup">&lt;tc:flowLayout textAlign="right"></code></pre>
+    <tc:flowLayout textAlign="right">
       <tc:button label="Button"/>
       <tc:button label="Button"/>
       <tc:button label="Button"/>
@@ -70,9 +68,8 @@
   </tc:section>
 
   <tc:section label="Align: center">
-    TODO
-    <tc:flowLayout>
-      <tc:style textAlign="center"/>
+    <pre><code class="language-markup">&lt;tc:flowLayout textAlign="center"></code></pre>
+    <tc:flowLayout textAlign="center">
       <tc:button label="Button"/>
       <tc:button label="Button"/>
       <tc:button label="Button"/>
@@ -84,9 +81,8 @@
   </tc:section>
 
   <tc:section label="Align: justify">
-    TODO
-    <tc:flowLayout>
-      <tc:style textAlign="justify"/>
+    <pre><code class="language-markup">&lt;tc:flowLayout textAlign="justify"></code></pre>
+    <tc:flowLayout textAlign="justify">
       <tc:button label="Button"/>
       <tc:button label="Button"/>
       <tc:button label="Button"/>

@@ -19,18 +19,14 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
-import org.apache.myfaces.tobago.compat.FacesUtilsEL;
 import org.apache.myfaces.tobago.component.Attributes;
-import org.apache.myfaces.tobago.component.Facets;
-import org.apache.myfaces.tobago.component.OnComponentPopulated;
-import org.apache.myfaces.tobago.component.SupportsRenderedPartially;
 import org.apache.myfaces.tobago.component.UITab;
 import org.apache.myfaces.tobago.component.Visual;
 import org.apache.myfaces.tobago.event.TabChangeEvent;
 import org.apache.myfaces.tobago.event.TabChangeListener;
 import org.apache.myfaces.tobago.event.TabChangeSource2;
 import org.apache.myfaces.tobago.model.SwitchType;
-import org.apache.myfaces.tobago.util.ComponentUtils;
+import org.apache.myfaces.tobago.util.FacesELUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -38,6 +34,7 @@ import javax.el.MethodExpression;
 import javax.el.ValueExpression;
 import javax.faces.component.ActionSource2;
 import javax.faces.component.UIComponent;
+import javax.faces.component.behavior.ClientBehaviorHolder;
 import javax.faces.context.FacesContext;
 import javax.faces.event.AbortProcessingException;
 import javax.faces.event.ActionListener;
@@ -47,8 +44,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class AbstractUITabGroup extends AbstractUIPanel
-    implements TabChangeSource2, ActionSource2, OnComponentPopulated, SupportsRenderedPartially, Visual {
+public abstract class AbstractUITabGroup extends AbstractUIPanelBase
+    implements TabChangeSource2, ActionSource2, ClientBehaviorHolder, Visual {
 
   private static final Logger LOG = LoggerFactory.getLogger(AbstractUITabGroup.class);
 
@@ -117,11 +114,6 @@ public abstract class AbstractUITabGroup extends AbstractUIPanel
           if (tab.isRendered()) {
             if (getRenderedIndex() == index) {
               tab.processDecodes(context);
-            } else {
-              UIComponent facet = ComponentUtils.getFacet(tab, Facets.toolBar);
-              if (facet != null) {
-                facet.processDecodes(context);
-              }
             }
           }
           index++;
@@ -146,9 +138,6 @@ public abstract class AbstractUITabGroup extends AbstractUIPanel
   @Override
   public void processValidators(final FacesContext context) {
     if (!(getSwitchType() == SwitchType.client)) {
-      if (context == null) {
-        throw new NullPointerException("context");
-      }
       if (!isRendered()) {
         return;
       }
@@ -165,9 +154,6 @@ public abstract class AbstractUITabGroup extends AbstractUIPanel
   @Override
   public void processUpdates(final FacesContext context) {
     if (!(getSwitchType() == SwitchType.client)) {
-      if (context == null) {
-        throw new NullPointerException("context");
-      }
       if (!isRendered()) {
         return;
       }
@@ -190,7 +176,7 @@ public abstract class AbstractUITabGroup extends AbstractUIPanel
 
       final MethodExpression methodExpression = getTabChangeListenerExpression();
       if (methodExpression != null) {
-        FacesUtilsEL.invokeMethodExpression(FacesContext.getCurrentInstance(), methodExpression, facesEvent);
+        FacesELUtils.invokeMethodExpression(FacesContext.getCurrentInstance(), methodExpression, facesEvent);
       }
 
 // switched off, because this is already called in super.broadcast()
@@ -287,10 +273,5 @@ public abstract class AbstractUITabGroup extends AbstractUIPanel
   @Override
   public void removeActionListener(final ActionListener listener) {
     removeFacesListener(listener);
-  }
-
-  @Override
-  public void onComponentPopulated(final FacesContext facesContext, final UIComponent parent) {
-    super.onComponentPopulated(facesContext, parent);
   }
 }

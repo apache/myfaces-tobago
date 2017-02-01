@@ -29,12 +29,12 @@
     <tc:style file="datepicker.css"/>
 
 
-    <tc:toolBar iconSize="big"> <!-- XXX merge with the other toolbar on list.xhtml !!! -->
+    <tc:buttons> <!-- XXX merge with the other toolbar on list.xhtml !!! -->
       <tc:button tip="Logout" action="#{controller.logout}" immediate="true"
-                 image="image/org/tango-project/tango-icon-theme/16x16/actions/system-log-out.png">
+                 image="fa-question">
         <tc:style customClass="btn-danger"/>
       </tc:button>
-    </tc:toolBar>
+    </tc:buttons>
 
     <tc:box label="#{bundle.editorBoxTitle}">
       <tc:flexLayout rows="auto;*;auto">

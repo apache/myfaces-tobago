@@ -24,61 +24,52 @@
                 xmlns="http://www.w3.org/1999/xhtml">
   <ui:param name="title" value="Logging Info"/>
 
-  <tc:panel rendered="#{info.enabled}">
-    <f:facet name="layout">
-      <tc:gridLayout rows="auto;auto;auto;*"/>
-    </f:facet>
+  <tc:gridLayout rows="auto;auto;auto;*" rendered="#{info.enabled}">
 
     <tc:in label="Test Category" value="#{universalLoggingInfo.testCategory}"/>
     <tc:button label="Update" action="#{universalLoggingInfo.update}"/>
 
     <tc:separator/>
 
-    <tc:panel>
-      <f:facet name="layout">
-        <tc:gridLayout columns="auto;120px;auto;*"/>
-      </f:facet>
+    <tc:gridLayout columns="auto;120px;auto;*">
 
       <tc:label value="JUL" tip="Java Util Logging"/>
       <tc:selectBooleanCheckbox value="#{universalLoggingInfo.jul.available}" readonly="true"
-                                label="available"/>
-      <tc:button label="Log some stuff in every level" action="#{universalLoggingInfo.jul.logDemo}"
+                                label="available" labelLayout="skip"/>
+      <tc:button label="Log" tip="Log some stuff in every level" action="#{universalLoggingInfo.jul.logDemo}"
                  disabled="#{not universalLoggingInfo.jul.available}"/>
       <tc:out value="#{universalLoggingInfo.jul.activeLevels}"/>
 
       <tc:label value="SLF4J" tip="Simple Logging Facade"/>
       <tc:selectBooleanCheckbox value="#{universalLoggingInfo.slf4j.available}" readonly="true"
-                                label="available"/>
-      <tc:button label="Log some stuff in every level" action="#{universalLoggingInfo.slf4j.logDemo}"
+                                label="available" labelLayout="skip"/>
+      <tc:button label="Log" tip="Log some stuff in every level" action="#{universalLoggingInfo.slf4j.logDemo}"
                  disabled="#{not universalLoggingInfo.slf4j.available}"/>
       <tc:out value="#{universalLoggingInfo.slf4j.activeLevels}"/>
 
       <tc:label value="LOG4J"/>
       <tc:selectBooleanCheckbox value="#{universalLoggingInfo.log4j.available}" readonly="true"
-                                label="available"/>
-      <tc:button label="Log some stuff in every level" action="#{universalLoggingInfo.log4j.logDemo}"
+                                label="available" labelLayout="skip"/>
+      <tc:button label="Log" tip="Log some stuff in every level" action="#{universalLoggingInfo.log4j.logDemo}"
                  disabled="#{not universalLoggingInfo.log4j.available}"/>
       <tc:out value="#{universalLoggingInfo.log4j.activeLevels}"/>
 
       <tc:label value="LOG4J2"/>
       <tc:selectBooleanCheckbox value="#{universalLoggingInfo.log4j2.available}" readonly="true"
-                                label="available"/>
-      <tc:button label="Log some stuff in every level" action="#{universalLoggingInfo.log4j2.logDemo}"
+                                label="available" labelLayout="skip"/>
+      <tc:button label="Log" tip="Log some stuff in every level" action="#{universalLoggingInfo.log4j2.logDemo}"
                  disabled="#{not universalLoggingInfo.log4j2.available}"/>
       <tc:out value="#{universalLoggingInfo.log4j2.activeLevels}"/>
 
       <tc:label value="JCL" tip="Commons Logging"/>
       <tc:selectBooleanCheckbox value="#{universalLoggingInfo.commonsLogging.available}" readonly="true"
-                                label="available"/>
-      <tc:button label="Log some stuff in every level" action="#{universalLoggingInfo.commonsLogging.logDemo}"
+                                label="available" labelLayout="skip"/>
+      <tc:button label="Log" tip="Log some stuff in every level" action="#{universalLoggingInfo.commonsLogging.logDemo}"
                  disabled="#{not universalLoggingInfo.commonsLogging.available}"/>
       <tc:out value="#{universalLoggingInfo.commonsLogging.activeLevels}"/>
-    </tc:panel>
+    </tc:gridLayout>
 
-    <tc:panel>
-      <f:facet name="layout">
-        <tc:flowLayout/>
-      </f:facet>
+    <tc:flowLayout>
 
       <h3>This is a test page to check if all logging libraries are working well in the used container.</h3>
 
@@ -88,6 +79,6 @@
         <li>Consult your log file (or anywhere you are logging) to check the result</li>
       </ul>
 
-    </tc:panel>
-  </tc:panel>
+    </tc:flowLayout>
+  </tc:gridLayout>
 </ui:composition>

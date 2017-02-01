@@ -23,7 +23,6 @@ package org.apache.myfaces.tobago.apt.processor;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.myfaces.tobago.apt.AnnotationUtils;
-import org.apache.myfaces.tobago.apt.annotation.ExtensionTag;
 import org.apache.myfaces.tobago.apt.annotation.SimpleTag;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
@@ -151,8 +150,6 @@ public class CheckstyleConfigGenerator extends AbstractGenerator {
       final String className;
       if (typeElement.getAnnotation(SimpleTag.class) != null || typeElement.getAnnotation(ValidatorTag.class) != null) {
         className = AnnotationUtils.generatedTagName(typeElement);
-      } else if (typeElement.getAnnotation(ExtensionTag.class) != null) {
-        className = typeElement.getQualifiedName().toString();
       } else if (typeElement.getAnnotation(UIComponentTag.class) != null) {
         className = "org.apache.myfaces.tobago.internal.taglib." + StringUtils.capitalize(annotationTag.name())
             + "Tag";
@@ -168,6 +165,7 @@ public class CheckstyleConfigGenerator extends AbstractGenerator {
         addTag(taglib, parent, annotationTag.deprecatedName(), document);
         addAttributes(typeElement, taglib, parent, annotationTag.name(), document);
       }
+      addAttributesForTag(typeElement, taglib, parent, annotationTag.name(), document);
     }
   }
 
@@ -191,6 +189,48 @@ public class CheckstyleConfigGenerator extends AbstractGenerator {
 
   private void resetDuplicateList() {
     tagSet = new HashSet<String>();
+  }
+
+  protected void addAttributesForTag(
+      final TypeElement type, final String taglib, final Element parent, final String tagName,
+      final Document document)
+      throws ClassNotFoundException {
+
+    List<String> attributes = new ArrayList<String>();
+    for (final javax.lang.model.element.Element element : getAllMembers(type)) {
+      if (element instanceof ExecutableElement) {
+        final ExecutableElement executableElement = (ExecutableElement) element;
+        if (executableElement.getAnnotation(TagAttribute.class) == null
+            && executableElement.getAnnotation(UIComponentTagAttribute.class) == null) {
+          continue;
+        }
+        final TagAttribute tagAttribute = executableElement.getAnnotation(TagAttribute.class);
+        if (tagAttribute != null) {
+          final String simpleName = executableElement.getSimpleName().toString();
+          if (simpleName.startsWith("set") || simpleName.startsWith("get")) {
+
+            String attributeStr = simpleName.substring(3, 4).toLowerCase(Locale.ENGLISH) + simpleName.substring(4);
+            if (tagAttribute.name().length() > 0) {
+              attributeStr = tagAttribute.name();
+            }
+            attributes.add(attributeStr);
+          }
+        }
+      }
+    }
+    final String regexp = getRegExpForUndefinedAttributes(taglib, tagName, attributes);
+
+    final String message = "Found an unknown attribute in tag '" + tagName + "'.";
+
+    Element module = createRegexpModule(regexp, message, document);
+    parent.appendChild(module);
+
+    if (taglib.equals("tx")) {
+      final String m2 = "The taglib tx is deprecated, please use tc with labelLayout. Found tag 'tx:" + tagName + "'.";
+      module = createRegexpModule("<" + taglib + ":" + tagName + "\\b", m2, document);
+      parent.appendChild(module);
+    }
+
   }
 
   protected void addAttributes(
@@ -284,6 +324,27 @@ public class CheckstyleConfigGenerator extends AbstractGenerator {
     module.appendChild(severity);
 
     return module;
+  }
+
+  protected static String getRegExpForUndefinedAttributes(
+      String taglib, String tagName, List<String> attributes) {
+    final StringBuilder builder = new StringBuilder();
+    builder.append("<");
+    builder.append(taglib);
+    builder.append(":");
+    builder.append(tagName);
+    builder.append("(\\s+(");
+    for (String attribute : attributes) {
+      builder.append(attribute);
+      builder.append('|');
+    }
+    builder.append("xmlns:\\w*)=\\\"([^\"=<>]*)\\\")*\\s+(?!(");
+    for (String attribute : attributes) {
+      builder.append(attribute);
+      builder.append('|');
+    }
+    builder.append("xmlns:\\w*|\\W))");
+    return builder.toString();
   }
 
 }

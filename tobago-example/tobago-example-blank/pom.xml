@@ -20,7 +20,7 @@
   <parent>
     <groupId>org.apache.myfaces.tobago</groupId>
     <artifactId>tobago-example</artifactId>
-    <version>3.0.0-beta-1-SNAPSHOT</version>
+    <version>3.0.2</version>
   </parent>
   <artifactId>tobago-example-blank</artifactId>
   <packaging>war</packaging>
@@ -30,5 +30,13 @@
   <build>
     <finalName>tobago-example-blank</finalName>
   </build>
+
+  <dependencies>
+    <!-- needed for mvn jetty:run -->
+    <dependency>
+      <groupId>org.apache.geronimo.specs</groupId>
+      <artifactId>geronimo-jcdi_1.0_spec</artifactId>
+    </dependency>
+  </dependencies>
 
 </project>

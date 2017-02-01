@@ -21,9 +21,9 @@ package org.apache.myfaces.tobago.renderkit.css;
 
 import org.apache.commons.collections.map.MultiKeyMap;
 import org.apache.myfaces.tobago.component.Visual;
-import org.apache.myfaces.tobago.context.ClientProperties;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.context.Theme;
+import org.apache.myfaces.tobago.context.TobagoContext;
 import org.apache.myfaces.tobago.internal.util.Deprecation;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
@@ -55,8 +55,11 @@ import javax.faces.context.FacesContext;
  * markup</li> </ul> If the markup contains more than one name, there will be generated more than one output string.
  * E.g.: UIIn with Markup [readonly, error] will get the class "tobago-in tobago-in-markup-readonly
  * tobago-in-markup-error".
+ *
+ * @deprecated since Tobago 3.0.0
  */
-public final class Classes {
+@Deprecated
+public final class Classes implements CssItem {
 
   private static final Logger LOG = LoggerFactory.getLogger(Classes.class);
 
@@ -124,7 +127,7 @@ public final class Classes {
       builder.append(sub);
     }
     if (markup != null) {
-      final Theme theme = ClientProperties.getInstance(FacesContext.getCurrentInstance()).getTheme();
+      final Theme theme = TobagoContext.getInstance(FacesContext.getCurrentInstance()).getTheme();
       for (final String markupString : markup) {
         if (ignoreMarkupCheck || theme.getRenderersConfig().isMarkupSupported(rendererName, markupString)) {
           builder.append(' ');
@@ -146,7 +149,7 @@ public final class Classes {
     this.stringValue = builder.toString();
   }
 
-  public String getStringValue() {
+  public String getName() {
     return stringValue;
   }
 }

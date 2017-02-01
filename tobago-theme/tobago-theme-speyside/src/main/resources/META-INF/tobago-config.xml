@@ -25,37 +25,31 @@
   <name>tobago-theme-speyside</name>
   <ordering>
     <after>
-      <name>tobago-theme-scarborough</name>
+      <name>tobago-theme-standard</name>
     </after>
   </ordering>
-  <resource-dir>org/apache/myfaces/tobago/renderkit</resource-dir>
   <theme-definitions>
     <theme-definition>
       <name>speyside</name>
       <display-name>Speyside</display-name>
-      <resource-path>org/apache/myfaces/tobago/renderkit</resource-path>
       <fallback>standard</fallback>
       <versioned>true</versioned>
-<!--
       <resources production="true">
         <excludes>
-          <script name="bootstrap/4.0.0-alpha.2/js/bootstrap.js"/>
-          <style name="bootstrap/4.0.0-alpha.2/css/bootstrap.css"/>
+          <script name="/tobago/standard/bootstrap/4.0.0-alpha.5/js/bootstrap.min.js"/>
+          <style name="/tobago/standard/bootstrap/4.0.0-alpha.5/css/bootstrap.min.css"/>
         </excludes>
-        <script name="bootstrap-speyside/3.3.6/js/bootstrap.js"/>
-        <style name="bootstrap-speyside/3.3.6/css/bootstrap.css"/>
+        <script name="/tobago/speyside/bootstrap/4.0.0-alpha.5/js/bootstrap.min.js"/>
+        <style name="/tobago/speyside/bootstrap/4.0.0-alpha.5/css/bootstrap.min.css"/>
       </resources>
       <resources production="false">
         <excludes>
-          <script name="bootstrap/4.0.0-alpha.2/js/bootstrap.js"/>
-          <style name="bootstrap/4.0.0-alpha.2/css/bootstrap.css"/>
-          <style name="bootstrap/4.0.0-alpha.2/css/bootstrap-theme.css"/>
+          <script name="/tobago/standard/bootstrap/4.0.0-alpha.5/js/bootstrap.js"/>
+          <style name="/tobago/standard/bootstrap/4.0.0-alpha.5/css/bootstrap.css"/>
         </excludes>
-        <script name="bootstrap-speyside/3.3.6/js/bootstrap.js"/>
-        <style name="bootstrap-speyside/3.3.6/css/bootstrap.css"/>
-        <style name="bootstrap-speyside/3.3.6/css/bootstrap-theme.css"/>
+        <script name="/tobago/speyside/bootstrap/4.0.0-alpha.5/js/bootstrap.js"/>
+        <style name="/tobago/speyside/bootstrap/4.0.0-alpha.5/css/bootstrap.css"/>
       </resources>
--->
     </theme-definition>
   </theme-definitions>
 </tobago-config>

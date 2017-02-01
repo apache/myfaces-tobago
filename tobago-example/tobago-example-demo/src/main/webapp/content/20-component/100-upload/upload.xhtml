@@ -22,23 +22,23 @@
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:f="http://java.sun.com/jsf/core">
-  <ui:param name="title" value="#{overviewBundle.upload} &lt;tc:file"/>
+  <ui:param name="title" value="#{demoBundle.upload} &lt;tc:file/&gt;"/>
   <p>The <code class="language-markup">&lt;tc:file/></code> create a textfield with a choose directory button on the
     right.</p>
   <p>To load up files to the server for JSF 2.0 and 2.1 you will need to add a multipart-config entry to the
     FacesServlet in the <code>web.xml</code> file. Since JSF 2.2 this is not required.</p>
   <p>Here you can configure some more general information.</p>
     <pre><code class="language-markup">&lt;multipart-config>
-  &lt;location>/tmp&lt;/location>
   &lt;max-file-size>20848820&lt;/max-file-size>
   &lt;max-request-size>418018841&lt;/max-request-size>
+  &lt;location>/tmp&lt;/location>
   &lt;file-size-threshold>1048576&lt;/file-size-threshold>
 &lt;/multipart-config></code></pre>
   <p>If using Servlet API 3.1 you may call <code>part.getSubmittedFileName()</code>, for 3.0 you may use the Utility
     <code>org.apache.myfaces.tobago.internal.util.PartUtils.getSubmittedFileName(part)</code>
     to access to filename of the upload.</p>
   <tc:link label="Tag Library Documentation" image="image/feather-leaf.png"
-           link="#{overviewBundle.tagDocUrl}/file.html"/>
+           link="#{demoBundle.tagDocUrl}/#{info.stableVersion}/tld/tc/file.html"/>
 
   <tc:section id="s1" label="Basics">
     <pre><code class="language-markup">&lt;tc:file label="Upload" value="\#{uploadController.file1}"/></code></pre>
@@ -50,20 +50,31 @@
 
   <tc:section id="s2" label="Content type">
     <p>You can filter files using the <code class="language-markup">&lt;tc:validateFileItem/></code> tag within
-      the <code class="language-markup">&lt;tc:file/></code>.</p>
+      the <code class="language-markup">&lt;tc:file/></code>.
+      In the following example only images and PDF files are excepted.</p>
     <tc:file label="Upload image" value="#{uploadController.fileContentType}">
       <tc:validateFileItem contentType="image/*,application/pdf"/>
     </tc:file>
     <tc:button label="Submit" action="#{uploadController.uploadContentType}"/>
   </tc:section>
 
+  <tc:section id="upload-multi" label="Multiple files">
+    <p>
+      You can upload multiple files in one selection and request.
+      Use the <code class="language-markup">multiple="true"</code> attribute.
+    </p>
+    <tc:file label="Multiple" value="#{uploadController.fileMulti}" multiple="true"/>
+    <tc:button label="Submit" action="#{uploadController.uploadMulti}"/>
+  </tc:section>
+
   <tc:section id="s3" label="Ajax">
+
     <p>Ajax can be activated by adding <code class="language-markup">&lt;f:ajax/></code>
       to the <code class="language-markup">&lt;tc:file/></code> tag.</p>
-    <p>The Ajax feature of file upload currently only works with JSF 2.2 (not with JSF 2.0 or 2.1)!</p>
+    <p>The Ajax feature of file upload currently works with JSF 2.2 only!</p>
 
     <tc:file label="Ajax" value="#{uploadController.fileAjax}">
-      <f:ajax listener="#{uploadController.uploadAjax}" render="s3"/>
+      <f:ajax listener="#{uploadController.uploadAjax}" render="s3 :page:messages"/>
     </tc:file>
 
     <tc:section id="s4" label="Uploaded Files">

@@ -29,8 +29,6 @@ import javax.swing.tree.DefaultMutableTreeNode;
 public class PageItem extends DefaultMutableTreeNode implements Comparable {
 
   private String name;
-  private String resource;
-  private boolean jsfResource;
   private String label;
   private boolean folder;
   private boolean disabled;
@@ -38,8 +36,6 @@ public class PageItem extends DefaultMutableTreeNode implements Comparable {
 
   public PageItem(final String name, final boolean disabled, final boolean todo) {
     this.name = name;
-    resource = name.substring(1);
-    jsfResource = name.endsWith(".xhtml") || name.endsWith(".jspx");
     folder = name.endsWith("/");
 
     label = name;
@@ -54,14 +50,6 @@ public class PageItem extends DefaultMutableTreeNode implements Comparable {
 
   public String getName() {
     return name;
-  }
-
-  public String getResource() {
-    return resource;
-  }
-
-  public boolean isJsfResource() {
-    return jsfResource;
   }
 
   public String getLabel() {

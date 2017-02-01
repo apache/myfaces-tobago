@@ -27,6 +27,12 @@ package org.apache.myfaces.tobago.renderkit.html;
 public enum DataAttributes implements MarkupLanguageAttributes {
 
   /**
+   * Ajax behaviors execute and render attributes for TabGroup and Sheet reload
+   * @deprecated please use COMMANDS
+   */
+  BEHAVIOR_COMMANDS("data-tobago-behavior-commands"),
+
+  /**
    * The index of the column of a sheet. This index means the position of the rendered column. It can differ, if there
    * are tc:column with rendered=false.
    */
@@ -135,19 +141,9 @@ public enum DataAttributes implements MarkupLanguageAttributes {
   SHEET_ID("data-tobago-sheet-id"),
 
   /**
-   * Alternate to the src attribute, to implement a hover effect.
-   */
-  SRC_HOVER("data-tobago-src-hover"),
-
-  /**
-   * Alternate to the src attribute, to implement a hover effect.
-   */
-  SRC_DEFAULT("data-tobago-src-default"),
-
-  /**
    * Alternate to the src attribute, icon open and close.
    */
-  SRC_CLOSE("data-tobago-src-close"),
+  SRC_CLOSED("data-tobago-src-closed"),
 
   /**
    * Alternate to the src attribute, icon open and close.

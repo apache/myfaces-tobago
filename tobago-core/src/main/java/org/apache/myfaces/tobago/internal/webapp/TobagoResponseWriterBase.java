@@ -28,6 +28,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
 import java.io.IOException;
 import java.io.Writer;
 import java.net.URI;
@@ -42,6 +43,8 @@ public abstract class TobagoResponseWriterBase extends TobagoResponseWriter {
 
   private int i = 0;
 
+  private int inlineStack = 0;
+
   private UIComponent component;
 
   private boolean startStillOpen;
@@ -52,10 +55,13 @@ public abstract class TobagoResponseWriterBase extends TobagoResponseWriter {
 
   private final String characterEncoding;
 
+  private final boolean ajax;
+
   protected TobagoResponseWriterBase(final Writer writer, final String contentType, final String characterEncoding) {
     this.writer = writer;
     this.contentType = contentType;
     this.characterEncoding = characterEncoding != null ? characterEncoding : "UTF-8";
+    this.ajax = FacesContext.getCurrentInstance().getPartialViewContext().isPartialRequest();
   }
 
   protected final Writer getWriter() {
@@ -91,20 +97,16 @@ public abstract class TobagoResponseWriterBase extends TobagoResponseWriter {
         }
       } else {
         final String trace = getCallingClassStackTraceElementString();
-        LOG.error("Don't know what to do! "
-            + "Property defined, but no component to get a value. "
+        LOG.warn("Don't know what to do! "
+            + "Property defined, but no component to get a value. (value=null, property='" + property + "') "
             + trace.substring(trace.indexOf('(')));
-        LOG.error("value = 'null'");
-        LOG.error("property = '" + property + "'");
         return null;
       }
     } else {
       final String trace = getCallingClassStackTraceElementString();
-      LOG.error("Don't know what to do! "
-          + "No value and no property defined. "
+      LOG.warn("Don't know what to do! "
+          + "No value and no property defined. (value=null, property=null)"
           + trace.substring(trace.indexOf('(')));
-      LOG.error("value = 'null'");
-      LOG.error("property = 'null'");
       return null;
     }
   }
@@ -189,57 +191,83 @@ public abstract class TobagoResponseWriterBase extends TobagoResponseWriter {
 
   @Override
   public void startElement(final String name, final UIComponent currentComponent) throws IOException {
-    startElementInternal(writer, name, currentComponent);
+    final boolean inline = HtmlElements.isInline(name);
+    if (inline) {
+      inlineStack++;
+    }
+    this.component = currentComponent;
+    startElementInternal(writer, name, HtmlElements.isInline(name));
   }
 
   @Override
   public void startElement(final HtmlElements name) throws IOException {
-    startElementInternal(writer, name.getValue(), null);
+    final boolean inline = name.isInline();
+    if (inline) {
+      inlineStack++;
+    }
+    startElementInternal(writer, name.getValue(), name.isInline());
     if (!name.isVoid()) {
       i++;
     }
   }
 
-  protected void startElementInternal(final Writer writer, final String name, final UIComponent currentComponent)
+  protected void startElementInternal(final Writer writer, final String name, final boolean inline)
       throws IOException {
-    this.component = currentComponent;
 //    closeOpenTag();
     if (startStillOpen) {
       writer.write(">");
     }
-    writer.write("\n" + StringUtils.repeat("  ", i) + "<");
+    if (!ajax && inlineStack <= 1) {
+      writer.write("\n");
+      writer.write(StringUtils.repeat("  ", i));
+    }
+    writer.write("<");
     writer.write(name);
     startStillOpen = true;
   }
 
   @Override
   public void endElement(final String name) throws IOException {
+    final boolean inline = HtmlElements.isInline(name);
     if (HtmlElements.isVoid(name)) {
       closeEmptyTag();
     } else {
-      endElementInternal(writer, name, false);
+      endElementInternal(writer, name, inline);
     }
     startStillOpen = false;
+    if (inline) {
+      inlineStack--;
+      assert inlineStack >= 0;
+    }
   }
 
   @Override
   public void endElement(final HtmlElements name) throws IOException {
+    final boolean inline = name.isInline();
     if (name.isVoid()) {
       closeEmptyTag();
     } else {
       if (!name.isVoid()) {
         i--;
       }
-      endElementInternal(writer, name.getValue(), name.isInline());
+      endElementInternal(writer, name.getValue(), inline);
     }
     startStillOpen = false;
+    if (inline) {
+      inlineStack--;
+      assert inlineStack >= 0;
+    }
   }
 
   @Override
   public void writeComment(final Object obj) throws IOException {
     closeOpenTag();
     final String comment = obj.toString();
-    write("\n" + StringUtils.repeat("  ", i) + "<!--");
+    if (!ajax) {
+      writer.write("\n");
+      writer.write(StringUtils.repeat("  ", i));
+    }
+    write("<!--");
     write(comment);
     write("-->");
   }
@@ -261,7 +289,7 @@ public abstract class TobagoResponseWriterBase extends TobagoResponseWriter {
   protected final String getCallingClassStackTraceElementString() {
     final StackTraceElement[] stackTrace = new Exception().getStackTrace();
     int i = 1;
-    while (stackTrace[i].getClassName().contains("TobagoResponseWriter")) {
+    while (stackTrace[i].getClassName().contains("ResponseWriter")) {
       i++;
     }
     return stackTrace[i].toString();
@@ -302,7 +330,7 @@ public abstract class TobagoResponseWriterBase extends TobagoResponseWriter {
     if (startStillOpen) {
       writer.write(">");
     }
-    if (inline) {
+    if (inline || ajax) {
       writer.write("</");
     } else {
       writer.write("\n" + StringUtils.repeat("  ", i) + "</");

@@ -31,7 +31,8 @@ import java.util.List;
  */
 public final class ColumnPartition implements Serializable {
 
-  private static final Integer[] PART_12 = new Integer[]{12};
+  private static final Integer[] INTEGER_12 = new Integer[]{12};
+  public static final ColumnPartition PARTITION_12 = new ColumnPartition(INTEGER_12);
 
   private Integer[] parts;
 
@@ -56,7 +57,7 @@ public final class ColumnPartition implements Serializable {
     } else if (object != null) {
       return valueOf(object.toString());
     } else {
-      return new ColumnPartition(PART_12);
+      return PARTITION_12;
     }
   }
 
@@ -84,7 +85,7 @@ public final class ColumnPartition implements Serializable {
   private Integer[] createParts(List<Integer> summands) {
     List<Integer> list = new ArrayList<Integer>();
     if (summands == null || summands.size() == 0) {
-      return PART_12;
+      return INTEGER_12;
     }
     int sum = 0;
     for (int summand : summands) {

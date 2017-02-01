@@ -61,11 +61,6 @@ public class MockTheme extends ThemeImpl {
   }
 
   @Override
-  public String getResourcePath() {
-    return null;
-  }
-
-  @Override
   public RenderersConfig getRenderersConfig() {
     return config;
   }

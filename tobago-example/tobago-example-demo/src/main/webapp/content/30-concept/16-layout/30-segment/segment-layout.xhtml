@@ -21,56 +21,70 @@
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
                 xmlns:ui="http://java.sun.com/jsf/facelets">
-  <ui:param name="title" value="#{overviewBundle.segment_layout}  &lt;tc:segmentLayout>"/>
+  <ui:param name="title" value="#{demoBundle.segment_layout}  &lt;tc:segmentLayout>"/>
   <p>The segment layout is basicly a grid with 12 columns.
     The number and the proportion of the columns can be set with
     <code>large</code>, <code>medium</code>, <code>small</code> or <code>extraSmall</code>.
     Every attribute has a different css class, but the usage is the same.
     The value is a semicolon separated list of integers, which sum has to be '12'.
     A value of n will use n columns from the grid.</p>
-  <tc:link label="Tag Library Documentation" image="image/feather-leaf.png"
-           link="#{overviewBundle.tagDocUrl}/segmentLayout.html"/>
+  <tc:link label="Tag Library Documentation" image="#{request.contextPath}/image/feather-leaf.png"
+           link="#{demoBundle.tagDocUrl}/#{info.stableVersion}/tld/tc/segmentLayout.html"/>
 
   <tc:section label="Basics">
     <p>This example show a segment layout with four columns and a segment layout with three columns.
       The numbers are displayed via the <code class="language-markup">&lt;tc:label/></code> tag.
       The space is set via the <code class="language-markup">&lt;tc:hidden/></code> tag.</p>
     <tc:section label="4 Columns">
-      <pre><code class="language-markup">&lt;tc:segmentLayout medium="2;4;3;3"></code></pre>
-      <tc:segmentLayout medium="2;4;3;3">
-        <tc:label value="1"/>
-        <tc:label value="2"/>
-        <tc:label value="3"/>
-        <tc:label value="4"/>
+      <pre><code class="language-markup">&lt;tc:segmentLayout medium="1;6;2;3"></code></pre>
+      <tc:segmentLayout medium="1;6;2;3">
+        <tc:in value="1"/>
+        <tc:in value="2"/>
+        <tc:in value="3"/>
+        <tc:in value="4"/>
         <tc:hidden/>
-        <tc:label value="5"/>
+        <tc:in value="5"/>
       </tc:segmentLayout>
     </tc:section>
     <tc:section label="3 Columns">
       <pre><code class="language-markup">&lt;tc:segmentLayout medium="2;4;6"></code></pre>
       <tc:segmentLayout medium="2;4;6">
-        <tc:label value="1"/>
-        <tc:label value="2"/>
-        <tc:label value="3"/>
-        <tc:label value="4"/>
+        <tc:in value="1"/>
+        <tc:in value="2"/>
+        <tc:in value="3"/>
+        <tc:in value="4"/>
         <tc:hidden/>
-        <tc:label value="5"/>
+        <tc:in value="5"/>
       </tc:segmentLayout>
     </tc:section>
   </tc:section>
 
-  <tc:section label="Extra Small">
-    <p>This segment layout use the attribute <code>extraSmall</code> with the value '5;7'.
-      This means, that the css class <code class="language-css">.col-xs-5</code> and
-      <code class="language-css">.col-xs-7</code> is used.
-      For those classes, a smaller font-size is defined in the <code>demo.css</code>.</p>
-    <tc:segmentLayout extraSmall="5;7">
-      <tc:label value="1"/>
-      <tc:label value="2"/>
-      <tc:label value="3"/>
-      <tc:label value="4"/>
-      <tc:hidden/>
-      <tc:label value="5"/>
+  <tc:section label="Screen Size">
+    <p>For the different kinds of screen sizes, the segment layout has four attributes:
+      <code>large</code>, <code>medium</code>, <code>small</code> and <code>extraSmall</code>.
+      The first two ones should be used for desktops. The last two should be used for tablets and phones.
+      Notice, that only the screen size matters. So a small browser window on a big screen also reacts with
+      <code>small</code> and <code>extraSmall</code>.</p>
+    <p>In the following example, all attributes are used. If you are on a desktop you can see the different
+      behavior by changing the size of the browser window.</p>
+    <pre><code class="language-markup">&lt;tc:segmentLayout large="2;2;2;2;2;2"
+  medium="3;3;3;3" small="4;4;4" extraSmall="6;6">
+    ...</code></pre>
+
+    <tc:segmentLayout large="2;2;2;2;2;2" medium="3;3;3;3" small="4;4;4" extraSmall="6;6">
+      <tc:in value="1"/>
+      <tc:in value="2"/>
+      <tc:in value="3"/>
+      <tc:in value="4"/>
+      <tc:in value="5"/>
+      <tc:in value="6"/>
+      <tc:in value="7"/>
+      <tc:in value="8"/>
+      <tc:in value="9"/>
+      <tc:in value="10"/>
+      <tc:in value="11"/>
+      <tc:in value="12"/>
     </tc:segmentLayout>
+
   </tc:section>
 </ui:composition>

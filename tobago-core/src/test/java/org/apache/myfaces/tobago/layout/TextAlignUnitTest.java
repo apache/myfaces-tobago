@@ -19,16 +19,13 @@
 
 package org.apache.myfaces.tobago.layout;
 
-import org.junit.Assert;
+import org.apache.myfaces.tobago.util.EnumUnitTest;
 import org.junit.Test;
 
-public class TextAlignUnitTest {
+public class TextAlignUnitTest extends EnumUnitTest {
 
   @Test
-  public void testConstants() {
-    Assert.assertEquals(TextAlign.left.name(), TextAlign.STRING_LEFT);
-    Assert.assertEquals(TextAlign.right.name(), TextAlign.STRING_RIGHT);
-    Assert.assertEquals(TextAlign.center.name(), TextAlign.STRING_CENTER);
-    Assert.assertEquals(TextAlign.justify.name(), TextAlign.STRING_JUSTIFY);
+  public void testNames() throws IllegalAccessException, NoSuchFieldException {
+    testNames(TextAlign.class);
   }
 }

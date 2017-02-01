@@ -20,10 +20,7 @@
 package org.apache.myfaces.tobago.facelets;
 
 import org.apache.myfaces.tobago.component.InputSuggest;
-import org.apache.myfaces.tobago.component.OnComponentCreated;
-import org.apache.myfaces.tobago.component.OnComponentPopulated;
 import org.apache.myfaces.tobago.component.Visual;
-import org.apache.myfaces.tobago.component.SupportsRenderedPartially;
 import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.event.SheetStateChangeSource;
 import org.apache.myfaces.tobago.event.SortActionSource;
@@ -40,7 +37,6 @@ import javax.faces.view.facelets.ComponentHandler;
 import javax.faces.view.facelets.FaceletContext;
 import javax.faces.view.facelets.MetaRuleset;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
@@ -71,60 +67,41 @@ public class TobagoComponentHandler extends ComponentHandler {
     if (InputSuggest.class.isAssignableFrom(aClass)) {
       metaRuleset.addRule(SuggestMethodRule.INSTANCE);
     }
-    if (SupportsRenderedPartially.class.isAssignableFrom(aClass)) {
-      metaRuleset.addRule(SupportsRenderedPartiallyRule.INSTANCE);
-    }
 
     return metaRuleset;
   }
 
   @Override
-  public void onComponentCreated(final FaceletContext context, final UIComponent component, final UIComponent parent) {
-    if (component instanceof OnComponentCreated
-        && component.getAttributes().get(OnComponentCreated.MARKER) == null) {
-      component.getAttributes().put(OnComponentCreated.MARKER, Boolean.TRUE);
-      ((OnComponentCreated) component).onComponentCreated(context.getFacesContext(), parent);
-    }
-  }
-
-  @Override
   public void onComponentPopulated(
       final FaceletContext context, final UIComponent component, final UIComponent parent) {
-    if (component instanceof OnComponentPopulated
-        && component.getAttributes().get(OnComponentPopulated.MARKER) == null) {
-      component.getAttributes().put(OnComponentPopulated.MARKER, Boolean.TRUE);
-      ((OnComponentPopulated) component).onComponentPopulated(context.getFacesContext(), parent);
-    }
+
     // TODO call only if component was created
     if (component instanceof EditableValueHolder) {
       addDefaultValidators(context.getFacesContext(), (EditableValueHolder) component);
     }
   }
 
-  public static void addDefaultValidators(final FacesContext context, final EditableValueHolder component) {
+  private void addDefaultValidators(final FacesContext context, final EditableValueHolder component) {
     final TobagoConfigImpl tobagoConfig = (TobagoConfigImpl) TobagoConfig.getInstance(context);
-    final Map validatorInfoMap = tobagoConfig.getDefaultValidatorInfo();
+    final Map<String, String> validatorInfoMap = tobagoConfig.getDefaultValidatorInfo();
     if (validatorInfoMap.isEmpty()) {
       return;
     }
     final Validator[] validators = component.getValidators();
     if (validators.length > 0) {
-      final Set classNames = new HashSet();
+      final Set<String> classNames = new HashSet<String>();
       // collect classNames of validators
-      for (int i = 0; i < validators.length; i++) {
-        classNames.add(validators[i].getClass().getName());
+      for (Validator validator : validators) {
+        classNames.add(validator.getClass().getName());
       }
-      final Iterator it = validatorInfoMap.entrySet().iterator();
-      while (it.hasNext()) {
-        final Map.Entry entry = (Map.Entry) it.next();
+      for (Map.Entry<String, String> entry : validatorInfoMap.entrySet()) {
         if (!classNames.contains(entry.getValue())) {
           component.addValidator(context.getApplication().createValidator((String) entry.getKey()));
         }
       }
     } else {
-      final Iterator it = validatorInfoMap.keySet().iterator();
-      while (it.hasNext()) {
-        component.addValidator(context.getApplication().createValidator((String) it.next()));
+      for (String next : validatorInfoMap.keySet()) {
+        component.addValidator(context.getApplication().createValidator(next));
       }
     }
   }

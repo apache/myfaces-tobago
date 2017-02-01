@@ -21,57 +21,41 @@
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
                 xmlns:ui="http://java.sun.com/jsf/facelets">
-  <ui:param name="title" value="#{overviewBundle.form} &lt;tc:form>"/>
+  <ui:param name="title" value="#{demoBundle.form} &lt;tc:form>"/>
   <p>Tobago supports nested forms and can treat each form separately.
     Values can be stored separately into the model, while already filled input elements keep their values (temporarily).
-    If the validation of a form is activated but the actual value of this form is only stored temporarily,
-    the validation is deactivated until the value is definitely stored into the model.
-    Forms are add by the <code class="language-markup">&lt;tc:form/></code> tag.</p>
+    Forms are added by the <code class="language-markup">&lt;tc:form/></code> tag.</p>
   <p>Forms are also relevant for
-    <tc:link label="#{overviewBundle.default_command}"
-             resource="/faces/content/20-component/040-command/00-default/default-command.xhtml"/>.</p>
-  <tc:link label="Tag Library Documentation" image="image/feather-leaf.png"
-           link="#{overviewBundle.tagDocUrl}/form.html"/>
+    <tc:link label="#{demoBundle.default_command}"
+             link="/faces/content/20-component/040-command/00-default/default-command.xhtml"/>.</p>
+  <tc:link label="Tag Library Documentation" image="#{request.contextPath}/image/feather-leaf.png"
+           link="#{demoBundle.tagDocUrl}/#{info.stableVersion}/tld/tc/form.html"/>
 
   <tc:section label="Example">
-    <p>Every form in this example is surrounded by a content box.
-      The submit buttons in the inner forms only put the inner value into the model.
-      The submit button in the outer form put all values into the model.
-      Notice, that the inputfield in the outer form is required.</p>
-
-    <pre><code class="language-markup">&lt;tc:form>
+    <p>This small example contain two separate forms, each surrounded by a content box.
+      The submit button only update the model in the current form.</p>
+    <pre><code class="language-markup">&lt;tc:box label="Form 1">
   &lt;tc:form>
-    &lt;tc:in label="Inner Value 1" value="\#{formController.innerValue1}"/>
-    ...
+    &lt;tc:in label="Value 1" value="\#{formController.value1}"/>
+    &lt;tc:out label="Value 1 in Model" value="\#{formController.value1}"/>
+    &lt;tc:button label="Submit"/>
   &lt;/tc:form>
-  &lt;tc:form>
-    &lt;tc:in label="Inner Value 2" value="\#{formController.innerValue2}"/>
-    ...
-  &lt;/tc:form>
-  &lt;tc:in label="Outer Value" required="true" value="\#{formController.outerValue}"/>
+&lt;/tc:box>
+&lt;tc:box label="Form 2">
   ...
-&lt;/tc:form></code></pre>
-
-    <tc:box label="Outer Form">
-      <tc:form>
-        <tc:box label="Inner Form 1">
-          <tc:form>
-            <tc:in label="Inner Value 1" value="#{formController.innerValue1}"/>
-            <tc:out label="Value in Model" value="#{formController.innerValue1}"/>
-            <tc:button label="Submit"/>
-          </tc:form>
-        </tc:box>
-        <tc:box label="Inner Form 2">
-          <tc:form>
-            <tc:in label="Inner Value 2" value="#{formController.innerValue2}"/>
-            <tc:out label="Value in Model" value="#{formController.innerValue2}"/>
-            <tc:button label="Submit"/>
-          </tc:form>
-        </tc:box>
-        <tc:separator/>
-        <tc:in label="Outer Value" required="true" value="#{formController.outerValue}"/>
-        <tc:out label="Value in Model" value="#{formController.outerValue}"/>
-        <tc:button label="Submit"/>
+&lt;/tc:box></code></pre>
+    <tc:box label="Form 1">
+      <tc:form id="form1">
+        <tc:in id="in" label="Value 1" value="#{formController.value1}"/>
+        <tc:out id="out" label="Value 1 in Model" value="#{formController.value1}"/>
+        <tc:button id="submit" label="Submit"/>
+      </tc:form>
+    </tc:box>
+    <tc:box label="Form 2">
+      <tc:form id="form2">
+        <tc:in id="in" label="Value 2" value="#{formController.value2}"/>
+        <tc:out id="out" label="Value 2 in Model" value="#{formController.value2}"/>
+        <tc:button id="submit" label="Submit"/>
       </tc:form>
     </tc:box>
   </tc:section>

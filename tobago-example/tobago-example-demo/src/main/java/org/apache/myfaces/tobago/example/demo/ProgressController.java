@@ -23,6 +23,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.enterprise.context.SessionScoped;
+import javax.faces.event.FacesEvent;
 import javax.inject.Named;
 import javax.swing.DefaultBoundedRangeModel;
 import java.io.Serializable;
@@ -49,6 +50,10 @@ public class ProgressController implements Serializable {
     } else {
       progress.setValue(value + 1);
     }
+  }
+
+  public void resetProgress(final FacesEvent event) {
+    progress.setValue(0);
   }
 
   public Date getCurrentDate() {

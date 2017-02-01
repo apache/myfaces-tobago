@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+-->
+
+<ui:composition template="/main.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:tc="http://myfaces.apache.org/tobago/component"
+                xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core">
+  <ui:param name="title" value="#{demoBundle.figure} &lt;tc:figure>"/>
+  <p>Create a figure with <code class="language-markup">&lt;tc:figure/&gt;</code> around an image,
+    video or something else. The label can be set via the label attribute or with the label facet.</p>
+  <tc:link label="Tag Library Documentation" image="#{request.contextPath}/image/feather-leaf.png"
+           link="#{demoBundle.tagDocUrl}/#{info.stableVersion}/tld/tc/figure.html"/>
+
+  <tc:section label="Label attribute">
+    <p>For simple captions use the <code>label</code> attribute.</p>
+    <pre><code class="language-markup">&lt;tc:figure label="Picture of the alps.">
+  &lt;tc:image value="image/alps.png"/>
+&lt;/tc:figure></code></pre>
+    <tc:figure label="Picture of the alps.">
+      <tc:image value="#{request.contextPath}/image/alps.png"/>
+    </tc:figure>
+  </tc:section>
+
+  <tc:section label="Label facet">
+    <p>For more complex captions use <code class="language-markup">&lt;f:facet name="label"></code>.
+      In this example the word 'tobago' is colored red.</p>
+    <tc:figure>
+      <f:facet name="label">The <span style="color: red">tobago</span> logo.</f:facet>
+      <tc:image id="image" value="#{request.contextPath}/image/tobago_head.png"/>
+    </tc:figure>
+  </tc:section>
+</ui:composition>

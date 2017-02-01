@@ -19,6 +19,9 @@
 
 package org.apache.myfaces.tobago.example.demo;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 import java.io.Serializable;
@@ -27,31 +30,24 @@ import java.io.Serializable;
 @Named
 public class FormController implements Serializable {
 
-  private String outerValue;
-  private String innerValue1;
-  private String innerValue2;
+  private static final Logger LOG = LoggerFactory.getLogger(FormController.class);
 
-  public String getOuterValue() {
-    return outerValue;
+  private String value1;
+  private String value2;
+
+  public String getValue1() {
+    return value1;
   }
 
-  public void setOuterValue(String outerValue) {
-    this.outerValue = outerValue;
+  public void setValue1(String value1) {
+    this.value1 = value1;
   }
 
-  public String getInnerValue1() {
-    return innerValue1;
+  public String getValue2() {
+    return value2;
   }
 
-  public void setInnerValue1(String innerValue1) {
-    this.innerValue1 = innerValue1;
-  }
-
-  public String getInnerValue2() {
-    return innerValue2;
-  }
-
-  public void setInnerValue2(String innerValue2) {
-    this.innerValue2 = innerValue2;
+  public void setValue2(String value2) {
+    this.value2 = value2;
   }
 }

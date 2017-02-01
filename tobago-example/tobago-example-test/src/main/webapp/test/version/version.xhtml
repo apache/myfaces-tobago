@@ -18,7 +18,7 @@
 
 <f:view
     xmlns:tc="http://myfaces.apache.org/tobago/component"
-    xmlns:f="http://java.sun.com/jsf/core" xmlns:tx="http://myfaces.apache.org/tobago/extension">
+    xmlns:f="http://java.sun.com/jsf/core">
 
   <tc:page id="page">
     <tc:gridLayoutConstraint width="700px" height="600px"/>
@@ -39,8 +39,8 @@
     </tc:box>
 
     <tc:box label="From package">
-      <tx:in value="#{version.jsfVersion}" label="JSF Version"/>
-      <tx:in value="#{version.jsfTitle}" label="JSF Title"/>
+      <tc:in value="#{version.jsfVersion}" label="JSF Version"/>
+      <tc:in value="#{version.jsfTitle}" label="JSF Title"/>
     </tc:box>
 
     <tc:script file="script/tobago-assert.js"/>

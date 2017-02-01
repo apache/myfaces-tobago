@@ -24,6 +24,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.faces.component.UIOutput;
+import javax.faces.component.behavior.ClientBehaviorHolder;
 import javax.faces.event.AbortProcessingException;
 import javax.faces.event.ComponentSystemEvent;
 import javax.faces.event.ComponentSystemEventListener;
@@ -32,7 +33,8 @@ import javax.faces.event.PreRenderComponentEvent;
 import javax.swing.BoundedRangeModel;
 
 @ListenerFor(systemEventClass = PreRenderComponentEvent.class)
-public abstract class AbstractUIProgress extends UIOutput implements Visual, ComponentSystemEventListener {
+public abstract class AbstractUIProgress extends UIOutput
+    implements Visual, ComponentSystemEventListener, ClientBehaviorHolder {
 
   private static final Logger LOG = LoggerFactory.getLogger(AbstractUIProgress.class);
 
@@ -50,6 +52,8 @@ public abstract class AbstractUIProgress extends UIOutput implements Visual, Com
   @Override
   public void processEvent(ComponentSystemEvent event) throws AbortProcessingException {
 
+    super.processEvent(event);
+
     if (event instanceof PreRenderComponentEvent) {
       Object model = getValue();
       if (model instanceof BoundedRangeModel) {
@@ -64,7 +68,7 @@ public abstract class AbstractUIProgress extends UIOutput implements Visual, Com
       } else {
         if (model instanceof Number) {
           rangeValue = ((Number) model).doubleValue();
-        } else {
+        } else if (model != null) {
           rangeValue = Double.parseDouble("" + model);
         }
         if (getMax() != null) {

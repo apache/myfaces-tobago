@@ -19,7 +19,7 @@
 
 package org.apache.myfaces.tobago.component;
 
-import junit.framework.Assert;
+import org.junit.Assert;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.junit.Before;
 import org.junit.Test;
@@ -37,10 +37,10 @@ import java.util.List;
 
 public class MethodOverwritingOfGeneratedUIComponentsUnitTest {
 
-  private static final List<String> IGNORED_METHODS = Arrays.asList("getFamily", "saveState", "restoreState");
+  private static final List<String> IGNORED_METHODS
+      = Arrays.asList("getFamily", "saveState", "restoreState", "getEventNames", "getDefaultEventName");
   private static final List<String> IGNORED_COMPONENTS = Arrays.asList(
-      UIExtensionPanel.class.getSimpleName(),
-      UIMenuSelectOne.class.getSimpleName());
+      /*UIMenuSelectOne.class.getSimpleName()*/);
   private static final MethodOfComponentList IGNORED_METHODS_PER_COMPONENT = new MethodOfComponentList();
 
   static {

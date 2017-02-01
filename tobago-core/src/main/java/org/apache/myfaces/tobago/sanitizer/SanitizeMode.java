@@ -23,6 +23,6 @@ public enum SanitizeMode {
   auto,
   never;
 
-  public static final String STRING_AUTO = "auto";
-  public static final String STRING_NEVER = "never";
+  public static final String AUTO = "auto";
+  public static final String NEVER = "never";
 }

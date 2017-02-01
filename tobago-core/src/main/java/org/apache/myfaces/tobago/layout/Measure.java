@@ -111,6 +111,9 @@ public final class Measure implements Serializable {
   }
 
   public static Measure valueOf(final Object object) {
+    if (object == null) {
+      return null;
+    }
     if (object instanceof Measure) {
       return valueOf((Measure) object);
     }
@@ -119,9 +122,6 @@ public final class Measure implements Serializable {
     }
     if (object instanceof String) {
       return valueOf((String) object);
-    }
-    if (object == null) {
-      return ZERO;
     }
     return valueOf(object.toString());
   }

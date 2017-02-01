@@ -19,14 +19,17 @@
 
 package org.apache.myfaces.tobago.internal.taglib.component;
 
+import org.apache.myfaces.tobago.apt.annotation.Behavior;
 import org.apache.myfaces.tobago.apt.annotation.Facet;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
+import org.apache.myfaces.tobago.component.ClientBehaviors;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.RendererTypes;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasAccessKey;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasImage;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabelAndAccessKey;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabel;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsDisabled;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
@@ -48,8 +51,13 @@ import javax.faces.component.UIPanel;
     componentFamily = UIPanel.COMPONENT_FAMILY,
     rendererType = RendererTypes.TAB,
     facets = {
-        @Facet(name = Facets.TOOL_BAR, description = "Contains an instance of UIToolBar",
-            allowedChildComponenents = "org.apache.myfaces.tobago.ToolBar")})
+        @Facet(name = Facets.BAR,
+            description = "Contains some code to be placed in the header at the bar position.")},
+    behaviors = {
+        @Behavior(
+            name = ClientBehaviors.CLICK,
+            isDefault = true)
+    })
 public interface TabTagDeclaration
-    extends HasIdBindingAndRendered, IsVisual, HasLabelAndAccessKey, HasTip, IsDisabled, HasImage {
+    extends HasIdBindingAndRendered, IsVisual, HasLabel, HasAccessKey, HasTip, IsDisabled, HasImage {
 }

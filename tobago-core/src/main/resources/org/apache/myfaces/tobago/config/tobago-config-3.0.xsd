@@ -62,12 +62,10 @@
       <xs:element name="name" type="tobago:name-type" minOccurs="0"/>
       <xs:element name="ordering" type="tobago:ordering-type" minOccurs="0"/>
       <xs:element name="theme-config" type="tobago:theme-config-type" minOccurs="0"/>
-      <xs:element name="resource-dir" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
       <xs:element name="create-session-secret" type="xs:boolean" minOccurs="0" default="true"/>
       <xs:element name="check-session-secret" type="xs:boolean" minOccurs="0" default="true"/>
       <xs:element name="prevent-frame-attacks" type="xs:boolean" minOccurs="0" default="true"/>
       <xs:element name="set-nosniff-header" type="xs:boolean" minOccurs="0" default="true"/>
-      <xs:element name="auto-access-key-from-label" type="xs:boolean" minOccurs="0" default="true"/>
       <xs:element name="classic-date-time-picker" type="xs:boolean" minOccurs="0" default="false"/>
       <xs:element name="content-security-policy" type="tobago:content-security-policy-type" minOccurs="0"/>
       <xs:element name="sanitizer" type="tobago:sanitizer-type" minOccurs="0"/>
@@ -156,7 +154,6 @@
     <xs:sequence>
       <xs:element name="name" type="xs:string"/>
       <xs:element name="display-name" type="xs:string" minOccurs="0"/>
-      <xs:element name="resource-path" type="xs:string"/>
       <xs:element name="fallback" type="xs:string" minOccurs="0"/>
       <xs:element name="versioned" type="xs:boolean" minOccurs="0" default="false"/>
       <xs:element name="renderers" type="tobago:renderers-type" minOccurs="0"/>

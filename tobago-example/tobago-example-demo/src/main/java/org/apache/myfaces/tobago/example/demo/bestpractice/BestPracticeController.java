@@ -56,9 +56,10 @@ public class BestPracticeController {
 
     InputStream inputStream = null;
     try {
-      inputStream = facesContext.getExternalContext().getResourceAsStream("content/12/03/x-sample.pdf");
+      final String path = "content/30-concept/24-non-faces-response/x-sample.pdf";
+      inputStream = facesContext.getExternalContext().getResourceAsStream(path);
       if (inputStream == null) {
-        inputStream = facesContext.getExternalContext().getResourceAsStream("/content/12/03/x-sample.pdf");
+        inputStream = facesContext.getExternalContext().getResourceAsStream("/" + path);
       }
       final HttpServletResponse response = (HttpServletResponse) facesContext.getExternalContext().getResponse();
       response.setContentType("application/pdf");

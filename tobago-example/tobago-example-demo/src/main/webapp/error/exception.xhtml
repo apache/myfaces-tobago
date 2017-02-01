@@ -23,7 +23,7 @@
   <ui:param name="title" value="Sorry, an error has occured!"/>
 
     <tc:messages/>
-    <tc:section label="An error has occurred!">
+    <tc:section id="errorSection" label="An error has occurred!">
       <!-- TODO
       <tc:out value="#{exceptionContext.exception}" escape="false"/>
 
@@ -46,7 +46,9 @@
         request.setAttribute("exceptionText", exceptionToString(exception));
       %>
 -->
-
+      <pre>
+        <tc:out value="#{exceptionController.stackTrace}"/>
+      </pre>
     </tc:section>
 
 </ui:composition>
