@@ -728,6 +728,7 @@ th.tobago-sheet-headerCell .tobago-out {
 
 .twitter-typeahead {
   width: 100%;
+  display: inherit !important; /* height of tc:in must not be influenced by tc:suggest */
 }
 
 .typeahead {
@@ -814,6 +815,16 @@ th.tobago-sheet-headerCell .tobago-out {
 
 .tobago-out {
   display: inline-block;
+}
+
+/* menuStore -------------------------------------------------------- */
+
+.tobago-page-menuStore {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
 }
 
 /* Bootstrap workarounds ------------------------------------------------------------------ */
