@@ -116,4 +116,8 @@ public class Upload {
   public List<UploadItem> getList() {
     return list;
   }
+
+  public String getDropZoneId() {
+    return "fileDropArea";
+  }
 }

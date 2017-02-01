@@ -128,8 +128,13 @@ Tobago.registerListener(Tobago.File.init, Tobago.Phase.AFTER_UPDATE);
     findDropElement: function (dropZoneId) {
       if (dropZoneId.charAt(0) == ":" && dropZoneId.charAt(1) != ":") {
         return jQuery(Tobago.Utils.escapeClientId(dropZoneId.substring(1)));
-      } else  {
-        // TODO
+      } else if (!dropZoneId.contains(":")) {
+        // in same namingContainer as this.element
+        var elementId = this.element.attr("id");
+        var prefix = elementId.substring(0, elementId.lastIndexOf(":") + 1);
+        return jQuery(Tobago.Utils.escapeClientId(prefix + dropZoneId));
+      } else {
+        // TODO resolve relative :: ids
         return jQuery(Tobago.Utils.escapeClientId(dropZoneId));
       }
     },
@@ -163,8 +168,10 @@ Tobago.registerListener(Tobago.File.init, Tobago.Phase.AFTER_UPDATE);
 
     show: function () {
       // console.info("show");  // @DEV_ONLY
-      this.fileDropArea.css({display: ''});
-      this.fileDropArea.on("drop", this.filesDropped);
+      if (this.element.find("input[type='file']").prop('disabled') === false) {
+        this.fileDropArea.css({display: ''});
+        this.fileDropArea.on("drop", this.filesDropped);
+      }
     },
 
     hide: function () {

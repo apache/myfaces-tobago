@@ -37,13 +37,12 @@ import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
-import javax.el.ExpressionFactory;
 import javax.el.MethodExpression;
 import javax.el.ValueExpression;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIOutput;
 import javax.faces.context.FacesContext;
-import javax.faces.event.MethodExpressionActionListener;
+import javax.faces.event.ActionListener;
 import java.io.IOException;
 
 public class FileDropRenderer extends FileRenderer {
@@ -131,20 +130,16 @@ public class FileDropRenderer extends FileRenderer {
       }
     }
 
-    final ExpressionFactory expressionFactory = facesContext.getApplication().getExpressionFactory();
-
-    String expressionString = getExpressionString(fileDrop, Attributes.ACTION);
-    if (expressionString != null) {
-      final MethodExpression action = expressionFactory.createMethodExpression(
-          facesContext.getELContext(), expressionString, String.class, ComponentUtils.ACTION_ARGS);
-      command.setActionExpression(action);
+    MethodExpression actionExpression = fileDrop.getActionExpression();
+    if (actionExpression != null) {
+      command.setActionExpression(actionExpression);
     }
 
-    expressionString = getExpressionString(fileDrop, Attributes.ACTION_LISTENER);
-    if (expressionString != null) {
-      final MethodExpression actionListener = expressionFactory.createMethodExpression(
-          facesContext.getELContext(), expressionString, null, ComponentUtils.ACTION_LISTENER_ARGS);
-      command.addActionListener(new MethodExpressionActionListener(actionListener));
+    ActionListener[] actionListeners = fileDrop.getActionListeners();
+    if (actionListeners != null) {
+      for (ActionListener listener : actionListeners) {
+        command.addActionListener(listener);
+      }
     }
 
     fileDrop.getFacets().put("change", command);

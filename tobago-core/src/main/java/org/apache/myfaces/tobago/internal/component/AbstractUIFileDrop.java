@@ -24,9 +24,10 @@ import org.slf4j.LoggerFactory;
 
 import org.apache.myfaces.tobago.component.SupportsRenderedPartially;
 
+import javax.faces.component.ActionSource2;
 import javax.faces.event.ActionListener;
 
-public abstract class AbstractUIFileDrop extends AbstractUIFile implements SupportsRenderedPartially {
+public abstract class AbstractUIFileDrop extends AbstractUIFile implements SupportsRenderedPartially, ActionSource2 {
 
   private static final Logger LOG = LoggerFactory.getLogger(AbstractUIFileDrop.class);
 
@@ -54,6 +55,14 @@ public abstract class AbstractUIFileDrop extends AbstractUIFile implements Suppo
 
   public void addActionListener(ActionListener listener) {
     this.addFacesListener(listener);
+  }
+
+  public void removeActionListener(ActionListener listener) {
+    this.removeFacesListener(listener);
+  }
+
+  public ActionListener[] getActionListeners() {
+    return (ActionListener[])((ActionListener[])this.getFacesListeners(ActionListener.class));
   }
 
 }
