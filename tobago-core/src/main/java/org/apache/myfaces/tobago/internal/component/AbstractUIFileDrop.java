@@ -62,7 +62,7 @@ public abstract class AbstractUIFileDrop extends AbstractUIFile implements Suppo
   }
 
   public ActionListener[] getActionListeners() {
-    return (ActionListener[])((ActionListener[])this.getFacesListeners(ActionListener.class));
+    return (ActionListener[]) ((ActionListener[]) this.getFacesListeners(ActionListener.class));
   }
 
 }
