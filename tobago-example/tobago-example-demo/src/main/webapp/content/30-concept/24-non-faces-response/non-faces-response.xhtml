@@ -44,16 +44,6 @@
       Is seems there are problems with the first example in Firefox, if it is configured to
       NOT view PDF inside the browser.
     </li>
-    <li>
-      BUG: Currently after a download the next AJAX is broken:
-      <tc:button label="test">
-        <f:ajax render="millis"/>
-      </tc:button>
-
-      <tc:out label="Current SS:MMM" id="millis" value="#{partialReloadController.currentDate}">
-        <f:convertDateTime pattern="ss:SSS"/>
-      </tc:out>
-    </li>
   </ul>
 
 </ui:composition>
