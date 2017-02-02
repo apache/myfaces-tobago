@@ -128,7 +128,7 @@ Tobago.registerListener(Tobago.File.init, Tobago.Phase.AFTER_UPDATE);
     findDropElement: function (dropZoneId) {
       if (dropZoneId.charAt(0) == ":" && dropZoneId.charAt(1) != ":") {
         return jQuery(Tobago.Utils.escapeClientId(dropZoneId.substring(1)));
-      } else if (!dropZoneId.contains(":")) {
+      } else if (dropZoneId.indexOf(":") == -1) {
         // in same namingContainer as this.element
         var elementId = this.element.attr("id");
         var prefix = elementId.substring(0, elementId.lastIndexOf(":") + 1);
