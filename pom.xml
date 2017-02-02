@@ -986,7 +986,7 @@
           <version>1.4.5</version>
           <configuration>
             <!-- TBD: check which score can be accepted -->
-            <failBuildOnCVSS>1</failBuildOnCVSS>
+            <failBuildOnCVSS>3</failBuildOnCVSS>
           </configuration>
         </plugin>
       </plugins>
