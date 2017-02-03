@@ -19,10 +19,10 @@
 
 package org.apache.myfaces.tobago.util;
 
-import org.apache.myfaces.tobago.application.ProjectStage;
 import org.apache.myfaces.tobago.config.TobagoConfig;
 
 import javax.faces.application.FacesMessage;
+import javax.faces.application.ProjectStage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.util.List;

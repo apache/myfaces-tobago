@@ -19,7 +19,6 @@
 
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
-import org.apache.myfaces.tobago.application.ProjectStage;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.UIPage;
 import org.apache.myfaces.tobago.config.TobagoConfig;
@@ -53,6 +52,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.faces.application.Application;
+import javax.faces.application.ProjectStage;
 import javax.faces.application.ViewHandler;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIViewRoot;

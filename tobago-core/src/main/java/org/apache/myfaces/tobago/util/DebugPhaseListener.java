@@ -19,12 +19,12 @@
 
 package org.apache.myfaces.tobago.util;
 
-import org.apache.myfaces.tobago.application.ProjectStage;
 import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.faces.application.FacesMessage;
+import javax.faces.application.ProjectStage;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.event.PhaseEvent;

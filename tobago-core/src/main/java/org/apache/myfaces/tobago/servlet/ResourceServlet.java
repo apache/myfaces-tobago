@@ -19,7 +19,6 @@
 
 package org.apache.myfaces.tobago.servlet;
 
-import org.apache.myfaces.tobago.application.ProjectStage;
 import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.internal.util.IoUtils;
 import org.apache.myfaces.tobago.internal.util.MimeTypeUtils;
@@ -27,6 +26,7 @@ import org.apache.myfaces.tobago.internal.util.ResponseUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.faces.application.ProjectStage;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;

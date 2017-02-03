@@ -19,11 +19,11 @@
 
 package org.apache.myfaces.tobago.config;
 
-import org.apache.myfaces.tobago.application.ProjectStage;
 import org.apache.myfaces.tobago.context.Theme;
 import org.apache.myfaces.tobago.internal.config.ContentSecurityPolicy;
 import org.apache.myfaces.tobago.sanitizer.Sanitizer;
 
+import javax.faces.application.ProjectStage;
 import javax.faces.context.FacesContext;
 import javax.servlet.ServletContext;
 import java.util.List;

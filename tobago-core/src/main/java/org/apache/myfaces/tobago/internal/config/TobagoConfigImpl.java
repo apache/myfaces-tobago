@@ -19,7 +19,6 @@
 
 package org.apache.myfaces.tobago.internal.config;
 
-import org.apache.myfaces.tobago.application.ProjectStage;
 import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.context.Theme;
 import org.apache.myfaces.tobago.context.ThemeImpl;
@@ -29,6 +28,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.faces.application.Application;
+import javax.faces.application.ProjectStage;
 import javax.faces.context.FacesContext;
 import javax.naming.Context;
 import javax.naming.InitialContext;
