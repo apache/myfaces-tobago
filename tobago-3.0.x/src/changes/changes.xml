@@ -1,0 +1,138 @@
+<!--
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+-->
+
+<document>
+  <properties>
+    <title>Changes Tobago</title>
+    <author email="bernd.bohmann@atanion.com">bommel</author>
+    <author email="udo@schnurpfeil.de">lofwyr</author>
+  </properties>
+  <body>
+
+    <release version="1.0.7" date="in SVN">
+      <action dev="bommel" type="update">
+        Sheet supports paging in DataModel if getRowCount() returns -1
+      </action>
+      <action dev="lofwyr,bommel" type="update" issue="TOBAGO-20">
+        Simplify theme handling
+      </action>
+      <action dev="bommel" type="update">
+        Changed the Public identifier in tobago-config.xml from "-//Atanion GmbH//DTD Tobago Config 1.0//EN"
+        to "-//The Apache Software Foundation//DTD Tobago Config 1.0//EN"
+      </action>
+      <action dev="lofwyr" type="update">
+        build system changed to maven2
+      </action>
+      <action dev="lofwyr" type="update">
+        refactor TobagoConstants changed from interface -> class (using static import)
+      </action>
+      <action dev="lofwyr" type="update">
+        ResourceMananger supports XML properties now
+      </action>
+      <action dev="lofwyr" type="update">
+        siblingLeafOnly mode for t:treeListbox
+      </action>
+      <action dev="lofwyr" type="update">
+        rename property "selected" to "selectedRows" in SheetState which is now
+        a List&lt;Integer&gt;
+      </action>
+      <action dev="lofwyr" type="update">
+        add "p" option to openPopup()
+      </action>
+    </release>
+
+    <release version="1.0.6" date="2005-09-02">
+      <action dev="lofwyr" type="update">
+        refactor ResourceManager
+      </action>
+      <action dev="lofwyr" type="fix">
+        bugfix in UIData -> selection
+      </action>
+      <action dev="lofwyr" type="update">
+        change package names to org.apache.myfaces.tobago
+      </action>
+    </release>
+
+    <release version="1.0.5" date="2005-08-10">
+      <action dev="lofwyr" type="update">
+        last atanion release
+      </action>
+      <action dev="lofwyr" type="update">
+        many refatoring in the tag-names and attribute-names
+      </action>
+      <action dev="lofwyr" type="update">
+        enhanced performance
+      </action>
+    </release>
+
+    <release version="1.0.4" date="2005-02-24">
+      <action dev="lofwyr" type="fix">
+        bugfix: direct input of page or row
+      </action>
+    </release>
+
+    <release version="1.0.3" date="2005-02-23">
+      <action dev="lofwyr" type="update">
+        refator: rename many tags and tag-attributes to have a consitent scheme
+      </action>
+      <action dev="lofwyr" type="update">
+        sheet paging: direct input of page or row
+      </action>
+      <action dev="lofwyr" type="update">
+        make UIForm tranparent for layouting.
+      </action>
+      <action dev="lofwyr" type="update">
+        refactor UISelectMany removed: workaround is no longer needed.
+      </action>
+      <action dev="lofwyr" type="update">
+        refactor Don't everwrite JSF component-types in faces-config.xml to prevent error messages.
+      </action>
+      <action dev="lofwyr" type="update">
+        refactor Color16 removed, will be replaced in later version with enhanced ColorSelect
+      </action>
+      <action dev="lofwyr" type="update">
+        refactor ViewHandlerImpl: using base RI Impl
+      </action>
+      <action dev="lofwyr" type="update">
+        refactor TobagoServletMapping: removed
+      </action>
+    </release>
+
+    <release version="1.0.2" date="2004-12-15">
+      <action dev="lofwyr" type="fix">
+        submit button in IE makes double submit
+      </action>
+      <action dev="lofwyr" type="fix">
+        NullPointerException with unknown browsers
+      </action>
+    </release>
+
+    <release version="1.0.1" date="2004-12-15">
+      <action dev="lofwyr" type="update">
+        eleminate "SNAPSHOT" dependencies
+      </action>
+    </release>
+
+    <release version="1.0.0" date="2004-12-15">
+      <action dev="lofwyr" type="add">
+        first release
+      </action>
+    </release>
+
+</body>
+</document>
+

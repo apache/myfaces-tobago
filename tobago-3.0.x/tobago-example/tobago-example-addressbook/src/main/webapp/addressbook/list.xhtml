@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+-->
+
+<ui:composition template="/addressbook/layout/basic.xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:tc="http://myfaces.apache.org/tobago/component"
+                xmlns:ui="http://java.sun.com/jsf/facelets">
+  <ui:param name="title" value="#{bundle.listPageTitle}"/>
+
+  <tc:flowLayout>
+    <tc:buttons>
+<!--
+      <tc:button label="#{bundle.toolbarAddressList}" action="#{controller.search}" immediate="true"
+                 image="fa-question"
+                 disabled="#{facesContext.viewRoot.viewId == '/addressbook/list.xhtml'}"/>
+-->
+      <tc:button label="#{bundle.listNew}" action="#{controller.createAddress}"
+                 image="fa-question"/>
+      <tc:button label="#{bundle.listEdit}" action="#{controller.editAddress}"
+                         image="fa-question"/>
+      <tc:button label="#{bundle.listDelete}" action="#{controller.deleteAddresses}"
+                         image="fa-question">
+        <f:facet name="confirmation">
+          <tc:out value="#{bundle.listDeleteConfirmation}"/>
+        </f:facet>
+        <tc:style customClass="btn-danger"/>
+      </tc:button>
+      <tc:button label="#{bundle.toolbarAbout}"
+                 image="fa-question">
+        <tc:popupReference for=":page:about"/>
+      </tc:button>
+      <tc:button label="#{bundle.admin}" action="#{admin.admin}"
+                 image="fa-question"/>
+
+      <tc:in value="#{controller.searchCriterion}" placeholder="#{bundle.listFilter}" tip="#{bundle.listFilter}"/>
+      <tc:button action="#{controller.search}" label="#{bundle.listSearch}"
+                 defaultCommand="true"/>
+      <tc:button tip="Logout" action="#{controller.logout}" immediate="true"
+                      image="fa-question"/>
+      <tc:style customClass="btn-danger"/>
+    </tc:buttons>
+
+    <tc:box label="#{bundle.listBoxTitle}">
+      <f:facet name="layout">
+        <tc:gridLayout rows="auto;1*"/>
+      </f:facet>
+<!--
+      <f:facet name="toolBar">
+        <tc:toolBar>
+          <tc:toolBarCommand label="#{bundle.listNew}" action="#{controller.createAddress}"
+                             image="fa-question"/>
+          <tc:toolBarCommand label="#{bundle.listEdit}" action="#{controller.editAddress}"
+                             image="fa-question"/>
+          <tc:toolBarCommand label="#{bundle.listDelete}" action="#{controller.deleteAddresses}"
+                             image="fa-question">
+            <f:facet name="confirmation">
+              <tc:out value="#{bundle.listDeleteConfirmation}"/>
+            </f:facet>
+          </tc:toolBarCommand>
+          <tc:toolBarCommand label="Select Columns" action="#{controller.selectColumns}"
+                             image="fa-question">
+            <f:facet name="popup">
+              <tc:popup width="300" height="200" left="200" top="200"
+                        rendered="#{controller.renderPopup}" id="popup">
+                <tc:box label="Select Columns">
+                  <f:facet name="layout">
+                    <tc:gridLayout rows="auto;auto;auto;1*;auto" margin="10"/>
+                  </f:facet>
+
+                  <tc:selectBooleanCheckbox label="First Name" value="#{controller.renderFirstName}"/>
+                  <tc:selectBooleanCheckbox label="Last Name" value="#{controller.renderLastName}"/>
+                  <tc:selectBooleanCheckbox label="Birthday" value="#{controller.renderDayOfBirth}"/>
+                  <tc:panel/>
+                  <tc:panel>
+                    <f:facet name="layout">
+                      <tc:gridLayout columns="1*;100px;100px"/>
+                    </f:facet>
+                    <tc:panel/>
+                    <tc:button action="#{controller.cancelPopup}" label="OK" defaultCommand="true"/>
+                    <tc:button action="#{controller.cancelPopup}" label="Cancel" immediate="true"/>
+                  </tc:panel>
+                </tc:box>
+              </tc:popup>
+            </f:facet>
+          </tc:toolBarCommand>
+        </tc:toolBar>
+      </f:facet>
+-->
+
+      <tc:messages/>
+
+      <tc:sheet columns="1*;1*;1*" value="#{controller.currentAddressList}"
+                var="address" state="#{controller.selectedAddresses}"
+                sortActionListener="#{controller.sheetSorter}" rows="15"
+                showRowRange="left" showPageRange="right" showDirectLinks="center">
+        <tc:row>
+          <tc:event event="dblclick" action="#{controller.editAddress}"/>
+        </tc:row>
+        <tc:column id="firstName" label="#{bundle.listFirstName}" sortable="true"
+                   rendered="#{controller.renderFirstName}">
+          <tc:out value="#{address.firstName}"/>
+        </tc:column>
+        <tc:column id="lastName" label="#{bundle.listLastName}" sortable="true"
+                   rendered="#{controller.renderLastName}">
+          <tc:out value="#{address.lastName}"/>
+        </tc:column>
+        <tc:column id="dayOfBirth" label="Birthday" sortable="true"
+                   rendered="#{controller.renderDayOfBirth}">
+          <tc:out value="#{address.dayOfBirth}">
+            <f:convertDateTime pattern="#{bundle.editorDatePattern}"/>
+          </tc:out>
+        </tc:column>
+      </tc:sheet>
+
+    </tc:box>
+  </tc:flowLayout>
+</ui:composition>

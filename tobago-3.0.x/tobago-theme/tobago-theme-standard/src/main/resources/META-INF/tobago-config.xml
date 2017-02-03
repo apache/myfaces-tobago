@@ -1,0 +1,400 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+-->
+
+<tobago-config
+    xmlns="http://myfaces.apache.org/tobago/tobago-config"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://myfaces.apache.org/tobago/tobago-config http://myfaces.apache.org/tobago/tobago-config-3.0.xsd"
+    version="3.0">
+
+  <name>tobago-theme-standard</name>
+
+  <content-security-policy mode="on">
+    <directive>default-src 'self'</directive>
+  </content-security-policy>
+
+  <theme-definitions>
+    <theme-definition>
+      <name>standard</name>
+      <display-name>Standard Theme</display-name>
+      <versioned>true</versioned>
+      <renderers>
+        <renderer>
+          <name>Button</name>
+          <supported-markup>
+            <markup>default</markup>
+            <markup>disabled</markup>
+          </supported-markup>
+        </renderer>
+        <renderer>
+          <name>Calendar</name>
+          <supported-markup>
+            <markup>disabled</markup>
+            <markup>selected</markup>
+          </supported-markup>
+        </renderer>
+        <renderer>
+          <name>Command</name>
+          <supported-markup>
+            <markup>disabled</markup>
+          </supported-markup>
+        </renderer>
+        <renderer>
+          <name>Date</name>
+          <supported-markup>
+            <markup>disabled</markup>
+            <markup>readonly</markup>
+            <markup>required</markup>
+            <markup>fatal</markup>
+            <markup>error</markup>
+            <markup>warn</markup>
+            <markup>info</markup>
+          </supported-markup>
+        </renderer>
+        <renderer>
+          <name>File</name>
+          <supported-markup>
+            <markup>disabled</markup>
+            <markup>readonly</markup>
+            <markup>required</markup>
+            <markup>fatal</markup>
+            <markup>error</markup>
+            <markup>warn</markup>
+            <markup>info</markup>
+          </supported-markup>
+        </renderer>
+        <renderer>
+          <name>FlexLayout</name>
+          <supported-markup>
+            <markup>vertically</markup>
+          </supported-markup>
+        </renderer>
+        <renderer>
+          <name>Image</name>
+          <supported-markup>
+            <markup>disabled</markup>
+          </supported-markup>
+        </renderer>
+        <renderer>
+          <name>In</name>
+          <supported-markup>
+            <markup>disabled</markup>
+            <markup>readonly</markup>
+            <markup>required</markup>
+            <markup>fatal</markup>
+            <markup>error</markup>
+            <markup>warn</markup>
+            <markup>info</markup>
+            <markup>number</markup>
+          </supported-markup>
+        </renderer>
+        <renderer>
+          <name>Label</name>
+          <supported-markup>
+            <markup>disabled</markup>
+            <markup>readonly</markup>
+            <markup>required</markup>
+            <markup>fatal</markup>
+            <markup>error</markup>
+            <markup>warn</markup>
+            <markup>info</markup>
+          </supported-markup>
+        </renderer>
+        <renderer>
+          <name>Link</name>
+          <supported-markup>
+            <markup>disabled</markup>
+          </supported-markup>
+        </renderer>
+        <renderer>
+          <name>Messages</name>
+          <supported-markup>
+            <markup>fatal</markup>
+            <markup>error</markup>
+            <markup>warn</markup>
+            <markup>info</markup>
+          </supported-markup>
+        </renderer>
+        <renderer>
+          <name>Out</name>
+          <supported-markup>
+            <markup>deleted</markup>
+            <markup>strong</markup>
+            <markup>number</markup>
+          </supported-markup>
+        </renderer>
+        <renderer>
+          <name>Page</name>
+          <supported-markup>
+            <markup>portlet</markup>
+          </supported-markup>
+        </renderer>
+        <renderer>
+          <name>Popup</name>
+          <supported-markup>
+            <markup>modal</markup>
+          </supported-markup>
+        </renderer>
+        <renderer>
+          <name>SelectBooleanCheckbox</name>
+          <supported-markup>
+            <markup>disabled</markup>
+            <markup>readonly</markup>
+            <markup>required</markup>
+            <markup>fatal</markup>
+            <markup>error</markup>
+            <markup>warn</markup>
+            <markup>info</markup>
+            <markup>selected</markup>
+          </supported-markup>
+        </renderer>
+        <renderer>
+          <name>SelectManyCheckbox</name>
+          <supported-markup>
+            <markup>disabled</markup>
+            <markup>readonly</markup>
+            <markup>required</markup>
+            <markup>fatal</markup>
+            <markup>error</markup>
+            <markup>warn</markup>
+            <markup>info</markup>
+            <markup>selected</markup>
+            <markup>inline</markup>
+          </supported-markup>
+        </renderer>
+        <renderer>
+          <name>SelectManyListbox</name>
+          <supported-markup>
+            <markup>disabled</markup>
+            <markup>readonly</markup>
+            <markup>required</markup>
+            <markup>fatal</markup>
+            <markup>error</markup>
+            <markup>warn</markup>
+            <markup>info</markup>
+            <markup>selected</markup>
+          </supported-markup>
+        </renderer>
+        <renderer>
+          <name>SelectManyShuttle</name>
+          <supported-markup>
+            <markup>disabled</markup>
+            <markup>readonly</markup>
+            <markup>required</markup>
+            <markup>fatal</markup>
+            <markup>error</markup>
+            <markup>warn</markup>
+            <markup>info</markup>
+            <markup>selected</markup>
+          </supported-markup>
+        </renderer>
+        <renderer>
+          <name>SelectOneChoice</name>
+          <supported-markup>
+            <markup>disabled</markup>
+            <markup>readonly</markup>
+            <markup>required</markup>
+            <markup>fatal</markup>
+            <markup>error</markup>
+            <markup>warn</markup>
+            <markup>info</markup>
+            <markup>selected</markup>
+          </supported-markup>
+        </renderer>
+        <renderer>
+          <name>SelectOneListbox</name>
+          <supported-markup>
+            <markup>disabled</markup>
+            <markup>readonly</markup>
+            <markup>required</markup>
+            <markup>fatal</markup>
+            <markup>error</markup>
+            <markup>warn</markup>
+            <markup>info</markup>
+            <markup>selected</markup>
+          </supported-markup>
+        </renderer>
+        <renderer>
+          <name>SelectOneRadio</name>
+          <supported-markup>
+            <markup>disabled</markup>
+            <markup>readonly</markup>
+            <markup>required</markup>
+            <markup>fatal</markup>
+            <markup>error</markup>
+            <markup>warn</markup>
+            <markup>info</markup>
+            <markup>selected</markup>
+            <markup>inline</markup>
+          </supported-markup>
+        </renderer>
+        <renderer>
+          <name>Sheet</name>
+          <supported-markup>
+            <!-- internal: for the paging buttons -->
+            <markup>disabled</markup>
+            <!-- internal: for the header -->
+            <markup>resizable</markup>
+            <markup>sortable</markup>
+            <markup>ascending</markup>
+            <markup>descending</markup>
+            <!-- for the rows -->
+            <markup>odd</markup>
+            <markup>even</markup>
+            <markup>selected</markup>
+            <!-- for the cells -->
+            <markup>clickable</markup>
+            <markup>filler</markup>
+            <markup>first</markup>
+            <!-- internal: for the paging fields -->
+            <markup>left</markup>
+            <markup>center</markup>
+            <markup>right</markup>
+            <markup>inverse</markup>
+            <markup>striped</markup>
+            <markup>bordered</markup>
+            <markup>hover</markup>
+            <markup>small</markup>
+          </supported-markup>
+        </renderer>
+        <renderer>
+          <name>Tab</name>
+          <supported-markup>
+            <markup>disabled</markup>
+            <markup>selected</markup>
+            <markup>fatal</markup>
+            <markup>error</markup>
+            <markup>warn</markup>
+            <markup>info</markup>
+          </supported-markup>
+        </renderer>
+        <renderer>
+          <name>Textarea</name>
+          <supported-markup>
+            <markup>disabled</markup>
+            <markup>readonly</markup>
+            <markup>required</markup>
+            <markup>fatal</markup>
+            <markup>error</markup>
+            <markup>warn</markup>
+            <markup>info</markup>
+          </supported-markup>
+        </renderer>
+        <renderer>
+          <name>Time</name>
+          <supported-markup>
+            <markup>disabled</markup>
+            <markup>readonly</markup>
+            <markup>required</markup>
+            <markup>fatal</markup>
+            <markup>error</markup>
+            <markup>warn</markup>
+            <markup>info</markup>
+            <!-- internal: for the seconds field -->
+            <markup>seconds</markup>
+            <markup>timepicker</markup>
+          </supported-markup>
+        </renderer>
+        <renderer>
+          <name>ToolBar</name>
+          <supported-markup>
+            <markup>disabled</markup>
+            <markup>selected</markup>
+            <markup>big</markup>
+            <markup>right</markup>
+          </supported-markup>
+        </renderer>
+        <renderer>
+          <name>TreeCommand</name>
+          <supported-markup>
+            <markup>disabled</markup>
+          </supported-markup>
+        </renderer>
+        <renderer>
+          <name>TreeLabel</name>
+          <supported-markup>
+            <markup>disabled</markup>
+          </supported-markup>
+        </renderer>
+        <renderer>
+          <name>TreeNode</name>
+          <supported-markup>
+            <markup>disabled</markup>
+            <!--XXX has to be in label and command ? -->
+            <markup>strong</markup>
+            <markup>selected</markup>
+            <markup>folder</markup>
+            <markup>expanded</markup>
+          </supported-markup>
+        </renderer>
+        <renderer>
+          <name>TreeMenuNode</name>
+          <supported-markup>
+            <markup>disabled</markup>
+            <!--XXX has to be in label and command ? -->
+            <markup>strong</markup>
+            <markup>selected</markup>
+            <markup>folder</markup>
+            <markup>expanded</markup>
+          </supported-markup>
+        </renderer>
+      </renderers>
+      <resources production="true">
+        <script name="/tobago/standard/jquery/jquery-2.2.4.min.js"/>
+        <script name="/tobago/standard/jquery-ui/1.12.1.custom/jquery-ui.min.js"/>
+        <script name="/tobago/standard/tether/1.1.1/js/tether.min.js"/>
+        <script name="/tobago/standard/bootstrap/4.0.0-alpha.5/js/bootstrap.min.js"/>
+        <script name="/tobago/standard/moment/2.13.0/moment-with-locales.min.js"/>
+        <script name="/tobago/standard/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"/>
+        <script name="/tobago/standard/script/tobago.min.js"/>
+        <script name="/tobago/standard/typeahead/0.11.1-patched-with-1212/typeahead.min.js"/>
+        <style name="/tobago/standard/tether/1.1.1/css/tether.min.css"/>
+        <style name="/tobago/standard/bootstrap/4.0.0-alpha.5/css/bootstrap.min.css"/>
+        <style name="/tobago/standard/font-awesome/4.6.1/css/font-awesome.min.css"/>
+        <style name="/tobago/standard/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.min.css"/>
+      </resources>
+      <resources production="false">
+        <script name="/tobago/standard/jquery/jquery-2.2.4.js"/>
+        <script name="/tobago/standard/jquery-ui/1.12.1.custom/jquery-ui.js"/>
+        <script name="/tobago/standard/tether/1.1.1/js/tether.js"/>
+        <script name="/tobago/standard/bootstrap/4.0.0-alpha.5/js/bootstrap.js"/>
+        <script name="/tobago/standard/moment/2.13.0/moment-with-locales.js"/>
+        <script name="/tobago/standard/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.js"/>
+        <script name="/tobago/standard/script/tobago-jsf.js"/>
+        <script name="/tobago/standard/script/tobago.js"/>
+        <script name="/tobago/standard/script/tobago-calendar.js"/>
+        <script name="/tobago/standard/script/tobago-console.js"/>
+        <script name="/tobago/standard/script/tobago-in.js"/>
+        <script name="/tobago/standard/script/tobago-layout.js"/>
+        <script name="/tobago/standard/script/tobago-overlay.js"/>
+        <script name="/tobago/standard/script/tobago-popup.js"/>
+        <script name="/tobago/standard/script/tobago-sheet.js"/>
+        <script name="/tobago/standard/script/tobago-suggest.js"/>
+        <script name="/tobago/standard/script/tobago-tab.js"/>
+        <script name="/tobago/standard/script/tobago-tree.js"/>
+        <script name="/tobago/standard/script/tobago-utils.js"/>
+        <script name="/tobago/standard/typeahead/0.11.1-patched-with-1212/typeahead.js"/>
+        <style name="/tobago/standard/tether/1.1.1/css/tether.css"/>
+        <style name="/tobago/standard/bootstrap/4.0.0-alpha.5/css/bootstrap.css"/>
+        <style name="/tobago/standard/font-awesome/4.6.1/css/font-awesome.css"/>
+        <style name="/tobago/standard/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.css"/>
+      </resources>
+    </theme-definition>
+  </theme-definitions>
+</tobago-config>

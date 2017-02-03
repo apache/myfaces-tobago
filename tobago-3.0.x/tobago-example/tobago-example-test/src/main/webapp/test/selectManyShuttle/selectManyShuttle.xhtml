@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+-->
+
+<f:view
+    xmlns:tc="http://myfaces.apache.org/tobago/component"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core">
+
+  <tc:page>
+    <tc:gridLayoutConstraint width="700px" height="600px"/>
+    <f:facet name="layout">
+      <!-- fixme: rows="20px" -->
+      <tc:gridLayout columns="*;2*" rows="auto;20px;auto;auto;auto;auto;auto;auto" columnSpacing="30px"/>
+    </f:facet>
+
+    <tc:messages>
+      <tc:gridLayoutConstraint columnSpan="2"/>
+    </tc:messages>
+
+    <tc:label value="tc"/>
+    <tc:label value="tx"/>
+
+    <tc:selectManyShuttle>
+      <tc:selectItem itemValue="a" itemLabel="A Value"/>
+      <tc:selectItem itemValue="b" itemLabel="An Alternative"/>
+    </tc:selectManyShuttle>
+    <tc:selectManyShuttle label="normal">
+      <tc:selectItem itemValue="a" itemLabel="A Value"/>
+      <tc:selectItem itemValue="b" itemLabel="An Alternative"/>
+    </tc:selectManyShuttle>
+
+    <tc:selectManyShuttle readonly="true">
+      <tc:selectItem itemValue="a" itemLabel="A Value"/>
+      <tc:selectItem itemValue="b" itemLabel="An Alternative"/>
+    </tc:selectManyShuttle>
+    <tc:selectManyShuttle readonly="true" label="readonly">
+      <tc:selectItem itemValue="a" itemLabel="A Value"/>
+      <tc:selectItem itemValue="b" itemLabel="An Alternative"/>
+    </tc:selectManyShuttle>
+
+    <tc:selectManyShuttle disabled="true">
+      <tc:selectItem itemValue="a" itemLabel="A Value"/>
+      <tc:selectItem itemValue="b" itemLabel="An Alternative"/>
+    </tc:selectManyShuttle>
+    <tc:selectManyShuttle disabled="true" label="disabled">
+      <tc:selectItem itemValue="a" itemLabel="A Value"/>
+      <tc:selectItem itemValue="b" itemLabel="An Alternative"/>
+    </tc:selectManyShuttle>
+
+    <tc:selectManyShuttle tip="tip">
+      <tc:selectItem itemValue="a" itemLabel="A Value"/>
+      <tc:selectItem itemValue="b" itemLabel="An Alternative"/>
+    </tc:selectManyShuttle>
+    <tc:selectManyShuttle tip="tip" label="tip">
+      <tc:selectItem itemValue="a" itemLabel="A Value"/>
+      <tc:selectItem itemValue="b" itemLabel="An Alternative"/>
+    </tc:selectManyShuttle>
+
+    <tc:selectManyShuttle required="true">
+      <tc:selectItem itemValue="a" itemLabel="A Value"/>
+      <tc:selectItem itemValue="b" itemLabel="An Alternative"/>
+    </tc:selectManyShuttle>
+    <tc:selectManyShuttle required="true" label="required">
+      <tc:selectItem itemValue="a" itemLabel="A Value"/>
+      <tc:selectItem itemValue="b" itemLabel="An Alternative"/>
+    </tc:selectManyShuttle>
+
+
+    <tc:button label="submit"/>
+
+  </tc:page>
+</f:view>

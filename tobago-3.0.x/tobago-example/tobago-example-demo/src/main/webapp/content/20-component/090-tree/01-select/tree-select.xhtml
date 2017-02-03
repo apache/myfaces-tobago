@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+-->
+
+<ui:composition template="/main.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:tc="http://myfaces.apache.org/tobago/component"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core">
+  <ui:param name="title" value="#{demoBundle.tree_select} &lt;treeSelect>"/>
+  <p>The <code class="language-markup">&lt;tc:treeSelect/></code> tag can be used instead of
+    <code class="language-markup">&lt;treeLabel/></code> to add radio buttons or checkboxes in front of the nodes.</p>
+  <p>Tag Library Documentation:
+    <tc:link label="&lt;tc:tree/>" image="#{request.contextPath}/image/feather-leaf.png"
+             link="#{demoBundle.tagDocUrl}/#{info.stableVersion}/tld/tc/tree.html"/>
+    |
+    <tc:link label="&lt;tc:treeSelect/>" image="#{request.contextPath}/image/feather-leaf.png"
+             link="#{demoBundle.tagDocUrl}/#{info.stableVersion}/tld/tc/treeSelect.html"/></p>
+
+  <tc:section label="Example">
+    <p>The <code class="language-markup">&lt;tc:tree/></code> tag must use the <code>selectable</code> attribute.
+      The value of the attribute in this example can be changed by the radio buttons in the contentbox on the right.</p>
+    <tc:panel id="examplePanel">
+      <tc:flexLayout columns="*;auto">
+        <tc:tree id="categoriesTree" value="#{treeSelectController.sample}" var="node" showRoot="true"
+                 selectable="#{treeSelectController.selectable}">
+          <tc:treeNode>
+            <tc:treeIndent/>
+            <tc:treeSelect id="select" label="#{node.userObject.name}" value="#{node.userObject.selected}">
+              <f:ajax render=":::selectedNodesOutput"/>
+            </tc:treeSelect>
+          </tc:treeNode>
+        </tc:tree>
+        <tc:panel>
+          <tc:box label="selectable">
+            <tc:selectOneRadio id="selectable" value="#{treeSelectController.selectable}">
+              <f:ajax render="examplePanel selectedNodesOutput"/>
+              <tc:selectItem itemLabel="none" itemValue="none"/>
+              <tc:selectItem itemLabel="single" itemValue="single"/>
+              <tc:selectItem itemLabel="singleLeafOnly" itemValue="singleLeafOnly"/>
+              <tc:selectItem itemLabel="multi" itemValue="multi"/>
+              <tc:selectItem itemLabel="multiLeafOnly" itemValue="multiLeafOnly"/>
+              <tc:selectItem itemLabel="multiCascade" itemValue="multiCascade"/>
+            </tc:selectOneRadio>
+          </tc:box>
+        </tc:panel>
+      </tc:flexLayout>
+    </tc:panel>
+    <tc:out id="selectedNodesOutput" label="Selected Nodes" value="#{treeSelectController.selectedNodes}"/>
+  </tc:section>
+</ui:composition>

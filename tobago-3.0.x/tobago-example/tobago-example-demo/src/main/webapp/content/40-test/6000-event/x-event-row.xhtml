@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+-->
+
+<ui:composition xmlns:tc="http://myfaces.apache.org/tobago/component"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:c="http://java.sun.com/jsp/jstl/core"
+                xmlns="http://www.w3.org/1999/xhtml">
+  <tc:section label="#{event}">
+    <tc:sheet id="sheet#{type}#{event}" value="#{eventController.planets}" var="planet" markup="small">
+      <tc:style maxHeight="200px"/>
+      <tc:column label="Planet">
+        <tc:out value="#{planet.name}" labelLayout="skip"/>
+      </tc:column>
+      <tc:row id="selectPlanet">
+        <c:if test="#{type=='event'}">
+          <c:if test="#{event=='blur'}">
+            <tc:event event="blur" action="#{eventController.action}" actionListener="#{eventController.selectPlanet}"/>
+          </c:if>
+          <c:if test="#{event=='change'}">
+            <tc:event event="change" action="#{eventController.action}"
+                      actionListener="#{eventController.selectPlanet}"/>
+          </c:if>
+          <c:if test="#{event=='click'}">
+            <tc:event event="click" action="#{eventController.action}"
+                      actionListener="#{eventController.selectPlanet}"/>
+          </c:if>
+          <c:if test="#{event=='complete'}">
+            <tc:event event="complete" action="#{eventController.action}"
+                      actionListener="#{eventController.selectPlanet}"/>
+          </c:if>
+          <c:if test="#{event=='dblclick'}">
+            <tc:event event="dblclick" action="#{eventController.action}"
+                      actionListener="#{eventController.selectPlanet}"/>
+          </c:if>
+          <c:if test="#{event=='focus'}">
+            <tc:event event="focus" action="#{eventController.action}"
+                      actionListener="#{eventController.selectPlanet}"/>
+          </c:if>
+          <c:if test="#{event=='keydown'}">
+            <tc:event event="keydown" action="#{eventController.action}"
+                      actionListener="#{eventController.selectPlanet}"/>
+          </c:if>
+          <c:if test="#{event=='keypress'}">
+            <tc:event event="keypress" action="#{eventController.action}"
+                      actionListener="#{eventController.selectPlanet}"/>
+          </c:if>
+          <c:if test="#{event=='keyup'}">
+            <tc:event event="keyup" action="#{eventController.action}"
+                      actionListener="#{eventController.selectPlanet}"/>
+          </c:if>
+          <c:if test="#{event=='load'}">
+            <tc:event event="load" action="#{eventController.action}" actionListener="#{eventController.selectPlanet}"/>
+          </c:if>
+          <c:if test="#{event=='mousedown'}">
+            <tc:event event="mousedown" action="#{eventController.action}"
+                      actionListener="#{eventController.selectPlanet}"/>
+          </c:if>
+          <c:if test="#{event=='mousemove'}">
+            <tc:event event="mousemove" action="#{eventController.action}"
+                      actionListener="#{eventController.selectPlanet}"/>
+          </c:if>
+          <c:if test="#{event=='mouseout'}">
+            <tc:event event="mouseout" action="#{eventController.action}"
+                      actionListener="#{eventController.selectPlanet}"/>
+          </c:if>
+          <c:if test="#{event=='mouseover'}">
+            <tc:event event="mouseover" action="#{eventController.action}"
+                      actionListener="#{eventController.selectPlanet}"/>
+          </c:if>
+          <c:if test="#{event=='mouseup'}">
+            <tc:event event="mouseup" action="#{eventController.action}"
+                      actionListener="#{eventController.selectPlanet}"/>
+          </c:if>
+          <c:if test="#{event=='resize'}">
+            <tc:event event="resize" action="#{eventController.action}"
+                      actionListener="#{eventController.selectPlanet}"/>
+          </c:if>
+          <c:if test="#{event=='select'}">
+            <tc:event event="select" action="#{eventController.action}"
+                      actionListener="#{eventController.selectPlanet}"/>
+          </c:if>
+        </c:if>
+        <c:if test="#{type=='ajax'}">
+          <c:if test="#{event=='blur'}">
+            <f:ajax event="blur" render=":page:mainForm:metrics" listener="#{eventController.selectPlanet}"/>
+          </c:if>
+          <c:if test="#{event=='change'}">
+            <f:ajax event="change" render=":page:mainForm:metrics" listener="#{eventController.selectPlanet}"/>
+          </c:if>
+          <c:if test="#{event=='click'}">
+            <f:ajax event="click" render=":page:mainForm:metrics" listener="#{eventController.selectPlanet}"/>
+          </c:if>
+          <c:if test="#{event=='complete'}">
+            <f:ajax event="complete" render=":page:mainForm:metrics" listener="#{eventController.selectPlanet}"/>
+          </c:if>
+          <c:if test="#{event=='dblclick'}">
+            <f:ajax event="dblclick" render=":page:mainForm:metrics" listener="#{eventController.selectPlanet}"/>
+          </c:if>
+          <c:if test="#{event=='focus'}">
+            <f:ajax event="focus" render=":page:mainForm:metrics" listener="#{eventController.selectPlanet}"/>
+          </c:if>
+          <c:if test="#{event=='keydown'}">
+            <f:ajax event="keydown" render=":page:mainForm:metrics" listener="#{eventController.selectPlanet}"/>
+          </c:if>
+          <c:if test="#{event=='keypress'}">
+            <f:ajax event="keypress" render=":page:mainForm:metrics" listener="#{eventController.selectPlanet}"/>
+          </c:if>
+          <c:if test="#{event=='keyup'}">
+            <f:ajax event="keyup" render=":page:mainForm:metrics" listener="#{eventController.selectPlanet}"/>
+          </c:if>
+          <c:if test="#{event=='load'}">
+            <f:ajax event="load" render=":page:mainForm:metrics" listener="#{eventController.selectPlanet}"/>
+          </c:if>
+          <c:if test="#{event=='mousedown'}">
+            <f:ajax event="mousedown" render=":page:mainForm:metrics" listener="#{eventController.selectPlanet}"/>
+          </c:if>
+          <c:if test="#{event=='mousemove'}">
+            <f:ajax event="mousemove" render=":page:mainForm:metrics" listener="#{eventController.selectPlanet}"/>
+          </c:if>
+          <c:if test="#{event=='mouseout'}">
+            <f:ajax event="mouseout" render=":page:mainForm:metrics" listener="#{eventController.selectPlanet}"/>
+          </c:if>
+          <c:if test="#{event=='mouseover'}">
+            <f:ajax event="mouseover" render=":page:mainForm:metrics" listener="#{eventController.selectPlanet}"/>
+          </c:if>
+          <c:if test="#{event=='mouseup'}">
+            <f:ajax event="mouseup" render=":page:mainForm:metrics" listener="#{eventController.selectPlanet}"/>
+          </c:if>
+          <c:if test="#{event=='resize'}">
+            <f:ajax event="resize" render=":page:mainForm:metrics" listener="#{eventController.selectPlanet}"/>
+          </c:if>
+          <c:if test="#{event=='select'}">
+            <f:ajax event="select" render=":page:mainForm:metrics" listener="#{eventController.selectPlanet}"/>
+          </c:if>
+        </c:if>
+      </tc:row>
+    </tc:sheet>
+  </tc:section>
+</ui:composition>

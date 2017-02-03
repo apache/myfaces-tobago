@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>org.apache.myfaces.tobago</groupId>
+    <artifactId>tobago-theme</artifactId>
+    <version>3.0.3</version>
+  </parent>
+  <artifactId>tobago-theme-standard</artifactId>
+  <packaging>jar</packaging>
+  <name>Tobago Theme Standard</name>
+
+  <properties>
+    <theme.name>standard</theme.name>
+  </properties>
+
+  <build>
+    <plugins>
+      <plugin>
+        <artifactId>maven-antrun-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>strip-javascript</id>
+            <goals>
+              <goal>run</goal>
+            </goals>
+            <phase>compile</phase>
+            <configuration>
+              <target>
+                <concat destfile="${project.build.directory}/javascript-min/standard/script/tobago.min.js" force="no">
+                  <filelist dir="${basedir}/src/main/resources/META-INF/resources/tobago/standard/script" files="tobago-jsf.js,tobago.js,tobago-calendar.js,tobago-in.js,tobago-layout.js,tobago-overlay.js,tobago-popup.js,tobago-sheet.js,tobago-suggest.js,tobago-tab.js,tobago-tree.js,tobago-utils.js" />
+                </concat>
+                <replaceregexp match="^.*//.*@DEV_ONLY.*$" replace="" byline="true">
+                  <fileset dir="${project.build.directory}/javascript-min">
+                    <include name="**/tobago.min.js" />
+                  </fileset>
+                </replaceregexp>
+              </target>
+            </configuration>
+          </execution>
+        </executions>
+        <dependencies>
+          <dependency>
+            <groupId>ant</groupId>
+            <artifactId>ant-apache-regexp</artifactId>
+            <version>1.6.5</version>
+          </dependency>
+        </dependencies>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>exec-maven-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>compress-standard</id>
+            <goals>
+              <goal>exec</goal>
+            </goals>
+            <phase>compile</phase>
+            <configuration>
+              <executable>java</executable>
+              <arguments>
+                <argument>-jar</argument>
+                <argument>lib/compiler-20120430.jar</argument>
+                <argument>--js</argument>
+                <argument>${project.build.directory}/javascript-min/standard/script/tobago.min.js</argument>
+                <argument>--js_output_file</argument>
+                <argument>target/classes/META-INF/resources/tobago/standard/script/tobago.min.js</argument>
+              </arguments>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>net.alchim31.maven</groupId>
+        <artifactId>yuicompressor-maven-plugin</artifactId>
+        <executions>
+          <execution>
+            <goals>
+              <goal>compress</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <suffix>.min</suffix>
+          <excludes>
+            <exclude>**/*.js</exclude>
+          </excludes>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>nl.geodienstencentrum.maven</groupId>
+        <artifactId>sass-maven-plugin</artifactId>
+        <version>2.14</version>
+      </plugin>
+    </plugins>
+  </build>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.apache.myfaces.tobago</groupId>
+      <artifactId>tobago-core</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.myfaces.test</groupId>
+      <artifactId>myfaces-test20</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.myfaces.tobago</groupId>
+      <artifactId>tobago-core</artifactId>
+      <version>${project.version}</version>
+      <classifier>tests</classifier>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+</project>

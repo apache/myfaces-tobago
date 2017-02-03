@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+-->
+
+<ui:composition template="/main.xhtml"
+                xmlns:tc="http://myfaces.apache.org/tobago/component"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+  <ui:param name="title" value="TODO"/>
+
+  This test is for
+  <tc:link
+      label="TOBAGO-1569: AJAX should be independent from Multi-Form concept"
+      link="https://issues.apache.org/jira/browse/TOBAGO-1569"/>.
+
+  <tc:in label="Field 1" id="in1" value="#{executeController.value1}"/>
+  <tc:in label="Field 2" id="in2" value="#{executeController.value2}"/>
+
+  <tc:box id="box" label="Box">
+    <tc:in label="Field 3" id="in3" value="#{executeController.value3}"/>
+    <tc:in label="Field 4" id="in4" value="#{executeController.value4}"/>
+  </tc:box>
+
+  <tc:segmentLayout medium="2;10">
+
+    <tc:button label="1. Clear" action="#{executeController.clear}" id="clear" immediate="true"/>
+    <tc:out value="Sets all 4 values to null"/>
+
+    <tc:button label="2. Manually" omit="true"/>
+    <tc:out value="Fill fields with some values, e.g. a, b, c, d."/>
+
+    <tc:button label="3. Submit" action="#{executeController.action}" id="submit">
+      <f:ajax execute="in1 in3" render="box"/>
+    </tc:button>
+    <tc:out value="Execute field 1 and 3 and render the box.
+      The result is, field 1, 2 and 3 are set and field 4 is cleared.
+      This is, because field 1 and 2 are not rendered (so they are untouched).
+      Field 3 and 4 are rerendered, but only filed 3 has a value, because it was executed
+      in contrast to field 4."/>
+
+    <tc:button label="4. Full Reload" id="reload" immediate="true">
+      <tc:resetInputActionListener/>
+    </tc:button>
+    <tc:out value="Shows values from server.
+      The result is, field 1 and 3 are set and field 2 and 4 is cleared."/>
+
+  </tc:segmentLayout>
+
+</ui:composition>

@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+-->
+
+<ui:composition template="/main.xhtml"
+                xmlns:tc="http://myfaces.apache.org/tobago/component"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core">
+  <ui:param name="title" value="#{demoBundle.toolBar} &lt;tc:toolBar>"/>
+  <p><code class="language-markup">&lt;tc:toolBar/></code> and
+    <code class="language-markup">&lt;tc:toolBarCommand/></code> are deprecated.
+    To replace a toolbar in the header of a component use <tc:link label="#{demoBundle.buttons}"
+                                                                   link="/faces/content/20-component/040-command/20-buttons/buttons.xhtml"/> or
+    <tc:link label="#{demoBundle.links}"
+             link="/faces/content/20-component/040-command/25-links/links.xhtml"/> instead.
+    To replace a plain toolbar, use
+    <tc:link label="#{demoBundle.bar}"
+             link="/faces/content/20-component/050-container/60-bar/bar.xhtml"/>.</p>
+
+  <tc:section label="Content Box Header">
+    <p>The first box show the deprecated version of a toolbar.
+      The second and the third one are solutions with #{demoBundle.buttons} and #{demoBundle.links}.</p>
+
+    <p>Instead of <code class="language-markup">&lt;f:facet name="toolBar"/></code>
+      use <code class="language-markup">&lt;f:facet name="bar"/></code>.</p>
+    <p>Instead of <code class="language-markup">&lt;tc:toolBar/></code>
+      use <code class="language-markup">&lt;tc:buttons/></code>
+      or <code class="language-markup">&lt;tc:links/></code>.</p>
+    <p>Instead of <code class="language-markup">&lt;tc:toolBarCommand/></code>
+      use <code class="language-markup">&lt;tc:button/></code>
+      or <code class="language-markup">&lt;tc:link/></code>.</p>
+
+    <tc:box label="#{demoBundle.buttons}">
+      <f:facet name="bar">
+        <tc:buttons>
+          <tc:button label="Text Button"/>
+          <tc:button label="Image Button" image="fa-cube"/>
+          <tc:button label="Dropdown" omit="true">
+            <tc:link label="Action 1"/>
+            <tc:link label="Action 2"/>
+            <tc:link label="Action 3"/>
+          </tc:button>
+        </tc:buttons>
+      </f:facet>
+      <p>Content</p>
+    </tc:box>
+    <tc:box label="#{demoBundle.links}">
+      <f:facet name="bar">
+        <tc:links>
+          <tc:link label="Text Link"/>
+          <tc:link label="Image Link" image="fa-cube"/>
+          <tc:link label="Dropdown" omit="true">
+            <tc:link label="Action 1"/>
+            <tc:link label="Action 2"/>
+            <tc:link label="Action 3"/>
+          </tc:link>
+        </tc:links>
+      </f:facet>
+      <p>Content</p>
+    </tc:box>
+  </tc:section>
+
+  <tc:section label="Plain toolbar">
+    <p>For a plain toolbar use the <code class="language-markup">&lt;tc:bar/></code> tag.</p>
+    <tc:section label="Deprecated">
+      <pre><code class="language-markup">&lt;tc:toolBar>
+  &lt;tc:toolBarCommand label="Text Button"/>
+  &lt;tc:toolBarCommand label="Image Button" image="fa-cube"/>
+  &lt;tc:in placeholder="Search"/>
+&lt;/tc:toolBar></code></pre>
+    </tc:section>
+
+    <tc:section label="#{demoBundle.bar}">
+      <pre><code class="language-markup">&lt;tc:bar>
+  &lt;tc:buttons>
+    &lt;tc:button label="Text Button"/>
+    &lt;tc:button label="Image Button" image="fa-cube"/>
+  &lt;/tc:buttons>
+  &lt;tc:flowLayout textAlign="right">
+    &lt;tc:button label="Dropdown" omit="true"> ... &lt;/tc:button>
+    &lt;tc:in placeholder="Search"/>
+  &lt;/tc:flowLayout>
+&lt;/tc:bar></code></pre>
+      <tc:bar>
+        <tc:buttons>
+          <tc:button label="Text Button"/>
+          <tc:button label="Image Button" image="fa-cube"/>
+        </tc:buttons>
+        <tc:flowLayout textAlign="right">
+          <tc:button label="Dropdown" omit="true">
+            <tc:link label="Action 1"/>
+            <tc:link label="Action 2"/>
+            <tc:link label="Action 3"/>
+          </tc:button>
+          <tc:in placeholder="Search"/>
+        </tc:flowLayout>
+      </tc:bar>
+    </tc:section>
+  </tc:section>
+</ui:composition>

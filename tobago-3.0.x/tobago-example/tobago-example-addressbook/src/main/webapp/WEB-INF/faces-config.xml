@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+-->
+
+<faces-config
+    xmlns="http://java.sun.com/xml/ns/javaee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd"
+    version="2.0">
+
+  <application>
+     <locale-config>
+      <default-locale>en_US</default-locale>
+      <supported-locale>de</supported-locale>
+      <supported-locale>en_GB</supported-locale>
+      <supported-locale>en_US</supported-locale>
+    </locale-config>
+    <action-listener>org.apache.myfaces.tobago.util.DebugActionListener</action-listener>
+    <navigation-handler>org.apache.myfaces.tobago.util.DebugNavigationHandler</navigation-handler>
+    <message-bundle>error.messages</message-bundle>
+  </application>
+
+  <lifecycle>
+<!--
+    <phase-listener>org.apache.myfaces.tobago.util.DebugPhaseListener</phase-listener>
+-->
+    <phase-listener>org.apache.myfaces.tobago.example.addressbook.web.StartupPhaseListener</phase-listener>
+  </lifecycle>
+
+  <navigation-rule>
+    <navigation-case>
+      <from-outcome>editor</from-outcome>
+      <to-view-id>/addressbook/editor.xhtml</to-view-id>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>list</from-outcome>
+      <to-view-id>/addressbook/list.xhtml</to-view-id>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>admin</from-outcome>
+      <to-view-id>/addressbook/admin/admin.xhtml</to-view-id>
+    </navigation-case>
+  </navigation-rule>
+
+  <navigation-rule>
+    <navigation-case>
+      <from-outcome>logout</from-outcome>
+      <to-view-id>/auth/logout.xhtml</to-view-id>
+    </navigation-case>
+  </navigation-rule>
+
+</faces-config>

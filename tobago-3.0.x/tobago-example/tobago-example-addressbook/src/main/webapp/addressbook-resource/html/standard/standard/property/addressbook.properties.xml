@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+-->
+
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+
+
+<properties>
+<!-- Editor -->
+  <entry key="editorTitle">Addressbook Editor</entry>
+  <entry key="editorBoxTitle">Address Editor</entry>
+  <entry key="editorTabPersonal">Personal</entry>
+  <entry key="editorTabBusiness">Business</entry>
+  <entry key="editorTabMisc">Misc</entry>
+  <entry key="editorFirstName">First Name:</entry>
+  <entry key="editorLastName">Last Name:</entry>
+  <entry key="editorStreet">Street / No.:</entry>
+  <entry key="editorCity">ZIP / City:</entry>
+  <entry key="editorCountry">Country:</entry>
+  <entry key="editorPhone">Phone:</entry>
+  <entry key="editorMobile">Mobile:</entry>
+  <entry key="editorFax">Fax:</entry>
+  <entry key="editorEmail">eMail:</entry>
+  <entry key="editorIcq">ICQ:</entry>
+  <entry key="editorHomepage">Homepage:</entry>
+  <entry key="editorBirthday">Day of Birth:</entry>
+  <entry key="editorJobCompany">Company:</entry>
+  <entry key="editorJobTitle">Job Title:</entry>
+  <entry key="editorNote">Note:</entry>
+  <entry key="editorStore">_Store</entry>
+  <entry key="editorCancel">_Cancel</entry>
+
+<!-- List -->
+
+  <entry key="listPageTitle">List of addresses</entry>
+  <entry key="listBoxTitle">Address Editor</entry>
+  <entry key="listNew">New</entry>
+  <entry key="listEdit">Edit</entry>
+  <entry key="listDelete">Delete</entry>
+  <entry key="listFirstName">First Name</entry>
+  <entry key="listLastName">Last Name</entry>
+  <entry key="listBirthday">Day of Birth</entry>
+  <entry key="listDeleteConfirmation">Do you want to delete the selected addresses?</entry>
+</properties>
