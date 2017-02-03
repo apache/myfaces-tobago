@@ -55,9 +55,8 @@ public class TobagoRenderKit extends RenderKit {
     RenderKitFactory rkFactory = (RenderKitFactory) FactoryFinder.getFactory(FactoryFinder.RENDER_KIT_FACTORY);
     htmlBasicRenderKit =
         rkFactory.getRenderKit(FacesContext.getCurrentInstance(), RenderKitFactory.HTML_BASIC_RENDER_KIT);
-    LOG.error("Creating TobagoRenderKit with base: {}", htmlBasicRenderKit);
     if (LOG.isDebugEnabled()) {
-      LOG.debug("Creating TobagoRenderKit");
+      LOG.debug("Creating TobagoRenderKit with base: {}", htmlBasicRenderKit);
     }
   }
 

@@ -351,6 +351,11 @@ public class PageRenderer extends RendererBase {
     final Application application = facesContext.getApplication();
     final ViewHandler viewHandler = application.getViewHandler();
 
+    // placeholder for menus
+    writer.startElement(HtmlElements.DIV);
+    writer.writeClassAttribute(TobagoClass.PAGE__MENU_STORE);
+    writer.endElement(HtmlElements.DIV);
+
     writer.startElement(HtmlElements.SPAN);
     writer.writeIdAttribute(clientId + ComponentUtils.SUB_SEPARATOR + "jsf-state-container");
     writer.flush();

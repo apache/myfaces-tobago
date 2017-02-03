@@ -804,6 +804,8 @@ th.tobago-sheet-headerCell .tobago-out {
 
 .twitter-typeahead {
   width: 100%;
+  display: inherit !important;
+  /* height of tc:in must not be influenced by tc:suggest */
 }
 
 .typeahead {
@@ -824,6 +826,9 @@ th.tobago-sheet-headerCell .tobago-out {
 }
 
 .tt-menu {
+  display: none;
+  position: absolute;
+  z-index: 100;
   background-color: #FFFFFF;
   border: 1px solid rgba(0, 0, 0, 0.2);
   border-radius: 3px;
@@ -831,7 +836,14 @@ th.tobago-sheet-headerCell .tobago-out {
           box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
   margin-top: 1px;
   padding: 8px 0;
-  min-width: 100%;
+}
+
+.tt-open {
+  display: block;
+}
+
+.tt-empty {
+  display: none;
 }
 
 .tt-suggestion {
@@ -887,6 +899,15 @@ th.tobago-sheet-headerCell .tobago-out {
 /* out -------------------------------------------------------------- */
 .tobago-out {
   display: inline-block;
+}
+
+/* menuStore -------------------------------------------------------- */
+.tobago-page-menuStore {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
 }
 
 /* Bootstrap workarounds ------------------------------------------------------------------ */

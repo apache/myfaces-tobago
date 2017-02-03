@@ -21,6 +21,7 @@ package org.apache.myfaces.tobago.internal.component;
 
 import org.apache.myfaces.tobago.component.SupportFieldId;
 import org.apache.myfaces.tobago.component.SupportsAccessKey;
+import org.apache.myfaces.tobago.component.UIEvent;
 import org.apache.myfaces.tobago.component.Visual;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.slf4j.Logger;
@@ -48,7 +49,9 @@ public abstract class AbstractUICommand extends AbstractUICommandBase
     if (parentOfCommands == null) {
       parentOfCommands = false;
       for (UIComponent child : getChildren()) {
-        if (child instanceof UICommand || child instanceof UIInput) {
+        if (child.isRendered()
+            && !(child instanceof UIEvent)
+            && (child instanceof UICommand || child instanceof UIInput)) {
           parentOfCommands = true;
           break;
         }

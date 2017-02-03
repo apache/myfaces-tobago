@@ -26,7 +26,7 @@
   <artifactId>tobago</artifactId>
   <packaging>pom</packaging>
   <name>Apache Tobago</name>
-  <version>3.0.2</version>
+  <version>3.0.3</version>
   <description>The goal of Tobago is to provide the community with a well designed set of user interface components based on JSF and run on MyFaces.</description>
   <prerequisites>
     <maven>3.0.4</maven>
@@ -540,9 +540,9 @@
   </dependencies>
 
   <scm>
-    <connection>scm:svn:http://svn.apache.org/repos/asf/myfaces/tobago/tags/tobago-3.0.2</connection>
-    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/myfaces/tobago/tags/tobago-3.0.2</developerConnection>
-    <url>http://svn.eu.apache.org/viewvc/myfaces/tobago/tags/tobago-3.0.2</url>
+    <connection>scm:svn:http://svn.apache.org/repos/asf/myfaces/tobago/tags/tobago-3.0.3</connection>
+    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/myfaces/tobago/tags/tobago-3.0.3</developerConnection>
+    <url>http://svn.eu.apache.org/viewvc/myfaces/tobago/tags/tobago-3.0.3</url>
   </scm>
 
   <build>
@@ -937,6 +937,9 @@
 
               <!-- photo shop -->
               <exclude>**/*.psd</exclude>
+
+              <!-- sample -->
+              <exclude>**/x-sample.txt</exclude>
             </excludes>
           </configuration>
         </plugin>
@@ -980,10 +983,10 @@
         <plugin>
           <groupId>org.owasp</groupId>
           <artifactId>dependency-check-maven</artifactId>
-          <version>1.3.4</version>
+          <version>1.4.5</version>
           <configuration>
             <!-- TBD: check which score can be accepted -->
-            <failBuildOnCVSS>1</failBuildOnCVSS>
+            <failBuildOnCVSS>3</failBuildOnCVSS>
           </configuration>
         </plugin>
       </plugins>

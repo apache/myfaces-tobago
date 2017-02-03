@@ -25,11 +25,17 @@
 
   <tc:segmentLayout large="10;2">
 
-    <tc:out value="A faces request to a non-faces-response. Inside of the Browser." id="o"/>
-    <tc:button action="#{bestPracticeController.viewPdfInBrowser}" label="View PDF"/>
+    <tc:out value="A faces request to a non-faces-response. Inside of the Browser."/>
+    <tc:button action="#{bestPracticeController.viewFile(false, true)}" label="View PDF"/>
 
     <tc:out value="A faces request to a non-faces-response. Outside of the Browser."/>
-    <tc:button action="#{bestPracticeController.viewPdfOutsideOfBrowser}" label="View PDF" transition="false"/>
+    <tc:button action="#{bestPracticeController.viewFile(true, true)}" label="View PDF" transition="false"/>
+
+    <tc:out value="A faces request to a non-faces-response. Inside of the Browser."/>
+    <tc:button action="#{bestPracticeController.viewFile(false, false)}" label="View TXT"/>
+
+    <tc:out value="A faces request to a non-faces-response. Outside of the Browser."/>
+    <tc:button action="#{bestPracticeController.viewFile(true, false)}" label="View TXT" transition="false"/>
   </tc:segmentLayout>
 
   Problems:
@@ -37,12 +43,6 @@
     <li>
       Is seems there are problems with the first example in Firefox, if it is configured to
       NOT view PDF inside the browser.
-    </li>
-    <li>
-      BUG: Currently after a download the next AJAX is broken:
-      <tc:button label="test">
-        <f:ajax render="o" execute="o"/>
-      </tc:button>
     </li>
   </ul>
 

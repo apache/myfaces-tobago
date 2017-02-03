@@ -318,6 +318,9 @@ var Tobago = {
           try {
             // console.debug("submit form with action: " + Tobago.action.value);
             form.get(0).submit();
+            // reset the source field after submit, to be prepared for possible next AJAX with transition=false
+            $sourceHidden.prop("disabled", true);
+            $sourceHidden.val();
             if (Tobago.browser.isMsie) {
               // without this "redundant" code the animation will not be animated in IE (tested with 6,7,8,9,10,11)
               var image = jQuery(".tobago-page-overlayCenter img");
@@ -330,7 +333,11 @@ var Tobago = {
           }
         }
         if (options.target) {
-          form.attr("target", oldTarget);
+          if (oldTarget) {
+            form.attr("target", oldTarget);
+          } else {
+            form.removeAttr("target");
+          }
         }
         if (options.target || !transition || !onSubmitResult) {
           this.isSubmit = false;
