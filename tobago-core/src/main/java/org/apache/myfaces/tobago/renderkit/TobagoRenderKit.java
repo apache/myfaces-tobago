@@ -46,6 +46,8 @@ import java.util.Map;
 public class TobagoRenderKit extends RenderKit {
 
   private static final Logger LOG = LoggerFactory.getLogger(TobagoRenderKit.class);
+  private static final String CONTENT_TYPE_TEXT_HTML = "text/html";
+  private static final String CONTENT_TYPE_TEXT_XML = "text/xml";
 
   private final RenderKit htmlBasicRenderKit;
 
@@ -77,34 +79,18 @@ public class TobagoRenderKit extends RenderKit {
 
   @Override
   public ResponseWriter createResponseWriter(
-      final Writer writer, final String contentTypeList, final String characterEncoding) {
-    String contentType;
+      final Writer writer, final String contentType, final String characterEncoding) {
     final FacesContext facesContext = FacesContext.getCurrentInstance();
-    if (facesContext.getPartialViewContext().isAjaxRequest()) {
-      contentType = "text/xml";
-    } else if (contentTypeList == null) {
-      contentType = "text/html";
-    } else {
-      contentType = "text/html";
-      LOG.warn("Content-Type '{}' not supported! Using ''{}", contentTypeList, contentType);
-    }
-
-// XXX enable xhtml here, by hand:
-//    contentType = "application/xhtml+xml";
-
-    boolean xml = false;
-    if ("application/xhtml+xml".equals(contentType)
-        || "application/xhtml".equals(contentType)
-        || "application/xml".equals(contentType)
-        || "text/xml".equals(contentType)) {
-      xml = true;
-    }
-
     TobagoResponseWriter responseWriter;
-    if (xml) {
-      responseWriter = new XmlResponseWriter(writer, contentType, characterEncoding);
+    if (facesContext.getPartialViewContext().isAjaxRequest()) {
+      responseWriter = new XmlResponseWriter(writer, CONTENT_TYPE_TEXT_XML, characterEncoding);
     } else {
-      responseWriter = new HtmlResponseWriter(writer, contentType, characterEncoding);
+      if (contentType != null && !contentType.contains(CONTENT_TYPE_TEXT_HTML)) {
+        LOG.warn("Content-Type '{}' not supported! Using '{}'", contentType, CONTENT_TYPE_TEXT_HTML);
+      }
+      responseWriter = new HtmlResponseWriter(writer, CONTENT_TYPE_TEXT_HTML, characterEncoding);
+      // XXX enable xhtml here, by hand:
+      //      responseWriter = new XmlResponseWriter(writer, "application/xhtml+xml", characterEncoding);
     }
     if (TobagoConfig.getInstance(facesContext).getProjectStage() == ProjectStage.Development) {
       responseWriter = new DebugResponseWriterWrapper(responseWriter);
