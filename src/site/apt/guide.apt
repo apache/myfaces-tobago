@@ -28,7 +28,7 @@
   of desktop-like applications with a consistent look & feel. Tobago emphasizes the separation of structure
   and design of screens. Screens are developed independently of the view technology -- no HTML, CSS, or JavaScript.
   Because of strict separation a screen can be displayed with different themes. These themes can be used to render
-  screens according to different cooperate design without changing the sources of the screens.
+  screens according to different corporate design without changing the sources of the screens.
 
   This guide assumes basic knowledge about JSF. For more information about JSF see one of the various books about JSF,
   the {{{http://java.sun.com/javaee/5/docs/tutorial/doc/bnaph.html}Sun Java 5 Tutorial}} or
