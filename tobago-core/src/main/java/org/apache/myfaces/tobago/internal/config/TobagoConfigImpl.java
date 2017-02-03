@@ -178,7 +178,7 @@ public class TobagoConfigImpl extends TobagoConfig {
       LOG.debug("searching theme: null");
       return defaultTheme;
     }
-    if (defaultTheme.getName().equals(name)) {
+    if (defaultTheme != null && defaultTheme.getName().equals(name)) {
       return defaultTheme;
     }
     for (final Theme theme : supportedThemes) {
