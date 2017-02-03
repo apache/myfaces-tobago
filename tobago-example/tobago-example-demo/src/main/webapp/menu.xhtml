@@ -86,7 +86,7 @@
           <tc:link omit="true" label="Info" id="headerInfo">
             <tc:link omit="true" label="Theme: #{clientConfigController.localizedTheme}" disabled="true"/>
             <tc:link omit="true" label="Locale: #{clientConfigController.localizedLocale}"/>
-            <tc:link omit="true" label="Project Stage: #{tobagoContext.tobagoConfig.projectStage}"/>
+            <tc:link omit="true" label="Project Stage: #{facesContext.application.projectStage}"/>
             <tc:link omit="true" label="CSP mode: #{tobagoContext.tobagoConfig.contentSecurityPolicy.mode}"/>
             <tc:link omit="true"
                         label="Requests: #{activityList.values[0].jsfRequest} / AJAX: #{activityList.values[0].ajaxRequest}"/>

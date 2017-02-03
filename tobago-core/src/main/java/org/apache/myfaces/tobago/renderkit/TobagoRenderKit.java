@@ -19,7 +19,6 @@
 
 package org.apache.myfaces.tobago.renderkit;
 
-import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.internal.webapp.DebugResponseWriterWrapper;
 import org.apache.myfaces.tobago.internal.webapp.HtmlResponseWriter;
 import org.apache.myfaces.tobago.internal.webapp.XmlResponseWriter;
@@ -92,7 +91,7 @@ public class TobagoRenderKit extends RenderKit {
       // XXX enable xhtml here, by hand:
       //      responseWriter = new XmlResponseWriter(writer, "application/xhtml+xml", characterEncoding);
     }
-    if (TobagoConfig.getInstance(facesContext).getProjectStage() == ProjectStage.Development) {
+    if (facesContext.isProjectStage(ProjectStage.Development)) {
       responseWriter = new DebugResponseWriterWrapper(responseWriter);
     }
     return responseWriter;

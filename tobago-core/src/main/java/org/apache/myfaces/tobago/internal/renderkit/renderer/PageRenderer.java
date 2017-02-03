@@ -148,7 +148,7 @@ public class PageRenderer extends RendererBase {
     }
 
     final String clientId = page.getClientId(facesContext);
-    final boolean productionMode = tobagoConfig.getProjectStage() == ProjectStage.Production;
+    final boolean productionMode = facesContext.isProjectStage(ProjectStage.Production);
     final boolean preventFrameAttacks = tobagoConfig.isPreventFrameAttacks();
     final Markup markup = page.getMarkup();
     final TobagoClass spread = markup != null && markup.contains(Markup.SPREAD) ? TobagoClass.SPREAD : null;

@@ -22,7 +22,6 @@ package org.apache.myfaces.tobago.internal.config;
 import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.context.Theme;
 import org.apache.myfaces.tobago.context.ThemeImpl;
-import org.apache.myfaces.tobago.internal.util.JndiUtils;
 import org.apache.myfaces.tobago.sanitizer.Sanitizer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,10 +29,6 @@ import org.slf4j.LoggerFactory;
 import javax.faces.application.Application;
 import javax.faces.application.ProjectStage;
 import javax.faces.context.FacesContext;
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
-import javax.servlet.ServletContext;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -60,7 +55,6 @@ public class TobagoConfigImpl extends TobagoConfig {
   private String defaultThemeName;
   private Map<String, ThemeImpl> availableThemes;
   private RenderersConfig renderersConfig;
-  private ProjectStage projectStage;
   private boolean createSessionSecret;
   private boolean checkSessionSecret;
   private boolean preventFrameAttacks;
@@ -223,51 +217,14 @@ public class TobagoConfigImpl extends TobagoConfig {
     this.renderersConfig = renderersConfig;
   }
 
+  /**
+   * @deprecated use FacesContext.isProjectStage
+   * @return the ProjectStage
+   */
   @Override
+  @Deprecated
   public ProjectStage getProjectStage() {
-    return projectStage;
-  }
-
-  // TODO one init method
-  protected void initProjectState(final ServletContext servletContext) {
-    checkLocked();
-    String stageName = null;
-    try {
-      final Context ctx = new InitialContext();
-      final Object obj = JndiUtils.getJndiProperty(ctx, "jsf", "ProjectStage");
-      if (obj != null) {
-        if (obj instanceof String) {
-          stageName = (String) obj;
-        } else {
-          LOG.warn("JNDI lookup for key {} should return a java.lang.String value",
-              ProjectStage.PROJECT_STAGE_JNDI_NAME);
-        }
-      }
-    } catch (final NamingException e) {
-      // ignore
-    }
-
-    if (stageName == null) {
-      stageName = servletContext.getInitParameter(ProjectStage.PROJECT_STAGE_PARAM_NAME);
-    }
-
-    if (stageName == null) {
-      stageName = System.getProperty("org.apache.myfaces.PROJECT_STAGE");
-    }
-
-    if (stageName != null) {
-      try {
-        projectStage = ProjectStage.valueOf(stageName);
-      } catch (final IllegalArgumentException e) {
-        LOG.error("Couldn't discover the current project stage", e);
-      }
-    }
-    if (projectStage == null) {
-      if (LOG.isInfoEnabled()) {
-        LOG.info("Couldn't discover the current project stage, using {}", ProjectStage.Production);
-      }
-      projectStage = ProjectStage.Production;
-    }
+    return FacesContext.getCurrentInstance().getApplication().getProjectStage();
   }
 
   protected synchronized void initDefaultValidatorInfo() {
@@ -392,8 +349,6 @@ public class TobagoConfigImpl extends TobagoConfig {
     builder.append(defaultTheme != null ? defaultTheme.getName() : null);
     builder.append(", \navailableThemes=");
     builder.append(availableThemes.keySet());
-    builder.append(", \nprojectStage=");
-    builder.append(projectStage);
     builder.append(", \ncreateSessionSecret=");
     builder.append(createSessionSecret);
     builder.append(", \ncheckSessionSecret=");

@@ -52,7 +52,6 @@ public final class TobagoConfigBuilder {
     sorter.sort();
     final TobagoConfigImpl tobagoConfig = sorter.merge();
 
-    tobagoConfig.initProjectState(servletContext);
     // prepare themes
     tobagoConfig.resolveThemes();
 

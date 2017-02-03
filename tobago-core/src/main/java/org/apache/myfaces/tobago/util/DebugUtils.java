@@ -19,8 +19,6 @@
 
 package org.apache.myfaces.tobago.util;
 
-import org.apache.myfaces.tobago.config.TobagoConfig;
-
 import javax.faces.application.FacesMessage;
 import javax.faces.application.ProjectStage;
 import javax.faces.component.UIComponent;
@@ -104,7 +102,7 @@ public final class DebugUtils {
   }
 
   public static void addDevelopmentMessage(final FacesContext facesContext, final String message) {
-    if (TobagoConfig.getInstance(FacesContext.getCurrentInstance()).getProjectStage() == ProjectStage.Development) {
+    if (facesContext.isProjectStage(ProjectStage.Development)) {
       facesContext.addMessage(null, new FacesMessage(message));
     }
   }

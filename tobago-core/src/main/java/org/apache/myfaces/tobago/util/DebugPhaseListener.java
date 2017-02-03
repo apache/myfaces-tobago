@@ -19,7 +19,6 @@
 
 package org.apache.myfaces.tobago.util;
 
-import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -45,7 +44,7 @@ public class DebugPhaseListener implements PhaseListener {
   @Override
   public void afterPhase(final PhaseEvent phaseEvent) {
     final FacesContext facesContext = phaseEvent.getFacesContext();
-    final boolean productionMode = TobagoConfig.getInstance(facesContext).getProjectStage() == ProjectStage.Production;
+    final boolean productionMode = facesContext.isProjectStage(ProjectStage.Production);
     if (facesContext.getResponseComplete() || productionMode) {
       return;
     }
@@ -94,7 +93,7 @@ public class DebugPhaseListener implements PhaseListener {
   @Override
   public void beforePhase(final PhaseEvent phaseEvent) {
     final FacesContext facesContext = phaseEvent.getFacesContext();
-    final boolean productionMode = TobagoConfig.getInstance(facesContext).getProjectStage() == ProjectStage.Production;
+    final boolean productionMode = facesContext.isProjectStage(ProjectStage.Production);
     if (facesContext.getResponseComplete()) {
       LOG.info("Response is completed.");
       return;

@@ -73,7 +73,6 @@ public abstract class AbstractTobagoTestBase extends AbstractJsfTestCase {
     tobagoConfig.addAvailableTheme(theme);
     tobagoConfig.addAvailableTheme(one);
     tobagoConfig.resolveThemes();
-    tobagoConfig.initProjectState(servletContext);
     tobagoConfig.initDefaultValidatorInfo();
     servletContext.setAttribute(TobagoConfig.TOBAGO_CONFIG, tobagoConfig);
     try {
