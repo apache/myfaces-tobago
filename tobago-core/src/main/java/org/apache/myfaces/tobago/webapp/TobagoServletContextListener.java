@@ -45,10 +45,10 @@ public class TobagoServletContextListener implements ServletContextListener {
 
     if (servletContext.getAttribute(TobagoConfig.TOBAGO_CONFIG) != null) {
       LOG.warn("Tobago has been already initialized. Do nothing.");
-      return;
+    } else {
+      TobagoConfigBuilder.init(servletContext);
     }
-
-    TobagoConfigBuilder.init(servletContext);
+    
     if (LOG.isInfoEnabled()) {
       final TobagoConfig tobagoConfig = TobagoConfig.getInstance(servletContext);
       LOG.info("TobagoConfig: " + tobagoConfig);

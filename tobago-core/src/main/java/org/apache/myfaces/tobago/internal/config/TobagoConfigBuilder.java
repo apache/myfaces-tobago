@@ -34,37 +34,30 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-public final class TobagoConfigBuilder {
+public class TobagoConfigBuilder {
 
   private static final Logger LOG = LoggerFactory.getLogger(TobagoConfigBuilder.class);
 
   private static final String WEB_INF_TOBAGO_CONFIG_XML = "WEB-INF/tobago-config.xml";
   private static final String META_INF_TOBAGO_CONFIG_XML = "META-INF/tobago-config.xml";
 
-  private List<TobagoConfigFragment> list;
+  private List<TobagoConfigFragment> configFragmentList;
+  private ServletContext servletContext;
 
-  private TobagoConfigBuilder(final ServletContext servletContext)
-      throws ServletException, IOException, SAXException, ParserConfigurationException, URISyntaxException {
-    list = new ArrayList<TobagoConfigFragment>();
-    configFromClasspath();
-    configFromWebInf(servletContext);
-    final TobagoConfigSorter sorter = new TobagoConfigSorter(list);
-    sorter.sort();
-    final TobagoConfigImpl tobagoConfig = sorter.merge();
+  public TobagoConfigBuilder(final ServletContext servletContext) {
+    this.servletContext = servletContext;
+    this.configFragmentList = new ArrayList<TobagoConfigFragment>();
+  }
 
-    // prepare themes
-    tobagoConfig.resolveThemes();
-
-    tobagoConfig.initDefaultValidatorInfo();
-
-    tobagoConfig.lock();
-
-    servletContext.setAttribute(TobagoConfig.TOBAGO_CONFIG, tobagoConfig);
+  public TobagoConfigBuilder(ServletContext servletContext, List<TobagoConfigFragment> configFragmentList) {
+    this(servletContext);
+    this.configFragmentList.addAll(configFragmentList);
   }
 
   public static void init(final ServletContext servletContext) {
     try {
       final TobagoConfigBuilder builder = new TobagoConfigBuilder(servletContext);
+      builder.build();
     } catch (final Throwable e) {
       if (LOG.isErrorEnabled()) {
         final String error = "Error while deploy process. Tobago can't be initialized! Application will not run!";
@@ -74,12 +67,33 @@ public final class TobagoConfigBuilder {
     }
   }
 
-  private void configFromWebInf(final ServletContext servletContext)
+  public TobagoConfig build() throws URISyntaxException, SAXException,
+     ParserConfigurationException, ServletException, IOException {
+    final TobagoConfigImpl tobagoConfig = initializeConfigFromFiles();
+    // prepare themes
+    tobagoConfig.resolveThemes();
+    tobagoConfig.initDefaultValidatorInfo();
+    tobagoConfig.lock();
+
+    servletContext.setAttribute(TobagoConfig.TOBAGO_CONFIG, tobagoConfig);
+    return tobagoConfig;
+  }
+
+  protected TobagoConfigImpl initializeConfigFromFiles()
+     throws ServletException, IOException, SAXException, ParserConfigurationException, URISyntaxException {
+    configFromClasspath();
+    configFromWebInf();
+    final TobagoConfigSorter sorter = new TobagoConfigSorter(configFragmentList);
+    sorter.sort();
+    return sorter.merge();
+  }
+
+  private void configFromWebInf()
       throws IOException, SAXException, ParserConfigurationException, URISyntaxException {
 
     final URL url = servletContext.getResource("/" + WEB_INF_TOBAGO_CONFIG_XML);
     if (url != null) {
-      list.add(new TobagoConfigParser().parse(url));
+      configFragmentList.add(new TobagoConfigParser().parse(url));
     }
   }
 
@@ -97,7 +111,7 @@ public final class TobagoConfigBuilder {
         try {
           final TobagoConfigFragment fragment = new TobagoConfigParser().parse(themeUrl);
           fragment.setUrl(themeUrl);
-          list.add(fragment);
+          configFragmentList.add(fragment);
 
           // tomcat uses jar
           // weblogic uses zip
