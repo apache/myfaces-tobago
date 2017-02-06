@@ -37,7 +37,7 @@
   <properties>
     <myfaces20.version>2.0.24</myfaces20.version>
     <myfaces21.version>2.1.18</myfaces21.version>
-    <myfaces22.version>2.2.11</myfaces22.version>
+    <myfaces22.version>2.2.12</myfaces22.version>
     <mojarra20.version>2.0.11-04</mojarra20.version>
     <mojarra21.version>2.1.29-08</mojarra21.version>
     <mojarra22.version>2.2.14</mojarra22.version>
