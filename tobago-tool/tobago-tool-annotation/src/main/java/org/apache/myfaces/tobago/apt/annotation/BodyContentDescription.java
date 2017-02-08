@@ -32,6 +32,6 @@ public @interface BodyContentDescription {
   String contentType() default "";
 
   // TODO should be Class see http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=5089128
-  String [] anyClassOf() default {};
+  String[] anyClassOf() default {};
 
 }

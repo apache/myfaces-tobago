@@ -33,5 +33,5 @@ public @interface Taglib {
   String uri();
   String name();
   String displayName();
-  String [] listener() default {};
+  String[] listener() default {};
 }

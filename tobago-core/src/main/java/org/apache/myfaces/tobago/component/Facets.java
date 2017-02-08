@@ -44,15 +44,8 @@ public enum Facets {
   pagerPageDirect,
   pagerRow,
   radio,
-  reload(true),
+  reload,
   sorter;
-
-  Facets() {
-  }
-
-  @Deprecated
-  Facets(boolean event) {
-  }
 
   public static final String AFTER = "after";
   public static final String BAR = "bar";
