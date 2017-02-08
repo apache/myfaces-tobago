@@ -985,9 +985,16 @@
           <artifactId>dependency-check-maven</artifactId>
           <version>1.4.5</version>
           <configuration>
-            <!-- TBD: check which score can be accepted -->
-            <failBuildOnCVSS>3</failBuildOnCVSS>
+            <failBuildOnCVSS>0</failBuildOnCVSS>
+            <suppressionFile>tobago/dependency-check-suppression.xml</suppressionFile>
           </configuration>
+          <dependencies>
+            <dependency>
+              <groupId>org.apache.myfaces.buildtools</groupId>
+              <artifactId>checkstyle-rules</artifactId>
+              <version>7-SNAPSHOT</version>
+            </dependency>
+          </dependencies>
         </plugin>
       </plugins>
     </pluginManagement>
