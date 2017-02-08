@@ -1084,7 +1084,7 @@ public class SheetRenderer extends RendererBase {
 
     int skip = prevs.size() > 0 ? prevs.get(0) : 1;
     if (!sheet.isShowDirectLinksArrows() && skip > 1) {
-      skip -= (linkCount - (linkCount / 2));
+      skip -= linkCount - (linkCount / 2);
       skip--;
       if (skip < 1) {
         skip = 1;

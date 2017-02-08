@@ -225,7 +225,7 @@ public final class PartUtils {
         if (!charEscaped && ch == '"') {
           quoted = !quoted;
         }
-        charEscaped = (!charEscaped && ch == '\\');
+        charEscaped = !charEscaped && ch == '\\';
         i2++;
         pos++;
 

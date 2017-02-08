@@ -137,7 +137,7 @@ public class SubmittedValueLengthValidator extends LengthValidator {
 
   public int hashCode() {
     int result;
-    result = (minimum != null ? minimum.hashCode() : 0);
+    result = minimum != null ? minimum.hashCode() : 0;
     result = 31 * result + (maximum != null ? maximum.hashCode() : 0);
     return result;
   }

@@ -482,9 +482,9 @@ public final class ComponentUtils {
     if (character == null) {
       return null;
     } else if (character instanceof Character) {
-      return ((Character) character);
+      return (Character) character;
     } else if (character instanceof String) {
-      final String asString = ((String) character);
+      final String asString = (String) character;
       return asString.length() > 0 ? asString.charAt(0) : null;
     } else {
       LOG.warn("Unknown type '" + character.getClass().getName()

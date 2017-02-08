@@ -43,7 +43,7 @@ public class FormRenderer extends RendererBase {
     writer.writeIdAttribute(clientId);
     writer.writeClassAttribute(
         TobagoClass.FORM,
-        inline ? BootstrapClass.D_INLINE : null);;
+        inline ? BootstrapClass.D_INLINE : null);
   }
 
   @Override

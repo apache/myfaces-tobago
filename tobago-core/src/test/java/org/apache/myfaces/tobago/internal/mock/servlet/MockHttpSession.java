@@ -30,7 +30,7 @@ import java.util.Map;
 
 public class MockHttpSession implements HttpSession {
 
-  private Map attributes = new HashMap();
+  private Map<String, Object> attributes = new HashMap<String, Object>();
 
   @Override
   public Object getAttribute(final String s) {
@@ -38,8 +38,8 @@ public class MockHttpSession implements HttpSession {
   }
 
   @Override
-  public Enumeration getAttributeNames() {
-    return (new IteratorEnumeration(attributes.keySet().iterator()));
+  public Enumeration<String> getAttributeNames() {
+    return new IteratorEnumeration(attributes.keySet().iterator());
   }
 
   @Override
@@ -63,16 +63,21 @@ public class MockHttpSession implements HttpSession {
   }
 
   /** @deprecated */
+  @Deprecated
   @Override
   public HttpSessionContext getSessionContext() {
     return null;
   }
 
+  /** @deprecated */
+  @Deprecated
   @Override
   public Object getValue(final String s) {
     return null;
   }
 
+  /** @deprecated */
+  @Deprecated
   @Override
   public String[] getValueNames() {
     return new String[0];
@@ -87,6 +92,8 @@ public class MockHttpSession implements HttpSession {
     return false;
   }
 
+  /** @deprecated */
+  @Deprecated
   @Override
   public void putValue(final String s, final Object o) {
   }

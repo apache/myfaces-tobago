@@ -66,7 +66,7 @@ public class NavigationTree implements Serializable {
   protected void postConstruct() {
     // todo: refactor with Java EE 7
     final ServletContext servletContext;
-    servletContext = ((ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext());
+    servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
     final List<String> list = locateResourcesInWar(servletContext, "/content", new ArrayList<String>());
 
     list.add("/content/root-dummy.xhtml"); // helps to build the tree, this is not an existing file
@@ -131,7 +131,7 @@ public class NavigationTree implements Serializable {
   public NavigationNode findByViewId(String viewId) {
     final Enumeration enumeration = root.depthFirstEnumeration();
     while (enumeration.hasMoreElements()) {
-      final NavigationNode node = ((NavigationNode) enumeration.nextElement());
+      final NavigationNode node = (NavigationNode) enumeration.nextElement();
       if (node.getOutcome() != null && viewId.contains(node.getOutcome())) {
         return node;
       }

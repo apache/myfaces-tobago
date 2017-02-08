@@ -64,7 +64,7 @@ public class EmailAddress {
   }
 
   public int hashCode() {
-    return (email != null ? email.hashCode() : 0);
+    return email != null ? email.hashCode() : 0;
   }
 
   @Override

@@ -160,7 +160,7 @@ public class SelectItemUtils {
         nextItem = (SelectItem) item;
         return true;
       } else { // UISelectItems
-        currentUISelectItems = ((UISelectItems) child);
+        currentUISelectItems = (UISelectItems) child;
         final Object value = currentUISelectItems.getValue();
 
         if (value instanceof SelectItem) {
@@ -181,7 +181,7 @@ public class SelectItemUtils {
           nestedItems = ((Iterable<?>) value).iterator();
           return hasNext();
         } else if (value instanceof Map) {
-          final Map<Object, Object> map = ((Map<Object, Object>) value);
+          final Map<Object, Object> map = (Map<Object, Object>) value;
           final Collection<SelectItem> items = new ArrayList<SelectItem>(map.size());
           for (Map.Entry<Object, Object> entry : map.entrySet()) {
             items.add(new org.apache.myfaces.tobago.model.SelectItem(entry.getValue(), entry.getKey().toString()));

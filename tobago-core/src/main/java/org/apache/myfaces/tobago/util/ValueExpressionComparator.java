@@ -99,7 +99,7 @@ public class ValueExpressionComparator extends ComparatorBase {
 
   public int hashCode() {
     int result;
-    result = (facesContext != null ? facesContext.hashCode() : 0);
+    result = facesContext != null ? facesContext.hashCode() : 0;
     result = 29 * result + (var != null ? var.hashCode() : 0);
     result = 29 * result + (valueExpression != null ? valueExpression.hashCode() : 0);
     result = 29 * result + super.hashCode();

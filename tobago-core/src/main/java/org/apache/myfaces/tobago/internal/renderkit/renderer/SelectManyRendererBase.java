@@ -298,7 +298,7 @@ public abstract class SelectManyRendererBase extends LabelLayoutRendererBase {
 
     // convert the values with the selected converter (if any)
     // and store them in targetForConvertedValues
-    boolean isArray = (targetForConvertedValues.getClass().isArray());
+    boolean isArray = targetForConvertedValues.getClass().isArray();
     for (int i = 0; i < submittedValue.length; i++) {
       // get the value
       Object value;
@@ -581,7 +581,7 @@ public abstract class SelectManyRendererBase extends LabelLayoutRendererBase {
           currentComponent = child;
           return true;
         } else if (child instanceof UISelectItems) {
-          currentUISelectItems = ((UISelectItems) child);
+          currentUISelectItems = (UISelectItems) child;
           Object value = currentUISelectItems.getValue();
           currentComponent = child;
 
@@ -603,7 +603,7 @@ public abstract class SelectManyRendererBase extends LabelLayoutRendererBase {
             nestedItems = ((Iterable<?>) value).iterator();
             return hasNext();
           } else if (value instanceof Map) {
-            Map<Object, Object> map = ((Map<Object, Object>) value);
+            Map<Object, Object> map = (Map<Object, Object>) value;
             Collection<SelectItem> items = new ArrayList<SelectItem>(map.size());
             for (Map.Entry<Object, Object> entry : map.entrySet()) {
               items.add(new SelectItem(entry.getValue(), entry.getKey().toString()));
@@ -617,9 +617,9 @@ public abstract class SelectManyRendererBase extends LabelLayoutRendererBase {
                 || LOG.isWarnEnabled()) {
               ValueExpression expression = currentUISelectItems.getValueExpression("value");
               Object[] objects = {
-                  (expression == null ? null : expression.getExpressionString()),
+                  expression == null ? null : expression.getExpressionString(),
                   getPathToComponent(child),
-                  (value == null ? null : value.getClass().getName())
+                  value == null ? null : value.getClass().getName()
               };
               String message = "ValueExpression {0} of UISelectItems with component-path {1}"
                   + " does not reference an Object of type SelectItem,"

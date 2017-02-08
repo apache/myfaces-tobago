@@ -101,7 +101,7 @@ public class Sudoku {
             }
             break;
           default:
-            assert(false);
+            assert false;
         }
       }
     }

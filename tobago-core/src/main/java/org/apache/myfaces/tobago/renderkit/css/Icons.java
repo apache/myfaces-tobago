@@ -38,5 +38,5 @@ public enum Icons {
   PLUS_SQUARE_O,
   SQUARE_O,
   STEP_BACKWARD,
-  STEP_FORWARD;
+  STEP_FORWARD
 }

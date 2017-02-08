@@ -117,7 +117,7 @@ public abstract class ComparatorBase implements Comparator {
   }
 
   public int hashCode() {
-    return (comparator != null ? comparator.hashCode() : 0);
+    return comparator != null ? comparator.hashCode() : 0;
   }
 
   public Comparator getComparator() {

@@ -196,7 +196,7 @@ public abstract class AbstractUISheet extends AbstractUIData
     if (hasRowCount() && first >= getRowCount()) {
       return getPages() - 1; // last page
     } else {
-      return (first / rows);
+      return first / rows;
     }
   }
   

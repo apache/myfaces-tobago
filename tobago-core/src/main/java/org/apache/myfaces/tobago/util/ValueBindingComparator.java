@@ -101,7 +101,7 @@ public class ValueBindingComparator extends ComparatorBase {
 
   public int hashCode() {
     int result;
-    result = (facesContext != null ? facesContext.hashCode() : 0);
+    result = facesContext != null ? facesContext.hashCode() : 0;
     result = 29 * result + (var != null ? var.hashCode() : 0);
     result = 29 * result + (valueBinding != null ? valueBinding.hashCode() : 0);
     result = 29 * result + super.hashCode();

@@ -66,7 +66,7 @@ public class BeanComparator extends ComparatorBase implements Serializable {
 
   public int hashCode() {
     int result;
-    result = (property != null ? property.hashCode() : 0);
+    result = property != null ? property.hashCode() : 0;
     result = 29 * result + super.hashCode();
     return result;
   }

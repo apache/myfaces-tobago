@@ -98,7 +98,7 @@ public class ValueExpressionSheetStateChangeListener implements SheetStateChange
   private SheetStateChangeListener createSheetStateChangeListener(final String className) {
     try {
       final Class clazz = getClass().getClassLoader().loadClass(className);
-      return ((SheetStateChangeListener) clazz.newInstance());
+      return (SheetStateChangeListener) clazz.newInstance();
     } catch (final Exception e) {
       LOG.error("", e);
     }
