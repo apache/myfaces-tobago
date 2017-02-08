@@ -100,15 +100,16 @@ public class TreeNodeDataModel extends TreeDataModel {
     }
   }
 
-  private TreeNode getNextNodeButNoChild(TreeNode node) {
+  private TreeNode getNextNodeButNoChild(final TreeNode node) {
     TreeNode next;
+    TreeNode p = node;
     while (true) {
-      next = nextSibling(node);
+      next = nextSibling(p);
       if (next != null) {
         break;
       }
-      node = node.getParent();
-      if (node == null) {
+      p = p.getParent();
+      if (p == null) {
         return null;
       }
 

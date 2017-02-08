@@ -330,8 +330,8 @@ public abstract class SelectManyRendererBase extends LabelLayoutRendererBase {
    * @throws FacesException if the value is a String and the represented
    *                        class cannot be found
    */
-  static Class<?> getClassFromAttribute(FacesContext facesContext,
-                                        Object attribute) throws FacesException {
+  static Class<?> getClassFromAttribute(final FacesContext facesContext,
+                                        final Object attribute) throws FacesException {
     // Attention!
     // This code is duplicated in shared renderkit package.
     // If you change something here please do the same in the other class!
@@ -340,24 +340,20 @@ public abstract class SelectManyRendererBase extends LabelLayoutRendererBase {
 
     // if there is a value, it must be a ...
     // ... a ValueExpression that evaluates to a String or a Class
-    if (attribute instanceof ValueExpression) {
-      // get the value of the ValueExpression
-      attribute = ((ValueExpression) attribute)
-          .getValue(facesContext.getELContext());
-    }
+    final Object attr = attribute instanceof ValueExpression
+        // get the value of the ValueExpression
+        ? ((ValueExpression) attribute).getValue(facesContext.getELContext())
+        : attribute;
     // ... String that is a fully qualified Java class name
-    if (attribute instanceof String) {
+    if (attr instanceof String) {
       try {
-        type = Class.forName((String) attribute);
+        type = Class.forName((String) attr);
       } catch (ClassNotFoundException cnfe) {
-        throw new FacesException(
-            "Unable to find class "
-                + attribute
-                + " on the classpath.", cnfe);
+        throw new FacesException("Unable to find class " + attr + " on the classpath.", cnfe);
       }
-    } else if (attribute instanceof Class) {
+    } else if (attr instanceof Class) {
       // ... a Class object
-      type = (Class<?>) attribute;
+      type = (Class<?>) attr;
     }
 
     return type;

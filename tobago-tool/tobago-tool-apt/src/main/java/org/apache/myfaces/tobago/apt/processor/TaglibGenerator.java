@@ -305,19 +305,20 @@ public class TaglibGenerator extends AbstractGenerator {
     }
   }
 
-  private String deprecationComment(String string) {
+  private String deprecationComment(final String string) {
     if (string == null) {
       return null;
     }
+    String result = string;
     final String deprecated = "@deprecated";
-    final int begin = string.indexOf(deprecated);
+    final int begin = result.indexOf(deprecated);
     if (begin > -1) {
-      string = string.substring(begin + deprecated.length());
-      final int end = string.indexOf("@");
+      result = result.substring(begin + deprecated.length());
+      final int end = result.indexOf("@");
       if (end > -1) {
-        string = string.substring(0, end);
+        result = result.substring(0, end);
       }
-      return string.trim();
+      return result.trim();
     } else {
       return null;
     }

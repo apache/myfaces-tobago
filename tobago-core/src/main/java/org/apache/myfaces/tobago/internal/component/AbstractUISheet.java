@@ -422,18 +422,18 @@ public abstract class AbstractUISheet extends AbstractUIData
     setHeaderGrid(grid);
   }
 
-  protected void sort(FacesContext facesContext, SortActionEvent event) {
+  protected void sort(final FacesContext facesContext, final SortActionEvent event) {
     final SheetState sheetState = getSheetState(getFacesContext());
     if (sheetState.isToBeSorted()) {
       final MethodExpression expression = getSortActionListenerExpression();
       if (expression != null) {
         try {
-          if (event == null) {
-            // initial sorting
-            event =
-                new SortActionEvent(this, (UIColumn) findComponent(getSheetState(facesContext).getSortedColumnId()));
-          }
-          expression.invoke(facesContext.getELContext(), new Object[]{event});
+          expression.invoke(facesContext.getELContext(),
+              new Object[]{
+                  event != null
+                      ? event
+                      : new SortActionEvent(this,
+                      (UIColumn) findComponent(getSheetState(facesContext).getSortedColumnId()))});
         } catch (Exception e) {
           LOG.warn("Sorting not possible!", e);
         }
@@ -464,7 +464,8 @@ public abstract class AbstractUISheet extends AbstractUIData
     return super.findComponent(stripRowIndex(searchId));
   }
 
-  public String stripRowIndex(String searchId) {
+  public String stripRowIndex(final String initialSearchId) {
+    String searchId = initialSearchId;
     if (searchId.length() > 0 && Character.isDigit(searchId.charAt(0))) {
       for (int i = 1; i < searchId.length(); ++i) {
         final char c = searchId.charAt(i);

@@ -117,16 +117,25 @@ public final class ComponentUtils {
     }
   }
 
-  public static boolean isInPopup(UIComponent component) {
-    while (component != null) {
-      if (component instanceof AbstractUIPopup) {
+  /**
+   * @deprecated since Tobago 3.0.1
+   */
+  @Deprecated
+  public static boolean isInPopup(final UIComponent component) {
+    UIComponent c = component;
+    while (c != null) {
+      if (c instanceof AbstractUIPopup) {
         return true;
       }
-      component = component.getParent();
+      c = c.getParent();
     }
     return false;
   }
 
+  /**
+   * @deprecated since Tobago 3.0.1
+   */
+  @Deprecated
   public static void resetPage(final FacesContext context) {
     final UIViewRoot view = context.getViewRoot();
     if (view != null) {
@@ -162,15 +171,16 @@ public final class ComponentUtils {
     }
   }
 
-  public static AbstractUIPage findPage(UIComponent component) {
-    if (component instanceof UIViewRoot) {
-      return findPageBreadthFirst(component);
+  public static AbstractUIPage findPage(final UIComponent component) {
+    UIComponent c = component;
+    if (c instanceof UIViewRoot) {
+      return findPageBreadthFirst(c);
     } else {
-      while (component != null) {
-        if (component instanceof AbstractUIPage) {
-          return (AbstractUIPage) component;
+      while (c != null) {
+        if (c instanceof AbstractUIPage) {
+          return (AbstractUIPage) c;
         }
-        component = component.getParent();
+        c = c.getParent();
       }
       return null;
     }
@@ -195,24 +205,24 @@ public final class ComponentUtils {
     return null;
   }
 
-
-  public static AbstractUIFormBase findForm(UIComponent component) {
-    while (component != null) {
-      if (component instanceof AbstractUIFormBase) {
-        return (AbstractUIFormBase) component;
+  public static AbstractUIFormBase findForm(final UIComponent component) {
+    UIComponent c = component;
+    while (c != null) {
+      if (c instanceof AbstractUIFormBase) {
+        return (AbstractUIFormBase) c;
       }
-      component = component.getParent();
+      c = c.getParent();
     }
     return null;
   }
 
   public static <T> T findAncestor(UIComponent component, final Class<T> type) {
-
-    while (component != null) {
-      if (type.isAssignableFrom(component.getClass())) {
-        return (T) component;
+    UIComponent c = component;
+    while (c != null) {
+      if (type.isAssignableFrom(c.getClass())) {
+        return (T) c;
       }
-      component = component.getParent();
+      c = c.getParent();
     }
     return null;
   }
@@ -377,15 +387,20 @@ public final class ComponentUtils {
     return false;
   }
 
-  public static boolean isInActiveForm(UIComponent component) {
-    while (component != null) {
-      if (component instanceof AbstractUIFormBase) {
-        final AbstractUIFormBase form = (AbstractUIFormBase) component;
+  /**
+   * @deprecated since Tobago 3.1.0
+   */
+  @Deprecated
+  public static boolean isInActiveForm(final UIComponent component) {
+    UIComponent c = component;
+    while (c != null) {
+      if (c instanceof AbstractUIFormBase) {
+        final AbstractUIFormBase form = (AbstractUIFormBase) c;
         if (form.isSubmitted()) {
           return true;
         }
       }
-      component = component.getParent();
+      c = c.getParent();
     }
     return false;
   }
@@ -707,27 +722,28 @@ public final class ComponentUtils {
     return stringValue;
   }
 
-  public static Markup updateMarkup(final UIComponent component, Markup markup) {
-    if (markup == null) {
-      markup = Markup.NULL;
+  public static Markup updateMarkup(final UIComponent component, final Markup markup) {
+    Markup m = markup;
+    if (m == null) {
+      m = Markup.NULL;
     }
     if (ComponentUtils.getBooleanAttribute(component, Attributes.disabled)) {
-      markup = markup.add(Markup.DISABLED);
+      m = m.add(Markup.DISABLED);
     }
     if (ComponentUtils.getBooleanAttribute(component, Attributes.readonly)) {
-      markup = markup.add(Markup.READONLY);
+      m = m.add(Markup.READONLY);
     }
     if (component instanceof UIInput) {
       final UIInput input = (UIInput) component;
 
       final FacesMessage.Severity maximumSeverity = ComponentUtils.getMaximumSeverity(input);
-      markup = markup.add(markupOfSeverity(maximumSeverity));
+      m = m.add(markupOfSeverity(maximumSeverity));
 
       if (input.isRequired()) {
-        markup = markup.add(Markup.REQUIRED);
+        m = m.add(Markup.REQUIRED);
       }
     }
-    return markup;
+    return m;
   }
 
   public static Markup markupOfSeverity(final FacesMessage.Severity maximumSeverity) {

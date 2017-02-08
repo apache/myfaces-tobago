@@ -52,22 +52,21 @@ public class MetaInfResourcesClasspathResourceResolver extends DefaultResourceRe
   }
 
   @Override
-  public URL resolveUrl(String path) {
-    URL url = super.resolveUrl(path);
-    if (LOG.isDebugEnabled()) {
-      LOG.debug("default   url='" + url + "'");
-    }
-    if (url == null) {
-      if (path.startsWith("/")) {
-        path = path.substring(1);
-      }
-      path = "META-INF/resources/" + path;
-
-      url = Thread.currentThread().getContextClassLoader().getResource(path);
+  public URL resolveUrl(final String path) {
+    final URL defaultUrl = super.resolveUrl(path);
+    if (defaultUrl != null) {
       if (LOG.isDebugEnabled()) {
-        LOG.debug("classpath url='" + url + "'");
+        LOG.debug("default   url='" + defaultUrl + "'");
       }
+      return defaultUrl;
     }
-    return url;
+
+    final String resource = "META-INF/resources/" + (path.startsWith("/") ? path.substring(1) : path);
+
+    final URL classpathUrl = Thread.currentThread().getContextClassLoader().getResource(resource);
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("classpath url='" + classpathUrl + "'");
+    }
+    return classpathUrl;
   }
 }

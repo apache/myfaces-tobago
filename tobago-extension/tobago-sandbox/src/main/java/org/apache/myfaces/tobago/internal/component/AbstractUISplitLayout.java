@@ -63,7 +63,9 @@ public abstract class AbstractUISplitLayout extends AbstractUIGridLayout {
   }
 
   // TODO: MathUtils
-  public static int gcd(int a, int b) {
+  public static int gcd(final int valueA, final int valueB) {
+    int a = valueA;
+    int b = valueB;
     if (a < 0) {
       a = -a;
     }

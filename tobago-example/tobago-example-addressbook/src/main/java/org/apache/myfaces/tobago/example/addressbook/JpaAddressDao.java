@@ -67,17 +67,18 @@ public class JpaAddressDao implements AddressDao, Serializable {
 //  @Transactional(readOnly = true)
   @Override
   @SuppressWarnings("unchecked")
-  public List<Address> findAddresses(String filter, final String column, final boolean order) {
+  public List<Address> findAddresses(final String filter, final String column, final boolean order) {
+    String f = filter;
     final StringBuilder builder = new StringBuilder();
     builder.append("select a from Address a");
-    if (filter != null) {
-      if (filter.indexOf('_') == -1 && filter.indexOf('%') == -1) {
-        filter = "%" + filter + "%";
+    if (f != null) {
+      if (f.indexOf('_') == -1 && f.indexOf('%') == -1) {
+        f = "%" + f + "%";
       }
       builder.append(" where a.firstName like '");
-      builder.append(filter);
+      builder.append(f);
       builder.append("' or a.lastName like '");
-      builder.append(filter);
+      builder.append(f);
       builder.append("'");
     }
     if (column != null) {
@@ -90,9 +91,8 @@ public class JpaAddressDao implements AddressDao, Serializable {
   }
 
   @Override
-  public void removeAddress(Address address) {
-    address = getAddress(address.getId());
-    entityManager.remove(address);
+  public void removeAddress(final Address address) {
+    entityManager.remove(getAddress(address.getId()));
   }
 //  @Transactional(readOnly = true)
   @Override

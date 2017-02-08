@@ -184,13 +184,14 @@ public class ExpandedState implements Serializable {
    *
    * @param level The level to expand.
    */
-  public void collapse(int level) {
+  public void collapse(final int level) {
+    int count = level;
     // to use a symmetric algorithm like in expand
-    level--;
+    count--;
 
     final ArrayList<TreePath> toRemove = new ArrayList<TreePath>();
-    if (level < defaultExpandedLevels) {
-      defaultExpandedLevels = level;
+    if (count < defaultExpandedLevels) {
+      defaultExpandedLevels = count;
       for (final TreePath treePath : collapsedSet) {
         if (treePath.getLength() >= defaultExpandedLevels) {
           toRemove.add(treePath);
@@ -200,7 +201,7 @@ public class ExpandedState implements Serializable {
       expandedSet.clear();
     } else {
       for (final TreePath treePath : expandedSet) {
-        if (treePath.getLength() >= level) {
+        if (treePath.getLength() >= count) {
           toRemove.add(treePath);
         }
       }

@@ -65,34 +65,35 @@ public class Grid {
     }
   }
 
-  public void add(final OriginCell cell, int columnSpan, final int rowSpan) {
+  public void add(final OriginCell cell, final int columnSpan, final int rowSpan) {
 
     assert columnSpan > 0;
     assert rowSpan > 0;
 
+    int iterator = columnSpan;
     boolean error = false;
 
-    if (columnSpan + columnCursor > columnCount) {
+    if (iterator + columnCursor > columnCount) {
       LOG.warn("The columnSpan is to large for the actual position in the grid. Will be fixed. "
-          + "columnSpan='" + columnSpan + "' columnCursor='" + columnCursor + "' columnCount='" + columnCount + "'");
-      columnSpan = columnCount - columnCursor;
+          + "columnSpan='" + iterator + "' columnCursor='" + columnCursor + "' columnCount='" + columnCount + "'");
+      iterator = columnCount - columnCursor;
       error = true;
     }
 
-    cell.setColumnSpan(columnSpan);
+    cell.setColumnSpan(iterator);
     cell.setRowSpan(rowSpan);
 
-    for (int i = 1; i < columnSpan; i++) {
+    for (int i = 1; i < iterator; i++) {
       if (getCell(i + columnCursor, rowCursor) != null) {
         LOG.warn("The columnSpan is to large for the actual position in the grid. Will be fixed. "
-            + "columnSpan='" + columnSpan + "' columnCursor='" + columnCursor + "' columnCount='" + columnCount + "'");
-        columnSpan = i - 1;
+            + "columnSpan='" + iterator + "' columnCursor='" + columnCursor + "' columnCount='" + columnCount + "'");
+        iterator = i - 1;
         error = true;
       }
     }
 
     for (int j = 0; j < rowSpan; j++) {
-      for (int i = 0; i < columnSpan; i++) {
+      for (int i = 0; i < iterator; i++) {
         final Cell actualCell;
         if (i == 0 && j == 0) {
           actualCell = cell;

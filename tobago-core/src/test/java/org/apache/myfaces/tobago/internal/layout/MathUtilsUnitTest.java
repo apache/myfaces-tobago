@@ -22,6 +22,10 @@ package org.apache.myfaces.tobago.internal.layout;
 import org.junit.Assert;
 import org.junit.Test;
 
+/**
+ * @deprecated since Tobago 3.0.1
+ */
+@Deprecated
 public class MathUtilsUnitTest {
 
   @Test

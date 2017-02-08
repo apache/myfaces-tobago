@@ -19,6 +19,10 @@
 
 package org.apache.myfaces.tobago.internal.layout;
 
+/**
+ * @deprecated since Tobago 3.0.1
+ */
+@Deprecated
 public final class MathUtils {
 
   /**
@@ -33,7 +37,8 @@ public final class MathUtils {
    * Adjusts the list of double values to rounded values with the same sum.
    * E. g. 2.3, 2.4, 2.5, 2.8 -&gt; 2.0, 2.0, 3.0, 3.0
    */
-  public static void adjustRemainders(final double[] list, double bias) {
+  public static void adjustRemainders(final double[] list, final double initialBias) {
+    double bias = initialBias;
     for (final double ignored : list) {
       final double lastBias;
       if (bias < 0.0) {

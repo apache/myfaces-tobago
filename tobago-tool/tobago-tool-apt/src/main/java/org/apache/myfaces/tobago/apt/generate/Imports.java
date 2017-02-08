@@ -36,15 +36,13 @@ public class Imports {
     this.packageName = packageName;
   }
 
-  public void addImport(String qualifiedName) {
+  public void addImport(final String qualifiedName) {
     if (!ClassUtils.isSystemClass(qualifiedName) && !ClassUtils.isPrimitive(qualifiedName)) {
       if (!(packageName != null && packageName.equals(ClassUtils.getPackageName(qualifiedName)))) {
         final int index = qualifiedName.lastIndexOf('$');
-        if (index != -1) {
-          qualifiedName = qualifiedName.substring(0, index);
-        }
-        if (!imports.contains(qualifiedName)) {
-          imports.add(qualifiedName);
+        final String name = index != -1 ? qualifiedName.substring(0, index) : qualifiedName;
+        if (!imports.contains(name)) {
+          imports.add(name);
         }
       }
     }

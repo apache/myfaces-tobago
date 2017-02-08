@@ -66,16 +66,17 @@ public class TreePath implements Serializable {
     }
   }
 
-  public TreePath(TreeNode node) {
+  public TreePath(final TreeNode node) {
     if (node == null) {
       throw new IllegalArgumentException();
     }
 
+    TreeNode p = node;
     final List<TreeNode> list = new ArrayList<TreeNode>();
     int n = 0;
-    while (node != null) {
-      list.add(node);
-      node = node.getParent();
+    while (p != null) {
+      list.add(p);
+      p = p.getParent();
       n++;
     }
     path = new int[n - 1];

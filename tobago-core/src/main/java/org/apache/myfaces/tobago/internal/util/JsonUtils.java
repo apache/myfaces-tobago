@@ -96,12 +96,11 @@ public class JsonUtils {
     builder.append(",");
   }
 
-  private static void encode(final StringBuilder builder, final String name, String value) {
-    value = value.replaceAll("\\\"", "\\\\\\\""); // todo: optimize
+  private static void encode(final StringBuilder builder, final String name, final String value) {
     builder.append("\"");
     builder.append(name);
     builder.append("\":\"");
-    builder.append(value);
+    builder.append(value.replaceAll("\\\"", "\\\\\\\"")); // todo: optimize
     builder.append("\",");
   }
 
@@ -274,14 +273,14 @@ public class JsonUtils {
     builder.append("]");
   }
 
-  public static List<Integer> decodeIntegerArray(String json) {
-    json = json.trim();
+  public static List<Integer> decodeIntegerArray(final String json) {
+    String string = json.trim();
     final List<Integer> result = new ArrayList<Integer>();
-    if (json.length() < 2 || json.charAt(0) != '[' || json.charAt(json.length() - 1) != ']') {
-      LOG.warn("Can't parse JSON array: no surrounding square brackets []: '{}'", json);
+    if (string.length() < 2 || string.charAt(0) != '[' || string.charAt(string.length() - 1) != ']') {
+      LOG.warn("Can't parse JSON array: no surrounding square brackets []: '{}'", string);
     } else {
-      json = json.substring(1, json.length() - 1);
-      final StringTokenizer tokenizer = new StringTokenizer(json, ",");
+      string = string.substring(1, string.length() - 1);
+      final StringTokenizer tokenizer = new StringTokenizer(string, ",");
       while (tokenizer.hasMoreTokens()) {
         final String token = tokenizer.nextToken().trim();
         try {

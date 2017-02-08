@@ -88,16 +88,19 @@ public class Command {
   }
 
   public Command(final FacesContext facesContext, UIComponent facetComponent, final String focusId) {
+    final UIComponent component;
     if (facetComponent instanceof UIForm && facetComponent.getChildCount() == 1) {
       LOG.warn("Please don't use a form, but a command with immediate=true instead.");
-      facetComponent = facetComponent.getChildren().get(0);
+      component = facetComponent.getChildren().get(0);
+    } else {
+      component = facetComponent;
     }
-    this.action = facetComponent.getClientId(facesContext);
+    this.action = component.getClientId(facesContext);
     // transition == true is the default
-    if (!ComponentUtils.getBooleanAttribute(facetComponent, Attributes.transition)) {
+    if (!ComponentUtils.getBooleanAttribute(component, Attributes.transition)) {
       this.transition = Boolean.FALSE;
     }
-    final String target = ComponentUtils.getStringAttribute(facetComponent, Attributes.target);
+    final String target = ComponentUtils.getStringAttribute(component, Attributes.target);
     if (target != null) {
       this.target = target;
     }
@@ -105,12 +108,12 @@ public class Command {
       this.focus = focusId;
     }
 
-    final int delay = ComponentUtils.getIntAttribute(facetComponent, Attributes.delay);
+    final int delay = ComponentUtils.getIntAttribute(component, Attributes.delay);
     if (delay > 0) {
       this.delay = delay;
     }
     // omit == false is the default
-    if (ComponentUtils.getBooleanAttribute(facetComponent, Attributes.omit)) {
+    if (ComponentUtils.getBooleanAttribute(component, Attributes.omit)) {
       this.omit = Boolean.TRUE;
     }
   }

@@ -61,7 +61,8 @@ public class SheetSortController implements Serializable {
     private Date fifth;
     private String sixth;
 
-    private Entry(int i) {
+    private Entry(final int number) {
+      int i = number;
       this.first = "" + upper(i);
       i++;
       this.second = "" + upper(i) + lower(i);

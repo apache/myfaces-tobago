@@ -142,16 +142,17 @@ public final class HtmlRendererUtils {
     return HtmlRendererUtils.addTip(messages, ComponentUtils.getAttribute(component, Attributes.tip));
   }
 
-  public static String addTip(String title, final Object tip) {
+  public static String addTip(final String title, final Object tip) {
+    String result = title;
     if (tip != null) {
-      if (title != null && title.length() > 0) {
-        title += " :: ";
+      if (result != null && result.length() > 0) {
+        result += " :: ";
       } else {
-        title = "";
+        result = "";
       }
-      title += tip;
+      result += tip;
     }
-    return title;
+    return result;
   }
 
   /**
