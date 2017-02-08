@@ -44,7 +44,7 @@ public class ContentTypeRule extends MetaRule {
 
     private final TagAttribute attribute;
 
-    public ContentTypeRuleMapper(final TagAttribute attribute) {
+    ContentTypeRuleMapper(final TagAttribute attribute) {
       this.attribute = attribute;
     }
 

@@ -33,7 +33,7 @@ class AttachedStateWrapper implements Serializable {
   /**
    * @param clazz              null means wrappedStateObject is a List of state objects
    */
-  public AttachedStateWrapper(Class<?> clazz, Object wrappedStateObject) {
+  AttachedStateWrapper(Class<?> clazz, Object wrappedStateObject) {
     if (wrappedStateObject != null && !(wrappedStateObject instanceof Serializable)) {
       throw new IllegalArgumentException("Attached state for Object of type " + clazz + " (Class "
           + wrappedStateObject.getClass().getName() + ") is not serializable");
@@ -46,7 +46,7 @@ class AttachedStateWrapper implements Serializable {
     return clazz;
   }
 
-  public Object getWrappedStateObject() {
+  Object getWrappedStateObject() {
     return wrappedStateObject;
   }
 }

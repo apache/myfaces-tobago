@@ -172,7 +172,7 @@ class DeltaStateHelper<A extends EventBehavior> implements StateHelper {
 
   private boolean transientBoolean = false;
 
-  public DeltaStateHelper(A target) {
+  DeltaStateHelper(A target) {
     super();
     this.target = target;
     fullState = new HashMap<Serializable, Object>();
@@ -575,19 +575,19 @@ class DeltaStateHelper<A extends EventBehavior> implements StateHelper {
   //We use our own data structures just to make sure
   //nothing gets mixed up internally
   static class InternalMap<K, V> extends HashMap<K, V> implements StateHolder {
-    public InternalMap() {
+    InternalMap() {
       super();
     }
 
-    public InternalMap(int initialCapacity, float loadFactor) {
+    InternalMap(int initialCapacity, float loadFactor) {
       super(initialCapacity, loadFactor);
     }
 
-    public InternalMap(Map<? extends K, ? extends V> m) {
+    InternalMap(Map<? extends K, ? extends V> m) {
       super(m);
     }
 
-    public InternalMap(int initialSize) {
+    InternalMap(int initialSize) {
       super(initialSize);
     }
 
@@ -629,33 +629,33 @@ class DeltaStateHelper<A extends EventBehavior> implements StateHelper {
    */
   static class InternalDeltaListMap<K, V> extends DeltaStateHelper.InternalMap<K, V> {
 
-    public InternalDeltaListMap() {
+    InternalDeltaListMap() {
       super();
     }
 
-    public InternalDeltaListMap(int initialCapacity, float loadFactor) {
+    InternalDeltaListMap(int initialCapacity, float loadFactor) {
       super(initialCapacity, loadFactor);
     }
 
-    public InternalDeltaListMap(int initialSize) {
+    InternalDeltaListMap(int initialSize) {
       super(initialSize);
     }
 
-    public InternalDeltaListMap(Map<? extends K, ? extends V> m) {
+    InternalDeltaListMap(Map<? extends K, ? extends V> m) {
       super(m);
     }
   }
 
   static class InternalList<T> extends ArrayList<T> implements StateHolder {
-    public InternalList() {
+    InternalList() {
       super();
     }
 
-    public InternalList(Collection<? extends T> c) {
+    InternalList(Collection<? extends T> c) {
       super(c);
     }
 
-    public InternalList(int initialSize) {
+    InternalList(int initialSize) {
       super(initialSize);
     }
 

@@ -233,13 +233,13 @@ public class SheetFilterController extends SheetController implements Serializab
     private int max;
     private final String label;
 
-    public DistanceRange(int min, int max) {
+    DistanceRange(int min, int max) {
       this.min = min;
       this.max = max;
       label = String.valueOf(min) + " < x ≤ " + String.valueOf(max);
     }
 
-    public DistanceRange(int min, int max, String label) {
+    DistanceRange(int min, int max, String label) {
       this.min = min;
       this.max = max;
       this.label = label;

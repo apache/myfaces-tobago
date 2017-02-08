@@ -255,7 +255,7 @@ public class Sudoku {
     }
   }
 
-  private static enum Result {
+  private enum Result {
     UNIQUE,
     MULTIPLE,
     ERROR

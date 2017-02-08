@@ -29,7 +29,7 @@ import java.util.Collection;
 
 public class ResetInputActionListener extends AbstractResetInputActionListener implements StateHolder {
 
-  private String [] clientIds;
+  private String[] clientIds;
 
   public ResetInputActionListener() {
   }

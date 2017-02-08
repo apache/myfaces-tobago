@@ -50,7 +50,7 @@ public class SupportsMarkupRule extends MetaRule {
 
     private final TagAttribute attribute;
 
-    public SupportsMarkupMapper(final TagAttribute attribute) {
+    SupportsMarkupMapper(final TagAttribute attribute) {
       this.attribute = attribute;
     }
 

@@ -391,7 +391,7 @@ public class UISheetUnitTest extends AbstractTobagoTestBase {
 
   private static class DataModelWithUnknownRows extends ListDataModel {
 
-    public DataModelWithUnknownRows(final List list) {
+    DataModelWithUnknownRows(final List list) {
       super(list);
     }
 

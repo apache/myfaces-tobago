@@ -517,7 +517,7 @@ public abstract class SelectManyRendererBase extends LabelLayoutRendererBase {
     private UISelectItems currentUISelectItems;
     private FacesContext facesContext;
 
-    public SelectItemsIterator(UIComponent selectItemsParent, FacesContext facesContext) {
+    SelectItemsIterator(UIComponent selectItemsParent, FacesContext facesContext) {
       children = selectItemsParent.getChildCount() > 0
           ? selectItemsParent.getChildren().iterator()
           : EMPTY_UICOMPONENT_ITERATOR;

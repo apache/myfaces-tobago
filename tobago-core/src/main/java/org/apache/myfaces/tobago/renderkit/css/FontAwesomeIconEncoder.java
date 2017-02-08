@@ -89,7 +89,7 @@ public class FontAwesomeIconEncoder implements IconEncoder {
 
     private String name;
 
-    public FontAwesomeCssItem(String name) {
+    FontAwesomeCssItem(String name) {
       this.name = name;
     }
 

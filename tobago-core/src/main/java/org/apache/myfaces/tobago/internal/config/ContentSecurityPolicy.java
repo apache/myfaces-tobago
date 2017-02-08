@@ -71,14 +71,14 @@ public class ContentSecurityPolicy {
         + '}';
   }
 
-  public static enum Mode {
+  public enum Mode {
     ON("on"),
     OFF("off"),
     REPORT_ONLY("report-only");
 
     private final String value;
 
-    private Mode(final String value) {
+    Mode(final String value) {
       this.value = value;
     }
 

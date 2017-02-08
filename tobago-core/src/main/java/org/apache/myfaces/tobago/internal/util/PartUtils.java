@@ -113,7 +113,7 @@ public final class PartUtils {
     /**
      * Default ParameterParser constructor.
      */
-    public ParameterParser() {
+    ParameterParser() {
       super();
     }
 

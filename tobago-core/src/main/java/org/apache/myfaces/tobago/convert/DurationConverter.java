@@ -41,7 +41,7 @@ public class DurationConverter implements Converter {
 
   public static final String CONVERTER_ID = "org.apache.myfaces.tobago.Duration";
 
-  private static enum Unit {
+  private enum Unit {
     nano, milli, second, minute, hour, day, year
   }
 

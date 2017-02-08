@@ -49,7 +49,7 @@ public class SheetStateChangeSourceRule extends MetaRule {
 
     private final TagAttribute attribute;
 
-    public SheetStateChangeListenerMapper(final TagAttribute attribute) {
+    SheetStateChangeListenerMapper(final TagAttribute attribute) {
       this.attribute = attribute;
     }
 

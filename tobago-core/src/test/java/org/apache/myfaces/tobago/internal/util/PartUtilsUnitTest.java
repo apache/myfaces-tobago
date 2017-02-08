@@ -52,7 +52,7 @@ public class PartUtilsUnitTest {
 
     private String contentDisposition;
 
-    public PartMock(String contentDisposition) {
+    PartMock(String contentDisposition) {
       this.contentDisposition = contentDisposition;
     }
 

@@ -50,7 +50,7 @@ public class SortActionSourceRule extends MetaRule {
 
     private final TagAttribute attribute;
 
-    public SortActionListenerMapper(final TagAttribute attribute) {
+    SortActionListenerMapper(final TagAttribute attribute) {
       this.attribute = attribute;
     }
 

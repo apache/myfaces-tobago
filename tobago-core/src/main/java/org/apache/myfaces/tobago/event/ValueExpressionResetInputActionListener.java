@@ -51,7 +51,7 @@ public class ValueExpressionResetInputActionListener extends AbstractResetInputA
   @Override
   public void processAction(final ActionEvent event) {
     final Object obj = clientIdsExpression.getValue(FacesContext.getCurrentInstance().getELContext());
-    final String [] clientIds;
+    final String[] clientIds;
     if (obj instanceof String[]) {
       clientIds = (String[]) obj;
     } else if (obj instanceof String) {
