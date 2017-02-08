@@ -52,6 +52,8 @@
     <required.maven.version>3.0.4</required.maven.version>
     <maven-pmd-plugin.version>3.7</maven-pmd-plugin.version>
     <maven-checkstyle-plugin.version>2.9.1</maven-checkstyle-plugin.version><!-- before update MYFACES-3995 needs to be fixed -->
+    <!--<maven-checkstyle-plugin.version>2.17</maven-checkstyle-plugin.version>-->
+    <checkstyle-rules.version>7-SNAPSHOT</checkstyle-rules.version>
   </properties>
 
   <issueManagement>
@@ -579,7 +581,7 @@
           <dependency>
             <groupId>org.apache.myfaces.buildtools</groupId>
             <artifactId>checkstyle-rules</artifactId>
-            <version>6</version>
+            <version>${checkstyle-rules.version}</version>
           </dependency>
         </dependencies>
       </plugin>
@@ -724,7 +726,7 @@
             <dependency>
               <groupId>org.apache.myfaces.buildtools</groupId>
               <artifactId>checkstyle-rules</artifactId>
-              <version>6</version>
+              <version>${checkstyle-rules.version}</version>
             </dependency>
           </dependencies>
         </plugin>
@@ -994,7 +996,7 @@
             <dependency>
               <groupId>org.apache.myfaces.buildtools</groupId>
               <artifactId>checkstyle-rules</artifactId>
-              <version>7-SNAPSHOT</version>
+              <version>${checkstyle-rules.version}</version>
             </dependency>
           </dependencies>
         </plugin>
