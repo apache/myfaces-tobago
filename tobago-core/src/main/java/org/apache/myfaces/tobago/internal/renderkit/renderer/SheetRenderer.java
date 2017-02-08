@@ -229,65 +229,246 @@ public class SheetRenderer extends RendererBase {
     final boolean definedColumnWidths = sheet.getState().isDefinedColumnWidths();
     final List<Integer> selectedRows = getSelectedRows(sheet, state);
     final List<AbstractUIColumnBase> columns = sheet.getAllColumns();
-    final boolean showHeader = sheet.isShowHeader();
     final boolean autoLayout = sheet.isAutoLayout();
-    Markup sheetMarkup = sheet.getMarkup() != null ? sheet.getMarkup() : Markup.NULL;
 
     ensureColumnWidthsSize(columnWidths, columns, Collections.<Integer>emptyList());
 
     if (!autoLayout) {
-      writer.startElement(HtmlElements.INPUT);
-      writer.writeIdAttribute(sheetId + SUFFIX_WIDTHS);
-      writer.writeNameAttribute(sheetId + SUFFIX_WIDTHS);
-      writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN);
-      writer.writeAttribute(
-          HtmlAttributes.VALUE,
+      encodeHiddenInput(writer,
           JsonUtils.encode(definedColumnWidths ? columnWidths : Collections.<Integer>emptyList()),
-          false);
-      writer.endElement(HtmlElements.INPUT);
+          sheetId + SUFFIX_WIDTHS);
 
-      writer.startElement(HtmlElements.INPUT);
-      writer.writeIdAttribute(sheetId + SUFFIX_COLUMN_RENDERED);
-      writer.writeNameAttribute(sheetId + SUFFIX_COLUMN_RENDERED);
-      writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN);
       final ArrayList<String> encodedRendered = new ArrayList<String>();
       for (AbstractUIColumnBase column : columns) {
         if (!(column instanceof AbstractUIRow)) {
           encodedRendered.add(Boolean.toString(column.isRendered()));
         }
       }
-      writer.writeAttribute(HtmlAttributes.VALUE,
-          JsonUtils.encode(encodedRendered.toArray(new String[encodedRendered.size()])), false);
-      writer.endElement(HtmlElements.INPUT);
+
+      encodeHiddenInput(writer,
+          JsonUtils.encode(encodedRendered.toArray(new String[encodedRendered.size()])),
+          sheetId + SUFFIX_COLUMN_RENDERED);
     }
 
-    final String clientId = sheet.getClientId(facesContext);
-    writer.startElement(HtmlElements.INPUT);
-    writer.writeIdAttribute(clientId + SUFFIX_SCROLL_POSITION);
-    writer.writeNameAttribute(clientId + SUFFIX_SCROLL_POSITION);
-    writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN);
-    writer.writeAttribute(HtmlAttributes.VALUE, sheet.getState().getScrollPosition().encode(), false);
-    writer.writeAttribute(DataAttributes.SCROLL_POSITION, Boolean.TRUE.toString(), true);
-    writer.endElement(HtmlElements.INPUT);
+    encodeHiddenInput(writer,
+        sheet.getState().getScrollPosition().encode(),
+        sheet.getClientId(facesContext) + SUFFIX_SCROLL_POSITION);
 
     if (selectable != Selectable.none) {
-      writer.startElement(HtmlElements.INPUT);
-      writer.writeIdAttribute(sheetId + SUFFIX_SELECTED);
-      writer.writeNameAttribute(sheetId + SUFFIX_SELECTED);
-      writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN);
-      writer.writeAttribute(
-          HtmlAttributes.VALUE, StringUtils.joinWithSurroundingSeparator(selectedRows), true);
-      writer.endElement(HtmlElements.INPUT);
+      encodeHiddenInput(writer,
+          StringUtils.joinWithSurroundingSeparator(selectedRows),
+          sheetId + SUFFIX_SELECTED);
     }
 
-    ExpandedState expandedState = null;
     StringBuilder expandedValue = null;
     if (sheet.isTreeModel()) {
-      expandedState = sheet.getExpandedState();
       expandedValue = new StringBuilder(",");
     }
 
-// BEGIN RENDER BODY CONTENT
+    encodeTableBody(
+        facesContext, sheet, writer, sheetId, selectable, columnWidths, selectedRows, columns,
+        autoLayout, expandedValue);
+
+    if (sheet.isPagingVisible()) {
+      writer.startElement(HtmlElements.FOOTER);
+      writer.writeClassAttribute(Classes.create(sheet, "footer"));
+
+      // show row range
+      final Markup showRowRange = markupForLeftCenterRight(sheet.getShowRowRange());
+      if (showRowRange != Markup.NULL) {
+        final UILink command
+            = ensurePagingCommand(application, sheet, Facets.pagerRow.name(), SheetAction.toRow, false);
+        final String pagerCommandId = command.getClientId(facesContext);
+
+        writer.startElement(HtmlElements.UL);
+        writer.writeClassAttribute(Classes.create(sheet, "paging", showRowRange), BootstrapClass.PAGINATION);
+        writer.startElement(HtmlElements.LI);
+        writer.writeClassAttribute(BootstrapClass.PAGE_ITEM);
+        writer.writeAttribute(HtmlAttributes.TITLE,
+            TobagoResourceBundle.getString(facesContext, "sheetPagingInfoRowPagingTip"), true);
+        writer.startElement(HtmlElements.SPAN);
+        writer.writeClassAttribute(Classes.create(sheet, "pagingText"), BootstrapClass.PAGE_LINK);
+        if (sheet.getRowCount() != 0) {
+          final Locale locale = facesContext.getViewRoot().getLocale();
+          final int first = sheet.getFirst() + 1;
+          final int last1 = sheet.hasRowCount()
+              ? sheet.getLastRowIndexOfCurrentPage()
+              : -1;
+          final boolean unknown = !sheet.hasRowCount();
+          final String key; // plural
+          if (unknown) {
+            if (first == last1) {
+              key = "sheetPagingInfoUndefinedSingleRow";
+            } else {
+              key = "sheetPagingInfoUndefinedRows";
+            }
+          } else {
+            if (first == last1) {
+              key = "sheetPagingInfoSingleRow";
+            } else {
+              key = "sheetPagingInfoRows";
+            }
+          }
+          final String inputMarker = "{#}";
+          final Object[] args = {inputMarker, last1 == -1 ? "?" : last1, unknown ? "" : sheet.getRowCount()};
+          final MessageFormat detail = new MessageFormat(
+              TobagoResourceBundle.getString(facesContext, key), locale);
+          final String formatted = detail.format(args);
+          final int pos = formatted.indexOf(inputMarker);
+          if (pos >= 0) {
+            writer.writeText(formatted.substring(0, pos));
+            writer.startElement(HtmlElements.SPAN);
+            writer.writeClassAttribute(TobagoClass.SHEET__PAGING_OUTPUT);
+            writer.writeText(Integer.toString(first));
+            writer.endElement(HtmlElements.SPAN);
+            writer.startElement(HtmlElements.INPUT);
+            writer.writeIdAttribute(pagerCommandId);
+            writer.writeNameAttribute(pagerCommandId);
+            writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.TEXT);
+            writer.writeClassAttribute(TobagoClass.SHEET__PAGING_INPUT);
+            writer.writeAttribute(HtmlAttributes.VALUE, first);
+            if (!unknown) {
+              writer.writeAttribute(HtmlAttributes.MAXLENGTH, Integer.toString(sheet.getRowCount()).length());
+            }
+            writer.endElement(HtmlElements.INPUT);
+            writer.writeText(formatted.substring(pos + inputMarker.length()));
+          } else {
+            writer.writeText(formatted);
+          }
+        } else {
+          writer.write(TobagoResourceBundle.getString(facesContext, "sheetPagingInfoEmptyRow"));
+        }
+        writer.endElement(HtmlElements.SPAN);
+        writer.endElement(HtmlElements.LI);
+        writer.endElement(HtmlElements.UL);
+      }
+
+      // show direct links
+      final Markup showDirectLinks = markupForLeftCenterRight(sheet.getShowDirectLinks());
+      if (showDirectLinks != Markup.NULL) {
+        writer.startElement(HtmlElements.UL);
+        writer.writeClassAttribute(
+            Classes.create(sheet, "paging", showDirectLinks), BootstrapClass.PAGINATION);
+        if (sheet.isShowDirectLinksArrows()) {
+          final boolean disabled = sheet.isAtBeginning();
+          encodeLink(facesContext, sheet, application, disabled, SheetAction.first, null, Icons.STEP_BACKWARD, null);
+          encodeLink(facesContext, sheet, application, disabled, SheetAction.prev, null, Icons.BACKWARD, null);
+        }
+        encodeDirectPagingLinks(facesContext, application, sheet);
+        if (sheet.isShowDirectLinksArrows()) {
+          final boolean disabled = sheet.isAtEnd();
+          encodeLink(facesContext, sheet, application, disabled, SheetAction.next, null, Icons.FORWARD, null);
+          encodeLink(facesContext, sheet, application, disabled || !sheet.hasRowCount(), SheetAction.last, null,
+              Icons.STEP_FORWARD, null);
+        }
+        writer.endElement(HtmlElements.UL);
+      }
+
+      // show page range
+      final Markup showPageRange = markupForLeftCenterRight(sheet.getShowPageRange());
+      if (showPageRange != Markup.NULL) {
+        final UILink command
+            = ensurePagingCommand(application, sheet, Facets.pagerPage.name(), SheetAction.toPage, false);
+        final String pagerCommandId = command.getClientId(facesContext);
+
+        writer.startElement(HtmlElements.UL);
+        writer.writeClassAttribute(Classes.create(sheet, "paging", showPageRange), BootstrapClass.PAGINATION);
+
+        if (sheet.isShowPageRangeArrows()) {
+          final boolean disabled = sheet.isAtBeginning();
+          encodeLink(facesContext, sheet, application, disabled, SheetAction.first, null, Icons.STEP_BACKWARD, null);
+          encodeLink(facesContext, sheet, application, disabled, SheetAction.prev, null, Icons.BACKWARD, null);
+        }
+        writer.startElement(HtmlElements.LI);
+        writer.writeClassAttribute(BootstrapClass.PAGE_ITEM);
+        writer.startElement(HtmlElements.SPAN);
+        writer.writeClassAttribute(Classes.create(sheet, "pagingText"), BootstrapClass.PAGE_LINK);
+        writer.writeAttribute(HtmlAttributes.TITLE,
+            TobagoResourceBundle.getString(facesContext, "sheetPagingInfoPagePagingTip"), true);
+        if (sheet.getRowCount() != 0) {
+          final Locale locale = facesContext.getViewRoot().getLocale();
+          final int first = sheet.getCurrentPage() + 1;
+          final boolean unknown = !sheet.hasRowCount();
+          final int pages = unknown ? -1 : sheet.getPages();
+          final String key;
+          if (unknown) {
+            if (first == pages) {
+              key = "sheetPagingInfoUndefinedSinglePage";
+            } else {
+              key = "sheetPagingInfoUndefinedPages";
+            }
+          } else {
+            if (first == pages) {
+              key = "sheetPagingInfoSinglePage";
+            } else {
+              key = "sheetPagingInfoPages";
+            }
+          }
+          final String inputMarker = "{#}";
+          final Object[] args = {inputMarker, pages == -1 ? "?" : pages};
+          final MessageFormat detail = new MessageFormat(
+              TobagoResourceBundle.getString(facesContext, key), locale);
+          final String formatted = detail.format(args);
+          final int pos = formatted.indexOf(inputMarker);
+          if (pos >= 0) {
+            writer.writeText(formatted.substring(0, pos));
+            writer.startElement(HtmlElements.SPAN);
+            writer.writeClassAttribute(TobagoClass.SHEET__PAGING_OUTPUT);
+            writer.writeText(Integer.toString(first));
+            writer.endElement(HtmlElements.SPAN);
+            writer.startElement(HtmlElements.INPUT);
+            writer.writeIdAttribute(pagerCommandId);
+            writer.writeNameAttribute(pagerCommandId);
+            writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.TEXT);
+            writer.writeClassAttribute(TobagoClass.SHEET__PAGING_INPUT);
+            writer.writeAttribute(HtmlAttributes.VALUE, first);
+            if (!unknown) {
+              writer.writeAttribute(HtmlAttributes.MAXLENGTH, Integer.toString(pages).length());
+            }
+            writer.endElement(HtmlElements.INPUT);
+            writer.writeText(formatted.substring(pos + inputMarker.length()));
+          } else {
+            writer.writeText(formatted);
+          }
+        } else {
+          writer.writeText(TobagoResourceBundle.getString(facesContext, "sheetPagingInfoEmptyPage"));
+        }
+        writer.endElement(HtmlElements.SPAN);
+        writer.endElement(HtmlElements.LI);
+        if (sheet.isShowPageRangeArrows()) {
+          final boolean disabled = sheet.isAtEnd();
+          encodeLink(facesContext, sheet, application, disabled, SheetAction.next, null, Icons.FORWARD, null);
+          encodeLink(facesContext, sheet, application, disabled || !sheet.hasRowCount(), SheetAction.last, null,
+              Icons.STEP_FORWARD, null);
+        }
+        writer.endElement(HtmlElements.UL);
+      }
+
+      writer.endElement(HtmlElements.FOOTER);
+    }
+
+    if (sheet.isTreeModel()) {
+      writer.startElement(HtmlElements.INPUT);
+      writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN);
+      final String expandedId = sheetId + ComponentUtils.SUB_SEPARATOR + AbstractUIData.SUFFIX_EXPANDED;
+      writer.writeNameAttribute(expandedId);
+      writer.writeIdAttribute(expandedId);
+      writer.writeClassAttribute(Classes.create(sheet, AbstractUIData.SUFFIX_EXPANDED));
+      writer.writeAttribute(HtmlAttributes.VALUE, expandedValue.toString(), false);
+      writer.endElement(HtmlElements.INPUT);
+    }
+
+    writer.endElement(HtmlElements.DIV);
+  }
+
+  private void encodeTableBody(FacesContext facesContext, UISheet sheet, TobagoResponseWriter writer, String sheetId,
+                               Selectable selectable, List<Integer> columnWidths, List<Integer> selectedRows,
+                               List<AbstractUIColumnBase> columns, boolean autoLayout, StringBuilder expandedValue)
+      throws IOException {
+
+    final boolean showHeader = sheet.isShowHeader();
+    Markup sheetMarkup = sheet.getMarkup() != null ? sheet.getMarkup() : Markup.NULL;
+    final ExpandedState expandedState = sheet.isTreeModel() ? sheet.getExpandedState() : null;
 
     if (showHeader && !autoLayout) {
       // if no autoLayout, we render the header in a separate table.
@@ -502,197 +683,15 @@ public class SheetRenderer extends RendererBase {
     writer.endElement(HtmlElements.DIV);
 
 // END RENDER BODY CONTENT
+  }
 
-    if (sheet.isPagingVisible()) {
-      writer.startElement(HtmlElements.FOOTER);
-      writer.writeClassAttribute(Classes.create(sheet, "footer"));
-
-      // show row range
-      final Markup showRowRange = markupForLeftCenterRight(sheet.getShowRowRange());
-      if (showRowRange != Markup.NULL) {
-        final UILink command
-            = ensurePagingCommand(application, sheet, Facets.pagerRow.name(), SheetAction.toRow, false);
-        final String pagerCommandId = command.getClientId(facesContext);
-
-        writer.startElement(HtmlElements.UL);
-        writer.writeClassAttribute(Classes.create(sheet, "paging", showRowRange), BootstrapClass.PAGINATION);
-        writer.startElement(HtmlElements.LI);
-        writer.writeClassAttribute(BootstrapClass.PAGE_ITEM);
-        writer.writeAttribute(HtmlAttributes.TITLE,
-            TobagoResourceBundle.getString(facesContext, "sheetPagingInfoRowPagingTip"), true);
-        writer.startElement(HtmlElements.SPAN);
-        writer.writeClassAttribute(Classes.create(sheet, "pagingText"), BootstrapClass.PAGE_LINK);
-        if (sheet.getRowCount() != 0) {
-          final Locale locale = facesContext.getViewRoot().getLocale();
-          final int first = sheet.getFirst() + 1;
-          final int last1 = sheet.hasRowCount()
-              ? sheet.getLastRowIndexOfCurrentPage()
-              : -1;
-          final boolean unknown = !sheet.hasRowCount();
-          final String key; // plural
-          if (unknown) {
-            if (first == last1) {
-              key = "sheetPagingInfoUndefinedSingleRow";
-            } else {
-              key = "sheetPagingInfoUndefinedRows";
-            }
-          } else {
-            if (first == last1) {
-              key = "sheetPagingInfoSingleRow";
-            } else {
-              key = "sheetPagingInfoRows";
-            }
-          }
-          final String inputMarker = "{#}";
-          final Object[] args = {inputMarker, last1 == -1 ? "?" : last1, unknown ? "" : sheet.getRowCount()};
-          final MessageFormat detail = new MessageFormat(
-              TobagoResourceBundle.getString(facesContext, key), locale);
-          final String formatted = detail.format(args);
-          final int pos = formatted.indexOf(inputMarker);
-          if (pos >= 0) {
-            writer.writeText(formatted.substring(0, pos));
-            writer.startElement(HtmlElements.SPAN);
-            writer.writeClassAttribute(TobagoClass.SHEET__PAGING_OUTPUT);
-            writer.writeText(Integer.toString(first));
-            writer.endElement(HtmlElements.SPAN);
-            writer.startElement(HtmlElements.INPUT);
-            writer.writeIdAttribute(pagerCommandId);
-            writer.writeNameAttribute(pagerCommandId);
-            writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.TEXT);
-            writer.writeClassAttribute(TobagoClass.SHEET__PAGING_INPUT);
-            writer.writeAttribute(HtmlAttributes.VALUE, first);
-            if (!unknown) {
-              writer.writeAttribute(HtmlAttributes.MAXLENGTH, Integer.toString(sheet.getRowCount()).length());
-            }
-            writer.endElement(HtmlElements.INPUT);
-            writer.writeText(formatted.substring(pos + inputMarker.length()));
-          } else {
-            writer.writeText(formatted);
-          }
-        } else {
-          writer.write(TobagoResourceBundle.getString(facesContext, "sheetPagingInfoEmptyRow"));
-        }
-        writer.endElement(HtmlElements.SPAN);
-        writer.endElement(HtmlElements.LI);
-        writer.endElement(HtmlElements.UL);
-      }
-
-      // show direct links
-      final Markup showDirectLinks = markupForLeftCenterRight(sheet.getShowDirectLinks());
-      if (showDirectLinks != Markup.NULL) {
-        writer.startElement(HtmlElements.UL);
-        writer.writeClassAttribute(
-            Classes.create(sheet, "paging", showDirectLinks), BootstrapClass.PAGINATION);
-        if (sheet.isShowDirectLinksArrows()) {
-          final boolean disabled = sheet.isAtBeginning();
-          encodeLink(facesContext, sheet, application, disabled, SheetAction.first, null, Icons.STEP_BACKWARD, null);
-          encodeLink(facesContext, sheet, application, disabled, SheetAction.prev, null, Icons.BACKWARD, null);
-        }
-        encodeDirectPagingLinks(facesContext, application, sheet);
-        if (sheet.isShowDirectLinksArrows()) {
-          final boolean disabled = sheet.isAtEnd();
-          encodeLink(facesContext, sheet, application, disabled, SheetAction.next, null, Icons.FORWARD, null);
-          encodeLink(facesContext, sheet, application, disabled || !sheet.hasRowCount(), SheetAction.last, null,
-              Icons.STEP_FORWARD, null);
-        }
-        writer.endElement(HtmlElements.UL);
-      }
-
-      // show page range
-      final Markup showPageRange = markupForLeftCenterRight(sheet.getShowPageRange());
-      if (showPageRange != Markup.NULL) {
-        final UILink command
-            = ensurePagingCommand(application, sheet, Facets.pagerPage.name(), SheetAction.toPage, false);
-        final String pagerCommandId = command.getClientId(facesContext);
-
-        writer.startElement(HtmlElements.UL);
-        writer.writeClassAttribute(Classes.create(sheet, "paging", showPageRange), BootstrapClass.PAGINATION);
-
-        if (sheet.isShowPageRangeArrows()) {
-          final boolean disabled = sheet.isAtBeginning();
-          encodeLink(facesContext, sheet, application, disabled, SheetAction.first, null, Icons.STEP_BACKWARD, null);
-          encodeLink(facesContext, sheet, application, disabled, SheetAction.prev, null, Icons.BACKWARD, null);
-        }
-        writer.startElement(HtmlElements.LI);
-        writer.writeClassAttribute(BootstrapClass.PAGE_ITEM);
-        writer.startElement(HtmlElements.SPAN);
-        writer.writeClassAttribute(Classes.create(sheet, "pagingText"), BootstrapClass.PAGE_LINK);
-        writer.writeAttribute(HtmlAttributes.TITLE,
-            TobagoResourceBundle.getString(facesContext, "sheetPagingInfoPagePagingTip"), true);
-        if (sheet.getRowCount() != 0) {
-          final Locale locale = facesContext.getViewRoot().getLocale();
-          final int first = sheet.getCurrentPage() + 1;
-          final boolean unknown = !sheet.hasRowCount();
-          final int pages = unknown ? -1 : sheet.getPages();
-          final String key;
-          if (unknown) {
-            if (first == pages) {
-              key = "sheetPagingInfoUndefinedSinglePage";
-            } else {
-              key = "sheetPagingInfoUndefinedPages";
-            }
-          } else {
-            if (first == pages) {
-              key = "sheetPagingInfoSinglePage";
-            } else {
-              key = "sheetPagingInfoPages";
-            }
-          }
-          final String inputMarker = "{#}";
-          final Object[] args = {inputMarker, pages == -1 ? "?" : pages};
-          final MessageFormat detail = new MessageFormat(
-              TobagoResourceBundle.getString(facesContext, key), locale);
-          final String formatted = detail.format(args);
-          final int pos = formatted.indexOf(inputMarker);
-          if (pos >= 0) {
-            writer.writeText(formatted.substring(0, pos));
-            writer.startElement(HtmlElements.SPAN);
-            writer.writeClassAttribute(TobagoClass.SHEET__PAGING_OUTPUT);
-            writer.writeText(Integer.toString(first));
-            writer.endElement(HtmlElements.SPAN);
-            writer.startElement(HtmlElements.INPUT);
-            writer.writeIdAttribute(pagerCommandId);
-            writer.writeNameAttribute(pagerCommandId);
-            writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.TEXT);
-            writer.writeClassAttribute(TobagoClass.SHEET__PAGING_INPUT);
-            writer.writeAttribute(HtmlAttributes.VALUE, first);
-            if (!unknown) {
-              writer.writeAttribute(HtmlAttributes.MAXLENGTH, Integer.toString(pages).length());
-            }
-            writer.endElement(HtmlElements.INPUT);
-            writer.writeText(formatted.substring(pos + inputMarker.length()));
-          } else {
-            writer.writeText(formatted);
-          }
-        } else {
-          writer.writeText(TobagoResourceBundle.getString(facesContext, "sheetPagingInfoEmptyPage"));
-        }
-        writer.endElement(HtmlElements.SPAN);
-        writer.endElement(HtmlElements.LI);
-        if (sheet.isShowPageRangeArrows()) {
-          final boolean disabled = sheet.isAtEnd();
-          encodeLink(facesContext, sheet, application, disabled, SheetAction.next, null, Icons.FORWARD, null);
-          encodeLink(facesContext, sheet, application, disabled || !sheet.hasRowCount(), SheetAction.last, null,
-              Icons.STEP_FORWARD, null);
-        }
-        writer.endElement(HtmlElements.UL);
-      }
-
-      writer.endElement(HtmlElements.FOOTER);
-    }
-
-    if (sheet.isTreeModel()) {
-      writer.startElement(HtmlElements.INPUT);
-      writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN);
-      final String expandedId = sheetId + ComponentUtils.SUB_SEPARATOR + AbstractUIData.SUFFIX_EXPANDED;
-      writer.writeNameAttribute(expandedId);
-      writer.writeIdAttribute(expandedId);
-      writer.writeClassAttribute(Classes.create(sheet, AbstractUIData.SUFFIX_EXPANDED));
-      writer.writeAttribute(HtmlAttributes.VALUE, expandedValue.toString(), false);
-      writer.endElement(HtmlElements.INPUT);
-    }
-
-    writer.endElement(HtmlElements.DIV);
+  private void encodeHiddenInput(TobagoResponseWriter writer, String value, String idWithSuffix) throws IOException {
+    writer.startElement(HtmlElements.INPUT);
+    writer.writeIdAttribute(idWithSuffix);
+    writer.writeNameAttribute(idWithSuffix);
+    writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN);
+    writer.writeAttribute(HtmlAttributes.VALUE, value, false);
+    writer.endElement(HtmlElements.INPUT);
   }
 
   private void ensureColumnWidthsSize(
