@@ -50,6 +50,8 @@
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <required.maven.version>3.0.4</required.maven.version>
+    <maven-pmd-plugin.version>3.7</maven-pmd-plugin.version>
+    <maven-checkstyle-plugin.version>2.9.1</maven-checkstyle-plugin.version><!-- before update MYFACES-3995 needs to be fixed -->
   </properties>
 
   <issueManagement>
@@ -174,7 +176,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-checkstyle-plugin</artifactId>
-        <version>2.9.1</version><!-- before update MYFACES-3995 needs to be fixed -->
+        <version>${maven-checkstyle-plugin.version}</version>
         <configuration>
           <configLocation>tobago/checkstyle.xml</configLocation>
           <headerLocation>default/myfaces-header.txt</headerLocation>
@@ -303,7 +305,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-pmd-plugin</artifactId>
-        <version>3.4</version>
+        <version>${maven-pmd-plugin.version}</version>
         <configuration>
           <rulesets>
             <!-- FIXME: currently only possible to build in project build -->
@@ -552,13 +554,13 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-pmd-plugin</artifactId>
-        <version>3.4</version>
+        <version>${maven-pmd-plugin.version}</version>
       </plugin>
 
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-checkstyle-plugin</artifactId>
-        <version>2.9.1</version><!-- before update MYFACES-3995 needs to be fixed -->
+        <version>${maven-checkstyle-plugin.version}</version>
         <executions>
           <execution>
             <id>verify-style</id>
@@ -699,7 +701,7 @@
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-pmd-plugin</artifactId>
-          <version>3.4</version>
+          <version>${maven-pmd-plugin.version}</version>
         </plugin>
         <plugin>
           <groupId>org.codehaus.mojo</groupId>
@@ -709,7 +711,7 @@
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-checkstyle-plugin</artifactId>
-          <version>2.9.1</version><!-- before update MYFACES-3995 needs to be fixed -->
+          <version>${maven-checkstyle-plugin.version}</version>
           <configuration>
             <configLocation>tobago/checkstyle.xml</configLocation>
             <headerLocation>default/myfaces-header.txt</headerLocation>
