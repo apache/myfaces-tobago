@@ -17,15 +17,31 @@
  * limitations under the License.
 -->
 
-<ui:composition xmlns:tc="http://myfaces.apache.org/tobago/component"
-                xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns="http://www.w3.org/1999/xhtml">
-  <tc:section label="#{event}">
-    <tc:button id="button#{type}#{event}" label="Button">
-      <ui:include src="x-event-component-content.xhtml">
-        <ui:param name="type" value="#{type}"/>
-        <ui:param name="event" value="#{event}"/>
-      </ui:include>
-    </tc:button>
-  </tc:section>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:c="http://java.sun.com/jsp/jstl/core"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:tc="http://myfaces.apache.org/tobago/component"
+                xmlns:ui="http://java.sun.com/jsf/facelets">
+  <tc:button id="button#{eventType}" label="Button">
+    <c:if test="#{eventType == 'ajax'}">
+      <f:ajax event="click" render="metrics" listener="#{eventController.ajaxListener}"
+              disabled="#{eventName != 'click'}"/>
+      <f:ajax event="dblclick" render="metrics" listener="#{eventController.ajaxListener}"
+              disabled="#{eventName != 'dblclick'}"/>
+      <f:ajax event="focus" render="metrics" listener="#{eventController.ajaxListener}"
+              disabled="#{eventName != 'focus'}"/>
+      <f:ajax event="blur" render="metrics" listener="#{eventController.ajaxListener}"
+              disabled="#{eventName != 'blur'}"/>
+    </c:if>
+    <c:if test="#{eventType == 'event'}">
+      <tc:event event="click" action="#{eventController.action}" actionListener="#{eventController.actionListener}"
+                rendered="#{eventName == 'click'}"/>
+      <tc:event event="dblclick" action="#{eventController.action}" actionListener="#{eventController.actionListener}"
+                rendered="#{eventName == 'dblclick'}"/>
+      <tc:event event="focus" action="#{eventController.action}" actionListener="#{eventController.actionListener}"
+                rendered="#{eventName == 'focus'}"/>
+      <tc:event event="blur" action="#{eventController.action}" actionListener="#{eventController.actionListener}"
+                rendered="#{eventName == 'blur'}"/>
+    </c:if>
+  </tc:button>
 </ui:composition>

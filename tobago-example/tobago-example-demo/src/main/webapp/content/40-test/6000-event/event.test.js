@@ -15,350 +15,197 @@
  * limitations under the License.
  */
 
-QUnit.test("tc:button tc:event - blur", function(assert) {
-  testButtonEvent(assert, "blur");
+QUnit.test("tc:button", function(assert) {
+  var eventNames = ["click", "dblclick", "focus", "blur"];
+  var $eventComponent = jQueryFrame("#page\\:mainForm\\:buttonevent");
+  var $ajaxComponent = jQueryFrame("#page\\:mainForm\\:buttonajax");
+  testEvent(assert, "button", eventNames, $eventComponent, $ajaxComponent, null);
 });
 
-QUnit.test("tc:button tc:event - click", function(assert) {
-  testButtonEvent(assert, "click");
-});
-
-QUnit.test("tc:button tc:event - dblclick", function(assert) {
-  testButtonEvent(assert, "dblclick");
-});
-
-QUnit.test("tc:button tc:event - focus", function(assert) {
-  testButtonEvent(assert, "focus");
-});
-
-QUnit.test("tc:button f:ajax - blur", function(assert) {
-  testButtonAjax(assert, "blur");
-});
-
-QUnit.test("tc:button f:ajax - click", function(assert) {
-  testButtonAjax(assert, "click");
-});
-
-QUnit.test("tc:button f:ajax - dblclick", function(assert) {
-  testButtonAjax(assert, "dblclick");
-});
-
-QUnit.test("tc:button f:ajax - focus", function(assert) {
-  testButtonAjax(assert, "focus");
-});
-
-QUnit.test("tc:in tc:event - blur", function(assert) {
-  testInEvent(assert, "blur");
-});
-
-QUnit.test("tc:in tc:event - change", function(assert) {
-  testInEvent(assert, "change");
-});
-
-QUnit.test("tc:in tc:event - click", function(assert) {
-  testInEvent(assert, "click");
-});
-
-QUnit.test("tc:in tc:event - dblclick", function(assert) {
-  testInEvent(assert, "dblclick");
-});
-
-QUnit.test("tc:in tc:event - focus", function(assert) {
-  testInEvent(assert, "focus");
-});
-
-QUnit.test("tc:in f:ajax - blur", function(assert) {
-  testInAjax(assert, "blur");
-});
-
-QUnit.test("tc:in f:ajax - change", function(assert) {
-  testInAjax(assert, "change");
-});
-QUnit.test("tc:in f:ajax - click", function(assert) {
-  testInAjax(assert, "click");
-});
-QUnit.test("tc:in f:ajax - dblclick", function(assert) {
-  testInAjax(assert, "dblclick");
-});
-QUnit.test("tc:in f:ajax - focus", function(assert) {
-  testInAjax(assert, "focus");
-});
-
-QUnit.test("tc:row tc:event - click", function(assert) {
-  testRowEvent(assert, "click");
-});
-
-QUnit.test("tc:row tc:event - dblclick", function(assert) {
-  testRowEvent(assert, "dblclick");
-});
-
-QUnit.test("tc:row f:ajax - click", function(assert) {
-  testRowAjax(assert, "click");
-});
-
-QUnit.test("tc:row f:ajax - dblclick", function(assert) {
-  testRowAjax(assert, "dblclick");
-});
-
-function testButtonEvent(assert, eventName) {
-  testEvent(assert, "button", function() {
-    return jQueryFrame("#page\\:mainForm\\:buttonevent" + eventName + "\\:\\:command");
-  }, eventName, true, true, false, false, false);
-}
-
-function testButtonAjax(assert, eventName) {
-  testAjax(assert, "button", function() {
-    return jQueryFrame("#page\\:mainForm\\:buttonajax" + eventName);
-  }, eventName, false, false, true, false, false);
-}
-
-function testInEvent(assert, eventName) {
-  testEvent(assert, "in", function() {
-    var $inputField = jQueryFrame("#page\\:mainForm\\:inevent" + eventName + "\\:\\:field");
+QUnit.test("tc:in", function(assert) {
+  var eventNames = ["change", "click", "dblclick", "focus", "blur"];
+  var $eventComponent = jQueryFrame("#page\\:mainForm\\:inevent\\:\\:field");
+  var $ajaxComponent = jQueryFrame("#page\\:mainForm\\:inajax\\:\\:field");
+  var changeValue = function($component) {
+    var oldValue = $component.val();
     var newValue = "hello";
-    if (newValue == $inputField.val()) {
-      newValue = "hi there";
+    if (oldValue == "hello") {
+      newValue = "hello there!"
     }
-    $inputField.val(newValue);
-    return $inputField;
-  }, eventName, true, true, false, true, false);
-}
+    return $component.val(newValue);
+  };
+  testEvent(assert, "in", eventNames, $eventComponent, $ajaxComponent, changeValue);
+});
 
-function testInAjax(assert, eventName) {
-  testAjax(assert, "in", function() {
-    var $inputField = jQueryFrame("#page\\:mainForm\\:inajax" + eventName + "\\:\\:field");
-    var newValue = "hello";
-    if (newValue == $inputField.val()) {
-      newValue = "hi there";
-    }
-    $inputField.val(newValue);
-    return $inputField;
-  }, eventName, false, false, true, true, false);
-}
+QUnit.test("tc:row", function(assert) {
+  var eventNames = ["click", "dblclick"];
+  var $eventComponent = jQueryFrame("#page\\:mainForm\\:sheetevent\\:0\\:selectPlanet");
+  var $ajaxComponent = jQueryFrame("#page\\:mainForm\\:sheetajax\\:0\\:selectPlanet");
+  testEvent(assert, "row", eventNames, $eventComponent, $ajaxComponent, null);
+});
 
-function testRowEvent(assert, eventName) {
-  var newSelectedPlanet = "Venus";
-  testEvent(assert, "row", function() {
-    var $row = jQueryFrame("#page\\:mainForm\\:sheetevent" + eventName + "\\:1\\:selectPlanet");
-    if (getSelectedPlanet() == newSelectedPlanet) {
-      $row = jQueryFrame("#page\\:mainForm\\:sheetevent" + eventName + "\\:4\\:selectPlanet");
-      newSelectedPlanet = "Jupiter";
-    }
-    return $row;
-  }, eventName, true, false, false, false, true);
-}
-
-function testRowAjax(assert, eventName) {
-  var newSelectedPlanet = "Venus";
-  testAjax(assert, "row", function() {
-    var $row = jQueryFrame("#page\\:mainForm\\:sheetajax" + eventName + "\\:1\\:selectPlanet");
-    if (getSelectedPlanet() == newSelectedPlanet) {
-      $row = jQueryFrame("#page\\:mainForm\\:sheetajax" + eventName + "\\:4\\:selectPlanet");
-      newSelectedPlanet = "Jupiter";
-    }
-    return $row;
-  }, eventName, false, false, false, false, true);
-}
-
-function testEvent(assert, componentName, componentFunc, event,
-                   incAction, incActionListener, incAjaxListener, incValueChangeListener, changePlanet) {
-  assert.expect(6);
-  var changeActiveComponent = jQueryFrame("#page\\:mainForm\\:compTestSection > div > h1 > span").text()
-      != "<tc:" + componentName + ">";
-  var done = assert.async(1 + changeActiveComponent);
-
-  var oldActionCount;
-  var oldActionListenerCount;
-  var oldAjaxListenerCount;
-  var oldValueChangeListenerCount;
-  var oldTimestamp;
-  var oldPlanet;
-
-  if (changeActiveComponent) {
-    activateComponent(componentName);
-    var step = 1;
-
-    jQuery("#page\\:testframe").load(function() {
-      if (step == 1) {
-        oldActionCount = getActionCount();
-        oldActionListenerCount = getActionListenerCount();
-        oldAjaxListenerCount = getAjaxListenerCount();
-        oldValueChangeListenerCount = getValueChangeListenerCount();
-        oldTimestamp = getTimestamp();
-        oldPlanet = getSelectedPlanet();
-
-        componentFunc().trigger(event);
-      } else if (step == 2) {
-        validateEvent(assert, oldActionCount, oldActionListenerCount, oldAjaxListenerCount,
-            oldValueChangeListenerCount, oldTimestamp, oldPlanet, incAction, incActionListener, incAjaxListener,
-            incValueChangeListener, changePlanet);
-      }
-      step++;
-      done();
-    });
-  } else {
-    oldActionCount = getActionCount();
-    oldActionListenerCount = getActionListenerCount();
-    oldAjaxListenerCount = getAjaxListenerCount();
-    oldValueChangeListenerCount = getValueChangeListenerCount();
-    oldTimestamp = getTimestamp();
-    oldPlanet = getSelectedPlanet();
-
-    componentFunc().trigger(event);
-
-    jQuery("#page\\:testframe").load(function() {
-      validateEvent(assert, oldActionCount, oldActionListenerCount, oldAjaxListenerCount, oldValueChangeListenerCount,
-          oldTimestamp, oldPlanet, incAction, incActionListener, incAjaxListener, incValueChangeListener, changePlanet);
-
-      done();
-    });
-  }
-}
-
-function validateEvent(assert, oldActionCount, oldActionListenerCount, oldAjaxListenerCount,
-                       oldValueChangeListenerCount, oldTimestamp, oldPlanet, incAction, incActionListener,
-                       incAjaxListener, incValueChangeListener, changePlanet) {
-  var newActionCount = getActionCount();
-  var newActionListenerCount = getActionListenerCount();
-  var newAjaxListenerCount = getAjaxListenerCount();
-  var newValueChangeListenerCount = getValueChangeListenerCount();
-  var newTimestamp = getTimestamp();
-  var newPlanet = getSelectedPlanet();
-
-  assert.equal(newActionCount, oldActionCount + incAction, "action");
-  assert.equal(newActionListenerCount, oldActionListenerCount + incActionListener, "actionListener");
-  assert.equal(newAjaxListenerCount, oldAjaxListenerCount + incAjaxListener, "ajaxListener");
-  assert.equal(newValueChangeListenerCount, oldValueChangeListenerCount + incValueChangeListener,
-      "valueChangeListener");
-  assert.ok(newTimestamp > oldTimestamp, "timestamp");
-  if (changePlanet) {
-    assert.notEqual(newPlanet, oldPlanet, "selectedPlanet");
-  } else {
-    assert.equal(newPlanet, oldPlanet, "selectedPlanet");
-  }
-}
-
-function testAjax(assert, componentName, componentFunc, event,
-                  incAction, incActionListener, incAjaxListener, incValueChangeListener, changePlanet) {
-  assert.expect(6);
-  var changeActiveComponent = jQueryFrame("#page\\:mainForm\\:compTestSection > div > h1 > span").text()
-      != "<tc:" + componentName + ">";
-  var done = assert.async(1 + changeActiveComponent);
-
-  var oldActionCount;
-  var oldActionListenerCount;
-  var oldAjaxListenerCount;
-  var oldValueChangeListenerCount;
-  var oldTimestamp;
-  var oldPlanet;
-
-  if (changeActiveComponent) {
-    activateComponent(componentName);
-    var step = 1;
-
-    jQuery("#page\\:testframe").load(function() {
-      if (step == 1) {
-        oldActionCount = getActionCount();
-        oldActionListenerCount = getActionListenerCount();
-        oldAjaxListenerCount = getAjaxListenerCount();
-        oldValueChangeListenerCount = getValueChangeListenerCount();
-        oldTimestamp = getTimestamp();
-        oldPlanet = getSelectedPlanet();
-
-        componentFunc().trigger(event);
-
-        validateAjax(assert, done, oldActionCount, oldActionListenerCount, oldAjaxListenerCount,
-            oldValueChangeListenerCount, oldTimestamp, oldPlanet, incAction, incActionListener, incAjaxListener,
-            incValueChangeListener, changePlanet);
-      }
-      step++;
-      done();
-    });
-  } else {
-    oldActionCount = getActionCount();
-    oldActionListenerCount = getActionListenerCount();
-    oldAjaxListenerCount = getAjaxListenerCount();
-    oldValueChangeListenerCount = getValueChangeListenerCount();
-    oldTimestamp = getTimestamp();
-    oldPlanet = getSelectedPlanet();
-
-    componentFunc().trigger(event);
-
-    validateAjax(assert, done, oldActionCount, oldActionListenerCount, oldAjaxListenerCount,
-        oldValueChangeListenerCount, oldTimestamp, oldPlanet, incAction, incActionListener, incAjaxListener,
-        incValueChangeListener, changePlanet);
-  }
-}
-
-function validateAjax(assert, done, oldActionCount, oldActionListenerCount, oldAjaxListenerCount,
-                      oldValueChangeListenerCount, oldTimestamp, oldPlanet, incAction, incActionListener,
-                      incAjaxListener, incValueChangeListener, changePlanet) {
-  waitForAjax(function() {
-    var newActionCount = getActionCount();
-    var newActionListenerCount = getActionListenerCount();
-    var newAjaxListenerCount = getAjaxListenerCount();
-    var newValueChangeListenerCount = getValueChangeListenerCount();
-    var newTimestamp = getTimestamp();
-    var newPlanet = getSelectedPlanet();
-
-    return newActionCount == (oldActionCount + incAction)
-    && newActionListenerCount == (oldActionListenerCount + incActionListener)
-    && newAjaxListenerCount == (oldAjaxListenerCount + incAjaxListener)
-    && newValueChangeListenerCount == (oldValueChangeListenerCount + incValueChangeListener)
-    && newTimestamp > oldTimestamp
-    && changePlanet ? newPlanet != oldPlanet : newPlanet == oldPlanet;
-  }, function() {
-    var newActionCount = getActionCount();
-    var newActionListenerCount = getActionListenerCount();
-    var newAjaxListenerCount = getAjaxListenerCount();
-    var newValueChangeListenerCount = getValueChangeListenerCount();
-    var newTimestamp = getTimestamp();
-    var newPlanet = getSelectedPlanet();
-
-    assert.equal(newActionCount, oldActionCount + incAction, "action");
-    assert.equal(newActionListenerCount, oldActionListenerCount + incActionListener, "actionListener");
-    assert.equal(newAjaxListenerCount, oldAjaxListenerCount + incAjaxListener, "ajaxListener");
-    assert.equal(newValueChangeListenerCount, oldValueChangeListenerCount + incValueChangeListener,
-        "valueChangeListener");
-    assert.ok(newTimestamp > oldTimestamp, "timestamp");
-    if (changePlanet) {
-      assert.notEqual(newPlanet, oldPlanet, "selectedPlanet");
+QUnit.test("tc:selectBooleanCheckbox", function(assert) {
+  var eventNames = ["change", "click", "dblclick", "focus", "blur"];
+  var $eventComponent = jQueryFrame("#page\\:mainForm\\:selectBooleanCheckboxevent\\:\\:field");
+  var $ajaxComponent = jQueryFrame("#page\\:mainForm\\:selectBooleanCheckboxajax\\:\\:field");
+  var changeValue = function($component) {
+    var currentEvent = jQueryFrame("#page\\:mainForm\\:outEventName span").text();
+    if (currentEvent != "click") {
+      console.log("old -- currentEvent: " + currentEvent + " isChecked: " + $component.prop("checked"));
+      return $component.prop("checked", !$component.prop("checked"));
+      console.log("new -- currentEvent: " + currentEvent + " isChecked: " + $component.prop("checked"));
     } else {
-      assert.equal(newPlanet, oldPlanet, "selectedPlanet");
+      return $component;
     }
+  };
+  testEvent(assert, "selectBooleanCheckbox", eventNames, $eventComponent, $ajaxComponent, changeValue);
+});
 
+QUnit.test("tc:textarea", function(assert) {
+  var eventNames = ["change", "click", "dblclick", "focus", "blur"];
+  var $eventComponent = jQueryFrame("#page\\:mainForm\\:textareaevent\\:\\:field");
+  var $ajaxComponent = jQueryFrame("#page\\:mainForm\\:textareaajax\\:\\:field");
+  var changeValue = function($component) {
+    var oldValue = $component.val();
+    var newValue = "hello";
+    if (oldValue == "hello") {
+      newValue = "hello there!"
+    }
+    return $component.val(newValue);
+  };
+  testEvent(assert, "textarea", eventNames, $eventComponent, $ajaxComponent, changeValue);
+});
+
+function testEvent(assert, componentName, eventNames, $eventComponent, $ajaxComponent, changeValue) {
+  assert.expect(10 * eventNames.length);
+  var step = 0;
+  var done = assert.async(3 * eventNames.length);
+
+  var oldActionCount;
+  var oldActionListenerCount;
+  var oldAjaxListenerCount;
+  var oldValueChangeListenerCount;
+  var oldTimestamp;
+
+  var eventName = eventNames[0];
+  activateComponent(componentName, eventName);
+
+  jQuery("#page\\:testframe").load(function() {
+    if (step % 3 == 0) {
+      oldActionCount = getActionCount();
+      oldActionListenerCount = getActionListenerCount();
+      oldAjaxListenerCount = getAjaxListenerCount();
+      oldValueChangeListenerCount = getValueChangeListenerCount();
+      oldTimestamp = getTimestamp();
+
+      $eventComponent = jQueryFrame($eventComponent.selector);
+      if (changeValue != null) {
+        $eventComponent = changeValue($eventComponent);
+      }
+      $eventComponent.trigger(eventName);
+    } else if (step % 3 == 1) {
+      var newActionCount = getActionCount();
+      var newActionListenerCount = getActionListenerCount();
+      var newAjaxListenerCount = getAjaxListenerCount();
+      var newValueChangeListenerCount = getValueChangeListenerCount();
+      var newTimestamp = getTimestamp();
+
+      assert.equal(newActionCount, oldActionCount + 1, eventName + " - tc:event - action");
+      assert.equal(newActionListenerCount, oldActionListenerCount + 1, eventName + " - tc:event - actionListener");
+      assert.equal(newAjaxListenerCount, oldAjaxListenerCount, eventName + " - tc:event - ajaxListener");
+      if (changeValue != null) {
+        assert.equal(newValueChangeListenerCount, oldValueChangeListenerCount + 1,
+            eventName + " - tc:event - valueChangeListener");
+      } else {
+        assert.equal(newValueChangeListenerCount, oldValueChangeListenerCount,
+            eventName + " - tc:event - valueChangeListener");
+      }
+      assert.ok(newTimestamp > oldTimestamp, eventName + " - tc:event - timestamp");
+
+
+      oldActionCount = getActionCount();
+      oldActionListenerCount = getActionListenerCount();
+      oldAjaxListenerCount = getAjaxListenerCount();
+      oldValueChangeListenerCount = getValueChangeListenerCount();
+      oldTimestamp = getTimestamp();
+
+      $ajaxComponent = jQueryFrame($ajaxComponent.selector);
+      if (changeValue != null) {
+        $ajaxComponent = changeValue($ajaxComponent);
+      }
+      $ajaxComponent.trigger(eventName);
+
+      waitForAjax(function() {
+        newActionCount = getActionCount();
+        newActionListenerCount = getActionListenerCount();
+        newAjaxListenerCount = getAjaxListenerCount();
+        newValueChangeListenerCount = getValueChangeListenerCount();
+        newTimestamp = getTimestamp();
+
+        return step % 3 == 2
+            && newAjaxListenerCount == oldAjaxListenerCount + 1
+            && newTimestamp > oldTimestamp;
+      }, function() {
+        newActionCount = getActionCount();
+        newActionListenerCount = getActionListenerCount();
+        newAjaxListenerCount = getAjaxListenerCount();
+        newValueChangeListenerCount = getValueChangeListenerCount();
+        newTimestamp = getTimestamp();
+
+        assert.equal(newActionCount, oldActionCount, eventName + " - f:ajax - action");
+        assert.equal(newActionListenerCount, oldActionListenerCount, eventName + " - f:ajax - actionListener");
+        assert.equal(newAjaxListenerCount, oldAjaxListenerCount + 1, eventName + " - f:ajax - ajaxListener");
+        if (changeValue != null) {
+          assert.equal(newValueChangeListenerCount, oldValueChangeListenerCount + 1,
+              eventName + " - f:ajax - valueChangeListener");
+        } else {
+          assert.equal(newValueChangeListenerCount, oldValueChangeListenerCount,
+              eventName + " - f:ajax - valueChangeListener");
+        }
+        assert.ok(newTimestamp > oldTimestamp, eventName + " - f:ajax - timestamp");
+
+        step++;
+        done();
+
+        // activate next event
+        eventName = eventNames[step / 3];
+        activateComponent(componentName, eventName);
+      });
+    }
+    step++;
     done();
-  }, 3000);
+  });
+}
+
+function activateComponent(componentName, eventName) {
+  jQueryFrame("#page\\:mainForm\\:componentTable .tobago-sheet-row").each(function() {
+    if (jQuery(this).find("td").eq(0).find("span").text() == componentName) {
+      jQuery(this).find("button").each(function() {
+        var id = jQuery(this).attr("id");
+        if (id != undefined && id.indexOf(eventName + "Behavior") >= 0) {
+          this.click();
+        }
+      });
+    }
+  });
 }
 
 function getActionCount() {
-  return parseInt(jQueryFrame("#page\\:mainForm\\:outAction span").text());
+  return parseInt(jQueryFrame("#page\\:mainForm\\:inAction\\:\\:field").val());
 }
 
 function getActionListenerCount() {
-  return parseInt(jQueryFrame("#page\\:mainForm\\:outActionListener span").text());
+  return parseInt(jQueryFrame("#page\\:mainForm\\:inActionListener\\:\\:field").val());
 }
 
 function getAjaxListenerCount() {
-  return parseInt(jQueryFrame("#page\\:mainForm\\:outAjaxListener span").text());
+  return parseInt(jQueryFrame("#page\\:mainForm\\:inAjaxListener\\:\\:field").val());
 }
 
 function getValueChangeListenerCount() {
-  return parseInt(jQueryFrame("#page\\:mainForm\\:outValueChangeListener span").text());
+  return parseInt(jQueryFrame("#page\\:mainForm\\:inValueChangeListener\\:\\:field").val());
 }
 
 function getTimestamp() {
-  return parseInt(jQueryFrame("#page\\:mainForm\\:outTimestamp span").text());
-}
-
-function getSelectedPlanet() {
-  return jQueryFrame("#page\\:mainForm\\:inPlanet\\:\\:field").val()
-}
-
-function activateComponent(componentName) {
-  jQueryFrame("#page\\:mainForm\\:componentTable .tobago-sheet-row").each(function() {
-    if (jQuery(this).find("td").eq(0).find("span").text() == componentName) {
-      this.click();
-    }
-  });
+  return parseInt(jQueryFrame("#page\\:mainForm\\:inTimestamp\\:\\:field").val());
 }

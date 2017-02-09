@@ -23,6 +23,7 @@ import org.apache.myfaces.tobago.component.UIBar;
 import org.apache.myfaces.tobago.component.UIButton;
 import org.apache.myfaces.tobago.component.UIIn;
 import org.apache.myfaces.tobago.component.UIRow;
+import org.apache.myfaces.tobago.component.UISelectBooleanCheckbox;
 import org.apache.myfaces.tobago.component.UITextarea;
 import org.apache.myfaces.tobago.example.data.SolarObject;
 import org.apache.myfaces.tobago.util.ComponentUtils;
@@ -31,7 +32,6 @@ import javax.enterprise.context.SessionScoped;
 import javax.faces.component.UIData;
 import javax.faces.event.ActionEvent;
 import javax.faces.event.AjaxBehaviorEvent;
-import javax.faces.event.FacesEvent;
 import javax.faces.event.ValueChangeEvent;
 import javax.inject.Named;
 import java.io.Serializable;
@@ -48,18 +48,20 @@ public class EventController implements Serializable {
 
   private List<EventsOnComponent> eventsOnComponents = new ArrayList<EventsOnComponent>();
   private EventsOnComponent selectedComponent;
+  private String eventName;
   private int action = 0;
   private int actionListener = 0;
   private int ajaxListener = 0;
   private int valueChangeListener = 0;
   private List<SolarObject> planets = new ArrayList<SolarObject>();
-  private String selectedPlanet;
 
   public EventController() {
     eventsOnComponents.add(new EventsOnComponent("bar", new UIBar().getEventNames()));
     eventsOnComponents.add(new EventsOnComponent("button", new UIButton().getEventNames()));
     eventsOnComponents.add(new EventsOnComponent("in", new UIIn().getEventNames()));
     eventsOnComponents.add(new EventsOnComponent("row", new UIRow().getEventNames()));
+    eventsOnComponents.add(new EventsOnComponent("selectBooleanCheckbox",
+        new UISelectBooleanCheckbox().getEventNames()));
     eventsOnComponents.add(new EventsOnComponent("textarea", new UITextarea().getEventNames()));
 
     planets.add(new SolarObject("Mercury", "I", "Sun", 57910, 87.97, 7.00, 0.21, "-", null));
@@ -77,7 +79,6 @@ public class EventController implements Serializable {
     actionListener = 0;
     ajaxListener = 0;
     valueChangeListener = 0;
-    selectedPlanet = null;
   }
 
   public List<EventsOnComponent> getEventsOnComponents() {
@@ -88,13 +89,18 @@ public class EventController implements Serializable {
     return selectedComponent;
   }
 
-  public void setSelectedComponent(EventsOnComponent selectedComponent) {
-    this.selectedComponent = selectedComponent;
+  public String getEventName() {
+    return eventName;
+  }
+
+  public String getInclude() {
+    return selectedComponent != null ? "x-event-" + selectedComponent.getTagName() + ".xhtml" : "";
   }
 
   public void selectComponent(final ActionEvent actionEvent) {
     final UIData data = ComponentUtils.findAncestor(actionEvent.getComponent(), UIData.class);
     selectedComponent = data != null ? ((EventsOnComponent) data.getRowData()) : null;
+    eventName = actionEvent.getComponent().getAttributes().get("eventName").toString();
   }
 
   public void action() {
@@ -137,19 +143,6 @@ public class EventController implements Serializable {
     return planets;
   }
 
-  public String getSelectedPlanet() {
-    return selectedPlanet;
-  }
-
-  public void setSelectedPlanet(String selectedPlanet) {
-    this.selectedPlanet = selectedPlanet;
-  }
-
-  public void selectPlanet(final FacesEvent actionEvent) {
-    final UIData data = ComponentUtils.findAncestor(actionEvent.getComponent(), UIData.class);
-    selectedPlanet = data != null ? ((SolarObject) data.getRowData()).getName() : null;
-  }
-
   public class EventsOnComponent {
     private String tagName;
     private Set<String> eventNames = new TreeSet<String>();
@@ -165,54 +158,60 @@ public class EventController implements Serializable {
       return tagName;
     }
 
-    public Set<String> getEventNames() {
-      return eventNames;
+    public boolean hasBlurEvent() {
+      return eventNames.contains(CommonEvent.blur.name());
     }
 
-    public String getChangeEvent() {
-      return getCommonEventString(CommonEvent.change);
+    public boolean hasChangeEvent() {
+      return eventNames.contains(CommonEvent.change.name());
     }
 
-    public String getClickEvents() {
-      return getCommonEventString(CommonEvent.click, CommonEvent.dblclick);
+    public boolean hasClickEvent() {
+      return eventNames.contains(CommonEvent.click.name());
     }
 
-    public String getFocusEvents() {
-      return getCommonEventString(CommonEvent.focus, CommonEvent.blur);
+    public boolean hasDblclickEvent() {
+      return eventNames.contains(CommonEvent.dblclick.name());
     }
 
-    public String getKeyEvents() {
-      return getCommonEventString(CommonEvent.keydown, CommonEvent.keypress, CommonEvent.keyup);
+    public boolean hasFocusEvent() {
+      return eventNames.contains(CommonEvent.focus.name());
     }
 
-    public String getMouseEvents() {
-      return getCommonEventString(CommonEvent.mousedown, CommonEvent.mousemove, CommonEvent.mouseout,
-          CommonEvent.mouseover, CommonEvent.mouseup);
+    public boolean hasKeydownEvent() {
+      return eventNames.contains(CommonEvent.keydown.name());
     }
 
-    public String getSelectEvent() {
-      return getCommonEventString(CommonEvent.select);
+    public boolean hasKeypressEvent() {
+      return eventNames.contains(CommonEvent.keypress.name());
     }
 
-    private String getCommonEventString(CommonEvent... commonEvents) {
-      boolean allTrue = true;
-      boolean allFalse = true;
+    public boolean hasKeyupEvent() {
+      return eventNames.contains(CommonEvent.keyup.name());
+    }
 
-      for (CommonEvent commonEvent : commonEvents) {
-        if (eventNames.contains(commonEvent.name())) {
-          allFalse = false;
-        } else {
-          allTrue = false;
-        }
-      }
+    public boolean hasMousedownEvent() {
+      return eventNames.contains(CommonEvent.mousedown.name());
+    }
 
-      if (allTrue) {
-        return "x";
-      } else if (allFalse) {
-        return "-";
-      } else {
-        return concatStrings(eventNames);
-      }
+    public boolean hasMousemoveEvent() {
+      return eventNames.contains(CommonEvent.mousemove.name());
+    }
+
+    public boolean hasMouseoutEvent() {
+      return eventNames.contains(CommonEvent.mouseout.name());
+    }
+
+    public boolean hasMouseoverEvent() {
+      return eventNames.contains(CommonEvent.mouseover.name());
+    }
+
+    public boolean hasMouseupEvent() {
+      return eventNames.contains(CommonEvent.mouseup.name());
+    }
+
+    public boolean hasSelectEvent() {
+      return eventNames.contains(CommonEvent.select.name());
     }
 
     public String getSpecialEvents() {

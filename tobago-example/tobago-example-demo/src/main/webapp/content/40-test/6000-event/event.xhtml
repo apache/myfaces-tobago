@@ -21,83 +21,148 @@
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:f="http://java.sun.com/jsf/core"
-                xmlns:c="http://java.sun.com/jsp/jstl/core">
+                xmlns:f="http://java.sun.com/jsf/core">
   <ui:param name="title" value="&lt;tc:event>"/>
-  <tc:box id="metrics" label="Metrics" rendered="#{eventController.selectedComponent != null}">
+  <tc:style file="#{request.contextPath}/style/tobago.css"/>
+
+  <tc:box id="metrics" label="Metrics">
     <f:facet name="bar">
       <tc:button label="Reset" action="#{eventController.reset}"/>
     </f:facet>
-    <tc:out id="outAction" label="Action" value="#{eventController.actionCount}"/>
-    <tc:out id="outActionListener" label="ActionListener" value="#{eventController.actionListenerCount}"/>
-    <tc:out id="outAjaxListener" label="AjaxListener" value="#{eventController.ajaxListenerCount}"/>
-    <tc:out id="outValueChangeListener" label="ValueChange-Listener"
-            value="#{eventController.valueChangeListenerCount}"/>
-    <tc:separator/>
-    <tc:out id="outTimestamp" label="Timestamp" value="#{eventController.currentTimestamp}"/>
-    <tc:in id="inPlanet" label="Selected planet" value="#{eventController.selectedPlanet}"/>
+    <tc:in id="inAction" label="Action" value="#{eventController.actionCount}" readonly="true" focus="true"/>
+    <tc:in id="inActionListener" label="ActionListener" value="#{eventController.actionListenerCount}"
+           readonly="true"/>
+    <tc:in id="inAjaxListener" label="AjaxListener" value="#{eventController.ajaxListenerCount}" readonly="true"/>
+    <tc:in id="inValueChangeListener" label="ValueChange-Listener" value="#{eventController.valueChangeListenerCount}"
+           readonly="true"/>
+    <tc:in id="inTimestamp" label="Timestamp" value="#{eventController.currentTimestamp}" readonly="true"/>
   </tc:box>
 
-  <tc:section id="compTestSection" label="&lt;tc:#{eventController.selectedComponent.tagName}>"
-              rendered="#{eventController.selectedComponent != null}">
-    <tc:segmentLayout medium="6;6">
-      <tc:box label="&lt;tc:event>">
-        <c:forEach items="#{eventController.selectedComponent.eventNames}" var="event">
-          <ui:include src="#{'x-event-'.concat(eventController.selectedComponent.tagName).concat('.xhtml')}">
-            <ui:param name="type" value="event"/>
-            <ui:param name="event" value="#{event}"/>
-          </ui:include>
-        </c:forEach>
+  <tc:box id="compTestBox" label="Test Box" rendered="#{eventController.selectedComponent != null}">
+    <tc:out id="outComponent" label="Component" value="&lt;tc:#{eventController.selectedComponent.tagName}>"/>
+    <tc:out id="outEventName" label="Event Name" value="#{eventController.eventName}"/>
+    <tc:segmentLayout extraSmall="6;6">
+      <tc:box label="Event">
+        <ui:include src="x-event-#{eventController.selectedComponent.tagName}.xhtml">
+          <ui:param name="tag" value="#{eventController.selectedComponent.tagName}"/>
+          <ui:param name="eventName" value="#{eventController.eventName}"/>
+          <ui:param name="eventType" value="event"/>
+        </ui:include>
       </tc:box>
-      <tc:box label="&lt;f:ajax>">
-        <c:forEach items="#{eventController.selectedComponent.eventNames}" var="event">
-          <ui:include src="#{'x-event-'.concat(eventController.selectedComponent.tagName).concat('.xhtml')}">
-            <ui:param name="type" value="ajax"/>
-            <ui:param name="event" value="#{event}"/>
-          </ui:include>
-        </c:forEach>
+      <tc:box label="Ajax">
+        <ui:include src="x-event-#{eventController.selectedComponent.tagName}.xhtml">
+          <ui:param name="tag" value="#{eventController.selectedComponent.tagName}"/>
+          <ui:param name="eventName" value="#{eventController.eventName}"/>
+          <ui:param name="eventType" value="ajax"/>
+        </ui:include>
       </tc:box>
     </tc:segmentLayout>
-  </tc:section>
+  </tc:box>
 
-  <tc:separator/>
-  <p>click events = click, dblclick<br/>
-    focus events = focus, blur<br/>
-    mouse events = mousedown, mousemove, mouseout, mouseover, mouseup<br/>
-    key events = keydown, keypress, keyup</p>
   <tc:sheet id="componentTable" value="#{eventController.eventsOnComponents}" var="comp" markup="small">
     <tc:column label="Tag Name">
       <tc:out value="#{comp.tagName}" labelLayout="skip"/>
     </tc:column>
-    <tc:column label="change" align="center"
-               markup="#{comp.changeEvent == 'x' ? 'lightgreen' : comp.changeEvent == '-' ? 'lightred' : ''}">
-      <tc:out value="#{comp.changeEvent}" labelLayout="skip"/>
+    <tc:column label="change" align="center" markup="#{comp.hasChangeEvent() ? 'lightgreen' : 'lightred'}">
+      <tc:button id="changeBehavior" label="X"
+                 actionListener="#{eventController.selectComponent}" rendered="#{comp.hasChangeEvent()}">
+        <f:attribute name="eventName" value="change"/>
+      </tc:button>
+      <tc:out value="-" labelLayout="skip" rendered="#{!comp.hasChangeEvent()}"/>
     </tc:column>
-    <tc:column label="click events" align="center"
-               markup="#{comp.clickEvents == 'x' ? 'lightgreen' : comp.clickEvents == '-' ? 'lightred' : ''}">
-      <tc:out value="#{comp.clickEvents}" labelLayout="skip"/>
+    <tc:column label="click" align="center" markup="#{comp.hasClickEvent() ? 'lightgreen' : 'lightred'}">
+      <tc:button id="clickBehavior" label="X"
+                 actionListener="#{eventController.selectComponent}" rendered="#{comp.hasClickEvent()}">
+        <f:attribute name="eventName" value="click"/>
+      </tc:button>
+      <tc:out value="-" labelLayout="skip" rendered="#{!comp.hasClickEvent()}"/>
     </tc:column>
-    <tc:column label="focus events" align="center"
-               markup="#{comp.focusEvents == 'x' ? 'lightgreen' : comp.focusEvents == '-' ? 'lightred' : ''}">
-      <tc:out value="#{comp.focusEvents}" labelLayout="skip"/>
+    <tc:column label="dblclick" align="center" markup="#{comp.hasDblclickEvent() ? 'lightgreen' : 'lightred'}">
+      <tc:button id="dblclickBehavior" label="X"
+                 actionListener="#{eventController.selectComponent}" rendered="#{comp.hasDblclickEvent()}">
+        <f:attribute name="eventName" value="dblclick"/>
+      </tc:button>
+      <tc:out value="-" labelLayout="skip" rendered="#{!comp.hasDblclickEvent()}"/>
     </tc:column>
-    <tc:column label="mouse events" align="center"
-               markup="#{comp.mouseEvents == 'x' ? 'lightgreen' : comp.mouseEvents == '-' ? 'lightred' : ''}">
-      <tc:out value="#{comp.mouseEvents}" labelLayout="skip"/>
+    <tc:column label="focus" align="center" markup="#{comp.hasFocusEvent() ? 'lightgreen' : 'lightred'}">
+      <tc:button id="focusBehavior" label="X"
+                 actionListener="#{eventController.selectComponent}" rendered="#{comp.hasFocusEvent()}">
+        <f:attribute name="eventName" value="focus"/>
+      </tc:button>
+      <tc:out value="-" labelLayout="skip" rendered="#{!comp.hasFocusEvent()}"/>
     </tc:column>
-    <tc:column label="key events" align="center"
-               markup="#{comp.keyEvents == 'x' ? 'lightgreen' : comp.keyEvents == '-' ? 'lightred' : ''}">
-      <tc:out value="#{comp.keyEvents}" labelLayout="skip"/>
+    <tc:column label="blur" align="center" markup="#{comp.hasBlurEvent() ? 'lightgreen' : 'lightred'}">
+      <tc:button id="blurBehavior" label="X"
+                 actionListener="#{eventController.selectComponent}" rendered="#{comp.hasBlurEvent()}">
+        <f:attribute name="eventName" value="blur"/>
+      </tc:button>
+      <tc:out value="-" labelLayout="skip" rendered="#{!comp.hasBlurEvent()}"/>
     </tc:column>
-    <tc:column label="select" align="center"
-               markup="#{comp.selectEvent == 'x' ? 'lightgreen' : comp.selectEvent == '-' ? 'lightred' : ''}">
-      <tc:out value="#{comp.selectEvent}" labelLayout="skip"/>
+    <tc:column label="key down" align="center" markup="#{comp.hasKeydownEvent() ? 'lightgreen' : 'lightred'}">
+      <tc:button id="keydownBehavior" label="X"
+                 actionListener="#{eventController.selectComponent}" rendered="#{comp.hasKeydownEvent()}">
+        <f:attribute name="eventName" value="keydown"/>
+      </tc:button>
+      <tc:out value="-" labelLayout="skip" rendered="#{!comp.hasKeydownEvent()}"/>
+    </tc:column>
+    <tc:column label="key press" align="center" markup="#{comp.hasKeypressEvent() ? 'lightgreen' : 'lightred'}">
+      <tc:button id="keypressBehavior" label="X"
+                 actionListener="#{eventController.selectComponent}" rendered="#{comp.hasKeypressEvent()}">
+        <f:attribute name="eventName" value="keypress"/>
+      </tc:button>
+      <tc:out value="-" labelLayout="skip" rendered="#{!comp.hasKeypressEvent()}"/>
+    </tc:column>
+    <tc:column label="key up" align="center" markup="#{comp.hasKeyupEvent() ? 'lightgreen' : 'lightred'}">
+      <tc:button id="keyupBehavior" label="X"
+                 actionListener="#{eventController.selectComponent}" rendered="#{comp.hasKeyupEvent()}">
+        <f:attribute name="eventName" value="keyup"/>
+      </tc:button>
+      <tc:out value="-" labelLayout="skip" rendered="#{!comp.hasKeyupEvent()}"/>
+    </tc:column>
+    <tc:column label="mouse down" align="center" markup="#{comp.hasMousedownEvent() ? 'lightgreen' : 'lightred'}">
+      <tc:button id="mousedownBehavior" label="X"
+                 actionListener="#{eventController.selectComponent}" rendered="#{comp.hasMousedownEvent()}">
+        <f:attribute name="eventName" value="mousedown"/>
+      </tc:button>
+      <tc:out value="-" labelLayout="skip" rendered="#{!comp.hasMousedownEvent()}"/>
+    </tc:column>
+    <tc:column label="mouse move" align="center" markup="#{comp.hasMousemoveEvent() ? 'lightgreen' : 'lightred'}">
+      <tc:button id="mousemoveBehavior" label="X"
+                 actionListener="#{eventController.selectComponent}" rendered="#{comp.hasMousemoveEvent()}">
+        <f:attribute name="eventName" value="mousemove"/>
+      </tc:button>
+      <tc:out value="-" labelLayout="skip" rendered="#{!comp.hasMousemoveEvent()}"/>
+    </tc:column>
+    <tc:column label="mouse out" align="center" markup="#{comp.hasMouseoutEvent() ? 'lightgreen' : 'lightred'}">
+      <tc:button id="mouseoutBehavior" label="X"
+                 actionListener="#{eventController.selectComponent}" rendered="#{comp.hasMouseoutEvent()}">
+        <f:attribute name="eventName" value="mouseout"/>
+      </tc:button>
+      <tc:out value="-" labelLayout="skip" rendered="#{!comp.hasMouseoutEvent()}"/>
+    </tc:column>
+    <tc:column label="mouse over" align="center" markup="#{comp.hasMouseoverEvent() ? 'lightgreen' : 'lightred'}">
+      <tc:button id="mouseoverBehavior" label="X"
+                 actionListener="#{eventController.selectComponent}" rendered="#{comp.hasMouseoverEvent()}">
+        <f:attribute name="eventName" value="mouseover"/>
+      </tc:button>
+      <tc:out value="-" labelLayout="skip" rendered="#{!comp.hasMouseoverEvent()}"/>
+    </tc:column>
+    <tc:column label="mouse up" align="center" markup="#{comp.hasMouseupEvent() ? 'lightgreen' : 'lightred'}">
+      <tc:button id="mouseupBehavior" label="X"
+                 actionListener="#{eventController.selectComponent}" rendered="#{comp.hasMouseupEvent()}">
+        <f:attribute name="eventName" value="mouseup"/>
+      </tc:button>
+      <tc:out value="-" labelLayout="skip" rendered="#{!comp.hasMouseupEvent()}"/>
+    </tc:column>
+    <tc:column label="select" align="center" markup="#{comp.hasSelectEvent() ? 'lightgreen' : 'lightred'}">
+      <tc:button id="selectBehavior" label="X"
+                 actionListener="#{eventController.selectComponent}" rendered="#{comp.hasSelectEvent()}">
+        <f:attribute name="eventName" value="select"/>
+      </tc:button>
+      <tc:out value="-" labelLayout="skip" rendered="#{!comp.hasSelectEvent()}"/>
     </tc:column>
     <tc:column label="special events">
       <tc:out value="#{comp.specialEvents}" labelLayout="skip"/>
     </tc:column>
-    <tc:row id="selectComponent">
-      <tc:event event="click" actionListener="#{eventController.selectComponent}"/>
-    </tc:row>
   </tc:sheet>
 </ui:composition>
