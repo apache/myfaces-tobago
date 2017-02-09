@@ -35,9 +35,9 @@ import javax.servlet.http.HttpServletRequest;
 @RequestScoped
 public class TobagoContext {
 
-  private static final Logger LOG = LoggerFactory.getLogger(TobagoContext.class);
-
   public static final String BEAN_NAME = "tobagoContext";
+
+  private static final Logger LOG = LoggerFactory.getLogger(TobagoContext.class);
 
   private static final TobagoResourceBundle RESOURCE_BUNDLE = new TobagoResourceBundle();
   private static final TobagoMessageBundle MESSAGE_BUNDLE = new TobagoMessageBundle();

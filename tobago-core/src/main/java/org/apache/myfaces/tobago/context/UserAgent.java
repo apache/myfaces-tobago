@@ -32,10 +32,6 @@ import java.util.StringTokenizer;
 
 public final class UserAgent implements Serializable {
 
-  private static final long serialVersionUID = 2L;
-
-  private static final Logger LOG = LoggerFactory.getLogger(UserAgent.class);
-
   public static final String DEFAULT_NAME = "standard";
 
   public static final UserAgent DEFAULT = new UserAgent(null, null);
@@ -185,6 +181,10 @@ public final class UserAgent implements Serializable {
   public static final UserAgent WEBKIT
       = new UserAgent("webkit", null,
       EnumSet.of(Capability.PLACEHOLDER, Capability.CONTENT_TYPE_XHTML), CspHeader.WEBKIT, CsproHeader.WEBKIT);
+
+  private static final long serialVersionUID = 2L;
+
+  private static final Logger LOG = LoggerFactory.getLogger(UserAgent.class);
 
   private final String name;
 

@@ -248,10 +248,10 @@ public enum Attributes {
   widthList,
   zIndex;
 
-  private static final Logger LOG = LoggerFactory.getLogger(Attributes.class);
-
   /** This constants are needed for annotations, because they can't use the enums. */
   public static final String EXECUTE = "execute";
+
+  private static final Logger LOG = LoggerFactory.getLogger(Attributes.class);
 
   private final String explicit;
 
