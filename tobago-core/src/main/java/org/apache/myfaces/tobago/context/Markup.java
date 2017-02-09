@@ -83,6 +83,7 @@ public final class Markup implements Serializable, Iterable<String> {
   public static final Markup INLINE = valueOf("inline");
   public static final Markup JUSTIFY = valueOf("justify");
   public static final Markup INVERSE = valueOf("inverse");
+  public static final Markup LARGE = valueOf("large");
   public static final Markup LEFT = valueOf("left");
   public static final Markup MARKED = valueOf("marked");
   public static final Markup MODAL = valueOf("modal");

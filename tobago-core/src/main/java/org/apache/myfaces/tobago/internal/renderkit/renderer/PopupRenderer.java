@@ -19,6 +19,7 @@
 
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
+import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.internal.component.AbstractUIPopup;
 import org.apache.myfaces.tobago.model.CollapseMode;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
@@ -43,6 +44,7 @@ public class PopupRenderer extends PanelRendererBase {
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
     final String clientId = popup.getClientId(facesContext);
     final boolean collapsed = popup.isCollapsed();
+    Markup popupMarkup = popup.getMarkup() != null ? popup.getMarkup() : Markup.NULL;
 
     ComponentUtils.putDataAttribute(popup, "backdrop", "static");
 
@@ -58,7 +60,10 @@ public class PopupRenderer extends PanelRendererBase {
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, popup);
     // todo: aria-labelledby
     writer.startElement(HtmlElements.DIV);
-    writer.writeClassAttribute(BootstrapClass.MODAL_DIALOG);
+    writer.writeClassAttribute(
+        BootstrapClass.MODAL_DIALOG,
+        popupMarkup.contains(Markup.LARGE) ? BootstrapClass.MODAL_LG : null,
+        popupMarkup.contains(Markup.SMALL) ? BootstrapClass.MODAL_SM : null);
     writer.writeAttribute(HtmlAttributes.ROLE, HtmlRoleValues.DOCUMENT.toString(), false);
 /*
     final Style style = new Style();
