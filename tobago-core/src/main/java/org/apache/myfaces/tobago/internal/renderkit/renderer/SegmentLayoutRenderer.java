@@ -23,11 +23,11 @@ import org.apache.myfaces.tobago.component.LabelLayout;
 import org.apache.myfaces.tobago.component.SupportsLabelLayout;
 import org.apache.myfaces.tobago.component.UISegmentLayout;
 import org.apache.myfaces.tobago.internal.component.AbstractUISegmentLayout;
+import org.apache.myfaces.tobago.internal.util.RenderUtils;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
-import org.apache.myfaces.tobago.internal.util.RenderUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -111,7 +111,7 @@ public class SegmentLayoutRenderer extends RendererBase {
       FacesContext facesContext, TobagoResponseWriter writer, BootstrapClass.Generator generator, UIComponent child)
       throws IOException {
     writer.startElement(HtmlElements.DIV);
-    writer.writeClassAttribute(null, null, generator.generate());
+    writer.writeClassAttribute(null, null, generator.generate(child));
     RenderUtils.encode(facesContext, child);
     writer.endElement(HtmlElements.DIV);
   }
@@ -121,5 +121,4 @@ public class SegmentLayoutRenderer extends RendererBase {
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
     writer.endElement(HtmlElements.DIV);
   }
-
 }

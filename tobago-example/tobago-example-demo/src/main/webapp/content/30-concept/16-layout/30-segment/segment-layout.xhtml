@@ -85,6 +85,40 @@
       <tc:in value="11"/>
       <tc:in value="12"/>
     </tc:segmentLayout>
+  </tc:section>
 
+  <tc:section label="Offset">
+    <p>An offset can be set for the different proportions with the
+      <code class="language-markup">&lt;tc:segmentLayoutConstraint/></code> tag which can have the attributes
+      <code>offsetExtraSmall</code>, <code>offsetSmall</code>,<code>offsetMedium</code> and
+      <code>offsetLarge</code>.</p>
+    <p>Possible values are from 1 to 11 for <code>offsetExtraSmall</code>.<br/>
+      For the other attributes possible values are from 0 to 11.<br/>
+      A <code>offsetMedium="0"</code> overwrite the offset from smaller proportions.</p>
+    <p>In the following example an offset is set for all proportions.</p>
+    <pre><code class="language-markup">&lt;tc:segmentLayout extraSmall="4;4;4" small="3;3;3;3" medium="2;2;2;2;2;2" large="1;1;1;1;1;1;1;1;1;1;1;1">
+  &lt;tc:in value="1"/>
+  &lt;tc:in value="2">
+    &lt;tc:segmentLayoutConstraint offsetExtraSmall="4" offsetSmall="6" offsetMedium="8" offsetLarge="10"/>
+  &lt;/tc:in>
+  &lt;tc:in value="3"/>
+  ...
+&lt;/tc:segmentLayout></code></pre>
+    <tc:segmentLayout extraSmall="4;4;4" small="3;3;3;3" medium="2;2;2;2;2;2" large="1;1;1;1;1;1;1;1;1;1;1;1">
+      <tc:in value="1"/>
+      <tc:in value="2">
+        <tc:segmentLayoutConstraint offsetExtraSmall="4" offsetSmall="6" offsetMedium="8" offsetLarge="10"/>
+      </tc:in>
+      <tc:in value="3"/>
+      <tc:in value="4"/>
+      <tc:in value="5"/>
+      <tc:in value="6"/>
+      <tc:in value="7"/>
+      <tc:in value="8"/>
+      <tc:in value="9"/>
+      <tc:in value="10"/>
+      <tc:in value="11"/>
+      <tc:in value="12"/>
+    </tc:segmentLayout>
   </tc:section>
 </ui:composition>

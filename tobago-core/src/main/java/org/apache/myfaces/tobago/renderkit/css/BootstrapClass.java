@@ -19,6 +19,7 @@
 
 package org.apache.myfaces.tobago.renderkit.css;
 
+import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.layout.ColumnPartition;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 
@@ -26,6 +27,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * CSS classes for the Bootstrap Library.
@@ -145,6 +147,53 @@ public enum BootstrapClass implements CssItem {
   NAVBAR_NAV("navbar-nav"),
   NAVBAR_TOGGLEABLE_XS("navbar-toggleable-xs"),
   NAVBAR_TOGGLER("navbar-toggler"),
+  OFFSET_LG_0("offset-lg-0"),
+  OFFSET_LG_1("offset-lg-1"),
+  OFFSET_LG_2("offset-lg-2"),
+  OFFSET_LG_3("offset-lg-3"),
+  OFFSET_LG_4("offset-lg-4"),
+  OFFSET_LG_5("offset-lg-5"),
+  OFFSET_LG_6("offset-lg-6"),
+  OFFSET_LG_7("offset-lg-7"),
+  OFFSET_LG_8("offset-lg-8"),
+  OFFSET_LG_9("offset-lg-9"),
+  OFFSET_LG_10("offset-lg-10"),
+  OFFSET_LG_11("offset-lg-11"),
+  OFFSET_MD_0("offset-md-0"),
+  OFFSET_MD_1("offset-md-1"),
+  OFFSET_MD_2("offset-md-2"),
+  OFFSET_MD_3("offset-md-3"),
+  OFFSET_MD_4("offset-md-4"),
+  OFFSET_MD_5("offset-md-5"),
+  OFFSET_MD_6("offset-md-6"),
+  OFFSET_MD_7("offset-md-7"),
+  OFFSET_MD_8("offset-md-8"),
+  OFFSET_MD_9("offset-md-9"),
+  OFFSET_MD_10("offset-md-10"),
+  OFFSET_MD_11("offset-md-11"),
+  OFFSET_SM_0("offset-sm-0"),
+  OFFSET_SM_1("offset-sm-1"),
+  OFFSET_SM_2("offset-sm-2"),
+  OFFSET_SM_3("offset-sm-3"),
+  OFFSET_SM_4("offset-sm-4"),
+  OFFSET_SM_5("offset-sm-5"),
+  OFFSET_SM_6("offset-sm-6"),
+  OFFSET_SM_7("offset-sm-7"),
+  OFFSET_SM_8("offset-sm-8"),
+  OFFSET_SM_9("offset-sm-9"),
+  OFFSET_SM_10("offset-sm-10"),
+  OFFSET_SM_11("offset-sm-11"),
+  OFFSET_XS_1("offset-xs-1"),
+  OFFSET_XS_2("offset-xs-2"),
+  OFFSET_XS_3("offset-xs-3"),
+  OFFSET_XS_4("offset-xs-4"),
+  OFFSET_XS_5("offset-xs-5"),
+  OFFSET_XS_6("offset-xs-6"),
+  OFFSET_XS_7("offset-xs-7"),
+  OFFSET_XS_8("offset-xs-8"),
+  OFFSET_XS_9("offset-xs-9"),
+  OFFSET_XS_10("offset-xs-10"),
+  OFFSET_XS_11("offset-xs-11"),
   OPEN("open"),
   PAGE_ITEM("page-item"),
   PAGE_LINK("page-link"),
@@ -233,6 +282,22 @@ public enum BootstrapClass implements CssItem {
         COL_LG_5, COL_LG_6, COL_LG_7, COL_LG_8,
         COL_LG_9, COL_LG_10, COL_LG_11, COL_LG_12,
     };
+    private static final BootstrapClass[] OFFSET_EXTRA_SMALL = new BootstrapClass[]{
+        OFFSET_XS_1, OFFSET_XS_1, OFFSET_XS_2, OFFSET_XS_3, OFFSET_XS_4, OFFSET_XS_5,
+        OFFSET_XS_6, OFFSET_XS_7, OFFSET_XS_8, OFFSET_XS_9, OFFSET_XS_10, OFFSET_XS_11
+    };
+    private static final BootstrapClass[] OFFSET_SMALL = new BootstrapClass[]{
+        OFFSET_SM_0, OFFSET_SM_1, OFFSET_SM_2, OFFSET_SM_3, OFFSET_SM_4, OFFSET_SM_5,
+        OFFSET_SM_6, OFFSET_SM_7, OFFSET_SM_8, OFFSET_SM_9, OFFSET_SM_10, OFFSET_SM_11
+    };
+    private static final BootstrapClass[] OFFSET_MEDIUM = new BootstrapClass[]{
+        OFFSET_MD_0, OFFSET_MD_1, OFFSET_MD_2, OFFSET_MD_3, OFFSET_MD_4, OFFSET_MD_5,
+        OFFSET_MD_6, OFFSET_MD_7, OFFSET_MD_8, OFFSET_MD_9, OFFSET_MD_10, OFFSET_MD_11
+    };
+    private static final BootstrapClass[] OFFSET_LARGE = new BootstrapClass[]{
+        OFFSET_LG_0, OFFSET_LG_1, OFFSET_LG_2, OFFSET_LG_3, OFFSET_LG_4, OFFSET_LG_5,
+        OFFSET_LG_6, OFFSET_LG_7, OFFSET_LG_8, OFFSET_LG_9, OFFSET_LG_10, OFFSET_LG_11
+    };
 
     private final ColumnPartition extraSmall;
     private final ColumnPartition small;
@@ -246,7 +311,7 @@ public enum BootstrapClass implements CssItem {
         final ColumnPartition large) {
       if (extraSmall == null && small == null && medium == null && large == null) {
         this.extraSmall = ColumnPartition.PARTITION_12;
-      } else  {
+      } else {
         this.extraSmall = extraSmall;
       }
       this.small = small;
@@ -262,12 +327,17 @@ public enum BootstrapClass implements CssItem {
       index++;
     }
 
-    public BootstrapClass[] generate() {
+    public BootstrapClass[] generate(final UIComponent child) {
       ArrayList<BootstrapClass> result = new ArrayList<BootstrapClass>(4);
       generate(result, extraSmall, EXTRA_SMALL);
       generate(result, small, SMALL);
       generate(result, medium, MEDIUM);
       generate(result, large, LARGE);
+      final Map<String, Object> attributes = child.getAttributes();
+      generateOffset(result, attributes.get(Attributes.offsetExtraSmall.name()), OFFSET_EXTRA_SMALL);
+      generateOffset(result, attributes.get(Attributes.offsetSmall.name()), OFFSET_SMALL);
+      generateOffset(result, attributes.get(Attributes.offsetMedium.name()), OFFSET_MEDIUM);
+      generateOffset(result, attributes.get(Attributes.offsetLarge.name()), OFFSET_LARGE);
       return result.toArray(new BootstrapClass[result.size()]);
     }
 
@@ -275,6 +345,16 @@ public enum BootstrapClass implements CssItem {
         final List<BootstrapClass> result, final ColumnPartition partition, final BootstrapClass[] values) {
       if (partition != null) {
         result.add(values[partition.getPart(index % partition.getSize()) - 1]);
+      }
+    }
+
+    private void generateOffset(final List<BootstrapClass> result, final Object offset, final BootstrapClass[] values) {
+      if (offset != null) {
+        int offsetIndex = Integer.valueOf((String) offset);
+        if (offsetIndex >= 0) {
+          offsetIndex = offsetIndex > 11 ? 11 : offsetIndex;
+          result.add(values[offsetIndex]);
+        }
       }
     }
   }

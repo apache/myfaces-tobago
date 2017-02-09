@@ -144,6 +144,22 @@ public enum Attributes {
   name,
   navigate,
   numberStyle,
+  /**
+   * Used by a layout manager
+   */
+  offsetExtraSmall,
+  /**
+   * Used by a layout manager
+   */
+  offsetLarge,
+  /**
+   * Used by a layout manager
+   */
+  offsetMedium,
+  /**
+   * Used by a layout manager
+   */
+  offsetSmall,
   omit,
   /** @deprecated */
   @Deprecated
