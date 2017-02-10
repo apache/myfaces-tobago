@@ -116,6 +116,20 @@ Tobago.Suggest.init = function(elements) {
         //name: 'test',// todo
         limit: maxItems,
         source: source
+      }).on('typeahead:selected', function(event) {
+        var commands = input.data("tobago-commands");
+        if (commands.change.execute || commands.change.render) {
+          jsf.ajax.request(
+            suggest,
+            event,
+            {
+              "javax.faces.behavior.event": "change",
+              execute: commands.change.execute,
+              render: commands.change.render
+            });
+        } else {
+          Tobago.submitAction(this, commands.change.action, null);
+        }
       });
 
       input.bind('typeahead:open', function() {

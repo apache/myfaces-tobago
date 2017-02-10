@@ -37,6 +37,8 @@ public class SuggestController implements Serializable {
 
   private static final Logger LOG = LoggerFactory.getLogger(SuggestController.class);
   private String query;
+  private String selection1;
+  private String selection2;
 
   public String getQuery() {
     return query;
@@ -82,5 +84,22 @@ public class SuggestController implements Serializable {
       }
     }
     return result;
+  }
+
+  public String getSelection1() {
+    return selection1;
+  }
+
+  public void setSelection1(String selection1) {
+    LOG.info("setSelection1 ->" + selection1);
+    this.selection1 = selection1;
+  }
+
+  public String getSelection2() {
+    return selection2;
+  }
+
+  public void setSelection2(String selection2) {
+    this.selection2 = selection2;
   }
 }
