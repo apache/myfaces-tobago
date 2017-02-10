@@ -331,11 +331,15 @@ public enum BootstrapClass implements CssItem {
 
     public BootstrapClass[] generate(final UIComponent child) {
       ArrayList<BootstrapClass> result = new ArrayList<BootstrapClass>(4);
-      generate(result, extraSmall, EXTRA_SMALL);
-      generate(result, small, SMALL);
-      generate(result, medium, MEDIUM);
-      generate(result, large, LARGE);
       final Map<String, Object> attributes = child.getAttributes();
+      generate(result, extraSmall, EXTRA_SMALL, attributes.get(Attributes.extraSmall.name()));
+      generate(result, small, SMALL, attributes.get(Attributes.small.name()));
+      generate(result, medium, MEDIUM, attributes.get(Attributes.medium.name()));
+      generate(result, large, LARGE, attributes.get(Attributes.large.name()));
+      generateOffset(result, attributes.get(Attributes.offsetExtraSmall.name()), OFFSET_EXTRA_SMALL);
+      generateOffset(result, attributes.get(Attributes.offsetSmall.name()), OFFSET_SMALL);
+      generateOffset(result, attributes.get(Attributes.offsetMedium.name()), OFFSET_MEDIUM);
+      generateOffset(result, attributes.get(Attributes.offsetLarge.name()), OFFSET_LARGE);
       generateOffset(result, attributes.get(Attributes.offsetExtraSmall.name()), OFFSET_EXTRA_SMALL);
       generateOffset(result, attributes.get(Attributes.offsetSmall.name()), OFFSET_SMALL);
       generateOffset(result, attributes.get(Attributes.offsetMedium.name()), OFFSET_MEDIUM);
@@ -344,8 +348,14 @@ public enum BootstrapClass implements CssItem {
     }
 
     private void generate(
-        final List<BootstrapClass> result, final ColumnPartition partition, final BootstrapClass[] values) {
-      if (partition != null) {
+        final List<BootstrapClass> result, final ColumnPartition partition, final BootstrapClass[] values,
+        final Object overwrite) {
+      if (overwrite != null) {
+        int overwriteIndex = Integer.valueOf((String) overwrite);
+        overwriteIndex = overwriteIndex < 1 ? 1 : overwriteIndex;
+        overwriteIndex = overwriteIndex > 12 ? 12 : overwriteIndex;
+        result.add(values[overwriteIndex - 1]);
+      } else if (partition != null) {
         result.add(values[partition.getPart(index % partition.getSize()) - 1]);
       }
     }

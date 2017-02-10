@@ -121,4 +121,27 @@
       <tc:in value="12"/>
     </tc:segmentLayout>
   </tc:section>
+
+  <tc:section label="Overwrite default layout">
+    <p>The default layout can be overwritten by the
+      <code class="language-markup">&lt;tc:segmentLayoutConstraint/></code> tag.
+      Possible values are <code>extraSmall</code>, <code>small</code>,<code>medium</code> and <code>large</code>.</p>
+    <p>In the following example the medium default layout of the third input field is overwritter with '3'.</p>
+    <pre><code class="language-markup">&lt;tc:segmentLayout medium="4;8">
+  &lt;tc:in/>
+  &lt;tc:in/>
+  &lt;tc:in>
+    &lt;tc:segmentLayoutConstraint medium="3"/>
+  &lt;/tc:in>
+  &lt;tc:in/>
+&lt;/tc:segmentLayout></code></pre>
+    <tc:segmentLayout medium="4;8">
+      <tc:in/>
+      <tc:in/>
+      <tc:in>
+        <tc:segmentLayoutConstraint medium="3"/>
+      </tc:in>
+      <tc:in/>
+    </tc:segmentLayout>
+  </tc:section>
 </ui:composition>

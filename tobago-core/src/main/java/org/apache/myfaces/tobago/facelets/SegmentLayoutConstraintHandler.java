@@ -35,6 +35,10 @@ public class SegmentLayoutConstraintHandler extends TagHandler {
   private final TagAttribute offsetSmall;
   private final TagAttribute offsetMedium;
   private final TagAttribute offsetLarge;
+  private final TagAttribute extraSmall;
+  private final TagAttribute small;
+  private final TagAttribute medium;
+  private final TagAttribute large;
 
   public SegmentLayoutConstraintHandler(TagConfig config) {
     super(config);
@@ -42,6 +46,10 @@ public class SegmentLayoutConstraintHandler extends TagHandler {
     offsetSmall = getAttribute(Attributes.offsetSmall.getName());
     offsetMedium = getAttribute(Attributes.offsetMedium.getName());
     offsetLarge = getAttribute(Attributes.offsetLarge.getName());
+    extraSmall = getAttribute(Attributes.extraSmall.getName());
+    small = getAttribute(Attributes.small.getName());
+    medium = getAttribute(Attributes.medium.getName());
+    large = getAttribute(Attributes.large.getName());
   }
 
   @Override
@@ -81,6 +89,42 @@ public class SegmentLayoutConstraintHandler extends TagHandler {
       } else {
         parent.setValueExpression(Attributes.offsetLarge.getName(),
             offsetLarge.getValueExpression(faceletContext, Integer.TYPE));
+      }
+    }
+
+    if (extraSmall != null) {
+      if (extraSmall.isLiteral()) {
+        attributes.put(Attributes.extraSmall.getName(), extraSmall.getValue());
+      } else {
+        parent.setValueExpression(Attributes.extraSmall.getName(),
+            extraSmall.getValueExpression(faceletContext, Integer.TYPE));
+      }
+    }
+
+    if (small != null) {
+      if (small.isLiteral()) {
+        attributes.put(Attributes.small.getName(), small.getValue());
+      } else {
+        parent.setValueExpression(Attributes.small.getName(),
+            small.getValueExpression(faceletContext, Integer.TYPE));
+      }
+    }
+
+    if (medium != null) {
+      if (medium.isLiteral()) {
+        attributes.put(Attributes.medium.getName(), medium.getValue());
+      } else {
+        parent.setValueExpression(Attributes.medium.getName(),
+            medium.getValueExpression(faceletContext, Integer.TYPE));
+      }
+    }
+
+    if (large != null) {
+      if (large.isLiteral()) {
+        attributes.put(Attributes.large.getName(), large.getValue());
+      } else {
+        parent.setValueExpression(Attributes.large.getName(),
+            large.getValueExpression(faceletContext, Integer.TYPE));
       }
     }
   }
