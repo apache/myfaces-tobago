@@ -77,8 +77,9 @@
       <subscribe>users-subscribe@myfaces.apache.org</subscribe>
       <unsubscribe>users-unsubscribe@myfaces.apache.org</unsubscribe>
       <post>List for posting questions about how to use myfaces projects. Subscribe to this list before posting</post>
-      <archive>http://mail-archives.apache.org/mod_mbox/myfaces-users</archive>
+      <archive>https://lists.apache.org/list.html?user@myfaces.apache.org</archive>
       <otherArchives>
+        <otherArchive>http://mail-archives.apache.org/mod_mbox/myfaces-users</otherArchive>
         <otherArchive>http://www.mail-archive.com/users@myfaces.apache.org/</otherArchive>
         <otherArchive>http://myfaces.10567.n7.nabble.com/MyFaces-Users-f57691.html</otherArchive>
         <otherArchive>http://myfaces.markmail.org/search/?q=#query:list%3Aorg.apache.myfaces.users</otherArchive>
@@ -89,8 +90,9 @@
       <subscribe>dev-subscribe@myfaces.apache.org</subscribe>
       <unsubscribe>dev-unsubscribe@myfaces.apache.org</unsubscribe>
       <post>List for posting patches and discussing internal code implementation issues. Subscribe to this list before posting</post>
-      <archive>http://mail-archives.apache.org/mod_mbox/myfaces-dev</archive>
+      <archive>https://lists.apache.org/list.html?dev@myfaces.apache.org</archive>
       <otherArchives>
+        <otherArchive>http://mail-archives.apache.org/mod_mbox/myfaces-dev</otherArchive>
         <otherArchive>http://www.mail-archive.com/dev@myfaces.apache.org/</otherArchive>
         <otherArchive>http://myfaces.10567.n7.nabble.com/My-Faces-Dev-f3.html</otherArchive>
         <otherArchive>http://myfaces.markmail.org/search/?q=#query:list%3Aorg.apache.myfaces.dev</otherArchive>
@@ -101,8 +103,9 @@
       <subscribe>commits-subscribe@myfaces.apache.org</subscribe>
       <unsubscribe>commits-unsubscribe@myfaces.apache.org</unsubscribe>
       <post>do not post</post>
-      <archive>http://mail-archives.apache.org/mod_mbox/myfaces-commits</archive>
+      <archive>https://lists.apache.org/list.html?commits@myfaces.apache.org</archive>
       <otherArchives>
+        <otherArchive>http://mail-archives.apache.org/mod_mbox/myfaces-commits</otherArchive>
         <otherArchive>http://myfaces.markmail.org/search/?q=#query:list%3Aorg.apache.myfaces.commits</otherArchive>
       </otherArchives>
     </mailingList>
@@ -111,8 +114,9 @@
       <subscribe>notifications-subscribe@myfaces.apache.org</subscribe>
       <unsubscribe>notifications-unsubscribe@myfaces.apache.org</unsubscribe>
       <post>do not post</post>
-      <archive>http://mail-archives.apache.org/mod_mbox/myfaces-notifications</archive>
+      <archive>https://lists.apache.org/list.html?notifications@myfaces.apache.org</archive>
       <otherArchives>
+        <otherArchive>http://mail-archives.apache.org/mod_mbox/myfaces-notifications</otherArchive>
         <otherArchive>http://myfaces.markmail.org/search/?q=#query:list%3Aorg.apache.myfaces.notifications</otherArchive>
       </otherArchives>
     </mailingList>
@@ -121,8 +125,9 @@
       <subscribe>announce-subscribe@myfaces.apache.org</subscribe>
       <unsubscribe>announce-unsubscribe@myfaces.apache.org</unsubscribe>
       <post>do not post</post>
-      <archive>http://mail-archives.apache.org/mod_mbox/myfaces-announce</archive>
+      <archive>https://lists.apache.org/list.html?announce@myfaces.apache.org</archive>
       <otherArchives>
+        <otherArchive>http://mail-archives.apache.org/mod_mbox/myfaces-announce</otherArchive>
         <otherArchive>http://myfaces.markmail.org/search/?q=#query:list%3Aorg.apache.myfaces.announce</otherArchive>
       </otherArchives>
     </mailingList>
