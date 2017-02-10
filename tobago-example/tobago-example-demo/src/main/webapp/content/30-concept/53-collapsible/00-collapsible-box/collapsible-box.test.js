@@ -263,7 +263,7 @@ QUnit.test("Client Sided: hide content and submit empty string", function (asser
   assert.expect(2);
   var done = assert.async();
 
-  var $messages = jQueryFrame("#page\\:messages .tobago-messages");
+  var $messages = jQueryFrame("#page\\:messages.tobago-messages div");
   var $show = jQueryFrame("#page\\:mainForm\\:client\\:showNoRequestBox");
   var $hide = jQueryFrame("#page\\:mainForm\\:client\\:hideNoRequestBox");
   var $box = jQueryFrame("#page\\:mainForm\\:client\\:noRequestBox");

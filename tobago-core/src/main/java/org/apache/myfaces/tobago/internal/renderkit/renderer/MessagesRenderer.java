@@ -20,6 +20,7 @@
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
 import org.apache.myfaces.tobago.component.UIMessages;
+import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
@@ -30,7 +31,6 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlButtonTypes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRoleValues;
-import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import org.slf4j.Logger;
@@ -62,10 +62,9 @@ public class MessagesRenderer extends RendererBase {
     }
     final List<UIMessages.Item> messageList = messages.createMessageList(facesContext);
 
-    if (messageList.size() > 0) { // in ie empty span gets a height
-      writer.writeStyleAttribute(messages.getStyle());
+    writer.writeStyleAttribute(messages.getStyle());
 
-      // with id
+    // with id
       /*String focusId = null;
       Iterator clientIds;
       if (ComponentUtils.getBooleanAttribute(messages, Attributes.globalOnly)) {
@@ -76,49 +75,49 @@ public class MessagesRenderer extends RendererBase {
         clientIds = facesContext.getClientIdsWithMessages();
       }*/
 
-      writer.startElement(HtmlElements.DIV);
-      writer.writeIdAttribute(messages.getClientId(facesContext));
-      writer.writeClassAttribute(Classes.create(messages), messages.getCustomClass());
+    writer.startElement(HtmlElements.DIV);
+    writer.writeIdAttribute(messages.getClientId(facesContext));
+    writer.writeClassAttribute(Classes.create(messages), messages.getCustomClass());
 
-      FacesMessage.Severity lastSeverity = null;
-      boolean first = true;
+    FacesMessage.Severity lastSeverity = null;
+    boolean first = true;
 
-      for (final UIMessages.Item item : messageList) {
-        final FacesMessage message = item.getFacesMessage();
-        final FacesMessage.Severity severity = message.getSeverity();
+    for (final UIMessages.Item item : messageList) {
+      final FacesMessage message = item.getFacesMessage();
+      final FacesMessage.Severity severity = message.getSeverity();
 
-        if (!first && lastSeverity != severity) {
-          writer.endElement(HtmlElements.DIV);
-        }
-
-        if (first || lastSeverity != severity) {
-          writer.startElement(HtmlElements.DIV);
-          writer.writeClassAttribute(
-              BootstrapClass.ALERT, BootstrapClass.ALERT_DISMISSIBLE, BootstrapClass.alert(severity));
-          HtmlRendererUtils.writeDataAttributes(facesContext, writer, messages);
-          writer.writeAttribute(HtmlAttributes.ROLE, HtmlRoleValues.ALERT.toString(), false);
-
-          writer.startElement(HtmlElements.BUTTON);
-          writer.writeAttribute(HtmlAttributes.TYPE, HtmlButtonTypes.BUTTON);
-          writer.writeClassAttribute(BootstrapClass.CLOSE);
-          writer.writeAttribute(DataAttributes.DISMISS, "alert", false);
-          writer.writeAttribute(Arias.ACTIVEDESCENDANT, "Close", false); // todo: i18n
-          writer.startElement(HtmlElements.SPAN);
-          writer.writeAttribute(Arias.HIDDEN, Boolean.TRUE.toString(), false);
-          writer.writeText("×"); // times
-          writer.endElement(HtmlElements.SPAN);
-          writer.endElement(HtmlElements.BUTTON);
-
-        }
-
-        encodeMessage(writer, messages, message, item.getClientId());
-
-        lastSeverity = severity;
-        first = false;
+      if (!first && lastSeverity != severity) {
+        writer.endElement(HtmlElements.DIV);
       }
-      writer.endElement(HtmlElements.DIV); // close open tag from for-loop
 
-      writer.endElement(HtmlElements.DIV);
+      if (first || lastSeverity != severity) {
+        writer.startElement(HtmlElements.DIV);
+        writer.writeClassAttribute(
+            BootstrapClass.ALERT, BootstrapClass.ALERT_DISMISSIBLE, BootstrapClass.alert(severity));
+        HtmlRendererUtils.writeDataAttributes(facesContext, writer, messages);
+        writer.writeAttribute(HtmlAttributes.ROLE, HtmlRoleValues.ALERT.toString(), false);
+
+        writer.startElement(HtmlElements.BUTTON);
+        writer.writeAttribute(HtmlAttributes.TYPE, HtmlButtonTypes.BUTTON);
+        writer.writeClassAttribute(BootstrapClass.CLOSE);
+        writer.writeAttribute(DataAttributes.DISMISS, "alert", false);
+        writer.writeAttribute(Arias.ACTIVEDESCENDANT, "Close", false); // todo: i18n
+        writer.startElement(HtmlElements.SPAN);
+        writer.writeAttribute(Arias.HIDDEN, Boolean.TRUE.toString(), false);
+        writer.writeText("×"); // times
+        writer.endElement(HtmlElements.SPAN);
+        writer.endElement(HtmlElements.BUTTON);
+      }
+
+      encodeMessage(writer, messages, message, item.getClientId());
+
+      lastSeverity = severity;
+      first = false;
+    }
+    if (messageList.size() > 0) {
+      writer.endElement(HtmlElements.DIV); // close open tag from for-loop
+    }
+    writer.endElement(HtmlElements.DIV);
 /*
       while(clientIds.hasNext()) {
         String clientId = (String) clientIds.next();
@@ -132,15 +131,14 @@ public class MessagesRenderer extends RendererBase {
         ComponentUtils.findPage(facesContext, messages).setFocusId(focusId);
       }
 */
-      if (messages.getFor() == null) {
-        final String id = messages.getClientId(facesContext) + ComponentUtils.SUB_SEPARATOR + "messagesExists";
-        writer.startElement(HtmlElements.INPUT);
-        writer.writeAttribute(HtmlAttributes.VALUE, Boolean.TRUE.toString(), false);
-        writer.writeAttribute(HtmlAttributes.ID, id, false);
-        writer.writeAttribute(HtmlAttributes.NAME, id, false);
-        writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN);
-        writer.endElement(HtmlElements.INPUT);
-      }
+    if (messages.getFor() == null) {
+      final String id = messages.getClientId(facesContext) + ComponentUtils.SUB_SEPARATOR + "messagesExists";
+      writer.startElement(HtmlElements.INPUT);
+      writer.writeAttribute(HtmlAttributes.VALUE, Boolean.TRUE.toString(), false);
+      writer.writeAttribute(HtmlAttributes.ID, id, false);
+      writer.writeAttribute(HtmlAttributes.NAME, id, false);
+      writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN);
+      writer.endElement(HtmlElements.INPUT);
     }
   }
 

@@ -20,7 +20,7 @@ QUnit.test("Simple Panel", function (assert) {
   var done = assert.async(5);
   var step = 1;
 
-  var $messages = jQueryFrame("#page\\:messages .tobago-messages");
+  var $messages = jQueryFrame("#page\\:messages.tobago-messages div");
   var $show = jQueryFrame("#\\page\\:mainForm\\:simple\\:showSimple");
   var $hide = jQueryFrame("#\\page\\:mainForm\\:simple\\:hideSimple");
   var $submit = jQueryFrame("#\\page\\:mainForm\\:simple\\:submitSimple");
@@ -101,7 +101,7 @@ QUnit.test("Full Server Request", function (assert) {
   var done = assert.async(5);
   var step = 1;
 
-  var $messages = jQueryFrame("#page\\:messages .tobago-messages");
+  var $messages = jQueryFrame("#page\\:messages.tobago-messages div");
   var $show = jQueryFrame("#\\page\\:mainForm\\:server\\:showServer");
   var $hide = jQueryFrame("#\\page\\:mainForm\\:server\\:hideServer");
   var $submit = jQueryFrame("#\\page\\:mainForm\\:server\\:submitServer");
@@ -182,7 +182,7 @@ QUnit.test("Client Sided", function (assert) {
   var done = assert.async(3);
   var step = 1;
 
-  var $messages = jQueryFrame("#page\\:messages .tobago-messages");
+  var $messages = jQueryFrame("#page\\:messages.tobago-messages div");
   var $show = jQueryFrame("#\\page\\:mainForm\\:client\\:showClient");
   var $hide = jQueryFrame("#\\page\\:mainForm\\:client\\:hideClient");
   var $submit = jQueryFrame("#\\page\\:mainForm\\:client\\:submitClient");
@@ -248,7 +248,7 @@ QUnit.test("Ajax", function (assert) {
   var done = assert.async(5);
   var step = 1;
 
-  var $messages = jQueryFrame("#page\\:messages .tobago-messages");
+  var $messages = jQueryFrame("#page\\:messages.tobago-messages div");
   var $show = jQueryFrame("#\\page\\:mainForm\\:ajax\\:showAjax");
   var $hide = jQueryFrame("#\\page\\:mainForm\\:ajax\\:hideAjax");
   var $submit = jQueryFrame("#\\page\\:mainForm\\:ajax\\:submitAjax");

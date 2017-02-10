@@ -19,7 +19,7 @@ QUnit.test("Required: Submit without content.", function (assert) {
   assert.expect(1);
   var done = assert.async();
 
-  var $messages = jQueryFrame("#page\\:messages .tobago-messages");
+  var $messages = jQueryFrame("#page\\:messages.tobago-messages div");
   var $in = jQueryFrame("#page\\:mainForm\\:required\\:in\\:\\:field");
   var $submit = jQueryFrame("#page\\:mainForm\\:required\\:submit");
 
@@ -37,7 +37,7 @@ QUnit.test("Required: Submit with content.", function (assert) {
   assert.expect(1);
   var done = assert.async();
 
-  var $messages = jQueryFrame("#page\\:messages .tobago-messages");
+  var $messages = jQueryFrame("#page\\:messages.tobago-messages div");
   var $in = jQueryFrame("#page\\:mainForm\\:required\\:in\\:\\:field");
   var $submit = jQueryFrame("#page\\:mainForm\\:required\\:submit");
 
@@ -55,7 +55,7 @@ QUnit.test("Length: Submit single character.", function (assert) {
   assert.expect(1);
   var done = assert.async();
 
-  var $messages = jQueryFrame("#page\\:messages .tobago-messages");
+  var $messages = jQueryFrame("#page\\:messages.tobago-messages div");
   var $in = jQueryFrame("#page\\:mainForm\\:length\\:in\\:\\:field");
   var $submit = jQueryFrame("#page\\:mainForm\\:length\\:submit");
 
@@ -73,7 +73,7 @@ QUnit.test("Length: Submit three characters.", function (assert) {
   assert.expect(1);
   var done = assert.async();
 
-  var $messages = jQueryFrame("#page\\:messages .tobago-messages");
+  var $messages = jQueryFrame("#page\\:messages.tobago-messages div");
   var $in = jQueryFrame("#page\\:mainForm\\:length\\:in\\:\\:field");
   var $submit = jQueryFrame("#page\\:mainForm\\:length\\:submit");
 
@@ -91,7 +91,7 @@ QUnit.test("Length: Submit five characters.", function (assert) {
   assert.expect(1);
   var done = assert.async();
 
-  var $messages = jQueryFrame("#page\\:messages .tobago-messages");
+  var $messages = jQueryFrame("#page\\:messages.tobago-messages div");
   var $in = jQueryFrame("#page\\:mainForm\\:length\\:in\\:\\:field");
   var $submit = jQueryFrame("#page\\:mainForm\\:length\\:submit");
 

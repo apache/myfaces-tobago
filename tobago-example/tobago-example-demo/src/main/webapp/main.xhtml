@@ -47,9 +47,8 @@
 
           <tc:flexLayout rows="auto;*">
 
-            <tc:panel id="messages">
-              <tc:messages orderBy="severity" rendered="#{!navigationTree.outputPage and !navigationTree.messagesPage}"/>
-            </tc:panel>
+            <tc:messages id="messages" orderBy="severity"
+                         rendered="#{!navigationTree.outputPage and !navigationTree.messagesPage}"/>
 
             <tc:box label="#{title}" id="content">
               <tc:form id="mainForm">

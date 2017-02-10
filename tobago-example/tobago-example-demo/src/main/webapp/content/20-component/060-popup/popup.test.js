@@ -38,7 +38,7 @@ QUnit.test("Open 'Client Popup', press 'Submit' while field is empty. Press 'Can
   var $openButton = jQueryFrame("#page\\:mainForm\\:form2\\:open");
   var $output = jQueryFrame("#page\\:mainForm\\:form2\\:output span");
   var outputValue = $output.text();
-  var $messages = jQueryFrame("#page\\:mainForm\\:form2\\:clientPopup\\:messages");
+  var $messages = jQueryFrame("#page\\:mainForm\\:form2\\:clientPopup\\:messages div");
   var $inputField = jQueryFrame("#page\\:mainForm\\:form2\\:clientPopup\\:in2\\:\\:field");
   var $submitButton = jQueryFrame("#page\\:mainForm\\:form2\\:clientPopup\\:submit2");
   var $cancelButton = jQueryFrame("#page\\:mainForm\\:form2\\:clientPopup\\:cancel2");
@@ -73,7 +73,7 @@ QUnit.test("Open 'Client Popup', press 'Submit' while field has content. Press '
   var $popup = jQueryFrame("#page\\:mainForm\\:form2\\:clientPopup input");
   var $openButton = jQueryFrame("#page\\:mainForm\\:form2\\:open");
   var $output = jQueryFrame("#page\\:mainForm\\:form2\\:out span");
-  var $messages = jQueryFrame("#page\\:mainForm\\:form2\\:clientPopup\\:messages");
+  var $messages = jQueryFrame("#page\\:mainForm\\:form2\\:clientPopup\\:messages div");
   var $inputField = jQueryFrame("#page\\:mainForm\\:form2\\:clientPopup\\:in2\\:\\:field");
   var $submitButton = jQueryFrame("#page\\:mainForm\\:form2\\:clientPopup\\:submit2");
   var $cancelButton = jQueryFrame("#page\\:mainForm\\:form2\\:clientPopup\\:cancel2");
