@@ -46,7 +46,6 @@
               <tc:suggest totalCount="10" query="#{sheetFilterController.nameSuggestionQuery}">
                 <tc:selectItems value="#{sheetFilterController.suggestionSolarList}" var="name" itemValue="#{name}"/>
               </tc:suggest>
-              <!-- XXX using blur instead of change for event, because of TOBAGO-1689 -->
               <f:ajax execute=":::sheet" render=":::sheet" listener="#{sheetFilterController.filter}"/>
             </tc:in>
           </tc:panel>

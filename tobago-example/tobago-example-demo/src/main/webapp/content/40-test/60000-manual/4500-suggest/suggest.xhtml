@@ -39,8 +39,10 @@
     <p>The out component will show the selected value choosen from the suggest input field. Page is reloaded after selection.</p>
     <tc:out id="outTwo" label="Selection" value="#{suggestController.selection2}"/>
     <tc:in id="inTwo" value="#{suggestController.selection2}">
-      <f:ajax render="outTwo"/>
+      <tc:suggest totalCount="10" query="#{suggestController.query}">
+        <tc:selectItems value="#{suggestController.languages}" var="language" itemValue="#{language}"/>
+      </tc:suggest>
+      <tc:event/>
     </tc:in>
   </tc:section>
-  <tc:button label="Submit"/>
 </ui:composition>

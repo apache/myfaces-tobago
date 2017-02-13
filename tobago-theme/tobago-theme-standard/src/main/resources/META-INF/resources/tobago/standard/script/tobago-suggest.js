@@ -99,7 +99,7 @@ Tobago.Suggest.init = function(elements) {
       }
 
       var $suggestPopup = jQuery(Tobago.Utils.escapeClientId(suggest.attr('id') + "::popup"));
-      if($suggestPopup.length > 0) {
+      if ($suggestPopup.length > 0) {
         $suggestPopup.remove();
       }
 
@@ -116,20 +116,8 @@ Tobago.Suggest.init = function(elements) {
         //name: 'test',// todo
         limit: maxItems,
         source: source
-      }).on('typeahead:selected', function(event) {
-        var commands = input.data("tobago-commands");
-        if (commands.change.execute || commands.change.render) {
-          jsf.ajax.request(
-            suggest,
-            event,
-            {
-              "javax.faces.behavior.event": "change",
-              execute: commands.change.execute,
-              render: commands.change.render
-            });
-        } else {
-          Tobago.submitAction(this, commands.change.action, null);
-        }
+      }).on('typeahead:change', function(event) {
+        input.trigger('change');
       });
 
       input.bind('typeahead:open', function() {
