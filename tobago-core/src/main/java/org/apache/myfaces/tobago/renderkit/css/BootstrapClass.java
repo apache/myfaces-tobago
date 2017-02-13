@@ -340,10 +340,6 @@ public enum BootstrapClass implements CssItem {
       generateOffset(result, attributes.get(Attributes.offsetSmall.name()), OFFSET_SMALL);
       generateOffset(result, attributes.get(Attributes.offsetMedium.name()), OFFSET_MEDIUM);
       generateOffset(result, attributes.get(Attributes.offsetLarge.name()), OFFSET_LARGE);
-      generateOffset(result, attributes.get(Attributes.offsetExtraSmall.name()), OFFSET_EXTRA_SMALL);
-      generateOffset(result, attributes.get(Attributes.offsetSmall.name()), OFFSET_SMALL);
-      generateOffset(result, attributes.get(Attributes.offsetMedium.name()), OFFSET_MEDIUM);
-      generateOffset(result, attributes.get(Attributes.offsetLarge.name()), OFFSET_LARGE);
       return result.toArray(new BootstrapClass[result.size()]);
     }
 
