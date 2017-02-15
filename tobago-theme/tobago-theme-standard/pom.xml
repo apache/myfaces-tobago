@@ -43,8 +43,8 @@
             <phase>compile</phase>
             <configuration>
               <target>
-                <concat destfile="${project.build.directory}/javascript-min/standard/script/tobago.min.js" force="no">
-                  <filelist dir="${basedir}/src/main/resources/META-INF/resources/tobago/standard/script" files="tobago-jsf.js,tobago.js,tobago-calendar.js,tobago-in.js,tobago-layout.js,tobago-overlay.js,tobago-popup.js,tobago-sheet.js,tobago-suggest.js,tobago-tab.js,tobago-tree.js,tobago-utils.js" />
+                <concat destfile="${project.build.directory}/javascript-min/tobago.min.js" force="no">
+                  <filelist dir="${basedir}/src/main/resources/META-INF/resources/tobago/standard/tobago-bootstrap/3.1.0/js" files="tobago-jsf.js,tobago.js,tobago-calendar.js,tobago-in.js,tobago-layout.js,tobago-overlay.js,tobago-popup.js,tobago-sheet.js,tobago-suggest.js,tobago-tab.js,tobago-tree.js,tobago-utils.js" />
                 </concat>
                 <replaceregexp match="^.*//.*@DEV_ONLY.*$" replace="" byline="true">
                   <fileset dir="${project.build.directory}/javascript-min">
@@ -79,9 +79,9 @@
                 <argument>-jar</argument>
                 <argument>lib/compiler-20120430.jar</argument>
                 <argument>--js</argument>
-                <argument>${project.build.directory}/javascript-min/standard/script/tobago.min.js</argument>
+                <argument>${project.build.directory}/javascript-min/tobago.min.js</argument>
                 <argument>--js_output_file</argument>
-                <argument>target/classes/META-INF/resources/tobago/standard/script/tobago.min.js</argument>
+                <argument>target/classes/META-INF/resources/tobago/standard/tobago-bootstrap/3.1.0/js/tobago.min.js</argument>
               </arguments>
             </configuration>
           </execution>

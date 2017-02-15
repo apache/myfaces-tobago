@@ -28,6 +28,7 @@
 
   <properties>
     <bootstrap.version>4.0.0-alpha.5</bootstrap.version>
+    <tobago.version>3.1.0</tobago.version>
   </properties>
 
   <build>
@@ -49,10 +50,7 @@
 
   <modules>
     <module>tobago-theme-standard</module>
-    <!--<module>tobago-theme-scarborough</module>-->
     <module>tobago-theme-speyside</module>
-    <!--<module>tobago-theme-richmond</module>-->
-    <!--<module>tobago-theme-charlotteville</module>-->
   </modules>
 
   <dependencies>
@@ -132,8 +130,7 @@
                   <outputDirectory>${project.build.directory}/bootstrap</outputDirectory>
                   <resources>
                     <resource>
-                      <directory>src/main
-                      </directory>
+                      <directory>src/main</directory>
                       <includes>
                         <include>scss/*</include>
                       </includes>
@@ -150,11 +147,19 @@
                 </goals>
                 <configuration>
                   <outputDirectory>
-                    ${basedir}/src/main/resources/META-INF/resources/tobago/${theme.name}/bootstrap/${bootstrap.version}
+                    ${basedir}/src/main/resources/META-INF/resources/tobago/${theme.name}/tobago-bootstrap/${tobago.version}-${bootstrap.version}
                   </outputDirectory>
                   <resources>
                     <resource>
                       <directory>${project.build.directory}/bootstrap/dist</directory>
+                      <includes>
+                        <include>css/bootstrap.css</include>
+                        <include>css/bootstrap.min.css</include>
+                        <include>css/bootstrap.css.map</include>
+                        <include>css/bootstrap.min.css.map</include>
+                        <include>js/bootstrap.js</include>
+                        <include>js/bootstrap.min.js</include>
+                      </includes>
                     </resource>
                   </resources>
                 </configuration>
