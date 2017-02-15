@@ -19,25 +19,13 @@
 
 set -e
 
-TOBAGO_VERSION=3.1.0
-BOOTSTRAP_VERSION=4.0.0-alpha.5
-
 mvn -P all-modules clean
 
 mvn -P rebuild-theme -f tobago-theme-charlotteville/pom.xml
-rm tobago-theme-charlotteville/src/main/resources/META-INF/resources/tobago/charlotteville/bootstrap/${BOOTSTRAP_VERSION}-${TOBAGO_VERSION}/css/bootstrap-*
-
 mvn -P rebuild-theme -f tobago-theme-richmond/pom.xml
-rm tobago-theme-richmond/src/main/resources/META-INF/resources/tobago/richmond/bootstrap/${BOOTSTRAP_VERSION}-${TOBAGO_VERSION}/css/bootstrap-*
-
 mvn -P rebuild-theme -f tobago-theme-scarborough/pom.xml
-rm tobago-theme-scarborough/src/main/resources/META-INF/resources/tobago/scarborough/bootstrap/${BOOTSTRAP_VERSION}-${TOBAGO_VERSION}/css/bootstrap-*
-
 mvn -P rebuild-theme -f tobago-theme-speyside/pom.xml
-rm tobago-theme-speyside/src/main/resources/META-INF/resources/tobago/speyside/bootstrap/${BOOTSTRAP_VERSION}-${TOBAGO_VERSION}/css/bootstrap-*
-
 mvn -P rebuild-theme -f tobago-theme-standard/pom.xml
-rm tobago-theme-standard/src/main/resources/META-INF/resources/tobago/standard/bootstrap/${BOOTSTRAP_VERSION}-${TOBAGO_VERSION}/css/bootstrap-*
 
 mvn -P all-modules install
 
