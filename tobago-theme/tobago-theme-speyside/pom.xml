@@ -30,6 +30,37 @@
     <theme.name>speyside</theme.name>
   </properties>
 
+  <build>
+    <plugins>
+      <plugin>
+        <artifactId>maven-antrun-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>set-version</id>
+            <goals>
+              <goal>run</goal>
+            </goals>
+            <phase>compile</phase>
+            <configuration>
+              <target>
+                <move file="${project.build.outputDirectory}/META-INF/resources/tobago/speyside/tobago-bootstrap/_version"
+                      tofile="${project.build.outputDirectory}/META-INF/resources/tobago/speyside/tobago-bootstrap/${project.version}">
+                </move>
+              </target>
+            </configuration>
+          </execution>
+        </executions>
+        <dependencies>
+          <dependency>
+            <groupId>ant</groupId>
+            <artifactId>ant-apache-regexp</artifactId>
+            <version>1.6.5</version>
+          </dependency>
+        </dependencies>
+      </plugin>
+    </plugins>
+  </build>
+
   <dependencies>
     <dependency>
       <groupId>org.apache.myfaces.tobago</groupId>

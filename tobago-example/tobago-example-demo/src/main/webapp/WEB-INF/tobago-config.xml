@@ -36,9 +36,9 @@
     <default-theme>standard</default-theme>
     <supported-theme>speyside</supported-theme>
     <!-- TODO: Can be removed after closing TOBAGO-1664 -->
-    <!--<supported-theme>scarborough</supported-theme>-->
-    <!--<supported-theme>richmond</supported-theme>-->
-    <!--<supported-theme>charlotteville</supported-theme>-->
+    <supported-theme>scarborough</supported-theme>
+    <supported-theme>richmond</supported-theme>
+    <supported-theme>charlotteville</supported-theme>
   </theme-config>
 
   <!-- This is needed for the testing functionality of the demo, it works with iframes -->

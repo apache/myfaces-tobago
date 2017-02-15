@@ -33,8 +33,9 @@ public class BootstrapClassUnitTest {
    */
   @Test
   public void testCompareBootstrapCss() throws FileNotFoundException {
+
     CssClassUtils.compareCss(
-        "src/main/resources/META-INF/resources/tobago/standard/tobago-bootstrap/3.1.0/css/bootstrap.css",
+        "src/main/resources/META-INF/resources/tobago/standard/tobago-bootstrap/_version/css/bootstrap.css",
         BootstrapClass.values());
   }
 

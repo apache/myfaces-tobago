@@ -44,13 +44,28 @@
             <configuration>
               <target>
                 <concat destfile="${project.build.directory}/javascript-min/tobago.min.js" force="no">
-                  <filelist dir="${basedir}/src/main/resources/META-INF/resources/tobago/standard/tobago-bootstrap/3.1.0/js" files="tobago-jsf.js,tobago.js,tobago-calendar.js,tobago-in.js,tobago-layout.js,tobago-overlay.js,tobago-popup.js,tobago-sheet.js,tobago-suggest.js,tobago-tab.js,tobago-tree.js,tobago-utils.js" />
+                  <filelist dir="${basedir}/src/main/resources/META-INF/resources/tobago/standard/tobago-bootstrap/_version/js"
+                            files="tobago-jsf.js,tobago.js,tobago-calendar.js,tobago-in.js,tobago-layout.js,tobago-overlay.js,tobago-popup.js,tobago-sheet.js,tobago-suggest.js,tobago-tab.js,tobago-tree.js,tobago-utils.js" />
                 </concat>
                 <replaceregexp match="^.*//.*@DEV_ONLY.*$" replace="" byline="true">
                   <fileset dir="${project.build.directory}/javascript-min">
                     <include name="**/tobago.min.js" />
                   </fileset>
                 </replaceregexp>
+              </target>
+            </configuration>
+          </execution>
+          <execution>
+            <id>set-version</id>
+            <goals>
+              <goal>run</goal>
+            </goals>
+            <phase>compile</phase>
+            <configuration>
+              <target>
+                <move file="${project.build.outputDirectory}/META-INF/resources/tobago/standard/tobago-bootstrap/_version"
+                      tofile="${project.build.outputDirectory}/META-INF/resources/tobago/standard/tobago-bootstrap/${project.version}">
+                </move>
               </target>
             </configuration>
           </execution>
@@ -81,7 +96,7 @@
                 <argument>--js</argument>
                 <argument>${project.build.directory}/javascript-min/tobago.min.js</argument>
                 <argument>--js_output_file</argument>
-                <argument>target/classes/META-INF/resources/tobago/standard/tobago-bootstrap/3.1.0/js/tobago.min.js</argument>
+                <argument>target/classes/META-INF/resources/tobago/standard/tobago-bootstrap/${project.version}/js/tobago.min.js</argument>
               </arguments>
             </configuration>
           </execution>

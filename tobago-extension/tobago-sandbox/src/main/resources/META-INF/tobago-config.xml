@@ -35,12 +35,12 @@
       <fallback>speyside</fallback>
       <versioned>false</versioned>
       <resources production="true">
-        <script name="tobago-bootstrap/3.1.0/js/tobago.js"/>
-        <style name="tobago-bootstrap/3.1.0/css/tobago.css"/>
+        <script name="tobago-bootstrap/_version/js/tobago.js"/>
+        <style name="tobago-bootstrap/_version/css/tobago.css"/>
       </resources>
       <resources production="false">
-        <script name="tobago-bootstrap/3.1.0/js/tobago.js"/>
-        <style name="tobago-bootstrap/3.1.0/css/tobago.css"/>
+        <script name="tobago-bootstrap/_version/js/tobago.js"/>
+        <style name="tobago-bootstrap/_version/css/tobago.css"/>
       </resources>
     </theme-definition>
   </theme-definitions>
