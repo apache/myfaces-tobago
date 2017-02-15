@@ -26,8 +26,11 @@ import javax.enterprise.context.RequestScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
+import java.io.File;
 import java.io.Serializable;
 import java.net.MalformedURLException;
+import java.util.ArrayList;
+import java.util.List;
 
 @RequestScoped
 @Named
@@ -49,5 +52,54 @@ public class TestController implements Serializable {
     }
 
     return null;
+  }
+
+  public List<TestPage> getTestPages() {
+    List<TestPage> testPages = new ArrayList<TestPage>();
+
+    int idCount = 1;
+    final File rootDir = new File("src/main/webapp/content");
+    for (String testJs : getTestJs(rootDir)) {
+      final String xhtml = "/faces/" + testJs.substring(16, testJs.length() - 8) + ".xhtml";
+      final String adjustedTestJs = "/" + testJs.substring(16);
+      testPages.add(new TestPage("tp" + idCount++, xhtml, adjustedTestJs));
+    }
+    return testPages;
+  }
+
+  private List<String> getTestJs(File dir) {
+    List<String> xhtmls = new ArrayList<String>();
+    for (File file : dir.listFiles()) {
+      if (file.isDirectory()) {
+        xhtmls.addAll(getTestJs(file));
+      } else if (!file.getName().startsWith("x-") && file.getName().endsWith(".test.js")) {
+        xhtmls.add(file.getPath());
+      }
+    }
+    return xhtmls;
+  }
+
+  public class TestPage {
+    private final String id;
+    private final String xhtml;
+    private final String js;
+
+    TestPage(String id, String xhtml, String js) {
+      this.id = id;
+      this.xhtml = xhtml;
+      this.js = js;
+    }
+
+    public String getId() {
+      return id;
+    }
+
+    public String getXhtml() {
+      return xhtml;
+    }
+
+    public String getJs() {
+      return js;
+    }
   }
 }
