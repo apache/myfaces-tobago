@@ -129,6 +129,8 @@
   </build>
 
   <dependencies>
+<!-- these themes are currently not part of the release (TOBAGO-1664) -->
+<!--
     <dependency>
       <groupId>org.apache.myfaces.tobago</groupId>
       <artifactId>tobago-theme-charlotteville</artifactId>
@@ -144,6 +146,7 @@
       <artifactId>tobago-theme-scarborough</artifactId>
       <version>${project.version}</version>
     </dependency>
+-->
     <dependency>
       <groupId>org.apache.myfaces.tobago</groupId>
       <artifactId>tobago-theme-speyside</artifactId>
