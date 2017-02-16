@@ -86,8 +86,6 @@ public class TobagoConfigParser extends TobagoConfigEntityResolver {
   private static final int EXTENSION = -612557761;
   private static final int TYPE = 3575610;
 
-  private String VERSION;
-
   private TobagoConfigFragment tobagoConfig;
   private RendererConfig currentRenderer;
   private ThemeImpl currentTheme;
@@ -100,10 +98,11 @@ public class TobagoConfigParser extends TobagoConfigEntityResolver {
   private String type;
 
   private Stack<String> stack;
+  private String version;
 
   public TobagoConfigParser() {
-    VERSION = Package.getPackage("org.apache.myfaces.tobago.internal.config").getImplementationVersion();
-    LOG.info("Tobago version: " + VERSION);
+    version = Package.getPackage("org.apache.myfaces.tobago.internal.config").getImplementationVersion();
+    LOG.debug("Tobago version: {}", version);
   }
 
   public TobagoConfigFragment parse(final URL url)
@@ -202,7 +201,7 @@ public class TobagoConfigParser extends TobagoConfigEntityResolver {
 
       case SCRIPT:
         final ThemeScript script = new ThemeScript();
-        final String scriptName = attributes.getValue("name").replace("/_version/", '/' + VERSION + '/');
+        final String scriptName = attributes.getValue("name").replace("/_version/", '/' + version + '/');
         script.setName(scriptName);
         if (production) {
           currentTheme.getProductionResources().addScript(script, exclude);
@@ -213,7 +212,7 @@ public class TobagoConfigParser extends TobagoConfigEntityResolver {
 
       case STYLE:
         final ThemeStyle style = new ThemeStyle();
-        final String styleName = attributes.getValue("name").replace("/_version/", '/' + VERSION + '/');
+        final String styleName = attributes.getValue("name").replace("/_version/", '/' + version + '/');
         style.setName(styleName);
         if (production) {
           currentTheme.getProductionResources().addStyle(style, exclude);
