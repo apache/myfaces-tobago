@@ -537,7 +537,11 @@ public class SheetRenderer extends RendererBase {
     boolean emptySheet = true;
     // rows = 0 means: show all
     final int last = sheet.isRowsUnlimited() ? Integer.MAX_VALUE : sheet.getFirst() + sheet.getRows();
-    for (int rowIndex = sheet.getFirst(); rowIndex < last; rowIndex++) {
+    final int first = sheet.getFirst();
+    final int rowCount = sheet.getRowCount();
+    final int firstRowIndexOfLastPage = sheet.getFirstRowIndexOfLastPage();
+
+    for (int rowIndex = first < rowCount ? first : firstRowIndexOfLastPage; rowIndex < last; rowIndex++) {
       sheet.setRowIndex(rowIndex);
       if (!sheet.isRowAvailable()) {
         break;
