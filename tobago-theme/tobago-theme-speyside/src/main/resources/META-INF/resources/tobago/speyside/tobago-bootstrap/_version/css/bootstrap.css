@@ -337,6 +337,31 @@ button.tobago-link-markup-disabled:hover, button.tobago-command-markup-disabled:
 }
 
 /* messages ----------------------------------------------------------- */
+.tobago-messages-container {
+  -webkit-box-align: start;
+  -webkit-align-items: flex-start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+}
+
+.tobago-messages-container.tobago-flexLayout .tobago-messages:first-child small label {
+  margin-right: 0;
+  /* for tc:in margin 5px is already set */
+  margin-bottom: 5px;
+}
+
+.tobago-messages-container.tobago-flexLayout .tobago-selectManyShuttle {
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+}
+
+a.tobago-messages-button {
+  padding-left: 0.4em;
+  padding-right: 0.4em;
+}
+
 .tobago-messages label {
   display: block;
 }
