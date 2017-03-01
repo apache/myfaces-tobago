@@ -121,30 +121,24 @@ body {
     Set the minimal width to zero make flex-layout responsive for the width,
     even if there is overflowing content.
     currently e.g. PRE-code blocks in the demo are too wide. XXX */
+  margin-left: -3px;
+  margin-right: -3px;
+}
+
+.tobago-flexLayout > * {
+  margin-left: 3px;
+  margin-right: 3px;
+}
+
+.tobago-flexLayout > .tobago-flexLayout {
+  margin-left: 0;
+  margin-right: 0;
 }
 
 .tobago-flexLayout-markup-vertically {
     flex-direction: column;
     -webkit-flex-direction: column;
     -ms-flex-direction: column;
-}
-
-/* XXX this fixes the margin left from .btn:nth-child(n+2), but is ugly */
-.tobago-flexLayout-markup-vertically > .btn:nth-child(n+2) {
-  margin-left: 0 !important;
-}
-
-.tobago-flexLayout > .form-control:nth-child(n+2),
-.tobago-flexLayout > .btn-group:nth-child(n+2),
-.tobago-flexLayout > .input-group:nth-child(n+2),
-.tobago-flexLayout > .tobago-input-group-outer:nth-child(n+2),
-.tobago-flexLayout > .tobago-out:nth-child(n+2),
-.tobago-flexLayout > .tobago-file:nth-child(n+2),
-.tobago-flexLayout > .tobago-panel:nth-child(n+2),
-.tobago-flexLayout > .tobago-label:nth-child(n+2),
-.tobago-flexLayout > .tobago-selectManyShuttle:nth-child(n+2),
-.tobago-flexLayout > .twitter-typeahead:nth-child(n+2) {
-    margin-left: 5px;
 }
 
 .tobago-alignItems-baseline {
@@ -260,6 +254,9 @@ table.tobago-gridLayout > tbody > tr > td > * {
 
 .tobago-in-markup-number {
   text-align: right;
+}
+
+.tobago-input-group-outer {
 }
 
 /* link ----------------------------------------------------------- */
@@ -866,10 +863,6 @@ fixme: there is a problem with the selectManyShuttle with this style.
 */
 .navbar button:nth-child(n+2),
 .navbar input:nth-child(n+2) {
-  margin-left: 5px;
-}
-
-.btn:nth-child(n+2) {
   margin-left: 5px;
 }
 
