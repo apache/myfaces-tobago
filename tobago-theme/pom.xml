@@ -146,7 +146,7 @@
                 </goals>
                 <configuration>
                   <outputDirectory>
-                    ${basedir}/src/main/resources/META-INF/resources/tobago/${theme.name}/tobago-bootstrap/${project.version}
+                    ${basedir}/src/main/resources/META-INF/resources/tobago/${theme.name}/tobago-bootstrap/_version
                   </outputDirectory>
                   <resources>
                     <resource>
