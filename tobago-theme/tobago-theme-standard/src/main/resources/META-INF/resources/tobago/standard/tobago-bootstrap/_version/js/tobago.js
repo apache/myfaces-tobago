@@ -1364,6 +1364,26 @@ Tobago.registerListener(Tobago.File.init, Tobago.Phase.AFTER_UPDATE);
 
 // ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+Tobago.MessagePopover = {};
+
+Tobago.MessagePopover.init = function(elements) {
+  jQuery('[data-toggle="popover"]').popover({
+    constraints: [
+      {
+        to: 'window',
+        attachment: 'together',
+        pin: true
+      }
+    ],
+    trigger: 'focus'
+  });
+};
+
+Tobago.registerListener(Tobago.MessagePopover.init, Tobago.Phase.DOCUMENT_READY);
+Tobago.registerListener(Tobago.MessagePopover.init, Tobago.Phase.AFTER_UPDATE);
+
+// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 Tobago.Codi = {};
 
 /**

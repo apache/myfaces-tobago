@@ -28,7 +28,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.component.UISelectOne;
 import javax.faces.context.FacesContext;
 
-public abstract class SelectOneRendererBase extends LabelLayoutRendererBase {
+public abstract class SelectOneRendererBase extends MessageLayoutRendererBase {
 
   private static final Logger LOG = LoggerFactory.getLogger(SelectOneRendererBase.class);
 

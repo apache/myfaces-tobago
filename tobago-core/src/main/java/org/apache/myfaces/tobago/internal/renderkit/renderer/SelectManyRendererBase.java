@@ -54,7 +54,7 @@ import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
-public abstract class SelectManyRendererBase extends LabelLayoutRendererBase {
+public abstract class SelectManyRendererBase extends MessageLayoutRendererBase {
 
   private static final Logger LOG = LoggerFactory.getLogger(SelectManyRendererBase.class);
 

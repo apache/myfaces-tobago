@@ -39,7 +39,7 @@ import java.util.StringTokenizer;
 public class OutRenderer extends LabelLayoutRendererBase {
 
   @Override
-  public void encodeBeginField(final FacesContext facesContext, final UIComponent component) throws IOException {
+  public void encodeBeginMessageField(final FacesContext facesContext, final UIComponent component) throws IOException {
 
     final UIOut out = (UIOut) component;
 
@@ -84,7 +84,7 @@ public class OutRenderer extends LabelLayoutRendererBase {
   }
 
   @Override
-  public void encodeEndField(final FacesContext facesContext, final UIComponent component) throws IOException {
+  public void encodeEndMessageField(final FacesContext facesContext, final UIComponent component) throws IOException {
 
     final UIOut out = (UIOut) component;
     final TobagoResponseWriter writer = getResponseWriter(facesContext);

@@ -28,6 +28,9 @@ Todo: check, if this is needed? (It doesn't work with the build system)
  * agent: standard
  */
 
+.tobago-label-container {
+}
+
 /* box -------------------------------------------------------------- */
 
 .tobago-box-header {
@@ -297,6 +300,24 @@ button.tobago-link-markup-disabled:hover, button.tobago-command-markup-disabled:
 }
 
 /* messages ----------------------------------------------------------- */
+
+.tobago-messages-container {
+  align-items: flex-start;
+}
+
+.tobago-messages-container.tobago-flexLayout .tobago-messages:first-child small label {
+  margin-right: 0; /* for tc:in margin 5px is already set */
+  margin-bottom: 5px;
+}
+
+.tobago-messages-container.tobago-flexLayout .tobago-selectManyShuttle {
+  flex-grow: 1;
+}
+
+a.tobago-messages-button {
+  padding-left: 0.4em;
+  padding-right: 0.4em;
+}
 
 .tobago-messages label {
   display: block;

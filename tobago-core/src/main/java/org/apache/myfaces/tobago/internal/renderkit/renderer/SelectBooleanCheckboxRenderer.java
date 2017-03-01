@@ -40,7 +40,7 @@ import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 
-public class SelectBooleanCheckboxRenderer extends LabelLayoutRendererBase {
+public class SelectBooleanCheckboxRenderer extends MessageLayoutRendererBase {
 
   private static final Logger LOG = LoggerFactory.getLogger(SelectBooleanCheckboxRenderer.class);
 

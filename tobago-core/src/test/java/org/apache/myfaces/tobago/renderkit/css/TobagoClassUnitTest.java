@@ -64,7 +64,7 @@ public class TobagoClassUnitTest {
   }
 
   /**
-   * This test checks, if every item of the {@link TobagoClass} occurs in the _tobago.scss.
+   * This test checks whether every item of the {@link TobagoClass} occurs in the _tobago.scss.
    */
   @Test
   public void testCompareTobagoCss() throws FileNotFoundException {

@@ -48,7 +48,7 @@ import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
 
-public class InRenderer extends LabelLayoutRendererBase {
+public class InRenderer extends MessageLayoutRendererBase {
 
   private static final Logger LOG = LoggerFactory.getLogger(InRenderer.class);
 

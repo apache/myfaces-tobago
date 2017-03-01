@@ -42,7 +42,7 @@ import javax.faces.validator.LengthValidator;
 import javax.faces.validator.Validator;
 import java.io.IOException;
 
-public class TextareaRenderer extends LabelLayoutRendererBase {
+public class TextareaRenderer extends MessageLayoutRendererBase {
 
   private static final Logger LOG = LoggerFactory.getLogger(TextareaRenderer.class);
 

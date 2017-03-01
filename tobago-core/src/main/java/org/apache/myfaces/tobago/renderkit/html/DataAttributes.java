@@ -49,6 +49,8 @@ public enum DataAttributes implements MarkupLanguageAttributes {
    */
   COMMANDS("data-tobago-commands"),
 
+  CONTENT("data-content"),
+
   /**
    * The context path of the application, may be needed in the Client.
    */
@@ -174,6 +176,8 @@ public enum DataAttributes implements MarkupLanguageAttributes {
   SUGGEST_UPDATE("data-tobago-suggest-update"),
 
   TARGET("data-target"),
+
+  TITLE("data-title"),
 
   TO_PAGE("data-tobago-to-page"),
 

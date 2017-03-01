@@ -48,21 +48,21 @@ public abstract class LabelLayoutRendererBase extends DecodingInputRendererBase 
   @Override
   public void encodeBegin(final FacesContext facesContext, final UIComponent component) throws IOException {
 
-    encodeBeginSurrounding(facesContext, component);
+    encodeBeginSurroundingLabel(facesContext, component);
 
     switch (getType(component)) {
       case segmentLeft:
         if (LabelLayout.getSegment(facesContext) == LabelLayout.segmentRight) {
-          encodeBeginField(facesContext, component);
+          encodeBeginMessageField(facesContext, component);
         }
         break;
       case segmentRight:
         if (LabelLayout.getSegment(facesContext) == LabelLayout.segmentLeft) {
-          encodeBeginField(facesContext, component);
+          encodeBeginMessageField(facesContext, component);
         }
         break;
       default:
-        encodeBeginField(facesContext, component);
+        encodeBeginMessageField(facesContext, component);
         break;
     }
   }
@@ -73,27 +73,27 @@ public abstract class LabelLayoutRendererBase extends DecodingInputRendererBase 
     switch (getType(component)) {
       case segmentLeft:
         if (LabelLayout.getSegment(facesContext) == LabelLayout.segmentRight) {
-          encodeEndField(facesContext, component);
+          encodeEndMessageField(facesContext, component);
         }
         break;
       case segmentRight:
         if (LabelLayout.getSegment(facesContext) == LabelLayout.segmentLeft) {
-          encodeEndField(facesContext, component);
+          encodeEndMessageField(facesContext, component);
         }
         break;
       default:
-        encodeEndField(facesContext, component);
+        encodeEndMessageField(facesContext, component);
         break;
     }
 
-    encodeEndSurrounding(facesContext, component);
+    encodeEndSurroundingLabel(facesContext, component);
   }
 
-  protected abstract void encodeBeginField(FacesContext facesContext, UIComponent component) throws IOException;
+  protected abstract void encodeBeginMessageField(FacesContext facesContext, UIComponent component) throws IOException;
 
-  protected abstract void encodeEndField(FacesContext facesContext, UIComponent component) throws IOException;
+  protected abstract void encodeEndMessageField(FacesContext facesContext, UIComponent component) throws IOException;
 
-  protected void encodeBeginSurrounding(final FacesContext facesContext, final UIComponent component)
+  protected void encodeBeginSurroundingLabel(final FacesContext facesContext, final UIComponent component)
       throws IOException {
 
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
@@ -136,6 +136,7 @@ public abstract class LabelLayoutRendererBase extends DecodingInputRendererBase 
 //    writer.writeClassAttribute(divClass, extra, BootstrapClass.maximumSeverity(component));
     writer.writeClassAttribute(
         divClass,
+        TobagoClass.LABEL__CONTAINER,
         BootstrapClass.FORM_GROUP,
         BootstrapClass.maximumSeverity(component),
         ComponentUtils.getBooleanAttribute(component, Attributes.required) ? TobagoClass.REQUIRED : null);
@@ -171,7 +172,8 @@ public abstract class LabelLayoutRendererBase extends DecodingInputRendererBase 
     }
   }
 
-  protected void encodeEndSurrounding(final FacesContext facesContext, final UIComponent component) throws IOException {
+  protected void encodeEndSurroundingLabel(final FacesContext facesContext, final UIComponent component)
+      throws IOException {
 
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
     final LabelLayout labelLayout = getType(component);

@@ -55,7 +55,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @ListenerFor(systemEventClass = PostAddToViewEvent.class)
-public class FileRenderer extends LabelLayoutRendererBase implements ComponentSystemEventListener {
+public class FileRenderer extends MessageLayoutRendererBase implements ComponentSystemEventListener {
 
   private static final Logger LOG = LoggerFactory.getLogger(FileRenderer.class);
 
@@ -122,9 +122,6 @@ public class FileRenderer extends LabelLayoutRendererBase implements ComponentSy
 
     writer.startElement(HtmlElements.DIV);
     writer.writeClassAttribute(Classes.create(file), file.getCustomClass());
-    if (file.isLabelLayoutSkip()) {
-      writer.writeIdAttribute(clientId);
-    }
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, file);
     writer.writeStyleAttribute(file.getStyle());
 
