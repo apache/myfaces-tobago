@@ -180,7 +180,7 @@ public class PageRenderer extends RendererBase {
 
       writer.startElement(HtmlElements.META);
       writer.writeAttribute(HtmlAttributes.NAME, "viewport", false);
-      writer.writeAttribute(HtmlAttributes.CONTENT, "width=device-width, initial-scale=1.0", false);
+      writer.writeAttribute(HtmlAttributes.CONTENT, page.getViewport(), true);
       writer.endElement(HtmlElements.META);
 
       // title
