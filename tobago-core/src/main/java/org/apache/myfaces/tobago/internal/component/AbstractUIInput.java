@@ -19,15 +19,12 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
-import org.apache.myfaces.tobago.component.Facets;
-import org.apache.myfaces.tobago.component.LabelLayout;
 import org.apache.myfaces.tobago.component.SupportFieldId;
 import org.apache.myfaces.tobago.component.SupportsAccessKey;
 import org.apache.myfaces.tobago.component.SupportsLabelLayout;
 import org.apache.myfaces.tobago.component.Visual;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 
-import javax.faces.component.UIComponent;
 import javax.faces.component.behavior.ClientBehaviorHolder;
 import javax.faces.context.FacesContext;
 
@@ -46,17 +43,6 @@ public abstract class AbstractUIInput extends javax.faces.component.UIInput
 
   @Override
   public String getFieldId(final FacesContext facesContext) {
-    final UIComponent before = getFacet(Facets.before.name());
-    final UIComponent after = getFacet(Facets.after.name());
-
-    if (getLabelLayout() == LabelLayout.skip && before == null && after==null) {
-      return getClientId(facesContext);
-    } else {
-      return getClientId(facesContext) + ComponentUtils.SUB_SEPARATOR + "field";
-    }
-  }
-
-  public boolean isLabelLayoutSkip() {
-    return getLabelLayout() == LabelLayout.skip;
+    return getClientId(facesContext) + ComponentUtils.SUB_SEPARATOR + "field";
   }
 }

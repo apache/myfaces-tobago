@@ -110,9 +110,6 @@ public abstract class LabelLayoutRendererBase extends DecodingInputRendererBase 
     final LabelLayout labelLayout = getType(component);
     final CssItem divClass;
     switch (labelLayout) {
-      case skip:
-        // skip rendering the surrounding element
-        return;
       case flexLeft:
       case flexRight:
         divClass = TobagoClass.FLEX_LAYOUT;
@@ -134,12 +131,15 @@ public abstract class LabelLayoutRendererBase extends DecodingInputRendererBase 
     // TODO: optimize findAncestor() -> set a marker in AbstractUILinks?
 
 //    writer.writeClassAttribute(divClass, extra, BootstrapClass.maximumSeverity(component));
-    writer.writeClassAttribute(
-        divClass,
-        TobagoClass.LABEL__CONTAINER,
-        BootstrapClass.FORM_GROUP,
-        BootstrapClass.maximumSeverity(component),
-        ComponentUtils.getBooleanAttribute(component, Attributes.required) ? TobagoClass.REQUIRED : null);
+
+    if (!(LabelLayout.skip == labelLayout)) {
+      writer.writeClassAttribute(
+          divClass,
+          TobagoClass.LABEL__CONTAINER,
+          BootstrapClass.FORM_GROUP,
+          BootstrapClass.maximumSeverity(component),
+          ComponentUtils.getBooleanAttribute(component, Attributes.required) ? TobagoClass.REQUIRED : null);
+    }
 
     switch (labelLayout) {
       case flexLeft:
@@ -154,6 +154,7 @@ public abstract class LabelLayoutRendererBase extends DecodingInputRendererBase 
 
     switch (labelLayout) {
       case none:
+      case skip:
       case flexRight:
       case flowRight:
         break;
@@ -179,8 +180,6 @@ public abstract class LabelLayoutRendererBase extends DecodingInputRendererBase 
     final LabelLayout labelLayout = getType(component);
 
     switch (labelLayout) {
-      case skip:
-        return;
       case flexRight:
       case flowRight:
         encodeLabel(component, writer, labelLayout);

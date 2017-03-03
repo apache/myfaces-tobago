@@ -80,7 +80,6 @@ public class SelectBooleanCheckboxRenderer extends MessageLayoutRendererBase {
     final String itemLabel = select.getItemLabel();
 
     writer.startElement(HtmlElements.DIV);
-    writer.writeIdAttribute(clientId);
     writer.writeStyleAttribute(select.getStyle());
     writer.writeClassAttribute(
         Classes.create(select),

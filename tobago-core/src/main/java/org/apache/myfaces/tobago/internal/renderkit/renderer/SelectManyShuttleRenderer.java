@@ -47,9 +47,6 @@ public class SelectManyShuttleRenderer extends SelectManyRendererBase {
     final String clientId = select.getClientId(facesContext);
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
     writer.startElement(HtmlElements.DIV);
-    if(select.isLabelLayoutSkip()) {
-      writer.writeIdAttribute(clientId);
-    }
     writer.writeClassAttribute(Classes.create(select), select.getCustomClass());
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, select);
     final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, select);
