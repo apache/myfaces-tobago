@@ -21,6 +21,7 @@ package org.apache.myfaces.tobago.component;
 
 public enum ClientBehaviors {
 
+  action, // pure JSF (not a JavaScript event
   blur,
   change,
   click,
@@ -34,6 +35,7 @@ public enum ClientBehaviors {
   resize,
   suggest; // tbd
 
+  public static final String ACTION = "action";
   public static final String BLUR = "blur";
   public static final String CHANGE = "change";
   public static final String CLICK = "click";
