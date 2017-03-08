@@ -42,6 +42,7 @@ QUnit.test("date with label", function (assert) {
   $dateButton.click();
 
   assert.equal($dateField.val(), today);
+  $dateButton.click(); // IE11: close datetimepicker for next test
 });
 
 QUnit.test("submit", function(assert) {

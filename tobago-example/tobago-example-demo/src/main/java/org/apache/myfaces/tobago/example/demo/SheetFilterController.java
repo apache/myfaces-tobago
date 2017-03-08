@@ -25,7 +25,7 @@ import org.apache.myfaces.tobago.model.SelectItem;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
@@ -38,7 +38,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
-@RequestScoped
+@SessionScoped
 @Named
 public class SheetFilterController extends SheetController implements Serializable {
 

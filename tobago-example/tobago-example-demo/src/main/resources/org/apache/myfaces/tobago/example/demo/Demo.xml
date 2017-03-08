@@ -32,6 +32,10 @@
   <entry key="menu_locale">Language</entry>
   <entry key="menu_help">Help</entry>
   <entry key="menu_about">About</entry>
+  <entry key="menu_test">Test</entry>
+  <entry key="menu_runTest">Run Test</entry>
+  <entry key="menu_closeTest">Close Test</entry>
+  <entry key="menu_runTestAll">Run all tests</entry>
 
   <!-- navigate -->
   <entry key="intro">Intro</entry>
@@ -125,6 +129,7 @@
   <entry key="labeled_layout">LabeledLayout</entry>
   <entry key="format">Formatting</entry>
   <entry key="transition">Transition</entry>
+  <entry key="behavior">Behavior</entry>
   <entry key="for_each">For Each</entry>
   <entry key="collapsible">Collapsible</entry>
   <entry key="collapsible_box">Content Box</entry>

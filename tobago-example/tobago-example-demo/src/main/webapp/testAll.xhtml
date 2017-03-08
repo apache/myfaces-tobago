@@ -25,6 +25,6 @@
   <tc:script file="#{request.contextPath}/script/tobago-testAll.js"/>
 
   <c:forEach items="#{testController.testPages}" var="testPage">
-    <tc:object id="#{testPage.id}" name="test.xhtml?page=#{testPage.xhtml}&amp;testjs=#{testPage.js}"/>
+    <tc:object id="#{testPage.id}" name="test.xhtml?base=#{testPage.base}"/>
   </c:forEach>
 </ui:composition>

@@ -80,18 +80,18 @@ public class QUnitTests {
     return webArchive;
   }
 
-  private void setupBrowser(String page, String testJs) throws UnsupportedEncodingException {
-    LOG.info("setup browser for: " + page);
-    browser.get(contextPath + "/faces/test.xhtml?page=" + URLEncoder.encode(page, "UTF-8") + "&testjs="
-        + contextPath + URLEncoder.encode(testJs, "UTF-8"));
+  private void setupBrowser(String base, boolean accessTest) throws UnsupportedEncodingException {
+    LOG.info("setup browser for: " + base + ".xhtml | accessTest=" + accessTest);
+    browser.get(contextPath + "faces/test.xhtml?base=" + URLEncoder.encode(base, "UTF-8")
+        + (accessTest ? "&accessTest=true" : ""));
   }
 
   private void runStandardTest(String page) throws UnsupportedEncodingException, InterruptedException {
     testedPages.add(page);
 
     if (!ignorePages().contains(page)) {
-      String testJs = page.substring(0, page.length() - 6) + ".test.js";
-      setupBrowser(page, testJs);
+      final String base = page.substring(0, page.length() - 6);
+      setupBrowser(base, false);
 
       checkQUnitResults(page);
     }
@@ -126,7 +126,7 @@ public class QUnitTests {
             String message = assertion.findElement(By.className("test-message")).getText();
             String expected = assertion.findElement(By.className("test-expected")).getText();
             String actual = assertion.findElement(By.className("test-actual")).getText();
-            Assert.assertEquals(message, expected, actual);
+            Assert.assertEquals(message + " on page: " + page, expected, actual);
           }
         }
       } else if ("running".equals(testCase.getAttribute("class"))) {
@@ -194,24 +194,30 @@ public class QUnitTests {
   @Test
   public void testAccessAllPages() throws UnsupportedEncodingException, InterruptedException {
     List<String> pages = getXHTMLs();
-    String testJs = "error/error.test.js";
     List<WebElement> results;
 
     // Test if 'has no exception' test is correct.
-    setupBrowser("error/exception.xhtml", testJs);
+    setupBrowser("error/exception", true);
     results = qunit.findElement(By.id("qunit-tests")).findElements(By.xpath("li"));
-    Assert.assertEquals(results.get(0).getAttribute("class"), "fail");
-    Assert.assertEquals(results.get(1).getAttribute("class"), "pass");
+    for (WebElement result : results) {
+      if ("has no exception".equals(result.findElement(By.className("test-name")).getText())) {
+        Assert.assertEquals(result.getAttribute("class"), "fail");
+      }
+    }
 
     // Test if 'has no 404' test is correct.
-    setupBrowser("error/404.xhtml", testJs);
+    setupBrowser("error/404", true);
     results = qunit.findElement(By.id("qunit-tests")).findElements(By.xpath("li"));
-    Assert.assertEquals(results.get(0).getAttribute("class"), "pass");
-    Assert.assertEquals(results.get(1).getAttribute("class"), "fail");
+    for (WebElement result : results) {
+      if ("has no 404".equals(result.findElement(By.className("test-name")).getText())) {
+        Assert.assertEquals(result.getAttribute("class"), "fail");
+      }
+    }
 
     for (String page : pages) {
-      String pathForBrowser = page.substring(page.indexOf("src/main/webapp/") + "src/main/webapp/".length());
-      setupBrowser(pathForBrowser, testJs);
+      String pathForBrowser = page.substring(page.indexOf("src/main/webapp/") + "src/main/webapp/".length(),
+          page.length() - 6);
+      setupBrowser(pathForBrowser, true);
       checkQUnitResults(page);
     }
   }

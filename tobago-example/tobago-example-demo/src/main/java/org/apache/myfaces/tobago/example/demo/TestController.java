@@ -38,20 +38,21 @@ public class TestController implements Serializable {
 
   private static final Logger LOG = LoggerFactory.getLogger(TestController.class);
 
-  public String getTestBase() {
-    final FacesContext facesContext = FacesContext.getCurrentInstance();
-    final ExternalContext externalContext = facesContext.getExternalContext();
-    final String viewId = facesContext.getViewRoot().getViewId();
-    final String base = viewId.substring(0, viewId.length() - 6);
+  public boolean hasTest() {
+    final ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+    final String testJsUrl = "/" + getBase() + ".test.js";
     try {
-      if (externalContext.getResource(base + ".test.js") != null) {
-        return base;
-      }
+      return externalContext.getResource(testJsUrl) != null;
     } catch (MalformedURLException e) {
-      LOG.error("viewId='" + viewId + "'", e);
+      LOG.error("URL was: " + testJsUrl, e);
     }
+    return false;
+  }
 
-    return null;
+  public String getBase() {
+    final FacesContext facesContext = FacesContext.getCurrentInstance();
+    final String viewId = facesContext.getViewRoot().getViewId();
+    return viewId.substring(1, viewId.length() - 6); //remove leading '/' and trailing '.xhtml'
   }
 
   public List<TestPage> getTestPages() {
@@ -59,10 +60,11 @@ public class TestController implements Serializable {
 
     int idCount = 1;
     final File rootDir = new File("src/main/webapp/content");
-    for (String testJs : getTestJs(rootDir)) {
-      final String xhtml = "/faces/" + testJs.substring(16, testJs.length() - 8) + ".xhtml";
-      final String adjustedTestJs = "/" + testJs.substring(16);
-      testPages.add(new TestPage("tp" + idCount++, xhtml, adjustedTestJs));
+    if (rootDir.exists()) {
+      for (String testJs : getTestJs(rootDir)) {
+        final String base = testJs.substring(16, testJs.length() - 8);
+        testPages.add(new TestPage("tp" + idCount++, base));
+      }
     }
     return testPages;
   }
@@ -81,25 +83,19 @@ public class TestController implements Serializable {
 
   public class TestPage {
     private final String id;
-    private final String xhtml;
-    private final String js;
+    private final String base;
 
-    TestPage(String id, String xhtml, String js) {
+    TestPage(String id, String base) {
       this.id = id;
-      this.xhtml = xhtml;
-      this.js = js;
+      this.base = base;
     }
 
     public String getId() {
       return id;
     }
 
-    public String getXhtml() {
-      return xhtml;
-    }
-
-    public String getJs() {
-      return js;
+    public String getBase() {
+      return base;
     }
   }
 }

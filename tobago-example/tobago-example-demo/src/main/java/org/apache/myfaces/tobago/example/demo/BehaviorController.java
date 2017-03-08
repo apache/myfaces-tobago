@@ -20,24 +20,29 @@
 package org.apache.myfaces.tobago.example.demo;
 
 import javax.enterprise.context.RequestScoped;
-import javax.faces.context.FacesContext;
 import javax.inject.Named;
-import java.io.PrintWriter;
 import java.io.Serializable;
-import java.io.StringWriter;
 
 @RequestScoped
 @Named
-public class ExceptionController implements Serializable {
+public class BehaviorController implements Serializable {
 
-  public String getStackTrace() {
-    Exception exception = (Exception) FacesContext.getCurrentInstance().getExternalContext()
-            .getRequestMap().get("javax.servlet.error.exception");
-    StringWriter stringWriter = new StringWriter();
-    PrintWriter printWriter = new PrintWriter(stringWriter);
-    if(exception != null) {
-      exception.printStackTrace(printWriter);
-    }
-    return stringWriter.toString();
+  private String ajax;
+  private String event;
+
+  public String getAjax() {
+    return ajax;
+  }
+
+  public void setAjax(String ajax) {
+    this.ajax = ajax;
+  }
+
+  public String getEvent() {
+    return event;
+  }
+
+  public void setEvent(String event) {
+    this.event = event;
   }
 }

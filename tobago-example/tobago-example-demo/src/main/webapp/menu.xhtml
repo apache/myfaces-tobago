@@ -92,42 +92,44 @@
                         label="Requests: #{activityList.values[0].jsfRequest} / AJAX: #{activityList.values[0].ajaxRequest}"/>
           </tc:link>
 
+          <tc:link label="#{demoBundle.menu_test}" omit="true">
+            <tc:link id="runtest" label="#{demoBundle.menu_runTest}" link="/faces/test.xhtml"
+                     immediate="true" disabled="#{!testController.hasTest()}">
+              <f:param name="base" value="#{testController.base}"/>
+            </tc:link>
+            <tc:link id="closetest" label="#{demoBundle.menu_closeTest}" immediate="true"/>
+            <tc:link label="#{demoBundle.menu_runTestAll}" link="/faces/testAll.xhtml" target="_blank"
+                     immediate="true" rendered="#{facesContext.isProjectStage('Development')}"/>
+          </tc:link>
+
         </tc:links>
       </tc:form>
 
       <tc:flowLayout textAlign="right">
-        <tc:form inline="true">
+        <!--<tc:form inline="true">
           <tc:in placeholder="Search"/>
           <tc:button defaultCommand="true" omit="true" label="go">
             <tc:dataAttribute name="alert-text"
                               value="Sorry: Search not implemented"/>
 
           </tc:button>
-        </tc:form>
+        </tc:form>-->
         <tc:form id="navbtns" inline="true">
-          <tc:button immediate="true" id="previous"
-                     image="fa-angle-left"
-                     action="#{navigationState.gotoPrevious}"
-                     disabled="#{navigationState.first}"
-                     tip="#{demoBundle.footer_previous}"/>
-          <tc:button immediate="true" id="next"
-                     image="fa-angle-right"
-                     action="#{navigationState.gotoNext}"
-                     disabled="#{navigationState.last}"
-                     tip="#{demoBundle.footer_next}"/>
+          <tc:buttons>
+            <tc:button immediate="true" id="previous"
+                       image="fa-angle-left"
+                       action="#{navigationState.gotoPrevious}"
+                       disabled="#{navigationState.first}"
+                       tip="#{demoBundle.footer_previous}"/>
+            <tc:button immediate="true" id="next"
+                       image="fa-angle-right"
+                       action="#{navigationState.gotoNext}"
+                       disabled="#{navigationState.last}"
+                       tip="#{demoBundle.footer_next}"/>
+          </tc:buttons>
           <tc:button action="#{navigationState.toggleViewSource}"
                      image="fa-code"
                      immediate="true" tip="#{demoBundle.footer_viewSource}"/>
-          <tc:button id="runtest"
-                     link="/faces/test.xhtml"
-                     label="Run Test"
-                     immediate="true" tip="Run Test"
-                     rendered="#{testController.testBase != null}">
-            <f:param name="page" value="#{request.contextPath}/faces#{testController.testBase}.xhtml"/>
-            <f:param name="testjs" value="#{request.contextPath}#{testController.testBase}.test.js"/>
-          </tc:button>
-          <tc:button id="closetest" label="Close Test"
-                     immediate="true" tip="Close test window"/>
         </tc:form>
       </tc:flowLayout>
 

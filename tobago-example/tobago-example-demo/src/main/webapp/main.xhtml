@@ -39,22 +39,23 @@
 
       <tc:segmentLayout large="#{tc:columnPartition(navigationState.viewSource ? '8;4' : '12')}">
 
-        <tc:flexLayout columns="*;4*">
+        <tc:flexLayout columns="auto;30px;*">
 
           <tc:panel>
             <ui:include src="/navigation.xhtml"/>
           </tc:panel>
+          <tc:panel/>
 
           <tc:flexLayout rows="auto;*">
 
             <tc:messages id="messages" orderBy="severity"
                          rendered="#{!navigationTree.outputPage and !navigationTree.messagesPage}"/>
 
-            <tc:box label="#{title}" id="content">
+            <tc:section label="#{title}" id="content">
               <tc:form id="mainForm">
                 <ui:insert/>
               </tc:form>
-            </tc:box>
+            </tc:section>
 
           </tc:flexLayout>
 

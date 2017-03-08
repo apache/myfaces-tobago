@@ -70,20 +70,20 @@ var initInspect = function (elements) {
 Tobago.registerListener(initInspect, Tobago.Phase.DOCUMENT_READY);
 Tobago.registerListener(initInspect, Tobago.Phase.AFTER_UPDATE);
 
-var initTestButtons = function () {
-  var $runButton = jQuery("#page\\:navbtns\\:runtest");
-  var $closeButton = jQuery("#page\\:navbtns\\:closetest");
+var initTestLinks = function () {
+  var $runLink = jQuery("#page\\:header\\:runtest");
+  var $closeLink = jQuery("#page\\:header\\:closetest");
 
   if (jQuery(parent.document.getElementById("qunit")).length) {
-    $runButton.hide();
-    $closeButton.attr("onclick", "window.top.location.href = location.href");
+    $runLink.hide();
+    $closeLink.attr("onclick", "window.top.location.href = location.href");
   } else {
-    $closeButton.hide();
+    $closeLink.hide();
   }
 };
 
-Tobago.registerListener(initTestButtons, Tobago.Phase.DOCUMENT_READY);
-Tobago.registerListener(initTestButtons, Tobago.Phase.AFTER_UPDATE);
+Tobago.registerListener(initTestLinks, Tobago.Phase.DOCUMENT_READY);
+Tobago.registerListener(initTestLinks, Tobago.Phase.AFTER_UPDATE);
 
 var initTestframe = function () {
   jQuery("#page\\:testframe").attr("onload", "this.height = this.contentWindow.jQuery('body').prop('scrollHeight');");
