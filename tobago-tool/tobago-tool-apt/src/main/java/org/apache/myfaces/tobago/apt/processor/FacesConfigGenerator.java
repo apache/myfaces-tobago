@@ -211,7 +211,8 @@ public class FacesConfigGenerator extends AbstractGenerator {
 
         final org.jdom.Element behaviorRender = new org.jdom.Element(CLIENT_BEHAVIOR_RENDERER, namespace);
         final org.jdom.Element behaviorType = new org.jdom.Element(CLIENT_BEHAVIOR_RENDERER_TYPE, namespace);
-        behaviorType.setText("javax.faces.behavior.Ajax");
+//        behaviorType.setText("javax.faces.behavior.Ajax");
+        behaviorType.setText("org.apache.myfaces.tobago.behavior.Ajax");
         behaviorRender.addContent(behaviorType);
         final org.jdom.Element behaviorClass = new org.jdom.Element(CLIENT_BEHAVIOR_RENDERER_CLASS, namespace);
         behaviorClass.setText("org.apache.myfaces.tobago.internal.renderkit.renderer.TobagoClientBehaviorRenderer");

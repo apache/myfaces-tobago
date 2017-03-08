@@ -36,6 +36,7 @@ import javax.faces.component.EditableValueHolder;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIParameter;
 import javax.faces.component.ValueHolder;
+import javax.faces.component.behavior.AjaxBehavior;
 import javax.faces.component.behavior.ClientBehavior;
 import javax.faces.component.behavior.ClientBehaviorBase;
 import javax.faces.component.behavior.ClientBehaviorContext;
@@ -258,7 +259,11 @@ public final class RenderUtils {
           facesContext, (UIComponent) holder, key, ((UIComponent) holder).getClientId(facesContext), null);
       for (ClientBehavior clientBehavior : behaviorMap.getValue()) {
         if (clientBehavior instanceof ClientBehaviorBase) {
-          final String type = ((ClientBehaviorBase) clientBehavior).getRendererType();
+          String type = ((ClientBehaviorBase) clientBehavior).getRendererType();
+          // XXX this is to use a different renderer for Tobago components and other components.
+          if (type.equals(AjaxBehavior.BEHAVIOR_ID)) {
+            type = "org.apache.myfaces.tobago.behavior.Ajax";
+          }
           final ClientBehaviorRenderer renderer = facesContext.getRenderKit().getClientBehaviorRenderer(type);
           final String dummy = renderer.getScript(context, clientBehavior);
           if (dummy != null) {
