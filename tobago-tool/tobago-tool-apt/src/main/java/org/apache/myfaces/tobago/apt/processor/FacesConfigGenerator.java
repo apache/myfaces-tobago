@@ -200,36 +200,19 @@ public class FacesConfigGenerator extends AbstractGenerator {
         rootElement.addContent(lastIndex, elementsToAdd);
       }
       if (!newRenderer.isEmpty()) {
-        final org.jdom.Element renderKit = new org.jdom.Element(RENDER_KIT, namespace);
+        org.jdom.Element renderKit = getFirstElementByName(rootElement, RENDER_KIT);
+        if (renderKit == null) {
+          renderKit = new org.jdom.Element(RENDER_KIT, namespace);
+          final int last = getIndexAfter(rootElement, CONVERTER, COMPONENT, FACTORY, APPLICATION, BEHAVIOR);
+          rootElement.addContent(last, renderKit);
+        }
         final org.jdom.Element renderKitId = new org.jdom.Element(RENDER_KIT_ID, namespace);
         renderKitId.setText("tobago");
-        renderKit.addContent(renderKitId);
+        renderKit.addContent(0, renderKitId);
         final org.jdom.Element renderKitClass = new org.jdom.Element(RENDER_KIT_CLASS, namespace);
         renderKitClass.setText("org.apache.myfaces.tobago.renderkit.TobagoRenderKit");
-        renderKit.addContent(renderKitClass);
-        renderKit.addContent(newRenderer);
-
-        final org.jdom.Element behaviorRender = new org.jdom.Element(CLIENT_BEHAVIOR_RENDERER, namespace);
-        final org.jdom.Element behaviorType = new org.jdom.Element(CLIENT_BEHAVIOR_RENDERER_TYPE, namespace);
-//        behaviorType.setText("javax.faces.behavior.Ajax");
-        behaviorType.setText("org.apache.myfaces.tobago.behavior.Ajax");
-        behaviorRender.addContent(behaviorType);
-        final org.jdom.Element behaviorClass = new org.jdom.Element(CLIENT_BEHAVIOR_RENDERER_CLASS, namespace);
-        behaviorClass.setText("org.apache.myfaces.tobago.internal.renderkit.renderer.TobagoClientBehaviorRenderer");
-        behaviorRender.addContent(behaviorClass);
-        renderKit.addContent(behaviorRender);
-
-        final org.jdom.Element baviorRender2 = new org.jdom.Element(CLIENT_BEHAVIOR_RENDERER, namespace);
-        final org.jdom.Element behaviorType2 = new org.jdom.Element(CLIENT_BEHAVIOR_RENDERER_TYPE, namespace);
-        behaviorType2.setText("org.apache.myfaces.tobago.behavior.Event");
-        baviorRender2.addContent(behaviorType2);
-        final org.jdom.Element behaviorClass2 = new org.jdom.Element(CLIENT_BEHAVIOR_RENDERER_CLASS, namespace);
-        behaviorClass2.setText("org.apache.myfaces.tobago.internal.renderkit.renderer.TobagoClientBehaviorRenderer");
-        baviorRender2.addContent(behaviorClass2);
-        renderKit.addContent(baviorRender2);
-
-        final int last = getIndexAfter(rootElement, CONVERTER, COMPONENT, FACTORY, APPLICATION, BEHAVIOR);
-        rootElement.addContent(last, renderKit);
+        renderKit.addContent(1, renderKitClass);
+        renderKit.addContent(2, newRenderer);
       }
       if (!newConverters.isEmpty()) {
         final int last = getIndexAfter(rootElement, RENDER_KIT, CONVERTER, COMPONENT, FACTORY, APPLICATION, BEHAVIOR);
@@ -313,6 +296,15 @@ public class FacesConfigGenerator extends AbstractGenerator {
       }
     }
     return null;
+  }
+
+  private org.jdom.Element getFirstElementByName(final org.jdom.Element rootElement, final String tagName) {
+    final List<org.jdom.Element> elements = rootElement.getChildren(tagName, rootElement.getNamespace());
+    if (elements.size() > 0) {
+      return elements.get(0);
+    } else {
+      return null;
+    }
   }
 
   private int getIndexAfter(final org.jdom.Element rootElement, final String... tagNames) {
