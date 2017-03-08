@@ -27,6 +27,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.faces.application.Application;
+import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import java.util.ArrayList;
@@ -60,7 +61,12 @@ public class ClientConfigController {
 
     // locale
 
-    locale = facesContext.getViewRoot().getLocale();
+    final UIViewRoot viewRoot = facesContext.getViewRoot();
+    if (viewRoot != null) {
+      locale = viewRoot.getLocale();
+    } else {
+      locale = facesContext.getApplication().getDefaultLocale();
+    }
 
     // load
 

@@ -79,6 +79,21 @@
 
   <dependencies>
     <dependency>
+      <groupId>org.apache.myfaces.tobago</groupId>
+      <artifactId>tobago-theme-scarborough</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.myfaces.tobago</groupId>
+      <artifactId>tobago-theme-richmond</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.myfaces.tobago</groupId>
+      <artifactId>tobago-theme-charlotteville</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
       <groupId>org.apache.geronimo.specs</groupId>
       <artifactId>geronimo-jcdi_1.0_spec</artifactId>
       <version>1.0</version>
