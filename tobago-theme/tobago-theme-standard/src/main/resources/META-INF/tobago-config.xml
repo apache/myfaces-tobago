@@ -366,7 +366,7 @@
         <script name="/tobago/standard/typeahead/0.11.1-patched-with-1212/typeahead.min.js"/>
         <style name="/tobago/standard/tether/1.1.1/css/tether.min.css"/>
         <style name="/tobago/standard/tobago-bootstrap/_version/css/bootstrap.min.css"/>
-        <style name="/tobago/standard/font-awesome/4.6.1/css/font-awesome.min.css"/>
+        <style name="/tobago/standard/font-awesome/4.7.0/css/font-awesome.min.css"/>
         <style name="/tobago/standard/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.min.css"/>
       </resources>
       <resources production="false">
@@ -392,7 +392,7 @@
         <script name="/tobago/standard/typeahead/0.11.1-patched-with-1212/typeahead.js"/>
         <style name="/tobago/standard/tether/1.1.1/css/tether.css"/>
         <style name="/tobago/standard/tobago-bootstrap/_version/css/bootstrap.css"/>
-        <style name="/tobago/standard/font-awesome/4.6.1/css/font-awesome.css"/>
+        <style name="/tobago/standard/font-awesome/4.7.0/css/font-awesome.css"/>
         <style name="/tobago/standard/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.css"/>
       </resources>
     </theme-definition>
