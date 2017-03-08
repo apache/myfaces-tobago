@@ -294,7 +294,7 @@ public class TabGroupRenderer extends RendererBase implements ComponentSystemEve
     }
     writer.endElement(HtmlElements.UL);
     if (tabGroup.isShowNavigationBar()) {
-      LOG.warn("Currently not supported: showNavigationBar");
+      LOG.debug("Currently not supported: showNavigationBar");
 //      final UIToolBar toolBar = createToolBar(facesContext, tabGroup);
 //      renderToolBar(facesContext, writer, tabGroup, toolBar);
     }
