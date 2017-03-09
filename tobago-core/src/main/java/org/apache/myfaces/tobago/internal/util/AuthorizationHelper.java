@@ -70,14 +70,13 @@ public class AuthorizationHelper {
 
   public AuthorizationHelper() {
 
-    // XXX this is easier with CDI 1.1
-    // beanManager = CDI.context().getBeanManager();
-
     try {
+      // XXX this is easier with CDI 1.1
+      // beanManager = CDI.context().getBeanManager();
       final InitialContext context = new InitialContext();
       beanManager = (BeanManager) context.lookup("java:comp/BeanManager");
     } catch (Exception exception) {
-      LOG.warn("Can't obtain 'java:comp/BeanManager'", exception);
+      LOG.warn("Can't obtain 'java:comp/BeanManager'");
     }
 
     if (beanManager == null) {
