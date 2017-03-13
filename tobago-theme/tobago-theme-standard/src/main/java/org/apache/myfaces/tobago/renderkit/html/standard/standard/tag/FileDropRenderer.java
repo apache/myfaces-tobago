@@ -25,12 +25,14 @@ import org.apache.myfaces.tobago.component.SupportsMarkup;
 import org.apache.myfaces.tobago.component.UIButton;
 import org.apache.myfaces.tobago.component.UICommand;
 import org.apache.myfaces.tobago.component.UIFileDrop;
+import org.apache.myfaces.tobago.component.UILink;
 import org.apache.myfaces.tobago.component.UIOut;
 import org.apache.myfaces.tobago.config.Configurable;
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.internal.component.AbstractUIFile;
 import org.apache.myfaces.tobago.internal.component.AbstractUIFileDrop.VisibleType;
 import org.apache.myfaces.tobago.internal.component.AbstractUIPanel;
+import org.apache.myfaces.tobago.layout.LayoutBase;
 import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.Style;
@@ -59,19 +61,37 @@ public class FileDropRenderer extends FileRenderer {
     VisibleType visibleType = getVisibleType(fileDrop);
     switch (visibleType) {
       case DROP_ZONE:
-        if (fileDrop.getFacet("out") == null) {
-          createOut(facesContext, fileDrop);
+        UIOut view = (UIOut) fileDrop.getFacet(visibleType.name());
+        if (view == null) {
+          view = (UIOut) createViewComponent(facesContext, fileDrop, UIOut.COMPONENT_TYPE, RendererTypes.OUT);
+          fileDrop.getFacets().put(visibleType.name(), view);
         }
+        prepareRender(facesContext, view, fileDrop);
         break;
       case BUTTON:
-        if (fileDrop.getFacet("button") == null) {
-          createButton(facesContext, fileDrop);
+        UIButton button = (UIButton) fileDrop.getFacet(visibleType.name());
+        if (button == null) {
+          button
+              = (UIButton) createViewComponent(facesContext, fileDrop, UIButton.COMPONENT_TYPE, RendererTypes.BUTTON);
+          fileDrop.getFacets().put(visibleType.name(), button);
         }
-        UIButton button = (UIButton) fileDrop.getFacet("button");
-        // TODO: prepareRender(button)
+        prepareRender(facesContext, button, fileDrop);
+        break;
+      case LINK:
+        UILink image = (UILink) fileDrop.getFacet(visibleType.name());
+        if (image == null) {
+          image = (UILink) createViewComponent(facesContext, fileDrop, UILink.COMPONENT_TYPE, RendererTypes.LINK);
+          fileDrop.getFacets().put(visibleType.name(), image);
+        }
+        prepareRender(facesContext, image, fileDrop);
         break;
       default:
     }
+  }
+
+  private void prepareRender(FacesContext facesContext, UIComponent command, UIFileDrop fileDrop)
+      throws IOException {
+    super.prepareRender(facesContext, command);
   }
 
   @Override
@@ -145,69 +165,74 @@ public class FileDropRenderer extends FileRenderer {
     fileDrop.getFacets().put("change", command);
   }
 
-  private void createButton(FacesContext facesContext, UIFileDrop fileDrop) {
-    UIButton command = (UIButton) facesContext.getApplication()
-        .createComponent(facesContext, UIButton.COMPONENT_TYPE, RendererTypes.BUTTON);
-    command.setId(fileDrop.getId() + "-button-facet");
-    command.setOmit(true);
+  protected UIComponent createViewComponent(FacesContext facesContext, UIFileDrop fileDrop, String componentType,
+      String rendererType) {
+    UIComponent viewComponent = (UIComponent) facesContext.getApplication()
+        .createComponent(facesContext, componentType, rendererType);
+    viewComponent.setId(fileDrop.getId() + "-view-facet");
+
+    setOmit(viewComponent);
 
     String label = fileDrop.getLabel();
     String image = fileDrop.getImage();
 
     ValueExpression valueExpression = fileDrop.getValueExpression(Attributes.LABEL);
     if (valueExpression != null) {
-      command.setValueExpression(Attributes.LABEL, valueExpression);
+      setLabelExpression(viewComponent, valueExpression);
     } else {
       if (label != null) {
-        command.setLabel(label);
+        setLabel(viewComponent, label);
       } else if (image == null) {
-        command.setLabel(getDefaultLabel(facesContext));
+        setLabel(viewComponent, getDefaultLabel(facesContext));
       }
     }
 
     valueExpression = fileDrop.getValueExpression(Attributes.IMAGE);
     if (valueExpression != null) {
-      command.setValueExpression(Attributes.IMAGE, valueExpression);
+      viewComponent.setValueExpression(Attributes.IMAGE, valueExpression);
     } else {
-      command.setImage(image);
+      setImage(viewComponent, image);
     }
 
+    return viewComponent;
+  }
 
-    fileDrop.getFacets().put("button", command);
+  private void setImage(UIComponent command, String image) {
+    if (command instanceof UIButton) {
+      ((UIButton) command).setImage(image);
+    } else if (command instanceof UILink) {
+      ((UILink) command).setImage(image);
+    }
+  }
+
+  private void setOmit(UIComponent command) {
+    if (command instanceof UIButton) {
+      ((UIButton) command).setOmit(true);
+    } else if (command instanceof UILink) {
+      ((UILink) command).setOmit(true);
+    }
+  }
+
+  private void setLabelExpression(UIComponent viewComponent, ValueExpression valueExpression) {
+    if (viewComponent instanceof UIOut) {
+      viewComponent.setValueExpression(Attributes.VALUE, valueExpression);
+    } else {
+      viewComponent.setValueExpression(Attributes.LABEL, valueExpression);
+    }
+  }
+
+  private void setLabel(UIComponent command, String label) {
+    if (command instanceof UIButton) {
+      ((UIButton) command).setLabel(label);
+    } else if (command instanceof UILink) {
+      ((UILink) command).setLabel(label);
+    } else if (command instanceof UIOut) {
+      ((UIOut) command).setValue(label);
+    }
   }
 
   private String getDefaultLabel(FacesContext facesContext) {
     return ResourceManagerUtils.getPropertyNotNull(facesContext, "tobago", "tobago.fileDrop.defaultLabel");
-  }
-
-  private void createOut(FacesContext facesContext, UIFileDrop fileDrop) {
-    UIOut out = (UIOut) facesContext.getApplication()
-        .createComponent(facesContext, UIOut.COMPONENT_TYPE, RendererTypes.OUT);
-    out.setId(fileDrop.getId() + "-out-facet");
-
-    String label = fileDrop.getLabel();
-
-    ValueExpression valueExpression = fileDrop.getValueExpression(Attributes.LABEL);
-    if (valueExpression != null) {
-      out.setValueExpression(Attributes.VALUE, valueExpression);
-    } else {
-      if (label != null) {
-        out.setValue(label);
-      } else {
-        out.setValue(getDefaultLabel(facesContext));
-      }
-    }
-
-    fileDrop.getFacets().put("out", out);
-  }
-
-  private String getExpressionString(UIFileDrop component, String name) {
-    ValueExpression expression = component.getValueExpression(name);
-    if (expression != null) {
-      return expression.getExpressionString();
-    } else {
-      return null;
-    }
   }
 
   @Override
@@ -225,7 +250,7 @@ public class FileDropRenderer extends FileRenderer {
       case BUTTON:
         writeButton(facesContext, writer, fileDrop);
         break;
-      case IMAGE:
+      case LINK:
         writeImage(facesContext, writer, fileDrop);
         break;
       default:
@@ -236,22 +261,48 @@ public class FileDropRenderer extends FileRenderer {
 
   private void writeDropZone(FacesContext facesContext, TobagoResponseWriter writer, UIFileDrop fileDrop)
       throws IOException {
-    writeComponent(facesContext, fileDrop.getFacet("out"));
+    writeComponent(facesContext, fileDrop.getFacet(VisibleType.DROP_ZONE.name()), fileDrop);
   }
 
   private void writeButton(FacesContext facesContext, TobagoResponseWriter writer, UIFileDrop fileDrop)
       throws IOException {
-    writeComponent(facesContext, fileDrop.getFacet("button"));
+    writeComponent(facesContext, fileDrop.getFacet(VisibleType.BUTTON.name()), fileDrop);
   }
 
-  private void writeImage(FacesContext facesContext, TobagoResponseWriter writer, UIFileDrop fileDrop) {
-    // TODO:
+  private void writeImage(FacesContext facesContext, TobagoResponseWriter writer, UIFileDrop fileDrop)
+      throws IOException {
+    writeComponent(facesContext, fileDrop.getFacet(VisibleType.LINK.name()), fileDrop);
   }
 
-  private void writeComponent(FacesContext facesContext, UIComponent component) throws IOException {
+  private void writeComponent(FacesContext facesContext, UIComponent component, UIFileDrop fileDrop)
+      throws IOException {
+    if (VisibleType.DROP_ZONE != getVisibleType(fileDrop) && component instanceof LayoutBase) {
+      ((LayoutBase) component).setCurrentWidth(fileDrop.getCurrentWidth());
+      ((LayoutBase) component).setCurrentHeight(fileDrop.getCurrentHeight());
+      ((LayoutBase) component).setLeft(Measure.valueOf(0));
+      ((LayoutBase) component).setTop(Measure.valueOf(0));
+    }
     component.encodeBegin(facesContext);
     component.encodeChildren(facesContext);
     component.encodeEnd(facesContext);
+  }
+
+  @Override
+  public Measure getHeight(FacesContext facesContext, Configurable component) {
+    VisibleType visibleType = getVisibleType((UIFileDrop) component);
+    switch (visibleType) {
+      case FILE:
+        return getResourceManager()
+            .getThemeMeasure(facesContext, RendererTypes.FILE, null, Attributes.MINIMUM_HEIGHT);
+      case BUTTON:
+        return getResourceManager()
+            .getThemeMeasure(facesContext, RendererTypes.BUTTON, null, Attributes.MINIMUM_HEIGHT);
+      case LINK:
+        return getResourceManager()
+            .getThemeMeasure(facesContext, RendererTypes.LINK, null, Attributes.MINIMUM_HEIGHT);
+      default:
+        return null;
+    }
   }
 
   @Override
@@ -266,6 +317,9 @@ public class FileDropRenderer extends FileRenderer {
       case BUTTON:
         return getResourceManager()
             .getThemeMeasure(facesContext, RendererTypes.BUTTON, null, Attributes.MINIMUM_HEIGHT);
+      case LINK:
+        return getResourceManager()
+            .getThemeMeasure(facesContext, RendererTypes.LINK, null, Attributes.MINIMUM_HEIGHT);
       default:
         return Measure.ZERO;
     }
@@ -283,6 +337,9 @@ public class FileDropRenderer extends FileRenderer {
       case BUTTON:
         return getResourceManager()
             .getThemeMeasure(facesContext, RendererTypes.BUTTON, null, Attributes.PREFERRED_HEIGHT);
+      case LINK:
+        return getResourceManager()
+            .getThemeMeasure(facesContext, RendererTypes.LINK, null, Attributes.PREFERRED_HEIGHT);
       default:
         return Measure.ZERO;
     }
@@ -292,16 +349,29 @@ public class FileDropRenderer extends FileRenderer {
   public Measure getMaximumHeight(FacesContext facesContext, Configurable component) {
     VisibleType visibleType = getVisibleType((UIFileDrop) component);
     switch (visibleType) {
-      case DROP_ZONE:
-        super.getMaximumHeight(facesContext, component);
       case FILE:
         return getResourceManager()
             .getThemeMeasure(facesContext, RendererTypes.FILE, null, Attributes.MAXIMUM_HEIGHT);
       case BUTTON:
         return getResourceManager()
             .getThemeMeasure(facesContext, RendererTypes.BUTTON, null, Attributes.MAXIMUM_HEIGHT);
+      case LINK:
+        return getResourceManager()
+            .getThemeMeasure(facesContext, RendererTypes.LINK, null, Attributes.MAXIMUM_HEIGHT);
       default:
       return null;
+    }
+  }
+
+  @Override
+  public Measure getPreferredWidth(FacesContext facesContext, Configurable component) {
+    VisibleType visibleType = getVisibleType((UIFileDrop) component);
+    switch (visibleType) {
+      case BUTTON:
+        UIButton button = (UIButton) ((UIComponent) component).getFacet(visibleType.name());
+        return button.getPreferredWidth();
+      default:
+        return super.getPreferredWidth(facesContext, component);
     }
   }
 

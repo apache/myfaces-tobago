@@ -35,7 +35,7 @@ public abstract class AbstractUIFileDrop extends AbstractUIFile implements Suppo
     DROP_ZONE,
     FILE,
     BUTTON,
-    IMAGE,
+    LINK,
     NONE;
 
     public static VisibleType asEnum(String value) {
@@ -49,6 +49,8 @@ public abstract class AbstractUIFileDrop extends AbstractUIFile implements Suppo
       return DROP_ZONE;
     }
   }
+
+  enum PropertyKeys {height}
 
   public abstract String getDropZoneId();
   public abstract String getVisibleType();

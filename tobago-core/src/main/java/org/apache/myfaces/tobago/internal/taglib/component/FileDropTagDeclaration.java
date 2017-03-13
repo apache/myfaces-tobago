@@ -135,7 +135,7 @@ public interface FileDropTagDeclaration
 
   /**
    * <p>
-   * Indicate visible .
+   * Indicate visible component style.
    * </p>
    * <p>
    *   Possible values:
@@ -143,9 +143,12 @@ public interface FileDropTagDeclaration
    *     <li>DROP_ZONE</li>
    *     <li>FILE</li>
    *     <li>BUTTON</li>
-   *     <li>IMAGE</li>
+   *     <li>LINK</li>
    *     <li>NONE</li>
    *   </ul>
+   * </p>
+   * <p>
+   *   Default is DROP_ZONE.
    * </p>
    *
    */
