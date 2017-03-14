@@ -151,6 +151,7 @@ var Tobago = {
     windowLoad: [[], [], [], []],
     beforeSubmit: [[], [], [], []],
     afterUpdate: [[], [], [], []],
+    afterNotModified: [[], [], [], []],
     beforeUnload: [[], [], [], []],
     beforeExit: [[], [], [], []]
   },
@@ -178,6 +179,8 @@ var Tobago = {
       phaseMap = Tobago.listeners.beforeSubmit;
     } else if (Tobago.Phase.AFTER_UPDATE == phase) {
       phaseMap = Tobago.listeners.afterUpdate;
+    } else if (Tobago.Phase.AFTER_NOT_MODIFIED == phase) {
+      phaseMap = Tobago.listeners.afterNotModified;
     } else if (Tobago.Phase.BEFORE_UNLOAD == phase) {
       phaseMap = Tobago.listeners.beforeUnload;
     } else if (Tobago.Phase.BEFORE_EXIT == phase) {
@@ -1607,6 +1610,8 @@ Tobago.Phase = {
   BEFORE_SUBMIT:{},
   /** after an AJAX call */
   AFTER_UPDATE:{},
+  /** after an AJAX call without update */
+  AFTER_NOT_MODIFIED:{},
   /** before ending a page */
   BEFORE_UNLOAD:{},
   /** before closing a window or tab */
@@ -2329,6 +2334,13 @@ Tobago.Updater = {
         if (typeof this.afterDoUpdateNotModified == 'function') {
           this.afterDoUpdateNotModified();
         }
+        for (order = 0; order < Tobago.listeners.afterNotModified.length; order++) {
+          list = Tobago.listeners.afterNotModified[order];
+          for (i = 0; i < list.length; i++) {
+            list[i](newElement);
+          }
+        }
+
         if (overlay.data("tobagoOverlay") != null) {
           overlay.overlay("destroy");
         }
