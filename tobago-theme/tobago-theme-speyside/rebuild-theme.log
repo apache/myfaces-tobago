@@ -1,3 +1,4 @@
+Build date: 2017-03-15-18:09:06
 [INFO] Scanning for projects...
 [INFO]                                                                         
 [INFO] ------------------------------------------------------------------------
@@ -120,7 +121,7 @@
 [INFO] > node-sass@3.13.1 install __CURRENT__/tobago-theme-speyside/target/bootstrap/node_modules/node-sass
 [INFO] > node scripts/install.js
 [INFO] 
-[INFO] Cached binary found at /Users/lofwyr/.npm/node-sass/3.13.1/darwin-x64-48_binding.node
+[INFO] Cached binary found at __HOME__/.npm/node-sass/3.13.1/darwin-x64-48_binding.node
 [INFO] 
 [INFO] > phantomjs-prebuilt@2.1.14 install __CURRENT__/tobago-theme-speyside/target/bootstrap/node_modules/phantomjs-prebuilt
 [INFO] > node install.js
@@ -130,7 +131,7 @@
 [INFO] Verified checksum of previously downloaded file
 [INFO] Extracting zip contents
 [INFO] Removing __CURRENT__/tobago-theme-speyside/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom
-[INFO] Copying extracted folder /var/folders/w0/pg4pxr7972l6bq85x08s5cl00000gn/T/phantomjs/phantomjs-2.1.1-macosx.zip-extract-1489591101287/phantomjs-2.1.1-macosx -> __CURRENT__/tobago-theme-speyside/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom
+[INFO] Copying extracted folder /var/folders/w0/pg4pxr7972l6bq85x08s5cl00000gn/T/phantomjs/phantomjs-2.1.1-macosx.zip-extract-1489597912039/phantomjs-2.1.1-macosx -> __CURRENT__/tobago-theme-speyside/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom
 [INFO] Writing location.js file
 [INFO] Done. Phantomjs binary available at __CURRENT__/tobago-theme-speyside/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom/bin/phantomjs
 [INFO] 
@@ -236,8 +237,10 @@
 [INFO] │ │ │ ├── es6-set@0.1.4 
 [INFO] │ │ │ ├─┬ es6-symbol@3.1.1 
 [INFO] │ │ │ │ └── d@1.0.0 
-[INFO] │ │ │ └── event-emitter@0.3.4 
-[INFO] │ │ ├── es6-weak-map@2.0.1 
+[INFO] │ │ │ └─┬ event-emitter@0.3.5 
+[INFO] │ │ │   └── d@1.0.0 
+[INFO] │ │ ├─┬ es6-weak-map@2.0.2 
+[INFO] │ │ │ └── d@1.0.0 
 [INFO] │ │ └─┬ esrecurse@4.1.0 
 [INFO] │ │   └── estraverse@4.1.1 
 [INFO] │ ├─┬ espree@3.4.0 
@@ -987,16 +990,16 @@
 [INFO] Done.
 [INFO] 
 [INFO] 
-[INFO] Execution Time (2017-03-15 16:18:24 UTC+1)
-[INFO] sass:core     194ms  ▇▇▇ 4%
-[INFO] sass:extras   183ms  ▇▇ 4%
-[INFO] sass:docs     115ms  ▇▇ 3%
-[INFO] exec:postcss   1.5s  ▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇ 32%
-[INFO] cssmin:core   547ms  ▇▇▇▇▇▇ 12%
-[INFO] babel:dev        1s  ▇▇▇▇▇▇▇▇▇▇▇ 22%
-[INFO] babel:dist    527ms  ▇▇▇▇▇▇ 12%
-[INFO] uglify:core   474ms  ▇▇▇▇▇ 10%
-[INFO] Total 4.6s
+[INFO] Execution Time (2017-03-15 18:11:55 UTC+1)
+[INFO] sass:core     208ms  ▇▇ 4%
+[INFO] sass:extras   217ms  ▇▇▇ 4%
+[INFO] sass:docs     122ms  ▇▇ 2%
+[INFO] exec:postcss   1.6s  ▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇ 31%
+[INFO] cssmin:core   686ms  ▇▇▇▇▇▇▇ 13%
+[INFO] babel:dev        1s  ▇▇▇▇▇▇▇▇▇▇ 20%
+[INFO] babel:dist    683ms  ▇▇▇▇▇▇▇ 13%
+[INFO] uglify:core   556ms  ▇▇▇▇▇▇ 11%
+[INFO] Total 5.2s
 [INFO] 
 [INFO] 
 [INFO] --- maven-resources-plugin:2.7:resources (default-resources) @ tobago-theme-speyside ---
@@ -1038,7 +1041,7 @@ main:
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
-[INFO] Total time: 03:25 min
-[INFO] Finished at: 2017-03-15T16:18:29+01:00
-[INFO] Final Memory: 35M/398M
+[INFO] Total time: 02:54 min
+[INFO] Finished at: 2017-03-15T18:12:01+01:00
+[INFO] Final Memory: 35M/397M
 [INFO] ------------------------------------------------------------------------

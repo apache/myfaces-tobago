@@ -21,7 +21,10 @@ set -e
 
 REPO=`mvn help:evaluate -Dexpression=settings.localRepository | grep -v '\[INFO\]'`
 echo "Maven repo: ${REPO}"
-REPO=`echo ${REPO} | sed s/\\\\//\\\\\\\\\\\\//g`
+REPO_REGEX=`echo ${REPO} | sed s/\\\\//\\\\\\\\\\\\//g`
+
+echo "Home: ${HOME}"
+HOME_REGEX=`echo ${HOME} | sed s/\\\\//\\\\\\\\\\\\//g`
 
 function rebuild_theme() {
   THEME=${1}
@@ -29,11 +32,15 @@ function rebuild_theme() {
   DIR=tobago-theme-${THEME}
   CURRENT=`pwd`
   echo "Current dir: ${CURRENT}"
-  CURRENT=`echo ${CURRENT} | sed s/\\\\//\\\\\\\\\\\\//g`
-  mvn -P rebuild-theme -f ${DIR}/pom.xml | tee ${DIR}/temp.log
+  CURRENT_REGEX=`echo ${CURRENT} | sed s/\\\\//\\\\\\\\\\\\//g`
+  mkdir -p ${DIR}/target
+
+  date "+Build date: %Y-%m-%d-%H:%M:%S" >${DIR}/target/temp.log
+
+  mvn -P rebuild-theme -f ${DIR}/pom.xml | tee -a ${DIR}/target/temp.log
+
   # removing system dependent directories from the log file
-  cat ${DIR}/temp.log | sed s/${CURRENT}/__CURRENT__/g | sed s/${REPO}/__REPO__/g >${DIR}/rebuild-theme.log
-  rm ${DIR}/temp.log
+  cat ${DIR}/target/temp.log | sed s/${CURRENT_REGEX}/__CURRENT__/g | sed s/${REPO_REGEX}/__REPO__/g | sed s/${HOME_REGEX}/__HOME__/g >${DIR}/rebuild-theme.log
 }
 
 # The rebuild-theme.log files are created, to protocol changes in the build.
