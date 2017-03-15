@@ -17,18 +17,29 @@
 
 # XXX temporary help script. How to call this like:  mvn -P rebuild-theme only for the children?
 
+function rebuild_theme() {
+  THEME=${1}
+  echo "*** rebuild theme ${THEME} *********************************************************************** "
+  mvn -P rebuild-theme -f tobago-theme-${THEME}/pom.xml | tee tobago-theme-${THEME}/rebuild-theme.log
+}
+
+# The rebuild-theme.log files are created, to protocol changes in the build.
+# Is seems, that bootstrap.min.js output change, without changing anything, so we assume
+# the build process is not time invariant.
+# This can later be removed.
+
 set -e
 
 mvn -P all-modules clean
 
-mvn -P rebuild-theme -f tobago-theme-charlotteville/pom.xml
-mvn -P rebuild-theme -f tobago-theme-richmond/pom.xml
-mvn -P rebuild-theme -f tobago-theme-scarborough/pom.xml
-mvn -P rebuild-theme -f tobago-theme-speyside/pom.xml
-mvn -P rebuild-theme -f tobago-theme-standard/pom.xml
+rebuild_theme charlotteville
+rebuild_theme richmond
+rebuild_theme scarborough
+rebuild_theme speyside
+rebuild_theme standard
 
 mvn -P all-modules install
 
-echo DONE
-echo Now you will find the bootstrap stuff inside the src trees. This might be committed.
-echo use: svn status
+echo "DONE"
+echo "Now you will find the bootstrap stuff inside the src trees. This might be committed."
+echo "Use: svn status"
