@@ -35,7 +35,7 @@ function rebuild_theme() {
   CURRENT_REGEX=`echo ${CURRENT} | sed s/\\\\//\\\\\\\\\\\\//g`
   mkdir -p ${DIR}/target
 
-  date "+Build date: %Y-%m-%d-%H:%M:%S" >${DIR}/target/temp.log
+  date "+Build date: %Y-%m-%d %H:%M:%S" >${DIR}/target/temp.log
 
   mvn -P rebuild-theme -f ${DIR}/pom.xml | tee -a ${DIR}/target/temp.log
 
