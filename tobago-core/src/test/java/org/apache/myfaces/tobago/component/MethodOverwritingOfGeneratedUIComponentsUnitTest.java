@@ -20,27 +20,19 @@
 package org.apache.myfaces.tobago.component;
 
 import org.junit.Assert;
-import org.apache.myfaces.tobago.internal.util.StringUtils;
-import org.junit.Before;
 import org.junit.Test;
 
 import javax.faces.component.UIComponent;
-import java.io.File;
-import java.io.IOException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Enumeration;
 import java.util.List;
 
-public class MethodOverwritingOfGeneratedUIComponentsUnitTest {
+public class MethodOverwritingOfGeneratedUIComponentsUnitTest extends AbstractGeneratedUIComponentsUnitTest {
 
   private static final List<String> IGNORED_METHODS
       = Arrays.asList("getFamily", "saveState", "restoreState", "getEventNames", "getDefaultEventName");
-  private static final List<String> IGNORED_COMPONENTS = Arrays.asList(
-      /*UIMenuSelectOne.class.getSimpleName()*/);
   private static final MethodOfComponentList IGNORED_METHODS_PER_COMPONENT = new MethodOfComponentList();
 
   static {
@@ -50,17 +42,10 @@ public class MethodOverwritingOfGeneratedUIComponentsUnitTest {
     IGNORED_METHODS_PER_COMPONENT.add("isShowRootJunction", UITree.class);
   }
 
-  private List<Class<? extends UIComponent>> uiComponents;
-
-  @Before
-  public void setup() throws IOException, ClassNotFoundException {
-    uiComponents = findUIComponents();
-  }
-
   @Test
   public void test() {
 
-    for (final Class<? extends UIComponent> uiComponent : uiComponents) {
+    for (final Class<? extends UIComponent> uiComponent : getUiComponents()) {
       final Method[] methods = uiComponent.getMethods();
       for (final Method method : methods) {
 
@@ -96,43 +81,6 @@ public class MethodOverwritingOfGeneratedUIComponentsUnitTest {
         }
       }
     }
-  }
-
-  /**
-   * Find all classes in a package
-   */
-  private List<Class<? extends UIComponent>> findUIComponents() throws ClassNotFoundException, IOException {
-    final ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-    final String packageName = this.getClass().getPackage().getName();
-    final String path = packageName.replace('.', '/');
-    final Enumeration<URL> resources = classLoader.getResources(path);
-    final List<File> directories = new ArrayList<File>();
-    while (resources.hasMoreElements()) {
-      final URL resource = resources.nextElement();
-      directories.add(new File(resource.getFile()));
-    }
-    final ArrayList<Class<? extends UIComponent>> result = new ArrayList<Class<? extends UIComponent>>();
-    for (final File directory : directories) {
-      final File[] files = directory.listFiles();
-      if (files != null) {
-        for (final File file : files) {
-          final String name = file.getName();
-          if (!StringUtils.endsWith(name, ".class")) {
-            continue;
-          }
-          final String nameWithoutSuffix = name.substring(0, name.length() - 6);
-          if (IGNORED_COMPONENTS.contains(nameWithoutSuffix)) {
-            continue;
-          }
-          final String className = packageName + '.' + nameWithoutSuffix;
-          final Class<? extends UIComponent> clazz = (Class<? extends UIComponent>) Class.forName(className);
-          if (UIComponent.class.isAssignableFrom(clazz)) {
-            result.add(clazz);
-          }
-        }
-      }
-    }
-    return result;
   }
 
   private static class MethodOfComponentList {
