@@ -9,17 +9,17 @@
 [INFO] --- maven-remote-resources-plugin:1.5:process (default) @ tobago-theme-scarborough ---
 [INFO] 
 [INFO] --- maven-scm-plugin:1.9.5:checkout (step #1: copy-bootstrap) @ tobago-theme-scarborough ---
-[INFO] Removing /Users/lofwyr/Documents/project/apache/tobago-trunk-0/tobago-theme/tobago-theme-scarborough/target/checkout
-[INFO] Executing: /bin/sh -c cd /Users/lofwyr/Documents/project/apache/tobago-trunk-0/tobago-theme/tobago-theme-scarborough/target && git clone --branch v4.0.0-alpha.5 https://github.com/twbs/bootstrap /Users/lofwyr/Documents/project/apache/tobago-trunk-0/tobago-theme/tobago-theme-scarborough/target/checkout
-[INFO] Working directory: /Users/lofwyr/Documents/project/apache/tobago-trunk-0/tobago-theme/tobago-theme-scarborough/target
+[INFO] Removing __CURRENT__/tobago-theme-scarborough/target/checkout
+[INFO] Executing: /bin/sh -c cd __CURRENT__/tobago-theme-scarborough/target && git clone --branch v4.0.0-alpha.5 https://github.com/twbs/bootstrap __CURRENT__/tobago-theme-scarborough/target/checkout
+[INFO] Working directory: __CURRENT__/tobago-theme-scarborough/target
 [INFO] Executing: /bin/sh -c cd /var/folders/w0/pg4pxr7972l6bq85x08s5cl00000gn/T/ && git ls-remote https://github.com/twbs/bootstrap
 [INFO] Working directory: /var/folders/w0/pg4pxr7972l6bq85x08s5cl00000gn/T
-[INFO] Executing: /bin/sh -c cd /Users/lofwyr/Documents/project/apache/tobago-trunk-0/tobago-theme/tobago-theme-scarborough/target/checkout && git pull https://github.com/twbs/bootstrap v4.0.0-alpha.5:v4.0.0-alpha.5
-[INFO] Working directory: /Users/lofwyr/Documents/project/apache/tobago-trunk-0/tobago-theme/tobago-theme-scarborough/target/checkout
-[INFO] Executing: /bin/sh -c cd /Users/lofwyr/Documents/project/apache/tobago-trunk-0/tobago-theme/tobago-theme-scarborough/target/checkout && git checkout v4.0.0-alpha.5
-[INFO] Working directory: /Users/lofwyr/Documents/project/apache/tobago-trunk-0/tobago-theme/tobago-theme-scarborough/target/checkout
-[INFO] Executing: /bin/sh -c cd /Users/lofwyr/Documents/project/apache/tobago-trunk-0/tobago-theme/tobago-theme-scarborough/target/checkout && git ls-files
-[INFO] Working directory: /Users/lofwyr/Documents/project/apache/tobago-trunk-0/tobago-theme/tobago-theme-scarborough/target/checkout
+[INFO] Executing: /bin/sh -c cd __CURRENT__/tobago-theme-scarborough/target/checkout && git pull https://github.com/twbs/bootstrap v4.0.0-alpha.5:v4.0.0-alpha.5
+[INFO] Working directory: __CURRENT__/tobago-theme-scarborough/target/checkout
+[INFO] Executing: /bin/sh -c cd __CURRENT__/tobago-theme-scarborough/target/checkout && git checkout v4.0.0-alpha.5
+[INFO] Working directory: __CURRENT__/tobago-theme-scarborough/target/checkout
+[INFO] Executing: /bin/sh -c cd __CURRENT__/tobago-theme-scarborough/target/checkout && git ls-files
+[INFO] Working directory: __CURRENT__/tobago-theme-scarborough/target/checkout
 [INFO] 
 [INFO] --- maven-resources-plugin:2.7:copy-resources (step #2: copy-bootstrap) @ tobago-theme-scarborough ---
 [INFO] Using 'UTF-8' encoding to copy filtered resources.
@@ -31,20 +31,20 @@
 [INFO] 
 [INFO] --- maven-dependency-plugin:3.0.0:unpack (step #4: unpack-custom) @ tobago-theme-scarborough ---
 [INFO] Configured Artifact: org.apache.myfaces.tobago:tobago-core:3.1.0-SNAPSHOT:jar
-[INFO] Unpacking /Users/lofwyr/.m2/repository/org/apache/myfaces/tobago/tobago-core/3.1.0-SNAPSHOT/tobago-core-3.1.0-SNAPSHOT.jar to /Users/lofwyr/Documents/project/apache/tobago-trunk-0/tobago-theme/tobago-theme-scarborough/target/bootstrap with includes "**/*.scss" and excludes ""
+[INFO] Unpacking __REPO__/org/apache/myfaces/tobago/tobago-core/3.1.0-SNAPSHOT/tobago-core-3.1.0-SNAPSHOT.jar to __CURRENT__/tobago-theme-scarborough/target/bootstrap with includes "**/*.scss" and excludes ""
 [INFO] 
 [INFO] --- frontend-maven-plugin:1.0:install-node-and-npm (step #5: install node and npm) @ tobago-theme-scarborough ---
 [INFO] Installing node version v6.5.0
-[INFO] Unpacking /Users/lofwyr/.m2/repository/com/github/eirslett/node/6.5.0/node-6.5.0-darwin-x64.tar.gz into /Users/lofwyr/Documents/project/apache/tobago-trunk-0/tobago-theme/tobago-theme-scarborough/target/frontend/node/tmp
-[INFO] Copying node binary from /Users/lofwyr/Documents/project/apache/tobago-trunk-0/tobago-theme/tobago-theme-scarborough/target/frontend/node/tmp/node-v6.5.0-darwin-x64/bin/node to /Users/lofwyr/Documents/project/apache/tobago-trunk-0/tobago-theme/tobago-theme-scarborough/target/frontend/node/node
+[INFO] Unpacking __REPO__/com/github/eirslett/node/6.5.0/node-6.5.0-darwin-x64.tar.gz into __CURRENT__/tobago-theme-scarborough/target/frontend/node/tmp
+[INFO] Copying node binary from __CURRENT__/tobago-theme-scarborough/target/frontend/node/tmp/node-v6.5.0-darwin-x64/bin/node to __CURRENT__/tobago-theme-scarborough/target/frontend/node/node
 [INFO] Installed node locally.
 [INFO] Installing npm version 3.10.8
-[INFO] Unpacking /Users/lofwyr/.m2/repository/com/github/eirslett/npm/3.10.8/npm-3.10.8.tar.gz into /Users/lofwyr/Documents/project/apache/tobago-trunk-0/tobago-theme/tobago-theme-scarborough/target/frontend/node/node_modules
+[INFO] Unpacking __REPO__/com/github/eirslett/npm/3.10.8/npm-3.10.8.tar.gz into __CURRENT__/tobago-theme-scarborough/target/frontend/node/node_modules
 [INFO] Installed npm locally.
 [INFO] 
 [INFO] --- frontend-maven-plugin:1.0:npm (step #6: npm install grunt-cli) @ tobago-theme-scarborough ---
-[INFO] Running 'npm install grunt-cli' in /Users/lofwyr/Documents/project/apache/tobago-trunk-0/tobago-theme/tobago-theme-scarborough/target/bootstrap
-[INFO] bootstrap@4.0.0-alpha.5 /Users/lofwyr/Documents/project/apache/tobago-trunk-0/tobago-theme/tobago-theme-scarborough/target/bootstrap
+[INFO] Running 'npm install grunt-cli' in __CURRENT__/tobago-theme-scarborough/target/bootstrap
+[INFO] bootstrap@4.0.0-alpha.5 __CURRENT__/tobago-theme-scarborough/target/bootstrap
 [INFO] └─┬ grunt-cli@1.2.0 
 [INFO]   ├─┬ findup-sync@0.3.0 
 [INFO]   │ └─┬ glob@5.0.15 
@@ -64,7 +64,7 @@
 [INFO] 
 [INFO] 
 [INFO] --- frontend-maven-plugin:1.0:npm (step #7: npm install) @ tobago-theme-scarborough ---
-[INFO] Running 'npm install' in /Users/lofwyr/Documents/project/apache/tobago-trunk-0/tobago-theme/tobago-theme-scarborough/target/bootstrap
+[INFO] Running 'npm install' in __CURRENT__/tobago-theme-scarborough/target/bootstrap
 [WARNING] npm WARN deprecated minimatch@2.0.10: Please update to minimatch 3.0.2 or higher to avoid a RegExp DoS issue
 [WARNING] npm WARN deprecated minimatch@0.3.0: Please update to minimatch 3.0.2 or higher to avoid a RegExp DoS issue
 [WARNING] npm WARN prefer global coffee-script@1.10.0 should be installed with -g
@@ -72,13 +72,13 @@
 [WARNING] npm WARN prefer global jsonlint@1.6.2 should be installed with -g
 [WARNING] npm WARN prefer global node-gyp@3.5.0 should be installed with -g
 [INFO] 
-[INFO] > fsevents@1.1.1 install /Users/lofwyr/Documents/project/apache/tobago-trunk-0/tobago-theme/tobago-theme-scarborough/target/bootstrap/node_modules/fsevents
+[INFO] > fsevents@1.1.1 install __CURRENT__/tobago-theme-scarborough/target/bootstrap/node_modules/fsevents
 [INFO] > node install
 [INFO] 
-[INFO] [fsevents] Success: "/Users/lofwyr/Documents/project/apache/tobago-trunk-0/tobago-theme/tobago-theme-scarborough/target/bootstrap/node_modules/fsevents/lib/binding/Release/node-v48-darwin-x64/fse.node" already installed
+[INFO] [fsevents] Success: "__CURRENT__/tobago-theme-scarborough/target/bootstrap/node_modules/fsevents/lib/binding/Release/node-v48-darwin-x64/fse.node" already installed
 [INFO] Pass --update-binary to reinstall or --build-from-source to recompile
 [INFO] 
-[INFO] > iltorb@1.0.13 install /Users/lofwyr/Documents/project/apache/tobago-trunk-0/tobago-theme/tobago-theme-scarborough/target/bootstrap/node_modules/iltorb
+[INFO] > iltorb@1.0.13 install __CURRENT__/tobago-theme-scarborough/target/bootstrap/node_modules/iltorb
 [INFO] > node-gyp rebuild
 [INFO] 
 [INFO]   CC(target) Release/obj.target/decode/brotli/common/dictionary.o
@@ -117,30 +117,30 @@
 [INFO]   SOLINK_MODULE(target) Release/encode.node
 [ERROR] clang: warning: libstdc++ is deprecated; move to libc++ with a minimum deployment target of OS X 10.9
 [INFO] 
-[INFO] > node-sass@3.13.1 install /Users/lofwyr/Documents/project/apache/tobago-trunk-0/tobago-theme/tobago-theme-scarborough/target/bootstrap/node_modules/node-sass
+[INFO] > node-sass@3.13.1 install __CURRENT__/tobago-theme-scarborough/target/bootstrap/node_modules/node-sass
 [INFO] > node scripts/install.js
 [INFO] 
 [INFO] Cached binary found at /Users/lofwyr/.npm/node-sass/3.13.1/darwin-x64-48_binding.node
 [INFO] 
-[INFO] > phantomjs-prebuilt@2.1.14 install /Users/lofwyr/Documents/project/apache/tobago-trunk-0/tobago-theme/tobago-theme-scarborough/target/bootstrap/node_modules/phantomjs-prebuilt
+[INFO] > phantomjs-prebuilt@2.1.14 install __CURRENT__/tobago-theme-scarborough/target/bootstrap/node_modules/phantomjs-prebuilt
 [INFO] > node install.js
 [INFO] 
 [INFO] PhantomJS not found on PATH
 [INFO] Download already available at /var/folders/w0/pg4pxr7972l6bq85x08s5cl00000gn/T/phantomjs/phantomjs-2.1.1-macosx.zip
 [INFO] Verified checksum of previously downloaded file
 [INFO] Extracting zip contents
-[INFO] Removing /Users/lofwyr/Documents/project/apache/tobago-trunk-0/tobago-theme/tobago-theme-scarborough/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom
-[INFO] Copying extracted folder /var/folders/w0/pg4pxr7972l6bq85x08s5cl00000gn/T/phantomjs/phantomjs-2.1.1-macosx.zip-extract-1489574145398/phantomjs-2.1.1-macosx -> /Users/lofwyr/Documents/project/apache/tobago-trunk-0/tobago-theme/tobago-theme-scarborough/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom
+[INFO] Removing __CURRENT__/tobago-theme-scarborough/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom
+[INFO] Copying extracted folder /var/folders/w0/pg4pxr7972l6bq85x08s5cl00000gn/T/phantomjs/phantomjs-2.1.1-macosx.zip-extract-1489590895293/phantomjs-2.1.1-macosx -> __CURRENT__/tobago-theme-scarborough/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom
 [INFO] Writing location.js file
-[INFO] Done. Phantomjs binary available at /Users/lofwyr/Documents/project/apache/tobago-trunk-0/tobago-theme/tobago-theme-scarborough/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom/bin/phantomjs
+[INFO] Done. Phantomjs binary available at __CURRENT__/tobago-theme-scarborough/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom/bin/phantomjs
 [INFO] 
-[INFO] > node-sass@3.13.1 postinstall /Users/lofwyr/Documents/project/apache/tobago-trunk-0/tobago-theme/tobago-theme-scarborough/target/bootstrap/node_modules/node-sass
+[INFO] > node-sass@3.13.1 postinstall __CURRENT__/tobago-theme-scarborough/target/bootstrap/node_modules/node-sass
 [INFO] > node scripts/build.js
 [INFO] 
-[INFO] Binary found at /Users/lofwyr/Documents/project/apache/tobago-trunk-0/tobago-theme/tobago-theme-scarborough/target/bootstrap/node_modules/node-sass/vendor/darwin-x64-48/binding.node
+[INFO] Binary found at __CURRENT__/tobago-theme-scarborough/target/bootstrap/node_modules/node-sass/vendor/darwin-x64-48/binding.node
 [INFO] Testing binary
 [INFO] Binary is fine
-[INFO] bootstrap@4.0.0-alpha.5 /Users/lofwyr/Documents/project/apache/tobago-trunk-0/tobago-theme/tobago-theme-scarborough/target/bootstrap
+[INFO] bootstrap@4.0.0-alpha.5 __CURRENT__/tobago-theme-scarborough/target/bootstrap
 [INFO] ├─┬ autoprefixer@6.7.7 
 [INFO] │ ├─┬ browserslist@1.7.6 
 [INFO] │ │ └── electron-to-chromium@1.2.7 
@@ -230,10 +230,12 @@
 [INFO] │ ├─┬ escope@3.6.0 
 [INFO] │ │ ├─┬ es6-map@0.1.4 
 [INFO] │ │ │ ├── d@0.1.1 
-[INFO] │ │ │ ├── es5-ext@0.10.13 
-[INFO] │ │ │ ├── es6-iterator@2.0.0 
+[INFO] │ │ │ ├── es5-ext@0.10.14 
+[INFO] │ │ │ ├─┬ es6-iterator@2.0.1 
+[INFO] │ │ │ │ └── d@1.0.0 
 [INFO] │ │ │ ├── es6-set@0.1.4 
-[INFO] │ │ │ ├── es6-symbol@3.1.0 
+[INFO] │ │ │ ├─┬ es6-symbol@3.1.1 
+[INFO] │ │ │ │ └── d@1.0.0 
 [INFO] │ │ │ └── event-emitter@0.3.4 
 [INFO] │ │ ├── es6-weak-map@2.0.1 
 [INFO] │ │ └─┬ esrecurse@4.1.0 
@@ -947,7 +949,7 @@
 [INFO] 
 [INFO] 
 [INFO] --- frontend-maven-plugin:1.0:grunt (step #8: grunt build) @ tobago-theme-scarborough ---
-[INFO] Running 'grunt dist' in /Users/lofwyr/Documents/project/apache/tobago-trunk-0/tobago-theme/tobago-theme-scarborough/target/bootstrap
+[INFO] Running 'grunt dist' in __CURRENT__/tobago-theme-scarborough/target/bootstrap
 [INFO] Running "clean:dist" (clean) task
 [INFO] >> 1 path cleaned.
 [INFO] 
@@ -959,7 +961,7 @@
 [INFO] 
 [INFO] Running "exec:postcss" (exec) task
 [INFO] 
-[INFO] > bootstrap@4.0.0-alpha.5 postcss /Users/lofwyr/Documents/project/apache/tobago-trunk-0/tobago-theme/tobago-theme-scarborough/target/bootstrap
+[INFO] > bootstrap@4.0.0-alpha.5 postcss __CURRENT__/tobago-theme-scarborough/target/bootstrap
 [INFO] > postcss --config grunt/postcss.js --replace dist/css/*.css
 [INFO] 
 [INFO] 
@@ -985,16 +987,16 @@
 [INFO] Done.
 [INFO] 
 [INFO] 
-[INFO] Execution Time (2017-03-15 11:35:48 UTC+1)
-[INFO] sass:core     200ms  ▇▇ 4%
-[INFO] sass:extras   212ms  ▇▇▇ 4%
-[INFO] sass:docs     124ms  ▇▇ 3%
+[INFO] Execution Time (2017-03-15 16:14:58 UTC+1)
+[INFO] sass:core     192ms  ▇▇ 4%
+[INFO] sass:extras   190ms  ▇▇ 4%
+[INFO] sass:docs     117ms  ▇▇ 2%
 [INFO] exec:postcss   1.5s  ▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇ 31%
-[INFO] cssmin:core   600ms  ▇▇▇▇▇▇ 12%
+[INFO] cssmin:core   590ms  ▇▇▇▇▇▇▇ 13%
 [INFO] babel:dev      1.1s  ▇▇▇▇▇▇▇▇▇▇▇ 23%
-[INFO] babel:dist    588ms  ▇▇▇▇▇▇ 12%
-[INFO] uglify:core   514ms  ▇▇▇▇▇ 10%
-[INFO] Total 4.9s
+[INFO] babel:dist    551ms  ▇▇▇▇▇▇ 12%
+[INFO] uglify:core   489ms  ▇▇▇▇▇ 10%
+[INFO] Total 4.7s
 [INFO] 
 [INFO] 
 [INFO] --- maven-resources-plugin:2.7:resources (default-resources) @ tobago-theme-scarborough ---
@@ -1017,7 +1019,7 @@ main:
 [INFO] 
 [INFO] --- maven-resources-plugin:2.7:testResources (default-testResources) @ tobago-theme-scarborough ---
 [INFO] Using 'UTF-8' encoding to copy filtered resources.
-[INFO] skip non existing resourceDirectory /Users/lofwyr/Documents/project/apache/tobago-trunk-0/tobago-theme/tobago-theme-scarborough/src/test/resources
+[INFO] skip non existing resourceDirectory __CURRENT__/tobago-theme-scarborough/src/test/resources
 [INFO] Copying 3 resources
 [INFO] 
 [INFO] --- maven-compiler-plugin:3.5.1:testCompile (default-testCompile) @ tobago-theme-scarborough ---
@@ -1026,17 +1028,17 @@ main:
 [INFO] --- maven-surefire-plugin:2.19.1:test (default-test) @ tobago-theme-scarborough ---
 [INFO] 
 [INFO] --- maven-jar-plugin:2.6:jar (default-jar) @ tobago-theme-scarborough ---
-[INFO] Building jar: /Users/lofwyr/Documents/project/apache/tobago-trunk-0/tobago-theme/tobago-theme-scarborough/target/tobago-theme-scarborough-3.1.0-SNAPSHOT.jar
+[INFO] Building jar: __CURRENT__/tobago-theme-scarborough/target/tobago-theme-scarborough-3.1.0-SNAPSHOT.jar
 [INFO] 
 [INFO] --- maven-site-plugin:3.5.1:attach-descriptor (attach-descriptor) @ tobago-theme-scarborough ---
 [INFO] 
 [INFO] --- maven-install-plugin:2.5.2:install (default-install) @ tobago-theme-scarborough ---
-[INFO] Installing /Users/lofwyr/Documents/project/apache/tobago-trunk-0/tobago-theme/tobago-theme-scarborough/target/tobago-theme-scarborough-3.1.0-SNAPSHOT.jar to /Users/lofwyr/.m2/repository/org/apache/myfaces/tobago/tobago-theme-scarborough/3.1.0-SNAPSHOT/tobago-theme-scarborough-3.1.0-SNAPSHOT.jar
-[INFO] Installing /Users/lofwyr/Documents/project/apache/tobago-trunk-0/tobago-theme/tobago-theme-scarborough/pom.xml to /Users/lofwyr/.m2/repository/org/apache/myfaces/tobago/tobago-theme-scarborough/3.1.0-SNAPSHOT/tobago-theme-scarborough-3.1.0-SNAPSHOT.pom
+[INFO] Installing __CURRENT__/tobago-theme-scarborough/target/tobago-theme-scarborough-3.1.0-SNAPSHOT.jar to __REPO__/org/apache/myfaces/tobago/tobago-theme-scarborough/3.1.0-SNAPSHOT/tobago-theme-scarborough-3.1.0-SNAPSHOT.jar
+[INFO] Installing __CURRENT__/tobago-theme-scarborough/pom.xml to __REPO__/org/apache/myfaces/tobago/tobago-theme-scarborough/3.1.0-SNAPSHOT/tobago-theme-scarborough-3.1.0-SNAPSHOT.pom
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
-[INFO] Total time: 02:51 min
-[INFO] Finished at: 2017-03-15T11:35:54+01:00
-[INFO] Final Memory: 35M/398M
+[INFO] Total time: 02:54 min
+[INFO] Finished at: 2017-03-15T16:15:03+01:00
+[INFO] Final Memory: 35M/397M
 [INFO] ------------------------------------------------------------------------

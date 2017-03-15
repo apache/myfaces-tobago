@@ -1,50 +1,50 @@
 [INFO] Scanning for projects...
 [INFO]                                                                         
 [INFO] ------------------------------------------------------------------------
-[INFO] Building Tobago Theme Richmond 3.1.0-SNAPSHOT
+[INFO] Building Tobago Theme Standard 3.1.0-SNAPSHOT
 [INFO] ------------------------------------------------------------------------
 [INFO] 
-[INFO] --- maven-enforcer-plugin:1.4.1:enforce (enforce) @ tobago-theme-richmond ---
+[INFO] --- maven-enforcer-plugin:1.4.1:enforce (enforce) @ tobago-theme-standard ---
 [INFO] 
-[INFO] --- maven-remote-resources-plugin:1.5:process (default) @ tobago-theme-richmond ---
+[INFO] --- maven-remote-resources-plugin:1.5:process (default) @ tobago-theme-standard ---
 [INFO] 
-[INFO] --- maven-scm-plugin:1.9.5:checkout (step #1: copy-bootstrap) @ tobago-theme-richmond ---
-[INFO] Removing __CURRENT__/tobago-theme-richmond/target/checkout
-[INFO] Executing: /bin/sh -c cd __CURRENT__/tobago-theme-richmond/target && git clone --branch v4.0.0-alpha.5 https://github.com/twbs/bootstrap __CURRENT__/tobago-theme-richmond/target/checkout
-[INFO] Working directory: __CURRENT__/tobago-theme-richmond/target
+[INFO] --- maven-scm-plugin:1.9.5:checkout (step #1: copy-bootstrap) @ tobago-theme-standard ---
+[INFO] Removing __CURRENT__/tobago-theme-standard/target/checkout
+[INFO] Executing: /bin/sh -c cd __CURRENT__/tobago-theme-standard/target && git clone --branch v4.0.0-alpha.5 https://github.com/twbs/bootstrap __CURRENT__/tobago-theme-standard/target/checkout
+[INFO] Working directory: __CURRENT__/tobago-theme-standard/target
 [INFO] Executing: /bin/sh -c cd /var/folders/w0/pg4pxr7972l6bq85x08s5cl00000gn/T/ && git ls-remote https://github.com/twbs/bootstrap
 [INFO] Working directory: /var/folders/w0/pg4pxr7972l6bq85x08s5cl00000gn/T
-[INFO] Executing: /bin/sh -c cd __CURRENT__/tobago-theme-richmond/target/checkout && git pull https://github.com/twbs/bootstrap v4.0.0-alpha.5:v4.0.0-alpha.5
-[INFO] Working directory: __CURRENT__/tobago-theme-richmond/target/checkout
-[INFO] Executing: /bin/sh -c cd __CURRENT__/tobago-theme-richmond/target/checkout && git checkout v4.0.0-alpha.5
-[INFO] Working directory: __CURRENT__/tobago-theme-richmond/target/checkout
-[INFO] Executing: /bin/sh -c cd __CURRENT__/tobago-theme-richmond/target/checkout && git ls-files
-[INFO] Working directory: __CURRENT__/tobago-theme-richmond/target/checkout
+[INFO] Executing: /bin/sh -c cd __CURRENT__/tobago-theme-standard/target/checkout && git pull https://github.com/twbs/bootstrap v4.0.0-alpha.5:v4.0.0-alpha.5
+[INFO] Working directory: __CURRENT__/tobago-theme-standard/target/checkout
+[INFO] Executing: /bin/sh -c cd __CURRENT__/tobago-theme-standard/target/checkout && git checkout v4.0.0-alpha.5
+[INFO] Working directory: __CURRENT__/tobago-theme-standard/target/checkout
+[INFO] Executing: /bin/sh -c cd __CURRENT__/tobago-theme-standard/target/checkout && git ls-files
+[INFO] Working directory: __CURRENT__/tobago-theme-standard/target/checkout
 [INFO] 
-[INFO] --- maven-resources-plugin:2.7:copy-resources (step #2: copy-bootstrap) @ tobago-theme-richmond ---
+[INFO] --- maven-resources-plugin:2.7:copy-resources (step #2: copy-bootstrap) @ tobago-theme-standard ---
 [INFO] Using 'UTF-8' encoding to copy filtered resources.
 [INFO] Copying 418 resources
 [INFO] 
-[INFO] --- maven-resources-plugin:2.7:copy-resources (step #3: copy-custom) @ tobago-theme-richmond ---
+[INFO] --- maven-resources-plugin:2.7:copy-resources (step #3: copy-custom) @ tobago-theme-standard ---
 [INFO] Using 'UTF-8' encoding to copy filtered resources.
 [INFO] Copying 1 resource
 [INFO] 
-[INFO] --- maven-dependency-plugin:3.0.0:unpack (step #4: unpack-custom) @ tobago-theme-richmond ---
+[INFO] --- maven-dependency-plugin:3.0.0:unpack (step #4: unpack-custom) @ tobago-theme-standard ---
 [INFO] Configured Artifact: org.apache.myfaces.tobago:tobago-core:3.1.0-SNAPSHOT:jar
-[INFO] Unpacking __REPO__/org/apache/myfaces/tobago/tobago-core/3.1.0-SNAPSHOT/tobago-core-3.1.0-SNAPSHOT.jar to __CURRENT__/tobago-theme-richmond/target/bootstrap with includes "**/*.scss" and excludes ""
+[INFO] Unpacking __REPO__/org/apache/myfaces/tobago/tobago-core/3.1.0-SNAPSHOT/tobago-core-3.1.0-SNAPSHOT.jar to __CURRENT__/tobago-theme-standard/target/bootstrap with includes "**/*.scss" and excludes ""
 [INFO] 
-[INFO] --- frontend-maven-plugin:1.0:install-node-and-npm (step #5: install node and npm) @ tobago-theme-richmond ---
+[INFO] --- frontend-maven-plugin:1.0:install-node-and-npm (step #5: install node and npm) @ tobago-theme-standard ---
 [INFO] Installing node version v6.5.0
-[INFO] Unpacking __REPO__/com/github/eirslett/node/6.5.0/node-6.5.0-darwin-x64.tar.gz into __CURRENT__/tobago-theme-richmond/target/frontend/node/tmp
-[INFO] Copying node binary from __CURRENT__/tobago-theme-richmond/target/frontend/node/tmp/node-v6.5.0-darwin-x64/bin/node to __CURRENT__/tobago-theme-richmond/target/frontend/node/node
+[INFO] Unpacking __REPO__/com/github/eirslett/node/6.5.0/node-6.5.0-darwin-x64.tar.gz into __CURRENT__/tobago-theme-standard/target/frontend/node/tmp
+[INFO] Copying node binary from __CURRENT__/tobago-theme-standard/target/frontend/node/tmp/node-v6.5.0-darwin-x64/bin/node to __CURRENT__/tobago-theme-standard/target/frontend/node/node
 [INFO] Installed node locally.
 [INFO] Installing npm version 3.10.8
-[INFO] Unpacking __REPO__/com/github/eirslett/npm/3.10.8/npm-3.10.8.tar.gz into __CURRENT__/tobago-theme-richmond/target/frontend/node/node_modules
+[INFO] Unpacking __REPO__/com/github/eirslett/npm/3.10.8/npm-3.10.8.tar.gz into __CURRENT__/tobago-theme-standard/target/frontend/node/node_modules
 [INFO] Installed npm locally.
 [INFO] 
-[INFO] --- frontend-maven-plugin:1.0:npm (step #6: npm install grunt-cli) @ tobago-theme-richmond ---
-[INFO] Running 'npm install grunt-cli' in __CURRENT__/tobago-theme-richmond/target/bootstrap
-[INFO] bootstrap@4.0.0-alpha.5 __CURRENT__/tobago-theme-richmond/target/bootstrap
+[INFO] --- frontend-maven-plugin:1.0:npm (step #6: npm install grunt-cli) @ tobago-theme-standard ---
+[INFO] Running 'npm install grunt-cli' in __CURRENT__/tobago-theme-standard/target/bootstrap
+[INFO] bootstrap@4.0.0-alpha.5 __CURRENT__/tobago-theme-standard/target/bootstrap
 [INFO] └─┬ grunt-cli@1.2.0 
 [INFO]   ├─┬ findup-sync@0.3.0 
 [INFO]   │ └─┬ glob@5.0.15 
@@ -63,8 +63,8 @@
 [INFO]   └── resolve@1.1.7 
 [INFO] 
 [INFO] 
-[INFO] --- frontend-maven-plugin:1.0:npm (step #7: npm install) @ tobago-theme-richmond ---
-[INFO] Running 'npm install' in __CURRENT__/tobago-theme-richmond/target/bootstrap
+[INFO] --- frontend-maven-plugin:1.0:npm (step #7: npm install) @ tobago-theme-standard ---
+[INFO] Running 'npm install' in __CURRENT__/tobago-theme-standard/target/bootstrap
 [WARNING] npm WARN deprecated minimatch@2.0.10: Please update to minimatch 3.0.2 or higher to avoid a RegExp DoS issue
 [WARNING] npm WARN deprecated minimatch@0.3.0: Please update to minimatch 3.0.2 or higher to avoid a RegExp DoS issue
 [WARNING] npm WARN prefer global coffee-script@1.10.0 should be installed with -g
@@ -72,13 +72,13 @@
 [WARNING] npm WARN prefer global jsonlint@1.6.2 should be installed with -g
 [WARNING] npm WARN prefer global node-gyp@3.5.0 should be installed with -g
 [INFO] 
-[INFO] > fsevents@1.1.1 install __CURRENT__/tobago-theme-richmond/target/bootstrap/node_modules/fsevents
+[INFO] > fsevents@1.1.1 install __CURRENT__/tobago-theme-standard/target/bootstrap/node_modules/fsevents
 [INFO] > node install
 [INFO] 
-[INFO] [fsevents] Success: "__CURRENT__/tobago-theme-richmond/target/bootstrap/node_modules/fsevents/lib/binding/Release/node-v48-darwin-x64/fse.node" already installed
+[INFO] [fsevents] Success: "__CURRENT__/tobago-theme-standard/target/bootstrap/node_modules/fsevents/lib/binding/Release/node-v48-darwin-x64/fse.node" already installed
 [INFO] Pass --update-binary to reinstall or --build-from-source to recompile
 [INFO] 
-[INFO] > iltorb@1.0.13 install __CURRENT__/tobago-theme-richmond/target/bootstrap/node_modules/iltorb
+[INFO] > iltorb@1.0.13 install __CURRENT__/tobago-theme-standard/target/bootstrap/node_modules/iltorb
 [INFO] > node-gyp rebuild
 [INFO] 
 [INFO]   CC(target) Release/obj.target/decode/brotli/common/dictionary.o
@@ -117,30 +117,30 @@
 [INFO]   SOLINK_MODULE(target) Release/encode.node
 [ERROR] clang: warning: libstdc++ is deprecated; move to libc++ with a minimum deployment target of OS X 10.9
 [INFO] 
-[INFO] > node-sass@3.13.1 install __CURRENT__/tobago-theme-richmond/target/bootstrap/node_modules/node-sass
+[INFO] > node-sass@3.13.1 install __CURRENT__/tobago-theme-standard/target/bootstrap/node_modules/node-sass
 [INFO] > node scripts/install.js
 [INFO] 
 [INFO] Cached binary found at /Users/lofwyr/.npm/node-sass/3.13.1/darwin-x64-48_binding.node
 [INFO] 
-[INFO] > phantomjs-prebuilt@2.1.14 install __CURRENT__/tobago-theme-richmond/target/bootstrap/node_modules/phantomjs-prebuilt
+[INFO] > phantomjs-prebuilt@2.1.14 install __CURRENT__/tobago-theme-standard/target/bootstrap/node_modules/phantomjs-prebuilt
 [INFO] > node install.js
 [INFO] 
 [INFO] PhantomJS not found on PATH
 [INFO] Download already available at /var/folders/w0/pg4pxr7972l6bq85x08s5cl00000gn/T/phantomjs/phantomjs-2.1.1-macosx.zip
 [INFO] Verified checksum of previously downloaded file
 [INFO] Extracting zip contents
-[INFO] Removing __CURRENT__/tobago-theme-richmond/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom
-[INFO] Copying extracted folder /var/folders/w0/pg4pxr7972l6bq85x08s5cl00000gn/T/phantomjs/phantomjs-2.1.1-macosx.zip-extract-1489590719664/phantomjs-2.1.1-macosx -> __CURRENT__/tobago-theme-richmond/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom
+[INFO] Removing __CURRENT__/tobago-theme-standard/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom
+[INFO] Copying extracted folder /var/folders/w0/pg4pxr7972l6bq85x08s5cl00000gn/T/phantomjs/phantomjs-2.1.1-macosx.zip-extract-1489591274181/phantomjs-2.1.1-macosx -> __CURRENT__/tobago-theme-standard/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom
 [INFO] Writing location.js file
-[INFO] Done. Phantomjs binary available at __CURRENT__/tobago-theme-richmond/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom/bin/phantomjs
+[INFO] Done. Phantomjs binary available at __CURRENT__/tobago-theme-standard/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom/bin/phantomjs
 [INFO] 
-[INFO] > node-sass@3.13.1 postinstall __CURRENT__/tobago-theme-richmond/target/bootstrap/node_modules/node-sass
+[INFO] > node-sass@3.13.1 postinstall __CURRENT__/tobago-theme-standard/target/bootstrap/node_modules/node-sass
 [INFO] > node scripts/build.js
 [INFO] 
-[INFO] Binary found at __CURRENT__/tobago-theme-richmond/target/bootstrap/node_modules/node-sass/vendor/darwin-x64-48/binding.node
+[INFO] Binary found at __CURRENT__/tobago-theme-standard/target/bootstrap/node_modules/node-sass/vendor/darwin-x64-48/binding.node
 [INFO] Testing binary
 [INFO] Binary is fine
-[INFO] bootstrap@4.0.0-alpha.5 __CURRENT__/tobago-theme-richmond/target/bootstrap
+[INFO] bootstrap@4.0.0-alpha.5 __CURRENT__/tobago-theme-standard/target/bootstrap
 [INFO] ├─┬ autoprefixer@6.7.7 
 [INFO] │ ├─┬ browserslist@1.7.6 
 [INFO] │ │ └── electron-to-chromium@1.2.7 
@@ -948,8 +948,8 @@
 [INFO]     └── plur@1.0.0 
 [INFO] 
 [INFO] 
-[INFO] --- frontend-maven-plugin:1.0:grunt (step #8: grunt build) @ tobago-theme-richmond ---
-[INFO] Running 'grunt dist' in __CURRENT__/tobago-theme-richmond/target/bootstrap
+[INFO] --- frontend-maven-plugin:1.0:grunt (step #8: grunt build) @ tobago-theme-standard ---
+[INFO] Running 'grunt dist' in __CURRENT__/tobago-theme-standard/target/bootstrap
 [INFO] Running "clean:dist" (clean) task
 [INFO] >> 1 path cleaned.
 [INFO] 
@@ -961,13 +961,13 @@
 [INFO] 
 [INFO] Running "exec:postcss" (exec) task
 [INFO] 
-[INFO] > bootstrap@4.0.0-alpha.5 postcss __CURRENT__/tobago-theme-richmond/target/bootstrap
+[INFO] > bootstrap@4.0.0-alpha.5 postcss __CURRENT__/tobago-theme-standard/target/bootstrap
 [INFO] > postcss --config grunt/postcss.js --replace dist/css/*.css
 [INFO] 
 [INFO] 
 [INFO] Running "cssmin:core" (cssmin) task
 [INFO] >> 4 sourcemaps created.
-[INFO] >> 4 files created. 389.25 kB → 294.68 kB
+[INFO] >> 4 files created. 389.27 kB → 294.92 kB
 [INFO] 
 [INFO] Running "cssmin:docs" (cssmin) task
 [INFO] >> No files created.
@@ -987,58 +987,104 @@
 [INFO] Done.
 [INFO] 
 [INFO] 
-[INFO] Execution Time (2017-03-15 16:12:02 UTC+1)
-[INFO] sass:core     187ms  ▇▇ 4%
-[INFO] sass:extras   191ms  ▇▇ 4%
-[INFO] sass:docs     120ms  ▇▇ 2%
-[INFO] exec:postcss   1.5s  ▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇ 31%
-[INFO] cssmin:core   646ms  ▇▇▇▇▇▇▇ 13%
-[INFO] babel:dev     975ms  ▇▇▇▇▇▇▇▇▇▇ 20%
-[INFO] babel:dist    693ms  ▇▇▇▇▇▇▇ 14%
-[INFO] uglify:core   483ms  ▇▇▇▇▇ 10%
-[INFO] Total 4.8s
+[INFO] Execution Time (2017-03-15 16:21:17 UTC+1)
+[INFO] sass:core     189ms  ▇▇ 4%
+[INFO] sass:extras   190ms  ▇▇ 4%
+[INFO] sass:docs     115ms  ▇▇ 2%
+[INFO] exec:postcss   1.5s  ▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇ 32%
+[INFO] cssmin:core   557ms  ▇▇▇▇▇▇ 12%
+[INFO] babel:dev      1.1s  ▇▇▇▇▇▇▇▇▇▇▇ 23%
+[INFO] babel:dist    559ms  ▇▇▇▇▇▇ 12%
+[INFO] uglify:core   481ms  ▇▇▇▇▇ 10%
+[INFO] Total 4.7s
 [INFO] 
 [INFO] 
-[INFO] --- maven-resources-plugin:2.7:resources (default-resources) @ tobago-theme-richmond ---
+[INFO] --- maven-resources-plugin:2.7:resources (default-resources) @ tobago-theme-standard ---
 [INFO] Using 'UTF-8' encoding to copy filtered resources.
-[INFO] Copying 7 resources
+[INFO] Copying 51 resources
 [INFO] Copying 3 resources
 [INFO] 
-[INFO] --- maven-resources-plugin:2.7:copy-resources (step #9: copy-bootstrap-dist) @ tobago-theme-richmond ---
+[INFO] --- maven-resources-plugin:2.7:copy-resources (step #9: copy-bootstrap-dist) @ tobago-theme-standard ---
 [INFO] Using 'UTF-8' encoding to copy filtered resources.
 [INFO] Copying 6 resources
 [INFO] 
-[INFO] --- maven-compiler-plugin:3.5.1:compile (default-compile) @ tobago-theme-richmond ---
+[INFO] --- yuicompressor-maven-plugin:1.5.1:compress (default) @ tobago-theme-standard ---
+[INFO] nothing to do, __CURRENT__/tobago-theme-standard/target/classes/META-INF/resources/tobago/standard/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.min.css is younger than original, use 'force' option or clean your target
+[INFO] bootstrap-datetimepicker.min.css (7771b) -> bootstrap-datetimepicker.min.min.css (7719b)[99%]
+[INFO] nothing to do, __CURRENT__/tobago-theme-standard/target/classes/META-INF/resources/tobago/standard/font-awesome/4.7.0/css/font-awesome.min.css is younger than original, use 'force' option or clean your target
+[INFO] font-awesome.min.css (31000b) -> font-awesome.min.min.css (30990b)[99%]
+[INFO] nothing to do, __CURRENT__/tobago-theme-standard/target/classes/META-INF/resources/tobago/standard/tether/1.1.1/css/tether-theme-arrows-dark.min.css is younger than original, use 'force' option or clean your target
+[INFO] tether-theme-arrows-dark.min.css (4681b) -> tether-theme-arrows-dark.min.min.css (4681b)[100%]
+[INFO] nothing to do, __CURRENT__/tobago-theme-standard/target/classes/META-INF/resources/tobago/standard/tether/1.1.1/css/tether-theme-arrows.min.css is younger than original, use 'force' option or clean your target
+[INFO] tether-theme-arrows.min.css (4709b) -> tether-theme-arrows.min.min.css (4703b)[99%]
+[INFO] nothing to do, __CURRENT__/tobago-theme-standard/target/classes/META-INF/resources/tobago/standard/tether/1.1.1/css/tether-theme-basic.min.css is younger than original, use 'force' option or clean your target
+[INFO] tether-theme-basic.min.css (504b) -> tether-theme-basic.min.min.css (504b)[100%]
+[INFO] nothing to do, __CURRENT__/tobago-theme-standard/target/classes/META-INF/resources/tobago/standard/tether/1.1.1/css/tether.min.css is younger than original, use 'force' option or clean your target
+[INFO] tether.min.css (237b) -> tether.min.min.css (237b)[100%]
+[INFO] bootstrap.css (150727b) -> bootstrap.min.css (118771b)[78%]
+[INFO] bootstrap.min.css (118756b) -> bootstrap.min.min.css (118504b)[99%]
+[INFO] total input (318385b) -> output (286109b)[89%]
+[INFO] nb warnings: 0, nb errors: 0
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.5.1:compile (default-compile) @ tobago-theme-standard ---
 [INFO] No sources to compile
 [INFO] 
-[INFO] --- maven-antrun-plugin:1.8:run (set-version) @ tobago-theme-richmond ---
+[INFO] --- maven-antrun-plugin:1.8:run (strip-javascript) @ tobago-theme-standard ---
 [INFO] Executing tasks
 
 main:
 [INFO] Executed tasks
 [INFO] 
-[INFO] --- maven-resources-plugin:2.7:testResources (default-testResources) @ tobago-theme-richmond ---
+[INFO] --- maven-antrun-plugin:1.8:run (set-version) @ tobago-theme-standard ---
+[INFO] Executing tasks
+
+main:
+[INFO] Executed tasks
+[INFO] 
+[INFO] --- exec-maven-plugin:1.4.0:exec (compress-standard) @ tobago-theme-standard ---
+[INFO] 
+[INFO] --- maven-resources-plugin:2.7:testResources (default-testResources) @ tobago-theme-standard ---
 [INFO] Using 'UTF-8' encoding to copy filtered resources.
-[INFO] skip non existing resourceDirectory __CURRENT__/tobago-theme-richmond/src/test/resources
+[INFO] skip non existing resourceDirectory __CURRENT__/tobago-theme-standard/src/test/resources
 [INFO] Copying 3 resources
 [INFO] 
-[INFO] --- maven-compiler-plugin:3.5.1:testCompile (default-testCompile) @ tobago-theme-richmond ---
-[INFO] No sources to compile
+[INFO] --- maven-compiler-plugin:3.5.1:testCompile (default-testCompile) @ tobago-theme-standard ---
+[INFO] Compiling 1 source file to __CURRENT__/tobago-theme-standard/target/test-classes
+[WARNING] bootstrap class path not set in conjunction with -source 1.6
 [INFO] 
-[INFO] --- maven-surefire-plugin:2.19.1:test (default-test) @ tobago-theme-richmond ---
-[INFO] 
-[INFO] --- maven-jar-plugin:2.6:jar (default-jar) @ tobago-theme-richmond ---
-[INFO] Building jar: __CURRENT__/tobago-theme-richmond/target/tobago-theme-richmond-3.1.0-SNAPSHOT.jar
-[INFO] 
-[INFO] --- maven-site-plugin:3.5.1:attach-descriptor (attach-descriptor) @ tobago-theme-richmond ---
-[INFO] 
-[INFO] --- maven-install-plugin:2.5.2:install (default-install) @ tobago-theme-richmond ---
-[INFO] Installing __CURRENT__/tobago-theme-richmond/target/tobago-theme-richmond-3.1.0-SNAPSHOT.jar to __REPO__/org/apache/myfaces/tobago/tobago-theme-richmond/3.1.0-SNAPSHOT/tobago-theme-richmond-3.1.0-SNAPSHOT.jar
-[INFO] Installing __CURRENT__/tobago-theme-richmond/pom.xml to __REPO__/org/apache/myfaces/tobago/tobago-theme-richmond/3.1.0-SNAPSHOT/tobago-theme-richmond-3.1.0-SNAPSHOT.pom
+[INFO] --- maven-surefire-plugin:2.19.1:test (default-test) @ tobago-theme-standard ---
+
+-------------------------------------------------------
+ T E S T S
+-------------------------------------------------------
+Running org.apache.myfaces.tobago.renderkit.css.BootstrapClassUnitTest
+Tests run: 1, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 0.081 sec <<< FAILURE! - in org.apache.myfaces.tobago.renderkit.css.BootstrapClassUnitTest
+testCompareBootstrapCss(org.apache.myfaces.tobago.renderkit.css.BootstrapClassUnitTest)  Time elapsed: 0.056 sec  <<< FAILURE!
+java.lang.AssertionError: 'col-1' exist in org.apache.myfaces.tobago.renderkit.css.BootstrapClass but not in bootstrap.css
+	at org.apache.myfaces.tobago.renderkit.css.BootstrapClassUnitTest.testCompareBootstrapCss(BootstrapClassUnitTest.java:37)
+
+
+Results :
+
+Failed tests: 
+  BootstrapClassUnitTest.testCompareBootstrapCss:37 'col-1' exist in org.apache.myfaces.tobago.renderkit.css.BootstrapClass but not in bootstrap.css
+
+Tests run: 1, Failures: 1, Errors: 0, Skipped: 0
+
 [INFO] ------------------------------------------------------------------------
-[INFO] BUILD SUCCESS
+[INFO] BUILD FAILURE
 [INFO] ------------------------------------------------------------------------
-[INFO] Total time: 02:53 min
-[INFO] Finished at: 2017-03-15T16:12:08+01:00
-[INFO] Final Memory: 35M/397M
+[INFO] Total time: 02:55 min
+[INFO] Finished at: 2017-03-15T16:21:26+01:00
+[INFO] Final Memory: 33M/536M
 [INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-surefire-plugin:2.19.1:test (default-test) on project tobago-theme-standard: There are test failures.
+[ERROR] 
+[ERROR] Please refer to __CURRENT__/tobago-theme-standard/target/surefire-reports for the individual test results.
+[ERROR] -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException

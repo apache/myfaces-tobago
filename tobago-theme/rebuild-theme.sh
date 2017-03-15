@@ -17,18 +17,29 @@
 
 # XXX temporary help script. How to call this like:  mvn -P rebuild-theme only for the children?
 
+set -e
+
+REPO=`mvn help:evaluate -Dexpression=settings.localRepository | grep -v '\[INFO\]'`
+echo "Maven repo: ${REPO}"
+REPO=`echo ${REPO} | sed s/\\\\//\\\\\\\\\\\\//g`
+
 function rebuild_theme() {
   THEME=${1}
   echo "*** rebuild theme ${THEME} *********************************************************************** "
-  mvn -P rebuild-theme -f tobago-theme-${THEME}/pom.xml | tee tobago-theme-${THEME}/rebuild-theme.log
+  DIR=tobago-theme-${THEME}
+  CURRENT=`pwd`
+  echo "Current dir: ${CURRENT}"
+  CURRENT=`echo ${CURRENT} | sed s/\\\\//\\\\\\\\\\\\//g`
+  mvn -P rebuild-theme -f ${DIR}/pom.xml | tee ${DIR}/temp.log
+  # removing system dependent directories from the log file
+  cat ${DIR}/temp.log | sed s/${CURRENT}/__CURRENT__/g | sed s/${REPO}/__REPO__/g >${DIR}/rebuild-theme.log
+  rm ${DIR}/temp.log
 }
 
 # The rebuild-theme.log files are created, to protocol changes in the build.
 # Is seems, that bootstrap.min.js output change, without changing anything, so we assume
 # the build process is not time invariant.
 # This can later be removed.
-
-set -e
 
 mvn -P all-modules clean
 
