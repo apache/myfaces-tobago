@@ -288,7 +288,7 @@ public enum BootstrapClass implements CssItem {
         COL_LG_9, COL_LG_10, COL_LG_11, COL_LG_12,
     };
     private static final BootstrapClass[] OFFSET_EXTRA_SMALL = new BootstrapClass[]{
-        OFFSET_XS_1, OFFSET_XS_1, OFFSET_XS_2, OFFSET_XS_3, OFFSET_XS_4, OFFSET_XS_5,
+        null, OFFSET_XS_1, OFFSET_XS_2, OFFSET_XS_3, OFFSET_XS_4, OFFSET_XS_5,
         OFFSET_XS_6, OFFSET_XS_7, OFFSET_XS_8, OFFSET_XS_9, OFFSET_XS_10, OFFSET_XS_11
     };
     private static final BootstrapClass[] OFFSET_SMALL = new BootstrapClass[]{
