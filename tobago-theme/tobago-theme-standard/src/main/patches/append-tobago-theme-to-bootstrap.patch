@@ -1,0 +1,13 @@
+Index: scss/bootstrap.scss
+Info: This patch is valid for Bootstrap 4 alpha 5
+<+>UTF-8
+===================================================================
+--- scss/bootstrap.scss
++++ scss/bootstrap.scss
+@@ -52,3 +52,6 @@
+
+ // Utility classes
+ @import "utilities";
++
++// Tobago
++@import "tobago-theme";

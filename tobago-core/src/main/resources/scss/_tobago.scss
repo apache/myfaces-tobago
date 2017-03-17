@@ -16,6 +16,12 @@
  */
 
 /*
+used variables: only for the IDE, should not really used by the build system.
+*/
+$brand-info: #00f !default;
+
+
+/*
 Todo: check, if this is needed? (It doesn't work with the build system)
 
 .tobago-file-real {
@@ -915,21 +921,21 @@ fixme: there is a problem with the selectManyShuttle with this style.
 .tobago-has-info .form-check-label,
 .tobago-has-info .form-check-inline,
 .tobago-has-info .custom-control {
-  color: #5bc0de;
+  color: $brand-info;
 }
 
 .tobago-has-info .form-control {
-  border-color: #5bc0de;
+  border-color: $brand-info;
 }
 
 .tobago-has-info .input-group-addon {
-  color: #5bc0de;
+  color: $brand-info;
   background-color: #eaf6ea;
-  border-color: #5bc0de;
+  border-color: $brand-info;
 }
 
 .tobago-has-info .form-control-feedback {
-  color: #5bc0de;
+  color: $brand-info;
 }
 
 .tobago-has-info .form-control-success {
