@@ -1,4 +1,4 @@
-Build date: 2017-03-15-18:00:37
+Build date: 2017-03-17 15:52:19
 [INFO] Scanning for projects...
 [INFO]                                                                         
 [INFO] ------------------------------------------------------------------------
@@ -9,7 +9,7 @@ Build date: 2017-03-15-18:00:37
 [INFO] 
 [INFO] --- maven-remote-resources-plugin:1.5:process (default) @ tobago-theme-charlotteville ---
 [INFO] 
-[INFO] --- maven-scm-plugin:1.9.5:checkout (step #1: copy-bootstrap) @ tobago-theme-charlotteville ---
+[INFO] --- maven-scm-plugin:1.9.5:checkout (step #1: checkout-bootstrap) @ tobago-theme-charlotteville ---
 [INFO] Removing __CURRENT__/tobago-theme-charlotteville/target/checkout
 [INFO] Executing: /bin/sh -c cd __CURRENT__/tobago-theme-charlotteville/target && git clone --branch v4.0.0-alpha.5 https://github.com/twbs/bootstrap __CURRENT__/tobago-theme-charlotteville/target/checkout
 [INFO] Working directory: __CURRENT__/tobago-theme-charlotteville/target
@@ -28,13 +28,16 @@ Build date: 2017-03-15-18:00:37
 [INFO] 
 [INFO] --- maven-resources-plugin:2.7:copy-resources (step #3: copy-custom) @ tobago-theme-charlotteville ---
 [INFO] Using 'UTF-8' encoding to copy filtered resources.
-[INFO] Copying 1 resource
+[INFO] Copying 2 resources
 [INFO] 
-[INFO] --- maven-dependency-plugin:3.0.0:unpack (step #4: unpack-custom) @ tobago-theme-charlotteville ---
+[INFO] --- maven-patch-plugin:1.2:apply (step #4: append-tobago-theme-to-bootstrap) @ tobago-theme-charlotteville ---
+[INFO] Applying patch: append-tobago-theme-to-bootstrap.patch
+[INFO] 
+[INFO] --- maven-dependency-plugin:3.0.0:unpack (step #5: unpack-custom) @ tobago-theme-charlotteville ---
 [INFO] Configured Artifact: org.apache.myfaces.tobago:tobago-core:3.1.0-SNAPSHOT:jar
 [INFO] Unpacking __REPO__/org/apache/myfaces/tobago/tobago-core/3.1.0-SNAPSHOT/tobago-core-3.1.0-SNAPSHOT.jar to __CURRENT__/tobago-theme-charlotteville/target/bootstrap with includes "**/*.scss" and excludes ""
 [INFO] 
-[INFO] --- frontend-maven-plugin:1.0:install-node-and-npm (step #5: install node and npm) @ tobago-theme-charlotteville ---
+[INFO] --- frontend-maven-plugin:1.0:install-node-and-npm (step #6: install node and npm) @ tobago-theme-charlotteville ---
 [INFO] Installing node version v6.5.0
 [INFO] Unpacking __REPO__/com/github/eirslett/node/6.5.0/node-6.5.0-darwin-x64.tar.gz into __CURRENT__/tobago-theme-charlotteville/target/frontend/node/tmp
 [INFO] Copying node binary from __CURRENT__/tobago-theme-charlotteville/target/frontend/node/tmp/node-v6.5.0-darwin-x64/bin/node to __CURRENT__/tobago-theme-charlotteville/target/frontend/node/node
@@ -43,7 +46,7 @@ Build date: 2017-03-15-18:00:37
 [INFO] Unpacking __REPO__/com/github/eirslett/npm/3.10.8/npm-3.10.8.tar.gz into __CURRENT__/tobago-theme-charlotteville/target/frontend/node/node_modules
 [INFO] Installed npm locally.
 [INFO] 
-[INFO] --- frontend-maven-plugin:1.0:npm (step #6: npm install grunt-cli) @ tobago-theme-charlotteville ---
+[INFO] --- frontend-maven-plugin:1.0:npm (step #7: npm install grunt-cli) @ tobago-theme-charlotteville ---
 [INFO] Running 'npm install grunt-cli' in __CURRENT__/tobago-theme-charlotteville/target/bootstrap
 [INFO] bootstrap@4.0.0-alpha.5 __CURRENT__/tobago-theme-charlotteville/target/bootstrap
 [INFO] └─┬ grunt-cli@1.2.0 
@@ -64,14 +67,14 @@ Build date: 2017-03-15-18:00:37
 [INFO]   └── resolve@1.1.7 
 [INFO] 
 [INFO] 
-[INFO] --- frontend-maven-plugin:1.0:npm (step #7: npm install) @ tobago-theme-charlotteville ---
+[INFO] --- frontend-maven-plugin:1.0:npm (step #8: npm install) @ tobago-theme-charlotteville ---
 [INFO] Running 'npm install' in __CURRENT__/tobago-theme-charlotteville/target/bootstrap
 [WARNING] npm WARN deprecated minimatch@2.0.10: Please update to minimatch 3.0.2 or higher to avoid a RegExp DoS issue
 [WARNING] npm WARN deprecated minimatch@0.3.0: Please update to minimatch 3.0.2 or higher to avoid a RegExp DoS issue
 [WARNING] npm WARN prefer global coffee-script@1.10.0 should be installed with -g
 [WARNING] npm WARN prefer global jshint@2.8.0 should be installed with -g
 [WARNING] npm WARN prefer global jsonlint@1.6.2 should be installed with -g
-[WARNING] npm WARN prefer global node-gyp@3.5.0 should be installed with -g
+[WARNING] npm WARN prefer global node-gyp@3.6.0 should be installed with -g
 [INFO] 
 [INFO] > fsevents@1.1.1 install __CURRENT__/tobago-theme-charlotteville/target/bootstrap/node_modules/fsevents
 [INFO] > node install
@@ -131,7 +134,7 @@ Build date: 2017-03-15-18:00:37
 [INFO] Verified checksum of previously downloaded file
 [INFO] Extracting zip contents
 [INFO] Removing __CURRENT__/tobago-theme-charlotteville/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom
-[INFO] Copying extracted folder /var/folders/w0/pg4pxr7972l6bq85x08s5cl00000gn/T/phantomjs/phantomjs-2.1.1-macosx.zip-extract-1489597397612/phantomjs-2.1.1-macosx -> __CURRENT__/tobago-theme-charlotteville/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom
+[INFO] Copying extracted folder /var/folders/w0/pg4pxr7972l6bq85x08s5cl00000gn/T/phantomjs/phantomjs-2.1.1-macosx.zip-extract-1489762428197/phantomjs-2.1.1-macosx -> __CURRENT__/tobago-theme-charlotteville/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom
 [INFO] Writing location.js file
 [INFO] Done. Phantomjs binary available at __CURRENT__/tobago-theme-charlotteville/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom/bin/phantomjs
 [INFO] 
@@ -145,7 +148,7 @@ Build date: 2017-03-15-18:00:37
 [INFO] ├─┬ autoprefixer@6.7.7 
 [INFO] │ ├─┬ browserslist@1.7.6 
 [INFO] │ │ └── electron-to-chromium@1.2.7 
-[INFO] │ ├── caniuse-db@1.0.30000635 
+[INFO] │ ├── caniuse-db@1.0.30000636 
 [INFO] │ ├── normalize-range@0.1.2 
 [INFO] │ ├── num2fraction@1.2.2 
 [INFO] │ ├─┬ postcss@5.2.16 
@@ -217,7 +220,7 @@ Build date: 2017-03-15-18:00:37
 [INFO] │ │ ├── strip-ansi@3.0.1 
 [INFO] │ │ └── supports-color@2.0.0 
 [INFO] │ ├─┬ concat-stream@1.6.0 
-[INFO] │ │ ├─┬ readable-stream@2.2.5 
+[INFO] │ │ ├─┬ readable-stream@2.2.6 
 [INFO] │ │ │ ├── buffer-shims@1.0.0 
 [INFO] │ │ │ ├── core-util-is@1.0.2 
 [INFO] │ │ │ ├── process-nextick-args@1.0.7 
@@ -234,7 +237,8 @@ Build date: 2017-03-15-18:00:37
 [INFO] │ │ │ ├── es5-ext@0.10.14 
 [INFO] │ │ │ ├─┬ es6-iterator@2.0.1 
 [INFO] │ │ │ │ └── d@1.0.0 
-[INFO] │ │ │ ├── es6-set@0.1.4 
+[INFO] │ │ │ ├─┬ es6-set@0.1.5 
+[INFO] │ │ │ │ └── d@1.0.0 
 [INFO] │ │ │ ├─┬ es6-symbol@3.1.1 
 [INFO] │ │ │ │ └── d@1.0.0 
 [INFO] │ │ │ └─┬ event-emitter@0.3.5 
@@ -263,7 +267,7 @@ Build date: 2017-03-15-18:00:37
 [INFO] │ ├─┬ glob@7.1.1 
 [INFO] │ │ └── fs.realpath@1.0.0 
 [INFO] │ ├── globals@9.16.0 
-[INFO] │ ├── ignore@3.2.5 
+[INFO] │ ├── ignore@3.2.6 
 [INFO] │ ├── imurmurhash@0.1.4 
 [INFO] │ ├─┬ inquirer@0.12.0 
 [INFO] │ │ ├── ansi-escapes@1.4.0 
@@ -501,7 +505,7 @@ Build date: 2017-03-15-18:00:37
 [INFO] │ │ │ └── foreach@2.0.5 
 [INFO] │ │ ├── function-bind@1.1.0 
 [INFO] │ │ └── object-keys@1.0.11 
-[INFO] │ ├─┬ uglify-js@2.8.12 
+[INFO] │ ├─┬ uglify-js@2.8.13 
 [INFO] │ │ ├── uglify-to-browserify@1.0.2 
 [INFO] │ │ └─┬ yargs@3.10.0 
 [INFO] │ │   ├── camelcase@1.2.1 
@@ -563,7 +567,7 @@ Build date: 2017-03-15-18:00:37
 [INFO] │ │ ├── in-publish@2.0.0 
 [INFO] │ │ ├── lodash.assign@4.2.0 
 [INFO] │ │ ├── lodash.clonedeep@4.5.0 
-[INFO] │ │ ├─┬ node-gyp@3.5.0 
+[INFO] │ │ ├─┬ node-gyp@3.6.0 
 [INFO] │ │ │ ├── fstream@1.0.11 
 [INFO] │ │ │ ├── glob@7.1.1 
 [INFO] │ │ │ ├── osenv@0.1.4 
@@ -672,14 +676,14 @@ Build date: 2017-03-15-18:00:37
 [INFO] │ ├── strip-json-comments@1.0.4 
 [INFO] │ └── xml@1.0.0 
 [INFO] ├── is-travis@1.0.0 
-[INFO] ├── jquery@3.1.1 
+[INFO] ├── jquery@3.2.0 
 [INFO] ├─┬ jscs@3.0.7 
 [INFO] │ ├─┬ cli-table@0.3.1 
 [INFO] │ │ └── colors@1.0.3 
 [INFO] │ ├─┬ commander@2.9.0 
 [INFO] │ │ └── graceful-readlink@1.0.1 
 [INFO] │ ├─┬ cst@0.4.9 
-[INFO] │ │ └── source-map-support@0.4.12 
+[INFO] │ │ └── source-map-support@0.4.13 
 [INFO] │ ├─┬ htmlparser2@3.8.3 
 [INFO] │ │ ├── domelementtype@1.3.0 
 [INFO] │ │ ├── domhandler@2.3.0 
@@ -951,7 +955,7 @@ Build date: 2017-03-15-18:00:37
 [INFO]     └── plur@1.0.0 
 [INFO] 
 [INFO] 
-[INFO] --- frontend-maven-plugin:1.0:grunt (step #8: grunt build) @ tobago-theme-charlotteville ---
+[INFO] --- frontend-maven-plugin:1.0:grunt (step #9: grunt build) @ tobago-theme-charlotteville ---
 [INFO] Running 'grunt dist' in __CURRENT__/tobago-theme-charlotteville/target/bootstrap
 [INFO] Running "clean:dist" (clean) task
 [INFO] >> 1 path cleaned.
@@ -970,7 +974,7 @@ Build date: 2017-03-15-18:00:37
 [INFO] 
 [INFO] Running "cssmin:core" (cssmin) task
 [INFO] >> 4 sourcemaps created.
-[INFO] >> 4 files created. 389.3 kB → 294.95 kB
+[INFO] >> 4 files created. 346.3 kB → 268.15 kB
 [INFO] 
 [INFO] Running "cssmin:docs" (cssmin) task
 [INFO] >> No files created.
@@ -990,16 +994,16 @@ Build date: 2017-03-15-18:00:37
 [INFO] Done.
 [INFO] 
 [INFO] 
-[INFO] Execution Time (2017-03-15 18:03:20 UTC+1)
-[INFO] sass:core     185ms  ▇▇ 4%
-[INFO] sass:extras   187ms  ▇▇ 4%
-[INFO] sass:docs     113ms  ▇▇ 2%
-[INFO] exec:postcss   1.5s  ▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇ 31%
-[INFO] cssmin:core   573ms  ▇▇▇▇▇▇ 12%
-[INFO] babel:dev        1s  ▇▇▇▇▇▇▇▇▇▇▇ 22%
-[INFO] babel:dist    581ms  ▇▇▇▇▇▇ 12%
-[INFO] uglify:core   497ms  ▇▇▇▇▇▇ 11%
-[INFO] Total 4.7s
+[INFO] Execution Time (2017-03-17 15:53:51 UTC+1)
+[INFO] sass:core     216ms  ▇▇▇ 4%
+[INFO] sass:extras   201ms  ▇▇ 4%
+[INFO] sass:docs     110ms  ▇▇ 2%
+[INFO] exec:postcss   1.8s  ▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇ 36%
+[INFO] cssmin:core   528ms  ▇▇▇▇▇ 10%
+[INFO] babel:dev      1.1s  ▇▇▇▇▇▇▇▇▇▇▇ 22%
+[INFO] babel:dist    573ms  ▇▇▇▇▇▇ 11%
+[INFO] uglify:core   484ms  ▇▇▇▇▇ 9%
+[INFO] Total 5.1s
 [INFO] 
 [INFO] 
 [INFO] --- maven-resources-plugin:2.7:resources (default-resources) @ tobago-theme-charlotteville ---
@@ -1007,7 +1011,7 @@ Build date: 2017-03-15-18:00:37
 [INFO] Copying 7 resources
 [INFO] Copying 3 resources
 [INFO] 
-[INFO] --- maven-resources-plugin:2.7:copy-resources (step #9: copy-bootstrap-dist) @ tobago-theme-charlotteville ---
+[INFO] --- maven-resources-plugin:2.7:copy-resources (step #10: copy-bootstrap-dist) @ tobago-theme-charlotteville ---
 [INFO] Using 'UTF-8' encoding to copy filtered resources.
 [INFO] Copying 6 resources
 [INFO] 
@@ -1041,7 +1045,7 @@ main:
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
-[INFO] Total time: 02:48 min
-[INFO] Finished at: 2017-03-15T18:03:26+01:00
-[INFO] Final Memory: 34M/394M
+[INFO] Total time: 01:37 min
+[INFO] Finished at: 2017-03-17T15:53:57+01:00
+[INFO] Final Memory: 30M/397M
 [INFO] ------------------------------------------------------------------------
