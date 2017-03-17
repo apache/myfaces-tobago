@@ -19,7 +19,7 @@
 used variables: only for the IDE, should not really used by the build system.
 */
 $brand-info: #00f !default;
-
+$zindex-dropdown: 1000 !default;
 
 /*
 Todo: check, if this is needed? (It doesn't work with the build system)
@@ -54,6 +54,10 @@ Todo: check, if this is needed? (It doesn't work with the build system)
 .tobago-button > img {
   margin-top: -1px;
   margin-bottom: -1px;
+}
+
+.input-group-btn > .btn-group {
+  z-index: $zindex-dropdown !important; /* workaround for TOBAGO-1708, better restructure the HTML */
 }
 
 /* collapsible -------------------------------------------------------------- */
