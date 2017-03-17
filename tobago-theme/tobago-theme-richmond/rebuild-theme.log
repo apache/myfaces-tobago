@@ -1,4 +1,4 @@
-Build date: 2017-03-17 15:53:58
+Build date: 2017-03-17 16:43:46
 [INFO] Scanning for projects...
 [INFO]                                                                         
 [INFO] ------------------------------------------------------------------------
@@ -134,7 +134,7 @@ Build date: 2017-03-17 15:53:58
 [INFO] Verified checksum of previously downloaded file
 [INFO] Extracting zip contents
 [INFO] Removing __CURRENT__/tobago-theme-richmond/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom
-[INFO] Copying extracted folder /var/folders/w0/pg4pxr7972l6bq85x08s5cl00000gn/T/phantomjs/phantomjs-2.1.1-macosx.zip-extract-1489762524971/phantomjs-2.1.1-macosx -> __CURRENT__/tobago-theme-richmond/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom
+[INFO] Copying extracted folder /var/folders/w0/pg4pxr7972l6bq85x08s5cl00000gn/T/phantomjs/phantomjs-2.1.1-macosx.zip-extract-1489765511595/phantomjs-2.1.1-macosx -> __CURRENT__/tobago-theme-richmond/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom
 [INFO] Writing location.js file
 [INFO] Done. Phantomjs binary available at __CURRENT__/tobago-theme-richmond/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom/bin/phantomjs
 [INFO] 
@@ -974,7 +974,7 @@ Build date: 2017-03-17 15:53:58
 [INFO] 
 [INFO] Running "cssmin:core" (cssmin) task
 [INFO] >> 4 sourcemaps created.
-[INFO] >> 4 files created. 346.24 kB → 267.85 kB
+[INFO] >> 4 files created. 346.49 kB → 267.95 kB
 [INFO] 
 [INFO] Running "cssmin:docs" (cssmin) task
 [INFO] >> No files created.
@@ -994,16 +994,16 @@ Build date: 2017-03-17 15:53:58
 [INFO] Done.
 [INFO] 
 [INFO] 
-[INFO] Execution Time (2017-03-17 15:55:28 UTC+1)
-[INFO] sass:core     222ms  ▇▇▇ 4%
-[INFO] sass:extras   216ms  ▇▇ 4%
-[INFO] sass:docs     125ms  ▇▇ 2%
-[INFO] exec:postcss   1.9s  ▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇ 35%
-[INFO] cssmin:core   631ms  ▇▇▇▇▇▇ 12%
-[INFO] babel:dev        1s  ▇▇▇▇▇▇▇▇▇▇ 19%
-[INFO] babel:dist    561ms  ▇▇▇▇▇▇ 11%
-[INFO] uglify:core   580ms  ▇▇▇▇▇▇ 11%
-[INFO] Total 5.3s
+[INFO] Execution Time (2017-03-17 16:45:15 UTC+1)
+[INFO] sass:core     221ms  ▇▇▇ 4%
+[INFO] sass:extras   214ms  ▇▇ 4%
+[INFO] sass:docs     110ms  ▇▇ 2%
+[INFO] exec:postcss   1.7s  ▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇ 33%
+[INFO] cssmin:core   626ms  ▇▇▇▇▇▇ 12%
+[INFO] babel:dev      1.1s  ▇▇▇▇▇▇▇▇▇▇ 21%
+[INFO] babel:dist    677ms  ▇▇▇▇▇▇▇ 13%
+[INFO] uglify:core   514ms  ▇▇▇▇▇ 10%
+[INFO] Total 5.2s
 [INFO] 
 [INFO] 
 [INFO] --- maven-resources-plugin:2.7:resources (default-resources) @ tobago-theme-richmond ---
@@ -1045,7 +1045,7 @@ main:
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
-[INFO] Total time: 01:35 min
-[INFO] Finished at: 2017-03-17T15:55:34+01:00
-[INFO] Final Memory: 35M/399M
+[INFO] Total time: 01:34 min
+[INFO] Finished at: 2017-03-17T16:45:21+01:00
+[INFO] Final Memory: 35M/395M
 [INFO] ------------------------------------------------------------------------

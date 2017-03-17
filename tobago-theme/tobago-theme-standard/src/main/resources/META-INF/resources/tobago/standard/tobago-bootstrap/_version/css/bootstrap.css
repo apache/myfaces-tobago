@@ -6771,6 +6771,11 @@ Todo: check, if this is needed? (It doesn't work with the build system)
   margin-bottom: -1px;
 }
 
+.input-group-btn > .btn-group {
+  z-index: 1000 !important;
+  /* workaround for TOBAGO-1708, better restructure the HTML */
+}
+
 /* collapsible -------------------------------------------------------------- */
 .tobago-collapsed.tobago-box .card-block,
 .tobago-collapsed.tobago-section .tobago-section-content,
