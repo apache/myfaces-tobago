@@ -39,27 +39,29 @@
 
       <tc:segmentLayout large="#{tc:columnPartition(navigationState.viewSource ? '8;4' : '12')}">
 
-        <tc:flexLayout columns="auto;30px;*">
+        <tc:panel><!-- xxx this panel is needed currently because of a bug -->
 
-          <tc:panel>
-            <ui:include src="/navigation.xhtml"/>
-          </tc:panel>
-          <tc:panel/>
+          <tc:segmentLayout large="2;10" medium="3;9" small="4;8" extraSmall="12">
 
-          <tc:flexLayout rows="auto;*">
+            <tc:panel>
+              <ui:include src="/navigation.xhtml"/>
+            </tc:panel>
 
-            <tc:messages id="messages" orderBy="severity"
-                         rendered="#{!navigationTree.outputPage and !navigationTree.messagesPage}"/>
+            <tc:flexLayout rows="auto;*">
 
-            <tc:section label="#{title}" id="content">
-              <tc:form id="mainForm">
-                <ui:insert/>
-              </tc:form>
-            </tc:section>
+              <tc:messages id="messages" orderBy="severity"
+                           rendered="#{!navigationTree.outputPage and !navigationTree.messagesPage}"/>
 
-          </tc:flexLayout>
+              <tc:section label="#{title}" id="content">
+                <tc:form id="mainForm">
+                  <ui:insert/>
+                </tc:form>
+              </tc:section>
 
-        </tc:flexLayout>
+            </tc:flexLayout>
+
+          </tc:segmentLayout>
+        </tc:panel>
 
         <tc:panel rendered="#{navigationState.viewSource}">
           <pre><code class="language-markup" id="demo-view-source">
