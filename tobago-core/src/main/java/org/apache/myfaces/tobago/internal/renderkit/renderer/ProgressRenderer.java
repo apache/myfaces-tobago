@@ -47,11 +47,15 @@ public class ProgressRenderer extends RendererBase {
 
     final double value = progress.getRangeValue();
     final double max = progress.getRangeMax();
+    final double percent = value >= max ? 1 : (value / max);
 
     String title = progress.getTip();
-    if (title == null && max > 0) {
-      title = Integer.toString((int) (value / max)) + " %";
+    if (title == null) {
+      title = (int) (percent * 100) + " %";
     }
+
+    final int newValue = percent == 0 ? 0 : 100;
+    final double newMax = percent == 0 ? 100 : 1 / percent * 100;
 
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
@@ -61,8 +65,8 @@ public class ProgressRenderer extends RendererBase {
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, progress);
     writer.writeStyleAttribute(progress.getStyle());
     writer.writeAttribute(HtmlAttributes.TITLE, title, true);
-    writer.writeAttribute(HtmlAttributes.MAX, Double.toString(max), false);
-    writer.writeAttribute(HtmlAttributes.VALUE, Double.toString(value), false);
+    writer.writeAttribute(HtmlAttributes.MAX, Double.toString(newMax), false);
+    writer.writeAttribute(HtmlAttributes.VALUE, newValue);
 
     writer.writeCommandMapAttribute(JsonUtils.encode(RenderUtils.getBehaviorCommands(facesContext, progress)));
   }
