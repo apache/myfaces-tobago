@@ -49,8 +49,7 @@
 
             <tc:flexLayout rows="auto;*">
 
-              <tc:messages id="messages" orderBy="severity"
-                           rendered="#{!navigationTree.outputPage and !navigationTree.messagesPage}"/>
+            <tc:messages id="messages" orderBy="severity" rendered="#{!hideGlobalMessages}"/>
 
               <tc:section label="#{title}" id="content">
                 <tc:form id="mainForm">

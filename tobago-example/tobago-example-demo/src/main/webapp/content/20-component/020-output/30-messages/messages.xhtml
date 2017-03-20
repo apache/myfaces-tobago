@@ -23,6 +23,8 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:f="http://java.sun.com/jsf/core">
   <ui:param name="title" value="#{demoBundle.messages} &lt;tc:messages>"/>
+  <ui:param name="hideGlobalMessages" value="true"/>
+
   <p>Messages are displayed via <code class="language-markup">&lt;tc:messages/></code> tag.</p>
   <tc:link label="Tag Library Documentation" image="#{request.contextPath}/image/feather-leaf.png"
            link="#{demoBundle.tagDocUrl}/#{info.stableVersion}/tld/tc/messages.html"/>
