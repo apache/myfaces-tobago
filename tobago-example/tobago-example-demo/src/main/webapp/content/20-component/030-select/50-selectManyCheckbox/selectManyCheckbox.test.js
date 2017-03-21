@@ -18,6 +18,7 @@
 QUnit.test("submit: select cat", function (assert) {
   assert.expect(1);
   var done = assert.async();
+  var step = 1;
   var $animals = jQueryFrame("#page\\:mainForm\\:animals input");
   var $submit = jQueryFrame("#page\\:mainForm\\:submit");
 
@@ -28,15 +29,20 @@ QUnit.test("submit: select cat", function (assert) {
   $submit.click();
 
   jQuery("#page\\:testframe").load(function () {
-    var $output = jQueryFrame("#page\\:mainForm\\:animalsOutput span");
-    assert.equal($output.text(), "Cat ");
-    done();
+    if (step == 1) {
+      var $output = jQueryFrame("#page\\:mainForm\\:animalsOutput span");
+      assert.equal($output.text(), "Cat ");
+
+      step++;
+      done();
+    }
   });
 });
 
 QUnit.test("submit: select fox and rabbit", function (assert) {
   assert.expect(1);
   var done = assert.async();
+  var step = 1;
   var $animals = jQueryFrame("#page\\:mainForm\\:animals input");
   var $submit = jQueryFrame("#page\\:mainForm\\:submit");
 
@@ -47,9 +53,13 @@ QUnit.test("submit: select fox and rabbit", function (assert) {
   $submit.click();
 
   jQuery("#page\\:testframe").load(function () {
-    var $output = jQueryFrame("#page\\:mainForm\\:animalsOutput span");
-    assert.equal($output.text(), "Fox Rabbit ");
-    done();
+    if (step == 1) {
+      var $output = jQueryFrame("#page\\:mainForm\\:animalsOutput span");
+      assert.equal($output.text(), "Fox Rabbit ");
+
+      step++;
+      done();
+    }
   });
 });
 

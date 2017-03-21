@@ -55,6 +55,30 @@ public class TestController implements Serializable {
     return viewId.substring(1, viewId.length() - 6); //remove leading '/' and trailing '.xhtml'
   }
 
+  public List<String> getAllPages() {
+    List<String> pages = new ArrayList<String>();
+
+    final File rootDir = new File("src/main/webapp/content");
+    if (rootDir.exists()) {
+      for (String page : getXHTMLs(rootDir)) {
+        pages.add(page.substring(16));
+      }
+    }
+    return pages;
+  }
+
+  private List<String> getXHTMLs(File dir) {
+    List<String> xhtmls = new ArrayList<String>();
+    for (File file : dir.listFiles()) {
+      if (file.isDirectory()) {
+        xhtmls.addAll(getXHTMLs(file));
+      } else if (!file.getName().startsWith("x-") && file.getName().endsWith(".xhtml")) {
+        xhtmls.add(file.getPath());
+      }
+    }
+    return xhtmls;
+  }
+
   public List<TestPage> getTestPages() {
     List<TestPage> testPages = new ArrayList<TestPage>();
 
@@ -70,15 +94,15 @@ public class TestController implements Serializable {
   }
 
   private List<String> getTestJs(File dir) {
-    List<String> xhtmls = new ArrayList<String>();
+    List<String> testJsFiles = new ArrayList<String>();
     for (File file : dir.listFiles()) {
       if (file.isDirectory()) {
-        xhtmls.addAll(getTestJs(file));
+        testJsFiles.addAll(getTestJs(file));
       } else if (!file.getName().startsWith("x-") && file.getName().endsWith(".test.js")) {
-        xhtmls.add(file.getPath());
+        testJsFiles.add(file.getPath());
       }
     }
-    return xhtmls;
+    return testJsFiles;
   }
 
   public class TestPage {

@@ -18,6 +18,7 @@
 QUnit.test("submit: select A", function (assert) {
   assert.expect(1);
   var done = assert.async();
+  var step = 1;
   var $selectA = jQueryFrame("#page\\:mainForm\\:selectA input");
   var $selectB = jQueryFrame("#page\\:mainForm\\:selectB input");
   var $selectC = jQueryFrame("#page\\:mainForm\\:selectC input");
@@ -29,15 +30,20 @@ QUnit.test("submit: select A", function (assert) {
   $submit.click();
 
   jQuery("#page\\:testframe").load(function () {
-    var $output = jQueryFrame("#page\\:mainForm\\:submitOutput span");
-    assert.equal($output.text(), "A ");
-    done();
+    if (step == 1) {
+      var $output = jQueryFrame("#page\\:mainForm\\:submitOutput span");
+      assert.equal($output.text(), "A ");
+
+      step++;
+      done();
+    }
   });
 });
 
 QUnit.test("submit: select B and C", function (assert) {
   assert.expect(1);
   var done = assert.async();
+  var step = 1;
   var $selectA = jQueryFrame("#page\\:mainForm\\:selectA input");
   var $selectB = jQueryFrame("#page\\:mainForm\\:selectB input");
   var $selectC = jQueryFrame("#page\\:mainForm\\:selectC input");
@@ -49,9 +55,13 @@ QUnit.test("submit: select B and C", function (assert) {
   $submit.click();
 
   jQuery("#page\\:testframe").load(function () {
-    var $output = jQueryFrame("#page\\:mainForm\\:submitOutput span");
-    assert.equal($output.text(), "B C ");
-    done();
+    if (step == 1) {
+      var $output = jQueryFrame("#page\\:mainForm\\:submitOutput span");
+      assert.equal($output.text(), "B C ");
+
+      step++;
+      done();
+    }
   });
 });
 

@@ -15,9 +15,10 @@
  * limitations under the License.
  */
 
-QUnit.test("Basics: Name", function(assert) {
+QUnit.test("Basics: Name", function (assert) {
   assert.expect(37);
   var done = assert.async(4);
+  var step = 1;
 
   var $colName = jQueryFrame("#page\\:mainForm\\:s1\\:columnName_sorter");
   var $rows = jQueryFrame("#page\\:mainForm\\:s1 .tobago-sheet-bodyTable tbody .tobago-sheet-row");
@@ -27,77 +28,82 @@ QUnit.test("Basics: Name", function(assert) {
     $colName.click();
   }
 
-  waitForAjax(function() {
+  waitForAjax(function () {
     $colName = jQueryFrame($colName.selector);
-    return $colName.find(".fa-angle-up").length == 1;
-  }, function() {
+    return step == 1 && $colName.find(".fa-angle-up").length == 1;
+  }, function () {
     $colName = jQueryFrame($colName.selector);
     assert.equal($colName.find(".fa-angle-up").length, 1);
-    done();
 
     $leftPaging = jQueryFrame($leftPaging.selector);
     $leftPaging.val("22").trigger("blur");
 
-    waitForAjax(function() {
+    waitForAjax(function () {
       $rows = jQueryFrame($rows.selector);
-      return ajaxWaitingBodyTableCheck($rows,
-          "Earth", "365.26", "",
-          "Elara", "259.65", "1905",
-          "Enceladus", "1.37", "1789",
-          "Epimetheus", "0.69", "1980");
-    }, function() {
+      return step == 2 && ajaxWaitingBodyTableCheck($rows,
+              "Earth", "365.26", "",
+              "Elara", "259.65", "1905",
+              "Enceladus", "1.37", "1789",
+              "Epimetheus", "0.69", "1980");
+    }, function () {
       $rows = jQueryFrame($rows.selector);
       ajaxExecuteBodyTableCheck(assert, $rows,
           "Earth", "365.26", "",
           "Elara", "259.65", "1905",
           "Enceladus", "1.37", "1789",
           "Epimetheus", "0.69", "1980");
-      done();
 
       $colName.click();
 
-      waitForAjax(function() {
+      waitForAjax(function () {
         $rows = jQueryFrame($rows.selector);
-        return ajaxWaitingBodyTableCheck($rows,
-            "Proteus", "1.12", "1989",
-            "Prospero", "-1962.95", "1999",
-            "Prometheus", "0.61", "1980",
-            "Praxidike", "625.3", "2000");
-      }, function() {
+        return step == 3 && ajaxWaitingBodyTableCheck($rows,
+                "Proteus", "1.12", "1989",
+                "Prospero", "-1962.95", "1999",
+                "Prometheus", "0.61", "1980",
+                "Praxidike", "625.3", "2000");
+      }, function () {
         $rows = jQueryFrame($rows.selector);
         ajaxExecuteBodyTableCheck(assert, $rows,
             "Proteus", "1.12", "1989",
             "Prospero", "-1962.95", "1999",
             "Prometheus", "0.61", "1980",
             "Praxidike", "625.3", "2000");
-        done();
 
         $colName.click();
 
-        waitForAjax(function() {
+        waitForAjax(function () {
           $rows = jQueryFrame($rows.selector);
-          return ajaxWaitingBodyTableCheck($rows,
-              "Earth", "365.26", "",
-              "Elara", "259.65", "1905",
-              "Enceladus", "1.37", "1789",
-              "Epimetheus", "0.69", "1980");
-        }, function() {
+          return step == 4 && ajaxWaitingBodyTableCheck($rows,
+                  "Earth", "365.26", "",
+                  "Elara", "259.65", "1905",
+                  "Enceladus", "1.37", "1789",
+                  "Epimetheus", "0.69", "1980");
+        }, function () {
           $rows = jQueryFrame($rows.selector);
           ajaxExecuteBodyTableCheck(assert, $rows,
               "Earth", "365.26", "",
               "Elara", "259.65", "1905",
               "Enceladus", "1.37", "1789",
               "Epimetheus", "0.69", "1980");
+          step++;
           done();
         });
+        step++;
+        done();
       });
+      step++;
+      done();
     });
+    step++;
+    done();
   });
 });
 
-QUnit.test("Basics: Period", function(assert) {
+QUnit.test("Basics: Period", function (assert) {
   assert.expect(37);
   var done = assert.async(4);
+  var step = 1;
 
   var $colPeriod = jQueryFrame("#page\\:mainForm\\:s1\\:columnPeriod_sorter");
   var $rows = jQueryFrame("#page\\:mainForm\\:s1 .tobago-sheet-bodyTable tbody .tobago-sheet-row");
@@ -107,77 +113,82 @@ QUnit.test("Basics: Period", function(assert) {
     $colPeriod.click();
   }
 
-  waitForAjax(function() {
+  waitForAjax(function () {
     $colPeriod = jQueryFrame($colPeriod.selector);
-    return $colPeriod.find(".fa-angle-up").length == 1;
-  }, function() {
+    return step == 1 && $colPeriod.find(".fa-angle-up").length == 1;
+  }, function () {
     $colPeriod = jQueryFrame($colPeriod.selector);
     assert.equal($colPeriod.find(".fa-angle-up").length, 1);
-    done();
 
     $leftPaging = jQueryFrame($leftPaging.selector);
     $leftPaging.val("22").trigger("blur");
 
-    waitForAjax(function() {
+    waitForAjax(function () {
       $rows = jQueryFrame($rows.selector);
-      return ajaxWaitingBodyTableCheck($rows,
-          "Galatea", "0.43", "1989",
-          "Cressida", "0.46", "1986",
-          "Desdemona", "0.47", "1986",
-          "Juliet", "0.49", "1986");
-    }, function() {
+      return step == 2 && ajaxWaitingBodyTableCheck($rows,
+              "Galatea", "0.43", "1989",
+              "Cressida", "0.46", "1986",
+              "Desdemona", "0.47", "1986",
+              "Juliet", "0.49", "1986");
+    }, function () {
       $rows = jQueryFrame($rows.selector);
       ajaxExecuteBodyTableCheck(assert, $rows,
           "Galatea", "0.43", "1989",
           "Cressida", "0.46", "1986",
           "Desdemona", "0.47", "1986",
           "Juliet", "0.49", "1986");
-      done();
 
       $colPeriod.click();
 
-      waitForAjax(function() {
+      waitForAjax(function () {
         $rows = jQueryFrame($rows.selector);
-        return ajaxWaitingBodyTableCheck($rows,
-            "Leda", "238.72", "1974",
-            "Venus", "224.7", "",
-            "Themisto", "130.02", "2000",
-            "Mercury", "87.97", "");
-      }, function() {
+        return step == 3 && ajaxWaitingBodyTableCheck($rows,
+                "Leda", "238.72", "1974",
+                "Venus", "224.7", "",
+                "Themisto", "130.02", "2000",
+                "Mercury", "87.97", "");
+      }, function () {
         $rows = jQueryFrame($rows.selector);
         ajaxExecuteBodyTableCheck(assert, $rows,
             "Leda", "238.72", "1974",
             "Venus", "224.7", "",
             "Themisto", "130.02", "2000",
             "Mercury", "87.97", "");
-        done();
 
         $colPeriod.click();
 
-        waitForAjax(function() {
+        waitForAjax(function () {
           $rows = jQueryFrame($rows.selector);
-          return ajaxWaitingBodyTableCheck($rows,
-              "Galatea", "0.43", "1989",
-              "Cressida", "0.46", "1986",
-              "Desdemona", "0.47", "1986",
-              "Juliet", "0.49", "1986");
-        }, function() {
+          return step == 4 && ajaxWaitingBodyTableCheck($rows,
+                  "Galatea", "0.43", "1989",
+                  "Cressida", "0.46", "1986",
+                  "Desdemona", "0.47", "1986",
+                  "Juliet", "0.49", "1986");
+        }, function () {
           $rows = jQueryFrame($rows.selector);
           ajaxExecuteBodyTableCheck(assert, $rows,
               "Galatea", "0.43", "1989",
               "Cressida", "0.46", "1986",
               "Desdemona", "0.47", "1986",
               "Juliet", "0.49", "1986");
+          step++;
           done();
         });
+        step++;
+        done();
       });
+      step++;
+      done();
     });
+    step++;
+    done();
   });
 });
 
-QUnit.test("Basics: Year", function(assert) {
+QUnit.test("Basics: Year", function (assert) {
   assert.expect(13);
   var done = assert.async(4);
+  var step = 1;
 
   var $colYear = jQueryFrame("#page\\:mainForm\\:s1\\:columnDiscoverYear_sorter");
   var $rows = jQueryFrame("#page\\:mainForm\\:s1 .tobago-sheet-bodyTable tbody .tobago-sheet-row");
@@ -187,65 +198,69 @@ QUnit.test("Basics: Year", function(assert) {
     $colYear.click();
   }
 
-  waitForAjax(function() {
+  waitForAjax(function () {
     $colYear = jQueryFrame($colYear.selector);
     return $colYear.find(".fa-angle-up").length == 1;
-  }, function() {
+  }, function () {
     $colYear = jQueryFrame($colYear.selector);
     assert.equal($colYear.find(".fa-angle-up").length, 1);
-    done();
 
     $leftPaging = jQueryFrame($leftPaging.selector);
     $leftPaging.val("22").trigger("blur");
 
-    waitForAjax(function() {
+    waitForAjax(function () {
       $rows = jQueryFrame($rows.selector);
       return $rows.eq(0).find(".tobago-sheet-cell span").eq(2).text() == "1789"
           && $rows.eq(1).find(".tobago-sheet-cell span").eq(2).text() == "1846"
           && $rows.eq(2).find(".tobago-sheet-cell span").eq(2).text() == "1846"
           && $rows.eq(3).find(".tobago-sheet-cell span").eq(2).text() == "1848";
-    }, function() {
+    }, function () {
       $rows = jQueryFrame($rows.selector);
       assert.equal($rows.eq(0).find(".tobago-sheet-cell span").eq(2).text(), "1789", "row0col2");
       assert.equal($rows.eq(1).find(".tobago-sheet-cell span").eq(2).text(), "1846", "row1col2");
       assert.equal($rows.eq(2).find(".tobago-sheet-cell span").eq(2).text(), "1846", "row2col2");
       assert.equal($rows.eq(3).find(".tobago-sheet-cell span").eq(2).text(), "1848", "row3col2");
-      done();
 
       $colYear.click();
 
-      waitForAjax(function() {
+      waitForAjax(function () {
         $rows = jQueryFrame($rows.selector);
         return $rows.eq(0).find(".tobago-sheet-cell span").eq(2).text() == "1989"
             && $rows.eq(1).find(".tobago-sheet-cell span").eq(2).text() == "1989"
             && $rows.eq(2).find(".tobago-sheet-cell span").eq(2).text() == "1989"
             && $rows.eq(3).find(".tobago-sheet-cell span").eq(2).text() == "1986";
-      }, function() {
+      }, function () {
         $rows = jQueryFrame($rows.selector);
         assert.equal($rows.eq(0).find(".tobago-sheet-cell span").eq(2).text(), "1989", "row0col2");
         assert.equal($rows.eq(1).find(".tobago-sheet-cell span").eq(2).text(), "1989", "row1col2");
         assert.equal($rows.eq(2).find(".tobago-sheet-cell span").eq(2).text(), "1989", "row2col2");
         assert.equal($rows.eq(3).find(".tobago-sheet-cell span").eq(2).text(), "1986", "row3col2");
-        done();
 
         $colYear.click();
 
-        waitForAjax(function() {
+        waitForAjax(function () {
           $rows = jQueryFrame($rows.selector);
           return $rows.eq(0).find(".tobago-sheet-cell span").eq(2).text() == "1789"
               && $rows.eq(1).find(".tobago-sheet-cell span").eq(2).text() == "1846"
               && $rows.eq(2).find(".tobago-sheet-cell span").eq(2).text() == "1846"
               && $rows.eq(3).find(".tobago-sheet-cell span").eq(2).text() == "1848";
-        }, function() {
+        }, function () {
           $rows = jQueryFrame($rows.selector);
           assert.equal($rows.eq(0).find(".tobago-sheet-cell span").eq(2).text(), "1789", "row0col2");
           assert.equal($rows.eq(1).find(".tobago-sheet-cell span").eq(2).text(), "1846", "row1col2");
           assert.equal($rows.eq(2).find(".tobago-sheet-cell span").eq(2).text(), "1846", "row2col2");
           assert.equal($rows.eq(3).find(".tobago-sheet-cell span").eq(2).text(), "1848", "row3col2");
+          step++;
           done();
         });
+        step++;
+        done();
       });
+      step++;
+      done();
     });
+    step++;
+    done();
   });
 });
 
@@ -253,9 +268,10 @@ QUnit.test("Basics: Year", function(assert) {
  * 1. goto line 8
  * 2. goto line 9
  */
-QUnit.test("Basics: left paging", function(assert) {
+QUnit.test("Basics: left paging", function (assert) {
   assert.expect(25);
   var done = assert.async(3);
+  var step = 1;
 
   var $colName = jQueryFrame("#page\\:mainForm\\:s1\\:columnName_sorter");
   var $rows = jQueryFrame("#page\\:mainForm\\:s1 .tobago-sheet-bodyTable tbody .tobago-sheet-row");
@@ -265,53 +281,56 @@ QUnit.test("Basics: left paging", function(assert) {
     $colName.click();
   }
 
-  waitForAjax(function() {
+  waitForAjax(function () {
     $colName = jQueryFrame($colName.selector);
-    return $colName.find(".fa-angle-up").length == 1;
-  }, function() {
+    return step == 1 && $colName.find(".fa-angle-up").length == 1;
+  }, function () {
     $colName = jQueryFrame($colName.selector);
     assert.equal($colName.find(".fa-angle-up").length, 1);
-    done();
 
     $leftPaging = jQueryFrame($leftPaging.selector);
     $leftPaging.val("8").trigger("blur");
 
-    waitForAjax(function() {
+    waitForAjax(function () {
       $rows = jQueryFrame($rows.selector);
-      return ajaxWaitingBodyTableCheck($rows,
-          "Bianca", "0.43", "1986",
-          "Caliban", "-579.39", "1997",
-          "Callirrhoe", "758.8", "2000",
-          "Callisto", "16.69", "1610");
-    }, function() {
+      return step == 2 && ajaxWaitingBodyTableCheck($rows,
+              "Bianca", "0.43", "1986",
+              "Caliban", "-579.39", "1997",
+              "Callirrhoe", "758.8", "2000",
+              "Callisto", "16.69", "1610");
+    }, function () {
       $rows = jQueryFrame($rows.selector);
       ajaxExecuteBodyTableCheck(assert, $rows,
           "Bianca", "0.43", "1986",
           "Caliban", "-579.39", "1997",
           "Callirrhoe", "758.8", "2000",
           "Callisto", "16.69", "1610");
-      done();
 
       $leftPaging = jQueryFrame($leftPaging.selector);
       $leftPaging.val("9").trigger("blur");
 
-      waitForAjax(function() {
+      waitForAjax(function () {
         $rows = jQueryFrame($rows.selector);
-        return ajaxWaitingBodyTableCheck($rows,
-            "Caliban", "-579.39", "1997",
-            "Callirrhoe", "758.8", "2000",
-            "Callisto", "16.69", "1610",
-            "Calypso", "1.89", "1980");
-      }, function() {
+        return step == 3 && ajaxWaitingBodyTableCheck($rows,
+                "Caliban", "-579.39", "1997",
+                "Callirrhoe", "758.8", "2000",
+                "Callisto", "16.69", "1610",
+                "Calypso", "1.89", "1980");
+      }, function () {
         $rows = jQueryFrame($rows.selector);
         ajaxExecuteBodyTableCheck(assert, $rows,
             "Caliban", "-579.39", "1997",
             "Callirrhoe", "758.8", "2000",
             "Callisto", "16.69", "1610",
             "Calypso", "1.89", "1980");
+        step++;
         done();
       });
+      step++;
+      done();
     });
+    step++;
+    done();
   });
 });
 
@@ -320,9 +339,10 @@ QUnit.test("Basics: left paging", function(assert) {
  * 2. goto page 16
  * 3. goto page 13
  */
-QUnit.test("Basics: center paging", function(assert) {
+QUnit.test("Basics: center paging", function (assert) {
   assert.expect(49);
   var done = assert.async(5);
+  var step = 1;
 
   var $colName = jQueryFrame("#page\\:mainForm\\:s1\\:columnName_sorter");
   var $rows = jQueryFrame("#page\\:mainForm\\:s1 .tobago-sheet-bodyTable tbody .tobago-sheet-row");
@@ -333,93 +353,98 @@ QUnit.test("Basics: center paging", function(assert) {
     $colName.click();
   }
 
-  waitForAjax(function() {
+  waitForAjax(function () {
     $colName = jQueryFrame($colName.selector);
-    return $colName.find(".fa-angle-up").length == 1;
-  }, function() {
+    return step == 1 && $colName.find(".fa-angle-up").length == 1;
+  }, function () {
     $colName = jQueryFrame($colName.selector);
     assert.equal($colName.find(".fa-angle-up").length, 1);
-    done();
 
     $leftPaging = jQueryFrame($leftPaging.selector);
     $leftPaging.val("1").trigger("blur");
 
-    waitForAjax(function() {
+    waitForAjax(function () {
       $rows = jQueryFrame($rows.selector);
-      return ajaxWaitingBodyTableCheck($rows,
-          "1986U10", "0.64", "1999",
-          "Adrastea", "0.3", "1979",
-          "Amalthea", "0.5", "1892",
-          "Ananke", "-629.77", "1951");
-    }, function() {
+      return step == 2 && ajaxWaitingBodyTableCheck($rows,
+              "1986U10", "0.64", "1999",
+              "Adrastea", "0.3", "1979",
+              "Amalthea", "0.5", "1892",
+              "Ananke", "-629.77", "1951");
+    }, function () {
       $rows = jQueryFrame($rows.selector);
       ajaxExecuteBodyTableCheck(assert, $rows,
           "1986U10", "0.64", "1999",
           "Adrastea", "0.3", "1979",
           "Amalthea", "0.5", "1892",
           "Ananke", "-629.77", "1951");
-      done();
 
       $centerPaging = jQueryFrame($centerPaging.selector);
       $centerPaging.eq(6).click();
 
-      waitForAjax(function() {
+      waitForAjax(function () {
         $rows = jQueryFrame($rows.selector);
-        return ajaxWaitingBodyTableCheck($rows,
-            "Epimetheus", "0.69", "1980",
-            "Erinome", "728.3", "2000",
-            "Europa", "3.55", "1610",
-            "Galatea", "0.43", "1989");
-      }, function() {
+        return step == 3 && ajaxWaitingBodyTableCheck($rows,
+                "Epimetheus", "0.69", "1980",
+                "Erinome", "728.3", "2000",
+                "Europa", "3.55", "1610",
+                "Galatea", "0.43", "1989");
+      }, function () {
         $rows = jQueryFrame($rows.selector);
         ajaxExecuteBodyTableCheck(assert, $rows,
             "Epimetheus", "0.69", "1980",
             "Erinome", "728.3", "2000",
             "Europa", "3.55", "1610",
             "Galatea", "0.43", "1989");
-        done();
 
         $centerPaging = jQueryFrame($centerPaging.selector);
         $centerPaging.eq(10).click();
 
-        waitForAjax(function() {
+        waitForAjax(function () {
           $rows = jQueryFrame($rows.selector);
-          return ajaxWaitingBodyTableCheck($rows,
-              "Phoebe", "-550.48", "1898",
-              "Pluto", "90800.0", "1930",
-              "Portia", "0.51", "1986",
-              "Praxidike", "625.3", "2000");
-        }, function() {
+          return step == 4 && ajaxWaitingBodyTableCheck($rows,
+                  "Phoebe", "-550.48", "1898",
+                  "Pluto", "90800.0", "1930",
+                  "Portia", "0.51", "1986",
+                  "Praxidike", "625.3", "2000");
+        }, function () {
           $rows = jQueryFrame($rows.selector);
           ajaxExecuteBodyTableCheck(assert, $rows,
               "Phoebe", "-550.48", "1898",
               "Pluto", "90800.0", "1930",
               "Portia", "0.51", "1986",
               "Praxidike", "625.3", "2000");
-          done();
 
           $centerPaging = jQueryFrame($centerPaging.selector);
           $centerPaging.eq(3).click();
 
-          waitForAjax(function() {
+          waitForAjax(function () {
             $rows = jQueryFrame($rows.selector);
-            return ajaxWaitingBodyTableCheck($rows,
-                "Neptune", "60190.0", "1846",
-                "Nereid", "360.13", "1949",
-                "Oberon", "13.46", "1787",
-                "Ophelia", "0.38", "1986");
-          }, function() {
+            return step == 5 && ajaxWaitingBodyTableCheck($rows,
+                    "Neptune", "60190.0", "1846",
+                    "Nereid", "360.13", "1949",
+                    "Oberon", "13.46", "1787",
+                    "Ophelia", "0.38", "1986");
+          }, function () {
             $rows = jQueryFrame($rows.selector);
             ajaxExecuteBodyTableCheck(assert, $rows,
                 "Neptune", "60190.0", "1846",
                 "Nereid", "360.13", "1949",
                 "Oberon", "13.46", "1787",
                 "Ophelia", "0.38", "1986");
+            step++;
             done();
           });
+          step++;
+          done();
         });
+        step++;
+        done();
       });
+      step++;
+      done();
     });
+    step++;
+    done();
   });
 });
 
@@ -430,9 +455,10 @@ QUnit.test("Basics: center paging", function(assert) {
  * 4. goto page 21 by pressing arrow-left
  * 5. goto page 14
  */
-QUnit.test("Basics: right paging", function(assert) {
-  assert.expect(61);
-  var done = assert.async(6);
+QUnit.test("Basics: right paging", function (assert) {
+  assert.expect(73);
+  var done = assert.async(7);
+  var step = 1;
 
   var $colName = jQueryFrame("#page\\:mainForm\\:s1\\:columnName_sorter");
   var $rows = jQueryFrame("#page\\:mainForm\\:s1 .tobago-sheet-bodyTable tbody .tobago-sheet-row");
@@ -443,139 +469,147 @@ QUnit.test("Basics: right paging", function(assert) {
     $colName.click();
   }
 
-  waitForAjax(function() {
+  waitForAjax(function () {
     $colName = jQueryFrame($colName.selector);
-    return $colName.find(".fa-angle-up").length == 1;
-  }, function() {
+    return step == 1 && $colName.find(".fa-angle-up").length == 1;
+  }, function () {
     $colName = jQueryFrame($colName.selector);
     assert.equal($colName.find(".fa-angle-up").length, 1);
-    done();
 
     $leftPaging = jQueryFrame($leftPaging.selector);
     $leftPaging.val("22").trigger("blur");
 
-    waitForAjax(function() {
+    waitForAjax(function () {
       $rows = jQueryFrame($rows.selector);
-      return ajaxWaitingBodyTableCheck($rows,
-          "Earth", "365.26", "",
-          "Elara", "259.65", "1905",
-          "Enceladus", "1.37", "1789",
-          "Epimetheus", "0.69", "1980");
-    }, function() {
+      return step == 2 && ajaxWaitingBodyTableCheck($rows,
+              "Earth", "365.26", "",
+              "Elara", "259.65", "1905",
+              "Enceladus", "1.37", "1789",
+              "Epimetheus", "0.69", "1980");
+    }, function () {
       $rows = jQueryFrame($rows.selector);
       ajaxExecuteBodyTableCheck(assert, $rows,
           "Earth", "365.26", "",
           "Elara", "259.65", "1905",
           "Enceladus", "1.37", "1789",
           "Epimetheus", "0.69", "1980");
-      done();
 
       var $rightPagingFirstPage = jQueryFrame($rightPaging.selector).eq(0);
       $rightPagingFirstPage.click();
 
-      waitForAjax(function() {
+      waitForAjax(function () {
         $rows = jQueryFrame($rows.selector);
-        return ajaxWaitingBodyTableCheck($rows,
-            "1986U10", "0.64", "1999",
-            "Adrastea", "0.3", "1979",
-            "Amalthea", "0.5", "1892",
-            "Ananke", "-629.77", "1951");
-      }, function() {
+        return step == 3 && ajaxWaitingBodyTableCheck($rows,
+                "1986U10", "0.64", "1999",
+                "Adrastea", "0.3", "1979",
+                "Amalthea", "0.5", "1892",
+                "Ananke", "-629.77", "1951");
+      }, function () {
         $rows = jQueryFrame($rows.selector);
         ajaxExecuteBodyTableCheck(assert, $rows,
             "1986U10", "0.64", "1999",
             "Adrastea", "0.3", "1979",
             "Amalthea", "0.5", "1892",
             "Ananke", "-629.77", "1951");
-        done();
 
         var $rightPagingRight = jQueryFrame($rightPaging.selector).eq(3);
         $rightPagingRight.click();
 
-        waitForAjax(function() {
+        waitForAjax(function () {
           $rows = jQueryFrame($rows.selector);
-          return ajaxWaitingBodyTableCheck($rows,
-              "Ariel", "2.52", "1851",
-              "Atlas", "0.6", "1980",
-              "Belinda", "0.62", "1986",
-              "Bianca", "0.43", "1986");
-        }, function() {
+          return step == 4 && ajaxWaitingBodyTableCheck($rows,
+                  "Ariel", "2.52", "1851",
+                  "Atlas", "0.6", "1980",
+                  "Belinda", "0.62", "1986",
+                  "Bianca", "0.43", "1986");
+        }, function () {
           $rows = jQueryFrame($rows.selector);
           ajaxExecuteBodyTableCheck(assert, $rows,
               "Ariel", "2.52", "1851",
               "Atlas", "0.6", "1980",
               "Belinda", "0.62", "1986",
               "Bianca", "0.43", "1986");
-          done();
 
           var $rightPagingLastPage = jQueryFrame($rightPaging.selector).eq(4);
           $rightPagingLastPage.click();
 
-          waitForAjax(function() {
+          waitForAjax(function () {
             $rows = jQueryFrame($rows.selector);
-            return ajaxWaitingBodyTableCheck($rows,
-                "Triton", "-5.88", "1846",
-                "Umbriel", "4.14", "1851",
-                "Uranus", "30685.0", "1781",
-                "Venus", "224.7", "");
-          }, function() {
+            return step == 5 && ajaxWaitingBodyTableCheck($rows,
+                    "Triton", "-5.88", "1846",
+                    "Umbriel", "4.14", "1851",
+                    "Uranus", "30685.0", "1781",
+                    "Venus", "224.7", "");
+          }, function () {
             $rows = jQueryFrame($rows.selector);
             ajaxExecuteBodyTableCheck(assert, $rows,
                 "Triton", "-5.88", "1846",
                 "Umbriel", "4.14", "1851",
                 "Uranus", "30685.0", "1781",
                 "Venus", "224.7", "");
-            done();
 
             var $rightPagingLeft = jQueryFrame($rightPaging.selector).eq(1);
             $rightPagingLeft.click();
 
-            waitForAjax(function() {
+            waitForAjax(function () {
               $rows = jQueryFrame($rows.selector);
-              return ajaxWaitingBodyTableCheck($rows,
-                  "Thebe", "0.67", "1979",
-                  "Themisto", "130.02", "2000",
-                  "Titan", "15.95", "1655",
-                  "Titania", "8.71", "1787");
-            }, function() {
+              return step == 6 && ajaxWaitingBodyTableCheck($rows,
+                      "Thebe", "0.67", "1979",
+                      "Themisto", "130.02", "2000",
+                      "Titan", "15.95", "1655",
+                      "Titania", "8.71", "1787");
+            }, function () {
               $rows = jQueryFrame($rows.selector);
               ajaxExecuteBodyTableCheck(assert, $rows,
                   "Thebe", "0.67", "1979",
                   "Themisto", "130.02", "2000",
                   "Titan", "15.95", "1655",
                   "Titania", "8.71", "1787");
-              done();
 
               var $rightPagingJumpToPage = jQueryFrame($rightPaging.selector).find("input");
               $rightPagingJumpToPage.val("14").trigger("blur");
 
-              waitForAjax(function() {
+              waitForAjax(function () {
                 $rows = jQueryFrame($rows.selector);
-                return ajaxWaitingBodyTableCheck($rows,
-                    "Neptune", "60190.0", "1846",
-                    "Nereid", "360.13", "1949",
-                    "Oberon", "13.46", "1787",
-                    "Ophelia", "0.38", "1986");
-              }, function() {
+                return step == 7 && ajaxWaitingBodyTableCheck($rows,
+                        "Neptune", "60190.0", "1846",
+                        "Nereid", "360.13", "1949",
+                        "Oberon", "13.46", "1787",
+                        "Ophelia", "0.38", "1986");
+              }, function () {
                 $rows = jQueryFrame($rows.selector);
                 ajaxExecuteBodyTableCheck(assert, $rows,
                     "Neptune", "60190.0", "1846",
                     "Nereid", "360.13", "1949",
                     "Oberon", "13.46", "1787",
                     "Ophelia", "0.38", "1986");
+                step++;
                 done();
               });
+              step++;
+              done();
             });
+            step++;
+            done();
           });
+          step++;
+          done();
         });
+        step++;
+        done();
       });
+      step++;
+      done();
     });
+    step++;
+    done();
   });
 });
 
-QUnit.test("Custom Sorting: Name", function(assert) {
+QUnit.test("Custom Sorting: Name", function (assert) {
   assert.expect(37);
   var done = assert.async(4);
+  var step = 1;
 
   var $colName = jQueryFrame("#page\\:mainForm\\:s2\\:customColumnName_sorter");
   var $rows = jQueryFrame("#page\\:mainForm\\:s2 .tobago-sheet-bodyTable tbody .tobago-sheet-row");
@@ -585,77 +619,82 @@ QUnit.test("Custom Sorting: Name", function(assert) {
     $colName.click();
   }
 
-  waitForAjax(function() {
+  waitForAjax(function () {
     $colName = jQueryFrame($colName.selector);
-    return $colName.find(".fa-angle-up").length == 1;
-  }, function() {
+    return step == 1 && $colName.find(".fa-angle-up").length == 1;
+  }, function () {
     $colName = jQueryFrame($colName.selector);
     assert.equal($colName.find(".fa-angle-up").length, 1);
-    done();
 
     $leftPaging = jQueryFrame($leftPaging.selector);
     $leftPaging.val("22").trigger("blur");
 
-    waitForAjax(function() {
+    waitForAjax(function () {
       $rows = jQueryFrame($rows.selector);
-      return ajaxWaitingBodyTableCheck($rows,
-          "Earth", "365.26", "",
-          "Elara", "259.65", "1905",
-          "Enceladus", "1.37", "1789",
-          "Epimetheus", "0.69", "1980");
-    }, function() {
+      return step == 2 && ajaxWaitingBodyTableCheck($rows,
+              "Earth", "365.26", "",
+              "Elara", "259.65", "1905",
+              "Enceladus", "1.37", "1789",
+              "Epimetheus", "0.69", "1980");
+    }, function () {
       $rows = jQueryFrame($rows.selector);
       ajaxExecuteBodyTableCheck(assert, $rows,
           "Earth", "365.26", "",
           "Elara", "259.65", "1905",
           "Enceladus", "1.37", "1789",
           "Epimetheus", "0.69", "1980");
-      done();
 
       $colName.click();
 
-      waitForAjax(function() {
+      waitForAjax(function () {
         $rows = jQueryFrame($rows.selector);
-        return ajaxWaitingBodyTableCheck($rows,
-            "Proteus", "1.12", "1989",
-            "Prospero", "-1962.95", "1999",
-            "Prometheus", "0.61", "1980",
-            "Praxidike", "625.3", "2000");
-      }, function() {
+        return step == 3 && ajaxWaitingBodyTableCheck($rows,
+                "Proteus", "1.12", "1989",
+                "Prospero", "-1962.95", "1999",
+                "Prometheus", "0.61", "1980",
+                "Praxidike", "625.3", "2000");
+      }, function () {
         $rows = jQueryFrame($rows.selector);
         ajaxExecuteBodyTableCheck(assert, $rows,
             "Proteus", "1.12", "1989",
             "Prospero", "-1962.95", "1999",
             "Prometheus", "0.61", "1980",
             "Praxidike", "625.3", "2000");
-        done();
 
         $colName.click();
 
-        waitForAjax(function() {
+        waitForAjax(function () {
           $rows = jQueryFrame($rows.selector);
-          return ajaxWaitingBodyTableCheck($rows,
-              "Earth", "365.26", "",
-              "Elara", "259.65", "1905",
-              "Enceladus", "1.37", "1789",
-              "Epimetheus", "0.69", "1980");
-        }, function() {
+          return step == 4 && ajaxWaitingBodyTableCheck($rows,
+                  "Earth", "365.26", "",
+                  "Elara", "259.65", "1905",
+                  "Enceladus", "1.37", "1789",
+                  "Epimetheus", "0.69", "1980");
+        }, function () {
           $rows = jQueryFrame($rows.selector);
           ajaxExecuteBodyTableCheck(assert, $rows,
               "Earth", "365.26", "",
               "Elara", "259.65", "1905",
               "Enceladus", "1.37", "1789",
               "Epimetheus", "0.69", "1980");
+          step++;
           done();
         });
+        step++;
+        done();
       });
+      step++;
+      done();
     });
+    step++;
+    done();
   });
 });
 
-QUnit.test("Custom Sorting: Period", function(assert) {
+QUnit.test("Custom Sorting: Period", function (assert) {
   assert.expect(37);
   var done = assert.async(4);
+  var step = 1;
 
   var $colPeriod = jQueryFrame("#page\\:mainForm\\:s2\\:customColumnPeriod_sorter");
   var $rows = jQueryFrame("#page\\:mainForm\\:s2 .tobago-sheet-bodyTable tbody .tobago-sheet-row");
@@ -665,77 +704,82 @@ QUnit.test("Custom Sorting: Period", function(assert) {
     $colPeriod.click();
   }
 
-  waitForAjax(function() {
+  waitForAjax(function () {
     $colPeriod = jQueryFrame($colPeriod.selector);
-    return $colPeriod.find(".fa-angle-up").length == 1;
-  }, function() {
+    return step == 1 && $colPeriod.find(".fa-angle-up").length == 1;
+  }, function () {
     $colPeriod = jQueryFrame($colPeriod.selector);
     assert.equal($colPeriod.find(".fa-angle-up").length, 1);
-    done();
 
     $leftPaging = jQueryFrame($leftPaging.selector);
     $leftPaging.val("22").trigger("blur");
 
-    waitForAjax(function() {
+    waitForAjax(function () {
       $rows = jQueryFrame($rows.selector);
-      return ajaxWaitingBodyTableCheck($rows,
-          "Belinda", "0.62", "1986",
-          "Pandora", "0.63", "1980",
-          "1986U10", "0.64", "1999",
-          "Thebe", "0.67", "1979");
-    }, function() {
+      return step == 2 && ajaxWaitingBodyTableCheck($rows,
+              "Belinda", "0.62", "1986",
+              "Pandora", "0.63", "1980",
+              "1986U10", "0.64", "1999",
+              "Thebe", "0.67", "1979");
+    }, function () {
       $rows = jQueryFrame($rows.selector);
       ajaxExecuteBodyTableCheck(assert, $rows,
           "Belinda", "0.62", "1986",
           "Pandora", "0.63", "1980",
           "1986U10", "0.64", "1999",
           "Thebe", "0.67", "1979");
-      done();
 
       $colPeriod.click();
 
-      waitForAjax(function() {
+      waitForAjax(function () {
         $rows = jQueryFrame($rows.selector);
-        return ajaxWaitingBodyTableCheck($rows,
-            "Ananke", "-629.77", "1951",
-            "Praxidike", "625.3", "2000",
-            "Harpalyke", "623.3", "2000",
-            "Caliban", "-579.39", "1997");
-      }, function() {
+        return step == 3 && ajaxWaitingBodyTableCheck($rows,
+                "Ananke", "-629.77", "1951",
+                "Praxidike", "625.3", "2000",
+                "Harpalyke", "623.3", "2000",
+                "Caliban", "-579.39", "1997");
+      }, function () {
         $rows = jQueryFrame($rows.selector);
         ajaxExecuteBodyTableCheck(assert, $rows,
             "Ananke", "-629.77", "1951",
             "Praxidike", "625.3", "2000",
             "Harpalyke", "623.3", "2000",
             "Caliban", "-579.39", "1997");
-        done();
 
         $colPeriod.click();
 
-        waitForAjax(function() {
+        waitForAjax(function () {
           $rows = jQueryFrame($rows.selector);
-          return ajaxWaitingBodyTableCheck($rows,
-              "Belinda", "0.62", "1986",
-              "Pandora", "0.63", "1980",
-              "1986U10", "0.64", "1999",
-              "Thebe", "0.67", "1979");
-        }, function() {
+          return step == 4 && ajaxWaitingBodyTableCheck($rows,
+                  "Belinda", "0.62", "1986",
+                  "Pandora", "0.63", "1980",
+                  "1986U10", "0.64", "1999",
+                  "Thebe", "0.67", "1979");
+        }, function () {
           $rows = jQueryFrame($rows.selector);
           ajaxExecuteBodyTableCheck(assert, $rows,
               "Belinda", "0.62", "1986",
               "Pandora", "0.63", "1980",
               "1986U10", "0.64", "1999",
               "Thebe", "0.67", "1979");
+          step++;
           done();
         });
+        step++;
+        done();
       });
+      step++;
+      done();
     });
+    step++;
+    done();
   });
 });
 
-QUnit.test("Custom Sorting: Year", function(assert) {
+QUnit.test("Custom Sorting: Year", function (assert) {
   assert.expect(13);
   var done = assert.async(4);
+  var step = 1;
 
   var $colYear = jQueryFrame("#page\\:mainForm\\:s2\\:customColumnYear_sorter");
   var $rows = jQueryFrame("#page\\:mainForm\\:s2 .tobago-sheet-bodyTable tbody .tobago-sheet-row");
@@ -745,65 +789,72 @@ QUnit.test("Custom Sorting: Year", function(assert) {
     $colYear.click();
   }
 
-  waitForAjax(function() {
+  waitForAjax(function () {
     $colYear = jQueryFrame($colYear.selector);
-    return $colYear.find(".fa-angle-up").length == 1;
-  }, function() {
+    return step == 1 && $colYear.find(".fa-angle-up").length == 1;
+  }, function () {
     $colYear = jQueryFrame($colYear.selector);
     assert.equal($colYear.find(".fa-angle-up").length, 1);
-    done();
 
     $leftPaging = jQueryFrame($leftPaging.selector);
     $leftPaging.val("22").trigger("blur");
 
-    waitForAjax(function() {
+    waitForAjax(function () {
       $rows = jQueryFrame($rows.selector);
-      return $rows.eq(0).find(".tobago-sheet-cell span").eq(2).text() == "1789"
+      return step == 2
+          && $rows.eq(0).find(".tobago-sheet-cell span").eq(2).text() == "1789"
           && $rows.eq(1).find(".tobago-sheet-cell span").eq(2).text() == "1846"
           && $rows.eq(2).find(".tobago-sheet-cell span").eq(2).text() == "1846"
           && $rows.eq(3).find(".tobago-sheet-cell span").eq(2).text() == "1848";
-    }, function() {
+    }, function () {
       $rows = jQueryFrame($rows.selector);
       assert.equal($rows.eq(0).find(".tobago-sheet-cell span").eq(2).text(), "1789", "row0col2");
       assert.equal($rows.eq(1).find(".tobago-sheet-cell span").eq(2).text(), "1846", "row1col2");
       assert.equal($rows.eq(2).find(".tobago-sheet-cell span").eq(2).text(), "1846", "row2col2");
       assert.equal($rows.eq(3).find(".tobago-sheet-cell span").eq(2).text(), "1848", "row3col2");
-      done();
 
       $colYear.click();
 
-      waitForAjax(function() {
+      waitForAjax(function () {
         $rows = jQueryFrame($rows.selector);
-        return $rows.eq(0).find(".tobago-sheet-cell span").eq(2).text() == "1989"
+        return step == 3
+            && $rows.eq(0).find(".tobago-sheet-cell span").eq(2).text() == "1989"
             && $rows.eq(1).find(".tobago-sheet-cell span").eq(2).text() == "1989"
             && $rows.eq(2).find(".tobago-sheet-cell span").eq(2).text() == "1989"
             && $rows.eq(3).find(".tobago-sheet-cell span").eq(2).text() == "1986";
-      }, function() {
+      }, function () {
         $rows = jQueryFrame($rows.selector);
         assert.equal($rows.eq(0).find(".tobago-sheet-cell span").eq(2).text(), "1989", "row0col2");
         assert.equal($rows.eq(1).find(".tobago-sheet-cell span").eq(2).text(), "1989", "row1col2");
         assert.equal($rows.eq(2).find(".tobago-sheet-cell span").eq(2).text(), "1989", "row2col2");
         assert.equal($rows.eq(3).find(".tobago-sheet-cell span").eq(2).text(), "1986", "row3col2");
-        done();
 
         $colYear.click();
 
-        waitForAjax(function() {
+        waitForAjax(function () {
           $rows = jQueryFrame($rows.selector);
-          return $rows.eq(0).find(".tobago-sheet-cell span").eq(2).text() == "1789"
+          return step == 4
+              && $rows.eq(0).find(".tobago-sheet-cell span").eq(2).text() == "1789"
               && $rows.eq(1).find(".tobago-sheet-cell span").eq(2).text() == "1846"
               && $rows.eq(2).find(".tobago-sheet-cell span").eq(2).text() == "1846"
               && $rows.eq(3).find(".tobago-sheet-cell span").eq(2).text() == "1848";
-        }, function() {
+        }, function () {
           $rows = jQueryFrame($rows.selector);
           assert.equal($rows.eq(0).find(".tobago-sheet-cell span").eq(2).text(), "1789", "row0col2");
           assert.equal($rows.eq(1).find(".tobago-sheet-cell span").eq(2).text(), "1846", "row1col2");
           assert.equal($rows.eq(2).find(".tobago-sheet-cell span").eq(2).text(), "1846", "row2col2");
           assert.equal($rows.eq(3).find(".tobago-sheet-cell span").eq(2).text(), "1848", "row3col2");
+          step++;
           done();
         });
+        step++;
+        done();
       });
+      step++;
+      done();
     });
+    step++;
+    done();
   });
 });
 
@@ -811,9 +862,10 @@ QUnit.test("Custom Sorting: Year", function(assert) {
  * 1. goto line 8
  * 2. goto line 9
  */
-QUnit.test("Custom Sorting: left paging", function(assert) {
+QUnit.test("Custom Sorting: left paging", function (assert) {
   assert.expect(25);
   var done = assert.async(3);
+  var step = 1;
 
   var $colName = jQueryFrame("#page\\:mainForm\\:s2\\:customColumnName_sorter");
   var $rows = jQueryFrame("#page\\:mainForm\\:s2 .tobago-sheet-bodyTable tbody .tobago-sheet-row");
@@ -823,53 +875,56 @@ QUnit.test("Custom Sorting: left paging", function(assert) {
     $colName.click();
   }
 
-  waitForAjax(function() {
+  waitForAjax(function () {
     $colName = jQueryFrame($colName.selector);
-    return $colName.find(".fa-angle-up").length == 1;
-  }, function() {
+    return step == 1 && $colName.find(".fa-angle-up").length == 1;
+  }, function () {
     $colName = jQueryFrame($colName.selector);
     assert.equal($colName.find(".fa-angle-up").length, 1);
-    done();
 
     $leftPaging = jQueryFrame($leftPaging.selector);
     $leftPaging.val("8").trigger("blur");
 
-    waitForAjax(function() {
+    waitForAjax(function () {
       $rows = jQueryFrame($rows.selector);
-      return ajaxWaitingBodyTableCheck($rows,
-          "Bianca", "0.43", "1986",
-          "Caliban", "-579.39", "1997",
-          "Callirrhoe", "758.8", "2000",
-          "Callisto", "16.69", "1610");
-    }, function() {
+      return step == 2 && ajaxWaitingBodyTableCheck($rows,
+              "Bianca", "0.43", "1986",
+              "Caliban", "-579.39", "1997",
+              "Callirrhoe", "758.8", "2000",
+              "Callisto", "16.69", "1610");
+    }, function () {
       $rows = jQueryFrame($rows.selector);
       ajaxExecuteBodyTableCheck(assert, $rows,
           "Bianca", "0.43", "1986",
           "Caliban", "-579.39", "1997",
           "Callirrhoe", "758.8", "2000",
           "Callisto", "16.69", "1610");
-      done();
 
       $leftPaging = jQueryFrame($leftPaging.selector);
       $leftPaging.val("9").trigger("blur");
 
-      waitForAjax(function() {
+      waitForAjax(function () {
         $rows = jQueryFrame($rows.selector);
-        return ajaxWaitingBodyTableCheck($rows,
-            "Caliban", "-579.39", "1997",
-            "Callirrhoe", "758.8", "2000",
-            "Callisto", "16.69", "1610",
-            "Calypso", "1.89", "1980");
-      }, function() {
+        return step == 3 && ajaxWaitingBodyTableCheck($rows,
+                "Caliban", "-579.39", "1997",
+                "Callirrhoe", "758.8", "2000",
+                "Callisto", "16.69", "1610",
+                "Calypso", "1.89", "1980");
+      }, function () {
         $rows = jQueryFrame($rows.selector);
         ajaxExecuteBodyTableCheck(assert, $rows,
             "Caliban", "-579.39", "1997",
             "Callirrhoe", "758.8", "2000",
             "Callisto", "16.69", "1610",
             "Calypso", "1.89", "1980");
+        step++;
         done();
       });
+      step++;
+      done();
     });
+    step++;
+    done();
   });
 });
 
@@ -878,9 +933,10 @@ QUnit.test("Custom Sorting: left paging", function(assert) {
  * 2. goto page 16
  * 3. goto page 13
  */
-QUnit.test("Custom Sorting: center paging", function(assert) {
+QUnit.test("Custom Sorting: center paging", function (assert) {
   assert.expect(49);
   var done = assert.async(5);
+  var step = 1;
 
   var $colName = jQueryFrame("#page\\:mainForm\\:s2\\:customColumnName_sorter");
   var $rows = jQueryFrame("#page\\:mainForm\\:s2 .tobago-sheet-bodyTable tbody .tobago-sheet-row");
@@ -891,93 +947,98 @@ QUnit.test("Custom Sorting: center paging", function(assert) {
     $colName.click();
   }
 
-  waitForAjax(function() {
+  waitForAjax(function () {
     $colName = jQueryFrame($colName.selector);
-    return $colName.find(".fa-angle-up").length == 1;
-  }, function() {
+    return step == 1 && $colName.find(".fa-angle-up").length == 1;
+  }, function () {
     $colName = jQueryFrame($colName.selector);
     assert.equal($colName.find(".fa-angle-up").length, 1);
-    done();
 
     $leftPaging = jQueryFrame($leftPaging.selector);
     $leftPaging.val("1").trigger("blur");
 
-    waitForAjax(function() {
+    waitForAjax(function () {
       $rows = jQueryFrame($rows.selector);
-      return ajaxWaitingBodyTableCheck($rows,
-          "1986U10", "0.64", "1999",
-          "Adrastea", "0.3", "1979",
-          "Amalthea", "0.5", "1892",
-          "Ananke", "-629.77", "1951");
-    }, function() {
+      return step == 2 && ajaxWaitingBodyTableCheck($rows,
+              "1986U10", "0.64", "1999",
+              "Adrastea", "0.3", "1979",
+              "Amalthea", "0.5", "1892",
+              "Ananke", "-629.77", "1951");
+    }, function () {
       $rows = jQueryFrame($rows.selector);
       ajaxExecuteBodyTableCheck(assert, $rows,
           "1986U10", "0.64", "1999",
           "Adrastea", "0.3", "1979",
           "Amalthea", "0.5", "1892",
           "Ananke", "-629.77", "1951");
-      done();
 
       $centerPaging = jQueryFrame($centerPaging.selector);
       $centerPaging.eq(6).click();
 
-      waitForAjax(function() {
+      waitForAjax(function () {
         $rows = jQueryFrame($rows.selector);
-        return ajaxWaitingBodyTableCheck($rows,
-            "Epimetheus", "0.69", "1980",
-            "Erinome", "728.3", "2000",
-            "Europa", "3.55", "1610",
-            "Galatea", "0.43", "1989");
-      }, function() {
+        return step == 3 && ajaxWaitingBodyTableCheck($rows,
+                "Epimetheus", "0.69", "1980",
+                "Erinome", "728.3", "2000",
+                "Europa", "3.55", "1610",
+                "Galatea", "0.43", "1989");
+      }, function () {
         $rows = jQueryFrame($rows.selector);
         ajaxExecuteBodyTableCheck(assert, $rows,
             "Epimetheus", "0.69", "1980",
             "Erinome", "728.3", "2000",
             "Europa", "3.55", "1610",
             "Galatea", "0.43", "1989");
-        done();
 
         $centerPaging = jQueryFrame($centerPaging.selector);
         $centerPaging.eq(10).click();
 
-        waitForAjax(function() {
+        waitForAjax(function () {
           $rows = jQueryFrame($rows.selector);
-          return ajaxWaitingBodyTableCheck($rows,
-              "Phoebe", "-550.48", "1898",
-              "Pluto", "90800.0", "1930",
-              "Portia", "0.51", "1986",
-              "Praxidike", "625.3", "2000");
-        }, function() {
+          return step == 4 && ajaxWaitingBodyTableCheck($rows,
+                  "Phoebe", "-550.48", "1898",
+                  "Pluto", "90800.0", "1930",
+                  "Portia", "0.51", "1986",
+                  "Praxidike", "625.3", "2000");
+        }, function () {
           $rows = jQueryFrame($rows.selector);
           ajaxExecuteBodyTableCheck(assert, $rows,
               "Phoebe", "-550.48", "1898",
               "Pluto", "90800.0", "1930",
               "Portia", "0.51", "1986",
               "Praxidike", "625.3", "2000");
-          done();
 
           $centerPaging = jQueryFrame($centerPaging.selector);
           $centerPaging.eq(3).click();
 
-          waitForAjax(function() {
+          waitForAjax(function () {
             $rows = jQueryFrame($rows.selector);
-            return ajaxWaitingBodyTableCheck($rows,
-                "Neptune", "60190.0", "1846",
-                "Nereid", "360.13", "1949",
-                "Oberon", "13.46", "1787",
-                "Ophelia", "0.38", "1986");
-          }, function() {
+            return step == 5 && ajaxWaitingBodyTableCheck($rows,
+                    "Neptune", "60190.0", "1846",
+                    "Nereid", "360.13", "1949",
+                    "Oberon", "13.46", "1787",
+                    "Ophelia", "0.38", "1986");
+          }, function () {
             $rows = jQueryFrame($rows.selector);
             ajaxExecuteBodyTableCheck(assert, $rows,
                 "Neptune", "60190.0", "1846",
                 "Nereid", "360.13", "1949",
                 "Oberon", "13.46", "1787",
                 "Ophelia", "0.38", "1986");
+            step++;
             done();
           });
+          step++;
+          done();
         });
+        step++;
+        done();
       });
+      step++;
+      done();
     });
+    step++;
+    done();
   });
 });
 
@@ -988,9 +1049,10 @@ QUnit.test("Custom Sorting: center paging", function(assert) {
  * 4. goto page 21 by pressing arrow-left
  * 5. goto page 14
  */
-QUnit.test("Custom Sorting: right paging", function(assert) {
-  assert.expect(61);
-  var done = assert.async(6);
+QUnit.test("Custom Sorting: right paging", function (assert) {
+  assert.expect(73);
+  var done = assert.async(7);
+  var step = 1;
 
   var $colName = jQueryFrame("#page\\:mainForm\\:s2\\:customColumnName_sorter");
   var $rows = jQueryFrame("#page\\:mainForm\\:s2 .tobago-sheet-bodyTable tbody .tobago-sheet-row");
@@ -1001,133 +1063,140 @@ QUnit.test("Custom Sorting: right paging", function(assert) {
     $colName.click();
   }
 
-  waitForAjax(function() {
+  waitForAjax(function () {
     $colName = jQueryFrame($colName.selector);
-    return $colName.find(".fa-angle-up").length == 1;
-  }, function() {
+    return step == 1 && $colName.find(".fa-angle-up").length == 1;
+  }, function () {
     $colName = jQueryFrame($colName.selector);
     assert.equal($colName.find(".fa-angle-up").length, 1);
-    done();
 
     $leftPaging = jQueryFrame($leftPaging.selector);
     $leftPaging.val("22").trigger("blur");
 
-    waitForAjax(function() {
+    waitForAjax(function () {
       $rows = jQueryFrame($rows.selector);
-      return ajaxWaitingBodyTableCheck($rows,
-          "Earth", "365.26", "",
-          "Elara", "259.65", "1905",
-          "Enceladus", "1.37", "1789",
-          "Epimetheus", "0.69", "1980");
-    }, function() {
+      return step == 2 && ajaxWaitingBodyTableCheck($rows,
+              "Earth", "365.26", "",
+              "Elara", "259.65", "1905",
+              "Enceladus", "1.37", "1789",
+              "Epimetheus", "0.69", "1980");
+    }, function () {
       $rows = jQueryFrame($rows.selector);
       ajaxExecuteBodyTableCheck(assert, $rows,
           "Earth", "365.26", "",
           "Elara", "259.65", "1905",
           "Enceladus", "1.37", "1789",
           "Epimetheus", "0.69", "1980");
-      done();
 
       var $rightPagingFirstPage = jQueryFrame($rightPaging.selector).eq(0);
       $rightPagingFirstPage.click();
 
-      waitForAjax(function() {
+      waitForAjax(function () {
         $rows = jQueryFrame($rows.selector);
-        return ajaxWaitingBodyTableCheck($rows,
-            "1986U10", "0.64", "1999",
-            "Adrastea", "0.3", "1979",
-            "Amalthea", "0.5", "1892",
-            "Ananke", "-629.77", "1951");
-      }, function() {
+        return step == 3 && ajaxWaitingBodyTableCheck($rows,
+                "1986U10", "0.64", "1999",
+                "Adrastea", "0.3", "1979",
+                "Amalthea", "0.5", "1892",
+                "Ananke", "-629.77", "1951");
+      }, function () {
         $rows = jQueryFrame($rows.selector);
         ajaxExecuteBodyTableCheck(assert, $rows,
             "1986U10", "0.64", "1999",
             "Adrastea", "0.3", "1979",
             "Amalthea", "0.5", "1892",
             "Ananke", "-629.77", "1951");
-        done();
 
         var $rightPagingRight = jQueryFrame($rightPaging.selector).eq(3);
         $rightPagingRight.click();
 
-        waitForAjax(function() {
+        waitForAjax(function () {
           $rows = jQueryFrame($rows.selector);
-          return ajaxWaitingBodyTableCheck($rows,
-              "Ariel", "2.52", "1851",
-              "Atlas", "0.6", "1980",
-              "Belinda", "0.62", "1986",
-              "Bianca", "0.43", "1986");
-        }, function() {
+          return step == 4 && ajaxWaitingBodyTableCheck($rows,
+                  "Ariel", "2.52", "1851",
+                  "Atlas", "0.6", "1980",
+                  "Belinda", "0.62", "1986",
+                  "Bianca", "0.43", "1986");
+        }, function () {
           $rows = jQueryFrame($rows.selector);
           ajaxExecuteBodyTableCheck(assert, $rows,
               "Ariel", "2.52", "1851",
               "Atlas", "0.6", "1980",
               "Belinda", "0.62", "1986",
               "Bianca", "0.43", "1986");
-          done();
 
           var $rightPagingLastPage = jQueryFrame($rightPaging.selector).eq(4);
           $rightPagingLastPage.click();
 
-          waitForAjax(function() {
+          waitForAjax(function () {
             $rows = jQueryFrame($rows.selector);
-            return ajaxWaitingBodyTableCheck($rows,
-                "Triton", "-5.88", "1846",
-                "Umbriel", "4.14", "1851",
-                "Uranus", "30685.0", "1781",
-                "Venus", "224.7", "");
-          }, function() {
+            return step == 5 && ajaxWaitingBodyTableCheck($rows,
+                    "Triton", "-5.88", "1846",
+                    "Umbriel", "4.14", "1851",
+                    "Uranus", "30685.0", "1781",
+                    "Venus", "224.7", "");
+          }, function () {
             $rows = jQueryFrame($rows.selector);
             ajaxExecuteBodyTableCheck(assert, $rows,
                 "Triton", "-5.88", "1846",
                 "Umbriel", "4.14", "1851",
                 "Uranus", "30685.0", "1781",
                 "Venus", "224.7", "");
-            done();
 
             var $rightPagingLeft = jQueryFrame($rightPaging.selector).eq(1);
             $rightPagingLeft.click();
 
-            waitForAjax(function() {
+            waitForAjax(function () {
               $rows = jQueryFrame($rows.selector);
-              return ajaxWaitingBodyTableCheck($rows,
-                  "Thebe", "0.67", "1979",
-                  "Themisto", "130.02", "2000",
-                  "Titan", "15.95", "1655",
-                  "Titania", "8.71", "1787");
-            }, function() {
+              return step == 6 && ajaxWaitingBodyTableCheck($rows,
+                      "Thebe", "0.67", "1979",
+                      "Themisto", "130.02", "2000",
+                      "Titan", "15.95", "1655",
+                      "Titania", "8.71", "1787");
+            }, function () {
               $rows = jQueryFrame($rows.selector);
               ajaxExecuteBodyTableCheck(assert, $rows,
                   "Thebe", "0.67", "1979",
                   "Themisto", "130.02", "2000",
                   "Titan", "15.95", "1655",
                   "Titania", "8.71", "1787");
-              done();
 
               var $rightPagingJumpToPage = jQueryFrame($rightPaging.selector).find("input");
               $rightPagingJumpToPage.val("14").trigger("blur");
 
-              waitForAjax(function() {
+              waitForAjax(function () {
                 $rows = jQueryFrame($rows.selector);
-                return ajaxWaitingBodyTableCheck($rows,
-                    "Neptune", "60190.0", "1846",
-                    "Nereid", "360.13", "1949",
-                    "Oberon", "13.46", "1787",
-                    "Ophelia", "0.38", "1986");
-              }, function() {
+                return step == 7 && ajaxWaitingBodyTableCheck($rows,
+                        "Neptune", "60190.0", "1846",
+                        "Nereid", "360.13", "1949",
+                        "Oberon", "13.46", "1787",
+                        "Ophelia", "0.38", "1986");
+              }, function () {
                 $rows = jQueryFrame($rows.selector);
                 ajaxExecuteBodyTableCheck(assert, $rows,
                     "Neptune", "60190.0", "1846",
                     "Nereid", "360.13", "1949",
                     "Oberon", "13.46", "1787",
                     "Ophelia", "0.38", "1986");
+                step++;
                 done();
               });
+              step++;
+              done();
             });
+            step++;
+            done();
           });
+          step++;
+          done();
         });
+        step++;
+        done();
       });
+      step++;
+      done();
     });
+    step++;
+    done();
   });
 });
 

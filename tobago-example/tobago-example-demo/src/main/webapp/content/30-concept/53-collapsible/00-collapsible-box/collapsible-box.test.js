@@ -262,6 +262,7 @@ QUnit.test("Client Sided: hide -> show transition", function (assert) {
 QUnit.test("Client Sided: hide content and submit empty string", function (assert) {
   assert.expect(2);
   var done = assert.async();
+  var step = 1;
 
   var $messages = jQueryFrame("#page\\:messages.tobago-messages div");
   var $show = jQueryFrame("#page\\:mainForm\\:client\\:showNoRequestBox");
@@ -277,9 +278,13 @@ QUnit.test("Client Sided: hide content and submit empty string", function (asser
   $submit.click();
 
   jQuery("#page\\:testframe").load(function () {
-    $messages = jQueryFrame($messages.selector);
-    assert.equal($messages.length, 1);
-    done();
+    if (step == 1) {
+      $messages = jQueryFrame($messages.selector);
+      assert.equal($messages.length, 1);
+
+      step++;
+      done();
+    }
   });
 });
 
@@ -306,16 +311,17 @@ QUnit.test("Ajax: show -> hide transition", function (assert) {
     assert.equal($in.length, 1);
     $hide.click();
 
-    step++;
-    done();
-  });
+    waitForAjax(function () {
+      $in = jQueryFrame($in.selector);
+      return step == 2 && $in.length == 0;
+    }, function () {
+      $in = jQueryFrame($in.selector);
+      assert.equal($in.length, 0);
 
-  waitForAjax(function () {
-    $in = jQueryFrame($in.selector);
-    return step == 2 && $in.length == 0;
-  }, function () {
-    $in = jQueryFrame($in.selector);
-    assert.equal($in.length, 0);
+      step++;
+      done();
+    });
+    step++;
     done();
   });
 });
@@ -342,16 +348,17 @@ QUnit.test("Ajax: hide -> show transition", function (assert) {
     assert.equal($in.length, 0);
     $show.click();
 
-    step++;
-    done();
-  });
+    waitForAjax(function () {
+      $in = jQueryFrame($in.selector);
+      return step == 2 && $in.length == 1;
+    }, function () {
+      $in = jQueryFrame($in.selector);
+      assert.equal($in.length, 1);
 
-  waitForAjax(function () {
-    $in = jQueryFrame($in.selector);
-    return step == 2 && $in.length == 1;
-  }, function () {
-    $in = jQueryFrame($in.selector);
-    assert.equal($in.length, 1);
+      step++;
+      done();
+    });
+    step++;
     done();
   });
 });
@@ -380,20 +387,19 @@ QUnit.test("Ajax: hide content and submit empty string", function (assert) {
     $in.val("");
     $hide.click();
 
-    step++;
-    done();
-  });
+    waitForAjax(function () {
+      $in = jQueryFrame($in.selector);
+      return step == 2 && $in.length == 0;
+    }, function () {
+      $in = jQueryFrame($in.selector);
+      $submit = jQueryFrame($submit.selector);
 
-  waitForAjax(function () {
-    $in = jQueryFrame($in.selector);
-    return step == 2 && $in.length == 0;
-  }, function () {
-    $in = jQueryFrame($in.selector);
-    $submit = jQueryFrame($submit.selector);
+      assert.equal($in.length, 0);
+      $submit.click();
 
-    assert.equal($in.length, 0);
-    $submit.click();
-
+      step++;
+      done();
+    });
     step++;
     done();
   });
@@ -402,6 +408,8 @@ QUnit.test("Ajax: hide content and submit empty string", function (assert) {
     if (step == 3) {
       $messages = jQueryFrame($messages.selector);
       assert.equal($messages.length, 0);
+
+      step++;
       done();
     }
   });

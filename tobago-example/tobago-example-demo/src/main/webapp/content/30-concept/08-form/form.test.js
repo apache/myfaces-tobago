@@ -18,6 +18,7 @@
 QUnit.test("submit form 1", function (assert) {
   assert.expect(4);
   var done = assert.async();
+  var step = 1;
 
   var $form1InputField = jQueryFrame("#page\\:mainForm\\:form1\\:in\\:\\:field");
   var $form1SubmitButton = jQueryFrame("#page\\:mainForm\\:form1\\:submit");
@@ -31,23 +32,27 @@ QUnit.test("submit form 1", function (assert) {
   $form1SubmitButton.click();
 
   jQuery("#page\\:testframe").load(function () {
-    $form1InputField = jQueryFrame("#page\\:mainForm\\:form1\\:in\\:\\:field");
-    var $form1OutputField = jQueryFrame("#page\\:mainForm\\:form1\\:out span");
-    $form2InputField = jQueryFrame("#page\\:mainForm\\:form2\\:in\\:\\:field");
-    var $form2OutputField = jQueryFrame("#page\\:mainForm\\:form2\\:out span");
+    if (step == 1) {
+      $form1InputField = jQueryFrame("#page\\:mainForm\\:form1\\:in\\:\\:field");
+      var $form1OutputField = jQueryFrame("#page\\:mainForm\\:form1\\:out span");
+      $form2InputField = jQueryFrame("#page\\:mainForm\\:form2\\:in\\:\\:field");
+      var $form2OutputField = jQueryFrame("#page\\:mainForm\\:form2\\:out span");
 
-    assert.equal($form1InputField.val(), "Oliver");
-    assert.equal($form1OutputField.text(), "Oliver");
-    assert.equal($form2InputField.val(), "Peter");
-    assert.equal($form2OutputField.text(), $form2OutputFieldValue);
+      assert.equal($form1InputField.val(), "Oliver");
+      assert.equal($form1OutputField.text(), "Oliver");
+      assert.equal($form2InputField.val(), "Peter");
+      assert.equal($form2OutputField.text(), $form2OutputFieldValue);
 
-    done();
+      step++;
+      done();
+    }
   });
 });
 
 QUnit.test("submit form 2", function (assert) {
   assert.expect(4);
   var done = assert.async();
+  var step = 1;
 
   var $form1InputField = jQueryFrame("#page\\:mainForm\\:form1\\:in\\:\\:field");
   var $form1OutputFieldValue = jQueryFrame("#page\\:mainForm\\:form1\\:out span").text();
@@ -61,16 +66,19 @@ QUnit.test("submit form 2", function (assert) {
   $form2SubmitButton.click();
 
   jQuery("#page\\:testframe").load(function () {
-    $form1InputField = jQueryFrame("#page\\:mainForm\\:form1\\:in\\:\\:field");
-    var $form1OutputField = jQueryFrame("#page\\:mainForm\\:form1\\:out span");
-    $form2InputField = jQueryFrame("#page\\:mainForm\\:form2\\:in\\:\\:field");
-    var $form2OutputField = jQueryFrame("#page\\:mainForm\\:form2\\:out span");
+    if (step == 1) {
+      $form1InputField = jQueryFrame("#page\\:mainForm\\:form1\\:in\\:\\:field");
+      var $form1OutputField = jQueryFrame("#page\\:mainForm\\:form1\\:out span");
+      $form2InputField = jQueryFrame("#page\\:mainForm\\:form2\\:in\\:\\:field");
+      var $form2OutputField = jQueryFrame("#page\\:mainForm\\:form2\\:out span");
 
-    assert.equal($form1InputField.val(), "Oliver");
-    assert.equal($form1OutputField.text(), $form1OutputFieldValue);
-    assert.equal($form2InputField.val(), "Peter");
-    assert.equal($form2OutputField.text(), "Peter");
+      assert.equal($form1InputField.val(), "Oliver");
+      assert.equal($form1OutputField.text(), $form1OutputFieldValue);
+      assert.equal($form2InputField.val(), "Peter");
+      assert.equal($form2OutputField.text(), "Peter");
 
-    done();
+      step++;
+      done();
+    }
   });
 });

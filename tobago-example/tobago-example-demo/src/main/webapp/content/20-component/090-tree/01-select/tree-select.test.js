@@ -15,9 +15,10 @@
  * limitations under the License.
  */
 
-QUnit.test("single: select Music, select Mathematics", function(assert) {
+QUnit.test("single: select Music, select Mathematics", function (assert) {
   assert.expect(4);
   var done = assert.async(4);
+  var step = 1;
   var $music = jQueryFrame("#page\\:mainForm\\:categoriesTree\\:3\\:select");
   var $mathematics = jQueryFrame("#page\\:mainForm\\:categoriesTree\\:9\\:select");
   var $output = jQueryFrame("#page\\:mainForm\\:selectedNodesOutput span");
@@ -26,51 +27,57 @@ QUnit.test("single: select Music, select Mathematics", function(assert) {
 
   $selectableNone.prop("checked", true).trigger("change");
 
-  waitForAjax(function() {
-    return jQueryFrame(".tobago-treeSelect input").length == 0;
-  }, function() {
+  waitForAjax(function () {
+    return step == 1 && jQueryFrame(".tobago-treeSelect input").length == 0;
+  }, function () {
     assert.equal(jQueryFrame(".tobago-treeSelect input").length, 0);
 
     $selectableSingle = jQueryFrame($selectableSingle.selector);
     $selectableSingle.prop("checked", true).trigger("change");
 
-    waitForAjax(function() {
-      return jQueryFrame(".tobago-treeSelect input").length > 0;
-    }, function() {
+    waitForAjax(function () {
+      return step == 2 && jQueryFrame(".tobago-treeSelect input").length > 0;
+    }, function () {
       assert.notEqual(jQueryFrame(".tobago-treeSelect input").length, 0);
 
       $music = jQueryFrame($music.selector);
       $music.prop("checked", true).trigger("change");
 
-      waitForAjax(function() {
+      waitForAjax(function () {
         $output = jQueryFrame($output.selector);
-        return $output.text() == "Music"
-      }, function() {
+        return step == 3 && $output.text() == "Music"
+      }, function () {
         $output = jQueryFrame($output.selector);
         assert.equal($output.text(), "Music");
 
         $mathematics = jQueryFrame($mathematics.selector);
         $mathematics.prop("checked", true).trigger("change");
 
-        waitForAjax(function() {
+        waitForAjax(function () {
           $output = jQueryFrame($output.selector);
-          return $output.text() == "Mathematics"
-        }, function() {
+          return step == 4 && $output.text() == "Mathematics"
+        }, function () {
           $output = jQueryFrame($output.selector);
           assert.equal($output.text(), "Mathematics");
+
+          step++;
           done();
         });
+        step++;
         done();
       });
+      step++;
       done();
     });
+    step++;
     done();
   });
 });
 
-QUnit.test("singleLeafOnly: select Classic, select Mathematics", function(assert) {
+QUnit.test("singleLeafOnly: select Classic, select Mathematics", function (assert) {
   assert.expect(4);
   var done = assert.async(4);
+  var step = 1;
   var $classic = jQueryFrame("#page\\:mainForm\\:categoriesTree\\:4\\:select");
   var $mathematics = jQueryFrame("#page\\:mainForm\\:categoriesTree\\:9\\:select");
   var $output = jQueryFrame("#page\\:mainForm\\:selectedNodesOutput span");
@@ -79,51 +86,57 @@ QUnit.test("singleLeafOnly: select Classic, select Mathematics", function(assert
 
   $selectableNone.prop("checked", true).trigger("change");
 
-  waitForAjax(function() {
-    return jQueryFrame(".tobago-treeSelect input").length == 0;
-  }, function() {
+  waitForAjax(function () {
+    return step == 1 && jQueryFrame(".tobago-treeSelect input").length == 0;
+  }, function () {
     assert.equal(jQueryFrame(".tobago-treeSelect input").length, 0);
 
     $selectableSingleLeafOnly = jQueryFrame($selectableSingleLeafOnly.selector);
     $selectableSingleLeafOnly.prop("checked", true).trigger("change");
 
-    waitForAjax(function() {
-      return jQueryFrame(".tobago-treeSelect input").length > 0;
-    }, function() {
+    waitForAjax(function () {
+      return step == 2 && jQueryFrame(".tobago-treeSelect input").length > 0;
+    }, function () {
       assert.notEqual(jQueryFrame(".tobago-treeSelect input").length, 0);
 
       $classic = jQueryFrame($classic.selector);
       $classic.prop("checked", true).trigger("change");
 
-      waitForAjax(function() {
+      waitForAjax(function () {
         $output = jQueryFrame($output.selector);
-        return $output.text() == "Classic"
-      }, function() {
+        return step == 3 && $output.text() == "Classic"
+      }, function () {
         $output = jQueryFrame($output.selector);
         assert.equal($output.text(), "Classic");
 
         $mathematics = jQueryFrame($mathematics.selector);
         $mathematics.prop("checked", true).trigger("change");
 
-        waitForAjax(function() {
+        waitForAjax(function () {
           $output = jQueryFrame($output.selector);
-          return $output.text() == "Mathematics"
-        }, function() {
+          return step == 4 && $output.text() == "Mathematics"
+        }, function () {
           $output = jQueryFrame($output.selector);
           assert.equal($output.text(), "Mathematics");
+
+          step++;
           done();
         });
+        step++;
         done();
       });
+      step++;
       done();
     });
+    step++;
     done();
   });
 });
 
-QUnit.test("multi: select Music, select Mathematics, deselect Music", function(assert) {
-  assert.expect(4);
-  var done = assert.async(4);
+QUnit.test("multi: select Music, select Mathematics, deselect Music", function (assert) {
+  assert.expect(5);
+  var done = assert.async(5);
+  var step = 1;
   var $music = jQueryFrame("#page\\:mainForm\\:categoriesTree\\:3\\:select");
   var $mathematics = jQueryFrame("#page\\:mainForm\\:categoriesTree\\:9\\:select");
   var $output = jQueryFrame("#page\\:mainForm\\:selectedNodesOutput span");
@@ -132,63 +145,70 @@ QUnit.test("multi: select Music, select Mathematics, deselect Music", function(a
 
   $selectableNone.prop("checked", true).trigger("change");
 
-  waitForAjax(function() {
-    return jQueryFrame(".tobago-treeSelect input").length == 0;
-  }, function() {
+  waitForAjax(function () {
+    return step == 1 && jQueryFrame(".tobago-treeSelect input").length == 0;
+  }, function () {
     assert.equal(jQueryFrame(".tobago-treeSelect input").length, 0);
 
     $selectableMulti = jQueryFrame($selectableMulti.selector);
     $selectableMulti.prop("checked", true).trigger("change");
 
-    waitForAjax(function() {
-      return jQueryFrame(".tobago-treeSelect input").length > 0;
-    }, function() {
+    waitForAjax(function () {
+      return step == 2 && jQueryFrame(".tobago-treeSelect input").length > 0;
+    }, function () {
       assert.notEqual(jQueryFrame(".tobago-treeSelect input").length, 0);
 
       $music = jQueryFrame($music.selector);
       $music.prop("checked", true).trigger("change");
 
-      waitForAjax(function() {
+      waitForAjax(function () {
         $output = jQueryFrame($output.selector);
-        return $output.text() == "Music"
-      }, function() {
+        return step == 3 && $output.text() == "Music"
+      }, function () {
         $output = jQueryFrame($output.selector);
         assert.equal($output.text(), "Music");
 
         $mathematics = jQueryFrame($mathematics.selector);
         $mathematics.prop("checked", true).trigger("change");
 
-        waitForAjax(function() {
+        waitForAjax(function () {
           $output = jQueryFrame($output.selector);
-          return $output.text() == "Music, Mathematics"
-        }, function() {
+          return step == 4 && $output.text() == "Music, Mathematics"
+        }, function () {
           $output = jQueryFrame($output.selector);
           assert.equal($output.text(), "Music, Mathematics");
 
           $music = jQueryFrame($music.selector);
           $music.prop("checked", false).trigger("change");
 
-          waitForAjax(function() {
+          waitForAjax(function () {
             $output = jQueryFrame($output.selector);
-            return $output.text() == "Mathematics"
-          }, function() {
+            return step == 5 && $output.text() == "Mathematics"
+          }, function () {
             $output = jQueryFrame($output.selector);
             assert.equal($output.text(), "Mathematics");
+
+            step++;
             done();
           });
+          step++;
           done();
         });
+        step++;
         done();
       });
+      step++;
       done();
     });
+    step++;
     done();
   });
 });
 
-QUnit.test("multiLeafOnly: select Classic, select Mathematics, deselect Classic", function(assert) {
-  assert.expect(4);
-  var done = assert.async(4);
+QUnit.test("multiLeafOnly: select Classic, select Mathematics, deselect Classic", function (assert) {
+  assert.expect(5);
+  var done = assert.async(5);
+  var step = 1;
   var $classic = jQueryFrame("#page\\:mainForm\\:categoriesTree\\:4\\:select");
   var $mathematics = jQueryFrame("#page\\:mainForm\\:categoriesTree\\:9\\:select");
   var $output = jQueryFrame("#page\\:mainForm\\:selectedNodesOutput span");
@@ -197,63 +217,70 @@ QUnit.test("multiLeafOnly: select Classic, select Mathematics, deselect Classic"
 
   $selectableNone.prop("checked", true).trigger("change");
 
-  waitForAjax(function() {
-    return jQueryFrame(".tobago-treeSelect input").length == 0;
-  }, function() {
+  waitForAjax(function () {
+    return step == 1 && jQueryFrame(".tobago-treeSelect input").length == 0;
+  }, function () {
     assert.equal(jQueryFrame(".tobago-treeSelect input").length, 0);
 
     $selectableMultiLeafOnly = jQueryFrame($selectableMultiLeafOnly.selector);
     $selectableMultiLeafOnly.prop("checked", true).trigger("change");
 
-    waitForAjax(function() {
-      return jQueryFrame(".tobago-treeSelect input").length > 0;
-    }, function() {
+    waitForAjax(function () {
+      return step == 2 && jQueryFrame(".tobago-treeSelect input").length > 0;
+    }, function () {
       assert.notEqual(jQueryFrame(".tobago-treeSelect input").length, 0);
 
       $classic = jQueryFrame($classic.selector);
       $classic.prop("checked", true).trigger("change");
 
-      waitForAjax(function() {
+      waitForAjax(function () {
         $output = jQueryFrame($output.selector);
-        return $output.text() == "Classic"
-      }, function() {
+        return step == 3 && $output.text() == "Classic"
+      }, function () {
         $output = jQueryFrame($output.selector);
         assert.equal($output.text(), "Classic");
 
         $mathematics = jQueryFrame($mathematics.selector);
         $mathematics.prop("checked", true).trigger("change");
 
-        waitForAjax(function() {
+        waitForAjax(function () {
           $output = jQueryFrame($output.selector);
-          return $output.text() == "Classic, Mathematics"
-        }, function() {
+          return step == 4 && $output.text() == "Classic, Mathematics"
+        }, function () {
           $output = jQueryFrame($output.selector);
           assert.equal($output.text(), "Classic, Mathematics");
 
           $classic = jQueryFrame($classic.selector);
           $classic.prop("checked", false).trigger("change");
 
-          waitForAjax(function() {
+          waitForAjax(function () {
             $output = jQueryFrame($output.selector);
-            return $output.text() == "Mathematics"
-          }, function() {
+            return step == 5 && $output.text() == "Mathematics"
+          }, function () {
             $output = jQueryFrame($output.selector);
             assert.equal($output.text(), "Mathematics");
+
+            step++;
             done();
           });
+          step++;
           done();
         });
+        step++;
         done();
       });
+      step++;
       done();
     });
+    step++;
     done();
   });
 });
 
-QUnit.test("multiCascade: select Music, select Mathematics, deselect Classic", function(assert) {
-  assert.expect(4);
-  var done = assert.async(4);
+QUnit.test("multiCascade: select Music, select Mathematics, deselect Classic", function (assert) {
+  assert.expect(5);
+  var done = assert.async(5);
+  var step = 1;
   var $music = jQueryFrame("#page\\:mainForm\\:categoriesTree\\:3\\:select");
   var $classic = jQueryFrame("#page\\:mainForm\\:categoriesTree\\:4\\:select");
   var $pop = jQueryFrame("#page\\:mainForm\\:categoriesTree\\:5\\:select");
@@ -265,56 +292,62 @@ QUnit.test("multiCascade: select Music, select Mathematics, deselect Classic", f
 
   $selectableNone.prop("checked", true).trigger("change");
 
-  waitForAjax(function() {
-    return jQueryFrame(".tobago-treeSelect input").length == 0;
-  }, function() {
+  waitForAjax(function () {
+    return step == 1 && jQueryFrame(".tobago-treeSelect input").length == 0;
+  }, function () {
     assert.equal(jQueryFrame(".tobago-treeSelect input").length, 0);
 
     $selectableMultiCascade = jQueryFrame($selectableMultiCascade.selector);
     $selectableMultiCascade.prop("checked", true).trigger("change");
 
-    waitForAjax(function() {
-      return jQueryFrame(".tobago-treeSelect input").length > 0;
-    }, function() {
+    waitForAjax(function () {
+      return step == 2 && jQueryFrame(".tobago-treeSelect input").length > 0;
+    }, function () {
       assert.notEqual(jQueryFrame(".tobago-treeSelect input").length, 0);
 
       $music = jQueryFrame($music.selector);
       $music.prop("checked", true).trigger("change");
 
-      waitForAjax(function() {
+      waitForAjax(function () {
         $output = jQueryFrame($output.selector);
-        return $output.text() == "Music, Classic, Pop, World"
-      }, function() {
+        return step == 3 && $output.text() == "Music, Classic, Pop, World"
+      }, function () {
         $output = jQueryFrame($output.selector);
         assert.equal($output.text(), "Music, Classic, Pop, World");
 
         $mathematics = jQueryFrame($mathematics.selector);
         $mathematics.prop("checked", true).trigger("change");
 
-        waitForAjax(function() {
+        waitForAjax(function () {
           $output = jQueryFrame($output.selector);
-          return $output.text() == "Music, Classic, Pop, World, Mathematics"
-        }, function() {
+          return step == 4 && $output.text() == "Music, Classic, Pop, World, Mathematics"
+        }, function () {
           $output = jQueryFrame($output.selector);
           assert.equal($output.text(), "Music, Classic, Pop, World, Mathematics");
 
           $classic = jQueryFrame($classic.selector);
           $classic.prop("checked", false).trigger("change");
 
-          waitForAjax(function() {
+          waitForAjax(function () {
             $output = jQueryFrame($output.selector);
-            return $output.text() == "Music, Pop, World, Mathematics"
-          }, function() {
+            return step == 5 && $output.text() == "Music, Pop, World, Mathematics"
+          }, function () {
             $output = jQueryFrame($output.selector);
             assert.equal($output.text(), "Music, Pop, World, Mathematics");
+
+            step++;
             done();
           });
+          step++;
           done();
         });
+        step++;
         done();
       });
+      step++;
       done();
     });
+    step++;
     done();
   });
 });

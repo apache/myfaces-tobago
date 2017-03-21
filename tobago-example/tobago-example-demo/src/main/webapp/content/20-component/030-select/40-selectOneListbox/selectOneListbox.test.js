@@ -18,6 +18,7 @@
 QUnit.test("submit: select 'Nile'", function (assert) {
   assert.expect(1);
   var done = assert.async();
+  var step = 1;
   var $rivers = jQueryFrame("#page\\:mainForm\\:riverList option");
   var $submit = jQueryFrame("#page\\:mainForm\\:riverSubmit");
 
@@ -29,15 +30,20 @@ QUnit.test("submit: select 'Nile'", function (assert) {
   $submit.click();
 
   jQuery("#page\\:testframe").load(function () {
-    var $output = jQueryFrame("#page\\:mainForm\\:riverOutput span");
-    assert.equal($output.text(), "6853 km");
-    done();
+    if (step == 1) {
+      var $output = jQueryFrame("#page\\:mainForm\\:riverOutput span");
+      assert.equal($output.text(), "6853 km");
+
+      step++;
+      done();
+    }
   });
 });
 
 QUnit.test("submit: select 'Yangtze'", function (assert) {
   assert.expect(1);
   var done = assert.async();
+  var step = 1;
   var $rivers = jQueryFrame("#page\\:mainForm\\:riverList option");
   var $submit = jQueryFrame("#page\\:mainForm\\:riverSubmit");
 
@@ -49,9 +55,13 @@ QUnit.test("submit: select 'Yangtze'", function (assert) {
   $submit.click();
 
   jQuery("#page\\:testframe").load(function () {
-    var $output = jQueryFrame("#page\\:mainForm\\:riverOutput span");
-    assert.equal($output.text(), "6300 km");
-    done();
+    if (step == 1) {
+      var $output = jQueryFrame("#page\\:mainForm\\:riverOutput span");
+      assert.equal($output.text(), "6300 km");
+
+      step++;
+      done();
+    }
   });
 });
 

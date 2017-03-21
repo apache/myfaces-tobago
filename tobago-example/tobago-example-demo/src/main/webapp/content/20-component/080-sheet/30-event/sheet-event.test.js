@@ -15,24 +15,24 @@
  * limitations under the License.
  */
 
-QUnit.test("On click with ajax", function(assert) {
+QUnit.test("On click with ajax", function (assert) {
   assert.expect(6);
   var done = assert.async(4);
 
-  $oneClickAjax = jQueryFrame("#page\\:mainForm\\:changeExample\\:\\:0");
-  $venus = jQueryFrame("#page\\:mainForm\\:s1\\:2\\:sample0");
-  $jupiter = jQueryFrame("#page\\:mainForm\\:s1\\:5\\:sample0");
-  $saturn = jQueryFrame("#page\\:mainForm\\:s1\\:6\\:sample0");
-  $namefield = jQueryFrame("#page\\:mainForm\\:name\\:\\:field");
+  var $oneClickAjax = jQueryFrame("#page\\:mainForm\\:changeExample\\:\\:0");
+  var $venus = jQueryFrame("#page\\:mainForm\\:s1\\:2\\:sample0");
+  var $jupiter = jQueryFrame("#page\\:mainForm\\:s1\\:5\\:sample0");
+  var $saturn = jQueryFrame("#page\\:mainForm\\:s1\\:6\\:sample0");
+  var $namefield = jQueryFrame("#page\\:mainForm\\:name\\:\\:field");
 
   $oneClickAjax.click();
 
-  waitForAjax(function() {
+  waitForAjax(function () {
     $venus = jQueryFrame($venus.selector);
     $jupiter = jQueryFrame($jupiter.selector);
     $saturn = jQueryFrame($saturn.selector);
     return $venus.length == 1 && $jupiter.length == 1 && $saturn.length == 1;
-  }, function() {
+  }, function () {
     $venus = jQueryFrame($venus.selector);
     $jupiter = jQueryFrame($jupiter.selector);
     $saturn = jQueryFrame($saturn.selector);
@@ -43,30 +43,30 @@ QUnit.test("On click with ajax", function(assert) {
 
     $venus.click();
 
-    waitForAjax(function() {
+    waitForAjax(function () {
       $namefield = jQueryFrame($namefield.selector);
       return $namefield.val() == "Venus";
-    }, function() {
+    }, function () {
       $namefield = jQueryFrame($namefield.selector);
       assert.equal($namefield.val(), "Venus");
       done();
 
       $jupiter.click();
 
-      waitForAjax(function() {
+      waitForAjax(function () {
         $namefield = jQueryFrame($namefield.selector);
         return $namefield.val() == "Jupiter";
-      }, function() {
+      }, function () {
         $namefield = jQueryFrame($namefield.selector);
         assert.equal($namefield.val(), "Jupiter");
         done();
 
         $saturn.click();
 
-        waitForAjax(function() {
+        waitForAjax(function () {
           $namefield = jQueryFrame($namefield.selector);
           return $namefield.val() == "Saturn";
-        }, function() {
+        }, function () {
           $namefield = jQueryFrame($namefield.selector);
           assert.equal($namefield.val(), "Saturn");
           done();
@@ -76,25 +76,25 @@ QUnit.test("On click with ajax", function(assert) {
   });
 });
 
-QUnit.test("On click with full request", function(assert) {
+QUnit.test("On click with full request", function (assert) {
   assert.expect(6);
   var done = assert.async(4);
   var step = 1;
 
-  $oneClickFullRequest = jQueryFrame("#page\\:mainForm\\:changeExample\\:\\:1");
-  $venus = jQueryFrame("#page\\:mainForm\\:s1\\:2\\:sample1");
-  $jupiter = jQueryFrame("#page\\:mainForm\\:s1\\:5\\:sample1");
-  $saturn = jQueryFrame("#page\\:mainForm\\:s1\\:6\\:sample1");
-  $namefield = jQueryFrame("#page\\:mainForm\\:name\\:\\:field");
+  var $oneClickFullRequest = jQueryFrame("#page\\:mainForm\\:changeExample\\:\\:1");
+  var $venus = jQueryFrame("#page\\:mainForm\\:s1\\:2\\:sample1");
+  var $jupiter = jQueryFrame("#page\\:mainForm\\:s1\\:5\\:sample1");
+  var $saturn = jQueryFrame("#page\\:mainForm\\:s1\\:6\\:sample1");
+  var $namefield = jQueryFrame("#page\\:mainForm\\:name\\:\\:field");
 
   $oneClickFullRequest.click();
 
-  waitForAjax(function() {
+  waitForAjax(function () {
     $venus = jQueryFrame($venus.selector);
     $jupiter = jQueryFrame($jupiter.selector);
     $saturn = jQueryFrame($saturn.selector);
     return $venus.length == 1 && $jupiter.length == 1 && $saturn.length == 1;
-  }, function() {
+  }, function () {
     if (step == 1) {
       $venus = jQueryFrame($venus.selector);
       $jupiter = jQueryFrame($jupiter.selector);
@@ -110,48 +110,54 @@ QUnit.test("On click with full request", function(assert) {
     step++;
   });
 
-  jQuery("#page\\:testframe").load(function() {
+  jQuery("#page\\:testframe").load(function () {
     if (step == 2) {
       $namefield = jQueryFrame($namefield.selector);
       assert.equal($namefield.val(), "Venus");
 
       $jupiter = jQueryFrame($jupiter.selector);
       $jupiter.click();
+
+      step++;
+      done();
     } else if (step == 3) {
       $namefield = jQueryFrame($namefield.selector);
       assert.equal($namefield.val(), "Jupiter");
 
       $saturn = jQueryFrame($saturn.selector);
       $saturn.click();
+
+      step++;
+      done();
     } else if (step == 4) {
       $namefield = jQueryFrame($namefield.selector);
       assert.equal($namefield.val(), "Saturn");
-    }
 
-    step++;
-    done();
+      step++;
+      done();
+    }
   });
 });
 
-QUnit.test("On double click with full request", function(assert) {
+QUnit.test("On double click with full request", function (assert) {
   assert.expect(6);
   var done = assert.async(4);
   var step = 1;
 
-  $doubleClickFullRequest = jQueryFrame("#page\\:mainForm\\:changeExample\\:\\:2");
-  $venus = jQueryFrame("#page\\:mainForm\\:s1\\:2\\:sample2");
-  $jupiter = jQueryFrame("#page\\:mainForm\\:s1\\:5\\:sample2");
-  $saturn = jQueryFrame("#page\\:mainForm\\:s1\\:6\\:sample2");
-  $namefield = jQueryFrame("#page\\:mainForm\\:name\\:\\:field");
+  var $doubleClickFullRequest = jQueryFrame("#page\\:mainForm\\:changeExample\\:\\:2");
+  var $venus = jQueryFrame("#page\\:mainForm\\:s1\\:2\\:sample2");
+  var $jupiter = jQueryFrame("#page\\:mainForm\\:s1\\:5\\:sample2");
+  var $saturn = jQueryFrame("#page\\:mainForm\\:s1\\:6\\:sample2");
+  var $namefield = jQueryFrame("#page\\:mainForm\\:name\\:\\:field");
 
   $doubleClickFullRequest.click();
 
-  waitForAjax(function() {
+  waitForAjax(function () {
     $venus = jQueryFrame($venus.selector);
     $jupiter = jQueryFrame($jupiter.selector);
     $saturn = jQueryFrame($saturn.selector);
     return $venus.length == 1 && $jupiter.length == 1 && $saturn.length == 1;
-  }, function() {
+  }, function () {
     if (step == 1) {
       $venus = jQueryFrame($venus.selector);
       $jupiter = jQueryFrame($jupiter.selector);
@@ -167,25 +173,31 @@ QUnit.test("On double click with full request", function(assert) {
     step++;
   });
 
-  jQuery("#page\\:testframe").load(function() {
+  jQuery("#page\\:testframe").load(function () {
     if (step == 2) {
       $namefield = jQueryFrame($namefield.selector);
       assert.equal($namefield.val(), "Venus");
 
       $jupiter = jQueryFrame($jupiter.selector);
       $jupiter.dblclick();
+
+      step++;
+      done();
     } else if (step == 3) {
       $namefield = jQueryFrame($namefield.selector);
       assert.equal($namefield.val(), "Jupiter");
 
       $saturn = jQueryFrame($saturn.selector);
       $saturn.dblclick();
+
+      step++;
+      done();
     } else if (step == 4) {
       $namefield = jQueryFrame($namefield.selector);
       assert.equal($namefield.val(), "Saturn");
-    }
 
-    step++;
-    done();
+      step++;
+      done();
+    }
   });
 });

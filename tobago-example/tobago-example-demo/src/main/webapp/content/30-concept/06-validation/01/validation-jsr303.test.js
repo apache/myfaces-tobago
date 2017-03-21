@@ -18,6 +18,7 @@
 QUnit.test("Required: Submit without content.", function (assert) {
   assert.expect(1);
   var done = assert.async();
+  var step = 1;
 
   var $messages = jQueryFrame("#page\\:messages.tobago-messages div");
   var $in = jQueryFrame("#page\\:mainForm\\:required\\:in\\:\\:field");
@@ -27,15 +28,20 @@ QUnit.test("Required: Submit without content.", function (assert) {
   $submit.click();
 
   jQuery("#page\\:testframe").load(function () {
-    $messages = jQueryFrame($messages.selector);
-    assert.equal($messages.length, 1);
-    done();
+    if (step == 1) {
+      $messages = jQueryFrame($messages.selector);
+      assert.equal($messages.length, 1);
+
+      step++;
+      done();
+    }
   });
 });
 
 QUnit.test("Required: Submit with content.", function (assert) {
   assert.expect(1);
   var done = assert.async();
+  var step = 1;
 
   var $messages = jQueryFrame("#page\\:messages.tobago-messages div");
   var $in = jQueryFrame("#page\\:mainForm\\:required\\:in\\:\\:field");
@@ -45,15 +51,20 @@ QUnit.test("Required: Submit with content.", function (assert) {
   $submit.click();
 
   jQuery("#page\\:testframe").load(function () {
-    $messages = jQueryFrame($messages.selector);
-    assert.equal($messages.length, 0);
-    done();
+    if (step == 1) {
+      $messages = jQueryFrame($messages.selector);
+      assert.equal($messages.length, 0);
+
+      step++;
+      done();
+    }
   });
 });
 
 QUnit.test("Length: Submit single character.", function (assert) {
   assert.expect(1);
   var done = assert.async();
+  var step = 1;
 
   var $messages = jQueryFrame("#page\\:messages.tobago-messages div");
   var $in = jQueryFrame("#page\\:mainForm\\:length\\:in\\:\\:field");
@@ -63,15 +74,20 @@ QUnit.test("Length: Submit single character.", function (assert) {
   $submit.click();
 
   jQuery("#page\\:testframe").load(function () {
-    $messages = jQueryFrame($messages.selector);
-    assert.equal($messages.length, 1);
-    done();
+    if (step == 1) {
+      $messages = jQueryFrame($messages.selector);
+      assert.equal($messages.length, 1);
+
+      step++;
+      done();
+    }
   });
 });
 
 QUnit.test("Length: Submit three characters.", function (assert) {
   assert.expect(1);
   var done = assert.async();
+  var step = 1;
 
   var $messages = jQueryFrame("#page\\:messages.tobago-messages div");
   var $in = jQueryFrame("#page\\:mainForm\\:length\\:in\\:\\:field");
@@ -81,15 +97,20 @@ QUnit.test("Length: Submit three characters.", function (assert) {
   $submit.click();
 
   jQuery("#page\\:testframe").load(function () {
-    $messages = jQueryFrame($messages.selector);
-    assert.equal($messages.length, 0);
-    done();
+    if (step == 1) {
+      $messages = jQueryFrame($messages.selector);
+      assert.equal($messages.length, 0);
+
+      step++;
+      done();
+    }
   });
 });
 
 QUnit.test("Length: Submit five characters.", function (assert) {
   assert.expect(1);
   var done = assert.async();
+  var step = 1;
 
   var $messages = jQueryFrame("#page\\:messages.tobago-messages div");
   var $in = jQueryFrame("#page\\:mainForm\\:length\\:in\\:\\:field");
@@ -99,8 +120,12 @@ QUnit.test("Length: Submit five characters.", function (assert) {
   $submit.click();
 
   jQuery("#page\\:testframe").load(function () {
-    $messages = jQueryFrame($messages.selector);
-    assert.equal($messages.length, 1);
-    done();
+    if (step == 1) {
+      $messages = jQueryFrame($messages.selector);
+      assert.equal($messages.length, 1);
+
+      step++;
+      done();
+    }
   });
 });

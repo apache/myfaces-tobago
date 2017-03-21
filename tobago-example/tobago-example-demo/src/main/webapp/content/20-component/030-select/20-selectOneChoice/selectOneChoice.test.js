@@ -18,6 +18,7 @@
 QUnit.test("submit: Alice", function (assert) {
   assert.expect(1);
   var done = assert.async();
+  var step = 1;
   var $alice = jQueryFrame("#page\\:mainForm\\:selectPerson\\:\\:field option:contains('Alice')");
   var $bob = jQueryFrame("#page\\:mainForm\\:selectPerson\\:\\:field option:contains('Bob')");
   var $submit = jQueryFrame("#page\\:mainForm\\:submit");
@@ -27,15 +28,20 @@ QUnit.test("submit: Alice", function (assert) {
   $submit.click();
 
   jQuery("#page\\:testframe").load(function () {
-    var $output = jQueryFrame("#page\\:mainForm\\:outputPerson span");
-    assert.equal($output.text(), "Alice Anderson");
-    done();
+    if (step == 1) {
+      var $output = jQueryFrame("#page\\:mainForm\\:outputPerson span");
+      assert.equal($output.text(), "Alice Anderson");
+
+      step++;
+      done();
+    }
   });
 });
 
 QUnit.test("submit: Bob", function (assert) {
   assert.expect(1);
   var done = assert.async();
+  var step = 1;
   var $alice = jQueryFrame("#page\\:mainForm\\:selectPerson\\:\\:field option:contains('Alice')");
   var $bob = jQueryFrame("#page\\:mainForm\\:selectPerson\\:\\:field option:contains('Bob')");
   var $submit = jQueryFrame("#page\\:mainForm\\:submit");
@@ -45,9 +51,13 @@ QUnit.test("submit: Bob", function (assert) {
   $submit.click();
 
   jQuery("#page\\:testframe").load(function () {
-    var $output = jQueryFrame("#page\\:mainForm\\:outputPerson span");
-    assert.equal($output.text(), "Bob Brunch");
-    done();
+    if (step == 1) {
+      var $output = jQueryFrame("#page\\:mainForm\\:outputPerson span");
+      assert.equal($output.text(), "Bob Brunch");
+
+      step++;
+      done();
+    }
   });
 });
 

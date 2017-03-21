@@ -18,6 +18,7 @@
 QUnit.test("submit: Addition (2 + 4)", function (assert) {
   assert.expect(1);
   var done = assert.async();
+  var step = 1;
   var $number1 = jQueryFrame("#page\\:mainForm\\:selectNum1 input");
   var $number2 = jQueryFrame("#page\\:mainForm\\:selectNum2 input");
   var $submitAdd = jQueryFrame("#page\\:mainForm\\:submitAdd");
@@ -31,15 +32,20 @@ QUnit.test("submit: Addition (2 + 4)", function (assert) {
   $submitAdd.click();
 
   jQuery("#page\\:testframe").load(function () {
-    var $output = jQueryFrame("#page\\:mainForm\\:resultOutput span");
-    assert.equal($output.text(), "6");
-    done();
+    if (step == 1) {
+      var $output = jQueryFrame("#page\\:mainForm\\:resultOutput span");
+      assert.equal($output.text(), "6");
+
+      step++;
+      done();
+    }
   });
 });
 
 QUnit.test("submit: Subtraction (4 - 1)", function (assert) {
   assert.expect(1);
   var done = assert.async();
+  var step = 1;
   var $number1 = jQueryFrame("#page\\:mainForm\\:selectNum1 input");
   var $number2 = jQueryFrame("#page\\:mainForm\\:selectNum2 input");
   var $submitSub = jQueryFrame("#page\\:mainForm\\:submitSub");
@@ -53,9 +59,13 @@ QUnit.test("submit: Subtraction (4 - 1)", function (assert) {
   $submitSub.click();
 
   jQuery("#page\\:testframe").load(function () {
-    var $output = jQueryFrame("#page\\:mainForm\\:resultOutput span");
-    assert.equal($output.text(), "3");
-    done();
+    if (step == 1) {
+      var $output = jQueryFrame("#page\\:mainForm\\:resultOutput span");
+      assert.equal($output.text(), "3");
+
+      step++;
+      done();
+    }
   });
 });
 

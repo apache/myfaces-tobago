@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-QUnit.test("Standard Action Button", function(assert) {
+QUnit.test("Standard Action Button", function (assert) {
   assert.expect(2);
   var done = assert.async(2);
 
@@ -24,7 +24,7 @@ QUnit.test("Standard Action Button", function(assert) {
   testStandardCommands($command, $destinationSection, assert, done);
 });
 
-QUnit.test("Standard Link Button", function(assert) {
+QUnit.test("Standard Link Button", function (assert) {
   assert.expect(2);
   var done = assert.async(2);
 
@@ -33,7 +33,7 @@ QUnit.test("Standard Link Button", function(assert) {
   testStandardCommands($command, $destinationSection, assert, done);
 });
 
-QUnit.test("Standard Action Link", function(assert) {
+QUnit.test("Standard Action Link", function (assert) {
   assert.expect(2);
   var done = assert.async(2);
 
@@ -42,7 +42,7 @@ QUnit.test("Standard Action Link", function(assert) {
   testStandardCommands($command, $destinationSection, assert, done);
 });
 
-QUnit.test("Standard Link Link", function(assert) {
+QUnit.test("Standard Link Link", function (assert) {
   assert.expect(2);
   var done = assert.async(2);
 
@@ -55,23 +55,27 @@ function testStandardCommands($command, $destinationSection, assert, done) {
   var step = 1;
   $command[0].click();
 
-  jQuery("#page\\:testframe").load(function() {
+  jQuery("#page\\:testframe").load(function () {
     if (step == 1) {
       $destinationSection = jQueryFrame($destinationSection.selector);
       assert.equal($destinationSection.length, 1);
 
       var $back = jQueryFrame("#page\\:back");
       $back[0].click();
+
+      step++;
+      done();
     } else if (step == 2) {
       $command = jQueryFrame($command.selector);
       assert.equal($command.length, 1);
+
+      step++;
+      done();
     }
-    step++;
-    done();
   });
 }
 
-QUnit.test("Target Action Button", function(assert) {
+QUnit.test("Target Action Button", function (assert) {
   assert.expect(1);
   var done = assert.async();
 
@@ -80,7 +84,7 @@ QUnit.test("Target Action Button", function(assert) {
   testTargetCommands($command, $destinationSection, assert, done);
 });
 
-QUnit.test("Target Link Button", function(assert) {
+QUnit.test("Target Link Button", function (assert) {
   assert.expect(1);
   var done = assert.async();
 
@@ -89,7 +93,7 @@ QUnit.test("Target Link Button", function(assert) {
   testTargetCommands($command, $destinationSection, assert, done);
 });
 
-QUnit.test("Target Action Link", function(assert) {
+QUnit.test("Target Action Link", function (assert) {
   assert.expect(1);
   var done = assert.async();
 
@@ -98,7 +102,7 @@ QUnit.test("Target Action Link", function(assert) {
   testTargetCommands($command, $destinationSection, assert, done);
 });
 
-QUnit.test("Target Link Link", function(assert) {
+QUnit.test("Target Link Link", function (assert) {
   assert.expect(1);
   var done = assert.async();
 
@@ -114,10 +118,10 @@ function testTargetCommands($command, $destinationSection, assert, done) {
    * phantomJs don't recognize jQueryFrame("#page\\:mainForm\\:targetFrame").load(),
    * so the waitForAjax() method is used instead.
    */
-  waitForAjax(function() {
+  waitForAjax(function () {
     $destinationSection = jQueryTargetFrame($destinationSection.selector);
     return $destinationSection.length == 1;
-  }, function() {
+  }, function () {
     $destinationSection = jQueryTargetFrame($destinationSection.selector);
     assert.equal($destinationSection.length, 1);
     done();

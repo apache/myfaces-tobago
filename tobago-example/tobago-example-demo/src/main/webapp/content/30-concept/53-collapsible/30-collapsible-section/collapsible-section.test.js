@@ -91,6 +91,7 @@ QUnit.test("Simple Panel", function (assert) {
       assert.equal($sectionCollapsed.val(), "true");
       assert.equal($in.length, 0);
 
+      step++;
       done();
     }
   });
@@ -172,6 +173,7 @@ QUnit.test("Full Server Request", function (assert) {
       assert.equal($sectionCollapsed.val(), "true");
       assert.equal($in.length, 0);
 
+      step++;
       done();
     }
   });
@@ -238,6 +240,7 @@ QUnit.test("Client Sided", function (assert) {
       assert.equal($sectionCollapsed.val(), "false");
       assert.equal($in.length, 1);
 
+      step++;
       done();
     }
   });

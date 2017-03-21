@@ -18,6 +18,7 @@
 QUnit.test("submit inner form 1 without violations", function (assert) {
   assert.expect(3);
   var done = assert.async();
+  var step = 1;
   var $form1InputField = jQueryFrame("#page\\:mainForm\\:outerForm\\:innerForm1\\:in\\:\\:field");
   var $form1SubmitButton = jQueryFrame("#page\\:mainForm\\:outerForm\\:innerForm1\\:submit");
 
@@ -25,21 +26,25 @@ QUnit.test("submit inner form 1 without violations", function (assert) {
   $form1SubmitButton.click();
 
   jQuery("#page\\:testframe").load(function () {
-    $form1InputField = jQueryFrame("#page\\:mainForm\\:outerForm\\:innerForm1\\:in\\:\\:field");
-    var $form1OutputField = jQueryFrame("#page\\:mainForm\\:outerForm\\:innerForm1\\:out span");
-    var $alert = jQueryFrame("#page\\:messages .alert-danger label");
+    if (step == 1) {
+      $form1InputField = jQueryFrame("#page\\:mainForm\\:outerForm\\:innerForm1\\:in\\:\\:field");
+      var $form1OutputField = jQueryFrame("#page\\:mainForm\\:outerForm\\:innerForm1\\:out span");
+      var $alert = jQueryFrame("#page\\:messages .alert-danger label");
 
-    assert.equal($form1InputField.val(), "Alice");
-    assert.equal($form1OutputField.text(), "Alice");
-    assert.equal($alert.length, "0");
+      assert.equal($form1InputField.val(), "Alice");
+      assert.equal($form1OutputField.text(), "Alice");
+      assert.equal($alert.length, "0");
 
-    done();
+      step++;
+      done();
+    }
   });
 });
 
 QUnit.test("submit inner form 2, violate required field", function (assert) {
   assert.expect(4);
   var done = assert.async();
+  var step = 1;
   var $form2InputField = jQueryFrame("#page\\:mainForm\\:outerForm\\:innerForm2\\:in\\:\\:field");
   var $form2SubmitButton = jQueryFrame("#page\\:mainForm\\:outerForm\\:innerForm2\\:submit");
 
@@ -50,21 +55,25 @@ QUnit.test("submit inner form 2, violate required field", function (assert) {
   $form2SubmitButton.click();
 
   jQuery("#page\\:testframe").load(function () {
-    $form2InputField = jQueryFrame("#page\\:mainForm\\:outerForm\\:innerForm2\\:in\\:\\:field");
-    var $form2OutputField = jQueryFrame("#page\\:mainForm\\:outerForm\\:innerForm2\\:out span");
-    var $alert = jQueryFrame("#page\\:messages .alert-danger label");
+    if (step == 1) {
+      $form2InputField = jQueryFrame("#page\\:mainForm\\:outerForm\\:innerForm2\\:in\\:\\:field");
+      var $form2OutputField = jQueryFrame("#page\\:mainForm\\:outerForm\\:innerForm2\\:out span");
+      var $alert = jQueryFrame("#page\\:messages .alert-danger label");
 
-    assert.equal($form2InputField.val(), "");
-    assert.equal($form2OutputField.text(), form2OutputFieldValue);
-    assert.equal($alert.length, "1");
+      assert.equal($form2InputField.val(), "");
+      assert.equal($form2OutputField.text(), form2OutputFieldValue);
+      assert.equal($alert.length, "1");
 
-    done();
+      step++;
+      done();
+    }
   });
 });
 
 QUnit.test("submit inner form 2 without violations", function (assert) {
   assert.expect(4);
   var done = assert.async();
+  var step = 1;
   var $form2InputField = jQueryFrame("#page\\:mainForm\\:outerForm\\:innerForm2\\:in\\:\\:field");
   var $form2SubmitButton = jQueryFrame("#page\\:mainForm\\:outerForm\\:innerForm2\\:submit");
 
@@ -73,21 +82,25 @@ QUnit.test("submit inner form 2 without violations", function (assert) {
   $form2SubmitButton.click();
 
   jQuery("#page\\:testframe").load(function () {
-    $form2InputField = jQueryFrame("#page\\:mainForm\\:outerForm\\:innerForm2\\:in\\:\\:field");
-    var $form2OutputField = jQueryFrame("#page\\:mainForm\\:outerForm\\:innerForm2\\:out span");
-    var $alert = jQueryFrame("#page\\:messages .alert-danger label");
+    if (step == 1) {
+      $form2InputField = jQueryFrame("#page\\:mainForm\\:outerForm\\:innerForm2\\:in\\:\\:field");
+      var $form2OutputField = jQueryFrame("#page\\:mainForm\\:outerForm\\:innerForm2\\:out span");
+      var $alert = jQueryFrame("#page\\:messages .alert-danger label");
 
-    assert.equal($form2InputField.val(), "Bob");
-    assert.equal($form2OutputField.text(), "Bob");
-    assert.equal($alert.length, "0");
+      assert.equal($form2InputField.val(), "Bob");
+      assert.equal($form2OutputField.text(), "Bob");
+      assert.equal($alert.length, "0");
 
-    done();
+      step++;
+      done();
+    }
   });
 });
 
 QUnit.test("submit outer form, violate both required fields", function (assert) {
   assert.expect(5);
   var done = assert.async();
+  var step = 1;
   var $form2InputField = jQueryFrame("#page\\:mainForm\\:outerForm\\:innerForm2\\:in\\:\\:field");
   var $outerFormInputField = jQueryFrame("#page\\:mainForm\\:outerForm\\:in\\:\\:field");
   var $outerFormSubmitButton = jQueryFrame("#page\\:mainForm\\:outerForm\\:submit");
@@ -100,27 +113,31 @@ QUnit.test("submit outer form, violate both required fields", function (assert) 
   $outerFormSubmitButton.click();
 
   jQuery("#page\\:testframe").load(function () {
-    $form2InputField = jQueryFrame("#page\\:mainForm\\:outerForm\\:innerForm2\\:in\\:\\:field");
-    var $form2OutputField = jQueryFrame("#page\\:mainForm\\:outerForm\\:innerForm2\\:out span");
-    $outerFormInputField = jQueryFrame("#page\\:mainForm\\:outerForm\\:in\\:\\:field");
-    var $outerFormOutputField = jQueryFrame("#page\\:mainForm\\:outerForm\\:out span");
+    if (step == 1) {
+      $form2InputField = jQueryFrame("#page\\:mainForm\\:outerForm\\:innerForm2\\:in\\:\\:field");
+      var $form2OutputField = jQueryFrame("#page\\:mainForm\\:outerForm\\:innerForm2\\:out span");
+      $outerFormInputField = jQueryFrame("#page\\:mainForm\\:outerForm\\:in\\:\\:field");
+      var $outerFormOutputField = jQueryFrame("#page\\:mainForm\\:outerForm\\:out span");
 
-    var $alert = jQueryFrame("#page\\:messages .alert-danger label");
+      var $alert = jQueryFrame("#page\\:messages .alert-danger label");
 
-    assert.equal($form2InputField.val(), "");
-    assert.equal($form2OutputField.text(), form2OutputFieldValue);
-    assert.equal($outerFormInputField.val(), "");
-    assert.equal($outerFormOutputField.text(), outerFormOutputFieldValue);
+      assert.equal($form2InputField.val(), "");
+      assert.equal($form2OutputField.text(), form2OutputFieldValue);
+      assert.equal($outerFormInputField.val(), "");
+      assert.equal($outerFormOutputField.text(), outerFormOutputFieldValue);
 
-    assert.equal($alert.length, "2");
+      assert.equal($alert.length, "2");
 
-    done();
+      step++;
+      done();
+    }
   });
 });
 
 QUnit.test("submit outer form, violate required field in form 2", function (assert) {
   assert.expect(5);
   var done = assert.async();
+  var step = 1;
   var $form2InputField = jQueryFrame("#page\\:mainForm\\:outerForm\\:innerForm2\\:in\\:\\:field");
   var $outerFormInputField = jQueryFrame("#page\\:mainForm\\:outerForm\\:in\\:\\:field");
   var $outerFormSubmitButton = jQueryFrame("#page\\:mainForm\\:outerForm\\:submit");
@@ -133,27 +150,31 @@ QUnit.test("submit outer form, violate required field in form 2", function (asse
   $outerFormSubmitButton.click();
 
   jQuery("#page\\:testframe").load(function () {
-    $form2InputField = jQueryFrame("#page\\:mainForm\\:outerForm\\:innerForm2\\:in\\:\\:field");
-    var $form2OutputField = jQueryFrame("#page\\:mainForm\\:outerForm\\:innerForm2\\:out span");
-    $outerFormInputField = jQueryFrame("#page\\:mainForm\\:outerForm\\:in\\:\\:field");
-    var $outerFormOutputField = jQueryFrame("#page\\:mainForm\\:outerForm\\:out span");
+    if (step == 1) {
+      $form2InputField = jQueryFrame("#page\\:mainForm\\:outerForm\\:innerForm2\\:in\\:\\:field");
+      var $form2OutputField = jQueryFrame("#page\\:mainForm\\:outerForm\\:innerForm2\\:out span");
+      $outerFormInputField = jQueryFrame("#page\\:mainForm\\:outerForm\\:in\\:\\:field");
+      var $outerFormOutputField = jQueryFrame("#page\\:mainForm\\:outerForm\\:out span");
 
-    var $alert = jQueryFrame("#page\\:messages .alert-danger label");
+      var $alert = jQueryFrame("#page\\:messages .alert-danger label");
 
-    assert.equal($form2InputField.val(), "");
-    assert.equal($form2OutputField.text(), form2OutputFieldValue);
-    assert.equal($outerFormInputField.val(), "Charlie");
-    assert.equal($outerFormOutputField.text(), outerFormOutputFieldValue);
+      assert.equal($form2InputField.val(), "");
+      assert.equal($form2OutputField.text(), form2OutputFieldValue);
+      assert.equal($outerFormInputField.val(), "Charlie");
+      assert.equal($outerFormOutputField.text(), outerFormOutputFieldValue);
 
-    assert.equal($alert.length, "1");
+      assert.equal($alert.length, "1");
 
-    done();
+      step++;
+      done();
+    }
   });
 });
 
 QUnit.test("submit outer form, violate required field in outer form", function (assert) {
   assert.expect(5);
   var done = assert.async();
+  var step = 1;
   var $form2InputField = jQueryFrame("#page\\:mainForm\\:outerForm\\:innerForm2\\:in\\:\\:field");
   var $outerFormInputField = jQueryFrame("#page\\:mainForm\\:outerForm\\:in\\:\\:field");
   var $outerFormSubmitButton = jQueryFrame("#page\\:mainForm\\:outerForm\\:submit");
@@ -166,27 +187,31 @@ QUnit.test("submit outer form, violate required field in outer form", function (
   $outerFormSubmitButton.click();
 
   jQuery("#page\\:testframe").load(function () {
-    $form2InputField = jQueryFrame("#page\\:mainForm\\:outerForm\\:innerForm2\\:in\\:\\:field");
-    var $form2OutputField = jQueryFrame("#page\\:mainForm\\:outerForm\\:innerForm2\\:out span");
-    $outerFormInputField = jQueryFrame("#page\\:mainForm\\:outerForm\\:in\\:\\:field");
-    var $outerFormOutputField = jQueryFrame("#page\\:mainForm\\:outerForm\\:out span");
+    if (step == 1) {
+      $form2InputField = jQueryFrame("#page\\:mainForm\\:outerForm\\:innerForm2\\:in\\:\\:field");
+      var $form2OutputField = jQueryFrame("#page\\:mainForm\\:outerForm\\:innerForm2\\:out span");
+      $outerFormInputField = jQueryFrame("#page\\:mainForm\\:outerForm\\:in\\:\\:field");
+      var $outerFormOutputField = jQueryFrame("#page\\:mainForm\\:outerForm\\:out span");
 
-    var $alert = jQueryFrame("#page\\:messages .alert-danger label");
+      var $alert = jQueryFrame("#page\\:messages .alert-danger label");
 
-    assert.equal($form2InputField.val(), "Dave");
-    assert.equal($form2OutputField.text(), form2OutputFieldValue);
-    assert.equal($outerFormInputField.val(), "");
-    assert.equal($outerFormOutputField.text(), outerFormOutputFieldValue);
+      assert.equal($form2InputField.val(), "Dave");
+      assert.equal($form2OutputField.text(), form2OutputFieldValue);
+      assert.equal($outerFormInputField.val(), "");
+      assert.equal($outerFormOutputField.text(), outerFormOutputFieldValue);
 
-    assert.equal($alert.length, "1");
+      assert.equal($alert.length, "1");
 
-    done();
+      step++;
+      done();
+    }
   });
 });
 
 QUnit.test("submit outer form without violations", function (assert) {
   assert.expect(7);
   var done = assert.async();
+  var step = 1;
   var $form1InputField = jQueryFrame("#page\\:mainForm\\:outerForm\\:innerForm1\\:in\\:\\:field");
   var $form2InputField = jQueryFrame("#page\\:mainForm\\:outerForm\\:innerForm2\\:in\\:\\:field");
   var $outerFormInputField = jQueryFrame("#page\\:mainForm\\:outerForm\\:in\\:\\:field");
@@ -198,24 +223,27 @@ QUnit.test("submit outer form without violations", function (assert) {
   $outerFormSubmitButton.click();
 
   jQuery("#page\\:testframe").load(function () {
-    $form1InputField = jQueryFrame("#page\\:mainForm\\:outerForm\\:innerForm1\\:in\\:\\:field");
-    var $form1OutputField = jQueryFrame("#page\\:mainForm\\:outerForm\\:innerForm1\\:out span");
-    $form2InputField = jQueryFrame("#page\\:mainForm\\:outerForm\\:innerForm2\\:in\\:\\:field");
-    var $form2OutputField = jQueryFrame("#page\\:mainForm\\:outerForm\\:innerForm2\\:out span");
-    $outerFormInputField = jQueryFrame("#page\\:mainForm\\:outerForm\\:in\\:\\:field");
-    var $outerFormOutputField = jQueryFrame("#page\\:mainForm\\:outerForm\\:out span");
+    if (step == 1) {
+      $form1InputField = jQueryFrame("#page\\:mainForm\\:outerForm\\:innerForm1\\:in\\:\\:field");
+      var $form1OutputField = jQueryFrame("#page\\:mainForm\\:outerForm\\:innerForm1\\:out span");
+      $form2InputField = jQueryFrame("#page\\:mainForm\\:outerForm\\:innerForm2\\:in\\:\\:field");
+      var $form2OutputField = jQueryFrame("#page\\:mainForm\\:outerForm\\:innerForm2\\:out span");
+      $outerFormInputField = jQueryFrame("#page\\:mainForm\\:outerForm\\:in\\:\\:field");
+      var $outerFormOutputField = jQueryFrame("#page\\:mainForm\\:outerForm\\:out span");
 
-    var $alert = jQueryFrame("#page\\:messages .alert-danger label");
+      var $alert = jQueryFrame("#page\\:messages .alert-danger label");
 
-    assert.equal($form1InputField.val(), "Eve");
-    assert.equal($form1OutputField.text(), "Eve");
-    assert.equal($form2InputField.val(), "Frank");
-    assert.equal($form2OutputField.text(), "Frank");
-    assert.equal($outerFormInputField.val(), "Grace");
-    assert.equal($outerFormOutputField.text(), "Grace");
+      assert.equal($form1InputField.val(), "Eve");
+      assert.equal($form1OutputField.text(), "Eve");
+      assert.equal($form2InputField.val(), "Frank");
+      assert.equal($form2OutputField.text(), "Frank");
+      assert.equal($outerFormInputField.val(), "Grace");
+      assert.equal($outerFormOutputField.text(), "Grace");
 
-    assert.equal($alert.length, "0");
+      assert.equal($alert.length, "0");
 
-    done();
+      step++;
+      done();
+    }
   });
 });
