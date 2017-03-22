@@ -1,4 +1,4 @@
-Build date: 2017-03-17 16:42:01
+Build date: 2017-03-22 17:17:42
 [INFO] Scanning for projects...
 [INFO]                                                                         
 [INFO] ------------------------------------------------------------------------
@@ -134,7 +134,7 @@ Build date: 2017-03-17 16:42:01
 [INFO] Verified checksum of previously downloaded file
 [INFO] Extracting zip contents
 [INFO] Removing __CURRENT__/tobago-theme-charlotteville/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom
-[INFO] Copying extracted folder /var/folders/w0/pg4pxr7972l6bq85x08s5cl00000gn/T/phantomjs/phantomjs-2.1.1-macosx.zip-extract-1489765416121/phantomjs-2.1.1-macosx -> __CURRENT__/tobago-theme-charlotteville/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom
+[INFO] Copying extracted folder /var/folders/w0/pg4pxr7972l6bq85x08s5cl00000gn/T/phantomjs/phantomjs-2.1.1-macosx.zip-extract-1490199572381/phantomjs-2.1.1-macosx -> __CURRENT__/tobago-theme-charlotteville/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom
 [INFO] Writing location.js file
 [INFO] Done. Phantomjs binary available at __CURRENT__/tobago-theme-charlotteville/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom/bin/phantomjs
 [INFO] 
@@ -146,9 +146,9 @@ Build date: 2017-03-17 16:42:01
 [INFO] Binary is fine
 [INFO] bootstrap@4.0.0-alpha.5 __CURRENT__/tobago-theme-charlotteville/target/bootstrap
 [INFO] ├─┬ autoprefixer@6.7.7 
-[INFO] │ ├─┬ browserslist@1.7.6 
+[INFO] │ ├─┬ browserslist@1.7.7 
 [INFO] │ │ └── electron-to-chromium@1.2.7 
-[INFO] │ ├── caniuse-db@1.0.30000636 
+[INFO] │ ├── caniuse-db@1.0.30000640 
 [INFO] │ ├── normalize-range@0.1.2 
 [INFO] │ ├── num2fraction@1.2.2 
 [INFO] │ ├─┬ postcss@5.2.16 
@@ -156,7 +156,7 @@ Build date: 2017-03-17 16:42:01
 [INFO] │ │ └─┬ supports-color@3.2.3 
 [INFO] │ │   └── has-flag@1.0.0 
 [INFO] │ └── postcss-value-parser@3.3.0 
-[INFO] ├─┬ babel-eslint@7.1.1 
+[INFO] ├─┬ babel-eslint@7.2.0 
 [INFO] │ ├─┬ babel-code-frame@6.22.0 
 [INFO] │ │ └── js-tokens@3.0.1 
 [INFO] │ ├─┬ babel-traverse@6.23.1 
@@ -169,7 +169,7 @@ Build date: 2017-03-17 16:42:01
 [INFO] │ ├─┬ babel-types@6.23.0 
 [INFO] │ │ └── to-fast-properties@1.0.2 
 [INFO] │ ├── babylon@6.16.1 
-[INFO] │ └── lodash.pickby@4.6.0 
+[INFO] │ └── lodash@4.17.4 
 [INFO] ├── babel-plugin-transform-es2015-modules-strip@0.1.0 
 [INFO] ├─┬ babel-preset-es2015@6.24.0 
 [INFO] │ ├── babel-plugin-check-es2015-constants@6.22.0 
@@ -212,7 +212,7 @@ Build date: 2017-03-17 16:42:01
 [INFO] │ │     └── jsesc@0.5.0 
 [INFO] │ └─┬ babel-plugin-transform-regenerator@6.22.0 
 [INFO] │   └── regenerator-transform@0.9.8 
-[INFO] ├─┬ eslint@3.17.1 
+[INFO] ├─┬ eslint@3.18.0 
 [INFO] │ ├─┬ chalk@1.1.3 
 [INFO] │ │ ├── ansi-styles@2.2.1 
 [INFO] │ │ ├── escape-string-regexp@1.0.5 
@@ -229,28 +229,24 @@ Build date: 2017-03-17 16:42:01
 [INFO] │ │ └── typedarray@0.0.6 
 [INFO] │ ├─┬ debug@2.6.3 
 [INFO] │ │ └── ms@0.7.2 
-[INFO] │ ├─┬ doctrine@1.5.0 
+[INFO] │ ├─┬ doctrine@2.0.0 
 [INFO] │ │ └── isarray@1.0.0 
 [INFO] │ ├─┬ escope@3.6.0 
-[INFO] │ │ ├─┬ es6-map@0.1.4 
-[INFO] │ │ │ ├── d@0.1.1 
-[INFO] │ │ │ ├── es5-ext@0.10.14 
-[INFO] │ │ │ ├─┬ es6-iterator@2.0.1 
-[INFO] │ │ │ │ └── d@1.0.0 
-[INFO] │ │ │ ├─┬ es6-set@0.1.5 
-[INFO] │ │ │ │ └── d@1.0.0 
-[INFO] │ │ │ ├─┬ es6-symbol@3.1.1 
-[INFO] │ │ │ │ └── d@1.0.0 
-[INFO] │ │ │ └─┬ event-emitter@0.3.5 
-[INFO] │ │ │   └── d@1.0.0 
-[INFO] │ │ ├─┬ es6-weak-map@2.0.2 
-[INFO] │ │ │ └── d@1.0.0 
+[INFO] │ │ ├─┬ es6-map@0.1.5 
+[INFO] │ │ │ ├── d@1.0.0 
+[INFO] │ │ │ ├── es5-ext@0.10.15 
+[INFO] │ │ │ ├── es6-iterator@2.0.1 
+[INFO] │ │ │ ├── es6-set@0.1.5 
+[INFO] │ │ │ ├── es6-symbol@3.1.1 
+[INFO] │ │ │ └── event-emitter@0.3.5 
+[INFO] │ │ ├── es6-weak-map@2.0.2 
 [INFO] │ │ └─┬ esrecurse@4.1.0 
 [INFO] │ │   └── estraverse@4.1.1 
 [INFO] │ ├─┬ espree@3.4.0 
 [INFO] │ │ ├── acorn@4.0.4 
 [INFO] │ │ └─┬ acorn-jsx@3.0.1 
 [INFO] │ │   └── acorn@3.3.0 
+[INFO] │ ├── esquery@1.0.0 
 [INFO] │ ├── estraverse@4.2.0 
 [INFO] │ ├── esutils@2.0.2 
 [INFO] │ ├─┬ file-entry-cache@2.0.0 
@@ -301,7 +297,6 @@ Build date: 2017-03-17 16:42:01
 [INFO] │ ├─┬ levn@0.3.0 
 [INFO] │ │ ├── prelude-ls@1.1.2 
 [INFO] │ │ └── type-check@0.3.2 
-[INFO] │ ├── lodash@4.17.4 
 [INFO] │ ├─┬ mkdirp@0.5.1 
 [INFO] │ │ └── minimist@0.0.8 
 [INFO] │ ├── natural-compare@1.4.0 
@@ -342,7 +337,7 @@ Build date: 2017-03-17 16:42:01
 [INFO] │ │   ├── map-obj@1.0.1 
 [INFO] │ │   ├── minimist@1.2.0 
 [INFO] │ │   ├─┬ normalize-package-data@2.3.6 
-[INFO] │ │   │ ├── hosted-git-info@2.2.0 
+[INFO] │ │   │ ├── hosted-git-info@2.4.1 
 [INFO] │ │   │ ├─┬ is-builtin-module@1.0.0 
 [INFO] │ │   │ │ └── builtin-modules@1.1.1 
 [INFO] │ │   │ └─┬ validate-npm-package-license@3.0.1 
@@ -404,8 +399,8 @@ Build date: 2017-03-17 16:42:01
 [INFO] │ │ │ └── end-of-stream@1.4.0 
 [INFO] │ │ ├── walkdir@0.0.11 
 [INFO] │ │ └─┬ zip-stream@1.1.1 
-[INFO] │ │   └─┬ compress-commons@1.1.0 
-[INFO] │ │     └─┬ crc32-stream@1.0.1 
+[INFO] │ │   └─┬ compress-commons@1.2.0 
+[INFO] │ │     └─┬ crc32-stream@2.0.0 
 [INFO] │ │       └── crc@3.4.4 
 [INFO] │ ├─┬ iltorb@1.0.13 
 [INFO] │ │ └── nan@2.5.1 
@@ -505,7 +500,7 @@ Build date: 2017-03-17 16:42:01
 [INFO] │ │ │ └── foreach@2.0.5 
 [INFO] │ │ ├── function-bind@1.1.0 
 [INFO] │ │ └── object-keys@1.0.11 
-[INFO] │ ├─┬ uglify-js@2.8.13 
+[INFO] │ ├─┬ uglify-js@2.8.14 
 [INFO] │ │ ├── uglify-to-browserify@1.0.2 
 [INFO] │ │ └─┬ yargs@3.10.0 
 [INFO] │ │   ├── camelcase@1.2.1 
@@ -676,14 +671,14 @@ Build date: 2017-03-17 16:42:01
 [INFO] │ ├── strip-json-comments@1.0.4 
 [INFO] │ └── xml@1.0.0 
 [INFO] ├── is-travis@1.0.0 
-[INFO] ├── jquery@3.2.0 
+[INFO] ├── jquery@3.2.1 
 [INFO] ├─┬ jscs@3.0.7 
 [INFO] │ ├─┬ cli-table@0.3.1 
 [INFO] │ │ └── colors@1.0.3 
 [INFO] │ ├─┬ commander@2.9.0 
 [INFO] │ │ └── graceful-readlink@1.0.1 
 [INFO] │ ├─┬ cst@0.4.9 
-[INFO] │ │ └── source-map-support@0.4.13 
+[INFO] │ │ └── source-map-support@0.4.14 
 [INFO] │ ├─┬ htmlparser2@3.8.3 
 [INFO] │ │ ├── domelementtype@1.3.0 
 [INFO] │ │ ├── domhandler@2.3.0 
@@ -974,7 +969,7 @@ Build date: 2017-03-17 16:42:01
 [INFO] 
 [INFO] Running "cssmin:core" (cssmin) task
 [INFO] >> 4 sourcemaps created.
-[INFO] >> 4 files created. 346.55 kB → 268.25 kB
+[INFO] >> 4 files created. 346.69 kB → 268.25 kB
 [INFO] 
 [INFO] Running "cssmin:docs" (cssmin) task
 [INFO] >> No files created.
@@ -994,16 +989,16 @@ Build date: 2017-03-17 16:42:01
 [INFO] Done.
 [INFO] 
 [INFO] 
-[INFO] Execution Time (2017-03-17 16:43:40 UTC+1)
-[INFO] sass:core     229ms  ▇▇▇ 4%
-[INFO] sass:extras   188ms  ▇▇ 4%
-[INFO] sass:docs     114ms  ▇▇ 2%
-[INFO] exec:postcss   1.8s  ▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇ 36%
-[INFO] cssmin:core   543ms  ▇▇▇▇▇▇ 11%
-[INFO] babel:dev      1.1s  ▇▇▇▇▇▇▇▇▇▇▇ 22%
-[INFO] babel:dist    585ms  ▇▇▇▇▇▇ 11%
-[INFO] uglify:core   488ms  ▇▇▇▇▇ 9%
-[INFO] Total 5.1s
+[INFO] Execution Time (2017-03-22 17:19:37 UTC+1)
+[INFO] sass:core     253ms  ▇▇ 3%
+[INFO] sass:extras   253ms  ▇▇ 3%
+[INFO] sass:docs     145ms  ▇ 2%
+[INFO] exec:postcss   2.2s  ▇▇▇▇▇▇▇▇▇▇▇▇▇ 27%
+[INFO] cssmin:core    1.4s  ▇▇▇▇▇▇▇▇▇ 17%
+[INFO] babel:dev      2.1s  ▇▇▇▇▇▇▇▇▇▇▇▇▇ 26%
+[INFO] babel:dist     1.1s  ▇▇▇▇▇▇▇ 13%
+[INFO] uglify:core   713ms  ▇▇▇▇▇ 9%
+[INFO] Total 8.2s
 [INFO] 
 [INFO] 
 [INFO] --- maven-resources-plugin:2.7:resources (default-resources) @ tobago-theme-charlotteville ---
@@ -1045,7 +1040,7 @@ main:
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
-[INFO] Total time: 01:43 min
-[INFO] Finished at: 2017-03-17T16:43:46+01:00
-[INFO] Final Memory: 33M/389M
+[INFO] Total time: 02:03 min
+[INFO] Finished at: 2017-03-22T17:19:46+01:00
+[INFO] Final Memory: 30M/509M
 [INFO] ------------------------------------------------------------------------
