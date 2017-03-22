@@ -17,21 +17,8 @@
  * under the License.
  */
 
-package org.apache.myfaces.tobago.apt.generate;
+package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
-public class RendererInfo extends ClassInfo {
-  private String[] rendererTypes;
+public class SelectOneChoiceAlternativeInRenderer extends SelectOneChoiceRenderer {
 
-  public RendererInfo(final String sourceClass, final String qualifiedName) {
-    super(sourceClass, qualifiedName);
-  }
-
-  public RendererInfo(final String sourceClass, final String qualifiedName, final String[] rendererTypes) {
-    super(sourceClass, qualifiedName);
-    this.rendererTypes = rendererTypes;
-  }
-
-  public String[] getRendererType() {
-    return rendererTypes;
-  }
 }

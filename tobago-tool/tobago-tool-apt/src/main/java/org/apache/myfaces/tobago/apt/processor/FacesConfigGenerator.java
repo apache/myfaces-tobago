@@ -358,8 +358,7 @@ public class FacesConfigGenerator extends AbstractGenerator {
       final ComponentInfo componentInfo, final UIComponentTag componentTag, final List<org.jdom.Element> renderer,
       final Namespace namespace)
       throws IOException, NoSuchFieldException, IllegalAccessException {
-    final String rendererType = componentTag.rendererType();
-    if (rendererType != null && rendererType.length() > 0) {
+    for (final String rendererType : componentTag.rendererType()) {
       final org.jdom.Element element = new org.jdom.Element(RENDERER, namespace);
       String displayName = componentTag.displayName();
       if (displayName.equals("")) {

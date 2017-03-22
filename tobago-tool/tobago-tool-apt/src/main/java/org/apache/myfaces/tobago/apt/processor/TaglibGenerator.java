@@ -339,7 +339,18 @@ public class TaglibGenerator extends AbstractGenerator {
     description.append(componentTag.uiComponent());
     description.append("</p>");
     description.append("<p><b>RendererType: </b>");
-    description.append(componentTag.rendererType());
+    description.append("<ul>");
+    boolean first = true;
+    for (String rendererType : componentTag.rendererType()) {
+      description.append("<li>");
+      description.append(rendererType);
+      if (first) {
+        description.append(" (default)");
+      }
+      description.append("</li>");
+      first = false;
+    }
+    description.append("</ul>");
     description.append("</p>");
     final Facet[] facets = componentTag.facets();
     if (facets.length > 0) {
@@ -466,8 +477,8 @@ public class TaglibGenerator extends AbstractGenerator {
       tagElement.appendChild(componentElement);
       addLeafTextElement(
           AnnotationUtils.componentType(componentTag), "component-type", componentElement, document);
-      if (StringUtils.isNotBlank(componentTag.rendererType())) {
-        addLeafTextElement(componentTag.rendererType(), "renderer-type", componentElement, document);
+      if (componentTag.rendererType().length > 0) {
+        addLeafTextElement(componentTag.rendererType()[0], "renderer-type", componentElement, document);
       }
       addLeafTextElement(componentTag.faceletHandler(), "handler-class", componentElement, document);
     }

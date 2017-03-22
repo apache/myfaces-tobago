@@ -47,7 +47,7 @@ public class ComponentInfo extends TagInfo {
 
   @Deprecated
   public ComponentInfo(final String sourceClass, final String qualifiedName, final String rendererType) {
-    super(sourceClass, qualifiedName, rendererType);
+    super(sourceClass, qualifiedName, new String[]{rendererType});
   }
 
   public void addPropertyInfo(final ComponentPropertyInfo propertyInfo) {

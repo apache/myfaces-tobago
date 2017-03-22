@@ -39,7 +39,7 @@ public @interface UIComponentTag {
 
   String componentFamily() default "";
 
-  String rendererType() default "";
+  String[] rendererType() default {};
 
   String faceletHandler() default "org.apache.myfaces.tobago.facelets.TobagoComponentHandler";
 
