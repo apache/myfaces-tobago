@@ -16,10 +16,12 @@
  */
 
 /*
-XXX used variables: only for the IDE, should not really used by the build system.
+XXX used variables: only for the IDE, will not really used by the build system, because this
+XXX code will be inserted after the _variables.scss
 */
 $brand-info: #00f !default;
 $zindex-dropdown: 1000 !default;
+$zindex-popover: 1060 !default;
 
 /*
 Todo: check, if this is needed? (It doesn't work with the build system)
@@ -799,7 +801,7 @@ th.tobago-sheet-headerCell .tobago-out {
 .tt-menu {
   display: none;
   position: absolute;
-  z-index: 100;
+  z-index: $zindex-popover;
   background-color: #FFFFFF;
   border: 1px solid rgba(0, 0, 0, 0.2);
   border-radius: 3px;
