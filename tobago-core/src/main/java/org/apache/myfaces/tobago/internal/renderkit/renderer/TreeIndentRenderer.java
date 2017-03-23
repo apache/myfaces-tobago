@@ -65,11 +65,17 @@ public class TreeIndentRenderer extends RendererBase {
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, indent);
     writer.writeClassAttribute(Classes.create(node, "toggle", Markup.NULL));
 
-    encodeIndent(
-        facesContext, writer, node, showLines, showIcons, showRootJunction, showRoot, junctions);
+    // encode indent
+    final boolean dropFirst = !showRoot || !showRootJunction && (showLines || showIcons);
+    for (int i = dropFirst ? 1 : 0; i < junctions.size() - 1; i++) {
+      writer.writeIcon(Icons.SQUARE_O, BootstrapClass.INVISIBLE);
+    }
 
-    encodeTreeJunction(
-        facesContext, writer, node, showLines, showIcons, showRootJunction, junctions, expanded, folder, level == 0);
+    // encode tree junction
+    if (!showIcons || !showRootJunction && level == 0) {
+      return;
+    }
+    writer.writeIcon(folder ? expanded ? Icons.MINUS_SQUARE_O : Icons.PLUS_SQUARE_O : Icons.SQUARE_O);
   }
 
   @Override
@@ -78,27 +84,4 @@ public class TreeIndentRenderer extends RendererBase {
     writer.endElement(HtmlElements.SPAN);
   }
 
-  private void encodeIndent(
-      final FacesContext facesContext, final TobagoResponseWriter writer, final AbstractUITreeNodeBase node,
-      final boolean showLines, final boolean showIcons, final boolean showRootJunction, final boolean showRoot,
-      final List<Boolean> junctions)
-      throws IOException {
-
-    final boolean dropFirst = !showRoot || !showRootJunction && (showLines || showIcons);
-
-    for (int i = dropFirst ? 1 : 0; i < junctions.size() - 1; i++) {
-      writer.writeIcon(Icons.SQUARE_O, BootstrapClass.INVISIBLE); // FIXME TOBAGO-1495
-    }
-  }
-
-  private void encodeTreeJunction(
-      final FacesContext facesContext, final TobagoResponseWriter writer, final AbstractUITreeNodeBase node,
-      final boolean showLines, final boolean showIcons, final boolean showRootJunction, final List<Boolean> junctions,
-      final boolean expanded, final boolean folder, final boolean root)
-      throws IOException {
-    if (!showIcons || !showRootJunction && root) {
-      return;
-    }
-    writer.writeIcon(folder ? expanded ? Icons.MINUS_SQUARE_O : Icons.PLUS_SQUARE_O : Icons.SQUARE_O);
-  }
 }
