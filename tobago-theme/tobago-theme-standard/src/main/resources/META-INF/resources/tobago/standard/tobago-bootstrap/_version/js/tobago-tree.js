@@ -17,48 +17,49 @@
 
 Tobago.Tree = {};
 
-Tobago.Tree.toggleNode = function(element, event) {
+Tobago.Tree.toggleNode = function($element, event) {
   var src;
-  var node = element.closest(".tobago-treeNode, .tobago-treeMenuNode");
-  var data = node.closest(".tobago-treeMenu, .tobago-tree, .tobago-sheet");
-  var expanded = data.children(".tobago-treeMenu-expanded, .tobago-tree-expanded, .tobago-sheet-expanded");
-  var toggle = node.find(".tobago-treeMenuNode-toggle, .tobago-treeNode-toggle");
-  var rowIndex = Tobago.Tree.rowIndex(node);
-  if (Tobago.Tree.isExpanded(node, expanded)) {
-    Tobago.Tree.hideChildren(node);
-    toggle.each(function() {
-      src = jQuery(this).data("tobago-src-closed");
-      if (src == null) { // use the open icon if there is no close icon
-        src = jQuery(this).data("tobago-src-open");
+  var $node = $element.closest(".tobago-treeNode, .tobago-treeMenuNode");
+  var $data = $node.closest(".tobago-treeMenu, .tobago-tree, .tobago-sheet");
+  var $expanded = $data.children(".tobago-treeMenu-expanded, .tobago-tree-expanded, .tobago-sheet-expanded");
+  var $toggle = $node.find(".tobago-treeMenuNode-toggle, .tobago-treeNode-toggle");
+  var rowIndex = Tobago.Tree.rowIndex($node);
+  if (Tobago.Tree.isExpanded($node, $expanded)) {
+    Tobago.Tree.hideChildren($node);
+    $toggle.each(function() {
+      var $t = jQuery(this);
+      src = $t.data("tobago-src-closed");
+      if (src === undefined) { // use the open icon if there is no close icon
+        src = $t.data("tobago-src-open");
       }
-      jQuery(this).attr("src", src);
+      $t.attr("src", src);
     });
-    expanded.val(expanded.val().replace(new RegExp("," + rowIndex + ","), ","));
-    node.filter(".tobago-treeNode").removeClass("tobago-treeNode-markup-expanded");
-    node.filter(".tobago-treeMenuNode").removeClass("tobago-treeMenuNode-markup-expanded");
+    $expanded.val($expanded.val().replace(new RegExp("," + rowIndex + ","), ","));
+    $node.filter(".tobago-treeNode").removeClass("tobago-treeNode-markup-expanded");
+    $node.filter(".tobago-treeMenuNode").removeClass("tobago-treeMenuNode-markup-expanded");
   } else {
-    var reload = Tobago.Tree.showChildren(node, expanded);
-    expanded.val(expanded.val() + rowIndex + ",");
+    var reload = Tobago.Tree.showChildren($node, $expanded);
+    $expanded.val($expanded.val() + rowIndex + ",");
     if (reload) {
-      //Tobago.reloadComponent(element, data.attr("id"), toggle.parent().attr("id"), {});
       jsf.ajax.request(
-          toggle.parent().attr("id"),
+          $toggle.parent().attr("id"),
           event,
           {
             //"javax.faces.behavior.event": "click",
-            execute: data.attr("id"),
-            render: data.attr("id")
+            execute: $data.attr("id"),
+            render: $data.attr("id")
           });
     } else {
-      toggle.each(function() {
-        src = jQuery(this).data("tobago-src-open");
-        if (src == null) { // use the close icon if there is no open icon
-          src = jQuery(this).data("tobago-src-closed");
+      $toggle.each(function() {
+        var $t = jQuery(this);
+        src = $t.data("tobago-src-open");
+        if (src === undefined) { // use the close icon if there is no open icon
+          src = $t.data("tobago-src-closed");
         }
-        jQuery(this).attr("src", src);
+        $t.attr("src", src);
       });
-      node.filter(".tobago-treeNode").addClass("tobago-treeNode-markup-expanded");
-      node.filter(".tobago-treeMenuNode").addClass("tobago-treeMenuNode-markup-expanded");
+      $node.filter(".tobago-treeNode").addClass("tobago-treeNode-markup-expanded");
+      $node.filter(".tobago-treeMenuNode").addClass("tobago-treeMenuNode-markup-expanded");
     }
   }
 };
