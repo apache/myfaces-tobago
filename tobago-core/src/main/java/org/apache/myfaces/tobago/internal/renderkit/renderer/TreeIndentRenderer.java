@@ -85,22 +85,8 @@ public class TreeIndentRenderer extends RendererBase {
       throws IOException {
 
     final boolean dropFirst = !showRoot || !showRootJunction && (showLines || showIcons);
-//    final String blank = ResourceManagerUtils.getImage(facesContext, "image/blank");
-//    final String perpendicular = ResourceManagerUtils.getImage(facesContext, "image/I");
 
     for (int i = dropFirst ? 1 : 0; i < junctions.size() - 1; i++) {
-      final Boolean junction = junctions.get(i);
-/*
-      writer.startElement(HtmlElements.IMG, null);
-      writer.writeClassAttribute(Classes.create(node, "junction"));
-      writer.writeAttribute(HtmlAttributes.alt, "", false);
-      if (junction && showLines) {
-        writer.writeAttribute("src", perpendicular, true);
-      } else {
-        writer.writeAttribute("src", blank, true);
-      }
-      writer.endElement(HtmlElements.IMG);
-*/
       writer.writeIcon(Icons.SQUARE_O, BootstrapClass.INVISIBLE); // FIXME TOBAGO-1495
     }
   }
@@ -113,60 +99,6 @@ public class TreeIndentRenderer extends RendererBase {
     if (!showIcons || !showRootJunction && root) {
       return;
     }
-    final boolean hasNextSibling = junctions.get(junctions.size() - 1); // last element
-
     writer.writeIcon(folder ? expanded ? Icons.MINUS_SQUARE_O : Icons.PLUS_SQUARE_O : Icons.SQUARE_O);
-
-/*
-    writer.startElement(HtmlElements.IMG, null);
-    writer.writeClassAttribute(Classes.create(node, "toggle", Markup.NULL));
-
-    final String open;
-    final String close;
-    if (showLines) {
-      if (root) {
-        open = "Rminus";
-        close = "Rplus";
-      } else {
-        if (hasNextSibling) {
-          if (folder) {
-            open = "Tminus";
-            close = "Tplus";
-          } else {
-            open = "T";
-            close = "T";
-          }
-        } else {
-          if (folder) {
-            open = "Lminus";
-            close = "Lplus";
-          } else {
-            open = "L";
-            close = "L";
-          }
-        }
-      }
-    } else {
-      if (folder) {
-        open = "minus";
-        close = "plus";
-      } else {
-        open = "blank";
-        close = "blank";
-      }
-    }
-
-    final String srcOpen = ResourceManagerUtils.getImage(facesContext, "image/" + open);
-    final String srcClose = ResourceManagerUtils.getImage(facesContext, "image/" + close);
-    final String src = expanded ? srcOpen : srcClose;
-    writer.writeAttribute(HtmlAttributes.src, src, true);
-    if (folder) {
-      writer.writeAttribute(DataAttributes.SRC_OPEN, srcOpen, true);
-      writer.writeAttribute(DataAttributes.SRC_CLOSED, srcClose, true);
-    }
-    writer.writeAttribute(HtmlAttributes.alt, "", false);
-    writer.endElement(HtmlElements.IMG);
-*/
   }
-
 }
