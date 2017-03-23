@@ -19,9 +19,11 @@
 
 package org.apache.myfaces.tobago.renderkit.css;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 import java.io.FileNotFoundException;
+import java.util.List;
 
 /**
  * Test if every in Java declared CSS class has really an entry in a CSS file.
@@ -34,9 +36,12 @@ public class BootstrapClassUnitTest {
   @Test
   public void testCompareBootstrapCss() throws FileNotFoundException {
 
+    final List<CssItem> missing =
     CssClassUtils.compareCss(
         "src/main/resources/META-INF/resources/tobago/standard/tobago-bootstrap/_version/css/bootstrap.css",
         BootstrapClass.values());
+
+    Assert.assertTrue("These classes are missing in bootstrap.css: " + missing, missing.isEmpty());
   }
 
 }

@@ -23,6 +23,8 @@ import org.junit.Assert;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 class CssClassUtils {
@@ -30,7 +32,9 @@ class CssClassUtils {
   /**
    * Checks, if CSS class names are defined in the file.
    */
-  static void compareCss(final String cssFileName, final CssItem[] cssItems) throws FileNotFoundException {
+  static List<CssItem> compareCss(final String cssFileName, final CssItem[] cssItems) throws FileNotFoundException {
+
+    List<CssItem> missing = new ArrayList<CssItem>();
 
     File cssFile = new File(cssFileName);
     Assert.assertTrue(cssFile.exists());
@@ -38,12 +42,12 @@ class CssClassUtils {
     String fileContent = new Scanner(cssFile).useDelimiter("\\Z").next();
 
     for (CssItem cssItem : cssItems) {
-      final String className = cssItem.getName();
-
-      Assert.assertTrue("'" + className + "' exist in " + cssItem.getClass().getName() + " but not in "
-              + cssFile.getName(),
-          containsClassName(fileContent, className));
+      if (!containsClassName(fileContent, cssItem.getName())) {
+        missing.add(cssItem);
+      }
     }
+
+    return missing;
   }
 
   private static boolean containsClassName(final String content, final String className) {

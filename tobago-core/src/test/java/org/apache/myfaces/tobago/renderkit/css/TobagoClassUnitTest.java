@@ -23,6 +23,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import java.io.FileNotFoundException;
+import java.util.List;
 
 public class TobagoClassUnitTest {
 
@@ -69,7 +70,10 @@ public class TobagoClassUnitTest {
   @Test
   public void testCompareTobagoCss() throws FileNotFoundException {
 
-    CssClassUtils.compareCss("src/main/resources/scss/_tobago.scss", TobagoClass.values());
+    final List<CssItem> missing =
+        CssClassUtils.compareCss("src/main/resources/scss/_tobago.scss", TobagoClass.values());
+
+    Assert.assertTrue("These classes are missing in _tobago.scss: " + missing, missing.isEmpty());
   }
 
 }
