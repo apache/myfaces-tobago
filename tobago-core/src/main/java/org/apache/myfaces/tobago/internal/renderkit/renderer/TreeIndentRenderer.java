@@ -21,14 +21,15 @@ package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
 import org.apache.myfaces.tobago.component.UITree;
 import org.apache.myfaces.tobago.component.UITreeIndent;
-import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.internal.component.AbstractUIData;
 import org.apache.myfaces.tobago.internal.component.AbstractUITreeNodeBase;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
-import org.apache.myfaces.tobago.renderkit.css.Classes;
+import org.apache.myfaces.tobago.renderkit.css.FontAwesomeIconEncoder;
 import org.apache.myfaces.tobago.renderkit.css.Icons;
+import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
+import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
@@ -63,7 +64,7 @@ public class TreeIndentRenderer extends RendererBase {
     writer.startElement(HtmlElements.SPAN);
     writer.writeIdAttribute(indent.getClientId(facesContext));
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, indent);
-    writer.writeClassAttribute(Classes.create(node, "toggle", Markup.NULL));
+    writer.writeClassAttribute(TobagoClass.TREE_NODE__TOGGLE);
 
     // encode indent
     final boolean dropFirst = !showRoot || !showRootJunction && (showLines || showIcons);
@@ -75,7 +76,16 @@ public class TreeIndentRenderer extends RendererBase {
     if (!showIcons || !showRootJunction && level == 0) {
       return;
     }
-    writer.writeIcon(folder ? expanded ? Icons.MINUS_SQUARE_O : Icons.PLUS_SQUARE_O : Icons.SQUARE_O);
+    final Icons icon = folder ? expanded ? Icons.MINUS_SQUARE_O : Icons.PLUS_SQUARE_O : Icons.SQUARE_O;
+    writer.startElement(HtmlElements.I);
+    writer.writeClassAttribute(FontAwesomeIconEncoder.FA, FontAwesomeIconEncoder.generateClass(icon));
+    if (folder) {
+      writer.writeAttribute(
+          DataAttributes.SRC_OPEN, FontAwesomeIconEncoder.generateClass(Icons.MINUS_SQUARE_O).getName(), false);
+      writer.writeAttribute(
+          DataAttributes.SRC_CLOSED, FontAwesomeIconEncoder.generateClass(Icons.PLUS_SQUARE_O).getName(), false);
+    }
+    writer.endElement(HtmlElements.I);
   }
 
   @Override

@@ -63,17 +63,19 @@
 
   <tc:section label="Icon">
     <p>An icon can be added to a node with
-      <code class="language-markup">&lt;tc:treeIcon value="image/feather.png"/></code>.
-      In this case, the targeted image is 'feather.png'. It is displayed for closed nodes.
-      For opened nodes, an image with a '-open'-suffix is used, here it's 'feather-open.png'.
-      For the leafs of the tree, an image with a '-leaf'-suffix is used. Therefor 'feather-leaf.png' is the displayed
-      image.</p>
+      <code class="language-markup">&lt;tc:treeIcon value="image/feather-leaf.png" closed="image/feather-closed.png" open="image/feather-open.png"/></code>.
+      In this case, the targeted image is 'feather-leaf.png'. It is displayed for leaf nodes.
+      For open or closed folder there are explicit attributes.
+      If these attributes are not used, defaults are used.</p>
     <tc:tree value="#{treeController.sample}" var="node">
       <tc:treeNode>
         <tc:treeIndent/>
-        <tc:treeIcon value="#{request.contextPath}/image/feather.png" />
+        <tc:treeIcon value="#{request.contextPath}/image/feather-leaf.png"
+                     closed="#{request.contextPath}/image/feather-closed.png"
+                     open="#{request.contextPath}/image/feather-open.png" />
         <tc:treeIcon value="fa-file-o"
-                     closed="fa-folder-o" open="fa-folder-open-o" />
+                     closed="fa-folder-o"
+                     open="fa-folder-open-o" />
         <tc:treeLabel value="#{node.userObject.name}" />
       </tc:treeNode>
     </tc:tree>

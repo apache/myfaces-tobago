@@ -26,7 +26,13 @@ Tobago.Tree.toggleNode = function($element, event) {
   var rowIndex = Tobago.Tree.rowIndex($node);
   if (Tobago.Tree.isExpanded($node, $expanded)) {
     Tobago.Tree.hideChildren($node);
-    $toggle.each(function() {
+    $toggle.find("i").each(function() {
+      var $t = jQuery(this);
+      var o = $t.data("tobago-src-open");
+      var c = $t.data("tobago-src-closed");
+      $t.removeClass(o).addClass(c);
+    });
+    $toggle.find("img").each(function() {
       var $t = jQuery(this);
       src = $t.data("tobago-src-closed");
       if (src === undefined) { // use the open icon if there is no close icon
@@ -50,7 +56,13 @@ Tobago.Tree.toggleNode = function($element, event) {
             render: $data.attr("id")
           });
     } else {
-      $toggle.each(function() {
+      $toggle.find("i").each(function() {
+        var $t = jQuery(this);
+        var c = $t.data("tobago-src-closed");
+        var o = $t.data("tobago-src-open");
+        $t.removeClass(c).addClass(o);
+      });
+      $toggle.find("img").each(function() {
         var $t = jQuery(this);
         src = $t.data("tobago-src-open");
         if (src === undefined) { // use the close icon if there is no open icon

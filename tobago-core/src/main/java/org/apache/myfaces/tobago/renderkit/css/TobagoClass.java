@@ -89,7 +89,8 @@ public enum TobagoClass implements CssItem {
   SHEET__CELL__MARKUP__RIGHT("tobago-sheet-cell-markup-right"),
   SHEET__CELL__MARKUP__CENTER("tobago-sheet-cell-markup-center"),
   SHEET__CELL__MARKUP__JUSTIFY("tobago-sheet-cell-markup-justify"),
-  SUGGEST("tobago-suggest");
+  SUGGEST("tobago-suggest"),
+  TREE_NODE__TOGGLE("tobago-treeNode-toggle");
 
   private static final Logger LOG = LoggerFactory.getLogger(TobagoClass.class);
 
