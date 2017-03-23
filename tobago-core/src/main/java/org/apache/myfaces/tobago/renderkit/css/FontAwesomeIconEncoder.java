@@ -28,22 +28,25 @@ import java.io.IOException;
 import java.util.EnumMap;
 import java.util.regex.Pattern;
 
+/**
+ * @deprecated since Tobago 3.1.0. May be subject of change in later versions!
+ */
+@Deprecated
 public class FontAwesomeIconEncoder implements IconEncoder {
 
   private static final Logger LOG = LoggerFactory.getLogger(FontAwesomeIconEncoder.class);
 
-  private static final CssItem FA = new FontAwesomeCssItem("fa");
+  public static final CssItem FA = new FontAwesomeCssItem("fa");
 
   private static final Pattern PATTERN = Pattern.compile("^(fa(-[a-z]+)+)$");
 
 
-  private EnumMap<Icons, CssItem> icons;
+  private static final EnumMap<Icons, CssItem> ICONS;
 
-
-  public FontAwesomeIconEncoder() {
-    icons = new EnumMap<Icons, CssItem>(Icons.class);
+  static {
+    ICONS = new EnumMap<Icons, CssItem>(Icons.class);
     for (Icons icon : Icons.values()) {
-      icons.put(icon, new FontAwesomeCssItem("fa-" + icon.name().toLowerCase().replaceAll("_", "-")));
+      ICONS.put(icon, new FontAwesomeCssItem("fa-" + icon.name().toLowerCase().replaceAll("_", "-")));
     }
   }
 
@@ -56,11 +59,11 @@ public class FontAwesomeIconEncoder implements IconEncoder {
     writer.endElement(HtmlElements.I);
   }
 
-  private CssItem generateClass(final Icons icon) {
+  public static CssItem generateClass(final Icons icon) {
     if (icon == null) {
       return null;
     }
-    CssItem result = icons.get(icon);
+    CssItem result = ICONS.get(icon);
     if (result == null) {
       LOG.warn("Missing icon: '" + icon + "'");
     }
@@ -73,8 +76,6 @@ public class FontAwesomeIconEncoder implements IconEncoder {
 
       @Override
       public String getName() {
-        // XXX cleanup, should be resolved with the ResourceManager... ? TBD
-        // todo: regexp check
         if (PATTERN.matcher(name).matches()) {
           return name;
         } else {
@@ -89,7 +90,7 @@ public class FontAwesomeIconEncoder implements IconEncoder {
 
     private String name;
 
-    public FontAwesomeCssItem(String name) {
+    FontAwesomeCssItem(String name) {
       this.name = name;
     }
 

@@ -23,6 +23,10 @@ import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import java.io.IOException;
 
+/**
+ * @deprecated since Tobago 3.1.0. May be subject of change in later versions!
+ */
+@Deprecated
 public interface IconEncoder {
 
   void encode(TobagoResponseWriter writer, Icons icon, Style style, final CssItem... cssItems) throws IOException;

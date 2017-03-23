@@ -21,13 +21,12 @@ package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
 import org.apache.myfaces.tobago.component.UITreeIcon;
 import org.apache.myfaces.tobago.component.UITreeNode;
-import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.internal.component.AbstractUIData;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
-import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.FontAwesomeIconEncoder;
+import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
@@ -40,8 +39,20 @@ import java.io.IOException;
 
 public class TreeIconRenderer extends RendererBase {
 
+  /**
+   * @deprecated since Tobago 3.0.0
+   */
+  @Deprecated
   protected static final String OPEN_FOLDER = "image/treeNode-icon-open";
+  /**
+   * @deprecated since Tobago 3.0.0
+   */
+  @Deprecated
   protected static final String CLOSED_FOLDER = "image/treeNode-icon";
+  /**
+   * @deprecated since Tobago 3.0.0
+   */
+  @Deprecated
   protected static final String LEAF = "image/treeNode-icon-leaf";
 
   @Override
@@ -53,9 +64,17 @@ public class TreeIconRenderer extends RendererBase {
     final boolean folder = node.isFolder();
     final boolean expanded = folder && data.getExpandedState().isExpanded(node.getPath());
 
-    String value = (String) image.getValue();
+    final String value = (String) image.getValue();
     String closed = image.getClosed();
     String open = image.getOpen();
+
+    if (closed == null) {
+      closed = value;
+    }
+
+    if (open == null) {
+      open = closed;
+    }
 
     final String source;
     if (folder) {
@@ -70,11 +89,21 @@ public class TreeIconRenderer extends RendererBase {
 
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
+    writer.startElement(HtmlElements.SPAN);
+    writer.writeIdAttribute(image.getClientId());
+    writer.writeClassAttribute(TobagoClass.TREE_NODE__TOGGLE);
+
     if (StringUtils.startsWith(source, "fa-")) {
-      writer.writeIcon(null, image.getStyle(), FontAwesomeIconEncoder.generateClass(source));
+      writer.startElement(HtmlElements.I);
+      writer.writeStyleAttribute(image.getStyle());
+      writer.writeClassAttribute(FontAwesomeIconEncoder.FA, FontAwesomeIconEncoder.generateClass(source));
+      if (folder) {
+        writer.writeAttribute(DataAttributes.SRC_OPEN, open, true);
+        writer.writeAttribute(DataAttributes.SRC_CLOSED, closed, true);
+      }
+      writer.endElement(HtmlElements.I);
     } else {
       writer.startElement(HtmlElements.IMG);
-      writer.writeClassAttribute(Classes.create(node, "toggle", Markup.NULL));
       HtmlRendererUtils.writeDataAttributes(facesContext, writer, image);
       writer.writeAttribute(HtmlAttributes.SRC, source, true);
       if (folder) {
@@ -84,5 +113,7 @@ public class TreeIconRenderer extends RendererBase {
       writer.writeAttribute(HtmlAttributes.ALT, "", false);
       writer.endElement(HtmlElements.IMG);
     }
+
+    writer.endElement(HtmlElements.SPAN);
   }
 }
