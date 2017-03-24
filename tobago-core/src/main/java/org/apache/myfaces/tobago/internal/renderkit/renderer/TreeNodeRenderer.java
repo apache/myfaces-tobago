@@ -204,7 +204,7 @@ public class TreeNodeRenderer extends RendererBase {
     writer.startElement(HtmlElements.IMG);
     writer.writeClassAttribute(Classes.create(node, "toggle"));
     writer.writeAttribute(HtmlAttributes.SRC, src, false);
-    writer.writeAttribute(DataAttributes.SRC_OPEN, srcOpen, false);
+    writer.writeAttribute(DataAttributes.OPEN, srcOpen, false);
     writer.writeAttribute(DataAttributes.SRC_CLOSED, srcClose, false);
     writer.writeAttribute(HtmlAttributes.ALT, "", false);
     writer.endElement(HtmlElements.IMG);

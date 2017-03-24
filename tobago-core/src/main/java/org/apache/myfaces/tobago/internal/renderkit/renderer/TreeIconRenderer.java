@@ -98,8 +98,8 @@ public class TreeIconRenderer extends RendererBase {
       writer.writeStyleAttribute(image.getStyle());
       writer.writeClassAttribute(FontAwesomeIconEncoder.FA, FontAwesomeIconEncoder.generateClass(source));
       if (folder) {
-        writer.writeAttribute(DataAttributes.SRC_OPEN, open, true);
-        writer.writeAttribute(DataAttributes.SRC_CLOSED, closed, true);
+        writer.writeAttribute(DataAttributes.OPEN, open, true);
+        writer.writeAttribute(DataAttributes.CLOSED, closed, true);
       }
       writer.endElement(HtmlElements.I);
     } else {
@@ -107,8 +107,8 @@ public class TreeIconRenderer extends RendererBase {
       HtmlRendererUtils.writeDataAttributes(facesContext, writer, image);
       writer.writeAttribute(HtmlAttributes.SRC, source, true);
       if (folder) {
-        writer.writeAttribute(DataAttributes.SRC_OPEN, open, true);
-        writer.writeAttribute(DataAttributes.SRC_CLOSED, closed, true);
+        writer.writeAttribute(DataAttributes.OPEN, open, true);
+        writer.writeAttribute(DataAttributes.CLOSED, closed, true);
       }
       writer.writeAttribute(HtmlAttributes.ALT, "", false);
       writer.endElement(HtmlElements.IMG);

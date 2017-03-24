@@ -22,23 +22,21 @@ Tobago.Tree.toggleNode = function($element, event) {
   var $node = $element.closest(".tobago-treeNode, .tobago-treeMenuNode");
   var $data = $node.closest(".tobago-treeMenu, .tobago-tree, .tobago-sheet");
   var $expanded = $data.children(".tobago-treeMenu-expanded, .tobago-tree-expanded, .tobago-sheet-expanded");
-  var $toggle = $node.find(".tobago-treeMenuNode-toggle, .tobago-treeNode-toggle");
+  var $toggles = $node.find(".tobago-treeMenuNode-toggle, .tobago-treeNode-toggle");
   var rowIndex = Tobago.Tree.rowIndex($node);
   if (Tobago.Tree.isExpanded($node, $expanded)) {
     Tobago.Tree.hideChildren($node);
-    $toggle.find("i").each(function() {
-      var $t = jQuery(this);
-      var o = $t.data("tobago-src-open");
-      var c = $t.data("tobago-src-closed");
-      $t.removeClass(o).addClass(c);
+    $toggles.find("i").each(function() {
+      var $toggle = jQuery(this);
+      $toggle.removeClass($toggle.data("tobago-open")).addClass($toggle.data("tobago-closed"));
     });
-    $toggle.find("img").each(function() {
-      var $t = jQuery(this);
-      src = $t.data("tobago-src-closed");
+    $toggles.find("img").each(function() {
+      var $toggle = jQuery(this);
+      src = $toggle.data("tobago-closed");
       if (src === undefined) { // use the open icon if there is no close icon
-        src = $t.data("tobago-src-open");
+        src = $toggle.data("tobago-open");
       }
-      $t.attr("src", src);
+      $toggle.attr("src", src);
     });
     $expanded.val($expanded.val().replace(new RegExp("," + rowIndex + ","), ","));
     $node.filter(".tobago-treeNode").removeClass("tobago-treeNode-markup-expanded");
@@ -48,7 +46,7 @@ Tobago.Tree.toggleNode = function($element, event) {
     $expanded.val($expanded.val() + rowIndex + ",");
     if (reload) {
       jsf.ajax.request(
-          $toggle.parent().attr("id"),
+          $toggles.parent().attr("id"),
           event,
           {
             //"javax.faces.behavior.event": "click",
@@ -56,19 +54,17 @@ Tobago.Tree.toggleNode = function($element, event) {
             render: $data.attr("id")
           });
     } else {
-      $toggle.find("i").each(function() {
-        var $t = jQuery(this);
-        var c = $t.data("tobago-src-closed");
-        var o = $t.data("tobago-src-open");
-        $t.removeClass(c).addClass(o);
+      $toggles.find("i").each(function() {
+        var $toggle = jQuery(this);
+        $toggle.removeClass($toggle.data("tobago-closed")).addClass($toggle.data("tobago-open"));
       });
-      $toggle.find("img").each(function() {
-        var $t = jQuery(this);
-        src = $t.data("tobago-src-open");
+      $toggles.find("img").each(function() {
+        var $toggle = jQuery(this);
+        src = $toggle.data("tobago-open");
         if (src === undefined) { // use the close icon if there is no open icon
-          src = $t.data("tobago-src-closed");
+          src = $toggle.data("tobago-closed");
         }
-        $t.attr("src", src);
+        $toggle.attr("src", src);
       });
       $node.filter(".tobago-treeNode").addClass("tobago-treeNode-markup-expanded");
       $node.filter(".tobago-treeMenuNode").addClass("tobago-treeMenuNode-markup-expanded");

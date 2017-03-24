@@ -33,6 +33,11 @@ public enum DataAttributes implements MarkupLanguageAttributes {
   BEHAVIOR_COMMANDS("data-tobago-behavior-commands"),
 
   /**
+   * Contains the closed tree icon or style.
+   */
+  CLOSED("data-tobago-closed"),
+
+  /**
    * The index of the column of a sheet. This index means the position of the rendered column. It can differ, if there
    * are tc:column with rendered=false.
    */
@@ -84,11 +89,6 @@ public enum DataAttributes implements MarkupLanguageAttributes {
    */
   FIRST("data-tobago-first"),
 
-  /*
-   * Holds the index of the row in a sheet, if the sheed has a rowRendered attribute.
-   */
-  ROW_INDEX("data-tobago-row-index"),
-
   /**
    * Holds the first day of a week of a calendar control.
    */
@@ -114,6 +114,11 @@ public enum DataAttributes implements MarkupLanguageAttributes {
    */
   MONTH_NAMES("data-tobago-month-names"),
 
+  /**
+   * Contains the open tree icon or style.
+   */
+  OPEN("data-tobago-open"),
+
   PARTIAL_IDS("data-tobago-partial-ids"),
 
   PARTIAL_ACTION("data-tobago-partial-action"),
@@ -130,6 +135,11 @@ public enum DataAttributes implements MarkupLanguageAttributes {
 
   ROW_ACTION("data-tobago-row-action"),
 
+  /*
+   * Holds the index of the row in a sheet, if the sheed has a rowRendered attribute.
+   */
+  ROW_INDEX("data-tobago-row-index"),
+
   SELECTION_MODE("data-tobago-selection-mode"),
 
   /**
@@ -141,16 +151,6 @@ public enum DataAttributes implements MarkupLanguageAttributes {
    * Reference to a sheet.
    */
   SHEET_ID("data-tobago-sheet-id"),
-
-  /**
-   * Alternate to the src attribute, icon open and close.
-   */
-  SRC_CLOSED("data-tobago-src-closed"),
-
-  /**
-   * Alternate to the src attribute, icon open and close.
-   */
-  SRC_OPEN("data-tobago-src-open"),
 
   /**
    * A way to transport style data in JSON format to the browser. With CSP the normal style attribute isn't allowed.

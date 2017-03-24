@@ -81,9 +81,9 @@ public class TreeIndentRenderer extends RendererBase {
     writer.writeClassAttribute(FontAwesomeIconEncoder.FA, FontAwesomeIconEncoder.generateClass(icon));
     if (folder) {
       writer.writeAttribute(
-          DataAttributes.SRC_OPEN, FontAwesomeIconEncoder.generateClass(Icons.MINUS_SQUARE_O).getName(), false);
+          DataAttributes.OPEN, FontAwesomeIconEncoder.generateClass(Icons.MINUS_SQUARE_O).getName(), false);
       writer.writeAttribute(
-          DataAttributes.SRC_CLOSED, FontAwesomeIconEncoder.generateClass(Icons.PLUS_SQUARE_O).getName(), false);
+          DataAttributes.CLOSED, FontAwesomeIconEncoder.generateClass(Icons.PLUS_SQUARE_O).getName(), false);
     }
     writer.endElement(HtmlElements.I);
   }
