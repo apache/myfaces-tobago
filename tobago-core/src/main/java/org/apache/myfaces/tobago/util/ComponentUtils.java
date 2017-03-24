@@ -801,6 +801,9 @@ public final class ComponentUtils {
     return map != null ? map.get(name) : null;
   }
 
+  /**
+   * May return null, if no converter can be find.
+   */
   public static Converter getConverter(
       final FacesContext facesContext, final UIComponent component, final Object value) {
 
@@ -819,7 +822,9 @@ public final class ComponentUtils {
           // ignore, seems not to be possible, when EL is a function like #{bean.getName(item.id)}
         }
         if (converterType == null) {
-          converterType = value.getClass();
+          if (value != null) {
+            converterType = value.getClass();
+          }
         }
         if (converterType != null && converterType != Object.class) {
           converter = facesContext.getApplication().createConverter(converterType);
