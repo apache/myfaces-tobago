@@ -20,7 +20,8 @@
 <ui:composition template="/main.xhtml"
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
-                xmlns:ui="http://java.sun.com/jsf/facelets">
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core">
   <ui:param name="title" value="#{demoBundle.sheet_column_selector} &lt;tc:columnSelector>"/>
   <p>To insert a selectable column, use the <code class="language-markup">&lt;tc:columnSelector/></code> tag.
     With the <code>selectable</code> in the <code class="language-markup">&lt;tc:sheet/></code> tag, you can
@@ -44,7 +45,7 @@
     &lt;/tc:column>
     ...</code></pre>
     <tc:sheet id="s4" value="#{sheetController.solarList}" var="object" rows="2"
-              selectable="singleOrNone" state="#{sheetController.sheetState}">
+              selectable="#{sheetController.selectable}" state="#{sheetController.sheetState}">
       <tc:columnSelector/>
       <tc:column label="Name">
         <tc:in value="#{object.name}" labelLayout="skip"/>
@@ -63,7 +64,12 @@
       </tc:column>
     </tc:sheet>
 
+    <tc:selectOneRadio label="Mode" value="#{sheetController.selectable}">
+      <tc:selectItems value="#{sheetController.selectableModes}"/>
+      <f:ajax render="s4"/>
+    </tc:selectOneRadio>
+
     <tc:button id="b1" label="Submit"/>
-    <tc:out id="o1" label="Row Number" value="#{sheetController.selectedRowNumber}"/>
+    <tc:out id="o1" label="Row Number" value="#{sheetController.sheetState.selectedRows}"/>
   </tc:section>
 </ui:composition>
