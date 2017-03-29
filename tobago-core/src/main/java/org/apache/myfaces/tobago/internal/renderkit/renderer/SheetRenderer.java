@@ -59,6 +59,7 @@ import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.CssItem;
+import org.apache.myfaces.tobago.renderkit.css.CustomClass;
 import org.apache.myfaces.tobago.renderkit.css.Icons;
 import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
@@ -582,7 +583,6 @@ public class SheetRenderer extends RendererBase {
       if (rowMarkups != null) {
         rowMarkup = rowMarkup.add(Markup.valueOf(rowMarkups));
       }
-      writer.writeClassAttribute(Classes.create(sheet, "row", rowMarkup), selected ? BootstrapClass.TABLE_INFO : null);
       if (!sheet.isRowVisible()) {
         final Style rowStyle = new Style();
         rowStyle.setDisplay(Display.none);
@@ -593,17 +593,24 @@ public class SheetRenderer extends RendererBase {
         writer.writeAttribute(DataAttributes.TREE_PARENT, parentId, false);
       }
 
+
+      CustomClass rowClass = null;
       for (final UIColumn column : columns) {
         if (column.isRendered()) {
           if (column instanceof AbstractUIRow) {
             final AbstractUIRow row = (AbstractUIRow) column;
             writer.writeCommandMapAttribute(JsonUtils.encode(RenderUtils.getBehaviorCommands(facesContext, row)));
             writer.writeIdAttribute(row.getClientId(facesContext));
-
+            rowClass = row.getCustomClass();
+            writer.writeStyleAttribute(row.getStyle());
             // todo: Markup.CLICKABLE ???
           }
         }
       }
+      writer.writeClassAttribute(
+          Classes.create(sheet, "row", rowMarkup),
+          selected ? BootstrapClass.TABLE_INFO : null,
+          rowClass);
 
       for (final UIColumn column : columns) {
         if (column.isRendered()) {
@@ -755,6 +762,9 @@ public class SheetRenderer extends RendererBase {
 
     for (int i = 0; i < grid.getRowCount(); i++) {
       writer.startElement(HtmlElements.TR);
+      final AbstractUIRow row = ComponentUtils.findChild(sheet, AbstractUIRow.class);
+      writer.writeClassAttribute(row.getCustomClass());
+      writer.writeStyleAttribute(row.getStyle());
       for (int j = 0; j < columns.size(); j++) {
         final AbstractUIColumnBase column = columns.get(j);
         if (!column.isRendered() || column instanceof AbstractUIRow) {
