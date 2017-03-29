@@ -63,7 +63,10 @@
               <f:ajax execute=":::sheet" render=":::sheet" listener="#{sheetFilterController.filter}"/>
             </tc:selectOneChoice>
           </tc:panel>
-          <tc:out value="Period"/>
+          <tc:panel>
+            <tc:out value="Period"/>
+            <tc:out value=""/>
+          </tc:panel>
           <tc:panel>
             <tc:out value="Discoverer"/>
             <tc:in value="#{sheetFilterController.discoverer}">
