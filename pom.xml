@@ -41,6 +41,7 @@
     <mojarra20.version>2.0.11-04</mojarra20.version>
     <mojarra21.version>2.1.29-08</mojarra21.version>
     <mojarra22.version>2.2.14</mojarra22.version>
+    <mojarra23.version>2.3.0</mojarra23.version>
     <slf4j.version>1.7.22</slf4j.version>
     <logback.version>1.1.8</logback.version>
     <commons-collection.version>3.2.2</commons-collection.version>
@@ -1372,6 +1373,31 @@
       </dependencyManagement>
     </profile>
 
+    <profile>
+      <id>mojarra-2.3</id>
+      <activation>
+        <property>
+          <name>jsf</name>
+          <value>mojarra-2.3</value>
+        </property>
+      </activation>
+      <dependencyManagement>
+        <dependencies>
+          <dependency>
+            <groupId>javax.faces</groupId>
+            <artifactId>javax.faces-api</artifactId>
+            <version>2.3</version>
+            <optional>true</optional>
+          </dependency>
+          <dependency>
+            <groupId>org.glassfish</groupId>
+            <artifactId>javax.faces</artifactId>
+            <version>${mojarra23.version}</version>
+            <optional>true</optional>
+          </dependency>
+        </dependencies>
+      </dependencyManagement>
+    </profile>
   </profiles>
 
   <contributors>

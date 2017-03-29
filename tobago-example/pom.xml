@@ -388,6 +388,33 @@
     </profile>
 
     <profile>
+      <id>mojarra-2.3</id>
+      <activation>
+        <property>
+          <name>jsf</name>
+          <value>mojarra-2.3</value>
+        </property>
+      </activation>
+      <properties>
+        <override-web-xml>../src/test/jetty/override-mojarra-web.xml</override-web-xml>
+      </properties>
+      <dependencies>
+        <dependency>
+          <groupId>javax.faces</groupId>
+          <artifactId>javax.faces-api</artifactId>
+          <version>2.3</version>
+          <optional>true</optional>
+        </dependency>
+        <dependency>
+          <groupId>org.glassfish</groupId>
+          <artifactId>javax.faces</artifactId>
+          <version>${mojarra23.version}</version>
+          <optional>true</optional>
+        </dependency>
+      </dependencies>
+    </profile>
+
+    <profile>
       <id>liberty</id>
 <!--
       <properties>
