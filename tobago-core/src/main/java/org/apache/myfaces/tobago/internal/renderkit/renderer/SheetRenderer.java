@@ -763,8 +763,6 @@ public class SheetRenderer extends RendererBase {
           final Cell cell = grid.getCell(j - offset, i);
           if (cell instanceof OriginCell) {
             writer.startElement(HtmlElements.TH);
-            writer.writeClassAttribute(column.getCustomClass());
-            writer.writeStyleAttribute(column.getStyle());
             if (cell.getColumnSpan() > 1) {
               writer.writeAttribute(HtmlAttributes.COLSPAN, cell.getColumnSpan());
             }
@@ -795,7 +793,8 @@ public class SheetRenderer extends RendererBase {
             } else {
               align = null;
             }
-            writer.writeClassAttribute(Classes.create(sheet, "headerCell"), align);
+            writer.writeClassAttribute(Classes.create(sheet, "headerCell"), column.getCustomClass(), align);
+            writer.writeStyleAttribute(column.getStyle());
             writer.startElement(HtmlElements.SPAN);
             Icons sorterIcon = null;
             Markup markup = Markup.NULL;
