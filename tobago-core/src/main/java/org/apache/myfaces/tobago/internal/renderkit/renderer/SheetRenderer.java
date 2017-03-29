@@ -763,8 +763,10 @@ public class SheetRenderer extends RendererBase {
     for (int i = 0; i < grid.getRowCount(); i++) {
       writer.startElement(HtmlElements.TR);
       final AbstractUIRow row = ComponentUtils.findChild(sheet, AbstractUIRow.class);
-      writer.writeClassAttribute(row.getCustomClass());
-      writer.writeStyleAttribute(row.getStyle());
+      if (row != null) {
+        writer.writeClassAttribute(row.getCustomClass());
+        writer.writeStyleAttribute(row.getStyle());
+      }
       for (int j = 0; j < columns.size(); j++) {
         final AbstractUIColumnBase column = columns.get(j);
         if (!column.isRendered() || column instanceof AbstractUIRow) {
