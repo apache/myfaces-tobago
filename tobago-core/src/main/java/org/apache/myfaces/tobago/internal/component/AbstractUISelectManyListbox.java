@@ -24,6 +24,9 @@ import org.apache.myfaces.tobago.util.ComponentUtils;
 
 import javax.faces.context.FacesContext;
 
+/**
+ * {@link org.apache.myfaces.tobago.internal.taglib.component.SelectManyListboxTagDeclaration}
+ */
 public abstract class AbstractUISelectManyListbox extends AbstractUISelectManyBase implements SupportFieldId {
 
   @Override

@@ -19,7 +19,6 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
-
 import org.apache.myfaces.tobago.component.SupportsLabelLayout;
 import org.apache.myfaces.tobago.component.Visual;
 
@@ -27,6 +26,9 @@ import javax.faces.component.UISelectMany;
 import javax.faces.component.behavior.ClientBehaviorHolder;
 import java.util.Collection;
 
+/**
+ * Base class for multi select.
+ */
 public abstract class AbstractUISelectManyBase extends UISelectMany
     implements Visual, SupportsLabelLayout, ClientBehaviorHolder {
 

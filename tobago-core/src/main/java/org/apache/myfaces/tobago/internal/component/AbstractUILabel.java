@@ -24,6 +24,9 @@ import org.apache.myfaces.tobago.component.Visual;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 
+/**
+ * {@link org.apache.myfaces.tobago.internal.taglib.component.LabelTagDeclaration}
+ */
 public abstract class AbstractUILabel
     extends javax.faces.component.UIOutput implements Visual {
 

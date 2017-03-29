@@ -27,6 +27,9 @@ import javax.faces.component.UISelectItem;
 import javax.faces.component.UISelectMany;
 import javax.faces.context.FacesContext;
 
+/**
+ * {@link org.apache.myfaces.tobago.internal.taglib.component.SelectItemTagDeclaration}
+ */
 public class AbstractUISelectItem extends UISelectItem {
 
   private static final Logger LOG = LoggerFactory.getLogger(AbstractUISelectItem.class);

@@ -21,6 +21,9 @@ package org.apache.myfaces.tobago.internal.component;
 
 import org.apache.myfaces.tobago.component.Visual;
 
+/**
+ * {@link org.apache.myfaces.tobago.internal.taglib.component.FlowLayoutTagDeclaration}
+ */
 public abstract class AbstractUIFlowLayout extends AbstractUILayoutBase implements Visual {
 
   public static final String COMPONENT_FAMILY = "org.apache.myfaces.tobago.FlowLayout";

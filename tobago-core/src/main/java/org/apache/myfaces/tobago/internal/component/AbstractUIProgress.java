@@ -32,6 +32,9 @@ import javax.faces.event.ListenerFor;
 import javax.faces.event.PreRenderComponentEvent;
 import javax.swing.BoundedRangeModel;
 
+/**
+ * {@link org.apache.myfaces.tobago.internal.taglib.component.ProgressTagDeclaration}
+ */
 @ListenerFor(systemEventClass = PreRenderComponentEvent.class)
 public abstract class AbstractUIProgress extends UIOutput
     implements Visual, ComponentSystemEventListener, ClientBehaviorHolder {

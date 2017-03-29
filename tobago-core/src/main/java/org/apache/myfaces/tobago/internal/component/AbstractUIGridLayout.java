@@ -39,6 +39,13 @@ import javax.faces.event.ListenerFor;
 import javax.faces.event.PreRenderComponentEvent;
 import java.util.List;
 
+/**
+ * <p>
+ * WARNING: This component is preliminary and may be changed without a major release.
+ * </p>
+ *
+ * {@link org.apache.myfaces.tobago.internal.taglib.component.GridLayoutTagDeclaration}
+ */
 @ListenerFor(systemEventClass = PreRenderComponentEvent.class)
 public abstract class AbstractUIGridLayout extends AbstractUILayoutBase
     implements Visual, ComponentSystemEventListener {

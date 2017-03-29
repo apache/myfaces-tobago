@@ -31,6 +31,9 @@ import javax.faces.component.behavior.ClientBehaviorHolder;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.Part;
 
+/**
+ * {@link org.apache.myfaces.tobago.internal.taglib.component.FileTagDeclaration}
+ */
 public abstract class AbstractUIFile extends UIInput implements SupportsLabelLayout, Visual, ClientBehaviorHolder,
     SupportFieldId {
 

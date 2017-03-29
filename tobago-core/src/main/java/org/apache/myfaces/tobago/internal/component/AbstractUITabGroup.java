@@ -44,6 +44,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * {@link org.apache.myfaces.tobago.internal.taglib.component.TabGroupTagDeclaration}
+ */
 public abstract class AbstractUITabGroup extends AbstractUIPanelBase
     implements TabChangeSource2, ActionSource2, ClientBehaviorHolder, Visual {
 

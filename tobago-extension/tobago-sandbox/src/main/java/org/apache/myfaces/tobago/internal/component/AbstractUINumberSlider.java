@@ -25,6 +25,11 @@ import javax.faces.context.FacesContext;
 import javax.faces.validator.LongRangeValidator;
 import javax.faces.validator.ValidatorException;
 
+/**
+ * <p>
+ * WARNING: This component is preliminary and may be changed without a major release.
+ * </p>
+ */
 public abstract class AbstractUINumberSlider extends javax.faces.component.UIInput implements Visual {
 
   public abstract Integer getMin();

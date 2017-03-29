@@ -40,6 +40,9 @@ import javax.swing.tree.TreeNode;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * Base class for sheet and tree.
+ */
 public abstract class AbstractUIData extends javax.faces.component.UIData implements Visual {
 
   private static final Logger LOG = LoggerFactory.getLogger(AbstractUIData.class);

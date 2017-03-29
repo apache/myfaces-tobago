@@ -32,6 +32,9 @@ import javax.faces.component.NamingContainer;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
+/**
+ * {@link org.apache.myfaces.tobago.internal.taglib.component.TreeTagDeclaration}
+ */
 public abstract class AbstractUITree extends AbstractUIData implements NamingContainer, Visual {
 
   public static final String MESSAGE_NOT_LEAF = "tobago.tree.MESSAGE_NOT_LEAF";

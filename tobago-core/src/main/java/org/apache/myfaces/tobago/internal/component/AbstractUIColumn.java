@@ -19,6 +19,9 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
+/**
+ * {@link org.apache.myfaces.tobago.internal.taglib.component.ColumnTagDeclaration}
+ */
 public abstract class AbstractUIColumn extends AbstractUIColumnBase {
 
 //  public abstract Measure getWidth();

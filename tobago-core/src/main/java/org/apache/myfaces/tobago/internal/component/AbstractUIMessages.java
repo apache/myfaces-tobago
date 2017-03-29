@@ -31,6 +31,9 @@ import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 
+/**
+ * {@link org.apache.myfaces.tobago.internal.taglib.component.MessagesTagDeclaration}
+ */
 public abstract class AbstractUIMessages extends javax.faces.component.UIMessages
     implements Visual {
 

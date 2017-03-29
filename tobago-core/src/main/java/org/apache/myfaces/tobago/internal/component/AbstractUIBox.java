@@ -19,6 +19,9 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
+/**
+ * {@link org.apache.myfaces.tobago.internal.taglib.component.BoxTagDeclaration}
+ */
 public abstract class AbstractUIBox extends AbstractUICollapsiblePanel {
 
   public abstract String getLabel();

@@ -28,6 +28,9 @@ import org.apache.myfaces.tobago.util.ComponentUtils;
 import javax.faces.component.behavior.ClientBehaviorHolder;
 import javax.faces.context.FacesContext;
 
+/**
+ * Base class for some inputs.
+ */
 public abstract class AbstractUIInput extends javax.faces.component.UIInput
     implements SupportsAccessKey, SupportsLabelLayout, Visual, ClientBehaviorHolder, SupportFieldId {
 

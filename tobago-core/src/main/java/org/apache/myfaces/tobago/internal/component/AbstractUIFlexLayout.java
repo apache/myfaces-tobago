@@ -22,7 +22,7 @@ package org.apache.myfaces.tobago.internal.component;
 import org.apache.myfaces.tobago.component.Visual;
 
 /**
- * A layout manager which uses the CSS flex feature.
+ * {@link org.apache.myfaces.tobago.internal.taglib.component.FlexLayoutTagDeclaration}
  *
  * @since 3.0.0
  */

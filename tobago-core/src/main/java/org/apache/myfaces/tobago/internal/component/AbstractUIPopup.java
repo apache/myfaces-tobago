@@ -21,6 +21,9 @@ package org.apache.myfaces.tobago.internal.component;
 
 import javax.faces.component.NamingContainer;
 
+/**
+ * {@link org.apache.myfaces.tobago.internal.taglib.component.PopupTagDeclaration}
+ */
 public abstract class AbstractUIPopup extends AbstractUICollapsiblePanel
     implements NamingContainer {
 }

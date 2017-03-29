@@ -29,6 +29,9 @@ import javax.faces.component.UIOutput;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 
+/**
+ * {@link org.apache.myfaces.tobago.internal.taglib.component.SectionTagDeclaration}
+ */
 public abstract class AbstractUISection extends AbstractUICollapsiblePanel {
 
   private static final Logger LOG = LoggerFactory.getLogger(AbstractUISection.class);

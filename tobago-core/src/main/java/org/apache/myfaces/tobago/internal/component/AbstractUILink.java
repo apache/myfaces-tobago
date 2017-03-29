@@ -21,6 +21,9 @@ package org.apache.myfaces.tobago.internal.component;
 
 import org.apache.myfaces.tobago.component.SupportsAccessKey;
 
+/**
+ * {@link org.apache.myfaces.tobago.internal.taglib.component.LinkTagDeclaration}
+ */
 public abstract class AbstractUILink extends AbstractUICommand implements SupportsAccessKey {
 
   public abstract java.lang.String getImage();

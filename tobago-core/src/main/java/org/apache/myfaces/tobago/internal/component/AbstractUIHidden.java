@@ -21,6 +21,9 @@ package org.apache.myfaces.tobago.internal.component;
 
 import javax.faces.component.UIInput;
 
+/**
+ * {@link org.apache.myfaces.tobago.internal.taglib.component.HiddenTagDeclaration}
+ */
 public abstract class AbstractUIHidden extends UIInput {
 
   public abstract boolean isDisabled();

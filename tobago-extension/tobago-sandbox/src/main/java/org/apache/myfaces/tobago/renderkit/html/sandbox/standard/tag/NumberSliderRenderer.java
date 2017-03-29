@@ -38,6 +38,11 @@ import javax.faces.context.FacesContext;
 import java.io.IOException;
 import java.util.Map;
 
+/**
+ * <p>
+ * WARNING: This component is preliminary and may be changed without a major release.
+ * </p>
+ */
 public class NumberSliderRenderer extends RendererBase {
 
   @Override

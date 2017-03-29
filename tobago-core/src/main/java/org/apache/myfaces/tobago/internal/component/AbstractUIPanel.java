@@ -21,5 +21,8 @@ package org.apache.myfaces.tobago.internal.component;
 
 import javax.faces.component.behavior.ClientBehaviorHolder;
 
+/**
+ * {@link org.apache.myfaces.tobago.internal.taglib.component.PanelTagDeclaration}
+ */
 public abstract class AbstractUIPanel extends AbstractUICollapsiblePanel implements ClientBehaviorHolder {
 }

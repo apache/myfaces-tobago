@@ -19,6 +19,9 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
+/**
+ * {@link org.apache.myfaces.tobago.internal.taglib.component.FormTagDeclaration}
+ */
 public abstract class AbstractUIForm extends AbstractUIFormBase {
 
   public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.Form";

@@ -22,6 +22,8 @@ package org.apache.myfaces.tobago.internal.component;
 import org.apache.myfaces.tobago.component.Visual;
 
 /**
+ * {@link org.apache.myfaces.tobago.internal.taglib.component.ColumnNodeTagDeclaration}
+ *
  * @since Tobago 2.0.0
  */
 public abstract class AbstractUIColumnNode extends AbstractUITreeNodeBase implements Visual {

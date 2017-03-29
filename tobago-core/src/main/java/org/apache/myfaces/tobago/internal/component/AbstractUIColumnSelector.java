@@ -19,6 +19,9 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
+/**
+ * {@link org.apache.myfaces.tobago.internal.taglib.component.ColumnSelectorTagDeclaration}
+ */
 public abstract class AbstractUIColumnSelector extends AbstractUIColumn {
 
 /* TBD

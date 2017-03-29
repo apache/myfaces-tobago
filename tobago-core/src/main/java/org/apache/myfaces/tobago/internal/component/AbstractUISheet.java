@@ -61,6 +61,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * {@link org.apache.myfaces.tobago.internal.taglib.component.SheetTagDeclaration}
+ */
 @ListenerFor(systemEventClass = PreRenderComponentEvent.class)
 public abstract class AbstractUISheet extends AbstractUIData
     implements SheetStateChangeSource2, SortActionSource2, ClientBehaviorHolder, Visual,

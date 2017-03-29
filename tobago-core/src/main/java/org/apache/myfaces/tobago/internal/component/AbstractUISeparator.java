@@ -23,5 +23,8 @@ import org.apache.myfaces.tobago.component.Visual;
 
 import javax.faces.component.UIComponentBase;
 
+/**
+ * {@link org.apache.myfaces.tobago.internal.taglib.component.SeparatorTagDeclaration}
+ */
 public abstract class AbstractUISeparator extends UIComponentBase implements Visual {
 }

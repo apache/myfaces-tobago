@@ -22,8 +22,7 @@ package org.apache.myfaces.tobago.internal.component;
 import javax.faces.component.UIComponentBase;
 
 /**
- *
+ * Base class for the layout manager components.
  */
 public abstract class AbstractUILayoutBase extends UIComponentBase {
-
 }

@@ -23,5 +23,8 @@ import org.apache.myfaces.tobago.component.Visual;
 
 import javax.faces.component.UIGraphic;
 
+/**
+ * {@link org.apache.myfaces.tobago.internal.taglib.component.TreeIndentTagDeclaration}
+ */
 public abstract class AbstractUITreeIndent extends UIGraphic implements Visual {
 }

@@ -31,10 +31,14 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
 import org.apache.myfaces.tobago.layout.Orientation;
 
 /**
-   * Renders a SplitLayout.
-   * A area with two child components rendered horizontally or vertically and allows to change the
-   * layout relation of this two components on the client.
-   */
+ * <p>
+ * WARNING: This component is preliminary and may be changed without a major release.
+ * </p>
+ *
+ * Renders a SplitLayout.
+ * A area with two child components rendered horizontally or vertically and allows to change the
+ * layout relation of this two components on the client.
+ */
 @Tag(name = "splitLayout")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UISplitLayout",

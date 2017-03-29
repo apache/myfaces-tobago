@@ -37,6 +37,9 @@ import javax.faces.event.PostAddToViewEvent;
 import java.util.Iterator;
 import java.util.List;
 
+/**
+ * Base class for commands.
+ */
 @ListenerFor(systemEventClass = PostAddToViewEvent.class)
 public abstract class AbstractUICommandBase extends UICommand
     implements ComponentSystemEventListener {

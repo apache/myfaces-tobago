@@ -22,16 +22,15 @@ package org.apache.myfaces.tobago.internal.component;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.model.CollapseMode;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.el.ValueExpression;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
+/**
+ * Base class for collapsible panels.
+ */
 public abstract class AbstractUICollapsiblePanel extends AbstractUIPanelBase {
-
-  private static final Logger LOG = LoggerFactory.getLogger(AbstractUICollapsiblePanel.class);
 
   private transient Boolean submittedCollapsed;
 

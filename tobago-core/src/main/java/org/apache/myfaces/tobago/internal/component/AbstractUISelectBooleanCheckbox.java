@@ -31,6 +31,9 @@ import javax.faces.component.UISelectBoolean;
 import javax.faces.component.behavior.ClientBehaviorHolder;
 import javax.faces.context.FacesContext;
 
+/**
+ * {@link org.apache.myfaces.tobago.internal.taglib.component.SelectBooleanCheckboxTagDeclaration}
+ */
 public abstract class AbstractUISelectBooleanCheckbox extends UISelectBoolean
     implements Visual, ClientBehaviorHolder, SupportFieldId, SupportsAccessKey, SupportsLabelLayout {
 

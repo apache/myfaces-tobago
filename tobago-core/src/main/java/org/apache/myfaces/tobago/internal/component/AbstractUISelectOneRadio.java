@@ -19,5 +19,8 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
+/**
+ * {@link org.apache.myfaces.tobago.internal.taglib.component.SelectOneRadioTagDeclaration}
+ */
 public abstract class AbstractUISelectOneRadio extends AbstractUISelectOneBase {
 }

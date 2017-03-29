@@ -29,6 +29,9 @@ import javax.faces.component.UIComponentBase;
 import javax.faces.component.behavior.ClientBehaviorHolder;
 import javax.faces.context.FacesContext;
 
+/**
+ * {@link org.apache.myfaces.tobago.internal.taglib.component.SuggestTagDeclaration}
+ */
 public abstract class AbstractUISuggest
     extends UIComponentBase implements InputSuggest2, ClientBehaviorHolder {
 

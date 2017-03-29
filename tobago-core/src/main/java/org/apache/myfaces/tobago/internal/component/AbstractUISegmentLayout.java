@@ -23,6 +23,8 @@ import org.apache.myfaces.tobago.component.Visual;
 import org.apache.myfaces.tobago.layout.ColumnPartition;
 
 /**
+ * {@link org.apache.myfaces.tobago.internal.taglib.component.SegmentLayoutTagDeclaration}
+ *
  * @since 3.0.0
  */
 public abstract class AbstractUISegmentLayout extends AbstractUILayoutBase implements Visual {

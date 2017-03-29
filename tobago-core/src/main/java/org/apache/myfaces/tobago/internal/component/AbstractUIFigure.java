@@ -19,6 +19,9 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
+/**
+ * {@link org.apache.myfaces.tobago.internal.taglib.component.FigureTagDeclaration}
+ */
 public abstract class AbstractUIFigure extends AbstractUIPanelBase {
 
   public abstract String getLabel();

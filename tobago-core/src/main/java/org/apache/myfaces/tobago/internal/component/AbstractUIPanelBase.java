@@ -26,6 +26,9 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 
+/**
+ * Base class for panels.
+ */
 public abstract class AbstractUIPanelBase extends javax.faces.component.UIPanel implements Visual {
 
   @Override

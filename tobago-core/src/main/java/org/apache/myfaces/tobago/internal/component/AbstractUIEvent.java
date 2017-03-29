@@ -21,6 +21,9 @@ package org.apache.myfaces.tobago.internal.component;
 
 import org.apache.myfaces.tobago.component.ClientBehaviors;
 
+/**
+ * {@link org.apache.myfaces.tobago.internal.taglib.component.EventTagDeclaration}
+ */
 public abstract class AbstractUIEvent extends AbstractUICommandBase {
 
   public abstract ClientBehaviors getEvent();

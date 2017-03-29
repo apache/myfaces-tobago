@@ -19,6 +19,9 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
+/**
+ * {@link org.apache.myfaces.tobago.internal.taglib.component.ButtonTagDeclaration}
+ */
 public abstract class AbstractUIButton extends AbstractUICommand {
 
 }

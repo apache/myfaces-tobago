@@ -24,5 +24,8 @@ import org.apache.myfaces.tobago.component.Visual;
 
 import javax.faces.component.UIOutput;
 
+/**
+ * {@link org.apache.myfaces.tobago.internal.taglib.component.OutTagDeclaration}
+ */
 public abstract class AbstractUIOut extends UIOutput implements SupportsLabelLayout, Visual {
 }

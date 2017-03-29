@@ -28,6 +28,9 @@ import javax.faces.component.UIInput;
 import javax.faces.component.behavior.ClientBehaviorHolder;
 import javax.faces.context.FacesContext;
 
+/**
+ * Base class for select one.
+ */
 public abstract class AbstractUISelectOneBase extends javax.faces.component.UISelectOne
     implements Visual, SupportsLabelLayout, ClientBehaviorHolder {
 

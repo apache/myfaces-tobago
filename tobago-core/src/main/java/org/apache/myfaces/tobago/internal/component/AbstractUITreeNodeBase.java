@@ -29,6 +29,9 @@ import javax.faces.context.FacesContext;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * Base class for tree node.
+ */
 public abstract class AbstractUITreeNodeBase
     extends AbstractUIColumn implements Visual {
 

@@ -27,6 +27,9 @@ import javax.faces.component.UISelectBoolean;
 import javax.faces.component.behavior.ClientBehaviorHolder;
 import javax.faces.context.FacesContext;
 
+/**
+ * {@link org.apache.myfaces.tobago.internal.taglib.component.TreeSelectTagDeclaration}
+ */
 public abstract class AbstractUITreeSelect extends UISelectBoolean implements Visual, ClientBehaviorHolder {
 
   @Override

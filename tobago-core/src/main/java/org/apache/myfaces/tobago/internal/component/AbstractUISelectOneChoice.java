@@ -24,6 +24,9 @@ import org.apache.myfaces.tobago.util.ComponentUtils;
 
 import javax.faces.context.FacesContext;
 
+/**
+ * {@link org.apache.myfaces.tobago.internal.taglib.component.SelectOneChoiceTagDeclaration}
+ */
 public abstract class AbstractUISelectOneChoice extends AbstractUISelectOneBase implements SupportFieldId {
 
   @Override

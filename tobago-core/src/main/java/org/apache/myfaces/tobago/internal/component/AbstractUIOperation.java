@@ -21,6 +21,13 @@ package org.apache.myfaces.tobago.internal.component;
 
 import javax.faces.component.UIComponentBase;
 
+/**
+ * <p>
+ * WARNING: This component is preliminary and may be changed without a major release.
+ * </p>
+ *
+ * {@link org.apache.myfaces.tobago.internal.taglib.component.OperationTagDeclaration}
+ */
 public abstract class AbstractUIOperation extends UIComponentBase {
 
   public abstract String getName();

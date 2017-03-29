@@ -39,6 +39,11 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * <p>
+ * WARNING: This component is preliminary and may be changed without a major release.
+ * </p>
+ */
 public class SplitLayoutRenderer extends GridLayoutRenderer {
 
   private static final Logger LOG = LoggerFactory.getLogger(SplitLayoutRenderer.class);

@@ -21,6 +21,9 @@ package org.apache.myfaces.tobago.internal.component;
 
 import javax.faces.component.behavior.ClientBehaviorHolder;
 
+/**
+ * {@link org.apache.myfaces.tobago.internal.taglib.component.TabTagDeclaration}
+ */
 public abstract class AbstractUITab extends AbstractUIPanelBase implements ClientBehaviorHolder {
 
   public abstract String getLabel();

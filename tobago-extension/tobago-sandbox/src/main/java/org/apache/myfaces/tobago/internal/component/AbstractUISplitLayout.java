@@ -30,6 +30,13 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.util.List;
 
+/**
+ * <p>
+ * WARNING: This component is preliminary and may be changed without a major release.
+ * </p>
+ *
+ * {@link org.apache.myfaces.tobago.internal.taglib.sandbox.SplitLayoutTagDeclaration}
+ */
 public abstract class AbstractUISplitLayout extends AbstractUIGridLayout {
 
   private String submittedLayout;

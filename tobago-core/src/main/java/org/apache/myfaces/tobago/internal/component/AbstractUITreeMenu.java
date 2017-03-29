@@ -21,6 +21,9 @@ package org.apache.myfaces.tobago.internal.component;
 
 import org.apache.myfaces.tobago.model.Selectable;
 
+/**
+ * {@link org.apache.myfaces.tobago.internal.taglib.component.TreeMenuTagDeclaration}
+ */
 public abstract class AbstractUITreeMenu extends AbstractUITree {
 
   @Override

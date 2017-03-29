@@ -33,6 +33,10 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
 import javax.faces.component.UIInput;
 
 /**
+ * <p>
+ * WARNING: This component is preliminary and may be changed without a major release.
+ * </p>
+ *
  * Renders a slider to select a number in a range.
  */
 @Tag(name = "numberSlider")

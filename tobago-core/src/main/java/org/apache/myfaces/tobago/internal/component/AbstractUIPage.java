@@ -33,6 +33,9 @@ import javax.faces.context.FacesContext;
 import java.io.IOException;
 import java.util.Iterator;
 
+/**
+ * {@link org.apache.myfaces.tobago.internal.taglib.component.PageTagDeclaration}
+ */
 public abstract class AbstractUIPage extends AbstractUIFormBase implements Visual, ClientBehaviorHolder {
 
   private static final Logger LOG = LoggerFactory.getLogger(AbstractUIPage.class);

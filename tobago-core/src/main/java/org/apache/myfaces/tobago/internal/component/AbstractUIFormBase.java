@@ -29,6 +29,9 @@ import javax.faces.component.UIForm;
 import javax.faces.context.FacesContext;
 import java.util.Iterator;
 
+/**
+ * Base class for form and page.
+ */
 public abstract class AbstractUIFormBase extends UIForm {
 
   private static final Logger LOG = LoggerFactory.getLogger(AbstractUIFormBase.class);

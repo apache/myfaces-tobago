@@ -29,6 +29,9 @@ import javax.faces.convert.Converter;
 import javax.faces.convert.DateTimeConverter;
 import java.util.Date;
 
+/**
+ * {@link org.apache.myfaces.tobago.internal.taglib.component.DateTagDeclaration}
+ */
 public abstract class AbstractUIDate extends AbstractUIInput {
 
   private static final Logger LOG = LoggerFactory.getLogger(AbstractUIDate.class);

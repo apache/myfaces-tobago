@@ -33,6 +33,9 @@ import javax.faces.component.UIInput;
 import javax.faces.component.behavior.ClientBehaviorHolder;
 import javax.faces.context.FacesContext;
 
+/**
+ * Base class for commands.
+ */
 public abstract class AbstractUICommand extends AbstractUICommandBase
     implements SupportsAccessKey, Visual, ClientBehaviorHolder, SupportFieldId {
 

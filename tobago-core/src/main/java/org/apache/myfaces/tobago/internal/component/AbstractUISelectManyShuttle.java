@@ -19,6 +19,9 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
+/**
+ * {@link org.apache.myfaces.tobago.internal.taglib.component.SelectManyShuttleTagDeclaration}
+ */
 public abstract class AbstractUISelectManyShuttle extends AbstractUISelectManyBase {
 
   public abstract String getSelectedLabel();
