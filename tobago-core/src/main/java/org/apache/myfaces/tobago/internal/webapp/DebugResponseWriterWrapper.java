@@ -32,11 +32,14 @@ import javax.faces.context.ResponseWriter;
 import java.io.IOException;
 import java.io.Writer;
 import java.util.EmptyStackException;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.Stack;
 
 public class DebugResponseWriterWrapper extends TobagoResponseWriter {
 
   private Stack<Object> stack = new Stack<Object>();
+  private Set<MarkupLanguageAttributes> usedAttributes = new HashSet<MarkupLanguageAttributes>();
 
   private static final Logger LOG = LoggerFactory.getLogger(DebugResponseWriterWrapper.class);
 
@@ -89,16 +92,31 @@ public class DebugResponseWriterWrapper extends TobagoResponseWriter {
   public void writeAttribute(final MarkupLanguageAttributes name, final String value, final boolean escape)
       throws IOException {
     responseWriter.writeAttribute(name, value, escape);
+    if (usedAttributes.contains(name)) {
+      LOG.error("Duplicate attribute '" + name + "' in element <" + stack.peek() + ">!", new IllegalStateException());
+    } else {
+      usedAttributes.add(name);
+    }
   }
 
   @Override
   public void writeAttribute(final MarkupLanguageAttributes name, final HtmlTypes types) throws IOException {
     responseWriter.writeAttribute(name, types);
+    if (usedAttributes.contains(name)) {
+      LOG.error("Duplicate attribute '" + name + "' in element <" + stack.peek() + ">!", new IllegalStateException());
+    } else {
+      usedAttributes.add(name);
+    }
   }
 
   @Override
   public void writeURIAttribute(MarkupLanguageAttributes name, String string) throws IOException {
     responseWriter.writeURIAttribute(name, string);
+    if (usedAttributes.contains(name)) {
+      LOG.error("Duplicate attribute '" + name + "' in element <" + stack.peek() + ">!", new IllegalStateException());
+    } else {
+      usedAttributes.add(name);
+    }
   }
 
   @Override
@@ -175,6 +193,8 @@ public class DebugResponseWriterWrapper extends TobagoResponseWriter {
     }
     stack.push(name);
     responseWriter.startElement(name, currentComponent);
+
+    usedAttributes.clear();
   }
 
   @Override
@@ -184,6 +204,8 @@ public class DebugResponseWriterWrapper extends TobagoResponseWriter {
     }
     stack.push(name);
     responseWriter.startElement(name);
+
+    usedAttributes.clear();
   }
 
   @Override
