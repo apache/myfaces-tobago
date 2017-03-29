@@ -804,6 +804,10 @@ public final class ComponentUtils {
       map = new HashMap<Object, Object>();
       component.getAttributes().put(DATA_ATTRIBUTES_KEY, map);
     }
+    if (map.containsKey(name)) {
+      LOG.warn("Data attribute '{}' is already set for component '{}' (old value='{}', new value='{}')!",
+          name, component.getClientId(), map.get(name), value);
+    }
     map.put(name, value);
   }
 
