@@ -21,15 +21,16 @@ package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
 import org.apache.myfaces.tobago.internal.component.AbstractUISelectBooleanCheckbox;
 import org.apache.myfaces.tobago.internal.util.AccessKeyLogger;
+import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
+import org.apache.myfaces.tobago.internal.util.JsonUtils;
+import org.apache.myfaces.tobago.internal.util.RenderUtils;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
+import org.apache.myfaces.tobago.renderkit.css.CssItem;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
-import org.apache.myfaces.tobago.internal.util.JsonUtils;
-import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
-import org.apache.myfaces.tobago.internal.util.RenderUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import org.slf4j.Logger;
@@ -39,6 +40,8 @@ import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class SelectBooleanCheckboxRenderer extends MessageLayoutRendererBase {
 
@@ -80,19 +83,29 @@ public class SelectBooleanCheckboxRenderer extends MessageLayoutRendererBase {
     final String itemLabel = select.getItemLabel();
 
     writer.startElement(HtmlElements.DIV);
+    if (renderClientId()) {
+      writer.writeIdAttribute(clientId);
+    }
     writer.writeStyleAttribute(select.getStyle());
-    writer.writeClassAttribute(
-        Classes.create(select),
-        BootstrapClass.FORM_CHECK,
+
+    final List<CssItem> outerCssItems = new ArrayList<CssItem>();
+    addOuterCssItems(facesContext, select, outerCssItems);
+    outerCssItems.add(select.getCustomClass());
+    writer.writeClassAttribute(Classes.create(select),
         disabled ? BootstrapClass.DISABLED : null,
-        select.getCustomClass());
+        outerCssItems.toArray(new CssItem[outerCssItems.size()]));
+
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, select);
     if (title != null) {
       writer.writeAttribute(HtmlAttributes.TITLE, title, true);
     }
 
     writer.startElement(HtmlElements.LABEL);
-    writer.writeClassAttribute(BootstrapClass.FORM_CHECK_LABEL);
+    final List<CssItem> cssItems = new ArrayList<CssItem>();
+    addCssItems(facesContext, select, cssItems);
+    writer.writeClassAttribute(BootstrapClass.FORM_CHECK_LABEL,
+        null,
+        cssItems.toArray(new CssItem[cssItems.size()]));
     if (!disabled && label.getAccessKey() != null) {
       writer.writeAttribute(HtmlAttributes.ACCESSKEY, Character.toString(label.getAccessKey()), false);
       AccessKeyLogger.addAccessKey(facesContext, label.getAccessKey(), clientId);
@@ -122,5 +135,18 @@ public class SelectBooleanCheckboxRenderer extends MessageLayoutRendererBase {
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
     writer.endElement(HtmlElements.LABEL);
     writer.endElement(HtmlElements.DIV);
+  }
+
+  protected boolean renderClientId() {
+    return false;
+  }
+
+  protected void addOuterCssItems(final FacesContext facesContext, final AbstractUISelectBooleanCheckbox select,
+                                  final List<CssItem> collected) {
+    collected.add(BootstrapClass.FORM_CHECK);
+  }
+
+  protected void addCssItems(final FacesContext facesContext, final AbstractUISelectBooleanCheckbox select,
+                             final List<CssItem> collected) {
   }
 }

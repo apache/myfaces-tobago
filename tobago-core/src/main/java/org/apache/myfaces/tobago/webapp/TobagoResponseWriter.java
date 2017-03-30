@@ -208,11 +208,13 @@ public abstract class TobagoResponseWriter extends ResponseWriter {
       builder.append(' ');
       render = true;
     }
-    for (CssItem other : others) {
-      if (other != null) {
-        builder.append(other.getName());
-        builder.append(' ');
-        render = true;
+    if (others != null) {
+      for (CssItem other : others) {
+        if (other != null) {
+          builder.append(other.getName());
+          builder.append(' ');
+          render = true;
+        }
       }
     }
     if (render) {

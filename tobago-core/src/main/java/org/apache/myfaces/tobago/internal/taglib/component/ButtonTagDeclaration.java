@@ -60,7 +60,7 @@ import javax.faces.component.UICommand;
         "org.apache.myfaces.tobago.component.SupportsAccessKey"
     },
     componentFamily = UICommand.COMPONENT_FAMILY,
-    rendererType = RendererTypes.BUTTON,
+    rendererType = {RendererTypes.BUTTON, RendererTypes.BUTTON_ALTERNATIVE_IN},
     allowedChildComponenents = "NONE",
     facets = {
         @Facet(

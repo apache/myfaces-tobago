@@ -173,3 +173,27 @@ public class InRenderer extends MessageLayoutRendererBase {
       throws IOException {
   }
 }
+/*
+for (UIComponent child : children) {
+    if (child instanceof AbstractUIButton && ((AbstractUIButton) child).isParentOfCommands()) {
+    child.setRendererType(RendererTypes.BUTTON_ALTERNATIVE_IN);
+    RenderUtils.encode(facesContext, child);
+    } else {
+    writer.startElement(HtmlElements.SPAN);
+
+final CssItem cssItem;
+    if (child instanceof AbstractUIButton) {
+    cssItem = BootstrapClass.INPUT_GROUP_BTN;
+    } else if (child instanceof AbstractUISelectOneChoice) {
+    cssItem = BootstrapClass.INPUT_GROUP_BTN;
+    child.setRendererType(RendererTypes.SELECT_ONE_CHOICE_ALTERNATIVE_IN);
+    } else {
+    cssItem = BootstrapClass.INPUT_GROUP_ADDON;
+    }
+
+    writer.writeClassAttribute(cssItem);
+    RenderUtils.encode(facesContext, child);
+    writer.endElement(HtmlElements.SPAN);
+    }
+    }
+*/

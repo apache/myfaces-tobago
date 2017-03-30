@@ -163,7 +163,7 @@ public final class Measure implements Serializable {
     return result;
   }
 
-  private enum Unit {
+  public enum Unit {
 
     EM,
     PX,

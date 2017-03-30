@@ -27,6 +27,7 @@ import org.apache.myfaces.tobago.internal.util.RenderUtils;
 import org.apache.myfaces.tobago.internal.util.SelectItemUtils;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
+import org.apache.myfaces.tobago.renderkit.css.CssItem;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
@@ -38,6 +39,8 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class SelectOneRadioRenderer extends SelectOneRendererBase {
 
@@ -54,7 +57,10 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
     final boolean required = select.isRequired();
     final boolean inline = select.isInline();
 
-    writer.startElement(HtmlElements.OL);
+    writer.startElement(HtmlElements.DIV);
+    if (renderClientId()) {
+      writer.writeIdAttribute(id);
+    }
     writer.writeStyleAttribute(select.getStyle());
     writer.writeClassAttribute(
         Classes.create(select),
@@ -71,13 +77,19 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
     for (final SelectItem item : items) {
       final boolean itemDisabled = item.isDisabled() || disabled;
       final String itemId = id + ComponentUtils.SUB_SEPARATOR + i++;
-      writer.startElement(HtmlElements.LI);
-      writer.writeClassAttribute(
-          BootstrapClass.FORM_CHECK,
-          inline ? BootstrapClass.FORM_CHECK_INLINE : null,
-          itemDisabled ? BootstrapClass.DISABLED : null);
+      if (renderOuterItem()) {
+        writer.startElement(HtmlElements.DIV);
+        writer.writeClassAttribute(
+            BootstrapClass.FORM_CHECK,
+            inline ? BootstrapClass.FORM_CHECK_INLINE : null,
+            itemDisabled ? BootstrapClass.DISABLED : null);
+      }
       writer.startElement(HtmlElements.LABEL);
-      writer.writeClassAttribute(BootstrapClass.FORM_CHECK_LABEL);
+      final List<CssItem> cssItems = new ArrayList<CssItem>();
+      addCssItems(facesContext, select, cssItems);
+      writer.writeClassAttribute(BootstrapClass.FORM_CHECK_LABEL,
+          null,
+          cssItems.toArray(new CssItem[cssItems.size()]));
       writer.startElement(HtmlElements.INPUT);
       writer.writeClassAttribute(BootstrapClass.FORM_CHECK_INPUT);
       writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.RADIO);
@@ -120,13 +132,27 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
       }
 
       writer.endElement(HtmlElements.LABEL);
-      writer.endElement(HtmlElements.LI);
+      if (renderOuterItem()) {
+        writer.endElement(HtmlElements.DIV);
+      }
     }
   }
 
   @Override
   protected void encodeEndField(FacesContext facesContext, UIComponent component) throws IOException {
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
-    writer.endElement(HtmlElements.OL);
+    writer.endElement(HtmlElements.DIV);
+  }
+
+  protected boolean renderClientId() {
+    return false;
+  }
+
+  protected boolean renderOuterItem() {
+    return true;
+  }
+
+  protected void addCssItems(final FacesContext facesContext, final UISelectOneRadio select,
+                             final List<CssItem> collected) {
   }
 }

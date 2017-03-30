@@ -20,9 +20,13 @@
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
 import org.apache.myfaces.tobago.component.Attributes;
-import org.apache.myfaces.tobago.internal.component.AbstractUIButton;
+import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.internal.component.AbstractUICommand;
 import org.apache.myfaces.tobago.internal.component.AbstractUIFormBase;
+import org.apache.myfaces.tobago.internal.component.AbstractUILink;
+import org.apache.myfaces.tobago.internal.component.AbstractUISelectBooleanCheckbox;
+import org.apache.myfaces.tobago.internal.component.AbstractUISelectManyCheckbox;
+import org.apache.myfaces.tobago.internal.component.AbstractUISelectOneRadio;
 import org.apache.myfaces.tobago.internal.util.AccessKeyLogger;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.internal.util.JsonUtils;
@@ -32,17 +36,18 @@ import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.CssItem;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
+import org.apache.myfaces.tobago.renderkit.html.Arias;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlButtonTypes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
-import org.apache.myfaces.tobago.renderkit.html.HtmlRoleValues;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.faces.component.UIComponent;
+import javax.faces.component.UIParameter;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -62,18 +67,11 @@ public abstract class CommandRendererBase extends DecodingCommandRendererBase {
     final boolean link = command.getLink() != null && !disabled;
     final String target = command.getTarget();
     final boolean parentOfCommands = command.isParentOfCommands();
+    final boolean dropdownSubmenu = this instanceof LinkAlternativeCommandRenderer;
 
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
-    if (parentOfCommands) { // extra span
-      writer.startElement(HtmlElements.SPAN);
-      writer.writeIdAttribute(clientId);
-      if (component instanceof AbstractUIButton) { // todo: check if we should differ here
-        writer.writeClassAttribute(BootstrapClass.BTN_GROUP);
-      } else {
-        writer.writeClassAttribute(BootstrapClass.DROPDOWN);
-      }
-    }
+    encodeBeginOuter(facesContext, command);
 
     if (link) {
       writer.startElement(HtmlElements.A);
@@ -112,9 +110,10 @@ public abstract class CommandRendererBase extends DecodingCommandRendererBase {
 
     final List<CssItem> cssItems = new ArrayList<CssItem>();
     if (parentOfCommands) {
-      // XXX BootstrapClass.NAV_LINK should only be shown inside of UICommands or UIButtons
-      cssItems.add(BootstrapClass.DROPDOWN_TOGGLE);
+      cssItems.add(dropdownSubmenu ? null : BootstrapClass.DROPDOWN_TOGGLE);
       writer.writeAttribute(DataAttributes.TOGGLE, "dropdown", false);
+    } else {
+      addOuterCssItems(facesContext, command, cssItems);
     }
     addCssItems(facesContext, command, cssItems);
     final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, command);
@@ -143,12 +142,6 @@ public abstract class CommandRendererBase extends DecodingCommandRendererBase {
     } else {
       writer.endElement(HtmlElements.BUTTON);
     }
-
-    if (parentOfCommands) {
-      writer.startElement(HtmlElements.UL);
-      writer.writeClassAttribute(BootstrapClass.DROPDOWN_MENU);
-      writer.writeAttribute(HtmlAttributes.ROLE, HtmlRoleValues.MENU.toString(), false);
-    }
   }
 
   @Override
@@ -158,50 +151,82 @@ public abstract class CommandRendererBase extends DecodingCommandRendererBase {
 
   @Override
   public void encodeChildren(final FacesContext facesContext, final UIComponent component) throws IOException {
-
     final AbstractUICommand command = (AbstractUICommand) component;
+    final boolean parentOfCommands = command.isParentOfCommands();
 
-    if (command.isParentOfCommands()) {
-      final TobagoResponseWriter writer = getResponseWriter(facesContext);
+    final TobagoResponseWriter writer = getResponseWriter(facesContext);
+
+    if (parentOfCommands) {
+      writer.startElement(HtmlElements.DIV);
+      writer.writeClassAttribute(BootstrapClass.DROPDOWN_MENU);
+      writer.writeAttribute(Arias.LABELLEDBY, "dropdownMenuButton", false);
 
       for (final UIComponent child : component.getChildren()) {
-        if (child.isRendered()) {
-          writer.startElement(HtmlElements.LI);
-          final CssItem submenu;
-          final CssItem disabled;
-          if (child instanceof AbstractUICommand) {
-            final AbstractUICommand c = (AbstractUICommand) child;
-            submenu = c.isParentOfCommands() ? TobagoClass.DROPDOWN__SUBMENU : null;
-            disabled = c.isDisabled() ? BootstrapClass.DISABLED : null;
+        if (!(child instanceof UIParameter) && child.isRendered()) {
+          if (child instanceof AbstractUILink) {
+            child.setRendererType(RendererTypes.LINK_ALTERNATIVE_COMMAND);
+            child.encodeAll(facesContext);
+          } else if (child instanceof AbstractUISelectBooleanCheckbox) {
+            child.setRendererType(RendererTypes.SELECT_BOOLEAN_CHECKBOX_ALTERNATIVE_COMMAND);
+            child.encodeAll(facesContext);
+          } else if (child instanceof AbstractUISelectManyCheckbox) {
+            child.setRendererType(RendererTypes.SELECT_MANY_CHECKBOX_ALTERNATIVE_COMMAND);
+            child.encodeAll(facesContext);
+          } else if (child instanceof AbstractUISelectOneRadio) {
+            child.setRendererType(RendererTypes.SELECT_ONE_RADIO_ALTERNATIVE_COMMAND);
+            child.encodeAll(facesContext);
           } else {
-            submenu = null;
-            disabled = null;
+            writer.startElement(HtmlElements.DIV);
+            writer.writeClassAttribute(BootstrapClass.DROPDOWN_ITEM);
+            child.encodeAll(facesContext);
+            writer.endElement(HtmlElements.DIV);
           }
-          writer.writeClassAttribute(BootstrapClass.DROPDOWN_ITEM, submenu, disabled);
-          child.encodeAll(facesContext);
-          writer.endElement(HtmlElements.LI);
         }
       }
+      writer.endElement(HtmlElements.DIV);
     } else {
       super.encodeChildren(facesContext, component);
     }
-
   }
 
   @Override
   public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
-
     final AbstractUICommand command = (AbstractUICommand) component;
+    encodeEndOuter(facesContext, command);
+  }
+
+  protected void encodeBeginOuter(final FacesContext facesContext, final AbstractUICommand command) throws IOException {
+    final String clientId = command.getClientId(facesContext);
+    final boolean parentOfCommands = command.isParentOfCommands();
+    final boolean dropdownSubmenu = this instanceof LinkAlternativeCommandRenderer;
+
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
+    if (parentOfCommands) {
+      writer.startElement(HtmlElements.SPAN);
+      writer.writeIdAttribute(clientId);
+
+      final List<CssItem> cssItemsForSpan = new ArrayList<CssItem>();
+      addOuterCssItems(facesContext, command, cssItemsForSpan);
+      writer.writeClassAttribute(
+          dropdownSubmenu ? TobagoClass.DROPDOWN__SUBMENU : BootstrapClass.DROPDOWN,
+          null,
+          cssItemsForSpan.toArray(new CssItem[cssItemsForSpan.size()]));
+    }
+  }
+
+  protected void encodeEndOuter(final FacesContext facesContext, final AbstractUICommand command) throws IOException {
+    final TobagoResponseWriter writer = getResponseWriter(facesContext);
     if (command.isParentOfCommands()) {
-      writer.endElement(HtmlElements.UL);
       writer.endElement(HtmlElements.SPAN);
     }
   }
 
-  protected void addCssItems(
-      final FacesContext facesContext, final AbstractUICommand command, final List<CssItem> collected) {
+  protected void addOuterCssItems(final FacesContext facesContext, final AbstractUICommand command,
+                                  final List<CssItem> collected) {
   }
 
+  protected void addCssItems(final FacesContext facesContext, final AbstractUICommand command,
+                             final List<CssItem> collected) {
+  }
 }

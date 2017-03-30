@@ -43,13 +43,11 @@ public class ButtonsRenderer extends RendererBase {
 
     writer.startElement(HtmlElements.DIV);
     writer.writeIdAttribute(buttons.getClientId(facesContext));
-    writer.writeAttribute(HtmlAttributes.ROLE, HtmlRoleValues.GROUP.toString(), false);
     writer.writeClassAttribute(
         Classes.create(buttons),
         buttons.getCustomClass(),
-        BootstrapClass.BTN_TOOLBAR,
-        BootstrapClass.BTN_GROUP,
-        BootstrapClass.NAVBAR_NAV);
+        BootstrapClass.BTN_GROUP);
+    writer.writeAttribute(HtmlAttributes.ROLE, HtmlRoleValues.GROUP.toString(), false);
     writer.writeStyleAttribute(buttons.getStyle());
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, buttons);
     final String tip = buttons.getTip();

@@ -20,16 +20,17 @@
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
 import org.apache.myfaces.tobago.component.UISelectManyCheckbox;
+import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
+import org.apache.myfaces.tobago.internal.util.JsonUtils;
+import org.apache.myfaces.tobago.internal.util.RenderUtils;
+import org.apache.myfaces.tobago.internal.util.SelectItemUtils;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
+import org.apache.myfaces.tobago.renderkit.css.CssItem;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
-import org.apache.myfaces.tobago.internal.util.JsonUtils;
-import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
-import org.apache.myfaces.tobago.internal.util.RenderUtils;
-import org.apache.myfaces.tobago.internal.util.SelectItemUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
@@ -37,6 +38,8 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class SelectManyCheckboxRenderer extends SelectManyRendererBase {
 
@@ -52,7 +55,10 @@ public class SelectManyCheckboxRenderer extends SelectManyRendererBase {
     final boolean required = select.isRequired();
     final boolean inline = select.isInline();
 
-    writer.startElement(HtmlElements.OL);
+    writer.startElement(HtmlElements.DIV);
+    if (renderClientId()) {
+      writer.writeIdAttribute(id);
+    }
     writer.writeStyleAttribute(select.getStyle());
     writer.writeClassAttribute(
         Classes.create(select),
@@ -69,13 +75,19 @@ public class SelectManyCheckboxRenderer extends SelectManyRendererBase {
     for (final SelectItem item : SelectItemUtils.getItemIterator(facesContext, select)) {
       final boolean itemDisabled = item.isDisabled() || disabled;
       final String itemId = id + ComponentUtils.SUB_SEPARATOR + i++;
-      writer.startElement(HtmlElements.LI);
-      writer.writeClassAttribute(
-          BootstrapClass.FORM_CHECK,
-          inline ? BootstrapClass.FORM_CHECK_INLINE : null,
-          itemDisabled ? BootstrapClass.DISABLED : null);
+      if (renderOuterItem()) {
+        writer.startElement(HtmlElements.DIV);
+        writer.writeClassAttribute(
+            BootstrapClass.FORM_CHECK,
+            inline ? BootstrapClass.FORM_CHECK_INLINE : null,
+            itemDisabled ? BootstrapClass.DISABLED : null);
+      }
       writer.startElement(HtmlElements.LABEL);
-      writer.writeClassAttribute(BootstrapClass.FORM_CHECK_LABEL);
+      final List<CssItem> cssItems = new ArrayList<CssItem>();
+      addCssItems(facesContext, select, cssItems);
+      writer.writeClassAttribute(BootstrapClass.FORM_CHECK_LABEL,
+          null,
+          cssItems.toArray(new CssItem[cssItems.size()]));
       writer.startElement(HtmlElements.INPUT);
       writer.writeClassAttribute(BootstrapClass.FORM_CHECK_INPUT);
       writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.CHECKBOX);
@@ -107,13 +119,27 @@ public class SelectManyCheckboxRenderer extends SelectManyRendererBase {
       }
 
       writer.endElement(HtmlElements.LABEL);
-      writer.endElement(HtmlElements.LI);
+      if (renderOuterItem()) {
+        writer.endElement(HtmlElements.DIV);
+      }
     }
   }
 
   @Override
   public void encodeEndField(final FacesContext facesContext, final UIComponent component) throws IOException {
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
-    writer.endElement(HtmlElements.OL);
+    writer.endElement(HtmlElements.DIV);
+  }
+
+  protected boolean renderClientId() {
+    return false;
+  }
+
+  protected boolean renderOuterItem() {
+    return true;
+  }
+
+  protected void addCssItems(final FacesContext facesContext, final UISelectManyCheckbox select,
+                             final List<CssItem> collected) {
   }
 }

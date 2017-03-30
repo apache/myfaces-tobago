@@ -23,6 +23,15 @@ $brand-info: #00f !default;
 $zindex-dropdown: 1000 !default;
 $zindex-popover: 1060 !default;
 
+/* fix bootstrap ---------------------------------------------------- */
+span.dropdown {
+  display: inline-flex;
+}
+
+.form-check-label.dropdown-item {
+  padding-left: 1.25rem;
+}
+
 /*
 Todo: check, if this is needed? (It doesn't work with the build system)
 
@@ -288,21 +297,29 @@ table.tobago-gridLayout > tbody > tr > td > * {
   white-space: normal
 }
 
-button.tobago-link, button.tobago-command, button.tobago-treeCommand {
-  color: #0275d8;
-  border-width: 0;
-  padding: 0;
-  background-color: transparent;
-  text-align: left;
+button {
+  &.tobago-link, &.tobago-linkAlternativeLinks, &.tobago-treeCommand {
+    color: #0275d8;
+    border-width: 0;
+    padding: 0;
+    background-color: transparent;
+    text-align: left;
+  }
 }
 
-button.tobago-link:focus, button.tobago-link:hover,
-button.tobago-command:focus, button.tobago-command:hover,
-button.tobago-treeCommand:focus, button.tobago-treeCommand:hover {
-  color: #014c8c;
-  text-decoration: underline;
-  background-color: transparent;
-  outline: none;
+button {
+  &.tobago-link, &.tobago-linkAlternativeLinks, &.tobago-treeCommand {
+    &:focus, &:hover {
+      color: $link-hover-color;
+      background-color: transparent;
+      outline: none;
+    }
+  }
+  &.tobago-link, &.tobago-treeCommand {
+    &:focus, &:hover {
+      text-decoration: underline;
+    }
+  }
 }
 
 button.tobago-link-markup-disabled, button.tobago-command-markup-disabled {
@@ -313,6 +330,12 @@ button.tobago-link-markup-disabled, button.tobago-command-markup-disabled {
 button.tobago-link-markup-disabled:hover, button.tobago-command-markup-disabled:hover {
   color: #0275d8;
   text-decoration: none;
+}
+
+.tobago-button, .tobago-link, .tobago-linkAlternativeCommand {
+  > *:nth-child(n+2) {
+    margin-left: .4em;
+  }
 }
 
 /* messages ----------------------------------------------------------- */
@@ -356,10 +379,6 @@ a.tobago-messages-button {
   text-decoration: none;
 }
 
-/* styles for drop down menu with deeper level */
-.tobago-dropdown-submenu {
-  position: relative;
-}
 
 /* no bottom border in navtabs, if panel-body under it */
 .nav-tabs {
@@ -376,23 +395,37 @@ a.tobago-messages-button {
   border-bottom: #dddddd;
 }
 
-.tobago-dropdown-submenu > span {
+.dropdown-menu .form-check {
+  display: block;
+}
+
+/* dropdown-submenu ------------------------------------------------------- */
+.tobago-dropdown-submenu {
+  position: relative;
   display: inline-block;
   width: 100%;
-}
 
-.tobago-dropdown-submenu > span > .dropdown-menu {
-  top: 0;
-  left: 100%;
-  margin-top: -6px;
-  margin-left: -1px;
-  -webkit-border-radius: 6px 6px 6px 6px;
-  -moz-border-radius: 6px 6px 6px 6px;
-  border-radius: 6px 6px 6px 6px;
-}
+  > .dropdown-menu {
+    top: 0;
+    left: 100%;
+    margin-top: -6px;
+    margin-left: -1px;
+    -webkit-border-radius: 6px 6px 6px 6px;
+    -moz-border-radius: 6px 6px 6px 6px;
+    border-radius: 6px 6px 6px 6px;
+  }
 
-.tobago-dropdown-submenu:hover > span > .dropdown-menu {
-  display: block;
+  > button:after {
+    display: none;
+  }
+
+  > .tobago-linkAlternativeCommand {
+    border-width: 0;
+    color: $dropdown-link-color;
+    padding: 0;
+    background-color: transparent;
+    text-align: left;
+  }
 }
 
 .tobago-dropdown-submenu:after {
@@ -406,28 +439,24 @@ a.tobago-messages-button {
   margin-right: -10px;
 }
 
-.tobago-dropdown-submenu > span > button:after {
-  display: none;
-}
+.tobago-dropdown-submenu:hover > .dropdown-menu {
+  display: block;
 
-.tobago-dropdown-submenu:hover > span > a:after {
-  border-left-color: #ffffff;
+  > a:after {
+    border-left-color: $dropdown-bg;
+  }
 }
 
 .tobago-dropdown-submenu.pull-left {
   float: none;
-}
 
-.tobago-dropdown-submenu.pull-left > .dropdown-menu {
-  left: -100%;
-  margin-left: 10px;
-  -webkit-border-radius: 6px 0 6px 6px;
-  -moz-border-radius: 6px 0 6px 6px;
-  border-radius: 6px 0 6px 6px;
-}
-
-.dropdown-menu .form-check {
-  display: block;
+  > .dropdown-menu {
+    left: -100%;
+    margin-left: 10px;
+    -webkit-border-radius: 6px 0 6px 6px;
+    -moz-border-radius: 6px 0 6px 6px;
+    border-radius: 6px 0 6px 6px;
+  }
 }
 
 /* out -------------------------------------------------------------------- */
@@ -536,10 +565,13 @@ h6 > .fa:first-child {
 }
 
 /* selectBooleanCheckbox ----------------------------------------------- */
-.tobago-selectBooleanCheckbox input {
-  margin-right: 0.3em;
-  margin-bottom: 0.4ex;
-  vertical-align: text-bottom;
+
+.tobago-selectBooleanCheckbox, .tobago-selectBooleanCheckboxAlternativeCommand {
+  input {
+    margin-right: 0.3em;
+    margin-bottom: 0.4ex;
+    vertical-align: text-bottom;
+  }
 }
 
 .tobago-selectBooleanCheckbox .form-check-label {
@@ -554,10 +586,12 @@ h6 > .fa:first-child {
   list-style: none;
 }
 
-.tobago-selectManyCheckbox input {
-  margin-right: 0.3em;
-  margin-bottom: 0.4ex;
-  vertical-align: text-bottom;
+.tobago-selectManyCheckbox, .tobago-selectManyCheckboxAlternativeCommand {
+  input {
+    margin-right: 0.3em;
+    margin-bottom: 0.4ex;
+    vertical-align: text-bottom;
+  }
 }
 
 .tobago-selectManyCheckbox-inline {
@@ -606,10 +640,12 @@ h6 > .fa:first-child {
   list-style: none;
 }
 
-.tobago-selectOneRadio input {
-  margin-right: 0.3em;
-  margin-bottom: 0.4ex;
-  vertical-align: text-bottom;
+.tobago-selectOneRadio, .tobago-selectOneRadioAlternativeCommand {
+  input {
+    margin-right: 0.3em;
+    margin-bottom: 0.4ex;
+    vertical-align: text-bottom;
+  }
 }
 
 .tobago-selectOneRadio-inline {
@@ -617,8 +653,28 @@ h6 > .fa:first-child {
   margin-top: 6px;
 }
 
-.dropdown-menu .tobago-selectOneRadio > .form-check {
-  display: block;
+/* selectOneChoice ---------------------------------------------------------- */
+
+.input-group-btn:not(:last-child) > .tobago-selectOneChoiceAlternativeIn { /* before facet */
+  width: 100%;
+  -webkit-appearance: none;
+  margin-right: -1px;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.input-group-btn:not(:first-child) > .tobago-selectOneChoiceAlternativeIn { /* after facet */
+  width: 100%;
+  -webkit-appearance: none;
+  margin-left: -1px;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+/* selectOneRadio, selectManyCheckbox -------------------------------------- */
+
+.dropdown-item .form-check-input {
+  margin-left: 0;
 }
 
 /* segmentLayout ----------------------------------------------------------- */

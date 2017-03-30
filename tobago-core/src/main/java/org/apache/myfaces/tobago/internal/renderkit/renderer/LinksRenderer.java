@@ -19,12 +19,11 @@
 
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
-import org.apache.myfaces.tobago.internal.component.AbstractUILinks;
-import org.apache.myfaces.tobago.internal.component.AbstractUIFormBase;
+import org.apache.myfaces.tobago.component.RendererTypes;
+import org.apache.myfaces.tobago.internal.component.AbstractUILink;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
-import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
@@ -53,13 +52,12 @@ public class LinksRenderer extends RendererBase {
 
     for (UIComponent child : component.getChildren()) {
       if (child.isRendered()) {
-        if (child instanceof AbstractUIFormBase) { // XXX hack! TBD: How to walk through the children, or do that in JS?
-          encodeChildren(facesContext, child);
+        if (child instanceof AbstractUILink) {
+          child.setRendererType(RendererTypes.LINK_ALTERNATIVE_LINKS);
+          child.encodeAll(facesContext);
         } else {
-          // fixme: only a temporary workaround
-          final AbstractUILinks commands = ComponentUtils.findAncestor(component, AbstractUILinks.class);
           writer.startElement(HtmlElements.LI);
-          writer.writeClassAttribute(BootstrapClass.NAV_ITEM, BootstrapClass.DROPDOWN);
+          writer.writeClassAttribute(BootstrapClass.NAV_ITEM);
           child.encodeAll(facesContext);
           writer.endElement(HtmlElements.LI);
         }

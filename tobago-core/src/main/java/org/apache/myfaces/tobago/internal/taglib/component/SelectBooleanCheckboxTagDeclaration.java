@@ -57,7 +57,7 @@ import javax.faces.component.UISelectBoolean;
     uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUISelectBooleanCheckbox",
     uiComponentFacesClass = "javax.faces.component.UISelectBoolean",
     componentFamily = UISelectBoolean.COMPONENT_FAMILY,
-    rendererType = RendererTypes.SELECT_BOOLEAN_CHECKBOX,
+    rendererType = {RendererTypes.SELECT_BOOLEAN_CHECKBOX, RendererTypes.SELECT_BOOLEAN_CHECKBOX_ALTERNATIVE_COMMAND},
     allowedChildComponenents = "NONE",
     behaviors = {
         @Behavior(

@@ -27,6 +27,7 @@ public enum RendererTypes {
   Bar,
   Box,
   Button,
+  ButtonAlternativeIn,
   Buttons,
   Calendar,
   Column,
@@ -45,6 +46,8 @@ public enum RendererTypes {
   In,
   Image,
   Link,
+  LinkAlternativeCommand,
+  LinkAlternativeLinks,
   Links,
   Label,
   Messages,
@@ -60,12 +63,15 @@ public enum RendererTypes {
   Section,
   SegmentLayout,
   SelectBooleanCheckbox,
+  SelectBooleanCheckboxAlternativeCommand,
   SelectManyCheckbox,
+  SelectManyCheckboxAlternativeCommand,
   SelectManyListbox,
   SelectManyShuttle,
   SelectOneChoice,
   SelectOneChoiceAlternativeIn,
   SelectOneRadio,
+  SelectOneRadioAlternativeCommand,
   SelectOneListbox,
   SelectReference,
   Separator,
@@ -91,6 +97,7 @@ public enum RendererTypes {
   public static final String BAR = "Bar";
   public static final String BOX = "Box";
   public static final String BUTTON = "Button";
+  public static final String BUTTON_ALTERNATIVE_IN = "ButtonAlternativeIn";
   public static final String BUTTONS = "Buttons";
   public static final String CALENDAR = "Calendar";
   public static final String COLUMN = "Column";
@@ -109,6 +116,8 @@ public enum RendererTypes {
   public static final String IN = "In";
   public static final String IMAGE = "Image";
   public static final String LINK = "Link";
+  public static final String LINK_ALTERNATIVE_COMMAND = "LinkAlternativeCommand";
+  public static final String LINK_ALTERNATIVE_LINKS = "LinkAlternativeLinks";
   public static final String LINKS = "Links";
   public static final String LABEL = "Label";
   public static final String MESSAGES = "Messages";
@@ -124,12 +133,15 @@ public enum RendererTypes {
   public static final String SECTION = "Section";
   public static final String SEGMENT_LAYOUT = "SegmentLayout";
   public static final String SELECT_BOOLEAN_CHECKBOX = "SelectBooleanCheckbox";
+  public static final String SELECT_BOOLEAN_CHECKBOX_ALTERNATIVE_COMMAND = "SelectBooleanCheckboxAlternativeCommand";
   public static final String SELECT_MANY_CHECKBOX = "SelectManyCheckbox";
+  public static final String SELECT_MANY_CHECKBOX_ALTERNATIVE_COMMAND = "SelectManyCheckboxAlternativeCommand";
   public static final String SELECT_MANY_LISTBOX = "SelectManyListbox";
   public static final String SELECT_MANY_SHUTTLE = "SelectManyShuttle";
   public static final String SELECT_ONE_CHOICE = "SelectOneChoice";
   public static final String SELECT_ONE_CHOICE_ALTERNATIVE_IN = "SelectOneChoiceAlternativeIn";
   public static final String SELECT_ONE_RADIO = "SelectOneRadio";
+  public static final String SELECT_ONE_RADIO_ALTERNATIVE_COMMAND = "SelectOneRadioAlternativeCommand";
   public static final String SELECT_ONE_LISTBOX = "SelectOneListbox";
   public static final String SELECT_REFERENCE = "SelectReference";
   public static final String SEPARATOR = "Separator";

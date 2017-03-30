@@ -60,7 +60,7 @@ import javax.faces.component.UISelectMany;
     uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUISelectManyCheckbox",
     uiComponentFacesClass = "javax.faces.component.UISelectMany",
     componentFamily = UISelectMany.COMPONENT_FAMILY,
-    rendererType = RendererTypes.SELECT_MANY_CHECKBOX,
+    rendererType = {RendererTypes.SELECT_MANY_CHECKBOX, RendererTypes.SELECT_MANY_CHECKBOX_ALTERNATIVE_COMMAND},
     allowedChildComponenents = {
         "javax.faces.SelectItem",
         "javax.faces.SelectItems"},

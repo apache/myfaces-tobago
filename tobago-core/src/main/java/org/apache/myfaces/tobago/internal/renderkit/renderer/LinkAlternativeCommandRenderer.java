@@ -19,19 +19,18 @@
 
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
-import javax.faces.component.UIComponent;
+import org.apache.myfaces.tobago.internal.component.AbstractUICommand;
+import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
+import org.apache.myfaces.tobago.renderkit.css.CssItem;
+
 import javax.faces.context.FacesContext;
-import java.io.IOException;
+import java.util.List;
 
-public class SelectOneChoiceAlternativeInRenderer extends SelectOneChoiceRenderer {
-
-  @Override
-  public void encodeBegin(FacesContext facesContext, UIComponent component) throws IOException {
-    encodeBeginField(facesContext, component);
-  }
+public class LinkAlternativeCommandRenderer extends LinkRenderer {
 
   @Override
-  public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
-    encodeEndField(facesContext, component);
+  protected void addOuterCssItems(
+      final FacesContext facesContext, final AbstractUICommand command, final List<CssItem> collected) {
+    collected.add(BootstrapClass.DROPDOWN_ITEM);
   }
 }
