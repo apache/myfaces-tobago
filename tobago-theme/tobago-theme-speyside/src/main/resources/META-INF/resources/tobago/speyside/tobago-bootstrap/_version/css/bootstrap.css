@@ -6736,6 +6736,18 @@ a.text-gray-dark:focus, a.text-gray-dark:hover {
 XXX used variables: only for the IDE, will not really used by the build system, because this
 XXX code will be inserted after the _variables.scss
 */
+/* fix bootstrap ---------------------------------------------------- */
+span.dropdown {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+}
+
+.form-check-label.dropdown-item {
+  padding-left: 1.25rem;
+}
+
 /*
 Todo: check, if this is needed? (It doesn't work with the build system)
 
@@ -6743,6 +6755,9 @@ Todo: check, if this is needed? (It doesn't work with the build system)
   filter: alpha(opacity: 0);
 }
 */
+/*
+.tobago-treeNode-toggle // XXX dummy: only occurs in JavaScript, is here to satisfy the Test
+ */
 /*
  * theme: standard
  * agent: standard
@@ -7014,7 +7029,7 @@ table.tobago-gridLayout > tbody > tr > td > * {
   white-space: normal;
 }
 
-button.tobago-link, button.tobago-command, button.tobago-treeCommand {
+button.tobago-link, button.tobago-linkAlternativeLinks, button.tobago-treeCommand {
   color: #0275d8;
   border-width: 0;
   padding: 0;
@@ -7022,13 +7037,14 @@ button.tobago-link, button.tobago-command, button.tobago-treeCommand {
   text-align: left;
 }
 
-button.tobago-link:focus, button.tobago-link:hover,
-button.tobago-command:focus, button.tobago-command:hover,
-button.tobago-treeCommand:focus, button.tobago-treeCommand:hover {
+button.tobago-link:focus, button.tobago-link:hover, button.tobago-linkAlternativeLinks:focus, button.tobago-linkAlternativeLinks:hover, button.tobago-treeCommand:focus, button.tobago-treeCommand:hover {
   color: #014c8c;
-  text-decoration: underline;
   background-color: transparent;
   outline: none;
+}
+
+button.tobago-link:focus, button.tobago-link:hover, button.tobago-treeCommand:focus, button.tobago-treeCommand:hover {
+  text-decoration: underline;
 }
 
 button.tobago-link-markup-disabled, button.tobago-command-markup-disabled {
@@ -7039,6 +7055,10 @@ button.tobago-link-markup-disabled, button.tobago-command-markup-disabled {
 button.tobago-link-markup-disabled:hover, button.tobago-command-markup-disabled:hover {
   color: #0275d8;
   text-decoration: none;
+}
+
+.tobago-button > *:nth-child(n+2), .tobago-link > *:nth-child(n+2), .tobago-linkAlternativeCommand > *:nth-child(n+2) {
+  margin-left: .4em;
 }
 
 /* messages ----------------------------------------------------------- */
@@ -7087,11 +7107,6 @@ a.tobago-messages-button {
   text-decoration: none;
 }
 
-/* styles for drop down menu with deeper level */
-.tobago-dropdown-submenu {
-  position: relative;
-}
-
 /* no bottom border in navtabs, if panel-body under it */
 .nav-tabs {
   border-bottom-width: 0;
@@ -7110,12 +7125,18 @@ a.tobago-messages-button {
   border-bottom: #dddddd;
 }
 
-.tobago-dropdown-submenu > span {
+.dropdown-menu .form-check {
+  display: block;
+}
+
+/* dropdown-submenu ------------------------------------------------------- */
+.tobago-dropdown-submenu {
+  position: relative;
   display: inline-block;
   width: 100%;
 }
 
-.tobago-dropdown-submenu > span > .dropdown-menu {
+.tobago-dropdown-submenu > .dropdown-menu {
   top: 0;
   left: 100%;
   margin-top: -6px;
@@ -7123,8 +7144,16 @@ a.tobago-messages-button {
   border-radius: 6px 6px 6px 6px;
 }
 
-.tobago-dropdown-submenu:hover > span > .dropdown-menu {
-  display: block;
+.tobago-dropdown-submenu > button:after {
+  display: none;
+}
+
+.tobago-dropdown-submenu > .tobago-linkAlternativeCommand {
+  border-width: 0;
+  color: #373a3c;
+  padding: 0;
+  background-color: transparent;
+  text-align: left;
 }
 
 .tobago-dropdown-submenu:after {
@@ -7138,12 +7167,12 @@ a.tobago-messages-button {
   margin-right: -10px;
 }
 
-.tobago-dropdown-submenu > span > button:after {
-  display: none;
+.tobago-dropdown-submenu:hover > .dropdown-menu {
+  display: block;
 }
 
-.tobago-dropdown-submenu:hover > span > a:after {
-  border-left-color: #ffffff;
+.tobago-dropdown-submenu:hover > .dropdown-menu > a:after {
+  border-left-color: #fff;
 }
 
 .tobago-dropdown-submenu.pull-left {
@@ -7154,10 +7183,6 @@ a.tobago-messages-button {
   left: -100%;
   margin-left: 10px;
   border-radius: 6px 0 6px 6px;
-}
-
-.dropdown-menu .form-check {
-  display: block;
 }
 
 /* out -------------------------------------------------------------------- */
@@ -7269,7 +7294,7 @@ h6 > .fa:first-child {
 }
 
 /* selectBooleanCheckbox ----------------------------------------------- */
-.tobago-selectBooleanCheckbox input {
+.tobago-selectBooleanCheckbox input, .tobago-selectBooleanCheckboxAlternativeCommand input {
   margin-right: 0.3em;
   margin-bottom: 0.4ex;
   vertical-align: text-bottom;
@@ -7286,7 +7311,7 @@ h6 > .fa:first-child {
   list-style: none;
 }
 
-.tobago-selectManyCheckbox input {
+.tobago-selectManyCheckbox input, .tobago-selectManyCheckboxAlternativeCommand input {
   margin-right: 0.3em;
   margin-bottom: 0.4ex;
   vertical-align: text-bottom;
@@ -7352,7 +7377,7 @@ h6 > .fa:first-child {
   list-style: none;
 }
 
-.tobago-selectOneRadio input {
+.tobago-selectOneRadio input, .tobago-selectOneRadioAlternativeCommand input {
   margin-right: 0.3em;
   margin-bottom: 0.4ex;
   vertical-align: text-bottom;
@@ -7363,8 +7388,28 @@ h6 > .fa:first-child {
   margin-top: 6px;
 }
 
-.dropdown-menu .tobago-selectOneRadio > .form-check {
-  display: block;
+/* selectOneChoice ---------------------------------------------------------- */
+.input-group-btn:not(:last-child) > .tobago-selectOneChoiceAlternativeIn {
+  /* before facet */
+  width: 100%;
+  -webkit-appearance: none;
+  margin-right: -1px;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.input-group-btn:not(:first-child) > .tobago-selectOneChoiceAlternativeIn {
+  /* after facet */
+  width: 100%;
+  -webkit-appearance: none;
+  margin-left: -1px;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+/* selectOneRadio, selectManyCheckbox -------------------------------------- */
+.dropdown-item .form-check-input {
+  margin-left: 0;
 }
 
 /* segmentLayout ----------------------------------------------------------- */
