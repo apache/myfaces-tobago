@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+-->
+
+<ui:composition template="/main.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:tc="http://myfaces.apache.org/tobago/component"
+                xmlns:ui="http://java.sun.com/jsf/facelets">
+  <ui:param name="title" value="#{demoBundle.conversation}"/>
+  <p>This page show a simple example for the <code>@ConversationScoped</code> annotation.
+    The <b>Conversationscope</b> is needed for situations when the controller must live longer than a single request,
+    but don't need to live the whole session.</p>
+  <p>A <code>@Inject Conversation conversation;</code> must be injected.
+    After that a conversation can be started with <code>conversation.begin()</code> and stopped with
+    <code>conversation.end()</code>.</p>
+
+  <tc:box label="Example">
+    <p>Counting up greater than '1' is only possible when a conversation is started.</p>
+    <tc:out label="Conversation" value="#{conversationController.conversationStatus}"/>
+    <tc:buttons>
+      <tc:button label="Start Conversation" action="#{conversationController.beginConversation}"/>
+      <tc:button label="Stop Conversation" action="#{conversationController.endConversation}"/>
+    </tc:buttons>
+    <tc:separator/>
+    <tc:out label="Count" value="#{conversationController.count}"/>
+    <tc:button label="Count Up" action="#{conversationController.countUp}"/>
+  </tc:box>
+</ui:composition>

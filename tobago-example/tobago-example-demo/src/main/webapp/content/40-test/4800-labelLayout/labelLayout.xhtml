@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+-->
+
+<ui:composition template="/main.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:tc="http://myfaces.apache.org/tobago/component"
+                xmlns:ui="http://java.sun.com/jsf/facelets">
+  <ui:param name="title" value="labelLayout"/>
+
+  <tc:box label="&lt;tc:date>">
+    <tc:date id="date"/>
+    <tc:date id="dateSkip" label="Date" labelLayout="skip"/>
+    <tc:date id="dateNone" label="Date" labelLayout="none"/>
+  </tc:box>
+  <tc:box label="&lt;tc:file>">
+    <tc:file id="file"/>
+    <tc:file id="fileSkip" label="File" labelLayout="skip"/>
+    <tc:file id="fileNone" label="File" labelLayout="none"/>
+  </tc:box>
+  <tc:box label="&lt;tc:in>">
+    <tc:in id="in"/>
+    <tc:in id="inSkip" label="In" labelLayout="skip"/>
+    <tc:in id="inNone" label="In" labelLayout="none"/>
+    <tc:separator/>
+    <tc:in id="inGroup">
+      <f:facet name="before">Input Group</f:facet>
+    </tc:in>
+    <tc:in id="inGroupSkip" label="Input Group" labelLayout="skip">
+      <f:facet name="before">Input Group</f:facet>
+    </tc:in>
+    <tc:in id="inGroupNone" label="Input Group" labelLayout="none">
+      <f:facet name="before">Input Group</f:facet>
+    </tc:in>
+  </tc:box>
+  <tc:box label="&lt;tc:out>">
+    <tc:out id="out" value="123"/>
+    <tc:out id="outSkip" label="Out" labelLayout="skip" value="123"/>
+    <tc:out id="outNone" label="Out " labelLayout="none" value="123"/>
+  </tc:box>
+  <tc:box label="&lt;tc:selectBooleanCheckbox>">
+    <tc:selectBooleanCheckbox id="selectBooleanCheckbox"/>
+    <tc:selectBooleanCheckbox id="selectBooleanCheckboxSkip" label="SelectBooleanCheckbox" labelLayout="skip"/>
+    <tc:selectBooleanCheckbox id="selectBooleanCheckboxNone" label="SelectBooleanCheckbox" labelLayout="none"/>
+  </tc:box>
+  <tc:box label="&lt;tc:selectManyCheckbox>">
+    <tc:selectManyCheckbox id="selectManyCheckboxNorm">
+      <tc:selectItem itemValue="Item"/>
+    </tc:selectManyCheckbox>
+    <tc:selectManyCheckbox id="selectManyCheckboxSkip" label="SelectManyCheckbox" labelLayout="skip">
+      <tc:selectItem itemValue="Item"/>
+    </tc:selectManyCheckbox>
+    <tc:selectManyCheckbox id="selectManyCheckboxNone" label="SelectManyCheckbox" labelLayout="none">
+      <tc:selectItem itemValue="Item"/>
+    </tc:selectManyCheckbox>
+  </tc:box>
+  <tc:box label="&lt;selectManyListbox>">
+    <tc:selectManyListbox id="selectManyListbox">
+      <tc:selectItem itemValue="Item"/>
+    </tc:selectManyListbox>
+    <tc:selectManyListbox id="selectManyListboxSkip" label="SelectManyListbox" labelLayout="skip">
+      <tc:selectItem itemValue="Item"/>
+    </tc:selectManyListbox>
+    <tc:selectManyListbox id="selectManyListboxNone" label="SelectManyListbox" labelLayout="none">
+      <tc:selectItem itemValue="Item"/>
+    </tc:selectManyListbox>
+  </tc:box>
+  <tc:box label="&lt;selectManyShuttle>">
+    <tc:selectManyShuttle id="SelectManyShuttle">
+      <tc:selectItem itemValue="Item"/>
+    </tc:selectManyShuttle>
+    <tc:selectManyShuttle id="SelectManyShuttleSkip" label="SelectManyShuttle" labelLayout="skip">
+      <tc:selectItem itemValue="Item"/>
+    </tc:selectManyShuttle>
+    <tc:selectManyShuttle id="SelectManyShuttleNone" label="SelectManyShuttle" labelLayout="none">
+      <tc:selectItem itemValue="Item"/>
+    </tc:selectManyShuttle>
+  </tc:box>
+  <tc:box label="&lt;selectOneChoice>">
+    <tc:selectOneChoice id="selectOneChoice">
+      <tc:selectItem itemValue="Item"/>
+    </tc:selectOneChoice>
+    <tc:selectOneChoice id="selectOneChoiceSkip" label="SelectOneChoice" labelLayout="skip">
+      <tc:selectItem itemValue="Item"/>
+    </tc:selectOneChoice>
+    <tc:selectOneChoice id="selectOneChoiceNone" label="SelectOneChoice" labelLayout="none">
+      <tc:selectItem itemValue="Item"/>
+    </tc:selectOneChoice>
+  </tc:box>
+  <tc:box label="&lt;selectOneListbox>">
+    <tc:selectOneListbox id="selectOneListbox">
+      <tc:selectItem itemValue="Item"/>
+    </tc:selectOneListbox>
+    <tc:selectOneListbox id="selectOneListboxSkip" label="SelectOneListbox" labelLayout="skip">
+      <tc:selectItem itemValue="Item"/>
+    </tc:selectOneListbox>
+    <tc:selectOneListbox id="selectOneListboxNone" label="SelectOneListbox" labelLayout="none">
+      <tc:selectItem itemValue="Item"/>
+    </tc:selectOneListbox>
+  </tc:box>
+  <tc:box label="&lt;selectOneRadio>">
+    <tc:selectOneRadio id="selectOneRadio">
+      <tc:selectItem itemValue="Item"/>
+    </tc:selectOneRadio>
+    <tc:selectOneRadio id="selectOneRadioSkip" label="SelectOneRadio" labelLayout="skip">
+      <tc:selectItem itemValue="Item"/>
+    </tc:selectOneRadio>
+    <tc:selectOneRadio id="selectOneRadioNone" label="SelectOneRadio" labelLayout="none">
+      <tc:selectItem itemValue="Item"/>
+    </tc:selectOneRadio>
+  </tc:box>
+  <tc:box label="&lt;tc:textarea>">
+    <tc:textarea id="textarea"/>
+    <tc:textarea id="textareaSkip" label="Textarea" labelLayout="skip"/>
+    <tc:textarea id="textareaNone" label="Textarea" labelLayout="none"/>
+  </tc:box>
+</ui:composition>
