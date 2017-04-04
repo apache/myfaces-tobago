@@ -35,7 +35,7 @@ public class ConversationController implements Serializable {
   private static final Logger LOG = LoggerFactory.getLogger(ConversationController.class);
 
   @Inject
-  Conversation conversation;
+  private Conversation conversation;
   private int count = 0;
 
   public String getConversationStatus() {

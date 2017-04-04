@@ -32,10 +32,10 @@
   <tc:box label="Example">
     <p>Counting up greater than '1' is only possible when a conversation is started.</p>
     <tc:out label="Conversation" value="#{conversationController.conversationStatus}"/>
-    <tc:buttons>
-      <tc:button label="Start Conversation" action="#{conversationController.beginConversation}"/>
-      <tc:button label="Stop Conversation" action="#{conversationController.endConversation}"/>
-    </tc:buttons>
+    <tc:button label="Start Conversation" action="#{conversationController.beginConversation}"
+               rendered="#{conversationController.conversationStatus == 'stopped'}"/>
+    <tc:button label="Stop Conversation" action="#{conversationController.endConversation}"
+               rendered="#{conversationController.conversationStatus == 'started'}"/>
     <tc:separator/>
     <tc:out label="Count" value="#{conversationController.count}"/>
     <tc:button label="Count Up" action="#{conversationController.countUp}"/>
