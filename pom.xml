@@ -40,7 +40,7 @@
     <mojarra22.version>2.2.14</mojarra22.version>
     <mojarra23.version>2.3.0</mojarra23.version>
     <slf4j.version>1.7.22</slf4j.version>
-    <logback.version>1.1.8</logback.version>
+    <logback.version>1.2.3</logback.version>
     <commons-collection.version>3.2.2</commons-collection.version>
     <maven.compile.source>1.6</maven.compile.source>
     <maven.compile.target>1.6</maven.compile.target>
@@ -460,9 +460,9 @@
         <scope>test</scope>
       </dependency>
       <dependency>
-        <groupId>javax.portlet</groupId>
-        <artifactId>portlet-api</artifactId>
-        <version>2.0</version>
+        <groupId>org.apache.portals</groupId>
+        <artifactId>portlet-api_2.0_spec</artifactId>
+        <version>1.0</version>
         <scope>provided</scope>
       </dependency>
       <dependency>
@@ -518,11 +518,9 @@
       <groupId>org.apache.geronimo.specs</groupId>
       <artifactId>geronimo-el_2.2_spec</artifactId>
     </dependency>
-
     <dependency>
-      <groupId>javax.portlet</groupId>
-      <artifactId>portlet-api</artifactId>
-      <scope>provided</scope>
+      <groupId>org.apache.portals</groupId>
+      <artifactId>portlet-api_2.0_spec</artifactId>
     </dependency>
 
     <!-- you may want to add this for debugging -->
