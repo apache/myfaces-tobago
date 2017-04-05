@@ -130,6 +130,7 @@ body {
 }
 
 .tobago-flexLayout > .form-control:nth-child(n+2),
+.tobago-flexLayout > .btn-group:nth-child(n+2),
 .tobago-flexLayout > .input-group:nth-child(n+2),
 .tobago-flexLayout > .tobago-input-group-outer:nth-child(n+2),
 .tobago-flexLayout > .tobago-out:nth-child(n+2),
@@ -633,6 +634,11 @@ th.tobago-sheet-headerCell .tobago-out {
 .tobago-sheet-header {
   overflow: hidden;
   flex-shrink: 0;
+}
+
+.tobago-sheet-columnSelector {
+  margin-top: 0.75rem;
+  margin-bottom: 0.75rem;
 }
 
 .tobago-sheet {
