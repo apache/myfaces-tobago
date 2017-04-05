@@ -1,4 +1,4 @@
-Build date: 2017-04-05 14:57:02
+Build date: 2017-04-05 16:04:40
 [INFO] Scanning for projects...
 [INFO]                                                                         
 [INFO] ------------------------------------------------------------------------
@@ -134,7 +134,7 @@ Build date: 2017-04-05 14:57:02
 [INFO] Verified checksum of previously downloaded file
 [INFO] Extracting zip contents
 [INFO] Removing __CURRENT__/tobago-theme-standard/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom
-[INFO] Copying extracted folder /var/folders/w0/pg4pxr7972l6bq85x08s5cl00000gn/T/phantomjs/phantomjs-2.1.1-macosx.zip-extract-1491397151436/phantomjs-2.1.1-macosx -> __CURRENT__/tobago-theme-standard/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom
+[INFO] Copying extracted folder /var/folders/w0/pg4pxr7972l6bq85x08s5cl00000gn/T/phantomjs/phantomjs-2.1.1-macosx.zip-extract-1491401220945/phantomjs-2.1.1-macosx -> __CURRENT__/tobago-theme-standard/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom
 [INFO] Writing location.js file
 [INFO] Done. Phantomjs binary available at __CURRENT__/tobago-theme-standard/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom/bin/phantomjs
 [INFO] 
@@ -970,7 +970,7 @@ Build date: 2017-04-05 14:57:02
 [INFO] 
 [INFO] Running "cssmin:core" (cssmin) task
 [INFO] >> 4 sourcemaps created.
-[INFO] >> 4 files created. 349.8 kB → 270.31 kB
+[INFO] >> 4 files created. 350 kB → 270.44 kB
 [INFO] 
 [INFO] Running "cssmin:docs" (cssmin) task
 [INFO] >> No files created.
@@ -989,14 +989,16 @@ Build date: 2017-04-05 14:57:02
 [INFO] Done.
 [INFO] 
 [INFO] 
-[INFO] Execution Time (2017-04-05 14:59:17 UTC+2)
-[INFO] sass:extras   409ms  ▇ 1%
-[INFO] exec:postcss   2.9s  ▇▇▇▇ 7%
-[INFO] cssmin:core    1.2s  ▇▇ 3%
-[INFO] babel:dev     33.1s  ▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇ 83%
-[INFO] babel:dist       1s  ▇▇ 3%
-[INFO] uglify:core   759ms  ▇ 2%
-[INFO] Total 40s
+[INFO] Execution Time (2017-04-05 16:07:05 UTC+2)
+[INFO] sass:core     363ms  ▇▇▇ 4%
+[INFO] sass:extras   254ms  ▇▇ 3%
+[INFO] sass:docs     154ms  ▇ 2%
+[INFO] exec:postcss   2.1s  ▇▇▇▇▇▇▇▇▇▇▇▇▇ 25%
+[INFO] cssmin:core    1.3s  ▇▇▇▇▇▇▇▇ 16%
+[INFO] babel:dev      2.2s  ▇▇▇▇▇▇▇▇▇▇▇▇▇ 26%
+[INFO] babel:dist     1.1s  ▇▇▇▇▇▇▇ 14%
+[INFO] uglify:core   735ms  ▇▇▇▇▇ 9%
+[INFO] Total 8.3s
 [INFO] 
 [INFO] 
 [INFO] --- maven-resources-plugin:2.7:resources (default-resources) @ tobago-theme-standard ---
@@ -1021,9 +1023,9 @@ Build date: 2017-04-05 14:57:02
 [INFO] tether-theme-basic.min.css (504b) -> tether-theme-basic.min.min.css (504b)[100%]
 [INFO] nothing to do, __CURRENT__/tobago-theme-standard/target/classes/META-INF/resources/tobago/standard/tether/1.1.1/css/tether.min.css is younger than original, use 'force' option or clean your target
 [INFO] tether.min.css (237b) -> tether.min.min.css (237b)[100%]
-[INFO] bootstrap.css (153379b) -> bootstrap.min.css (119868b)[78%]
-[INFO] bootstrap.min.css (119850b) -> bootstrap.min.min.css (119598b)[99%]
-[INFO] total input (322131b) -> output (288300b)[89%]
+[INFO] bootstrap.css (153477b) -> bootstrap.min.css (119936b)[78%]
+[INFO] bootstrap.min.css (119918b) -> bootstrap.min.min.css (119666b)[99%]
+[INFO] total input (322297b) -> output (288436b)[89%]
 [INFO] nb warnings: 0, nb errors: 0
 [INFO] 
 [INFO] --- maven-compiler-plugin:3.5.1:compile (default-compile) @ tobago-theme-standard ---
@@ -1058,7 +1060,7 @@ main:
  T E S T S
 -------------------------------------------------------
 Running org.apache.myfaces.tobago.renderkit.css.BootstrapClassUnitTest
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.101 sec - in org.apache.myfaces.tobago.renderkit.css.BootstrapClassUnitTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.099 sec - in org.apache.myfaces.tobago.renderkit.css.BootstrapClassUnitTest
 
 Results :
 
@@ -1076,7 +1078,7 @@ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
-[INFO] Total time: 03:00 min
-[INFO] Finished at: 2017-04-05T15:00:04+02:00
-[INFO] Final Memory: 40M/568M
+[INFO] Total time: 02:39 min
+[INFO] Finished at: 2017-04-05T16:07:21+02:00
+[INFO] Final Memory: 41M/590M
 [INFO] ------------------------------------------------------------------------

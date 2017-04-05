@@ -6756,7 +6756,7 @@ Todo: check, if this is needed? (It doesn't work with the build system)
 }
 */
 /*
-.tobago-treeNode-toggle // XXX dummy: only occurs in JavaScript, is here to satisfy the Test
+.tobago-treeNode-toggle // XXX dummy: only occurs in JavaScript, is here to satisfy the TobagoClassUnitTest
  */
 /*
  * theme: standard
@@ -7473,6 +7473,11 @@ th.tobago-sheet-headerCell .tobago-out {
   -webkit-flex-shrink: 0;
       -ms-flex-negative: 0;
           flex-shrink: 0;
+}
+
+.tobago-sheet-columnSelector {
+  margin-top: 0.75rem;
+  margin-bottom: 0.75rem;
 }
 
 .tobago-sheet {

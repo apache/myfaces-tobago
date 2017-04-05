@@ -1,4 +1,4 @@
-Build date: 2017-04-05 14:48:23
+Build date: 2017-04-05 15:54:12
 [INFO] Scanning for projects...
 [INFO]                                                                         
 [INFO] ------------------------------------------------------------------------
@@ -130,14 +130,11 @@ Build date: 2017-04-05 14:48:23
 [INFO] > node install.js
 [INFO] 
 [INFO] PhantomJS not found on PATH
-[INFO] Downloading https://github.com/Medium/phantomjs/releases/download/v2.1.1/phantomjs-2.1.1-macosx.zip
-[INFO] Saving to /var/folders/w0/pg4pxr7972l6bq85x08s5cl00000gn/T/phantomjs/phantomjs-2.1.1-macosx.zip
-[INFO] Receiving...
-[INFO] 
-[INFO] Received 16746K total.
+[INFO] Download already available at /var/folders/w0/pg4pxr7972l6bq85x08s5cl00000gn/T/phantomjs/phantomjs-2.1.1-macosx.zip
+[INFO] Verified checksum of previously downloaded file
 [INFO] Extracting zip contents
 [INFO] Removing __CURRENT__/tobago-theme-charlotteville/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom
-[INFO] Copying extracted folder /var/folders/w0/pg4pxr7972l6bq85x08s5cl00000gn/T/phantomjs/phantomjs-2.1.1-macosx.zip-extract-1491396624276/phantomjs-2.1.1-macosx -> __CURRENT__/tobago-theme-charlotteville/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom
+[INFO] Copying extracted folder /var/folders/w0/pg4pxr7972l6bq85x08s5cl00000gn/T/phantomjs/phantomjs-2.1.1-macosx.zip-extract-1491400582908/phantomjs-2.1.1-macosx -> __CURRENT__/tobago-theme-charlotteville/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom
 [INFO] Writing location.js file
 [INFO] Done. Phantomjs binary available at __CURRENT__/tobago-theme-charlotteville/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom/bin/phantomjs
 [INFO] 
@@ -973,7 +970,7 @@ Build date: 2017-04-05 14:48:23
 [INFO] 
 [INFO] Running "cssmin:core" (cssmin) task
 [INFO] >> 4 sourcemaps created.
-[INFO] >> 4 files created. 349.83 kB → 270.33 kB
+[INFO] >> 4 files created. 350.02 kB → 270.47 kB
 [INFO] 
 [INFO] Running "cssmin:docs" (cssmin) task
 [INFO] >> No files created.
@@ -992,16 +989,16 @@ Build date: 2017-04-05 14:48:23
 [INFO] Done.
 [INFO] 
 [INFO] 
-[INFO] Execution Time (2017-04-05 14:50:31 UTC+2)
-[INFO] sass:core     305ms  ▇▇ 3%
-[INFO] sass:extras   270ms  ▇▇ 3%
-[INFO] sass:docs     148ms  ▇ 2%
-[INFO] exec:postcss   2.9s  ▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇ 32%
-[INFO] cssmin:core      1s  ▇▇▇▇▇▇ 11%
-[INFO] babel:dev      2.1s  ▇▇▇▇▇▇▇▇▇▇▇ 23%
-[INFO] babel:dist     1.3s  ▇▇▇▇▇▇▇ 14%
-[INFO] uglify:core      1s  ▇▇▇▇▇▇ 11%
-[INFO] Total 9.2s
+[INFO] Execution Time (2017-04-05 15:56:28 UTC+2)
+[INFO] sass:core     256ms  ▇▇ 3%
+[INFO] sass:extras   246ms  ▇▇ 3%
+[INFO] sass:docs     139ms  ▇ 2%
+[INFO] exec:postcss   2.5s  ▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇ 30%
+[INFO] cssmin:core    1.2s  ▇▇▇▇▇▇▇ 14%
+[INFO] babel:dev      2.4s  ▇▇▇▇▇▇▇▇▇▇▇▇▇▇ 28%
+[INFO] babel:dist    915ms  ▇▇▇▇▇▇ 11%
+[INFO] uglify:core   695ms  ▇▇▇▇ 8%
+[INFO] Total 8.4s
 [INFO] 
 [INFO] 
 [INFO] --- maven-resources-plugin:2.7:resources (default-resources) @ tobago-theme-charlotteville ---
@@ -1043,7 +1040,7 @@ main:
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
-[INFO] Total time: 02:15 min
-[INFO] Finished at: 2017-04-05T14:50:41+02:00
-[INFO] Final Memory: 35M/455M
+[INFO] Total time: 02:23 min
+[INFO] Finished at: 2017-04-05T15:56:37+02:00
+[INFO] Final Memory: 30M/512M
 [INFO] ------------------------------------------------------------------------

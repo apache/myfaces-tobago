@@ -1,4 +1,4 @@
-Build date: 2017-04-05 14:52:48
+Build date: 2017-04-05 15:59:18
 [INFO] Scanning for projects...
 [INFO]                                                                         
 [INFO] ------------------------------------------------------------------------
@@ -134,7 +134,7 @@ Build date: 2017-04-05 14:52:48
 [INFO] Verified checksum of previously downloaded file
 [INFO] Extracting zip contents
 [INFO] Removing __CURRENT__/tobago-theme-scarborough/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom
-[INFO] Copying extracted folder /var/folders/w0/pg4pxr7972l6bq85x08s5cl00000gn/T/phantomjs/phantomjs-2.1.1-macosx.zip-extract-1491396879312/phantomjs-2.1.1-macosx -> __CURRENT__/tobago-theme-scarborough/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom
+[INFO] Copying extracted folder /var/folders/w0/pg4pxr7972l6bq85x08s5cl00000gn/T/phantomjs/phantomjs-2.1.1-macosx.zip-extract-1491400895755/phantomjs-2.1.1-macosx -> __CURRENT__/tobago-theme-scarborough/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom
 [INFO] Writing location.js file
 [INFO] Done. Phantomjs binary available at __CURRENT__/tobago-theme-scarborough/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom/bin/phantomjs
 [INFO] 
@@ -970,7 +970,7 @@ Build date: 2017-04-05 14:52:48
 [INFO] 
 [INFO] Running "cssmin:core" (cssmin) task
 [INFO] >> 4 sourcemaps created.
-[INFO] >> 4 files created. 349.83 kB → 270.31 kB
+[INFO] >> 4 files created. 350.02 kB → 270.44 kB
 [INFO] 
 [INFO] Running "cssmin:docs" (cssmin) task
 [INFO] >> No files created.
@@ -989,16 +989,16 @@ Build date: 2017-04-05 14:52:48
 [INFO] Done.
 [INFO] 
 [INFO] 
-[INFO] Execution Time (2017-04-05 14:54:46 UTC+2)
-[INFO] sass:core     289ms  ▇▇ 3%
-[INFO] sass:extras   259ms  ▇▇ 3%
-[INFO] sass:docs     145ms  ▇ 2%
-[INFO] exec:postcss   2.8s  ▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇ 30%
-[INFO] cssmin:core    1.3s  ▇▇▇▇▇▇▇ 14%
-[INFO] babel:dev      2.2s  ▇▇▇▇▇▇▇▇▇▇▇▇ 23%
-[INFO] babel:dist     1.2s  ▇▇▇▇▇▇▇ 13%
-[INFO] uglify:core      1s  ▇▇▇▇▇▇ 11%
-[INFO] Total 9.3s
+[INFO] Execution Time (2017-04-05 16:01:41 UTC+2)
+[INFO] sass:core     290ms  ▇▇ 4%
+[INFO] sass:extras   254ms  ▇▇ 4%
+[INFO] sass:docs     144ms  ▇ 2%
+[INFO] exec:postcss   2.1s  ▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇ 29%
+[INFO] cssmin:core   931ms  ▇▇▇▇▇▇▇ 13%
+[INFO] babel:dev      1.5s  ▇▇▇▇▇▇▇▇▇▇▇ 22%
+[INFO] babel:dist     1.1s  ▇▇▇▇▇▇▇▇ 15%
+[INFO] uglify:core   708ms  ▇▇▇▇▇ 10%
+[INFO] Total 7.1s
 [INFO] 
 [INFO] 
 [INFO] --- maven-resources-plugin:2.7:resources (default-resources) @ tobago-theme-scarborough ---
@@ -1040,7 +1040,7 @@ main:
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
-[INFO] Total time: 02:07 min
-[INFO] Finished at: 2017-04-05T14:54:56+02:00
-[INFO] Final Memory: 35M/445M
+[INFO] Total time: 02:29 min
+[INFO] Finished at: 2017-04-05T16:01:49+02:00
+[INFO] Final Memory: 35M/438M
 [INFO] ------------------------------------------------------------------------
