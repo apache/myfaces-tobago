@@ -28,7 +28,7 @@
   <description>A simple, but full functional application with persistence.</description>
 
   <properties>
-    <openjpa.version>2.3.0</openjpa.version>
+    <openjpa.version>2.4.2</openjpa.version>
     <openwebbeans.version>1.2.8</openwebbeans.version>
     <deltaspike.version>1.7.1</deltaspike.version>
   </properties>
