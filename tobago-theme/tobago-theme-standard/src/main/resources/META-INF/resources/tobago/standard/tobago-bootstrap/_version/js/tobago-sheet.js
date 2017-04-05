@@ -422,7 +422,7 @@ Tobago.Sheet.setup2 = function (sheets) {
         }
       });
     }
-    sheet.find("tobago-sheet-cell > input.tobago-sheet-columnSelector").click(function(event) {event.preventDefault()});
+    sheet.find(".tobago-sheet-cell > input.tobago-sheet-columnSelector").click(function(event) {event.preventDefault()});
   });
 
     // init reload
