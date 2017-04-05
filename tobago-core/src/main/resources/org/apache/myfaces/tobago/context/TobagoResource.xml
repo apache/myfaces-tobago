@@ -58,8 +58,6 @@
   <entry key="sheetPagingInfoUndefinedSinglePage">Page {0}</entry>
   <entry key="sheetPagingInfoEmptyPage"/>
   <entry key="sheetPagingInfoPagePagingTip">Click here, to change the displayed page</entry>
-  <entry key="sheetMenuToggleselect">Invert selections</entry>
-  <entry key="sheetMenuUnselect">Unselect all</entry>
   <entry key="sheetMenuSelect">Select all</entry>
 
   <!-- Tree -->

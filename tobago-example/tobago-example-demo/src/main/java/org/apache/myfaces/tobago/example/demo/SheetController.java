@@ -21,6 +21,8 @@ package org.apache.myfaces.tobago.example.demo;
 
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.example.data.SolarObject;
+import org.apache.myfaces.tobago.model.SelectItem;
+import org.apache.myfaces.tobago.model.Selectable;
 import org.apache.myfaces.tobago.model.SheetState;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.slf4j.Logger;
@@ -46,6 +48,22 @@ public class SheetController implements Serializable {
 
   private static final Logger LOG = LoggerFactory.getLogger(SheetController.class);
 
+  private static final SelectItem[] SHEET_SELECTABLE;
+
+  static {
+    List<Selectable> collect = new ArrayList<Selectable>();
+    for (Selectable selectable : Selectable.values()) {
+      if (selectable.isSupportedBySheet()) {
+        collect.add(selectable);
+      }
+    }
+    SHEET_SELECTABLE = new SelectItem[collect.size()];
+    for (int i = 0; i < collect.size(); i++) {
+      Selectable selectable = collect.get(i);
+      SHEET_SELECTABLE[i] = new SelectItem(selectable, selectable.name());
+    }
+  }
+
   private List<SolarObject> solarList;
   private List<SolarObject> hugeSolarList;
   private SheetState sheetState;
@@ -53,6 +71,7 @@ public class SheetController implements Serializable {
   private boolean automaticLayout;
   private List<Markup> markup;
   private int columnEventSample;
+  private Selectable selectable = Selectable.multi;
 
   public SheetController() {
     solarList = SolarObject.getList();
@@ -97,18 +116,6 @@ public class SheetController implements Serializable {
 
   public SolarObject getSelectedSolarObject() {
     return selectedSolarObject;
-  }
-
-  public int getNumberOfSelections() {
-    return sheetState.getSelectedRows().size();
-  }
-
-  public int getSelectedRowNumber() {
-    if (sheetState.getSelectedRows().size() <= 0) {
-      return -1;
-    } else {
-      return sheetState.getSelectedRows().get(0);
-    }
   }
 
   public boolean isAutomaticLayout() {
@@ -158,5 +165,17 @@ public class SheetController implements Serializable {
 
     dateTimeConverter.setPattern("yyyy");
     return dateTimeConverter;
+  }
+
+  public Selectable getSelectable() {
+    return selectable;
+  }
+
+  public void setSelectable(Selectable selectable) {
+    this.selectable = selectable;
+  }
+
+  public SelectItem[] getSelectableModes() {
+   return SHEET_SELECTABLE;
   }
 }

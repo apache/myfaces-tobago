@@ -62,10 +62,8 @@ import org.apache.myfaces.tobago.renderkit.css.CssItem;
 import org.apache.myfaces.tobago.renderkit.css.Icons;
 import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
-import org.apache.myfaces.tobago.renderkit.html.Arias;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
-import org.apache.myfaces.tobago.renderkit.html.HtmlButtonTypes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
 import org.apache.myfaces.tobago.util.ComponentUtils;
@@ -97,7 +95,6 @@ public class SheetRenderer extends RendererBase {
   private static final String SUFFIX_COLUMN_RENDERED = ComponentUtils.SUB_SEPARATOR + "rendered";
   private static final String SUFFIX_SCROLL_POSITION = ComponentUtils.SUB_SEPARATOR + "scrollPosition";
   private static final String SUFFIX_SELECTED = ComponentUtils.SUB_SEPARATOR + "selected";
-  private static final String SUFFIX_SELECTOR_DROPDOWN = ComponentUtils.SUB_SEPARATOR + "selectorDropdown";
 
   @Override
   public void decode(final FacesContext facesContext, final UIComponent component) {
@@ -445,7 +442,7 @@ public class SheetRenderer extends RendererBase {
               writer.writeAttribute(HtmlAttributes.DISABLED, selector.isDisabled());
               writer.writeClassAttribute(
                   BootstrapClass.FORM_CHECK_INLINE,
-                  Classes.create(sheet, "columnSelector"));
+                  TobagoClass.SHEET__COLUMN_SELECTOR);
               writer.endElement(HtmlElements.INPUT);
             } else if (normalColumn instanceof AbstractUIColumnNode) {
               RenderUtils.encode(facesContext, normalColumn);
@@ -849,44 +846,15 @@ public class SheetRenderer extends RendererBase {
             writer.writeAttribute(HtmlAttributes.TITLE, tip, true);
 
             if (column instanceof UIColumnSelector && selectable.isMulti()) {
-              writer.writeClassAttribute(Classes.create(sheet, "selectorDropdown"));
+              writer.startElement(HtmlElements.INPUT);
+              writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.CHECKBOX);
 
-              writer.startElement(HtmlElements.DIV);
-              writer.writeClassAttribute(BootstrapClass.DROPDOWN);
-              writer.startElement(HtmlElements.BUTTON);
-              writer.writeClassAttribute(
-                  BootstrapClass.BTN, BootstrapClass.BTN_SECONDARY, BootstrapClass.DROPDOWN_TOGGLE);
-              writer.writeAttribute(HtmlAttributes.TYPE, HtmlButtonTypes.BUTTON);
-              writer.writeIdAttribute(sheet.getClientId(facesContext) + SUFFIX_SELECTOR_DROPDOWN);
-              writer.writeAttribute(DataAttributes.TOGGLE, "dropdown", false);
-              writer.writeAttribute(Arias.HASPOPUP, Boolean.TRUE.toString(), false);
-              writer.writeAttribute(Arias.EXPANDED, Boolean.FALSE.toString(), false);
-              writer.endElement(HtmlElements.BUTTON);
-              writer.startElement(HtmlElements.DIV);
-              writer.writeClassAttribute(BootstrapClass.DROPDOWN_MENU);
-              writer
-                  .writeAttribute(Arias.LABELLEDBY, sheet.getClientId(facesContext) + SUFFIX_SELECTOR_DROPDOWN, false);
-              writer.startElement(HtmlElements.BUTTON);
-              writer.writeClassAttribute(BootstrapClass.DROPDOWN_ITEM);
-              writer.writeAttribute(HtmlAttributes.TYPE, HtmlButtonTypes.BUTTON);
-              writer.writeAttribute(DataAttributes.COMMAND, "sheetSelectAll", false);
-              writer.writeText(TobagoResourceBundle.getString(facesContext, "sheetMenuSelect"));
-              writer.endElement(HtmlElements.BUTTON);
-              writer.startElement(HtmlElements.BUTTON);
-              writer.writeClassAttribute(BootstrapClass.DROPDOWN_ITEM);
-              writer.writeAttribute(HtmlAttributes.TYPE, HtmlButtonTypes.BUTTON);
-              writer.writeAttribute(DataAttributes.COMMAND, "sheetDeselectAll", false);
-              writer.writeText(TobagoResourceBundle.getString(facesContext, "sheetMenuUnselect"));
-              writer.endElement(HtmlElements.BUTTON);
-              writer.startElement(HtmlElements.BUTTON);
-              writer.writeClassAttribute(BootstrapClass.DROPDOWN_ITEM);
-              writer.writeAttribute(HtmlAttributes.TYPE, HtmlButtonTypes.BUTTON);
-              writer.writeAttribute(DataAttributes.COMMAND, "sheetToggleAll", false);
-              writer
-                  .writeText(TobagoResourceBundle.getString(facesContext, "sheetMenuToggleselect"));
-              writer.endElement(HtmlElements.BUTTON);
-              writer.endElement(HtmlElements.DIV);
-              writer.endElement(HtmlElements.DIV);
+              writer.writeClassAttribute(TobagoClass.SHEET__COLUMN_SELECTOR);
+              writer.writeAttribute(
+                  HtmlAttributes.TITLE,
+                  TobagoResourceBundle.getString(facesContext, "sheetMenuSelect"),
+                  true);
+              writer.endElement(HtmlElements.INPUT);
             } else {
               RenderUtils.encode(facesContext, cellComponent);
             }

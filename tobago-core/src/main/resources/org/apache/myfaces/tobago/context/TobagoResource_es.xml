@@ -58,8 +58,6 @@
   <entry key="sheetPagingInfoUndefinedSinglePage">Página {0}</entry>
   <entry key="sheetPagingInfoEmptyPage"/>
   <entry key="sheetPagingInfoPagePagingTip">Click aquí, para cambiar el nombre desplegado.</entry>
-  <entry key="sheetMenuToggleselect">Invertir seleccion</entry>
-  <entry key="sheetMenuUnselect">Deseleccionar todo</entry>
   <entry key="sheetMenuSelect">Seleccionar todo</entry>
 
   <!-- Tree -->
