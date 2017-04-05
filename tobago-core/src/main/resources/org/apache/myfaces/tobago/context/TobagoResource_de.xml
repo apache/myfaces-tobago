@@ -61,9 +61,7 @@
   <entry key="sheetPagingInfoUndefinedSinglePage">Seite {0}</entry>
   <entry key="sheetPagingInfoEmptyPage"/>
   <entry key="sheetPagingInfoPagePagingTip">Hier klicken, zum Eingeben der anzuzeigenden Seite.</entry>
-  <entry key="sheetMenuToggleselect">Markierung umkehren</entry>
-  <entry key="sheetMenuUnselect">Markierungen löschen</entry>
-  <entry key="sheetMenuSelect">Alles markieren</entry>
+  <entry key="sheetMenuSelect">Alles auswählen</entry>
 
   <!-- Tree -->
   <entry key="treeNew">Neu</entry>

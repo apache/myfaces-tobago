@@ -71,14 +71,13 @@ Tobago.Sheet.init = function(elements) {
 
   Tobago.Sheet.setup2(sheets);
 
-  Tobago.Utils.selectWithJQuery(elements, "button[data-tobago-command=sheetSelectAll]").click(function(event) {
-    Tobago.Sheet.selectAll(jQuery(event.target).closest(".tobago-sheet"));
-  });
-  Tobago.Utils.selectWithJQuery(elements, "button[data-tobago-command=sheetDeselectAll]").click(function(event) {
-    Tobago.Sheet.deselectAll(jQuery(event.target).closest(".tobago-sheet"));
-  });
-  Tobago.Utils.selectWithJQuery(elements, "button[data-tobago-command=sheetToggleAll]").click(function(event) {
-    Tobago.Sheet.toggleAll(jQuery(event.target).closest(".tobago-sheet"));
+  Tobago.Utils.selectWithJQuery(elements, ".tobago-sheet-header .tobago-sheet-columnSelector").click(function(event) {
+    var $checkbox = jQuery(event.target);
+    if ($checkbox.is(':checked')) {
+      Tobago.Sheet.selectAll($checkbox.closest(".tobago-sheet"));
+    } else {
+      Tobago.Sheet.deselectAll($checkbox.closest(".tobago-sheet"));
+    }
   });
 
   console.timeEnd("[tobago-sheet] init"); // @DEV_ONLY
@@ -423,7 +422,7 @@ Tobago.Sheet.setup2 = function (sheets) {
         }
       });
     }
-    sheet.find("input.tobago-sheet-columnSelector").click(function(event) {event.preventDefault()});
+    sheet.find("tobago-sheet-cell > input.tobago-sheet-columnSelector").click(function(event) {event.preventDefault()});
   });
 
     // init reload

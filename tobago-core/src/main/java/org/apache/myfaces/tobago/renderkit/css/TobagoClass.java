@@ -83,6 +83,7 @@ public enum TobagoClass implements CssItem {
   SELECT_ONE_RADIO__INLINE("tobago-selectOneRadio-inline"),
   SHEET__HEADER("tobago-sheet-header"),
   SHEET__BODY_TABLE("tobago-sheet-bodyTable"),
+  SHEET__COLUMN_SELECTOR("tobago-sheet-columnSelector"),
   SHEET__HEADER_TABLE("tobago-sheet-headerTable"),
   SHEET__PAGING_INPUT("tobago-sheet-pagingInput"),
   SHEET__PAGING_OUTPUT("tobago-sheet-pagingOutput"),

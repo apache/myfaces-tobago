@@ -64,7 +64,7 @@
       </tc:column>
     </tc:sheet>
 
-    <tc:selectOneRadio label="Mode" value="#{sheetController.selectable}">
+    <tc:selectOneRadio label="Mode" value="#{sheetController.selectable}" required="true">
       <tc:selectItems value="#{sheetController.selectableModes}"/>
       <f:ajax render="s4"/>
     </tc:selectOneRadio>

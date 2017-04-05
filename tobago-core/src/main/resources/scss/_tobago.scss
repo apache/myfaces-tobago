@@ -22,6 +22,9 @@ XXX code will be inserted after the _variables.scss
 $brand-info: #00f !default;
 $zindex-dropdown: 1000 !default;
 $zindex-popover: 1060 !default;
+$spacer: 1rem !default;
+$spacer-x: $spacer !default;
+$spacer-y: $spacer !default;
 
 /* fix bootstrap ---------------------------------------------------- */
 span.dropdown {
@@ -41,7 +44,7 @@ Todo: check, if this is needed? (It doesn't work with the build system)
 */
 
 /*
-.tobago-treeNode-toggle // XXX dummy: only occurs in JavaScript, is here to satisfy the Test
+.tobago-treeNode-toggle // XXX dummy: only occurs in JavaScript, is here to satisfy the TobagoClassUnitTest
  */
 
 /*
@@ -738,6 +741,11 @@ th.tobago-sheet-headerCell .tobago-out {
 .tobago-sheet-header {
   overflow: hidden;
   flex-shrink: 0;
+}
+
+.tobago-sheet-columnSelector {
+  margin-top: ($spacer-y * 0.75);
+  margin-bottom: ($spacer-y * 0.75);
 }
 
 .tobago-sheet {
