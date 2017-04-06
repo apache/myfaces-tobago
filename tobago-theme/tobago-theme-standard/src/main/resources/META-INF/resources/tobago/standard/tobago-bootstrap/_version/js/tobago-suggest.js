@@ -123,6 +123,9 @@ Tobago.Suggest.init = function(elements) {
       input.bind('typeahead:open', function() {
         var $input = jQuery(this);
         var $suggest = $input.parent().siblings(".tobago-suggest");
+        if($suggest.length == 0) {
+          $suggest = $input.parent().parent().parent().siblings(".tobago-suggest");
+        }
         var $suggestPopup = jQuery(Tobago.Utils.escapeClientId($suggest.attr('id') + "::popup"));
         $suggestPopup.css("top", $input.offset().top + $input.outerHeight() + "px");
         $suggestPopup.css("left", $input.offset().left + "px");
