@@ -1,11 +1,9 @@
-Build date: 2017-04-06 13:43:53
+Build date: 2017-04-06 15:59:30
 [INFO] Scanning for projects...
 [INFO]                                                                         
 [INFO] ------------------------------------------------------------------------
 [INFO] Building Tobago Theme Standard 3.1.0-SNAPSHOT
 [INFO] ------------------------------------------------------------------------
-Downloading: http://repository.apache.org/snapshots/org/apache/myfaces/tobago/tobago-core/3.1.0-SNAPSHOT/tobago-core-3.1.0-20170405.174940-38-tests.jar
-2/117 KB   6/117 KB   10/117 KB   14/117 KB   14/117 KB   16/117 KB   17/117 KB   18/117 KB   21/117 KB   25/117 KB   27/117 KB   28/117 KB   30/117 KB   31/117 KB   32/117 KB   34/117 KB   35/117 KB   37/117 KB   38/117 KB   39/117 KB   41/117 KB   42/117 KB   44/117 KB   45/117 KB   46/117 KB   48/117 KB   49/117 KB   52/117 KB   53/117 KB   55/117 KB   56/117 KB   58/117 KB   59/117 KB   61/117 KB   62/117 KB   63/117 KB   65/117 KB   66/117 KB   68/117 KB   69/117 KB   70/117 KB   72/117 KB   73/117 KB   75/117 KB   76/117 KB   77/117 KB   79/117 KB   80/117 KB   82/117 KB   83/117 KB   84/117 KB   86/117 KB   89/117 KB   90/117 KB   91/117 KB   93/117 KB   94/117 KB   96/117 KB   97/117 KB   98/117 KB   100/117 KB   101/117 KB   103/117 KB   104/117 KB   106/117 KB   107/117 KB   108/117 KB   110/117 KB   111/117 KB   113/117 KB   114/117 KB   115/117 KB   117/117 KB   117/117 KB                Downloaded: http://repository.apache.org/snapshots/org/apache/myfaces/tobago/tobago-core/3.1.0-SNAPSHOT/tobago-core-3.1.0-20170405.174940-38-tests.jar (117 KB at 122.7 KB/sec)
 [INFO] 
 [INFO] --- maven-enforcer-plugin:1.4.1:enforce (enforce) @ tobago-theme-standard ---
 [INFO] 
@@ -39,16 +37,16 @@ Downloading: http://repository.apache.org/snapshots/org/apache/myfaces/tobago/to
 [INFO] Configured Artifact: org.apache.myfaces.tobago:tobago-core:3.1.0-SNAPSHOT:jar
 [INFO] Unpacking __REPO__/org/apache/myfaces/tobago/tobago-core/3.1.0-SNAPSHOT/tobago-core-3.1.0-SNAPSHOT.jar to __CURRENT__/tobago-theme-standard/target/bootstrap with includes "**/*.scss" and excludes ""
 [INFO] 
-[INFO] --- frontend-maven-plugin:1.0:install-node-and-npm (step #6: install node and npm) @ tobago-theme-standard ---
-[INFO] Installing node version v6.5.0
-[INFO] Unpacking __REPO__/com/github/eirslett/node/6.5.0/node-6.5.0-darwin-x64.tar.gz into __CURRENT__/tobago-theme-standard/target/frontend/node/tmp
-[INFO] Copying node binary from __CURRENT__/tobago-theme-standard/target/frontend/node/tmp/node-v6.5.0-darwin-x64/bin/node to __CURRENT__/tobago-theme-standard/target/frontend/node/node
+[INFO] --- frontend-maven-plugin:1.4:install-node-and-npm (step #6: install node and npm) @ tobago-theme-standard ---
+[INFO] Installing node version v6.10.2
+[INFO] Unpacking __REPO__/com/github/eirslett/node/6.10.2/node-6.10.2-darwin-x64.tar.gz into __CURRENT__/tobago-theme-standard/target/frontend/node/tmp
+[INFO] Copying node binary from __CURRENT__/tobago-theme-standard/target/frontend/node/tmp/node-v6.10.2-darwin-x64/bin/node to __CURRENT__/tobago-theme-standard/target/frontend/node/node
 [INFO] Installed node locally.
-[INFO] Installing npm version 3.10.8
-[INFO] Unpacking __REPO__/com/github/eirslett/npm/3.10.8/npm-3.10.8.tar.gz into __CURRENT__/tobago-theme-standard/target/frontend/node/node_modules
+[INFO] Installing npm version 3.10.10
+[INFO] Unpacking __REPO__/com/github/eirslett/npm/3.10.10/npm-3.10.10.tar.gz into __CURRENT__/tobago-theme-standard/target/frontend/node/node_modules
 [INFO] Installed npm locally.
 [INFO] 
-[INFO] --- frontend-maven-plugin:1.0:npm (step #7: npm install grunt-cli) @ tobago-theme-standard ---
+[INFO] --- frontend-maven-plugin:1.4:npm (step #7: npm install grunt-cli) @ tobago-theme-standard ---
 [INFO] Running 'npm install grunt-cli' in __CURRENT__/tobago-theme-standard/target/bootstrap
 [INFO] bootstrap@4.0.0-alpha.6 __CURRENT__/tobago-theme-standard/target/bootstrap
 [INFO] └─┬ grunt-cli@1.2.0 
@@ -69,7 +67,7 @@ Downloading: http://repository.apache.org/snapshots/org/apache/myfaces/tobago/to
 [INFO]   └── resolve@1.1.7 
 [INFO] 
 [INFO] 
-[INFO] --- frontend-maven-plugin:1.0:npm (step #8: npm install) @ tobago-theme-standard ---
+[INFO] --- frontend-maven-plugin:1.4:npm (step #8: npm install) @ tobago-theme-standard ---
 [INFO] Running 'npm install' in __CURRENT__/tobago-theme-standard/target/bootstrap
 [WARNING] npm WARN deprecated minimatch@2.0.10: Please update to minimatch 3.0.2 or higher to avoid a RegExp DoS issue
 [WARNING] npm WARN deprecated minimatch@0.3.0: Please update to minimatch 3.0.2 or higher to avoid a RegExp DoS issue
@@ -97,7 +95,7 @@ Downloading: http://repository.apache.org/snapshots/org/apache/myfaces/tobago/to
 [ERROR] ../../nan/nan_json.h:87:35: warning: 'Parse' is deprecated [-Wdeprecated-declarations]
 [ERROR]     return scope.Escape(v8::JSON::Parse(json_string));
 [ERROR]                                   ^
-[ERROR] __HOME__/.node-gyp/6.5.0/include/node/v8.h:1682:37: note: 'Parse' has been explicitly marked deprecated here
+[ERROR] __HOME__/.node-gyp/6.10.2/include/node/v8.h:1682:37: note: 'Parse' has been explicitly marked deprecated here
 [ERROR]                        Local<Value> Parse(Local<String> json_string));
 [ERROR]                                     ^
 [ERROR] 1 warning generated.
@@ -108,7 +106,7 @@ Downloading: http://repository.apache.org/snapshots/org/apache/myfaces/tobago/to
 [ERROR] ../../nan/nan_json.h:87:35: warning: 'Parse' is deprecated [-Wdeprecated-declarations]
 [ERROR]     return scope.Escape(v8::JSON::Parse(json_string));
 [ERROR]                                   ^
-[ERROR] __HOME__/.node-gyp/6.5.0/include/node/v8.h:1682:37: note: 'Parse' has been explicitly marked deprecated here
+[ERROR] __HOME__/.node-gyp/6.10.2/include/node/v8.h:1682:37: note: 'Parse' has been explicitly marked deprecated here
 [ERROR]                        Local<Value> Parse(Local<String> json_string));
 [ERROR]                                     ^
 [ERROR] 1 warning generated.
@@ -118,7 +116,7 @@ Downloading: http://repository.apache.org/snapshots/org/apache/myfaces/tobago/to
 [ERROR] ../../nan/nan_json.h:87:35: warning: 'Parse' is deprecated [-Wdeprecated-declarations]
 [ERROR]     return scope.Escape(v8::JSON::Parse(json_string));
 [ERROR]                                   ^
-[ERROR] __HOME__/.node-gyp/6.5.0/include/node/v8.h:1682:37: note: 'Parse' has been explicitly marked deprecated here
+[ERROR] __HOME__/.node-gyp/6.10.2/include/node/v8.h:1682:37: note: 'Parse' has been explicitly marked deprecated here
 [ERROR]                        Local<Value> Parse(Local<String> json_string));
 [ERROR]                                     ^
 [ERROR] 1 warning generated.
@@ -129,7 +127,7 @@ Downloading: http://repository.apache.org/snapshots/org/apache/myfaces/tobago/to
 [ERROR] ../../nan/nan_json.h:87:35: warning: 'Parse' is deprecated [-Wdeprecated-declarations]
 [ERROR]     return scope.Escape(v8::JSON::Parse(json_string));
 [ERROR]                                   ^
-[ERROR] __HOME__/.node-gyp/6.5.0/include/node/v8.h:1682:37: note: 'Parse' has been explicitly marked deprecated here
+[ERROR] __HOME__/.node-gyp/6.10.2/include/node/v8.h:1682:37: note: 'Parse' has been explicitly marked deprecated here
 [ERROR]                        Local<Value> Parse(Local<String> json_string));
 [ERROR]                                     ^
 [ERROR] 1 warning generated.
@@ -140,7 +138,7 @@ Downloading: http://repository.apache.org/snapshots/org/apache/myfaces/tobago/to
 [ERROR] ../../nan/nan_json.h:87:35: warning: 'Parse' is deprecated [-Wdeprecated-declarations]
 [ERROR]     return scope.Escape(v8::JSON::Parse(json_string));
 [ERROR]                                   ^
-[ERROR] __HOME__/.node-gyp/6.5.0/include/node/v8.h:1682:37: note: 'Parse' has been explicitly marked deprecated here
+[ERROR] __HOME__/.node-gyp/6.10.2/include/node/v8.h:1682:37: note: 'Parse' has been explicitly marked deprecated here
 [ERROR]                        Local<Value> Parse(Local<String> json_string));
 [ERROR]                                     ^
 [ERROR] 1 warning generated.
@@ -168,7 +166,7 @@ Downloading: http://repository.apache.org/snapshots/org/apache/myfaces/tobago/to
 [ERROR] ../../nan/nan_json.h:87:35: warning: 'Parse' is deprecated [-Wdeprecated-declarations]
 [ERROR]     return scope.Escape(v8::JSON::Parse(json_string));
 [ERROR]                                   ^
-[ERROR] __HOME__/.node-gyp/6.5.0/include/node/v8.h:1682:37: note: 'Parse' has been explicitly marked deprecated here
+[ERROR] __HOME__/.node-gyp/6.10.2/include/node/v8.h:1682:37: note: 'Parse' has been explicitly marked deprecated here
 [ERROR]                        Local<Value> Parse(Local<String> json_string));
 [ERROR]                                     ^
 [ERROR] 1 warning generated.
@@ -179,7 +177,7 @@ Downloading: http://repository.apache.org/snapshots/org/apache/myfaces/tobago/to
 [ERROR] ../../nan/nan_json.h:87:35: warning: 'Parse' is deprecated [-Wdeprecated-declarations]
 [ERROR]     return scope.Escape(v8::JSON::Parse(json_string));
 [ERROR]                                   ^
-[ERROR] __HOME__/.node-gyp/6.5.0/include/node/v8.h:1682:37: note: 'Parse' has been explicitly marked deprecated here
+[ERROR] __HOME__/.node-gyp/6.10.2/include/node/v8.h:1682:37: note: 'Parse' has been explicitly marked deprecated here
 [ERROR]                        Local<Value> Parse(Local<String> json_string));
 [ERROR]                                     ^
 [ERROR] 1 warning generated.
@@ -189,7 +187,7 @@ Downloading: http://repository.apache.org/snapshots/org/apache/myfaces/tobago/to
 [ERROR] ../../nan/nan_json.h:87:35: warning: 'Parse' is deprecated [-Wdeprecated-declarations]
 [ERROR]     return scope.Escape(v8::JSON::Parse(json_string));
 [ERROR]                                   ^
-[ERROR] __HOME__/.node-gyp/6.5.0/include/node/v8.h:1682:37: note: 'Parse' has been explicitly marked deprecated here
+[ERROR] __HOME__/.node-gyp/6.10.2/include/node/v8.h:1682:37: note: 'Parse' has been explicitly marked deprecated here
 [ERROR]                        Local<Value> Parse(Local<String> json_string));
 [ERROR]                                     ^
 [ERROR] 1 warning generated.
@@ -200,7 +198,7 @@ Downloading: http://repository.apache.org/snapshots/org/apache/myfaces/tobago/to
 [ERROR] ../../nan/nan_json.h:87:35: warning: 'Parse' is deprecated [-Wdeprecated-declarations]
 [ERROR]     return scope.Escape(v8::JSON::Parse(json_string));
 [ERROR]                                   ^
-[ERROR] __HOME__/.node-gyp/6.5.0/include/node/v8.h:1682:37: note: 'Parse' has been explicitly marked deprecated here
+[ERROR] __HOME__/.node-gyp/6.10.2/include/node/v8.h:1682:37: note: 'Parse' has been explicitly marked deprecated here
 [ERROR]                        Local<Value> Parse(Local<String> json_string));
 [ERROR]                                     ^
 [ERROR] 1 warning generated.
@@ -211,7 +209,7 @@ Downloading: http://repository.apache.org/snapshots/org/apache/myfaces/tobago/to
 [ERROR] ../../nan/nan_json.h:87:35: warning: 'Parse' is deprecated [-Wdeprecated-declarations]
 [ERROR]     return scope.Escape(v8::JSON::Parse(json_string));
 [ERROR]                                   ^
-[ERROR] __HOME__/.node-gyp/6.5.0/include/node/v8.h:1682:37: note: 'Parse' has been explicitly marked deprecated here
+[ERROR] __HOME__/.node-gyp/6.10.2/include/node/v8.h:1682:37: note: 'Parse' has been explicitly marked deprecated here
 [ERROR]                        Local<Value> Parse(Local<String> json_string));
 [ERROR]                                     ^
 [ERROR] 1 warning generated.
@@ -226,7 +224,7 @@ Downloading: http://repository.apache.org/snapshots/org/apache/myfaces/tobago/to
 [INFO] Verified checksum of previously downloaded file
 [INFO] Extracting zip contents
 [INFO] Removing __CURRENT__/tobago-theme-standard/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom
-[INFO] Copying extracted folder /var/folders/w0/pg4pxr7972l6bq85x08s5cl00000gn/T/phantomjs/phantomjs-2.1.1-macosx.zip-extract-1491479170871/phantomjs-2.1.1-macosx -> __CURRENT__/tobago-theme-standard/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom
+[INFO] Copying extracted folder /var/folders/w0/pg4pxr7972l6bq85x08s5cl00000gn/T/phantomjs/phantomjs-2.1.1-macosx.zip-extract-1491488529637/phantomjs-2.1.1-macosx -> __CURRENT__/tobago-theme-standard/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom
 [INFO] Writing location.js file
 [INFO] Done. Phantomjs binary available at __CURRENT__/tobago-theme-standard/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom/bin/phantomjs
 [INFO] 
@@ -976,7 +974,7 @@ Downloading: http://repository.apache.org/snapshots/org/apache/myfaces/tobago/to
 [INFO]     └── window-size@0.1.0 
 [INFO] 
 [INFO] 
-[INFO] --- frontend-maven-plugin:1.0:grunt (step #9: grunt build) @ tobago-theme-standard ---
+[INFO] --- frontend-maven-plugin:1.4:grunt (step #9: grunt build) @ tobago-theme-standard ---
 [INFO] Running 'grunt dist' in __CURRENT__/tobago-theme-standard/target/bootstrap
 [INFO] Running "clean:dist" (clean) task
 [INFO] >> 1 path cleaned.
@@ -990,11 +988,11 @@ Downloading: http://repository.apache.org/snapshots/org/apache/myfaces/tobago/to
 [INFO] >> Wrote CSS to __CURRENT__/tobago-theme-standard/target/bootstrap/dist/css/bootstrap.css
 [INFO] >> Wrote Source Map to __CURRENT__/tobago-theme-standard/target/bootstrap/dist/css/bootstrap.css.map
 [INFO] >> Rendering Complete, saving .css file...
-[INFO] >> Wrote Source Map to __CURRENT__/tobago-theme-standard/target/bootstrap/dist/css/bootstrap-grid.css.map
 [INFO] >> Wrote CSS to __CURRENT__/tobago-theme-standard/target/bootstrap/dist/css/bootstrap-grid.css
+[INFO] >> Wrote Source Map to __CURRENT__/tobago-theme-standard/target/bootstrap/dist/css/bootstrap-grid.css.map
 [INFO] >> Rendering Complete, saving .css file...
-[INFO] >> Wrote Source Map to __CURRENT__/tobago-theme-standard/target/bootstrap/dist/css/bootstrap-reboot.css.map
 [INFO] >> Wrote CSS to __CURRENT__/tobago-theme-standard/target/bootstrap/dist/css/bootstrap-reboot.css
+[INFO] >> Wrote Source Map to __CURRENT__/tobago-theme-standard/target/bootstrap/dist/css/bootstrap-reboot.css.map
 [INFO] 
 [INFO] Running "exec:sass-docs" (exec) task
 [INFO] 
@@ -1002,8 +1000,8 @@ Downloading: http://repository.apache.org/snapshots/org/apache/myfaces/tobago/to
 [INFO] > node-sass --output-style expanded --source-map true --precision 6 docs/assets/scss/docs.scss docs/assets/css/docs.min.css
 [INFO] 
 [INFO] >> Rendering Complete, saving .css file...
-[INFO] >> Wrote CSS to __CURRENT__/tobago-theme-standard/target/bootstrap/docs/assets/css/docs.min.css
 [INFO] >> Wrote Source Map to __CURRENT__/tobago-theme-standard/target/bootstrap/docs/assets/css/docs.min.css.map
+[INFO] >> Wrote CSS to __CURRENT__/tobago-theme-standard/target/bootstrap/docs/assets/css/docs.min.css
 [INFO] 
 [INFO] Running "exec:postcss" (exec) task
 [INFO] 
@@ -1040,16 +1038,16 @@ Downloading: http://repository.apache.org/snapshots/org/apache/myfaces/tobago/to
 [INFO] Done.
 [INFO] 
 [INFO] 
-[INFO] Execution Time (2017-04-06 13:46:16 UTC+2)
-[INFO] exec:sass               2s  ▇▇▇▇▇▇▇ 15%
-[INFO] exec:sass-docs       977ms  ▇▇▇ 7%
-[INFO] exec:postcss            2s  ▇▇▇▇▇▇▇ 15%
-[INFO] exec:clean-css        2.1s  ▇▇▇▇▇▇▇ 15%
-[INFO] exec:clean-css-docs     1s  ▇▇▇▇ 8%
-[INFO] babel:dev             2.4s  ▇▇▇▇▇▇▇▇ 18%
-[INFO] babel:dist            1.3s  ▇▇▇▇▇ 10%
-[INFO] exec:uglify           1.6s  ▇▇▇▇▇ 12%
-[INFO] Total 13.5s
+[INFO] Execution Time (2017-04-06 16:22:14 UTC+2)
+[INFO] exec:sass               2s  ▇▇▇ 5%
+[INFO] exec:sass-docs       935ms  ▇ 2%
+[INFO] exec:postcss         30.4s  ▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇ 75%
+[INFO] exec:clean-css        2.1s  ▇▇▇ 5%
+[INFO] exec:clean-css-docs  896ms  ▇ 2%
+[INFO] babel:dev             1.7s  ▇▇ 4%
+[INFO] babel:dist           949ms  ▇ 2%
+[INFO] exec:uglify           1.5s  ▇▇ 4%
+[INFO] Total 40.5s
 [INFO] 
 [INFO] 
 [INFO] --- maven-resources-plugin:2.7:resources (default-resources) @ tobago-theme-standard ---
@@ -1074,9 +1072,9 @@ Downloading: http://repository.apache.org/snapshots/org/apache/myfaces/tobago/to
 [INFO] tether-theme-basic.min.css (504b) -> tether-theme-basic.min.min.css (504b)[100%]
 [INFO] nothing to do, __CURRENT__/tobago-theme-standard/target/classes/META-INF/resources/tobago/standard/tether/1.1.1/css/tether.min.css is younger than original, use 'force' option or clean your target
 [INFO] tether.min.css (237b) -> tether.min.min.css (237b)[100%]
-[INFO] bootstrap.css (218028b) -> bootstrap.min.css (165843b)[76%]
-[INFO] bootstrap.min.css (165850b) -> bootstrap.min.min.css (165559b)[99%]
-[INFO] total input (432780b) -> output (380236b)[87%]
+[INFO] bootstrap.css (218071b) -> bootstrap.min.css (165663b)[75%]
+[INFO] bootstrap.min.css (165675b) -> bootstrap.min.min.css (165384b)[99%]
+[INFO] total input (432648b) -> output (379881b)[87%]
 [INFO] nb warnings: 0, nb errors: 0
 [INFO] 
 [INFO] --- maven-compiler-plugin:3.5.1:compile (default-compile) @ tobago-theme-standard ---
@@ -1104,6 +1102,8 @@ main:
 [INFO] --- maven-compiler-plugin:3.5.1:testCompile (default-testCompile) @ tobago-theme-standard ---
 [INFO] Compiling 1 source file to __CURRENT__/tobago-theme-standard/target/test-classes
 [WARNING] bootstrap class path not set in conjunction with -source 1.6
+[INFO] __CURRENT__/tobago-theme-standard/src/test/java/org/apache/myfaces/tobago/renderkit/css/BootstrapClassUnitTest.java: __CURRENT__/tobago-theme-standard/src/test/java/org/apache/myfaces/tobago/renderkit/css/BootstrapClassUnitTest.java uses or overrides a deprecated API.
+[INFO] __CURRENT__/tobago-theme-standard/src/test/java/org/apache/myfaces/tobago/renderkit/css/BootstrapClassUnitTest.java: Recompile with -Xlint:deprecation for details.
 [INFO] 
 [INFO] --- maven-surefire-plugin:2.19.1:test (default-test) @ tobago-theme-standard ---
 
@@ -1111,7 +1111,7 @@ main:
  T E S T S
 -------------------------------------------------------
 Running org.apache.myfaces.tobago.renderkit.css.BootstrapClassUnitTest
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.111 sec - in org.apache.myfaces.tobago.renderkit.css.BootstrapClassUnitTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.118 sec - in org.apache.myfaces.tobago.renderkit.css.BootstrapClassUnitTest
 
 Results :
 
@@ -1129,7 +1129,7 @@ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
-[INFO] Total time: 02:42 min
-[INFO] Finished at: 2017-04-06T13:46:36+02:00
-[INFO] Final Memory: 39M/429M
+[INFO] Total time: 23:30 min
+[INFO] Finished at: 2017-04-06T16:23:02+02:00
+[INFO] Final Memory: 41M/572M
 [INFO] ------------------------------------------------------------------------

@@ -9388,10 +9388,6 @@ span.dropdown {
   display: inline-flex;
 }
 
-.form-check-label.dropdown-item {
-  padding-left: 1.25rem;
-}
-
 /*
 Todo: check, if this is needed? (It doesn't work with the build system)
 
@@ -9407,6 +9403,10 @@ Todo: check, if this is needed? (It doesn't work with the build system)
  * agent: standard
  */
 /* box -------------------------------------------------------------- */
+.tobago-box {
+  margin-bottom: 0.75rem;
+}
+
 .tobago-box-header {
   display: -webkit-box;
   display: -webkit-flex;
@@ -9419,6 +9419,18 @@ Todo: check, if this is needed? (It doesn't work with the build system)
   -webkit-align-content: center;
       -ms-flex-line-pack: center;
           align-content: center;
+}
+
+.card-header > h3:first-child {
+  margin-bottom: 0;
+  -webkit-align-self: center;
+      -ms-flex-item-align: center;
+              -ms-grid-row-align: center;
+          align-self: center;
+}
+
+.card-header .navbar {
+  padding: 0;
 }
 
 /* button -------------------------------------------------------------- */
@@ -9605,7 +9617,7 @@ body {
   box-shadow: 0 0 5px 5px rgba(200, 200, 200, 0.5);
 }
 
-.navbar-fixed-bottom {
+.fixed-bottom {
   margin-top: 10px;
 }
 
@@ -9649,7 +9661,7 @@ table.tobago-gridLayout > tbody > tr > td > * {
   margin-bottom: 1rem;
 }
 
-.tobago-header.navbar-fixed-top {
+.tobago-header.fixed-top {
   margin-bottom: 0;
 }
 
@@ -9673,7 +9685,7 @@ table.tobago-gridLayout > tbody > tr > td > * {
   white-space: normal;
 }
 
-button.tobago-link, button.tobago-linkAlternativeLinks, button.tobago-treeCommand {
+button.tobago-link, button.tobago-linkInsideLinks, button.tobago-treeCommand {
   color: #0275d8;
   border-width: 0;
   padding: 0;
@@ -9681,7 +9693,7 @@ button.tobago-link, button.tobago-linkAlternativeLinks, button.tobago-treeComman
   text-align: left;
 }
 
-button.tobago-link:focus, button.tobago-link:hover, button.tobago-linkAlternativeLinks:focus, button.tobago-linkAlternativeLinks:hover, button.tobago-treeCommand:focus, button.tobago-treeCommand:hover {
+button.tobago-link:focus, button.tobago-link:hover, button.tobago-linkInsideLinks:focus, button.tobago-linkInsideLinks:hover, button.tobago-treeCommand:focus, button.tobago-treeCommand:hover {
   color: #014c8c;
   background-color: transparent;
   outline: none;
@@ -9701,8 +9713,16 @@ button.tobago-link-markup-disabled:hover, button.tobago-command-markup-disabled:
   text-decoration: none;
 }
 
-.tobago-button > *:nth-child(n+2), .tobago-link > *:nth-child(n+2), .tobago-linkAlternativeCommand > *:nth-child(n+2) {
-  margin-left: .4em;
+button.nav-link {
+  /* bootstrap don't know button.nav-link*/
+  padding: 0.5em 1em;
+  padding-top: .55em;
+  padding-bottom: .45em;
+}
+
+.navbar-nav button.nav-link {
+  padding-left: 0;
+  padding-right: 0;
 }
 
 /* messages ----------------------------------------------------------- */
@@ -9740,12 +9760,13 @@ a.tobago-messages-button {
 }
 
 /* nav ----------------------------------------------------------- */
+/*
 .nav-item > span > .tobago-link, .nav-item > span > .tobago-command {
   padding-top: .425rem;
   padding-bottom: .425rem;
   display: inline-block;
 }
-
+*/
 /* styles for drop down menu first level */
 .dropdown-toggle:focus, .dropdown-toggle:hover {
   text-decoration: none;
@@ -9792,7 +9813,7 @@ a.tobago-messages-button {
   display: none;
 }
 
-.tobago-dropdown-submenu > .tobago-linkAlternativeCommand {
+.tobago-dropdown-submenu > .tobago-linkInsideCommand {
   border-width: 0;
   color: #292b2c;
   padding: 0;
@@ -9938,7 +9959,7 @@ h6 > .fa:first-child {
 }
 
 /* selectBooleanCheckbox ----------------------------------------------- */
-.tobago-selectBooleanCheckbox input, .tobago-selectBooleanCheckboxAlternativeCommand input {
+.tobago-selectBooleanCheckbox input, .tobago-selectBooleanCheckboxInsideCommand input {
   margin-right: 0.3em;
   margin-bottom: 0.4ex;
   vertical-align: text-bottom;
@@ -9955,7 +9976,7 @@ h6 > .fa:first-child {
   list-style: none;
 }
 
-.tobago-selectManyCheckbox input, .tobago-selectManyCheckboxAlternativeCommand input {
+.tobago-selectManyCheckbox input, .tobago-selectManyCheckboxInsideCommand input {
   margin-right: 0.3em;
   margin-bottom: 0.4ex;
   vertical-align: text-bottom;
@@ -10021,7 +10042,7 @@ h6 > .fa:first-child {
   list-style: none;
 }
 
-.tobago-selectOneRadio input, .tobago-selectOneRadioAlternativeCommand input {
+.tobago-selectOneRadio input, .tobago-selectOneRadioInsideCommand input {
   margin-right: 0.3em;
   margin-bottom: 0.4ex;
   vertical-align: text-bottom;
@@ -10033,7 +10054,7 @@ h6 > .fa:first-child {
 }
 
 /* selectOneChoice ---------------------------------------------------------- */
-.input-group-btn:not(:last-child) > .tobago-selectOneChoiceAlternativeIn {
+.input-group-btn:not(:last-child) > .tobago-selectOneChoiceInsideIn {
   /* before facet */
   width: 100%;
   -webkit-appearance: none;
@@ -10042,7 +10063,7 @@ h6 > .fa:first-child {
   border-bottom-right-radius: 0;
 }
 
-.input-group-btn:not(:first-child) > .tobago-selectOneChoiceAlternativeIn {
+.input-group-btn:not(:first-child) > .tobago-selectOneChoiceInsideIn {
   /* after facet */
   width: 100%;
   -webkit-appearance: none;
@@ -10345,16 +10366,6 @@ fixes missing space, I thinks normal Websites have a " " Space char in the sourc
 
 fixme: there is a problem with the selectManyShuttle with this style.
 */
-.navbar button:nth-child(n+2),
-.navbar input:nth-child(n+2) {
-  margin-left: 5px;
-}
-
-.tobago-button > *:nth-child(n+2),
-.tobago-link > *:nth-child(n+2) {
-  margin-left: .4em;
-}
-
 .tobago-label {
   width: 155px;
 }
