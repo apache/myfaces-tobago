@@ -52,7 +52,9 @@ public class PopupRenderer extends PanelRendererBase {
     writer.writeClassAttribute(
         Classes.create(popup),
         BootstrapClass.MODAL,
-        BootstrapClass.FADE,
+        //XXX fade class removed due to a bug in bootstrap-alpha6
+        //https://github.com/twbs/bootstrap/issues/21607
+        //BootstrapClass.FADE,
         popup.getCustomClass());
     writer.writeIdAttribute(clientId);
     writer.writeAttribute(HtmlAttributes.TABINDEX, -1);

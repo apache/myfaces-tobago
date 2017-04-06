@@ -37,7 +37,8 @@
       Buttons and links don't have any functionality.</p>
     <tc:bar>
       <f:facet name="brand">
-        <tc:link id="brand" label="Tobago Demo" image="#{request.contextPath}/image/feather-leaf.png" link="/"/>
+        <!-- label="Tobago Demo" contains a NO-BREAK SPACE character -->
+        <tc:link id="brand" label="Tobago Demo" image="#{request.contextPath}/image/feather-leaf.png" link="/"/>
       </f:facet>
       <tc:links>
         <tc:link label="Home"/>

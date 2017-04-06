@@ -42,6 +42,7 @@ public enum BootstrapClass implements CssItem {
   ALERT_WARNING("alert-warning"),
   ALERT_INFO("alert-info"),
   ALERT_DISMISSIBLE("alert-dismissible"),
+  ALIGN_ITEMS_CENTER("align-items-center"),
   BG_INVERSE("bg-inverse"),
   BTN("btn"),
   BTN_DANGER("btn-danger"),
@@ -95,18 +96,54 @@ public enum BootstrapClass implements CssItem {
   COL_SM_10("col-sm-10"),
   COL_SM_11("col-sm-11"),
   COL_SM_12("col-sm-12"),
-  COL_XS_1("col-xs-1"),
-  COL_XS_2("col-xs-2"),
-  COL_XS_3("col-xs-3"),
-  COL_XS_4("col-xs-4"),
-  COL_XS_5("col-xs-5"),
-  COL_XS_6("col-xs-6"),
-  COL_XS_7("col-xs-7"),
-  COL_XS_8("col-xs-8"),
-  COL_XS_9("col-xs-9"),
-  COL_XS_10("col-xs-10"),
-  COL_XS_11("col-xs-11"),
-  COL_XS_12("col-xs-12"),
+  COL_1("col-1"),
+  COL_2("col-2"),
+  COL_3("col-3"),
+  COL_4("col-4"),
+  COL_5("col-5"),
+  COL_6("col-6"),
+  COL_7("col-7"),
+  COL_8("col-8"),
+  COL_9("col-9"),
+  COL_10("col-10"),
+  COL_11("col-11"),
+  COL_12("col-12"),
+  /** @deprecated since 3.1.0, please use {@link #COL_1} */
+  @Deprecated
+  COL_XS_1("col-1"),
+  /** @deprecated since 3.1.0, please use {@link #COL_2} */
+  @Deprecated
+  COL_XS_2("col-2"),
+  /** @deprecated since 3.1.0, please use {@link #COL_3} */
+  @Deprecated
+  COL_XS_3("col-3"),
+  /** @deprecated since 3.1.0, please use {@link #COL_4} */
+  @Deprecated
+  COL_XS_4("col-4"),
+  /** @deprecated since 3.1.0, please use {@link #COL_5} */
+  @Deprecated
+  COL_XS_5("col-5"),
+  /** @deprecated since 3.1.0, please use {@link #COL_6} */
+  @Deprecated
+  COL_XS_6("col-6"),
+  /** @deprecated since 3.1.0, please use {@link #COL_7} */
+  @Deprecated
+  COL_XS_7("col-7"),
+  /** @deprecated since 3.1.0, please use {@link #COL_8} */
+  @Deprecated
+  COL_XS_8("col-8"),
+  /** @deprecated since 3.1.0, please use {@link #COL_9} */
+  @Deprecated
+  COL_XS_9("col-9"),
+  /** @deprecated since 3.1.0, please use {@link #COL_10} */
+  @Deprecated
+  COL_XS_10("col-10"),
+  /** @deprecated since 3.1.0, please use {@link #COL_11} */
+  @Deprecated
+  COL_XS_11("col-11"),
+  /** @deprecated since 3.1.0, please use {@link #COL_12} */
+  @Deprecated
+  COL_XS_12("col-12"),
   CONTAINER("container"),
   CONTAINER_FLUID("container-fluid"),
   D_INLINE("d-inline"),
@@ -119,6 +156,8 @@ public enum BootstrapClass implements CssItem {
   FIGURE("figure"),
   FIGURE_CAPTION("figure-caption"),
   FIGURE_IMG("figure-img"),
+  FIXED_BOTTOM("fixed-bottom"),
+  FIXED_TOP("fixed-top"),
   FORM_CHECK("form-check"),
   FORM_CHECK_INLINE("form-check-inline"),
   FORM_CHECK_INPUT("form-check-input"),
@@ -135,23 +174,45 @@ public enum BootstrapClass implements CssItem {
   INPUT_GROUP_ADDON("input-group-addon"),
   INPUT_GROUP_BTN("input-group-btn"),
   INVISIBLE("invisible"),
+  ML_AUTO("ml-auto"),
   MODAL("modal"),
   MODAL_CONTENT("modal-content"),
   MODAL_DIALOG("modal-dialog"),
   MODAL_LG("modal-lg"),
   MODAL_SM("modal-sm"),
+  MR_AUTO("mr-auto"),
+  MY_LG_0("my-lg-0"),
+  MY_LG_1("my-lg-1"),
+  MY_LG_2("my-lg-2"),
+  MY_LG_3("my-lg-3"),
+  MY_LG_4("my-lg-4"),
+  MY_LG_5("my-lg-5"),
   NAV("nav"),
   NAV_ITEM("nav-item"),
   NAV_LINK("nav-link"),
   NAV_TABS("nav-tabs"),
   NAVBAR("navbar"),
+  NAVBAR_COLLAPSE("navbar-collapse"),
   NAVBAR_BRAND("navbar-brand"),
-  NAVBAR_DARK("navbar-dark"),
-  NAVBAR_FIXED_BOTTOM("navbar-fixed-bottom"),
-  NAVBAR_FIXED_TOP("navbar-fixed-top"),
+  /** @deprecated since 3.1.0, please use {@link #NAVBAR_INVERSE} */
+  @Deprecated
+  NAVBAR_DARK("navbar-inverse"),
+  /** @deprecated since 3.1.0, please use {@link #FIXED_BOTTOM} */
+  @Deprecated
+  NAVBAR_FIXED_BOTTOM("fixed-bottom"),
+  /** @deprecated since 3.1.0, please use {@link #FIXED_TOP} */
+  @Deprecated
+  NAVBAR_FIXED_TOP("fixed-top"),
+  NAVBAR_INVERSE("navbar-inverse"),
   NAVBAR_NAV("navbar-nav"),
-  NAVBAR_TOGGLEABLE_XS("navbar-toggleable-xs"),
+  NAVBAR_TOGGLEABLE("navbar-toggleable"),
+  /** @deprecated since 3.1.0, please use {@link #NAVBAR_TOGGLEABLE} */
+  @Deprecated
+  NAVBAR_TOGGLEABLE_XS("navbar-toggleable"),
   NAVBAR_TOGGLER("navbar-toggler"),
+  NAVBAR_TOGGLER_ICON("navbar-toggler-icon"),
+  NAVBAR_TOGGLER_LEFT("navbar-toggler-left"),
+  NAVBAR_TOGGLER_RIGHT("navbar-toggler-right"),
   OFFSET_LG_0("offset-lg-0"),
   OFFSET_LG_1("offset-lg-1"),
   OFFSET_LG_2("offset-lg-2"),
@@ -188,22 +249,23 @@ public enum BootstrapClass implements CssItem {
   OFFSET_SM_9("offset-sm-9"),
   OFFSET_SM_10("offset-sm-10"),
   OFFSET_SM_11("offset-sm-11"),
-  OFFSET_XS_1("offset-xs-1"),
-  OFFSET_XS_2("offset-xs-2"),
-  OFFSET_XS_3("offset-xs-3"),
-  OFFSET_XS_4("offset-xs-4"),
-  OFFSET_XS_5("offset-xs-5"),
-  OFFSET_XS_6("offset-xs-6"),
-  OFFSET_XS_7("offset-xs-7"),
-  OFFSET_XS_8("offset-xs-8"),
-  OFFSET_XS_9("offset-xs-9"),
-  OFFSET_XS_10("offset-xs-10"),
-  OFFSET_XS_11("offset-xs-11"),
+  OFFSET_1("offset-1"),
+  OFFSET_2("offset-2"),
+  OFFSET_3("offset-3"),
+  OFFSET_4("offset-4"),
+  OFFSET_5("offset-5"),
+  OFFSET_6("offset-6"),
+  OFFSET_7("offset-7"),
+  OFFSET_8("offset-8"),
+  OFFSET_9("offset-9"),
+  OFFSET_10("offset-10"),
+  OFFSET_11("offset-11"),
   OPEN("open"),
   PAGE_ITEM("page-item"),
   PAGE_LINK("page-link"),
   PAGINATION("pagination"),
   PROGRESS("progress"),
+  PROGRESS_BAR("progress-bar"),
   ROW("row"),
   SR_ONLY("sr-only"),
   TAB_CONTENT("tab-content"),
@@ -268,9 +330,9 @@ public enum BootstrapClass implements CssItem {
   public static class Generator {
 
     private static final BootstrapClass[] EXTRA_SMALL = new BootstrapClass[]{
-        COL_XS_1, COL_XS_2, COL_XS_3, COL_XS_4,
-        COL_XS_5, COL_XS_6, COL_XS_7, COL_XS_8,
-        COL_XS_9, COL_XS_10, COL_XS_11, COL_XS_12,
+        COL_1, COL_2, COL_3, COL_4,
+        COL_5, COL_6, COL_7, COL_8,
+        COL_9, COL_10, COL_11, COL_12,
     };
     private static final BootstrapClass[] SMALL = new BootstrapClass[]{
         COL_SM_1, COL_SM_2, COL_SM_3, COL_SM_4,
@@ -288,8 +350,8 @@ public enum BootstrapClass implements CssItem {
         COL_LG_9, COL_LG_10, COL_LG_11, COL_LG_12,
     };
     private static final BootstrapClass[] OFFSET_EXTRA_SMALL = new BootstrapClass[]{
-        null, OFFSET_XS_1, OFFSET_XS_2, OFFSET_XS_3, OFFSET_XS_4, OFFSET_XS_5,
-        OFFSET_XS_6, OFFSET_XS_7, OFFSET_XS_8, OFFSET_XS_9, OFFSET_XS_10, OFFSET_XS_11
+        null, OFFSET_1, OFFSET_2, OFFSET_3, OFFSET_4, OFFSET_5,
+        OFFSET_6, OFFSET_7, OFFSET_8, OFFSET_9, OFFSET_10, OFFSET_11
     };
     private static final BootstrapClass[] OFFSET_SMALL = new BootstrapClass[]{
         OFFSET_SM_0, OFFSET_SM_1, OFFSET_SM_2, OFFSET_SM_3, OFFSET_SM_4, OFFSET_SM_5,

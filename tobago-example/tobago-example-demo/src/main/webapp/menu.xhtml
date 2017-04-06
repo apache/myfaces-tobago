@@ -32,10 +32,11 @@
 
     <tc:bar id="bar">
       <f:facet name="brand">
-        <tc:link image="#{request.contextPath}/image/feather-leaf.png" label="Tobago Demo" id="brand" link="/"/>
+        <!-- label="Tobago Demo" contains a NO-BREAK SPACE character -->
+        <tc:link image="#{request.contextPath}/image/feather-leaf.png" label="Tobago Demo" id="brand" link="/"/>
       </f:facet>
 
-      <tc:form id="header" inline="true">
+      <tc:form id="header">
 
         <tc:links id="commands">
 
@@ -107,34 +108,37 @@
         </tc:links>
       </tc:form>
 
-      <tc:flowLayout textAlign="right">
-        <!--<tc:form inline="true">
-          <tc:in placeholder="Search"/>
-          <tc:button defaultCommand="true" omit="true" label="go">
-            <tc:dataAttribute name="alert-text"
-                              value="Sorry: Search not implemented"/>
-
-          </tc:button>
-        </tc:form>-->
-        <tc:form id="navbtns" inline="true">
-          <tc:buttons>
-            <tc:button immediate="true" id="previous"
-                       image="fa-angle-left"
-                       action="#{navigationState.gotoPrevious}"
-                       disabled="#{navigationState.first}"
-                       tip="#{demoBundle.footer_previous}"/>
-            <tc:button immediate="true" id="next"
-                       image="fa-angle-right"
-                       action="#{navigationState.gotoNext}"
-                       disabled="#{navigationState.last}"
-                       tip="#{demoBundle.footer_next}"/>
-          </tc:buttons>
-          <tc:button action="#{navigationState.toggleViewSource}"
-                     image="fa-code"
-                     immediate="true" tip="#{demoBundle.footer_viewSource}"/>
-        </tc:form>
-      </tc:flowLayout>
-
+      <f:facet name="after">
+        <tc:flexLayout columns="auto;auto">
+          <tc:form>
+            <tc:flexLayout columns="200px;auto">
+              <tc:in placeholder="Search" labelLayout="skip"/>
+              <tc:button defaultCommand="true" omit="true" label="go">
+                <tc:dataAttribute name="alert-text" value="Sorry: Search not implemented"/>
+              </tc:button>
+            </tc:flexLayout>
+          </tc:form>
+          <tc:form id="navbtns">
+            <tc:flexLayout columns="auto;auto">
+              <tc:buttons>
+                <tc:button immediate="true" id="previous"
+                           image="fa-angle-left"
+                           action="#{navigationState.gotoPrevious}"
+                           disabled="#{navigationState.first}"
+                           tip="#{demoBundle.footer_previous}"/>
+                <tc:button immediate="true" id="next"
+                           image="fa-angle-right"
+                           action="#{navigationState.gotoNext}"
+                           disabled="#{navigationState.last}"
+                           tip="#{demoBundle.footer_next}"/>
+              </tc:buttons>
+              <tc:button action="#{navigationState.toggleViewSource}"
+                         image="fa-code"
+                         immediate="true" tip="#{demoBundle.footer_viewSource}"/>
+            </tc:flexLayout>
+          </tc:form>
+        </tc:flexLayout>
+      </f:facet>
     </tc:bar>
 
 <!--

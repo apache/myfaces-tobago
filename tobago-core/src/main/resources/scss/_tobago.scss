@@ -25,14 +25,15 @@ $zindex-popover: 1060 !default;
 $spacer: 1rem !default;
 $spacer-x: $spacer !default;
 $spacer-y: $spacer !default;
+$card-spacer-y: .75rem !default;
+$brand-primary: #0275d8 !default;
+$link-color: $brand-primary !default;
+$link-hover-color: darken($link-color, 15%) !default;
+$nav-link-padding: .5em 1em !default;
 
 /* fix bootstrap ---------------------------------------------------- */
 span.dropdown {
   display: inline-flex;
-}
-
-.form-check-label.dropdown-item {
-  padding-left: 1.25rem;
 }
 
 /*
@@ -57,10 +58,26 @@ Todo: check, if this is needed? (It doesn't work with the build system)
 
 /* box -------------------------------------------------------------- */
 
+.tobago-box {
+  margin-bottom: $card-spacer-y;
+}
+
 .tobago-box-header {
   display: flex;
   justify-content: space-between;
   align-content: center;
+}
+
+.card-header {
+
+  > h3:first-child {
+    margin-bottom: 0;
+    align-self: center;
+  }
+
+  .navbar {
+    padding: 0;
+  }
 }
 
 /* button -------------------------------------------------------------- */
@@ -222,7 +239,7 @@ body {
   box-shadow: 0 0 5px 5px rgba(200,200,200,0.5);
 }
 
-.navbar-fixed-bottom {
+.fixed-bottom {
   margin-top: 10px;
 }
 
@@ -271,7 +288,7 @@ table.tobago-gridLayout > tbody > tr > td > * {
     margin-bottom: 1rem;
 }
 
-.tobago-header.navbar-fixed-top {
+.tobago-header.fixed-top {
     margin-bottom: 0;
 }
 
@@ -335,10 +352,15 @@ button.tobago-link-markup-disabled:hover, button.tobago-command-markup-disabled:
   text-decoration: none;
 }
 
-.tobago-button, .tobago-link, .tobago-linkAlternativeCommand {
-  > *:nth-child(n+2) {
-    margin-left: .4em;
-  }
+button.nav-link { /* bootstrap don't know button.nav-link*/
+  padding: $nav-link-padding;
+  padding-top: .55em;
+  padding-bottom: .45em;
+}
+
+.navbar-nav button.nav-link {
+  padding-left: 0;
+  padding-right: 0;
 }
 
 /* messages ----------------------------------------------------------- */
@@ -371,11 +393,13 @@ a.tobago-messages-button {
 
 /* nav ----------------------------------------------------------- */
 
+/*
 .nav-item > span > .tobago-link, .nav-item > span > .tobago-command {
   padding-top: .425rem;
   padding-bottom: .425rem;
   display: inline-block;
 }
+*/
 
 /* styles for drop down menu first level */
 .dropdown-toggle:focus, .dropdown-toggle:hover {
@@ -962,15 +986,6 @@ fixes missing space, I thinks normal Websites have a " " Space char in the sourc
 
 fixme: there is a problem with the selectManyShuttle with this style.
 */
-.navbar button:nth-child(n+2),
-.navbar input:nth-child(n+2) {
-  margin-left: 5px;
-}
-
-.tobago-button > *:nth-child(n+2),
-.tobago-link > *:nth-child(n+2) {
-  margin-left: .4em;
-}
 
 .tobago-label {
   width: 155px;

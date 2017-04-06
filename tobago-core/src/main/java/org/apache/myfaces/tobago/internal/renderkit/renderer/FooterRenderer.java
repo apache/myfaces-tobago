@@ -42,7 +42,7 @@ public class FooterRenderer extends RendererBase {
     writer.writeIdAttribute(component.getClientId(facesContext));
     writer.writeClassAttribute(
         Classes.create(footer),
-        footer.isFixed() ? BootstrapClass.NAVBAR_FIXED_BOTTOM : null,
+        footer.isFixed() ? BootstrapClass.FIXED_BOTTOM : null,
         footer.getCustomClass());
     writer.writeAttribute(HtmlAttributes.TITLE, footer.getTip(), true);
     writer.writeStyleAttribute(footer.getStyle());

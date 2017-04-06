@@ -37,6 +37,6 @@ import javax.faces.component.UIPanel;
     uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUILinks",
     uiComponentFacesClass = "javax.faces.component.UIPanel",
     componentFamily = UIPanel.COMPONENT_FAMILY,
-    rendererType = RendererTypes.LINKS)
+    rendererType = {RendererTypes.LINKS, RendererTypes.LINKS_ALTERNATIVE_BAR})
 public interface LinksTagDeclaration extends HasIdBindingAndRendered, IsVisual, HasTip {
 }

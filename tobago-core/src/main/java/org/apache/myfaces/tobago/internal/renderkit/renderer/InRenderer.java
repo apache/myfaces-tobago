@@ -21,8 +21,10 @@ package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Facets;
+import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.internal.component.AbstractUIButton;
 import org.apache.myfaces.tobago.internal.component.AbstractUIInput;
+import org.apache.myfaces.tobago.internal.component.AbstractUISelectOneChoice;
 import org.apache.myfaces.tobago.internal.util.AccessKeyLogger;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.internal.util.JsonUtils;
@@ -30,6 +32,7 @@ import org.apache.myfaces.tobago.internal.util.RenderUtils;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
+import org.apache.myfaces.tobago.renderkit.css.CssItem;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
@@ -154,12 +157,26 @@ public class InRenderer extends MessageLayoutRendererBase {
         children = Collections.singletonList(addon);
       }
       for (UIComponent child : children) {
-        writer.startElement(HtmlElements.SPAN);
-        final BootstrapClass css
-            = child instanceof AbstractUIButton ? BootstrapClass.INPUT_GROUP_BTN : BootstrapClass.INPUT_GROUP_ADDON;
-        writer.writeClassAttribute(css);
-        RenderUtils.encode(facesContext, child);
-        writer.endElement(HtmlElements.SPAN);
+        if (child instanceof AbstractUIButton && ((AbstractUIButton) child).isParentOfCommands()) {
+          child.setRendererType(RendererTypes.BUTTON_ALTERNATIVE_IN);
+          RenderUtils.encode(facesContext, child);
+        } else {
+          writer.startElement(HtmlElements.SPAN);
+
+          final CssItem cssItem;
+          if (child instanceof AbstractUIButton) {
+            cssItem = BootstrapClass.INPUT_GROUP_BTN;
+          } else if (child instanceof AbstractUISelectOneChoice) {
+            cssItem = BootstrapClass.INPUT_GROUP_BTN;
+            child.setRendererType(RendererTypes.SELECT_ONE_CHOICE_ALTERNATIVE_IN);
+          } else {
+            cssItem = BootstrapClass.INPUT_GROUP_ADDON;
+          }
+
+          writer.writeClassAttribute(cssItem);
+          RenderUtils.encode(facesContext, child);
+          writer.endElement(HtmlElements.SPAN);
+        }
       }
     }
   }
@@ -173,27 +190,3 @@ public class InRenderer extends MessageLayoutRendererBase {
       throws IOException {
   }
 }
-/*
-for (UIComponent child : children) {
-    if (child instanceof AbstractUIButton && ((AbstractUIButton) child).isParentOfCommands()) {
-    child.setRendererType(RendererTypes.BUTTON_ALTERNATIVE_IN);
-    RenderUtils.encode(facesContext, child);
-    } else {
-    writer.startElement(HtmlElements.SPAN);
-
-final CssItem cssItem;
-    if (child instanceof AbstractUIButton) {
-    cssItem = BootstrapClass.INPUT_GROUP_BTN;
-    } else if (child instanceof AbstractUISelectOneChoice) {
-    cssItem = BootstrapClass.INPUT_GROUP_BTN;
-    child.setRendererType(RendererTypes.SELECT_ONE_CHOICE_ALTERNATIVE_IN);
-    } else {
-    cssItem = BootstrapClass.INPUT_GROUP_ADDON;
-    }
-
-    writer.writeClassAttribute(cssItem);
-    RenderUtils.encode(facesContext, child);
-    writer.endElement(HtmlElements.SPAN);
-    }
-    }
-*/

@@ -69,9 +69,7 @@ public class BoxRenderer extends PanelRendererBase {
 
     if (label != null || labelString != null || bar != null) {
       writer.startElement(HtmlElements.DIV);
-      writer.writeClassAttribute(BootstrapClass.CARD_HEADER);
-      writer.startElement(HtmlElements.DIV);
-      writer.writeClassAttribute(TobagoClass.BOX__HEADER);
+      writer.writeClassAttribute(BootstrapClass.CARD_HEADER, TobagoClass.BOX__HEADER);
 
       writer.startElement(HtmlElements.H3);
       if (labelString != null) {
@@ -81,12 +79,10 @@ public class BoxRenderer extends PanelRendererBase {
         RenderUtils.encode(facesContext, label);
       }
       writer.endElement(HtmlElements.H3);
-
       if (bar != null) {
         RenderUtils.encode(facesContext, bar);
       }
 
-      writer.endElement(HtmlElements.DIV);
       writer.endElement(HtmlElements.DIV);
     }
 
@@ -100,5 +96,4 @@ public class BoxRenderer extends PanelRendererBase {
     writer.endElement(HtmlElements.DIV);
     writer.endElement(HtmlElements.DIV);
   }
-
 }

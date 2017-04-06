@@ -44,8 +44,7 @@ public class HeaderRenderer extends RendererBase {
     // TBD: how to configure it when it is needed, with customClass, or with markup?
     writer.writeClassAttribute(
         Classes.create(header),
-        BootstrapClass.NAVBAR, /*BootstrapClass.NAVBAR_DARK, BootstrapClass.BG_INVERSE,*/
-        header.isFixed() ? BootstrapClass.NAVBAR_FIXED_TOP : null,
+        header.isFixed() ? BootstrapClass.FIXED_TOP : null,
         header.getCustomClass());
 // TBD: should NAVBAR class be in the LinksRenderer?
     writer.writeAttribute(HtmlAttributes.TITLE, header.getTip(), true);

@@ -19,15 +19,19 @@
 
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
-import org.apache.myfaces.tobago.component.UIProgress;
+import org.apache.myfaces.tobago.internal.component.AbstractUIProgress;
+import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
+import org.apache.myfaces.tobago.internal.util.JsonUtils;
+import org.apache.myfaces.tobago.internal.util.RenderUtils;
+import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
+import org.apache.myfaces.tobago.renderkit.css.Style;
+import org.apache.myfaces.tobago.renderkit.html.Arias;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
-import org.apache.myfaces.tobago.internal.util.JsonUtils;
-import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
-import org.apache.myfaces.tobago.internal.util.RenderUtils;
+import org.apache.myfaces.tobago.renderkit.html.HtmlRoleValues;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -42,31 +46,30 @@ public class ProgressRenderer extends RendererBase {
 
   @Override
   public void encodeBegin(final FacesContext facesContext, final UIComponent component) throws IOException {
-
-    final UIProgress progress = (UIProgress) component;
+    final AbstractUIProgress progress = (AbstractUIProgress) component;
 
     final double value = progress.getRangeValue();
     final double max = progress.getRangeMax();
-    final double percent = value >= max ? 1 : (value / max);
-
-    String title = progress.getTip();
-    if (title == null) {
-      title = (int) (percent * 100) + " %";
-    }
-
-    final int newValue = percent == 0 ? 0 : 100;
-    final double newMax = percent == 0 ? 100 : 1 / percent * 100;
+    final double percent = value / max;
 
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
-    writer.startElement(HtmlElements.PROGRESS);
+    writer.startElement(HtmlElements.DIV);
     writer.writeIdAttribute(progress.getClientId(facesContext));
     writer.writeClassAttribute(Classes.create(progress), progress.getCustomClass(), BootstrapClass.PROGRESS);
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, progress);
     writer.writeStyleAttribute(progress.getStyle());
-    writer.writeAttribute(HtmlAttributes.TITLE, title, true);
-    writer.writeAttribute(HtmlAttributes.MAX, Double.toString(newMax), false);
-    writer.writeAttribute(HtmlAttributes.VALUE, newValue);
+
+    writer.startElement(HtmlElements.DIV);
+    writer.writeClassAttribute(BootstrapClass.PROGRESS_BAR);
+    writer.writeAttribute(HtmlAttributes.ROLE, HtmlRoleValues.PROGRESSBAR.toString(), false);
+    writer.writeAttribute(Arias.VALUEMIN, 0);
+    writer.writeAttribute(Arias.VALUEMAX, 100);
+    writer.writeAttribute(Arias.VALUENOW, String.valueOf((int) percent * 100), false);
+
+    Style style = new Style();
+    style.setWidth(new Measure(percent * 100, Measure.Unit.PERCENT));
+    writer.writeStyleAttribute(style);
 
     writer.writeCommandMapAttribute(JsonUtils.encode(RenderUtils.getBehaviorCommands(facesContext, progress)));
   }
@@ -75,6 +78,7 @@ public class ProgressRenderer extends RendererBase {
   public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
 
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
-    writer.endElement(HtmlElements.PROGRESS);
+    writer.endElement(HtmlElements.DIV);
+    writer.endElement(HtmlElements.DIV);
   }
 }

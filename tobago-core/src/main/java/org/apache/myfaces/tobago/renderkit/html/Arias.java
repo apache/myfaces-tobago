@@ -42,7 +42,10 @@ public enum Arias implements MarkupLanguageAttributes {
   PRESSED("aria-pressed"),
   RELEVANT("aria-relevant"),
   SETSIZE("aria-setsize"),
-  SORT("aria-sort");
+  SORT("aria-sort"),
+  VALUEMAX("aria-valuemax"),
+  VALUEMIN("aria-valuemin"),
+  VALUENOW("aria-valuenow");
 
   private final String value;
 

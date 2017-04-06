@@ -49,6 +49,7 @@ public enum RendererTypes {
   LinkAlternativeCommand,
   LinkAlternativeLinks,
   Links,
+  LinksAlternativeBar,
   Label,
   Messages,
   Object,
@@ -119,6 +120,7 @@ public enum RendererTypes {
   public static final String LINK_ALTERNATIVE_COMMAND = "LinkAlternativeCommand";
   public static final String LINK_ALTERNATIVE_LINKS = "LinkAlternativeLinks";
   public static final String LINKS = "Links";
+  public static final String LINKS_ALTERNATIVE_BAR = "LinksAlternativeBar";
   public static final String LABEL = "Label";
   public static final String MESSAGES = "Messages";
   public static final String OBJECT = "Object";

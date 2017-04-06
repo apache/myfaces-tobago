@@ -17,29 +17,15 @@
  * under the License.
  */
 
-package org.apache.myfaces.tobago.renderkit.html;
+package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
-public enum HtmlRoleValues {
+import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
+import org.apache.myfaces.tobago.renderkit.css.CssItem;
 
-  ALERT("alert"),
-  DIALOG("dialog"),
-  DOCUMENT("document"),
-  GROUP("group"),
-  MENU("menu"),
-  NAVIGATION("navigation"),
-  PRESENTATION("presentation"),
-  PROGRESSBAR("progressbar"),
-  TAB("tab"),
-  TABLIST("tablist"),
-  TABPANEL("tabpanel");
+public class LinksAlternativeBarRenderer extends LinksRenderer {
 
-  private String value;
-
-  HtmlRoleValues(final String value) {
-    this.value = value;
-  }
-
-  public String toString() {
-    return value;
+  @Override
+  protected CssItem getExtraCssItem() {
+    return BootstrapClass.NAVBAR_NAV;
   }
 }

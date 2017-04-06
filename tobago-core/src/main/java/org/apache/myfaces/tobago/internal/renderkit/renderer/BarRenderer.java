@@ -20,8 +20,13 @@
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
 import org.apache.myfaces.tobago.component.Facets;
+import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.component.UIBar;
-import org.apache.myfaces.tobago.internal.component.AbstractUIFormBase;
+import org.apache.myfaces.tobago.internal.component.AbstractUIForm;
+import org.apache.myfaces.tobago.internal.component.AbstractUILinks;
+import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
+import org.apache.myfaces.tobago.internal.util.JQueryUtils;
+import org.apache.myfaces.tobago.internal.util.RenderUtils;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.Icons;
@@ -31,17 +36,12 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlButtonTypes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRoleValues;
-import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
-import org.apache.myfaces.tobago.internal.util.JQueryUtils;
-import org.apache.myfaces.tobago.internal.util.RenderUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class BarRenderer extends RendererBase {
 
@@ -54,20 +54,20 @@ public class BarRenderer extends RendererBase {
     final String clientId = bar.getClientId(facesContext);
     final String navbarId = clientId + "::navbar";
 
-    writer.startElement(HtmlElements.DIV);
+    writer.startElement(HtmlElements.NAV);
     writer.writeIdAttribute(clientId);
+    writer.writeClassAttribute(BootstrapClass.NAVBAR, BootstrapClass.NAVBAR_TOGGLEABLE);
     writer.writeAttribute(HtmlAttributes.ROLE, HtmlRoleValues.NAVIGATION.toString(), false);
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, bar);
-
-    writer.startElement(HtmlElements.DIV);
-    writer.writeClassAttribute(BootstrapClass.CONTAINER_FLUID);
 
     encodeOpener(facesContext, bar, writer, navbarId);
 
     writer.startElement(HtmlElements.DIV);
     writer.writeIdAttribute(navbarId);
-    writer.writeClassAttribute(BootstrapClass.COLLAPSE, BootstrapClass.NAVBAR_TOGGLEABLE_XS);
-// XXX writer.writeClassAttribute(BootstrapClass.COLLAPSE, BootstrapClass.NAVBAR_COLLAPSE, BootstrapClass.NAVBAR_TEXT);
+    writer.writeClassAttribute(
+        BootstrapClass.COLLAPSE,
+        BootstrapClass.NAVBAR_COLLAPSE,
+        BootstrapClass.ALIGN_ITEMS_CENTER);
   }
 
   @Override
@@ -77,26 +77,21 @@ public class BarRenderer extends RendererBase {
 
   @Override
   public void encodeChildren(FacesContext facesContext, UIComponent component) throws IOException {
-
-    final TobagoResponseWriter writer = getResponseWriter(facesContext);
-
-    List<UIComponent> itemsToEncode = new ArrayList<UIComponent>();
-    collectItemsToEncode(component, itemsToEncode);
-    for (UIComponent child : itemsToEncode) {
-      writer.startElement(HtmlElements.DIV);
-      writer.writeClassAttribute(BootstrapClass.FORM_INLINE);
-      child.encodeAll(facesContext);
-      writer.endElement(HtmlElements.DIV);
+    setRenderTypes(component);
+    for (UIComponent child : component.getChildren()) {
+      if (child.isRendered()) {
+        child.encodeAll(facesContext);
+      }
     }
   }
 
-  private void collectItemsToEncode(final UIComponent component, List<UIComponent> result) {
+  private void setRenderTypes(UIComponent component) throws IOException {
     for (UIComponent child : component.getChildren()) {
       if (child.isRendered()) {
-        if (child instanceof AbstractUIFormBase) {
-          collectItemsToEncode(child, result);
-        } else {
-          result.add(child);
+        if (child instanceof AbstractUIForm) {
+          setRenderTypes(child);
+        } else if (child instanceof AbstractUILinks) {
+          child.setRendererType(RendererTypes.LINKS_ALTERNATIVE_BAR);
         }
       }
     }
@@ -104,20 +99,29 @@ public class BarRenderer extends RendererBase {
 
   @Override
   public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
+    final UIBar bar = (UIBar) component;
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
+    final UIComponent after = ComponentUtils.getFacet(bar, Facets.after);
+
+    if (after != null) {
+      writer.startElement(HtmlElements.DIV);
+      writer.writeClassAttribute(BootstrapClass.MY_LG_0, BootstrapClass.ML_AUTO);
+
+      setRenderTypes(after);
+      RenderUtils.encode(facesContext, after);
+
+      writer.endElement(HtmlElements.DIV);
+    }
     writer.endElement(HtmlElements.DIV);
-    writer.endElement(HtmlElements.DIV);
-    writer.endElement(HtmlElements.DIV);
+    writer.endElement(HtmlElements.NAV);
   }
 
   private void encodeOpener(
       FacesContext facesContext, UIBar bar, TobagoResponseWriter writer, String navbarId) throws IOException {
 
-    writer.startElement(HtmlElements.DIV);
-
     writer.startElement(HtmlElements.BUTTON);
     writer.writeAttribute(HtmlAttributes.TYPE, HtmlButtonTypes.BUTTON);
-    writer.writeClassAttribute(BootstrapClass.NAVBAR_TOGGLER, BootstrapClass.HIDDEN_SM_UP);
+    writer.writeClassAttribute(BootstrapClass.NAVBAR_TOGGLER, BootstrapClass.NAVBAR_TOGGLER_RIGHT);
     writer.writeAttribute(DataAttributes.TOGGLE, "collapse", false);
     writer.writeAttribute(DataAttributes.TARGET, JQueryUtils.escapeIdForHtml(navbarId), true);
     writer.writeAttribute(Arias.EXPANDED, Boolean.FALSE.toString(), false);
@@ -139,7 +143,5 @@ public class BarRenderer extends RendererBase {
       RenderUtils.encode(facesContext, brand);
       writer.endElement(HtmlElements.SPAN);
     }
-
-    writer.endElement(HtmlElements.DIV);
   }
 }

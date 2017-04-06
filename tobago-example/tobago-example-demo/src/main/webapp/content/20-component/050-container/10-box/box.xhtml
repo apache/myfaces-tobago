@@ -21,16 +21,25 @@
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:f="http://java.sun.com/jsf/core">
+                xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html">
   <ui:param name="title" value="#{demoBundle.box} &lt;tc:box>"/>
   <p>A content box is created with <code class="language-markup">&lt;tc:box/></code>.</p>
   <tc:link label="Tag Library Documentation" image="#{request.contextPath}/image/feather-leaf.png"
            link="#{demoBundle.tagDocUrl}/#{info.stableVersion}/tld/tc/box.html"/>
   <tc:section label="Basics">
-    <p>The title of the box is set by the <code>label</code> attribute.</p>
+    <p>The title of the box is set by the <code>label</code> attribute or with
+      <code class="language-markup">&lt;f:facet name="label"></code>.</p>
     <pre><code class="language-markup">&lt;tc:box label="Box">Content&lt;/tc:box></code></pre>
-    <tc:box id="b1" label="Box">Content</tc:box>
-    <tc:box>Contentbox without a title.</tc:box>
+    <tc:box id="labelAttrBox" label="Box">
+      Title set by <code>label</code> attribute.
+    </tc:box>
+    <tc:box id="labelFacetBox">
+      <f:facet name="label">
+        <h:outputText value="#{outController.html}" escape="false"/>
+      </f:facet>
+      Title set by <code class="language-markup">&lt;f:facet name="label"></code>.
+    </tc:box>
+    <tc:box id="noTitleBox">Contentbox without a title.</tc:box>
   </tc:section>
 
   <tc:section label="Collapse/Expand">
@@ -47,17 +56,16 @@
     <p>It's possible to add a bar to the header of a content box. For that, the content box must contain the tag
       <code class="language-markup">&lt;f:facet name="bar"></code>. The facet may contain
       <code class="language-markup">&lt;tc:bar></code> or other suitable tags.</p>
-    <tc:box>
-      <f:facet name="label">
-        Label
-      </f:facet>
+    <tc:box label="Title">
       <f:facet name="bar">
-        <tc:buttons>
-          <tc:button label="Button 1"/>
-          <tc:button label="Button 2"/>
-        </tc:buttons>
+        <tc:bar>
+          <tc:buttons>
+            <tc:button label="Left"/>
+            <tc:button label="Right"/>
+          </tc:buttons>
+        </tc:bar>
       </f:facet>
-      Content
+      Box with <code class="language-markup">&lt;f:facet name="bar"></code>.
     </tc:box>
   </tc:section>
 </ui:composition>
