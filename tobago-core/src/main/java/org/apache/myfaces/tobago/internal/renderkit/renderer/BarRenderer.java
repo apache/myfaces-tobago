@@ -91,7 +91,7 @@ public class BarRenderer extends RendererBase {
         if (child instanceof AbstractUIForm) {
           setRenderTypes(child);
         } else if (child instanceof AbstractUILinks) {
-          child.setRendererType(RendererTypes.LINKS_ALTERNATIVE_BAR);
+          child.setRendererType(RendererTypes.LinksInsideBar.name());
         }
       }
     }

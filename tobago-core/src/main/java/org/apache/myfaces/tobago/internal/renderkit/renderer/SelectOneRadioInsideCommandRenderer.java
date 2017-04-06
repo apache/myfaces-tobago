@@ -19,7 +19,7 @@
 
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
-import org.apache.myfaces.tobago.internal.component.AbstractUISelectBooleanCheckbox;
+import org.apache.myfaces.tobago.component.UISelectOneRadio;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.CssItem;
 
@@ -28,7 +28,7 @@ import javax.faces.context.FacesContext;
 import java.io.IOException;
 import java.util.List;
 
-public class SelectBooleanCheckboxAlternativeCommandRenderer extends SelectBooleanCheckboxRenderer {
+public class SelectOneRadioInsideCommandRenderer extends SelectOneRadioRenderer {
 
   @Override
   public void encodeBegin(final FacesContext facesContext, final UIComponent component) throws IOException {
@@ -46,12 +46,12 @@ public class SelectBooleanCheckboxAlternativeCommandRenderer extends SelectBoole
   }
 
   @Override
-  protected void addOuterCssItems(final FacesContext facesContext, final AbstractUISelectBooleanCheckbox select,
-                                  final List<CssItem> collected) {
+  protected boolean renderOuterItem() {
+    return false;
   }
 
   @Override
-  protected void addCssItems(final FacesContext facesContext, final AbstractUISelectBooleanCheckbox select,
+  protected void addCssItems(final FacesContext facesContext, final UISelectOneRadio select,
                              final List<CssItem> collected) {
     collected.add(BootstrapClass.DROPDOWN_ITEM);
   }

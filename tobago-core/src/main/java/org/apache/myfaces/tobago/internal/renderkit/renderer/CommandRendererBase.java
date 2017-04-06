@@ -67,7 +67,7 @@ public abstract class CommandRendererBase extends DecodingCommandRendererBase {
     final boolean link = command.getLink() != null && !disabled;
     final String target = command.getTarget();
     final boolean parentOfCommands = command.isParentOfCommands();
-    final boolean dropdownSubmenu = this instanceof LinkAlternativeCommandRenderer;
+    final boolean dropdownSubmenu = this instanceof LinkInsideCommandRenderer;
 
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
@@ -164,16 +164,16 @@ public abstract class CommandRendererBase extends DecodingCommandRendererBase {
       for (final UIComponent child : component.getChildren()) {
         if (!(child instanceof UIParameter) && child.isRendered()) {
           if (child instanceof AbstractUILink) {
-            child.setRendererType(RendererTypes.LINK_ALTERNATIVE_COMMAND);
+            child.setRendererType(RendererTypes.LinkInsideCommand.name());
             child.encodeAll(facesContext);
           } else if (child instanceof AbstractUISelectBooleanCheckbox) {
-            child.setRendererType(RendererTypes.SELECT_BOOLEAN_CHECKBOX_ALTERNATIVE_COMMAND);
+            child.setRendererType(RendererTypes.SelectBooleanCheckboxInsideCommand.name());
             child.encodeAll(facesContext);
           } else if (child instanceof AbstractUISelectManyCheckbox) {
-            child.setRendererType(RendererTypes.SELECT_MANY_CHECKBOX_ALTERNATIVE_COMMAND);
+            child.setRendererType(RendererTypes.SelectManyCheckboxInsideCommand.name());
             child.encodeAll(facesContext);
           } else if (child instanceof AbstractUISelectOneRadio) {
-            child.setRendererType(RendererTypes.SELECT_ONE_RADIO_ALTERNATIVE_COMMAND);
+            child.setRendererType(RendererTypes.SelectOneRadioInsideCommand.name());
             child.encodeAll(facesContext);
           } else {
             writer.startElement(HtmlElements.DIV);
@@ -198,7 +198,7 @@ public abstract class CommandRendererBase extends DecodingCommandRendererBase {
   protected void encodeBeginOuter(final FacesContext facesContext, final AbstractUICommand command) throws IOException {
     final String clientId = command.getClientId(facesContext);
     final boolean parentOfCommands = command.isParentOfCommands();
-    final boolean dropdownSubmenu = this instanceof LinkAlternativeCommandRenderer;
+    final boolean dropdownSubmenu = this instanceof LinkInsideCommandRenderer;
 
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
 

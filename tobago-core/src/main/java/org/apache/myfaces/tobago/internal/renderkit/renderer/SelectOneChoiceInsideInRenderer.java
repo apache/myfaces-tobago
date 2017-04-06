@@ -19,40 +19,19 @@
 
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
-import org.apache.myfaces.tobago.component.UISelectOneRadio;
-import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
-import org.apache.myfaces.tobago.renderkit.css.CssItem;
-
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
-import java.util.List;
 
-public class SelectOneRadioAlternativeCommandRenderer extends SelectOneRadioRenderer {
+public class SelectOneChoiceInsideInRenderer extends SelectOneChoiceRenderer {
 
   @Override
-  public void encodeBegin(final FacesContext facesContext, final UIComponent component) throws IOException {
+  public void encodeBegin(FacesContext facesContext, UIComponent component) throws IOException {
     encodeBeginField(facesContext, component);
   }
 
   @Override
-  public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
+  public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
     encodeEndField(facesContext, component);
-  }
-
-  @Override
-  protected boolean renderClientId() {
-    return true;
-  }
-
-  @Override
-  protected boolean renderOuterItem() {
-    return false;
-  }
-
-  @Override
-  protected void addCssItems(final FacesContext facesContext, final UISelectOneRadio select,
-                             final List<CssItem> collected) {
-    collected.add(BootstrapClass.DROPDOWN_ITEM);
   }
 }

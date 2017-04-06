@@ -55,7 +55,7 @@ public class LinksRenderer extends RendererBase {
     for (UIComponent child : component.getChildren()) {
       if (child.isRendered()) {
         if (child instanceof AbstractUILink) {
-          child.setRendererType(RendererTypes.LINK_ALTERNATIVE_LINKS);
+          child.setRendererType(RendererTypes.LinkInsideLinks.name());
           child.encodeAll(facesContext);
         } else {
           writer.startElement(HtmlElements.LI);

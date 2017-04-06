@@ -318,7 +318,7 @@ table.tobago-gridLayout > tbody > tr > td > * {
 }
 
 button {
-  &.tobago-link, &.tobago-linkAlternativeLinks, &.tobago-treeCommand {
+  &.tobago-link, &.tobago-linkInsideLinks, &.tobago-treeCommand {
     color: #0275d8;
     border-width: 0;
     padding: 0;
@@ -328,7 +328,7 @@ button {
 }
 
 button {
-  &.tobago-link, &.tobago-linkAlternativeLinks, &.tobago-treeCommand {
+  &.tobago-link, &.tobago-linkInsideLinks, &.tobago-treeCommand {
     &:focus, &:hover {
       color: $link-hover-color;
       background-color: transparent;
@@ -446,7 +446,7 @@ a.tobago-messages-button {
     display: none;
   }
 
-  > .tobago-linkAlternativeCommand {
+  > .tobago-linkInsideCommand {
     border-width: 0;
     color: $dropdown-link-color;
     padding: 0;
@@ -593,7 +593,7 @@ h6 > .fa:first-child {
 
 /* selectBooleanCheckbox ----------------------------------------------- */
 
-.tobago-selectBooleanCheckbox, .tobago-selectBooleanCheckboxAlternativeCommand {
+.tobago-selectBooleanCheckbox, .tobago-selectBooleanCheckboxInsideCommand {
   input {
     margin-right: 0.3em;
     margin-bottom: 0.4ex;
@@ -613,7 +613,7 @@ h6 > .fa:first-child {
   list-style: none;
 }
 
-.tobago-selectManyCheckbox, .tobago-selectManyCheckboxAlternativeCommand {
+.tobago-selectManyCheckbox, .tobago-selectManyCheckboxInsideCommand {
   input {
     margin-right: 0.3em;
     margin-bottom: 0.4ex;
@@ -667,7 +667,7 @@ h6 > .fa:first-child {
   list-style: none;
 }
 
-.tobago-selectOneRadio, .tobago-selectOneRadioAlternativeCommand {
+.tobago-selectOneRadio, .tobago-selectOneRadioInsideCommand {
   input {
     margin-right: 0.3em;
     margin-bottom: 0.4ex;
@@ -682,7 +682,7 @@ h6 > .fa:first-child {
 
 /* selectOneChoice ---------------------------------------------------------- */
 
-.input-group-btn:not(:last-child) > .tobago-selectOneChoiceAlternativeIn { /* before facet */
+.input-group-btn:not(:last-child) > .tobago-selectOneChoiceInsideIn { /* before facet */
   width: 100%;
   -webkit-appearance: none;
   margin-right: -1px;
@@ -690,7 +690,7 @@ h6 > .fa:first-child {
   border-bottom-right-radius: 0;
 }
 
-.input-group-btn:not(:first-child) > .tobago-selectOneChoiceAlternativeIn { /* after facet */
+.input-group-btn:not(:first-child) > .tobago-selectOneChoiceInsideIn { /* after facet */
   width: 100%;
   -webkit-appearance: none;
   margin-left: -1px;

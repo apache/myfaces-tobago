@@ -58,7 +58,7 @@ import javax.faces.component.UISelectOne;
     uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUISelectOneChoice",
     uiComponentFacesClass = "javax.faces.component.UISelectOne",
     componentFamily = UISelectOne.COMPONENT_FAMILY,
-    rendererType = {RendererTypes.SELECT_ONE_CHOICE, RendererTypes.SELECT_ONE_CHOICE_ALTERNATIVE_IN},
+    rendererType = {RendererTypes.SELECT_ONE_CHOICE, RendererTypes.SELECT_ONE_CHOICE_INSIDE_IN},
     allowedChildComponenents = {
         "javax.faces.SelectItem",
         "javax.faces.SelectItems"

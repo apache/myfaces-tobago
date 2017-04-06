@@ -19,18 +19,13 @@
 
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
-import org.apache.myfaces.tobago.internal.component.AbstractUICommand;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.CssItem;
 
-import javax.faces.context.FacesContext;
-import java.util.List;
-
-public class ButtonAlternativeInRenderer extends ButtonRenderer {
+public class LinksInsideBarRenderer extends LinksRenderer {
 
   @Override
-  protected void addOuterCssItems(final FacesContext facesContext, final AbstractUICommand command,
-                                  final List<CssItem> collected) {
-    collected.add(BootstrapClass.INPUT_GROUP_BTN);
+  protected CssItem getExtraCssItem() {
+    return BootstrapClass.NAVBAR_NAV;
   }
 }

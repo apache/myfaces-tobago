@@ -158,7 +158,7 @@ public class InRenderer extends MessageLayoutRendererBase {
       }
       for (UIComponent child : children) {
         if (child instanceof AbstractUIButton && ((AbstractUIButton) child).isParentOfCommands()) {
-          child.setRendererType(RendererTypes.BUTTON_ALTERNATIVE_IN);
+          child.setRendererType(RendererTypes.ButtonInsideIn.name());
           RenderUtils.encode(facesContext, child);
         } else {
           writer.startElement(HtmlElements.SPAN);
@@ -168,7 +168,7 @@ public class InRenderer extends MessageLayoutRendererBase {
             cssItem = BootstrapClass.INPUT_GROUP_BTN;
           } else if (child instanceof AbstractUISelectOneChoice) {
             cssItem = BootstrapClass.INPUT_GROUP_BTN;
-            child.setRendererType(RendererTypes.SELECT_ONE_CHOICE_ALTERNATIVE_IN);
+            child.setRendererType(RendererTypes.SelectOneChoiceInsideIn.name());
           } else {
             cssItem = BootstrapClass.INPUT_GROUP_ADDON;
           }

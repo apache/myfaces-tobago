@@ -19,13 +19,40 @@
 
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
+import org.apache.myfaces.tobago.component.UISelectManyCheckbox;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.CssItem;
 
-public class LinksAlternativeBarRenderer extends LinksRenderer {
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import java.io.IOException;
+import java.util.List;
+
+public class SelectManyCheckboxInsideCommandRenderer extends SelectManyCheckboxRenderer {
 
   @Override
-  protected CssItem getExtraCssItem() {
-    return BootstrapClass.NAVBAR_NAV;
+  public void encodeBegin(final FacesContext facesContext, final UIComponent component) throws IOException {
+    encodeBeginField(facesContext, component);
+  }
+
+  @Override
+  public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
+    encodeEndField(facesContext, component);
+  }
+
+  @Override
+  protected boolean renderClientId() {
+    return true;
+  }
+
+  @Override
+  protected boolean renderOuterItem() {
+    return false;
+  }
+
+  @Override
+  protected void addCssItems(final FacesContext facesContext, final UISelectManyCheckbox select,
+                             final List<CssItem> collected) {
+    collected.add(BootstrapClass.DROPDOWN_ITEM);
   }
 }
