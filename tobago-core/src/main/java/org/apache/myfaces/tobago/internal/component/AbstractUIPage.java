@@ -19,7 +19,6 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
-import org.apache.myfaces.tobago.component.Visual;
 import org.apache.myfaces.tobago.internal.layout.LayoutUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.util.DebugUtils;
@@ -36,7 +35,7 @@ import java.util.Iterator;
 /**
  * {@link org.apache.myfaces.tobago.internal.taglib.component.PageTagDeclaration}
  */
-public abstract class AbstractUIPage extends AbstractUIFormBase implements Visual, ClientBehaviorHolder {
+public abstract class AbstractUIPage extends AbstractUIFormBase implements ClientBehaviorHolder {
 
   private static final Logger LOG = LoggerFactory.getLogger(AbstractUIPage.class);
 

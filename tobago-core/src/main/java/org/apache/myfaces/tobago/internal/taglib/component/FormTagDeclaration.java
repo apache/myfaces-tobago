@@ -20,11 +20,13 @@
 package org.apache.myfaces.tobago.internal.taglib.component;
 
 import org.apache.myfaces.tobago.apt.annotation.Tag;
+import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
+import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasBinding;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasId;
-import org.apache.myfaces.tobago.internal.taglib.declaration.IsInline;
+import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
 
 import javax.faces.component.UIForm;
 
@@ -42,5 +44,16 @@ import javax.faces.component.UIForm;
     componentFamily = UIForm.COMPONENT_FAMILY,
     rendererType = RendererTypes.FORM,
     allowedChildComponenents = "ALL")
-public interface FormTagDeclaration extends HasBinding, HasId, IsInline {
+public interface FormTagDeclaration extends HasBinding, HasId, IsVisual {
+
+  /**
+   * Flag indicating this component should rendered as an inline element.
+   *
+   * @deprecated since 3.1.0. May use a subtag &lt;tc:style customClass="d-inline"/&gt; instead.
+   */
+  @Deprecated
+  @TagAttribute
+  @UIComponentTagAttribute(type = "boolean", defaultValue = "false")
+  void setInline(String inline);
+
 }

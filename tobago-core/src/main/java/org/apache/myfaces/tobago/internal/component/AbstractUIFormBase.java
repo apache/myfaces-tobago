@@ -19,6 +19,7 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
+import org.apache.myfaces.tobago.component.Visual;
 import org.apache.myfaces.tobago.util.AjaxUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.slf4j.Logger;
@@ -32,7 +33,7 @@ import java.util.Iterator;
 /**
  * Base class for form and page.
  */
-public abstract class AbstractUIFormBase extends UIForm {
+public abstract class AbstractUIFormBase extends UIForm implements Visual {
 
   private static final Logger LOG = LoggerFactory.getLogger(AbstractUIFormBase.class);
 
