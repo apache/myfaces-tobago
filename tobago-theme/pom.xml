@@ -215,12 +215,12 @@
           <plugin>
             <groupId>com.github.eirslett</groupId>
             <artifactId>frontend-maven-plugin</artifactId>
-            <version>1.0</version>
+            <version>1.4</version>
 
             <!-- optional -->
             <configuration>
-              <nodeVersion>v6.5.0</nodeVersion>
-              <npmVersion>3.10.8</npmVersion>
+              <nodeVersion>v6.10.2</nodeVersion>
+              <npmVersion>3.10.10</npmVersion>
               <!-- optional: where to download node and npm from. Defaults to https://nodejs.org/dist/ -->
               <!--<downloadRoot>http://myproxy.example.org/nodejs/dist/</downloadRoot>-->
               <!-- optional: where to install node and npm. Defaults to the working directory -->
