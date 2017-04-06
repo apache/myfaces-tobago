@@ -1,4 +1,4 @@
-Build date: 2017-04-05 15:59:18
+Build date: 2017-04-06 13:39:47
 [INFO] Scanning for projects...
 [INFO]                                                                         
 [INFO] ------------------------------------------------------------------------
@@ -11,20 +11,20 @@ Build date: 2017-04-05 15:59:18
 [INFO] 
 [INFO] --- maven-scm-plugin:1.9.5:checkout (step #1: checkout-bootstrap) @ tobago-theme-scarborough ---
 [INFO] Removing __CURRENT__/tobago-theme-scarborough/target/checkout
-[INFO] Executing: /bin/sh -c cd __CURRENT__/tobago-theme-scarborough/target && git clone --branch v4.0.0-alpha.5 https://github.com/twbs/bootstrap __CURRENT__/tobago-theme-scarborough/target/checkout
+[INFO] Executing: /bin/sh -c cd __CURRENT__/tobago-theme-scarborough/target && git clone --branch v4.0.0-alpha.6 https://github.com/twbs/bootstrap __CURRENT__/tobago-theme-scarborough/target/checkout
 [INFO] Working directory: __CURRENT__/tobago-theme-scarborough/target
 [INFO] Executing: /bin/sh -c cd /var/folders/w0/pg4pxr7972l6bq85x08s5cl00000gn/T/ && git ls-remote https://github.com/twbs/bootstrap
 [INFO] Working directory: /var/folders/w0/pg4pxr7972l6bq85x08s5cl00000gn/T
-[INFO] Executing: /bin/sh -c cd __CURRENT__/tobago-theme-scarborough/target/checkout && git pull https://github.com/twbs/bootstrap v4.0.0-alpha.5:v4.0.0-alpha.5
+[INFO] Executing: /bin/sh -c cd __CURRENT__/tobago-theme-scarborough/target/checkout && git pull https://github.com/twbs/bootstrap v4.0.0-alpha.6:v4.0.0-alpha.6
 [INFO] Working directory: __CURRENT__/tobago-theme-scarborough/target/checkout
-[INFO] Executing: /bin/sh -c cd __CURRENT__/tobago-theme-scarborough/target/checkout && git checkout v4.0.0-alpha.5
+[INFO] Executing: /bin/sh -c cd __CURRENT__/tobago-theme-scarborough/target/checkout && git checkout v4.0.0-alpha.6
 [INFO] Working directory: __CURRENT__/tobago-theme-scarborough/target/checkout
 [INFO] Executing: /bin/sh -c cd __CURRENT__/tobago-theme-scarborough/target/checkout && git ls-files
 [INFO] Working directory: __CURRENT__/tobago-theme-scarborough/target/checkout
 [INFO] 
 [INFO] --- maven-resources-plugin:2.7:copy-resources (step #2: copy-bootstrap) @ tobago-theme-scarborough ---
 [INFO] Using 'UTF-8' encoding to copy filtered resources.
-[INFO] Copying 418 resources
+[INFO] Copying 405 resources
 [INFO] 
 [INFO] --- maven-resources-plugin:2.7:copy-resources (step #3: copy-custom) @ tobago-theme-scarborough ---
 [INFO] Using 'UTF-8' encoding to copy filtered resources.
@@ -48,7 +48,7 @@ Build date: 2017-04-05 15:59:18
 [INFO] 
 [INFO] --- frontend-maven-plugin:1.0:npm (step #7: npm install grunt-cli) @ tobago-theme-scarborough ---
 [INFO] Running 'npm install grunt-cli' in __CURRENT__/tobago-theme-scarborough/target/bootstrap
-[INFO] bootstrap@4.0.0-alpha.5 __CURRENT__/tobago-theme-scarborough/target/bootstrap
+[INFO] bootstrap@4.0.0-alpha.6 __CURRENT__/tobago-theme-scarborough/target/bootstrap
 [INFO] └─┬ grunt-cli@1.2.0 
 [INFO]   ├─┬ findup-sync@0.3.0 
 [INFO]   │ └─┬ glob@5.0.15 
@@ -73,7 +73,6 @@ Build date: 2017-04-05 15:59:18
 [WARNING] npm WARN deprecated minimatch@0.3.0: Please update to minimatch 3.0.2 or higher to avoid a RegExp DoS issue
 [WARNING] npm WARN prefer global coffee-script@1.10.0 should be installed with -g
 [WARNING] npm WARN prefer global jshint@2.8.0 should be installed with -g
-[WARNING] npm WARN prefer global jsonlint@1.6.2 should be installed with -g
 [WARNING] npm WARN prefer global node-gyp@3.6.0 should be installed with -g
 [INFO] 
 [INFO] > fsevents@1.1.1 install __CURRENT__/tobago-theme-scarborough/target/bootstrap/node_modules/fsevents
@@ -91,10 +90,58 @@ Build date: 2017-04-05 15:59:18
 [INFO]   CC(target) Release/obj.target/decode/brotli/dec/huffman.o
 [INFO]   CC(target) Release/obj.target/decode/brotli/dec/state.o
 [INFO]   CXX(target) Release/obj.target/decode/src/common/allocator.o
+[ERROR] In file included from ../src/common/allocator.cc:2:
+[ERROR] In file included from ../../nan/nan.h:2316:
+[ERROR] ../../nan/nan_json.h:87:35: warning: 'Parse' is deprecated [-Wdeprecated-declarations]
+[ERROR]     return scope.Escape(v8::JSON::Parse(json_string));
+[ERROR]                                   ^
+[ERROR] __HOME__/.node-gyp/6.5.0/include/node/v8.h:1682:37: note: 'Parse' has been explicitly marked deprecated here
+[ERROR]                        Local<Value> Parse(Local<String> json_string));
+[ERROR]                                     ^
+[ERROR] 1 warning generated.
 [INFO]   CXX(target) Release/obj.target/decode/src/common/stream_coder.o
+[ERROR] In file included from ../src/common/stream_coder.cc:1:
+[ERROR] In file included from ../src/common/stream_coder.h:5:
+[ERROR] In file included from ../../nan/nan.h:2316:
+[ERROR] ../../nan/nan_json.h:87:35: warning: 'Parse' is deprecated [-Wdeprecated-declarations]
+[ERROR]     return scope.Escape(v8::JSON::Parse(json_string));
+[ERROR]                                   ^
+[ERROR] __HOME__/.node-gyp/6.5.0/include/node/v8.h:1682:37: note: 'Parse' has been explicitly marked deprecated here
+[ERROR]                        Local<Value> Parse(Local<String> json_string));
+[ERROR]                                     ^
+[ERROR] 1 warning generated.
 [INFO]   CXX(target) Release/obj.target/decode/src/dec/decode_index.o
+[ERROR] In file included from ../src/dec/decode_index.cc:1:
+[ERROR] In file included from ../../nan/nan.h:2316:
+[ERROR] ../../nan/nan_json.h:87:35: warning: 'Parse' is deprecated [-Wdeprecated-declarations]
+[ERROR]     return scope.Escape(v8::JSON::Parse(json_string));
+[ERROR]                                   ^
+[ERROR] __HOME__/.node-gyp/6.5.0/include/node/v8.h:1682:37: note: 'Parse' has been explicitly marked deprecated here
+[ERROR]                        Local<Value> Parse(Local<String> json_string));
+[ERROR]                                     ^
+[ERROR] 1 warning generated.
 [INFO]   CXX(target) Release/obj.target/decode/src/dec/stream_decode.o
+[ERROR] In file included from ../src/dec/stream_decode.cc:1:
+[ERROR] In file included from ../src/dec/stream_decode.h:4:
+[ERROR] In file included from ../../nan/nan.h:2316:
+[ERROR] ../../nan/nan_json.h:87:35: warning: 'Parse' is deprecated [-Wdeprecated-declarations]
+[ERROR]     return scope.Escape(v8::JSON::Parse(json_string));
+[ERROR]                                   ^
+[ERROR] __HOME__/.node-gyp/6.5.0/include/node/v8.h:1682:37: note: 'Parse' has been explicitly marked deprecated here
+[ERROR]                        Local<Value> Parse(Local<String> json_string));
+[ERROR]                                     ^
+[ERROR] 1 warning generated.
 [INFO]   CXX(target) Release/obj.target/decode/src/dec/stream_decode_worker.o
+[ERROR] In file included from ../src/dec/stream_decode_worker.cc:1:
+[ERROR] In file included from ../src/dec/stream_decode_worker.h:4:
+[ERROR] In file included from ../../nan/nan.h:2316:
+[ERROR] ../../nan/nan_json.h:87:35: warning: 'Parse' is deprecated [-Wdeprecated-declarations]
+[ERROR]     return scope.Escape(v8::JSON::Parse(json_string));
+[ERROR]                                   ^
+[ERROR] __HOME__/.node-gyp/6.5.0/include/node/v8.h:1682:37: note: 'Parse' has been explicitly marked deprecated here
+[ERROR]                        Local<Value> Parse(Local<String> json_string));
+[ERROR]                                     ^
+[ERROR] 1 warning generated.
 [INFO]   SOLINK_MODULE(target) Release/decode.node
 [ERROR] clang: warning: libstdc++ is deprecated; move to libc++ with a minimum deployment target of OS X 10.9 [-Wdeprecated]
 [INFO]   CC(target) Release/obj.target/encode/brotli/common/dictionary.o
@@ -114,17 +161,60 @@ Build date: 2017-04-05 15:59:18
 [INFO]   CC(target) Release/obj.target/encode/brotli/enc/static_dict.o
 [INFO]   CC(target) Release/obj.target/encode/brotli/enc/utf8_util.o
 [INFO]   CXX(target) Release/obj.target/encode/src/common/allocator.o
+[ERROR] In file included from ../src/common/allocator.cc:2:
+[ERROR] In file included from ../../nan/nan.h:2316:
+[ERROR] ../../nan/nan_json.h:87:35: warning: 'Parse' is deprecated [-Wdeprecated-declarations]
+[ERROR]     return scope.Escape(v8::JSON::Parse(json_string));
+[ERROR]                                   ^
+[ERROR] __HOME__/.node-gyp/6.5.0/include/node/v8.h:1682:37: note: 'Parse' has been explicitly marked deprecated here
+[ERROR]                        Local<Value> Parse(Local<String> json_string));
+[ERROR]                                     ^
+[ERROR] 1 warning generated.
 [INFO]   CXX(target) Release/obj.target/encode/src/common/stream_coder.o
+[ERROR] In file included from ../src/common/stream_coder.cc:1:
+[ERROR] In file included from ../src/common/stream_coder.h:5:
+[ERROR] In file included from ../../nan/nan.h:2316:
+[ERROR] ../../nan/nan_json.h:87:35: warning: 'Parse' is deprecated [-Wdeprecated-declarations]
+[ERROR]     return scope.Escape(v8::JSON::Parse(json_string));
+[ERROR]                                   ^
+[ERROR] __HOME__/.node-gyp/6.5.0/include/node/v8.h:1682:37: note: 'Parse' has been explicitly marked deprecated here
+[ERROR]                        Local<Value> Parse(Local<String> json_string));
+[ERROR]                                     ^
+[ERROR] 1 warning generated.
 [INFO]   CXX(target) Release/obj.target/encode/src/enc/encode_index.o
+[ERROR] In file included from ../src/enc/encode_index.cc:1:
+[ERROR] In file included from ../../nan/nan.h:2316:
+[ERROR] ../../nan/nan_json.h:87:35: warning: 'Parse' is deprecated [-Wdeprecated-declarations]
+[ERROR]     return scope.Escape(v8::JSON::Parse(json_string));
+[ERROR]                                   ^
+[ERROR] __HOME__/.node-gyp/6.5.0/include/node/v8.h:1682:37: note: 'Parse' has been explicitly marked deprecated here
+[ERROR]                        Local<Value> Parse(Local<String> json_string));
+[ERROR]                                     ^
+[ERROR] 1 warning generated.
 [INFO]   CXX(target) Release/obj.target/encode/src/enc/stream_encode.o
+[ERROR] In file included from ../src/enc/stream_encode.cc:1:
+[ERROR] In file included from ../src/enc/stream_encode.h:4:
+[ERROR] In file included from ../../nan/nan.h:2316:
+[ERROR] ../../nan/nan_json.h:87:35: warning: 'Parse' is deprecated [-Wdeprecated-declarations]
+[ERROR]     return scope.Escape(v8::JSON::Parse(json_string));
+[ERROR]                                   ^
+[ERROR] __HOME__/.node-gyp/6.5.0/include/node/v8.h:1682:37: note: 'Parse' has been explicitly marked deprecated here
+[ERROR]                        Local<Value> Parse(Local<String> json_string));
+[ERROR]                                     ^
+[ERROR] 1 warning generated.
 [INFO]   CXX(target) Release/obj.target/encode/src/enc/stream_encode_worker.o
+[ERROR] In file included from ../src/enc/stream_encode_worker.cc:1:
+[ERROR] In file included from ../src/enc/stream_encode_worker.h:4:
+[ERROR] In file included from ../../nan/nan.h:2316:
+[ERROR] ../../nan/nan_json.h:87:35: warning: 'Parse' is deprecated [-Wdeprecated-declarations]
+[ERROR]     return scope.Escape(v8::JSON::Parse(json_string));
+[ERROR]                                   ^
+[ERROR] __HOME__/.node-gyp/6.5.0/include/node/v8.h:1682:37: note: 'Parse' has been explicitly marked deprecated here
+[ERROR]                        Local<Value> Parse(Local<String> json_string));
+[ERROR]                                     ^
+[ERROR] 1 warning generated.
 [INFO]   SOLINK_MODULE(target) Release/encode.node
 [ERROR] clang: warning: libstdc++ is deprecated; move to libc++ with a minimum deployment target of OS X 10.9 [-Wdeprecated]
-[INFO] 
-[INFO] > node-sass@3.13.1 install __CURRENT__/tobago-theme-scarborough/target/bootstrap/node_modules/node-sass
-[INFO] > node scripts/install.js
-[INFO] 
-[INFO] Cached binary found at __HOME__/.npm/node-sass/3.13.1/darwin-x64-48_binding.node
 [INFO] 
 [INFO] > phantomjs-prebuilt@2.1.14 install __CURRENT__/tobago-theme-scarborough/target/bootstrap/node_modules/phantomjs-prebuilt
 [INFO] > node install.js
@@ -134,17 +224,22 @@ Build date: 2017-04-05 15:59:18
 [INFO] Verified checksum of previously downloaded file
 [INFO] Extracting zip contents
 [INFO] Removing __CURRENT__/tobago-theme-scarborough/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom
-[INFO] Copying extracted folder /var/folders/w0/pg4pxr7972l6bq85x08s5cl00000gn/T/phantomjs/phantomjs-2.1.1-macosx.zip-extract-1491400895755/phantomjs-2.1.1-macosx -> __CURRENT__/tobago-theme-scarborough/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom
+[INFO] Copying extracted folder /var/folders/w0/pg4pxr7972l6bq85x08s5cl00000gn/T/phantomjs/phantomjs-2.1.1-macosx.zip-extract-1491478890034/phantomjs-2.1.1-macosx -> __CURRENT__/tobago-theme-scarborough/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom
 [INFO] Writing location.js file
 [INFO] Done. Phantomjs binary available at __CURRENT__/tobago-theme-scarborough/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom/bin/phantomjs
 [INFO] 
-[INFO] > node-sass@3.13.1 postinstall __CURRENT__/tobago-theme-scarborough/target/bootstrap/node_modules/node-sass
+[INFO] > node-sass@4.5.2 install __CURRENT__/tobago-theme-scarborough/target/bootstrap/node_modules/node-sass
+[INFO] > node scripts/install.js
+[INFO] 
+[INFO] Cached binary found at __HOME__/.npm/node-sass/4.5.2/darwin-x64-48_binding.node
+[INFO] 
+[INFO] > node-sass@4.5.2 postinstall __CURRENT__/tobago-theme-scarborough/target/bootstrap/node_modules/node-sass
 [INFO] > node scripts/build.js
 [INFO] 
 [INFO] Binary found at __CURRENT__/tobago-theme-scarborough/target/bootstrap/node_modules/node-sass/vendor/darwin-x64-48/binding.node
 [INFO] Testing binary
 [INFO] Binary is fine
-[INFO] bootstrap@4.0.0-alpha.5 __CURRENT__/tobago-theme-scarborough/target/bootstrap
+[INFO] bootstrap@4.0.0-alpha.6 __CURRENT__/tobago-theme-scarborough/target/bootstrap
 [INFO] ├─┬ autoprefixer@6.7.7 
 [INFO] │ ├─┬ browserslist@1.7.7 
 [INFO] │ │ └── electron-to-chromium@1.3.2 
@@ -211,6 +306,11 @@ Build date: 2017-04-05 15:59:18
 [INFO] │ │     └── jsesc@0.5.0 
 [INFO] │ └─┬ babel-plugin-transform-regenerator@6.22.0 
 [INFO] │   └── regenerator-transform@0.9.8 
+[INFO] ├─┬ clean-css@3.4.25 
+[INFO] │ ├─┬ commander@2.8.1 
+[INFO] │ │ └── graceful-readlink@1.0.1 
+[INFO] │ └─┬ source-map@0.4.4 
+[INFO] │   └── amdefine@1.0.1 
 [INFO] ├─┬ eslint@3.19.0 
 [INFO] │ ├─┬ chalk@1.1.3 
 [INFO] │ │ ├── ansi-styles@2.2.1 
@@ -249,16 +349,16 @@ Build date: 2017-04-05 15:59:18
 [INFO] │ ├── estraverse@4.2.0 
 [INFO] │ ├── esutils@2.0.2 
 [INFO] │ ├─┬ file-entry-cache@2.0.0 
-[INFO] │ │ └─┬ flat-cache@1.2.2 
-[INFO] │ │   ├── circular-json@0.3.1 
-[INFO] │ │   ├─┬ del@2.2.2 
-[INFO] │ │   │ ├─┬ globby@5.0.0 
-[INFO] │ │   │ │ └── glob@7.1.1 
-[INFO] │ │   │ ├── is-path-cwd@1.0.0 
-[INFO] │ │   │ └─┬ is-path-in-cwd@1.0.0 
-[INFO] │ │   │   └── is-path-inside@1.0.0 
-[INFO] │ │   ├── graceful-fs@4.1.11 
-[INFO] │ │   └── write@0.2.1 
+[INFO] │ │ ├─┬ flat-cache@1.2.2 
+[INFO] │ │ │ ├── circular-json@0.3.1 
+[INFO] │ │ │ ├─┬ del@2.2.2 
+[INFO] │ │ │ │ ├─┬ globby@5.0.0 
+[INFO] │ │ │ │ │ └── glob@7.1.1 
+[INFO] │ │ │ │ ├── is-path-cwd@1.0.0 
+[INFO] │ │ │ │ └─┬ is-path-in-cwd@1.0.0 
+[INFO] │ │ │ │   └── is-path-inside@1.0.0 
+[INFO] │ │ │ └── write@0.2.1 
+[INFO] │ │ └── object-assign@4.1.1 
 [INFO] │ ├─┬ glob@7.1.1 
 [INFO] │ │ └── fs.realpath@1.0.0 
 [INFO] │ ├── globals@9.17.0 
@@ -269,7 +369,8 @@ Build date: 2017-04-05 15:59:18
 [INFO] │ │ ├── ansi-regex@2.1.1 
 [INFO] │ │ ├─┬ cli-cursor@1.0.2 
 [INFO] │ │ │ └─┬ restore-cursor@1.0.1 
-[INFO] │ │ │   └── exit-hook@1.1.1 
+[INFO] │ │ │   ├── exit-hook@1.1.1 
+[INFO] │ │ │   └── onetime@1.1.0 
 [INFO] │ │ ├── cli-width@2.1.0 
 [INFO] │ │ ├─┬ readline2@1.0.1 
 [INFO] │ │ │ ├── code-point-at@1.1.0 
@@ -325,29 +426,7 @@ Build date: 2017-04-05 15:59:18
 [INFO] │   └── os-homedir@1.0.2 
 [INFO] ├─┬ grunt@1.0.1 
 [INFO] │ ├── coffee-script@1.10.0 
-[INFO] │ ├─┬ dateformat@1.0.12 
-[INFO] │ │ ├── get-stdin@4.0.1 
-[INFO] │ │ └─┬ meow@3.7.0 
-[INFO] │ │   ├─┬ camelcase-keys@2.1.0 
-[INFO] │ │   │ └── camelcase@2.1.1 
-[INFO] │ │   ├─┬ loud-rejection@1.6.0 
-[INFO] │ │   │ ├─┬ currently-unhandled@0.4.1 
-[INFO] │ │   │ │ └── array-find-index@1.0.2 
-[INFO] │ │   │ └── signal-exit@3.0.2 
-[INFO] │ │   ├── map-obj@1.0.1 
-[INFO] │ │   ├── minimist@1.2.0 
-[INFO] │ │   ├─┬ normalize-package-data@2.3.6 
-[INFO] │ │   │ ├── hosted-git-info@2.4.1 
-[INFO] │ │   │ ├─┬ is-builtin-module@1.0.0 
-[INFO] │ │   │ │ └── builtin-modules@1.1.1 
-[INFO] │ │   │ └─┬ validate-npm-package-license@3.0.1 
-[INFO] │ │   │   ├─┬ spdx-correct@1.0.2 
-[INFO] │ │   │   │ └── spdx-license-ids@1.2.2 
-[INFO] │ │   │   └── spdx-expression-parse@1.0.4 
-[INFO] │ │   ├─┬ redent@1.0.0 
-[INFO] │ │   │ ├── indent-string@2.1.0 
-[INFO] │ │   │ └── strip-indent@1.0.1 
-[INFO] │ │   └── trim-newlines@1.0.0 
+[INFO] │ ├── dateformat@1.0.12 
 [INFO] │ ├── eventemitter2@0.4.14 
 [INFO] │ ├── exit@0.1.2 
 [INFO] │ ├── glob@7.0.6 
@@ -358,7 +437,9 @@ Build date: 2017-04-05 15:59:18
 [INFO] │ │ └── underscore.string@3.2.3 
 [INFO] │ ├─┬ grunt-legacy-util@1.0.0 
 [INFO] │ │ ├── getobject@0.1.0 
-[INFO] │ │ └── lodash@4.3.0 
+[INFO] │ │ ├── lodash@4.3.0 
+[INFO] │ │ └─┬ which@1.2.14 
+[INFO] │ │   └── isexe@2.0.0 
 [INFO] │ ├── iconv-lite@0.4.15 
 [INFO] │ ├─┬ js-yaml@3.5.5 
 [INFO] │ │ └── esprima@2.7.3 
@@ -372,7 +453,8 @@ Build date: 2017-04-05 15:59:18
 [INFO] │   │ └── trim-right@1.0.1 
 [INFO] │   ├── babel-helpers@6.23.0 
 [INFO] │   ├─┬ babel-register@6.24.0 
-[INFO] │   │ └── home-or-tmp@2.0.0 
+[INFO] │   │ ├── home-or-tmp@2.0.0 
+[INFO] │   │ └── source-map-support@0.4.14 
 [INFO] │   ├── convert-source-map@1.5.0 
 [INFO] │   ├── json5@0.5.1 
 [INFO] │   ├── private@0.1.7 
@@ -403,8 +485,7 @@ Build date: 2017-04-05 15:59:18
 [INFO] │ │   └─┬ compress-commons@1.2.0 
 [INFO] │ │     └─┬ crc32-stream@2.0.0 
 [INFO] │ │       └── crc@3.4.4 
-[INFO] │ ├─┬ iltorb@1.0.13 
-[INFO] │ │ └── nan@2.5.1 
+[INFO] │ ├── iltorb@1.0.13 
 [INFO] │ ├── pretty-bytes@3.0.1 
 [INFO] │ └── stream-buffers@2.2.0 
 [INFO] ├─┬ grunt-contrib-concat@1.0.1 
@@ -455,16 +536,6 @@ Build date: 2017-04-05 15:59:18
 [INFO] │     └── range-parser@1.2.0 
 [INFO] ├─┬ grunt-contrib-copy@1.0.0 
 [INFO] │ └── file-sync-cmp@0.1.1 
-[INFO] ├─┬ grunt-contrib-cssmin@1.0.2 
-[INFO] │ ├─┬ clean-css@3.4.25 
-[INFO] │ │ ├── commander@2.8.1 
-[INFO] │ │ └─┬ source-map@0.4.4 
-[INFO] │ │   └── amdefine@1.0.1 
-[INFO] │ └─┬ maxmin@1.1.0 
-[INFO] │   ├─┬ gzip-size@1.0.0 
-[INFO] │   │ └─┬ browserify-zlib@0.1.4 
-[INFO] │   │   └── pako@0.2.9 
-[INFO] │   └── pretty-bytes@1.0.4 
 [INFO] ├─┬ grunt-contrib-qunit@1.3.0 
 [INFO] │ └─┬ grunt-lib-phantomjs@1.1.0 
 [INFO] │   ├─┬ phantomjs-prebuilt@2.1.14 
@@ -488,33 +559,6 @@ Build date: 2017-04-05 15:59:18
 [INFO] │   ├── semver@5.3.0 
 [INFO] │   └─┬ temporary@0.0.8 
 [INFO] │     └── package@1.0.1 
-[INFO] ├─┬ grunt-contrib-sass@1.0.0 
-[INFO] │ ├── async@0.9.2 
-[INFO] │ ├─┬ cross-spawn@0.2.9 
-[INFO] │ │ └── lru-cache@2.7.3 
-[INFO] │ ├── dargs@4.1.0 
-[INFO] │ └─┬ which@1.2.14 
-[INFO] │   └── isexe@2.0.0 
-[INFO] ├─┬ grunt-contrib-uglify@2.3.0 
-[INFO] │ ├─┬ object.assign@4.0.4 
-[INFO] │ │ ├─┬ define-properties@1.1.2 
-[INFO] │ │ │ └── foreach@2.0.5 
-[INFO] │ │ ├── function-bind@1.1.0 
-[INFO] │ │ └── object-keys@1.0.11 
-[INFO] │ ├─┬ uglify-js@2.8.21 
-[INFO] │ │ ├── uglify-to-browserify@1.0.2 
-[INFO] │ │ └─┬ yargs@3.10.0 
-[INFO] │ │   ├── camelcase@1.2.1 
-[INFO] │ │   ├─┬ cliui@2.1.0 
-[INFO] │ │   │ ├─┬ center-align@0.1.3 
-[INFO] │ │   │ │ ├─┬ align-text@0.1.4 
-[INFO] │ │   │ │ │ ├── longest@1.0.1 
-[INFO] │ │   │ │ │ └── repeat-string@1.6.1 
-[INFO] │ │   │ │ └── lazy-cache@1.0.4 
-[INFO] │ │   │ ├── right-align@0.1.3 
-[INFO] │ │   │ └── wordwrap@0.0.2 
-[INFO] │ │   └── window-size@0.1.0 
-[INFO] │ └── uri-path@1.0.0 
 [INFO] ├─┬ grunt-contrib-watch@1.0.0 
 [INFO] │ ├─┬ gaze@1.1.2 
 [INFO] │ │ └─┬ globule@1.1.0 
@@ -549,85 +593,6 @@ Build date: 2017-04-05 15:59:18
 [INFO] ├─┬ grunt-jekyll@0.4.6 
 [INFO] │ └─┬ tmp@0.0.31 
 [INFO] │   └── os-tmpdir@1.0.2 
-[INFO] ├─┬ grunt-sass@1.2.1 
-[INFO] │ ├─┬ each-async@1.1.1 
-[INFO] │ │ ├── onetime@1.1.0 
-[INFO] │ │ └── set-immediate-shim@1.0.1 
-[INFO] │ ├─┬ node-sass@3.13.1 
-[INFO] │ │ ├── async-foreach@0.1.3 
-[INFO] │ │ ├─┬ cross-spawn@3.0.1 
-[INFO] │ │ │ └─┬ lru-cache@4.0.2 
-[INFO] │ │ │   ├── pseudomap@1.0.2 
-[INFO] │ │ │   └── yallist@2.1.2 
-[INFO] │ │ ├── glob@7.1.1 
-[INFO] │ │ ├── in-publish@2.0.0 
-[INFO] │ │ ├── lodash.assign@4.2.0 
-[INFO] │ │ ├── lodash.clonedeep@4.5.0 
-[INFO] │ │ ├─┬ node-gyp@3.6.0 
-[INFO] │ │ │ ├── fstream@1.0.11 
-[INFO] │ │ │ ├── glob@7.1.1 
-[INFO] │ │ │ ├── osenv@0.1.4 
-[INFO] │ │ │ └─┬ tar@2.2.1 
-[INFO] │ │ │   └── block-stream@0.0.9 
-[INFO] │ │ ├─┬ npmlog@4.0.2 
-[INFO] │ │ │ ├─┬ are-we-there-yet@1.1.2 
-[INFO] │ │ │ │ └── delegates@1.0.0 
-[INFO] │ │ │ ├── console-control-strings@1.1.0 
-[INFO] │ │ │ └─┬ gauge@2.7.3 
-[INFO] │ │ │   ├── aproba@1.1.1 
-[INFO] │ │ │   ├── has-unicode@2.0.1 
-[INFO] │ │ │   └── wide-align@1.1.0 
-[INFO] │ │ ├─┬ request@2.79.0 
-[INFO] │ │ │ ├── aws-sign2@0.6.0 
-[INFO] │ │ │ ├── aws4@1.6.0 
-[INFO] │ │ │ ├── caseless@0.11.0 
-[INFO] │ │ │ ├─┬ combined-stream@1.0.5 
-[INFO] │ │ │ │ └── delayed-stream@1.0.0 
-[INFO] │ │ │ ├── forever-agent@0.6.1 
-[INFO] │ │ │ ├─┬ form-data@2.1.2 
-[INFO] │ │ │ │ └── asynckit@0.4.0 
-[INFO] │ │ │ ├─┬ har-validator@2.0.6 
-[INFO] │ │ │ │ └── commander@2.9.0 
-[INFO] │ │ │ ├─┬ hawk@3.1.3 
-[INFO] │ │ │ │ ├── boom@2.10.1 
-[INFO] │ │ │ │ ├── cryptiles@2.0.5 
-[INFO] │ │ │ │ ├── hoek@2.16.3 
-[INFO] │ │ │ │ └── sntp@1.0.9 
-[INFO] │ │ │ ├─┬ http-signature@1.1.1 
-[INFO] │ │ │ │ ├── assert-plus@0.2.0 
-[INFO] │ │ │ │ ├─┬ jsprim@1.4.0 
-[INFO] │ │ │ │ │ ├── assert-plus@1.0.0 
-[INFO] │ │ │ │ │ ├── extsprintf@1.0.2 
-[INFO] │ │ │ │ │ ├── json-schema@0.2.3 
-[INFO] │ │ │ │ │ └── verror@1.3.6 
-[INFO] │ │ │ │ └─┬ sshpk@1.11.0 
-[INFO] │ │ │ │   ├── asn1@0.2.3 
-[INFO] │ │ │ │   ├── assert-plus@1.0.0 
-[INFO] │ │ │ │   ├── bcrypt-pbkdf@1.0.1 
-[INFO] │ │ │ │   ├─┬ dashdash@1.14.1 
-[INFO] │ │ │ │   │ └── assert-plus@1.0.0 
-[INFO] │ │ │ │   ├── ecc-jsbn@0.1.1 
-[INFO] │ │ │ │   ├─┬ getpass@0.1.6 
-[INFO] │ │ │ │   │ └── assert-plus@1.0.0 
-[INFO] │ │ │ │   ├── jodid25519@1.0.2 
-[INFO] │ │ │ │   ├── jsbn@0.1.1 
-[INFO] │ │ │ │   └── tweetnacl@0.14.5 
-[INFO] │ │ │ ├── is-typedarray@1.0.0 
-[INFO] │ │ │ ├── isstream@0.1.2 
-[INFO] │ │ │ ├── json-stringify-safe@5.0.1 
-[INFO] │ │ │ ├── oauth-sign@0.8.2 
-[INFO] │ │ │ ├── qs@6.3.2 
-[INFO] │ │ │ ├── stringstream@0.0.5 
-[INFO] │ │ │ ├─┬ tough-cookie@2.3.2 
-[INFO] │ │ │ │ └── punycode@1.4.1 
-[INFO] │ │ │ ├── tunnel-agent@0.4.3 
-[INFO] │ │ │ └── uuid@3.0.1 
-[INFO] │ │ └─┬ sass-graph@2.1.2 
-[INFO] │ │   ├── glob@7.1.1 
-[INFO] │ │   └─┬ yargs@4.8.1 
-[INFO] │ │     ├── cliui@3.2.0 
-[INFO] │ │     └── window-size@0.2.0 
-[INFO] │ └── object-assign@4.1.1 
 [INFO] ├─┬ grunt-saucelabs@9.0.0 
 [INFO] │ ├── colors@1.1.2 
 [INFO] │ ├── lodash@4.13.1 
@@ -644,8 +609,6 @@ Build date: 2017-04-05 15:59:18
 [INFO] │   └─┬ https-proxy-agent@1.0.0 
 [INFO] │     └─┬ agent-base@2.0.1 
 [INFO] │       └── semver@5.0.3 
-[INFO] ├─┬ grunt-scss-lint@0.5.0 
-[INFO] │ └── xmlbuilder@8.2.2 
 [INFO] ├── grunt-stamp@0.3.0 
 [INFO] ├─┬ htmlhint@0.9.13 
 [INFO] │ ├── async@1.4.2 
@@ -657,9 +620,20 @@ Build date: 2017-04-05 15:59:18
 [INFO] │ │ ├─┬ cli@0.6.6 
 [INFO] │ │ │ └─┬ glob@3.2.11 
 [INFO] │ │ │   └─┬ minimatch@0.3.0 
+[INFO] │ │ │     ├── lru-cache@2.7.3 
 [INFO] │ │ │     └── sigmund@1.0.1 
 [INFO] │ │ ├─┬ console-browserify@1.1.0 
 [INFO] │ │ │ └── date-now@0.1.4 
+[INFO] │ │ ├─┬ htmlparser2@3.8.3 
+[INFO] │ │ │ ├── domelementtype@1.3.0 
+[INFO] │ │ │ ├── domhandler@2.3.0 
+[INFO] │ │ │ ├─┬ domutils@1.5.1 
+[INFO] │ │ │ │ └─┬ dom-serializer@0.1.0 
+[INFO] │ │ │ │   ├── domelementtype@1.1.3 
+[INFO] │ │ │ │   └── entities@1.1.1 
+[INFO] │ │ │ ├── entities@1.0.0 
+[INFO] │ │ │ └─┬ readable-stream@1.1.14 
+[INFO] │ │ │   └── isarray@0.0.1 
 [INFO] │ │ ├── lodash@3.7.0 
 [INFO] │ │ ├── minimatch@2.0.10 
 [INFO] │ │ ├── shelljs@0.3.0 
@@ -673,70 +647,6 @@ Build date: 2017-04-05 15:59:18
 [INFO] │ └── xml@1.0.0 
 [INFO] ├── is-travis@1.0.0 
 [INFO] ├── jquery@3.2.1 
-[INFO] ├─┬ jscs@3.0.7 
-[INFO] │ ├─┬ cli-table@0.3.1 
-[INFO] │ │ └── colors@1.0.3 
-[INFO] │ ├─┬ commander@2.9.0 
-[INFO] │ │ └── graceful-readlink@1.0.1 
-[INFO] │ ├─┬ cst@0.4.9 
-[INFO] │ │ └── source-map-support@0.4.14 
-[INFO] │ ├─┬ htmlparser2@3.8.3 
-[INFO] │ │ ├── domelementtype@1.3.0 
-[INFO] │ │ ├── domhandler@2.3.0 
-[INFO] │ │ ├─┬ domutils@1.5.1 
-[INFO] │ │ │ └─┬ dom-serializer@0.1.0 
-[INFO] │ │ │   ├── domelementtype@1.1.3 
-[INFO] │ │ │   └── entities@1.1.1 
-[INFO] │ │ ├── entities@1.0.0 
-[INFO] │ │ └─┬ readable-stream@1.1.14 
-[INFO] │ │   └── isarray@0.0.1 
-[INFO] │ ├─┬ js-yaml@3.4.6 
-[INFO] │ │ ├── esprima@2.7.3 
-[INFO] │ │ └── inherit@2.2.6 
-[INFO] │ ├─┬ jscs-jsdoc@2.0.0 
-[INFO] │ │ ├── comment-parser@0.3.1 
-[INFO] │ │ └─┬ jsdoctypeparser@1.2.0 
-[INFO] │ │   └── lodash@3.10.1 
-[INFO] │ ├── jscs-preset-wikimedia@1.0.0 
-[INFO] │ ├─┬ jsonlint@1.6.2 
-[INFO] │ │ ├── JSV@4.0.2 
-[INFO] │ │ └─┬ nomnom@1.8.1 
-[INFO] │ │   ├─┬ chalk@0.4.0 
-[INFO] │ │   │ ├── ansi-styles@1.0.0 
-[INFO] │ │   │ ├── has-color@0.1.7 
-[INFO] │ │   │ └── strip-ansi@0.1.1 
-[INFO] │ │   └── underscore@1.6.0 
-[INFO] │ ├── lodash@3.10.1 
-[INFO] │ ├── natural-compare@1.2.2 
-[INFO] │ ├── pathval@0.1.1 
-[INFO] │ ├─┬ prompt@0.2.14 
-[INFO] │ │ ├── pkginfo@0.4.0 
-[INFO] │ │ ├── read@1.0.7 
-[INFO] │ │ ├── revalidator@0.1.8 
-[INFO] │ │ ├─┬ utile@0.2.1 
-[INFO] │ │ │ ├── async@0.2.10 
-[INFO] │ │ │ ├── deep-equal@1.0.1 
-[INFO] │ │ │ ├── i@0.3.5 
-[INFO] │ │ │ └── ncp@0.4.2 
-[INFO] │ │ └─┬ winston@0.8.3 
-[INFO] │ │   ├── async@0.2.10 
-[INFO] │ │   ├── colors@0.6.2 
-[INFO] │ │   ├── cycle@1.0.3 
-[INFO] │ │   ├── eyes@0.1.8 
-[INFO] │ │   ├── pkginfo@0.3.1 
-[INFO] │ │   └── stack-trace@0.0.9 
-[INFO] │ ├── reserved-words@0.1.1 
-[INFO] │ ├─┬ strip-bom@2.0.0 
-[INFO] │ │ └── is-utf8@0.2.1 
-[INFO] │ ├── strip-json-comments@1.0.4 
-[INFO] │ ├── to-double-quotes@2.0.0 
-[INFO] │ ├── to-single-quotes@2.0.1 
-[INFO] │ ├── vow@0.4.15 
-[INFO] │ ├─┬ vow-fs@0.3.6 
-[INFO] │ │ ├── glob@7.1.1 
-[INFO] │ │ ├── uuid@2.0.3 
-[INFO] │ │ └── vow-queue@0.4.2 
-[INFO] │ └── xmlbuilder@3.1.0 
 [INFO] ├─┬ load-grunt-tasks@3.5.2 
 [INFO] │ ├── arrify@1.0.1 
 [INFO] │ ├─┬ multimatch@2.1.0 
@@ -748,6 +658,114 @@ Build date: 2017-04-05 15:59:18
 [INFO] │ │   └── path-exists@2.1.0 
 [INFO] │ └─┬ resolve-pkg@0.1.0 
 [INFO] │   └── resolve-from@2.0.0 
+[INFO] ├─┬ node-sass@4.5.2 
+[INFO] │ ├── async-foreach@0.1.3 
+[INFO] │ ├─┬ cross-spawn@3.0.1 
+[INFO] │ │ └─┬ lru-cache@4.0.2 
+[INFO] │ │   ├── pseudomap@1.0.2 
+[INFO] │ │   └── yallist@2.1.2 
+[INFO] │ ├── get-stdin@4.0.1 
+[INFO] │ ├── glob@7.1.1 
+[INFO] │ ├── in-publish@2.0.0 
+[INFO] │ ├── lodash.assign@4.2.0 
+[INFO] │ ├── lodash.clonedeep@4.5.0 
+[INFO] │ ├── lodash.mergewith@4.6.0 
+[INFO] │ ├─┬ meow@3.7.0 
+[INFO] │ │ ├─┬ camelcase-keys@2.1.0 
+[INFO] │ │ │ └── camelcase@2.1.1 
+[INFO] │ │ ├── decamelize@1.2.0 
+[INFO] │ │ ├─┬ loud-rejection@1.6.0 
+[INFO] │ │ │ ├─┬ currently-unhandled@0.4.1 
+[INFO] │ │ │ │ └── array-find-index@1.0.2 
+[INFO] │ │ │ └── signal-exit@3.0.2 
+[INFO] │ │ ├── map-obj@1.0.1 
+[INFO] │ │ ├── minimist@1.2.0 
+[INFO] │ │ ├─┬ normalize-package-data@2.3.6 
+[INFO] │ │ │ ├── hosted-git-info@2.4.1 
+[INFO] │ │ │ ├─┬ is-builtin-module@1.0.0 
+[INFO] │ │ │ │ └── builtin-modules@1.1.1 
+[INFO] │ │ │ └─┬ validate-npm-package-license@3.0.1 
+[INFO] │ │ │   ├─┬ spdx-correct@1.0.2 
+[INFO] │ │ │   │ └── spdx-license-ids@1.2.2 
+[INFO] │ │ │   └── spdx-expression-parse@1.0.4 
+[INFO] │ │ ├─┬ read-pkg-up@1.0.1 
+[INFO] │ │ │ └─┬ read-pkg@1.1.0 
+[INFO] │ │ │   ├─┬ load-json-file@1.1.0 
+[INFO] │ │ │   │ ├─┬ parse-json@2.2.0 
+[INFO] │ │ │   │ │ └─┬ error-ex@1.3.1 
+[INFO] │ │ │   │ │   └── is-arrayish@0.2.1 
+[INFO] │ │ │   │ └─┬ strip-bom@2.0.0 
+[INFO] │ │ │   │   └── is-utf8@0.2.1 
+[INFO] │ │ │   └── path-type@1.1.0 
+[INFO] │ │ ├─┬ redent@1.0.0 
+[INFO] │ │ │ ├── indent-string@2.1.0 
+[INFO] │ │ │ └── strip-indent@1.0.1 
+[INFO] │ │ └── trim-newlines@1.0.0 
+[INFO] │ ├── nan@2.6.1 
+[INFO] │ ├─┬ node-gyp@3.6.0 
+[INFO] │ │ ├── fstream@1.0.11 
+[INFO] │ │ ├── glob@7.1.1 
+[INFO] │ │ ├── graceful-fs@4.1.11 
+[INFO] │ │ ├── osenv@0.1.4 
+[INFO] │ │ └─┬ tar@2.2.1 
+[INFO] │ │   └── block-stream@0.0.9 
+[INFO] │ ├─┬ npmlog@4.0.2 
+[INFO] │ │ ├─┬ are-we-there-yet@1.1.2 
+[INFO] │ │ │ └── delegates@1.0.0 
+[INFO] │ │ ├── console-control-strings@1.1.0 
+[INFO] │ │ ├─┬ gauge@2.7.3 
+[INFO] │ │ │ ├── aproba@1.1.1 
+[INFO] │ │ │ ├── has-unicode@2.0.1 
+[INFO] │ │ │ └── wide-align@1.1.0 
+[INFO] │ │ └── set-blocking@2.0.0 
+[INFO] │ ├─┬ request@2.79.0 
+[INFO] │ │ ├── aws-sign2@0.6.0 
+[INFO] │ │ ├── aws4@1.6.0 
+[INFO] │ │ ├── caseless@0.11.0 
+[INFO] │ │ ├─┬ combined-stream@1.0.5 
+[INFO] │ │ │ └── delayed-stream@1.0.0 
+[INFO] │ │ ├── forever-agent@0.6.1 
+[INFO] │ │ ├─┬ form-data@2.1.2 
+[INFO] │ │ │ └── asynckit@0.4.0 
+[INFO] │ │ ├─┬ har-validator@2.0.6 
+[INFO] │ │ │ └── commander@2.9.0 
+[INFO] │ │ ├─┬ hawk@3.1.3 
+[INFO] │ │ │ ├── boom@2.10.1 
+[INFO] │ │ │ ├── cryptiles@2.0.5 
+[INFO] │ │ │ ├── hoek@2.16.3 
+[INFO] │ │ │ └── sntp@1.0.9 
+[INFO] │ │ ├─┬ http-signature@1.1.1 
+[INFO] │ │ │ ├── assert-plus@0.2.0 
+[INFO] │ │ │ ├─┬ jsprim@1.4.0 
+[INFO] │ │ │ │ ├── assert-plus@1.0.0 
+[INFO] │ │ │ │ ├── extsprintf@1.0.2 
+[INFO] │ │ │ │ ├── json-schema@0.2.3 
+[INFO] │ │ │ │ └── verror@1.3.6 
+[INFO] │ │ │ └─┬ sshpk@1.11.0 
+[INFO] │ │ │   ├── asn1@0.2.3 
+[INFO] │ │ │   ├── assert-plus@1.0.0 
+[INFO] │ │ │   ├── bcrypt-pbkdf@1.0.1 
+[INFO] │ │ │   ├─┬ dashdash@1.14.1 
+[INFO] │ │ │   │ └── assert-plus@1.0.0 
+[INFO] │ │ │   ├── ecc-jsbn@0.1.1 
+[INFO] │ │ │   ├─┬ getpass@0.1.6 
+[INFO] │ │ │   │ └── assert-plus@1.0.0 
+[INFO] │ │ │   ├── jodid25519@1.0.2 
+[INFO] │ │ │   ├── jsbn@0.1.1 
+[INFO] │ │ │   └── tweetnacl@0.14.5 
+[INFO] │ │ ├── is-typedarray@1.0.0 
+[INFO] │ │ ├── isstream@0.1.2 
+[INFO] │ │ ├── json-stringify-safe@5.0.1 
+[INFO] │ │ ├── oauth-sign@0.8.2 
+[INFO] │ │ ├── qs@6.3.2 
+[INFO] │ │ ├── stringstream@0.0.5 
+[INFO] │ │ ├─┬ tough-cookie@2.3.2 
+[INFO] │ │ │ └── punycode@1.4.1 
+[INFO] │ │ ├── tunnel-agent@0.4.3 
+[INFO] │ │ └── uuid@3.0.1 
+[INFO] │ ├─┬ sass-graph@2.1.2 
+[INFO] │ │ └── glob@7.1.1 
+[INFO] │ └── stdout-stream@1.4.0 
 [INFO] ├─┬ postcss-cli@2.6.0 
 [INFO] │ ├─┬ chokidar@1.6.1 
 [INFO] │ │ ├─┬ anymatch@1.3.0 
@@ -900,7 +918,8 @@ Build date: 2017-04-05 15:59:18
 [INFO] │ │ ├── glob-parent@2.0.0 
 [INFO] │ │ ├─┬ is-binary-path@1.0.1 
 [INFO] │ │ │ └── binary-extensions@1.8.0 
-[INFO] │ │ └── readdirp@2.1.0 
+[INFO] │ │ └─┬ readdirp@2.1.0 
+[INFO] │ │   └── set-immediate-shim@1.0.1 
 [INFO] │ ├─┬ globby@4.1.0 
 [INFO] │ │ ├── glob@6.0.4 
 [INFO] │ │ └── pify@2.3.0 
@@ -910,22 +929,12 @@ Build date: 2017-04-05 15:59:18
 [INFO] │ └─┬ yargs@4.8.1 
 [INFO] │   ├─┬ cliui@3.2.0 
 [INFO] │   │ └── wrap-ansi@2.1.0 
-[INFO] │   ├── decamelize@1.2.0 
 [INFO] │   ├── get-caller-file@1.0.2 
 [INFO] │   ├─┬ os-locale@1.4.0 
 [INFO] │   │ └─┬ lcid@1.0.0 
 [INFO] │   │   └── invert-kv@1.0.0 
-[INFO] │   ├─┬ read-pkg-up@1.0.1 
-[INFO] │   │ └─┬ read-pkg@1.1.0 
-[INFO] │   │   ├─┬ load-json-file@1.1.0 
-[INFO] │   │   │ ├─┬ parse-json@2.2.0 
-[INFO] │   │   │ │ └─┬ error-ex@1.3.1 
-[INFO] │   │   │ │   └── is-arrayish@0.2.1 
-[INFO] │   │   │ └── strip-bom@2.0.0 
-[INFO] │   │   └── path-type@1.1.0 
 [INFO] │   ├── require-directory@2.1.1 
 [INFO] │   ├── require-main-filename@1.0.1 
-[INFO] │   ├── set-blocking@2.0.0 
 [INFO] │   ├── which-module@1.0.0 
 [INFO] │   ├── window-size@0.2.0 
 [INFO] │   ├── y18n@3.2.1 
@@ -936,19 +945,33 @@ Build date: 2017-04-05 15:59:18
 [INFO] │ ├── glob@7.1.1 
 [INFO] │ ├── interpret@1.0.2 
 [INFO] │ └── rechoir@0.6.2 
-[INFO] ├─┬ shx@0.1.4 
+[INFO] ├─┬ shx@0.2.2 
+[INFO] │ ├── es6-object-assign@1.1.0 
 [INFO] │ └── minimist@1.2.0 
 [INFO] ├── tether@1.4.0 
-[INFO] └─┬ time-grunt@1.4.0 
-[INFO]   ├─┬ date-time@1.1.0 
-[INFO]   │ └── time-zone@0.1.0 
-[INFO]   ├── figures@1.7.0 
-[INFO]   ├── hooker@0.2.3 
-[INFO]   ├── number-is-nan@1.0.1 
-[INFO]   └─┬ pretty-ms@2.1.0 
-[INFO]     ├── is-finite@1.0.2 
-[INFO]     ├── parse-ms@1.0.1 
-[INFO]     └── plur@1.0.0 
+[INFO] ├─┬ time-grunt@1.4.0 
+[INFO] │ ├─┬ date-time@1.1.0 
+[INFO] │ │ └── time-zone@0.1.0 
+[INFO] │ ├── figures@1.7.0 
+[INFO] │ ├── hooker@0.2.3 
+[INFO] │ ├── number-is-nan@1.0.1 
+[INFO] │ └─┬ pretty-ms@2.1.0 
+[INFO] │   ├── is-finite@1.0.2 
+[INFO] │   ├── parse-ms@1.0.1 
+[INFO] │   └── plur@1.0.0 
+[INFO] └─┬ uglify-js@2.8.21 
+[INFO]   ├── uglify-to-browserify@1.0.2 
+[INFO]   └─┬ yargs@3.10.0 
+[INFO]     ├── camelcase@1.2.1 
+[INFO]     ├─┬ cliui@2.1.0 
+[INFO]     │ ├─┬ center-align@0.1.3 
+[INFO]     │ │ ├─┬ align-text@0.1.4 
+[INFO]     │ │ │ ├── longest@1.0.1 
+[INFO]     │ │ │ └── repeat-string@1.6.1 
+[INFO]     │ │ └── lazy-cache@1.0.4 
+[INFO]     │ ├── right-align@0.1.3 
+[INFO]     │ └── wordwrap@0.0.2 
+[INFO]     └── window-size@0.1.0 
 [INFO] 
 [INFO] 
 [INFO] --- frontend-maven-plugin:1.0:grunt (step #9: grunt build) @ tobago-theme-scarborough ---
@@ -956,24 +979,47 @@ Build date: 2017-04-05 15:59:18
 [INFO] Running "clean:dist" (clean) task
 [INFO] >> 1 path cleaned.
 [INFO] 
-[INFO] Running "sass:core" (sass) task
+[INFO] Running "exec:sass" (exec) task
 [INFO] 
-[INFO] Running "sass:extras" (sass) task
+[INFO] > bootstrap@4.0.0-alpha.6 sass __CURRENT__/tobago-theme-scarborough/target/bootstrap
+[INFO] > node-sass --output-style expanded --source-map true --precision 6 scss/bootstrap.scss dist/css/bootstrap.css && node-sass --output-style expanded --source-map true --precision 6 scss/bootstrap-grid.scss dist/css/bootstrap-grid.css && node-sass --output-style expanded --source-map true --precision 6 scss/bootstrap-reboot.scss dist/css/bootstrap-reboot.css
 [INFO] 
-[INFO] Running "sass:docs" (sass) task
+[INFO] >> Rendering Complete, saving .css file...
+[INFO] >> Wrote CSS to __CURRENT__/tobago-theme-scarborough/target/bootstrap/dist/css/bootstrap.css
+[INFO] >> Wrote Source Map to __CURRENT__/tobago-theme-scarborough/target/bootstrap/dist/css/bootstrap.css.map
+[INFO] >> Rendering Complete, saving .css file...
+[INFO] >> Wrote Source Map to __CURRENT__/tobago-theme-scarborough/target/bootstrap/dist/css/bootstrap-grid.css.map
+[INFO] >> Wrote CSS to __CURRENT__/tobago-theme-scarborough/target/bootstrap/dist/css/bootstrap-grid.css
+[INFO] >> Rendering Complete, saving .css file...
+[INFO] >> Wrote CSS to __CURRENT__/tobago-theme-scarborough/target/bootstrap/dist/css/bootstrap-reboot.css
+[INFO] >> Wrote Source Map to __CURRENT__/tobago-theme-scarborough/target/bootstrap/dist/css/bootstrap-reboot.css.map
+[INFO] 
+[INFO] Running "exec:sass-docs" (exec) task
+[INFO] 
+[INFO] > bootstrap@4.0.0-alpha.6 sass-docs __CURRENT__/tobago-theme-scarborough/target/bootstrap
+[INFO] > node-sass --output-style expanded --source-map true --precision 6 docs/assets/scss/docs.scss docs/assets/css/docs.min.css
+[INFO] 
+[INFO] >> Rendering Complete, saving .css file...
+[INFO] >> Wrote CSS to __CURRENT__/tobago-theme-scarborough/target/bootstrap/docs/assets/css/docs.min.css
+[INFO] >> Wrote Source Map to __CURRENT__/tobago-theme-scarborough/target/bootstrap/docs/assets/css/docs.min.css.map
 [INFO] 
 [INFO] Running "exec:postcss" (exec) task
 [INFO] 
-[INFO] > bootstrap@4.0.0-alpha.5 postcss __CURRENT__/tobago-theme-scarborough/target/bootstrap
+[INFO] > bootstrap@4.0.0-alpha.6 postcss __CURRENT__/tobago-theme-scarborough/target/bootstrap
 [INFO] > postcss --config grunt/postcss.js --replace dist/css/*.css
 [INFO] 
 [INFO] 
-[INFO] Running "cssmin:core" (cssmin) task
-[INFO] >> 4 sourcemaps created.
-[INFO] >> 4 files created. 350.02 kB → 270.44 kB
+[INFO] Running "exec:clean-css" (exec) task
 [INFO] 
-[INFO] Running "cssmin:docs" (cssmin) task
-[INFO] >> No files created.
+[INFO] > bootstrap@4.0.0-alpha.6 clean-css __CURRENT__/tobago-theme-scarborough/target/bootstrap
+[INFO] > cleancss --skip-advanced --source-map --output dist/css/bootstrap.min.css dist/css/bootstrap.css && cleancss --skip-advanced --source-map --output dist/css/bootstrap-grid.min.css dist/css/bootstrap-grid.css && cleancss --skip-advanced --source-map --output dist/css/bootstrap-reboot.min.css dist/css/bootstrap-reboot.css
+[INFO] 
+[INFO] 
+[INFO] Running "exec:clean-css-docs" (exec) task
+[INFO] 
+[INFO] > bootstrap@4.0.0-alpha.6 clean-css-docs __CURRENT__/tobago-theme-scarborough/target/bootstrap
+[INFO] > cleancss --skip-advanced --source-map --output docs/assets/css/docs.min.css docs/assets/css/docs.min.css
+[INFO] 
 [INFO] 
 [INFO] Running "babel:dev" (babel) task
 [INFO] 
@@ -983,22 +1029,25 @@ Build date: 2017-04-05 15:59:18
 [INFO] 
 [INFO] Running "stamp:bootstrap" (stamp) task
 [INFO] 
-[INFO] Running "uglify:core" (uglify) task
-[INFO] >> 1 file created 96.43 kB → 44.74 kB
+[INFO] Running "exec:uglify" (exec) task
+[INFO] 
+[INFO] > bootstrap@4.0.0-alpha.6 uglify __CURRENT__/tobago-theme-scarborough/target/bootstrap
+[INFO] > uglifyjs --compress warnings=false --mangle --comments '/^!/' --output dist/js/bootstrap.min.js dist/js/bootstrap.js
+[INFO] 
 [INFO] 
 [INFO] Done.
 [INFO] 
 [INFO] 
-[INFO] Execution Time (2017-04-05 16:01:41 UTC+2)
-[INFO] sass:core     290ms  ▇▇ 4%
-[INFO] sass:extras   254ms  ▇▇ 4%
-[INFO] sass:docs     144ms  ▇ 2%
-[INFO] exec:postcss   2.1s  ▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇ 29%
-[INFO] cssmin:core   931ms  ▇▇▇▇▇▇▇ 13%
-[INFO] babel:dev      1.5s  ▇▇▇▇▇▇▇▇▇▇▇ 22%
-[INFO] babel:dist     1.1s  ▇▇▇▇▇▇▇▇ 15%
-[INFO] uglify:core   708ms  ▇▇▇▇▇ 10%
-[INFO] Total 7.1s
+[INFO] Execution Time (2017-04-06 13:41:35 UTC+2)
+[INFO] exec:sass            2.2s  ▇▇▇▇▇▇▇ 16%
+[INFO] exec:sass-docs         1s  ▇▇▇▇ 7%
+[INFO] exec:postcss         2.4s  ▇▇▇▇▇▇▇▇ 18%
+[INFO] exec:clean-css       2.4s  ▇▇▇▇▇▇▇▇ 18%
+[INFO] exec:clean-css-docs  1.1s  ▇▇▇▇ 8%
+[INFO] babel:dev            1.9s  ▇▇▇▇▇▇ 14%
+[INFO] babel:dist           1.1s  ▇▇▇▇ 8%
+[INFO] exec:uglify          1.6s  ▇▇▇▇▇ 12%
+[INFO] Total 13.8s
 [INFO] 
 [INFO] 
 [INFO] --- maven-resources-plugin:2.7:resources (default-resources) @ tobago-theme-scarborough ---
@@ -1040,7 +1089,7 @@ main:
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
-[INFO] Total time: 02:29 min
-[INFO] Finished at: 2017-04-05T16:01:49+02:00
-[INFO] Final Memory: 35M/438M
+[INFO] Total time: 02:01 min
+[INFO] Finished at: 2017-04-06T13:41:50+02:00
+[INFO] Final Memory: 35M/437M
 [INFO] ------------------------------------------------------------------------
