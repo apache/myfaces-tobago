@@ -28,7 +28,7 @@
   <description>Demonstration and documentation application.</description>
 
   <properties>
-    <openwebbeans.version>1.2.8</openwebbeans.version>
+    <openwebbeans.version>1.7.2</openwebbeans.version>
     <deltaspike.version>1.7.2</deltaspike.version>
     <!--<arquillian.browser>firefox</arquillian.browser>-->
     <!-- phantomjs works not with CSP (report-only) -->
@@ -647,21 +647,20 @@
         </dependency>
 
         <!-- OWB -->
-        <!-- TODO check if ${openwebbeans.version} can be updated -->
         <dependency>
           <groupId>org.apache.openwebbeans</groupId>
           <artifactId>openwebbeans-jsf</artifactId>
-          <version>1.7.2</version>
+          <version>${openwebbeans.version}</version>
         </dependency>
         <dependency>
           <groupId>org.apache.openwebbeans</groupId>
           <artifactId>openwebbeans-web</artifactId>
-          <version>1.7.2</version>
+          <version>${openwebbeans.version}</version>
         </dependency>
         <dependency>
           <groupId>org.apache.openwebbeans</groupId>
           <artifactId>openwebbeans-resource</artifactId>
-          <version>1.7.2</version>
+          <version>${openwebbeans.version}</version>
         </dependency>
 
       </dependencies>
