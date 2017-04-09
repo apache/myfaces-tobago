@@ -32,7 +32,7 @@ QUnit.test("submit: Addition (2 + 4)", function (assert) {
   $submitAdd.click();
 
   jQuery("#page\\:testframe").load(function () {
-    if (step == 1) {
+    if (step === 1) {
       var $output = jQueryFrame("#page\\:mainForm\\:resultOutput span");
       assert.equal($output.text(), "6");
 
@@ -59,7 +59,7 @@ QUnit.test("submit: Subtraction (4 - 1)", function (assert) {
   $submitSub.click();
 
   jQuery("#page\\:testframe").load(function () {
-    if (step == 1) {
+    if (step === 1) {
       var $output = jQueryFrame("#page\\:mainForm\\:resultOutput span");
       assert.equal($output.text(), "3");
 
@@ -73,7 +73,7 @@ QUnit.test("ajax: select Mars", function (assert) {
   assert.expect(2);
   var done = assert.async();
   var $planet = jQueryFrame("#page\\:mainForm\\:selectPlanet input");
-  var $moons = jQueryFrame("#page\\:mainForm\\:moonradio li label");
+  var $moons = jQueryFrame("#page\\:mainForm\\:moonradio label.form-check-label");
 
   $planet.eq(0).prop("checked", false);
   $planet.eq(2).prop("checked", false);
@@ -81,8 +81,8 @@ QUnit.test("ajax: select Mars", function (assert) {
 
   waitForAjax(function () {
     $moons = jQueryFrame($moons.selector);
-    return $moons.eq(0).text() == "Phobos"
-        && $moons.eq(1).text() == "Deimos";
+    return $moons.eq(0).text() === "Phobos"
+        && $moons.eq(1).text() === "Deimos";
   }, function () {
     $moons = jQueryFrame($moons.selector);
     assert.equal($moons.eq(0).text(), "Phobos");
@@ -95,7 +95,7 @@ QUnit.test("ajax: select Jupiter", function (assert) {
   assert.expect(4);
   var done = assert.async();
   var $planet = jQueryFrame("#page\\:mainForm\\:selectPlanet input");
-  var $moons = jQueryFrame("#page\\:mainForm\\:moonradio li label");
+  var $moons = jQueryFrame("#page\\:mainForm\\:moonradio label.form-check-label");
 
   $planet.eq(0).prop("checked", false);
   $planet.eq(1).prop("checked", false);
@@ -103,10 +103,10 @@ QUnit.test("ajax: select Jupiter", function (assert) {
 
   waitForAjax(function () {
     $moons = jQueryFrame($moons.selector);
-    return $moons.eq(0).text() == "Europa"
-        && $moons.eq(1).text() == "Ganymed"
-        && $moons.eq(2).text() == "Io"
-        && $moons.eq(3).text() == "Kallisto";
+    return $moons.eq(0).text() === "Europa"
+        && $moons.eq(1).text() === "Ganymed"
+        && $moons.eq(2).text() === "Io"
+        && $moons.eq(3).text() === "Kallisto";
   }, function () {
     $moons = jQueryFrame($moons.selector);
     assert.equal($moons.eq(0).text(), "Europa");

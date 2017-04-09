@@ -19,70 +19,70 @@ QUnit.test("Column 0: tc:columnSelector", function(assert) {
   assert.expect(4);
 
   var $column = getColumn(0);
-  testWidthHeight(assert, $column, 50, 57, 13, 13);
+  testWidthHeight(assert, $column, 50, 63, 13, 13);
 });
 
 QUnit.test("Column 1: tc:out", function(assert) {
   assert.expect(4);
 
   var $column = getColumn(1);
-  testWidthHeight(assert, $column, 70, 57, 70, 40);
+  testWidthHeight(assert, $column, 70, 63, 46, 40);
 });
 
 QUnit.test("Column 2: tc:out", function(assert) {
   assert.expect(4);
 
   var $column = getColumn(2);
-  testWidthHeight(assert, $column, 70, 57, 70, 40);
+  testWidthHeight(assert, $column, 70, 63, 46, 40);
 });
 
 QUnit.test("Column 3: tc:in", function(assert) {
   assert.expect(4);
 
   var $column = getColumn(3);
-  testWidthHeight(assert, $column, 90, 57, 90, 38);
+  testWidthHeight(assert, $column, 90, 63, 66, 38);
 });
 
 QUnit.test("Column 4: tc:date", function(assert) {
   assert.expect(4);
 
   var $column = getColumn(4);
-  testWidthHeight(assert, $column, 160, 57, 160, 38);
+  testWidthHeight(assert, $column, 160, 63, 136, 38);
 });
 
 QUnit.test("Column 5: tc:button", function(assert) {
   assert.expect(4);
 
   var $column = getColumn(5);
-  testWidthHeight(assert, $column, 100, 57, 63, 38);
+  testWidthHeight(assert, $column, 100, 63, 63, 38);
 });
 
 QUnit.test("Column 6: tc:link", function(assert) {
   assert.expect(4);
 
   var $column = getColumn(6);
-  testWidthHeight(assert, $column, 70, 57, 29, 20);
+  testWidthHeight(assert, $column, 70, 63, 29, 20);
 });
 
 QUnit.test("Column 7: tc:selectOneChoice", function(assert) {
   assert.expect(4);
 
   var $column = getColumn(7);
-  testWidthHeight(assert, $column, 180, 57, 180, 40);
+  testWidthHeight(assert, $column, 180, 63, 156, 40);
 });
 
 QUnit.test("Column 8: tc:image", function(assert) {
   assert.expect(4);
 
   var $column = getColumn(8);
-  testWidthHeight(assert, $column, 90, 57, 72, 30);
+  testWidthHeight(assert, $column, 90, 63, 72, 30);
 });
 
 QUnit.test("Column 9: tc:flexLayout", function(assert) {
   assert.expect(4);
 
   var $column = getColumn(9);
-  testWidthHeight(assert, $column, 130, 57, 130, 56);
+  testWidthHeight(assert, $column, 130, 63, 112, 38);
 });
 
 function testWidthHeight(assert, $column, width, height, childWidth, childHeight) {

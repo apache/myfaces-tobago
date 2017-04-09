@@ -97,7 +97,7 @@ QUnit.test("inputfield - dropdownbox", function(assert) {
   var $mainForm = jQueryFrame("#page\\:mainForm");
   var $inputfield = jQueryFrame("#page\\:mainForm\\:value");
   var $input = $inputfield.find("input");
-  var $dropdown = $inputfield.find(".input-group-addon");
+  var $dropdown = $inputfield.find(".input-group-btn");
   var combinedWidth = $input.outerWidth(true) + $dropdown.outerWidth(true);
 
   assert.equal($inputfield.outerWidth(true), $mainForm.width());

@@ -20,11 +20,11 @@ QUnit.test("submit form 1", function (assert) {
   var done = assert.async();
   var step = 1;
 
-  var $form1InputField = jQueryFrame("#page\\:mainForm\\:form1\\:in\\:\\:field");
-  var $form1SubmitButton = jQueryFrame("#page\\:mainForm\\:form1\\:submit");
+  var $form1InputField = jQueryFrame("#page\\:mainForm\\:form1\\:in1\\:\\:field");
+  var $form1SubmitButton = jQueryFrame("#page\\:mainForm\\:form1\\:submit1");
 
-  var $form2InputField = jQueryFrame("#page\\:mainForm\\:form2\\:in\\:\\:field");
-  var $form2OutputFieldValue = jQueryFrame("#page\\:mainForm\\:form2\\:out span").text();
+  var $form2InputField = jQueryFrame("#page\\:mainForm\\:form2\\:in2\\:\\:field");
+  var $form2OutputFieldValue = jQueryFrame("#page\\:mainForm\\:form2\\:out2 span").text();
 
   $form1InputField.val("Oliver");
   $form2InputField.val("Peter");
@@ -32,11 +32,11 @@ QUnit.test("submit form 1", function (assert) {
   $form1SubmitButton.click();
 
   jQuery("#page\\:testframe").load(function () {
-    if (step == 1) {
-      $form1InputField = jQueryFrame("#page\\:mainForm\\:form1\\:in\\:\\:field");
-      var $form1OutputField = jQueryFrame("#page\\:mainForm\\:form1\\:out span");
-      $form2InputField = jQueryFrame("#page\\:mainForm\\:form2\\:in\\:\\:field");
-      var $form2OutputField = jQueryFrame("#page\\:mainForm\\:form2\\:out span");
+    if (step === 1) {
+      $form1InputField = jQueryFrame("#page\\:mainForm\\:form1\\:in1\\:\\:field");
+      var $form1OutputField = jQueryFrame("#page\\:mainForm\\:form1\\:out1 span");
+      $form2InputField = jQueryFrame("#page\\:mainForm\\:form2\\:in2\\:\\:field");
+      var $form2OutputField = jQueryFrame("#page\\:mainForm\\:form2\\:out2 span");
 
       assert.equal($form1InputField.val(), "Oliver");
       assert.equal($form1OutputField.text(), "Oliver");
@@ -54,11 +54,11 @@ QUnit.test("submit form 2", function (assert) {
   var done = assert.async();
   var step = 1;
 
-  var $form1InputField = jQueryFrame("#page\\:mainForm\\:form1\\:in\\:\\:field");
-  var $form1OutputFieldValue = jQueryFrame("#page\\:mainForm\\:form1\\:out span").text();
+  var $form1InputField = jQueryFrame("#page\\:mainForm\\:form1\\:in1\\:\\:field");
+  var $form1OutputFieldValue = jQueryFrame("#page\\:mainForm\\:form1\\:out1 span").text();
 
-  var $form2InputField = jQueryFrame("#page\\:mainForm\\:form2\\:in\\:\\:field");
-  var $form2SubmitButton = jQueryFrame("#page\\:mainForm\\:form2\\:submit");
+  var $form2InputField = jQueryFrame("#page\\:mainForm\\:form2\\:in2\\:\\:field");
+  var $form2SubmitButton = jQueryFrame("#page\\:mainForm\\:form2\\:submit2");
 
   $form1InputField.val("Oliver");
   $form2InputField.val("Peter");
@@ -66,11 +66,11 @@ QUnit.test("submit form 2", function (assert) {
   $form2SubmitButton.click();
 
   jQuery("#page\\:testframe").load(function () {
-    if (step == 1) {
-      $form1InputField = jQueryFrame("#page\\:mainForm\\:form1\\:in\\:\\:field");
-      var $form1OutputField = jQueryFrame("#page\\:mainForm\\:form1\\:out span");
-      $form2InputField = jQueryFrame("#page\\:mainForm\\:form2\\:in\\:\\:field");
-      var $form2OutputField = jQueryFrame("#page\\:mainForm\\:form2\\:out span");
+    if (step === 1) {
+      $form1InputField = jQueryFrame("#page\\:mainForm\\:form1\\:in1\\:\\:field");
+      var $form1OutputField = jQueryFrame("#page\\:mainForm\\:form1\\:out1 span");
+      $form2InputField = jQueryFrame("#page\\:mainForm\\:form2\\:in2\\:\\:field");
+      var $form2OutputField = jQueryFrame("#page\\:mainForm\\:form2\\:out2 span");
 
       assert.equal($form1InputField.val(), "Oliver");
       assert.equal($form1OutputField.text(), $form1OutputFieldValue);

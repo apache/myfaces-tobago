@@ -15,21 +15,21 @@
  * limitations under the License.
  */
 
-QUnit.test("tc:button", function(assert) {
+QUnit.test("tc:button", function (assert) {
   var eventNames = ["click", "dblclick", "focus", "blur"];
   var $eventComponent = jQueryFrame("#page\\:mainForm\\:buttonevent");
   var $ajaxComponent = jQueryFrame("#page\\:mainForm\\:buttonajax");
   testEvent(assert, "button", eventNames, $eventComponent, $ajaxComponent, null);
 });
 
-QUnit.test("tc:in", function(assert) {
+QUnit.test("tc:in", function (assert) {
   var eventNames = ["change", "click", "dblclick", "focus", "blur"];
   var $eventComponent = jQueryFrame("#page\\:mainForm\\:inevent\\:\\:field");
   var $ajaxComponent = jQueryFrame("#page\\:mainForm\\:inajax\\:\\:field");
-  var changeValue = function($component) {
+  var changeValue = function ($component) {
     var oldValue = $component.val();
     var newValue = "hello";
-    if (oldValue == "hello") {
+    if (oldValue === "hello") {
       newValue = "hello there!"
     }
     return $component.val(newValue);
@@ -37,23 +37,21 @@ QUnit.test("tc:in", function(assert) {
   testEvent(assert, "in", eventNames, $eventComponent, $ajaxComponent, changeValue);
 });
 
-QUnit.test("tc:row", function(assert) {
+QUnit.test("tc:row", function (assert) {
   var eventNames = ["click", "dblclick"];
   var $eventComponent = jQueryFrame("#page\\:mainForm\\:sheetevent\\:0\\:selectPlanet");
   var $ajaxComponent = jQueryFrame("#page\\:mainForm\\:sheetajax\\:0\\:selectPlanet");
   testEvent(assert, "row", eventNames, $eventComponent, $ajaxComponent, null);
 });
 
-QUnit.test("tc:selectBooleanCheckbox", function(assert) {
+QUnit.test("tc:selectBooleanCheckbox", function (assert) {
   var eventNames = ["change", "click", "dblclick", "focus", "blur"];
   var $eventComponent = jQueryFrame("#page\\:mainForm\\:selectBooleanCheckboxevent\\:\\:field");
   var $ajaxComponent = jQueryFrame("#page\\:mainForm\\:selectBooleanCheckboxajax\\:\\:field");
-  var changeValue = function($component) {
+  var changeValue = function ($component) {
     var currentEvent = jQueryFrame("#page\\:mainForm\\:outEventName span").text();
-    if (currentEvent != "click") {
-      console.log("old -- currentEvent: " + currentEvent + " isChecked: " + $component.prop("checked"));
+    if (currentEvent !== "click") {
       return $component.prop("checked", !$component.prop("checked"));
-      console.log("new -- currentEvent: " + currentEvent + " isChecked: " + $component.prop("checked"));
     } else {
       return $component;
     }
@@ -61,14 +59,14 @@ QUnit.test("tc:selectBooleanCheckbox", function(assert) {
   testEvent(assert, "selectBooleanCheckbox", eventNames, $eventComponent, $ajaxComponent, changeValue);
 });
 
-QUnit.test("tc:textarea", function(assert) {
+QUnit.test("tc:textarea", function (assert) {
   var eventNames = ["change", "click", "dblclick", "focus", "blur"];
   var $eventComponent = jQueryFrame("#page\\:mainForm\\:textareaevent\\:\\:field");
   var $ajaxComponent = jQueryFrame("#page\\:mainForm\\:textareaajax\\:\\:field");
-  var changeValue = function($component) {
+  var changeValue = function ($component) {
     var oldValue = $component.val();
     var newValue = "hello";
-    if (oldValue == "hello") {
+    if (oldValue === "hello") {
       newValue = "hello there!"
     }
     return $component.val(newValue);
@@ -90,8 +88,8 @@ function testEvent(assert, componentName, eventNames, $eventComponent, $ajaxComp
   var eventName = eventNames[0];
   activateComponent(componentName, eventName);
 
-  jQuery("#page\\:testframe").load(function() {
-    if (step % 3 == 0) {
+  jQuery("#page\\:testframe").on("load", function () {
+    if (step === 0) {
       oldActionCount = getActionCount();
       oldActionListenerCount = getActionListenerCount();
       oldAjaxListenerCount = getAjaxListenerCount();
@@ -99,11 +97,13 @@ function testEvent(assert, componentName, eventNames, $eventComponent, $ajaxComp
       oldTimestamp = getTimestamp();
 
       $eventComponent = jQueryFrame($eventComponent.selector);
-      if (changeValue != null) {
+      if (changeValue !== null) {
         $eventComponent = changeValue($eventComponent);
       }
       $eventComponent.trigger(eventName);
-    } else if (step % 3 == 1) {
+      step++;
+      done();
+    } else if (step === 1) {
       var newActionCount = getActionCount();
       var newActionListenerCount = getActionListenerCount();
       var newAjaxListenerCount = getAjaxListenerCount();
@@ -113,7 +113,7 @@ function testEvent(assert, componentName, eventNames, $eventComponent, $ajaxComp
       assert.equal(newActionCount, oldActionCount + 1, eventName + " - tc:event - action");
       assert.equal(newActionListenerCount, oldActionListenerCount + 1, eventName + " - tc:event - actionListener");
       assert.equal(newAjaxListenerCount, oldAjaxListenerCount, eventName + " - tc:event - ajaxListener");
-      if (changeValue != null) {
+      if (changeValue !== null) {
         assert.equal(newValueChangeListenerCount, oldValueChangeListenerCount + 1,
             eventName + " - tc:event - valueChangeListener");
       } else {
@@ -130,22 +130,22 @@ function testEvent(assert, componentName, eventNames, $eventComponent, $ajaxComp
       oldTimestamp = getTimestamp();
 
       $ajaxComponent = jQueryFrame($ajaxComponent.selector);
-      if (changeValue != null) {
+      if (changeValue !== null) {
         $ajaxComponent = changeValue($ajaxComponent);
       }
       $ajaxComponent.trigger(eventName);
 
-      waitForAjax(function() {
+      waitForAjax(function () {
         newActionCount = getActionCount();
         newActionListenerCount = getActionListenerCount();
         newAjaxListenerCount = getAjaxListenerCount();
         newValueChangeListenerCount = getValueChangeListenerCount();
         newTimestamp = getTimestamp();
 
-        return step % 3 == 2
-            && newAjaxListenerCount == oldAjaxListenerCount + 1
+        return step === 2
+            && newAjaxListenerCount === oldAjaxListenerCount + 1
             && newTimestamp > oldTimestamp;
-      }, function() {
+      }, function () {
         newActionCount = getActionCount();
         newActionListenerCount = getActionListenerCount();
         newAjaxListenerCount = getAjaxListenerCount();
@@ -155,7 +155,7 @@ function testEvent(assert, componentName, eventNames, $eventComponent, $ajaxComp
         assert.equal(newActionCount, oldActionCount, eventName + " - f:ajax - action");
         assert.equal(newActionListenerCount, oldActionListenerCount, eventName + " - f:ajax - actionListener");
         assert.equal(newAjaxListenerCount, oldAjaxListenerCount + 1, eventName + " - f:ajax - ajaxListener");
-        if (changeValue != null) {
+        if (changeValue !== null) {
           assert.equal(newValueChangeListenerCount, oldValueChangeListenerCount + 1,
               eventName + " - f:ajax - valueChangeListener");
         } else {
@@ -168,21 +168,26 @@ function testEvent(assert, componentName, eventNames, $eventComponent, $ajaxComp
         done();
 
         // activate next event
-        eventName = eventNames[step / 3];
-        activateComponent(componentName, eventName);
+        eventName = eventNames[eventNames.indexOf(eventName) + 1];
+        if (eventName !== undefined) {
+          activateComponent(componentName, eventName);
+          step = 0;
+        } else {
+          jQuery("#page\\:testframe").off("load");
+        }
       });
+      step++;
+      done();
     }
-    step++;
-    done();
   });
 }
 
 function activateComponent(componentName, eventName) {
-  jQueryFrame("#page\\:mainForm\\:componentTable .tobago-sheet-row").each(function() {
-    if (jQuery(this).find("td").eq(0).find("span").text() == componentName) {
-      jQuery(this).find("button").each(function() {
+  jQueryFrame("#page\\:mainForm\\:componentTable .tobago-sheet-row").each(function () {
+    if (jQuery(this).find("td").eq(0).find("span").text() === componentName) {
+      jQuery(this).find("button").each(function () {
         var id = jQuery(this).attr("id");
-        if (id != undefined && id.indexOf(eventName + "Behavior") >= 0) {
+        if (id !== undefined && id.indexOf(eventName + "Behavior") >= 0) {
           this.click();
         }
       });
