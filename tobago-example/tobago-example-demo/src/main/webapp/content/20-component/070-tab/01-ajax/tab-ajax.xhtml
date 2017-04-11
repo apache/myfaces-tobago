@@ -81,13 +81,13 @@
     <p>The image in the header depends on what tab is currently selected.</p>
     <pre><code class="language-markup">&lt;tc:tabGroup selectedIndex="\#{tabController.index}"></code></pre>
     <tc:tabGroup id="ft" switchType="reloadTab" selectedIndex="#{tabController.index}">
-      <tc:tab id="ft1" label="One" image="#{tabController.tabOneImage}">
+      <tc:tab id="ft1" label="One" image="#{request.contextPath}#{tabController.tabOneImage}">
         <p>First folder open.</p>
       </tc:tab>
-      <tc:tab id="ft2" label="Two" image="#{tabController.tabTwoImage}">
+      <tc:tab id="ft2" label="Two" image="#{request.contextPath}#{tabController.tabTwoImage}">
         <p>Second folder open.</p>
       </tc:tab>
-      <tc:tab id="ft3" label="Three" image="#{tabController.tabThreeImage}">
+      <tc:tab id="ft3" label="Three" image="#{request.contextPath}#{tabController.tabThreeImage}">
         <p>Third folder open.</p>
       </tc:tab>
     </tc:tabGroup>
