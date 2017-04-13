@@ -225,7 +225,7 @@ public abstract class CommandRendererBase extends DecodingCommandRendererBase {
                                   final List<CssItem> collected) {
   }
 
-  abstract protected TobagoClass getRendererCssClass();
+  abstract TobagoClass getRendererCssClass();
 
   protected void addCssItems(final FacesContext facesContext, final AbstractUICommand command,
                              final List<CssItem> collected) {
