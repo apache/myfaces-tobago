@@ -9433,6 +9433,7 @@ Todo: check, if this is needed? (It doesn't work with the build system)
   padding: 0;
 }
 
+/* buttons, links ------------------------------------------------------- */
 /* button -------------------------------------------------------------- */
 /* XXX fixes a problem with image in button inside a segmentLayout (with FF40 and IE11)
    test page: buttons-with-image.xhtml
@@ -9609,6 +9610,7 @@ body {
           justify-content: space-around;
 }
 
+/* flowLayout ---------------------------------------------------------- */
 /* footer -------------------------------------------------------------- */
 .tobago-footer {
   background-color: #ffffff;
@@ -9685,7 +9687,7 @@ table.tobago-gridLayout > tbody > tr > td > * {
   white-space: normal;
 }
 
-button.tobago-link, button.tobago-linkInsideLinks, button.tobago-treeCommand {
+button.tobago-link:not(.dropdown-item), button.tobago-treeCommand {
   color: #0275d8;
   border-width: 0;
   padding: 0;
@@ -9693,14 +9695,20 @@ button.tobago-link, button.tobago-linkInsideLinks, button.tobago-treeCommand {
   text-align: left;
 }
 
-button.tobago-link:focus, button.tobago-link:hover, button.tobago-linkInsideLinks:focus, button.tobago-linkInsideLinks:hover, button.tobago-treeCommand:focus, button.tobago-treeCommand:hover {
+button.tobago-link:not(.dropdown-item):focus, button.tobago-link:not(.dropdown-item):hover, button.tobago-treeCommand:focus, button.tobago-treeCommand:hover {
   color: #014c8c;
+  cursor: pointer;
   background-color: transparent;
   outline: none;
+  text-decoration: underline;
 }
 
-button.tobago-link:focus, button.tobago-link:hover, button.tobago-treeCommand:focus, button.tobago-treeCommand:hover {
-  text-decoration: underline;
+button.tobago-link.dropdown-item:focus, button.tobago-link.dropdown-item:hover {
+  cursor: pointer;
+}
+
+button.tobago-link.dropdown-toggle:focus, button.tobago-link.dropdown-toggle:hover {
+  text-decoration: none;
 }
 
 button.tobago-link-markup-disabled, button.tobago-command-markup-disabled {
@@ -9796,6 +9804,7 @@ a.tobago-messages-button {
 
 /* dropdown-submenu ------------------------------------------------------- */
 .tobago-dropdown-submenu {
+  cursor: pointer;
   position: relative;
   display: inline-block;
   width: 100%;
@@ -9813,12 +9822,17 @@ a.tobago-messages-button {
   display: none;
 }
 
-.tobago-dropdown-submenu > .tobago-linkInsideCommand {
+.tobago-dropdown-submenu > button.tobago-link:not(.dropdown-item) {
   border-width: 0;
   color: #292b2c;
   padding: 0;
   background-color: transparent;
   text-align: left;
+}
+
+.tobago-dropdown-submenu > button.tobago-link:not(.dropdown-item):focus, .tobago-dropdown-submenu > button.tobago-link:not(.dropdown-item):hover {
+  color: #292b2c;
+  text-decoration: none;
 }
 
 .tobago-dropdown-submenu:after {
@@ -9850,6 +9864,7 @@ a.tobago-messages-button {
   border-radius: 6px 0 6px 6px;
 }
 
+/* object ----------------------------------------------------------------- */
 /* out -------------------------------------------------------------------- */
 .tobago-out-markup-strong {
   font-weight: bold;
@@ -9933,6 +9948,7 @@ span.tobago-out:empty:before {
   margin-bottom: 0;
 }
 
+/* progress ---------------------------------------------------------- */
 /* section ----------------------------------------------------------- */
 /* to separate the icon from the rest of the title */
 h1 > .fa:first-child,
@@ -9959,24 +9975,19 @@ h6 > .fa:first-child {
 }
 
 /* selectBooleanCheckbox ----------------------------------------------- */
-.tobago-selectBooleanCheckbox input, .tobago-selectBooleanCheckboxInsideCommand input {
+.tobago-selectBooleanCheckbox input {
   margin-right: 0.3em;
   margin-bottom: 0.4ex;
   vertical-align: text-bottom;
 }
 
-.tobago-selectBooleanCheckbox .form-check-label {
+.tobago-selectBooleanCheckbox .form-check-label:not(.dropdown-item) {
   margin-top: 0.5ex;
   vertical-align: text-top;
 }
 
 /* selectManyCheckbox ----------------------------------------------------------- */
-.tobago-selectManyCheckbox {
-  padding-left: 0;
-  list-style: none;
-}
-
-.tobago-selectManyCheckbox input, .tobago-selectManyCheckboxInsideCommand input {
+.tobago-selectManyCheckbox input {
   margin-right: 0.3em;
   margin-bottom: 0.4ex;
   vertical-align: text-bottom;
@@ -9987,6 +9998,7 @@ h6 > .fa:first-child {
   margin-top: 6px;
 }
 
+/* selectManyListbox ----------------------------------------------------------- */
 /* selectManyShuttle ----------------------------------------------------------- */
 .tobago-selectManyShuttle {
   display: -webkit-box;
@@ -10037,12 +10049,7 @@ h6 > .fa:first-child {
 }
 
 /* selectOneRadio ---------------------------------------------------------- */
-.tobago-selectOneRadio {
-  padding-left: 0;
-  list-style: none;
-}
-
-.tobago-selectOneRadio input, .tobago-selectOneRadioInsideCommand input {
+.tobago-selectOneRadio input {
   margin-right: 0.3em;
   margin-bottom: 0.4ex;
   vertical-align: text-bottom;
@@ -10054,7 +10061,7 @@ h6 > .fa:first-child {
 }
 
 /* selectOneChoice ---------------------------------------------------------- */
-.input-group-btn:not(:last-child) > .tobago-selectOneChoiceInsideIn {
+.input-group-btn:not(:last-child) > .tobago-selectOneChoice {
   /* before facet */
   width: 100%;
   -webkit-appearance: none;
@@ -10063,7 +10070,7 @@ h6 > .fa:first-child {
   border-bottom-right-radius: 0;
 }
 
-.input-group-btn:not(:first-child) > .tobago-selectOneChoiceInsideIn {
+.input-group-btn:not(:first-child) > .tobago-selectOneChoice {
   /* after facet */
   width: 100%;
   -webkit-appearance: none;
@@ -10072,6 +10079,7 @@ h6 > .fa:first-child {
   border-bottom-left-radius: 0;
 }
 
+/* selectOneListbox -------------------------------------------------------- */
 /* selectOneRadio, selectManyCheckbox -------------------------------------- */
 .dropdown-item .form-check-input {
   margin-left: 0;
@@ -10343,6 +10351,7 @@ th.tobago-sheet-headerCell .tobago-out {
   display: inline-block;
 }
 
+/* textarea --------------------------------------------------------- */
 /* menuStore -------------------------------------------------------- */
 .tobago-page-menuStore {
   position: absolute;

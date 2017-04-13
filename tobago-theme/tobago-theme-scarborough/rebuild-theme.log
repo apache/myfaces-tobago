@@ -1,4 +1,4 @@
-Build date: 2017-04-06 15:38:16
+Build date: 2017-04-13 12:07:29
 [INFO] Scanning for projects...
 [INFO]                                                                         
 [INFO] ------------------------------------------------------------------------
@@ -13,8 +13,8 @@ Build date: 2017-04-06 15:38:16
 [INFO] Removing __CURRENT__/tobago-theme-scarborough/target/checkout
 [INFO] Executing: /bin/sh -c cd __CURRENT__/tobago-theme-scarborough/target && git clone --branch v4.0.0-alpha.6 https://github.com/twbs/bootstrap __CURRENT__/tobago-theme-scarborough/target/checkout
 [INFO] Working directory: __CURRENT__/tobago-theme-scarborough/target
-[INFO] Executing: /bin/sh -c cd /var/folders/w0/pg4pxr7972l6bq85x08s5cl00000gn/T/ && git ls-remote https://github.com/twbs/bootstrap
-[INFO] Working directory: /var/folders/w0/pg4pxr7972l6bq85x08s5cl00000gn/T
+[INFO] Executing: /bin/sh -c cd /var/folders/yp/1vrxjnrs20798ydt_yl8wrpr0000gp/T/ && git ls-remote https://github.com/twbs/bootstrap
+[INFO] Working directory: /var/folders/yp/1vrxjnrs20798ydt_yl8wrpr0000gp/T
 [INFO] Executing: /bin/sh -c cd __CURRENT__/tobago-theme-scarborough/target/checkout && git pull https://github.com/twbs/bootstrap v4.0.0-alpha.6:v4.0.0-alpha.6
 [INFO] Working directory: __CURRENT__/tobago-theme-scarborough/target/checkout
 [INFO] Executing: /bin/sh -c cd __CURRENT__/tobago-theme-scarborough/target/checkout && git checkout v4.0.0-alpha.6
@@ -56,7 +56,7 @@ Build date: 2017-04-06 15:38:16
 [INFO]   │   │ └── wrappy@1.0.2 
 [INFO]   │   ├── inherits@2.0.3 
 [INFO]   │   ├─┬ minimatch@3.0.3 
-[INFO]   │   │ └─┬ brace-expansion@1.1.6 
+[INFO]   │   │ └─┬ brace-expansion@1.1.7 
 [INFO]   │   │   ├── balanced-match@0.4.2 
 [INFO]   │   │   └── concat-map@0.0.1 
 [INFO]   │   ├── once@1.4.0 
@@ -81,150 +81,20 @@ Build date: 2017-04-06 15:38:16
 [INFO] [fsevents] Success: "__CURRENT__/tobago-theme-scarborough/target/bootstrap/node_modules/fsevents/lib/binding/Release/node-v48-darwin-x64/fse.node" already installed
 [INFO] Pass --update-binary to reinstall or --build-from-source to recompile
 [INFO] 
-[INFO] > iltorb@1.0.13 install __CURRENT__/tobago-theme-scarborough/target/bootstrap/node_modules/iltorb
-[INFO] > node-gyp rebuild
+[INFO] > iltorb@1.2.1 install __CURRENT__/tobago-theme-scarborough/target/bootstrap/node_modules/iltorb
+[INFO] > node-pre-gyp install --fallback-to-build
 [INFO] 
-[INFO]   CC(target) Release/obj.target/decode/brotli/common/dictionary.o
-[INFO]   CC(target) Release/obj.target/decode/brotli/dec/bit_reader.o
-[INFO]   CC(target) Release/obj.target/decode/brotli/dec/decode.o
-[INFO]   CC(target) Release/obj.target/decode/brotli/dec/huffman.o
-[INFO]   CC(target) Release/obj.target/decode/brotli/dec/state.o
-[INFO]   CXX(target) Release/obj.target/decode/src/common/allocator.o
-[ERROR] In file included from ../src/common/allocator.cc:2:
-[ERROR] In file included from ../../nan/nan.h:2316:
-[ERROR] ../../nan/nan_json.h:87:35: warning: 'Parse' is deprecated [-Wdeprecated-declarations]
-[ERROR]     return scope.Escape(v8::JSON::Parse(json_string));
-[ERROR]                                   ^
-[ERROR] __HOME__/.node-gyp/6.10.2/include/node/v8.h:1682:37: note: 'Parse' has been explicitly marked deprecated here
-[ERROR]                        Local<Value> Parse(Local<String> json_string));
-[ERROR]                                     ^
-[ERROR] 1 warning generated.
-[INFO]   CXX(target) Release/obj.target/decode/src/common/stream_coder.o
-[ERROR] In file included from ../src/common/stream_coder.cc:1:
-[ERROR] In file included from ../src/common/stream_coder.h:5:
-[ERROR] In file included from ../../nan/nan.h:2316:
-[ERROR] ../../nan/nan_json.h:87:35: warning: 'Parse' is deprecated [-Wdeprecated-declarations]
-[ERROR]     return scope.Escape(v8::JSON::Parse(json_string));
-[ERROR]                                   ^
-[ERROR] __HOME__/.node-gyp/6.10.2/include/node/v8.h:1682:37: note: 'Parse' has been explicitly marked deprecated here
-[ERROR]                        Local<Value> Parse(Local<String> json_string));
-[ERROR]                                     ^
-[ERROR] 1 warning generated.
-[INFO]   CXX(target) Release/obj.target/decode/src/dec/decode_index.o
-[ERROR] In file included from ../src/dec/decode_index.cc:1:
-[ERROR] In file included from ../../nan/nan.h:2316:
-[ERROR] ../../nan/nan_json.h:87:35: warning: 'Parse' is deprecated [-Wdeprecated-declarations]
-[ERROR]     return scope.Escape(v8::JSON::Parse(json_string));
-[ERROR]                                   ^
-[ERROR] __HOME__/.node-gyp/6.10.2/include/node/v8.h:1682:37: note: 'Parse' has been explicitly marked deprecated here
-[ERROR]                        Local<Value> Parse(Local<String> json_string));
-[ERROR]                                     ^
-[ERROR] 1 warning generated.
-[INFO]   CXX(target) Release/obj.target/decode/src/dec/stream_decode.o
-[ERROR] In file included from ../src/dec/stream_decode.cc:1:
-[ERROR] In file included from ../src/dec/stream_decode.h:4:
-[ERROR] In file included from ../../nan/nan.h:2316:
-[ERROR] ../../nan/nan_json.h:87:35: warning: 'Parse' is deprecated [-Wdeprecated-declarations]
-[ERROR]     return scope.Escape(v8::JSON::Parse(json_string));
-[ERROR]                                   ^
-[ERROR] __HOME__/.node-gyp/6.10.2/include/node/v8.h:1682:37: note: 'Parse' has been explicitly marked deprecated here
-[ERROR]                        Local<Value> Parse(Local<String> json_string));
-[ERROR]                                     ^
-[ERROR] 1 warning generated.
-[INFO]   CXX(target) Release/obj.target/decode/src/dec/stream_decode_worker.o
-[ERROR] In file included from ../src/dec/stream_decode_worker.cc:1:
-[ERROR] In file included from ../src/dec/stream_decode_worker.h:4:
-[ERROR] In file included from ../../nan/nan.h:2316:
-[ERROR] ../../nan/nan_json.h:87:35: warning: 'Parse' is deprecated [-Wdeprecated-declarations]
-[ERROR]     return scope.Escape(v8::JSON::Parse(json_string));
-[ERROR]                                   ^
-[ERROR] __HOME__/.node-gyp/6.10.2/include/node/v8.h:1682:37: note: 'Parse' has been explicitly marked deprecated here
-[ERROR]                        Local<Value> Parse(Local<String> json_string));
-[ERROR]                                     ^
-[ERROR] 1 warning generated.
-[INFO]   SOLINK_MODULE(target) Release/decode.node
-[ERROR] clang: warning: libstdc++ is deprecated; move to libc++ with a minimum deployment target of OS X 10.9 [-Wdeprecated]
-[INFO]   CC(target) Release/obj.target/encode/brotli/common/dictionary.o
-[INFO]   CC(target) Release/obj.target/encode/brotli/enc/backward_references.o
-[INFO]   CC(target) Release/obj.target/encode/brotli/enc/bit_cost.o
-[INFO]   CC(target) Release/obj.target/encode/brotli/enc/block_splitter.o
-[INFO]   CC(target) Release/obj.target/encode/brotli/enc/brotli_bit_stream.o
-[INFO]   CC(target) Release/obj.target/encode/brotli/enc/cluster.o
-[INFO]   CC(target) Release/obj.target/encode/brotli/enc/compress_fragment.o
-[INFO]   CC(target) Release/obj.target/encode/brotli/enc/compress_fragment_two_pass.o
-[INFO]   CC(target) Release/obj.target/encode/brotli/enc/encode.o
-[INFO]   CC(target) Release/obj.target/encode/brotli/enc/entropy_encode.o
-[INFO]   CC(target) Release/obj.target/encode/brotli/enc/histogram.o
-[INFO]   CC(target) Release/obj.target/encode/brotli/enc/literal_cost.o
-[INFO]   CC(target) Release/obj.target/encode/brotli/enc/memory.o
-[INFO]   CC(target) Release/obj.target/encode/brotli/enc/metablock.o
-[INFO]   CC(target) Release/obj.target/encode/brotli/enc/static_dict.o
-[INFO]   CC(target) Release/obj.target/encode/brotli/enc/utf8_util.o
-[INFO]   CXX(target) Release/obj.target/encode/src/common/allocator.o
-[ERROR] In file included from ../src/common/allocator.cc:2:
-[ERROR] In file included from ../../nan/nan.h:2316:
-[ERROR] ../../nan/nan_json.h:87:35: warning: 'Parse' is deprecated [-Wdeprecated-declarations]
-[ERROR]     return scope.Escape(v8::JSON::Parse(json_string));
-[ERROR]                                   ^
-[ERROR] __HOME__/.node-gyp/6.10.2/include/node/v8.h:1682:37: note: 'Parse' has been explicitly marked deprecated here
-[ERROR]                        Local<Value> Parse(Local<String> json_string));
-[ERROR]                                     ^
-[ERROR] 1 warning generated.
-[INFO]   CXX(target) Release/obj.target/encode/src/common/stream_coder.o
-[ERROR] In file included from ../src/common/stream_coder.cc:1:
-[ERROR] In file included from ../src/common/stream_coder.h:5:
-[ERROR] In file included from ../../nan/nan.h:2316:
-[ERROR] ../../nan/nan_json.h:87:35: warning: 'Parse' is deprecated [-Wdeprecated-declarations]
-[ERROR]     return scope.Escape(v8::JSON::Parse(json_string));
-[ERROR]                                   ^
-[ERROR] __HOME__/.node-gyp/6.10.2/include/node/v8.h:1682:37: note: 'Parse' has been explicitly marked deprecated here
-[ERROR]                        Local<Value> Parse(Local<String> json_string));
-[ERROR]                                     ^
-[ERROR] 1 warning generated.
-[INFO]   CXX(target) Release/obj.target/encode/src/enc/encode_index.o
-[ERROR] In file included from ../src/enc/encode_index.cc:1:
-[ERROR] In file included from ../../nan/nan.h:2316:
-[ERROR] ../../nan/nan_json.h:87:35: warning: 'Parse' is deprecated [-Wdeprecated-declarations]
-[ERROR]     return scope.Escape(v8::JSON::Parse(json_string));
-[ERROR]                                   ^
-[ERROR] __HOME__/.node-gyp/6.10.2/include/node/v8.h:1682:37: note: 'Parse' has been explicitly marked deprecated here
-[ERROR]                        Local<Value> Parse(Local<String> json_string));
-[ERROR]                                     ^
-[ERROR] 1 warning generated.
-[INFO]   CXX(target) Release/obj.target/encode/src/enc/stream_encode.o
-[ERROR] In file included from ../src/enc/stream_encode.cc:1:
-[ERROR] In file included from ../src/enc/stream_encode.h:4:
-[ERROR] In file included from ../../nan/nan.h:2316:
-[ERROR] ../../nan/nan_json.h:87:35: warning: 'Parse' is deprecated [-Wdeprecated-declarations]
-[ERROR]     return scope.Escape(v8::JSON::Parse(json_string));
-[ERROR]                                   ^
-[ERROR] __HOME__/.node-gyp/6.10.2/include/node/v8.h:1682:37: note: 'Parse' has been explicitly marked deprecated here
-[ERROR]                        Local<Value> Parse(Local<String> json_string));
-[ERROR]                                     ^
-[ERROR] 1 warning generated.
-[INFO]   CXX(target) Release/obj.target/encode/src/enc/stream_encode_worker.o
-[ERROR] In file included from ../src/enc/stream_encode_worker.cc:1:
-[ERROR] In file included from ../src/enc/stream_encode_worker.h:4:
-[ERROR] In file included from ../../nan/nan.h:2316:
-[ERROR] ../../nan/nan_json.h:87:35: warning: 'Parse' is deprecated [-Wdeprecated-declarations]
-[ERROR]     return scope.Escape(v8::JSON::Parse(json_string));
-[ERROR]                                   ^
-[ERROR] __HOME__/.node-gyp/6.10.2/include/node/v8.h:1682:37: note: 'Parse' has been explicitly marked deprecated here
-[ERROR]                        Local<Value> Parse(Local<String> json_string));
-[ERROR]                                     ^
-[ERROR] 1 warning generated.
-[INFO]   SOLINK_MODULE(target) Release/encode.node
-[ERROR] clang: warning: libstdc++ is deprecated; move to libc++ with a minimum deployment target of OS X 10.9 [-Wdeprecated]
+[INFO] [iltorb] Success: "__CURRENT__/tobago-theme-scarborough/target/bootstrap/node_modules/iltorb/build/bindings/encode.node" is installed via remote
 [INFO] 
 [INFO] > phantomjs-prebuilt@2.1.14 install __CURRENT__/tobago-theme-scarborough/target/bootstrap/node_modules/phantomjs-prebuilt
 [INFO] > node install.js
 [INFO] 
 [INFO] PhantomJS not found on PATH
-[INFO] Download already available at /var/folders/w0/pg4pxr7972l6bq85x08s5cl00000gn/T/phantomjs/phantomjs-2.1.1-macosx.zip
+[INFO] Download already available at /var/folders/yp/1vrxjnrs20798ydt_yl8wrpr0000gp/T/phantomjs/phantomjs-2.1.1-macosx.zip
 [INFO] Verified checksum of previously downloaded file
 [INFO] Extracting zip contents
 [INFO] Removing __CURRENT__/tobago-theme-scarborough/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom
-[INFO] Copying extracted folder /var/folders/w0/pg4pxr7972l6bq85x08s5cl00000gn/T/phantomjs/phantomjs-2.1.1-macosx.zip-extract-1491486279719/phantomjs-2.1.1-macosx -> __CURRENT__/tobago-theme-scarborough/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom
+[INFO] Copying extracted folder /var/folders/yp/1vrxjnrs20798ydt_yl8wrpr0000gp/T/phantomjs/phantomjs-2.1.1-macosx.zip-extract-1492078135368/phantomjs-2.1.1-macosx -> __CURRENT__/tobago-theme-scarborough/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom
 [INFO] Writing location.js file
 [INFO] Done. Phantomjs binary available at __CURRENT__/tobago-theme-scarborough/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom/bin/phantomjs
 [INFO] 
@@ -242,8 +112,8 @@ Build date: 2017-04-06 15:38:16
 [INFO] bootstrap@4.0.0-alpha.6 __CURRENT__/tobago-theme-scarborough/target/bootstrap
 [INFO] ├─┬ autoprefixer@6.7.7 
 [INFO] │ ├─┬ browserslist@1.7.7 
-[INFO] │ │ └── electron-to-chromium@1.3.2 
-[INFO] │ ├── caniuse-db@1.0.30000649 
+[INFO] │ │ └── electron-to-chromium@1.3.3 
+[INFO] │ ├── caniuse-db@1.0.30000653 
 [INFO] │ ├── normalize-range@0.1.2 
 [INFO] │ ├── num2fraction@1.2.2 
 [INFO] │ ├─┬ postcss@5.2.16 
@@ -251,61 +121,61 @@ Build date: 2017-04-06 15:38:16
 [INFO] │ │ └─┬ supports-color@3.2.3 
 [INFO] │ │   └── has-flag@1.0.0 
 [INFO] │ └── postcss-value-parser@3.3.0 
-[INFO] ├─┬ babel-eslint@7.2.1 
+[INFO] ├─┬ babel-eslint@7.2.2 
 [INFO] │ ├─┬ babel-code-frame@6.22.0 
 [INFO] │ │ └── js-tokens@3.0.1 
-[INFO] │ ├─┬ babel-traverse@6.23.1 
+[INFO] │ ├─┬ babel-traverse@6.24.1 
 [INFO] │ │ ├── babel-messages@6.23.0 
 [INFO] │ │ ├─┬ babel-runtime@6.23.0 
 [INFO] │ │ │ ├── core-js@2.4.1 
 [INFO] │ │ │ └── regenerator-runtime@0.10.3 
 [INFO] │ │ └─┬ invariant@2.2.2 
 [INFO] │ │   └── loose-envify@1.3.1 
-[INFO] │ ├─┬ babel-types@6.23.0 
+[INFO] │ ├─┬ babel-types@6.24.1 
 [INFO] │ │ └── to-fast-properties@1.0.2 
 [INFO] │ └── babylon@6.16.1 
 [INFO] ├── babel-plugin-transform-es2015-modules-strip@0.1.1 
-[INFO] ├─┬ babel-preset-es2015@6.24.0 
+[INFO] ├─┬ babel-preset-es2015@6.24.1 
 [INFO] │ ├── babel-plugin-check-es2015-constants@6.22.0 
 [INFO] │ ├── babel-plugin-transform-es2015-arrow-functions@6.22.0 
 [INFO] │ ├── babel-plugin-transform-es2015-block-scoped-functions@6.22.0 
-[INFO] │ ├─┬ babel-plugin-transform-es2015-block-scoping@6.23.0 
-[INFO] │ │ └── babel-template@6.23.0 
-[INFO] │ ├─┬ babel-plugin-transform-es2015-classes@6.23.0 
-[INFO] │ │ ├── babel-helper-define-map@6.23.0 
-[INFO] │ │ ├── babel-helper-function-name@6.23.0 
-[INFO] │ │ ├── babel-helper-optimise-call-expression@6.23.0 
-[INFO] │ │ └── babel-helper-replace-supers@6.23.0 
-[INFO] │ ├── babel-plugin-transform-es2015-computed-properties@6.22.0 
+[INFO] │ ├─┬ babel-plugin-transform-es2015-block-scoping@6.24.1 
+[INFO] │ │ └── babel-template@6.24.1 
+[INFO] │ ├─┬ babel-plugin-transform-es2015-classes@6.24.1 
+[INFO] │ │ ├── babel-helper-define-map@6.24.1 
+[INFO] │ │ ├── babel-helper-function-name@6.24.1 
+[INFO] │ │ ├── babel-helper-optimise-call-expression@6.24.1 
+[INFO] │ │ └── babel-helper-replace-supers@6.24.1 
+[INFO] │ ├── babel-plugin-transform-es2015-computed-properties@6.24.1 
 [INFO] │ ├── babel-plugin-transform-es2015-destructuring@6.23.0 
-[INFO] │ ├── babel-plugin-transform-es2015-duplicate-keys@6.22.0 
+[INFO] │ ├── babel-plugin-transform-es2015-duplicate-keys@6.24.1 
 [INFO] │ ├── babel-plugin-transform-es2015-for-of@6.23.0 
-[INFO] │ ├── babel-plugin-transform-es2015-function-name@6.22.0 
+[INFO] │ ├── babel-plugin-transform-es2015-function-name@6.24.1 
 [INFO] │ ├── babel-plugin-transform-es2015-literals@6.22.0 
-[INFO] │ ├── babel-plugin-transform-es2015-modules-amd@6.24.0 
-[INFO] │ ├─┬ babel-plugin-transform-es2015-modules-commonjs@6.24.0 
-[INFO] │ │ └── babel-plugin-transform-strict-mode@6.22.0 
-[INFO] │ ├─┬ babel-plugin-transform-es2015-modules-systemjs@6.23.0 
-[INFO] │ │ └── babel-helper-hoist-variables@6.22.0 
-[INFO] │ ├── babel-plugin-transform-es2015-modules-umd@6.24.0 
-[INFO] │ ├── babel-plugin-transform-es2015-object-super@6.22.0 
-[INFO] │ ├─┬ babel-plugin-transform-es2015-parameters@6.23.0 
-[INFO] │ │ ├── babel-helper-call-delegate@6.22.0 
-[INFO] │ │ └── babel-helper-get-function-arity@6.22.0 
-[INFO] │ ├── babel-plugin-transform-es2015-shorthand-properties@6.22.0 
+[INFO] │ ├── babel-plugin-transform-es2015-modules-amd@6.24.1 
+[INFO] │ ├─┬ babel-plugin-transform-es2015-modules-commonjs@6.24.1 
+[INFO] │ │ └── babel-plugin-transform-strict-mode@6.24.1 
+[INFO] │ ├─┬ babel-plugin-transform-es2015-modules-systemjs@6.24.1 
+[INFO] │ │ └── babel-helper-hoist-variables@6.24.1 
+[INFO] │ ├── babel-plugin-transform-es2015-modules-umd@6.24.1 
+[INFO] │ ├── babel-plugin-transform-es2015-object-super@6.24.1 
+[INFO] │ ├─┬ babel-plugin-transform-es2015-parameters@6.24.1 
+[INFO] │ │ ├── babel-helper-call-delegate@6.24.1 
+[INFO] │ │ └── babel-helper-get-function-arity@6.24.1 
+[INFO] │ ├── babel-plugin-transform-es2015-shorthand-properties@6.24.1 
 [INFO] │ ├── babel-plugin-transform-es2015-spread@6.22.0 
-[INFO] │ ├─┬ babel-plugin-transform-es2015-sticky-regex@6.22.0 
-[INFO] │ │ └── babel-helper-regex@6.22.0 
+[INFO] │ ├─┬ babel-plugin-transform-es2015-sticky-regex@6.24.1 
+[INFO] │ │ └── babel-helper-regex@6.24.1 
 [INFO] │ ├── babel-plugin-transform-es2015-template-literals@6.22.0 
 [INFO] │ ├── babel-plugin-transform-es2015-typeof-symbol@6.23.0 
-[INFO] │ ├─┬ babel-plugin-transform-es2015-unicode-regex@6.22.0 
+[INFO] │ ├─┬ babel-plugin-transform-es2015-unicode-regex@6.24.1 
 [INFO] │ │ └─┬ regexpu-core@2.0.0 
 [INFO] │ │   ├── regenerate@1.3.2 
 [INFO] │ │   ├── regjsgen@0.2.0 
 [INFO] │ │   └─┬ regjsparser@0.1.5 
 [INFO] │ │     └── jsesc@0.5.0 
-[INFO] │ └─┬ babel-plugin-transform-regenerator@6.22.0 
-[INFO] │   └── regenerator-transform@0.9.8 
+[INFO] │ └─┬ babel-plugin-transform-regenerator@6.24.1 
+[INFO] │   └── regenerator-transform@0.9.11 
 [INFO] ├─┬ clean-css@3.4.25 
 [INFO] │ ├─┬ commander@2.8.1 
 [INFO] │ │ └── graceful-readlink@1.0.1 
@@ -319,11 +189,11 @@ Build date: 2017-04-06 15:38:16
 [INFO] │ │ ├── strip-ansi@3.0.1 
 [INFO] │ │ └── supports-color@2.0.0 
 [INFO] │ ├─┬ concat-stream@1.6.0 
-[INFO] │ │ ├─┬ readable-stream@2.2.6 
+[INFO] │ │ ├─┬ readable-stream@2.2.9 
 [INFO] │ │ │ ├── buffer-shims@1.0.0 
 [INFO] │ │ │ ├── core-util-is@1.0.2 
 [INFO] │ │ │ ├── process-nextick-args@1.0.7 
-[INFO] │ │ │ ├── string_decoder@0.10.31 
+[INFO] │ │ │ ├── string_decoder@1.0.0 
 [INFO] │ │ │ └── util-deprecate@1.0.2 
 [INFO] │ │ └── typedarray@0.0.6 
 [INFO] │ ├─┬ debug@2.6.3 
@@ -362,7 +232,7 @@ Build date: 2017-04-06 15:38:16
 [INFO] │ ├─┬ glob@7.1.1 
 [INFO] │ │ └── fs.realpath@1.0.0 
 [INFO] │ ├── globals@9.17.0 
-[INFO] │ ├── ignore@3.2.6 
+[INFO] │ ├── ignore@3.2.7 
 [INFO] │ ├── imurmurhash@0.1.4 
 [INFO] │ ├─┬ inquirer@0.12.0 
 [INFO] │ │ ├── ansi-escapes@1.4.0 
@@ -415,7 +285,7 @@ Build date: 2017-04-06 15:38:16
 [INFO] │ ├── strip-bom@3.0.0 
 [INFO] │ ├── strip-json-comments@2.0.1 
 [INFO] │ ├─┬ table@3.8.3 
-[INFO] │ │ ├─┬ ajv@4.11.5 
+[INFO] │ │ ├─┬ ajv@4.11.6 
 [INFO] │ │ │ └── co@4.6.0 
 [INFO] │ │ ├── ajv-keywords@1.5.1 
 [INFO] │ │ ├── slice-ansi@0.0.4 
@@ -445,14 +315,14 @@ Build date: 2017-04-06 15:38:16
 [INFO] │ │ └── esprima@2.7.3 
 [INFO] │ └── rimraf@2.2.8 
 [INFO] ├─┬ grunt-babel@6.0.0 
-[INFO] │ └─┬ babel-core@6.24.0 
-[INFO] │   ├─┬ babel-generator@6.24.0 
+[INFO] │ └─┬ babel-core@6.24.1 
+[INFO] │   ├─┬ babel-generator@6.24.1 
 [INFO] │   │ ├─┬ detect-indent@4.0.0 
 [INFO] │   │ │ └── repeating@2.0.1 
 [INFO] │   │ ├── jsesc@1.3.0 
 [INFO] │   │ └── trim-right@1.0.1 
-[INFO] │   ├── babel-helpers@6.23.0 
-[INFO] │   ├─┬ babel-register@6.24.0 
+[INFO] │   ├── babel-helpers@6.24.1 
+[INFO] │   ├─┬ babel-register@6.24.1 
 [INFO] │   │ ├── home-or-tmp@2.0.0 
 [INFO] │   │ └── source-map-support@0.4.14 
 [INFO] │   ├── convert-source-map@1.5.0 
@@ -463,7 +333,7 @@ Build date: 2017-04-06 15:38:16
 [INFO] │ ├── bluebird@3.5.0 
 [INFO] │ ├── semver@4.3.6 
 [INFO] │ └── shelljs@0.2.6 
-[INFO] ├─┬ grunt-contrib-clean@1.0.0 
+[INFO] ├─┬ grunt-contrib-clean@1.1.0 
 [INFO] │ ├── async@1.5.2 
 [INFO] │ └─┬ rimraf@2.6.1 
 [INFO] │   └── glob@7.1.1 
@@ -485,7 +355,117 @@ Build date: 2017-04-06 15:38:16
 [INFO] │ │   └─┬ compress-commons@1.2.0 
 [INFO] │ │     └─┬ crc32-stream@2.0.0 
 [INFO] │ │       └── crc@3.4.4 
-[INFO] │ ├── iltorb@1.0.13 
+[INFO] │ ├─┬ iltorb@1.2.1 
+[INFO] │ │ └─┬ node-pre-gyp@0.6.34 
+[INFO] │ │   ├─┬ mkdirp@0.5.1 
+[INFO] │ │   │ └── minimist@0.0.8 
+[INFO] │ │   ├─┬ nopt@4.0.1 
+[INFO] │ │   │ ├── abbrev@1.1.0 
+[INFO] │ │   │ └─┬ osenv@0.1.4 
+[INFO] │ │   │   ├── os-homedir@1.0.2 
+[INFO] │ │   │   └── os-tmpdir@1.0.2 
+[INFO] │ │   ├─┬ npmlog@4.0.2 
+[INFO] │ │   │ ├─┬ are-we-there-yet@1.1.2 
+[INFO] │ │   │ │ └── delegates@1.0.0 
+[INFO] │ │   │ ├── console-control-strings@1.1.0 
+[INFO] │ │   │ ├─┬ gauge@2.7.3 
+[INFO] │ │   │ │ ├── aproba@1.1.1 
+[INFO] │ │   │ │ ├── has-unicode@2.0.1 
+[INFO] │ │   │ │ ├── object-assign@4.1.1 
+[INFO] │ │   │ │ ├── signal-exit@3.0.2 
+[INFO] │ │   │ │ ├─┬ string-width@1.0.2 
+[INFO] │ │   │ │ │ ├── code-point-at@1.1.0 
+[INFO] │ │   │ │ │ └─┬ is-fullwidth-code-point@1.0.0 
+[INFO] │ │   │ │ │   └── number-is-nan@1.0.1 
+[INFO] │ │   │ │ ├─┬ strip-ansi@3.0.1 
+[INFO] │ │   │ │ │ └── ansi-regex@2.1.1 
+[INFO] │ │   │ │ └── wide-align@1.1.0 
+[INFO] │ │   │ └── set-blocking@2.0.0 
+[INFO] │ │   ├─┬ rc@1.2.1 
+[INFO] │ │   │ ├── deep-extend@0.4.1 
+[INFO] │ │   │ ├── ini@1.3.4 
+[INFO] │ │   │ ├── minimist@1.2.0 
+[INFO] │ │   │ └── strip-json-comments@2.0.1 
+[INFO] │ │   ├─┬ request@2.81.0 
+[INFO] │ │   │ ├── aws-sign2@0.6.0 
+[INFO] │ │   │ ├── aws4@1.6.0 
+[INFO] │ │   │ ├── caseless@0.12.0 
+[INFO] │ │   │ ├─┬ combined-stream@1.0.5 
+[INFO] │ │   │ │ └── delayed-stream@1.0.0 
+[INFO] │ │   │ ├── extend@3.0.0 
+[INFO] │ │   │ ├── forever-agent@0.6.1 
+[INFO] │ │   │ ├─┬ form-data@2.1.4 
+[INFO] │ │   │ │ └── asynckit@0.4.0 
+[INFO] │ │   │ ├─┬ har-validator@4.2.1 
+[INFO] │ │   │ │ ├─┬ ajv@4.11.6 
+[INFO] │ │   │ │ │ ├── co@4.6.0 
+[INFO] │ │   │ │ │ └─┬ json-stable-stringify@1.0.1 
+[INFO] │ │   │ │ │   └── jsonify@0.0.0 
+[INFO] │ │   │ │ └── har-schema@1.0.5 
+[INFO] │ │   │ ├─┬ hawk@3.1.3 
+[INFO] │ │   │ │ ├── boom@2.10.1 
+[INFO] │ │   │ │ ├── cryptiles@2.0.5 
+[INFO] │ │   │ │ ├── hoek@2.16.3 
+[INFO] │ │   │ │ └── sntp@1.0.9 
+[INFO] │ │   │ ├─┬ http-signature@1.1.1 
+[INFO] │ │   │ │ ├── assert-plus@0.2.0 
+[INFO] │ │   │ │ ├─┬ jsprim@1.4.0 
+[INFO] │ │   │ │ │ ├── assert-plus@1.0.0 
+[INFO] │ │   │ │ │ ├── extsprintf@1.0.2 
+[INFO] │ │   │ │ │ ├── json-schema@0.2.3 
+[INFO] │ │   │ │ │ └── verror@1.3.6 
+[INFO] │ │   │ │ └─┬ sshpk@1.11.0 
+[INFO] │ │   │ │   ├── asn1@0.2.3 
+[INFO] │ │   │ │   ├── bcrypt-pbkdf@1.0.1 
+[INFO] │ │   │ │   ├── dashdash@1.14.1 
+[INFO] │ │   │ │   ├── ecc-jsbn@0.1.1 
+[INFO] │ │   │ │   ├── getpass@0.1.6 
+[INFO] │ │   │ │   ├── jodid25519@1.0.2 
+[INFO] │ │   │ │   ├── jsbn@0.1.1 
+[INFO] │ │   │ │   └── tweetnacl@0.14.5 
+[INFO] │ │   │ ├── is-typedarray@1.0.0 
+[INFO] │ │   │ ├── isstream@0.1.2 
+[INFO] │ │   │ ├── json-stringify-safe@5.0.1 
+[INFO] │ │   │ ├─┬ mime-types@2.1.15 
+[INFO] │ │   │ │ └── mime-db@1.27.0 
+[INFO] │ │   │ ├── oauth-sign@0.8.2 
+[INFO] │ │   │ ├── performance-now@0.2.0 
+[INFO] │ │   │ ├── qs@6.4.0 
+[INFO] │ │   │ ├── safe-buffer@5.0.1 
+[INFO] │ │   │ ├── stringstream@0.0.5 
+[INFO] │ │   │ ├─┬ tough-cookie@2.3.2 
+[INFO] │ │   │ │ └── punycode@1.4.1 
+[INFO] │ │   │ ├── tunnel-agent@0.6.0 
+[INFO] │ │   │ └── uuid@3.0.1 
+[INFO] │ │   ├─┬ rimraf@2.6.1 
+[INFO] │ │   │ └─┬ glob@7.1.1 
+[INFO] │ │   │   ├── fs.realpath@1.0.0 
+[INFO] │ │   │   ├── inflight@1.0.6 
+[INFO] │ │   │   ├─┬ minimatch@3.0.3 
+[INFO] │ │   │   │ └─┬ brace-expansion@1.1.7 
+[INFO] │ │   │   │   ├── balanced-match@0.4.2 
+[INFO] │ │   │   │   └── concat-map@0.0.1 
+[INFO] │ │   │   └── path-is-absolute@1.0.1 
+[INFO] │ │   ├── semver@5.3.0 
+[INFO] │ │   ├─┬ tar@2.2.1 
+[INFO] │ │   │ ├── block-stream@0.0.9 
+[INFO] │ │   │ ├─┬ fstream@1.0.11 
+[INFO] │ │   │ │ └── graceful-fs@4.1.11 
+[INFO] │ │   │ └── inherits@2.0.3 
+[INFO] │ │   └─┬ tar-pack@3.4.0 
+[INFO] │ │     ├─┬ debug@2.2.0 
+[INFO] │ │     │ └── ms@0.7.1 
+[INFO] │ │     ├── fstream-ignore@1.0.5 
+[INFO] │ │     ├─┬ once@1.4.0 
+[INFO] │ │     │ └── wrappy@1.0.2 
+[INFO] │ │     ├─┬ readable-stream@2.2.9 
+[INFO] │ │     │ ├── buffer-shims@1.0.0 
+[INFO] │ │     │ ├── core-util-is@1.0.2 
+[INFO] │ │     │ ├── isarray@1.0.0 
+[INFO] │ │     │ ├── process-nextick-args@1.0.7 
+[INFO] │ │     │ ├── string_decoder@1.0.0 
+[INFO] │ │     │ └── util-deprecate@1.0.2 
+[INFO] │ │     └── uid-number@0.0.6 
 [INFO] │ ├── pretty-bytes@3.0.1 
 [INFO] │ └── stream-buffers@2.2.0 
 [INFO] ├─┬ grunt-contrib-concat@1.0.1 
@@ -542,7 +522,8 @@ Build date: 2017-04-06 15:38:16
 [INFO] │   │ ├── es6-promise@4.0.5 
 [INFO] │   │ ├─┬ extract-zip@1.5.0 
 [INFO] │   │ │ ├─┬ concat-stream@1.5.0 
-[INFO] │   │ │ │ └── readable-stream@2.0.6 
+[INFO] │   │ │ │ └─┬ readable-stream@2.0.6 
+[INFO] │   │ │ │   └── string_decoder@0.10.31 
 [INFO] │   │ │ ├── debug@0.7.4 
 [INFO] │   │ │ ├── mkdirp@0.5.0 
 [INFO] │   │ │ └─┬ yauzl@2.4.1 
@@ -633,7 +614,8 @@ Build date: 2017-04-06 15:38:16
 [INFO] │ │ │ │   └── entities@1.1.1 
 [INFO] │ │ │ ├── entities@1.0.0 
 [INFO] │ │ │ └─┬ readable-stream@1.1.14 
-[INFO] │ │ │   └── isarray@0.0.1 
+[INFO] │ │ │   ├── isarray@0.0.1 
+[INFO] │ │ │   └── string_decoder@0.10.31 
 [INFO] │ │ ├── lodash@3.7.0 
 [INFO] │ │ ├── minimatch@2.0.10 
 [INFO] │ │ ├── shelljs@0.3.0 
@@ -701,7 +683,7 @@ Build date: 2017-04-06 15:38:16
 [INFO] │ │ │ ├── indent-string@2.1.0 
 [INFO] │ │ │ └── strip-indent@1.0.1 
 [INFO] │ │ └── trim-newlines@1.0.0 
-[INFO] │ ├── nan@2.6.1 
+[INFO] │ ├── nan@2.6.2 
 [INFO] │ ├─┬ node-gyp@3.6.0 
 [INFO] │ │ ├── fstream@1.0.11 
 [INFO] │ │ ├── glob@7.1.1 
@@ -725,7 +707,7 @@ Build date: 2017-04-06 15:38:16
 [INFO] │ │ ├─┬ combined-stream@1.0.5 
 [INFO] │ │ │ └── delayed-stream@1.0.0 
 [INFO] │ │ ├── forever-agent@0.6.1 
-[INFO] │ │ ├─┬ form-data@2.1.2 
+[INFO] │ │ ├─┬ form-data@2.1.4 
 [INFO] │ │ │ └── asynckit@0.4.0 
 [INFO] │ │ ├─┬ har-validator@2.0.6 
 [INFO] │ │ │ └── commander@2.9.0 
@@ -741,7 +723,7 @@ Build date: 2017-04-06 15:38:16
 [INFO] │ │ │ │ ├── extsprintf@1.0.2 
 [INFO] │ │ │ │ ├── json-schema@0.2.3 
 [INFO] │ │ │ │ └── verror@1.3.6 
-[INFO] │ │ │ └─┬ sshpk@1.11.0 
+[INFO] │ │ │ └─┬ sshpk@1.13.0 
 [INFO] │ │ │   ├── asn1@0.2.3 
 [INFO] │ │ │   ├── assert-plus@1.0.0 
 [INFO] │ │ │   ├── bcrypt-pbkdf@1.0.1 
@@ -940,7 +922,7 @@ Build date: 2017-04-06 15:38:16
 [INFO] │   ├── y18n@3.2.1 
 [INFO] │   └─┬ yargs-parser@2.4.1 
 [INFO] │     └── camelcase@3.0.0 
-[INFO] ├── postcss-flexbugs-fixes@2.1.0 
+[INFO] ├── postcss-flexbugs-fixes@2.1.1 
 [INFO] ├─┬ shelljs@0.7.7 
 [INFO] │ ├── glob@7.1.1 
 [INFO] │ ├── interpret@1.0.2 
@@ -959,7 +941,7 @@ Build date: 2017-04-06 15:38:16
 [INFO] │   ├── is-finite@1.0.2 
 [INFO] │   ├── parse-ms@1.0.1 
 [INFO] │   └── plur@1.0.0 
-[INFO] └─┬ uglify-js@2.8.21 
+[INFO] └─┬ uglify-js@2.8.22 
 [INFO]   ├── uglify-to-browserify@1.0.2 
 [INFO]   └─┬ yargs@3.10.0 
 [INFO]     ├── camelcase@1.2.1 
@@ -1038,16 +1020,16 @@ Build date: 2017-04-06 15:38:16
 [INFO] Done.
 [INFO] 
 [INFO] 
-[INFO] Execution Time (2017-04-06 15:44:45 UTC+2)
-[INFO] exec:sass             2.2s  ▇▇▇▇▇▇▇▇ 18%
-[INFO] exec:sass-docs       916ms  ▇▇▇▇ 8%
-[INFO] exec:postcss            2s  ▇▇▇▇▇▇▇ 16%
-[INFO] exec:clean-css          2s  ▇▇▇▇▇▇▇ 17%
-[INFO] exec:clean-css-docs  885ms  ▇▇▇ 7%
-[INFO] babel:dev             1.7s  ▇▇▇▇▇▇ 14%
-[INFO] babel:dist           945ms  ▇▇▇▇ 8%
-[INFO] exec:uglify           1.6s  ▇▇▇▇▇▇ 13%
-[INFO] Total 12.2s
+[INFO] Execution Time (2017-04-13 12:08:58 UTC+2)
+[INFO] exec:sass             1.6s  ▇▇▇▇▇▇▇▇ 18%
+[INFO] exec:sass-docs       740ms  ▇▇▇▇ 8%
+[INFO] exec:postcss          1.4s  ▇▇▇▇▇▇▇ 16%
+[INFO] exec:clean-css        1.5s  ▇▇▇▇▇▇▇ 16%
+[INFO] exec:clean-css-docs  691ms  ▇▇▇▇ 8%
+[INFO] babel:dev             1.2s  ▇▇▇▇▇▇ 13%
+[INFO] babel:dist           712ms  ▇▇▇▇ 8%
+[INFO] exec:uglify           1.2s  ▇▇▇▇▇▇ 13%
+[INFO] Total 9.1s
 [INFO] 
 [INFO] 
 [INFO] --- maven-resources-plugin:2.7:resources (default-resources) @ tobago-theme-scarborough ---
@@ -1089,7 +1071,7 @@ main:
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
-[INFO] Total time: 06:40 min
-[INFO] Finished at: 2017-04-06T15:44:58+02:00
-[INFO] Final Memory: 37M/533M
+[INFO] Total time: 01:38 min
+[INFO] Finished at: 2017-04-13T12:09:08+02:00
+[INFO] Final Memory: 35M/516M
 [INFO] ------------------------------------------------------------------------
