@@ -185,7 +185,7 @@ public class SheetRenderer extends RendererBase {
     writer.startElement(HtmlElements.DIV);
     writer.writeIdAttribute(sheetId);
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, sheet);
-    writer.writeClassAttribute(Classes.create(sheet), sheet.getCustomClass());
+    writer.writeClassAttribute(TobagoClass.SHEET, sheet.getCustomClass());
     writer.writeStyleAttribute(sheet.getStyle());
     final UIComponent facetReload = ComponentUtils.getFacet(sheet, Facets.reload);
     if (facetReload != null && facetReload instanceof UIReload && facetReload.isRendered()) {
@@ -269,7 +269,7 @@ public class SheetRenderer extends RendererBase {
 
     if (sheet.isPagingVisible()) {
       writer.startElement(HtmlElements.FOOTER);
-      writer.writeClassAttribute(Classes.create(sheet, "footer"));
+      writer.writeClassAttribute(TobagoClass.SHEET__FOOTER);
 
       // show row range
       final Markup showRowRange = markupForLeftCenterRight(sheet.getShowRowRange());
@@ -285,7 +285,7 @@ public class SheetRenderer extends RendererBase {
         writer.writeAttribute(HtmlAttributes.TITLE,
             TobagoResourceBundle.getString(facesContext, "sheetPagingInfoRowPagingTip"), true);
         writer.startElement(HtmlElements.SPAN);
-        writer.writeClassAttribute(Classes.create(sheet, "pagingText"), BootstrapClass.PAGE_LINK);
+        writer.writeClassAttribute(TobagoClass.SHEET__PAGING_TEXT, BootstrapClass.PAGE_LINK);
         if (sheet.getRowCount() != 0) {
           final Locale locale = facesContext.getViewRoot().getLocale();
           final int first = sheet.getFirst() + 1;
@@ -380,7 +380,7 @@ public class SheetRenderer extends RendererBase {
         writer.startElement(HtmlElements.LI);
         writer.writeClassAttribute(BootstrapClass.PAGE_ITEM);
         writer.startElement(HtmlElements.SPAN);
-        writer.writeClassAttribute(Classes.create(sheet, "pagingText"), BootstrapClass.PAGE_LINK);
+        writer.writeClassAttribute(TobagoClass.SHEET__PAGING_TEXT, BootstrapClass.PAGE_LINK);
         writer.writeAttribute(HtmlAttributes.TITLE,
             TobagoResourceBundle.getString(facesContext, "sheetPagingInfoPagePagingTip"), true);
         if (sheet.getRowCount() != 0) {
@@ -451,7 +451,7 @@ public class SheetRenderer extends RendererBase {
       final String expandedId = sheetId + ComponentUtils.SUB_SEPARATOR + AbstractUIData.SUFFIX_EXPANDED;
       writer.writeNameAttribute(expandedId);
       writer.writeIdAttribute(expandedId);
-      writer.writeClassAttribute(Classes.create(sheet, AbstractUIData.SUFFIX_EXPANDED));
+      writer.writeClassAttribute(TobagoClass.SHEET__EXPANDED);
       writer.writeAttribute(HtmlAttributes.VALUE, expandedValue.toString(), false);
       writer.endElement(HtmlElements.INPUT);
     }
@@ -496,7 +496,7 @@ public class SheetRenderer extends RendererBase {
 
     writer.startElement(HtmlElements.DIV);
     writer.writeIdAttribute(sheetId + ComponentUtils.SUB_SEPARATOR + "data_div");
-    writer.writeClassAttribute(Classes.create(sheet, "body"));
+    writer.writeClassAttribute(TobagoClass.SHEET__BODY);
 
     writer.startElement(HtmlElements.TABLE);
     writer.writeAttribute(HtmlAttributes.CELLSPACING, "0", false);
@@ -799,7 +799,7 @@ public class SheetRenderer extends RendererBase {
             } else {
               align = null;
             }
-            writer.writeClassAttribute(Classes.create(sheet, "headerCell"), column.getCustomClass(), align);
+            writer.writeClassAttribute(TobagoClass.SHEET__HEADER_CELL, column.getCustomClass(), align);
             writer.writeStyleAttribute(column.getStyle());
             writer.startElement(HtmlElements.SPAN);
             Icons sorterIcon = null;
@@ -899,7 +899,7 @@ public class SheetRenderer extends RendererBase {
     writer.startElement(HtmlElements.TH);
     writer.writeClassAttribute(Classes.create(sheet, "headerCell", Markup.FILLER));
     writer.startElement(HtmlElements.SPAN);
-    writer.writeClassAttribute(Classes.create(sheet, "header"));
+    writer.writeClassAttribute(TobagoClass.SHEET__HEADER);
     final Style headerStyle = new Style();
     headerStyle.setHeight(Measure.valueOf(14)); // XXX todo
     writer.writeStyleAttribute(headerStyle);
@@ -1011,7 +1011,7 @@ public class SheetRenderer extends RendererBase {
   private void encodeResizing(final TobagoResponseWriter writer, final AbstractUISheet sheet, final int columnIndex)
       throws IOException {
     writer.startElement(HtmlElements.SPAN);
-    writer.writeClassAttribute(Classes.create(sheet, "headerResize"));
+    writer.writeClassAttribute(TobagoClass.SHEET__HEADER_RESIZE);
     writer.writeAttribute(DataAttributes.COLUMN_INDEX, Integer.toString(columnIndex), false);
     writer.write("&nbsp;&nbsp;"); // is needed for IE
     writer.endElement(HtmlElements.SPAN);

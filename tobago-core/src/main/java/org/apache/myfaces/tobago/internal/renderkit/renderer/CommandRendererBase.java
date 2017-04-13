@@ -33,7 +33,6 @@ import org.apache.myfaces.tobago.internal.util.JsonUtils;
 import org.apache.myfaces.tobago.internal.util.RenderUtils;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
-import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.CssItem;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.Arias;
@@ -124,7 +123,7 @@ public abstract class CommandRendererBase extends DecodingCommandRendererBase {
     cssItems.add(command.getCustomClass());
 
     writer.writeClassAttribute(
-        Classes.create(command),
+        getRendererCssClass(),
         null,
         cssItems.toArray(new CssItem[cssItems.size()]));
 
@@ -225,6 +224,8 @@ public abstract class CommandRendererBase extends DecodingCommandRendererBase {
   protected void addOuterCssItems(final FacesContext facesContext, final AbstractUICommand command,
                                   final List<CssItem> collected) {
   }
+
+  abstract protected TobagoClass getRendererCssClass();
 
   protected void addCssItems(final FacesContext facesContext, final AbstractUICommand command,
                              final List<CssItem> collected) {

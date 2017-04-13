@@ -22,18 +22,18 @@ package org.apache.myfaces.tobago.internal.renderkit.renderer;
 import org.apache.myfaces.tobago.component.UITreeNode;
 import org.apache.myfaces.tobago.internal.component.AbstractUIData;
 import org.apache.myfaces.tobago.internal.component.AbstractUITree;
+import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
+import org.apache.myfaces.tobago.internal.util.RenderUtils;
 import org.apache.myfaces.tobago.model.ExpandedState;
 import org.apache.myfaces.tobago.model.Selectable;
 import org.apache.myfaces.tobago.model.SelectedState;
 import org.apache.myfaces.tobago.model.TreePath;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
-import org.apache.myfaces.tobago.renderkit.css.Classes;
+import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
-import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
-import org.apache.myfaces.tobago.internal.util.RenderUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import org.slf4j.Logger;
@@ -86,7 +86,7 @@ public class TreeRenderer extends RendererBase {
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
     writer.startElement(HtmlElements.DIV);
-    writer.writeClassAttribute(Classes.create(tree), tree.getCustomClass());
+    writer.writeClassAttribute(TobagoClass.TREE, tree.getCustomClass());
     writer.writeStyleAttribute(tree.getStyle());
     writer.writeIdAttribute(clientId);
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, tree);
@@ -133,7 +133,7 @@ public class TreeRenderer extends RendererBase {
     final String selectedId = clientId + ComponentUtils.SUB_SEPARATOR + AbstractUITree.SUFFIX_SELECTED;
     writer.writeNameAttribute(selectedId);
     writer.writeIdAttribute(selectedId);
-    writer.writeClassAttribute(Classes.create(tree, AbstractUITree.SUFFIX_SELECTED));
+    writer.writeClassAttribute(TobagoClass.TREE__SELECTED);
     writer.writeAttribute(HtmlAttributes.VALUE, selectedValue.toString(), false);
     writer.endElement(HtmlElements.INPUT);
 
@@ -142,7 +142,7 @@ public class TreeRenderer extends RendererBase {
     final String expandedId = clientId + ComponentUtils.SUB_SEPARATOR + AbstractUIData.SUFFIX_EXPANDED;
     writer.writeNameAttribute(expandedId);
     writer.writeIdAttribute(expandedId);
-    writer.writeClassAttribute(Classes.create(tree, AbstractUIData.SUFFIX_EXPANDED));
+    writer.writeClassAttribute(TobagoClass.TREE__EXPANDED);
     writer.writeAttribute(HtmlAttributes.VALUE, expandedValue.toString(), false);
     writer.endElement(HtmlElements.INPUT);
 

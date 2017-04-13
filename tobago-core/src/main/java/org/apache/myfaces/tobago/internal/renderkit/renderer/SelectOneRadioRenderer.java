@@ -26,7 +26,6 @@ import org.apache.myfaces.tobago.internal.util.ObjectUtils;
 import org.apache.myfaces.tobago.internal.util.RenderUtils;
 import org.apache.myfaces.tobago.internal.util.SelectItemUtils;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
-import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.CssItem;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
@@ -63,7 +62,7 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
     }
     writer.writeStyleAttribute(select.getStyle());
     writer.writeClassAttribute(
-        Classes.create(select),
+        TobagoClass.SELECT_ONE_RADIO,
         inline ? TobagoClass.SELECT_ONE_RADIO__INLINE : null,
         select.getCustomClass());
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, select);

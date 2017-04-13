@@ -28,8 +28,8 @@ import org.apache.myfaces.tobago.internal.util.JsonUtils;
 import org.apache.myfaces.tobago.internal.util.PartUtils;
 import org.apache.myfaces.tobago.internal.util.RenderUtils;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
-import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.Icons;
+import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlButtonTypes;
@@ -121,7 +121,7 @@ public class FileRenderer extends MessageLayoutRendererBase implements Component
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
     writer.startElement(HtmlElements.DIV);
-    writer.writeClassAttribute(Classes.create(file), file.getCustomClass());
+    writer.writeClassAttribute(TobagoClass.FILE, file.getCustomClass());
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, file);
     writer.writeStyleAttribute(file.getStyle());
 
@@ -134,7 +134,7 @@ public class FileRenderer extends MessageLayoutRendererBase implements Component
     writer.writeAttribute(HtmlAttributes.TABINDEX, -1);
     writer.writeAttribute(HtmlAttributes.DISABLED, file.isDisabled() || file.isReadonly());
     writer.writeAttribute(HtmlAttributes.READONLY, file.isReadonly());
-    writer.writeClassAttribute(Classes.create(file, "pretty"), BootstrapClass.FORM_CONTROL);
+    writer.writeClassAttribute(TobagoClass.FILE__PRETTY, BootstrapClass.FORM_CONTROL);
     // TODO Focus
     //HtmlRendererUtils.renderFocus(clientId, file.isFocus(), ComponentUtils.isError(file), facesContext, writer);
     writer.endElement(HtmlElements.INPUT);
@@ -146,7 +146,7 @@ public class FileRenderer extends MessageLayoutRendererBase implements Component
     writer.writeAttribute(HtmlAttributes.ACCEPT, accept, true);
     writer.writeAttribute(HtmlAttributes.TABINDEX, -1);
     writer.writeIdAttribute(fieldId);
-    writer.writeClassAttribute(Classes.create(file, "real"));
+    writer.writeClassAttribute(TobagoClass.FILE__REAL);
     writer.writeNameAttribute(clientId);
     String multiFormat = TobagoResourceBundle.getString(facesContext, "tobago.file.multiFormat");
     writer.writeAttribute(DataAttributes.dynamic("tobago-file-multi-format"), multiFormat, true);

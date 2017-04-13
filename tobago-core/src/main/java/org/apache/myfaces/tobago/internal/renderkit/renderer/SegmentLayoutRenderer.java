@@ -26,7 +26,7 @@ import org.apache.myfaces.tobago.internal.component.AbstractUISegmentLayout;
 import org.apache.myfaces.tobago.internal.util.RenderUtils;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
-import org.apache.myfaces.tobago.renderkit.css.Classes;
+import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import org.slf4j.Logger;
@@ -56,7 +56,7 @@ public class SegmentLayoutRenderer extends RendererBase {
 
     writer.startElement(HtmlElements.DIV);
 //    writer.writeClassAttribute(BootstrapClass.FORM_HORIZONTAL, BootstrapClass.CONTAINER_FLUID);
-    writer.writeClassAttribute(Classes.create(layout), BootstrapClass.ROW);
+    writer.writeClassAttribute(TobagoClass.SEGMENT_LAYOUT, BootstrapClass.ROW);
 //    writer.writeClassAttribute(Classes.create(layout), BootstrapClass.FORM_GROUP);
     writer.writeIdAttribute(layout.getClientId(facesContext));
   }

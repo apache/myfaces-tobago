@@ -23,7 +23,7 @@ import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.UILabel;
 import org.apache.myfaces.tobago.component.UISeparator;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
-import org.apache.myfaces.tobago.renderkit.css.Classes;
+import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
@@ -45,13 +45,13 @@ public class SeparatorRenderer extends RendererBase {
     if (label != null) {
       writer.startElement(HtmlElements.P);
       writer.writeIdAttribute(clientId);
-      writer.writeClassAttribute(Classes.create(separator), separator.getCustomClass());
+      writer.writeClassAttribute(TobagoClass.SEPARATOR, separator.getCustomClass());
       writer.writeText(label);
       writer.endElement(HtmlElements.P);
     } else {
       writer.startElement(HtmlElements.HR);
       writer.writeIdAttribute(clientId);
-      writer.writeClassAttribute(Classes.create(separator), separator.getCustomClass());
+      writer.writeClassAttribute(TobagoClass.SEPARATOR, separator.getCustomClass());
       writer.endElement(HtmlElements.HR);
     }
   }

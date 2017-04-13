@@ -25,8 +25,8 @@ import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
-import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.FontAwesomeIconEncoder;
+import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
@@ -60,7 +60,7 @@ public class ImageRenderer extends RendererBase {
         writer.writeAttribute(HtmlAttributes.TITLE, title, true);
       }
       writer.writeClassAttribute(
-          Classes.create(image),
+          TobagoClass.IMAGE,
           isDisabled(image) ? BootstrapClass.DISABLED : null,
           image.getCustomClass());
       writer.writeStyleAttribute(image.getStyle());

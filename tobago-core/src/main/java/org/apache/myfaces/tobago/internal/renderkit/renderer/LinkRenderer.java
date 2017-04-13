@@ -19,5 +19,11 @@
 
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
+import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
+
 public class LinkRenderer extends CommandRendererBase {
+
+  protected TobagoClass getRendererCssClass() {
+    return TobagoClass.LINK;
+  }
 }

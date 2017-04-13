@@ -40,6 +40,7 @@ import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
+import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
@@ -149,7 +150,7 @@ public class TabGroupRenderer extends RendererBase implements ComponentSystemEve
 
     writer.startElement(HtmlElements.DIV);
     writer.writeIdAttribute(clientId);
-    writer.writeClassAttribute(Classes.create(tabGroup), tabGroup.getCustomClass());
+    writer.writeClassAttribute(TobagoClass.TAB_GROUP, tabGroup.getCustomClass());
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, tabGroup);
     writer.writeStyleAttribute(tabGroup.getStyle());
     writer.writeAttribute(HtmlAttributes.SWITCHTYPE, switchType.name(), false);
@@ -210,7 +211,7 @@ public class TabGroupRenderer extends RendererBase implements ComponentSystemEve
       throws IOException {
 
     writer.startElement(HtmlElements.UL);
-    writer.writeClassAttribute(Classes.create(tabGroup, "header"), BootstrapClass.NAV, BootstrapClass.NAV_TABS);
+    writer.writeClassAttribute(TobagoClass.TAB_GROUP__HEADER, BootstrapClass.NAV, BootstrapClass.NAV_TABS);
     writer.writeAttribute(HtmlAttributes.ROLE, HtmlRoleValues.TABLIST.toString(), false);
     final CommandMap tabGroupMap = RenderUtils.getBehaviorCommands(facesContext, tabGroup);
 
@@ -315,7 +316,7 @@ public class TabGroupRenderer extends RendererBase implements ComponentSystemEve
           }
 
           writer.startElement(HtmlElements.DIV);
-          writer.writeClassAttribute(Classes.create(tab, "content"),
+          writer.writeClassAttribute(TobagoClass.TAB__CONTENT,
               BootstrapClass.TAB_PANE, index == activeIndex ? BootstrapClass.ACTIVE : null);
           writer.writeAttribute(HtmlAttributes.ROLE, HtmlRoleValues.TABPANEL.toString(), false);
           writer.writeIdAttribute(getTabPanelId(facesContext, (UITab) tab));

@@ -110,4 +110,9 @@ public class DateRenderer extends InRenderer {
 
     writer.endElement(HtmlElements.DIV);
   }
+
+  @Override
+  protected TobagoClass getRendererCssClass() {
+    return TobagoClass.DATE;
+  }
 }

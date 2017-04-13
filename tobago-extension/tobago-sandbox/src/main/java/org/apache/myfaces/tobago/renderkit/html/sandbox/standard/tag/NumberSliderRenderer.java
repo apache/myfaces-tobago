@@ -78,29 +78,29 @@ public class NumberSliderRenderer extends RendererBase {
     writer.startElement(HtmlElements.TABLE);
     writer.writeAttribute(HtmlAttributes.ROLE, HtmlRoleValues.PRESENTATION.toString(), false);
     writer.writeIdAttribute(id);
-    writer.writeClassAttribute(Classes.create(slider), slider.getCustomClass());
+    writer.writeClassAttribute(/*Classes.create(slider), */slider.getCustomClass());
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, slider);
     writer.writeStyleAttribute(slider.getStyle());
     //writer.writeAttribute(HtmlAttributes.border,"1",false);
 
     writer.startElement(HtmlElements.TR);
     writer.startElement(HtmlElements.TD);
-    writer.writeClassAttribute(Classes.create(slider, "min"));
+//    writer.writeClassAttribute(Classes.create(slider, "min"));
 
     final Style widthStyle = new Style();
 //    widthStyle.setWidth(Measure.valueOf(sliderWidth / 2));
     writer.writeStyleAttribute(widthStyle);
     writer.startElement(HtmlElements.SPAN);
-    writer.writeClassAttribute(Classes.create(slider, "min"));
+//    writer.writeClassAttribute(Classes.create(slider, "min"));
     writer.write(Integer.toString(min));
     writer.endElement(HtmlElements.SPAN);
 
     writer.endElement(HtmlElements.TD);
     writer.startElement(HtmlElements.TD);
-    writer.writeClassAttribute(Classes.create(slider, "max"));
+//    writer.writeClassAttribute(Classes.create(slider, "max"));
     writer.writeStyleAttribute(widthStyle);
     writer.startElement(HtmlElements.SPAN);
-    writer.writeClassAttribute(Classes.create(slider, "max"));
+//    writer.writeClassAttribute(Classes.create(slider, "max"));
     writer.write(Integer.toString(max));
     writer.endElement(HtmlElements.SPAN);
     writer.endElement(HtmlElements.TD);
@@ -108,10 +108,10 @@ public class NumberSliderRenderer extends RendererBase {
     // the input field starts here
     writer.startElement(HtmlElements.TD);
     writer.writeAttribute(HtmlAttributes.ROWSPAN, "2", false);
-    writer.writeClassAttribute(Classes.create(slider, "td"));
+//    writer.writeClassAttribute(Classes.create(slider, "td"));
 
     writer.startElement(HtmlElements.INPUT);
-    writer.writeClassAttribute(Classes.create(slider, "input"));
+//    writer.writeClassAttribute(Classes.create(slider, "input"));
 //    widthStyle.setWidth(Measure.valueOf(inputWidth));
     writer.writeStyleAttribute(widthStyle);
     final String inputIdAndName = getIdForInputField(facesContext, slider);
@@ -132,7 +132,7 @@ public class NumberSliderRenderer extends RendererBase {
 
     //track
     writer.startElement(HtmlElements.DIV);
-    writer.writeClassAttribute(Classes.create(slider, "slider"));
+//    writer.writeClassAttribute(Classes.create(slider, "slider"));
     writer.writeIdAttribute(getIdForSliderTrack(facesContext, slider));
 
     // handle

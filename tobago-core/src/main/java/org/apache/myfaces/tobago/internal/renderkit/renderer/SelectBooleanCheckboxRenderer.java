@@ -26,8 +26,8 @@ import org.apache.myfaces.tobago.internal.util.JsonUtils;
 import org.apache.myfaces.tobago.internal.util.RenderUtils;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
-import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.CssItem;
+import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
@@ -91,7 +91,8 @@ public class SelectBooleanCheckboxRenderer extends MessageLayoutRendererBase {
     final List<CssItem> outerCssItems = new ArrayList<CssItem>();
     addOuterCssItems(facesContext, select, outerCssItems);
     outerCssItems.add(select.getCustomClass());
-    writer.writeClassAttribute(Classes.create(select),
+    writer.writeClassAttribute(
+        TobagoClass.SELECT_BOOLEAN_CHECKBOX,
         disabled ? BootstrapClass.DISABLED : null,
         outerCssItems.toArray(new CssItem[outerCssItems.size()]));
 

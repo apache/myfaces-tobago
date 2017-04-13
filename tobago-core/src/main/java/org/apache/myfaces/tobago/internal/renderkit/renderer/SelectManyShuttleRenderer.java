@@ -20,16 +20,16 @@
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
 import org.apache.myfaces.tobago.component.UISelectManyShuttle;
+import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
+import org.apache.myfaces.tobago.internal.util.JsonUtils;
+import org.apache.myfaces.tobago.internal.util.RenderUtils;
+import org.apache.myfaces.tobago.internal.util.SelectItemUtils;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
-import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.Icons;
+import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlButtonTypes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
-import org.apache.myfaces.tobago.internal.util.JsonUtils;
-import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
-import org.apache.myfaces.tobago.internal.util.RenderUtils;
-import org.apache.myfaces.tobago.internal.util.SelectItemUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
@@ -47,7 +47,7 @@ public class SelectManyShuttleRenderer extends SelectManyRendererBase {
     final String clientId = select.getClientId(facesContext);
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
     writer.startElement(HtmlElements.DIV);
-    writer.writeClassAttribute(Classes.create(select), select.getCustomClass());
+    writer.writeClassAttribute(TobagoClass.SELECT_MANY_SHUTTLE, select.getCustomClass());
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, select);
     final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, select);
     if (title != null) {
@@ -61,7 +61,7 @@ public class SelectManyShuttleRenderer extends SelectManyRendererBase {
     final String unselectedLabel = select.getUnselectedLabel();
     if (unselectedLabel != null) {
       writer.startElement(HtmlElements.DIV);
-      writer.writeClassAttribute(Classes.create(select, "unselectedLabel"));
+      writer.writeClassAttribute(TobagoClass.SELECT_MANY_SHUTTLE__UNSELECTED_LABEL);
       writer.write(unselectedLabel);
       writer.endElement(HtmlElements.DIV);
     }
@@ -77,7 +77,7 @@ public class SelectManyShuttleRenderer extends SelectManyRendererBase {
     // TODO tabIndex
     writer.writeAttribute(HtmlAttributes.TABINDEX, select.getTabIndex());
 
-    writer.writeClassAttribute(Classes.create(select, "unselected"), BootstrapClass.FORM_CONTROL);
+    writer.writeClassAttribute(TobagoClass.SELECT_MANY_SHUTTLE__UNSELECTED, BootstrapClass.FORM_CONTROL);
 
     writer.writeAttribute(HtmlAttributes.MULTIPLE, true);
     writer.writeAttribute(HtmlAttributes.SIZE, size);
@@ -88,20 +88,20 @@ public class SelectManyShuttleRenderer extends SelectManyRendererBase {
 
     writer.endElement(HtmlElements.SELECT);
     writer.startElement(HtmlElements.DIV);
-    writer.writeClassAttribute(Classes.create(select, "toolBar"));
+    writer.writeClassAttribute(TobagoClass.SELECT_MANY_SHUTTLE__TOOL_BAR);
     writer.startElement(HtmlElements.DIV);
     writer.endElement(HtmlElements.DIV);
-    createButton(facesContext, component, writer, disabled | readonly, Icons.ANGLE_DOUBLE_RIGHT, "addAll");
-    createButton(facesContext, component, writer, disabled | readonly, Icons.ANGLE_RIGHT, "add");
-    createButton(facesContext, component, writer, disabled | readonly, Icons.ANGLE_LEFT, "remove");
-    createButton(facesContext, component, writer, disabled | readonly, Icons.ANGLE_DOUBLE_LEFT, "removeAll");
+    createButton(facesContext, component, writer, disabled | readonly, Icons.ANGLE_DOUBLE_RIGHT, "addAll", TobagoClass.SELECT_MANY_SHUTTLE__ADD_ALL);
+    createButton(facesContext, component, writer, disabled | readonly, Icons.ANGLE_RIGHT, "add", TobagoClass.SELECT_MANY_SHUTTLE__ADD);
+    createButton(facesContext, component, writer, disabled | readonly, Icons.ANGLE_LEFT, "remove", TobagoClass.SELECT_MANY_SHUTTLE__REMOVE);
+    createButton(facesContext, component, writer, disabled | readonly, Icons.ANGLE_DOUBLE_LEFT, "removeAll", TobagoClass.SELECT_MANY_SHUTTLE__REMOVE_ALL);
     writer.startElement(HtmlElements.DIV);
     writer.endElement(HtmlElements.DIV);
     writer.endElement(HtmlElements.DIV);
     final String selectedLabel = select.getSelectedLabel();
     if (selectedLabel != null) {
       writer.startElement(HtmlElements.DIV);
-      writer.writeClassAttribute(Classes.create(select, "selectedLabel"));
+      writer.writeClassAttribute(TobagoClass.SELECT_MANY_SHUTTLE__SELECTED_LABEL);
       writer.write(selectedLabel);
       writer.endElement(HtmlElements.DIV);
     }
@@ -113,14 +113,14 @@ public class SelectManyShuttleRenderer extends SelectManyRendererBase {
     writer.writeAttribute(HtmlAttributes.DISABLED, disabled);
     writer.writeAttribute(HtmlAttributes.READONLY, readonly);
     writer.writeAttribute(HtmlAttributes.TABINDEX, select.getTabIndex());
-    writer.writeClassAttribute(Classes.create(select, "selected"), BootstrapClass.FORM_CONTROL);
+    writer.writeClassAttribute(TobagoClass.SELECT_MANY_SHUTTLE__SELECTED, BootstrapClass.FORM_CONTROL);
     writer.writeAttribute(HtmlAttributes.MULTIPLE, true);
     writer.writeAttribute(HtmlAttributes.SIZE, size);
     HtmlRendererUtils.renderSelectItems(select, items, values, submittedValues, true, writer, facesContext);
 
     writer.endElement(HtmlElements.SELECT);
     writer.startElement(HtmlElements.SELECT);
-    writer.writeClassAttribute(Classes.create(component, "hidden"));
+    writer.writeClassAttribute(TobagoClass.SELECT_MANY_SHUTTLE__HIDDEN);
     final String hiddenClientId = clientId + ComponentUtils.SUB_SEPARATOR + "hidden";
     writer.writeIdAttribute(hiddenClientId);
     writer.writeNameAttribute(clientId);
@@ -139,10 +139,10 @@ public class SelectManyShuttleRenderer extends SelectManyRendererBase {
 
   private void createButton(
       final FacesContext context, final UIComponent component, final TobagoResponseWriter writer,
-      final boolean disabled, final Icons icon, final String sub) throws IOException {
+      final boolean disabled, final Icons icon, final String sub, final TobagoClass cssClass) throws IOException {
     writer.startElement(HtmlElements.BUTTON);
     writer.writeAttribute(HtmlAttributes.TYPE, HtmlButtonTypes.BUTTON);
-    writer.writeClassAttribute(Classes.create(component, sub), BootstrapClass.BTN, BootstrapClass.BTN_SECONDARY);
+    writer.writeClassAttribute(cssClass, BootstrapClass.BTN, BootstrapClass.BTN_SECONDARY);
     writer.writeIdAttribute(component.getClientId(context) + ComponentUtils.SUB_SEPARATOR + sub);
     writer.writeAttribute(HtmlAttributes.DISABLED, disabled);
     writer.writeIcon(icon);

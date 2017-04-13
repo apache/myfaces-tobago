@@ -23,7 +23,7 @@ import org.apache.myfaces.tobago.component.UIMessages;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
-import org.apache.myfaces.tobago.renderkit.css.Classes;
+import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.Arias;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
@@ -77,7 +77,7 @@ public class MessagesRenderer extends RendererBase {
 
     writer.startElement(HtmlElements.DIV);
     writer.writeIdAttribute(messages.getClientId(facesContext));
-    writer.writeClassAttribute(Classes.create(messages), messages.getCustomClass());
+    writer.writeClassAttribute(TobagoClass.MESSAGES, messages.getCustomClass());
 
     FacesMessage.Severity lastSeverity = null;
     boolean first = true;

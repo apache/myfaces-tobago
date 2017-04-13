@@ -22,12 +22,12 @@ package org.apache.myfaces.tobago.internal.renderkit.renderer;
 import org.apache.myfaces.tobago.component.UITreeLabel;
 import org.apache.myfaces.tobago.internal.component.AbstractUIData;
 import org.apache.myfaces.tobago.internal.component.AbstractUITreeListbox;
+import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
-import org.apache.myfaces.tobago.renderkit.css.Classes;
+import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
-import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import org.slf4j.Logger;
@@ -55,7 +55,7 @@ public class TreeLabelRenderer extends RendererBase {
       writer.writeText(text);
     } else {
       writer.startElement(HtmlElements.LABEL);
-      writer.writeClassAttribute(Classes.create(label));
+      writer.writeClassAttribute(TobagoClass.TREE_LABEL);
       HtmlRendererUtils.writeDataAttributes(facesContext, writer, label);
       writer.writeStyleAttribute(label.getStyle());
       final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, label);

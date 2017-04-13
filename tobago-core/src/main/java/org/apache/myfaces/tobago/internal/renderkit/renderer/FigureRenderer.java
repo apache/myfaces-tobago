@@ -21,12 +21,12 @@ package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.internal.component.AbstractUIFigure;
+import org.apache.myfaces.tobago.internal.util.RenderUtils;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
-import org.apache.myfaces.tobago.renderkit.css.Classes;
+import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
-import org.apache.myfaces.tobago.internal.util.RenderUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
@@ -41,7 +41,7 @@ public class FigureRenderer extends RendererBase {
     final AbstractUIFigure figure = (AbstractUIFigure) component;
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
     writer.startElement(HtmlElements.FIGURE);
-    writer.writeClassAttribute(Classes.create(figure), BootstrapClass.FIGURE, figure.getCustomClass());
+    writer.writeClassAttribute(TobagoClass.FIGURE, BootstrapClass.FIGURE, figure.getCustomClass());
     writer.writeStyleAttribute(figure.getStyle());
     final String tip = figure.getTip();
     if (tip != null) {

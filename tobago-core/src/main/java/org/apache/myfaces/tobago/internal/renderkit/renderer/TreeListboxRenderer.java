@@ -25,14 +25,14 @@ import org.apache.myfaces.tobago.component.UITreeNode;
 import org.apache.myfaces.tobago.component.UITreeSelect;
 import org.apache.myfaces.tobago.internal.component.AbstractUITree;
 import org.apache.myfaces.tobago.internal.component.AbstractUITreeListbox;
+import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
+import org.apache.myfaces.tobago.internal.util.RenderUtils;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
-import org.apache.myfaces.tobago.renderkit.css.Classes;
+import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
-import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
-import org.apache.myfaces.tobago.internal.util.RenderUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
@@ -65,7 +65,7 @@ public class TreeListboxRenderer extends RendererBase {
 //    writer.writeStyleAttribute(scrollDivStyle);
 
     writer.startElement(HtmlElements.DIV);
-    writer.writeClassAttribute(Classes.create(tree));
+    writer.writeClassAttribute(TobagoClass.TREE_LISTBOX);
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, tree);
     writer.writeStyleAttribute(tree.getStyle());
 
@@ -107,7 +107,7 @@ public class TreeListboxRenderer extends RendererBase {
     for (int level = 0; level < depth; level++) {
 
       writer.startElement(HtmlElements.DIV);
-      writer.writeClassAttribute(Classes.create(tree, "level"));
+      writer.writeClassAttribute(TobagoClass.TREE_LISTBOX__LEVEL);
 //      final Style levelStyle = new Style();
 //      levelStyle.setLeft(width.multiply(level));
 //      levelStyle.setWidth(width);
@@ -118,7 +118,7 @@ public class TreeListboxRenderer extends RendererBase {
         writer.startElement(HtmlElements.SELECT);
         writer.writeAttribute(HtmlAttributes.DISABLED, true);
         writer.writeAttribute(HtmlAttributes.SIZE, size);
-        writer.writeClassAttribute(Classes.create(tree, "select"));
+        writer.writeClassAttribute(TobagoClass.TREE_LISTBOX__SELECT);
         writer.endElement(HtmlElements.SELECT);
       }
 
@@ -151,7 +151,7 @@ public class TreeListboxRenderer extends RendererBase {
     final String parentId = node.getClientId(facesContext);
 
     writer.startElement(HtmlElements.SELECT);
-    writer.writeClassAttribute(Classes.create(tree, "select"));
+    writer.writeClassAttribute(TobagoClass.TREE_LISTBOX__SELECT);
     if (parentId != null) {
       writer.writeAttribute(DataAttributes.TREE_PARENT, parentId, false);
     }

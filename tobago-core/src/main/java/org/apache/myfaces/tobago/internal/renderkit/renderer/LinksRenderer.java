@@ -23,8 +23,8 @@ import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.internal.component.AbstractUILink;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
-import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.CssItem;
+import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
@@ -39,7 +39,7 @@ public class LinksRenderer extends RendererBase {
 
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
     writer.startElement(HtmlElements.UL);
-    writer.writeClassAttribute(Classes.create(component), getExtraCssItem());
+    writer.writeClassAttribute(TobagoClass.LINKS, getExtraCssItem());
     writer.writeIdAttribute(component.getClientId(facesContext));
   }
 

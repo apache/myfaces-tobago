@@ -21,12 +21,12 @@ package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
 import org.apache.myfaces.tobago.component.UIOut;
 import org.apache.myfaces.tobago.config.TobagoConfig;
-import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
-import org.apache.myfaces.tobago.renderkit.css.Classes;
-import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
-import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.internal.util.RenderUtils;
+import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
+import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
+import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
+import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.sanitizer.SanitizeMode;
 import org.apache.myfaces.tobago.sanitizer.Sanitizer;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
@@ -57,7 +57,7 @@ public class OutRenderer extends LabelLayoutRendererBase {
       writer.startElement(HtmlElements.SPAN);
       HtmlRendererUtils.writeDataAttributes(facesContext, writer, out);
       writer.writeStyleAttribute(out.getStyle());
-      writer.writeClassAttribute(Classes.create(out), BootstrapClass.FORM_CONTROL_STATIC, out.getCustomClass());
+      writer.writeClassAttribute(TobagoClass.OUT, BootstrapClass.FORM_CONTROL_STATIC, out.getCustomClass());
       final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, out);
       if (title != null) {
         writer.writeAttribute(HtmlAttributes.TITLE, title, true);

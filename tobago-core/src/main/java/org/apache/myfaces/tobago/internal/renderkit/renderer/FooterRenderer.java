@@ -20,12 +20,12 @@
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
 import org.apache.myfaces.tobago.component.UIFooter;
+import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
-import org.apache.myfaces.tobago.renderkit.css.Classes;
+import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
-import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
@@ -41,7 +41,7 @@ public class FooterRenderer extends RendererBase {
     writer.startElement(HtmlElements.FOOTER);
     writer.writeIdAttribute(component.getClientId(facesContext));
     writer.writeClassAttribute(
-        Classes.create(footer),
+        TobagoClass.FOOTER,
         footer.isFixed() ? BootstrapClass.FIXED_BOTTOM : null,
         footer.getCustomClass());
     writer.writeAttribute(HtmlAttributes.TITLE, footer.getTip(), true);

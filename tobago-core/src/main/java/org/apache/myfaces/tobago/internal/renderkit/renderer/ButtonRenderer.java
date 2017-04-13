@@ -23,12 +23,17 @@ import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.internal.component.AbstractUICommand;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.CssItem;
+import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 
 import javax.faces.context.FacesContext;
 import java.util.List;
 
 public class ButtonRenderer extends CommandRendererBase {
+
+  protected TobagoClass getRendererCssClass() {
+    return TobagoClass.BUTTON;
+  }
 
   @Override
   protected void addCssItems(

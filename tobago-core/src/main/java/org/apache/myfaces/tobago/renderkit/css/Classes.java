@@ -68,14 +68,6 @@ public final class Classes implements CssItem {
 
   private final String stringValue;
 
-  public static Classes create(final UIComponent component) {
-    return create(component, true, null, null, false);
-  }
-
-  public static Classes create(final UIComponent component, final String sub) {
-    return create(component, true, sub, null, false);
-  }
-
   public static Classes create(final UIComponent component, final Markup explicit) {
     return create(component, true, null, explicit, false);
   }

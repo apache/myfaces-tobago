@@ -26,7 +26,6 @@ import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.internal.util.JsonUtils;
 import org.apache.myfaces.tobago.internal.util.RenderUtils;
 import org.apache.myfaces.tobago.model.CollapseMode;
-import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
@@ -51,7 +50,7 @@ public class PanelRenderer extends PanelRendererBase {
     writer.startElement(HtmlElements.DIV);
     writer.writeIdAttribute(clientId);
     writer.writeClassAttribute(
-        Classes.create(panel),
+        TobagoClass.PANEL,
         panel.getCustomClass(),
         collapsed ? TobagoClass.COLLAPSED : null);
     writer.writeStyleAttribute(panel.getStyle());

@@ -249,7 +249,7 @@ public class PageRenderer extends RendererBase {
 
     writer.startElement(portlet ? HtmlElements.DIV : HtmlElements.BODY);
     writer.writeClassAttribute(
-        portlet ? Classes.create(page, Markup.PORTLET) : Classes.create(page),
+        portlet ? Classes.create(page, Markup.PORTLET) : TobagoClass.PAGE,
         BootstrapClass.CONTAINER_FLUID,
         spread,
         page.getCustomClass());
@@ -368,7 +368,7 @@ public class PageRenderer extends RendererBase {
 
     writer.startElement(HtmlElements.NOSCRIPT);
     writer.startElement(HtmlElements.DIV);
-    writer.writeClassAttribute(Classes.create(page, "noscript"));
+    writer.writeClassAttribute(TobagoClass.PAGE__NOSCRIPT);
     writer.writeText(TobagoResourceBundle.getString(facesContext, "pageNoscript"));
     writer.endElement(HtmlElements.DIV);
     writer.endElement(HtmlElements.NOSCRIPT);

@@ -24,7 +24,6 @@ import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.internal.util.RenderUtils;
 import org.apache.myfaces.tobago.model.CollapseMode;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
-import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
@@ -50,7 +49,7 @@ public class BoxRenderer extends PanelRendererBase {
     writer.startElement(HtmlElements.DIV);
     final boolean collapsed = box.isCollapsed();
     writer.writeClassAttribute(
-        Classes.create(box),
+        TobagoClass.BOX,
         collapsed ? TobagoClass.COLLAPSED : null,
         BootstrapClass.CARD,
         box.getCustomClass());

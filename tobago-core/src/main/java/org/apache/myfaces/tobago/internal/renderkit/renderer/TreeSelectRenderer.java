@@ -23,17 +23,17 @@ import org.apache.myfaces.tobago.component.UITreeSelect;
 import org.apache.myfaces.tobago.internal.component.AbstractUIData;
 import org.apache.myfaces.tobago.internal.component.AbstractUITreeListbox;
 import org.apache.myfaces.tobago.internal.component.AbstractUITreeNodeBase;
+import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
+import org.apache.myfaces.tobago.internal.util.JsonUtils;
+import org.apache.myfaces.tobago.internal.util.RenderUtils;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.model.Selectable;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
-import org.apache.myfaces.tobago.renderkit.css.Classes;
+import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
-import org.apache.myfaces.tobago.internal.util.JsonUtils;
-import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
-import org.apache.myfaces.tobago.internal.util.RenderUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import org.slf4j.Logger;
@@ -106,7 +106,7 @@ public class TreeSelectRenderer extends RendererBase {
     final Selectable selectable = data.getSelectable();
 
     writer.startElement(HtmlElements.SPAN);
-    writer.writeClassAttribute(Classes.create(select));
+    writer.writeClassAttribute(TobagoClass.TREE_SELECT);
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, select);
 
     if (select.isShowCheckbox()
@@ -134,7 +134,7 @@ public class TreeSelectRenderer extends RendererBase {
     final String label = select.getLabel();
     if (StringUtils.isNotEmpty(label)) {
       writer.startElement(HtmlElements.LABEL);
-      writer.writeClassAttribute(Classes.create(select, "label"));
+      writer.writeClassAttribute(TobagoClass.TREE_SELECT__LABEL);
       final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, select);
       if (title != null) {
         writer.writeAttribute(HtmlAttributes.TITLE, title, true);

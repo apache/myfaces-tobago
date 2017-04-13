@@ -30,6 +30,12 @@ $brand-primary: #0275d8 !default;
 $link-color: $brand-primary !default;
 $link-hover-color: darken($link-color, 15%) !default;
 $nav-link-padding: .5em 1em !default;
+$blue: #0275d8 !default;
+$gray-dark: #292b2c !default;
+$gray-lightest: #f7f7f9 !default;
+$dropdown-item-padding-x: 1.5rem !default;
+$dropdown-link-color: $gray-dark !default;
+$dropdown-link-hover-bg: $gray-lightest !default;
 
 /* fix bootstrap ---------------------------------------------------- */
 span.dropdown {
@@ -78,6 +84,10 @@ Todo: check, if this is needed? (It doesn't work with the build system)
   .navbar {
     padding: 0;
   }
+}
+
+/* buttons, links ------------------------------------------------------- */
+.tobago-buttons, .tobago-links {
 }
 
 /* button -------------------------------------------------------------- */
@@ -229,6 +239,10 @@ body {
   justify-content: space-around;
 }
 
+/* flowLayout ---------------------------------------------------------- */
+.tobago-flowLayout {
+}
+
 /* footer -------------------------------------------------------------- */
 
 .tobago-footer {
@@ -294,11 +308,16 @@ table.tobago-gridLayout > tbody > tr > td > * {
 
 /* image ----------------------------------------------------------- */
 
+.tobago-image {
+}
+
 .tobago-image-markup-disabled {
   filter: grayscale(1) blur(2px) contrast(0.5) brightness(1.2);
 }
 
 /* in ----------------------------------------------------------- */
+.tobago-in {
+}
 
 .tobago-in-markup-number {
   text-align: right;
@@ -318,26 +337,31 @@ table.tobago-gridLayout > tbody > tr > td > * {
 }
 
 button {
-  &.tobago-link, &.tobago-linkInsideLinks, &.tobago-treeCommand {
-    color: #0275d8;
+  &.tobago-link:not(.dropdown-item), &.tobago-treeCommand {
+    color: $blue;
     border-width: 0;
     padding: 0;
     background-color: transparent;
     text-align: left;
-  }
-}
 
-button {
-  &.tobago-link, &.tobago-linkInsideLinks, &.tobago-treeCommand {
     &:focus, &:hover {
       color: $link-hover-color;
+      cursor: pointer;
       background-color: transparent;
       outline: none;
+      text-decoration: underline;
     }
   }
-  &.tobago-link, &.tobago-treeCommand {
+
+  &.tobago-link.dropdown-item {
     &:focus, &:hover {
-      text-decoration: underline;
+      cursor: pointer;
+    }
+  }
+
+  &.tobago-link.dropdown-toggle {
+    &:focus, &:hover {
+      text-decoration: none;
     }
   }
 }
@@ -348,7 +372,7 @@ button.tobago-link-markup-disabled, button.tobago-command-markup-disabled {
 }
 
 button.tobago-link-markup-disabled:hover, button.tobago-command-markup-disabled:hover {
-  color: #0275d8;
+  color: $blue;
   text-decoration: none;
 }
 
@@ -428,6 +452,7 @@ a.tobago-messages-button {
 
 /* dropdown-submenu ------------------------------------------------------- */
 .tobago-dropdown-submenu {
+  cursor: pointer;
   position: relative;
   display: inline-block;
   width: 100%;
@@ -446,12 +471,17 @@ a.tobago-messages-button {
     display: none;
   }
 
-  > .tobago-linkInsideCommand {
+  > button.tobago-link:not(.dropdown-item) {
     border-width: 0;
     color: $dropdown-link-color;
     padding: 0;
     background-color: transparent;
     text-align: left;
+
+    &:focus, &:hover {
+      color: $dropdown-link-color;
+      text-decoration: none;
+    }
   }
 }
 
@@ -484,6 +514,10 @@ a.tobago-messages-button {
     -moz-border-radius: 6px 0 6px 6px;
     border-radius: 6px 0 6px 6px;
   }
+}
+
+/* object ----------------------------------------------------------------- */
+.tobago-object {
 }
 
 /* out -------------------------------------------------------------------- */
@@ -573,6 +607,10 @@ span.tobago-out:empty:before {
   margin-bottom: 0;
 }
 
+/* progress ---------------------------------------------------------- */
+.tobago-progress {
+}
+
 /* section ----------------------------------------------------------- */
 
 /* to separate the icon from the rest of the title */
@@ -593,32 +631,25 @@ h6 > .fa:first-child {
 
 /* selectBooleanCheckbox ----------------------------------------------- */
 
-.tobago-selectBooleanCheckbox, .tobago-selectBooleanCheckboxInsideCommand {
+.tobago-selectBooleanCheckbox {
   input {
     margin-right: 0.3em;
     margin-bottom: 0.4ex;
     vertical-align: text-bottom;
   }
-}
 
-.tobago-selectBooleanCheckbox .form-check-label {
-  margin-top: 0.5ex;
-  vertical-align: text-top;
+  .form-check-label:not(.dropdown-item) {
+    margin-top: 0.5ex;
+    vertical-align: text-top;
+  }
 }
 
 /* selectManyCheckbox ----------------------------------------------------------- */
 
-.tobago-selectManyCheckbox {
-  padding-left: 0;
-  list-style: none;
-}
-
-.tobago-selectManyCheckbox, .tobago-selectManyCheckboxInsideCommand {
-  input {
-    margin-right: 0.3em;
-    margin-bottom: 0.4ex;
-    vertical-align: text-bottom;
-  }
+.tobago-selectManyCheckbox input {
+  margin-right: 0.3em;
+  margin-bottom: 0.4ex;
+  vertical-align: text-bottom;
 }
 
 .tobago-selectManyCheckbox-inline {
@@ -626,7 +657,19 @@ h6 > .fa:first-child {
   margin-top: 6px;
 }
 
+/* selectManyListbox ----------------------------------------------------------- */
+.tobago-selectManyListbox {
+}
+
 /* selectManyShuttle ----------------------------------------------------------- */
+
+.tobago-selectManyShuttle-add,
+.tobago-selectManyShuttle-addAll,
+.tobago-selectManyShuttle-remove,
+.tobago-selectManyShuttle-removeAll,
+.tobago-selectManyShuttle-selectedLabel,
+.tobago-selectManyShuttle-unselectedLabel {
+}
 
 .tobago-selectManyShuttle {
   display: flex;
@@ -662,17 +705,10 @@ h6 > .fa:first-child {
 
 /* selectOneRadio ---------------------------------------------------------- */
 
-.tobago-selectOneRadio {
-  padding-left: 0;
-  list-style: none;
-}
-
-.tobago-selectOneRadio, .tobago-selectOneRadioInsideCommand {
-  input {
-    margin-right: 0.3em;
-    margin-bottom: 0.4ex;
-    vertical-align: text-bottom;
-  }
+.tobago-selectOneRadio input {
+  margin-right: 0.3em;
+  margin-bottom: 0.4ex;
+  vertical-align: text-bottom;
 }
 
 .tobago-selectOneRadio-inline {
@@ -682,7 +718,7 @@ h6 > .fa:first-child {
 
 /* selectOneChoice ---------------------------------------------------------- */
 
-.input-group-btn:not(:last-child) > .tobago-selectOneChoiceInsideIn { /* before facet */
+.input-group-btn:not(:last-child) > .tobago-selectOneChoice { /* before facet */
   width: 100%;
   -webkit-appearance: none;
   margin-right: -1px;
@@ -690,12 +726,16 @@ h6 > .fa:first-child {
   border-bottom-right-radius: 0;
 }
 
-.input-group-btn:not(:first-child) > .tobago-selectOneChoiceInsideIn { /* after facet */
+.input-group-btn:not(:first-child) > .tobago-selectOneChoice { /* after facet */
   width: 100%;
   -webkit-appearance: none;
   margin-left: -1px;
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
+}
+
+/* selectOneListbox -------------------------------------------------------- */
+.tobago-selectOneListbox {
 }
 
 /* selectOneRadio, selectManyCheckbox -------------------------------------- */
@@ -753,6 +793,8 @@ p.tobago-separator:after {
 }
 
 /* sheet -------------------------------------------------------------- */
+.tobago-sheet-expanded {
+}
 
 th.tobago-sheet-headerCell {
   font-weight: normal;
@@ -930,6 +972,8 @@ th.tobago-sheet-headerCell .tobago-out {
 }
 
 /* tab / tab-group ----------------------------------------------------------------- */
+.tobago-tab-content {
+}
 
 .tobago-tab {
   display: flex;
@@ -950,6 +994,17 @@ th.tobago-sheet-headerCell .tobago-out {
 
 /* tree ---------------------------------------------------------------------- */
 
+.tobago-tree,
+.tobago-tree-expanded,
+.tobago-tree-selected,
+.tobago-treeLabel,
+.tobago-treeListbox,
+.tobago-treeListbox-level,
+.tobago-treeListbox-select,
+.tobago-treeSelect,
+.tobago-treeSelect-label {
+}
+
 .tobago-treeCommand {
   cursor: pointer;
 }
@@ -958,6 +1013,10 @@ th.tobago-sheet-headerCell .tobago-out {
 
 .tobago-out {
   display: inline-block;
+}
+
+/* textarea --------------------------------------------------------- */
+.tobago-textarea {
 }
 
 /* menuStore -------------------------------------------------------- */
