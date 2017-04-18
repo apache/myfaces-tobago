@@ -97,6 +97,7 @@ public abstract class LabelLayoutRendererBase extends DecodingInputRendererBase 
       throws IOException {
 
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
+    String clientId = component.getClientId(facesContext);
 
     // possible values:
     // - none
@@ -114,13 +115,30 @@ public abstract class LabelLayoutRendererBase extends DecodingInputRendererBase 
       case flexRight:
         divClass = TobagoClass.FLEX_LAYOUT;
         break;
+      case segmentLeft:
+        if (LabelLayout.getSegment(facesContext) == LabelLayout.segmentRight) {
+          clientId += ComponentUtils.SUB_SEPARATOR + "label";
+        }
+        divClass = null;
+        break;
+      case segmentRight:
+        if (LabelLayout.getSegment(facesContext) == LabelLayout.segmentLeft) {
+          clientId += ComponentUtils.SUB_SEPARATOR + "label";
+        }
+        divClass = null;
+        break;
+      case none:
+      case top:
+      case flowLeft:
+      case flowRight:
+      case skip:
       default: // none, top, segmentLeft, segmentRight, flowLeft, flowRight
         divClass = null;
     }
 
 //    if (labelLayout != LabelLayout.none) {
     writer.startElement(HtmlElements.DIV);
-    writer.writeIdAttribute(component.getClientId(facesContext));
+    writer.writeIdAttribute(clientId);
 //    }
 //    writer.writeClassAttribute(divClass, BootstrapClass.maximumSeverity(component));
     // todo: check if BootstrapClass.FORM_GROUP is needed, I've removed it, because of it's margin-bottom: 15px;

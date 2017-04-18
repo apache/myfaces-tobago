@@ -38,3 +38,18 @@ function waitForAjax(waitingDone, executeWhenDone, maxWait) {
     }
   }, 50);
 }
+
+function getDuplicatedIDs() {
+  var duplicatedIDs = [];
+  jQueryFrame('[id]').each(function () {
+    var ids = jQueryFrame('[id="' + this.id + '"]');
+    if (ids.length > 1 && ids[0] == this)
+      duplicatedIDs.push(this.id);
+  });
+  return duplicatedIDs;
+}
+
+QUnit.test("duplicated IDs", function (assert) {
+  var duplicatedIDs = getDuplicatedIDs();
+  assert.equal(duplicatedIDs.length, 0, "duplicated IDs are: " + duplicatedIDs);
+});
