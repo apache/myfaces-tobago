@@ -109,33 +109,31 @@
 
   <tc:section label="Markup">
     <p>The width of the popups can be changed by markups.</p>
-    <tc:section label="Large">
-      <p><code class="language-markup">&lt;tc:popup ... markup="large"></code></p>
-      <tc:button id="showLarge" label="Large Popup" omit="true">
+    <p><code class="language-markup">&lt;tc:popup ... markup="large"></code> or
+      <code class="language-markup">&lt;tc:popup ... markup="small"></code></p>
+    <tc:button id="dropdownButton" label="Open" omit="true">
+      <tc:link id="largePopupLink" label="Large Popup" omit="true">
         <tc:operation name="show" for="largePopup"/>
-      </tc:button>
-      <tc:popup id="largePopup" collapsedMode="hidden" markup="large">
-        <tc:box label="Large">
-          <p>A popup with markup <code>large</code>.</p>
-          <tc:button label="Close" omit="true">
-            <tc:operation name="hide" for="largePopup"/>
-          </tc:button>
-        </tc:box>
-      </tc:popup>
-    </tc:section>
-    <tc:section label="Small">
-      <p><code class="language-markup">&lt;tc:popup ... markup="small"></code></p>
-      <tc:button id="showSmall" label="Small Popup" omit="true">
+      </tc:link>
+      <tc:link id="smallPopupLink" label="Small Popup" omit="true">
         <tc:operation name="show" for="smallPopup"/>
-      </tc:button>
-      <tc:popup id="smallPopup" collapsedMode="hidden" markup="small">
-        <tc:box label="Small">
-          <p>A popup with markup <code>small</code>.</p>
-          <tc:button label="Close" omit="true">
-            <tc:operation name="hide" for="smallPopup"/>
-          </tc:button>
-        </tc:box>
-      </tc:popup>
-    </tc:section>
+      </tc:link>
+    </tc:button>
+    <tc:popup id="largePopup" collapsedMode="hidden" markup="large">
+      <tc:box label="Large">
+        <p>A popup with markup <code>large</code>.</p>
+        <tc:button id="closeLargePopup" label="Close" omit="true">
+          <tc:operation name="hide" for="largePopup"/>
+        </tc:button>
+      </tc:box>
+    </tc:popup>
+    <tc:popup id="smallPopup" collapsedMode="hidden" markup="small">
+      <tc:box label="Small">
+        <p>A popup with markup <code>small</code>.</p>
+        <tc:button id="closeSmallPopup" label="Close" omit="true">
+          <tc:operation name="hide" for="smallPopup"/>
+        </tc:button>
+      </tc:box>
+    </tc:popup>
   </tc:section>
 </ui:composition>

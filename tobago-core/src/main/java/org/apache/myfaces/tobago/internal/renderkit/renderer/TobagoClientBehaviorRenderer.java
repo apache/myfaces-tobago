@@ -27,8 +27,8 @@ import org.apache.myfaces.tobago.internal.component.AbstractUIOperation;
 import org.apache.myfaces.tobago.internal.renderkit.Collapse;
 import org.apache.myfaces.tobago.internal.renderkit.Command;
 import org.apache.myfaces.tobago.internal.renderkit.CommandMap;
-import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.internal.util.RenderUtils;
+import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -42,6 +42,7 @@ import javax.faces.component.behavior.ClientBehaviorContext;
 import javax.faces.context.FacesContext;
 import javax.faces.event.AjaxBehaviorEvent;
 import javax.faces.event.PhaseId;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -182,8 +183,13 @@ public class TobagoClientBehaviorRenderer extends javax.faces.render.ClientBehav
     //// BEGIN
 
     // XXX too complicated
-    final List<AbstractUIOperation> operations =
-        ComponentUtils.findDescendantList(component, AbstractUIOperation.class);
+    final List<AbstractUIOperation> operations = new ArrayList<AbstractUIOperation>();
+    for (final UIComponent child : component.getChildren()) {
+      if (AbstractUIOperation.class.isAssignableFrom(child.getClass())) {
+        operations.add((AbstractUIOperation) child);
+      }
+    }
+
     Collapse collapse = null;
     if (operations.size() > 0) {
       final AbstractUIOperation operation = operations.get(0);

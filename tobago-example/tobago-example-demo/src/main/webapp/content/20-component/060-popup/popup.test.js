@@ -51,7 +51,7 @@ QUnit.test("Open 'Client Popup', press 'Submit' while field is empty. Press 'Can
 
   waitForAjax(function () {
     $messages = jQueryFrame($messages.selector);
-    return $messages.length == 1;
+    return $messages.length === 1;
   }, function () {
     $output = jQueryFrame($output.selector);
     $messages = jQueryFrame($messages.selector);
@@ -86,7 +86,7 @@ QUnit.test("Open 'Client Popup', press 'Submit' while field has content. Press '
 
   waitForAjax(function () {
     $messages = jQueryFrame($messages.selector);
-    return $messages.length == 0;
+    return $messages.length === 0;
   }, function () {
     $output = jQueryFrame($output.selector);
     $messages = jQueryFrame($messages.selector);
@@ -120,7 +120,7 @@ QUnit.test("Open 'Client Popup', press 'Submit & Close' while field is empty.", 
   $submitCloseButton.click();
 
   jQuery("#page\\:testframe").load(function () {
-    if (step == 1) {
+    if (step === 1) {
       $popup = jQueryFrame($popup.selector);
       $output = jQueryFrame($output.selector);
 
@@ -158,4 +158,74 @@ QUnit.test("Open 'Client Popup', press 'Submit & Close' while field has content.
 
     done();
   });
+});
+
+QUnit.test("Open 'Large Popup'.", function (assert) {
+  assert.expect(8);
+
+  var $dropdownContainer = jQueryFrame("#page\\:mainForm\\:dropdownButton");
+  var $dropdownButton = jQueryFrame("#page\\:mainForm\\:dropdownButton\\:\\:command");
+  var $openButton = jQueryFrame("#page\\:mainForm\\:largePopupLink");
+  var $popup = jQueryFrame("#page\\:mainForm\\:largePopup");
+  var $closeButton = jQueryFrame("#page\\:mainForm\\:largePopup\\:closeLargePopup");
+
+  if ($popup.hasClass("show")) {
+    $closeButton.click();
+  }
+  if ($dropdownContainer.hasClass("show")) {
+    $dropdownButton.click();
+  }
+
+  assert.equal($dropdownContainer.hasClass("show"), false);
+  assert.equal($popup.hasClass("show"), false);
+
+  $dropdownButton.click();
+
+  assert.equal($dropdownContainer.hasClass("show"), true);
+  assert.equal($popup.hasClass("show"), false);
+
+  $openButton.click();
+
+  assert.equal($dropdownContainer.hasClass("show"), false);
+  assert.equal($popup.hasClass("show"), true);
+
+  $closeButton.click();
+
+  assert.equal($dropdownContainer.hasClass("show"), false);
+  assert.equal($popup.hasClass("show"), false);
+});
+
+QUnit.test("Open 'Small Popup'.", function (assert) {
+  assert.expect(8);
+
+  var $dropdownContainer = jQueryFrame("#page\\:mainForm\\:dropdownButton");
+  var $dropdownButton = jQueryFrame("#page\\:mainForm\\:dropdownButton\\:\\:command");
+  var $openButton = jQueryFrame("#page\\:mainForm\\:smallPopupLink");
+  var $popup = jQueryFrame("#page\\:mainForm\\:smallPopup");
+  var $closeButton = jQueryFrame("#page\\:mainForm\\:smallPopup\\:closeSmallPopup");
+
+  if ($popup.hasClass("show")) {
+    $closeButton.click();
+  }
+  if ($dropdownContainer.hasClass("show")) {
+    $dropdownButton.click();
+  }
+
+  assert.equal($dropdownContainer.hasClass("show"), false);
+  assert.equal($popup.hasClass("show"), false);
+
+  $dropdownButton.click();
+
+  assert.equal($dropdownContainer.hasClass("show"), true);
+  assert.equal($popup.hasClass("show"), false);
+
+  $openButton.click();
+
+  assert.equal($dropdownContainer.hasClass("show"), false);
+  assert.equal($popup.hasClass("show"), true);
+
+  $closeButton.click();
+
+  assert.equal($dropdownContainer.hasClass("show"), false);
+  assert.equal($popup.hasClass("show"), false);
 });
