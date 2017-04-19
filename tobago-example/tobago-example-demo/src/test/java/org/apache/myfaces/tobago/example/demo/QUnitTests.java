@@ -57,8 +57,10 @@ public class QUnitTests {
   private WebDriver browser;
   @ArquillianResource
   private URL contextPath;
-  @FindByJQuery("#qunit")
-  private WebElement qunit;
+  @FindByJQuery("#qunit-testresult")
+  private WebElement qunitTestresult;
+  @FindByJQuery("#qunit-tests")
+  private WebElement qunitTests;
 
   @Deployment
   public static WebArchive createDeployment() {
@@ -98,86 +100,106 @@ public class QUnitTests {
   }
 
   private void checkQUnitResults(String page) throws InterruptedException {
-    waitForTestCases();
-    List<WebElement> testCases = qunit.findElement(By.id("qunit-tests")).findElements(By.xpath("li"));
+    final boolean timeout = waitForTest(page);
+    List<WebElement> testCases = qunitTests.findElements(By.xpath("li"));
     Assert.assertTrue("There must be at least one test case.", testCases.size() > 0);
 
-    boolean testFailed = false;
+    final String textContent = qunitTests.getAttribute("textContent");
+    boolean testFailed = timeout || (textContent != null && textContent.contains(" msfailed@ "));
     int testCaseCount = 1;
     StringBuilder stringBuilder = new StringBuilder();
+    stringBuilder.append(qunitTestresult.getAttribute("textContent"));
+    stringBuilder.append("\n");
 
-    for (WebElement testCase : testCases) {
-      final String testName = getText(testCase, "test-name");
-      waitForTestCase(testCase, testName);
-      final String testStatus = testCase.getAttribute("class").toUpperCase();
+    if (testFailed) {
+      for (WebElement testCase : testCases) {
+        final String testName = getText(testCase, "test-name");
+        final String testStatus = testCase.getAttribute("class").toUpperCase();
 
-      if (!"PASS".equals(testStatus)) {
-        testFailed = true;
-      }
-
-      stringBuilder.append(testCaseCount++);
-      stringBuilder.append(". ");
-      stringBuilder.append(testStatus);
-      stringBuilder.append(": ");
-      stringBuilder.append(testName);
-      stringBuilder.append(" (");
-      stringBuilder.append(getText(testCase, "runtime"));
-      stringBuilder.append(")\n");
-
-      WebElement assertList = testCase.findElement(By.className("qunit-assert-list"));
-      List<WebElement> asserts = assertList.findElements(By.tagName("li"));
-      int assertCount = 1;
-      for (WebElement assertion : asserts) {
-        final String assertStatus = assertion.getAttribute("class");
-
-        if (!"pass".equals(assertStatus)) {
-          testFailed = true;
-        }
-
-        stringBuilder.append("- ");
-        if (assertCount <= 9) {
-          stringBuilder.append("0");
-        }
-        stringBuilder.append(assertCount++);
+        stringBuilder.append(testCaseCount++);
         stringBuilder.append(". ");
-        stringBuilder.append(assertStatus);
+        stringBuilder.append(testStatus);
         stringBuilder.append(": ");
-        stringBuilder.append(getText(assertion, "test-message"));
-        stringBuilder.append(getText(assertion, "runtime"));
-        stringBuilder.append("\n");
+        stringBuilder.append(testName);
+        stringBuilder.append(" (");
+        stringBuilder.append(getText(testCase, "runtime"));
+        stringBuilder.append(")\n");
 
-        final String assertExpected = getText(assertion, "test-expected");
-        if (!"null".equals(assertExpected)) {
-          stringBuilder.append("-- ");
-          stringBuilder.append(assertExpected);
+        WebElement assertList = testCase.findElement(By.className("qunit-assert-list"));
+        List<WebElement> asserts = assertList.findElements(By.tagName("li"));
+        int assertCount = 1;
+        for (WebElement assertion : asserts) {
+          final String assertStatus = assertion.getAttribute("class");
+
+          stringBuilder.append("- ");
+          if (assertCount <= 9) {
+            stringBuilder.append("0");
+          }
+          stringBuilder.append(assertCount++);
+          stringBuilder.append(". ");
+          stringBuilder.append(assertStatus);
+          stringBuilder.append(": ");
+          stringBuilder.append(getText(assertion, "test-message"));
+          stringBuilder.append(getText(assertion, "runtime"));
           stringBuilder.append("\n");
+
+          final String assertExpected = getText(assertion, "test-expected");
+          if (!"null".equals(assertExpected)) {
+            stringBuilder.append("-- ");
+            stringBuilder.append(assertExpected);
+            stringBuilder.append("\n");
+          }
+          final String assertResult = getText(assertion, "test-actual");
+          if (!"null".equals(assertResult)) {
+            stringBuilder.append("-- ");
+            stringBuilder.append(assertResult);
+            stringBuilder.append("\n");
+          }
+          final String assertSource = getText(assertion, "test-source");
+          if (!"null".equals(assertSource)) {
+            stringBuilder.append("-- ");
+            stringBuilder.append(assertSource);
+            stringBuilder.append("\n");
+          }
         }
-        final String assertResult = getText(assertion, "test-actual");
-        if (!"null".equals(assertResult)) {
-          stringBuilder.append("-- ");
-          stringBuilder.append(assertResult);
-          stringBuilder.append("\n");
-        }
-        final String assertSource = getText(assertion, "test-source");
-        if (!"null".equals(assertSource)) {
-          stringBuilder.append("-- ");
-          stringBuilder.append(assertSource);
-          stringBuilder.append("\n");
-        }
+
+        stringBuilder.append(getText(testCase, "qunit-source"));
+        stringBuilder.append("\n\n");
       }
-
-      stringBuilder.append(getText(testCase, "qunit-source"));
-      stringBuilder.append("\n\n");
     }
 
     if (testFailed) {
-      final String message = stringBuilder.toString();
-      LOG.warn("Test for " + page + " FAILED:\n" + message);
+      final String message = "Tests for " + page + " FAILED:\n" + stringBuilder.toString();
+      LOG.warn(message);
       Assert.fail(message);
     } else {
-      LOG.info("Test for " + page + " PASSED:\n" + stringBuilder.toString());
-      Assert.assertTrue(true);
+      final String message = "Tests for " + page + " PASSED:\n" + stringBuilder.toString();
+      LOG.info(message);
+      Assert.assertTrue(message, true);
     }
+  }
+
+  private boolean waitForTest(String page) throws InterruptedException {
+    long endTime = System.currentTimeMillis() + 90000;
+    String lastStatus = null;
+    while (System.currentTimeMillis() < endTime) {
+      try {
+        String status = qunitTestresult.getAttribute("textContent");
+        if (status == null) {
+          LOG.info(page + " status=null");
+        } else if (!status.equals(lastStatus)) {
+          lastStatus = status;
+          LOG.info(page + " " + status + " (" + (endTime - System.currentTimeMillis()) + "ms left)");
+          if (status.startsWith("Tests completed")) {
+            return false;
+          }
+        }
+      } catch (Exception e) {
+        Thread.sleep(200);
+      }
+    }
+    LOG.warn(page + " timeout");
+    return true;
   }
 
   private String getText(WebElement webElement, String className) {
@@ -186,34 +208,6 @@ public class QUnitTests {
       return elements.get(0).getAttribute("textContent");
     } else {
       return "null";
-    }
-  }
-
-  private void waitForTestCases() throws InterruptedException {
-    long endTime = System.currentTimeMillis() + 20000;
-    boolean testCasesExist = false;
-    while (System.currentTimeMillis() < endTime && !testCasesExist) {
-      try {
-        qunit.findElement(By.id("qunit-tests")).findElements(By.xpath("li"));
-        testCasesExist = true;
-      } catch (Exception e) {
-        LOG.info("test case not started... (" + (endTime - System.currentTimeMillis()) + "ms left)");
-        Thread.sleep(50);
-      }
-    }
-  }
-
-  private void waitForTestCase(WebElement testCase, String testName) throws InterruptedException {
-    long endTime = System.currentTimeMillis() + 20000;
-    boolean testExecuted = false;
-    while (System.currentTimeMillis() < endTime && !testExecuted) {
-      if ("running".equals(testCase.getAttribute("class"))) {
-        LOG.info("test case '" + testName
-            + "' still running... (" + (endTime - System.currentTimeMillis()) + "ms left)");
-        Thread.sleep(50);
-      } else {
-        testExecuted = true;
-      }
     }
   }
 
@@ -248,7 +242,7 @@ public class QUnitTests {
 
     // Test if 'has no exception' test is correct.
     setupBrowser("error/exception", true);
-    results = qunit.findElement(By.id("qunit-tests")).findElements(By.xpath("li"));
+    results = qunitTests.findElements(By.xpath("li"));
     for (WebElement result : results) {
       if ("has no exception".equals(result.findElement(By.className("test-name")).getText())) {
         Assert.assertEquals(result.getAttribute("class"), "fail");
@@ -257,7 +251,7 @@ public class QUnitTests {
 
     // Test if 'has no 404' test is correct.
     setupBrowser("error/404", true);
-    results = qunit.findElement(By.id("qunit-tests")).findElements(By.xpath("li"));
+    results = qunitTests.findElements(By.xpath("li"));
     for (WebElement result : results) {
       if ("has no 404".equals(result.findElement(By.className("test-name")).getText())) {
         Assert.assertEquals(result.getAttribute("class"), "fail");
@@ -294,8 +288,6 @@ public class QUnitTests {
 
   private List<String> ignorePages() {
     List<String> ignore = new ArrayList<String>();
-    //Knows bugs
-    ignore.add("content/20-component/010-input/50-input-group/group.xhtml");
     //PhantomJs miscalculate the height of the dropdown box
     ignore.add("content/40-test/3000-sheet/10-sheet-types/sheet-types.xhtml");
     //ajaxListener doesn't work for <tc:in> events: focus, blur, click, dblclick
