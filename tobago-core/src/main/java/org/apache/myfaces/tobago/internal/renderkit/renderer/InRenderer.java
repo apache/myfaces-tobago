@@ -82,7 +82,7 @@ public class InRenderer extends MessageLayoutRendererBase {
       writer.startElement(HtmlElements.DIV);
       writer.writeClassAttribute(BootstrapClass.INPUT_GROUP);
     }
-    encodeGroupAddon(facesContext, writer, before);
+    encodeGroupAddon(facesContext, writer, before, false);
 
     writer.startElement(HtmlElements.INPUT);
 
@@ -141,7 +141,7 @@ public class InRenderer extends MessageLayoutRendererBase {
 
     writer.endElement(HtmlElements.INPUT);
 
-    encodeGroupAddon(facesContext, writer, after);
+    encodeGroupAddon(facesContext, writer, after, true);
 
     if (after != null || before != null) {
       writer.endElement(HtmlElements.DIV);
@@ -149,8 +149,8 @@ public class InRenderer extends MessageLayoutRendererBase {
     }
   }
 
-  private void encodeGroupAddon(FacesContext facesContext, TobagoResponseWriter writer, UIComponent addon)
-      throws IOException {
+  private void encodeGroupAddon(FacesContext facesContext, TobagoResponseWriter writer, UIComponent addon,
+                                boolean isAfterFacet) throws IOException {
     if (addon != null) {
       final List<UIComponent> children;
       if (addon instanceof UIPanel) {
@@ -160,7 +160,11 @@ public class InRenderer extends MessageLayoutRendererBase {
       }
       for (UIComponent child : children) {
         if (child instanceof AbstractUIButton && ((AbstractUIButton) child).isParentOfCommands()) {
-          child.setRendererType(RendererTypes.ButtonInsideIn.name());
+          if (isAfterFacet) {
+            child.setRendererType(RendererTypes.ButtonInsideInAfter.name());
+          } else {
+            child.setRendererType(RendererTypes.ButtonInsideIn.name());
+          }
           RenderUtils.encode(facesContext, child);
         } else {
           writer.startElement(HtmlElements.SPAN);

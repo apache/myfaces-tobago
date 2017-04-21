@@ -157,7 +157,13 @@ public abstract class CommandRendererBase extends DecodingCommandRendererBase {
 
     if (parentOfCommands) {
       writer.startElement(HtmlElements.DIV);
-      writer.writeClassAttribute(BootstrapClass.DROPDOWN_MENU);
+      final List<CssItem> dropdownCssItems = new ArrayList<CssItem>();
+      addDropdownCssItems(facesContext, command, dropdownCssItems);
+      writer.writeClassAttribute(
+          BootstrapClass.DROPDOWN_MENU,
+          null,
+          dropdownCssItems.toArray(new CssItem[dropdownCssItems.size()])
+      );
       writer.writeAttribute(Arias.LABELLEDBY, "dropdownMenuButton", false);
 
       for (final UIComponent child : component.getChildren()) {
@@ -229,5 +235,9 @@ public abstract class CommandRendererBase extends DecodingCommandRendererBase {
 
   protected void addCssItems(final FacesContext facesContext, final AbstractUICommand command,
                              final List<CssItem> collected) {
+  }
+
+  protected void addDropdownCssItems(final FacesContext facesContext, final AbstractUICommand command,
+                                     final List<CssItem> collected) {
   }
 }

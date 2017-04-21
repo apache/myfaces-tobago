@@ -28,6 +28,7 @@ public enum RendererTypes {
   Box,
   Button,
   ButtonInsideIn,
+  ButtonInsideInAfter,
   Buttons,
   Calendar,
   Column,
@@ -99,6 +100,7 @@ public enum RendererTypes {
   public static final String BOX = "Box";
   public static final String BUTTON = "Button";
   public static final String BUTTON_INSIDE_IN = "ButtonInsideIn";
+  public static final String BUTTON_INSIDE_IN_AFTER = "ButtonInsideInAfter";
   public static final String BUTTONS = "Buttons";
   public static final String CALENDAR = "Calendar";
   public static final String COLUMN = "Column";
