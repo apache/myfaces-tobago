@@ -61,7 +61,6 @@ public interface TabGroupTagDeclaration
 
   /**
    * Flag indicating that the tab navigation bar is rendered.
-   * Currently this attribute has no effect (see issue TOBAGO-1710).
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "boolean", defaultValue = "true")

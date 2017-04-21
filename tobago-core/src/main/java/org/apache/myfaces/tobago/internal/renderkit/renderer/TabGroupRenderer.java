@@ -162,7 +162,9 @@ public class TabGroupRenderer extends RendererBase implements ComponentSystemEve
     writer.writeIdAttribute(hiddenId);
     writer.endElement(HtmlElements.INPUT);
 
-    encodeHeader(facesContext, writer, tabGroup, activeIndex, switchType);
+    if (tabGroup.isShowNavigationBar()) {
+      encodeHeader(facesContext, writer, tabGroup, activeIndex, switchType);
+    }
 
     encodeContent(facesContext, writer, tabGroup, activeIndex, switchType);
 
