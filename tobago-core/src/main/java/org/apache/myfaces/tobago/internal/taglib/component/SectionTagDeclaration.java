@@ -42,6 +42,10 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
     uiComponentFacesClass = "javax.faces.component.UIPanel",
     componentFamily = "org.apache.myfaces.tobago.Section",
     rendererType = RendererTypes.SECTION,
+    interfaces = {
+        // As long as no behavior event names are defined, ClientBehaviorHolder must be implemented for Majorra.
+        "javax.faces.component.behavior.ClientBehaviorHolder"
+    },
     facets = {
         @Facet(name = Facets.LABEL,
             description = "This facet contains a UILabel",

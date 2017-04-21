@@ -41,7 +41,11 @@ import javax.faces.component.UIPanel;
     uiComponentFacesClass = "javax.faces.component.UIPanel",
     componentFamily = UIPanel.COMPONENT_FAMILY,
     rendererType = RendererTypes.FIGURE,
-    interfaces = "org.apache.myfaces.tobago.component.Visual",
+    interfaces = {
+        // As long as no behavior event names are defined, ClientBehaviorHolder must be implemented for Majorra.
+        "javax.faces.component.behavior.ClientBehaviorHolder",
+        "org.apache.myfaces.tobago.component.Visual"
+    },
     facets = {
         @Facet(
             name = Facets.LABEL,

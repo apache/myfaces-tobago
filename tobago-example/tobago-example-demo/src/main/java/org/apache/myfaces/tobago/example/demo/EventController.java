@@ -20,15 +20,65 @@
 package org.apache.myfaces.tobago.example.demo;
 
 import org.apache.myfaces.tobago.component.UIBar;
+import org.apache.myfaces.tobago.component.UIBox;
 import org.apache.myfaces.tobago.component.UIButton;
+import org.apache.myfaces.tobago.component.UIButtons;
+import org.apache.myfaces.tobago.component.UICalendar;
+import org.apache.myfaces.tobago.component.UIColumn;
+import org.apache.myfaces.tobago.component.UIColumnNode;
+import org.apache.myfaces.tobago.component.UIColumnSelector;
+import org.apache.myfaces.tobago.component.UIDate;
+import org.apache.myfaces.tobago.component.UIEvent;
+import org.apache.myfaces.tobago.component.UIFigure;
+import org.apache.myfaces.tobago.component.UIFile;
+import org.apache.myfaces.tobago.component.UIFlexLayout;
+import org.apache.myfaces.tobago.component.UIFlowLayout;
+import org.apache.myfaces.tobago.component.UIFooter;
+import org.apache.myfaces.tobago.component.UIForm;
+import org.apache.myfaces.tobago.component.UIGridLayout;
+import org.apache.myfaces.tobago.component.UIHeader;
+import org.apache.myfaces.tobago.component.UIHidden;
+import org.apache.myfaces.tobago.component.UIImage;
 import org.apache.myfaces.tobago.component.UIIn;
+import org.apache.myfaces.tobago.component.UILabel;
+import org.apache.myfaces.tobago.component.UILink;
+import org.apache.myfaces.tobago.component.UILinks;
+import org.apache.myfaces.tobago.component.UIMessages;
+import org.apache.myfaces.tobago.component.UIObject;
+import org.apache.myfaces.tobago.component.UIOut;
+import org.apache.myfaces.tobago.component.UIPage;
+import org.apache.myfaces.tobago.component.UIPanel;
+import org.apache.myfaces.tobago.component.UIPopup;
+import org.apache.myfaces.tobago.component.UIProgress;
 import org.apache.myfaces.tobago.component.UIRow;
+import org.apache.myfaces.tobago.component.UISection;
+import org.apache.myfaces.tobago.component.UISegmentLayout;
 import org.apache.myfaces.tobago.component.UISelectBooleanCheckbox;
+import org.apache.myfaces.tobago.component.UISelectManyCheckbox;
+import org.apache.myfaces.tobago.component.UISelectManyListbox;
+import org.apache.myfaces.tobago.component.UISelectManyShuttle;
+import org.apache.myfaces.tobago.component.UISelectOneChoice;
+import org.apache.myfaces.tobago.component.UISelectOneListbox;
+import org.apache.myfaces.tobago.component.UISelectOneRadio;
+import org.apache.myfaces.tobago.component.UISeparator;
+import org.apache.myfaces.tobago.component.UISheet;
+import org.apache.myfaces.tobago.component.UISuggest;
+import org.apache.myfaces.tobago.component.UITab;
+import org.apache.myfaces.tobago.component.UITabGroup;
 import org.apache.myfaces.tobago.component.UITextarea;
+import org.apache.myfaces.tobago.component.UITree;
+import org.apache.myfaces.tobago.component.UITreeCommand;
+import org.apache.myfaces.tobago.component.UITreeIcon;
+import org.apache.myfaces.tobago.component.UITreeIndent;
+import org.apache.myfaces.tobago.component.UITreeLabel;
+import org.apache.myfaces.tobago.component.UITreeListbox;
+import org.apache.myfaces.tobago.component.UITreeMenu;
+import org.apache.myfaces.tobago.component.UITreeSelect;
 import org.apache.myfaces.tobago.example.data.SolarObject;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 
 import javax.enterprise.context.SessionScoped;
+import javax.faces.component.UIComponentBase;
 import javax.faces.component.UIData;
 import javax.faces.event.ActionEvent;
 import javax.faces.event.AjaxBehaviorEvent;
@@ -56,13 +106,62 @@ public class EventController implements Serializable {
   private List<SolarObject> planets = new ArrayList<SolarObject>();
 
   public EventController() {
-    eventsOnComponents.add(new EventsOnComponent("bar", new UIBar().getEventNames()));
-    eventsOnComponents.add(new EventsOnComponent("button", new UIButton().getEventNames()));
-    eventsOnComponents.add(new EventsOnComponent("in", new UIIn().getEventNames()));
-    eventsOnComponents.add(new EventsOnComponent("row", new UIRow().getEventNames()));
-    eventsOnComponents.add(new EventsOnComponent("selectBooleanCheckbox",
-        new UISelectBooleanCheckbox().getEventNames()));
-    eventsOnComponents.add(new EventsOnComponent("textarea", new UITextarea().getEventNames()));
+    eventsOnComponents.add(new EventsOnComponent(new UIBar()));
+    eventsOnComponents.add(new EventsOnComponent(new UIBox()));
+    eventsOnComponents.add(new EventsOnComponent(new UIButton()));
+    eventsOnComponents.add(new EventsOnComponent(new UIButtons()));
+    eventsOnComponents.add(new EventsOnComponent(new UICalendar()));
+    eventsOnComponents.add(new EventsOnComponent(new UIColumn()));
+    eventsOnComponents.add(new EventsOnComponent(new UIColumnNode()));
+    eventsOnComponents.add(new EventsOnComponent(new UIColumnSelector()));
+    eventsOnComponents.add(new EventsOnComponent(new UIDate()));
+    eventsOnComponents.add(new EventsOnComponent(new UIEvent()));
+    eventsOnComponents.add(new EventsOnComponent(new UIFigure()));
+    eventsOnComponents.add(new EventsOnComponent(new UIFile()));
+    eventsOnComponents.add(new EventsOnComponent(new UIFlexLayout()));
+    eventsOnComponents.add(new EventsOnComponent(new UIFlowLayout()));
+    eventsOnComponents.add(new EventsOnComponent(new UIFooter()));
+    eventsOnComponents.add(new EventsOnComponent(new UIForm()));
+    eventsOnComponents.add(new EventsOnComponent(new UIGridLayout()));
+    eventsOnComponents.add(new EventsOnComponent(new UIHeader()));
+    eventsOnComponents.add(new EventsOnComponent(new UIHidden()));
+    eventsOnComponents.add(new EventsOnComponent(new UIImage()));
+    eventsOnComponents.add(new EventsOnComponent(new UIIn()));
+    eventsOnComponents.add(new EventsOnComponent(new UILabel()));
+    eventsOnComponents.add(new EventsOnComponent(new UILink()));
+    eventsOnComponents.add(new EventsOnComponent(new UILinks()));
+    eventsOnComponents.add(new EventsOnComponent(new UIMessages()));
+    eventsOnComponents.add(new EventsOnComponent(new UIObject()));
+    eventsOnComponents.add(new EventsOnComponent(new UIOut()));
+    eventsOnComponents.add(new EventsOnComponent(new UIPage()));
+    eventsOnComponents.add(new EventsOnComponent(new UIPanel()));
+    eventsOnComponents.add(new EventsOnComponent(new UIPopup()));
+    eventsOnComponents.add(new EventsOnComponent(new UIProgress()));
+    eventsOnComponents.add(new EventsOnComponent(new UIRow()));
+    eventsOnComponents.add(new EventsOnComponent(new UISection()));
+    eventsOnComponents.add(new EventsOnComponent(new UISegmentLayout()));
+    eventsOnComponents.add(new EventsOnComponent(new UISelectBooleanCheckbox()));
+    eventsOnComponents.add(new EventsOnComponent(new UISelectManyCheckbox()));
+    eventsOnComponents.add(new EventsOnComponent(new UISelectManyListbox()));
+    eventsOnComponents.add(new EventsOnComponent(new UISelectManyShuttle()));
+    eventsOnComponents.add(new EventsOnComponent(new UISelectOneChoice()));
+    eventsOnComponents.add(new EventsOnComponent(new UISelectOneListbox()));
+    eventsOnComponents.add(new EventsOnComponent(new UISelectOneRadio()));
+    eventsOnComponents.add(new EventsOnComponent(new UISeparator()));
+    eventsOnComponents.add(new EventsOnComponent(new UISheet()));
+    eventsOnComponents.add(new EventsOnComponent(new UISuggest()));
+    eventsOnComponents.add(new EventsOnComponent(new UITab()));
+    eventsOnComponents.add(new EventsOnComponent(new UITabGroup()));
+    eventsOnComponents.add(new EventsOnComponent(new UITextarea()));
+    eventsOnComponents.add(new EventsOnComponent(new UITree()));
+    eventsOnComponents.add(new EventsOnComponent(new UITreeCommand()));
+    eventsOnComponents.add(new EventsOnComponent(new UITreeIcon()));
+    eventsOnComponents.add(new EventsOnComponent(new UITreeIndent()));
+    eventsOnComponents.add(new EventsOnComponent(new UITreeLabel()));
+    eventsOnComponents.add(new EventsOnComponent(new UITreeListbox()));
+    eventsOnComponents.add(new EventsOnComponent(new UITreeMenu()));
+    eventsOnComponents.add(new EventsOnComponent(new UITreeSelect()));
+
 
     planets.add(new SolarObject("Mercury", "I", "Sun", 57910, 87.97, 7.00, 0.21, "-", null));
     planets.add(new SolarObject("Venus", "II", "Sun", 108200, 224.70, 3.39, 0.01, "-", null));
@@ -91,10 +190,6 @@ public class EventController implements Serializable {
 
   public String getEventName() {
     return eventName;
-  }
-
-  public String getInclude() {
-    return selectedComponent != null ? "x-event-" + selectedComponent.getTagName() + ".xhtml" : "";
   }
 
   public void selectComponent(final ActionEvent actionEvent) {
@@ -144,13 +239,14 @@ public class EventController implements Serializable {
   }
 
   public class EventsOnComponent {
-    private String tagName;
-    private Set<String> eventNames = new TreeSet<String>();
+    private final String tagName;
+    private final Collection<String> eventNames = new TreeSet<String>();
 
-    public EventsOnComponent(String tagName, Collection<String> eventNames) {
-      this.tagName = tagName;
-      if (eventNames != null) {
-        this.eventNames.addAll(eventNames);
+    EventsOnComponent(UIComponentBase component) {
+      final String simpleName = component.getClass().getSimpleName();
+      tagName = simpleName.substring(2, 3).toLowerCase() + simpleName.substring(3);
+      if (component.getEventNames() != null) {
+        this.eventNames.addAll(component.getEventNames());
       }
     }
 

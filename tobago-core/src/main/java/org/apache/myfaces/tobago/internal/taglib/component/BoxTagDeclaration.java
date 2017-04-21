@@ -43,6 +43,10 @@ import javax.faces.component.UIPanel;
     uiComponentFacesClass = "javax.faces.component.UIPanel",
     componentFamily = UIPanel.COMPONENT_FAMILY,
     rendererType = RendererTypes.BOX,
+    interfaces = {
+        // As long as no behavior event names are defined, ClientBehaviorHolder must be implemented for Majorra.
+        "javax.faces.component.behavior.ClientBehaviorHolder"
+    },
     facets = {
         @Facet(name = Facets.BAR,
             description = "Contains some code to be placed in the header at the bar position."),

@@ -39,7 +39,11 @@ import javax.faces.component.UIOutput;
     uiComponentBaseClass = "javax.faces.component.UIOutput",
     uiComponentFacesClass = "javax.faces.component.UIOutput",
     componentFamily = UIOutput.COMPONENT_FAMILY,
-    rendererType = RendererTypes.CALENDAR)
+    rendererType = RendererTypes.CALENDAR,
+    interfaces = {
+        // As long as no behavior event names are defined, ClientBehaviorHolder must be implemented for Majorra.
+        "javax.faces.component.behavior.ClientBehaviorHolder"
+    })
 public interface CalendarTagDeclaration
     extends HasIdBindingAndRendered, IsVisual {
 

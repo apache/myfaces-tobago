@@ -43,6 +43,10 @@ import org.apache.myfaces.tobago.layout.JustifyContent;
     uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUIFlexLayout",
     componentFamily = AbstractUIFlexLayout.COMPONENT_FAMILY,
     rendererType = RendererTypes.FLEX_LAYOUT,
+    interfaces = {
+        // As long as no behavior event names are defined, ClientBehaviorHolder must be implemented for Majorra.
+        "javax.faces.component.behavior.ClientBehaviorHolder"
+    },
     allowedChildComponenents = "NONE")
 public interface FlexLayoutTagDeclaration
     extends HasIdBindingAndRendered, HasColumnLayout, HasRowLayout, IsVisual {

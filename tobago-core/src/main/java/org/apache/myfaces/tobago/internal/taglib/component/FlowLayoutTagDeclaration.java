@@ -38,6 +38,10 @@ import org.apache.myfaces.tobago.layout.TextAlign;
     uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUIFlowLayout",
     componentFamily = AbstractUIFlowLayout.COMPONENT_FAMILY,
     rendererType = RendererTypes.FLOW_LAYOUT,
+    interfaces = {
+        // As long as no behavior event names are defined, ClientBehaviorHolder must be implemented for Majorra.
+        "javax.faces.component.behavior.ClientBehaviorHolder"
+    },
     allowedChildComponenents = "NONE")
 public interface FlowLayoutTagDeclaration
     extends HasIdBindingAndRendered, IsVisual {

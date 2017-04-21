@@ -39,6 +39,10 @@ import org.apache.myfaces.tobago.model.CollapseMode;
     uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUIPopup",
     uiComponentFacesClass = "javax.faces.component.UIPanel",
     componentFamily = AbstractUIPopup.COMPONENT_FAMILY,
+    interfaces = {
+        // As long as no behavior event names are defined, ClientBehaviorHolder must be implemented for Majorra.
+        "javax.faces.component.behavior.ClientBehaviorHolder"
+    },
     rendererType = RendererTypes.POPUP
 )
 public interface PopupTagDeclaration

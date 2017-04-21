@@ -39,6 +39,10 @@ import javax.faces.component.UIPanel;
     uiComponentBaseClass = "javax.faces.component.UIPanel",
     componentFamily = UIPanel.COMPONENT_FAMILY,
     rendererType = RendererTypes.FOOTER,
+    interfaces = {
+        // As long as no behavior event names are defined, ClientBehaviorHolder must be implemented for Majorra.
+        "javax.faces.component.behavior.ClientBehaviorHolder"
+    },
     allowedChildComponenents = "ALL")
 public interface FooterTagDeclaration
     extends HasIdBindingAndRendered, HasTip, IsFixed, IsVisual {

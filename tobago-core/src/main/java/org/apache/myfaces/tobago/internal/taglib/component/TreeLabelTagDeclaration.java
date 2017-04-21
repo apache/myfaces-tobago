@@ -40,6 +40,10 @@ import javax.faces.component.UIOutput;
     uiComponentFacesClass = "javax.faces.component.UIOutput",
     componentFamily = UIOutput.COMPONENT_FAMILY,
     rendererType = RendererTypes.TREE_LABEL,
+    interfaces = {
+        // As long as no behavior event names are defined, ClientBehaviorHolder must be implemented for Majorra.
+        "javax.faces.component.behavior.ClientBehaviorHolder"
+    },
     allowedChildComponenents = "NONE"
 )
 public interface TreeLabelTagDeclaration

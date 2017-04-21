@@ -41,6 +41,10 @@ import javax.faces.component.UIMessages;
     uiComponentFacesClass = "javax.faces.component.UIMessages",
     componentFamily = UIMessages.COMPONENT_FAMILY,
     rendererType = RendererTypes.MESSAGES,
+    interfaces = {
+        // As long as no behavior event names are defined, ClientBehaviorHolder must be implemented for Majorra.
+        "javax.faces.component.behavior.ClientBehaviorHolder"
+    },
     allowedChildComponenents = "NONE")
 
 public interface MessagesTagDeclaration

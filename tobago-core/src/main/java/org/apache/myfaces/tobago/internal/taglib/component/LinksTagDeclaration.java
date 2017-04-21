@@ -37,6 +37,10 @@ import javax.faces.component.UIPanel;
     uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUILinks",
     uiComponentFacesClass = "javax.faces.component.UIPanel",
     componentFamily = UIPanel.COMPONENT_FAMILY,
+    interfaces = {
+        // As long as no behavior event names are defined, ClientBehaviorHolder must be implemented for Majorra.
+        "javax.faces.component.behavior.ClientBehaviorHolder"
+    },
     rendererType = {RendererTypes.LINKS, RendererTypes.LINKS_INSIDE_BAR})
 public interface LinksTagDeclaration extends HasIdBindingAndRendered, IsVisual, HasTip {
 }

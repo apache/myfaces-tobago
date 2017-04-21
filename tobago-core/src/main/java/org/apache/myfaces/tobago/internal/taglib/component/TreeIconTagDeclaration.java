@@ -42,6 +42,10 @@ import javax.faces.component.UIGraphic;
     uiComponentFacesClass = "javax.faces.component.UIGraphic",
     componentFamily = UIGraphic.COMPONENT_FAMILY,
     rendererType = RendererTypes.TREE_ICON,
+    interfaces = {
+        // As long as no behavior event names are defined, ClientBehaviorHolder must be implemented for Majorra.
+        "javax.faces.component.behavior.ClientBehaviorHolder"
+    },
     allowedChildComponenents = "NONE")
 public interface TreeIconTagDeclaration extends HasIdBindingAndRendered, HasTip, IsDisabled, IsVisual, HasAlt {
 

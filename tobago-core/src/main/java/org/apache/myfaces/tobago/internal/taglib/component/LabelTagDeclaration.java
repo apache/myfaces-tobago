@@ -40,7 +40,11 @@ import javax.faces.component.UIOutput;
     uiComponent = "org.apache.myfaces.tobago.component.UILabel",
     uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUILabel",
     uiComponentFacesClass = "javax.faces.component.UIOutput",
-    interfaces = "org.apache.myfaces.tobago.component.SupportsAccessKey",
+    interfaces = {
+        // As long as no behavior event names are defined, ClientBehaviorHolder must be implemented for Majorra.
+        "javax.faces.component.behavior.ClientBehaviorHolder",
+        "org.apache.myfaces.tobago.component.SupportsAccessKey"
+    },
     componentFamily = UIOutput.COMPONENT_FAMILY,
     rendererType = RendererTypes.LABEL,
     allowedChildComponenents = "NONE")

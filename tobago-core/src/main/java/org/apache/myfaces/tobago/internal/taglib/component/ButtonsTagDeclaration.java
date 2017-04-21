@@ -37,7 +37,11 @@ import javax.faces.component.UIPanel;
     uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUIButtons",
     uiComponentFacesClass = "javax.faces.component.UIPanel",
     componentFamily = UIPanel.COMPONENT_FAMILY,
-    rendererType = RendererTypes.BUTTONS)
+    rendererType = RendererTypes.BUTTONS,
+    interfaces = {
+        // As long as no behavior event names are defined, ClientBehaviorHolder must be implemented for Majorra.
+        "javax.faces.component.behavior.ClientBehaviorHolder"
+    })
 
 public interface ButtonsTagDeclaration
     extends HasIdBindingAndRendered, IsVisual, HasTip {
