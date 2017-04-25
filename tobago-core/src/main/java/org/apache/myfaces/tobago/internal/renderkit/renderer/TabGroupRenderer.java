@@ -296,11 +296,6 @@ public class TabGroupRenderer extends RendererBase implements ComponentSystemEve
       index++;
     }
     writer.endElement(HtmlElements.UL);
-    if (tabGroup.isShowNavigationBar()) {
-      LOG.debug("Currently not supported: showNavigationBar");
-//      final UIToolBar toolBar = createToolBar(facesContext, tabGroup);
-//      renderToolBar(facesContext, writer, tabGroup, toolBar);
-    }
   }
 
   protected void encodeContent(
