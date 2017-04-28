@@ -149,7 +149,9 @@ mvn site:stage -DstagingDirectory=/Volumes/tobago-site/tobago-publish
   * Remove old download artifacts from the site (see script {{{./scripts/drop-artifacts.sh}drop-artifacts.sh}}).
     Older releases are automatic available in the {{{http://archive.apache.org/dist/myfaces/} archive}}.
 
-  * Delete old snapshots in the maven snapshot repository.
+  * Remove old snapshots in the maven snapshot repository. This is done automatically, it is only needed, when
+    there are dead development ends, e. g. last alpha or beta version like 3.0.0-beta-2-SNAPSHOT which
+    will no longer developed.
 
   * Create and send announcement (see {{Announcement template}} below).
 
