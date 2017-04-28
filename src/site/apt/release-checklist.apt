@@ -162,8 +162,8 @@ mvn deploy:deploy-file \
   -Dfile=target/tobago-core-${VERSION}-tlddoc.jar
 +------------------------+
 
-  * Unpack and commit the API Docs of the release with the update-1.0.sh, update-1.5.sh or update-2.0.sh script in
-    /Volumes/tobago-site/tobago-publish (set correct version first).
+  * Unpack and commit the API Docs of the release with the update.sh (or update-1.5.sh) script in
+    /Volumes/tobago-site/tobago-publish.
 
   * Remove old download artifacts from the site (see script {{{./scripts/drop-artifacts.sh}drop-artifacts.sh}}).
     Older releases are automatic available in the {{{http://archive.apache.org/dist/myfaces/} archive}}.
