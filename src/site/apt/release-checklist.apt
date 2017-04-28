@@ -143,6 +143,25 @@ mvn site:stage -DstagingDirectory=/Volumes/tobago-site/tobago-publish
 
   * Update the site after the distribution is on the Apache mirrors available.
 
+  * Workaround for Tobago 3 TLD documentation. There is a bug (TOBAGO-1654) so the TLDDOC will not be distributed.
+    To upload it into the Maven repo follow these steps:
+
++------------------------+
+VERSION=3.0.4
+svn co https://svn.apache.org/repos/asf/myfaces/tobago/tags/tobago-${VERSION}
+cd tobago-${VERSION}/tobago-core
+mvn clean install -Papache-release
+mvn deploy:deploy-file \
+  -DgroupId=org.apache.myfaces.tobago \
+  -DartifactId=tobago-core \
+  -Dversion=${VERSION} \
+  -Dclassifier=tlddoc \
+  -DgeneratePom=false \
+  -DrepositoryId=apache.releases.https \
+  -Durl=https://repository.apache.org/content/repositories/releases/ \
+  -Dfile=target/tobago-core-${VERSION}-tlddoc.jar
++------------------------+
+
   * Unpack and commit the API Docs of the release with the update-1.0.sh, update-1.5.sh or update-2.0.sh script in
     /Volumes/tobago-site/tobago-publish (set correct version first).
 
