@@ -19,6 +19,7 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
+import org.apache.myfaces.tobago.apt.annotation.Preliminary;
 import org.apache.myfaces.tobago.component.Visual;
 import org.apache.myfaces.tobago.internal.layout.LayoutUtils;
 import org.apache.myfaces.tobago.layout.Measure;
@@ -37,6 +38,7 @@ import java.util.List;
  *
  * {@link org.apache.myfaces.tobago.internal.taglib.sandbox.SplitLayoutTagDeclaration}
  */
+@Preliminary
 public abstract class AbstractUISplitLayout extends AbstractUIGridLayout {
 
   private String submittedLayout;

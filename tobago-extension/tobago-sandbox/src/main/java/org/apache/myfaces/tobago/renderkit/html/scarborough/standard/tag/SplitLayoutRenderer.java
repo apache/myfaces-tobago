@@ -19,6 +19,7 @@
 
 package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
+import org.apache.myfaces.tobago.apt.annotation.Preliminary;
 import org.apache.myfaces.tobago.internal.component.AbstractUISplitLayout;
 import org.apache.myfaces.tobago.internal.layout.LayoutUtils;
 import org.apache.myfaces.tobago.renderkit.css.Style;
@@ -44,6 +45,7 @@ import java.util.Map;
  * WARNING: This component is preliminary and may be changed without a major release.
  * </p>
  */
+@Preliminary
 public class SplitLayoutRenderer extends GridLayoutRenderer {
 
   private static final Logger LOG = LoggerFactory.getLogger(SplitLayoutRenderer.class);

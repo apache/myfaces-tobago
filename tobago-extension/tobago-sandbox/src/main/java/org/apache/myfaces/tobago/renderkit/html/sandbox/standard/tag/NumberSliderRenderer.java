@@ -19,6 +19,7 @@
 
 package org.apache.myfaces.tobago.renderkit.html.sandbox.standard.tag;
 
+import org.apache.myfaces.tobago.apt.annotation.Preliminary;
 import org.apache.myfaces.tobago.internal.component.AbstractUINumberSlider;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.layout.Measure;
@@ -42,6 +43,7 @@ import java.util.Map;
  * WARNING: This component is preliminary and may be changed without a major release.
  * </p>
  */
+@Preliminary
 public class NumberSliderRenderer extends RendererBase {
 
   @Override

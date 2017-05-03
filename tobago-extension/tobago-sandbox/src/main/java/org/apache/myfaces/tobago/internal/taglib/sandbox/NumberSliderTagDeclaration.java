@@ -19,6 +19,7 @@
 
 package org.apache.myfaces.tobago.internal.taglib.sandbox;
 
+import org.apache.myfaces.tobago.apt.annotation.Preliminary;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
@@ -39,6 +40,7 @@ import javax.faces.component.UIInput;
  *
  * Renders a slider to select a number in a range.
  */
+@Preliminary
 @Tag(name = "numberSlider")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UINumberSlider",

@@ -19,6 +19,7 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
+import org.apache.myfaces.tobago.apt.annotation.Preliminary;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Visual;
 import org.apache.myfaces.tobago.internal.layout.Grid;
@@ -46,6 +47,7 @@ import java.util.List;
  *
  * {@link org.apache.myfaces.tobago.internal.taglib.component.GridLayoutTagDeclaration}
  */
+@Preliminary
 @ListenerFor(systemEventClass = PreRenderComponentEvent.class)
 public abstract class AbstractUIGridLayout extends AbstractUILayoutBase
     implements Visual, ComponentSystemEventListener {

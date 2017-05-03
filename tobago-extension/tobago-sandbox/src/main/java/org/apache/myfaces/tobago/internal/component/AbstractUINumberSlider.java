@@ -19,6 +19,7 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
+import org.apache.myfaces.tobago.apt.annotation.Preliminary;
 import org.apache.myfaces.tobago.component.Visual;
 
 import javax.faces.context.FacesContext;
@@ -30,6 +31,7 @@ import javax.faces.validator.ValidatorException;
  * WARNING: This component is preliminary and may be changed without a major release.
  * </p>
  */
+@Preliminary
 public abstract class AbstractUINumberSlider extends javax.faces.component.UIInput implements Visual {
 
   public abstract Integer getMin();

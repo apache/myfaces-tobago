@@ -19,6 +19,7 @@
 
 package org.apache.myfaces.tobago.internal.taglib.component;
 
+import org.apache.myfaces.tobago.apt.annotation.Preliminary;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
@@ -33,6 +34,7 @@ import org.apache.myfaces.tobago.component.RendererTypes;
  * ********************* &lt;br/&gt;
  * This feature is preliminary and may be subject of change in later versions!  &lt;br/&gt;
  */
+@Preliminary
 @Tag(name = "operation")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIOperation",

@@ -19,6 +19,8 @@
 
 package org.apache.myfaces.tobago.renderkit.css;
 
+import org.apache.myfaces.tobago.apt.annotation.Preliminary;
+
 import java.beans.PropertyEditorSupport;
 
 /**
@@ -28,6 +30,7 @@ import java.beans.PropertyEditorSupport;
  *
  * @since 3.0.0
  */
+@Preliminary
 public class CustomClassEditor extends PropertyEditorSupport {
 
   @Override
