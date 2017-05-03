@@ -19,7 +19,6 @@
 
 package org.apache.myfaces.tobago.internal.taglib.component;
 
-import org.apache.myfaces.tobago.apt.annotation.BodyContentDescription;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
@@ -38,7 +37,6 @@ import org.apache.myfaces.tobago.layout.TextAlign;
  * </p>
  */
 @Tag(name = "style")
-@BodyContentDescription(contentType = "css")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIStyle",
     componentFamily = "org.apache.myfaces.tobago.Style",
