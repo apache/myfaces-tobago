@@ -53,3 +53,11 @@ pre, code {
   text-align: inherit;
   padding: inherit;
 }
+
+.planet {
+  background-color: #5cb85c;
+}
+
+.old {
+  background-color: #b3d4fc;
+}
