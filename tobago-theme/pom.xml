@@ -221,8 +221,16 @@
             <configuration>
               <nodeVersion>v6.10.2</nodeVersion>
               <npmVersion>3.10.10</npmVersion>
-              <!-- optional: where to download node and npm from. Defaults to https://nodejs.org/dist/ -->
-              <!--<downloadRoot>http://myproxy.example.org/nodejs/dist/</downloadRoot>-->
+
+              <!-- optional: Where to download Node.js binary from. Defaults to http://nodejs.org/dist/ -->
+              <!--<nodeDownloadRoot>https://nodejs.org/dist/</nodeDownloadRoot>-->
+
+              <!-- optional: Where to download NPM binary from. Defaults to http://registry.npmjs.org/npm/-/ -->
+              <!--<npmDownloadRoot>https://registry.npmjs.org/npm/-/</npmDownloadRoot>-->
+
+              <!-- optional: Registry override, passed as the registry option during npm install if set. -->
+              <!--<npmRegistryURL>https://registry.npmjs.org/</npmRegistryURL>-->
+
               <!-- optional: where to install node and npm. Defaults to the working directory -->
               <installDirectory>${project.build.directory}/frontend</installDirectory>
               <workingDirectory>${project.build.directory}/bootstrap</workingDirectory>
