@@ -26,6 +26,9 @@ import org.apache.myfaces.tobago.layout.Overflow;
 import org.apache.myfaces.tobago.layout.Position;
 import org.apache.myfaces.tobago.layout.TextAlign;
 
+import javax.el.ELContext;
+import javax.el.ValueExpression;
+import javax.faces.context.FacesContext;
 import java.io.Serializable;
 
 /**
@@ -33,46 +36,82 @@ import java.io.Serializable;
  */
 public class Style implements Serializable {
 
-  private static final long serialVersionUID = 5L;
+  private static final long serialVersionUID = 6L;
 
   private Measure width;
+  private ValueExpression widthVE;
   private Measure height;
+  private ValueExpression heightVE;
 
   private Measure minWidth;
+  private ValueExpression minWidthVE;
   private Measure minHeight;
+  private ValueExpression minHeightVE;
   private Measure maxWidth;
+  private ValueExpression maxWidthVE;
   private Measure maxHeight;
+  private ValueExpression maxHeightVE;
 
   private Measure left;
+  private ValueExpression leftVE;
   private Measure right;
+  private ValueExpression rightVE;
   private Measure top;
+  private ValueExpression topVE;
   private Measure bottom;
+  private ValueExpression bottomVE;
 
   private Measure paddingLeft;
+  private ValueExpression paddingLeftVE;
   private Measure paddingRight;
+  private ValueExpression paddingRightVE;
   private Measure paddingTop;
+  private ValueExpression paddingTopVE;
   private Measure paddingBottom;
+  private ValueExpression paddingBottomVE;
 
   private Measure marginLeft;
+  private ValueExpression marginLeftVE;
   private Measure marginRight;
+  private ValueExpression marginRightVE;
   private Measure marginTop;
+  private ValueExpression marginTopVE;
   private Measure marginBottom;
+  private ValueExpression marginBottomVE;
 
   private Overflow overflowX;
+  private ValueExpression overflowXVE;
   private Overflow overflowY;
+  private ValueExpression overflowYVE;
   private Display display;
+  private ValueExpression displayVE;
   private Position position;
+  private ValueExpression positionVE;
 
+  // tbd
   private String backgroundImage;
+  // tbd
+  private ValueExpression backgroundImageVE;
+  // tbd
   private String backgroundPosition;
-  private Integer zIndex; // TBD
+  // tbd
+  private ValueExpression backgroundPositionVE;
+  // tbd
+  private Integer zIndex;
+  // tbd
+  private ValueExpression zIndexVE;
   private TextAlign textAlign;
+  private ValueExpression textAlignVE;
 
   private Boolean empty;
 
   public Style() {
   }
 
+  /**
+   * @deprecated since 3.1.0
+   */
+  @Deprecated
   public Style(final UIStyle style) {
 
     width = style.getWidth();
@@ -164,8 +203,15 @@ public class Style implements Serializable {
   }
 
   public String encode() {
+    final FacesContext facesContext = FacesContext.getCurrentInstance();
+    final ELContext elContext = facesContext.getELContext();
     final StringBuilder buf = new StringBuilder();
-    if (width != null) {
+
+    if (widthVE != null) {
+      buf.append("width:");
+      buf.append(Measure.valueOf(widthVE.getValue(elContext)).serialize());
+      buf.append(';');
+    } else if (width != null) {
       buf.append("width:");
       buf.append(width.serialize());
       buf.append(';');
@@ -301,131 +347,161 @@ public class Style implements Serializable {
 
   public String encodeJson() {
     final StringBuilder buf = new StringBuilder("{");
+
+    final Measure width = getWidth();
     if (width != null) {
       buf.append("\"width\":\"");
       buf.append(width.serialize());
       buf.append("\",");
     }
+    final Measure height = getHeight();
     if (height != null) {
       buf.append("\"height\":\"");
       buf.append(height.serialize());
       buf.append("\",");
     }
+    final Measure minWidth = getMinWidth();
     if (minWidth != null) {
       buf.append("\"minWidth\":\"");
       buf.append(minWidth.serialize());
       buf.append("\",");
     }
+    final Measure minHeight = getMinHeight();
     if (minHeight != null) {
       buf.append("\"minHeight\":\"");
       buf.append(minHeight.serialize());
       buf.append("\",");
     }
+    final Measure maxWidth = getMaxWidth();
     if (maxWidth != null) {
       buf.append("\"maxWidth\":\"");
       buf.append(maxWidth.serialize());
       buf.append("\",");
     }
+    final Measure maxHeight = getMaxHeight();
     if (maxHeight != null) {
       buf.append("\"maxHeight\":\"");
       buf.append(maxHeight.serialize());
       buf.append("\",");
     }
+    final Measure left = getLeft();
     if (left != null) {
       buf.append("\"left\":\"");
       buf.append(left.serialize());
       buf.append("\",");
     }
+    final Measure right = getRight();
     if (right != null) {
       buf.append("\"right\":\"");
       buf.append(right.serialize());
       buf.append("\",");
     }
+    final Measure top = getTop();
     if (top != null) {
       buf.append("\"top\":\"");
       buf.append(top.serialize());
       buf.append("\",");
     }
+    final Measure bottom = getBottom();
     if (bottom != null) {
       buf.append("\"bottom\":\"");
       buf.append(bottom.serialize());
       buf.append("\",");
     }
+    final Measure paddingLeft = getPaddingLeft();
     if (paddingLeft != null) {
       buf.append("\"paddingLeft\":\"");
       buf.append(paddingLeft.serialize());
       buf.append("\",");
     }
+    final Measure paddingRight = getPaddingRight();
     if (paddingRight != null) {
       buf.append("\"paddingRight\":\"");
       buf.append(paddingRight.serialize());
       buf.append("\",");
     }
+    final Measure paddingTop = getPaddingTop();
     if (paddingTop != null) {
       buf.append("\"paddingTop\":\"");
       buf.append(paddingTop.serialize());
       buf.append("\",");
     }
+    final Measure paddingBottom = getPaddingBottom();
     if (paddingBottom != null) {
       buf.append("\"paddingBottom\":\"");
       buf.append(paddingBottom.serialize());
       buf.append("\",");
     }
+    final Measure marginLeft = getMarginLeft();
     if (marginLeft != null) {
       buf.append("\"marginLeft\":\"");
       buf.append(marginLeft.serialize());
       buf.append("\",");
     }
+    final Measure marginRight = getMarginRight();
     if (marginRight != null) {
       buf.append("\"marginRight\":\"");
       buf.append(marginRight.serialize());
       buf.append("\",");
     }
+    final Measure marginTop = getMarginTop();
     if (marginTop != null) {
       buf.append("\"marginTop\":\"");
       buf.append(marginTop.serialize());
       buf.append("\",");
     }
+    final Measure marginBottom = getMarginBottom();
     if (marginBottom != null) {
       buf.append("\"marginBottom\":\"");
       buf.append(marginBottom.serialize());
       buf.append("\",");
     }
+    final Overflow overflowX = getOverflowX();
     if (overflowX != null) {
       buf.append("\"overflowX\":\"");
       buf.append(overflowX.name());
       buf.append("\",");
     }
+    final Overflow overflowY = getOverflowY();
     if (overflowY != null) {
       buf.append("\"overflowY\":\"");
       buf.append(overflowY.name());
       buf.append("\",");
     }
+    final Display display = getDisplay();
     if (display != null) {
       buf.append("\"display\":\"");
       buf.append(display.name());
       buf.append("\",");
     }
+    final Position position = getPosition();
     if (position != null) {
       buf.append("\"position\":\"");
       buf.append(position.name());
       buf.append("\",");
     }
+    // tbd
+    final String backgroundImage = getBackgroundImage();
     if (backgroundImage != null) {
       buf.append("\"backgroundImage\":\"");
       buf.append(backgroundImage);
       buf.append("\",");
     }
+    // tbd
+    final String backgroundPosition = getBackgroundPosition();
     if (backgroundPosition != null) {
       buf.append("\"backgroundPosition\":\"");
       buf.append(backgroundPosition);
       buf.append("\",");
     }
+    // tbd
+    final Integer zIndex = getZIndex();
     if (zIndex != null) {
       buf.append("\"zIndex\":");
       buf.append(zIndex);
       buf.append(",");
     }
+    final TextAlign textAlign = getTextAlign();
     if (textAlign != null) {
       buf.append("\"textAlign\":\"");
       buf.append(textAlign.name());
@@ -441,7 +517,13 @@ public class Style implements Serializable {
   }
 
   public Measure getWidth() {
-    return width;
+    if (widthVE != null) {
+      return Measure.valueOf(widthVE.getValue(FacesContext.getCurrentInstance().getELContext()));
+    } else if (width != null) {
+      return width;
+    } else {
+      return null;
+    }
   }
 
   public void setWidth(final Measure width) {
@@ -449,8 +531,19 @@ public class Style implements Serializable {
     this.width = width;
   }
 
+  public void setWidth(final ValueExpression width) {
+    empty = null;
+    this.widthVE = width;
+  }
+
   public Measure getHeight() {
-    return height;
+    if (heightVE != null) {
+      return Measure.valueOf(heightVE.getValue(FacesContext.getCurrentInstance().getELContext()));
+    } else if (height != null) {
+      return height;
+    } else {
+      return null;
+    }
   }
 
   public void setHeight(final Measure height) {
@@ -458,44 +551,99 @@ public class Style implements Serializable {
     this.height = height;
   }
 
-  public Measure getMinWidth() {
-    return minWidth;
+  public void setHeight(final ValueExpression height) {
+    empty = null;
+    this.heightVE = height;
   }
 
-  public void setMinWidth(Measure minWidth) {
+  public Measure getMinWidth() {
+    if (minWidthVE != null) {
+      return Measure.valueOf(minWidthVE.getValue(FacesContext.getCurrentInstance().getELContext()));
+    } else if (minWidth != null) {
+      return minWidth;
+    } else {
+      return null;
+    }
+  }
+
+  public void setMinWidth(final Measure minWidth) {
     empty = null;
     this.minWidth = minWidth;
   }
 
-  public Measure getMinHeight() {
-    return minHeight;
+  public void setMinWidth(final ValueExpression minWidth) {
+    empty = null;
+    this.minWidthVE = minWidth;
   }
 
-  public void setMinHeight(Measure minHeight) {
+  public Measure getMinHeight() {
+    if (minHeightVE != null) {
+      return Measure.valueOf(minHeightVE.getValue(FacesContext.getCurrentInstance().getELContext()));
+    } else if (minHeight != null) {
+      return minHeight;
+    } else {
+      return null;
+    }
+  }
+
+  public void setMinHeight(final Measure minHeight) {
     empty = null;
     this.minHeight = minHeight;
   }
 
-  public Measure getMaxWidth() {
-    return maxWidth;
+  public void setMinHeight(final ValueExpression minHeight) {
+    empty = null;
+    this.minHeightVE = minHeight;
   }
 
-  public void setMaxWidth(Measure maxWidth) {
+  public Measure getMaxWidth() {
+    if (maxWidthVE != null) {
+      return Measure.valueOf(maxWidthVE.getValue(FacesContext.getCurrentInstance().getELContext()));
+    } else if (maxWidth != null) {
+      return maxWidth;
+    } else {
+      return null;
+    }
+  }
+
+  public void setMaxWidth(final Measure maxWidth) {
     empty = null;
     this.maxWidth = maxWidth;
   }
 
-  public Measure getMaxHeight() {
-    return maxHeight;
+  public void setMaxWidth(final ValueExpression maxWidth) {
+    empty = null;
+    this.maxWidthVE = maxWidth;
   }
 
-  public void setMaxHeight(Measure maxHeight) {
+  public Measure getMaxHeight() {
+    if (maxHeightVE != null) {
+      return Measure.valueOf(maxHeightVE.getValue(FacesContext.getCurrentInstance().getELContext()));
+    } else if (maxHeight != null) {
+      return maxHeight;
+    } else {
+      return null;
+    }
+  }
+
+  public void setMaxHeight(final Measure maxHeight) {
     empty = null;
     this.maxHeight = maxHeight;
   }
 
+  public void setMaxHeight(final ValueExpression maxHeight) {
+    empty = null;
+    this.maxHeightVE = maxHeight;
+  }
+
   public Measure getLeft() {
-    return left;
+    if (leftVE != null) {
+      return Measure.valueOf(leftVE.getValue(FacesContext.getCurrentInstance().getELContext()));
+    } else if (left != null) {
+      return left;
+    } else {
+      return null;
+    }
   }
 
   public void setLeft(final Measure left) {
@@ -503,17 +651,39 @@ public class Style implements Serializable {
     this.left = left;
   }
 
-  public Measure getRight() {
-    return right;
+  public void setLeft(final ValueExpression left) {
+    empty = null;
+    this.leftVE = left;
   }
 
-  public void setRight(Measure right) {
+  public Measure getRight() {
+    if (rightVE != null) {
+      return Measure.valueOf(rightVE.getValue(FacesContext.getCurrentInstance().getELContext()));
+    } else if (right != null) {
+      return right;
+    } else {
+      return null;
+    }
+  }
+
+  public void setRight(final Measure right) {
     empty = null;
     this.right = right;
   }
 
+  public void setRight(final ValueExpression right) {
+    empty = null;
+    this.rightVE = right;
+  }
+
   public Measure getTop() {
-    return top;
+    if (topVE != null) {
+      return Measure.valueOf(topVE.getValue(FacesContext.getCurrentInstance().getELContext()));
+    } else if (top != null) {
+      return top;
+    } else {
+      return null;
+    }
   }
 
   public void setTop(final Measure top) {
@@ -521,89 +691,39 @@ public class Style implements Serializable {
     this.top = top;
   }
 
-  public Measure getBottom() {
-    return bottom;
+  public void setTop(final ValueExpression top) {
+    empty = null;
+    this.topVE = top;
   }
 
-  public void setBottom(Measure bottom) {
+  public Measure getBottom() {
+    if (bottomVE != null) {
+      return Measure.valueOf(bottomVE.getValue(FacesContext.getCurrentInstance().getELContext()));
+    } else if (bottom != null) {
+      return bottom;
+    } else {
+      return null;
+    }
+  }
+
+  public void setBottom(final Measure bottom) {
     empty = null;
     this.bottom = bottom;
   }
 
-  public Display getDisplay() {
-    return display;
-  }
-
-  public void setDisplay(final Display display) {
+  public void setBottom(final ValueExpression bottom) {
     empty = null;
-    this.display = display;
-  }
-
-  public Position getPosition() {
-    return position;
-  }
-
-  public void setPosition(final Position position) {
-    empty = null;
-    this.position = position;
-  }
-
-  public Overflow getOverflowX() {
-    return overflowX;
-  }
-
-  public void setOverflowX(final Overflow overflowX) {
-    empty = null;
-    this.overflowX = overflowX;
-  }
-
-  public Overflow getOverflowY() {
-    return overflowY;
-  }
-
-  public void setOverflowY(final Overflow overflowY) {
-    empty = null;
-    this.overflowY = overflowY;
-  }
-
-  public Measure getMarginLeft() {
-    return marginLeft;
-  }
-
-  public void setMarginLeft(final Measure marginLeft) {
-    empty = null;
-    this.marginLeft = marginLeft;
-  }
-
-  public Measure getMarginRight() {
-    return marginRight;
-  }
-
-  public void setMarginRight(final Measure marginRight) {
-    empty = null;
-    this.marginRight = marginRight;
-  }
-
-  public Measure getMarginTop() {
-    return marginTop;
-  }
-
-  public void setMarginTop(final Measure marginTop) {
-    empty = null;
-    this.marginTop = marginTop;
-  }
-
-  public Measure getMarginBottom() {
-    return marginBottom;
-  }
-
-  public void setMarginBottom(final Measure marginBottom) {
-    empty = null;
-    this.marginBottom = marginBottom;
+    this.bottomVE = bottom;
   }
 
   public Measure getPaddingLeft() {
-    return paddingLeft;
+    if (paddingLeftVE != null) {
+      return Measure.valueOf(paddingLeftVE.getValue(FacesContext.getCurrentInstance().getELContext()));
+    } else if (paddingLeft != null) {
+      return paddingLeft;
+    } else {
+      return null;
+    }
   }
 
   public void setPaddingLeft(final Measure paddingLeft) {
@@ -611,8 +731,19 @@ public class Style implements Serializable {
     this.paddingLeft = paddingLeft;
   }
 
+  public void setPaddingLeft(final ValueExpression paddingLeft) {
+    empty = null;
+    this.paddingLeftVE = paddingLeft;
+  }
+
   public Measure getPaddingRight() {
-    return paddingRight;
+    if (paddingRightVE != null) {
+      return Measure.valueOf(paddingRightVE.getValue(FacesContext.getCurrentInstance().getELContext()));
+    } else if (paddingRight != null) {
+      return paddingRight;
+    } else {
+      return null;
+    }
   }
 
   public void setPaddingRight(final Measure paddingRight) {
@@ -620,8 +751,19 @@ public class Style implements Serializable {
     this.paddingRight = paddingRight;
   }
 
+  public void setPaddingRight(final ValueExpression paddingRight) {
+    empty = null;
+    this.paddingRightVE = paddingRight;
+  }
+
   public Measure getPaddingTop() {
-    return paddingTop;
+    if (paddingTopVE != null) {
+      return Measure.valueOf(paddingTopVE.getValue(FacesContext.getCurrentInstance().getELContext()));
+    } else if (paddingTop != null) {
+      return paddingTop;
+    } else {
+      return null;
+    }
   }
 
   public void setPaddingTop(final Measure paddingTop) {
@@ -629,8 +771,19 @@ public class Style implements Serializable {
     this.paddingTop = paddingTop;
   }
 
+  public void setPaddingTop(final ValueExpression paddingTop) {
+    empty = null;
+    this.paddingTopVE = paddingTop;
+  }
+
   public Measure getPaddingBottom() {
-    return paddingBottom;
+    if (paddingBottomVE != null) {
+      return Measure.valueOf(paddingBottomVE.getValue(FacesContext.getCurrentInstance().getELContext()));
+    } else if (paddingBottom != null) {
+      return paddingBottom;
+    } else {
+      return null;
+    }
   }
 
   public void setPaddingBottom(final Measure paddingBottom) {
@@ -638,38 +791,300 @@ public class Style implements Serializable {
     this.paddingBottom = paddingBottom;
   }
 
-  public String getBackgroundImage() {
-    return backgroundImage;
+  public void setPaddingBottom(final ValueExpression paddingBottom) {
+    empty = null;
+    this.paddingBottomVE = paddingBottom;
   }
 
-  public void setBackgroundImage(String backgroundImage) {
+  public Measure getMarginLeft() {
+    if (marginLeftVE != null) {
+      return Measure.valueOf(marginLeftVE.getValue(FacesContext.getCurrentInstance().getELContext()));
+    } else if (marginLeft != null) {
+      return marginLeft;
+    } else {
+      return null;
+    }
+  }
+
+  public void setMarginLeft(final Measure marginLeft) {
+    empty = null;
+    this.marginLeft = marginLeft;
+  }
+
+  public void setMarginLeft(final ValueExpression marginLeft) {
+    empty = null;
+    this.marginLeftVE = marginLeft;
+  }
+
+  public Measure getMarginRight() {
+    if (marginRightVE != null) {
+      return Measure.valueOf(marginRightVE.getValue(FacesContext.getCurrentInstance().getELContext()));
+    } else if (marginRight != null) {
+      return marginRight;
+    } else {
+      return null;
+    }
+  }
+
+  public void setMarginRight(final Measure marginRight) {
+    empty = null;
+    this.marginRight = marginRight;
+  }
+
+  public void setMarginRight(final ValueExpression marginRight) {
+    empty = null;
+    this.marginRightVE = marginRight;
+  }
+
+  public Measure getMarginTop() {
+    if (marginTopVE != null) {
+      return Measure.valueOf(marginTopVE.getValue(FacesContext.getCurrentInstance().getELContext()));
+    } else if (marginTop != null) {
+      return marginTop;
+    } else {
+      return null;
+    }
+  }
+
+  public void setMarginTop(final Measure marginTop) {
+    empty = null;
+    this.marginTop = marginTop;
+  }
+
+  public void setMarginTop(final ValueExpression marginTop) {
+    empty = null;
+    this.marginTopVE = marginTop;
+  }
+
+  public Measure getMarginBottom() {
+    if (marginBottomVE != null) {
+      return Measure.valueOf(marginBottomVE.getValue(FacesContext.getCurrentInstance().getELContext()));
+    } else if (marginBottom != null) {
+      return marginBottom;
+    } else {
+      return null;
+    }
+  }
+
+  public void setMarginBottom(final Measure marginBottom) {
+    empty = null;
+    this.marginBottom = marginBottom;
+  }
+
+  public void setMarginBottom(final ValueExpression marginBottom) {
+    empty = null;
+    this.marginBottomVE = marginBottom;
+  }
+
+  public Overflow getOverflowX() {
+    if (overflowXVE != null) {
+      final Object value = overflowXVE.getValue(FacesContext.getCurrentInstance().getELContext());
+      if (value instanceof Overflow) {
+        return (Overflow) value;
+      } else if (value != null) {
+        return Overflow.valueOf(value.toString());
+      } else {
+        return null;
+      }
+    } else if (overflowX != null) {
+      return overflowX;
+    } else {
+      return null;
+    }
+  }
+
+  public void setOverflowX(final Overflow overflowX) {
+    empty = null;
+    this.overflowX = overflowX;
+  }
+
+  public void setOverflowX(final ValueExpression overflowX) {
+    empty = null;
+    this.overflowXVE = overflowX;
+  }
+
+  public Overflow getOverflowY() {
+    if (overflowYVE != null) {
+      final Object value = overflowYVE.getValue(FacesContext.getCurrentInstance().getELContext());
+      if (value instanceof Overflow) {
+        return (Overflow) value;
+      } else if (value != null) {
+        return Overflow.valueOf(value.toString());
+      } else {
+        return null;
+      }
+    } else if (overflowY != null) {
+      return overflowY;
+    } else {
+      return null;
+    }
+  }
+
+  public void setOverflowY(final Overflow overflowY) {
+    empty = null;
+    this.overflowY = overflowY;
+  }
+
+  public void setOverflowY(final ValueExpression overflowY) {
+    empty = null;
+    this.overflowYVE = overflowY;
+  }
+
+  public Display getDisplay() {
+    if (displayVE != null) {
+      final Object value = displayVE.getValue(FacesContext.getCurrentInstance().getELContext());
+      if (value instanceof Display) {
+        return (Display) value;
+      } else if (value != null) {
+        return Display.valueOf(value.toString());
+      } else {
+        return null;
+      }
+    } else if (display != null) {
+      return display;
+    } else {
+      return null;
+    }
+  }
+
+  public void setDisplay(final Display display) {
+    empty = null;
+    this.display = display;
+  }
+
+  public void setDisplay(final ValueExpression display) {
+    empty = null;
+    this.displayVE = display;
+  }
+
+  public Position getPosition() {
+    if (positionVE != null) {
+      final Object value = positionVE.getValue(FacesContext.getCurrentInstance().getELContext());
+      if (value instanceof Position) {
+        return (Position) value;
+      } else if (value != null) {
+        return Position.valueOf(value.toString());
+      } else {
+        return null;
+      }
+    } else if (position != null) {
+      return position;
+    } else {
+      return null;
+    }
+  }
+
+  public void setPosition(final Position position) {
+    empty = null;
+    this.position = position;
+  }
+
+  public void setPosition(final ValueExpression position) {
+    empty = null;
+    this.positionVE = position;
+  }
+
+  // tbd
+  public String getBackgroundImage() {
+    if (backgroundImageVE != null) {
+      return (String) backgroundImageVE.getValue(FacesContext.getCurrentInstance().getELContext());
+    } else if (backgroundImage != null) {
+      return backgroundImage;
+    } else {
+      return null;
+    }
+  }
+
+  // tbd
+  public void setBackgroundImage(final String backgroundImage) {
+    empty = null;
     this.backgroundImage = backgroundImage;
   }
 
-  public String getBackgroundPosition() {
-    return backgroundPosition;
+  // tbd
+  public void setBackgroundImage(final ValueExpression backgroundImage) {
+    empty = null;
+    this.backgroundImageVE = backgroundImage;
   }
 
-  public void setBackgroundPosition(String backgroundPosition) {
+  // tbd
+  public String getBackgroundPosition() {
+    if (backgroundPositionVE != null) {
+      return (String) backgroundPositionVE.getValue(FacesContext.getCurrentInstance().getELContext());
+    } else if (backgroundPosition != null) {
+      return backgroundPosition;
+    } else {
+      return null;
+    }
+  }
+
+  // tbd
+  public void setBackgroundPosition(final String backgroundPosition) {
+    empty = null;
     this.backgroundPosition = backgroundPosition;
   }
 
-  public Integer getZIndex() {
-    return zIndex;
+  // tbd
+  public void setBackgroundPosition(final ValueExpression backgroundPosition) {
+    empty = null;
+    this.backgroundPositionVE = backgroundPosition;
   }
 
+  // tbd
+  public Integer getZIndex() {
+    if (zIndexVE != null) {
+      final Object value = zIndexVE.getValue(FacesContext.getCurrentInstance().getELContext());
+      if (value instanceof Number) {
+        return (Integer) value;
+      } else if (value != null) {
+        return Integer.parseInt(value.toString());
+      } else {
+        return null;
+      }
+    } else if (zIndex != null) {
+      return zIndex;
+    } else {
+      return null;
+    }
+  }
+
+  // tbd
   public void setZIndex(final Integer zIndex) {
     empty = null;
     this.zIndex = zIndex;
   }
 
+  // tbd
+  public void setZIndex(final ValueExpression zIndex) {
+    empty = null;
+    this.zIndexVE = zIndex;
+  }
+
   public TextAlign getTextAlign() {
-    return textAlign;
+    if (textAlignVE != null) {
+      final Object value = textAlignVE.getValue(FacesContext.getCurrentInstance().getELContext());
+      if (value instanceof TextAlign) {
+        return (TextAlign) value;
+      } else if (value != null) {
+        return TextAlign.valueOf(value.toString());
+      } else {
+        return null;
+      }
+    } else if (textAlign != null) {
+      return textAlign;
+    } else {
+      return null;
+    }
   }
 
   public void setTextAlign(final TextAlign textAlign) {
     empty = null;
     this.textAlign = textAlign;
+  }
+
+  public void setTextAlign(final ValueExpression textAlign) {
+    empty = null;
+    this.textAlignVE = textAlign;
   }
 
   @Override

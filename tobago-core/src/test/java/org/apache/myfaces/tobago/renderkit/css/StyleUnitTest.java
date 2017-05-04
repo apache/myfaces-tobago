@@ -19,6 +19,7 @@
 
 package org.apache.myfaces.tobago.renderkit.css;
 
+import org.apache.myfaces.test.base.junit4.AbstractJsfTestCase;
 import org.apache.myfaces.tobago.layout.Display;
 import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.layout.Overflow;
@@ -27,7 +28,7 @@ import org.apache.myfaces.tobago.layout.TextAlign;
 import org.junit.Assert;
 import org.junit.Test;
 
-public class StyleUnitTest {
+public class StyleUnitTest extends AbstractJsfTestCase {
 
   @Test
   public void testEncodedEmpty() {

@@ -22,8 +22,9 @@ package org.apache.myfaces.tobago.renderkit.css;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.ArrayList;
-import java.util.List;
+import javax.el.ELContext;
+import javax.el.ValueExpression;
+import javax.faces.context.FacesContext;
 import java.util.StringTokenizer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -37,51 +38,52 @@ public class CustomClass implements CssItem {
 
   private static final Pattern CSS_CLASS_PATTERN = Pattern.compile("[\\w-]+");
 
-  private final String[] classes;
+  private String name;
+  private ValueExpression valueExpression;
 
-  private CustomClass(List<String> list) {
-    classes = list.toArray(new String[list.size()]);
+  public CustomClass(final String name) {
+    this.name = name;
   }
 
-  public static CustomClass valueOf(String text) {
-
-    final StringTokenizer tokenizer = new StringTokenizer(text, " ");
-    final List<String> result = new ArrayList<String>(tokenizer.countTokens());
-    while (tokenizer.hasMoreTokens()) {
-      final String token = tokenizer.nextToken();
-      final Matcher matcher = CSS_CLASS_PATTERN.matcher(token);
-      if (matcher.matches()) {
-        if (!result.contains(token)) {
-          result.add(token);
-        } else {
-          LOG.warn("Duplicate CSS class name: '{}' which is part of '{}'", token, text);
-        }
-      } else {
-        LOG.error("Invalid CSS class name: '{}' which is part of '{}'", token, text);
-      }
-    }
-    if (result.size() > 0) {
-      return new CustomClass(result);
-    } else {
-      return null;
-    }
-
+  public CustomClass(final ValueExpression valueExpression) {
+    this.valueExpression = valueExpression;
   }
 
   @Override
   public String getName() {
-    switch (classes.length) {
-      case 0:
-        return "";
-      case 1:
-        return classes[0];
-      default:
-        final StringBuilder builder = new StringBuilder(classes[0]);
-        for (int i = 1; i < classes.length; i++) {
-          builder.append(' ');
-          builder.append(classes[i]);
-        }
-        return builder.toString();
+    String string;
+    if (name != null) {
+      string = name;
+    } else {
+      final FacesContext facesContext = FacesContext.getCurrentInstance();
+      final ELContext elContext = facesContext.getELContext();
+      string = valueExpression.getValue(elContext).toString();
     }
+
+    final StringTokenizer tokenizer = new StringTokenizer(string, " ");
+    final StringBuilder result = new StringBuilder();
+    boolean first = true;
+    while (tokenizer.hasMoreTokens()) {
+      final String token = tokenizer.nextToken();
+      final Matcher matcher = CSS_CLASS_PATTERN.matcher(token);
+      if (matcher.matches()) {
+        if (!first) {
+          result.append(' ');
+        }
+        result.append(token);
+        first = false;
+      } else {
+        LOG.error("Invalid CSS class name: '{}' which is part of '{}'", token, string);
+      }
+    }
+    return result.length() > 0 ? result.toString() : null;
+  }
+
+  /**
+   * @deprecated since 3.1.0
+   */
+  @Deprecated
+  public static CustomClass valueOf(String text) {
+    return new CustomClass(text);
   }
 }
