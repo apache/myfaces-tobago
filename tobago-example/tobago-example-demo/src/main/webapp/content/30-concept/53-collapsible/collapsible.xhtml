@@ -18,11 +18,12 @@
 <ui:composition template="/main.xhtml"
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
-                xmlns:ui="http://java.sun.com/jsf/facelets">
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:demo="http://myfaces.apache.org/tobago/example/demo">
   <ui:param name="title" value="#{demoBundle.collapsible}"/>
 
   <p>
-    <span class="tag tag-danger">Warning!</span>
+    <span class="#{demo:bootstrapClass('BADGE')} #{demo:bootstrapClass('BADGE_DANGER')}">Warning!</span>
     <b>This feature is preliminary and may be subject of change in later versions!</b>
   </p>
 

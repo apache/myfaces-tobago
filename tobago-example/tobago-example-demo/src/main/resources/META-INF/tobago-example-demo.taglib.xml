@@ -17,24 +17,18 @@
  * limitations under the License.
 -->
 
-<ui:composition template="/main.xhtml"
-                xmlns:tc="http://myfaces.apache.org/tobago/component"
-                xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:demo="http://myfaces.apache.org/tobago/example/demo">
-  <ui:param name="title" value="Loading Facelets from JARs"/>
-  <tc:panel>
+<facelet-taglib
+    version="2.0"
+    xmlns="http://java.sun.com/xml/ns/javaee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facelettaglibrary_2_0.xsd">
 
-    <p>
-      <span class="#{demo:bootstrapClass('BADGE')} #{demo:bootstrapClass('BADGE_DANGER')}">Warning!</span>
-      <b>This page is out of date. This is no longer needed with Servlet 3.0.</b>
-    </p>
+  <namespace>http://myfaces.apache.org/tobago/example/demo</namespace>
 
-    <tc:out value="#{demoBundle.faceletsAsResources_text}"/>
+  <function>
+    <function-name>bootstrapClass</function-name>
+    <function-class>org.apache.myfaces.tobago.example.demo.BootstrapUtils</function-class>
+    <function-signature>java.lang.String valueOf(java.lang.String)</function-signature>
+  </function>
 
-    <tc:box label="This content is included from a JAR.">
-
-      <ui:include src="/data/edit-solar.xhtml"/>
-
-    </tc:box>
-  </tc:panel>
-</ui:composition>
+</facelet-taglib>

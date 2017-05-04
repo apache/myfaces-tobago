@@ -19,52 +19,68 @@
 
 package org.apache.myfaces.tobago.renderkit.css;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+
 
 /**
  * Test if every in Java declared CSS class has really an entry in a CSS file.
  */
 public class BootstrapClassUnitTest {
 
-  private List<BootstrapClass> not = Arrays.asList(
-      BootstrapClass.COL_XS_1,
-      BootstrapClass.COL_XS_2,
-      BootstrapClass.COL_XS_3,
-      BootstrapClass.COL_XS_4,
-      BootstrapClass.COL_XS_5,
-      BootstrapClass.COL_XS_6,
-      BootstrapClass.COL_XS_7,
-      BootstrapClass.COL_XS_8,
-      BootstrapClass.COL_XS_9,
-      BootstrapClass.COL_XS_10,
-      BootstrapClass.COL_XS_11,
-      BootstrapClass.COL_XS_12,
-      BootstrapClass.NAVBAR_DARK,
-      BootstrapClass.NAVBAR_TOGGLEABLE_XS
-  );
+  @Test
+  public void testNames() throws NoSuchFieldException {
+
+    final String fieldRegex = "[A-Z][A-Z0-9_]*[A-Z0-9]";
+    final String nameRegex = "[a-z][a-z0-9\\-]*[a-z0-9]";
+
+    for (BootstrapClass value : BootstrapClass.values()) {
+      boolean ignoreByTest = BootstrapClass.class.getField(value.name()).isAnnotationPresent(Deprecated.class);
+      if (!ignoreByTest) {
+        final String field = value.toString();
+        final String name = value.getName();
+
+        Assert.assertTrue("testing: '" + field + "' matches regexp for consts like FOO_BAR", field.matches(fieldRegex));
+        Assert.assertTrue("testing: '" + name + "' matches regexp for CSS like foo-bar", name.matches(nameRegex));
+
+        StringBuilder calculatedName = new StringBuilder();
+        for (int i = 0; i < field.length(); i++) {
+          char c = field.charAt(i);
+          if (c == '_') {
+            calculatedName.append("-");
+          } else {
+            calculatedName.append(Character.toLowerCase(c));
+          }
+        }
+
+        Assert.assertEquals(field, calculatedName.toString(), name);
+      }
+    }
+  }
 
   /**
    * This test checks, if every item of the {@link BootstrapClass} occurs in the bootstrap.css.
    */
   @Test
-  public void testCompareBootstrapCss() throws FileNotFoundException {
+  public void testCompareBootstrapCss() throws FileNotFoundException, NoSuchFieldException {
 
     final BootstrapClass[] allValues = BootstrapClass.values();
     final List<BootstrapClass> toCheck = new ArrayList<BootstrapClass>();
     for (BootstrapClass value : allValues) {
-      if (!not.contains(value)) {
+      boolean ignoreByTest = BootstrapClass.class.getField(value.name()).isAnnotationPresent(Deprecated.class);
+      if (!ignoreByTest) {
         toCheck.add(value);
       }
     }
 
-    CssClassUtils.compareCss(
+    final List<CssItem> missing = CssClassUtils.compareCss(
         "src/main/resources/META-INF/resources/tobago/standard/tobago-bootstrap/_version/css/bootstrap.css",
         toCheck.toArray(new BootstrapClass[toCheck.size()]));
-  }
 
+    Assert.assertTrue("These classes are missing in bootstrap.css: " + missing, missing.isEmpty());
+  }
 }

@@ -21,7 +21,8 @@
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:f="http://java.sun.com/jsf/core">
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:demo="http://myfaces.apache.org/tobago/example/demo">
   <ui:param name="title" value="#{demoBundle.progress} &lt;tc:progress>"/>
   <p>The <code class="language-markup">&lt;tc:progress/></code> tag create a progressbar.
     The most important attribute is <code>value</code>.
@@ -66,7 +67,7 @@
       </f:facet>
 
       <p>
-        <span class="tag tag-danger">Warning!</span>
+        <span class="#{demo:bootstrapClass('BADGE')} #{demo:bootstrapClass('BADGE_DANGER')}">Warning!</span>
         <b>The reload feature is preliminary and may be subject of change in later versions!</b>
       </p>
 
