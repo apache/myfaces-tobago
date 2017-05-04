@@ -19,26 +19,17 @@
 
 package org.apache.myfaces.tobago.internal.taglib.component;
 
+import org.apache.myfaces.tobago.apt.annotation.SimpleTag;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
-import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
-import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
 
 /**
  * This tag adds script files to include into the rendered page.
- * <br>
- * Some features are deprecated (because of CSP): This tag adds client side script to the rendered page.
  */
 @Tag(name = "script")
-@UIComponentTag(
-    uiComponent = "org.apache.myfaces.tobago.component.UIScript",
-    uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUIScript",
-    componentFamily = "org.apache.myfaces.tobago.Script",
-    faceletHandler = "org.apache.myfaces.tobago.facelets.ScriptHandler",
-    rendererType = RendererTypes.SCRIPT,
-    allowedChildComponenents = "NONE")
+@SimpleTag(faceletHandler = "org.apache.myfaces.tobago.facelets.ScriptHandler")
 public interface ScriptTagDeclaration extends HasIdBindingAndRendered {
 
   /**

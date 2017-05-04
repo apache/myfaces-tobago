@@ -35,6 +35,10 @@ import javax.faces.event.ComponentSystemEventListener;
 import javax.faces.event.ListenerFor;
 import javax.faces.event.PostAddToViewEvent;
 
+/**
+ * @deprecated since 3.1.0
+ */
+@Deprecated
 @ListenerFor(systemEventClass = PostAddToViewEvent.class)
 public class StyleRenderer extends RendererBase implements ComponentSystemEventListener {
 

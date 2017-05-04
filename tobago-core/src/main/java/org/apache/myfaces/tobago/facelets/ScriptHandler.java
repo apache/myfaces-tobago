@@ -19,22 +19,41 @@
 
 package org.apache.myfaces.tobago.facelets;
 
+import org.apache.myfaces.tobago.component.Attributes;
+import org.apache.myfaces.tobago.internal.util.FacesContextUtils;
+import org.apache.myfaces.tobago.internal.util.StringUtils;
+
+import javax.el.ELException;
 import javax.faces.component.UIComponent;
-import javax.faces.view.facelets.ComponentConfig;
 import javax.faces.view.facelets.ComponentHandler;
 import javax.faces.view.facelets.FaceletContext;
+import javax.faces.view.facelets.TagAttribute;
+import javax.faces.view.facelets.TagConfig;
+import javax.faces.view.facelets.TagHandler;
 
-public class ScriptHandler extends ComponentHandler {
+public class ScriptHandler extends TagHandler {
 
-  public ScriptHandler(final ComponentConfig config) {
+  public ScriptHandler(final TagConfig config) {
     super(config);
+
+    this.file = getAttribute(Attributes.file.getName());
   }
 
-  @Override
-  public void onComponentCreated(final FaceletContext context, final UIComponent component, final UIComponent parent) {
-  }
+  private final TagAttribute file;
 
   @Override
-  public void applyNextHandler(final FaceletContext ctx, final UIComponent c) {
+  public void apply(final FaceletContext faceletContext, final UIComponent parent) throws ELException {
+
+    if (ComponentHandler.isNew(parent)) {
+
+      // file
+      if (file != null) {
+        final String value = file.getValue(faceletContext);
+        if (StringUtils.isNotBlank(value)) {
+          FacesContextUtils.addScriptFile(faceletContext.getFacesContext(), value);
+        }
+      }
+
+    }
   }
 }

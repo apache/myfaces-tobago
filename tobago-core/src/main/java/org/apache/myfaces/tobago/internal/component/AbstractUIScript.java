@@ -25,6 +25,8 @@ import javax.faces.component.UIComponentBase;
  * {@link org.apache.myfaces.tobago.internal.taglib.component.ScriptTagDeclaration}
  *
  * @since 3.0.0
+ * @deprecated since 3.1.0
  */
+@Deprecated
 public abstract class AbstractUIScript extends UIComponentBase {
 }
