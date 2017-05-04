@@ -76,7 +76,7 @@ public class CustomClass implements CssItem {
         LOG.error("Invalid CSS class name: '{}' which is part of '{}'", token, string);
       }
     }
-    return result.length() > 0 ? result.toString() : null;
+    return result.toString();
   }
 
   /**

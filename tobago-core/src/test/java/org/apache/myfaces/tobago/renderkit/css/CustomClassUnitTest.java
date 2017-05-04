@@ -33,9 +33,9 @@ public class CustomClassUnitTest {
     Assert.assertEquals("-", "test-8", new CustomClass("test-8").getName());
     Assert.assertEquals("_", "__t_e_s_t-9 _d", new CustomClass("__t_e_s_t-9 _d").getName());
 
-    Assert.assertEquals(".", null, new CustomClass("test.10").getName());
-    Assert.assertEquals("tab", null, new CustomClass("test\t11").getName());
-    Assert.assertEquals(":", null, new CustomClass("test:12").getName());
+    Assert.assertEquals(".", "", new CustomClass("test.10").getName());
+    Assert.assertEquals("tab", "", new CustomClass("test\t11").getName());
+    Assert.assertEquals(":", "", new CustomClass("test:12").getName());
   }
 
 }
