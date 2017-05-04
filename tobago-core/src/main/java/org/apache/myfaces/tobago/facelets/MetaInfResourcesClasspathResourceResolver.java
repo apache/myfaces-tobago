@@ -40,7 +40,10 @@ import java.net.URL;
  *    &lt;/param-value&gt;
  *  &lt;/context-param&gt;
  * </pre>
+ *
+ * @deprecated since 3.0.0
  */
+@Deprecated
 public class MetaInfResourcesClasspathResourceResolver extends DefaultResourceResolver {
 
   private static final Logger LOG = LoggerFactory.getLogger(MetaInfResourcesClasspathResourceResolver.class);
