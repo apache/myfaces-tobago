@@ -23,7 +23,7 @@ QUnit.test("span(https://example.com/) - inputfield", function(assert) {
   var combinedWidth = $span.outerWidth(true) + $input.outerWidth(true);
 
   assert.equal($inputfield.outerWidth(true), $mainForm.width());
-  assert.ok(combinedWidth <= $mainForm.width(),
+  assert.ok(combinedWidth <= $mainForm.width() + 1,
       "Width of inputfield (" + $span.outerWidth(true) + "px) + span (" + $input.outerWidth(true) + "px) (="
       + combinedWidth + "px) must be smaller/equal than the width of the content box (" + $mainForm.width() + "px).");
   assert.equal($span.outerHeight(), $input.outerHeight());
@@ -38,7 +38,7 @@ QUnit.test("label(Price) - inputfield - span(.00 €)", function(assert) {
   var combinedWidth = $label.outerWidth(true) + $span.outerWidth(true) + $input.outerWidth(true);
 
   assert.equal($inputfield.outerWidth(true), $mainForm.width());
-  assert.ok(combinedWidth <= $mainForm.width(),
+  assert.ok(combinedWidth <= $mainForm.width() + 1,
       "Width of label (" + $label.outerWidth(true) + "px) + input (" + $input.outerWidth(true) + "px) + span ("
       + $span.outerWidth(true) + "px) (=" + combinedWidth
       + "px) must be smaller/equal than the width of the content box (" + $mainForm.width() + "px).");
@@ -54,7 +54,7 @@ QUnit.test("span(User Two) - inputfield - button(Send)", function(assert) {
   var combinedWidth = $span.outerWidth(true) + $input.outerWidth(true) + $button.outerWidth(true);
 
   assert.equal($inputfield.outerWidth(true), $mainForm.width());
-  assert.ok(combinedWidth <= $mainForm.width(),
+  assert.ok(combinedWidth <= $mainForm.width() + 1,
       "Width of span (" + $span.outerWidth(true) + "px) + input (" + $input.outerWidth(true) + "px) + button ("
       + $button.outerWidth(true) + "px) (=" + combinedWidth
       + "px) must be smaller/equal than the width of the content box (" + $mainForm.width() + "px).");
@@ -70,7 +70,7 @@ QUnit.test("dropdown-button - inputfield", function(assert) {
   var combinedWidth = $button.outerWidth(true) + $input.outerWidth(true);
 
   assert.equal($inputfield.outerWidth(true), $mainForm.width());
-  assert.ok(combinedWidth <= $mainForm.width(),
+  assert.ok(combinedWidth <= $mainForm.width() + 1,
       "Width of button (" + $button.outerWidth(true) + "px) + input (" + $input.outerWidth(true) + "px) (="
       + combinedWidth + "px) must be smaller/equal than the width of the content box (" + $mainForm.width() + "px).");
   assert.equal($button.outerHeight(), $input.outerHeight());
@@ -85,7 +85,7 @@ QUnit.test("inputfield - span(Send To:) - dropdown-button", function(assert) {
   var combinedWidth = $input.outerWidth(true) + $span.outerWidth(true) + $button.outerWidth(true);
 
   assert.equal($inputfield.outerWidth(true), $mainForm.width());
-  assert.ok(combinedWidth <= $mainForm.width(),
+  assert.ok(combinedWidth <= $mainForm.width() + 1,
       "Width of input (" + $input.outerWidth(true) + "px) + span (" + $span.outerWidth(true) + "px) + button ("
       + $button.outerWidth(true) + "px) (=" + combinedWidth
       + "px) must be smaller/equal than the width of the content box (" + $mainForm.width() + "px).");
@@ -101,7 +101,7 @@ QUnit.test("inputfield - dropdownbox", function(assert) {
   var combinedWidth = $input.outerWidth(true) + $dropdown.outerWidth(true);
 
   assert.equal($inputfield.outerWidth(true), $mainForm.width());
-  assert.ok(combinedWidth <= $mainForm.width(),
+  assert.ok(combinedWidth <= $mainForm.width() + 1,
       "Width of input (" + $input.outerWidth(true) + "px) + dropdown (" + $dropdown.outerWidth(true) + "px) (="
       + combinedWidth + "px) must be smaller/equal than the width of the content box (" + $mainForm.width() + "px).");
   assert.equal($input.outerHeight(), $dropdown.outerHeight());

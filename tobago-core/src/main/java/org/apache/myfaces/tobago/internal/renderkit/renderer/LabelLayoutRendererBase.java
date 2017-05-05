@@ -137,7 +137,7 @@ public abstract class LabelLayoutRendererBase extends DecodingInputRendererBase 
     }
 
 //    if (labelLayout != LabelLayout.none) {
-    writer.startElement(HtmlElements.DIV);
+    writer.startElement(LabelLayout.skip == labelLayout ? HtmlElements.SPAN : HtmlElements.DIV);
     writer.writeIdAttribute(clientId);
 //    }
 //    writer.writeClassAttribute(divClass, BootstrapClass.maximumSeverity(component));
@@ -207,7 +207,7 @@ public abstract class LabelLayoutRendererBase extends DecodingInputRendererBase 
     }
 
 //    if (labelLayout != LabelLayout.none) {
-    writer.endElement(HtmlElements.DIV);
+    writer.endElement(LabelLayout.skip == labelLayout ? HtmlElements.SPAN : HtmlElements.DIV);
 //    }
   }
 

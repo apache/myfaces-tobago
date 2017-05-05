@@ -184,7 +184,7 @@ function testEvent(assert, componentName, eventNames, $eventComponent, $ajaxComp
 
 function activateComponent(componentName, eventName) {
   jQueryFrame("#page\\:mainForm\\:componentTable .tobago-sheet-row").each(function () {
-    if (jQuery(this).find("td").eq(0).find("span").text() === componentName) {
+    if (jQuery(this).find("td").eq(0).find(".tobago-out").text() === componentName) {
       jQuery(this).find("button").each(function () {
         var id = jQuery(this).attr("id");
         if (id !== undefined && id.indexOf(eventName + "Behavior") >= 0) {
