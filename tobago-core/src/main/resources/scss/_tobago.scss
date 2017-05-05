@@ -117,11 +117,11 @@ Todo: check, if this is needed? (It doesn't work with the build system)
 
 .tobago-date {
   min-width: 7em;
-}
 
-/* Remove IE10's "clear field" X button */
-.tobago-date::-ms-clear {
-  display: none;
+  &::-ms-clear {
+    /* Remove IE10's "clear field" X button */
+    display: none;
+  }
 }
 
 /* for pickers with more than one icon, e.g. date-time picker */
@@ -172,31 +172,32 @@ body {
 /* flexLayout -------------------------------------------------------------- */
 
 .tobago-flexLayout {
-    display: -webkit-flex; /* needed e.g. for Safari 8.0.2 */
-    display: -ms-flexbox; /* needed for IE 10 */
-    display: flex;
-    min-width: 0; /* without this, Firefox/Webkit are different from IE:
-    Set the minimal width to zero make flex-layout responsive for the width,
-    even if there is overflowing content.
-    currently e.g. PRE-code blocks in the demo are too wide. XXX */
+  display: -webkit-flex; /* needed e.g. for Safari 8.0.2 */
+  display: -ms-flexbox; /* needed for IE 10 */
+  display: flex;
+  min-width: 0;
+  /* without this, Firefox/Webkit are different from IE:
+     Set the minimal width to zero make flex-layout responsive for the width,
+     even if there is overflowing content.
+     currently e.g. PRE-code blocks in the demo are too wide. XXX */
   margin-left: -3px;
   margin-right: -3px;
-}
 
-.tobago-flexLayout > * {
-  margin-left: 3px;
-  margin-right: 3px;
-}
+  > * {
+    margin-left: 3px;
+    margin-right: 3px;
+  }
 
-.tobago-flexLayout > .tobago-flexLayout {
-  margin-left: 0;
-  margin-right: 0;
+  > .tobago-flexLayout {
+    margin-left: 0;
+    margin-right: 0;
+  }
 }
 
 .tobago-flexLayout-markup-vertically {
-    flex-direction: column;
-    -webkit-flex-direction: column;
-    -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
 }
 
 .tobago-alignItems-baseline {
@@ -227,15 +228,15 @@ body {
   justify-content: flex-start;
 }
 
-.tobago-justifyContent-flexEnd{
+.tobago-justifyContent-flexEnd {
   justify-content: flex-end;
 }
 
-.tobago-justifyContent-spaceBetween{
+.tobago-justifyContent-spaceBetween {
   justify-content: space-between;
 }
 
-.tobago-justifyContent-spaceAround{
+.tobago-justifyContent-spaceAround {
   justify-content: space-around;
 }
 
@@ -248,9 +249,9 @@ body {
 .tobago-footer {
   background-color: #ffffff;
   padding: 5px 10px;
-  -webkit-box-shadow: 0 0 5px 5px rgba(200,200,200,0.5);
-  -moz-box-shadow: 0 0 5px 5px rgba(200,200,200,0.5);
-  box-shadow: 0 0 5px 5px rgba(200,200,200,0.5);
+  -webkit-box-shadow: 0 0 5px 5px rgba(200, 200, 200, 0.5);
+  -moz-box-shadow: 0 0 5px 5px rgba(200, 200, 200, 0.5);
+  box-shadow: 0 0 5px 5px rgba(200, 200, 200, 0.5);
 }
 
 .fixed-bottom {
@@ -265,45 +266,48 @@ body {
 /* gridLayout -------------------------------------------------------------- */
 
 .tobago-gridLayout {
-    width: 100%;
-    height: 100%;
-/*
-    border-spacing: 5px;
-    border-collapse: separate;
-*/
-    border-spacing: 0;
-    border-collapse: collapse;
+  width: 100%;
+  height: 100%;
+  /*
+      border-spacing: 5px;
+      border-collapse: separate;
+  */
+  border-spacing: 0;
+  border-collapse: collapse;
 }
 
-table.tobago-gridLayout > tbody > tr > td {
+table.tobago-gridLayout > tbody {
+  > tr > td {
     vertical-align: top;
     padding: 0;
     border-left: 5px solid transparent;
     border-top: 5px solid transparent;
-    height: 100%; /* needed for Firefox */
-}
+    height: 100%;
+    /* needed for Firefox */
 
-table.tobago-gridLayout > tbody > tr > td:first-child {
+    > * {
+      height: 100%;
+      width: 100%;
+    }
+  }
+
+  > tr > td:first-child {
     border-left: 0;
-}
+  }
 
-table.tobago-gridLayout > tbody > tr:first-child > td {
+  > tr:first-child > td {
     border-top: 0;
-}
-
-table.tobago-gridLayout > tbody > tr > td > * {
-  height: 100%;
-  width: 100%;
+  }
 }
 
 /* header ----------------------------------------------------------- */
 
 .tobago-header {
-    margin-bottom: 1rem;
-}
+  margin-bottom: 1rem;
 
-.tobago-header.fixed-top {
+  &.fixed-top {
     margin-bottom: 0;
+  }
 }
 
 /* image ----------------------------------------------------------- */
@@ -330,10 +334,10 @@ table.tobago-gridLayout > tbody > tr > td > * {
 
 .tobago-link {
   white-space: nowrap;
-}
 
-.tobago-link span {
-  white-space: normal
+  span {
+    white-space: normal
+  }
 }
 
 button {
@@ -364,22 +368,22 @@ button {
       text-decoration: none;
     }
   }
-}
 
-button.tobago-link-markup-disabled, button.tobago-command-markup-disabled {
-  cursor: not-allowed;
-  opacity: .65;
-}
+  &.tobago-link-markup-disabled, &.tobago-command-markup-disabled {
+    cursor: not-allowed;
+    opacity: .65;
 
-button.tobago-link-markup-disabled:hover, button.tobago-command-markup-disabled:hover {
-  color: $blue;
-  text-decoration: none;
-}
+    &:hover {
+      color: $blue;
+      text-decoration: none;
+    }
+  }
 
-button.nav-link { /* bootstrap don't know button.nav-link*/
-  padding: $nav-link-padding;
-  padding-top: .55em;
-  padding-bottom: .45em;
+  &.nav-link { /* bootstrap don't know button.nav-link*/
+    padding: $nav-link-padding;
+    padding-top: .55em;
+    padding-bottom: .45em;
+  }
 }
 
 .navbar-nav button.nav-link {
@@ -391,15 +395,17 @@ button.nav-link { /* bootstrap don't know button.nav-link*/
 
 .tobago-messages-container {
   align-items: flex-start;
-}
 
-.tobago-messages-container.tobago-flexLayout .tobago-messages:first-child small label {
-  margin-right: 0; /* for tc:in margin 5px is already set */
-  margin-bottom: 5px;
-}
+  &.tobago-flexLayout {
+    .tobago-messages:first-child small label {
+      margin-right: 0; /* for tc:in margin 5px is already set */
+      margin-bottom: 5px;
+    }
 
-.tobago-messages-container.tobago-flexLayout .tobago-selectManyShuttle {
-  flex-grow: 1;
+    .tobago-selectManyShuttle {
+      flex-grow: 1;
+    }
+  }
 }
 
 a.tobago-messages-button {
@@ -409,10 +415,10 @@ a.tobago-messages-button {
 
 .tobago-messages label {
   display: block;
-}
 
-.tobago-messages label:last-child {
-  margin-bottom: 0;
+  &:last-child {
+    margin-bottom: 0;
+  }
 }
 
 /* nav ----------------------------------------------------------- */
@@ -426,24 +432,25 @@ a.tobago-messages-button {
 */
 
 /* styles for drop down menu first level */
-.dropdown-toggle:focus, .dropdown-toggle:hover {
-  text-decoration: none;
+.dropdown-toggle {
+  &:focus, &:hover {
+    text-decoration: none;
+  }
 }
-
 
 /* no bottom border in navtabs, if panel-body under it */
 .nav-tabs {
   border-bottom-width: 0;
-}
 
-.nav-tabs > li.active > a {
-  background-image: linear-gradient(to bottom, #f5f5f5 0%, #e8e8e8 100%);
-  background-repeat: repeat-x;
-  border-bottom: #dddddd;
-}
+  > li.active > a {
+    background-image: linear-gradient(to bottom, #f5f5f5 0%, #e8e8e8 100%);
+    background-repeat: repeat-x;
+    border-bottom: #dddddd;
 
-.nav-tabs > li.active > a:hover {
-  border-bottom: #dddddd;
+    &:hover {
+      border-bottom: #dddddd;
+    }
+  }
 }
 
 .dropdown-menu .form-check {
@@ -483,36 +490,36 @@ a.tobago-messages-button {
       text-decoration: none;
     }
   }
-}
 
-.tobago-dropdown-submenu:after {
-  content: " ";
-  float: right;
-  border-color: transparent;
-  border-style: solid;
-  border-width: 5px 0 5px 5px;
-  border-left-color: #cccccc;
-  margin-top: 7px;
-  margin-right: -10px;
-}
-
-.tobago-dropdown-submenu:hover > .dropdown-menu {
-  display: block;
-
-  > a:after {
-    border-left-color: $dropdown-bg;
+  &:after {
+    content: " ";
+    float: right;
+    border-color: transparent;
+    border-style: solid;
+    border-width: 5px 0 5px 5px;
+    border-left-color: #cccccc;
+    margin-top: 7px;
+    margin-right: -10px;
   }
-}
 
-.tobago-dropdown-submenu.pull-left {
-  float: none;
+  &:hover > .dropdown-menu {
+    display: block;
 
-  > .dropdown-menu {
-    left: -100%;
-    margin-left: 10px;
-    -webkit-border-radius: 6px 0 6px 6px;
-    -moz-border-radius: 6px 0 6px 6px;
-    border-radius: 6px 0 6px 6px;
+    > a:after {
+      border-left-color: $dropdown-bg;
+    }
+  }
+
+  &.pull-left {
+    float: none;
+
+    > .dropdown-menu {
+      left: -100%;
+      margin-left: 10px;
+      -webkit-border-radius: 6px 0 6px 6px;
+      -moz-border-radius: 6px 0 6px 6px;
+      border-radius: 6px 0 6px 6px;
+    }
   }
 }
 
@@ -572,10 +579,10 @@ span.tobago-out:empty:before {
   width: 100%;
   /* TODO: better z-index strategy */
   z-index: 500; /* less than the bootstrap navbar */
-}
 
-.tobago-page-overlayCenter img {
-  position: relative;
+  img {
+    position: relative;
+  }
 }
 
 .tobago-page-noscript {
@@ -614,13 +621,10 @@ span.tobago-out:empty:before {
 /* section ----------------------------------------------------------- */
 
 /* to separate the icon from the rest of the title */
-h1 > .fa:first-child,
-h2 > .fa:first-child,
-h3 > .fa:first-child,
-h4 > .fa:first-child,
-h5 > .fa:first-child,
-h6 > .fa:first-child {
-  margin-right: 0.7em;
+h1, h2, h3, h4, h5, h6 {
+  > .fa:first-child {
+    margin-right: 0.7em;
+  }
 }
 
 .tobago-section-header {
@@ -673,11 +677,11 @@ h6 > .fa:first-child {
 
 .tobago-selectManyShuttle {
   display: flex;
-}
 
-.tobago-selectManyShuttle .tobago-selectManyShuttle-unselected,
-.tobago-selectManyShuttle .tobago-selectManyShuttle-selected {
-  flex: 1 0 0px;
+  .tobago-selectManyShuttle-unselected,
+  .tobago-selectManyShuttle-selected {
+    flex: 1 0 0px;
+  }
 }
 
 .tobago-selectManyShuttle-hidden {
@@ -688,19 +692,18 @@ h6 > .fa:first-child {
   display: flex;
   flex-direction: column;
   padding: 0 0.5rem;
-}
 
-.tobago-selectManyShuttle-toolBar > button {
-  display: block;
-}
+  > button {
+    display: block;
+  }
 
-.tobago-selectManyShuttle-toolBar > div {
-  flex: 1 0 0px;
-}
+  > div {
+    flex: 1 0 0px;
+  }
 
-/* XXX this fixes the margin left from .btn:nth-child(n+2), but is ugly */
-.tobago-selectManyShuttle-toolBar > * {
-  margin-left: 0 !important;
+  > * { /* XXX this fixes the margin left from .btn:nth-child(n+2), but is ugly */
+    margin-left: 0 !important;
+  }
 }
 
 /* selectOneRadio ---------------------------------------------------------- */
@@ -770,26 +773,26 @@ p.tobago-separator {
   padding: 0;
   margin-top: 1em;
   margin-bottom: 1em;
-}
 
-p.tobago-separator:before, p.tobago-separator:after {
-  content: "";
-  height: 1px;
-  background-color: rgba(0, 0, 0, 0.1);
-  display: inline-block;
-  vertical-align: middle;
-}
+  &:before, &:after {
+    content: "";
+    height: 1px;
+    background-color: rgba(0, 0, 0, 0.1);
+    display: inline-block;
+    vertical-align: middle;
+  }
 
-p.tobago-separator:before {
-  width: 80px;
-  margin-left: 0;
-  margin-right: 5px;
-}
+  &:before {
+    width: 80px;
+    margin-left: 0;
+    margin-right: 5px;
+  }
 
-p.tobago-separator:after {
-  width: 100%;
-  margin-left: 5px;
-  margin-right: 0;
+  &:after {
+    width: 100%;
+    margin-left: 5px;
+    margin-right: 0;
+  }
 }
 
 /* sheet -------------------------------------------------------------- */
@@ -798,10 +801,10 @@ p.tobago-separator:after {
 
 th.tobago-sheet-headerCell {
   font-weight: normal;
-}
 
-th.tobago-sheet-headerCell .tobago-out {
-  font-weight: bold;
+  .tobago-out {
+    font-weight: bold;
+  }
 }
 
 .tobago-sheet-header {
@@ -842,11 +845,12 @@ th.tobago-sheet-headerCell .tobago-out {
 .tobago-sheet-paging-markup-left {
   float: left;
 }
+
 .tobago-sheet-paging-markup-center {
 }
 
 .tobago-sheet-paging-markup-right {
-  float:right;
+  float: right;
 }
 
 .tobago-sheet-pagingInput {
@@ -918,10 +922,10 @@ th.tobago-sheet-headerCell .tobago-out {
 
 .typeahead {
   background-color: #FFFFFF;
-}
 
-.typeahead:focus {
-  border: 2px solid #0097CF;
+  &:focus {
+    border: 2px solid #0097CF;
+  }
 }
 
 .tt-query {
@@ -953,22 +957,22 @@ th.tobago-sheet-headerCell .tobago-out {
 }
 
 .tt-suggestion {
-    padding: 3px 20px;
-}
+  padding: 3px 20px;
 
-.tt-suggestion:hover {
+  &:hover {
     background-color: #0097CF;
     color: #FFFFFF;
     cursor: pointer;
-}
+  }
 
-.tt-suggestion.tt-cursor {
-  background-color: #0097CF;
-  color: #FFFFFF;
-}
+  &.tt-cursor {
+    background-color: #0097CF;
+    color: #FFFFFF;
+  }
 
-.tt-suggestion p {
-  margin: 0;
+  p {
+    margin: 0;
+  }
 }
 
 /* tab / tab-group ----------------------------------------------------------------- */
@@ -1050,49 +1054,52 @@ fixme: there is a problem with the selectManyShuttle with this style.
   width: 155px;
 }
 
-/* fixes vertical space, todo: why is is needed? is there a better way? */
-.form-horizontal > * {
-  margin-top: 10px;
-  margin-bottom: 5px;
-  /* XXX MUST BE REMOVED */
-}.form-horizontal .control-label {
-   margin-top: 10px;
-   margin-bottom: 5px;
- }
+.form-horizontal {
+
+  > * { /* fixes vertical space, todo: why is is needed? is there a better way? */
+    margin-top: 10px;
+    margin-bottom: 5px;
+    /* XXX MUST BE REMOVED */
+  }
+
+  .control-label {
+    margin-top: 10px;
+    margin-bottom: 5px;
+  }
+}
+
 /* FIXME: This is to hide the toolbar, until it is implemented */
 .tobago-tabGroup-toolBar {
   display: none;
 }
 
-.tobago-has-info .form-control-feedback,
-.tobago-has-info .form-control-label,
-.tobago-has-info .form-check-label,
-.tobago-has-info .form-check-inline,
-.tobago-has-info .custom-control {
-  color: $brand-info;
-}
+.tobago-has-info {
+  .form-control-feedback, .form-control-label, .form-check-label, .form-check-inline, .custom-control {
+    color: $brand-info;
+  }
 
-.tobago-has-info .form-control {
-  border-color: $brand-info;
-}
+  .form-control {
+    border-color: $brand-info;
+  }
 
-.tobago-has-info .input-group-addon {
-  color: $brand-info;
-  background-color: #eaf6ea;
-  border-color: $brand-info;
-}
+  .input-group-addon {
+    color: $brand-info;
+    background-color: #eaf6ea;
+    border-color: $brand-info;
+  }
 
-.tobago-has-info .form-control-feedback {
-  color: $brand-info;
-}
+  .form-control-feedback {
+    color: $brand-info;
+  }
 
-.tobago-has-info .form-control-success {
-  background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2MTIgNzkyIj48cGF0aCBmaWxsPSIjNWNiODVjIiBkPSJNMjMzLjggNjEwYy0xMy4zIDAtMjYtNi0zNC0xNi44TDkwLjUgNDQ4LjhDNzYuMyA0MzAgODAgNDAzLjMgOTguOCAzODljMTguOC0xNC4yIDQ1LjUtMTAuNCA1OS44IDguNGw3MiA5NUw0NTEuMyAyNDJjMTIuNS0yMCAzOC44LTI2LjIgNTguOC0xMy43IDIwIDEyLjQgMjYgMzguNyAxMy43IDU4LjhMMjcwIDU5MGMtNy40IDEyLTIwLjIgMTkuNC0zNC4zIDIwaC0yeiIvPjwvc3ZnPg==");
+  .form-control-success {
+    background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2MTIgNzkyIj48cGF0aCBmaWxsPSIjNWNiODVjIiBkPSJNMjMzLjggNjEwYy0xMy4zIDAtMjYtNi0zNC0xNi44TDkwLjUgNDQ4LjhDNzYuMyA0MzAgODAgNDAzLjMgOTguOCAzODljMTguOC0xNC4yIDQ1LjUtMTAuNCA1OS44IDguNGw3MiA5NUw0NTEuMyAyNDJjMTIuNS0yMCAzOC44LTI2LjIgNTguOC0xMy43IDIwIDEyLjQgMjYgMzguNyAxMy43IDU4LjhMMjcwIDU5MGMtNy40IDEyLTIwLjIgMTkuNC0zNC4zIDIwaC0yeiIvPjwvc3ZnPg==");
+  }
 }
 
 .tobago-required .tobago-label:after {
-  content:"*";
-  color:red;
+  content: "*";
+  color: red;
 }
 
 /* Bootstrap datetimepicker workarounds ------------------------------------------------------------------ */
@@ -1101,7 +1108,8 @@ fixme: there is a problem with the selectManyShuttle with this style.
  * CSS extension for bootstrap3-datetimepicker to fit with bootstrap4.
  */
 
-.bootstrap-datetimepicker-widget th,
-.bootstrap-datetimepicker-widget td {
-  padding: 5px;
+.bootstrap-datetimepicker-widget {
+  th, td {
+    padding: 5px;
+  }
 }
