@@ -36,7 +36,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
     uiComponent = "org.apache.myfaces.tobago.component.UISeparator",
     uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUISeparator",
     componentFamily = "org.apache.myfaces.tobago.Separator",
-    rendererType = RendererTypes.SEPARATOR,
+    rendererType = {RendererTypes.SEPARATOR, RendererTypes.SEPARATOR_INSIDE_COMMAND},
     allowedChildComponenents = "NONE",
     interfaces = {
         // As long as no behavior event names are defined, ClientBehaviorHolder must be implemented for Majorra.

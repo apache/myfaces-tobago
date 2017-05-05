@@ -27,6 +27,7 @@ import org.apache.myfaces.tobago.internal.component.AbstractUILink;
 import org.apache.myfaces.tobago.internal.component.AbstractUISelectBooleanCheckbox;
 import org.apache.myfaces.tobago.internal.component.AbstractUISelectManyCheckbox;
 import org.apache.myfaces.tobago.internal.component.AbstractUISelectOneRadio;
+import org.apache.myfaces.tobago.internal.component.AbstractUISeparator;
 import org.apache.myfaces.tobago.internal.util.AccessKeyLogger;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.internal.util.JsonUtils;
@@ -179,6 +180,9 @@ public abstract class CommandRendererBase extends DecodingCommandRendererBase {
             child.encodeAll(facesContext);
           } else if (child instanceof AbstractUISelectOneRadio) {
             child.setRendererType(RendererTypes.SelectOneRadioInsideCommand.name());
+            child.encodeAll(facesContext);
+          } else if( child instanceof AbstractUISeparator) {
+            child.setRendererType(RendererTypes.SeparatorInsideCommand.name());
             child.encodeAll(facesContext);
           } else {
             writer.startElement(HtmlElements.DIV);

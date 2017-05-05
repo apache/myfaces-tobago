@@ -156,6 +156,7 @@ public enum BootstrapClass implements CssItem {
   D_INLINE("d-inline"),
   DISABLED("disabled"),
   DROPDOWN("dropdown"),
+  DROPDOWN_DIVIDER("dropdown-divider"),
   DROPDOWN_ITEM("dropdown-item"),
   DROPDOWN_MENU("dropdown-menu"),
   DROPDOWN_MENU_RIGHT("dropdown-menu-right"),

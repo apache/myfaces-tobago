@@ -37,4 +37,14 @@
     <tc:separator/>
     <tc:in id="i4" label="Text 2"/>
   </tc:section>
+
+  <tc:section label="Separator in dropdown menu">
+    <p>Just put a <code class="language-markup">&lt;tc:separator/></code> tag between dropdown menu entries.</p>
+    <p>The <code>label</code> attribute has no effect.</p>
+    <tc:button label="Dropdown" omit="true">
+      <tc:link label="Entry One" omit="true"/>
+      <tc:separator/>
+      <tc:link label="Entry Two" omit="true"/>
+    </tc:button>
+  </tc:section>
 </ui:composition>

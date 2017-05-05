@@ -79,6 +79,7 @@ public enum RendererTypes {
   SelectOneListbox,
   SelectReference,
   Separator,
+  SeparatorInsideCommand,
   Sheet,
   SheetPageCommand,
   /** @deprecated since 3.1.0 */
@@ -155,6 +156,7 @@ public enum RendererTypes {
   public static final String SELECT_ONE_LISTBOX = "SelectOneListbox";
   public static final String SELECT_REFERENCE = "SelectReference";
   public static final String SEPARATOR = "Separator";
+  public static final String SEPARATOR_INSIDE_COMMAND = "SeparatorInsideCommand";
   public static final String SHEET = "Sheet";
   public static final String SHEET_PAGE_COMMAND = "SheetPageCommand";
   /** @deprecated since 3.1.0 */
