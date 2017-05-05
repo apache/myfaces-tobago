@@ -51,13 +51,20 @@ public class CustomClass implements CssItem {
 
   @Override
   public String getName() {
-    String string;
+    final String string;
     if (name != null) {
       string = name;
-    } else {
+    } else if (valueExpression != null) {
       final FacesContext facesContext = FacesContext.getCurrentInstance();
       final ELContext elContext = facesContext.getELContext();
-      string = valueExpression.getValue(elContext).toString();
+      final Object valueExpressionValue = valueExpression.getValue(elContext);
+      if (valueExpressionValue != null) {
+        string = valueExpressionValue.toString();
+      } else {
+        return "";
+      }
+    } else {
+      return "";
     }
 
     final StringTokenizer tokenizer = new StringTokenizer(string, " ");
