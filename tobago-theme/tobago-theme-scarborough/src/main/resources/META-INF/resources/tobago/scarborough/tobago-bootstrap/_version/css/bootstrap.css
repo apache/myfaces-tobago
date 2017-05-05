@@ -9461,8 +9461,8 @@ Todo: check, if this is needed? (It doesn't work with the build system)
   min-width: 7em;
 }
 
-/* Remove IE10's "clear field" X button */
 .tobago-date::-ms-clear {
+  /* Remove IE10's "clear field" X button */
   display: none;
 }
 
@@ -9516,9 +9516,9 @@ body {
   display: flex;
   min-width: 0;
   /* without this, Firefox/Webkit are different from IE:
-    Set the minimal width to zero make flex-layout responsive for the width,
-    even if there is overflowing content.
-    currently e.g. PRE-code blocks in the demo are too wide. XXX */
+     Set the minimal width to zero make flex-layout responsive for the width,
+     even if there is overflowing content.
+     currently e.g. PRE-code blocks in the demo are too wide. XXX */
   margin-left: -3px;
   margin-right: -3px;
 }
@@ -9629,9 +9629,9 @@ body {
   width: 100%;
   height: 100%;
   /*
-    border-spacing: 5px;
-    border-collapse: separate;
-*/
+      border-spacing: 5px;
+      border-collapse: separate;
+  */
   border-spacing: 0;
   border-collapse: collapse;
 }
@@ -9645,17 +9645,17 @@ table.tobago-gridLayout > tbody > tr > td {
   /* needed for Firefox */
 }
 
+table.tobago-gridLayout > tbody > tr > td > * {
+  height: 100%;
+  width: 100%;
+}
+
 table.tobago-gridLayout > tbody > tr > td:first-child {
   border-left: 0;
 }
 
 table.tobago-gridLayout > tbody > tr:first-child > td {
   border-top: 0;
-}
-
-table.tobago-gridLayout > tbody > tr > td > * {
-  height: 100%;
-  width: 100%;
 }
 
 /* header ----------------------------------------------------------- */
@@ -9951,12 +9951,7 @@ span.tobago-out:empty:before {
 /* progress ---------------------------------------------------------- */
 /* section ----------------------------------------------------------- */
 /* to separate the icon from the rest of the title */
-h1 > .fa:first-child,
-h2 > .fa:first-child,
-h3 > .fa:first-child,
-h4 > .fa:first-child,
-h5 > .fa:first-child,
-h6 > .fa:first-child {
+h1 > .fa:first-child, h2 > .fa:first-child, h3 > .fa:first-child, h4 > .fa:first-child, h5 > .fa:first-child, h6 > .fa:first-child {
   margin-right: 0.7em;
 }
 
@@ -10043,8 +10038,8 @@ h6 > .fa:first-child {
           flex: 1 0 0%;
 }
 
-/* XXX this fixes the margin left from .btn:nth-child(n+2), but is ugly */
 .tobago-selectManyShuttle-toolBar > * {
+  /* XXX this fixes the margin left from .btn:nth-child(n+2), but is ugly */
   margin-left: 0 !important;
 }
 
@@ -10379,8 +10374,8 @@ fixme: there is a problem with the selectManyShuttle with this style.
   width: 155px;
 }
 
-/* fixes vertical space, todo: why is is needed? is there a better way? */
 .form-horizontal > * {
+  /* fixes vertical space, todo: why is is needed? is there a better way? */
   margin-top: 10px;
   margin-bottom: 5px;
   /* XXX MUST BE REMOVED */
@@ -10396,11 +10391,7 @@ fixme: there is a problem with the selectManyShuttle with this style.
   display: none;
 }
 
-.tobago-has-info .form-control-feedback,
-.tobago-has-info .form-control-label,
-.tobago-has-info .form-check-label,
-.tobago-has-info .form-check-inline,
-.tobago-has-info .custom-control {
+.tobago-has-info .form-control-feedback, .tobago-has-info .form-control-label, .tobago-has-info .form-check-label, .tobago-has-info .form-check-inline, .tobago-has-info .custom-control {
   color: #5bc0de;
 }
 
@@ -10431,8 +10422,7 @@ fixme: there is a problem with the selectManyShuttle with this style.
 /*
  * CSS extension for bootstrap3-datetimepicker to fit with bootstrap4.
  */
-.bootstrap-datetimepicker-widget th,
-.bootstrap-datetimepicker-widget td {
+.bootstrap-datetimepicker-widget th, .bootstrap-datetimepicker-widget td {
   padding: 5px;
 }
 /*# sourceMappingURL=bootstrap.css.map */
