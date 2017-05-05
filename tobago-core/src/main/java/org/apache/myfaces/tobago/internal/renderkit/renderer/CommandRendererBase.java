@@ -181,7 +181,7 @@ public abstract class CommandRendererBase extends DecodingCommandRendererBase {
           } else if (child instanceof AbstractUISelectOneRadio) {
             child.setRendererType(RendererTypes.SelectOneRadioInsideCommand.name());
             child.encodeAll(facesContext);
-          } else if( child instanceof AbstractUISeparator) {
+          } else if (child instanceof AbstractUISeparator) {
             child.setRendererType(RendererTypes.SeparatorInsideCommand.name());
             child.encodeAll(facesContext);
           } else {
