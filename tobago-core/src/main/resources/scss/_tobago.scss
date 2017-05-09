@@ -90,6 +90,13 @@ Todo: check, if this is needed? (It doesn't work with the build system)
 .tobago-buttons, .tobago-links {
 }
 
+/* button, link ------------------------------------------------------- */
+.tobago-button, .tobago-link {
+  > :nth-child(n+2) {
+    margin-left: .4em;
+  }
+}
+
 /* button -------------------------------------------------------------- */
 
 /* XXX fixes a problem with image in button inside a segmentLayout (with FF40 and IE11)
