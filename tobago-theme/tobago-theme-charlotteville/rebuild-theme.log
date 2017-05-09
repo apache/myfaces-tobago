@@ -1,4 +1,4 @@
-Build date: 2017-05-05 13:16:03
+Build date: 2017-05-09 09:39:59
 [INFO] Scanning for projects...
 [INFO] 
 [INFO] ------------------------------------------------------------------------
@@ -55,7 +55,7 @@ Build date: 2017-05-05 13:16:03
 [INFO]   │   ├─┬ inflight@1.0.6 
 [INFO]   │   │ └── wrappy@1.0.2 
 [INFO]   │   ├── inherits@2.0.3 
-[INFO]   │   ├─┬ minimatch@3.0.3 
+[INFO]   │   ├─┬ minimatch@3.0.4 
 [INFO]   │   │ └─┬ brace-expansion@1.1.7 
 [INFO]   │   │   ├── balanced-match@0.4.2 
 [INFO]   │   │   └── concat-map@0.0.1 
@@ -90,11 +90,14 @@ Build date: 2017-05-05 13:16:03
 [INFO] > node install.js
 [INFO] 
 [INFO] PhantomJS not found on PATH
-[INFO] Download already available at /var/folders/yp/1vrxjnrs20798ydt_yl8wrpr0000gp/T/phantomjs/phantomjs-2.1.1-macosx.zip
-[INFO] Verified checksum of previously downloaded file
+[INFO] Downloading https://github.com/Medium/phantomjs/releases/download/v2.1.1/phantomjs-2.1.1-macosx.zip
+[INFO] Saving to /var/folders/yp/1vrxjnrs20798ydt_yl8wrpr0000gp/T/phantomjs/phantomjs-2.1.1-macosx.zip
+[INFO] Receiving...
+[INFO] 
+[INFO] Received 16746K total.
 [INFO] Extracting zip contents
 [INFO] Removing __CURRENT__/tobago-theme-charlotteville/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom
-[INFO] Copying extracted folder /var/folders/yp/1vrxjnrs20798ydt_yl8wrpr0000gp/T/phantomjs/phantomjs-2.1.1-macosx.zip-extract-1493983044220/phantomjs-2.1.1-macosx -> __CURRENT__/tobago-theme-charlotteville/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom
+[INFO] Copying extracted folder /var/folders/yp/1vrxjnrs20798ydt_yl8wrpr0000gp/T/phantomjs/phantomjs-2.1.1-macosx.zip-extract-1494315780258/phantomjs-2.1.1-macosx -> __CURRENT__/tobago-theme-charlotteville/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom
 [INFO] Writing location.js file
 [INFO] Done. Phantomjs binary available at __CURRENT__/tobago-theme-charlotteville/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom/bin/phantomjs
 [INFO] 
@@ -113,7 +116,7 @@ Build date: 2017-05-05 13:16:03
 [INFO] ├─┬ autoprefixer@6.7.7 
 [INFO] │ ├─┬ browserslist@1.7.7 
 [INFO] │ │ └── electron-to-chromium@1.3.9 
-[INFO] │ ├── caniuse-db@1.0.30000665 
+[INFO] │ ├── caniuse-db@1.0.30000666 
 [INFO] │ ├── normalize-range@0.1.2 
 [INFO] │ ├── num2fraction@1.2.2 
 [INFO] │ ├─┬ postcss@5.2.17 
@@ -211,7 +214,7 @@ Build date: 2017-05-05 13:16:03
 [INFO] │ │ ├── es6-weak-map@2.0.2 
 [INFO] │ │ └─┬ esrecurse@4.1.0 
 [INFO] │ │   └── estraverse@4.1.1 
-[INFO] │ ├─┬ espree@3.4.2 
+[INFO] │ ├─┬ espree@3.4.3 
 [INFO] │ │ ├── acorn@5.0.3 
 [INFO] │ │ └─┬ acorn-jsx@3.0.1 
 [INFO] │ │   └── acorn@3.3.0 
@@ -258,7 +261,7 @@ Build date: 2017-05-05 13:16:03
 [INFO] │ │ └── xtend@4.0.1 
 [INFO] │ ├─┬ is-resolvable@1.0.0 
 [INFO] │ │ └── tryit@1.0.3 
-[INFO] │ ├─┬ js-yaml@3.8.3 
+[INFO] │ ├─┬ js-yaml@3.8.4 
 [INFO] │ │ ├─┬ argparse@1.0.9 
 [INFO] │ │ │ └── sprintf-js@1.0.3 
 [INFO] │ │ └── esprima@3.1.3 
@@ -696,7 +699,7 @@ Build date: 2017-05-05 13:16:03
 [INFO] │ │ ├── osenv@0.1.4 
 [INFO] │ │ └─┬ tar@2.2.1 
 [INFO] │ │   └── block-stream@0.0.9 
-[INFO] │ ├─┬ npmlog@4.0.2 
+[INFO] │ ├─┬ npmlog@4.1.0 
 [INFO] │ │ ├─┬ are-we-there-yet@1.1.4 
 [INFO] │ │ │ └── delegates@1.0.0 
 [INFO] │ │ ├── console-control-strings@1.1.0 
@@ -760,7 +763,7 @@ Build date: 2017-05-05 13:16:03
 [INFO] │ │     └── camelcase@3.0.0 
 [INFO] │ └── stdout-stream@1.4.0 
 [INFO] ├─┬ postcss-cli@2.6.0 
-[INFO] │ ├─┬ chokidar@1.6.1 
+[INFO] │ ├─┬ chokidar@1.7.0 
 [INFO] │ │ ├─┬ anymatch@1.3.0 
 [INFO] │ │ │ └─┬ micromatch@2.3.11 
 [INFO] │ │ │   ├─┬ arr-diff@2.0.0 
@@ -952,7 +955,7 @@ Build date: 2017-05-05 13:16:03
 [INFO] │   ├── is-finite@1.0.2 
 [INFO] │   ├── parse-ms@1.0.1 
 [INFO] │   └── plur@1.0.0 
-[INFO] └─┬ uglify-js@2.8.22 
+[INFO] └─┬ uglify-js@2.8.23 
 [INFO]   ├── uglify-to-browserify@1.0.2 
 [INFO]   └─┬ yargs@3.10.0 
 [INFO]     ├── camelcase@1.2.1 
@@ -1031,16 +1034,16 @@ Build date: 2017-05-05 13:16:03
 [INFO] Done.
 [INFO] 
 [INFO] 
-[INFO] Execution Time (2017-05-05 13:17:27 UTC+2)
-[INFO] exec:sass             1.7s  ▇▇▇▇▇▇▇▇ 18%
-[INFO] exec:sass-docs       802ms  ▇▇▇▇ 8%
-[INFO] exec:postcss          1.5s  ▇▇▇▇▇▇▇ 16%
-[INFO] exec:clean-css        1.5s  ▇▇▇▇▇▇▇ 16%
-[INFO] exec:clean-css-docs  725ms  ▇▇▇▇ 8%
-[INFO] babel:dev             1.3s  ▇▇▇▇▇▇ 13%
-[INFO] babel:dist           757ms  ▇▇▇▇ 8%
-[INFO] exec:uglify           1.2s  ▇▇▇▇▇▇ 13%
-[INFO] Total 9.6s
+[INFO] Execution Time (2017-05-09 09:43:16 UTC+2)
+[INFO] exec:sass             9.9s  ▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇ 38%
+[INFO] exec:sass-docs          3s  ▇▇▇▇▇ 11%
+[INFO] exec:postcss          2.8s  ▇▇▇▇▇ 11%
+[INFO] exec:clean-css        3.6s  ▇▇▇▇▇▇ 14%
+[INFO] exec:clean-css-docs   1.5s  ▇▇▇ 6%
+[INFO] babel:dev             2.9s  ▇▇▇▇▇ 11%
+[INFO] babel:dist           983ms  ▇▇ 4%
+[INFO] exec:uglify           1.4s  ▇▇▇ 6%
+[INFO] Total 26s
 [INFO] 
 [INFO] 
 [INFO] --- maven-resources-plugin:2.7:resources (default-resources) @ tobago-theme-charlotteville ---
@@ -1082,7 +1085,7 @@ main:
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
-[INFO] Total time: 01:33 min
-[INFO] Finished at: 2017-05-05T13:17:38+02:00
-[INFO] Final Memory: 31M/433M
+[INFO] Total time: 03:43 min
+[INFO] Finished at: 2017-05-09T09:43:44+02:00
+[INFO] Final Memory: 31M/426M
 [INFO] ------------------------------------------------------------------------

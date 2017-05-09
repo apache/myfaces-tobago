@@ -1,4 +1,4 @@
-Build date: 2017-05-05 13:20:52
+Build date: 2017-05-09 09:49:41
 [INFO] Scanning for projects...
 [INFO] 
 [INFO] ------------------------------------------------------------------------
@@ -55,7 +55,7 @@ Build date: 2017-05-05 13:20:52
 [INFO]   │   ├─┬ inflight@1.0.6 
 [INFO]   │   │ └── wrappy@1.0.2 
 [INFO]   │   ├── inherits@2.0.3 
-[INFO]   │   ├─┬ minimatch@3.0.3 
+[INFO]   │   ├─┬ minimatch@3.0.4 
 [INFO]   │   │ └─┬ brace-expansion@1.1.7 
 [INFO]   │   │   ├── balanced-match@0.4.2 
 [INFO]   │   │   └── concat-map@0.0.1 
@@ -94,7 +94,7 @@ Build date: 2017-05-05 13:20:52
 [INFO] Verified checksum of previously downloaded file
 [INFO] Extracting zip contents
 [INFO] Removing __CURRENT__/tobago-theme-speyside/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom
-[INFO] Copying extracted folder /var/folders/yp/1vrxjnrs20798ydt_yl8wrpr0000gp/T/phantomjs/phantomjs-2.1.1-macosx.zip-extract-1493983386695/phantomjs-2.1.1-macosx -> __CURRENT__/tobago-theme-speyside/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom
+[INFO] Copying extracted folder /var/folders/yp/1vrxjnrs20798ydt_yl8wrpr0000gp/T/phantomjs/phantomjs-2.1.1-macosx.zip-extract-1494316341335/phantomjs-2.1.1-macosx -> __CURRENT__/tobago-theme-speyside/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom
 [INFO] Writing location.js file
 [INFO] Done. Phantomjs binary available at __CURRENT__/tobago-theme-speyside/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom/bin/phantomjs
 [INFO] 
@@ -113,7 +113,7 @@ Build date: 2017-05-05 13:20:52
 [INFO] ├─┬ autoprefixer@6.7.7 
 [INFO] │ ├─┬ browserslist@1.7.7 
 [INFO] │ │ └── electron-to-chromium@1.3.9 
-[INFO] │ ├── caniuse-db@1.0.30000665 
+[INFO] │ ├── caniuse-db@1.0.30000666 
 [INFO] │ ├── normalize-range@0.1.2 
 [INFO] │ ├── num2fraction@1.2.2 
 [INFO] │ ├─┬ postcss@5.2.17 
@@ -211,7 +211,7 @@ Build date: 2017-05-05 13:20:52
 [INFO] │ │ ├── es6-weak-map@2.0.2 
 [INFO] │ │ └─┬ esrecurse@4.1.0 
 [INFO] │ │   └── estraverse@4.1.1 
-[INFO] │ ├─┬ espree@3.4.2 
+[INFO] │ ├─┬ espree@3.4.3 
 [INFO] │ │ ├── acorn@5.0.3 
 [INFO] │ │ └─┬ acorn-jsx@3.0.1 
 [INFO] │ │   └── acorn@3.3.0 
@@ -258,7 +258,7 @@ Build date: 2017-05-05 13:20:52
 [INFO] │ │ └── xtend@4.0.1 
 [INFO] │ ├─┬ is-resolvable@1.0.0 
 [INFO] │ │ └── tryit@1.0.3 
-[INFO] │ ├─┬ js-yaml@3.8.3 
+[INFO] │ ├─┬ js-yaml@3.8.4 
 [INFO] │ │ ├─┬ argparse@1.0.9 
 [INFO] │ │ │ └── sprintf-js@1.0.3 
 [INFO] │ │ └── esprima@3.1.3 
@@ -696,7 +696,7 @@ Build date: 2017-05-05 13:20:52
 [INFO] │ │ ├── osenv@0.1.4 
 [INFO] │ │ └─┬ tar@2.2.1 
 [INFO] │ │   └── block-stream@0.0.9 
-[INFO] │ ├─┬ npmlog@4.0.2 
+[INFO] │ ├─┬ npmlog@4.1.0 
 [INFO] │ │ ├─┬ are-we-there-yet@1.1.4 
 [INFO] │ │ │ └── delegates@1.0.0 
 [INFO] │ │ ├── console-control-strings@1.1.0 
@@ -760,7 +760,7 @@ Build date: 2017-05-05 13:20:52
 [INFO] │ │     └── camelcase@3.0.0 
 [INFO] │ └── stdout-stream@1.4.0 
 [INFO] ├─┬ postcss-cli@2.6.0 
-[INFO] │ ├─┬ chokidar@1.6.1 
+[INFO] │ ├─┬ chokidar@1.7.0 
 [INFO] │ │ ├─┬ anymatch@1.3.0 
 [INFO] │ │ │ └─┬ micromatch@2.3.11 
 [INFO] │ │ │   ├─┬ arr-diff@2.0.0 
@@ -952,7 +952,7 @@ Build date: 2017-05-05 13:20:52
 [INFO] │   ├── is-finite@1.0.2 
 [INFO] │   ├── parse-ms@1.0.1 
 [INFO] │   └── plur@1.0.0 
-[INFO] └─┬ uglify-js@2.8.22 
+[INFO] └─┬ uglify-js@2.8.23 
 [INFO]   ├── uglify-to-browserify@1.0.2 
 [INFO]   └─┬ yargs@3.10.0 
 [INFO]     ├── camelcase@1.2.1 
@@ -1031,16 +1031,16 @@ Build date: 2017-05-05 13:20:52
 [INFO] Done.
 [INFO] 
 [INFO] 
-[INFO] Execution Time (2017-05-05 13:23:15 UTC+2)
-[INFO] exec:sass            4.4s  ▇▇▇▇▇▇▇ 16%
-[INFO] exec:sass-docs       1.9s  ▇▇▇ 7%
-[INFO] exec:postcss         4.1s  ▇▇▇▇▇▇▇ 15%
-[INFO] exec:clean-css       4.5s  ▇▇▇▇▇▇▇ 17%
-[INFO] exec:clean-css-docs  1.6s  ▇▇▇ 6%
-[INFO] babel:dev            3.2s  ▇▇▇▇▇ 12%
-[INFO] babel:dist           3.1s  ▇▇▇▇▇ 12%
-[INFO] exec:uglify          3.8s  ▇▇▇▇▇▇ 14%
-[INFO] Total 26.6s
+[INFO] Execution Time (2017-05-09 09:52:24 UTC+2)
+[INFO] exec:sass             1.8s  ▇▇▇▇▇▇▇▇ 18%
+[INFO] exec:sass-docs       806ms  ▇▇▇▇ 8%
+[INFO] exec:postcss          1.5s  ▇▇▇▇▇▇▇ 15%
+[INFO] exec:clean-css        1.7s  ▇▇▇▇▇▇▇▇ 17%
+[INFO] exec:clean-css-docs  745ms  ▇▇▇▇ 8%
+[INFO] babel:dev             1.2s  ▇▇▇▇▇▇ 13%
+[INFO] babel:dist           762ms  ▇▇▇▇ 8%
+[INFO] exec:uglify           1.4s  ▇▇▇▇▇▇ 14%
+[INFO] Total 9.9s
 [INFO] 
 [INFO] 
 [INFO] --- maven-resources-plugin:2.7:resources (default-resources) @ tobago-theme-speyside ---
@@ -1082,7 +1082,7 @@ main:
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
-[INFO] Total time: 02:50 min
-[INFO] Finished at: 2017-05-05T13:23:44+02:00
-[INFO] Final Memory: 36M/522M
+[INFO] Total time: 02:53 min
+[INFO] Finished at: 2017-05-09T09:52:36+02:00
+[INFO] Final Memory: 36M/521M
 [INFO] ------------------------------------------------------------------------

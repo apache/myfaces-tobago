@@ -9434,6 +9434,11 @@ Todo: check, if this is needed? (It doesn't work with the build system)
 }
 
 /* buttons, links ------------------------------------------------------- */
+/* button, link ------------------------------------------------------- */
+.tobago-button > :nth-child(n+2), .tobago-link > :nth-child(n+2) {
+  margin-left: .4em;
+}
+
 /* button -------------------------------------------------------------- */
 /* XXX fixes a problem with image in button inside a segmentLayout (with FF40 and IE11)
    test page: buttons-with-image.xhtml
