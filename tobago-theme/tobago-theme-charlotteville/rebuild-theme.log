@@ -1,4 +1,4 @@
-Build date: 2017-05-09 09:39:59
+Build date: 2017-05-12 14:25:44
 [INFO] Scanning for projects...
 [INFO] 
 [INFO] ------------------------------------------------------------------------
@@ -90,14 +90,11 @@ Build date: 2017-05-09 09:39:59
 [INFO] > node install.js
 [INFO] 
 [INFO] PhantomJS not found on PATH
-[INFO] Downloading https://github.com/Medium/phantomjs/releases/download/v2.1.1/phantomjs-2.1.1-macosx.zip
-[INFO] Saving to /var/folders/yp/1vrxjnrs20798ydt_yl8wrpr0000gp/T/phantomjs/phantomjs-2.1.1-macosx.zip
-[INFO] Receiving...
-[INFO] 
-[INFO] Received 16746K total.
+[INFO] Download already available at /var/folders/yp/1vrxjnrs20798ydt_yl8wrpr0000gp/T/phantomjs/phantomjs-2.1.1-macosx.zip
+[INFO] Verified checksum of previously downloaded file
 [INFO] Extracting zip contents
 [INFO] Removing __CURRENT__/tobago-theme-charlotteville/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom
-[INFO] Copying extracted folder /var/folders/yp/1vrxjnrs20798ydt_yl8wrpr0000gp/T/phantomjs/phantomjs-2.1.1-macosx.zip-extract-1494315780258/phantomjs-2.1.1-macosx -> __CURRENT__/tobago-theme-charlotteville/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom
+[INFO] Copying extracted folder /var/folders/yp/1vrxjnrs20798ydt_yl8wrpr0000gp/T/phantomjs/phantomjs-2.1.1-macosx.zip-extract-1494592049276/phantomjs-2.1.1-macosx -> __CURRENT__/tobago-theme-charlotteville/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom
 [INFO] Writing location.js file
 [INFO] Done. Phantomjs binary available at __CURRENT__/tobago-theme-charlotteville/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom/bin/phantomjs
 [INFO] 
@@ -115,8 +112,8 @@ Build date: 2017-05-09 09:39:59
 [INFO] bootstrap@4.0.0-alpha.6 __CURRENT__/tobago-theme-charlotteville/target/bootstrap
 [INFO] ├─┬ autoprefixer@6.7.7 
 [INFO] │ ├─┬ browserslist@1.7.7 
-[INFO] │ │ └── electron-to-chromium@1.3.9 
-[INFO] │ ├── caniuse-db@1.0.30000666 
+[INFO] │ │ └── electron-to-chromium@1.3.10 
+[INFO] │ ├── caniuse-db@1.0.30000667 
 [INFO] │ ├── normalize-range@0.1.2 
 [INFO] │ ├── num2fraction@1.2.2 
 [INFO] │ ├─┬ postcss@5.2.17 
@@ -136,7 +133,7 @@ Build date: 2017-05-09 09:39:59
 [INFO] │ │   └── loose-envify@1.3.1 
 [INFO] │ ├─┬ babel-types@6.24.1 
 [INFO] │ │ └── to-fast-properties@1.0.3 
-[INFO] │ └── babylon@6.17.0 
+[INFO] │ └── babylon@6.17.1 
 [INFO] ├── babel-plugin-transform-es2015-modules-strip@0.1.1 
 [INFO] ├─┬ babel-preset-es2015@6.24.1 
 [INFO] │ ├── babel-plugin-check-es2015-constants@6.22.0 
@@ -179,7 +176,7 @@ Build date: 2017-05-09 09:39:59
 [INFO] │ │     └── jsesc@0.5.0 
 [INFO] │ └─┬ babel-plugin-transform-regenerator@6.24.1 
 [INFO] │   └── regenerator-transform@0.9.11 
-[INFO] ├─┬ clean-css@3.4.25 
+[INFO] ├─┬ clean-css@3.4.26 
 [INFO] │ ├─┬ commander@2.8.1 
 [INFO] │ │ └── graceful-readlink@1.0.1 
 [INFO] │ └─┬ source-map@0.4.4 
@@ -206,7 +203,7 @@ Build date: 2017-05-09 09:39:59
 [INFO] │ ├─┬ escope@3.6.0 
 [INFO] │ │ ├─┬ es6-map@0.1.5 
 [INFO] │ │ │ ├── d@1.0.0 
-[INFO] │ │ │ ├── es5-ext@0.10.15 
+[INFO] │ │ │ ├── es5-ext@0.10.16 
 [INFO] │ │ │ ├── es6-iterator@2.0.1 
 [INFO] │ │ │ ├── es6-set@0.1.5 
 [INFO] │ │ │ ├── es6-symbol@3.1.1 
@@ -350,7 +347,7 @@ Build date: 2017-05-09 09:39:59
 [INFO] │ │ ├── async@2.4.0 
 [INFO] │ │ ├── buffer-crc32@0.2.13 
 [INFO] │ │ ├── glob@7.1.1 
-[INFO] │ │ ├─┬ tar-stream@1.5.2 
+[INFO] │ │ ├─┬ tar-stream@1.5.4 
 [INFO] │ │ │ ├── bl@1.2.1 
 [INFO] │ │ │ └── end-of-stream@1.4.0 
 [INFO] │ │ ├── walkdir@0.0.11 
@@ -706,7 +703,7 @@ Build date: 2017-05-09 09:39:59
 [INFO] │ │ ├─┬ gauge@2.7.4 
 [INFO] │ │ │ ├── aproba@1.1.1 
 [INFO] │ │ │ ├── has-unicode@2.0.1 
-[INFO] │ │ │ └── wide-align@1.1.0 
+[INFO] │ │ │ └── wide-align@1.1.2 
 [INFO] │ │ └── set-blocking@2.0.0 
 [INFO] │ ├─┬ request@2.79.0 
 [INFO] │ │ ├── aws-sign2@0.6.0 
@@ -1034,16 +1031,16 @@ Build date: 2017-05-09 09:39:59
 [INFO] Done.
 [INFO] 
 [INFO] 
-[INFO] Execution Time (2017-05-09 09:43:16 UTC+2)
-[INFO] exec:sass             9.9s  ▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇ 38%
-[INFO] exec:sass-docs          3s  ▇▇▇▇▇ 11%
-[INFO] exec:postcss          2.8s  ▇▇▇▇▇ 11%
-[INFO] exec:clean-css        3.6s  ▇▇▇▇▇▇ 14%
-[INFO] exec:clean-css-docs   1.5s  ▇▇▇ 6%
-[INFO] babel:dev             2.9s  ▇▇▇▇▇ 11%
-[INFO] babel:dist           983ms  ▇▇ 4%
-[INFO] exec:uglify           1.4s  ▇▇▇ 6%
-[INFO] Total 26s
+[INFO] Execution Time (2017-05-12 14:27:32 UTC+2)
+[INFO] exec:sass             1.8s  ▇▇▇▇▇▇▇▇ 18%
+[INFO] exec:sass-docs       844ms  ▇▇▇▇ 8%
+[INFO] exec:postcss          1.5s  ▇▇▇▇▇▇▇ 15%
+[INFO] exec:clean-css        1.6s  ▇▇▇▇▇▇▇ 16%
+[INFO] exec:clean-css-docs  773ms  ▇▇▇▇ 8%
+[INFO] babel:dev             1.6s  ▇▇▇▇▇▇▇ 16%
+[INFO] babel:dist           759ms  ▇▇▇▇ 7%
+[INFO] exec:uglify           1.3s  ▇▇▇▇▇▇ 12%
+[INFO] Total 10.3s
 [INFO] 
 [INFO] 
 [INFO] --- maven-resources-plugin:2.7:resources (default-resources) @ tobago-theme-charlotteville ---
@@ -1085,7 +1082,7 @@ main:
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
-[INFO] Total time: 03:43 min
-[INFO] Finished at: 2017-05-09T09:43:44+02:00
-[INFO] Final Memory: 31M/426M
+[INFO] Total time: 01:58 min
+[INFO] Finished at: 2017-05-12T14:27:44+02:00
+[INFO] Final Memory: 36M/517M
 [INFO] ------------------------------------------------------------------------

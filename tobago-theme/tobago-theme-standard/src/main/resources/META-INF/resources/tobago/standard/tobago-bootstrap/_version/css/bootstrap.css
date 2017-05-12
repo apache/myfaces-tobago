@@ -10053,6 +10053,11 @@ h1 > .fa:first-child, h2 > .fa:first-child, h3 > .fa:first-child, h4 > .fa:first
   margin-right: 0.3em;
   margin-bottom: 0.4ex;
   vertical-align: text-bottom;
+  position: relative;
+}
+
+.tobago-selectOneRadio img {
+  margin-right: 0.3em;
 }
 
 .tobago-selectOneRadio-inline {
