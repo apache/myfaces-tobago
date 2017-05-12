@@ -235,8 +235,8 @@ public enum TobagoClass implements CssItem {
 
   private static class MarkupClass implements CssItem {
 
-    final TobagoClass rendererClass;
-    final String markup;
+    private final TobagoClass rendererClass;
+    private final String markup;
 
     private MarkupClass(final TobagoClass rendererClass, final String markup) {
       this.rendererClass = rendererClass;
