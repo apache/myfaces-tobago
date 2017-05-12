@@ -715,10 +715,17 @@ h1, h2, h3, h4, h5, h6 {
 
 /* selectOneRadio ---------------------------------------------------------- */
 
-.tobago-selectOneRadio input {
-  margin-right: 0.3em;
-  margin-bottom: 0.4ex;
-  vertical-align: text-bottom;
+.tobago-selectOneRadio {
+  input {
+    margin-right: 0.3em;
+    margin-bottom: 0.4ex;
+    vertical-align: text-bottom;
+    position: relative;
+  }
+
+  img {
+    margin-right: 0.3em;
+  }
 }
 
 .tobago-selectOneRadio-inline {
