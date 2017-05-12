@@ -30,7 +30,7 @@ import java.lang.annotation.ElementType;
  *
  */
 @Retention(value = RetentionPolicy.SOURCE)
-@Target(value = ElementType.TYPE)
+@Target(value = {ElementType.TYPE, ElementType.METHOD})
 public @interface Preliminary {
   String value() default "";
 }

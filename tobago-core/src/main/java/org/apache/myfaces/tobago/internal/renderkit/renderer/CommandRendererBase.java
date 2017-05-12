@@ -51,6 +51,7 @@ import javax.faces.component.UIParameter;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public abstract class CommandRendererBase extends DecodingCommandRendererBase {
@@ -123,10 +124,14 @@ public abstract class CommandRendererBase extends DecodingCommandRendererBase {
 
     cssItems.add(command.getCustomClass());
 
-    writer.writeClassAttribute(
-        getRendererCssClass(),
-        null,
-        cssItems.toArray(new CssItem[cssItems.size()]));
+    // TODO: optimize class attribute writing
+    final List<CssItem> classAttributes = new ArrayList<CssItem>();
+    classAttributes.add(getRendererCssClass());
+    if (command.getMarkup() != null) {
+      classAttributes.addAll(Arrays.asList(getRendererCssClass().createMarkup(command.getMarkup())));
+    }
+    classAttributes.addAll(cssItems);
+    writer.writeClassAttribute(null, null, classAttributes.toArray(new CssItem[classAttributes.size()]));
 
     final boolean defaultCommand = ComponentUtils.getBooleanAttribute(command, Attributes.defaultCommand);
     if (defaultCommand) {

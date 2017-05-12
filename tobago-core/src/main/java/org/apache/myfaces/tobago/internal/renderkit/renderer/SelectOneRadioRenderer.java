@@ -39,6 +39,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class SelectOneRadioRenderer extends SelectOneRendererBase {
@@ -61,10 +62,16 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
       writer.writeIdAttribute(id);
     }
     writer.writeStyleAttribute(select.getStyle());
-    writer.writeClassAttribute(
-        TobagoClass.SELECT_ONE_RADIO,
-        inline ? TobagoClass.SELECT_ONE_RADIO__INLINE : null,
-        select.getCustomClass());
+
+    // TODO: optimize class attribute writing
+    final List<CssItem> classAttributes = new ArrayList<CssItem>();
+    classAttributes.add(TobagoClass.SELECT_ONE_RADIO);
+    if (select.getMarkup() != null) {
+      classAttributes.addAll(Arrays.asList(TobagoClass.SELECT_ONE_RADIO.createMarkup(select.getMarkup())));
+    }
+    classAttributes.add(inline ? TobagoClass.SELECT_ONE_RADIO__INLINE : null);
+    classAttributes.add(select.getCustomClass());
+    writer.writeClassAttribute(null, null, classAttributes.toArray(new CssItem[classAttributes.size()]));
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, select);
     if (title != null) {
       writer.writeAttribute(HtmlAttributes.TITLE, title, true);

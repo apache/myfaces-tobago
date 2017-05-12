@@ -41,6 +41,7 @@ import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class SelectBooleanCheckboxRenderer extends MessageLayoutRendererBase {
@@ -90,11 +91,17 @@ public class SelectBooleanCheckboxRenderer extends MessageLayoutRendererBase {
 
     final List<CssItem> outerCssItems = new ArrayList<CssItem>();
     addOuterCssItems(facesContext, select, outerCssItems);
-    outerCssItems.add(select.getCustomClass());
-    writer.writeClassAttribute(
-        TobagoClass.SELECT_BOOLEAN_CHECKBOX,
-        disabled ? BootstrapClass.DISABLED : null,
-        outerCssItems.toArray(new CssItem[outerCssItems.size()]));
+
+    // TODO: optimize class attribute writing
+    final List<CssItem> classAttributes = new ArrayList<CssItem>();
+    classAttributes.add(TobagoClass.SELECT_BOOLEAN_CHECKBOX);
+    if (select.getMarkup() != null) {
+      classAttributes.addAll(Arrays.asList(TobagoClass.SELECT_BOOLEAN_CHECKBOX.createMarkup(select.getMarkup())));
+    }
+    classAttributes.add(disabled ? BootstrapClass.DISABLED : null);
+    classAttributes.add(select.getCustomClass());
+    classAttributes.addAll(outerCssItems);
+    writer.writeClassAttribute(null, null, classAttributes.toArray(new CssItem[classAttributes.size()]));
 
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, select);
     if (title != null) {

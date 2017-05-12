@@ -56,7 +56,10 @@ public class SegmentLayoutRenderer extends RendererBase {
 
     writer.startElement(HtmlElements.DIV);
 //    writer.writeClassAttribute(BootstrapClass.FORM_HORIZONTAL, BootstrapClass.CONTAINER_FLUID);
-    writer.writeClassAttribute(TobagoClass.SEGMENT_LAYOUT, BootstrapClass.ROW);
+    writer.writeClassAttribute(
+        TobagoClass.SEGMENT_LAYOUT,
+        BootstrapClass.ROW,
+        TobagoClass.SEGMENT_LAYOUT.createMarkup(layout.getMarkup()));
 //    writer.writeClassAttribute(Classes.create(layout), BootstrapClass.FORM_GROUP);
     writer.writeIdAttribute(layout.getClientId(facesContext));
   }

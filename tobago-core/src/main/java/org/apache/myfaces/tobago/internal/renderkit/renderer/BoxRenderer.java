@@ -24,6 +24,7 @@ import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.internal.util.RenderUtils;
 import org.apache.myfaces.tobago.model.CollapseMode;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
+import org.apache.myfaces.tobago.renderkit.css.CssItem;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
@@ -33,6 +34,9 @@ import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class BoxRenderer extends PanelRendererBase {
 
@@ -48,11 +52,17 @@ public class BoxRenderer extends PanelRendererBase {
 
     writer.startElement(HtmlElements.DIV);
     final boolean collapsed = box.isCollapsed();
-    writer.writeClassAttribute(
-        TobagoClass.BOX,
-        collapsed ? TobagoClass.COLLAPSED : null,
-        BootstrapClass.CARD,
-        box.getCustomClass());
+
+    // TODO: optimize class attribute writing
+    final List<CssItem> classAttributes = new ArrayList<CssItem>();
+    classAttributes.add(TobagoClass.BOX);
+    if (box.getMarkup() != null) {
+      classAttributes.addAll(Arrays.asList(TobagoClass.BOX.createMarkup(box.getMarkup())));
+    }
+    classAttributes.add(collapsed ? TobagoClass.COLLAPSED : null);
+    classAttributes.add(BootstrapClass.CARD);
+    classAttributes.add(box.getCustomClass());
+    writer.writeClassAttribute(null, null, classAttributes.toArray(new CssItem[classAttributes.size()]));
     final String clientId = box.getClientId(facesContext);
     writer.writeIdAttribute(clientId);
     final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, box);

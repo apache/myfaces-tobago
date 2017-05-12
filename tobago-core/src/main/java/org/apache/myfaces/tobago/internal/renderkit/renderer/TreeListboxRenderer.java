@@ -65,7 +65,10 @@ public class TreeListboxRenderer extends RendererBase {
 //    writer.writeStyleAttribute(scrollDivStyle);
 
     writer.startElement(HtmlElements.DIV);
-    writer.writeClassAttribute(TobagoClass.TREE_LISTBOX);
+    writer.writeClassAttribute(
+        TobagoClass.TREE_LISTBOX,
+        null,
+        TobagoClass.TREE_LISTBOX.createMarkup(tree.getMarkup()));
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, tree);
     writer.writeStyleAttribute(tree.getStyle());
 

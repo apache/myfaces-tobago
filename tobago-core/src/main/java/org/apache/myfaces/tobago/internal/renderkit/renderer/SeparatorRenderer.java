@@ -45,13 +45,19 @@ public class SeparatorRenderer extends RendererBase {
     if (label != null) {
       writer.startElement(HtmlElements.P);
       writer.writeIdAttribute(clientId);
-      writer.writeClassAttribute(TobagoClass.SEPARATOR, separator.getCustomClass());
+      writer.writeClassAttribute(
+          TobagoClass.SEPARATOR,
+          separator.getCustomClass(),
+          TobagoClass.SEPARATOR.createMarkup(separator.getMarkup()));
       writer.writeText(label);
       writer.endElement(HtmlElements.P);
     } else {
       writer.startElement(HtmlElements.HR);
       writer.writeIdAttribute(clientId);
-      writer.writeClassAttribute(TobagoClass.SEPARATOR, separator.getCustomClass());
+      writer.writeClassAttribute(
+          TobagoClass.SEPARATOR,
+          separator.getCustomClass(),
+          TobagoClass.SEPARATOR.createMarkup(separator.getMarkup()));
       writer.endElement(HtmlElements.HR);
     }
   }

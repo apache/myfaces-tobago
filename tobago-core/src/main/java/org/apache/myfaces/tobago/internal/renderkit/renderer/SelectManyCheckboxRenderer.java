@@ -38,6 +38,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class SelectManyCheckboxRenderer extends SelectManyRendererBase {
@@ -59,10 +60,16 @@ public class SelectManyCheckboxRenderer extends SelectManyRendererBase {
       writer.writeIdAttribute(id);
     }
     writer.writeStyleAttribute(select.getStyle());
-    writer.writeClassAttribute(
-        TobagoClass.SELECT_MANY_CHECKBOX,
-        inline ? TobagoClass.SELECT_MANY_CHECKBOX__INLINE : null,
-        select.getCustomClass());
+
+    // TODO: optimize class attribute writing
+    final List<CssItem> classAttributes = new ArrayList<CssItem>();
+    classAttributes.add(TobagoClass.SELECT_MANY_CHECKBOX);
+    if (select.getMarkup() != null) {
+      classAttributes.addAll(Arrays.asList(TobagoClass.SELECT_MANY_CHECKBOX.createMarkup(select.getMarkup())));
+    }
+    classAttributes.add(inline ? TobagoClass.SELECT_MANY_CHECKBOX__INLINE : null);
+    classAttributes.add(select.getCustomClass());
+    writer.writeClassAttribute(null, null, classAttributes.toArray(new CssItem[classAttributes.size()]));
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, select);
     if (title != null) {
       writer.writeAttribute(HtmlAttributes.TITLE, title, true);

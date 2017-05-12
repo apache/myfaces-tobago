@@ -49,7 +49,10 @@ public class ObjectRenderer extends RendererBase {
     writer.writeNameAttribute(name);
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, object);
     writer.writeAttribute(HtmlAttributes.SRC, object.getSrc(), true);
-    writer.writeClassAttribute(TobagoClass.OBJECT, object.getCustomClass());
+    writer.writeClassAttribute(
+        TobagoClass.OBJECT,
+        object.getCustomClass(),
+        TobagoClass.OBJECT.createMarkup(object.getMarkup()));
     writer.writeStyleAttribute(object.getStyle());
 
     String noframes = TobagoResourceBundle.getString(facesContext, "browser.noframe.message.prefix");

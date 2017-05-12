@@ -25,6 +25,7 @@ import org.apache.myfaces.tobago.internal.util.JsonUtils;
 import org.apache.myfaces.tobago.internal.util.RenderUtils;
 import org.apache.myfaces.tobago.internal.util.SelectItemUtils;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
+import org.apache.myfaces.tobago.renderkit.css.CssItem;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
@@ -35,6 +36,8 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class SelectManyListboxRenderer extends SelectManyRendererBase {
@@ -68,7 +71,16 @@ public class SelectManyListboxRenderer extends SelectManyRendererBase {
     HtmlRendererUtils.renderFocus(clientId, select.isFocus(), ComponentUtils.isError(select), facesContext, writer);
     writer.writeAttribute(HtmlAttributes.TABINDEX, select.getTabIndex());
     writer.writeStyleAttribute(select.getStyle());
-    writer.writeClassAttribute(TobagoClass.SELECT_MANY_LISTBOX, BootstrapClass.FORM_CONTROL, select.getCustomClass());
+
+    // TODO: optimize class attribute writing
+    final List<CssItem> classAttributes = new ArrayList<CssItem>();
+    classAttributes.add(TobagoClass.SELECT_MANY_LISTBOX);
+    if (select.getMarkup() != null) {
+      classAttributes.addAll(Arrays.asList(TobagoClass.SELECT_MANY_LISTBOX.createMarkup(select.getMarkup())));
+    }
+    classAttributes.add(BootstrapClass.FORM_CONTROL);
+    classAttributes.add(select.getCustomClass());
+    writer.writeClassAttribute(null, null, classAttributes.toArray(new CssItem[classAttributes.size()]));
     writer.writeAttribute(HtmlAttributes.MULTIPLE, true);
     writer.writeAttribute(HtmlAttributes.SIZE, size);
     writer.writeAttribute(HtmlAttributes.TITLE, title, true);

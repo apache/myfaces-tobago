@@ -42,8 +42,10 @@ public class FlowLayoutRenderer extends RendererBase {
 
     writer.startElement(HtmlElements.DIV);
     writer.writeIdAttribute(layout.getClientId());
-    writer.writeClassAttribute(TobagoClass.FLOW_LAYOUT, layout.getCustomClass());
-
+    writer.writeClassAttribute(
+        TobagoClass.FLOW_LAYOUT,
+        layout.getCustomClass(),
+        TobagoClass.FLOW_LAYOUT.createMarkup(layout.getMarkup()));
     Style style = layout.getStyle();
     final TextAlign textAlign = layout.getTextAlign();
     if (style == null && textAlign != null) {

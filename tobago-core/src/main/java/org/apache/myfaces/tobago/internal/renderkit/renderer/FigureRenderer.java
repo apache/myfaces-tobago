@@ -24,6 +24,7 @@ import org.apache.myfaces.tobago.internal.component.AbstractUIFigure;
 import org.apache.myfaces.tobago.internal.util.RenderUtils;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
+import org.apache.myfaces.tobago.renderkit.css.CssItem;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
@@ -33,6 +34,9 @@ import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class FigureRenderer extends RendererBase {
 
@@ -41,7 +45,16 @@ public class FigureRenderer extends RendererBase {
     final AbstractUIFigure figure = (AbstractUIFigure) component;
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
     writer.startElement(HtmlElements.FIGURE);
-    writer.writeClassAttribute(TobagoClass.FIGURE, BootstrapClass.FIGURE, figure.getCustomClass());
+
+    // TODO: optimize class attribute writing
+    final List<CssItem> classAttributes = new ArrayList<CssItem>();
+    classAttributes.add(TobagoClass.FIGURE);
+    if (figure.getMarkup() != null) {
+      classAttributes.addAll(Arrays.asList(TobagoClass.FIGURE.createMarkup(figure.getMarkup())));
+    }
+    classAttributes.add(BootstrapClass.FIGURE);
+    classAttributes.add(figure.getCustomClass());
+    writer.writeClassAttribute(null, null, classAttributes.toArray(new CssItem[classAttributes.size()]));
     writer.writeStyleAttribute(figure.getStyle());
     final String tip = figure.getTip();
     if (tip != null) {

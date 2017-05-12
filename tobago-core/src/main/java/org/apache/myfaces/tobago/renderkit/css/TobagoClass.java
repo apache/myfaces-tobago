@@ -19,10 +19,19 @@
 
 package org.apache.myfaces.tobago.renderkit.css;
 
+import org.apache.myfaces.tobago.apt.annotation.Preliminary;
+import org.apache.myfaces.tobago.context.Markup;
+import org.apache.myfaces.tobago.context.Theme;
+import org.apache.myfaces.tobago.context.TobagoContext;
+import org.apache.myfaces.tobago.internal.util.Deprecation;
 import org.apache.myfaces.tobago.layout.AlignItems;
 import org.apache.myfaces.tobago.layout.JustifyContent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import javax.faces.context.FacesContext;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Declaration of the Tobago CSS classes.
@@ -211,4 +220,47 @@ public enum TobagoClass implements CssItem {
     }
   }
 
+  @Preliminary
+  public CssItem[] createMarkup(final Markup markup) {
+    if (markup != null) {
+      final List<CssItem> markups = new ArrayList<CssItem>();
+      for (final String markupString : markup) {
+        markups.add(new MarkupClass(this, markupString));
+      }
+      return markups.toArray(new CssItem[markups.size()]);
+    } else {
+      return null;
+    }
+  }
+
+  private static class MarkupClass implements CssItem {
+
+    final TobagoClass rendererClass;
+    final String markup;
+
+    private MarkupClass(final TobagoClass rendererClass, final String markup) {
+      this.rendererClass = rendererClass;
+      this.markup = markup;
+    }
+
+    @Override
+    public String getName() {
+      // These values are statistically tested length of the html class attribute
+      final StringBuilder builder = new StringBuilder(80);
+      final String rendererName = rendererClass.getName().substring("tobago-".length());
+      final Theme theme = TobagoContext.getInstance(FacesContext.getCurrentInstance()).getTheme();
+
+      if (theme.getRenderersConfig().isMarkupSupported(rendererName, markup)) {
+        builder.append(rendererClass.getName());
+        builder.append("-markup-");
+        builder.append(markup);
+      } else if ("none".equals(markup)) {
+        Deprecation.LOG.warn("Markup 'none' is deprecated, please use a NULL pointer instead.");
+      } else {
+        LOG.warn("Ignoring unknown markup='" + markup + "' for rendererClass='" + rendererClass + "'");
+      }
+
+      return builder.toString();
+    }
+  }
 }

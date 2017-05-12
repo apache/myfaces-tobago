@@ -86,7 +86,10 @@ public class TreeRenderer extends RendererBase {
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
     writer.startElement(HtmlElements.DIV);
-    writer.writeClassAttribute(TobagoClass.TREE, tree.getCustomClass());
+    writer.writeClassAttribute(
+        TobagoClass.TREE,
+        tree.getCustomClass(),
+        TobagoClass.TREE.createMarkup(tree.getMarkup()));
     writer.writeStyleAttribute(tree.getStyle());
     writer.writeIdAttribute(clientId);
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, tree);

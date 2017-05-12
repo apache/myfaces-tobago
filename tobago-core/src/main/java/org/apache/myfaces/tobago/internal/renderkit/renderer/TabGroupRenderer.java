@@ -150,7 +150,10 @@ public class TabGroupRenderer extends RendererBase implements ComponentSystemEve
 
     writer.startElement(HtmlElements.DIV);
     writer.writeIdAttribute(clientId);
-    writer.writeClassAttribute(TobagoClass.TAB_GROUP, tabGroup.getCustomClass());
+    writer.writeClassAttribute(
+        TobagoClass.TAB_GROUP,
+        tabGroup.getCustomClass(),
+        TobagoClass.TAB_GROUP.createMarkup(tabGroup.getMarkup()));
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, tabGroup);
     writer.writeStyleAttribute(tabGroup.getStyle());
     writer.writeAttribute(HtmlAttributes.SWITCHTYPE, switchType.name(), false);

@@ -24,6 +24,7 @@ import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.internal.util.RenderUtils;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
+import org.apache.myfaces.tobago.renderkit.css.CssItem;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
@@ -34,6 +35,9 @@ import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.StringTokenizer;
 
 public class OutRenderer extends MessageLayoutRendererBase {
@@ -57,7 +61,16 @@ public class OutRenderer extends MessageLayoutRendererBase {
       writer.startElement(HtmlElements.SPAN);
       HtmlRendererUtils.writeDataAttributes(facesContext, writer, out);
       writer.writeStyleAttribute(out.getStyle());
-      writer.writeClassAttribute(TobagoClass.OUT, BootstrapClass.FORM_CONTROL_STATIC, out.getCustomClass());
+
+      // TODO: optimize class attribute writing
+      final List<CssItem> classAttributes = new ArrayList<CssItem>();
+      classAttributes.add(TobagoClass.OUT);
+      if (out.getMarkup() != null) {
+        classAttributes.addAll(Arrays.asList(TobagoClass.OUT.createMarkup(out.getMarkup())));
+      }
+      classAttributes.add(BootstrapClass.FORM_CONTROL_STATIC);
+      classAttributes.add(out.getCustomClass());
+      writer.writeClassAttribute(null, null, classAttributes.toArray(new CssItem[classAttributes.size()]));
       final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, out);
       if (title != null) {
         writer.writeAttribute(HtmlAttributes.TITLE, title, true);

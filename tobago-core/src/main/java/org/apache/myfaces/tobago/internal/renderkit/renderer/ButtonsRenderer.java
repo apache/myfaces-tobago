@@ -23,6 +23,7 @@ import org.apache.myfaces.tobago.internal.component.AbstractUIButtons;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
+import org.apache.myfaces.tobago.renderkit.css.CssItem;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
@@ -32,6 +33,9 @@ import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class ButtonsRenderer extends RendererBase {
 
@@ -43,10 +47,16 @@ public class ButtonsRenderer extends RendererBase {
 
     writer.startElement(HtmlElements.DIV);
     writer.writeIdAttribute(buttons.getClientId(facesContext));
-    writer.writeClassAttribute(
-        TobagoClass.BUTTONS,
-        buttons.getCustomClass(),
-        BootstrapClass.BTN_GROUP);
+
+    // TODO: optimize class attribute writing
+    final List<CssItem> classAttributes = new ArrayList<CssItem>();
+    classAttributes.add(TobagoClass.BUTTONS);
+    if (buttons.getMarkup() != null) {
+      classAttributes.addAll(Arrays.asList(TobagoClass.BUTTONS.createMarkup(buttons.getMarkup())));
+    }
+    classAttributes.add(buttons.getCustomClass());
+    classAttributes.add(BootstrapClass.BTN_GROUP);
+    writer.writeClassAttribute(null, null, classAttributes.toArray(new CssItem[classAttributes.size()]));
     writer.writeAttribute(HtmlAttributes.ROLE, HtmlRoleValues.GROUP.toString(), false);
     writer.writeStyleAttribute(buttons.getStyle());
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, buttons);

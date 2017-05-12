@@ -57,7 +57,10 @@ public class GridLayoutRenderer extends RendererBase {
 
     writer.startElement(HtmlElements.TABLE);
     writer.writeAttribute(HtmlAttributes.ROLE, HtmlRoleValues.PRESENTATION.toString(), false);
-    writer.writeClassAttribute(TobagoClass.GRID_LAYOUT);
+    writer.writeClassAttribute(
+        TobagoClass.GRID_LAYOUT,
+        null,
+        TobagoClass.GRID_LAYOUT.createMarkup(gridLayout.getMarkup()));
 
     final StringBuilder builder = new StringBuilder();
 
