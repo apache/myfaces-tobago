@@ -9692,7 +9692,7 @@ table.tobago-gridLayout > tbody > tr:first-child > td {
   white-space: normal;
 }
 
-button.tobago-link:not(.dropdown-item), button.tobago-treeCommand {
+button.tobago-link, button.tobago-treeCommand {
   color: #0275d8;
   border-width: 0;
   padding: 0;
@@ -9700,7 +9700,7 @@ button.tobago-link:not(.dropdown-item), button.tobago-treeCommand {
   text-align: left;
 }
 
-button.tobago-link:not(.dropdown-item):focus, button.tobago-link:not(.dropdown-item):hover, button.tobago-treeCommand:focus, button.tobago-treeCommand:hover {
+button.tobago-link:focus, button.tobago-link:hover, button.tobago-treeCommand:focus, button.tobago-treeCommand:hover {
   color: #014c8c;
   cursor: pointer;
   background-color: transparent;
@@ -9708,8 +9708,17 @@ button.tobago-link:not(.dropdown-item):focus, button.tobago-link:not(.dropdown-i
   text-decoration: underline;
 }
 
+button.tobago-link.dropdown-item {
+  padding: 3px 1.5rem;
+  color: #292b2c;
+  text-align: inherit;
+  white-space: nowrap;
+}
+
 button.tobago-link.dropdown-item:focus, button.tobago-link.dropdown-item:hover {
   cursor: pointer;
+  text-decoration: none;
+  background-color: #f7f7f9;
 }
 
 button.tobago-link.dropdown-toggle:focus, button.tobago-link.dropdown-toggle:hover {
@@ -9773,13 +9782,6 @@ a.tobago-messages-button {
 }
 
 /* nav ----------------------------------------------------------- */
-/*
-.nav-item > span > .tobago-link, .nav-item > span > .tobago-command {
-  padding-top: .425rem;
-  padding-bottom: .425rem;
-  display: inline-block;
-}
-*/
 /* styles for drop down menu first level */
 .dropdown-toggle:focus, .dropdown-toggle:hover {
   text-decoration: none;
@@ -9827,7 +9829,7 @@ a.tobago-messages-button {
   display: none;
 }
 
-.tobago-dropdown-submenu > button.tobago-link:not(.dropdown-item) {
+.tobago-dropdown-submenu > button.tobago-link {
   border-width: 0;
   color: #292b2c;
   padding: 0;
@@ -9835,7 +9837,7 @@ a.tobago-messages-button {
   text-align: left;
 }
 
-.tobago-dropdown-submenu > button.tobago-link:not(.dropdown-item):focus, .tobago-dropdown-submenu > button.tobago-link:not(.dropdown-item):hover {
+.tobago-dropdown-submenu > button.tobago-link:focus, .tobago-dropdown-submenu > button.tobago-link:hover {
   color: #292b2c;
   text-decoration: none;
 }
@@ -9981,7 +9983,7 @@ h1 > .fa:first-child, h2 > .fa:first-child, h3 > .fa:first-child, h4 > .fa:first
   vertical-align: text-bottom;
 }
 
-.tobago-selectBooleanCheckbox .form-check-label:not(.dropdown-item) {
+.tobago-selectBooleanCheckbox .form-check-label {
   margin-top: 0.5ex;
   vertical-align: text-top;
 }
