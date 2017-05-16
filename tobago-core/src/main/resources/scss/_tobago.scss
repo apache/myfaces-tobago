@@ -348,7 +348,7 @@ table.tobago-gridLayout > tbody {
 }
 
 button {
-  &.tobago-link:not(.dropdown-item), &.tobago-treeCommand {
+  &.tobago-link, &.tobago-treeCommand {
     color: $blue;
     border-width: 0;
     padding: 0;
@@ -365,8 +365,15 @@ button {
   }
 
   &.tobago-link.dropdown-item {
+    padding: 3px $dropdown-item-padding-x;
+    color: $dropdown-link-color;
+    text-align: inherit;
+    white-space: nowrap;
+
     &:focus, &:hover {
       cursor: pointer;
+      text-decoration: none;
+      background-color: $dropdown-link-hover-bg;
     }
   }
 
@@ -430,14 +437,6 @@ a.tobago-messages-button {
 
 /* nav ----------------------------------------------------------- */
 
-/*
-.nav-item > span > .tobago-link, .nav-item > span > .tobago-command {
-  padding-top: .425rem;
-  padding-bottom: .425rem;
-  display: inline-block;
-}
-*/
-
 /* styles for drop down menu first level */
 .dropdown-toggle {
   &:focus, &:hover {
@@ -485,7 +484,7 @@ a.tobago-messages-button {
     display: none;
   }
 
-  > button.tobago-link:not(.dropdown-item) {
+  > button.tobago-link {
     border-width: 0;
     color: $dropdown-link-color;
     padding: 0;
@@ -649,7 +648,7 @@ h1, h2, h3, h4, h5, h6 {
     vertical-align: text-bottom;
   }
 
-  .form-check-label:not(.dropdown-item) {
+  .form-check-label {
     margin-top: 0.5ex;
     vertical-align: text-top;
   }
