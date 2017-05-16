@@ -1,4 +1,4 @@
-Build date: 2017-05-12 14:33:05
+Build date: 2017-05-16 16:22:26
 [INFO] Scanning for projects...
 [INFO] 
 [INFO] ------------------------------------------------------------------------
@@ -81,7 +81,7 @@ Build date: 2017-05-12 14:33:05
 [INFO] [fsevents] Success: "__CURRENT__/tobago-theme-standard/target/bootstrap/node_modules/fsevents/lib/binding/Release/node-v48-darwin-x64/fse.node" already installed
 [INFO] Pass --update-binary to reinstall or --build-from-source to recompile
 [INFO] 
-[INFO] > iltorb@1.2.1 install __CURRENT__/tobago-theme-standard/target/bootstrap/node_modules/iltorb
+[INFO] > iltorb@1.3.0 install __CURRENT__/tobago-theme-standard/target/bootstrap/node_modules/iltorb
 [INFO] > node-pre-gyp install --fallback-to-build
 [INFO] 
 [INFO] [iltorb] Success: "__CURRENT__/tobago-theme-standard/target/bootstrap/node_modules/iltorb/build/bindings/encode.node" is installed via remote
@@ -94,7 +94,7 @@ Build date: 2017-05-12 14:33:05
 [INFO] Verified checksum of previously downloaded file
 [INFO] Extracting zip contents
 [INFO] Removing __CURRENT__/tobago-theme-standard/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom
-[INFO] Copying extracted folder /var/folders/yp/1vrxjnrs20798ydt_yl8wrpr0000gp/T/phantomjs/phantomjs-2.1.1-macosx.zip-extract-1494592478298/phantomjs-2.1.1-macosx -> __CURRENT__/tobago-theme-standard/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom
+[INFO] Copying extracted folder /var/folders/yp/1vrxjnrs20798ydt_yl8wrpr0000gp/T/phantomjs/phantomjs-2.1.1-macosx.zip-extract-1494944750725/phantomjs-2.1.1-macosx -> __CURRENT__/tobago-theme-standard/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom
 [INFO] Writing location.js file
 [INFO] Done. Phantomjs binary available at __CURRENT__/tobago-theme-standard/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom/bin/phantomjs
 [INFO] 
@@ -113,7 +113,7 @@ Build date: 2017-05-12 14:33:05
 [INFO] ├─┬ autoprefixer@6.7.7 
 [INFO] │ ├─┬ browserslist@1.7.7 
 [INFO] │ │ └── electron-to-chromium@1.3.10 
-[INFO] │ ├── caniuse-db@1.0.30000667 
+[INFO] │ ├── caniuse-db@1.0.30000670 
 [INFO] │ ├── normalize-range@0.1.2 
 [INFO] │ ├── num2fraction@1.2.2 
 [INFO] │ ├─┬ postcss@5.2.17 
@@ -203,7 +203,7 @@ Build date: 2017-05-12 14:33:05
 [INFO] │ ├─┬ escope@3.6.0 
 [INFO] │ │ ├─┬ es6-map@0.1.5 
 [INFO] │ │ │ ├── d@1.0.0 
-[INFO] │ │ │ ├── es5-ext@0.10.16 
+[INFO] │ │ │ ├── es5-ext@0.10.18 
 [INFO] │ │ │ ├── es6-iterator@2.0.1 
 [INFO] │ │ │ ├── es6-set@0.1.5 
 [INFO] │ │ │ ├── es6-symbol@3.1.1 
@@ -355,7 +355,7 @@ Build date: 2017-05-12 14:33:05
 [INFO] │ │   └─┬ compress-commons@1.2.0 
 [INFO] │ │     └─┬ crc32-stream@2.0.0 
 [INFO] │ │       └── crc@3.4.4 
-[INFO] │ ├─┬ iltorb@1.2.1 
+[INFO] │ ├─┬ iltorb@1.3.0 
 [INFO] │ │ └─┬ node-pre-gyp@0.6.34 
 [INFO] │ │   ├─┬ mkdirp@0.5.1 
 [INFO] │ │   │ └── minimist@0.0.8 
@@ -364,11 +364,11 @@ Build date: 2017-05-12 14:33:05
 [INFO] │ │   │ └─┬ osenv@0.1.4 
 [INFO] │ │   │   ├── os-homedir@1.0.2 
 [INFO] │ │   │   └── os-tmpdir@1.0.2 
-[INFO] │ │   ├─┬ npmlog@4.0.2 
-[INFO] │ │   │ ├─┬ are-we-there-yet@1.1.2 
+[INFO] │ │   ├─┬ npmlog@4.1.0 
+[INFO] │ │   │ ├─┬ are-we-there-yet@1.1.4 
 [INFO] │ │   │ │ └── delegates@1.0.0 
 [INFO] │ │   │ ├── console-control-strings@1.1.0 
-[INFO] │ │   │ ├─┬ gauge@2.7.3 
+[INFO] │ │   │ ├─┬ gauge@2.7.4 
 [INFO] │ │   │ │ ├── aproba@1.1.1 
 [INFO] │ │   │ │ ├── has-unicode@2.0.1 
 [INFO] │ │   │ │ ├── object-assign@4.1.1 
@@ -392,12 +392,12 @@ Build date: 2017-05-12 14:33:05
 [INFO] │ │   │ ├── caseless@0.12.0 
 [INFO] │ │   │ ├─┬ combined-stream@1.0.5 
 [INFO] │ │   │ │ └── delayed-stream@1.0.0 
-[INFO] │ │   │ ├── extend@3.0.0 
+[INFO] │ │   │ ├── extend@3.0.1 
 [INFO] │ │   │ ├── forever-agent@0.6.1 
 [INFO] │ │   │ ├─┬ form-data@2.1.4 
 [INFO] │ │   │ │ └── asynckit@0.4.0 
 [INFO] │ │   │ ├─┬ har-validator@4.2.1 
-[INFO] │ │   │ │ ├─┬ ajv@4.11.6 
+[INFO] │ │   │ │ ├─┬ ajv@4.11.8 
 [INFO] │ │   │ │ │ ├── co@4.6.0 
 [INFO] │ │   │ │ │ └─┬ json-stable-stringify@1.0.1 
 [INFO] │ │   │ │ │   └── jsonify@0.0.0 
@@ -414,12 +414,12 @@ Build date: 2017-05-12 14:33:05
 [INFO] │ │   │ │ │ ├── extsprintf@1.0.2 
 [INFO] │ │   │ │ │ ├── json-schema@0.2.3 
 [INFO] │ │   │ │ │ └── verror@1.3.6 
-[INFO] │ │   │ │ └─┬ sshpk@1.11.0 
+[INFO] │ │   │ │ └─┬ sshpk@1.13.0 
 [INFO] │ │   │ │   ├── asn1@0.2.3 
 [INFO] │ │   │ │   ├── bcrypt-pbkdf@1.0.1 
 [INFO] │ │   │ │   ├── dashdash@1.14.1 
 [INFO] │ │   │ │   ├── ecc-jsbn@0.1.1 
-[INFO] │ │   │ │   ├── getpass@0.1.6 
+[INFO] │ │   │ │   ├── getpass@0.1.7 
 [INFO] │ │   │ │   ├── jodid25519@1.0.2 
 [INFO] │ │   │ │   ├── jsbn@0.1.1 
 [INFO] │ │   │ │   └── tweetnacl@0.14.5 
@@ -441,7 +441,7 @@ Build date: 2017-05-12 14:33:05
 [INFO] │ │   │ └─┬ glob@7.1.1 
 [INFO] │ │   │   ├── fs.realpath@1.0.0 
 [INFO] │ │   │   ├── inflight@1.0.6 
-[INFO] │ │   │   ├─┬ minimatch@3.0.3 
+[INFO] │ │   │   ├─┬ minimatch@3.0.4 
 [INFO] │ │   │   │ └─┬ brace-expansion@1.1.7 
 [INFO] │ │   │   │   ├── balanced-match@0.4.2 
 [INFO] │ │   │   │   └── concat-map@0.0.1 
@@ -453,8 +453,8 @@ Build date: 2017-05-12 14:33:05
 [INFO] │ │   │ │ └── graceful-fs@4.1.11 
 [INFO] │ │   │ └── inherits@2.0.3 
 [INFO] │ │   └─┬ tar-pack@3.4.0 
-[INFO] │ │     ├─┬ debug@2.2.0 
-[INFO] │ │     │ └── ms@0.7.1 
+[INFO] │ │     ├─┬ debug@2.6.0 
+[INFO] │ │     │ └── ms@0.7.2 
 [INFO] │ │     ├── fstream-ignore@1.0.5 
 [INFO] │ │     ├─┬ once@1.4.0 
 [INFO] │ │     │ └── wrappy@1.0.2 
@@ -750,9 +750,9 @@ Build date: 2017-05-12 14:33:05
 [INFO] │ │ │ └── punycode@1.4.1 
 [INFO] │ │ ├── tunnel-agent@0.4.3 
 [INFO] │ │ └── uuid@3.0.1 
-[INFO] │ ├─┬ sass-graph@2.2.2 
+[INFO] │ ├─┬ sass-graph@2.2.3 
 [INFO] │ │ ├── glob@7.1.1 
-[INFO] │ │ ├─┬ scss-tokenizer@0.2.1 
+[INFO] │ │ ├─┬ scss-tokenizer@0.2.3 
 [INFO] │ │ │ └── source-map@0.4.4 
 [INFO] │ │ └─┬ yargs@6.6.0 
 [INFO] │ │   ├── camelcase@3.0.0 
@@ -952,7 +952,7 @@ Build date: 2017-05-12 14:33:05
 [INFO] │   ├── is-finite@1.0.2 
 [INFO] │   ├── parse-ms@1.0.1 
 [INFO] │   └── plur@1.0.0 
-[INFO] └─┬ uglify-js@2.8.23 
+[INFO] └─┬ uglify-js@2.8.26 
 [INFO]   ├── uglify-to-browserify@1.0.2 
 [INFO]   └─┬ yargs@3.10.0 
 [INFO]     ├── camelcase@1.2.1 
@@ -981,8 +981,8 @@ Build date: 2017-05-12 14:33:05
 [INFO] >> Wrote CSS to __CURRENT__/tobago-theme-standard/target/bootstrap/dist/css/bootstrap.css
 [INFO] >> Wrote Source Map to __CURRENT__/tobago-theme-standard/target/bootstrap/dist/css/bootstrap.css.map
 [INFO] >> Rendering Complete, saving .css file...
-[INFO] >> Wrote CSS to __CURRENT__/tobago-theme-standard/target/bootstrap/dist/css/bootstrap-grid.css
 [INFO] >> Wrote Source Map to __CURRENT__/tobago-theme-standard/target/bootstrap/dist/css/bootstrap-grid.css.map
+[INFO] >> Wrote CSS to __CURRENT__/tobago-theme-standard/target/bootstrap/dist/css/bootstrap-grid.css
 [INFO] >> Rendering Complete, saving .css file...
 [INFO] >> Wrote CSS to __CURRENT__/tobago-theme-standard/target/bootstrap/dist/css/bootstrap-reboot.css
 [INFO] >> Wrote Source Map to __CURRENT__/tobago-theme-standard/target/bootstrap/dist/css/bootstrap-reboot.css.map
@@ -1031,16 +1031,16 @@ Build date: 2017-05-12 14:33:05
 [INFO] Done.
 [INFO] 
 [INFO] 
-[INFO] Execution Time (2017-05-12 14:34:42 UTC+2)
-[INFO] exec:sass              2s  ▇▇▇ 6%
-[INFO] exec:sass-docs         1s  ▇▇ 3%
-[INFO] exec:postcss         4.4s  ▇▇▇▇▇▇ 14%
-[INFO] exec:clean-css       2.6s  ▇▇▇▇ 9%
-[INFO] exec:clean-css-docs  3.2s  ▇▇▇▇▇ 11%
-[INFO] babel:dev            7.9s  ▇▇▇▇▇▇▇▇▇▇▇ 26%
-[INFO] babel:dist           5.1s  ▇▇▇▇▇▇▇ 17%
-[INFO] exec:uglify            4s  ▇▇▇▇▇▇ 13%
-[INFO] Total 30.3s
+[INFO] Execution Time (2017-05-16 16:25:56 UTC+2)
+[INFO] exec:sass               3s  ▇▇▇▇▇▇▇ 17%
+[INFO] exec:sass-docs        1.2s  ▇▇▇ 7%
+[INFO] exec:postcss          1.9s  ▇▇▇▇▇ 11%
+[INFO] exec:clean-css        2.6s  ▇▇▇▇▇▇ 14%
+[INFO] exec:clean-css-docs   3.5s  ▇▇▇▇▇▇▇▇ 19%
+[INFO] babel:dev             2.1s  ▇▇▇▇▇ 12%
+[INFO] babel:dist           966ms  ▇▇▇ 5%
+[INFO] exec:uglify           2.4s  ▇▇▇▇▇▇ 14%
+[INFO] Total 17.8s
 [INFO] 
 [INFO] 
 [INFO] --- maven-resources-plugin:2.7:resources (default-resources) @ tobago-theme-standard ---
@@ -1065,9 +1065,9 @@ Build date: 2017-05-12 14:33:05
 [INFO] tether-theme-basic.min.css (504b) -> tether-theme-basic.min.min.css (504b)[100%]
 [INFO] nothing to do, __CURRENT__/tobago-theme-standard/target/classes/META-INF/resources/tobago/standard/tether/1.1.1/css/tether.min.css is younger than original, use 'force' option or clean your target
 [INFO] tether.min.css (237b) -> tether.min.min.css (237b)[100%]
-[INFO] bootstrap.css (218891b) -> bootstrap.min.css (165816b)[75%]
-[INFO] bootstrap.min.css (165828b) -> bootstrap.min.min.css (165537b)[99%]
-[INFO] total input (433621b) -> output (380187b)[87%]
+[INFO] bootstrap.css (219035b) -> bootstrap.min.css (165939b)[75%]
+[INFO] bootstrap.min.css (165951b) -> bootstrap.min.min.css (165660b)[99%]
+[INFO] total input (433888b) -> output (380433b)[87%]
 [INFO] nb warnings: 0, nb errors: 0
 [INFO] 
 [INFO] --- maven-compiler-plugin:3.5.1:compile (default-compile) @ tobago-theme-standard ---
@@ -1102,7 +1102,7 @@ main:
  T E S T S
 -------------------------------------------------------
 Running org.apache.myfaces.tobago.renderkit.css.BootstrapClassUnitTest
-Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.52 sec - in org.apache.myfaces.tobago.renderkit.css.BootstrapClassUnitTest
+Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.202 sec - in org.apache.myfaces.tobago.renderkit.css.BootstrapClassUnitTest
 
 Results :
 
@@ -1120,7 +1120,7 @@ Tests run: 2, Failures: 0, Errors: 0, Skipped: 0
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
-[INFO] Total time: 02:24 min
-[INFO] Finished at: 2017-05-12T14:35:31+02:00
-[INFO] Final Memory: 41M/702M
+[INFO] Total time: 03:55 min
+[INFO] Finished at: 2017-05-16T16:26:24+02:00
+[INFO] Final Memory: 38M/533M
 [INFO] ------------------------------------------------------------------------

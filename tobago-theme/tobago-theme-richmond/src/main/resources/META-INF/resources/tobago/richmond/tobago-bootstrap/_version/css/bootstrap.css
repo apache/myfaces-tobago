@@ -10191,6 +10191,13 @@ th.tobago-sheet-headerCell .tobago-out {
   text-align: center;
 }
 
+.tobago-sheet-paging {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+}
+
 .tobago-sheet-paging-markup-left {
   float: left;
 }
