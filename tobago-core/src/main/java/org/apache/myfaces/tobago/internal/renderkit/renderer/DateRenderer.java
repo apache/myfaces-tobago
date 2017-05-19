@@ -62,7 +62,7 @@ public class DateRenderer extends InRenderer {
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
     writer.startElement(HtmlElements.DIV);
-    writer.writeClassAttribute(TobagoClass.PANEL);
+    writer.writeClassAttribute(TobagoClass.INPUT__GROUP__OUTER);
 
     writer.startElement(HtmlElements.DIV);
     writer.writeClassAttribute(BootstrapClass.INPUT_GROUP);
