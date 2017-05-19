@@ -41,11 +41,6 @@ public class SelectManyCheckboxInsideCommandRenderer extends SelectManyCheckboxR
   }
 
   @Override
-  protected boolean renderClientId() {
-    return true;
-  }
-
-  @Override
   protected boolean renderOuterItem() {
     return false;
   }

@@ -73,4 +73,12 @@ public interface OutTagDeclaration
    */
   @UIComponentTagAttribute(type = "boolean", defaultValue = "true")
   void setCreateSpan(String createSpan);
+
+  /**
+   * Use true, if you enable the possibility to apply styles to the output.
+   * Use false, if you want to keep the code small (especially inside of sheets).
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(type = "boolean", defaultValue = "false")
+  void setCompact(String compact);
 }

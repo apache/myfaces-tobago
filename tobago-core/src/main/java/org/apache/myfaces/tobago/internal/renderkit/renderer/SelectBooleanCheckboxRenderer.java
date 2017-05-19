@@ -84,7 +84,7 @@ public class SelectBooleanCheckboxRenderer extends MessageLayoutRendererBase {
     final String itemLabel = select.getItemLabel();
 
     writer.startElement(HtmlElements.DIV);
-    if (renderClientId()) {
+    if (select.isLabelLayoutSkip()) {
       writer.writeIdAttribute(clientId);
     }
     writer.writeStyleAttribute(select.getStyle());
@@ -142,10 +142,6 @@ public class SelectBooleanCheckboxRenderer extends MessageLayoutRendererBase {
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
     writer.endElement(HtmlElements.LABEL);
     writer.endElement(HtmlElements.DIV);
-  }
-
-  protected boolean renderClientId() {
-    return false;
   }
 
   protected void addOuterCssItems(final FacesContext facesContext, final AbstractUISelectBooleanCheckbox select,

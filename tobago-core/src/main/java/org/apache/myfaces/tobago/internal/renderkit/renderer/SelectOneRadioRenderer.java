@@ -58,9 +58,7 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
     final boolean inline = select.isInline();
 
     writer.startElement(HtmlElements.DIV);
-    if (renderClientId()) {
-      writer.writeIdAttribute(id);
-    }
+    writer.writeIdAttribute(id);
     writer.writeStyleAttribute(select.getStyle());
 
     // TODO: optimize class attribute writing
@@ -147,10 +145,6 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
   protected void encodeEndField(FacesContext facesContext, UIComponent component) throws IOException {
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
     writer.endElement(HtmlElements.DIV);
-  }
-
-  protected boolean renderClientId() {
-    return false;
   }
 
   protected boolean renderOuterItem() {

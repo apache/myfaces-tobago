@@ -21,6 +21,7 @@ package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
 import org.apache.myfaces.tobago.component.UIOut;
 import org.apache.myfaces.tobago.config.TobagoConfig;
+import org.apache.myfaces.tobago.internal.component.AbstractUIOut;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.internal.util.RenderUtils;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
@@ -46,7 +47,7 @@ public class OutRenderer extends MessageLayoutRendererBase {
   @Override
   public void encodeBeginField(final FacesContext facesContext, final UIComponent component) throws IOException {
 
-    final UIOut out = (UIOut) component;
+    final AbstractUIOut out = (UIOut) component;
 
     String text = RenderUtils.currentValue(out);
     if (text == null) {
@@ -56,10 +57,13 @@ public class OutRenderer extends MessageLayoutRendererBase {
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
     final boolean escape = out.isEscape();
-    final boolean createSpan = out.isCreateSpan();
+    final boolean compact = out.isCompact() || !out.isCreateSpan();
 
-    if (createSpan) {
+    if (!compact) {
       writer.startElement(HtmlElements.SPAN);
+      if (out.isLabelLayoutSkip()) {
+        writer.writeIdAttribute(out.getClientId());
+      }
       HtmlRendererUtils.writeDataAttributes(facesContext, writer, out);
       writer.writeStyleAttribute(out.getStyle());
 
@@ -101,9 +105,9 @@ public class OutRenderer extends MessageLayoutRendererBase {
 
     final UIOut out = (UIOut) component;
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
-    final boolean createSpan = out.isCreateSpan();
+    final boolean compact = out.isCompact() || !out.isCreateSpan();
 
-    if (createSpan) {
+    if (!compact) {
       writer.endElement(HtmlElements.SPAN);
     }
   }

@@ -19,8 +19,10 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
+import org.apache.myfaces.tobago.component.LabelLayout;
 import org.apache.myfaces.tobago.component.SupportsLabelLayout;
 import org.apache.myfaces.tobago.component.Visual;
+import org.apache.myfaces.tobago.sanitizer.SanitizeMode;
 
 import javax.faces.component.UIOutput;
 
@@ -28,4 +30,16 @@ import javax.faces.component.UIOutput;
  * {@link org.apache.myfaces.tobago.internal.taglib.component.OutTagDeclaration}
  */
 public abstract class AbstractUIOut extends UIOutput implements SupportsLabelLayout, Visual {
+
+  public abstract boolean isEscape();
+
+  public abstract boolean isCreateSpan();
+
+  public abstract boolean isCompact();
+
+  public abstract SanitizeMode getSanitize();
+
+  public boolean isLabelLayoutSkip() {
+    return getLabelLayout() == LabelLayout.skip;
+  }
 }

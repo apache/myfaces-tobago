@@ -19,6 +19,7 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
+import org.apache.myfaces.tobago.component.LabelLayout;
 import org.apache.myfaces.tobago.component.SupportFieldId;
 import org.apache.myfaces.tobago.component.SupportsLabelLayout;
 import org.apache.myfaces.tobago.component.Visual;
@@ -72,4 +73,7 @@ public abstract class AbstractUIFile extends UIInput implements SupportsLabelLay
     return getClientId(facesContext) + ComponentUtils.SUB_SEPARATOR + "real";
   }
 
+  public boolean isLabelLayoutSkip() {
+    return getLabelLayout() == LabelLayout.skip;
+  }
 }

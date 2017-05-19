@@ -65,6 +65,7 @@ public enum Attributes {
   column,
   columnSpacing,
   columns,
+  compact,
   confirmation,
   converter,
   customClass,

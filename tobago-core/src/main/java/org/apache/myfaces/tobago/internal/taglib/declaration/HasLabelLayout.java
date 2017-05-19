@@ -27,6 +27,8 @@ public interface HasLabelLayout {
   /**
    * Defines the position of the label relative to the field.
    * The default is flexLeft, if the label is set, or none, if the label isn't set.
+   * Set to 'skip' to avoid surrounding label container.
+   * Hint for tc:out: set also compact=true to render only text (without html tags).
    */
   @TagAttribute
   @UIComponentTagAttribute(

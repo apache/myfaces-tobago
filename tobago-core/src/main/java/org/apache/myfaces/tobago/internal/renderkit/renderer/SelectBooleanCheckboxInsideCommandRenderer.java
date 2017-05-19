@@ -41,11 +41,6 @@ public class SelectBooleanCheckboxInsideCommandRenderer extends SelectBooleanChe
   }
 
   @Override
-  protected boolean renderClientId() {
-    return true;
-  }
-
-  @Override
   protected void addOuterCssItems(final FacesContext facesContext, final AbstractUISelectBooleanCheckbox select,
                                   final List<CssItem> collected) {
   }

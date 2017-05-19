@@ -41,11 +41,6 @@ public class SelectOneRadioInsideCommandRenderer extends SelectOneRadioRenderer 
   }
 
   @Override
-  protected boolean renderClientId() {
-    return true;
-  }
-
-  @Override
   protected boolean renderOuterItem() {
     return false;
   }

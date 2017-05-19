@@ -19,6 +19,8 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
+import org.apache.myfaces.tobago.component.LabelLayout;
+
 /**
  * {@link org.apache.myfaces.tobago.internal.taglib.component.SelectManyShuttleTagDeclaration}
  */
@@ -32,4 +34,7 @@ public abstract class AbstractUISelectManyShuttle extends AbstractUISelectManyBa
     return getSelectedLabel() != null || getUnselectedLabel() != null;
   }
 
+  public boolean isLabelLayoutSkip() {
+    return getLabelLayout() == LabelLayout.skip;
+  }
 }

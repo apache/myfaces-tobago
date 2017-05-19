@@ -56,9 +56,7 @@ public class SelectManyCheckboxRenderer extends SelectManyRendererBase {
     final boolean inline = select.isInline();
 
     writer.startElement(HtmlElements.DIV);
-    if (renderClientId()) {
-      writer.writeIdAttribute(id);
-    }
+    writer.writeIdAttribute(id);
     writer.writeStyleAttribute(select.getStyle());
 
     // TODO: optimize class attribute writing
@@ -134,10 +132,6 @@ public class SelectManyCheckboxRenderer extends SelectManyRendererBase {
   public void encodeEndField(final FacesContext facesContext, final UIComponent component) throws IOException {
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
     writer.endElement(HtmlElements.DIV);
-  }
-
-  protected boolean renderClientId() {
-    return false;
   }
 
   protected boolean renderOuterItem() {

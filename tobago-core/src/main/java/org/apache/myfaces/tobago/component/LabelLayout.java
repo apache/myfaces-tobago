@@ -25,6 +25,7 @@ public enum LabelLayout {
 
   /**
    * do not render the label
+   * same behavior as component without label attribute
    */
   none,
 

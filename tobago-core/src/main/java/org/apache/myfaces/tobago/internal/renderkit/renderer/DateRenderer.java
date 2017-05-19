@@ -22,6 +22,7 @@ package org.apache.myfaces.tobago.internal.renderkit.renderer;
 import org.apache.myfaces.tobago.internal.component.AbstractUIDate;
 import org.apache.myfaces.tobago.internal.component.AbstractUIInput;
 import org.apache.myfaces.tobago.internal.context.DateTimeI18n;
+import org.apache.myfaces.tobago.internal.util.JsonUtils;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapDateTimePickerClass;
@@ -31,7 +32,6 @@ import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlButtonTypes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
-import org.apache.myfaces.tobago.internal.util.JsonUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -59,9 +59,13 @@ public class DateRenderer extends InRenderer {
 
   @Override
   protected void encodeBeginField(FacesContext facesContext, UIComponent component) throws IOException {
+    final AbstractUIDate date = (AbstractUIDate) component;
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
     writer.startElement(HtmlElements.DIV);
+    if (date.isLabelLayoutSkip()) {
+      writer.writeIdAttribute(date.getClientId());
+    }
     writer.writeClassAttribute(TobagoClass.INPUT__GROUP__OUTER);
 
     writer.startElement(HtmlElements.DIV);

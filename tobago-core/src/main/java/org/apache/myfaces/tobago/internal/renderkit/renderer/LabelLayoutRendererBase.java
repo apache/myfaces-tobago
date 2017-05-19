@@ -23,6 +23,7 @@ import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.LabelLayout;
 import org.apache.myfaces.tobago.component.SupportsAccessKey;
 import org.apache.myfaces.tobago.component.SupportsLabelLayout;
+import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
@@ -31,7 +32,6 @@ import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
-import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
@@ -108,9 +108,12 @@ public abstract class LabelLayoutRendererBase extends DecodingInputRendererBase 
     // - segmentRight (todo)
     // - flowLeft (todo)
     // - flowRight (todo)
+    // - skip
     final LabelLayout labelLayout = getType(component);
     final CssItem divClass;
     switch (labelLayout) {
+      case skip:
+        return;
       case flexLeft:
       case flexRight:
         divClass = TobagoClass.FLEX_LAYOUT;
@@ -131,33 +134,19 @@ public abstract class LabelLayoutRendererBase extends DecodingInputRendererBase 
       case top:
       case flowLeft:
       case flowRight:
-      case skip:
       default: // none, top, segmentLeft, segmentRight, flowLeft, flowRight
         divClass = null;
     }
 
-//    if (labelLayout != LabelLayout.none) {
-    writer.startElement(LabelLayout.skip == labelLayout ? HtmlElements.SPAN : HtmlElements.DIV);
+    writer.startElement(HtmlElements.DIV);
     writer.writeIdAttribute(clientId);
-//    }
-//    writer.writeClassAttribute(divClass, BootstrapClass.maximumSeverity(component));
-    // todo: check if BootstrapClass.FORM_GROUP is needed, I've removed it, because of it's margin-bottom: 15px;
-    // todo: so we lost too much space
-    // todo: without it, e. g. an input field in the header will not be layouted correctly
-//    CssItem extra = ComponentUtils.findAncestor(component, AbstractUILinks.class) != null
-// ? BootstrapClass.FORM_GROUP : null;
-    // TODO: optimize findAncestor() -> set a marker in AbstractUILinks?
 
-//    writer.writeClassAttribute(divClass, extra, BootstrapClass.maximumSeverity(component));
-
-    if (!(LabelLayout.skip == labelLayout)) {
-      writer.writeClassAttribute(
-          divClass,
-          TobagoClass.LABEL__CONTAINER,
-          BootstrapClass.FORM_GROUP,
-          BootstrapClass.maximumSeverity(component),
-          ComponentUtils.getBooleanAttribute(component, Attributes.required) ? TobagoClass.REQUIRED : null);
-    }
+    writer.writeClassAttribute(
+        divClass,
+        TobagoClass.LABEL__CONTAINER,
+        BootstrapClass.FORM_GROUP,
+        BootstrapClass.maximumSeverity(component),
+        ComponentUtils.getBooleanAttribute(component, Attributes.required) ? TobagoClass.REQUIRED : null);
 
     switch (labelLayout) {
       case flexLeft:
@@ -172,7 +161,7 @@ public abstract class LabelLayoutRendererBase extends DecodingInputRendererBase 
 
     switch (labelLayout) {
       case none:
-      case skip:
+        break;
       case flexRight:
       case flowRight:
         break;
@@ -198,6 +187,10 @@ public abstract class LabelLayoutRendererBase extends DecodingInputRendererBase 
     final LabelLayout labelLayout = getType(component);
 
     switch (labelLayout) {
+      case skip:
+        return;
+      case none:
+        break;
       case flexRight:
       case flowRight:
         encodeLabel(component, writer, labelLayout);
@@ -206,9 +199,7 @@ public abstract class LabelLayoutRendererBase extends DecodingInputRendererBase 
         // nothing to do
     }
 
-//    if (labelLayout != LabelLayout.none) {
-    writer.endElement(LabelLayout.skip == labelLayout ? HtmlElements.SPAN : HtmlElements.DIV);
-//    }
+    writer.endElement(HtmlElements.DIV);
   }
 
   protected void encodeLabel(UIComponent component, TobagoResponseWriter writer, LabelLayout labelLayout)
