@@ -33,6 +33,7 @@ import org.apache.myfaces.tobago.renderkit.html.Arias;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRoleValues;
+import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -64,9 +65,8 @@ public class ProgressRenderer extends RendererBase {
     // TODO: optimize class attribute writing
     final List<CssItem> classAttributes = new ArrayList<CssItem>();
     classAttributes.add(TobagoClass.PROGRESS);
-    if (progress.getMarkup() != null) {
-      classAttributes.addAll(Arrays.asList(TobagoClass.PROGRESS.createMarkup(progress.getMarkup())));
-    }
+    classAttributes.addAll(Arrays.asList(
+        TobagoClass.PROGRESS.createMarkup(ComponentUtils.updateMarkup(progress, progress.getMarkup()))));
     classAttributes.add(progress.getCustomClass());
     classAttributes.add(BootstrapClass.PROGRESS);
     writer.writeClassAttribute(null, null, classAttributes.toArray(new CssItem[classAttributes.size()]));

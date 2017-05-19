@@ -75,9 +75,8 @@ public class SelectManyListboxRenderer extends SelectManyRendererBase {
     // TODO: optimize class attribute writing
     final List<CssItem> classAttributes = new ArrayList<CssItem>();
     classAttributes.add(TobagoClass.SELECT_MANY_LISTBOX);
-    if (select.getMarkup() != null) {
-      classAttributes.addAll(Arrays.asList(TobagoClass.SELECT_MANY_LISTBOX.createMarkup(select.getMarkup())));
-    }
+    classAttributes.addAll(Arrays.asList(
+        TobagoClass.SELECT_MANY_LISTBOX.createMarkup(ComponentUtils.updateMarkup(select, select.getMarkup()))));
     classAttributes.add(BootstrapClass.FORM_CONTROL);
     classAttributes.add(select.getCustomClass());
     writer.writeClassAttribute(null, null, classAttributes.toArray(new CssItem[classAttributes.size()]));

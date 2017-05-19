@@ -30,6 +30,7 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.sanitizer.SanitizeMode;
 import org.apache.myfaces.tobago.sanitizer.Sanitizer;
+import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
@@ -65,9 +66,8 @@ public class OutRenderer extends MessageLayoutRendererBase {
       // TODO: optimize class attribute writing
       final List<CssItem> classAttributes = new ArrayList<CssItem>();
       classAttributes.add(TobagoClass.OUT);
-      if (out.getMarkup() != null) {
-        classAttributes.addAll(Arrays.asList(TobagoClass.OUT.createMarkup(out.getMarkup())));
-      }
+      classAttributes.addAll(Arrays.asList(
+          TobagoClass.OUT.createMarkup(ComponentUtils.updateMarkup(out, out.getMarkup()))));
       classAttributes.add(BootstrapClass.FORM_CONTROL_STATIC);
       classAttributes.add(out.getCustomClass());
       writer.writeClassAttribute(null, null, classAttributes.toArray(new CssItem[classAttributes.size()]));

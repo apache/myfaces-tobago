@@ -69,9 +69,8 @@ public class SelectOneChoiceRenderer extends SelectOneRendererBase {
     // TODO: optimize class attribute writing
     final List<CssItem> classAttributes = new ArrayList<CssItem>();
     classAttributes.add(TobagoClass.SELECT_ONE_CHOICE);
-    if (select.getMarkup() != null) {
-      classAttributes.addAll(Arrays.asList(TobagoClass.SELECT_ONE_CHOICE.createMarkup(select.getMarkup())));
-    }
+    classAttributes.addAll(Arrays.asList(
+        TobagoClass.SELECT_ONE_CHOICE.createMarkup(ComponentUtils.updateMarkup(select, select.getMarkup()))));
     classAttributes.add(BootstrapClass.FORM_CONTROL);
     classAttributes.add(select.getCustomClass());
     writer.writeClassAttribute(null, null, classAttributes.toArray(new CssItem[classAttributes.size()]));

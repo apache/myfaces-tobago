@@ -53,9 +53,8 @@ public class SectionRenderer extends PanelRendererBase {
     // TODO: optimize class attribute writing
     final List<CssItem> classAttributes = new ArrayList<CssItem>();
     classAttributes.add(TobagoClass.SECTION);
-    if (section.getMarkup() != null) {
-      classAttributes.addAll(Arrays.asList(TobagoClass.SECTION.createMarkup(section.getMarkup())));
-    }
+    classAttributes.addAll(Arrays.asList(
+        TobagoClass.SECTION.createMarkup(ComponentUtils.updateMarkup(section, section.getMarkup()))));
     classAttributes.add(collapsed ? TobagoClass.COLLAPSED : null);
     classAttributes.add(section.getCustomClass());
     writer.writeClassAttribute(null, null, classAttributes.toArray(new CssItem[classAttributes.size()]));

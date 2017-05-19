@@ -60,7 +60,7 @@ public class GridLayoutRenderer extends RendererBase {
     writer.writeClassAttribute(
         TobagoClass.GRID_LAYOUT,
         null,
-        TobagoClass.GRID_LAYOUT.createMarkup(gridLayout.getMarkup()));
+        TobagoClass.GRID_LAYOUT.createMarkup(ComponentUtils.updateMarkup(gridLayout, gridLayout.getMarkup())));
 
     final StringBuilder builder = new StringBuilder();
 

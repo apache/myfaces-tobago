@@ -28,6 +28,7 @@ import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRoleValues;
+import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
@@ -51,9 +52,8 @@ public class ButtonsRenderer extends RendererBase {
     // TODO: optimize class attribute writing
     final List<CssItem> classAttributes = new ArrayList<CssItem>();
     classAttributes.add(TobagoClass.BUTTONS);
-    if (buttons.getMarkup() != null) {
-      classAttributes.addAll(Arrays.asList(TobagoClass.BUTTONS.createMarkup(buttons.getMarkup())));
-    }
+    classAttributes.addAll(Arrays.asList(
+        TobagoClass.BUTTONS.createMarkup(ComponentUtils.updateMarkup(buttons, buttons.getMarkup()))));
     classAttributes.add(buttons.getCustomClass());
     classAttributes.add(BootstrapClass.BTN_GROUP);
     writer.writeClassAttribute(null, null, classAttributes.toArray(new CssItem[classAttributes.size()]));

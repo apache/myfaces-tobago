@@ -83,9 +83,8 @@ public class TextareaRenderer extends MessageLayoutRendererBase {
     // TODO: optimize class attribute writing
     final List<CssItem> classAttributes = new ArrayList<CssItem>();
     classAttributes.add(TobagoClass.TEXTAREA);
-    if (input.getMarkup() != null) {
-      classAttributes.addAll(Arrays.asList(TobagoClass.TEXTAREA.createMarkup(input.getMarkup())));
-    }
+    classAttributes.addAll(Arrays.asList(
+        TobagoClass.TEXTAREA.createMarkup(ComponentUtils.updateMarkup(input, input.getMarkup()))));
     classAttributes.add(BootstrapClass.FORM_CONTROL);
     classAttributes.add(input.getCustomClass());
     writer.writeClassAttribute(null, null, classAttributes.toArray(new CssItem[classAttributes.size()]));

@@ -27,6 +27,7 @@ import org.apache.myfaces.tobago.renderkit.css.CssItem;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
+import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
@@ -48,9 +49,8 @@ public class FooterRenderer extends RendererBase {
     // TODO: optimize class attribute writing
     final List<CssItem> classAttributes = new ArrayList<CssItem>();
     classAttributes.add(TobagoClass.FOOTER);
-    if (footer.getMarkup() != null) {
-      classAttributes.addAll(Arrays.asList(TobagoClass.FOOTER.createMarkup(footer.getMarkup())));
-    }
+    classAttributes.addAll(Arrays.asList(
+        TobagoClass.FOOTER.createMarkup(ComponentUtils.updateMarkup(footer, footer.getMarkup()))));
     classAttributes.add(footer.isFixed() ? BootstrapClass.FIXED_BOTTOM : null);
     classAttributes.add(footer.getCustomClass());
     writer.writeClassAttribute(null, null, classAttributes.toArray(new CssItem[classAttributes.size()]));

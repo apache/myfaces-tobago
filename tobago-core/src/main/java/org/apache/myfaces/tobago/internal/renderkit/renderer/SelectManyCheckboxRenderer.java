@@ -64,9 +64,8 @@ public class SelectManyCheckboxRenderer extends SelectManyRendererBase {
     // TODO: optimize class attribute writing
     final List<CssItem> classAttributes = new ArrayList<CssItem>();
     classAttributes.add(TobagoClass.SELECT_MANY_CHECKBOX);
-    if (select.getMarkup() != null) {
-      classAttributes.addAll(Arrays.asList(TobagoClass.SELECT_MANY_CHECKBOX.createMarkup(select.getMarkup())));
-    }
+    classAttributes.addAll(Arrays.asList(
+        TobagoClass.SELECT_MANY_CHECKBOX.createMarkup(ComponentUtils.updateMarkup(select, select.getMarkup()))));
     classAttributes.add(inline ? TobagoClass.SELECT_MANY_CHECKBOX__INLINE : null);
     classAttributes.add(select.getCustomClass());
     writer.writeClassAttribute(null, null, classAttributes.toArray(new CssItem[classAttributes.size()]));

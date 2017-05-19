@@ -57,9 +57,8 @@ public class PopupRenderer extends PanelRendererBase {
     // TODO: optimize class attribute writing
     final List<CssItem> classAttributes = new ArrayList<CssItem>();
     classAttributes.add(TobagoClass.POPUP);
-    if (popup.getMarkup() != null) {
-      classAttributes.addAll(Arrays.asList(TobagoClass.POPUP.createMarkup(popup.getMarkup())));
-    }
+    classAttributes.addAll(Arrays.asList(
+        TobagoClass.POPUP.createMarkup(ComponentUtils.updateMarkup(popup, popup.getMarkup()))));
     classAttributes.add(BootstrapClass.MODAL);
     //XXX fade class removed due to a bug in bootstrap-alpha6
     //https://github.com/twbs/bootstrap/issues/21607

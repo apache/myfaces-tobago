@@ -49,9 +49,8 @@ public class FigureRenderer extends RendererBase {
     // TODO: optimize class attribute writing
     final List<CssItem> classAttributes = new ArrayList<CssItem>();
     classAttributes.add(TobagoClass.FIGURE);
-    if (figure.getMarkup() != null) {
-      classAttributes.addAll(Arrays.asList(TobagoClass.FIGURE.createMarkup(figure.getMarkup())));
-    }
+    classAttributes.addAll(Arrays.asList(
+        TobagoClass.FIGURE.createMarkup(ComponentUtils.updateMarkup(figure, figure.getMarkup()))));
     classAttributes.add(BootstrapClass.FIGURE);
     classAttributes.add(figure.getCustomClass());
     writer.writeClassAttribute(null, null, classAttributes.toArray(new CssItem[classAttributes.size()]));

@@ -127,9 +127,8 @@ public abstract class CommandRendererBase extends DecodingCommandRendererBase {
     // TODO: optimize class attribute writing
     final List<CssItem> classAttributes = new ArrayList<CssItem>();
     classAttributes.add(getRendererCssClass());
-    if (command.getMarkup() != null) {
-      classAttributes.addAll(Arrays.asList(getRendererCssClass().createMarkup(command.getMarkup())));
-    }
+    classAttributes.addAll(Arrays.asList(
+        getRendererCssClass().createMarkup(ComponentUtils.updateMarkup(command, command.getMarkup()))));
     classAttributes.addAll(cssItems);
     writer.writeClassAttribute(null, null, classAttributes.toArray(new CssItem[classAttributes.size()]));
 

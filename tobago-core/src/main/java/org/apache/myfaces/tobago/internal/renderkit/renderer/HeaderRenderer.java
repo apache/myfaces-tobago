@@ -27,6 +27,7 @@ import org.apache.myfaces.tobago.renderkit.css.CssItem;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
+import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
@@ -50,9 +51,8 @@ public class HeaderRenderer extends RendererBase {
     // TODO: optimize class attribute writing
     final List<CssItem> classAttributes = new ArrayList<CssItem>();
     classAttributes.add(TobagoClass.HEADER);
-    if (header.getMarkup() != null) {
-      classAttributes.addAll(Arrays.asList(TobagoClass.HEADER.createMarkup(header.getMarkup())));
-    }
+    classAttributes.addAll(Arrays.asList(
+        TobagoClass.HEADER.createMarkup(ComponentUtils.updateMarkup(header, header.getMarkup()))));
     classAttributes.add(header.isFixed() ? BootstrapClass.FIXED_TOP : null);
     classAttributes.add(header.getCustomClass());
     writer.writeClassAttribute(null, null, classAttributes.toArray(new CssItem[classAttributes.size()]));

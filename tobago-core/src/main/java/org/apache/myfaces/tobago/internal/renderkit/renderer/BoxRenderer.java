@@ -56,9 +56,8 @@ public class BoxRenderer extends PanelRendererBase {
     // TODO: optimize class attribute writing
     final List<CssItem> classAttributes = new ArrayList<CssItem>();
     classAttributes.add(TobagoClass.BOX);
-    if (box.getMarkup() != null) {
-      classAttributes.addAll(Arrays.asList(TobagoClass.BOX.createMarkup(box.getMarkup())));
-    }
+    classAttributes.addAll(Arrays.asList(
+        TobagoClass.BOX.createMarkup(ComponentUtils.updateMarkup(box, box.getMarkup()))));
     classAttributes.add(collapsed ? TobagoClass.COLLAPSED : null);
     classAttributes.add(BootstrapClass.CARD);
     classAttributes.add(box.getCustomClass());

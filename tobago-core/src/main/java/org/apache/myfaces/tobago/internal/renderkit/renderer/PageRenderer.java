@@ -255,9 +255,8 @@ public class PageRenderer extends RendererBase {
     // TODO: optimize class attribute writing
     final List<CssItem> classAttributes = new ArrayList<CssItem>();
     classAttributes.add(TobagoClass.PAGE);
-    if (page.getMarkup() != null) {
-      classAttributes.addAll(Arrays.asList(TobagoClass.PAGE.createMarkup(page.getMarkup())));
-    }
+    classAttributes.addAll(Arrays.asList(
+        TobagoClass.PAGE.createMarkup(ComponentUtils.updateMarkup(page, page.getMarkup()))));
     if (portlet) {
       classAttributes.addAll(Arrays.asList(TobagoClass.PAGE.createMarkup(Markup.PORTLET)));
     }

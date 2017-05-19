@@ -26,6 +26,7 @@ import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
+import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
@@ -45,7 +46,7 @@ public class FlowLayoutRenderer extends RendererBase {
     writer.writeClassAttribute(
         TobagoClass.FLOW_LAYOUT,
         layout.getCustomClass(),
-        TobagoClass.FLOW_LAYOUT.createMarkup(layout.getMarkup()));
+        TobagoClass.FLOW_LAYOUT.createMarkup(ComponentUtils.updateMarkup(layout, layout.getMarkup())));
     Style style = layout.getStyle();
     final TextAlign textAlign = layout.getTextAlign();
     if (style == null && textAlign != null) {

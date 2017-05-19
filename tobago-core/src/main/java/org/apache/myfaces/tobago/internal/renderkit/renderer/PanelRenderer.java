@@ -57,9 +57,8 @@ public class PanelRenderer extends PanelRendererBase {
     // TODO: optimize class attribute writing
     final List<CssItem> classAttributes = new ArrayList<CssItem>();
     classAttributes.add(TobagoClass.PANEL);
-    if (panel.getMarkup() != null) {
-      classAttributes.addAll(Arrays.asList(TobagoClass.PANEL.createMarkup(panel.getMarkup())));
-    }
+    classAttributes.addAll(Arrays.asList(
+        TobagoClass.PANEL.createMarkup(ComponentUtils.updateMarkup(panel, panel.getMarkup()))));
     classAttributes.add(panel.getCustomClass());
     classAttributes.add(collapsed ? TobagoClass.COLLAPSED : null);
     writer.writeClassAttribute(null, null, classAttributes.toArray(new CssItem[classAttributes.size()]));

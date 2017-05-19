@@ -66,9 +66,8 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
     // TODO: optimize class attribute writing
     final List<CssItem> classAttributes = new ArrayList<CssItem>();
     classAttributes.add(TobagoClass.SELECT_ONE_RADIO);
-    if (select.getMarkup() != null) {
-      classAttributes.addAll(Arrays.asList(TobagoClass.SELECT_ONE_RADIO.createMarkup(select.getMarkup())));
-    }
+    classAttributes.addAll(Arrays.asList(
+        TobagoClass.SELECT_ONE_RADIO.createMarkup(ComponentUtils.updateMarkup(select, select.getMarkup()))));
     classAttributes.add(inline ? TobagoClass.SELECT_ONE_RADIO__INLINE : null);
     classAttributes.add(select.getCustomClass());
     writer.writeClassAttribute(null, null, classAttributes.toArray(new CssItem[classAttributes.size()]));

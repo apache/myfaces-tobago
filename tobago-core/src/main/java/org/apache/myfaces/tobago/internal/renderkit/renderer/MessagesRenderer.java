@@ -80,7 +80,7 @@ public class MessagesRenderer extends RendererBase {
     writer.writeClassAttribute(
         TobagoClass.MESSAGES,
         messages.getCustomClass(),
-        TobagoClass.MESSAGES.createMarkup(messages.getMarkup()));
+        TobagoClass.MESSAGES.createMarkup(ComponentUtils.updateMarkup(messages, messages.getMarkup())));
 
     FacesMessage.Severity lastSeverity = null;
     boolean first = true;

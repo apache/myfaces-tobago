@@ -134,9 +134,8 @@ public class InRenderer extends MessageLayoutRendererBase {
     // TODO: optimize class attribute writing
     final List<CssItem> classAttributes = new ArrayList<CssItem>();
     classAttributes.add(getRendererCssClass());
-    if (input.getMarkup() != null) {
-      classAttributes.addAll(Arrays.asList(getRendererCssClass().createMarkup(input.getMarkup())));
-    }
+    classAttributes.addAll(Arrays.asList(
+        getRendererCssClass().createMarkup(ComponentUtils.updateMarkup(input, input.getMarkup()))));
     classAttributes.add(BootstrapClass.FORM_CONTROL);
     classAttributes.add(input.getCustomClass());
     writer.writeClassAttribute(null, null, classAttributes.toArray(new CssItem[classAttributes.size()]));

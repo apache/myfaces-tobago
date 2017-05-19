@@ -95,9 +95,8 @@ public class SelectBooleanCheckboxRenderer extends MessageLayoutRendererBase {
     // TODO: optimize class attribute writing
     final List<CssItem> classAttributes = new ArrayList<CssItem>();
     classAttributes.add(TobagoClass.SELECT_BOOLEAN_CHECKBOX);
-    if (select.getMarkup() != null) {
-      classAttributes.addAll(Arrays.asList(TobagoClass.SELECT_BOOLEAN_CHECKBOX.createMarkup(select.getMarkup())));
-    }
+    classAttributes.addAll(Arrays.asList(
+        TobagoClass.SELECT_BOOLEAN_CHECKBOX.createMarkup(ComponentUtils.updateMarkup(select, select.getMarkup()))));
     classAttributes.add(disabled ? BootstrapClass.DISABLED : null);
     classAttributes.add(select.getCustomClass());
     classAttributes.addAll(outerCssItems);
