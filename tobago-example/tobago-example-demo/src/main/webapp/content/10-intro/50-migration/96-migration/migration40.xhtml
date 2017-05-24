@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+-->
+
+<ui:composition template="/main.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:tc="http://myfaces.apache.org/tobago/component"
+                xmlns:ui="http://java.sun.com/jsf/facelets">
+  <ui:param name="title" value="#{demoBundle.migration40}"/>
+
+  <tc:section label="Migration from Tobago 3.0 to 4.0">
+
+    <p>
+      There are some migration steps to do, dependent on the application
+      you want to migrate. The steps can be classified by
+    </p>
+
+    <ul>
+      <li>Tag library</li>
+      <li>CSS / Bootstrap</li>
+      <li>Theme building</li>
+    </ul>
+
+    <tc:section label="Tag Library">
+      <tc:section label="&lt;tc:bar&gt;">
+        <p>
+          The content of <code>&lt;tc:bar&gt;</code> needs to be checked.
+          The layout inside of the bar has been changed by CSS.
+        </p>
+
+        <p>
+          Example: TODO (look the change in the Tobago demo header bar)
+          <!-- todo -->
+        </p>
+      </tc:section>
+    </tc:section>
+
+    <tc:section label="CSS / Bootstrap">
+      <p>
+        The included Bootstrap CSS library has been updated from
+        <tc:link link="http://blog.getbootstrap.com/2016/10/19/bootstrap-4-alpha-5/" label="v4.0.0-alpha.5"/> to
+        <tc:link link="http://blog.getbootstrap.com/2017/01/06/bootstrap-4-alpha-6/" label="v4.0.0-alpha.6"/>.
+        Thought some changes need to be made, if you use Bootstrap classes directly.
+      </p>
+      <p>
+        Some of the generated HTML code has been changed, mostly in these tags:
+      </p>
+      <ul>
+        <li>
+          <code>&lt;tc:menu&gt;</code>
+        </li>
+        <li>
+          <code>&lt;tc:box&gt;</code>
+        </li>
+        <li>
+          <code>&lt;tc:bar&gt;</code>
+        </li>
+      </ul>
+      <p>
+        Here you may need modifications only, if you have own CSS with are related with these tags.
+      </p>
+    </tc:section>
+
+    <tc:section label="Theme building">
+      <p>
+        Building a theme is in general compatible, but if using the build mechanism of Tobago
+        (defined in the pom.xml of tobago-theme) it can be better automated.
+        The build mechanism now uses _tobago.scss from tobago-core to generated the CSS file,
+        the is no longer a manual copy needed.
+      </p>
+    </tc:section>
+
+
+  </tc:section>
+
+</ui:composition>
