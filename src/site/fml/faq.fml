@@ -391,6 +391,24 @@ mvn verify -Pqunit-integration-tests</source>
           After that, you can start the test from the QUnitTests class.</p>
       </answer>
     </faq>
+    <faq id="testInBrowser">
+      <question>How can I run tests in the browser? (Tobago 3)</question>
+      <answer>
+        <ol>
+          <li>start demo
+            <source>cd tobago-example/tobago-example-demo
+mvn clean jetty:run</source>
+          </li>
+          <li>open 'Test' menu in the header of the Tobago-Demo-Page
+            <ol>
+              <li>'Run Test' is enabled if a test is available for the current page.</li>
+              <li>'Run all tests' is enabled if in development mode. (opens every test in a separate iframe)</li>
+              <li>'Access all pages' is enabled if in development mode. (opens every page in a separate iframe)</li>
+            </ol>
+          </li>
+        </ol>
+      </answer>
+    </faq>
     <faq id="liberty">
       <question>How can I run the Tobago demo with WebSphere Liberty Profile (WLP) from Maven?</question>
       <answer>

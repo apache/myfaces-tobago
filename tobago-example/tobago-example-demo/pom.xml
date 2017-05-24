@@ -26,6 +26,10 @@
   <packaging>war</packaging>
   <name>Tobago Example Demo</name>
   <description>Demonstration and documentation application.</description>
+  <!-- how to run tests
+  http://myfaces.apache.org/tobago/faq.html#integrationTestTobago3
+  http://myfaces.apache.org/tobago/faq.html#testInBrowser
+  -->
 
   <properties>
     <openwebbeans.version>1.7.2</openwebbeans.version>
