@@ -98,11 +98,8 @@ public class TobagoConfigParser extends TobagoConfigEntityResolver {
   private String type;
 
   private Stack<String> stack;
-  private String version;
 
   public TobagoConfigParser() {
-    version = Package.getPackage("org.apache.myfaces.tobago.internal.config").getImplementationVersion();
-    LOG.debug("Tobago version: {}", version);
   }
 
   public TobagoConfigFragment parse(final URL url)
@@ -201,8 +198,7 @@ public class TobagoConfigParser extends TobagoConfigEntityResolver {
 
       case SCRIPT:
         final ThemeScript script = new ThemeScript();
-        final String scriptName = attributes.getValue("name").replace("/_version/", '/' + version + '/');
-        script.setName(scriptName);
+        script.setName(attributes.getValue("name"));
         if (production) {
           currentTheme.getProductionResources().addScript(script, exclude);
         } else {
@@ -212,8 +208,7 @@ public class TobagoConfigParser extends TobagoConfigEntityResolver {
 
       case STYLE:
         final ThemeStyle style = new ThemeStyle();
-        final String styleName = attributes.getValue("name").replace("/_version/", '/' + version + '/');
-        style.setName(styleName);
+        style.setName(attributes.getValue("name"));
         if (production) {
           currentTheme.getProductionResources().addStyle(style, exclude);
         } else {
