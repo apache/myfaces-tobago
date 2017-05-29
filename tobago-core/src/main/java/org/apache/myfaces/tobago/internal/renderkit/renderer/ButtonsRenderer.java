@@ -19,6 +19,8 @@
 
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
+import org.apache.myfaces.tobago.component.RendererTypes;
+import org.apache.myfaces.tobago.internal.component.AbstractUIButton;
 import org.apache.myfaces.tobago.internal.component.AbstractUIButtons;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
@@ -63,6 +65,25 @@ public class ButtonsRenderer extends RendererBase {
     final String tip = buttons.getTip();
     if (tip != null) {
       writer.writeAttribute(HtmlAttributes.TITLE, tip, true);
+    }
+  }
+
+  @Override
+  public boolean getRendersChildren() {
+    return true;
+  }
+
+  @Override
+  public void encodeChildren(FacesContext facesContext, UIComponent component) throws IOException {
+    for (UIComponent child : component.getChildren()) {
+      if (child.isRendered()) {
+        if (child instanceof AbstractUIButton) {
+          child.setRendererType(RendererTypes.ButtonInsideButtons.name());
+          child.encodeAll(facesContext);
+        } else {
+          child.encodeAll(facesContext);
+        }
+      }
     }
   }
 

@@ -350,6 +350,12 @@ public class QUnitTests {
   }
 
   @Test
+  public void buttons() throws UnsupportedEncodingException, InterruptedException {
+    String page = "content/20-component/040-command/20-buttons/buttons.xhtml";
+    runStandardTest(page);
+  }
+
+  @Test
   public void popup() throws UnsupportedEncodingException, InterruptedException {
     String page = "content/20-component/060-popup/popup.xhtml";
     runStandardTest(page);
