@@ -31,6 +31,15 @@ import java.io.Serializable;
 @RequestScoped
 @Named
 public class ValidationController implements Serializable {
+  private String letter;
+
+  public String getLetter() {
+    return letter;
+  }
+
+  public void setLetter(String letter) {
+    this.letter = letter;
+  }
 
   public void customValidator(final FacesContext context, final UIComponent component, final Object value)
           throws ValidatorException {

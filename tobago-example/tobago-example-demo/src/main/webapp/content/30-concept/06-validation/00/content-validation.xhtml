@@ -82,7 +82,7 @@
 &lt;/tc:in></code></pre>
     <tc:form id="regexValidation">
       <p>The value in the field must be a word character combined with a number. For example 'T3'.</p>
-      <tc:in id="in" label="Letter &amp; Number">
+      <tc:in id="in" label="Letter &amp; Number" value="#{validationController.letter}">
         <f:validateRegex pattern="[A-Za-z][0-9]"/>
       </tc:in>
       <tc:button id="submit" label="Submit"/>
