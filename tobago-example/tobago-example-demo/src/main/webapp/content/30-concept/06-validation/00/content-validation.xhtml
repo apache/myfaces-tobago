@@ -39,7 +39,7 @@
     <pre><code class="language-markup">&lt;tc:textarea label="Text Area" required="true"/></code></pre>
     <tc:form id="required">
       <tc:textarea id="textarea" label="Text Area" required="true"/>
-      <tc:button id="submit" label="Submit"/>
+      <tc:button id="submit_r" label="Submit"/>
     </tc:form>
   </tc:section>
 
@@ -52,10 +52,10 @@
   &lt;f:validateLength minimum="2" maximum="4"/>
 &lt;/tc:in></code></pre>
     <tc:form id="validateLength">
-      <tc:in id="in" label="Text">
+      <tc:in id="in_vl" label="Text">
         <f:validateLength minimum="2" maximum="4"/>
       </tc:in>
-      <tc:button id="submit" label="Submit"/>
+      <tc:button id="submit_vl" label="Submit"/>
     </tc:form>
   </tc:section>
 
@@ -67,10 +67,10 @@
   &lt;f:validateLongRange minimum="3" maximum="77"/>
 &lt;/tc:in></code></pre>
     <tc:form id="validateRange">
-      <tc:in id="in" label="Number" markup="number">
+      <tc:in id="in_vr" label="Number" markup="number">
         <f:validateLongRange minimum="3" maximum="77"/>
       </tc:in>
-      <tc:button id="submit" label="Submit"/>
+      <tc:button id="submit_vr" label="Submit"/>
     </tc:form>
   </tc:section>
 
@@ -82,10 +82,10 @@
 &lt;/tc:in></code></pre>
     <tc:form id="regexValidation">
       <p>The value in the field must be a word character combined with a number. For example 'T3'.</p>
-      <tc:in id="in" label="Letter &amp; Number" value="#{validationController.letter}">
+      <tc:in id="in_rv" label="Letter &amp; Number" value="#{validationController.letter}">
         <f:validateRegex pattern="[A-Za-z][0-9]"/>
       </tc:in>
-      <tc:button id="submit" label="Submit"/>
+      <tc:button id="submit_rv" label="Submit"/>
     </tc:form>
   </tc:section>
 
@@ -93,8 +93,8 @@
     <p>It's also possible to add custom validators using the <code>validator</code> attribute of an input component.
       In this case, only the string 'Tobago' (uppercase/lowercase ignored) is accepted.</p>
     <tc:form id="customValidator">
-      <tc:in id="in" label="Text" validator="#{validationController.customValidator}"/>
-      <tc:button id="submit" label="Submit"/>
+      <tc:in id="in_cv" label="Text" validator="#{validationController.customValidator}"/>
+      <tc:button id="submit_cv" label="Submit"/>
     </tc:form>
   </tc:section>
 

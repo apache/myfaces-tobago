@@ -23,7 +23,7 @@ QUnit.test("Required: Submit without content.", function (assert) {
   var $messages = jQueryFrame("#page\\:messages.tobago-messages div");
   var $textarea = jQueryFrame("#page\\:mainForm\\:required\\:textarea\\:\\:field");
   var textareaValue = $textarea.val();
-  var $submit = jQueryFrame("#page\\:mainForm\\:required\\:submit");
+  var $submit = jQueryFrame("#page\\:mainForm\\:required\\:submit_r");
 
   $textarea.val("");
   $submit.click();
@@ -47,7 +47,7 @@ QUnit.test("Required: Submit with content.", function (assert) {
 
   var $messages = jQueryFrame("#page\\:messages.tobago-messages div");
   var $textarea = jQueryFrame("#page\\:mainForm\\:required\\:textarea\\:\\:field");
-  var $submit = jQueryFrame("#page\\:mainForm\\:required\\:submit");
+  var $submit = jQueryFrame("#page\\:mainForm\\:required\\:submit_r");
 
   $textarea.val("some content");
   $submit.click();
@@ -71,8 +71,8 @@ QUnit.test("Validate Length: Submit single character.", function (assert) {
   var step = 1;
 
   var $messages = jQueryFrame("#page\\:messages.tobago-messages div");
-  var $in = jQueryFrame("#page\\:mainForm\\:validateLength\\:in\\:\\:field");
-  var $submit = jQueryFrame("#page\\:mainForm\\:validateLength\\:submit");
+  var $in = jQueryFrame("#page\\:mainForm\\:validateLength\\:in_vl\\:\\:field");
+  var $submit = jQueryFrame("#page\\:mainForm\\:validateLength\\:submit_vl");
 
   $in.val("a");
   $submit.click();
@@ -94,8 +94,8 @@ QUnit.test("Validate Length: Submit two character.", function (assert) {
   var step = 1;
 
   var $messages = jQueryFrame("#page\\:messages.tobago-messages div");
-  var $in = jQueryFrame("#page\\:mainForm\\:validateLength\\:in\\:\\:field");
-  var $submit = jQueryFrame("#page\\:mainForm\\:validateLength\\:submit");
+  var $in = jQueryFrame("#page\\:mainForm\\:validateLength\\:in_vl\\:\\:field");
+  var $submit = jQueryFrame("#page\\:mainForm\\:validateLength\\:submit_vl");
 
   $in.val("ab");
   $submit.click();
@@ -117,8 +117,8 @@ QUnit.test("Validate Range: Submit no number.", function (assert) {
   var step = 1;
 
   var $messages = jQueryFrame("#page\\:messages.tobago-messages div");
-  var $in = jQueryFrame("#page\\:mainForm\\:validateRange\\:in\\:\\:field");
-  var $submit = jQueryFrame("#page\\:mainForm\\:validateRange\\:submit");
+  var $in = jQueryFrame("#page\\:mainForm\\:validateRange\\:in_vr\\:\\:field");
+  var $submit = jQueryFrame("#page\\:mainForm\\:validateRange\\:submit_vr");
 
   $in.val("no number");
   $submit.click();
@@ -140,8 +140,8 @@ QUnit.test("Validate Range: Submit number '2' which is out of range.", function 
   var step = 1;
 
   var $messages = jQueryFrame("#page\\:messages.tobago-messages div");
-  var $in = jQueryFrame("#page\\:mainForm\\:validateRange\\:in\\:\\:field");
-  var $submit = jQueryFrame("#page\\:mainForm\\:validateRange\\:submit");
+  var $in = jQueryFrame("#page\\:mainForm\\:validateRange\\:in_vr\\:\\:field");
+  var $submit = jQueryFrame("#page\\:mainForm\\:validateRange\\:submit_vr");
 
   $in.val("2");
   $submit.click();
@@ -163,8 +163,8 @@ QUnit.test("Validate Range: Submit number '78' which is out of range.", function
   var step = 1;
 
   var $messages = jQueryFrame("#page\\:messages.tobago-messages div");
-  var $in = jQueryFrame("#page\\:mainForm\\:validateRange\\:in\\:\\:field");
-  var $submit = jQueryFrame("#page\\:mainForm\\:validateRange\\:submit");
+  var $in = jQueryFrame("#page\\:mainForm\\:validateRange\\:in_vr\\:\\:field");
+  var $submit = jQueryFrame("#page\\:mainForm\\:validateRange\\:submit_vr");
 
   $in.val("78");
   $submit.click();
@@ -186,8 +186,8 @@ QUnit.test("Validate Range: Submit number '64' which is within the range.", func
   var step = 1;
 
   var $messages = jQueryFrame("#page\\:messages.tobago-messages div");
-  var $in = jQueryFrame("#page\\:mainForm\\:validateRange\\:in\\:\\:field");
-  var $submit = jQueryFrame("#page\\:mainForm\\:validateRange\\:submit");
+  var $in = jQueryFrame("#page\\:mainForm\\:validateRange\\:in_vr\\:\\:field");
+  var $submit = jQueryFrame("#page\\:mainForm\\:validateRange\\:submit_vr");
 
   $in.val("64");
   $submit.click();
@@ -209,8 +209,8 @@ QUnit.test("Regex Validation: Submit 'T' which violates the pattern.", function 
   var step = 1;
 
   var $messages = jQueryFrame("#page\\:messages.tobago-messages div");
-  var $in = jQueryFrame("#page\\:mainForm\\:regexValidation\\:in\\:\\:field");
-  var $submit = jQueryFrame("#page\\:mainForm\\:regexValidation\\:submit");
+  var $in = jQueryFrame("#page\\:mainForm\\:regexValidation\\:in_rv\\:\\:field");
+  var $submit = jQueryFrame("#page\\:mainForm\\:regexValidation\\:submit_rv");
 
   $in.val("T");
   $submit.click();
@@ -232,8 +232,8 @@ QUnit.test("Regex Validation: Submit '3' which violates the pattern.", function 
   var step = 1;
 
   var $messages = jQueryFrame("#page\\:messages.tobago-messages div");
-  var $in = jQueryFrame("#page\\:mainForm\\:regexValidation\\:in\\:\\:field");
-  var $submit = jQueryFrame("#page\\:mainForm\\:regexValidation\\:submit");
+  var $in = jQueryFrame("#page\\:mainForm\\:regexValidation\\:in_rv\\:\\:field");
+  var $submit = jQueryFrame("#page\\:mainForm\\:regexValidation\\:submit_rv");
 
   $in.val("3");
   $submit.click();
@@ -255,8 +255,8 @@ QUnit.test("Regex Validation: Submit 'T3' which is accepted.", function (assert)
   var step = 1;
 
   var $messages = jQueryFrame("#page\\:messages.tobago-messages div");
-  var $in = jQueryFrame("#page\\:mainForm\\:regexValidation\\:in\\:\\:field");
-  var $submit = jQueryFrame("#page\\:mainForm\\:regexValidation\\:submit");
+  var $in = jQueryFrame("#page\\:mainForm\\:regexValidation\\:in_rv\\:\\:field");
+  var $submit = jQueryFrame("#page\\:mainForm\\:regexValidation\\:submit_rv");
 
   $in.val("T3");
   $submit.click();
@@ -278,8 +278,8 @@ QUnit.test("Custom Validator: Submit rejected string.", function (assert) {
   var step = 1;
 
   var $messages = jQueryFrame("#page\\:messages.tobago-messages div");
-  var $in = jQueryFrame("#page\\:mainForm\\:customValidator\\:in\\:\\:field");
-  var $submit = jQueryFrame("#page\\:mainForm\\:customValidator\\:submit");
+  var $in = jQueryFrame("#page\\:mainForm\\:customValidator\\:in_cv\\:\\:field");
+  var $submit = jQueryFrame("#page\\:mainForm\\:customValidator\\:submit_cv");
 
   $in.val("java");
   $submit.click();
@@ -301,8 +301,8 @@ QUnit.test("Custom Validator: Submit accepted string.", function (assert) {
   var step = 1;
 
   var $messages = jQueryFrame("#page\\:messages.tobago-messages div");
-  var $in = jQueryFrame("#page\\:mainForm\\:customValidator\\:in\\:\\:field");
-  var $submit = jQueryFrame("#page\\:mainForm\\:customValidator\\:submit");
+  var $in = jQueryFrame("#page\\:mainForm\\:customValidator\\:in_cv\\:\\:field");
+  var $submit = jQueryFrame("#page\\:mainForm\\:customValidator\\:submit_cv");
 
   $in.val("tobago");
   $submit.click();
