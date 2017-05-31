@@ -29,11 +29,11 @@
       this._on({
         click: function (event) {
           var position = this.element.data("maps-position");
-          if (position == null) {
+          if (position === null) {
             position = this.options.position;
           }
           var zoom = this.element.data("maps-zoom");
-          if (zoom == null) {
+          if (zoom === null) {
             zoom = this.options.zoom;
           }
           var target = this.element.data("maps-target");

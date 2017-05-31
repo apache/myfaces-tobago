@@ -41,7 +41,7 @@ QUnit.test("ajax change event", function (assert) {
 
   waitForAjax(function () {
     $outputField = jQueryFrame($outputField.selector);
-    return $outputField.text() == "qwe";
+    return $outputField.text() === "qwe";
   }, function () {
     $outputField = jQueryFrame($outputField.selector);
     assert.equal($outputField.text(), "qwe");

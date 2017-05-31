@@ -66,7 +66,7 @@ QUnit.test("submit", function(assert) {
   var day22 = 0;
   for (i = 0; i < $days.length; i++) {
     $days = jQueryFrame($days.selector);
-    if ($days.eq(i).text() == "22") {
+    if ($days.eq(i).text() === "22") {
       day22 = i;
       break;
     }
@@ -103,7 +103,7 @@ QUnit.test("ajax", function (assert) {
 
   waitForAjax(function () {
     $outField = jQueryFrame($outField.selector);
-    return $outField.text() == today;
+    return $outField.text() === today;
   }, function () {
     $outField = jQueryFrame($outField.selector);
     assert.equal($outField.text(), today);

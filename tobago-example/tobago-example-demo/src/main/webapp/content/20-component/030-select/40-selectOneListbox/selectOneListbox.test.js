@@ -30,7 +30,7 @@ QUnit.test("submit: select 'Nile'", function (assert) {
   $submit.click();
 
   jQuery("#page\\:testframe").load(function () {
-    if (step == 1) {
+    if (step === 1) {
       var $output = jQueryFrame("#page\\:mainForm\\:riverOutput span");
       assert.equal($output.text(), "6853 km");
 
@@ -55,7 +55,7 @@ QUnit.test("submit: select 'Yangtze'", function (assert) {
   $submit.click();
 
   jQuery("#page\\:testframe").load(function () {
-    if (step == 1) {
+    if (step === 1) {
       var $output = jQueryFrame("#page\\:mainForm\\:riverOutput span");
       assert.equal($output.text(), "6300 km");
 
@@ -79,7 +79,7 @@ QUnit.test("ajax: select Everest", function (assert) {
 
   waitForAjax(function () {
     $output = jQueryFrame($output.selector);
-    return $output.text() == "8848 m";
+    return $output.text() === "8848 m";
   }, function () {
     $output = jQueryFrame($output.selector);
     assert.equal($output.text(), "8848 m");
@@ -101,7 +101,7 @@ QUnit.test("ajax: select Makalu", function (assert) {
 
   waitForAjax(function () {
     $output = jQueryFrame($output.selector);
-    return $output.text() == "8481 m";
+    return $output.text() === "8481 m";
   }, function () {
     $output = jQueryFrame($output.selector);
     assert.equal($output.text(), "8481 m");

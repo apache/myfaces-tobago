@@ -28,7 +28,7 @@ QUnit.test("Required: Submit without content.", function (assert) {
   $submit.click();
 
   jQuery("#page\\:testframe").load(function () {
-    if (step == 1) {
+    if (step === 1) {
       $messages = jQueryFrame($messages.selector);
       assert.equal($messages.length, 1);
 
@@ -51,7 +51,7 @@ QUnit.test("Required: Submit with content.", function (assert) {
   $submit.click();
 
   jQuery("#page\\:testframe").load(function () {
-    if (step == 1) {
+    if (step === 1) {
       $messages = jQueryFrame($messages.selector);
       assert.equal($messages.length, 0);
 
@@ -74,7 +74,7 @@ QUnit.test("Length: Submit single character.", function (assert) {
   $submit.click();
 
   jQuery("#page\\:testframe").load(function () {
-    if (step == 1) {
+    if (step === 1) {
       $messages = jQueryFrame($messages.selector);
       assert.equal($messages.length, 1);
 
@@ -97,7 +97,7 @@ QUnit.test("Length: Submit three characters.", function (assert) {
   $submit.click();
 
   jQuery("#page\\:testframe").load(function () {
-    if (step == 1) {
+    if (step === 1) {
       $messages = jQueryFrame($messages.selector);
       assert.equal($messages.length, 0);
 
@@ -120,7 +120,7 @@ QUnit.test("Length: Submit five characters.", function (assert) {
   $submit.click();
 
   jQuery("#page\\:testframe").load(function () {
-    if (step == 1) {
+    if (step === 1) {
       $messages = jQueryFrame($messages.selector);
       assert.equal($messages.length, 1);
 

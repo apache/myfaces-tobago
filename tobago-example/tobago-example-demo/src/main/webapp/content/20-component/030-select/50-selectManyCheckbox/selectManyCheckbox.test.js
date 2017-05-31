@@ -29,7 +29,7 @@ QUnit.test("submit: select cat", function (assert) {
   $submit.click();
 
   jQuery("#page\\:testframe").load(function () {
-    if (step == 1) {
+    if (step === 1) {
       var $output = jQueryFrame("#page\\:mainForm\\:animalsOutput span");
       assert.equal($output.text(), "Cat ");
 
@@ -53,7 +53,7 @@ QUnit.test("submit: select fox and rabbit", function (assert) {
   $submit.click();
 
   jQuery("#page\\:testframe").load(function () {
-    if (step == 1) {
+    if (step === 1) {
       var $output = jQueryFrame("#page\\:mainForm\\:animalsOutput span");
       assert.equal($output.text(), "Fox Rabbit ");
 
@@ -81,7 +81,7 @@ QUnit.test("ajax: click 'Two'", function (assert) {
 
   waitForAjax(function () {
     $output = jQueryFrame($output.selector);
-    return $output.text() == newOutputValue;
+    return $output.text() === newOutputValue;
   }, function () {
     $output = jQueryFrame($output.selector);
     assert.equal($output.text(), newOutputValue);
@@ -107,7 +107,7 @@ QUnit.test("ajax: click 'Three'", function (assert) {
 
   waitForAjax(function () {
     $output = jQueryFrame($output.selector);
-    return $output.text() == newOutputValue;
+    return $output.text() === newOutputValue;
   }, function () {
     $output = jQueryFrame($output.selector);
     assert.equal($output.text(), newOutputValue);
@@ -133,7 +133,7 @@ QUnit.test("ajax: click 'Two'", function (assert) {
 
   waitForAjax(function () {
     $output = jQueryFrame($output.selector);
-    return $output.text() == newOutputValue;
+    return $output.text() === newOutputValue;
   }, function () {
     $output = jQueryFrame($output.selector);
     assert.equal($output.text(), newOutputValue);

@@ -27,7 +27,7 @@ QUnit.test("Simple Collapsible Box: show -> hide transition", function (assert) 
   $show.click();
 
   jQuery("#page\\:testframe").load(function () {
-    if (step == 1) {
+    if (step === 1) {
       $hide = jQueryFrame($hide.selector);
       $content = jQueryFrame($content.selector);
 
@@ -36,7 +36,7 @@ QUnit.test("Simple Collapsible Box: show -> hide transition", function (assert) 
 
       step++;
       done();
-    } else if (step == 2) {
+    } else if (step === 2) {
       $content = jQueryFrame($content.selector);
 
       assert.equal($content.length, 0);
@@ -59,7 +59,7 @@ QUnit.test("Simple Collapsible Box: hide -> show transition", function (assert) 
   $hide.click();
 
   jQuery("#page\\:testframe").load(function () {
-    if (step == 1) {
+    if (step === 1) {
       $show = jQueryFrame($show.selector);
       $content = jQueryFrame($content.selector);
 
@@ -68,7 +68,7 @@ QUnit.test("Simple Collapsible Box: hide -> show transition", function (assert) 
 
       step++;
       done();
-    } else if (step == 2) {
+    } else if (step === 2) {
       $content = jQueryFrame($content.selector);
 
       assert.equal($content.length, 1);
@@ -93,7 +93,7 @@ QUnit.test("Full Server Request: open both boxes", function (assert) {
   $show1.click();
 
   jQuery("#page\\:testframe").load(function () {
-    if (step == 1) {
+    if (step === 1) {
       $show2 = jQueryFrame($show2.selector);
       $content1 = jQueryFrame($content1.selector);
       $content2 = jQueryFrame($content2.selector);
@@ -104,7 +104,7 @@ QUnit.test("Full Server Request: open both boxes", function (assert) {
 
       step++;
       done();
-    } else if (step == 2) {
+    } else if (step === 2) {
       $content1 = jQueryFrame($content1.selector);
       $content2 = jQueryFrame($content2.selector);
 
@@ -131,7 +131,7 @@ QUnit.test("Full Server Request: open box 1, close box 2", function (assert) {
   $show1.click();
 
   jQuery("#page\\:testframe").load(function () {
-    if (step == 1) {
+    if (step === 1) {
       $hide2 = jQueryFrame($hide2.selector);
       $content1 = jQueryFrame($content1.selector);
       $content2 = jQueryFrame($content2.selector);
@@ -142,7 +142,7 @@ QUnit.test("Full Server Request: open box 1, close box 2", function (assert) {
 
       step++;
       done();
-    } else if (step == 2) {
+    } else if (step === 2) {
       $content1 = jQueryFrame($content1.selector);
       $content2 = jQueryFrame($content2.selector);
 
@@ -169,7 +169,7 @@ QUnit.test("Full Server Request: close box 1, open box 2", function (assert) {
   $hide1.click();
 
   jQuery("#page\\:testframe").load(function () {
-    if (step == 1) {
+    if (step === 1) {
       $show2 = jQueryFrame($show2.selector);
       $content1 = jQueryFrame($content1.selector);
       $content2 = jQueryFrame($content2.selector);
@@ -180,7 +180,7 @@ QUnit.test("Full Server Request: close box 1, open box 2", function (assert) {
 
       step++;
       done();
-    } else if (step == 2) {
+    } else if (step === 2) {
       $content1 = jQueryFrame($content1.selector);
       $content2 = jQueryFrame($content2.selector);
 
@@ -207,7 +207,7 @@ QUnit.test("Full Server Request: close both boxes", function (assert) {
   $hide1.click();
 
   jQuery("#page\\:testframe").load(function () {
-    if (step == 1) {
+    if (step === 1) {
       $hide2 = jQueryFrame($hide2.selector);
       $content1 = jQueryFrame($content1.selector);
       $content2 = jQueryFrame($content2.selector);
@@ -218,7 +218,7 @@ QUnit.test("Full Server Request: close both boxes", function (assert) {
 
       step++;
       done();
-    } else if (step == 2) {
+    } else if (step === 2) {
       $content1 = jQueryFrame($content1.selector);
       $content2 = jQueryFrame($content2.selector);
 
@@ -278,7 +278,7 @@ QUnit.test("Client Sided: hide content and submit empty string", function (asser
   $submit.click();
 
   jQuery("#page\\:testframe").load(function () {
-    if (step == 1) {
+    if (step === 1) {
       $messages = jQueryFrame($messages.selector);
       assert.equal($messages.length, 1);
 
@@ -302,7 +302,7 @@ QUnit.test("Ajax: show -> hide transition", function (assert) {
   waitForAjax(function () {
     $in = jQueryFrame($in.selector);
     console.log("step: " + step + " active: " + jQuery.active);
-    return step == 1 && jQuery.active == 0;
+    return step === 1 && jQuery.active === 0;
   }, function () {
     $hide = jQueryFrame($hide.selector);
     $in = jQueryFrame($in.selector);
@@ -313,7 +313,7 @@ QUnit.test("Ajax: show -> hide transition", function (assert) {
 
     waitForAjax(function () {
       $in = jQueryFrame($in.selector);
-      return step == 2 && $in.length == 0;
+      return step === 2 && $in.length === 0;
     }, function () {
       $in = jQueryFrame($in.selector);
       assert.equal($in.length, 0);
@@ -340,7 +340,7 @@ QUnit.test("Ajax: hide -> show transition", function (assert) {
 
   waitForAjax(function () {
     $in = jQueryFrame($in.selector);
-    return step == 1 && $in.length == 0;
+    return step === 1 && $in.length === 0;
   }, function () {
     $show = jQueryFrame($show.selector);
     $in = jQueryFrame($in.selector);
@@ -350,7 +350,7 @@ QUnit.test("Ajax: hide -> show transition", function (assert) {
 
     waitForAjax(function () {
       $in = jQueryFrame($in.selector);
-      return step == 2 && $in.length == 1;
+      return step === 2 && $in.length === 1;
     }, function () {
       $in = jQueryFrame($in.selector);
       assert.equal($in.length, 1);
@@ -378,7 +378,7 @@ QUnit.test("Ajax: hide content and submit empty string", function (assert) {
 
   waitForAjax(function () {
     $in = jQueryFrame($in.selector);
-    return step == 1 && $in.length == 1;
+    return step === 1 && $in.length === 1;
   }, function () {
     $hide = jQueryFrame($hide.selector);
     $in = jQueryFrame($in.selector);
@@ -389,7 +389,7 @@ QUnit.test("Ajax: hide content and submit empty string", function (assert) {
 
     waitForAjax(function () {
       $in = jQueryFrame($in.selector);
-      return step == 2 && $in.length == 0;
+      return step === 2 && $in.length === 0;
     }, function () {
       $in = jQueryFrame($in.selector);
       $submit = jQueryFrame($submit.selector);
@@ -405,7 +405,7 @@ QUnit.test("Ajax: hide content and submit empty string", function (assert) {
   });
 
   jQuery("#page\\:testframe").load(function () {
-    if (step == 3) {
+    if (step === 3) {
       $messages = jQueryFrame($messages.selector);
       assert.equal($messages.length, 0);
 

@@ -31,7 +31,7 @@ QUnit.test("On click with ajax", function (assert) {
     $venus = jQueryFrame($venus.selector);
     $jupiter = jQueryFrame($jupiter.selector);
     $saturn = jQueryFrame($saturn.selector);
-    return $venus.length == 1 && $jupiter.length == 1 && $saturn.length == 1;
+    return $venus.length === 1 && $jupiter.length === 1 && $saturn.length === 1;
   }, function () {
     $venus = jQueryFrame($venus.selector);
     $jupiter = jQueryFrame($jupiter.selector);
@@ -45,7 +45,7 @@ QUnit.test("On click with ajax", function (assert) {
 
     waitForAjax(function () {
       $namefield = jQueryFrame($namefield.selector);
-      return $namefield.val() == "Venus";
+      return $namefield.val() === "Venus";
     }, function () {
       $namefield = jQueryFrame($namefield.selector);
       assert.equal($namefield.val(), "Venus");
@@ -55,7 +55,7 @@ QUnit.test("On click with ajax", function (assert) {
 
       waitForAjax(function () {
         $namefield = jQueryFrame($namefield.selector);
-        return $namefield.val() == "Jupiter";
+        return $namefield.val() === "Jupiter";
       }, function () {
         $namefield = jQueryFrame($namefield.selector);
         assert.equal($namefield.val(), "Jupiter");
@@ -65,7 +65,7 @@ QUnit.test("On click with ajax", function (assert) {
 
         waitForAjax(function () {
           $namefield = jQueryFrame($namefield.selector);
-          return $namefield.val() == "Saturn";
+          return $namefield.val() === "Saturn";
         }, function () {
           $namefield = jQueryFrame($namefield.selector);
           assert.equal($namefield.val(), "Saturn");
@@ -93,9 +93,9 @@ QUnit.test("On click with full request", function (assert) {
     $venus = jQueryFrame($venus.selector);
     $jupiter = jQueryFrame($jupiter.selector);
     $saturn = jQueryFrame($saturn.selector);
-    return $venus.length == 1 && $jupiter.length == 1 && $saturn.length == 1;
+    return $venus.length === 1 && $jupiter.length === 1 && $saturn.length === 1;
   }, function () {
-    if (step == 1) {
+    if (step === 1) {
       $venus = jQueryFrame($venus.selector);
       $jupiter = jQueryFrame($jupiter.selector);
       $saturn = jQueryFrame($saturn.selector);
@@ -111,7 +111,7 @@ QUnit.test("On click with full request", function (assert) {
   });
 
   jQuery("#page\\:testframe").load(function () {
-    if (step == 2) {
+    if (step === 2) {
       $namefield = jQueryFrame($namefield.selector);
       assert.equal($namefield.val(), "Venus");
 
@@ -120,7 +120,7 @@ QUnit.test("On click with full request", function (assert) {
 
       step++;
       done();
-    } else if (step == 3) {
+    } else if (step === 3) {
       $namefield = jQueryFrame($namefield.selector);
       assert.equal($namefield.val(), "Jupiter");
 
@@ -129,7 +129,7 @@ QUnit.test("On click with full request", function (assert) {
 
       step++;
       done();
-    } else if (step == 4) {
+    } else if (step === 4) {
       $namefield = jQueryFrame($namefield.selector);
       assert.equal($namefield.val(), "Saturn");
 
@@ -156,9 +156,9 @@ QUnit.test("On double click with full request", function (assert) {
     $venus = jQueryFrame($venus.selector);
     $jupiter = jQueryFrame($jupiter.selector);
     $saturn = jQueryFrame($saturn.selector);
-    return $venus.length == 1 && $jupiter.length == 1 && $saturn.length == 1;
+    return $venus.length === 1 && $jupiter.length === 1 && $saturn.length === 1;
   }, function () {
-    if (step == 1) {
+    if (step === 1) {
       $venus = jQueryFrame($venus.selector);
       $jupiter = jQueryFrame($jupiter.selector);
       $saturn = jQueryFrame($saturn.selector);
@@ -174,7 +174,7 @@ QUnit.test("On double click with full request", function (assert) {
   });
 
   jQuery("#page\\:testframe").load(function () {
-    if (step == 2) {
+    if (step === 2) {
       $namefield = jQueryFrame($namefield.selector);
       assert.equal($namefield.val(), "Venus");
 
@@ -183,7 +183,7 @@ QUnit.test("On double click with full request", function (assert) {
 
       step++;
       done();
-    } else if (step == 3) {
+    } else if (step === 3) {
       $namefield = jQueryFrame($namefield.selector);
       assert.equal($namefield.val(), "Jupiter");
 
@@ -192,7 +192,7 @@ QUnit.test("On double click with full request", function (assert) {
 
       step++;
       done();
-    } else if (step == 4) {
+    } else if (step === 4) {
       $namefield = jQueryFrame($namefield.selector);
       assert.equal($namefield.val(), "Saturn");
 

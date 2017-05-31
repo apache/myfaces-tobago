@@ -56,7 +56,7 @@ function testStandardCommands($command, $destinationSection, assert, done) {
   $command[0].click();
 
   jQuery("#page\\:testframe").load(function () {
-    if (step == 1) {
+    if (step === 1) {
       $destinationSection = jQueryFrame($destinationSection.selector);
       assert.equal($destinationSection.length, 1);
 
@@ -65,7 +65,7 @@ function testStandardCommands($command, $destinationSection, assert, done) {
 
       step++;
       done();
-    } else if (step == 2) {
+    } else if (step === 2) {
       $command = jQueryFrame($command.selector);
       assert.equal($command.length, 1);
 
@@ -120,7 +120,7 @@ function testTargetCommands($command, $destinationSection, assert, done) {
    */
   waitForAjax(function () {
     $destinationSection = jQueryTargetFrame($destinationSection.selector);
-    return $destinationSection.length == 1;
+    return $destinationSection.length === 1;
   }, function () {
     $destinationSection = jQueryTargetFrame($destinationSection.selector);
     assert.equal($destinationSection.length, 1);

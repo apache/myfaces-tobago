@@ -29,7 +29,7 @@ QUnit.test("Required: Submit without content.", function (assert) {
   $submit.click();
 
   jQuery("#page\\:testframe").load(function () {
-    if (step == 1) {
+    if (step === 1) {
       $messages = jQueryFrame($messages.selector);
       assert.equal($messages.length, 1);
       assert.equal($textarea.val(), textareaValue);
@@ -53,7 +53,7 @@ QUnit.test("Required: Submit with content.", function (assert) {
   $submit.click();
 
   jQuery("#page\\:testframe").load(function () {
-    if (step == 1) {
+    if (step === 1) {
       $messages = jQueryFrame($messages.selector);
       $textarea = jQueryFrame($textarea.selector);
       assert.equal($messages.length, 0);
@@ -78,7 +78,7 @@ QUnit.test("Validate Length: Submit single character.", function (assert) {
   $submit.click();
 
   jQuery("#page\\:testframe").load(function () {
-    if (step == 1) {
+    if (step === 1) {
       $messages = jQueryFrame($messages.selector);
       assert.equal($messages.length, 1);
 
@@ -101,7 +101,7 @@ QUnit.test("Validate Length: Submit two character.", function (assert) {
   $submit.click();
 
   jQuery("#page\\:testframe").load(function () {
-    if (step == 1) {
+    if (step === 1) {
       $messages = jQueryFrame($messages.selector);
       assert.equal($messages.length, 0);
 
@@ -124,7 +124,7 @@ QUnit.test("Validate Range: Submit no number.", function (assert) {
   $submit.click();
 
   jQuery("#page\\:testframe").load(function () {
-    if (step == 1) {
+    if (step === 1) {
       $messages = jQueryFrame($messages.selector);
       assert.equal($messages.length, 1);
 
@@ -147,7 +147,7 @@ QUnit.test("Validate Range: Submit number '2' which is out of range.", function 
   $submit.click();
 
   jQuery("#page\\:testframe").load(function () {
-    if (step == 1) {
+    if (step === 1) {
       $messages = jQueryFrame($messages.selector);
       assert.equal($messages.length, 1);
 
@@ -170,7 +170,7 @@ QUnit.test("Validate Range: Submit number '78' which is out of range.", function
   $submit.click();
 
   jQuery("#page\\:testframe").load(function () {
-    if (step == 1) {
+    if (step === 1) {
       $messages = jQueryFrame($messages.selector);
       assert.equal($messages.length, 1);
 
@@ -193,7 +193,7 @@ QUnit.test("Validate Range: Submit number '64' which is within the range.", func
   $submit.click();
 
   jQuery("#page\\:testframe").load(function () {
-    if (step == 1) {
+    if (step === 1) {
       $messages = jQueryFrame($messages.selector);
       assert.equal($messages.length, 0);
 
@@ -216,7 +216,7 @@ QUnit.test("Regex Validation: Submit 'T' which violates the pattern.", function 
   $submit.click();
 
   jQuery("#page\\:testframe").load(function () {
-    if (step == 1) {
+    if (step === 1) {
       $messages = jQueryFrame($messages.selector);
       assert.equal($messages.length, 1);
 
@@ -239,7 +239,7 @@ QUnit.test("Regex Validation: Submit '3' which violates the pattern.", function 
   $submit.click();
 
   jQuery("#page\\:testframe").load(function () {
-    if (step == 1) {
+    if (step === 1) {
       $messages = jQueryFrame($messages.selector);
       assert.equal($messages.length, 1);
 
@@ -262,7 +262,7 @@ QUnit.test("Regex Validation: Submit 'T3' which is accepted.", function (assert)
   $submit.click();
 
   jQuery("#page\\:testframe").load(function () {
-    if (step == 1) {
+    if (step === 1) {
       $messages = jQueryFrame($messages.selector);
       assert.equal($messages.length, 0);
 
@@ -285,7 +285,7 @@ QUnit.test("Custom Validator: Submit rejected string.", function (assert) {
   $submit.click();
 
   jQuery("#page\\:testframe").load(function () {
-    if (step == 1) {
+    if (step === 1) {
       $messages = jQueryFrame($messages.selector);
       assert.equal($messages.length, 1);
 
@@ -308,7 +308,7 @@ QUnit.test("Custom Validator: Submit accepted string.", function (assert) {
   $submit.click();
 
   jQuery("#page\\:testframe").load(function () {
-    if (step == 1) {
+    if (step === 1) {
       $messages = jQueryFrame($messages.selector);
       assert.equal($messages.length, 0);
 

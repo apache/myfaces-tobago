@@ -69,7 +69,7 @@ function fillIdDisplay(i, fieldClass) {
   var label = panel.children(".tobago-label");
   var field = panel.children(fieldClass);
 
-  if (fieldClass == ".tobago-selectBooleanCheckbox") { // special
+  if (fieldClass === ".tobago-selectBooleanCheckbox") { // special
     field = field.find("input:first");
   }
 
@@ -80,7 +80,7 @@ function fillIdDisplay(i, fieldClass) {
 
 function test(testId, expected) {
   var element = jQuery(Tobago.Utils.escapeClientId(testId));
-  if (element.val() != expected) {
+  if (element.val() !== expected) {
     element.addClass("tobago-in-markup-error");
     element.attr("title", "expected: '" + expected + "'");
   }

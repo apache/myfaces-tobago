@@ -30,7 +30,7 @@ QUnit.test("submit: select A", function (assert) {
   $submit.click();
 
   jQuery("#page\\:testframe").load(function () {
-    if (step == 1) {
+    if (step === 1) {
       var $output = jQueryFrame("#page\\:mainForm\\:submitOutput span");
       assert.equal($output.text(), "A ");
 
@@ -55,7 +55,7 @@ QUnit.test("submit: select B and C", function (assert) {
   $submit.click();
 
   jQuery("#page\\:testframe").load(function () {
-    if (step == 1) {
+    if (step === 1) {
       var $output = jQueryFrame("#page\\:mainForm\\:submitOutput span");
       assert.equal($output.text(), "B C ");
 
@@ -75,7 +75,7 @@ QUnit.test("ajax: select D", function (assert) {
 
   waitForAjax(function () {
     $outputD = jQueryFrame($outputD.selector);
-    return $outputD.text() == "true";
+    return $outputD.text() === "true";
   }, function () {
     $outputD = jQueryFrame($outputD.selector);
     assert.equal($outputD.text(), "true");
@@ -93,7 +93,7 @@ QUnit.test("ajax: deselect D", function (assert) {
 
   waitForAjax(function () {
     $outputD = jQueryFrame($outputD.selector);
-    return $outputD.text() == "false";
+    return $outputD.text() === "false";
   }, function () {
     $outputD = jQueryFrame($outputD.selector);
     assert.equal($outputD.text(), "false");
@@ -111,7 +111,7 @@ QUnit.test("ajax: select E", function (assert) {
 
   waitForAjax(function () {
     $outputE = jQueryFrame($outputE.selector);
-    return $outputE.text() == "true";
+    return $outputE.text() === "true";
   }, function () {
     $outputE = jQueryFrame($outputE.selector);
     assert.equal($outputE.text(), "true");
@@ -129,7 +129,7 @@ QUnit.test("ajax: deselect E", function (assert) {
 
   waitForAjax(function () {
     $outputE = jQueryFrame($outputE.selector);
-    return $outputE.text() == "false";
+    return $outputE.text() === "false";
   }, function () {
     $outputE = jQueryFrame($outputE.selector);
     assert.equal($outputE.text(), "false");
@@ -147,7 +147,7 @@ QUnit.test("ajax: select F", function (assert) {
 
   waitForAjax(function () {
     $outputF = jQueryFrame($outputF.selector);
-    return $outputF.text() == "true";
+    return $outputF.text() === "true";
   }, function () {
     $outputF = jQueryFrame($outputF.selector);
     assert.equal($outputF.text(), "true");
@@ -165,7 +165,7 @@ QUnit.test("ajax: deselect F", function (assert) {
 
   waitForAjax(function () {
     $outputF = jQueryFrame($outputF.selector);
-    return $outputF.text() == "false";
+    return $outputF.text() === "false";
   }, function () {
     $outputF = jQueryFrame($outputF.selector);
     assert.equal($outputF.text(), "false");

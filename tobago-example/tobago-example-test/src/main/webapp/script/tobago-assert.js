@@ -25,7 +25,7 @@ var TobagoAssert = {
 
   assertLeft:function (elementOrId, left, epsilon) {
     var element = TobagoAssert.jQueryElement(elementOrId);
-    epsilon = epsilon != null ? epsilon : 0;
+    epsilon = epsilon !== null ? epsilon : 0;
     var offsetLeft = element.offset().left;
     if (Math.abs(offsetLeft - left) > epsilon) {
       TobagoAssert.fail("left", element, left, offsetLeft);
@@ -34,7 +34,7 @@ var TobagoAssert = {
 
   assertTop:function (elementOrId, top, epsilon) {
     var element = TobagoAssert.jQueryElement(elementOrId);
-    epsilon = epsilon != null ? epsilon : 0;
+    epsilon = epsilon !== null ? epsilon : 0;
     var offsetTop = element.offset().top;
     if (Math.abs(offsetTop - top) > epsilon) {
       TobagoAssert.fail("top", element, top, offsetTop);
@@ -43,7 +43,7 @@ var TobagoAssert = {
 
   assertWidth:function (elementOrId, width, epsilon) {
     var element = TobagoAssert.jQueryElement(elementOrId);
-    epsilon = epsilon != null ? epsilon : 0;
+    epsilon = epsilon !== null ? epsilon : 0;
     var offsetWidth = element.get(0).offsetWidth;
     if (Math.abs(offsetWidth - width) > epsilon) {
       TobagoAssert.fail("width", element, width, offsetWidth);
@@ -52,7 +52,7 @@ var TobagoAssert = {
 
   assertHeight:function (elementOrId, height, epsilon) {
     var element = TobagoAssert.jQueryElement(elementOrId);
-    epsilon = epsilon != null ? epsilon : 0;
+    epsilon = epsilon !== null ? epsilon : 0;
     var offsetHeight = element.get(0).offsetHeight;
     if (Math.abs(offsetHeight - height) > epsilon) {
       TobagoAssert.fail("height", element, height, offsetHeight);
@@ -90,29 +90,29 @@ var TobagoAssert = {
 
   assertAbsence:function (id) {
     var element = document.getElementById(id);
-    var result = element == null;
+    var result = element === null;
     TobagoAssert.assert(result, "The element with id=" + id + " was found, but should not!");
   },
 
   assertAttribute:function (elementOrId, attribute, expected) {
-    TobagoAssert.assert("value" != attribute,
+    TobagoAssert.assert("value" !== attribute,
       "The assertAttribute() is not allowed for the value attribute, please use assertValue() instead.");
     var element = TobagoAssert.jQueryElement(elementOrId);
-    TobagoAssert.assert(element.attr(attribute) == expected,
+    TobagoAssert.assert(element.attr(attribute) === expected,
       "The attribute '" + attribute + "' of element with id=" + element.attr('id')
           + " is '" + element.attr(attribute) + "', but expected was '" + expected + "'.");
   },
 
   assertValue:function (elementOrId, expected) {
     var element = TobagoAssert.jQueryElement(elementOrId);
-    TobagoAssert.assert(element.val() == expected,
+    TobagoAssert.assert(element.val() === expected,
         "The value of element with id=" + element.attr('id')
         + " is '" + element.val() + "', but expected was '" + expected + "'.");
   },
 
   assertContent:function (elementOrId, expected) {
     var element = TobagoAssert.jQueryElement(elementOrId);
-    TobagoAssert.assert(element.html() == expected,
+    TobagoAssert.assert(element.html() === expected,
         "The content of element with id=" + element.attr('id')
           + " is '" + element.html() + "', but expected was '" + expected + "'.");
   },
@@ -122,7 +122,7 @@ var TobagoAssert = {
    */
   jQueryElement:function (elementOrId) {
     var element;
-    if (typeof elementOrId == "string") {
+    if (typeof elementOrId === "string") {
       element = jQuery(Tobago.Utils.escapeClientId(elementOrId));
     } else { // JQuery Object Array
       element = elementOrId;
@@ -140,19 +140,19 @@ var TobagoAssert = {
       var epsilon = this.element.data("assert-epsilon");
 
       var left = this.element.data("assert-left");
-      if (left != null) {
+      if (left !== null) {
         TobagoAssert.assertLeft(this.element, left, epsilon);
       }
       var top = this.element.data("assert-top");
-      if (top != null) {
+      if (top !== null) {
         TobagoAssert.assertTop(this.element, top, epsilon);
       }
       var width = this.element.data("assert-width");
-      if (width != null) {
+      if (width !== null) {
         TobagoAssert.assertWidth(this.element, width, epsilon);
       }
       var height = this.element.data("assert-height");
-      if (height != null) {
+      if (height !== null) {
         TobagoAssert.assertHeight(this.element, height, epsilon);
       }
     },

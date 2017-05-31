@@ -31,7 +31,7 @@ QUnit.test("Add a river and reset.", function (assert) {
   $reset.click();
 
   jQuery("#page\\:testframe").load(function () {
-    if (step == 1) {
+    if (step === 1) {
       $name = jQueryFrame($name.selector);
       $length = jQueryFrame($length.selector);
       $discharge = jQueryFrame($discharge.selector);
@@ -48,7 +48,7 @@ QUnit.test("Add a river and reset.", function (assert) {
       $add.click();
 
       done();
-    } else if (step == 2) {
+    } else if (step === 2) {
       $reset = jQueryFrame($reset.selector);
       $forEachBoxes = jQueryFrame($forEachBoxes.selector);
       $uiRepeatSections = jQueryFrame($uiRepeatSections.selector);
@@ -59,7 +59,7 @@ QUnit.test("Add a river and reset.", function (assert) {
       $reset.click();
 
       done();
-    } else if (step == 3) {
+    } else if (step === 3) {
       $forEachBoxes = jQueryFrame($forEachBoxes.selector);
       $uiRepeatSections = jQueryFrame($uiRepeatSections.selector);
 

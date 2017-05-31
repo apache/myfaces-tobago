@@ -83,7 +83,7 @@ TestDateTime.init = function () {
       console.error(e);
     }
 
-    if (javaFormatted.val() != jQueryUIFormatted.val()) {
+    if (javaFormatted.val() !== jQueryUIFormatted.val()) {
       jQueryUIFormatted.addClass("tobago-in-markup-error");
 
       if (javaPattern.hasClass("tobago-in-markup-error")) {
@@ -120,7 +120,7 @@ TestDateTime.testDate = function () {
   date = jQuery.datepicker.parseDate(format, initial);
   result = jQuery.datepicker.formatDate(format, date);
 
-  if (result != initial) {
+  if (result !== initial) {
     console.error("Error!");
   } else {
     console.info("Okay!");
@@ -138,7 +138,7 @@ TestDateTime.testTime = function () {
   date = jQuery.datepicker.parseTime(format, initial);
   result = jQuery.datepicker.formatTime(format, date);
 
-  if (result != initial) {
+  if (result !== initial) {
     console.error("Error!");
   } else {
     console.info("Okay!");
@@ -165,7 +165,7 @@ TestDateTime.testBoth = function () {
   };
   result = jQuery.datepicker.formatDate(formatD, date) + separator + jQuery.datepicker.formatTime(formatT, dateT);
 
-  if (result != initial) {
+  if (result !== initial) {
     console.error("Error!");
   } else {
     console.info("Okay!");

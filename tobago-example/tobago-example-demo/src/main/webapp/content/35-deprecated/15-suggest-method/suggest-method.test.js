@@ -29,7 +29,7 @@ QUnit.test("Deprecated: 'Chile'", function (assert) {
 
   waitForAjax(function () {
     $suggestions = jQueryFrame($suggestions.selector);
-    return $suggestions.length == expectedLength;
+    return $suggestions.length === expectedLength;
   }, function () {
     $suggestions = jQueryFrame($suggestions.selector);
 
@@ -56,7 +56,7 @@ QUnit.test("Replacement: 'Chile'", function (assert) {
 
   waitForAjax(function () {
     $suggestions = jQueryFrame($suggestions.selector);
-    return $suggestions.length == expectedLength;
+    return $suggestions.length === expectedLength;
   }, function () {
     $suggestions = jQueryFrame($suggestions.selector);
 

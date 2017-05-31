@@ -26,7 +26,7 @@ Tobago.registerListener(function() {
       waitForTest(function() {
         $thisFrame = jQuery($thisFrame.selector);
         return $thisFrame.contents().find("#qunit-banner").length > 0
-            && $thisFrame.contents().find("#qunit-banner").attr("class") != "";
+            && $thisFrame.contents().find("#qunit-banner").attr("class") !== "";
       }, function() {
         $nextFrame = jQuery($nextFrame.selector);
         runNextFrame($nextFrame);
@@ -53,7 +53,7 @@ function waitForTest(waitingDone, executeWhenDone) {
 function runNextFrame($nextFrame) {
   if ($nextFrame.length > 0) {
     var url = $nextFrame.attr("name");
-    if (url != undefined) {
+    if (url !== undefined) {
       $nextFrame.removeAttr("name");
       $nextFrame.attr("src", url);
     }

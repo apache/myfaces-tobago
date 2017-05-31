@@ -20,7 +20,7 @@ TestVersion = {};
 TestVersion.init = function () {
 
   var checked = jQuery("input[checked]");
-  if (checked.size() != 2) {
+  if (checked.size() !== 2) {
     TobagoAssert.fail("2 field must be checked", null, 2, checked);
   }
 
@@ -29,14 +29,14 @@ TestVersion.init = function () {
   var version = checked.eq(0).next().html().toLowerCase();
   var packageVersion = "version " + textList.eq(0).val().toLowerCase();
 
-  if (packageVersion.indexOf(version) == -1) {
+  if (packageVersion.indexOf(version) === -1) {
     TobagoAssert.fail("Version number", null, version, packageVersion);
   }
 
   var impl = checked.eq(1).next().html().toLowerCase();
   var packageImpl = textList.eq(1).val().toLowerCase();
 
-  if (packageImpl.indexOf(impl) == -1) {
+  if (packageImpl.indexOf(impl) === -1) {
     TobagoAssert.fail("Implementation", null, impl, packageImpl);
   }
 };

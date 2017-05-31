@@ -30,7 +30,7 @@ QUnit.test("Simple Panel", function (assert) {
   $show.click();
 
   jQuery("#page\\:testframe").load(function () {
-    if (step == 1) {
+    if (step === 1) {
       $sectionCollapsed = jQueryFrame($sectionCollapsed.selector);
       $in = jQueryFrame($in.selector);
       $submit = jQueryFrame($submit.selector);
@@ -42,7 +42,7 @@ QUnit.test("Simple Panel", function (assert) {
 
       step++;
       done();
-    } else if (step == 2) {
+    } else if (step === 2) {
       $messages = jQueryFrame($messages.selector);
       $sectionCollapsed = jQueryFrame($sectionCollapsed.selector);
       $in = jQueryFrame($in.selector);
@@ -56,7 +56,7 @@ QUnit.test("Simple Panel", function (assert) {
 
       step++;
       done();
-    } else if (step == 3) {
+    } else if (step === 3) {
       $messages = jQueryFrame($messages.selector);
       $sectionCollapsed = jQueryFrame($sectionCollapsed.selector);
       $in = jQueryFrame($in.selector);
@@ -69,7 +69,7 @@ QUnit.test("Simple Panel", function (assert) {
 
       step++;
       done();
-    } else if (step == 4) {
+    } else if (step === 4) {
       $messages = jQueryFrame($messages.selector);
       $sectionCollapsed = jQueryFrame($sectionCollapsed.selector);
       $in = jQueryFrame($in.selector);
@@ -82,7 +82,7 @@ QUnit.test("Simple Panel", function (assert) {
 
       step++;
       done();
-    } else if (step == 5) {
+    } else if (step === 5) {
       $messages = jQueryFrame($messages.selector);
       $sectionCollapsed = jQueryFrame($sectionCollapsed.selector);
       $in = jQueryFrame($in.selector);
@@ -112,7 +112,7 @@ QUnit.test("Full Server Request", function (assert) {
   $show.click();
 
   jQuery("#page\\:testframe").load(function () {
-    if (step == 1) {
+    if (step === 1) {
       $sectionCollapsed = jQueryFrame($sectionCollapsed.selector);
       $in = jQueryFrame($in.selector);
       $submit = jQueryFrame($submit.selector);
@@ -124,7 +124,7 @@ QUnit.test("Full Server Request", function (assert) {
 
       step++;
       done();
-    } else if (step == 2) {
+    } else if (step === 2) {
       $messages = jQueryFrame($messages.selector);
       $sectionCollapsed = jQueryFrame($sectionCollapsed.selector);
       $in = jQueryFrame($in.selector);
@@ -138,7 +138,7 @@ QUnit.test("Full Server Request", function (assert) {
 
       step++;
       done();
-    } else if (step == 3) {
+    } else if (step === 3) {
       $messages = jQueryFrame($messages.selector);
       $sectionCollapsed = jQueryFrame($sectionCollapsed.selector);
       $in = jQueryFrame($in.selector);
@@ -151,7 +151,7 @@ QUnit.test("Full Server Request", function (assert) {
 
       step++;
       done();
-    } else if (step == 4) {
+    } else if (step === 4) {
       $messages = jQueryFrame($messages.selector);
       $sectionCollapsed = jQueryFrame($sectionCollapsed.selector);
       $in = jQueryFrame($in.selector);
@@ -164,7 +164,7 @@ QUnit.test("Full Server Request", function (assert) {
 
       step++;
       done();
-    } else if (step == 5) {
+    } else if (step === 5) {
       $messages = jQueryFrame($messages.selector);
       $sectionCollapsed = jQueryFrame($sectionCollapsed.selector);
       $in = jQueryFrame($in.selector);
@@ -198,7 +198,7 @@ QUnit.test("Client Sided", function (assert) {
   $submit.click();
 
   jQuery("#page\\:testframe").load(function () {
-    if (step == 1) {
+    if (step === 1) {
       $messages = jQueryFrame($messages.selector);
       $sectionCollapsed = jQueryFrame($sectionCollapsed.selector);
       $in = jQueryFrame($in.selector);
@@ -212,7 +212,7 @@ QUnit.test("Client Sided", function (assert) {
 
       step++;
       done();
-    } else if (step == 2) {
+    } else if (step === 2) {
       $messages = jQueryFrame($messages.selector);
       $sectionCollapsed = jQueryFrame($sectionCollapsed.selector);
       $in = jQueryFrame($in.selector);
@@ -231,7 +231,7 @@ QUnit.test("Client Sided", function (assert) {
 
       step++;
       done();
-    } else if (step == 3) {
+    } else if (step === 3) {
       $messages = jQueryFrame($messages.selector);
       $sectionCollapsed = jQueryFrame($sectionCollapsed.selector);
       $in = jQueryFrame($in.selector);
@@ -263,9 +263,9 @@ QUnit.test("Ajax", function (assert) {
   waitForAjax(function () {
     $sectionCollapsed = jQueryFrame($sectionCollapsed.selector);
     $in = jQueryFrame($in.selector);
-    return step == 1
-        && $sectionCollapsed.val() == "false"
-        && $in.length == 1;
+    return step === 1
+        && $sectionCollapsed.val() === "false"
+        && $in.length === 1;
   }, function () {
     $sectionCollapsed = jQueryFrame($sectionCollapsed.selector);
     $in = jQueryFrame($in.selector);
@@ -281,7 +281,7 @@ QUnit.test("Ajax", function (assert) {
   });
 
   jQuery("#page\\:testframe").load(function () {
-    if (step == 2) {
+    if (step === 2) {
       $messages = jQueryFrame($messages.selector);
       $sectionCollapsed = jQueryFrame($sectionCollapsed.selector);
       $in = jQueryFrame($in.selector);
@@ -295,7 +295,7 @@ QUnit.test("Ajax", function (assert) {
 
       step++;
       done();
-    } else if (step == 3) {
+    } else if (step === 3) {
       $messages = jQueryFrame($messages.selector);
       $sectionCollapsed = jQueryFrame($sectionCollapsed.selector);
       $in = jQueryFrame($in.selector);
@@ -312,9 +312,9 @@ QUnit.test("Ajax", function (assert) {
       waitForAjax(function () {
         $sectionCollapsed = jQueryFrame($sectionCollapsed.selector);
         $in = jQueryFrame($in.selector);
-        return step == 4
-            && $sectionCollapsed.val() == "true"
-            && $in.length == 0;
+        return step === 4
+            && $sectionCollapsed.val() === "true"
+            && $in.length === 0;
       }, function () {
         $sectionCollapsed = jQueryFrame($sectionCollapsed.selector);
         $in = jQueryFrame($in.selector);
@@ -327,7 +327,7 @@ QUnit.test("Ajax", function (assert) {
         step++;
         done();
       });
-    } else if (step == 5) {
+    } else if (step === 5) {
       $messages = jQueryFrame($messages.selector);
       $sectionCollapsed = jQueryFrame($sectionCollapsed.selector);
       $in = jQueryFrame($in.selector);

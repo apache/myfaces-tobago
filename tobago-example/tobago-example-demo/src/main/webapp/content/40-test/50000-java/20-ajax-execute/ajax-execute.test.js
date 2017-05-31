@@ -35,7 +35,7 @@ QUnit.test("ajax excecute", function (assert) {
   $clearButton.click();
 
   jQuery("#page\\:testframe").load(function () {
-    if (step == 1) {
+    if (step === 1) {
       $in1 = jQueryFrame($in1.selector);
       $in2 = jQueryFrame($in2.selector);
       $in3 = jQueryFrame($in3.selector);
@@ -62,11 +62,11 @@ QUnit.test("ajax excecute", function (assert) {
         $in2 = jQueryFrame($in2.selector);
         $in3 = jQueryFrame($in3.selector);
         $in4 = jQueryFrame($in4.selector);
-        return step == 2
-            && $in1.val() == "a"
-            && $in2.val() == "b"
-            && $in3.val() == "c"
-            && $in4.val() == "";
+        return step === 2
+            && $in1.val() === "a"
+            && $in2.val() === "b"
+            && $in3.val() === "c"
+            && $in4.val() === "";
       }, function () {
         $in1 = jQueryFrame($in1.selector);
         $in2 = jQueryFrame($in2.selector);
@@ -84,7 +84,7 @@ QUnit.test("ajax excecute", function (assert) {
         step++;
         done();
       });
-    } else if (step == 3) {
+    } else if (step === 3) {
       $in1 = jQueryFrame($in1.selector);
       $in2 = jQueryFrame($in2.selector);
       $in3 = jQueryFrame($in3.selector);

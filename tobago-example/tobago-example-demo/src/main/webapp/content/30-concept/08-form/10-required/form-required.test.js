@@ -26,7 +26,7 @@ QUnit.test("submit inner form 1 without violations", function (assert) {
   $form1SubmitButton.click();
 
   jQuery("#page\\:testframe").load(function () {
-    if (step == 1) {
+    if (step === 1) {
       $form1InputField = jQueryFrame("#page\\:mainForm\\:outerForm\\:innerForm1\\:in\\:\\:field");
       var $form1OutputField = jQueryFrame("#page\\:mainForm\\:outerForm\\:innerForm1\\:out span");
       var $alert = jQueryFrame("#page\\:messages .alert-danger label");
@@ -55,7 +55,7 @@ QUnit.test("submit inner form 2, violate required field", function (assert) {
   $form2SubmitButton.click();
 
   jQuery("#page\\:testframe").load(function () {
-    if (step == 1) {
+    if (step === 1) {
       $form2InputField = jQueryFrame("#page\\:mainForm\\:outerForm\\:innerForm2\\:in\\:\\:field");
       var $form2OutputField = jQueryFrame("#page\\:mainForm\\:outerForm\\:innerForm2\\:out span");
       var $alert = jQueryFrame("#page\\:messages .alert-danger label");
@@ -82,7 +82,7 @@ QUnit.test("submit inner form 2 without violations", function (assert) {
   $form2SubmitButton.click();
 
   jQuery("#page\\:testframe").load(function () {
-    if (step == 1) {
+    if (step === 1) {
       $form2InputField = jQueryFrame("#page\\:mainForm\\:outerForm\\:innerForm2\\:in\\:\\:field");
       var $form2OutputField = jQueryFrame("#page\\:mainForm\\:outerForm\\:innerForm2\\:out span");
       var $alert = jQueryFrame("#page\\:messages .alert-danger label");
@@ -113,7 +113,7 @@ QUnit.test("submit outer form, violate both required fields", function (assert) 
   $outerFormSubmitButton.click();
 
   jQuery("#page\\:testframe").load(function () {
-    if (step == 1) {
+    if (step === 1) {
       $form2InputField = jQueryFrame("#page\\:mainForm\\:outerForm\\:innerForm2\\:in\\:\\:field");
       var $form2OutputField = jQueryFrame("#page\\:mainForm\\:outerForm\\:innerForm2\\:out span");
       $outerFormInputField = jQueryFrame("#page\\:mainForm\\:outerForm\\:in\\:\\:field");
@@ -150,7 +150,7 @@ QUnit.test("submit outer form, violate required field in form 2", function (asse
   $outerFormSubmitButton.click();
 
   jQuery("#page\\:testframe").load(function () {
-    if (step == 1) {
+    if (step === 1) {
       $form2InputField = jQueryFrame("#page\\:mainForm\\:outerForm\\:innerForm2\\:in\\:\\:field");
       var $form2OutputField = jQueryFrame("#page\\:mainForm\\:outerForm\\:innerForm2\\:out span");
       $outerFormInputField = jQueryFrame("#page\\:mainForm\\:outerForm\\:in\\:\\:field");
@@ -187,7 +187,7 @@ QUnit.test("submit outer form, violate required field in outer form", function (
   $outerFormSubmitButton.click();
 
   jQuery("#page\\:testframe").load(function () {
-    if (step == 1) {
+    if (step === 1) {
       $form2InputField = jQueryFrame("#page\\:mainForm\\:outerForm\\:innerForm2\\:in\\:\\:field");
       var $form2OutputField = jQueryFrame("#page\\:mainForm\\:outerForm\\:innerForm2\\:out span");
       $outerFormInputField = jQueryFrame("#page\\:mainForm\\:outerForm\\:in\\:\\:field");
@@ -223,7 +223,7 @@ QUnit.test("submit outer form without violations", function (assert) {
   $outerFormSubmitButton.click();
 
   jQuery("#page\\:testframe").load(function () {
-    if (step == 1) {
+    if (step === 1) {
       $form1InputField = jQueryFrame("#page\\:mainForm\\:outerForm\\:innerForm1\\:in\\:\\:field");
       var $form1OutputField = jQueryFrame("#page\\:mainForm\\:outerForm\\:innerForm1\\:out span");
       $form2InputField = jQueryFrame("#page\\:mainForm\\:outerForm\\:innerForm2\\:in\\:\\:field");

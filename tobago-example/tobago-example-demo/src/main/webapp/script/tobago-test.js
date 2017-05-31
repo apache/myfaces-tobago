@@ -27,7 +27,7 @@ function jQueryFrame(expression) {
  */
 function waitForAjax(waitingDone, executeWhenDone, maxWait) {
   var startTime = new Date().getTime();
-  maxWait = maxWait != null ? maxWait : 20000;
+  maxWait = maxWait !== null ? maxWait : 20000;
   var stillWaiting = true;
   var interval = setInterval(function() {
     if (new Date().getTime() - startTime < maxWait && stillWaiting) {
@@ -43,7 +43,7 @@ function getDuplicatedIDs() {
   var duplicatedIDs = [];
   jQueryFrame('[id]').each(function () {
     var ids = jQueryFrame('[id="' + this.id + '"]');
-    if (ids.length > 1 && ids[0] == this)
+    if (ids.length > 1 && ids[0] === this)
       duplicatedIDs.push(this.id);
   });
   return duplicatedIDs;

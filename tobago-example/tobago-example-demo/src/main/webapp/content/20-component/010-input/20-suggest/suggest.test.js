@@ -29,7 +29,7 @@ QUnit.test("Basics: 'C'", function(assert) {
 
   waitForAjax(function() {
     $suggestions = jQueryFrame($suggestions.selector);
-    return $suggestions.length == expectedLength;
+    return $suggestions.length === expectedLength;
   }, function() {
     $suggestions = jQueryFrame($suggestions.selector);
 
@@ -57,7 +57,7 @@ QUnit.test("Basics: 'Ch'", function(assert) {
 
   waitForAjax(function() {
     $suggestions = jQueryFrame($suggestions.selector);
-    return $suggestions.length == expectedLength;
+    return $suggestions.length === expectedLength;
   }, function() {
     $suggestions = jQueryFrame($suggestions.selector);
 
@@ -84,7 +84,7 @@ QUnit.test("Basics: 'Chi'", function(assert) {
 
   waitForAjax(function() {
     $suggestions = jQueryFrame($suggestions.selector);
-    return $suggestions.length == expectedLength;
+    return $suggestions.length === expectedLength;
   }, function() {
     $suggestions = jQueryFrame($suggestions.selector);
 
@@ -111,7 +111,7 @@ QUnit.test("Basics: 'Chil'", function(assert) {
 
   waitForAjax(function() {
     $suggestions = jQueryFrame($suggestions.selector);
-    return $suggestions.length == expectedLength;
+    return $suggestions.length === expectedLength;
   }, function() {
     $suggestions = jQueryFrame($suggestions.selector);
 
@@ -138,7 +138,7 @@ QUnit.test("Basics: 'Chile'", function(assert) {
 
   waitForAjax(function() {
     $suggestions = jQueryFrame($suggestions.selector);
-    return $suggestions.length == expectedLength;
+    return $suggestions.length === expectedLength;
   }, function() {
     $suggestions = jQueryFrame($suggestions.selector);
 
@@ -165,7 +165,7 @@ QUnit.test("Basics: 'Chile '", function(assert) {
 
   waitForAjax(function() {
     $suggestions = jQueryFrame($suggestions.selector);
-    return $suggestions.length == expectedLength;
+    return $suggestions.length === expectedLength;
   }, function() {
     $suggestions = jQueryFrame($suggestions.selector);
 
@@ -192,7 +192,7 @@ QUnit.test("Basics: 'Chile ('", function(assert) {
 
   waitForAjax(function() {
     $suggestions = jQueryFrame($suggestions.selector);
-    return $suggestions.length == expectedLength;
+    return $suggestions.length === expectedLength;
   }, function() {
     $suggestions = jQueryFrame($suggestions.selector);
 
@@ -219,7 +219,7 @@ QUnit.test("Basics: 'Chile (e'", function(assert) {
 
   waitForAjax(function() {
     $suggestions = jQueryFrame($suggestions.selector);
-    return $suggestions.length == expectedLength;
+    return $suggestions.length === expectedLength;
   }, function() {
     $suggestions = jQueryFrame($suggestions.selector);
 
@@ -246,7 +246,7 @@ QUnit.test("Basics: 'Chile (es'", function(assert) {
 
   waitForAjax(function() {
     $suggestions = jQueryFrame($suggestions.selector);
-    return $suggestions.length == expectedLength;
+    return $suggestions.length === expectedLength;
   }, function() {
     $suggestions = jQueryFrame($suggestions.selector);
 
@@ -273,7 +273,7 @@ QUnit.test("Basics: 'Chile (esp'", function(assert) {
 
   waitForAjax(function() {
     $suggestions = jQueryFrame($suggestions.selector);
-    return $suggestions.length == expectedLength;
+    return expectedLength === $suggestions.length;
   }, function() {
     $suggestions = jQueryFrame($suggestions.selector);
 
@@ -300,7 +300,7 @@ QUnit.test("Basics: 'Chile (espa'", function(assert) {
 
   waitForAjax(function() {
     $suggestions = jQueryFrame($suggestions.selector);
-    return $suggestions.length == expectedLength;
+    return $suggestions.length === expectedLength;
   }, function() {
     $suggestions = jQueryFrame($suggestions.selector);
 
@@ -327,7 +327,7 @@ QUnit.test("Basics: 'Chile (espan'", function(assert) {
 
   waitForAjax(function() {
     $suggestions = jQueryFrame($suggestions.selector);
-    return $suggestions.length == expectedLength;
+    return $suggestions.length === expectedLength;
   }, function() {
     $suggestions = jQueryFrame($suggestions.selector);
 
@@ -354,7 +354,7 @@ QUnit.test("Basics: 'Chile (espanj'", function(assert) {
 
   waitForAjax(function() {
     $suggestions = jQueryFrame($suggestions.selector);
-    return $suggestions.length == expectedLength;
+    return $suggestions.length === expectedLength;
   }, function() {
     $suggestions = jQueryFrame($suggestions.selector);
 
@@ -381,7 +381,7 @@ QUnit.test("Basics: 'Chile (espanja'", function(assert) {
 
   waitForAjax(function() {
     $suggestions = jQueryFrame($suggestions.selector);
-    return $suggestions.length == expectedLength;
+    return $suggestions.length === expectedLength;
   }, function() {
     $suggestions = jQueryFrame($suggestions.selector);
 
@@ -408,7 +408,7 @@ QUnit.test("Basics: 'Chile (espanja)'", function(assert) {
 
   waitForAjax(function() {
     $suggestions = jQueryFrame($suggestions.selector);
-    return $suggestions.length == expectedLength;
+    return $suggestions.length === expectedLength;
   }, function() {
     $suggestions = jQueryFrame($suggestions.selector);
 
@@ -436,7 +436,7 @@ QUnit.test("Basics: Add 'Belgiu' and click first entry.", function(assert) {
 
   waitForAjax(function() {
     $suggestions = jQueryFrame($suggestions.selector);
-    return $suggestions.length == 2;
+    return $suggestions.length === 2;
   }, function() {
     assert.equal(1, 1);
     $in = jQueryFrame($in.selector);
@@ -470,7 +470,7 @@ QUnit.test("Advanced: 'H'", function(assert) {
   setTimeout(function() {
     waitForAjax(function() {
       $suggestions = jQueryFrame($suggestions.selector);
-      return $suggestions.length == 0;
+      return $suggestions.length === 0;
     }, function() {
       $suggestions = jQueryFrame($suggestions.selector);
       assert.equal($suggestions.length, 0);
@@ -503,9 +503,9 @@ QUnit.test("Advanced: 'Ho'", function(assert) {
       $in = jQueryFrame($in.selector);
       $suggestions = jQueryFrame($suggestions.selector);
 
-      return $suggestions.length == 2
-          && $suggestions.eq(0).find("strong").text() == "ho"
-          && $suggestions.eq(1).find("strong").text() == "ho";
+      return $suggestions.length === 2
+          && $suggestions.eq(0).find("strong").text() === "ho"
+          && $suggestions.eq(1).find("strong").text() === "ho";
     }, function() {
       $in = jQueryFrame($in.selector);
       $suggestions = jQueryFrame($suggestions.selector);

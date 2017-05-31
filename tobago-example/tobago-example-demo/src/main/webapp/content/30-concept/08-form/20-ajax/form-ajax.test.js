@@ -29,7 +29,7 @@ QUnit.test("submit inner form 1 without violations", function (assert) {
   waitForAjax(function () {
     $form1InputField = jQueryFrame($form1InputField.selector);
     $form1OutputField = jQueryFrame($form1OutputField.selector);
-    return $form1InputField.val() == "Alice" && $form1OutputField.text() == "Alice";
+    return $form1InputField.val() === "Alice" && $form1OutputField.text() === "Alice";
   }, function () {
     $form1InputField = jQueryFrame($form1InputField.selector);
     $form1OutputField = jQueryFrame($form1OutputField.selector);
@@ -60,7 +60,7 @@ QUnit.test("submit inner form 2, violate required field", function (assert) {
   waitForAjax(function () {
     $form2InputField = jQueryFrame($form2InputField.selector);
     $form2OutputField = jQueryFrame($form2OutputField.selector);
-    return $form2InputField.val() == "" && $form2OutputField.text() == form2OutputFieldValue;
+    return $form2InputField.val() === "" && $form2OutputField.text() === form2OutputFieldValue;
   }, function () {
     $form2InputField = jQueryFrame($form2InputField.selector);
     $form2OutputField = jQueryFrame($form2OutputField.selector);
@@ -89,7 +89,7 @@ QUnit.test("submit inner form 2 without violations", function (assert) {
   waitForAjax(function () {
     $form2InputField = jQueryFrame($form2InputField.selector);
     $form2OutputField = jQueryFrame($form2OutputField.selector);
-    return $form2InputField.val() == "Bob" && $form2OutputField.text() == "Bob";
+    return $form2InputField.val() === "Bob" && $form2OutputField.text() === "Bob";
   }, function () {
     $form2InputField = jQueryFrame($form2InputField.selector);
     $form2OutputField = jQueryFrame($form2OutputField.selector);
@@ -132,12 +132,12 @@ QUnit.test("submit outer form, violate both required fields", function (assert) 
     $form2OutputField = jQueryFrame($form2OutputField.selector);
     $outerFormInputField = jQueryFrame($outerFormInputField.selector);
     $outerFormOutputField = jQueryFrame($outerFormOutputField.selector);
-    return $form1InputField.val() == "Charlie"
-        && $form1OutputField.text() == form1OutputFieldValue
-        && $form2InputField.val() == ""
-        && $form2OutputField.text() == form2OutputFieldValue
-        && $outerFormInputField.val() == ""
-        && $outerFormOutputField.text() == outerFormOutputFieldValue;
+    return $form1InputField.val() === "Charlie"
+        && $form1OutputField.text() === form1OutputFieldValue
+        && $form2InputField.val() === ""
+        && $form2OutputField.text() === form2OutputFieldValue
+        && $outerFormInputField.val() === ""
+        && $outerFormOutputField.text() === outerFormOutputFieldValue;
   }, function () {
     $form1InputField = jQueryFrame($form1InputField.selector);
     $form1OutputField = jQueryFrame($form1OutputField.selector);
@@ -188,12 +188,12 @@ QUnit.test("submit outer form, violate required field in form 2", function (asse
     $form2OutputField = jQueryFrame($form2OutputField.selector);
     $outerFormInputField = jQueryFrame($outerFormInputField.selector);
     $outerFormOutputField = jQueryFrame($outerFormOutputField.selector);
-    return $form1InputField.val() == "Dave"
-        && $form1OutputField.text() == form1OutputFieldValue
-        && $form2InputField.val() == ""
-        && $form2OutputField.text() == form2OutputFieldValue
-        && $outerFormInputField.val() == "Eve"
-        && $outerFormOutputField.text() == outerFormOutputFieldValue;
+    return $form1InputField.val() === "Dave"
+        && $form1OutputField.text() === form1OutputFieldValue
+        && $form2InputField.val() === ""
+        && $form2OutputField.text() === form2OutputFieldValue
+        && $outerFormInputField.val() === "Eve"
+        && $outerFormOutputField.text() === outerFormOutputFieldValue;
   }, function () {
     $form1InputField = jQueryFrame($form1InputField.selector);
     $form1OutputField = jQueryFrame($form1OutputField.selector);
@@ -244,12 +244,12 @@ QUnit.test("submit outer form, violate required field in outer form", function (
     $form2OutputField = jQueryFrame($form2OutputField.selector);
     $outerFormInputField = jQueryFrame($outerFormInputField.selector);
     $outerFormOutputField = jQueryFrame($outerFormOutputField.selector);
-    return $form1InputField.val() == "Frank"
-        && $form1OutputField.text() == form1OutputFieldValue
-        && $form2InputField.val() == "Grace"
-        && $form2OutputField.text() == form2OutputFieldValue
-        && $outerFormInputField.val() == ""
-        && $outerFormOutputField.text() == outerFormOutputFieldValue;
+    return $form1InputField.val() === "Frank"
+        && $form1OutputField.text() === form1OutputFieldValue
+        && $form2InputField.val() === "Grace"
+        && $form2OutputField.text() === form2OutputFieldValue
+        && $outerFormInputField.val() === ""
+        && $outerFormOutputField.text() === outerFormOutputFieldValue;
   }, function () {
     $form1InputField = jQueryFrame($form1InputField.selector);
     $form1OutputField = jQueryFrame($form1OutputField.selector);
@@ -296,12 +296,12 @@ QUnit.test("submit outer form without violations", function (assert) {
     $form2OutputField = jQueryFrame($form2OutputField.selector);
     $outerFormInputField = jQueryFrame($outerFormInputField.selector);
     $outerFormOutputField = jQueryFrame($outerFormOutputField.selector);
-    return $form1InputField.val() == "Hank"
-        && $form1OutputField.text() == "Hank"
-        && $form2InputField.val() == "Irene"
-        && $form2OutputField.text() == "Irene"
-        && $outerFormInputField.val() == "John"
-        && $outerFormOutputField.text() == "John";
+    return $form1InputField.val() === "Hank"
+        && $form1OutputField.text() === "Hank"
+        && $form2InputField.val() === "Irene"
+        && $form2OutputField.text() === "Irene"
+        && $outerFormInputField.val() === "John"
+        && $outerFormOutputField.text() === "John";
   }, function () {
     $form1InputField = jQueryFrame($form1InputField.selector);
     $form1OutputField = jQueryFrame($form1OutputField.selector);
@@ -352,11 +352,11 @@ QUnit.test("submit inner forms, violate required field in form 2", function (ass
     $form2OutputField = jQueryFrame($form2OutputField.selector);
     $outerFormInputField = jQueryFrame($outerFormInputField.selector);
     $outerFormOutputField = jQueryFrame($outerFormOutputField.selector);
-    return $form1InputField.val() == "Kate"
-    && $form1OutputField.text() == form1OutputFieldValue
-    && $form2InputField.val() == ""
-    && $form2OutputField.text() == form2OutputFieldValue
-    && $outerFormInputField.val() == "Leonard"
+    return $form1InputField.val() === "Kate"
+    && $form1OutputField.text() === form1OutputFieldValue
+    && $form2InputField.val() === ""
+    && $form2OutputField.text() === form2OutputFieldValue
+    && $outerFormInputField.val() === "Leonard"
     && $outerFormOutputField.text(), outerFormOutputFieldValue;
   }, function () {
     $form1InputField = jQueryFrame($form1InputField.selector);
@@ -406,12 +406,12 @@ QUnit.test("submit inner forms without violations", function (assert) {
     $form2OutputField = jQueryFrame($form2OutputField.selector);
     $outerFormInputField = jQueryFrame($outerFormInputField.selector);
     $outerFormOutputField = jQueryFrame($outerFormOutputField.selector);
-    return $form1InputField.val() == "Mike"
-        && $form1OutputField.text() == "Mike"
-        && $form2InputField.val() == "Neil"
-        && $form2OutputField.text() == "Neil"
-        && $outerFormInputField.val() == ""
-        && $outerFormOutputField.text() == outerFormOutputFieldValue;
+    return $form1InputField.val() === "Mike"
+        && $form1OutputField.text() === "Mike"
+        && $form2InputField.val() === "Neil"
+        && $form2OutputField.text() === "Neil"
+        && $outerFormInputField.val() === ""
+        && $outerFormOutputField.text() === outerFormOutputFieldValue;
   }, function () {
     $form1InputField = jQueryFrame($form1InputField.selector);
     $form1OutputField = jQueryFrame($form1OutputField.selector);
@@ -462,12 +462,12 @@ QUnit.test("submit outer value, violate required field", function (assert) {
     $form2OutputField = jQueryFrame($form2OutputField.selector);
     $outerFormInputField = jQueryFrame($outerFormInputField.selector);
     $outerFormOutputField = jQueryFrame($outerFormOutputField.selector);
-    return $form1InputField.val() == "Oscar"
-        && $form1OutputField.text() == form1OutputFieldValue
-        && $form2InputField.val() == "Penny"
-        && $form2OutputField.text() == form2OutputFieldValue
-        && $outerFormInputField.val() == ""
-        && $outerFormOutputField.text() == outerFormOutputFieldValue;
+    return $form1InputField.val() === "Oscar"
+        && $form1OutputField.text() === form1OutputFieldValue
+        && $form2InputField.val() === "Penny"
+        && $form2OutputField.text() === form2OutputFieldValue
+        && $outerFormInputField.val() === ""
+        && $outerFormOutputField.text() === outerFormOutputFieldValue;
   }, function () {
     $form1InputField = jQueryFrame($form1InputField.selector);
     $form1OutputField = jQueryFrame($form1OutputField.selector);
@@ -517,12 +517,12 @@ QUnit.test("submit outer value without violations", function (assert) {
     $form2OutputField = jQueryFrame($form2OutputField.selector);
     $outerFormInputField = jQueryFrame($outerFormInputField.selector);
     $outerFormOutputField = jQueryFrame($outerFormOutputField.selector);
-    return $form1InputField.val() == "Quin"
-        && $form1OutputField.text() == form1OutputFieldValue
-        && $form2InputField.val() == "Sue"
-        && $form2OutputField.text() == form2OutputFieldValue
-        && $outerFormInputField.val() == "Ted"
-        && $outerFormOutputField.text() == "Ted";
+    return $form1InputField.val() === "Quin"
+        && $form1OutputField.text() === form1OutputFieldValue
+        && $form2InputField.val() === "Sue"
+        && $form2OutputField.text() === form2OutputFieldValue
+        && $outerFormInputField.val() === "Ted"
+        && $outerFormOutputField.text() === "Ted";
   }, function () {
     $form1InputField = jQueryFrame($form1InputField.selector);
     $form1OutputField = jQueryFrame($form1OutputField.selector);

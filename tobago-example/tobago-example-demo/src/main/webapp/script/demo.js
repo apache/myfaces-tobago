@@ -43,7 +43,7 @@ var initInspect = function (elements) {
   var tobagoElements = Tobago.Utils.selectWithJQuery(elements, ".tobago-flexLayout");
 
   tobagoElements = tobagoElements.filter(function () {
-    return jQuery(this).parents("#page\\:content").length == 1;
+    return jQuery(this).parents("#page\\:content").length === 1;
   });
 
   tobagoElements.hover(function () {
@@ -60,7 +60,7 @@ var initInspect = function (elements) {
     var source = jQuery("#demo-view-source");
 
     var span = source.find("span.token.attr-value").filter(function () {
-      return jQuery(this).prev().text() + jQuery(this).text() == 'id=' + '"' + id + '"';
+      return jQuery(this).prev().text() + jQuery(this).text() === 'id=' + '"' + id + '"';
     });
     var tag = span.parent();
     tag.addClass("demo-selected");

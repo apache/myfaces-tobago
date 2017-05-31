@@ -28,7 +28,7 @@ QUnit.test("submit: Alice", function (assert) {
   $submit.click();
 
   jQuery("#page\\:testframe").load(function () {
-    if (step == 1) {
+    if (step === 1) {
       var $output = jQueryFrame("#page\\:mainForm\\:outputPerson span");
       assert.equal($output.text(), "Alice Anderson");
 
@@ -51,7 +51,7 @@ QUnit.test("submit: Bob", function (assert) {
   $submit.click();
 
   jQuery("#page\\:testframe").load(function () {
-    if (step == 1) {
+    if (step === 1) {
       var $output = jQueryFrame("#page\\:mainForm\\:outputPerson span");
       assert.equal($output.text(), "Bob Brunch");
 
@@ -73,8 +73,8 @@ QUnit.test("ajax: select Mars", function (assert) {
 
   waitForAjax(function () {
     $moons = jQueryFrame($moons.selector);
-    return $moons.eq(0).text() == "Phobos"
-        && $moons.eq(1).text() == "Deimos";
+    return $moons.eq(0).text() === "Phobos"
+        && $moons.eq(1).text() === "Deimos";
   }, function () {
     $moons = jQueryFrame($moons.selector);
     assert.equal($moons.eq(0).text(), "Phobos");
@@ -95,10 +95,10 @@ QUnit.test("ajax: select Jupiter", function (assert) {
 
   waitForAjax(function () {
     $moons = jQueryFrame($moons.selector);
-    return $moons.eq(0).text() == "Europa"
-        && $moons.eq(1).text() == "Ganymed"
-        && $moons.eq(2).text() == "Io"
-        && $moons.eq(3).text() == "Kallisto";
+    return $moons.eq(0).text() === "Europa"
+        && $moons.eq(1).text() === "Ganymed"
+        && $moons.eq(2).text() === "Io"
+        && $moons.eq(3).text() === "Kallisto";
   }, function () {
     $moons = jQueryFrame($moons.selector);
     assert.equal($moons.eq(0).text(), "Europa");
