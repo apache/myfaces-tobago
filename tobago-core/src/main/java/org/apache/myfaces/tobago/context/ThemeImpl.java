@@ -60,7 +60,7 @@ public class ThemeImpl implements Theme, Serializable {
 
   private void checkLocked() throws IllegalStateException {
     if (unmodifiable) {
-      throw new RuntimeException("The configuration must not be changed after initialization!");
+      throw new IllegalStateException("The configuration must not be changed after initialization!");
     }
   }
 
@@ -124,9 +124,11 @@ public class ThemeImpl implements Theme, Serializable {
     }
     fallbackList = Collections.unmodifiableList(fallbackList);
     if (LOG.isDebugEnabled()) {
+      LOG.debug("fallbackList: {");
       for (final Theme theme : fallbackList) {
-        LOG.debug("fallbackList: {}", theme.getName());
+        LOG.debug("  theme: {}", theme.getName());
       }
+      LOG.debug("}");
     }
   }
 
@@ -136,34 +138,30 @@ public class ThemeImpl implements Theme, Serializable {
       renderersConfig = new RenderersConfigImpl();
     }
     if (!renderersConfig.isMerged()) {
-      final ThemeImpl fallback = getFallback();
-      if (fallback != null) {
-        fallback.resolveRendererConfig(rendererConfigFromTobagoConfig);
-        final RenderersConfigImpl fallbackRenderersConfig = fallback.getRenderersConfigImpl();
+      final ThemeImpl fallbackTheme = getFallback();
+      if (fallbackTheme != null) {
+        fallbackTheme.resolveRendererConfig(rendererConfigFromTobagoConfig);
+        final RenderersConfigImpl fallbackRenderersConfig = fallbackTheme.getRenderersConfigImpl();
         if (fallbackRenderersConfig != null) {
           renderersConfig.merge(fallbackRenderersConfig, false);
-          if (LOG.isDebugEnabled()) {
-            LOG.debug("merge markupconfig from {} for {}", fallback.getName(), getName());
-          }
+          LOG.debug("merge markupconfig from {} for {}", fallbackTheme.getName(), getName());
         }
       }
       if (rendererConfigFromTobagoConfig != null) {
         renderersConfig.merge(rendererConfigFromTobagoConfig, true);
       }
       renderersConfig.setMerged(true);
-      if (LOG.isDebugEnabled()) {
-        LOG.debug("{} {}", getName(), renderersConfig);
-      }
+      LOG.debug("{} {}", getName(), renderersConfig);
     }
   }
 
   public void resolveResources() {
     checkLocked();
-    final ThemeImpl fallback = getFallback();
-    if (fallback != null) {
-      fallback.resolveResources();
-      addResources(fallback.getProductionResources());
-      addResources(fallback.getResources());
+    final ThemeImpl fallbackTheme = getFallback();
+    if (fallbackTheme != null) {
+      fallbackTheme.resolveResources();
+      addResources(fallbackTheme.getProductionResources());
+      addResources(fallbackTheme.getResources());
     }
   }
 
