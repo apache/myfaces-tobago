@@ -301,10 +301,10 @@ public class FacesConfigGenerator extends AbstractGenerator {
 
   private org.jdom2.Element getFirstElementByName(final org.jdom2.Element rootElement, final String tagName) {
     final List<org.jdom2.Element> elements = rootElement.getChildren(tagName, rootElement.getNamespace());
-    if (elements.size() > 0) {
-      return elements.get(0);
-    } else {
+    if (elements.isEmpty()) {
       return null;
+    } else {
+      return elements.get(0);
     }
   }
 
@@ -320,10 +320,11 @@ public class FacesConfigGenerator extends AbstractGenerator {
 
   private int getIndexAfter(final org.jdom2.Element rootElement, final String tagName) {
     final List<org.jdom2.Element> components = rootElement.getChildren(tagName, rootElement.getNamespace());
-    if (!components.isEmpty()) {
+    if (components.isEmpty()) {
+      return 0;
+    } else {
       return rootElement.indexOf(components.get(components.size() - 1)) + 1;
     }
-    return 0;
   }
 
   public boolean equals(final org.jdom2.Element element1, final org.jdom2.Element element2) {
