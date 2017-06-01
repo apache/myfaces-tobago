@@ -45,6 +45,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.component.UIPanel;
 import javax.faces.context.FacesContext;
 import javax.faces.validator.LengthValidator;
+import javax.faces.validator.RegexValidator;
 import javax.faces.validator.Validator;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -107,22 +108,26 @@ public class InRenderer extends MessageLayoutRendererBase {
       writer.writeAttribute(HtmlAttributes.TITLE, title, true);
     }
     int maxLength = 0;
-    final String pattern = null;
+    int minLength = 0;
+    String pattern = null;
     for (final Validator validator : input.getValidators()) {
       if (validator instanceof LengthValidator) {
         final LengthValidator lengthValidator = (LengthValidator) validator;
         maxLength = lengthValidator.getMaximum();
-      }
-        /*if (validator instanceof RegexValidator) {
+        minLength = lengthValidator.getMinimum();
+      } else if (validator instanceof RegexValidator) {
           RegexValidator regexValidator = (RegexValidator) validator;
           pattern = regexValidator.getPattern();
-        }*/
+      }
     }
     if (maxLength > 0) {
       writer.writeAttribute(HtmlAttributes.MAXLENGTH, maxLength);
     }
+    if (minLength > 0) {
+      writer.writeAttribute(HtmlAttributes.MINLENGTH, minLength);
+    }
     if (pattern != null) {
-      writer.writeAttribute(HtmlAttributes.PATTERN, pattern, false);
+      writer.writeAttribute(HtmlAttributes.PATTERN, pattern, true);
     }
     writer.writeAttribute(HtmlAttributes.READONLY, readonly);
     writer.writeAttribute(HtmlAttributes.DISABLED, disabled);
