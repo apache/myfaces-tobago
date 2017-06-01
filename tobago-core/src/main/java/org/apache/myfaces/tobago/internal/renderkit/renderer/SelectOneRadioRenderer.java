@@ -19,7 +19,7 @@
 
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
-import org.apache.myfaces.tobago.component.UISelectOneRadio;
+import org.apache.myfaces.tobago.internal.component.AbstractUISelectOneRadio;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.internal.util.JsonUtils;
 import org.apache.myfaces.tobago.internal.util.ObjectUtils;
@@ -46,7 +46,7 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
 
   @Override
   protected void encodeBeginField(FacesContext facesContext, UIComponent component) throws IOException {
-    final UISelectOneRadio select = (UISelectOneRadio) component;
+    final AbstractUISelectOneRadio select = (AbstractUISelectOneRadio) component;
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
     final String id = select.getClientId(facesContext);
@@ -58,7 +58,9 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
     final boolean inline = select.isInline();
 
     writer.startElement(HtmlElements.DIV);
-    writer.writeIdAttribute(id);
+    if (select.isLabelLayoutSkip()) {
+      writer.writeIdAttribute(id);
+    }
     writer.writeStyleAttribute(select.getStyle());
 
     // TODO: optimize class attribute writing
@@ -151,7 +153,7 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
     return true;
   }
 
-  protected void addCssItems(final FacesContext facesContext, final UISelectOneRadio select,
+  protected void addCssItems(final FacesContext facesContext, final AbstractUISelectOneRadio select,
                              final List<CssItem> collected) {
   }
 }

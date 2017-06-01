@@ -52,7 +52,7 @@ public abstract class AbstractUIInput extends javax.faces.component.UIInput
     final UIComponent before = getFacet(Facets.before.name());
     final UIComponent after = getFacet(Facets.after.name());
 
-    if (getLabelLayout() == LabelLayout.skip && before == null && after==null) {
+    if (getLabelLayout() == LabelLayout.skip && before == null && after == null && !(this instanceof AbstractUIDate)) {
       return getClientId(facesContext);
     } else {
       return getClientId(facesContext) + ComponentUtils.SUB_SEPARATOR + "field";

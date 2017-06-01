@@ -19,7 +19,7 @@
 
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
-import org.apache.myfaces.tobago.component.UISelectManyCheckbox;
+import org.apache.myfaces.tobago.internal.component.AbstractUISelectManyCheckbox;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.internal.util.JsonUtils;
 import org.apache.myfaces.tobago.internal.util.RenderUtils;
@@ -45,7 +45,7 @@ public class SelectManyCheckboxRenderer extends SelectManyRendererBase {
 
   @Override
   public void encodeBeginField(final FacesContext facesContext, final UIComponent component) throws IOException {
-    final UISelectManyCheckbox select = (UISelectManyCheckbox) component;
+    final AbstractUISelectManyCheckbox select = (AbstractUISelectManyCheckbox) component;
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
     final String id = select.getClientId(facesContext);
@@ -56,7 +56,9 @@ public class SelectManyCheckboxRenderer extends SelectManyRendererBase {
     final boolean inline = select.isInline();
 
     writer.startElement(HtmlElements.DIV);
-    writer.writeIdAttribute(id);
+    if (select.isLabelLayoutSkip()) {
+      writer.writeIdAttribute(id);
+    }
     writer.writeStyleAttribute(select.getStyle());
 
     // TODO: optimize class attribute writing
@@ -138,7 +140,7 @@ public class SelectManyCheckboxRenderer extends SelectManyRendererBase {
     return true;
   }
 
-  protected void addCssItems(final FacesContext facesContext, final UISelectManyCheckbox select,
+  protected void addCssItems(final FacesContext facesContext, final AbstractUISelectManyCheckbox select,
                              final List<CssItem> collected) {
   }
 }

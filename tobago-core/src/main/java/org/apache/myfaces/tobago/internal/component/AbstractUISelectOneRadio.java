@@ -19,8 +19,22 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
+import org.apache.myfaces.tobago.component.LabelLayout;
+
 /**
  * {@link org.apache.myfaces.tobago.internal.taglib.component.SelectOneRadioTagDeclaration}
  */
 public abstract class AbstractUISelectOneRadio extends AbstractUISelectOneBase {
+
+  public abstract boolean isDisabled();
+
+  public abstract boolean isFocus();
+
+  public abstract boolean isInline();
+
+  public abstract Integer getTabIndex();
+
+  public boolean isLabelLayoutSkip() {
+    return getLabelLayout() == LabelLayout.skip;
+  }
 }

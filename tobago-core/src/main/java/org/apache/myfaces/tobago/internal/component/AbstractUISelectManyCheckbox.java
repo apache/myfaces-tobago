@@ -19,8 +19,24 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
+import org.apache.myfaces.tobago.component.LabelLayout;
+
 /**
  * {@link org.apache.myfaces.tobago.internal.taglib.component.SelectManyCheckboxTagDeclaration}
  */
 public abstract class AbstractUISelectManyCheckbox extends AbstractUISelectManyBase {
+
+  public abstract boolean isDisabled();
+
+  public abstract boolean isFocus();
+
+  public abstract boolean isInline();
+
+  public abstract boolean isReadonly();
+
+  public abstract Integer getTabIndex();
+
+  public boolean isLabelLayoutSkip() {
+    return getLabelLayout() == LabelLayout.skip;
+  }
 }

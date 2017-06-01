@@ -19,7 +19,7 @@
 
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
-import org.apache.myfaces.tobago.component.UISelectManyCheckbox;
+import org.apache.myfaces.tobago.internal.component.AbstractUISelectManyCheckbox;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.CssItem;
 
@@ -46,7 +46,7 @@ public class SelectManyCheckboxInsideCommandRenderer extends SelectManyCheckboxR
   }
 
   @Override
-  protected void addCssItems(final FacesContext facesContext, final UISelectManyCheckbox select,
+  protected void addCssItems(final FacesContext facesContext, final AbstractUISelectManyCheckbox select,
                              final List<CssItem> collected) {
     collected.add(BootstrapClass.DROPDOWN_ITEM);
   }

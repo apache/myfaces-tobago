@@ -105,7 +105,10 @@ public class QUnitTests {
     Assert.assertTrue("There must be at least one test case.", testCases.size() > 0);
 
     final String textContent = qunitTests.getAttribute("textContent");
-    boolean testFailed = timeout || (textContent != null && textContent.contains(" msfailed@ "));
+
+    boolean testFailed = timeout || (textContent != null
+        && textContent.contains(" msfailed@ ") || textContent.contains("Expected:") || textContent.contains("Result:"));
+
     int testCaseCount = 1;
     StringBuilder stringBuilder = new StringBuilder();
     stringBuilder.append(qunitTestresult.getAttribute("textContent"));

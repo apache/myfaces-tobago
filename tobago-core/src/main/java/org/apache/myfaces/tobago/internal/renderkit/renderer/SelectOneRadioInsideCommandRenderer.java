@@ -19,7 +19,7 @@
 
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
-import org.apache.myfaces.tobago.component.UISelectOneRadio;
+import org.apache.myfaces.tobago.internal.component.AbstractUISelectOneRadio;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.CssItem;
 
@@ -46,7 +46,7 @@ public class SelectOneRadioInsideCommandRenderer extends SelectOneRadioRenderer 
   }
 
   @Override
-  protected void addCssItems(final FacesContext facesContext, final UISelectOneRadio select,
+  protected void addCssItems(final FacesContext facesContext, final AbstractUISelectOneRadio select,
                              final List<CssItem> collected) {
     collected.add(BootstrapClass.DROPDOWN_ITEM);
   }
