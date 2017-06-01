@@ -24,8 +24,5 @@ package org.apache.myfaces.tobago.internal.component;
  */
 public abstract class AbstractUITextarea extends AbstractUIInput {
 
-  @Override
-  public String getPlaceholder() {
-    return null;
-  }
+
 }

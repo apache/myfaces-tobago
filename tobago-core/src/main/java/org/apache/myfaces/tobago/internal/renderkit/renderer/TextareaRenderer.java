@@ -25,6 +25,7 @@ import org.apache.myfaces.tobago.internal.util.AccessKeyLogger;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.internal.util.JsonUtils;
 import org.apache.myfaces.tobago.internal.util.RenderUtils;
+import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.CssItem;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
@@ -64,6 +65,8 @@ public class TextareaRenderer extends MessageLayoutRendererBase {
     final String fieldId = input.getFieldId(facesContext);
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
     final Integer rows = input.getRows();
+    final boolean readonly = input.isReadonly();
+    final boolean disabled = input.isDisabled();
 
     writer.startElement(HtmlElements.TEXTAREA);
     writer.writeNameAttribute(clientId);
@@ -71,8 +74,8 @@ public class TextareaRenderer extends MessageLayoutRendererBase {
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, input);
     writer.writeAttribute(HtmlAttributes.ROWS, rows);
     writer.writeAttribute(HtmlAttributes.TITLE, title, true);
-    writer.writeAttribute(HtmlAttributes.READONLY, input.isReadonly());
-    writer.writeAttribute(HtmlAttributes.DISABLED, input.isDisabled());
+    writer.writeAttribute(HtmlAttributes.READONLY, readonly);
+    writer.writeAttribute(HtmlAttributes.DISABLED, disabled);
     writer.writeAttribute(HtmlAttributes.REQUIRED, input.isRequired());
     writer.writeAttribute(HtmlAttributes.TABINDEX, input.getTabIndex());
 
@@ -117,10 +120,10 @@ public class TextareaRenderer extends MessageLayoutRendererBase {
 
     HtmlRendererUtils.renderFocus(clientId, input.isFocus(), ComponentUtils.isError(input), facesContext, writer);
 
-    /*String placeholder = input.getPlaceholder();
-    if (placeholder != null) {
+    String placeholder = input.getPlaceholder();
+    if (!disabled && !readonly && StringUtils.isNotBlank(placeholder)) {
       writer.writeAttribute(HtmlAttributes.PLACEHOLDER, placeholder, true);
-    }*/
+    }
     String currentValue = RenderUtils.currentValue(input);
     if (currentValue != null) {
       if (ComponentUtils.getDataAttribute(input, "html-editor") != null
