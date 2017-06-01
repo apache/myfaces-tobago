@@ -34,12 +34,12 @@ public class DeltaSpikeClientWindowConfig extends DefaultClientWindowConfig {
         path = facesContext.getExternalContext().getRequestServletPath();
     }
 
-    ClientWindowRenderMode mode;
+    final ClientWindowRenderMode mode;
 
     if (path.startsWith("/error/")) {
         mode = ClientWindowRenderMode.NONE;
     } else {
-        mode = ClientWindowRenderMode.CLIENTWINDOW;
+        mode = super.getClientWindowRenderMode(facesContext);
     }
 
     return mode;
