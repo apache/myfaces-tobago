@@ -27,7 +27,7 @@ function jQueryFrame(expression) {
  */
 function waitForAjax(waitingDone, executeWhenDone, maxWait) {
   var startTime = new Date().getTime();
-  maxWait = maxWait !== null ? maxWait : 20000;
+  maxWait = maxWait ? maxWait : 20000;
   var stillWaiting = true;
   var interval = setInterval(function() {
     if (new Date().getTime() - startTime < maxWait && stillWaiting) {

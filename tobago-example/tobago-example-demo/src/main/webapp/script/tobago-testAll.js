@@ -51,11 +51,9 @@ function waitForTest(waitingDone, executeWhenDone) {
 }
 
 function runNextFrame($nextFrame) {
-  if ($nextFrame.length > 0) {
-    var url = $nextFrame.attr("name");
-    if (url !== undefined) {
-      $nextFrame.removeAttr("name");
-      $nextFrame.attr("src", url);
-    }
+  var url = $nextFrame.attr("name");
+  if (url) {
+    $nextFrame.removeAttr("name");
+    $nextFrame.attr("src", url);
   }
 }
