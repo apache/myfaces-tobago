@@ -28,6 +28,8 @@ import javax.faces.context.ExceptionHandlerWrapper;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ExceptionQueuedEvent;
 import javax.faces.event.ExceptionQueuedEventContext;
+import javax.servlet.http.HttpServletResponse;
+import java.io.FileNotFoundException;
 import java.util.Iterator;
 
 public class TestExceptionHandler extends ExceptionHandlerWrapper {
@@ -63,6 +65,17 @@ public class TestExceptionHandler extends ExceptionHandlerWrapper {
            * actually the viewID should be enough, but if you do so, the FacesMessage won't be shown.
            */
           nav.handleNavigation(facesContext, null, "/faces" + ((ViewExpiredException) cause).getViewId());
+          facesContext.renderResponse();
+        } finally {
+          iterator.remove();
+        }
+      } else if (cause instanceof FileNotFoundException
+              || cause != null && cause.getCause() instanceof FileNotFoundException) {
+        try {
+          final FacesContext facesContext = FacesContext.getCurrentInstance();
+          final NavigationHandler nav = facesContext.getApplication().getNavigationHandler();
+          nav.handleNavigation(facesContext, null, "/faces/error/404.xhtml");
+          facesContext.getExternalContext().setResponseStatus(HttpServletResponse.SC_NOT_FOUND);
           facesContext.renderResponse();
         } finally {
           iterator.remove();

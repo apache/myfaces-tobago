@@ -132,7 +132,10 @@
     <url-pattern>/faces/*</url-pattern>
   </servlet-mapping>
 
-  <!-- Error Page -->
+  <!-- Error handling, see also these classes:
+       org.apache.myfaces.tobago.example.demo.TestExceptionHandler
+       org.apache.myfaces.tobago.example.demo.DeltaSpikeClientWindowConfig
+   -->
 
   <error-page>
     <error-code>404</error-code>
@@ -142,12 +145,6 @@
   <error-page>
     <error-code>500</error-code>
     <location>/faces/error/exception.xhtml</location>
-  </error-page>
-
-
-  <error-page>
-    <exception-type>java.io.FileNotFoundException</exception-type>
-    <location>/faces/error/404.xhtml</location>
   </error-page>
 
   <error-page>
