@@ -39,14 +39,27 @@
     <tc:section label="Tag Library">
       <tc:section label="&lt;tc:bar&gt;">
         <p>
-          The content of <code>&lt;tc:bar&gt;</code> needs to be checked.
+          The content of <code class="language-markup">&lt;tc:bar&gt;</code> needs to be checked.
           The layout inside of the bar has been changed by CSS.
         </p>
-
-        <p>
-          Example: TODO (look the change in the Tobago demo header bar)
-          <!-- todo -->
-        </p>
+        <p>There is a new after-facet for right sided content. Old code which uses
+          <code class="language-markup">&lt;tc:flowLayout align=right></code> probably doesn't work correctly.</p>
+        <p>Replace the following code...</p>
+        <pre><code class="language-markup">&lt;tc:bar>
+  &lt;tc:flowLayout textAlign="right">
+    // right sided content
+  &lt;/tc:flowLayout>
+&lt;/tc:bar></code></pre>
+        <p>... with this:</p>
+        <pre><code class="language-markup">&lt;tc:bar>
+  &lt;f:facet name="after">
+    &lt;tc:flexLayout columns="*;auto">
+      // right sided content
+    &lt;/tc:flexLayout>
+  &lt;/f:facet>
+&lt;/tc:bar></code></pre>
+        <p>For more information have a look at
+          <tc:link label="tc:bar" link="/faces/content/20-component/050-container/60-bar/bar.xhtml"/></p>
       </tc:section>
     </tc:section>
 
