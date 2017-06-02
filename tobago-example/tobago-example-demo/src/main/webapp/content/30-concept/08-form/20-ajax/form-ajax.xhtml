@@ -77,7 +77,7 @@
             <tc:in id="in1" label="Inner Value 1" value="#{formAjaxController.innerValue1}"/>
             <tc:out id="out1" label="Inner Value 1 in Model" value="#{formAjaxController.innerValue1}"/>
             <tc:button id="submit1" label="Submit">
-              <f:ajax execute="in" render="out :page:messages"/>
+              <f:ajax execute="in1" render="out1 :page:messages"/>
             </tc:button>
           </tc:form>
         </tc:box>
@@ -87,7 +87,7 @@
                    value="#{formAjaxController.innerValue2}"/>
             <tc:out id="out2" label="Inner Value 2 in Model" value="#{formAjaxController.innerValue2}"/>
             <tc:button id="submit2" label="Submit">
-              <f:ajax execute="in" render="out :page:messages"/>
+              <f:ajax execute="in2" render="out2 :page:messages"/>
             </tc:button>
           </tc:form>
         </tc:box>
@@ -95,16 +95,16 @@
         <tc:in id="in" label="Outer Value" required="true" value="#{formAjaxController.outerValue}"/>
         <tc:out id="out" label="Outer Value in Model" value="#{formAjaxController.outerValue}"/>
         <tc:button id="submit" label="Submit">
-          <f:ajax execute="::form1:in ::form2:in in"
-                  render="::form1:out ::form2:out out :page:messages"/>
+          <f:ajax execute="::form1:in1 ::form2:in2 in"
+                  render="::form1:out1 ::form2:out2 out :page:messages"/>
         </tc:button>
 
         <tc:separator/>
         Submit only:
         <tc:buttons>
           <tc:button id="submitInnerForms" label="Inner Forms">
-            <f:ajax execute="::form1:in ::form2:in"
-                    render="::form1:out ::form2:out :page:messages"/>
+            <f:ajax execute="::form1:in1 ::form2:in2"
+                    render="::form1:out1 ::form2:out2 :page:messages"/>
           </tc:button>
           <tc:button id="submitOuterValue" label="Outer Value">
             <f:ajax execute="in" render="out :page:messages"/>
