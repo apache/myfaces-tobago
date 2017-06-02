@@ -168,7 +168,8 @@ Tobago.registerListener(Tobago.File.init, Tobago.Phase.AFTER_UPDATE);
       this.fileDropArea.css({display: 'none'});
       this.fileDropArea.outerWidth(dropElement.outerWidth());
       this.fileDropArea.outerHeight(dropElement.outerHeight());
-      this.fileDropArea.offset(dropElement.offset());
+      this.fileDropArea.css(dropElement.offset());
+      this.fileDropArea.css({position: 'relative'});
       this.fileDropArea.data("widget-element", this.element);
 
       jQuery(".tobago-page-menuStore").append(this.fileDropArea);
