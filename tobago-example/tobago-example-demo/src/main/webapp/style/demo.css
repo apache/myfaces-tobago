@@ -15,6 +15,10 @@
  * limitations under the License.
  */
 
+.background-lightgrey {
+  background-color: #f7f7f9;
+}
+
 .demo-selected {
   background-color: #ffddff;
 }

@@ -21,8 +21,8 @@ QUnit.test("Required: Submit without content.", function (assert) {
   var step = 1;
 
   var $messages = jQueryFrame("#page\\:messages.tobago-messages div");
-  var $in = jQueryFrame("#page\\:mainForm\\:required\\:in\\:\\:field");
-  var $submit = jQueryFrame("#page\\:mainForm\\:required\\:submit");
+  var $in = jQueryFrame("#page\\:mainForm\\:required\\:in1\\:\\:field");
+  var $submit = jQueryFrame("#page\\:mainForm\\:required\\:submit1");
 
   $in.val("");
   $submit.click();
@@ -44,8 +44,8 @@ QUnit.test("Required: Submit with content.", function (assert) {
   var step = 1;
 
   var $messages = jQueryFrame("#page\\:messages.tobago-messages div");
-  var $in = jQueryFrame("#page\\:mainForm\\:required\\:in\\:\\:field");
-  var $submit = jQueryFrame("#page\\:mainForm\\:required\\:submit");
+  var $in = jQueryFrame("#page\\:mainForm\\:required\\:in1\\:\\:field");
+  var $submit = jQueryFrame("#page\\:mainForm\\:required\\:submit1");
 
   $in.val("some content");
   $submit.click();
@@ -67,8 +67,8 @@ QUnit.test("Length: Submit single character.", function (assert) {
   var step = 1;
 
   var $messages = jQueryFrame("#page\\:messages.tobago-messages div");
-  var $in = jQueryFrame("#page\\:mainForm\\:length\\:in\\:\\:field");
-  var $submit = jQueryFrame("#page\\:mainForm\\:length\\:submit");
+  var $in = jQueryFrame("#page\\:mainForm\\:length\\:in2\\:\\:field");
+  var $submit = jQueryFrame("#page\\:mainForm\\:length\\:submit2");
 
   $in.val("a");
   $submit.click();
@@ -90,8 +90,8 @@ QUnit.test("Length: Submit three characters.", function (assert) {
   var step = 1;
 
   var $messages = jQueryFrame("#page\\:messages.tobago-messages div");
-  var $in = jQueryFrame("#page\\:mainForm\\:length\\:in\\:\\:field");
-  var $submit = jQueryFrame("#page\\:mainForm\\:length\\:submit");
+  var $in = jQueryFrame("#page\\:mainForm\\:length\\:in2\\:\\:field");
+  var $submit = jQueryFrame("#page\\:mainForm\\:length\\:submit2");
 
   $in.val("abc");
   $submit.click();
@@ -113,8 +113,8 @@ QUnit.test("Length: Submit five characters.", function (assert) {
   var step = 1;
 
   var $messages = jQueryFrame("#page\\:messages.tobago-messages div");
-  var $in = jQueryFrame("#page\\:mainForm\\:length\\:in\\:\\:field");
-  var $submit = jQueryFrame("#page\\:mainForm\\:length\\:submit");
+  var $in = jQueryFrame("#page\\:mainForm\\:length\\:in2\\:\\:field");
+  var $submit = jQueryFrame("#page\\:mainForm\\:length\\:submit2");
 
   $in.val("abcde");
   $submit.click();

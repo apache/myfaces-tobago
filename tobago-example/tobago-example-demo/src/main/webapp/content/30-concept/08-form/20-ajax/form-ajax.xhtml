@@ -74,19 +74,19 @@
       <tc:form id="outerForm">
         <tc:box label="Inner Form 1">
           <tc:form id="form1">
-            <tc:in id="in" label="Inner Value 1" value="#{formAjaxController.innerValue1}"/>
-            <tc:out id="out" label="Inner Value 1 in Model" value="#{formAjaxController.innerValue1}"/>
-            <tc:button id="submit" label="Submit">
+            <tc:in id="in1" label="Inner Value 1" value="#{formAjaxController.innerValue1}"/>
+            <tc:out id="out1" label="Inner Value 1 in Model" value="#{formAjaxController.innerValue1}"/>
+            <tc:button id="submit1" label="Submit">
               <f:ajax execute="in" render="out :page:messages"/>
             </tc:button>
           </tc:form>
         </tc:box>
         <tc:box label="Inner Form 2">
           <tc:form id="form2">
-            <tc:in id="in" label="Inner Value 2" required="true"
+            <tc:in id="in2" label="Inner Value 2" required="true"
                    value="#{formAjaxController.innerValue2}"/>
-            <tc:out id="out" label="Inner Value 2 in Model" value="#{formAjaxController.innerValue2}"/>
-            <tc:button id="submit" label="Submit">
+            <tc:out id="out2" label="Inner Value 2 in Model" value="#{formAjaxController.innerValue2}"/>
+            <tc:button id="submit2" label="Submit">
               <f:ajax execute="in" render="out :page:messages"/>
             </tc:button>
           </tc:form>

@@ -32,8 +32,8 @@
     <pre><code class="language-java">@NotNull
 private String required;</code></pre>
     <tc:form id="required">
-      <tc:in id="in" label="Input (required)" value="#{validationJsr303Controller.required}"/>
-      <tc:button id="submit" label="Submit"/>
+      <tc:in id="in1" label="Input (required)" value="#{validationJsr303Controller.required}"/>
+      <tc:button id="submit1" label="Submit"/>
     </tc:form>
   </tc:section>
 
@@ -44,8 +44,8 @@ private String required;</code></pre>
     <pre><code class="language-java">@Size(min = 2, max = 4, message = "Length must be between 2 and 4")
 private String length;</code></pre>
     <tc:form id="length">
-      <tc:in id="in" label="2 to 4 Character" value="#{validationJsr303Controller.length}"/>
-      <tc:button id="submit" label="Submit"/>
+      <tc:in id="in2" label="2 to 4 Character" value="#{validationJsr303Controller.length}"/>
+      <tc:button id="submit2" label="Submit"/>
     </tc:form>
   </tc:section>
 </ui:composition>

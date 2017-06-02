@@ -41,10 +41,10 @@
         <tc:in id="inName" label="Name" value="#{forEachController.name}" required="true"/>
         <tc:in id="inLength" label="Length (km)" value="#{forEachController.length}" required="true" markup="number"/>
         <tc:in id="inDischarge" label="Discharge (m³/s)" value="#{forEachController.discharge}" required="true"/>
-        <tc:button id="button" label="Add" action="#{forEachController.addNewRiver}" defaultCommand="true"/>
+        <tc:button id="buttonAdd" label="Add" action="#{forEachController.addNewRiver}" defaultCommand="true"/>
       </tc:form>
       <tc:form id="reset">
-        <tc:button id="button" label="Reset" action="#{forEachController.reset}"/>
+        <tc:button id="buttonReset" label="Reset" action="#{forEachController.reset}"/>
       </tc:form>
     </tc:section>
 

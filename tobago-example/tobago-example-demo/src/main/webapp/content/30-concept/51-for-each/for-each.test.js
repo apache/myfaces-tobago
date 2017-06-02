@@ -23,8 +23,8 @@ QUnit.test("Add a river and reset.", function (assert) {
   var $name = jQueryFrame("#page\\:mainForm\\:add\\:inName\\:\\:field");
   var $length = jQueryFrame("#page\\:mainForm\\:add\\:inLength\\:\\:field");
   var $discharge = jQueryFrame("#page\\:mainForm\\:add\\:inDischarge\\:\\:field");
-  var $add = jQueryFrame("#page\\:mainForm\\:add\\:button");
-  var $reset = jQueryFrame("#page\\:mainForm\\:reset\\:button");
+  var $add = jQueryFrame("#page\\:mainForm\\:add\\:buttonAdd");
+  var $reset = jQueryFrame("#page\\:mainForm\\:reset\\:buttonReset");
   var $forEachBoxes = jQueryFrame("#page\\:mainForm\\:forEach .tobago-box");
   var $uiRepeatSections = jQueryFrame("#page\\:mainForm\\:uiRepeat .tobago-section");
 
