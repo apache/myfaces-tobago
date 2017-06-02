@@ -40,6 +40,17 @@ import org.apache.myfaces.tobago.layout.TextAlign;
 public interface StyleTagDeclaration extends HasIdBindingAndRendered {
 
   /**
+   * Flag indicating whether or not this component should be rendered
+   * (during Render Response Phase), or processed on any subsequent form submit.
+   */
+  @Deprecated
+  @TagAttribute
+  @UIComponentTagAttribute(
+      type = "boolean",
+      defaultValue = "true")
+  void setRendered(String rendered);
+
+  /**
    * Name of the stylesheet file to add to page. The name must be full qualified, or relative.
    * If using a complete path from root, you'll need to add the contextPath from the web application.
    * This can be done with the EL #{request.contextPath}.

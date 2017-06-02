@@ -21,6 +21,7 @@ package org.apache.myfaces.tobago.facelets;
 
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Visual;
+import org.apache.myfaces.tobago.internal.util.Deprecation;
 import org.apache.myfaces.tobago.internal.util.FacesContextUtils;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.layout.Display;
@@ -106,7 +107,13 @@ public final class StyleHandler extends TagHandler {
   @Override
   public void apply(final FaceletContext faceletContext, final UIComponent parent) throws ELException {
 
-    if (ComponentHandler.isNew(parent)) {
+    boolean renderedSet = getAttribute(Attributes.rendered.getName()) != null;
+    if (renderedSet) {
+      Deprecation.LOG.warn("Attribute 'rendered' is deprecated for tc:style.");
+    }
+    boolean rendered = !renderedSet || getAttribute(Attributes.rendered.getName()).getBoolean(faceletContext);
+
+    if (ComponentHandler.isNew(parent) && rendered) {
 
       // file
       if (file != null) {
