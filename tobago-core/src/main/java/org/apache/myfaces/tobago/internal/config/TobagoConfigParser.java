@@ -436,7 +436,7 @@ public class TobagoConfigParser extends TobagoConfigEntityResolver {
     final SchemaFactory schemaFactory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
     final Schema schema;
     if ("3.1".equals(version.getVersion())) {
-      schema = schemaFactory.newSchema(getClass().getResource(TOBAGO_CONFIG_XSD_3_1));
+      schema = schemaFactory.newSchema(getClass().getResource(TOBAGO_CONFIG_XSD_4_0));
     } else if ("3.0".equals(version.getVersion())) {
       schema = schemaFactory.newSchema(getClass().getResource(TOBAGO_CONFIG_XSD_3_0));
     } else if ("2.0.6".equals(version.getVersion())) {

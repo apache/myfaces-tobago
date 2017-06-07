@@ -39,7 +39,7 @@ public class TobagoConfigParserUnitTest {
   @Test
   public void testParser() throws Exception {
     generalTest("tobago-config-2.0.xml");
-    generalTest("tobago-config-3.1.xml");
+    generalTest("tobago-config-4.0.xml");
   }
 
   @Test

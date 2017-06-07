@@ -6,7 +6,7 @@
     xmlns:xs="http://www.w3.org/2001/XMLSchema"
     elementFormDefault="qualified"
     attributeFormDefault="unqualified"
-    version="3.1">
+    version="4.0">
 
   <xs:annotation>
     <xs:documentation>
@@ -36,19 +36,19 @@
       ************************************************************************************
       WARNING
       THIS IS A PRE-RELEASE VERSION OF THIS FILE, PLEASE CHECK IF THERE IS AN UPDATE ON
-      http://myfaces.apache.org/tobago/tobago-config-3.1.xsd
+      http://myfaces.apache.org/tobago/tobago-config-4.0.xsd
       ************************************************************************************
       ************************************************************************************
 
-      This is the XML schema for the Tobago configuration files version 3.1.
+      This is the XML schema for the Tobago configuration files version 4.0.
 
       Use the following definition:
 
       <tobago-config
           xmlns="http://myfaces.apache.org/tobago/tobago-config"
           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-          xsi:schemaLocation="http://myfaces.apache.org/tobago/tobago-config http://myfaces.apache.org/tobago/tobago-config-3.1.xsd"
-          version="3.1">
+          xsi:schemaLocation="http://myfaces.apache.org/tobago/tobago-config http://myfaces.apache.org/tobago/tobago-config-4.0.xsd"
+          version="4.0">
         ...
       </tobago-config>
       ]]>
@@ -80,7 +80,7 @@
 
   <xs:simpleType name="tobago-config-version-type">
     <xs:restriction base="xs:token">
-      <xs:enumeration value="3.1"/>
+      <xs:enumeration value="4.0"/>
     </xs:restriction>
   </xs:simpleType>
 
