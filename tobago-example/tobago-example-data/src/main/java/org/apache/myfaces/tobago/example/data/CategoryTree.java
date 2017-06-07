@@ -25,6 +25,9 @@ import javax.swing.tree.DefaultMutableTreeNode;
 
 public class CategoryTree {
 
+  private CategoryTree() {
+  }
+
   public static DefaultMutableTreeNode createSample() {
     final DefaultMutableTreeNode tree = createNode("Root Node", "root");
     tree.insert(createNode("Sports", "sports"), 0);

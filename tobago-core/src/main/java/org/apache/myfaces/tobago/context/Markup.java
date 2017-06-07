@@ -322,8 +322,8 @@ public final class Markup implements Serializable, Iterable<String> {
     if (value != null) {
       return value.equals(markup);
     }
-    for (final String value : values) {
-      if (value.equals(markup)) {
+    for (final String v : values) {
+      if (v.equals(markup)) {
         return true;
       }
     }
@@ -341,8 +341,8 @@ public final class Markup implements Serializable, Iterable<String> {
       if (value != null) {
         return value.equals(markup.value);
       } else {
-        for (final String value : values) {
-          if (value.equals(markup.value)) {
+        for (final String v : values) {
+          if (v.equals(markup.value)) {
             return true;
           }
         }

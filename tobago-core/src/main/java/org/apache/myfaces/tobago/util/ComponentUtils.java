@@ -610,10 +610,10 @@ public final class ComponentUtils {
     UIComponent from1 = from;
     String relativeId1 = relativeId;
     final int idLength = relativeId1.length();
-    if (idLength > 0 && relativeId1.charAt(0) == '@') {
-      if (relativeId1.equals("@this")) {
-        return from1;
-      }
+    if (idLength > 0
+        && relativeId1.charAt(0) == '@'
+        && "@this".equals(relativeId1)) {
+      return from1;
     }
 
     // Figure out how many colons
@@ -680,8 +680,8 @@ public final class ComponentUtils {
       }
       return clientId;
     }
-    LOG.error("No component found for id='" + componentId + "', "
-        + "search base component is '" + component.getClientId(context) + "'");
+    LOG.error("No component found for id='{}', search base component is '{}'",
+        component != null ? component.getClientId(context) : "<null>");
     return null;
   }
 

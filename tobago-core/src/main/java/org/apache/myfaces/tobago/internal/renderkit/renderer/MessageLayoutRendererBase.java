@@ -54,7 +54,7 @@ public abstract class MessageLayoutRendererBase extends LabelLayoutRendererBase 
     final List<FacesMessage> messages = facesContext.getMessageList(clientId);
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
-    if (messages.size() > 0) {
+    if (!messages.isEmpty()) {
       writer.startElement(HtmlElements.DIV);
       writer.writeClassAttribute(TobagoClass.MESSAGES__CONTAINER, TobagoClass.FLEX_LAYOUT);
     }
@@ -66,8 +66,8 @@ public abstract class MessageLayoutRendererBase extends LabelLayoutRendererBase 
     final List<FacesMessage> messages = facesContext.getMessageList(clientId);
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
-    if (messages.size() > 0) {
-      encodeMessages(facesContext, writer, messages, clientId);
+    if (!messages.isEmpty()) {
+      encodeMessages(writer, messages);
       writer.endElement(HtmlElements.DIV);
     }
   }
@@ -76,8 +76,8 @@ public abstract class MessageLayoutRendererBase extends LabelLayoutRendererBase 
 
   protected abstract void encodeEndField(FacesContext facesContext, UIComponent component) throws IOException;
 
-  private void encodeMessages(final FacesContext facesContext, final TobagoResponseWriter writer,
-                              final List<FacesMessage> messages, final String clientId) throws IOException {
+  private void encodeMessages(
+          final TobagoResponseWriter writer, final List<FacesMessage> messages) throws IOException {
     writer.startElement(HtmlElements.A);
     writer.writeAttribute(HtmlAttributes.TABINDEX, "0", false);
     writer.writeAttribute(HtmlAttributes.ROLE, HtmlButtonTypes.BUTTON);
