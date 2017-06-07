@@ -47,6 +47,15 @@ Apache Tobago
 
 News
 
+* June 7, 2017 - Set trunk to version 4.0.0-SNAPSHOT
+
+      The version of trunk of Tobago was changed from 3.1.0-SNAPSHOT to 4.0.0-SNAPSHOT.
+      Developers which are using this SNAPSHOT version need to update there pom.xml to get
+      the next updates.
+
+      \ {}
+      ~~ hack for a bit space
+
 * April 9, 2017 - MyFaces Tobago 3.0.4 Released
 
       The MyFaces Tobago component library in version 3.0.4 has been released.
