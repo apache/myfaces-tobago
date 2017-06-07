@@ -51,7 +51,7 @@
     <directive>frame-src http://apache.org</directive>
   </content-security-policy>
 
-  <check-security-annotations>false</check-security-annotations>
+  <security-annotation>ignore</security-annotation>
 
   <renderers>
     <renderer>

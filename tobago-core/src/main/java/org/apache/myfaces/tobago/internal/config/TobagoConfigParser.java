@@ -62,7 +62,7 @@ public class TobagoConfigParser extends TobagoConfigEntityResolver {
   private static final int PREVENT_FRAME_ATTACKS = 270456726;
   private static final int SET_NOSNIFF_HEADER = -1238451304;
   private static final int CONTENT_SECURITY_POLICY = 1207440139;
-  private static final int CHECK_SECURITY_ANNOTATIONS = -1870701636;
+  private static final int SECURITY_ANNOTATION = 1744426972;
   private static final int DIRECTIVE = -962590641;
   private static final int RENDERERS = 1839650832;
   private static final int RENDERER = -494845757;
@@ -235,7 +235,7 @@ public class TobagoConfigParser extends TobagoConfigEntityResolver {
       case MARKUP:
       case CREATE_SESSION_SECRET:
       case CHECK_SESSION_SECRET:
-      case CHECK_SECURITY_ANNOTATIONS:
+      case SECURITY_ANNOTATION:
       case PREVENT_FRAME_ATTACKS:
       case SET_NOSNIFF_HEADER:
       case DIRECTIVE:
@@ -328,8 +328,8 @@ public class TobagoConfigParser extends TobagoConfigEntityResolver {
         tobagoConfig.setSetNosniffHeader(Boolean.parseBoolean(text));
         break;
 
-      case CHECK_SECURITY_ANNOTATIONS:
-        tobagoConfig.setCheckSecurityAnnotations(Boolean.parseBoolean(text));
+      case SECURITY_ANNOTATION:
+        tobagoConfig.setSecurityAnnotation(SecurityAnnotation.valueOf(text));
         break;
 
       case DIRECTIVE:

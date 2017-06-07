@@ -52,6 +52,9 @@
     <directive>frame-src https://maps.google.com</directive>
   </content-security-policy>
 
+  <!-- "disable" is the default -->
+  <!--<security-annotation>disable</security-annotation>-->
+
 <!-- this is the default...
   <sanitizer>
     <sanitizer-class>org.apache.myfaces.tobago.sanitizer.JsoupSanitizer</sanitizer-class>

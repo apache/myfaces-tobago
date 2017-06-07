@@ -21,6 +21,7 @@ package org.apache.myfaces.tobago.internal.component;
 
 import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.event.CollapsibleActionListener;
+import org.apache.myfaces.tobago.internal.config.SecurityAnnotation;
 import org.apache.myfaces.tobago.internal.util.AuthorizationHelper;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 
@@ -93,7 +94,10 @@ public abstract class AbstractUICommandBase extends UICommand
 
   @Override
   public boolean isRendered() {
-    return super.isRendered() && isAllowed();
+    final FacesContext facesContext = getFacesContext();
+    final TobagoConfig tobagoConfig = TobagoConfig.getInstance(facesContext);
+    return super.isRendered()
+            && (tobagoConfig.getSecurityAnnotation() != SecurityAnnotation.hide || isAllowed());
   }
 
   /**
@@ -101,30 +105,22 @@ public abstract class AbstractUICommandBase extends UICommand
    <br>Default: <code>false</code>
    */
   public boolean isDisabled() {
-
-    if (!isAllowed()) {
-      return true;
-    }
-
-    Boolean bool = (Boolean) getStateHelper().eval(AbstractUICommand.PropertyKeys.disabled);
-    if (bool != null) {
-      return bool;
-    }
-    return false;
+    final FacesContext facesContext = getFacesContext();
+    final TobagoConfig tobagoConfig = TobagoConfig.getInstance(facesContext);
+    final Boolean disabled = (Boolean) getStateHelper().eval(AbstractUICommand.PropertyKeys.disabled);
+    return disabled != null && disabled
+            || (tobagoConfig.getSecurityAnnotation() == SecurityAnnotation.disable && !isAllowed());
   }
 
   private boolean isAllowed() {
     final FacesContext facesContext = getFacesContext();
-    final TobagoConfig tobagoConfig = TobagoConfig.getInstance(facesContext);
-    if (tobagoConfig.isCheckSecurityAnnotations()) {
-      final AuthorizationHelper authorizationHelper = AuthorizationHelper.getInstance(facesContext);
-      final MethodExpression actionExpression = getActionExpression();
-      if (actionExpression != null) {
-        final boolean authorized =
-            authorizationHelper.isAuthorized(facesContext, actionExpression.getExpressionString());
-        if (!authorized) {
-          return false;
-        }
+    final AuthorizationHelper authorizationHelper = AuthorizationHelper.getInstance(facesContext);
+    final MethodExpression actionExpression = getActionExpression();
+    if (actionExpression != null) {
+      final boolean authorized =
+              authorizationHelper.isAuthorized(facesContext, actionExpression.getExpressionString());
+      if (!authorized) {
+        return false;
       }
     }
     return true;

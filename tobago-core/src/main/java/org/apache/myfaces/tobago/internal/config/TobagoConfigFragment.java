@@ -45,7 +45,7 @@ public class TobagoConfigFragment {
   private Boolean checkSessionSecret;
   private Boolean preventFrameAttacks;
   private ContentSecurityPolicy contentSecurityPolicy;
-  private Boolean checkSecurityAnnotations;
+  private SecurityAnnotation securityAnnotation;
   private Boolean setNosniffHeader;
   private List<ThemeImpl> themeDefinitions;
   private URL url;
@@ -149,12 +149,12 @@ public class TobagoConfigFragment {
     this.contentSecurityPolicy = contentSecurityPolicy;
   }
 
-  public Boolean getCheckSecurityAnnotations() {
-    return checkSecurityAnnotations;
+  public SecurityAnnotation getSecurityAnnotation() {
+    return securityAnnotation;
   }
 
-  public void setCheckSecurityAnnotations(final Boolean checkSecurityAnnotations) {
-    this.checkSecurityAnnotations = checkSecurityAnnotations;
+  public void setSecurityAnnotation(final SecurityAnnotation securityAnnotation) {
+    this.securityAnnotation = securityAnnotation;
   }
 
   public Boolean getSetNosniffHeader() {

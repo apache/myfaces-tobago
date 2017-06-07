@@ -21,6 +21,7 @@ package org.apache.myfaces.tobago.config;
 
 import org.apache.myfaces.tobago.context.Theme;
 import org.apache.myfaces.tobago.internal.config.ContentSecurityPolicy;
+import org.apache.myfaces.tobago.internal.config.SecurityAnnotation;
 import org.apache.myfaces.tobago.sanitizer.Sanitizer;
 
 import javax.faces.application.ProjectStage;
@@ -59,7 +60,7 @@ public abstract class TobagoConfig {
 
   public abstract boolean isSetNosniffHeader();
 
-  public abstract boolean isCheckSecurityAnnotations();
+  public abstract SecurityAnnotation getSecurityAnnotation();
 
   public abstract Sanitizer getSanitizer();
 

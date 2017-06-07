@@ -59,7 +59,7 @@ public class TobagoConfigImpl extends TobagoConfig {
   private boolean checkSessionSecret;
   private boolean preventFrameAttacks;
   private ContentSecurityPolicy contentSecurityPolicy;
-  private boolean checkSecurityAnnotations;
+  private SecurityAnnotation securityAnnotation;
   private boolean setNosniffHeader;
   private Map<String, String> defaultValidatorInfo;
   private Sanitizer sanitizer;
@@ -75,7 +75,7 @@ public class TobagoConfigImpl extends TobagoConfig {
     checkSessionSecret = true;
     preventFrameAttacks = true;
     setNosniffHeader = true;
-    checkSecurityAnnotations = true;
+    securityAnnotation = SecurityAnnotation.disable;
     contentSecurityPolicy = new ContentSecurityPolicy(ContentSecurityPolicy.Mode.OFF.getValue());
     mimeTypes = new HashMap<String, String>();
   }
@@ -295,13 +295,13 @@ public class TobagoConfigImpl extends TobagoConfig {
   }
 
   @Override
-  public boolean isCheckSecurityAnnotations() {
-    return checkSecurityAnnotations;
+  public SecurityAnnotation getSecurityAnnotation() {
+    return securityAnnotation;
   }
 
-  public void setCheckSecurityAnnotations(boolean checkSecurityAnnotations) {
+  public void setSecurityAnnotation(final SecurityAnnotation securityAnnotation) {
     checkLocked();
-    this.checkSecurityAnnotations = checkSecurityAnnotations;
+    this.securityAnnotation = securityAnnotation;
   }
 
   public Map<String, String> getDefaultValidatorInfo() {
@@ -317,7 +317,7 @@ public class TobagoConfigImpl extends TobagoConfig {
     return sanitizer;
   }
 
-  protected void setSanitizer(Sanitizer sanitizer) {
+  protected void setSanitizer(final Sanitizer sanitizer) {
     checkLocked();
     this.sanitizer = sanitizer;
   }
@@ -357,8 +357,8 @@ public class TobagoConfigImpl extends TobagoConfig {
     builder.append(preventFrameAttacks);
     builder.append(", \ncontentSecurityPolicy=");
     builder.append(contentSecurityPolicy);
-    builder.append(", \ncheckSecurityAnnotations=");
-    builder.append(checkSecurityAnnotations);
+    builder.append(", \nsecurityAnnotation=");
+    builder.append(securityAnnotation);
     builder.append(", \nsetNosniffHeader=");
     builder.append(setNosniffHeader);
     builder.append(", \ndefaultValidatorInfo=");

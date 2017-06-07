@@ -116,8 +116,8 @@ public class TobagoConfigSorter implements Comparator<TobagoConfigFragment> {
         result.getContentSecurityPolicy().merge(fragment.getContentSecurityPolicy());
       }
 
-      if (fragment.getCheckSecurityAnnotations() != null) {
-        result.setCheckSecurityAnnotations(fragment.getCheckSecurityAnnotations());
+      if (fragment.getSecurityAnnotation() != null) {
+        result.setSecurityAnnotation(fragment.getSecurityAnnotation());
       }
 
       if (fragment.getSetNosniffHeader() != null) {
