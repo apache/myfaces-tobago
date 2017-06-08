@@ -625,6 +625,7 @@ public class SheetRenderer extends RendererBase {
             if (normalColumn instanceof UIColumnSelector) {
               UIColumnSelector selector = (UIColumnSelector) normalColumn;
               writer.startElement(HtmlElements.INPUT);
+              writer.writeNameAttribute(sheetId + "_data_row_selector_" + rowIndex);
               if (selectable.isSingle()) {
                 writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.RADIO);
               } else {
