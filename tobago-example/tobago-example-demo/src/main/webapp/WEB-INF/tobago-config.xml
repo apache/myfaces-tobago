@@ -67,6 +67,9 @@
   </sanitizer>
 -->
 
+  <!-- true is the default -->
+  <!--<decode-line-feed>false</decode-line-feed>-->
+
   <renderers>
 
     <renderer>

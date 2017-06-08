@@ -20,13 +20,9 @@
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
 import org.apache.myfaces.tobago.component.Attributes;
-import org.apache.myfaces.tobago.component.UITextarea;
-import org.apache.myfaces.tobago.config.TobagoConfig;
+import org.apache.myfaces.tobago.internal.util.RenderUtils;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
-import org.apache.myfaces.tobago.internal.util.RenderUtils;
-import org.apache.myfaces.tobago.sanitizer.SanitizeMode;
-import org.apache.myfaces.tobago.sanitizer.Sanitizer;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -60,18 +56,16 @@ public abstract class DecodingInputRendererBase extends RendererBase {
         LOG.debug("clientId='{}'", clientId);
         LOG.debug("requestParameterMap.get(clientId)='{}'", StringUtils.toConfidentialString(newValue, password));
       }
-      if (component instanceof UITextarea) {
-        UITextarea textarea = (UITextarea) component;
-        if (ComponentUtils.getDataAttribute(component, "html-editor") != null
-            && SanitizeMode.auto == textarea.getSanitize()) {
-          final Sanitizer sanitizer = TobagoConfig.getInstance(facesContext).getSanitizer();
-          newValue = sanitizer.sanitize(newValue);
-        }
-      }
 
-      ((EditableValueHolder) component).setSubmittedValue(newValue);
+      setSubmittedValue(facesContext, (EditableValueHolder) component, newValue);
     }
 
     RenderUtils.decodeClientBehaviors(facesContext, component);
   }
+
+  protected void setSubmittedValue(
+          final FacesContext facesContext, final EditableValueHolder component, final String newValue) {
+    component.setSubmittedValue(newValue);
+  }
+
 }

@@ -21,6 +21,7 @@ package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
 import org.apache.myfaces.tobago.component.UITextarea;
 import org.apache.myfaces.tobago.config.TobagoConfig;
+import org.apache.myfaces.tobago.internal.component.AbstractUITextarea;
 import org.apache.myfaces.tobago.internal.util.AccessKeyLogger;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.internal.util.JsonUtils;
@@ -38,6 +39,7 @@ import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.faces.component.EditableValueHolder;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.validator.LengthValidator;
@@ -51,6 +53,27 @@ import java.util.List;
 public class TextareaRenderer extends MessageLayoutRendererBase {
 
   private static final Logger LOG = LoggerFactory.getLogger(TextareaRenderer.class);
+
+  @Override
+  protected void setSubmittedValue(
+          final FacesContext facesContext, final EditableValueHolder component, final String newValue) {
+
+    String value = newValue;
+
+    final AbstractUITextarea textarea = (AbstractUITextarea) component;
+    if (ComponentUtils.getDataAttribute(textarea, "html-editor") != null
+        && SanitizeMode.auto == textarea.getSanitize()) {
+      final Sanitizer sanitizer = TobagoConfig.getInstance(facesContext).getSanitizer();
+      value = sanitizer.sanitize(newValue);
+    }
+
+    // tbd: should this be configurable?
+    if (TobagoConfig.getInstance(facesContext).isDecodeLineFeed()) {
+      value = value.replace("\r\n", "\n");
+    }
+
+    super.setSubmittedValue(facesContext, textarea, value);
+  }
 
   @Override
   public void encodeBeginField(final FacesContext facesContext, final UIComponent component) throws IOException {

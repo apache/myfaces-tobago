@@ -50,6 +50,7 @@ public class TobagoConfigFragment {
   private List<ThemeImpl> themeDefinitions;
   private URL url;
   private String sanitizerClass;
+  private Boolean decodeLineFeed;
   private Properties sanitizerProperties;
   private Map<String, String> mimeTypes;
 
@@ -187,6 +188,14 @@ public class TobagoConfigFragment {
 
   public void setSanitizerProperties(Properties sanitizerProperties) {
     this.sanitizerProperties = sanitizerProperties;
+  }
+
+  public Boolean getDecodeLineFeed() {
+    return decodeLineFeed;
+  }
+
+  public void setDecodeLineFeed(Boolean decodeLineFeed) {
+    this.decodeLineFeed = decodeLineFeed;
   }
 
   public void addMimeType(String extension, String type) {

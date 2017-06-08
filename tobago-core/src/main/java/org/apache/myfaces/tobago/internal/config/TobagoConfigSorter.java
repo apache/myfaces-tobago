@@ -129,6 +129,10 @@ public class TobagoConfigSorter implements Comparator<TobagoConfigFragment> {
         sanitizerProperties = fragment.getSanitizerProperties();
       }
 
+      if (fragment.getDecodeLineFeed() != null) {
+        result.setDecodeLineFeed(fragment.getDecodeLineFeed());
+      }
+
       // theme definition
       for (ThemeImpl theme : fragment.getThemeDefinitions()) {
         result.addAvailableTheme(theme);

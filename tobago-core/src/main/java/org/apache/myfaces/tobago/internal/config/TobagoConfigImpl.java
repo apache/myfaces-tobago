@@ -63,6 +63,7 @@ public class TobagoConfigImpl extends TobagoConfig {
   private boolean setNosniffHeader;
   private Map<String, String> defaultValidatorInfo;
   private Sanitizer sanitizer;
+  private boolean decodeLineFeed;
   private Map<String, String> mimeTypes;
 
   private boolean unmodifiable = false;
@@ -76,6 +77,7 @@ public class TobagoConfigImpl extends TobagoConfig {
     preventFrameAttacks = true;
     setNosniffHeader = true;
     securityAnnotation = SecurityAnnotation.disable;
+    decodeLineFeed = true;
     contentSecurityPolicy = new ContentSecurityPolicy(ContentSecurityPolicy.Mode.OFF.getValue());
     mimeTypes = new HashMap<String, String>();
   }
@@ -320,6 +322,16 @@ public class TobagoConfigImpl extends TobagoConfig {
   protected void setSanitizer(final Sanitizer sanitizer) {
     checkLocked();
     this.sanitizer = sanitizer;
+  }
+
+  @Override
+  public boolean isDecodeLineFeed() {
+    return decodeLineFeed;
+  }
+
+  public void setDecodeLineFeed(boolean decodeLineFeed) {
+    checkLocked();
+    this.decodeLineFeed = decodeLineFeed;
   }
 
   @Override

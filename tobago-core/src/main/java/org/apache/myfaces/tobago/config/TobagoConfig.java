@@ -64,6 +64,8 @@ public abstract class TobagoConfig {
 
   public abstract Sanitizer getSanitizer();
 
+  public abstract boolean isDecodeLineFeed();
+
   public abstract Map<String, String> getMimeTypes();
 
   /**
