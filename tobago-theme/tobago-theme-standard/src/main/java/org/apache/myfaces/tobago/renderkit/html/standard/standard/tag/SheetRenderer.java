@@ -401,6 +401,7 @@ public class SheetRenderer extends LayoutComponentRendererBase {
           writer.writeAttribute(HtmlAttributes.CHECKED, selected);
           writer.writeAttribute(HtmlAttributes.DISABLED, disabled);
           writer.writeIdAttribute(sheetId + "_data_row_selector_" + rowIndex);
+
           writer.writeNameAttribute(sheetId + "_data_row_selector_" + rowIndex);
           writer.writeClassAttribute(Classes.create(sheet, "columnSelector"));
           writer.endElement(HtmlElements.INPUT);
