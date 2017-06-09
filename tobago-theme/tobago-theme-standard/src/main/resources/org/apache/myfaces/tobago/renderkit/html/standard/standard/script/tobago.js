@@ -2302,7 +2302,14 @@ Tobago.Updater = {
           if (element.size() == 0 && newElement.hasClass("tobago-popup")) {
             element = jQuery("<div>");
             element.attr("id", data.ajaxId);
-            jQuery('form').append(element);
+            // try append the popup before the jsf-state-container span because of IE bug see TOBAGO-1749
+            var formElement = jQuery('form');
+            var lastSpan = formElement.find("span").last();
+            if (lastSpan.attr("id").indexOf("::jsf-state-container") > 0) {
+              lastSpan.before(element);
+            } else {
+              formElement.append(element);
+            }
           }
           element.replaceWith(newElement);
         }
