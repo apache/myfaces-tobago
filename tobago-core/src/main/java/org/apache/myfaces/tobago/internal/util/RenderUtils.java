@@ -32,6 +32,7 @@ import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.faces.application.ViewHandler;
 import javax.faces.component.EditableValueHolder;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIParameter;
@@ -205,15 +206,18 @@ public final class RenderUtils {
 
   public static String generateUrl(final FacesContext facesContext, final AbstractUICommandBase component) {
 
-    final ExternalContext externalContext = facesContext.getExternalContext();
-
     String url = null;
 
     if (component.getLink() != null) {
-
+      final ExternalContext externalContext = facesContext.getExternalContext();
       final String link = component.getLink();
       if (link.startsWith("/")) { // internal absolute link
-        url = externalContext.encodeResourceURL(externalContext.getRequestContextPath() + link);
+        final ViewHandler viewHandler = facesContext.getApplication().getViewHandler();
+        url = viewHandler.getBookmarkableURL(
+                facesContext,
+                externalContext.getRequestContextPath() + link,
+                null,
+                true);
       } else if (StringUtils.isUrl(link)) { // external link
         url = link;
       } else { // internal relative link
