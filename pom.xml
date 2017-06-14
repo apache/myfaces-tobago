@@ -35,6 +35,7 @@
     <myfaces20.version>2.0.24</myfaces20.version>
     <myfaces21.version>2.1.18</myfaces21.version>
     <myfaces22.version>2.2.12</myfaces22.version>
+    <myfaces23.version>2.3.0-beta</myfaces23.version>
     <mojarra20.version>2.0.11-04</mojarra20.version>
     <mojarra21.version>2.1.29-08</mojarra21.version>
     <mojarra22.version>2.2.14</mojarra22.version>
@@ -1232,6 +1233,7 @@
     Usage for specific build:
     mvn -Pjsf-2.1
     mvn -Pjsf-2.2
+    mvn -Pjsf-2.3
 
 -->
 
@@ -1284,6 +1286,32 @@
             <groupId>org.apache.myfaces.core</groupId>
             <artifactId>myfaces-impl</artifactId>
             <version>${myfaces22.version}</version>
+            <optional>true</optional>
+          </dependency>
+        </dependencies>
+      </dependencyManagement>
+    </profile>
+
+    <profile>
+      <id>jsf-2.3</id>
+      <activation>
+        <property>
+          <name>jsf</name>
+          <value>myfaces-2.3</value>
+        </property>
+      </activation>
+      <dependencyManagement>
+        <dependencies>
+          <dependency>
+            <groupId>org.apache.myfaces.core</groupId>
+            <artifactId>myfaces-api</artifactId>
+            <version>${myfaces23.version}</version>
+            <optional>true</optional>
+          </dependency>
+          <dependency>
+            <groupId>org.apache.myfaces.core</groupId>
+            <artifactId>myfaces-impl</artifactId>
+            <version>${myfaces23.version}</version>
             <optional>true</optional>
           </dependency>
         </dependencies>

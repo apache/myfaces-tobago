@@ -307,6 +307,33 @@
     </profile>
 
     <profile>
+      <id>myfaces-2.3</id>
+      <activation>
+        <property>
+          <name>jsf</name>
+          <value>myfaces-2.3</value>
+        </property>
+      </activation>
+      <properties>
+        <override-web-xml>../src/test/jetty/override-myfaces-web.xml</override-web-xml>
+      </properties>
+      <dependencies>
+        <dependency>
+          <groupId>org.apache.myfaces.core</groupId>
+          <artifactId>myfaces-api</artifactId>
+          <version>${myfaces23.version}</version>
+          <scope>compile</scope>
+        </dependency>
+        <dependency>
+          <groupId>org.apache.myfaces.core</groupId>
+          <artifactId>myfaces-impl</artifactId>
+          <version>${myfaces23.version}</version>
+          <scope>runtime</scope>
+        </dependency>
+      </dependencies>
+    </profile>
+
+    <profile>
       <id>mojarra-2.0</id>
       <activation>
         <property>
