@@ -129,7 +129,7 @@
 
   <servlet-mapping>
     <servlet-name>FacesServlet</servlet-name>
-    <url-pattern>/faces/*</url-pattern>
+    <url-pattern>*.xhtml</url-pattern>
   </servlet-mapping>
 
   <!-- Error handling, see also these classes:
@@ -139,22 +139,22 @@
 
   <error-page>
     <error-code>404</error-code>
-    <location>/faces/error/404.xhtml</location>
+    <location>/error/404.xhtml</location>
   </error-page>
 
   <error-page>
     <error-code>500</error-code>
-    <location>/faces/error/exception.xhtml</location>
+    <location>/error/exception.xhtml</location>
   </error-page>
 
   <error-page>
     <exception-type>java.lang.Exception</exception-type>
-    <location>/faces/error/exception.xhtml</location>
+    <location>/error/exception.xhtml</location>
   </error-page>
 
   <!-- The Usual Welcome File List -->
   <welcome-file-list>
-    <welcome-file>index.html</welcome-file>
+    <welcome-file>init.xhtml</welcome-file>
   </welcome-file-list>
 
   <session-config>
@@ -167,7 +167,6 @@
     <display-name>Security Constraint</display-name>
     <web-resource-collection>
       <web-resource-name>Application Area</web-resource-name>
-      <url-pattern>/faces/content/30-concept/80-security/20-roles/*</url-pattern>
       <url-pattern>/content/30-concept/80-security/20-roles/*</url-pattern>
     </web-resource-collection>
     <auth-constraint>
@@ -180,8 +179,8 @@
     <auth-method>FORM</auth-method>
     <realm-name>demo-realm</realm-name>
     <form-login-config>
-      <form-login-page>/faces/login.xhtml</form-login-page>
-      <form-error-page>/faces/login.xhtml</form-error-page>
+      <form-login-page>/login.xhtml</form-login-page>
+      <form-error-page>/login.xhtml</form-error-page>
     </form-login-config>
   </login-config>
 

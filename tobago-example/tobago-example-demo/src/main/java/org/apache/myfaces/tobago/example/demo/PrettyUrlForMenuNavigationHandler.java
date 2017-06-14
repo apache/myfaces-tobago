@@ -48,7 +48,7 @@ public class PrettyUrlForMenuNavigationHandler extends NavigationHandler {
       final ExternalContext externalContext = facesContext.getExternalContext();
       try {
         externalContext.redirect(
-            externalContext.encodeRedirectURL(externalContext.getRequestContextPath() + "/faces" + outcome,
+            externalContext.encodeRedirectURL(externalContext.getRequestContextPath() + outcome,
             Collections.<String, List<String>>emptyMap()));
       } catch (final IOException e) {
         // not nice?

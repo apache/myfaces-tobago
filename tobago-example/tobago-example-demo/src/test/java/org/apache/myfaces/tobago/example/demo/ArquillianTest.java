@@ -19,9 +19,6 @@
 
 package org.apache.myfaces.tobago.example.demo;
 
-import java.io.File;
-import java.net.URL;
-
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.drone.api.annotation.Drone;
@@ -37,6 +34,9 @@ import org.junit.runner.RunWith;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+
+import java.io.File;
+import java.net.URL;
 
 /**
  * if PhantomJS is configured, ensure that content-security-policy mode="off" is in tobago-config.xml otherwise
@@ -79,7 +79,7 @@ public class ArquillianTest {
 
   @Test
   public void ajaxOnChange() {
-    browser.get(contextPath + "/faces/content/20-component/010-input/10-in/in.xhtml");
+    browser.get(contextPath + "/content/20-component/010-input/10-in/in.xhtml");
 
     Assert.assertEquals("On Server", outputLabel.getText());
     Assert.assertEquals("", outputField.getText());

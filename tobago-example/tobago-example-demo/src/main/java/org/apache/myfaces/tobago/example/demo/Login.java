@@ -51,7 +51,7 @@ public class Login {
     LOG.info("Successful login user: '{}'", username);
 
     response.sendRedirect(response.encodeRedirectURL(
-            request.getContextPath() + "/faces/content/30-concept/80-security/20-roles/roles.xhtml"));
+            request.getContextPath() + "/content/30-concept/80-security/20-roles/roles.xhtml"));
   }
 
   public void logout() throws ServletException, IOException {
@@ -62,7 +62,7 @@ public class Login {
     request.logout();
 
     response.sendRedirect(response.encodeRedirectURL(
-            request.getContextPath() + "/faces/content/30-concept/80-security/20-roles/roles.xhtml"));
+            request.getContextPath() + "/content/30-concept/80-security/20-roles/roles.xhtml"));
   }
 
   public String resetSession() throws IOException {

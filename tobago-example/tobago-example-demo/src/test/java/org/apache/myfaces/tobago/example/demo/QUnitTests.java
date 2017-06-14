@@ -84,7 +84,7 @@ public class QUnitTests {
 
   private void setupBrowser(String base, boolean accessTest) throws UnsupportedEncodingException {
     LOG.info("setup browser for: " + base + ".xhtml | accessTest=" + accessTest);
-    browser.get(contextPath + "faces/test.xhtml?base=" + URLEncoder.encode(base, "UTF-8")
+    browser.get(contextPath + "test.xhtml?base=" + URLEncoder.encode(base, "UTF-8")
         + (accessTest ? "&accessTest=true" : ""));
   }
 

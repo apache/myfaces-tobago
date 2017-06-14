@@ -64,7 +64,7 @@ public class TestExceptionHandler extends ExceptionHandlerWrapper {
            * TODO analyse the '/faces'-prefix
            * actually the viewID should be enough, but if you do so, the FacesMessage won't be shown.
            */
-          nav.handleNavigation(facesContext, null, "/faces" + ((ViewExpiredException) cause).getViewId());
+          nav.handleNavigation(facesContext, null, ((ViewExpiredException) cause).getViewId());
           facesContext.renderResponse();
         } finally {
           iterator.remove();
@@ -74,7 +74,7 @@ public class TestExceptionHandler extends ExceptionHandlerWrapper {
         try {
           final FacesContext facesContext = FacesContext.getCurrentInstance();
           final NavigationHandler nav = facesContext.getApplication().getNavigationHandler();
-          nav.handleNavigation(facesContext, null, "/faces/error/404.xhtml");
+          nav.handleNavigation(facesContext, null, "/error/404.xhtml");
           facesContext.getExternalContext().setResponseStatus(HttpServletResponse.SC_NOT_FOUND);
           facesContext.renderResponse();
         } finally {

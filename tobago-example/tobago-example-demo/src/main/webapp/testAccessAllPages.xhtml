@@ -24,8 +24,8 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets">
   <c:forEach items="#{testController.allPages}" var="page">
     <div style="border: 1px solid black">
-      <tc:out label="URL" value="#{request.contextPath}/faces/#{page}"/>
-      <tc:object src="#{request.contextPath}/faces/#{page}">
+      <tc:out label="URL" value="#{request.contextPath}/#{page}"/>
+      <tc:object src="#{request.contextPath}/#{page}">
         <tc:style width="100%" height="300px"/>
       </tc:object>
     </div>
