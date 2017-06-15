@@ -30,16 +30,19 @@ Tobago.TabGroup.init = function(elements) {
   tabGroups.filter("[switchType='client']").each(function() {
     jQuery(this).find(".tobago-tabGroup-headerInner").first()
       .children(".tobago-tab").not(".tobago-tab-markup-disabled").click(function() {
-          var activeIndex = Tobago.TabGroup.updateHidden(jQuery(this));
-          jQuery(this).siblings(".tobago-tab-markup-selected").removeClass("tobago-tab-markup-selected");
-          jQuery(this).addClass("tobago-tab-markup-selected");
-          var tabGroup = jQuery(this).parents(".tobago-tabGroup:first");
+          var tab = jQuery(this);
+          var activeIndex = Tobago.TabGroup.updateHidden(tab);
+          tab.siblings(".tobago-tab-markup-selected").removeClass("tobago-tab-markup-selected");
+          tab.addClass("tobago-tab-markup-selected");
+          var tabGroup = tab.parents(".tobago-tabGroup:first");
           tabGroup.children(".tobago-tab-content-markup-selected").removeClass("tobago-tab-content-markup-selected");
-          tabGroup.children(".tobago-tab-content[tabgroupindex=" + activeIndex + "]")
-              .addClass("tobago-tab-content-markup-selected");
+          var selectedTabContent = tabGroup.children(".tobago-tab-content[tabgroupindex=" + activeIndex + "]");
+          selectedTabContent.addClass("tobago-tab-content-markup-selected");
           // scroll the tabs, if necessary
-          var header = jQuery(this).parents(".tobago-tabGroup-header:first");
+          var header = tab.parents(".tobago-tabGroup-header:first");
           Tobago.TabGroup.ensureScrollPosition(header);
+          // re-init because of TOBAOG-1754
+          Tobago.Sheet.setup2(selectedTabContent.find(".tobago-sheet"));
         })
   });
 
