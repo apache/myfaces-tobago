@@ -45,7 +45,7 @@
               <target>
                 <concat destfile="${project.build.directory}/javascript-min/tobago.min.js" force="no">
                   <filelist dir="${basedir}/src/main/resources/META-INF/resources/tobago/standard/tobago-bootstrap/_version/js"
-                            files="tobago-jsf.js,tobago.js,tobago-calendar.js,tobago-in.js,tobago-layout.js,tobago-overlay.js,tobago-popup.js,tobago-sheet.js,tobago-suggest.js,tobago-tab.js,tobago-tree.js,tobago-utils.js" />
+                            files="tobago-jsf.js,tobago-deltaspike.js,tobago.js,tobago-calendar.js,tobago-in.js,tobago-layout.js,tobago-overlay.js,tobago-popup.js,tobago-sheet.js,tobago-suggest.js,tobago-tab.js,tobago-tree.js,tobago-utils.js" />
                 </concat>
                 <replaceregexp match="^.*//.*@DEV_ONLY.*$" replace="" byline="true">
                   <fileset dir="${project.build.directory}/javascript-min">
