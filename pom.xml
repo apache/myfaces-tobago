@@ -456,7 +456,7 @@
       <dependency>
         <groupId>commons-fileupload</groupId>
         <artifactId>commons-fileupload</artifactId>
-        <version>1.3.2</version>
+        <version>1.3.3</version>
       </dependency>
       <dependency>
         <groupId>commons-codec</groupId>
@@ -1513,7 +1513,7 @@
   <properties>
     <myfaces20.version>2.0.24</myfaces20.version>
     <myfaces21.version>2.1.18</myfaces21.version>
-    <myfaces22.version>2.2.10</myfaces22.version>
+    <myfaces22.version>2.2.12</myfaces22.version>
     <mojarra20.version>2.0.11-04</mojarra20.version>
     <mojarra21.version>2.1.29-08</mojarra21.version>
     <mojarra22.version>2.2.13</mojarra22.version>
