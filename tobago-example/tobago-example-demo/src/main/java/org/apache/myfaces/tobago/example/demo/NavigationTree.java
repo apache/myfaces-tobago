@@ -129,11 +129,13 @@ public class NavigationTree implements Serializable {
   }
 
   public NavigationNode findByViewId(String viewId) {
-    final Enumeration enumeration = root.depthFirstEnumeration();
-    while (enumeration.hasMoreElements()) {
-      final NavigationNode node = (NavigationNode) enumeration.nextElement();
-      if (node.getOutcome() != null && viewId.contains(node.getOutcome())) {
-        return node;
+    if (viewId != null) {
+      final Enumeration enumeration = root.depthFirstEnumeration();
+      while (enumeration.hasMoreElements()) {
+        final NavigationNode node = (NavigationNode) enumeration.nextElement();
+        if (node.getOutcome() != null && viewId.contains(node.getOutcome())) {
+          return node;
+        }
       }
     }
     return null;
