@@ -377,6 +377,7 @@
         <script name="/tobago/standard/moment/2.13.0/moment-with-locales.js"/>
         <script name="/tobago/standard/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.js"/>
         <script name="/tobago/standard/script/tobago-jsf.js"/>
+        <script name="/tobago/standard/script/tobago-deltaspike.js"/>
         <script name="/tobago/standard/script/tobago.js"/>
         <script name="/tobago/standard/script/tobago-calendar.js"/>
         <script name="/tobago/standard/script/tobago-console.js"/>
