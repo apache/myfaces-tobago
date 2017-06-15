@@ -23,6 +23,16 @@ Tobago.Suggest.init = function (elements) {
   suggests.each(function () {
     jQuery(this).suggest();
   });
+  var items = Tobago.Utils.selectWithJQuery(elements, "[data-tobago-suggest-item-for]");
+  items.click(Tobago.Suggest.clickItem);
+};
+
+Tobago.Suggest.clickItem = function () {
+  var item = jQuery(this);
+  var inClientId = item.data("tobago-suggest-item-for");
+  var input = jQuery(Tobago.Utils.escapeClientId(inClientId));
+  input.val(item.html());
+  input.focus();
 };
 
 // call before Tobago.Menu.init
@@ -177,7 +187,8 @@ Tobago.registerListener({
           this._openMenu();
         },
         blur: function (event) {
-          this._closeMenu();
+          var that = this;
+          setTimeout(function() {that._closeMenu();}, 150);
         }});
 
       // when the input has focus at loading time, open the menu now

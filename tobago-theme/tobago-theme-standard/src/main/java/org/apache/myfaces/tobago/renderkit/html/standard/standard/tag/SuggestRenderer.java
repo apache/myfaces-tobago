@@ -49,6 +49,7 @@ public class SuggestRenderer extends InputRendererBase {
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
     final String id  = suggest.getClientId(facesContext);
     final UIIn in = (UIIn) suggest.getParent();
+    String inClientId = in.getClientId(facesContext);
     final MethodExpression suggestMethodExpression = suggest.getSuggestMethodExpression();
     final AutoSuggestItems items
         = createAutoSuggestItems(suggestMethodExpression.invoke(facesContext.getELContext(), new Object[]{in}));
@@ -57,7 +58,7 @@ public class SuggestRenderer extends InputRendererBase {
     writer.startElement(HtmlElements.DIV, null);
     writer.writeClassAttribute(Classes.create(suggest));
     writer.writeIdAttribute(id);
-    writer.writeAttribute(DataAttributes.FOR, in.getClientId(facesContext), false);
+    writer.writeAttribute(DataAttributes.FOR, inClientId, false);
     writer.writeAttribute(DataAttributes.SUGGEST_MIN_CHARS, suggest.getMinimumCharacters());
     writer.writeAttribute(DataAttributes.SUGGEST_DELAY, suggest.getDelay());
     writer.writeAttribute(DataAttributes.SUGGEST_MAX_ITEMS, suggest.getMaximumItems());
@@ -82,6 +83,7 @@ public class SuggestRenderer extends InputRendererBase {
       writer.startElement(HtmlElements.LI, null);
       writer.startElement(HtmlElements.A, null);
       writer.writeAttribute(HtmlAttributes.HREF, "#", false);
+      writer.writeAttribute(DataAttributes.SUGGEST_ITEM_FOR, inClientId, false);
       writer.writeText(item.getLabel());
       writer.endElement(HtmlElements.A);
       writer.endElement(HtmlElements.LI);
