@@ -1535,9 +1535,7 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <jsf.target>2.0</jsf.target>
     <required.maven.version>2.2.1</required.maven.version>
-    <checkstyle-rules.version>7</checkstyle-rules.version>
-    <!-- TODO: change to 8 after it is released -->
-    <!--<checkstyle-rules.version>8-SNAPSHOT</checkstyle-rules.version>-->
+    <checkstyle-rules.version>8</checkstyle-rules.version>
     <tobago.basedir>${project.basedir}</tobago.basedir>
   </properties>
 </project>
