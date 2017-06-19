@@ -132,6 +132,16 @@
     <url-pattern>*.xhtml</url-pattern>
   </servlet-mapping>
 
+  <servlet>
+    <servlet-name>OldLinksServlet</servlet-name>
+    <servlet-class>org.apache.myfaces.tobago.example.demo.OldLinksServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>OldLinksServlet</servlet-name>
+    <url-pattern>/faces/*</url-pattern>
+  </servlet-mapping>
+
   <!-- Error handling, see also these classes:
        org.apache.myfaces.tobago.example.demo.TestExceptionHandler
        org.apache.myfaces.tobago.example.demo.DeltaSpikeClientWindowConfig
