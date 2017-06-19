@@ -21,6 +21,7 @@ package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.internal.component.AbstractUILink;
+import org.apache.myfaces.tobago.internal.component.AbstractUILinks;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.CssItem;
@@ -37,10 +38,12 @@ public class LinksRenderer extends RendererBase {
   @Override
   public void encodeBegin(FacesContext facesContext, UIComponent component) throws IOException {
 
+    final AbstractUILinks links = (AbstractUILinks) component;
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
     writer.startElement(HtmlElements.UL);
-    writer.writeClassAttribute(TobagoClass.LINKS, getExtraCssItem());
-    writer.writeIdAttribute(component.getClientId(facesContext));
+    writer.writeIdAttribute(links.getClientId(facesContext));
+    writer.writeClassAttribute(TobagoClass.LINKS, getExtraCssItem(), links.getCustomClass());
+    writer.writeStyleAttribute(links.getStyle());
   }
 
   @Override
