@@ -904,5 +904,40 @@
         </plugins>
       </build>
     </profile>
+
+    <profile>
+      <id>docker</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>io.fabric8</groupId>
+            <artifactId>docker-maven-plugin</artifactId>
+            <version>0.15.9</version>
+            <configuration>
+              <images>
+                <image>
+                  <name>myfaces/tobago-example-demo:${project.version}</name>
+                  <run>
+                    <ports>
+                      <port>8080:8080</port>
+                    </ports>
+                  </run>
+                  <build>
+                    <from>tomcat:8.5.15-jre8</from>
+                    <assembly>
+                      <descriptor>assembly.xml</descriptor>
+                      <basedir>/usr/local/tomcat</basedir>
+                    </assembly>
+                    <ports>
+                      <port>8080</port>
+                    </ports>
+                  </build>
+                </image>
+              </images>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
   </profiles>
 </project>
