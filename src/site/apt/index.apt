@@ -47,25 +47,26 @@ Apache Tobago
 
 News
 
+* June 20, 2017 - MyFaces Tobago 2.1.0 Released
+
+      The MyFaces Tobago component library in version 2.1.0 has been released.
+
+      Release notes can be found in
+      {{{https://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&version=12338208}Jira}}.
+
+      Major changes are:
+
+      * File Upload: Drag and Drop support and AJAX support
+      * Bug fixes
+
+      \ {}
+      ~~ hack for a bit space
+
 * June 7, 2017 - Set trunk to version 4.0.0-SNAPSHOT
 
       The version of trunk of Tobago was changed from 3.1.0-SNAPSHOT to 4.0.0-SNAPSHOT.
       Developers which are using this SNAPSHOT version need to update there pom.xml to get
       the next updates.
-
-      \ {}
-      ~~ hack for a bit space
-
-* April 9, 2017 - MyFaces Tobago 3.0.4 Released
-
-      The MyFaces Tobago component library in version 3.0.4 has been released.
-
-      Release notes can be found in
-      {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12340258}Jira}}.
-
-      Major changes are:
-
-      * Bug fixes
 
       \ {}
       ~~ hack for a bit space

@@ -124,6 +124,15 @@ mvn release:perform
 
   * Building the site
 
+    * Updating the release and version information in the APT files of trunk, e. g.:
+
++------------------------+
+src/site/apt/api.apt
+src/site/apt/download.apt
+src/site/apt/index.apt
+src/site/resources/doap_tobago.rdf
++------------------------+
+
     * Note: The site can only be build correctly on file systems that supports to differ upper-/lower-case.
       This is not the default on Windows and Mac OS X machines.
       On Mac OS X you can mount a virtual filesystem (sparse bundle) that supports upper-/lower-case with the
