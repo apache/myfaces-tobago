@@ -20,7 +20,7 @@
 <ui:composition template="/main.xhtml"
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
-                xmlns:ui="http://java.sun.com/jsf/facelets">
+                xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html">
   <ui:param name="title" value="#{demoBundle.migration40}"/>
 
   <tc:section label="Migration from Tobago 3.0 to 4.0">
@@ -37,6 +37,43 @@
     </ul>
 
     <tc:section label="Tag Library">
+
+      <tc:section label="ViewId over attribute &quot;link&quot;">
+        <p>
+          Using the <code class="language-markup">link</code> attribute of
+          <code class="language-markup">&lt;tc:link></code>,
+          <code class="language-markup">&lt;tc:button></code>,
+          <code class="language-markup">&lt;tc:treeCommand></code> or
+          <code class="language-markup">&lt;tc:event></code>
+          in Tobago 3 has three cases:
+        </p>
+          <ol>
+              <li>
+                External link to an URL e. g. <code class="language-markup">link="http://www.apache.com"</code>
+                <p>
+                  Here is nothing to do.
+                </p>
+              </li>
+              <li>
+                Internal link to a resource  e. g. <code class="language-markup">link="image/alps.png"</code>
+                <p>
+                  Here you need to add the contextPath which might not be an empty string:
+                  <code class="language-markup">link="\#{request.contextPath}/image/alps.png"</code>.
+                  So, this is now the same like resouces used over other attributes.
+                </p>
+              </li>
+              <li>
+                Internal link to a viewId e. g. <code class="language-markup">link="/intro.xhtml"</code>
+                <p>
+                  In this case you need to use the new attribute <code class="language-markup">outcome="/intro.xhtml"</code>.
+                  Please use only full pathes here!
+                  This this, the GET parameter will be respected.
+                  This is needed e. g. for the windowId of <tc:link label="DeltaSpike" link="https://deltaspike.apache.org/"/>.
+                </p>
+              </li>
+          </ol>
+      </tc:section>
+
       <tc:section label="&lt;tc:bar&gt;">
         <p>
           The content of <code class="language-markup">&lt;tc:bar&gt;</code> needs to be checked.
@@ -59,7 +96,7 @@
   &lt;/f:facet>
 &lt;/tc:bar></code></pre>
         <p>For more information have a look at
-          <tc:link label="tc:bar" link="/content/20-component/050-container/60-bar/bar.xhtml"/></p>
+          <tc:link label="tc:bar" outcome="/content/20-component/050-container/60-bar/bar.xhtml"/></p>
       </tc:section>
     </tc:section>
 

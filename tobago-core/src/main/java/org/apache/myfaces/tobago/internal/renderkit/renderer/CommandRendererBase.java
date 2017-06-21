@@ -65,7 +65,7 @@ public abstract class CommandRendererBase extends DecodingCommandRendererBase {
     final String clientId = command.getClientId(facesContext);
     final boolean disabled = command.isDisabled();
     final LabelWithAccessKey label = new LabelWithAccessKey(command);
-    final boolean link = command.getLink() != null && !disabled;
+    final boolean anchor = (command.getLink() != null || command.getOutcome() != null) && !disabled;
     final String target = command.getTarget();
     final boolean parentOfCommands = command.isParentOfCommands();
     final boolean dropdownSubmenu = this instanceof LinkInsideCommandRenderer;
@@ -74,7 +74,7 @@ public abstract class CommandRendererBase extends DecodingCommandRendererBase {
 
     encodeBeginOuter(facesContext, command);
 
-    if (link) {
+    if (anchor) {
       writer.startElement(HtmlElements.A);
     } else {
       writer.startElement(HtmlElements.BUTTON);
@@ -85,7 +85,7 @@ public abstract class CommandRendererBase extends DecodingCommandRendererBase {
     writer.writeAttribute(HtmlAttributes.DISABLED, disabled);
 
     if (!disabled) {
-      if (link) {
+      if (anchor) {
         final String href = RenderUtils.generateUrl(facesContext, command);
         writer.writeAttribute(HtmlAttributes.HREF, href, false);
         writer.writeAttribute(HtmlAttributes.TARGET, target, false);
@@ -141,7 +141,7 @@ public abstract class CommandRendererBase extends DecodingCommandRendererBase {
     final String image = ComponentUtils.getStringAttribute(command, Attributes.image);
     HtmlRendererUtils.encodeIconWithLabel(writer, facesContext, image, label, disabled);
 
-    if (link) {
+    if (anchor) {
       writer.endElement(HtmlElements.A);
     } else {
       writer.endElement(HtmlElements.BUTTON);

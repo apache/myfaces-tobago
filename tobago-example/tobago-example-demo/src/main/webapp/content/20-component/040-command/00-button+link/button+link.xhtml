@@ -19,7 +19,8 @@
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:f="http://java.sun.com/jsf/core">
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html">
   <ui:param name="title" value="#{demoBundle.button_link} &lt;tc:link> &lt;tc:button>"/>
   <p>A classic link can be set with the <code class="language-markup">&lt;tc:link/></code> tag.
     You can also set a link by <code class="language-markup">&lt;tc:button/></code>.
@@ -37,7 +38,11 @@
       The image leads to www.apache.org.</p>
     <tc:section label="&lt;tc:link>">
       <pre><code class="language-markup">&lt;tc:link label="apache.org" link="https://www.apache.org/"/></code></pre>
-      <tc:link id="l0" label="This page" link="/content/20-component/040-command/00-button+link/button+link.xhtml"/>
+
+      <tc:link id="l0i" label="Alps" link="#{request.contextPath}/image/alps.png"/>
+      |
+      <tc:link id="l0l" label="Intro" link="#{request.contextPath}/content/10-intro/intro.xhtml"/>
+      <tc:link id="l0o" label="Intro" outcome="/content/10-intro/intro.xhtml"/>
       |
       <tc:link id="l1" label="apache.org" link="https://www.apache.org/"/>
       |
@@ -143,7 +148,7 @@
     <tc:section label="IFrame">
       <p>The iframe is set with <code class="language-markup">&lt;tc:object name="objectframe" .../></code>
         (see <tc:link label="#{demoBundle.object}"
-                      link="/content/20-component/020-output/60-object/object.xhtml"/>).
+                      outcome="/content/20-component/020-output/60-object/object.xhtml"/>).
         The value of the <code>target</code> attribute is in this case 'objectframe'.</p>
       <p><tc:link label="apache.org" link="https://www.apache.org/" target="objectframe"/>
         |

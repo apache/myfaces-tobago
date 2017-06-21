@@ -189,6 +189,7 @@ public enum Attributes {
   open,
   orderBy,
   orientation,
+  outcome,
   overflowX,
   overflowY,
   /**

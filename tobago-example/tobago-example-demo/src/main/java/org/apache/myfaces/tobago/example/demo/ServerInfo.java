@@ -32,7 +32,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
-import java.util.StringTokenizer;
 
 /**
  * The server info class makes some information about the system and application available in the demo.
@@ -50,6 +49,8 @@ public class ServerInfo {
   private static final String CONFIG_FILE = "org.apache.myfaces.tobago.example.demo.config.file";
   private static final String CONFIG_FILE_DEFAULT = "/etc/tobago-example-demo.properties";
   private static final String ENABLED_KEY = "server.info.enabled";
+
+  private static final String LAST_RELEASED_VERSION = "3.0.4";
 
   private String version;
 
@@ -109,16 +110,8 @@ public class ServerInfo {
   }
 
   public String getStableVersion() {
-    if (version != null && version.endsWith("-SNAPSHOT")) {
-      StringTokenizer tokenizer = new StringTokenizer(version, ".-");
-      int major = Integer.parseInt(tokenizer.nextToken());
-      int minor = Integer.parseInt(tokenizer.nextToken());
-      int fix = Integer.parseInt(tokenizer.nextToken());
-      if (fix == 0) {
-        return major + "." + (minor - 1) + ".0";
-      } else {
-        return major + "." + minor + "." + (fix - 1);
-      }
+    if (version == null || version.endsWith("-SNAPSHOT")) {
+      return LAST_RELEASED_VERSION;
     } else {
       return version;
     }
