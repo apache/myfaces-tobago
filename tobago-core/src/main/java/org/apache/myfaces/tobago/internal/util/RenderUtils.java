@@ -206,24 +206,28 @@ public final class RenderUtils {
 
   public static String generateUrl(final FacesContext facesContext, final AbstractUICommandBase component) {
 
+    final ExternalContext externalContext = facesContext.getExternalContext();
+    final String outcome = component.getOutcome();
+    final String link = component.getLink();
+
     String url = null;
 
-    if (component.getLink() != null) {
-      final ExternalContext externalContext = facesContext.getExternalContext();
-      final String link = component.getLink();
-      if (link.startsWith("/")) { // internal absolute link
-        final ViewHandler viewHandler = facesContext.getApplication().getViewHandler();
-        url = viewHandler.getBookmarkableURL(
-                facesContext,
-                externalContext.getRequestContextPath() + link,
-                null,
-                true);
-      } else if (StringUtils.isUrl(link)) { // external link
+    if (outcome != null) {
+      final ViewHandler viewHandler = facesContext.getApplication().getViewHandler();
+      url = viewHandler.getBookmarkableURL(
+          facesContext,
+          outcome,
+          null,
+          true);
+    } else if (link != null) {
+      if (StringUtils.isUrl(link)) { // external link
         url = link;
-      } else { // internal relative link
+      } else { // internal link
         url = externalContext.encodeResourceURL(link);
       }
+    }
 
+    if (link != null || outcome != null) {
       final StringBuilder builder = new StringBuilder(url);
       boolean firstParameter = !url.contains("?");
       for (final UIComponent child : component.getChildren()) {
