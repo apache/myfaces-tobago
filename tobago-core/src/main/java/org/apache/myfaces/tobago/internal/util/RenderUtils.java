@@ -252,6 +252,12 @@ public final class RenderUtils {
           }
         }
       }
+
+      final String fragment = component.getFragment();
+      if (StringUtils.isNotBlank(fragment)) {
+        builder.append("#").append(fragment.trim());
+      }
+
       url = builder.toString();
     }
 

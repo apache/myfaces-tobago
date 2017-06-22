@@ -143,4 +143,6 @@ public abstract class AbstractUICommandBase extends UICommand
   public abstract String getLink();
 
   public abstract String getOutcome();
+
+  public abstract String getFragment();
 }

@@ -27,6 +27,7 @@ import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasAction;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasActionListener;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasConfirmation;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasFragment;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasLink;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasOutcome;
@@ -55,7 +56,7 @@ import javax.faces.component.UICommand;
     faceletHandler = "org.apache.myfaces.tobago.facelets.EventHandler")
 public interface EventTagDeclaration
     extends HasIdBindingAndRendered, HasAction, HasActionListener, IsImmediateCommand, HasConfirmation,
-    HasLink, HasOutcome, IsTransition, HasTarget, IsDisabledBySecurity, IsOmit {
+    HasLink, HasOutcome, HasFragment, IsTransition, HasTarget, IsDisabledBySecurity, IsOmit {
 
   /**
    * The name of the event as an instance of {@link org.apache.myfaces.tobago.component.ClientBehaviors}

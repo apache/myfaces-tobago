@@ -31,6 +31,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasAccessKey;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasAction;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasActionListener;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasConfirmation;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasFragment;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasImage;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabel;
@@ -84,7 +85,7 @@ import javax.faces.component.UICommand;
     })
 public interface ButtonTagDeclaration
     extends HasIdBindingAndRendered, HasAction, HasActionListener, IsImmediateCommand, HasConfirmation,
-    HasLink, HasOutcome, IsTransition, HasTarget, IsDisabledBySecurity,
+    HasLink, HasOutcome, HasFragment, IsTransition, HasTarget, IsDisabledBySecurity,
     IsOmit, IsVisual, HasLabel, HasAccessKey, HasTip, HasImage,
     IsDefaultCommand, HasTabIndex {
 }
