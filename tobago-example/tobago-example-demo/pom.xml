@@ -115,6 +115,11 @@
               <value>target/derby.log</value>
             </systemProperty>
           </systemProperties>
+<!--
+          <webApp>
+            <contextPath>/example</contextPath>
+          </webApp>
+-->
         </configuration>
         <dependencies>
         </dependencies>
