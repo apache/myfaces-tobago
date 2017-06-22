@@ -212,6 +212,7 @@ public abstract class CommandRendererBase extends DecodingCommandRendererBase {
     final String clientId = command.getClientId(facesContext);
     final boolean parentOfCommands = command.isParentOfCommands();
     final boolean dropdownSubmenu = this instanceof LinkInsideCommandRenderer;
+    final boolean childOfButtonGroup = this instanceof ButtonInsideButtonsRenderer;
 
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
@@ -222,7 +223,7 @@ public abstract class CommandRendererBase extends DecodingCommandRendererBase {
       final List<CssItem> cssItemsForSpan = new ArrayList<CssItem>();
       addOuterCssItems(facesContext, command, cssItemsForSpan);
       writer.writeClassAttribute(
-          dropdownSubmenu ? TobagoClass.DROPDOWN__SUBMENU : BootstrapClass.DROPDOWN,
+          childOfButtonGroup ? null : dropdownSubmenu ? TobagoClass.DROPDOWN__SUBMENU : BootstrapClass.DROPDOWN,
           null,
           cssItemsForSpan.toArray(new CssItem[cssItemsForSpan.size()]));
     }
