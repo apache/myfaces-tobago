@@ -1048,6 +1048,7 @@ th.tobago-sheet-headerCell {
   left: 0;
   width: 0;
   height: 0;
+  z-index: $zindex-popover;
 }
 
 /* Bootstrap workarounds ------------------------------------------------------------------ */
