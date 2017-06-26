@@ -28,9 +28,11 @@
   <c:forEach items="#{testController.testPages}" var="testPage">
     <div class="testframe-wrapper">
       <div>
-        <tc:link label="open in new tab" outcome="#{testPage.base}.xhtml" target="_blank"/>
+        <tc:link label="open in new tab" outcome="/#{testPage.base}.xhtml" target="_blank"/>
       </div>
-      <tc:object id="#{testPage.id}" name="test.xhtml?base=#{testPage.base}"/>
+      <tc:object id="#{testPage.id}" name="test.xhtml?base=#{testPage.base}">
+        <tc:style height="300px"/>
+      </tc:object>
     </div>
   </c:forEach>
 </ui:composition>
