@@ -45,7 +45,8 @@ Tobago.Dropdown.init = function (elements) {
       };
 
       var hideDropdown = function (event) {
-        if (event && !jQuery.contains($dropdownMenu[0], event.target) && $dropdownMenu.css("display") === "block") {
+        if (event && !jQuery.contains($dropdownMenu[0], event.target) && $dropdownMenu.css("display") === "block"
+            && !$dropdownMenu.is(":hover")) {
           $dropdownMenu.css("display", "");
         }
       };
