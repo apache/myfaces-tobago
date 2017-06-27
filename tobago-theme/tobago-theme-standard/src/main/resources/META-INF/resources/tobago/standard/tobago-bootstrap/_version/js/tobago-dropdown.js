@@ -52,6 +52,13 @@ Tobago.Dropdown.init = function (elements) {
       };
 
       $parent.on('shown.bs.dropdown', showDropdown).on('hidden.bs.dropdown', hideDropdown);
+
+      jQuery(document).on('mouseup', function (event) {
+        // fix: mousedown on dropdown item, move cursor away from menu, mouseup
+        if (!$parent.hasClass("show")) {
+          $dropdownMenu.css("display", "");
+        }
+      });
     }
   });
 };
