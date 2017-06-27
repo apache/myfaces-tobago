@@ -33,28 +33,24 @@ Tobago.Dropdown.init = function (elements) {
       var $button = jQuery(Tobago.Utils.escapeClientId($parent.attr('id') + "::command"));
       $button.attr('aria-controls', dropdownId);
 
-      $button.on('click', function () {
-        if ($dropdownMenu.css("display") === "none") {
-          $dropdownMenu.css("display", "block");
-          $dropdownMenu.css("top", $button.offset().top + $button.outerHeight() + "px");
+      var showDropdown = function (event) {
+        $dropdownMenu.css("display", "block");
+        $dropdownMenu.css("top", $button.offset().top + $button.outerHeight() + "px");
 
-          if ($dropdownMenu.hasClass("dropdown-menu-right")) {
-            $dropdownMenu.css("left", $button.offset().left + $button.outerWidth() - $dropdownMenu.outerWidth() + "px");
-          } else {
-            $dropdownMenu.css("left", $button.offset().left + "px");
-          }
+        if ($dropdownMenu.hasClass("dropdown-menu-right")) {
+          $dropdownMenu.css("left", $button.offset().left + $button.outerWidth() - $dropdownMenu.outerWidth() + "px");
         } else {
-          $dropdownMenu.css("display", "");
+          $dropdownMenu.css("left", $button.offset().left + "px");
         }
-      });
+      };
 
-      var closeDropdown = function () {
+      var hideDropdown = function (event) {
         if (event && !jQuery.contains($dropdownMenu[0], event.target) && $dropdownMenu.css("display") === "block") {
           $dropdownMenu.css("display", "");
         }
       };
-      jQuery(document).on('click.bs.dropdown.data-api focusin.bs.dropdown.data-api', closeDropdown)
-          .on('keydown.bs.dropdown.data-api', '[data-toggle="dropdown"]', closeDropdown);
+
+      $parent.on('shown.bs.dropdown', showDropdown).on('hidden.bs.dropdown', hideDropdown);
     }
   });
 };
