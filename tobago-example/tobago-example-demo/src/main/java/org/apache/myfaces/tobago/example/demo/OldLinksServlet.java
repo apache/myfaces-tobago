@@ -42,7 +42,7 @@ public class OldLinksServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setStatus(HttpServletResponse.SC_FOUND);
-        final String redirect = request.getContextPath() + request.getPathInfo();
+        final String redirect = request.getContextPath() + request.getPathInfo() + '?' + request.getQueryString();
         response.sendRedirect(redirect);
 
         LOG.warn("Old URI was called: requestURI='{}' redirect='{}' referer='{}'",
