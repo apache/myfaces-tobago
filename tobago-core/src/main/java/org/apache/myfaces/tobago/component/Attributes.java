@@ -67,6 +67,7 @@ public enum Attributes {
   columns,
   compact,
   confirmation,
+  content,
   converter,
   customClass,
   createSpan,
@@ -99,6 +100,7 @@ public enum Attributes {
   height,
   hidden,
   hover,
+  httpEquiv,
   i18n,
   iconSize,
   id,
@@ -118,6 +120,7 @@ public enum Attributes {
   large,
   layoutOrder,
   left,
+  lang,
   link,
   /** @deprecated since Tobago 2.0.0 */
   @Deprecated

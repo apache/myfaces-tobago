@@ -20,12 +20,15 @@
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
 import org.apache.myfaces.tobago.component.Attributes;
+import org.apache.myfaces.tobago.component.RendererTypes;
+import org.apache.myfaces.tobago.component.UIMeta;
 import org.apache.myfaces.tobago.component.UIPage;
 import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.context.Theme;
 import org.apache.myfaces.tobago.context.TobagoContext;
 import org.apache.myfaces.tobago.context.TobagoResourceBundle;
+import org.apache.myfaces.tobago.internal.component.AbstractUIMeta;
 import org.apache.myfaces.tobago.internal.component.AbstractUIPage;
 import org.apache.myfaces.tobago.internal.util.AccessKeyLogger;
 import org.apache.myfaces.tobago.internal.util.CookieUtils;
@@ -174,17 +177,26 @@ public class PageRenderer extends RendererBase {
       writer.startElement(HtmlElements.HEAD);
 
       // meta tags
+      final List<UIComponent> headComponents = viewRoot.getComponentResources(facesContext, "head");
 
-      // this is needed, because websphere 6.0? ignores the setting of the content type on the response
-      writer.startElement(HtmlElements.META);
-      writer.writeAttribute(HtmlAttributes.HTTP_EQUIV, "Content-Type", false);
-      writer.writeAttribute(HtmlAttributes.CONTENT, contentType, false);
-      writer.endElement(HtmlElements.META);
+      if (!containsCharset(headComponents)) {
+        final UIMeta charset = (UIMeta) facesContext.getApplication()
+            .createComponent(facesContext, UIMeta.COMPONENT_TYPE, RendererTypes.Meta.name());
+        charset.setCharset(writer.getCharacterEncoding());
+        charset.encodeAll(facesContext);
+      }
 
-      writer.startElement(HtmlElements.META);
-      writer.writeAttribute(HtmlAttributes.NAME, "viewport", false);
-      writer.writeAttribute(HtmlAttributes.CONTENT, page.getViewport(), true);
-      writer.endElement(HtmlElements.META);
+      if (!containsNameViewport(headComponents)) {
+        final UIMeta viewport = (UIMeta) facesContext.getApplication()
+            .createComponent(facesContext, UIMeta.COMPONENT_TYPE, RendererTypes.Meta.name());
+        viewport.setName("viewport");
+        viewport.setContent(page.getViewport());
+        viewport.encodeAll(facesContext);
+      }
+
+      for (UIComponent headResource : headComponents) {
+        headResource.encodeAll(facesContext);
+      }
 
       // title
       writer.startElement(HtmlElements.TITLE);
@@ -332,6 +344,26 @@ public class PageRenderer extends RendererBase {
       writer.endElement(HtmlElements.INPUT);
     }
 */
+  }
+
+  private boolean containsCharset(final List<UIComponent> headComponents) {
+    for (UIComponent headComponent : headComponents) {
+      if (headComponent instanceof AbstractUIMeta
+          && ((AbstractUIMeta) headComponent).getCharset() != null) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  private boolean containsNameViewport(final List<UIComponent> headComponents) {
+    for (UIComponent headComponent : headComponents) {
+      if (headComponent instanceof AbstractUIMeta
+          && "viewport".equals(((AbstractUIMeta) headComponent).getName())) {
+        return true;
+      }
+    }
+    return false;
   }
 
   private void checkDuplicates(final String[] resources, final Collection<String> files) {

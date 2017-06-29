@@ -54,6 +54,7 @@ public enum RendererTypes {
   LinksInsideBar,
   Label,
   Messages,
+  Meta,
   Object,
   Operation,
   Out,
@@ -132,6 +133,7 @@ public enum RendererTypes {
   public static final String LINKS_INSIDE_BAR = "LinksInsideBar";
   public static final String LABEL = "Label";
   public static final String MESSAGES = "Messages";
+  public static final String META = "Meta";
   public static final String OBJECT = "Object";
   public static final String OPERATION = "Operation";
   public static final String OUT = "Out";

@@ -30,6 +30,7 @@ public enum HtmlAttributes implements MarkupLanguageAttributes {
   AUTOCOMPLETE("autocomplete"),
   AUTOFOCUS("autofocus"),
   BORDER("border"),
+  CHARSET("charset"),
   CELLPADDING("cellpadding"),
   CELLSPACING("cellspacing"),
   CHECKED("checked"),
