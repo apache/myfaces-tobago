@@ -179,8 +179,6 @@ body {
 /* flexLayout -------------------------------------------------------------- */
 
 .tobago-flexLayout {
-  display: -webkit-flex; /* needed e.g. for Safari 8.0.2 */
-  display: -ms-flexbox; /* needed for IE 10 */
   display: flex;
   min-width: 0;
   /* without this, Firefox/Webkit are different from IE:
@@ -203,8 +201,6 @@ body {
 
 .tobago-flexLayout-markup-vertically {
   flex-direction: column;
-  -webkit-flex-direction: column;
-  -ms-flex-direction: column;
 }
 
 .tobago-alignItems-baseline {
@@ -256,8 +252,6 @@ body {
 .tobago-footer {
   background-color: #ffffff;
   padding: 5px 10px;
-  -webkit-box-shadow: 0 0 5px 5px rgba(200, 200, 200, 0.5);
-  -moz-box-shadow: 0 0 5px 5px rgba(200, 200, 200, 0.5);
   box-shadow: 0 0 5px 5px rgba(200, 200, 200, 0.5);
 }
 
@@ -475,8 +469,6 @@ a.tobago-messages-button {
     left: 100%;
     margin-top: -6px;
     margin-left: -1px;
-    -webkit-border-radius: 6px 6px 6px 6px;
-    -moz-border-radius: 6px 6px 6px 6px;
     border-radius: 6px 6px 6px 6px;
   }
 
@@ -522,8 +514,6 @@ a.tobago-messages-button {
     > .dropdown-menu {
       left: -100%;
       margin-left: 10px;
-      -webkit-border-radius: 6px 0 6px 6px;
-      -moz-border-radius: 6px 0 6px 6px;
       border-radius: 6px 0 6px 6px;
     }
   }
