@@ -88,11 +88,4 @@ public interface PageTagDeclaration
   @TagAttribute
   @UIComponentTagAttribute()
   void setApplicationIcon(String icon);
-
-  /**
-   * Adding the value for the viewport meta tag in the page header in HTML.
-   */
-  @TagAttribute
-  @UIComponentTagAttribute(defaultValue = "width=device-width, initial-scale=1.0")
-  void setViewport(String viewport);
 }

@@ -190,7 +190,7 @@ public class PageRenderer extends RendererBase {
         final UIMeta viewport = (UIMeta) facesContext.getApplication()
             .createComponent(facesContext, UIMeta.COMPONENT_TYPE, RendererTypes.Meta.name());
         viewport.setName("viewport");
-        viewport.setContent(page.getViewport());
+        viewport.setContent("width=device-width, initial-scale=1.0");
         viewport.encodeAll(facesContext);
       }
 
