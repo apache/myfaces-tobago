@@ -29,7 +29,7 @@ function waitForAjax(waitingDone, executeWhenDone, maxWait) {
   var startTime = new Date().getTime();
   maxWait = maxWait ? maxWait : 20000;
   var stillWaiting = true;
-  var interval = setInterval(function() {
+  var interval = setInterval(function () {
     if (new Date().getTime() - startTime < maxWait && stillWaiting) {
       stillWaiting = !waitingDone();
     } else {
@@ -38,6 +38,23 @@ function waitForAjax(waitingDone, executeWhenDone, maxWait) {
     }
   }, 50);
 }
+
+QUnit.test("wait for test", function (assert) {
+  var done = assert.async();
+
+  var startTime = new Date().getTime();
+  var contentWindowName = "";
+  var waitingDone = false;
+  var interval = setInterval(function () {
+    contentWindowName = document.getElementById("page:testframe").contentWindow.name;
+    waitingDone = contentWindowName !== "page:testframe" && contentWindowName !== "ds-tempWindowId";
+    if (new Date().getTime() - startTime >= 20000 || waitingDone) {
+      clearInterval(interval);
+      assert.ok(waitingDone);
+      done();
+    }
+  }, 50);
+});
 
 function getDuplicatedIDs() {
   var duplicatedIDs = [];
