@@ -40,7 +40,7 @@
     <mojarra21.version>2.1.29-08</mojarra21.version>
     <mojarra22.version>2.2.14</mojarra22.version>
     <mojarra23.version>2.3.0</mojarra23.version>
-    <slf4j.version>1.7.22</slf4j.version>
+    <slf4j.version>1.7.25</slf4j.version>
     <logback.version>1.2.3</logback.version>
     <commons-collection.version>3.2.2</commons-collection.version>
     <maven.compile.source>1.6</maven.compile.source>
@@ -442,7 +442,7 @@
       <dependency>
         <groupId>commons-beanutils</groupId>
         <artifactId>commons-beanutils</artifactId>
-        <version>1.9.2</version>
+        <version>1.9.3</version>
       </dependency>
       <dependency>
         <groupId>commons-collections</groupId>
@@ -488,7 +488,7 @@
         <!-- jsoup HTML parser library -->
         <groupId>org.jsoup</groupId>
         <artifactId>jsoup</artifactId>
-        <version>1.8.2</version>
+        <version>1.10.2</version>
       </dependency>
       <dependency>
         <groupId>org.apache.myfaces.test</groupId>
