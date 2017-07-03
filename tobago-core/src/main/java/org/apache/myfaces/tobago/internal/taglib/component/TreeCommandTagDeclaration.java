@@ -49,6 +49,7 @@ import javax.faces.component.UICommand;
 
 /**
  * Renders a command inside of a tree.
+ * @deprecated since 4.0.0, please use tc:link
  */
 @Tag(name = "treeCommand")
 @BodyContentDescription(anyTagOf = "facestag")
