@@ -31,11 +31,19 @@ $link-color: $brand-primary !default;
 $link-hover-color: darken($link-color, 15%) !default;
 $nav-link-padding: .5em 1em !default;
 $blue: #0275d8 !default;
+$white:  #fff !default;
 $gray-dark: #292b2c !default;
+$gray-light: #636c72 !default;
 $gray-lightest: #f7f7f9 !default;
 $dropdown-item-padding-x: 1.5rem !default;
 $dropdown-link-color: $gray-dark !default;
+$component-active-color: $white !default;
+$dropdown-link-active-color: $component-active-color !default;
+$dropdown-link-disabled-color: $gray-light !default;
 $dropdown-link-hover-bg: $gray-lightest !default;
+$nav-disabled-link-color: $gray-light !default;
+$btn-primary-color: $white !default;
+$btn-secondary-color: $gray-dark !default;
 
 /* fix bootstrap ---------------------------------------------------- */
 span.dropdown {
@@ -87,7 +95,13 @@ Todo: check, if this is needed? (It doesn't work with the build system)
 }
 
 /* buttons, links ------------------------------------------------------- */
-.tobago-buttons, .tobago-links {
+.tobago-buttons {
+  > .tobago-button {
+    display: inline-block;
+  }
+}
+
+.tobago-links {
 }
 
 /* button, link ------------------------------------------------------- */
@@ -99,13 +113,25 @@ Todo: check, if this is needed? (It doesn't work with the build system)
 
 /* button -------------------------------------------------------------- */
 
-/* XXX fixes a problem with image in button inside a segmentLayout (with FF40 and IE11)
-   test page: buttons-with-image.xhtml
-   This might not be a good solution, is works only with images not larger then 16px
-*/
-.tobago-button > img {
-  margin-top: -1px;
-  margin-bottom: -1px;
+.tobago-button {
+  cursor: default;
+}
+
+a.tobago-button {
+  &.btn-primary:focus {
+    color: $btn-primary-color;
+  }
+  &.btn-secondary:focus {
+    color: $btn-secondary-color;
+  }
+}
+
+button.tobago-button {
+  &:disabled {
+    img, span {
+      pointer-events: none;
+    }
+  }
 }
 
 .input-group-btn > .btn-group {
@@ -339,6 +365,19 @@ table.tobago-gridLayout > tbody {
   span {
     white-space: normal
   }
+
+  &.nav-link {
+    &:focus, &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+a.tobago-link.dropdown-item {
+  img, span {
+    display: inline-block; /* fix for IE11 - :active selector doesn't work for nested elements */
+    pointer-events: none;
+  }
 }
 
 button {
@@ -352,9 +391,21 @@ button {
     &:focus, &:hover {
       color: $link-hover-color;
       cursor: pointer;
-      background-color: transparent;
       outline: none;
       text-decoration: underline;
+    }
+
+    &:disabled {
+      color: $nav-disabled-link-color;
+
+      &:hover {
+        cursor: not-allowed;
+        text-decoration: none;
+      }
+
+      > img {
+        opacity: .65;
+      }
     }
   }
 
@@ -364,25 +415,22 @@ button {
     text-align: inherit;
     white-space: nowrap;
 
+    &:active {
+      color: $dropdown-link-active-color;
+    }
+
     &:focus, &:hover {
       cursor: pointer;
       text-decoration: none;
-      background-color: $dropdown-link-hover-bg;
+    }
+
+    &:disabled {
+      color: $dropdown-link-disabled-color;
     }
   }
 
   &.tobago-link.dropdown-toggle {
     &:focus, &:hover {
-      text-decoration: none;
-    }
-  }
-
-  &.tobago-link-markup-disabled, &.tobago-command-markup-disabled {
-    cursor: not-allowed;
-    opacity: .65;
-
-    &:hover {
-      color: $blue;
       text-decoration: none;
     }
   }
@@ -464,6 +512,12 @@ a.tobago-messages-button {
   display: inline-block;
   width: 100%;
 
+  &:active {
+    > button.tobago-link {
+      color: $dropdown-link-active-color;
+    }
+  }
+
   > .dropdown-menu {
     top: 0;
     left: 100%;
@@ -477,14 +531,9 @@ a.tobago-messages-button {
   }
 
   > button.tobago-link {
-    border-width: 0;
     color: $dropdown-link-color;
-    padding: 0;
-    background-color: transparent;
-    text-align: left;
 
     &:focus, &:hover {
-      color: $dropdown-link-color;
       text-decoration: none;
     }
   }
