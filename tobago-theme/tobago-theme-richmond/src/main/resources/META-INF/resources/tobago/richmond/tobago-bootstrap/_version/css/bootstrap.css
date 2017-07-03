@@ -9434,19 +9434,30 @@ Todo: check, if this is needed? (It doesn't work with the build system)
 }
 
 /* buttons, links ------------------------------------------------------- */
+.tobago-buttons > .tobago-button {
+  display: inline-block;
+}
+
 /* button, link ------------------------------------------------------- */
 .tobago-button > :nth-child(n+2), .tobago-link > :nth-child(n+2) {
   margin-left: .4em;
 }
 
 /* button -------------------------------------------------------------- */
-/* XXX fixes a problem with image in button inside a segmentLayout (with FF40 and IE11)
-   test page: buttons-with-image.xhtml
-   This might not be a good solution, is works only with images not larger then 16px
-*/
-.tobago-button > img {
-  margin-top: -1px;
-  margin-bottom: -1px;
+.tobago-button {
+  cursor: default;
+}
+
+a.tobago-button.btn-primary:focus {
+  color: #fff;
+}
+
+a.tobago-button.btn-secondary:focus {
+  color: #292b2c;
+}
+
+button.tobago-button:disabled img, button.tobago-button:disabled span {
+  pointer-events: none;
 }
 
 .input-group-btn > .btn-group {
@@ -9513,11 +9524,9 @@ body {
 
 /* flexLayout -------------------------------------------------------------- */
 .tobago-flexLayout {
-  display: -webkit-flex;
-  /* needed e.g. for Safari 8.0.2 */
-  display: -ms-flexbox;
-  /* needed for IE 10 */
   display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
   display: flex;
   min-width: 0;
   /* without this, Firefox/Webkit are different from IE:
@@ -9541,9 +9550,9 @@ body {
 .tobago-flexLayout-markup-vertically {
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
-          flex-direction: column;
   -webkit-flex-direction: column;
-  -ms-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
 }
 
 .tobago-alignItems-baseline {
@@ -9621,7 +9630,7 @@ body {
   background-color: #ffffff;
   padding: 5px 10px;
   -webkit-box-shadow: 0 0 5px 5px rgba(200, 200, 200, 0.5);
-  box-shadow: 0 0 5px 5px rgba(200, 200, 200, 0.5);
+          box-shadow: 0 0 5px 5px rgba(200, 200, 200, 0.5);
 }
 
 .fixed-bottom {
@@ -9692,6 +9701,16 @@ table.tobago-gridLayout > tbody > tr:first-child > td {
   white-space: normal;
 }
 
+.tobago-link.nav-link:focus, .tobago-link.nav-link:hover {
+  text-decoration: underline;
+}
+
+a.tobago-link.dropdown-item img, a.tobago-link.dropdown-item span {
+  display: inline-block;
+  /* fix for IE11 - :active selector doesn't work for nested elements */
+  pointer-events: none;
+}
+
 button.tobago-link, button.tobago-treeCommand {
   color: #0275d8;
   border-width: 0;
@@ -9703,9 +9722,21 @@ button.tobago-link, button.tobago-treeCommand {
 button.tobago-link:focus, button.tobago-link:hover, button.tobago-treeCommand:focus, button.tobago-treeCommand:hover {
   color: #014c8c;
   cursor: pointer;
-  background-color: transparent;
   outline: none;
   text-decoration: underline;
+}
+
+button.tobago-link:disabled, button.tobago-treeCommand:disabled {
+  color: #636c72;
+}
+
+button.tobago-link:disabled:hover, button.tobago-treeCommand:disabled:hover {
+  cursor: not-allowed;
+  text-decoration: none;
+}
+
+button.tobago-link:disabled > img, button.tobago-treeCommand:disabled > img {
+  opacity: .65;
 }
 
 button.tobago-link.dropdown-item {
@@ -9715,23 +9746,20 @@ button.tobago-link.dropdown-item {
   white-space: nowrap;
 }
 
+button.tobago-link.dropdown-item:active {
+  color: #fff;
+}
+
 button.tobago-link.dropdown-item:focus, button.tobago-link.dropdown-item:hover {
   cursor: pointer;
   text-decoration: none;
-  background-color: #f7f7f9;
+}
+
+button.tobago-link.dropdown-item:disabled {
+  color: #636c72;
 }
 
 button.tobago-link.dropdown-toggle:focus, button.tobago-link.dropdown-toggle:hover {
-  text-decoration: none;
-}
-
-button.tobago-link-markup-disabled, button.tobago-command-markup-disabled {
-  cursor: not-allowed;
-  opacity: .65;
-}
-
-button.tobago-link-markup-disabled:hover, button.tobago-command-markup-disabled:hover {
-  color: #0275d8;
   text-decoration: none;
 }
 
@@ -9817,6 +9845,10 @@ a.tobago-messages-button {
   width: 100%;
 }
 
+.tobago-dropdown-submenu:active > button.tobago-link {
+  color: #fff;
+}
+
 .tobago-dropdown-submenu > .dropdown-menu {
   top: 0;
   left: 100%;
@@ -9830,15 +9862,10 @@ a.tobago-messages-button {
 }
 
 .tobago-dropdown-submenu > button.tobago-link {
-  border-width: 0;
   color: #292b2c;
-  padding: 0;
-  background-color: transparent;
-  text-align: left;
 }
 
 .tobago-dropdown-submenu > button.tobago-link:focus, .tobago-dropdown-submenu > button.tobago-link:hover {
-  color: #292b2c;
   text-decoration: none;
 }
 
