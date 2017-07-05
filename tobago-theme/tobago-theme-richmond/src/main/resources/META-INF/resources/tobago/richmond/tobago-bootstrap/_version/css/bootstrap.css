@@ -10206,6 +10206,11 @@ th.tobago-sheet-headerCell .tobago-out {
   -webkit-flex-direction: column;
       -ms-flex-direction: column;
           flex-direction: column;
+  margin-bottom: 1rem;
+}
+
+.tobago-sheet .table {
+  margin-bottom: 0;
 }
 
 .tobago-sheet-cell-markup-right {

@@ -1,4 +1,4 @@
-Build date: 2017-07-05 09:53:48
+Build date: 2017-07-05 11:52:37
 [INFO] Scanning for projects...
 [INFO] 
 [INFO] ------------------------------------------------------------------------
@@ -94,7 +94,7 @@ Build date: 2017-07-05 09:53:48
 [INFO] Verified checksum of previously downloaded file
 [INFO] Extracting zip contents
 [INFO] Removing __CURRENT__/tobago-theme-speyside/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom
-[INFO] Copying extracted folder /var/folders/yp/1vrxjnrs20798ydt_yl8wrpr0000gp/T/phantomjs/phantomjs-2.1.1-macosx.zip-extract-1499241432890/phantomjs-2.1.1-macosx -> __CURRENT__/tobago-theme-speyside/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom
+[INFO] Copying extracted folder /var/folders/yp/1vrxjnrs20798ydt_yl8wrpr0000gp/T/phantomjs/phantomjs-2.1.1-macosx.zip-extract-1499248508774/phantomjs-2.1.1-macosx -> __CURRENT__/tobago-theme-speyside/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom
 [INFO] Writing location.js file
 [INFO] Done. Phantomjs binary available at __CURRENT__/tobago-theme-speyside/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom/bin/phantomjs
 [INFO] 
@@ -973,8 +973,8 @@ Build date: 2017-07-05 09:53:48
 [INFO] >> Wrote CSS to __CURRENT__/tobago-theme-speyside/target/bootstrap/dist/css/bootstrap-grid.css
 [INFO] >> Wrote Source Map to __CURRENT__/tobago-theme-speyside/target/bootstrap/dist/css/bootstrap-grid.css.map
 [INFO] >> Rendering Complete, saving .css file...
-[INFO] >> Wrote CSS to __CURRENT__/tobago-theme-speyside/target/bootstrap/dist/css/bootstrap-reboot.css
 [INFO] >> Wrote Source Map to __CURRENT__/tobago-theme-speyside/target/bootstrap/dist/css/bootstrap-reboot.css.map
+[INFO] >> Wrote CSS to __CURRENT__/tobago-theme-speyside/target/bootstrap/dist/css/bootstrap-reboot.css
 [INFO] 
 [INFO] Running "exec:sass-docs" (exec) task
 [INFO] 
@@ -982,8 +982,8 @@ Build date: 2017-07-05 09:53:48
 [INFO] > node-sass --output-style expanded --source-map true --precision 6 docs/assets/scss/docs.scss docs/assets/css/docs.min.css
 [INFO] 
 [INFO] >> Rendering Complete, saving .css file...
-[INFO] >> Wrote CSS to __CURRENT__/tobago-theme-speyside/target/bootstrap/docs/assets/css/docs.min.css
 [INFO] >> Wrote Source Map to __CURRENT__/tobago-theme-speyside/target/bootstrap/docs/assets/css/docs.min.css.map
+[INFO] >> Wrote CSS to __CURRENT__/tobago-theme-speyside/target/bootstrap/docs/assets/css/docs.min.css
 [INFO] 
 [INFO] Running "exec:postcss" (exec) task
 [INFO] 
@@ -1020,16 +1020,16 @@ Build date: 2017-07-05 09:53:48
 [INFO] Done.
 [INFO] 
 [INFO] 
-[INFO] Execution Time (2017-07-05 09:57:21 UTC+2)
-[INFO] exec:sass             3.4s  ▇▇▇▇▇▇▇▇ 18%
-[INFO] exec:sass-docs        1.8s  ▇▇▇▇ 10%
-[INFO] exec:postcss          3.2s  ▇▇▇▇▇▇▇▇ 18%
-[INFO] exec:clean-css        3.2s  ▇▇▇▇▇▇▇▇ 18%
-[INFO] exec:clean-css-docs   1.5s  ▇▇▇▇ 8%
-[INFO] babel:dev             2.9s  ▇▇▇▇▇▇▇ 16%
-[INFO] babel:dist           814ms  ▇▇ 4%
-[INFO] exec:uglify           1.3s  ▇▇▇ 7%
-[INFO] Total 18.1s
+[INFO] Execution Time (2017-07-05 11:55:12 UTC+2)
+[INFO] exec:sass             1.5s  ▇▇▇▇▇▇▇▇ 17%
+[INFO] exec:sass-docs       730ms  ▇▇▇▇ 8%
+[INFO] exec:postcss          1.5s  ▇▇▇▇▇▇▇ 16%
+[INFO] exec:clean-css        1.5s  ▇▇▇▇▇▇▇ 17%
+[INFO] exec:clean-css-docs  683ms  ▇▇▇▇ 8%
+[INFO] babel:dev             1.2s  ▇▇▇▇▇▇ 13%
+[INFO] babel:dist           640ms  ▇▇▇ 7%
+[INFO] exec:uglify           1.2s  ▇▇▇▇▇▇ 14%
+[INFO] Total 9s
 [INFO] 
 [INFO] 
 [INFO] --- maven-resources-plugin:2.7:resources (default-resources) @ tobago-theme-speyside ---
@@ -1072,7 +1072,7 @@ main:
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
-[INFO] Total time: 03:50 min
-[INFO] Finished at: 2017-07-05T09:57:40+02:00
-[INFO] Final Memory: 30M/422M
+[INFO] Total time: 02:43 min
+[INFO] Finished at: 2017-07-05T11:55:22+02:00
+[INFO] Final Memory: 36M/525M
 [INFO] ------------------------------------------------------------------------

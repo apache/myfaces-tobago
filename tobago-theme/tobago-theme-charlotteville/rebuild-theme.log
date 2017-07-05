@@ -1,4 +1,4 @@
-Build date: 2017-07-05 09:44:27
+Build date: 2017-07-05 11:44:42
 [INFO] Scanning for projects...
 [INFO] 
 [INFO] ------------------------------------------------------------------------
@@ -94,7 +94,7 @@ Build date: 2017-07-05 09:44:27
 [INFO] Verified checksum of previously downloaded file
 [INFO] Extracting zip contents
 [INFO] Removing __CURRENT__/tobago-theme-charlotteville/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom
-[INFO] Copying extracted folder /var/folders/yp/1vrxjnrs20798ydt_yl8wrpr0000gp/T/phantomjs/phantomjs-2.1.1-macosx.zip-extract-1499240814446/phantomjs-2.1.1-macosx -> __CURRENT__/tobago-theme-charlotteville/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom
+[INFO] Copying extracted folder /var/folders/yp/1vrxjnrs20798ydt_yl8wrpr0000gp/T/phantomjs/phantomjs-2.1.1-macosx.zip-extract-1499248023878/phantomjs-2.1.1-macosx -> __CURRENT__/tobago-theme-charlotteville/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom
 [INFO] Writing location.js file
 [INFO] Done. Phantomjs binary available at __CURRENT__/tobago-theme-charlotteville/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom/bin/phantomjs
 [INFO] 
@@ -982,8 +982,8 @@ Build date: 2017-07-05 09:44:27
 [INFO] > node-sass --output-style expanded --source-map true --precision 6 docs/assets/scss/docs.scss docs/assets/css/docs.min.css
 [INFO] 
 [INFO] >> Rendering Complete, saving .css file...
-[INFO] >> Wrote Source Map to __CURRENT__/tobago-theme-charlotteville/target/bootstrap/docs/assets/css/docs.min.css.map
 [INFO] >> Wrote CSS to __CURRENT__/tobago-theme-charlotteville/target/bootstrap/docs/assets/css/docs.min.css
+[INFO] >> Wrote Source Map to __CURRENT__/tobago-theme-charlotteville/target/bootstrap/docs/assets/css/docs.min.css.map
 [INFO] 
 [INFO] Running "exec:postcss" (exec) task
 [INFO] 
@@ -1020,16 +1020,16 @@ Build date: 2017-07-05 09:44:27
 [INFO] Done.
 [INFO] 
 [INFO] 
-[INFO] Execution Time (2017-07-05 09:46:57 UTC+2)
-[INFO] exec:sass             1.6s  ▇▇▇▇▇▇▇ 17%
-[INFO] exec:sass-docs       721ms  ▇▇▇▇ 8%
-[INFO] exec:postcss          1.4s  ▇▇▇▇▇▇▇ 15%
+[INFO] Execution Time (2017-07-05 11:47:07 UTC+2)
+[INFO] exec:sass             1.6s  ▇▇▇▇▇▇▇▇ 17%
+[INFO] exec:sass-docs       753ms  ▇▇▇▇ 8%
+[INFO] exec:postcss          1.5s  ▇▇▇▇▇▇▇ 16%
 [INFO] exec:clean-css        1.5s  ▇▇▇▇▇▇▇ 16%
-[INFO] exec:clean-css-docs  700ms  ▇▇▇▇ 8%
-[INFO] babel:dev             1.2s  ▇▇▇▇▇▇ 13%
-[INFO] babel:dist           850ms  ▇▇▇▇ 9%
+[INFO] exec:clean-css-docs  691ms  ▇▇▇▇ 8%
+[INFO] babel:dev             1.3s  ▇▇▇▇▇▇ 14%
+[INFO] babel:dist           684ms  ▇▇▇▇ 7%
 [INFO] exec:uglify           1.2s  ▇▇▇▇▇▇ 13%
-[INFO] Total 9.3s
+[INFO] Total 9.2s
 [INFO] 
 [INFO] 
 [INFO] --- maven-resources-plugin:2.7:resources (default-resources) @ tobago-theme-charlotteville ---
@@ -1072,7 +1072,7 @@ main:
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
-[INFO] Total time: 02:39 min
-[INFO] Finished at: 2017-07-05T09:47:08+02:00
-[INFO] Final Memory: 36M/529M
+[INFO] Total time: 02:33 min
+[INFO] Finished at: 2017-07-05T11:47:17+02:00
+[INFO] Final Memory: 36M/526M
 [INFO] ------------------------------------------------------------------------

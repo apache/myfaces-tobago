@@ -1,4 +1,4 @@
-Build date: 2017-07-05 09:57:40
+Build date: 2017-07-05 11:55:22
 [INFO] Scanning for projects...
 [INFO] 
 [INFO] ------------------------------------------------------------------------
@@ -94,7 +94,7 @@ Build date: 2017-07-05 09:57:40
 [INFO] Verified checksum of previously downloaded file
 [INFO] Extracting zip contents
 [INFO] Removing __CURRENT__/tobago-theme-standard/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom
-[INFO] Copying extracted folder /var/folders/yp/1vrxjnrs20798ydt_yl8wrpr0000gp/T/phantomjs/phantomjs-2.1.1-macosx.zip-extract-1499241604088/phantomjs-2.1.1-macosx -> __CURRENT__/tobago-theme-standard/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom
+[INFO] Copying extracted folder /var/folders/yp/1vrxjnrs20798ydt_yl8wrpr0000gp/T/phantomjs/phantomjs-2.1.1-macosx.zip-extract-1499248661234/phantomjs-2.1.1-macosx -> __CURRENT__/tobago-theme-standard/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom
 [INFO] Writing location.js file
 [INFO] Done. Phantomjs binary available at __CURRENT__/tobago-theme-standard/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom/bin/phantomjs
 [INFO] 
@@ -970,11 +970,11 @@ Build date: 2017-07-05 09:57:40
 [INFO] >> Wrote CSS to __CURRENT__/tobago-theme-standard/target/bootstrap/dist/css/bootstrap.css
 [INFO] >> Wrote Source Map to __CURRENT__/tobago-theme-standard/target/bootstrap/dist/css/bootstrap.css.map
 [INFO] >> Rendering Complete, saving .css file...
-[INFO] >> Wrote Source Map to __CURRENT__/tobago-theme-standard/target/bootstrap/dist/css/bootstrap-grid.css.map
 [INFO] >> Wrote CSS to __CURRENT__/tobago-theme-standard/target/bootstrap/dist/css/bootstrap-grid.css
+[INFO] >> Wrote Source Map to __CURRENT__/tobago-theme-standard/target/bootstrap/dist/css/bootstrap-grid.css.map
 [INFO] >> Rendering Complete, saving .css file...
-[INFO] >> Wrote Source Map to __CURRENT__/tobago-theme-standard/target/bootstrap/dist/css/bootstrap-reboot.css.map
 [INFO] >> Wrote CSS to __CURRENT__/tobago-theme-standard/target/bootstrap/dist/css/bootstrap-reboot.css
+[INFO] >> Wrote Source Map to __CURRENT__/tobago-theme-standard/target/bootstrap/dist/css/bootstrap-reboot.css.map
 [INFO] 
 [INFO] Running "exec:sass-docs" (exec) task
 [INFO] 
@@ -1020,16 +1020,16 @@ Build date: 2017-07-05 09:57:40
 [INFO] Done.
 [INFO] 
 [INFO] 
-[INFO] Execution Time (2017-07-05 10:00:07 UTC+2)
-[INFO] exec:sass             1.6s  ▇▇▇▇▇▇▇ 17%
-[INFO] exec:sass-docs       762ms  ▇▇▇▇ 8%
-[INFO] exec:postcss          1.5s  ▇▇▇▇▇▇▇ 16%
-[INFO] exec:clean-css        1.6s  ▇▇▇▇▇▇▇ 16%
-[INFO] exec:clean-css-docs  730ms  ▇▇▇▇ 8%
-[INFO] babel:dev             1.3s  ▇▇▇▇▇▇ 14%
-[INFO] babel:dist           763ms  ▇▇▇▇ 8%
-[INFO] exec:uglify           1.3s  ▇▇▇▇▇▇ 13%
-[INFO] Total 9.7s
+[INFO] Execution Time (2017-07-05 11:57:44 UTC+2)
+[INFO] exec:sass             1.6s  ▇▇▇▇▇▇▇▇ 17%
+[INFO] exec:sass-docs       729ms  ▇▇▇▇ 8%
+[INFO] exec:postcss          1.4s  ▇▇▇▇▇▇▇ 16%
+[INFO] exec:clean-css        1.5s  ▇▇▇▇▇▇▇ 16%
+[INFO] exec:clean-css-docs  682ms  ▇▇▇▇ 7%
+[INFO] babel:dev             1.2s  ▇▇▇▇▇▇ 14%
+[INFO] babel:dist           669ms  ▇▇▇▇ 7%
+[INFO] exec:uglify           1.2s  ▇▇▇▇▇▇ 13%
+[INFO] Total 9.1s
 [INFO] 
 [INFO] 
 [INFO] --- maven-resources-plugin:2.7:resources (default-resources) @ tobago-theme-standard ---
@@ -1055,8 +1055,8 @@ Build date: 2017-07-05 09:57:40
 [INFO] tether-theme-basic.min.css (504b) -> tether-theme-basic.min.min.css (504b)[100%]
 [INFO] nothing to do, __CURRENT__/tobago-theme-standard/target/classes/META-INF/resources/tobago/standard/tether/1.1.1/css/tether.min.css is younger than original, use 'force' option or clean your target
 [INFO] tether.min.css (237b) -> tether.min.min.css (237b)[100%]
-[INFO] bootstrap.css (219422b) -> bootstrap.min.css (166488b)[75%]
-[INFO] bootstrap.min.css (166501b) -> bootstrap.min.min.css (166209b)[99%]
+[INFO] bootstrap.css (219491b) -> bootstrap.min.css (166544b)[75%]
+[INFO] bootstrap.min.css (166557b) -> bootstrap.min.min.css (166265b)[99%]
 [INFO] nothing to do, __CURRENT__/tobago-theme-standard/target/classes/META-INF/resources/tobago/standard/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.min.css is younger than original, use 'force' option or clean your target
 [INFO] nothing to do, __CURRENT__/tobago-theme-standard/target/classes/META-INF/resources/tobago/standard/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.min.min.css is younger than original, use 'force' option or clean your target
 [INFO] nothing to do, __CURRENT__/tobago-theme-standard/target/classes/META-INF/resources/tobago/standard/font-awesome/4.7.0/css/font-awesome.min.css is younger than original, use 'force' option or clean your target
@@ -1071,7 +1071,7 @@ Build date: 2017-07-05 09:57:40
 [INFO] nothing to do, __CURRENT__/tobago-theme-standard/target/classes/META-INF/resources/tobago/standard/tether/1.1.1/css/tether.min.min.css is younger than original, use 'force' option or clean your target
 [INFO] nothing to do, __CURRENT__/tobago-theme-standard/target/classes/META-INF/resources/tobago/standard/tobago-bootstrap/_version/css/bootstrap.min.css is younger than original, use 'force' option or clean your target
 [INFO] nothing to do, __CURRENT__/tobago-theme-standard/target/classes/META-INF/resources/tobago/standard/tobago-bootstrap/_version/css/bootstrap.min.min.css is younger than original, use 'force' option or clean your target
-[INFO] total input (434825b) -> output (381531b)[87%]
+[INFO] total input (434950b) -> output (381643b)[87%]
 [INFO] nb warnings: 0, nb errors: 0
 [INFO] 
 [INFO] --- maven-compiler-plugin:3.5.1:compile (default-compile) @ tobago-theme-standard ---
@@ -1106,7 +1106,7 @@ main:
  T E S T S
 -------------------------------------------------------
 Running org.apache.myfaces.tobago.renderkit.css.BootstrapClassUnitTest
-Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.13 sec - in org.apache.myfaces.tobago.renderkit.css.BootstrapClassUnitTest
+Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.154 sec - in org.apache.myfaces.tobago.renderkit.css.BootstrapClassUnitTest
 
 Results :
 
@@ -1124,7 +1124,7 @@ Tests run: 2, Failures: 0, Errors: 0, Skipped: 0
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
-[INFO] Total time: 02:41 min
-[INFO] Finished at: 2017-07-05T10:00:23+02:00
-[INFO] Final Memory: 40M/652M
+[INFO] Total time: 02:37 min
+[INFO] Finished at: 2017-07-05T11:58:00+02:00
+[INFO] Final Memory: 41M/688M
 [INFO] ------------------------------------------------------------------------

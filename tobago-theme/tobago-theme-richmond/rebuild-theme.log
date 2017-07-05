@@ -1,4 +1,4 @@
-Build date: 2017-07-05 09:47:08
+Build date: 2017-07-05 11:47:17
 [INFO] Scanning for projects...
 [INFO] 
 [INFO] ------------------------------------------------------------------------
@@ -94,7 +94,7 @@ Build date: 2017-07-05 09:47:08
 [INFO] Verified checksum of previously downloaded file
 [INFO] Extracting zip contents
 [INFO] Removing __CURRENT__/tobago-theme-richmond/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom
-[INFO] Copying extracted folder /var/folders/yp/1vrxjnrs20798ydt_yl8wrpr0000gp/T/phantomjs/phantomjs-2.1.1-macosx.zip-extract-1499241045384/phantomjs-2.1.1-macosx -> __CURRENT__/tobago-theme-richmond/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom
+[INFO] Copying extracted folder /var/folders/yp/1vrxjnrs20798ydt_yl8wrpr0000gp/T/phantomjs/phantomjs-2.1.1-macosx.zip-extract-1499248184650/phantomjs-2.1.1-macosx -> __CURRENT__/tobago-theme-richmond/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom
 [INFO] Writing location.js file
 [INFO] Done. Phantomjs binary available at __CURRENT__/tobago-theme-richmond/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom/bin/phantomjs
 [INFO] 
@@ -970,11 +970,11 @@ Build date: 2017-07-05 09:47:08
 [INFO] >> Wrote CSS to __CURRENT__/tobago-theme-richmond/target/bootstrap/dist/css/bootstrap.css
 [INFO] >> Wrote Source Map to __CURRENT__/tobago-theme-richmond/target/bootstrap/dist/css/bootstrap.css.map
 [INFO] >> Rendering Complete, saving .css file...
-[INFO] >> Wrote CSS to __CURRENT__/tobago-theme-richmond/target/bootstrap/dist/css/bootstrap-grid.css
 [INFO] >> Wrote Source Map to __CURRENT__/tobago-theme-richmond/target/bootstrap/dist/css/bootstrap-grid.css.map
+[INFO] >> Wrote CSS to __CURRENT__/tobago-theme-richmond/target/bootstrap/dist/css/bootstrap-grid.css
 [INFO] >> Rendering Complete, saving .css file...
-[INFO] >> Wrote Source Map to __CURRENT__/tobago-theme-richmond/target/bootstrap/dist/css/bootstrap-reboot.css.map
 [INFO] >> Wrote CSS to __CURRENT__/tobago-theme-richmond/target/bootstrap/dist/css/bootstrap-reboot.css
+[INFO] >> Wrote Source Map to __CURRENT__/tobago-theme-richmond/target/bootstrap/dist/css/bootstrap-reboot.css.map
 [INFO] 
 [INFO] Running "exec:sass-docs" (exec) task
 [INFO] 
@@ -1020,16 +1020,16 @@ Build date: 2017-07-05 09:47:08
 [INFO] Done.
 [INFO] 
 [INFO] 
-[INFO] Execution Time (2017-07-05 09:50:50 UTC+2)
-[INFO] exec:sass               2s  ▇▇▇▇▇▇▇▇ 17%
-[INFO] exec:sass-docs       932ms  ▇▇▇▇ 8%
-[INFO] exec:postcss          2.2s  ▇▇▇▇▇▇▇▇ 19%
-[INFO] exec:clean-css        1.7s  ▇▇▇▇▇▇▇ 15%
-[INFO] exec:clean-css-docs  720ms  ▇▇▇ 6%
-[INFO] babel:dev             1.7s  ▇▇▇▇▇▇▇ 15%
-[INFO] babel:dist           713ms  ▇▇▇ 6%
-[INFO] exec:uglify           1.3s  ▇▇▇▇▇ 12%
-[INFO] Total 11.3s
+[INFO] Execution Time (2017-07-05 11:49:48 UTC+2)
+[INFO] exec:sass             1.6s  ▇▇▇▇▇▇▇▇ 18%
+[INFO] exec:sass-docs       717ms  ▇▇▇▇ 8%
+[INFO] exec:postcss          1.4s  ▇▇▇▇▇▇▇ 16%
+[INFO] exec:clean-css        1.5s  ▇▇▇▇▇▇▇ 16%
+[INFO] exec:clean-css-docs  689ms  ▇▇▇▇ 8%
+[INFO] babel:dev             1.2s  ▇▇▇▇▇▇ 13%
+[INFO] babel:dist           633ms  ▇▇▇ 7%
+[INFO] exec:uglify           1.2s  ▇▇▇▇▇▇ 13%
+[INFO] Total 9s
 [INFO] 
 [INFO] 
 [INFO] --- maven-resources-plugin:2.7:resources (default-resources) @ tobago-theme-richmond ---
@@ -1072,7 +1072,7 @@ main:
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
-[INFO] Total time: 03:53 min
-[INFO] Finished at: 2017-07-05T09:51:02+02:00
-[INFO] Final Memory: 36M/519M
+[INFO] Total time: 02:39 min
+[INFO] Finished at: 2017-07-05T11:49:58+02:00
+[INFO] Final Memory: 36M/516M
 [INFO] ------------------------------------------------------------------------
