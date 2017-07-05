@@ -357,6 +357,15 @@ table.tobago-gridLayout > tbody {
 .tobago-input-group-outer {
 }
 
+/* label ----------------------------------------------------------- */
+.tobago-label {
+  width: 100%;
+}
+
+.tobago-flexLayout > .tobago-label {
+  width: 155px;
+}
+
 /* link ----------------------------------------------------------- */
 
 .tobago-link {
@@ -1107,9 +1116,6 @@ fixes missing space, I thinks normal Websites have a " " Space char in the sourc
 fixme: there is a problem with the selectManyShuttle with this style.
 */
 
-.tobago-label {
-  width: 155px;
-}
 
 .form-horizontal {
 

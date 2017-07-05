@@ -1,4 +1,4 @@
-Build date: 2017-07-03 13:48:44
+Build date: 2017-07-05 09:44:27
 [INFO] Scanning for projects...
 [INFO] 
 [INFO] ------------------------------------------------------------------------
@@ -81,7 +81,7 @@ Build date: 2017-07-03 13:48:44
 [INFO] [fsevents] Success: "__CURRENT__/tobago-theme-charlotteville/target/bootstrap/node_modules/fsevents/lib/binding/Release/node-v48-darwin-x64/fse.node" already installed
 [INFO] Pass --update-binary to reinstall or --build-from-source to recompile
 [INFO] 
-[INFO] > iltorb@1.3.2 install __CURRENT__/tobago-theme-charlotteville/target/bootstrap/node_modules/iltorb
+[INFO] > iltorb@1.3.3 install __CURRENT__/tobago-theme-charlotteville/target/bootstrap/node_modules/iltorb
 [INFO] > node-pre-gyp install --fallback-to-build
 [INFO] 
 [INFO] [iltorb] Success: "__CURRENT__/tobago-theme-charlotteville/target/bootstrap/node_modules/iltorb/build/bindings/encode.node" is installed via remote
@@ -94,7 +94,7 @@ Build date: 2017-07-03 13:48:44
 [INFO] Verified checksum of previously downloaded file
 [INFO] Extracting zip contents
 [INFO] Removing __CURRENT__/tobago-theme-charlotteville/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom
-[INFO] Copying extracted folder /var/folders/yp/1vrxjnrs20798ydt_yl8wrpr0000gp/T/phantomjs/phantomjs-2.1.1-macosx.zip-extract-1499082608020/phantomjs-2.1.1-macosx -> __CURRENT__/tobago-theme-charlotteville/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom
+[INFO] Copying extracted folder /var/folders/yp/1vrxjnrs20798ydt_yl8wrpr0000gp/T/phantomjs/phantomjs-2.1.1-macosx.zip-extract-1499240814446/phantomjs-2.1.1-macosx -> __CURRENT__/tobago-theme-charlotteville/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom
 [INFO] Writing location.js file
 [INFO] Done. Phantomjs binary available at __CURRENT__/tobago-theme-charlotteville/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom/bin/phantomjs
 [INFO] 
@@ -113,7 +113,7 @@ Build date: 2017-07-03 13:48:44
 [INFO] ├─┬ autoprefixer@6.7.7 
 [INFO] │ ├─┬ browserslist@1.7.7 
 [INFO] │ │ └── electron-to-chromium@1.3.15 
-[INFO] │ ├── caniuse-db@1.0.30000696 
+[INFO] │ ├── caniuse-db@1.0.30000697 
 [INFO] │ ├── normalize-range@0.1.2 
 [INFO] │ ├── num2fraction@1.2.2 
 [INFO] │ ├─┬ postcss@5.2.17 
@@ -192,6 +192,7 @@ Build date: 2017-07-03 13:48:44
 [INFO] │ │ ├─┬ readable-stream@2.3.3 
 [INFO] │ │ │ ├── core-util-is@1.0.2 
 [INFO] │ │ │ ├── process-nextick-args@1.0.7 
+[INFO] │ │ │ ├── safe-buffer@5.1.1 
 [INFO] │ │ │ ├── string_decoder@1.0.3 
 [INFO] │ │ │ └── util-deprecate@1.0.2 
 [INFO] │ │ └── typedarray@0.0.6 
@@ -355,15 +356,119 @@ Build date: 2017-07-03 13:48:44
 [INFO] │ │   └─┬ compress-commons@1.2.0 
 [INFO] │ │     └─┬ crc32-stream@2.0.0 
 [INFO] │ │       └── crc@3.4.4 
-[INFO] │ ├─┬ iltorb@1.3.2 
-[INFO] │ │ └─┬ node-pre-gyp@0.6.36 
-[INFO] │ │   ├── nopt@4.0.1 
+[INFO] │ ├─┬ iltorb@1.3.3 
+[INFO] │ │ └─┬ node-pre-gyp@0.6.34 
+[INFO] │ │   ├─┬ mkdirp@0.5.1 
+[INFO] │ │   │ └── minimist@0.0.8 
+[INFO] │ │   ├─┬ nopt@4.0.1 
+[INFO] │ │   │ ├── abbrev@1.1.0 
+[INFO] │ │   │ └─┬ osenv@0.1.4 
+[INFO] │ │   │   ├── os-homedir@1.0.2 
+[INFO] │ │   │   └── os-tmpdir@1.0.2 
+[INFO] │ │   ├─┬ npmlog@4.1.0 
+[INFO] │ │   │ ├─┬ are-we-there-yet@1.1.4 
+[INFO] │ │   │ │ └── delegates@1.0.0 
+[INFO] │ │   │ ├── console-control-strings@1.1.0 
+[INFO] │ │   │ ├─┬ gauge@2.7.4 
+[INFO] │ │   │ │ ├── aproba@1.1.1 
+[INFO] │ │   │ │ ├── has-unicode@2.0.1 
+[INFO] │ │   │ │ ├── object-assign@4.1.1 
+[INFO] │ │   │ │ ├── signal-exit@3.0.2 
+[INFO] │ │   │ │ ├─┬ string-width@1.0.2 
+[INFO] │ │   │ │ │ ├── code-point-at@1.1.0 
+[INFO] │ │   │ │ │ └─┬ is-fullwidth-code-point@1.0.0 
+[INFO] │ │   │ │ │   └── number-is-nan@1.0.1 
+[INFO] │ │   │ │ ├─┬ strip-ansi@3.0.1 
+[INFO] │ │   │ │ │ └── ansi-regex@2.1.1 
+[INFO] │ │   │ │ └── wide-align@1.1.2 
+[INFO] │ │   │ └── set-blocking@2.0.0 
 [INFO] │ │   ├─┬ rc@1.2.1 
 [INFO] │ │   │ ├── deep-extend@0.4.2 
 [INFO] │ │   │ ├── ini@1.3.4 
-[INFO] │ │   │ └── minimist@1.2.0 
+[INFO] │ │   │ ├── minimist@1.2.0 
+[INFO] │ │   │ └── strip-json-comments@2.0.1 
+[INFO] │ │   ├─┬ request@2.81.0 
+[INFO] │ │   │ ├── aws-sign2@0.6.0 
+[INFO] │ │   │ ├── aws4@1.6.0 
+[INFO] │ │   │ ├── caseless@0.12.0 
+[INFO] │ │   │ ├─┬ combined-stream@1.0.5 
+[INFO] │ │   │ │ └── delayed-stream@1.0.0 
+[INFO] │ │   │ ├── extend@3.0.1 
+[INFO] │ │   │ ├── forever-agent@0.6.1 
+[INFO] │ │   │ ├─┬ form-data@2.1.4 
+[INFO] │ │   │ │ └── asynckit@0.4.0 
+[INFO] │ │   │ ├─┬ har-validator@4.2.1 
+[INFO] │ │   │ │ ├─┬ ajv@4.11.8 
+[INFO] │ │   │ │ │ ├── co@4.6.0 
+[INFO] │ │   │ │ │ └─┬ json-stable-stringify@1.0.1 
+[INFO] │ │   │ │ │   └── jsonify@0.0.0 
+[INFO] │ │   │ │ └── har-schema@1.0.5 
+[INFO] │ │   │ ├─┬ hawk@3.1.3 
+[INFO] │ │   │ │ ├── boom@2.10.1 
+[INFO] │ │   │ │ ├── cryptiles@2.0.5 
+[INFO] │ │   │ │ ├── hoek@2.16.3 
+[INFO] │ │   │ │ └── sntp@1.0.9 
+[INFO] │ │   │ ├─┬ http-signature@1.1.1 
+[INFO] │ │   │ │ ├── assert-plus@0.2.0 
+[INFO] │ │   │ │ ├─┬ jsprim@1.4.0 
+[INFO] │ │   │ │ │ ├── assert-plus@1.0.0 
+[INFO] │ │   │ │ │ ├── extsprintf@1.0.2 
+[INFO] │ │   │ │ │ ├── json-schema@0.2.3 
+[INFO] │ │   │ │ │ └── verror@1.3.6 
+[INFO] │ │   │ │ └─┬ sshpk@1.13.0 
+[INFO] │ │   │ │   ├── asn1@0.2.3 
+[INFO] │ │   │ │   ├── assert-plus@1.0.0 
+[INFO] │ │   │ │   ├── bcrypt-pbkdf@1.0.1 
+[INFO] │ │   │ │   ├─┬ dashdash@1.14.1 
+[INFO] │ │   │ │   │ └── assert-plus@1.0.0 
+[INFO] │ │   │ │   ├── ecc-jsbn@0.1.1 
+[INFO] │ │   │ │   ├─┬ getpass@0.1.7 
+[INFO] │ │   │ │   │ └── assert-plus@1.0.0 
+[INFO] │ │   │ │   ├── jodid25519@1.0.2 
+[INFO] │ │   │ │   ├── jsbn@0.1.1 
+[INFO] │ │   │ │   └── tweetnacl@0.14.5 
+[INFO] │ │   │ ├── is-typedarray@1.0.0 
+[INFO] │ │   │ ├── isstream@0.1.2 
+[INFO] │ │   │ ├── json-stringify-safe@5.0.1 
+[INFO] │ │   │ ├─┬ mime-types@2.1.15 
+[INFO] │ │   │ │ └── mime-db@1.27.0 
+[INFO] │ │   │ ├── oauth-sign@0.8.2 
+[INFO] │ │   │ ├── performance-now@0.2.0 
+[INFO] │ │   │ ├── qs@6.4.0 
+[INFO] │ │   │ ├── safe-buffer@5.0.1 
+[INFO] │ │   │ ├── stringstream@0.0.5 
+[INFO] │ │   │ ├─┬ tough-cookie@2.3.2 
+[INFO] │ │   │ │ └── punycode@1.4.1 
+[INFO] │ │   │ ├── tunnel-agent@0.6.0 
+[INFO] │ │   │ └── uuid@3.0.1 
+[INFO] │ │   ├─┬ rimraf@2.6.1 
+[INFO] │ │   │ └─┬ glob@7.1.2 
+[INFO] │ │   │   ├── fs.realpath@1.0.0 
+[INFO] │ │   │   ├── inflight@1.0.6 
+[INFO] │ │   │   ├─┬ minimatch@3.0.4 
+[INFO] │ │   │   │ └─┬ brace-expansion@1.1.7 
+[INFO] │ │   │   │   ├── balanced-match@0.4.2 
+[INFO] │ │   │   │   └── concat-map@0.0.1 
+[INFO] │ │   │   └── path-is-absolute@1.0.1 
+[INFO] │ │   ├── semver@5.3.0 
+[INFO] │ │   ├─┬ tar@2.2.1 
+[INFO] │ │   │ ├── block-stream@0.0.9 
+[INFO] │ │   │ ├─┬ fstream@1.0.11 
+[INFO] │ │   │ │ └── graceful-fs@4.1.11 
+[INFO] │ │   │ └── inherits@2.0.3 
 [INFO] │ │   └─┬ tar-pack@3.4.0 
+[INFO] │ │     ├─┬ debug@2.6.8 
+[INFO] │ │     │ └── ms@2.0.0 
 [INFO] │ │     ├── fstream-ignore@1.0.5 
+[INFO] │ │     ├─┬ once@1.4.0 
+[INFO] │ │     │ └── wrappy@1.0.2 
+[INFO] │ │     ├─┬ readable-stream@2.2.9 
+[INFO] │ │     │ ├── buffer-shims@1.0.0 
+[INFO] │ │     │ ├── core-util-is@1.0.2 
+[INFO] │ │     │ ├── isarray@1.0.0 
+[INFO] │ │     │ ├── process-nextick-args@1.0.7 
+[INFO] │ │     │ ├── string_decoder@1.0.1 
+[INFO] │ │     │ └── util-deprecate@1.0.2 
 [INFO] │ │     └── uid-number@0.0.6 
 [INFO] │ ├── pretty-bytes@4.0.2 
 [INFO] │ └── stream-buffers@2.2.0 
@@ -429,12 +534,6 @@ Build date: 2017-07-03 13:48:44
 [INFO] │   │ ├─┬ hasha@2.2.0 
 [INFO] │   │ │ └── is-stream@1.1.0 
 [INFO] │   │ ├── kew@0.7.0 
-[INFO] │   │ ├─┬ request@2.79.0 
-[INFO] │   │ │ ├── caseless@0.11.0 
-[INFO] │   │ │ ├─┬ har-validator@2.0.6 
-[INFO] │   │ │ │ └── commander@2.11.0 
-[INFO] │   │ │ ├── qs@6.3.2 
-[INFO] │   │ │ └── tunnel-agent@0.4.3 
 [INFO] │   │ └─┬ request-progress@2.0.1 
 [INFO] │   │   └── throttleit@1.0.0 
 [INFO] │   ├── semver@5.3.0 
@@ -599,17 +698,17 @@ Build date: 2017-07-03 13:48:44
 [INFO] │ │ │ ├── has-unicode@2.0.1 
 [INFO] │ │ │ └── wide-align@1.1.2 
 [INFO] │ │ └── set-blocking@2.0.0 
-[INFO] │ ├─┬ request@2.81.0 
+[INFO] │ ├─┬ request@2.79.0 
 [INFO] │ │ ├── aws-sign2@0.6.0 
 [INFO] │ │ ├── aws4@1.6.0 
-[INFO] │ │ ├── caseless@0.12.0 
+[INFO] │ │ ├── caseless@0.11.0 
 [INFO] │ │ ├─┬ combined-stream@1.0.5 
 [INFO] │ │ │ └── delayed-stream@1.0.0 
 [INFO] │ │ ├── forever-agent@0.6.1 
 [INFO] │ │ ├─┬ form-data@2.1.4 
 [INFO] │ │ │ └── asynckit@0.4.0 
-[INFO] │ │ ├─┬ har-validator@4.2.1 
-[INFO] │ │ │ └── har-schema@1.0.5 
+[INFO] │ │ ├─┬ har-validator@2.0.6 
+[INFO] │ │ │ └── commander@2.11.0 
 [INFO] │ │ ├─┬ hawk@3.1.3 
 [INFO] │ │ │ ├── boom@2.10.1 
 [INFO] │ │ │ ├── cryptiles@2.0.5 
@@ -637,13 +736,11 @@ Build date: 2017-07-03 13:48:44
 [INFO] │ │ ├── isstream@0.1.2 
 [INFO] │ │ ├── json-stringify-safe@5.0.1 
 [INFO] │ │ ├── oauth-sign@0.8.2 
-[INFO] │ │ ├── performance-now@0.2.0 
-[INFO] │ │ ├── qs@6.4.0 
-[INFO] │ │ ├── safe-buffer@5.1.1 
+[INFO] │ │ ├── qs@6.3.2 
 [INFO] │ │ ├── stringstream@0.0.5 
 [INFO] │ │ ├─┬ tough-cookie@2.3.2 
 [INFO] │ │ │ └── punycode@1.4.1 
-[INFO] │ │ ├── tunnel-agent@0.6.0 
+[INFO] │ │ ├── tunnel-agent@0.4.3 
 [INFO] │ │ └── uuid@3.1.0 
 [INFO] │ ├─┬ sass-graph@2.2.4 
 [INFO] │ │ ├── glob@7.1.2 
@@ -873,8 +970,8 @@ Build date: 2017-07-03 13:48:44
 [INFO] >> Wrote CSS to __CURRENT__/tobago-theme-charlotteville/target/bootstrap/dist/css/bootstrap.css
 [INFO] >> Wrote Source Map to __CURRENT__/tobago-theme-charlotteville/target/bootstrap/dist/css/bootstrap.css.map
 [INFO] >> Rendering Complete, saving .css file...
-[INFO] >> Wrote Source Map to __CURRENT__/tobago-theme-charlotteville/target/bootstrap/dist/css/bootstrap-grid.css.map
 [INFO] >> Wrote CSS to __CURRENT__/tobago-theme-charlotteville/target/bootstrap/dist/css/bootstrap-grid.css
+[INFO] >> Wrote Source Map to __CURRENT__/tobago-theme-charlotteville/target/bootstrap/dist/css/bootstrap-grid.css.map
 [INFO] >> Rendering Complete, saving .css file...
 [INFO] >> Wrote CSS to __CURRENT__/tobago-theme-charlotteville/target/bootstrap/dist/css/bootstrap-reboot.css
 [INFO] >> Wrote Source Map to __CURRENT__/tobago-theme-charlotteville/target/bootstrap/dist/css/bootstrap-reboot.css.map
@@ -923,14 +1020,14 @@ Build date: 2017-07-03 13:48:44
 [INFO] Done.
 [INFO] 
 [INFO] 
-[INFO] Execution Time (2017-07-03 13:50:11 UTC+2)
-[INFO] exec:sass             1.6s  ▇▇▇▇▇▇▇▇ 17%
-[INFO] exec:sass-docs       742ms  ▇▇▇▇ 8%
-[INFO] exec:postcss          1.5s  ▇▇▇▇▇▇▇ 16%
+[INFO] Execution Time (2017-07-05 09:46:57 UTC+2)
+[INFO] exec:sass             1.6s  ▇▇▇▇▇▇▇ 17%
+[INFO] exec:sass-docs       721ms  ▇▇▇▇ 8%
+[INFO] exec:postcss          1.4s  ▇▇▇▇▇▇▇ 15%
 [INFO] exec:clean-css        1.5s  ▇▇▇▇▇▇▇ 16%
-[INFO] exec:clean-css-docs  730ms  ▇▇▇▇ 8%
+[INFO] exec:clean-css-docs  700ms  ▇▇▇▇ 8%
 [INFO] babel:dev             1.2s  ▇▇▇▇▇▇ 13%
-[INFO] babel:dist           693ms  ▇▇▇▇ 7%
+[INFO] babel:dist           850ms  ▇▇▇▇ 9%
 [INFO] exec:uglify           1.2s  ▇▇▇▇▇▇ 13%
 [INFO] Total 9.3s
 [INFO] 
@@ -975,7 +1072,7 @@ main:
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
-[INFO] Total time: 01:35 min
-[INFO] Finished at: 2017-07-03T13:50:21+02:00
-[INFO] Final Memory: 36M/517M
+[INFO] Total time: 02:39 min
+[INFO] Finished at: 2017-07-05T09:47:08+02:00
+[INFO] Final Memory: 36M/529M
 [INFO] ------------------------------------------------------------------------

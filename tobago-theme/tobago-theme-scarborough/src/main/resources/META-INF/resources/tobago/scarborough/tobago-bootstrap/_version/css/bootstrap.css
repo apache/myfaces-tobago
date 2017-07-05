@@ -9692,6 +9692,15 @@ table.tobago-gridLayout > tbody > tr:first-child > td {
   text-align: right;
 }
 
+/* label ----------------------------------------------------------- */
+.tobago-label {
+  width: 100%;
+}
+
+.tobago-flexLayout > .tobago-label {
+  width: 155px;
+}
+
 /* link ----------------------------------------------------------- */
 .tobago-link {
   white-space: nowrap;
@@ -10417,10 +10426,6 @@ fixes missing space, I thinks normal Websites have a " " Space char in the sourc
 
 fixme: there is a problem with the selectManyShuttle with this style.
 */
-.tobago-label {
-  width: 155px;
-}
-
 .form-horizontal > * {
   /* fixes vertical space, todo: why is is needed? is there a better way? */
   margin-top: 10px;
