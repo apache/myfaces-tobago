@@ -295,6 +295,8 @@ public class QUnitTests {
     ignore.add("content/40-test/3000-sheet/10-sheet-types/sheet-types.xhtml");
     // See https://issues.apache.org/jira/browse/TOBAGO-1752?focusedCommentId=16068289
     ignore.add("content/40-test/4000-button+link/button+link.xhtml");
+    // Works only for larger browser window
+    ignore.add("content/40-test/4810-labelLayoutTop/labelLayoutTop.xhtml");
     //ajaxListener doesn't work for <tc:in> events: focus, blur, click, dblclick
     ignore.add("content/40-test/6000-event/event.xhtml");
     return ignore;
@@ -465,6 +467,12 @@ public class QUnitTests {
   @Test
   public void testSheetTypes() throws UnsupportedEncodingException, InterruptedException {
     String page = "content/40-test/3000-sheet/10-sheet-types/sheet-types.xhtml";
+    runStandardTest(page);
+  }
+
+  @Test
+  public void testLabelLayoutTop() throws UnsupportedEncodingException, InterruptedException {
+    String page = "content/40-test/4810-labelLayoutTop/labelLayoutTop.xhtml";
     runStandardTest(page);
   }
 
