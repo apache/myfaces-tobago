@@ -112,4 +112,35 @@
       </tc:link>
     </tc:bar>
   </tc:section>
+
+  <tc:section label="Styles">
+    <p>You can use bootstrap classes to style the bar.</p>
+    <pre><code class="language-markup">&lt;tc:bar>
+  &lt;tc:style customClass="navbar-light bg-faded" />
+  &lt;f:facet name="brand">
+    &lt;tc:link label="BRAND" outcome="/content/10-intro/intro.xhtml">
+      &lt;tc:style customClass="navbar-brand"/>
+    &lt;/tc:link>
+  &lt;/f:facet>
+  ...
+&lt;/tc:bar></code></pre>
+    <tc:bar>
+      <tc:style customClass="navbar-light bg-faded" />
+      <f:facet name="brand">
+        <tc:link label="BRAND" outcome="/content/10-intro/intro.xhtml">
+          <tc:style customClass="navbar-brand"/>
+        </tc:link>
+      </f:facet>
+      <tc:links>
+        <tc:link label="Link One"/>
+        <tc:link label="Link Two"/>
+      </tc:links>
+      <f:facet name="after">
+        <tc:flexLayout columns="*; auto">
+          <tc:in placeholder="Search" labelLayout="skip"/>
+          <tc:button label="Go"/>
+        </tc:flexLayout>
+      </f:facet>
+    </tc:bar>
+  </tc:section>
 </ui:composition>

@@ -56,7 +56,11 @@ public class BarRenderer extends RendererBase {
 
     writer.startElement(HtmlElements.NAV);
     writer.writeIdAttribute(clientId);
-    writer.writeClassAttribute(BootstrapClass.NAVBAR, BootstrapClass.NAVBAR_TOGGLEABLE);
+    writer.writeClassAttribute(
+        BootstrapClass.NAVBAR,
+        BootstrapClass.NAVBAR_TOGGLEABLE,
+        bar.getCustomClass());
+    writer.writeStyleAttribute(bar.getStyle());
     writer.writeAttribute(HtmlAttributes.ROLE, HtmlRoleValues.NAVIGATION.toString(), false);
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, bar);
 
