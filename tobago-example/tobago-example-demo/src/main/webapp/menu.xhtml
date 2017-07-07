@@ -22,7 +22,6 @@
            xmlns:f="http://java.sun.com/jsf/core">
 
   <!-- tbd: how to solve this? -->
-  <tc:style customClass="background-lightgrey"/>
 
 <!--
   <tc:flexLayout columns="auto;*" alignItems="center">
@@ -31,9 +30,13 @@
 -->
 
     <tc:bar id="bar">
+      <tc:style customClass="navbar-light bg-faded box-shadow"/>
       <f:facet name="brand">
         <!-- label="Tobago Demo" contains a NO-BREAK SPACE character -->
-        <tc:link image="#{request.contextPath}/image/feather-leaf.png" label="Tobago Demo" id="brand" outcome="/content/10-intro/intro.xhtml"/>
+        <tc:link image="#{request.contextPath}/image/feather-leaf.png" label="Tobago Demo" id="brand"
+                 outcome="/content/10-intro/intro.xhtml">
+          <tc:style customClass="navbar-brand"/>
+        </tc:link>
       </f:facet>
 
       <tc:form id="header">

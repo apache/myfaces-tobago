@@ -19,6 +19,10 @@
   background-color: #f7f7f9;
 }
 
+.box-shadow {
+  box-shadow: 0 0 5px 5px rgba(200, 200, 200, 0.5);
+}
+
 .demo-selected {
   background-color: #ffddff;
 }
