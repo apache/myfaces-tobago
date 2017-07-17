@@ -195,7 +195,9 @@ public class PageRenderer extends RendererBase {
       }
 
       for (UIComponent headResource : headComponents) {
-        headResource.encodeAll(facesContext);
+        if (headResource instanceof UIMeta) {
+          headResource.encodeAll(facesContext);
+        }
       }
 
       // title
