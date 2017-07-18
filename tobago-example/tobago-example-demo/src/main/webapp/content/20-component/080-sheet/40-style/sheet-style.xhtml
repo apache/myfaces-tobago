@@ -27,7 +27,7 @@
     to set a CSS class or style to a specific row. In this example the rows are green
     (via customClass <code>planet</code>) when the object orbit is 'Sun'.
     The cell in the year column is blue, when the objects discovering year is older than 1900 (custom class is
-    <code>old</code>).
+    <code>old-planet</code>).
   </p>
 
   <tc:sheet value="#{sheetController.solarList}" var="object" rows="20" markup="small"
@@ -48,7 +48,7 @@
       <tc:out value="#{object.discoverer}" labelLayout="skip"/>
     </tc:column>
     <tc:column label="Year">
-      <tc:style customClass="#{object.discoverYear le 1900 ? 'old' : ''}"/>
+      <tc:style customClass="#{object.discoverYear le 1900 ? 'old-planet' : ''}"/>
       <tc:out value="#{object.discoverYear}" labelLayout="skip"/>
     </tc:column>
   </tc:sheet>
