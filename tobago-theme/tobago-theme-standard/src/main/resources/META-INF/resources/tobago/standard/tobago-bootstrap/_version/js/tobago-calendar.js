@@ -120,8 +120,25 @@ Tobago.DateTime.init = function (elements) {
               'left': left + 'px'
             });
           }
+          Tobago.DateTime.addPastClass();
+        });
+        $date.parent().on('dp.update', function () {
+          Tobago.DateTime.addPastClass();
         });
       });
+};
+
+Tobago.DateTime.addPastClass = function () {
+  var today = jQuery(".bootstrap-datetimepicker-widget .datepicker-days td.today.day[data-day]").eq(0);
+  var todayTimestamp = new Date(today.attr('data-day')).getTime();
+
+  jQuery(".bootstrap-datetimepicker-widget .datepicker-days td.day[data-day]").each(function () {
+    var day = jQuery(this);
+    var currentTimestamp = new Date(day.attr('data-day')).getTime();
+    if (currentTimestamp < todayTimestamp) {
+      day.addClass('past');
+    }
+  });
 };
 
 /*
