@@ -39,7 +39,7 @@ Tobago.DateTime.init = function (elements) {
             clear: 'fa fa-trash',
             close: 'fa fa-times'
           },
-          widgetParent: '.tobago-page'
+          widgetParent: '.tobago-page-menuStore'
         };
 
         var i18n = $date.data("tobago-date-time-i18n");
