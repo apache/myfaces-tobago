@@ -264,7 +264,7 @@ public class SolarObject {
       new SolarObject("Pluto", "IX", "Sun", 5913520, 90800.0, 17.15, 0.25, "Tombaugh", 1930),
       MOON,
       new SolarObject("Phobos", "I", "Mars", 9, 0.32, 1.00, 0.02, "Hall", 1877),
-      new SolarObject("Deimos", "II", "Mars", 23, 1.26, 1.80, 0.00, "Hall", 1877),
+      new SolarObject("Deimoyyy\u001Axxx", "II", "Mars", 23, 1.26, 1.80, 0.00, "Hall", 1877),
       new SolarObject("Metis", "XVI", "Jupiter", 128, 0.29, 0.00, 0.00, "Synnott", 1979),
       new SolarObject("Adrastea", "XV", "Jupiter", 129, 0.30, 0.00, 0.00, "Jewitt", 1979),
       new SolarObject("Amalthea", "V", "Jupiter", 181, 0.50, 0.40, 0.00, "Barnard", 1892),
