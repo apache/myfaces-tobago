@@ -122,7 +122,7 @@ public class Sorter {
             } else {
 
               final boolean descending = !sheetState.isAscending();
-              final ValueExpression expression = child.getValueExpression("value");
+              final ValueExpression expression = child.getValueExpression(attributeName);
               actualComparator = new ValueExpressionComparator(facesContext, var, expression, descending, comparator);
             }
           } else {
@@ -235,13 +235,13 @@ public class Sorter {
         // look for a better component if any
       }
       if (child instanceof UIOutput) {
-        break;
+        return child;
       }
       if (child instanceof UICommand
           || child instanceof javax.faces.component.UIPanel) {
         child = getFirstSortableChild(child.getChildren());
         if (child instanceof UIOutput) {
-          break;
+          return child;
         }
       }
     }
