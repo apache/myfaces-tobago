@@ -42,7 +42,7 @@ public final class XmlResponseWriter extends TobagoResponseWriterBase {
       throws IOException {
     closeOpenTag();
     final String value = findValue(text, property);
-    write(XmlUtils.escape(value));
+    write(XmlUtils.encode(value, false));
   }
 
   @Override
@@ -75,7 +75,7 @@ public final class XmlResponseWriter extends TobagoResponseWriterBase {
 
   @Override
   protected void writerAttributeValue(final String value, final boolean escape) throws IOException {
-    getWriter().write(XmlUtils.escape(value));
+    getWriter().write(XmlUtils.encode(value, true));
   }
 
   @Override

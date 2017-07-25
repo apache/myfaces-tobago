@@ -426,4 +426,10 @@ public class QUnitTests {
     String page = "content/40-test/50000-java/20-ajax-execute/ajax-execute.xhtml";
     runStandardTest(page);
   }
+
+  @Test
+  public void ajaxUnicode() throws UnsupportedEncodingException, InterruptedException {
+    String page = "content/40-test/50000-java/30-ajax-unicode/ajax-unicode.xhtml";
+    runStandardTest(page);
+  }
 }
