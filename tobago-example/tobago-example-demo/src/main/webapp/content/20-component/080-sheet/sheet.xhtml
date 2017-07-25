@@ -49,7 +49,7 @@
   &lt;tc:column label="Name">
     &lt;tc:out value="\#{solarobject.name}" labelLayout="skip"/>
       ...</code></pre>
-    <tc:sheet value="#{sheetController.solarList}" var="object" rows="4">
+    <tc:sheet id="s1" value="#{sheetController.solarList}" var="object" rows="4">
       <tc:style maxHeight="500px"/>
       <tc:column label="Name">
         <tc:out value="#{object.name}" labelLayout="skip"/>
