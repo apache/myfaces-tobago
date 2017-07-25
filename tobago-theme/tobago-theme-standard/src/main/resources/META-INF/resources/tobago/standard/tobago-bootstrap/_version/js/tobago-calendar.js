@@ -129,8 +129,11 @@ Tobago.DateTime.init = function (elements) {
 };
 
 Tobago.DateTime.addPastClass = function () {
-  var today = jQuery(".bootstrap-datetimepicker-widget .datepicker-days td.today.day[data-day]").eq(0);
-  var todayTimestamp = new Date(today.attr('data-day')).getTime();
+  var todayTimestamp = new Date(
+      new Date().getFullYear() + "-"
+      + ("0" + (new Date().getMonth() + 1)).slice(-2)
+      + "-" + new Date().getDate()
+  ).getTime();
 
   jQuery(".bootstrap-datetimepicker-widget .datepicker-days td.day[data-day]").each(function () {
     var day = jQuery(this);
