@@ -28,6 +28,10 @@ import org.junit.Test;
 import java.io.CharArrayWriter;
 import java.io.IOException;
 
+/**
+ * @deprecated since 3.0.5
+ */
+@Deprecated
 public class JavascriptWriterUtilsTest {
 
   @Test

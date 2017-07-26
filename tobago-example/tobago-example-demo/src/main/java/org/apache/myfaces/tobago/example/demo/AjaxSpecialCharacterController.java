@@ -26,13 +26,14 @@ import java.util.Date;
 
 @RequestScoped
 @Named
-public class AjaxUnicodeController implements Serializable {
+public class AjaxSpecialCharacterController implements Serializable {
 
   public long getTimestamp() {
     return new Date().getTime();
   }
 
-  public String getUnicodeString() {
-    return "SubstituteChar\u001AEND Comma\u002CEND Five\u0035END Micro\u00B5END EUR\u20ACEND";
+  public String getString() {
+    return "SubstituteChar=“\u001A” Five=“5” SigleQuote=“\'” DoubleQuote=“\"” "
+        + "Micro=“µ” Euro=“€” Atom=“⚛” Guitar=“\uD83C\uDFB8”";
   }
 }

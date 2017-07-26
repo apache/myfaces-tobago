@@ -23,10 +23,10 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets">
   <ui:param name="title" value="Ajax Unicode"/>
 
-  <tc:out id="timestamp" label="Timestamp" value="#{ajaxUnicodeController.timestamp}"/>
-  <tc:out id="outText" label="Text with unicode characters" value="#{ajaxUnicodeController.unicodeString}"/>
+  <tc:out id="timestamp" label="Timestamp" value="#{ajaxSpecialCharacterController.timestamp}"/>
+  <tc:out id="outText" label="Text with unicode characters" value="#{ajaxSpecialCharacterController.string}"/>
   <tc:out id="outTip" label="Tip with unicode characters" value="Look at tooltip"
-          tip="#{ajaxUnicodeController.unicodeString}"/>
+          tip="#{ajaxSpecialCharacterController.string}"/>
   <tc:button id="ajaxButton" label="AJAX">
     <f:ajax render="timestamp outText outTip"/>
   </tc:button>

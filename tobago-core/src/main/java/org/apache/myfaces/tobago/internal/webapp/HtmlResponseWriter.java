@@ -21,7 +21,6 @@ package org.apache.myfaces.tobago.internal.webapp;
 
 import org.apache.myfaces.tobago.internal.util.FastStringWriter;
 import org.apache.myfaces.tobago.internal.util.HtmlWriterUtils;
-import org.apache.myfaces.tobago.internal.util.JsonWriterUtils;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.internal.util.WriterUtils;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
@@ -43,11 +42,7 @@ public class HtmlResponseWriter extends TobagoResponseWriterBase {
   public HtmlResponseWriter(
       final Writer writer, final String contentType, final String characterEncoding) {
     super(writer, contentType, characterEncoding);
-    if ("application/json".equals(contentType)) {
-      this.helper = new JsonWriterUtils(writer, characterEncoding);
-    } else {
-      this.helper = new HtmlWriterUtils(writer, characterEncoding);
-    }
+    this.helper = new HtmlWriterUtils(writer, characterEncoding);
     this.javascriptWriter = new FastStringWriter();
   }
 
@@ -136,8 +131,7 @@ public class HtmlResponseWriter extends TobagoResponseWriterBase {
 
   @Override
   public ResponseWriter cloneWithWriter(final Writer originalWriter) {
-    return new HtmlResponseWriter(
-        originalWriter, getContentType(), getCharacterEncoding());
+    return new HtmlResponseWriter(originalWriter, getContentType(), getCharacterEncoding());
   }
 
   @Override

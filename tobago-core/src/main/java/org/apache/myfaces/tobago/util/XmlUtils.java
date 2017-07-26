@@ -35,91 +35,13 @@ import java.io.InputStream;
 import java.io.StringReader;
 import java.util.Properties;
 
+/**
+ * @deprecated since 3.0.5 May use {@link org.apache.myfaces.tobago.internal.util.HtmlWriterUtils}
+ */
+@Deprecated
 public final class XmlUtils {
 
-  private static final char[][] CHARS_TO_ESCAPE;
-  private static final char[] EMPTY = new char[0];
-
-  static {
-    // init lookup table
-    CHARS_TO_ESCAPE = new char[0xA0][];
-
-    for (int i = 0; i < 0x20; i++) {
-      CHARS_TO_ESCAPE[i] = EMPTY; // Control characters
-    }
-
-    CHARS_TO_ESCAPE['\t'] = "&#x09;".toCharArray(); // Horizontal tabulator
-    CHARS_TO_ESCAPE['\n'] = "&#x0a;".toCharArray(); // Line feed
-    CHARS_TO_ESCAPE['\r'] = "&#x0d;".toCharArray(); // Carriage return
-
-    CHARS_TO_ESCAPE['\''] = "&#x27;".toCharArray();
-    CHARS_TO_ESCAPE['\"'] = "&quot;".toCharArray();
-    CHARS_TO_ESCAPE['&'] = "&amp;".toCharArray();
-    CHARS_TO_ESCAPE['<'] = "&lt;".toCharArray();
-    CHARS_TO_ESCAPE['>'] = "&gt;".toCharArray();
-    CHARS_TO_ESCAPE['/'] = "&#x2F;".toCharArray();
-
-    CHARS_TO_ESCAPE[0x7F] = EMPTY; // Delete
-
-    for (int i = 0x80; i < 0xA0; i++) {
-      CHARS_TO_ESCAPE[i] = EMPTY; // Control characters
-    }
-
-    // all "normal" character positions contains null
-  }
-
   private XmlUtils() {
-  }
-
-  public static String encode(final String s, final boolean isAttribute) {
-    StringBuilder stringBuilder = new StringBuilder();
-
-    final char[] text = s.toCharArray();
-    final int start = 0;
-    final int length = s.length();
-
-    int localIndex = -1;
-
-    final int end = start + length;
-    for (int i = start; i < end; i++) {
-      final char ch = text[i];
-      if (ch >= CHARS_TO_ESCAPE.length || CHARS_TO_ESCAPE[ch] != null) {
-        localIndex = i;
-        break;
-      }
-    }
-
-    if (localIndex == -1) {
-      // no need to escape
-      return s;
-    } else {
-      // write until localIndex and then encode the remainder
-      stringBuilder.append(text, start, localIndex);
-
-      for (int i = localIndex; i < end; i++) {
-        final char ch = text[i];
-
-        // Tilde or less...
-        if (ch < CHARS_TO_ESCAPE.length) {
-          if (isAttribute && ch == '&' && (i + 1 < end) && text[i + 1] == '{') {
-            // HTML 4.0, section B.7.1: ampersands followed by
-            // an open brace don't get escaped
-            stringBuilder.append('&');
-          } else if (CHARS_TO_ESCAPE[ch] != null) {
-            stringBuilder.append(CHARS_TO_ESCAPE[ch]);
-          } else {
-            stringBuilder.append(ch);
-          }
-        } else {
-          // Double-byte characters to encode.
-          // PENDING: when outputting to an encoding that
-          // supports double-byte characters (UTF-8, for example),
-          // we should not be encoding
-          stringBuilder.append(ch);
-        }
-      }
-    }
-    return stringBuilder.toString();
   }
 
   public static String escape(final String s) {
