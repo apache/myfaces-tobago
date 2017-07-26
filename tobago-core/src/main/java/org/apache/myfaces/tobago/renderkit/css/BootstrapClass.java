@@ -115,40 +115,40 @@ public enum BootstrapClass implements CssItem {
   COL_10("col-10"),
   COL_11("col-11"),
   COL_12("col-12"),
-  /** @deprecated since 3.1.0, please use {@link #COL_1} */
+  /** @deprecated since 4.0.0, please use {@link #COL_1} */
   @Deprecated
   COL_XS_1("col-1"),
-  /** @deprecated since 3.1.0, please use {@link #COL_2} */
+  /** @deprecated since 4.0.0, please use {@link #COL_2} */
   @Deprecated
   COL_XS_2("col-2"),
-  /** @deprecated since 3.1.0, please use {@link #COL_3} */
+  /** @deprecated since 4.0.0, please use {@link #COL_3} */
   @Deprecated
   COL_XS_3("col-3"),
-  /** @deprecated since 3.1.0, please use {@link #COL_4} */
+  /** @deprecated since 4.0.0, please use {@link #COL_4} */
   @Deprecated
   COL_XS_4("col-4"),
-  /** @deprecated since 3.1.0, please use {@link #COL_5} */
+  /** @deprecated since 4.0.0, please use {@link #COL_5} */
   @Deprecated
   COL_XS_5("col-5"),
-  /** @deprecated since 3.1.0, please use {@link #COL_6} */
+  /** @deprecated since 4.0.0, please use {@link #COL_6} */
   @Deprecated
   COL_XS_6("col-6"),
-  /** @deprecated since 3.1.0, please use {@link #COL_7} */
+  /** @deprecated since 4.0.0, please use {@link #COL_7} */
   @Deprecated
   COL_XS_7("col-7"),
-  /** @deprecated since 3.1.0, please use {@link #COL_8} */
+  /** @deprecated since 4.0.0, please use {@link #COL_8} */
   @Deprecated
   COL_XS_8("col-8"),
-  /** @deprecated since 3.1.0, please use {@link #COL_9} */
+  /** @deprecated since 4.0.0, please use {@link #COL_9} */
   @Deprecated
   COL_XS_9("col-9"),
-  /** @deprecated since 3.1.0, please use {@link #COL_10} */
+  /** @deprecated since 4.0.0, please use {@link #COL_10} */
   @Deprecated
   COL_XS_10("col-10"),
-  /** @deprecated since 3.1.0, please use {@link #COL_11} */
+  /** @deprecated since 4.0.0, please use {@link #COL_11} */
   @Deprecated
   COL_XS_11("col-11"),
-  /** @deprecated since 3.1.0, please use {@link #COL_12} */
+  /** @deprecated since 4.0.0, please use {@link #COL_12} */
   @Deprecated
   COL_XS_12("col-12"),
   CONTAINER("container"),
@@ -203,19 +203,19 @@ public enum BootstrapClass implements CssItem {
   NAVBAR("navbar"),
   NAVBAR_COLLAPSE("navbar-collapse"),
   NAVBAR_BRAND("navbar-brand"),
-  /** @deprecated since 3.1.0, please use {@link #NAVBAR_INVERSE} */
+  /** @deprecated since 4.0.0, please use {@link #NAVBAR_INVERSE} */
   @Deprecated
   NAVBAR_DARK("navbar-inverse"),
-  /** @deprecated since 3.1.0, please use {@link #FIXED_BOTTOM} */
+  /** @deprecated since 4.0.0, please use {@link #FIXED_BOTTOM} */
   @Deprecated
   NAVBAR_FIXED_BOTTOM("fixed-bottom"),
-  /** @deprecated since 3.1.0, please use {@link #FIXED_TOP} */
+  /** @deprecated since 4.0.0, please use {@link #FIXED_TOP} */
   @Deprecated
   NAVBAR_FIXED_TOP("fixed-top"),
   NAVBAR_INVERSE("navbar-inverse"),
   NAVBAR_NAV("navbar-nav"),
   NAVBAR_TOGGLEABLE("navbar-toggleable"),
-  /** @deprecated since 3.1.0, please use {@link #NAVBAR_TOGGLEABLE} */
+  /** @deprecated since 4.0.0, please use {@link #NAVBAR_TOGGLEABLE} */
   @Deprecated
   NAVBAR_TOGGLEABLE_XS("navbar-toggleable"),
   NAVBAR_TOGGLER("navbar-toggler"),

@@ -388,7 +388,7 @@ public final class ComponentUtils {
   }
 
   /**
-   * @deprecated since Tobago 3.1.0
+   * @deprecated since 4.0.0
    */
   @Deprecated
   public static boolean isInActiveForm(final UIComponent component) {

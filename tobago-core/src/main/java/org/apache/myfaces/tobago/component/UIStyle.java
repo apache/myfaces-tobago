@@ -29,7 +29,7 @@ import javax.faces.component.UIComponentBase;
  * UIComponent class, generated from template {@code component.stg} with class
  * {@link org.apache.myfaces.tobago.internal.taglib.component.StyleTagDeclaration}.
  *
- * @deprecated Since Tobago 3.1.0. The tag &lt;tc:style&gt; is using a handler
+ * @deprecated Since Tobago 4.0.0. The tag &lt;tc:style&gt; is using a handler
  * now: {@link org.apache.myfaces.tobago.facelets.StyleHandler}.
  */
 @Deprecated

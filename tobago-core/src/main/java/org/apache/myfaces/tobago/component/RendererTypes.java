@@ -63,7 +63,7 @@ public enum RendererTypes {
   Popup,
   Progress,
   Row,
-  /** @deprecated since 3.1.0 */
+  /** @deprecated since 4.0.0 */
   @Deprecated
   Script,
   Section,
@@ -84,7 +84,7 @@ public enum RendererTypes {
   SeparatorInsideCommand,
   Sheet,
   SheetPageCommand,
-  /** @deprecated since 3.1.0 */
+  /** @deprecated since 4.0.0 */
   @Deprecated
   Style,
   Suggest,
@@ -142,7 +142,7 @@ public enum RendererTypes {
   public static final String POPUP = "Popup";
   public static final String PROGRESS = "Progress";
   public static final String ROW = "Row";
-  /** @deprecated since 3.1.0 */
+  /** @deprecated since 4.0.0 */
   @Deprecated
   public static final String SCRIPT = "Script";
   public static final String SECTION = "Section";
@@ -163,7 +163,7 @@ public enum RendererTypes {
   public static final String SEPARATOR_INSIDE_COMMAND = "SeparatorInsideCommand";
   public static final String SHEET = "Sheet";
   public static final String SHEET_PAGE_COMMAND = "SheetPageCommand";
-  /** @deprecated since 3.1.0 */
+  /** @deprecated since 4.0.0 */
   @Deprecated
   public static final String STYLE = "Style";
   public static final String SUGGEST = "Suggest";

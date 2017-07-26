@@ -20,7 +20,7 @@ package org.apache.myfaces.tobago.component;
 import org.apache.myfaces.tobago.internal.component.AbstractUIScript;
 
 /**
- * @deprecated Since Tobago 3.1.0. The tag &lt;tc:script&gt; is using a handler
+ * @deprecated Since Tobago 4.0.0. The tag &lt;tc:script&gt; is using a handler
  * now: {@link org.apache.myfaces.tobago.facelets.ScriptHandler}.
  */
 @Deprecated

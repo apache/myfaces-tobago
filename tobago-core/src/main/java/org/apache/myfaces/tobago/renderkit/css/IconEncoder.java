@@ -24,7 +24,7 @@ import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import java.io.IOException;
 
 /**
- * @deprecated since Tobago 3.1.0. May be subject of change in later versions!
+ * @deprecated since Tobago 4.0.0. May be subject of change in later versions!
  */
 @Deprecated
 public interface IconEncoder {

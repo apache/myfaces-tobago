@@ -53,7 +53,7 @@ public interface FormTagDeclaration extends HasBinding, HasId, IsVisual {
   /**
    * Flag indicating this component should rendered as an inline element.
    *
-   * @deprecated since 3.1.0. May use a subtag &lt;tc:style customClass="d-inline"/&gt; instead.
+   * @deprecated since 4.0.0. May use a subtag &lt;tc:style customClass="d-inline"/&gt; instead.
    */
   @Deprecated
   @TagAttribute

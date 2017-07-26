@@ -109,7 +109,7 @@ public class Style implements Serializable {
   }
 
   /**
-   * @deprecated since 3.1.0
+   * @deprecated since 4.0.0
    */
   @Deprecated
   public Style(final UIStyle style) {

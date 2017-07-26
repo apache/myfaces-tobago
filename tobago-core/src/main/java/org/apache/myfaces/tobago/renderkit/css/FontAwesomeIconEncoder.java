@@ -29,7 +29,7 @@ import java.util.EnumMap;
 import java.util.regex.Pattern;
 
 /**
- * @deprecated since Tobago 3.1.0. May be subject of change in later versions!
+ * @deprecated since Tobago 4.0.0. May be subject of change in later versions!
  */
 @Deprecated
 public class FontAwesomeIconEncoder implements IconEncoder {

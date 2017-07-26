@@ -87,7 +87,7 @@ public class CustomClass implements CssItem {
   }
 
   /**
-   * @deprecated since 3.1.0
+   * @deprecated since 4.0.0
    */
   @Deprecated
   public static CustomClass valueOf(String text) {
