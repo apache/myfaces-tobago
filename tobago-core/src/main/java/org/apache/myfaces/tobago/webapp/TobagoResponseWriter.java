@@ -235,15 +235,6 @@ public abstract class TobagoResponseWriter extends ResponseWriter {
   }
 
   /**
-   * Write the style attribute. The value will not escaped.
-   * @deprecated since 1.5.0, use writeStyleAttribute(Style) instead.
-   */
-  @Deprecated
-  public void writeStyleAttribute(final String style) throws IOException {
-    writeAttribute(HtmlAttributes.STYLE, style, false);
-  }
-
-  /**
    * Writes an supported icon.
    */
   public void writeIcon(final Icons icon, final CssItem... cssItems) throws IOException {
@@ -255,34 +246,6 @@ public abstract class TobagoResponseWriter extends ResponseWriter {
    */
   public void writeIcon(final Icons icon, final Style style, final CssItem... cssItems) throws IOException {
     iconEncoder.encode(this, icon, style, cssItems);
-  }
-
-  /**
-   * @deprecated Should not be used, because it conflicts with CSP.
-   */
-  @Deprecated
-  public void writeJavascript(final String script) throws IOException {
-    startJavascript();
-    write(script);
-    endJavascript();
-  }
-
-  /**
-   * @deprecated Should not be used, because it conflicts with CSP.
-   */
-  @Deprecated
-  public void endJavascript() throws IOException {
-//    write("\n// -->\n"); // todo: for XHMTL we may need
-    endElement(HtmlElements.SCRIPT);
-  }
-
-  /**
-   * @deprecated Should not be used, because it conflicts with CSP.
-   */
-  @Deprecated
-  public void startJavascript() throws IOException {
-    startElement(HtmlElements.SCRIPT);
-    writeAttribute(HtmlAttributes.TYPE, "text/javascript", false);
   }
 
   /**

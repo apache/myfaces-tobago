@@ -19,12 +19,8 @@
 
 package org.apache.myfaces.tobago.internal.webapp;
 
-import org.apache.myfaces.tobago.internal.util.FastStringWriter;
 import org.apache.myfaces.tobago.internal.util.HtmlWriterHelper;
-import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.internal.util.WriterHelper;
-import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
-import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 
 import javax.faces.context.ResponseWriter;
 import java.io.IOException;
@@ -36,54 +32,16 @@ public class HtmlResponseWriter extends TobagoResponseWriterBase {
   private static final String HTML_DOCTYPE = "<!DOCTYPE html>";
 
   private final WriterHelper helper;
-  private FastStringWriter javascriptWriter;
-  private boolean javascriptMode;
 
   public HtmlResponseWriter(
       final Writer writer, final String contentType, final String characterEncoding) {
     super(writer, contentType, characterEncoding);
     this.helper = new HtmlWriterHelper(writer, characterEncoding);
-    this.javascriptWriter = new FastStringWriter();
-  }
-
-  /**
-   * @deprecated Should not be used, because it conflicts with CSP.
-   */
-  @Deprecated
-  @Override
-  public void endJavascript() throws IOException {
-    javascriptMode = false;
-  }
-
-  /**
-   * @deprecated Should not be used, because it conflicts with CSP.
-   */
-  @Deprecated
-  @Override
-  public void startJavascript() throws IOException {
-    javascriptMode = true;
   }
 
   @Override
   public void write(final String string) throws IOException {
-    if (javascriptMode) {
-      writeJavascript(string);
-    } else {
-      writeInternal(getWriter(), string);
-    }
-  }
-
-  /**
-   * @deprecated Should not be used, because it conflicts with CSP.
-   */
-  @Deprecated
-  @Override
-  public void writeJavascript(final String script) throws IOException {
-    writeInternal(javascriptWriter, script);
-  }
-
-  public String getJavascript() {
-    return javascriptWriter.toString();
+    writeInternal(getWriter(), string);
   }
 
   public final WriterHelper getHelper() {
@@ -142,15 +100,6 @@ public class HtmlResponseWriter extends TobagoResponseWriterBase {
 
   @Override
   public void endElement(final String name) throws IOException {
-    if (name.equals(HtmlElements.BODY.getValue())) {
-      final String javascript = getJavascript();
-      if (StringUtils.isNotEmpty(javascript)) {
-        startElement(HtmlElements.SCRIPT);
-        writeAttribute(HtmlAttributes.TYPE, "text/javascript", false);
-        write(javascript);
-        super.endElement(HtmlElements.SCRIPT);
-      }
-    }
     super.endElement(name);
   }
 

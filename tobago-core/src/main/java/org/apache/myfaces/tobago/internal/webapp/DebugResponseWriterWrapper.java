@@ -139,33 +139,6 @@ public class DebugResponseWriterWrapper extends TobagoResponseWriter {
     responseWriter.endDocument();
   }
 
-  /**
-   * @deprecated Should not be used, because it conflicts with CSP.
-   */
-  @Deprecated
-  @Override
-  public void writeJavascript(final String script) throws IOException {
-    responseWriter.writeJavascript(script);
-  }
-
-  /**
-   * @deprecated Should not be used, because it conflicts with CSP.
-   */
-  @Deprecated
-  @Override
-  public void endJavascript() throws IOException {
-    responseWriter.endJavascript();
-  }
-
-  /**
-   * @deprecated Should not be used, because it conflicts with CSP.
-   */
-  @Deprecated
-  @Override
-  public void startJavascript() throws IOException {
-    responseWriter.startJavascript();
-  }
-
   @Override
   public void writeURIAttribute(final String name, final Object value, final String property) throws IOException {
     responseWriter.writeURIAttribute(name, value, property);
