@@ -22,7 +22,7 @@
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
                 xmlns:ui="http://java.sun.com/jsf/facelets">
   <ui:param name="title" value="#{demoBundle.dataAttribute} &lt;tc:dataAttribute>"/>
-  <tc:script file="content/30-concept/70-dataAttribute/dataAttribute.js"/>
+  <tc:script file="#{request.contextPath}/content/30-concept/70-dataAttribute/dataAttribute.js"/>
   <p>Add a data attribute to an UIComponent with
     <code class="language-markup">&lt;tc:dataAttribute/></code>.
     The data attribute is added to the parent and can be used by scripts.</p>
