@@ -22,7 +22,7 @@ package org.apache.myfaces.tobago.internal.util;
 import java.io.IOException;
 import java.io.Writer;
 
-public final class HtmlWriterUtils extends WriterUtils {
+public final class HtmlWriterHelper extends WriterHelper {
 
   private static final char[][] CHARS_TO_ESCAPE;
 
@@ -54,7 +54,7 @@ public final class HtmlWriterUtils extends WriterUtils {
     // all "normal" character positions contains null
   }
 
-  public HtmlWriterUtils(final Writer out, final String characterEncoding) {
+  public HtmlWriterHelper(final Writer out, final String characterEncoding) {
     super(out, characterEncoding);
   }
 

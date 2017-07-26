@@ -19,8 +19,8 @@
 
 package org.apache.myfaces.tobago.internal.webapp;
 
-import org.apache.myfaces.tobago.internal.util.HtmlWriterUtils;
-import org.apache.myfaces.tobago.internal.util.WriterUtils;
+import org.apache.myfaces.tobago.internal.util.HtmlWriterHelper;
+import org.apache.myfaces.tobago.internal.util.WriterHelper;
 
 import javax.faces.context.ResponseWriter;
 import java.io.IOException;
@@ -29,12 +29,12 @@ import java.util.Arrays;
 
 public final class XmlResponseWriter extends TobagoResponseWriterBase {
 
-  private final WriterUtils helper;
+  private final WriterHelper helper;
 
   public XmlResponseWriter(
       final Writer writer, final String contentType, final String characterEncoding) {
     super(writer, contentType, characterEncoding);
-    this.helper = new HtmlWriterUtils(writer, characterEncoding);
+    this.helper = new HtmlWriterHelper(writer, characterEncoding);
   }
 
   @Override

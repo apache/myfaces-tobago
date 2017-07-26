@@ -22,7 +22,7 @@ package org.apache.myfaces.tobago.internal.util;
 import java.io.IOException;
 import java.io.Writer;
 
-public abstract class WriterUtils {
+public abstract class WriterHelper {
   protected static final char[] EMPTY = new char[0];
   //
   // Entities from HTML 4.0, section 24.2.1; character codes 0xA0 to 0xFF
@@ -129,7 +129,7 @@ public abstract class WriterUtils {
   private final ResponseWriterBuffer buffer;
   private final boolean utf8;
 
-  public WriterUtils(final Writer out, final String characterEncoding) {
+  public WriterHelper(final Writer out, final String characterEncoding) {
     this.out = out;
     buffer = new ResponseWriterBuffer(out);
     utf8 = "utf-8".equalsIgnoreCase(characterEncoding);

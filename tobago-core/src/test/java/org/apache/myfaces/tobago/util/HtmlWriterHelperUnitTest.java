@@ -19,21 +19,21 @@
 
 package org.apache.myfaces.tobago.util;
 
-import org.apache.myfaces.tobago.internal.util.HtmlWriterUtils;
+import org.apache.myfaces.tobago.internal.util.HtmlWriterHelper;
 import org.junit.Assert;
 import org.junit.Test;
 
 import java.io.CharArrayWriter;
 import java.io.IOException;
 
-public class HtmlWriterUtilsUnitTest {
+public class HtmlWriterHelperUnitTest {
 
   // some chars must escaped in attribute values other than in text
   // put them at beginning of raw texts and in both escaped texts
 
   // HTML 4.0, section B.7.1: ampersands followed by
   // an open brace don't get escaped
-  public static final String[] RAW_TEXTS = {
+  private static final String[] RAW_TEXTS = {
       "oeffnende spitze klammern werden in attributen doch escaped <tagname >",
       "& followed by an { -> &{ don't get escaped in attributes",
       "abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ",
@@ -45,7 +45,7 @@ public class HtmlWriterUtilsUnitTest {
       "\u00f0\u00f1\u00f2\u00f3\u00f4\u00f5\u00f6\u00f7\u00f8\u00f9\u00fa\u00fb\u00fc\u00fd\u00fe\u00ff"
 
   };
-  public static final String[] ESCAPED_TEXTS = {
+  private static final String[] ESCAPED_TEXTS = {
       "oeffnende spitze klammern werden in attributen doch escaped &lt;tagname &gt;",
       "&amp; followed by an { -&gt; &amp;{ don&#x27;t get escaped in attributes",
       RAW_TEXTS[2], // no escape needed
@@ -62,7 +62,7 @@ public class HtmlWriterUtilsUnitTest {
           + "&thorn;&yuml;"
   };
 
-  public static final String[] ESCAPED_ATTRIBUTES = {
+  private static final String[] ESCAPED_ATTRIBUTES = {
       ESCAPED_TEXTS[0], // same as in texts
       "&amp; followed by an { -&gt; &{ don&#x27;t get escaped in attributes",
       ESCAPED_TEXTS[2], // same as in texts
@@ -77,7 +77,7 @@ public class HtmlWriterUtilsUnitTest {
   @Test
   public void testTexts() {
     final CharArrayWriter writer = new CharArrayWriter();
-    final HtmlWriterUtils helper = new HtmlWriterUtils(writer, "");
+    final HtmlWriterHelper helper = new HtmlWriterHelper(writer, "");
 
     for (int i = 0; i < ESCAPED_TEXTS.length; i++) {
       testText(helper, writer, RAW_TEXTS[i], ESCAPED_TEXTS[i]);
@@ -87,7 +87,7 @@ public class HtmlWriterUtilsUnitTest {
   @Test
   public void testAttributes() {
     final CharArrayWriter writer = new CharArrayWriter();
-    final HtmlWriterUtils helper = new HtmlWriterUtils(writer, "");
+    final HtmlWriterHelper helper = new HtmlWriterHelper(writer, "");
 
     for (int i = 0; i < ESCAPED_ATTRIBUTES.length; i++) {
       testAttributeValue(helper, writer, RAW_TEXTS[i], ESCAPED_ATTRIBUTES[i]);
@@ -95,7 +95,7 @@ public class HtmlWriterUtilsUnitTest {
   }
 
   private void testText(
-      final HtmlWriterUtils writerUtil, final CharArrayWriter writer, final String text, final String escaped) {
+      final HtmlWriterHelper writerUtil, final CharArrayWriter writer, final String text, final String escaped) {
     try {
       writer.reset();
       writerUtil.writeText(text);
@@ -108,7 +108,7 @@ public class HtmlWriterUtilsUnitTest {
   }
 
   private void testAttributeValue(
-      final HtmlWriterUtils writerUtil, final CharArrayWriter writer, final String text, final String escaped) {
+      final HtmlWriterHelper writerUtil, final CharArrayWriter writer, final String text, final String escaped) {
     try {
       writer.reset();
       writerUtil.writeAttributeValue(text);

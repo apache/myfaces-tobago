@@ -20,9 +20,9 @@
 package org.apache.myfaces.tobago.internal.webapp;
 
 import org.apache.myfaces.tobago.internal.util.FastStringWriter;
-import org.apache.myfaces.tobago.internal.util.HtmlWriterUtils;
+import org.apache.myfaces.tobago.internal.util.HtmlWriterHelper;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
-import org.apache.myfaces.tobago.internal.util.WriterUtils;
+import org.apache.myfaces.tobago.internal.util.WriterHelper;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 
@@ -35,14 +35,14 @@ public class HtmlResponseWriter extends TobagoResponseWriterBase {
 
   private static final String HTML_DOCTYPE = "<!DOCTYPE html>";
 
-  private final WriterUtils helper;
+  private final WriterHelper helper;
   private FastStringWriter javascriptWriter;
   private boolean javascriptMode;
 
   public HtmlResponseWriter(
       final Writer writer, final String contentType, final String characterEncoding) {
     super(writer, contentType, characterEncoding);
-    this.helper = new HtmlWriterUtils(writer, characterEncoding);
+    this.helper = new HtmlWriterHelper(writer, characterEncoding);
     this.javascriptWriter = new FastStringWriter();
   }
 
@@ -86,7 +86,7 @@ public class HtmlResponseWriter extends TobagoResponseWriterBase {
     return javascriptWriter.toString();
   }
 
-  public final WriterUtils getHelper() {
+  public final WriterHelper getHelper() {
     return helper;
   }
 
