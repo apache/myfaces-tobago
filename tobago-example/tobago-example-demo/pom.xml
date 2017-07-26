@@ -213,12 +213,6 @@
       <version>${project.version}</version>
     </dependency>
     <dependency>
-      <groupId>oro</groupId>
-      <artifactId>oro</artifactId>
-      <version>2.0.8</version>
-      <scope>compile</scope>
-    </dependency>
-    <dependency>
       <groupId>org.apache.myfaces.test</groupId>
       <artifactId>myfaces-test20</artifactId>
     </dependency>
