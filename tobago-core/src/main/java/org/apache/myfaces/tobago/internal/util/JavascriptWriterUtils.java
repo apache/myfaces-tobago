@@ -22,6 +22,10 @@ package org.apache.myfaces.tobago.internal.util;
 import java.io.IOException;
 import java.io.Writer;
 
+/**
+ * @deprecated since 3.0.5
+ */
+@Deprecated
 public final class JavascriptWriterUtils extends WriterUtils {
 
   private static final char[][] CHARS_TO_ESCAPE;

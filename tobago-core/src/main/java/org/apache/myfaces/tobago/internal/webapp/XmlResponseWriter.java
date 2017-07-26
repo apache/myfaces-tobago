@@ -19,7 +19,8 @@
 
 package org.apache.myfaces.tobago.internal.webapp;
 
-import org.apache.myfaces.tobago.util.XmlUtils;
+import org.apache.myfaces.tobago.internal.util.HtmlWriterUtils;
+import org.apache.myfaces.tobago.internal.util.WriterUtils;
 
 import javax.faces.context.ResponseWriter;
 import java.io.IOException;
@@ -28,13 +29,12 @@ import java.util.Arrays;
 
 public final class XmlResponseWriter extends TobagoResponseWriterBase {
 
-  private static final String XHTML_DOCTYPE =
-      "<!DOCTYPE html      PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\""
-          + "     \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">";
+  private final WriterUtils helper;
 
   public XmlResponseWriter(
       final Writer writer, final String contentType, final String characterEncoding) {
     super(writer, contentType, characterEncoding);
+    this.helper = new HtmlWriterUtils(writer, characterEncoding);
   }
 
   @Override
@@ -42,14 +42,14 @@ public final class XmlResponseWriter extends TobagoResponseWriterBase {
       throws IOException {
     closeOpenTag();
     final String value = findValue(text, property);
-    write(XmlUtils.encode(value, false));
+    helper.writeText(value);
   }
 
   @Override
   public void writeText(final char[] text, final int offset, final int length)
       throws IOException {
     closeOpenTag();
-    getWriter().write(XmlUtils.escape(text, offset, length, true));
+    helper.writeText(text, offset, length);
   }
 
   @Override
@@ -63,32 +63,29 @@ public final class XmlResponseWriter extends TobagoResponseWriterBase {
   }
 
   @Override
-  public ResponseWriter cloneWithWriter(final Writer originalWriter) {
-    return new XmlResponseWriter(
-        originalWriter, getContentType(), getCharacterEncoding());
-  }
-
-  @Override
-  public void closeEmptyTag() throws IOException {
+  protected void closeEmptyTag() throws IOException {
     getWriter().write("/>");
   }
 
   @Override
   protected void writerAttributeValue(final String value, final boolean escape) throws IOException {
-    getWriter().write(XmlUtils.encode(value, true));
+    if (escape) {
+      helper.writeAttributeValue(value);
+    } else {
+      getWriter().write(value);
+    }
+  }
+
+  @Override
+  public ResponseWriter cloneWithWriter(final Writer originalWriter) {
+    return new XmlResponseWriter(originalWriter, getContentType(), getCharacterEncoding());
   }
 
   @Override
   public void startDocument() throws IOException {
-//    getWriter().write(XHTML_DOCTYPE);
-//    getWriter().write('\n');
-//    startElement(HtmlElements.HTML);
-//    writeAttribute(HtmlAttributes.XMLNS, "http://www.w3.org/1999/xhtml", false);
-//
   }
 
   @Override
   public void endDocument() throws IOException {
-//    endElement(HtmlElements.HTML);
   }
 }
