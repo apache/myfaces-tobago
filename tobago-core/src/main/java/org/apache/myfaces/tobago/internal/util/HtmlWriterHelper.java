@@ -30,28 +30,30 @@ public final class HtmlWriterHelper extends WriterHelper {
     // init lookup table
     CHARS_TO_ESCAPE = new char[0xA0][];
 
+    // all "normal" character positions contains null
+
+    // control characters are dropped
     for (int i = 0; i < 0x20; i++) {
-      CHARS_TO_ESCAPE[i] = EMPTY; // Control characters
+      CHARS_TO_ESCAPE[i] = EMPTY;
+    }
+    for (int i = 0x7F; i < 0xA0; i++) {
+      CHARS_TO_ESCAPE[i] = EMPTY;
     }
 
     CHARS_TO_ESCAPE['\t'] = "&#x09;".toCharArray(); // Horizontal tabulator
     CHARS_TO_ESCAPE['\n'] = "&#x0a;".toCharArray(); // Line feed
     CHARS_TO_ESCAPE['\r'] = "&#x0d;".toCharArray(); // Carriage return
 
+    // See also https://www.owasp.org/index.php/XSS_%28Cross_Site_Scripting%29_Prevention_Cheat_Sheet
     CHARS_TO_ESCAPE['\''] = "&#x27;".toCharArray();
-    CHARS_TO_ESCAPE['\"'] = "&quot;".toCharArray();
     CHARS_TO_ESCAPE['&'] = "&amp;".toCharArray();
     CHARS_TO_ESCAPE['<'] = "&lt;".toCharArray();
     CHARS_TO_ESCAPE['>'] = "&gt;".toCharArray();
-    CHARS_TO_ESCAPE['/'] = "&#x2F;".toCharArray();
+    // We are not escaping quot " and slash / here, because we not really need that in our case.
+    // It makes the HTML code better readable and shorter. There are many occurrences of quot, because of JSON.
+    //    CHARS_TO_ESCAPE['\"'] = "&quot;".toCharArray();
+    //    CHARS_TO_ESCAPE['/'] = "&#x2F;".toCharArray();
 
-    CHARS_TO_ESCAPE[0x7F] = EMPTY; // Delete
-
-    for (int i = 0x80; i < 0xA0; i++) {
-      CHARS_TO_ESCAPE[i] = EMPTY; // Control characters
-    }
-
-    // all "normal" character positions contains null
   }
 
   public HtmlWriterHelper(final Writer out, final String characterEncoding) {
