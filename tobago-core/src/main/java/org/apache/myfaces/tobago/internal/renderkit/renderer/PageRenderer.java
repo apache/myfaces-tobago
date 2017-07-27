@@ -340,6 +340,7 @@ public class PageRenderer extends RendererBase {
       final UIComponent hidden = component.getFacet("backButtonDetector");
       RenderUtils.encode(facesContext, hidden);
     }
+  }
 
 // TODO: this is needed for the "BACK-BUTTON-PROBLEM"
 // but may no longer needed
@@ -355,7 +356,6 @@ public class PageRenderer extends RendererBase {
       writer.endElement(HtmlElements.INPUT);
     }
 */
-  }
 
   private boolean containsCharset(final List<UIComponent> headComponents) {
     for (UIComponent headComponent : headComponents) {
