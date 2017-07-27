@@ -59,6 +59,7 @@ import javax.faces.application.Application;
 import javax.faces.application.ProjectStage;
 import javax.faces.application.ViewHandler;
 import javax.faces.component.UIComponent;
+import javax.faces.component.UIOutput;
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
@@ -195,9 +196,17 @@ public class PageRenderer extends RendererBase {
       }
 
       for (UIComponent headResource : headComponents) {
-        if (headResource instanceof UIMeta) { //workaround for WebSphere: 'headComponents' contains sheet '_header'
-          headResource.encodeAll(facesContext);
+        if (headResource instanceof UIOutput) {
+          final Map<String, Object> attributes = headResource.getAttributes();
+          if ("javax.faces".equals(attributes.get("library"))
+              && "jsf.js".equals(attributes.get("name"))) {
+            // workaround for WebSphere
+            // We don't need jsf.js from the JSF impl, because Tobago comes with its own tobago-jsf.js
+            continue;
+          }
         }
+
+        headResource.encodeAll(facesContext);
       }
 
       // title
