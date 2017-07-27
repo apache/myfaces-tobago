@@ -195,7 +195,7 @@ public class PageRenderer extends RendererBase {
       }
 
       for (UIComponent headResource : headComponents) {
-        if (headResource instanceof UIMeta) {
+        if (headResource instanceof UIMeta) { //workaround for WebSphere: 'headComponents' contains sheet '_header'
           headResource.encodeAll(facesContext);
         }
       }
