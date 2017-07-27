@@ -178,16 +178,16 @@ public class PageRenderer extends RendererBase {
       writer.startElement(HtmlElements.HEAD);
 
       // meta tags
-      final List<UIComponent> headComponents = viewRoot.getComponentResources(facesContext, "head");
+      final List<UIComponent> headResources = viewRoot.getComponentResources(facesContext, HEAD_TARGET);
 
-      if (!containsCharset(headComponents)) {
+      if (!containsCharset(headResources)) {
         final UIMeta charset = (UIMeta) facesContext.getApplication()
             .createComponent(facesContext, UIMeta.COMPONENT_TYPE, RendererTypes.Meta.name());
         charset.setCharset(writer.getCharacterEncoding());
         charset.encodeAll(facesContext);
       }
 
-      if (!containsNameViewport(headComponents)) {
+      if (!containsNameViewport(headResources)) {
         final UIMeta viewport = (UIMeta) facesContext.getApplication()
             .createComponent(facesContext, UIMeta.COMPONENT_TYPE, RendererTypes.Meta.name());
         viewport.setName("viewport");
@@ -195,13 +195,16 @@ public class PageRenderer extends RendererBase {
         viewport.encodeAll(facesContext);
       }
 
-      for (UIComponent headResource : headComponents) {
+      for (UIComponent headResource : headResources) {
         if (headResource instanceof UIOutput) {
           final Map<String, Object> attributes = headResource.getAttributes();
           if ("javax.faces".equals(attributes.get("library"))
               && "jsf.js".equals(attributes.get("name"))) {
             // workaround for WebSphere
             // We don't need jsf.js from the JSF impl, because Tobago comes with its own tobago-jsf.js
+            if (LOG.isDebugEnabled()) {
+              LOG.debug("Skip rendering resource jsf.js");
+            }
             continue;
           }
         }
@@ -241,19 +244,6 @@ public class PageRenderer extends RendererBase {
           writer.writeAttribute(HtmlAttributes.HREF, icon, true);
         }
         writer.endElement(HtmlElements.LINK);
-      }
-      List<UIComponent> componentResources = viewRoot.getComponentResources(facesContext, HEAD_TARGET);
-
-      for (int i = 0, childCount = componentResources.size(); i < childCount; i++) {
-        UIComponent child = componentResources.get(i);
-        // XXX hack to remove jsf.js
-        if ("jsf.js".equals(child.getAttributes().get("name"))) {
-          if (LOG.isDebugEnabled()) {
-            LOG.debug("Skip rendering resource jsf.js");
-          }
-          continue;
-        }
-        child.encodeAll(facesContext);
       }
 
       // script files from theme
