@@ -181,6 +181,8 @@ public enum DataAttributes implements MarkupLanguageAttributes {
 
   TO_PAGE("data-tobago-to-page"),
 
+  TODAY("data-tobago-today"),
+
   TOGGLE("data-toggle"),
 
   TRANSITION("data-tobago-transition"),

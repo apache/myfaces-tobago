@@ -120,28 +120,33 @@ Tobago.DateTime.init = function (elements) {
               'left': left + 'px'
             });
           }
-          Tobago.DateTime.addPastClass();
+          Tobago.DateTime.addPastClass($date);
         });
-        $date.parent().on('dp.update', function () {
+        $date.parent().on('dp.update', function ($date) {
           Tobago.DateTime.addPastClass();
         });
       });
 };
 
-Tobago.DateTime.addPastClass = function () {
-  var todayTimestamp = new Date(
-      new Date().getFullYear() + "-"
-      + ("0" + (new Date().getMonth() + 1)).slice(-2)
-      + "-" + new Date().getDate()
-  ).getTime();
+Tobago.DateTime.addPastClass = function ($date) {
+  var today = $date.data("tobago-today");
+  if (today.length === 10) {
+    var todayArray = today.split("-");
+    if (todayArray.length === 3) {
+      var year = todayArray[0];
+      var month = todayArray[1];
+      var day = todayArray[2];
+      var todayTimestamp = new Date(month + "/" + day + "/" + year).getTime();
 
-  jQuery(".bootstrap-datetimepicker-widget .datepicker-days td.day[data-day]").each(function () {
-    var day = jQuery(this);
-    var currentTimestamp = new Date(day.attr('data-day')).getTime();
-    if (currentTimestamp < todayTimestamp) {
-      day.addClass('past');
+      jQuery(".bootstrap-datetimepicker-widget .datepicker-days td.day[data-day]").each(function () {
+        var day = jQuery(this);
+        var currentTimestamp = new Date(day.attr('data-day')).getTime();
+        if (currentTimestamp < todayTimestamp) {
+          day.addClass('past');
+        }
+      });
     }
-  });
+  }
 };
 
 /*

@@ -39,6 +39,8 @@ import org.slf4j.LoggerFactory;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class DateRenderer extends InRenderer {
 
@@ -53,6 +55,8 @@ public class DateRenderer extends InRenderer {
 
     super.writeAdditionalAttributes(facesContext, writer, date);
     writer.writeAttribute(DataAttributes.PATTERN, date.getPattern(), true);
+    SimpleDateFormat sdf = new SimpleDateFormat("YYYY-MM-dd");
+    writer.writeAttribute(DataAttributes.TODAY, sdf.format(new Date()), true);
     final DateTimeI18n dateTimeI18n = DateTimeI18n.valueOf(facesContext.getViewRoot().getLocale());
     writer.writeAttribute(DataAttributes.DATE_TIME_I18N, JsonUtils.encode(dateTimeI18n), true);
   }

@@ -15,25 +15,19 @@
  * limitations under the License.
  */
 
-function getToday() {
-  var now = new Date();
-  var dd = now.getDate();
-  var mm = now.getMonth() + 1;
-  var yyyy = now.getFullYear();
-  if (dd < 10) {
-    dd = '0' + dd
-  }
-  if (mm < 10) {
-    mm = '0' + mm
-  }
-  return dd + "." + mm + "." + yyyy;
+function getToday($dateField) {
+  var tobagoToday = $dateField.data("tobago-today");
+  var todayArray = tobagoToday.split("-");
+  return todayArray[2] + "." + todayArray[1] + "." + todayArray[0];
 }
 
 QUnit.test("date with label", function (assert) {
+  assert.expect(5);
+
   var $label = jQueryFrame("#page\\:mainForm\\:dNormal > label");
   var $dateField = jQueryFrame("#page\\:mainForm\\:dNormal\\:\\:field");
   var $dateButton = jQueryFrame("#page\\:mainForm\\:dNormal button");
-  var today = getToday();
+  var today = getToday($dateField);
 
   assert.equal($label.text(), "Date");
   assert.equal($dateField.val(), today);
@@ -42,6 +36,11 @@ QUnit.test("date with label", function (assert) {
   $dateButton.click();
 
   assert.equal($dateField.val(), today);
+
+  var $dayToday = jQueryFrame(".day.today");
+  assert.equal($dayToday.hasClass("past"), false);
+  assert.equal($dayToday.prevAll(".past").length, $dayToday.prevAll().length);
+
   $dateButton.click(); // IE11: close datetimepicker for next test
 });
 
@@ -91,7 +90,7 @@ QUnit.test("ajax", function (assert) {
   var $dateField = jQueryFrame("#page\\:mainForm\\:ajaxinput\\:\\:field");
   var $dateButton = jQueryFrame("#page\\:mainForm\\:ajaxinput button");
   var $outField = jQueryFrame("#page\\:mainForm\\:outputfield span");
-  var today = getToday();
+  var today = getToday($dateField);
 
   assert.equal($dateField.val(), "");
   assert.equal($outField.text(), "");
