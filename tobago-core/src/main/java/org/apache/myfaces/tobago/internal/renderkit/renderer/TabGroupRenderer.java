@@ -238,7 +238,11 @@ public class TabGroupRenderer extends RendererBase implements ComponentSystemEve
 
           writer.startElement(HtmlElements.LI);
           writer.writeIdAttribute(tabId);
-          writer.writeClassAttribute(Classes.create(tab, markup), BootstrapClass.NAV_ITEM);
+          writer.writeClassAttribute(
+              Classes.create(tab, markup),
+              BootstrapClass.NAV_ITEM,
+              tab.getCustomClass());
+          writer.writeStyleAttribute(tab.getStyle());
           writer.writeAttribute(HtmlAttributes.ROLE, HtmlRoleValues.PRESENTATION.toString(), false);
           writer.writeAttribute(HtmlAttributes.TABGROUPINDEX, index);
           final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, tab);
