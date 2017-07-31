@@ -122,8 +122,8 @@ Tobago.DateTime.init = function (elements) {
           }
           Tobago.DateTime.addPastClass($date);
         });
-        $date.parent().on('dp.update', function ($date) {
-          Tobago.DateTime.addPastClass();
+        $date.parent().on('dp.update', function () {
+          Tobago.DateTime.addPastClass($date);
         });
       });
 };
