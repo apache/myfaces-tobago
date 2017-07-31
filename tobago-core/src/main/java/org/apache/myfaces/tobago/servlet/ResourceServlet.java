@@ -131,7 +131,7 @@ public class ResourceServlet extends HttpServlet {
     final String requestURI = request.getRequestURI();
     String resource = requestURI.substring(request.getContextPath().length() + 1);
     for (final String resourceDir : resourceDirs) {
-      if (resource.startsWith(resourceDir)) {
+      if (resource.startsWith(resourceDir + "/")) {
         final int dirLength = resourceDir.length();
         if (dirLength < resource.length() && Character.isDigit(resource.charAt(dirLength + 1))) {
           // cut off the version number
