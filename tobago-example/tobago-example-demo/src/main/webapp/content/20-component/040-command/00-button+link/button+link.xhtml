@@ -19,7 +19,8 @@
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:f="http://java.sun.com/jsf/core">
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:demo="http://myfaces.apache.org/tobago/example/demo">
   <ui:param name="title" value="#{demoBundle.button_link} &lt;tc:link> &lt;tc:button>"/>
   <p>A classic link can be set with the <code class="language-markup">&lt;tc:link/></code> tag.
     You can also set a link by <code class="language-markup">&lt;tc:button/></code>.
@@ -131,6 +132,13 @@
   </tc:section>
 
   <tc:section label="Target">
+    <p>
+      <span class="tag tag-warning">Warning!</span>
+      The <code class="language-markup">target</code> attribute is not reliable in combination with
+      <tc:link link="https://deltaspike.apache.org/" label="DeltaSpike"/> and its @WindowScoped.
+      This is because DeltaSpike renames the <code>window.name</code>, with the <code>dswid</code>, so the
+      target can't be found, after the first call.
+    </p>
     <p>The destination of the link can be set with the <code>target</code> attribute.
       For example a new window/tab or a specific iframe (<code class="language-markup">&lt;tc:object/></code>).</p>
     <tc:section label="New Window">
