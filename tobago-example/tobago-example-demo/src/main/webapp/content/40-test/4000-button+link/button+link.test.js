@@ -80,8 +80,8 @@ QUnit.test("Target Action Button", function (assert) {
   var done = assert.async();
 
   var $command = jQueryFrame("#page\\:mainForm\\:targetButtonAction");
-  var $destinationSection = jQueryTargetFrame("#page\\:actionSection");
-  testTargetCommands($command, $destinationSection, assert, done);
+  var $targetTextInput = jQueryTargetFrame("#textInput");
+  testTargetCommands($command, $targetTextInput, "accessed by action", assert, done);
 });
 
 QUnit.test("Target Link Button", function (assert) {
@@ -89,8 +89,8 @@ QUnit.test("Target Link Button", function (assert) {
   var done = assert.async();
 
   var $command = jQueryFrame("#page\\:mainForm\\:targetButtonLink");
-  var $destinationSection = jQueryTargetFrame("#page\\:linkSection");
-  testTargetCommands($command, $destinationSection, assert, done);
+  var $targetTextInput = jQueryTargetFrame("#textInput");
+  testTargetCommands($command, $targetTextInput, "accessed by link", assert, done);
 });
 
 QUnit.test("Target Action Link", function (assert) {
@@ -98,8 +98,8 @@ QUnit.test("Target Action Link", function (assert) {
   var done = assert.async();
 
   var $command = jQueryFrame("#page\\:mainForm\\:targetLinkAction");
-  var $destinationSection = jQueryTargetFrame("#page\\:actionSection");
-  testTargetCommands($command, $destinationSection, assert, done);
+  var $targetTextInput = jQueryTargetFrame("#textInput");
+  testTargetCommands($command, $targetTextInput, "accessed by action", assert, done);
 });
 
 QUnit.test("Target Link Link", function (assert) {
@@ -107,11 +107,11 @@ QUnit.test("Target Link Link", function (assert) {
   var done = assert.async();
 
   var $command = jQueryFrame("#page\\:mainForm\\:targetLinkLink");
-  var $destinationSection = jQueryTargetFrame("#page\\:linkSection");
-  testTargetCommands($command, $destinationSection, assert, done);
+  var $targetTextInput = jQueryTargetFrame("#textInput");
+  testTargetCommands($command, $targetTextInput, "accessed by link", assert, done);
 });
 
-function testTargetCommands($command, $destinationSection, assert, done) {
+function testTargetCommands($command, $targetTextInput, expectedText, assert, done) {
   $command[0].click();
 
   /*
@@ -119,11 +119,11 @@ function testTargetCommands($command, $destinationSection, assert, done) {
    * so the waitForAjax() method is used instead.
    */
   waitForAjax(function () {
-    $destinationSection = jQueryTargetFrame($destinationSection.selector);
-    return $destinationSection.length === 1;
+    $targetTextInput = jQueryTargetFrame($targetTextInput.selector);
+    return $targetTextInput.val() === expectedText;
   }, function () {
-    $destinationSection = jQueryTargetFrame($destinationSection.selector);
-    assert.equal($destinationSection.length, 1);
+    $targetTextInput = jQueryTargetFrame($targetTextInput.selector);
+    assert.equal($targetTextInput.val(), expectedText);
     done();
   });
 }

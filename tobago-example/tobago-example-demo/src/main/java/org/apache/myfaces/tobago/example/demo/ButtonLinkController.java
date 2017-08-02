@@ -36,7 +36,12 @@ public class ButtonLinkController implements Serializable {
   }
 
   public String actionPage() {
-    LOG.info("link to components root");
+    LOG.info("link to action.xhtml");
     return "/content/40-test/4000-button+link/x-action.xhtml";
+  }
+
+  public String targetActionPage() {
+    LOG.info("link to targetAction.xhtml");
+    return "/content/40-test/4000-button+link/x-targetAction.xhtml";
   }
 }

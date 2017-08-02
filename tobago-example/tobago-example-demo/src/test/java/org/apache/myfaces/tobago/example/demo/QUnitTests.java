@@ -293,8 +293,6 @@ public class QUnitTests {
     List<String> ignore = new ArrayList<String>();
     //PhantomJs miscalculate the height of the dropdown box
     ignore.add("content/40-test/3000-sheet/10-sheet-types/sheet-types.xhtml");
-    // See https://issues.apache.org/jira/browse/TOBAGO-1752?focusedCommentId=16068289
-    ignore.add("content/40-test/4000-button+link/button+link.xhtml");
     // Works only for larger browser window
     ignore.add("content/40-test/4810-labelLayoutTop/labelLayoutTop.xhtml");
     //ajaxListener doesn't work for <tc:in> events: focus, blur, click, dblclick
