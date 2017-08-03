@@ -26,6 +26,7 @@ $spacer: 1rem !default;
 $spacer-x: $spacer !default;
 $spacer-y: $spacer !default;
 $card-spacer-y: .75rem !default;
+$form-group-margin-bottom: $spacer-y !default;
 $brand-primary: #0275d8 !default;
 $link-color: $brand-primary !default;
 $link-hover-color: darken($link-color, 15%) !default;
@@ -1060,6 +1061,10 @@ th.tobago-sheet-headerCell {
   border: 1px solid #ddd;
   border-radius: 0.25rem;
   padding: 0.3rem;
+}
+
+.tobago-tabGroup {
+  margin-bottom: $form-group-margin-bottom;
 }
 
 .tobago-tabGroup > .tobago-tabGroup-header.nav-tabs {
