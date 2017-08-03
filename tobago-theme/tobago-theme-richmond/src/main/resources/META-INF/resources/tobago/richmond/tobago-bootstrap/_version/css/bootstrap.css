@@ -10392,6 +10392,10 @@ th.tobago-sheet-headerCell .tobago-out {
   padding: 0.3rem;
 }
 
+.tobago-tabGroup {
+  margin-bottom: 1rem;
+}
+
 .tobago-tabGroup > .tobago-tabGroup-header.nav-tabs {
   border-bottom-width: 0;
 }
