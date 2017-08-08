@@ -56,7 +56,7 @@ Tobago.Config.set("Ajax", "waitOverlayDelay", 1000);
         this.overlay.addClass("tobago-page-overlay-markup-wait");
       }
 
-      var overlayOffset = {top: 0, left: 0};
+      var overlayOffset = {};
       if (this.element.is("body")) {
         this.overlay.css({
           position: "fixed",
