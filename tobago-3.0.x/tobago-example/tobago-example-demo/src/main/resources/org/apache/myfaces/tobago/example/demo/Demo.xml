@@ -1,0 +1,429 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+-->
+
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+
+<properties>
+ <entry key="tobago_url">http://myfaces.apache.org/tobago</entry>
+
+  <entry key="notTranslated">Sorry, not completely translated yet.</entry>
+  <entry key="pageTitle">Tobago Demo</entry>
+
+  <entry key="login">Login</entry>
+
+  <!-- menu -->
+  <entry key="menu_config">Configuration</entry>
+  <entry key="menu_themes">Theme</entry>
+  <entry key="menu_locale">Language</entry>
+  <entry key="menu_help">Help</entry>
+  <entry key="menu_about">About</entry>
+
+  <!-- navigate -->
+  <entry key="intro">Intro</entry>
+  <entry key="new_in_3_0">New in Tobago 3.0</entry>
+  <entry key="migration">Migration</entry>
+  <entry key="migration15">1.0 to 1.5</entry>
+  <entry key="migration20">1.5 to 2.0</entry>
+  <entry key="migration30">2.0 to 3.0</entry>
+
+  <!-- navigate : components -->
+  <entry key="component">Components</entry>
+  <entry key="input">Input Fields</entry>
+  <entry key="in">Input</entry>
+  <entry key="suggest">Suggest</entry>
+  <entry key="textarea">Text Area</entry>
+  <entry key="date">Date</entry>
+  <entry key="group">Input Group</entry>
+  <entry key="output">Output Fields</entry>
+  <entry key="out">Output</entry>
+  <entry key="label">Label</entry>
+  <entry key="messages">Messages</entry>
+  <entry key="figure">Figure</entry>
+  <entry key="image">Image</entry>
+  <entry key="progress">Progress Bar</entry>
+  <entry key="object">External Object (iframe)</entry>
+  <entry key="select">Select Controls</entry>
+  <entry key="selectBooleanCheckbox">Checkbox</entry>
+  <entry key="selectOneChoice">Dropdown Box</entry>
+  <entry key="selectOneRadio">Radio Button</entry>
+  <entry key="selectOneListbox">Singleselection List</entry>
+  <entry key="selectManyCheckbox">Checkbox Group</entry>
+  <entry key="selectManyListbox">Multiselection List</entry>
+  <entry key="selectManyShuttle">Shuttle List</entry>
+  <entry key="command">Commands</entry>
+  <entry key="button_link">Link &amp; Button</entry>
+  <entry key="default_command">Default Command</entry>
+  <entry key="buttons">Button Group</entry>
+  <entry key="buttons_customizer">Button Group Customizer</entry>
+  <entry key="links">Link Group</entry>
+  <entry key="container">Container</entry>
+  <entry key="box">Content Box</entry>
+  <entry key="panel">Panel</entry>
+  <entry key="separator">Separator</entry>
+  <entry key="section">Section</entry>
+  <entry key="header_footer">Header / Footer</entry>
+  <entry key="bar">Bar</entry>
+  <entry key="popup">Popup Dialog</entry>
+  <entry key="tab">Tab Group</entry>
+  <entry key="tab_client">Client sided</entry>
+  <entry key="tab_ajax">Ajax</entry>
+  <entry key="tab_server">Server sided</entry>
+  <entry key="sheet">Sheet Control</entry>
+  <entry key="sheet_column_content">Column Content</entry>
+  <entry key="sheet_sorting">Sorting</entry>
+  <entry key="sheet_column_selector">Column Selector</entry>
+  <entry key="sheet_event">Event</entry>
+  <entry key="sheet_markup">Markup</entry>
+  <entry key="sheet_dropdown">Dropdown Box</entry>
+  <entry key="sheet_filter">Filtering</entry>
+  <entry key="sheet_static_header">Static Header</entry>
+  <entry key="sheet_multi_header">Multi Header</entry>
+  <entry key="sheet_tree">Column Tree</entry>
+  <entry key="sheet_editable">Editable Sheet</entry>
+  <entry key="tree">Tree Control</entry>
+  <entry key="tree_command_types">Command</entry>
+  <entry key="tree_select">Select</entry>
+  <entry key="tree_editor">Tree Editor</entry>
+  <entry key="tree_menu">Tree Menu</entry>
+  <entry key="tree_listbox">Tree List</entry>
+  <entry key="upload">File Upload</entry>
+  <entry key="wysiwyg_editor">WYSIWYG Editor</entry>
+  <entry key="tinymce">TinyMCE</entry>
+  <entry key="ckeditor">CKEditor</entry>
+
+  <!-- navigate : concept -->
+  <entry key="concept">Concepts</entry>
+  <entry key="validation">Validation</entry>
+  <entry key="content_validation">Content Validation</entry>
+  <entry key="validation_jsr303">JSR 303: Bean Validation</entry>
+  <entry key="severity">Severity</entry>
+  <entry key="conversion">Conversion</entry>
+  <entry key="form">Forms</entry>
+  <entry key="form_required">Required Forms</entry>
+  <entry key="form_ajax">Ajax Forms</entry>
+  <entry key="theme">Themes</entry>
+  <entry key="layout">Layout</entry>
+  <entry key="flow_layout">FlowLayout</entry>
+  <entry key="flex_layout">FlexLayout</entry>
+  <entry key="segment_layout">SegmentLayout</entry>
+  <entry key="labeled_layout">LabeledLayout</entry>
+  <entry key="format">Formatting</entry>
+  <entry key="transition">Transition</entry>
+  <entry key="for_each">For Each</entry>
+  <entry key="collapsible">Collapsible</entry>
+  <entry key="collapsible_box">Content Box</entry>
+  <entry key="collapsible_popup">Popup</entry>
+  <entry key="collapsible_panel">Panel</entry>
+  <entry key="collapsible_section">Section</entry>
+  <entry key="accessKey">Access Keys</entry>
+  <entry key="dataAttribute">Data Attributes</entry>
+  <entry key="roles">Roles</entry>
+
+  <!-- navigate : deprecated -->
+  <entry key="deprecated">Deprecated</entry>
+  <entry key="tx">TX Tag Library</entry>
+  <entry key="suggest_method">SuggestMethod</entry>
+  <entry key="toolBar">Toolbar</entry>
+  <entry key="menubar">Menubar</entry>
+  <entry key="grid_layout">GridLayout</entry>
+
+  <!-- navigate : test -->
+  <entry key="test">Tests</entry>
+  <entry key="sheet_types">Sheet Content</entry>
+  <entry key="manual">Manual Tests</entry>
+
+  <entry key="validation-severity">Severity</entry>
+  <entry key="browser">Browser</entry>
+  <entry key="locale">Locale</entry>
+
+  <entry key="bestPractice">Best Practice</entry>
+  <entry key="error">Error Handling</entry>
+  <entry key="theme">Themes</entry>
+  <entry key="transition">Transition</entry>
+  <entry key="nonFacesResponse">Non Faces Resp.</entry>
+  <entry key="toolBarCustomizer">User Customized UI</entry>
+  <entry key="faceletsAsResources">Facelets As Resource</entry>
+  <entry key="non-faces-request">Non Faces Request</entry>
+
+  <entry key="reference_intro">Ref. (under constr.)</entry>
+  <entry key="reference_command">Command</entry>
+  <entry key="reference_container">Container</entry>
+  <entry key="reference_inputSuggest">Input suggest</entry>
+  <entry key="reference_menu">Menu</entry>
+  <entry key="reference_output">Output</entry>
+  <entry key="reference_object">Object</entry>
+  <entry key="reference_popup">Popup</entry>
+  <entry key="reference_progress">Progress</entry>
+  <entry key="reference_select">Select</entry>
+  <entry key="reference_sheet">Sheet</entry>
+  <entry key="reference_tab">Tab</entry>
+  <entry key="reference_time">Time</entry>
+  <entry key="reference_tree">Tree</entry>
+  <entry key="reference_tool">Tool Bar</entry>
+  <entry key="reference_partial">Partial</entry>
+  <entry key="reference_upload">Upload</entry>
+
+  <entry key="submit">Submit</entry>
+  <entry key="cancel">Cancel</entry>
+
+  <entry key="footer_previous">Prev</entry>
+  <entry key="footer_next">Next</entry>
+  <entry key="footer_viewSource">View Source</entry>
+
+  <!-- Tag Library Documentation URL -->
+  <entry key="tagDocUrl">https://myfaces.apache.org/tobago/doc</entry>
+
+<!--  basicControls -->
+  <entry key="basic_sampleInputTitle">Basic Input Examples</entry>
+  <entry key="basic_sampleSelectTitle">Basic Select Examples</entry>
+  <entry key="basic_sampleLinkTitle">Basic Controls Examples</entry>
+  <entry key="basic_itemUnknown">none</entry>
+  <entry key="basic_itemMr">Mr.</entry>
+  <entry key="basic_itemMrs">Mrs.</entry>
+  <entry key="basic_textboxLabel">Inputfield</entry>
+  <entry key="basic_textboxTip">A simple input field</entry>
+  <entry key="basic_suggestLabel">Suggest (AJAX)</entry>
+  <entry key="basic_suggestTip">Please type in "po" for example</entry>
+  <entry key="basic_dateLabel">Date</entry>
+  <entry key="basic_timeLabel">Time</entry>
+  <entry key="basic_textareaLabel">Textarea</entry>
+  <entry key="basic_linkAction">Click Link</entry>
+  <entry key="basic_buttonAction">Click Button</entry>
+  <entry key="basic_lastActionLabel">Last Click</entry>
+  <entry key="basic_text_input">Input controls for different kinds of text: single-line, multiline, formated.</entry>
+  <entry key="basic_text_select">Select controls allow input of one or multiple options.</entry>
+  <entry key="basic_text_action">Control elements for site navigation and to execute actions.</entry>
+
+
+<!--  sheet -->
+<entry key="sheet_text">The sheet control is a simple solution for displaying table based
+  information. The essential features are:
+    &lt;ul style="margin-top: 2px;"&gt;
+    &lt;li style="line-height: 130%;"&gt;Paging: A defined range of data is displayed.
+      Navigation is done with arrow buttons.&lt;/li&gt;
+    &lt;li style="line-height: 130%;"&gt;Sorting: By clicking a column header the
+    appropriate column is sorted.&lt;/li&gt;
+    &lt;li style="line-height: 130%;"&gt;Inline-Editing: If needed, the values of
+    cell contents can be directly changed or inserted by the user.&lt;/li&gt;
+    &lt;li style="line-height: 130%;"&gt;The column width can be resized by simply
+    drag and drop the column border.
+    &lt;/ul&gt;
+    This example shows an application specific sorter, which sorts the sun to the top every time.
+</entry>
+<entry key="sheet_resetLabel">Reset</entry>
+<entry key="sheet_resetTip">Reset the modified widths of the columns in the sheet.</entry>
+<entry key="sheet_configTip">Click here to edit display attributes of the sheet.</entry>
+<entry key="sheet_configTitle">Sheet configuration</entry>
+
+<!--  tree -->
+<entry key="tree_text">The tree control displays a tree which is generated from application data. The key features are:
+    &lt;ul style="margin-top: 2px;"&gt;
+    &lt;li style="line-height: 130%;"&gt;Attributes control the rendering of the tree.&lt;/li&gt;
+    &lt;li style="line-height: 130%;"&gt;The possibility to define the tree as "single" or "multiselect", i.e. select one or multiple nodes of the tree.
+    &lt;li style="line-height: 130%;"&gt;Editing mode for simple handling of tree structures inside the application.&lt;/li&gt;
+    &lt;/ul&gt;
+    Furthermore there is a TreeListbox Control, which can be described as a vertical tree. This is handy for categorization actions.
+  </entry>
+<entry key="treeShowIcons">show icons</entry>
+<entry key="treeShowRoot">show root node</entry>
+<entry key="treeShowJunctions">show junction tree</entry>
+<entry key="treeShowRootJunction">show first junction</entry>
+<entry key="treeMultiselect">selectable</entry>
+<entry key="treeMutable">mutable</entry>
+<entry key="treeLabel">Tre_e</entry>
+<entry key="treeListboxLabel">Listbo_x</entry>
+
+
+<entry key="none">Not selectable</entry>
+<entry key="single">Single selection</entry>
+<entry key="singleLeafOnly">Single selection, Leafs only</entry>
+<entry key="multi">Multi selection</entry>
+<entry key="multiLeafOnly">Multi selection, Leafs only</entry>
+<entry key="siblingLeafOnly">Multi selection, Leafs on same level only</entry>
+
+
+
+<!--  tab -->
+<entry key="tab_text">The tab control provides so called tab panels.
+    &lt;ul style="margin-top: 2px;"&gt;
+    &lt;li style="line-height: 130%;"&gt;Control can take place on server- or clientside.&lt;/li&gt;
+    &lt;li style="line-height: 130%;"&gt;Tab controls can be nested.&lt;/li&gt;
+    &lt;li style="line-height: 130%;"&gt;Inside each tab control any other controls   can be used.&lt;/li&gt;
+    &lt;/ul&gt;
+  </entry>
+<entry key="tabSwitchTypeClient">Client side tabbing</entry>
+<entry key="tabSwitchTypeReloadTag">Server side tabbing (Ajax)</entry>
+<entry key="tabSwitchTypeReloadPage">Server side tabbing (Full Reload)</entry>
+<entry key="tabPlanet">Data of the _Planets</entry>
+<entry key="tabInsolar">In the _Solarsystem</entry>
+<entry key="closeButtonTip">Hide this tab for one request cycle</entry>
+<entry key="tabMoons">_Moons</entry>
+
+
+<!--  solar -->
+<entry key="solarPlanetDiameter">Diameter</entry>
+<entry key="solarPlanetMass">Mass</entry>
+<entry key="solarPlanetSunDistance">Distance of the Sun</entry>
+<entry key="solarPlanetTimeOfCirculation">Time of Circulation</entry>
+<entry key="solarArrayName">Name</entry>
+<entry key="solarArrayNumber">#</entry>
+<entry key="solarArrayNumberTip">Number</entry>
+<entry key="solarArrayOrbit">Orbits</entry>
+<entry key="solarArrayDistance">Distance</entry>
+<entry key="solarArrayPeriod">Period</entry>
+<entry key="solarArrayPopulation">Population</entry>
+<entry key="solarPagingSheet">Sheet with Paging</entry>
+
+
+<!--  toolbar -->
+<entry key="toolbar_closePopupAction">Close popup window</entry>
+<entry key="toolbar_popupText">To close this popup window click close button.</entry>
+<entry key="toolbar_dropDownAction">DropDown</entry>
+<entry key="toolbar_sampleTitle">Toolbar Example</entry>
+<entry key="toolbar_text1">Toolbars can be used for context sensitive actions inside box controls.
+&lt;ul style="margin-top: 2px;"&gt;
+&lt;li style="line-height: 130%;"&gt;Toolbars can consist of images, text or both.&lt;/li&gt;
+&lt;li style="line-height: 130%;"&gt;Toolbars can be completly integrated into a box header.&lt;/li&gt;
+&lt;li style="line-height: 130%;"&gt;Actions can be displayed as drop down menues.&lt;/li&gt;
+&lt;/ul&gt;
+  </entry>
+<entry key="right">right</entry>
+<entry key="bottom">bottom</entry>
+<entry key="off">off</entry>
+<entry key="small">small</entry>
+<entry key="big">big</entry>
+
+
+<!--  validation -->
+<entry key="validation_description">Description</entry>
+<entry key="validation_number">Number</entry>
+<entry key="validation_price">Price</entry>
+<entry key="validation_custom">Custom Validator</entry>  
+<entry key="validation_submit">Submit</entry>
+
+<entry key="validation_text">Tobago provides easy to use possibilities for validation of user input.
+    &lt;ul style="margin-top: 2px;"&gt;
+    &lt;li style="line-height: 130%;"&gt;Syntactic and semantic validation is available.&lt;/li&gt;
+    &lt;li style="line-height: 130%;"&gt;Error messages can be positioned anywhere in the   user interface.&lt;/li&gt;
+    &lt;li style="line-height: 130%;"&gt;Input elements, which are affected by the   validation can be highlighted.&lt;/li&gt;
+    &lt;/ul&gt;
+</entry>
+
+<!--  form -->
+<entry key="form_outTitle">Outer form</entry>
+<entry key="form_text1">&lt;li style="line-height: 130%;"&gt;Values in the first form are being
+  stored temporarily by submitting the second form while the value in the second
+  form is written into the model.&lt;/li&gt;
+&lt;li style="line-height: 130%;"&gt;By submitting both form each value is stored into
+  the model.&lt;/li&gt;
+&lt;li style="line-height: 130%;"&gt;If the first input contains an error but the second
+  one validates, the validation of the first form is deactivated.&lt;/li&gt;
+  </entry>
+<entry key="form_in1Title">First inner form</entry>
+<entry key="form_in2Title">Second inner form</entry>
+<entry key="newValue1">New model-value</entry>
+<entry key="modelValue1">Value in model</entry>
+<entry key="submitForm1">Submit Form 1</entry>
+<entry key="newValue2">New model-value</entry>
+<entry key="modelValue2">Value in model</entry>
+<entry key="submitForm2">Submit Form 2</entry>
+<entry key="submitAll">Submit all Forms</entry>
+
+
+
+
+<!--  theme -->
+<entry key="theme_title">Theme settings</entry>
+<entry key="theme_text">Tobago supports a big variety of displaying controls,
+  so called designs or themes.
+    &lt;ul style="margin-top: 2px;"&gt;
+    &lt;li style="line-height: 130%;"&gt;Choosing of themes can be application wide,   user or group specific.&lt;/li&gt;
+    &lt;li style="line-height: 130%;"&gt;Images and other resources can be theme   dependant as well as the application pages can be designed seperatly   for each supported theme.&lt;/li&gt;
+    &lt;/ul&gt;
+</entry>
+
+<!--  browser -->
+<entry key="browser_sampleTitle">Browser Example</entry>
+<entry key="browser_text">Tobago is completely browser independant. Support of the different
+  browsers takes place in the JSF renderkit and does not have any effect on the
+  business logic development.
+    &lt;ul style="margin-top: 2px;"&gt;
+    &lt;li style="line-height: 130%;"&gt;Tobago supports common browsers: Internet   Explorer, Mozilla and Netscape navigator.&lt;/li&gt;
+    &lt;li style="line-height: 130%;"&gt;Tobago reacts on the value delivered by the   HTTP header 'User-Agent' to decide which controls have to be rendered.&lt;/li&gt;
+    &lt;li style="line-height: 130%;"&gt;Control defaulting: The implentation of themes   can be both browser independant and based on other themes to prevent   code redundancy.&lt;/li&gt;
+    &lt;li style="line-height: 130%;"&gt;More browsers can be supported easily.&lt;/li&gt;
+    &lt;li style="line-height: 130%;"&gt;Additional clients are supported, too: HTML, Simple HTML&lt;/li&gt;
+    &lt;/ul&gt;
+</entry>
+
+<!--  locale -->
+<entry key="locale_title">Locale settings</entry>
+<entry key="locale_label">Locale</entry>
+<entry key="locale_submit">Submit</entry>
+<entry key="locale_text">Tobago supports internationalization and localization.
+    &lt;ul style="margin-top: 2px;"&gt;
+    &lt;li style="line-height: 130%;"&gt;Unicode is used internally.&lt;/li&gt;
+    &lt;li style="line-height: 130%;"&gt;Content in different languages can be provided by resource bundles.&lt;/li&gt;
+    &lt;li style="line-height: 130%;"&gt;Like content, images and scripts can be localized.&lt;/li&gt;
+    &lt;/ul&gt;
+</entry>
+
+  <!-- Themes -->
+  <entry key="themesText1">&lt;b&gt;Theme configuration&lt;/b&gt; &lt;br /&gt;&lt;br
+    /&gt;
+    In Tobago it's easy to give an application a well designed look. You can use
+    prepared themes like speyside or scarborough, just to name two.
+    The only thing you have to do is configure them at the right place. This is
+    done in the tobago-config.xml by defining a default theme.</entry>
+
+  <entry key="themesCodeExampleTitle">Code Example</entry>
+  <entry key="themesCodeExample">...
+&lt;tobago-config&gt;
+            &lt;theme-config&gt;
+                        &lt;default-theme&gt;speyside&lt;/default-theme&gt;
+            &lt;/theme-config&gt;
+            &lt;resource-dir&gt;tobago&lt;/resource-dir&gt;
+&lt;/tobago-config&gt;
+...</entry>
+  <entry key="theme_photo">The Standard Theme doesn't have a photo to show</entry>
+
+  <entry key="foreach_text">
+    There are two possibilities to use iterators:&lt;br/>
+    This example uses &lt;b>&amp;lt;c:forEach&gt;&lt;/b>. It works well with the layout manager.&lt;br/>
+    Using &lt;b>&amp;lt;ui:repeat&gt;&lt;/b> doesn't work with the grid layout manager in the moment.
+    The iterated components are on top of each other in the HTML document,
+    because they got have all the same position attributes.&lt;br/></entry>
+
+  <!-- faceletsAsResources -->
+  <entry key="faceletsAsResources_text">
+    This example demonstrates how to load parts of the view of an application from a library jar file.
+    You have to define a context parameter in the web.xml:
+
+    &lt;context-param>
+      &lt;param-name>javax.faces.FACELETS_RESOURCE_RESOLVER&lt;/param-name>
+      &lt;param-value>org.apache.myfaces.tobago.facelets.MetaInfResourcesClasspathResourceResolver&lt;/param-value>
+    &lt;/context-param>
+
+    The content has to reside in the /META-INF/resources directory.</entry>
+
+  <entry key="format1">The equatorial radius of the sun is {0} km.</entry>
+  <entry key="format3">The temperature of the sun is {0} K on the surface, but {1} K in the center and {2} K in the corona.</entry>
+  <entry key="format9">Just reordering: {4} - {1} - {6} - {8} - {5} - {3} - {0} - {7} - {2}</entry>
+
+
+</properties>

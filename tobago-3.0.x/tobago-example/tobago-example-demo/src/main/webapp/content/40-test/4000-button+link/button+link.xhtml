@@ -1,0 +1,89 @@
+<!--
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+-->
+
+<ui:composition template="/main.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:tc="http://myfaces.apache.org/tobago/component"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core">
+  <ui:param name="title" value="#{demoBundle.button_link}"/>
+
+  <tc:section label="Standard">
+    <tc:buttons>
+      <tc:button id="standardButtonAction" label="Action" action="#{buttonLinkController.actionPage}"/>
+      <tc:button id="standardButtonLink" label="Link" link="x-link.xhtml"/>
+    </tc:buttons>
+    <tc:links>
+      <tc:link id="standardLinkAction" label="Action" action="#{buttonLinkController.actionPage}"/>
+      <tc:link id="standardLinkLink" label="Link" link="x-link.xhtml"/>
+    </tc:links>
+    <br/>
+    <br/>
+  </tc:section>
+
+  <tc:section label="Confirmation">
+    <tc:buttons>
+      <tc:button id="confirmationButtonAction" label="Action" action="#{buttonLinkController.actionPage}"
+                 confirmation="Are you sure?"/>
+      <tc:button id="confirmationButtonLink" label="Link" link="x-link.xhtml" confirmation="Are you sure?"/>
+    </tc:buttons>
+    <tc:links>
+      <tc:link id="confirmationLinkAction" label="Action" action="#{buttonLinkController.actionPage}"
+               confirmation="Are you sure?"/>
+      <tc:link id="confirmationLinkLink" label="Link" link="x-link.xhtml"
+               confirmation="Are you sure?"/>
+    </tc:links>
+    <br/>
+    <br/>
+  </tc:section>
+
+  <tc:section label="Target">
+    <tc:buttons>
+      <tc:button id="targetButtonAction" label="Action" action="#{buttonLinkController.actionPage}"
+                 target="targetFrame"/>
+      <tc:button id="targetButtonLink" label="Link" link="x-link.xhtml" target="targetFrame"/>
+    </tc:buttons>
+    <tc:links>
+      <tc:link id="targetLinkAction" label="Action" action="#{buttonLinkController.actionPage}" target="targetFrame"/>
+      <tc:link id="targetLinkLink" label="Link" link="x-link.xhtml" target="targetFrame"/>
+    </tc:links>
+    <br/>
+    <br/>
+    <tc:object id="targetFrame" name="targetFrame">
+      <tc:style width="100%" height="150px"/>
+    </tc:object>
+  </tc:section>
+
+  <tc:section label="JavaScript">
+    <p>Execute JavaScript on click.</p>
+    <tc:link label="JavaScript"/>
+    <tc:button label="JavaScript"/>
+
+    |
+    <tc:link label="OnClick Confirm" disabled="true" link="x-link.xhtml">
+      <f:facet name="confirmation">
+        <tc:out value="Are you sure?"/>
+      </f:facet>
+    </tc:link>
+    <tc:button label="OnClick Confirm" disabled="true" link="x-link.xhtml">
+      <f:facet name="confirmation">
+        <tc:out value="Are you sure?"/>
+      </f:facet>
+    </tc:button>
+    <p>target geht nicht</p>
+  </tc:section>
+</ui:composition>

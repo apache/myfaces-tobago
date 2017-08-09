@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+-->
+
+<f:view
+    xmlns:tc="http://myfaces.apache.org/tobago/component"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core">
+
+  <tc:page id="page">
+    <tc:gridLayoutConstraint width="600px" height="600px"/>
+    <f:facet name="layout">
+      <tc:gridLayout rows="*;auto"/>
+    </f:facet>
+
+    <tc:sheet value="#{sheet.localeList}" id="sheet" columns="auto;5*;5*;5*;*" var="entry" rows="1000">
+      <tc:columnSelector disabled="#{entry.disabled}"/>
+      <tc:column label="Locale" id="l" sortable="true">
+        <tc:out value="#{entry.locale}"/>
+      </tc:column>
+      <tc:column label="Display Locale" id="d" sortable="true">
+        <tc:out value="#{entry.displayLocale}"/>
+      </tc:column>
+      <tc:column label="Country" id="c" sortable="true">
+        <tc:out value="#{entry.country}"/>
+      </tc:column>
+      <tc:column label="Language" id="a" sortable="true">
+        <tc:out value="#{entry.language}"/>
+      </tc:column>
+    </tc:sheet>
+
+    <tc:box label="Performance test">
+      <f:facet name="layout">
+        <tc:gridLayout columns="2*;*"/>
+      </f:facet>
+      <tc:in readonly="true" label="Select 1st row"/>
+      <tc:button label="Run" omit="true">
+        <tc:dataAttribute name="clickrow" value="0"/>
+      </tc:button>
+      <tc:in readonly="true" label="Select 2nd row"/>
+      <tc:button label="Run" omit="true">
+        <tc:dataAttribute name="clickrow" value="1"/>
+      </tc:button>
+    </tc:box>
+
+    <tc:script file="test/sheet/sheet-large.js"/>
+    <tc:script file="script/tobago-assert.js"/>
+    <!--todo-->
+    <!--<tc:script onload="TobagoAssert.assertLayout('page:todo', 0, 0, 600, 14);"/>-->
+
+  </tc:page>
+</f:view>

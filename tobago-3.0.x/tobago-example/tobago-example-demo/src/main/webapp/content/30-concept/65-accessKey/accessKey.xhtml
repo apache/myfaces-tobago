@@ -1,0 +1,92 @@
+<!--
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+-->
+
+<ui:composition template="/main.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:tc="http://myfaces.apache.org/tobago/component"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core">
+  <ui:param name="title" value="#{demoBundle.accessKey}"/>
+  <p>The <code>accessKey</code> attribute is available for many components like buttons, checkboxes or links.
+    A component with this attribute is accessible by the given character. The character is not case sensitive.</p>
+  <p>Logging the accessKey can be configured by setting the category
+    <code>org.apache.myfaces.tobago.internal.util.AccessKeyLogger</code> to log level "debug".</p>
+
+  <p>The usage of accesskeys is different for every OS and browser.<br/>
+    For example, in the Windows-Firefox, you have to press 'Alt + Shift + key'.
+    In Chrome for Mac OS X it's only 'Control + Alt + key'.
+    A complete listing can be found at the
+    <tc:link label="Mozilla Developer Network"
+             link="https://developer.mozilla.org/de/docs/Web/HTML/Global_attributes/accesskey"/>.</p>
+  <p>Tag Library Documentation:
+    <tc:link label="&lt;tc:button/>" image="#{request.contextPath}/image/feather-leaf.png"
+             link="#{demoBundle.tagDocUrl}/#{info.stableVersion}/tld/tc/button.html"/>
+    |
+    <tc:link label="&lt;tc:checkbox/>" image="#{request.contextPath}/image/feather-leaf.png"
+             link="#{demoBundle.tagDocUrl}/#{info.stableVersion}/tld/tc/checkbox.html"/>
+    |
+    <tc:link label="&lt;tc:link/>" image="#{request.contextPath}/image/feather-leaf.png"
+             link="#{demoBundle.tagDocUrl}/#{info.stableVersion}/tld/tc/link.html"/>
+    |
+    <tc:link label="&lt;tc:label/>" image="#{request.contextPath}/image/feather-leaf.png"
+             link="#{demoBundle.tagDocUrl}/#{info.stableVersion}/tld/tc/label.html"/></p>
+
+  <tc:section label="Basics">
+    <p>The accesskey is set to 'a'. Notice, that the 'A' in the label of the button has an underscore.</p>
+    <pre><code class="language-markup">&lt;tc:button label="Button AccessKey" accessKey="a"></code></pre>
+    <tc:button label="Button AccessKey" accessKey="a">
+      <f:facet name="confirmation">
+        <tc:out value="'Button AccessKey' pressed"/>
+      </f:facet>
+    </tc:button>
+  </tc:section>
+
+  <tc:section label="Invisible Key">
+    <p>The accesskey is '3'. Nothing is underlinded, because the value of the label doesn't contain a '3'.</p>
+    <pre><code class="language-markup">&lt;tc:button label="Button Three" accessKey="3"></code></pre>
+    <tc:button label="Button Three" accessKey="3">
+      <f:facet name="confirmation">
+        <tc:out value="Button 3 pressed"/>
+      </f:facet>
+    </tc:button>
+  </tc:section>
+
+  <tc:section label="#{demoBundle.input}">
+    <p>The <code>accessKey</code> is also available for input fields.
+      An input field will get the focus after pressing the accesskey.</p>
+    <tc:section label="#{demoBundle.in}">
+      <pre><code class="language-markup">&lt;tc:in label="Input" accessKey="i"/></code></pre>
+      <tc:in label="Input" accessKey="i"/>
+    </tc:section>
+    <tc:section label="#{demoBundle.textarea}">
+      <pre><code class="language-markup">&lt;tc:textarea label="Textarea" accessKey="t"/></code></pre>
+      <tc:textarea label="Textarea" accessKey="t"/>
+    </tc:section>
+  </tc:section>
+
+  <tc:section label="Label">
+    <p>For the <code class="language-markup">&lt;tc:label/></code> tag
+      an accesskey can be set in combination with the <code>for</code> attribute.</p>
+    <p>The following example show a label which is automatically bound to the inputfield after that.</p>
+    <pre><code class="language-markup">&lt;tc:label value="Label" accessKey="l" for="@auto"/>
+&lt;tc:in/></code></pre>
+    <tc:flowLayout textAlign="right">
+      <tc:label value="Label" accessKey="l" for="@auto"/>
+      <tc:in/>
+    </tc:flowLayout>
+  </tc:section>
+</ui:composition>

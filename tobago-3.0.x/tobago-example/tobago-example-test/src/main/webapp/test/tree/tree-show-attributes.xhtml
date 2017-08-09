@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+-->
+
+
+<f:view xmlns:tc="http://myfaces.apache.org/tobago/component"
+            xmlns:ui="http://java.sun.com/jsf/facelets"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+  <tc:page label="Different show attributes" id="page">
+    <f:facet name="layout">
+      <tc:gridLayout columns="300px;200px;200px;200px;200px" rows="20px;20px;100px;100px;100px;100px;*"/>
+    </f:facet>
+
+    <tc:panel/>
+    <tc:label value="show junctions = true">
+      <tc:gridLayoutConstraint columnSpan="2"/>
+    </tc:label>
+    <tc:label value="show junctions = false">
+      <tc:gridLayoutConstraint columnSpan="2"/>
+    </tc:label>
+
+    <tc:panel/>
+    <tc:label value="show icons = true"/>
+    <tc:label value="show icons = false"/>
+    <tc:label value="show icons = true"/>
+    <tc:label value="show icons = false"/>
+
+    <tc:panel>
+      <tc:gridLayoutConstraint rowSpan="4"/>
+      <f:facet name="layout">
+        <tc:gridLayout columns="100px;195px" rows="100px;100px;100px;100px"/>
+      </f:facet>
+
+      <tc:label value="show root = true">
+        <tc:gridLayoutConstraint rowSpan="2"/>
+      </tc:label>
+      <tc:label value="show root junctions = true"/>
+      <tc:label value="show root junctions = false"/>
+
+      <tc:label value="show root = false">
+        <tc:gridLayoutConstraint rowSpan="2"/>
+      </tc:label>
+      <tc:label value="show root junctions = true"/>
+      <tc:label value="show root junctions = false"/>
+
+    </tc:panel>
+
+    <c:forEach items="#{trueAndFalseList}" var="showRoot">
+      <c:forEach items="#{trueAndFalseList}" var="showRootJunction">
+        <c:forEach items="#{trueAndFalseList}" var="showJunctions">
+          <c:forEach items="#{trueAndFalseList}" var="showIcons">
+
+            <tc:box
+                label="#{showRoot}, #{showRootJunction}, #{showJunctions}, #{showIcons}"
+                tip="show root = #{showRoot}, show root junctions = #{showRootJunction}, show junctions = #{showJunctions}, show icons = #{showIcons}">
+              <tc:tree showRoot="#{showRoot}" showRootJunction="#{showRootJunction}"
+                       value="#{tree.small}" var="node">
+                  <tc:treeNode id="template">
+                    <tc:treeIndent showJunctions="#{showJunctions}"/>
+                    <tc:treeIcon rendered="#{showIcons}"/>
+                    <tc:treeCommand label="#{node.userObject.name}" action="#{node.userObject.action}"/>
+                  </tc:treeNode>
+              </tc:tree>
+            </tc:box>
+
+          </c:forEach>
+        </c:forEach>
+      </c:forEach>
+    </c:forEach>
+
+  </tc:page>
+</f:view>

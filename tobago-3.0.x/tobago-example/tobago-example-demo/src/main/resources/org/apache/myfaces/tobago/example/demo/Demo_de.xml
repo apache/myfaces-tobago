@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+-->
+
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+
+<properties>
+  <entry key="notTranslated">Einige Teile dieser Seite sind nicht in allen Sprachen verfügbar.</entry>
+
+<!--  menu -->
+  <entry key="menu_navigate">_Navigation</entry>
+
+<!--  navigate -->
+  <entry key="overview">Übersicht</entry>
+  <entry key="toolbar">Toolbar</entry>
+  <entry key="themes">Designs</entry>
+<!-- browser=Browser -->
+  <entry key="locale">Lokalisierung</entry>
+<!-- layout=Layout -->
+
+  <!--<entry key="bestPractice">Best Practice</entry>-->
+  <entry key="error">Fehlerbehandlung</entry>
+
+  <entry key="submit">Übernehmen</entry>
+  <entry key="cancel">Abbrechen</entry>
+
+<!--  intro -->
+  <entry key="intro_text">&lt;p&gt;Tobago ist ein User-Interface-Framework zur Erstellung von Webanwendungen.
+    Das Framework stützt sich auf JavaServer Faces ab. Das Kernstück bildet ein Theme-orientiertes
+    JSF Render Kit.&lt;/p&gt;  &lt;p&gt;&lt;b&gt;Basis Controls&lt;/b&gt;&lt;br/&gt; Tobago stellt alle
+    Standardcontrols von HTML zur Verfügung wie Eingabefelder, Textfelder, Radiobuttons, Checkboxen und Knöpfe.
+    Zusätzlich zu den Basis Controls bietet Tobago eine Anzahl komplexer Controls, die nicht direkt von HTML
+    unterstützt werden. Dazu gehören: Sheet, Baum,
+    Karteireiter&lt;/p&gt;  &lt;p&gt;&lt;b&gt;Validierung&lt;/b&gt;&lt;br/&gt; Das Hauptziel von Tobago ist es,
+    dass Entwickeln von Anwendungen, mit denen der Anwender interagieren kann. Um die Interaktion zu verbessern,
+    verfügt Tobago über Möglichkeiten, die Eingaben des Anwenders zu überprüfen und den Anwender bei der Eingabe
+    korrekter Werte zu unterstützen.&lt;/p&gt;  &lt;p&gt;&lt;b&gt;Layout&lt;/b&gt;&lt;br/&gt; Tobago bietet einen
+    rafinierten Layoutmanager, den man als Mischung aus klassischem HTML Tabellen Layout und Swing Gridbag Layout
+    verstehen kann.&lt;/p&gt;  &lt;p&gt;&lt;b&gt;Weiteres&lt;/b&gt;&lt;br/&gt; Themes, Browser,
+    Internationalisierung&lt;/p&gt;</entry>
+
+<!--  basicControls -->
+  <entry key="basic_sampleInputTitle">Eingabe Beispiele</entry>
+  <entry key="basic_sampleSelectTitle">Auswahl Beispiele</entry>
+  <entry key="basic_sampleLinkTitle">Steuerungs Beispiele</entry>
+  <entry key="basic_itemUnknown">keine</entry>
+  <entry key="basic_itemMr">Herr</entry>
+  <entry key="basic_itemMrs">Frau</entry>
+  <entry key="basic_textboxLabel">Eingabefeld</entry>
+  <entry key="basic_textboxTip">Ein einfaches Eingabefeld</entry>
+  <entry key="basic_suggestLabel">Vorschlag (AJAX)</entry>
+  <entry key="basic_suggestTip">Bitte geben Sie beispielsweise "po" ein</entry>
+  <entry key="basic_dateLabel">Datum</entry>
+  <entry key="basic_timeLabel">Uhrzeit</entry>
+  <entry key="basic_textareaLabel">Textfeld</entry>
+  <entry key="basic_linkAction">Klicke Link</entry>
+  <entry key="basic_buttonAction">Klicke Knopf</entry>
+  <entry key="basic_lastActionLabel">Letzter Klick</entry>
+  <entry key="basic_text_input">Eingabefelder für verschiedene Arten von Text: einzeilig, mehrzeilig, formatiert.</entry>
+  <entry key="basic_text_select">Auswahlelemente erlauben die Eingabe von einer oder mehreren Optionen.</entry>
+  <entry key="basic_text_action">Steuerelemente für die Navigation und zum Ausführen von Aktionen.</entry>
+
+<!--  sheet -->
+  <entry key="sheet_text">Das Sheet-Control bietet eine einfache Möglichkeit tabellarische Daten darzustellen.
+    Die wichtigsten Eigenschaften sind: &lt;ul style="margin-top: 2px;"&gt; &lt;li style="line-height: 130%;"&gt;Paging:
+    Es wird nur ein Teil der Gesamtliste angezeigt.   Über die Pfeilknöpfe kann in der Liste navigiert werden.
+    &lt;/li&gt; &lt;li style="line-height: 130%;"&gt;Sortierung: Durch Drücken auf die Spaltenüberschrift
+    kann die entsprechende Spalte sortiert werden.&lt;/li&gt; &lt;li style="line-height: 130%;"&gt;Inline-Editing:
+    Es können bei Bedarf Werte   direkt in die Tabelle eingegeben werden.
+    &lt;/li&gt; &lt;li style="line-height: 130%;"&gt;Die Spaltenbreite kann direkt mit der Maus
+    manipuliert werden.&lt;/li&gt; &lt;/ul&gt;
+    In diesem Beispiel ist in applikationsspezifischer Sorter hinterlegt, der die Sonne immer oben erscheinen lässt.
+  </entry>
+  <entry key="sheet_resetTip">Hier klicken um den Orginalzustand der Spaltenbreiten wiederherzustellen.</entry>
+  <entry key="sheet_configTip">Hier klicken zum Einstellen der Tabellenkonfiguration.</entry>
+  <entry key="sheet_configTitle">Tabelle konfigurieren</entry>
+
+<!--  tree -->
+  <entry key="tree_text">Das Tree-Control stellt einen Baum dar, der aus Applikationsdaten erzeugt wird. Die wichtigsten Eigenschaften sind: &lt;ul style="margin-top: 2px;"&gt; &lt;li style="line-height: 130%;"&gt;Die Darstellung von Icons und Baumstruktur wird   über Attribute gesteuert.&lt;/li&gt; &lt;li style="line-height: 130%;"&gt;Die Möglichkeit den Baum als "single" oder "multiselect" zu definieren,   also einen oder mehrere Knoten auszuwählbar zu machen.&lt;/li&gt; &lt;li style="line-height: 130%;"&gt;Editiermodus zum einfachen Bearbeiten von   Baumstrukturen in der Applikation.&lt;/li&gt; &lt;/ul&gt; Desweiteren stellt der TreeListbox einen vertikalen Baum dar. Dieser kann z.B. zur Kategorisierung dienen.</entry>
+  <entry key="treeShowIcons">Symbole darstellen</entry>
+  <entry key="treeShowRoot">Wurzel darstellen</entry>
+  <entry key="treeShowJunctions">Linien darstellen</entry>
+  <entry key="treeShowRootJunction">Wurzellinie darstellen</entry>
+  <entry key="treeMultiselect">Auswählbar</entry>
+  <entry key="treeMutable">Veränderbar</entry>
+  <entry key="treeLabel">Tree</entry>
+  <entry key="treeListboxLabel">Listbox</entry>
+
+  <entry key="none">Nicht Auswählbar</entry>
+  <entry key="single">Einfache Auswahl</entry>
+  <entry key="singleLeafOnly">Einfache Auswahl, nur Blätter</entry>
+  <entry key="multi">Mehrfach Auswahl</entry>
+  <entry key="multiLeafOnly">Mehrfach Auswahl, nur Blätter</entry>
+  <entry key="siblingLeafOnly">Mehrfach Auswahl, nur Blätter einer Ebene</entry>
+
+<!--  tab -->
+  <entry key="tab_text">Das Tab-Control stellt so genannte Tab-Panels zur Verfügung. &lt;ul style="margin-top: 2px;"&gt; &lt;li style="line-height: 130%;"&gt;Die Steuerung kann server- oder clientseitig erfolgen.&lt;/li&gt; &lt;li style="line-height: 130%;"&gt;Tab-Controls können verschachtelt werden.&lt;/li&gt; &lt;li style="line-height: 130%;"&gt;Innerhalb von Tab-Controls können wiederum   beliebige Controls angeordnet werden.&lt;/li&gt; &lt;/ul&gt;</entry>
+  <entry key="tabSwitchTypeClient">Clientseitiges Umschalten</entry>
+  <entry key="tabSwitchTypeReloadTag">Serverseitges Umschalten per Ajax</entry>
+  <entry key="tabSwitchTypeReloadPage">Vollständig neu laden</entry>
+  <entry key="tabPlanet">_Planetendaten</entry>
+  <entry key="tabInsolar">im _Sonnensystem</entry>
+  <entry key="closeButtonTip">Diesen Reiter für einen Request schließen</entry>
+  <entry key="tabMoons">Monde</entry>
+
+<!--  solar -->
+  <entry key="solarPlanetDiameter">Durchmesser</entry>
+  <entry key="solarPlanetMass">Masse</entry>
+  <entry key="solarPlanetSunDistance">Entfernung zur Sonne</entry>
+  <entry key="solarPlanetTimeOfCirculation">Umlaufzeit</entry>
+ <!--solarArrayName=Name -->
+ <!--solarArrayNumber=raute  -->
+  <entry key="solarArrayNumberTip">Nummer</entry>
+ <!--solarArrayOrbit=Orbits -->
+  <entry key="solarArrayDistance">Entfernung</entry>
+  <entry key="solarArrayPeriod">Umlauf</entry>
+  <entry key="solarArrayPopulation">Bevölkerung</entry>
+  <entry key="solarPagingSheet">Tabelle mit Seitenverwaltung</entry>
+
+<!--  toolbar -->
+  <entry key="toolbar_closePopupAction">Popup Fenster schließen</entry>
+  <entry key="toolbar_popupText">Zum schließen dieses Fensters den Button drücken.</entry>
+  <entry key="toolbar_dropDownAction">DropDown</entry>
+  <entry key="toolbar_buttonAction">Text Button</entry>
+  <entry key="toolbar_sampleTitle">Toolbar Beispiel</entry>
+  <entry key="toolbar_text1">Toolbars werden genutzt um kontextabhängige Aktionen in Box Elementen zur Verfügung zu stellen:
+  &lt;ul style="margin-top: 2px;"&gt;
+  &lt;li style="line-height: 130%;"&gt;Toolbars können aus Bildern, Text oder beidem bestehen.&lt;/li&gt;
+  &lt;li style="line-height: 130%;"&gt;Toolbars können in den Header einer Box integriert werden.&lt;/li&gt;
+  &lt;li style="line-height: 130%;"&gt;Aktionen können als Drop Down Menü dargestellt werden.&lt;/li&gt;
+  &lt;/ul&gt;
+    </entry>
+
+<!--  validation -->
+  <entry key="validation_description">Beschreibung</entry>
+  <entry key="validation_number">Zahl</entry>
+  <entry key="validation_price">Preis</entry>
+  <entry key="validation_submit">Übernehmen</entry>
+  <entry key="validation_text">Tobago unterstützt komfortable Möglichkeiten zur Validierung von Benutzereingaben. &lt;ul style="margin-top: 2px;"&gt; &lt;li style="line-height: 130%;"&gt;Es steht syntaktische und sematische Validierung zur Verfügung.&lt;/li&gt; &lt;li style="line-height: 130%;"&gt;Fehlermeldungen können beliebig im Userinterface plaziert werden.&lt;/li&gt; &lt;li style="line-height: 130%;"&gt;Eingabeelemente, für die Fehleingaben erfolgt sind, können hervorgehoben werden.&lt;/li&gt; &lt;/ul&gt;</entry>
+
+<!--  form -->
+  <entry key="form_outTitle">Äusseres Formular</entry>
+  <entry key="form_text1">&lt;li style="line-height: 130%;"&gt;Werte in der ersten Form werden beim submit der zweiten form temporär gespeichert, während der Wert aus der 2. Form ins Model geschrieben wird.&lt;/li&gt;&lt;li style="line-height: 130%;"&gt;Beim submit beider Forms werden beide Werte in Model geschrieben.&lt;/li&gt;&lt;li style="line-height: 130%;"&gt;Ist Das erste Input mit einem ungültigen Wert gefüllt und die zweite Form wird mit einem gültigen Wert submitted, ist die Validierung für die erste Form deaktiviert.&lt;/li&gt;</entry>
+  <entry key="form_text2">Tobago unterstützt verschachtelte Forms und kann jede Form separat behandeln:&lt;ul style="margin-top: 2px;"&gt; &lt;li style="line-height: 130%;"&gt;Werte können separat im Model gespeichert werden, während bereits ausgefüllte andere Forms Ihre Werte (temporär) behalten.&lt;/li&gt;&lt;li style="line-height: 130%;"&gt;Für den Fall daß für einzelne Forms Validierung aktiviert ist, der Wert aber nur temporär gespeichert wird, ist die Validierung deaktiviert. Erst beim Speichern des Wertes in das Model wird die Validierung genutzt.&lt;/li&gt;&lt;/ul&gt;</entry>
+  <entry key="form_in1Title">Erstes inneres Formular</entry>
+  <entry key="form_in2Title">Zweites inneres Formular</entry>
+  <entry key="newValue1">Neuer Wert</entry>
+  <entry key="modelValue1">Wert im Model</entry>
+  <entry key="submitForm1">Formular 1 Übernehmen</entry>
+  <entry key="newValue2">Neuer Wert</entry>
+  <entry key="modelValue2">Wert im Model</entry>
+  <entry key="submitForm2">Formular 2 Übernehmen</entry>
+  <entry key="submitAll">Alle Formulare Übernehmen</entry>
+
+<!--  theme -->
+  <entry key="theme_title">Einstellung des Designs</entry>
+
+<!--  browser -->
+  <entry key="browser_sampleTitle">Browser Beispiel</entry>
+  <entry key="browser_text">Mit Tobago werden Webanwendungen unabhängig von Browsern entwickelt. Die Unterstützung verschiedener Browser findet im JSF Render Kit statt und hat keinen direkten Einfluss auf die Entwicklung der Businesslogik. &lt;ul style="margin-top: 2px;"&gt; &lt;li style="line-height: 130%;"&gt;Tobago unterstützt gängige Browser: Internet Explorer, Mozilla und Netscape&lt;/li&gt; &lt;li style="line-height: 130%;"&gt;Tobago reagiert auf den HTTP Header 'User-Agent' und kann basierend auf den verwendeten Browser Spezialisierungen von Controls auswählen.&lt;/li&gt; &lt;li style="line-height: 130%;"&gt;Control Defaulting: Die Implementierung von Controls kann sich auf eine Browser-unabhängige Standardimplementierung oder auch auf ein anderes Theme abstützen.&lt;/li&gt; &lt;li style="line-height: 130%;"&gt;Die Browserunterstützung ist erweiterbar.&lt;/li&gt; &lt;li style="line-height: 130%;"&gt;Unterstützung unterschiedlicher Arten von Clients: HTML, Simple HTML&lt;/li&gt; &lt;/ul&gt;</entry>
+
+<!--  locale -->
+  <entry key="locale_title">Sprach- und länderspezifische Einstellungen</entry>
+  <entry key="locale_label">Sprache/Land</entry>
+  <entry key="locale_submit">Übernehmen</entry>
+  <entry key="locale_text">Tobago unterstützt Internationalisierung und Lokalisierung. &lt;ul style="margin-top: 2px;"&gt; &lt;li style="line-height: 130%;"&gt;Intern wird Unicode verwendet&lt;/li&gt; &lt;li style="line-height: 130%;"&gt;Texte für verschiedene Länder und Sprachen können in Resource Bundles ausgelagert werden.&lt;/li&gt; &lt;li style="line-height: 130%;"&gt;Zusätzlich zu Texten können beliebige Resourcen wie Bilder und Skripte lokalisiert werden.&lt;/li&gt; &lt;/ul&gt;</entry>
+
+<!--  layout -->
+  <entry key="layout_exampleTitle">Layout Beispiel: Persönliche Informationen</entry>
+  <entry key="layout_salutation">Anrede</entry>
+  <entry key="layout_firstName">Vorname</entry>
+  <entry key="layout_lastName">Nachname</entry>
+  <entry key="layout_co">c/o</entry>
+  <entry key="layout_street">Straße</entry>
+  <entry key="layout_streetNumber">Nr.</entry>
+  <entry key="layout_zipCode">PLZ</entry>
+  <entry key="layout_city">Stadt</entry>
+  <entry key="layout_note">Anmerkung</entry>
+  <entry key="layout_text">Tobago vereinfacht das Gestalten von Webseiten. &lt;ul style="margin-top: 2px;"&gt; &lt;li style="line-height: 130%;"&gt;Bequeme Erstellung von ein- und mehrspaltigen Formularen&lt;/li&gt; &lt;li style="line-height: 130%;"&gt;Zellen können mehrere Zeilen und Spalten überspannen&lt;/li&gt; &lt;li style="line-height: 130%;"&gt;Automatisches Ausrichten von Beschriftungen für Eingabefelder&lt;/li&gt; &lt;/ul&gt;</entry>
+
+</properties>

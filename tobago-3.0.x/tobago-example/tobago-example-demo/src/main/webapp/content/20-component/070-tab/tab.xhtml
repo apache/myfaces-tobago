@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+-->
+
+<ui:composition template="/main.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:tc="http://myfaces.apache.org/tobago/component"
+                xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core">
+  <ui:param name="title" value="#{demoBundle.tab}"/>
+  <p>A <code class="language-markup">&lt;tc:tabGroup/></code> can contain several
+    <code class="language-markup">&lt;tc:tab/></code> tags.
+    Switching between tabs can be done on the client or by server request.
+    For server requests there are two ways. Reload the whole page and reload only the tab (Ajax).
+    To set the switching type, use the <code>switchType</code> attribute. By default it's client sided.</p>
+
+  <tc:section label="#{demoBundle.tab_client}">
+    <pre><code class="language-markup">&lt;tc:tabGroup></code></pre>
+    <tc:tabGroup>
+      <tc:tab label="Tab One">
+        <p>Content of tab one.</p>
+      </tc:tab>
+      <tc:tab label="Tab Two">
+        <p>Content of tab two.</p>
+      </tc:tab>
+    </tc:tabGroup>
+  </tc:section>
+
+  <tc:section label="#{demoBundle.tab_ajax}">
+    <pre><code class="language-markup">&lt;tabGroup switchType="reloadTab"></code></pre>
+    <tc:tabGroup switchType="reloadTab">
+      <tc:tab label="Tab One">
+        <p>Content of tab one.</p>
+      </tc:tab>
+      <tc:tab label="Tab Two">
+        <p>Content of tab two.</p>
+      </tc:tab>
+    </tc:tabGroup>
+  </tc:section>
+
+  <tc:section label="#{demoBundle.tab_server}">
+    <pre><code class="language-markup">&lt;tabGroup switchType="reloadPage"></code></pre>
+    <tc:tabGroup switchType="reloadPage">
+      <tc:tab label="Tab One">
+        <p>Content of tab one.</p>
+      </tc:tab>
+      <tc:tab label="Tab Two">
+        <f:facet name="bar">
+          <tc:link image="fa-remove">
+            <tc:dataAttribute name="alert-text" value="Not implemented yet!"/>
+          </tc:link>
+        </f:facet>
+        <p>Content of tab two.</p>
+      </tc:tab>
+    </tc:tabGroup>
+  </tc:section>
+</ui:composition>

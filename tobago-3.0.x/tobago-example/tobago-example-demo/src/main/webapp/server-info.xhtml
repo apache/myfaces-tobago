@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+-->
+
+<ui:composition template="/main.xhtml"
+                xmlns:tc="http://myfaces.apache.org/tobago/component"
+                xmlns:ui="http://java.sun.com/jsf/facelets">
+
+  <ui:param name="title" value="Server Info"/>
+
+  <tc:panel rendered="#{info.enabled}">
+
+    <tc:section label="Main Properties">
+
+      <tc:in value="#{info.version}" readonly="true"
+             label="Tobago Version"/>
+
+      <tc:in value="#{info.jsfTitle}" readonly="true"
+             label="JSF Implementation"/>
+
+      <tc:in value="#{info.jsfVersion}" readonly="true"
+             label="JSF Version"/>
+
+      <tc:in value="#{info.serverInfo}" readonly="true"
+             label="Server Info"/>
+
+      <tc:in value="#{info.systemProperties['java.runtime.version']} - #{info.systemProperties['java.vm.vendor']}"
+             readonly="true"
+             label="Java"/>
+
+      <tc:in
+          value="#{info.systemProperties['os.name']} - #{info.systemProperties['os.version']} - #{info.systemProperties['os.arch']}"
+          readonly="true"
+          label="Operating System"/>
+
+    </tc:section>
+
+    <tc:section label="System Properties">
+
+      <tc:sheet var="entry" value="#{info.systemPropertiesAsList}" columns="*;2*" rows="1000">
+        <tc:column label="Key">
+          <tc:out value="#{entry.key}"/>
+        </tc:column>
+        <tc:column label="Value">
+          <tc:out value="#{entry.value}"/>
+        </tc:column>
+      </tc:sheet>
+    </tc:section>
+
+    <tc:section label="Sessions">
+
+      <tc:sheet value="#{activityList.values}" var="activity"
+                showRowRange="left" showPageRange="right" showDirectLinks="center">
+        <tc:column label="Session Id">
+          <tc:out value="#{activity.sessionId}"/>
+        </tc:column>
+        <tc:column label="Creation Date">
+          <tc:out value="#{activity.creationDate}"/>
+        </tc:column>
+        <tc:column label="Jsf Request Count">
+          <tc:out value="#{activity.jsfRequest}"/>
+        </tc:column>
+        <tc:column label="Ajax Request Count">
+          <tc:out value="#{activity.ajaxRequest}"/>
+        </tc:column>
+      </tc:sheet>
+    </tc:section>
+
+    <tc:section label="Manifest">
+
+      <tc:sheet value="#{manifestReader.manifestTree}" state="#{manifestReader.state}" var="manifest">
+        <tc:columnNode label="Library/Key">
+          <tc:treeIndent/>
+          <tc:treeLabel value="#{manifest.name}"/>
+        </tc:columnNode>
+        <tc:column label="Value">
+          <tc:out value="#{manifest.value}"/>
+        </tc:column>
+      </tc:sheet>
+
+    </tc:section>
+
+  </tc:panel>
+</ui:composition>

@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+-->
+<f:view
+    xmlns:tc="http://myfaces.apache.org/tobago/component"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core">
+
+  <tc:page id="page">
+    <tc:gridLayoutConstraint width="600px" height="2000px"/>
+    <f:facet name="layout">
+      <tc:gridLayout rows="auto;auto;auto;auto;auto;auto;auto;auto;auto;auto;auto;auto;auto;auto;auto;auto;auto;auto;auto;auto"/>
+    </f:facet>
+    <!--
+    Test of different ways to set the size of tc:gridLayoutConstraint and tc:image.
+    There are literals like "100" or "100px" and 
+    different types like: Measure, Integer, int, String (?)
+    -->
+
+    <tc:image id="i-0" value="pidgeon-point.jpg">
+      <tc:dataAttribute name="assert-left" value="0"/>
+      <tc:dataAttribute name="assert-top" value="0"/>
+      <tc:dataAttribute name="assert-width" value="100"/>
+      <tc:dataAttribute name="assert-height" value="95"/>
+      <tc:gridLayoutConstraint
+          width="100px" height="95px"
+          minimumWidth="100px" minimumHeight="95px"
+          preferredWidth="100px" preferredHeight="95px"
+          maximumWidth="100px" maximumHeight="95px"/>
+    </tc:image>
+    <tc:image id="i-1" value="pidgeon-point.jpg">
+      <tc:dataAttribute name="assert-left" value="0"/>
+      <tc:dataAttribute name="assert-top" value="100"/>
+      <tc:dataAttribute name="assert-width" value="150"/>
+      <tc:dataAttribute name="assert-height" value="95"/>
+      <tc:gridLayoutConstraint
+          width="150" height="95"
+          minimumWidth="150" minimumHeight="95"
+          preferredWidth="150" preferredHeight="95"
+          maximumWidth="150" maximumHeight="95"/>
+    </tc:image>
+    <tc:image id="i-2" value="pidgeon-point.jpg">
+      <tc:dataAttribute name="assert-left" value="0"/>
+      <tc:dataAttribute name="assert-top" value="200"/>
+      <tc:dataAttribute name="assert-width" value="200"/>
+      <tc:dataAttribute name="assert-height" value="95"/>
+      <tc:gridLayoutConstraint
+          width="#{measureBean.intWidth}" height="#{measureBean.intHeight}"
+          minimumWidth="#{measureBean.intWidth}" minimumHeight="#{measureBean.intHeight}"
+          preferredWidth="#{measureBean.intWidth}" preferredHeight="#{measureBean.intHeight}"
+          maximumWidth="#{measureBean.intWidth}" maximumHeight="#{measureBean.intHeight}"/>
+    </tc:image>
+    <tc:image id="i-3" value="pidgeon-point.jpg">
+      <tc:dataAttribute name="assert-left" value="0"/>
+      <tc:dataAttribute name="assert-top" value="300"/>
+      <tc:dataAttribute name="assert-width" value="250"/>
+      <tc:dataAttribute name="assert-height" value="95"/>
+      <tc:gridLayoutConstraint
+          width="#{measureBean.integerWidth}" height="#{measureBean.integerHeight}"
+          minimumWidth="#{measureBean.integerWidth}" minimumHeight="#{measureBean.integerHeight}"
+          preferredWidth="#{measureBean.integerWidth}" preferredHeight="#{measureBean.integerHeight}"
+          maximumWidth="#{measureBean.integerWidth}" maximumHeight="#{measureBean.integerHeight}"/>
+    </tc:image>
+    <tc:image id="i-4" value="pidgeon-point.jpg">
+      <tc:dataAttribute name="assert-left" value="0"/>
+      <tc:dataAttribute name="assert-top" value="400"/>
+      <tc:dataAttribute name="assert-width" value="300"/>
+      <tc:dataAttribute name="assert-height" value="95"/>
+      <tc:gridLayoutConstraint
+          width="#{measureBean.measureWidth}" height="#{measureBean.measureHeight}"
+          minimumWidth="#{measureBean.measureWidth}" minimumHeight="#{measureBean.measureHeight}"
+          preferredWidth="#{measureBean.measureWidth}" preferredHeight="#{measureBean.measureHeight}"
+          maximumWidth="#{measureBean.measureWidth}" maximumHeight="#{measureBean.measureHeight}"/>
+    </tc:image>
+    <tc:image id="i-5" value="pidgeon-point.jpg">
+      <tc:dataAttribute name="assert-left" value="0"/>
+      <tc:dataAttribute name="assert-top" value="500"/>
+      <tc:dataAttribute name="assert-width" value="350"/>
+      <tc:dataAttribute name="assert-height" value="95"/>
+      <tc:gridLayoutConstraint
+          width="#{measureBean.stringWidth}" height="#{measureBean.stringHeight}"
+          minimumWidth="#{measureBean.stringWidth}" minimumHeight="#{measureBean.stringHeight}"
+          preferredWidth="#{measureBean.stringWidth}" preferredHeight="#{measureBean.stringHeight}"
+          maximumWidth="#{measureBean.stringWidth}" maximumHeight="#{measureBean.stringHeight}"/>
+    </tc:image>
+    <tc:image id="i-6" value="pidgeon-point.jpg">
+      <tc:dataAttribute name="assert-left" value="0"/>
+      <tc:dataAttribute name="assert-top" value="600"/>
+      <tc:dataAttribute name="assert-width" value="400"/>
+      <tc:dataAttribute name="assert-height" value="95"/>
+      <tc:gridLayoutConstraint
+          width="#{measureBean.stringPxWidth}" height="#{measureBean.stringPxHeight}"
+          minimumWidth="#{measureBean.stringPxWidth}" minimumHeight="#{measureBean.stringPxHeight}"
+          preferredWidth="#{measureBean.stringPxWidth}" preferredHeight="#{measureBean.stringPxHeight}"
+          maximumWidth="#{measureBean.stringPxWidth}" maximumHeight="#{measureBean.stringPxHeight}"/>
+    </tc:image>
+    <tc:image id="i-7" value="pidgeon-point.jpg">
+      <tc:dataAttribute name="assert-left" value="0"/>
+      <tc:dataAttribute name="assert-top" value="700"/>
+      <tc:dataAttribute name="assert-width" value="450"/>
+      <tc:dataAttribute name="assert-height" value="95"/>
+      <tc:gridLayoutConstraint
+          width="#{measureBean.longWidth}" height="#{measureBean.longHeight}"
+          minimumWidth="#{measureBean.longWidth}" minimumHeight="#{measureBean.longHeight}"
+          preferredWidth="#{measureBean.longWidth}" preferredHeight="#{measureBean.longHeight}"
+          maximumWidth="#{measureBean.longWidth}" maximumHeight="#{measureBean.longHeight}"/>
+    </tc:image>
+    <tc:image id="i-8" value="pidgeon-point.jpg">
+      <tc:dataAttribute name="assert-left" value="0"/>
+      <tc:dataAttribute name="assert-top" value="800"/>
+      <tc:dataAttribute name="assert-width" value="500"/>
+      <tc:dataAttribute name="assert-height" value="95"/>
+      <tc:gridLayoutConstraint
+          width="#{measureBean.anyWidth}" height="#{measureBean.anyHeight}"
+          minimumWidth="#{measureBean.anyWidth}" minimumHeight="#{measureBean.anyHeight}"
+          preferredWidth="#{measureBean.anyWidth}" preferredHeight="#{measureBean.anyHeight}"
+          maximumWidth="#{measureBean.anyWidth}" maximumHeight="#{measureBean.anyHeight}"/>
+    </tc:image>
+
+    <!-- fixme: this filler is not nice, should work automatically -->
+    <tc:panel>
+      <tc:gridLayoutConstraint width="100px" height="200px"/>
+    </tc:panel>
+
+    <tc:script file="script/tobago-assert.js"/>
+
+  </tc:page>
+</f:view>

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+-->
+
+<ui:composition template="/main.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:tc="http://myfaces.apache.org/tobago/component"
+                xmlns:ui="http://java.sun.com/jsf/facelets">
+  <ui:param name="title" value="#{demoBundle.intro}"/>
+  <p>This is the demo of Tobago 3.
+    It shows the components and concepts of Tobago 3 and also should be a bit of a documentation.</p>
+  <p>If you want to migrate from Tobago 2.0 to 3.0, you'll find further information in the
+    <tc:link label="migration guide" link="#{request.contextPath}/faces/content/10-intro/50-migration/97-migration/migration30.xhtml"/>.</p>
+  <p>If you want to start this demo on you local machine, have a look at the section 'Local Demo'.</p>
+
+  <tc:section label="Description">
+    <p>Tobago is a user interface framework for developing webapplications.
+      The technical basis of the framework is JavaServer Faces. The main core represents a theme oriented
+      JSF Render Kit.</p>
+    <tc:section label="Basic Controls">
+      <p>Tobago provides all standard controls of HTML like inputs, textareas, radiobuttons, checkboxes and buttons.
+        Additionally Tobago provides you with complex controls, which are not natively supportet by simple HTML,
+        including sheets, trees and tabs.</p>
+    </tc:section>
+    <tc:section label="Validation">
+      <p>The main goal of Tobago is the development of applications which are interactive from the users point of view.
+        Tobago makes it easy to validate input and helps the user to enter correct data.</p>
+    </tc:section>
+    <tc:section label="Layout">
+      <p>Tobago provides several advanced layout managers to fit for specific use cases by using CSS3 and HTML5.
+        This includes a 12 columns layout from <tc:link label="Bootstrap" link="https://getbootstrap.com/"/>
+        and a flex layout which replace the old grid layout from Tobago 2.</p>
+    </tc:section>
+    <tc:section label="Versioning">
+      <p>The Tobago project using <tc:link label="semantic versioning" link="https://semver.org/"/> since past 2016.</p>
+      <p>This will lead into more growing minor version number compared to the past.</p>
+    </tc:section>
+  </tc:section>
+
+  <tc:section label="Local Demo">
+    <p>In case that this demo already run on your local machine,
+      you can follow the link to the
+      <tc:link label="public demo" link="http://www.irian.biz/tobago-example-demo-3.0.x/"/>.</p>
+    <p>If this is the public demo and you want to build it on your own, read the following instructions.</p>
+    <tc:section label="Instructions">
+      <p>First of all you need
+        <tc:link label="maven" link="https://maven.apache.org/"/> (at least version 3.0.4) and
+        <tc:link label="Java SE 6" link="http://www.oracle.com/technetwork/java/javase/downloads/"/> or higher.</p>
+      <p>After that, check out the source code from subversion repository.
+        <br/>
+        <code>svn checkout http://svn.apache.org/repos/asf/myfaces/tobago/trunk tobago3</code>
+        <br/>
+        Alternatively you can get the source code from the
+        <tc:link label="download section" link="https://myfaces.apache.org/tobago/download.html"/>.</p>
+      <p>Go to the tobago3 directory, and build Tobago with <code>mvn install</code>.</p>
+      <p>Go to 'tobago3/tobago-example/tobago-example-demo' and start the demo with <code>mvn jetty:run</code>.</p>
+    </tc:section>
+  </tc:section>
+</ui:composition>

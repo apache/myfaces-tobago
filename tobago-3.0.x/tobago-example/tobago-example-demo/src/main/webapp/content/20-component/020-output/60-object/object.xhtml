@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+-->
+
+<ui:composition template="/main.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:tc="http://myfaces.apache.org/tobago/component"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core">
+  <ui:param name="title" value="#{demoBundle.object} &lt;tc:object&gt;"/>
+  <tc:script file="#{request.contextPath}/content/20-component/020-output/60-object/object.js"/>
+
+  <p>The <code class="language-markup">&lt;tc:object/></code> tag create an iframe.
+    External objects can be included, when Content Security Policy is activated.
+    You may add a frame-src policy to the 'tobago-config.xml'.</p>
+  <tc:link label="Tag Library Documentation" image="#{request.contextPath}/image/feather-leaf.png"
+           link="#{demoBundle.tagDocUrl}/#{info.stableVersion}/tld/tc/object.html"/>
+  <tc:section label="Basics">
+    <pre><code class="language-markup">&lt;tc:object src="https://www.google.com/maps/..."/&gt;</code></pre>
+    <tc:object id="o1"
+               src="https://www.google.com/maps/embed?pb=!1m10!1m8!1m3!1d137123.69440217633!2d-60.687103!3d11.249123!3m2!1i1024!2i768!4f13.1!5e1!3m2!1sde!2sus!4v1458208065829"/>
+  </tc:section>
+  <tc:section label="Style">
+    <p>A <code class="language-markup">&lt;tc:object/></code> tag can contain a style tag.
+      In this case it's <code class="language-markup">&lt;tc:style width="100%"/></code>.</p>
+    <tc:object id="o2"
+               src="https://www.google.com/maps/embed?pb=!1m13!1m11!1m3!1d99967845.2048925!2d-60.68710300000001!3d11.249123!2m2!1f0!2f0!3m2!1i1024!2i768!4f13.1!5e1!3m2!1sde!2sus!4v1458208366973">
+      <tc:style width="100%"/>
+    </tc:object>
+  </tc:section>
+  <tc:section label="Tool Bar">
+    <p>There are two <code class="language-markup">&lt;tc:button/></code>
+      within a <code class="language-markup">&lt;tc:buttons/></code> in this example.
+      The first show the island Tobago,
+      the second show the worldmap in <code class="language-markup">&lt;tc:object id="map"></code>.
+      The buttons send the parameter (maps-position, maps-zoom, maps-target) to an <code>object.js</code>,
+      which is shown in the objects.js-box. The JavaScript build the URL for the iframe.</p>
+    <pre><code class="language-markup">&lt;tc:button label="Show Tobago" omit="true"&gt;
+  &lt;tc:dataAttribute name="maps-position" value="11.249123,-60.687103"/&gt;
+  &lt;tc:dataAttribute name="maps-zoom" value="12"/&gt;
+  &lt;tc:dataAttribute name="maps-target" value="page:map"/&gt;
+&lt;/tc:button&gt;</code></pre>
+    <tc:box id="objectJsBox" label="object.js" collapsed="true" collapsedMode="hidden">
+      <f:facet name="bar">
+        <tc:buttons>
+          <tc:button label="show" omit="true">
+            <tc:operation name="show" for="objectJsBox"/>
+          </tc:button>
+          <tc:button label="hide" omit="true">
+            <tc:operation name="hide" for="objectJsBox"/>
+          </tc:button>
+        </tc:buttons>
+      </f:facet>
+      <pre><code class="language-javascript"><tc:out value="#{objectController.javaScriptSource}"/></code></pre>
+    </tc:box>
+    <tc:buttons id="t1">
+      <tc:button id="c1" label="Show Tobago" omit="true">
+        <tc:dataAttribute name="maps-position" value="11.249123,-60.687103"/>
+        <tc:dataAttribute name="maps-zoom" value="12"/>
+        <tc:dataAttribute name="maps-target" value="page:mainForm:map"/>
+      </tc:button>
+      <tc:button id="c2" label="Show World" omit="true">
+        <tc:dataAttribute name="maps-target" value="page:mainForm:map"/>
+      </tc:button>
+    </tc:buttons>
+    <tc:object id="map">
+      <tc:style width="100%" height="500px"/>
+    </tc:object>
+  </tc:section>
+</ui:composition>

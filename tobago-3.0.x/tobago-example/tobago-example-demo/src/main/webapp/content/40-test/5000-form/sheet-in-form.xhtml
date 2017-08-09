@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+-->
+
+<ui:composition template="/plain.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:tc="http://myfaces.apache.org/tobago/component"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+  <tc:panel id="panel">
+
+  <tc:in required="true" label="Required"/>
+
+  <tc:box id="box" label="Form">
+
+    Here pressing planet names and "Submit 1" should not validate the required field.
+    Only pressing "Submit 2" should validate the required field.
+
+    <tc:form id="form">
+
+      <tc:in required="true" label="Required"/>
+
+      <tc:sheet id="sheet" value="#{sheetController.solarList}" var="object" rows="2">
+        <tc:column label="Name">
+          <tc:out value="#{object.name}"/>
+        </tc:column>
+        <tc:column label="Actions">
+          <tc:buttons>
+            <tc:button label="Submit #0"/>
+            <tc:button label="AJAX (self) #0">
+              <f:ajax />
+            </tc:button>
+            <tc:button label="AJAX (form) #0">
+              <f:ajax render=":::form" execute=":::form"/>
+            </tc:button>
+            <tc:button label="AJAX (panel) #0">
+              <f:ajax render="::::panel" execute="::::panel"/>
+            </tc:button>
+          </tc:buttons>
+        </tc:column>
+        <tc:column label="Input">
+          <tc:in id="in" required="true"/>
+        </tc:column>
+      </tc:sheet>
+
+      <tc:buttons>
+        <tc:button label="Submit #1"/>
+        <tc:button label="AJAX (self) #1">
+          <f:ajax />
+        </tc:button>
+        <tc:button label="AJAX (form) #1">
+          <f:ajax render=":::form" execute=":::form"/>
+        </tc:button>
+        <tc:button label="AJAX (panel) #1">
+          <f:ajax render=":::panel" execute=":::panel"/>
+        </tc:button>
+      </tc:buttons>
+
+    </tc:form>
+  </tc:box>
+
+  <tc:buttons>
+    <tc:button label="Submit #2"/>
+    <tc:button label="AJAX (self) #2">
+      <f:ajax />
+    </tc:button>
+    <tc:button label="AJAX (form) #2">
+      <f:ajax render="::form" execute="::form"/>
+    </tc:button>
+    <tc:button label="AJAX (panel) #2">
+      <f:ajax render="::panel" execute="::panel"/>
+    </tc:button>
+  </tc:buttons>
+
+  <tc:buttons>
+    <tc:button label="Reset" defaultCommand="true" immediate="true"/>
+  </tc:buttons>
+
+  </tc:panel>
+
+</ui:composition>

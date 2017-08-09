@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+-->
+
+<ui:composition template="/main.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:tc="http://myfaces.apache.org/tobago/component"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core">
+  <ui:param name="title" value="#{demoBundle.grid_layout} (deprecated)"/>
+  <p>The GridLayout is deprecated. Instead you should use FlexLayout or SegmentLayout.
+    In the first section on this page, there is a typical GridLayout example.
+    The second section show how it's done with FlexLayout.</p>
+  <p>Tag Library Documentation:
+    <tc:link label="&lt;tc:gridLayout/>" image="#{request.contextPath}/image/feather-leaf.png"
+             link="#{demoBundle.tagDocUrl}/#{info.stableVersion}/tld/tc/gridLayout.html"/>
+    |
+    <tc:link label="&lt;tc:flexLayout/>" image="#{request.contextPath}/image/feather-leaf.png"
+             link="#{demoBundle.tagDocUrl}/#{info.stableVersion}/tld/tc/flexLayout.html"/>
+    |
+    <tc:link label="&lt;tc:segmentLayout/>" image="#{request.contextPath}/image/feather-leaf.png"
+             link="#{demoBundle.tagDocUrl}/#{info.stableVersion}/tld/tc/segmentLayout.html"/></p>
+
+  <tc:section label="GridLayout">
+    <tc:box label="Personal Information">
+      <tc:gridLayout columns="*;*" rows="auto;auto;auto;auto;auto;*">
+        <tc:selectOneChoice label="Salutation">
+          <f:selectItem itemLabel="none"/>
+          <f:selectItem itemLabel="Mr."/>
+          <f:selectItem itemLabel="Mrs."/>
+        </tc:selectOneChoice>
+        <tc:panel/>
+
+        <tc:in label="First Name"/>
+        <tc:in label="Last Name"/>
+
+        <tc:in label="c/o">
+          <tc:span column="2"/>
+        </tc:in>
+
+        <tc:in label="Street"/>
+        <tc:in label="No"/>
+
+        <tc:in label="ZIP"/>
+        <tc:in label="City"/>
+
+        <tc:textarea label="Note">
+          <tc:span column="2"/>
+        </tc:textarea>
+      </tc:gridLayout>
+    </tc:box>
+  </tc:section>
+
+  <tc:section label="FlexLayout">
+    <tc:box label="Personal Information">
+      <tc:flexLayout rows="auto;auto">
+        <tc:flexLayout columns="auto">
+          <tc:selectOneChoice label="Salutation">
+            <f:selectItem itemLabel="none"/>
+            <f:selectItem itemLabel="Mr."/>
+            <f:selectItem itemLabel="Mrs."/>
+          </tc:selectOneChoice>
+        </tc:flexLayout>
+
+        <tc:flexLayout columns="1;1">
+          <tc:in label="First Name"/>
+          <tc:in label="Last Name"/>
+        </tc:flexLayout>
+
+        <tc:in label="c/o"/>
+
+        <tc:flexLayout columns="1;1">
+          <tc:in label="Street"/>
+          <tc:in label="No"/>
+        </tc:flexLayout>
+
+        <tc:flexLayout columns="1;1">
+          <tc:in label="ZIP"/>
+          <tc:in label="City"/>
+        </tc:flexLayout>
+
+        <tc:textarea label="Note"/>
+      </tc:flexLayout>
+    </tc:box>
+  </tc:section>
+</ui:composition>

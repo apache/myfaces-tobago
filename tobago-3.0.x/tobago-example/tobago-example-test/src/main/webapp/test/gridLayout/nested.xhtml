@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+-->
+
+<f:view
+    xmlns:tc="http://myfaces.apache.org/tobago/component"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core">
+
+  <tc:page id="page">
+    <f:facet name="layout">
+      <tc:gridLayout columns="100px;205px;*;2*" rows="*;*;*"/>
+    </f:facet>
+    <tc:gridLayoutConstraint width="650px" height="310px"/>
+
+    <tc:image id="x_5" value="pidgeon-point.jpg">
+      <tc:gridLayoutConstraint rowSpan="3"/>
+    </tc:image>
+
+    <tc:image id="x_6" value="pidgeon-point.jpg"/>
+
+    <tc:image id="x_13" value="pidgeon-point.jpg">
+      <tc:gridLayoutConstraint rowSpan="2"/>
+    </tc:image>
+
+    <tc:panel id="x_14">
+      <tc:gridLayoutConstraint rowSpan="2"/>
+      <f:facet name="layout">
+        <tc:gridLayout columns="130px;*"/>
+      </f:facet>
+      <tc:image id="x_14_a" value="pidgeon-point.jpg"/>
+      <tc:image id="x_14_b" value="pidgeon-point.jpg"/>
+    </tc:panel>
+
+    <tc:panel id="x_7">
+      <f:facet name="layout">
+        <tc:gridLayout columns="*;2*"/>
+      </f:facet>
+      <tc:image id="x_7_a" value="pidgeon-point.jpg"/>
+      <tc:image id="x_7_b" value="pidgeon-point.jpg"/>
+    </tc:panel>
+
+    <tc:panel id="x_10">
+      <f:facet name="layout">
+        <tc:gridLayout columns="4*;*"/>
+      </f:facet>
+      <tc:image id="x_10_a" value="pidgeon-point.jpg"/>
+      <tc:image id="x_10_b" value="pidgeon-point.jpg"/>
+    </tc:panel>
+
+    <tc:image id="x_17" value="pidgeon-point.jpg">
+      <tc:gridLayoutConstraint columnSpan="2"/>
+    </tc:image>
+
+    <tc:script file="script/tobago-assert.js"/>
+
+    <tc:script onload="TobagoAssert.assertLayout('page:x_5', 0, 0, 100, 310);"/>
+    <tc:script onload="TobagoAssert.assertLayout('page:x_6', 105, 0, 205, 100);"/>
+    <tc:script onload="TobagoAssert.assertLayout('page:x_13', 315, 0, 110, 205);"/>
+    <tc:script onload="TobagoAssert.assertLayout('page:x_14', 430, 0, 220, 205);"/>
+    <tc:script onload="TobagoAssert.assertLayout('page:x_14_a', 430, 0, 130, 205);"/>
+    <tc:script onload="TobagoAssert.assertLayout('page:x_14_b', 565, 0, 85, 205);"/>
+    <!--todo: test the other controls ...-->
+
+  </tc:page>
+</f:view>

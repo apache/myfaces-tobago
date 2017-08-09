@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema
+    targetNamespace="http://myfaces.apache.org/tobago/tobago-config"
+    xmlns:tobago="http://myfaces.apache.org/tobago/tobago-config"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    elementFormDefault="qualified"
+    attributeFormDefault="unqualified"
+    version="2.0">
+
+  <xs:annotation>
+    <xs:documentation>
+      <![CDATA[
+      Licensed to the Apache Software Foundation (ASF) under one or more
+      contributor license agreements.  See the NOTICE file distributed with
+      this work for additional information regarding copyright ownership.
+      The ASF licenses this file to You under the Apache License, Version 2.0
+      (the "License"); you may not use this file except in compliance with
+      the License.  You may obtain a copy of the License at
+
+           http://www.apache.org/licenses/LICENSE-2.0
+
+      Unless required by applicable law or agreed to in writing, software
+      distributed under the License is distributed on an "AS IS" BASIS,
+      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+      See the License for the specific language governing permissions and
+      limitations under the License.
+      ]]>
+    </xs:documentation>
+  </xs:annotation>
+
+  <xs:annotation>
+    <xs:documentation>
+      <![CDATA[
+      ************************************************************************************
+      ************************************************************************************
+      WARNING
+      THIS IS A PRE-RELEASE VERSION OF THIS FILE, PLEASE CHECK IF THERE IS AN UPDATE ON
+      http://myfaces.apache.org/tobago/tobago-config-2.0.xsd
+      ************************************************************************************
+      ************************************************************************************
+
+      This is the XML schema for the Tobago configuration files version 2.0.
+
+      Use the following definition:
+
+      <tobago-config
+          xmlns="http://myfaces.apache.org/tobago/tobago-config"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://myfaces.apache.org/tobago/tobago-config http://myfaces.apache.org/tobago/tobago-config-2.0.xsd"
+          version="2.0">
+        ...
+      </tobago-config>
+      ]]>
+    </xs:documentation>
+  </xs:annotation>
+
+  <xs:element name="tobago-config" type="tobago:tobago-config-type"/>
+
+  <xs:complexType name="tobago-config-type">
+    <xs:sequence>
+      <xs:element name="name" type="tobago:name-type" minOccurs="0"/>
+      <xs:element name="ordering" type="tobago:ordering-type" minOccurs="0"/>
+      <xs:element name="theme-config" type="tobago:theme-config-type" minOccurs="0"/>
+      <xs:element name="resource-dir" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="create-session-secret" type="xs:boolean" minOccurs="0" default="true"/>
+      <xs:element name="check-session-secret" type="xs:boolean" minOccurs="0" default="true"/>
+      <xs:element name="prevent-frame-attacks" type="xs:boolean" minOccurs="0" default="true"/>
+      <xs:element name="set-nosniff-header" type="xs:boolean" minOccurs="0" default="true"/>
+      <xs:element name="auto-access-key-from-label" type="xs:boolean" minOccurs="0" default="true"/>
+      <xs:element name="classic-date-time-picker" type="xs:boolean" minOccurs="0" default="false"/>
+      <xs:element name="content-security-policy" type="tobago:content-security-policy-type" minOccurs="0"/>
+      <xs:element name="sanitizer" type="tobago:sanitizer-type" minOccurs="0"/>
+      <xs:element name="renderers" type="tobago:renderers-type" minOccurs="0"/>
+      <xs:element name="theme-definitions" type="tobago:theme-definitions-type" minOccurs="0"/>
+    </xs:sequence>
+    <xs:attribute name="version"
+                  type="tobago:tobago-config-version-type"
+                  use="required"/>
+  </xs:complexType>
+
+  <xs:simpleType name="tobago-config-version-type">
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="2.0"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="ordering-type">
+    <xs:sequence>
+      <xs:element name="after" type="tobago:before-after-type" minOccurs="0"/>
+      <xs:element name="before" type="tobago:before-after-type" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="before-after-type">
+    <xs:sequence>
+      <xs:element name="name" type="tobago:name-type" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="theme-config-type">
+    <xs:sequence>
+      <xs:element name="default-theme" type="xs:string"/>
+      <xs:element name="supported-theme" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="content-security-policy-type">
+    <xs:sequence>
+      <xs:element name="directive" type="xs:string" maxOccurs="unbounded" minOccurs="0"/>
+    </xs:sequence>
+    <xs:attribute name="mode" type="tobago:scp-mode-type" use="required"/>
+  </xs:complexType>
+
+  <xs:complexType name="sanitizer-type">
+    <xs:sequence>
+      <xs:element name="sanitizer-class" type="xs:string" maxOccurs="1" minOccurs="1"/>
+      <xs:element name="properties" type="tobago:properties-type" maxOccurs="1" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:simpleType name="scp-mode-type">
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="on"/>
+      <xs:enumeration value="off"/>
+      <xs:enumeration value="report-only"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="renderers-type">
+    <xs:sequence>
+      <xs:element name="renderer" type="tobago:renderer-type" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="renderer-type">
+    <xs:sequence>
+      <xs:element name="name" type="xs:string"/>
+      <xs:element name="supported-markup" type="tobago:supported-markup-type"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="supported-markup-type">
+    <xs:sequence>
+      <xs:element name="markup" type="xs:string" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="theme-definitions-type">
+    <xs:sequence>
+      <xs:element name="theme-definition" type="tobago:theme-definition-type" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="theme-definition-type">
+    <xs:sequence>
+      <xs:element name="name" type="xs:string"/>
+      <xs:element name="display-name" type="xs:string" minOccurs="0"/>
+      <xs:element name="resource-path" type="xs:string"/>
+      <xs:element name="fallback" type="xs:string" minOccurs="0"/>
+      <xs:element name="versioned" type="xs:boolean" minOccurs="0" default="false"/>
+      <xs:element name="renderers" type="tobago:renderers-type" minOccurs="0"/>
+      <xs:element name="resources" type="tobago:resources-type" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="resources-type">
+    <xs:sequence>
+      <xs:element name="script" type="tobago:script-type" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="style" type="tobago:style-type" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+    <xs:attribute name="production" type="xs:boolean" use="required"/>
+  </xs:complexType>
+
+  <xs:complexType name="script-type">
+    <xs:attribute name="name" type="xs:string" use="required"/>
+  </xs:complexType>
+
+  <xs:complexType name="style-type">
+    <xs:attribute name="name" type="xs:string" use="required"/>
+  </xs:complexType>
+
+  <xs:simpleType name="name-type">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+
+  <xs:complexType name="properties-type">
+    <xs:sequence>
+      <xs:element name="entry" type="tobago:entry-type" maxOccurs="unbounded" minOccurs="1"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="entry-type">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute name="key" type="xs:string" use="required"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+</xs:schema>

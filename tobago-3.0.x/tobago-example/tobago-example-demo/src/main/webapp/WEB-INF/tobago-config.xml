@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+-->
+
+<tobago-config
+    xmlns="http://myfaces.apache.org/tobago/tobago-config"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://myfaces.apache.org/tobago/tobago-config http://myfaces.apache.org/tobago/tobago-config-2.0.xsd"
+    version="2.0">
+
+  <name>demo</name>
+
+  <ordering>
+    <after>
+      <name>tobago-theme-speyside</name>
+    </after>
+  </ordering>
+
+<!-- using all available themes, if this is not set -->
+  <theme-config>
+    <default-theme>standard</default-theme>
+    <supported-theme>speyside</supported-theme>
+    <!-- TODO: Can be removed after closing TOBAGO-1664 -->
+    <!--<supported-theme>scarborough</supported-theme>-->
+    <!--<supported-theme>richmond</supported-theme>-->
+    <!--<supported-theme>charlotteville</supported-theme>-->
+  </theme-config>
+
+  <resource-dir>tobago-resource</resource-dir>
+
+  <!-- This is needed for the testing functionality of the demo, it works with iframes -->
+  <prevent-frame-attacks>false</prevent-frame-attacks>
+
+  <!-- XXX for the jQuery tests we need 'report-only' here -->
+  <content-security-policy mode="off">
+    <!-- XXX With CSP Tobago 3.0.x is currently not working 100% see TOBAGO-1534,
+         XXX because of JSF-AJAX we need 'unsafe-eval' -->
+    <directive>script-src 'self' 'unsafe-eval'</directive>
+    <directive>frame-src https://maps.google.com</directive>
+  </content-security-policy>
+
+<!-- this is the default...
+  <sanitizer>
+    <sanitizer-class>org.apache.myfaces.tobago.sanitizer.JsoupSanitizer</sanitizer-class>
+    <properties>
+      &lt;!&ndash;
+       Use one of: basic, basicWithImages, relaxed, simpleText or none
+       &ndash;&gt;
+      <entry key="whitelist">relaxed</entry>
+    </properties>
+  </sanitizer>
+-->
+
+  <renderers>
+
+    <renderer>
+      <name>Sheet</name>
+      <supported-markup>
+        <markup>sun</markup>
+        <markup>planet</markup>
+        <markup>moon</markup>
+        <markup>lightred</markup>
+        <markup>lightgreen</markup>
+      </supported-markup>
+    </renderer>
+
+    <renderer>
+      <name>Out</name>
+      <supported-markup>
+        <markup>demoSeconds</markup>
+      </supported-markup>
+    </renderer>
+
+  </renderers>
+
+</tobago-config>

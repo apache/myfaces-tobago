@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+-->
+
+<ui:composition template="/main.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:tc="http://myfaces.apache.org/tobago/component"
+                xmlns:ui="http://java.sun.com/jsf/facelets">
+  <ui:param name="title" value="#{demoBundle.sheet_tree} &lt;tc:columnNode/>"/>
+  <p>A tree can be added into a sheet. To do so, there are two steps which must be done.
+    First, the <code>value</code> attribute of the sheet must refer to a method, which return a tree instead of a list.
+    Second, to display the tree, use the <code class="language-markup">&lt;tc:columnNode/></code> tag.</p>
+
+  <p>Tag Library Documentation:
+    <tc:link label="&lt;tc:sheet/>" image="#{request.contextPath}/image/feather-leaf.png"
+             link="#{demoBundle.tagDocUrl}/#{info.stableVersion}/tld/tc/sheet.html"/>
+    |
+    <tc:link label="&lt;tc:columnNode/>" image="#{request.contextPath}/image/feather-leaf.png"
+             link="#{demoBundle.tagDocUrl}/#{info.stableVersion}/tld/tc/columnNode.html"/></p>
+
+  <tc:section label="Column Tree">
+    <p>There is a tree in the first column. You can expand and collapse the items.
+      The <code class="language-markup">&lt;tc:columnNode/></code> tag can contain several tags for a tree.
+      In this example, it's a <code class="language-markup">&lt;tc:treeIndent/></code> to intent the
+      single entries of the tree.</p>
+    <pre><code class="language-markup">&lt;tc:sheet value="\#{sheetTreeController.solarTree}"
+    var="solarObject" showRoot="true" showRootJunction="true">
+  &lt;tc:columnNode label="Name">
+    &lt;tc:treeIndent/>
+    &lt;tc:out value="\#{solarObject.userObject.name}"/>
+    ...</code></pre>
+    <tc:sheet value="#{sheetTreeController.solarTree}" var="solarObject" showRoot="true" showRootJunction="true">
+      <tc:columnNode label="Name">
+        <tc:treeIndent/>
+        <tc:out value="#{solarObject.userObject.name}"/>
+      </tc:columnNode>
+      <tc:column label="Central Body">
+        <tc:out value="#{solarObject.userObject.orbit}"/>
+      </tc:column>
+      <tc:column label="Distance" sortable="true">
+        <tc:out value="#{solarObject.userObject.distance}"/>
+      </tc:column>
+      <tc:column label="Period" sortable="true">
+        <tc:out value="#{solarObject.userObject.period}"/>
+      </tc:column>
+      <tc:column label="Discoverer">
+        <tc:out value="#{solarObject.userObject.discoverer}"/>
+      </tc:column>
+      <tc:column label="Year" sortable="true">
+        <tc:out value="#{solarObject.userObject.discoverYear}"/>
+      </tc:column>
+    </tc:sheet>
+  </tc:section>
+</ui:composition>

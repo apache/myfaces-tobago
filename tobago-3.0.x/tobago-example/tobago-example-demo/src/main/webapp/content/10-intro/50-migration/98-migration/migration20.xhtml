@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+-->
+
+<ui:composition template="/main.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:tc="http://myfaces.apache.org/tobago/component"
+                xmlns:ui="http://java.sun.com/jsf/facelets">
+  <ui:param name="title" value="#{demoBundle.migration20}"/>
+  <tc:section label="Migration from Tobago 1.5 to 2.0">
+    <p>Tobago 2.0 has some API changes compared to Tobago 1.5.</p>
+    <p>The most changes are in the tree API, which is more easy to use, but also more flexible.</p>
+
+    <tc:section label="Artifacts (JAR-Files)">
+      <p>The following JAR files are no longer needed. They have to be removed from the project (depends on your build
+        system).</p>
+      <ul>
+        <li>tobago-taglib-extension-&lt;version>.jar</li>
+        <li>tobago-facelets-&lt;version>.jar</li>
+      </ul>
+    </tc:section>
+
+    <tc:section label="CSP">
+      <p>Tobago supports Content Security Policy (CSP) to prevent cross-site scripting (XSS) and related attacks. It is
+        specified by W3C. In short: The HTML page doesn't contain any JavaScript or CSS information. All allowed sources
+        for JavaScript, CSS and other resources have to be declared in special header. If you have own renderers or own
+        JavaScript in your application, this code also needs to support CSP, to use this feature.</p>
+
+      <b>Warning:</b>
+      <p>CSP requires a different handling of JavaScript and other resources. If you use own JavaScript in the HTML page
+        or including resources from other sites you may need to adapt your application, (or turn this feature off).</p>
+
+      <b>Configuration</b>
+      <p>To add sites to the CSP headers, add <code class="language-markup">&lt;directive></code> tags to
+        <code class="language-markup">&lt;content-security-policy></code> in the <code>tobago-config.xml</code>.</p>
+      <p>To turn off CSP, add an empty <code class="language-markup">&lt;content-security-policy mode="off"></code>
+        tag in the configuration. For development, you may also use mode="report-only", which sets the appropriate
+        header.</p>
+    </tc:section>
+
+    <tc:section label="Clickjacking">
+      <p>By default, it no longer possible to use a Tobago application in an HTML frame or iframe. This is to protect
+        against <tc:link label="Clickjacking" link="https://www.owasp.org/index.php/Clickjacking"/>. To disable this
+        feature consult the <code>tobago-config.xml</code> and set
+        <code class="language-markup">&lt;prevent-frame-attacks>false&lt;/prevent-frame-attacks></code>.</p>
+    </tc:section>
+
+    <tc:section label="Java-API">
+      <p>The class
+        <code>org.apache.myfaces.tobago.model.TreeState</code> which has been deprecated in 1.5.x is used in 2.0.x
+        with a changed API. Please check the occurrences.</p>
+      <p>Class <code>org.apache.myfaces.tobago.component.UIFileInput</code> has been renamed to
+        <code>org.apache.myfaces.tobago.component.UIFile</code>.</p>
+    </tc:section>
+
+    <tc:section label="Renderer classes">
+      <p>The set of existing renderers has been repacked from
+        <code>org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag</code> to
+        <code>org.apache.myfaces.tobago.renderkit.html.standard.standard.tag</code>.</p>
+      <p>If you have an own theme with own renderer classes implemented, which are extending the Tobago renderer
+        classes, you will need to adapt the package name of the base classes.</p>
+    </tc:section>
+
+    <tc:section label="Facelets">
+      <p>Tobago 2.0.x is using Facelets 2.0. When still using Facelets 1.1 in the current application, this must be
+        removed:</p>
+      <ul>
+        <li>Remove facelets JAR (e.g. <code>jsf-facelets-1.1.14.jar</code>) from the library.</li>
+        <li>Remove <code class="language-markup">&lt;view-handler></code>
+          <code class="language-markup">org.apache.myfaces.tobago.internal.application.ViewHandlerImpl</code>
+          <code class="language-markup">&lt;/view-handler></code> from the <code>faces-config.xml</code> file.
+        </li>
+        <li>Remove the parameter <code>javax.faces.DISABLE_FACELET_JSF_VIEWHANDLER</code> from the <code>web.xml</code>
+          file.
+        </li>
+        <li>Remove or replace the <code>facelets.*</code> entries from the <code>web.xml</code> file.</li>
+        <li>Rename all JSTL declarations from <code>xmlns:c="http://java.sun.com/jstl/core"</code> to
+          <code>xmlns:c="http://java.sun.com/jsp/jstl/core"</code> in the Facelets.
+        </li>
+        <li>Ensure the version of the faces-config tag in the <code>faces-config.xml</code> is at least 2.0.</li>
+      </ul>
+    </tc:section>
+
+    <tc:section label="Deprecated">
+      <p>There are also @Deprecated annotations in the code and some logging warning when using deprecated code via the
+        Deprecation logging category. Before and after migrating you should check your application about that.</p>
+      <p>For the migration phase you may add the tobago-deprecation.jar as dependency to your project. It contains
+        classes that has been moved (e. g. to the new internal package) or removed. So you can resolve any migration
+        steps step by step. It is not recommended to use the tobago-deprecation.jar for production.</p>
+    </tc:section>
+
+    <tc:section label="Internal">
+      <p>The package <code>org.apache.myfaces.tobago.internal</code> contains classes that should not be used directly
+        in an application. This classes may change in minor revisions without announcement. Classes in the package
+        <code>org.apache.myfaces.tobago.renderkit</code> are handled in the same manner.</p>
+    </tc:section>
+
+    <tc:section label="Tag Library">
+      <p>The main changes in the tag library are that the deprecated facets "resizeAction" and "menupopup" has been
+        removed.</p>
+    </tc:section>
+
+    <tc:section label="Suggest">
+      <p>Please use the new <code class="language-markup">&lt;tc:suggest></code> tag instead of using the inline
+        attribute inside of <code class="language-markup">&lt;tc:in></code>.</p>
+      <pre><code class="language-markup">deprecated:
+&lt;tc:in suggestMethod="\#{bean.method}"/>
+
+replacement:
+&lt;tc:in>
+  &lt;tc:suggest suggestMethod="\#{bean.method}"/>
+&lt;/tc:in></code></pre>
+      <pre><code class="language-markup">deprecated:
+&lt;tx:in suggestMethod="\#{bean.method}"/>
+
+replacement:
+&lt;tx:in>
+  &lt;tc:suggest suggestMethod="\#{bean.method}"/>
+&lt;/tx:in></code></pre>
+    </tc:section>
+
+    <tc:section label="Tree">
+      <ul>
+        <li>The Tree now extends a UIData.</li>
+        <li>The <code class="language-markup">&lt;tc:treeData></code> tag shouldn't longer be used.</li>
+        <li>The <code class="language-markup">&lt;tc:treeNode></code> has no longer the attributes: "selected",
+          "expanded", "marked", "treeMarkedListener", "treeExpansionListener"
+        </li>
+        <li>The class <code>org.apache.myfaces.tobago.model.TreeState</code> is no longer deprecated, but the
+          functionality has slightly been changed.
+        </li>
+      </ul>
+    </tc:section>
+
+    <tc:section label="Date/Time">
+      <p>The date and time input controls have been refactored. The old (deprecated) functionality can be activated via
+        <code>tobago-config.xml</code>.</p>
+      <p>If using the new: <code class="language-markup">&lt;tc:date></code> can do the job of
+        <code class="language-markup">&lt;tc:time></code>. You only need to set the
+        <code class="language-markup">&lt;f:convertDateTime type="time"></code> inside the
+        <code class="language-markup">&lt;tc:date></code>.</p>
+    </tc:section>
+
+    <tc:section label="ToolBar with dropDownMenu facet">
+      <p>Usually you need to set <code>omit="true"</code> in the
+        <code class="language-markup">&lt;tc:toolBarCommand></code>, to avoid a submit.</p>
+    </tc:section>
+
+    <tc:section label="Configuration">
+      <p>To define an own theme, please use now a file <code>tobago-config.xml</code> instead of
+        <code>tobago-theme.xml</code>. The content of <code>tobago-theme.xml</code> is a subset of the
+        <code>tobago-config.xml</code>, you have only to change the root node.</p>
+      <p>Please use the
+        <tc:link label="tobago-config-2.0.xsd" link="https://myfaces.apache.org/tobago/tobago-config-2.0.xsd"/>
+        to validate the configuration.</p>
+    </tc:section>
+
+    <tc:section label="JavaScript">
+      <p>Date/Time/Calendar components: The JavaScript for this components has been refactored. All method have now a
+        namespace and are using jQuery. JavaScript code has been removed from the renderers. For data the HTML5 data
+        attribute is used instead of directly coding it into the event handler, or using hidden input fields.</p>
+    </tc:section>
+
+    <tc:section label="CSS">
+      <p>The class <code class="language-css">tobago-sheet-outer</code> is renamed to
+        <code class="language-css">tobago-sheet</code>.<br/>
+        The class <code class="language-css">tobago-sheet-headerSpacerOuter</code> is renamed to
+        <code class="language-css">tobago-sheet-headerResize</code>.<br/>
+        The class <code class="language-css">tobago-sheet-headerSpacer</code> is no longer needed.<br/>
+        The class <code class="language-css">tobago-sheet-headerSpacer-markup-resizable</code> is no longer needed.</p>
+    </tc:section>
+
+    <tc:section label="Internal">
+      <p>The facet name of the picker popup is now named "popup" instead of "pickerPopup".</p>
+    </tc:section>
+  </tc:section>
+</ui:composition>

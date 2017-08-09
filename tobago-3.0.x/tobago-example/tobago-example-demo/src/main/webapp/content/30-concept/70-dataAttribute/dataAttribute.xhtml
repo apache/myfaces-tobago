@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+-->
+
+<ui:composition template="/main.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:tc="http://myfaces.apache.org/tobago/component"
+                xmlns:ui="http://java.sun.com/jsf/facelets">
+  <ui:param name="title" value="#{demoBundle.dataAttribute} &lt;tc:dataAttribute>"/>
+  <tc:script file="content/30-concept/70-dataAttribute/dataAttribute.js"/>
+  <p>Add a data attribute to an UIComponent with
+    <code class="language-markup">&lt;tc:dataAttribute/></code>.
+    The data attribute is added to the parent and can be used by scripts.</p>
+  <tc:link label="Tag Library Documentation" image="#{request.contextPath}/image/feather-leaf.png"
+           link="#{demoBundle.tagDocUrl}/#{info.stableVersion}/tld/tc/dataAttribute.html"/>
+
+  <tc:section label="Example">
+    <p>Each box contains a panel with a data attribute.
+      It contains a color code which will be used by a JavaScript which is included into this page.
+      <b>Click</b> in the content area of the boxes to set up a color. <b>Doubleclick</b> to remove it.</p>
+    <pre><code class="language-markup">&lt;tc:box label="Green">
+  &lt;tc:panel>
+    &lt;tc:style customClass="demo-data-attribute"/>
+    &lt;tc:dataAttribute name="color" value="#00ff00"/>
+    ...</code></pre>
+    <tc:segmentLayout small="6;6">
+      <tc:box label="Green">
+        <tc:panel>
+          <tc:style customClass="demo-data-attribute"/>
+          <tc:dataAttribute name="color" value="#00ff00"/>
+        </tc:panel>
+      </tc:box>
+
+      <tc:box label="Red">
+        <tc:panel>
+          <tc:style customClass="demo-data-attribute"/>
+          <tc:dataAttribute name="color" value="#ff0000"/>
+        </tc:panel>
+      </tc:box>
+
+      <tc:box label="Yellow">
+        <tc:panel>
+          <tc:style customClass="demo-data-attribute"/>
+          <tc:dataAttribute name="color" value="#ffff00"/>
+        </tc:panel>
+      </tc:box>
+
+      <tc:box label="Blue">
+        <tc:panel>
+          <tc:style customClass="demo-data-attribute"/>
+          <tc:dataAttribute name="color" value="#0000ff"/>
+        </tc:panel>
+      </tc:box>
+    </tc:segmentLayout>
+  </tc:section>
+</ui:composition>
