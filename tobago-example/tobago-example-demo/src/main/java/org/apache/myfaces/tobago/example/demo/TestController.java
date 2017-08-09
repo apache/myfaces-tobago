@@ -26,8 +26,11 @@ import javax.enterprise.context.RequestScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
+import java.io.File;
 import java.io.Serializable;
 import java.net.MalformedURLException;
+import java.util.ArrayList;
+import java.util.List;
 
 @RequestScoped
 @Named
@@ -35,19 +38,88 @@ public class TestController implements Serializable {
 
   private static final Logger LOG = LoggerFactory.getLogger(TestController.class);
 
-  public String getTestBase() {
-    final FacesContext facesContext = FacesContext.getCurrentInstance();
-    final ExternalContext externalContext = facesContext.getExternalContext();
-    final String viewId = facesContext.getViewRoot().getViewId();
-    final String base = viewId.substring(0, viewId.length() - 6);
+  public boolean hasTest() {
+    final ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+    final String testJsUrl = "/" + getBase() + ".test.js";
     try {
-      if (externalContext.getResource(base + ".test.js") != null) {
-        return base;
-      }
+      return externalContext.getResource(testJsUrl) != null;
     } catch (MalformedURLException e) {
-      LOG.error("viewId='" + viewId + "'", e);
+      LOG.error("URL was: " + testJsUrl, e);
+    }
+    return false;
+  }
+
+  public String getBase() {
+    final FacesContext facesContext = FacesContext.getCurrentInstance();
+    final String viewId = facesContext.getViewRoot().getViewId();
+    return viewId.substring(1, viewId.length() - 6); //remove leading '/' and trailing '.xhtml'
+  }
+
+  public List<String> getAllPages() {
+    List<String> pages = new ArrayList<String>();
+
+    final File rootDir = new File("src/main/webapp/content");
+    if (rootDir.exists()) {
+      for (String page : getXHTMLs(rootDir)) {
+        pages.add(page.substring(16));
+      }
+    }
+    return pages;
+  }
+
+  private List<String> getXHTMLs(File dir) {
+    List<String> xhtmls = new ArrayList<String>();
+    for (File file : dir.listFiles()) {
+      if (file.isDirectory()) {
+        xhtmls.addAll(getXHTMLs(file));
+      } else if (!file.getName().startsWith("x-") && file.getName().endsWith(".xhtml")) {
+        xhtmls.add(file.getPath());
+      }
+    }
+    return xhtmls;
+  }
+
+  public List<TestPage> getTestPages() {
+    List<TestPage> testPages = new ArrayList<TestPage>();
+
+    int idCount = 1;
+    final File rootDir = new File("src/main/webapp/content");
+    if (rootDir.exists()) {
+      for (String testJs : getTestJs(rootDir)) {
+        final String base = testJs.substring(16, testJs.length() - 8);
+        testPages.add(new TestPage("tp" + idCount++, base));
+      }
+    }
+    return testPages;
+  }
+
+  private List<String> getTestJs(File dir) {
+    List<String> testJsFiles = new ArrayList<String>();
+    for (File file : dir.listFiles()) {
+      if (file.isDirectory()) {
+        testJsFiles.addAll(getTestJs(file));
+      } else if (!file.getName().startsWith("x-") && file.getName().endsWith(".test.js")) {
+        testJsFiles.add(file.getPath());
+      }
+    }
+    return testJsFiles;
+  }
+
+  public class TestPage {
+    private final String id;
+    private final String base;
+
+    TestPage(String id, String base) {
+      this.id = id;
+      this.base = base;
     }
 
-    return null;
+    public String getId() {
+      return id;
+    }
+
+    public String getBase() {
+      return base;
+    }
   }
 }

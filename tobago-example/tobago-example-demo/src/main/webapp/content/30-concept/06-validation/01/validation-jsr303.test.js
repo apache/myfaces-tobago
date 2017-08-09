@@ -54,53 +54,68 @@ QUnit.test("Required: Submit with content.", function (assert) {
 QUnit.test("Length: Submit single character.", function (assert) {
   assert.expect(1);
   var done = assert.async();
+  var step = 1;
 
   var $messages = jQueryFrame("#page\\:messages .tobago-messages");
-  var $in = jQueryFrame("#page\\:mainForm\\:length\\:in\\:\\:field");
-  var $submit = jQueryFrame("#page\\:mainForm\\:length\\:submit");
+  var $in = jQueryFrame("#page\\:mainForm\\:length\\:in2\\:\\:field");
+  var $submit = jQueryFrame("#page\\:mainForm\\:length\\:submit2");
 
   $in.val("a");
   $submit.click();
 
   jQuery("#page\\:testframe").load(function () {
-    $messages = jQueryFrame($messages.selector);
-    assert.equal($messages.length, 1);
-    done();
+    if (step === 1) {
+      $messages = jQueryFrame($messages.selector);
+      assert.equal($messages.length, 1);
+
+      step++;
+      done();
+    }
   });
 });
 
 QUnit.test("Length: Submit three characters.", function (assert) {
   assert.expect(1);
   var done = assert.async();
+  var step = 1;
 
   var $messages = jQueryFrame("#page\\:messages .tobago-messages");
-  var $in = jQueryFrame("#page\\:mainForm\\:length\\:in\\:\\:field");
-  var $submit = jQueryFrame("#page\\:mainForm\\:length\\:submit");
+  var $in = jQueryFrame("#page\\:mainForm\\:length\\:in2\\:\\:field");
+  var $submit = jQueryFrame("#page\\:mainForm\\:length\\:submit2");
 
   $in.val("abc");
   $submit.click();
 
   jQuery("#page\\:testframe").load(function () {
-    $messages = jQueryFrame($messages.selector);
-    assert.equal($messages.length, 0);
-    done();
+    if (step === 1) {
+      $messages = jQueryFrame($messages.selector);
+      assert.equal($messages.length, 0);
+
+      step++;
+      done();
+    }
   });
 });
 
 QUnit.test("Length: Submit five characters.", function (assert) {
   assert.expect(1);
   var done = assert.async();
+  var step = 1;
 
   var $messages = jQueryFrame("#page\\:messages .tobago-messages");
-  var $in = jQueryFrame("#page\\:mainForm\\:length\\:in\\:\\:field");
-  var $submit = jQueryFrame("#page\\:mainForm\\:length\\:submit");
+  var $in = jQueryFrame("#page\\:mainForm\\:length\\:in2\\:\\:field");
+  var $submit = jQueryFrame("#page\\:mainForm\\:length\\:submit2");
 
   $in.val("abcde");
   $submit.click();
 
   jQuery("#page\\:testframe").load(function () {
-    $messages = jQueryFrame($messages.selector);
-    assert.equal($messages.length, 1);
-    done();
+    if (step === 1) {
+      $messages = jQueryFrame($messages.selector);
+      assert.equal($messages.length, 1);
+
+      step++;
+      done();
+    }
   });
 });
