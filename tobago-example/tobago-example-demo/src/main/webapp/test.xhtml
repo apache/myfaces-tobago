@@ -25,12 +25,12 @@
   <tc:script file="#{request.contextPath}/script/qunit-1.23.1.js"/>
   <tc:script file="#{request.contextPath}/script/tobago-test.js"/>
   <tc:style file="#{request.contextPath}/style/qunit-1.23.1.css"/>
-  <tc:script file="#{param['testjs']}"/>
+  <tc:script file="#{request.contextPath}/#{param['accessTest'] ? 'error/error' : param['base']}.test.js"/>
 
   <div id="qunit"></div>
   <div id="qunit-fixture"></div>
 
-  <tc:object id="testframe" src="#{param['page']}">
+  <tc:object id="testframe" src="#{request.contextPath}/faces/#{param['base']}.xhtml">
     <tc:style width="100%"/>
   </tc:object>
 </ui:composition>
