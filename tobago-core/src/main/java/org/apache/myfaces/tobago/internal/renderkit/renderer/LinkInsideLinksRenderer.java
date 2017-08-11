@@ -27,7 +27,6 @@ import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.context.FacesContext;
 import java.io.IOException;
-import java.util.List;
 
 public class LinkInsideLinksRenderer extends LinkRenderer {
 
@@ -55,8 +54,7 @@ public class LinkInsideLinksRenderer extends LinkRenderer {
   }
 
   @Override
-  protected void addCssItems(
-      final FacesContext facesContext, final AbstractUICommand command, final List<CssItem> collected) {
-    collected.add(BootstrapClass.NAV_LINK);
+  protected CssItem[] getCssItems(final FacesContext facesContext, final AbstractUICommand command) {
+    return new CssItem[]{BootstrapClass.NAV_LINK};
   }
 }

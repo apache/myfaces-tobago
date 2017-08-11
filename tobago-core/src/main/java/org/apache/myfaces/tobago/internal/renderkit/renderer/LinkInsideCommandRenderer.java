@@ -24,13 +24,11 @@ import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.CssItem;
 
 import javax.faces.context.FacesContext;
-import java.util.List;
 
 public class LinkInsideCommandRenderer extends LinkRenderer {
 
   @Override
-  protected void addOuterCssItems(
-      final FacesContext facesContext, final AbstractUICommand command, final List<CssItem> collected) {
-    collected.add(BootstrapClass.DROPDOWN_ITEM);
+  protected CssItem[] getOuterCssItems(final FacesContext facesContext, final AbstractUICommand command) {
+    return new CssItem[]{BootstrapClass.DROPDOWN_ITEM};
   }
 }

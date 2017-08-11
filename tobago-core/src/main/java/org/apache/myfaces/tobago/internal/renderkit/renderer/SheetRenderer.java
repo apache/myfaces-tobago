@@ -57,7 +57,6 @@ import org.apache.myfaces.tobago.model.SheetState;
 import org.apache.myfaces.tobago.model.TreePath;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
-import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.CssItem;
 import org.apache.myfaces.tobago.renderkit.css.CustomClass;
 import org.apache.myfaces.tobago.renderkit.css.Icons;
@@ -187,8 +186,9 @@ public class SheetRenderer extends RendererBase {
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, sheet);
     writer.writeClassAttribute(
         TobagoClass.SHEET,
-        sheet.getCustomClass(),
-        TobagoClass.SHEET.createMarkup(ComponentUtils.updateMarkup(sheet, sheet.getMarkup())));
+        TobagoClass.SHEET.createMarkup(sheet.getMarkup()),
+        TobagoClass.SHEET.createDefaultMarkups(sheet),
+        sheet.getCustomClass());
     writer.writeStyleAttribute(sheet.getStyle());
     final UIComponent facetReload = ComponentUtils.getFacet(sheet, Facets.reload);
     if (facetReload != null && facetReload instanceof UIReload && facetReload.isRendered()) {
@@ -282,7 +282,8 @@ public class SheetRenderer extends RendererBase {
         final String pagerCommandId = command.getClientId(facesContext);
 
         writer.startElement(HtmlElements.UL);
-        writer.writeClassAttribute(Classes.create(sheet, "paging", showRowRange), BootstrapClass.PAGINATION);
+        writer.writeClassAttribute(TobagoClass.SHEET__PAGING, TobagoClass.SHEET__PAGING.createMarkup(showRowRange),
+            BootstrapClass.PAGINATION);
         writer.startElement(HtmlElements.LI);
         writer.writeClassAttribute(BootstrapClass.PAGE_ITEM);
         writer.writeAttribute(HtmlAttributes.TITLE,
@@ -348,8 +349,8 @@ public class SheetRenderer extends RendererBase {
       final Markup showDirectLinks = markupForLeftCenterRight(sheet.getShowDirectLinks());
       if (showDirectLinks != Markup.NULL) {
         writer.startElement(HtmlElements.UL);
-        writer.writeClassAttribute(
-            Classes.create(sheet, "paging", showDirectLinks), BootstrapClass.PAGINATION);
+        writer.writeClassAttribute(TobagoClass.SHEET__PAGING, TobagoClass.SHEET__PAGING.createMarkup(showDirectLinks),
+            BootstrapClass.PAGINATION);
         if (sheet.isShowDirectLinksArrows()) {
           final boolean disabled = sheet.isAtBeginning();
           encodeLink(facesContext, sheet, application, disabled, SheetAction.first, null, Icons.STEP_BACKWARD, null);
@@ -373,8 +374,8 @@ public class SheetRenderer extends RendererBase {
         final String pagerCommandId = command.getClientId(facesContext);
 
         writer.startElement(HtmlElements.UL);
-        writer.writeClassAttribute(Classes.create(sheet, "paging", showPageRange), BootstrapClass.PAGINATION);
-
+        writer.writeClassAttribute(TobagoClass.SHEET__PAGING, TobagoClass.SHEET__PAGING.createMarkup(showPageRange),
+            BootstrapClass.PAGINATION);
         if (sheet.isShowPageRangeArrows()) {
           final boolean disabled = sheet.isAtBeginning();
           encodeLink(facesContext, sheet, application, disabled, SheetAction.first, null, Icons.STEP_BACKWARD, null);
@@ -605,7 +606,8 @@ public class SheetRenderer extends RendererBase {
         }
       }
       writer.writeClassAttribute(
-          Classes.create(sheet, "row", rowMarkup),
+          TobagoClass.SHEET__ROW,
+          TobagoClass.SHEET__ROW.createMarkup(rowMarkup),
           selected ? BootstrapClass.TABLE_INFO : null,
           rowClass);
 
@@ -619,7 +621,10 @@ public class SheetRenderer extends RendererBase {
               markup = Markup.NULL;
             }
             markup = markup.add(getMarkupForAlign(normalColumn));
-            writer.writeClassAttribute(Classes.create(sheet, "cell", markup), normalColumn.getCustomClass());
+            writer.writeClassAttribute(
+                TobagoClass.SHEET__CELL,
+                TobagoClass.SHEET__CELL.createMarkup(markup),
+                normalColumn.getCustomClass());
             writer.writeStyleAttribute(normalColumn.getStyle());
 
             if (normalColumn instanceof UIColumnSelector) {
@@ -653,7 +658,7 @@ public class SheetRenderer extends RendererBase {
 
       if (!autoLayout) {
         writer.startElement(HtmlElements.TD);
-        writer.writeClassAttribute(Classes.create(sheet, "cell", Markup.FILLER));
+        writer.writeClassAttribute(TobagoClass.SHEET__CELL, TobagoClass.SHEET__CELL.createMarkup(Markup.FILLER));
 //      writer.write("&nbsp;");
         writer.startElement(HtmlElements.DIV);
         writer.endElement(HtmlElements.DIV);
@@ -677,7 +682,7 @@ public class SheetRenderer extends RendererBase {
       }
       if (!autoLayout) {
         writer.startElement(HtmlElements.TD);
-        writer.writeClassAttribute(Classes.create(sheet, "cell", Markup.FILLER));
+        writer.writeClassAttribute(TobagoClass.SHEET__CELL, TobagoClass.SHEET__CELL.createMarkup(Markup.FILLER));
 //      writer.write("&nbsp;");
         writer.startElement(HtmlElements.DIV);
         writer.endElement(HtmlElements.DIV);
@@ -782,20 +787,20 @@ public class SheetRenderer extends RendererBase {
 
             final UIComponent cellComponent = cell.getComponent();
 
-            final CssItem align;
+            Markup align;
             final String alignString = ComponentUtils.getStringAttribute(column, Attributes.align);
             if (multiHeader && cell.getColumnSpan() > 1) {
-              align = TobagoClass.SHEET__CELL__MARKUP__CENTER;
+              align = Markup.CENTER;
             } else if (alignString != null) {
               switch (TextAlign.valueOf(alignString)) {
                 case right:
-                  align = TobagoClass.SHEET__CELL__MARKUP__RIGHT;
+                  align = Markup.RIGHT;
                   break;
                 case center:
-                  align = TobagoClass.SHEET__CELL__MARKUP__CENTER;
+                  align = Markup.CENTER;
                   break;
                 case justify:
-                  align = TobagoClass.SHEET__CELL__MARKUP__JUSTIFY;
+                  align = Markup.JUSTIFY;
                   break;
                 default:
                   align = null;
@@ -803,7 +808,10 @@ public class SheetRenderer extends RendererBase {
             } else {
               align = null;
             }
-            writer.writeClassAttribute(TobagoClass.SHEET__HEADER_CELL, column.getCustomClass(), align);
+            writer.writeClassAttribute(
+                TobagoClass.SHEET__HEADER_CELL,
+                TobagoClass.SHEET__CELL.createMarkup(align),
+                column.getCustomClass());
             writer.writeStyleAttribute(column.getStyle());
             writer.startElement(HtmlElements.SPAN);
             Icons sorterIcon = null;
@@ -857,7 +865,7 @@ public class SheetRenderer extends RendererBase {
               }
             }
 
-            writer.writeClassAttribute(Classes.create(sheet, "header", markup));
+            writer.writeClassAttribute(TobagoClass.SHEET__HEADER, TobagoClass.SHEET__HEADER.createMarkup(markup));
             writer.writeAttribute(HtmlAttributes.TITLE, tip, true);
 
             if (column instanceof UIColumnSelector && selectable.isMulti()) {
@@ -901,7 +909,9 @@ public class SheetRenderer extends RendererBase {
 
   private void encodeHeaderFiller(final TobagoResponseWriter writer, final UISheet sheet) throws IOException {
     writer.startElement(HtmlElements.TH);
-    writer.writeClassAttribute(Classes.create(sheet, "headerCell", Markup.FILLER));
+    writer.writeClassAttribute(
+        TobagoClass.SHEET__HEADER_CELL,
+        TobagoClass.SHEET__HEADER_CELL.createMarkup(Markup.FILLER));
     writer.startElement(HtmlElements.SPAN);
     writer.writeClassAttribute(TobagoClass.SHEET__HEADER);
     final Style headerStyle = new Style();

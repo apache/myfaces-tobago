@@ -717,13 +717,15 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* selectManyListbox ----------------------------------------------------------- */
-.tobago-selectManyListbox {
+.tobago-selectManyListbox,
+.tobago-selectManyListbox-option {
 }
 
 /* selectManyShuttle ----------------------------------------------------------- */
 
 .tobago-selectManyShuttle-add,
 .tobago-selectManyShuttle-addAll,
+.tobago-selectManyShuttle-option,
 .tobago-selectManyShuttle-remove,
 .tobago-selectManyShuttle-removeAll,
 .tobago-selectManyShuttle-selectedLabel,
@@ -783,6 +785,9 @@ h1, h2, h3, h4, h5, h6 {
 
 /* selectOneChoice ---------------------------------------------------------- */
 
+.tobago-selectOneChoice-option {
+}
+
 .input-group-btn:not(:last-child) > .tobago-selectOneChoice { /* before facet */
   width: 100%;
   -webkit-appearance: none;
@@ -800,7 +805,8 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* selectOneListbox -------------------------------------------------------- */
-.tobago-selectOneListbox {
+.tobago-selectOneListbox,
+.tobago-selectOneListbox-option {
 }
 
 /* selectOneRadio, selectManyCheckbox -------------------------------------- */
@@ -858,7 +864,8 @@ p.tobago-separator {
 }
 
 /* sheet -------------------------------------------------------------- */
-.tobago-sheet-expanded {
+.tobago-sheet-expanded,
+.tobago-sheet-row {
 }
 
 th.tobago-sheet-headerCell {
@@ -1080,6 +1087,7 @@ th.tobago-sheet-headerCell {
 .tobago-treeListbox,
 .tobago-treeListbox-level,
 .tobago-treeListbox-select,
+.tobago-treeNode,
 .tobago-treeSelect,
 .tobago-treeSelect-label {
 }

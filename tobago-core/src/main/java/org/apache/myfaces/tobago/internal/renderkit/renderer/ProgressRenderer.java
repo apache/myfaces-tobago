@@ -26,14 +26,12 @@ import org.apache.myfaces.tobago.internal.util.RenderUtils;
 import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
-import org.apache.myfaces.tobago.renderkit.css.CssItem;
 import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.Arias;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRoleValues;
-import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -41,9 +39,6 @@ import org.slf4j.LoggerFactory;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 public class ProgressRenderer extends RendererBase {
 
@@ -62,14 +57,12 @@ public class ProgressRenderer extends RendererBase {
     writer.startElement(HtmlElements.DIV);
     writer.writeIdAttribute(progress.getClientId(facesContext));
 
-    // TODO: optimize class attribute writing
-    final List<CssItem> classAttributes = new ArrayList<CssItem>();
-    classAttributes.add(TobagoClass.PROGRESS);
-    classAttributes.addAll(Arrays.asList(
-        TobagoClass.PROGRESS.createMarkup(ComponentUtils.updateMarkup(progress, progress.getMarkup()))));
-    classAttributes.add(progress.getCustomClass());
-    classAttributes.add(BootstrapClass.PROGRESS);
-    writer.writeClassAttribute(null, null, classAttributes.toArray(new CssItem[classAttributes.size()]));
+    writer.writeClassAttribute(
+        TobagoClass.PROGRESS,
+        TobagoClass.PROGRESS.createMarkup(progress.getMarkup()),
+        TobagoClass.PROGRESS.createDefaultMarkups(progress),
+        BootstrapClass.PROGRESS,
+        progress.getCustomClass());
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, progress);
     writer.writeStyleAttribute(progress.getStyle());
 

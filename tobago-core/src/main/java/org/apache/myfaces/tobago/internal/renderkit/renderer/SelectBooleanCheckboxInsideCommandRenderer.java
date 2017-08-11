@@ -26,7 +26,6 @@ import org.apache.myfaces.tobago.renderkit.css.CssItem;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
-import java.util.List;
 
 public class SelectBooleanCheckboxInsideCommandRenderer extends SelectBooleanCheckboxRenderer {
 
@@ -41,13 +40,7 @@ public class SelectBooleanCheckboxInsideCommandRenderer extends SelectBooleanChe
   }
 
   @Override
-  protected void addOuterCssItems(final FacesContext facesContext, final AbstractUISelectBooleanCheckbox select,
-                                  final List<CssItem> collected) {
-  }
-
-  @Override
-  protected void addCssItems(final FacesContext facesContext, final AbstractUISelectBooleanCheckbox select,
-                             final List<CssItem> collected) {
-    collected.add(BootstrapClass.DROPDOWN_ITEM);
+  protected CssItem[] getCssItems(final FacesContext facesContext, final AbstractUISelectBooleanCheckbox select) {
+    return new CssItem[]{BootstrapClass.DROPDOWN_ITEM};
   }
 }

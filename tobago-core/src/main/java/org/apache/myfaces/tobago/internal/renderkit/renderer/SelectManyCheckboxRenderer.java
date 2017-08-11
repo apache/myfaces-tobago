@@ -37,9 +37,6 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 public class SelectManyCheckboxRenderer extends SelectManyRendererBase {
 
@@ -61,14 +58,12 @@ public class SelectManyCheckboxRenderer extends SelectManyRendererBase {
     }
     writer.writeStyleAttribute(select.getStyle());
 
-    // TODO: optimize class attribute writing
-    final List<CssItem> classAttributes = new ArrayList<CssItem>();
-    classAttributes.add(TobagoClass.SELECT_MANY_CHECKBOX);
-    classAttributes.addAll(Arrays.asList(
-        TobagoClass.SELECT_MANY_CHECKBOX.createMarkup(ComponentUtils.updateMarkup(select, select.getMarkup()))));
-    classAttributes.add(inline ? TobagoClass.SELECT_MANY_CHECKBOX__INLINE : null);
-    classAttributes.add(select.getCustomClass());
-    writer.writeClassAttribute(null, null, classAttributes.toArray(new CssItem[classAttributes.size()]));
+    writer.writeClassAttribute(
+        TobagoClass.SELECT_MANY_CHECKBOX,
+        TobagoClass.SELECT_MANY_CHECKBOX.createMarkup(select.getMarkup()),
+        TobagoClass.SELECT_MANY_CHECKBOX.createDefaultMarkups(select),
+        inline ? TobagoClass.SELECT_MANY_CHECKBOX__INLINE : null,
+        select.getCustomClass());
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, select);
     if (title != null) {
       writer.writeAttribute(HtmlAttributes.TITLE, title, true);
@@ -88,11 +83,9 @@ public class SelectManyCheckboxRenderer extends SelectManyRendererBase {
             itemDisabled ? BootstrapClass.DISABLED : null);
       }
       writer.startElement(HtmlElements.LABEL);
-      final List<CssItem> cssItems = new ArrayList<CssItem>();
-      addCssItems(facesContext, select, cssItems);
-      writer.writeClassAttribute(BootstrapClass.FORM_CHECK_LABEL,
-          null,
-          cssItems.toArray(new CssItem[cssItems.size()]));
+      writer.writeClassAttribute(
+          BootstrapClass.FORM_CHECK_LABEL,
+          getCssItems(facesContext, select));
       writer.startElement(HtmlElements.INPUT);
       writer.writeClassAttribute(BootstrapClass.FORM_CHECK_INPUT);
       writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.CHECKBOX);
@@ -140,7 +133,7 @@ public class SelectManyCheckboxRenderer extends SelectManyRendererBase {
     return true;
   }
 
-  protected void addCssItems(final FacesContext facesContext, final AbstractUISelectManyCheckbox select,
-                             final List<CssItem> collected) {
+  protected CssItem[] getCssItems(final FacesContext facesContext, final AbstractUISelectManyCheckbox select) {
+    return null;
   }
 }

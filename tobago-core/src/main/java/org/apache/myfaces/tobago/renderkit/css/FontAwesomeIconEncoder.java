@@ -55,7 +55,7 @@ public class FontAwesomeIconEncoder implements IconEncoder {
       throws IOException {
     writer.startElement(HtmlElements.I);
     writer.writeStyleAttribute(style);
-    writer.writeClassAttribute(FA, generateClass(icon), cssItems);
+    writer.writeClassAttribute(FA, cssItems, generateClass(icon));
     writer.endElement(HtmlElements.I);
   }
 

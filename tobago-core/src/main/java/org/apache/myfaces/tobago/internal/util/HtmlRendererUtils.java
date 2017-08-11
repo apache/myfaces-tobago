@@ -24,9 +24,9 @@ import org.apache.myfaces.tobago.component.Visual;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.internal.webapp.TobagoResponseWriterWrapper;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
-import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.FontAwesomeIconEncoder;
 import org.apache.myfaces.tobago.renderkit.css.Style;
+import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
@@ -159,27 +159,29 @@ public final class HtmlRendererUtils {
    * @deprecated Since Tobago 2.0.7
    */
   @Deprecated
-  public static void renderSelectItems(final UIInput component, final Iterable<SelectItem> items, final Object[] values,
-      final TobagoResponseWriter writer, final FacesContext facesContext) throws IOException {
-    renderSelectItems(component, items, values, null, null, writer, facesContext);
-  }
-
-  public static void renderSelectItems(final UIInput component, final Iterable<SelectItem> items, final Object[] values,
-      final String[] submittedValues, final TobagoResponseWriter writer, final FacesContext facesContext)
-      throws IOException {
-    renderSelectItems(component, items, values, submittedValues, null, writer, facesContext);
-  }
-
-  public static void renderSelectItems(final UIInput component, final Iterable<SelectItem> items, final Object value,
-      final String submittedValue, final TobagoResponseWriter writer, final FacesContext facesContext)
-      throws IOException {
-    renderSelectItems(component, items, value != null ? new Object[] {value}: null,
-        submittedValue != null ?  new String[] {submittedValue}: null, null, writer, facesContext);
-  }
-
-  public static void renderSelectItems(final UIInput component, final Iterable<SelectItem> items, final Object[] values,
-      final String[] submittedValues, final Boolean onlySelected, final TobagoResponseWriter writer,
+  public static void renderSelectItems(final UIInput component, final TobagoClass optionClass,
+      final Iterable<SelectItem> items, final Object[] values, final TobagoResponseWriter writer,
       final FacesContext facesContext) throws IOException {
+    renderSelectItems(component, optionClass, items, values, null, null, writer, facesContext);
+  }
+
+  public static void renderSelectItems(final UIInput component, final TobagoClass optionClass,
+      final Iterable<SelectItem> items, final Object[] values, final String[] submittedValues,
+      final TobagoResponseWriter writer, final FacesContext facesContext) throws IOException {
+    renderSelectItems(component, optionClass, items, values, submittedValues, null, writer, facesContext);
+  }
+
+  public static void renderSelectItems(final UIInput component, final TobagoClass optionClass,
+      final Iterable<SelectItem> items, final Object value, final String submittedValue,
+      final TobagoResponseWriter writer, final FacesContext facesContext) throws IOException {
+    renderSelectItems(component, optionClass, items, value != null ? new Object[]{value} : null,
+        submittedValue != null ? new String[]{submittedValue} : null, null, writer, facesContext);
+  }
+
+  public static void renderSelectItems(final UIInput component, final TobagoClass optionClass,
+      final Iterable<SelectItem> items, final Object[] values, final String[] submittedValues,
+      final Boolean onlySelected, final TobagoResponseWriter writer, final FacesContext facesContext)
+      throws IOException {
 
     if (LOG.isDebugEnabled()) {
       LOG.debug("component id = '{}'", component.getId());
@@ -194,7 +196,7 @@ public final class HtmlRendererUtils {
           writer.writeAttribute(HtmlAttributes.DISABLED, true);
         }
         final SelectItem[] selectItems = ((SelectItemGroup) item).getSelectItems();
-        renderSelectItems(component, Arrays.asList(selectItems), values, submittedValues,
+        renderSelectItems(component, optionClass, Arrays.asList(selectItems), values, submittedValues,
             onlySelected, writer, facesContext);
         writer.endElement(HtmlElements.OPTGROUP);
       } else {
@@ -241,7 +243,7 @@ public final class HtmlRendererUtils {
           writer.writeAttribute(HtmlAttributes.DISABLED, true);
           markup = Markup.DISABLED.add(markup);
         }
-        writer.writeClassAttribute(Classes.create(component, "option", markup));
+        writer.writeClassAttribute(optionClass, optionClass.createMarkup(markup));
 
         writer.writeText(item.getLabel());
         writer.endElement(HtmlElements.OPTION);

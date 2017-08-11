@@ -50,9 +50,6 @@ import javax.faces.component.UIComponent;
 import javax.faces.component.UIParameter;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 public abstract class CommandRendererBase extends DecodingCommandRendererBase {
 
@@ -109,28 +106,22 @@ public abstract class CommandRendererBase extends DecodingCommandRendererBase {
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, command);
     writer.writeStyleAttribute(command.getStyle());
 
-    final List<CssItem> cssItems = new ArrayList<CssItem>();
     if (parentOfCommands) {
-      cssItems.add(dropdownSubmenu ? null : BootstrapClass.DROPDOWN_TOGGLE);
       writer.writeAttribute(DataAttributes.TOGGLE, "dropdown", false);
-    } else {
-      addOuterCssItems(facesContext, command, cssItems);
     }
-    addCssItems(facesContext, command, cssItems);
     final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, command);
     if (title != null) {
       writer.writeAttribute(HtmlAttributes.TITLE, title, true);
     }
 
-    cssItems.add(command.getCustomClass());
-
-    // TODO: optimize class attribute writing
-    final List<CssItem> classAttributes = new ArrayList<CssItem>();
-    classAttributes.add(getRendererCssClass());
-    classAttributes.addAll(Arrays.asList(
-        getRendererCssClass().createMarkup(ComponentUtils.updateMarkup(command, command.getMarkup()))));
-    classAttributes.addAll(cssItems);
-    writer.writeClassAttribute(null, null, classAttributes.toArray(new CssItem[classAttributes.size()]));
+    writer.writeClassAttribute(
+        getRendererCssClass(),
+        getRendererCssClass().createMarkup(command.getMarkup()),
+        getRendererCssClass().createDefaultMarkups(command),
+        parentOfCommands ? null : getOuterCssItems(facesContext, command),
+        getCssItems(facesContext, command),
+        parentOfCommands && !dropdownSubmenu ? BootstrapClass.DROPDOWN_TOGGLE : null,
+        command.getCustomClass());
 
     final boolean defaultCommand = ComponentUtils.getBooleanAttribute(command, Attributes.defaultCommand);
     if (defaultCommand) {
@@ -162,13 +153,9 @@ public abstract class CommandRendererBase extends DecodingCommandRendererBase {
 
     if (parentOfCommands) {
       writer.startElement(HtmlElements.DIV);
-      final List<CssItem> dropdownCssItems = new ArrayList<CssItem>();
-      addDropdownCssItems(facesContext, command, dropdownCssItems);
       writer.writeClassAttribute(
           BootstrapClass.DROPDOWN_MENU,
-          null,
-          dropdownCssItems.toArray(new CssItem[dropdownCssItems.size()])
-      );
+          getDropdownCssItems(facesContext, command));
       writer.writeAttribute(Arias.LABELLEDBY, "dropdownMenuButton", false);
 
       for (final UIComponent child : component.getChildren()) {
@@ -220,12 +207,9 @@ public abstract class CommandRendererBase extends DecodingCommandRendererBase {
       writer.startElement(HtmlElements.SPAN);
       writer.writeIdAttribute(clientId);
 
-      final List<CssItem> cssItemsForSpan = new ArrayList<CssItem>();
-      addOuterCssItems(facesContext, command, cssItemsForSpan);
       writer.writeClassAttribute(
           childOfButtonGroup ? null : dropdownSubmenu ? TobagoClass.DROPDOWN__SUBMENU : BootstrapClass.DROPDOWN,
-          null,
-          cssItemsForSpan.toArray(new CssItem[cssItemsForSpan.size()]));
+          getOuterCssItems(facesContext, command));
     }
   }
 
@@ -236,17 +220,17 @@ public abstract class CommandRendererBase extends DecodingCommandRendererBase {
     }
   }
 
-  protected void addOuterCssItems(final FacesContext facesContext, final AbstractUICommand command,
-                                  final List<CssItem> collected) {
+  protected CssItem[] getOuterCssItems(final FacesContext facesContext, final AbstractUICommand command) {
+    return null;
   }
 
   abstract TobagoClass getRendererCssClass();
 
-  protected void addCssItems(final FacesContext facesContext, final AbstractUICommand command,
-                             final List<CssItem> collected) {
+  protected CssItem[] getCssItems(final FacesContext facesContext, final AbstractUICommand command) {
+    return null;
   }
 
-  protected void addDropdownCssItems(final FacesContext facesContext, final AbstractUICommand command,
-                                     final List<CssItem> collected) {
+  protected CssItem[] getDropdownCssItems(final FacesContext facesContext, final AbstractUICommand command) {
+    return null;
   }
 }

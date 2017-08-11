@@ -32,8 +32,8 @@ import org.apache.myfaces.tobago.layout.Display;
 import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.model.Selectable;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
-import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.Style;
+import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
@@ -146,7 +146,10 @@ public class TreeNodeRenderer extends RendererBase {
         }
       }
 
-      writer.writeClassAttribute(Classes.create(node, markup));
+      writer.writeClassAttribute(
+          TobagoClass.TREE_NODE,
+          TobagoClass.TREE_NODE.createMarkup(markup),
+          TobagoClass.TREE_NODE.createDefaultMarkups(node));
       HtmlRendererUtils.writeDataAttributes(facesContext, writer, node);
       if (parentId != null) {
         writer.writeAttribute(DataAttributes.TREE_PARENT, parentId, false);

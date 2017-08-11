@@ -25,20 +25,15 @@ import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
-import org.apache.myfaces.tobago.renderkit.css.CssItem;
 import org.apache.myfaces.tobago.renderkit.css.FontAwesomeIconEncoder;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
-import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 public class ImageRenderer extends RendererBase {
 
@@ -65,14 +60,12 @@ public class ImageRenderer extends RendererBase {
         writer.writeAttribute(HtmlAttributes.TITLE, title, true);
       }
 
-      // TODO: optimize class attribute writing
-      final List<CssItem> classAttributes = new ArrayList<CssItem>();
-      classAttributes.add(TobagoClass.IMAGE);
-      classAttributes.addAll(Arrays.asList(
-          TobagoClass.IMAGE.createMarkup(ComponentUtils.updateMarkup(image, image.getMarkup()))));
-      classAttributes.add(isDisabled(image) ? BootstrapClass.DISABLED : null);
-      classAttributes.add(image.getCustomClass());
-      writer.writeClassAttribute(null, null, classAttributes.toArray(new CssItem[classAttributes.size()]));
+      writer.writeClassAttribute(
+          TobagoClass.IMAGE,
+          TobagoClass.IMAGE.createMarkup(image.getMarkup()),
+          TobagoClass.IMAGE.createDefaultMarkups(image),
+          isDisabled(image) ? BootstrapClass.DISABLED : null,
+          image.getCustomClass());
       writer.writeStyleAttribute(image.getStyle());
       writer.endElement(HtmlElements.IMG);
     }

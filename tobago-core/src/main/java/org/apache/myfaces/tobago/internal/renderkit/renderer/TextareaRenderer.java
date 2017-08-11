@@ -28,7 +28,6 @@ import org.apache.myfaces.tobago.internal.util.JsonUtils;
 import org.apache.myfaces.tobago.internal.util.RenderUtils;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
-import org.apache.myfaces.tobago.renderkit.css.CssItem;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
@@ -46,9 +45,6 @@ import javax.faces.validator.LengthValidator;
 import javax.faces.validator.RegexValidator;
 import javax.faces.validator.Validator;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 public class TextareaRenderer extends MessageLayoutRendererBase {
 
@@ -56,7 +52,7 @@ public class TextareaRenderer extends MessageLayoutRendererBase {
 
   @Override
   protected void setSubmittedValue(
-          final FacesContext facesContext, final EditableValueHolder component, final String newValue) {
+      final FacesContext facesContext, final EditableValueHolder component, final String newValue) {
 
     String value = newValue;
 
@@ -107,14 +103,12 @@ public class TextareaRenderer extends MessageLayoutRendererBase {
       AccessKeyLogger.addAccessKey(facesContext, input.getAccessKey(), clientId);
     }
 
-    // TODO: optimize class attribute writing
-    final List<CssItem> classAttributes = new ArrayList<CssItem>();
-    classAttributes.add(TobagoClass.TEXTAREA);
-    classAttributes.addAll(Arrays.asList(
-        TobagoClass.TEXTAREA.createMarkup(ComponentUtils.updateMarkup(input, input.getMarkup()))));
-    classAttributes.add(BootstrapClass.FORM_CONTROL);
-    classAttributes.add(input.getCustomClass());
-    writer.writeClassAttribute(null, null, classAttributes.toArray(new CssItem[classAttributes.size()]));
+    writer.writeClassAttribute(
+        TobagoClass.TEXTAREA,
+        TobagoClass.TEXTAREA.createMarkup(input.getMarkup()),
+        TobagoClass.TEXTAREA.createDefaultMarkups(input),
+        BootstrapClass.FORM_CONTROL,
+        input.getCustomClass());
     writer.writeStyleAttribute(input.getStyle());
     int maxLength = 0;
     int minLength = 0;

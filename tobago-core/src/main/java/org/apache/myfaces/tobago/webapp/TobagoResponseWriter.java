@@ -148,19 +148,6 @@ public abstract class TobagoResponseWriter extends ResponseWriter {
   }
 
   /**
-   * Write the class attribute. The value will not escaped.
-   */
-  public void writeClassAttribute(final CssItem first) throws IOException {
-    if (first != null) {
-      // todo: optimize me, do not use StringBuilder
-      final StringBuilder builder = new StringBuilder();
-      builder.append(first.getName());
-      builder.append(' ');
-      writeAttribute(HtmlAttributes.CLASS, builder.deleteCharAt(builder.length() - 1).toString(), false);
-    }
-  }
-
-  /**
    * Write the command map data attribute.
    */
   public void writeCommandMapAttribute(final String map) throws IOException { // XXX use CommandMap instead of String
@@ -173,7 +160,36 @@ public abstract class TobagoResponseWriter extends ResponseWriter {
   /**
    * Write the class attribute. The value will not escaped.
    */
-  public void writeClassAttribute(final CssItem first, final CssItem second) throws IOException {
+  public void writeClassAttribute(final CssItem... first) throws IOException {
+    writeClassAttribute(null, null, null, null, null, first);
+  }
+
+  /**
+   * Write the class attribute. The value will not escaped.
+   */
+  public void writeClassAttribute(final CssItem first, final CssItem[] second, final CssItem... third)
+      throws IOException {
+    writeClassAttribute(first, second, null, null, null, third);
+  }
+
+  /**
+   * Write the class attribute. The value will not escaped.
+   */
+  public void writeClassAttribute(final CssItem first, final CssItem[] second, final CssItem[] third,
+      final CssItem... fourth) throws IOException {
+    writeClassAttribute(first, second, third, null, null, fourth);
+  }
+
+  /**
+   * Write the class attribute. The value will not escaped.
+   */
+  public void writeClassAttribute(final CssItem first, final CssItem[] second, final CssItem[] third,
+      final CssItem[] fourth, final CssItem... fifth) throws IOException {
+    writeClassAttribute(first, second, third, fourth, null, fifth);
+  }
+
+  public void writeClassAttribute(final CssItem first, final CssItem[] second, final CssItem[] third,
+      final CssItem[] fourth, final CssItem[] fifth, final CssItem... sixth) throws IOException {
     final StringBuilder builder = new StringBuilder();
     boolean render = false;
     if (first != null) {
@@ -182,44 +198,35 @@ public abstract class TobagoResponseWriter extends ResponseWriter {
       render = true;
     }
     if (second != null) {
-      builder.append(second.getName());
-      builder.append(' ');
-      render = true;
+      render |= writeCssItem(builder, second);
+    }
+    if (third != null) {
+      render |= writeCssItem(builder, third);
+    }
+    if (fourth != null) {
+      render |= writeCssItem(builder, fourth);
+    }
+    if (fifth != null) {
+      render |= writeCssItem(builder, fifth);
+    }
+    if (sixth != null) {
+      render |= writeCssItem(builder, sixth);
     }
     if (render) {
       writeAttribute(HtmlAttributes.CLASS, builder.deleteCharAt(builder.length() - 1).toString(), false);
     }
   }
 
-  /**
-   * Write the class attribute. The value will not escaped.
-   */
-  public void writeClassAttribute(final CssItem first, final CssItem second, final CssItem... others)
-      throws IOException {
-    final StringBuilder builder = new StringBuilder();
+  private boolean writeCssItem(final StringBuilder builder, final CssItem... cssItems) {
     boolean render = false;
-    if (first != null) {
-      builder.append(first.getName());
-      builder.append(' ');
-      render = true;
-    }
-    if (second != null) {
-      builder.append(second.getName());
-      builder.append(' ');
-      render = true;
-    }
-    if (others != null) {
-      for (CssItem other : others) {
-        if (other != null) {
-          builder.append(other.getName());
-          builder.append(' ');
-          render = true;
-        }
+    for (CssItem cssItem : cssItems) {
+      if (cssItem != null) {
+        builder.append(cssItem.getName());
+        builder.append(' ');
+        render = true;
       }
     }
-    if (render) {
-      writeAttribute(HtmlAttributes.CLASS, builder.deleteCharAt(builder.length() - 1).toString(), false);
-    }
+    return render;
   }
 
   /**

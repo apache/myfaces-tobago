@@ -26,9 +26,11 @@ import org.apache.myfaces.tobago.context.TobagoContext;
 import org.apache.myfaces.tobago.internal.util.Deprecation;
 import org.apache.myfaces.tobago.layout.AlignItems;
 import org.apache.myfaces.tobago.layout.JustifyContent;
+import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.util.ArrayList;
 import java.util.List;
@@ -103,6 +105,7 @@ public enum TobagoClass implements CssItem {
   PAGE("tobago-page"),
   PAGE__MENU_STORE("tobago-page-menuStore"),
   PAGE__NOSCRIPT("tobago-page-noscript"),
+  PAGE__PREVENT_FRAME_ATTACKS("tobago-page-preventFrameAttacks"),
   PANEL("tobago-panel"),
   POPUP("tobago-popup"),
   PROGRESS("tobago-progress"),
@@ -114,10 +117,12 @@ public enum TobagoClass implements CssItem {
   SELECT_MANY_CHECKBOX("tobago-selectManyCheckbox"),
   SELECT_MANY_CHECKBOX__INLINE("tobago-selectManyCheckbox-inline"),
   SELECT_MANY_LISTBOX("tobago-selectManyListbox"),
+  SELECT_MANY_LISTBOX__OPTION("tobago-selectManyListbox-option"),
   SELECT_MANY_SHUTTLE("tobago-selectManyShuttle"),
   SELECT_MANY_SHUTTLE__ADD("tobago-selectManyShuttle-add"),
   SELECT_MANY_SHUTTLE__ADD_ALL("tobago-selectManyShuttle-addAll"),
   SELECT_MANY_SHUTTLE__HIDDEN("tobago-selectManyShuttle-hidden"),
+  SELECT_MANY_SHUTTLE__OPTION("tobago-selectManyShuttle-option"),
   SELECT_MANY_SHUTTLE__REMOVE("tobago-selectManyShuttle-remove"),
   SELECT_MANY_SHUTTLE__REMOVE_ALL("tobago-selectManyShuttle-removeAll"),
   SELECT_MANY_SHUTTLE__SELECTED("tobago-selectManyShuttle-selected"),
@@ -126,11 +131,14 @@ public enum TobagoClass implements CssItem {
   SELECT_MANY_SHUTTLE__UNSELECTED("tobago-selectManyShuttle-unselected"),
   SELECT_MANY_SHUTTLE__UNSELECTED_LABEL("tobago-selectManyShuttle-unselectedLabel"),
   SELECT_ONE_CHOICE("tobago-selectOneChoice"),
+  SELECT_ONE_CHOICE__OPTION("tobago-selectOneChoice-option"),
   SELECT_ONE_LISTBOX("tobago-selectOneListbox"),
+  SELECT_ONE_LISTBOX__OPTION("tobago-selectOneListbox-option"),
   SELECT_ONE_RADIO("tobago-selectOneRadio"),
   SELECT_ONE_RADIO__INLINE("tobago-selectOneRadio-inline"),
   SEPARATOR("tobago-separator"),
   SHEET("tobago-sheet"),
+  SHEET__CELL("tobago-sheet-cell"),
   SHEET__FOOTER("tobago-sheet-footer"),
   SHEET__BODY("tobago-sheet-body"),
   SHEET__HEADER_CELL("tobago-sheet-headerCell"),
@@ -141,12 +149,12 @@ public enum TobagoClass implements CssItem {
   SHEET__BODY_TABLE("tobago-sheet-bodyTable"),
   SHEET__COLUMN_SELECTOR("tobago-sheet-columnSelector"),
   SHEET__HEADER_TABLE("tobago-sheet-headerTable"),
+  SHEET__PAGING("tobago-sheet-paging"),
   SHEET__PAGING_INPUT("tobago-sheet-pagingInput"),
   SHEET__PAGING_OUTPUT("tobago-sheet-pagingOutput"),
-  SHEET__CELL__MARKUP__RIGHT("tobago-sheet-cell-markup-right"),
-  SHEET__CELL__MARKUP__CENTER("tobago-sheet-cell-markup-center"),
-  SHEET__CELL__MARKUP__JUSTIFY("tobago-sheet-cell-markup-justify"),
+  SHEET__ROW("tobago-sheet-row"),
   SUGGEST("tobago-suggest"),
+  TAB("tobago-tab"),
   TAB__CONTENT("tobago-tab-content"),
   TAB_GROUP("tobago-tabGroup"),
   TAB_GROUP__HEADER("tobago-tabGroup-header"),
@@ -159,6 +167,7 @@ public enum TobagoClass implements CssItem {
   TREE_LISTBOX("tobago-treeListbox"),
   TREE_LISTBOX__LEVEL("tobago-treeListbox-level"),
   TREE_LISTBOX__SELECT("tobago-treeListbox-select"),
+  TREE_NODE("tobago-treeNode"),
   TREE_NODE__TOGGLE("tobago-treeNode-toggle"),
   TREE_SELECT("tobago-treeSelect"),
   TREE_SELECT__LABEL("tobago-treeSelect-label");
@@ -233,6 +242,10 @@ public enum TobagoClass implements CssItem {
     }
   }
 
+  public CssItem[] createDefaultMarkups(final UIComponent component) {
+    return createMarkup(ComponentUtils.updateMarkup(component, null));
+  }
+
   private static class MarkupClass implements CssItem {
 
     private final TobagoClass rendererClass;
@@ -247,7 +260,8 @@ public enum TobagoClass implements CssItem {
     public String getName() {
       // These values are statistically tested length of the html class attribute
       final StringBuilder builder = new StringBuilder(80);
-      final String rendererName = rendererClass.getName().substring("tobago-".length());
+      final String name = rendererClass.getName().substring("tobago-".length());
+      final String rendererName = name.contains("-") ? name.substring(0, name.indexOf("-")) : name;
       final Theme theme = TobagoContext.getInstance(FacesContext.getCurrentInstance()).getTheme();
 
       if (theme.getRenderersConfig().isMarkupSupported(rendererName, markup)) {

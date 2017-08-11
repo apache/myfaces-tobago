@@ -57,8 +57,8 @@ public class TreeLabelRenderer extends RendererBase {
       writer.startElement(HtmlElements.LABEL);
       writer.writeClassAttribute(
           TobagoClass.TREE_LABEL,
-          null,
-          TobagoClass.TREE_LABEL.createMarkup(ComponentUtils.updateMarkup(label, label.getMarkup())));
+          TobagoClass.TREE_LABEL.createMarkup(label.getMarkup()),
+          TobagoClass.TREE_LABEL.createDefaultMarkups(label));
       HtmlRendererUtils.writeDataAttributes(facesContext, writer, label);
       writer.writeStyleAttribute(label.getStyle());
       final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, label);

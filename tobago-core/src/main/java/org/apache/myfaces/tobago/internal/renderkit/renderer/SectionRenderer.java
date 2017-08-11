@@ -24,7 +24,6 @@ import org.apache.myfaces.tobago.internal.component.AbstractUISection;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.internal.util.RenderUtils;
 import org.apache.myfaces.tobago.model.CollapseMode;
-import org.apache.myfaces.tobago.renderkit.css.CssItem;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.util.ComponentUtils;
@@ -33,9 +32,6 @@ import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 public class SectionRenderer extends PanelRendererBase {
 
@@ -50,14 +46,12 @@ public class SectionRenderer extends PanelRendererBase {
     writer.startElement(HtmlElements.DIV);
     writer.writeIdAttribute(clientId);
 
-    // TODO: optimize class attribute writing
-    final List<CssItem> classAttributes = new ArrayList<CssItem>();
-    classAttributes.add(TobagoClass.SECTION);
-    classAttributes.addAll(Arrays.asList(
-        TobagoClass.SECTION.createMarkup(ComponentUtils.updateMarkup(section, section.getMarkup()))));
-    classAttributes.add(collapsed ? TobagoClass.COLLAPSED : null);
-    classAttributes.add(section.getCustomClass());
-    writer.writeClassAttribute(null, null, classAttributes.toArray(new CssItem[classAttributes.size()]));
+    writer.writeClassAttribute(
+        TobagoClass.SECTION,
+        TobagoClass.SECTION.createMarkup(section.getMarkup()),
+        TobagoClass.SECTION.createDefaultMarkups(section),
+        collapsed ? TobagoClass.COLLAPSED : null,
+        section.getCustomClass());
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, section);
 
     String label = section.getLabelToRender();

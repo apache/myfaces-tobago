@@ -27,7 +27,6 @@ import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 
 import javax.faces.context.FacesContext;
-import java.util.List;
 
 public class ButtonRenderer extends CommandRendererBase {
 
@@ -36,13 +35,12 @@ public class ButtonRenderer extends CommandRendererBase {
   }
 
   @Override
-  protected void addCssItems(
-      final FacesContext facesContext, final AbstractUICommand command, final List<CssItem> collected) {
-
+  protected CssItem[] getCssItems(final FacesContext facesContext, final AbstractUICommand command) {
     final boolean defaultCommand = ComponentUtils.getBooleanAttribute(command, Attributes.defaultCommand);
 
-    collected.add(BootstrapClass.BTN);
-    collected.add(defaultCommand ? BootstrapClass.BTN_PRIMARY : BootstrapClass.BTN_SECONDARY);
+    return new CssItem[]{
+        BootstrapClass.BTN,
+        defaultCommand ? BootstrapClass.BTN_PRIMARY : BootstrapClass.BTN_SECONDARY
+    };
   }
-
 }

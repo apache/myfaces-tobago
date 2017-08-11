@@ -47,8 +47,9 @@ public class SeparatorRenderer extends RendererBase {
       writer.writeIdAttribute(clientId);
       writer.writeClassAttribute(
           TobagoClass.SEPARATOR,
-          separator.getCustomClass(),
-          TobagoClass.SEPARATOR.createMarkup(ComponentUtils.updateMarkup(separator, separator.getMarkup())));
+          TobagoClass.SEPARATOR.createMarkup(separator.getMarkup()),
+          TobagoClass.SEPARATOR.createDefaultMarkups(separator),
+          separator.getCustomClass());
       writer.writeText(label);
       writer.endElement(HtmlElements.P);
     } else {
@@ -56,8 +57,9 @@ public class SeparatorRenderer extends RendererBase {
       writer.writeIdAttribute(clientId);
       writer.writeClassAttribute(
           TobagoClass.SEPARATOR,
-          separator.getCustomClass(),
-          TobagoClass.SEPARATOR.createMarkup(ComponentUtils.updateMarkup(separator, separator.getMarkup())));
+          TobagoClass.SEPARATOR.createMarkup(separator.getMarkup()),
+          TobagoClass.SEPARATOR.createDefaultMarkups(separator),
+          separator.getCustomClass());
       writer.endElement(HtmlElements.HR);
     }
   }

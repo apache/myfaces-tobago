@@ -42,8 +42,6 @@ import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.portlet.PortletUtils;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
-import org.apache.myfaces.tobago.renderkit.css.Classes;
-import org.apache.myfaces.tobago.renderkit.css.CssItem;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
@@ -68,8 +66,6 @@ import javax.portlet.ResourceURL;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.Locale;
@@ -265,18 +261,13 @@ public class PageRenderer extends RendererBase {
 
     writer.startElement(portlet ? HtmlElements.DIV : HtmlElements.BODY);
 
-    // TODO: optimize class attribute writing
-    final List<CssItem> classAttributes = new ArrayList<CssItem>();
-    classAttributes.add(TobagoClass.PAGE);
-    classAttributes.addAll(Arrays.asList(
-        TobagoClass.PAGE.createMarkup(ComponentUtils.updateMarkup(page, page.getMarkup()))));
-    if (portlet) {
-      classAttributes.addAll(Arrays.asList(TobagoClass.PAGE.createMarkup(Markup.PORTLET)));
-    }
-    classAttributes.add(BootstrapClass.CONTAINER_FLUID);
-    classAttributes.add(spread);
-    classAttributes.add(page.getCustomClass());
-    writer.writeClassAttribute(null, null, classAttributes.toArray(new CssItem[classAttributes.size()]));
+    writer.writeClassAttribute(
+        TobagoClass.PAGE,
+        TobagoClass.PAGE.createMarkup(portlet ? Markup.PORTLET.add(page.getMarkup()) : page.getMarkup()),
+        TobagoClass.PAGE.createDefaultMarkups(page),
+        BootstrapClass.CONTAINER_FLUID,
+        spread,
+        page.getCustomClass());
     writer.writeIdAttribute(clientId);
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, page);
     writer.writeStyleAttribute(page.getStyle());
@@ -286,8 +277,7 @@ public class PageRenderer extends RendererBase {
     writer.startElement(HtmlElements.FORM);
     writer.writeClassAttribute(
         preventFrameAttacks && !facesContext.getPartialViewContext().isAjaxRequest()
-            ? Classes.create(page, "preventFrameAttacks", Markup.NULL)
-            : null,
+            ? TobagoClass.PAGE__PREVENT_FRAME_ATTACKS : null,
         spread);
     writer.writeAttribute(HtmlAttributes.ACTION, formAction, true);
     if (partialAction != null) {

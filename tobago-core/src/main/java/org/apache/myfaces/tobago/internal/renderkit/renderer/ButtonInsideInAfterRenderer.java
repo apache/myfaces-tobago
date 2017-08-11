@@ -24,13 +24,11 @@ import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.CssItem;
 
 import javax.faces.context.FacesContext;
-import java.util.List;
 
 public class ButtonInsideInAfterRenderer extends ButtonInsideInRenderer {
 
   @Override
-  protected void addDropdownCssItems(final FacesContext facesContext, final AbstractUICommand command,
-                                  final List<CssItem> collected) {
-    collected.add(BootstrapClass.DROPDOWN_MENU_RIGHT);
+  protected CssItem[] getDropdownCssItems(final FacesContext facesContext, final AbstractUICommand command) {
+    return new CssItem[]{BootstrapClass.DROPDOWN_MENU_RIGHT};
   }
 }

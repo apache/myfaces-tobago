@@ -26,7 +26,6 @@ import org.apache.myfaces.tobago.renderkit.css.CssItem;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
-import java.util.List;
 
 public class SelectOneRadioInsideCommandRenderer extends SelectOneRadioRenderer {
 
@@ -46,8 +45,7 @@ public class SelectOneRadioInsideCommandRenderer extends SelectOneRadioRenderer 
   }
 
   @Override
-  protected void addCssItems(final FacesContext facesContext, final AbstractUISelectOneRadio select,
-                             final List<CssItem> collected) {
-    collected.add(BootstrapClass.DROPDOWN_ITEM);
+  protected CssItem[] getCssItems(final FacesContext facesContext, final AbstractUISelectOneRadio select) {
+    return new CssItem[]{BootstrapClass.DROPDOWN_ITEM};
   }
 }

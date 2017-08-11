@@ -23,19 +23,14 @@ import org.apache.myfaces.tobago.component.UIFooter;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
-import org.apache.myfaces.tobago.renderkit.css.CssItem;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
-import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 public class FooterRenderer extends RendererBase {
 
@@ -46,14 +41,12 @@ public class FooterRenderer extends RendererBase {
     writer.startElement(HtmlElements.FOOTER);
     writer.writeIdAttribute(component.getClientId(facesContext));
 
-    // TODO: optimize class attribute writing
-    final List<CssItem> classAttributes = new ArrayList<CssItem>();
-    classAttributes.add(TobagoClass.FOOTER);
-    classAttributes.addAll(Arrays.asList(
-        TobagoClass.FOOTER.createMarkup(ComponentUtils.updateMarkup(footer, footer.getMarkup()))));
-    classAttributes.add(footer.isFixed() ? BootstrapClass.FIXED_BOTTOM : null);
-    classAttributes.add(footer.getCustomClass());
-    writer.writeClassAttribute(null, null, classAttributes.toArray(new CssItem[classAttributes.size()]));
+    writer.writeClassAttribute(
+        TobagoClass.FOOTER,
+        TobagoClass.FOOTER.createMarkup(footer.getMarkup()),
+        TobagoClass.FOOTER.createDefaultMarkups(footer),
+        footer.isFixed() ? BootstrapClass.FIXED_BOTTOM : null,
+        footer.getCustomClass());
     writer.writeAttribute(HtmlAttributes.TITLE, footer.getTip(), true);
     writer.writeStyleAttribute(footer.getStyle());
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, footer);

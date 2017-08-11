@@ -23,19 +23,14 @@ import org.apache.myfaces.tobago.component.UIHeader;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
-import org.apache.myfaces.tobago.renderkit.css.CssItem;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
-import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 public class HeaderRenderer extends RendererBase {
 
@@ -48,14 +43,12 @@ public class HeaderRenderer extends RendererBase {
     // TBD: NAVBAR_DARK and BG_INVERSE should not be the default
     // TBD: how to configure it when it is needed, with customClass, or with markup?
 
-    // TODO: optimize class attribute writing
-    final List<CssItem> classAttributes = new ArrayList<CssItem>();
-    classAttributes.add(TobagoClass.HEADER);
-    classAttributes.addAll(Arrays.asList(
-        TobagoClass.HEADER.createMarkup(ComponentUtils.updateMarkup(header, header.getMarkup()))));
-    classAttributes.add(header.isFixed() ? BootstrapClass.FIXED_TOP : null);
-    classAttributes.add(header.getCustomClass());
-    writer.writeClassAttribute(null, null, classAttributes.toArray(new CssItem[classAttributes.size()]));
+    writer.writeClassAttribute(
+        TobagoClass.HEADER,
+        TobagoClass.HEADER.createMarkup(header.getMarkup()),
+        TobagoClass.HEADER.createDefaultMarkups(header),
+        header.isFixed() ? BootstrapClass.FIXED_TOP : null,
+        header.getCustomClass());
 // TBD: should NAVBAR class be in the LinksRenderer?
     writer.writeAttribute(HtmlAttributes.TITLE, header.getTip(), true);
     writer.writeStyleAttribute(header.getStyle());

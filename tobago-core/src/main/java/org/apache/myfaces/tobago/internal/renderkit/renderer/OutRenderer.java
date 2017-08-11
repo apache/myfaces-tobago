@@ -25,21 +25,16 @@ import org.apache.myfaces.tobago.internal.component.AbstractUIOut;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.internal.util.RenderUtils;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
-import org.apache.myfaces.tobago.renderkit.css.CssItem;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.sanitizer.SanitizeMode;
 import org.apache.myfaces.tobago.sanitizer.Sanitizer;
-import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.util.StringTokenizer;
 
 public class OutRenderer extends MessageLayoutRendererBase {
@@ -67,14 +62,12 @@ public class OutRenderer extends MessageLayoutRendererBase {
       HtmlRendererUtils.writeDataAttributes(facesContext, writer, out);
       writer.writeStyleAttribute(out.getStyle());
 
-      // TODO: optimize class attribute writing
-      final List<CssItem> classAttributes = new ArrayList<CssItem>();
-      classAttributes.add(TobagoClass.OUT);
-      classAttributes.addAll(Arrays.asList(
-          TobagoClass.OUT.createMarkup(ComponentUtils.updateMarkup(out, out.getMarkup()))));
-      classAttributes.add(BootstrapClass.FORM_CONTROL_STATIC);
-      classAttributes.add(out.getCustomClass());
-      writer.writeClassAttribute(null, null, classAttributes.toArray(new CssItem[classAttributes.size()]));
+      writer.writeClassAttribute(
+          TobagoClass.OUT,
+          TobagoClass.OUT.createMarkup(out.getMarkup()),
+          TobagoClass.OUT.createDefaultMarkups(out),
+          BootstrapClass.FORM_CONTROL_STATIC,
+          out.getCustomClass());
       final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, out);
       if (title != null) {
         writer.writeAttribute(HtmlAttributes.TITLE, title, true);

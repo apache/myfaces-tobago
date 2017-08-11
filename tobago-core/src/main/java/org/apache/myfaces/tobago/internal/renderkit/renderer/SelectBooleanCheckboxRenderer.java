@@ -40,9 +40,6 @@ import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 public class SelectBooleanCheckboxRenderer extends MessageLayoutRendererBase {
 
@@ -89,18 +86,13 @@ public class SelectBooleanCheckboxRenderer extends MessageLayoutRendererBase {
     }
     writer.writeStyleAttribute(select.getStyle());
 
-    final List<CssItem> outerCssItems = new ArrayList<CssItem>();
-    addOuterCssItems(facesContext, select, outerCssItems);
-
-    // TODO: optimize class attribute writing
-    final List<CssItem> classAttributes = new ArrayList<CssItem>();
-    classAttributes.add(TobagoClass.SELECT_BOOLEAN_CHECKBOX);
-    classAttributes.addAll(Arrays.asList(
-        TobagoClass.SELECT_BOOLEAN_CHECKBOX.createMarkup(ComponentUtils.updateMarkup(select, select.getMarkup()))));
-    classAttributes.add(disabled ? BootstrapClass.DISABLED : null);
-    classAttributes.add(select.getCustomClass());
-    classAttributes.addAll(outerCssItems);
-    writer.writeClassAttribute(null, null, classAttributes.toArray(new CssItem[classAttributes.size()]));
+    writer.writeClassAttribute(
+        TobagoClass.SELECT_BOOLEAN_CHECKBOX,
+        TobagoClass.SELECT_BOOLEAN_CHECKBOX.createMarkup(select.getMarkup()),
+        TobagoClass.SELECT_BOOLEAN_CHECKBOX.createDefaultMarkups(select),
+        getOuterCssItems(facesContext, select),
+        disabled ? BootstrapClass.DISABLED : null,
+        select.getCustomClass());
 
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, select);
     if (title != null) {
@@ -108,11 +100,9 @@ public class SelectBooleanCheckboxRenderer extends MessageLayoutRendererBase {
     }
 
     writer.startElement(HtmlElements.LABEL);
-    final List<CssItem> cssItems = new ArrayList<CssItem>();
-    addCssItems(facesContext, select, cssItems);
-    writer.writeClassAttribute(BootstrapClass.FORM_CHECK_LABEL,
-        null,
-        cssItems.toArray(new CssItem[cssItems.size()]));
+    writer.writeClassAttribute(
+        BootstrapClass.FORM_CHECK_LABEL,
+        getCssItems(facesContext, select));
     if (!disabled && label.getAccessKey() != null) {
       writer.writeAttribute(HtmlAttributes.ACCESSKEY, Character.toString(label.getAccessKey()), false);
       AccessKeyLogger.addAccessKey(facesContext, label.getAccessKey(), clientId);
@@ -144,12 +134,11 @@ public class SelectBooleanCheckboxRenderer extends MessageLayoutRendererBase {
     writer.endElement(HtmlElements.DIV);
   }
 
-  protected void addOuterCssItems(final FacesContext facesContext, final AbstractUISelectBooleanCheckbox select,
-                                  final List<CssItem> collected) {
-    collected.add(BootstrapClass.FORM_CHECK);
+  protected CssItem[] getOuterCssItems(final FacesContext facesContext, final AbstractUISelectBooleanCheckbox select) {
+    return new CssItem[]{BootstrapClass.FORM_CHECK};
   }
 
-  protected void addCssItems(final FacesContext facesContext, final AbstractUISelectBooleanCheckbox select,
-                             final List<CssItem> collected) {
+  protected CssItem[] getCssItems(final FacesContext facesContext, final AbstractUISelectBooleanCheckbox select) {
+    return null;
   }
 }

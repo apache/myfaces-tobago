@@ -23,13 +23,13 @@ import org.apache.myfaces.tobago.component.SupportFieldId;
 import org.apache.myfaces.tobago.component.UILabel;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.internal.util.AccessKeyLogger;
+import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
-import org.apache.myfaces.tobago.renderkit.css.Classes;
+import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
-import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
@@ -74,7 +74,10 @@ public class LabelRenderer extends RendererBase implements ComponentSystemEventL
     writer.startElement(HtmlElements.LABEL);
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, label);
     writer.writeClassAttribute(
-        Classes.create(label, correspondingMarkup), BootstrapClass.COL_FORM_LABEL, label.getCustomClass());
+        TobagoClass.LABEL,
+        TobagoClass.LABEL.createMarkup(correspondingMarkup),
+        BootstrapClass.COL_FORM_LABEL,
+        label.getCustomClass());
     writer.writeStyleAttribute(label.getStyle());
     writer.writeIdAttribute(clientId);
     if (forId != null) {

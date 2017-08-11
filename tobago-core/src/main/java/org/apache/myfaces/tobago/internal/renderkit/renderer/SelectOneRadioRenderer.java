@@ -38,9 +38,6 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 public class SelectOneRadioRenderer extends SelectOneRendererBase {
 
@@ -63,14 +60,12 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
     }
     writer.writeStyleAttribute(select.getStyle());
 
-    // TODO: optimize class attribute writing
-    final List<CssItem> classAttributes = new ArrayList<CssItem>();
-    classAttributes.add(TobagoClass.SELECT_ONE_RADIO);
-    classAttributes.addAll(Arrays.asList(
-        TobagoClass.SELECT_ONE_RADIO.createMarkup(ComponentUtils.updateMarkup(select, select.getMarkup()))));
-    classAttributes.add(inline ? TobagoClass.SELECT_ONE_RADIO__INLINE : null);
-    classAttributes.add(select.getCustomClass());
-    writer.writeClassAttribute(null, null, classAttributes.toArray(new CssItem[classAttributes.size()]));
+    writer.writeClassAttribute(
+        TobagoClass.SELECT_ONE_RADIO,
+        TobagoClass.SELECT_ONE_RADIO.createMarkup(select.getMarkup()),
+        TobagoClass.SELECT_ONE_RADIO.createDefaultMarkups(select),
+        inline ? TobagoClass.SELECT_ONE_RADIO__INLINE : null,
+        select.getCustomClass());
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, select);
     if (title != null) {
       writer.writeAttribute(HtmlAttributes.TITLE, title, true);
@@ -90,11 +85,8 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
             itemDisabled ? BootstrapClass.DISABLED : null);
       }
       writer.startElement(HtmlElements.LABEL);
-      final List<CssItem> cssItems = new ArrayList<CssItem>();
-      addCssItems(facesContext, select, cssItems);
       writer.writeClassAttribute(BootstrapClass.FORM_CHECK_LABEL,
-          null,
-          cssItems.toArray(new CssItem[cssItems.size()]));
+          getCssItems(facesContext, select));
       writer.startElement(HtmlElements.INPUT);
       writer.writeClassAttribute(BootstrapClass.FORM_CHECK_INPUT);
       writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.RADIO);
@@ -153,7 +145,7 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
     return true;
   }
 
-  protected void addCssItems(final FacesContext facesContext, final AbstractUISelectOneRadio select,
-                             final List<CssItem> collected) {
+  protected CssItem[] getCssItems(final FacesContext facesContext, final AbstractUISelectOneRadio select) {
+    return null;
   }
 }

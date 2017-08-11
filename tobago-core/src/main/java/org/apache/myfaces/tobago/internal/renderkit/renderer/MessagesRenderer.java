@@ -79,8 +79,9 @@ public class MessagesRenderer extends RendererBase {
     writer.writeIdAttribute(messages.getClientId(facesContext));
     writer.writeClassAttribute(
         TobagoClass.MESSAGES,
-        messages.getCustomClass(),
-        TobagoClass.MESSAGES.createMarkup(ComponentUtils.updateMarkup(messages, messages.getMarkup())));
+        TobagoClass.MESSAGES.createMarkup(messages.getMarkup()),
+        TobagoClass.MESSAGES.createDefaultMarkups(messages),
+        messages.getCustomClass());
 
     FacesMessage.Severity lastSeverity = null;
     boolean first = true;

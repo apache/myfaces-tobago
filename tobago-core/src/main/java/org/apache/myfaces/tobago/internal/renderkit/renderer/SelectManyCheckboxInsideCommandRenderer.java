@@ -26,7 +26,6 @@ import org.apache.myfaces.tobago.renderkit.css.CssItem;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
-import java.util.List;
 
 public class SelectManyCheckboxInsideCommandRenderer extends SelectManyCheckboxRenderer {
 
@@ -46,8 +45,7 @@ public class SelectManyCheckboxInsideCommandRenderer extends SelectManyCheckboxR
   }
 
   @Override
-  protected void addCssItems(final FacesContext facesContext, final AbstractUISelectManyCheckbox select,
-                             final List<CssItem> collected) {
-    collected.add(BootstrapClass.DROPDOWN_ITEM);
+  protected CssItem[] getCssItems(final FacesContext facesContext, final AbstractUISelectManyCheckbox select) {
+    return new CssItem[]{BootstrapClass.DROPDOWN_ITEM};
   }
 }

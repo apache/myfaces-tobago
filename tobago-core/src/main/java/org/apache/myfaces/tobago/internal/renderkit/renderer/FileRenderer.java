@@ -126,8 +126,9 @@ public class FileRenderer extends MessageLayoutRendererBase implements Component
     }
     writer.writeClassAttribute(
         TobagoClass.FILE,
-        file.getCustomClass(),
-        TobagoClass.FILE.createMarkup(ComponentUtils.updateMarkup(file, file.getMarkup())));
+        TobagoClass.FILE.createMarkup(file.getMarkup()),
+        TobagoClass.FILE.createDefaultMarkups(file),
+        file.getCustomClass());
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, file);
     writer.writeStyleAttribute(file.getStyle());
 

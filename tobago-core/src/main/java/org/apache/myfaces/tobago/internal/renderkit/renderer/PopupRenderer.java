@@ -24,7 +24,6 @@ import org.apache.myfaces.tobago.internal.component.AbstractUIPopup;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.model.CollapseMode;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
-import org.apache.myfaces.tobago.renderkit.css.CssItem;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
@@ -35,9 +34,6 @@ import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 public class PopupRenderer extends PanelRendererBase {
 
@@ -54,18 +50,16 @@ public class PopupRenderer extends PanelRendererBase {
 
     writer.startElement(HtmlElements.DIV);
 
-    // TODO: optimize class attribute writing
-    final List<CssItem> classAttributes = new ArrayList<CssItem>();
-    classAttributes.add(TobagoClass.POPUP);
-    classAttributes.addAll(Arrays.asList(
-        TobagoClass.POPUP.createMarkup(ComponentUtils.updateMarkup(popup, popup.getMarkup()))));
-    classAttributes.add(BootstrapClass.MODAL);
-    //XXX fade class removed due to a bug in bootstrap-alpha6
-    //https://github.com/twbs/bootstrap/issues/21607
-    //https://github.com/twbs/bootstrap/pull/21743
-    //    classAttributes.add(BootstrapClass.FADE); // TOBAGO-1759
-    classAttributes.add(popup.getCustomClass());
-    writer.writeClassAttribute(null, null, classAttributes.toArray(new CssItem[classAttributes.size()]));
+    writer.writeClassAttribute(
+        TobagoClass.POPUP,
+        TobagoClass.POPUP.createMarkup(popup.getMarkup()),
+        TobagoClass.POPUP.createDefaultMarkups(popup),
+        BootstrapClass.MODAL,
+        //XXX fade class removed due to a bug in bootstrap-alpha6
+        //https://github.com/twbs/bootstrap/issues/21607
+        //https://github.com/twbs/bootstrap/pull/21743
+        //    BootstrapClass.FADE, // TOBAGO-1759
+        popup.getCustomClass());
     writer.writeIdAttribute(clientId);
     writer.writeAttribute(HtmlAttributes.TABINDEX, -1);
     writer.writeAttribute(HtmlAttributes.ROLE, HtmlRoleValues.DIALOG.toString(), false);

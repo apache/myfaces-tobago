@@ -24,13 +24,11 @@ import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.CssItem;
 
 import javax.faces.context.FacesContext;
-import java.util.List;
 
 public class ButtonInsideButtonsRenderer extends ButtonRenderer {
 
   @Override
-  protected void addOuterCssItems(final FacesContext facesContext, final AbstractUICommand command,
-                                  final List<CssItem> collected) {
-    collected.add(BootstrapClass.BTN_GROUP);
+  protected CssItem[] getOuterCssItems(final FacesContext facesContext, final AbstractUICommand command) {
+    return new CssItem[]{BootstrapClass.BTN_GROUP};
   }
 }

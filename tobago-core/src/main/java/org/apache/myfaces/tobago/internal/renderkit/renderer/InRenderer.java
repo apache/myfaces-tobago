@@ -48,8 +48,6 @@ import javax.faces.validator.LengthValidator;
 import javax.faces.validator.RegexValidator;
 import javax.faces.validator.Validator;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -139,14 +137,13 @@ public class InRenderer extends MessageLayoutRendererBase {
       writer.writeAttribute(HtmlAttributes.PLACEHOLDER, placeholder, true);
     }
 
-    // TODO: optimize class attribute writing
-    final List<CssItem> classAttributes = new ArrayList<CssItem>();
-    classAttributes.add(getRendererCssClass());
-    classAttributes.addAll(Arrays.asList(
-        getRendererCssClass().createMarkup(ComponentUtils.updateMarkup(input, input.getMarkup()))));
-    classAttributes.add(BootstrapClass.FORM_CONTROL);
-    classAttributes.add(input.getCustomClass());
-    writer.writeClassAttribute(null, null, classAttributes.toArray(new CssItem[classAttributes.size()]));
+    writer.writeClassAttribute(
+        getRendererCssClass(),
+        getRendererCssClass().createMarkup(input.getMarkup()),
+        getRendererCssClass().createDefaultMarkups(input),
+        BootstrapClass.FORM_CONTROL,
+        input.getCustomClass());
+
     writer.writeAttribute(HtmlAttributes.REQUIRED, required);
     HtmlRendererUtils.renderFocus(clientId, input.isFocus(), ComponentUtils.isError(input), facesContext, writer);
     writeAdditionalAttributes(facesContext, writer, input);

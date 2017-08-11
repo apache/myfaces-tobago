@@ -108,8 +108,8 @@ public class TreeSelectRenderer extends RendererBase {
     writer.startElement(HtmlElements.SPAN);
     writer.writeClassAttribute(
         TobagoClass.TREE_SELECT,
-        null,
-        TobagoClass.TREE_SELECT.createMarkup(ComponentUtils.updateMarkup(select, select.getMarkup())));
+        TobagoClass.TREE_SELECT.createMarkup(select.getMarkup()),
+        TobagoClass.TREE_SELECT.createDefaultMarkups(select));
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, select);
 
     if (select.isShowCheckbox()

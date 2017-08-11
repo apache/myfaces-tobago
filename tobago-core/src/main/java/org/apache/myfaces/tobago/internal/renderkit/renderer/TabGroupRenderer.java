@@ -39,7 +39,6 @@ import org.apache.myfaces.tobago.model.SwitchType;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
-import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
@@ -152,8 +151,9 @@ public class TabGroupRenderer extends RendererBase implements ComponentSystemEve
     writer.writeIdAttribute(clientId);
     writer.writeClassAttribute(
         TobagoClass.TAB_GROUP,
-        tabGroup.getCustomClass(),
-        TobagoClass.TAB_GROUP.createMarkup(ComponentUtils.updateMarkup(tabGroup, tabGroup.getMarkup())));
+        TobagoClass.TAB_GROUP.createMarkup(tabGroup.getMarkup()),
+        TobagoClass.TAB_GROUP.createDefaultMarkups(tabGroup),
+        tabGroup.getCustomClass());
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, tabGroup);
     writer.writeStyleAttribute(tabGroup.getStyle());
     writer.writeAttribute(HtmlAttributes.SWITCHTYPE, switchType.name(), false);
@@ -239,7 +239,9 @@ public class TabGroupRenderer extends RendererBase implements ComponentSystemEve
           writer.startElement(HtmlElements.LI);
           writer.writeIdAttribute(tabId);
           writer.writeClassAttribute(
-              Classes.create(tab, markup),
+              TobagoClass.TAB,
+              TobagoClass.TAB.createMarkup(markup),
+              TobagoClass.TAB.createDefaultMarkups(tab),
               BootstrapClass.NAV_ITEM,
               tab.getCustomClass());
           writer.writeStyleAttribute(tab.getStyle());
@@ -320,8 +322,10 @@ public class TabGroupRenderer extends RendererBase implements ComponentSystemEve
           }
 
           writer.startElement(HtmlElements.DIV);
-          writer.writeClassAttribute(TobagoClass.TAB__CONTENT,
-              BootstrapClass.TAB_PANE, index == activeIndex ? BootstrapClass.ACTIVE : null);
+          writer.writeClassAttribute(
+              TobagoClass.TAB__CONTENT,
+              BootstrapClass.TAB_PANE,
+              index == activeIndex ? BootstrapClass.ACTIVE : null);
           writer.writeAttribute(HtmlAttributes.ROLE, HtmlRoleValues.TABPANEL.toString(), false);
           writer.writeIdAttribute(getTabPanelId(facesContext, (UITab) tab));
 

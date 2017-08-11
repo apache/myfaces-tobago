@@ -52,8 +52,9 @@ public class SelectManyShuttleRenderer extends SelectManyRendererBase {
     }
     writer.writeClassAttribute(
         TobagoClass.SELECT_MANY_SHUTTLE,
-        select.getCustomClass(),
-        TobagoClass.SELECT_MANY_SHUTTLE.createMarkup(ComponentUtils.updateMarkup(select, select.getMarkup())));
+        TobagoClass.SELECT_MANY_SHUTTLE.createMarkup(select.getMarkup()),
+        TobagoClass.SELECT_MANY_SHUTTLE.createDefaultMarkups(select),
+        select.getCustomClass());
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, select);
     final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, select);
     if (title != null) {
@@ -90,7 +91,8 @@ public class SelectManyShuttleRenderer extends SelectManyRendererBase {
 
     final Object[] values = select.getSelectedValues();
     final String[] submittedValues = getSubmittedValues(select);
-    HtmlRendererUtils.renderSelectItems(select, items, values, submittedValues, false, writer, facesContext);
+    HtmlRendererUtils.renderSelectItems(select, TobagoClass.SELECT_MANY_SHUTTLE__OPTION, items, values, submittedValues,
+        false, writer, facesContext);
 
     writer.endElement(HtmlElements.SELECT);
     writer.startElement(HtmlElements.DIV);
@@ -126,7 +128,8 @@ public class SelectManyShuttleRenderer extends SelectManyRendererBase {
     writer.writeClassAttribute(TobagoClass.SELECT_MANY_SHUTTLE__SELECTED, BootstrapClass.FORM_CONTROL);
     writer.writeAttribute(HtmlAttributes.MULTIPLE, true);
     writer.writeAttribute(HtmlAttributes.SIZE, size);
-    HtmlRendererUtils.renderSelectItems(select, items, values, submittedValues, true, writer, facesContext);
+    HtmlRendererUtils.renderSelectItems(select, TobagoClass.SELECT_MANY_SHUTTLE__OPTION, items, values, submittedValues,
+        true, writer, facesContext);
 
     writer.endElement(HtmlElements.SELECT);
     writer.startElement(HtmlElements.SELECT);
@@ -137,7 +140,8 @@ public class SelectManyShuttleRenderer extends SelectManyRendererBase {
     writer.writeAttribute(HtmlAttributes.MULTIPLE, true);
     writer.writeAttribute(HtmlAttributes.REQUIRED, select.isRequired());
     writer.writeCommandMapAttribute(JsonUtils.encode(RenderUtils.getBehaviorCommands(facesContext, select)));
-    HtmlRendererUtils.renderSelectItems(select, items, values, submittedValues, writer, facesContext);
+    HtmlRendererUtils.renderSelectItems(select, TobagoClass.SELECT_MANY_SHUTTLE__OPTION, items, values, submittedValues,
+        writer, facesContext);
     writer.endElement(HtmlElements.SELECT);
   }
 
