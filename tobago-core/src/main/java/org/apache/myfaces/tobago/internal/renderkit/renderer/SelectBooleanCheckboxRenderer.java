@@ -122,6 +122,10 @@ public class SelectBooleanCheckboxRenderer extends MessageLayoutRendererBase {
     writer.writeCommandMapAttribute(JsonUtils.encode(RenderUtils.getBehaviorCommands(facesContext, select)));
     writer.endElement(HtmlElements.INPUT);
 
+    writer.startElement(HtmlElements.I);
+    writer.writeClassAttribute(TobagoClass.INPUT_PSEUDO);
+    writer.endElement(HtmlElements.I);
+
     if (itemLabel != null) {
       writer.writeText(itemLabel);
     }

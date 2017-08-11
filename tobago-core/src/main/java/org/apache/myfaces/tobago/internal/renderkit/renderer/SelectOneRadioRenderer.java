@@ -112,6 +112,10 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
       writer.writeCommandMapAttribute(JsonUtils.encode(RenderUtils.getBehaviorCommands(facesContext, select)));
       writer.endElement(HtmlElements.INPUT);
 
+      writer.startElement(HtmlElements.I);
+      writer.writeClassAttribute(TobagoClass.INPUT_PSEUDO);
+      writer.endElement(HtmlElements.I);
+
       if (item instanceof org.apache.myfaces.tobago.model.SelectItem) {
         org.apache.myfaces.tobago.model.SelectItem tobagoItem = (org.apache.myfaces.tobago.model.SelectItem) item;
         final String image = tobagoItem.getImage();

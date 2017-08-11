@@ -32,7 +32,7 @@ $link-color: $brand-primary !default;
 $link-hover-color: darken($link-color, 15%) !default;
 $nav-link-padding: .5em 1em !default;
 $blue: #0275d8 !default;
-$white:  #fff !default;
+$white: #fff !default;
 $gray-dark: #292b2c !default;
 $gray-light: #636c72 !default;
 $gray-lightest: #f7f7f9 !default;
@@ -45,6 +45,7 @@ $dropdown-link-hover-bg: $gray-lightest !default;
 $nav-disabled-link-color: $gray-light !default;
 $btn-primary-color: $white !default;
 $btn-secondary-color: $gray-dark !default;
+$form-check-input-gutter: 1.25rem !default;
 
 /* fix bootstrap ---------------------------------------------------- */
 span.dropdown {
@@ -689,26 +690,91 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* selectBooleanCheckbox ----------------------------------------------- */
-
 .tobago-selectBooleanCheckbox {
-  input {
-    margin-right: 0.3em;
-    margin-bottom: 0.4ex;
-    vertical-align: text-bottom;
-  }
-
   .form-check-label {
     margin-top: 0.5ex;
     vertical-align: text-top;
+    padding-left: 0;
+    height: 24px;
+
+    input {
+      display: none;
+    }
+
+    .tobago-inputPseudo:before {
+      font-family: FontAwesome;
+      content: "\f096";
+      font-size: large;
+      font-style: normal;
+      display: inline-block;
+      vertical-align: middle;
+      width: 20px;
+      transition: all 0.2s;
+    }
+
+    input[type="checkbox"]:checked + .tobago-inputPseudo:before {
+      content: "\f046";
+    }
+
+    input[type="checkbox"]:active:not(:disabled) + .tobago-inputPseudo:before {
+      text-shadow: 0 0 1px black;
+    }
+
+    input[type="checkbox"]:disabled + .tobago-inputPseudo:before {
+      opacity: 0.5;
+    }
+
+    img {
+      margin-right: 0.3em;
+    }
   }
 }
 
-/* selectManyCheckbox ----------------------------------------------------------- */
+.dropdown-menu .tobago-selectBooleanCheckbox .form-check-label {
+  padding-left: $form-check-input-gutter;
+}
 
-.tobago-selectManyCheckbox input {
-  margin-right: 0.3em;
-  margin-bottom: 0.4ex;
-  vertical-align: text-bottom;
+/* selectManyCheckbox ----------------------------------------------------------- */
+.tobago-selectManyCheckbox {
+  .form-check-label {
+    padding-left: 0;
+    height: 24px;
+
+    input {
+      display: none;
+    }
+
+    .tobago-inputPseudo:before {
+      font-family: FontAwesome;
+      content: "\f096";
+      font-size: large;
+      font-style: normal;
+      display: inline-block;
+      vertical-align: middle;
+      width: 20px;
+      transition: all 0.2s;
+    }
+
+    input[type="checkbox"]:checked + .tobago-inputPseudo:before {
+      content: "\f046";
+    }
+
+    input[type="checkbox"]:active:not(:disabled) + .tobago-inputPseudo:before {
+      text-shadow: 0 0 1px black;
+    }
+
+    input[type="checkbox"]:disabled + .tobago-inputPseudo:before {
+      opacity: 0.5;
+    }
+
+    img {
+      margin-right: 0.3em;
+    }
+  }
+}
+
+.dropdown-menu .tobago-selectManyCheckbox .form-check-label {
+  padding-left: $form-check-input-gutter;
 }
 
 .tobago-selectManyCheckbox-inline {
@@ -764,18 +830,46 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* selectOneRadio ---------------------------------------------------------- */
-
 .tobago-selectOneRadio {
-  input {
-    margin-right: 0.3em;
-    margin-bottom: 0.4ex;
-    vertical-align: text-bottom;
-    position: relative;
-  }
+  .form-check-label {
+    padding-left: 0;
+    height: 24px;
 
-  img {
-    margin-right: 0.3em;
+    input {
+      display: none;
+    }
+
+    .tobago-inputPseudo:before {
+      font-family: FontAwesome;
+      content: "\f1db";
+      font-size: large;
+      font-style: normal;
+      display: inline-block;
+      vertical-align: middle;
+      width: 20px;
+      transition: all 0.2s;
+    }
+
+    input[type="radio"]:checked + .tobago-inputPseudo:before {
+      content: "\f111";
+    }
+
+    input[type="radio"]:active:not(:disabled) + .tobago-inputPseudo:before {
+      text-shadow: 0 0 1px black;
+    }
+
+    input[type="radio"]:disabled + .tobago-inputPseudo:before {
+      opacity: 0.5;
+    }
+
+    img {
+      margin-right: 0.3em;
+    }
   }
+}
+
+.dropdown-menu .tobago-selectOneRadio .form-check-label {
+  padding-left: $form-check-input-gutter;
 }
 
 .tobago-selectOneRadio-inline {
@@ -1133,7 +1227,6 @@ fixes missing space, I thinks normal Websites have a " " Space char in the sourc
 
 fixme: there is a problem with the selectManyShuttle with this style.
 */
-
 
 .form-horizontal {
 

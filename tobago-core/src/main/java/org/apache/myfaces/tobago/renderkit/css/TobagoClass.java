@@ -44,6 +44,8 @@ public enum TobagoClass implements CssItem {
 
   // general classes
 
+  INPUT_PSEUDO("tobago-inputPseudo"),
+
   ALIGN_ITEMS__BASELINE("tobago-alignItems-baseline"),
   ALIGN_ITEMS__CENTER("tobago-alignItems-center"),
   ALIGN_ITEMS__FLEX_END("tobago-alignItems-flexEnd"),

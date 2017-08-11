@@ -111,6 +111,10 @@ public class SelectManyCheckboxRenderer extends SelectManyRendererBase {
       writer.writeCommandMapAttribute(JsonUtils.encode(RenderUtils.getBehaviorCommands(facesContext, select)));
       writer.endElement(HtmlElements.INPUT);
 
+      writer.startElement(HtmlElements.I);
+      writer.writeClassAttribute(TobagoClass.INPUT_PSEUDO);
+      writer.endElement(HtmlElements.I);
+
       final String label = item.getLabel();
       if (label != null) {
         writer.writeText(label);
