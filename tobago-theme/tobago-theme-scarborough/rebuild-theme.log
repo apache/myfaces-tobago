@@ -1,4 +1,4 @@
-Build date: 2017-08-03 14:32:18
+Build date: 2017-08-11 17:11:51
 [INFO] Scanning for projects...
 [INFO] 
 [INFO] ------------------------------------------------------------------------
@@ -94,7 +94,7 @@ Build date: 2017-08-03 14:32:18
 [INFO] Verified checksum of previously downloaded file
 [INFO] Extracting zip contents
 [INFO] Removing __CURRENT__/tobago-theme-scarborough/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom
-[INFO] Copying extracted folder /var/folders/yp/1vrxjnrs20798ydt_yl8wrpr0000gp/T/phantomjs/phantomjs-2.1.1-macosx.zip-extract-1501763640341/phantomjs-2.1.1-macosx -> __CURRENT__/tobago-theme-scarborough/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom
+[INFO] Copying extracted folder /var/folders/yp/1vrxjnrs20798ydt_yl8wrpr0000gp/T/phantomjs/phantomjs-2.1.1-macosx.zip-extract-1502464396425/phantomjs-2.1.1-macosx -> __CURRENT__/tobago-theme-scarborough/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom
 [INFO] Writing location.js file
 [INFO] Done. Phantomjs binary available at __CURRENT__/tobago-theme-scarborough/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom/bin/phantomjs
 [INFO] 
@@ -112,8 +112,8 @@ Build date: 2017-08-03 14:32:18
 [INFO] bootstrap@4.0.0-alpha.6 __CURRENT__/tobago-theme-scarborough/target/bootstrap
 [INFO] ├─┬ autoprefixer@6.7.7 
 [INFO] │ ├─┬ browserslist@1.7.7 
-[INFO] │ │ └── electron-to-chromium@1.3.16 
-[INFO] │ ├── caniuse-db@1.0.30000709 
+[INFO] │ │ └── electron-to-chromium@1.3.18 
+[INFO] │ ├── caniuse-db@1.0.30000715 
 [INFO] │ ├── normalize-range@0.1.2 
 [INFO] │ ├── num2fraction@1.2.2 
 [INFO] │ ├─┬ postcss@5.2.17 
@@ -127,7 +127,7 @@ Build date: 2017-08-03 14:32:18
 [INFO] │ ├─┬ babel-traverse@6.25.0 
 [INFO] │ │ ├── babel-messages@6.23.0 
 [INFO] │ │ ├─┬ babel-runtime@6.25.0 
-[INFO] │ │ │ ├── core-js@2.4.1 
+[INFO] │ │ │ ├── core-js@2.5.0 
 [INFO] │ │ │ └── regenerator-runtime@0.10.5 
 [INFO] │ │ └─┬ invariant@2.2.2 
 [INFO] │ │   └── loose-envify@1.3.1 
@@ -203,14 +203,14 @@ Build date: 2017-08-03 14:32:18
 [INFO] │ ├─┬ escope@3.6.0 
 [INFO] │ │ ├─┬ es6-map@0.1.5 
 [INFO] │ │ │ ├── d@1.0.0 
-[INFO] │ │ │ ├── es5-ext@0.10.26 
+[INFO] │ │ │ ├── es5-ext@0.10.27 
 [INFO] │ │ │ ├── es6-iterator@2.0.1 
 [INFO] │ │ │ ├── es6-set@0.1.5 
 [INFO] │ │ │ ├── es6-symbol@3.1.1 
 [INFO] │ │ │ └── event-emitter@0.3.5 
 [INFO] │ │ ├── es6-weak-map@2.0.2 
 [INFO] │ │ └── esrecurse@4.2.0 
-[INFO] │ ├─┬ espree@3.4.3 
+[INFO] │ ├─┬ espree@3.5.0 
 [INFO] │ │ ├── acorn@5.1.1 
 [INFO] │ │ └─┬ acorn-jsx@3.0.1 
 [INFO] │ │   └── acorn@3.3.0 
@@ -471,10 +471,8 @@ Build date: 2017-08-03 14:32:18
 [INFO] ├─┬ grunt-contrib-concat@1.0.1 
 [INFO] │ └── source-map@0.5.6 
 [INFO] ├─┬ grunt-contrib-connect@1.0.2 
-[INFO] │ ├─┬ connect@3.6.2 
-[INFO] │ │ ├── debug@2.6.7 
-[INFO] │ │ ├─┬ finalhandler@1.0.3 
-[INFO] │ │ │ ├── debug@2.6.7 
+[INFO] │ ├─┬ connect@3.6.3 
+[INFO] │ │ ├─┬ finalhandler@1.0.4 
 [INFO] │ │ │ ├── statuses@1.3.1 
 [INFO] │ │ │ └── unpipe@1.0.0 
 [INFO] │ │ ├── parseurl@1.3.1 
@@ -496,15 +494,13 @@ Build date: 2017-08-03 14:32:18
 [INFO] │ │ │ └── negotiator@0.6.1 
 [INFO] │ │ ├── batch@0.6.1 
 [INFO] │ │ ├── escape-html@1.0.3 
-[INFO] │ │ ├─┬ http-errors@1.6.1 
-[INFO] │ │ │ ├── depd@1.1.0 
+[INFO] │ │ ├─┬ http-errors@1.6.2 
 [INFO] │ │ │ └── setprototypeof@1.0.3 
 [INFO] │ │ └─┬ mime-types@2.1.16 
 [INFO] │ │   └── mime-db@1.29.0 
-[INFO] │ └─┬ serve-static@1.12.3 
+[INFO] │ └─┬ serve-static@1.12.4 
 [INFO] │   ├── encodeurl@1.0.1 
-[INFO] │   └─┬ send@0.15.3 
-[INFO] │     ├── debug@2.6.7 
+[INFO] │   └─┬ send@0.15.4 
 [INFO] │     ├── destroy@1.0.4 
 [INFO] │     ├── etag@1.8.0 
 [INFO] │     ├── fresh@0.5.0 
@@ -966,14 +962,14 @@ Build date: 2017-08-03 14:32:18
 [INFO] > node-sass --output-style expanded --source-map true --precision 6 scss/bootstrap.scss dist/css/bootstrap.css && node-sass --output-style expanded --source-map true --precision 6 scss/bootstrap-grid.scss dist/css/bootstrap-grid.css && node-sass --output-style expanded --source-map true --precision 6 scss/bootstrap-reboot.scss dist/css/bootstrap-reboot.css
 [INFO] 
 [INFO] >> Rendering Complete, saving .css file...
-[INFO] >> Wrote CSS to __CURRENT__/tobago-theme-scarborough/target/bootstrap/dist/css/bootstrap.css
 [INFO] >> Wrote Source Map to __CURRENT__/tobago-theme-scarborough/target/bootstrap/dist/css/bootstrap.css.map
+[INFO] >> Wrote CSS to __CURRENT__/tobago-theme-scarborough/target/bootstrap/dist/css/bootstrap.css
 [INFO] >> Rendering Complete, saving .css file...
 [INFO] >> Wrote CSS to __CURRENT__/tobago-theme-scarborough/target/bootstrap/dist/css/bootstrap-grid.css
 [INFO] >> Wrote Source Map to __CURRENT__/tobago-theme-scarborough/target/bootstrap/dist/css/bootstrap-grid.css.map
 [INFO] >> Rendering Complete, saving .css file...
-[INFO] >> Wrote CSS to __CURRENT__/tobago-theme-scarborough/target/bootstrap/dist/css/bootstrap-reboot.css
 [INFO] >> Wrote Source Map to __CURRENT__/tobago-theme-scarborough/target/bootstrap/dist/css/bootstrap-reboot.css.map
+[INFO] >> Wrote CSS to __CURRENT__/tobago-theme-scarborough/target/bootstrap/dist/css/bootstrap-reboot.css
 [INFO] 
 [INFO] Running "exec:sass-docs" (exec) task
 [INFO] 
@@ -981,8 +977,8 @@ Build date: 2017-08-03 14:32:18
 [INFO] > node-sass --output-style expanded --source-map true --precision 6 docs/assets/scss/docs.scss docs/assets/css/docs.min.css
 [INFO] 
 [INFO] >> Rendering Complete, saving .css file...
-[INFO] >> Wrote CSS to __CURRENT__/tobago-theme-scarborough/target/bootstrap/docs/assets/css/docs.min.css
 [INFO] >> Wrote Source Map to __CURRENT__/tobago-theme-scarborough/target/bootstrap/docs/assets/css/docs.min.css.map
+[INFO] >> Wrote CSS to __CURRENT__/tobago-theme-scarborough/target/bootstrap/docs/assets/css/docs.min.css
 [INFO] 
 [INFO] Running "exec:postcss" (exec) task
 [INFO] 
@@ -1019,16 +1015,16 @@ Build date: 2017-08-03 14:32:18
 [INFO] Done.
 [INFO] 
 [INFO] 
-[INFO] Execution Time (2017-08-03 14:34:04 UTC+2)
-[INFO] exec:sass             1.8s  ▇▇▇▇▇▇▇ 17%
-[INFO] exec:sass-docs       843ms  ▇▇▇▇ 8%
+[INFO] Execution Time (2017-08-11 17:13:19 UTC+2)
+[INFO] exec:sass             1.7s  ▇▇▇▇▇▇▇▇ 17%
+[INFO] exec:sass-docs       810ms  ▇▇▇▇ 8%
 [INFO] exec:postcss          1.6s  ▇▇▇▇▇▇▇ 16%
-[INFO] exec:clean-css        1.7s  ▇▇▇▇▇▇▇ 16%
-[INFO] exec:clean-css-docs  815ms  ▇▇▇▇ 8%
-[INFO] babel:dev             1.5s  ▇▇▇▇▇▇ 14%
-[INFO] babel:dist           731ms  ▇▇▇ 7%
-[INFO] exec:uglify           1.4s  ▇▇▇▇▇▇ 14%
-[INFO] Total 10.4s
+[INFO] exec:clean-css        1.6s  ▇▇▇▇▇▇▇ 16%
+[INFO] exec:clean-css-docs  767ms  ▇▇▇▇ 8%
+[INFO] babel:dev             1.3s  ▇▇▇▇▇▇ 13%
+[INFO] babel:dist           783ms  ▇▇▇▇ 8%
+[INFO] exec:uglify           1.3s  ▇▇▇▇▇▇ 13%
+[INFO] Total 10s
 [INFO] 
 [INFO] 
 [INFO] --- maven-resources-plugin:2.7:resources (default-resources) @ tobago-theme-scarborough ---
@@ -1041,7 +1037,7 @@ Build date: 2017-08-03 14:32:18
 [INFO] Using 'UTF-8' encoding to copy filtered resources.
 [INFO] Copying 6 resources
 [INFO] 
-[INFO] --- maven-compiler-plugin:3.5.1:compile (default-compile) @ tobago-theme-scarborough ---
+[INFO] --- maven-compiler-plugin:3.6.2:compile (default-compile) @ tobago-theme-scarborough ---
 [INFO] No sources to compile
 [INFO] 
 [INFO] --- maven-antrun-plugin:1.8:run (set-version) @ tobago-theme-scarborough ---
@@ -1055,7 +1051,7 @@ main:
 [INFO] skip non existing resourceDirectory __CURRENT__/tobago-theme-scarborough/src/test/resources
 [INFO] Copying 3 resources
 [INFO] 
-[INFO] --- maven-compiler-plugin:3.5.1:testCompile (default-testCompile) @ tobago-theme-scarborough ---
+[INFO] --- maven-compiler-plugin:3.6.2:testCompile (default-testCompile) @ tobago-theme-scarborough ---
 [INFO] No sources to compile
 [INFO] 
 [INFO] --- maven-surefire-plugin:2.19.1:test (default-test) @ tobago-theme-scarborough ---
@@ -1071,7 +1067,7 @@ main:
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
-[INFO] Total time: 01:56 min
-[INFO] Finished at: 2017-08-03T14:34:15+02:00
-[INFO] Final Memory: 36M/522M
+[INFO] Total time: 01:37 min
+[INFO] Finished at: 2017-08-11T17:13:31+02:00
+[INFO] Final Memory: 36M/527M
 [INFO] ------------------------------------------------------------------------

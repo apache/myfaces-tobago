@@ -10013,22 +10013,91 @@ h1 > .fa:first-child, h2 > .fa:first-child, h3 > .fa:first-child, h4 > .fa:first
 }
 
 /* selectBooleanCheckbox ----------------------------------------------- */
-.tobago-selectBooleanCheckbox input {
-  margin-right: 0.3em;
-  margin-bottom: 0.4ex;
-  vertical-align: text-bottom;
-}
-
 .tobago-selectBooleanCheckbox .form-check-label {
   margin-top: 0.5ex;
   vertical-align: text-top;
+  padding-left: 0;
+  height: 24px;
+}
+
+.tobago-selectBooleanCheckbox .form-check-label input {
+  display: none;
+}
+
+.tobago-selectBooleanCheckbox .form-check-label .tobago-inputPseudo:before {
+  font-family: FontAwesome;
+  content: "\f096";
+  font-size: large;
+  font-style: normal;
+  display: inline-block;
+  vertical-align: middle;
+  width: 20px;
+  -webkit-transition: all 0.2s;
+  -o-transition: all 0.2s;
+  transition: all 0.2s;
+}
+
+.tobago-selectBooleanCheckbox .form-check-label input[type="checkbox"]:checked + .tobago-inputPseudo:before {
+  content: "\f046";
+}
+
+.tobago-selectBooleanCheckbox .form-check-label input[type="checkbox"]:active:not(:disabled) + .tobago-inputPseudo:before {
+  text-shadow: 0 0 1px black;
+}
+
+.tobago-selectBooleanCheckbox .form-check-label input[type="checkbox"]:disabled + .tobago-inputPseudo:before {
+  opacity: 0.5;
+}
+
+.tobago-selectBooleanCheckbox .form-check-label img {
+  margin-right: 0.3em;
+}
+
+.dropdown-menu .tobago-selectBooleanCheckbox .form-check-label {
+  padding-left: 1.25rem;
 }
 
 /* selectManyCheckbox ----------------------------------------------------------- */
-.tobago-selectManyCheckbox input {
+.tobago-selectManyCheckbox .form-check-label {
+  padding-left: 0;
+  height: 24px;
+}
+
+.tobago-selectManyCheckbox .form-check-label input {
+  display: none;
+}
+
+.tobago-selectManyCheckbox .form-check-label .tobago-inputPseudo:before {
+  font-family: FontAwesome;
+  content: "\f096";
+  font-size: large;
+  font-style: normal;
+  display: inline-block;
+  vertical-align: middle;
+  width: 20px;
+  -webkit-transition: all 0.2s;
+  -o-transition: all 0.2s;
+  transition: all 0.2s;
+}
+
+.tobago-selectManyCheckbox .form-check-label input[type="checkbox"]:checked + .tobago-inputPseudo:before {
+  content: "\f046";
+}
+
+.tobago-selectManyCheckbox .form-check-label input[type="checkbox"]:active:not(:disabled) + .tobago-inputPseudo:before {
+  text-shadow: 0 0 1px black;
+}
+
+.tobago-selectManyCheckbox .form-check-label input[type="checkbox"]:disabled + .tobago-inputPseudo:before {
+  opacity: 0.5;
+}
+
+.tobago-selectManyCheckbox .form-check-label img {
   margin-right: 0.3em;
-  margin-bottom: 0.4ex;
-  vertical-align: text-bottom;
+}
+
+.dropdown-menu .tobago-selectManyCheckbox .form-check-label {
+  padding-left: 1.25rem;
 }
 
 .tobago-selectManyCheckbox-inline {
@@ -10087,15 +10156,46 @@ h1 > .fa:first-child, h2 > .fa:first-child, h3 > .fa:first-child, h4 > .fa:first
 }
 
 /* selectOneRadio ---------------------------------------------------------- */
-.tobago-selectOneRadio input {
-  margin-right: 0.3em;
-  margin-bottom: 0.4ex;
-  vertical-align: text-bottom;
-  position: relative;
+.tobago-selectOneRadio .form-check-label {
+  padding-left: 0;
+  height: 24px;
 }
 
-.tobago-selectOneRadio img {
+.tobago-selectOneRadio .form-check-label input {
+  display: none;
+}
+
+.tobago-selectOneRadio .form-check-label .tobago-inputPseudo:before {
+  font-family: FontAwesome;
+  content: "\f1db";
+  font-size: large;
+  font-style: normal;
+  display: inline-block;
+  vertical-align: middle;
+  width: 20px;
+  -webkit-transition: all 0.2s;
+  -o-transition: all 0.2s;
+  transition: all 0.2s;
+}
+
+.tobago-selectOneRadio .form-check-label input[type="radio"]:checked + .tobago-inputPseudo:before {
+  content: "\f111";
+}
+
+.tobago-selectOneRadio .form-check-label input[type="radio"]:active:not(:disabled) + .tobago-inputPseudo:before {
+  text-shadow: 0 0 1px black;
+}
+
+.tobago-selectOneRadio .form-check-label input[type="radio"]:disabled + .tobago-inputPseudo:before {
+  opacity: 0.5;
+}
+
+.tobago-selectOneRadio .form-check-label img {
   margin-right: 0.3em;
+}
+
+.dropdown-menu .tobago-selectOneRadio .form-check-label {
+  padding-left: 1.25rem;
 }
 
 .tobago-selectOneRadio-inline {
