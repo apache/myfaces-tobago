@@ -437,9 +437,9 @@
       </dependency>
       <!-- only needed to build Tobago and for some examples, but not for runtime -->
       <dependency>
-        <groupId>commons-lang</groupId>
-        <artifactId>commons-lang</artifactId>
-        <version>2.6</version>
+        <groupId>org.apache.commons</groupId>
+        <artifactId>commons-lang3</artifactId>
+        <version>3.6</version>
       </dependency>
       <dependency>
         <groupId>commons-beanutils</groupId>

@@ -19,7 +19,7 @@
 
 package org.apache.myfaces.tobago.example.addressbook.web;
 
-import org.apache.commons.lang.math.RandomUtils;
+import org.apache.commons.lang3.math.RandomUtils;
 import org.apache.myfaces.tobago.example.addressbook.Address;
 
 import java.util.Calendar;

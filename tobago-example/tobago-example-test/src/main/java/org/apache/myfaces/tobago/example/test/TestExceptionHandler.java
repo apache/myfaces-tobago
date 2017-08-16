@@ -19,7 +19,7 @@
 
 package org.apache.myfaces.tobago.example.test;
 
-import org.apache.commons.lang.exception.ExceptionUtils;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 
 import javax.faces.FacesException;
 import javax.faces.application.FacesMessage;

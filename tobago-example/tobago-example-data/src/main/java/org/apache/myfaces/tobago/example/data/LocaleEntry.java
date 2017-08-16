@@ -19,7 +19,7 @@
 
 package org.apache.myfaces.tobago.example.data;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.Locale;
 
