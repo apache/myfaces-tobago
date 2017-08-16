@@ -19,8 +19,8 @@
 
 package org.apache.myfaces.tobago.internal.util;
 
-import org.apache.commons.collections.list.SetUniqueList;
-import org.apache.commons.collections.set.ListOrderedSet;
+import org.apache.commons.collections4.list.SetUniqueList;
+import org.apache.commons.collections4.set.ListOrderedSet;
 
 import javax.faces.context.FacesContext;
 import java.util.ArrayList;
@@ -66,7 +66,7 @@ public final class FacesContextUtils {
   public static void addScriptFile(final FacesContext context, final String file) {
     List<String> list = (List<String>) context.getAttributes().get(TOBAGO_SCRIPT_FILES);
     if (list == null) {
-      list = SetUniqueList.decorate(new ArrayList());
+      list = SetUniqueList.setUniqueList(new ArrayList());
       context.getAttributes().put(TOBAGO_SCRIPT_FILES, list);
     }
     list.add(file);

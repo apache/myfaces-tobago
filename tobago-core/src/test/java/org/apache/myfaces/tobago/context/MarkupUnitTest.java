@@ -19,7 +19,7 @@
 
 package org.apache.myfaces.tobago.context;
 
-import org.apache.commons.collections.IteratorUtils;
+import org.apache.commons.collections4.IteratorUtils;
 import org.junit.Assert;
 import org.junit.Test;
 

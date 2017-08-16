@@ -19,7 +19,7 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
-import org.apache.commons.collections.iterators.SingletonIterator;
+import org.apache.commons.collections4.iterators.SingletonIterator;
 import org.apache.myfaces.tobago.component.Visual;
 import org.apache.myfaces.tobago.layout.OrderBy;
 

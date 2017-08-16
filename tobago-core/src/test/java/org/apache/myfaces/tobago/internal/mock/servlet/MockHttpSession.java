@@ -19,7 +19,7 @@
 
 package org.apache.myfaces.tobago.internal.mock.servlet;
 
-import org.apache.commons.collections.iterators.IteratorEnumeration;
+import org.apache.commons.collections4.iterators.IteratorEnumeration;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
