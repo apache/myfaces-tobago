@@ -156,7 +156,7 @@ mvn site:stage -DstagingDirectory=/Volumes/tobago-site/tobago-publish
     To upload it into the Maven repo follow these steps:
 
 +------------------------+
-VERSION=3.0.4
+VERSION=3.0.5
 svn co https://svn.apache.org/repos/asf/myfaces/tobago/tags/tobago-${VERSION}
 cd tobago-${VERSION}/tobago-core
 mvn clean install -Papache-release

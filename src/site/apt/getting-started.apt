@@ -49,9 +49,9 @@ Checking Out
 
 Building
 
-  You need {{{http://maven.apache.org/download.html}Maven 2}} (at least 2.2.1) Java 5 to build Tobago 1.0.x.\
-  You need {{{http://maven.apache.org/download.html}Maven 2}} (at least 3.0.4) Java 6 or 7 to build Tobago 1.5.x.
-  You need {{{http://maven.apache.org/download.html}Maven 2}} (at least 3.0.4) Java 8 to build Tobago 2.0.x and
+  You need {{{http://maven.apache.org/download.html}Maven}} (at least 2.2.1) Java 5 to build Tobago 1.0.x.\
+  You need {{{http://maven.apache.org/download.html}Maven}} (at least 3.0.4) Java 6 or 7 to build Tobago 1.5.x.
+  You need {{{http://maven.apache.org/download.html}Maven}} (at least 3.0.4) Java 8 to build Tobago 2.0.x and
   Tobago 3.0.x.
 
   In the
