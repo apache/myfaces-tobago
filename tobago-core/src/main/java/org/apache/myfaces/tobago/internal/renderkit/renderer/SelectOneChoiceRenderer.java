@@ -83,4 +83,10 @@ public class SelectOneChoiceRenderer extends SelectOneRendererBase {
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
     writer.endElement(HtmlElements.SELECT);
   }
+
+  @Override
+  protected String getFieldId(FacesContext facesContext, UIComponent component) {
+    final UISelectOneChoice select = (UISelectOneChoice) component;
+    return select.getFieldId(facesContext);
+  }
 }

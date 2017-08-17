@@ -206,4 +206,10 @@ public class FileRenderer extends MessageLayoutRendererBase implements Component
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
     writer.endElement(HtmlElements.DIV);
   }
+
+  @Override
+  protected String getFieldId(FacesContext facesContext, UIComponent component) {
+    final AbstractUIFile file = (AbstractUIFile) component;
+    return file.getFieldId(facesContext);
+  }
 }

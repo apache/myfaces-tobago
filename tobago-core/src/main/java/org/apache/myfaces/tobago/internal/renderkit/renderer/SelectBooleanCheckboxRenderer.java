@@ -145,4 +145,10 @@ public class SelectBooleanCheckboxRenderer extends MessageLayoutRendererBase {
   protected CssItem[] getCssItems(final FacesContext facesContext, final AbstractUISelectBooleanCheckbox select) {
     return null;
   }
+
+  @Override
+  protected String getFieldId(FacesContext facesContext, UIComponent component) {
+    final AbstractUISelectBooleanCheckbox select = (AbstractUISelectBooleanCheckbox) component;
+    return select.getFieldId(facesContext);
+  }
 }

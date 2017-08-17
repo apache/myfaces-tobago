@@ -167,16 +167,16 @@ public abstract class LabelLayoutRendererBase extends DecodingInputRendererBase 
         break;
       case segmentLeft:
         if (LabelLayout.getSegment(facesContext) == LabelLayout.segmentLeft) {
-          encodeLabel(component, writer, labelLayout);
+          encodeLabel(facesContext, component, writer, labelLayout);
         }
         break;
       case segmentRight:
         if (LabelLayout.getSegment(facesContext) == LabelLayout.segmentRight) {
-          encodeLabel(component, writer, labelLayout);
+          encodeLabel(facesContext, component, writer, labelLayout);
         }
         break;
       default:
-        encodeLabel(component, writer, labelLayout);
+        encodeLabel(facesContext, component, writer, labelLayout);
     }
   }
 
@@ -193,7 +193,7 @@ public abstract class LabelLayoutRendererBase extends DecodingInputRendererBase 
         break;
       case flexRight:
       case flowRight:
-        encodeLabel(component, writer, labelLayout);
+        encodeLabel(facesContext, component, writer, labelLayout);
         break;
       default:
         // nothing to do
@@ -202,13 +202,14 @@ public abstract class LabelLayoutRendererBase extends DecodingInputRendererBase 
     writer.endElement(HtmlElements.DIV);
   }
 
-  protected void encodeLabel(UIComponent component, TobagoResponseWriter writer, LabelLayout labelLayout)
+  protected void encodeLabel(final FacesContext facesContext, final UIComponent component,
+      final TobagoResponseWriter writer, final LabelLayout labelLayout)
       throws IOException {
     // TBD: maybe use an interface for getLabel()
     final String label = ComponentUtils.getStringAttribute(component, Attributes.label);
     if (StringUtils.isNotBlank(label)) {
       writer.startElement(HtmlElements.LABEL);
-      writer.writeAttribute(HtmlAttributes.FOR, component.getClientId(), false);
+      writer.writeAttribute(HtmlAttributes.FOR, getFieldId(facesContext, component), false);
       writer.writeClassAttribute(TobagoClass.LABEL, BootstrapClass.COL_FORM_LABEL);
       if (component instanceof SupportsAccessKey) {
         LabelWithAccessKey labelWithAccessKey = new LabelWithAccessKey((SupportsAccessKey) component);
@@ -226,4 +227,5 @@ public abstract class LabelLayoutRendererBase extends DecodingInputRendererBase 
         : LabelLayout.skip;
   }
 
+  protected abstract String getFieldId(final FacesContext facesContext, final UIComponent component);
 }

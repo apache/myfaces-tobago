@@ -210,4 +210,10 @@ public class InRenderer extends MessageLayoutRendererBase {
       final FacesContext facesContext, final TobagoResponseWriter writer, final AbstractUIInput input)
       throws IOException {
   }
+
+  @Override
+  protected String getFieldId(final FacesContext facesContext, final UIComponent component) {
+    final AbstractUIInput input = (AbstractUIInput) component;
+    return input.getFieldId(facesContext);
+  }
 }

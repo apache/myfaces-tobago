@@ -162,4 +162,9 @@ public class SelectManyShuttleRenderer extends SelectManyRendererBase {
     writer.writeIcon(icon);
     writer.endElement(HtmlElements.BUTTON);
   }
+
+  @Override
+  protected String getFieldId(FacesContext facesContext, UIComponent component) {
+    return component.getClientId(facesContext) + ComponentUtils.SUB_SEPARATOR + "unselected";
+  }
 }

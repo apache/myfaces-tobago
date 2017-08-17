@@ -104,4 +104,9 @@ public class OutRenderer extends MessageLayoutRendererBase {
       writer.endElement(HtmlElements.SPAN);
     }
   }
+
+  @Override
+  protected String getFieldId(FacesContext facesContext, UIComponent component) {
+    return component.getClientId(facesContext);
+  }
 }

@@ -91,4 +91,10 @@ public class SelectManyListboxRenderer extends SelectManyRendererBase {
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
     writer.endElement(HtmlElements.SELECT);
   }
+
+  @Override
+  protected String getFieldId(FacesContext facesContext, UIComponent component) {
+    final UISelectManyListbox select = (UISelectManyListbox) component;
+    return select.getFieldId(facesContext);
+  }
 }

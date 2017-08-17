@@ -152,4 +152,9 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
   protected CssItem[] getCssItems(final FacesContext facesContext, final AbstractUISelectOneRadio select) {
     return null;
   }
+
+  @Override
+  protected String getFieldId(FacesContext facesContext, UIComponent component) {
+    return component.getClientId(facesContext);
+  }
 }

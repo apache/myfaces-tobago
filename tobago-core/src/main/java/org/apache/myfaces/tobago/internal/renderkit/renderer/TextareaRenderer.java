@@ -165,4 +165,10 @@ public class TextareaRenderer extends MessageLayoutRendererBase {
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
     writer.endElement(HtmlElements.TEXTAREA);
   }
+
+  @Override
+  protected String getFieldId(FacesContext facesContext, UIComponent component) {
+    final UITextarea input = (UITextarea) component;
+    return input.getFieldId(facesContext);
+  }
 }

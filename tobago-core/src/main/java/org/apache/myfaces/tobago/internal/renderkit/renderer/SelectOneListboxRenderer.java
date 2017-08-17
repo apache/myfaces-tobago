@@ -87,4 +87,10 @@ public class SelectOneListboxRenderer extends SelectOneRendererBase {
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
     writer.endElement(HtmlElements.SELECT);
   }
+
+  @Override
+  protected String getFieldId(FacesContext facesContext, UIComponent component) {
+    final UISelectOneListbox select = (UISelectOneListbox) component;
+    return select.getFieldId(facesContext);
+  }
 }

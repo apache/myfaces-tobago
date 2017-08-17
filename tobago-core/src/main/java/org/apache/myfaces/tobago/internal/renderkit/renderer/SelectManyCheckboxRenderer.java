@@ -141,4 +141,9 @@ public class SelectManyCheckboxRenderer extends SelectManyRendererBase {
   protected CssItem[] getCssItems(final FacesContext facesContext, final AbstractUISelectManyCheckbox select) {
     return null;
   }
+
+  @Override
+  protected String getFieldId(FacesContext facesContext, UIComponent component) {
+    return component.getClientId(facesContext);
+  }
 }
