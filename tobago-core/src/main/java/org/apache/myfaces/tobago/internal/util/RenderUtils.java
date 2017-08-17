@@ -59,28 +59,36 @@ public final class RenderUtils {
     // to prevent instantiation
   }
 
+  /**
+   * @deprecated since 4.0.0. Use {@link ArrayUtils#contains(Object[], Object)}
+   */
+  @Deprecated
   public static boolean contains(final Object[] list, final Object value) {
-    if (list == null) {
-      return false;
-    }
-    for (final Object aList : list) {
-      if (aList != null && aList.equals(value)) {
-        return true;
-      }
-    }
-    return false;
+    return ArrayUtils.contains(list, value);
   }
 
+  /**
+   * @deprecated since 4.0.0. Use {@link UIComponent#encodeChildren(FacesContext)}
+   */
+  @Deprecated
   public static void encodeChildren(final FacesContext facesContext, final UIComponent panel) throws IOException {
     for (final UIComponent child : panel.getChildren()) {
-      encode(facesContext, child);
+      child.encodeAll(facesContext);
     }
   }
 
+  /**
+   * @deprecated since 4.0.0. Use {@link UIComponent#encodeAll(FacesContext)}
+   */
+  @Deprecated
   public static void encode(final FacesContext facesContext, final UIComponent component) throws IOException {
     encode(facesContext, component, null);
   }
 
+  /**
+   * @deprecated since 4.0.0. Use {@link UIComponent#encodeAll(FacesContext)}
+   */
+  @Deprecated
   public static void encode(
       final FacesContext facesContext, final UIComponent component,
       final List<? extends Class<? extends UIComponent>> only)
@@ -106,6 +114,10 @@ public final class RenderUtils {
     }
   }
 
+  /**
+   * @deprecated since 4.0.0
+   */
+  @Deprecated
   private static boolean matchFilter(
       final UIComponent component, final List<? extends Class<? extends UIComponent>> only) {
     for (final Class<? extends UIComponent> clazz : only) {

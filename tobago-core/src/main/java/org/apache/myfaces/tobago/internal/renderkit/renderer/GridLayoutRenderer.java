@@ -25,7 +25,6 @@ import org.apache.myfaces.tobago.internal.layout.Cell;
 import org.apache.myfaces.tobago.internal.layout.Grid;
 import org.apache.myfaces.tobago.internal.layout.OriginCell;
 import org.apache.myfaces.tobago.internal.util.JsonUtils;
-import org.apache.myfaces.tobago.internal.util.RenderUtils;
 import org.apache.myfaces.tobago.layout.LayoutToken;
 import org.apache.myfaces.tobago.layout.LayoutTokens;
 import org.apache.myfaces.tobago.layout.Measure;
@@ -137,7 +136,7 @@ public class GridLayoutRenderer extends RendererBase {
           if (builder.length() > 2) { // empty is not need to render
             ComponentUtils.putDataAttribute(element, "tobago-layout", builder.toString());
           }
-          RenderUtils.encode(facesContext, element);
+          element.encodeAll(facesContext);
 
           writer.endElement(HtmlElements.TD);
         }

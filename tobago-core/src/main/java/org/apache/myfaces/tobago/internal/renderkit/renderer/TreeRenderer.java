@@ -127,7 +127,7 @@ public class TreeRenderer extends RendererBase {
       }
 
       for (final UIComponent child : tree.getChildren()) {
-        RenderUtils.encode(facesContext, child);
+        child.encodeAll(facesContext);
       }
     }
     tree.setRowIndex(-1);

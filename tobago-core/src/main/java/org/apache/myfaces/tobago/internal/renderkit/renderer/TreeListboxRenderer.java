@@ -26,7 +26,6 @@ import org.apache.myfaces.tobago.component.UITreeSelect;
 import org.apache.myfaces.tobago.internal.component.AbstractUITree;
 import org.apache.myfaces.tobago.internal.component.AbstractUITreeListbox;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
-import org.apache.myfaces.tobago.internal.util.RenderUtils;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
@@ -189,7 +188,7 @@ public class TreeListboxRenderer extends RendererBase {
       }
 
       for (final UIComponent child : tree.getChildren()) {
-        RenderUtils.encode(facesContext, child);
+        child.encodeAll(facesContext);
       }
 
       if (tree.isFolder()) {

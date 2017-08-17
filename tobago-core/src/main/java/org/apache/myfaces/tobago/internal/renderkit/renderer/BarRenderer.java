@@ -26,7 +26,6 @@ import org.apache.myfaces.tobago.internal.component.AbstractUIForm;
 import org.apache.myfaces.tobago.internal.component.AbstractUILinks;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.internal.util.JQueryUtils;
-import org.apache.myfaces.tobago.internal.util.RenderUtils;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.Icons;
@@ -83,9 +82,7 @@ public class BarRenderer extends RendererBase {
   public void encodeChildren(FacesContext facesContext, UIComponent component) throws IOException {
     setRenderTypes(component);
     for (UIComponent child : component.getChildren()) {
-      if (child.isRendered()) {
-        child.encodeAll(facesContext);
-      }
+      child.encodeAll(facesContext);
     }
   }
 
@@ -112,7 +109,7 @@ public class BarRenderer extends RendererBase {
       writer.writeClassAttribute(BootstrapClass.MY_LG_0, BootstrapClass.ML_AUTO);
 
       setRenderTypes(after);
-      RenderUtils.encode(facesContext, after);
+      after.encodeAll(facesContext);
 
       writer.endElement(HtmlElements.DIV);
     }
@@ -144,7 +141,7 @@ public class BarRenderer extends RendererBase {
     if (brand != null) {
       writer.startElement(HtmlElements.SPAN);
       writer.writeClassAttribute(BootstrapClass.NAVBAR_BRAND);
-      RenderUtils.encode(facesContext, brand);
+      brand.encodeAll(facesContext);
       writer.endElement(HtmlElements.SPAN);
     }
   }

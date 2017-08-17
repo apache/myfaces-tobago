@@ -22,7 +22,6 @@ package org.apache.myfaces.tobago.internal.renderkit.renderer;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.internal.component.AbstractUISection;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
-import org.apache.myfaces.tobago.internal.util.RenderUtils;
 import org.apache.myfaces.tobago.model.CollapseMode;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
@@ -89,7 +88,7 @@ public class SectionRenderer extends PanelRendererBase {
 
     final UIComponent bar = ComponentUtils.getFacet(section, Facets.bar);
     if (bar != null) {
-      RenderUtils.encode(facesContext, bar);
+      bar.encodeAll(facesContext);
     }
 
     writer.endElement(HtmlElements.DIV);

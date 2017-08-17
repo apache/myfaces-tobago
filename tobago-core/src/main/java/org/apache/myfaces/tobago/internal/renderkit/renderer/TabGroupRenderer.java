@@ -296,7 +296,7 @@ public class TabGroupRenderer extends RendererBase implements ComponentSystemEve
 
           final UIComponent bar = ComponentUtils.getFacet(tab, Facets.bar);
           if (bar != null) {
-            RenderUtils.encode(facesContext, bar);
+            bar.encodeAll(facesContext);
           }
 
           writer.endElement(HtmlElements.LI);
@@ -331,7 +331,7 @@ public class TabGroupRenderer extends RendererBase implements ComponentSystemEve
 
           writer.writeAttribute(HtmlAttributes.TABGROUPINDEX, index);
 
-          RenderUtils.encode(facesContext, tab);
+          tab.encodeAll(facesContext);
 
           writer.endElement(HtmlElements.DIV);
         }

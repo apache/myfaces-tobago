@@ -23,12 +23,16 @@ public class ArrayUtils {
 
   public static final String[] EMPTY_STRING_ARRAY = new String[0];
 
-  public static boolean contains(final String[] array, final String markup) {
-    for (final String anArray : array) {
-      if (markup.equals(anArray)) {
+  public static <T> boolean contains(final T[] list, final T value) {
+    if (list == null) {
+      return false;
+    }
+    for (final T element : list) {
+      if (element == value || element != null && element.equals(value)) {
         return true;
       }
     }
     return false;
   }
+
 }

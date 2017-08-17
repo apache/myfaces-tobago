@@ -21,7 +21,6 @@ package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.internal.component.AbstractUIFigure;
-import org.apache.myfaces.tobago.internal.util.RenderUtils;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
@@ -75,7 +74,7 @@ public class FigureRenderer extends RendererBase {
         writer.writeText(labelString);
       }
       if (label != null) {
-        RenderUtils.encode(facesContext, label);
+        label.encodeAll(facesContext);
       }
       writer.endElement(HtmlElements.FIGCAPTION);
     }

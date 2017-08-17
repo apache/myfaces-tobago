@@ -643,11 +643,11 @@ public class SheetRenderer extends RendererBase {
                   TobagoClass.SHEET__COLUMN_SELECTOR);
               writer.endElement(HtmlElements.INPUT);
             } else if (normalColumn instanceof AbstractUIColumnNode) {
-              RenderUtils.encode(facesContext, normalColumn);
+              normalColumn.encodeAll(facesContext);
             } else {
               final List<UIComponent> children = sheet.getRenderedChildrenOf(normalColumn);
               for (final UIComponent grandKid : children) {
-                RenderUtils.encode(facesContext, grandKid);
+                grandKid.encodeAll(facesContext);
               }
             }
 
@@ -879,7 +879,7 @@ public class SheetRenderer extends RendererBase {
                   true);
               writer.endElement(HtmlElements.INPUT);
             } else {
-              RenderUtils.encode(facesContext, cellComponent);
+              cellComponent.encodeAll(facesContext);
             }
 
             if (sorterIcon != null) {

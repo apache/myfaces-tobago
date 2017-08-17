@@ -20,7 +20,6 @@
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
 import org.apache.myfaces.tobago.component.UIFlowLayout;
-import org.apache.myfaces.tobago.internal.util.RenderUtils;
 import org.apache.myfaces.tobago.layout.TextAlign;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Style;
@@ -54,15 +53,6 @@ public class FlowLayoutRenderer extends RendererBase {
       style.setTextAlign(textAlign);
     }
     writer.writeStyleAttribute(style);
-  }
-
-  @Override
-  public void encodeChildren(final FacesContext facesContext, final UIComponent component) throws IOException {
-    final UIComponent container = component.getParent();
-    if (!container.isRendered()) {
-      return;
-    }
-    RenderUtils.encodeChildren(facesContext, container);
   }
 
   @Override

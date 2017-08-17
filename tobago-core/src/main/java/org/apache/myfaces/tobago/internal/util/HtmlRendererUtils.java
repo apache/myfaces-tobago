@@ -209,9 +209,9 @@ public final class HtmlRendererUtils {
         final String formattedValue = ComponentUtils.getFormattedValue(facesContext, component, itemValue);
         boolean contains;
         if (submittedValues == null) {
-          contains = RenderUtils.contains(values, itemValue);
+          contains = ArrayUtils.contains(values, itemValue);
         } else {
-          contains = RenderUtils.contains(submittedValues, formattedValue);
+          contains = ArrayUtils.contains(submittedValues, formattedValue);
         }
         if (onlySelected != null) {
           if (onlySelected) {

@@ -176,7 +176,7 @@ public class InRenderer extends MessageLayoutRendererBase {
           } else {
             child.setRendererType(RendererTypes.ButtonInsideIn.name());
           }
-          RenderUtils.encode(facesContext, child);
+          child.encodeAll(facesContext);
         } else {
           writer.startElement(HtmlElements.SPAN);
 
@@ -191,7 +191,7 @@ public class InRenderer extends MessageLayoutRendererBase {
           }
 
           writer.writeClassAttribute(cssItem);
-          RenderUtils.encode(facesContext, child);
+          child.encodeAll(facesContext);
           writer.endElement(HtmlElements.SPAN);
         }
       }

@@ -29,7 +29,6 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
 import org.apache.myfaces.tobago.renderkit.html.MarkupLanguageAttributes;
 import org.apache.myfaces.tobago.internal.renderkit.renderer.GridLayoutRenderer;
-import org.apache.myfaces.tobago.internal.util.RenderUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -78,8 +77,8 @@ public class SplitLayoutRenderer extends GridLayoutRenderer {
       if (components.size() != 2) {
         LOG.warn("Illegal component count in splitLayout: {}", components.size());
       }
-      RenderUtils.encode(facesContext, components.get(0));
-      RenderUtils.encode(facesContext, components.get(1));
+      components.get(0).encodeAll(facesContext);
+      components.get(1).encodeAll(facesContext);
       if (components.get(0).isRendered() && components.get(1).isRendered()) {
         // only when both components are rendered
         encodeHandle(facesContext, (AbstractUISplitLayout) component);

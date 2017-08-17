@@ -21,7 +21,6 @@ package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
-import org.apache.myfaces.tobago.internal.util.RenderUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -44,7 +43,7 @@ public class SelectReferenceRenderer extends RendererBase {
     final Object renderRange = ComponentUtils.getAttribute(component, Attributes.renderRange);
     ComponentUtils.setAttribute(reference, Attributes.renderRangeExtern, renderRange);
 
-    RenderUtils.encode(facesContext, reference);
+    reference.encodeAll(facesContext);
 
     ComponentUtils.removeAttribute(reference, Attributes.renderRangeExtern);
   }

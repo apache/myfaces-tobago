@@ -20,6 +20,7 @@
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
 import org.apache.myfaces.tobago.internal.component.AbstractUISelectManyCheckbox;
+import org.apache.myfaces.tobago.internal.util.ArrayUtils;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.internal.util.JsonUtils;
 import org.apache.myfaces.tobago.internal.util.RenderUtils;
@@ -92,9 +93,9 @@ public class SelectManyCheckboxRenderer extends SelectManyRendererBase {
       final String formattedValue = ComponentUtils.getFormattedValue(facesContext, select, item.getValue());
       boolean checked;
       if (submittedValues == null) {
-        checked = RenderUtils.contains(values, item.getValue());
+        checked = ArrayUtils.contains(values, item.getValue());
       } else {
-        checked = RenderUtils.contains(submittedValues, formattedValue);
+        checked = ArrayUtils.contains(submittedValues, formattedValue);
       }
       writer.writeAttribute(HtmlAttributes.CHECKED, checked);
       writer.writeNameAttribute(id);

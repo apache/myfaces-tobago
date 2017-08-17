@@ -318,7 +318,7 @@ public class PageRenderer extends RendererBase {
 
     if (component.getFacet("backButtonDetector") != null) {
       final UIComponent hidden = component.getFacet("backButtonDetector");
-      RenderUtils.encode(facesContext, hidden);
+      hidden.encodeAll(facesContext);
     }
   }
 

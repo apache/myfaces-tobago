@@ -23,7 +23,6 @@ import org.apache.myfaces.tobago.component.LabelLayout;
 import org.apache.myfaces.tobago.component.SupportsLabelLayout;
 import org.apache.myfaces.tobago.component.UISegmentLayout;
 import org.apache.myfaces.tobago.internal.component.AbstractUISegmentLayout;
-import org.apache.myfaces.tobago.internal.util.RenderUtils;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
@@ -116,7 +115,7 @@ public class SegmentLayoutRenderer extends RendererBase {
       throws IOException {
     writer.startElement(HtmlElements.DIV);
     writer.writeClassAttribute(null, null, generator.generate(child));
-    RenderUtils.encode(facesContext, child);
+    child.encodeAll(facesContext);
     writer.endElement(HtmlElements.DIV);
   }
 
