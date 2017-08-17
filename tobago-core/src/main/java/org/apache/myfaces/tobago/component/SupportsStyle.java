@@ -22,6 +22,10 @@ package org.apache.myfaces.tobago.component;
 import org.apache.myfaces.tobago.renderkit.css.CustomClass;
 import org.apache.myfaces.tobago.renderkit.css.Style;
 
+/**
+ * @deprecated since 3.0.0. Please use {@link Visual}.
+ */
+@Deprecated
 public interface SupportsStyle {
 
   Style getStyle();
