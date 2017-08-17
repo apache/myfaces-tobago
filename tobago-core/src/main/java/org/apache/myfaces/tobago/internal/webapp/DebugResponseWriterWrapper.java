@@ -93,7 +93,8 @@ public class DebugResponseWriterWrapper extends TobagoResponseWriter {
       throws IOException {
     responseWriter.writeAttribute(name, value, escape);
     if (usedAttributes.contains(name)) {
-      LOG.error("Duplicate attribute '" + name + "' in element <" + stack.peek() + ">!", new IllegalStateException());
+      LOG.error("Duplicate attribute '" + name + "' in element <" + stack.peek() + "> with value '" + value + "'!",
+          new IllegalStateException());
     } else {
       usedAttributes.add(name);
     }
@@ -103,8 +104,8 @@ public class DebugResponseWriterWrapper extends TobagoResponseWriter {
   public void writeAttribute(final MarkupLanguageAttributes name, final HtmlTypes types) throws IOException {
     responseWriter.writeAttribute(name, types);
     if (usedAttributes.contains(name)) {
-      LOG.error("Duplicate attribute '" + name + "' in element <" + stack.peek() + ">!", new IllegalStateException());
-    } else {
+      LOG.error("Duplicate attribute '" + name + "' in element <" + stack.peek() + "> with value '" + types + "'!",
+          new IllegalStateException());
       usedAttributes.add(name);
     }
   }
@@ -113,7 +114,8 @@ public class DebugResponseWriterWrapper extends TobagoResponseWriter {
   public void writeURIAttribute(MarkupLanguageAttributes name, String string) throws IOException {
     responseWriter.writeURIAttribute(name, string);
     if (usedAttributes.contains(name)) {
-      LOG.error("Duplicate attribute '" + name + "' in element <" + stack.peek() + ">!", new IllegalStateException());
+      LOG.error("Duplicate attribute '" + name + "' in element <" + stack.peek() + "> with value '" + string + "'!",
+          new IllegalStateException());
     } else {
       usedAttributes.add(name);
     }
