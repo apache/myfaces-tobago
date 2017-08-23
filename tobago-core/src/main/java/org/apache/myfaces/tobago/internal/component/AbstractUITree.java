@@ -61,7 +61,7 @@ public abstract class AbstractUITree extends AbstractUIData implements NamingCon
 
   @Override
   public void processValidators(final FacesContext facesContext) {
-    final int last = hasRows() ? getFirst() + getRows() : Integer.MAX_VALUE;
+    final int last = isRowsUnlimited() ? Integer.MAX_VALUE : getFirst() + getRows();
     for (int rowIndex = getFirst(); rowIndex < last; rowIndex++) {
       setRowIndex(rowIndex);
       if (!isRowAvailable()) {
@@ -76,7 +76,7 @@ public abstract class AbstractUITree extends AbstractUIData implements NamingCon
 
   @Override
   public void processUpdates(final FacesContext facesContext) {
-    final int last = hasRows() ? getFirst() + getRows() : Integer.MAX_VALUE;
+    final int last = isRowsUnlimited() ? Integer.MAX_VALUE : getFirst() + getRows();
     for (int rowIndex = getFirst(); rowIndex < last; rowIndex++) {
       setRowIndex(rowIndex);
       if (!isRowAvailable()) {
@@ -115,7 +115,7 @@ public abstract class AbstractUITree extends AbstractUIData implements NamingCon
       return;
     }
 
-    final int last = hasRows() ? getFirst() + getRows() : Integer.MAX_VALUE;
+    final int last = isRowsUnlimited() ? Integer.MAX_VALUE : getFirst() + getRows();
     for (int rowIndex = getFirst(); rowIndex < last; rowIndex++) {
       setRowIndex(rowIndex);
       if (!isRowAvailable()) {
