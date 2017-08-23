@@ -19,6 +19,10 @@
 
 package org.apache.myfaces.tobago.util;
 
+/**
+ * @deprecated since 3.0.0
+ */
+@Deprecated
 public final class CreateComponentUtils {
 
   private CreateComponentUtils() {
