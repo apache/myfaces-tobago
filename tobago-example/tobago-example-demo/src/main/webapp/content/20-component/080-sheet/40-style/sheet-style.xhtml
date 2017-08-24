@@ -39,17 +39,12 @@
       <tc:out value="#{object.name}" labelLayout="skip"/>
     </tc:column>
     <tc:column label="Orbit">
-      <tc:in value="#{object.orbit}" labelLayout="skip">
-      <tc:style width="150px"/>
-      </tc:in>
+      <tc:out value="#{object.orbit}" labelLayout="skip"/>
     </tc:column>
     <tc:column label="Period (Days)">
-      <tc:out value="#{object.period}" labelLayout="skip">
-        <tc:style height="50px"/>
-      </tc:out>
+      <tc:out value="#{object.period}" labelLayout="skip"/>
     </tc:column>
     <tc:column label="Discoverer">
-      <tc:style textAlign="#{object.discoverYear le 1900 ? 'right' : 'left'}"/>
       <tc:out value="#{object.discoverer}" labelLayout="skip"/>
     </tc:column>
     <tc:column label="Year">
