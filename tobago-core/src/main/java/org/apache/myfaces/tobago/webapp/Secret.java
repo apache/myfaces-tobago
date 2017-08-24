@@ -19,7 +19,7 @@
 
 package org.apache.myfaces.tobago.webapp;
 
-import org.apache.commons.codec.binary.Base64;
+import org.apache.myfaces.tobago.internal.util.RandomUtils;
 import org.apache.myfaces.tobago.portlet.PortletUtils;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
@@ -30,7 +30,6 @@ import javax.portlet.PortletSession;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.Serializable;
-import java.security.SecureRandom;
 import java.util.Map;
 
 public final class Secret implements Serializable {
@@ -39,39 +38,10 @@ public final class Secret implements Serializable {
 
   private static final String KEY = Secret.class.getName();
 
-  private static final SecureRandom RANDOM = new SecureRandom();
-
-  private static final int SECRET_LENGTH = 16;
-
-  private static final boolean COMMONS_CODEC_AVAILABLE = commonsCodecAvailable();
-
-  private static boolean commonsCodecAvailable() {
-    try {
-      Base64.encodeBase64URLSafeString(new byte[0]);
-      return true;
-    } catch (final Error e) {
-      return false;
-    }
-  }
-
   private String secret;
 
   private Secret() {
-    final byte[] bytes = new byte[SECRET_LENGTH];
-    RANDOM.nextBytes(bytes);
-    secret = COMMONS_CODEC_AVAILABLE ? encodeBase64(bytes) : encodeHex(bytes);
-  }
-
-  private String encodeBase64(final byte[] bytes) {
-    return Base64.encodeBase64URLSafeString(bytes);
-  }
-
-  private String encodeHex(final byte[] bytes) {
-    final StringBuilder builder = new StringBuilder(SECRET_LENGTH * 2);
-    for (final byte b : bytes) {
-      builder.append(String.format("%02x", b));
-    }
-    return builder.toString();
+    secret = RandomUtils.nextString();
   }
 
   /**
