@@ -709,7 +709,7 @@ h1, h2, h3, h4, h5, h6 {
 
     .tobago-inputPseudo:before {
       font-family: FontAwesome;
-      content: "\f096";
+      content: "\f096"; /* fa-square-o */
       font-size: large;
       font-style: normal;
       display: inline-block;
@@ -719,7 +719,7 @@ h1, h2, h3, h4, h5, h6 {
     }
 
     input[type="checkbox"]:checked + .tobago-inputPseudo:before {
-      content: "\f046";
+      content: "\f046"; /* fa-check-square-o */
     }
 
     input[type="checkbox"]:active:not(:disabled) + .tobago-inputPseudo:before {
@@ -752,7 +752,7 @@ h1, h2, h3, h4, h5, h6 {
 
     .tobago-inputPseudo:before {
       font-family: FontAwesome;
-      content: "\f096";
+      content: "\f096"; /* fa-square-o */
       font-size: large;
       font-style: normal;
       display: inline-block;
@@ -762,7 +762,7 @@ h1, h2, h3, h4, h5, h6 {
     }
 
     input[type="checkbox"]:checked + .tobago-inputPseudo:before {
-      content: "\f046";
+      content: "\f046"; /* fa-check-square-o */
     }
 
     input[type="checkbox"]:active:not(:disabled) + .tobago-inputPseudo:before {
@@ -847,7 +847,7 @@ h1, h2, h3, h4, h5, h6 {
 
     .tobago-inputPseudo:before {
       font-family: FontAwesome;
-      content: "\f1db";
+      content: "\f1db"; /* fa-circle-thin */
       font-size: large;
       font-style: normal;
       display: inline-block;
@@ -857,7 +857,7 @@ h1, h2, h3, h4, h5, h6 {
     }
 
     input[type="radio"]:checked + .tobago-inputPseudo:before {
-      content: "\f111";
+      content: "\f192"; /* fa-dot-circle-o */
     }
 
     input[type="radio"]:active:not(:disabled) + .tobago-inputPseudo:before {
