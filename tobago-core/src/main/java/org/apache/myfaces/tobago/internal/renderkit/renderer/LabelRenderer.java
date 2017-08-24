@@ -78,7 +78,6 @@ public class LabelRenderer extends RendererBase implements ComponentSystemEventL
         TobagoClass.LABEL.createMarkup(correspondingMarkup),
         BootstrapClass.COL_FORM_LABEL,
         label.getCustomClass());
-    writer.writeStyleAttribute(label.getStyle());
     writer.writeIdAttribute(clientId);
     if (forId != null) {
       writer.writeAttribute(HtmlAttributes.FOR, forId, false);

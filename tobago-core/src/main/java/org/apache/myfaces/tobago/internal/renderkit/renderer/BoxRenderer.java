@@ -62,7 +62,6 @@ public class BoxRenderer extends PanelRendererBase {
       writer.writeAttribute(HtmlAttributes.TITLE, title, true);
     }
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, box);
-    writer.writeStyleAttribute(box.getStyle());
 
     if (box.getCollapsedMode() != CollapseMode.none) {
       encodeHidden(writer, clientId, collapsed);

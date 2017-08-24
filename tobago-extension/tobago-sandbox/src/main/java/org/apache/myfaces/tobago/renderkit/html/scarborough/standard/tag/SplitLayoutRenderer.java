@@ -22,13 +22,12 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 import org.apache.myfaces.tobago.apt.annotation.Preliminary;
 import org.apache.myfaces.tobago.internal.component.AbstractUISplitLayout;
 import org.apache.myfaces.tobago.internal.layout.LayoutUtils;
-import org.apache.myfaces.tobago.renderkit.css.Style;
+import org.apache.myfaces.tobago.internal.renderkit.renderer.GridLayoutRenderer;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
 import org.apache.myfaces.tobago.renderkit.html.MarkupLanguageAttributes;
-import org.apache.myfaces.tobago.internal.renderkit.renderer.GridLayoutRenderer;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -144,8 +143,8 @@ public class SplitLayoutRenderer extends GridLayoutRenderer {
     return "";
   }
 
-  private Style calculateHandleStyle(final AbstractUISplitLayout layout) {
 /* XXX todo not implemented currently
+  private Style calculateHandleStyle(final AbstractUISplitLayout layout) {
     final UIComponent parent = layout.getParent();
     final LayoutContainer container = (LayoutContainer) parent;
     final LayoutComponent secondComponent = (LayoutComponent) LayoutUtils.findLayoutChildren(parent).get(1);
@@ -166,7 +165,6 @@ public class SplitLayoutRenderer extends GridLayoutRenderer {
     style.setDisplay(Display.block);
     style.setPosition(Position.absolute);
     return style;
-*/
-    return null;
   }
+*/
 }

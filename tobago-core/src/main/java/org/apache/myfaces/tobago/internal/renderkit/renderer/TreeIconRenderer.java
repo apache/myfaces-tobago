@@ -95,7 +95,6 @@ public class TreeIconRenderer extends RendererBase {
 
     if (StringUtils.startsWith(source, "fa-")) {
       writer.startElement(HtmlElements.I);
-      writer.writeStyleAttribute(image.getStyle());
       writer.writeClassAttribute(FontAwesomeIconEncoder.FA, FontAwesomeIconEncoder.generateClass(source));
       if (folder) {
         writer.writeAttribute(DataAttributes.OPEN, open, true);

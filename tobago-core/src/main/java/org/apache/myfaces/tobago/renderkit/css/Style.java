@@ -33,7 +33,10 @@ import java.io.Serializable;
 
 /**
  * A subset of the CSS style used by Tobago. It's more or less the layout specific part.
+ *
+ * @deprecated since 4.0.0. UIStyle now holds the data and the StyleRenderer renders.
  */
+@Deprecated
 public class Style implements Serializable {
 
   private static final long serialVersionUID = 6L;

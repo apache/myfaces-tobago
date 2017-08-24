@@ -66,7 +66,6 @@ public class SelectOneListboxRenderer extends SelectOneRendererBase {
     HtmlRendererUtils.renderFocus(clientId, select.isFocus(), ComponentUtils.isError(select), facesContext, writer);
 
     writer.writeAttribute(HtmlAttributes.TABINDEX, select.getTabIndex());
-    writer.writeStyleAttribute(select.getStyle());
 
     writer.writeClassAttribute(
         TobagoClass.SELECT_ONE_LISTBOX,

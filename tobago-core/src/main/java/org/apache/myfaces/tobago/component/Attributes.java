@@ -38,6 +38,7 @@ public enum Attributes {
   applicationIcon,
   autocomplete,
   autoReload,
+  backgroundImage,
   bodyContent,
   border,
   /**

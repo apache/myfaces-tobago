@@ -20,12 +20,13 @@
 package org.apache.myfaces.tobago.internal.util;
 
 import org.apache.myfaces.tobago.component.Attributes;
+import org.apache.myfaces.tobago.component.RendererTypes;
+import org.apache.myfaces.tobago.component.UIStyle;
 import org.apache.myfaces.tobago.component.Visual;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.internal.webapp.TobagoResponseWriterWrapper;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.css.FontAwesomeIconEncoder;
-import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
@@ -229,9 +230,15 @@ public final class HtmlRendererUtils {
         if (item instanceof org.apache.myfaces.tobago.model.SelectItem) {
           final String image = ((org.apache.myfaces.tobago.model.SelectItem) item).getImage();
           if (image != null) {
-            final Style style = new Style();
-            style.setBackgroundImage("url('" + image + "')");
-            writer.writeStyleAttribute(style);
+            final UIStyle style = (UIStyle) facesContext.getApplication()
+                .createComponent(facesContext, UIStyle.COMPONENT_TYPE, RendererTypes.Style.name());
+            style.setTransient(true);
+            style.setBackgroundImage(image);
+
+            // XXX here we add the style to a component, but this is not the component the style must be affected.
+            // The right one is <option>, but there is no UIComponent for <option>, so we need an other solution.
+            // May be a "for" or a "selector" attribute in UIStyle. See also TOBAGO-1777
+            component.getChildren().add(style);
           }
         }
         Markup markup = item instanceof Visual ? ((Visual) item).getMarkup() : Markup.NULL;

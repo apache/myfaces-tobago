@@ -23,6 +23,7 @@ import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.LabelLayout;
 import org.apache.myfaces.tobago.component.SupportsAccessKey;
 import org.apache.myfaces.tobago.component.SupportsLabelLayout;
+import org.apache.myfaces.tobago.internal.component.AbstractUIStyle;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
@@ -38,6 +39,7 @@ import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
+import java.util.List;
 
 /**
  * Manages the rendering of the <b>label</b> and the <b>field</b> together with different possibilities for
@@ -86,7 +88,31 @@ public abstract class LabelLayoutRendererBase extends DecodingInputRendererBase 
         break;
     }
 
+    // render the styles here, because inside of <select> its not possible.
+    final List<AbstractUIStyle> children = ComponentUtils.findDescendantList(component, AbstractUIStyle.class);
+    for (AbstractUIStyle child : children) {
+      child.encodeAll(facesContext);
+    }
+
     encodeEndSurroundingLabel(facesContext, component);
+  }
+
+  @Override
+  public void encodeChildren(FacesContext context, UIComponent component) throws IOException {
+    if (component.getChildCount() > 0)    {
+      for (int i = 0, childCount = component.getChildCount(); i < childCount; i++)      {
+        UIComponent child = component.getChildren().get(i);
+        if (!child.isRendered())    {
+          continue;
+        }
+        if (child instanceof AbstractUIStyle)    {
+          // will be rendered in {@link encodeEnd}
+          continue;
+        }
+
+        child.encodeAll(context);
+      }
+    }
   }
 
   protected abstract void encodeBeginMessageField(FacesContext facesContext, UIComponent component) throws IOException;

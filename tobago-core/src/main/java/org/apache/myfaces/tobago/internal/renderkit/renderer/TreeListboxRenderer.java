@@ -69,7 +69,6 @@ public class TreeListboxRenderer extends RendererBase {
         TobagoClass.TREE_LISTBOX.createMarkup(tree.getMarkup()),
         TobagoClass.TREE_LISTBOX.createDefaultMarkups(tree));
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, tree);
-    writer.writeStyleAttribute(tree.getStyle());
 
     writer.startElement(HtmlElements.INPUT);
     writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN);

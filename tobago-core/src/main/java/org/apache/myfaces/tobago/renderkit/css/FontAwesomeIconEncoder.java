@@ -51,10 +51,9 @@ public class FontAwesomeIconEncoder implements IconEncoder {
   }
 
   @Override
-  public void encode(final TobagoResponseWriter writer, final Icons icon, final Style style, final CssItem... cssItems)
+  public void encode(final TobagoResponseWriter writer, final Icons icon, final CssItem... cssItems)
       throws IOException {
     writer.startElement(HtmlElements.I);
-    writer.writeStyleAttribute(style);
     writer.writeClassAttribute(FA, cssItems, generateClass(icon));
     writer.endElement(HtmlElements.I);
   }

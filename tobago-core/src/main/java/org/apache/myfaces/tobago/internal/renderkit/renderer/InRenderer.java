@@ -130,7 +130,6 @@ public class InRenderer extends MessageLayoutRendererBase {
     writer.writeAttribute(HtmlAttributes.READONLY, readonly);
     writer.writeAttribute(HtmlAttributes.DISABLED, disabled);
     writer.writeAttribute(HtmlAttributes.TABINDEX, input.getTabIndex());
-    writer.writeStyleAttribute(input.getStyle());
 
     final String placeholder = input.getPlaceholder();
     if (!disabled && !readonly && StringUtils.isNotBlank(placeholder)) {

@@ -20,7 +20,7 @@
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
-import org.apache.myfaces.tobago.renderkit.css.FontAwesomeIconEncoder;
+import org.apache.myfaces.tobago.renderkit.css.Icons;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
@@ -89,7 +89,7 @@ public abstract class MessageLayoutRendererBase extends LabelLayoutRendererBase 
     writer.writeAttribute(DataAttributes.TOGGLE, "popover", false);
     writer.writeAttribute(DataAttributes.TITLE, getTitle(messages), true);
     writer.writeAttribute(DataAttributes.CONTENT, getMessage(messages), true);
-    writer.writeIcon(null, FontAwesomeIconEncoder.generateClass("fa-exclamation"));
+    writer.writeIcon(Icons.EXCLAMATION);
     writer.endElement(HtmlElements.A);
   }
 

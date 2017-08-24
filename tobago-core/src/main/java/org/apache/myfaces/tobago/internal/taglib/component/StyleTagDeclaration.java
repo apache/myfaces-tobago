@@ -19,10 +19,11 @@
 
 package org.apache.myfaces.tobago.internal.taglib.component;
 
-import org.apache.myfaces.tobago.apt.annotation.SimpleTag;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
+import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
+import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.layout.Display;
 import org.apache.myfaces.tobago.layout.Overflow;
@@ -36,19 +37,13 @@ import org.apache.myfaces.tobago.layout.TextAlign;
  * </p>
  */
 @Tag(name = "style")
-@SimpleTag(faceletHandler = "org.apache.myfaces.tobago.facelets.StyleHandler")
+@UIComponentTag(
+    uiComponent = "org.apache.myfaces.tobago.component.UIStyle",
+    uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUIStyle",
+    componentFamily = "org.apache.myfaces.tobago.Style",
+    rendererType = RendererTypes.STYLE,
+    allowedChildComponenents = "NONE")
 public interface StyleTagDeclaration extends HasIdBindingAndRendered {
-
-  /**
-   * Flag indicating whether or not this component should be rendered
-   * (during Render Response Phase), or processed on any subsequent form submit.
-   */
-  @Deprecated
-  @TagAttribute
-  @UIComponentTagAttribute(
-      type = "boolean",
-      defaultValue = "true")
-  void setRendered(String rendered);
 
   /**
    * Name of the stylesheet file to add to page. The name must be full qualified, or relative.
@@ -60,7 +55,10 @@ public interface StyleTagDeclaration extends HasIdBindingAndRendered {
   void setFile(String file);
 
   /**
-   * @param customClass A custom CSS class for this component.
+   * @param customClass A custom CSS class for the parent component.
+   *                    Note: The rendered attribute has no effect to the use of this customClass.
+   *                    To switch the customClass, you may use an EL expression
+   *                    like e.g. customClass="#{isError ? 'red' : null}".
    * @since 3.0.0
    */
   @TagAttribute()
@@ -68,7 +66,7 @@ public interface StyleTagDeclaration extends HasIdBindingAndRendered {
   void setCustomClass(String customClass);
 
   /**
-   * @param width The width for this component.
+   * @param width The width for the parent component.
    * @since 3.0.0
    */
   @TagAttribute()
@@ -76,7 +74,7 @@ public interface StyleTagDeclaration extends HasIdBindingAndRendered {
   void setWidth(String width);
 
   /**
-   * @param height The height for this component.
+   * @param height The height for the parent component.
    * @since 3.0.0
    */
   @TagAttribute()
@@ -84,7 +82,7 @@ public interface StyleTagDeclaration extends HasIdBindingAndRendered {
   void setHeight(String height);
 
   /**
-   * @param minWidth The minimum width for this component.
+   * @param minWidth The minimum width for the parent component.
    * @since 3.0.0
    */
   @TagAttribute()
@@ -92,7 +90,7 @@ public interface StyleTagDeclaration extends HasIdBindingAndRendered {
   void setMinWidth(String minWidth);
 
   /**
-   * @param minHeight The minimum height for this component.
+   * @param minHeight The minimum height for the parent component.
    * @since 3.0.0
    */
   @TagAttribute()
@@ -100,7 +98,7 @@ public interface StyleTagDeclaration extends HasIdBindingAndRendered {
   void setMinHeight(String minHeight);
 
   /**
-   * @param maxWidth The maximum width for this component.
+   * @param maxWidth The maximum width for the parent component.
    * @since 3.0.0
    */
   @TagAttribute()
@@ -108,7 +106,7 @@ public interface StyleTagDeclaration extends HasIdBindingAndRendered {
   void setMaxWidth(String maxWidth);
 
   /**
-   * @param maxHeight The maximum height for this component.
+   * @param maxHeight The maximum height for the parent component.
    * @since 3.0.0
    */
   @TagAttribute()
@@ -116,7 +114,7 @@ public interface StyleTagDeclaration extends HasIdBindingAndRendered {
   void setMaxHeight(String maxHeight);
 
   /**
-   * @param left The left position value for this component.
+   * @param left The left position value for the parent component.
    * @since 3.0.0
    */
   @TagAttribute()
@@ -124,7 +122,7 @@ public interface StyleTagDeclaration extends HasIdBindingAndRendered {
   void setLeft(String left);
 
   /**
-   * @param right The left position value for this component.
+   * @param right The left position value for the parent component.
    * @since 3.0.0
    */
   @TagAttribute()
@@ -132,7 +130,7 @@ public interface StyleTagDeclaration extends HasIdBindingAndRendered {
   void setRight(String right);
 
   /**
-   * @param top The top position value for this component.
+   * @param top The top position value for the parent component.
    * @since 3.0.0
    */
   @TagAttribute()
@@ -140,7 +138,7 @@ public interface StyleTagDeclaration extends HasIdBindingAndRendered {
   void setTop(String top);
 
   /**
-   * @param bottom The top position value for this component.
+   * @param bottom The top position value for the parent component.
    * @since 3.0.0
    */
   @TagAttribute()
@@ -180,7 +178,7 @@ public interface StyleTagDeclaration extends HasIdBindingAndRendered {
   void setPaddingBottom(String paddingBottom);
 
   /**
-   * @param marginLeft The margin at the left of this component.
+   * @param marginLeft The margin at the left of the parent component.
    * @since 3.0.0
    */
   @TagAttribute()
@@ -188,7 +186,7 @@ public interface StyleTagDeclaration extends HasIdBindingAndRendered {
   void setMarginLeft(String marginLeft);
 
   /**
-   * @param marginRight The margin at the right of this component.
+   * @param marginRight The margin at the right of the parent component.
    * @since 3.0.0
    */
   @TagAttribute()
@@ -196,7 +194,7 @@ public interface StyleTagDeclaration extends HasIdBindingAndRendered {
   void setMarginRight(String marginRight);
 
   /**
-   * @param marginTop The margin at the top of this component.
+   * @param marginTop The margin at the top of the parent component.
    * @since 3.0.0
    */
   @TagAttribute()
@@ -204,7 +202,7 @@ public interface StyleTagDeclaration extends HasIdBindingAndRendered {
   void setMarginTop(String marginTop);
 
   /**
-   * @param marginBottom The margin at the bottom of this component.
+   * @param marginBottom The margin at the bottom of the parent component.
    * @since 3.0.0
    */
   @TagAttribute()
@@ -212,7 +210,7 @@ public interface StyleTagDeclaration extends HasIdBindingAndRendered {
   void setMarginBottom(String marginBottom);
 
   /**
-   * @param overflowX Does the component need a horizontal scollbar.
+   * @param overflowX Does the component need a horizontal scrollbar.
    * @since 3.0.0
    */
   @TagAttribute()
@@ -222,7 +220,7 @@ public interface StyleTagDeclaration extends HasIdBindingAndRendered {
   void setOverflowX(String overflowX);
 
   /**
-   * @param overflowY Does the component need a vertical scollbar.
+   * @param overflowY Does the component need a vertical scrollbar.
    * @since 3.0.0
    */
   @TagAttribute()
@@ -268,5 +266,14 @@ public interface StyleTagDeclaration extends HasIdBindingAndRendered {
           TextAlign.LEFT, TextAlign.RIGHT, TextAlign.CENTER, TextAlign.JUSTIFY
       })
   void setTextAlign(String textAlign);
+
+  /**
+   * The background image of the element.
+   *
+   * @since 4.0.0
+   */
+  @TagAttribute
+  @UIComponentTagAttribute
+  void setBackgroundImage(String backgroundImage);
 
 }

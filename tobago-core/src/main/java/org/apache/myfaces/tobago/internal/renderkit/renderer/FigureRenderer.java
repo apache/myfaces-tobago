@@ -47,7 +47,6 @@ public class FigureRenderer extends RendererBase {
         TobagoClass.FIGURE.createDefaultMarkups(figure),
         BootstrapClass.FIGURE,
         figure.getCustomClass());
-    writer.writeStyleAttribute(figure.getStyle());
     final String tip = figure.getTip();
     if (tip != null) {
       writer.writeAttribute(HtmlAttributes.TITLE, tip, true);

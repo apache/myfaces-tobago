@@ -532,53 +532,6 @@ var Tobago = {
     });
   },
 
-  initCss: function (elements) {
-    // element styles
-    console.time("[tobago] initCss"); // @DEV_ONLY
-    Tobago.Utils.selectWithJQuery(elements, "[data-tobago-style]").each(function () {
-      var element = jQuery(this);
-      var data = element.data("tobago-style");
-
-      // set only known properties (because of security)
-      element.css({
-        width: data.width,
-        height: data.height,
-
-        minWidth: data.minWidth,
-        minHeight: data.minHeight,
-        maxWidth: data.maxWidth,
-        maxHeight: data.maxHeight,
-
-        left: data.left,
-        right: data.right,
-        top: data.top,
-        bottom: data.bottom,
-
-        paddingLeft: data.paddingLeft,
-        paddingRight: data.paddingRight,
-        paddingTop: data.paddingTop,
-        paddingBottom: data.paddingBottom,
-
-        marginLeft: data.marginLeft,
-        marginRight: data.marginRight,
-        marginTop: data.marginTop,
-        marginBottom: data.marginBottom,
-
-        overflowX: data.overflowX,
-        overflowY: data.overflowY,
-        display: data.display,
-        position: data.position,
-
-        backgroundImage: data.backgroundImage,         // TBD
-        backgroundPosition: data.backgroundPosition,   // TBD
-        zIndex: data.zIndex, // TBD: needed? will be set by Tobago? check org.apache.myfaces.tobago.renderkit.css.Style
-        textAlign: data.textAlign
-      });
-    });
-
-    console.timeEnd("[tobago] initCss"); // @DEV_ONLY
-  },
-
   /* supports only two background images in the moment */
   fixMultiBackgroundIE8: function (element) {
     var style = element.data("tobago-style");
@@ -1010,10 +963,6 @@ Tobago.registerListener(Tobago.preventFrameAttacks, Tobago.Phase.DOCUMENT_READY)
 // e. g. selectOne in a toolBar).
 Tobago.registerListener(Tobago.initDom, Tobago.Phase.DOCUMENT_READY, Tobago.Phase.Order.LATER);
 Tobago.registerListener(Tobago.initDom, Tobago.Phase.AFTER_UPDATE, Tobago.Phase.Order.LATER);
-
-// the inline css should be applied early, so that other init functions can use the dimensions
-Tobago.registerListener(Tobago.initCss, Tobago.Phase.DOCUMENT_READY, Tobago.Phase.Order.EARLY);
-Tobago.registerListener(Tobago.initCss, Tobago.Phase.AFTER_UPDATE, Tobago.Phase.Order.EARLY);
 
 // XXX: 2nd parameter enableAjax is deprecated
 Tobago.Panel = function(panelId, enableAjax, autoReload) {

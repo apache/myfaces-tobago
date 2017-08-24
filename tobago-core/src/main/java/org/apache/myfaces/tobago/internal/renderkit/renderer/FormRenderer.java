@@ -45,7 +45,6 @@ public class FormRenderer extends RendererBase {
         TobagoClass.FORM,
         inline ? BootstrapClass.D_INLINE : null,
         form.getCustomClass());
-    writer.writeStyleAttribute(form.getStyle());
 
   }
 

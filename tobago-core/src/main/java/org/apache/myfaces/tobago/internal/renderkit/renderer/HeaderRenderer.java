@@ -51,7 +51,6 @@ public class HeaderRenderer extends RendererBase {
         header.getCustomClass());
 // TBD: should NAVBAR class be in the LinksRenderer?
     writer.writeAttribute(HtmlAttributes.TITLE, header.getTip(), true);
-    writer.writeStyleAttribute(header.getStyle());
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, header);
   }
 

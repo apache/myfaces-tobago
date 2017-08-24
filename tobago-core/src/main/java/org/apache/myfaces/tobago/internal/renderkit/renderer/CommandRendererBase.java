@@ -104,7 +104,6 @@ public abstract class CommandRendererBase extends DecodingCommandRendererBase {
     }
 
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, command);
-    writer.writeStyleAttribute(command.getStyle());
 
     if (parentOfCommands) {
       writer.writeAttribute(DataAttributes.TOGGLE, "dropdown", false);

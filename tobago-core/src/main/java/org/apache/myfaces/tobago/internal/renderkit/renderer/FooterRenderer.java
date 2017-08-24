@@ -48,7 +48,6 @@ public class FooterRenderer extends RendererBase {
         footer.isFixed() ? BootstrapClass.FIXED_BOTTOM : null,
         footer.getCustomClass());
     writer.writeAttribute(HtmlAttributes.TITLE, footer.getTip(), true);
-    writer.writeStyleAttribute(footer.getStyle());
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, footer);
   }
 

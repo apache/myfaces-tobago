@@ -53,7 +53,6 @@ public class ButtonsRenderer extends RendererBase {
         BootstrapClass.BTN_GROUP,
         buttons.getCustomClass());
     writer.writeAttribute(HtmlAttributes.ROLE, HtmlRoleValues.GROUP.toString(), false);
-    writer.writeStyleAttribute(buttons.getStyle());
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, buttons);
     final String tip = buttons.getTip();
     if (tip != null) {

@@ -60,7 +60,6 @@ public class OutRenderer extends MessageLayoutRendererBase {
         writer.writeIdAttribute(out.getClientId());
       }
       HtmlRendererUtils.writeDataAttributes(facesContext, writer, out);
-      writer.writeStyleAttribute(out.getStyle());
 
       writer.writeClassAttribute(
           TobagoClass.OUT,

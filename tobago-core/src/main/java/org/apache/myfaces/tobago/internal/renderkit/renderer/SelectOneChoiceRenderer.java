@@ -60,7 +60,6 @@ public class SelectOneChoiceRenderer extends SelectOneRendererBase {
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, select);
     writer.writeAttribute(HtmlAttributes.DISABLED, disabled);
     writer.writeAttribute(HtmlAttributes.TABINDEX, select.getTabIndex());
-    writer.writeStyleAttribute(select.getStyle());
 
     writer.writeClassAttribute(
         TobagoClass.SELECT_ONE_CHOICE,

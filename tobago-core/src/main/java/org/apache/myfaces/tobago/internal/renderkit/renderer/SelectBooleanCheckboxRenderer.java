@@ -84,7 +84,6 @@ public class SelectBooleanCheckboxRenderer extends MessageLayoutRendererBase {
     if (select.isLabelLayoutSkip()) {
       writer.writeIdAttribute(clientId);
     }
-    writer.writeStyleAttribute(select.getStyle());
 
     writer.writeClassAttribute(
         TobagoClass.SELECT_BOOLEAN_CHECKBOX,

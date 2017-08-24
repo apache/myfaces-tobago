@@ -84,7 +84,6 @@ public class FlexLayoutRenderer extends RendererBase {
         TobagoClass.FLEX_LAYOUT,
         TobagoClass.FLEX_LAYOUT.createMarkup(vertically ? Markup.VERTICALLY : Markup.NULL),
         TobagoClass.valueOf(flexLayout.getAlignItems()));
-    writer.writeStyleAttribute(flexLayout.getStyle());
   }
 
   @Override

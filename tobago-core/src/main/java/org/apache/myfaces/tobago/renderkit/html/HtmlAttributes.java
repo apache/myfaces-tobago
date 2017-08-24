@@ -54,6 +54,7 @@ public enum HtmlAttributes implements MarkupLanguageAttributes {
   METHOD("method"),
   MULTIPLE("multiple"),
   NAME("name"),
+  NONCE("nonce"),
   MINLENGTH("minlength"),
   /** @deprecated Since 2.0.0. This attribute work not with SCP */
   @Deprecated

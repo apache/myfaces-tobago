@@ -34,7 +34,6 @@ import org.apache.myfaces.tobago.context.TobagoResourceBundle;
 import org.apache.myfaces.tobago.event.SheetAction;
 import org.apache.myfaces.tobago.internal.component.AbstractUIColumn;
 import org.apache.myfaces.tobago.internal.component.AbstractUIColumnBase;
-import org.apache.myfaces.tobago.internal.component.AbstractUIColumnNode;
 import org.apache.myfaces.tobago.internal.component.AbstractUIData;
 import org.apache.myfaces.tobago.internal.component.AbstractUIOut;
 import org.apache.myfaces.tobago.internal.component.AbstractUIRow;
@@ -47,8 +46,6 @@ import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.internal.util.JsonUtils;
 import org.apache.myfaces.tobago.internal.util.RenderUtils;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
-import org.apache.myfaces.tobago.layout.Display;
-import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.layout.ShowPosition;
 import org.apache.myfaces.tobago.layout.TextAlign;
 import org.apache.myfaces.tobago.model.ExpandedState;
@@ -60,7 +57,6 @@ import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.CssItem;
 import org.apache.myfaces.tobago.renderkit.css.CustomClass;
 import org.apache.myfaces.tobago.renderkit.css.Icons;
-import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
@@ -189,7 +185,6 @@ public class SheetRenderer extends RendererBase {
         TobagoClass.SHEET.createMarkup(sheet.getMarkup()),
         TobagoClass.SHEET.createDefaultMarkups(sheet),
         sheet.getCustomClass());
-    writer.writeStyleAttribute(sheet.getStyle());
     final UIComponent facetReload = ComponentUtils.getFacet(sheet, Facets.reload);
     if (facetReload != null && facetReload instanceof UIReload && facetReload.isRendered()) {
       final UIReload update = (UIReload) facetReload;
@@ -581,35 +576,32 @@ public class SheetRenderer extends RendererBase {
       if (rowMarkups != null) {
         rowMarkup = rowMarkup.add(Markup.valueOf(rowMarkups));
       }
-      if (!sheet.isRowVisible()) {
-        final Style rowStyle = new Style();
-        rowStyle.setDisplay(Display.none);
-        writer.writeStyleAttribute(rowStyle);
-      }
       final String parentId = sheet.getRowParentClientId();
       if (parentId != null) {
         writer.writeAttribute(DataAttributes.TREE_PARENT, parentId, false);
       }
 
-
+      // the row client id depends from the existence of an UIRow component! TBD: is this good?
+      String rowClientId = sheet.getRowClientId();
       CustomClass rowClass = null;
       for (final UIColumn column : columns) {
         if (column.isRendered()) {
           if (column instanceof AbstractUIRow) {
             final AbstractUIRow row = (AbstractUIRow) column;
             writer.writeCommandMapAttribute(JsonUtils.encode(RenderUtils.getBehaviorCommands(facesContext, row)));
-            writer.writeIdAttribute(row.getClientId(facesContext));
+            rowClientId = row.getClientId(facesContext);
             rowClass = row.getCustomClass();
-            writer.writeStyleAttribute(row.getStyle());
             // todo: Markup.CLICKABLE ???
           }
         }
       }
+      writer.writeIdAttribute(rowClientId);
       writer.writeClassAttribute(
           TobagoClass.SHEET__ROW,
           TobagoClass.SHEET__ROW.createMarkup(rowMarkup),
           selected ? BootstrapClass.TABLE_INFO : null,
-          rowClass);
+          rowClass,
+          sheet.isRowVisible() ? null : BootstrapClass.D_NONE);
 
       for (final UIColumn column : columns) {
         if (column.isRendered()) {
@@ -625,7 +617,7 @@ public class SheetRenderer extends RendererBase {
                 TobagoClass.SHEET__CELL,
                 TobagoClass.SHEET__CELL.createMarkup(markup),
                 normalColumn.getCustomClass());
-            writer.writeStyleAttribute(normalColumn.getStyle());
+            writer.writeIdAttribute(normalColumn.getClientId(facesContext));
 
             if (normalColumn instanceof UIColumnSelector) {
               UIColumnSelector selector = (UIColumnSelector) normalColumn;
@@ -642,14 +634,14 @@ public class SheetRenderer extends RendererBase {
                   BootstrapClass.FORM_CHECK_INLINE,
                   TobagoClass.SHEET__COLUMN_SELECTOR);
               writer.endElement(HtmlElements.INPUT);
-            } else if (normalColumn instanceof AbstractUIColumnNode) {
+            } else /*if (normalColumn instanceof AbstractUIColumnNode)*/ {
               normalColumn.encodeAll(facesContext);
-            } else {
+            } /*else {
               final List<UIComponent> children = sheet.getRenderedChildrenOf(normalColumn);
               for (final UIComponent grandKid : children) {
                 grandKid.encodeAll(facesContext);
               }
-            }
+            }*/
 
             writer.endElement(HtmlElements.TD);
           }
@@ -768,7 +760,6 @@ public class SheetRenderer extends RendererBase {
       final AbstractUIRow row = ComponentUtils.findChild(sheet, AbstractUIRow.class);
       if (row != null) {
         writer.writeClassAttribute(row.getCustomClass());
-        writer.writeStyleAttribute(row.getStyle());
       }
       for (int j = 0; j < columns.size(); j++) {
         final AbstractUIColumnBase column = columns.get(j);
@@ -812,7 +803,6 @@ public class SheetRenderer extends RendererBase {
                 TobagoClass.SHEET__HEADER_CELL,
                 TobagoClass.SHEET__CELL.createMarkup(align),
                 column.getCustomClass());
-            writer.writeStyleAttribute(column.getStyle());
             writer.startElement(HtmlElements.SPAN);
             Icons sorterIcon = null;
             Markup markup = Markup.NULL;
@@ -914,9 +904,6 @@ public class SheetRenderer extends RendererBase {
         TobagoClass.SHEET__HEADER_CELL.createMarkup(Markup.FILLER));
     writer.startElement(HtmlElements.SPAN);
     writer.writeClassAttribute(TobagoClass.SHEET__HEADER);
-    final Style headerStyle = new Style();
-    headerStyle.setHeight(Measure.valueOf(14)); // XXX todo
-    writer.writeStyleAttribute(headerStyle);
     writer.endElement(HtmlElements.SPAN);
     writer.endElement(HtmlElements.TH);
   }

@@ -115,6 +115,9 @@ public final class ResponseUtils {
           throw new IllegalArgumentException("Undefined mode: " + contentSecurityPolicy.getMode());
       }
       final StringBuilder builder = new StringBuilder();
+      builder.append("style-src 'nonce-");
+      builder.append(TobagoContext.getInstance(facesContext).getNonce());
+      builder.append("';");
       for (final String directive : contentSecurityPolicy.getDirectiveList()) {
         builder.append(directive);
         builder.append(";");

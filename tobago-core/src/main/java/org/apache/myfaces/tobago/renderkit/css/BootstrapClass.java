@@ -21,7 +21,10 @@ package org.apache.myfaces.tobago.renderkit.css;
 
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.layout.ColumnPartition;
+import org.apache.myfaces.tobago.layout.TextAlign;
 import org.apache.myfaces.tobago.util.ComponentUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
@@ -154,6 +157,7 @@ public enum BootstrapClass implements CssItem {
   CONTAINER("container"),
   CONTAINER_FLUID("container-fluid"),
   D_INLINE("d-inline"),
+  D_NONE("d-none"),
   DISABLED("disabled"),
   DROPDOWN("dropdown"),
   DROPDOWN_DIVIDER("dropdown-divider"),
@@ -277,6 +281,10 @@ public enum BootstrapClass implements CssItem {
   PROGRESS_BAR("progress-bar"),
   ROW("row"),
   SR_ONLY("sr-only"),
+  TEXT_CENTER("text-center"),
+  TEXT_JUSTIFY("text-justify"),
+  TEXT_LEFT("text-left"),
+  TEXT_RIGHT("text-right"),
   TAB_CONTENT("tab-content"),
   TAB_PANE("tab-pane"),
   TABLE("table"),
@@ -286,6 +294,8 @@ public enum BootstrapClass implements CssItem {
   TABLE_INVERSE("table-inverse"),
   TABLE_SM("table-sm"),
   TABLE_STRIPED("table-striped");
+
+  private static final Logger LOG = LoggerFactory.getLogger(BootstrapClass.class);
 
   private static final int SEVERITY_ERROR = FacesMessage.SEVERITY_ERROR.getOrdinal();
   private static final int SEVERITY_WARN = FacesMessage.SEVERITY_WARN.getOrdinal();
@@ -333,6 +343,26 @@ public enum BootstrapClass implements CssItem {
       return TobagoClass.HAS__INFO;
     } else {
       return null;
+    }
+  }
+
+  /**
+   *
+   * @since 4.0.0
+   */
+  public static CssItem textAlign(final TextAlign textAlign) {
+    switch (textAlign) {
+      case left:
+        return BootstrapClass.TEXT_LEFT;
+      case right:
+        return BootstrapClass.TEXT_RIGHT;
+      case justify:
+        return BootstrapClass.TEXT_JUSTIFY;
+      case center:
+        return BootstrapClass.TEXT_CENTER;
+      default:
+        LOG.warn("Not a bootstrap class defined for {}", textAlign);
+        return BootstrapClass.TEXT_LEFT;
     }
   }
 

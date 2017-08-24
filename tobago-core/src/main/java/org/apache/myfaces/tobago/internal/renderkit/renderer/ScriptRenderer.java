@@ -19,30 +19,31 @@
 
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
-import org.apache.myfaces.tobago.component.UIScript;
-import org.apache.myfaces.tobago.internal.util.FacesContextUtils;
+import org.apache.myfaces.tobago.internal.component.AbstractUIScript;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
+import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
+import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
+import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
+import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
-import javax.faces.event.ComponentSystemEvent;
-import javax.faces.event.ComponentSystemEventListener;
-import javax.faces.event.ListenerFor;
-import javax.faces.event.PostAddToViewEvent;
+import java.io.IOException;
 
-/**
- * @deprecated since 4.0.0
- */
-@Deprecated
-@ListenerFor(systemEventClass = PostAddToViewEvent.class)
-public class ScriptRenderer extends RendererBase implements ComponentSystemEventListener {
+public class ScriptRenderer extends RendererBase {
 
   @Override
-  public void processEvent(ComponentSystemEvent event) {
-    final FacesContext facesContext = FacesContext.getCurrentInstance();
-    final UIScript scriptComponent = (UIScript) event.getComponent();
-    final String file = scriptComponent.getFile();
-    if (file != null) {
-      FacesContextUtils.addScriptFile(facesContext, file);
-    }
+  public void encodeBegin(final FacesContext facesContext, final UIComponent component) throws IOException {
+
+    final AbstractUIScript script = (AbstractUIScript) component;
+    final TobagoResponseWriter writer = getResponseWriter(facesContext);
+
+    writer.startElement(HtmlElements.SCRIPT);
+    writer.writeAttribute(HtmlAttributes.SRC, script.getFile(), true);
+//  TODO: new attribute DEFER
+// XXX with defer activated, pages are not shown reliable
+//        writer.writeAttribute(HtmlAttributes.DEFER, true);
+    writer.writeAttribute(HtmlAttributes.TYPE, "text/javascript", false);
+    writer.endElement(HtmlElements.SCRIPT);
   }
+
 }

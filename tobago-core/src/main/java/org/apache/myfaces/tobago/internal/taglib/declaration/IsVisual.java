@@ -25,12 +25,6 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 public interface IsVisual {
 
   /**
-   * For internal use. Used for rendering, if there is a child tag &lt;tc:style&gt;
-   */
-  @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.renderkit.css.Style")
-  void setStyle(String style);
-
-  /**
    * Sets a CSS class in its parent, if the parent supports it.
    *
    * Which this feature it is possible to put a CSS class name into a component with the &lt;tc:style&gt; tag. Example:

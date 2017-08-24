@@ -22,17 +22,12 @@ package org.apache.myfaces.tobago.component;
 
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.renderkit.css.CustomClass;
-import org.apache.myfaces.tobago.renderkit.css.Style;
 
 public interface Visual {
 
   Markup getMarkup();
 
   void setMarkup(Markup markup);
-
-  Style getStyle();
-
-  void setStyle(Style style);
 
   CustomClass getCustomClass();
 

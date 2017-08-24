@@ -28,11 +28,9 @@ import org.apache.myfaces.tobago.internal.component.AbstractUITreeListbox;
 import org.apache.myfaces.tobago.internal.component.AbstractUITreeMenu;
 import org.apache.myfaces.tobago.internal.component.AbstractUITreeNodeBase;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
-import org.apache.myfaces.tobago.layout.Display;
-import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.model.Selectable;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
-import org.apache.myfaces.tobago.renderkit.css.Style;
+import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
@@ -145,29 +143,19 @@ public class TreeNodeRenderer extends RendererBase {
           markup = markup.add(Markup.EXPANDED);
         }
       }
+      // In the case of a sheet, we need not hiding the node, because the whole TR will be hidden.
+      final boolean hidden = !dataRendersRowContainer && !visible;
 
       writer.writeClassAttribute(
           TobagoClass.TREE_NODE,
           TobagoClass.TREE_NODE.createMarkup(markup),
-          TobagoClass.TREE_NODE.createDefaultMarkups(node));
+          TobagoClass.TREE_NODE.createDefaultMarkups(node),
+          hidden ? BootstrapClass.D_NONE : null);
       HtmlRendererUtils.writeDataAttributes(facesContext, writer, node);
       if (parentId != null) {
         writer.writeAttribute(DataAttributes.TREE_PARENT, parentId, false);
       }
-
-      Style style = node.getStyle();
-      if (style == null) {
-        style = new Style();
-      }
-      // In the case of a sheet, we need not hiding the node, because the whole TR will be hidden.
-      if (!dataRendersRowContainer && !visible) {
-        style.setDisplay(Display.none);
-      }
-      if(style.getLeft() == null) {
-        style.setMarginLeft(leftOffset(data, node.getLevel(), data.isShowRoot()));
-      }
-
-      writer.writeStyleAttribute(style);
+      writer.writeAttribute(DataAttributes.LEVEL, data.isShowRoot() ? node.getLevel() : node.getLevel() - 1);
     }
   }
 
@@ -212,14 +200,5 @@ public class TreeNodeRenderer extends RendererBase {
     writer.writeAttribute(HtmlAttributes.ALT, "", false);
     writer.endElement(HtmlElements.IMG);
 */
-  }
-
-  protected Measure leftOffset(AbstractUIData data, int level, boolean showRoot) {
-    if (data instanceof AbstractUITreeMenu) {
-      final int factor = showRoot ? level : level - 1;
-      return Measure.valueOf(factor * 25); // XXX should be defined in CSS
-    } else {
-      return Measure.ZERO;
-    }
   }
 }

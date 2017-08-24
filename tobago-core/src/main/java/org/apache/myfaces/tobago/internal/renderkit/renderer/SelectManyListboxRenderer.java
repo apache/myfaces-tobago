@@ -67,7 +67,6 @@ public class SelectManyListboxRenderer extends SelectManyRendererBase {
     writer.writeAttribute(HtmlAttributes.REQUIRED, select.isRequired());
     HtmlRendererUtils.renderFocus(clientId, select.isFocus(), ComponentUtils.isError(select), facesContext, writer);
     writer.writeAttribute(HtmlAttributes.TABINDEX, select.getTabIndex());
-    writer.writeStyleAttribute(select.getStyle());
 
     writer.writeClassAttribute(
         TobagoClass.SELECT_MANY_LISTBOX,

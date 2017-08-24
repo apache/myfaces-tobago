@@ -22,7 +22,6 @@ package org.apache.myfaces.tobago.model;
 import org.apache.myfaces.tobago.component.Visual;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.renderkit.css.CustomClass;
-import org.apache.myfaces.tobago.renderkit.css.Style;
 
 public class SelectItem extends javax.faces.model.SelectItem implements Visual {
 
@@ -30,7 +29,6 @@ public class SelectItem extends javax.faces.model.SelectItem implements Visual {
 
   private String image;
   private Markup markup = Markup.NULL;
-  private Style style;
   private CustomClass customClass;
 
   public SelectItem() {
@@ -101,16 +99,6 @@ public class SelectItem extends javax.faces.model.SelectItem implements Visual {
   @Override
   public void setMarkup(final Markup markup) {
     this.markup = markup;
-  }
-
-  @Override
-  public Style getStyle() {
-    return style;
-  }
-
-  @Override
-  public void setStyle(Style style) {
-    this.style = style;
   }
 
   @Override

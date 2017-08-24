@@ -100,6 +100,11 @@ public enum DataAttributes implements MarkupLanguageAttributes {
   LAYOUT("data-tobago-layout"),
 
   /**
+   * Defines the depth level of a tree node.
+   */
+  LEVEL("data-tobago-level"),
+
+  /**
    * Defines a maximum value.
    */
   MAX("data-tobago-max"),
@@ -154,7 +159,9 @@ public enum DataAttributes implements MarkupLanguageAttributes {
 
   /**
    * A way to transport style data in JSON format to the browser. With CSP the normal style attribute isn't allowed.
+   * @deprecated since 4.0.0. UIStyle now renders itself.
    */
+  @Deprecated
   STYLE("data-tobago-style"),
 
   SCROLL_PANEL("data-tobago-scroll-panel"),

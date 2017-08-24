@@ -9681,6 +9681,11 @@ table.tobago-gridLayout > tbody > tr:first-child > td {
   margin-bottom: 0;
 }
 
+/* hidden ----------------------------------------------------------- */
+.tobago-hidden:disabled {
+  display: none;
+}
+
 /* image ----------------------------------------------------------- */
 .tobago-image-markup-disabled {
   -webkit-filter: grayscale(1) blur(2px) contrast(0.5) brightness(1.2);
@@ -10291,6 +10296,11 @@ th.tobago-sheet-headerCell .tobago-out {
           flex-shrink: 0;
 }
 
+th.tobago-sheet-headerCell-markup-filler > .tobago-sheet-header {
+  height: 14px;
+  /* XXX why? */
+}
+
 .tobago-sheet-columnSelector {
   margin-top: 0.75rem;
   margin-bottom: 0.75rem;
@@ -10503,6 +10513,38 @@ th.tobago-sheet-headerCell .tobago-out {
 /* tree ---------------------------------------------------------------------- */
 .tobago-treeCommand {
   cursor: pointer;
+}
+
+.tobago-treeNode[data-tobago-level] {
+  margin-left: 7rem;
+}
+
+.tobago-treeNode[data-tobago-level='0'] {
+  margin-left: 0;
+}
+
+.tobago-treeNode[data-tobago-level='1'] {
+  margin-left: 1rem;
+}
+
+.tobago-treeNode[data-tobago-level='2'] {
+  margin-left: 2rem;
+}
+
+.tobago-treeNode[data-tobago-level='3'] {
+  margin-left: 3rem;
+}
+
+.tobago-treeNode[data-tobago-level='4'] {
+  margin-left: 4rem;
+}
+
+.tobago-treeNode[data-tobago-level='5'] {
+  margin-left: 5rem;
+}
+
+.tobago-treeNode[data-tobago-level='6'] {
+  margin-left: 6rem;
 }
 
 /* out -------------------------------------------------------------- */

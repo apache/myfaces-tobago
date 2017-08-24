@@ -62,8 +62,6 @@ public class MessagesRenderer extends RendererBase {
     }
     final List<UIMessages.Item> messageList = messages.createMessageList(facesContext);
 
-    writer.writeStyleAttribute(messages.getStyle());
-
     // with id
       /*String focusId = null;
       Iterator clientIds;

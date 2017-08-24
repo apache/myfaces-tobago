@@ -20,13 +20,11 @@
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
 import org.apache.myfaces.tobago.internal.component.AbstractUIHidden;
-import org.apache.myfaces.tobago.layout.Display;
-import org.apache.myfaces.tobago.renderkit.css.Style;
+import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
+import org.apache.myfaces.tobago.internal.util.RenderUtils;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
-import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
-import org.apache.myfaces.tobago.internal.util.RenderUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
@@ -46,10 +44,8 @@ public class HiddenRenderer extends DecodingInputRendererBase {
 
     writer.startElement(HtmlElements.INPUT);
     if (hidden.isDisabled()) {
+      // XXX why text instead of hidden here?
       writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.TEXT);
-      final Style style = new Style();
-      style.setDisplay(Display.none);
-      writer.writeStyleAttribute(style);
       writer.writeAttribute(HtmlAttributes.DISABLED, true);
     } else {
       writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN);

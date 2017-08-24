@@ -58,7 +58,6 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
     if (select.isLabelLayoutSkip()) {
       writer.writeIdAttribute(id);
     }
-    writer.writeStyleAttribute(select.getStyle());
 
     writer.writeClassAttribute(
         TobagoClass.SELECT_ONE_RADIO,

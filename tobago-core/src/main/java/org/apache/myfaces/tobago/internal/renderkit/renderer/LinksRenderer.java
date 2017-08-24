@@ -43,7 +43,6 @@ public class LinksRenderer extends RendererBase {
     writer.startElement(HtmlElements.UL);
     writer.writeIdAttribute(links.getClientId(facesContext));
     writer.writeClassAttribute(TobagoClass.LINKS, getExtraCssItem(), links.getCustomClass());
-    writer.writeStyleAttribute(links.getStyle());
   }
 
   @Override

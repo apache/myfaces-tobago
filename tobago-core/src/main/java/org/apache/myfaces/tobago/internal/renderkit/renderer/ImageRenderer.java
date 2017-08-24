@@ -35,6 +35,8 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 
+import static org.apache.myfaces.tobago.renderkit.css.FontAwesomeIconEncoder.FA;
+
 public class ImageRenderer extends RendererBase {
 
   @Override
@@ -46,8 +48,10 @@ public class ImageRenderer extends RendererBase {
     final String value = image.getUrl();
     boolean fontAwesome = StringUtils.startsWith(value, "fa-");
     if (fontAwesome) {
-      // todo: should not be static
-      writer.writeIcon(null, image.getStyle(), FontAwesomeIconEncoder.generateClass(value));
+      writer.startElement(HtmlElements.I);
+      writer.writeIdAttribute(image.getClientId(facesContext));
+      writer.writeClassAttribute(FA, FontAwesomeIconEncoder.generateClass(value));
+      writer.endElement(HtmlElements.I);
     } else {
       final String alt = image.getAlt();
       writer.startElement(HtmlElements.IMG);
@@ -66,7 +70,6 @@ public class ImageRenderer extends RendererBase {
           TobagoClass.IMAGE.createDefaultMarkups(image),
           isDisabled(image) ? BootstrapClass.DISABLED : null,
           image.getCustomClass());
-      writer.writeStyleAttribute(image.getStyle());
       writer.endElement(HtmlElements.IMG);
     }
   }

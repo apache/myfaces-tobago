@@ -71,12 +71,6 @@ public class PopupRenderer extends PanelRendererBase {
         popupMarkup.contains(Markup.LARGE) ? BootstrapClass.MODAL_LG : null,
         popupMarkup.contains(Markup.SMALL) ? BootstrapClass.MODAL_SM : null);
     writer.writeAttribute(HtmlAttributes.ROLE, HtmlRoleValues.DOCUMENT.toString(), false);
-/*
-    final Style style = new Style();
-    style.setWidth(popup.getWidth());
-    style.setHeight(popup.getHeight());
-    writer.writeStyleAttribute(style);
-*/
     writer.startElement(HtmlElements.DIV);
     writer.writeClassAttribute(BootstrapClass.MODAL_CONTENT);
 

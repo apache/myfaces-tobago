@@ -23,6 +23,8 @@ import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.component.UIMeta;
 import org.apache.myfaces.tobago.component.UIPage;
+import org.apache.myfaces.tobago.component.UIScript;
+import org.apache.myfaces.tobago.component.UIStyle;
 import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.context.Theme;
@@ -30,6 +32,8 @@ import org.apache.myfaces.tobago.context.TobagoContext;
 import org.apache.myfaces.tobago.context.TobagoResourceBundle;
 import org.apache.myfaces.tobago.internal.component.AbstractUIMeta;
 import org.apache.myfaces.tobago.internal.component.AbstractUIPage;
+import org.apache.myfaces.tobago.internal.component.AbstractUIScript;
+import org.apache.myfaces.tobago.internal.component.AbstractUIStyle;
 import org.apache.myfaces.tobago.internal.util.AccessKeyLogger;
 import org.apache.myfaces.tobago.internal.util.CookieUtils;
 import org.apache.myfaces.tobago.internal.util.FacesContextUtils;
@@ -66,6 +70,7 @@ import javax.portlet.ResourceURL;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Locale;
@@ -145,7 +150,8 @@ public class PageRenderer extends RendererBase {
       ResponseUtils.ensureNosniffHeader(facesContext);
     }
 
-    final Theme theme = TobagoContext.getInstance(facesContext).getTheme();
+    final TobagoContext tobagoContext = TobagoContext.getInstance(facesContext);
+    final Theme theme = tobagoContext.getTheme();
     if (response instanceof HttpServletResponse && request instanceof HttpServletRequest) {
       CookieUtils.setThemeNameToCookie((HttpServletRequest) request, (HttpServletResponse) response, theme.getName());
     }
@@ -173,39 +179,12 @@ public class PageRenderer extends RendererBase {
 
       writer.startElement(HtmlElements.HEAD);
 
+      final HeadResources headResources = new HeadResources(
+          facesContext, viewRoot.getComponentResources(facesContext, HEAD_TARGET), writer.getCharacterEncoding());
+
       // meta tags
-      final List<UIComponent> headResources = viewRoot.getComponentResources(facesContext, HEAD_TARGET);
-
-      if (!containsCharset(headResources)) {
-        final UIMeta charset = (UIMeta) facesContext.getApplication()
-            .createComponent(facesContext, UIMeta.COMPONENT_TYPE, RendererTypes.Meta.name());
-        charset.setCharset(writer.getCharacterEncoding());
-        charset.encodeAll(facesContext);
-      }
-
-      if (!containsNameViewport(headResources)) {
-        final UIMeta viewport = (UIMeta) facesContext.getApplication()
-            .createComponent(facesContext, UIMeta.COMPONENT_TYPE, RendererTypes.Meta.name());
-        viewport.setName("viewport");
-        viewport.setContent("width=device-width, initial-scale=1.0");
-        viewport.encodeAll(facesContext);
-      }
-
-      for (UIComponent headResource : headResources) {
-        if (headResource instanceof UIOutput) {
-          final Map<String, Object> attributes = headResource.getAttributes();
-          if ("javax.faces".equals(attributes.get("library"))
-              && "jsf.js".equals(attributes.get("name"))) {
-            // workaround for WebSphere
-            // We don't need jsf.js from the JSF impl, because Tobago comes with its own tobago-jsf.js
-            if (LOG.isDebugEnabled()) {
-              LOG.debug("Skip rendering resource jsf.js");
-            }
-            continue;
-          }
-        }
-
-        headResource.encodeAll(facesContext);
+      for (UIComponent metas : headResources.getMetas()) {
+        metas.encodeAll(facesContext);
       }
 
       // title
@@ -214,13 +193,20 @@ public class PageRenderer extends RendererBase {
       writer.endElement(HtmlElements.TITLE);
 
       // style files from theme
+      UIStyle style = null;
       for (final String styleFile : theme.getStyleResources(productionMode)) {
-        writeStyle(writer, contextPath + styleFile);
+        if (style == null) {
+          style = (UIStyle) facesContext.getApplication()
+             .createComponent(facesContext, UIStyle.COMPONENT_TYPE, RendererTypes.Style.name());
+          style.setTransient(true);
+        }
+        style.setFile(contextPath + styleFile);
+        style.encodeAll(facesContext);
       }
 
       // style files individual files
-      for (final String styleFile : FacesContextUtils.getStyleFiles(facesContext)) {
-        writeStyle(writer, styleFile);
+      for (UIComponent styles : headResources.getStyles()) {
+        styles.encodeAll(facesContext);
       }
 
       if (!productionMode) {
@@ -243,13 +229,24 @@ public class PageRenderer extends RendererBase {
       }
 
       // script files from theme
+      UIScript script = null;
       for (final String scriptFile : theme.getScriptResources(productionMode)) {
-        encodeScript(writer, contextPath + scriptFile);
+        if (script == null) {
+          script = (UIScript) facesContext.getApplication()
+              .createComponent(facesContext, UIScript.COMPONENT_TYPE, RendererTypes.Script.name());
+          script.setTransient(true);
+        }
+        script.setFile(contextPath + scriptFile);
+        script.encodeAll(facesContext);
       }
 
       // script files individual files
-      for (final String scriptFile : FacesContextUtils.getScriptFiles(facesContext)) {
-        encodeScript(writer, scriptFile);
+      for (UIComponent scripts : headResources.getScripts()) {
+        scripts.encodeAll(facesContext);
+      }
+
+      for (UIComponent misc : headResources.getMisc()) {
+        misc.encodeAll(facesContext);
       }
 
       if (!productionMode) {
@@ -270,7 +267,6 @@ public class PageRenderer extends RendererBase {
         page.getCustomClass());
     writer.writeIdAttribute(clientId);
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, page);
-    writer.writeStyleAttribute(page.getStyle());
 
     writer.writeCommandMapAttribute(JsonUtils.encode(RenderUtils.getBehaviorCommands(facesContext, page)));
 
@@ -337,26 +333,6 @@ public class PageRenderer extends RendererBase {
     }
 */
 
-  private boolean containsCharset(final List<UIComponent> headComponents) {
-    for (UIComponent headComponent : headComponents) {
-      if (headComponent instanceof AbstractUIMeta
-          && ((AbstractUIMeta) headComponent).getCharset() != null) {
-        return true;
-      }
-    }
-    return false;
-  }
-
-  private boolean containsNameViewport(final List<UIComponent> headComponents) {
-    for (UIComponent headComponent : headComponents) {
-      if (headComponent instanceof AbstractUIMeta
-          && "viewport".equals(((AbstractUIMeta) headComponent).getName())) {
-        return true;
-      }
-    }
-    return false;
-  }
-
   private void checkDuplicates(final String[] resources, final Collection<String> files) {
     for (final String resource : resources) {
       if (files.contains(resource)) {
@@ -365,15 +341,6 @@ public class PageRenderer extends RendererBase {
             + "Please remove it from the page!");
       }
     }
-  }
-
-  private void writeStyle(final TobagoResponseWriter writer, final String style) throws IOException {
-    writer.startElement(HtmlElements.LINK);
-    writer.writeAttribute(HtmlAttributes.REL, "stylesheet", false);
-    writer.writeAttribute(HtmlAttributes.HREF, style, true);
-//    writer.writeAttribute(HtmlAttributes.MEDIA, "screen", false);
-    writer.writeAttribute(HtmlAttributes.TYPE, "text/css", false);
-    writer.endElement(HtmlElements.LINK);
   }
 
   @Override
@@ -422,15 +389,6 @@ public class PageRenderer extends RendererBase {
     }
   }
 
-  private void encodeScript(final TobagoResponseWriter writer, final String script) throws IOException {
-    writer.startElement(HtmlElements.SCRIPT);
-    writer.writeAttribute(HtmlAttributes.SRC, script, true);
-//   XXX with defer activated, pages are not shown reliable
-//        writer.writeAttribute(HtmlAttributes.DEFER, true);
-    writer.writeAttribute(HtmlAttributes.TYPE, "text/javascript", false);
-    writer.endElement(HtmlElements.SCRIPT);
-  }
-
   private String getMethod(final UIPage page) {
     return ComponentUtils.getStringAttribute(page, Attributes.method, "post");
   }
@@ -438,5 +396,95 @@ public class PageRenderer extends RendererBase {
   @Override
   public boolean getRendersChildren() {
     return true;
+  }
+
+  /**
+   * This class helps to order the head resources.
+   */
+  private static class HeadResources {
+
+    private List<UIComponent> metas = new ArrayList<UIComponent>();
+    private List<UIComponent> styles = new ArrayList<UIComponent>();
+    private List<UIComponent> scripts = new ArrayList<UIComponent>();
+    private List<UIComponent> misc = new ArrayList<UIComponent>();
+
+    HeadResources(
+        final FacesContext facesContext, final Collection<? extends UIComponent> collection, final String charset) {
+      for (UIComponent uiComponent : collection) {
+        if (uiComponent instanceof AbstractUIMeta) {
+          metas.add(uiComponent);
+        } else if (uiComponent instanceof AbstractUIStyle) {
+          styles.add(uiComponent);
+        } else if (uiComponent instanceof AbstractUIScript) {
+          scripts.add(uiComponent);
+        } else {
+          if (uiComponent instanceof UIOutput) {
+            final Map<String, Object> attributes = uiComponent.getAttributes();
+            if ("javax.faces".equals(attributes.get("library"))
+                && "jsf.js".equals(attributes.get("name"))) {
+              // workaround for WebSphere
+              // We don't need jsf.js from the JSF impl, because Tobago comes with its own tobago-jsf.js
+              if (LOG.isDebugEnabled()) {
+                LOG.debug("Skip rendering resource jsf.js");
+              }
+              continue;
+            }
+          }
+          misc.add(uiComponent);
+        }
+      }
+
+      if (!containsNameViewport(metas)) {
+        final UIMeta viewportMeta = (UIMeta) facesContext.getApplication()
+            .createComponent(facesContext, UIMeta.COMPONENT_TYPE, RendererTypes.Meta.name());
+        viewportMeta.setName("viewport");
+        viewportMeta.setContent("width=device-width, initial-scale=1.0");
+        metas.add(0, viewportMeta);
+      }
+
+      if (!containsCharset(metas)) {
+        final UIMeta charsetMeta = (UIMeta) facesContext.getApplication()
+            .createComponent(facesContext, UIMeta.COMPONENT_TYPE, RendererTypes.Meta.name());
+        charsetMeta.setCharset(charset);
+        metas.add(0, charsetMeta);
+      }
+    }
+
+    public List<UIComponent> getMetas() {
+      return metas;
+    }
+
+    public List<UIComponent> getStyles() {
+      return styles;
+    }
+
+    public List<UIComponent> getScripts() {
+      return scripts;
+    }
+
+    public List<UIComponent> getMisc() {
+      return misc;
+    }
+
+    private boolean containsCharset(final List<UIComponent> headComponents) {
+      for (UIComponent headComponent : headComponents) {
+        if (headComponent instanceof AbstractUIMeta
+            && ((AbstractUIMeta) headComponent).getCharset() != null) {
+          return true;
+        }
+      }
+      return false;
+    }
+
+    private boolean containsNameViewport(final List<UIComponent> headComponents) {
+      for (UIComponent headComponent : headComponents) {
+        if (headComponent instanceof AbstractUIMeta
+            && "viewport".equals(((AbstractUIMeta) headComponent).getName())) {
+          return true;
+        }
+      }
+      return false;
+    }
+
   }
 }

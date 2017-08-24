@@ -56,7 +56,6 @@ public class PanelRenderer extends PanelRendererBase {
         TobagoClass.PANEL.createDefaultMarkups(panel),
         collapsed ? TobagoClass.COLLAPSED : null,
         panel.getCustomClass());
-    writer.writeStyleAttribute(panel.getStyle());
 
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, panel);
     final String tip = panel.getTip();

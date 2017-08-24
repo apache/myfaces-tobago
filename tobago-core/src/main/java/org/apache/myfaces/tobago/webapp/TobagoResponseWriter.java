@@ -19,6 +19,7 @@
 
 package org.apache.myfaces.tobago.webapp;
 
+import org.apache.myfaces.tobago.internal.util.Deprecation;
 import org.apache.myfaces.tobago.renderkit.css.CssItem;
 import org.apache.myfaces.tobago.renderkit.css.FontAwesomeIconEncoder;
 import org.apache.myfaces.tobago.renderkit.css.IconEncoder;
@@ -231,28 +232,18 @@ public abstract class TobagoResponseWriter extends ResponseWriter {
 
   /**
    * Write the style attribute. The value may be escaped (depending of the content).
+   * @deprecated since 4.0.0. UIStyle now renders itself.
    */
+  @Deprecated
   public void writeStyleAttribute(final Style style) throws IOException {
-    if (style != null) {
-      final String json = style.encodeJson();
-      if (json.length() > 2) { // empty "{}" needs not to be written
-        writeAttribute(DataAttributes.STYLE, json, style.needsToBeEscaped());
-      }
-    }
+    Deprecation.LOG.warn("ignoring style: {}", style);
   }
 
   /**
    * Writes an supported icon.
    */
   public void writeIcon(final Icons icon, final CssItem... cssItems) throws IOException {
-    writeIcon(icon, null, cssItems);
-  }
-
-  /**
-   * Writes an supported icon with explicit style information.
-   */
-  public void writeIcon(final Icons icon, final Style style, final CssItem... cssItems) throws IOException {
-    iconEncoder.encode(this, icon, style, cssItems);
+    iconEncoder.encode(this, icon, cssItems);
   }
 
   /**

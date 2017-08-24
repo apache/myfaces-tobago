@@ -82,7 +82,7 @@ public final class RenderUtils {
    */
   @Deprecated
   public static void encode(final FacesContext facesContext, final UIComponent component) throws IOException {
-    encode(facesContext, component, null);
+    component.encodeAll(facesContext);
   }
 
   /**

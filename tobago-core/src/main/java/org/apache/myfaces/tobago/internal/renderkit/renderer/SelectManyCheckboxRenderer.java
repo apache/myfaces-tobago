@@ -57,7 +57,6 @@ public class SelectManyCheckboxRenderer extends SelectManyRendererBase {
     if (select.isLabelLayoutSkip()) {
       writer.writeIdAttribute(id);
     }
-    writer.writeStyleAttribute(select.getStyle());
 
     writer.writeClassAttribute(
         TobagoClass.SELECT_MANY_CHECKBOX,

@@ -22,7 +22,7 @@ package org.apache.myfaces.tobago.internal.renderkit.renderer;
 import org.apache.myfaces.tobago.component.UIFlowLayout;
 import org.apache.myfaces.tobago.layout.TextAlign;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
-import org.apache.myfaces.tobago.renderkit.css.Style;
+import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
@@ -41,18 +41,13 @@ public class FlowLayoutRenderer extends RendererBase {
 
     writer.startElement(HtmlElements.DIV);
     writer.writeIdAttribute(layout.getClientId());
+    final TextAlign textAlign = layout.getTextAlign();
     writer.writeClassAttribute(
         TobagoClass.FLOW_LAYOUT,
         TobagoClass.FLOW_LAYOUT.createMarkup(layout.getMarkup()),
         TobagoClass.FLOW_LAYOUT.createDefaultMarkups(layout),
-        layout.getCustomClass());
-    Style style = layout.getStyle();
-    final TextAlign textAlign = layout.getTextAlign();
-    if (style == null && textAlign != null) {
-      style = new Style();
-      style.setTextAlign(textAlign);
-    }
-    writer.writeStyleAttribute(style);
+        layout.getCustomClass(),
+        textAlign != null ? BootstrapClass.textAlign(textAlign) : null);
   }
 
   @Override

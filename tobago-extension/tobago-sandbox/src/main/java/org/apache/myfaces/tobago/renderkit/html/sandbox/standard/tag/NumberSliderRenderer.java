@@ -22,10 +22,7 @@ package org.apache.myfaces.tobago.renderkit.html.sandbox.standard.tag;
 import org.apache.myfaces.tobago.apt.annotation.Preliminary;
 import org.apache.myfaces.tobago.internal.component.AbstractUINumberSlider;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
-import org.apache.myfaces.tobago.layout.Measure;
-import org.apache.myfaces.tobago.layout.Position;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
-import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRoleValues;
@@ -81,16 +78,15 @@ public class NumberSliderRenderer extends RendererBase {
     writer.writeIdAttribute(id);
     writer.writeClassAttribute(/*Classes.create(slider), */slider.getCustomClass());
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, slider);
-    writer.writeStyleAttribute(slider.getStyle());
     //writer.writeAttribute(HtmlAttributes.border,"1",false);
 
     writer.startElement(HtmlElements.TR);
     writer.startElement(HtmlElements.TD);
 //    writer.writeClassAttribute(Classes.create(slider, "min"));
 
-    final Style widthStyle = new Style();
+//    final Style widthStyle = new Style();
 //    widthStyle.setWidth(Measure.valueOf(sliderWidth / 2));
-    writer.writeStyleAttribute(widthStyle);
+//    writer.writeStyleAttribute(widthStyle);
     writer.startElement(HtmlElements.SPAN);
 //    writer.writeClassAttribute(Classes.create(slider, "min"));
     writer.write(Integer.toString(min));
@@ -99,7 +95,7 @@ public class NumberSliderRenderer extends RendererBase {
     writer.endElement(HtmlElements.TD);
     writer.startElement(HtmlElements.TD);
 //    writer.writeClassAttribute(Classes.create(slider, "max"));
-    writer.writeStyleAttribute(widthStyle);
+//    writer.writeStyleAttribute(widthStyle);
     writer.startElement(HtmlElements.SPAN);
 //    writer.writeClassAttribute(Classes.create(slider, "max"));
     writer.write(Integer.toString(max));
@@ -114,7 +110,7 @@ public class NumberSliderRenderer extends RendererBase {
     writer.startElement(HtmlElements.INPUT);
 //    writer.writeClassAttribute(Classes.create(slider, "input"));
 //    widthStyle.setWidth(Measure.valueOf(inputWidth));
-    writer.writeStyleAttribute(widthStyle);
+//    writer.writeStyleAttribute(widthStyle);
     final String inputIdAndName = getIdForInputField(facesContext, slider);
     writer.writeNameAttribute(inputIdAndName);
     writer.writeIdAttribute(inputIdAndName);
@@ -139,12 +135,12 @@ public class NumberSliderRenderer extends RendererBase {
     // handle
     writer.startElement(HtmlElements.DIV);
     writer.writeIdAttribute(getIdForSliderHandle(facesContext, slider));
-    final Style handleStyle = new Style();
-    handleStyle.setPosition(Position.relative);
-    handleStyle.setTop(Measure.valueOf(-6));
-    handleStyle.setWidth(Measure.valueOf(12));
-    handleStyle.setHeight(Measure.valueOf(6));
-    writer.writeStyleAttribute(handleStyle); // todo: why not do that via the class?
+//    final Style handleStyle = new Style();
+//    handleStyle.setPosition(Position.relative);
+//    handleStyle.setTop(Measure.valueOf(-6));
+//    handleStyle.setWidth(Measure.valueOf(12));
+//    handleStyle.setHeight(Measure.valueOf(6));
+//    writer.writeStyleAttribute(handleStyle); // todo: why not do that via the class?
     writer.startElement(HtmlElements.IMG);
     writer.writeAttribute(HtmlAttributes.SRC, facesContext.getExternalContext().getRequestContextPath(), true);
     writer.endElement(HtmlElements.IMG);

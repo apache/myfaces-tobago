@@ -109,7 +109,6 @@ public class TextareaRenderer extends MessageLayoutRendererBase {
         TobagoClass.TEXTAREA.createDefaultMarkups(input),
         BootstrapClass.FORM_CONTROL,
         input.getCustomClass());
-    writer.writeStyleAttribute(input.getStyle());
     int maxLength = 0;
     int minLength = 0;
     String pattern = null;

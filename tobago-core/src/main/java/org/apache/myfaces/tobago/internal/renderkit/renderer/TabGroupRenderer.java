@@ -155,7 +155,6 @@ public class TabGroupRenderer extends RendererBase implements ComponentSystemEve
         TobagoClass.TAB_GROUP.createDefaultMarkups(tabGroup),
         tabGroup.getCustomClass());
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, tabGroup);
-    writer.writeStyleAttribute(tabGroup.getStyle());
     writer.writeAttribute(HtmlAttributes.SWITCHTYPE, switchType.name(), false);
 
     writer.startElement(HtmlElements.INPUT);
@@ -244,7 +243,6 @@ public class TabGroupRenderer extends RendererBase implements ComponentSystemEve
               TobagoClass.TAB.createDefaultMarkups(tab),
               BootstrapClass.NAV_ITEM,
               tab.getCustomClass());
-          writer.writeStyleAttribute(tab.getStyle());
           writer.writeAttribute(HtmlAttributes.ROLE, HtmlRoleValues.PRESENTATION.toString(), false);
           writer.writeAttribute(HtmlAttributes.TABGROUPINDEX, index);
           final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, tab);

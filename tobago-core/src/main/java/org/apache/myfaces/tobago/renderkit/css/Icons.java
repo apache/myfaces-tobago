@@ -19,6 +19,9 @@
 
 package org.apache.myfaces.tobago.renderkit.css;
 
+/**
+ * This is a list of used icons in Tobago. Feel free to extend.
+ */
 public enum Icons {
 
   ANGLE_DOUBLE_LEFT,
@@ -32,6 +35,7 @@ public enum Icons {
   CALENDAR,
   CLOCK_O,
   ELLIPSIS_H,
+  EXCLAMATION,
   FOLDER_OPEN,
   FORWARD,
   MINUS_SQUARE_O,

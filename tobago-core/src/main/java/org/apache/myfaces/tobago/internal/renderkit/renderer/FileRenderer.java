@@ -130,7 +130,6 @@ public class FileRenderer extends MessageLayoutRendererBase implements Component
         TobagoClass.FILE.createDefaultMarkups(file),
         file.getCustomClass());
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, file);
-    writer.writeStyleAttribute(file.getStyle());
 
     // visible fake input for a pretty look
     writer.startElement(HtmlElements.DIV);

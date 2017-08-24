@@ -19,6 +19,8 @@
 
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
+import org.apache.myfaces.tobago.component.RendererTypes;
+import org.apache.myfaces.tobago.component.UIStyle;
 import org.apache.myfaces.tobago.internal.component.AbstractUIProgress;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.internal.util.JsonUtils;
@@ -26,7 +28,6 @@ import org.apache.myfaces.tobago.internal.util.RenderUtils;
 import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
-import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.Arias;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
@@ -55,7 +56,8 @@ public class ProgressRenderer extends RendererBase {
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
     writer.startElement(HtmlElements.DIV);
-    writer.writeIdAttribute(progress.getClientId(facesContext));
+    final String clientId = progress.getClientId(facesContext);
+    writer.writeIdAttribute(clientId);
 
     writer.writeClassAttribute(
         TobagoClass.PROGRESS,
@@ -64,7 +66,6 @@ public class ProgressRenderer extends RendererBase {
         BootstrapClass.PROGRESS,
         progress.getCustomClass());
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, progress);
-    writer.writeStyleAttribute(progress.getStyle());
 
     writer.startElement(HtmlElements.DIV);
     writer.writeClassAttribute(BootstrapClass.PROGRESS_BAR);
@@ -73,9 +74,11 @@ public class ProgressRenderer extends RendererBase {
     writer.writeAttribute(Arias.VALUEMAX, 100);
     writer.writeAttribute(Arias.VALUENOW, String.valueOf((int) percent * 100), false);
 
-    Style style = new Style();
+    final UIStyle style = (UIStyle) facesContext.getApplication()
+        .createComponent(facesContext, UIStyle.COMPONENT_TYPE, RendererTypes.Style.name());
+    style.setTransient(true);
     style.setWidth(new Measure(percent * 100, Measure.Unit.PERCENT));
-    writer.writeStyleAttribute(style);
+    progress.getChildren().add(style);
 
     writer.writeCommandMapAttribute(JsonUtils.encode(RenderUtils.getBehaviorCommands(facesContext, progress)));
   }
