@@ -17,12 +17,31 @@
  * limitations under the License.
 -->
 
-<ui:composition template="/main.xhtml"
-                xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:demo="http://myfaces.apache.org/tobago/example/demo">
-  <ui:param name="title" value="#{demoBundle.manual}"/>
-  <span class="#{demo:bootstrapClass('BADGE')} #{demo:bootstrapClass('BADGE_DANGER')}">Warning!</span>
-  <p>Here you will find old test pages, which are move from "test".
-    They have to be integrated to the regular demo, or to be removed.</p>
-</ui:composition>
+<!-- XXX This is an old page. Content might not be up to date. Needs to be refactored, or just deleted. -->
+<f:view
+    xmlns:tc="http://myfaces.apache.org/tobago/component"
+    xmlns:f="http://java.sun.com/jsf/core">
+
+  <tc:page id="page">
+    <!-- <tc:gridLayoutConstraint width="700px" height="600px"/> -->
+
+    <f:facet name="layout">
+      <tc:gridLayout columns="auto" rows="auto"/>
+    </f:facet>
+
+    <tc:tabGroup>
+      <tc:tab label="Some Tab" id="tab">
+
+        <tc:label id="label" value="Some Component 400px x 400px">
+          <!-- <tc:gridLayoutConstraint preferredWidth="400px" preferredHeight="400px"/> -->
+        </tc:label>
+
+      </tc:tab>
+    </tc:tabGroup>
+
+    <tc:script file="script/tobago-assert.js"/>
+
+    <tc:script onload="TobagoAssert.assertLayout('page:tab:label', 6, 26, 400, 400);"/>
+
+  </tc:page>
+</f:view>

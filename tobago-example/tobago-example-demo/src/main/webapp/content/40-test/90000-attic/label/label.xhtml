@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <!--
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
@@ -17,12 +16,31 @@
  * limitations under the License.
 -->
 
-<ui:composition template="/main.xhtml"
-                xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:demo="http://myfaces.apache.org/tobago/example/demo">
-  <ui:param name="title" value="#{demoBundle.manual}"/>
-  <span class="#{demo:bootstrapClass('BADGE')} #{demo:bootstrapClass('BADGE_DANGER')}">Warning!</span>
-  <p>Here you will find old test pages, which are move from "test".
-    They have to be integrated to the regular demo, or to be removed.</p>
-</ui:composition>
+<!-- XXX This is an old page. Content might not be up to date. Needs to be refactored, or just deleted. -->
+<f:view
+    xmlns:tc="http://myfaces.apache.org/tobago/component"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core">
+
+  <tc:page>
+    <!-- <tc:gridLayoutConstraint width="600px" height="300px"/> -->
+    <f:facet name="layout">
+      <tc:gridLayout columns="auto;*" rows="auto"/>
+    </f:facet>
+
+    <tc:label value="Label"/>
+    <tc:in value="In"/>
+
+    <tc:panel>
+    <f:facet name="layout">
+    <tc:gridLayout columns="170px;1*" rows="50px" border="0" />
+    </f:facet>
+    <tc:panel>
+    <tc:label value="Very very very very long label that is very long">
+        <tc:out value="XXX"/>
+      </tc:label>
+    </tc:panel>
+    </tc:panel>
+
+  </tc:page>
+</f:view>

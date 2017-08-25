@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <!--
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
@@ -17,12 +16,30 @@
  * limitations under the License.
 -->
 
-<ui:composition template="/main.xhtml"
-                xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:demo="http://myfaces.apache.org/tobago/example/demo">
-  <ui:param name="title" value="#{demoBundle.manual}"/>
-  <span class="#{demo:bootstrapClass('BADGE')} #{demo:bootstrapClass('BADGE_DANGER')}">Warning!</span>
-  <p>Here you will find old test pages, which are move from "test".
-    They have to be integrated to the regular demo, or to be removed.</p>
-</ui:composition>
+<!-- XXX This is an old page. Content might not be up to date. Needs to be refactored, or just deleted. -->
+<f:view
+    xmlns:tc="http://myfaces.apache.org/tobago/component"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core">
+
+  <tc:page id="page">
+    <!-- <tc:gridLayoutConstraint width="120px" height="180px"/> -->
+    <f:facet name="layout">
+      <tc:gridLayout columns="*" rows="*"/>
+    </f:facet>
+
+    <tc:panel id="panel">
+      <f:facet name="layout">
+        <tc:gridLayout columns="*" rows="*"/>
+      </f:facet>
+
+      <tc:image id="image" value="pidgeon-point.jpg"/>
+
+    </tc:panel>
+
+    <tc:script file="script/tobago-assert.js"/>
+
+    <tc:script onload="TobagoAssert.assertLayout('page:image', 0, 0, 120, 180);"/>
+
+  </tc:page>
+</f:view>
