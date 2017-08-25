@@ -73,12 +73,6 @@ The Demo
   mvn jetty:run
 +----------------------------------------
 
-  or (for the addressbook and the JSP versions of demo and test)
-
-+----------------------------------------
-  mvn jetty:run-exploded
-+----------------------------------------
-
   or
 
 +----------------------------------------
