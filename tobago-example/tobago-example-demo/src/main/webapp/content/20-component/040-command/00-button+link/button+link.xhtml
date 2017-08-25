@@ -102,19 +102,31 @@
       </tc:button>
     </tc:section>
 
-    <tc:section label="Dropdown with Radio Buttons">
+    <tc:section label="Dropdown with Radio Buttons and Checkboxes">
       <pre><code class="language-markup">&lt;tc:button label="Options" omit="true">
+  ...
   &lt;tc:selectOneRadio>
     &lt;tc:selectItem itemValue="Option 1"/>
     ...
   &lt;/tc:selectOneRadio>
+  ...
 &lt;/tc:button></code></pre>
       <tc:button label="Options" omit="true">
-        <tc:selectOneRadio>
+        <tc:link label="Link" omit="true"/>
+        <tc:selectBooleanCheckbox label="must ignore" itemLabel="boolean checkbox"/>
+        <tc:link label="apache.org" link="https://www.apache.org/"/>
+        <tc:selectOneRadio label="ignore">
           <tc:selectItem itemValue="Option 1"/>
-          <tc:selectItem itemValue="Option 2"/>
+          <tc:selectItem itemValue="Option 2" itemImage="#{request.contextPath}/image/feather-leaf.png"/>
           <tc:selectItem itemValue="Option 3"/>
         </tc:selectOneRadio>
+        <tc:link label="Link" omit="true"/>
+        <tc:selectManyCheckbox label="ignore">
+          <tc:selectItem itemValue="Checkbox 1"/>
+          <tc:selectItem itemValue="Checkbox 2" itemImage="#{request.contextPath}/image/feather-leaf.png"/>
+          <tc:selectItem itemValue="Checkbox 3"/>
+        </tc:selectManyCheckbox>
+        <tc:link label="Link" omit="true"/>
       </tc:button>
     </tc:section>
   </tc:section>
