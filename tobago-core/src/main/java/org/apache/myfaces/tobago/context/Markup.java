@@ -110,6 +110,7 @@ public final class Markup implements Serializable, Iterable<String> {
   public static final Markup SPREAD = valueOf("spread");
   public static final Markup STRIPED = valueOf("striped");
   public static final Markup STRONG = valueOf("strong");
+  public static final Markup TOGGLER_LEFT = valueOf("togglerLeft");
   public static final Markup TOP = valueOf("top");
   public static final Markup VERTICALLY = valueOf("vertically");
   public static final Markup WARN = valueOf("warn");

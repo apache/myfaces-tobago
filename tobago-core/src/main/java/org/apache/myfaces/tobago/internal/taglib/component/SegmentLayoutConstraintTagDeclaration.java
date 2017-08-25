@@ -34,25 +34,33 @@ public interface SegmentLayoutConstraintTagDeclaration {
 
   /**
    * The number of columns this component moves to the right for extra small devices.
+   * @deprecated since 4.0.0
    */
+  @Deprecated
   @TagAttribute(type = "java.lang.Integer")
   void setOffsetExtraSmall(final ValueExpression offsetExtraSmall);
 
   /**
    * The number of columns this component moves to the right for small devices.
+   * @deprecated since 4.0.0
    */
+  @Deprecated
   @TagAttribute(type = "java.lang.Integer")
   void setOffsetSmall(final ValueExpression offsetSmall);
 
   /**
    * The number of columns this component moves to the right for medium devices.
+   * @deprecated since 4.0.0
    */
+  @Deprecated
   @TagAttribute(type = "java.lang.Integer")
   void setOffsetMedium(final ValueExpression offsetMedium);
 
   /**
    * The number of columns this component moves to the right for large devices.
+   * @deprecated since 4.0.0
    */
+  @Deprecated
   @TagAttribute(type = "java.lang.Integer")
   void setOffsetLarge(final ValueExpression offsetLarge);
 

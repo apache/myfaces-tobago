@@ -14,7 +14,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
+/*
+XXX fix this with popperJs: https://github.com/FezVrasta/popper.js/issues/396
 Tobago.Dropdown = {};
 
 Tobago.Dropdown.init = function (elements) {
@@ -65,3 +66,4 @@ Tobago.Dropdown.init = function (elements) {
 
 Tobago.registerListener(Tobago.Dropdown.init, Tobago.Phase.DOCUMENT_READY, Tobago.Phase.Order.NORMAL);
 Tobago.registerListener(Tobago.Dropdown.init, Tobago.Phase.AFTER_UPDATE, Tobago.Phase.Order.NORMAL);
+*/

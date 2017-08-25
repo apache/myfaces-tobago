@@ -87,7 +87,7 @@ public class BoxRenderer extends PanelRendererBase {
     }
 
     writer.startElement(HtmlElements.DIV);
-    writer.writeClassAttribute(BootstrapClass.CARD_BLOCK);
+    writer.writeClassAttribute(BootstrapClass.CARD_BODY);
   }
 
   @Override

@@ -4,9 +4,9 @@ Info: This patch is valid for Bootstrap 4 alpha 5
 ===================================================================
 --- scss/bootstrap.scss
 +++ scss/bootstrap.scss
-@@ -52,3 +52,6 @@
-
- // Utility classes
+@@ -39,3 +39,6 @@
+ @import "popover";
+ @import "carousel";
  @import "utilities";
 +
 +// Tobago

@@ -27,7 +27,7 @@
   <artifactId>tobago-theme</artifactId>
 
   <properties>
-    <bootstrap.version>4.0.0-alpha.6</bootstrap.version>
+    <bootstrap.version>4.0.0-beta</bootstrap.version>
   </properties>
 
   <build>
@@ -157,7 +157,7 @@
               </execution>
               <execution>
                 <!-- copy the result to target/classes -->
-                <id>step #10: copy-bootstrap-dist</id>
+                <id>step #12: copy-bootstrap-dist</id>
                 <phase>process-resources</phase>
                 <goals>
                   <goal>copy-resources</goal>
@@ -266,20 +266,8 @@
               </execution>
 
               <execution>
-                <!-- install "grunt-cli" -->
-                <id>step #7: npm install grunt-cli</id>
-                <goals>
-                  <goal>npm</goal>
-                </goals>
-                <phase>generate-resources</phase>
-                <configuration>
-                  <arguments>install grunt-cli</arguments>
-                </configuration>
-              </execution>
-
-              <execution>
                 <!-- install all other required stuff for "bootstrap" -->
-                <id>step #8: npm install</id>
+                <id>step #7: npm install</id>
                 <goals>
                   <goal>npm</goal>
                 </goals>
@@ -290,14 +278,50 @@
               </execution>
 
               <execution>
-                <!-- build "bootstrap" with "grunt" -->
-                <id>step #9: grunt build</id>
+                <!-- build "bootstrap" -->
+                <id>step #8: npm run css-compile</id>
                 <goals>
-                  <goal>grunt</goal>
+                  <goal>npm</goal>
                 </goals>
                 <phase>generate-resources</phase>
                 <configuration>
-                  <arguments>dist</arguments>
+                  <arguments>run css-compile</arguments>
+                </configuration>
+              </execution>
+
+              <execution>
+                <!-- build "bootstrap" -->
+                <id>step #9: npm run css-prefix</id>
+                <goals>
+                  <goal>npm</goal>
+                </goals>
+                <phase>generate-resources</phase>
+                <configuration>
+                  <arguments>run css-prefix</arguments>
+                </configuration>
+              </execution>
+
+              <execution>
+                <!-- build "bootstrap" -->
+                <id>step #10: npm run css-minify</id>
+                <goals>
+                  <goal>npm</goal>
+                </goals>
+                <phase>generate-resources</phase>
+                <configuration>
+                  <arguments>run css-minify</arguments>
+                </configuration>
+              </execution>
+
+              <execution>
+                <!-- build "bootstrap" -->
+                <id>step #11: npm run js</id>
+                <goals>
+                  <goal>npm</goal>
+                </goals>
+                <phase>generate-resources</phase>
+                <configuration>
+                  <arguments>run js</arguments>
                 </configuration>
               </execution>
 

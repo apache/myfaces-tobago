@@ -22,6 +22,7 @@ package org.apache.myfaces.tobago.internal.renderkit.renderer;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.component.UIBar;
+import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.internal.component.AbstractUIForm;
 import org.apache.myfaces.tobago.internal.component.AbstractUILinks;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
@@ -57,7 +58,6 @@ public class BarRenderer extends RendererBase {
     writer.writeIdAttribute(clientId);
     writer.writeClassAttribute(
         BootstrapClass.NAVBAR,
-        BootstrapClass.NAVBAR_TOGGLEABLE,
         bar.getCustomClass());
     writer.writeAttribute(HtmlAttributes.ROLE, HtmlRoleValues.NAVIGATION.toString(), false);
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, bar);
@@ -118,10 +118,19 @@ public class BarRenderer extends RendererBase {
 
   private void encodeOpener(
       FacesContext facesContext, UIBar bar, TobagoResponseWriter writer, String navbarId) throws IOException {
+    final boolean togglerLeft = bar.getMarkup() != null && bar.getMarkup().contains(Markup.TOGGLER_LEFT);
+    final UIComponent brand = ComponentUtils.getFacet(bar, Facets.brand);
+
+    if (brand != null && !togglerLeft) {
+      writer.startElement(HtmlElements.SPAN);
+      writer.writeClassAttribute(BootstrapClass.NAVBAR_BRAND);
+      brand.encodeAll(facesContext);
+      writer.endElement(HtmlElements.SPAN);
+    }
 
     writer.startElement(HtmlElements.BUTTON);
     writer.writeAttribute(HtmlAttributes.TYPE, HtmlButtonTypes.BUTTON);
-    writer.writeClassAttribute(BootstrapClass.NAVBAR_TOGGLER, BootstrapClass.NAVBAR_TOGGLER_RIGHT);
+    writer.writeClassAttribute(BootstrapClass.NAVBAR_TOGGLER);
     writer.writeAttribute(DataAttributes.TOGGLE, "collapse", false);
     writer.writeAttribute(DataAttributes.TARGET, JQueryUtils.escapeIdForHtml(navbarId), true);
     writer.writeAttribute(Arias.EXPANDED, Boolean.FALSE.toString(), false);
@@ -138,8 +147,7 @@ public class BarRenderer extends RendererBase {
 
     writer.endElement(HtmlElements.BUTTON);
 
-    final UIComponent brand = ComponentUtils.getFacet(bar, Facets.brand);
-    if (brand != null) {
+    if (brand != null && togglerLeft) {
       writer.startElement(HtmlElements.SPAN);
       writer.writeClassAttribute(BootstrapClass.NAVBAR_BRAND);
       brand.encodeAll(facesContext);

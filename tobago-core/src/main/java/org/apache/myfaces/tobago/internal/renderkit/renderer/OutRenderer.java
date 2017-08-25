@@ -65,7 +65,7 @@ public class OutRenderer extends MessageLayoutRendererBase {
           TobagoClass.OUT,
           TobagoClass.OUT.createMarkup(out.getMarkup()),
           TobagoClass.OUT.createDefaultMarkups(out),
-          BootstrapClass.FORM_CONTROL_STATIC,
+          BootstrapClass.FORM_CONTROL_PLAINTEXT,
           out.getCustomClass());
       final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, out);
       if (title != null) {

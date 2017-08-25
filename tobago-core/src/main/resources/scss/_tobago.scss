@@ -149,7 +149,7 @@ button.tobago-button {
 
 /* collapsible -------------------------------------------------------------- */
 
-.tobago-collapsed.tobago-box .card-block,
+.tobago-collapsed.tobago-box .card-body,
 .tobago-collapsed.tobago-section .tobago-section-content,
 .tobago-collapsed.tobago-panel {
   display: none;
@@ -1211,32 +1211,10 @@ th.tobago-sheet-headerCell-markup-filler > .tobago-sheet-header {
   margin-left: 7rem;
 }
 
-.tobago-treeNode[data-tobago-level='0'] {
-  margin-left: 0;
-}
-
-.tobago-treeNode[data-tobago-level='1'] {
-  margin-left: 1rem;
-}
-
-.tobago-treeNode[data-tobago-level='2'] {
-  margin-left: 2rem;
-}
-
-.tobago-treeNode[data-tobago-level='3'] {
-  margin-left: 3rem;
-}
-
-.tobago-treeNode[data-tobago-level='4'] {
-  margin-left: 4rem;
-}
-
-.tobago-treeNode[data-tobago-level='5'] {
-  margin-left: 5rem;
-}
-
-.tobago-treeNode[data-tobago-level='6'] {
-  margin-left: 6rem;
+@for $i from 0 through 20 {
+  .tobago-treeNode[data-tobago-level='#{$i}'] {
+    margin-left: #{$i}rem;
+  }
 }
 
 /* out -------------------------------------------------------------- */
