@@ -127,7 +127,9 @@ public class BarRenderer extends RendererBase {
     writer.writeAttribute(Arias.EXPANDED, Boolean.FALSE.toString(), false);
     writer.writeAttribute(Arias.CONTROLS, navbarId, false);
 
-    writer.writeIcon(Icons.BARS);
+    writer.startElement(HtmlElements.I);
+    writer.writeClassAttribute(Icons.FA, Icons.BARS);
+    writer.endElement(HtmlElements.I);
 
     writer.startElement(HtmlElements.SPAN);
     writer.writeClassAttribute(BootstrapClass.SR_ONLY);

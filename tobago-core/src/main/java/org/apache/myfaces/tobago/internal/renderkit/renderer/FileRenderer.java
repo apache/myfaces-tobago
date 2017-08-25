@@ -176,7 +176,9 @@ public class FileRenderer extends MessageLayoutRendererBase implements Component
     writer.writeClassAttribute(BootstrapClass.BTN, BootstrapClass.BTN_SECONDARY);
     writer.writeAttribute(HtmlAttributes.TYPE, HtmlButtonTypes.BUTTON);
     writer.writeAttribute(HtmlAttributes.DISABLED, file.isDisabled() || file.isReadonly());
-    writer.writeIcon(Icons.FOLDER_OPEN);
+    writer.startElement(HtmlElements.I);
+    writer.writeClassAttribute(Icons.FA, Icons.FOLDER_OPEN);
+    writer.endElement(HtmlElements.I);
     writer.endElement(HtmlElements.BUTTON);
     writer.endElement(HtmlElements.SPAN);
     writer.endElement(HtmlElements.DIV);

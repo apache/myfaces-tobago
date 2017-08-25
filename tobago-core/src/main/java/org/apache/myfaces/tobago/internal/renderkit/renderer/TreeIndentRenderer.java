@@ -26,7 +26,6 @@ import org.apache.myfaces.tobago.internal.component.AbstractUITreeNodeBase;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
-import org.apache.myfaces.tobago.renderkit.css.FontAwesomeIconEncoder;
 import org.apache.myfaces.tobago.renderkit.css.Icons;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
@@ -69,7 +68,9 @@ public class TreeIndentRenderer extends RendererBase {
     // encode indent
     final boolean dropFirst = !showRoot || !showRootJunction && (showLines || showIcons);
     for (int i = dropFirst ? 1 : 0; i < junctions.size() - 1; i++) {
-      writer.writeIcon(Icons.SQUARE_O, BootstrapClass.INVISIBLE);
+      writer.startElement(HtmlElements.I);
+      writer.writeClassAttribute(Icons.FA, Icons.SQUARE_O, BootstrapClass.INVISIBLE);
+      writer.endElement(HtmlElements.I);
     }
 
     // encode tree junction
@@ -78,12 +79,10 @@ public class TreeIndentRenderer extends RendererBase {
     }
     final Icons icon = folder ? expanded ? Icons.MINUS_SQUARE_O : Icons.PLUS_SQUARE_O : Icons.SQUARE_O;
     writer.startElement(HtmlElements.I);
-    writer.writeClassAttribute(FontAwesomeIconEncoder.FA, FontAwesomeIconEncoder.generateClass(icon));
+    writer.writeClassAttribute(Icons.FA, icon);
     if (folder) {
-      writer.writeAttribute(
-          DataAttributes.OPEN, FontAwesomeIconEncoder.generateClass(Icons.MINUS_SQUARE_O).getName(), false);
-      writer.writeAttribute(
-          DataAttributes.CLOSED, FontAwesomeIconEncoder.generateClass(Icons.PLUS_SQUARE_O).getName(), false);
+      writer.writeAttribute(DataAttributes.OPEN, Icons.MINUS_SQUARE_O.getName(), false);
+      writer.writeAttribute(DataAttributes.CLOSED, Icons.PLUS_SQUARE_O.getName(), false);
     }
     writer.endElement(HtmlElements.I);
   }

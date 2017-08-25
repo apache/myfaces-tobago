@@ -159,7 +159,9 @@ public class SelectManyShuttleRenderer extends SelectManyRendererBase {
     writer.writeClassAttribute(cssClass, BootstrapClass.BTN, BootstrapClass.BTN_SECONDARY);
     writer.writeIdAttribute(component.getClientId(context) + ComponentUtils.SUB_SEPARATOR + sub);
     writer.writeAttribute(HtmlAttributes.DISABLED, disabled);
-    writer.writeIcon(icon);
+    writer.startElement(HtmlElements.I);
+    writer.writeClassAttribute(Icons.FA, icon);
+    writer.endElement(HtmlElements.I);
     writer.endElement(HtmlElements.BUTTON);
   }
 

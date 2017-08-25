@@ -25,7 +25,7 @@ import org.apache.myfaces.tobago.internal.component.AbstractUIData;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
-import org.apache.myfaces.tobago.renderkit.css.FontAwesomeIconEncoder;
+import org.apache.myfaces.tobago.renderkit.css.Icons;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
@@ -95,7 +95,7 @@ public class TreeIconRenderer extends RendererBase {
 
     if (StringUtils.startsWith(source, "fa-")) {
       writer.startElement(HtmlElements.I);
-      writer.writeClassAttribute(FontAwesomeIconEncoder.FA, FontAwesomeIconEncoder.generateClass(source));
+      writer.writeClassAttribute(Icons.FA, Icons.custom(source));
       if (folder) {
         writer.writeAttribute(DataAttributes.OPEN, open, true);
         writer.writeAttribute(DataAttributes.CLOSED, closed, true);

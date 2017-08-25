@@ -25,7 +25,7 @@ import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
-import org.apache.myfaces.tobago.renderkit.css.FontAwesomeIconEncoder;
+import org.apache.myfaces.tobago.renderkit.css.Icons;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
@@ -34,8 +34,6 @@ import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
-
-import static org.apache.myfaces.tobago.renderkit.css.FontAwesomeIconEncoder.FA;
 
 public class ImageRenderer extends RendererBase {
 
@@ -47,10 +45,18 @@ public class ImageRenderer extends RendererBase {
     final AbstractUIImage image = (AbstractUIImage) component;
     final String value = image.getUrl();
     boolean fontAwesome = StringUtils.startsWith(value, "fa-");
+    final boolean disabled = image.isDisabled()
+        || (image.getParent() instanceof AbstractUICommandBase
+        && ((AbstractUICommandBase) image.getParent()).isDisabled());
+    final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, image);
     if (fontAwesome) {
       writer.startElement(HtmlElements.I);
       writer.writeIdAttribute(image.getClientId(facesContext));
-      writer.writeClassAttribute(FA, FontAwesomeIconEncoder.generateClass(value));
+      writer.writeClassAttribute(
+          Icons.FA,
+          Icons.custom(value),
+          disabled ? BootstrapClass.DISABLED : null);
+      writer.writeAttribute(HtmlAttributes.TITLE, title, true);
       writer.endElement(HtmlElements.I);
     } else {
       final String alt = image.getAlt();
@@ -59,24 +65,14 @@ public class ImageRenderer extends RendererBase {
       HtmlRendererUtils.writeDataAttributes(facesContext, writer, image);
       writer.writeAttribute(HtmlAttributes.SRC, value, true);
       writer.writeAttribute(HtmlAttributes.ALT, alt != null ? alt : "", true);
-      final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, image);
-      if (title != null) {
-        writer.writeAttribute(HtmlAttributes.TITLE, title, true);
-      }
-
       writer.writeClassAttribute(
           TobagoClass.IMAGE,
           TobagoClass.IMAGE.createMarkup(image.getMarkup()),
           TobagoClass.IMAGE.createDefaultMarkups(image),
-          isDisabled(image) ? BootstrapClass.DISABLED : null,
+          disabled ? BootstrapClass.DISABLED : null,
           image.getCustomClass());
+      writer.writeAttribute(HtmlAttributes.TITLE, title, true);
       writer.endElement(HtmlElements.IMG);
     }
-  }
-
-  private boolean isDisabled(final AbstractUIImage image) {
-    return image.isDisabled()
-        || (image.getParent() instanceof AbstractUICommandBase
-        && ((AbstractUICommandBase) image.getParent()).isDisabled());
   }
 }

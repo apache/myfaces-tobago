@@ -29,14 +29,18 @@ import java.util.EnumMap;
 import java.util.regex.Pattern;
 
 /**
- * @deprecated since Tobago 4.0.0. May be subject of change in later versions!
+ * @deprecated since 4.0.0. Please use {@link Icons} and render classic: "find usages Icons".
  */
 @Deprecated
 public class FontAwesomeIconEncoder implements IconEncoder {
 
   private static final Logger LOG = LoggerFactory.getLogger(FontAwesomeIconEncoder.class);
 
-  public static final CssItem FA = new FontAwesomeCssItem("fa");
+  /**
+   * @deprecated 4.0.0. User {@link Icons#FA }
+   */
+  @Deprecated
+  public static final CssItem FA = Icons.FA;
 
   private static final Pattern PATTERN = Pattern.compile("^(fa(-[a-z]+)+)$");
 
@@ -54,10 +58,14 @@ public class FontAwesomeIconEncoder implements IconEncoder {
   public void encode(final TobagoResponseWriter writer, final Icons icon, final CssItem... cssItems)
       throws IOException {
     writer.startElement(HtmlElements.I);
-    writer.writeClassAttribute(FA, cssItems, generateClass(icon));
+    writer.writeClassAttribute(Icons.FA, cssItems, icon);
     writer.endElement(HtmlElements.I);
   }
 
+  /**
+   * @deprecated 4.0.0. {@link Icons} implements {@link CssItem}, so this method is no longer needed.
+   */
+  @Deprecated
   public static CssItem generateClass(final Icons icon) {
     if (icon == null) {
       return null;
@@ -69,20 +77,12 @@ public class FontAwesomeIconEncoder implements IconEncoder {
     return result;
   }
 
+  /**
+   * @deprecated 4.0.0. Use {@link Icons#custom }
+   */
+  @Deprecated
   public static CssItem generateClass(final String name) {
-
-    return new CssItem() {
-
-      @Override
-      public String getName() {
-        if (PATTERN.matcher(name).matches()) {
-          return name;
-        } else {
-          LOG.warn("Unknown Icon: '" + name + "'");
-          return null;
-        }
-      }
-    };
+    return Icons.custom(name);
   }
 
   private static final class FontAwesomeCssItem implements CssItem {

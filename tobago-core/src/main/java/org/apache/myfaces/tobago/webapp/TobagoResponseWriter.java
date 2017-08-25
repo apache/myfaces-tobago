@@ -44,8 +44,6 @@ import java.io.Writer;
  */
 public abstract class TobagoResponseWriter extends ResponseWriter {
 
-  private static final CssItem[] NO_CSS_ITEMS = new CssItem[0];
-
   private IconEncoder iconEncoder = new FontAwesomeIconEncoder();
 
   // same as in ResponseWriter
@@ -241,7 +239,10 @@ public abstract class TobagoResponseWriter extends ResponseWriter {
 
   /**
    * Writes an supported icon.
+   *
+   * @deprecated 4.0.0. Use normal rendering methods.
    */
+  @Deprecated
   public void writeIcon(final Icons icon, final CssItem... cssItems) throws IOException {
     iconEncoder.encode(this, icon, cssItems);
   }

@@ -26,7 +26,7 @@ import org.apache.myfaces.tobago.component.Visual;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.internal.webapp.TobagoResponseWriterWrapper;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
-import org.apache.myfaces.tobago.renderkit.css.FontAwesomeIconEncoder;
+import org.apache.myfaces.tobago.renderkit.css.Icons;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
@@ -52,9 +52,8 @@ import java.util.Map;
 public final class HtmlRendererUtils {
 
   private static final Logger LOG = LoggerFactory.getLogger(HtmlRendererUtils.class);
-  private static final String ERROR_FOCUS_KEY = HtmlRendererUtils.class.getName() + ".ErrorFocusId";
+
   private static final String FOCUS_KEY = HtmlRendererUtils.class.getName() + ".FocusId";
-  public static final String CHAR_NON_BEAKING_SPACE = "\u00a0";
 
   private HtmlRendererUtils() {
     // to prevent instantiation
@@ -93,9 +92,13 @@ public final class HtmlRendererUtils {
     }
   }
 
+  /**
+   * @deprecated 4.0.0.
+   */
+  @Deprecated
   public static void encodeIconWithLabel(TobagoResponseWriter writer, String image, String label) throws IOException {
     if (image != null && image.startsWith("fa-")) { // XXX hack: should be integrated in the resource manager
-      writer.writeIcon(null, FontAwesomeIconEncoder.generateClass(image)); // todo: should not be static
+      writer.writeIcon(null, Icons.custom(image)); // todo: should not be static
     }
     if (label != null) {
       writer.startElement(HtmlElements.SPAN);
@@ -104,12 +107,16 @@ public final class HtmlRendererUtils {
     }
   }
 
+  /**
+   * @deprecated 4.0.0.
+   */
+  @Deprecated
   public static void encodeIconWithLabel(
        TobagoResponseWriter writer, FacesContext facesContext, String image, LabelWithAccessKey label, boolean disabled)
       throws IOException {
     if (image != null) {
       if (image.startsWith("fa-")) {
-        writer.writeIcon(null, FontAwesomeIconEncoder.generateClass(image)); // todo: should not be static
+        writer.writeIcon(null, Icons.custom(image)); // todo: should not be static
       } else {
         writer.startElement(HtmlElements.IMG);
         writer.writeAttribute(HtmlAttributes.SRC, image, true);
@@ -128,6 +135,7 @@ public final class HtmlRendererUtils {
   /**
    * @deprecated since 3.0.0, use {@link org.apache.myfaces.tobago.renderkit.RendererBase#getResponseWriter}
    */
+  @Deprecated
   public static TobagoResponseWriter getTobagoResponseWriter(final FacesContext facesContext) {
 
     final ResponseWriter writer = facesContext.getResponseWriter();

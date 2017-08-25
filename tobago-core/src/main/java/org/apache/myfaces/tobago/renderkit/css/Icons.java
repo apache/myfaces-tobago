@@ -19,10 +19,15 @@
 
 package org.apache.myfaces.tobago.renderkit.css;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.util.regex.Pattern;
+
 /**
- * This is a list of used icons in Tobago. Feel free to extend.
+ * This is a list of used font-awesome icons in Tobago. Feel free to extend.
  */
-public enum Icons {
+public enum Icons implements CssItem {
 
   ANGLE_DOUBLE_LEFT,
   ANGLE_DOUBLE_RIGHT,
@@ -42,5 +47,43 @@ public enum Icons {
   PLUS_SQUARE_O,
   SQUARE_O,
   STEP_BACKWARD,
-  STEP_FORWARD
+  STEP_FORWARD;
+
+  private static final Logger LOG = LoggerFactory.getLogger(Icons.class);
+
+  public static final CssItem FA = new CssItem() {
+    @Override
+    public String getName() {
+      return "fa";
+    }
+  };
+
+  private static final Pattern PATTERN = Pattern.compile("^(fa(-[a-z]+)+)$");
+
+  private String fa;
+
+  Icons() {
+    this.fa = "fa-" + name().toLowerCase().replaceAll("_", "-");
+  }
+
+  public String getName() {
+    return fa;
+  }
+
+  public static CssItem custom(final String name) {
+
+    return new CssItem() {
+
+      @Override
+      public String getName() {
+        if (PATTERN.matcher(name).matches()) {
+          return name;
+        } else {
+          LOG.warn("Unknown Icon: '" + name + "'");
+          return null;
+        }
+      }
+    };
+  }
+
 }

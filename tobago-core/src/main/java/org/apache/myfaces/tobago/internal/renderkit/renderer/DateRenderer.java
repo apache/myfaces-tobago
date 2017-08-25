@@ -101,10 +101,14 @@ public class DateRenderer extends InRenderer {
     final boolean hasTime = StringUtils.containsAny(pattern, "Hhms");
 
     if (hasDate || !hasTime) { //  || !hasTime is, to have at least one icon
-      writer.writeIcon(Icons.CALENDAR);
+      writer.startElement(HtmlElements.I);
+      writer.writeClassAttribute(Icons.FA, Icons.CALENDAR);
+      writer.endElement(HtmlElements.I);
     }
     if (hasTime) {
-      writer.writeIcon(Icons.CLOCK_O);
+      writer.startElement(HtmlElements.I);
+      writer.writeClassAttribute(Icons.FA, Icons.CLOCK_O);
+      writer.endElement(HtmlElements.I);
     }
 
     if (StringUtils.containsAny(pattern, "GWFKzX")) {

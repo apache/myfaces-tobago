@@ -89,7 +89,9 @@ public abstract class MessageLayoutRendererBase extends LabelLayoutRendererBase 
     writer.writeAttribute(DataAttributes.TOGGLE, "popover", false);
     writer.writeAttribute(DataAttributes.TITLE, getTitle(messages), true);
     writer.writeAttribute(DataAttributes.CONTENT, getMessage(messages), true);
-    writer.writeIcon(Icons.EXCLAMATION);
+    writer.startElement(HtmlElements.I);
+    writer.writeClassAttribute(Icons.FA, Icons.EXCLAMATION);
+    writer.endElement(HtmlElements.I);
     writer.endElement(HtmlElements.A);
   }
 

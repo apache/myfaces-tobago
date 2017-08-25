@@ -23,6 +23,7 @@ import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.internal.component.AbstractUISection;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.model.CollapseMode;
+import org.apache.myfaces.tobago.renderkit.css.Icons;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.util.ComponentUtils;
@@ -83,7 +84,16 @@ public class SectionRenderer extends PanelRendererBase {
     writer.writeClassAttribute(TobagoClass.SECTION__HEADER);
     writer.startElement(tag);
     final String image = section.getImage();
-    HtmlRendererUtils.encodeIconWithLabel(writer, image, label);
+    if (image != null && image.startsWith("fa-")) {
+      writer.startElement(HtmlElements.I);
+      writer.writeClassAttribute(Icons.FA, Icons.custom(image));
+      writer.endElement(HtmlElements.I);
+    }
+    if (label != null) {
+      writer.startElement(HtmlElements.SPAN);
+      writer.writeText(label);
+      writer.endElement(HtmlElements.SPAN);
+    }
     writer.endElement(tag);
 
     final UIComponent bar = ComponentUtils.getFacet(section, Facets.bar);

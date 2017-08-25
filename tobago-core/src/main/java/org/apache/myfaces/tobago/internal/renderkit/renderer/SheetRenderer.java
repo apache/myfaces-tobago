@@ -873,7 +873,9 @@ public class SheetRenderer extends RendererBase {
             }
 
             if (sorterIcon != null) {
-              writer.writeIcon(sorterIcon);
+              writer.startElement(HtmlElements.I);
+              writer.writeClassAttribute(Icons.FA, sorterIcon);
+              writer.endElement(HtmlElements.I);
             }
 
             writer.endElement(HtmlElements.SPAN);
@@ -997,7 +999,9 @@ public class SheetRenderer extends RendererBase {
     }
     writer.writeAttribute(HtmlAttributes.DISABLED, disabled);
     if (icon != null) {
-      writer.writeIcon(icon);
+      writer.startElement(HtmlElements.I);
+      writer.writeClassAttribute(Icons.FA, icon);
+      writer.endElement(HtmlElements.I);
     } else {
       writer.writeText(String.valueOf(target));
     }
