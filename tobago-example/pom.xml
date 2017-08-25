@@ -27,7 +27,6 @@
   <artifactId>tobago-example</artifactId>
 
   <modules>
-    <!--<module>tobago-example-addressbook</module>-->
     <module>tobago-example-blank</module>
     <module>tobago-example-data</module>
     <module>tobago-example-demo</module>
@@ -37,8 +36,7 @@
   </modules>
 
   <build>
-    <!-- NOTE The addressbook run only with mvn jetty:run-exploded.
-         For the other examples mvn jetty:run should work.
+    <!-- For the examples mvn jetty:run should work.
          For Debugging with jetty set following options
             MAVEN_OPTS="-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=5005"
      -->
@@ -179,7 +177,6 @@
     <profile>
       <id>all-modules</id>
       <modules>
-        <module>tobago-example-addressbook</module>
         <module>tobago-example-test</module>
       </modules>
 
