@@ -47,6 +47,13 @@ $btn-primary-color: $white !default;
 $btn-secondary-color: $gray-dark !default;
 $form-check-input-gutter: 1.25rem !default;
 
+/* used icons ---------------------------------------------------- */
+
+$fa-square-o: "\f096";
+$fa-check-square-o: "\f046";
+$fa-circle-thin: "\f1db";
+$fa-dot-circle-o: "\f192";
+
 /* fix bootstrap ---------------------------------------------------- */
 span.dropdown {
   display: inline-flex;
@@ -709,7 +716,7 @@ h1, h2, h3, h4, h5, h6 {
 
     .tobago-inputPseudo:before {
       font-family: FontAwesome;
-      content: "\f096"; /* fa-square-o */
+      content: $fa-square-o;
       font-size: large;
       font-style: normal;
       display: inline-block;
@@ -719,7 +726,7 @@ h1, h2, h3, h4, h5, h6 {
     }
 
     input[type="checkbox"]:checked + .tobago-inputPseudo:before {
-      content: "\f046"; /* fa-check-square-o */
+      content: $fa-check-square-o;
     }
 
     input[type="checkbox"]:active:not(:disabled) + .tobago-inputPseudo:before {
@@ -752,7 +759,7 @@ h1, h2, h3, h4, h5, h6 {
 
     .tobago-inputPseudo:before {
       font-family: FontAwesome;
-      content: "\f096"; /* fa-square-o */
+      content: $fa-square-o;
       font-size: large;
       font-style: normal;
       display: inline-block;
@@ -762,7 +769,7 @@ h1, h2, h3, h4, h5, h6 {
     }
 
     input[type="checkbox"]:checked + .tobago-inputPseudo:before {
-      content: "\f046"; /* fa-check-square-o */
+      content: $fa-check-square-o;
     }
 
     input[type="checkbox"]:active:not(:disabled) + .tobago-inputPseudo:before {
@@ -847,7 +854,7 @@ h1, h2, h3, h4, h5, h6 {
 
     .tobago-inputPseudo:before {
       font-family: FontAwesome;
-      content: "\f1db"; /* fa-circle-thin */
+      content: $fa-circle-thin;
       font-size: large;
       font-style: normal;
       display: inline-block;
@@ -857,7 +864,7 @@ h1, h2, h3, h4, h5, h6 {
     }
 
     input[type="radio"]:checked + .tobago-inputPseudo:before {
-      content: "\f192"; /* fa-dot-circle-o */
+      content: $fa-dot-circle-o;
     }
 
     input[type="radio"]:active:not(:disabled) + .tobago-inputPseudo:before {

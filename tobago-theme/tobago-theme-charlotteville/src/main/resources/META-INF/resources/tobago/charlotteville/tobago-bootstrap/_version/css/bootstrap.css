@@ -1,3 +1,4 @@
+@charset "UTF-8";
 /*!
  * Bootstrap v4.0.0-alpha.6 (https://getbootstrap.com)
  * Copyright 2011-2017 The Bootstrap Authors
@@ -9380,6 +9381,7 @@ a.text-gray-dark:focus, a.text-gray-dark:hover {
 XXX used variables: only for the IDE, will not really used by the build system, because this
 XXX code will be inserted after the _variables.scss
 */
+/* used icons ---------------------------------------------------- */
 /* fix bootstrap ---------------------------------------------------- */
 span.dropdown {
   display: -webkit-inline-box;
@@ -10031,7 +10033,7 @@ h1 > .fa:first-child, h2 > .fa:first-child, h3 > .fa:first-child, h4 > .fa:first
 
 .tobago-selectBooleanCheckbox .form-check-label .tobago-inputPseudo:before {
   font-family: FontAwesome;
-  content: "\f096";
+  content: "";
   font-size: large;
   font-style: normal;
   display: inline-block;
@@ -10043,7 +10045,7 @@ h1 > .fa:first-child, h2 > .fa:first-child, h3 > .fa:first-child, h4 > .fa:first
 }
 
 .tobago-selectBooleanCheckbox .form-check-label input[type="checkbox"]:checked + .tobago-inputPseudo:before {
-  content: "\f046";
+  content: "";
 }
 
 .tobago-selectBooleanCheckbox .form-check-label input[type="checkbox"]:active:not(:disabled) + .tobago-inputPseudo:before {
@@ -10074,7 +10076,7 @@ h1 > .fa:first-child, h2 > .fa:first-child, h3 > .fa:first-child, h4 > .fa:first
 
 .tobago-selectManyCheckbox .form-check-label .tobago-inputPseudo:before {
   font-family: FontAwesome;
-  content: "\f096";
+  content: "";
   font-size: large;
   font-style: normal;
   display: inline-block;
@@ -10086,7 +10088,7 @@ h1 > .fa:first-child, h2 > .fa:first-child, h3 > .fa:first-child, h4 > .fa:first
 }
 
 .tobago-selectManyCheckbox .form-check-label input[type="checkbox"]:checked + .tobago-inputPseudo:before {
-  content: "\f046";
+  content: "";
 }
 
 .tobago-selectManyCheckbox .form-check-label input[type="checkbox"]:active:not(:disabled) + .tobago-inputPseudo:before {
@@ -10172,7 +10174,7 @@ h1 > .fa:first-child, h2 > .fa:first-child, h3 > .fa:first-child, h4 > .fa:first
 
 .tobago-selectOneRadio .form-check-label .tobago-inputPseudo:before {
   font-family: FontAwesome;
-  content: "\f1db";
+  content: "";
   font-size: large;
   font-style: normal;
   display: inline-block;
@@ -10184,7 +10186,7 @@ h1 > .fa:first-child, h2 > .fa:first-child, h3 > .fa:first-child, h4 > .fa:first
 }
 
 .tobago-selectOneRadio .form-check-label input[type="radio"]:checked + .tobago-inputPseudo:before {
-  content: "\f111";
+  content: "";
 }
 
 .tobago-selectOneRadio .form-check-label input[type="radio"]:active:not(:disabled) + .tobago-inputPseudo:before {
