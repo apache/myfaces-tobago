@@ -46,7 +46,10 @@ import javax.faces.component.UIPanel;
 facets = {
     @Facet(
         name = Facets.BRAND,
-        description = "Contains an element which will get a 'navbar-brand' style, e.g. use <tc:link> ")})
+        description = "Contains an element which will get a 'navbar-brand' style, e.g. use <tc:link> "),
+    @Facet(
+        name = Facets.AFTER,
+        description = "Content will be rendered usually at the right end of the bar.")})
 public interface BarTagDeclaration
     extends HasIdBindingAndRendered, HasTip, IsVisual {
 }
