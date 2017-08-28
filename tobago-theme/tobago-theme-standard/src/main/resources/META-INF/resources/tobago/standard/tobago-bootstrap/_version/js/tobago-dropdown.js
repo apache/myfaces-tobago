@@ -14,8 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-/*
-XXX fix this with popperJs: https://github.com/FezVrasta/popper.js/issues/396
+
 Tobago.Dropdown = {};
 
 Tobago.Dropdown.init = function (elements) {
@@ -23,42 +22,14 @@ Tobago.Dropdown.init = function (elements) {
   $dropdownMenus.each(function () {
     var $dropdownMenu = jQuery(this);
     var $parent = $dropdownMenu.parent();
+    var $tobagoPageMenuStore = jQuery('.tobago-page-menuStore');
 
     if (!$parent.hasClass('tobago-dropdown-submenu')
-        && !jQuery.contains(jQuery('.tobago-page-menuStore')[0], $dropdownMenu[0])) {
-
-      var dropdownId = $parent.attr('id') + "::dropdown";
-      $dropdownMenu.attr('id', dropdownId);
-      $dropdownMenu.appendTo('.tobago-page-menuStore');
-
-      var $button = jQuery(Tobago.Utils.escapeClientId($parent.attr('id') + "::command"));
-      $button.attr('aria-controls', dropdownId);
-
-      var showDropdown = function (event) {
-        $dropdownMenu.css("display", "block");
-        $dropdownMenu.css("top", $button.offset().top + $button.outerHeight() + "px");
-
-        if ($dropdownMenu.hasClass("dropdown-menu-right")) {
-          $dropdownMenu.css("left", $button.offset().left + $button.outerWidth() - $dropdownMenu.outerWidth() + "px");
-        } else {
-          $dropdownMenu.css("left", $button.offset().left + "px");
-        }
-      };
-
-      var hideDropdown = function (event) {
-        if (event && !jQuery.contains($dropdownMenu[0], event.target) && $dropdownMenu.css("display") === "block"
-            && !$dropdownMenu.is(":hover")) {
-          $dropdownMenu.css("display", "");
-        }
-      };
-
-      $parent.on('shown.bs.dropdown', showDropdown).on('hidden.bs.dropdown', hideDropdown);
-
-      jQuery(document).on('mouseup', function (event) {
-        // fix: mousedown on dropdown item, move cursor away from menu, mouseup
-        if (!$parent.hasClass("show")) {
-          $dropdownMenu.css("display", "");
-        }
+        && !$parent.closest('.navbar').length > 0) {
+      $parent.on('shown.bs.dropdown', function (event) {
+        $tobagoPageMenuStore.append($dropdownMenu.detach());
+      }).on('hidden.bs.dropdown', function (event) {
+        $parent.append($dropdownMenu.detach());
       });
     }
   });
@@ -66,4 +37,3 @@ Tobago.Dropdown.init = function (elements) {
 
 Tobago.registerListener(Tobago.Dropdown.init, Tobago.Phase.DOCUMENT_READY, Tobago.Phase.Order.NORMAL);
 Tobago.registerListener(Tobago.Dropdown.init, Tobago.Phase.AFTER_UPDATE, Tobago.Phase.Order.NORMAL);
-*/
