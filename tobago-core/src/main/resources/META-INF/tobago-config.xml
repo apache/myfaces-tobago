@@ -27,6 +27,7 @@
 
   <content-security-policy mode="on">
     <directive name="style-src">'nonce-${nonce}'</directive>
+    <directive name="script-src">'nonce-${nonce}'</directive>
   </content-security-policy>
 
 </tobago-config>

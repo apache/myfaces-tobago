@@ -31,10 +31,6 @@
     </after>
   </ordering>
 
-  <content-security-policy mode="on">
-    <directive name="default-src">'self'</directive>
-  </content-security-policy>
-
   <theme-definitions>
     <theme-definition>
       <name>standard</name>
