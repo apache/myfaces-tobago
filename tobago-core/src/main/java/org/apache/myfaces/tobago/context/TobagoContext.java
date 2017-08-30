@@ -21,7 +21,6 @@ package org.apache.myfaces.tobago.context;
 
 import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.internal.util.CookieUtils;
-import org.apache.myfaces.tobago.internal.util.RandomUtils;
 import org.apache.myfaces.tobago.util.VariableResolverUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -45,12 +44,6 @@ public class TobagoContext {
 
   private Theme theme;
   private UserAgent userAgent;
-  private String nonce;
-
-  public TobagoContext() {
-    this.nonce = RandomUtils.nextString();
-    LOG.debug("nonce='{}'", nonce);
-  }
 
   public TobagoResourceBundle getResourceBundle() {
     return RESOURCE_BUNDLE;
@@ -109,10 +102,6 @@ public class TobagoContext {
 
   public void setUserAgent(final UserAgent userAgent) {
     this.userAgent = userAgent;
-  }
-
-  public String getNonce() {
-    return nonce;
   }
 
   public static TobagoContext getInstance(final FacesContext facesContext) {

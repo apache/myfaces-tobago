@@ -65,6 +65,15 @@ public interface StyleTagDeclaration extends HasIdBindingAndRendered {
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.renderkit.css.CustomClass")
   void setCustomClass(String customClass);
 
+
+  /**
+   * @param selector A selector to define the element for this style rules. Defaults to the ID of the parent component.
+   * @since 4.0.0
+   */
+  @TagAttribute()
+  @UIComponentTagAttribute()
+  void setSelector(String selector);
+
   /**
    * @param width The width for the parent component.
    * @since 3.0.0

@@ -19,8 +19,8 @@
 
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
-import org.apache.myfaces.tobago.context.TobagoContext;
 import org.apache.myfaces.tobago.internal.component.AbstractUIStyle;
+import org.apache.myfaces.tobago.internal.context.Nonce;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.layout.Display;
 import org.apache.myfaces.tobago.layout.Measure;
@@ -57,8 +57,7 @@ public class StyleRenderer extends RendererBase {
       writer.writeAttribute(HtmlAttributes.HREF, file, true);
 //    writer.writeAttribute(HtmlAttributes.MEDIA, "screen", false);
       writer.writeAttribute(HtmlAttributes.TYPE, "text/css", false);
-      final String nonce = TobagoContext.getInstance(facesContext).getNonce();
-      writer.writeAttribute(HtmlAttributes.NONCE, nonce, false);
+      writer.writeAttribute(HtmlAttributes.NONCE, Nonce.getNonce(facesContext), false);
       writer.endElement(HtmlElements.LINK);
 
     } else {
@@ -115,15 +114,19 @@ public class StyleRenderer extends RendererBase {
           || textAlign != null
           || backgroundImage != null) {
 
-        final TobagoContext tobagoContext = TobagoContext.getInstance(facesContext);
         writer.startElement(HtmlElements.STYLE);
-        writer.writeAttribute(HtmlAttributes.NONCE, tobagoContext.getNonce(), false);
+        writer.writeAttribute(HtmlAttributes.NONCE, Nonce.getNonce(facesContext), false);
         writer.writeIdAttribute(style.getClientId(facesContext));
-        final String parentId = style.getParent().getClientId(facesContext);
-        writer.writeText("#");
-        writer.writeText(parentId.replaceAll(":", "\\\\:"));
+        final String selector = style.getSelector();
+        if (selector != null) {
+          // not using writeText, because > must not be encoded!
+          writer.write(selector);
+        } else {
+          final String parentId = style.getParent().getClientId(facesContext);
+          writer.writeText("#");
+          writer.writeText(parentId.replaceAll(":", "\\\\:"));
+        }
         writer.writeText("{");
-
         if (width != null) {
           encodeStyle(writer, Styles.width, width.serialize());
         }

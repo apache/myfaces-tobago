@@ -86,6 +86,8 @@ public abstract class AbstractUIStyle extends UIComponentBase {
     }
   }
 
+  public abstract String getSelector();
+
   public abstract Measure getPaddingRight();
 
   public abstract Measure getMinHeight();

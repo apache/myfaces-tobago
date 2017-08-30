@@ -248,10 +248,11 @@ public enum Attributes {
   // Attribute name could not be the same as the method name
   // this cause an infinite loop on attribute map
   scrollPosition,
+  selectable,
   selectedIndex,
   selectedLabel,
   selectedListString,
-  selectable,
+  selector,
   sheetAction,
   showCheckbox,
   showDirectLinks,

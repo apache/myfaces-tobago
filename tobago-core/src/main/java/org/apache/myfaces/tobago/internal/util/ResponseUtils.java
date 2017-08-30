@@ -22,6 +22,7 @@ package org.apache.myfaces.tobago.internal.util;
 import org.apache.myfaces.tobago.context.TobagoContext;
 import org.apache.myfaces.tobago.context.UserAgent;
 import org.apache.myfaces.tobago.internal.config.ContentSecurityPolicy;
+import org.apache.myfaces.tobago.internal.context.Nonce;
 import org.apache.myfaces.tobago.portlet.PortletUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -117,7 +118,7 @@ public final class ResponseUtils {
           throw new IllegalArgumentException("Undefined mode: " + contentSecurityPolicy.getMode());
       }
       final StringBuilder builder = new StringBuilder();
-      final String nonce = tobagoContext.getNonce();
+      final String nonce = Nonce.getNonce(facesContext);
       for (final Map.Entry<String, String> directive : contentSecurityPolicy.getDirectiveMap().entrySet()) {
         builder.append(directive.getKey());
         builder.append(" ");

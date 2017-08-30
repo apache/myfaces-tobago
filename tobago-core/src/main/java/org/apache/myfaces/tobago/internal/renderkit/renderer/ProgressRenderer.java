@@ -77,6 +77,7 @@ public class ProgressRenderer extends RendererBase {
     final UIStyle style = (UIStyle) facesContext.getApplication()
         .createComponent(facesContext, UIStyle.COMPONENT_TYPE, RendererTypes.Style.name());
     style.setTransient(true);
+    style.setSelector("#" + clientId.replaceAll(":", "\\\\:") + ">." + BootstrapClass.PROGRESS_BAR.getName());
     style.setWidth(new Measure(percent * 100, Measure.Unit.PERCENT));
     progress.getChildren().add(style);
 
