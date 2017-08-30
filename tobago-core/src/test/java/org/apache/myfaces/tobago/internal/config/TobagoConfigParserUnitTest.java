@@ -32,6 +32,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 public class TobagoConfigParserUnitTest {
@@ -67,9 +68,11 @@ public class TobagoConfigParserUnitTest {
     Assert.assertEquals(false, fragment.getCheckSessionSecret().booleanValue());
     Assert.assertEquals(false, fragment.getPreventFrameAttacks().booleanValue());
 
-    Assert.assertEquals(2, fragment.getContentSecurityPolicy().getDirectiveList().size());
-    Assert.assertEquals("default-src 'self'", fragment.getContentSecurityPolicy().getDirectiveList().get(0));
-    Assert.assertEquals("frame-src http://apache.org", fragment.getContentSecurityPolicy().getDirectiveList().get(1));
+    final Map<String, String> directiveMap = fragment.getContentSecurityPolicy().getDirectiveMap();
+    final Set<Map.Entry<String, String>> entries = directiveMap.entrySet();
+    Assert.assertEquals(2, entries.size());
+    Assert.assertEquals("'self'", directiveMap.get("default-src"));
+    Assert.assertEquals("http://apache.org", directiveMap.get("child-src"));
 
     Assert.assertEquals(2, fragment.getRenderersConfig().getRendererConfigs().size());
     Assert.assertTrue(fragment.getRenderersConfig().isMarkupSupported("myRenderer-1", "my-markup-1"));

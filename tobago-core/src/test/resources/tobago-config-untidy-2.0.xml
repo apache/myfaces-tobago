@@ -92,7 +92,7 @@
       default-src 'self'
     </directive>
     <directive>
-      frame-src http://apache.org
+      child-src http://apache.org
     </directive>
   </content-security-policy>
 

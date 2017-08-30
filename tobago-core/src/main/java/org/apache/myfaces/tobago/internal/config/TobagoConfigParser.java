@@ -95,6 +95,7 @@ public class TobagoConfigParser extends TobagoConfigEntityResolver {
   private StringBuilder buffer;
   private Properties properties;
   private String entryKey;
+  private String directiveName;
   private String extension;
   private String type;
 
@@ -225,6 +226,10 @@ public class TobagoConfigParser extends TobagoConfigEntityResolver {
         entryKey = attributes.getValue("key");
         break;
 
+      case DIRECTIVE:
+        directiveName = attributes.getValue("name");
+        break;
+
       case NAME:
       case ORDERING:
       case BEFORE:
@@ -239,7 +244,6 @@ public class TobagoConfigParser extends TobagoConfigEntityResolver {
       case SECURITY_ANNOTATION:
       case PREVENT_FRAME_ATTACKS:
       case SET_NOSNIFF_HEADER:
-      case DIRECTIVE:
       case THEME_DEFINITIONS:
       case DISPLAY_NAME:
       case VERSIONED:
@@ -334,7 +338,16 @@ public class TobagoConfigParser extends TobagoConfigEntityResolver {
         break;
 
       case DIRECTIVE:
-        tobagoConfig.getContentSecurityPolicy().getDirectiveList().add(text);
+        if (directiveName == null) { // before Tobago 4.0
+          final int i = text.indexOf(' ');
+          if (i < 1) {
+            throw new RuntimeException("CSP directive can't be parsed!");
+          }
+          tobagoConfig.getContentSecurityPolicy().addDirective(text.substring(0, i), text.substring(i + 1));
+        } else {
+          tobagoConfig.getContentSecurityPolicy().addDirective(directiveName, text);
+        }
+        directiveName = null;
         break;
 
       case MARKUP:

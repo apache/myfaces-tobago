@@ -19,14 +19,14 @@
 
 package org.apache.myfaces.tobago.internal.config;
 
-import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ContentSecurityPolicy {
 
   private Mode mode;
-  private List<String> directiveList;
+  private Map<String, String> directiveMap;
 
   private boolean unmodifiable = false;
 
@@ -41,22 +41,33 @@ public class ContentSecurityPolicy {
    */
   public void lock() {
     unmodifiable = true;
-    directiveList = Collections.unmodifiableList(directiveList);
+    directiveMap = Collections.unmodifiableMap(directiveMap);
   }
 
   public ContentSecurityPolicy(final String mode) {
     this.mode = Mode.parse(mode);
-    this.directiveList = new ArrayList<String>();
+    this.directiveMap = new HashMap<String, String>();
   }
 
   public void merge(final ContentSecurityPolicy other) {
     checkLocked();
-    directiveList.addAll(other.directiveList);
+    for (Map.Entry<String, String> entry : other.directiveMap.entrySet()) {
+      addDirective(entry.getKey(), entry.getValue());
+    }
     mode = other.mode;
   }
 
-  public List<String> getDirectiveList() {
-    return directiveList;
+  public void addDirective(final String name, final String text) {
+    final String old = directiveMap.get(name);
+    if (old != null) {
+      directiveMap.put(name, old + ' ' + text);
+    } else {
+      directiveMap.put(name, text);
+    }
+  }
+
+  public Map<String, String> getDirectiveMap() {
+    return directiveMap;
   }
 
   public Mode getMode() {
@@ -67,7 +78,7 @@ public class ContentSecurityPolicy {
   public String toString() {
     return "ContentSecurityPolicy{"
         + "mode=" + mode
-        + ", directiveList=" + directiveList
+        + ", directiveMap=" + directiveMap
         + '}';
   }
 

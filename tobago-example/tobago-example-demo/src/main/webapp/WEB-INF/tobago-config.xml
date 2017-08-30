@@ -48,8 +48,8 @@
   <content-security-policy mode="off">
     <!-- XXX With CSP Tobago 3.0.x is currently not working 100% see TOBAGO-1534,
          XXX because of JSF-AJAX we need 'unsafe-eval' -->
-    <directive>script-src 'self' 'unsafe-eval'</directive>
-    <directive>frame-src https://maps.google.com</directive>
+    <directive name="script-src">'self' 'unsafe-eval'</directive>
+    <directive name="child-src">https://maps.google.com</directive>
   </content-security-policy>
 
   <!-- "disable" is the default -->

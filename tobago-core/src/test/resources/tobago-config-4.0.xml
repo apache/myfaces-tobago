@@ -47,8 +47,8 @@
   <set-nosniff-header>false</set-nosniff-header>
 
   <content-security-policy mode="on">
-    <directive>default-src 'self'</directive>
-    <directive>frame-src http://apache.org</directive>
+    <directive name="default-src">'self'</directive>
+    <directive name="child-src"> http://apache.org</directive>
   </content-security-policy>
 
   <security-annotation>ignore</security-annotation>

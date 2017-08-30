@@ -29,6 +29,7 @@ import org.slf4j.LoggerFactory;
 import javax.faces.context.FacesContext;
 import javax.portlet.MimeResponse;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Map;
 
 public final class ResponseUtils {
 
@@ -99,7 +100,8 @@ public final class ResponseUtils {
     final Object response = facesContext.getExternalContext().getResponse();
     if (response instanceof HttpServletResponse) {
       final HttpServletResponse servletResponse = (HttpServletResponse) response;
-      final UserAgent userAgent = TobagoContext.getInstance(facesContext).getUserAgent();
+      final TobagoContext tobagoContext = TobagoContext.getInstance(facesContext);
+      final UserAgent userAgent = tobagoContext.getUserAgent();
       final String[] cspHeaders;
       switch (contentSecurityPolicy.getMode()) {
         case OFF:
@@ -115,16 +117,15 @@ public final class ResponseUtils {
           throw new IllegalArgumentException("Undefined mode: " + contentSecurityPolicy.getMode());
       }
       final StringBuilder builder = new StringBuilder();
-      builder.append("style-src 'nonce-");
-      builder.append(TobagoContext.getInstance(facesContext).getNonce());
-      builder.append("';");
-      for (final String directive : contentSecurityPolicy.getDirectiveList()) {
-        builder.append(directive);
+      final String nonce = tobagoContext.getNonce();
+      for (final Map.Entry<String, String> directive : contentSecurityPolicy.getDirectiveMap().entrySet()) {
+        builder.append(directive.getKey());
+        builder.append(" ");
+        builder.append(directive.getValue().replace("${nonce}", nonce));
         builder.append(";");
       }
-      final String value = builder.toString();
       for (final String cspHeader : cspHeaders) {
-        servletResponse.setHeader(cspHeader, value);
+        servletResponse.setHeader(cspHeader, builder.toString());
       }
     } else if (PortletUtils.isPortletApiAvailable() && response instanceof MimeResponse) {
      // TODO Portlet

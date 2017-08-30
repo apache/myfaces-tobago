@@ -51,7 +51,7 @@
 
   <content-security-policy mode="on">
     <directive>default-src 'self'</directive>
-    <directive>frame-src http://apache.org</directive>
+    <directive>child-src http://apache.org</directive>
   </content-security-policy>
 
   <renderers>

@@ -25,8 +25,14 @@
 
   <name>tobago-theme-standard</name>
 
+  <ordering>
+    <after>
+      <name>tobago-core</name>
+    </after>
+  </ordering>
+
   <content-security-policy mode="on">
-    <directive>default-src 'self'</directive>
+    <directive name="default-src">'self'</directive>
   </content-security-policy>
 
   <theme-definitions>

@@ -107,9 +107,17 @@
 
   <xs:complexType name="content-security-policy-type">
     <xs:sequence>
-      <xs:element name="directive" type="xs:string" maxOccurs="unbounded" minOccurs="0"/>
+      <xs:element name="directive" type="tobago:directive-type" maxOccurs="unbounded" minOccurs="0"/>
     </xs:sequence>
     <xs:attribute name="mode" type="tobago:scp-mode-type" use="required"/>
+  </xs:complexType>
+
+  <xs:complexType name="directive-type">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute name="name" type="xs:string" use="required"/>
+      </xs:extension>
+    </xs:simpleContent>
   </xs:complexType>
 
   <xs:complexType name="sanitizer-type">

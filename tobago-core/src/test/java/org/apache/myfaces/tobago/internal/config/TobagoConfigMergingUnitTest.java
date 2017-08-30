@@ -70,8 +70,9 @@ public class TobagoConfigMergingUnitTest {
         "tobago-config-merge-0.xml");
 
     Assert.assertTrue(config.getContentSecurityPolicy().getMode() == ContentSecurityPolicy.Mode.ON);
-    Assert.assertEquals(1, config.getContentSecurityPolicy().getDirectiveList().size());
-    Assert.assertEquals("default-src 'self'", config.getContentSecurityPolicy().getDirectiveList().get(0));
+    final Map<String, String> directiveMap = config.getContentSecurityPolicy().getDirectiveMap();
+    Assert.assertEquals(1, directiveMap.size());
+    Assert.assertEquals("'self'", directiveMap.get("default-src"));
   }
 
   @Test
@@ -83,9 +84,10 @@ public class TobagoConfigMergingUnitTest {
         "tobago-config-merge-1.xml");
 
     Assert.assertTrue(config.getContentSecurityPolicy().getMode() == ContentSecurityPolicy.Mode.REPORT_ONLY);
-    Assert.assertEquals(2, config.getContentSecurityPolicy().getDirectiveList().size());
-    Assert.assertEquals("default-src 'self'", config.getContentSecurityPolicy().getDirectiveList().get(0));
-    Assert.assertEquals("image-src http://apache.org", config.getContentSecurityPolicy().getDirectiveList().get(1));
+    final Map<String, String> directiveMap = config.getContentSecurityPolicy().getDirectiveMap();
+    Assert.assertEquals(2, directiveMap.size());
+    Assert.assertEquals("'self'", directiveMap.get("default-src"));
+    Assert.assertEquals("http://apache.org", directiveMap.get("image-src"));
   }
 
   @Test
@@ -98,7 +100,21 @@ public class TobagoConfigMergingUnitTest {
         "tobago-config-merge-2.xml");
 
     Assert.assertTrue(config.getContentSecurityPolicy().getMode() == ContentSecurityPolicy.Mode.OFF);
-    Assert.assertEquals(2, config.getContentSecurityPolicy().getDirectiveList().size());
+    Assert.assertEquals(2, config.getContentSecurityPolicy().getDirectiveMap().size());
+  }
+
+  @Test
+  public void testContentSecurityPolicyNameAttribute()
+      throws IOException, SAXException, ParserConfigurationException, URISyntaxException {
+
+    final TobagoConfigImpl config = loadAndMerge(
+        "tobago-config-merge-0.xml",
+        "tobago-config-merge-3.xml");
+
+    Assert.assertTrue(config.getContentSecurityPolicy().getMode() == ContentSecurityPolicy.Mode.ON);
+    final Map<String, String> directiveMap = config.getContentSecurityPolicy().getDirectiveMap();
+    Assert.assertEquals(1, directiveMap.size());
+    Assert.assertEquals("'self' https:", directiveMap.get("default-src"));
   }
 
   @Test
