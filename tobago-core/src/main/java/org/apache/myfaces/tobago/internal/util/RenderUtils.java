@@ -212,11 +212,18 @@ public final class RenderUtils {
       final String link = component.getLink();
       if (link.startsWith("/")) { // internal absolute link
         final ViewHandler viewHandler = facesContext.getApplication().getViewHandler();
-        url = viewHandler.getBookmarkableURL(
-                facesContext,
-                externalContext.getRequestContextPath() + link,
-                null,
-                true);
+        try {
+          url = viewHandler.getBookmarkableURL(
+                  facesContext,
+                  link,
+                  null,
+                  true);
+        } catch (Exception e) {
+          LOG.error("Link can't be resolved correctly! "
+              + "Please check existence, please also check there is no contextPath nor "
+              + "servlet mapping prefix like '/faces' is in the link. Link='" + link + "'", e);
+          url = link;
+        }
       } else if (StringUtils.isUrl(link)) { // external link
         url = link;
       } else { // internal relative link
