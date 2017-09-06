@@ -18,8 +18,25 @@
 -->
 
 <ui:composition template="/main.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
                 xmlns:ui="http://java.sun.com/jsf/facelets">
-  <ui:param name="title" value="#{demoBundle.browser}"/>
-  <tc:out escape="false" value="#{demoBundle.browser_text}"/>
+  <ui:param name="title" value="Browser"/>
+
+  Tobago is completely browser independent.
+  Support of the different browsers takes place in the JSF renderkit.
+
+  Tobago supports all common browsers like
+  <ul>
+    <li><tc:image value="fa-chrome"/> Google Chrome,</li>
+    <li><tc:image value="fa-firefox"/> Firefox,</li>
+    <li><tc:image value="fa-internet-explorer"/> Internet Explorer,</li>
+    <li><tc:image value="fa-edge"/> Edge,</li>
+    <li><tc:image value="fa-safari"/> Safari,</li>
+    <li><tc:image value="fa-opera"/> Opera or</li>
+    <li> any other browser, if they are standard conform to current specifications.</li>
+  </ul>
+
+  More information of the support of different version you may find in the
+  <tc:link label="Project Website" link="http://myfaces.apache.org/tobago/compatibility.html"/> of Tobago.
 </ui:composition>

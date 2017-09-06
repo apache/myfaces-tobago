@@ -366,20 +366,6 @@
     &lt;/ul&gt;
 </entry>
 
-<!--  browser -->
-<entry key="browser_sampleTitle">Browser Example</entry>
-<entry key="browser_text">Tobago is completely browser independant. Support of the different
-  browsers takes place in the JSF renderkit and does not have any effect on the
-  business logic development.
-    &lt;ul style="margin-top: 2px;"&gt;
-    &lt;li style="line-height: 130%;"&gt;Tobago supports common browsers: Internet   Explorer, Mozilla and Netscape navigator.&lt;/li&gt;
-    &lt;li style="line-height: 130%;"&gt;Tobago reacts on the value delivered by the   HTTP header 'User-Agent' to decide which controls have to be rendered.&lt;/li&gt;
-    &lt;li style="line-height: 130%;"&gt;Control defaulting: The implentation of themes   can be both browser independant and based on other themes to prevent   code redundancy.&lt;/li&gt;
-    &lt;li style="line-height: 130%;"&gt;More browsers can be supported easily.&lt;/li&gt;
-    &lt;li style="line-height: 130%;"&gt;Additional clients are supported, too: HTML, Simple HTML&lt;/li&gt;
-    &lt;/ul&gt;
-</entry>
-
 <!--  locale -->
 <entry key="locale_title">Locale settings</entry>
 <entry key="locale_label">Locale</entry>
