@@ -18,5 +18,12 @@
 // add here code to include after bootstrap
 // usually the _tobago.scss file
 
+$white:  #fff !default;
+$gray-400: #ced4da !default;
+
+.btn-secondary {
+  @include button-variant($white, $gray-400);
+}
+
 @import "tobago";
 
