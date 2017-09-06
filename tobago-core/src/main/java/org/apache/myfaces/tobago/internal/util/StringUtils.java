@@ -27,7 +27,7 @@ import java.util.StringTokenizer;
 public final class StringUtils {
 
   private StringUtils() {
-    // utils class
+    // to prevent instantiation
   }
 
   public static List<Integer> parseIntegerList(final String integerList) throws NumberFormatException {
