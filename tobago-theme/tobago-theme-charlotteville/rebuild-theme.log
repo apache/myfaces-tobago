@@ -1,4 +1,4 @@
-Build date: 2017-08-25 17:53:12
+Build date: 2017-09-06 15:58:11
 [INFO] Scanning for projects...
 [INFO] 
 [INFO] ------------------------------------------------------------------------
@@ -70,7 +70,7 @@ Build date: 2017-08-25 17:53:12
 [INFO] Verified checksum of previously downloaded file
 [INFO] Extracting zip contents
 [INFO] Removing __CURRENT__/tobago-theme-charlotteville/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom
-[INFO] Copying extracted folder /var/folders/yp/1vrxjnrs20798ydt_yl8wrpr0000gp/T/phantomjs/phantomjs-2.1.1-macosx.zip-extract-1503676473346/phantomjs-2.1.1-macosx -> __CURRENT__/tobago-theme-charlotteville/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom
+[INFO] Copying extracted folder /var/folders/yp/1vrxjnrs20798ydt_yl8wrpr0000gp/T/phantomjs/phantomjs-2.1.1-macosx.zip-extract-1504706438068/phantomjs-2.1.1-macosx -> __CURRENT__/tobago-theme-charlotteville/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom
 [INFO] Writing location.js file
 [INFO] Done. Phantomjs binary available at __CURRENT__/tobago-theme-charlotteville/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom/bin/phantomjs
 [INFO] 
@@ -81,21 +81,22 @@ Build date: 2017-08-25 17:53:12
 [INFO] Testing binary
 [INFO] Binary is fine
 [INFO] bootstrap@4.0.0-beta __CURRENT__/tobago-theme-charlotteville/target/bootstrap
-[INFO] ├─┬ autoprefixer@7.1.2 
-[INFO] │ ├─┬ browserslist@2.3.3 
-[INFO] │ │ └── electron-to-chromium@1.3.18 
-[INFO] │ ├── caniuse-lite@1.0.30000718 
+[INFO] ├─┬ autoprefixer@7.1.3 
+[INFO] │ ├─┬ browserslist@2.4.0 
+[INFO] │ │ └── electron-to-chromium@1.3.20 
+[INFO] │ ├── caniuse-lite@1.0.30000726 
 [INFO] │ ├── normalize-range@0.1.2 
 [INFO] │ ├── num2fraction@1.2.2 
-[INFO] │ ├─┬ postcss@6.0.9 
-[INFO] │ │ └─┬ supports-color@4.2.1 
+[INFO] │ ├─┬ postcss@6.0.11 
+[INFO] │ │ └─┬ supports-color@4.4.0 
 [INFO] │ │   └── has-flag@2.0.0 
 [INFO] │ └── postcss-value-parser@3.3.0 
 [INFO] ├─┬ babel-cli@6.26.0 
 [INFO] │ ├─┬ babel-core@6.26.0 
 [INFO] │ │ ├─┬ babel-generator@6.26.0 
 [INFO] │ │ │ ├─┬ detect-indent@4.0.0 
-[INFO] │ │ │ │ └── repeating@2.0.1 
+[INFO] │ │ │ │ └─┬ repeating@2.0.1 
+[INFO] │ │ │ │   └── is-finite@1.0.2 
 [INFO] │ │ │ ├── jsesc@1.3.0 
 [INFO] │ │ │ └── trim-right@1.0.1 
 [INFO] │ │ ├── babel-helpers@6.24.1 
@@ -104,13 +105,13 @@ Build date: 2017-08-25 17:53:12
 [INFO] │ │ ├── json5@0.5.1 
 [INFO] │ │ └── private@0.1.7 
 [INFO] │ ├─┬ babel-polyfill@6.26.0 
-[INFO] │ │ ├── core-js@2.5.0 
+[INFO] │ │ ├── core-js@2.5.1 
 [INFO] │ │ └── regenerator-runtime@0.10.5 
 [INFO] │ ├─┬ babel-register@6.26.0 
 [INFO] │ │ ├─┬ home-or-tmp@2.0.0 
 [INFO] │ │ │ ├── os-homedir@1.0.2 
 [INFO] │ │ │ └── os-tmpdir@1.0.2 
-[INFO] │ │ └── source-map-support@0.4.16 
+[INFO] │ │ └── source-map-support@0.4.17 
 [INFO] │ ├─┬ babel-runtime@6.26.0 
 [INFO] │ │ └── regenerator-runtime@0.11.0 
 [INFO] │ ├─┬ chokidar@1.7.0 
@@ -142,9 +143,7 @@ Build date: 2017-08-25 17:53:12
 [INFO] │ │ │   │ │ │   └── number-is-nan@1.0.1 
 [INFO] │ │ │   │ │ ├─┬ strip-ansi@3.0.1 
 [INFO] │ │ │   │ │ │ └── ansi-regex@2.1.1 
-[WARNING] npm WARN bootstrap@4.0.0-beta requires a peer of jquery@>=1.9.1 but none was installed.
 [INFO] │ │ │   │ │ └── wide-align@1.1.2 
-[WARNING] npm WARN bootstrap@4.0.0-beta requires a peer of popper.js@^1.11.0 but none was installed.
 [INFO] │ │ │   │ └── set-blocking@2.0.0 
 [INFO] │ │ │   ├─┬ rc@1.2.1 
 [INFO] │ │ │   │ ├── deep-extend@0.4.2 
@@ -174,6 +173,8 @@ Build date: 2017-08-25 17:53:12
 [INFO] │ │ │   │ │ └── sntp@1.0.9 
 [INFO] │ │ │   │ ├─┬ http-signature@1.1.1 
 [INFO] │ │ │   │ │ ├── assert-plus@0.2.0 
+[WARNING] npm WARN bootstrap@4.0.0-beta requires a peer of jquery@>=1.9.1 but none was installed.
+[WARNING] npm WARN bootstrap@4.0.0-beta requires a peer of popper.js@^1.11.0 but none was installed.
 [INFO] │ │ │   │ │ ├─┬ jsprim@1.4.0 
 [INFO] │ │ │   │ │ │ ├── assert-plus@1.0.0 
 [INFO] │ │ │   │ │ │ ├── extsprintf@1.0.2 
@@ -312,17 +313,14 @@ Build date: 2017-08-25 17:53:12
 [INFO] │ │     └── jsesc@0.5.0 
 [INFO] │ └─┬ babel-plugin-transform-regenerator@6.26.0 
 [INFO] │   └── regenerator-transform@0.10.1 
-[INFO] ├─┬ clean-css-cli@4.1.6 
-[INFO] │ └── clean-css@4.1.7 
-[INFO] ├─┬ eslint@4.5.0 
+[INFO] ├─┬ clean-css-cli@4.1.9 
+[INFO] │ └── clean-css@4.1.8 
+[INFO] ├─┬ eslint@4.6.1 
 [INFO] │ ├─┬ ajv@5.2.2 
 [INFO] │ │ ├── co@4.6.0 
 [INFO] │ │ ├── fast-deep-equal@1.0.0 
 [INFO] │ │ └── json-schema-traverse@0.3.1 
 [INFO] │ ├─┬ chalk@2.1.0 
-[INFO] │ │ ├─┬ ansi-styles@3.2.0 
-[INFO] │ │ │ └─┬ color-convert@1.9.0 
-[INFO] │ │ │   └── color-name@1.1.3 
 [INFO] │ │ └── escape-string-regexp@1.0.5 
 [INFO] │ ├─┬ concat-stream@1.6.0 
 [INFO] │ │ ├─┬ readable-stream@2.3.3 
@@ -345,7 +343,7 @@ Build date: 2017-08-25 17:53:12
 [INFO] │ ├─┬ eslint-scope@3.7.1 
 [INFO] │ │ └── esrecurse@4.2.0 
 [INFO] │ ├─┬ espree@3.5.0 
-[INFO] │ │ ├── acorn@5.1.1 
+[INFO] │ │ ├── acorn@5.1.2 
 [INFO] │ │ └─┬ acorn-jsx@3.0.1 
 [INFO] │ │   └── acorn@3.3.0 
 [INFO] │ ├── esquery@1.0.0 
@@ -363,9 +361,9 @@ Build date: 2017-08-25 17:53:12
 [INFO] │ │   └── write@0.2.1 
 [INFO] │ ├── functional-red-black-tree@1.0.1 
 [INFO] │ ├── globals@9.18.0 
-[INFO] │ ├── ignore@3.3.3 
+[INFO] │ ├── ignore@3.3.5 
 [INFO] │ ├── imurmurhash@0.1.4 
-[INFO] │ ├─┬ inquirer@3.2.2 
+[INFO] │ ├─┬ inquirer@3.2.3 
 [INFO] │ │ ├── ansi-escapes@2.0.0 
 [INFO] │ │ ├─┬ cli-cursor@2.1.0 
 [INFO] │ │ │ └─┬ restore-cursor@2.0.0 
@@ -595,7 +593,7 @@ Build date: 2017-08-25 17:53:12
 [INFO] │ │ │ ├── indent-string@2.1.0 
 [INFO] │ │ │ └── strip-indent@1.0.1 
 [INFO] │ │ └── trim-newlines@1.0.0 
-[INFO] │ ├── nan@2.6.2 
+[INFO] │ ├── nan@2.7.0 
 [INFO] │ ├─┬ node-gyp@3.6.2 
 [INFO] │ │ ├── fstream@1.0.11 
 [INFO] │ │ ├── osenv@0.1.4 
@@ -654,8 +652,8 @@ Build date: 2017-08-25 17:53:12
 [INFO] │ │ ├── is-typedarray@1.0.0 
 [INFO] │ │ ├── isstream@0.1.2 
 [INFO] │ │ ├── json-stringify-safe@5.0.1 
-[INFO] │ │ ├─┬ mime-types@2.1.16 
-[INFO] │ │ │ └── mime-db@1.29.0 
+[INFO] │ │ ├─┬ mime-types@2.1.17 
+[INFO] │ │ │ └── mime-db@1.30.0 
 [INFO] │ │ ├── oauth-sign@0.8.2 
 [INFO] │ │ ├── performance-now@0.2.0 
 [INFO] │ │ ├── qs@6.4.0 
@@ -676,7 +674,7 @@ Build date: 2017-08-25 17:53:12
 [INFO] │ │   │ └── is-fullwidth-code-point@1.0.0 
 [INFO] │ │   └── yargs-parser@5.0.0 
 [INFO] │ └── stdout-stream@1.4.0 
-[INFO] ├─┬ nodemon@1.11.0 
+[INFO] ├─┬ nodemon@1.12.0 
 [INFO] │ ├── es6-promise@3.3.1 
 [INFO] │ ├── ignore-by-default@1.0.1 
 [INFO] │ ├─┬ lodash.defaults@3.1.2 
@@ -699,45 +697,58 @@ Build date: 2017-08-25 17:53:12
 [INFO] │ │   ├── pause-stream@0.0.11 
 [INFO] │ │   ├── split@0.3.3 
 [INFO] │ │   └── stream-combiner@0.0.4 
-[INFO] │ ├─┬ touch@1.0.0 
+[INFO] │ ├─┬ touch@3.1.0 
 [INFO] │ │ └── nopt@1.0.10 
 [INFO] │ ├── undefsafe@0.0.3 
-[INFO] │ └─┬ update-notifier@0.5.0 
+[INFO] │ └─┬ update-notifier@2.2.0 
+[INFO] │   ├─┬ boxen@1.2.1 
+[INFO] │   │ ├── ansi-align@2.0.0 
+[INFO] │   │ ├── camelcase@4.1.0 
+[INFO] │   │ ├── cli-boxes@1.0.0 
+[INFO] │   │ ├── term-size@1.2.0 
+[INFO] │   │ └─┬ widest-line@1.0.0 
+[INFO] │   │   └─┬ string-width@1.0.2 
+[INFO] │   │     └── is-fullwidth-code-point@1.0.0 
 [INFO] │   ├─┬ chalk@1.1.3 
 [INFO] │   │ ├── ansi-styles@2.2.1 
 [INFO] │   │ └── supports-color@2.0.0 
-[INFO] │   ├─┬ configstore@1.4.0 
-[INFO] │   │ ├── uuid@2.0.3 
-[INFO] │   │ ├─┬ write-file-atomic@1.3.4 
-[INFO] │   │ │ └── slide@1.1.6 
-[INFO] │   │ └── xdg-basedir@2.0.0 
+[INFO] │   ├─┬ configstore@3.1.1 
+[INFO] │   │ ├─┬ dot-prop@4.2.0 
+[INFO] │   │ │ └── is-obj@1.0.1 
+[INFO] │   │ ├── make-dir@1.0.0 
+[INFO] │   │ ├─┬ unique-string@1.0.0 
+[INFO] │   │ │ └── crypto-random-string@1.0.0 
+[INFO] │   │ └── write-file-atomic@2.3.0 
+[INFO] │   ├── import-lazy@2.1.0 
 [INFO] │   ├── is-npm@1.0.0 
-[INFO] │   ├─┬ latest-version@1.0.1 
-[INFO] │   │ └─┬ package-json@1.2.0 
-[INFO] │   │   ├─┬ got@3.3.1 
-[INFO] │   │   │ ├─┬ duplexify@3.5.1 
-[INFO] │   │   │ │ ├── end-of-stream@1.4.0 
-[INFO] │   │   │ │ └── stream-shift@1.0.0 
-[INFO] │   │   │ ├── infinity-agent@2.0.3 
+[INFO] │   ├─┬ latest-version@3.1.0 
+[INFO] │   │ └─┬ package-json@4.0.1 
+[INFO] │   │   ├─┬ got@6.7.1 
+[INFO] │   │   │ ├─┬ create-error-class@3.0.2 
+[INFO] │   │   │ │ └── capture-stack-trace@1.0.0 
+[INFO] │   │   │ ├── duplexer3@0.1.4 
 [INFO] │   │   │ ├── is-redirect@1.0.0 
+[INFO] │   │   │ ├── is-retry-allowed@1.1.0 
 [INFO] │   │   │ ├── lowercase-keys@1.0.0 
-[INFO] │   │   │ ├── nested-error-stacks@1.0.2 
-[INFO] │   │   │ ├── object-assign@3.0.0 
-[INFO] │   │   │ ├── prepend-http@1.0.4 
-[INFO] │   │   │ ├── read-all-stream@3.1.0 
-[INFO] │   │   │ └── timed-out@2.0.0 
-[INFO] │   │   └─┬ registry-url@3.1.0 
-[INFO] │   │     └─┬ rc@1.2.1 
-[INFO] │   │       ├── deep-extend@0.4.2 
-[INFO] │   │       └── minimist@1.2.0 
-[INFO] │   ├─┬ repeating@1.1.3 
-[INFO] │   │ └── is-finite@1.0.2 
+[INFO] │   │   │ ├── timed-out@4.0.1 
+[INFO] │   │   │ ├── unzip-response@2.0.1 
+[INFO] │   │   │ └─┬ url-parse-lax@1.0.0 
+[INFO] │   │   │   └── prepend-http@1.0.4 
+[INFO] │   │   ├─┬ registry-auth-token@3.3.1 
+[INFO] │   │   │ └─┬ rc@1.2.1 
+[INFO] │   │   │   ├── deep-extend@0.4.2 
+[INFO] │   │   │   └── minimist@1.2.0 
+[INFO] │   │   └── registry-url@3.1.0 
 [INFO] │   ├── semver-diff@2.1.0 
-[INFO] │   └── string-length@1.0.1 
-[INFO] ├─┬ npm-run-all@4.0.2 
-[INFO] │ ├─┬ chalk@1.1.3 
-[INFO] │ │ ├── ansi-styles@2.2.1 
-[INFO] │ │ └── supports-color@2.0.0 
+[INFO] │   └── xdg-basedir@3.0.0 
+[INFO] ├─┬ npm-run-all@4.1.1 
+[INFO] │ ├─┬ ansi-styles@3.2.0 
+[INFO] │ │ └─┬ color-convert@1.9.0 
+[INFO] │ │   └── color-name@1.1.3 
+[INFO] │ ├─┬ memory-streams@0.1.2 
+[INFO] │ │ └─┬ readable-stream@1.0.34 
+[INFO] │ │   ├── isarray@0.0.1 
+[INFO] │ │   └── string_decoder@0.10.31 
 [INFO] │ ├─┬ read-pkg@2.0.0 
 [INFO] │ │ ├─┬ load-json-file@2.0.0 
 [INFO] │ │ │ ├─┬ parse-json@2.2.0 
@@ -753,14 +764,14 @@ Build date: 2017-08-25 17:53:12
 [INFO] │   ├─┬ define-properties@1.1.2 
 [INFO] │   │ ├── foreach@2.0.5 
 [INFO] │   │ └── object-keys@1.0.11 
-[INFO] │   ├─┬ es-abstract@1.8.0 
+[INFO] │   ├─┬ es-abstract@1.8.2 
 [INFO] │   │ ├─┬ es-to-primitive@1.1.1 
 [INFO] │   │ │ ├── is-date-object@1.0.1 
 [INFO] │   │ │ └── is-symbol@1.0.1 
 [INFO] │   │ ├── has@1.0.1 
 [INFO] │   │ ├── is-callable@1.1.3 
 [INFO] │   │ └── is-regex@1.0.4 
-[INFO] │   └── function-bind@1.1.0 
+[INFO] │   └── function-bind@1.1.1 
 [INFO] ├─┬ phantomjs-prebuilt@2.1.15 
 [INFO] │ ├── es6-promise@4.0.5 
 [INFO] │ ├─┬ extract-zip@1.6.5 
@@ -879,9 +890,9 @@ Build date: 2017-08-25 17:53:12
 [INFO] │ │ │ ├─┬ parse-glob@3.0.4 
 [INFO] │ │ │ │ ├── glob-base@0.3.0 
 [INFO] │ │ │ │ └── is-dotfile@1.0.3 
-[INFO] │ │ │ └─┬ regex-cache@0.4.3 
-[INFO] │ │ │   ├── is-equal-shallow@0.1.3 
-[INFO] │ │ │   └── is-primitive@2.0.0 
+[INFO] │ │ │ └─┬ regex-cache@0.4.4 
+[INFO] │ │ │   └─┬ is-equal-shallow@0.1.3 
+[INFO] │ │ │     └── is-primitive@2.0.0 
 [INFO] │ │ └─┬ resolve-dir@0.1.1 
 [INFO] │ │   ├── expand-tilde@1.2.2 
 [INFO] │ │   └─┬ global-modules@0.2.3 
@@ -910,14 +921,14 @@ Build date: 2017-08-25 17:53:12
 [INFO] > node-sass --output-style expanded --source-map true --source-map-contents true --precision 6 scss/bootstrap.scss dist/css/bootstrap.css && node-sass --output-style expanded --source-map true --source-map-contents true --precision 6 scss/bootstrap-grid.scss dist/css/bootstrap-grid.css && node-sass --output-style expanded --source-map true --source-map-contents true --precision 6 scss/bootstrap-reboot.scss dist/css/bootstrap-reboot.css
 [INFO] 
 [ERROR] Rendering Complete, saving .css file...
-[ERROR] Wrote CSS to __CURRENT__/tobago-theme-charlotteville/target/bootstrap/dist/css/bootstrap.css
 [ERROR] Wrote Source Map to __CURRENT__/tobago-theme-charlotteville/target/bootstrap/dist/css/bootstrap.css.map
+[ERROR] Wrote CSS to __CURRENT__/tobago-theme-charlotteville/target/bootstrap/dist/css/bootstrap.css
 [ERROR] Rendering Complete, saving .css file...
 [ERROR] Wrote CSS to __CURRENT__/tobago-theme-charlotteville/target/bootstrap/dist/css/bootstrap-grid.css
 [ERROR] Wrote Source Map to __CURRENT__/tobago-theme-charlotteville/target/bootstrap/dist/css/bootstrap-grid.css.map
 [ERROR] Rendering Complete, saving .css file...
-[ERROR] Wrote Source Map to __CURRENT__/tobago-theme-charlotteville/target/bootstrap/dist/css/bootstrap-reboot.css.map
 [ERROR] Wrote CSS to __CURRENT__/tobago-theme-charlotteville/target/bootstrap/dist/css/bootstrap-reboot.css
+[ERROR] Wrote Source Map to __CURRENT__/tobago-theme-charlotteville/target/bootstrap/dist/css/bootstrap-reboot.css.map
 [INFO] 
 [INFO] --- frontend-maven-plugin:1.4:npm (step #9: npm run css-prefix) @ tobago-theme-charlotteville ---
 [INFO] Running 'npm run css-prefix' in __CURRENT__/tobago-theme-charlotteville/target/bootstrap
@@ -925,12 +936,12 @@ Build date: 2017-08-25 17:53:12
 [INFO] > bootstrap@4.0.0-beta css-prefix __CURRENT__/tobago-theme-charlotteville/target/bootstrap
 [INFO] > postcss --config build/postcss.config.js --replace dist/css/*.css
 [INFO] 
-[ERROR] ✔ Finished dist/css/bootstrap-grid.css (109ms)
-[ERROR] ✔ Finished dist/css/bootstrap-reboot.min.css (110ms)
-[ERROR] ✔ Finished dist/css/bootstrap.min.css (110ms)
-[ERROR] ✔ Finished dist/css/bootstrap-reboot.css (110ms)
-[ERROR] ✔ Finished dist/css/bootstrap-grid.min.css (110ms)
-[ERROR] ✔ Finished dist/css/bootstrap.css (110ms)
+[ERROR] ✔ Finished dist/css/bootstrap-grid.min.css (111ms)
+[ERROR] ✔ Finished dist/css/bootstrap-reboot.css (112ms)
+[ERROR] ✔ Finished dist/css/bootstrap-reboot.min.css (112ms)
+[ERROR] ✔ Finished dist/css/bootstrap.min.css (112ms)
+[ERROR] ✔ Finished dist/css/bootstrap.css (112ms)
+[ERROR] ✔ Finished dist/css/bootstrap-grid.css (114ms)
 [INFO] 
 [INFO] --- frontend-maven-plugin:1.4:npm (step #10: npm run css-minify) @ tobago-theme-charlotteville ---
 [INFO] Running 'npm run css-minify' in __CURRENT__/tobago-theme-charlotteville/target/bootstrap
@@ -1017,7 +1028,7 @@ main:
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
-[INFO] Total time: 01:38 min
-[INFO] Finished at: 2017-08-25T17:54:52+02:00
-[INFO] Final Memory: 36M/527M
+[INFO] Total time: 02:43 min
+[INFO] Finished at: 2017-09-06T16:00:56+02:00
+[INFO] Final Memory: 36M/530M
 [INFO] ------------------------------------------------------------------------
