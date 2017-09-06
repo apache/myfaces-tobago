@@ -1,12 +1,22 @@
 Index: scss/bootstrap.scss
-Info: This patch is valid for Bootstrap 4 alpha 5
+Info: This patch is valid for Bootstrap 4 beta
 <+>UTF-8
 ===================================================================
 --- scss/bootstrap.scss
 +++ scss/bootstrap.scss
-@@ -52,3 +52,6 @@
-
- // Utility classes
+@@ -8,6 +8,9 @@
+ @import "functions";
+ @import "variables";
+ @import "mixins";
++
++@import "custom";
++
+ @import "print";
+ @import "reboot";
+ @import "type";
+@@ -39,3 +42,6 @@
+ @import "popover";
+ @import "carousel";
  @import "utilities";
 +
 +// Tobago
