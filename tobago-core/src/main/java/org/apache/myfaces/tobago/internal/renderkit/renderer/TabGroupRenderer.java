@@ -240,9 +240,11 @@ public class TabGroupRenderer extends RendererBase implements ComponentSystemEve
             writer.writeAttribute(HtmlAttributes.TITLE, title, true);
           }
 
-          final CommandMap map = RenderUtils.getBehaviorCommands(facesContext, tab);
-          CommandMap.merge(map, tabGroupMap);
-          writer.writeAttribute(DataAttributes.COMMANDS, JsonUtils.encode(map), false);
+          if (!disabled) {
+            final CommandMap map = RenderUtils.getBehaviorCommands(facesContext, tab);
+            CommandMap.merge(map, tabGroupMap);
+            writer.writeAttribute(DataAttributes.COMMANDS, JsonUtils.encode(map), false);
+          }
 
           writer.startElement(HtmlElements.A);
           if (!tab.isDisabled()) {
