@@ -19,16 +19,18 @@
 
 <ui:composition template="/main.xhtml"
                 xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:demo="http://myfaces.apache.org/tobago/example/demo"
+                xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
-                xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:f="http://java.sun.com/jsf/core">
+                xmlns:ui="http://java.sun.com/jsf/facelets">
   <ui:param name="title" value="#{demoBundle.group} &lt;tc:in>"/>
 
   <p>The <code class="language-markup">&lt;tc:in/></code> tag may be extended with the facet tags
     <code class="language-markup">&lt;f:facet name="before"></code>
     and <code class="language-markup">&lt;f:facet name="after"></code>.
     With these, you can add text and dropdown menus to an input field.</p>
-  <tc:link label="Tag Library Documentation" image="#{request.contextPath}/image/feather-leaf.png" link="#{demoBundle.tagDocUrl}/#{info.stableVersion}/tld/tc/in.html"/>
+  <tc:link label="Tag Library Documentation" image="#{request.contextPath}/image/feather-leaf.png"
+           link="#{demoBundle.tagDocUrl}/#{info.stableVersion}/tld/tc/in.html"/>
 
   <tc:section label="Text">
     <p>The following example show how to add a text-label inside an input field.</p>
@@ -61,7 +63,7 @@
   &lt;/f:facet>
 &lt;/tc:in></code></pre>
     <tc:textarea id="tachatlog" label="Chat" labelLayout="top" rows="5" value="#{groupController.chatlog}"
-    readonly="true"/>
+                 readonly="true"/>
     <tc:in id="inewmessage" value="#{groupController.newMessage}">
       <f:facet name="before">User Two</f:facet>
       <f:facet name="after">
@@ -77,6 +79,10 @@
       Pressing the "SendTo"-Button will display a selectable list.
       This list is different in the examples.
       Notice that the <code>omit</code> attribute is set for <code class="language-markup">&lt;tc:link/></code>.</p>
+    <p><span class="#{demo:bootstrapClass('BADGE')} #{demo:bootstrapClass('BADGE_INFO')}">Info</span>
+      It's recommended to use buttons instead of links for dropdown menus inside an input group.<br/>
+      When using a button, a dropdown menu is positioned under the input group. Otherwise the dropdown menu is set
+      directly under the link.</p>
 
     <tc:section label="Commands">
       <pre><code class="language-markup">&lt;tc:in placeholder="type a message">
@@ -139,7 +145,7 @@
         <f:facet name="after">
           <tc:selectOneChoice value="#{groupController.currency}">
             <tc:selectItems value="#{groupController.currencies}" var="currency"
-                           itemValue="#{currency}" itemLabel="#{currency.displayName}"/>
+                            itemValue="#{currency}" itemLabel="#{currency.displayName}"/>
             <f:ajax listener="#{groupController.compute}" render="valueInEuro" execute="value"/>
           </tc:selectOneChoice>
         </f:facet>
