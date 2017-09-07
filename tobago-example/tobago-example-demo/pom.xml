@@ -157,6 +157,18 @@
           </images>
         </configuration>
       </plugin>
+      <plugin>
+        <groupId>org.apache.meecrowave</groupId>
+        <artifactId>meecrowave-maven-plugin</artifactId>
+        <version>1.1.0</version>
+        <dependencies>
+          <dependency>
+            <groupId>org.apache.geronimo.specs</groupId>
+            <artifactId>geronimo-el_2.2_spec</artifactId>
+            <version>1.0.4</version>
+          </dependency>
+        </dependencies>
+      </plugin>
     </plugins>
   </build>
 
