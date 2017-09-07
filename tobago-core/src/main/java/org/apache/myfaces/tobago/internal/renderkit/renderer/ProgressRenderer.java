@@ -25,6 +25,7 @@ import org.apache.myfaces.tobago.internal.component.AbstractUIProgress;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.internal.util.JsonUtils;
 import org.apache.myfaces.tobago.internal.util.RenderUtils;
+import org.apache.myfaces.tobago.internal.util.StyleRenderUtils;
 import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
@@ -77,7 +78,7 @@ public class ProgressRenderer extends RendererBase {
     final UIStyle style = (UIStyle) facesContext.getApplication()
         .createComponent(facesContext, UIStyle.COMPONENT_TYPE, RendererTypes.Style.name());
     style.setTransient(true);
-    style.setSelector("#" + clientId.replaceAll(":", "\\\\:") + ">." + BootstrapClass.PROGRESS_BAR.getName());
+    style.setSelector(StyleRenderUtils.encodeSelector("#", clientId, ">.", BootstrapClass.PROGRESS_BAR.getName()));
     style.setWidth(new Measure(percent * 100, Measure.Unit.PERCENT));
     progress.getChildren().add(style);
 

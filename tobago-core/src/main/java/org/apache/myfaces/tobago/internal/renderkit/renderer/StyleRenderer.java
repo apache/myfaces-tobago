@@ -22,6 +22,7 @@ package org.apache.myfaces.tobago.internal.renderkit.renderer;
 import org.apache.myfaces.tobago.internal.component.AbstractUIStyle;
 import org.apache.myfaces.tobago.internal.context.Nonce;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
+import org.apache.myfaces.tobago.internal.util.StyleRenderUtils;
 import org.apache.myfaces.tobago.layout.Display;
 import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.layout.Overflow;
@@ -119,12 +120,10 @@ public class StyleRenderer extends RendererBase {
         writer.writeIdAttribute(style.getClientId(facesContext));
         final String selector = style.getSelector();
         if (selector != null) {
-          // not using writeText, because > must not be encoded!
-          writer.write(selector);
+          StyleRenderUtils.writeSelector(writer, selector);
         } else {
           final String parentId = style.getParent().getClientId(facesContext);
-          writer.writeText("#");
-          writer.writeText(parentId.replaceAll(":", "\\\\:"));
+          StyleRenderUtils.writeIdSelector(writer, parentId);
         }
         writer.writeText("{");
         if (width != null) {
