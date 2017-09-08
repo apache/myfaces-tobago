@@ -1,0 +1,17 @@
+.idea/
+.mvn/
+*.iml
+*.ipr
+*.iws
+.checkstyle
+.classpath
+.pmd
+.eclipse-pmd
+.project
+.ruleset
+.settings/
+target/
+velocity.log
+bin/
+node_modules/
+derby.log
