@@ -498,11 +498,9 @@
   </dependencies>
 
   <scm>
-
-    <connection>scm:svn:http://svn.apache.org/repos/asf/myfaces/tobago/branches/tobago-1.0.x</connection>
-    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/myfaces/tobago/branches/tobago-1.0.x</developerConnection>
-    <url>http://svn.apache.org/viewvc/myfaces/tobago/branches/tobago-1.0.x</url>
-
+    <connection>scm:git:https://gitbox.apache.org/repos/asf/myfaces-tobago.git</connection>
+    <developerConnection>scm:git:https://gitbox.apache.org/repos/asf/myfaces-tobago.git</developerConnection>
+    <url>https://gitbox.apache.org/repos/asf?p=myfaces-tobago.git</url>
   </scm>
 
   <build>
@@ -1122,21 +1120,21 @@
                 </configuration>
               </execution>
             </executions>
-            <dependencies>
-              <dependency>
-                <groupId>org.docbook</groupId>
-                <artifactId>docbook-xml</artifactId>
-                <version>4.4</version>
-                <scope>runtime</scope>
-              </dependency>
-            </dependencies>
-          </plugin>
-        </plugins>
-      </build>
-      <pluginRepositories>
-        <pluginRepository>
-          <id>agilejava</id>
-          <name>Agilejava repository (Docbook plugin)</name>
+          <dependencies>
+          <dependency>
+            <groupId>org.docbook</groupId>
+            <artifactId>docbook-xml</artifactId>
+            <version>4.4</version>
+            <scope>runtime</scope>
+          </dependency>
+        </dependencies>
+      </plugin>
+    </plugins>
+</build>
+<pluginRepositories>
+    <pluginRepository>
+      <id>agilejava</id>
+      <name>Agilejava repository (Docbook plugin)</name>
           <url>http://agilejava.com/maven</url>
         </pluginRepository>
       </pluginRepositories>
