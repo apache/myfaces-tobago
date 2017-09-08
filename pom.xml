@@ -301,7 +301,7 @@
           <allowCommentedBlocks>true</allowCommentedBlocks>
 -->
         </configuration>
-      </plugin>                              
+      </plugin>
 
       <!-- TODO test dashboard plugin  -->
       <!--plugin>
@@ -578,9 +578,9 @@
   </dependencies>
 
   <scm>
-    <connection>scm:svn:http://svn.apache.org/repos/asf/myfaces/tobago/branches/tobago-2.0.x</connection>
-    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/myfaces/tobago/branches/tobago-2.0.x</developerConnection>
-    <url>http://svn.eu.apache.org/viewvc/myfaces/tobago/branches/tobago-2.0.x</url>
+    <connection>scm:git:https://gitbox.apache.org/repos/asf/myfaces-tobago.git</connection>
+    <developerConnection>scm:git:https://gitbox.apache.org/repos/asf/myfaces-tobago.git</developerConnection>
+    <url>https://gitbox.apache.org/repos/asf?p=myfaces-tobago.git</url>
   </scm>
 
   <build>
@@ -1277,10 +1277,10 @@
     Attention: The next profiles should only be changed by a clean build.
     They define the JSF version which are generally incompatible.
     They also define the JSF implementation used to compile and for runtime.
-    
+
     Usage for a standard build (jsf-2.0):
-    mvn 
-    
+    mvn
+
     Usage for specific build:
     mvn -Pjsf-2.1
     mvn -Pjsf-2.2
