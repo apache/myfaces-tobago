@@ -1,0 +1,16 @@
+.idea/
+.mvn/
+*.iml
+*.ipr
+*.iws
+.checkstyle
+.classpath
+.pmd
+.eclipse-pmd
+.project
+.ruleset
+.settings/
+target/
+*.log
+bin/
+node_modules/
