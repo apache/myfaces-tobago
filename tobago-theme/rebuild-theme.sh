@@ -60,4 +60,4 @@ mvn -P all-modules install
 
 echo "DONE"
 echo "Now you will find the bootstrap stuff inside the src trees. This might be committed."
-echo "Use: svn status"
+echo "Use: git status"
