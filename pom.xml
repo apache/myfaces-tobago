@@ -322,7 +322,7 @@
           <linkXRef>true</linkXRef>
           <targetJdk>${maven.compile.source}</targetJdk>
         </configuration>
-      </plugin>                              
+      </plugin>
 
       <!-- TODO test dashboard plugin  -->
       <!--plugin>
@@ -446,7 +446,7 @@
       <dependency>
         <groupId>org.slf4j</groupId>
         <artifactId>slf4j-log4j12</artifactId>
-        <version>${slf4j.version}</version>        
+        <version>${slf4j.version}</version>
       </dependency>
       <dependency>
         <groupId>commons-io</groupId>
@@ -472,7 +472,7 @@
         <groupId>commons-logging</groupId>
         <artifactId>commons-logging</artifactId>
         <version>${commons-logging.version}</version>
-        <scope>provided</scope>        
+        <scope>provided</scope>
       </dependency>
       <dependency>
         <groupId>commons-digester</groupId>
@@ -589,9 +589,9 @@
   </dependencies>
 
   <scm>
-    <connection>scm:svn:http://svn.apache.org/repos/asf/myfaces/tobago/branches/tobago-1.5.x</connection>
-    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/myfaces/tobago/branches/tobago-1.5.x</developerConnection>
-    <url>http://svn.eu.apache.org/viewvc/myfaces/tobago/branches/tobago-1.5.x</url>
+    <connection>scm:git:https://gitbox.apache.org/repos/asf/myfaces-tobago.git</connection>
+    <developerConnection>scm:git:https://gitbox.apache.org/repos/asf/myfaces-tobago.git</developerConnection>
+    <url>https://gitbox.apache.org/repos/asf?p=myfaces-tobago.git</url>
   </scm>
 
   <build>
@@ -623,7 +623,7 @@
       </plugin>
 
       <plugin>
-        <groupId>org.apache.maven.plugins</groupId>        
+        <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-checkstyle-plugin</artifactId>
         <version>2.7</version>
         <configuration>
@@ -1467,14 +1467,13 @@
     Attention: The next profiles should only be changed by a clean build.
     They define the JSF version which are generally incompatible.
     They also define the JSF implementation used to compile and for runtime.
-    
+
     Usage for a standard build (jsf-1.2):
-    mvn 
-    
+    mvn
     Usage for specific build:
     mvn -Pjsf-1.1
     mvn -Pjsf-2.0
-    
+
 -->
 
     <profile>
