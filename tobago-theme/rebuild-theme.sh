@@ -47,4 +47,4 @@ mvn -P all-modules install
 
 echo DONE
 echo Now you will find the bootstrap stuff inside the src trees
-echo use: svn status
+echo use: git status
