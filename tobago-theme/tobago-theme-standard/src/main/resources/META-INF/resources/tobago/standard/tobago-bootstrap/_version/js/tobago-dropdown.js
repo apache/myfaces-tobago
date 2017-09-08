@@ -18,14 +18,19 @@
 Tobago.Dropdown = {};
 
 Tobago.Dropdown.init = function (elements) {
-  var $dropdownMenus = jQuery(".dropdown-menu");
+  var $dropdownMenus = jQuery(":not(.tobago-page-menuStore) > .dropdown-menu");
+  var $tobagoPageMenuStore = jQuery(".tobago-page-menuStore");
+
   $dropdownMenus.each(function () {
     var $dropdownMenu = jQuery(this);
     var $parent = $dropdownMenu.parent();
-    var $tobagoPageMenuStore = jQuery('.tobago-page-menuStore');
 
-    if (!$parent.hasClass('tobago-dropdown-submenu')
-        && !$parent.closest('.navbar').length > 0) {
+    if (!$parent.hasClass('tobago-dropdown-submenu') && !$parent.closest('.navbar').length > 0) {
+
+      // remove duplicated dropdown menus from menu store
+      // this could happen if the dropdown component is updated by ajax
+      removeDuplicates($dropdownMenu);
+
       $parent.on('shown.bs.dropdown', function (event) {
         $tobagoPageMenuStore.append($dropdownMenu.detach());
       }).on('hidden.bs.dropdown', function (event) {
@@ -34,6 +39,29 @@ Tobago.Dropdown.init = function (elements) {
     }
   });
 };
+
+function removeDuplicates($dropdownMenu) {
+  var $menuStoreDropdowns = jQuery(".tobago-page-menuStore .dropdown-menu");
+  $menuStoreDropdowns.each(function () {
+    var $menuStoreDropdown = jQuery(this);
+
+    var dropdownIds = getIds($dropdownMenu);
+    var menuStoreIds = getIds($menuStoreDropdown);
+
+    for (var i = 0; i < dropdownIds.length; i++) {
+      if (jQuery.inArray(dropdownIds[i], menuStoreIds) >= 0) {
+        $menuStoreDropdown.remove();
+        return false;
+      }
+    }
+  });
+}
+
+function getIds($dropdownMenu) {
+  return $dropdownMenu.find("[id]").map(function () {
+    return this.id;
+  });
+}
 
 Tobago.registerListener(Tobago.Dropdown.init, Tobago.Phase.DOCUMENT_READY, Tobago.Phase.Order.NORMAL);
 Tobago.registerListener(Tobago.Dropdown.init, Tobago.Phase.AFTER_UPDATE, Tobago.Phase.Order.NORMAL);
