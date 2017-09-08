@@ -47,6 +47,12 @@ Apache Tobago
 
 News
 
+* September 8, 2017 - Sourcecode moved to Gitbox
+
+      The Sourcecode of MyFaces Tobago moved from Subversion to Git. Please use either
+      {{{https://gitbox.apache.org/repos/asf/myfaces-tobago.git}Gitbox}} or the
+      {{{https://github.com/apache/myfaces-tobago}Github Mirror}}.
+
 * August 15, 2017 - MyFaces Tobago 3.0.5 Released
 
       The MyFaces Tobago component library in version 3.0.5 has been released.
@@ -551,7 +557,7 @@ svn switch https://svn.apache.org/repos/asf/myfaces/tobago/trunk/
 
         * Sanitize content against XSS.
 
-        * Examples to integrate {{{http://ckeditor.com/}CKEditor™}} and {{{http://www.tinymce.com/}TinyMCE}}.
+        * Examples to integrate {{{http://ckeditor.com/}CKEditor???}} and {{{http://www.tinymce.com/}TinyMCE}}.
 
         * Bugfixes
 

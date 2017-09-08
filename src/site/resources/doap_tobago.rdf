@@ -72,10 +72,10 @@
       </Version>
     </release>
     <repository>
-      <SVNRepository>
-        <location rdf:resource="http://svn.apache.org/repos/asf/myfaces/tobago"/>
-        <browse rdf:resource="http://svn.apache.org/viewvc/myfaces/tobago"/>
-      </SVNRepository>
+      <GitRepository>
+        <location rdf:resource="https://gitbox.apache.org/repos/asf/myfaces-tobago.git"/>
+        <browse rdf:resource="https://gitbox.apache.org/repos/asf?p=myfaces-tobago.git"/>
+      </GitRepository>
     </repository>
     <maintainer>
       <foaf:Person>
