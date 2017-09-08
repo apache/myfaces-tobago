@@ -538,9 +538,9 @@
   </dependencies>
 
   <scm>
-    <connection>scm:svn:http://svn.apache.org/repos/asf/myfaces/tobago/branches/tobago-3.0.x</connection>
-    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/myfaces/tobago/branches/tobago-3.0.x</developerConnection>
-    <url>http://svn.eu.apache.org/viewvc/myfaces/tobago/branches/tobago-3.0.x</url>
+    <connection>scm:git:https://gitbox.apache.org/repos/asf/myfaces-tobago.git</connection>
+    <developerConnection>scm:git:https://gitbox.apache.org/repos/asf/myfaces-tobago.git</developerConnection>
+    <url>https://gitbox.apache.org/repos/asf?p=myfaces-tobago.git</url>
   </scm>
 
   <build>
