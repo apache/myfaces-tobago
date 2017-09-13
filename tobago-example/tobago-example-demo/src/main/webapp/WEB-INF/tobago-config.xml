@@ -49,8 +49,9 @@
     <!-- XXX With CSP Tobago 3.0.x is currently not working 100% see TOBAGO-1534,
          XXX because of JSF-AJAX we need 'unsafe-eval' -->
     <!--<directive name="script-src">'self' 'unsafe-eval'</directive>-->
-    <!-- needed for <tc:object> in object.xhtml -->
+    <!-- needed for <tc:object>  -->
     <directive name="child-src">https://maps.google.com</directive>
+    <directive name="child-src">https://*.apache.org</directive>
     <!-- needed for the test suite -->
     <directive name="child-src">'self'</directive>
   </content-security-policy>
