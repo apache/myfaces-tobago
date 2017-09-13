@@ -46,6 +46,7 @@ public class PopupRenderer extends PanelRendererBase {
     final boolean collapsed = popup.isCollapsed();
     Markup popupMarkup = popup.getMarkup() != null ? popup.getMarkup() : Markup.NULL;
 
+    // this makes the popup NOT closable with a click to the background
     ComponentUtils.putDataAttribute(popup, "backdrop", "static");
 
     writer.startElement(HtmlElements.DIV);
@@ -55,10 +56,7 @@ public class PopupRenderer extends PanelRendererBase {
         TobagoClass.POPUP.createMarkup(popup.getMarkup()),
         TobagoClass.POPUP.createDefaultMarkups(popup),
         BootstrapClass.MODAL,
-        //XXX fade class removed due to a bug in bootstrap-alpha6
-        //https://github.com/twbs/bootstrap/issues/21607
-        //https://github.com/twbs/bootstrap/pull/21743
-        //    BootstrapClass.FADE, // TOBAGO-1759
+        BootstrapClass.FADE,
         popup.getCustomClass());
     writer.writeIdAttribute(clientId);
     writer.writeAttribute(HtmlAttributes.TABINDEX, -1);
