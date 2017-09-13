@@ -34,11 +34,14 @@ import org.apache.myfaces.tobago.context.ThemeImpl;
 import org.apache.myfaces.tobago.context.TobagoContext;
 import org.apache.myfaces.tobago.internal.mock.faces.MockTheme;
 import org.apache.myfaces.tobago.internal.util.MimeTypeUtils;
+import org.apache.myfaces.tobago.internal.webapp.HtmlResponseWriter;
 import org.junit.After;
 import org.junit.Before;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.IOException;
+import java.io.StringWriter;
 import java.util.Collections;
 import java.util.Locale;
 
@@ -56,6 +59,9 @@ public abstract class AbstractTobagoTestBase extends AbstractJsfTestCase {
 
   private static final Logger LOG = LoggerFactory.getLogger(AbstractTobagoTestBase.class);
 
+  private StringWriter stringWriter;
+  private int last = 0;
+
   /**
    * <p>Set up instance variables required by Tobago test cases.</p>
    */
@@ -64,6 +70,9 @@ public abstract class AbstractTobagoTestBase extends AbstractJsfTestCase {
   public void setUp() throws Exception {
 
     super.setUp();
+
+    stringWriter = new StringWriter();
+    getFacesContext().setResponseWriter(new HtmlResponseWriter(stringWriter, "", "UTF-8"));
 
     // Tobago specific extensions
 
@@ -111,5 +120,13 @@ public abstract class AbstractTobagoTestBase extends AbstractJsfTestCase {
 
   public MockHttpServletRequest getRequest() {
     return request;
+  }
+
+  public String getLastWritten() throws IOException {
+    getFacesContext().getResponseWriter().flush(); // is this needed
+    final String full = stringWriter.toString();
+    final String result = full.substring(last);
+    last = full.length();
+    return result;
   }
 }
