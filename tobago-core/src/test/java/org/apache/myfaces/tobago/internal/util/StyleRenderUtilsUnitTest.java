@@ -30,22 +30,16 @@ import java.io.IOException;
 public class StyleRenderUtilsUnitTest extends AbstractTobagoTestBase {
 
   @Test
-  public void testEncodeSelector() {
-    Assert.assertEquals("", StyleRenderUtils.encodeSelector());
+  public void testEncodeIdSelector() {
+    Assert.assertEquals("#", StyleRenderUtils.encodeIdSelector(""));
 
-    Assert.assertEquals("", StyleRenderUtils.encodeSelector(""));
+    Assert.assertEquals("#tag", StyleRenderUtils.encodeIdSelector("tag"));
 
-    Assert.assertEquals("tag", StyleRenderUtils.encodeSelector("tag"));
+    Assert.assertEquals("#id\\:sub", StyleRenderUtils.encodeIdSelector("id:sub"));
 
-    Assert.assertEquals(".class", StyleRenderUtils.encodeSelector(".class"));
+    Assert.assertEquals("#id\\:sub\\:sub2", StyleRenderUtils.encodeIdSelector("id:sub:sub2"));
 
-    Assert.assertEquals("parent>child", StyleRenderUtils.encodeSelector("parent>child"));
-
-    Assert.assertEquals("#id\\:sub", StyleRenderUtils.encodeSelector("#id:sub"));
-
-    Assert.assertEquals("#id\\:sub\\:sub2", StyleRenderUtils.encodeSelector("#id:sub:sub2"));
-
-    Assert.assertEquals("#id\\:sub\\:sub2\\:sub3", StyleRenderUtils.encodeSelector("#id:sub:sub2:sub3"));
+    Assert.assertEquals("#id\\:sub\\:sub2\\:sub3", StyleRenderUtils.encodeIdSelector("id:sub:sub2:sub3"));
   }
 
   @Test

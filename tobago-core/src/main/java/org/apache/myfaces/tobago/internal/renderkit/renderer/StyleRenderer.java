@@ -210,9 +210,11 @@ public class StyleRenderer extends RendererBase {
     writer.writeText(":");
     switch (name) {
       case backgroundImage:
-        writer.writeText("url('");
+        writer.writeText("url(");
+        writer.write("'");
         writer.writeText(value);
-        writer.writeText("')");
+        writer.write("'");
+        writer.writeText(")");
         break;
       default:
         writer.writeText(value);

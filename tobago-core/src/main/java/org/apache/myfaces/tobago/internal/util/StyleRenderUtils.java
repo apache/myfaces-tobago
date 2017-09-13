@@ -37,6 +37,9 @@ public class StyleRenderUtils {
     // to prevent instantiation
   }
 
+  /**
+   * PRELIMINARY
+   */
   public static void writeIdSelector(TobagoResponseWriter writer, String id) throws IOException {
 
     writer.writeText("#");
@@ -54,6 +57,9 @@ public class StyleRenderUtils {
     writer.writeText(chars, last, chars.length - last);
   }
 
+  /**
+   * PRELIMINARY
+   */
   // not using writeText, because > must not be encoded!
   public static void writeSelector(final TobagoResponseWriter writer, final String selector) throws IOException {
     if (selector.contains("<")) {
@@ -64,12 +70,11 @@ public class StyleRenderUtils {
     }
   }
 
-  public static String encodeSelector(String... selector) {
-    StringBuilder builder = new StringBuilder();
-    for (String s : selector) {
-      builder.append(s.replaceAll(":", "\\\\:"));
-    }
-    return builder.toString();
+  /**
+   * PRELIMINARY
+   */
+  public static String encodeIdSelector(String clientId) {
+    return "#" + clientId.replaceAll(":", "\\\\:");
   }
 
 }
