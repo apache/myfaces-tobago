@@ -9229,12 +9229,6 @@ th.tobago-sheet-headerCell-markup-filler > .tobago-sheet-header {
   display: none;
 }
 
-.twitter-typeahead {
-  width: 100%;
-  display: inherit !important;
-  /* height of tc:in must not be influenced by tc:suggest */
-}
-
 .typeahead {
   background-color: #FFFFFF;
 }

@@ -1,4 +1,4 @@
-Build date: 2017-09-06 16:10:31
+Build date: 2017-09-13 13:53:33
 [INFO] Scanning for projects...
 [INFO] 
 [INFO] ------------------------------------------------------------------------
@@ -70,7 +70,7 @@ Build date: 2017-09-06 16:10:31
 [INFO] Verified checksum of previously downloaded file
 [INFO] Extracting zip contents
 [INFO] Removing __CURRENT__/tobago-theme-standard/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom
-[INFO] Copying extracted folder /var/folders/yp/1vrxjnrs20798ydt_yl8wrpr0000gp/T/phantomjs/phantomjs-2.1.1-macosx.zip-extract-1504707178162/phantomjs-2.1.1-macosx -> __CURRENT__/tobago-theme-standard/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom
+[INFO] Copying extracted folder /var/folders/yp/1vrxjnrs20798ydt_yl8wrpr0000gp/T/phantomjs/phantomjs-2.1.1-macosx.zip-extract-1505303759134/phantomjs-2.1.1-macosx -> __CURRENT__/tobago-theme-standard/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom
 [INFO] Writing location.js file
 [INFO] Done. Phantomjs binary available at __CURRENT__/tobago-theme-standard/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom/bin/phantomjs
 [INFO] 
@@ -81,10 +81,10 @@ Build date: 2017-09-06 16:10:31
 [INFO] Testing binary
 [INFO] Binary is fine
 [INFO] bootstrap@4.0.0-beta __CURRENT__/tobago-theme-standard/target/bootstrap
-[INFO] ├─┬ autoprefixer@7.1.3 
+[INFO] ├─┬ autoprefixer@7.1.4 
 [INFO] │ ├─┬ browserslist@2.4.0 
-[INFO] │ │ └── electron-to-chromium@1.3.20 
-[INFO] │ ├── caniuse-lite@1.0.30000726 
+[INFO] │ │ └── electron-to-chromium@1.3.21 
+[INFO] │ ├── caniuse-lite@1.0.30000727 
 [INFO] │ ├── normalize-range@0.1.2 
 [INFO] │ ├── num2fraction@1.2.2 
 [INFO] │ ├─┬ postcss@6.0.11 
@@ -111,7 +111,7 @@ Build date: 2017-09-06 16:10:31
 [INFO] │ │ ├─┬ home-or-tmp@2.0.0 
 [INFO] │ │ │ ├── os-homedir@1.0.2 
 [INFO] │ │ │ └── os-tmpdir@1.0.2 
-[INFO] │ │ └── source-map-support@0.4.17 
+[INFO] │ │ └── source-map-support@0.4.18 
 [INFO] │ ├─┬ babel-runtime@6.26.0 
 [INFO] │ │ └── regenerator-runtime@0.11.0 
 [INFO] │ ├─┬ chokidar@1.7.0 
@@ -125,14 +125,15 @@ Build date: 2017-09-06 16:10:31
 [INFO] │ │ │   │ └── minimist@0.0.8 
 [INFO] │ │ │   ├─┬ nopt@4.0.1 
 [INFO] │ │ │   │ ├── abbrev@1.1.0 
+[WARNING] npm WARN bootstrap@4.0.0-beta requires a peer of jquery@>=1.9.1 but none was installed.
 [INFO] │ │ │   │ └─┬ osenv@0.1.4 
 [INFO] │ │ │   │   ├── os-homedir@1.0.2 
 [INFO] │ │ │   │   └── os-tmpdir@1.0.2 
 [INFO] │ │ │   ├─┬ npmlog@4.1.0 
 [INFO] │ │ │   │ ├─┬ are-we-there-yet@1.1.4 
+[WARNING] npm WARN bootstrap@4.0.0-beta requires a peer of popper.js@^1.11.0 but none was installed.
 [INFO] │ │ │   │ │ └── delegates@1.0.0 
 [INFO] │ │ │   │ ├── console-control-strings@1.1.0 
-[WARNING] npm WARN bootstrap@4.0.0-beta requires a peer of jquery@>=1.9.1 but none was installed.
 [INFO] │ │ │   │ ├─┬ gauge@2.7.4 
 [INFO] │ │ │   │ │ ├── aproba@1.1.1 
 [INFO] │ │ │   │ │ ├── has-unicode@2.0.1 
@@ -141,7 +142,6 @@ Build date: 2017-09-06 16:10:31
 [INFO] │ │ │   │ │ ├─┬ string-width@1.0.2 
 [INFO] │ │ │   │ │ │ ├── code-point-at@1.1.0 
 [INFO] │ │ │   │ │ │ └─┬ is-fullwidth-code-point@1.0.0 
-[WARNING] npm WARN bootstrap@4.0.0-beta requires a peer of popper.js@^1.11.0 but none was installed.
 [INFO] │ │ │   │ │ │   └── number-is-nan@1.0.1 
 [INFO] │ │ │   │ │ ├─┬ strip-ansi@3.0.1 
 [INFO] │ │ │   │ │ │ └── ansi-regex@2.1.1 
@@ -387,7 +387,7 @@ Build date: 2017-09-06 16:10:31
 [INFO] │ │ └── through@2.3.8 
 [INFO] │ ├─┬ is-resolvable@1.0.0 
 [INFO] │ │ └── tryit@1.0.3 
-[INFO] │ ├─┬ js-yaml@3.9.1 
+[INFO] │ ├─┬ js-yaml@3.10.0 
 [INFO] │ │ ├─┬ argparse@1.0.9 
 [INFO] │ │ │ └── sprintf-js@1.0.3 
 [INFO] │ │ └── esprima@4.0.0 
@@ -449,7 +449,7 @@ Build date: 2017-09-06 16:10:31
 [INFO] │ │ ├── getobject@0.1.0 
 [INFO] │ │ ├── lodash@4.3.0 
 [INFO] │ │ └── which@1.2.14 
-[INFO] │ ├── iconv-lite@0.4.18 
+[INFO] │ ├── iconv-lite@0.4.19 
 [INFO] │ ├─┬ js-yaml@3.5.5 
 [INFO] │ │ └── esprima@2.7.3 
 [INFO] │ ├─┬ nopt@3.0.6 
@@ -597,7 +597,7 @@ Build date: 2017-09-06 16:10:31
 [INFO] │ ├─┬ node-gyp@3.6.2 
 [INFO] │ │ ├── fstream@1.0.11 
 [INFO] │ │ ├── osenv@0.1.4 
-[INFO] │ │ ├── rimraf@2.6.1 
+[INFO] │ │ ├── rimraf@2.6.2 
 [INFO] │ │ ├── semver@5.3.0 
 [INFO] │ │ └─┬ tar@2.2.1 
 [INFO] │ │   └── block-stream@0.0.9 
@@ -665,7 +665,7 @@ Build date: 2017-09-06 16:10:31
 [INFO] │ │ └── uuid@3.1.0 
 [INFO] │ ├─┬ sass-graph@2.2.4 
 [INFO] │ │ ├─┬ scss-tokenizer@0.2.3 
-[INFO] │ │ │ ├── js-base64@2.1.9 
+[INFO] │ │ │ ├── js-base64@2.3.2 
 [INFO] │ │ │ └─┬ source-map@0.4.4 
 [INFO] │ │ │   └── amdefine@1.0.1 
 [INFO] │ │ └─┬ yargs@7.1.0 
@@ -795,13 +795,10 @@ Build date: 2017-09-06 16:10:31
 [INFO] │ └─┬ which@1.2.14 
 [INFO] │   └── isexe@2.0.0 
 [INFO] ├── UNMET PEER DEPENDENCY popper.js@^1.11.0
-[INFO] ├─┬ postcss-cli@4.1.0 
-[INFO] │ ├─┬ chalk@1.1.3 
-[INFO] │ │ ├── ansi-styles@2.2.1 
-[INFO] │ │ └── supports-color@2.0.0 
+[INFO] ├─┬ postcss-cli@4.1.1 
 [INFO] │ ├── dependency-graph@0.5.0 
-[INFO] │ ├─┬ fs-extra@3.0.1 
-[INFO] │ │ ├── jsonfile@3.0.1 
+[INFO] │ ├─┬ fs-extra@4.0.2 
+[INFO] │ │ ├── jsonfile@4.0.0 
 [INFO] │ │ └── universalify@0.1.1 
 [INFO] │ ├── get-stdin@5.0.1 
 [INFO] │ ├─┬ globby@6.1.0 
@@ -824,10 +821,9 @@ Build date: 2017-09-06 16:10:31
 [INFO] │ │ │ └── require-from-string@1.2.1 
 [INFO] │ │ ├── postcss-load-options@1.2.0 
 [INFO] │ │ └── postcss-load-plugins@2.3.0 
-[INFO] │ ├─┬ postcss-reporter@4.0.0 
-[INFO] │ │ └─┬ chalk@1.1.3 
-[INFO] │ │   ├── ansi-styles@2.2.1 
-[INFO] │ │   └── supports-color@2.0.0 
+[INFO] │ ├─┬ postcss-reporter@5.0.0 
+[INFO] │ │ └── log-symbols@2.0.0 
+[INFO] │ ├── pretty-hrtime@1.0.3 
 [INFO] │ ├── read-cache@1.0.0 
 [INFO] │ └─┬ yargs@8.0.2 
 [INFO] │   ├── camelcase@4.1.0 
@@ -911,7 +907,7 @@ Build date: 2017-09-06 16:10:31
 [INFO] ├─┬ shx@0.2.2 
 [INFO] │ ├── es6-object-assign@1.1.0 
 [INFO] │ └── minimist@1.2.0 
-[INFO] └── uglify-js@3.0.28 
+[INFO] └── uglify-js@3.1.0 
 [INFO] 
 [INFO] 
 [INFO] --- frontend-maven-plugin:1.4:npm (step #8: npm run css-compile) @ tobago-theme-standard ---
@@ -924,11 +920,11 @@ Build date: 2017-09-06 16:10:31
 [ERROR] Wrote CSS to __CURRENT__/tobago-theme-standard/target/bootstrap/dist/css/bootstrap.css
 [ERROR] Wrote Source Map to __CURRENT__/tobago-theme-standard/target/bootstrap/dist/css/bootstrap.css.map
 [ERROR] Rendering Complete, saving .css file...
-[ERROR] Wrote Source Map to __CURRENT__/tobago-theme-standard/target/bootstrap/dist/css/bootstrap-grid.css.map
 [ERROR] Wrote CSS to __CURRENT__/tobago-theme-standard/target/bootstrap/dist/css/bootstrap-grid.css
+[ERROR] Wrote Source Map to __CURRENT__/tobago-theme-standard/target/bootstrap/dist/css/bootstrap-grid.css.map
 [ERROR] Rendering Complete, saving .css file...
-[ERROR] Wrote Source Map to __CURRENT__/tobago-theme-standard/target/bootstrap/dist/css/bootstrap-reboot.css.map
 [ERROR] Wrote CSS to __CURRENT__/tobago-theme-standard/target/bootstrap/dist/css/bootstrap-reboot.css
+[ERROR] Wrote Source Map to __CURRENT__/tobago-theme-standard/target/bootstrap/dist/css/bootstrap-reboot.css.map
 [INFO] 
 [INFO] --- frontend-maven-plugin:1.4:npm (step #9: npm run css-prefix) @ tobago-theme-standard ---
 [INFO] Running 'npm run css-prefix' in __CURRENT__/tobago-theme-standard/target/bootstrap
@@ -936,12 +932,12 @@ Build date: 2017-09-06 16:10:31
 [INFO] > bootstrap@4.0.0-beta css-prefix __CURRENT__/tobago-theme-standard/target/bootstrap
 [INFO] > postcss --config build/postcss.config.js --replace dist/css/*.css
 [INFO] 
-[ERROR] ✔ Finished dist/css/bootstrap-reboot.css (129ms)
-[ERROR] ✔ Finished dist/css/bootstrap.css (131ms)
-[ERROR] ✔ Finished dist/css/bootstrap.min.css (131ms)
-[ERROR] ✔ Finished dist/css/bootstrap-reboot.min.css (131ms)
-[ERROR] ✔ Finished dist/css/bootstrap-grid.min.css (131ms)
-[ERROR] ✔ Finished dist/css/bootstrap-grid.css (133ms)
+[ERROR] ✔ Finished dist/css/bootstrap-reboot.min.css (1.61 s)
+[ERROR] ✔ Finished dist/css/bootstrap-grid.css (1.61 s)
+[ERROR] ✔ Finished dist/css/bootstrap.css (1.61 s)
+[ERROR] ✔ Finished dist/css/bootstrap-grid.min.css (1.61 s)
+[ERROR] ✔ Finished dist/css/bootstrap-reboot.css (1.61 s)
+[ERROR] ✔ Finished dist/css/bootstrap.min.css (1.61 s)
 [INFO] 
 [INFO] --- frontend-maven-plugin:1.4:npm (step #10: npm run css-minify) @ tobago-theme-standard ---
 [INFO] Running 'npm run css-minify' in __CURRENT__/tobago-theme-standard/target/bootstrap
@@ -965,12 +961,12 @@ Build date: 2017-09-06 16:10:31
 [INFO] > npm-run-all --parallel js-compile-*
 [INFO] 
 [INFO] 
-[INFO] > bootstrap@4.0.0-beta js-compile-plugins __CURRENT__/tobago-theme-standard/target/bootstrap
-[INFO] > babel js/src/ --out-dir js/dist/ --source-maps
-[INFO] 
-[INFO] 
 [INFO] > bootstrap@4.0.0-beta js-compile-bundle __CURRENT__/tobago-theme-standard/target/bootstrap
 [INFO] > shx cat js/src/util.js js/src/alert.js js/src/button.js js/src/carousel.js js/src/collapse.js js/src/dropdown.js js/src/modal.js js/src/scrollspy.js js/src/tab.js js/src/tooltip.js js/src/popover.js | shx sed "s/^(import|export).*//" | babel --filename js/src/bootstrap.js | node build/stamp.js > dist/js/bootstrap.js
+[INFO] 
+[INFO] 
+[INFO] > bootstrap@4.0.0-beta js-compile-plugins __CURRENT__/tobago-theme-standard/target/bootstrap
+[INFO] > babel js/src/ --out-dir js/dist/ --source-maps
 [INFO] 
 [INFO] js/src/alert.js -> js/dist/alert.js
 [INFO] js/src/button.js -> js/dist/button.js
@@ -1011,8 +1007,8 @@ Build date: 2017-09-06 16:10:31
 [INFO] tether-theme-basic.min.css (504b) -> tether-theme-basic.min.min.css (504b)[100%]
 [INFO] nothing to do, __CURRENT__/tobago-theme-standard/target/classes/META-INF/resources/tobago/standard/tether/1.1.1/css/tether.min.css is younger than original, use 'force' option or clean your target
 [INFO] tether.min.css (237b) -> tether.min.min.css (237b)[100%]
-[INFO] bootstrap.css (186414b) -> bootstrap.min.css (142348b)[76%]
-[INFO] bootstrap.min.css (142155b) -> bootstrap.min.min.css (141930b)[99%]
+[INFO] bootstrap.css (186283b) -> bootstrap.min.css (142292b)[76%]
+[INFO] bootstrap.min.css (142099b) -> bootstrap.min.min.css (141874b)[99%]
 [INFO] nothing to do, __CURRENT__/tobago-theme-standard/target/classes/META-INF/resources/tobago/standard/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.min.css is younger than original, use 'force' option or clean your target
 [INFO] nothing to do, __CURRENT__/tobago-theme-standard/target/classes/META-INF/resources/tobago/standard/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.min.min.css is younger than original, use 'force' option or clean your target
 [INFO] nothing to do, __CURRENT__/tobago-theme-standard/target/classes/META-INF/resources/tobago/standard/font-awesome/4.7.0/css/font-awesome.min.css is younger than original, use 'force' option or clean your target
@@ -1027,7 +1023,7 @@ Build date: 2017-09-06 16:10:31
 [INFO] nothing to do, __CURRENT__/tobago-theme-standard/target/classes/META-INF/resources/tobago/standard/tether/1.1.1/css/tether.min.min.css is younger than original, use 'force' option or clean your target
 [INFO] nothing to do, __CURRENT__/tobago-theme-standard/target/classes/META-INF/resources/tobago/standard/tobago-bootstrap/_version/css/bootstrap.min.css is younger than original, use 'force' option or clean your target
 [INFO] nothing to do, __CURRENT__/tobago-theme-standard/target/classes/META-INF/resources/tobago/standard/tobago-bootstrap/_version/css/bootstrap.min.min.css is younger than original, use 'force' option or clean your target
-[INFO] total input (377471b) -> output (333112b)[88%]
+[INFO] total input (377284b) -> output (333000b)[88%]
 [INFO] nb warnings: 0, nb errors: 0
 [INFO] 
 [INFO] --- maven-compiler-plugin:3.6.2:compile (default-compile) @ tobago-theme-standard ---
@@ -1062,7 +1058,7 @@ main:
  T E S T S
 -------------------------------------------------------
 Running org.apache.myfaces.tobago.renderkit.css.BootstrapClassUnitTest
-Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.277 sec - in org.apache.myfaces.tobago.renderkit.css.BootstrapClassUnitTest
+Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.293 sec - in org.apache.myfaces.tobago.renderkit.css.BootstrapClassUnitTest
 
 Results :
 
@@ -1072,7 +1068,8 @@ Tests run: 2, Failures: 0, Errors: 0, Skipped: 0
 [INFO] --- maven-jar-plugin:2.6:jar (default-jar) @ tobago-theme-standard ---
 [INFO] Building jar: __CURRENT__/tobago-theme-standard/target/tobago-theme-standard-4.0.0-SNAPSHOT.jar
 [INFO] 
-[INFO] --- maven-site-plugin:3.5.1:attach-descriptor (attach-descriptor) @ tobago-theme-standard ---
+[INFO] --- maven-site-plugin:3.6:attach-descriptor (attach-descriptor) @ tobago-theme-standard ---
+[INFO] Skipping because packaging 'jar' is not pom.
 [INFO] 
 [INFO] --- maven-install-plugin:2.5.2:install (default-install) @ tobago-theme-standard ---
 [INFO] Installing __CURRENT__/tobago-theme-standard/target/tobago-theme-standard-4.0.0-SNAPSHOT.jar to __REPO__/org/apache/myfaces/tobago/tobago-theme-standard/4.0.0-SNAPSHOT/tobago-theme-standard-4.0.0-SNAPSHOT.jar
@@ -1080,7 +1077,7 @@ Tests run: 2, Failures: 0, Errors: 0, Skipped: 0
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
-[INFO] Total time: 02:53 min
-[INFO] Finished at: 2017-09-06T16:13:25+02:00
-[INFO] Final Memory: 42M/719M
+[INFO] Total time: 02:52 min
+[INFO] Finished at: 2017-09-13T13:56:27+02:00
+[INFO] Final Memory: 42M/707M
 [INFO] ------------------------------------------------------------------------
