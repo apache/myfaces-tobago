@@ -36,11 +36,20 @@
     <tc:link label="&lt;tc:tabChangeListener/>" image="#{request.contextPath}/image/feather-leaf.png"
              link="#{demoBundle.tagDocUrl}/#{info.stableVersion}/tld/tc/tabChangeListener.html"/></p>
 
+  <tc:popup id="xy" collapsed="false">
+    <tc:button label="close">
+      <tc:operation name="hide" for="xy"/>
+    </tc:button>
+  </tc:popup>
+
   <tc:section label="Basics">
     <p>A simple tabgroup. The second tab is disabled.</p>
     <tc:tabGroup id="tg1" switchType="reloadPage">
       <tc:tab id="t11" label="One">
         First tab.
+        <tc:button label="open">
+          <tc:operation name="show" for=":::xy"/>
+        </tc:button>
       </tc:tab>
       <tc:tab id="t12" label="Two" disabled="true">
         Second tab.

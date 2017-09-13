@@ -242,10 +242,10 @@ public final class HtmlRendererUtils {
                 .createComponent(facesContext, UIStyle.COMPONENT_TYPE, RendererTypes.Style.name());
             style.setTransient(true);
             style.setBackgroundImage(image);
-
-            // XXX here we add the style to a component, but this is not the component the style must be affected.
-            // The right one is <option>, but there is no UIComponent for <option>, so we need an other solution.
-            // May be a "for" or a "selector" attribute in UIStyle. See also TOBAGO-1777
+            style.setSelector(
+                StyleRenderUtils.encodeIdSelector(component.getClientId(facesContext))
+                    + " option[value=" + formattedValue + "]");
+            // XXX This works not in common browsers...
             component.getChildren().add(style);
           }
         }
