@@ -21,12 +21,19 @@
 // without modifying source files.
 
 $theme-colors: (
-        primary: #ffd080,
-        success: #bcf8ac,
-        info: #00ffff,
-        warning: #f0fd4e,
-        danger: #ffa9a9
+        primary: #4f4fa8,
+        success: #3c883c,
+        info: #007f7f,
+        warning: #a0ad2e,
+        danger: #8f59a9
 );
 
-$body-bg:    #eceeef;
-$body-color: #5facff;
+$body-bg: #000000;
+$body-color: #808080;
+
+$input-bg: #505050;
+
+$navbar-light-color: #606060;
+$navbar-light-active-color: #707070;
+$navbar-light-hover-color: #808080;
+$navbar-light-disabled-color: #505050;
