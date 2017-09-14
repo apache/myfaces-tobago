@@ -559,12 +559,12 @@ public enum BootstrapClass implements CssItem {
     }
 
     public BootstrapClass[] generate(final UIComponent child) {
-      ArrayList<BootstrapClass> result = new ArrayList<BootstrapClass>(4);
+      ArrayList<BootstrapClass> result = new ArrayList<>(4);
       final Map<String, Object> attributes = child.getAttributes();
-      generate(result, extraSmall, EXTRA_SMALL, attributes.get(Attributes.extraSmall.name()));
-      generate(result, small, SMALL, attributes.get(Attributes.small.name()));
-      generate(result, medium, MEDIUM, attributes.get(Attributes.medium.name()));
-      generate(result, large, LARGE, attributes.get(Attributes.large.name()));
+      generate(result, extraSmall, EXTRA_SMALL, attributes.get(Attributes.overwriteExtraSmall.name()));
+      generate(result, small, SMALL, attributes.get(Attributes.overwriteSmall.name()));
+      generate(result, medium, MEDIUM, attributes.get(Attributes.overwriteMedium.name()));
+      generate(result, large, LARGE, attributes.get(Attributes.overwriteLarge.name()));
       generateOffset(result, attributes.get(Attributes.offsetExtraSmall.name()), OFFSET_EXTRA_SMALL);
       generateOffset(result, attributes.get(Attributes.offsetSmall.name()), OFFSET_SMALL);
       generateOffset(result, attributes.get(Attributes.offsetMedium.name()), OFFSET_MEDIUM);

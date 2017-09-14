@@ -35,10 +35,10 @@ public class SegmentLayoutConstraintHandler extends TagHandler {
   private final TagAttribute offsetSmall;
   private final TagAttribute offsetMedium;
   private final TagAttribute offsetLarge;
-  private final TagAttribute extraSmall;
-  private final TagAttribute small;
-  private final TagAttribute medium;
-  private final TagAttribute large;
+  private final TagAttribute overwriteExtraSmall;
+  private final TagAttribute overwriteSmall;
+  private final TagAttribute overwriteMedium;
+  private final TagAttribute overwriteLarge;
 
   public SegmentLayoutConstraintHandler(TagConfig config) {
     super(config);
@@ -46,10 +46,10 @@ public class SegmentLayoutConstraintHandler extends TagHandler {
     offsetSmall = getAttribute(Attributes.offsetSmall.getName());
     offsetMedium = getAttribute(Attributes.offsetMedium.getName());
     offsetLarge = getAttribute(Attributes.offsetLarge.getName());
-    extraSmall = getAttribute(Attributes.extraSmall.getName());
-    small = getAttribute(Attributes.small.getName());
-    medium = getAttribute(Attributes.medium.getName());
-    large = getAttribute(Attributes.large.getName());
+    overwriteExtraSmall = getAttribute(Attributes.overwriteExtraSmall.getName());
+    overwriteSmall = getAttribute(Attributes.overwriteSmall.getName());
+    overwriteMedium = getAttribute(Attributes.overwriteMedium.getName());
+    overwriteLarge = getAttribute(Attributes.overwriteLarge.getName());
   }
 
   @Override
@@ -92,39 +92,39 @@ public class SegmentLayoutConstraintHandler extends TagHandler {
       }
     }
 
-    if (extraSmall != null) {
-      if (extraSmall.isLiteral()) {
-        attributes.put(Attributes.extraSmall.getName(), extraSmall.getValue());
+    if (overwriteExtraSmall != null) {
+      if (overwriteExtraSmall.isLiteral()) {
+        attributes.put(Attributes.overwriteExtraSmall.getName(), overwriteExtraSmall.getValue());
       } else {
-        parent.setValueExpression(Attributes.extraSmall.getName(),
-            extraSmall.getValueExpression(faceletContext, Integer.TYPE));
+        parent.setValueExpression(Attributes.overwriteExtraSmall.getName(),
+            overwriteExtraSmall.getValueExpression(faceletContext, Integer.TYPE));
       }
     }
 
-    if (small != null) {
-      if (small.isLiteral()) {
-        attributes.put(Attributes.small.getName(), small.getValue());
+    if (overwriteSmall != null) {
+      if (overwriteSmall.isLiteral()) {
+        attributes.put(Attributes.overwriteSmall.getName(), overwriteSmall.getValue());
       } else {
-        parent.setValueExpression(Attributes.small.getName(),
-            small.getValueExpression(faceletContext, Integer.TYPE));
+        parent.setValueExpression(Attributes.overwriteSmall.getName(),
+            overwriteSmall.getValueExpression(faceletContext, Integer.TYPE));
       }
     }
 
-    if (medium != null) {
-      if (medium.isLiteral()) {
-        attributes.put(Attributes.medium.getName(), medium.getValue());
+    if (overwriteMedium != null) {
+      if (overwriteMedium.isLiteral()) {
+        attributes.put(Attributes.overwriteMedium.getName(), overwriteMedium.getValue());
       } else {
-        parent.setValueExpression(Attributes.medium.getName(),
-            medium.getValueExpression(faceletContext, Integer.TYPE));
+        parent.setValueExpression(Attributes.overwriteMedium.getName(),
+            overwriteMedium.getValueExpression(faceletContext, Integer.TYPE));
       }
     }
 
-    if (large != null) {
-      if (large.isLiteral()) {
-        attributes.put(Attributes.large.getName(), large.getValue());
+    if (overwriteLarge != null) {
+      if (overwriteLarge.isLiteral()) {
+        attributes.put(Attributes.overwriteLarge.getName(), overwriteLarge.getValue());
       } else {
-        parent.setValueExpression(Attributes.large.getName(),
-            large.getValueExpression(faceletContext, Integer.TYPE));
+        parent.setValueExpression(Attributes.overwriteLarge.getName(),
+            overwriteLarge.getValueExpression(faceletContext, Integer.TYPE));
       }
     }
   }
