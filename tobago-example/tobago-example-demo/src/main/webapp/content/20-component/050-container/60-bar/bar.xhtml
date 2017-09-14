@@ -33,8 +33,11 @@
            link="#{demoBundle.tagDocUrl}/#{info.stableVersion}/tld/tc/bar.html"/>
 
   <tc:section label="Example">
-    <p>This example show a Bar with a 'brand' facet, a menu and right sided content inside an 'after' facet.</p>
+    <p>This example show a dark bar with a 'brand' facet, a menu and right sided content inside an 'after' facet.</p>
+    <p>You need to set the CSS class <code class="language-css">.navbar-expand{-sm|-md|-lg|-xl}</code> with the
+      <code class="language-markup">&lt;tc:style></code> attribute.</p>
     <pre><code class="language-markup">&lt;tc:bar>
+  &lt;tc:style customClass="navbar-dark bg-dark navbar-expand-lg"/>
   &lt;f:facet name="brand">
     &lt;tc:link label="BRAND" link="/"/>
   &lt;/f:facet>
@@ -50,6 +53,7 @@
   &lt;/f:facet>
 &lt;/tc:bar></code></pre>
     <tc:bar>
+      <tc:style customClass="navbar-dark bg-dark navbar-expand-lg"/>
       <f:facet name="brand">
         <tc:link label="BRAND" outcome="/content/10-intro/intro.xhtml"/>
       </f:facet>
@@ -69,6 +73,7 @@
   <tc:section label="Centered Menu Example">
     <p>This example shows how to center content.</p>
     <pre><code class="language-markup">&lt;tc:bar>
+  &lt;tc:style customClass="navbar-dark bg-dark navbar-expand-lg"/>
   &lt;f:facet name="brand">
     &lt;tc:link label="BRAND" link="/"/>
   &lt;/f:facet>
@@ -80,6 +85,7 @@
   &lt;/f:facet>
 &lt;/tc:bar></code></pre>
     <tc:bar>
+      <tc:style customClass="navbar-dark bg-dark navbar-expand-lg"/>
       <f:facet name="brand">
         <tc:link label="BRAND" outcome="/content/10-intro/intro.xhtml"/>
       </f:facet>
@@ -100,32 +106,46 @@
   <tc:section label="Bar with dropdown">
     <p>An example of a dropdown menu with radio entries.</p>
     <tc:bar>
+      <tc:style customClass="navbar-dark bg-dark navbar-expand-lg"/>
       <f:facet name="brand">
         <tc:link label="BRAND" outcome="/content/10-intro/intro.xhtml"/>
       </f:facet>
-      <tc:link omit="true" label="Radio">
-        <tc:selectOneRadio value="#{demoController.radioValue}">
-          <tc:selectItems value="#{demoController.currencyItems}"
-                          var="currency" itemValue="#{currency.currencyCode}" itemLabel="#{currency.displayName}"
-                          itemImage="#{request.contextPath}/data/#{currency.currencyCode}-14.png"/>
-        </tc:selectOneRadio>
-      </tc:link>
+      <tc:links>
+        <tc:link omit="true" label="Radio">
+          <tc:selectOneRadio value="#{demoController.radioValue}">
+            <tc:selectItems value="#{demoController.currencyItems}"
+                            var="currency" itemValue="#{currency.currencyCode}" itemLabel="#{currency.displayName}"
+                            itemImage="#{request.contextPath}/data/#{currency.currencyCode}-14.png"/>
+          </tc:selectOneRadio>
+        </tc:link>
+      </tc:links>
     </tc:bar>
   </tc:section>
 
   <tc:section label="Styles">
-    <p>You can use bootstrap classes to style the bar.</p>
+    <p>Some examples to style the bar.</p>
     <pre><code class="language-markup">&lt;tc:bar>
-  &lt;tc:style customClass="navbar-light bg-faded" />
-  &lt;f:facet name="brand">
-    &lt;tc:link label="BRAND" outcome="/content/10-intro/intro.xhtml">
-      &lt;tc:style customClass="navbar-brand"/>
-    &lt;/tc:link>
-  &lt;/f:facet>
+  &lt;tc:style customClass="navbar-dark bg-dark bg navbar-expand-lg"/>
+  ...
+&lt;/tc:bar>
+&lt;tc:bar>
+  &lt;tc:style customClass="navbar-light bg-light navbar-expand-lg"/>
+  ...
+&lt;/tc:bar>
+&lt;tc:bar>
+  &lt;tc:style customClass="navbar-dark bg-danger navbar-expand-lg"/>
+  ...
+&lt;/tc:bar>
+&lt;tc:bar>
+  &lt;tc:style customClass="navbar-dark bg-primary navbar-expand-lg"/>
+  ...
+&lt;/tc:bar>
+&lt;tc:bar>
+  &lt;tc:style customClass="navbar-light bg-warning navbar-expand-lg"/>
   ...
 &lt;/tc:bar></code></pre>
     <tc:bar>
-      <tc:style customClass="navbar-light bg-faded" />
+      <tc:style customClass="navbar-dark bg-dark bg navbar-expand-lg"/>
       <f:facet name="brand">
         <tc:link label="BRAND" outcome="/content/10-intro/intro.xhtml">
           <tc:style customClass="navbar-brand"/>
@@ -141,6 +161,147 @@
           <tc:button label="Go"/>
         </tc:flexLayout>
       </f:facet>
+    </tc:bar>
+    <tc:bar>
+      <tc:style customClass="navbar-light bg-light navbar-expand-lg"/>
+      <f:facet name="brand">
+        <tc:link label="BRAND" outcome="/content/10-intro/intro.xhtml">
+          <tc:style customClass="navbar-brand"/>
+        </tc:link>
+      </f:facet>
+      <tc:links>
+        <tc:link label="Link One"/>
+        <tc:link label="Link Two"/>
+      </tc:links>
+      <f:facet name="after">
+        <tc:flexLayout columns="*; auto">
+          <tc:in placeholder="Search" labelLayout="skip"/>
+          <tc:button label="Go"/>
+        </tc:flexLayout>
+      </f:facet>
+    </tc:bar>
+    <tc:bar>
+      <tc:style customClass="navbar-dark bg-danger navbar-expand-lg"/>
+      <f:facet name="brand">
+        <tc:link label="BRAND" outcome="/content/10-intro/intro.xhtml">
+          <tc:style customClass="navbar-brand"/>
+        </tc:link>
+      </f:facet>
+      <tc:links>
+        <tc:link label="Link One"/>
+        <tc:link label="Link Two"/>
+      </tc:links>
+      <f:facet name="after">
+        <tc:flexLayout columns="*; auto">
+          <tc:in placeholder="Search" labelLayout="skip"/>
+          <tc:button label="Go"/>
+        </tc:flexLayout>
+      </f:facet>
+    </tc:bar>
+    <tc:bar>
+      <tc:style customClass="navbar-dark bg-primary navbar-expand-lg"/>
+      <f:facet name="brand">
+        <tc:link label="BRAND" outcome="/content/10-intro/intro.xhtml">
+          <tc:style customClass="navbar-brand"/>
+        </tc:link>
+      </f:facet>
+      <tc:links>
+        <tc:link label="Link One"/>
+        <tc:link label="Link Two"/>
+      </tc:links>
+      <f:facet name="after">
+        <tc:flexLayout columns="*; auto">
+          <tc:in placeholder="Search" labelLayout="skip"/>
+          <tc:button label="Go"/>
+        </tc:flexLayout>
+      </f:facet>
+    </tc:bar>
+    <tc:bar>
+      <tc:style customClass="navbar-light bg-warning navbar-expand-lg"/>
+      <f:facet name="brand">
+        <tc:link label="BRAND" outcome="/content/10-intro/intro.xhtml">
+          <tc:style customClass="navbar-brand"/>
+        </tc:link>
+      </f:facet>
+      <tc:links>
+        <tc:link label="Link One"/>
+        <tc:link label="Link Two"/>
+      </tc:links>
+      <f:facet name="after">
+        <tc:flexLayout columns="*; auto">
+          <tc:in placeholder="Search" labelLayout="skip"/>
+          <tc:button label="Go"/>
+        </tc:flexLayout>
+      </f:facet>
+    </tc:bar>
+  </tc:section>
+
+  <tc:section label="Expand Sizes">
+    <p>Examples for the different expand sizes.</p>
+
+    <pre><code class="language-markup">&lt;tc:bar>
+  &lt;tc:style customClass="navbar-dark bg-dark bg navbar-expand-sm"/>
+  ...
+&lt;/tc:bar>
+&lt;tc:bar>
+  &lt;tc:style customClass="navbar-light bg-light navbar-expand-md"/>
+  ...
+&lt;/tc:bar>
+&lt;tc:bar>
+  &lt;tc:style customClass="navbar-dark bg-danger navbar-expand-lg"/>
+  ...
+&lt;/tc:bar>
+&lt;tc:bar>
+  &lt;tc:style customClass="navbar-dark bg-primary navbar-expand-xl"/>
+  ...
+&lt;/tc:bar></code></pre>
+    <tc:bar>
+      <tc:style customClass="navbar-light bg-light navbar-expand-sm"/>
+      <f:facet name="brand">
+        <tc:link label="BRAND" outcome="/content/10-intro/intro.xhtml">
+          <tc:style customClass="navbar-brand"/>
+        </tc:link>
+      </f:facet>
+      <tc:links>
+        <tc:link label="Link One"/>
+        <tc:link label="Link Two"/>
+      </tc:links>
+    </tc:bar>
+    <tc:bar>
+      <tc:style customClass="navbar-light bg-light navbar-expand-md"/>
+      <f:facet name="brand">
+        <tc:link label="BRAND" outcome="/content/10-intro/intro.xhtml">
+          <tc:style customClass="navbar-brand"/>
+        </tc:link>
+      </f:facet>
+      <tc:links>
+        <tc:link label="Link One"/>
+        <tc:link label="Link Two"/>
+      </tc:links>
+    </tc:bar>
+    <tc:bar>
+      <tc:style customClass="navbar-light bg-light navbar-expand-lg"/>
+      <f:facet name="brand">
+        <tc:link label="BRAND" outcome="/content/10-intro/intro.xhtml">
+          <tc:style customClass="navbar-brand"/>
+        </tc:link>
+      </f:facet>
+      <tc:links>
+        <tc:link label="Link One"/>
+        <tc:link label="Link Two"/>
+      </tc:links>
+    </tc:bar>
+    <tc:bar>
+      <tc:style customClass="navbar-light bg-light navbar-expand-xl"/>
+      <f:facet name="brand">
+        <tc:link label="BRAND" outcome="/content/10-intro/intro.xhtml">
+          <tc:style customClass="navbar-brand"/>
+        </tc:link>
+      </f:facet>
+      <tc:links>
+        <tc:link label="Link One"/>
+        <tc:link label="Link Two"/>
+      </tc:links>
     </tc:bar>
   </tc:section>
 </ui:composition>
