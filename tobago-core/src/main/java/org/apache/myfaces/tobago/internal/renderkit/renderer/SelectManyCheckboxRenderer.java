@@ -115,6 +115,18 @@ public class SelectManyCheckboxRenderer extends SelectManyRendererBase {
       writer.writeClassAttribute(TobagoClass.INPUT_PSEUDO);
       writer.endElement(HtmlElements.I);
 
+      if (item instanceof org.apache.myfaces.tobago.model.SelectItem) {
+        org.apache.myfaces.tobago.model.SelectItem tobagoItem = (org.apache.myfaces.tobago.model.SelectItem) item;
+        final String image = tobagoItem.getImage();
+
+        if (image != null) {
+          writer.startElement(HtmlElements.IMG);
+          writer.writeAttribute(HtmlAttributes.SRC, image, true);
+          writer.writeAttribute(HtmlAttributes.ALT, "", false);
+          writer.endElement(HtmlElements.IMG);
+        }
+      }
+
       final String label = item.getLabel();
       if (label != null) {
         writer.writeText(label);
