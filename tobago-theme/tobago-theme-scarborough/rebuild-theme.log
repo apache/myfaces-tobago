@@ -1,4 +1,4 @@
-Build date: 2017-09-15 14:20:39
+Build date: 2017-09-15 15:52:42
 [INFO] Scanning for projects...
 [INFO] 
 [INFO] ------------------------------------------------------------------------
@@ -70,7 +70,7 @@ Build date: 2017-09-15 14:20:39
 [INFO] Verified checksum of previously downloaded file
 [INFO] Extracting zip contents
 [INFO] Removing __CURRENT__/tobago-theme-scarborough/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom
-[INFO] Copying extracted folder /var/folders/yp/1vrxjnrs20798ydt_yl8wrpr0000gp/T/phantomjs/phantomjs-2.1.1-macosx.zip-extract-1505478118749/phantomjs-2.1.1-macosx -> __CURRENT__/tobago-theme-scarborough/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom
+[INFO] Copying extracted folder /var/folders/yp/1vrxjnrs20798ydt_yl8wrpr0000gp/T/phantomjs/phantomjs-2.1.1-macosx.zip-extract-1505483644108/phantomjs-2.1.1-macosx -> __CURRENT__/tobago-theme-scarborough/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom
 [INFO] Writing location.js file
 [INFO] Done. Phantomjs binary available at __CURRENT__/tobago-theme-scarborough/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom/bin/phantomjs
 [INFO] 
@@ -917,14 +917,14 @@ Build date: 2017-09-15 14:20:39
 [INFO] > node-sass --output-style expanded --source-map true --source-map-contents true --precision 6 scss/bootstrap.scss dist/css/bootstrap.css && node-sass --output-style expanded --source-map true --source-map-contents true --precision 6 scss/bootstrap-grid.scss dist/css/bootstrap-grid.css && node-sass --output-style expanded --source-map true --source-map-contents true --precision 6 scss/bootstrap-reboot.scss dist/css/bootstrap-reboot.css
 [INFO] 
 [ERROR] Rendering Complete, saving .css file...
-[ERROR] Wrote CSS to __CURRENT__/tobago-theme-scarborough/target/bootstrap/dist/css/bootstrap.css
 [ERROR] Wrote Source Map to __CURRENT__/tobago-theme-scarborough/target/bootstrap/dist/css/bootstrap.css.map
+[ERROR] Wrote CSS to __CURRENT__/tobago-theme-scarborough/target/bootstrap/dist/css/bootstrap.css
 [ERROR] Rendering Complete, saving .css file...
 [ERROR] Wrote CSS to __CURRENT__/tobago-theme-scarborough/target/bootstrap/dist/css/bootstrap-grid.css
 [ERROR] Wrote Source Map to __CURRENT__/tobago-theme-scarborough/target/bootstrap/dist/css/bootstrap-grid.css.map
 [ERROR] Rendering Complete, saving .css file...
-[ERROR] Wrote CSS to __CURRENT__/tobago-theme-scarborough/target/bootstrap/dist/css/bootstrap-reboot.css
 [ERROR] Wrote Source Map to __CURRENT__/tobago-theme-scarborough/target/bootstrap/dist/css/bootstrap-reboot.css.map
+[ERROR] Wrote CSS to __CURRENT__/tobago-theme-scarborough/target/bootstrap/dist/css/bootstrap-reboot.css
 [INFO] 
 [INFO] --- frontend-maven-plugin:1.4:npm (step #9: npm run css-prefix) @ tobago-theme-scarborough ---
 [INFO] Running 'npm run css-prefix' in __CURRENT__/tobago-theme-scarborough/target/bootstrap
@@ -932,12 +932,12 @@ Build date: 2017-09-15 14:20:39
 [INFO] > bootstrap@4.0.0-beta css-prefix __CURRENT__/tobago-theme-scarborough/target/bootstrap
 [INFO] > postcss --config build/postcss.config.js --replace dist/css/*.css
 [INFO] 
-[ERROR] ✔ Finished dist/css/bootstrap-reboot.css (1.31 s)
-[ERROR] ✔ Finished dist/css/bootstrap-reboot.min.css (1.31 s)
-[ERROR] ✔ Finished dist/css/bootstrap-grid.css (1.31 s)
-[ERROR] ✔ Finished dist/css/bootstrap.css (1.31 s)
-[ERROR] ✔ Finished dist/css/bootstrap.min.css (1.31 s)
-[ERROR] ✔ Finished dist/css/bootstrap-grid.min.css (1.31 s)
+[ERROR] ✔ Finished dist/css/bootstrap-grid.css (1.15 s)
+[ERROR] ✔ Finished dist/css/bootstrap-grid.min.css (1.15 s)
+[ERROR] ✔ Finished dist/css/bootstrap-reboot.css (1.15 s)
+[ERROR] ✔ Finished dist/css/bootstrap-reboot.min.css (1.15 s)
+[ERROR] ✔ Finished dist/css/bootstrap.css (1.15 s)
+[ERROR] ✔ Finished dist/css/bootstrap.min.css (1.15 s)
 [INFO] 
 [INFO] --- frontend-maven-plugin:1.4:npm (step #10: npm run css-minify) @ tobago-theme-scarborough ---
 [INFO] Running 'npm run css-minify' in __CURRENT__/tobago-theme-scarborough/target/bootstrap
@@ -1025,7 +1025,7 @@ main:
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
-[INFO] Total time: 01:39 min
-[INFO] Finished at: 2017-09-15T14:22:20+02:00
-[INFO] Final Memory: 36M/524M
+[INFO] Total time: 01:38 min
+[INFO] Finished at: 2017-09-15T15:54:22+02:00
+[INFO] Final Memory: 36M/525M
 [INFO] ------------------------------------------------------------------------

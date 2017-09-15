@@ -1,4 +1,4 @@
-Build date: 2017-09-15 14:24:01
+Build date: 2017-09-15 15:56:06
 [INFO] Scanning for projects...
 [INFO] 
 [INFO] ------------------------------------------------------------------------
@@ -70,7 +70,7 @@ Build date: 2017-09-15 14:24:01
 [INFO] Verified checksum of previously downloaded file
 [INFO] Extracting zip contents
 [INFO] Removing __CURRENT__/tobago-theme-standard/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom
-[INFO] Copying extracted folder /var/folders/yp/1vrxjnrs20798ydt_yl8wrpr0000gp/T/phantomjs/phantomjs-2.1.1-macosx.zip-extract-1505478320426/phantomjs-2.1.1-macosx -> __CURRENT__/tobago-theme-standard/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom
+[INFO] Copying extracted folder /var/folders/yp/1vrxjnrs20798ydt_yl8wrpr0000gp/T/phantomjs/phantomjs-2.1.1-macosx.zip-extract-1505483846371/phantomjs-2.1.1-macosx -> __CURRENT__/tobago-theme-standard/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom
 [INFO] Writing location.js file
 [INFO] Done. Phantomjs binary available at __CURRENT__/tobago-theme-standard/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom/bin/phantomjs
 [INFO] 
@@ -137,10 +137,10 @@ Build date: 2017-09-15 14:24:01
 [INFO] │ │ │   │ │ ├── has-unicode@2.0.1 
 [INFO] │ │ │   │ │ ├── object-assign@4.1.1 
 [INFO] │ │ │   │ │ ├── signal-exit@3.0.2 
-[WARNING] npm WARN bootstrap@4.0.0-beta requires a peer of jquery@>=1.9.1 but none was installed.
 [INFO] │ │ │   │ │ ├─┬ string-width@1.0.2 
 [INFO] │ │ │   │ │ │ ├── code-point-at@1.1.0 
 [INFO] │ │ │   │ │ │ └─┬ is-fullwidth-code-point@1.0.0 
+[WARNING] npm WARN bootstrap@4.0.0-beta requires a peer of jquery@>=1.9.1 but none was installed.
 [INFO] │ │ │   │ │ │   └── number-is-nan@1.0.1 
 [INFO] │ │ │   │ │ ├─┬ strip-ansi@3.0.1 
 [INFO] │ │ │   │ │ │ └── ansi-regex@2.1.1 
@@ -156,10 +156,10 @@ Build date: 2017-09-15 14:24:01
 [INFO] │ │ │   │ ├── aws4@1.6.0 
 [INFO] │ │ │   │ ├── caseless@0.12.0 
 [INFO] │ │ │   │ ├─┬ combined-stream@1.0.5 
-[WARNING] npm WARN bootstrap@4.0.0-beta requires a peer of popper.js@^1.11.0 but none was installed.
 [INFO] │ │ │   │ │ └── delayed-stream@1.0.0 
 [INFO] │ │ │   │ ├── extend@3.0.1 
 [INFO] │ │ │   │ ├── forever-agent@0.6.1 
+[WARNING] npm WARN bootstrap@4.0.0-beta requires a peer of popper.js@^1.11.0 but none was installed.
 [INFO] │ │ │   │ ├─┬ form-data@2.1.4 
 [INFO] │ │ │   │ │ └── asynckit@0.4.0 
 [INFO] │ │ │   │ ├─┬ har-validator@4.2.1 
@@ -917,11 +917,11 @@ Build date: 2017-09-15 14:24:01
 [INFO] > node-sass --output-style expanded --source-map true --source-map-contents true --precision 6 scss/bootstrap.scss dist/css/bootstrap.css && node-sass --output-style expanded --source-map true --source-map-contents true --precision 6 scss/bootstrap-grid.scss dist/css/bootstrap-grid.css && node-sass --output-style expanded --source-map true --source-map-contents true --precision 6 scss/bootstrap-reboot.scss dist/css/bootstrap-reboot.css
 [INFO] 
 [ERROR] Rendering Complete, saving .css file...
-[ERROR] Wrote CSS to __CURRENT__/tobago-theme-standard/target/bootstrap/dist/css/bootstrap.css
 [ERROR] Wrote Source Map to __CURRENT__/tobago-theme-standard/target/bootstrap/dist/css/bootstrap.css.map
+[ERROR] Wrote CSS to __CURRENT__/tobago-theme-standard/target/bootstrap/dist/css/bootstrap.css
 [ERROR] Rendering Complete, saving .css file...
-[ERROR] Wrote CSS to __CURRENT__/tobago-theme-standard/target/bootstrap/dist/css/bootstrap-grid.css
 [ERROR] Wrote Source Map to __CURRENT__/tobago-theme-standard/target/bootstrap/dist/css/bootstrap-grid.css.map
+[ERROR] Wrote CSS to __CURRENT__/tobago-theme-standard/target/bootstrap/dist/css/bootstrap-grid.css
 [ERROR] Rendering Complete, saving .css file...
 [ERROR] Wrote Source Map to __CURRENT__/tobago-theme-standard/target/bootstrap/dist/css/bootstrap-reboot.css.map
 [ERROR] Wrote CSS to __CURRENT__/tobago-theme-standard/target/bootstrap/dist/css/bootstrap-reboot.css
@@ -932,12 +932,12 @@ Build date: 2017-09-15 14:24:01
 [INFO] > bootstrap@4.0.0-beta css-prefix __CURRENT__/tobago-theme-standard/target/bootstrap
 [INFO] > postcss --config build/postcss.config.js --replace dist/css/*.css
 [INFO] 
-[ERROR] ✔ Finished dist/css/bootstrap-grid.css (1.29 s)
-[ERROR] ✔ Finished dist/css/bootstrap-grid.min.css (1.29 s)
-[ERROR] ✔ Finished dist/css/bootstrap-reboot.css (1.29 s)
-[ERROR] ✔ Finished dist/css/bootstrap.css (1.29 s)
-[ERROR] ✔ Finished dist/css/bootstrap-reboot.min.css (1.29 s)
-[ERROR] ✔ Finished dist/css/bootstrap.min.css (1.29 s)
+[ERROR] ✔ Finished dist/css/bootstrap-reboot.min.css (1.32 s)
+[ERROR] ✔ Finished dist/css/bootstrap-grid.css (1.32 s)
+[ERROR] ✔ Finished dist/css/bootstrap-reboot.css (1.32 s)
+[ERROR] ✔ Finished dist/css/bootstrap.css (1.32 s)
+[ERROR] ✔ Finished dist/css/bootstrap.min.css (1.32 s)
+[ERROR] ✔ Finished dist/css/bootstrap-grid.min.css (1.33 s)
 [INFO] 
 [INFO] --- frontend-maven-plugin:1.4:npm (step #10: npm run css-minify) @ tobago-theme-standard ---
 [INFO] Running 'npm run css-minify' in __CURRENT__/tobago-theme-standard/target/bootstrap
@@ -1007,8 +1007,8 @@ Build date: 2017-09-15 14:24:01
 [INFO] tether-theme-basic.min.css (504b) -> tether-theme-basic.min.min.css (504b)[100%]
 [INFO] nothing to do, __CURRENT__/tobago-theme-standard/target/classes/META-INF/resources/tobago/standard/tether/1.1.1/css/tether.min.css is younger than original, use 'force' option or clean your target
 [INFO] tether.min.css (237b) -> tether.min.min.css (237b)[100%]
-[INFO] bootstrap.css (186284b) -> bootstrap.min.css (142404b)[76%]
-[INFO] bootstrap.min.css (142208b) -> bootstrap.min.min.css (141983b)[99%]
+[INFO] bootstrap.css (186671b) -> bootstrap.min.css (142774b)[76%]
+[INFO] bootstrap.min.css (142572b) -> bootstrap.min.min.css (142347b)[99%]
 [INFO] nothing to do, __CURRENT__/tobago-theme-standard/target/classes/META-INF/resources/tobago/standard/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.min.css is younger than original, use 'force' option or clean your target
 [INFO] nothing to do, __CURRENT__/tobago-theme-standard/target/classes/META-INF/resources/tobago/standard/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.min.min.css is younger than original, use 'force' option or clean your target
 [INFO] nothing to do, __CURRENT__/tobago-theme-standard/target/classes/META-INF/resources/tobago/standard/font-awesome/4.7.0/css/font-awesome.min.css is younger than original, use 'force' option or clean your target
@@ -1021,9 +1021,9 @@ Build date: 2017-09-15 14:24:01
 [INFO] nothing to do, __CURRENT__/tobago-theme-standard/target/classes/META-INF/resources/tobago/standard/tether/1.1.1/css/tether-theme-basic.min.min.css is younger than original, use 'force' option or clean your target
 [INFO] nothing to do, __CURRENT__/tobago-theme-standard/target/classes/META-INF/resources/tobago/standard/tether/1.1.1/css/tether.min.css is younger than original, use 'force' option or clean your target
 [INFO] nothing to do, __CURRENT__/tobago-theme-standard/target/classes/META-INF/resources/tobago/standard/tether/1.1.1/css/tether.min.min.css is younger than original, use 'force' option or clean your target
-[INFO] bootstrap.css (186284b) -> bootstrap.min.css (142404b)[76%]
+[INFO] nothing to do, __CURRENT__/tobago-theme-standard/target/classes/META-INF/resources/tobago/standard/tobago-bootstrap/_version/css/bootstrap.min.css is younger than original, use 'force' option or clean your target
 [INFO] nothing to do, __CURRENT__/tobago-theme-standard/target/classes/META-INF/resources/tobago/standard/tobago-bootstrap/_version/css/bootstrap.min.min.css is younger than original, use 'force' option or clean your target
-[INFO] total input (563678b) -> output (475625b)[84%]
+[INFO] total input (378145b) -> output (333955b)[88%]
 [INFO] nb warnings: 0, nb errors: 0
 [INFO] 
 [INFO] --- maven-compiler-plugin:3.6.2:compile (default-compile) @ tobago-theme-standard ---
@@ -1057,7 +1057,7 @@ main:
  T E S T S
 -------------------------------------------------------
 Running org.apache.myfaces.tobago.renderkit.css.BootstrapClassUnitTest
-Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.308 sec - in org.apache.myfaces.tobago.renderkit.css.BootstrapClassUnitTest
+Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.424 sec - in org.apache.myfaces.tobago.renderkit.css.BootstrapClassUnitTest
 
 Results :
 
@@ -1076,7 +1076,7 @@ Tests run: 2, Failures: 0, Errors: 0, Skipped: 0
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
-[INFO] Total time: 01:44 min
-[INFO] Finished at: 2017-09-15T14:25:47+02:00
-[INFO] Final Memory: 47M/909M
+[INFO] Total time: 01:47 min
+[INFO] Finished at: 2017-09-15T15:57:54+02:00
+[INFO] Final Memory: 39M/531M
 [INFO] ------------------------------------------------------------------------

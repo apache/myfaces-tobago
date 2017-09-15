@@ -8830,7 +8830,9 @@ h1 > .fa:first-child, h2 > .fa:first-child, h3 > .fa:first-child, h4 > .fa:first
 
 /* selectBooleanCheckbox, selectManyCheckbox, selectOneRadio ------------------------------ */
 .tobago-selectBooleanCheckbox .form-check-label input, .tobago-selectManyCheckbox .form-check-label input, .tobago-selectOneRadio .form-check-label input {
-  display: none;
+  position: absolute;
+  opacity: 0;
+  z-index: -1;
 }
 
 .tobago-selectBooleanCheckbox .form-check-label .tobago-inputPseudo:before, .tobago-selectManyCheckbox .form-check-label .tobago-inputPseudo:before, .tobago-selectOneRadio .form-check-label .tobago-inputPseudo:before {
@@ -8859,7 +8861,9 @@ h1 > .fa:first-child, h2 > .fa:first-child, h3 > .fa:first-child, h4 > .fa:first
   content: "";
 }
 
-.tobago-selectBooleanCheckbox .form-check-label input[type="checkbox"]:active:not(:disabled) + .tobago-inputPseudo:before, .tobago-selectManyCheckbox .form-check-label input[type="checkbox"]:active:not(:disabled) + .tobago-inputPseudo:before {
+.tobago-selectBooleanCheckbox .form-check-label input[type="checkbox"]:focus:not(:disabled) + .tobago-inputPseudo:before,
+.tobago-selectBooleanCheckbox .form-check-label input[type="checkbox"]:active:not(:disabled) + .tobago-inputPseudo:before, .tobago-selectManyCheckbox .form-check-label input[type="checkbox"]:focus:not(:disabled) + .tobago-inputPseudo:before,
+.tobago-selectManyCheckbox .form-check-label input[type="checkbox"]:active:not(:disabled) + .tobago-inputPseudo:before {
   text-shadow: 0 0 1px black;
 }
 
@@ -8875,6 +8879,7 @@ h1 > .fa:first-child, h2 > .fa:first-child, h3 > .fa:first-child, h4 > .fa:first
   content: "";
 }
 
+.tobago-selectOneRadio .form-check-label input[type="radio"]:focus:not(:disabled) + .tobago-inputPseudo:before,
 .tobago-selectOneRadio .form-check-label input[type="radio"]:active:not(:disabled) + .tobago-inputPseudo:before {
   text-shadow: 0 0 1px black;
 }
