@@ -712,7 +712,9 @@ h1, h2, h3, h4, h5, h6 {
 .tobago-selectBooleanCheckbox, .tobago-selectManyCheckbox, .tobago-selectOneRadio {
   .form-check-label {
     input {
-      display: none;
+      position: absolute;
+      opacity: 0;
+      z-index: -1;
     }
     .tobago-inputPseudo:before {
       font-family: FontAwesome;
@@ -740,6 +742,7 @@ h1, h2, h3, h4, h5, h6 {
     input[type="checkbox"]:checked + .tobago-inputPseudo:before {
       content: $fa-check-square-o;
     }
+    input[type="checkbox"]:focus:not(:disabled) + .tobago-inputPseudo:before,
     input[type="checkbox"]:active:not(:disabled) + .tobago-inputPseudo:before {
       text-shadow: 0 0 1px black;
     }
@@ -757,6 +760,7 @@ h1, h2, h3, h4, h5, h6 {
     input[type="radio"]:checked + .tobago-inputPseudo:before {
       content: $fa-dot-circle-o;
     }
+    input[type="radio"]:focus:not(:disabled) + .tobago-inputPseudo:before,
     input[type="radio"]:active:not(:disabled) + .tobago-inputPseudo:before {
       text-shadow: 0 0 1px black;
     }
