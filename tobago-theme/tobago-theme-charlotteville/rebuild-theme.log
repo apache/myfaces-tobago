@@ -1,4 +1,4 @@
-Build date: 2017-09-13 13:42:09
+Build date: 2017-09-15 14:17:06
 [INFO] Scanning for projects...
 [INFO] 
 [INFO] ------------------------------------------------------------------------
@@ -70,7 +70,7 @@ Build date: 2017-09-13 13:42:09
 [INFO] Verified checksum of previously downloaded file
 [INFO] Extracting zip contents
 [INFO] Removing __CURRENT__/tobago-theme-charlotteville/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom
-[INFO] Copying extracted folder /var/folders/yp/1vrxjnrs20798ydt_yl8wrpr0000gp/T/phantomjs/phantomjs-2.1.1-macosx.zip-extract-1505303074027/phantomjs-2.1.1-macosx -> __CURRENT__/tobago-theme-charlotteville/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom
+[INFO] Copying extracted folder /var/folders/yp/1vrxjnrs20798ydt_yl8wrpr0000gp/T/phantomjs/phantomjs-2.1.1-macosx.zip-extract-1505477908231/phantomjs-2.1.1-macosx -> __CURRENT__/tobago-theme-charlotteville/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom
 [INFO] Writing location.js file
 [INFO] Done. Phantomjs binary available at __CURRENT__/tobago-theme-charlotteville/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom/bin/phantomjs
 [INFO] 
@@ -84,7 +84,7 @@ Build date: 2017-09-13 13:42:09
 [INFO] ├─┬ autoprefixer@7.1.4 
 [INFO] │ ├─┬ browserslist@2.4.0 
 [INFO] │ │ └── electron-to-chromium@1.3.21 
-[INFO] │ ├── caniuse-lite@1.0.30000727 
+[INFO] │ ├── caniuse-lite@1.0.30000730 
 [INFO] │ ├── normalize-range@0.1.2 
 [INFO] │ ├── num2fraction@1.2.2 
 [INFO] │ ├─┬ postcss@6.0.11 
@@ -285,6 +285,8 @@ Build date: 2017-09-13 13:42:09
 [INFO] │ ├── babel-plugin-transform-es2015-destructuring@6.23.0 
 [INFO] │ ├── babel-plugin-transform-es2015-duplicate-keys@6.24.1 
 [INFO] │ ├── babel-plugin-transform-es2015-for-of@6.23.0 
+[WARNING] npm WARN bootstrap@4.0.0-beta requires a peer of jquery@>=1.9.1 but none was installed.
+[WARNING] npm WARN bootstrap@4.0.0-beta requires a peer of popper.js@^1.11.0 but none was installed.
 [INFO] │ ├── babel-plugin-transform-es2015-function-name@6.24.1 
 [INFO] │ ├── babel-plugin-transform-es2015-literals@6.22.0 
 [INFO] │ ├── babel-plugin-transform-es2015-modules-amd@6.24.1 
@@ -601,9 +603,7 @@ Build date: 2017-09-13 13:42:09
 [INFO] │ │   └── block-stream@0.0.9 
 [INFO] │ ├─┬ npmlog@4.1.2 
 [INFO] │ │ ├─┬ are-we-there-yet@1.1.4 
-[WARNING] npm WARN bootstrap@4.0.0-beta requires a peer of jquery@>=1.9.1 but none was installed.
 [INFO] │ │ │ └── delegates@1.0.0 
-[WARNING] npm WARN bootstrap@4.0.0-beta requires a peer of popper.js@^1.11.0 but none was installed.
 [INFO] │ │ ├── console-control-strings@1.1.0 
 [INFO] │ │ └─┬ gauge@2.7.4 
 [INFO] │ │   ├── aproba@1.1.2 
@@ -674,7 +674,7 @@ Build date: 2017-09-13 13:42:09
 [INFO] │ │   │ └── is-fullwidth-code-point@1.0.0 
 [INFO] │ │   └── yargs-parser@5.0.0 
 [INFO] │ └── stdout-stream@1.4.0 
-[INFO] ├─┬ nodemon@1.12.0 
+[INFO] ├─┬ nodemon@1.12.1 
 [INFO] │ ├── es6-promise@3.3.1 
 [INFO] │ ├── ignore-by-default@1.0.1 
 [INFO] │ ├─┬ lodash.defaults@3.1.2 
@@ -902,7 +902,7 @@ Build date: 2017-09-13 13:42:09
 [INFO] │   ├── ensure-posix-path@1.0.2 
 [INFO] │   └── matcher-collection@1.0.4 
 [INFO] ├─┬ shelljs@0.7.8 
-[INFO] │ ├── interpret@1.0.3 
+[INFO] │ ├── interpret@1.0.4 
 [INFO] │ └── rechoir@0.6.2 
 [INFO] ├─┬ shx@0.2.2 
 [INFO] │ ├── es6-object-assign@1.1.0 
@@ -923,8 +923,8 @@ Build date: 2017-09-13 13:42:09
 [ERROR] Wrote Source Map to __CURRENT__/tobago-theme-charlotteville/target/bootstrap/dist/css/bootstrap-grid.css.map
 [ERROR] Wrote CSS to __CURRENT__/tobago-theme-charlotteville/target/bootstrap/dist/css/bootstrap-grid.css
 [ERROR] Rendering Complete, saving .css file...
-[ERROR] Wrote Source Map to __CURRENT__/tobago-theme-charlotteville/target/bootstrap/dist/css/bootstrap-reboot.css.map
 [ERROR] Wrote CSS to __CURRENT__/tobago-theme-charlotteville/target/bootstrap/dist/css/bootstrap-reboot.css
+[ERROR] Wrote Source Map to __CURRENT__/tobago-theme-charlotteville/target/bootstrap/dist/css/bootstrap-reboot.css.map
 [INFO] 
 [INFO] --- frontend-maven-plugin:1.4:npm (step #9: npm run css-prefix) @ tobago-theme-charlotteville ---
 [INFO] Running 'npm run css-prefix' in __CURRENT__/tobago-theme-charlotteville/target/bootstrap
@@ -932,12 +932,12 @@ Build date: 2017-09-13 13:42:09
 [INFO] > bootstrap@4.0.0-beta css-prefix __CURRENT__/tobago-theme-charlotteville/target/bootstrap
 [INFO] > postcss --config build/postcss.config.js --replace dist/css/*.css
 [INFO] 
-[ERROR] ✔ Finished dist/css/bootstrap-reboot.min.css (1.57 s)
-[ERROR] ✔ Finished dist/css/bootstrap-reboot.css (1.57 s)
-[ERROR] ✔ Finished dist/css/bootstrap-grid.css (1.58 s)
-[ERROR] ✔ Finished dist/css/bootstrap.css (1.57 s)
-[ERROR] ✔ Finished dist/css/bootstrap-grid.min.css (1.58 s)
-[ERROR] ✔ Finished dist/css/bootstrap.min.css (1.57 s)
+[ERROR] ✔ Finished dist/css/bootstrap-grid.min.css (1.31 s)
+[ERROR] ✔ Finished dist/css/bootstrap-grid.css (1.31 s)
+[ERROR] ✔ Finished dist/css/bootstrap.css (1.31 s)
+[ERROR] ✔ Finished dist/css/bootstrap-reboot.min.css (1.31 s)
+[ERROR] ✔ Finished dist/css/bootstrap-reboot.css (1.31 s)
+[ERROR] ✔ Finished dist/css/bootstrap.min.css (1.31 s)
 [INFO] 
 [INFO] --- frontend-maven-plugin:1.4:npm (step #10: npm run css-minify) @ tobago-theme-charlotteville ---
 [INFO] Running 'npm run css-minify' in __CURRENT__/tobago-theme-charlotteville/target/bootstrap
@@ -1025,7 +1025,7 @@ main:
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
-[INFO] Total time: 02:45 min
-[INFO] Finished at: 2017-09-13T13:44:56+02:00
-[INFO] Final Memory: 37M/520M
+[INFO] Total time: 01:41 min
+[INFO] Finished at: 2017-09-15T14:18:48+02:00
+[INFO] Final Memory: 37M/542M
 [INFO] ------------------------------------------------------------------------

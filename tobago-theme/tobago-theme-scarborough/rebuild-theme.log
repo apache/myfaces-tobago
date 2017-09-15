@@ -1,4 +1,4 @@
-Build date: 2017-09-13 13:47:50
+Build date: 2017-09-15 14:20:39
 [INFO] Scanning for projects...
 [INFO] 
 [INFO] ------------------------------------------------------------------------
@@ -70,7 +70,7 @@ Build date: 2017-09-13 13:47:50
 [INFO] Verified checksum of previously downloaded file
 [INFO] Extracting zip contents
 [INFO] Removing __CURRENT__/tobago-theme-scarborough/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom
-[INFO] Copying extracted folder /var/folders/yp/1vrxjnrs20798ydt_yl8wrpr0000gp/T/phantomjs/phantomjs-2.1.1-macosx.zip-extract-1505303419151/phantomjs-2.1.1-macosx -> __CURRENT__/tobago-theme-scarborough/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom
+[INFO] Copying extracted folder /var/folders/yp/1vrxjnrs20798ydt_yl8wrpr0000gp/T/phantomjs/phantomjs-2.1.1-macosx.zip-extract-1505478118749/phantomjs-2.1.1-macosx -> __CURRENT__/tobago-theme-scarborough/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom
 [INFO] Writing location.js file
 [INFO] Done. Phantomjs binary available at __CURRENT__/tobago-theme-scarborough/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom/bin/phantomjs
 [INFO] 
@@ -84,7 +84,7 @@ Build date: 2017-09-13 13:47:50
 [INFO] ├─┬ autoprefixer@7.1.4 
 [INFO] │ ├─┬ browserslist@2.4.0 
 [INFO] │ │ └── electron-to-chromium@1.3.21 
-[INFO] │ ├── caniuse-lite@1.0.30000727 
+[INFO] │ ├── caniuse-lite@1.0.30000730 
 [INFO] │ ├── normalize-range@0.1.2 
 [INFO] │ ├── num2fraction@1.2.2 
 [INFO] │ ├─┬ postcss@6.0.11 
@@ -139,9 +139,7 @@ Build date: 2017-09-13 13:47:50
 [INFO] │ │ │   │ │ ├── signal-exit@3.0.2 
 [INFO] │ │ │   │ │ ├─┬ string-width@1.0.2 
 [INFO] │ │ │   │ │ │ ├── code-point-at@1.1.0 
-[WARNING] npm WARN bootstrap@4.0.0-beta requires a peer of jquery@>=1.9.1 but none was installed.
 [INFO] │ │ │   │ │ │ └─┬ is-fullwidth-code-point@1.0.0 
-[WARNING] npm WARN bootstrap@4.0.0-beta requires a peer of popper.js@^1.11.0 but none was installed.
 [INFO] │ │ │   │ │ │   └── number-is-nan@1.0.1 
 [INFO] │ │ │   │ │ ├─┬ strip-ansi@3.0.1 
 [INFO] │ │ │   │ │ │ └── ansi-regex@2.1.1 
@@ -674,7 +672,7 @@ Build date: 2017-09-13 13:47:50
 [INFO] │ │   │ └── is-fullwidth-code-point@1.0.0 
 [INFO] │ │   └── yargs-parser@5.0.0 
 [INFO] │ └── stdout-stream@1.4.0 
-[INFO] ├─┬ nodemon@1.12.0 
+[INFO] ├─┬ nodemon@1.12.1 
 [INFO] │ ├── es6-promise@3.3.1 
 [INFO] │ ├── ignore-by-default@1.0.1 
 [INFO] │ ├─┬ lodash.defaults@3.1.2 
@@ -902,13 +900,15 @@ Build date: 2017-09-13 13:47:50
 [INFO] │   ├── ensure-posix-path@1.0.2 
 [INFO] │   └── matcher-collection@1.0.4 
 [INFO] ├─┬ shelljs@0.7.8 
-[INFO] │ ├── interpret@1.0.3 
+[INFO] │ ├── interpret@1.0.4 
 [INFO] │ └── rechoir@0.6.2 
 [INFO] ├─┬ shx@0.2.2 
 [INFO] │ ├── es6-object-assign@1.1.0 
 [INFO] │ └── minimist@1.2.0 
 [INFO] └── uglify-js@3.1.0 
 [INFO] 
+[WARNING] npm WARN bootstrap@4.0.0-beta requires a peer of jquery@>=1.9.1 but none was installed.
+[WARNING] npm WARN bootstrap@4.0.0-beta requires a peer of popper.js@^1.11.0 but none was installed.
 [INFO] 
 [INFO] --- frontend-maven-plugin:1.4:npm (step #8: npm run css-compile) @ tobago-theme-scarborough ---
 [INFO] Running 'npm run css-compile' in __CURRENT__/tobago-theme-scarborough/target/bootstrap
@@ -920,8 +920,8 @@ Build date: 2017-09-13 13:47:50
 [ERROR] Wrote CSS to __CURRENT__/tobago-theme-scarborough/target/bootstrap/dist/css/bootstrap.css
 [ERROR] Wrote Source Map to __CURRENT__/tobago-theme-scarborough/target/bootstrap/dist/css/bootstrap.css.map
 [ERROR] Rendering Complete, saving .css file...
-[ERROR] Wrote Source Map to __CURRENT__/tobago-theme-scarborough/target/bootstrap/dist/css/bootstrap-grid.css.map
 [ERROR] Wrote CSS to __CURRENT__/tobago-theme-scarborough/target/bootstrap/dist/css/bootstrap-grid.css
+[ERROR] Wrote Source Map to __CURRENT__/tobago-theme-scarborough/target/bootstrap/dist/css/bootstrap-grid.css.map
 [ERROR] Rendering Complete, saving .css file...
 [ERROR] Wrote CSS to __CURRENT__/tobago-theme-scarborough/target/bootstrap/dist/css/bootstrap-reboot.css
 [ERROR] Wrote Source Map to __CURRENT__/tobago-theme-scarborough/target/bootstrap/dist/css/bootstrap-reboot.css.map
@@ -932,12 +932,12 @@ Build date: 2017-09-13 13:47:50
 [INFO] > bootstrap@4.0.0-beta css-prefix __CURRENT__/tobago-theme-scarborough/target/bootstrap
 [INFO] > postcss --config build/postcss.config.js --replace dist/css/*.css
 [INFO] 
-[ERROR] ✔ Finished dist/css/bootstrap-grid.css (1.59 s)
-[ERROR] ✔ Finished dist/css/bootstrap-grid.min.css (1.59 s)
-[ERROR] ✔ Finished dist/css/bootstrap-reboot.css (1.59 s)
-[ERROR] ✔ Finished dist/css/bootstrap-reboot.min.css (1.59 s)
-[ERROR] ✔ Finished dist/css/bootstrap.css (1.59 s)
-[ERROR] ✔ Finished dist/css/bootstrap.min.css (1.59 s)
+[ERROR] ✔ Finished dist/css/bootstrap-reboot.css (1.31 s)
+[ERROR] ✔ Finished dist/css/bootstrap-reboot.min.css (1.31 s)
+[ERROR] ✔ Finished dist/css/bootstrap-grid.css (1.31 s)
+[ERROR] ✔ Finished dist/css/bootstrap.css (1.31 s)
+[ERROR] ✔ Finished dist/css/bootstrap.min.css (1.31 s)
+[ERROR] ✔ Finished dist/css/bootstrap-grid.min.css (1.31 s)
 [INFO] 
 [INFO] --- frontend-maven-plugin:1.4:npm (step #10: npm run css-minify) @ tobago-theme-scarborough ---
 [INFO] Running 'npm run css-minify' in __CURRENT__/tobago-theme-scarborough/target/bootstrap
@@ -961,12 +961,12 @@ Build date: 2017-09-13 13:47:50
 [INFO] > npm-run-all --parallel js-compile-*
 [INFO] 
 [INFO] 
-[INFO] > bootstrap@4.0.0-beta js-compile-plugins __CURRENT__/tobago-theme-scarborough/target/bootstrap
-[INFO] > babel js/src/ --out-dir js/dist/ --source-maps
-[INFO] 
-[INFO] 
 [INFO] > bootstrap@4.0.0-beta js-compile-bundle __CURRENT__/tobago-theme-scarborough/target/bootstrap
 [INFO] > shx cat js/src/util.js js/src/alert.js js/src/button.js js/src/carousel.js js/src/collapse.js js/src/dropdown.js js/src/modal.js js/src/scrollspy.js js/src/tab.js js/src/tooltip.js js/src/popover.js | shx sed "s/^(import|export).*//" | babel --filename js/src/bootstrap.js | node build/stamp.js > dist/js/bootstrap.js
+[INFO] 
+[INFO] 
+[INFO] > bootstrap@4.0.0-beta js-compile-plugins __CURRENT__/tobago-theme-scarborough/target/bootstrap
+[INFO] > babel js/src/ --out-dir js/dist/ --source-maps
 [INFO] 
 [INFO] js/src/alert.js -> js/dist/alert.js
 [INFO] js/src/button.js -> js/dist/button.js
@@ -1025,7 +1025,7 @@ main:
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
-[INFO] Total time: 02:50 min
-[INFO] Finished at: 2017-09-13T13:50:42+02:00
-[INFO] Final Memory: 36M/515M
+[INFO] Total time: 01:39 min
+[INFO] Finished at: 2017-09-15T14:22:20+02:00
+[INFO] Final Memory: 36M/524M
 [INFO] ------------------------------------------------------------------------
