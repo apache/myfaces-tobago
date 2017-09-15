@@ -23,6 +23,7 @@ import org.apache.myfaces.tobago.component.ClientBehaviors;
 import org.apache.myfaces.tobago.internal.component.AbstractUICommand;
 import org.apache.myfaces.tobago.internal.component.AbstractUICommandBase;
 import org.apache.myfaces.tobago.internal.component.AbstractUIData;
+import org.apache.myfaces.tobago.internal.component.AbstractUITreeNodeBase;
 import org.apache.myfaces.tobago.internal.renderkit.Command;
 import org.apache.myfaces.tobago.internal.renderkit.CommandMap;
 import org.apache.myfaces.tobago.model.ExpandedState;
@@ -151,6 +152,18 @@ public final class RenderUtils {
       data.setRowIndex(rowIndex);
       if (!data.isRowAvailable()) {
         break;
+      }
+
+      // if the node is not rendered, the state must not be evaluated.
+      boolean skip = false;
+      for (UIComponent uiComponent : data.getChildren()) {
+        if (uiComponent instanceof AbstractUITreeNodeBase && !uiComponent.isRendered()) {
+          skip = true;
+          break;
+        }
+      }
+      if (skip) {
+        continue;
       }
 
       final TreePath path = data.getPath();
