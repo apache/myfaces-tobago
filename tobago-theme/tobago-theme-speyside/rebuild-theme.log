@@ -1,4 +1,4 @@
-Build date: 2017-09-13 13:50:42
+Build date: 2017-09-15 15:54:22
 [INFO] Scanning for projects...
 [INFO] 
 [INFO] ------------------------------------------------------------------------
@@ -70,7 +70,7 @@ Build date: 2017-09-13 13:50:42
 [INFO] Verified checksum of previously downloaded file
 [INFO] Extracting zip contents
 [INFO] Removing __CURRENT__/tobago-theme-speyside/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom
-[INFO] Copying extracted folder /var/folders/yp/1vrxjnrs20798ydt_yl8wrpr0000gp/T/phantomjs/phantomjs-2.1.1-macosx.zip-extract-1505303590529/phantomjs-2.1.1-macosx -> __CURRENT__/tobago-theme-speyside/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom
+[INFO] Copying extracted folder /var/folders/yp/1vrxjnrs20798ydt_yl8wrpr0000gp/T/phantomjs/phantomjs-2.1.1-macosx.zip-extract-1505483744720/phantomjs-2.1.1-macosx -> __CURRENT__/tobago-theme-speyside/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom
 [INFO] Writing location.js file
 [INFO] Done. Phantomjs binary available at __CURRENT__/tobago-theme-speyside/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom/bin/phantomjs
 [INFO] 
@@ -84,7 +84,7 @@ Build date: 2017-09-13 13:50:42
 [INFO] ├─┬ autoprefixer@7.1.4 
 [INFO] │ ├─┬ browserslist@2.4.0 
 [INFO] │ │ └── electron-to-chromium@1.3.21 
-[INFO] │ ├── caniuse-lite@1.0.30000727 
+[INFO] │ ├── caniuse-lite@1.0.30000730 
 [INFO] │ ├── normalize-range@0.1.2 
 [INFO] │ ├── num2fraction@1.2.2 
 [INFO] │ ├─┬ postcss@6.0.11 
@@ -137,9 +137,9 @@ Build date: 2017-09-13 13:50:42
 [INFO] │ │ │   │ │ ├── has-unicode@2.0.1 
 [INFO] │ │ │   │ │ ├── object-assign@4.1.1 
 [INFO] │ │ │   │ │ ├── signal-exit@3.0.2 
+[WARNING] npm WARN bootstrap@4.0.0-beta requires a peer of jquery@>=1.9.1 but none was installed.
 [INFO] │ │ │   │ │ ├─┬ string-width@1.0.2 
 [INFO] │ │ │   │ │ │ ├── code-point-at@1.1.0 
-[WARNING] npm WARN bootstrap@4.0.0-beta requires a peer of jquery@>=1.9.1 but none was installed.
 [INFO] │ │ │   │ │ │ └─┬ is-fullwidth-code-point@1.0.0 
 [INFO] │ │ │   │ │ │   └── number-is-nan@1.0.1 
 [INFO] │ │ │   │ │ ├─┬ strip-ansi@3.0.1 
@@ -674,7 +674,7 @@ Build date: 2017-09-13 13:50:42
 [INFO] │ │   │ └── is-fullwidth-code-point@1.0.0 
 [INFO] │ │   └── yargs-parser@5.0.0 
 [INFO] │ └── stdout-stream@1.4.0 
-[INFO] ├─┬ nodemon@1.12.0 
+[INFO] ├─┬ nodemon@1.12.1 
 [INFO] │ ├── es6-promise@3.3.1 
 [INFO] │ ├── ignore-by-default@1.0.1 
 [INFO] │ ├─┬ lodash.defaults@3.1.2 
@@ -902,7 +902,7 @@ Build date: 2017-09-13 13:50:42
 [INFO] │   ├── ensure-posix-path@1.0.2 
 [INFO] │   └── matcher-collection@1.0.4 
 [INFO] ├─┬ shelljs@0.7.8 
-[INFO] │ ├── interpret@1.0.3 
+[INFO] │ ├── interpret@1.0.4 
 [INFO] │ └── rechoir@0.6.2 
 [INFO] ├─┬ shx@0.2.2 
 [INFO] │ ├── es6-object-assign@1.1.0 
@@ -917,11 +917,11 @@ Build date: 2017-09-13 13:50:42
 [INFO] > node-sass --output-style expanded --source-map true --source-map-contents true --precision 6 scss/bootstrap.scss dist/css/bootstrap.css && node-sass --output-style expanded --source-map true --source-map-contents true --precision 6 scss/bootstrap-grid.scss dist/css/bootstrap-grid.css && node-sass --output-style expanded --source-map true --source-map-contents true --precision 6 scss/bootstrap-reboot.scss dist/css/bootstrap-reboot.css
 [INFO] 
 [ERROR] Rendering Complete, saving .css file...
-[ERROR] Wrote CSS to __CURRENT__/tobago-theme-speyside/target/bootstrap/dist/css/bootstrap.css
 [ERROR] Wrote Source Map to __CURRENT__/tobago-theme-speyside/target/bootstrap/dist/css/bootstrap.css.map
+[ERROR] Wrote CSS to __CURRENT__/tobago-theme-speyside/target/bootstrap/dist/css/bootstrap.css
 [ERROR] Rendering Complete, saving .css file...
-[ERROR] Wrote CSS to __CURRENT__/tobago-theme-speyside/target/bootstrap/dist/css/bootstrap-grid.css
 [ERROR] Wrote Source Map to __CURRENT__/tobago-theme-speyside/target/bootstrap/dist/css/bootstrap-grid.css.map
+[ERROR] Wrote CSS to __CURRENT__/tobago-theme-speyside/target/bootstrap/dist/css/bootstrap-grid.css
 [ERROR] Rendering Complete, saving .css file...
 [ERROR] Wrote CSS to __CURRENT__/tobago-theme-speyside/target/bootstrap/dist/css/bootstrap-reboot.css
 [ERROR] Wrote Source Map to __CURRENT__/tobago-theme-speyside/target/bootstrap/dist/css/bootstrap-reboot.css.map
@@ -932,12 +932,12 @@ Build date: 2017-09-13 13:50:42
 [INFO] > bootstrap@4.0.0-beta css-prefix __CURRENT__/tobago-theme-speyside/target/bootstrap
 [INFO] > postcss --config build/postcss.config.js --replace dist/css/*.css
 [INFO] 
-[ERROR] ✔ Finished dist/css/bootstrap-grid.min.css (1.56 s)
-[ERROR] ✔ Finished dist/css/bootstrap-grid.css (1.56 s)
-[ERROR] ✔ Finished dist/css/bootstrap-reboot.css (1.56 s)
-[ERROR] ✔ Finished dist/css/bootstrap-reboot.min.css (1.56 s)
-[ERROR] ✔ Finished dist/css/bootstrap.css (1.56 s)
-[ERROR] ✔ Finished dist/css/bootstrap.min.css (1.56 s)
+[ERROR] ✔ Finished dist/css/bootstrap-grid.min.css (1.21 s)
+[ERROR] ✔ Finished dist/css/bootstrap-reboot.min.css (1.22 s)
+[ERROR] ✔ Finished dist/css/bootstrap.min.css (1.22 s)
+[ERROR] ✔ Finished dist/css/bootstrap.css (1.22 s)
+[ERROR] ✔ Finished dist/css/bootstrap-grid.css (1.22 s)
+[ERROR] ✔ Finished dist/css/bootstrap-reboot.css (1.22 s)
 [INFO] 
 [INFO] --- frontend-maven-plugin:1.4:npm (step #10: npm run css-minify) @ tobago-theme-speyside ---
 [INFO] Running 'npm run css-minify' in __CURRENT__/tobago-theme-speyside/target/bootstrap
@@ -961,12 +961,12 @@ Build date: 2017-09-13 13:50:42
 [INFO] > npm-run-all --parallel js-compile-*
 [INFO] 
 [INFO] 
-[INFO] > bootstrap@4.0.0-beta js-compile-plugins __CURRENT__/tobago-theme-speyside/target/bootstrap
-[INFO] > babel js/src/ --out-dir js/dist/ --source-maps
-[INFO] 
-[INFO] 
 [INFO] > bootstrap@4.0.0-beta js-compile-bundle __CURRENT__/tobago-theme-speyside/target/bootstrap
 [INFO] > shx cat js/src/util.js js/src/alert.js js/src/button.js js/src/carousel.js js/src/collapse.js js/src/dropdown.js js/src/modal.js js/src/scrollspy.js js/src/tab.js js/src/tooltip.js js/src/popover.js | shx sed "s/^(import|export).*//" | babel --filename js/src/bootstrap.js | node build/stamp.js > dist/js/bootstrap.js
+[INFO] 
+[INFO] 
+[INFO] > bootstrap@4.0.0-beta js-compile-plugins __CURRENT__/tobago-theme-speyside/target/bootstrap
+[INFO] > babel js/src/ --out-dir js/dist/ --source-maps
 [INFO] 
 [INFO] js/src/alert.js -> js/dist/alert.js
 [INFO] js/src/button.js -> js/dist/button.js
@@ -1025,7 +1025,7 @@ main:
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
-[INFO] Total time: 02:49 min
-[INFO] Finished at: 2017-09-13T13:53:33+02:00
-[INFO] Final Memory: 33M/413M
+[INFO] Total time: 01:41 min
+[INFO] Finished at: 2017-09-15T15:56:05+02:00
+[INFO] Final Memory: 36M/525M
 [INFO] ------------------------------------------------------------------------

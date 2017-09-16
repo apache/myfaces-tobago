@@ -43,4 +43,9 @@ public class SelectBooleanCheckboxInsideCommandRenderer extends SelectBooleanChe
   protected CssItem[] getCssItems(final FacesContext facesContext, final AbstractUISelectBooleanCheckbox select) {
     return new CssItem[]{BootstrapClass.DROPDOWN_ITEM};
   }
+
+  @Override
+  protected CssItem[] getOuterCssItems(final FacesContext facesContext, final AbstractUISelectBooleanCheckbox select) {
+    return new CssItem[]{};
+  }
 }
