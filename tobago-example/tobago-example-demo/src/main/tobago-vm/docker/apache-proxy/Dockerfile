@@ -24,6 +24,7 @@ RUN apt-get update \
 
 #COPY 000-default.conf 001-ssl.conf /etc/apache2/sites-enabled/
 COPY 000-default.conf /etc/apache2/sites-enabled/
+COPY index.html /var/www/html/
 
 ENV APACHE_RUN_USER www-data
 ENV APACHE_RUN_GROUP www-data

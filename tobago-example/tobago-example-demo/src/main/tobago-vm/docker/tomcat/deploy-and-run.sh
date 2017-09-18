@@ -17,12 +17,14 @@
 
 if [[ ${TOBAGO_VERSION} == *-SNAPSHOT ]]; then
    REPO=https://repository.apache.org/content/repositories/snapshots
+elif [[ ${STAGING_NUMBER} ]]; then
+   REPO=https://repository.apache.org/content/repositories/orgapachemyfaces-${STAGING_NUMBER}/
 else
    REPO=https://repository.apache.org/content/repositories/releases
 fi
 
 TARGET=/usr/local/tomcat/webapps/${CONTEXT_PATH}
-ARTIFACT=/opt/artifacts/tobago-example-demo-${TOBAGO_VERSION}.war
+ARTIFACT=/opt/docker/artifacts/tobago-example-demo-${TOBAGO_VERSION}.war
 
 ansible localhost -m maven_artifact -a "group_id=org.apache.myfaces.tobago artifact_id=tobago-example-demo version=${TOBAGO_VERSION} extension=war repository_url=${REPO} dest=${ARTIFACT}"
 mkdir ${TARGET}
