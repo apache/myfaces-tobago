@@ -162,6 +162,8 @@ QUnit.test("Open 'Client Popup', press 'Submit & Close' while field has content.
 
 QUnit.test("Open 'Large Popup'.", function (assert) {
   assert.expect(8);
+  var done = assert.async(2);
+  var step = 1;
 
   var $dropdownContainer = jQueryFrame("#page\\:mainForm\\:dropdownButton");
   var $dropdownButton = jQueryFrame("#page\\:mainForm\\:dropdownButton\\:\\:command");
@@ -186,17 +188,40 @@ QUnit.test("Open 'Large Popup'.", function (assert) {
 
   $openButton.click();
 
-  assert.equal($dropdownContainer.hasClass("show"), false);
-  assert.equal($popup.hasClass("show"), true);
+  //we need to wait, because of the fading animation of the popup
+  waitForAjax(function () {
+    $popup = jQueryFrame($popup.selector);
+    return step === 1
+        && $popup.hasClass("show")
+        && $popup.css("display") === "block";
+  }, function () {
+    $popup = jQueryFrame($popup.selector);
 
-  $closeButton.click();
+    assert.equal($dropdownContainer.hasClass("show"), false);
+    assert.equal($popup.hasClass("show"), true);
 
-  assert.equal($dropdownContainer.hasClass("show"), false);
-  assert.equal($popup.hasClass("show"), false);
+    waitForAjax(function () {
+      $closeButton.click();
+      $popup = jQueryFrame($popup.selector);
+      return step === 2 && !$popup.hasClass("show");
+    }, function () {
+      $popup = jQueryFrame($popup.selector);
+
+      assert.equal($dropdownContainer.hasClass("show"), false);
+      assert.equal($popup.hasClass("show"), false);
+
+      step++;
+      done();
+    });
+    step++;
+    done();
+  });
 });
 
 QUnit.test("Open 'Small Popup'.", function (assert) {
   assert.expect(8);
+  var done = assert.async(2);
+  var step = 1;
 
   var $dropdownContainer = jQueryFrame("#page\\:mainForm\\:dropdownButton");
   var $dropdownButton = jQueryFrame("#page\\:mainForm\\:dropdownButton\\:\\:command");
@@ -221,11 +246,30 @@ QUnit.test("Open 'Small Popup'.", function (assert) {
 
   $openButton.click();
 
-  assert.equal($dropdownContainer.hasClass("show"), false);
-  assert.equal($popup.hasClass("show"), true);
+  //we need to wait, because of the fading animation of the popup
+  waitForAjax(function () {
+    $popup = jQueryFrame($popup.selector);
+    return step === 1 && $popup.hasClass("show");
+  }, function () {
+    $popup = jQueryFrame($popup.selector);
 
-  $closeButton.click();
+    assert.equal($dropdownContainer.hasClass("show"), false);
+    assert.equal($popup.hasClass("show"), true);
 
-  assert.equal($dropdownContainer.hasClass("show"), false);
-  assert.equal($popup.hasClass("show"), false);
+    waitForAjax(function () {
+      $closeButton.click();
+      $popup = jQueryFrame($popup.selector);
+      return step === 2 && !$popup.hasClass("show");
+    }, function () {
+      $popup = jQueryFrame($popup.selector);
+
+      assert.equal($dropdownContainer.hasClass("show"), false);
+      assert.equal($popup.hasClass("show"), false);
+
+      step++;
+      done();
+    });
+    step++;
+    done();
+  });
 });
