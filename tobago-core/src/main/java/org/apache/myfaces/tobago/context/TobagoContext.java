@@ -44,6 +44,8 @@ public class TobagoContext {
 
   private Theme theme;
   private UserAgent userAgent;
+  private String focusId;
+  private String enctype;
 
   public TobagoResourceBundle getResourceBundle() {
     return RESOURCE_BUNDLE;
@@ -102,6 +104,22 @@ public class TobagoContext {
 
   public void setUserAgent(final UserAgent userAgent) {
     this.userAgent = userAgent;
+  }
+
+  public String getFocusId() {
+    return focusId;
+  }
+
+  public void setFocusId(String focusId) {
+    this.focusId = focusId;
+  }
+
+  public String getEnctype() {
+    return enctype;
+  }
+
+  public void setEnctype(String enctype) {
+    this.enctype = enctype;
   }
 
   public static TobagoContext getInstance(final FacesContext facesContext) {

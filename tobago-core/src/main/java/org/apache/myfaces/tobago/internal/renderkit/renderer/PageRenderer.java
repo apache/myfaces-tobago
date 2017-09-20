@@ -36,7 +36,6 @@ import org.apache.myfaces.tobago.internal.component.AbstractUIScript;
 import org.apache.myfaces.tobago.internal.component.AbstractUIStyle;
 import org.apache.myfaces.tobago.internal.util.AccessKeyLogger;
 import org.apache.myfaces.tobago.internal.util.CookieUtils;
-import org.apache.myfaces.tobago.internal.util.FacesContextUtils;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.internal.util.JsonUtils;
 import org.apache.myfaces.tobago.internal.util.MimeTypeUtils;
@@ -96,7 +95,7 @@ public class PageRenderer extends RendererBase {
     final String lastFocusId =
         externalContext.getRequestParameterMap().get(clientId + ComponentUtils.SUB_SEPARATOR + LAST_FOCUS_ID);
     if (lastFocusId != null) {
-      FacesContextUtils.setFocusId(facesContext, lastFocusId);
+      TobagoContext.getInstance(facesContext).setFocusId(lastFocusId);
     }
   }
 
@@ -105,9 +104,10 @@ public class PageRenderer extends RendererBase {
 
     final UIPage page = (UIPage) component;
     final TobagoConfig tobagoConfig = TobagoConfig.getInstance(facesContext);
+    final TobagoContext tobagoContext = TobagoContext.getInstance(facesContext);
 
-    if (FacesContextUtils.getFocusId(facesContext) == null && !StringUtils.isBlank(page.getFocusId())) {
-      FacesContextUtils.setFocusId(facesContext, page.getFocusId());
+    if (tobagoContext.getFocusId() == null && !StringUtils.isBlank(page.getFocusId())) {
+      tobagoContext.setFocusId(page.getFocusId());
     }
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
@@ -150,7 +150,6 @@ public class PageRenderer extends RendererBase {
       ResponseUtils.ensureNosniffHeader(facesContext);
     }
 
-    final TobagoContext tobagoContext = TobagoContext.getInstance(facesContext);
     final Theme theme = tobagoContext.getTheme();
     if (response instanceof HttpServletResponse && request instanceof HttpServletRequest) {
       CookieUtils.setThemeNameToCookie((HttpServletRequest) request, (HttpServletResponse) response, theme.getName());
@@ -209,10 +208,6 @@ public class PageRenderer extends RendererBase {
         styles.encodeAll(facesContext);
       }
 
-      if (!productionMode) {
-        checkDuplicates(theme.getStyleResources(productionMode), FacesContextUtils.getStyleFiles(facesContext));
-      }
-
       final String icon = page.getApplicationIcon();
       if (icon != null) {
         writer.startElement(HtmlElements.LINK);
@@ -249,10 +244,6 @@ public class PageRenderer extends RendererBase {
         misc.encodeAll(facesContext);
       }
 
-      if (!productionMode) {
-        checkDuplicates(theme.getScriptResources(productionMode), FacesContextUtils.getScriptFiles(facesContext));
-      }
-
       writer.endElement(HtmlElements.HEAD);
     }
 
@@ -284,7 +275,7 @@ public class PageRenderer extends RendererBase {
     }
     writer.writeIdAttribute(page.getFormId(facesContext));
     writer.writeAttribute(HtmlAttributes.METHOD, getMethod(page), false);
-    final String enctype = FacesContextUtils.getEnctype(facesContext);
+    final String enctype = tobagoContext.getEnctype();
     if (enctype != null) {
       writer.writeAttribute(HtmlAttributes.ENCTYPE, enctype, false);
     }
@@ -305,7 +296,7 @@ public class PageRenderer extends RendererBase {
     writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN);
     writer.writeNameAttribute(clientId + ComponentUtils.SUB_SEPARATOR + "lastFocusId");
     writer.writeIdAttribute(clientId + ComponentUtils.SUB_SEPARATOR + "lastFocusId");
-    writer.writeAttribute(HtmlAttributes.VALUE, FacesContextUtils.getFocusId(facesContext), true);
+    writer.writeAttribute(HtmlAttributes.VALUE, tobagoContext.getFocusId(), true);
     writer.endElement(HtmlElements.INPUT);
 
     if (TobagoConfig.getInstance(FacesContext.getCurrentInstance()).isCheckSessionSecret()) {

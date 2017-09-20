@@ -19,9 +19,9 @@
 
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
+import org.apache.myfaces.tobago.context.TobagoContext;
 import org.apache.myfaces.tobago.context.TobagoResourceBundle;
 import org.apache.myfaces.tobago.internal.component.AbstractUIFile;
-import org.apache.myfaces.tobago.internal.util.FacesContextUtils;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.internal.util.HttpPartWrapper;
 import org.apache.myfaces.tobago.internal.util.JsonUtils;
@@ -61,8 +61,7 @@ public class FileRenderer extends MessageLayoutRendererBase implements Component
 
   @Override
   public void processEvent(ComponentSystemEvent event) {
-    final FacesContext facesContext = FacesContext.getCurrentInstance();
-    FacesContextUtils.setEnctype(facesContext, "multipart/form-data");
+    TobagoContext.getInstance(FacesContext.getCurrentInstance()).setEnctype("multipart/form-data");
   }
 
   @Override

@@ -24,6 +24,7 @@ import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.component.UIStyle;
 import org.apache.myfaces.tobago.component.Visual;
 import org.apache.myfaces.tobago.context.Markup;
+import org.apache.myfaces.tobago.context.TobagoContext;
 import org.apache.myfaces.tobago.internal.webapp.TobagoResponseWriterWrapper;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.css.Icons;
@@ -64,7 +65,7 @@ public final class HtmlRendererUtils {
       final TobagoResponseWriter writer) throws IOException {
     final Map<String, Object> requestMap = facesContext.getExternalContext().getRequestMap();
     if (!requestMap.containsKey(FOCUS_KEY)
-        && (clientId.equals(FacesContextUtils.getFocusId(facesContext)) || focus || error)) {
+        && (clientId.equals(TobagoContext.getInstance(facesContext).getFocusId()) || focus || error)) {
       requestMap.put(FOCUS_KEY, Boolean.TRUE);
       writer.writeAttribute(HtmlAttributes.AUTOFOCUS, true);
     }
