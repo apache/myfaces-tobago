@@ -58,7 +58,6 @@ public class StyleRenderer extends RendererBase {
       writer.writeAttribute(HtmlAttributes.HREF, file, true);
 //    writer.writeAttribute(HtmlAttributes.MEDIA, "screen", false);
       writer.writeAttribute(HtmlAttributes.TYPE, "text/css", false);
-      writer.writeAttribute(HtmlAttributes.NONCE, Nonce.getNonce(facesContext), false);
       writer.endElement(HtmlElements.LINK);
 
     } else {

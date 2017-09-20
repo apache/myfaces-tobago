@@ -20,7 +20,6 @@
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
 import org.apache.myfaces.tobago.internal.component.AbstractUIScript;
-import org.apache.myfaces.tobago.internal.context.Nonce;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
@@ -44,7 +43,6 @@ public class ScriptRenderer extends RendererBase {
 // XXX with defer activated, pages are not shown reliable
 //        writer.writeAttribute(HtmlAttributes.DEFER, true);
     writer.writeAttribute(HtmlAttributes.TYPE, "text/javascript", false);
-    writer.writeAttribute(HtmlAttributes.NONCE, Nonce.getNonce(facesContext), false);
     writer.endElement(HtmlElements.SCRIPT);
   }
 

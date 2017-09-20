@@ -26,8 +26,10 @@
   <name>tobago-config</name>
 
   <content-security-policy mode="on">
+    <directive name="style-src">'unsafe-inline'</directive> <!-- is only active, when browser doesn't support nonce -->
     <directive name="style-src">'nonce-${nonce}'</directive>
-    <directive name="script-src">'nonce-${nonce}'</directive>
+    <directive name="style-src">'self'</directive>
+    <directive name="script-src">'self'</directive>
   </content-security-policy>
 
 </tobago-config>
