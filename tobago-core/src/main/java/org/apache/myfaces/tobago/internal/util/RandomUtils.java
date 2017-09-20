@@ -22,9 +22,8 @@ either express or implied.  See the License for the
 
 package org.apache.myfaces.tobago.internal.util;
 
-import org.apache.commons.codec.binary.Base64;
-
 import java.security.SecureRandom;
+import java.util.Base64;
 
 /**
  * Helps to get a random string.
@@ -35,33 +34,14 @@ public class RandomUtils {
 
   private static final int SECRET_LENGTH = 16;
 
-  private static final boolean COMMONS_CODEC_AVAILABLE = commonsCodecAvailable();
-
-  private static boolean commonsCodecAvailable() {
-    try {
-      Base64.encodeBase64URLSafeString(new byte[0]);
-      return true;
-    } catch (final Error e) {
-      return false;
-    }
-  }
-
   private static String encodeBase64(final byte[] bytes) {
-    return Base64.encodeBase64URLSafeString(bytes);
-  }
-
-  private static String encodeHex(final byte[] bytes) {
-    final StringBuilder builder = new StringBuilder(SECRET_LENGTH * 2);
-    for (final byte b : bytes) {
-      builder.append(String.format("%02x", b));
-    }
-    return builder.toString();
+    return Base64.getEncoder().encodeToString(bytes);
   }
 
   public static String nextString() {
     final byte[] bytes = new byte[SECRET_LENGTH];
     RANDOM.nextBytes(bytes);
-    return COMMONS_CODEC_AVAILABLE ? encodeBase64(bytes) : encodeHex(bytes);
+    return encodeBase64(bytes);
   }
 
 }
