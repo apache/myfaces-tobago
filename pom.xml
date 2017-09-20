@@ -966,6 +966,10 @@
           <artifactId>animal-sniffer-maven-plugin</artifactId>
           <version>1.14</version>
         </plugin>
+        <!--
+        usage: $ mvn versions:display-dependency-updates
+        usage: $ mvn versions:display-plugin-updates
+        -->
         <plugin>
           <groupId>org.codehaus.mojo</groupId>
           <artifactId>versions-maven-plugin</artifactId>

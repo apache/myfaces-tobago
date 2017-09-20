@@ -25,6 +25,8 @@ import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.el.ConstantMethodExpression;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.el.ELException;
 import javax.el.ExpressionFactory;
@@ -48,10 +50,6 @@ import javax.faces.view.facelets.TagException;
 import javax.faces.view.facelets.TagHandler;
 import java.beans.IntrospectionException;
 import java.beans.PropertyDescriptor;
-
-import org.apache.commons.beanutils.PropertyUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public final class AttributeHandler extends TagHandler {
 
@@ -317,8 +315,7 @@ public final class AttributeHandler extends TagHandler {
       final String attributeName) {
     Class type = Object.class;
     try {
-      type = PropertyUtils.getReadMethod(
-          new PropertyDescriptor(attributeName, parent.getClass())).getReturnType();
+      type = new PropertyDescriptor(attributeName, parent.getClass()).getReadMethod().getReturnType();
     } catch (final IntrospectionException e) {
       LOG.warn("Can't determine expected type", e);
     }

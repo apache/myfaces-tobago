@@ -19,21 +19,46 @@
 
 package org.apache.myfaces.tobago.internal.util;
 
-import org.apache.commons.beanutils.PropertyUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.servlet.http.Part;
+import java.beans.Introspector;
+import java.beans.PropertyDescriptor;
+import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
 /**
  * Only needed for Servlet 3.0. Not needed for Servlet 3.1 or higher.
- *
+ * <p>
  * Basically taken from Apache Tomcat 8
  */
 public final class PartUtils {
 
+  private static final Logger LOG = LoggerFactory.getLogger(PartUtils.class);
+
+  private static final Method submittedFileNameMethod = findSubmittedFileNameMethod();
+
   private PartUtils() {
+    // to prevent instantiation
+  }
+
+  private static Method findSubmittedFileNameMethod() {
+    try { // try to call the Servlet 3.1 function
+      for (final PropertyDescriptor pd : Introspector.getBeanInfo(Part.class).getPropertyDescriptors()) {
+        if ("submittedFileName".equals(pd.getName())) {
+          final Method readMethod = pd.getReadMethod();
+          if (readMethod != null) {
+            return readMethod;
+          }
+        }
+      }
+    } catch (Exception e) {
+      // ignore
+    }
+    return null;
   }
 
   /**
@@ -45,7 +70,11 @@ public final class PartUtils {
   public static String getSubmittedFileName(Part part) {
 
     try { // try to call the Servlet 3.1 function
-      return (String) PropertyUtils.getProperty(part, "submittedFileName");
+      if (submittedFileNameMethod != null) {
+        final String fileName = (String) submittedFileNameMethod.invoke(part);
+        LOG.debug("Upload file name = '{}'", fileName);
+        return fileName;
+      }
     } catch (Exception e) {
       // ignore
     }
@@ -75,6 +104,7 @@ public final class PartUtils {
         }
       }
     }
+    LOG.debug("Upload file name = '{}'", fileName);
     return fileName;
   }
 

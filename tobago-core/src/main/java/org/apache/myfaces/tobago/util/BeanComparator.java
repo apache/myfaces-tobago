@@ -19,12 +19,12 @@
 
 package org.apache.myfaces.tobago.util;
 
-import org.apache.commons.beanutils.PropertyUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.Comparator;
+import java.beans.PropertyDescriptor;
 import java.io.Serializable;
+import java.util.Comparator;
 
 public class BeanComparator extends ComparatorBase implements Serializable {
 
@@ -34,15 +34,18 @@ public class BeanComparator extends ComparatorBase implements Serializable {
 
   private String property;
 
+  @Deprecated
   public BeanComparator(final String property) {
     this.property = property;
   }
 
+  @Deprecated
   public BeanComparator(final String property, final boolean reverse) {
     super(reverse);
     this.property = property;
   }
 
+  @Deprecated
   public BeanComparator(final String property, final Comparator comparator) {
     super(comparator);
     this.property = property;
@@ -71,16 +74,13 @@ public class BeanComparator extends ComparatorBase implements Serializable {
     return result;
   }
 
-  // implementation of java.util.Comparator interface
-
   @Override
   public int compare(final Object param1, final Object param2) {
     final Object obj1;
     final Object obj2;
     try {
-      obj1 = PropertyUtils.getProperty(param1, property);
-      obj2 = PropertyUtils.getProperty(param2, property);
-
+      obj1 = new PropertyDescriptor(property, param1.getClass()).getReadMethod().invoke(param1);
+      obj2 = new PropertyDescriptor(property, param1.getClass()).getReadMethod().invoke(param2);
     } catch (final Exception e) {
       LOG.error(e.getMessage(), e);
       return 0;

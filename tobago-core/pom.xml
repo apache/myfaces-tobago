@@ -155,6 +155,7 @@
     <dependency>
       <groupId>commons-beanutils</groupId>
       <artifactId>commons-beanutils</artifactId>
+      <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.apache.myfaces.tobago</groupId>
