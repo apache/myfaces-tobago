@@ -32,18 +32,8 @@
       <question>Where can I find documentation or HowTos for using Tobago?</question>
       <answer>
         <p>
-          Please, see
-        </p>
-        <p>
-          <a href="http://www.irian.biz/tobago-example-demo/">Tobago Demo</a>.
-        </p>
-        <p>
-          There is also a demo for
-        </p>
-        <p>
-          <a href="http://www.irian.biz/tobago-example-demo-2.0.x/">
-            Tobago 2.0
-          </a>
+          Beside this site, the use of Tobago is explained in the
+          <a href="http://tobago-vm.apache.org/">Demo</a>.
         </p>
       </answer>
     </faq>
@@ -136,8 +126,8 @@
         </p>
         <p>Starting with Tobago 3.0 the Servlet API 3.0 will be used. Some more information about the
           usage you will find in <a href="https://issues.apache.org/jira/browse/TOBAGO-1539">Jira</a>
-          and in the <a href="http://www.irian.biz/tobago-example-demo-3.0.x/faces/content/20-component/100-upload/upload.xhtml">Tobago Demo 3.0</a>.
-          There is also a <a href="http://www.irian.biz/tobago-example-demo/faces/content/10-intro/50-migration/97-migration/migration30.xhtml">migration guide</a> available.
+          and in the <a href="http://tobago-vm.apache.org/demo-3-release/faces/content/20-component/100-upload/upload.xhtml">Tobago Demo 3.0</a>.
+          There is also a <a href="http://tobago-vm.apache.org/demo-4-snapshot/content/10-intro/30-new+in+3+0/new+in+3+0.xhtml">migration guide</a> available.
         </p>
       </answer>
     </faq>
@@ -147,7 +137,7 @@
       <answer>
         <p>The page tag already acts like a form tag. You only need a explicit form tag for partial validation of your data.
         Please look at the forms example in the
-        <a href="http://www.irian.biz/tobago-example-demo-3.0.x/faces/content/30-concept/08-form/form.xhtml">Tobago demo</a>
+        <a href="http://tobago-vm.apache.org/demo-3-release/faces/content/30-concept/08-form/form.xhtml">Tobago demo</a>
         </p>
       </answer>
     </faq>

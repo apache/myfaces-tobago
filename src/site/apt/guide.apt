@@ -206,7 +206,7 @@ mvn install
 
 [images/guide-basic-controls.png] Basic Controls  
 
-  Live demo of the basic controls: {{http://www.irian.biz/tobago-example-demo-2.0.x/faces/content/01-basic/basic.xhtml}}
+  Live demo of the basic controls: {{http://tobago-vm.apache.org/demo-2-release/faces/content/01-basic/basic.xhtml}}
 
   The basic controls page also shows two variants of a normal input control: the date input control and the time input
   control.
@@ -257,7 +257,7 @@ mvn install
 
 [images/guide-sheet.png] Sheet
 
-  Live demo of a sheet: {{http://www.irian.biz/tobago-example-demo-2.0.x/faces/content/02-sheet/sheet.xhtml}}
+  Live demo of a sheet: {{http://tobago-vm.apache.org/demo-2-release/faces/content/02-sheet/sheet.xhtml}}
 
   A code fragment from the address book example:
 
@@ -296,7 +296,7 @@ mvn install
 
 [images/guide-tab-group.png] Tab Group
 
-  Live demo of a tab group: {{http://www.irian.biz/tobago-example-demo-2.0.x/faces/content/04-tab/tab.xhtml}}
+  Live demo of a tab group: {{http://tobago-vm.apache.org/demo-2-release/faces/content/04-tab/tab.xhtml}}
 
   A code fragment from the address book example:
 
@@ -324,7 +324,7 @@ mvn install
   
 [images/guide-menu.png] Menu
 
-  Live demo of a menu: {{http://www.irian.biz/tobago-example-demo-2.0.x/faces/content/05-toolBar/toolBar.xhtml}}
+  Live demo of a menu: {{http://tobago-vm.apache.org/demo-2-release/faces/content/05-toolBar/toolBar.xhtml}}
 
   A code fragment from the address book example:
 
@@ -364,7 +364,7 @@ mvn install
 
 [images/guide-toolbar.png] Tool Bar
 
-  Live demo of a tool bar: {{http://www.irian.biz/tobago-example-demo-2.0.x/faces/content/05-toolBar/toolBar.xhtml}}
+  Live demo of a tool bar: {{http://tobago-vm.apache.org/demo-2-release/faces/content/05-toolBar/toolBar.xhtml}}
 
   A code fragment from the address book example:
 

@@ -19,39 +19,18 @@
 
 Live Demo
 
-  A live demo can be found for different versions here:
-
-  * {{{http://www.irian.biz/tobago-example-demo-3.0.x/}3.0.x (current release)}}
-
-  * {{{http://www.irian.biz/tobago-example-demo-2.0.x/}2.0.x (last release)}}
-
-  * {{{http://example.irian.at/tobago-example-demo-1.5.x/}1.5.x (old release - nightly)}}
-
-  * {{{http://example.irian.at/tobago-example-demo-1.0.x/}1.0.x (old release - nightly)}}
-
-  []
-
-  This demo and more examples you can find in the Subversion (see {{{./getting-started.html}Getting Started}} section).
-
-  The current snapshot of the demo war can be downloaded at:
-  {{https://repository.apache.org/content/repositories/snapshots/org/apache/myfaces/tobago/tobago-example-demo/}}
-
-Examples
-
-  Tobago contains various example applications including a general demo, an address book application, a blank WAR,
-  and an example theme.
-
-* Tobago Demo
-
   The Tobago demo is for demonstration and documentation purpose.
   It presents the features of Tobago including layout and themes and contains
   an overview of the provided controls and best practices how to use Tobago.
 
-* Blank WAR
+  A {{{http://tobago-vm.apache.org/}live demo}} can be found for different versions.
+
+  This demo and more examples you can find in the VCS (see {{{./getting-started.html}Getting Started}} section).
+
+  The current snapshot of the demo war can be downloaded at:
+  {{https://repository.apache.org/content/repositories/snapshots/org/apache/myfaces/tobago/tobago-example-demo/}}
+
+Blank WAR
 
   The Blank WAR is a minimal WAR to display a simple page with Tobago -- useful to get started with your own Tobago
   application.
-
-* Blank Theme
-
-  This theme shows how to extend an existing theme.
