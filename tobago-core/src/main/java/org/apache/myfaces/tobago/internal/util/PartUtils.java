@@ -39,7 +39,7 @@ public final class PartUtils {
 
   private static final Logger LOG = LoggerFactory.getLogger(PartUtils.class);
 
-  private static final Method submittedFileNameMethod = findSubmittedFileNameMethod();
+  private static final Method SUBMITTED_FILE_NAME_METHOD = findSubmittedFileNameMethod();
 
   private PartUtils() {
     // to prevent instantiation
@@ -70,8 +70,8 @@ public final class PartUtils {
   public static String getSubmittedFileName(Part part) {
 
     try { // try to call the Servlet 3.1 function
-      if (submittedFileNameMethod != null) {
-        final String fileName = (String) submittedFileNameMethod.invoke(part);
+      if (SUBMITTED_FILE_NAME_METHOD != null) {
+        final String fileName = (String) SUBMITTED_FILE_NAME_METHOD.invoke(part);
         LOG.debug("Upload file name = '{}'", fileName);
         return fileName;
       }
