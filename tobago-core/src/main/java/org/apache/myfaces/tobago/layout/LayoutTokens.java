@@ -32,7 +32,7 @@ public final class LayoutTokens implements Iterable<LayoutToken> {
 
   private static final Logger LOG = LoggerFactory.getLogger(LayoutTokens.class);
 
-  private List<LayoutToken> tokens = new ArrayList<LayoutToken>();
+  private List<LayoutToken> tokens = new ArrayList<>();
 
   public LayoutTokens() {
   }

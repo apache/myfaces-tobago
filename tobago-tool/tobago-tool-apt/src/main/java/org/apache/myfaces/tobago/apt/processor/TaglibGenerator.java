@@ -73,8 +73,8 @@ public class TaglibGenerator extends AbstractGenerator {
 
   static final String TARGET_TAGLIB = "targetTaglib";
 
-  private Set<String> tagSet = new HashSet<String>();
-  private Set<String> attributeSet = new HashSet<String>();
+  private Set<String> tagSet = new HashSet<>();
+  private Set<String> attributeSet = new HashSet<>();
   private String currentTag;
 
   private String targetTaglib;
@@ -392,11 +392,11 @@ public class TaglibGenerator extends AbstractGenerator {
   }
 
   private void resetDuplicateList() {
-    tagSet = new HashSet<String>();
+    tagSet = new HashSet<>();
   }
 
   private void resetAttributeDuplicateList() {
-    attributeSet = new HashSet<String>();
+    attributeSet = new HashSet<>();
   }
 
   protected void addAttribute(

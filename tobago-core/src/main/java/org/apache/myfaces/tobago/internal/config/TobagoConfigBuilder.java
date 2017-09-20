@@ -46,7 +46,7 @@ public class TobagoConfigBuilder {
 
   public TobagoConfigBuilder(final ServletContext servletContext) {
     this.servletContext = servletContext;
-    this.configFragmentList = new ArrayList<TobagoConfigFragment>();
+    this.configFragmentList = new ArrayList<>();
   }
 
   public TobagoConfigBuilder(ServletContext servletContext, List<TobagoConfigFragment> configFragmentList) {
@@ -104,7 +104,7 @@ public class TobagoConfigBuilder {
         LOG.info("Searching for '" + META_INF_TOBAGO_CONFIG_XML + "'");
       }
       final ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-      final List<URL> urls = new ArrayList<URL>();
+      final List<URL> urls = new ArrayList<>();
       CollectionUtils.addAll(urls, classLoader.getResources(META_INF_TOBAGO_CONFIG_XML));
 
       for (final URL themeUrl : urls) {

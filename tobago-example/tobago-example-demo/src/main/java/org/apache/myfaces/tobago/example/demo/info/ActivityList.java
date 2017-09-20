@@ -39,7 +39,7 @@ public class ActivityList implements Serializable {
 
   // XXX using the session id as key is not good for applications with login, because the container should change
   // XXX the session id while the login process.
-  private Map<String, Activity> data = new ConcurrentHashMap<String, Activity>();
+  private Map<String, Activity> data = new ConcurrentHashMap<>();
 
   public void add(final Activity activity) {
     LOG.info("Adding session id: " + activity.getSessionId());
@@ -53,7 +53,7 @@ public class ActivityList implements Serializable {
 
   public List<Activity> getValues() {
     final Collection<Activity> values = data.values();
-    final ArrayList<Activity> result = new ArrayList<Activity>();
+    final ArrayList<Activity> result = new ArrayList<>();
     result.addAll(values);
     return result;
   }

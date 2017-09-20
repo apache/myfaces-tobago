@@ -495,7 +495,7 @@ public abstract class SelectManyRendererBase extends MessageLayoutRendererBase {
   // #################################################################################################################
   private static class SelectItemsIterator implements Iterator<SelectItem> {
 
-    private static final Iterator<UIComponent> EMPTY_UICOMPONENT_ITERATOR = new EmptyIterator<UIComponent>();
+    private static final Iterator<UIComponent> EMPTY_UICOMPONENT_ITERATOR = new EmptyIterator<>();
 
     // org.apache.myfaces.shared.util.SelectItemsIterator uses JSFAttr
     private static final String VAR_ATTR = "var";
@@ -588,7 +588,7 @@ public abstract class SelectManyRendererBase extends MessageLayoutRendererBase {
             // value is any kind of array (primitive or non-primitive)
             // --> we have to use class Array to get the values
             int length = Array.getLength(value);
-            Collection<Object> items = new ArrayList<Object>(length);
+            Collection<Object> items = new ArrayList<>(length);
             for (int i = 0; i < length; i++) {
               items.add(Array.get(value, i));
             }
@@ -600,7 +600,7 @@ public abstract class SelectManyRendererBase extends MessageLayoutRendererBase {
             return hasNext();
           } else if (value instanceof Map) {
             Map<Object, Object> map = (Map<Object, Object>) value;
-            Collection<SelectItem> items = new ArrayList<SelectItem>(map.size());
+            Collection<SelectItem> items = new ArrayList<>(map.size());
             for (Map.Entry<Object, Object> entry : map.entrySet()) {
               items.add(new SelectItem(entry.getValue(), entry.getKey().toString()));
             }

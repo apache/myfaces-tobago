@@ -88,7 +88,7 @@ public class DurationConverter implements Converter {
       throws ConverterException {
     final boolean negative = string.indexOf('-') > -1;
     final StringTokenizer tokenizer = new StringTokenizer(string, " :-");
-    final List<String> elements = new ArrayList<String>();
+    final List<String> elements = new ArrayList<>();
     while (tokenizer.hasMoreTokens()) {
       elements.add(tokenizer.nextToken());
     }

@@ -137,8 +137,8 @@ public enum HtmlElements {
   private final boolean voidElement;
   private final boolean inlineElement;
 
-  private static final Set<String> VOIDS = new HashSet<String>();
-  private static final Set<String> INLINES = new HashSet<String>();
+  private static final Set<String> VOIDS = new HashSet<>();
+  private static final Set<String> INLINES = new HashSet<>();
 
   HtmlElements(final String value, final Qualifier... qualifiers) {
     this.value = value;

@@ -69,7 +69,7 @@ public class BootstrapClassUnitTest {
   public void testCompareBootstrapCss() throws FileNotFoundException, NoSuchFieldException {
 
     final BootstrapClass[] allValues = BootstrapClass.values();
-    final List<BootstrapClass> toCheck = new ArrayList<BootstrapClass>();
+    final List<BootstrapClass> toCheck = new ArrayList<>();
     for (BootstrapClass value : allValues) {
       boolean ignoreByTest = BootstrapClass.class.getField(value.name()).isAnnotationPresent(Deprecated.class);
       if (!ignoreByTest) {

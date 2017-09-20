@@ -40,7 +40,7 @@ public class FishPond implements Serializable {
   private Integer selectedFishId = null;
 
   public FishPond() {
-    fishes = new HashMap<Integer, String>();
+    fishes = new HashMap<>();
     fishes.put(0, "Scholle");
     fishes.put(1, "Hai");
     fishes.put(2, "Luce");

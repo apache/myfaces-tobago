@@ -234,7 +234,7 @@ public class SheetRenderer extends RendererBase {
           JsonUtils.encode(definedColumnWidths ? columnWidths : Collections.<Integer>emptyList()),
           sheetId + SUFFIX_WIDTHS);
 
-      final ArrayList<String> encodedRendered = new ArrayList<String>();
+      final ArrayList<String> encodedRendered = new ArrayList<>();
       for (AbstractUIColumnBase column : columns) {
         if (!(column instanceof AbstractUIRow)) {
           encodedRendered.add(Boolean.toString(column.isRendered()));
@@ -1030,7 +1030,7 @@ public class SheetRenderer extends RendererBase {
         = ensurePagingCommand(application, sheet, Facets.PAGER_PAGE_DIRECT, SheetAction.toPage, false);
     int linkCount = ComponentUtils.getIntAttribute(sheet, Attributes.directLinkCount);
     linkCount--;  // current page needs no link
-    final ArrayList<Integer> prevs = new ArrayList<Integer>(linkCount);
+    final ArrayList<Integer> prevs = new ArrayList<>(linkCount);
     int page = sheet.getCurrentPage() + 1;
     for (int i = 0; i < linkCount && page > 1; i++) {
       page--;
@@ -1039,7 +1039,7 @@ public class SheetRenderer extends RendererBase {
       }
     }
 
-    final ArrayList<Integer> nexts = new ArrayList<Integer>(linkCount);
+    final ArrayList<Integer> nexts = new ArrayList<>(linkCount);
     page = sheet.getCurrentPage() + 1;
     final int pages = sheet.hasRowCount() || sheet.isRowsUnlimited() ? sheet.getPages() : Integer.MAX_VALUE;
     for (int i = 0; i < linkCount && page < pages; i++) {
@@ -1121,14 +1121,14 @@ public class SheetRenderer extends RendererBase {
 
   private AjaxBehavior createReloadBehavior(UISheet sheet) {
     AjaxBehavior reloadBehavior = findReloadBehavior(sheet);
-    final ArrayList<String> renderIds = new ArrayList<String>();
+    final ArrayList<String> renderIds = new ArrayList<>();
     if (!renderIds.contains(sheet.getId())) {
       renderIds.add(sheet.getId());
     }
     if (reloadBehavior != null) {
       renderIds.addAll(reloadBehavior.getRender());
     }
-    final ArrayList<String> executeIds = new ArrayList<String>();
+    final ArrayList<String> executeIds = new ArrayList<>();
     if (!executeIds.contains(sheet.getId())) {
       executeIds.add(sheet.getId());
     }

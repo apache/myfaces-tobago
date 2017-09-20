@@ -169,7 +169,7 @@ public class TobagoConfigParserUnitTest {
   @Test
   public void testUniqueness() throws IllegalAccessException {
     final Field[] all = TobagoConfigParser.class.getFields();
-    final List<Field> fields = new ArrayList<Field>();
+    final List<Field> fields = new ArrayList<>();
     for (final Field field : all) {
       if (field.getType().equals(Integer.TYPE)) {
         fields.add(field);
@@ -177,7 +177,7 @@ public class TobagoConfigParserUnitTest {
     }
     // uniqueness
     final TobagoConfigParser dummy = new TobagoConfigParser();
-    final Set<Integer> hashCodes = new HashSet<Integer>();
+    final Set<Integer> hashCodes = new HashSet<>();
     for (final Field field : fields) {
       hashCodes.add(field.getInt(dummy));
     }

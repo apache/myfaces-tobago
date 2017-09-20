@@ -76,7 +76,7 @@ public class SelectItemUtils {
       return Collections.emptyList();
     } else {
       final Iterable<SelectItem> iterator = getItemIterator(facesContext, selector);
-      final List<SelectItem> result = new ArrayList<SelectItem>();
+      final List<SelectItem> result = new ArrayList<>();
       for (SelectItem selectItem : iterator) {
         result.add(selectItem);
       }
@@ -170,7 +170,7 @@ public class SelectItemUtils {
           // value is any kind of array (primitive or non-primitive)
           // --> we have to use class Array to get the values
           final int length = Array.getLength(value);
-          final Collection<Object> items = new ArrayList<Object>(length);
+          final Collection<Object> items = new ArrayList<>(length);
           for (int i = 0; i < length; i++) {
             items.add(Array.get(value, i));
           }
@@ -182,7 +182,7 @@ public class SelectItemUtils {
           return hasNext();
         } else if (value instanceof Map) {
           final Map<Object, Object> map = (Map<Object, Object>) value;
-          final Collection<SelectItem> items = new ArrayList<SelectItem>(map.size());
+          final Collection<SelectItem> items = new ArrayList<>(map.size());
           for (Map.Entry<Object, Object> entry : map.entrySet()) {
             items.add(new org.apache.myfaces.tobago.model.SelectItem(entry.getValue(), entry.getKey().toString()));
           }

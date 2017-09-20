@@ -32,7 +32,7 @@ public class TestPageFilter {
       ".*\\.html"
   );
 
-  public static final Set<String> HIDDEN = new HashSet<String>(Arrays.asList(
+  public static final Set<String> HIDDEN = new HashSet<>(Arrays.asList(
       "/META-INF/.*",
       "/WEB-INF/.*",
       "/script/.*",
@@ -50,7 +50,7 @@ public class TestPageFilter {
   /**
    * Internal pages and pages that are impossible to run.
    */
-  public static final Set<String> DISABLED = new HashSet<String>(Arrays.asList(
+  public static final Set<String> DISABLED = new HashSet<>(Arrays.asList(
       ".*-fragment\\.xhtml", // intern
 
       "/index.html", // intern
@@ -71,7 +71,7 @@ public class TestPageFilter {
   /**
    * Switched off temporary.
    */
-  private static final Set<String> TODO = new HashSet<String>(Arrays.asList(
+  private static final Set<String> TODO = new HashSet<>(Arrays.asList(
       "/test/gridLayout/scrolling-2-levels.*", // todo: ?
       "/test/gridLayout/scrolling-tab.*", // todo: measurement problem with firefox?
       "/test/treeListbox/*", // todo

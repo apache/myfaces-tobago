@@ -227,7 +227,7 @@ public class EventBehavior extends ClientBehaviorBase {
       return stateHelper;
     }
     if (create) {
-      stateHelper = new DeltaStateHelper<EventBehavior>(this);
+      stateHelper = new DeltaStateHelper<>(this);
     }
     return stateHelper;
   }

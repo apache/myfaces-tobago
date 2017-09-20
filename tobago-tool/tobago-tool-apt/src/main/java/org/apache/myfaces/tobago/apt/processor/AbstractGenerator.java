@@ -56,8 +56,8 @@ public abstract class AbstractGenerator extends AbstractProcessor {
       return false;
     }
 
-    types = new ArrayList<TypeElement>();
-    packages = new ArrayList<PackageElement>();
+    types = new ArrayList<>();
+    packages = new ArrayList<>();
     for (final TypeElement element : annotations) {
       final Collection<? extends Element> elementsAnnotatedWith = roundEnv
           .getElementsAnnotatedWith(element);

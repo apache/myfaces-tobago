@@ -30,7 +30,7 @@ import java.util.List;
 
 public class NavigationUnitTest extends AbstractTobagoTestBase {
 
-  private static final List<String> LIST = new ArrayList<String>(Arrays.asList(
+  private static final List<String> LIST = new ArrayList<>(Arrays.asList(
       "/content/00/test-1.xhtml",
       "/content/00/07/test-2.xhtml",
       "/content/01/test.xhtml",

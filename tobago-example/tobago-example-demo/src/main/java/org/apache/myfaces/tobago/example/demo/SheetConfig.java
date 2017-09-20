@@ -55,7 +55,7 @@ public class SheetConfig {
     sheetDirectPagingPosition = ShowPosition.center;
     sheetPagePagingPosition = ShowPosition.right;
     sheetPagingPositionItems = createSheetItems(ShowPosition.values());
-    final Set<Selectable> selectableSupportedBySheet = new HashSet<Selectable>();
+    final Set<Selectable> selectableSupportedBySheet = new HashSet<>();
     for (Selectable selectable : Selectable.values()) {
       if (selectable.isSupportedBySheet()) {
         selectableSupportedBySheet.add(selectable);

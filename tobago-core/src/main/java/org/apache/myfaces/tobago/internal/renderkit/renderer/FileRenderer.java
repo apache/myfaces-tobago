@@ -81,7 +81,7 @@ public class FileRenderer extends MessageLayoutRendererBase implements Component
       try {
         HttpServletRequest httpServletRequest = (HttpServletRequest) request;
         if (file.isMultiple()) {
-          List<Part> parts = new ArrayList<Part>();
+          List<Part> parts = new ArrayList<>();
           for (Part part : httpServletRequest.getParts()) {
             if (file.getClientId(facesContext).equals(part.getName())) {
               LOG.debug("Uploaded file '{}', size={}, type='{}'",

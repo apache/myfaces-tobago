@@ -30,7 +30,7 @@ import java.util.Map;
 
 public class MockHttpSession implements HttpSession {
 
-  private Map<String, Object> attributes = new HashMap<String, Object>();
+  private Map<String, Object> attributes = new HashMap<>();
 
   @Override
   public Object getAttribute(final String s) {

@@ -69,9 +69,9 @@ public class TobagoConfigImpl extends TobagoConfig {
   private boolean unmodifiable = false;
 
   protected TobagoConfigImpl() {
-    supportedThemeNames = new ArrayList<String>();
-    supportedThemes = new ArrayList<Theme>();
-    availableThemes = new HashMap<String, ThemeImpl>();
+    supportedThemeNames = new ArrayList<>();
+    supportedThemes = new ArrayList<>();
+    availableThemes = new HashMap<>();
     createSessionSecret = true;
     checkSessionSecret = true;
     preventFrameAttacks = true;
@@ -79,7 +79,7 @@ public class TobagoConfigImpl extends TobagoConfig {
     securityAnnotation = SecurityAnnotation.disable;
     decodeLineFeed = true;
     contentSecurityPolicy = new ContentSecurityPolicy(ContentSecurityPolicy.Mode.OFF.getValue());
-    mimeTypes = new HashMap<String, String>();
+    mimeTypes = new HashMap<>();
   }
 
   /**
@@ -379,7 +379,7 @@ public class TobagoConfigImpl extends TobagoConfig {
     builder.append(sanitizer);
     // to see only different (ignore alternative names for the same theme)
     builder.append(", \nthemes=");
-    final Set<Theme> all = new HashSet<Theme>(availableThemes.values());
+    final Set<Theme> all = new HashSet<>(availableThemes.values());
     builder.append(all);
     builder.append(", \nmimeTypes=");
     builder.append(mimeTypes);

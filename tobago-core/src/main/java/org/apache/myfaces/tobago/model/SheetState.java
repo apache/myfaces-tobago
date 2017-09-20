@@ -56,7 +56,7 @@ public class SheetState implements Serializable, ScrollPositionState {
     sortedColumnId = null;
     ascending = true;
     toBeSorted = false;
-    columnWidths = new ArrayList<Integer>();
+    columnWidths = new ArrayList<>();
     resetSelected();
     if (expandedState != null) {
       expandedState.reset();
@@ -72,7 +72,7 @@ public class SheetState implements Serializable, ScrollPositionState {
   }
 
   public void resetSelected() {
-    selectedRows = new ArrayList<Integer>();
+    selectedRows = new ArrayList<>();
   }
 
   public List<Integer> getSelectedRows() {

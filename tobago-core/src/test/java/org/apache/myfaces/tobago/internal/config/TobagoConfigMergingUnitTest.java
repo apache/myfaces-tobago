@@ -136,7 +136,7 @@ public class TobagoConfigMergingUnitTest {
   public static TobagoConfigImpl loadAndMerge(final String... names)
       throws IOException, SAXException, ParserConfigurationException, URISyntaxException {
 
-    final List<TobagoConfigFragment> list = new ArrayList<TobagoConfigFragment>();
+    final List<TobagoConfigFragment> list = new ArrayList<>();
 
     for (final String name : names) {
       final URL url = TobagoConfigMergingUnitTest.class.getClassLoader().getResource(name);

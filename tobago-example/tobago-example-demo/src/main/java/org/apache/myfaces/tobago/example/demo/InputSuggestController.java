@@ -88,7 +88,7 @@ public class InputSuggestController implements Serializable {
 
   public List<SelectItem> getRegionItems() {
     if (regionItems == null) {
-      regionItems = new ArrayList<SelectItem>(17);
+      regionItems = new ArrayList<>(17);
       regionItems.add(new SelectItem("Please select"));
       regionItems.add(new SelectItem("Baden-Württemberg"));
       regionItems.add(new SelectItem("Bayern"));
@@ -124,7 +124,7 @@ public class InputSuggestController implements Serializable {
     if (prefix == null) {
       prefix = "";
     }
-    final List<String> list = new ArrayList<String>();
+    final List<String> list = new ArrayList<>();
     final int n = RandomUtils.nextInt(0, 10);
     for (int i = 0; i < n; i++) {
       list.add(prefix + i);
@@ -151,14 +151,14 @@ public class InputSuggestController implements Serializable {
   }
 
   private List<AutoSuggestItem> getSuggestItems(final String prefix, final boolean zip) {
-    final List<AutoSuggestItem> items = new ArrayList<AutoSuggestItem>();
+    final List<AutoSuggestItem> items = new ArrayList<>();
     for (final String[] dataRow : suggestData) {
       if (zip) {
         if (dataRow[1].startsWith(prefix)) {
           final AutoSuggestItem item = new AutoSuggestItem();
           item.setLabel(dataRow[0]);
           item.setValue(dataRow[1]);
-          final List<AutoSuggestExtensionItem> extensionItems = new ArrayList<AutoSuggestExtensionItem>(2);
+          final List<AutoSuggestExtensionItem> extensionItems = new ArrayList<>(2);
           extensionItems.add(createExtensionItem("page:isCity", dataRow[2]));
           if (dataRow[3] != null) {
             extensionItems.add(createExtensionItem("page:isState", dataRow[3]));
@@ -171,7 +171,7 @@ public class InputSuggestController implements Serializable {
           final AutoSuggestItem item = new AutoSuggestItem();
           item.setLabel(dataRow[0]);
           item.setValue(dataRow[2]);
-          final List<AutoSuggestExtensionItem> extensionItems = new ArrayList<AutoSuggestExtensionItem>(2);
+          final List<AutoSuggestExtensionItem> extensionItems = new ArrayList<>(2);
           extensionItems.add(createExtensionItem("page:isZip", dataRow[1]));
           if (dataRow[3] != null) {
             extensionItems.add(createExtensionItem("page:isState", dataRow[3]));

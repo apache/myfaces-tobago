@@ -27,14 +27,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ComponentInfo extends TagInfo {
-  private List<PropertyInfo> nonTransientProperties = new ArrayList<PropertyInfo>();
-  private List<PropertyInfo> transientProperties = new ArrayList<PropertyInfo>();
+  private List<PropertyInfo> nonTransientProperties = new ArrayList<>();
+  private List<PropertyInfo> transientProperties = new ArrayList<>();
   private boolean messages;
   private String description;
   private boolean deprecated;
   private int index = 0;
   private int nonTransientIndex = 0;
-  private List<String> behaviors = new ArrayList<String>();
+  private List<String> behaviors = new ArrayList<>();
   private String defaultBehavior;
 
   public ComponentInfo(final TypeElement declaration, final UIComponentTag componentTag) {

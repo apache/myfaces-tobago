@@ -40,7 +40,7 @@ public class LocaleList {
   public static final List<String> HOLIDAY;
 
   static {
-    final List<LocaleEntry> init = new ArrayList<LocaleEntry>();
+    final List<LocaleEntry> init = new ArrayList<>();
     for (final Locale displayLocale : Locale.getAvailableLocales()) {
       for (final Locale locale : Locale.getAvailableLocales()) {
         init.add(new LocaleEntry(locale, displayLocale));
@@ -50,7 +50,7 @@ public class LocaleList {
   }
 
   static {
-    final Set<String> init = new HashSet<String>();
+    final Set<String> init = new HashSet<>();
     for (final LocaleEntry localeEntry : DATA) {
       if (StringUtils.isNotBlank(localeEntry.getCountry())
           && StringUtils.isNotBlank(localeEntry.getLanguage())) {
@@ -58,19 +58,19 @@ public class LocaleList {
         init.add(name);
       }
     }
-    final ArrayList<String> list = new ArrayList<String>(init);
+    final ArrayList<String> list = new ArrayList<>(init);
     Collections.sort(list);
     COUNTRY_LANGUAGE = Collections.unmodifiableList(list);
   }
 
   static {
-    final Set<String> init = new HashSet<String>();
+    final Set<String> init = new HashSet<>();
     for (final LocaleEntry localeEntry : DATA) {
       if (StringUtils.isNotBlank(localeEntry.getCountry())) {
         init.add(localeEntry.getCountry());
       }
     }
-    final ArrayList<String> list = new ArrayList<String>(init);
+    final ArrayList<String> list = new ArrayList<>(init);
     Collections.sort(list);
     COUNTRY = Collections.unmodifiableList(list);
   }

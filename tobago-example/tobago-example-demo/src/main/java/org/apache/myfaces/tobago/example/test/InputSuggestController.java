@@ -35,7 +35,7 @@ public class InputSuggestController implements Serializable {
   public List<String> inputSuggestItems(final UIInput component) {
     final String prefix = (String) component.getSubmittedValue();
     LOG.info("Creating items for prefix :\"" + prefix + "\"");
-    final List<String> li = new ArrayList<String>();
+    final List<String> li = new ArrayList<>();
     li.add(prefix + 1);
     li.add(prefix + 2);
     li.add(prefix + 3);

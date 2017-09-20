@@ -38,8 +38,8 @@ import java.util.Stack;
 
 public class DebugResponseWriterWrapper extends TobagoResponseWriter {
 
-  private Stack<Object> stack = new Stack<Object>();
-  private Set<MarkupLanguageAttributes> usedAttributes = new HashSet<MarkupLanguageAttributes>();
+  private Stack<Object> stack = new Stack<>();
+  private Set<MarkupLanguageAttributes> usedAttributes = new HashSet<>();
 
   private static final Logger LOG = LoggerFactory.getLogger(DebugResponseWriterWrapper.class);
 

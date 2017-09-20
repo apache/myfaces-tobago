@@ -34,7 +34,7 @@ class CssClassUtils {
    */
   static List<CssItem> compareCss(final String cssFileName, final CssItem[] cssItems) throws FileNotFoundException {
 
-    List<CssItem> missing = new ArrayList<CssItem>();
+    List<CssItem> missing = new ArrayList<>();
 
     File cssFile = new File(cssFileName);
     Assert.assertTrue(cssFile.exists());

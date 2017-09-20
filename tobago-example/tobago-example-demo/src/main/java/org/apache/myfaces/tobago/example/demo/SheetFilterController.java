@@ -44,7 +44,7 @@ public class SheetFilterController extends SheetController implements Serializab
 
   private static final Logger LOG = LoggerFactory.getLogger(SheetFilterController.class);
 
-  private List<SolarObject> filteredSolarList = new ArrayList<SolarObject>();
+  private List<SolarObject> filteredSolarList = new ArrayList<>();
 
   private SelectItem[] distanceItems;
   private SelectItem[] minYearItems;
@@ -73,7 +73,7 @@ public class SheetFilterController extends SheetController implements Serializab
         new SelectItem(new DistanceRange(1000000, Integer.MAX_VALUE), "1000000 < x")
     };
 
-    Set<Integer> years = new TreeSet<Integer>();
+    Set<Integer> years = new TreeSet<>();
     for (SolarObject solarObject : getSolarList()) {
       if (solarObject.getDiscoverYear() != null) {
         years.add(solarObject.getDiscoverYear());
@@ -217,7 +217,7 @@ public class SheetFilterController extends SheetController implements Serializab
   public List<String> getSuggestionSolarList() {
     final String substring = nameSuggestionQuery != null ? nameSuggestionQuery : "";
     LOG.info("Creating items for substring: '" + substring + "'");
-    final List<String> result = new ArrayList<String>();
+    final List<String> result = new ArrayList<>();
     for (final SolarObject solarObject : getSolarList()) {
       String name = solarObject.getName();
       if (StringUtils.containsIgnoreCase(name, substring)) {

@@ -85,7 +85,7 @@ public class MethodOverwritingOfGeneratedUIComponentsUnitTest extends AbstractGe
 
   private static class MethodOfComponentList {
 
-    private List<String> list = new ArrayList<String>();
+    private List<String> list = new ArrayList<>();
 
     public void add(final String method, final Class<? extends UIComponent> component) {
       list.add(concatenate(method, component));

@@ -40,7 +40,7 @@ public class UISheetUnitTest extends AbstractTobagoTestBase {
   @Before
   public void setUp() throws Exception {
     super.setUp();
-    nineRows = new ArrayList<String>();
+    nineRows = new ArrayList<>();
     Collections.addAll(nineRows, DATA);
 
     data = new UISheet();

@@ -44,8 +44,8 @@ public class ExpandedState implements Serializable {
    */
   public ExpandedState(final int defaultExpandedLevels) {
     this.defaultExpandedLevels = defaultExpandedLevels;
-    this.expandedSet = new HashSet<TreePath>();
-    this.collapsedSet = new HashSet<TreePath>();
+    this.expandedSet = new HashSet<>();
+    this.collapsedSet = new HashSet<>();
   }
 
   /**
@@ -127,7 +127,7 @@ public class ExpandedState implements Serializable {
    * @param level The level to expand.
    */
   public void expand(final int level) {
-    final ArrayList<TreePath> toRemove = new ArrayList<TreePath>();
+    final ArrayList<TreePath> toRemove = new ArrayList<>();
     if (level > defaultExpandedLevels) {
       defaultExpandedLevels = level;
       for (final TreePath treePath : expandedSet) {
@@ -189,7 +189,7 @@ public class ExpandedState implements Serializable {
     // to use a symmetric algorithm like in expand
     count--;
 
-    final ArrayList<TreePath> toRemove = new ArrayList<TreePath>();
+    final ArrayList<TreePath> toRemove = new ArrayList<>();
     if (count < defaultExpandedLevels) {
       defaultExpandedLevels = count;
       for (final TreePath treePath : collapsedSet) {

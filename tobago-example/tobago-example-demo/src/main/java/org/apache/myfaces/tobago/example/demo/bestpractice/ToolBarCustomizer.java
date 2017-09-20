@@ -40,10 +40,10 @@ public class ToolBarCustomizer implements Serializable {
   }
 
   public String resetList() {
-    list = new ArrayList<Item>(Arrays.asList(
-            new Item("new"),
-            new Item("edit"),
-            new Item("delete")
+    list = new ArrayList<>(Arrays.asList(
+        new Item("new"),
+        new Item("edit"),
+        new Item("delete")
     ));
 
     return null;

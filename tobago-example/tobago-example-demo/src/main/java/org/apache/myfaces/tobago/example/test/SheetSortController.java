@@ -42,7 +42,7 @@ public class SheetSortController implements Serializable {
   }
 
   private void init() {
-    list = new ArrayList<Entry>();
+    list = new ArrayList<>();
     for (int i = 0; i < 26; i++) {
       list.add(new Entry(i));
     }

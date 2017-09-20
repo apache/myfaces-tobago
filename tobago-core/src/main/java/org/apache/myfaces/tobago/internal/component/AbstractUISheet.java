@@ -229,7 +229,7 @@ public abstract class AbstractUISheet extends AbstractUIData
   }
 
   public List<UIComponent> getRenderedChildrenOf(final UIColumn column) {
-    final List<UIComponent> children = new ArrayList<UIComponent>();
+    final List<UIComponent> children = new ArrayList<>();
     for (final UIComponent kid : column.getChildren()) {
       if (kid.isRendered()) {
         children.add(kid);
@@ -337,7 +337,7 @@ public abstract class AbstractUISheet extends AbstractUIData
   }
 
   public List<AbstractUIColumnBase> getAllColumns() {
-    ArrayList<AbstractUIColumnBase> result = new ArrayList<AbstractUIColumnBase>();
+    ArrayList<AbstractUIColumnBase> result = new ArrayList<>();
     findColumns(this, result, true);
     return result;
   }

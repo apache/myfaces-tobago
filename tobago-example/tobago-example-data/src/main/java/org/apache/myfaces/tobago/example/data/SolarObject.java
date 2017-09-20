@@ -204,14 +204,14 @@ public class SolarObject {
 
   public static List<SolarObject> getList() {
     final SolarObject[] array = getArray();
-    final List<SolarObject> list = new ArrayList<SolarObject>(array.length);
+    final List<SolarObject> list = new ArrayList<>(array.length);
     Collections.addAll(list, array);
     return list;
   }
 
   public static DefaultMutableTreeNode getTree() {
     final SolarObject[] array = getArray();
-    final Map<String, DefaultMutableTreeNode> cache = new HashMap<String, DefaultMutableTreeNode>();
+    final Map<String, DefaultMutableTreeNode> cache = new HashMap<>();
     for (final SolarObject solar : array) {
       final DefaultMutableTreeNode node = new DefaultMutableTreeNode(solar);
       cache.put(solar.getName(), node);
@@ -226,7 +226,7 @@ public class SolarObject {
   }
 
   public static List<SolarObject> getSatellites(final String center) {
-    final List<SolarObject> collect = new ArrayList<SolarObject>();
+    final List<SolarObject> collect = new ArrayList<>();
     final SolarObject[] all = getArray();
     for (final SolarObject anAll : all) {
       if (anAll.getOrbit().equals(center)) {

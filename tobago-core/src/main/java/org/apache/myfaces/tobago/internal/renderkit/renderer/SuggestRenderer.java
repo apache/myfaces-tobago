@@ -142,7 +142,7 @@ public class SuggestRenderer extends RendererBase {
         //noinspection unchecked
         autoSuggestItems.setItems((List<AutoSuggestItem>) object);
       } else if (((List) object).get(0) instanceof String) {
-        final List<AutoSuggestItem> items = new ArrayList<AutoSuggestItem>(((List) object).size());
+        final List<AutoSuggestItem> items = new ArrayList<>(((List) object).size());
         for (int i = 0; i < ((List) object).size(); i++) {
           final AutoSuggestItem item = new AutoSuggestItem();
           item.setLabel((String) ((List) object).get(i));

@@ -28,7 +28,7 @@ public class Solar {
   private List<Planet> planets;
 
   public Solar() {
-    planets = new ArrayList<Planet>();
+    planets = new ArrayList<>();
     planets.add(new Planet(Planet.MARS));
   }
 

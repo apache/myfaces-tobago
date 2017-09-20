@@ -31,9 +31,9 @@ import java.util.List;
 @Named
 public class SelectManyListboxController implements Serializable {
 
-  private List<String> celestials = new ArrayList<String>();
+  private List<String> celestials = new ArrayList<>();
   private SelectItem[] deserts;
-  private List<String> selectedDeserts = new ArrayList<String>();
+  private List<String> selectedDeserts = new ArrayList<>();
 
   public SelectManyListboxController() {
     deserts = new SelectItem[]{

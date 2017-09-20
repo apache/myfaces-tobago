@@ -65,7 +65,7 @@ public class CommandMap {
       setClick(command);
     } else {
       if (other == null) {
-        other = new HashMap<ClientBehaviors, Command>();
+        other = new HashMap<>();
       }
 
       other.put(name, command);

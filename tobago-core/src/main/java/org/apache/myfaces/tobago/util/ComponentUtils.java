@@ -232,7 +232,7 @@ public final class ComponentUtils {
    * It does not find sub forms of sub forms.
    */
   public static List<AbstractUIForm> findSubForms(final UIComponent component) {
-    final List<AbstractUIForm> collect = new ArrayList<AbstractUIForm>();
+    final List<AbstractUIForm> collect = new ArrayList<>();
     findSubForms(collect, component);
     return collect;
   }
@@ -303,7 +303,7 @@ public final class ComponentUtils {
    */
   public static <T extends UIComponent> List<T> findDescendantList(final UIComponent component, final Class<T> type) {
 
-    final List<T> result = new ArrayList<T>();
+    final List<T> result = new ArrayList<>();
 
     for (final UIComponent child : component.getChildren()) {
       if (type.isAssignableFrom(child.getClass())) {
@@ -648,7 +648,7 @@ public final class ComponentUtils {
    */
   public static String evaluateClientIds(
       final FacesContext context, final UIComponent component, final String[] componentIds) {
-    final List<String> result = new ArrayList<String>(componentIds.length);
+    final List<String> result = new ArrayList<>(componentIds.length);
     for (final String id : componentIds) {
       if (!StringUtils.isBlank(id)) {
         final String clientId = evaluateClientId(context, component, id);
@@ -801,7 +801,7 @@ public final class ComponentUtils {
   public static void putDataAttribute(final UIComponent component, final Object name, final Object value) {
     Map<Object, Object> map = getDataAttributes(component);
     if (map == null) {
-      map = new HashMap<Object, Object>();
+      map = new HashMap<>();
       component.getAttributes().put(DATA_ATTRIBUTES_KEY, map);
     }
     if (map.containsKey(name)) {

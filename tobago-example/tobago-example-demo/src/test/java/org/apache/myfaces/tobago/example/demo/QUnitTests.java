@@ -51,7 +51,7 @@ import java.util.List;
 public class QUnitTests {
 
   private static final Logger LOG = LoggerFactory.getLogger(QUnitTests.class);
-  private static List<String> testedPages = new LinkedList<String>();
+  private static List<String> testedPages = new LinkedList<>();
 
   @Drone
   private WebDriver browser;
@@ -278,7 +278,7 @@ public class QUnitTests {
   }
 
   private static List<String> getXHTMLs(File dir) {
-    List<String> xhtmls = new ArrayList<String>();
+    List<String> xhtmls = new ArrayList<>();
     for (File file : dir.listFiles()) {
       if (file.isDirectory()) {
         xhtmls.addAll(getXHTMLs(file));
@@ -290,7 +290,7 @@ public class QUnitTests {
   }
 
   private List<String> ignorePages() {
-    List<String> ignore = new ArrayList<String>();
+    List<String> ignore = new ArrayList<>();
     //PhantomJs miscalculate the height of the dropdown box
     ignore.add("content/40-test/3000-sheet/10-sheet-types/sheet-types.xhtml");
     // Works only for larger browser window

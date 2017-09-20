@@ -31,13 +31,13 @@ public class SelectManyListboxBean implements Serializable {
 
   private List<String> stringList;
   private String[] stringArray;
-  private Set<String> stringSet = new HashSet<String>();
-  private Collection<String> stringCollection = new LinkedList<String>();
+  private Set<String> stringSet = new HashSet<>();
+  private Collection<String> stringCollection = new LinkedList<>();
 
   private List<Currency> currencyList;
   private Currency[] currencyArray;
-  private Set<Currency> currencySet = new HashSet<Currency>();
-  private Collection<Currency> currencyCollection = new LinkedList<Currency>();
+  private Set<Currency> currencySet = new HashSet<>();
+  private Collection<Currency> currencyCollection = new LinkedList<>();
 
   private Currency[] currencyItems;
 

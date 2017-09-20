@@ -76,7 +76,7 @@ public class ClassesGenerator extends AbstractGenerator {
     final Reader componentReader = new InputStreamReader(componentStream);
     componentStringTemplateGroup = new StringTemplateGroup(componentReader);
 
-    ignoredProperties = new HashSet<String>();
+    ignoredProperties = new HashSet<>();
     ignoredProperties.add("id");
     ignoredProperties.add("rendered");
     ignoredProperties.add("binding");
@@ -98,7 +98,7 @@ public class ClassesGenerator extends AbstractGenerator {
 
   private void createTagOrComponent(final TypeElement declaration) throws IOException, ClassNotFoundException {
     final UIComponentTag componentTag = declaration.getAnnotation(UIComponentTag.class);
-    final Map<String, PropertyInfo> properties = new HashMap<String, PropertyInfo>();
+    final Map<String, PropertyInfo> properties = new HashMap<>();
     addProperties(declaration, properties);
 
     if (componentTag.generate()) {

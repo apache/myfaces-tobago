@@ -246,7 +246,7 @@ public class TobagoConfigSorter implements Comparator<TobagoConfigFragment> {
 
   protected void createRelevantPairs() {
 
-    pairs = new ArrayList<Pair>();
+    pairs = new ArrayList<>();
 
     // collecting all relations, which are relevant for us. We don't need "before" and "after" of unknown names.
     for (final TobagoConfigFragment tobagoConfig : list) {

@@ -82,7 +82,7 @@ public abstract class AbstractUITabGroup extends AbstractUIPanelBase
   }
 
   public AbstractUITab[] getTabs() {
-    final List<AbstractUITab> tabs = new ArrayList<AbstractUITab>();
+    final List<AbstractUITab> tabs = new ArrayList<>();
     for (final UIComponent kid : getChildren()) {
       if (kid instanceof AbstractUITab) {
         //if (kid.isRendered()) {

@@ -43,7 +43,7 @@ public class UploadController implements Serializable {
   private Part fileContentType;
   private Part[] fileMulti;
   private Part fileAjax;
-  private List<UploadItem> uploadItems = new ArrayList<UploadItem>();
+  private List<UploadItem> uploadItems = new ArrayList<>();
 
   public String uploadBasic() {
     upload(fileBasic);

@@ -394,10 +394,10 @@ public class PageRenderer extends RendererBase {
    */
   private static class HeadResources {
 
-    private List<UIComponent> metas = new ArrayList<UIComponent>();
-    private List<UIComponent> styles = new ArrayList<UIComponent>();
-    private List<UIComponent> scripts = new ArrayList<UIComponent>();
-    private List<UIComponent> misc = new ArrayList<UIComponent>();
+    private List<UIComponent> metas = new ArrayList<>();
+    private List<UIComponent> styles = new ArrayList<>();
+    private List<UIComponent> scripts = new ArrayList<>();
+    private List<UIComponent> misc = new ArrayList<>();
 
     HeadResources(
         final FacesContext facesContext, final Collection<? extends UIComponent> collection, final String charset) {

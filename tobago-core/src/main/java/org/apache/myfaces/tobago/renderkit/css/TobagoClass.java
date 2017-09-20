@@ -234,7 +234,7 @@ public enum TobagoClass implements CssItem {
   @Preliminary
   public CssItem[] createMarkup(final Markup markup) {
     if (markup != null) {
-      final List<CssItem> markups = new ArrayList<CssItem>();
+      final List<CssItem> markups = new ArrayList<>();
       for (final String markupString : markup) {
         markups.add(new MarkupClass(this, markupString));
       }

@@ -69,7 +69,7 @@ public class CheckstyleConfigGenerator extends AbstractGenerator {
 
   static final String TARGET_CHECKSTYLE = "targetCheckstyle";
 
-  private Set<String> tagSet = new HashSet<String>();
+  private Set<String> tagSet = new HashSet<>();
 
   private String targetCheckstyle;
 
@@ -187,7 +187,7 @@ public class CheckstyleConfigGenerator extends AbstractGenerator {
   }
 
   private void resetDuplicateList() {
-    tagSet = new HashSet<String>();
+    tagSet = new HashSet<>();
   }
 
   protected void addAttributesForTag(
@@ -195,7 +195,7 @@ public class CheckstyleConfigGenerator extends AbstractGenerator {
       final Document document)
       throws ClassNotFoundException {
 
-    List<String> attributes = new ArrayList<String>();
+    List<String> attributes = new ArrayList<>();
     for (final javax.lang.model.element.Element element : getAllMembers(type)) {
       if (element instanceof ExecutableElement) {
         final ExecutableElement executableElement = (ExecutableElement) element;

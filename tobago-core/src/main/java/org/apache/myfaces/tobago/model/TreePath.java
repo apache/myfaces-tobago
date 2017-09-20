@@ -72,7 +72,7 @@ public class TreePath implements Serializable {
     }
 
     TreeNode p = node;
-    final List<TreeNode> list = new ArrayList<TreeNode>();
+    final List<TreeNode> list = new ArrayList<>();
     int n = 0;
     while (p != null) {
       list.add(p);

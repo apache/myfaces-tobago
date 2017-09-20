@@ -51,7 +51,7 @@ public class SheetController implements Serializable {
   private static final SelectItem[] SHEET_SELECTABLE;
 
   static {
-    List<Selectable> collect = new ArrayList<Selectable>();
+    List<Selectable> collect = new ArrayList<>();
     for (Selectable selectable : Selectable.values()) {
       if (selectable.isSupportedBySheet()) {
         collect.add(selectable);
@@ -76,7 +76,7 @@ public class SheetController implements Serializable {
   public SheetController() {
     solarList = SolarObject.getList();
 
-    hugeSolarList = new ArrayList<SolarObject>();
+    hugeSolarList = new ArrayList<>();
     for (int i = 1; i <= 12; i++) {
       for (SolarObject solarObject : solarList) {
         SolarObject solarObjectClone = new SolarObject(solarObject);

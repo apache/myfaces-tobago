@@ -59,7 +59,7 @@ public final class AccessKeyLogger extends HashMap<Character, List<String>> {
       if (instance.containsKey(key)) {
         clientIds = instance.get(key);
       } else {
-        clientIds = new ArrayList<String>();
+        clientIds = new ArrayList<>();
         instance.put(key, clientIds);
       }
       clientIds.add(clientId);

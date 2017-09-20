@@ -57,7 +57,7 @@ public final class AjaxNavigationState {
     final ExternalContext externalContext = facesContext.getExternalContext();
     externalContext.getSessionMap().put(SESSION_KEY, this);
     viewRoot = facesContext.getViewRoot();
-    messages = new HashMap<String, List<FacesMessage>>();
+    messages = new HashMap<>();
     final Iterator<String> iterator = facesContext.getClientIdsWithMessages();
     while (iterator.hasNext()) {
       addFacesMessages(facesContext, iterator.next());
@@ -82,7 +82,7 @@ public final class AjaxNavigationState {
   private void addFacesMessage(final String clientId, final FacesMessage facesMessage) {
     List<FacesMessage> facesMessages = messages.get(clientId);
     if (facesMessages == null) {
-      facesMessages = new ArrayList<FacesMessage>();
+      facesMessages = new ArrayList<>();
       messages.put(clientId, facesMessages);
     }
     facesMessages.add(facesMessage);

@@ -25,7 +25,7 @@ import java.util.Set;
 
 public class Imports {
 
-  private Set<String> imports = new TreeSet<String>();
+  private Set<String> imports = new TreeSet<>();
 
   private String packageName;
 

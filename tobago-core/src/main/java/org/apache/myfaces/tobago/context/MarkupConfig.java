@@ -27,7 +27,7 @@ public class MarkupConfig implements Serializable {
 
   private static final long serialVersionUID = 1L;
 
-  private Set<String> markups = new HashSet<String>();
+  private Set<String> markups = new HashSet<>();
 
   public boolean contains(final String markup) {
     return markups.contains(markup);

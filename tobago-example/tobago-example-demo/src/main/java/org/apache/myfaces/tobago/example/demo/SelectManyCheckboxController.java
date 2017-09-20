@@ -29,8 +29,8 @@ import java.util.List;
 @Named
 public class SelectManyCheckboxController implements Serializable {
 
-  private List<String> animals = new ArrayList<String>();
-  private List<String> numbers = new ArrayList<String>();
+  private List<String> animals = new ArrayList<>();
+  private List<String> numbers = new ArrayList<>();
 
   public List getAnimals() {
     return animals;

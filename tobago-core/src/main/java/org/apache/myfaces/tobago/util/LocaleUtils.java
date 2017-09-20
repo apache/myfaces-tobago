@@ -57,7 +57,7 @@ public final class LocaleUtils {
   public static List<Locale> getLocaleList(final Locale locale) {
 
     String string = locale.toString();
-    final List<Locale> locales = new ArrayList<Locale>(3);
+    final List<Locale> locales = new ArrayList<>(3);
     locales.add(locale);
     int underscore;
     while ((underscore = string.lastIndexOf('_')) > 0) {
@@ -81,7 +81,7 @@ public final class LocaleUtils {
     
     String string = locale.toString();
     final String prefix = "_";
-    final List<String> locales = new ArrayList<String>(4);
+    final List<String> locales = new ArrayList<>(4);
     locales.add(prefix + string);
     int underscore;
     while ((underscore = string.lastIndexOf('_')) > 0) {

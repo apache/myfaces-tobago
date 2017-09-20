@@ -55,11 +55,11 @@ public class TobagoConfigFragment {
   private Map<String, String> mimeTypes;
 
   public TobagoConfigFragment() {
-    before = new ArrayList<String>();
-    after = new ArrayList<String>();
-    supportedThemeNames = new ArrayList<String>();
-    themeDefinitions = new ArrayList<ThemeImpl>();
-    mimeTypes = new HashMap<String, String>();
+    before = new ArrayList<>();
+    after = new ArrayList<>();
+    supportedThemeNames = new ArrayList<>();
+    themeDefinitions = new ArrayList<>();
+    mimeTypes = new HashMap<>();
   }
 
   public void addSupportedThemeName(final String name) {

@@ -59,7 +59,7 @@ public class Grid {
     this.rows = rows;
 
     final int size = columnCount * rowCount;
-    this.cells = new ArrayList<Cell>(size);
+    this.cells = new ArrayList<>(size);
     for (int i = 0; i < size; i++) {
       this.cells.add(null);
     }
@@ -167,7 +167,7 @@ public class Grid {
 
   public void addError(final int i, final int j) {
     if (errorIndexes == null) {
-      errorIndexes = new ArrayList<Integer>();
+      errorIndexes = new ArrayList<>();
     }
     errorIndexes.add(j * columnCount + i);
   }

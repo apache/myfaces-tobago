@@ -57,7 +57,7 @@ public abstract class AbstractUIMessages extends javax.faces.component.UIMessage
   }
 
   private List<Item> collectMessageList(final FacesContext facesContext, final Iterator clientIds) {
-    final List<Item> messages = new ArrayList<Item>();
+    final List<Item> messages = new ArrayList<>();
     while (clientIds.hasNext()) {
       final String clientId = (String) clientIds.next();
       final Iterator<FacesMessage> i = facesContext.getMessages(clientId);

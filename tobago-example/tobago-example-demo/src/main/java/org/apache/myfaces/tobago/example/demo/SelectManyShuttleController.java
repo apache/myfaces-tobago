@@ -32,7 +32,7 @@ import java.util.List;
 @Named
 public class SelectManyShuttleController implements Serializable {
 
-  private List<SolarObject> planets = new ArrayList<SolarObject>();
+  private List<SolarObject> planets = new ArrayList<>();
   private SolarObject[] selectedPlanets = new SolarObject[0];
   private List<String> stars = Arrays.asList("Proxima Centauri", "Alpha Centauri", "Wolf 359", "Sirius");
   private String[] selectedStars = new String[0];

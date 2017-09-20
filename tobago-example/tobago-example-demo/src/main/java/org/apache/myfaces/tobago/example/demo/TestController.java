@@ -56,7 +56,7 @@ public class TestController implements Serializable {
   }
 
   public List<String> getAllPages() {
-    List<String> pages = new ArrayList<String>();
+    List<String> pages = new ArrayList<>();
 
     final File rootDir = new File("src/main/webapp/content");
     if (rootDir.exists()) {
@@ -68,7 +68,7 @@ public class TestController implements Serializable {
   }
 
   private List<String> getXHTMLs(File dir) {
-    List<String> xhtmls = new ArrayList<String>();
+    List<String> xhtmls = new ArrayList<>();
     for (File file : dir.listFiles()) {
       if (file.isDirectory()) {
         xhtmls.addAll(getXHTMLs(file));
@@ -80,7 +80,7 @@ public class TestController implements Serializable {
   }
 
   public List<TestPage> getTestPages() {
-    List<TestPage> testPages = new ArrayList<TestPage>();
+    List<TestPage> testPages = new ArrayList<>();
 
     int idCount = 1;
     final File rootDir = new File("src/main/webapp/content");
@@ -94,7 +94,7 @@ public class TestController implements Serializable {
   }
 
   private List<String> getTestJs(File dir) {
-    List<String> testJsFiles = new ArrayList<String>();
+    List<String> testJsFiles = new ArrayList<>();
     for (File file : dir.listFiles()) {
       if (file.isDirectory()) {
         testJsFiles.addAll(getTestJs(file));

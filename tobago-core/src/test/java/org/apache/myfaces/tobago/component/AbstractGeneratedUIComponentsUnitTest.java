@@ -51,12 +51,12 @@ public class AbstractGeneratedUIComponentsUnitTest {
     final String packageName = this.getClass().getPackage().getName();
     final String path = packageName.replace('.', '/');
     final Enumeration<URL> resources = classLoader.getResources(path);
-    final List<File> directories = new ArrayList<File>();
+    final List<File> directories = new ArrayList<>();
     while (resources.hasMoreElements()) {
       final URL resource = resources.nextElement();
       directories.add(new File(resource.getFile()));
     }
-    final ArrayList<Class<? extends UIComponent>> result = new ArrayList<Class<? extends UIComponent>>();
+    final ArrayList<Class<? extends UIComponent>> result = new ArrayList<>();
     for (final File directory : directories) {
       final File[] files = directory.listFiles();
       if (files != null) {

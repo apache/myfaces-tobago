@@ -116,7 +116,7 @@ public class ThemeImpl implements Theme, Serializable {
 
   public void resolveFallbacks() {
     checkLocked();
-    fallbackList = new ArrayList<Theme>();
+    fallbackList = new ArrayList<>();
     ThemeImpl actual = this;
     while (actual != null) {
       fallbackList.add(actual);

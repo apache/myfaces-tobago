@@ -62,7 +62,7 @@ public class DirectoryBrowser implements Serializable {
       return;
     }
 
-    final List<PageItem> list = new ArrayList<PageItem>();
+    final List<PageItem> list = new ArrayList<>();
 
     for (final String childPath : resourcePaths) {
       if (childPath.endsWith("/")) {

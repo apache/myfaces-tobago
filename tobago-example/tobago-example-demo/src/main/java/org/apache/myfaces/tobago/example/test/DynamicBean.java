@@ -27,7 +27,7 @@ import java.util.List;
 
 public class DynamicBean implements Serializable {
 
-  private List<DynamicPanel> panels = new ArrayList<DynamicPanel>();
+  private List<DynamicPanel> panels = new ArrayList<>();
 
   public String addPanel() {
 

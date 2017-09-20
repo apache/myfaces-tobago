@@ -248,7 +248,7 @@ public final class UserAgent implements Serializable {
   }
 
   private List<String> getFallbackList(final boolean reverseOrder) {
-    final List<String> list = new ArrayList<String>(3);
+    final List<String> list = new ArrayList<>(3);
     if (version != null) {
       list.add(name + '_' + version);
     }

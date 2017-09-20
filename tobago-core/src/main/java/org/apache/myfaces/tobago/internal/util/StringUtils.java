@@ -36,7 +36,7 @@ public final class StringUtils {
 
   public static List<Integer> parseIntegerList(final String integerList, final String delimiters)
       throws NumberFormatException {
-    final List<Integer> list = new ArrayList<Integer>();
+    final List<Integer> list = new ArrayList<>();
 
     final StringTokenizer tokenizer = new StringTokenizer(integerList, delimiters);
     while (tokenizer.hasMoreElements()) {
@@ -61,7 +61,7 @@ public final class StringUtils {
   }
 
   public static int[] getIndices(final String list) {
-    final List<String> indexList = new ArrayList<String>();
+    final List<String> indexList = new ArrayList<>();
     final StringTokenizer st = new StringTokenizer(list, ",");
     while (st.hasMoreTokens()) {
       final String token = st.nextToken().trim();
@@ -205,7 +205,7 @@ public final class StringUtils {
     if (len == 0) {
       return ArrayUtils.EMPTY_STRING_ARRAY;
     }
-    final List<String> list = new ArrayList<String>();
+    final List<String> list = new ArrayList<>();
     int i = 0;
     int start = 0;
     boolean match = false;
@@ -243,7 +243,7 @@ public final class StringUtils {
     if (len == 0) {
       return ArrayUtils.EMPTY_STRING_ARRAY;
     }
-    final List<String> list = new ArrayList<String>();
+    final List<String> list = new ArrayList<>();
     int sizePlus1 = 1;
     int i = 0;
     int start = 0;

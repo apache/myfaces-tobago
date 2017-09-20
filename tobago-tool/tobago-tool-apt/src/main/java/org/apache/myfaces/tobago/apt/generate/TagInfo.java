@@ -24,7 +24,7 @@ import java.util.List;
 
 
 public class TagInfo extends RendererInfo {
-  private List<PropertyInfo> properties = new ArrayList<PropertyInfo>();
+  private List<PropertyInfo> properties = new ArrayList<>();
   private String componentClassName;
   private String componentType;
   private String componentFamily;

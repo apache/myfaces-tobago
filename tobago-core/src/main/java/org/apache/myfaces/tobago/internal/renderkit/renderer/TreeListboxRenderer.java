@@ -94,9 +94,9 @@ public class TreeListboxRenderer extends RendererBase {
       writer.endElement(HtmlElements.INPUT);
     }
 
-    List<Integer> thisLevel = new ArrayList<Integer>();
+    List<Integer> thisLevel = new ArrayList<>();
     thisLevel.add(0);
-    List<Integer> nextLevel = new ArrayList<Integer>();
+    List<Integer> nextLevel = new ArrayList<>();
     Integer size = tree.getSize();
     size = Math.max(size != null ? size : 10, 2); // must be > 1, default is 10, if not set
     final int depth = tree.getTreeDataModel().getDepth() != -1

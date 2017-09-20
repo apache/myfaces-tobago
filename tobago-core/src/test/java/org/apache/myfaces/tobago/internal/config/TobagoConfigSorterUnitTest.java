@@ -81,7 +81,7 @@ public class TobagoConfigSorterUnitTest {
 
     n.getAfter().add("m");
 
-    final List<TobagoConfigFragment> list = new ArrayList<TobagoConfigFragment>();
+    final List<TobagoConfigFragment> list = new ArrayList<>();
     list.add(a);
     list.add(b);
     list.add(c);
@@ -137,7 +137,7 @@ public class TobagoConfigSorterUnitTest {
     a.getBefore().add("b");
     b.getBefore().add("a");
 
-    final List<TobagoConfigFragment> list = new ArrayList<TobagoConfigFragment>();
+    final List<TobagoConfigFragment> list = new ArrayList<>();
     list.add(a);
     list.add(b);
 
@@ -174,7 +174,7 @@ public class TobagoConfigSorterUnitTest {
     // after
     a.getAfter().add("b");
 
-    final List<TobagoConfigFragment> list = new ArrayList<TobagoConfigFragment>();
+    final List<TobagoConfigFragment> list = new ArrayList<>();
     list.add(a);
     list.add(b);
 

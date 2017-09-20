@@ -51,7 +51,7 @@ public class SuggestController implements Serializable {
   public List<String> getLanguages() {
     final String substring = query != null ? query : "";
     LOG.info("Creating items for substring: '" + substring + "'");
-    final List<String> result = new ArrayList<String>(LocaleList.COUNTRY_LANGUAGE.size());
+    final List<String> result = new ArrayList<>(LocaleList.COUNTRY_LANGUAGE.size());
     for (final String name : LocaleList.COUNTRY_LANGUAGE) {
       if (StringUtils.containsIgnoreCase(name, substring)) {
         result.add(name);
@@ -74,7 +74,7 @@ public class SuggestController implements Serializable {
       substring = "";
     }
     LOG.info("Creating items for substring: '" + substring + "'");
-    final List<String> result = new ArrayList<String>();
+    final List<String> result = new ArrayList<>();
     for (final String name : LocaleList.COUNTRY_LANGUAGE) {
       if (StringUtils.containsIgnoreCase(name, substring)) {
         result.add(name);

@@ -89,7 +89,7 @@ public class TobagoComponentHandler extends ComponentHandler {
     }
     final Validator[] validators = component.getValidators();
     if (validators.length > 0) {
-      final Set<String> classNames = new HashSet<String>();
+      final Set<String> classNames = new HashSet<>();
       // collect classNames of validators
       for (Validator validator : validators) {
         classNames.add(validator.getClass().getName());

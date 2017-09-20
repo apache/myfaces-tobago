@@ -28,7 +28,7 @@ public class ClassInfo {
   private String packageName;
   private Imports imports;
   private String superClassName;
-  private Set<String> interfaces = new HashSet<String>();
+  private Set<String> interfaces = new HashSet<>();
   private String sourceClass;
 
   public ClassInfo(final String sourceClass, final String qualifiedName) {

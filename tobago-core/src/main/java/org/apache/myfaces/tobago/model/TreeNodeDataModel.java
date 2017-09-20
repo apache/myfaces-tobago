@@ -53,8 +53,8 @@ public class TreeNodeDataModel extends TreeDataModel {
   public TreeNodeDataModel(final TreeNode data, final boolean showRoot, final ExpandedState expandedState) {
     this.data = data;
     this.showRoot = showRoot;
-    this.mapping = new HashMap<Integer, Data>();
-    this.back = new HashMap<TreeNode, Integer>();
+    this.mapping = new HashMap<>();
+    this.back = new HashMap<>();
     this.expandedState = expandedState;
     reset();
   }
@@ -251,7 +251,7 @@ public class TreeNodeDataModel extends TreeDataModel {
   public List<Integer> getRowIndicesOfChildren() {
     final TreeNode node = getRowData();
     final int n = node.getChildCount();
-    final List<Integer> children = new ArrayList<Integer>(n);
+    final List<Integer> children = new ArrayList<>(n);
     for (int i = 0; i < n; i++) {
       final Integer integer = back.get(node.getChildAt(i));
       if (integer != null) { // integer == null happens, when the node is not expanded
@@ -264,7 +264,7 @@ public class TreeNodeDataModel extends TreeDataModel {
   @Override
   public List<Boolean> getJunctions() {
     TreeNode node = getRowData();
-    final List<Boolean> junctions = new Stack<Boolean>();
+    final List<Boolean> junctions = new Stack<>();
     while (node != null) {
       junctions.add(hasNextSibling(node));
       node = node.getParent();

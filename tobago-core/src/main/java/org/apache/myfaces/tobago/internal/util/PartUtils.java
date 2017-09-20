@@ -255,7 +255,7 @@ public final class PartUtils {
      */
     public Map<String, String> parse(final String str, char separator) {
       if (str == null) {
-        return new HashMap<String, String>();
+        return new HashMap<>();
       }
       return parse(str.toCharArray(), separator);
     }
@@ -271,7 +271,7 @@ public final class PartUtils {
      */
     public Map<String, String> parse(final char[] charArray, char separator) {
       if (charArray == null) {
-        return new HashMap<String, String>();
+        return new HashMap<>();
       }
       return parse(charArray, 0, charArray.length, separator);
     }
@@ -294,9 +294,9 @@ public final class PartUtils {
         char separator) {
 
       if (charArray == null) {
-        return new HashMap<String, String>();
+        return new HashMap<>();
       }
-      HashMap<String, String> params = new HashMap<String, String>();
+      HashMap<String, String> params = new HashMap<>();
       this.chars = charArray;
       this.pos = offset;
       this.len = length;

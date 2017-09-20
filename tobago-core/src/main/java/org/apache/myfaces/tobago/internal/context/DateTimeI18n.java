@@ -32,7 +32,7 @@ public class DateTimeI18n {
 
   private static final Logger LOG = LoggerFactory.getLogger(DateTimeI18n.class);
 
-  private static final Map<Locale, DateTimeI18n> CACHE = new HashMap<Locale, DateTimeI18n>();
+  private static final Map<Locale, DateTimeI18n> CACHE = new HashMap<>();
 
   private final String[] monthNames = new String[12];
   private final String[] monthNamesShort = new String[12];

@@ -128,7 +128,7 @@ public class FacesConfigGenerator extends AbstractGenerator {
   private static final String CLIENT_BEHAVIOR_RENDERER_CLASS = "client-behavior-renderer-class";
 */
 
-  private static final Set<String> IGNORED_PROPERTIES = new HashSet<String>(Collections.singletonList("binding"));
+  private static final Set<String> IGNORED_PROPERTIES = new HashSet<>(Collections.singletonList("binding"));
 
   private String sourceFacesConfigFile;
   private String targetFacesConfigFile;
@@ -172,10 +172,10 @@ public class FacesConfigGenerator extends AbstractGenerator {
       applyNamespace(rootElement, namespace);
       final List<org.jdom2.Element> components = rootElement.getChildren(COMPONENT, namespace);
 
-      final List<org.jdom2.Element> newComponents = new ArrayList<org.jdom2.Element>();
-      final List<org.jdom2.Element> newRenderer = new ArrayList<org.jdom2.Element>();
-      final List<org.jdom2.Element> newConverters = new ArrayList<org.jdom2.Element>();
-      final List<org.jdom2.Element> newValidators = new ArrayList<org.jdom2.Element>();
+      final List<org.jdom2.Element> newComponents = new ArrayList<>();
+      final List<org.jdom2.Element> newRenderer = new ArrayList<>();
+      final List<org.jdom2.Element> newConverters = new ArrayList<>();
+      final List<org.jdom2.Element> newValidators = new ArrayList<>();
 
       for (final TypeElement element : getTypes()) {
         if (element.getAnnotation(UIComponentTag.class) != null) {
@@ -187,7 +187,7 @@ public class FacesConfigGenerator extends AbstractGenerator {
         }
       }
 
-      final List<org.jdom2.Element> elementsToAdd = new ArrayList<org.jdom2.Element>();
+      final List<org.jdom2.Element> elementsToAdd = new ArrayList<>();
       // sort out duplicates
       for (final org.jdom2.Element newElement : newComponents) {
         final boolean found = containsElement(components, newElement);
@@ -601,8 +601,8 @@ public class FacesConfigGenerator extends AbstractGenerator {
         if (element != null) {
           if (!containsElement(components, element)) {
             addFacets(componentTag, namespace, element);
-            final List<org.jdom2.Element> attributes = new ArrayList<org.jdom2.Element>();
-            final List<org.jdom2.Element> properties = new ArrayList<org.jdom2.Element>();
+            final List<org.jdom2.Element> attributes = new ArrayList<>();
+            final List<org.jdom2.Element> properties = new ArrayList<>();
             addAttributes(typeElement, attributes, properties, namespace);
             if (!attributes.isEmpty()) {
               attributes.sort(Comparator.comparing(d -> d.getChildText(ATTRIBUTE_NAME, namespace)));

@@ -74,10 +74,10 @@ public class ForEachController implements Serializable {
   }
 
   public String reset() {
-    rivers = new ArrayList<River>(Arrays.asList(
-            new River("Nile", 6853, 2830),
-            new River("Amazon", 6437, 209000),
-            new River("Yangtze", 6300, 30166)));
+    rivers = new ArrayList<>(Arrays.asList(
+        new River("Nile", 6853, 2830),
+        new River("Amazon", 6437, 209000),
+        new River("Yangtze", 6300, 30166)));
     resetInputFields();
     return null;
   }

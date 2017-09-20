@@ -96,14 +96,14 @@ import java.util.TreeSet;
 @Named
 public class EventController implements Serializable {
 
-  private List<EventsOnComponent> eventsOnComponents = new ArrayList<EventsOnComponent>();
+  private List<EventsOnComponent> eventsOnComponents = new ArrayList<>();
   private EventsOnComponent selectedComponent;
   private String eventName;
   private int action = 0;
   private int actionListener = 0;
   private int ajaxListener = 0;
   private int valueChangeListener = 0;
-  private List<SolarObject> planets = new ArrayList<SolarObject>();
+  private List<SolarObject> planets = new ArrayList<>();
 
   public EventController() {
     eventsOnComponents.add(new EventsOnComponent(new UIBar()));
@@ -240,7 +240,7 @@ public class EventController implements Serializable {
 
   public class EventsOnComponent {
     private final String tagName;
-    private final Collection<String> eventNames = new TreeSet<String>();
+    private final Collection<String> eventNames = new TreeSet<>();
 
     EventsOnComponent(UIComponentBase component) {
       final String simpleName = component.getClass().getSimpleName();
@@ -311,7 +311,7 @@ public class EventController implements Serializable {
     }
 
     public String getSpecialEvents() {
-      Set<String> specialEventNames = new TreeSet<String>();
+      Set<String> specialEventNames = new TreeSet<>();
 
       for (String eventName : eventNames) {
         boolean isSpecialEvent = true;

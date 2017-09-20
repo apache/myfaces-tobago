@@ -50,7 +50,7 @@ public class TobagoRenderKit extends RenderKit {
 
   private final RenderKit htmlBasicRenderKit;
 
-  private Map<Key, Renderer> renderers = new HashMap<Key, Renderer>();
+  private Map<Key, Renderer> renderers = new HashMap<>();
 
   public TobagoRenderKit() {
     RenderKitFactory rkFactory = (RenderKitFactory) FactoryFinder.getFactory(FactoryFinder.RENDER_KIT_FACTORY);

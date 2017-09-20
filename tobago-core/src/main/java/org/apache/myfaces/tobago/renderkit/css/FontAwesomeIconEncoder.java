@@ -48,7 +48,7 @@ public class FontAwesomeIconEncoder implements IconEncoder {
   private static final EnumMap<Icons, CssItem> ICONS;
 
   static {
-    ICONS = new EnumMap<Icons, CssItem>(Icons.class);
+    ICONS = new EnumMap<>(Icons.class);
     for (Icons icon : Icons.values()) {
       ICONS.put(icon, new FontAwesomeCssItem("fa-" + icon.name().toLowerCase().replaceAll("_", "-")));
     }

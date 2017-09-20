@@ -51,7 +51,7 @@ public class ClientConfigController {
     final FacesContext facesContext = FacesContext.getCurrentInstance();
     final TobagoConfig tobagoConfig = TobagoConfig.getInstance(facesContext);
 
-    final List<Theme> themes = new ArrayList<Theme>(tobagoConfig.getSupportedThemes());
+    final List<Theme> themes = new ArrayList<>(tobagoConfig.getSupportedThemes());
     themes.add(0, tobagoConfig.getDefaultTheme());
     themeItems = new SelectItem[themes.size()];
     for (int i = 0; i < themeItems.length; i++) {
@@ -125,7 +125,7 @@ public class ClientConfigController {
     final Iterator supportedLocales = application.getSupportedLocales();
 
     boolean defaultInList = false;
-    final List<SelectItem> localeItems = new ArrayList<SelectItem>();
+    final List<SelectItem> localeItems = new ArrayList<>();
     while (supportedLocales.hasNext()) {
       final Locale locale = (Locale) supportedLocales.next();
       localeItems.add(createLocaleItem(locale));

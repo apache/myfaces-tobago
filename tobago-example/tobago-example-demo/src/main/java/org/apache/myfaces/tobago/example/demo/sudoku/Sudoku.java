@@ -217,12 +217,12 @@ public class Sudoku {
 
     private RandomList(final byte n) {
       this.n = n;
-      list = new ArrayList<Byte>(n);
+      list = new ArrayList<>(n);
       shuffle();
     }
 
     public void shuffle() {
-      final List<Byte> temp = new ArrayList<Byte>(n);
+      final List<Byte> temp = new ArrayList<>(n);
       for (byte i = 0; i < n; i++) {
         temp.add(i, i);
       }
@@ -241,7 +241,7 @@ public class Sudoku {
     }
 
     public Stack<Byte> asStack() {
-      final Stack<Byte> stack = new Stack<Byte>();
+      final Stack<Byte> stack = new Stack<>();
       for (final Byte aByte : list) {
         stack.add(aByte);
       }

@@ -30,7 +30,7 @@ public class Shuttle implements Serializable {
   private List<String> value;
 
   public Shuttle() {
-    this.value = new ArrayList<String>();
+    this.value = new ArrayList<>();
   }
 
   public List<String> getValue() {

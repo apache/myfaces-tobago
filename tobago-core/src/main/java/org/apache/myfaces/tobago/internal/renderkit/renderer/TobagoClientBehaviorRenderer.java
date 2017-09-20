@@ -183,7 +183,7 @@ public class TobagoClientBehaviorRenderer extends javax.faces.render.ClientBehav
     //// BEGIN
 
     // XXX too complicated
-    final List<AbstractUIOperation> operations = new ArrayList<AbstractUIOperation>();
+    final List<AbstractUIOperation> operations = new ArrayList<>();
     for (final UIComponent child : component.getChildren()) {
       if (AbstractUIOperation.class.isAssignableFrom(child.getClass())) {
         operations.add((AbstractUIOperation) child);

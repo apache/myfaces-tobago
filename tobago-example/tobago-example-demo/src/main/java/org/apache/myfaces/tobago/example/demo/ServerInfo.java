@@ -90,7 +90,7 @@ public class ServerInfo {
   }
 
   public List<Map.Entry<Object, Object>> getSystemPropertiesAsList() {
-    return enabled ? new ArrayList<Map.Entry<Object, Object>>(getSystemProperties().entrySet()) : null;
+    return enabled ? new ArrayList<>(getSystemProperties().entrySet()) : null;
   }
 
   public String getVersion() {

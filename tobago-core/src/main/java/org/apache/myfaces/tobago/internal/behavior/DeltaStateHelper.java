@@ -175,7 +175,7 @@ class DeltaStateHelper<A extends EventBehavior> implements StateHelper {
   DeltaStateHelper(A target) {
     super();
     this.target = target;
-    fullState = new HashMap<Serializable, Object>();
+    fullState = new HashMap<>();
     deltas = null;
     //_stateHolderKeys = new HashSet<Serializable>();
   }
@@ -188,7 +188,7 @@ class DeltaStateHelper<A extends EventBehavior> implements StateHelper {
   private boolean createDeltas() {
     if (isInitialStateMarked()) {
       if (deltas == null) {
-        deltas = new HashMap<Serializable, Object>(2);
+        deltas = new HashMap<>(2);
       }
       return true;
     }
@@ -206,7 +206,7 @@ class DeltaStateHelper<A extends EventBehavior> implements StateHelper {
       Map<Object, Boolean> deltaListMapValues = (Map<Object, Boolean>) deltas
           .get(key);
       if (deltaListMapValues == null) {
-        deltaListMapValues = new DeltaStateHelper.InternalDeltaListMap<Object, Boolean>(
+        deltaListMapValues = new DeltaStateHelper.InternalDeltaListMap<>(
             3);
         deltas.put(key, deltaListMapValues);
       }
@@ -216,7 +216,7 @@ class DeltaStateHelper<A extends EventBehavior> implements StateHelper {
     //Handle change on full map
     List<Object> fullListValues = (List<Object>) fullState.get(key);
     if (fullListValues == null) {
-      fullListValues = new DeltaStateHelper.InternalList<Object>(3);
+      fullListValues = new DeltaStateHelper.InternalList<>(3);
       fullState.put(key, fullListValues);
     }
     fullListValues.add(value);
@@ -286,7 +286,7 @@ class DeltaStateHelper<A extends EventBehavior> implements StateHelper {
       Map<String, Object> mapValues = (Map<String, Object>) deltas
           .get(key);
       if (mapValues == null) {
-        mapValues = new DeltaStateHelper.InternalMap<String, Object>();
+        mapValues = new DeltaStateHelper.InternalMap<>();
         deltas.put(key, mapValues);
       }
       if (mapValues.containsKey(mapKey)) {
@@ -301,7 +301,7 @@ class DeltaStateHelper<A extends EventBehavior> implements StateHelper {
     Map<String, Object> mapValues = (Map<String, Object>) fullState
         .get(key);
     if (mapValues == null) {
-      mapValues = new DeltaStateHelper.InternalMap<String, Object>();
+      mapValues = new DeltaStateHelper.InternalMap<>();
       fullState.put(key, mapValues);
     }
     if (returnSet) {
@@ -708,7 +708,7 @@ class DeltaStateHelper<A extends EventBehavior> implements StateHelper {
 
       return new AttachedStateWrapper(attachedObject.getClass(), holder.saveState(context));
     } else if (attachedObject instanceof List) {
-      List<Object> lst = new ArrayList<Object>(((List<?>) attachedObject).size());
+      List<Object> lst = new ArrayList<>(((List<?>) attachedObject).size());
       for (Object item : (List<?>) attachedObject) {
         if (item != null) {
           lst.add(saveAttachedState(context, item));
@@ -732,7 +732,7 @@ class DeltaStateHelper<A extends EventBehavior> implements StateHelper {
     }
     if (stateObj instanceof AttachedListStateWrapper) {
       List<Object> lst = ((AttachedListStateWrapper) stateObj).getWrappedStateList();
-      List<Object> restoredList = new ArrayList<Object>(lst.size());
+      List<Object> restoredList = new ArrayList<>(lst.size());
       for (Object item : lst) {
         restoredList.add(restoreAttachedState(context, item));
       }

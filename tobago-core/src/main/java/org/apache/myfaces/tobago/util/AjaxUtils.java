@@ -65,7 +65,7 @@ public class AjaxUtils {
   }
 
   public static Set<String> getRenderIds(final FacesContext facesContext) {
-    return new HashSet<String>(facesContext.getPartialViewContext().getRenderIds());
+    return new HashSet<>(facesContext.getPartialViewContext().getRenderIds());
   }
 
   public static void navigate(FacesContext facesContext, Object outcome) {

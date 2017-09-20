@@ -46,7 +46,7 @@ public class ContentSecurityPolicy {
 
   public ContentSecurityPolicy(final String mode) {
     this.mode = Mode.parse(mode);
-    this.directiveMap = new HashMap<String, String>();
+    this.directiveMap = new HashMap<>();
   }
 
   public void merge(final ContentSecurityPolicy other) {

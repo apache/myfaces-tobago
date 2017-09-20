@@ -39,7 +39,7 @@ public class PopupReferenceController implements Serializable {
 
 
   public PopupReferenceController() {
-    sheet = new ArrayList<Entry>();
+    sheet = new ArrayList<>();
     for (int i = 0; i < 10; i++) {
       final Entry tmp = new Entry();
       tmp.setColumn1("cell__1__" + i);

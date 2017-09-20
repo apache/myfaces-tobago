@@ -83,7 +83,7 @@ public final class ColumnPartition implements Serializable {
   }
 
   private Integer[] createParts(List<Integer> summands) {
-    List<Integer> list = new ArrayList<Integer>();
+    List<Integer> list = new ArrayList<>();
     if (summands == null || summands.size() == 0) {
       return INTEGER_12;
     }

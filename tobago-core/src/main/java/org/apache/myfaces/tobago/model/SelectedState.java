@@ -29,7 +29,7 @@ import java.util.Set;
 // TODO: might be renamed to SelectedTreeState?
 public class SelectedState implements Serializable {
 
-  private Set<TreePath> selected = new HashSet<TreePath>();
+  private Set<TreePath> selected = new HashSet<>();
 
   /**
    * Checks if the given is selected.

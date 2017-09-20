@@ -31,10 +31,10 @@ import java.util.List;
 public final class ThemeResources implements Serializable {
 
   private final boolean production;
-  private final List<ThemeScript> scriptList = new ArrayList<ThemeScript>();
-  private final List<ThemeScript> scriptExcludes = new ArrayList<ThemeScript>();
-  private final List<ThemeStyle> styleList = new ArrayList<ThemeStyle>();
-  private final List<ThemeStyle> styleExcludes = new ArrayList<ThemeStyle>();
+  private final List<ThemeScript> scriptList = new ArrayList<>();
+  private final List<ThemeScript> scriptExcludes = new ArrayList<>();
+  private final List<ThemeStyle> styleList = new ArrayList<>();
+  private final List<ThemeStyle> styleExcludes = new ArrayList<>();
 
   public ThemeResources(boolean production) {
     this.production = production;

@@ -47,7 +47,7 @@ public class SheetController implements Serializable {
   }
 
   // Create a copy for sorting, because the LocaleList.DATA is not modifiable.
-  private List<LocaleEntry> localeList = new ArrayList<LocaleEntry>(LocaleList.DATA);
+  private List<LocaleEntry> localeList = new ArrayList<>(LocaleList.DATA);
 
   public SolarObject[] getSolarArray() {
     return solarArray;

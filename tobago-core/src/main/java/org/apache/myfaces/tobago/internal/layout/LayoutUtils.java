@@ -49,7 +49,7 @@ public final class LayoutUtils {
   }
 
   public static List<UIComponent> findLayoutChildren(final UIComponent container) {
-    final List<UIComponent> result = new ArrayList<UIComponent>();
+    final List<UIComponent> result = new ArrayList<>();
     addLayoutChildren(container, result);
     return result;
   }

@@ -27,7 +27,7 @@ public class ClassUtils {
   private static final Map<String, Class> PRIMITIVE_MAP;
 
   static {
-    PRIMITIVE_MAP = new HashMap<String, Class>(8);
+    PRIMITIVE_MAP = new HashMap<>(8);
     PRIMITIVE_MAP.put("boolean", Boolean.class);
     PRIMITIVE_MAP.put("byte", Byte.class);
     PRIMITIVE_MAP.put("char", Character.class);

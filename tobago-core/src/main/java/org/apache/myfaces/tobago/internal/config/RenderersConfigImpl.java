@@ -36,7 +36,7 @@ public class RenderersConfigImpl implements RenderersConfig, Serializable {
 
   private static final Logger LOG = LoggerFactory.getLogger(RenderersConfigImpl.class);
 
-  private Map<String, RendererConfig> rendererMap = new HashMap<String, RendererConfig>();
+  private Map<String, RendererConfig> rendererMap = new HashMap<>();
   private boolean merged = false;
 
   private boolean unmodifiable = false;
@@ -66,7 +66,7 @@ public class RenderersConfigImpl implements RenderersConfig, Serializable {
 
   @Override
   public List<RendererConfig> getRendererConfigs() {
-    final ArrayList<RendererConfig> result = new ArrayList<RendererConfig>();
+    final ArrayList<RendererConfig> result = new ArrayList<>();
     result.addAll(rendererMap.values());
     return result;
   }

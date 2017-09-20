@@ -25,7 +25,7 @@ import java.util.List;
 
 public class ScriptEvent implements Serializable {
 
-  private List<ScriptEventItem> items = new ArrayList<ScriptEventItem>();
+  private List<ScriptEventItem> items = new ArrayList<>();
 
   public void onLoad() {
     items.add(new ScriptEventItem("onload"));

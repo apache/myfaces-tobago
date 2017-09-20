@@ -64,7 +64,7 @@ public class AuthorizationHelper {
     }
   };
 
-  private final Map<String, Object> cache = new ConcurrentHashMap<String, Object>();
+  private final Map<String, Object> cache = new ConcurrentHashMap<>();
 
   private BeanManager beanManager;
 
@@ -215,7 +215,7 @@ public class AuthorizationHelper {
     }
 
     final Method[] methods = clazz.getMethods();
-    final List<Method> result = new ArrayList<Method>();
+    final List<Method> result = new ArrayList<>();
     for (Method method : methods) {
       if (method.getName().equals(name)) {
         result.add(method);

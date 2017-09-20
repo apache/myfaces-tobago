@@ -143,7 +143,7 @@ public class TobagoConfigParser extends TobagoConfigEntityResolver {
   public void startDocument() throws SAXException {
 
     buffer = new StringBuilder();
-    stack = new Stack<String>();
+    stack = new Stack<>();
   }
 
   @Override
