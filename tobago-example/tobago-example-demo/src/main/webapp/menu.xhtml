@@ -65,10 +65,13 @@
               <tc:dataAttribute name="alert-text"
                                 value="#{demoBundle.pageTitle} - #{info.version} - #{demoBundle.tobago_url}"/>
             </tc:link>
-            <tc:link link="http://myfaces.apache.org/tobago" label="Tobago in the Web"/>
+            <tc:link omit="true" label="Client Info" id="headerInfo">
+              <tc:operation name="show" for=":::info"/>
+            </tc:link>
             <tc:link action="/server-info.xhtml" immediate="true" label="Server Info" disabled="#{! info.enabled}"/>
             <tc:link action="/logging-info.xhtml" immediate="true" label="Logging Info"
                         disabled="#{! info.enabled}"/>
+            <tc:link link="http://myfaces.apache.org/tobago" label="Tobago in the Web"/>
             <tc:separator/>
             <tc:link label="Sub-Menu" omit="true">
               <tc:link label="Sub 1" omit="true"/>
@@ -85,17 +88,6 @@
             </tc:link>
           </tc:link>
 
-          <!-- TBD: this is not nice: can we put tc:out or tc:label into the menu?
-          or we do that with a popup, oder a lighter variant of a popup -->
-          <tc:link omit="true" label="Info" id="headerInfo">
-            <tc:link omit="true" label="Theme: #{clientConfigController.localizedTheme}" disabled="true"/>
-            <tc:link omit="true" label="Locale: #{clientConfigController.localizedLocale}"/>
-            <tc:link omit="true" label="Project Stage: #{facesContext.application.projectStage}"/>
-            <tc:link omit="true" label="CSP mode: #{tobagoContext.tobagoConfig.contentSecurityPolicy.mode}"/>
-            <tc:link omit="true"
-                        label="Requests: #{activityList.values[0].jsfRequest} / AJAX: #{activityList.values[0].ajaxRequest}"/>
-          </tc:link>
-
           <tc:link label="#{demoBundle.menu_test}" omit="true">
             <tc:link id="runtest" label="#{demoBundle.menu_runTest}" outcome="/test.xhtml"
                      immediate="true" disabled="#{!testController.hasTest()}">
@@ -109,6 +101,7 @@
           </tc:link>
 
         </tc:links>
+
       </tc:form>
 
       <f:facet name="after">
