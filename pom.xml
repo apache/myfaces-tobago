@@ -42,7 +42,6 @@
     <mojarra23.version>2.3.2</mojarra23.version>
     <slf4j.version>1.7.25</slf4j.version>
     <logback.version>1.2.3</logback.version>
-    <commons-collection.version>4.1</commons-collection.version>
     <maven.compile.source>1.8</maven.compile.source>
     <maven.compile.target>1.8</maven.compile.target>
     <maven.compile.encoding>UTF-8</maven.compile.encoding>
@@ -207,7 +206,6 @@
           <links>
             <link>http://docs.oracle.com/javase/6/docs/api/</link>
             <link>http://docs.oracle.com/javaee/6/api/</link>
-            <link>https://commons.apache.org/proper/commons-collections/javadocs/api-release/</link>
             <link>http://www.slf4j.org/apidocs</link>
             <link>http://junit.sourceforge.net/javadoc/</link>
             <link>http://logback.qos.ch/apidocs/</link>
@@ -445,11 +443,6 @@
         <groupId>commons-beanutils</groupId>
         <artifactId>commons-beanutils</artifactId>
         <version>1.9.3</version>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.commons</groupId>
-        <artifactId>commons-collections4</artifactId>
-        <version>${commons-collection.version}</version>
       </dependency>
       <dependency>
         <groupId>commons-codec</groupId>

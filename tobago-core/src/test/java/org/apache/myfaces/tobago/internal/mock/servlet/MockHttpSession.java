@@ -19,14 +19,13 @@
 
 package org.apache.myfaces.tobago.internal.mock.servlet;
 
-import org.apache.commons.collections4.iterators.IteratorEnumeration;
-
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpSessionContext;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Vector;
 
 public class MockHttpSession implements HttpSession {
 
@@ -39,7 +38,7 @@ public class MockHttpSession implements HttpSession {
 
   @Override
   public Enumeration<String> getAttributeNames() {
-    return new IteratorEnumeration(attributes.keySet().iterator());
+    return new Vector(attributes.keySet()).elements();
   }
 
   @Override

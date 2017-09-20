@@ -19,7 +19,6 @@
 
 package org.apache.myfaces.tobago.internal.config;
 
-import org.apache.commons.collections4.CollectionUtils;
 import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,6 +31,7 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.List;
 
 public class TobagoConfigBuilder {
@@ -104,10 +104,9 @@ public class TobagoConfigBuilder {
         LOG.info("Searching for '" + META_INF_TOBAGO_CONFIG_XML + "'");
       }
       final ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-      final List<URL> urls = new ArrayList<>();
-      CollectionUtils.addAll(urls, classLoader.getResources(META_INF_TOBAGO_CONFIG_XML));
-
-      for (final URL themeUrl : urls) {
+      final Enumeration<URL> urls = classLoader.getResources(META_INF_TOBAGO_CONFIG_XML);
+      while (urls.hasMoreElements()) {
+        final URL themeUrl = urls.nextElement();
         try {
           final TobagoConfigFragment fragment = new TobagoConfigParser().parse(themeUrl);
           fragment.setUrl(themeUrl);

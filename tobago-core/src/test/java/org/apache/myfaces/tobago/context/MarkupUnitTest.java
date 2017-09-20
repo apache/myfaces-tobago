@@ -19,11 +19,13 @@
 
 package org.apache.myfaces.tobago.context;
 
-import org.apache.commons.collections4.IteratorUtils;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
+import java.util.List;
 
 public class MarkupUnitTest {
   
@@ -33,13 +35,13 @@ public class MarkupUnitTest {
   public void testString() {
     Assert.assertNull(Markup.valueOf((String) null));
     
-    Assert.assertArrayEquals(new String[] {"accent"}, IteratorUtils.toArray(Markup.valueOf("accent").iterator()));
+    Assert.assertArrayEquals(new String[] {"accent"}, toArray(Markup.valueOf("accent").iterator()));
     
-    Assert.assertArrayEquals(AB, IteratorUtils.toArray(Markup.valueOf("a,b").iterator()));
+    Assert.assertArrayEquals(AB, toArray(Markup.valueOf("a,b").iterator()));
     
-    Assert.assertArrayEquals(AB, IteratorUtils.toArray(Markup.valueOf("a, b").iterator()));
+    Assert.assertArrayEquals(AB, toArray(Markup.valueOf("a, b").iterator()));
     
-    Assert.assertArrayEquals(AB, IteratorUtils.toArray(Markup.valueOf(", \ta , ,\n b ,").iterator()));
+    Assert.assertArrayEquals(AB, toArray(Markup.valueOf(", \ta , ,\n b ,").iterator()));
   }
   
   @Test
@@ -48,27 +50,27 @@ public class MarkupUnitTest {
     
     Assert.assertNull(Markup.valueOf(new String[] {}));
     
-    Assert.assertArrayEquals(AB, IteratorUtils.toArray(Markup.valueOf(new String[] {"a", "b"}).iterator()));
+    Assert.assertArrayEquals(AB, toArray(Markup.valueOf(new String[] {"a", "b"}).iterator()));
     
-    Assert.assertArrayEquals(AB, IteratorUtils.toArray(Markup.valueOf(new String[] {" a ", " b "}).iterator()));
+    Assert.assertArrayEquals(AB, toArray(Markup.valueOf(new String[] {" a ", " b "}).iterator()));
   }
   
   @Test
   public void testObject() {
     Assert.assertNull(Markup.valueOf((Object) null));
 
-    Assert.assertArrayEquals(AB, IteratorUtils.toArray(Markup.valueOf((Object) ", \ta , ,\n b ,").iterator()));
+    Assert.assertArrayEquals(AB, toArray(Markup.valueOf((Object) ", \ta , ,\n b ,").iterator()));
 
-    Assert.assertArrayEquals(AB, IteratorUtils.toArray(Markup.valueOf((Object) new String[] {"a", "b"}).iterator()));
+    Assert.assertArrayEquals(AB, toArray(Markup.valueOf((Object) new String[] {"a", "b"}).iterator()));
     
     Assert.assertArrayEquals(AB,
-        IteratorUtils.toArray(Markup.valueOf((Object) new String[] {" a ", " b "}).iterator()));
+        toArray(Markup.valueOf((Object) new String[] {" a ", " b "}).iterator()));
     
-    Assert.assertArrayEquals(AB, IteratorUtils.toArray(Markup.valueOf(new StringBuilder("a, b")).iterator()));
+    Assert.assertArrayEquals(AB, toArray(Markup.valueOf(new StringBuilder("a, b")).iterator()));
     
-    Assert.assertArrayEquals(AB, IteratorUtils.toArray(Markup.valueOf(AB).iterator()));
+    Assert.assertArrayEquals(AB, toArray(Markup.valueOf(AB).iterator()));
     
-    Assert.assertArrayEquals(AB, IteratorUtils.toArray(Markup.valueOf(Arrays.asList(AB)).iterator()));
+    Assert.assertArrayEquals(AB, toArray(Markup.valueOf(Arrays.asList(AB)).iterator()));
   }
   
   @Test
@@ -145,4 +147,13 @@ public class MarkupUnitTest {
     Assert.assertFalse(ab.contains(Markup.valueOf("a,c")));
     Assert.assertFalse(ab.contains(Markup.valueOf("a,c,d,e,c,f,e,f")));
   }
+
+  public static Object[] toArray(final Iterator<?> iterator) {
+    final List<Object> list = new ArrayList<Object>(10);
+    while (iterator.hasNext()) {
+        list.add(iterator.next());
+    }
+    return list.toArray();
+  }
+
 }
