@@ -23,7 +23,7 @@ services:
     links:
       - demo-4-snapshot
       - demo-3-snapshot
-      - demo-3-staging
+#      - demo-3-staging
       - demo-3-release
       - demo-2-snapshot
 #      - demo-2-staging
@@ -33,7 +33,7 @@ services:
     depends_on:
       - demo-4-snapshot
       - demo-3-snapshot
-      - demo-3-staging
+#      - demo-3-staging
       - demo-3-release
       - demo-2-snapshot
 #      - demo-2-staging
@@ -54,18 +54,18 @@ services:
       - CONTEXT_PATH=demo-3-snapshot
     volumes:
       - /opt/docker/artifacts:/opt/docker/artifacts
-  demo-3-staging:
-    image: tobago/tomcat:latest
-    environment:
-      - TOBAGO_VERSION=3.0.6
-      - STAGING_NUMBER=1118
-      - CONTEXT_PATH=demo-3-staging
-    volumes:
-      - /opt/docker/artifacts:/opt/docker/artifacts
+#  demo-3-staging:
+#    image: tobago/tomcat:latest
+#    environment:
+#      - TOBAGO_VERSION=3.0.6
+#      - STAGING_NUMBER=1118
+#      - CONTEXT_PATH=demo-3-staging
+#    volumes:
+#      - /opt/docker/artifacts:/opt/docker/artifacts
   demo-3-release:
     image: tobago/tomcat:latest
     environment:
-      - TOBAGO_VERSION=3.0.5
+      - TOBAGO_VERSION=3.0.6
       - CONTEXT_PATH=demo-3-release
     volumes:
       - /opt/docker/artifacts:/opt/docker/artifacts
