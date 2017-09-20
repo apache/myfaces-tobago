@@ -85,6 +85,7 @@
            </goals>
           </execution>
           <execution>
+            <id>default-jar</id>
             <goals>
              <goal>jar</goal>
            </goals>
