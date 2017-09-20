@@ -119,13 +119,17 @@ public class JsonUtilsUnitTest extends AbstractTobagoTestBase {
   public void monthNames() {
     final DateTimeI18n dateTimeI18n = DateTimeI18n.valueOf(Locale.GERMANY);
     final String marchShort = dateTimeI18n.getMonthNamesShort()[2]; // different with JDK 1.8.0_51 and 1.8.0_60
+    final String[] dayNamesShort = dateTimeI18n.getDayNamesShort(); // different with JDK 1.8.0 and 1.9.0
+    final String[] dayNamesMin = dateTimeI18n.getDayNamesMin(); // different with JDK 1.8.0 and 1.9.0
     final String expected
         = ("{'monthNames':['Januar','Februar','März','April','Mai','Juni',"
         + "'Juli','August','September','Oktober','November','Dezember'],"
         + "'monthNamesShort':['Jan','Feb','" + marchShort + "','Apr','Mai','Jun','Jul','Aug','Sep','Okt','Nov','Dez'],"
         + "'dayNames':['Sonntag','Montag','Dienstag','Mittwoch','Donnerstag','Freitag','Samstag'],"
-        + "'dayNamesShort':['So','Mo','Di','Mi','Do','Fr','Sa'],"
-        + "'dayNamesMin':['So','Mo','Di','Mi','Do','Fr','Sa'],"
+        + "'dayNamesShort':['" + dayNamesShort[0] + "','" + dayNamesShort[1] + "','" + dayNamesShort[2] + "','"
+        + dayNamesShort[3] + "','" + dayNamesShort[4] + "','" + dayNamesShort[5] + "','" + dayNamesShort[6] + "'],"
+        + "'dayNamesMin':['" + dayNamesMin[0] + "','" + dayNamesMin[1] + "','" + dayNamesMin[2] + "','"
+        + dayNamesMin[3] + "','" + dayNamesMin[4] + "','" + dayNamesMin[5] + "','" + dayNamesMin[6] + "'],"
         + "'firstDay':1}").replaceAll("'", "\"");
 
     Assert.assertEquals(expected, JsonUtils.encode(dateTimeI18n));
