@@ -19,19 +19,20 @@
 
 <ui:composition template="/main.xhtml"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
-                xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:demo="http://myfaces.apache.org/tobago/example/demo">
+                xmlns:ui="http://java.sun.com/jsf/facelets">
   <ui:param name="title" value="Loading Facelets from JARs"/>
   <tc:panel>
 
     <p>
-      <span class="#{demo:bootstrapClass('BADGE')} #{demo:bootstrapClass('BADGE_DANGER')}">Warning!</span>
-      <b>This page is out of date. This is no longer needed with Servlet 3.0.</b>
+      This example demonstrates how to load parts of the view of an application from a library JAR file.
+      The content has to reside in the <code>/META-INF/resources</code> directory of the JAR.
     </p>
 
-    <tc:out value="#{demoBundle.faceletsAsResources_text}"/>
+    <p>
+      The content of this box is included from the tobago-example-data JAR.
+    </p>
 
-    <tc:box label="This content is included from a JAR.">
+    <tc:box label="Included content">
 
       <ui:include src="/data/edit-solar.xhtml"/>
 

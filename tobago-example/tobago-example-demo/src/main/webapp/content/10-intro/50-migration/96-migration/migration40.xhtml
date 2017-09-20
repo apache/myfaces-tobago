@@ -31,12 +31,14 @@
     </p>
 
     <ul>
-      <li>Tag library</li>
-      <li>CSS / Bootstrap</li>
-      <li>Theme building</li>
+      <li><tc:link link="" fragment="page:mainForm:taglib" label="Tag library"/></li>
+      <li><tc:link link="" fragment="page:mainForm:css" label="CSS / Bootstrap"/></li>
+      <li><tc:link link="" fragment="page:mainForm:theme" label="Theme building"/></li>
+      <li><tc:link link="" fragment="page:mainForm:crlf" label="CRLF in textarea"/></li>
+      <li><tc:link link="" fragment="page:mainForm:resourceResolver" label="Removed class: MetaInfResourcesClasspathResourceResolver"/></li>
     </ul>
 
-    <tc:section label="Tag Library">
+    <tc:section id="taglib" label="Tag Library">
 
       <tc:section label="ViewId over attribute &quot;link&quot;">
         <p>
@@ -100,7 +102,7 @@
       </tc:section>
     </tc:section>
 
-    <tc:section label="CSS / Bootstrap">
+    <tc:section id="css" label="CSS / Bootstrap">
       <p>
         The included Bootstrap CSS library has been updated from
         <tc:link link="http://blog.getbootstrap.com/2016/10/19/bootstrap-4-alpha-5/" label="v4.0.0-alpha.5"/> to
@@ -126,7 +128,7 @@
       </p>
     </tc:section>
 
-    <tc:section label="Theme building">
+    <tc:section id="theme" label="Theme building">
       <p>
         Building a theme is in general compatible, but if using the build mechanism of Tobago
         (defined in the pom.xml of tobago-theme) it can be better automated.
@@ -135,12 +137,27 @@
       </p>
     </tc:section>
 
-    <tc:section label="CRLF in textarea">
+    <tc:section id="crlf" label="CRLF in textarea">
       <p>
         CRLF in textarea will be converted to LF automatically to avoid inconsistencies with length validation.
         If you need the old behaviour, set <code>&lt;decode-line-feed>false&lt;/decode-line-feed></code>
         in the <code>tobago-config.xml</code>.
       </p>
+    </tc:section>
+
+    <tc:section id="resourceResolver" label="Removed class: MetaInfResourcesClasspathResourceResolver">
+      <p>
+        The deprecated class <code>org.apache.myfaces.tobago.facelets.MetaInfResourcesClasspathResourceResolver</code>
+        has been removed, because it was no longer needed since Servelt 3.0.
+        You may remove this context parameter in your <code>web.xml</code>.
+      </p>
+
+      <pre><code class="language-markup">&lt;context-param>
+    &lt;param-name>javax.faces.FACELETS_RESOURCE_RESOLVER&lt;/param-name>
+    &lt;param-value>org.apache.myfaces.tobago.facelets.MetaInfResourcesClasspathResourceResolver&lt;/param-value>
+&lt;/context-param>
+</code></pre>
+
     </tc:section>
 
 

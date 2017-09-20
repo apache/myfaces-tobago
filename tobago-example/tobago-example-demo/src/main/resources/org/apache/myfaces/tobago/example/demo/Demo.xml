@@ -404,18 +404,6 @@
     The iterated components are on top of each other in the HTML document,
     because they got have all the same position attributes.&lt;br/></entry>
 
-  <!-- faceletsAsResources -->
-  <entry key="faceletsAsResources_text">
-    This example demonstrates how to load parts of the view of an application from a library jar file.
-    You have to define a context parameter in the web.xml:
-
-    &lt;context-param>
-      &lt;param-name>javax.faces.FACELETS_RESOURCE_RESOLVER&lt;/param-name>
-      &lt;param-value>org.apache.myfaces.tobago.facelets.MetaInfResourcesClasspathResourceResolver&lt;/param-value>
-    &lt;/context-param>
-
-    The content has to reside in the /META-INF/resources directory.</entry>
-
   <entry key="format1">The equatorial radius of the sun is {0} km.</entry>
   <entry key="format3">The temperature of the sun is {0} K on the surface, but {1} K in the center and {2} K in the corona.</entry>
   <entry key="format9">Just reordering: {4} - {1} - {6} - {8} - {5} - {3} - {0} - {7} - {2}</entry>
