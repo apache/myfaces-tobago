@@ -605,23 +605,11 @@ public class FacesConfigGenerator extends AbstractGenerator {
             final List<org.jdom2.Element> properties = new ArrayList<org.jdom2.Element>();
             addAttributes(typeElement, attributes, properties, namespace);
             if (!attributes.isEmpty()) {
-              Collections.sort(attributes, new Comparator<org.jdom2.Element>() {
-                @Override
-                public int compare(final org.jdom2.Element d1, final org.jdom2.Element d2) {
-                  return d1.getChildText(ATTRIBUTE_NAME, namespace).compareTo(
-                      d2.getChildText(ATTRIBUTE_NAME, namespace));
-                }
-              });
+              attributes.sort(Comparator.comparing(d -> d.getChildText(ATTRIBUTE_NAME, namespace)));
               element.addContent(attributes);
             }
             if (!properties.isEmpty()) {
-              Collections.sort(properties, new Comparator<org.jdom2.Element>() {
-                @Override
-                public int compare(final org.jdom2.Element d1, final org.jdom2.Element d2) {
-                  return d1.getChildText(PROPERTY_NAME, namespace).compareTo(
-                      d2.getChildText(PROPERTY_NAME, namespace));
-                }
-              });
+              properties.sort(Comparator.comparing(d -> d.getChildText(PROPERTY_NAME, namespace)));
               element.addContent(properties);
             }
             element.addContent(createElementExtension(typeElement, componentTag, namespace));

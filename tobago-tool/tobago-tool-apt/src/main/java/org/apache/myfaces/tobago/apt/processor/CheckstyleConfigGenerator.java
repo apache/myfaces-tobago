@@ -52,7 +52,6 @@ import javax.xml.transform.stream.StreamResult;
 import java.io.IOException;
 import java.io.Writer;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
@@ -279,12 +278,7 @@ public class CheckstyleConfigGenerator extends AbstractGenerator {
   private List<? extends javax.lang.model.element.Element> getAllMembers(final TypeElement type) {
     final List<? extends javax.lang.model.element.Element> members
         = new ArrayList<javax.lang.model.element.Element>(processingEnv.getElementUtils().getAllMembers(type));
-    Collections.sort(members, new Comparator<javax.lang.model.element.Element>() {
-      @Override
-      public int compare(final javax.lang.model.element.Element d1, final javax.lang.model.element.Element d2) {
-        return d1.getSimpleName().toString().compareTo(d2.getSimpleName().toString());
-      }
-    });
+    members.sort(Comparator.comparing(d -> d.getSimpleName().toString()));
     return members;
   }
 

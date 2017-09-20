@@ -19,7 +19,6 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
-import org.apache.commons.collections4.iterators.SingletonIterator;
 import org.apache.myfaces.tobago.component.Visual;
 import org.apache.myfaces.tobago.layout.OrderBy;
 
@@ -27,7 +26,6 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 
@@ -41,9 +39,9 @@ public abstract class AbstractUIMessages extends javax.faces.component.UIMessage
 
     final Iterator clientIds;
     if (isGlobalOnly()) {
-      clientIds = new SingletonIterator(null);
+      clientIds = Collections.singleton(null).iterator();
     } else if (getFor() != null) {
-      clientIds = new SingletonIterator(getFor());
+      clientIds = Collections.singleton(getFor()).iterator();
     } else {
       clientIds = facesContext.getClientIdsWithMessages();
     }
@@ -52,8 +50,8 @@ public abstract class AbstractUIMessages extends javax.faces.component.UIMessage
 
     // todo
     if (OrderBy.severity == getOrderBy()) {
-      // sort
-      Collections.sort(messages, new ItemComparator());
+      messages.sort((d1, d2)
+          -> d2.getFacesMessage().getSeverity().getOrdinal() - d1.getFacesMessage().getSeverity().getOrdinal());
     }
     return messages;
   }
@@ -104,13 +102,6 @@ public abstract class AbstractUIMessages extends javax.faces.component.UIMessage
 
     public void setFacesMessage(final FacesMessage facesMessage) {
       this.facesMessage = facesMessage;
-    }
-  }
-
-  public static class ItemComparator implements Comparator<Item> {
-    @Override
-    public int compare(final Item item1, final Item item2) {
-      return item2.getFacesMessage().getSeverity().getOrdinal() - item1.getFacesMessage().getSeverity().getOrdinal();
     }
   }
 

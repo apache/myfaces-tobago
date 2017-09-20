@@ -31,7 +31,6 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
@@ -76,12 +75,7 @@ public abstract class AbstractGenerator extends AbstractProcessor {
       }
     }
 
-    Collections.sort(types, new Comparator<TypeElement>() {
-      @Override
-      public int compare(final TypeElement d1, final TypeElement d2) {
-        return d1.getSimpleName().toString().compareTo(d2.getSimpleName().toString());
-      }
-    });
+    types.sort(Comparator.comparing(d -> d.getSimpleName().toString()));
 
     configure();
 

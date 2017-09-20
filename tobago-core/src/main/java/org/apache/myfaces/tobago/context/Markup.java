@@ -19,15 +19,13 @@
 
 package org.apache.myfaces.tobago.context;
 
-import org.apache.commons.collections4.iterators.EmptyIterator;
-import org.apache.commons.collections4.iterators.ObjectArrayIterator;
-import org.apache.commons.collections4.iterators.SingletonIterator;
 import org.apache.myfaces.tobago.internal.util.ArrayUtils;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
@@ -96,13 +94,19 @@ public final class Markup implements Serializable, Iterable<String> {
   public static final Markup RIGHT = valueOf("right");
   public static final Markup SECONDS = valueOf("seconds");
   public static final Markup SELECTED = valueOf("selected");
-  /** @deprecated since 3.0.4 */
+  /**
+   * @deprecated since 3.0.4
+   */
   @Deprecated
   public static final Markup SHEET_SELECT_ALL = valueOf("sheetSelectAll");
-  /** @deprecated since 3.0.4 */
+  /**
+   * @deprecated since 3.0.4
+   */
   @Deprecated
   public static final Markup SHEET_DESELECT_ALL = valueOf("sheetDeselectAll");
-  /** @deprecated since 3.0.4 */
+  /**
+   * @deprecated since 3.0.4
+   */
   @Deprecated
   public static final Markup SHEET_TOGGLE_ALL = valueOf("sheetToggleAll");
   public static final Markup SMALL = valueOf("small");
@@ -210,12 +214,12 @@ public final class Markup implements Serializable, Iterable<String> {
   @Override
   public Iterator<String> iterator() {
     if (value != null) {
-      return new SingletonIterator(value);
+      return Collections.singleton(value).iterator();
     }
     if (values != null) {
-      return new ObjectArrayIterator(values);
+      return Arrays.asList(values).iterator();
     }
-    return EmptyIterator.INSTANCE;
+    return Collections.emptyIterator();
   }
 
   /**

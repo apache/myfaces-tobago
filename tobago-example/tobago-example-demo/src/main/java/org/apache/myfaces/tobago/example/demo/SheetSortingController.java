@@ -56,36 +56,14 @@ public class SheetSortingController extends SheetController implements Serializa
 
     LOG.info("Sorting column '{}'", columnId);
 
-    Comparator<SolarObject> comparator = null;
-
     if ("customColumnName".equals(columnId)) {
-      comparator = new Comparator<SolarObject>() {
-        @Override
-        public int compare(final SolarObject o1, final SolarObject o2) {
-          return o1.getName().compareToIgnoreCase(o2.getName());
-        }
-      };
+      list.sort(Comparator.comparing(SolarObject::getName, String.CASE_INSENSITIVE_ORDER));
     } else if ("customColumnPeriod".equals(columnId)) {
-      comparator = new Comparator<SolarObject>() {
-        @Override
-        public int compare(final SolarObject o1, final SolarObject o2) {
-          Double period1 = Math.abs(o1.getPeriod());
-          Double period2 = Math.abs(o2.getPeriod());
-          return period1.compareTo(period2);
-        }
-      };
+      list.sort(Comparator.comparing(d -> Math.abs(d.getPeriod())));
     } else if ("customColumnYear".equals(columnId)) {
-      comparator = new Comparator<SolarObject>() {
-        @Override
-        public int compare(final SolarObject o1, final SolarObject o2) {
-          Integer discoverYear1 = o1.getDiscoverYear() != null ? o1.getDiscoverYear() : 0;
-          Integer discoverYear2 = o2.getDiscoverYear() != null ? o2.getDiscoverYear() : 0;
-          return discoverYear1.compareTo(discoverYear2);
-        }
-      };
+      list.sort(Comparator.comparing(d -> d.getDiscoverYear() != null ? d.getDiscoverYear() : 0));
     }
 
-    Collections.sort(list, comparator);
     if (!sheetState.isAscending()) {
       Collections.reverse(list);
     }
