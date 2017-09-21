@@ -28,7 +28,6 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 import java.util.Collections;
-import java.util.List;
 
 public class PrettyUrlForMenuNavigationHandler extends NavigationHandler {
 
@@ -49,7 +48,7 @@ public class PrettyUrlForMenuNavigationHandler extends NavigationHandler {
       try {
         externalContext.redirect(
             externalContext.encodeRedirectURL(externalContext.getRequestContextPath() + outcome,
-            Collections.<String, List<String>>emptyMap()));
+            Collections.emptyMap()));
       } catch (final IOException e) {
         // not nice?
         facesContext.renderResponse();

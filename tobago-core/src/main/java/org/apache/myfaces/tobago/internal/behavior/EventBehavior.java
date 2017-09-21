@@ -274,7 +274,7 @@ public class EventBehavior extends ClientBehaviorBase {
   private Collection<String> evalForCollection(String attributeName) {
     Object value = getStateHelper().eval(attributeName);
     if (value == null) {
-      return Collections.<String>emptyList();
+      return Collections.emptyList();
     } else if (value instanceof Collection) {
       return (Collection<String>) value;
     } else if (value instanceof String) {

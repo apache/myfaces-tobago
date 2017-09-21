@@ -155,7 +155,7 @@ public class SuggestRenderer extends RendererBase {
             + "Elements needs to be " + String.class.getName() + " or " + AutoSuggestItem.class.getName());
       }
     } else {
-      autoSuggestItems.setItems(Collections.<AutoSuggestItem>emptyList());
+      autoSuggestItems.setItems(Collections.emptyList());
     }
     return autoSuggestItems;
   }

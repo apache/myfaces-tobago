@@ -29,7 +29,6 @@ import org.apache.myfaces.tobago.component.UIOut;
 import org.apache.myfaces.tobago.component.UIPanel;
 import org.apache.myfaces.tobago.component.UIPopup;
 import org.apache.myfaces.tobago.config.TobagoConfig;
-import org.apache.myfaces.tobago.context.Theme;
 import org.apache.myfaces.tobago.context.ThemeImpl;
 import org.apache.myfaces.tobago.context.TobagoContext;
 import org.apache.myfaces.tobago.internal.mock.faces.MockTheme;
@@ -77,8 +76,8 @@ public abstract class AbstractTobagoTestBase extends AbstractJsfTestCase {
     // Tobago specific extensions
 
     final TobagoConfigImpl tobagoConfig = TobagoConfigMergingUnitTest.loadAndMerge("tobago-config-for-unit-tests.xml");
-    final ThemeImpl theme = new MockTheme("default", "Default Mock Theme", Collections.<Theme>emptyList());
-    final ThemeImpl one = new MockTheme("one", "Mock Theme One", Collections.singletonList((Theme) theme));
+    final ThemeImpl theme = new MockTheme("default", "Default Mock Theme", Collections.emptyList());
+    final ThemeImpl one = new MockTheme("one", "Mock Theme One", Collections.singletonList(theme));
     tobagoConfig.addAvailableTheme(theme);
     tobagoConfig.addAvailableTheme(one);
     tobagoConfig.resolveThemes();

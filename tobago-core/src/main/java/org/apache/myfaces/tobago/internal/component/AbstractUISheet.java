@@ -315,7 +315,7 @@ public abstract class AbstractUISheet extends AbstractUIData
     final SheetState state = getSheetState(context);
     if (state != null) {
       final List<Integer> list = (List<Integer>) ComponentUtils.getAttribute(this, Attributes.selectedListString);
-      state.setSelectedRows(list != null ? list : Collections.<Integer>emptyList());
+      state.setSelectedRows(list != null ? list : Collections.emptyList());
       ComponentUtils.removeAttribute(this, Attributes.selectedListString);
       ComponentUtils.removeAttribute(this, Attributes.scrollPosition);
     }

@@ -64,7 +64,7 @@ public class TobagoBundle extends ResourceBundle {
 
   @Override
   public Enumeration<String> getKeys() {
-    return Collections.enumeration(Collections.<String>emptyList());
+    return Collections.enumeration(Collections.emptyList());
   }
 
   public String getBundleName() {

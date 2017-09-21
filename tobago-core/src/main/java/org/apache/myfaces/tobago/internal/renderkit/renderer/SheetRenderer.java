@@ -227,11 +227,11 @@ public class SheetRenderer extends RendererBase {
     final List<AbstractUIColumnBase> columns = sheet.getAllColumns();
     final boolean autoLayout = sheet.isAutoLayout();
 
-    ensureColumnWidthsSize(columnWidths, columns, Collections.<Integer>emptyList());
+    ensureColumnWidthsSize(columnWidths, columns, Collections.emptyList());
 
     if (!autoLayout) {
       encodeHiddenInput(writer,
-          JsonUtils.encode(definedColumnWidths ? columnWidths : Collections.<Integer>emptyList()),
+          JsonUtils.encode(definedColumnWidths ? columnWidths : Collections.emptyList()),
           sheetId + SUFFIX_WIDTHS);
 
       final ArrayList<String> encodedRendered = new ArrayList<>();

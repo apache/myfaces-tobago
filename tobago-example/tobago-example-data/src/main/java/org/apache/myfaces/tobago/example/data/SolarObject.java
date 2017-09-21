@@ -183,7 +183,7 @@ public class SolarObject {
   }
 
   public List<Element> getChemicalComposition() {
-    return chemicalComposition != null ? chemicalComposition : Collections.<Element>emptyList();
+    return chemicalComposition != null ? chemicalComposition : Collections.emptyList();
   }
 
   public void setChemicalComposition(final List<Element> chemicalComposition) {
