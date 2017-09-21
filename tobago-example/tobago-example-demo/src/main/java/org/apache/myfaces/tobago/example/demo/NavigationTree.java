@@ -69,7 +69,6 @@ public class NavigationTree implements Serializable {
     servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
     final List<String> list = locateResourcesInWar(servletContext, "/content", new ArrayList<>());
 
-    list.add("/content/root-dummy.xhtml"); // helps to build the tree, this is not an existing file
     final List<NavigationNode> nodes = new ArrayList<>();
     for (final String path : list) {
 

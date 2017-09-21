@@ -19,6 +19,8 @@
 
 package org.apache.myfaces.tobago.example.demo;
 
+import org.apache.myfaces.tobago.internal.component.AbstractUIPage;
+import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.util.VariableResolverUtils;
 
 import javax.faces.component.UIViewRoot;
@@ -54,7 +56,7 @@ public class SynchronizeNavigationPhaseListener implements PhaseListener {
     final FacesContext facesContext = FacesContext.getCurrentInstance();
     final UIViewRoot viewRoot = facesContext.getViewRoot();
     // in case of direct links the ViewRoot is empty after "restore view".
-    if (viewRoot != null && viewRoot.getChildCount() == 0) {
+    if (viewRoot != null && ComponentUtils.findChild(viewRoot, AbstractUIPage.class) == null) {
       final String viewId = viewRoot.getViewId();
       final NavigationTree navigation
           = (NavigationTree) VariableResolverUtils.resolveVariable(facesContext, "navigationTree");
