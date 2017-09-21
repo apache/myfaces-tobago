@@ -43,8 +43,8 @@ public class SheetPageCommandRenderer extends LinkRenderer {
     final String sourceId = facesContext.getExternalContext().getRequestParameterMap().get("javax.faces.source");
     final String clientId = component.getClientId(facesContext);
     if (LOG.isDebugEnabled()) {
-      LOG.debug("sourceId = '" + sourceId + "'");
-      LOG.debug("clientId = '" + clientId + "'");
+      LOG.debug("sourceId = '{}'", sourceId);
+      LOG.debug("clientId = '{}'", clientId);
     }
 
     if (clientId.equals(sourceId)) {
