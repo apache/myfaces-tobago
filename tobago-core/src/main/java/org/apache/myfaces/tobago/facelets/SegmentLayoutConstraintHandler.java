@@ -39,6 +39,7 @@ public class SegmentLayoutConstraintHandler extends TagHandler {
   private final TagAttribute overwriteSmall;
   private final TagAttribute overwriteMedium;
   private final TagAttribute overwriteLarge;
+  private final TagAttribute overwriteExtraLarge;
 
   public SegmentLayoutConstraintHandler(TagConfig config) {
     super(config);
@@ -50,6 +51,7 @@ public class SegmentLayoutConstraintHandler extends TagHandler {
     overwriteSmall = getAttribute(Attributes.overwriteSmall.getName());
     overwriteMedium = getAttribute(Attributes.overwriteMedium.getName());
     overwriteLarge = getAttribute(Attributes.overwriteLarge.getName());
+    overwriteExtraLarge = getAttribute(Attributes.overwriteExtraLarge.getName());
   }
 
   @Override
@@ -125,6 +127,15 @@ public class SegmentLayoutConstraintHandler extends TagHandler {
       } else {
         parent.setValueExpression(Attributes.overwriteLarge.getName(),
             overwriteLarge.getValueExpression(faceletContext, Integer.TYPE));
+      }
+    }
+
+    if (overwriteExtraLarge != null) {
+      if (overwriteExtraLarge.isLiteral()) {
+        attributes.put(Attributes.overwriteExtraLarge.getName(), overwriteExtraLarge.getValue());
+      } else {
+        parent.setValueExpression(Attributes.overwriteExtraLarge.getName(),
+            overwriteExtraLarge.getValueExpression(faceletContext, Integer.TYPE));
       }
     }
   }

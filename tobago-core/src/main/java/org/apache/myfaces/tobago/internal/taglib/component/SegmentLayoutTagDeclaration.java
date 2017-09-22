@@ -49,31 +49,37 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
 public interface SegmentLayoutTagDeclaration extends HasIdBindingAndRendered, IsVisual {
 
   /**
-   * The semicolon-separated definition of the columns for extra small devices. The sum must be 12.
+   * The semicolon-separated definition of the columns for extra small devices.
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.ColumnPartition")
   void setExtraSmall(String extraSmall);
 
   /**
-   * The semicolon-separated definition of the columns for small devices. The sum must be 12.
+   * The semicolon-separated definition of the columns for small devices.
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.ColumnPartition")
   void setSmall(String small);
 
   /**
-   * The semicolon-separated definition of the columns for medium devices. The sum must be 12.
+   * The semicolon-separated definition of the columns for medium devices.
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.ColumnPartition")
   void setMedium(String medium);
 
   /**
-   * The semicolon-separated definition of the columns for large devices. The sum must be 12.
+   * The semicolon-separated definition of the columns for large devices.
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.ColumnPartition")
   void setLarge(String large);
 
+  /**
+   * The semicolon-separated definition of the columns for extra large devices.
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.ColumnPartition")
+  void setExtraLarge(String extraLarge);
 }

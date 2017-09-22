@@ -78,7 +78,8 @@ public class SegmentLayoutRenderer extends RendererBase {
         segmentLayout.getExtraSmall(),
         segmentLayout.getSmall(),
         segmentLayout.getMedium(),
-        segmentLayout.getLarge());
+        segmentLayout.getLarge(),
+        segmentLayout.getExtraLarge());
     for (UIComponent child : children) {
       if (child.isRendered()) {
         encodeChild(facesContext, writer, generator, child);
