@@ -73,11 +73,11 @@ public class AjaxResponseRenderer {
     writeResponse(facesContext, renderKit);
   }
 
-  private void renderComponent(
-      final FacesContext facesContext, final RenderKit renderKit, final String clientId, final UIComponent component)
+  private void renderComponent(final FacesContext facesContext, final RenderKit renderKit, final String charset,
+      final String clientId, final UIComponent component)
       throws IOException {
     final PrintWriter writer = getPrintWriter(facesContext);
-    final JsonResponseWriter jsonWriter = getJsonResponseWriter(renderKit, writer);
+    final JsonResponseWriter jsonWriter = getJsonResponseWriter(renderKit, writer, charset);
 
     facesContext.setResponseWriter(jsonWriter);
 
@@ -159,7 +159,7 @@ public class AjaxResponseRenderer {
 
         final UIComponent component = entry.getValue();
         FacesContextUtils.setAjaxComponentId(facesContext, entry.getKey());
-        renderComponent(facesContext, renderKit, entry.getKey(), component);
+        renderComponent(facesContext, renderKit, charset, entry.getKey(), component);
       }
     }
 
@@ -183,9 +183,10 @@ public class AjaxResponseRenderer {
     throw new IOException("No ResponseWriter found for response " + response);
   }
 
-  private JsonResponseWriter getJsonResponseWriter(final RenderKit renderKit, final PrintWriter writer) {
+  private JsonResponseWriter getJsonResponseWriter(
+      final RenderKit renderKit, final PrintWriter writer, final String charset) {
 
-    final ResponseWriter newWriter = renderKit.createResponseWriter(writer, CONTENT_TYPE, null);
+    final ResponseWriter newWriter = renderKit.createResponseWriter(writer, CONTENT_TYPE, charset);
     if (newWriter instanceof JsonResponseWriter) {
       return (JsonResponseWriter) newWriter;
     } else {
