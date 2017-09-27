@@ -206,7 +206,7 @@
           </plugin>
           <plugin>
             <artifactId>maven-dependency-plugin</artifactId>
-            <version>3.0.0</version>
+            <version>3.0.2</version>
             <executions>
               <execution>
                 <!-- copy customization to target/bootstrap -->
