@@ -114,6 +114,18 @@ public enum BootstrapClass implements CssItem {
   COL_SM_10("col-sm-10"),
   COL_SM_11("col-sm-11"),
   COL_SM_12("col-sm-12"),
+  COL_XL_1("col-xl-1"),
+  COL_XL_2("col-xl-2"),
+  COL_XL_3("col-xl-3"),
+  COL_XL_4("col-xl-4"),
+  COL_XL_5("col-xl-5"),
+  COL_XL_6("col-xl-6"),
+  COL_XL_7("col-xl-7"),
+  COL_XL_8("col-xl-8"),
+  COL_XL_9("col-xl-9"),
+  COL_XL_10("col-xl-10"),
+  COL_XL_11("col-xl-11"),
+  COL_XL_12("col-xl-12"),
   COL_1("col-1"),
   COL_2("col-2"),
   COL_3("col-3"),
@@ -513,6 +525,11 @@ public enum BootstrapClass implements CssItem {
         COL_LG_5, COL_LG_6, COL_LG_7, COL_LG_8,
         COL_LG_9, COL_LG_10, COL_LG_11, COL_LG_12,
     };
+    private static final BootstrapClass[] EXTRA_LARGE = new BootstrapClass[]{
+        COL_XL_1, COL_XL_2, COL_XL_3, COL_XL_4,
+        COL_XL_5, COL_XL_6, COL_XL_7, COL_XL_8,
+        COL_XL_9, COL_XL_10, COL_XL_11, COL_XL_12,
+    };
     private static final BootstrapClass[] OFFSET_EXTRA_SMALL = new BootstrapClass[]{
         null, OFFSET_1, OFFSET_2, OFFSET_3, OFFSET_4, OFFSET_5,
         OFFSET_6, OFFSET_7, OFFSET_8, OFFSET_9, OFFSET_10, OFFSET_11
@@ -534,12 +551,13 @@ public enum BootstrapClass implements CssItem {
     private final ColumnPartition small;
     private final ColumnPartition medium;
     private final ColumnPartition large;
+    private final ColumnPartition extraLarge;
 
     private int index = 0;
 
     public Generator(
         final ColumnPartition extraSmall, final ColumnPartition small, final ColumnPartition medium,
-        final ColumnPartition large) {
+        final ColumnPartition large, final ColumnPartition extraLarge) {
       if (extraSmall == null && small == null && medium == null && large == null) {
         this.extraSmall = ColumnPartition.PARTITION_12;
       } else {
@@ -548,6 +566,7 @@ public enum BootstrapClass implements CssItem {
       this.small = small;
       this.medium = medium;
       this.large = large;
+      this.extraLarge = extraLarge;
     }
 
     public void reset() {
@@ -565,6 +584,7 @@ public enum BootstrapClass implements CssItem {
       generate(result, small, SMALL, attributes.get(Attributes.overwriteSmall.name()));
       generate(result, medium, MEDIUM, attributes.get(Attributes.overwriteMedium.name()));
       generate(result, large, LARGE, attributes.get(Attributes.overwriteLarge.name()));
+      generate(result, extraLarge, EXTRA_LARGE, attributes.get(Attributes.overwriteExtraLarge.name()));
       generateOffset(result, attributes.get(Attributes.offsetExtraSmall.name()), OFFSET_EXTRA_SMALL);
       generateOffset(result, attributes.get(Attributes.offsetSmall.name()), OFFSET_SMALL);
       generateOffset(result, attributes.get(Attributes.offsetMedium.name()), OFFSET_MEDIUM);

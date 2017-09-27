@@ -50,6 +50,9 @@ public class SegmentLayoutRule extends MetaRule {
         if (Attributes.large == a) {
           return new LargeMapper(attribute);
         }
+        if (Attributes.extraLarge == a) {
+          return new ExtraLargeMapper(attribute);
+        }
       }
     }
     return null;
@@ -111,4 +114,17 @@ public class SegmentLayoutRule extends MetaRule {
     }
   }
 
+  static final class ExtraLargeMapper extends Metadata {
+    private final TagAttribute attribute;
+
+    ExtraLargeMapper(final TagAttribute attribute) {
+      this.attribute = attribute;
+    }
+
+    @Override
+    public void applyMetadata(final FaceletContext ctx, final Object instance) {
+      final UISegmentLayout gridLayout = (UISegmentLayout) instance;
+      gridLayout.setExtraLarge(ColumnPartition.valueOf(attribute.getValue()));
+    }
+  }
 }

@@ -22,11 +22,11 @@
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
                 xmlns:ui="http://java.sun.com/jsf/facelets">
   <ui:param name="title" value="#{demoBundle.segment_layout}  &lt;tc:segmentLayout>"/>
-  <p>The segment layout is basicly a grid with 12 columns.
-    The number and the proportion of the columns can be set with
-    <code>large</code>, <code>medium</code>, <code>small</code> or <code>extraSmall</code>.
+  <p>The segment layout is a grid with 12 columns.
+    The number and the proportion of the columns can be set with the attributes
+    <code>extraSmall</code>, <code>small</code>, <code>medium</code>, <code>large</code> and <code>extraLarge</code>.
     Every attribute has a different css class, but the usage is the same.
-    The value is a semicolon separated list of integers, which sum has to be '12'.
+    The value is a semicolon separated list of integers, which sum must be '12' or less.
     A value of n will use n columns from the grid.</p>
   <tc:link label="Tag Library Documentation" image="#{request.contextPath}/image/feather-leaf.png"
            link="#{demoBundle.tagDocUrl}/#{info.stableVersion}/tld/tc/segmentLayout.html"/>
@@ -60,18 +60,19 @@
   </tc:section>
 
   <tc:section label="Screen Size">
-    <p>For the different kinds of screen sizes, the segment layout has four attributes:
-      <code>large</code>, <code>medium</code>, <code>small</code> and <code>extraSmall</code>.
-      The first two ones should be used for desktops. The last two should be used for tablets and phones.
-      Notice, that only the screen size matters. So a small browser window on a big screen also reacts with
+    <p>For the different kinds of screen sizes, the segment layout has five attributes:
+      <code>extraLarge</code>, <code>large</code>, <code>medium</code>, <code>small</code> and <code>extraSmall</code>.
+      The first three should be used for desktops. The last two should be used for tablets and phones.
+      Notice, that only the browser size matters. So a small browser window on a big screen also reacts with
       <code>small</code> and <code>extraSmall</code>.</p>
     <p>In the following example, all attributes are used. If you are on a desktop you can see the different
       behavior by changing the size of the browser window.</p>
-    <pre><code class="language-markup">&lt;tc:segmentLayout large="2;2;2;2;2;2"
+    <pre><code class="language-markup">&lt;tc:segmentLayout extraLarge="1;1;1;1;1;1;1;1;1;1;1;1" large="2;2;2;2;2;2"
   medium="3;3;3;3" small="4;4;4" extraSmall="6;6">
     ...</code></pre>
 
-    <tc:segmentLayout large="2;2;2;2;2;2" medium="3;3;3;3" small="4;4;4" extraSmall="6;6">
+    <tc:segmentLayout extraLarge="1;1;1;1;1;1;1;1;1;1;1;1" large="2;2;2;2;2;2" medium="3;3;3;3" small="4;4;4"
+                      extraSmall="6;6">
       <tc:in value="1"/>
       <tc:in value="2"/>
       <tc:in value="3"/>

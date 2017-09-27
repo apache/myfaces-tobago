@@ -85,6 +85,7 @@ public enum Attributes {
   expanded,
   execute,
   event,
+  extraLarge,
   extraSmall,
   fieldId,
   file,
@@ -184,6 +185,10 @@ public enum Attributes {
    * Used by a layout manager
    */
   offsetSmall,
+  /**
+   * Used by a layout manager
+   */
+  overwriteExtraLarge,
   /**
    * Used by a layout manager
    */

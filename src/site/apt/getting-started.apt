@@ -31,19 +31,19 @@ Checking Out
   Check out the 2.0.x sources by running the following:
 
 +----------------------------------------
-  git clone https://github.com/apache/myfaces-tobago/tree/tobago-2.0.x tobago-2.0.x
+  git clone -b tobago-2.0.x https://github.com/apache/myfaces-tobago tobago-2.0.x
 +----------------------------------------
 
   Check out the 1.5.x sources by running the following:
 
 +----------------------------------------
-  git clone https://github.com/apache/myfaces-tobago/tree/tobago-1.5.x tobago-1.5.x
+  git clone -b tobago-1.5.x https://github.com/apache/myfaces-tobago tobago-1.5.x
 +----------------------------------------
 
   Check out the 1.0.x sources by running the following:
 
 +----------------------------------------
-  git clone https://github.com/apache/myfaces-tobago/tree/tobago-1.0.x tobago-1.0.x
+  git clone -b tobago-1.0.x https://github.com/apache/myfaces-tobago tobago-1.0.x
 +----------------------------------------
 
 
