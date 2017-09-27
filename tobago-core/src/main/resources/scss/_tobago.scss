@@ -220,7 +220,6 @@ body {
 /* flexLayout -------------------------------------------------------------- */
 
 .tobago-flexLayout {
-  display: flex;
   min-width: 0;
   /* without this, Firefox/Webkit are different from IE:
      Set the minimal width to zero make flex-layout responsive for the width,
@@ -238,50 +237,6 @@ body {
     margin-left: 0;
     margin-right: 0;
   }
-}
-
-.tobago-flexLayout-markup-vertically {
-  flex-direction: column;
-}
-
-.tobago-alignItems-baseline {
-  align-items: baseline;
-}
-
-.tobago-alignItems-center {
-  align-items: center;
-}
-
-.tobago-alignItems-flexEnd {
-  align-items: flex-end;
-}
-
-.tobago-alignItems-flexStart {
-  align-items: flex-start;
-}
-
-.tobago-alignItems-stretch {
-  align-items: stretch;
-}
-
-.tobago-justifyContent-center {
-  justify-content: center;
-}
-
-.tobago-justifyContent-flexStart {
-  justify-content: flex-start;
-}
-
-.tobago-justifyContent-flexEnd {
-  justify-content: flex-end;
-}
-
-.tobago-justifyContent-spaceBetween {
-  justify-content: space-between;
-}
-
-.tobago-justifyContent-spaceAround {
-  justify-content: space-around;
 }
 
 /* flowLayout ---------------------------------------------------------- */

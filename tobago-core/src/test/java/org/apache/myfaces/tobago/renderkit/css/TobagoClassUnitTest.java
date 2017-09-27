@@ -23,6 +23,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class TobagoClassUnitTest {
@@ -68,10 +69,20 @@ public class TobagoClassUnitTest {
    * This test checks whether every item of the {@link TobagoClass} occurs in the _tobago.scss.
    */
   @Test
-  public void testCompareTobagoCss() throws FileNotFoundException {
+  public void testCompareTobagoCss() throws FileNotFoundException, NoSuchFieldException {
+
+    final TobagoClass[] allValues = TobagoClass.values();
+    final List<TobagoClass> toCheck = new ArrayList<>();
+    for (TobagoClass value : allValues) {
+      boolean ignoreByTest = TobagoClass.class.getField(value.name()).isAnnotationPresent(Deprecated.class);
+      if (!ignoreByTest) {
+        toCheck.add(value);
+      }
+    }
 
     final List<CssItem> missing =
-        CssClassUtils.compareCss("src/main/resources/scss/_tobago.scss", TobagoClass.values());
+        CssClassUtils.compareCss("src/main/resources/scss/_tobago.scss",
+        toCheck.toArray(new CssItem[toCheck.size()]));
 
     Assert.assertTrue("These classes are missing in _tobago.scss: " + missing, missing.isEmpty());
   }

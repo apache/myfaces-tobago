@@ -20,7 +20,9 @@
 package org.apache.myfaces.tobago.renderkit.css;
 
 import org.apache.myfaces.tobago.component.Attributes;
+import org.apache.myfaces.tobago.layout.AlignItems;
 import org.apache.myfaces.tobago.layout.ColumnPartition;
+import org.apache.myfaces.tobago.layout.JustifyContent;
 import org.apache.myfaces.tobago.layout.TextAlign;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.slf4j.Logger;
@@ -45,14 +47,22 @@ public enum BootstrapClass implements CssItem {
   ALERT_WARNING("alert-warning"),
   ALERT_INFO("alert-info"),
   ALERT_DISMISSIBLE("alert-dismissible"),
+  ALIGN_ITEMS_BASELINE("align-items-baseline"),
   ALIGN_ITEMS_CENTER("align-items-center"),
+  ALIGN_ITEMS_END("align-items-end"),
+  ALIGN_ITEMS_START("align-items-start"),
+  ALIGN_ITEMS_STRETCH("align-items-stretch"),
   BG_DARK("bg-dark"),
-  /** @deprecated since 4.0.0, please use {@link #BG_DARK} */
+  /**
+   * @deprecated since 4.0.0, please use {@link #BG_DARK}
+   */
   @Deprecated
   BG_INVERSE("bg-dark"),
   BADGE("badge"),
   BADGE_DANGER("badge-danger"),
-  /** @deprecated since 4.0.0 */
+  /**
+   * @deprecated since 4.0.0
+   */
   @Deprecated
   BADGE_DEFAULT("badge-default"),
   BADGE_INFO("badge-info"),
@@ -69,7 +79,9 @@ public enum BootstrapClass implements CssItem {
   BTN_TOOLBAR("btn-toolbar"),
   BTN_WARNING("btn-warning"),
   CARD("card"),
-  /** @deprecated since 4.0.0, please use {@link #CARD_BODY} */
+  /**
+   * @deprecated since 4.0.0, please use {@link #CARD_BODY}
+   */
   @Deprecated
   CARD_BLOCK("card-body"),
   CARD_BODY("card-body"),
@@ -138,44 +150,69 @@ public enum BootstrapClass implements CssItem {
   COL_10("col-10"),
   COL_11("col-11"),
   COL_12("col-12"),
-  /** @deprecated since 4.0.0, please use {@link #COL_1} */
+  /**
+   * @deprecated since 4.0.0, please use {@link #COL_1}
+   */
   @Deprecated
   COL_XS_1("col-1"),
-  /** @deprecated since 4.0.0, please use {@link #COL_2} */
+  /**
+   * @deprecated since 4.0.0, please use {@link #COL_2}
+   */
   @Deprecated
   COL_XS_2("col-2"),
-  /** @deprecated since 4.0.0, please use {@link #COL_3} */
+  /**
+   * @deprecated since 4.0.0, please use {@link #COL_3}
+   */
   @Deprecated
   COL_XS_3("col-3"),
-  /** @deprecated since 4.0.0, please use {@link #COL_4} */
+  /**
+   * @deprecated since 4.0.0, please use {@link #COL_4}
+   */
   @Deprecated
   COL_XS_4("col-4"),
-  /** @deprecated since 4.0.0, please use {@link #COL_5} */
+  /**
+   * @deprecated since 4.0.0, please use {@link #COL_5}
+   */
   @Deprecated
   COL_XS_5("col-5"),
-  /** @deprecated since 4.0.0, please use {@link #COL_6} */
+  /**
+   * @deprecated since 4.0.0, please use {@link #COL_6}
+   */
   @Deprecated
   COL_XS_6("col-6"),
-  /** @deprecated since 4.0.0, please use {@link #COL_7} */
+  /**
+   * @deprecated since 4.0.0, please use {@link #COL_7}
+   */
   @Deprecated
   COL_XS_7("col-7"),
-  /** @deprecated since 4.0.0, please use {@link #COL_8} */
+  /**
+   * @deprecated since 4.0.0, please use {@link #COL_8}
+   */
   @Deprecated
   COL_XS_8("col-8"),
-  /** @deprecated since 4.0.0, please use {@link #COL_9} */
+  /**
+   * @deprecated since 4.0.0, please use {@link #COL_9}
+   */
   @Deprecated
   COL_XS_9("col-9"),
-  /** @deprecated since 4.0.0, please use {@link #COL_10} */
+  /**
+   * @deprecated since 4.0.0, please use {@link #COL_10}
+   */
   @Deprecated
   COL_XS_10("col-10"),
-  /** @deprecated since 4.0.0, please use {@link #COL_11} */
+  /**
+   * @deprecated since 4.0.0, please use {@link #COL_11}
+   */
   @Deprecated
   COL_XS_11("col-11"),
-  /** @deprecated since 4.0.0, please use {@link #COL_12} */
+  /**
+   * @deprecated since 4.0.0, please use {@link #COL_12}
+   */
   @Deprecated
   COL_XS_12("col-12"),
   CONTAINER("container"),
   CONTAINER_FLUID("container-fluid"),
+  D_FLEX("d-flex"),
   D_INLINE("d-inline"),
   D_NONE("d-none"),
   D_SM_NONE("d-sm-none"),
@@ -192,34 +229,53 @@ public enum BootstrapClass implements CssItem {
   FIGURE_IMG("figure-img"),
   FIXED_BOTTOM("fixed-bottom"),
   FIXED_TOP("fixed-top"),
+  FLEX_COLUMN("flex-column"),
+  FLEX_COLUMN_REVERSE("flex-column-reverse"),
+  FLEX_ROW("flex-row"),
+  FLEX_ROW_REVERSE("flex-row-reverse"),
   FORM_CHECK("form-check"),
   FORM_CHECK_INLINE("form-check-inline"),
   FORM_CHECK_INPUT("form-check-input"),
   FORM_CHECK_LABEL("form-check-label"),
   FORM_CONTROL("form-control"),
   FORM_CONTROL_PLAINTEXT("form-control-plaintext"),
-  /** @deprecated since 4.0.0, please use {@link #FORM_CONTROL_PLAINTEXT} */
+  /**
+   * @deprecated since 4.0.0, please use {@link #FORM_CONTROL_PLAINTEXT}
+   */
   @Deprecated
   FORM_CONTROL_STATIC("form-control-plaintext"),
   FORM_GROUP("form-group"),
   FORM_INLINE("form-inline"),
   //TODO: adjust to the new bootstrap concept
-  /** @deprecated since 4.0.0 */
+  /**
+   * @deprecated since 4.0.0
+   */
   @Deprecated
   HAS_DANGER("has-danger"),
-  /** @deprecated since 4.0.0 */
+  /**
+   * @deprecated since 4.0.0
+   */
   @Deprecated
   HAS_SUCCESS("has-success"),
-  /** @deprecated since 4.0.0 */
+  /**
+   * @deprecated since 4.0.0
+   */
   @Deprecated
   HAS_WARNING("has-warning"),
-  /** @deprecated since 4.0.0, please use {@link #D_SM_NONE} */
+  /**
+   * @deprecated since 4.0.0, please use {@link #D_SM_NONE}
+   */
   @Deprecated
   HIDDEN_SM_UP("d-sm-none"),
   INPUT_GROUP("input-group"),
   INPUT_GROUP_ADDON("input-group-addon"),
   INPUT_GROUP_BTN("input-group-btn"),
   INVISIBLE("invisible"),
+  JUSTIFY_CONTENT_AROUND("justify-content-around"),
+  JUSTIFY_CONTENT_BETWEEN("justify-content-between"),
+  JUSTIFY_CONTENT_CENTER("justify-content-center"),
+  JUSTIFY_CONTENT_END("justify-content-end"),
+  JUSTIFY_CONTENT_START("justify-content-start"),
   ML_AUTO("ml-auto"),
   MODAL("modal"),
   MODAL_CONTENT("modal-content"),
@@ -242,172 +298,282 @@ public enum BootstrapClass implements CssItem {
   NAVBAR_BRAND("navbar-brand"),
   NAVBAR_DARK("navbar-dark"),
   NAVBAR_EXPAND_SM("navbar-expand-sm"),
-  /** @deprecated since 4.0.0, please use {@link #FIXED_BOTTOM} */
+  /**
+   * @deprecated since 4.0.0, please use {@link #FIXED_BOTTOM}
+   */
   @Deprecated
   NAVBAR_FIXED_BOTTOM("fixed-bottom"),
-  /** @deprecated since 4.0.0, please use {@link #FIXED_TOP} */
+  /**
+   * @deprecated since 4.0.0, please use {@link #FIXED_TOP}
+   */
   @Deprecated
   NAVBAR_FIXED_TOP("fixed-top"),
-  /** @deprecated since 4.0.0, please use {@link #NAVBAR_DARK} */
+  /**
+   * @deprecated since 4.0.0, please use {@link #NAVBAR_DARK}
+   */
   @Deprecated
   NAVBAR_INVERSE("navbar-inverse"),
   NAVBAR_NAV("navbar-nav"),
-  /** @deprecated since 4.0.0, please use {@link #NAVBAR_EXPAND_SM} */
+  /**
+   * @deprecated since 4.0.0, please use {@link #NAVBAR_EXPAND_SM}
+   */
   @Deprecated
   NAVBAR_TOGGLEABLE("navbar-expand-sm"),
-  /** @deprecated since 4.0.0, please use {@link #NAVBAR_EXPAND_SM} */
+  /**
+   * @deprecated since 4.0.0, please use {@link #NAVBAR_EXPAND_SM}
+   */
   @Deprecated
   NAVBAR_TOGGLEABLE_XS("navbar-expand-sm"),
   NAVBAR_TOGGLER("navbar-toggler"),
   NAVBAR_TOGGLER_ICON("navbar-toggler-icon"),
-  /** @deprecated since 4.0.0, please use markup in tc:bar */
+  /**
+   * @deprecated since 4.0.0, please use markup in tc:bar
+   */
   @Deprecated
   NAVBAR_TOGGLER_LEFT("navbar-toggler-left"),
-  /** @deprecated since 4.0.0, please use markup in tc:bar */
+  /**
+   * @deprecated since 4.0.0, please use markup in tc:bar
+   */
   @Deprecated
   NAVBAR_TOGGLER_RIGHT("navbar-toggler-right"),
-  /** @deprecated since 4.0.0 */
+  /**
+   * @deprecated since 4.0.0
+   */
   @Deprecated
   OFFSET_LG_0("offset-lg-0"),
-  /** @deprecated since 4.0.0 */
+  /**
+   * @deprecated since 4.0.0
+   */
   @Deprecated
   OFFSET_LG_1("offset-lg-1"),
-  /** @deprecated since 4.0.0 */
+  /**
+   * @deprecated since 4.0.0
+   */
   @Deprecated
   OFFSET_LG_2("offset-lg-2"),
-  /** @deprecated since 4.0.0 */
+  /**
+   * @deprecated since 4.0.0
+   */
   @Deprecated
   OFFSET_LG_3("offset-lg-3"),
-  /** @deprecated since 4.0.0 */
+  /**
+   * @deprecated since 4.0.0
+   */
   @Deprecated
   OFFSET_LG_4("offset-lg-4"),
-  /** @deprecated since 4.0.0 */
+  /**
+   * @deprecated since 4.0.0
+   */
   @Deprecated
   OFFSET_LG_5("offset-lg-5"),
-  /** @deprecated since 4.0.0 */
+  /**
+   * @deprecated since 4.0.0
+   */
   @Deprecated
   OFFSET_LG_6("offset-lg-6"),
-  /** @deprecated since 4.0.0 */
+  /**
+   * @deprecated since 4.0.0
+   */
   @Deprecated
   OFFSET_LG_7("offset-lg-7"),
-  /** @deprecated since 4.0.0 */
+  /**
+   * @deprecated since 4.0.0
+   */
   @Deprecated
   OFFSET_LG_8("offset-lg-8"),
-  /** @deprecated since 4.0.0 */
+  /**
+   * @deprecated since 4.0.0
+   */
   @Deprecated
   OFFSET_LG_9("offset-lg-9"),
-  /** @deprecated since 4.0.0 */
+  /**
+   * @deprecated since 4.0.0
+   */
   @Deprecated
   OFFSET_LG_10("offset-lg-10"),
-  /** @deprecated since 4.0.0 */
+  /**
+   * @deprecated since 4.0.0
+   */
   @Deprecated
   OFFSET_LG_11("offset-lg-11"),
-  /** @deprecated since 4.0.0 */
+  /**
+   * @deprecated since 4.0.0
+   */
   @Deprecated
   OFFSET_MD_0("offset-md-0"),
-  /** @deprecated since 4.0.0 */
+  /**
+   * @deprecated since 4.0.0
+   */
   @Deprecated
   OFFSET_MD_1("offset-md-1"),
-  /** @deprecated since 4.0.0 */
+  /**
+   * @deprecated since 4.0.0
+   */
   @Deprecated
   OFFSET_MD_2("offset-md-2"),
-  /** @deprecated since 4.0.0 */
+  /**
+   * @deprecated since 4.0.0
+   */
   @Deprecated
   OFFSET_MD_3("offset-md-3"),
-  /** @deprecated since 4.0.0 */
+  /**
+   * @deprecated since 4.0.0
+   */
   @Deprecated
   OFFSET_MD_4("offset-md-4"),
-  /** @deprecated since 4.0.0 */
+  /**
+   * @deprecated since 4.0.0
+   */
   @Deprecated
   OFFSET_MD_5("offset-md-5"),
-  /** @deprecated since 4.0.0 */
+  /**
+   * @deprecated since 4.0.0
+   */
   @Deprecated
   OFFSET_MD_6("offset-md-6"),
-  /** @deprecated since 4.0.0 */
+  /**
+   * @deprecated since 4.0.0
+   */
   @Deprecated
   OFFSET_MD_7("offset-md-7"),
-  /** @deprecated since 4.0.0 */
+  /**
+   * @deprecated since 4.0.0
+   */
   @Deprecated
   OFFSET_MD_8("offset-md-8"),
-  /** @deprecated since 4.0.0 */
+  /**
+   * @deprecated since 4.0.0
+   */
   @Deprecated
   OFFSET_MD_9("offset-md-9"),
-  /** @deprecated since 4.0.0 */
+  /**
+   * @deprecated since 4.0.0
+   */
   @Deprecated
   OFFSET_MD_10("offset-md-10"),
-  /** @deprecated since 4.0.0 */
+  /**
+   * @deprecated since 4.0.0
+   */
   @Deprecated
   OFFSET_MD_11("offset-md-11"),
-  /** @deprecated since 4.0.0 */
+  /**
+   * @deprecated since 4.0.0
+   */
   @Deprecated
   OFFSET_SM_0("offset-sm-0"),
-  /** @deprecated since 4.0.0 */
+  /**
+   * @deprecated since 4.0.0
+   */
   @Deprecated
   OFFSET_SM_1("offset-sm-1"),
-  /** @deprecated since 4.0.0 */
+  /**
+   * @deprecated since 4.0.0
+   */
   @Deprecated
   OFFSET_SM_2("offset-sm-2"),
-  /** @deprecated since 4.0.0 */
+  /**
+   * @deprecated since 4.0.0
+   */
   @Deprecated
   OFFSET_SM_3("offset-sm-3"),
-  /** @deprecated since 4.0.0 */
+  /**
+   * @deprecated since 4.0.0
+   */
   @Deprecated
   OFFSET_SM_4("offset-sm-4"),
-  /** @deprecated since 4.0.0 */
+  /**
+   * @deprecated since 4.0.0
+   */
   @Deprecated
   OFFSET_SM_5("offset-sm-5"),
-  /** @deprecated since 4.0.0 */
+  /**
+   * @deprecated since 4.0.0
+   */
   @Deprecated
   OFFSET_SM_6("offset-sm-6"),
-  /** @deprecated since 4.0.0 */
+  /**
+   * @deprecated since 4.0.0
+   */
   @Deprecated
   OFFSET_SM_7("offset-sm-7"),
-  /** @deprecated since 4.0.0 */
+  /**
+   * @deprecated since 4.0.0
+   */
   @Deprecated
   OFFSET_SM_8("offset-sm-8"),
-  /** @deprecated since 4.0.0 */
+  /**
+   * @deprecated since 4.0.0
+   */
   @Deprecated
   OFFSET_SM_9("offset-sm-9"),
-  /** @deprecated since 4.0.0 */
+  /**
+   * @deprecated since 4.0.0
+   */
   @Deprecated
   OFFSET_SM_10("offset-sm-10"),
-  /** @deprecated since 4.0.0 */
+  /**
+   * @deprecated since 4.0.0
+   */
   @Deprecated
   OFFSET_SM_11("offset-sm-11"),
-  /** @deprecated since 4.0.0 */
+  /**
+   * @deprecated since 4.0.0
+   */
   @Deprecated
   OFFSET_1("offset-1"),
-  /** @deprecated since 4.0.0 */
+  /**
+   * @deprecated since 4.0.0
+   */
   @Deprecated
   OFFSET_2("offset-2"),
-  /** @deprecated since 4.0.0 */
+  /**
+   * @deprecated since 4.0.0
+   */
   @Deprecated
   OFFSET_3("offset-3"),
-  /** @deprecated since 4.0.0 */
+  /**
+   * @deprecated since 4.0.0
+   */
   @Deprecated
   OFFSET_4("offset-4"),
-  /** @deprecated since 4.0.0 */
+  /**
+   * @deprecated since 4.0.0
+   */
   @Deprecated
   OFFSET_5("offset-5"),
-  /** @deprecated since 4.0.0 */
+  /**
+   * @deprecated since 4.0.0
+   */
   @Deprecated
   OFFSET_6("offset-6"),
-  /** @deprecated since 4.0.0 */
+  /**
+   * @deprecated since 4.0.0
+   */
   @Deprecated
   OFFSET_7("offset-7"),
-  /** @deprecated since 4.0.0 */
+  /**
+   * @deprecated since 4.0.0
+   */
   @Deprecated
   OFFSET_8("offset-8"),
-  /** @deprecated since 4.0.0 */
+  /**
+   * @deprecated since 4.0.0
+   */
   @Deprecated
   OFFSET_9("offset-9"),
-  /** @deprecated since 4.0.0 */
+  /**
+   * @deprecated since 4.0.0
+   */
   @Deprecated
   OFFSET_10("offset-10"),
-  /** @deprecated since 4.0.0 */
+  /**
+   * @deprecated since 4.0.0
+   */
   @Deprecated
   OFFSET_11("offset-11"),
-  /** @deprecated since 4.0.0, please use {@link #SHOW} */
+  /**
+   * @deprecated since 4.0.0, please use {@link #SHOW}
+   */
   @Deprecated
   OPEN("show"),
   PAGE_ITEM("page-item"),
@@ -484,7 +650,6 @@ public enum BootstrapClass implements CssItem {
   }
 
   /**
-   *
    * @since 4.0.0
    */
   public static CssItem textAlign(final TextAlign textAlign) {
@@ -615,4 +780,49 @@ public enum BootstrapClass implements CssItem {
       }
     }
   }
+
+  public static CssItem valueOf(AlignItems alignItems) {
+    if (alignItems == null) {
+      return null;
+    } else {
+      switch (alignItems) {
+        case baseline:
+          return ALIGN_ITEMS_BASELINE;
+        case center:
+          return ALIGN_ITEMS_CENTER;
+        case flexEnd:
+          return ALIGN_ITEMS_END;
+        case flexStart:
+          return ALIGN_ITEMS_START;
+        case stretch:
+          return ALIGN_ITEMS_STRETCH;
+        default:
+          LOG.warn("Undefined alignItems: '{}'.", alignItems);
+          return null;
+      }
+    }
+  }
+
+  public static CssItem valueOf(JustifyContent justifyContent) {
+    if (justifyContent == null) {
+      return null;
+    } else {
+      switch (justifyContent) {
+        case center:
+          return JUSTIFY_CONTENT_CENTER;
+        case flexEnd:
+          return JUSTIFY_CONTENT_END;
+        case flexStart:
+          return JUSTIFY_CONTENT_START;
+        case spaceBetween:
+          return JUSTIFY_CONTENT_BETWEEN;
+        case spaceAround:
+          return JUSTIFY_CONTENT_AROUND;
+        default:
+          LOG.warn("Undefined justifyContent: '{}'.", justifyContent);
+          return null;
+      }
+    }
+  }
+
 }

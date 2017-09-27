@@ -20,8 +20,8 @@
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
 import org.apache.myfaces.tobago.component.UIFlexLayout;
-import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
+import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
@@ -82,8 +82,9 @@ public class FlexLayoutRenderer extends RendererBase {
     boolean vertically = rows.contains(";");
     writer.writeClassAttribute(
         TobagoClass.FLEX_LAYOUT,
-        TobagoClass.FLEX_LAYOUT.createMarkup(vertically ? Markup.VERTICALLY : Markup.NULL),
-        TobagoClass.valueOf(flexLayout.getAlignItems()));
+        BootstrapClass.D_FLEX,
+        vertically ? BootstrapClass.FLEX_COLUMN : null,
+        BootstrapClass.valueOf(flexLayout.getAlignItems()));
   }
 
   @Override

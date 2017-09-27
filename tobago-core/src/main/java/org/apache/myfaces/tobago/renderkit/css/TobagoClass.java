@@ -46,26 +46,70 @@ public enum TobagoClass implements CssItem {
 
   INPUT_PSEUDO("tobago-inputPseudo"),
 
+  /**
+   * @deprecated since 4.0.0, use {@link BootstrapClass#ALIGN_ITEMS_BASELINE}
+   */
+  @Deprecated
   ALIGN_ITEMS__BASELINE("tobago-alignItems-baseline"),
+  /**
+   * @deprecated since 4.0.0, use {@link BootstrapClass#ALIGN_ITEMS_CENTER}
+   */
+  @Deprecated
   ALIGN_ITEMS__CENTER("tobago-alignItems-center"),
+  /**
+   * @deprecated since 4.0.0, use {@link BootstrapClass#ALIGN_ITEMS_END}
+   */
+  @Deprecated
   ALIGN_ITEMS__FLEX_END("tobago-alignItems-flexEnd"),
+  /**
+   * @deprecated since 4.0.0, use {@link BootstrapClass#ALIGN_ITEMS_START}
+   */
+  @Deprecated
   ALIGN_ITEMS__FLEX_START("tobago-alignItems-flexStart"),
+  /**
+   * @deprecated since 4.0.0, use {@link BootstrapClass#ALIGN_ITEMS_STRETCH}
+   */
+  @Deprecated
   ALIGN_ITEMS__STRETCH("tobago-alignItems-stretch"),
 
+  /**
+   * @deprecated since 4.0.0, use {@link BootstrapClass#JUSTIFY_CONTENT_CENTER}
+   */
+  @Deprecated
   JUSTIFY_CONTENT__CENTER("tobago-justifyContent-center"),
+  /**
+   * @deprecated since 4.0.0, use {@link BootstrapClass#JUSTIFY_CONTENT_START}
+   */
+  @Deprecated
   JUSTIFY_CONTENT__FLEX_START("tobago-justifyContent-flexStart"),
+  /**
+   * @deprecated since 4.0.0, use {@link BootstrapClass#JUSTIFY_CONTENT_END}
+   */
+  @Deprecated
   JUSTIFY_CONTENT__FLEX_END("tobago-justifyContent-flexEnd"),
+  /**
+   * @deprecated since 4.0.0, use {@link BootstrapClass#JUSTIFY_CONTENT_BETWEEN}
+   */
+  @Deprecated
   JUSTIFY_CONTENT__SPACE_BETWEEN("tobago-justifyContent-spaceBetween"),
+  /**
+   * @deprecated since 4.0.0, use {@link BootstrapClass#JUSTIFY_CONTENT_AROUND}
+   */
+  @Deprecated
   JUSTIFY_CONTENT__SPACE_AROUND("tobago-justifyContent-spaceAround"),
 
   DROPDOWN__SUBMENU("tobago-dropdown-submenu"),
-  /** @deprecated Since 3.0.1. Please use {@link TobagoClass#DROPDOWN__SUBMENU} */
+  /**
+   * @deprecated Since 3.0.1. Please use {@link TobagoClass#DROPDOWN__SUBMENU}
+   */
   @Deprecated
   DROPDOWN_SUBMENU(DROPDOWN__SUBMENU.getName()),
   TABLE_LAYOUT__FIXED("tobago-tableLayout-fixed"),
 
   HAS__INFO("tobago-has-info"),
-  /** @deprecated Since 3.0.1. Please use {@link TobagoClass#HAS__INFO} */
+  /**
+   * @deprecated Since 3.0.1. Please use {@link TobagoClass#HAS__INFO}
+   */
   @Deprecated
   HAS_INFO(HAS__INFO.getName()),
   REQUIRED("tobago-required"),
@@ -92,7 +136,9 @@ public enum TobagoClass implements CssItem {
   IMAGE("tobago-image"),
   IN("tobago-in"),
   INPUT__GROUP__OUTER("tobago-input-group-outer"),
-  /** @deprecated Since 3.0.1. Please use {@link TobagoClass#INPUT__GROUP__OUTER} */
+  /**
+   * @deprecated Since 3.0.1. Please use {@link TobagoClass#INPUT__GROUP__OUTER}
+   */
   @Deprecated
   INPUT_GROUP_OUTER(INPUT__GROUP__OUTER.getName()),
   LABEL("tobago-label"),
@@ -187,48 +233,20 @@ public enum TobagoClass implements CssItem {
     return name;
   }
 
-  public static TobagoClass valueOf(AlignItems alignItems) {
-    if (alignItems == null) {
-      return null;
-    } else {
-      switch (alignItems) {
-        case baseline:
-          return ALIGN_ITEMS__BASELINE;
-        case center:
-          return ALIGN_ITEMS__CENTER;
-        case flexEnd:
-          return ALIGN_ITEMS__FLEX_END;
-        case flexStart:
-          return ALIGN_ITEMS__FLEX_START;
-        case stretch:
-          return ALIGN_ITEMS__STRETCH;
-        default:
-          LOG.warn("Undefined alignItems: '{}'.", alignItems);
-          return null;
-      }
-    }
+  /**
+   * @deprecated since 4.0.0, use {@link BootstrapClass#valueOf(AlignItems)}
+   */
+  @Deprecated
+  public static CssItem valueOf(AlignItems alignItems) {
+    return BootstrapClass.valueOf(alignItems);
   }
 
-  public static TobagoClass valueOf(JustifyContent justifyContent) {
-    if (justifyContent == null) {
-      return null;
-    } else {
-      switch (justifyContent) {
-        case center:
-          return JUSTIFY_CONTENT__CENTER;
-        case flexEnd:
-          return JUSTIFY_CONTENT__FLEX_END;
-        case flexStart:
-          return JUSTIFY_CONTENT__FLEX_START;
-        case spaceBetween:
-          return JUSTIFY_CONTENT__SPACE_BETWEEN;
-        case spaceAround:
-          return JUSTIFY_CONTENT__SPACE_AROUND;
-        default:
-          LOG.warn("Undefined justifyContent: '{}'.", justifyContent);
-          return null;
-      }
-    }
+  /**
+   * @deprecated since 4.0.0, use {@link BootstrapClass#valueOf(JustifyContent)}
+   */
+  @Deprecated
+  public static CssItem valueOf(JustifyContent justifyContent) {
+    return BootstrapClass.valueOf(justifyContent);
   }
 
   @Preliminary

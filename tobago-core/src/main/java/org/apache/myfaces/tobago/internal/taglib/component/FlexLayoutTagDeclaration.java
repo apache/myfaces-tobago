@@ -33,7 +33,7 @@ import org.apache.myfaces.tobago.layout.AlignItems;
 import org.apache.myfaces.tobago.layout.JustifyContent;
 
 /**
- * Renders a flex layout (CSS3 feature).
+ * Renders a <a href=https://www.w3.org/TR/css-flexbox-1/>Flexible Box Layout</a>.
  *
  * @since 3.0.0
  */
