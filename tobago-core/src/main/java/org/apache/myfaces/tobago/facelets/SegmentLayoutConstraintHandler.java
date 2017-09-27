@@ -47,11 +47,11 @@ public class SegmentLayoutConstraintHandler extends TagHandler {
     offsetSmall = getAttribute(Attributes.offsetSmall.getName());
     offsetMedium = getAttribute(Attributes.offsetMedium.getName());
     offsetLarge = getAttribute(Attributes.offsetLarge.getName());
-    overwriteExtraSmall = getAttribute(Attributes.overwriteExtraSmall.getName());
-    overwriteSmall = getAttribute(Attributes.overwriteSmall.getName());
-    overwriteMedium = getAttribute(Attributes.overwriteMedium.getName());
-    overwriteLarge = getAttribute(Attributes.overwriteLarge.getName());
-    overwriteExtraLarge = getAttribute(Attributes.overwriteExtraLarge.getName());
+    overwriteExtraSmall = getAttribute(Attributes.extraSmall.getName());
+    overwriteSmall = getAttribute(Attributes.small.getName());
+    overwriteMedium = getAttribute(Attributes.medium.getName());
+    overwriteLarge = getAttribute(Attributes.large.getName());
+    overwriteExtraLarge = getAttribute(Attributes.extraLarge.getName());
   }
 
   @Override

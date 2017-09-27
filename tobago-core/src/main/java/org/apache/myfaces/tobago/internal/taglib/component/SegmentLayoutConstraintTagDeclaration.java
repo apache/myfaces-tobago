@@ -68,29 +68,29 @@ public interface SegmentLayoutConstraintTagDeclaration {
    * Overwrite the default layout for extra small devices.
    */
   @TagAttribute(type = "java.lang.Integer")
-  void setOverwriteExtraSmall(final ValueExpression overwriteExtraSmall);
+  void setExtraSmall(final ValueExpression extraSmall);
 
   /**
    * Overwrite the default layout for small devices.
    */
   @TagAttribute(type = "java.lang.Integer")
-  void setOverwriteSmall(final ValueExpression overwriteSmall);
+  void setSmall(final ValueExpression small);
 
   /**
    * Overwrite the default layout for medium devices.
    */
   @TagAttribute(type = "java.lang.Integer")
-  void setOverwriteMedium(final ValueExpression overwriteMedium);
+  void setMedium(final ValueExpression medium);
 
   /**
    * Overwrite the default layout for large devices.
    */
   @TagAttribute(type = "java.lang.Integer")
-  void setOverwriteLarge(final ValueExpression overwriteLarge);
+  void setLarge(final ValueExpression large);
 
   /**
    * Overwrite the default layout for extra large devices.
    */
   @TagAttribute(type = "java.lang.Integer")
-  void setOverwriteExtraLarge(final ValueExpression overwriteExtraLarge);
+  void setExtraLarge(final ValueExpression extraLarge);
 }
