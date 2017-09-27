@@ -60,34 +60,6 @@
             <tc:link action="#{login.resetSession}" label="Reset Session"/>
           </tc:link>
 
-          <tc:link label="#{demoBundle.menu_help}" omit="true">
-            <tc:link label="#{demoBundle.menu_about}" omit="true">
-              <tc:dataAttribute name="alert-text"
-                                value="#{demoBundle.pageTitle} - #{info.version} - #{demoBundle.tobago_url}"/>
-            </tc:link>
-            <tc:link omit="true" label="Client Info" id="headerInfo">
-              <tc:operation name="show" for=":::info"/>
-            </tc:link>
-            <tc:link action="/server-info.xhtml" immediate="true" label="Server Info" disabled="#{! info.enabled}"/>
-            <tc:link action="/logging-info.xhtml" immediate="true" label="Logging Info"
-                        disabled="#{! info.enabled}"/>
-            <tc:link link="http://myfaces.apache.org/tobago" label="Tobago in the Web"/>
-            <tc:separator/>
-            <tc:link label="Sub-Menu" omit="true">
-              <tc:link label="Sub 1" omit="true"/>
-              <tc:link label="Sub 2" omit="true"/>
-              <tc:link label="Sub 3" omit="true"/>
-              <tc:link action="doit" label="Sub 4 ich kann auch selber was" omit="true">
-                <tc:link label="Sub 4 1" omit="true"/>
-                <tc:link label="Sub 4 2" omit="true"/>
-              </tc:link>
-              <tc:link label="Sub 5" omit="true">
-                <tc:link label="Sub 5 1" omit="true"/>
-                <tc:link label="Sub 5 2" omit="true"/>
-              </tc:link>
-            </tc:link>
-          </tc:link>
-
           <tc:link label="#{demoBundle.menu_test}" omit="true">
             <tc:link id="runtest" label="#{demoBundle.menu_runTest}" outcome="/test.xhtml"
                      immediate="true" disabled="#{!testController.hasTest()}">
@@ -98,6 +70,41 @@
                      immediate="true" rendered="#{facesContext.isProjectStage('Development')}"/>
             <tc:link label="#{demoBundle.menu_accessAllPages}" outcome="/testAccessAllPages.xhtml" target="_blank"
                      immediate="true" rendered="#{facesContext.isProjectStage('Development')}"/>
+          </tc:link>
+
+          <tc:link label="Menu" omit="true">
+            <tc:link label="Menu Item" omit="true">
+              <tc:dataAttribute name="alert-text" value="Demo Message"/>
+            </tc:link>
+            <tc:separator/>
+            <tc:link label="Sub Menu" omit="true">
+              <tc:link label="Sub 1" omit="true"/>
+              <tc:link label="Sub 2" omit="true"/>
+              <tc:link label="Sub 3" omit="true"/>
+              <tc:link action="doit" label="Sub 4" omit="true">
+                <tc:link label="Sub 4 1" omit="true"/>
+                <tc:link label="Sub 4 2" omit="true"/>
+                <tc:link label="Sub 4 3" omit="true"/>
+              </tc:link>
+              <tc:link label="Sub 5" omit="true">
+                <tc:link label="Sub 5 1" omit="true"/>
+                <tc:link label="Sub 5 2" omit="true"/>
+              </tc:link>
+            </tc:link>
+          </tc:link>
+
+          <tc:link label="#{demoBundle.menu_help}" omit="true">
+            <tc:link label="#{demoBundle.menu_about}" omit="true">
+              <tc:dataAttribute name="alert-text"
+                                value="#{demoBundle.pageTitle} - #{info.version} - #{demoBundle.tobago_url}"/>
+            </tc:link>
+            <tc:link omit="true" label="Client Info" id="headerInfo">
+              <tc:operation name="show" for=":::info"/>
+            </tc:link>
+            <tc:link action="/server-info.xhtml" immediate="true" label="Server Info" disabled="#{! info.enabled}"/>
+            <tc:link action="/logging-info.xhtml" immediate="true" label="Logging Info"
+                     disabled="#{! info.enabled}"/>
+            <tc:link link="http://myfaces.apache.org/tobago" label="Tobago in the Web"/>
           </tc:link>
 
         </tc:links>
