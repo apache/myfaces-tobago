@@ -109,10 +109,13 @@ public class CookieUtils {
     String path = request.getContextPath();
     path = StringUtils.isBlank(path) ? "/" : path;
     final Cookie[] cookies = request.getCookies();
-    for (Cookie cookie : cookies) {
-      if (THEME_PARAMETER.equals(cookie.getName())) {
-        cookie.setMaxAge(0);
-        response.addCookie(cookie);
+    if (cookies != null) {
+      for (Cookie cookie : cookies) {
+        if (THEME_PARAMETER.equals(cookie.getName())) {
+          cookie.setMaxAge(0);
+          cookie.setValue(null);
+          response.addCookie(cookie);
+        }
       }
     }
   }
