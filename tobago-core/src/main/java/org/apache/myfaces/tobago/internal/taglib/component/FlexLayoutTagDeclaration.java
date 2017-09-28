@@ -25,9 +25,7 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.internal.component.AbstractUIFlexLayout;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasColumnLayout;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasRowLayout;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
 import org.apache.myfaces.tobago.layout.AlignItems;
 import org.apache.myfaces.tobago.layout.JustifyContent;
@@ -47,9 +45,28 @@ import org.apache.myfaces.tobago.layout.JustifyContent;
         // As long as no behavior event names are defined, ClientBehaviorHolder must be implemented for Majorra.
         "javax.faces.component.behavior.ClientBehaviorHolder"
     },
-    allowedChildComponenents = "NONE")
-public interface FlexLayoutTagDeclaration
-    extends HasIdBindingAndRendered, HasColumnLayout, HasRowLayout, IsVisual {
+    allowedChildComponenents = "ALL")
+public interface FlexLayoutTagDeclaration extends HasIdBindingAndRendered, IsVisual {
+
+  /**
+   * This value defines the layout constraints for column layout.
+   * It is a semicolon separated list of layout tokens '&lt;n&gt;*', '&lt;measure&gt;' or the keyword 'auto'.
+   * Where &lt;n&gt; is a positive integer or empty and &lt;measure&gt; is a valid CSS length.
+   * Example: '2*;*;100px;3rem;auto'.
+   */
+  @TagAttribute
+  @UIComponentTagAttribute
+  void setColumns(String columns);
+
+  /**
+   * This value defines the layout constraints for row layout.
+   * It is a semicolon separated list of layout tokens '&lt;n&gt;*', '&lt;measure&gt;' or the keyword 'auto'.
+   * Where &lt;n&gt; is a positive integer or empty and &lt;measure&gt; is a valid CSS length.
+   * Example: '2*;*;100px;3rem;auto'.
+   */
+  @TagAttribute
+  @UIComponentTagAttribute
+  void setRows(String rows);
 
   /**
    * This value defines CSS align-items value of the flex layout.

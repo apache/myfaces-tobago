@@ -86,6 +86,9 @@ public class StyleRenderer extends RendererBase {
       final Position position = style.getPosition();
       final TextAlign textAlign = style.getTextAlign();
       final String backgroundImage = style.getBackgroundImage();
+      final Integer flexGrow = style.getFlexGrow();
+      final Integer flexShrink = style.getFlexShrink();
+      final Measure flexBasis = style.getFlexBasis();
 
       // todo: backgroundPosition and zIndex
 
@@ -112,7 +115,10 @@ public class StyleRenderer extends RendererBase {
           || display != null
           || position != null
           || textAlign != null
-          || backgroundImage != null) {
+          || backgroundImage != null
+          || flexGrow != null
+          || flexShrink != null
+          || flexBasis != null) {
 
         writer.startElement(HtmlElements.STYLE);
         writer.writeAttribute(HtmlAttributes.NONCE, Nonce.getNonce(facesContext), false);
@@ -196,6 +202,15 @@ public class StyleRenderer extends RendererBase {
         }
         if (backgroundImage != null) {
           encodeStyle(writer, Styles.backgroundImage, backgroundImage);
+        }
+        if (flexGrow != null) {
+          encodeStyle(writer, Styles.flexGrow, Integer.toString(flexGrow));
+        }
+        if (flexShrink != null) {
+          encodeStyle(writer, Styles.flexShrink, Integer.toString(flexShrink));
+        }
+        if (flexBasis != null) {
+          encodeStyle(writer, Styles.flexBasis, flexBasis.serialize());
         }
         writer.writeText("}");
 

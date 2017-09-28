@@ -49,7 +49,10 @@ public enum Styles {
   textAlign,
   backgroundImage,
   backgroundPosition,
-  zIndex;
+  zIndex,
+  flexGrow,
+  flexShrink,
+  flexBasis;
 
   private String cssName;
 

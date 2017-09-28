@@ -285,4 +285,31 @@ public interface StyleTagDeclaration extends HasIdBindingAndRendered {
   @UIComponentTagAttribute
   void setBackgroundImage(String backgroundImage);
 
+  /**
+   * Flex grow value of the element.
+   *
+   * @since 4.0.0
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(type = "java.lang.Integer")
+  void setFlexGrow(String flexGrow);
+
+  /**
+   * Flex shrink value of the element.
+   *
+   * @since 4.0.0
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(type = "java.lang.Integer")
+  void setFlexShrink(String flexShrink);
+
+  /**
+   * Flex basis value of the element.
+   *
+   * @since 4.0.0
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure")
+  void setFlexBasis(String flexBasis);
+
 }

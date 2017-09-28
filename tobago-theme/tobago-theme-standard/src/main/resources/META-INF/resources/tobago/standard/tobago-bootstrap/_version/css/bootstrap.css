@@ -8500,6 +8500,13 @@ table.tobago-gridLayout > tbody > tr:first-child > td {
   width: 155px;
 }
 
+/* the non-label-element inside of a label-layout with flex box */
+.tobago-flexLayout.tobago-label-container > .form-control,
+.tobago-flexLayout.tobago-label-container > .form-control-plaintext {
+  -ms-flex: 1 0 0px;
+      flex: 1 0 0px;
+}
+
 /* link ----------------------------------------------------------- */
 .tobago-link {
   white-space: nowrap;

@@ -140,4 +140,10 @@ public abstract class AbstractUIStyle extends UIComponentBase {
 
   public abstract String getBackgroundImage();
 
+  public abstract Integer getFlexGrow();
+
+  public abstract Integer getFlexShrink();
+
+  public abstract Measure getFlexBasis();
+
 }

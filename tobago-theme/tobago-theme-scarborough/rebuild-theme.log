@@ -1,0 +1,1039 @@
+Build date: 2017-09-28 10:56:01
+[[1;34mINFO[m] Scanning for projects...
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m------------------------------------------------------------------------[m
+[[1;34mINFO[m] [1mBuilding Tobago Theme Scarborough 4.0.0-SNAPSHOT[m
+[[1;34mINFO[m] [1m------------------------------------------------------------------------[m
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mmaven-enforcer-plugin:3.0.0-M1:enforce[m [1m(enforce)[m @ [36mtobago-theme-scarborough[0;1m ---[m
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mmaven-remote-resources-plugin:1.5:process[m [1m(default)[m @ [36mtobago-theme-scarborough[0;1m ---[m
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mmaven-scm-plugin:1.9.5:checkout[m [1m(step #1: checkout-bootstrap)[m @ [36mtobago-theme-scarborough[0;1m ---[m
+[[1;34mINFO[m] Removing __CURRENT__/tobago-theme-scarborough/target/checkout
+[[1;34mINFO[m] Executing: /bin/sh -c cd __CURRENT__/tobago-theme-scarborough/target && git clone --branch v4.0.0-beta https://github.com/twbs/bootstrap __CURRENT__/tobago-theme-scarborough/target/checkout
+[[1;34mINFO[m] Working directory: __CURRENT__/tobago-theme-scarborough/target
+[[1;34mINFO[m] Executing: /bin/sh -c cd /var/folders/w0/pg4pxr7972l6bq85x08s5cl00000gn/T/ && git ls-remote https://github.com/twbs/bootstrap
+[[1;34mINFO[m] Working directory: /var/folders/w0/pg4pxr7972l6bq85x08s5cl00000gn/T
+[[1;34mINFO[m] Executing: /bin/sh -c cd __CURRENT__/tobago-theme-scarborough/target/checkout && git pull https://github.com/twbs/bootstrap v4.0.0-beta:v4.0.0-beta
+[[1;34mINFO[m] Working directory: __CURRENT__/tobago-theme-scarborough/target/checkout
+[[1;34mINFO[m] Executing: /bin/sh -c cd __CURRENT__/tobago-theme-scarborough/target/checkout && git checkout v4.0.0-beta
+[[1;34mINFO[m] Working directory: __CURRENT__/tobago-theme-scarborough/target/checkout
+[[1;34mINFO[m] Executing: /bin/sh -c cd __CURRENT__/tobago-theme-scarborough/target/checkout && git ls-files
+[[1;34mINFO[m] Working directory: __CURRENT__/tobago-theme-scarborough/target/checkout
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mmaven-resources-plugin:2.7:copy-resources[m [1m(step #2: copy-bootstrap)[m @ [36mtobago-theme-scarborough[0;1m ---[m
+[[1;34mINFO[m] Using 'UTF-8' encoding to copy filtered resources.
+[[1;34mINFO[m] Copying 392 resources
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mmaven-resources-plugin:2.7:copy-resources[m [1m(step #3: copy-custom)[m @ [36mtobago-theme-scarborough[0;1m ---[m
+[[1;34mINFO[m] Using 'UTF-8' encoding to copy filtered resources.
+[[1;34mINFO[m] Copying 2 resources
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mmaven-patch-plugin:1.2:apply[m [1m(step #4: append-tobago-theme-to-bootstrap)[m @ [36mtobago-theme-scarborough[0;1m ---[m
+[[1;34mINFO[m] Applying patch: append-tobago-theme-to-bootstrap.patch
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mmaven-dependency-plugin:3.0.2:unpack[m [1m(step #5: unpack-custom)[m @ [36mtobago-theme-scarborough[0;1m ---[m
+[[1;34mINFO[m] Configured Artifact: org.apache.myfaces.tobago:tobago-core:4.0.0-SNAPSHOT:jar
+[[1;34mINFO[m] Unpacking __REPO__/org/apache/myfaces/tobago/tobago-core/4.0.0-SNAPSHOT/tobago-core-4.0.0-SNAPSHOT.jar to __CURRENT__/tobago-theme-scarborough/target/bootstrap with includes "**/*.scss" and excludes ""
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mfrontend-maven-plugin:1.4:install-node-and-npm[m [1m(step #6: install node and npm)[m @ [36mtobago-theme-scarborough[0;1m ---[m
+[[1;34mINFO[m] Installing node version v6.10.2
+[[1;34mINFO[m] Unpacking __REPO__/com/github/eirslett/node/6.10.2/node-6.10.2-darwin-x64.tar.gz into __CURRENT__/tobago-theme-scarborough/target/frontend/node/tmp
+[[1;34mINFO[m] Copying node binary from __CURRENT__/tobago-theme-scarborough/target/frontend/node/tmp/node-v6.10.2-darwin-x64/bin/node to __CURRENT__/tobago-theme-scarborough/target/frontend/node/node
+[[1;34mINFO[m] Installed node locally.
+[[1;34mINFO[m] Installing npm version 3.10.10
+[[1;34mINFO[m] Unpacking __REPO__/com/github/eirslett/npm/3.10.10/npm-3.10.10.tar.gz into __CURRENT__/tobago-theme-scarborough/target/frontend/node/node_modules
+[[1;34mINFO[m] Installed npm locally.
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mfrontend-maven-plugin:1.4:npm[m [1m(step #7: npm install)[m @ [36mtobago-theme-scarborough[0;1m ---[m
+[[1;34mINFO[m] Running 'npm install' in __CURRENT__/tobago-theme-scarborough/target/bootstrap
+[[1;33mWARNING[m] npm WARN deprecated babel-preset-es2015@6.24.1: We're super 😸  excited that you're trying to use ES2015 syntax, but instead of continuing yearly presets 😭 , we recommend using babel-preset-env: npm install babel-preset-env. preset-env without options will compile ES2015+ down to ES5. And by targeting specific browsers, Babel can do less work and you can ship native ES2015+ to users 😎 ! Also, we are in the process of releasing v7, so give http://babeljs.io/blog/2017/09/12/planning-for-7.0 a read and test it! Thanks so much for using Babel 🙏 , please give us a follow @babeljs for updates, join slack.babeljs.io for discussion and help support at opencollective.com/babel
+[[1;33mWARNING[m] npm WARN prefer global coffee-script@1.10.0 should be installed with -g
+[[1;33mWARNING[m] npm WARN prefer global node-gyp@3.6.2 should be installed with -g
+[[1;34mINFO[m] 
+[[1;34mINFO[m] > fsevents@1.1.2 install __CURRENT__/tobago-theme-scarborough/target/bootstrap/node_modules/fsevents
+[[1;34mINFO[m] > node install
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [fsevents] Success: "__CURRENT__/tobago-theme-scarborough/target/bootstrap/node_modules/fsevents/lib/binding/Release/node-v48-darwin-x64/fse.node" already installed
+[[1;34mINFO[m] Pass --update-binary to reinstall or --build-from-source to recompile
+[[1;34mINFO[m] 
+[[1;34mINFO[m] > node-sass@4.5.3 install __CURRENT__/tobago-theme-scarborough/target/bootstrap/node_modules/node-sass
+[[1;34mINFO[m] > node scripts/install.js
+[[1;34mINFO[m] 
+[[1;34mINFO[m] Cached binary found at __HOME__/.npm/node-sass/4.5.3/darwin-x64-48_binding.node
+[[1;34mINFO[m] 
+[[1;34mINFO[m] > phantomjs-prebuilt@2.1.15 install __CURRENT__/tobago-theme-scarborough/target/bootstrap/node_modules/phantomjs-prebuilt
+[[1;34mINFO[m] > node install.js
+[[1;34mINFO[m] 
+[[1;34mINFO[m] PhantomJS not found on PATH
+[[1;34mINFO[m] Download already available at /var/folders/w0/pg4pxr7972l6bq85x08s5cl00000gn/T/phantomjs/phantomjs-2.1.1-macosx.zip
+[[1;34mINFO[m] Verified checksum of previously downloaded file
+[[1;34mINFO[m] Extracting zip contents
+[[1;34mINFO[m] Removing __CURRENT__/tobago-theme-scarborough/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom
+[[1;34mINFO[m] Copying extracted folder /var/folders/w0/pg4pxr7972l6bq85x08s5cl00000gn/T/phantomjs/phantomjs-2.1.1-macosx.zip-extract-1506589103789/phantomjs-2.1.1-macosx -> __CURRENT__/tobago-theme-scarborough/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom
+[[1;34mINFO[m] Writing location.js file
+[[1;34mINFO[m] Done. Phantomjs binary available at __CURRENT__/tobago-theme-scarborough/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom/bin/phantomjs
+[[1;34mINFO[m] 
+[[1;34mINFO[m] > node-sass@4.5.3 postinstall __CURRENT__/tobago-theme-scarborough/target/bootstrap/node_modules/node-sass
+[[1;34mINFO[m] > node scripts/build.js
+[[1;34mINFO[m] 
+[[1;34mINFO[m] Binary found at __CURRENT__/tobago-theme-scarborough/target/bootstrap/node_modules/node-sass/vendor/darwin-x64-48/binding.node
+[[1;34mINFO[m] Testing binary
+[[1;34mINFO[m] Binary is fine
+[[1;34mINFO[m] bootstrap@4.0.0-beta __CURRENT__/tobago-theme-scarborough/target/bootstrap
+[[1;34mINFO[m] ├─┬ autoprefixer@7.1.4 
+[[1;34mINFO[m] │ ├─┬ browserslist@2.4.0 
+[[1;34mINFO[m] │ │ └── electron-to-chromium@1.3.23 
+[[1;34mINFO[m] │ ├── caniuse-lite@1.0.30000739 
+[[1;34mINFO[m] │ ├── normalize-range@0.1.2 
+[[1;34mINFO[m] │ ├── num2fraction@1.2.2 
+[[1;34mINFO[m] │ ├─┬ postcss@6.0.12 
+[[1;34mINFO[m] │ │ └─┬ supports-color@4.4.0 
+[[1;34mINFO[m] │ │   └── has-flag@2.0.0 
+[[1;34mINFO[m] │ └── postcss-value-parser@3.3.0 
+[[1;34mINFO[m] ├─┬ babel-cli@6.26.0 
+[[1;34mINFO[m] │ ├─┬ babel-core@6.26.0 
+[[1;34mINFO[m] │ │ ├─┬ babel-generator@6.26.0 
+[[1;34mINFO[m] │ │ │ ├─┬ detect-indent@4.0.0 
+[[1;34mINFO[m] │ │ │ │ └─┬ repeating@2.0.1 
+[[1;34mINFO[m] │ │ │ │   └── is-finite@1.0.2 
+[[1;34mINFO[m] │ │ │ ├── jsesc@1.3.0 
+[[1;34mINFO[m] │ │ │ └── trim-right@1.0.1 
+[[1;34mINFO[m] │ │ ├── babel-helpers@6.24.1 
+[[1;34mINFO[m] │ │ ├── babel-messages@6.23.0 
+[[1;34mINFO[m] │ │ ├── babel-template@6.26.0 
+[[1;34mINFO[m] │ │ ├── json5@0.5.1 
+[[1;34mINFO[m] │ │ └── private@0.1.7 
+[[1;34mINFO[m] │ ├─┬ babel-polyfill@6.26.0 
+[[1;34mINFO[m] │ │ ├── core-js@2.5.1 
+[[1;34mINFO[m] │ │ └── regenerator-runtime@0.10.5 
+[[1;34mINFO[m] │ ├─┬ babel-register@6.26.0 
+[[1;34mINFO[m] │ │ ├─┬ home-or-tmp@2.0.0 
+[[1;34mINFO[m] │ │ │ ├── os-homedir@1.0.2 
+[[1;34mINFO[m] │ │ │ └── os-tmpdir@1.0.2 
+[[1;34mINFO[m] │ │ └── source-map-support@0.4.18 
+[[1;34mINFO[m] │ ├─┬ babel-runtime@6.26.0 
+[[1;34mINFO[m] │ │ └── regenerator-runtime@0.11.0 
+[[1;34mINFO[m] │ ├─┬ chokidar@1.7.0 
+[[1;34mINFO[m] │ │ ├─┬ anymatch@1.3.2 
+[[1;34mINFO[m] │ │ │ └─┬ normalize-path@2.1.1 
+[[1;34mINFO[m] │ │ │   └── remove-trailing-separator@1.1.0 
+[[1;34mINFO[m] │ │ ├── async-each@1.0.1 
+[[1;34mINFO[m] │ │ ├─┬ fsevents@1.1.2 
+[[1;34mINFO[m] │ │ │ └─┬ node-pre-gyp@0.6.36 
+[[1;34mINFO[m] │ │ │   ├─┬ mkdirp@0.5.1 
+[[1;34mINFO[m] │ │ │   │ └── minimist@0.0.8 
+[[1;34mINFO[m] │ │ │   ├─┬ nopt@4.0.1 
+[[1;34mINFO[m] │ │ │   │ ├── abbrev@1.1.0 
+[[1;34mINFO[m] │ │ │   │ └─┬ osenv@0.1.4 
+[[1;34mINFO[m] │ │ │   │   ├── os-homedir@1.0.2 
+[[1;33mWARNING[m] npm WARN bootstrap@4.0.0-beta requires a peer of jquery@>=1.9.1 but none was installed.
+[[1;34mINFO[m] │ │ │   │   └── os-tmpdir@1.0.2 
+[[1;34mINFO[m] │ │ │   ├─┬ npmlog@4.1.0 
+[[1;33mWARNING[m] npm WARN bootstrap@4.0.0-beta requires a peer of popper.js@^1.11.0 but none was installed.
+[[1;34mINFO[m] │ │ │   │ ├─┬ are-we-there-yet@1.1.4 
+[[1;34mINFO[m] │ │ │   │ │ └── delegates@1.0.0 
+[[1;34mINFO[m] │ │ │   │ ├── console-control-strings@1.1.0 
+[[1;34mINFO[m] │ │ │   │ ├─┬ gauge@2.7.4 
+[[1;34mINFO[m] │ │ │   │ │ ├── aproba@1.1.1 
+[[1;34mINFO[m] │ │ │   │ │ ├── has-unicode@2.0.1 
+[[1;34mINFO[m] │ │ │   │ │ ├── object-assign@4.1.1 
+[[1;34mINFO[m] │ │ │   │ │ ├── signal-exit@3.0.2 
+[[1;34mINFO[m] │ │ │   │ │ ├─┬ string-width@1.0.2 
+[[1;34mINFO[m] │ │ │   │ │ │ ├── code-point-at@1.1.0 
+[[1;34mINFO[m] │ │ │   │ │ │ └─┬ is-fullwidth-code-point@1.0.0 
+[[1;34mINFO[m] │ │ │   │ │ │   └── number-is-nan@1.0.1 
+[[1;34mINFO[m] │ │ │   │ │ ├─┬ strip-ansi@3.0.1 
+[[1;34mINFO[m] │ │ │   │ │ │ └── ansi-regex@2.1.1 
+[[1;34mINFO[m] │ │ │   │ │ └── wide-align@1.1.2 
+[[1;34mINFO[m] │ │ │   │ └── set-blocking@2.0.0 
+[[1;34mINFO[m] │ │ │   ├─┬ rc@1.2.1 
+[[1;34mINFO[m] │ │ │   │ ├── deep-extend@0.4.2 
+[[1;34mINFO[m] │ │ │   │ ├── ini@1.3.4 
+[[1;34mINFO[m] │ │ │   │ ├── minimist@1.2.0 
+[[1;34mINFO[m] │ │ │   │ └── strip-json-comments@2.0.1 
+[[1;34mINFO[m] │ │ │   ├─┬ request@2.81.0 
+[[1;34mINFO[m] │ │ │   │ ├── aws-sign2@0.6.0 
+[[1;34mINFO[m] │ │ │   │ ├── aws4@1.6.0 
+[[1;34mINFO[m] │ │ │   │ ├── caseless@0.12.0 
+[[1;34mINFO[m] │ │ │   │ ├─┬ combined-stream@1.0.5 
+[[1;34mINFO[m] │ │ │   │ │ └── delayed-stream@1.0.0 
+[[1;34mINFO[m] │ │ │   │ ├── extend@3.0.1 
+[[1;34mINFO[m] │ │ │   │ ├── forever-agent@0.6.1 
+[[1;34mINFO[m] │ │ │   │ ├─┬ form-data@2.1.4 
+[[1;34mINFO[m] │ │ │   │ │ └── asynckit@0.4.0 
+[[1;34mINFO[m] │ │ │   │ ├─┬ har-validator@4.2.1 
+[[1;34mINFO[m] │ │ │   │ │ ├─┬ ajv@4.11.8 
+[[1;34mINFO[m] │ │ │   │ │ │ ├── co@4.6.0 
+[[1;34mINFO[m] │ │ │   │ │ │ └─┬ json-stable-stringify@1.0.1 
+[[1;34mINFO[m] │ │ │   │ │ │   └── jsonify@0.0.0 
+[[1;34mINFO[m] │ │ │   │ │ └── har-schema@1.0.5 
+[[1;34mINFO[m] │ │ │   │ ├─┬ hawk@3.1.3 
+[[1;34mINFO[m] │ │ │   │ │ ├── boom@2.10.1 
+[[1;34mINFO[m] │ │ │   │ │ ├── cryptiles@2.0.5 
+[[1;34mINFO[m] │ │ │   │ │ ├── hoek@2.16.3 
+[[1;34mINFO[m] │ │ │   │ │ └── sntp@1.0.9 
+[[1;34mINFO[m] │ │ │   │ ├─┬ http-signature@1.1.1 
+[[1;34mINFO[m] │ │ │   │ │ ├── assert-plus@0.2.0 
+[[1;34mINFO[m] │ │ │   │ │ ├─┬ jsprim@1.4.0 
+[[1;34mINFO[m] │ │ │   │ │ │ ├── assert-plus@1.0.0 
+[[1;34mINFO[m] │ │ │   │ │ │ ├── extsprintf@1.0.2 
+[[1;34mINFO[m] │ │ │   │ │ │ ├── json-schema@0.2.3 
+[[1;34mINFO[m] │ │ │   │ │ │ └── verror@1.3.6 
+[[1;34mINFO[m] │ │ │   │ │ └─┬ sshpk@1.13.0 
+[[1;34mINFO[m] │ │ │   │ │   ├── asn1@0.2.3 
+[[1;34mINFO[m] │ │ │   │ │   ├── assert-plus@1.0.0 
+[[1;34mINFO[m] │ │ │   │ │   ├── bcrypt-pbkdf@1.0.1 
+[[1;34mINFO[m] │ │ │   │ │   ├─┬ dashdash@1.14.1 
+[[1;34mINFO[m] │ │ │   │ │   │ └── assert-plus@1.0.0 
+[[1;34mINFO[m] │ │ │   │ │   ├── ecc-jsbn@0.1.1 
+[[1;34mINFO[m] │ │ │   │ │   ├─┬ getpass@0.1.7 
+[[1;34mINFO[m] │ │ │   │ │   │ └── assert-plus@1.0.0 
+[[1;34mINFO[m] │ │ │   │ │   ├── jodid25519@1.0.2 
+[[1;34mINFO[m] │ │ │   │ │   ├── jsbn@0.1.1 
+[[1;34mINFO[m] │ │ │   │ │   └── tweetnacl@0.14.5 
+[[1;34mINFO[m] │ │ │   │ ├── is-typedarray@1.0.0 
+[[1;34mINFO[m] │ │ │   │ ├── isstream@0.1.2 
+[[1;34mINFO[m] │ │ │   │ ├── json-stringify-safe@5.0.1 
+[[1;34mINFO[m] │ │ │   │ ├─┬ mime-types@2.1.15 
+[[1;34mINFO[m] │ │ │   │ │ └── mime-db@1.27.0 
+[[1;34mINFO[m] │ │ │   │ ├── oauth-sign@0.8.2 
+[[1;34mINFO[m] │ │ │   │ ├── performance-now@0.2.0 
+[[1;34mINFO[m] │ │ │   │ ├── qs@6.4.0 
+[[1;34mINFO[m] │ │ │   │ ├── safe-buffer@5.0.1 
+[[1;34mINFO[m] │ │ │   │ ├── stringstream@0.0.5 
+[[1;34mINFO[m] │ │ │   │ ├─┬ tough-cookie@2.3.2 
+[[1;34mINFO[m] │ │ │   │ │ └── punycode@1.4.1 
+[[1;34mINFO[m] │ │ │   │ ├── tunnel-agent@0.6.0 
+[[1;34mINFO[m] │ │ │   │ └── uuid@3.0.1 
+[[1;34mINFO[m] │ │ │   ├─┬ rimraf@2.6.1 
+[[1;34mINFO[m] │ │ │   │ └─┬ glob@7.1.2 
+[[1;34mINFO[m] │ │ │   │   ├── fs.realpath@1.0.0 
+[[1;34mINFO[m] │ │ │   │   ├── inflight@1.0.6 
+[[1;34mINFO[m] │ │ │   │   ├─┬ minimatch@3.0.4 
+[[1;34mINFO[m] │ │ │   │   │ └─┬ brace-expansion@1.1.7 
+[[1;34mINFO[m] │ │ │   │   │   ├── balanced-match@0.4.2 
+[[1;34mINFO[m] │ │ │   │   │   └── concat-map@0.0.1 
+[[1;34mINFO[m] │ │ │   │   └── path-is-absolute@1.0.1 
+[[1;34mINFO[m] │ │ │   ├── semver@5.3.0 
+[[1;34mINFO[m] │ │ │   ├─┬ tar@2.2.1 
+[[1;34mINFO[m] │ │ │   │ ├── block-stream@0.0.9 
+[[1;34mINFO[m] │ │ │   │ ├─┬ fstream@1.0.11 
+[[1;34mINFO[m] │ │ │   │ │ └── graceful-fs@4.1.11 
+[[1;34mINFO[m] │ │ │   │ └── inherits@2.0.3 
+[[1;34mINFO[m] │ │ │   └─┬ tar-pack@3.4.0 
+[[1;34mINFO[m] │ │ │     ├─┬ debug@2.6.8 
+[[1;34mINFO[m] │ │ │     │ └── ms@2.0.0 
+[[1;34mINFO[m] │ │ │     ├── fstream-ignore@1.0.5 
+[[1;34mINFO[m] │ │ │     ├─┬ once@1.4.0 
+[[1;34mINFO[m] │ │ │     │ └── wrappy@1.0.2 
+[[1;34mINFO[m] │ │ │     ├─┬ readable-stream@2.2.9 
+[[1;34mINFO[m] │ │ │     │ ├── buffer-shims@1.0.0 
+[[1;34mINFO[m] │ │ │     │ ├── core-util-is@1.0.2 
+[[1;34mINFO[m] │ │ │     │ ├── isarray@1.0.0 
+[[1;34mINFO[m] │ │ │     │ ├── process-nextick-args@1.0.7 
+[[1;34mINFO[m] │ │ │     │ ├── string_decoder@1.0.1 
+[[1;34mINFO[m] │ │ │     │ └── util-deprecate@1.0.2 
+[[1;34mINFO[m] │ │ │     └── uid-number@0.0.6 
+[[1;34mINFO[m] │ │ ├── glob-parent@2.0.0 
+[[1;34mINFO[m] │ │ ├── inherits@2.0.3 
+[[1;34mINFO[m] │ │ ├─┬ is-binary-path@1.0.1 
+[[1;34mINFO[m] │ │ │ └── binary-extensions@1.10.0 
+[[1;34mINFO[m] │ │ ├─┬ is-glob@2.0.1 
+[[1;34mINFO[m] │ │ │ └── is-extglob@1.0.0 
+[[1;34mINFO[m] │ │ └─┬ readdirp@2.1.0 
+[[1;34mINFO[m] │ │   └── set-immediate-shim@1.0.1 
+[[1;34mINFO[m] │ ├── commander@2.11.0 
+[[1;34mINFO[m] │ ├── convert-source-map@1.5.0 
+[[1;34mINFO[m] │ ├── fs-readdir-recursive@1.0.0 
+[[1;34mINFO[m] │ ├─┬ glob@7.1.2 
+[[1;34mINFO[m] │ │ ├── fs.realpath@1.0.0 
+[[1;34mINFO[m] │ │ ├─┬ inflight@1.0.6 
+[[1;34mINFO[m] │ │ │ └── wrappy@1.0.2 
+[[1;34mINFO[m] │ │ └── once@1.4.0 
+[[1;34mINFO[m] │ ├── lodash@4.17.4 
+[[1;34mINFO[m] │ ├─┬ output-file-sync@1.1.2 
+[[1;34mINFO[m] │ │ ├── graceful-fs@4.1.11 
+[[1;34mINFO[m] │ │ └── object-assign@4.1.1 
+[[1;34mINFO[m] │ ├── path-is-absolute@1.0.1 
+[[1;34mINFO[m] │ ├── slash@1.0.0 
+[[1;34mINFO[m] │ ├── source-map@0.5.7 
+[[1;34mINFO[m] │ └─┬ v8flags@2.1.1 
+[[1;34mINFO[m] │   └── user-home@1.1.1 
+[[1;34mINFO[m] ├─┬ babel-eslint@7.2.3 
+[[1;34mINFO[m] │ ├─┬ babel-code-frame@6.26.0 
+[[1;34mINFO[m] │ │ ├─┬ chalk@1.1.3 
+[[1;34mINFO[m] │ │ │ ├── ansi-styles@2.2.1 
+[[1;34mINFO[m] │ │ │ └── supports-color@2.0.0 
+[[1;34mINFO[m] │ │ └── js-tokens@3.0.2 
+[[1;34mINFO[m] │ ├─┬ babel-traverse@6.26.0 
+[[1;34mINFO[m] │ │ └─┬ invariant@2.2.2 
+[[1;34mINFO[m] │ │   └── loose-envify@1.3.1 
+[[1;34mINFO[m] │ ├─┬ babel-types@6.26.0 
+[[1;34mINFO[m] │ │ └── to-fast-properties@1.0.3 
+[[1;34mINFO[m] │ └── babylon@6.18.0 
+[[1;34mINFO[m] ├── babel-plugin-transform-es2015-modules-strip@0.1.1 
+[[1;34mINFO[m] ├─┬ babel-preset-es2015@6.24.1 
+[[1;34mINFO[m] │ ├── babel-plugin-check-es2015-constants@6.22.0 
+[[1;34mINFO[m] │ ├── babel-plugin-transform-es2015-arrow-functions@6.22.0 
+[[1;34mINFO[m] │ ├── babel-plugin-transform-es2015-block-scoped-functions@6.22.0 
+[[1;34mINFO[m] │ ├── babel-plugin-transform-es2015-block-scoping@6.26.0 
+[[1;34mINFO[m] │ ├─┬ babel-plugin-transform-es2015-classes@6.24.1 
+[[1;34mINFO[m] │ │ ├── babel-helper-define-map@6.26.0 
+[[1;34mINFO[m] │ │ ├── babel-helper-function-name@6.24.1 
+[[1;34mINFO[m] │ │ ├── babel-helper-optimise-call-expression@6.24.1 
+[[1;34mINFO[m] │ │ └── babel-helper-replace-supers@6.24.1 
+[[1;34mINFO[m] │ ├── babel-plugin-transform-es2015-computed-properties@6.24.1 
+[[1;34mINFO[m] │ ├── babel-plugin-transform-es2015-destructuring@6.23.0 
+[[1;34mINFO[m] │ ├── babel-plugin-transform-es2015-duplicate-keys@6.24.1 
+[[1;34mINFO[m] │ ├── babel-plugin-transform-es2015-for-of@6.23.0 
+[[1;34mINFO[m] │ ├── babel-plugin-transform-es2015-function-name@6.24.1 
+[[1;34mINFO[m] │ ├── babel-plugin-transform-es2015-literals@6.22.0 
+[[1;34mINFO[m] │ ├── babel-plugin-transform-es2015-modules-amd@6.24.1 
+[[1;34mINFO[m] │ ├─┬ babel-plugin-transform-es2015-modules-commonjs@6.26.0 
+[[1;34mINFO[m] │ │ └── babel-plugin-transform-strict-mode@6.24.1 
+[[1;34mINFO[m] │ ├─┬ babel-plugin-transform-es2015-modules-systemjs@6.24.1 
+[[1;34mINFO[m] │ │ └── babel-helper-hoist-variables@6.24.1 
+[[1;34mINFO[m] │ ├── babel-plugin-transform-es2015-modules-umd@6.24.1 
+[[1;34mINFO[m] │ ├── babel-plugin-transform-es2015-object-super@6.24.1 
+[[1;34mINFO[m] │ ├─┬ babel-plugin-transform-es2015-parameters@6.24.1 
+[[1;34mINFO[m] │ │ ├── babel-helper-call-delegate@6.24.1 
+[[1;34mINFO[m] │ │ └── babel-helper-get-function-arity@6.24.1 
+[[1;34mINFO[m] │ ├── babel-plugin-transform-es2015-shorthand-properties@6.24.1 
+[[1;34mINFO[m] │ ├── babel-plugin-transform-es2015-spread@6.22.0 
+[[1;34mINFO[m] │ ├─┬ babel-plugin-transform-es2015-sticky-regex@6.24.1 
+[[1;34mINFO[m] │ │ └── babel-helper-regex@6.26.0 
+[[1;34mINFO[m] │ ├── babel-plugin-transform-es2015-template-literals@6.22.0 
+[[1;34mINFO[m] │ ├── babel-plugin-transform-es2015-typeof-symbol@6.23.0 
+[[1;34mINFO[m] │ ├─┬ babel-plugin-transform-es2015-unicode-regex@6.24.1 
+[[1;34mINFO[m] │ │ └─┬ regexpu-core@2.0.0 
+[[1;34mINFO[m] │ │   ├── regenerate@1.3.3 
+[[1;34mINFO[m] │ │   ├── regjsgen@0.2.0 
+[[1;34mINFO[m] │ │   └─┬ regjsparser@0.1.5 
+[[1;34mINFO[m] │ │     └── jsesc@0.5.0 
+[[1;34mINFO[m] │ └─┬ babel-plugin-transform-regenerator@6.26.0 
+[[1;34mINFO[m] │   └── regenerator-transform@0.10.1 
+[[1;34mINFO[m] ├─┬ clean-css-cli@4.1.10 
+[[1;34mINFO[m] │ └── clean-css@4.1.9 
+[[1;34mINFO[m] ├─┬ eslint@4.7.2 
+[[1;34mINFO[m] │ ├─┬ ajv@5.2.3 
+[[1;34mINFO[m] │ │ ├── co@4.6.0 
+[[1;34mINFO[m] │ │ ├── fast-deep-equal@1.0.0 
+[[1;34mINFO[m] │ │ └── json-schema-traverse@0.3.1 
+[[1;34mINFO[m] │ ├─┬ chalk@2.1.0 
+[[1;34mINFO[m] │ │ └── escape-string-regexp@1.0.5 
+[[1;34mINFO[m] │ ├─┬ concat-stream@1.6.0 
+[[1;34mINFO[m] │ │ ├─┬ readable-stream@2.3.3 
+[[1;34mINFO[m] │ │ │ ├── core-util-is@1.0.2 
+[[1;34mINFO[m] │ │ │ ├── process-nextick-args@1.0.7 
+[[1;34mINFO[m] │ │ │ ├── string_decoder@1.0.3 
+[[1;34mINFO[m] │ │ │ └── util-deprecate@1.0.2 
+[[1;34mINFO[m] │ │ └── typedarray@0.0.6 
+[[1;34mINFO[m] │ ├─┬ cross-spawn@5.1.0 
+[[1;34mINFO[m] │ │ ├─┬ lru-cache@4.1.1 
+[[1;34mINFO[m] │ │ │ ├── pseudomap@1.0.2 
+[[1;34mINFO[m] │ │ │ └── yallist@2.1.2 
+[[1;34mINFO[m] │ │ ├─┬ shebang-command@1.2.0 
+[[1;34mINFO[m] │ │ │ └── shebang-regex@1.0.0 
+[[1;34mINFO[m] │ │ └── which@1.3.0 
+[[1;34mINFO[m] │ ├─┬ debug@3.1.0 
+[[1;34mINFO[m] │ │ └── ms@2.0.0 
+[[1;34mINFO[m] │ ├─┬ doctrine@2.0.0 
+[[1;34mINFO[m] │ │ └── isarray@1.0.0 
+[[1;34mINFO[m] │ ├─┬ eslint-scope@3.7.1 
+[[1;34mINFO[m] │ │ └── esrecurse@4.2.0 
+[[1;34mINFO[m] │ ├─┬ espree@3.5.1 
+[[1;34mINFO[m] │ │ ├── acorn@5.1.2 
+[[1;34mINFO[m] │ │ └─┬ acorn-jsx@3.0.1 
+[[1;34mINFO[m] │ │   └── acorn@3.3.0 
+[[1;34mINFO[m] │ ├── esquery@1.0.0 
+[[1;34mINFO[m] │ ├── estraverse@4.2.0 
+[[1;34mINFO[m] │ ├── esutils@2.0.2 
+[[1;34mINFO[m] │ ├─┬ file-entry-cache@2.0.0 
+[[1;34mINFO[m] │ │ └─┬ flat-cache@1.3.0 
+[[1;34mINFO[m] │ │   ├── circular-json@0.3.3 
+[[1;34mINFO[m] │ │   ├─┬ del@2.2.2 
+[[1;34mINFO[m] │ │   │ ├─┬ globby@5.0.0 
+[[1;34mINFO[m] │ │   │ │ └── arrify@1.0.1 
+[[1;34mINFO[m] │ │   │ ├── is-path-cwd@1.0.0 
+[[1;34mINFO[m] │ │   │ └─┬ is-path-in-cwd@1.0.0 
+[[1;34mINFO[m] │ │   │   └── is-path-inside@1.0.0 
+[[1;34mINFO[m] │ │   └── write@0.2.1 
+[[1;34mINFO[m] │ ├── functional-red-black-tree@1.0.1 
+[[1;34mINFO[m] │ ├── globals@9.18.0 
+[[1;34mINFO[m] │ ├── ignore@3.3.5 
+[[1;34mINFO[m] │ ├── imurmurhash@0.1.4 
+[[1;34mINFO[m] │ ├─┬ inquirer@3.3.0 
+[[1;34mINFO[m] │ │ ├── ansi-escapes@3.0.0 
+[[1;34mINFO[m] │ │ ├─┬ cli-cursor@2.1.0 
+[[1;34mINFO[m] │ │ │ └─┬ restore-cursor@2.0.0 
+[[1;34mINFO[m] │ │ │   └── onetime@2.0.1 
+[[1;34mINFO[m] │ │ ├── cli-width@2.2.0 
+[[1;34mINFO[m] │ │ ├─┬ external-editor@2.0.5 
+[[1;34mINFO[m] │ │ │ ├── jschardet@1.5.1 
+[[1;34mINFO[m] │ │ │ └── tmp@0.0.33 
+[[1;34mINFO[m] │ │ ├── figures@2.0.0 
+[[1;34mINFO[m] │ │ ├── mute-stream@0.0.7 
+[[1;34mINFO[m] │ │ ├─┬ run-async@2.3.0 
+[[1;34mINFO[m] │ │ │ └── is-promise@2.1.0 
+[[1;34mINFO[m] │ │ ├── rx-lite@4.0.8 
+[[1;34mINFO[m] │ │ ├── rx-lite-aggregates@4.0.8 
+[[1;34mINFO[m] │ │ ├─┬ string-width@2.1.1 
+[[1;34mINFO[m] │ │ │ ├── is-fullwidth-code-point@2.0.0 
+[[1;34mINFO[m] │ │ │ └─┬ strip-ansi@4.0.0 
+[[1;34mINFO[m] │ │ │   └── ansi-regex@3.0.0 
+[[1;34mINFO[m] │ │ ├─┬ strip-ansi@4.0.0 
+[[1;34mINFO[m] │ │ │ └── ansi-regex@3.0.0 
+[[1;34mINFO[m] │ │ └── through@2.3.8 
+[[1;34mINFO[m] │ ├─┬ is-resolvable@1.0.0 
+[[1;34mINFO[m] │ │ └── tryit@1.0.3 
+[[1;34mINFO[m] │ ├─┬ js-yaml@3.10.0 
+[[1;34mINFO[m] │ │ ├─┬ argparse@1.0.9 
+[[1;34mINFO[m] │ │ │ └── sprintf-js@1.0.3 
+[[1;34mINFO[m] │ │ └── esprima@4.0.0 
+[[1;34mINFO[m] │ ├─┬ json-stable-stringify@1.0.1 
+[[1;34mINFO[m] │ │ └── jsonify@0.0.0 
+[[1;34mINFO[m] │ ├─┬ levn@0.3.0 
+[[1;34mINFO[m] │ │ ├── prelude-ls@1.1.2 
+[[1;34mINFO[m] │ │ └── type-check@0.3.2 
+[[1;34mINFO[m] │ ├─┬ minimatch@3.0.4 
+[[1;34mINFO[m] │ │ └─┬ brace-expansion@1.1.8 
+[[1;34mINFO[m] │ │   ├── balanced-match@1.0.0 
+[[1;34mINFO[m] │ │   └── concat-map@0.0.1 
+[[1;34mINFO[m] │ ├─┬ mkdirp@0.5.1 
+[[1;34mINFO[m] │ │ └── minimist@0.0.8 
+[[1;34mINFO[m] │ ├── natural-compare@1.4.0 
+[[1;34mINFO[m] │ ├─┬ optionator@0.8.2 
+[[1;34mINFO[m] │ │ ├── deep-is@0.1.3 
+[[1;34mINFO[m] │ │ ├── fast-levenshtein@2.0.6 
+[[1;34mINFO[m] │ │ └── wordwrap@1.0.0 
+[[1;34mINFO[m] │ ├── path-is-inside@1.0.2 
+[[1;34mINFO[m] │ ├── pluralize@7.0.0 
+[[1;34mINFO[m] │ ├── progress@2.0.0 
+[[1;34mINFO[m] │ ├─┬ require-uncached@1.0.3 
+[[1;34mINFO[m] │ │ ├─┬ caller-path@0.1.0 
+[[1;34mINFO[m] │ │ │ └── callsites@0.2.0 
+[[1;34mINFO[m] │ │ └── resolve-from@1.0.1 
+[[1;34mINFO[m] │ ├── semver@5.4.1 
+[[1;34mINFO[m] │ ├─┬ strip-ansi@4.0.0 
+[[1;34mINFO[m] │ │ └── ansi-regex@3.0.0 
+[[1;34mINFO[m] │ ├── strip-json-comments@2.0.1 
+[[1;34mINFO[m] │ ├─┬ table@4.0.2 
+[[1;34mINFO[m] │ │ ├── ajv-keywords@2.1.0 
+[[1;34mINFO[m] │ │ └── slice-ansi@1.0.0 
+[[1;34mINFO[m] │ └── text-table@0.2.0 
+[[1;34mINFO[m] ├─┬ grunt@1.0.1 
+[[1;34mINFO[m] │ ├── coffee-script@1.10.0 
+[[1;34mINFO[m] │ ├── dateformat@1.0.12 
+[[1;34mINFO[m] │ ├── eventemitter2@0.4.14 
+[[1;34mINFO[m] │ ├── exit@0.1.2 
+[[1;34mINFO[m] │ ├─┬ findup-sync@0.3.0 
+[[1;34mINFO[m] │ │ └── glob@5.0.15 
+[[1;34mINFO[m] │ ├── glob@7.0.6 
+[[1;34mINFO[m] │ ├── grunt-known-options@1.1.0 
+[[1;34mINFO[m] │ ├─┬ grunt-legacy-log@1.0.0 
+[[1;34mINFO[m] │ │ ├─┬ grunt-legacy-log-utils@1.0.0 
+[[1;34mINFO[m] │ │ │ ├─┬ chalk@1.1.3 
+[[1;34mINFO[m] │ │ │ │ ├── ansi-styles@2.2.1 
+[[1;34mINFO[m] │ │ │ │ └── supports-color@2.0.0 
+[[1;34mINFO[m] │ │ │ └── lodash@4.3.0 
+[[1;34mINFO[m] │ │ ├── hooker@0.2.3 
+[[1;34mINFO[m] │ │ ├── lodash@3.10.1 
+[[1;34mINFO[m] │ │ └── underscore.string@3.2.3 
+[[1;34mINFO[m] │ ├─┬ grunt-legacy-util@1.0.0 
+[[1;34mINFO[m] │ │ ├── async@1.5.2 
+[[1;34mINFO[m] │ │ ├── getobject@0.1.0 
+[[1;34mINFO[m] │ │ ├── lodash@4.3.0 
+[[1;34mINFO[m] │ │ └── which@1.2.14 
+[[1;34mINFO[m] │ ├── iconv-lite@0.4.19 
+[[1;34mINFO[m] │ ├─┬ js-yaml@3.5.5 
+[[1;34mINFO[m] │ │ └── esprima@2.7.3 
+[[1;34mINFO[m] │ ├─┬ nopt@3.0.6 
+[[1;34mINFO[m] │ │ └── abbrev@1.1.1 
+[[1;34mINFO[m] │ └── rimraf@2.2.8 
+[[1;34mINFO[m] ├─┬ grunt-cli@1.2.0 
+[[1;34mINFO[m] │ └── resolve@1.1.7 
+[[1;34mINFO[m] ├─┬ grunt-saucelabs@9.0.0 
+[[1;34mINFO[m] │ ├── colors@1.1.2 
+[[1;34mINFO[m] │ ├── lodash@4.13.1 
+[[1;34mINFO[m] │ ├── q@1.4.1 
+[[1;34mINFO[m] │ ├─┬ requestretry@1.9.1 
+[[1;34mINFO[m] │ │ ├── extend@3.0.1 
+[[1;34mINFO[m] │ │ ├─┬ fg-lodash@0.0.2 
+[[1;34mINFO[m] │ │ │ ├── lodash@2.4.2 
+[[1;34mINFO[m] │ │ │ └── underscore.string@2.3.3 
+[[1;34mINFO[m] │ │ └── when@3.7.8 
+[[1;34mINFO[m] │ ├─┬ sauce-tunnel@2.5.0 
+[[1;34mINFO[m] │ │ ├─┬ chalk@1.1.3 
+[[1;34mINFO[m] │ │ │ ├── ansi-styles@2.2.1 
+[[1;34mINFO[m] │ │ │ └── supports-color@2.0.0 
+[[1;34mINFO[m] │ │ └── split@1.0.1 
+[[1;34mINFO[m] │ └─┬ saucelabs@1.2.0 
+[[1;34mINFO[m] │   └─┬ https-proxy-agent@1.0.0 
+[[1;34mINFO[m] │     └─┬ agent-base@2.1.1 
+[[1;34mINFO[m] │       └── semver@5.0.3 
+[[1;34mINFO[m] ├─┬ htmllint-cli@0.0.6 
+[[1;34mINFO[m] │ ├── bluebird@3.5.0 
+[[1;34mINFO[m] │ ├─┬ chalk@1.1.3 
+[[1;34mINFO[m] │ │ ├── ansi-styles@2.2.1 
+[[1;34mINFO[m] │ │ ├─┬ has-ansi@2.0.0 
+[[1;34mINFO[m] │ │ │ └── ansi-regex@2.1.1 
+[[1;34mINFO[m] │ │ ├── strip-ansi@3.0.1 
+[[1;34mINFO[m] │ │ └── supports-color@2.0.0 
+[[1;34mINFO[m] │ ├─┬ cjson@0.5.0 
+[[1;34mINFO[m] │ │ └─┬ json-parse-helpfulerror@1.0.3 
+[[1;34mINFO[m] │ │   └── jju@1.3.0 
+[[1;34mINFO[m] │ ├─┬ htmllint@0.6.0 
+[[1;34mINFO[m] │ │ ├── bulk-require@1.0.1 
+[[1;34mINFO[m] │ │ └─┬ htmlparser2@3.9.2 
+[[1;34mINFO[m] │ │   ├── domelementtype@1.3.0 
+[[1;34mINFO[m] │ │   ├── domhandler@2.4.1 
+[[1;34mINFO[m] │ │   ├─┬ domutils@1.6.2 
+[[1;34mINFO[m] │ │   │ └─┬ dom-serializer@0.1.0 
+[[1;34mINFO[m] │ │   │   └── domelementtype@1.1.3 
+[[1;34mINFO[m] │ │   └── entities@1.1.1 
+[[1;34mINFO[m] │ ├─┬ liftoff@2.3.0 
+[[1;34mINFO[m] │ │ ├── findup-sync@0.4.3 
+[[1;34mINFO[m] │ │ ├─┬ fined@1.1.0 
+[[1;34mINFO[m] │ │ │ ├─┬ expand-tilde@2.0.2 
+[[1;34mINFO[m] │ │ │ │ └─┬ homedir-polyfill@1.0.1 
+[[1;34mINFO[m] │ │ │ │   └── parse-passwd@1.0.0 
+[[1;34mINFO[m] │ │ │ ├─┬ is-plain-object@2.0.4 
+[[1;34mINFO[m] │ │ │ │ └── isobject@3.0.1 
+[[1;34mINFO[m] │ │ │ ├─┬ object.defaults@1.1.0 
+[[1;34mINFO[m] │ │ │ │ ├── array-each@1.0.1 
+[[1;34mINFO[m] │ │ │ │ ├── array-slice@1.0.0 
+[[1;34mINFO[m] │ │ │ │ ├─┬ for-own@1.0.0 
+[[1;34mINFO[m] │ │ │ │ │ └── for-in@1.0.2 
+[[1;34mINFO[m] │ │ │ │ └── isobject@3.0.1 
+[[1;34mINFO[m] │ │ │ ├─┬ object.pick@1.3.0 
+[[1;34mINFO[m] │ │ │ │ └── isobject@3.0.1 
+[[1;34mINFO[m] │ │ │ └─┬ parse-filepath@1.0.1 
+[[1;34mINFO[m] │ │ │   ├─┬ is-absolute@0.2.6 
+[[1;34mINFO[m] │ │ │   │ └─┬ is-relative@0.2.1 
+[[1;34mINFO[m] │ │ │   │   └─┬ is-unc-path@0.1.2 
+[[1;34mINFO[m] │ │ │   │     └── unc-path-regex@0.1.2 
+[[1;34mINFO[m] │ │ │   ├── map-cache@0.2.2 
+[[1;34mINFO[m] │ │ │   └─┬ path-root@0.1.1 
+[[1;34mINFO[m] │ │ │     └── path-root-regex@0.1.2 
+[[1;34mINFO[m] │ │ ├── flagged-respawn@0.3.2 
+[[1;34mINFO[m] │ │ ├── lodash.isplainobject@4.0.6 
+[[1;34mINFO[m] │ │ ├── lodash.isstring@4.0.1 
+[[1;34mINFO[m] │ │ └── lodash.mapvalues@4.6.0 
+[[1;34mINFO[m] │ ├─┬ promise@7.3.1 
+[[1;34mINFO[m] │ │ └── asap@2.0.6 
+[[1;34mINFO[m] │ └─┬ yargs@6.6.0 
+[[1;34mINFO[m] │   ├── camelcase@3.0.0 
+[[1;34mINFO[m] │   ├─┬ cliui@3.2.0 
+[[1;34mINFO[m] │   │ ├─┬ string-width@1.0.2 
+[[1;34mINFO[m] │   │ │ └── is-fullwidth-code-point@1.0.0 
+[[1;34mINFO[m] │   │ └─┬ wrap-ansi@2.1.0 
+[[1;34mINFO[m] │   │   └─┬ string-width@1.0.2 
+[[1;34mINFO[m] │   │     └── is-fullwidth-code-point@1.0.0 
+[[1;34mINFO[m] │   ├── decamelize@1.2.0 
+[[1;34mINFO[m] │   ├── get-caller-file@1.0.2 
+[[1;34mINFO[m] │   ├─┬ os-locale@1.4.0 
+[[1;34mINFO[m] │   │ └─┬ lcid@1.0.0 
+[[1;34mINFO[m] │   │   └── invert-kv@1.0.0 
+[[1;34mINFO[m] │   ├─┬ read-pkg-up@1.0.1 
+[[1;34mINFO[m] │   │ ├─┬ find-up@1.1.2 
+[[1;34mINFO[m] │   │ │ └── path-exists@2.1.0 
+[[1;34mINFO[m] │   │ └─┬ read-pkg@1.1.0 
+[[1;34mINFO[m] │   │   ├─┬ load-json-file@1.1.0 
+[[1;34mINFO[m] │   │   │ └─┬ strip-bom@2.0.0 
+[[1;34mINFO[m] │   │   │   └── is-utf8@0.2.1 
+[[1;34mINFO[m] │   │   └── path-type@1.1.0 
+[[1;34mINFO[m] │   ├── require-directory@2.1.1 
+[[1;34mINFO[m] │   ├── require-main-filename@1.0.1 
+[[1;34mINFO[m] │   ├── set-blocking@2.0.0 
+[[1;34mINFO[m] │   ├─┬ string-width@1.0.2 
+[[1;34mINFO[m] │   │ ├── code-point-at@1.1.0 
+[[1;34mINFO[m] │   │ └─┬ is-fullwidth-code-point@1.0.0 
+[[1;34mINFO[m] │   │   └── number-is-nan@1.0.1 
+[[1;34mINFO[m] │   ├── which-module@1.0.0 
+[[1;34mINFO[m] │   ├── y18n@3.2.1 
+[[1;34mINFO[m] │   └─┬ yargs-parser@4.2.1 
+[[1;34mINFO[m] │     └── camelcase@3.0.0 
+[[1;34mINFO[m] ├── UNMET PEER DEPENDENCY jquery@>=1.9.1
+[[1;34mINFO[m] ├─┬ node-sass@4.5.3 
+[[1;34mINFO[m] │ ├── async-foreach@0.1.3 
+[[1;34mINFO[m] │ ├─┬ chalk@1.1.3 
+[[1;34mINFO[m] │ │ ├── ansi-styles@2.2.1 
+[[1;34mINFO[m] │ │ └── supports-color@2.0.0 
+[[1;34mINFO[m] │ ├── cross-spawn@3.0.1 
+[[1;34mINFO[m] │ ├─┬ gaze@1.1.2 
+[[1;34mINFO[m] │ │ └── globule@1.2.0 
+[[1;34mINFO[m] │ ├── get-stdin@4.0.1 
+[[1;34mINFO[m] │ ├── in-publish@2.0.0 
+[[1;34mINFO[m] │ ├── lodash.assign@4.2.0 
+[[1;34mINFO[m] │ ├── lodash.clonedeep@4.5.0 
+[[1;34mINFO[m] │ ├── lodash.mergewith@4.6.0 
+[[1;34mINFO[m] │ ├─┬ meow@3.7.0 
+[[1;34mINFO[m] │ │ ├─┬ camelcase-keys@2.1.0 
+[[1;34mINFO[m] │ │ │ └── camelcase@2.1.1 
+[[1;34mINFO[m] │ │ ├─┬ loud-rejection@1.6.0 
+[[1;34mINFO[m] │ │ │ ├─┬ currently-unhandled@0.4.1 
+[[1;34mINFO[m] │ │ │ │ └── array-find-index@1.0.2 
+[[1;34mINFO[m] │ │ │ └── signal-exit@3.0.2 
+[[1;34mINFO[m] │ │ ├── map-obj@1.0.1 
+[[1;34mINFO[m] │ │ ├── minimist@1.2.0 
+[[1;34mINFO[m] │ │ ├─┬ normalize-package-data@2.4.0 
+[[1;34mINFO[m] │ │ │ ├── hosted-git-info@2.5.0 
+[[1;34mINFO[m] │ │ │ ├─┬ is-builtin-module@1.0.0 
+[[1;34mINFO[m] │ │ │ │ └── builtin-modules@1.1.1 
+[[1;34mINFO[m] │ │ │ └─┬ validate-npm-package-license@3.0.1 
+[[1;34mINFO[m] │ │ │   ├─┬ spdx-correct@1.0.2 
+[[1;34mINFO[m] │ │ │   │ └── spdx-license-ids@1.2.2 
+[[1;34mINFO[m] │ │ │   └── spdx-expression-parse@1.0.4 
+[[1;34mINFO[m] │ │ ├─┬ redent@1.0.0 
+[[1;34mINFO[m] │ │ │ ├── indent-string@2.1.0 
+[[1;34mINFO[m] │ │ │ └── strip-indent@1.0.1 
+[[1;34mINFO[m] │ │ └── trim-newlines@1.0.0 
+[[1;34mINFO[m] │ ├── nan@2.7.0 
+[[1;34mINFO[m] │ ├─┬ node-gyp@3.6.2 
+[[1;34mINFO[m] │ │ ├── fstream@1.0.11 
+[[1;34mINFO[m] │ │ ├── osenv@0.1.4 
+[[1;34mINFO[m] │ │ ├── rimraf@2.6.2 
+[[1;34mINFO[m] │ │ ├── semver@5.3.0 
+[[1;34mINFO[m] │ │ └─┬ tar@2.2.1 
+[[1;34mINFO[m] │ │   └── block-stream@0.0.9 
+[[1;34mINFO[m] │ ├─┬ npmlog@4.1.2 
+[[1;34mINFO[m] │ │ ├─┬ are-we-there-yet@1.1.4 
+[[1;34mINFO[m] │ │ │ └── delegates@1.0.0 
+[[1;34mINFO[m] │ │ ├── console-control-strings@1.1.0 
+[[1;34mINFO[m] │ │ └─┬ gauge@2.7.4 
+[[1;34mINFO[m] │ │   ├── aproba@1.2.0 
+[[1;34mINFO[m] │ │   ├── has-unicode@2.0.1 
+[[1;34mINFO[m] │ │   ├─┬ string-width@1.0.2 
+[[1;34mINFO[m] │ │   │ └── is-fullwidth-code-point@1.0.0 
+[[1;34mINFO[m] │ │   └─┬ wide-align@1.1.2 
+[[1;34mINFO[m] │ │     └─┬ string-width@1.0.2 
+[[1;34mINFO[m] │ │       └── is-fullwidth-code-point@1.0.0 
+[[1;34mINFO[m] │ ├─┬ request@2.83.0 
+[[1;34mINFO[m] │ │ ├── aws-sign2@0.7.0 
+[[1;34mINFO[m] │ │ ├── aws4@1.6.0 
+[[1;34mINFO[m] │ │ ├── caseless@0.12.0 
+[[1;34mINFO[m] │ │ ├─┬ combined-stream@1.0.5 
+[[1;34mINFO[m] │ │ │ └── delayed-stream@1.0.0 
+[[1;34mINFO[m] │ │ ├── forever-agent@0.6.1 
+[[1;34mINFO[m] │ │ ├─┬ form-data@2.3.1 
+[[1;34mINFO[m] │ │ │ └── asynckit@0.4.0 
+[[1;34mINFO[m] │ │ ├─┬ har-validator@5.0.3 
+[[1;34mINFO[m] │ │ │ └── har-schema@2.0.0 
+[[1;34mINFO[m] │ │ ├─┬ hawk@6.0.2 
+[[1;34mINFO[m] │ │ │ ├── boom@4.3.1 
+[[1;34mINFO[m] │ │ │ ├─┬ cryptiles@3.1.2 
+[[1;34mINFO[m] │ │ │ │ └── boom@5.2.0 
+[[1;34mINFO[m] │ │ │ ├── hoek@4.2.0 
+[[1;34mINFO[m] │ │ │ └── sntp@2.0.2 
+[[1;34mINFO[m] │ │ ├─┬ http-signature@1.2.0 
+[[1;34mINFO[m] │ │ │ ├── assert-plus@1.0.0 
+[[1;34mINFO[m] │ │ │ ├─┬ jsprim@1.4.1 
+[[1;34mINFO[m] │ │ │ │ ├── extsprintf@1.3.0 
+[[1;34mINFO[m] │ │ │ │ ├── json-schema@0.2.3 
+[[1;34mINFO[m] │ │ │ │ └── verror@1.10.0 
+[[1;34mINFO[m] │ │ │ └─┬ sshpk@1.13.1 
+[[1;34mINFO[m] │ │ │   ├── asn1@0.2.3 
+[[1;34mINFO[m] │ │ │   ├── bcrypt-pbkdf@1.0.1 
+[[1;34mINFO[m] │ │ │   ├── dashdash@1.14.1 
+[[1;34mINFO[m] │ │ │   ├── ecc-jsbn@0.1.1 
+[[1;34mINFO[m] │ │ │   ├── getpass@0.1.7 
+[[1;34mINFO[m] │ │ │   ├── jsbn@0.1.1 
+[[1;34mINFO[m] │ │ │   └── tweetnacl@0.14.5 
+[[1;34mINFO[m] │ │ ├── is-typedarray@1.0.0 
+[[1;34mINFO[m] │ │ ├── isstream@0.1.2 
+[[1;34mINFO[m] │ │ ├── json-stringify-safe@5.0.1 
+[[1;34mINFO[m] │ │ ├─┬ mime-types@2.1.17 
+[[1;34mINFO[m] │ │ │ └── mime-db@1.30.0 
+[[1;34mINFO[m] │ │ ├── oauth-sign@0.8.2 
+[[1;34mINFO[m] │ │ ├── performance-now@2.1.0 
+[[1;34mINFO[m] │ │ ├── qs@6.5.1 
+[[1;34mINFO[m] │ │ ├── safe-buffer@5.1.1 
+[[1;34mINFO[m] │ │ ├── stringstream@0.0.5 
+[[1;34mINFO[m] │ │ ├─┬ tough-cookie@2.3.3 
+[[1;34mINFO[m] │ │ │ └── punycode@1.4.1 
+[[1;34mINFO[m] │ │ ├── tunnel-agent@0.6.0 
+[[1;34mINFO[m] │ │ └── uuid@3.1.0 
+[[1;34mINFO[m] │ ├─┬ sass-graph@2.2.4 
+[[1;34mINFO[m] │ │ ├─┬ scss-tokenizer@0.2.3 
+[[1;34mINFO[m] │ │ │ ├── js-base64@2.3.2 
+[[1;34mINFO[m] │ │ │ └─┬ source-map@0.4.4 
+[[1;34mINFO[m] │ │ │   └── amdefine@1.0.1 
+[[1;34mINFO[m] │ │ └─┬ yargs@7.1.0 
+[[1;34mINFO[m] │ │   ├── camelcase@3.0.0 
+[[1;34mINFO[m] │ │   ├─┬ string-width@1.0.2 
+[[1;34mINFO[m] │ │   │ └── is-fullwidth-code-point@1.0.0 
+[[1;34mINFO[m] │ │   └── yargs-parser@5.0.0 
+[[1;34mINFO[m] │ └── stdout-stream@1.4.0 
+[[1;34mINFO[m] ├─┬ nodemon@1.12.1 
+[[1;34mINFO[m] │ ├── debug@2.6.9 
+[[1;34mINFO[m] │ ├── es6-promise@3.3.1 
+[[1;34mINFO[m] │ ├── ignore-by-default@1.0.1 
+[[1;34mINFO[m] │ ├─┬ lodash.defaults@3.1.2 
+[[1;34mINFO[m] │ │ ├─┬ lodash.assign@3.2.0 
+[[1;34mINFO[m] │ │ │ ├─┬ lodash._baseassign@3.2.0 
+[[1;34mINFO[m] │ │ │ │ └── lodash._basecopy@3.0.1 
+[[1;34mINFO[m] │ │ │ ├─┬ lodash._createassigner@3.1.1 
+[[1;34mINFO[m] │ │ │ │ ├── lodash._bindcallback@3.0.1 
+[[1;34mINFO[m] │ │ │ │ └── lodash._isiterateecall@3.0.9 
+[[1;34mINFO[m] │ │ │ └─┬ lodash.keys@3.1.2 
+[[1;34mINFO[m] │ │ │   ├── lodash._getnative@3.9.1 
+[[1;34mINFO[m] │ │ │   ├── lodash.isarguments@3.1.0 
+[[1;34mINFO[m] │ │ │   └── lodash.isarray@3.0.4 
+[[1;34mINFO[m] │ │ └── lodash.restparam@3.6.1 
+[[1;34mINFO[m] │ ├─┬ ps-tree@1.1.0 
+[[1;34mINFO[m] │ │ └─┬ event-stream@3.3.4 
+[[1;34mINFO[m] │ │   ├── duplexer@0.1.1 
+[[1;34mINFO[m] │ │   ├── from@0.1.7 
+[[1;34mINFO[m] │ │   ├── map-stream@0.1.0 
+[[1;34mINFO[m] │ │   ├── pause-stream@0.0.11 
+[[1;34mINFO[m] │ │   ├── split@0.3.3 
+[[1;34mINFO[m] │ │   └── stream-combiner@0.0.4 
+[[1;34mINFO[m] │ ├─┬ touch@3.1.0 
+[[1;34mINFO[m] │ │ └── nopt@1.0.10 
+[[1;34mINFO[m] │ ├── undefsafe@0.0.3 
+[[1;34mINFO[m] │ └─┬ update-notifier@2.2.0 
+[[1;34mINFO[m] │   ├─┬ boxen@1.2.1 
+[[1;34mINFO[m] │   │ ├── ansi-align@2.0.0 
+[[1;34mINFO[m] │   │ ├── camelcase@4.1.0 
+[[1;34mINFO[m] │   │ ├── cli-boxes@1.0.0 
+[[1;34mINFO[m] │   │ ├── term-size@1.2.0 
+[[1;34mINFO[m] │   │ └─┬ widest-line@1.0.0 
+[[1;34mINFO[m] │   │   └─┬ string-width@1.0.2 
+[[1;34mINFO[m] │   │     └── is-fullwidth-code-point@1.0.0 
+[[1;34mINFO[m] │   ├─┬ chalk@1.1.3 
+[[1;34mINFO[m] │   │ ├── ansi-styles@2.2.1 
+[[1;34mINFO[m] │   │ └── supports-color@2.0.0 
+[[1;34mINFO[m] │   ├─┬ configstore@3.1.1 
+[[1;34mINFO[m] │   │ ├─┬ dot-prop@4.2.0 
+[[1;34mINFO[m] │   │ │ └── is-obj@1.0.1 
+[[1;34mINFO[m] │   │ ├── make-dir@1.0.0 
+[[1;34mINFO[m] │   │ ├─┬ unique-string@1.0.0 
+[[1;34mINFO[m] │   │ │ └── crypto-random-string@1.0.0 
+[[1;34mINFO[m] │   │ └── write-file-atomic@2.3.0 
+[[1;34mINFO[m] │   ├── import-lazy@2.1.0 
+[[1;34mINFO[m] │   ├── is-npm@1.0.0 
+[[1;34mINFO[m] │   ├─┬ latest-version@3.1.0 
+[[1;34mINFO[m] │   │ └─┬ package-json@4.0.1 
+[[1;34mINFO[m] │   │   ├─┬ got@6.7.1 
+[[1;34mINFO[m] │   │   │ ├─┬ create-error-class@3.0.2 
+[[1;34mINFO[m] │   │   │ │ └── capture-stack-trace@1.0.0 
+[[1;34mINFO[m] │   │   │ ├── duplexer3@0.1.4 
+[[1;34mINFO[m] │   │   │ ├── is-redirect@1.0.0 
+[[1;34mINFO[m] │   │   │ ├── is-retry-allowed@1.1.0 
+[[1;34mINFO[m] │   │   │ ├── lowercase-keys@1.0.0 
+[[1;34mINFO[m] │   │   │ ├── timed-out@4.0.1 
+[[1;34mINFO[m] │   │   │ ├── unzip-response@2.0.1 
+[[1;34mINFO[m] │   │   │ └─┬ url-parse-lax@1.0.0 
+[[1;34mINFO[m] │   │   │   └── prepend-http@1.0.4 
+[[1;34mINFO[m] │   │   ├─┬ registry-auth-token@3.3.1 
+[[1;34mINFO[m] │   │   │ └─┬ rc@1.2.1 
+[[1;34mINFO[m] │   │   │   ├── deep-extend@0.4.2 
+[[1;34mINFO[m] │   │   │   └── minimist@1.2.0 
+[[1;34mINFO[m] │   │   └── registry-url@3.1.0 
+[[1;34mINFO[m] │   ├── semver-diff@2.1.0 
+[[1;34mINFO[m] │   └── xdg-basedir@3.0.0 
+[[1;34mINFO[m] ├─┬ npm-run-all@4.1.1 
+[[1;34mINFO[m] │ ├─┬ ansi-styles@3.2.0 
+[[1;34mINFO[m] │ │ └─┬ color-convert@1.9.0 
+[[1;34mINFO[m] │ │   └── color-name@1.1.3 
+[[1;34mINFO[m] │ ├─┬ memory-streams@0.1.2 
+[[1;34mINFO[m] │ │ └─┬ readable-stream@1.0.34 
+[[1;34mINFO[m] │ │   ├── isarray@0.0.1 
+[[1;34mINFO[m] │ │   └── string_decoder@0.10.31 
+[[1;34mINFO[m] │ ├─┬ read-pkg@2.0.0 
+[[1;34mINFO[m] │ │ ├─┬ load-json-file@2.0.0 
+[[1;34mINFO[m] │ │ │ ├─┬ parse-json@2.2.0 
+[[1;34mINFO[m] │ │ │ │ └─┬ error-ex@1.3.1 
+[[1;34mINFO[m] │ │ │ │   └── is-arrayish@0.2.1 
+[[1;34mINFO[m] │ │ │ └── strip-bom@3.0.0 
+[[1;34mINFO[m] │ │ └── path-type@2.0.0 
+[[1;34mINFO[m] │ ├─┬ shell-quote@1.6.1 
+[[1;34mINFO[m] │ │ ├── array-filter@0.0.1 
+[[1;34mINFO[m] │ │ ├── array-map@0.0.0 
+[[1;34mINFO[m] │ │ └── array-reduce@0.0.0 
+[[1;34mINFO[m] │ └─┬ string.prototype.padend@3.0.0 
+[[1;34mINFO[m] │   ├─┬ define-properties@1.1.2 
+[[1;34mINFO[m] │   │ ├── foreach@2.0.5 
+[[1;34mINFO[m] │   │ └── object-keys@1.0.11 
+[[1;34mINFO[m] │   ├─┬ es-abstract@1.8.2 
+[[1;34mINFO[m] │   │ ├─┬ es-to-primitive@1.1.1 
+[[1;34mINFO[m] │   │ │ ├── is-date-object@1.0.1 
+[[1;34mINFO[m] │   │ │ └── is-symbol@1.0.1 
+[[1;34mINFO[m] │   │ ├── has@1.0.1 
+[[1;34mINFO[m] │   │ ├── is-callable@1.1.3 
+[[1;34mINFO[m] │   │ └── is-regex@1.0.4 
+[[1;34mINFO[m] │   └── function-bind@1.1.1 
+[[1;34mINFO[m] ├─┬ phantomjs-prebuilt@2.1.15 
+[[1;34mINFO[m] │ ├── es6-promise@4.0.5 
+[[1;34mINFO[m] │ ├─┬ extract-zip@1.6.5 
+[[1;34mINFO[m] │ │ ├─┬ debug@2.2.0 
+[[1;34mINFO[m] │ │ │ └── ms@0.7.1 
+[[1;34mINFO[m] │ │ ├── mkdirp@0.5.0 
+[[1;34mINFO[m] │ │ └─┬ yauzl@2.4.1 
+[[1;34mINFO[m] │ │   └─┬ fd-slicer@1.0.1 
+[[1;34mINFO[m] │ │     └── pend@1.2.0 
+[[1;34mINFO[m] │ ├─┬ fs-extra@1.0.0 
+[[1;34mINFO[m] │ │ ├── jsonfile@2.4.0 
+[[1;34mINFO[m] │ │ └── klaw@1.3.1 
+[[1;34mINFO[m] │ ├─┬ hasha@2.2.0 
+[[1;34mINFO[m] │ │ ├── is-stream@1.1.0 
+[[1;34mINFO[m] │ │ └─┬ pinkie-promise@2.0.1 
+[[1;34mINFO[m] │ │   └── pinkie@2.0.4 
+[[1;34mINFO[m] │ ├── kew@0.7.0 
+[[1;34mINFO[m] │ ├── progress@1.1.8 
+[[1;34mINFO[m] │ ├─┬ request@2.81.0 
+[[1;34mINFO[m] │ │ ├── aws-sign2@0.6.0 
+[[1;34mINFO[m] │ │ ├── form-data@2.1.4 
+[[1;34mINFO[m] │ │ ├─┬ har-validator@4.2.1 
+[[1;34mINFO[m] │ │ │ ├── ajv@4.11.8 
+[[1;34mINFO[m] │ │ │ └── har-schema@1.0.5 
+[[1;34mINFO[m] │ │ ├─┬ hawk@3.1.3 
+[[1;34mINFO[m] │ │ │ ├── boom@2.10.1 
+[[1;34mINFO[m] │ │ │ ├── cryptiles@2.0.5 
+[[1;34mINFO[m] │ │ │ ├── hoek@2.16.3 
+[[1;34mINFO[m] │ │ │ └── sntp@1.0.9 
+[[1;34mINFO[m] │ │ ├─┬ http-signature@1.1.1 
+[[1;34mINFO[m] │ │ │ └── assert-plus@0.2.0 
+[[1;34mINFO[m] │ │ ├── performance-now@0.2.0 
+[[1;34mINFO[m] │ │ └── qs@6.4.0 
+[[1;34mINFO[m] │ ├─┬ request-progress@2.0.1 
+[[1;34mINFO[m] │ │ └── throttleit@1.0.0 
+[[1;34mINFO[m] │ └─┬ which@1.2.14 
+[[1;34mINFO[m] │   └── isexe@2.0.0 
+[[1;34mINFO[m] ├── UNMET PEER DEPENDENCY popper.js@^1.11.0
+[[1;34mINFO[m] ├─┬ postcss-cli@4.1.1 
+[[1;34mINFO[m] │ ├── dependency-graph@0.5.0 
+[[1;34mINFO[m] │ ├─┬ fs-extra@4.0.2 
+[[1;34mINFO[m] │ │ ├── jsonfile@4.0.0 
+[[1;34mINFO[m] │ │ └── universalify@0.1.1 
+[[1;34mINFO[m] │ ├── get-stdin@5.0.1 
+[[1;34mINFO[m] │ ├─┬ globby@6.1.0 
+[[1;34mINFO[m] │ │ ├─┬ array-union@1.0.2 
+[[1;34mINFO[m] │ │ │ └── array-uniq@1.0.3 
+[[1;34mINFO[m] │ │ └── pify@2.3.0 
+[[1;34mINFO[m] │ ├─┬ ora@1.3.0 
+[[1;34mINFO[m] │ │ ├─┬ chalk@1.1.3 
+[[1;34mINFO[m] │ │ │ ├── ansi-styles@2.2.1 
+[[1;34mINFO[m] │ │ │ └── supports-color@2.0.0 
+[[1;34mINFO[m] │ │ ├── cli-spinners@1.0.1 
+[[1;34mINFO[m] │ │ └─┬ log-symbols@1.0.2 
+[[1;34mINFO[m] │ │   └─┬ chalk@1.1.3 
+[[1;34mINFO[m] │ │     ├── ansi-styles@2.2.1 
+[[1;34mINFO[m] │ │     └── supports-color@2.0.0 
+[[1;34mINFO[m] │ ├─┬ postcss-load-config@1.2.0 
+[[1;34mINFO[m] │ │ ├─┬ cosmiconfig@2.2.2 
+[[1;34mINFO[m] │ │ │ ├── is-directory@0.3.1 
+[[1;34mINFO[m] │ │ │ ├── minimist@1.2.0 
+[[1;34mINFO[m] │ │ │ └── require-from-string@1.2.1 
+[[1;34mINFO[m] │ │ ├── postcss-load-options@1.2.0 
+[[1;34mINFO[m] │ │ └── postcss-load-plugins@2.3.0 
+[[1;34mINFO[m] │ ├─┬ postcss-reporter@5.0.0 
+[[1;34mINFO[m] │ │ └── log-symbols@2.1.0 
+[[1;34mINFO[m] │ ├── pretty-hrtime@1.0.3 
+[[1;34mINFO[m] │ ├── read-cache@1.0.0 
+[[1;34mINFO[m] │ └─┬ yargs@8.0.2 
+[[1;34mINFO[m] │   ├── camelcase@4.1.0 
+[[1;34mINFO[m] │   ├─┬ os-locale@2.1.0 
+[[1;34mINFO[m] │   │ ├─┬ execa@0.7.0 
+[[1;34mINFO[m] │   │ │ ├── get-stream@3.0.0 
+[[1;34mINFO[m] │   │ │ ├─┬ npm-run-path@2.0.2 
+[[1;34mINFO[m] │   │ │ │ └── path-key@2.0.1 
+[[1;34mINFO[m] │   │ │ ├── p-finally@1.0.0 
+[[1;34mINFO[m] │   │ │ └── strip-eof@1.0.0 
+[[1;34mINFO[m] │   │ └─┬ mem@1.1.0 
+[[1;34mINFO[m] │   │   └── mimic-fn@1.1.0 
+[[1;34mINFO[m] │   ├─┬ read-pkg-up@2.0.0 
+[[1;34mINFO[m] │   │ ├─┬ find-up@2.1.0 
+[[1;34mINFO[m] │   │ │ └─┬ locate-path@2.0.0 
+[[1;34mINFO[m] │   │ │   ├─┬ p-locate@2.0.0 
+[[1;34mINFO[m] │   │ │   │ └── p-limit@1.1.0 
+[[1;34mINFO[m] │   │ │   └── path-exists@3.0.0 
+[[1;34mINFO[m] │   │ └─┬ read-pkg@2.0.0 
+[[1;34mINFO[m] │   │   ├─┬ load-json-file@2.0.0 
+[[1;34mINFO[m] │   │   │ └── strip-bom@3.0.0 
+[[1;34mINFO[m] │   │   └── path-type@2.0.0 
+[[1;34mINFO[m] │   ├── which-module@2.0.0 
+[[1;34mINFO[m] │   └── yargs-parser@7.0.0 
+[[1;34mINFO[m] ├─┬ qunit-phantomjs-runner@2.3.0 
+[[1;34mINFO[m] │ └── qunit-reporter-junit@1.1.1 
+[[1;34mINFO[m] ├─┬ qunitjs@2.4.0 
+[[1;34mINFO[m] │ ├── chokidar@1.6.1 
+[[1;34mINFO[m] │ ├─┬ commander@2.9.0 
+[[1;34mINFO[m] │ │ └── graceful-readlink@1.0.1 
+[[1;34mINFO[m] │ ├── exists-stat@1.0.0 
+[[1;34mINFO[m] │ ├─┬ findup-sync@0.4.3 
+[[1;34mINFO[m] │ │ ├─┬ detect-file@0.1.0 
+[[1;34mINFO[m] │ │ │ └── fs-exists-sync@0.1.0 
+[[1;34mINFO[m] │ │ ├─┬ micromatch@2.3.11 
+[[1;34mINFO[m] │ │ │ ├─┬ arr-diff@2.0.0 
+[[1;34mINFO[m] │ │ │ │ └── arr-flatten@1.1.0 
+[[1;34mINFO[m] │ │ │ ├── array-unique@0.2.1 
+[[1;34mINFO[m] │ │ │ ├─┬ braces@1.8.5 
+[[1;34mINFO[m] │ │ │ │ ├─┬ expand-range@1.8.2 
+[[1;34mINFO[m] │ │ │ │ │ └─┬ fill-range@2.2.3 
+[[1;34mINFO[m] │ │ │ │ │   ├── is-number@2.1.0 
+[[1;34mINFO[m] │ │ │ │ │   ├── isobject@2.1.0 
+[[1;34mINFO[m] │ │ │ │ │   ├─┬ randomatic@1.1.7 
+[[1;34mINFO[m] │ │ │ │ │   │ ├─┬ is-number@3.0.0 
+[[1;34mINFO[m] │ │ │ │ │   │ │ └── kind-of@3.2.2 
+[[1;34mINFO[m] │ │ │ │ │   │ └── kind-of@4.0.0 
+[[1;34mINFO[m] │ │ │ │ │   └── repeat-string@1.6.1 
+[[1;34mINFO[m] │ │ │ │ ├── preserve@0.2.0 
+[[1;34mINFO[m] │ │ │ │ └── repeat-element@1.1.2 
+[[1;34mINFO[m] │ │ │ ├─┬ expand-brackets@0.1.5 
+[[1;34mINFO[m] │ │ │ │ └── is-posix-bracket@0.1.1 
+[[1;34mINFO[m] │ │ │ ├── extglob@0.3.2 
+[[1;34mINFO[m] │ │ │ ├── filename-regex@2.0.1 
+[[1;34mINFO[m] │ │ │ ├─┬ kind-of@3.2.2 
+[[1;34mINFO[m] │ │ │ │ └── is-buffer@1.1.5 
+[[1;34mINFO[m] │ │ │ ├─┬ object.omit@2.0.1 
+[[1;34mINFO[m] │ │ │ │ ├── for-own@0.1.5 
+[[1;34mINFO[m] │ │ │ │ └── is-extendable@0.1.1 
+[[1;34mINFO[m] │ │ │ ├─┬ parse-glob@3.0.4 
+[[1;34mINFO[m] │ │ │ │ ├── glob-base@0.3.0 
+[[1;34mINFO[m] │ │ │ │ └── is-dotfile@1.0.3 
+[[1;34mINFO[m] │ │ │ └─┬ regex-cache@0.4.4 
+[[1;34mINFO[m] │ │ │   └─┬ is-equal-shallow@0.1.3 
+[[1;34mINFO[m] │ │ │     └── is-primitive@2.0.0 
+[[1;34mINFO[m] │ │ └─┬ resolve-dir@0.1.1 
+[[1;34mINFO[m] │ │   ├── expand-tilde@1.2.2 
+[[1;34mINFO[m] │ │   └─┬ global-modules@0.2.3 
+[[1;34mINFO[m] │ │     ├─┬ global-prefix@0.1.5 
+[[1;34mINFO[m] │ │     │ └── ini@1.3.4 
+[[1;34mINFO[m] │ │     └── is-windows@0.2.0 
+[[1;34mINFO[m] │ ├── js-reporters@1.2.0 
+[[1;34mINFO[m] │ ├─┬ resolve@1.3.2 
+[[1;34mINFO[m] │ │ └── path-parse@1.0.5 
+[[1;34mINFO[m] │ └─┬ walk-sync@0.3.1 
+[[1;34mINFO[m] │   ├── ensure-posix-path@1.0.2 
+[[1;34mINFO[m] │   └── matcher-collection@1.0.5 
+[[1;34mINFO[m] ├─┬ shelljs@0.7.8 
+[[1;34mINFO[m] │ ├── interpret@1.0.4 
+[[1;34mINFO[m] │ └── rechoir@0.6.2 
+[[1;34mINFO[m] ├─┬ shx@0.2.2 
+[[1;34mINFO[m] │ ├── es6-object-assign@1.1.0 
+[[1;34mINFO[m] │ └── minimist@1.2.0 
+[[1;34mINFO[m] └── uglify-js@3.1.2 
+[[1;34mINFO[m] 
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mfrontend-maven-plugin:1.4:npm[m [1m(step #8: npm run css-compile)[m @ [36mtobago-theme-scarborough[0;1m ---[m
+[[1;34mINFO[m] Running 'npm run css-compile' in __CURRENT__/tobago-theme-scarborough/target/bootstrap
+[[1;34mINFO[m] 
+[[1;34mINFO[m] > bootstrap@4.0.0-beta css-compile __CURRENT__/tobago-theme-scarborough/target/bootstrap
+[[1;34mINFO[m] > node-sass --output-style expanded --source-map true --source-map-contents true --precision 6 scss/bootstrap.scss dist/css/bootstrap.css && node-sass --output-style expanded --source-map true --source-map-contents true --precision 6 scss/bootstrap-grid.scss dist/css/bootstrap-grid.css && node-sass --output-style expanded --source-map true --source-map-contents true --precision 6 scss/bootstrap-reboot.scss dist/css/bootstrap-reboot.css
+[[1;34mINFO[m] 
+[[1;31mERROR[m] Rendering Complete, saving .css file...
+[[1;31mERROR[m] Wrote Source Map to __CURRENT__/tobago-theme-scarborough/target/bootstrap/dist/css/bootstrap.css.map
+[[1;31mERROR[m] Wrote CSS to __CURRENT__/tobago-theme-scarborough/target/bootstrap/dist/css/bootstrap.css
+[[1;31mERROR[m] Rendering Complete, saving .css file...
+[[1;31mERROR[m] Wrote Source Map to __CURRENT__/tobago-theme-scarborough/target/bootstrap/dist/css/bootstrap-grid.css.map
+[[1;31mERROR[m] Wrote CSS to __CURRENT__/tobago-theme-scarborough/target/bootstrap/dist/css/bootstrap-grid.css
+[[1;31mERROR[m] Rendering Complete, saving .css file...
+[[1;31mERROR[m] Wrote CSS to __CURRENT__/tobago-theme-scarborough/target/bootstrap/dist/css/bootstrap-reboot.css
+[[1;31mERROR[m] Wrote Source Map to __CURRENT__/tobago-theme-scarborough/target/bootstrap/dist/css/bootstrap-reboot.css.map
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mfrontend-maven-plugin:1.4:npm[m [1m(step #9: npm run css-prefix)[m @ [36mtobago-theme-scarborough[0;1m ---[m
+[[1;34mINFO[m] Running 'npm run css-prefix' in __CURRENT__/tobago-theme-scarborough/target/bootstrap
+[[1;34mINFO[m] 
+[[1;34mINFO[m] > bootstrap@4.0.0-beta css-prefix __CURRENT__/tobago-theme-scarborough/target/bootstrap
+[[1;34mINFO[m] > postcss --config build/postcss.config.js --replace dist/css/*.css
+[[1;34mINFO[m] 
+[[1;31mERROR[m] ✔ Finished dist/css/bootstrap-grid.css (1.3 s)
+[[1;31mERROR[m] ✔ Finished dist/css/bootstrap-reboot.css (1.3 s)
+[[1;31mERROR[m] ✔ Finished dist/css/bootstrap.css (1.3 s)
+[[1;31mERROR[m] ✔ Finished dist/css/bootstrap-grid.min.css (1.3 s)
+[[1;31mERROR[m] ✔ Finished dist/css/bootstrap-reboot.min.css (1.3 s)
+[[1;31mERROR[m] ✔ Finished dist/css/bootstrap.min.css (1.3 s)
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mfrontend-maven-plugin:1.4:npm[m [1m(step #10: npm run css-minify)[m @ [36mtobago-theme-scarborough[0;1m ---[m
+[[1;34mINFO[m] Running 'npm run css-minify' in __CURRENT__/tobago-theme-scarborough/target/bootstrap
+[[1;34mINFO[m] 
+[[1;34mINFO[m] > bootstrap@4.0.0-beta css-minify __CURRENT__/tobago-theme-scarborough/target/bootstrap
+[[1;34mINFO[m] > cleancss --level 1 --source-map --source-map-inline-sources --output dist/css/bootstrap.min.css dist/css/bootstrap.css && cleancss --level 1 --source-map --source-map-inline-sources --output dist/css/bootstrap-grid.min.css dist/css/bootstrap-grid.css && cleancss --level 1 --source-map --source-map-inline-sources --output dist/css/bootstrap-reboot.min.css dist/css/bootstrap-reboot.css
+[[1;34mINFO[m] 
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mfrontend-maven-plugin:1.4:npm[m [1m(step #11: npm run js)[m @ [36mtobago-theme-scarborough[0;1m ---[m
+[[1;34mINFO[m] Running 'npm run js' in __CURRENT__/tobago-theme-scarborough/target/bootstrap
+[[1;34mINFO[m] 
+[[1;34mINFO[m] > bootstrap@4.0.0-beta js __CURRENT__/tobago-theme-scarborough/target/bootstrap
+[[1;34mINFO[m] > npm-run-all js-lint js-compile js-minify
+[[1;34mINFO[m] 
+[[1;34mINFO[m] 
+[[1;34mINFO[m] > bootstrap@4.0.0-beta js-lint __CURRENT__/tobago-theme-scarborough/target/bootstrap
+[[1;34mINFO[m] > eslint js/ && eslint --config js/tests/.eslintrc.json --env node build/ Gruntfile.js
+[[1;34mINFO[m] 
+[[1;34mINFO[m] 
+[[1;34mINFO[m] > bootstrap@4.0.0-beta js-compile __CURRENT__/tobago-theme-scarborough/target/bootstrap
+[[1;34mINFO[m] > npm-run-all --parallel js-compile-*
+[[1;34mINFO[m] 
+[[1;34mINFO[m] 
+[[1;34mINFO[m] > bootstrap@4.0.0-beta js-compile-bundle __CURRENT__/tobago-theme-scarborough/target/bootstrap
+[[1;34mINFO[m] > shx cat js/src/util.js js/src/alert.js js/src/button.js js/src/carousel.js js/src/collapse.js js/src/dropdown.js js/src/modal.js js/src/scrollspy.js js/src/tab.js js/src/tooltip.js js/src/popover.js | shx sed "s/^(import|export).*//" | babel --filename js/src/bootstrap.js | node build/stamp.js > dist/js/bootstrap.js
+[[1;34mINFO[m] 
+[[1;34mINFO[m] 
+[[1;34mINFO[m] > bootstrap@4.0.0-beta js-compile-plugins __CURRENT__/tobago-theme-scarborough/target/bootstrap
+[[1;34mINFO[m] > babel js/src/ --out-dir js/dist/ --source-maps
+[[1;34mINFO[m] 
+[[1;34mINFO[m] js/src/alert.js -> js/dist/alert.js
+[[1;34mINFO[m] js/src/button.js -> js/dist/button.js
+[[1;34mINFO[m] js/src/carousel.js -> js/dist/carousel.js
+[[1;34mINFO[m] js/src/collapse.js -> js/dist/collapse.js
+[[1;34mINFO[m] js/src/dropdown.js -> js/dist/dropdown.js
+[[1;34mINFO[m] js/src/modal.js -> js/dist/modal.js
+[[1;34mINFO[m] js/src/popover.js -> js/dist/popover.js
+[[1;34mINFO[m] js/src/scrollspy.js -> js/dist/scrollspy.js
+[[1;34mINFO[m] js/src/tab.js -> js/dist/tab.js
+[[1;34mINFO[m] js/src/tooltip.js -> js/dist/tooltip.js
+[[1;34mINFO[m] js/src/util.js -> js/dist/util.js
+[[1;34mINFO[m] 
+[[1;34mINFO[m] > bootstrap@4.0.0-beta js-minify __CURRENT__/tobago-theme-scarborough/target/bootstrap
+[[1;34mINFO[m] > uglifyjs --config-file build/uglifyjs.config.json --output dist/js/bootstrap.min.js dist/js/bootstrap.js
+[[1;34mINFO[m] 
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mmaven-resources-plugin:2.7:resources[m [1m(default-resources)[m @ [36mtobago-theme-scarborough[0;1m ---[m
+[[1;34mINFO[m] Using 'UTF-8' encoding to copy filtered resources.
+[[1;34mINFO[m] Copying 1 resource
+[[1;34mINFO[m] Copying 6 resources
+[[1;34mINFO[m] Copying 3 resources
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mmaven-resources-plugin:2.7:copy-resources[m [1m(step #12: copy-bootstrap-dist)[m @ [36mtobago-theme-scarborough[0;1m ---[m
+[[1;34mINFO[m] Using 'UTF-8' encoding to copy filtered resources.
+[[1;34mINFO[m] Copying 6 resources
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mmaven-compiler-plugin:3.6.2:compile[m [1m(default-compile)[m @ [36mtobago-theme-scarborough[0;1m ---[m
+[[1;34mINFO[m] No sources to compile
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mmaven-antrun-plugin:1.8:run[m [1m(set-version)[m @ [36mtobago-theme-scarborough[0;1m ---[m
+[[1;34mINFO[m] Executing tasks
+
+main:
+[[1;34mINFO[m] Executed tasks
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mmaven-resources-plugin:2.7:testResources[m [1m(default-testResources)[m @ [36mtobago-theme-scarborough[0;1m ---[m
+[[1;34mINFO[m] Using 'UTF-8' encoding to copy filtered resources.
+[[1;34mINFO[m] skip non existing resourceDirectory __CURRENT__/tobago-theme-scarborough/src/test/resources
+[[1;34mINFO[m] Copying 3 resources
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mmaven-compiler-plugin:3.6.2:testCompile[m [1m(default-testCompile)[m @ [36mtobago-theme-scarborough[0;1m ---[m
+[[1;34mINFO[m] No sources to compile
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mmaven-surefire-plugin:2.19.1:test[m [1m(default-test)[m @ [36mtobago-theme-scarborough[0;1m ---[m
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mmaven-jar-plugin:3.0.2:jar[m [1m(default-jar)[m @ [36mtobago-theme-scarborough[0;1m ---[m
+[[1;34mINFO[m] Building jar: __CURRENT__/tobago-theme-scarborough/target/tobago-theme-scarborough-4.0.0-SNAPSHOT.jar
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mmaven-site-plugin:3.6:attach-descriptor[m [1m(attach-descriptor)[m @ [36mtobago-theme-scarborough[0;1m ---[m
+[[1;34mINFO[m] Skipping because packaging 'jar' is not pom.
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mmaven-install-plugin:2.5.2:install[m [1m(default-install)[m @ [36mtobago-theme-scarborough[0;1m ---[m
+[[1;34mINFO[m] Installing __CURRENT__/tobago-theme-scarborough/target/tobago-theme-scarborough-4.0.0-SNAPSHOT.jar to __REPO__/org/apache/myfaces/tobago/tobago-theme-scarborough/4.0.0-SNAPSHOT/tobago-theme-scarborough-4.0.0-SNAPSHOT.jar
+[[1;34mINFO[m] Installing __CURRENT__/tobago-theme-scarborough/pom.xml to __REPO__/org/apache/myfaces/tobago/tobago-theme-scarborough/4.0.0-SNAPSHOT/tobago-theme-scarborough-4.0.0-SNAPSHOT.pom
+[[1;34mINFO[m] [1m------------------------------------------------------------------------[m
+[[1;34mINFO[m] [1;32mBUILD SUCCESS[m
+[[1;34mINFO[m] [1m------------------------------------------------------------------------[m
+[[1;34mINFO[m] Total time: 02:39 min
+[[1;34mINFO[m] Finished at: 2017-09-28T10:58:41+02:00
+[[1;34mINFO[m] Final Memory: 30M/365M
+[[1;34mINFO[m] [1m------------------------------------------------------------------------[m

@@ -30,7 +30,6 @@ import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.CssItem;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
-import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.util.ComponentUtils;
@@ -173,17 +172,6 @@ public abstract class LabelLayoutRendererBase extends DecodingInputRendererBase 
         BootstrapClass.FORM_GROUP,
         BootstrapClass.maximumSeverity(component),
         ComponentUtils.getBooleanAttribute(component, Attributes.required) ? TobagoClass.REQUIRED : null);
-
-    switch (labelLayout) {
-      case flexLeft:
-        writer.writeAttribute(DataAttributes.LAYOUT, "{\"columns\":[\"auto\",1]}", true);
-        break;
-      case flexRight:
-        writer.writeAttribute(DataAttributes.LAYOUT, "{\"columns\":[1,\"auto\"]}", true);
-        break;
-      default:
-        // nothing to do
-    }
 
     switch (labelLayout) {
       case none:

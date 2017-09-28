@@ -143,77 +143,6 @@ function setLength(table, banks, i, css, length) {
    */
 }
 
-function setLength2(banks, i, css, length) {
-  banks.eq(i).css(css, length);
-}
-
-function layoutFlex(container, orientation) {
-
-  // todo: modernizr
-  // if (!Modernizr.flexbox && !Modernizr.flexboxtweener) ... do other
-
-  var cells;
-  var banks;
-  var tokens;
-  var css;
-
-  var tobagoLayout = container.data("tobago-layout");
-  if (! tobagoLayout) {
-    return;
-  }
-
-  if (orientation == Tobago.Layout.Orientation.HORIZONTAL) {
-    banks = container.children();
-    tokens = tobagoLayout.columns;
-    css = "width";
-  } else { // Tobago.Layout.Orientation.VERTICAL
-    banks = container.children();
-    tokens = tobagoLayout.rows;
-    css = "height";
-  }
-
-  if (tokens) {
-    var i;
-    var cell;
-    for (i = 0; i < tokens.length; i++) {
-      cell = banks.eq(i);
-      switch (typeof tokens[i]) {
-        case "number":
-          // a relative value
-          // todo: check for "any other" (non-layout) elements
-          var flex = "flex";
-          if (Tobago.browser.isMsie678910) { // todo: modernizr
-            flex = "-ms-flex";
-          }
-          // using "0px" and not "0", because IE11 needs the "px"
-          //container.children().eq(i).css(Modernizr.prefixed("flex"), tokens[i] + " 0 0px");  // todo: modernizr
-
-          var child = container.children().eq(i);
-          if (typeof child != 'undefined' && child.hasClass('tobago-box')
-              && orientation == Tobago.Layout.Orientation.VERTICAL) {
-            container.children().eq(i).css(flex, tokens[i] + " 0 auto");
-          } else {
-            container.children().eq(i).css(flex, tokens[i] + " 0 0px");
-          }
-          break;
-        case "string":
-          // a string, currently only "auto" is supported
-          break;
-        case "object":
-          if (tokens[i].measure) {
-            setLength2(banks, i, css, tokens[i].measure);
-          } else {
-            console.warn("can't find measure in object: '" + tokens[i] + "'");  // @DEV_ONLY
-          }
-          break;
-        default:
-          console.warn("unsupported type of: '" + tokens[i] + "'");  // @DEV_ONLY
-          break;
-      }
-    }
-  }
-}
-
 Tobago.Layout.init = function (elements) {
 
   var gridLayouts = Tobago.Utils.selectWithJQuery(elements, ".tobago-gridLayout");
@@ -227,18 +156,6 @@ Tobago.Layout.init = function (elements) {
     var table = jQuery(this);
     layoutGrid(table, Tobago.Layout.Orientation.HORIZONTAL);
     layoutGrid(table, Tobago.Layout.Orientation.VERTICAL);
-  });
-
-  //////////////////////////////////////////////
-
-  // the flex stuff.
-
-  var flexLayouts = Tobago.Utils.selectWithJQuery(elements, ".tobago-flexLayout");
-
-  flexLayouts.each(function () {
-    var container = jQuery(this);
-    layoutFlex(container, Tobago.Layout.Orientation.HORIZONTAL);
-    layoutFlex(container, Tobago.Layout.Orientation.VERTICAL);
   });
 
   //////////////////////////////////////////////
