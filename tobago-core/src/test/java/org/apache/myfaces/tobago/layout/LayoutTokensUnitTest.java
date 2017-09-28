@@ -37,6 +37,13 @@ public class LayoutTokensUnitTest {
   }
 
   @Test
+  public void testIsSegmentLayoutToken() {
+    Assert.assertTrue(LayoutTokens.isSegmentLayoutToken("3"));
+    Assert.assertFalse(LayoutTokens.isSegmentLayoutToken("3*"));
+    Assert.assertFalse(LayoutTokens.isSegmentLayoutToken("3cm"));
+  }
+
+  @Test
   public void testParseToken() {
     Assert.assertEquals(AutoLayoutToken.INSTANCE, LayoutTokens.parseToken(null));
     Assert.assertEquals(RelativeLayoutToken.DEFAULT_INSTANCE, LayoutTokens.parseToken("*"));
@@ -44,5 +51,6 @@ public class LayoutTokensUnitTest {
     Assert.assertEquals(new MeasureLayoutToken("33%"), LayoutTokens.parseToken("33%"));
     Assert.assertEquals(new MeasureLayoutToken("120px"), LayoutTokens.parseToken("120px"));
     Assert.assertEquals(new MeasureLayoutToken("0px"), LayoutTokens.parseToken("0px"));
+    Assert.assertEquals(new SegmentLayoutToken(8), LayoutTokens.parseToken("8"));
   }
 }

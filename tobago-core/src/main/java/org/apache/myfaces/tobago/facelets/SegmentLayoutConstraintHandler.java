@@ -31,10 +31,6 @@ import java.util.Map;
 
 public class SegmentLayoutConstraintHandler extends TagHandler {
 
-  private final TagAttribute offsetExtraSmall;
-  private final TagAttribute offsetSmall;
-  private final TagAttribute offsetMedium;
-  private final TagAttribute offsetLarge;
   private final TagAttribute overwriteExtraSmall;
   private final TagAttribute overwriteSmall;
   private final TagAttribute overwriteMedium;
@@ -43,10 +39,6 @@ public class SegmentLayoutConstraintHandler extends TagHandler {
 
   public SegmentLayoutConstraintHandler(TagConfig config) {
     super(config);
-    offsetExtraSmall = getAttribute(Attributes.offsetExtraSmall.getName());
-    offsetSmall = getAttribute(Attributes.offsetSmall.getName());
-    offsetMedium = getAttribute(Attributes.offsetMedium.getName());
-    offsetLarge = getAttribute(Attributes.offsetLarge.getName());
     overwriteExtraSmall = getAttribute(Attributes.extraSmall.getName());
     overwriteSmall = getAttribute(Attributes.small.getName());
     overwriteMedium = getAttribute(Attributes.medium.getName());
@@ -57,42 +49,6 @@ public class SegmentLayoutConstraintHandler extends TagHandler {
   @Override
   public void apply(FaceletContext faceletContext, UIComponent parent) throws IOException {
     final Map<String, Object> attributes = parent.getAttributes();
-
-    if (offsetExtraSmall != null) {
-      if (offsetExtraSmall.isLiteral()) {
-        attributes.put(Attributes.offsetExtraSmall.getName(), offsetExtraSmall.getValue());
-      } else {
-        parent.setValueExpression(Attributes.offsetExtraSmall.getName(),
-            offsetExtraSmall.getValueExpression(faceletContext, Integer.TYPE));
-      }
-    }
-
-    if (offsetSmall != null) {
-      if (offsetSmall.isLiteral()) {
-        attributes.put(Attributes.offsetSmall.getName(), offsetSmall.getValue());
-      } else {
-        parent.setValueExpression(Attributes.offsetSmall.getName(),
-            offsetSmall.getValueExpression(faceletContext, Integer.TYPE));
-      }
-    }
-
-    if (offsetMedium != null) {
-      if (offsetMedium.isLiteral()) {
-        attributes.put(Attributes.offsetMedium.getName(), offsetMedium.getValue());
-      } else {
-        parent.setValueExpression(Attributes.offsetMedium.getName(),
-            offsetMedium.getValueExpression(faceletContext, Integer.TYPE));
-      }
-    }
-
-    if (offsetLarge != null) {
-      if (offsetLarge.isLiteral()) {
-        attributes.put(Attributes.offsetLarge.getName(), offsetLarge.getValue());
-      } else {
-        parent.setValueExpression(Attributes.offsetLarge.getName(),
-            offsetLarge.getValueExpression(faceletContext, Integer.TYPE));
-      }
-    }
 
     if (overwriteExtraSmall != null) {
       if (overwriteExtraSmall.isLiteral()) {

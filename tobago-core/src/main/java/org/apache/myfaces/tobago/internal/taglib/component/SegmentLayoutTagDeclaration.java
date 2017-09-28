@@ -50,36 +50,46 @@ public interface SegmentLayoutTagDeclaration extends HasIdBindingAndRendered, Is
 
   /**
    * The semicolon-separated definition of the columns for extra small devices.
+   * Possible values are: integer values > 0, 'auto' and '*'.
+   * Example: '1;5;*;auto'
    */
   @TagAttribute
-  @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.ColumnPartition")
+  @UIComponentTagAttribute
   void setExtraSmall(String extraSmall);
 
   /**
    * The semicolon-separated definition of the columns for small devices.
+   * Possible values are: integer values > 0, 'auto' and '*'.
+   * Example: '1;5;*;auto'
    */
   @TagAttribute
-  @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.ColumnPartition")
+  @UIComponentTagAttribute
   void setSmall(String small);
 
   /**
    * The semicolon-separated definition of the columns for medium devices.
+   * Possible values are: integer values > 0, 'auto' and '*'.
+   * Example: '1;5;*;auto'
    */
   @TagAttribute
-  @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.ColumnPartition")
+  @UIComponentTagAttribute
   void setMedium(String medium);
 
   /**
    * The semicolon-separated definition of the columns for large devices.
+   * Possible values are: integer values > 0, 'auto' and '*'.
+   * Example: '1;5;*;auto'
    */
   @TagAttribute
-  @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.ColumnPartition")
+  @UIComponentTagAttribute
   void setLarge(String large);
 
   /**
    * The semicolon-separated definition of the columns for extra large devices.
+   * Possible values are: integer values > 0, 'auto' and '*'.
+   * Example: '1;5;*;auto'
    */
   @TagAttribute
-  @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.ColumnPartition")
+  @UIComponentTagAttribute
   void setExtraLarge(String extraLarge);
 }

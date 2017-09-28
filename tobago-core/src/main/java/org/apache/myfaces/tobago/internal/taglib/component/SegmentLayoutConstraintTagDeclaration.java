@@ -33,64 +33,37 @@ import javax.el.ValueExpression;
 public interface SegmentLayoutConstraintTagDeclaration {
 
   /**
-   * The number of columns this component moves to the right for extra small devices.
-   * @deprecated since 4.0.0
-   */
-  @Deprecated
-  @TagAttribute(type = "java.lang.Integer")
-  void setOffsetExtraSmall(final ValueExpression offsetExtraSmall);
-
-  /**
-   * The number of columns this component moves to the right for small devices.
-   * @deprecated since 4.0.0
-   */
-  @Deprecated
-  @TagAttribute(type = "java.lang.Integer")
-  void setOffsetSmall(final ValueExpression offsetSmall);
-
-  /**
-   * The number of columns this component moves to the right for medium devices.
-   * @deprecated since 4.0.0
-   */
-  @Deprecated
-  @TagAttribute(type = "java.lang.Integer")
-  void setOffsetMedium(final ValueExpression offsetMedium);
-
-  /**
-   * The number of columns this component moves to the right for large devices.
-   * @deprecated since 4.0.0
-   */
-  @Deprecated
-  @TagAttribute(type = "java.lang.Integer")
-  void setOffsetLarge(final ValueExpression offsetLarge);
-
-  /**
    * Overwrite the default layout for extra small devices.
+   * Possible values are: integer value > 0, 'auto' or '*'.
    */
-  @TagAttribute(type = "java.lang.Integer")
+  @TagAttribute
   void setExtraSmall(final ValueExpression extraSmall);
 
   /**
    * Overwrite the default layout for small devices.
+   * Possible values are: integer value > 0, 'auto' or '*'.
    */
-  @TagAttribute(type = "java.lang.Integer")
+  @TagAttribute
   void setSmall(final ValueExpression small);
 
   /**
    * Overwrite the default layout for medium devices.
+   * Possible values are: integer value > 0, 'auto' or '*'.
    */
-  @TagAttribute(type = "java.lang.Integer")
+  @TagAttribute
   void setMedium(final ValueExpression medium);
 
   /**
    * Overwrite the default layout for large devices.
+   * Possible values are: integer value > 0, 'auto' or '*'.
    */
-  @TagAttribute(type = "java.lang.Integer")
+  @TagAttribute
   void setLarge(final ValueExpression large);
 
   /**
    * Overwrite the default layout for extra large devices.
+   * Possible values are: integer value > 0, 'auto' or '*'.
    */
-  @TagAttribute(type = "java.lang.Integer")
+  @TagAttribute
   void setExtraLarge(final ValueExpression extraLarge);
 }
