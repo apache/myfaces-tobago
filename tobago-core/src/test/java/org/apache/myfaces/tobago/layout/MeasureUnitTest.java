@@ -42,6 +42,12 @@ public class MeasureUnitTest {
     Assert.assertEquals("13.7ex", "" + Measure.valueOf("13.7ex"));
     Assert.assertEquals("13.7em", "" + Measure.valueOf("13.7em"));
     Assert.assertEquals("13.7in", "" + Measure.valueOf("13.7in"));
+    Assert.assertEquals("13.7ch", "" + Measure.valueOf("13.7ch"));
+    Assert.assertEquals("13.7rem", "" + Measure.valueOf("13.7rem"));
+    Assert.assertEquals("13.7vw", "" + Measure.valueOf("13.7vw"));
+    Assert.assertEquals("13.7vh", "" + Measure.valueOf("13.7vh"));
+    Assert.assertEquals("13.7vmin", "" + Measure.valueOf("13.7vmin"));
+    Assert.assertEquals("13.7vmax", "" + Measure.valueOf("13.7vmax"));
     Assert.assertEquals("13.7%", "" + Measure.valueOf("13.7%"));
   }
 

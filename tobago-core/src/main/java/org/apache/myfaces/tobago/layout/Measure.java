@@ -99,8 +99,11 @@ public final class Measure implements Serializable {
       if (value.endsWith("%")) {
         return new Measure(value.substring(0, length - 1), Unit.PERCENT);
       }
-      if (length >= 2 && Character.isLetter(value.charAt(length - 2))) {
-        return new Measure(value.substring(0, length - 2), Unit.valueOf(value.substring(length - 2).toUpperCase()));
+      for (int i = 4; i >= 2; i--) {
+        final int pos = length - i;
+        if (length >= i && Character.isLetter(value.charAt(pos))) {
+          return new Measure(value.substring(0, pos), Unit.valueOf(value.substring(pos).toUpperCase()));
+        }
       }
       return new Measure(value, Unit.PX);
 
@@ -173,6 +176,12 @@ public final class Measure implements Serializable {
     MM,
     IN,
     PC,
+    CH, // Relative to width of the "0" (zero)
+    REM, // Relative to font-size of the root element
+    VW, // Relative to 1% of the width of the viewport*
+    VH, // Relative to 1% of the height of the viewport*
+    VMIN, // Relative to 1% of viewport's* smaller dimension
+    VMAX, // Relative to 1% of viewport's* larger dimension
     PERCENT;
 
     private final String value;
