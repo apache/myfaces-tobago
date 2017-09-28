@@ -35,7 +35,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
 
-@SupportedSourceVersion(SourceVersion.RELEASE_6)
+@SupportedSourceVersion(SourceVersion.RELEASE_8)
 public abstract class AbstractGenerator extends AbstractProcessor {
 
   private List<TypeElement> types;
