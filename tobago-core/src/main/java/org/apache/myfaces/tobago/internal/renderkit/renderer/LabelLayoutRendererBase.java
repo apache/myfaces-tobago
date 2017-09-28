@@ -28,7 +28,6 @@ import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
-import org.apache.myfaces.tobago.renderkit.css.CssItem;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
@@ -135,39 +134,40 @@ public abstract class LabelLayoutRendererBase extends DecodingInputRendererBase 
     // - flowRight (todo)
     // - skip
     final LabelLayout labelLayout = getType(component);
-    final CssItem divClass;
+    final boolean flex;
     switch (labelLayout) {
       case skip:
         return;
       case flexLeft:
       case flexRight:
-        divClass = TobagoClass.FLEX_LAYOUT;
+        flex = true;
         break;
       case segmentLeft:
         if (LabelLayout.getSegment(facesContext) == LabelLayout.segmentRight) {
           clientId += ComponentUtils.SUB_SEPARATOR + "label";
         }
-        divClass = null;
+        flex = false;
         break;
       case segmentRight:
         if (LabelLayout.getSegment(facesContext) == LabelLayout.segmentLeft) {
           clientId += ComponentUtils.SUB_SEPARATOR + "label";
         }
-        divClass = null;
+        flex = false;
         break;
       case none:
       case top:
       case flowLeft:
       case flowRight:
       default: // none, top, segmentLeft, segmentRight, flowLeft, flowRight
-        divClass = null;
+        flex = false;
     }
 
     writer.startElement(HtmlElements.DIV);
     writer.writeIdAttribute(clientId);
 
     writer.writeClassAttribute(
-        divClass,
+        flex ? TobagoClass.FLEX_LAYOUT : null,
+        flex ? BootstrapClass.D_FLEX : null,
         TobagoClass.LABEL__CONTAINER,
         BootstrapClass.FORM_GROUP,
         BootstrapClass.maximumSeverity(component),
