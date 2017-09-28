@@ -86,11 +86,12 @@
           or we do that with a popup, oder a lighter variant of a popup -->
           <tc:link omit="true" label="Info" id="headerInfo">
             <tc:link omit="true" label="Theme: #{clientConfigController.localizedTheme}" disabled="true"/>
-            <tc:link omit="true" label="Locale: #{clientConfigController.localizedLocale}"/>
-            <tc:link omit="true" label="Project Stage: #{tobagoContext.tobagoConfig.projectStage}"/>
-            <tc:link omit="true" label="CSP mode: #{tobagoContext.tobagoConfig.contentSecurityPolicy.mode}"/>
+            <tc:link omit="true" label="Locale: #{clientConfigController.localizedLocale}" disabled="true"/>
+            <tc:link omit="true" label="Project Stage: #{tobagoContext.tobagoConfig.projectStage}" disabled="true"/>
+            <tc:link omit="true" label="CSP mode: #{tobagoContext.tobagoConfig.contentSecurityPolicy.mode}" disabled="true"/>
             <tc:link omit="true"
-                        label="Requests: #{activityList.values[0].jsfRequest} / AJAX: #{activityList.values[0].ajaxRequest}"/>
+                     label="Requests: #{activityList.values[0].jsfRequest} / AJAX: #{activityList.values[0].ajaxRequest}"
+                     disabled="true"/>
           </tc:link>
 
         </tc:links>
