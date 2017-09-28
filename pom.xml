@@ -748,6 +748,7 @@
               </manifest>
               <manifestEntries>
                 <Revision>${scm.revision}</Revision>
+                <Build-Time>${maven.build.timestamp}</Build-Time>
               </manifestEntries>
               <manifestSections>
                 <manifestSection>

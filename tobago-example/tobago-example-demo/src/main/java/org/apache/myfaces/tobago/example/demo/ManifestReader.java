@@ -28,7 +28,12 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Named;
 import java.io.IOException;
 import java.net.URL;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Enumeration;
+import java.util.TimeZone;
 import java.util.jar.Attributes;
 import java.util.jar.Manifest;
 
@@ -41,6 +46,8 @@ public class ManifestReader {
   private final ManifestEntry manifestTree;
 
   private final SheetState state;
+
+  private Date buildTime;
 
   public ManifestReader() {
 
@@ -65,6 +72,15 @@ public class ManifestReader {
         for (final Object key : attributes.keySet()) {
           jar.add(new ManifestEntry(key.toString(), attributes.get(key).toString()));
         }
+        if (name.startsWith("tobago-core")) {
+          final DateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+          format.setTimeZone(TimeZone.getTimeZone("UTC"));
+          try {
+            buildTime = format.parse(attributes.getValue("Build-Time"));
+          } catch (ParseException e) {
+            LOG.error("Can't parse '" + attributes.getValue("Build-Time") + "'", e);
+          }
+        }
       }
     } catch (final IOException e) {
       LOG.error("Problem while processing URL: " + url, e);
@@ -77,5 +93,9 @@ public class ManifestReader {
 
   public SheetState getState() {
     return state;
+  }
+
+  public Date getBuildTime() {
+    return buildTime;
   }
 }
