@@ -19,7 +19,7 @@
 
 set -e
 
-REPO=`mvn help:evaluate -Dexpression=settings.localRepository | grep -v '\[.*INFO.*\]'`
+REPO=`mvn help:evaluate -Dexpression=settings.localRepository --batch-mode | grep -v '\[INFO\]'`
 echo "Maven repo: ${REPO}"
 REPO_REGEX=`echo ${REPO} | sed s/\\\\//\\\\\\\\\\\\//g`
 
@@ -37,7 +37,7 @@ function rebuild_theme() {
 
   date "+Build date: %Y-%m-%d %H:%M:%S" >${DIR}/target/temp.log
 
-  mvn -P rebuild-theme -f ${DIR}/pom.xml | tee -a ${DIR}/target/temp.log
+  mvn -Prebuild-theme -f ${DIR}/pom.xml --batch-mode | tee -a ${DIR}/target/temp.log
 
   # removing system dependent directories from the log file
   cat ${DIR}/target/temp.log | sed s/${CURRENT_REGEX}/__CURRENT__/g | sed s/${REPO_REGEX}/__REPO__/g | sed s/${HOME_REGEX}/__HOME__/g >${DIR}/rebuild-theme.log
@@ -48,7 +48,7 @@ function rebuild_theme() {
 # the build process is not time invariant.
 # This can later be removed.
 
-mvn -P all-modules clean
+mvn -Pall-modules clean
 
 rebuild_theme charlotteville
 rebuild_theme richmond
@@ -56,7 +56,7 @@ rebuild_theme scarborough
 rebuild_theme speyside
 rebuild_theme standard
 
-mvn -P all-modules install
+mvn -Pall-modules install
 
 echo "DONE"
 echo "Now you will find the bootstrap stuff inside the src trees. This might be committed."
