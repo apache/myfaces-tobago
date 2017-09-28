@@ -8372,8 +8372,6 @@ body {
 
 /* flexLayout -------------------------------------------------------------- */
 .tobago-flexLayout {
-  display: -ms-flexbox;
-  display: flex;
   min-width: 0;
   /* without this, Firefox/Webkit are different from IE:
      Set the minimal width to zero make flex-layout responsive for the width,
@@ -8391,61 +8389,6 @@ body {
 .tobago-flexLayout > .tobago-flexLayout {
   margin-left: 0;
   margin-right: 0;
-}
-
-.tobago-flexLayout-markup-vertically {
-  -ms-flex-direction: column;
-      flex-direction: column;
-}
-
-.tobago-alignItems-baseline {
-  -ms-flex-align: baseline;
-      align-items: baseline;
-}
-
-.tobago-alignItems-center {
-  -ms-flex-align: center;
-      align-items: center;
-}
-
-.tobago-alignItems-flexEnd {
-  -ms-flex-align: end;
-      align-items: flex-end;
-}
-
-.tobago-alignItems-flexStart {
-  -ms-flex-align: start;
-      align-items: flex-start;
-}
-
-.tobago-alignItems-stretch {
-  -ms-flex-align: stretch;
-      align-items: stretch;
-}
-
-.tobago-justifyContent-center {
-  -ms-flex-pack: center;
-      justify-content: center;
-}
-
-.tobago-justifyContent-flexStart {
-  -ms-flex-pack: start;
-      justify-content: flex-start;
-}
-
-.tobago-justifyContent-flexEnd {
-  -ms-flex-pack: end;
-      justify-content: flex-end;
-}
-
-.tobago-justifyContent-spaceBetween {
-  -ms-flex-pack: justify;
-      justify-content: space-between;
-}
-
-.tobago-justifyContent-spaceAround {
-  -ms-flex-pack: distribute;
-      justify-content: space-around;
 }
 
 /* flowLayout ---------------------------------------------------------- */
@@ -8671,7 +8614,6 @@ a.tobago-messages-button {
 .tobago-dropdown-submenu {
   cursor: pointer;
   position: relative;
-  display: inline-block;
   width: 100%;
 }
 
