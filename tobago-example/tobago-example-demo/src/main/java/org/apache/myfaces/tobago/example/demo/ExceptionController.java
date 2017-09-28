@@ -31,7 +31,7 @@ import java.io.StringWriter;
 public class ExceptionController implements Serializable {
 
   public String getStackTrace() {
-    Exception exception = (Exception) FacesContext.getCurrentInstance().getExternalContext()
+    Throwable exception = (Throwable) FacesContext.getCurrentInstance().getExternalContext()
             .getRequestMap().get("javax.servlet.error.exception");
     StringWriter stringWriter = new StringWriter();
     PrintWriter printWriter = new PrintWriter(stringWriter);
