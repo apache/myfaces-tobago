@@ -19,7 +19,7 @@
 
 set -e
 
-REPO=`mvn help:evaluate -Dexpression=settings.localRepository | grep -v '\[INFO\]'`
+REPO=`mvn help:evaluate -Dexpression=settings.localRepository | grep -v '\[.*INFO.*\]'`
 echo "Maven repo: ${REPO}"
 REPO_REGEX=`echo ${REPO} | sed s/\\\\//\\\\\\\\\\\\//g`
 
