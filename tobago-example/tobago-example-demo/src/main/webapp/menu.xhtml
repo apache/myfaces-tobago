@@ -93,18 +93,19 @@
             </tc:link>
           </tc:link>
 
-          <tc:link label="#{demoBundle.menu_help}" omit="true">
-            <tc:link label="#{demoBundle.menu_about}" omit="true">
+          <tc:link label="Info" omit="true">
+            <tc:link label="About" omit="true">
               <tc:dataAttribute name="alert-text"
                                 value="#{demoBundle.pageTitle} - #{info.version} - #{demoBundle.tobago_url}"/>
             </tc:link>
             <tc:link omit="true" label="Client Info" id="headerInfo">
               <tc:operation name="show" for=":::info"/>
             </tc:link>
-            <tc:link action="/server-info.xhtml" immediate="true" label="Server Info" disabled="#{! info.enabled}"/>
-            <tc:link action="/logging-info.xhtml" immediate="true" label="Logging Info"
+            <tc:link outcome="/server-info.xhtml" immediate="true" label="Server Info" disabled="#{! info.enabled}"/>
+            <tc:link outcome="/logging-info.xhtml" immediate="true" label="Logging Info"
                      disabled="#{! info.enabled}"/>
-            <tc:link link="http://myfaces.apache.org/tobago" label="Tobago in the Web"/>
+            <tc:separator/>
+            <tc:link link="http://myfaces.apache.org/tobago" label="Tobago Home"/>
           </tc:link>
 
         </tc:links>
