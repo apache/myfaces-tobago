@@ -137,11 +137,31 @@ public enum Attributes {
   /**
    * Used by a layout manager
    */
+  marginExtraLarge,
+  /**
+   * Used by a layout manager
+   */
+  marginExtraSmall,
+  /**
+   * Used by a layout manager
+   */
+  marginLarge,
+  /**
+   * Used by a layout manager
+   */
   marginLeft,
   /**
    * Used by a layout manager
    */
+  marginMedium,
+  /**
+   * Used by a layout manager
+   */
   marginRight,
+  /**
+   * Used by a layout manager
+   */
+  marginSmall,
   /**
    * Used by a layout manager
    */
@@ -184,6 +204,26 @@ public enum Attributes {
    * Used by a layout manager
    */
   overwriteLarge,
+  /**
+   * Used by a layout manager
+   */
+  overwriteMarginExtraLarge,
+  /**
+   * Used by a layout manager
+   */
+  overwriteMarginExtraSmall,
+  /**
+   * Used by a layout manager
+   */
+  overwriteMarginLarge,
+  /**
+   * Used by a layout manager
+   */
+  overwriteMarginMedium,
+  /**
+   * Used by a layout manager
+   */
+  overwriteMarginSmall,
   /**
    * Used by a layout manager
    */

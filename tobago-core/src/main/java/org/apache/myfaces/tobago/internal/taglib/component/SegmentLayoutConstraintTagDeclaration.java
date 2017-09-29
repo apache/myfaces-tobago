@@ -22,6 +22,8 @@ package org.apache.myfaces.tobago.internal.taglib.component;
 import org.apache.myfaces.tobago.apt.annotation.SimpleTag;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
+import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
+import org.apache.myfaces.tobago.layout.Margin;
 
 import javax.el.ValueExpression;
 
@@ -34,28 +36,28 @@ public interface SegmentLayoutConstraintTagDeclaration {
 
   /**
    * Overwrite the default layout for extra small devices.
-   * Possible values are: integer value > 0, 'auto' or '*'.
+   * Possible values are: integer value > 0, 'auto' and '*'.
    */
   @TagAttribute
   void setExtraSmall(final ValueExpression extraSmall);
 
   /**
    * Overwrite the default layout for small devices.
-   * Possible values are: integer value > 0, 'auto' or '*'.
+   * Possible values are: integer value > 0, 'auto' and '*'.
    */
   @TagAttribute
   void setSmall(final ValueExpression small);
 
   /**
    * Overwrite the default layout for medium devices.
-   * Possible values are: integer value > 0, 'auto' or '*'.
+   * Possible values are: integer value > 0, 'auto' and '*'.
    */
   @TagAttribute
   void setMedium(final ValueExpression medium);
 
   /**
    * Overwrite the default layout for large devices.
-   * Possible values are: integer value > 0, 'auto' or '*'.
+   * Possible values are: integer value > 0, 'auto' and '*'.
    */
   @TagAttribute
   void setLarge(final ValueExpression large);
@@ -66,4 +68,39 @@ public interface SegmentLayoutConstraintTagDeclaration {
    */
   @TagAttribute
   void setExtraLarge(final ValueExpression extraLarge);
+
+  /**
+   * Overwrite the default margin for extra small devices.
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(allowedValues = {Margin.NONE, Margin.LEFT, Margin.RIGHT, Margin.BOTH})
+  void setMarginExtraSmall(final ValueExpression overwriteMarginExtraSmall);
+
+  /**
+   * Overwrite the default margin for small devices.
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(allowedValues = {Margin.NONE, Margin.LEFT, Margin.RIGHT, Margin.BOTH})
+  void setMarginSmall(final ValueExpression overwriteMarginSmall);
+
+  /**
+   * Overwrite the default margin for medium devices.
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(allowedValues = {Margin.NONE, Margin.LEFT, Margin.RIGHT, Margin.BOTH})
+  void setMarginMedium(final ValueExpression overwriteMarginMedium);
+
+  /**
+   * Overwrite the default margin for large devices.
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(allowedValues = {Margin.NONE, Margin.LEFT, Margin.RIGHT, Margin.BOTH})
+  void setMarginLarge(final ValueExpression overwriteMarginLarge);
+
+  /**
+   * Overwrite the default margin for extra large devices.
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(allowedValues = {Margin.NONE, Margin.LEFT, Margin.RIGHT, Margin.BOTH})
+  void setMarginExtraLarge(final ValueExpression overwriteMarginExtraLarge);
 }

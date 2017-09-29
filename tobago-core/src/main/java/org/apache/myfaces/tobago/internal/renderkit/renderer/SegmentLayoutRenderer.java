@@ -24,6 +24,7 @@ import org.apache.myfaces.tobago.component.SupportsLabelLayout;
 import org.apache.myfaces.tobago.component.UISegmentLayout;
 import org.apache.myfaces.tobago.internal.component.AbstractUISegmentLayout;
 import org.apache.myfaces.tobago.layout.LayoutTokens;
+import org.apache.myfaces.tobago.layout.MarginTokens;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
@@ -80,7 +81,12 @@ public class SegmentLayoutRenderer extends RendererBase {
         LayoutTokens.parse(segmentLayout.getSmall()),
         LayoutTokens.parse(segmentLayout.getMedium()),
         LayoutTokens.parse(segmentLayout.getLarge()),
-        LayoutTokens.parse(segmentLayout.getExtraLarge()));
+        LayoutTokens.parse(segmentLayout.getExtraLarge()),
+        MarginTokens.parse(segmentLayout.getMarginExtraSmall()),
+        MarginTokens.parse(segmentLayout.getMarginSmall()),
+        MarginTokens.parse(segmentLayout.getMarginMedium()),
+        MarginTokens.parse(segmentLayout.getMarginLarge()),
+        MarginTokens.parse(segmentLayout.getMarginExtraLarge()));
     for (UIComponent child : children) {
       if (child.isRendered()) {
         encodeChild(facesContext, writer, generator, child);

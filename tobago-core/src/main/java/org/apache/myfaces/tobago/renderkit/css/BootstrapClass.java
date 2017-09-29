@@ -25,6 +25,8 @@ import org.apache.myfaces.tobago.layout.AutoLayoutToken;
 import org.apache.myfaces.tobago.layout.JustifyContent;
 import org.apache.myfaces.tobago.layout.LayoutToken;
 import org.apache.myfaces.tobago.layout.LayoutTokens;
+import org.apache.myfaces.tobago.layout.Margin;
+import org.apache.myfaces.tobago.layout.MarginTokens;
 import org.apache.myfaces.tobago.layout.RelativeLayoutToken;
 import org.apache.myfaces.tobago.layout.SegmentLayoutToken;
 import org.apache.myfaces.tobago.layout.TextAlign;
@@ -291,18 +293,31 @@ public enum BootstrapClass implements CssItem {
   JUSTIFY_CONTENT_END("justify-content-end"),
   JUSTIFY_CONTENT_START("justify-content-start"),
   ML_AUTO("ml-auto"),
+  ML_LG_AUTO("ml-lg-auto"),
+  ML_MD_AUTO("ml-md-auto"),
+  ML_SM_AUTO("ml-sm-auto"),
+  ML_XL_AUTO("ml-xl-auto"),
   MODAL("modal"),
   MODAL_CONTENT("modal-content"),
   MODAL_DIALOG("modal-dialog"),
   MODAL_LG("modal-lg"),
   MODAL_SM("modal-sm"),
   MR_AUTO("mr-auto"),
+  MR_LG_AUTO("mr-lg-auto"),
+  MR_MD_AUTO("mr-md-auto"),
+  MR_SM_AUTO("mr-sm-auto"),
+  MR_XL_AUTO("mr-xl-auto"),
   MY_LG_0("my-lg-0"),
   MY_LG_1("my-lg-1"),
   MY_LG_2("my-lg-2"),
   MY_LG_3("my-lg-3"),
   MY_LG_4("my-lg-4"),
   MY_LG_5("my-lg-5"),
+  MX_AUTO("mx-auto"),
+  MX_LG_AUTO("mx-lg-auto"),
+  MX_MD_AUTO("mx-md-auto"),
+  MX_SM_AUTO("mx-sm-auto"),
+  MX_XL_AUTO("mx-xl-auto"),
   NAV("nav"),
   NAV_ITEM("nav-item"),
   NAV_LINK("nav-link"),
@@ -454,11 +469,18 @@ public enum BootstrapClass implements CssItem {
     private final LayoutTokens medium;
     private final LayoutTokens large;
     private final LayoutTokens extraLarge;
+    private final MarginTokens marginExtraSmall;
+    private final MarginTokens marginSmall;
+    private final MarginTokens marginMedium;
+    private final MarginTokens marginLarge;
+    private final MarginTokens marginExtraLarge;
 
     private int index = 0;
 
     public Generator(final LayoutTokens extraSmall, final LayoutTokens small, final LayoutTokens medium,
-        final LayoutTokens large, final LayoutTokens extraLarge) {
+        final LayoutTokens large, final LayoutTokens extraLarge,
+        final MarginTokens marginExtraSmall, final MarginTokens marginSmall, final MarginTokens marginMedium,
+        final MarginTokens marginLarge, final MarginTokens marginExtraLarge) {
       if (extraSmall == null && small == null && medium == null && large == null && extraLarge == null) {
         this.extraSmall = LayoutTokens.parse("*");
       } else {
@@ -468,6 +490,11 @@ public enum BootstrapClass implements CssItem {
       this.medium = medium;
       this.large = large;
       this.extraLarge = extraLarge;
+      this.marginExtraSmall = marginExtraSmall;
+      this.marginSmall = marginSmall;
+      this.marginMedium = marginMedium;
+      this.marginLarge = marginLarge;
+      this.marginExtraLarge = marginExtraLarge;
     }
 
     public void reset() {
@@ -479,55 +506,55 @@ public enum BootstrapClass implements CssItem {
     }
 
     public BootstrapClass[] generate(final UIComponent child) {
-      ArrayList<BootstrapClass> result = new ArrayList<>(5);
+      ArrayList<BootstrapClass> result = new ArrayList<>(10);
       final Map<String, Object> attributes = child.getAttributes();
-      generate(result, extraSmall, Attributes.extraSmall, attributes.get(Attributes.overwriteExtraSmall.name()));
-      generate(result, small, Attributes.small, attributes.get(Attributes.overwriteSmall.name()));
-      generate(result, medium, Attributes.medium, attributes.get(Attributes.overwriteMedium.name()));
-      generate(result, large, Attributes.large, attributes.get(Attributes.overwriteLarge.name()));
-      generate(result, extraLarge, Attributes.extraLarge, attributes.get(Attributes.overwriteExtraLarge.name()));
+      generate(result, extraSmall, attributes, Attributes.overwriteExtraSmall);
+      generate(result, small, attributes, Attributes.overwriteSmall);
+      generate(result, medium, attributes, Attributes.overwriteMedium);
+      generate(result, large, attributes, Attributes.overwriteLarge);
+      generate(result, extraLarge, attributes, Attributes.overwriteExtraLarge);
+
+      generate(result, marginExtraSmall, attributes, Attributes.overwriteMarginExtraSmall);
+      generate(result, marginSmall, attributes, Attributes.overwriteMarginSmall);
+      generate(result, marginMedium, attributes, Attributes.overwriteMarginMedium);
+      generate(result, marginLarge, attributes, Attributes.overwriteMarginLarge);
+      generate(result, marginExtraLarge, attributes, Attributes.overwriteMarginExtraLarge);
       return result.toArray(new BootstrapClass[result.size()]);
     }
 
-    private void generate(final List<BootstrapClass> result, final LayoutTokens tokens, Attributes attributes,
-        final Object overwrite) {
-      final BootstrapClass bootstrapClass;
+    private void generate(final List<BootstrapClass> result, final LayoutTokens tokens,
+        final Map<String, Object> attributes, final Attributes attribute) {
+      Object overwrite = attributes.get(attribute.name());
 
       if (overwrite != null) {
-        final LayoutTokens layoutTokens = LayoutTokens.parse((String) overwrite);
-        bootstrapClass = valueOf(layoutTokens.get(0), attributes);
+        final LayoutToken layoutToken = LayoutTokens.parseToken((String) overwrite);
+        final BootstrapClass bootstrapClass = valueOf(layoutToken, attribute);
+        result.add(bootstrapClass);
       } else if (tokens != null) {
         final LayoutToken layoutToken = tokens.get(index % tokens.getSize());
-        bootstrapClass = valueOf(layoutToken, attributes);
-      } else {
-        bootstrapClass = null;
+        final BootstrapClass bootstrapClass = valueOf(layoutToken, attribute);
+        result.add(bootstrapClass);
       }
-      if (bootstrapClass != null) {
+    }
+
+    private void generate(final List<BootstrapClass> result, final MarginTokens margins,
+        final Map<String, Object> attributes, final Attributes attribute) {
+      Object overwrite = attributes.get(attribute.name());
+
+      if (overwrite != null) {
+        final Margin margin = MarginTokens.parseToken((String) overwrite);
+        final BootstrapClass bootstrapClass = valueOf(margin, attribute);
+        result.add(bootstrapClass);
+      } else if (margins != null) {
+        final Margin margin = margins.get(index % margins.getSize());
+        final BootstrapClass bootstrapClass = valueOf(margin, attribute);
         result.add(bootstrapClass);
       }
     }
   }
 
   public static BootstrapClass valueOf(LayoutToken layoutToken, Attributes attributes) {
-    final String size;
-
-    switch (attributes) {
-      case extraLarge:
-        size = "_XL";
-        break;
-      case large:
-        size = "_LG";
-        break;
-      case medium:
-        size = "_MD";
-        break;
-      case small:
-        size = "_SM";
-        break;
-      case extraSmall:
-      default:
-        size = "";
-    }
+    final String size = getSizeSuffix(attributes);
 
     if (layoutToken instanceof RelativeLayoutToken) {
       return valueOf("COL" + size);
@@ -538,6 +565,52 @@ public enum BootstrapClass implements CssItem {
       return valueOf("COL" + size + "_" + segmentLayoutToken.getColumnSize());
     } else {
       return null;
+    }
+  }
+
+  public static BootstrapClass valueOf(Margin margin, Attributes attribute) {
+    final String size = getSizeSuffix(attribute);
+
+    switch (margin) {
+      case left:
+        return valueOf("ML" + size + "_AUTO");
+      case right:
+        return valueOf("MR" + size + "_AUTO");
+      case both:
+        return valueOf("MX" + size + "_AUTO");
+      default:
+        return null;
+    }
+  }
+
+  private static String getSizeSuffix(Attributes attribute) {
+    switch (attribute) {
+      case extraLarge:
+      case marginExtraLarge:
+      case overwriteExtraLarge:
+      case overwriteMarginExtraLarge:
+        return "_XL";
+      case large:
+      case marginLarge:
+      case overwriteLarge:
+      case overwriteMarginLarge:
+        return "_LG";
+      case medium:
+      case marginMedium:
+      case overwriteMedium:
+      case overwriteMarginMedium:
+        return "_MD";
+      case small:
+      case marginSmall:
+      case overwriteSmall:
+      case overwriteMarginSmall:
+        return "_SM";
+      case extraSmall:
+      case marginExtraSmall:
+      case overwriteExtraSmall:
+      case overwriteMarginExtraSmall:
+      default:
+        return "";
     }
   }
 

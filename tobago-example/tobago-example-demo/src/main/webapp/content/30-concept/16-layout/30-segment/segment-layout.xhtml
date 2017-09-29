@@ -79,7 +79,7 @@
 
   <tc:section label="Screen Size">
     <p>For the different kinds of screen sizes, the segment layout has five attributes:
-      <code>extraLarge</code>, <code>large</code>, <code>medium</code>, <code>small</code> and <code>extraSmall</code>.
+      <code>extraSmall</code>, <code>small</code>, <code>medium</code>, <code>large</code> and <code>extraLarge</code>.
       The first three should be used for desktops. The last two should be used for tablets and phones.
       Notice, that only the browser size matters. So a small browser window on a big screen also reacts with
       <code>small</code> and <code>extraSmall</code>.</p>
@@ -105,25 +105,45 @@
     </tc:segmentLayout>
   </tc:section>
 
+  <tc:section id="marginConcept" label="Margin">
+    <p>A margin can be set for the different proportions with the attributes
+      <code>marginExtraSmall</code>, <code>marginSmall</code>, <code>marginMedium</code>, <code>marginLarge</code> and
+      <code>marginExtraLarge</code>.</p>
+    <p>Possible values are <code>none</code>, <code>left</code>, <code>right</code> and <code>both</code>.</p>
+
+    <pre><code class="language-markup">&lt;tc:segmentLayout extraSmall="5;3"
+      marginExtraSmall="none;both;left;both">
+    ...</code></pre>
+    <tc:segmentLayout extraSmall="5;3" marginExtraSmall="none;both;left;both">
+      <tc:in value="none"/>
+      <tc:in value="both"/>
+      <tc:in value="none"/>
+      <tc:in value="both"/>
+      <tc:in value="none"/>
+      <tc:in value="both"/>
+    </tc:segmentLayout>
+  </tc:section>
+
   <tc:section label="Overwrite default layout">
-    <p>The default layout can be overwritten by the
+    <p>The default layout and margins can be overwritten by the
       <code class="language-markup">&lt;tc:segmentLayoutConstraint/></code> tag.
-      Possible attributes are <code>extraSmall</code>, <code>small</code>,<code>medium</code> and
-      <code>large</code>.</p>
-    <p>In the following example the medium default layout of the third input field is overwritter with '3'.</p>
-    <pre><code class="language-markup">&lt;tc:segmentLayout medium="4;8">
-  &lt;tc:in/>
-  &lt;tc:in/>
-  &lt;tc:in>
-    &lt;tc:segmentLayoutConstraint medium="3"/>
+      Possible attributes are <code>extraSmall</code>, <code>small</code>, <code>medium</code>, <code>large</code> and
+      <code>extraLarge</code> for the layout.<br/>
+      And: <code>marginExtraSmall</code>, <code>marginSmall</code>, <code>marginMedium</code>, <code>marginLarge</code>,
+      <code>marginExtraLarge</code> for the margins.</p>
+    <pre><code class="language-markup">&lt;tc:segmentLayout extraSmall="4;8">
+  &lt;tc:in value="4"/>
+  &lt;tc:in value="8"/>
+  &lt;tc:in value="3 - both">
+    &lt;tc:segmentLayoutConstraint extraSmall="3" marginExtraSmall="both"/>
   &lt;/tc:in>
-  &lt;tc:in/>
+  &lt;tc:in value="8"/>
 &lt;/tc:segmentLayout></code></pre>
-    <tc:segmentLayout medium="4;8">
+    <tc:segmentLayout extraSmall="4;8">
       <tc:in value="4"/>
       <tc:in value="8"/>
-      <tc:in value="3">
-        <tc:segmentLayoutConstraint medium="3"/>
+      <tc:in value="3 - both">
+        <tc:segmentLayoutConstraint extraSmall="3" marginExtraSmall="both"/>
       </tc:in>
       <tc:in value="8"/>
     </tc:segmentLayout>

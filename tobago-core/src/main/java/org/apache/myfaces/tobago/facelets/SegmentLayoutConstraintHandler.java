@@ -27,7 +27,6 @@ import javax.faces.view.facelets.TagAttribute;
 import javax.faces.view.facelets.TagConfig;
 import javax.faces.view.facelets.TagHandler;
 import java.io.IOException;
-import java.util.Map;
 
 public class SegmentLayoutConstraintHandler extends TagHandler {
 
@@ -36,6 +35,11 @@ public class SegmentLayoutConstraintHandler extends TagHandler {
   private final TagAttribute overwriteMedium;
   private final TagAttribute overwriteLarge;
   private final TagAttribute overwriteExtraLarge;
+  private final TagAttribute overwriteMarginExtraSmall;
+  private final TagAttribute overwriteMarginSmall;
+  private final TagAttribute overwriteMarginMedium;
+  private final TagAttribute overwriteMarginLarge;
+  private final TagAttribute overwriteMarginExtraLarge;
 
   public SegmentLayoutConstraintHandler(TagConfig config) {
     super(config);
@@ -44,54 +48,35 @@ public class SegmentLayoutConstraintHandler extends TagHandler {
     overwriteMedium = getAttribute(Attributes.medium.getName());
     overwriteLarge = getAttribute(Attributes.large.getName());
     overwriteExtraLarge = getAttribute(Attributes.extraLarge.getName());
+    overwriteMarginExtraSmall = getAttribute(Attributes.marginExtraSmall.getName());
+    overwriteMarginSmall = getAttribute(Attributes.marginSmall.getName());
+    overwriteMarginMedium = getAttribute(Attributes.marginMedium.getName());
+    overwriteMarginLarge = getAttribute(Attributes.marginLarge.getName());
+    overwriteMarginExtraLarge = getAttribute(Attributes.marginExtraLarge.getName());
   }
 
   @Override
   public void apply(FaceletContext faceletContext, UIComponent parent) throws IOException {
-    final Map<String, Object> attributes = parent.getAttributes();
+    apply(faceletContext, parent, overwriteExtraSmall, Attributes.overwriteExtraSmall, Integer.TYPE);
+    apply(faceletContext, parent, overwriteSmall, Attributes.overwriteSmall, Integer.TYPE);
+    apply(faceletContext, parent, overwriteMedium, Attributes.overwriteMedium, Integer.TYPE);
+    apply(faceletContext, parent, overwriteLarge, Attributes.overwriteLarge, Integer.TYPE);
+    apply(faceletContext, parent, overwriteExtraLarge, Attributes.overwriteExtraLarge, Integer.TYPE);
 
-    if (overwriteExtraSmall != null) {
-      if (overwriteExtraSmall.isLiteral()) {
-        attributes.put(Attributes.overwriteExtraSmall.getName(), overwriteExtraSmall.getValue());
-      } else {
-        parent.setValueExpression(Attributes.overwriteExtraSmall.getName(),
-            overwriteExtraSmall.getValueExpression(faceletContext, Integer.TYPE));
-      }
-    }
+    apply(faceletContext, parent, overwriteMarginExtraSmall, Attributes.overwriteMarginExtraSmall, String.class);
+    apply(faceletContext, parent, overwriteMarginSmall, Attributes.overwriteMarginSmall, String.class);
+    apply(faceletContext, parent, overwriteMarginMedium, Attributes.overwriteMarginMedium, String.class);
+    apply(faceletContext, parent, overwriteMarginLarge, Attributes.overwriteMarginLarge, String.class);
+    apply(faceletContext, parent, overwriteMarginExtraLarge, Attributes.overwriteMarginExtraLarge, String.class);
+  }
 
-    if (overwriteSmall != null) {
-      if (overwriteSmall.isLiteral()) {
-        attributes.put(Attributes.overwriteSmall.getName(), overwriteSmall.getValue());
+  private void apply(FaceletContext faceletContext, UIComponent parent, final TagAttribute tagAttribute,
+      final Attributes attribute, final Class type) {
+    if (tagAttribute != null) {
+      if (tagAttribute.isLiteral()) {
+        parent.getAttributes().put(attribute.getName(), tagAttribute.getValue());
       } else {
-        parent.setValueExpression(Attributes.overwriteSmall.getName(),
-            overwriteSmall.getValueExpression(faceletContext, Integer.TYPE));
-      }
-    }
-
-    if (overwriteMedium != null) {
-      if (overwriteMedium.isLiteral()) {
-        attributes.put(Attributes.overwriteMedium.getName(), overwriteMedium.getValue());
-      } else {
-        parent.setValueExpression(Attributes.overwriteMedium.getName(),
-            overwriteMedium.getValueExpression(faceletContext, Integer.TYPE));
-      }
-    }
-
-    if (overwriteLarge != null) {
-      if (overwriteLarge.isLiteral()) {
-        attributes.put(Attributes.overwriteLarge.getName(), overwriteLarge.getValue());
-      } else {
-        parent.setValueExpression(Attributes.overwriteLarge.getName(),
-            overwriteLarge.getValueExpression(faceletContext, Integer.TYPE));
-      }
-    }
-
-    if (overwriteExtraLarge != null) {
-      if (overwriteExtraLarge.isLiteral()) {
-        attributes.put(Attributes.overwriteExtraLarge.getName(), overwriteExtraLarge.getValue());
-      } else {
-        parent.setValueExpression(Attributes.overwriteExtraLarge.getName(),
-            overwriteExtraLarge.getValueExpression(faceletContext, Integer.TYPE));
+        parent.setValueExpression(attribute.getName(), tagAttribute.getValueExpression(faceletContext, type));
       }
     }
   }
