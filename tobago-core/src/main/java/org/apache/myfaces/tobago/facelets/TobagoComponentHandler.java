@@ -25,7 +25,6 @@ import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.event.SheetStateChangeSource;
 import org.apache.myfaces.tobago.event.SortActionSource;
 import org.apache.myfaces.tobago.event.TabChangeSource;
-import org.apache.myfaces.tobago.internal.component.AbstractUISegmentLayout;
 import org.apache.myfaces.tobago.internal.config.TobagoConfigImpl;
 
 import javax.faces.component.EditableValueHolder;
@@ -51,9 +50,6 @@ public class TobagoComponentHandler extends ComponentHandler {
     final MetaRuleset metaRuleset = super.createMetaRuleset(aClass);
     if (SortActionSource.class.isAssignableFrom(aClass)) {
       metaRuleset.addRule(SortActionSourceRule.INSTANCE);
-    }
-    if (AbstractUISegmentLayout.class.isAssignableFrom(aClass)) {
-      metaRuleset.addRule(SegmentLayoutRule.INSTANCE);
     }
     if (TabChangeSource.class.isAssignableFrom(aClass)) {
       metaRuleset.addRule(TabChangeSourceRule.INSTANCE);

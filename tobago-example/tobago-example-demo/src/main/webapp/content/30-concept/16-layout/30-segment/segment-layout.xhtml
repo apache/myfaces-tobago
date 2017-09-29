@@ -25,54 +25,71 @@
   <p>The segment layout is a grid with 12 columns.
     The number and the proportion of the columns can be set with the attributes
     <code>extraSmall</code>, <code>small</code>, <code>medium</code>, <code>large</code> and <code>extraLarge</code>.
-    Every attribute has a different css class, but the usage is the same.
-    The value is a semicolon separated list of integers, which sum must be '12' or less.
-    A value of n will use n columns from the grid.</p>
+    The value is a semicolon separated list. Allowed values are integers from 1 to 12, 'auto' and '*'.</p>
   <tc:link label="Tag Library Documentation" image="#{request.contextPath}/image/feather-leaf.png"
            link="#{demoBundle.tagDocUrl}/#{info.stableVersion}/tld/tc/segmentLayout.html"/>
 
   <tc:section label="Basics">
-    <p>This example show a segment layout with four columns and a segment layout with three columns.
-      The numbers are displayed via the <code class="language-markup">&lt;tc:label/></code> tag.
-      The space is set via the <code class="language-markup">&lt;tc:hidden/></code> tag.</p>
+    <p>This example show a segment layout with four and three columns and a segment layout with 'auto' and '*'.</p>
     <tc:section label="4 Columns">
-      <pre><code class="language-markup">&lt;tc:segmentLayout medium="1;6;2;3"></code></pre>
-      <tc:segmentLayout medium="1;6;2;3">
-        <tc:in value="1"/>
+      <p>The sum of the values is 12.</p>
+      <pre><code class="language-markup">&lt;tc:segmentLayout extraSmall="2;3;4;3"></code></pre>
+      <tc:segmentLayout extraSmall="2;3;4;3">
         <tc:in value="2"/>
         <tc:in value="3"/>
         <tc:in value="4"/>
-        <tc:hidden/>
-        <tc:in value="5"/>
+        <tc:in value="3"/>
+        <tc:in value="2"/>
+        <tc:in value="3"/>
+        <tc:in value="4"/>
+        <tc:in value="3"/>
       </tc:segmentLayout>
     </tc:section>
-    <tc:section label="3 Columns">
-      <pre><code class="language-markup">&lt;tc:segmentLayout medium="2;4;6"></code></pre>
-      <tc:segmentLayout medium="2;4;6">
-        <tc:in value="1"/>
+    <tc:section label="5 Columns">
+      <p>The sum of the values is 8. After the third element, the sequence starts from the beginning.
+        So the fourth element got a value of 2.</p>
+      <pre><code class="language-markup">&lt;tc:segmentLayout extraSmall="2;2;4"></code></pre>
+      <tc:segmentLayout extraSmall="2;2;4">
         <tc:in value="2"/>
-        <tc:in value="3"/>
+        <tc:in value="2"/>
         <tc:in value="4"/>
-        <tc:hidden/>
-        <tc:in value="5"/>
+        <tc:in value="2"/>
+        <tc:in value="2"/>
+        <tc:in value="4"/>
+      </tc:segmentLayout>
+    </tc:section>
+    <tc:section label="'auto' and '*'">
+      <pre><code class="language-markup">&lt;tc:segmentLayout extraSmall="*;auto;*"></code></pre>
+      <tc:segmentLayout extraSmall="*;auto;*">
+        <tc:panel>
+          <tc:style customClass="blue"/>
+          <p>the remaining space</p>
+        </tc:panel>
+        <tc:panel>
+          <tc:style customClass="old-planet"/>
+          <p>width of the content</p>
+        </tc:panel>
+        <tc:panel>
+          <tc:style customClass="blue"/>
+          <p>the remaining space</p>
+        </tc:panel>
       </tc:segmentLayout>
     </tc:section>
   </tc:section>
 
   <tc:section label="Screen Size">
     <p>For the different kinds of screen sizes, the segment layout has five attributes:
-      <code>extraLarge</code>, <code>large</code>, <code>medium</code>, <code>small</code> and <code>extraSmall</code>.
+      <code>extraSmall</code>, <code>small</code>, <code>medium</code>, <code>large</code> and <code>extraLarge</code>.
       The first three should be used for desktops. The last two should be used for tablets and phones.
       Notice, that only the browser size matters. So a small browser window on a big screen also reacts with
       <code>small</code> and <code>extraSmall</code>.</p>
     <p>In the following example, all attributes are used. If you are on a desktop you can see the different
       behavior by changing the size of the browser window.</p>
-    <pre><code class="language-markup">&lt;tc:segmentLayout extraLarge="1;1;1;1;1;1;1;1;1;1;1;1" large="2;2;2;2;2;2"
-  medium="3;3;3;3" small="4;4;4" extraSmall="6;6">
+    <pre><code class="language-markup">&lt;tc:segmentLayout extraLarge="1" large="2"
+      medium="3" small="4" extraSmall="6">
     ...</code></pre>
 
-    <tc:segmentLayout extraLarge="1;1;1;1;1;1;1;1;1;1;1;1" large="2;2;2;2;2;2" medium="3;3;3;3" small="4;4;4"
-                      extraSmall="6;6">
+    <tc:segmentLayout extraLarge="1" large="2" medium="3" small="4" extraSmall="6">
       <tc:in value="1"/>
       <tc:in value="2"/>
       <tc:in value="3"/>
@@ -88,61 +105,47 @@
     </tc:segmentLayout>
   </tc:section>
 
-  <tc:section label="Offset">
-    <p>An offset can be set for the different proportions with the
-      <code class="language-markup">&lt;tc:segmentLayoutConstraint/></code> tag which can have the attributes
-      <code>offsetExtraSmall</code>, <code>offsetSmall</code>,<code>offsetMedium</code> and
-      <code>offsetLarge</code>.</p>
-    <p>Possible values are from 1 to 11 for <code>offsetExtraSmall</code>.<br/>
-      For the other attributes possible values are from 0 to 11.<br/>
-      A <code>offsetMedium="0"</code> overwrite the offset from smaller proportions.</p>
-    <p>In the following example an offset is set for all proportions.</p>
-    <pre><code class="language-markup">&lt;tc:segmentLayout extraSmall="4;4;4" small="3;3;3;3" medium="2;2;2;2;2;2" large="1;1;1;1;1;1;1;1;1;1;1;1">
-  &lt;tc:in value="1"/>
-  &lt;tc:in value="2">
-    &lt;tc:segmentLayoutConstraint offsetExtraSmall="4" offsetSmall="6" offsetMedium="8" offsetLarge="10"/>
-  &lt;/tc:in>
-  &lt;tc:in value="3"/>
-  ...
-&lt;/tc:segmentLayout></code></pre>
-    <tc:segmentLayout extraSmall="4;4;4" small="3;3;3;3" medium="2;2;2;2;2;2" large="1;1;1;1;1;1;1;1;1;1;1;1">
-      <tc:in value="1"/>
-      <tc:in value="2">
-        <tc:segmentLayoutConstraint offsetExtraSmall="4" offsetSmall="6" offsetMedium="8" offsetLarge="10"/>
-      </tc:in>
-      <tc:in value="3"/>
-      <tc:in value="4"/>
-      <tc:in value="5"/>
-      <tc:in value="6"/>
-      <tc:in value="7"/>
-      <tc:in value="8"/>
-      <tc:in value="9"/>
-      <tc:in value="10"/>
-      <tc:in value="11"/>
-      <tc:in value="12"/>
+  <tc:section id="marginConcept" label="Margin">
+    <p>A margin can be set for the different proportions with the attributes
+      <code>marginExtraSmall</code>, <code>marginSmall</code>, <code>marginMedium</code>, <code>marginLarge</code> and
+      <code>marginExtraLarge</code>.</p>
+    <p>Possible values are <code>none</code>, <code>left</code>, <code>right</code> and <code>both</code>.</p>
+
+    <pre><code class="language-markup">&lt;tc:segmentLayout extraSmall="5;3"
+      marginExtraSmall="none;both;left;both">
+    ...</code></pre>
+    <tc:segmentLayout extraSmall="5;3" marginExtraSmall="none;both;left;both">
+      <tc:in value="none"/>
+      <tc:in value="both"/>
+      <tc:in value="none"/>
+      <tc:in value="both"/>
+      <tc:in value="none"/>
+      <tc:in value="both"/>
     </tc:segmentLayout>
   </tc:section>
 
   <tc:section label="Overwrite default layout">
-    <p>The default layout can be overwritten by the
+    <p>The default layout and margins can be overwritten by the
       <code class="language-markup">&lt;tc:segmentLayoutConstraint/></code> tag.
-      Possible values are <code>extraSmall</code>, <code>small</code>,<code>medium</code> and <code>large</code>.</p>
-    <p>In the following example the medium default layout of the third input field is overwritter with '3'.</p>
-    <pre><code class="language-markup">&lt;tc:segmentLayout medium="4;8">
-  &lt;tc:in/>
-  &lt;tc:in/>
-  &lt;tc:in>
-    &lt;tc:segmentLayoutConstraint medium="3"/>
+      Possible attributes are <code>extraSmall</code>, <code>small</code>, <code>medium</code>, <code>large</code> and
+      <code>extraLarge</code> for the layout.<br/>
+      And: <code>marginExtraSmall</code>, <code>marginSmall</code>, <code>marginMedium</code>, <code>marginLarge</code>,
+      <code>marginExtraLarge</code> for the margins.</p>
+    <pre><code class="language-markup">&lt;tc:segmentLayout extraSmall="4;8">
+  &lt;tc:in value="4"/>
+  &lt;tc:in value="8"/>
+  &lt;tc:in value="3 - both">
+    &lt;tc:segmentLayoutConstraint extraSmall="3" marginExtraSmall="both"/>
   &lt;/tc:in>
-  &lt;tc:in/>
+  &lt;tc:in value="8"/>
 &lt;/tc:segmentLayout></code></pre>
-    <tc:segmentLayout medium="4;8">
-      <tc:in/>
-      <tc:in/>
-      <tc:in>
-        <tc:segmentLayoutConstraint medium="3"/>
+    <tc:segmentLayout extraSmall="4;8">
+      <tc:in value="4"/>
+      <tc:in value="8"/>
+      <tc:in value="3 - both">
+        <tc:segmentLayoutConstraint extraSmall="3" marginExtraSmall="both"/>
       </tc:in>
-      <tc:in/>
+      <tc:in value="8"/>
     </tc:segmentLayout>
   </tc:section>
 </ui:composition>

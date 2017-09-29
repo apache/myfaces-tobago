@@ -392,10 +392,6 @@ CharacterProperty(property) ::= <<
 <NormalProperty(property)>
 >>
 
-ColumnPartitionProperty(property) ::= <<
-<NormalProperty(property)>
->>
-
 LabelLayoutProperty(property) ::= <<
 <NormalProperty(property)>
 >>

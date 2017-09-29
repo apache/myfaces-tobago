@@ -130,9 +130,6 @@ public class TaglibGenerator extends AbstractGenerator {
 
     // XXX hack: should be configurable or generated from annotations.
     if ("http://myfaces.apache.org/tobago/component".equals(taglibAnnotation.uri())) {
-      addFunction(document, taglib, "columnPartition", "org.apache.myfaces.tobago.layout.ColumnPartition",
-          "org.apache.myfaces.tobago.layout.ColumnPartition valueOf(java.lang.String)");
-
       for (int i = 1; i < 10; i++) {
         addFunction(document, taglib, "format" + i, "org.apache.myfaces.tobago.util.MessageFormat",
             "java.lang.String format(java.lang.String"+ StringUtils.repeat(", java.lang.Object", i) +")");

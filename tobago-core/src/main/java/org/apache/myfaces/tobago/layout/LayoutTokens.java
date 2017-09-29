@@ -113,6 +113,8 @@ public final class LayoutTokens implements Iterable<LayoutToken> {
         return new MinimumLayoutToken();
       } else if (isRelativeToken(token)) {
         return new RelativeLayoutToken(Integer.parseInt(removeSuffix(token, RelativeLayoutToken.SUFFIX)));
+      } else if(isSegmentLayoutToken(token)) {
+        return new SegmentLayoutToken(Integer.parseInt(token));
       } else {
         return new MeasureLayoutToken(token);
       }
@@ -128,6 +130,10 @@ public final class LayoutTokens implements Iterable<LayoutToken> {
 
   static boolean isNumberAndSuffix(final String token, final String suffix) {
     return token.endsWith(suffix) && NumberUtils.isDigits(removeSuffix(token, suffix));
+  }
+
+  static boolean isSegmentLayoutToken(final String token) {
+    return NumberUtils.isDigits(token);
   }
 
   private static String removeSuffix(final String token, final String suffix) {

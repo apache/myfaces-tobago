@@ -21,8 +21,14 @@ package org.apache.myfaces.tobago.renderkit.css;
 
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.layout.AlignItems;
-import org.apache.myfaces.tobago.layout.ColumnPartition;
+import org.apache.myfaces.tobago.layout.AutoLayoutToken;
 import org.apache.myfaces.tobago.layout.JustifyContent;
+import org.apache.myfaces.tobago.layout.LayoutToken;
+import org.apache.myfaces.tobago.layout.LayoutTokens;
+import org.apache.myfaces.tobago.layout.Margin;
+import org.apache.myfaces.tobago.layout.MarginTokens;
+import org.apache.myfaces.tobago.layout.RelativeLayoutToken;
+import org.apache.myfaces.tobago.layout.SegmentLayoutToken;
 import org.apache.myfaces.tobago.layout.TextAlign;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.slf4j.Logger;
@@ -90,6 +96,7 @@ public enum BootstrapClass implements CssItem {
   CLOSE("close"),
   COLLAPSE("collapse"),
   COL_FORM_LABEL("col-form-label"),
+  COL_LG("col-lg"),
   COL_LG_1("col-lg-1"),
   COL_LG_2("col-lg-2"),
   COL_LG_3("col-lg-3"),
@@ -102,6 +109,8 @@ public enum BootstrapClass implements CssItem {
   COL_LG_10("col-lg-10"),
   COL_LG_11("col-lg-11"),
   COL_LG_12("col-lg-12"),
+  COL_LG_AUTO("col-lg-auto"),
+  COL_MD("col-md"),
   COL_MD_1("col-md-1"),
   COL_MD_2("col-md-2"),
   COL_MD_3("col-md-3"),
@@ -114,6 +123,8 @@ public enum BootstrapClass implements CssItem {
   COL_MD_10("col-md-10"),
   COL_MD_11("col-md-11"),
   COL_MD_12("col-md-12"),
+  COL_MD_AUTO("col-md-auto"),
+  COL_SM("col-sm"),
   COL_SM_1("col-sm-1"),
   COL_SM_2("col-sm-2"),
   COL_SM_3("col-sm-3"),
@@ -126,6 +137,8 @@ public enum BootstrapClass implements CssItem {
   COL_SM_10("col-sm-10"),
   COL_SM_11("col-sm-11"),
   COL_SM_12("col-sm-12"),
+  COL_SM_AUTO("col-sm-auto"),
+  COL_XL("col-xl"),
   COL_XL_1("col-xl-1"),
   COL_XL_2("col-xl-2"),
   COL_XL_3("col-xl-3"),
@@ -138,6 +151,8 @@ public enum BootstrapClass implements CssItem {
   COL_XL_10("col-xl-10"),
   COL_XL_11("col-xl-11"),
   COL_XL_12("col-xl-12"),
+  COL_XL_AUTO("col-xl-auto"),
+  COL("col"),
   COL_1("col-1"),
   COL_2("col-2"),
   COL_3("col-3"),
@@ -150,6 +165,7 @@ public enum BootstrapClass implements CssItem {
   COL_10("col-10"),
   COL_11("col-11"),
   COL_12("col-12"),
+  COL_AUTO("col-auto"),
   /**
    * @deprecated since 4.0.0, please use {@link #COL_1}
    */
@@ -277,18 +293,31 @@ public enum BootstrapClass implements CssItem {
   JUSTIFY_CONTENT_END("justify-content-end"),
   JUSTIFY_CONTENT_START("justify-content-start"),
   ML_AUTO("ml-auto"),
+  ML_LG_AUTO("ml-lg-auto"),
+  ML_MD_AUTO("ml-md-auto"),
+  ML_SM_AUTO("ml-sm-auto"),
+  ML_XL_AUTO("ml-xl-auto"),
   MODAL("modal"),
   MODAL_CONTENT("modal-content"),
   MODAL_DIALOG("modal-dialog"),
   MODAL_LG("modal-lg"),
   MODAL_SM("modal-sm"),
   MR_AUTO("mr-auto"),
+  MR_LG_AUTO("mr-lg-auto"),
+  MR_MD_AUTO("mr-md-auto"),
+  MR_SM_AUTO("mr-sm-auto"),
+  MR_XL_AUTO("mr-xl-auto"),
   MY_LG_0("my-lg-0"),
   MY_LG_1("my-lg-1"),
   MY_LG_2("my-lg-2"),
   MY_LG_3("my-lg-3"),
   MY_LG_4("my-lg-4"),
   MY_LG_5("my-lg-5"),
+  MX_AUTO("mx-auto"),
+  MX_LG_AUTO("mx-lg-auto"),
+  MX_MD_AUTO("mx-md-auto"),
+  MX_SM_AUTO("mx-sm-auto"),
+  MX_XL_AUTO("mx-xl-auto"),
   NAV("nav"),
   NAV_ITEM("nav-item"),
   NAV_LINK("nav-link"),
@@ -336,241 +365,6 @@ public enum BootstrapClass implements CssItem {
    */
   @Deprecated
   NAVBAR_TOGGLER_RIGHT("navbar-toggler-right"),
-  /**
-   * @deprecated since 4.0.0
-   */
-  @Deprecated
-  OFFSET_LG_0("offset-lg-0"),
-  /**
-   * @deprecated since 4.0.0
-   */
-  @Deprecated
-  OFFSET_LG_1("offset-lg-1"),
-  /**
-   * @deprecated since 4.0.0
-   */
-  @Deprecated
-  OFFSET_LG_2("offset-lg-2"),
-  /**
-   * @deprecated since 4.0.0
-   */
-  @Deprecated
-  OFFSET_LG_3("offset-lg-3"),
-  /**
-   * @deprecated since 4.0.0
-   */
-  @Deprecated
-  OFFSET_LG_4("offset-lg-4"),
-  /**
-   * @deprecated since 4.0.0
-   */
-  @Deprecated
-  OFFSET_LG_5("offset-lg-5"),
-  /**
-   * @deprecated since 4.0.0
-   */
-  @Deprecated
-  OFFSET_LG_6("offset-lg-6"),
-  /**
-   * @deprecated since 4.0.0
-   */
-  @Deprecated
-  OFFSET_LG_7("offset-lg-7"),
-  /**
-   * @deprecated since 4.0.0
-   */
-  @Deprecated
-  OFFSET_LG_8("offset-lg-8"),
-  /**
-   * @deprecated since 4.0.0
-   */
-  @Deprecated
-  OFFSET_LG_9("offset-lg-9"),
-  /**
-   * @deprecated since 4.0.0
-   */
-  @Deprecated
-  OFFSET_LG_10("offset-lg-10"),
-  /**
-   * @deprecated since 4.0.0
-   */
-  @Deprecated
-  OFFSET_LG_11("offset-lg-11"),
-  /**
-   * @deprecated since 4.0.0
-   */
-  @Deprecated
-  OFFSET_MD_0("offset-md-0"),
-  /**
-   * @deprecated since 4.0.0
-   */
-  @Deprecated
-  OFFSET_MD_1("offset-md-1"),
-  /**
-   * @deprecated since 4.0.0
-   */
-  @Deprecated
-  OFFSET_MD_2("offset-md-2"),
-  /**
-   * @deprecated since 4.0.0
-   */
-  @Deprecated
-  OFFSET_MD_3("offset-md-3"),
-  /**
-   * @deprecated since 4.0.0
-   */
-  @Deprecated
-  OFFSET_MD_4("offset-md-4"),
-  /**
-   * @deprecated since 4.0.0
-   */
-  @Deprecated
-  OFFSET_MD_5("offset-md-5"),
-  /**
-   * @deprecated since 4.0.0
-   */
-  @Deprecated
-  OFFSET_MD_6("offset-md-6"),
-  /**
-   * @deprecated since 4.0.0
-   */
-  @Deprecated
-  OFFSET_MD_7("offset-md-7"),
-  /**
-   * @deprecated since 4.0.0
-   */
-  @Deprecated
-  OFFSET_MD_8("offset-md-8"),
-  /**
-   * @deprecated since 4.0.0
-   */
-  @Deprecated
-  OFFSET_MD_9("offset-md-9"),
-  /**
-   * @deprecated since 4.0.0
-   */
-  @Deprecated
-  OFFSET_MD_10("offset-md-10"),
-  /**
-   * @deprecated since 4.0.0
-   */
-  @Deprecated
-  OFFSET_MD_11("offset-md-11"),
-  /**
-   * @deprecated since 4.0.0
-   */
-  @Deprecated
-  OFFSET_SM_0("offset-sm-0"),
-  /**
-   * @deprecated since 4.0.0
-   */
-  @Deprecated
-  OFFSET_SM_1("offset-sm-1"),
-  /**
-   * @deprecated since 4.0.0
-   */
-  @Deprecated
-  OFFSET_SM_2("offset-sm-2"),
-  /**
-   * @deprecated since 4.0.0
-   */
-  @Deprecated
-  OFFSET_SM_3("offset-sm-3"),
-  /**
-   * @deprecated since 4.0.0
-   */
-  @Deprecated
-  OFFSET_SM_4("offset-sm-4"),
-  /**
-   * @deprecated since 4.0.0
-   */
-  @Deprecated
-  OFFSET_SM_5("offset-sm-5"),
-  /**
-   * @deprecated since 4.0.0
-   */
-  @Deprecated
-  OFFSET_SM_6("offset-sm-6"),
-  /**
-   * @deprecated since 4.0.0
-   */
-  @Deprecated
-  OFFSET_SM_7("offset-sm-7"),
-  /**
-   * @deprecated since 4.0.0
-   */
-  @Deprecated
-  OFFSET_SM_8("offset-sm-8"),
-  /**
-   * @deprecated since 4.0.0
-   */
-  @Deprecated
-  OFFSET_SM_9("offset-sm-9"),
-  /**
-   * @deprecated since 4.0.0
-   */
-  @Deprecated
-  OFFSET_SM_10("offset-sm-10"),
-  /**
-   * @deprecated since 4.0.0
-   */
-  @Deprecated
-  OFFSET_SM_11("offset-sm-11"),
-  /**
-   * @deprecated since 4.0.0
-   */
-  @Deprecated
-  OFFSET_1("offset-1"),
-  /**
-   * @deprecated since 4.0.0
-   */
-  @Deprecated
-  OFFSET_2("offset-2"),
-  /**
-   * @deprecated since 4.0.0
-   */
-  @Deprecated
-  OFFSET_3("offset-3"),
-  /**
-   * @deprecated since 4.0.0
-   */
-  @Deprecated
-  OFFSET_4("offset-4"),
-  /**
-   * @deprecated since 4.0.0
-   */
-  @Deprecated
-  OFFSET_5("offset-5"),
-  /**
-   * @deprecated since 4.0.0
-   */
-  @Deprecated
-  OFFSET_6("offset-6"),
-  /**
-   * @deprecated since 4.0.0
-   */
-  @Deprecated
-  OFFSET_7("offset-7"),
-  /**
-   * @deprecated since 4.0.0
-   */
-  @Deprecated
-  OFFSET_8("offset-8"),
-  /**
-   * @deprecated since 4.0.0
-   */
-  @Deprecated
-  OFFSET_9("offset-9"),
-  /**
-   * @deprecated since 4.0.0
-   */
-  @Deprecated
-  OFFSET_10("offset-10"),
-  /**
-   * @deprecated since 4.0.0
-   */
-  @Deprecated
-  OFFSET_11("offset-11"),
   /**
    * @deprecated since 4.0.0, please use {@link #SHOW}
    */
@@ -670,61 +464,25 @@ public enum BootstrapClass implements CssItem {
 
   public static class Generator {
 
-    private static final BootstrapClass[] EXTRA_SMALL = new BootstrapClass[]{
-        COL_1, COL_2, COL_3, COL_4,
-        COL_5, COL_6, COL_7, COL_8,
-        COL_9, COL_10, COL_11, COL_12,
-    };
-    private static final BootstrapClass[] SMALL = new BootstrapClass[]{
-        COL_SM_1, COL_SM_2, COL_SM_3, COL_SM_4,
-        COL_SM_5, COL_SM_6, COL_SM_7, COL_SM_8,
-        COL_SM_9, COL_SM_10, COL_SM_11, COL_SM_12,
-    };
-    private static final BootstrapClass[] MEDIUM = new BootstrapClass[]{
-        COL_MD_1, COL_MD_2, COL_MD_3, COL_MD_4,
-        COL_MD_5, COL_MD_6, COL_MD_7, COL_MD_8,
-        COL_MD_9, COL_MD_10, COL_MD_11, COL_MD_12,
-    };
-    private static final BootstrapClass[] LARGE = new BootstrapClass[]{
-        COL_LG_1, COL_LG_2, COL_LG_3, COL_LG_4,
-        COL_LG_5, COL_LG_6, COL_LG_7, COL_LG_8,
-        COL_LG_9, COL_LG_10, COL_LG_11, COL_LG_12,
-    };
-    private static final BootstrapClass[] EXTRA_LARGE = new BootstrapClass[]{
-        COL_XL_1, COL_XL_2, COL_XL_3, COL_XL_4,
-        COL_XL_5, COL_XL_6, COL_XL_7, COL_XL_8,
-        COL_XL_9, COL_XL_10, COL_XL_11, COL_XL_12,
-    };
-    private static final BootstrapClass[] OFFSET_EXTRA_SMALL = new BootstrapClass[]{
-        null, OFFSET_1, OFFSET_2, OFFSET_3, OFFSET_4, OFFSET_5,
-        OFFSET_6, OFFSET_7, OFFSET_8, OFFSET_9, OFFSET_10, OFFSET_11
-    };
-    private static final BootstrapClass[] OFFSET_SMALL = new BootstrapClass[]{
-        OFFSET_SM_0, OFFSET_SM_1, OFFSET_SM_2, OFFSET_SM_3, OFFSET_SM_4, OFFSET_SM_5,
-        OFFSET_SM_6, OFFSET_SM_7, OFFSET_SM_8, OFFSET_SM_9, OFFSET_SM_10, OFFSET_SM_11
-    };
-    private static final BootstrapClass[] OFFSET_MEDIUM = new BootstrapClass[]{
-        OFFSET_MD_0, OFFSET_MD_1, OFFSET_MD_2, OFFSET_MD_3, OFFSET_MD_4, OFFSET_MD_5,
-        OFFSET_MD_6, OFFSET_MD_7, OFFSET_MD_8, OFFSET_MD_9, OFFSET_MD_10, OFFSET_MD_11
-    };
-    private static final BootstrapClass[] OFFSET_LARGE = new BootstrapClass[]{
-        OFFSET_LG_0, OFFSET_LG_1, OFFSET_LG_2, OFFSET_LG_3, OFFSET_LG_4, OFFSET_LG_5,
-        OFFSET_LG_6, OFFSET_LG_7, OFFSET_LG_8, OFFSET_LG_9, OFFSET_LG_10, OFFSET_LG_11
-    };
-
-    private final ColumnPartition extraSmall;
-    private final ColumnPartition small;
-    private final ColumnPartition medium;
-    private final ColumnPartition large;
-    private final ColumnPartition extraLarge;
+    private final LayoutTokens extraSmall;
+    private final LayoutTokens small;
+    private final LayoutTokens medium;
+    private final LayoutTokens large;
+    private final LayoutTokens extraLarge;
+    private final MarginTokens marginExtraSmall;
+    private final MarginTokens marginSmall;
+    private final MarginTokens marginMedium;
+    private final MarginTokens marginLarge;
+    private final MarginTokens marginExtraLarge;
 
     private int index = 0;
 
-    public Generator(
-        final ColumnPartition extraSmall, final ColumnPartition small, final ColumnPartition medium,
-        final ColumnPartition large, final ColumnPartition extraLarge) {
-      if (extraSmall == null && small == null && medium == null && large == null) {
-        this.extraSmall = ColumnPartition.PARTITION_12;
+    public Generator(final LayoutTokens extraSmall, final LayoutTokens small, final LayoutTokens medium,
+        final LayoutTokens large, final LayoutTokens extraLarge,
+        final MarginTokens marginExtraSmall, final MarginTokens marginSmall, final MarginTokens marginMedium,
+        final MarginTokens marginLarge, final MarginTokens marginExtraLarge) {
+      if (extraSmall == null && small == null && medium == null && large == null && extraLarge == null) {
+        this.extraSmall = LayoutTokens.parse("*");
       } else {
         this.extraSmall = extraSmall;
       }
@@ -732,6 +490,11 @@ public enum BootstrapClass implements CssItem {
       this.medium = medium;
       this.large = large;
       this.extraLarge = extraLarge;
+      this.marginExtraSmall = marginExtraSmall;
+      this.marginSmall = marginSmall;
+      this.marginMedium = marginMedium;
+      this.marginLarge = marginLarge;
+      this.marginExtraLarge = marginExtraLarge;
     }
 
     public void reset() {
@@ -743,41 +506,111 @@ public enum BootstrapClass implements CssItem {
     }
 
     public BootstrapClass[] generate(final UIComponent child) {
-      ArrayList<BootstrapClass> result = new ArrayList<>(4);
+      ArrayList<BootstrapClass> result = new ArrayList<>(10);
       final Map<String, Object> attributes = child.getAttributes();
-      generate(result, extraSmall, EXTRA_SMALL, attributes.get(Attributes.overwriteExtraSmall.name()));
-      generate(result, small, SMALL, attributes.get(Attributes.overwriteSmall.name()));
-      generate(result, medium, MEDIUM, attributes.get(Attributes.overwriteMedium.name()));
-      generate(result, large, LARGE, attributes.get(Attributes.overwriteLarge.name()));
-      generate(result, extraLarge, EXTRA_LARGE, attributes.get(Attributes.overwriteExtraLarge.name()));
-      generateOffset(result, attributes.get(Attributes.offsetExtraSmall.name()), OFFSET_EXTRA_SMALL);
-      generateOffset(result, attributes.get(Attributes.offsetSmall.name()), OFFSET_SMALL);
-      generateOffset(result, attributes.get(Attributes.offsetMedium.name()), OFFSET_MEDIUM);
-      generateOffset(result, attributes.get(Attributes.offsetLarge.name()), OFFSET_LARGE);
+      generate(result, extraSmall, attributes, Attributes.overwriteExtraSmall);
+      generate(result, small, attributes, Attributes.overwriteSmall);
+      generate(result, medium, attributes, Attributes.overwriteMedium);
+      generate(result, large, attributes, Attributes.overwriteLarge);
+      generate(result, extraLarge, attributes, Attributes.overwriteExtraLarge);
+
+      generate(result, marginExtraSmall, attributes, Attributes.overwriteMarginExtraSmall);
+      generate(result, marginSmall, attributes, Attributes.overwriteMarginSmall);
+      generate(result, marginMedium, attributes, Attributes.overwriteMarginMedium);
+      generate(result, marginLarge, attributes, Attributes.overwriteMarginLarge);
+      generate(result, marginExtraLarge, attributes, Attributes.overwriteMarginExtraLarge);
       return result.toArray(new BootstrapClass[result.size()]);
     }
 
-    private void generate(
-        final List<BootstrapClass> result, final ColumnPartition partition, final BootstrapClass[] values,
-        final Object overwrite) {
+    private void generate(final List<BootstrapClass> result, final LayoutTokens tokens,
+        final Map<String, Object> attributes, final Attributes attribute) {
+      Object overwrite = attributes.get(attribute.name());
+
       if (overwrite != null) {
-        int overwriteIndex = Integer.valueOf((String) overwrite);
-        overwriteIndex = overwriteIndex < 1 ? 1 : overwriteIndex;
-        overwriteIndex = overwriteIndex > 12 ? 12 : overwriteIndex;
-        result.add(values[overwriteIndex - 1]);
-      } else if (partition != null) {
-        result.add(values[partition.getPart(index % partition.getSize()) - 1]);
+        final LayoutToken layoutToken = LayoutTokens.parseToken((String) overwrite);
+        final BootstrapClass bootstrapClass = valueOf(layoutToken, attribute);
+        result.add(bootstrapClass);
+      } else if (tokens != null) {
+        final LayoutToken layoutToken = tokens.get(index % tokens.getSize());
+        final BootstrapClass bootstrapClass = valueOf(layoutToken, attribute);
+        result.add(bootstrapClass);
       }
     }
 
-    private void generateOffset(final List<BootstrapClass> result, final Object offset, final BootstrapClass[] values) {
-      if (offset != null) {
-        int offsetIndex = Integer.valueOf((String) offset);
-        if (offsetIndex >= 0) {
-          offsetIndex = offsetIndex > 11 ? 11 : offsetIndex;
-          result.add(values[offsetIndex]);
-        }
+    private void generate(final List<BootstrapClass> result, final MarginTokens margins,
+        final Map<String, Object> attributes, final Attributes attribute) {
+      Object overwrite = attributes.get(attribute.name());
+
+      if (overwrite != null) {
+        final Margin margin = MarginTokens.parseToken((String) overwrite);
+        final BootstrapClass bootstrapClass = valueOf(margin, attribute);
+        result.add(bootstrapClass);
+      } else if (margins != null) {
+        final Margin margin = margins.get(index % margins.getSize());
+        final BootstrapClass bootstrapClass = valueOf(margin, attribute);
+        result.add(bootstrapClass);
       }
+    }
+  }
+
+  public static BootstrapClass valueOf(LayoutToken layoutToken, Attributes attributes) {
+    final String size = getSizeSuffix(attributes);
+
+    if (layoutToken instanceof RelativeLayoutToken) {
+      return valueOf("COL" + size);
+    } else if (layoutToken instanceof AutoLayoutToken) {
+      return valueOf("COL" + size + "_AUTO");
+    } else if (layoutToken instanceof SegmentLayoutToken) {
+      SegmentLayoutToken segmentLayoutToken = (SegmentLayoutToken) layoutToken;
+      return valueOf("COL" + size + "_" + segmentLayoutToken.getColumnSize());
+    } else {
+      return null;
+    }
+  }
+
+  public static BootstrapClass valueOf(Margin margin, Attributes attribute) {
+    final String size = getSizeSuffix(attribute);
+
+    switch (margin) {
+      case left:
+        return valueOf("ML" + size + "_AUTO");
+      case right:
+        return valueOf("MR" + size + "_AUTO");
+      case both:
+        return valueOf("MX" + size + "_AUTO");
+      default:
+        return null;
+    }
+  }
+
+  private static String getSizeSuffix(Attributes attribute) {
+    switch (attribute) {
+      case extraLarge:
+      case marginExtraLarge:
+      case overwriteExtraLarge:
+      case overwriteMarginExtraLarge:
+        return "_XL";
+      case large:
+      case marginLarge:
+      case overwriteLarge:
+      case overwriteMarginLarge:
+        return "_LG";
+      case medium:
+      case marginMedium:
+      case overwriteMedium:
+      case overwriteMarginMedium:
+        return "_MD";
+      case small:
+      case marginSmall:
+      case overwriteSmall:
+      case overwriteMarginSmall:
+        return "_SM";
+      case extraSmall:
+      case marginExtraSmall:
+      case overwriteExtraSmall:
+      case overwriteMarginExtraSmall:
+      default:
+        return "";
     }
   }
 

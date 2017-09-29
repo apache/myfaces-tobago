@@ -20,7 +20,6 @@
 package org.apache.myfaces.tobago.internal.component;
 
 import org.apache.myfaces.tobago.component.Visual;
-import org.apache.myfaces.tobago.layout.ColumnPartition;
 
 /**
  * {@link org.apache.myfaces.tobago.internal.taglib.component.SegmentLayoutTagDeclaration}
@@ -33,7 +32,7 @@ public abstract class AbstractUISegmentLayout extends AbstractUILayoutBase imple
 
   @Override
   public String toString() {
-    StringBuilder builder  =new StringBuilder(getClass().getSimpleName());
+    StringBuilder builder = new StringBuilder(getClass().getSimpleName());
     if (getExtraSmall() != null) {
       builder.append("\n        extraSmall=");
       builder.append(getExtraSmall());
@@ -50,15 +49,20 @@ public abstract class AbstractUISegmentLayout extends AbstractUILayoutBase imple
       builder.append("\n        large=");
       builder.append(getLarge());
     }
+    if (getLarge() != null) {
+      builder.append("\n        extraLarge=");
+      builder.append(getExtraLarge());
+    }
     return builder.toString();
   }
 
-  public abstract ColumnPartition getExtraSmall();
+  public abstract String getExtraSmall();
 
-  public abstract ColumnPartition getSmall();
+  public abstract String getSmall();
 
-  public abstract ColumnPartition getMedium();
+  public abstract String getMedium();
 
-  public abstract ColumnPartition getLarge();
+  public abstract String getLarge();
 
-  }
+  public abstract String getExtraLarge();
+}

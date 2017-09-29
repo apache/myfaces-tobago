@@ -35,7 +35,8 @@
       <li><tc:link link="" fragment="page:mainForm:css" label="CSS / Bootstrap"/></li>
       <li><tc:link link="" fragment="page:mainForm:theme" label="Theme building"/></li>
       <li><tc:link link="" fragment="page:mainForm:crlf" label="CRLF in textarea"/></li>
-      <li><tc:link link="" fragment="page:mainForm:resourceResolver" label="Removed class: MetaInfResourcesClasspathResourceResolver"/></li>
+      <li><tc:link link="" fragment="page:mainForm:resourceResolver"
+                   label="Removed class: MetaInfResourcesClasspathResourceResolver"/></li>
     </ul>
 
     <tc:section id="taglib" label="Tag Library">
@@ -49,31 +50,32 @@
           <code class="language-markup">&lt;tc:event></code>
           in Tobago 3 has three cases:
         </p>
-          <ol>
-              <li>
-                External link to an URL e. g. <code class="language-markup">link="http://www.apache.com"</code>
-                <p>
-                  Here is nothing to do.
-                </p>
-              </li>
-              <li>
-                Internal link to a resource  e. g. <code class="language-markup">link="image/alps.png"</code>
-                <p>
-                  Here you need to add the contextPath which might not be an empty string:
-                  <code class="language-markup">link="\#{request.contextPath}/image/alps.png"</code>.
-                  So, this is now the same like resouces used over other attributes.
-                </p>
-              </li>
-              <li>
-                Internal link to a viewId e. g. <code class="language-markup">link="/intro.xhtml"</code>
-                <p>
-                  In this case you need to use the new attribute <code class="language-markup">outcome="/intro.xhtml"</code>.
-                  Please use only full pathes here!
-                  This this, the GET parameter will be respected.
-                  This is needed e. g. for the windowId of <tc:link label="DeltaSpike" link="https://deltaspike.apache.org/"/>.
-                </p>
-              </li>
-          </ol>
+        <ol>
+          <li>
+            External link to an URL e. g. <code class="language-markup">link="http://www.apache.com"</code>
+            <p>
+              Here is nothing to do.
+            </p>
+          </li>
+          <li>
+            Internal link to a resource e. g. <code class="language-markup">link="image/alps.png"</code>
+            <p>
+              Here you need to add the contextPath which might not be an empty string:
+              <code class="language-markup">link="\#{request.contextPath}/image/alps.png"</code>.
+              So, this is now the same like resouces used over other attributes.
+            </p>
+          </li>
+          <li>
+            Internal link to a viewId e. g. <code class="language-markup">link="/intro.xhtml"</code>
+            <p>
+              In this case you need to use the new attribute <code class="language-markup">outcome="/intro.xhtml"</code>.
+              Please use only full pathes here!
+              This this, the GET parameter will be respected.
+              This is needed e. g. for the windowId of <tc:link label="DeltaSpike"
+                                                                link="https://deltaspike.apache.org/"/>.
+            </p>
+          </li>
+        </ol>
       </tc:section>
 
       <tc:section label="&lt;tc:bar&gt;">
@@ -100,13 +102,23 @@
         <p>For more information have a look at
           <tc:link label="tc:bar" outcome="/content/20-component/050-container/60-bar/bar.xhtml"/></p>
       </tc:section>
+      <tc:section label="&lt;tc:segmentLayoutConstraint>">
+        <p>The offset concept changed in Bootstrap Beta.
+          The attributes <code>offsetExtraSmall</code>, <code>offsetSmall</code>, <code>offsetMedium</code> and
+          <code>offsetLarge</code> are <b>removed</b>
+          from <code class="language-markup">&lt;tc:segmentLayoutConstraint/></code>.</p>
+        <p>Instead use the new
+          <tc:link label="margin concept"
+                   link="/content/30-concept/16-layout/30-segment/segment-layout.xhtml#page:mainForm:marginConcept"/>.
+        </p>
+      </tc:section>
     </tc:section>
 
     <tc:section id="css" label="CSS / Bootstrap">
       <p>
         The included Bootstrap CSS library has been updated from
         <tc:link link="http://blog.getbootstrap.com/2016/10/19/bootstrap-4-alpha-5/" label="v4.0.0-alpha.5"/> to
-        <tc:link link="http://blog.getbootstrap.com/2017/01/06/bootstrap-4-alpha-6/" label="v4.0.0-alpha.6"/>.
+        <tc:link link="http://blog.getbootstrap.com/2017/08/10/bootstrap-4-beta/" label="v4.0.0-beta"/>.
         Thought some changes need to be made, if you use Bootstrap classes directly.
       </p>
       <p>
@@ -121,6 +133,9 @@
         </li>
         <li>
           <code>&lt;tc:bar&gt;</code>
+        </li>
+        <li>
+          <code>&lt;tc:segmentLayout&gt;</code>
         </li>
       </ul>
       <p>
