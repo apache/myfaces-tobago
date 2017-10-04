@@ -157,12 +157,12 @@ public class TextareaRenderer extends MessageLayoutRendererBase {
       }
       writer.writeText(currentValue);
     }
+
+    writer.endElement(HtmlElements.TEXTAREA);
   }
 
   @Override
   protected void encodeEndField(FacesContext facesContext, UIComponent component) throws IOException {
-    final TobagoResponseWriter writer = getResponseWriter(facesContext);
-    writer.endElement(HtmlElements.TEXTAREA);
   }
 
   @Override
