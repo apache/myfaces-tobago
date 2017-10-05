@@ -33,7 +33,9 @@ import org.apache.myfaces.tobago.apt.generate.ComponentPropertyInfo;
 import org.apache.myfaces.tobago.apt.generate.PropertyInfo;
 
 import javax.annotation.processing.SupportedAnnotationTypes;
+import javax.annotation.processing.SupportedSourceVersion;
 import javax.faces.component.UIComponent;
+import javax.lang.model.SourceVersion;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.TypeElement;
@@ -54,6 +56,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
+@SupportedSourceVersion(SourceVersion.RELEASE_8)
 @SupportedAnnotationTypes({
     "org.apache.myfaces.tobago.apt.annotation.Tag",
     "org.apache.myfaces.tobago.apt.annotation.TagAttribute",

@@ -21,8 +21,6 @@ package org.apache.myfaces.tobago.apt.processor;
 
 import javax.annotation.processing.AbstractProcessor;
 import javax.annotation.processing.RoundEnvironment;
-import javax.annotation.processing.SupportedSourceVersion;
-import javax.lang.model.SourceVersion;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.PackageElement;
 import javax.lang.model.element.TypeElement;
@@ -35,7 +33,6 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
 
-@SupportedSourceVersion(SourceVersion.RELEASE_8)
 public abstract class AbstractGenerator extends AbstractProcessor {
 
   private List<TypeElement> types;
