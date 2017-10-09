@@ -68,6 +68,7 @@ public final class Markup implements Serializable, Iterable<String> {
   public static final Markup ERROR = valueOf("error");
   public static final Markup EVEN = valueOf("even");
   public static final Markup EXPANDED = valueOf("expanded");
+  public static final Markup EXTRA_LARGE = valueOf("extraLarge");
   public static final Markup FILLER = valueOf("filler");
   public static final Markup FATAL = valueOf("fatal");
   /**
@@ -84,6 +85,7 @@ public final class Markup implements Serializable, Iterable<String> {
   public static final Markup LARGE = valueOf("large");
   public static final Markup LEFT = valueOf("left");
   public static final Markup MARKED = valueOf("marked");
+  public static final Markup MEDIUM = valueOf("medium");
   public static final Markup MODAL = valueOf("modal");
   public static final Markup NUMBER = valueOf("number");
   public static final Markup ODD = valueOf("odd");

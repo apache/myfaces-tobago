@@ -53,11 +53,13 @@ public class BarRenderer extends RendererBase {
 
     final String clientId = bar.getClientId(facesContext);
     final String navbarId = clientId + "::navbar";
+    final Markup markup = bar.getMarkup();
 
     writer.startElement(HtmlElements.NAV);
     writer.writeIdAttribute(clientId);
     writer.writeClassAttribute(
         BootstrapClass.NAVBAR,
+        getNavbarExpand(markup),
         bar.getCustomClass());
     writer.writeAttribute(HtmlAttributes.ROLE, HtmlRoleValues.NAVIGATION.toString(), false);
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, bar);
@@ -70,6 +72,24 @@ public class BarRenderer extends RendererBase {
         BootstrapClass.COLLAPSE,
         BootstrapClass.NAVBAR_COLLAPSE,
         BootstrapClass.ALIGN_ITEMS_CENTER);
+  }
+
+  private BootstrapClass getNavbarExpand(Markup markup) {
+    if (markup == null) {
+      return BootstrapClass.NAVBAR_EXPAND;
+    }
+
+    if (markup.contains(Markup.EXTRA_LARGE)) {
+      return BootstrapClass.NAVBAR_EXPAND_XL;
+    } else if (markup.contains(Markup.LARGE)) {
+      return BootstrapClass.NAVBAR_EXPAND_LG;
+    } else if (markup.contains(Markup.MEDIUM)) {
+      return BootstrapClass.NAVBAR_EXPAND_MD;
+    } else if (markup.contains(Markup.SMALL)) {
+      return BootstrapClass.NAVBAR_EXPAND_SM;
+    }
+
+    return BootstrapClass.NAVBAR_EXPAND;
   }
 
   @Override
