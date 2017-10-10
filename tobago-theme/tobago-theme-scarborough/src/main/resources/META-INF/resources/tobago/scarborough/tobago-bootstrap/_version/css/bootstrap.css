@@ -1601,6 +1601,11 @@ pre code {
   opacity: 1;
 }
 
+.form-control::-ms-input-placeholder {
+  color: #868e96;
+  opacity: 1;
+}
+
 .form-control::placeholder {
   color: #868e96;
   opacity: 1;
@@ -8391,6 +8396,14 @@ body {
   margin-right: 0;
 }
 
+/* the non-label-element inside of a label-layout with flex box */
+.tobago-flexLayout.tobago-label-container > .form-control, .tobago-flexLayout.tobago-label-container > .form-control-plaintext, .tobago-flexLayout.tobago-label-container > .twitter-typeahead,
+.tobago-flexLayout.tobago-label-container > .tobago-input-group-outer, .tobago-flexLayout.tobago-label-container > .tobago-messages-container,
+.tobago-flexLayout.tobago-label-container > .tobago-file, .tobago-flexLayout.tobago-label-container > .tobago-selectManyShuttle {
+  -ms-flex: 1 0 0px;
+      flex: 1 0 0px;
+}
+
 /* flowLayout ---------------------------------------------------------- */
 /* footer -------------------------------------------------------------- */
 .tobago-footer {
@@ -8470,13 +8483,6 @@ table.tobago-gridLayout > tbody > tr:first-child > td {
 
 .tobago-flexLayout > .tobago-label {
   width: 155px;
-}
-
-/* the non-label-element inside of a label-layout with flex box */
-.tobago-flexLayout.tobago-label-container > .form-control,
-.tobago-flexLayout.tobago-label-container > .form-control-plaintext {
-  -ms-flex: 1 0 0px;
-      flex: 1 0 0px;
 }
 
 /* link ----------------------------------------------------------- */
@@ -8574,11 +8580,6 @@ button.nav-link {
   margin-bottom: 5px;
 }
 
-.tobago-messages-container.tobago-flexLayout .tobago-selectManyShuttle {
-  -ms-flex-positive: 1;
-      flex-grow: 1;
-}
-
 a.tobago-messages-button {
   padding-left: 0.4em;
   padding-right: 0.4em;
@@ -8590,6 +8591,11 @@ a.tobago-messages-button {
 
 .tobago-messages label:last-child {
   margin-bottom: 0;
+}
+
+.tobago-flexLayout.tobago-messages-container > .twitter-typeahead, .tobago-flexLayout.tobago-messages-container > .tobago-input-group-outer, .tobago-flexLayout.tobago-messages-container > .tobago-selectManyShuttle, .tobago-flexLayout.tobago-messages-container > .tobago-file {
+  -ms-flex: 1 0 0px;
+      flex: 1 0 0px;
 }
 
 /* nav ----------------------------------------------------------- */
@@ -9151,6 +9157,11 @@ th.tobago-sheet-headerCell-markup-filler > .tobago-sheet-header {
 
 .tt-suggestion p {
   margin: 0;
+}
+
+.input-group > .twitter-typeahead > .tobago-in {
+  width: 100%;
+  border-right: 0;
 }
 
 /* tab / tab-group ----------------------------------------------------------------- */

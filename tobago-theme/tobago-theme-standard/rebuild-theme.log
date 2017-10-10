@@ -1,4 +1,4 @@
-Build date: 2017-09-28 11:18:50
+Build date: 2017-10-10 20:03:32
 [INFO] Scanning for projects...
 [INFO] 
 [INFO] ------------------------------------------------------------------------
@@ -13,8 +13,8 @@ Build date: 2017-09-28 11:18:50
 [INFO] Removing __CURRENT__/tobago-theme-standard/target/checkout
 [INFO] Executing: /bin/sh -c cd __CURRENT__/tobago-theme-standard/target && git clone --branch v4.0.0-beta https://github.com/twbs/bootstrap __CURRENT__/tobago-theme-standard/target/checkout
 [INFO] Working directory: __CURRENT__/tobago-theme-standard/target
-[INFO] Executing: /bin/sh -c cd /var/folders/w0/pg4pxr7972l6bq85x08s5cl00000gn/T/ && git ls-remote https://github.com/twbs/bootstrap
-[INFO] Working directory: /var/folders/w0/pg4pxr7972l6bq85x08s5cl00000gn/T
+[INFO] Executing: /bin/sh -c cd /var/folders/yp/1vrxjnrs20798ydt_yl8wrpr0000gp/T/ && git ls-remote https://github.com/twbs/bootstrap
+[INFO] Working directory: /var/folders/yp/1vrxjnrs20798ydt_yl8wrpr0000gp/T
 [INFO] Executing: /bin/sh -c cd __CURRENT__/tobago-theme-standard/target/checkout && git pull https://github.com/twbs/bootstrap v4.0.0-beta:v4.0.0-beta
 [INFO] Working directory: __CURRENT__/tobago-theme-standard/target/checkout
 [INFO] Executing: /bin/sh -c cd __CURRENT__/tobago-theme-standard/target/checkout && git checkout v4.0.0-beta
@@ -48,7 +48,7 @@ Build date: 2017-09-28 11:18:50
 [INFO] 
 [INFO] --- frontend-maven-plugin:1.4:npm (step #7: npm install) @ tobago-theme-standard ---
 [INFO] Running 'npm install' in __CURRENT__/tobago-theme-standard/target/bootstrap
-[WARNING] npm WARN deprecated babel-preset-es2015@6.24.1: We're super 😸  excited that you're trying to use ES2015 syntax, but instead of continuing yearly presets 😭 , we recommend using babel-preset-env: npm install babel-preset-env. preset-env without options will compile ES2015+ down to ES5. And by targeting specific browsers, Babel can do less work and you can ship native ES2015+ to users 😎 ! Also, we are in the process of releasing v7, so give http://babeljs.io/blog/2017/09/12/planning-for-7.0 a read and test it! Thanks so much for using Babel 🙏 , please give us a follow @babeljs for updates, join slack.babeljs.io for discussion and help support at opencollective.com/babel
+[WARNING] npm WARN deprecated babel-preset-es2015@6.24.1: 🙌  Thanks for using Babel: we recommend using babel-preset-env now: please read babeljs.io/env to update! 
 [WARNING] npm WARN prefer global coffee-script@1.10.0 should be installed with -g
 [WARNING] npm WARN prefer global node-gyp@3.6.2 should be installed with -g
 [INFO] 
@@ -67,11 +67,11 @@ Build date: 2017-09-28 11:18:50
 [INFO] > node install.js
 [INFO] 
 [INFO] PhantomJS not found on PATH
-[INFO] Download already available at /var/folders/w0/pg4pxr7972l6bq85x08s5cl00000gn/T/phantomjs/phantomjs-2.1.1-macosx.zip
+[INFO] Download already available at /var/folders/yp/1vrxjnrs20798ydt_yl8wrpr0000gp/T/phantomjs/phantomjs-2.1.1-macosx.zip
 [INFO] Verified checksum of previously downloaded file
 [INFO] Extracting zip contents
 [INFO] Removing __CURRENT__/tobago-theme-standard/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom
-[INFO] Copying extracted folder /var/folders/w0/pg4pxr7972l6bq85x08s5cl00000gn/T/phantomjs/phantomjs-2.1.1-macosx.zip-extract-1506590466155/phantomjs-2.1.1-macosx -> __CURRENT__/tobago-theme-standard/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom
+[INFO] Copying extracted folder /var/folders/yp/1vrxjnrs20798ydt_yl8wrpr0000gp/T/phantomjs/phantomjs-2.1.1-macosx.zip-extract-1507658790597/phantomjs-2.1.1-macosx -> __CURRENT__/tobago-theme-standard/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom
 [INFO] Writing location.js file
 [INFO] Done. Phantomjs binary available at __CURRENT__/tobago-theme-standard/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom/bin/phantomjs
 [INFO] 
@@ -82,13 +82,14 @@ Build date: 2017-09-28 11:18:50
 [INFO] Testing binary
 [INFO] Binary is fine
 [INFO] bootstrap@4.0.0-beta __CURRENT__/tobago-theme-standard/target/bootstrap
-[INFO] ├─┬ autoprefixer@7.1.4 
-[INFO] │ ├─┬ browserslist@2.4.0 
-[INFO] │ │ └── electron-to-chromium@1.3.23 
-[INFO] │ ├── caniuse-lite@1.0.30000739 
+[INFO] ├─┬ autoprefixer@7.1.5 
+[INFO] │ ├─┬ browserslist@2.5.1 
+[INFO] │ │ └── electron-to-chromium@1.3.24 
+[INFO] │ ├── caniuse-lite@1.0.30000745 
 [INFO] │ ├── normalize-range@0.1.2 
 [INFO] │ ├── num2fraction@1.2.2 
-[INFO] │ ├─┬ postcss@6.0.12 
+[INFO] │ ├─┬ postcss@6.0.13 
+[INFO] │ │ ├── source-map@0.6.1 
 [INFO] │ │ └─┬ supports-color@4.4.0 
 [INFO] │ │   └── has-flag@2.0.0 
 [INFO] │ └── postcss-value-parser@3.3.0 
@@ -99,12 +100,14 @@ Build date: 2017-09-28 11:18:50
 [INFO] │ │ │ │ └─┬ repeating@2.0.1 
 [INFO] │ │ │ │   └── is-finite@1.0.2 
 [INFO] │ │ │ ├── jsesc@1.3.0 
+[INFO] │ │ │ ├── source-map@0.5.7 
 [INFO] │ │ │ └── trim-right@1.0.1 
 [INFO] │ │ ├── babel-helpers@6.24.1 
 [INFO] │ │ ├── babel-messages@6.23.0 
 [INFO] │ │ ├── babel-template@6.26.0 
 [INFO] │ │ ├── json5@0.5.1 
-[INFO] │ │ └── private@0.1.7 
+[INFO] │ │ ├── private@0.1.7 
+[INFO] │ │ └── source-map@0.5.7 
 [INFO] │ ├─┬ babel-polyfill@6.26.0 
 [INFO] │ │ ├── core-js@2.5.1 
 [INFO] │ │ └── regenerator-runtime@0.10.5 
@@ -112,7 +115,8 @@ Build date: 2017-09-28 11:18:50
 [INFO] │ │ ├─┬ home-or-tmp@2.0.0 
 [INFO] │ │ │ ├── os-homedir@1.0.2 
 [INFO] │ │ │ └── os-tmpdir@1.0.2 
-[INFO] │ │ └── source-map-support@0.4.18 
+[INFO] │ │ └─┬ source-map-support@0.4.18 
+[INFO] │ │   └── source-map@0.5.7 
 [INFO] │ ├─┬ babel-runtime@6.26.0 
 [INFO] │ │ └── regenerator-runtime@0.11.0 
 [INFO] │ ├─┬ chokidar@1.7.0 
@@ -149,13 +153,11 @@ Build date: 2017-09-28 11:18:50
 [INFO] │ │ │   ├─┬ rc@1.2.1 
 [INFO] │ │ │   │ ├── deep-extend@0.4.2 
 [INFO] │ │ │   │ ├── ini@1.3.4 
-[WARNING] npm WARN bootstrap@4.0.0-beta requires a peer of jquery@>=1.9.1 but none was installed.
 [INFO] │ │ │   │ ├── minimist@1.2.0 
 [INFO] │ │ │   │ └── strip-json-comments@2.0.1 
 [INFO] │ │ │   ├─┬ request@2.81.0 
 [INFO] │ │ │   │ ├── aws-sign2@0.6.0 
 [INFO] │ │ │   │ ├── aws4@1.6.0 
-[WARNING] npm WARN bootstrap@4.0.0-beta requires a peer of popper.js@^1.11.0 but none was installed.
 [INFO] │ │ │   │ ├── caseless@0.12.0 
 [INFO] │ │ │   │ ├─┬ combined-stream@1.0.5 
 [INFO] │ │ │   │ │ └── delayed-stream@1.0.0 
@@ -315,8 +317,9 @@ Build date: 2017-09-28 11:18:50
 [INFO] │ └─┬ babel-plugin-transform-regenerator@6.26.0 
 [INFO] │   └── regenerator-transform@0.10.1 
 [INFO] ├─┬ clean-css-cli@4.1.10 
-[INFO] │ └── clean-css@4.1.9 
-[INFO] ├─┬ eslint@4.7.2 
+[INFO] │ └─┬ clean-css@4.1.9 
+[INFO] │   └── source-map@0.5.7 
+[INFO] ├─┬ eslint@4.8.0 
 [INFO] │ ├─┬ ajv@5.2.3 
 [INFO] │ │ ├── co@4.6.0 
 [INFO] │ │ ├── fast-deep-equal@1.0.0 
@@ -357,8 +360,7 @@ Build date: 2017-09-28 11:18:50
 [INFO] │ │   │ ├─┬ globby@5.0.0 
 [INFO] │ │   │ │ └── arrify@1.0.1 
 [INFO] │ │   │ ├── is-path-cwd@1.0.0 
-[INFO] │ │   │ └─┬ is-path-in-cwd@1.0.0 
-[INFO] │ │   │   └── is-path-inside@1.0.0 
+[INFO] │ │   │ └── is-path-in-cwd@1.0.0 
 [INFO] │ │   └── write@0.2.1 
 [INFO] │ ├── functional-red-black-tree@1.0.1 
 [INFO] │ ├── globals@9.18.0 
@@ -474,9 +476,11 @@ Build date: 2017-09-28 11:18:50
 [INFO] │     └─┬ agent-base@2.1.1 
 [INFO] │       └── semver@5.0.3 
 [INFO] ├─┬ htmllint-cli@0.0.6 
-[INFO] │ ├── bluebird@3.5.0 
+[INFO] │ ├── bluebird@3.5.1 
 [INFO] │ ├─┬ chalk@1.1.3 
 [INFO] │ │ ├── ansi-styles@2.2.1 
+[WARNING] npm WARN bootstrap@4.0.0-beta requires a peer of jquery@>=1.9.1 but none was installed.
+[WARNING] npm WARN bootstrap@4.0.0-beta requires a peer of popper.js@^1.11.0 but none was installed.
 [INFO] │ │ ├─┬ has-ansi@2.0.0 
 [INFO] │ │ │ └── ansi-regex@2.1.1 
 [INFO] │ │ ├── strip-ansi@3.0.1 
@@ -693,7 +697,7 @@ Build date: 2017-09-28 11:18:50
 [INFO] │ ├─┬ touch@3.1.0 
 [INFO] │ │ └── nopt@1.0.10 
 [INFO] │ ├── undefsafe@0.0.3 
-[INFO] │ └─┬ update-notifier@2.2.0 
+[INFO] │ └─┬ update-notifier@2.3.0 
 [INFO] │   ├─┬ boxen@1.2.1 
 [INFO] │   │ ├── ansi-align@2.0.0 
 [INFO] │   │ ├── camelcase@4.1.0 
@@ -702,9 +706,6 @@ Build date: 2017-09-28 11:18:50
 [INFO] │   │ └─┬ widest-line@1.0.0 
 [INFO] │   │   └─┬ string-width@1.0.2 
 [INFO] │   │     └── is-fullwidth-code-point@1.0.0 
-[INFO] │   ├─┬ chalk@1.1.3 
-[INFO] │   │ ├── ansi-styles@2.2.1 
-[INFO] │   │ └── supports-color@2.0.0 
 [INFO] │   ├─┬ configstore@3.1.1 
 [INFO] │   │ ├─┬ dot-prop@4.2.0 
 [INFO] │   │ │ └── is-obj@1.0.1 
@@ -713,6 +714,10 @@ Build date: 2017-09-28 11:18:50
 [INFO] │   │ │ └── crypto-random-string@1.0.0 
 [INFO] │   │ └── write-file-atomic@2.3.0 
 [INFO] │   ├── import-lazy@2.1.0 
+[INFO] │   ├─┬ is-installed-globally@0.1.0 
+[INFO] │   │ ├─┬ global-dirs@0.1.0 
+[INFO] │   │ │ └── ini@1.3.4 
+[INFO] │   │ └── is-path-inside@1.0.0 
 [INFO] │   ├── is-npm@1.0.0 
 [INFO] │   ├─┬ latest-version@3.1.0 
 [INFO] │   │ └─┬ package-json@4.0.1 
@@ -757,7 +762,7 @@ Build date: 2017-09-28 11:18:50
 [INFO] │   ├─┬ define-properties@1.1.2 
 [INFO] │   │ ├── foreach@2.0.5 
 [INFO] │   │ └── object-keys@1.0.11 
-[INFO] │   ├─┬ es-abstract@1.8.2 
+[INFO] │   ├─┬ es-abstract@1.9.0 
 [INFO] │   │ ├─┬ es-to-primitive@1.1.1 
 [INFO] │   │ │ ├── is-date-object@1.0.1 
 [INFO] │   │ │ └── is-symbol@1.0.1 
@@ -804,7 +809,7 @@ Build date: 2017-09-28 11:18:50
 [INFO] │   └── isexe@2.0.0 
 [INFO] ├── UNMET PEER DEPENDENCY popper.js@^1.11.0
 [INFO] ├─┬ postcss-cli@4.1.1 
-[INFO] │ ├── dependency-graph@0.5.0 
+[INFO] │ ├── dependency-graph@0.5.1 
 [INFO] │ ├─┬ fs-extra@4.0.2 
 [INFO] │ │ ├── jsonfile@4.0.0 
 [INFO] │ │ └── universalify@0.1.1 
@@ -817,7 +822,7 @@ Build date: 2017-09-28 11:18:50
 [INFO] │ │ ├─┬ chalk@1.1.3 
 [INFO] │ │ │ ├── ansi-styles@2.2.1 
 [INFO] │ │ │ └── supports-color@2.0.0 
-[INFO] │ │ ├── cli-spinners@1.0.1 
+[INFO] │ │ ├── cli-spinners@1.1.0 
 [INFO] │ │ └─┬ log-symbols@1.0.2 
 [INFO] │ │   └─┬ chalk@1.1.3 
 [INFO] │ │     ├── ansi-styles@2.2.1 
@@ -900,8 +905,7 @@ Build date: 2017-09-28 11:18:50
 [INFO] │ │ └─┬ resolve-dir@0.1.1 
 [INFO] │ │   ├── expand-tilde@1.2.2 
 [INFO] │ │   └─┬ global-modules@0.2.3 
-[INFO] │ │     ├─┬ global-prefix@0.1.5 
-[INFO] │ │     │ └── ini@1.3.4 
+[INFO] │ │     ├── global-prefix@0.1.5 
 [INFO] │ │     └── is-windows@0.2.0 
 [INFO] │ ├── js-reporters@1.2.0 
 [INFO] │ ├─┬ resolve@1.3.2 
@@ -915,7 +919,8 @@ Build date: 2017-09-28 11:18:50
 [INFO] ├─┬ shx@0.2.2 
 [INFO] │ ├── es6-object-assign@1.1.0 
 [INFO] │ └── minimist@1.2.0 
-[INFO] └── uglify-js@3.1.2 
+[INFO] └─┬ uglify-js@3.1.3 
+[INFO]   └── source-map@0.5.7 
 [INFO] 
 [INFO] 
 [INFO] --- frontend-maven-plugin:1.4:npm (step #8: npm run css-compile) @ tobago-theme-standard ---
@@ -928,11 +933,11 @@ Build date: 2017-09-28 11:18:50
 [ERROR] Wrote CSS to __CURRENT__/tobago-theme-standard/target/bootstrap/dist/css/bootstrap.css
 [ERROR] Wrote Source Map to __CURRENT__/tobago-theme-standard/target/bootstrap/dist/css/bootstrap.css.map
 [ERROR] Rendering Complete, saving .css file...
-[ERROR] Wrote CSS to __CURRENT__/tobago-theme-standard/target/bootstrap/dist/css/bootstrap-grid.css
 [ERROR] Wrote Source Map to __CURRENT__/tobago-theme-standard/target/bootstrap/dist/css/bootstrap-grid.css.map
+[ERROR] Wrote CSS to __CURRENT__/tobago-theme-standard/target/bootstrap/dist/css/bootstrap-grid.css
 [ERROR] Rendering Complete, saving .css file...
-[ERROR] Wrote CSS to __CURRENT__/tobago-theme-standard/target/bootstrap/dist/css/bootstrap-reboot.css
 [ERROR] Wrote Source Map to __CURRENT__/tobago-theme-standard/target/bootstrap/dist/css/bootstrap-reboot.css.map
+[ERROR] Wrote CSS to __CURRENT__/tobago-theme-standard/target/bootstrap/dist/css/bootstrap-reboot.css
 [INFO] 
 [INFO] --- frontend-maven-plugin:1.4:npm (step #9: npm run css-prefix) @ tobago-theme-standard ---
 [INFO] Running 'npm run css-prefix' in __CURRENT__/tobago-theme-standard/target/bootstrap
@@ -940,12 +945,12 @@ Build date: 2017-09-28 11:18:50
 [INFO] > bootstrap@4.0.0-beta css-prefix __CURRENT__/tobago-theme-standard/target/bootstrap
 [INFO] > postcss --config build/postcss.config.js --replace dist/css/*.css
 [INFO] 
-[ERROR] ✔ Finished dist/css/bootstrap-reboot.min.css (1.33 s)
-[ERROR] ✔ Finished dist/css/bootstrap-grid.css (1.33 s)
-[ERROR] ✔ Finished dist/css/bootstrap.min.css (1.33 s)
-[ERROR] ✔ Finished dist/css/bootstrap-grid.min.css (1.33 s)
-[ERROR] ✔ Finished dist/css/bootstrap.css (1.33 s)
-[ERROR] ✔ Finished dist/css/bootstrap-reboot.css (1.33 s)
+[ERROR] ✔ Finished dist/css/bootstrap-grid.css (1.71 s)
+[ERROR] ✔ Finished dist/css/bootstrap-grid.min.css (1.71 s)
+[ERROR] ✔ Finished dist/css/bootstrap-reboot.css (1.71 s)
+[ERROR] ✔ Finished dist/css/bootstrap.css (1.71 s)
+[ERROR] ✔ Finished dist/css/bootstrap-reboot.min.css (1.71 s)
+[ERROR] ✔ Finished dist/css/bootstrap.min.css (1.71 s)
 [INFO] 
 [INFO] --- frontend-maven-plugin:1.4:npm (step #10: npm run css-minify) @ tobago-theme-standard ---
 [INFO] Running 'npm run css-minify' in __CURRENT__/tobago-theme-standard/target/bootstrap
@@ -1013,8 +1018,8 @@ Build date: 2017-09-28 11:18:50
 [INFO] nothing to do, __CURRENT__/tobago-theme-standard/target/classes/META-INF/resources/tobago/standard/tether/1.1.1/css/tether-theme-basic.min.css is younger than original, use 'force' option or clean your target
 [INFO] tether-theme-arrows-dark.min.css (4681b) -> tether-theme-arrows-dark.min.min.css (4681b)[100%]
 [INFO] nothing to do, __CURRENT__/tobago-theme-standard/target/classes/META-INF/resources/tobago/standard/tether/1.1.1/css/tether-theme-arrows.min.css is younger than original, use 'force' option or clean your target
-[INFO] bootstrap.min.css (141830b) -> bootstrap.min.min.css (141601b)[99%]
-[INFO] bootstrap.css (185819b) -> bootstrap.min.css (142028b)[76%]
+[INFO] bootstrap.min.css (142472b) -> bootstrap.min.min.css (142239b)[99%]
+[INFO] bootstrap.css (186517b) -> bootstrap.min.css (142666b)[76%]
 [INFO] nothing to do, __CURRENT__/tobago-theme-standard/target/classes/META-INF/resources/tobago/standard/font-awesome/4.7.0/css/font-awesome.min.css is younger than original, use 'force' option or clean your target
 [INFO] font-awesome.min.css (31000b) -> font-awesome.min.min.css (30990b)[99%]
 [INFO] nothing to do, __CURRENT__/tobago-theme-standard/target/classes/META-INF/resources/tobago/standard/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.min.css is younger than original, use 'force' option or clean your target
@@ -1031,7 +1036,7 @@ Build date: 2017-09-28 11:18:50
 [INFO] nothing to do, __CURRENT__/tobago-theme-standard/target/classes/META-INF/resources/tobago/standard/tobago-bootstrap/_version/css/bootstrap.min.css is younger than original, use 'force' option or clean your target
 [INFO] nothing to do, __CURRENT__/tobago-theme-standard/target/classes/META-INF/resources/tobago/standard/font-awesome/4.7.0/css/font-awesome.min.css is younger than original, use 'force' option or clean your target
 [INFO] nothing to do, __CURRENT__/tobago-theme-standard/target/classes/META-INF/resources/tobago/standard/font-awesome/4.7.0/css/font-awesome.min.min.css is younger than original, use 'force' option or clean your target
-[INFO] total input (376551b) -> output (332463b)[88%]
+[INFO] total input (377891b) -> output (333739b)[88%]
 [INFO] nb warnings: 0, nb errors: 0
 [INFO] 
 [INFO] --- maven-compiler-plugin:3.6.2:compile (default-compile) @ tobago-theme-standard ---
@@ -1065,7 +1070,7 @@ main:
  T E S T S
 -------------------------------------------------------
 Running org.apache.myfaces.tobago.renderkit.css.BootstrapClassUnitTest
-Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.24 sec - in org.apache.myfaces.tobago.renderkit.css.BootstrapClassUnitTest
+Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.626 sec - in org.apache.myfaces.tobago.renderkit.css.BootstrapClassUnitTest
 
 Results :
 
@@ -1084,7 +1089,7 @@ Tests run: 2, Failures: 0, Errors: 0, Skipped: 0
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
-[INFO] Total time: 02:36 min
-[INFO] Finished at: 2017-09-28T11:21:28+02:00
-[INFO] Final Memory: 40M/503M
+[INFO] Total time: 03:38 min
+[INFO] Finished at: 2017-10-10T20:07:13+02:00
+[INFO] Final Memory: 39M/549M
 [INFO] ------------------------------------------------------------------------
