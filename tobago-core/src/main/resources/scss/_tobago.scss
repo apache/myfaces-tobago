@@ -239,6 +239,15 @@ body {
   }
 }
 
+/* the non-label-element inside of a label-layout with flex box */
+.tobago-flexLayout.tobago-label-container > {
+  .form-control, .form-control-plaintext, .twitter-typeahead,
+  .tobago-input-group-outer, .tobago-messages-container,
+  .tobago-file, .tobago-selectManyShuttle {
+    flex: 1 0 0px;
+  }
+}
+
 /* flowLayout ---------------------------------------------------------- */
 .tobago-flowLayout {
 }
@@ -342,12 +351,6 @@ table.tobago-gridLayout > tbody {
   width: 155px;
 }
 
-/* the non-label-element inside of a label-layout with flex box */
-.tobago-flexLayout.tobago-label-container > .form-control,
-.tobago-flexLayout.tobago-label-container > .form-control-plaintext {
-  flex: 1 0 0px;
-}
-
 /* link ----------------------------------------------------------- */
 
 .tobago-link {
@@ -448,10 +451,6 @@ button {
       margin-right: 0; /* for tc:in margin 5px is already set */
       margin-bottom: 5px;
     }
-
-    .tobago-selectManyShuttle {
-      flex-grow: 1;
-    }
   }
 }
 
@@ -465,6 +464,12 @@ a.tobago-messages-button {
 
   &:last-child {
     margin-bottom: 0;
+  }
+}
+
+.tobago-flexLayout.tobago-messages-container > {
+  .twitter-typeahead , .tobago-input-group-outer, .tobago-selectManyShuttle, .tobago-file {
+    flex: 1 0 0px;
   }
 }
 
@@ -1077,6 +1082,11 @@ th.tobago-sheet-headerCell-markup-filler > .tobago-sheet-header {
   p {
     margin: 0;
   }
+}
+
+.input-group > .twitter-typeahead > .tobago-in {
+  width: 100%;
+  border-right: 0;
 }
 
 /* tab / tab-group ----------------------------------------------------------------- */

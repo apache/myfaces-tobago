@@ -26,6 +26,7 @@
   <tc:button label="Submit"/>
 
   <tc:section label="Severity">
+    <tc:in label="Vergleich"/>
     <tc:in label="Fatal" validator="#{severityController.addFatal}"/>
     <tc:in label="Error" validator="#{severityController.addError}"/>
     <tc:in label="Warn" validator="#{severityController.addWarn}"/>
@@ -41,6 +42,11 @@
     <tc:in label="Label Right" required="true" labelLayout="flexRight"/>
     <tc:in label="Label Left" required="true"/>
     <tc:in required="true"/>
+    <tc:in label="Suggest" required="true">
+      <tc:suggest totalCount="10" query="#{suggestController.query}">
+        <tc:selectItems value="#{suggestController.languages}" var="language" itemValue="#{language}"/>
+      </tc:suggest>
+    </tc:in>
     <tc:in label="Input Group" required="true">
       <f:facet name="before">https://example.com/</f:facet>
       <f:facet name="after"><tc:button label="OK" omit="true"/></f:facet>
@@ -70,7 +76,7 @@
       <tc:selectItem itemLabel="Item One" itemValue="one"/>
       <tc:selectItem itemLabel="Item Two" itemValue="two"/>
     </tc:selectManyCheckbox>
-    <tc:selectManyShuttle label="Shuttle" labelLayout="top" value="#{selectManyShuttleController.selectedPlanets}"
+    <tc:selectManyShuttle label="Shuttle" value="#{selectManyShuttleController.selectedPlanets}"
                           required="true">
       <tc:selectItems value="#{selectManyShuttleController.planets}"
                       var="planet" itemLabel="#{planet.name}" itemValue="#{planet}"/>
