@@ -92,7 +92,7 @@ public final class ComponentUtils {
   }
 
   public static boolean hasErrorMessages(final FacesContext context) {
-    for (final Iterator iter = context.getMessages(); iter.hasNext(); ) {
+    for (final Iterator iter = context.getMessages(); iter.hasNext();) {
       final FacesMessage message = (FacesMessage) iter.next();
       if (FacesMessage.SEVERITY_ERROR.compareTo(message.getSeverity()) <= 0) {
         return true;
@@ -779,7 +779,7 @@ public final class ComponentUtils {
     if (container instanceof UIComponent) {
       final String clientId = ((UIComponent) container).getClientId(facesContext);
       FacesMessage.Severity max = null;
-      for (final Iterator ids = facesContext.getClientIdsWithMessages(); ids.hasNext(); ) {
+      for (final Iterator ids = facesContext.getClientIdsWithMessages(); ids.hasNext();) {
         final String id = (String) ids.next();
         if (id != null && id.startsWith(clientId)) {
           final Iterator messages = facesContext.getMessages(id);
