@@ -7998,8 +7998,6 @@ body {
 .tobago-gridLayout {
   display: -ms-grid;
   display: grid;
-  /* width: 100%; */
-  /* height: 100%; */
   /*
       border-spacing: 5px;
       border-collapse: separate;
@@ -8867,6 +8865,39 @@ th.tobago-sheet-headerCell-markup-filler > .tobago-sheet-header {
 }
 
 /* textarea --------------------------------------------------------- */
+/* facesMessages messageLayout focus shadows ------------------------ */
+.tobago-date-markup-fatal.border-danger:focus, .tobago-date-markup-error.border-danger:focus,
+.tobago-in-markup-fatal.border-danger:focus,
+.tobago-in-markup-error.border-danger:focus,
+.tobago-selectManyListbox-markup-fatal.border-danger:focus,
+.tobago-selectManyListbox-markup-error.border-danger:focus,
+.tobago-selectOneChoice-markup-fatal.border-danger:focus,
+.tobago-selectOneChoice-markup-error.border-danger:focus,
+.tobago-selectOneListbox-markup-fatal.border-danger:focus,
+.tobago-selectOneListbox-markup-error.border-danger:focus,
+.tobago-textarea-markup-fatal.border-danger:focus,
+.tobago-textarea-markup-error.border-danger:focus {
+  box-shadow: 0 0 0 0.2rem rgba(143, 89, 169, 0.25);
+}
+
+.tobago-date-markup-warn.border-warning:focus,
+.tobago-in-markup-warn.border-warning:focus,
+.tobago-selectManyListbox-markup-warn.border-warning:focus,
+.tobago-selectOneChoice-markup-warn.border-warning:focus,
+.tobago-selectOneListbox-markup-warn.border-warning:focus,
+.tobago-textarea-markup-warn.border-warning:focus {
+  box-shadow: 0 0 0 0.2rem rgba(160, 173, 46, 0.25);
+}
+
+.tobago-date-markup-info.border-info:focus,
+.tobago-in-markup-info.border-info:focus,
+.tobago-selectManyListbox-markup-info.border-info:focus,
+.tobago-selectOneChoice-markup-info.border-info:focus,
+.tobago-selectOneListbox-markup-info.border-info:focus,
+.tobago-textarea-markup-info.border-info:focus {
+  box-shadow: 0 0 0 0.2rem rgba(0, 127, 127, 0.25);
+}
+
 /* menuStore -------------------------------------------------------- */
 .tobago-page-menuStore {
   position: absolute;
@@ -8906,28 +8937,6 @@ fixme: there is a problem with the selectManyShuttle with this style.
 /* FIXME: This is to hide the toolbar, until it is implemented */
 .tobago-tabGroup-toolBar {
   display: none;
-}
-
-.tobago-has-info .form-control-feedback, .tobago-has-info .form-control-label, .tobago-has-info .form-check-label, .tobago-has-info .form-check-inline, .tobago-has-info .custom-control {
-  color: #00f;
-}
-
-.tobago-has-info .form-control {
-  border-color: #00f;
-}
-
-.tobago-has-info .input-group-addon {
-  color: #00f;
-  background-color: #eaf6ea;
-  border-color: #00f;
-}
-
-.tobago-has-info .form-control-feedback {
-  color: #00f;
-}
-
-.tobago-has-info .form-control-success {
-  background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2MTIgNzkyIj48cGF0aCBmaWxsPSIjNWNiODVjIiBkPSJNMjMzLjggNjEwYy0xMy4zIDAtMjYtNi0zNC0xNi44TDkwLjUgNDQ4LjhDNzYuMyA0MzAgODAgNDAzLjMgOTguOCAzODljMTguOC0xNC4yIDQ1LjUtMTAuNCA1OS44IDguNGw3MiA5NUw0NTEuMyAyNDJjMTIuNS0yMCAzOC44LTI2LjIgNTguOC0xMy43IDIwIDEyLjQgMjYgMzguNyAxMy43IDU4LjhMMjcwIDU5MGMtNy40IDEyLTIwLjIgMTkuNC0zNC4zIDIwaC0yeiIvPjwvc3ZnPg==");
 }
 
 .tobago-required .tobago-label:after {

@@ -1,4 +1,4 @@
-Build date: 2017-10-11 12:06:09
+Build date: 2017-10-12 13:59:50
 [INFO] Scanning for projects...
 [INFO] 
 [INFO] ------------------------------------------------------------------------
@@ -13,8 +13,8 @@ Build date: 2017-10-11 12:06:09
 [INFO] Removing __CURRENT__/tobago-theme-standard/target/checkout
 [INFO] Executing: /bin/sh -c cd __CURRENT__/tobago-theme-standard/target && git clone --branch v4.0.0-beta https://github.com/twbs/bootstrap __CURRENT__/tobago-theme-standard/target/checkout
 [INFO] Working directory: __CURRENT__/tobago-theme-standard/target
-[INFO] Executing: /bin/sh -c cd /var/folders/w0/pg4pxr7972l6bq85x08s5cl00000gn/T/ && git ls-remote https://github.com/twbs/bootstrap
-[INFO] Working directory: /var/folders/w0/pg4pxr7972l6bq85x08s5cl00000gn/T
+[INFO] Executing: /bin/sh -c cd /var/folders/yp/1vrxjnrs20798ydt_yl8wrpr0000gp/T/ && git ls-remote https://github.com/twbs/bootstrap
+[INFO] Working directory: /var/folders/yp/1vrxjnrs20798ydt_yl8wrpr0000gp/T
 [INFO] Executing: /bin/sh -c cd __CURRENT__/tobago-theme-standard/target/checkout && git pull https://github.com/twbs/bootstrap v4.0.0-beta:v4.0.0-beta
 [INFO] Working directory: __CURRENT__/tobago-theme-standard/target/checkout
 [INFO] Executing: /bin/sh -c cd __CURRENT__/tobago-theme-standard/target/checkout && git checkout v4.0.0-beta
@@ -67,11 +67,11 @@ Build date: 2017-10-11 12:06:09
 [INFO] > node install.js
 [INFO] 
 [INFO] PhantomJS not found on PATH
-[INFO] Download already available at /var/folders/w0/pg4pxr7972l6bq85x08s5cl00000gn/T/phantomjs/phantomjs-2.1.1-macosx.zip
+[INFO] Download already available at /var/folders/yp/1vrxjnrs20798ydt_yl8wrpr0000gp/T/phantomjs/phantomjs-2.1.1-macosx.zip
 [INFO] Verified checksum of previously downloaded file
 [INFO] Extracting zip contents
 [INFO] Removing __CURRENT__/tobago-theme-standard/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom
-[INFO] Copying extracted folder /var/folders/w0/pg4pxr7972l6bq85x08s5cl00000gn/T/phantomjs/phantomjs-2.1.1-macosx.zip-extract-1507716518660/phantomjs-2.1.1-macosx -> __CURRENT__/tobago-theme-standard/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom
+[INFO] Copying extracted folder /var/folders/yp/1vrxjnrs20798ydt_yl8wrpr0000gp/T/phantomjs/phantomjs-2.1.1-macosx.zip-extract-1507809681584/phantomjs-2.1.1-macosx -> __CURRENT__/tobago-theme-standard/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom
 [INFO] Writing location.js file
 [INFO] Done. Phantomjs binary available at __CURRENT__/tobago-theme-standard/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom/bin/phantomjs
 [INFO] 
@@ -84,7 +84,7 @@ Build date: 2017-10-11 12:06:09
 [INFO] bootstrap@4.0.0-beta __CURRENT__/tobago-theme-standard/target/bootstrap
 [INFO] ├─┬ autoprefixer@7.1.5 
 [INFO] │ ├─┬ browserslist@2.5.1 
-[INFO] │ │ └── electron-to-chromium@1.3.25 
+[INFO] │ │ └── electron-to-chromium@1.3.26 
 [INFO] │ ├── caniuse-lite@1.0.30000746 
 [INFO] │ ├── normalize-range@0.1.2 
 [INFO] │ ├── num2fraction@1.2.2 
@@ -159,7 +159,6 @@ Build date: 2017-10-11 12:06:09
 [INFO] │ │ │   │ ├── aws-sign2@0.6.0 
 [INFO] │ │ │   │ ├── aws4@1.6.0 
 [INFO] │ │ │   │ ├── caseless@0.12.0 
-[WARNING] npm WARN bootstrap@4.0.0-beta requires a peer of jquery@>=1.9.1 but none was installed.
 [INFO] │ │ │   │ ├─┬ combined-stream@1.0.5 
 [INFO] │ │ │   │ │ └── delayed-stream@1.0.0 
 [INFO] │ │ │   │ ├── extend@3.0.1 
@@ -168,7 +167,6 @@ Build date: 2017-10-11 12:06:09
 [INFO] │ │ │   │ │ └── asynckit@0.4.0 
 [INFO] │ │ │   │ ├─┬ har-validator@4.2.1 
 [INFO] │ │ │   │ │ ├─┬ ajv@4.11.8 
-[WARNING] npm WARN bootstrap@4.0.0-beta requires a peer of popper.js@^1.11.0 but none was installed.
 [INFO] │ │ │   │ │ │ ├── co@4.6.0 
 [INFO] │ │ │   │ │ │ └─┬ json-stable-stringify@1.0.1 
 [INFO] │ │ │   │ │ │   └── jsonify@0.0.0 
@@ -922,6 +920,8 @@ Build date: 2017-10-11 12:06:09
 [INFO] └─┬ uglify-js@3.1.3 
 [INFO]   └── source-map@0.5.7 
 [INFO] 
+[WARNING] npm WARN bootstrap@4.0.0-beta requires a peer of jquery@>=1.9.1 but none was installed.
+[WARNING] npm WARN bootstrap@4.0.0-beta requires a peer of popper.js@^1.11.0 but none was installed.
 [INFO] 
 [INFO] --- frontend-maven-plugin:1.4:npm (step #8: npm run css-compile) @ tobago-theme-standard ---
 [INFO] Running 'npm run css-compile' in __CURRENT__/tobago-theme-standard/target/bootstrap
@@ -936,8 +936,8 @@ Build date: 2017-10-11 12:06:09
 [ERROR] Wrote Source Map to __CURRENT__/tobago-theme-standard/target/bootstrap/dist/css/bootstrap-grid.css.map
 [ERROR] Wrote CSS to __CURRENT__/tobago-theme-standard/target/bootstrap/dist/css/bootstrap-grid.css
 [ERROR] Rendering Complete, saving .css file...
-[ERROR] Wrote Source Map to __CURRENT__/tobago-theme-standard/target/bootstrap/dist/css/bootstrap-reboot.css.map
 [ERROR] Wrote CSS to __CURRENT__/tobago-theme-standard/target/bootstrap/dist/css/bootstrap-reboot.css
+[ERROR] Wrote Source Map to __CURRENT__/tobago-theme-standard/target/bootstrap/dist/css/bootstrap-reboot.css.map
 [INFO] 
 [INFO] --- frontend-maven-plugin:1.4:npm (step #9: npm run css-prefix) @ tobago-theme-standard ---
 [INFO] Running 'npm run css-prefix' in __CURRENT__/tobago-theme-standard/target/bootstrap
@@ -945,12 +945,12 @@ Build date: 2017-10-11 12:06:09
 [INFO] > bootstrap@4.0.0-beta css-prefix __CURRENT__/tobago-theme-standard/target/bootstrap
 [INFO] > postcss --config build/postcss.config.js --replace dist/css/*.css
 [INFO] 
-[ERROR] ✔ Finished dist/css/bootstrap-reboot.css (1.36 s)
-[ERROR] ✔ Finished dist/css/bootstrap.css (1.36 s)
-[ERROR] ✔ Finished dist/css/bootstrap-grid.css (1.36 s)
-[ERROR] ✔ Finished dist/css/bootstrap-grid.min.css (1.36 s)
-[ERROR] ✔ Finished dist/css/bootstrap-reboot.min.css (1.36 s)
-[ERROR] ✔ Finished dist/css/bootstrap.min.css (1.36 s)
+[ERROR] ✔ Finished dist/css/bootstrap-grid.min.css (1.2 s)
+[ERROR] ✔ Finished dist/css/bootstrap-reboot.min.css (1.2 s)
+[ERROR] ✔ Finished dist/css/bootstrap-reboot.css (1.21 s)
+[ERROR] ✔ Finished dist/css/bootstrap-grid.css (1.21 s)
+[ERROR] ✔ Finished dist/css/bootstrap.min.css (1.21 s)
+[ERROR] ✔ Finished dist/css/bootstrap.css (1.21 s)
 [INFO] 
 [INFO] --- frontend-maven-plugin:1.4:npm (step #10: npm run css-minify) @ tobago-theme-standard ---
 [INFO] Running 'npm run css-minify' in __CURRENT__/tobago-theme-standard/target/bootstrap
@@ -1018,8 +1018,8 @@ Build date: 2017-10-11 12:06:09
 [INFO] nothing to do, __CURRENT__/tobago-theme-standard/target/classes/META-INF/resources/tobago/standard/tether/1.1.1/css/tether-theme-basic.min.css is younger than original, use 'force' option or clean your target
 [INFO] tether-theme-arrows-dark.min.css (4681b) -> tether-theme-arrows-dark.min.min.css (4681b)[100%]
 [INFO] nothing to do, __CURRENT__/tobago-theme-standard/target/classes/META-INF/resources/tobago/standard/tether/1.1.1/css/tether-theme-arrows.min.css is younger than original, use 'force' option or clean your target
-[INFO] bootstrap.min.css (142479b) -> bootstrap.min.min.css (142246b)[99%]
-[INFO] bootstrap.css (186567b) -> bootstrap.min.css (142673b)[76%]
+[INFO] bootstrap.min.css (142973b) -> bootstrap.min.min.css (142740b)[99%]
+[INFO] bootstrap.css (187095b) -> bootstrap.min.css (143168b)[76%]
 [INFO] nothing to do, __CURRENT__/tobago-theme-standard/target/classes/META-INF/resources/tobago/standard/font-awesome/4.7.0/css/font-awesome.min.css is younger than original, use 'force' option or clean your target
 [INFO] font-awesome.min.css (31000b) -> font-awesome.min.min.css (30990b)[99%]
 [INFO] nothing to do, __CURRENT__/tobago-theme-standard/target/classes/META-INF/resources/tobago/standard/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.min.css is younger than original, use 'force' option or clean your target
@@ -1036,7 +1036,7 @@ Build date: 2017-10-11 12:06:09
 [INFO] nothing to do, __CURRENT__/tobago-theme-standard/target/classes/META-INF/resources/tobago/standard/tobago-bootstrap/_version/css/bootstrap.min.css is younger than original, use 'force' option or clean your target
 [INFO] nothing to do, __CURRENT__/tobago-theme-standard/target/classes/META-INF/resources/tobago/standard/font-awesome/4.7.0/css/font-awesome.min.css is younger than original, use 'force' option or clean your target
 [INFO] nothing to do, __CURRENT__/tobago-theme-standard/target/classes/META-INF/resources/tobago/standard/font-awesome/4.7.0/css/font-awesome.min.min.css is younger than original, use 'force' option or clean your target
-[INFO] total input (377948b) -> output (333753b)[88%]
+[INFO] total input (378970b) -> output (334742b)[88%]
 [INFO] nb warnings: 0, nb errors: 0
 [INFO] 
 [INFO] --- maven-compiler-plugin:3.6.2:compile (default-compile) @ tobago-theme-standard ---
@@ -1070,7 +1070,7 @@ main:
  T E S T S
 -------------------------------------------------------
 Running org.apache.myfaces.tobago.renderkit.css.BootstrapClassUnitTest
-Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.301 sec - in org.apache.myfaces.tobago.renderkit.css.BootstrapClassUnitTest
+Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.255 sec - in org.apache.myfaces.tobago.renderkit.css.BootstrapClassUnitTest
 
 Results :
 
@@ -1089,7 +1089,7 @@ Tests run: 2, Failures: 0, Errors: 0, Skipped: 0
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
-[INFO] Total time: 02:53 min
-[INFO] Finished at: 2017-10-11T12:09:04+02:00
-[INFO] Final Memory: 39M/491M
+[INFO] Total time: 01:54 min
+[INFO] Finished at: 2017-10-12T14:01:46+02:00
+[INFO] Final Memory: 37M/512M
 [INFO] ------------------------------------------------------------------------
