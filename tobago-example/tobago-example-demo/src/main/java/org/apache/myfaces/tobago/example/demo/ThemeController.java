@@ -22,6 +22,7 @@ package org.apache.myfaces.tobago.example.demo;
 import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.context.Theme;
 import org.apache.myfaces.tobago.context.TobagoContext;
+import org.apache.myfaces.tobago.internal.util.ObjectUtils;
 
 import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
@@ -48,6 +49,7 @@ public class ThemeController implements Serializable {
       final Theme themeItem = themes.get(i);
       themeItems[i] = new SelectItem(themeItem, themeItem.getDisplayName());
     }
+    theme = TobagoContext.getInstance(facesContext).getTheme();
   }
 
   public Theme getTheme() {
@@ -67,8 +69,19 @@ public class ThemeController implements Serializable {
   }
 
   public String submit() {
-    final TobagoContext tobagoContext = TobagoContext.getInstance(FacesContext.getCurrentInstance());
-    tobagoContext.setTheme(theme);
+    final FacesContext facesContext = FacesContext.getCurrentInstance();
+    TobagoContext.getInstance(facesContext).setTheme(theme);
     return null;
   }
+
+  public String getLocalizedTheme() {
+    for (int i = 0; i < themeItems.length; i++) {
+      final SelectItem themeItem = themeItems[i];
+      if (ObjectUtils.equals(themeItem.getValue(), theme)) {
+        return themeItem.getLabel();
+      }
+    }
+    return "???";
+  }
+
 }

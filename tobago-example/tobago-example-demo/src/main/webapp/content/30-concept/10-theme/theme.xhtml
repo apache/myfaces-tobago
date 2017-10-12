@@ -25,24 +25,26 @@
   <ui:param name="title" value="#{demoBundle.theme}"/>
   <p>Tobago supports a big variety of displaying controls, so called designs or themes.</p>
 
-  <tc:section label="Change Theme">
-    <p>Choosing of themes can be application wide, user or group specific.
-      Images and other resources can be theme dependant as well as the application pages can be designed seperatly
-      for each supported theme.</p>
-    <tc:selectOneChoice label="Theme" value="#{themeController.theme}">
-      <f:selectItems value="#{themeController.themeItems}"/>
-    </tc:selectOneChoice>
-    <tc:button label="Submit" action="#{themeController.submit}"/>
+  <tc:form id="theme">
+    <tc:section label="Change Theme">
+      <p>Choosing of themes can be application wide, user or group specific.
+        Images and other resources can be theme dependant as well as the application pages can be designed seperatly
+        for each supported theme.</p>
+      <tc:selectOneChoice label="Theme" value="#{themeController.theme}">
+        <f:selectItems value="#{themeController.themeItems}"/>
+      </tc:selectOneChoice>
+      <tc:button label="Submit" action="#{themeController.submit}"/>
 
-    <tc:separator/>
-    <tc:figure>
-      <f:facet name="label">
-        <!-- todo: theme dependent text -->
-        <tc:out id="o1" value="#{demoBundle.theme_photo} (TODO: theme dependent text)"/>
-      </f:facet>
-      <tc:image value="/image/#{tobagoContext.theme.name}/theme-photo.jpg"/>
-    </tc:figure>
-  </tc:section>
+      <tc:separator/>
+      <tc:figure>
+        <f:facet name="label">
+          <!-- todo: theme dependent text -->
+          <tc:out id="o1" value="#{demoBundle.theme_photo} (TODO: theme dependent text)"/>
+        </f:facet>
+        <tc:image value="/image/#{tobagoContext.theme.name}/theme-photo.jpg"/>
+      </tc:figure>
+    </tc:section>
+  </tc:form>
 
   <tc:section label="Configuration">
     <p>In Tobago it's easy to give an application a well designed look. You can use prepared themes like 'speyside' or

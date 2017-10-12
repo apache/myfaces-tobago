@@ -26,9 +26,9 @@
 
     <tc:out escape="false" value="#{demoBundle.locale_text}"/>
 
-    <tc:selectOneChoice value="#{clientConfigController2.locale}"
+    <tc:selectOneChoice value="#{clientConfigController.locale}"
                         label="#{demoBundle.locale}">
-      <f:selectItems value="#{clientConfigController2.localeItems}"/>
+      <f:selectItems value="#{clientConfigController.localeItems}"/>
     </tc:selectOneChoice>
 
     <tc:gridLayout columns="100px;*;100px">
@@ -41,7 +41,7 @@
         <tc:gridLayout rows="*;auto "/>
 
         <tc:panel/>
-        <tc:button action="#{clientConfigController2.submit}" label="#{demoBundle.locale_submit}"/>
+        <tc:button action="#{clientConfigController.submit}" label="#{demoBundle.locale_submit}"/>
       </tc:panel>
     </tc:gridLayout>
   </tc:gridLayout>

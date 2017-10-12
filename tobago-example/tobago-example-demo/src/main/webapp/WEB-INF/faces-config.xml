@@ -59,35 +59,11 @@
     <!--<phase-listener>org.apache.myfaces.tobago.util.DebugPhaseListener</phase-listener>-->
   </lifecycle>
 
-  <lifecycle>
-    <phase-listener>
-      org.apache.myfaces.tobago.example.demo.clientConfig.ClientConfigPhaseListener
-    </phase-listener>
-  </lifecycle>
-
-  <managed-bean>
-    <managed-bean-name>clientConfigController</managed-bean-name>
-    <managed-bean-class>org.apache.myfaces.tobago.example.demo.clientConfig.ClientConfigController</managed-bean-class>
-    <managed-bean-scope>session</managed-bean-scope>
-  </managed-bean>
-
-  <managed-bean>
-    <managed-bean-name>clientConfigController2</managed-bean-name>
-    <managed-bean-class>org.apache.myfaces.tobago.example.demo.clientConfig.ClientConfigController</managed-bean-class>
-    <managed-bean-scope>session</managed-bean-scope>
-  </managed-bean>
-
   <!-- old test classes BEGIN -->
 
   <managed-bean>
     <managed-bean-name>browser</managed-bean-name>
     <managed-bean-class>org.apache.myfaces.tobago.example.test.DirectoryBrowser</managed-bean-class>
-    <managed-bean-scope>session</managed-bean-scope>
-  </managed-bean>
-
-  <managed-bean>
-    <managed-bean-name>clientConfig</managed-bean-name>
-    <managed-bean-class>org.apache.myfaces.tobago.example.test.ClientConfigController</managed-bean-class>
     <managed-bean-scope>session</managed-bean-scope>
   </managed-bean>
 

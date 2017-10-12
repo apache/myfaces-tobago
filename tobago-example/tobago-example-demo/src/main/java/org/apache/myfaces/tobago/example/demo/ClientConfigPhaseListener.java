@@ -17,17 +17,17 @@
  * under the License.
  */
 
-package org.apache.myfaces.tobago.example.demo.clientConfig;
+package org.apache.myfaces.tobago.example.demo;
 
+import org.apache.myfaces.tobago.context.TobagoContext;
+
+import javax.el.ELResolver;
 import javax.faces.context.FacesContext;
 import javax.faces.event.PhaseEvent;
 import javax.faces.event.PhaseId;
 import javax.faces.event.PhaseListener;
 
 public class ClientConfigPhaseListener implements PhaseListener {
-
-  public static final String[] BEAN_NAMES
-      = {"clientConfigController", "clientConfigController2"};
 
   @Override
   public void afterPhase(final PhaseEvent event) {
@@ -36,15 +36,14 @@ public class ClientConfigPhaseListener implements PhaseListener {
   @Override
   public void beforePhase(final PhaseEvent event) {
     final FacesContext facesContext = FacesContext.getCurrentInstance();
-    for (int i = 0; i < BEAN_NAMES.length; i++) {
-      final String beanName = BEAN_NAMES[i];
-      final ClientConfigController controller = ClientConfigController
-          .getCurrentInstance(facesContext, beanName);
+    final ELResolver elResolver = facesContext.getELContext().getELResolver();
 
-      if (controller != null) {
-        controller.loadFromTobagoContext();
-      }
-    }
+    final ThemeController themeController = (ThemeController)
+        elResolver.getValue(facesContext.getELContext(), null, "themeController");
+    final TobagoContext tobagoContext = (TobagoContext)
+        elResolver.getValue(facesContext.getELContext(), null, "tobagoContext");
+
+//    themeController.setTheme(tobagoContext.getTheme());
   }
 
   @Override

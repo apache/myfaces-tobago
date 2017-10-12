@@ -45,9 +45,9 @@
 
           <tc:link id="config" label="#{demoBundle.menu_config}" omit="true">
             <tc:link label="#{demoBundle.menu_themes}" omit="true">
-              <tc:selectOneRadio value="#{clientConfigController.theme}">
-                <tc:event action="#{clientConfigController.submit}"/>
-                <tc:selectItems value="#{clientConfigController.themeItems}"/>
+              <tc:selectOneRadio value="#{themeController.theme}">
+                <tc:event action="#{themeController.submit}"/>
+                <tc:selectItems value="#{themeController.themeItems}"/>
               </tc:selectOneRadio>
             </tc:link>
             <!--<tc:link action="#{clientConfigController.resetTheme}" label="Reset Theme"/>-->

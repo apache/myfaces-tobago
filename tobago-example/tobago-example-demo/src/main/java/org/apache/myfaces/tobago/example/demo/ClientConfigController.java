@@ -17,47 +17,34 @@
  * under the License.
  */
 
-package org.apache.myfaces.tobago.example.demo.clientConfig;
+package org.apache.myfaces.tobago.example.demo;
 
-import org.apache.myfaces.tobago.config.TobagoConfig;
-import org.apache.myfaces.tobago.context.Theme;
-import org.apache.myfaces.tobago.context.TobagoContext;
-import org.apache.myfaces.tobago.internal.util.ObjectUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.faces.application.Application;
+import javax.faces.bean.SessionScoped;
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
+import javax.inject.Named;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 
-public class ClientConfigController {
+@Named
+@SessionScoped
+public class ClientConfigController implements Serializable {
 
   private static final Logger LOG = LoggerFactory.getLogger(ClientConfigController.class);
-
-  private Theme theme;
-  private SelectItem[] themeItems;
 
   private Locale locale;
 
   public ClientConfigController() {
 
-    // theme
-
     final FacesContext facesContext = FacesContext.getCurrentInstance();
-    final TobagoConfig tobagoConfig = TobagoConfig.getInstance(facesContext);
-
-    final List<Theme> themes = new ArrayList<>(tobagoConfig.getSupportedThemes());
-    themes.add(0, tobagoConfig.getDefaultTheme());
-    themeItems = new SelectItem[themes.size()];
-    for (int i = 0; i < themeItems.length; i++) {
-      final Theme themeItem = themes.get(i);
-      themeItems[i] = new SelectItem(themeItem, themeItem.getDisplayName());
-    }
 
     // locale
 
@@ -67,56 +54,16 @@ public class ClientConfigController {
     } else {
       locale = facesContext.getApplication().getDefaultLocale();
     }
-
-    // load
-
-    loadFromTobagoContext();
   }
 
   public String submit() {
     if (LOG.isDebugEnabled()) {
       LOG.debug("invoke!!!");
     }
-    final FacesContext facesContext = FacesContext.getCurrentInstance();
-
-    storeInTobagoContext();
-
-    for (int i = 0; i < ClientConfigPhaseListener.BEAN_NAMES.length; i++) {
-      final String beanName = ClientConfigPhaseListener.BEAN_NAMES[i];
-      final ClientConfigController controller
-          = getCurrentInstance(facesContext, beanName);
-      if (controller != null) {
-        controller.setLocale(locale);
-      }
-    }
-
     return null;
   }
-
-/*
-  public String resetTheme() {
-    final ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
-    final Object request = externalContext.getRequest();
-    final Object response = externalContext.getResponse();
-    if (response instanceof HttpServletResponse && request instanceof HttpServletRequest) {
-      CookieUtils.removeThemeNameCookie((HttpServletRequest) request, (HttpServletResponse) response);
-    }
-
-    return null;
-  }
-*/
 
 // ///////////////////////////////////////////// logic
-
-  public void storeInTobagoContext() {
-    final TobagoContext tobagoContext = TobagoContext.getInstance(FacesContext.getCurrentInstance());
-    tobagoContext.setTheme(theme);
-  }
-
-  public void loadFromTobagoContext() {
-    final TobagoContext tobagoContext = TobagoContext.getInstance(FacesContext.getCurrentInstance());
-    theme = tobagoContext.getTheme();
-  }
 
   public List<SelectItem> getLocaleItems() {
     final FacesContext facesContext = FacesContext.getCurrentInstance();
@@ -156,32 +103,6 @@ public class ClientConfigController {
         .getVariableResolver().resolveVariable(facesContext, beanName);
   }
 
-  public Theme getTheme() {
-    return theme;
-  }
-
-  public String getLocalizedTheme() {
-    for (int i = 0; i < themeItems.length; i++) {
-      final SelectItem themeItem = themeItems[i];
-      if (ObjectUtils.equals(themeItem.getValue(), theme)) {
-        return themeItem.getLabel();
-      }
-    }
-    return "???";
-  }
-
-  public void setTheme(final Theme theme) {
-    this.theme = theme;
-  }
-
-  public SelectItem[] getThemeItems() {
-    return themeItems;
-  }
-
-  public void setThemeItems(final SelectItem[] themeItems) {
-    this.themeItems = themeItems;
-  }
-
   public Locale getLocale() {
     return locale;
   }
@@ -189,7 +110,7 @@ public class ClientConfigController {
   public String getLocalizedLocale() {
     if (locale != null) {
       return locale.getDisplayName(locale);
-    } else{
+    } else {
       return null;
     }
   }

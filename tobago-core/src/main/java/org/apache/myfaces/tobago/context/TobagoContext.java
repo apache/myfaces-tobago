@@ -30,10 +30,11 @@ import javax.faces.bean.RequestScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
+import java.io.Serializable;
 
 @ManagedBean
 @RequestScoped
-public class TobagoContext {
+public class TobagoContext implements Serializable {
 
   public static final String BEAN_NAME = "tobagoContext";
 
