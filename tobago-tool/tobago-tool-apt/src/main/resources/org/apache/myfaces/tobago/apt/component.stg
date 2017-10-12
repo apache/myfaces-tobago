@@ -400,6 +400,10 @@ ClientBehaviorsProperty(property) ::= <<
 <NormalProperty(property)>
 >>
 
+GridSpanProperty(property) ::= <<
+<NormalProperty(property)>
+>>
+
 DoubleProperty(property) ::= <<
 <NormalProperty(property)>
 >>

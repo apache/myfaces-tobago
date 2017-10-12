@@ -26,25 +26,21 @@ import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import javax.el.ValueExpression;
 
 /**
- * Add a column span or row span to the parent UIComponent, useful for a grid layout.
- *
- * @deprecated Since Tobago 4.0.0. Please use &lt;tc:gridLayoutConstraint&gt;
- * from {@link GridLayoutConstraintTagDeclaration} instead.
+ * Set grid layout specific contraints to the parent component.
  */
-@Deprecated
-@Tag(name = "span")
+@Tag(name = "gridLayoutConstraint")
 @SimpleTag(faceletHandler = "org.apache.myfaces.tobago.facelets.GridLayoutConstraintHandler")
-public interface SpanTagDeclaration {
+public interface GridLayoutConstraintTagDeclaration {
 
   /**
    * The number of horizontal cells this component should use.
    */
   @TagAttribute(type = "java.lang.Integer")
-  void setColumn(final ValueExpression column);
+  void setColumnSpan(final ValueExpression columnSpan);
 
   /**
    * The number of vertical cells this component should use.
    */
   @TagAttribute(type = "java.lang.Integer")
-  void setRow(final ValueExpression row);
+  void setRowSpan(final ValueExpression rowSpan);
 }

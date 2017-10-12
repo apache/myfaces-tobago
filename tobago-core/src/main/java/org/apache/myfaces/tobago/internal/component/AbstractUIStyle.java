@@ -23,6 +23,7 @@ import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Visual;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.layout.Display;
+import org.apache.myfaces.tobago.layout.GridSpan;
 import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.layout.Overflow;
 import org.apache.myfaces.tobago.layout.Position;
@@ -145,5 +146,13 @@ public abstract class AbstractUIStyle extends UIComponentBase {
   public abstract Integer getFlexShrink();
 
   public abstract Measure getFlexBasis();
+
+  public abstract String getGridTemplateColumns();
+
+  public abstract String getGridTemplateRows();
+
+  public abstract GridSpan getGridColumn();
+
+  public abstract GridSpan getGridRow();
 
 }

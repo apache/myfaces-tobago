@@ -21,13 +21,14 @@ package org.apache.myfaces.tobago.layout;
 
 /**
  * Values for display attribute used with CSS.
- *
+ * <p>
  * Note: the enums are not capitalized, because of problems with {@link java.beans.PropertyEditor}.
  */
 public enum Display {
 
   block,
   inline,
+  grid,
   none;
 
   /**
@@ -41,8 +42,22 @@ public enum Display {
   public static final String INLINE = "inline";
 
   /**
+   * Internal constant to use in annotations. Please use {@link Display#inline}
+   */
+  public static final String GRID = "grid";
+
+  /**
    * Internal constant to use in annotations. Please use {@link Display#none}
    */
   public static final String NONE = "none";
+
+  public String encode() {
+    switch (this) {
+      case grid:
+        return "-ms-grid" + name();
+      default:
+        return name();
+    }
+  }
 
 }

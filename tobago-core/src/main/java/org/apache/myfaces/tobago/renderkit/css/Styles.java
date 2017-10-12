@@ -52,7 +52,11 @@ public enum Styles {
   zIndex,
   flexGrow,
   flexShrink,
-  flexBasis;
+  flexBasis,
+  gridTemplateColumns,
+  gridTemplateRows,
+  gridColumn,
+  gridRow;
 
   private String cssName;
 

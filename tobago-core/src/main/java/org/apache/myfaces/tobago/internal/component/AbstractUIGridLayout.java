@@ -21,11 +21,12 @@ package org.apache.myfaces.tobago.internal.component;
 
 import org.apache.myfaces.tobago.apt.annotation.Preliminary;
 import org.apache.myfaces.tobago.component.Attributes;
+import org.apache.myfaces.tobago.component.RendererTypes;
+import org.apache.myfaces.tobago.component.UIPanel;
+import org.apache.myfaces.tobago.component.UIStyle;
 import org.apache.myfaces.tobago.component.Visual;
-import org.apache.myfaces.tobago.internal.layout.Grid;
 import org.apache.myfaces.tobago.internal.layout.LayoutUtils;
-import org.apache.myfaces.tobago.internal.layout.OriginCell;
-import org.apache.myfaces.tobago.internal.util.StringUtils;
+import org.apache.myfaces.tobago.layout.GridSpan;
 import org.apache.myfaces.tobago.layout.LayoutTokens;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.slf4j.Logger;
@@ -39,13 +40,15 @@ import javax.faces.event.ComponentSystemEventListener;
 import javax.faces.event.ListenerFor;
 import javax.faces.event.PreRenderComponentEvent;
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
- * WARNING: This component is preliminary and may be changed without a major release.
+ * A grid layout manager.
  * </p>
- *
+ * <p>
  * {@link org.apache.myfaces.tobago.internal.taglib.component.GridLayoutTagDeclaration}
+ * </p>
  */
 @Preliminary
 @ListenerFor(systemEventClass = PreRenderComponentEvent.class)
@@ -56,7 +59,7 @@ public abstract class AbstractUIGridLayout extends AbstractUILayoutBase
 
   public static final String COMPONENT_FAMILY = "org.apache.myfaces.tobago.GridLayout";
 
-  private Grid grid;
+  protected static final UIComponent SPAN = new UIPanel();
 
   /**
    * Initialize the grid and remove the current width and height values from the component, recursively.
@@ -72,17 +75,11 @@ public abstract class AbstractUIGridLayout extends AbstractUILayoutBase
 
     if (event instanceof PreRenderComponentEvent) {
 
-      grid = new Grid(LayoutTokens.parse(getColumns()), LayoutTokens.parse(getRows()));
+      layout(
+          LayoutTokens.parse(getColumns()).getSize(),
+          LayoutTokens.parse(getRows()).getSize(),
+          LayoutUtils.findLayoutChildren(this));
 
-      final List<UIComponent> components = LayoutUtils.findLayoutChildren(this);
-      for (final UIComponent component : components) {
-        final int columnSpan = ComponentUtils.getIntAttribute(component, Attributes.column, 1);
-        final int rowSpan = ComponentUtils.getIntAttribute(component, Attributes.row, 1);
-        grid.add(new OriginCell(component), columnSpan, rowSpan);
-        if (LOG.isDebugEnabled()) {
-          LOG.debug("\n" + grid);
-        }
-      }
     }
   }
 
@@ -96,38 +93,160 @@ public abstract class AbstractUIGridLayout extends AbstractUILayoutBase
 
   public abstract boolean isRigid();
 
-  public Grid getGrid() {
-    return grid;
-  }
+  protected UIComponent[][] layout(
+      final int columnsCount, final int initalRowsCount, final List<UIComponent> components) {
+    assert columnsCount > 0;
+    assert initalRowsCount > 0;
 
-  public String toString() {
-    final StringBuilder builder = new StringBuilder();
-    builder.append(getClass().getSimpleName()).append("#");
-    builder.append(getClientId(FacesContext.getCurrentInstance()));
-    builder.append("\n");
-    if (grid != null) {
-      builder.append(StringUtils.repeat("  ", 4));
-      builder.append("horiz.: ");
-      final LayoutTokens rows = grid.getRows();
-      for (int i = 0; i < rows.getSize(); i++) {
-        if (i != 0) {
-          builder.append(StringUtils.repeat("  ", 4 + 4));
+    final FacesContext facesContext = FacesContext.getCurrentInstance();
+    UIComponent[][] cells = new UIComponent[initalRowsCount][columnsCount];
+    int rowsCount = initalRowsCount;
+
+    // #1 put all components with "gridRow" and "gridColumn" set into the grid cells
+    for (UIComponent component : components) {
+      final Map<String, Object> attributes = component.getAttributes();
+      final Integer gridColumn = (Integer) attributes.get(Attributes.gridColumn.getName());
+      final Integer gridRow = (Integer) attributes.get(Attributes.gridRow.getName());
+      if (gridColumn != null && gridRow != null) {
+        if (gridColumn > columnsCount) {
+          // ignore wrong columns
+          LOG.warn("gridColumn {} > columnsCount {} in component '{}'!", gridColumn, columnsCount,
+              component.getClientId(facesContext));
+        } else {
+          if (gridRow > rowsCount) {
+            if (LOG.isDebugEnabled()) {
+              LOG.debug("expanding, because gridRow {} > rowCount {} in component '{}'!", gridRow, rowsCount,
+                  component.getClientId(facesContext));
+            }
+            // ensure enough rows
+            cells = expand(cells, gridRow, initalRowsCount);
+            rowsCount = cells.length;
+          }
+          cells = set(cells, gridColumn - 1, gridRow - 1, component, initalRowsCount);
+          rowsCount = cells.length;
         }
-        builder.append(rows.get(i));
-        builder.append("\n");
-      }
-      builder.append(StringUtils.repeat("  ", 4));
-      builder.append("verti.: ");
-      final LayoutTokens columns = grid.getColumns();
-      for (int i = 0; i < columns.getSize(); i++) {
-        if (i != 0) {
-          builder.append(StringUtils.repeat("  ", 4 + 4));
-        }
-        builder.append(columns.get(i));
-        builder.append("\n");
+      } else if (gridColumn != null) {
+        LOG.warn("gridColumn is set to {}, but gridRow not in component '{}'!", gridColumn,
+            component.getClientId(facesContext));
+      } else if (gridRow != null) {
+        LOG.warn("gridRow is set to {}, but gridColumn not in component '{}'!", gridRow,
+            component.getClientId(facesContext));
       }
     }
-    builder.setLength(builder.length() - 1);
-    return builder.toString();
+
+    // #2 distribute the rest of the components to the free grid cells
+    int j = 0;
+    int i = 0;
+    for (UIComponent component : components) {
+      final Map<String, Object> attributes = component.getAttributes();
+      final Integer gridColumn = (Integer) attributes.get(Attributes.gridColumn.getName());
+      final Integer gridRow = (Integer) attributes.get(Attributes.gridRow.getName());
+      // find a component without a position
+      // if only one value is defined, treat as undefined
+      if (gridColumn == null || gridRow == null) {
+        // find next free cell
+        while (cells[j][i] != null) {
+          i++;
+          if (i >= columnsCount) {
+            i = 0;
+            j++;
+          }
+          if (j >= rowsCount) {
+            cells = expand(cells, j + 1, initalRowsCount);
+            rowsCount = cells.length;
+          }
+        }
+        cells = set(cells, i, j, component, initalRowsCount);
+        rowsCount = cells.length;
+      }
+    }
+
+    // #3 create UIStyle children. TODO: There might be a better way...
+    for (UIComponent component : components) {
+      final Map<String, Object> attributes = component.getAttributes();
+
+      UIStyle style = ComponentUtils.findChild(component, UIStyle.class);
+      if (style == null) {
+        style = (UIStyle) ComponentUtils.createComponent(
+            facesContext, UIStyle.COMPONENT_TYPE, RendererTypes.Style, null);
+        style.setTransient(true);
+        component.getChildren().add(style);
+      }
+
+      final Integer gridColumn = (Integer) attributes.get(Attributes.gridColumn.getName());
+      final Integer columnSpan = (Integer) attributes.get(Attributes.columnSpan.getName());
+      if (gridColumn != null) {
+        style.setGridColumn(GridSpan.valueOf(gridColumn, columnSpan));
+      }
+
+      final Integer gridRow = (Integer) attributes.get(Attributes.gridRow.getName());
+      final Integer rowSpan = (Integer) attributes.get(Attributes.rowSpan.getName());
+      if (gridRow != null) {
+        style.setGridRow(GridSpan.valueOf(gridRow, rowSpan));
+      }
+    }
+
+    return cells;
   }
+
+  /**
+   * Set the component to the cells grid.
+   * Also mark the span-area as occupied.
+   *
+   * @param initialCells The cells area
+   * @param column       Zero based column position
+   * @param row          Zero based row position
+   * @param component    Component to set
+   */
+  private UIComponent[][] set(
+      final UIComponent[][] initialCells, final Integer column, final Integer row, final UIComponent component,
+      final int initalRowsCount) {
+
+    UIComponent[][] cells = initialCells;
+
+    final Map<String, Object> attributes = component.getAttributes();
+    Integer rowSpan = (Integer) attributes.get(Attributes.rowSpan.getName());
+    if (rowSpan == null) {
+      rowSpan = 1;
+    }
+    Integer columnSpan = (Integer) attributes.get(Attributes.columnSpan.getName());
+    if (columnSpan == null) {
+      columnSpan = 1;
+    }
+
+    // the span area
+    for (int j = row; j < rowSpan + row; j++) {
+      for (int i = column; i < columnSpan + column; i++) {
+        if (i >= cells[0].length) {
+          LOG.warn("column {} + columnSpan {} - 1 >= columnsCount {} in component '{}'!",
+              column + 1, columnSpan, cells[0].length, component.getClientId(FacesContext.getCurrentInstance()));
+          break;
+        }
+        if (j >= cells.length) {
+          cells = expand(cells, j + 1, initalRowsCount);
+        }
+        if (j == row && i == column) {
+          cells[j][i] = component;
+          attributes.put(Attributes.gridRow.getName(), j + 1);
+          attributes.put(Attributes.gridColumn.getName(), i + 1);
+        } else {
+          cells[j][i] = SPAN;
+        }
+      }
+    }
+
+    return cells;
+  }
+
+  protected UIComponent[][] expand(final UIComponent[][] cells, final Integer minRows, final int step) {
+    int rows = (int) Math.ceil((double) minRows / step) * step;
+    int columns = cells[0].length;
+
+    final UIComponent[][] result = new UIComponent[rows][columns];
+    for (int j = 0; j < cells.length; j++) {
+      System.arraycopy(cells[j], 0, result[j], 0, columns);
+    }
+    return result;
+  }
+
 }

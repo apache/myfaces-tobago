@@ -1,4 +1,4 @@
-Build date: 2017-10-10 19:53:26
+Build date: 2017-10-11 11:57:38
 [INFO] Scanning for projects...
 [INFO] 
 [INFO] ------------------------------------------------------------------------
@@ -13,8 +13,8 @@ Build date: 2017-10-10 19:53:26
 [INFO] Removing __CURRENT__/tobago-theme-richmond/target/checkout
 [INFO] Executing: /bin/sh -c cd __CURRENT__/tobago-theme-richmond/target && git clone --branch v4.0.0-beta https://github.com/twbs/bootstrap __CURRENT__/tobago-theme-richmond/target/checkout
 [INFO] Working directory: __CURRENT__/tobago-theme-richmond/target
-[INFO] Executing: /bin/sh -c cd /var/folders/yp/1vrxjnrs20798ydt_yl8wrpr0000gp/T/ && git ls-remote https://github.com/twbs/bootstrap
-[INFO] Working directory: /var/folders/yp/1vrxjnrs20798ydt_yl8wrpr0000gp/T
+[INFO] Executing: /bin/sh -c cd /var/folders/w0/pg4pxr7972l6bq85x08s5cl00000gn/T/ && git ls-remote https://github.com/twbs/bootstrap
+[INFO] Working directory: /var/folders/w0/pg4pxr7972l6bq85x08s5cl00000gn/T
 [INFO] Executing: /bin/sh -c cd __CURRENT__/tobago-theme-richmond/target/checkout && git pull https://github.com/twbs/bootstrap v4.0.0-beta:v4.0.0-beta
 [INFO] Working directory: __CURRENT__/tobago-theme-richmond/target/checkout
 [INFO] Executing: /bin/sh -c cd __CURRENT__/tobago-theme-richmond/target/checkout && git checkout v4.0.0-beta
@@ -67,11 +67,11 @@ Build date: 2017-10-10 19:53:26
 [INFO] > node install.js
 [INFO] 
 [INFO] PhantomJS not found on PATH
-[INFO] Download already available at /var/folders/yp/1vrxjnrs20798ydt_yl8wrpr0000gp/T/phantomjs/phantomjs-2.1.1-macosx.zip
+[INFO] Download already available at /var/folders/w0/pg4pxr7972l6bq85x08s5cl00000gn/T/phantomjs/phantomjs-2.1.1-macosx.zip
 [INFO] Verified checksum of previously downloaded file
 [INFO] Extracting zip contents
 [INFO] Removing __CURRENT__/tobago-theme-richmond/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom
-[INFO] Copying extracted folder /var/folders/yp/1vrxjnrs20798ydt_yl8wrpr0000gp/T/phantomjs/phantomjs-2.1.1-macosx.zip-extract-1507658168127/phantomjs-2.1.1-macosx -> __CURRENT__/tobago-theme-richmond/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom
+[INFO] Copying extracted folder /var/folders/w0/pg4pxr7972l6bq85x08s5cl00000gn/T/phantomjs/phantomjs-2.1.1-macosx.zip-extract-1507716013754/phantomjs-2.1.1-macosx -> __CURRENT__/tobago-theme-richmond/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom
 [INFO] Writing location.js file
 [INFO] Done. Phantomjs binary available at __CURRENT__/tobago-theme-richmond/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom/bin/phantomjs
 [INFO] 
@@ -84,8 +84,8 @@ Build date: 2017-10-10 19:53:26
 [INFO] bootstrap@4.0.0-beta __CURRENT__/tobago-theme-richmond/target/bootstrap
 [INFO] ├─┬ autoprefixer@7.1.5 
 [INFO] │ ├─┬ browserslist@2.5.1 
-[INFO] │ │ └── electron-to-chromium@1.3.24 
-[INFO] │ ├── caniuse-lite@1.0.30000745 
+[INFO] │ │ └── electron-to-chromium@1.3.25 
+[INFO] │ ├── caniuse-lite@1.0.30000746 
 [INFO] │ ├── normalize-range@0.1.2 
 [INFO] │ ├── num2fraction@1.2.2 
 [INFO] │ ├─┬ postcss@6.0.13 
@@ -142,11 +142,13 @@ Build date: 2017-10-10 19:53:26
 [INFO] │ │ │   │ │ ├── has-unicode@2.0.1 
 [INFO] │ │ │   │ │ ├── object-assign@4.1.1 
 [INFO] │ │ │   │ │ ├── signal-exit@3.0.2 
+[WARNING] npm WARN bootstrap@4.0.0-beta requires a peer of jquery@>=1.9.1 but none was installed.
 [INFO] │ │ │   │ │ ├─┬ string-width@1.0.2 
 [INFO] │ │ │   │ │ │ ├── code-point-at@1.1.0 
 [INFO] │ │ │   │ │ │ └─┬ is-fullwidth-code-point@1.0.0 
 [INFO] │ │ │   │ │ │   └── number-is-nan@1.0.1 
 [INFO] │ │ │   │ │ ├─┬ strip-ansi@3.0.1 
+[WARNING] npm WARN bootstrap@4.0.0-beta requires a peer of popper.js@^1.11.0 but none was installed.
 [INFO] │ │ │   │ │ │ └── ansi-regex@2.1.1 
 [INFO] │ │ │   │ │ └── wide-align@1.1.2 
 [INFO] │ │ │   │ └── set-blocking@2.0.0 
@@ -582,8 +584,6 @@ Build date: 2017-10-10 19:53:26
 [INFO] │ │ ├── minimist@1.2.0 
 [INFO] │ │ ├─┬ normalize-package-data@2.4.0 
 [INFO] │ │ │ ├── hosted-git-info@2.5.0 
-[WARNING] npm WARN bootstrap@4.0.0-beta requires a peer of jquery@>=1.9.1 but none was installed.
-[WARNING] npm WARN bootstrap@4.0.0-beta requires a peer of popper.js@^1.11.0 but none was installed.
 [INFO] │ │ │ ├─┬ is-builtin-module@1.0.0 
 [INFO] │ │ │ │ └── builtin-modules@1.1.1 
 [INFO] │ │ │ └─┬ validate-npm-package-license@3.0.1 
@@ -933,11 +933,11 @@ Build date: 2017-10-10 19:53:26
 [ERROR] Wrote CSS to __CURRENT__/tobago-theme-richmond/target/bootstrap/dist/css/bootstrap.css
 [ERROR] Wrote Source Map to __CURRENT__/tobago-theme-richmond/target/bootstrap/dist/css/bootstrap.css.map
 [ERROR] Rendering Complete, saving .css file...
-[ERROR] Wrote CSS to __CURRENT__/tobago-theme-richmond/target/bootstrap/dist/css/bootstrap-grid.css
 [ERROR] Wrote Source Map to __CURRENT__/tobago-theme-richmond/target/bootstrap/dist/css/bootstrap-grid.css.map
+[ERROR] Wrote CSS to __CURRENT__/tobago-theme-richmond/target/bootstrap/dist/css/bootstrap-grid.css
 [ERROR] Rendering Complete, saving .css file...
-[ERROR] Wrote CSS to __CURRENT__/tobago-theme-richmond/target/bootstrap/dist/css/bootstrap-reboot.css
 [ERROR] Wrote Source Map to __CURRENT__/tobago-theme-richmond/target/bootstrap/dist/css/bootstrap-reboot.css.map
+[ERROR] Wrote CSS to __CURRENT__/tobago-theme-richmond/target/bootstrap/dist/css/bootstrap-reboot.css
 [INFO] 
 [INFO] --- frontend-maven-plugin:1.4:npm (step #9: npm run css-prefix) @ tobago-theme-richmond ---
 [INFO] Running 'npm run css-prefix' in __CURRENT__/tobago-theme-richmond/target/bootstrap
@@ -945,12 +945,12 @@ Build date: 2017-10-10 19:53:26
 [INFO] > bootstrap@4.0.0-beta css-prefix __CURRENT__/tobago-theme-richmond/target/bootstrap
 [INFO] > postcss --config build/postcss.config.js --replace dist/css/*.css
 [INFO] 
-[ERROR] ✔ Finished dist/css/bootstrap-grid.css (1.55 s)
-[ERROR] ✔ Finished dist/css/bootstrap-grid.min.css (1.55 s)
-[ERROR] ✔ Finished dist/css/bootstrap-reboot.css (1.55 s)
-[ERROR] ✔ Finished dist/css/bootstrap-reboot.min.css (1.55 s)
-[ERROR] ✔ Finished dist/css/bootstrap.css (1.55 s)
-[ERROR] ✔ Finished dist/css/bootstrap.min.css (1.55 s)
+[ERROR] ✔ Finished dist/css/bootstrap-reboot.css (1.3 s)
+[ERROR] ✔ Finished dist/css/bootstrap-grid.css (1.3 s)
+[ERROR] ✔ Finished dist/css/bootstrap.css (1.3 s)
+[ERROR] ✔ Finished dist/css/bootstrap-reboot.min.css (1.3 s)
+[ERROR] ✔ Finished dist/css/bootstrap-grid.min.css (1.3 s)
+[ERROR] ✔ Finished dist/css/bootstrap.min.css (1.3 s)
 [INFO] 
 [INFO] --- frontend-maven-plugin:1.4:npm (step #10: npm run css-minify) @ tobago-theme-richmond ---
 [INFO] Running 'npm run css-minify' in __CURRENT__/tobago-theme-richmond/target/bootstrap
@@ -1038,7 +1038,7 @@ main:
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
-[INFO] Total time: 03:07 min
-[INFO] Finished at: 2017-10-10T19:56:36+02:00
-[INFO] Final Memory: 31M/408M
+[INFO] Total time: 02:53 min
+[INFO] Finished at: 2017-10-11T12:00:32+02:00
+[INFO] Final Memory: 31M/382M
 [INFO] ------------------------------------------------------------------------

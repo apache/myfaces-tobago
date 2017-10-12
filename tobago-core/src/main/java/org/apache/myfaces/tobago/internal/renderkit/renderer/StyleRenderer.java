@@ -24,6 +24,7 @@ import org.apache.myfaces.tobago.internal.context.Nonce;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.internal.util.StyleRenderUtils;
 import org.apache.myfaces.tobago.layout.Display;
+import org.apache.myfaces.tobago.layout.GridSpan;
 import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.layout.Overflow;
 import org.apache.myfaces.tobago.layout.Position;
@@ -89,6 +90,10 @@ public class StyleRenderer extends RendererBase {
       final Integer flexGrow = style.getFlexGrow();
       final Integer flexShrink = style.getFlexShrink();
       final Measure flexBasis = style.getFlexBasis();
+      final String gridTemplateColumns = style.getGridTemplateColumns();
+      final String gridTemplateRows = style.getGridTemplateRows();
+      final GridSpan gridColumn = style.getGridColumn();
+      final GridSpan gridRow = style.getGridRow();
 
       // todo: backgroundPosition and zIndex
 
@@ -118,7 +123,11 @@ public class StyleRenderer extends RendererBase {
           || backgroundImage != null
           || flexGrow != null
           || flexShrink != null
-          || flexBasis != null) {
+          || flexBasis != null
+          || gridTemplateColumns != null
+          || gridTemplateRows != null
+          || gridColumn != null
+          || gridRow != null) {
 
         writer.startElement(HtmlElements.STYLE);
         writer.writeAttribute(HtmlAttributes.NONCE, Nonce.getNonce(facesContext), false);
@@ -192,7 +201,7 @@ public class StyleRenderer extends RendererBase {
           encodeStyle(writer, Styles.overflowY, overflowY.name());
         }
         if (display != null) {
-          encodeStyle(writer, Styles.display, display.name());
+          encodeStyle(writer, Styles.display, display.encode());
         }
         if (position != null) {
           encodeStyle(writer, Styles.position, position.name());
@@ -211,6 +220,24 @@ public class StyleRenderer extends RendererBase {
         }
         if (flexBasis != null) {
           encodeStyle(writer, Styles.flexBasis, flexBasis.serialize());
+        }
+        if (gridTemplateColumns != null) {
+          encodeStyle(writer, Styles.gridTemplateColumns, gridTemplateColumns);
+          encodeStyle(writer, "-ms-grid-columns", gridTemplateColumns);
+        }
+        if (gridTemplateRows != null) {
+          encodeStyle(writer, Styles.gridTemplateRows, gridTemplateRows);
+          encodeStyle(writer, "-ms-grid-rows", gridTemplateRows);
+        }
+        if (gridColumn != null) {
+          encodeStyle(writer, Styles.gridColumn, gridColumn.encode());
+          encodeStyle(writer, "-ms-grid-column", gridColumn.getStart());
+          encodeStyle(writer, "-ms-grid-column-span", gridColumn.getSpan());
+        }
+        if (gridRow != null) {
+          encodeStyle(writer, Styles.gridRow, gridRow.encode());
+          encodeStyle(writer, "-ms-grid-row", gridRow.getStart());
+          encodeStyle(writer, "-ms-grid-row-span", gridRow.getSpan());
         }
         writer.writeText("}");
 
@@ -235,5 +262,25 @@ public class StyleRenderer extends RendererBase {
 
     }
     writer.writeText(";");
+  }
+
+// XXX remove me
+  private void encodeStyle(final TobagoResponseWriter writer, final String name, final String value)
+      throws IOException {
+    writer.writeText(name);
+    writer.writeText(":");
+    writer.writeText(value);
+    writer.writeText(";");
+  }
+
+// XXX remove me
+  private void encodeStyle(final TobagoResponseWriter writer, final String name, final Integer value)
+      throws IOException {
+    if (value != null) {
+      writer.writeText(name);
+      writer.writeText(":");
+      writer.writeText(value.toString());
+      writer.writeText(";");
+    }
   }
 }

@@ -28,6 +28,7 @@ import org.apache.myfaces.tobago.component.UILink;
 import org.apache.myfaces.tobago.component.UIOut;
 import org.apache.myfaces.tobago.component.UIPanel;
 import org.apache.myfaces.tobago.component.UIPopup;
+import org.apache.myfaces.tobago.component.UIStyle;
 import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.context.ThemeImpl;
 import org.apache.myfaces.tobago.context.TobagoContext;
@@ -103,6 +104,7 @@ public abstract class AbstractTobagoTestBase extends AbstractJsfTestCase {
     application.addComponent(UILink.COMPONENT_TYPE, UILink.class.getName());
     application.addComponent(UIButton.COMPONENT_TYPE, UIButton.class.getName());
     application.addComponent(UIPopup.COMPONENT_TYPE, UIPopup.class.getName());
+    application.addComponent(UIStyle.COMPONENT_TYPE, UIStyle.class.getName());
 
     tobagoConfig.lock();
   }

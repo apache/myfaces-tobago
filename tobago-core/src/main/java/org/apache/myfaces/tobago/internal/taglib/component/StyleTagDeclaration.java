@@ -246,7 +246,7 @@ public interface StyleTagDeclaration extends HasIdBindingAndRendered {
   @TagAttribute()
   @UIComponentTagAttribute(
       type = "org.apache.myfaces.tobago.layout.Display",
-      allowedValues = {Display.BLOCK, Display.INLINE, Display.NONE})
+      allowedValues = {Display.BLOCK, Display.INLINE, Display.GRID, Display.NONE})
   void setDisplay(String display);
 
   /**
@@ -311,5 +311,41 @@ public interface StyleTagDeclaration extends HasIdBindingAndRendered {
   @TagAttribute
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure")
   void setFlexBasis(String flexBasis);
+
+  /**
+   * Grid template columns value of the element.
+   *
+   * @since 4.0.0
+   */
+  @TagAttribute
+  @UIComponentTagAttribute//(type = "org.apache.myfaces.tobago.layout.TBD")
+  void setGridTemplateColumns(String gridTemplateColumns);
+
+  /**
+   * Grid template rows value of the element.
+   *
+   * @since 4.0.0
+   */
+  @TagAttribute
+  @UIComponentTagAttribute//(type = "org.apache.myfaces.tobago.layout.TBD")
+  void setGridTemplateRows(String gridTemplateRows);
+
+  /**
+   * Grid column value of the element.
+   *
+   * @since 4.0.0
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.GridSpan")
+  void setGridColumn(String gridColumn);
+
+  /**
+   * Grid row value of the element.
+   *
+   * @since 4.0.0
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.GridSpan")
+  void setGridRow(String gridRow);
 
 }

@@ -113,7 +113,7 @@ public final class LayoutTokens implements Iterable<LayoutToken> {
         return new MinimumLayoutToken();
       } else if (isRelativeToken(token)) {
         return new RelativeLayoutToken(Integer.parseInt(removeSuffix(token, RelativeLayoutToken.SUFFIX)));
-      } else if(isSegmentLayoutToken(token)) {
+      } else if (isSegmentLayoutToken(token)) {
         return new SegmentLayoutToken(Integer.parseInt(token));
       } else {
         return new MeasureLayoutToken(token);
@@ -138,6 +138,29 @@ public final class LayoutTokens implements Iterable<LayoutToken> {
 
   private static String removeSuffix(final String token, final String suffix) {
     return token.substring(0, token.length() - suffix.length());
+  }
+
+  // XXX todo: refactor/cleanup
+  public String encodeToGrid() {
+    final StringBuilder builder = new StringBuilder();
+    for (LayoutToken token : tokens) {
+      if (token instanceof RelativeLayoutToken) {
+        builder
+            .append(((RelativeLayoutToken) token).getFactor())
+            .append("fr")
+            .append(' ');
+      } else {
+        builder
+            .append(token.toString())
+            .append(' ');
+      }
+    }
+    if (builder.length() > 0) {
+      builder.deleteCharAt(builder.length() - 1);
+      return builder.toString();
+    } else {
+      return null;
+    }
   }
 
   public String toString() {

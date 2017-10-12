@@ -20,11 +20,113 @@
 <ui:composition template="/main.xhtml"
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
-                xmlns:ui="http://java.sun.com/jsf/facelets">
-  <ui:param name="title" value="#{demoBundle.grid_layout} (deprecated)"/>
-  <p>The GridLayout is deprecated. Take a look at
-    <tc:link label="#{demoBundle.grid_layout}"
-             outcome="/content/35-deprecated/70-grid-layout/grid-layout.xhtml"/>
-    in the #{demoBundle.deprecated} section.
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core">
+  <ui:param name="title" value="#{demoBundle.grid_layout}"/>
+
+  <p>The <code>&lt;tc:gridLayout></code> has a dynamic history. </p>
+  <p>
+    In Tobago 1 and 2 the <code>&lt;tc:gridLayout></code> was implemented server side.
+    This implementation was very powerful in layout, but has disadvantage in resposiveness.
   </p>
+  <p>
+    For Tobago 3 we have alternative layout managers like <code>&lt;tc:flexLayout></code>
+    and <code>&lt;tc:selgmentLayout></code>.
+    The <code>&lt;tc:gridLayout></code> was implemented with the help of JavaScript to
+    have a working and quite compatibe version, but it was not recommented to use.
+  </p>
+  <p>
+    The Tobago 4 implementation of the <code>&lt;tc:gridLayout></code> was implemented in CSS
+    and usable with all modern browsers and the Internet Explorer 11.
+  </p>
+
+  <tc:box label="Personal Information">
+    <tc:gridLayout columns="*;2*" rows="auto;auto;auto;auto;auto;*">
+      <tc:style minHeight="600px"/>
+
+      <tc:selectOneChoice label="Salutation">
+        <f:selectItem itemLabel="none"/>
+        <f:selectItem itemLabel="Mr."/>
+        <f:selectItem itemLabel="Mrs."/>
+      </tc:selectOneChoice>
+      <tc:panel/>
+
+      <tc:in label="First Name"/>
+      <tc:in label="Last Name"/>
+
+      <tc:in label="c/o">
+        <tc:gridLayoutConstraint columnSpan="2"/>
+      </tc:in>
+
+      <tc:in label="Street"/>
+      <tc:in label="No"/>
+
+      <tc:in label="ZIP"/>
+      <tc:in label="City"/>
+
+      <tc:textarea label="Note">
+        <tc:gridLayoutConstraint columnSpan="2"/>
+      </tc:textarea>
+    </tc:gridLayout>
+  </tc:box>
+
+  <tc:box label="2-dimensional layout">
+    <tc:gridLayout columns="*;2*;*" rows="*;2*;*">
+      <tc:style minHeight="600px"/>
+
+      <tc:box label="#1">
+        columnSpan=2
+        <tc:gridLayoutConstraint columnSpan="2"/>
+      </tc:box>
+
+      <tc:box label="#2">
+        rowSpan=2
+        <tc:gridLayoutConstraint rowSpan="2"/>
+      </tc:box>
+
+      <tc:box label="#3">
+        rowSpan=2
+        <tc:gridLayoutConstraint rowSpan="2"/>
+      </tc:box>
+
+      <tc:box label="#4"/>
+
+      <tc:box label="#5">
+        columnSpan=2
+        <tc:gridLayoutConstraint columnSpan="2"/>
+      </tc:box>
+    </tc:gridLayout>
+  </tc:box>
+
+  <tc:box label="ordering of the components">
+    todo
+<!--
+    <tc:gridLayout columns="*;2*;*" rows="*;2*;*">
+      <tc:style minHeight="600px"/>
+
+      <tc:box label="#1">
+        columnSpan=2
+        <tc:gridLayoutConstraint columnSpan="2"/>
+      </tc:box>
+
+      <tc:box label="#2">
+        rowSpan=2
+        <tc:gridLayoutConstraint rowSpan="2"/>
+      </tc:box>
+
+      <tc:box label="#3">
+        rowSpan=2
+        <tc:gridLayoutConstraint rowSpan="2"/>
+      </tc:box>
+
+      <tc:box label="#4"/>
+
+      <tc:box label="#5">
+        columnSpan=2
+        <tc:gridLayoutConstraint columnSpan="2"/>
+      </tc:box>
+    </tc:gridLayout>
+-->
+  </tc:box>
+
 </ui:composition>

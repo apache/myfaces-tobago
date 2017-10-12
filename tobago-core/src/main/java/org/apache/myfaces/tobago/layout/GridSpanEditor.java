@@ -17,18 +17,18 @@
  * under the License.
  */
 
-package org.apache.myfaces.tobago.facelets;
+package org.apache.myfaces.tobago.layout;
 
-import javax.faces.view.facelets.TagConfig;
+import java.beans.PropertyEditorSupport;
 
 /**
- * @since 3.0.0
- * @deprecated since 4.0.0. Please use {@link GridLayoutConstraintHandler}
+ * Converter for {@link org.apache.myfaces.tobago.layout.GridSpan}
  */
-@Deprecated
-public class SpanHandler extends GridLayoutConstraintHandler {
+public class GridSpanEditor extends PropertyEditorSupport {
 
-  public SpanHandler(TagConfig config) {
-    super(config);
-  }
+    @Override
+    public void setAsText(final String text) throws IllegalArgumentException {
+        setValue(GridSpan.valueOf(text));
+    }
+
 }

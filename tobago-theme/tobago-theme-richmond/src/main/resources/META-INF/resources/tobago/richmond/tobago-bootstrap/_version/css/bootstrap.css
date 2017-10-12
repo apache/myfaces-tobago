@@ -7996,8 +7996,10 @@ body {
 /* form -------------------------------------------------------------- */
 /* gridLayout -------------------------------------------------------------- */
 .tobago-gridLayout {
-  width: 100%;
-  height: 100%;
+  display: -ms-grid;
+  display: grid;
+  /* width: 100%; */
+  /* height: 100%; */
   /*
       border-spacing: 5px;
       border-collapse: separate;

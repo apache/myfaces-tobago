@@ -27,6 +27,10 @@ import org.slf4j.LoggerFactory;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @deprecated
+ */
+@Deprecated
 public class Grid {
 
   private static final Logger LOG = LoggerFactory.getLogger(Grid.class);
