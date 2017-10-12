@@ -60,6 +60,7 @@ public class BarRenderer extends RendererBase {
     writer.writeClassAttribute(
         BootstrapClass.NAVBAR,
         getNavbarExpand(markup),
+        getNavbarColorScheme(markup),
         bar.getCustomClass());
     writer.writeAttribute(HtmlAttributes.ROLE, HtmlRoleValues.NAVIGATION.toString(), false);
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, bar);
@@ -75,21 +76,29 @@ public class BarRenderer extends RendererBase {
   }
 
   private BootstrapClass getNavbarExpand(Markup markup) {
-    if (markup == null) {
-      return BootstrapClass.NAVBAR_EXPAND;
+    if (markup != null) {
+      if (markup.contains(Markup.EXTRA_LARGE)) {
+        return BootstrapClass.NAVBAR_EXPAND_XL;
+      } else if (markup.contains(Markup.LARGE)) {
+        return BootstrapClass.NAVBAR_EXPAND_LG;
+      } else if (markup.contains(Markup.MEDIUM)) {
+        return BootstrapClass.NAVBAR_EXPAND_MD;
+      } else if (markup.contains(Markup.SMALL)) {
+        return BootstrapClass.NAVBAR_EXPAND_SM;
+      }
     }
-
-    if (markup.contains(Markup.EXTRA_LARGE)) {
-      return BootstrapClass.NAVBAR_EXPAND_XL;
-    } else if (markup.contains(Markup.LARGE)) {
-      return BootstrapClass.NAVBAR_EXPAND_LG;
-    } else if (markup.contains(Markup.MEDIUM)) {
-      return BootstrapClass.NAVBAR_EXPAND_MD;
-    } else if (markup.contains(Markup.SMALL)) {
-      return BootstrapClass.NAVBAR_EXPAND_SM;
-    }
-
     return BootstrapClass.NAVBAR_EXPAND;
+  }
+
+  private BootstrapClass getNavbarColorScheme(Markup markup) {
+    if (markup != null) {
+      if (markup.contains(Markup.DARK)) {
+        return BootstrapClass.NAVBAR_DARK;
+      } else if (markup.contains(Markup.LIGHT)) {
+        return BootstrapClass.NAVBAR_LIGHT;
+      }
+    }
+    return null;
   }
 
   @Override

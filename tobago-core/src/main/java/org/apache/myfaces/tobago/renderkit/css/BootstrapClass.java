@@ -349,6 +349,7 @@ public enum BootstrapClass implements CssItem {
    */
   @Deprecated
   NAVBAR_INVERSE("navbar-inverse"),
+  NAVBAR_LIGHT("navbar-light"),
   NAVBAR_NAV("navbar-nav"),
   /**
    * @deprecated since 4.0.0, please use {@link #NAVBAR_EXPAND_SM}
