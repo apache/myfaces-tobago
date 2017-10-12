@@ -139,7 +139,10 @@ public class FileRenderer extends MessageLayoutRendererBase implements Component
     writer.writeAttribute(HtmlAttributes.TABINDEX, -1);
     writer.writeAttribute(HtmlAttributes.DISABLED, file.isDisabled() || file.isReadonly());
     writer.writeAttribute(HtmlAttributes.READONLY, file.isReadonly());
-    writer.writeClassAttribute(TobagoClass.FILE__PRETTY, BootstrapClass.FORM_CONTROL);
+    writer.writeClassAttribute(
+        TobagoClass.FILE__PRETTY,
+        BootstrapClass.FORM_CONTROL,
+        BootstrapClass.borderColor(ComponentUtils.getMaximumSeverity(file)));
     // TODO Focus
     //HtmlRendererUtils.renderFocus(clientId, file.isFocus(), ComponentUtils.isError(file), facesContext, writer);
     writer.endElement(HtmlElements.INPUT);

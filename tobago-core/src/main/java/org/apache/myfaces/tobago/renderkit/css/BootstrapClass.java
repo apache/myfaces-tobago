@@ -75,6 +75,9 @@ public enum BootstrapClass implements CssItem {
   BADGE_PRIMARY("badge-primary"),
   BADGE_SUCCESS("badge-success"),
   BADGE_WARNING("badge-warning"),
+  BORDER_DANGER("border-danger"),
+  BORDER_INFO("border-info"),
+  BORDER_WARNING("border-warning"),
   BTN("btn"),
   BTN_DANGER("btn-danger"),
   BTN_GROUP("btn-group"),
@@ -432,6 +435,41 @@ public enum BootstrapClass implements CssItem {
     }
   }
 
+  public static CssItem borderColor(final FacesMessage.Severity severity) {
+    if (severity == null) {
+      return null;
+    }
+
+    switch (severity.getOrdinal()) {
+      case 1:
+        return BootstrapClass.BORDER_INFO;
+      case 2:
+        return BootstrapClass.BORDER_WARNING;
+      default:
+        return BootstrapClass.BORDER_DANGER;
+    }
+  }
+
+  public static CssItem buttonColor(final FacesMessage.Severity severity) {
+    if (severity == null) {
+      return null;
+    }
+
+    switch (severity.getOrdinal()) {
+      case 1:
+        return BootstrapClass.BTN_INFO;
+      case 2:
+        return BootstrapClass.BTN_WARNING;
+      default:
+        return BootstrapClass.BTN_DANGER;
+    }
+  }
+
+  /**
+   * @deprecated since 4.0.0, please use ComponentUtils.getMaximumSeverity()
+   * with {@link #borderColor(FacesMessage.Severity)} or {@link #buttonColor(FacesMessage.Severity)}
+   */
+  @Deprecated
   public static CssItem maximumSeverity(final UIComponent input) {
     final FacesMessage.Severity maximumSeverity = ComponentUtils.getMaximumSeverity(input);
     if (maximumSeverity == null) {

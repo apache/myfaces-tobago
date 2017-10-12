@@ -71,6 +71,7 @@ public class SelectOneListboxRenderer extends SelectOneRendererBase {
         TobagoClass.SELECT_ONE_LISTBOX,
         TobagoClass.SELECT_ONE_LISTBOX.createMarkup(select.getMarkup()),
         TobagoClass.SELECT_ONE_LISTBOX.createDefaultMarkups(select),
+        BootstrapClass.borderColor(ComponentUtils.getMaximumSeverity(select)),
         BootstrapClass.FORM_CONTROL,
         select.getCustomClass());
     final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, select);

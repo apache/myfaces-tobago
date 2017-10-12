@@ -170,7 +170,6 @@ public abstract class LabelLayoutRendererBase extends DecodingInputRendererBase 
         flex ? BootstrapClass.D_FLEX : null,
         TobagoClass.LABEL__CONTAINER,
         BootstrapClass.FORM_GROUP,
-        BootstrapClass.maximumSeverity(component),
         ComponentUtils.getBooleanAttribute(component, Attributes.required) ? TobagoClass.REQUIRED : null);
 
     switch (labelLayout) {

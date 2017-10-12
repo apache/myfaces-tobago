@@ -107,6 +107,7 @@ public class TextareaRenderer extends MessageLayoutRendererBase {
         TobagoClass.TEXTAREA,
         TobagoClass.TEXTAREA.createMarkup(input.getMarkup()),
         TobagoClass.TEXTAREA.createDefaultMarkups(input),
+        BootstrapClass.borderColor(ComponentUtils.getMaximumSeverity(input)),
         BootstrapClass.FORM_CONTROL,
         input.getCustomClass());
     int maxLength = 0;

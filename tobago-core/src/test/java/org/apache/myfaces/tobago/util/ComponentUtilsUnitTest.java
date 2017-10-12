@@ -21,11 +21,13 @@ package org.apache.myfaces.tobago.util;
 
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.component.UIIn;
+import org.apache.myfaces.tobago.component.UIOut;
 import org.apache.myfaces.tobago.component.UIPanel;
 import org.apache.myfaces.tobago.internal.config.AbstractTobagoTestBase;
 import org.junit.Assert;
 import org.junit.Test;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
@@ -51,5 +53,44 @@ public class ComponentUtilsUnitTest extends AbstractTobagoTestBase {
 
     final UIIn in = ComponentUtils.findDescendant(p, UIIn.class);
     Assert.assertEquals(i, in);
+  }
+
+  @Test
+  public void testGetMaximumSeverity() {
+    final FacesContext facesContext = FacesContext.getCurrentInstance();
+
+    UIIn input = new UIIn();
+    final String inputId = "InputID";
+    input.setId(inputId);
+
+    input.setValid(true);
+    Assert.assertEquals(null, ComponentUtils.getMaximumSeverity(input));
+    input.setValid(false);
+    Assert.assertEquals(FacesMessage.SEVERITY_ERROR, ComponentUtils.getMaximumSeverity(input));
+
+    facesContext.addMessage(inputId, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info Message", null));
+    input.setValid(true);
+    Assert.assertEquals(FacesMessage.SEVERITY_INFO, ComponentUtils.getMaximumSeverity(input));
+    input.setValid(false);
+    Assert.assertEquals(FacesMessage.SEVERITY_ERROR, ComponentUtils.getMaximumSeverity(input));
+
+    facesContext.addMessage(inputId, new FacesMessage(FacesMessage.SEVERITY_FATAL, "FATAL", null));
+    input.setValid(true);
+    Assert.assertEquals(FacesMessage.SEVERITY_FATAL, ComponentUtils.getMaximumSeverity(input));
+    input.setValid(false);
+    Assert.assertEquals(FacesMessage.SEVERITY_FATAL, ComponentUtils.getMaximumSeverity(input));
+
+
+    UIOut output = new UIOut();
+    final String outputId = "OutputID";
+    output.setId(outputId);
+
+    Assert.assertEquals(null, ComponentUtils.getMaximumSeverity(output));
+
+    facesContext.addMessage(outputId, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info Message", null));
+    Assert.assertEquals(FacesMessage.SEVERITY_INFO, ComponentUtils.getMaximumSeverity(output));
+
+    facesContext.addMessage(outputId, new FacesMessage(FacesMessage.SEVERITY_FATAL, "FATAL", null));
+    Assert.assertEquals(FacesMessage.SEVERITY_FATAL, ComponentUtils.getMaximumSeverity(output));
   }
 }

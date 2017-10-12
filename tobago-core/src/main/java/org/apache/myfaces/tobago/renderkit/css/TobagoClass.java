@@ -106,6 +106,10 @@ public enum TobagoClass implements CssItem {
   DROPDOWN_SUBMENU(DROPDOWN__SUBMENU.getName()),
   TABLE_LAYOUT__FIXED("tobago-tableLayout-fixed"),
 
+  /**
+   * @deprecated since 4.0.0
+   */
+  @Deprecated
   HAS__INFO("tobago-has-info"),
   /**
    * @deprecated Since 3.0.1. Please use {@link TobagoClass#HAS__INFO}

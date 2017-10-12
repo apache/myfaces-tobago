@@ -26,6 +26,7 @@ import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlButtonTypes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
+import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.application.FacesMessage;
@@ -77,15 +78,14 @@ public abstract class MessageLayoutRendererBase extends LabelLayoutRendererBase 
   protected abstract void encodeEndField(FacesContext facesContext, UIComponent component) throws IOException;
 
   private void encodeMessages(
-          final TobagoResponseWriter writer, final List<FacesMessage> messages) throws IOException {
+      final TobagoResponseWriter writer, final List<FacesMessage> messages) throws IOException {
     writer.startElement(HtmlElements.A);
     writer.writeAttribute(HtmlAttributes.TABINDEX, "0", false);
     writer.writeAttribute(HtmlAttributes.ROLE, HtmlButtonTypes.BUTTON);
     writer.writeClassAttribute(
         TobagoClass.MESSAGES__BUTTON,
         BootstrapClass.BTN,
-        BootstrapClass.BTN_SECONDARY,
-        getHighestSeverity(messages));
+        BootstrapClass.buttonColor(ComponentUtils.getMaximumSeverity(messages)));
     writer.writeAttribute(DataAttributes.TOGGLE, "popover", false);
     writer.writeAttribute(DataAttributes.TITLE, getTitle(messages), true);
     writer.writeAttribute(DataAttributes.CONTENT, getMessage(messages), true);
@@ -93,24 +93,6 @@ public abstract class MessageLayoutRendererBase extends LabelLayoutRendererBase 
     writer.writeClassAttribute(Icons.FA, Icons.EXCLAMATION);
     writer.endElement(HtmlElements.I);
     writer.endElement(HtmlElements.A);
-  }
-
-  private BootstrapClass getHighestSeverity(final List<FacesMessage> messages) {
-    FacesMessage.Severity highestSeverity = FacesMessage.SEVERITY_INFO;
-    for (FacesMessage message : messages) {
-      if (highestSeverity == null || message.getSeverity().getOrdinal() > highestSeverity.getOrdinal()) {
-        highestSeverity = message.getSeverity();
-      }
-    }
-
-    switch (highestSeverity.getOrdinal()) {
-      case 1:
-        return BootstrapClass.BTN_INFO;
-      case 2:
-        return BootstrapClass.BTN_WARNING;
-      default:
-        return BootstrapClass.BTN_DANGER;
-    }
   }
 
   private String getTitle(final List<FacesMessage> messages) {

@@ -92,7 +92,7 @@ public final class ComponentUtils {
   }
 
   public static boolean hasErrorMessages(final FacesContext context) {
-    for (final Iterator iter = context.getMessages(); iter.hasNext();) {
+    for (final Iterator iter = context.getMessages(); iter.hasNext(); ) {
       final FacesMessage message = (FacesMessage) iter.next();
       if (FacesMessage.SEVERITY_ERROR.compareTo(message.getSeverity()) <= 0) {
         return true;
@@ -405,12 +405,20 @@ public final class ComponentUtils {
   }
 
   public static FacesMessage.Severity getMaximumSeverity(final UIComponent component) {
-    final boolean invalid = component instanceof UIInput && !((UIInput) component).isValid();
-    FacesMessage.Severity max = invalid ? FacesMessage.SEVERITY_ERROR : null;
     final FacesContext facesContext = FacesContext.getCurrentInstance();
-    final Iterator messages = facesContext.getMessages(component.getClientId(facesContext));
-    while (messages.hasNext()) {
-      final FacesMessage message = (FacesMessage) messages.next();
+    final List<FacesMessage> messages = facesContext.getMessageList(component.getClientId(facesContext));
+    final FacesMessage.Severity maximumSeverity = getMaximumSeverity(messages);
+
+    final boolean invalid = component instanceof UIInput && !((UIInput) component).isValid();
+
+    return invalid
+        && (maximumSeverity == null || FacesMessage.SEVERITY_ERROR.getOrdinal() > maximumSeverity.getOrdinal())
+        ? FacesMessage.SEVERITY_ERROR : maximumSeverity;
+  }
+
+  public static FacesMessage.Severity getMaximumSeverity(final List<FacesMessage> messages) {
+    FacesMessage.Severity max = null;
+    for (FacesMessage message : messages) {
       if (max == null || message.getSeverity().getOrdinal() > max.getOrdinal()) {
         max = message.getSeverity();
       }
@@ -538,7 +546,7 @@ public final class ComponentUtils {
   }
 
   public static RendererBase getRenderer(final FacesContext facesContext, final String family,
-                                         final String rendererType) {
+      final String rendererType) {
     if (rendererType == null) {
       return null;
     }
@@ -771,7 +779,7 @@ public final class ComponentUtils {
     if (container instanceof UIComponent) {
       final String clientId = ((UIComponent) container).getClientId(facesContext);
       FacesMessage.Severity max = null;
-      for (final Iterator ids = facesContext.getClientIdsWithMessages(); ids.hasNext();) {
+      for (final Iterator ids = facesContext.getClientIdsWithMessages(); ids.hasNext(); ) {
         final String id = (String) ids.next();
         if (id != null && id.startsWith(clientId)) {
           final Iterator messages = facesContext.getMessages(id);
@@ -881,7 +889,7 @@ public final class ComponentUtils {
   public static UIComponent createComponent(
       final FacesContext facesContext, final String componentType, final RendererTypes rendererType,
       final String clientId) {
-    final UIComponent component  = facesContext.getApplication().createComponent(componentType);
+    final UIComponent component = facesContext.getApplication().createComponent(componentType);
     if (rendererType != null) {
       component.setRendererType(rendererType.name());
     }

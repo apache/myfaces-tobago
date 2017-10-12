@@ -140,6 +140,7 @@ public class InRenderer extends MessageLayoutRendererBase {
         getRendererCssClass(),
         getRendererCssClass().createMarkup(input.getMarkup()),
         getRendererCssClass().createDefaultMarkups(input),
+        BootstrapClass.borderColor(ComponentUtils.getMaximumSeverity(input)),
         BootstrapClass.FORM_CONTROL,
         input.getCustomClass());
 

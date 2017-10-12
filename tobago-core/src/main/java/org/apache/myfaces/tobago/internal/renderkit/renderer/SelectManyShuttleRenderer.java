@@ -125,7 +125,10 @@ public class SelectManyShuttleRenderer extends SelectManyRendererBase {
     writer.writeAttribute(HtmlAttributes.DISABLED, disabled);
     writer.writeAttribute(HtmlAttributes.READONLY, readonly);
     writer.writeAttribute(HtmlAttributes.TABINDEX, select.getTabIndex());
-    writer.writeClassAttribute(TobagoClass.SELECT_MANY_SHUTTLE__SELECTED, BootstrapClass.FORM_CONTROL);
+    writer.writeClassAttribute(
+        TobagoClass.SELECT_MANY_SHUTTLE__SELECTED,
+        BootstrapClass.borderColor(ComponentUtils.getMaximumSeverity(select)),
+        BootstrapClass.FORM_CONTROL);
     writer.writeAttribute(HtmlAttributes.MULTIPLE, true);
     writer.writeAttribute(HtmlAttributes.SIZE, size);
     HtmlRendererUtils.renderSelectItems(select, TobagoClass.SELECT_MANY_SHUTTLE__OPTION, items, values, submittedValues,
