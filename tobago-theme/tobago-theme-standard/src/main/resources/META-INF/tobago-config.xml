@@ -38,6 +38,18 @@
       <versioned>true</versioned>
       <renderers>
         <renderer>
+          <name>Bar</name>
+          <supported-markup>
+            <markup>togglerLeft</markup>
+            <markup>small</markup>
+            <markup>medium</markup>
+            <markup>large</markup>
+            <markup>extraLarge</markup>
+            <markup>light</markup>
+            <markup>dark</markup>
+          </supported-markup>
+        </renderer>
+        <renderer>
           <name>Button</name>
           <supported-markup>
             <markup>default</markup>

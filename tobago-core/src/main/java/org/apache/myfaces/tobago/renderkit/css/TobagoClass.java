@@ -121,6 +121,7 @@ public enum TobagoClass implements CssItem {
 
   // component based classes
 
+  BAR("tobago-bar"),
   BOX("tobago-box"),
   BOX__HEADER("tobago-box-header"),
   BUTTON("tobago-button"),

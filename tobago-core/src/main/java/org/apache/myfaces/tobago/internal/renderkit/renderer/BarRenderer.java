@@ -30,6 +30,7 @@ import org.apache.myfaces.tobago.internal.util.JQueryUtils;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.Icons;
+import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.Arias;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
@@ -58,6 +59,9 @@ public class BarRenderer extends RendererBase {
     writer.startElement(HtmlElements.NAV);
     writer.writeIdAttribute(clientId);
     writer.writeClassAttribute(
+        TobagoClass.BAR,
+        TobagoClass.BAR.createMarkup(bar.getMarkup()),
+        TobagoClass.BAR.createDefaultMarkups(bar),
         BootstrapClass.NAVBAR,
         getNavbarExpand(markup),
         getNavbarColorScheme(markup),
