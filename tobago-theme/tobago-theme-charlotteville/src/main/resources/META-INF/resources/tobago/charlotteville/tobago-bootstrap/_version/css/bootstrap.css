@@ -8262,6 +8262,23 @@ Todo: check, if this is needed? (It doesn't work with the build system)
  * theme: standard
  * agent: standard
  */
+/* bar -------------------------------------------------------------- */
+.tobago-bar.navbar-light .navbar-brand > .tobago-link {
+  color: rgba(0, 0, 0, 0.9);
+}
+
+.tobago-bar.navbar-light .navbar-brand > .tobago-link:hover, .tobago-bar.navbar-light .navbar-brand > .tobago-link:focus {
+  text-decoration: none;
+}
+
+.tobago-bar.navbar-dark .navbar-brand > .tobago-link {
+  color: white;
+}
+
+.tobago-bar.navbar-dark .navbar-brand > .tobago-link:hover, .tobago-bar.navbar-dark .navbar-brand > .tobago-link:focus {
+  text-decoration: none;
+}
+
 /* box -------------------------------------------------------------- */
 .tobago-box {
   margin-bottom: 0.75rem;
