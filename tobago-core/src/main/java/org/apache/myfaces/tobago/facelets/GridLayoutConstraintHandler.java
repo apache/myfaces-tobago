@@ -36,6 +36,8 @@ public class GridLayoutConstraintHandler extends TagHandler {
 
   private final TagAttribute columnSpan;
   private final TagAttribute rowSpan;
+  private final TagAttribute gridColumn;
+  private final TagAttribute gridRow;
 
   public GridLayoutConstraintHandler(final TagConfig config) {
     super(config);
@@ -47,6 +49,10 @@ public class GridLayoutConstraintHandler extends TagHandler {
     final TagAttribute oldRow = getAttribute(Attributes.row.getName()); // deprecated
     final TagAttribute newRow = getAttribute(Attributes.rowSpan.getName());
     rowSpan = newRow != null ? newRow : oldRow;
+
+    gridColumn = getAttribute(Attributes.gridColumn.getName());
+
+    gridRow = getAttribute(Attributes.gridRow.getName());
   }
 
   @Override
@@ -68,6 +74,24 @@ public class GridLayoutConstraintHandler extends TagHandler {
       } else {
         parent.setValueExpression(Attributes.rowSpan.getName(),
             rowSpan.getValueExpression(faceletContext, Integer.TYPE));
+      }
+    }
+
+    if (gridColumn != null) {
+      if (gridColumn.isLiteral()) {
+        attributes.put(Attributes.gridColumn.getName(), Integer.valueOf(gridColumn.getValue()));
+      } else {
+        parent.setValueExpression(Attributes.gridColumn.getName(),
+            gridColumn.getValueExpression(faceletContext, Integer.TYPE));
+      }
+    }
+
+    if (gridRow != null) {
+      if (gridRow.isLiteral()) {
+        attributes.put(Attributes.gridRow.getName(), Integer.valueOf(gridRow.getValue()));
+      } else {
+        parent.setValueExpression(Attributes.gridRow.getName(),
+            gridRow.getValueExpression(faceletContext, Integer.TYPE));
       }
     }
   }

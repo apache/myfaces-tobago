@@ -98,35 +98,32 @@
     </tc:gridLayout>
   </tc:box>
 
-  <tc:box label="ordering of the components">
-    todo
-<!--
+  <tc:box label="ordering/positioning of the components">
     <tc:gridLayout columns="*;2*;*" rows="*;2*;*">
       <tc:style minHeight="600px"/>
 
       <tc:box label="#1">
-        columnSpan=2
-        <tc:gridLayoutConstraint columnSpan="2"/>
+        columnSpan=2 gridColumn=1 gridRow=3
+        <tc:gridLayoutConstraint columnSpan="2" gridColumn="1" gridRow="3"/>
       </tc:box>
 
       <tc:box label="#2">
-        rowSpan=2
-        <tc:gridLayoutConstraint rowSpan="2"/>
+        rowSpan=2 gridColumn=3 gridRow=2
+        <tc:gridLayoutConstraint rowSpan="2" gridColumn="3" gridRow="2"/>
       </tc:box>
 
       <tc:box label="#3">
-        rowSpan=2
-        <tc:gridLayoutConstraint rowSpan="2"/>
+        rowSpan=2 gridColumn=1 gridRow=1
+        <tc:gridLayoutConstraint rowSpan="2" gridColumn="1" gridRow="1"/>
       </tc:box>
 
       <tc:box label="#4"/>
 
       <tc:box label="#5">
-        columnSpan=2
-        <tc:gridLayoutConstraint columnSpan="2"/>
+        columnSpan=2 gridColumn=2 gridRow=1
+        <tc:gridLayoutConstraint columnSpan="2" gridColumn="2" gridRow="1"/>
       </tc:box>
     </tc:gridLayout>
--->
   </tc:box>
 
 </ui:composition>

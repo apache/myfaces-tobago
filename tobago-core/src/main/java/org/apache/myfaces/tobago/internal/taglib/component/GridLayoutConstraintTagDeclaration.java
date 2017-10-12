@@ -43,4 +43,16 @@ public interface GridLayoutConstraintTagDeclaration {
    */
   @TagAttribute(type = "java.lang.Integer")
   void setRowSpan(final ValueExpression rowSpan);
+
+  /**
+   * The horizontal position in the grid of this component. Please use gridColumn and gridRow both or none.
+   */
+  @TagAttribute(type = "java.lang.Integer")
+  void setGridColumn(final ValueExpression gridColumn);
+
+  /**
+   * The vertical position in the grid of this component. Please use gridColumn and gridRow both or none.
+   */
+  @TagAttribute(type = "java.lang.Integer")
+  void setGridRow(final ValueExpression gridRow);
 }
