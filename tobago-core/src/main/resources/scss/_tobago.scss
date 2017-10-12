@@ -19,7 +19,6 @@
 XXX used variables: only for the IDE, will not really used by the build system, because this
 XXX code will be inserted after the _variables.scss
 */
-$brand-info: #00f !default;
 $zindex-dropdown: 1000 !default;
 $zindex-popover: 1060 !default;
 $spacer: 1rem !default;
@@ -1152,6 +1151,30 @@ th.tobago-sheet-headerCell-markup-filler > .tobago-sheet-header {
 .tobago-textarea {
 }
 
+/* facesMessages messageLayout focus shadows ------------------------ */
+.tobago-date,
+.tobago-in,
+.tobago-selectManyListbox,
+.tobago-selectOneChoice,
+.tobago-selectOneListbox,
+.tobago-textarea {
+  &-markup-fatal, &-markup-error {
+    &.border-danger:focus {
+      box-shadow: 0 0 0 .2rem rgba(theme-color("danger"), .25);
+    }
+  }
+  &-markup-warn {
+    &.border-warning:focus {
+      box-shadow: 0 0 0 .2rem rgba(theme-color("warning"), .25);
+    }
+  }
+  &-markup-info {
+    &.border-info:focus {
+      box-shadow: 0 0 0 .2rem rgba(theme-color("info"), .25);
+    }
+  }
+}
+
 /* menuStore -------------------------------------------------------- */
 
 .tobago-page-menuStore {
@@ -1197,30 +1220,6 @@ fixme: there is a problem with the selectManyShuttle with this style.
 /* FIXME: This is to hide the toolbar, until it is implemented */
 .tobago-tabGroup-toolBar {
   display: none;
-}
-
-.tobago-has-info {
-  .form-control-feedback, .form-control-label, .form-check-label, .form-check-inline, .custom-control {
-    color: $brand-info;
-  }
-
-  .form-control {
-    border-color: $brand-info;
-  }
-
-  .input-group-addon {
-    color: $brand-info;
-    background-color: #eaf6ea;
-    border-color: $brand-info;
-  }
-
-  .form-control-feedback {
-    color: $brand-info;
-  }
-
-  .form-control-success {
-    background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2MTIgNzkyIj48cGF0aCBmaWxsPSIjNWNiODVjIiBkPSJNMjMzLjggNjEwYy0xMy4zIDAtMjYtNi0zNC0xNi44TDkwLjUgNDQ4LjhDNzYuMyA0MzAgODAgNDAzLjMgOTguOCAzODljMTguOC0xNC4yIDQ1LjUtMTAuNCA1OS44IDguNGw3MiA5NUw0NTEuMyAyNDJjMTIuNS0yMCAzOC44LTI2LjIgNTguOC0xMy43IDIwIDEyLjQgMjYgMzguNyAxMy43IDU4LjhMMjcwIDU5MGMtNy40IDEyLTIwLjIgMTkuNC0zNC4zIDIwaC0yeiIvPjwvc3ZnPg==");
-  }
 }
 
 .tobago-required .tobago-label:after {
