@@ -30,7 +30,7 @@
       <tc:in value="#{info.version}" readonly="true" label="Tobago Version"/>
 
       <tc:in value="#{manifestReader.buildTime}" readonly="true" label="Tobago Build Time">
-        <f:convertDateTime type="both" />
+        <f:convertDateTime type="both"/>
       </tc:in>
 
       <tc:in value="#{info.jsfTitle}" readonly="true" label="JSF Implementation"/>
@@ -45,6 +45,18 @@
       <tc:in
           value="#{info.systemProperties['os.name']} - #{info.systemProperties['os.version']} - #{info.systemProperties['os.arch']}"
           readonly="true" label="Operating System"/>
+
+      <tc:segmentLayout medium="6;6" large="4,4,4" extraLarge="3,3,3">
+        <tc:selectBooleanCheckbox value="#{version.version20}" readonly="true" label="Version 2.0"/>
+        <tc:selectBooleanCheckbox value="#{version.version21}" readonly="true" label="Version 2.1"/>
+        <tc:selectBooleanCheckbox value="#{version.version22}" readonly="true" label="Version 2.2"/>
+        <tc:selectBooleanCheckbox value="#{version.version23}" readonly="true" label="Version 2.3"/>
+      </tc:segmentLayout>
+
+      <tc:segmentLayout medium="6;6" large="4,4,4" extraLarge="3,3,3">
+        <tc:selectBooleanCheckbox value="#{version.mojarra}" readonly="true" label="Mojarra"/>
+        <tc:selectBooleanCheckbox value="#{version.myfaces}" readonly="true" label="MyFaces"/>
+      </tc:segmentLayout>
 
     </tc:section>
 

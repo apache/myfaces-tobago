@@ -28,7 +28,8 @@ public enum FacesVersion {
   VERSION_12,
   VERSION_20,
   VERSION_21,
-  VERSION_22;
+  VERSION_22,
+  VERSION_23;
 
   private static FacesVersion currentVersion;
   private static boolean mojarra;
@@ -45,6 +46,8 @@ public enum FacesVersion {
       currentVersion = VERSION_21;
       Application.class.getMethod("getFlowHandler");
       currentVersion = VERSION_22;
+      Application.class.getMethod("getSearchExpressionHandler");
+      currentVersion = VERSION_23;
     } catch (final NoSuchMethodException e) {
       // ignore
     }
@@ -82,7 +85,8 @@ public enum FacesVersion {
     return currentVersion == VERSION_12
         || currentVersion == VERSION_20
         || currentVersion == VERSION_21
-        || currentVersion == VERSION_22;
+        || currentVersion == VERSION_22
+        || currentVersion == VERSION_23;
   }
 
   /**
@@ -92,7 +96,8 @@ public enum FacesVersion {
   public static boolean supports20() {
     return currentVersion == VERSION_20
         || currentVersion == VERSION_21
-        || currentVersion == VERSION_22;
+        || currentVersion == VERSION_22
+        || currentVersion == VERSION_23;
   }
 
   /**
@@ -101,7 +106,8 @@ public enum FacesVersion {
    */
   public static boolean supports21() {
     return currentVersion == VERSION_21
-        || currentVersion == VERSION_22;
+        || currentVersion == VERSION_22
+        || currentVersion == VERSION_23;
   }
 
   /**
@@ -109,7 +115,16 @@ public enum FacesVersion {
    * @return Supports 2.2 or higher
    */
   public static boolean supports22() {
-    return currentVersion == VERSION_22;
+    return currentVersion == VERSION_22
+        || currentVersion == VERSION_23;
+  }
+
+  /**
+   * Does the JSF is version 2.3 or higher
+   * @return Supports 2.3 or higher
+   */
+  public static boolean supports23() {
+    return currentVersion == VERSION_23;
   }
 
   public static boolean isMojarra() {

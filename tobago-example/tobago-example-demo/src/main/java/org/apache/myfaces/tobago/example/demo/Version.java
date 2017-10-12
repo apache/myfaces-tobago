@@ -17,21 +17,16 @@
  * under the License.
  */
 
-package org.apache.myfaces.tobago.example.test;
+package org.apache.myfaces.tobago.example.demo;
 
 import org.apache.myfaces.tobago.util.FacesVersion;
 
-import javax.faces.context.FacesContext;
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Named;
 
+@Named
+@ApplicationScoped
 public class Version {
-
-  public boolean isVersion11() {
-    return !FacesVersion.supports12();
-  }
-
-  public boolean isVersion12() {
-    return FacesVersion.supports12() && !FacesVersion.supports20();
-  }
 
   public boolean isVersion20() {
     return FacesVersion.supports20() && !FacesVersion.supports21();
@@ -42,7 +37,11 @@ public class Version {
   }
 
   public boolean isVersion22() {
-    return FacesVersion.supports22();
+    return FacesVersion.supports22() && !FacesVersion.supports23();
+  }
+
+  public boolean isVersion23() {
+    return FacesVersion.supports23();
   }
 
   public boolean isMojarra() {
@@ -51,13 +50,5 @@ public class Version {
 
   public boolean isMyfaces() {
     return FacesVersion.isMyfaces();
-  }
-
-  public String getJsfVersion() {
-    return FacesContext.class.getPackage().getImplementationVersion();
-  }
-
-  public String getJsfTitle() {
-    return FacesContext.class.getPackage().getImplementationTitle();
   }
 }
