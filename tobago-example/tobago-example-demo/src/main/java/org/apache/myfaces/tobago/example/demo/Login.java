@@ -73,6 +73,11 @@ public class Login {
       session.invalidate();
     }
     final ExternalContext externalContext = facesContext.getExternalContext();
+/* XXX reset theme doesn't work
+    CookieUtils.removeThemeNameCookie(
+        (HttpServletRequest)externalContext.getRequest(),
+        (HttpServletResponse) externalContext.getResponse());
+*/
     externalContext.redirect(externalContext.getRequestContextPath() + "/");
     facesContext.responseComplete();
     return null;

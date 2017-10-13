@@ -102,7 +102,6 @@ public class CookieUtils {
     }
   }
 
-/*
   public static void removeThemeNameCookie(
       HttpServletRequest request, HttpServletResponse response) {
 
@@ -119,5 +118,4 @@ public class CookieUtils {
       }
     }
   }
-*/
 }
