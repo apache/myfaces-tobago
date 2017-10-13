@@ -22,27 +22,20 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:f="http://java.sun.com/jsf/core">
   <ui:param name="title" value="#{demoBundle.locale} - #{demoBundle.locale_title}"/>
-  <tc:gridLayout rows="80px;auto;auto;auto">
 
-    <tc:out escape="false" value="#{demoBundle.locale_text}"/>
+  <tc:out escape="false" value="#{demoBundle.locale_text}"/>
 
-    <tc:selectOneChoice value="#{clientConfigController.locale}"
-                        label="#{demoBundle.locale}">
-      <f:selectItems value="#{clientConfigController.localeItems}"/>
-    </tc:selectOneChoice>
+  <tc:image value="#{request.contextPath}#{localeController.imageCountryName}">
+    <tc:style width="100px" height="100px"/>
+  </tc:image>
 
-    <tc:gridLayout columns="100px;*;100px">
+  <tc:selectOneChoice value="#{localeController.locale}"
+                      label="#{demoBundle.locale}">
+    <f:selectItems value="#{localeController.localeItems}"/>
+  </tc:selectOneChoice>
 
-      <tc:image value="image/country.png" width="100px" height="100px"/>
+  <tc:flowLayout textAlign="right">
+    <tc:button action="#{localeController.submit}" label="#{demoBundle.locale_submit}"/>
+  </tc:flowLayout>
 
-      <tc:panel/>
-
-      <tc:panel>
-        <tc:gridLayout rows="*;auto "/>
-
-        <tc:panel/>
-        <tc:button action="#{clientConfigController.submit}" label="#{demoBundle.locale_submit}"/>
-      </tc:panel>
-    </tc:gridLayout>
-  </tc:gridLayout>
 </ui:composition>

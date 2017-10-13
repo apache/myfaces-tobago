@@ -19,6 +19,7 @@
 
 package org.apache.myfaces.tobago.example.demo;
 
+import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -28,7 +29,10 @@ import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import javax.inject.Named;
+import javax.servlet.ServletContext;
 import java.io.Serializable;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -36,13 +40,13 @@ import java.util.Locale;
 
 @Named
 @SessionScoped
-public class ClientConfigController implements Serializable {
+public class LocaleController implements Serializable {
 
-  private static final Logger LOG = LoggerFactory.getLogger(ClientConfigController.class);
+  private static final Logger LOG = LoggerFactory.getLogger(LocaleController.class);
 
   private Locale locale;
 
-  public ClientConfigController() {
+  public LocaleController() {
 
     final FacesContext facesContext = FacesContext.getCurrentInstance();
 
@@ -97,9 +101,9 @@ public class ClientConfigController implements Serializable {
     }
   }
 
-  public static ClientConfigController getCurrentInstance(
+  public static LocaleController getCurrentInstance(
       final FacesContext facesContext, final String beanName) {
-    return (ClientConfigController) facesContext.getApplication()
+    return (LocaleController) facesContext.getApplication()
         .getVariableResolver().resolveVariable(facesContext, beanName);
   }
 
@@ -113,6 +117,26 @@ public class ClientConfigController implements Serializable {
     } else {
       return null;
     }
+  }
+
+  public String getImageCountryName() {
+    final String language = locale.getLanguage();
+    final String country = locale.getCountry();
+    final String suffix
+        = StringUtils.isNotBlank(language) && StringUtils.isNotBlank(country) ? "_" + language + "_" + country : "";
+    String url = "/image/country" + suffix + ".png";
+    ServletContext servletContext =
+        (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
+    URL resource = null;
+    try {
+      resource = servletContext.getResource(url);
+    } catch (MalformedURLException e) {
+      // ignore
+    }
+    if (resource == null) {
+      url = "/image/country.png";
+    }
+    return url;
   }
 
   public void setLocale(final Locale locale) {

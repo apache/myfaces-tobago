@@ -50,9 +50,9 @@
             </tc:link>
             <!--<tc:link action="#{clientConfigController.resetTheme}" label="Reset Theme"/>-->
             <tc:link label="#{demoBundle.menu_locale}">
-              <tc:selectOneRadio value="#{clientConfigController.locale}">
-                <tc:event action="#{clientConfigController.submit}"/>
-                <tc:selectItems value="#{clientConfigController.localeItems}"/>
+              <tc:selectOneRadio value="#{localeController.locale}">
+                <tc:event action="#{localeController.submit}"/>
+                <tc:selectItems value="#{localeController.localeItems}"/>
               </tc:selectOneRadio>
             </tc:link>
             <tc:link action="#{login.resetSession}" label="Reset Session"/>
