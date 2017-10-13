@@ -35,6 +35,9 @@ $white: #fff !default;
 $gray-dark: #292b2c !default;
 $gray-light: #636c72 !default;
 $gray-lightest: #f7f7f9 !default;
+$black: #000 !default;
+$navbar-dark-active-color: rgba($white, 1) !default;
+$navbar-light-active-color: rgba($black, .9) !default;
 $border-width: 1px !default;
 $input-btn-border-width: $border-width !default; // For form controls and buttons
 $input-btn-padding-y: .5rem !default;
@@ -82,6 +85,24 @@ Todo: check, if this is needed? (It doesn't work with the build system)
  */
 
 .tobago-label-container {
+}
+
+/* bar -------------------------------------------------------------- */
+.tobago-bar {
+  &.navbar-light .navbar-brand > .tobago-link {
+    color: $navbar-light-active-color;
+
+    &:hover, &:focus {
+      text-decoration: none;
+    }
+  }
+  &.navbar-dark .navbar-brand > .tobago-link {
+    color: $navbar-dark-active-color;
+
+    &:hover, &:focus {
+      text-decoration: none;
+    }
+  }
 }
 
 /* box -------------------------------------------------------------- */

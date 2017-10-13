@@ -61,6 +61,7 @@ public final class Markup implements Serializable, Iterable<String> {
   public static final Markup BORDERED = valueOf("bordered");
   public static final Markup CENTER = valueOf("center");
   public static final Markup CLICKABLE = valueOf("clickable");
+  public static final Markup DARK = valueOf("dark");
   public static final Markup DEFAULT = valueOf("default");
   public static final Markup DELETED = valueOf("deleted");
   public static final Markup DESCENDING = valueOf("descending");
@@ -84,6 +85,7 @@ public final class Markup implements Serializable, Iterable<String> {
   public static final Markup INVERSE = valueOf("inverse");
   public static final Markup LARGE = valueOf("large");
   public static final Markup LEFT = valueOf("left");
+  public static final Markup LIGHT = valueOf("light");
   public static final Markup MARKED = valueOf("marked");
   public static final Markup MEDIUM = valueOf("medium");
   public static final Markup MODAL = valueOf("modal");

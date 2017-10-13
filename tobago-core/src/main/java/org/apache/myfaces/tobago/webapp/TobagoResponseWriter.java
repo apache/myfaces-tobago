@@ -219,7 +219,7 @@ public abstract class TobagoResponseWriter extends ResponseWriter {
   private boolean writeCssItem(final StringBuilder builder, final CssItem... cssItems) {
     boolean render = false;
     for (CssItem cssItem : cssItems) {
-      if (cssItem != null) {
+      if (cssItem != null && !"".equals(cssItem.getName())) {
         builder.append(cssItem.getName());
         builder.append(' ');
         render = true;

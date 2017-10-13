@@ -1,4 +1,4 @@
-Build date: 2017-10-12 13:56:07
+Build date: 2017-10-12 18:01:49
 [INFO] Scanning for projects...
 [INFO] 
 [INFO] ------------------------------------------------------------------------
@@ -71,7 +71,7 @@ Build date: 2017-10-12 13:56:07
 [INFO] Verified checksum of previously downloaded file
 [INFO] Extracting zip contents
 [INFO] Removing __CURRENT__/tobago-theme-scarborough/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom
-[INFO] Copying extracted folder /var/folders/yp/1vrxjnrs20798ydt_yl8wrpr0000gp/T/phantomjs/phantomjs-2.1.1-macosx.zip-extract-1507809455323/phantomjs-2.1.1-macosx -> __CURRENT__/tobago-theme-scarborough/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom
+[INFO] Copying extracted folder /var/folders/yp/1vrxjnrs20798ydt_yl8wrpr0000gp/T/phantomjs/phantomjs-2.1.1-macosx.zip-extract-1507824189120/phantomjs-2.1.1-macosx -> __CURRENT__/tobago-theme-scarborough/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom
 [INFO] Writing location.js file
 [INFO] Done. Phantomjs binary available at __CURRENT__/tobago-theme-scarborough/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom/bin/phantomjs
 [INFO] 
@@ -233,8 +233,6 @@ Build date: 2017-10-12 13:56:07
 [INFO] │ │ │     ├─┬ readable-stream@2.2.9 
 [INFO] │ │ │     │ ├── buffer-shims@1.0.0 
 [INFO] │ │ │     │ ├── core-util-is@1.0.2 
-[WARNING] npm WARN bootstrap@4.0.0-beta requires a peer of jquery@>=1.9.1 but none was installed.
-[WARNING] npm WARN bootstrap@4.0.0-beta requires a peer of popper.js@^1.11.0 but none was installed.
 [INFO] │ │ │     │ ├── isarray@1.0.0 
 [INFO] │ │ │     │ ├── process-nextick-args@1.0.7 
 [INFO] │ │ │     │ ├── string_decoder@1.0.1 
@@ -405,6 +403,8 @@ Build date: 2017-10-12 13:56:07
 [INFO] │ │ └─┬ brace-expansion@1.1.8 
 [INFO] │ │   ├── balanced-match@1.0.0 
 [INFO] │ │   └── concat-map@0.0.1 
+[WARNING] npm WARN bootstrap@4.0.0-beta requires a peer of jquery@>=1.9.1 but none was installed.
+[WARNING] npm WARN bootstrap@4.0.0-beta requires a peer of popper.js@^1.11.0 but none was installed.
 [INFO] │ ├─┬ mkdirp@0.5.1 
 [INFO] │ │ └── minimist@0.0.8 
 [INFO] │ ├── natural-compare@1.4.0 
@@ -936,8 +936,8 @@ Build date: 2017-10-12 13:56:07
 [ERROR] Wrote Source Map to __CURRENT__/tobago-theme-scarborough/target/bootstrap/dist/css/bootstrap-grid.css.map
 [ERROR] Wrote CSS to __CURRENT__/tobago-theme-scarborough/target/bootstrap/dist/css/bootstrap-grid.css
 [ERROR] Rendering Complete, saving .css file...
-[ERROR] Wrote Source Map to __CURRENT__/tobago-theme-scarborough/target/bootstrap/dist/css/bootstrap-reboot.css.map
 [ERROR] Wrote CSS to __CURRENT__/tobago-theme-scarborough/target/bootstrap/dist/css/bootstrap-reboot.css
+[ERROR] Wrote Source Map to __CURRENT__/tobago-theme-scarborough/target/bootstrap/dist/css/bootstrap-reboot.css.map
 [INFO] 
 [INFO] --- frontend-maven-plugin:1.4:npm (step #9: npm run css-prefix) @ tobago-theme-scarborough ---
 [INFO] Running 'npm run css-prefix' in __CURRENT__/tobago-theme-scarborough/target/bootstrap
@@ -945,12 +945,12 @@ Build date: 2017-10-12 13:56:07
 [INFO] > bootstrap@4.0.0-beta css-prefix __CURRENT__/tobago-theme-scarborough/target/bootstrap
 [INFO] > postcss --config build/postcss.config.js --replace dist/css/*.css
 [INFO] 
-[ERROR] ✔ Finished dist/css/bootstrap-grid.css (1.27 s)
-[ERROR] ✔ Finished dist/css/bootstrap-reboot.css (1.27 s)
-[ERROR] ✔ Finished dist/css/bootstrap-reboot.min.css (1.27 s)
-[ERROR] ✔ Finished dist/css/bootstrap-grid.min.css (1.27 s)
-[ERROR] ✔ Finished dist/css/bootstrap.css (1.27 s)
-[ERROR] ✔ Finished dist/css/bootstrap.min.css (1.27 s)
+[ERROR] ✔ Finished dist/css/bootstrap-grid.min.css (1.11 s)
+[ERROR] ✔ Finished dist/css/bootstrap-grid.css (1.11 s)
+[ERROR] ✔ Finished dist/css/bootstrap-reboot.css (1.11 s)
+[ERROR] ✔ Finished dist/css/bootstrap-reboot.min.css (1.11 s)
+[ERROR] ✔ Finished dist/css/bootstrap.css (1.11 s)
+[ERROR] ✔ Finished dist/css/bootstrap.min.css (1.11 s)
 [INFO] 
 [INFO] --- frontend-maven-plugin:1.4:npm (step #10: npm run css-minify) @ tobago-theme-scarborough ---
 [INFO] Running 'npm run css-minify' in __CURRENT__/tobago-theme-scarborough/target/bootstrap
@@ -1038,7 +1038,7 @@ main:
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
-[INFO] Total time: 01:44 min
-[INFO] Finished at: 2017-10-12T13:57:53+02:00
-[INFO] Final Memory: 32M/398M
+[INFO] Total time: 01:35 min
+[INFO] Finished at: 2017-10-12T18:03:26+02:00
+[INFO] Final Memory: 32M/401M
 [INFO] ------------------------------------------------------------------------
