@@ -31,9 +31,8 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
 /**
  * Renders a layout using a 12 columns grid.
  * Find more information on how the grid works in the Twitter Bootstrap documentation.
- * <p>
- * If no attribute is defined, extraSmall="12" will be used as default.
  *
+ * If no attribute is defined, extraSmall="12" will be used as default.
  * @since 3.0.0
  */
 @Tag(name = "segmentLayout")
@@ -51,7 +50,7 @@ public interface SegmentLayoutTagDeclaration extends HasIdBindingAndRendered, Is
 
   /**
    * The semicolon-separated definition of the columns for extra small devices.
-   * Possible values are: integer values > 0, 'auto' and '*'.
+   * Possible values are: integer values &gt; 0, 'auto' and '*'.
    * Example: '1;5;*;auto'
    */
   @TagAttribute
@@ -60,7 +59,7 @@ public interface SegmentLayoutTagDeclaration extends HasIdBindingAndRendered, Is
 
   /**
    * The semicolon-separated definition of the columns for small devices.
-   * Possible values are: integer values > 0, 'auto' and '*'.
+   * Possible values are: integer values &gt; 0, 'auto' and '*'.
    * Example: '1;5;*;auto'
    */
   @TagAttribute
@@ -69,7 +68,7 @@ public interface SegmentLayoutTagDeclaration extends HasIdBindingAndRendered, Is
 
   /**
    * The semicolon-separated definition of the columns for medium devices.
-   * Possible values are: integer values > 0, 'auto' and '*'.
+   * Possible values are: integer values &gt; 0, 'auto' and '*'.
    * Example: '1;5;*;auto'
    */
   @TagAttribute
@@ -78,7 +77,7 @@ public interface SegmentLayoutTagDeclaration extends HasIdBindingAndRendered, Is
 
   /**
    * The semicolon-separated definition of the columns for large devices.
-   * Possible values are: integer values > 0, 'auto' and '*'.
+   * Possible values are: integer values &gt; 0, 'auto' and '*'.
    * Example: '1;5;*;auto'
    */
   @TagAttribute
@@ -87,7 +86,7 @@ public interface SegmentLayoutTagDeclaration extends HasIdBindingAndRendered, Is
 
   /**
    * The semicolon-separated definition of the columns for extra large devices.
-   * Possible values are: integer values > 0, 'auto' and '*'.
+   * Possible values are: integer values &gt; 0, 'auto' and '*'.
    * Example: '1;5;*;auto'
    */
   @TagAttribute
