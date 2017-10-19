@@ -87,9 +87,11 @@ public abstract class LabelLayoutRendererBase extends DecodingInputRendererBase 
     }
 
     // render the styles here, because inside of <select> its not possible.
-    final List<AbstractUIStyle> children = ComponentUtils.findDescendantList(component, AbstractUIStyle.class);
-    for (AbstractUIStyle child : children) {
-      child.encodeAll(facesContext);
+    if (component.getRendersChildren()) {
+      final List<AbstractUIStyle> children = ComponentUtils.findDescendantList(component, AbstractUIStyle.class);
+      for (AbstractUIStyle child : children) {
+        child.encodeAll(facesContext);
+      }
     }
 
     encodeEndSurroundingLabel(facesContext, component);
@@ -97,13 +99,13 @@ public abstract class LabelLayoutRendererBase extends DecodingInputRendererBase 
 
   @Override
   public void encodeChildren(FacesContext context, UIComponent component) throws IOException {
-    if (component.getChildCount() > 0)    {
-      for (int i = 0, childCount = component.getChildCount(); i < childCount; i++)      {
+    if (component.getChildCount() > 0) {
+      for (int i = 0, childCount = component.getChildCount(); i < childCount; i++) {
         UIComponent child = component.getChildren().get(i);
-        if (!child.isRendered())    {
+        if (!child.isRendered()) {
           continue;
         }
-        if (child instanceof AbstractUIStyle)    {
+        if (child instanceof AbstractUIStyle) {
           // will be rendered in {@link encodeEnd}
           continue;
         }
