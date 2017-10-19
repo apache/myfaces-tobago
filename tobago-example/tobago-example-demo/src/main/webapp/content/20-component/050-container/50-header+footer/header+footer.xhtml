@@ -31,19 +31,18 @@
       <tc:link label="new tab" link="x-header-footer-example.xhtml" target="_blank"/>.</p>
 
     <pre><code class="language-markup">&lt;tc:header fixed="true">
-  &lt;tc:style customClass="bg-inverse"/>
-    &lt;p>This is the header.&lt;/p>
-  &lt;/tc:header>
+  &lt;tc:style customClass="bg-warning"/>
+  &lt;p>This is the header.&lt;/p>
+&lt;/tc:header>
+&lt;tc:box label="Content Box">
   &lt;p>Content between header and footer.&lt;/p>
   ...
-  &lt;tc:footer fixed="true">
-    &lt;p>This is the footer.&lt;/p>
+&lt;/tc:box>
+&lt;tc:footer fixed="true">
+  &lt;tc:style customClass="bg-info"/>
+  &lt;p>This is the footer.&lt;/p>
 &lt;/tc:footer></code></pre>
 
-    <!-- FIXME -->
-    <span class="#{demo:bootstrapClass('BADGE')} #{demo:bootstrapClass('BADGE_DANGER')}">Warning!</span>
-    The object example is currently broken!
-    <!-- FIXME -->
     <tc:object src="x-header-footer-example.xhtml">
       <tc:style height="300px" width="100%"/>
     </tc:object>
