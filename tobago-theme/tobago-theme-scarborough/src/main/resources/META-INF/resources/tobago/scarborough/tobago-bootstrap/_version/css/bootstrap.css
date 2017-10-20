@@ -8705,6 +8705,10 @@ a.tobago-link.dropdown-item img, a.tobago-link.dropdown-item span {
   pointer-events: none;
 }
 
+.tobago-flexLayout > button.tobago-link {
+  height: 0;
+}
+
 button.tobago-link, button.tobago-treeCommand {
   color: #007bff;
   border-width: 0;
@@ -9360,8 +9364,14 @@ th.tobago-sheet-headerCell-markup-filler > .tobago-sheet-header {
   margin: 0;
 }
 
+.twitter-typeahead {
+  display: -ms-flexbox !important;
+  display: flex !important;
+  -ms-flex-positive: 1;
+      flex-grow: 1;
+}
+
 .input-group > .twitter-typeahead > .tobago-in {
-  width: 100%;
   border-right: 0;
 }
 
