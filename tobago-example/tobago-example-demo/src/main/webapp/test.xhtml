@@ -30,7 +30,9 @@
   <div id="qunit"></div>
   <div id="qunit-fixture"></div>
 
+  <tc:button label="Close Test" link="#{param['base']}.xhtml"/>
+
   <tc:object id="testframe" src="#{request.contextPath}/#{param['base']}.xhtml">
-    <tc:style width="100%"/>
+    <tc:style width="100%" minHeight="500px"/>
   </tc:object>
 </ui:composition>
