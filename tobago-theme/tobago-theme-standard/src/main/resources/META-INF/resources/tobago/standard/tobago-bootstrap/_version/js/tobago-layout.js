@@ -27,17 +27,32 @@ Tobago.Layout.init = function (elements) {
 
   setMargins(body, headers, footers);
 
+  var lastMaxHeaderHeight = 0;
+  var lastMaxFooterHeight = 0;
   jQuery(window).resize(function () {
-    setMargins(body, headers, footers);
+    var maxHeaderHeight = getMaxHeaderHeight(headers);
+    var maxFooterHeight = getMaxFooterHeight(footers);
+
+    if (maxHeaderHeight !== lastMaxHeaderHeight
+        || maxFooterHeight !== lastMaxFooterHeight) {
+      setMargins(body, headers, footers);
+
+      lastMaxHeaderHeight = maxHeaderHeight;
+      lastMaxFooterHeight = maxFooterHeight;
+    }
   });
 };
 
-var setMargins = function (body, headers, footers) {
-  var maxHeaderHeight = getMaxHeaderHeight(headers);
-  var maxFooterHeight = getMaxFooterHeight(footers);
+var setMargins = function (body, headers, footers, currentHeaderHeight, currentFooterHeight) {
+  var maxHeaderHeight = currentHeaderHeight ? currentHeaderHeight : getMaxHeaderHeight(headers);
+  var maxFooterHeight = currentFooterHeight ? currentFooterHeight : getMaxFooterHeight(footers);
 
   if (maxHeaderHeight > 0) {
     body.css("margin-top", maxHeaderHeight + "px");
+
+    // remove margin from page menu store; positioning of dropdowns
+    var pageMenuStore = Tobago.Utils.selectWithJQuery(body, ".tobago-page-menuStore");
+    pageMenuStore.css("margin-top", "-" + maxHeaderHeight + "px");
   }
   if (maxFooterHeight > 0) {
     body.css("margin-bottom", maxFooterHeight + "px");
