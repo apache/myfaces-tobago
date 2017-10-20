@@ -1,4 +1,4 @@
-Build date: 2017-10-12 18:03:26
+Build date: 2017-10-20 13:38:43
 [INFO] Scanning for projects...
 [INFO] 
 [INFO] ------------------------------------------------------------------------
@@ -11,20 +11,20 @@ Build date: 2017-10-12 18:03:26
 [INFO] 
 [INFO] --- maven-scm-plugin:1.9.5:checkout (step #1: checkout-bootstrap) @ tobago-theme-speyside ---
 [INFO] Removing __CURRENT__/tobago-theme-speyside/target/checkout
-[INFO] Executing: /bin/sh -c cd __CURRENT__/tobago-theme-speyside/target && git clone --branch v4.0.0-beta https://github.com/twbs/bootstrap __CURRENT__/tobago-theme-speyside/target/checkout
+[INFO] Executing: /bin/sh -c cd __CURRENT__/tobago-theme-speyside/target && git clone --branch v4.0.0-beta.2 https://github.com/twbs/bootstrap __CURRENT__/tobago-theme-speyside/target/checkout
 [INFO] Working directory: __CURRENT__/tobago-theme-speyside/target
 [INFO] Executing: /bin/sh -c cd /var/folders/yp/1vrxjnrs20798ydt_yl8wrpr0000gp/T/ && git ls-remote https://github.com/twbs/bootstrap
 [INFO] Working directory: /var/folders/yp/1vrxjnrs20798ydt_yl8wrpr0000gp/T
-[INFO] Executing: /bin/sh -c cd __CURRENT__/tobago-theme-speyside/target/checkout && git pull https://github.com/twbs/bootstrap v4.0.0-beta:v4.0.0-beta
+[INFO] Executing: /bin/sh -c cd __CURRENT__/tobago-theme-speyside/target/checkout && git pull https://github.com/twbs/bootstrap v4.0.0-beta.2:v4.0.0-beta.2
 [INFO] Working directory: __CURRENT__/tobago-theme-speyside/target/checkout
-[INFO] Executing: /bin/sh -c cd __CURRENT__/tobago-theme-speyside/target/checkout && git checkout v4.0.0-beta
+[INFO] Executing: /bin/sh -c cd __CURRENT__/tobago-theme-speyside/target/checkout && git checkout v4.0.0-beta.2
 [INFO] Working directory: __CURRENT__/tobago-theme-speyside/target/checkout
 [INFO] Executing: /bin/sh -c cd __CURRENT__/tobago-theme-speyside/target/checkout && git ls-files
 [INFO] Working directory: __CURRENT__/tobago-theme-speyside/target/checkout
 [INFO] 
 [INFO] --- maven-resources-plugin:2.7:copy-resources (step #2: copy-bootstrap) @ tobago-theme-speyside ---
 [INFO] Using 'UTF-8' encoding to copy filtered resources.
-[INFO] Copying 392 resources
+[INFO] Copying 425 resources
 [INFO] 
 [INFO] --- maven-resources-plugin:2.7:copy-resources (step #3: copy-custom) @ tobago-theme-speyside ---
 [INFO] Using 'UTF-8' encoding to copy filtered resources.
@@ -38,30 +38,27 @@ Build date: 2017-10-12 18:03:26
 [INFO] Unpacking __REPO__/org/apache/myfaces/tobago/tobago-core/4.0.0-SNAPSHOT/tobago-core-4.0.0-SNAPSHOT.jar to __CURRENT__/tobago-theme-speyside/target/bootstrap with includes "**/*.scss" and excludes ""
 [INFO] 
 [INFO] --- frontend-maven-plugin:1.4:install-node-and-npm (step #6: install node and npm) @ tobago-theme-speyside ---
-[INFO] Installing node version v6.10.2
-[INFO] Unpacking __REPO__/com/github/eirslett/node/6.10.2/node-6.10.2-darwin-x64.tar.gz into __CURRENT__/tobago-theme-speyside/target/frontend/node/tmp
-[INFO] Copying node binary from __CURRENT__/tobago-theme-speyside/target/frontend/node/tmp/node-v6.10.2-darwin-x64/bin/node to __CURRENT__/tobago-theme-speyside/target/frontend/node/node
+[INFO] Installing node version v7.10.1
+[INFO] Unpacking __REPO__/com/github/eirslett/node/7.10.1/node-7.10.1-darwin-x64.tar.gz into __CURRENT__/tobago-theme-speyside/target/frontend/node/tmp
+[INFO] Copying node binary from __CURRENT__/tobago-theme-speyside/target/frontend/node/tmp/node-v7.10.1-darwin-x64/bin/node to __CURRENT__/tobago-theme-speyside/target/frontend/node/node
 [INFO] Installed node locally.
-[INFO] Installing npm version 3.10.10
-[INFO] Unpacking __REPO__/com/github/eirslett/npm/3.10.10/npm-3.10.10.tar.gz into __CURRENT__/tobago-theme-speyside/target/frontend/node/node_modules
+[INFO] Installing npm version 4.2.0
+[INFO] Unpacking __REPO__/com/github/eirslett/npm/4.2.0/npm-4.2.0.tar.gz into __CURRENT__/tobago-theme-speyside/target/frontend/node/node_modules
 [INFO] Installed npm locally.
 [INFO] 
 [INFO] --- frontend-maven-plugin:1.4:npm (step #7: npm install) @ tobago-theme-speyside ---
 [INFO] Running 'npm install' in __CURRENT__/tobago-theme-speyside/target/bootstrap
-[WARNING] npm WARN deprecated babel-preset-es2015@6.24.1: 🙌  Thanks for using Babel: we recommend using babel-preset-env now: please read babeljs.io/env to update! 
-[WARNING] npm WARN prefer global coffee-script@1.10.0 should be installed with -g
 [WARNING] npm WARN prefer global node-gyp@3.6.2 should be installed with -g
 [INFO] 
 [INFO] > fsevents@1.1.2 install __CURRENT__/tobago-theme-speyside/target/bootstrap/node_modules/fsevents
 [INFO] > node install
 [INFO] 
-[INFO] [fsevents] Success: "__CURRENT__/tobago-theme-speyside/target/bootstrap/node_modules/fsevents/lib/binding/Release/node-v48-darwin-x64/fse.node" already installed
-[INFO] Pass --update-binary to reinstall or --build-from-source to recompile
+[INFO] [fsevents] Success: "__CURRENT__/tobago-theme-speyside/target/bootstrap/node_modules/fsevents/lib/binding/Release/node-v51-darwin-x64/fse.node" is installed via remote
 [INFO] 
 [INFO] > node-sass@4.5.3 install __CURRENT__/tobago-theme-speyside/target/bootstrap/node_modules/node-sass
 [INFO] > node scripts/install.js
 [INFO] 
-[INFO] Cached binary found at __HOME__/.npm/node-sass/4.5.3/darwin-x64-48_binding.node
+[INFO] Cached binary found at __HOME__/.npm/node-sass/4.5.3/darwin-x64-51_binding.node
 [INFO] 
 [INFO] > phantomjs-prebuilt@2.1.15 install __CURRENT__/tobago-theme-speyside/target/bootstrap/node_modules/phantomjs-prebuilt
 [INFO] > node install.js
@@ -71,62 +68,62 @@ Build date: 2017-10-12 18:03:26
 [INFO] Verified checksum of previously downloaded file
 [INFO] Extracting zip contents
 [INFO] Removing __CURRENT__/tobago-theme-speyside/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom
-[INFO] Copying extracted folder /var/folders/yp/1vrxjnrs20798ydt_yl8wrpr0000gp/T/phantomjs/phantomjs-2.1.1-macosx.zip-extract-1507824297232/phantomjs-2.1.1-macosx -> __CURRENT__/tobago-theme-speyside/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom
+[INFO] Copying extracted folder /var/folders/yp/1vrxjnrs20798ydt_yl8wrpr0000gp/T/phantomjs/phantomjs-2.1.1-macosx.zip-extract-1508499612189/phantomjs-2.1.1-macosx -> __CURRENT__/tobago-theme-speyside/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom
 [INFO] Writing location.js file
 [INFO] Done. Phantomjs binary available at __CURRENT__/tobago-theme-speyside/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom/bin/phantomjs
 [INFO] 
 [INFO] > node-sass@4.5.3 postinstall __CURRENT__/tobago-theme-speyside/target/bootstrap/node_modules/node-sass
 [INFO] > node scripts/build.js
 [INFO] 
-[INFO] Binary found at __CURRENT__/tobago-theme-speyside/target/bootstrap/node_modules/node-sass/vendor/darwin-x64-48/binding.node
+[INFO] Binary found at __CURRENT__/tobago-theme-speyside/target/bootstrap/node_modules/node-sass/vendor/darwin-x64-51/binding.node
 [INFO] Testing binary
 [INFO] Binary is fine
-[INFO] bootstrap@4.0.0-beta __CURRENT__/tobago-theme-speyside/target/bootstrap
+[INFO] bootstrap@4.0.0-beta.2 __CURRENT__/tobago-theme-speyside/target/bootstrap
 [INFO] ├─┬ autoprefixer@7.1.5 
 [INFO] │ ├─┬ browserslist@2.5.1 
-[INFO] │ │ └── electron-to-chromium@1.3.26 
-[INFO] │ ├── caniuse-lite@1.0.30000746 
+[INFO] │ │ └── electron-to-chromium@1.3.27 
+[INFO] │ ├── caniuse-lite@1.0.30000748 
 [INFO] │ ├── normalize-range@0.1.2 
 [INFO] │ ├── num2fraction@1.2.2 
 [INFO] │ ├─┬ postcss@6.0.13 
-[INFO] │ │ ├── source-map@0.6.1 
-[INFO] │ │ └─┬ supports-color@4.4.0 
+[INFO] │ │ └─┬ supports-color@4.5.0 
 [INFO] │ │   └── has-flag@2.0.0 
 [INFO] │ └── postcss-value-parser@3.3.0 
-[INFO] ├─┬ babel-cli@6.26.0 
-[INFO] │ ├─┬ babel-core@6.26.0 
-[INFO] │ │ ├─┬ babel-generator@6.26.0 
-[INFO] │ │ │ ├─┬ detect-indent@4.0.0 
-[INFO] │ │ │ │ └─┬ repeating@2.0.1 
-[INFO] │ │ │ │   └── is-finite@1.0.2 
-[INFO] │ │ │ ├── jsesc@1.3.0 
+[INFO] ├─┬ babel-cli@7.0.0-beta.2 
+[INFO] │ ├─┬ babel-core@7.0.0-beta.2 
+[INFO] │ │ ├── babel-code-frame@7.0.0-beta.2 
+[INFO] │ │ ├─┬ babel-generator@7.0.0-beta.2 
+[INFO] │ │ │ ├── jsesc@2.5.1 
 [INFO] │ │ │ ├── source-map@0.5.7 
 [INFO] │ │ │ └── trim-right@1.0.1 
-[INFO] │ │ ├── babel-helpers@6.24.1 
-[INFO] │ │ ├── babel-messages@6.23.0 
-[INFO] │ │ ├── babel-template@6.26.0 
+[INFO] │ │ ├── babel-helpers@7.0.0-beta.2 
+[INFO] │ │ ├── babel-messages@7.0.0-beta.2 
+[INFO] │ │ ├── babel-template@7.0.0-beta.2 
+[INFO] │ │ ├── babel-traverse@7.0.0-beta.2 
+[INFO] │ │ ├── babel-types@7.0.0-beta.2 
+[INFO] │ │ ├── babylon@7.0.0-beta.25 
 [INFO] │ │ ├── json5@0.5.1 
-[INFO] │ │ ├── private@0.1.7 
 [INFO] │ │ └── source-map@0.5.7 
-[INFO] │ ├─┬ babel-polyfill@6.26.0 
+[INFO] │ ├─┬ babel-polyfill@7.0.0-beta.2 
 [INFO] │ │ ├── core-js@2.5.1 
-[INFO] │ │ └── regenerator-runtime@0.10.5 
-[INFO] │ ├─┬ babel-register@6.26.0 
-[INFO] │ │ ├─┬ home-or-tmp@2.0.0 
-[INFO] │ │ │ ├── os-homedir@1.0.2 
-[INFO] │ │ │ └── os-tmpdir@1.0.2 
+[INFO] │ │ └── regenerator-runtime@0.11.0 
+[INFO] │ ├─┬ babel-register@7.0.0-beta.2 
+[INFO] │ │ ├─┬ find-cache-dir@1.0.0 
+[INFO] │ │ │ ├── commondir@1.0.1 
+[INFO] │ │ │ ├── make-dir@1.0.0 
+[INFO] │ │ │ └── pkg-dir@2.0.0 
+[INFO] │ │ ├── home-or-tmp@3.0.0 
+[INFO] │ │ ├─┬ pirates@3.0.1 
+[INFO] │ │ │ └── node-modules-regexp@1.0.0 
 [INFO] │ │ └─┬ source-map-support@0.4.18 
 [INFO] │ │   └── source-map@0.5.7 
-[INFO] │ ├─┬ babel-runtime@6.26.0 
-[INFO] │ │ └── regenerator-runtime@0.11.0 
 [INFO] │ ├─┬ chokidar@1.7.0 
-[INFO] │ │ ├─┬ anymatch@1.3.2 
-[INFO] │ │ │ └─┬ normalize-path@2.1.1 
-[INFO] │ │ │   └── remove-trailing-separator@1.1.0 
+[INFO] │ │ ├── anymatch@1.3.2 
 [INFO] │ │ ├── async-each@1.0.1 
 [INFO] │ │ ├─┬ fsevents@1.1.2 
 [INFO] │ │ │ └─┬ node-pre-gyp@0.6.36 
 [INFO] │ │ │   ├─┬ mkdirp@0.5.1 
+[WARNING] npm WARN bootstrap@4.0.0-beta.2 requires a peer of jquery@1.9.1 - 3 but none was installed.
 [INFO] │ │ │   │ └── minimist@0.0.8 
 [INFO] │ │ │   ├─┬ nopt@4.0.1 
 [INFO] │ │ │   │ ├── abbrev@1.1.0 
@@ -187,9 +184,7 @@ Build date: 2017-10-12 18:03:26
 [INFO] │ │ │   │ │   ├── asn1@0.2.3 
 [INFO] │ │ │   │ │   ├── assert-plus@1.0.0 
 [INFO] │ │ │   │ │   ├── bcrypt-pbkdf@1.0.1 
-[WARNING] npm WARN bootstrap@4.0.0-beta requires a peer of jquery@>=1.9.1 but none was installed.
 [INFO] │ │ │   │ │   ├─┬ dashdash@1.14.1 
-[WARNING] npm WARN bootstrap@4.0.0-beta requires a peer of popper.js@^1.11.0 but none was installed.
 [INFO] │ │ │   │ │   │ └── assert-plus@1.0.0 
 [INFO] │ │ │   │ │   ├── ecc-jsbn@0.1.1 
 [INFO] │ │ │   │ │   ├─┬ getpass@0.1.7 
@@ -244,8 +239,8 @@ Build date: 2017-10-12 18:03:26
 [INFO] │ │ ├── inherits@2.0.3 
 [INFO] │ │ ├─┬ is-binary-path@1.0.1 
 [INFO] │ │ │ └── binary-extensions@1.10.0 
-[INFO] │ │ ├─┬ is-glob@2.0.1 
-[INFO] │ │ │ └── is-extglob@1.0.0 
+[INFO] │ │ ├── is-glob@2.0.1 
+[INFO] │ │ ├── path-is-absolute@1.0.1 
 [INFO] │ │ └─┬ readdirp@2.1.0 
 [INFO] │ │   └── set-immediate-shim@1.0.1 
 [INFO] │ ├── commander@2.11.0 
@@ -257,76 +252,155 @@ Build date: 2017-10-12 18:03:26
 [INFO] │ │ │ └── wrappy@1.0.2 
 [INFO] │ │ └── once@1.4.0 
 [INFO] │ ├── lodash@4.17.4 
-[INFO] │ ├─┬ output-file-sync@1.1.2 
+[INFO] │ ├─┬ output-file-sync@2.0.0 
 [INFO] │ │ ├── graceful-fs@4.1.11 
-[INFO] │ │ └── object-assign@4.1.1 
-[INFO] │ ├── path-is-absolute@1.0.1 
+[INFO] │ │ └── is-plain-obj@1.1.0 
 [INFO] │ ├── slash@1.0.0 
-[INFO] │ ├── source-map@0.5.7 
-[INFO] │ └─┬ v8flags@2.1.1 
-[INFO] │   └── user-home@1.1.1 
-[INFO] ├─┬ babel-eslint@7.2.3 
-[INFO] │ ├─┬ babel-code-frame@6.26.0 
+[INFO] │ └── source-map@0.5.7 
+[INFO] ├─┬ babel-eslint@8.0.1 
+[INFO] │ ├─┬ babel-code-frame@7.0.0-beta.0 
+[INFO] │ │ └── js-tokens@3.0.2 
+[INFO] │ ├─┬ babel-traverse@7.0.0-beta.0 
+[INFO] │ │ ├─┬ babel-helper-function-name@7.0.0-beta.0 
+[INFO] │ │ │ ├── babel-helper-get-function-arity@7.0.0-beta.0 
+[INFO] │ │ │ └── babel-template@7.0.0-beta.0 
+[INFO] │ │ ├── babel-messages@7.0.0-beta.0 
+[INFO] │ │ └── globals@10.1.0 
+[INFO] │ ├─┬ babel-types@7.0.0-beta.0 
+[INFO] │ │ └── to-fast-properties@2.0.0 
+[INFO] │ └── babylon@7.0.0-beta.22 
+[INFO] ├── babel-plugin-external-helpers@7.0.0-beta.2 
+[INFO] ├── babel-plugin-transform-es2015-modules-strip@0.1.1 
+[INFO] ├─┬ babel-preset-env@2.0.0-beta.2 
+[INFO] │ ├── babel-plugin-check-es2015-constants@7.0.0-beta.2 
+[INFO] │ ├── babel-plugin-syntax-async-generators@7.0.0-beta.0 
+[INFO] │ ├── babel-plugin-syntax-object-rest-spread@7.0.0-beta.0 
+[INFO] │ ├── babel-plugin-syntax-optional-catch-binding@7.0.0-beta.0 
+[INFO] │ ├── babel-plugin-syntax-trailing-function-commas@7.0.0-beta.0 
+[INFO] │ ├─┬ babel-plugin-transform-async-generator-functions@7.0.0-beta.2 
+[INFO] │ │ ├─┬ babel-helper-remap-async-to-generator@7.0.0-beta.2 
+[INFO] │ │ │ └── babel-helper-wrap-function@7.0.0-beta.2 
+[INFO] │ │ └── babel-plugin-syntax-async-generators@7.0.0-beta.2 
+[INFO] │ ├─┬ babel-plugin-transform-async-to-generator@7.0.0-beta.2 
+[INFO] │ │ └── babel-plugin-syntax-async-functions@7.0.0-beta.0 
+[INFO] │ ├── babel-plugin-transform-es2015-arrow-functions@7.0.0-beta.2 
+[INFO] │ ├── babel-plugin-transform-es2015-block-scoped-functions@7.0.0-beta.2 
+[INFO] │ ├── babel-plugin-transform-es2015-block-scoping@7.0.0-beta.2 
+[INFO] │ ├─┬ babel-plugin-transform-es2015-classes@7.0.0-beta.2 
+[INFO] │ │ ├── babel-helper-annotate-as-pure@7.0.0-beta.2 
+[INFO] │ │ ├── babel-helper-define-map@7.0.0-beta.2 
+[INFO] │ │ ├── babel-helper-function-name@7.0.0-beta.2 
+[INFO] │ │ ├── babel-helper-optimise-call-expression@7.0.0-beta.2 
+[INFO] │ │ └── babel-helper-replace-supers@7.0.0-beta.2 
+[INFO] │ ├── babel-plugin-transform-es2015-computed-properties@7.0.0-beta.2 
+[INFO] │ ├── babel-plugin-transform-es2015-destructuring@7.0.0-beta.2 
+[INFO] │ ├── babel-plugin-transform-es2015-duplicate-keys@7.0.0-beta.2 
+[INFO] │ ├── babel-plugin-transform-es2015-for-of@7.0.0-beta.2 
+[INFO] │ ├── babel-plugin-transform-es2015-function-name@7.0.0-beta.2 
+[INFO] │ ├── babel-plugin-transform-es2015-literals@7.0.0-beta.2 
+[INFO] │ ├─┬ babel-plugin-transform-es2015-modules-amd@7.0.0-beta.2 
+[INFO] │ │ └── babel-helper-module-transforms@7.0.0-beta.2 
+[INFO] │ ├── babel-plugin-transform-es2015-modules-commonjs@7.0.0-beta.2 
+[INFO] │ ├─┬ babel-plugin-transform-es2015-modules-systemjs@7.0.0-beta.2 
+[INFO] │ │ └── babel-helper-hoist-variables@7.0.0-beta.2 
+[INFO] │ ├── babel-plugin-transform-es2015-modules-umd@7.0.0-beta.2 
+[INFO] │ ├── babel-plugin-transform-es2015-object-super@7.0.0-beta.2 
+[INFO] │ ├─┬ babel-plugin-transform-es2015-parameters@7.0.0-beta.2 
+[INFO] │ │ ├── babel-helper-call-delegate@7.0.0-beta.2 
+[INFO] │ │ └── babel-helper-get-function-arity@7.0.0-beta.2 
+[INFO] │ ├── babel-plugin-transform-es2015-shorthand-properties@7.0.0-beta.2 
+[INFO] │ ├── babel-plugin-transform-es2015-spread@7.0.0-beta.2 
+[INFO] │ ├─┬ babel-plugin-transform-es2015-sticky-regex@7.0.0-beta.2 
+[INFO] │ │ └── babel-helper-regex@7.0.0-beta.2 
+[INFO] │ ├── babel-plugin-transform-es2015-template-literals@7.0.0-beta.2 
+[INFO] │ ├── babel-plugin-transform-es2015-typeof-symbol@7.0.0-beta.2 
+[INFO] │ ├─┬ babel-plugin-transform-es2015-unicode-regex@7.0.0-beta.2 
+[INFO] │ │ └─┬ regexpu-core@4.1.3 
+[INFO] │ │   ├── regenerate@1.3.3 
+[INFO] │ │   ├── regenerate-unicode-properties@5.1.1 
+[INFO] │ │   ├── regjsgen@0.3.0 
+[INFO] │ │   ├─┬ regjsparser@0.2.1 
+[INFO] │ │   │ └── jsesc@0.5.0 
+[INFO] │ │   ├─┬ unicode-match-property-ecmascript@1.0.3 
+[INFO] │ │   │ ├── unicode-canonical-property-names-ecmascript@1.0.2 
+[INFO] │ │   │ └── unicode-property-aliases-ecmascript@1.0.3 
+[INFO] │ │   └── unicode-match-property-value-ecmascript@1.0.1 
+[INFO] │ ├─┬ babel-plugin-transform-exponentiation-operator@7.0.0-beta.2 
+[INFO] │ │ ├─┬ babel-helper-builder-binary-assignment-operator-visitor@7.0.0-beta.2 
+[INFO] │ │ │ └── babel-helper-explode-assignable-expression@7.0.0-beta.2 
+[INFO] │ │ └── babel-plugin-syntax-exponentiation-operator@7.0.0-beta.0 
+[INFO] │ ├── babel-plugin-transform-new-target@7.0.0-beta.2 
+[INFO] │ ├─┬ babel-plugin-transform-object-rest-spread@7.0.0-beta.2 
+[INFO] │ │ └── babel-plugin-syntax-object-rest-spread@7.0.0-beta.2 
+[INFO] │ ├─┬ babel-plugin-transform-optional-catch-binding@7.0.0-beta.2 
+[INFO] │ │ └── babel-plugin-syntax-optional-catch-binding@7.0.0-beta.2 
+[INFO] │ ├─┬ babel-plugin-transform-regenerator@7.0.0-beta.2 
+[INFO] │ │ └─┬ regenerator-transform@0.10.0 
+[INFO] │ │   ├─┬ babel-types@6.26.0 
+[INFO] │ │   │ └── to-fast-properties@1.0.3 
+[INFO] │ │   └── private@0.1.8 
+[INFO] │ ├─┬ babel-plugin-transform-unicode-property-regex@2.0.5 
+[INFO] │ │ └─┬ babel-helper-regex@6.26.0 
+[INFO] │ │   └─┬ babel-types@6.26.0 
+[INFO] │ │     └── to-fast-properties@1.0.3 
+[INFO] │ ├─┬ invariant@2.2.2 
+[INFO] │ │ └── loose-envify@1.3.1 
+[INFO] │ └── semver@5.4.1 
+[INFO] ├─┬ bundlesize@0.15.3 
+[INFO] │ ├─┬ axios@0.16.2 
+[INFO] │ │ ├─┬ follow-redirects@1.2.5 
+[INFO] │ │ │ └── debug@2.6.9 
+[INFO] │ │ └── is-buffer@1.1.5 
+[INFO] │ ├── bytes@3.0.0 
+[INFO] │ ├── ci-env@1.4.0 
+[INFO] │ ├─┬ github-build@1.2.0 
+[INFO] │ │ └─┬ axios@0.15.3 
+[INFO] │ │   └─┬ follow-redirects@1.0.0 
+[INFO] │ │     └── debug@2.6.9 
+[INFO] │ ├─┬ gzip-size@4.0.0 
+[INFO] │ │ ├── duplexer@0.1.1 
+[INFO] │ │ └── pify@3.0.0 
+[INFO] │ ├─┬ opencollective@1.0.3 
+[INFO] │ │ ├─┬ babel-polyfill@6.23.0 
+[INFO] │ │ │ └── regenerator-runtime@0.10.5 
 [INFO] │ │ ├─┬ chalk@1.1.3 
 [INFO] │ │ │ ├── ansi-styles@2.2.1 
 [INFO] │ │ │ └── supports-color@2.0.0 
-[INFO] │ │ └── js-tokens@3.0.2 
-[INFO] │ ├─┬ babel-traverse@6.26.0 
-[INFO] │ │ └─┬ invariant@2.2.2 
-[INFO] │ │   └── loose-envify@1.3.1 
-[INFO] │ ├─┬ babel-types@6.26.0 
-[INFO] │ │ └── to-fast-properties@1.0.3 
-[INFO] │ └── babylon@6.18.0 
-[INFO] ├── babel-plugin-transform-es2015-modules-strip@0.1.1 
-[INFO] ├─┬ babel-preset-es2015@6.24.1 
-[INFO] │ ├── babel-plugin-check-es2015-constants@6.22.0 
-[INFO] │ ├── babel-plugin-transform-es2015-arrow-functions@6.22.0 
-[INFO] │ ├── babel-plugin-transform-es2015-block-scoped-functions@6.22.0 
-[INFO] │ ├── babel-plugin-transform-es2015-block-scoping@6.26.0 
-[INFO] │ ├─┬ babel-plugin-transform-es2015-classes@6.24.1 
-[INFO] │ │ ├── babel-helper-define-map@6.26.0 
-[INFO] │ │ ├── babel-helper-function-name@6.24.1 
-[INFO] │ │ ├── babel-helper-optimise-call-expression@6.24.1 
-[INFO] │ │ └── babel-helper-replace-supers@6.24.1 
-[INFO] │ ├── babel-plugin-transform-es2015-computed-properties@6.24.1 
-[INFO] │ ├── babel-plugin-transform-es2015-destructuring@6.23.0 
-[INFO] │ ├── babel-plugin-transform-es2015-duplicate-keys@6.24.1 
-[INFO] │ ├── babel-plugin-transform-es2015-for-of@6.23.0 
-[INFO] │ ├── babel-plugin-transform-es2015-function-name@6.24.1 
-[INFO] │ ├── babel-plugin-transform-es2015-literals@6.22.0 
-[INFO] │ ├── babel-plugin-transform-es2015-modules-amd@6.24.1 
-[INFO] │ ├─┬ babel-plugin-transform-es2015-modules-commonjs@6.26.0 
-[INFO] │ │ └── babel-plugin-transform-strict-mode@6.24.1 
-[INFO] │ ├─┬ babel-plugin-transform-es2015-modules-systemjs@6.24.1 
-[INFO] │ │ └── babel-helper-hoist-variables@6.24.1 
-[INFO] │ ├── babel-plugin-transform-es2015-modules-umd@6.24.1 
-[INFO] │ ├── babel-plugin-transform-es2015-object-super@6.24.1 
-[INFO] │ ├─┬ babel-plugin-transform-es2015-parameters@6.24.1 
-[INFO] │ │ ├── babel-helper-call-delegate@6.24.1 
-[INFO] │ │ └── babel-helper-get-function-arity@6.24.1 
-[INFO] │ ├── babel-plugin-transform-es2015-shorthand-properties@6.24.1 
-[INFO] │ ├── babel-plugin-transform-es2015-spread@6.22.0 
-[INFO] │ ├─┬ babel-plugin-transform-es2015-sticky-regex@6.24.1 
-[INFO] │ │ └── babel-helper-regex@6.26.0 
-[INFO] │ ├── babel-plugin-transform-es2015-template-literals@6.22.0 
-[INFO] │ ├── babel-plugin-transform-es2015-typeof-symbol@6.23.0 
-[INFO] │ ├─┬ babel-plugin-transform-es2015-unicode-regex@6.24.1 
-[INFO] │ │ └─┬ regexpu-core@2.0.0 
-[INFO] │ │   ├── regenerate@1.3.3 
-[INFO] │ │   ├── regjsgen@0.2.0 
-[INFO] │ │   └─┬ regjsparser@0.1.5 
-[INFO] │ │     └── jsesc@0.5.0 
-[INFO] │ └─┬ babel-plugin-transform-regenerator@6.26.0 
-[INFO] │   └── regenerator-transform@0.10.1 
+[INFO] │ │ ├── minimist@1.2.0 
+[INFO] │ │ ├─┬ node-fetch@1.6.3 
+[INFO] │ │ │ └── encoding@0.1.12 
+[INFO] │ │ └── opn@4.0.2 
+[INFO] │ ├─┬ prettycli@1.4.3 
+[INFO] │ │ └── chalk@2.1.0 
+[INFO] │ └─┬ read-pkg-up@2.0.0 
+[INFO] │   └─┬ find-up@2.1.0 
+[INFO] │     └─┬ locate-path@2.0.0 
+[INFO] │       ├─┬ p-locate@2.0.0 
+[INFO] │       │ └── p-limit@1.1.0 
+[INFO] │       └── path-exists@3.0.0 
 [INFO] ├─┬ clean-css-cli@4.1.10 
 [INFO] │ └─┬ clean-css@4.1.9 
 [INFO] │   └── source-map@0.5.7 
-[INFO] ├─┬ eslint@4.8.0 
+[INFO] ├─┬ cross-env@5.1.0 
+[INFO] │ ├─┬ cross-spawn@5.1.0 
+[INFO] │ │ ├─┬ lru-cache@4.1.1 
+[INFO] │ │ │ ├── pseudomap@1.0.2 
+[INFO] │ │ │ └── yallist@2.1.2 
+[INFO] │ │ ├─┬ shebang-command@1.2.0 
+[INFO] │ │ │ └── shebang-regex@1.0.0 
+[INFO] │ │ └── which@1.3.0 
+[INFO] │ └── is-windows@1.0.1 
+[INFO] ├─┬ eslint@4.9.0 
 [INFO] │ ├─┬ ajv@5.2.3 
 [INFO] │ │ ├── co@4.6.0 
 [INFO] │ │ ├── fast-deep-equal@1.0.0 
 [INFO] │ │ └── json-schema-traverse@0.3.1 
-[INFO] │ ├─┬ chalk@2.1.0 
+[INFO] │ ├─┬ babel-code-frame@6.26.0 
+[INFO] │ │ └─┬ chalk@1.1.3 
+[INFO] │ │   ├── ansi-styles@2.2.1 
+[INFO] │ │   ├── strip-ansi@3.0.1 
+[INFO] │ │   └── supports-color@2.0.0 
+[INFO] │ ├─┬ chalk@2.2.0 
 [INFO] │ │ └── escape-string-regexp@1.0.5 
 [INFO] │ ├─┬ concat-stream@1.6.0 
 [INFO] │ │ ├─┬ readable-stream@2.3.3 
@@ -335,13 +409,6 @@ Build date: 2017-10-12 18:03:26
 [INFO] │ │ │ ├── string_decoder@1.0.3 
 [INFO] │ │ │ └── util-deprecate@1.0.2 
 [INFO] │ │ └── typedarray@0.0.6 
-[INFO] │ ├─┬ cross-spawn@5.1.0 
-[INFO] │ │ ├─┬ lru-cache@4.1.1 
-[INFO] │ │ │ ├── pseudomap@1.0.2 
-[INFO] │ │ │ └── yallist@2.1.2 
-[INFO] │ │ ├─┬ shebang-command@1.2.0 
-[INFO] │ │ │ └── shebang-regex@1.0.0 
-[INFO] │ │ └── which@1.3.0 
 [INFO] │ ├─┬ debug@3.1.0 
 [INFO] │ │ └── ms@2.0.0 
 [INFO] │ ├─┬ doctrine@2.0.0 
@@ -356,39 +423,39 @@ Build date: 2017-10-12 18:03:26
 [INFO] │ ├── estraverse@4.2.0 
 [INFO] │ ├── esutils@2.0.2 
 [INFO] │ ├─┬ file-entry-cache@2.0.0 
-[INFO] │ │ └─┬ flat-cache@1.3.0 
-[INFO] │ │   ├── circular-json@0.3.3 
-[INFO] │ │   ├─┬ del@2.2.2 
-[INFO] │ │   │ ├─┬ globby@5.0.0 
-[INFO] │ │   │ │ └── arrify@1.0.1 
-[INFO] │ │   │ ├── is-path-cwd@1.0.0 
-[INFO] │ │   │ └── is-path-in-cwd@1.0.0 
-[INFO] │ │   └── write@0.2.1 
+[INFO] │ │ ├─┬ flat-cache@1.3.0 
+[INFO] │ │ │ ├── circular-json@0.3.3 
+[INFO] │ │ │ ├─┬ del@2.2.2 
+[INFO] │ │ │ │ ├─┬ globby@5.0.0 
+[INFO] │ │ │ │ │ └── arrify@1.0.1 
+[INFO] │ │ │ │ ├── is-path-cwd@1.0.0 
+[INFO] │ │ │ │ └── is-path-in-cwd@1.0.0 
+[INFO] │ │ │ └── write@0.2.1 
+[INFO] │ │ └── object-assign@4.1.1 
 [INFO] │ ├── functional-red-black-tree@1.0.1 
 [INFO] │ ├── globals@9.18.0 
 [INFO] │ ├── ignore@3.3.5 
 [INFO] │ ├── imurmurhash@0.1.4 
-[INFO] │ ├─┬ inquirer@3.3.0 
-[INFO] │ │ ├── ansi-escapes@3.0.0 
+[INFO] │ ├─┬ inquirer@3.0.6 
+[INFO] │ │ ├── ansi-escapes@1.4.0 
+[INFO] │ │ ├─┬ chalk@1.1.3 
+[INFO] │ │ │ ├── ansi-styles@2.2.1 
+[INFO] │ │ │ └── supports-color@2.0.0 
 [INFO] │ │ ├─┬ cli-cursor@2.1.0 
 [INFO] │ │ │ └─┬ restore-cursor@2.0.0 
 [INFO] │ │ │   └── onetime@2.0.1 
 [INFO] │ │ ├── cli-width@2.2.0 
 [INFO] │ │ ├─┬ external-editor@2.0.5 
+[INFO] │ │ │ ├── iconv-lite@0.4.19 
 [INFO] │ │ │ ├── jschardet@1.5.1 
 [INFO] │ │ │ └── tmp@0.0.33 
 [INFO] │ │ ├── figures@2.0.0 
 [INFO] │ │ ├── mute-stream@0.0.7 
 [INFO] │ │ ├─┬ run-async@2.3.0 
 [INFO] │ │ │ └── is-promise@2.1.0 
-[INFO] │ │ ├── rx-lite@4.0.8 
-[INFO] │ │ ├── rx-lite-aggregates@4.0.8 
-[INFO] │ │ ├─┬ string-width@2.1.1 
-[INFO] │ │ │ ├── is-fullwidth-code-point@2.0.0 
-[INFO] │ │ │ └─┬ strip-ansi@4.0.0 
-[INFO] │ │ │   └── ansi-regex@3.0.0 
-[INFO] │ │ ├─┬ strip-ansi@4.0.0 
-[INFO] │ │ │ └── ansi-regex@3.0.0 
+[INFO] │ │ ├── rx@4.1.0 
+[INFO] │ │ ├─┬ strip-ansi@3.0.1 
+[INFO] │ │ │ └── ansi-regex@2.1.1 
 [INFO] │ │ └── through@2.3.8 
 [INFO] │ ├─┬ is-resolvable@1.0.0 
 [INFO] │ │ └── tryit@1.0.3 
@@ -403,7 +470,6 @@ Build date: 2017-10-12 18:03:26
 [INFO] │ │ └── type-check@0.3.2 
 [INFO] │ ├─┬ minimatch@3.0.4 
 [INFO] │ │ └─┬ brace-expansion@1.1.8 
-[INFO] │ │   ├── balanced-match@1.0.0 
 [INFO] │ │   └── concat-map@0.0.1 
 [INFO] │ ├─┬ mkdirp@0.5.1 
 [INFO] │ │ └── minimist@0.0.8 
@@ -419,7 +485,6 @@ Build date: 2017-10-12 18:03:26
 [INFO] │ │ ├─┬ caller-path@0.1.0 
 [INFO] │ │ │ └── callsites@0.2.0 
 [INFO] │ │ └── resolve-from@1.0.1 
-[INFO] │ ├── semver@5.4.1 
 [INFO] │ ├─┬ strip-ansi@4.0.0 
 [INFO] │ │ └── ansi-regex@3.0.0 
 [INFO] │ ├── strip-json-comments@2.0.1 
@@ -427,63 +492,15 @@ Build date: 2017-10-12 18:03:26
 [INFO] │ │ ├── ajv-keywords@2.1.0 
 [INFO] │ │ └── slice-ansi@1.0.0 
 [INFO] │ └── text-table@0.2.0 
-[INFO] ├─┬ grunt@1.0.1 
-[INFO] │ ├── coffee-script@1.10.0 
-[INFO] │ ├── dateformat@1.0.12 
-[INFO] │ ├── eventemitter2@0.4.14 
-[INFO] │ ├── exit@0.1.2 
-[INFO] │ ├─┬ findup-sync@0.3.0 
-[INFO] │ │ └── glob@5.0.15 
-[INFO] │ ├── glob@7.0.6 
-[INFO] │ ├── grunt-known-options@1.1.0 
-[INFO] │ ├─┬ grunt-legacy-log@1.0.0 
-[INFO] │ │ ├─┬ grunt-legacy-log-utils@1.0.0 
-[INFO] │ │ │ ├─┬ chalk@1.1.3 
-[INFO] │ │ │ │ ├── ansi-styles@2.2.1 
-[INFO] │ │ │ │ └── supports-color@2.0.0 
-[INFO] │ │ │ └── lodash@4.3.0 
-[INFO] │ │ ├── hooker@0.2.3 
-[INFO] │ │ ├── lodash@3.10.1 
-[INFO] │ │ └── underscore.string@3.2.3 
-[INFO] │ ├─┬ grunt-legacy-util@1.0.0 
-[INFO] │ │ ├── async@1.5.2 
-[INFO] │ │ ├── getobject@0.1.0 
-[INFO] │ │ ├── lodash@4.3.0 
-[INFO] │ │ └── which@1.2.14 
-[INFO] │ ├── iconv-lite@0.4.19 
-[INFO] │ ├─┬ js-yaml@3.5.5 
-[INFO] │ │ └── esprima@2.7.3 
-[INFO] │ ├─┬ nopt@3.0.6 
-[INFO] │ │ └── abbrev@1.1.1 
-[INFO] │ └── rimraf@2.2.8 
-[INFO] ├─┬ grunt-cli@1.2.0 
-[INFO] │ └── resolve@1.1.7 
-[INFO] ├─┬ grunt-saucelabs@9.0.0 
-[INFO] │ ├── colors@1.1.2 
-[INFO] │ ├── lodash@4.13.1 
-[INFO] │ ├── q@1.4.1 
-[INFO] │ ├─┬ requestretry@1.9.1 
-[INFO] │ │ ├── extend@3.0.1 
-[INFO] │ │ ├─┬ fg-lodash@0.0.2 
-[INFO] │ │ │ ├── lodash@2.4.2 
-[INFO] │ │ │ └── underscore.string@2.3.3 
-[INFO] │ │ └── when@3.7.8 
-[INFO] │ ├─┬ sauce-tunnel@2.5.0 
-[INFO] │ │ ├─┬ chalk@1.1.3 
-[INFO] │ │ │ ├── ansi-styles@2.2.1 
-[INFO] │ │ │ └── supports-color@2.0.0 
-[INFO] │ │ └── split@1.0.1 
-[INFO] │ └─┬ saucelabs@1.2.0 
-[INFO] │   └─┬ https-proxy-agent@1.0.0 
-[INFO] │     └─┬ agent-base@2.1.1 
-[INFO] │       └── semver@5.0.3 
+[INFO] ├─┬ eslint-plugin-compat@2.0.1 
+[INFO] │ ├── babel-runtime@6.26.0 
+[INFO] │ ├── caniuse-db@1.0.30000748 
+[INFO] │ └── requireindex@1.1.0 
 [INFO] ├─┬ htmllint-cli@0.0.6 
 [INFO] │ ├── bluebird@3.5.1 
 [INFO] │ ├─┬ chalk@1.1.3 
 [INFO] │ │ ├── ansi-styles@2.2.1 
-[INFO] │ │ ├─┬ has-ansi@2.0.0 
-[INFO] │ │ │ └── ansi-regex@2.1.1 
-[INFO] │ │ ├── strip-ansi@3.0.1 
+[INFO] │ │ ├── has-ansi@2.0.0 
 [INFO] │ │ └── supports-color@2.0.0 
 [INFO] │ ├─┬ cjson@0.5.0 
 [INFO] │ │ └─┬ json-parse-helpfulerror@1.0.3 
@@ -498,7 +515,7 @@ Build date: 2017-10-12 18:03:26
 [INFO] │ │   │   └── domelementtype@1.1.3 
 [INFO] │ │   └── entities@1.1.1 
 [INFO] │ ├─┬ liftoff@2.3.0 
-[INFO] │ │ ├── findup-sync@0.4.3 
+[INFO] │ │ ├── extend@3.0.1 
 [INFO] │ │ ├─┬ fined@1.1.0 
 [INFO] │ │ │ ├─┬ expand-tilde@2.0.2 
 [INFO] │ │ │ │ └─┬ homedir-polyfill@1.0.1 
@@ -508,16 +525,16 @@ Build date: 2017-10-12 18:03:26
 [INFO] │ │ │ ├─┬ object.defaults@1.1.0 
 [INFO] │ │ │ │ ├── array-each@1.0.1 
 [INFO] │ │ │ │ ├── array-slice@1.0.0 
-[INFO] │ │ │ │ ├─┬ for-own@1.0.0 
-[INFO] │ │ │ │ │ └── for-in@1.0.2 
+[INFO] │ │ │ │ ├── for-own@1.0.0 
 [INFO] │ │ │ │ └── isobject@3.0.1 
 [INFO] │ │ │ ├─┬ object.pick@1.3.0 
 [INFO] │ │ │ │ └── isobject@3.0.1 
 [INFO] │ │ │ └─┬ parse-filepath@1.0.1 
 [INFO] │ │ │   ├─┬ is-absolute@0.2.6 
-[INFO] │ │ │   │ └─┬ is-relative@0.2.1 
-[INFO] │ │ │   │   └─┬ is-unc-path@0.1.2 
-[INFO] │ │ │   │     └── unc-path-regex@0.1.2 
+[INFO] │ │ │   │ ├─┬ is-relative@0.2.1 
+[INFO] │ │ │   │ │ └─┬ is-unc-path@0.1.2 
+[INFO] │ │ │   │ │   └── unc-path-regex@0.1.2 
+[INFO] │ │ │   │ └── is-windows@0.2.0 
 [INFO] │ │ │   ├── map-cache@0.2.2 
 [INFO] │ │ │   └─┬ path-root@0.1.1 
 [INFO] │ │ │     └── path-root-regex@0.1.2 
@@ -557,9 +574,15 @@ Build date: 2017-10-12 18:03:26
 [INFO] │   │   └── number-is-nan@1.0.1 
 [INFO] │   ├── which-module@1.0.0 
 [INFO] │   ├── y18n@3.2.1 
-[INFO] │   └─┬ yargs-parser@4.2.1 
-[INFO] │     └── camelcase@3.0.0 
-[INFO] ├── UNMET PEER DEPENDENCY jquery@>=1.9.1
+[INFO] │   └── yargs-parser@4.2.1 
+[INFO] ├── UNMET PEER DEPENDENCY jquery@1.9.1 - 3
+[INFO] ├─┬ jsunitsaucelabs@1.3.0 
+[INFO] │ ├── colors@1.1.2 
+[INFO] │ └─┬ sauce-tunnel@2.5.0 
+[INFO] │   ├─┬ chalk@1.1.3 
+[INFO] │   │ ├── ansi-styles@2.2.1 
+[INFO] │   │ └── supports-color@2.0.0 
+[INFO] │   └── split@1.0.1 
 [INFO] ├─┬ node-sass@4.5.3 
 [INFO] │ ├── async-foreach@0.1.3 
 [INFO] │ ├─┬ chalk@1.1.3 
@@ -584,20 +607,32 @@ Build date: 2017-10-12 18:03:26
 [INFO] │ │ ├── minimist@1.2.0 
 [INFO] │ │ ├─┬ normalize-package-data@2.4.0 
 [INFO] │ │ │ ├── hosted-git-info@2.5.0 
-[INFO] │ │ │ ├─┬ is-builtin-module@1.0.0 
-[INFO] │ │ │ │ └── builtin-modules@1.1.1 
+[INFO] │ │ │ ├── is-builtin-module@1.0.0 
 [INFO] │ │ │ └─┬ validate-npm-package-license@3.0.1 
 [INFO] │ │ │   ├─┬ spdx-correct@1.0.2 
 [INFO] │ │ │   │ └── spdx-license-ids@1.2.2 
 [INFO] │ │ │   └── spdx-expression-parse@1.0.4 
+[INFO] │ │ ├─┬ read-pkg-up@1.0.1 
+[INFO] │ │ │ ├─┬ find-up@1.1.2 
+[INFO] │ │ │ │ └── path-exists@2.1.0 
+[INFO] │ │ │ └─┬ read-pkg@1.1.0 
+[INFO] │ │ │   ├─┬ load-json-file@1.1.0 
+[INFO] │ │ │   │ └── strip-bom@2.0.0 
+[INFO] │ │ │   └── path-type@1.1.0 
 [INFO] │ │ ├─┬ redent@1.0.0 
-[INFO] │ │ │ ├── indent-string@2.1.0 
+[INFO] │ │ │ ├─┬ indent-string@2.1.0 
+[INFO] │ │ │ │ └─┬ repeating@2.0.1 
+[INFO] │ │ │ │   └── is-finite@1.0.2 
 [INFO] │ │ │ └── strip-indent@1.0.1 
 [INFO] │ │ └── trim-newlines@1.0.0 
 [INFO] │ ├── nan@2.7.0 
 [INFO] │ ├─┬ node-gyp@3.6.2 
 [INFO] │ │ ├── fstream@1.0.11 
-[INFO] │ │ ├── osenv@0.1.4 
+[INFO] │ │ ├─┬ nopt@3.0.6 
+[INFO] │ │ │ └── abbrev@1.1.1 
+[INFO] │ │ ├─┬ osenv@0.1.4 
+[INFO] │ │ │ ├── os-homedir@1.0.2 
+[INFO] │ │ │ └── os-tmpdir@1.0.2 
 [INFO] │ │ ├── rimraf@2.6.2 
 [INFO] │ │ ├── semver@5.3.0 
 [INFO] │ │ └─┬ tar@2.2.1 
@@ -665,7 +700,13 @@ Build date: 2017-10-12 18:03:26
 [INFO] │ │ │ └─┬ source-map@0.4.4 
 [INFO] │ │ │   └── amdefine@1.0.1 
 [INFO] │ │ └─┬ yargs@7.1.0 
-[INFO] │ │   ├── camelcase@3.0.0 
+[INFO] │ │   ├─┬ read-pkg-up@1.0.1 
+[INFO] │ │   │ ├─┬ find-up@1.1.2 
+[INFO] │ │   │ │ └── path-exists@2.1.0 
+[INFO] │ │   │ └─┬ read-pkg@1.1.0 
+[INFO] │ │   │   ├─┬ load-json-file@1.1.0 
+[INFO] │ │   │   │ └── strip-bom@2.0.0 
+[INFO] │ │   │   └── path-type@1.1.0 
 [INFO] │ │   ├─┬ string-width@1.0.2 
 [INFO] │ │   │ └── is-fullwidth-code-point@1.0.0 
 [INFO] │ │   └── yargs-parser@5.0.0 
@@ -688,7 +729,6 @@ Build date: 2017-10-12 18:03:26
 [INFO] │ │ └── lodash.restparam@3.6.1 
 [INFO] │ ├─┬ ps-tree@1.1.0 
 [INFO] │ │ └─┬ event-stream@3.3.4 
-[INFO] │ │   ├── duplexer@0.1.1 
 [INFO] │ │   ├── from@0.1.7 
 [INFO] │ │   ├── map-stream@0.1.0 
 [INFO] │ │   ├── pause-stream@0.0.11 
@@ -698,7 +738,7 @@ Build date: 2017-10-12 18:03:26
 [INFO] │ │ └── nopt@1.0.10 
 [INFO] │ ├── undefsafe@0.0.3 
 [INFO] │ └─┬ update-notifier@2.3.0 
-[INFO] │   ├─┬ boxen@1.2.1 
+[INFO] │   ├─┬ boxen@1.2.2 
 [INFO] │   │ ├── ansi-align@2.0.0 
 [INFO] │   │ ├── camelcase@4.1.0 
 [INFO] │   │ ├── cli-boxes@1.0.0 
@@ -709,7 +749,6 @@ Build date: 2017-10-12 18:03:26
 [INFO] │   ├─┬ configstore@3.1.1 
 [INFO] │   │ ├─┬ dot-prop@4.2.0 
 [INFO] │   │ │ └── is-obj@1.0.1 
-[INFO] │   │ ├── make-dir@1.0.0 
 [INFO] │   │ ├─┬ unique-string@1.0.0 
 [INFO] │   │ │ └── crypto-random-string@1.0.0 
 [INFO] │   │ └── write-file-atomic@2.3.0 
@@ -733,7 +772,7 @@ Build date: 2017-10-12 18:03:26
 [INFO] │   │   │ └─┬ url-parse-lax@1.0.0 
 [INFO] │   │   │   └── prepend-http@1.0.4 
 [INFO] │   │   ├─┬ registry-auth-token@3.3.1 
-[INFO] │   │   │ └─┬ rc@1.2.1 
+[INFO] │   │   │ └─┬ rc@1.2.2 
 [INFO] │   │   │   ├── deep-extend@0.4.2 
 [INFO] │   │   │   └── minimist@1.2.0 
 [INFO] │   │   └── registry-url@3.1.0 
@@ -749,9 +788,7 @@ Build date: 2017-10-12 18:03:26
 [INFO] │ │   └── string_decoder@0.10.31 
 [INFO] │ ├─┬ read-pkg@2.0.0 
 [INFO] │ │ ├─┬ load-json-file@2.0.0 
-[INFO] │ │ │ ├─┬ parse-json@2.2.0 
-[INFO] │ │ │ │ └─┬ error-ex@1.3.1 
-[INFO] │ │ │ │   └── is-arrayish@0.2.1 
+[INFO] │ │ │ ├── parse-json@2.2.0 
 [INFO] │ │ │ └── strip-bom@3.0.0 
 [INFO] │ │ └── path-type@2.0.0 
 [INFO] │ ├─┬ shell-quote@1.6.1 
@@ -807,7 +844,7 @@ Build date: 2017-10-12 18:03:26
 [INFO] │ │ └── throttleit@1.0.0 
 [INFO] │ └─┬ which@1.2.14 
 [INFO] │   └── isexe@2.0.0 
-[INFO] ├── UNMET PEER DEPENDENCY popper.js@^1.11.0
+[INFO] ├── popper.js@1.12.5 
 [INFO] ├─┬ postcss-cli@4.1.1 
 [INFO] │ ├── dependency-graph@0.5.1 
 [INFO] │ ├─┬ fs-extra@4.0.2 
@@ -829,7 +866,6 @@ Build date: 2017-10-12 18:03:26
 [INFO] │ │     └── supports-color@2.0.0 
 [INFO] │ ├─┬ postcss-load-config@1.2.0 
 [INFO] │ │ ├─┬ cosmiconfig@2.2.2 
-[INFO] │ │ │ ├── is-directory@0.3.1 
 [INFO] │ │ │ ├── minimist@1.2.0 
 [INFO] │ │ │ └── require-from-string@1.2.1 
 [INFO] │ │ ├── postcss-load-options@1.2.0 
@@ -849,16 +885,6 @@ Build date: 2017-10-12 18:03:26
 [INFO] │   │ │ └── strip-eof@1.0.0 
 [INFO] │   │ └─┬ mem@1.1.0 
 [INFO] │   │   └── mimic-fn@1.1.0 
-[INFO] │   ├─┬ read-pkg-up@2.0.0 
-[INFO] │   │ ├─┬ find-up@2.1.0 
-[INFO] │   │ │ └─┬ locate-path@2.0.0 
-[INFO] │   │ │   ├─┬ p-locate@2.0.0 
-[INFO] │   │ │   │ └── p-limit@1.1.0 
-[INFO] │   │ │   └── path-exists@3.0.0 
-[INFO] │   │ └─┬ read-pkg@2.0.0 
-[INFO] │   │   ├─┬ load-json-file@2.0.0 
-[INFO] │   │   │ └── strip-bom@3.0.0 
-[INFO] │   │   └── path-type@2.0.0 
 [INFO] │   ├── which-module@2.0.0 
 [INFO] │   └── yargs-parser@7.0.0 
 [INFO] ├─┬ qunit-phantomjs-runner@2.3.0 
@@ -871,41 +897,11 @@ Build date: 2017-10-12 18:03:26
 [INFO] │ ├─┬ findup-sync@0.4.3 
 [INFO] │ │ ├─┬ detect-file@0.1.0 
 [INFO] │ │ │ └── fs-exists-sync@0.1.0 
-[INFO] │ │ ├─┬ micromatch@2.3.11 
-[INFO] │ │ │ ├─┬ arr-diff@2.0.0 
-[INFO] │ │ │ │ └── arr-flatten@1.1.0 
-[INFO] │ │ │ ├── array-unique@0.2.1 
-[INFO] │ │ │ ├─┬ braces@1.8.5 
-[INFO] │ │ │ │ ├─┬ expand-range@1.8.2 
-[INFO] │ │ │ │ │ └─┬ fill-range@2.2.3 
-[INFO] │ │ │ │ │   ├── is-number@2.1.0 
-[INFO] │ │ │ │ │   ├── isobject@2.1.0 
-[INFO] │ │ │ │ │   ├─┬ randomatic@1.1.7 
-[INFO] │ │ │ │ │   │ ├─┬ is-number@3.0.0 
-[INFO] │ │ │ │ │   │ │ └── kind-of@3.2.2 
-[INFO] │ │ │ │ │   │ └── kind-of@4.0.0 
-[INFO] │ │ │ │ │   └── repeat-string@1.6.1 
-[INFO] │ │ │ │ ├── preserve@0.2.0 
-[INFO] │ │ │ │ └── repeat-element@1.1.2 
-[INFO] │ │ │ ├─┬ expand-brackets@0.1.5 
-[INFO] │ │ │ │ └── is-posix-bracket@0.1.1 
-[INFO] │ │ │ ├── extglob@0.3.2 
-[INFO] │ │ │ ├── filename-regex@2.0.1 
-[INFO] │ │ │ ├─┬ kind-of@3.2.2 
-[INFO] │ │ │ │ └── is-buffer@1.1.5 
-[INFO] │ │ │ ├─┬ object.omit@2.0.1 
-[INFO] │ │ │ │ ├── for-own@0.1.5 
-[INFO] │ │ │ │ └── is-extendable@0.1.1 
-[INFO] │ │ │ ├─┬ parse-glob@3.0.4 
-[INFO] │ │ │ │ ├── glob-base@0.3.0 
-[INFO] │ │ │ │ └── is-dotfile@1.0.3 
-[INFO] │ │ │ └─┬ regex-cache@0.4.4 
-[INFO] │ │ │   └─┬ is-equal-shallow@0.1.3 
-[INFO] │ │ │     └── is-primitive@2.0.0 
 [INFO] │ │ └─┬ resolve-dir@0.1.1 
 [INFO] │ │   ├── expand-tilde@1.2.2 
 [INFO] │ │   └─┬ global-modules@0.2.3 
-[INFO] │ │     ├── global-prefix@0.1.5 
+[INFO] │ │     ├─┬ global-prefix@0.1.5 
+[INFO] │ │     │ └── is-windows@0.2.0 
 [INFO] │ │     └── is-windows@0.2.0 
 [INFO] │ ├── js-reporters@1.2.0 
 [INFO] │ ├─┬ resolve@1.3.2 
@@ -913,79 +909,232 @@ Build date: 2017-10-12 18:03:26
 [INFO] │ └─┬ walk-sync@0.3.1 
 [INFO] │   ├── ensure-posix-path@1.0.2 
 [INFO] │   └── matcher-collection@1.0.5 
+[INFO] ├── rollup@0.50.0 
+[INFO] ├─┬ rollup-plugin-babel@3.0.2 
+[INFO] │ └─┬ rollup-pluginutils@1.5.2 
+[INFO] │   └── estree-walker@0.2.1 
+[INFO] ├─┬ rollup-plugin-node-resolve@3.0.0 
+[INFO] │ ├─┬ browser-resolve@1.11.2 
+[INFO] │ │ └── resolve@1.1.7 
+[INFO] │ ├── builtin-modules@1.1.1 
+[INFO] │ ├── is-module@1.0.0 
+[INFO] │ └── resolve@1.4.0 
 [INFO] ├─┬ shelljs@0.7.8 
 [INFO] │ ├── interpret@1.0.4 
 [INFO] │ └── rechoir@0.6.2 
 [INFO] ├─┬ shx@0.2.2 
 [INFO] │ ├── es6-object-assign@1.1.0 
 [INFO] │ └── minimist@1.2.0 
-[INFO] └─┬ uglify-js@3.1.3 
-[INFO]   └── source-map@0.5.7 
+[INFO] ├─┬ stylelint@8.2.0 
+[INFO] │ ├── balanced-match@1.0.0 
+[INFO] │ ├─┬ cosmiconfig@3.1.0 
+[INFO] │ │ ├── is-directory@0.3.1 
+[INFO] │ │ ├─┬ parse-json@3.0.0 
+[INFO] │ │ │ └─┬ error-ex@1.3.1 
+[INFO] │ │ │   └── is-arrayish@0.2.1 
+[INFO] │ │ └── require-from-string@2.0.1 
+[INFO] │ ├─┬ execall@1.0.0 
+[INFO] │ │ └─┬ clone-regexp@1.0.0 
+[INFO] │ │   ├── is-regexp@1.0.0 
+[INFO] │ │   └── is-supported-regexp-flag@1.0.0 
+[INFO] │ ├── get-stdin@5.0.1 
+[INFO] │ ├─┬ globby@6.1.0 
+[INFO] │ │ └── pify@2.3.0 
+[INFO] │ ├── globjoin@0.1.4 
+[INFO] │ ├── html-tags@2.0.0 
+[INFO] │ ├── known-css-properties@0.4.1 
+[INFO] │ ├── log-symbols@2.1.0 
+[INFO] │ ├── mathml-tag-names@2.0.1 
+[INFO] │ ├─┬ micromatch@2.3.11 
+[INFO] │ │ ├─┬ arr-diff@2.0.0 
+[INFO] │ │ │ └── arr-flatten@1.1.0 
+[INFO] │ │ ├── array-unique@0.2.1 
+[INFO] │ │ ├─┬ braces@1.8.5 
+[INFO] │ │ │ ├─┬ expand-range@1.8.2 
+[INFO] │ │ │ │ └─┬ fill-range@2.2.3 
+[INFO] │ │ │ │   ├── is-number@2.1.0 
+[INFO] │ │ │ │   ├── isobject@2.1.0 
+[INFO] │ │ │ │   ├─┬ randomatic@1.1.7 
+[INFO] │ │ │ │   │ ├─┬ is-number@3.0.0 
+[INFO] │ │ │ │   │ │ └── kind-of@3.2.2 
+[INFO] │ │ │ │   │ └── kind-of@4.0.0 
+[INFO] │ │ │ │   └── repeat-string@1.6.1 
+[INFO] │ │ │ ├── preserve@0.2.0 
+[INFO] │ │ │ └── repeat-element@1.1.2 
+[INFO] │ │ ├─┬ expand-brackets@0.1.5 
+[INFO] │ │ │ └── is-posix-bracket@0.1.1 
+[INFO] │ │ ├── extglob@0.3.2 
+[INFO] │ │ ├── filename-regex@2.0.1 
+[INFO] │ │ ├── is-extglob@1.0.0 
+[INFO] │ │ ├── kind-of@3.2.2 
+[INFO] │ │ ├─┬ normalize-path@2.1.1 
+[INFO] │ │ │ └── remove-trailing-separator@1.1.0 
+[INFO] │ │ ├─┬ object.omit@2.0.1 
+[INFO] │ │ │ ├─┬ for-own@0.1.5 
+[INFO] │ │ │ │ └── for-in@1.0.2 
+[INFO] │ │ │ └── is-extendable@0.1.1 
+[INFO] │ │ ├─┬ parse-glob@3.0.4 
+[INFO] │ │ │ ├── glob-base@0.3.0 
+[INFO] │ │ │ └── is-dotfile@1.0.3 
+[INFO] │ │ └─┬ regex-cache@0.4.4 
+[INFO] │ │   └─┬ is-equal-shallow@0.1.3 
+[INFO] │ │     └── is-primitive@2.0.0 
+[INFO] │ ├── normalize-selector@0.2.0 
+[INFO] │ ├── pify@3.0.0 
+[INFO] │ ├─┬ postcss-less@1.1.1 
+[INFO] │ │ └─┬ postcss@5.2.18 
+[INFO] │ │   ├─┬ chalk@1.1.3 
+[INFO] │ │   │ ├── ansi-styles@2.2.1 
+[INFO] │ │   │ └── supports-color@2.0.0 
+[INFO] │ │   ├── source-map@0.5.7 
+[INFO] │ │   └─┬ supports-color@3.2.3 
+[INFO] │ │     └── has-flag@1.0.0 
+[INFO] │ ├── postcss-media-query-parser@0.2.3 
+[INFO] │ ├── postcss-resolve-nested-selector@0.1.1 
+[INFO] │ ├── postcss-safe-parser@3.0.1 
+[INFO] │ ├── postcss-scss@1.0.2 
+[INFO] │ ├─┬ postcss-selector-parser@2.2.3 
+[INFO] │ │ ├── flatten@1.0.2 
+[INFO] │ │ ├── indexes-of@1.0.1 
+[INFO] │ │ └── uniq@1.0.1 
+[INFO] │ ├── resolve-from@4.0.0 
+[INFO] │ ├── specificity@0.3.2 
+[INFO] │ ├─┬ string-width@2.1.1 
+[INFO] │ │ ├── is-fullwidth-code-point@2.0.0 
+[INFO] │ │ └─┬ strip-ansi@4.0.0 
+[INFO] │ │   └── ansi-regex@3.0.0 
+[INFO] │ ├── style-search@0.1.0 
+[INFO] │ ├── sugarss@1.0.0 
+[INFO] │ └── svg-tags@1.0.0 
+[INFO] ├─┬ stylelint-config-recommended-scss@2.0.0 
+[INFO] │ └── stylelint-config-recommended@1.0.0 
+[INFO] ├── stylelint-config-standard@17.0.0 
+[INFO] ├─┬ stylelint-order@0.7.0 
+[INFO] │ └── postcss-sorting@3.0.2 
+[INFO] ├── stylelint-scss@2.1.0 
+[INFO] ├─┬ uglify-js@3.1.4 
+[INFO] │ └── source-map@0.6.1 
+[INFO] ├── vnu-jar@17.11.1 
+[INFO] └─┬ workbox-build@2.1.0 
+[INFO]   ├─┬ chalk@1.1.3 
+[INFO]   │ ├── ansi-styles@2.2.1 
+[INFO]   │ └── supports-color@2.0.0 
+[INFO]   ├─┬ fs-extra@3.0.1 
+[INFO]   │ └── jsonfile@3.0.1 
+[INFO]   ├─┬ lodash.template@4.4.0 
+[INFO]   │ ├── lodash._reinterpolate@3.0.0 
+[INFO]   │ └── lodash.templatesettings@4.1.0 
+[INFO]   └── workbox-sw@2.1.0 
 [INFO] 
 [INFO] 
 [INFO] --- frontend-maven-plugin:1.4:npm (step #8: npm run css-compile) @ tobago-theme-speyside ---
 [INFO] Running 'npm run css-compile' in __CURRENT__/tobago-theme-speyside/target/bootstrap
 [INFO] 
-[INFO] > bootstrap@4.0.0-beta css-compile __CURRENT__/tobago-theme-speyside/target/bootstrap
+[INFO] > bootstrap@4.0.0-beta.2 css-compile __CURRENT__/tobago-theme-speyside/target/bootstrap
 [INFO] > node-sass --output-style expanded --source-map true --source-map-contents true --precision 6 scss/bootstrap.scss dist/css/bootstrap.css && node-sass --output-style expanded --source-map true --source-map-contents true --precision 6 scss/bootstrap-grid.scss dist/css/bootstrap-grid.css && node-sass --output-style expanded --source-map true --source-map-contents true --precision 6 scss/bootstrap-reboot.scss dist/css/bootstrap-reboot.css
 [INFO] 
 [ERROR] Rendering Complete, saving .css file...
-[ERROR] Wrote CSS to __CURRENT__/tobago-theme-speyside/target/bootstrap/dist/css/bootstrap.css
 [ERROR] Wrote Source Map to __CURRENT__/tobago-theme-speyside/target/bootstrap/dist/css/bootstrap.css.map
+[ERROR] Wrote CSS to __CURRENT__/tobago-theme-speyside/target/bootstrap/dist/css/bootstrap.css
 [ERROR] Rendering Complete, saving .css file...
-[ERROR] Wrote Source Map to __CURRENT__/tobago-theme-speyside/target/bootstrap/dist/css/bootstrap-grid.css.map
 [ERROR] Wrote CSS to __CURRENT__/tobago-theme-speyside/target/bootstrap/dist/css/bootstrap-grid.css
+[ERROR] Wrote Source Map to __CURRENT__/tobago-theme-speyside/target/bootstrap/dist/css/bootstrap-grid.css.map
 [ERROR] Rendering Complete, saving .css file...
-[ERROR] Wrote CSS to __CURRENT__/tobago-theme-speyside/target/bootstrap/dist/css/bootstrap-reboot.css
 [ERROR] Wrote Source Map to __CURRENT__/tobago-theme-speyside/target/bootstrap/dist/css/bootstrap-reboot.css.map
+[ERROR] Wrote CSS to __CURRENT__/tobago-theme-speyside/target/bootstrap/dist/css/bootstrap-reboot.css
 [INFO] 
 [INFO] --- frontend-maven-plugin:1.4:npm (step #9: npm run css-prefix) @ tobago-theme-speyside ---
 [INFO] Running 'npm run css-prefix' in __CURRENT__/tobago-theme-speyside/target/bootstrap
 [INFO] 
-[INFO] > bootstrap@4.0.0-beta css-prefix __CURRENT__/tobago-theme-speyside/target/bootstrap
-[INFO] > postcss --config build/postcss.config.js --replace dist/css/*.css
+[INFO] > bootstrap@4.0.0-beta.2 css-prefix __CURRENT__/tobago-theme-speyside/target/bootstrap
+[INFO] > postcss --config build/postcss.config.js --replace "dist/css/*.css"
 [INFO] 
-[ERROR] ✔ Finished dist/css/bootstrap-reboot.css (1.11 s)
-[ERROR] ✔ Finished dist/css/bootstrap-grid.min.css (1.11 s)
-[ERROR] ✔ Finished dist/css/bootstrap-grid.css (1.11 s)
-[ERROR] ✔ Finished dist/css/bootstrap.min.css (1.11 s)
-[ERROR] ✔ Finished dist/css/bootstrap.css (1.11 s)
-[ERROR] ✔ Finished dist/css/bootstrap-reboot.min.css (1.11 s)
+[ERROR] ✔ Finished dist/css/bootstrap-grid.css (1.14 s)
+[ERROR] ✔ Finished dist/css/bootstrap-grid.min.css (1.14 s)
+[ERROR] ✔ Finished dist/css/bootstrap-reboot.css (1.14 s)
+[ERROR] ✔ Finished dist/css/bootstrap-reboot.min.css (1.14 s)
+[ERROR] ✔ Finished dist/css/bootstrap.min.css (1.14 s)
+[ERROR] ✔ Finished dist/css/bootstrap.css (1.14 s)
 [INFO] 
 [INFO] --- frontend-maven-plugin:1.4:npm (step #10: npm run css-minify) @ tobago-theme-speyside ---
 [INFO] Running 'npm run css-minify' in __CURRENT__/tobago-theme-speyside/target/bootstrap
 [INFO] 
-[INFO] > bootstrap@4.0.0-beta css-minify __CURRENT__/tobago-theme-speyside/target/bootstrap
+[INFO] > bootstrap@4.0.0-beta.2 css-minify __CURRENT__/tobago-theme-speyside/target/bootstrap
 [INFO] > cleancss --level 1 --source-map --source-map-inline-sources --output dist/css/bootstrap.min.css dist/css/bootstrap.css && cleancss --level 1 --source-map --source-map-inline-sources --output dist/css/bootstrap-grid.min.css dist/css/bootstrap-grid.css && cleancss --level 1 --source-map --source-map-inline-sources --output dist/css/bootstrap-reboot.min.css dist/css/bootstrap-reboot.css
 [INFO] 
 [INFO] 
 [INFO] --- frontend-maven-plugin:1.4:npm (step #11: npm run js) @ tobago-theme-speyside ---
 [INFO] Running 'npm run js' in __CURRENT__/tobago-theme-speyside/target/bootstrap
 [INFO] 
-[INFO] > bootstrap@4.0.0-beta js __CURRENT__/tobago-theme-speyside/target/bootstrap
-[INFO] > npm-run-all js-lint js-compile js-minify
+[INFO] > bootstrap@4.0.0-beta.2 js __CURRENT__/tobago-theme-speyside/target/bootstrap
+[INFO] > npm-run-all js-lint* js-compile* js-minify*
 [INFO] 
 [INFO] 
-[INFO] > bootstrap@4.0.0-beta js-lint __CURRENT__/tobago-theme-speyside/target/bootstrap
-[INFO] > eslint js/ && eslint --config js/tests/.eslintrc.json --env node build/ Gruntfile.js
+[INFO] > bootstrap@4.0.0-beta.2 js-lint __CURRENT__/tobago-theme-speyside/target/bootstrap
+[INFO] > eslint js/ && eslint --config js/tests/.eslintrc.json --env node build/
 [INFO] 
 [INFO] 
-[INFO] > bootstrap@4.0.0-beta js-compile __CURRENT__/tobago-theme-speyside/target/bootstrap
+[INFO] > bootstrap@4.0.0-beta.2 js-lint-docs __CURRENT__/tobago-theme-speyside/target/bootstrap
+[INFO] > eslint --config js/tests/.eslintrc.json assets/js/ docs/ sw.js
+[INFO] 
+[INFO] 
+[INFO] > bootstrap@4.0.0-beta.2 js-compile __CURRENT__/tobago-theme-speyside/target/bootstrap
 [INFO] > npm-run-all --parallel js-compile-*
 [INFO] 
 [INFO] 
-[INFO] > bootstrap@4.0.0-beta js-compile-bundle __CURRENT__/tobago-theme-speyside/target/bootstrap
-[INFO] > shx cat js/src/util.js js/src/alert.js js/src/button.js js/src/carousel.js js/src/collapse.js js/src/dropdown.js js/src/modal.js js/src/scrollspy.js js/src/tab.js js/src/tooltip.js js/src/popover.js | shx sed "s/^(import|export).*//" | babel --filename js/src/bootstrap.js | node build/stamp.js > dist/js/bootstrap.js
+[INFO] > bootstrap@4.0.0-beta.2 js-compile-plugins __CURRENT__/tobago-theme-speyside/target/bootstrap
+[INFO] > cross-env PLUGINS=true babel js/src/ --out-dir js/dist/ --source-maps
 [INFO] 
 [INFO] 
-[INFO] > bootstrap@4.0.0-beta js-compile-plugins __CURRENT__/tobago-theme-speyside/target/bootstrap
-[INFO] > babel js/src/ --out-dir js/dist/ --source-maps
+[INFO] > bootstrap@4.0.0-beta.2 js-compile-bundle __CURRENT__/tobago-theme-speyside/target/bootstrap
+[INFO] > cross-env ROLLUP=true rollup --environment BUNDLE:true --config build/rollup.config.js --sourcemap
+[INFO] 
+[INFO] 
+[INFO] > bootstrap@4.0.0-beta.2 js-compile-standalone __CURRENT__/tobago-theme-speyside/target/bootstrap
+[INFO] > cross-env ROLLUP=true rollup --environment BUNDLE:false --config build/rollup.config.js --sourcemap
+[INFO] 
+[ERROR] 
+[ERROR] __CURRENT__/tobago-theme-speyside/target/bootstrap/js/src/index.js → dist/js/bootstrap.bundle.js...
+[ERROR] 
+[ERROR] __CURRENT__/tobago-theme-speyside/target/bootstrap/js/src/index.js → dist/js/bootstrap.js...
+[INFO] js/src/alert.js -> js/dist/alert.js
+[INFO] js/src/button.js -> js/dist/button.js
+[INFO] js/src/carousel.js -> js/dist/carousel.js
+[INFO] js/src/collapse.js -> js/dist/collapse.js
+[INFO] js/src/dropdown.js -> js/dist/dropdown.js
+[INFO] js/src/index.js -> js/dist/index.js
+[INFO] js/src/modal.js -> js/dist/modal.js
+[INFO] js/src/popover.js -> js/dist/popover.js
+[INFO] js/src/scrollspy.js -> js/dist/scrollspy.js
+[INFO] js/src/tab.js -> js/dist/tab.js
+[INFO] js/src/tooltip.js -> js/dist/tooltip.js
+[INFO] js/src/util.js -> js/dist/util.js
+[ERROR] created dist/js/bootstrap.js in 2.5s
+[ERROR] created dist/js/bootstrap.bundle.js in 2.7s
+[INFO] 
+[INFO] > bootstrap@4.0.0-beta.2 js-compile-standalone __CURRENT__/tobago-theme-speyside/target/bootstrap
+[INFO] > cross-env ROLLUP=true rollup --environment BUNDLE:false --config build/rollup.config.js --sourcemap
+[INFO] 
+[ERROR] 
+[ERROR] __CURRENT__/tobago-theme-speyside/target/bootstrap/js/src/index.js → dist/js/bootstrap.js...
+[ERROR] created dist/js/bootstrap.js in 1.5s
+[INFO] 
+[INFO] > bootstrap@4.0.0-beta.2 js-compile-bundle __CURRENT__/tobago-theme-speyside/target/bootstrap
+[INFO] > cross-env ROLLUP=true rollup --environment BUNDLE:true --config build/rollup.config.js --sourcemap
+[INFO] 
+[ERROR] 
+[ERROR] __CURRENT__/tobago-theme-speyside/target/bootstrap/js/src/index.js → dist/js/bootstrap.bundle.js...
+[ERROR] created dist/js/bootstrap.bundle.js in 1.7s
+[INFO] 
+[INFO] > bootstrap@4.0.0-beta.2 js-compile-plugins __CURRENT__/tobago-theme-speyside/target/bootstrap
+[INFO] > cross-env PLUGINS=true babel js/src/ --out-dir js/dist/ --source-maps
 [INFO] 
 [INFO] js/src/alert.js -> js/dist/alert.js
 [INFO] js/src/button.js -> js/dist/button.js
 [INFO] js/src/carousel.js -> js/dist/carousel.js
 [INFO] js/src/collapse.js -> js/dist/collapse.js
 [INFO] js/src/dropdown.js -> js/dist/dropdown.js
+[INFO] js/src/index.js -> js/dist/index.js
 [INFO] js/src/modal.js -> js/dist/modal.js
 [INFO] js/src/popover.js -> js/dist/popover.js
 [INFO] js/src/scrollspy.js -> js/dist/scrollspy.js
@@ -993,8 +1142,36 @@ Build date: 2017-10-12 18:03:26
 [INFO] js/src/tooltip.js -> js/dist/tooltip.js
 [INFO] js/src/util.js -> js/dist/util.js
 [INFO] 
-[INFO] > bootstrap@4.0.0-beta js-minify __CURRENT__/tobago-theme-speyside/target/bootstrap
-[INFO] > uglifyjs --config-file build/uglifyjs.config.json --output dist/js/bootstrap.min.js dist/js/bootstrap.js
+[INFO] > bootstrap@4.0.0-beta.2 js-minify __CURRENT__/tobago-theme-speyside/target/bootstrap
+[INFO] > npm-run-all --parallel js-minify-*
+[INFO] 
+[INFO] 
+[INFO] > bootstrap@4.0.0-beta.2 js-minify-bundle __CURRENT__/tobago-theme-speyside/target/bootstrap
+[INFO] > uglifyjs --compress typeofs=false --mangle --comments "/^!/" --source-map "content=dist/js/bootstrap.bundle.js.map,includeSources,url=bootstrap.bundle.min.js.map" --output dist/js/bootstrap.bundle.min.js dist/js/bootstrap.bundle.js
+[INFO] 
+[INFO] 
+[INFO] > bootstrap@4.0.0-beta.2 js-minify-standalone __CURRENT__/tobago-theme-speyside/target/bootstrap
+[INFO] > uglifyjs --compress typeofs=false --mangle --comments "/^!/" --source-map "content=dist/js/bootstrap.js.map,includeSources,url=bootstrap.min.js.map" --output dist/js/bootstrap.min.js dist/js/bootstrap.js
+[INFO] 
+[INFO] 
+[INFO] > bootstrap@4.0.0-beta.2 js-minify-docs __CURRENT__/tobago-theme-speyside/target/bootstrap
+[INFO] > uglifyjs --mangle --comments "/^!/" --output assets/js/docs.min.js assets/js/vendor/anchor.min.js assets/js/vendor/clipboard.min.js assets/js/vendor/holder.min.js assets/js/src/application.js assets/js/src/pwa.js
+[INFO] 
+[ERROR] INFO: Using input source map: dist/js/bootstrap.js.map
+[ERROR] INFO: Using input source map: dist/js/bootstrap.bundle.js.map
+[INFO] 
+[INFO] > bootstrap@4.0.0-beta.2 js-minify-standalone __CURRENT__/tobago-theme-speyside/target/bootstrap
+[INFO] > uglifyjs --compress typeofs=false --mangle --comments "/^!/" --source-map "content=dist/js/bootstrap.js.map,includeSources,url=bootstrap.min.js.map" --output dist/js/bootstrap.min.js dist/js/bootstrap.js
+[INFO] 
+[ERROR] INFO: Using input source map: dist/js/bootstrap.js.map
+[INFO] 
+[INFO] > bootstrap@4.0.0-beta.2 js-minify-bundle __CURRENT__/tobago-theme-speyside/target/bootstrap
+[INFO] > uglifyjs --compress typeofs=false --mangle --comments "/^!/" --source-map "content=dist/js/bootstrap.bundle.js.map,includeSources,url=bootstrap.bundle.min.js.map" --output dist/js/bootstrap.bundle.min.js dist/js/bootstrap.bundle.js
+[INFO] 
+[ERROR] INFO: Using input source map: dist/js/bootstrap.bundle.js.map
+[INFO] 
+[INFO] > bootstrap@4.0.0-beta.2 js-minify-docs __CURRENT__/tobago-theme-speyside/target/bootstrap
+[INFO] > uglifyjs --mangle --comments "/^!/" --output assets/js/docs.min.js assets/js/vendor/anchor.min.js assets/js/vendor/clipboard.min.js assets/js/vendor/holder.min.js assets/js/src/application.js assets/js/src/pwa.js
 [INFO] 
 [INFO] 
 [INFO] --- maven-resources-plugin:2.7:resources (default-resources) @ tobago-theme-speyside ---
@@ -1038,7 +1215,7 @@ main:
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
-[INFO] Total time: 01:46 min
-[INFO] Finished at: 2017-10-12T18:05:14+02:00
-[INFO] Final Memory: 35M/515M
+[INFO] Total time: 02:05 min
+[INFO] Finished at: 2017-10-20T13:40:50+02:00
+[INFO] Final Memory: 29M/399M
 [INFO] ------------------------------------------------------------------------
