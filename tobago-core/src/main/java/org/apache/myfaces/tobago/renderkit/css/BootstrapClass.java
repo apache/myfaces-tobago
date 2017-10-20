@@ -394,9 +394,14 @@ public enum BootstrapClass implements CssItem {
   TAB_PANE("tab-pane"),
   TABLE("table"),
   TABLE_BORDERED("table-bordered"),
+  TABLE_DARK("table-dark"),
   TABLE_HOVER("table-hover"),
   TABLE_INFO("table-info"),
-  TABLE_INVERSE("table-inverse"),
+  /**
+   * @deprecated since 4.0.0, please use {@link #TABLE_DARK}
+   */
+  @Deprecated
+  TABLE_INVERSE("table-dark"),
   TABLE_SM("table-sm"),
   TABLE_STRIPED("table-striped");
 

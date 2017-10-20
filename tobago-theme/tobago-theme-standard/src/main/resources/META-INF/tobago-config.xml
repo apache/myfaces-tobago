@@ -280,9 +280,9 @@
             <markup>left</markup>
             <markup>center</markup>
             <markup>right</markup>
-            <markup>inverse</markup>
             <markup>striped</markup>
             <markup>bordered</markup>
+            <markup>dark</markup>
             <markup>hover</markup>
             <markup>small</markup>
           </supported-markup>

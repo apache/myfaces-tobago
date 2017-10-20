@@ -480,6 +480,7 @@ public class SheetRenderer extends RendererBase {
           BootstrapClass.TABLE,
           TobagoClass.SHEET__HEADER_TABLE,
           sheetMarkup.contains(Markup.INVERSE) ? BootstrapClass.TABLE_INVERSE : null,
+          sheetMarkup.contains(Markup.DARK) ? BootstrapClass.TABLE_DARK : null,
           sheetMarkup.contains(Markup.BORDERED) ? BootstrapClass.TABLE_BORDERED : null,
           sheetMarkup.contains(Markup.SMALL) ? BootstrapClass.TABLE_SM : null,
           !autoLayout ? TobagoClass.TABLE_LAYOUT__FIXED : null);
@@ -505,6 +506,7 @@ public class SheetRenderer extends RendererBase {
         BootstrapClass.TABLE,
         TobagoClass.SHEET__BODY_TABLE,
         sheetMarkup.contains(Markup.INVERSE) ? BootstrapClass.TABLE_INVERSE : null,
+        sheetMarkup.contains(Markup.DARK) ? BootstrapClass.TABLE_DARK : null,
         sheetMarkup.contains(Markup.STRIPED) ? BootstrapClass.TABLE_STRIPED : null,
         sheetMarkup.contains(Markup.BORDERED) ? BootstrapClass.TABLE_BORDERED : null,
         sheetMarkup.contains(Markup.HOVER) ? BootstrapClass.TABLE_HOVER : null,

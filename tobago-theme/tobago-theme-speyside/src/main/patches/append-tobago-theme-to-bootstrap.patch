@@ -11,10 +11,10 @@ Info: This patch is valid for Bootstrap 4 beta
 +
 +@import "custom";
 +
+ @import "root";
  @import "print";
  @import "reboot";
- @import "type";
-@@ -39,3 +42,6 @@
+@@ -40,3 +43,6 @@
  @import "popover";
  @import "carousel";
  @import "utilities";
