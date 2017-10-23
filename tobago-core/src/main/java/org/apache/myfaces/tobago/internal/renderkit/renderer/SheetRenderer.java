@@ -619,7 +619,6 @@ public class SheetRenderer extends RendererBase {
                 TobagoClass.SHEET__CELL,
                 TobagoClass.SHEET__CELL.createMarkup(markup),
                 normalColumn.getCustomClass());
-            writer.writeIdAttribute(normalColumn.getClientId(facesContext));
 
             if (normalColumn instanceof UIColumnSelector) {
               UIColumnSelector selector = (UIColumnSelector) normalColumn;
