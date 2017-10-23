@@ -40,6 +40,11 @@ public class SegmentLayoutConstraintHandler extends TagHandler {
   private final TagAttribute overwriteMarginMedium;
   private final TagAttribute overwriteMarginLarge;
   private final TagAttribute overwriteMarginExtraLarge;
+  private final TagAttribute offsetExtraSmall;
+  private final TagAttribute offsetSmall;
+  private final TagAttribute offsetMedium;
+  private final TagAttribute offsetLarge;
+  private final TagAttribute offsetExtraLarge;
 
   public SegmentLayoutConstraintHandler(TagConfig config) {
     super(config);
@@ -53,6 +58,11 @@ public class SegmentLayoutConstraintHandler extends TagHandler {
     overwriteMarginMedium = getAttribute(Attributes.marginMedium.getName());
     overwriteMarginLarge = getAttribute(Attributes.marginLarge.getName());
     overwriteMarginExtraLarge = getAttribute(Attributes.marginExtraLarge.getName());
+    offsetExtraSmall = getAttribute(Attributes.offsetExtraSmall.getName());
+    offsetSmall = getAttribute(Attributes.offsetSmall.getName());
+    offsetMedium = getAttribute(Attributes.offsetMedium.getName());
+    offsetLarge = getAttribute(Attributes.offsetLarge.getName());
+    offsetExtraLarge = getAttribute(Attributes.offsetExtraLarge.getName());
   }
 
   @Override
@@ -68,6 +78,12 @@ public class SegmentLayoutConstraintHandler extends TagHandler {
     apply(faceletContext, parent, overwriteMarginMedium, Attributes.overwriteMarginMedium, String.class);
     apply(faceletContext, parent, overwriteMarginLarge, Attributes.overwriteMarginLarge, String.class);
     apply(faceletContext, parent, overwriteMarginExtraLarge, Attributes.overwriteMarginExtraLarge, String.class);
+
+    apply(faceletContext, parent, offsetExtraSmall, Attributes.offsetExtraSmall, Integer.TYPE);
+    apply(faceletContext, parent, offsetSmall, Attributes.offsetSmall, Integer.TYPE);
+    apply(faceletContext, parent, offsetMedium, Attributes.offsetMedium, Integer.TYPE);
+    apply(faceletContext, parent, offsetLarge, Attributes.offsetLarge, Integer.TYPE);
+    apply(faceletContext, parent, offsetExtraLarge, Attributes.offsetExtraLarge, Integer.TYPE);
   }
 
   private void apply(FaceletContext faceletContext, UIComponent parent, final TagAttribute tagAttribute,

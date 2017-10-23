@@ -103,4 +103,34 @@ public interface SegmentLayoutConstraintTagDeclaration {
   @TagAttribute
   @UIComponentTagAttribute(allowedValues = {Margin.NONE, Margin.LEFT, Margin.RIGHT, Margin.BOTH})
   void setMarginExtraLarge(final ValueExpression overwriteMarginExtraLarge);
+
+  /**
+   * The number of columns this component moves to the right for extra small devices.
+   */
+  @TagAttribute(type = "java.lang.Integer")
+  void setOffsetExtraSmall(final ValueExpression offsetExtraSmall);
+
+  /**
+   * The number of columns this component moves to the right for small devices.
+   */
+  @TagAttribute(type = "java.lang.Integer")
+  void setOffsetSmall(final ValueExpression offsetSmall);
+
+  /**
+   * The number of columns this component moves to the right for medium devices.
+   */
+  @TagAttribute(type = "java.lang.Integer")
+  void setOffsetMedium(final ValueExpression offsetMedium);
+
+  /**
+   * The number of columns this component moves to the right for large devices.
+   */
+  @TagAttribute(type = "java.lang.Integer")
+  void setOffsetLarge(final ValueExpression offsetLarge);
+
+  /**
+   * The number of columns this component moves to the right for extra large devices.
+   */
+  @TagAttribute(type = "java.lang.Integer")
+  void setOffsetExtraLarge(final ValueExpression offsetLarge);
 }

@@ -201,6 +201,26 @@ public enum Attributes {
   /**
    * Used by a layout manager
    */
+  offsetExtraSmall,
+  /**
+   * Used by a layout manager
+   */
+  offsetExtraLarge,
+  /**
+   * Used by a layout manager
+   */
+  offsetLarge,
+  /**
+   * Used by a layout manager
+   */
+  offsetMedium,
+  /**
+   * Used by a layout manager
+   */
+  offsetSmall,
+  /**
+   * Used by a layout manager
+   */
   overwriteExtraLarge,
   /**
    * Used by a layout manager
