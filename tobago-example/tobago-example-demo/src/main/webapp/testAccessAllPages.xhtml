@@ -24,7 +24,7 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets">
   <c:forEach items="#{testController.allPages}" var="page">
     <div style="border: 1px solid black">
-      <tc:out label="URL" value="#{request.contextPath}/#{page}"/>
+      <tc:link label="#{request.contextPath}/#{page} - open in new tab" outcome="/#{page}" target="_blank"/>
       <tc:object src="#{request.contextPath}/#{page}">
         <tc:style width="100%" height="300px"/>
       </tc:object>

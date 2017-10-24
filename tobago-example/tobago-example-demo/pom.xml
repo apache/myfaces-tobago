@@ -50,6 +50,15 @@
     </testResources>
     <plugins>
       <plugin>
+        <!-- this is needed for ShrinkWrap to use java 8 (QUnitTests) -->
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <source>${maven.compile.source}</source>
+          <target>${maven.compile.target}</target>
+        </configuration>
+      </plugin>
+      <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>xml-maven-plugin</artifactId>
         <version>1.0.1</version>
@@ -194,6 +203,13 @@
         <version>2.4.1</version>
         <scope>import</scope>
         <type>pom</type>
+      </dependency>
+      <!-- this is needed for arquillian drone (QUnitTests) -->
+      <dependency>
+        <groupId>commons-codec</groupId>
+        <artifactId>commons-codec</artifactId>
+        <version>1.11</version>
+        <scope>import</scope>
       </dependency>
       <dependency>
         <groupId>org.jboss.arquillian.graphene</groupId>

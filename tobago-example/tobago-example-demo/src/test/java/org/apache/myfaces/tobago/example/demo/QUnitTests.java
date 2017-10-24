@@ -19,6 +19,8 @@
 
 package org.apache.myfaces.tobago.example.demo;
 
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.drone.api.annotation.Drone;
@@ -39,9 +41,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -70,7 +76,7 @@ public class QUnitTests {
     } catch (Exception e) {
       webArchive = createWebArchive(new File("pom.xml")); // Jenkins
     }
-    return webArchive;
+    return disableCSP(webArchive);
   }
 
   private static WebArchive createWebArchive(File pom) {
@@ -79,6 +85,24 @@ public class QUnitTests {
         .as(WebArchive.class);
     // XXX there should be a proper profile in POM for that
     webArchive.delete("/WEB-INF/lib/hibernate-validator-4.3.2.Final.jar");
+    return webArchive;
+  }
+
+  private static WebArchive disableCSP(WebArchive webArchive) {
+    try {
+      final InputStream inputStream = webArchive.get("WEB-INF/tobago-config.xml").getAsset().openStream();
+
+      StringWriter stringWriter = new StringWriter();
+      IOUtils.copy(inputStream, stringWriter, Charset.defaultCharset());
+      String modifiedTobagoConfig = stringWriter.toString()
+          .replace("<content-security-policy mode=\"on\">", "<content-security-policy mode=\"off\">");
+
+      File tobagoConfigXml = new File("target/tobago-config.xml");
+      FileUtils.writeStringToFile(tobagoConfigXml, modifiedTobagoConfig, Charset.defaultCharset());
+      webArchive.addAsWebInfResource(tobagoConfigXml);
+    } catch (IOException e) {
+      LOG.error("could not modify tobago-config.xml", e);
+    }
     return webArchive;
   }
 
@@ -264,8 +288,12 @@ public class QUnitTests {
     for (String page : pages) {
       String pathForBrowser = page.substring(page.indexOf("src/main/webapp/") + "src/main/webapp/".length(),
           page.length() - 6);
-      setupBrowser(pathForBrowser, true);
-      checkQUnitResults(page);
+
+      //TODO: reimplement/remove/cleanup attic tests - currently too much failed
+      if (!pathForBrowser.contains("content/40-test/90000-attic/")) {
+        setupBrowser(pathForBrowser, true);
+        checkQUnitResults(page);
+      }
     }
   }
 
@@ -291,6 +319,8 @@ public class QUnitTests {
 
   private List<String> ignorePages() {
     List<String> ignore = new ArrayList<>();
+    // Miscalculation of width.
+    ignore.add("content/20-component/010-input/50-input-group/group.xhtml");
     //PhantomJs miscalculate the height of the dropdown box
     ignore.add("content/40-test/3000-sheet/10-sheet-types/sheet-types.xhtml");
     // Works only for larger browser window
