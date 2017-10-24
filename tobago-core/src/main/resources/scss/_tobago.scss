@@ -394,10 +394,6 @@ a.tobago-link.dropdown-item {
   }
 }
 
-.tobago-flexLayout > button.tobago-link {
-  height: 0;
-}
-
 button {
   &.tobago-link, &.tobago-treeCommand {
     color: $blue;
