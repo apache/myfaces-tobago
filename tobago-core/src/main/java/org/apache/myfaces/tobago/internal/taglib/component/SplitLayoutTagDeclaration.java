@@ -29,7 +29,6 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasBinding;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasId;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasSpacing;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
-import org.apache.myfaces.tobago.layout.Orientation;
 
 /**
  * <p>
@@ -81,18 +80,6 @@ public interface SplitLayoutTagDeclaration
   @TagAttribute
   @UIComponentTagAttribute
   void setRows(String rows);
-
-  /**
-   * This value defines the orientation of the split layout.
-   * Possible values are {@link Orientation#horizontal} and {@link Orientation#vertical}.
-   */
-/*
-  @TagAttribute(required = true)
-  @UIComponentTagAttribute(
-      type = "org.apache.myfaces.tobago.layout.Orientation",
-      allowedValues = {Orientation.HORIZONTAL, Orientation.VERTICAL})
-  void setOrientation(String orientation);
-*/
 
   /**
    * This attribute advises the layout manager, to not use space that comes from non rendered components.
