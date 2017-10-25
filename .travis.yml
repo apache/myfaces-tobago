@@ -1,0 +1,19 @@
+language: java
+    # specifying other dists doesn't make sense because `trusty` doesn't have `oraclejdk8` (fails due to `Sorry, but JDK '[oraclejdk8]' is not known.`) which is the only supported JDK currently. Testing on Mac OSX doesn't make too much sense since it will run the same `maven` based build routine.
+
+jdk:
+- openjdk8
+- oraclejdk8
+- oraclejdk9
+    # - list of available JDKs for trusty is at https://docs.travis-ci.com/user/reference/trusty/#JVM-(Clojure%2C-Groovy%2C-Java%2C-Scala)-images
+    # - Java 7 fails due to `Tobago must be compiled with Java 8 or higher`
+
+#env:
+#- MAVEN_OPTS="-Xmx6g -Xms2g"
+
+install: /bin/true
+
+script:
+- mvn install -DskipTests=true -Dmaven.javadoc.skip=true --batch-mode --show-version
+    # add --update-snapshots if snapshots are used
+- mvn test verify --batch-mode
