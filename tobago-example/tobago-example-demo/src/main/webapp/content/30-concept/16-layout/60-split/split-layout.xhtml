@@ -17,15 +17,12 @@
  * limitations under the License.
 -->
 
-<ui:composition template="/plain.xhtml"
+<ui:composition template="/main.xhtml"
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:tc="http://myfaces.apache.org/tobago/component">
 
   <ui:param name="title" value="SplitLayout Example"/>
-
-  <tc:style file="#{request.contextPath}/style/demo.css"/>
-  <tc:script file="#{request.contextPath}/script/demo.js"/>
 
   <tc:splitLayout columns="1*;1*">
     <tc:panel>
