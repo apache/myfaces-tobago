@@ -206,6 +206,8 @@ public enum TobagoClass implements CssItem {
   SHEET__PAGING_INPUT("tobago-sheet-pagingInput"),
   SHEET__PAGING_OUTPUT("tobago-sheet-pagingOutput"),
   SHEET__ROW("tobago-sheet-row"),
+  SPLIT_LAYOUT__HORIZONTAL("tobago-splitLayout-horizontal"),
+  SPLIT_LAYOUT__VERTICAL("tobago-splitLayout-vertical"),
   SUGGEST("tobago-suggest"),
   TAB("tobago-tab"),
   TAB__CONTENT("tobago-tab-content"),

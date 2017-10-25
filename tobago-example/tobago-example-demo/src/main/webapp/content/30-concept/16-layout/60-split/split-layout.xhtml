@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+-->
+
+<ui:composition template="/plain.xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:tc="http://myfaces.apache.org/tobago/component">
+
+  <ui:param name="title" value="SplitLayout Example"/>
+
+  <tc:style file="#{request.contextPath}/style/demo.css"/>
+  <tc:script file="#{request.contextPath}/script/demo.js"/>
+
+  <tc:splitLayout columns="1*;1*">
+    <tc:panel>
+     <p>Laut dem Debian-Projekt kann der Fehler "ein unvorhersehbares Systemverhalten verursachen", wie etwa Fehlverhalten von Anwendung und des Systems, Datenveränderungen oder gar Datenverlust. Einige Nutzer von Debian Stable alias Stretch seien von dem Fehler betroffen, weshalb nun die Warnung veröffentlicht worden ist.</p>
+    </tc:panel>
+    <tc:textarea value="Text" labelLayout="none"/>
+    <!--<tc:textarea value="Text" labelLayout="none"/>-->
+  </tc:splitLayout>
+
+  <tc:splitLayout columns="1*;4*;1*">
+    <tc:button label="A"/>
+    <tc:button label="B"/>
+    <!--<tc:button label="C"/>-->
+  </tc:splitLayout>
+
+  <tc:flexLayout rows="auto;*">
+
+    <p>
+    The SplitLayout implements a two component layout with a divider between
+    the components to adjust the space between the components.
+    </p>
+    <p>
+    Drag the divder between the boxes to see the effect</p>
+
+    <tc:splitLayout columns="#{splitLayoutController.verticalLayout}">
+
+      <tc:splitLayout rows="#{splitLayoutController.horizontalLayout}">
+        <tc:box label="Top left box">
+          <tc:out
+              value="Current vertical layout first value: #{splitLayoutController.verticalLayoutFirstToken}"/>
+          <tc:out
+              value="Current horizontal layout first value: #{splitLayoutController.horizontalLayoutFirstToken}"/>
+        </tc:box>
+        <tc:box label="Top right box">
+          <tc:out
+              value="Current vertical layout first value: #{splitLayoutController.verticalLayoutFirstToken}"/>
+          <tc:out
+              value="Current horizontal layout second value: #{splitLayoutController.horizontalLayoutSecondToken}"/>
+        </tc:box>
+      </tc:splitLayout>
+      <tc:box label="Bottom box">
+        <tc:out
+            value="Current vertical layout second value: #{splitLayoutController.verticalLayoutSecondToken}"/>
+      </tc:box>
+
+    </tc:splitLayout>
+
+  </tc:flexLayout>
+
+</ui:composition>

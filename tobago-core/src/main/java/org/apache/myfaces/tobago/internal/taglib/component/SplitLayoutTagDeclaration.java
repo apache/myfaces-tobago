@@ -17,7 +17,7 @@
  * under the License.
  */
 
-package org.apache.myfaces.tobago.internal.taglib.sandbox;
+package org.apache.myfaces.tobago.internal.taglib.component;
 
 import org.apache.myfaces.tobago.apt.annotation.Preliminary;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
@@ -53,27 +53,53 @@ public interface SplitLayoutTagDeclaration
 
   /**
    * This value defines the layout constraints for the layout.
-   * It is two layout tokens separated by a semicolon. See GridLayout.
+   * It is two layout tokens separated by a semicolon.
    * Example: '2*;*'.
    */
+/*
   @TagAttribute
   @UIComponentTagAttribute(defaultValue = "1*;1*")
   void setLayout(String rows);
+*/
+
+  /**
+   * This value defines the layout constraints for column layout.
+   * It is a semicolon separated list of layout tokens '&lt;n&gt;*', '&lt;measure&gt;' or the keyword 'auto'.
+   * Where &lt;n&gt; is a positive integer or empty and &lt;measure&gt; is a valid CSS length.
+   * Example: '2*;*;100px;3rem;auto'.
+   */
+  @TagAttribute
+  @UIComponentTagAttribute
+  void setColumns(String columns);
+
+  /**
+   * This value defines the layout constraints for row layout.
+   * It is a semicolon separated list of layout tokens '&lt;n&gt;*', '&lt;measure&gt;' or the keyword 'auto'.
+   * Where &lt;n&gt; is a positive integer or empty and &lt;measure&gt; is a valid CSS length.
+   * Example: '2*;*;100px;3rem;auto'.
+   */
+  @TagAttribute
+  @UIComponentTagAttribute
+  void setRows(String rows);
 
   /**
    * This value defines the orientation of the split layout.
    * Possible values are {@link Orientation#horizontal} and {@link Orientation#vertical}.
    */
+/*
   @TagAttribute(required = true)
   @UIComponentTagAttribute(
       type = "org.apache.myfaces.tobago.layout.Orientation",
       allowedValues = {Orientation.HORIZONTAL, Orientation.VERTICAL})
   void setOrientation(String orientation);
+*/
 
   /**
    * This attribute advises the layout manager, to not use space that comes from non rendered components.
    */
+/* tbd
   @TagAttribute
   @UIComponentTagAttribute(type = "boolean")
   void setRigid(String rigid);
+*/
 }

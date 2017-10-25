@@ -91,6 +91,7 @@ public abstract class AbstractUIFlexLayout extends AbstractUILayoutBase implemen
               style.setFlexGrow(factor);
               style.setFlexShrink(0);
               style.setFlexBasis(Measure.ZERO);
+// todo             style.setFlexBasis("auto");
               ((UIComponent) visual).getChildren().add(style);
             }
           }

@@ -8705,10 +8705,6 @@ a.tobago-link.dropdown-item img, a.tobago-link.dropdown-item span {
   pointer-events: none;
 }
 
-.tobago-flexLayout > button.tobago-link {
-  height: 0;
-}
-
 button.tobago-link, button.tobago-treeCommand {
   color: #007bff;
   border-width: 0;
@@ -9302,6 +9298,29 @@ th.tobago-sheet-headerCell-markup-filler > .tobago-sheet-header {
 
 .tobago-sheet-cell div {
   overflow: hidden;
+}
+
+/* splitLayout ---------------------------------------------------------------------- */
+.tobago-splitLayout-horizontal {
+  width: .5rem;
+  cursor: col-resize;
+}
+
+.tobago-splitLayout-horizontal:hover {
+  border: dotted #000000 thin;
+  z-index: 10000;
+  /* TODO: check, if needed (check also with iframes) */
+}
+
+.tobago-splitLayout-vertical {
+  height: .5rem;
+  cursor: row-resize;
+}
+
+.tobago-splitLayout-vertical:hover {
+  border: dotted #000000 thin;
+  z-index: 10000;
+  /* TODO: check, if needed (check also with iframes) */
 }
 
 /* suggest ---------------------------------------------------------------------- */

@@ -1043,6 +1043,28 @@ th.tobago-sheet-headerCell-markup-filler > .tobago-sheet-header {
 .tobago-sheet-pagingOutput {
 }
 
+/* splitLayout ---------------------------------------------------------------------- */
+
+.tobago-splitLayout-horizontal {
+  width: .5rem;
+  cursor: col-resize;
+}
+
+.tobago-splitLayout-horizontal:hover {
+  border: dotted #000000 thin;
+  z-index: 10000; /* TODO: check, if needed (check also with iframes) */
+}
+
+.tobago-splitLayout-vertical {
+  height: .5rem;
+  cursor: row-resize;
+}
+
+.tobago-splitLayout-vertical:hover {
+  border: dotted #000000 thin;
+  z-index: 10000; /* TODO: check, if needed (check also with iframes) */
+}
+
 /* suggest ---------------------------------------------------------------------- */
 
 .tobago-suggest {
