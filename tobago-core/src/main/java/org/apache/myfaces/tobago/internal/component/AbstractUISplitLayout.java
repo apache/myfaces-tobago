@@ -20,7 +20,6 @@
 package org.apache.myfaces.tobago.internal.component;
 
 import org.apache.myfaces.tobago.apt.annotation.Preliminary;
-import org.apache.myfaces.tobago.internal.taglib.component.SplitLayoutTagDeclaration;
 
 import javax.faces.event.ListenerFor;
 import javax.faces.event.PostAddToViewEvent;
@@ -30,7 +29,7 @@ import javax.faces.event.PostAddToViewEvent;
  * WARNING: This component is preliminary and may be changed without a major release.
  * </p>
  *
- * {@link SplitLayoutTagDeclaration}
+ * {@link org.apache.myfaces.tobago.internal.taglib.component.SplitLayoutTagDeclaration}
  */
 @Preliminary
 @ListenerFor(systemEventClass = PostAddToViewEvent.class)
