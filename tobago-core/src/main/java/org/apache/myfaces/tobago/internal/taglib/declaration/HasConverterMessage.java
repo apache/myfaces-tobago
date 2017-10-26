@@ -26,7 +26,8 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 public interface HasConverterMessage {
 
   /**
-   * An expression that specifies the converter message
+   * An expression that specifies the converter message.
+   * If present, will be used as the text of the converter message, replacing any message that comes from the converter.
    */
   @TagAttribute
   @UIComponentTagAttribute
