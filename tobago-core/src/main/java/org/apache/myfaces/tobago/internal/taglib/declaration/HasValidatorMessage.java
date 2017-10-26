@@ -25,7 +25,8 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 public interface HasValidatorMessage {
 
   /**
-   * An expression that specifies the validator message
+   * An expression that specifies the validator message.
+   * If present, will be used as the text of the validator message, replacing any message that comes from the validator.
    */
   @TagAttribute
   @UIComponentTagAttribute
