@@ -23,12 +23,12 @@
     <artifactId>tobago-theme</artifactId>
     <version>4.0.0-SNAPSHOT</version>
   </parent>
-  <artifactId>tobago-theme-richmond</artifactId>
+  <artifactId>tobago-theme-roxborough</artifactId>
   <packaging>jar</packaging>
-  <name>Tobago Theme Richmond</name>
+  <name>Tobago Theme Roxborough</name>
 
   <properties>
-    <theme.name>richmond</theme.name>
+    <theme.name>roxborough</theme.name>
   </properties>
 
   <build>
@@ -44,8 +44,8 @@
             <phase>compile</phase>
             <configuration>
               <target>
-                <move file="${project.build.outputDirectory}/META-INF/resources/tobago/richmond/tobago-bootstrap/_version"
-                      tofile="${project.build.outputDirectory}/META-INF/resources/tobago/richmond/tobago-bootstrap/${project.version}">
+                <move file="${project.build.outputDirectory}/META-INF/resources/tobago/roxborough/tobago-bootstrap/_version"
+                      tofile="${project.build.outputDirectory}/META-INF/resources/tobago/roxborough/tobago-bootstrap/${project.version}">
                 </move>
               </target>
             </configuration>

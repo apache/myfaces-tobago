@@ -131,13 +131,11 @@
       <version>${project.version}</version>
     </dependency>
 -->
-<!--
     <dependency>
       <groupId>org.apache.myfaces.tobago</groupId>
-      <artifactId>tobago-theme-richmond</artifactId>
+      <artifactId>tobago-theme-roxborough</artifactId>
       <version>${project.version}</version>
     </dependency>
--->
 <!--
     <dependency>
       <groupId>org.apache.myfaces.tobago</groupId>
@@ -185,11 +183,6 @@
         <dependency>
           <groupId>org.apache.myfaces.tobago</groupId>
           <artifactId>tobago-theme-scarborough</artifactId>
-          <version>${project.version}</version>
-        </dependency>
-        <dependency>
-          <groupId>org.apache.myfaces.tobago</groupId>
-          <artifactId>tobago-theme-richmond</artifactId>
           <version>${project.version}</version>
         </dependency>
       </dependencies>

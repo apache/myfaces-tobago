@@ -22,7 +22,7 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://myfaces.apache.org/tobago/tobago-config http://myfaces.apache.org/tobago/tobago-config-4.0.xsd"
     version="4.0">
-  <name>tobago-theme-richmond</name>
+  <name>tobago-theme-roxborough</name>
   <ordering>
     <after>
       <name>tobago-theme-standard</name>
@@ -30,8 +30,8 @@
   </ordering>
   <theme-definitions>
     <theme-definition>
-      <name>richmond</name>
-      <display-name>Richmond</display-name>
+      <name>roxborough</name>
+      <display-name>Roxborough</display-name>
       <fallback>standard</fallback>
       <versioned>true</versioned>
       <resources production="true">
@@ -39,16 +39,16 @@
           <script name="/tobago/standard/tobago-bootstrap/${project.version}/js/bootstrap.min.js"/>
           <style name="/tobago/standard/tobago-bootstrap/${project.version}/css/bootstrap.min.css"/>
         </excludes>
-        <script name="/tobago/richmond/tobago-bootstrap/${project.version}/js/bootstrap.min.js"/>
-        <style name="/tobago/richmond/tobago-bootstrap/${project.version}/css/bootstrap.min.css"/>
+        <script name="/tobago/roxborough/tobago-bootstrap/${project.version}/js/bootstrap.min.js"/>
+        <style name="/tobago/roxborough/tobago-bootstrap/${project.version}/css/bootstrap.min.css"/>
       </resources>
       <resources production="false">
         <excludes>
           <script name="/tobago/standard/tobago-bootstrap/${project.version}/js/bootstrap.js"/>
           <style name="/tobago/standard/tobago-bootstrap/${project.version}/css/bootstrap.css"/>
         </excludes>
-        <script name="/tobago/richmond/tobago-bootstrap/${project.version}/js/bootstrap.js"/>
-        <style name="/tobago/richmond/tobago-bootstrap/${project.version}/css/bootstrap.css"/>
+        <script name="/tobago/roxborough/tobago-bootstrap/${project.version}/js/bootstrap.js"/>
+        <style name="/tobago/roxborough/tobago-bootstrap/${project.version}/css/bootstrap.css"/>
       </resources>
     </theme-definition>
   </theme-definitions>

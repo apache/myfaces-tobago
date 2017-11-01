@@ -51,7 +51,7 @@ function rebuild_theme() {
 mvn -Pall-modules clean
 
 rebuild_theme charlotteville
-rebuild_theme richmond
+rebuild_theme roxborough
 rebuild_theme scarborough
 rebuild_theme speyside
 rebuild_theme standard

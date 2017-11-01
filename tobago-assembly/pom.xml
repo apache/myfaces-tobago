@@ -206,13 +206,13 @@ XXX TOBAGO-1654
                       <version>${project.version}</version>
                       <classifier>sources</classifier>
                     </artifactItem>
+-->
                     <artifactItem>
                       <groupId>${project.groupId}</groupId>
-                      <artifactId>tobago-theme-richmond</artifactId>
+                      <artifactId>tobago-theme-roxborough</artifactId>
                       <version>${project.version}</version>
                       <classifier>sources</classifier>
                     </artifactItem>
--->
                     <artifactItem>
                       <groupId>${project.groupId}</groupId>
                       <artifactId>tobago-theme-speyside</artifactId>
