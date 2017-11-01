@@ -32,7 +32,7 @@ public final class SegmentMeasureList extends MeasureList {
 
     while (tokenizer.hasMoreTokens()) {
       final Measure token = Measure.valueOf(tokenizer.nextToken().trim(), Measure.Unit.SEG);
-      measureList.list.add(token);
+      measureList.add(token);
     }
     return measureList;
   }

@@ -184,7 +184,7 @@ public final class Measure implements Serializable {
 
   @Override
   public int hashCode() {
-    int result = (value != +0.0f ? Float.floatToIntBits(value) : 0);
+    int result = value != +0.0f ? Float.floatToIntBits(value) : 0;
     result = 31 * result + unit.hashCode();
     return result;
   }

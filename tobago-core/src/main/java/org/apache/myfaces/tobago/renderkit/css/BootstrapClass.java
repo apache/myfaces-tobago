@@ -602,10 +602,11 @@ public enum BootstrapClass implements CssItem {
 
     private int index = 0;
 
-    public Generator(final MeasureList extraSmall, final MeasureList small, final MeasureList medium,
-                     final MeasureList large, final MeasureList extraLarge,
-                     final MarginTokens marginExtraSmall, final MarginTokens marginSmall, final MarginTokens marginMedium,
-                     final MarginTokens marginLarge, final MarginTokens marginExtraLarge) {
+    public Generator(
+        final MeasureList extraSmall, final MeasureList small, final MeasureList medium,
+        final MeasureList large, final MeasureList extraLarge,
+        final MarginTokens marginExtraSmall, final MarginTokens marginSmall, final MarginTokens marginMedium,
+        final MarginTokens marginLarge, final MarginTokens marginExtraLarge) {
       if (extraSmall == null && small == null && medium == null && large == null && extraLarge == null) {
         this.extraSmall = MeasureList.parse("*"); // TBD: is this needed? if yes, use Measure.FRACTION1
       } else {

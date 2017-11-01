@@ -26,7 +26,7 @@ import java.util.StringTokenizer;
 
 public class MeasureList implements Iterable<Measure> {
 
-  protected List<Measure> list = new ArrayList<>();
+  private List<Measure> list = new ArrayList<>();
 
   public MeasureList() {
   }
