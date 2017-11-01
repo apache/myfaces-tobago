@@ -20,6 +20,7 @@
 package org.apache.myfaces.tobago.internal.component;
 
 import org.apache.myfaces.tobago.component.Visual;
+import org.apache.myfaces.tobago.layout.MeasureList;
 
 /**
  * {@link org.apache.myfaces.tobago.internal.taglib.component.SegmentLayoutTagDeclaration}
@@ -56,13 +57,13 @@ public abstract class AbstractUISegmentLayout extends AbstractUILayoutBase imple
     return builder.toString();
   }
 
-  public abstract String getExtraSmall();
+  public abstract MeasureList getExtraSmall();
 
-  public abstract String getSmall();
+  public abstract MeasureList getSmall();
 
-  public abstract String getMedium();
+  public abstract MeasureList getMedium();
 
-  public abstract String getLarge();
+  public abstract MeasureList getLarge();
 
-  public abstract String getExtraLarge();
+  public abstract MeasureList getExtraLarge();
 }

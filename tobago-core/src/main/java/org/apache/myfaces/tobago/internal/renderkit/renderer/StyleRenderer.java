@@ -87,8 +87,8 @@ public class StyleRenderer extends RendererBase {
       final Position position = style.getPosition();
       final TextAlign textAlign = style.getTextAlign();
       final String backgroundImage = style.getBackgroundImage();
-      final Integer flexGrow = style.getFlexGrow();
-      final Integer flexShrink = style.getFlexShrink();
+      final Number flexGrow = style.getFlexGrow();
+      final Number flexShrink = style.getFlexShrink();
       final Measure flexBasis = style.getFlexBasis();
       final String gridTemplateColumns = style.getGridTemplateColumns();
       final String gridTemplateRows = style.getGridTemplateRows();
@@ -213,10 +213,10 @@ public class StyleRenderer extends RendererBase {
           encodeStyle(writer, Styles.backgroundImage, backgroundImage);
         }
         if (flexGrow != null) {
-          encodeStyle(writer, Styles.flexGrow, Integer.toString(flexGrow));
+          encodeStyle(writer, Styles.flexGrow, String.valueOf(flexGrow));
         }
         if (flexShrink != null) {
-          encodeStyle(writer, Styles.flexShrink, Integer.toString(flexShrink));
+          encodeStyle(writer, Styles.flexShrink, String.valueOf(flexShrink));
         }
         if (flexBasis != null) {
           encodeStyle(writer, Styles.flexBasis, flexBasis.serialize());

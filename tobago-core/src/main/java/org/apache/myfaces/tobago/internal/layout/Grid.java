@@ -19,8 +19,8 @@
 
 package org.apache.myfaces.tobago.internal.layout;
 
-import org.apache.myfaces.tobago.layout.LayoutTokens;
-import org.apache.myfaces.tobago.layout.RelativeLayoutToken;
+import org.apache.myfaces.tobago.layout.Measure;
+import org.apache.myfaces.tobago.layout.MeasureList;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -41,8 +41,8 @@ public class Grid {
    */
   private List<Cell> cells;
 
-  private LayoutTokens columns;
-  private LayoutTokens rows;
+  private MeasureList columns;
+  private MeasureList rows;
 
   private int columnCount;
   private int rowCount;
@@ -52,7 +52,7 @@ public class Grid {
 
   private List<Integer> errorIndexes;
 
-  public Grid(final LayoutTokens columns, final LayoutTokens rows) {
+  public Grid(final MeasureList columns, final MeasureList rows) {
     assert columns.getSize() > 0;
     assert rows.getSize() > 0;
 
@@ -144,11 +144,11 @@ public class Grid {
     }
   }
 
-  public LayoutTokens getColumns() {
+  protected MeasureList getColumns() {
     return columns;
   }
 
-  public LayoutTokens getRows() {
+  protected MeasureList getRows() {
     return rows;
   }
 
@@ -163,7 +163,7 @@ public class Grid {
 
     // process heads
     for (int i = rowCount; i < rowCount + newRows; i++) {
-      rows.addToken(RelativeLayoutToken.DEFAULT_INSTANCE);
+      rows.add(Measure.FRACTION1);
     }
 
     rowCount += newRows;

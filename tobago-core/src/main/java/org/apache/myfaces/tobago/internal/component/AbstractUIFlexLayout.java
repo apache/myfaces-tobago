@@ -22,11 +22,9 @@ package org.apache.myfaces.tobago.internal.component;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.component.UIStyle;
 import org.apache.myfaces.tobago.component.Visual;
-import org.apache.myfaces.tobago.layout.LayoutToken;
-import org.apache.myfaces.tobago.layout.LayoutTokens;
 import org.apache.myfaces.tobago.layout.Measure;
-import org.apache.myfaces.tobago.layout.MeasureLayoutToken;
-import org.apache.myfaces.tobago.layout.RelativeLayoutToken;
+import org.apache.myfaces.tobago.layout.MeasureList;
+import org.apache.myfaces.tobago.util.ComponentUtils;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -52,47 +50,43 @@ public abstract class AbstractUIFlexLayout extends AbstractUILayoutBase implemen
 
       final boolean horizontal = isHorizontal();
 
-      String tokensString = getColumns();
-      if (tokensString == null) {
-        tokensString = getRows();
-        if (tokensString == null) {
-          tokensString = "auto"; // XXX magic string
-        }
+      MeasureList tokens = horizontal ? getColumns() : getRows();
+      if (tokens == null) {
+        tokens = new MeasureList();
+        tokens.add(Measure.AUTO);
       }
-      final LayoutTokens tokens = LayoutTokens.parse(tokensString);
+
       if (tokens.getSize() > 0) {
         int i = 0;
 
         for (UIComponent child : getChildren()) {
           if (child instanceof Visual) {
-            final Visual visual = (Visual) child;
             if (i >= tokens.getSize()) {
               i = 0;
             }
-            final LayoutToken token = tokens.get(i++);
-            if (token instanceof MeasureLayoutToken) {
-              final Measure measure = ((MeasureLayoutToken) token).getMeasure();
-              // XXX only create if there is no child UIStyle
-              UIStyle style = (UIStyle) facesContext.getApplication().createComponent(
-                  facesContext, UIStyle.COMPONENT_TYPE, RendererTypes.Style.name());
-              style.setTransient(true);
-              if (horizontal) {
-                style.setWidth(measure);
-              } else {
-                style.setHeight(measure);
+            final Measure token = tokens.get(i++);
+            final Measure.Unit unit = token.getUnit();
+            if (unit != Measure.Unit.AUTO) {
+              AbstractUIStyle style = ComponentUtils.findChild(child, AbstractUIStyle.class);
+              if (style == null) {
+                style = (AbstractUIStyle) facesContext.getApplication().createComponent(
+                    facesContext, UIStyle.COMPONENT_TYPE, RendererTypes.Style.name());
+                style.setTransient(true);
+                child.getChildren().add(style);
               }
-              ((UIComponent) visual).getChildren().add(style);
-            } else if (token instanceof RelativeLayoutToken) {
-              final int factor = ((RelativeLayoutToken) token).getFactor();
-              // XXX only create if there is no child UIStyle
-              UIStyle style = (UIStyle) facesContext.getApplication().createComponent(
-                  facesContext, UIStyle.COMPONENT_TYPE, RendererTypes.Style.name());
-              style.setTransient(true);
-              style.setFlexGrow(factor);
-              style.setFlexShrink(0);
-              style.setFlexBasis(Measure.ZERO);
-// todo             style.setFlexBasis("auto");
-              ((UIComponent) visual).getChildren().add(style);
+              if (unit == Measure.Unit.FR) {
+                final float factor = token.getValue();
+                style.setFlexGrow(factor);
+                style.setFlexShrink(0);
+                style.setFlexBasis(Measure.ZERO);
+//                style.setFlexBasis(Measure.AUTO); // is unbalanced when mixing e.g. <p> with <textarea>
+              } else {
+                if (horizontal) {
+                  style.setWidth(token);
+                } else {
+                  style.setHeight(token);
+                }
+              }
             }
           }
         }
@@ -100,9 +94,9 @@ public abstract class AbstractUIFlexLayout extends AbstractUILayoutBase implemen
     }
   }
 
-  public abstract java.lang.String getColumns();
+  public abstract MeasureList getColumns();
 
-  public abstract java.lang.String getRows();
+  public abstract MeasureList getRows();
 
   public boolean isHorizontal() {
     return getRows() == null;

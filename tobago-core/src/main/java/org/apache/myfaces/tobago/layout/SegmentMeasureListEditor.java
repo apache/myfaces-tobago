@@ -19,11 +19,26 @@
 
 package org.apache.myfaces.tobago.layout;
 
-public final class AutoLayoutToken extends LayoutToken {
-  
-  public static final AutoLayoutToken INSTANCE = new AutoLayoutToken();
+import org.apache.myfaces.tobago.apt.annotation.Preliminary;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-  public String toString() {
-    return "auto";
+import java.beans.PropertyEditorSupport;
+
+/**
+ * Converter for {@link Measure}
+ */
+@Preliminary
+public class SegmentMeasureListEditor extends PropertyEditorSupport {
+
+  private static final Logger LOG = LoggerFactory.getLogger(SegmentMeasureListEditor.class);
+
+  @Override
+  public void setAsText(final String text) throws IllegalArgumentException {
+
+    LOG.info("XXX " + getSource());
+
+    setValue(SegmentMeasureList.parse(text));
   }
+
 }

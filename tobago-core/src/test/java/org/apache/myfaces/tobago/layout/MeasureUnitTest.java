@@ -49,6 +49,12 @@ public class MeasureUnitTest {
     Assert.assertEquals("13.7vmin", "" + Measure.valueOf("13.7vmin"));
     Assert.assertEquals("13.7vmax", "" + Measure.valueOf("13.7vmax"));
     Assert.assertEquals("13.7%", "" + Measure.valueOf("13.7%"));
+    Assert.assertEquals("13fr", "" + Measure.valueOf("13*"));
+    Assert.assertEquals("13fr", "" + Measure.valueOf("13fr"));
+    Assert.assertEquals("auto", "" + Measure.valueOf("auto"));
+    Assert.assertEquals("13fr", "" + Measure.valueOf("13*"));
+    Assert.assertEquals("1fr", "" + Measure.valueOf("*"));
+    Assert.assertEquals("1seg", "" + Measure.valueOf("1seg"));
   }
 
   @Test

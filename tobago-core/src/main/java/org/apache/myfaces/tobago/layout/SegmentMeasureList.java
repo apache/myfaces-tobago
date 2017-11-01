@@ -19,5 +19,22 @@
 
 package org.apache.myfaces.tobago.layout;
 
-public class LayoutToken {
+import org.apache.myfaces.tobago.apt.annotation.Preliminary;
+
+import java.util.StringTokenizer;
+
+@Preliminary
+public final class SegmentMeasureList extends MeasureList {
+
+  public static SegmentMeasureList parse(final String string) {
+    final SegmentMeasureList measureList = new SegmentMeasureList();
+    final StringTokenizer tokenizer = new StringTokenizer(string, "; ");
+
+    while (tokenizer.hasMoreTokens()) {
+      final Measure token = Measure.valueOf(tokenizer.nextToken().trim(), Measure.Unit.SEG);
+      measureList.list.add(token);
+    }
+    return measureList;
+  }
+
 }

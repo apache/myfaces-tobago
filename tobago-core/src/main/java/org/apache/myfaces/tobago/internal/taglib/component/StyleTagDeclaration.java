@@ -291,7 +291,7 @@ public interface StyleTagDeclaration extends HasIdBindingAndRendered {
    * @since 4.0.0
    */
   @TagAttribute
-  @UIComponentTagAttribute(type = "java.lang.Integer")
+  @UIComponentTagAttribute(type = "java.lang.Number")
   void setFlexGrow(String flexGrow);
 
   /**
@@ -300,7 +300,7 @@ public interface StyleTagDeclaration extends HasIdBindingAndRendered {
    * @since 4.0.0
    */
   @TagAttribute
-  @UIComponentTagAttribute(type = "java.lang.Integer")
+  @UIComponentTagAttribute(type = "java.lang.Number")
   void setFlexShrink(String flexShrink);
 
   /**

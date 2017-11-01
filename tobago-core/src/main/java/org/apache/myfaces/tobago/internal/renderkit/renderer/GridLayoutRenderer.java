@@ -22,7 +22,7 @@ package org.apache.myfaces.tobago.internal.renderkit.renderer;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.component.UIStyle;
 import org.apache.myfaces.tobago.internal.component.AbstractUIGridLayout;
-import org.apache.myfaces.tobago.layout.LayoutTokens;
+import org.apache.myfaces.tobago.layout.MeasureList;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
@@ -50,15 +50,15 @@ public class GridLayoutRenderer extends RendererBase {
     writer.writeIdAttribute(gridLayout.getClientId(facesContext));
     writer.writeClassAttribute(TobagoClass.GRID_LAYOUT);
 
-    final LayoutTokens columns = LayoutTokens.parse(gridLayout.getColumns());
-    final LayoutTokens rows = LayoutTokens.parse(gridLayout.getRows());
+    final MeasureList columns = MeasureList.parse(gridLayout.getColumns());
+    final MeasureList rows = MeasureList.parse(gridLayout.getRows());
 
     final UIStyle style = (UIStyle) facesContext.getApplication().createComponent(
         facesContext, UIStyle.COMPONENT_TYPE, RendererTypes.Style.name());
     style.setTransient(true);
 
-    style.setGridTemplateColumns(columns.encodeToGrid());
-    style.setGridTemplateRows(rows.encodeToGrid());
+    style.setGridTemplateColumns(columns.serialize());
+    style.setGridTemplateRows(rows.serialize());
     gridLayout.getChildren().add(style);
   }
 

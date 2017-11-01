@@ -19,8 +19,24 @@
 
 package org.apache.myfaces.tobago.layout;
 
-public final class MinimumLayoutToken extends LayoutToken {
-  public String toString() {
-    return "minimum";
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.beans.PropertyEditorSupport;
+
+/**
+ * Converter for {@link Measure}
+ */
+public class MeasureListEditor extends PropertyEditorSupport {
+
+  private static final Logger LOG = LoggerFactory.getLogger(MeasureListEditor.class);
+
+  @Override
+  public void setAsText(final String text) throws IllegalArgumentException {
+
+    LOG.info("XXX " + getSource());
+
+    setValue(MeasureList.parse(text));
   }
+
 }

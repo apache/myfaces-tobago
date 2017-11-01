@@ -27,7 +27,7 @@ import org.apache.myfaces.tobago.component.UIStyle;
 import org.apache.myfaces.tobago.component.Visual;
 import org.apache.myfaces.tobago.internal.layout.LayoutUtils;
 import org.apache.myfaces.tobago.layout.GridSpan;
-import org.apache.myfaces.tobago.layout.LayoutTokens;
+import org.apache.myfaces.tobago.layout.MeasureList;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -76,8 +76,8 @@ public abstract class AbstractUIGridLayout extends AbstractUILayoutBase
     if (event instanceof PreRenderComponentEvent) {
 
       layout(
-          LayoutTokens.parse(getColumns()).getSize(),
-          LayoutTokens.parse(getRows()).getSize(),
+          MeasureList.parse(getColumns()).getSize(),
+          MeasureList.parse(getRows()).getSize(),
           LayoutUtils.findLayoutChildren(this));
 
     }
@@ -90,8 +90,6 @@ public abstract class AbstractUIGridLayout extends AbstractUILayoutBase
   public abstract String getColumns();
 
   public abstract void setColumns(String columns);
-
-  public abstract boolean isRigid();
 
   protected UIComponent[][] layout(
       final int columnsCount, final int initalRowsCount, final List<UIComponent> components) {

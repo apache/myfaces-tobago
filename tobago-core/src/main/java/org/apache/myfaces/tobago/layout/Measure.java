@@ -26,7 +26,7 @@ import org.slf4j.LoggerFactory;
 import java.io.Serializable;
 
 /**
- * In JSPs the class {@link org.apache.myfaces.tobago.layout.MeasureEditor} will convert the string literals.
+ * In PDLs the class {@link org.apache.myfaces.tobago.layout.MeasureEditor} will convert the string literals.
  */
 public final class Measure implements Serializable {
 
@@ -35,80 +35,90 @@ public final class Measure implements Serializable {
   private static final Logger LOG = LoggerFactory.getLogger(Measure.class);
 
   public static final Measure ZERO = valueOf(0);
+  public static final Measure AUTO = valueOf("auto");
+  public static final Measure FRACTION1 = valueOf("1fr");
 
-  // todo: refactor and consolidate with LayoutToken
-
-  private final Double d;
-  private final Integer i;
+  private final float value;
   private final Unit unit;
 
+  private Measure() {
+    this.value = 0;
+    this.unit = Unit.AUTO;
+  }
+
   public Measure(int i, Unit unit) {
-    this.d = null;
-    this.i = i;
+    this.value = i;
     this.unit = unit;
   }
 
   public Measure(double d, Unit unit) {
-    this.d = d;
-    this.i = null;
+    this.value = (float) d;
     this.unit = unit;
   }
 
   public Measure(String string, Unit unit) {
-    if (string.contains(".")) {
-      this.d = Double.parseDouble(string);
-      this.i = null;
-    } else {
-      this.d = null;
-      this.i = Integer.parseInt(string);
-    }
+    this.value = Float.parseFloat(string);
     this.unit = unit;
   }
 
-  public static Measure valueOf(final Measure value) {
-    if (value == null) {
+  public static Measure valueOf(final Measure measure) {
+    if (measure == null) {
       return ZERO;
     }
-    return value;
+    return measure;
   }
 
   public static Measure valueOf(final int value) {
     return new Measure(value, Unit.PX);
   }
 
-  public static Measure valueOf(final Integer value) {
-    if (value == null) {
+  public static Measure valueOf(final Integer i) {
+    if (i == null) {
       return ZERO;
     }
-    return valueOf(value.intValue());
+    return valueOf(i.intValue());
   }
 
-  public static Measure valueOf(final Number value) {
-    if (value == null) {
+  public static Measure valueOf(final Number n) {
+    if (n == null) {
       return ZERO;
     }
-    return valueOf(value.doubleValue());
+    return valueOf(n.doubleValue());
   }
 
-  public static Measure valueOf(final String value) {
+  public static Measure valueOf(final String s) {
+    return valueOf(s, Unit.PX);
+  }
+
+  public static Measure valueOf(final String s, final Unit defaultUnit) {
     try {
-      if (StringUtils.isEmpty(value)) {
+      if (StringUtils.isEmpty(s)) {
         return null;
       }
-      final int length = value.length();
-      if (value.endsWith("%")) {
-        return new Measure(value.substring(0, length - 1), Unit.PERCENT);
+      final int length = s.length();
+      if (s.endsWith("%")) {
+        return new Measure(s.substring(0, length - 1), Unit.PERCENT);
+      }
+      if (s.endsWith("*")) {
+        if (s.length() == 1) {
+          return new Measure(1, Unit.FR);
+        } else {
+          return new Measure(s.substring(0, length - 1), Unit.FR);
+        }
+      }
+      if (s.equals("auto")) {
+        return new Measure();
       }
       for (int i = 4; i >= 2; i--) {
         final int pos = length - i;
-        if (length >= i && Character.isLetter(value.charAt(pos))) {
-          return new Measure(value.substring(0, pos), Unit.valueOf(value.substring(pos).toUpperCase()));
+        if (length >= i && Character.isLetter(s.charAt(pos))) {
+          return new Measure(s.substring(0, pos), Unit.valueOf(s.substring(pos).toUpperCase()));
         }
       }
-      return new Measure(value, Unit.PX);
+      return new Measure(s, defaultUnit);
 
     } catch (final RuntimeException e) {
-      LOG.warn("Can't parse to any measure: '" + value + "'");
+      LOG.warn("Can't parse to any measure: '" + s + "'");
     }
     return null;
   }
@@ -130,7 +140,25 @@ public final class Measure implements Serializable {
   }
 
   public String serialize() {
-    return "" + (i != null ? i : "") + (d != null ? d : "") + unit.getValue();
+    StringBuilder builder = new StringBuilder();
+    if (unit != Unit.AUTO) {
+      builder.append(value);
+    }
+    final int length = builder.length();
+    if (length >= 3 && builder.charAt(length - 1) == '0' && builder.charAt(length - 2) == '.') {
+      builder.deleteCharAt(length - 1);
+      builder.deleteCharAt(length - 2);
+    }
+    builder.append(unit.getValue());
+    return builder.toString();
+  }
+
+  public float getValue() {
+    return value;
+  }
+
+  public Unit getUnit() {
+    return unit;
   }
 
   public String toString() {
@@ -148,20 +176,15 @@ public final class Measure implements Serializable {
 
     Measure measure = (Measure) o;
 
-    if (d != null ? !d.equals(measure.d) : measure.d != null) {
-      return false;
-    }
-    if (i != null ? !i.equals(measure.i) : measure.i != null) {
+    if (Float.compare(measure.value, value) != 0) {
       return false;
     }
     return unit == measure.unit;
-
   }
 
   @Override
   public int hashCode() {
-    int result = d != null ? d.hashCode() : 0;
-    result = 31 * result + (i != null ? i.hashCode() : 0);
+    int result = (value != +0.0f ? Float.floatToIntBits(value) : 0);
     result = 31 * result + unit.hashCode();
     return result;
   }
@@ -182,7 +205,10 @@ public final class Measure implements Serializable {
     VH, // Relative to 1% of the height of the viewport*
     VMIN, // Relative to 1% of viewport's* smaller dimension
     VMAX, // Relative to 1% of viewport's* larger dimension
-    PERCENT;
+    PERCENT,
+    FR, // Fraction - same as * in classic Tobago
+    SEG, // Number of used columns in segment layout (Tobago specific)
+    AUTO; // Marker for CSS 'auto', not a regular measure
 
     private final String value;
 

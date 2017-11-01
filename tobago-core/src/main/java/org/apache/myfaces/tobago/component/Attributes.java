@@ -310,6 +310,7 @@ public enum Attributes {
   required,
   resizable,
   right,
+  @Deprecated
   rigid,
   rowId,
   @Deprecated

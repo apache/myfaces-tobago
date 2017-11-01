@@ -51,24 +51,13 @@ public interface SplitLayoutTagDeclaration
       extends HasId, HasSpacing, HasBinding, IsVisual {
 
   /**
-   * This value defines the layout constraints for the layout.
-   * It is two layout tokens separated by a semicolon.
-   * Example: '2*;*'.
-   */
-/*
-  @TagAttribute
-  @UIComponentTagAttribute(defaultValue = "1*;1*")
-  void setLayout(String rows);
-*/
-
-  /**
    * This value defines the layout constraints for column layout.
    * It is a semicolon separated list of layout tokens '&lt;n&gt;*', '&lt;measure&gt;' or the keyword 'auto'.
    * Where &lt;n&gt; is a positive integer or empty and &lt;measure&gt; is a valid CSS length.
    * Example: '2*;*;100px;3rem;auto'.
    */
   @TagAttribute
-  @UIComponentTagAttribute
+  @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.MeasureList")
   void setColumns(String columns);
 
   /**
@@ -78,15 +67,6 @@ public interface SplitLayoutTagDeclaration
    * Example: '2*;*;100px;3rem;auto'.
    */
   @TagAttribute
-  @UIComponentTagAttribute
+  @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.MeasureList")
   void setRows(String rows);
-
-  /**
-   * This attribute advises the layout manager, to not use space that comes from non rendered components.
-   */
-/* tbd
-  @TagAttribute
-  @UIComponentTagAttribute(type = "boolean")
-  void setRigid(String rigid);
-*/
 }

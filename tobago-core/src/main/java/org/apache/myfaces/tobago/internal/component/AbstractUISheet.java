@@ -30,10 +30,8 @@ import org.apache.myfaces.tobago.event.SortActionEvent;
 import org.apache.myfaces.tobago.event.SortActionSource2;
 import org.apache.myfaces.tobago.internal.layout.Grid;
 import org.apache.myfaces.tobago.internal.layout.OriginCell;
-import org.apache.myfaces.tobago.layout.AutoLayoutToken;
-import org.apache.myfaces.tobago.layout.LayoutToken;
-import org.apache.myfaces.tobago.layout.LayoutTokens;
-import org.apache.myfaces.tobago.layout.RelativeLayoutToken;
+import org.apache.myfaces.tobago.layout.Measure;
+import org.apache.myfaces.tobago.layout.MeasureList;
 import org.apache.myfaces.tobago.model.ExpandedState;
 import org.apache.myfaces.tobago.model.SelectedState;
 import org.apache.myfaces.tobago.model.SheetState;
@@ -67,7 +65,7 @@ import java.util.List;
 @ListenerFor(systemEventClass = PreRenderComponentEvent.class)
 public abstract class AbstractUISheet extends AbstractUIData
     implements SheetStateChangeSource2, SortActionSource2, ClientBehaviorHolder, Visual,
-               ComponentSystemEventListener {
+    ComponentSystemEventListener {
 
   private static final Logger LOG = LoggerFactory.getLogger(AbstractUISheet.class);
 
@@ -76,7 +74,7 @@ public abstract class AbstractUISheet extends AbstractUIData
   public static final String SORTER_ID = "sorter";
 
   private SheetState state;
-  private transient LayoutTokens columnLayout;
+  private transient MeasureList columnLayout;
   private transient boolean autoLayout;
 
   private transient Grid headerGrid;
@@ -135,13 +133,13 @@ public abstract class AbstractUISheet extends AbstractUIData
     if (event instanceof PreRenderComponentEvent) {
       final String columns = getColumns();
       if (columns != null) {
-        columnLayout = LayoutTokens.parse(columns);
+        columnLayout = MeasureList.parse(columns);
       }
 
       autoLayout = true;
       if (columnLayout != null) {
-        for (LayoutToken layoutToken : columnLayout.getTokens()) {
-          if (!(layoutToken instanceof AutoLayoutToken)) {
+        for (Measure token : columnLayout) {
+          if (token != Measure.AUTO) {
             autoLayout = false;
             break;
           }
@@ -152,7 +150,7 @@ public abstract class AbstractUISheet extends AbstractUIData
     }
   }
 
-  public LayoutTokens getColumnLayout() {
+  public MeasureList getColumnLayout() {
     return columnLayout;
   }
 
@@ -171,8 +169,9 @@ public abstract class AbstractUISheet extends AbstractUIData
 
   /**
    * The rowIndex of the last row on the current page plus one (because of zero based iterating).
+   *
    * @throws IllegalArgumentException If the number of rows in the model returned
-   * by {@link #getRowCount()} is -1 (undefined).
+   *                                  by {@link #getRowCount()} is -1 (undefined).
    */
   public int getLastRowIndexOfCurrentPage() {
     if (!hasRowCount()) {
@@ -202,7 +201,7 @@ public abstract class AbstractUISheet extends AbstractUIData
       return first / rows;
     }
   }
-  
+
   /**
    * @return returns the current page (based by 1).
    * @deprecated Please use {@link #getCurrentPage()} which returns the value zero-based. Deprecated since 1.5.5.
@@ -214,8 +213,9 @@ public abstract class AbstractUISheet extends AbstractUIData
 
   /**
    * The number of pages to render.
+   *
    * @throws IllegalArgumentException If the number of rows in the model returned
-   * by {@link #getRowCount()} is -1 (undefined).
+   *                                  by {@link #getRowCount()} is -1 (undefined).
    */
   public int getPages() {
     if (isRowsUnlimited()) {
@@ -290,9 +290,10 @@ public abstract class AbstractUISheet extends AbstractUIData
   /**
    * Determines the beginning of the last page in the model.
    * If the number of rows to display on one page is unlimited, the value is 0 (there is only one page).
+   *
    * @return The index of the first row of the last paging page.
    * @throws IllegalArgumentException If the number of rows in the model returned
-   * by {@link #getRowCount()} is -1 (undefined).
+   *                                  by {@link #getRowCount()} is -1 (undefined).
    */
   public int getFirstRowIndexOfLastPage() {
     if (isRowsUnlimited()) {
@@ -404,15 +405,15 @@ public abstract class AbstractUISheet extends AbstractUIData
       LOG.warn("This should not happen. Please file a bug in the issue tracker to reproduce this case.");
       return;
     }
-    final LayoutTokens tokens = new LayoutTokens();
+    final MeasureList tokens = new MeasureList();
     final List<AbstractUIColumnBase> columns = getAllColumns();
     for (final UIColumn column : columns) {
       if (!(column instanceof AbstractUIRow)) {
-        tokens.addToken(RelativeLayoutToken.DEFAULT_INSTANCE);
+        tokens.add(Measure.FRACTION1);
       }
     }
-    final LayoutTokens rows = new LayoutTokens();
-    rows.addToken(AutoLayoutToken.INSTANCE);
+    final MeasureList rows = new MeasureList();
+    rows.add(Measure.AUTO);
     final Grid grid = new Grid(tokens, rows);
 
     for (final UIComponent child : header.getChildren()) {

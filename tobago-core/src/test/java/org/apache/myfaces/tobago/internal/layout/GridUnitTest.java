@@ -19,7 +19,7 @@
 
 package org.apache.myfaces.tobago.internal.layout;
 
-import org.apache.myfaces.tobago.layout.LayoutTokens;
+import org.apache.myfaces.tobago.layout.MeasureList;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -28,7 +28,7 @@ public class GridUnitTest {
   @Test
   public void test1x1() {
 
-    final Grid grid = new Grid(LayoutTokens.parse("*"), LayoutTokens.parse("*"));
+    final Grid grid = new Grid(MeasureList.parse("*"), MeasureList.parse("*"));
     Assert.assertEquals(1, grid.getColumns().getSize());
     Assert.assertEquals(1, grid.getRows().getSize());
     Assert.assertEquals(""
@@ -89,7 +89,7 @@ public class GridUnitTest {
   @Test
   public void test2x1() {
 
-    final Grid grid = new Grid(LayoutTokens.parse("*;*"), LayoutTokens.parse("*"));
+    final Grid grid = new Grid(MeasureList.parse("*;*"), MeasureList.parse("*"));
     Assert.assertEquals(2, grid.getColumns().getSize());
     Assert.assertEquals(1, grid.getRows().getSize());
     Assert.assertEquals(""
@@ -184,7 +184,7 @@ public class GridUnitTest {
   @Test
   public void test5x5() {
 
-    final Grid grid = new Grid(LayoutTokens.parse("*;*;*;*;*"), LayoutTokens.parse("*;*;*;*;*"));
+    final Grid grid = new Grid(MeasureList.parse("*;*;*;*;*"), MeasureList.parse("*;*;*;*;*"));
     Assert.assertEquals(5, grid.getColumns().getSize());
     Assert.assertEquals(5, grid.getRows().getSize());
     Assert.assertEquals(""

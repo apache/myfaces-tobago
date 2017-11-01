@@ -54,7 +54,7 @@ public interface SegmentLayoutTagDeclaration extends HasIdBindingAndRendered, Is
    * Example: '1;5;*;auto'
    */
   @TagAttribute
-  @UIComponentTagAttribute
+  @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.SegmentMeasureList")
   void setExtraSmall(String extraSmall);
 
   /**
@@ -63,7 +63,7 @@ public interface SegmentLayoutTagDeclaration extends HasIdBindingAndRendered, Is
    * Example: '1;5;*;auto'
    */
   @TagAttribute
-  @UIComponentTagAttribute
+  @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.SegmentMeasureList")
   void setSmall(String small);
 
   /**
@@ -72,7 +72,7 @@ public interface SegmentLayoutTagDeclaration extends HasIdBindingAndRendered, Is
    * Example: '1;5;*;auto'
    */
   @TagAttribute
-  @UIComponentTagAttribute
+  @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.SegmentMeasureList")
   void setMedium(String medium);
 
   /**
@@ -81,7 +81,7 @@ public interface SegmentLayoutTagDeclaration extends HasIdBindingAndRendered, Is
    * Example: '1;5;*;auto'
    */
   @TagAttribute
-  @UIComponentTagAttribute
+  @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.SegmentMeasureList")
   void setLarge(String large);
 
   /**
@@ -90,7 +90,7 @@ public interface SegmentLayoutTagDeclaration extends HasIdBindingAndRendered, Is
    * Example: '1;5;*;auto'
    */
   @TagAttribute
-  @UIComponentTagAttribute
+  @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.SegmentMeasureList")
   void setExtraLarge(String extraLarge);
 
   /**

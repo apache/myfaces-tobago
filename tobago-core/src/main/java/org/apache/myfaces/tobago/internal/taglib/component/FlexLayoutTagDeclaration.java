@@ -55,7 +55,7 @@ public interface FlexLayoutTagDeclaration extends HasIdBindingAndRendered, IsVis
    * Example: '2*;*;100px;3rem;auto'.
    */
   @TagAttribute
-  @UIComponentTagAttribute
+  @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.MeasureList")
   void setColumns(String columns);
 
   /**
@@ -65,7 +65,7 @@ public interface FlexLayoutTagDeclaration extends HasIdBindingAndRendered, IsVis
    * Example: '2*;*;100px;3rem;auto'.
    */
   @TagAttribute
-  @UIComponentTagAttribute
+  @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.MeasureList")
   void setRows(String rows);
 
   /**

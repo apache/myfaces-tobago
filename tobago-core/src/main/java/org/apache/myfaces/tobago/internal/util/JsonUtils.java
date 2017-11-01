@@ -24,11 +24,8 @@ import org.apache.myfaces.tobago.internal.context.DateTimeI18n;
 import org.apache.myfaces.tobago.internal.renderkit.Collapse;
 import org.apache.myfaces.tobago.internal.renderkit.Command;
 import org.apache.myfaces.tobago.internal.renderkit.CommandMap;
-import org.apache.myfaces.tobago.layout.AutoLayoutToken;
-import org.apache.myfaces.tobago.layout.LayoutToken;
-import org.apache.myfaces.tobago.layout.LayoutTokens;
-import org.apache.myfaces.tobago.layout.MeasureLayoutToken;
-import org.apache.myfaces.tobago.layout.RelativeLayoutToken;
+import org.apache.myfaces.tobago.layout.Measure;
+import org.apache.myfaces.tobago.layout.MeasureList;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -121,7 +118,7 @@ public class JsonUtils {
 
     final Map<ClientBehaviors, Command> other = commandMap.getOther();
     if (other != null) {
-      for(final Map.Entry<ClientBehaviors, Command> entry : other.entrySet()) {
+      for (final Map.Entry<ClientBehaviors, Command> entry : other.entrySet()) {
         encode(builder, entry.getKey(), entry.getValue());
       }
     }
@@ -173,7 +170,7 @@ public class JsonUtils {
     if (confirmation != null) {
       encode(builder, "confirmation", confirmation);
     }
-    final Integer delay  = command.getDelay();
+    final Integer delay = command.getDelay();
     if (delay != null) {
       encode(builder, "delay", delay);
     }
@@ -250,20 +247,19 @@ public class JsonUtils {
     return builder.toString();
   }
 
-  public static void encode(final LayoutTokens bankHeads, final StringBuilder builder) {
+  public static void encode(final MeasureList layout, final StringBuilder builder) {
     builder.append("[");
-    for (final LayoutToken token : bankHeads.getTokens()) {
-      if (token instanceof RelativeLayoutToken) {
-        final int factor = ((RelativeLayoutToken) token).getFactor();
+    for (final Measure measure : layout) {
+      final Measure.Unit unit = measure.getUnit();
+      if (unit == Measure.Unit.FR) {
+        final float factor = measure.getValue(); // todo: might be better with "fr" suffix, but needs a JS change
         builder.append(factor);
-      } else if (token instanceof AutoLayoutToken) {
+      } else if (unit == Measure.Unit.AUTO) {
         builder.append("\"auto\"");
-      } else if (token instanceof MeasureLayoutToken) {
-        builder.append("{\"measure\":\"");
-        builder.append(((MeasureLayoutToken) token).getMeasure());
-        builder.append("\"}");
       } else {
-        LOG.warn("Not supported: " + token);
+        builder.append("{\"measure\":\"");
+        builder.append(measure.serialize());
+        builder.append("\"}");
       }
       builder.append(',');
     }

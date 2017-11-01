@@ -106,6 +106,7 @@ public abstract class AbstractUIStyle extends UIComponentBase {
   public abstract Measure getPaddingTop();
 
   public abstract Measure getHeight();
+  public abstract void setHeight(Measure height);
 
   public abstract Measure getMaxWidth();
 
@@ -128,6 +129,7 @@ public abstract class AbstractUIStyle extends UIComponentBase {
   public abstract Measure getLeft();
 
   public abstract Measure getWidth();
+  public abstract void setWidth(Measure width);
 
   public abstract CustomClass getCustomClass();
 
@@ -141,11 +143,14 @@ public abstract class AbstractUIStyle extends UIComponentBase {
 
   public abstract String getBackgroundImage();
 
-  public abstract Integer getFlexGrow();
+  public abstract Number getFlexGrow();
+  public abstract void setFlexGrow(Number flexGrow);
 
-  public abstract Integer getFlexShrink();
+  public abstract Number getFlexShrink();
+  public abstract void setFlexShrink(Number flexShrink);
 
   public abstract Measure getFlexBasis();
+  public abstract void setFlexBasis(Measure flexBasis);
 
   public abstract String getGridTemplateColumns();
 

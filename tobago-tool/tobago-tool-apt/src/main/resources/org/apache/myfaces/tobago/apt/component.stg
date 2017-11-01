@@ -408,6 +408,10 @@ DoubleProperty(property) ::= <<
 <NormalProperty(property)>
 >>
 
+NumberProperty(property) ::= <<
+<NormalProperty(property)>
+>>
+
 MethodExpressionProperty(property) ::= <<
 
 /**
@@ -512,6 +516,14 @@ public void set<property.upperCamelCaseName>(<property.type> <property.propertyN
   getStateHelper().put(PropertyKeys.<property.propertyName>, <property.propertyName>);
   <endif>
 }
+>>
+
+MeasureListProperty(property) ::= <<
+<NormalProperty(property)>
+>>
+
+SegmentMeasureListProperty(property) ::= <<
+<NormalProperty(property)>
 >>
 
 MarkupProperty(property) ::= <<

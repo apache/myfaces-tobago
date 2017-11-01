@@ -21,14 +21,11 @@ package org.apache.myfaces.tobago.renderkit.css;
 
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.layout.AlignItems;
-import org.apache.myfaces.tobago.layout.AutoLayoutToken;
 import org.apache.myfaces.tobago.layout.JustifyContent;
-import org.apache.myfaces.tobago.layout.LayoutToken;
-import org.apache.myfaces.tobago.layout.LayoutTokens;
 import org.apache.myfaces.tobago.layout.Margin;
 import org.apache.myfaces.tobago.layout.MarginTokens;
-import org.apache.myfaces.tobago.layout.RelativeLayoutToken;
-import org.apache.myfaces.tobago.layout.SegmentLayoutToken;
+import org.apache.myfaces.tobago.layout.Measure;
+import org.apache.myfaces.tobago.layout.MeasureList;
 import org.apache.myfaces.tobago.layout.TextAlign;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.slf4j.Logger;
@@ -592,11 +589,11 @@ public enum BootstrapClass implements CssItem {
         OFFSET_XL_6, OFFSET_XL_7, OFFSET_XL_8, OFFSET_XL_9, OFFSET_XL_10, OFFSET_XL_11
     };
 
-    private final LayoutTokens extraSmall;
-    private final LayoutTokens small;
-    private final LayoutTokens medium;
-    private final LayoutTokens large;
-    private final LayoutTokens extraLarge;
+    private final MeasureList extraSmall;
+    private final MeasureList small;
+    private final MeasureList medium;
+    private final MeasureList large;
+    private final MeasureList extraLarge;
     private final MarginTokens marginExtraSmall;
     private final MarginTokens marginSmall;
     private final MarginTokens marginMedium;
@@ -605,12 +602,12 @@ public enum BootstrapClass implements CssItem {
 
     private int index = 0;
 
-    public Generator(final LayoutTokens extraSmall, final LayoutTokens small, final LayoutTokens medium,
-        final LayoutTokens large, final LayoutTokens extraLarge,
-        final MarginTokens marginExtraSmall, final MarginTokens marginSmall, final MarginTokens marginMedium,
-        final MarginTokens marginLarge, final MarginTokens marginExtraLarge) {
+    public Generator(final MeasureList extraSmall, final MeasureList small, final MeasureList medium,
+                     final MeasureList large, final MeasureList extraLarge,
+                     final MarginTokens marginExtraSmall, final MarginTokens marginSmall, final MarginTokens marginMedium,
+                     final MarginTokens marginLarge, final MarginTokens marginExtraLarge) {
       if (extraSmall == null && small == null && medium == null && large == null && extraLarge == null) {
-        this.extraSmall = LayoutTokens.parse("*");
+        this.extraSmall = MeasureList.parse("*"); // TBD: is this needed? if yes, use Measure.FRACTION1
       } else {
         this.extraSmall = extraSmall;
       }
@@ -656,17 +653,18 @@ public enum BootstrapClass implements CssItem {
       return result.toArray(new BootstrapClass[result.size()]);
     }
 
-    private void generate(final List<BootstrapClass> result, final LayoutTokens tokens,
+    private void generate(
+        final List<BootstrapClass> result, final MeasureList tokens,
         final Map<String, Object> attributes, final Attributes attribute) {
       Object overwrite = attributes.get(attribute.name());
 
       if (overwrite != null) {
-        final LayoutToken layoutToken = LayoutTokens.parseToken((String) overwrite);
-        final BootstrapClass bootstrapClass = valueOf(layoutToken, attribute);
+        final Measure measure = Measure.valueOf(overwrite);
+        final BootstrapClass bootstrapClass = valueOf(measure, attribute);
         result.add(bootstrapClass);
       } else if (tokens != null) {
-        final LayoutToken layoutToken = tokens.get(index % tokens.getSize());
-        final BootstrapClass bootstrapClass = valueOf(layoutToken, attribute);
+        final Measure measure = tokens.get(index % tokens.getSize());
+        final BootstrapClass bootstrapClass = valueOf(measure, attribute);
         result.add(bootstrapClass);
       }
     }
@@ -697,16 +695,17 @@ public enum BootstrapClass implements CssItem {
     }
   }
 
-  public static BootstrapClass valueOf(LayoutToken layoutToken, Attributes attributes) {
+  public static BootstrapClass valueOf(Measure measure, Attributes attributes) {
     final String size = getSizeSuffix(attributes);
 
-    if (layoutToken instanceof RelativeLayoutToken) {
+    if (measure.getUnit() == Measure.Unit.FR) {
       return valueOf("COL" + size);
-    } else if (layoutToken instanceof AutoLayoutToken) {
+    } else if (measure.getUnit() == Measure.Unit.AUTO) {
       return valueOf("COL" + size + "_AUTO");
-    } else if (layoutToken instanceof SegmentLayoutToken) {
-      SegmentLayoutToken segmentLayoutToken = (SegmentLayoutToken) layoutToken;
-      return valueOf("COL" + size + "_" + segmentLayoutToken.getColumnSize());
+    } else if (measure.getUnit() == Measure.Unit.SEG) {
+      final float value = measure.getValue();
+      return valueOf(
+          "COL" + size + "_" + (value == (long) value ? Long.toString((long) value) : Float.toString(value)));
     } else {
       return null;
     }

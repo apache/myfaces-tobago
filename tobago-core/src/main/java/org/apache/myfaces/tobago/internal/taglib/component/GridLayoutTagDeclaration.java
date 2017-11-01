@@ -21,9 +21,7 @@ package org.apache.myfaces.tobago.internal.taglib.component;
 
 import org.apache.myfaces.tobago.apt.annotation.Preliminary;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
-import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
-import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.internal.component.AbstractUIGridLayout;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasBinding;
@@ -108,12 +106,5 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
     allowedChildComponenents = "NONE")
 public interface GridLayoutTagDeclaration extends HasId, HasSpacing,
     HasColumnLayout, HasRowLayout, HasBinding, IsVisual {
-
-  /**
-   * This attribute advises the layout manager, to not use space that comes from non rendered components.
-   */
-  @TagAttribute
-  @UIComponentTagAttribute(type = "boolean")
-  void setRigid(String rigid);
 
 }
