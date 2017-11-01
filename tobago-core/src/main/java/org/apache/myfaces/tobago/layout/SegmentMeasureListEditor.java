@@ -20,8 +20,6 @@
 package org.apache.myfaces.tobago.layout;
 
 import org.apache.myfaces.tobago.apt.annotation.Preliminary;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.beans.PropertyEditorSupport;
 
@@ -31,13 +29,8 @@ import java.beans.PropertyEditorSupport;
 @Preliminary
 public class SegmentMeasureListEditor extends PropertyEditorSupport {
 
-  private static final Logger LOG = LoggerFactory.getLogger(SegmentMeasureListEditor.class);
-
   @Override
   public void setAsText(final String text) throws IllegalArgumentException {
-
-    LOG.info("XXX " + getSource());
-
     setValue(SegmentMeasureList.parse(text));
   }
 
