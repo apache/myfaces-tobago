@@ -68,6 +68,9 @@ public final class MimeTypeUtils {
         if (file.endsWith("eot")) {
           return "application/vnd.ms-fontobject";
         }
+        if (file.endsWith("otf")) {
+          return "application/x-font-opentype";
+        }
       }
     } else if (file.charAt(length - 3) == '.') {
       if (file.endsWith("js")) {

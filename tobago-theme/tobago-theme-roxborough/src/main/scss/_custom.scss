@@ -20,24 +20,79 @@
 // Copy variables from `_variables.scss` to this file to override default values
 // without modifying source files.
 
-$theme-colors: (
-        primary: #4f4fa8,
-        success: #3c883c,
-        info: #007f7f,
-        warning: #a0ad2e,
-        danger: #8f59a9
-);
+$orange: #B26812;
+$green: #1C690A;
+$blue: #130E8F;
+$dark-orange: #A84711;
+$light-orange: #E85400;
+$purple: #5400A8;
+$gray-600: #777777;
+$gray-800: #323232;
+$black: #000000;
 
-$body-bg: #000000;
-$body-color: #808080;
+$primary: $orange;
+$secondary: $purple;
+$success: $green;
+$info: $blue;
+$warning: $dark-orange;
+$danger: $light-orange;
+$light: $gray-600;
+$dark: $gray-800;
 
-$input-bg: #505050;
+$theme-colors: ();
+$theme-colors: map-merge((
+        "primary": $primary,
+        "secondary": $secondary,
+        "success": $success,
+        "info": $info,
+        "warning": $warning,
+        "danger": $danger,
+        "light": $light,
+        "dark": $dark
+), $theme-colors);
+
+$body-bg: $black;
+$body-color: $gray-600;
+
+$input-bg: $gray-600;
 
 $navbar-light-color: #606060;
 $navbar-light-active-color: #707070;
 $navbar-light-hover-color: #808080;
 $navbar-light-disabled-color: #505050;
 
-$card-bg: #000000;
-$card-border-color: #505050;
+$card-bg: $black;
+$card-border-color: $gray-600;
 $card-border-width: 2px;
+$card-cap-bg: $gray-800;
+
+@font-face {
+  font-family: 'Amaranth';
+  font-style: normal;
+  font-weight: normal;
+  src: url('../fonts/Amaranth-Regular.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'Amaranth';
+  font-style: normal;
+  font-weight: bold;
+  src: url('../fonts/Amaranth-Bold.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'Amaranth';
+  font-style: italic;
+  src: url('../fonts/Amaranth-Italic.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'Amaranth';
+  font-style: italic;
+  font-weight: bold;
+  src: url('../fonts/Amaranth-BoldItalic.otf') format('opentype');
+}
+
+.tobago-section-header, .tobago-box-header {
+  font-family: Amaranth, Arial, serif;
+}
