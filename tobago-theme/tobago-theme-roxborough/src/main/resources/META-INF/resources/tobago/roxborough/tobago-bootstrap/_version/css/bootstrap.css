@@ -3838,9 +3838,9 @@ tbody.collapse.show {
       flex-direction: column;
   min-width: 0;
   word-wrap: break-word;
-  background-color: #fff;
+  background-color: #000000;
   background-clip: border-box;
-  border: 1px solid rgba(0, 0, 0, 0.125);
+  border: 2px solid #505050;
   border-radius: 0.25rem;
 }
 
@@ -3890,7 +3890,7 @@ tbody.collapse.show {
   padding: 0.75rem 1.25rem;
   margin-bottom: 0;
   background-color: rgba(0, 0, 0, 0.03);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+  border-bottom: 2px solid #505050;
 }
 
 .card-header:first-child {
@@ -3904,7 +3904,7 @@ tbody.collapse.show {
 .card-footer {
   padding: 0.75rem 1.25rem;
   background-color: rgba(0, 0, 0, 0.03);
-  border-top: 1px solid rgba(0, 0, 0, 0.125);
+  border-top: 2px solid #505050;
 }
 
 .card-footer:last-child {
@@ -8264,7 +8264,7 @@ table.tobago-gridLayout > tbody > tr:first-child > td {
 }
 
 .tobago-link.nav-link:focus, .tobago-link.nav-link:hover {
-  text-decoration: underline;
+  text-decoration: none;
 }
 
 a.tobago-link.dropdown-item img, a.tobago-link.dropdown-item span {
