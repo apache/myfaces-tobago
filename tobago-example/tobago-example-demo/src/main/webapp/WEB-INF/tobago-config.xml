@@ -50,7 +50,7 @@
          XXX because of JSF-AJAX we need 'unsafe-eval' -->
     <!--<directive name="script-src">'self' 'unsafe-eval'</directive>-->
     <!-- needed for <tc:object>  -->
-    <directive name="child-src">https://maps.google.com</directive>
+    <directive name="child-src">https://www.openstreetmap.org</directive>
     <directive name="child-src">https://*.apache.org</directive>
     <!-- needed for the test suite -->
     <directive name="child-src">'self'</directive>

@@ -21,8 +21,11 @@
   $.widget("demo.maps", {
 
     options: {
-      position: "11.249123,-60.687103", // tobago
-      zoom: 2 // global
+      position: { // tobago
+        x: -60.687103,
+        y: 11.249123
+      },
+      zoom: 0.2
     },
 
     _create: function () {
@@ -37,8 +40,11 @@
             zoom = this.options.zoom;
           }
           var target = this.element.data("maps-target");
-          var url = 'https://maps.google.com/maps?'
-              + 'ie=UTF8&ll=' + position + '&t=h&z=' + zoom + '&output=embed&f=q&cd=1';
+          var url = 'https://www.openstreetmap.org/export/embed.html?bbox='
+              + (position.x - zoom) + ','
+              + (position.y - zoom) + ','
+              + (position.x + zoom) + ','
+              + (position.y + zoom);
           jQuery(Tobago.Utils.escapeClientId(target)).attr('src', url);
         }
       });
