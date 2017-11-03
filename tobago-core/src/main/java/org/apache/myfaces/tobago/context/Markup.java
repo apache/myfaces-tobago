@@ -61,6 +61,7 @@ public final class Markup implements Serializable, Iterable<String> {
   public static final Markup BORDERED = valueOf("bordered");
   public static final Markup CENTER = valueOf("center");
   public static final Markup CLICKABLE = valueOf("clickable");
+  public static final Markup DANGER = valueOf("danger");
   public static final Markup DARK = valueOf("dark");
   public static final Markup DEFAULT = valueOf("default");
   public static final Markup DELETED = valueOf("deleted");
@@ -89,13 +90,16 @@ public final class Markup implements Serializable, Iterable<String> {
   public static final Markup MARKED = valueOf("marked");
   public static final Markup MEDIUM = valueOf("medium");
   public static final Markup MODAL = valueOf("modal");
+  public static final Markup NONE = valueOf("none");
   public static final Markup NUMBER = valueOf("number");
   public static final Markup ODD = valueOf("odd");
   public static final Markup PORTLET = valueOf("portlet");
+  public static final Markup PRIMARY = valueOf("primary");
   public static final Markup READONLY = valueOf("readonly");
   public static final Markup REQUIRED = valueOf("required");
   public static final Markup RESIZABLE = valueOf("resizable");
   public static final Markup RIGHT = valueOf("right");
+  public static final Markup SECONDARY = valueOf("secondary");
   public static final Markup SECONDS = valueOf("seconds");
   public static final Markup SELECTED = valueOf("selected");
   /**
@@ -118,10 +122,12 @@ public final class Markup implements Serializable, Iterable<String> {
   public static final Markup SPREAD = valueOf("spread");
   public static final Markup STRIPED = valueOf("striped");
   public static final Markup STRONG = valueOf("strong");
+  public static final Markup SUCCESS = valueOf("success");
   public static final Markup TOGGLER_LEFT = valueOf("togglerLeft");
   public static final Markup TOP = valueOf("top");
   public static final Markup VERTICALLY = valueOf("vertically");
   public static final Markup WARN = valueOf("warn");
+  public static final Markup WARNING = valueOf("warning");
 
   /* Just one of "values" and "value" must be null */
 

@@ -20,6 +20,7 @@
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
 import org.apache.myfaces.tobago.component.Attributes;
+import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.internal.component.AbstractUICommand;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.CssItem;
@@ -40,7 +41,32 @@ public class ButtonRenderer extends CommandRendererBase {
 
     return new CssItem[]{
         BootstrapClass.BTN,
-        defaultCommand ? BootstrapClass.BTN_PRIMARY : BootstrapClass.BTN_SECONDARY
+        getButtonColor(command.getMarkup(), defaultCommand)
     };
+  }
+
+  private BootstrapClass getButtonColor(final Markup markup, final boolean defaultCommand) {
+    if (markup != null) {
+      if (markup.contains(Markup.NONE)) {
+        return null;
+      } else if (markup.contains(Markup.PRIMARY)) {
+        return BootstrapClass.BTN_PRIMARY;
+      } else if (markup.contains(Markup.SECONDARY)) {
+        return BootstrapClass.BTN_SECONDARY;
+      } else if (markup.contains(Markup.SUCCESS)) {
+        return BootstrapClass.BTN_SUCCESS;
+      } else if (markup.contains(Markup.DANGER)) {
+        return BootstrapClass.BTN_DANGER;
+      } else if (markup.contains(Markup.WARNING)) {
+        return BootstrapClass.BTN_WARNING;
+      } else if (markup.contains(Markup.INFO)) {
+        return BootstrapClass.BTN_INFO;
+      } else if (markup.contains(Markup.LIGHT)) {
+        return BootstrapClass.BTN_LIGHT;
+      } else if (markup.contains(Markup.DARK)) {
+        return BootstrapClass.BTN_DARK;
+      }
+    }
+    return defaultCommand ? BootstrapClass.BTN_PRIMARY : BootstrapClass.BTN_SECONDARY;
   }
 }
