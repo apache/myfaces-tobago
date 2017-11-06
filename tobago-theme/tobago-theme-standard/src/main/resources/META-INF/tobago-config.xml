@@ -376,7 +376,7 @@
         <script name="/tobago/standard/popper-js/1.12.3/popper.min.js"/>
         <script name="/tobago/standard/tobago-bootstrap/${project.version}/js/bootstrap.min.js"/>
         <script name="/tobago/standard/moment/2.13.0/moment-with-locales.min.js"/>
-        <script name="/tobago/standard/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"/>
+        <script name="/tobago/standard/bootstrap-datetimepicker/4.17.45/js/bootstrap-datetimepicker.min.js"/>
         <script name="/tobago/standard/tobago-bootstrap/${project.version}/js/tobago.min.js"/>
         <script name="/tobago/standard/typeahead/0.11.1-patched-with-1212/typeahead.min.js"/>
         <style name="/tobago/standard/tether/1.1.1/css/tether.min.css"/>
@@ -391,7 +391,7 @@
         <script name="/tobago/standard/popper-js/1.12.3/popper.js"/>
         <script name="/tobago/standard/tobago-bootstrap/${project.version}/js/bootstrap.js"/>
         <script name="/tobago/standard/moment/2.13.0/moment-with-locales.js"/>
-        <script name="/tobago/standard/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.js"/>
+        <script name="/tobago/standard/bootstrap-datetimepicker/4.17.45/js/bootstrap-datetimepicker.js"/>
         <script name="/tobago/standard/tobago-bootstrap/${project.version}/js/tobago-jsf.js"/>
         <script name="/tobago/standard/tobago-bootstrap/${project.version}/js/tobago-deltaspike.js"/>
         <script name="/tobago/standard/tobago-bootstrap/${project.version}/js/tobago.js"/>
