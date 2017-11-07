@@ -382,7 +382,7 @@
         <style name="/tobago/standard/tether/1.1.1/css/tether.min.css"/>
         <style name="/tobago/standard/tobago-bootstrap/${project.version}/css/bootstrap.min.css"/>
         <style name="/tobago/standard/font-awesome/4.7.0/css/font-awesome.min.css"/>
-        <style name="/tobago/standard/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.min.css"/>
+        <style name="/tobago/standard/bootstrap-datetimepicker/4.17.45/css/bootstrap-datetimepicker.min.css"/>
       </resources>
       <resources production="false">
         <script name="/tobago/standard/jquery/jquery-2.2.4.js"/>
@@ -411,7 +411,7 @@
         <style name="/tobago/standard/tether/1.1.1/css/tether.css"/>
         <style name="/tobago/standard/tobago-bootstrap/${project.version}/css/bootstrap.css"/>
         <style name="/tobago/standard/font-awesome/4.7.0/css/font-awesome.css"/>
-        <style name="/tobago/standard/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.css"/>
+        <style name="/tobago/standard/bootstrap-datetimepicker/4.17.45/css/bootstrap-datetimepicker.css"/>
       </resources>
     </theme-definition>
   </theme-definitions>
