@@ -94,16 +94,13 @@ Tobago.DateTime.init = function (elements) {
           }
         });
 
-        /*
-         XXX need for fixing wrong positioning of bootstrap datepicker.
-         See https://github.com/Eonasdan/bootstrap-datetimepicker/issues/790 for more information.
-         */
+        // set position
         $date.parent().on('dp.show', function () {
           var datepicker = jQuery('.bootstrap-datetimepicker-widget');
           var $div = jQuery(this);
           var top, left;
           if (datepicker.hasClass('bottom')) {
-            top = $div.offset().top + $div.outerHeight() - jQuery("body").offset().top;
+            top = $div.offset().top + $div.outerHeight();
             left = $div.offset().left;
             datepicker.css({
               'top': top + 'px',
@@ -112,7 +109,7 @@ Tobago.DateTime.init = function (elements) {
             });
           }
           else if (datepicker.hasClass('top')) {
-            top = $div.offset().top - datepicker.outerHeight() - jQuery("body").offset().top;
+            top = $div.offset().top - datepicker.outerHeight();
             left = $div.offset().left;
             datepicker.css({
               'top': top + 'px',
@@ -122,6 +119,8 @@ Tobago.DateTime.init = function (elements) {
           }
           Tobago.DateTime.addPastClass($date);
         });
+
+        // set css class in update - like changing the month
         $date.parent().on('dp.update', function () {
           Tobago.DateTime.addPastClass($date);
         });

@@ -51,10 +51,6 @@ var setMargins = function (body, headers, footers, currentHeaderHeight, currentF
 
   if (maxHeaderHeight > 0) {
     body.css("margin-top", maxHeaderHeight + "px");
-
-    // remove margin from page menu store; positioning of dropdowns
-    var pageMenuStore = Tobago.Utils.selectWithJQuery(body, ".tobago-page-menuStore");
-    pageMenuStore.css("margin-top", "-" + maxHeaderHeight + "px");
   }
   if (maxFooterHeight > 0) {
     body.css("margin-bottom", maxFooterHeight + "px");
