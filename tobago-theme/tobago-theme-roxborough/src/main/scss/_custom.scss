@@ -56,15 +56,18 @@ $body-color: $gray-600;
 
 $input-bg: $gray-600;
 
-$navbar-light-color: #606060;
-$navbar-light-active-color: #707070;
-$navbar-light-hover-color: #808080;
-$navbar-light-disabled-color: #505050;
+$navbar-light-color: $orange;
+$navbar-light-active-color: $light-orange;
+$navbar-light-hover-color: $light-orange;
+$navbar-light-disabled-color: $dark-orange;
 
 $card-bg: $black;
 $card-border-color: $gray-600;
 $card-border-width: 2px;
 $card-cap-bg: $gray-800;
+
+$dropdown-link-active-color: $light-orange;
+$dropdown-bg: $black;
 
 @font-face {
   font-family: 'Amaranth';

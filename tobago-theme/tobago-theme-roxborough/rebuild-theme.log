@@ -1,9 +1,29 @@
-Build date: 2017-11-06 19:45:31
+Build date: 2017-11-08 09:06:14
 [INFO] Scanning for projects...
 [INFO] 
 [INFO] ------------------------------------------------------------------------
 [INFO] Building Tobago Theme Roxborough 4.0.0-SNAPSHOT
 [INFO] ------------------------------------------------------------------------
+[INFO] Downloading: http://repository.apache.org/snapshots/org/apache/myfaces/tobago/tobago-theme-standard/4.0.0-SNAPSHOT/maven-metadata.xml
+[INFO] Downloaded: http://repository.apache.org/snapshots/org/apache/myfaces/tobago/tobago-theme-standard/4.0.0-SNAPSHOT/maven-metadata.xml (1.0 kB at 1.7 kB/s)
+[INFO] Downloading: http://repository.apache.org/snapshots/org/apache/myfaces/tobago/tobago-theme-standard/4.0.0-SNAPSHOT/tobago-theme-standard-4.0.0-20171107.131952-103.pom
+[INFO] Downloaded: http://repository.apache.org/snapshots/org/apache/myfaces/tobago/tobago-theme-standard/4.0.0-SNAPSHOT/tobago-theme-standard-4.0.0-20171107.131952-103.pom (5.7 kB at 12 kB/s)
+[INFO] Downloading: http://repository.apache.org/snapshots/org/apache/myfaces/tobago/tobago-theme/4.0.0-SNAPSHOT/maven-metadata.xml
+[INFO] Downloaded: http://repository.apache.org/snapshots/org/apache/myfaces/tobago/tobago-theme/4.0.0-SNAPSHOT/maven-metadata.xml (618 B at 1.3 kB/s)
+[INFO] Downloading: http://repository.apache.org/snapshots/org/apache/myfaces/tobago/tobago-theme/4.0.0-SNAPSHOT/tobago-theme-4.0.0-20171107.131934-103.pom
+[INFO] Downloaded: http://repository.apache.org/snapshots/org/apache/myfaces/tobago/tobago-theme/4.0.0-SNAPSHOT/tobago-theme-4.0.0-20171107.131934-103.pom (12 kB at 27 kB/s)
+[INFO] Downloading: http://repository.apache.org/snapshots/org/apache/myfaces/tobago/tobago/4.0.0-SNAPSHOT/maven-metadata.xml
+[INFO] Downloaded: http://repository.apache.org/snapshots/org/apache/myfaces/tobago/tobago/4.0.0-SNAPSHOT/maven-metadata.xml (1.0 kB at 2.2 kB/s)
+[INFO] Downloading: http://repository.apache.org/snapshots/org/apache/myfaces/tobago/tobago/4.0.0-SNAPSHOT/tobago-4.0.0-20171107.131707-128.pom
+[INFO] Downloaded: http://repository.apache.org/snapshots/org/apache/myfaces/tobago/tobago/4.0.0-SNAPSHOT/tobago-4.0.0-20171107.131707-128.pom (50 kB at 74 kB/s)
+[INFO] Downloading: http://repository.apache.org/snapshots/org/apache/myfaces/tobago/tobago-core/4.0.0-SNAPSHOT/maven-metadata.xml
+[INFO] Downloaded: http://repository.apache.org/snapshots/org/apache/myfaces/tobago/tobago-core/4.0.0-SNAPSHOT/maven-metadata.xml (1.7 kB at 3.5 kB/s)
+[INFO] Downloading: http://repository.apache.org/snapshots/org/apache/myfaces/tobago/tobago-core/4.0.0-SNAPSHOT/tobago-core-4.0.0-20171107.131903-106.pom
+[INFO] Downloaded: http://repository.apache.org/snapshots/org/apache/myfaces/tobago/tobago-core/4.0.0-SNAPSHOT/tobago-core-4.0.0-20171107.131903-106.pom (11 kB at 24 kB/s)
+[INFO] Downloading: http://repository.apache.org/snapshots/org/apache/myfaces/tobago/tobago-theme-standard/4.0.0-SNAPSHOT/tobago-theme-standard-4.0.0-20171107.131952-103.jar
+[INFO] Downloading: http://repository.apache.org/snapshots/org/apache/myfaces/tobago/tobago-core/4.0.0-SNAPSHOT/tobago-core-4.0.0-20171107.131903-106.jar
+[INFO] Downloaded: http://repository.apache.org/snapshots/org/apache/myfaces/tobago/tobago-theme-standard/4.0.0-SNAPSHOT/tobago-theme-standard-4.0.0-20171107.131952-103.jar (1.6 MB at 1.2 MB/s)
+[INFO] Downloaded: http://repository.apache.org/snapshots/org/apache/myfaces/tobago/tobago-core/4.0.0-SNAPSHOT/tobago-core-4.0.0-20171107.131903-106.jar (1.1 MB at 530 kB/s)
 [INFO] 
 [INFO] --- maven-enforcer-plugin:3.0.0-M1:enforce (enforce) @ tobago-theme-roxborough ---
 [INFO] 
@@ -13,8 +33,8 @@ Build date: 2017-11-06 19:45:31
 [INFO] Removing __CURRENT__/tobago-theme-roxborough/target/checkout
 [INFO] Executing: /bin/sh -c cd __CURRENT__/tobago-theme-roxborough/target && git clone --branch v4.0.0-beta.2 https://github.com/twbs/bootstrap __CURRENT__/tobago-theme-roxborough/target/checkout
 [INFO] Working directory: __CURRENT__/tobago-theme-roxborough/target
-[INFO] Executing: /bin/sh -c cd /var/folders/yp/1vrxjnrs20798ydt_yl8wrpr0000gp/T/ && git ls-remote https://github.com/twbs/bootstrap
-[INFO] Working directory: /var/folders/yp/1vrxjnrs20798ydt_yl8wrpr0000gp/T
+[INFO] Executing: /bin/sh -c cd /var/folders/w0/pg4pxr7972l6bq85x08s5cl00000gn/T/ && git ls-remote https://github.com/twbs/bootstrap
+[INFO] Working directory: /var/folders/w0/pg4pxr7972l6bq85x08s5cl00000gn/T
 [INFO] Executing: /bin/sh -c cd __CURRENT__/tobago-theme-roxborough/target/checkout && git pull https://github.com/twbs/bootstrap v4.0.0-beta.2:v4.0.0-beta.2
 [INFO] Working directory: __CURRENT__/tobago-theme-roxborough/target/checkout
 [INFO] Executing: /bin/sh -c cd __CURRENT__/tobago-theme-roxborough/target/checkout && git checkout v4.0.0-beta.2
@@ -49,7 +69,6 @@ Build date: 2017-11-06 19:45:31
 [INFO] --- frontend-maven-plugin:1.4:npm (step #7: npm install) @ tobago-theme-roxborough ---
 [INFO] Running 'npm install' in __CURRENT__/tobago-theme-roxborough/target/bootstrap
 [WARNING] npm WARN deprecated qunitjs@2.4.1: 2.4.1 is the last version where QUnit will be published as 'qunitjs'. To receive future updates, you will need to change the package name to 'qunit'.
-[WARNING] npm WARN deprecated uglify-js@3.1.7: major issues discovered
 [WARNING] npm WARN prefer global node-gyp@3.6.2 should be installed with -g
 [INFO] 
 [INFO] > fsevents@1.1.2 install __CURRENT__/tobago-theme-roxborough/target/bootstrap/node_modules/fsevents
@@ -60,17 +79,23 @@ Build date: 2017-11-06 19:45:31
 [INFO] > node-sass@4.6.0 install __CURRENT__/tobago-theme-roxborough/target/bootstrap/node_modules/node-sass
 [INFO] > node scripts/install.js
 [INFO] 
-[INFO] Cached binary found at __HOME__/.npm/node-sass/4.6.0/darwin-x64-51_binding.node
+[INFO] Downloading binary from https://github.com/sass/node-sass/releases/download/v4.6.0/darwin-x64-51_binding.node
+[INFO] Download complete
+[INFO] Binary saved to __CURRENT__/tobago-theme-roxborough/target/bootstrap/node_modules/node-sass/vendor/darwin-x64-51/binding.node
+[INFO] Caching binary to __HOME__/.npm/node-sass/4.6.0/darwin-x64-51_binding.node
 [INFO] 
 [INFO] > phantomjs-prebuilt@2.1.16 install __CURRENT__/tobago-theme-roxborough/target/bootstrap/node_modules/phantomjs-prebuilt
 [INFO] > node install.js
 [INFO] 
 [INFO] PhantomJS not found on PATH
-[INFO] Download already available at /var/folders/yp/1vrxjnrs20798ydt_yl8wrpr0000gp/T/phantomjs/phantomjs-2.1.1-macosx.zip
-[INFO] Verified checksum of previously downloaded file
+[INFO] Downloading https://github.com/Medium/phantomjs/releases/download/v2.1.1/phantomjs-2.1.1-macosx.zip
+[INFO] Saving to /var/folders/w0/pg4pxr7972l6bq85x08s5cl00000gn/T/phantomjs/phantomjs-2.1.1-macosx.zip
+[INFO] Receiving...
+[INFO] 
+[INFO] Received 16746K total.
 [INFO] Extracting zip contents
 [INFO] Removing __CURRENT__/tobago-theme-roxborough/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom
-[INFO] Copying extracted folder /var/folders/yp/1vrxjnrs20798ydt_yl8wrpr0000gp/T/phantomjs/phantomjs-2.1.1-macosx.zip-extract-1509994089150/phantomjs-2.1.1-macosx -> __CURRENT__/tobago-theme-roxborough/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom
+[INFO] Copying extracted folder /var/folders/w0/pg4pxr7972l6bq85x08s5cl00000gn/T/phantomjs/phantomjs-2.1.1-macosx.zip-extract-1510128558719/phantomjs-2.1.1-macosx -> __CURRENT__/tobago-theme-roxborough/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom
 [INFO] Writing location.js file
 [INFO] Done. Phantomjs binary available at __CURRENT__/tobago-theme-roxborough/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom/bin/phantomjs
 [INFO] 
@@ -82,9 +107,9 @@ Build date: 2017-11-06 19:45:31
 [INFO] Binary is fine
 [INFO] bootstrap@4.0.0-beta.2 __CURRENT__/tobago-theme-roxborough/target/bootstrap
 [INFO] ├─┬ autoprefixer@7.1.6 
-[INFO] │ ├─┬ browserslist@2.7.0 
+[INFO] │ ├─┬ browserslist@2.8.0 
 [INFO] │ │ └── electron-to-chromium@1.3.27 
-[INFO] │ ├── caniuse-lite@1.0.30000758 
+[INFO] │ ├── caniuse-lite@1.0.30000760 
 [INFO] │ ├── normalize-range@0.1.2 
 [INFO] │ ├── num2fraction@1.2.2 
 [INFO] │ ├─┬ postcss@6.0.14 
@@ -146,6 +171,7 @@ Build date: 2017-11-06 19:45:31
 [INFO] │ │ │   │ │ │   └── number-is-nan@1.0.1 
 [INFO] │ │ │   │ │ ├─┬ strip-ansi@3.0.1 
 [INFO] │ │ │   │ │ │ └── ansi-regex@2.1.1 
+[WARNING] npm WARN bootstrap@4.0.0-beta.2 requires a peer of jquery@1.9.1 - 3 but none was installed.
 [INFO] │ │ │   │ │ └── wide-align@1.1.2 
 [INFO] │ │ │   │ └── set-blocking@2.0.0 
 [INFO] │ │ │   ├─┬ rc@1.2.1 
@@ -179,7 +205,6 @@ Build date: 2017-11-06 19:45:31
 [INFO] │ │ │   │ │ ├─┬ jsprim@1.4.0 
 [INFO] │ │ │   │ │ │ ├── assert-plus@1.0.0 
 [INFO] │ │ │   │ │ │ ├── extsprintf@1.0.2 
-[WARNING] npm WARN bootstrap@4.0.0-beta.2 requires a peer of jquery@1.9.1 - 3 but none was installed.
 [INFO] │ │ │   │ │ │ ├── json-schema@0.2.3 
 [INFO] │ │ │   │ │ │ └── verror@1.3.6 
 [INFO] │ │ │   │ │ └─┬ sshpk@1.13.0 
@@ -259,18 +284,19 @@ Build date: 2017-11-06 19:45:31
 [INFO] │ │ └── is-plain-obj@1.1.0 
 [INFO] │ ├── slash@1.0.0 
 [INFO] │ └── source-map@0.5.7 
-[INFO] ├─┬ babel-eslint@8.0.1 
-[INFO] │ ├─┬ babel-code-frame@7.0.0-beta.0 
+[INFO] ├─┬ babel-eslint@8.0.2 
+[INFO] │ ├─┬ @babel/code-frame@7.0.0-beta.31 
 [INFO] │ │ └── js-tokens@3.0.2 
-[INFO] │ ├─┬ babel-traverse@7.0.0-beta.0 
-[INFO] │ │ ├─┬ babel-helper-function-name@7.0.0-beta.0 
-[INFO] │ │ │ ├── babel-helper-get-function-arity@7.0.0-beta.0 
-[INFO] │ │ │ └── babel-template@7.0.0-beta.0 
-[INFO] │ │ ├── babel-messages@7.0.0-beta.0 
+[INFO] │ ├─┬ @babel/traverse@7.0.0-beta.31 
+[INFO] │ │ ├─┬ @babel/helper-function-name@7.0.0-beta.31 
+[INFO] │ │ │ ├── @babel/helper-get-function-arity@7.0.0-beta.31 
+[INFO] │ │ │ └─┬ @babel/template@7.0.0-beta.31 
+[INFO] │ │ │   └── babylon@7.0.0-beta.31 
+[INFO] │ │ ├── babylon@7.0.0-beta.31 
 [INFO] │ │ └── globals@10.3.0 
-[INFO] │ ├─┬ babel-types@7.0.0-beta.0 
+[INFO] │ ├─┬ @babel/types@7.0.0-beta.31 
 [INFO] │ │ └── to-fast-properties@2.0.0 
-[INFO] │ └── babylon@7.0.0-beta.22 
+[INFO] │ └── babylon@7.0.0-beta.31 
 [INFO] ├── babel-plugin-external-helpers@7.0.0-beta.2 
 [INFO] ├── babel-plugin-transform-es2015-modules-strip@0.1.1 
 [INFO] ├─┬ babel-preset-env@2.0.0-beta.2 
@@ -374,11 +400,16 @@ Build date: 2017-11-06 19:45:31
 [INFO] │ ├─┬ prettycli@1.4.3 
 [INFO] │ │ └── chalk@2.1.0 
 [INFO] │ └─┬ read-pkg-up@2.0.0 
-[INFO] │   └─┬ find-up@2.1.0 
-[INFO] │     └─┬ locate-path@2.0.0 
-[INFO] │       ├─┬ p-locate@2.0.0 
-[INFO] │       │ └── p-limit@1.1.0 
-[INFO] │       └── path-exists@3.0.0 
+[INFO] │   ├─┬ find-up@2.1.0 
+[INFO] │   │ └─┬ locate-path@2.0.0 
+[INFO] │   │   ├─┬ p-locate@2.0.0 
+[INFO] │   │   │ └── p-limit@1.1.0 
+[INFO] │   │   └── path-exists@3.0.0 
+[INFO] │   └─┬ read-pkg@2.0.0 
+[INFO] │     ├─┬ load-json-file@2.0.0 
+[INFO] │     │ └── pify@2.3.0 
+[INFO] │     └─┬ path-type@2.0.0 
+[INFO] │       └── pify@2.3.0 
 [INFO] ├─┬ clean-css-cli@4.1.10 
 [INFO] │ └─┬ clean-css@4.1.9 
 [INFO] │   └── source-map@0.5.7 
@@ -497,7 +528,7 @@ Build date: 2017-11-06 19:45:31
 [INFO] │ └── text-table@0.2.0 
 [INFO] ├─┬ eslint-plugin-compat@2.1.0 
 [INFO] │ ├── babel-runtime@6.26.0 
-[INFO] │ ├── caniuse-db@1.0.30000758 
+[INFO] │ ├── caniuse-db@1.0.30000760 
 [INFO] │ └── requireindex@1.1.0 
 [INFO] ├─┬ htmllint-cli@0.0.6 
 [INFO] │ ├── bluebird@3.5.1 
@@ -784,21 +815,17 @@ Build date: 2017-11-06 19:45:31
 [INFO] │   │   └── registry-url@3.1.0 
 [INFO] │   ├── semver-diff@2.1.0 
 [INFO] │   └── xdg-basedir@3.0.0 
-[INFO] ├─┬ npm-run-all@4.1.1 
+[INFO] ├─┬ npm-run-all@4.1.2 
 [INFO] │ ├─┬ ansi-styles@3.2.0 
 [INFO] │ │ └─┬ color-convert@1.9.0 
 [INFO] │ │   └── color-name@1.1.3 
-[INFO] │ ├─┬ memory-streams@0.1.2 
-[INFO] │ │ └─┬ readable-stream@1.0.34 
-[INFO] │ │   ├── isarray@0.0.1 
-[INFO] │ │   └── string_decoder@0.10.31 
-[INFO] │ ├─┬ read-pkg@2.0.0 
-[INFO] │ │ ├─┬ load-json-file@2.0.0 
-[INFO] │ │ │ ├── parse-json@2.2.0 
-[INFO] │ │ │ ├── pify@2.3.0 
+[INFO] │ ├── memorystream@0.3.1 
+[INFO] │ ├─┬ read-pkg@3.0.0 
+[INFO] │ │ ├─┬ load-json-file@4.0.0 
+[INFO] │ │ │ ├─┬ parse-json@4.0.0 
+[INFO] │ │ │ │ └── json-parse-better-errors@1.0.1 
 [INFO] │ │ │ └── strip-bom@3.0.0 
-[INFO] │ │ └─┬ path-type@2.0.0 
-[INFO] │ │   └── pify@2.3.0 
+[INFO] │ │ └── path-type@3.0.0 
 [INFO] │ ├─┬ shell-quote@1.6.1 
 [INFO] │ │ ├── array-filter@0.0.1 
 [INFO] │ │ ├── array-map@0.0.0 
@@ -859,6 +886,7 @@ Build date: 2017-11-06 19:45:31
 [INFO] │ ├─┬ postcss-load-config@1.2.0 
 [INFO] │ │ ├─┬ cosmiconfig@2.2.2 
 [INFO] │ │ │ ├── minimist@1.2.0 
+[INFO] │ │ │ ├── parse-json@2.2.0 
 [INFO] │ │ │ └── require-from-string@1.2.1 
 [INFO] │ │ ├── postcss-load-options@1.2.0 
 [INFO] │ │ └── postcss-load-plugins@2.3.0 
@@ -902,7 +930,7 @@ Build date: 2017-11-06 19:45:31
 [INFO] │ └─┬ walk-sync@0.3.1 
 [INFO] │   ├── ensure-posix-path@1.0.2 
 [INFO] │   └── matcher-collection@1.0.5 
-[INFO] ├── rollup@0.50.0 
+[INFO] ├── rollup@0.50.1 
 [INFO] ├─┬ rollup-plugin-babel@3.0.2 
 [INFO] │ └─┬ rollup-pluginutils@1.5.2 
 [INFO] │   └── estree-walker@0.2.1 
@@ -1005,7 +1033,7 @@ Build date: 2017-11-06 19:45:31
 [INFO] ├─┬ stylelint-order@0.7.0 
 [INFO] │ └── postcss-sorting@3.1.0 
 [INFO] ├── stylelint-scss@2.1.0 
-[INFO] ├─┬ uglify-js@3.1.7 
+[INFO] ├─┬ uglify-js@3.1.8 
 [INFO] │ └── source-map@0.6.1 
 [INFO] ├── vnu-jar@17.11.1 
 [INFO] └─┬ workbox-build@2.1.1 
@@ -1030,8 +1058,8 @@ Build date: 2017-11-06 19:45:31
 [ERROR] Wrote CSS to __CURRENT__/tobago-theme-roxborough/target/bootstrap/dist/css/bootstrap.css
 [ERROR] Wrote Source Map to __CURRENT__/tobago-theme-roxborough/target/bootstrap/dist/css/bootstrap.css.map
 [ERROR] Rendering Complete, saving .css file...
-[ERROR] Wrote CSS to __CURRENT__/tobago-theme-roxborough/target/bootstrap/dist/css/bootstrap-grid.css
 [ERROR] Wrote Source Map to __CURRENT__/tobago-theme-roxborough/target/bootstrap/dist/css/bootstrap-grid.css.map
+[ERROR] Wrote CSS to __CURRENT__/tobago-theme-roxborough/target/bootstrap/dist/css/bootstrap-grid.css
 [ERROR] Rendering Complete, saving .css file...
 [ERROR] Wrote CSS to __CURRENT__/tobago-theme-roxborough/target/bootstrap/dist/css/bootstrap-reboot.css
 [ERROR] Wrote Source Map to __CURRENT__/tobago-theme-roxborough/target/bootstrap/dist/css/bootstrap-reboot.css.map
@@ -1042,12 +1070,12 @@ Build date: 2017-11-06 19:45:31
 [INFO] > bootstrap@4.0.0-beta.2 css-prefix __CURRENT__/tobago-theme-roxborough/target/bootstrap
 [INFO] > postcss --config build/postcss.config.js --replace "dist/css/*.css"
 [INFO] 
-[ERROR] ✔ Finished dist/css/bootstrap-grid.css (1.14 s)
-[ERROR] ✔ Finished dist/css/bootstrap-reboot.css (1.14 s)
-[ERROR] ✔ Finished dist/css/bootstrap.min.css (1.14 s)
-[ERROR] ✔ Finished dist/css/bootstrap-reboot.min.css (1.14 s)
-[ERROR] ✔ Finished dist/css/bootstrap-grid.min.css (1.14 s)
-[ERROR] ✔ Finished dist/css/bootstrap.css (1.14 s)
+[ERROR] ✔ Finished dist/css/bootstrap-grid.css (1.08 s)
+[ERROR] ✔ Finished dist/css/bootstrap-reboot.min.css (1.08 s)
+[ERROR] ✔ Finished dist/css/bootstrap-grid.min.css (1.08 s)
+[ERROR] ✔ Finished dist/css/bootstrap.min.css (1.08 s)
+[ERROR] ✔ Finished dist/css/bootstrap.css (1.08 s)
+[ERROR] ✔ Finished dist/css/bootstrap-reboot.css (1.08 s)
 [INFO] 
 [INFO] --- frontend-maven-plugin:1.4:npm (step #10: npm run css-minify) @ tobago-theme-roxborough ---
 [INFO] Running 'npm run css-minify' in __CURRENT__/tobago-theme-roxborough/target/bootstrap
@@ -1075,16 +1103,16 @@ Build date: 2017-11-06 19:45:31
 [INFO] > npm-run-all --parallel js-compile-*
 [INFO] 
 [INFO] 
-[INFO] > bootstrap@4.0.0-beta.2 js-compile-bundle __CURRENT__/tobago-theme-roxborough/target/bootstrap
-[INFO] > cross-env ROLLUP=true rollup --environment BUNDLE:true --config build/rollup.config.js --sourcemap
-[INFO] 
-[INFO] 
 [INFO] > bootstrap@4.0.0-beta.2 js-compile-standalone __CURRENT__/tobago-theme-roxborough/target/bootstrap
 [INFO] > cross-env ROLLUP=true rollup --environment BUNDLE:false --config build/rollup.config.js --sourcemap
 [INFO] 
 [INFO] 
 [INFO] > bootstrap@4.0.0-beta.2 js-compile-plugins __CURRENT__/tobago-theme-roxborough/target/bootstrap
 [INFO] > cross-env PLUGINS=true babel js/src/ --out-dir js/dist/ --source-maps
+[INFO] 
+[INFO] 
+[INFO] > bootstrap@4.0.0-beta.2 js-compile-bundle __CURRENT__/tobago-theme-roxborough/target/bootstrap
+[INFO] > cross-env ROLLUP=true rollup --environment BUNDLE:true --config build/rollup.config.js --sourcemap
 [INFO] 
 [ERROR] 
 [ERROR] __CURRENT__/tobago-theme-roxborough/target/bootstrap/js/src/index.js → dist/js/bootstrap.bundle.js...
@@ -1102,22 +1130,22 @@ Build date: 2017-11-06 19:45:31
 [INFO] js/src/tab.js -> js/dist/tab.js
 [INFO] js/src/tooltip.js -> js/dist/tooltip.js
 [INFO] js/src/util.js -> js/dist/util.js
-[ERROR] created dist/js/bootstrap.js in 2.6s
-[ERROR] created dist/js/bootstrap.bundle.js in 2.8s
+[ERROR] created dist/js/bootstrap.js in 1.8s
+[ERROR] created dist/js/bootstrap.bundle.js in 1.9s
 [INFO] 
 [INFO] > bootstrap@4.0.0-beta.2 js-compile-standalone __CURRENT__/tobago-theme-roxborough/target/bootstrap
 [INFO] > cross-env ROLLUP=true rollup --environment BUNDLE:false --config build/rollup.config.js --sourcemap
 [INFO] 
 [ERROR] 
 [ERROR] __CURRENT__/tobago-theme-roxborough/target/bootstrap/js/src/index.js → dist/js/bootstrap.js...
-[ERROR] created dist/js/bootstrap.js in 1.6s
+[ERROR] created dist/js/bootstrap.js in 1.5s
 [INFO] 
 [INFO] > bootstrap@4.0.0-beta.2 js-compile-bundle __CURRENT__/tobago-theme-roxborough/target/bootstrap
 [INFO] > cross-env ROLLUP=true rollup --environment BUNDLE:true --config build/rollup.config.js --sourcemap
 [INFO] 
 [ERROR] 
 [ERROR] __CURRENT__/tobago-theme-roxborough/target/bootstrap/js/src/index.js → dist/js/bootstrap.bundle.js...
-[ERROR] created dist/js/bootstrap.bundle.js in 1.8s
+[ERROR] created dist/js/bootstrap.bundle.js in 1.7s
 [INFO] 
 [INFO] > bootstrap@4.0.0-beta.2 js-compile-plugins __CURRENT__/tobago-theme-roxborough/target/bootstrap
 [INFO] > cross-env PLUGINS=true babel js/src/ --out-dir js/dist/ --source-maps
@@ -1208,7 +1236,7 @@ main:
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
-[INFO] Total time: 03:14 min
-[INFO] Finished at: 2017-11-06T19:48:47+01:00
-[INFO] Final Memory: 29M/403M
+[INFO] Total time: 03:37 min
+[INFO] Finished at: 2017-11-08T09:09:52+01:00
+[INFO] Final Memory: 27M/304M
 [INFO] ------------------------------------------------------------------------
