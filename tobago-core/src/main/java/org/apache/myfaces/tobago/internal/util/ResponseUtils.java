@@ -147,4 +147,11 @@ public final class ResponseUtils {
   public static void ensureNosniffHeader(final HttpServletResponse servletResponse) {
     servletResponse.setHeader("X-Content-Type-Options", "nosniff");
   }
+
+  public static void ensureXFrameOptionsHeader(final FacesContext facesContext) {
+    final Object response = facesContext.getExternalContext().getResponse();
+    if (response instanceof HttpServletResponse) {
+      ((HttpServletResponse) response).setHeader("X-Frame-Options", "DENY");
+    }
+  }
 }

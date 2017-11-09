@@ -64,7 +64,15 @@
       <xs:element name="theme-config" type="tobago:theme-config-type" minOccurs="0"/>
       <xs:element name="create-session-secret" type="xs:boolean" minOccurs="0" default="true"/>
       <xs:element name="check-session-secret" type="xs:boolean" minOccurs="0" default="true"/>
-      <xs:element name="prevent-frame-attacks" type="xs:boolean" minOccurs="0" default="true"/>
+      <xs:element name="prevent-frame-attacks" type="xs:boolean" minOccurs="0" default="true">
+          <xs:annotation>
+            <xs:documentation>
+              Sets the HTTP header "X-Frame-Options" to "DENY".
+              This setting is deprecated but needed for IE11. The current way to configure this is using
+              the Content Security Policy directive 'frame-ancestors'.
+            </xs:documentation>
+          </xs:annotation>
+      </xs:element>
       <xs:element name="set-nosniff-header" type="xs:boolean" minOccurs="0" default="true"/>
       <xs:element name="classic-date-time-picker" type="xs:boolean" minOccurs="0" default="false"/>
       <xs:element name="content-security-policy" type="tobago:content-security-policy-type" minOccurs="0"/>

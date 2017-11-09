@@ -1,29 +1,9 @@
-Build date: 2017-11-08 09:06:14
+Build date: 2017-11-09 14:18:08
 [INFO] Scanning for projects...
 [INFO] 
 [INFO] ------------------------------------------------------------------------
 [INFO] Building Tobago Theme Roxborough 4.0.0-SNAPSHOT
 [INFO] ------------------------------------------------------------------------
-[INFO] Downloading: http://repository.apache.org/snapshots/org/apache/myfaces/tobago/tobago-theme-standard/4.0.0-SNAPSHOT/maven-metadata.xml
-[INFO] Downloaded: http://repository.apache.org/snapshots/org/apache/myfaces/tobago/tobago-theme-standard/4.0.0-SNAPSHOT/maven-metadata.xml (1.0 kB at 1.7 kB/s)
-[INFO] Downloading: http://repository.apache.org/snapshots/org/apache/myfaces/tobago/tobago-theme-standard/4.0.0-SNAPSHOT/tobago-theme-standard-4.0.0-20171107.131952-103.pom
-[INFO] Downloaded: http://repository.apache.org/snapshots/org/apache/myfaces/tobago/tobago-theme-standard/4.0.0-SNAPSHOT/tobago-theme-standard-4.0.0-20171107.131952-103.pom (5.7 kB at 12 kB/s)
-[INFO] Downloading: http://repository.apache.org/snapshots/org/apache/myfaces/tobago/tobago-theme/4.0.0-SNAPSHOT/maven-metadata.xml
-[INFO] Downloaded: http://repository.apache.org/snapshots/org/apache/myfaces/tobago/tobago-theme/4.0.0-SNAPSHOT/maven-metadata.xml (618 B at 1.3 kB/s)
-[INFO] Downloading: http://repository.apache.org/snapshots/org/apache/myfaces/tobago/tobago-theme/4.0.0-SNAPSHOT/tobago-theme-4.0.0-20171107.131934-103.pom
-[INFO] Downloaded: http://repository.apache.org/snapshots/org/apache/myfaces/tobago/tobago-theme/4.0.0-SNAPSHOT/tobago-theme-4.0.0-20171107.131934-103.pom (12 kB at 27 kB/s)
-[INFO] Downloading: http://repository.apache.org/snapshots/org/apache/myfaces/tobago/tobago/4.0.0-SNAPSHOT/maven-metadata.xml
-[INFO] Downloaded: http://repository.apache.org/snapshots/org/apache/myfaces/tobago/tobago/4.0.0-SNAPSHOT/maven-metadata.xml (1.0 kB at 2.2 kB/s)
-[INFO] Downloading: http://repository.apache.org/snapshots/org/apache/myfaces/tobago/tobago/4.0.0-SNAPSHOT/tobago-4.0.0-20171107.131707-128.pom
-[INFO] Downloaded: http://repository.apache.org/snapshots/org/apache/myfaces/tobago/tobago/4.0.0-SNAPSHOT/tobago-4.0.0-20171107.131707-128.pom (50 kB at 74 kB/s)
-[INFO] Downloading: http://repository.apache.org/snapshots/org/apache/myfaces/tobago/tobago-core/4.0.0-SNAPSHOT/maven-metadata.xml
-[INFO] Downloaded: http://repository.apache.org/snapshots/org/apache/myfaces/tobago/tobago-core/4.0.0-SNAPSHOT/maven-metadata.xml (1.7 kB at 3.5 kB/s)
-[INFO] Downloading: http://repository.apache.org/snapshots/org/apache/myfaces/tobago/tobago-core/4.0.0-SNAPSHOT/tobago-core-4.0.0-20171107.131903-106.pom
-[INFO] Downloaded: http://repository.apache.org/snapshots/org/apache/myfaces/tobago/tobago-core/4.0.0-SNAPSHOT/tobago-core-4.0.0-20171107.131903-106.pom (11 kB at 24 kB/s)
-[INFO] Downloading: http://repository.apache.org/snapshots/org/apache/myfaces/tobago/tobago-theme-standard/4.0.0-SNAPSHOT/tobago-theme-standard-4.0.0-20171107.131952-103.jar
-[INFO] Downloading: http://repository.apache.org/snapshots/org/apache/myfaces/tobago/tobago-core/4.0.0-SNAPSHOT/tobago-core-4.0.0-20171107.131903-106.jar
-[INFO] Downloaded: http://repository.apache.org/snapshots/org/apache/myfaces/tobago/tobago-theme-standard/4.0.0-SNAPSHOT/tobago-theme-standard-4.0.0-20171107.131952-103.jar (1.6 MB at 1.2 MB/s)
-[INFO] Downloaded: http://repository.apache.org/snapshots/org/apache/myfaces/tobago/tobago-core/4.0.0-SNAPSHOT/tobago-core-4.0.0-20171107.131903-106.jar (1.1 MB at 530 kB/s)
 [INFO] 
 [INFO] --- maven-enforcer-plugin:3.0.0-M1:enforce (enforce) @ tobago-theme-roxborough ---
 [INFO] 
@@ -79,23 +59,17 @@ Build date: 2017-11-08 09:06:14
 [INFO] > node-sass@4.6.0 install __CURRENT__/tobago-theme-roxborough/target/bootstrap/node_modules/node-sass
 [INFO] > node scripts/install.js
 [INFO] 
-[INFO] Downloading binary from https://github.com/sass/node-sass/releases/download/v4.6.0/darwin-x64-51_binding.node
-[INFO] Download complete
-[INFO] Binary saved to __CURRENT__/tobago-theme-roxborough/target/bootstrap/node_modules/node-sass/vendor/darwin-x64-51/binding.node
-[INFO] Caching binary to __HOME__/.npm/node-sass/4.6.0/darwin-x64-51_binding.node
+[INFO] Cached binary found at __HOME__/.npm/node-sass/4.6.0/darwin-x64-51_binding.node
 [INFO] 
 [INFO] > phantomjs-prebuilt@2.1.16 install __CURRENT__/tobago-theme-roxborough/target/bootstrap/node_modules/phantomjs-prebuilt
 [INFO] > node install.js
 [INFO] 
 [INFO] PhantomJS not found on PATH
-[INFO] Downloading https://github.com/Medium/phantomjs/releases/download/v2.1.1/phantomjs-2.1.1-macosx.zip
-[INFO] Saving to /var/folders/w0/pg4pxr7972l6bq85x08s5cl00000gn/T/phantomjs/phantomjs-2.1.1-macosx.zip
-[INFO] Receiving...
-[INFO] 
-[INFO] Received 16746K total.
+[INFO] Download already available at /var/folders/w0/pg4pxr7972l6bq85x08s5cl00000gn/T/phantomjs/phantomjs-2.1.1-macosx.zip
+[INFO] Verified checksum of previously downloaded file
 [INFO] Extracting zip contents
 [INFO] Removing __CURRENT__/tobago-theme-roxborough/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom
-[INFO] Copying extracted folder /var/folders/w0/pg4pxr7972l6bq85x08s5cl00000gn/T/phantomjs/phantomjs-2.1.1-macosx.zip-extract-1510128558719/phantomjs-2.1.1-macosx -> __CURRENT__/tobago-theme-roxborough/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom
+[INFO] Copying extracted folder /var/folders/w0/pg4pxr7972l6bq85x08s5cl00000gn/T/phantomjs/phantomjs-2.1.1-macosx.zip-extract-1510233607191/phantomjs-2.1.1-macosx -> __CURRENT__/tobago-theme-roxborough/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom
 [INFO] Writing location.js file
 [INFO] Done. Phantomjs binary available at __CURRENT__/tobago-theme-roxborough/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom/bin/phantomjs
 [INFO] 
@@ -171,12 +145,12 @@ Build date: 2017-11-08 09:06:14
 [INFO] │ │ │   │ │ │   └── number-is-nan@1.0.1 
 [INFO] │ │ │   │ │ ├─┬ strip-ansi@3.0.1 
 [INFO] │ │ │   │ │ │ └── ansi-regex@2.1.1 
-[WARNING] npm WARN bootstrap@4.0.0-beta.2 requires a peer of jquery@1.9.1 - 3 but none was installed.
 [INFO] │ │ │   │ │ └── wide-align@1.1.2 
 [INFO] │ │ │   │ └── set-blocking@2.0.0 
 [INFO] │ │ │   ├─┬ rc@1.2.1 
 [INFO] │ │ │   │ ├── deep-extend@0.4.2 
 [INFO] │ │ │   │ ├── ini@1.3.4 
+[WARNING] npm WARN bootstrap@4.0.0-beta.2 requires a peer of jquery@1.9.1 - 3 but none was installed.
 [INFO] │ │ │   │ ├── minimist@1.2.0 
 [INFO] │ │ │   │ └── strip-json-comments@2.0.1 
 [INFO] │ │ │   ├─┬ request@2.81.0 
@@ -380,7 +354,7 @@ Build date: 2017-11-08 09:06:14
 [INFO] │ │ │ └── debug@2.6.9 
 [INFO] │ │ └── is-buffer@1.1.6 
 [INFO] │ ├── bytes@3.0.0 
-[INFO] │ ├── ci-env@1.4.0 
+[INFO] │ ├── ci-env@1.5.1 
 [INFO] │ ├─┬ github-build@1.2.0 
 [INFO] │ │ └─┬ axios@0.15.3 
 [INFO] │ │   └─┬ follow-redirects@1.0.0 
@@ -817,7 +791,7 @@ Build date: 2017-11-08 09:06:14
 [INFO] │   └── xdg-basedir@3.0.0 
 [INFO] ├─┬ npm-run-all@4.1.2 
 [INFO] │ ├─┬ ansi-styles@3.2.0 
-[INFO] │ │ └─┬ color-convert@1.9.0 
+[INFO] │ │ └─┬ color-convert@1.9.1 
 [INFO] │ │   └── color-name@1.1.3 
 [INFO] │ ├── memorystream@0.3.1 
 [INFO] │ ├─┬ read-pkg@3.0.0 
@@ -1055,8 +1029,8 @@ Build date: 2017-11-08 09:06:14
 [INFO] > node-sass --output-style expanded --source-map true --source-map-contents true --precision 6 scss/bootstrap.scss dist/css/bootstrap.css && node-sass --output-style expanded --source-map true --source-map-contents true --precision 6 scss/bootstrap-grid.scss dist/css/bootstrap-grid.css && node-sass --output-style expanded --source-map true --source-map-contents true --precision 6 scss/bootstrap-reboot.scss dist/css/bootstrap-reboot.css
 [INFO] 
 [ERROR] Rendering Complete, saving .css file...
-[ERROR] Wrote CSS to __CURRENT__/tobago-theme-roxborough/target/bootstrap/dist/css/bootstrap.css
 [ERROR] Wrote Source Map to __CURRENT__/tobago-theme-roxborough/target/bootstrap/dist/css/bootstrap.css.map
+[ERROR] Wrote CSS to __CURRENT__/tobago-theme-roxborough/target/bootstrap/dist/css/bootstrap.css
 [ERROR] Rendering Complete, saving .css file...
 [ERROR] Wrote Source Map to __CURRENT__/tobago-theme-roxborough/target/bootstrap/dist/css/bootstrap-grid.css.map
 [ERROR] Wrote CSS to __CURRENT__/tobago-theme-roxborough/target/bootstrap/dist/css/bootstrap-grid.css
@@ -1070,12 +1044,12 @@ Build date: 2017-11-08 09:06:14
 [INFO] > bootstrap@4.0.0-beta.2 css-prefix __CURRENT__/tobago-theme-roxborough/target/bootstrap
 [INFO] > postcss --config build/postcss.config.js --replace "dist/css/*.css"
 [INFO] 
-[ERROR] ✔ Finished dist/css/bootstrap-grid.css (1.08 s)
-[ERROR] ✔ Finished dist/css/bootstrap-reboot.min.css (1.08 s)
-[ERROR] ✔ Finished dist/css/bootstrap-grid.min.css (1.08 s)
-[ERROR] ✔ Finished dist/css/bootstrap.min.css (1.08 s)
-[ERROR] ✔ Finished dist/css/bootstrap.css (1.08 s)
-[ERROR] ✔ Finished dist/css/bootstrap-reboot.css (1.08 s)
+[ERROR] ✔ Finished dist/css/bootstrap-grid.min.css (1.69 s)
+[ERROR] ✔ Finished dist/css/bootstrap-reboot.css (1.69 s)
+[ERROR] ✔ Finished dist/css/bootstrap-grid.css (1.69 s)
+[ERROR] ✔ Finished dist/css/bootstrap-reboot.min.css (1.69 s)
+[ERROR] ✔ Finished dist/css/bootstrap.css (1.69 s)
+[ERROR] ✔ Finished dist/css/bootstrap.min.css (1.69 s)
 [INFO] 
 [INFO] --- frontend-maven-plugin:1.4:npm (step #10: npm run css-minify) @ tobago-theme-roxborough ---
 [INFO] Running 'npm run css-minify' in __CURRENT__/tobago-theme-roxborough/target/bootstrap
@@ -1103,21 +1077,21 @@ Build date: 2017-11-08 09:06:14
 [INFO] > npm-run-all --parallel js-compile-*
 [INFO] 
 [INFO] 
-[INFO] > bootstrap@4.0.0-beta.2 js-compile-standalone __CURRENT__/tobago-theme-roxborough/target/bootstrap
-[INFO] > cross-env ROLLUP=true rollup --environment BUNDLE:false --config build/rollup.config.js --sourcemap
-[INFO] 
-[INFO] 
 [INFO] > bootstrap@4.0.0-beta.2 js-compile-plugins __CURRENT__/tobago-theme-roxborough/target/bootstrap
 [INFO] > cross-env PLUGINS=true babel js/src/ --out-dir js/dist/ --source-maps
+[INFO] 
+[INFO] 
+[INFO] > bootstrap@4.0.0-beta.2 js-compile-standalone __CURRENT__/tobago-theme-roxborough/target/bootstrap
+[INFO] > cross-env ROLLUP=true rollup --environment BUNDLE:false --config build/rollup.config.js --sourcemap
 [INFO] 
 [INFO] 
 [INFO] > bootstrap@4.0.0-beta.2 js-compile-bundle __CURRENT__/tobago-theme-roxborough/target/bootstrap
 [INFO] > cross-env ROLLUP=true rollup --environment BUNDLE:true --config build/rollup.config.js --sourcemap
 [INFO] 
 [ERROR] 
-[ERROR] __CURRENT__/tobago-theme-roxborough/target/bootstrap/js/src/index.js → dist/js/bootstrap.bundle.js...
-[ERROR] 
 [ERROR] __CURRENT__/tobago-theme-roxborough/target/bootstrap/js/src/index.js → dist/js/bootstrap.js...
+[ERROR] 
+[ERROR] __CURRENT__/tobago-theme-roxborough/target/bootstrap/js/src/index.js → dist/js/bootstrap.bundle.js...
 [INFO] js/src/alert.js -> js/dist/alert.js
 [INFO] js/src/button.js -> js/dist/button.js
 [INFO] js/src/carousel.js -> js/dist/carousel.js
@@ -1131,7 +1105,7 @@ Build date: 2017-11-08 09:06:14
 [INFO] js/src/tooltip.js -> js/dist/tooltip.js
 [INFO] js/src/util.js -> js/dist/util.js
 [ERROR] created dist/js/bootstrap.js in 1.8s
-[ERROR] created dist/js/bootstrap.bundle.js in 1.9s
+[ERROR] created dist/js/bootstrap.bundle.js in 2s
 [INFO] 
 [INFO] > bootstrap@4.0.0-beta.2 js-compile-standalone __CURRENT__/tobago-theme-roxborough/target/bootstrap
 [INFO] > cross-env ROLLUP=true rollup --environment BUNDLE:false --config build/rollup.config.js --sourcemap
@@ -1167,12 +1141,12 @@ Build date: 2017-11-08 09:06:14
 [INFO] > npm-run-all --parallel js-minify-*
 [INFO] 
 [INFO] 
-[INFO] > bootstrap@4.0.0-beta.2 js-minify-standalone __CURRENT__/tobago-theme-roxborough/target/bootstrap
-[INFO] > uglifyjs --compress typeofs=false --mangle --comments "/^!/" --source-map "content=dist/js/bootstrap.js.map,includeSources,url=bootstrap.min.js.map" --output dist/js/bootstrap.min.js dist/js/bootstrap.js
-[INFO] 
-[INFO] 
 [INFO] > bootstrap@4.0.0-beta.2 js-minify-docs __CURRENT__/tobago-theme-roxborough/target/bootstrap
 [INFO] > uglifyjs --mangle --comments "/^!/" --output assets/js/docs.min.js assets/js/vendor/anchor.min.js assets/js/vendor/clipboard.min.js assets/js/vendor/holder.min.js assets/js/src/application.js assets/js/src/pwa.js
+[INFO] 
+[INFO] 
+[INFO] > bootstrap@4.0.0-beta.2 js-minify-standalone __CURRENT__/tobago-theme-roxborough/target/bootstrap
+[INFO] > uglifyjs --compress typeofs=false --mangle --comments "/^!/" --source-map "content=dist/js/bootstrap.js.map,includeSources,url=bootstrap.min.js.map" --output dist/js/bootstrap.min.js dist/js/bootstrap.js
 [INFO] 
 [INFO] 
 [INFO] > bootstrap@4.0.0-beta.2 js-minify-bundle __CURRENT__/tobago-theme-roxborough/target/bootstrap
@@ -1236,7 +1210,7 @@ main:
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
-[INFO] Total time: 03:37 min
-[INFO] Finished at: 2017-11-08T09:09:52+01:00
-[INFO] Final Memory: 27M/304M
+[INFO] Total time: 02:34 min
+[INFO] Finished at: 2017-11-09T14:20:43+01:00
+[INFO] Final Memory: 30M/384M
 [INFO] ------------------------------------------------------------------------

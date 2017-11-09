@@ -114,6 +114,10 @@ public class PageRenderer extends RendererBase {
     // reset responseWriter and render page
     facesContext.setResponseWriter(writer);
 
+    if (tobagoConfig.isPreventFrameAttacks()) {
+      ResponseUtils.ensureXFrameOptionsHeader(facesContext);
+    }
+
     ResponseUtils.ensureNoCacheHeader(facesContext);
 
     ResponseUtils.ensureContentSecurityPolicyHeader(facesContext, tobagoConfig.getContentSecurityPolicy());
@@ -158,7 +162,6 @@ public class PageRenderer extends RendererBase {
 
     final String clientId = page.getClientId(facesContext);
     final boolean productionMode = facesContext.isProjectStage(ProjectStage.Production);
-    final boolean preventFrameAttacks = tobagoConfig.isPreventFrameAttacks();
     final Markup markup = page.getMarkup();
     final TobagoClass spread = markup != null && markup.contains(Markup.SPREAD) ? TobagoClass.SPREAD : null;
     final boolean renderAll = facesContext.getPartialViewContext().isRenderAll();
@@ -264,10 +267,7 @@ public class PageRenderer extends RendererBase {
     writer.writeCommandMapAttribute(JsonUtils.encode(RenderUtils.getBehaviorCommands(facesContext, page)));
 
     writer.startElement(HtmlElements.FORM);
-    writer.writeClassAttribute(
-        preventFrameAttacks && !ajax
-            ? TobagoClass.PAGE__PREVENT_FRAME_ATTACKS : null,
-        spread);
+    writer.writeClassAttribute(spread);
     writer.writeAttribute(HtmlAttributes.ACTION, formAction, true);
     if (partialAction != null) {
       writer.writeAttribute(DataAttributes.PARTIAL_ACTION, partialAction, true);

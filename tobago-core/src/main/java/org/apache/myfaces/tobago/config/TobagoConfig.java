@@ -54,6 +54,10 @@ public abstract class TobagoConfig {
 
   public abstract boolean isCheckSessionSecret();
 
+  /**
+   * @deprecated But needed to support frame security in IE11. Is replaced by CSP "frame-ancestors".
+   */
+  @Deprecated
   public abstract boolean isPreventFrameAttacks();
 
   public abstract ContentSecurityPolicy getContentSecurityPolicy();

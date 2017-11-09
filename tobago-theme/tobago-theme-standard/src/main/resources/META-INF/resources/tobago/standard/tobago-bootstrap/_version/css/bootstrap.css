@@ -8976,10 +8976,6 @@ span.tobago-out:empty:before {
   font-size: 15px;
 }
 
-.tobago-page-preventFrameAttacks {
-  display: none;
-}
-
 .tobago-spread {
   height: 100%;
 }
