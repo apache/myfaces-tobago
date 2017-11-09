@@ -164,7 +164,7 @@ public class PageRenderer extends RendererBase {
     if (!facesContext.getPartialViewContext().isAjaxRequest()) {
       final String title = page.getLabel();
 
-      if (!PortletUtils.isPortletApiAvailable() || !(response instanceof MimeResponse)) {
+      if (!portlet) {
         writer.startElement(HtmlElements.HTML);
         final Locale locale = viewRoot.getLocale();
         if (locale != null) {
@@ -342,6 +342,8 @@ public class PageRenderer extends RendererBase {
     final String clientId = page.getClientId(facesContext);
     final Application application = facesContext.getApplication();
     final ViewHandler viewHandler = application.getViewHandler();
+    final Object response = facesContext.getExternalContext().getResponse();
+    final boolean portlet = PortletUtils.isPortletApiAvailable() && response instanceof MimeResponse;
 
     // placeholder for menus
     writer.startElement(HtmlElements.DIV);
@@ -365,8 +367,7 @@ public class PageRenderer extends RendererBase {
     writer.endElement(HtmlElements.DIV);
     writer.endElement(HtmlElements.NOSCRIPT);
 
-    final Object response = facesContext.getExternalContext().getResponse();
-    if (PortletUtils.isPortletApiAvailable() && response instanceof MimeResponse) {
+    if (portlet) {
       writer.endElement(HtmlElements.DIV);
     } else {
       writer.endElement(HtmlElements.BODY);
