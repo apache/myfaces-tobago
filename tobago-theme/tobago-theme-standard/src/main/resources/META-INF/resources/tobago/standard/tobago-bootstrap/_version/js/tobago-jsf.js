@@ -7629,10 +7629,18 @@ _MF_SINGLTN(_PFX_XHR + "_AjaxResponse", _MF_OBJECT, /** @lends myfaces._impl.xhr
                 case this.P_VIEWROOT:
 
                     cDataBlock = cDataBlock.substring(cDataBlock.indexOf("<html"));
+// begin TOBAGO-JSF-JS
+                    var newDoc = document.open("text/html", "replace");
+                    newDoc.write(cDataBlock);
+                    newDoc.close();
+                    resultNode = document.documentElement;
 
+/* original
                     var parsedData = this._replaceHead(request, context, cDataBlock);
 
                     resultNode = ('undefined' != typeof parsedData && null != parsedData) ? this._replaceBody(request, context, cDataBlock, parsedData) : this._replaceBody(request, context, cDataBlock);
+*/
+// end TOBAGO-JSF-JS
                     if (resultNode) {
                         pushOpRes(context, resultNode);
                     }

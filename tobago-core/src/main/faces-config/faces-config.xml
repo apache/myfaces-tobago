@@ -66,5 +66,8 @@
     </client-behavior-renderer>
   </render-kit>
 
+  <factory>
+    <exception-handler-factory>org.apache.myfaces.tobago.webapp.AjaxExceptionHandlerFactory</exception-handler-factory>
+  </factory>
 
 </faces-config>

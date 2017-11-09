@@ -131,6 +131,7 @@
   <entry key="labeled_layout">LabeledLayout</entry>
   <entry key="grid_layout">GridLayout</entry>
   <entry key="format">Formatting</entry>
+  <entry key="exception_handler">Ajax Exception Handler</entry>
   <entry key="transition">Transition</entry>
   <entry key="behavior">Behavior</entry>
   <entry key="for_each">For Each</entry>

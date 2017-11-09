@@ -143,6 +143,7 @@ public class PageRenderer extends RendererBase {
     } else {
       partialAction = null;
     }
+    final boolean ajax = facesContext.getPartialViewContext().isAjaxRequest();
 
     final String contentType = writer.getContentTypeWithCharSet();
     ResponseUtils.ensureContentTypeHeader(facesContext, contentType);
@@ -160,8 +161,9 @@ public class PageRenderer extends RendererBase {
     final boolean preventFrameAttacks = tobagoConfig.isPreventFrameAttacks();
     final Markup markup = page.getMarkup();
     final TobagoClass spread = markup != null && markup.contains(Markup.SPREAD) ? TobagoClass.SPREAD : null;
+    final boolean renderAll = facesContext.getPartialViewContext().isRenderAll();
 
-    if (!facesContext.getPartialViewContext().isAjaxRequest()) {
+    if (renderAll || !ajax) {
       final String title = page.getLabel();
 
       if (!portlet) {
@@ -263,7 +265,7 @@ public class PageRenderer extends RendererBase {
 
     writer.startElement(HtmlElements.FORM);
     writer.writeClassAttribute(
-        preventFrameAttacks && !facesContext.getPartialViewContext().isAjaxRequest()
+        preventFrameAttacks && !ajax
             ? TobagoClass.PAGE__PREVENT_FRAME_ATTACKS : null,
         spread);
     writer.writeAttribute(HtmlAttributes.ACTION, formAction, true);
@@ -344,6 +346,7 @@ public class PageRenderer extends RendererBase {
     final ViewHandler viewHandler = application.getViewHandler();
     final Object response = facesContext.getExternalContext().getResponse();
     final boolean portlet = PortletUtils.isPortletApiAvailable() && response instanceof MimeResponse;
+    final boolean ajax = facesContext.getPartialViewContext().isAjaxRequest();
 
     // placeholder for menus
     writer.startElement(HtmlElements.DIV);
@@ -353,7 +356,7 @@ public class PageRenderer extends RendererBase {
     writer.startElement(HtmlElements.SPAN);
     writer.writeIdAttribute(clientId + ComponentUtils.SUB_SEPARATOR + "jsf-state-container");
     writer.flush();
-    if (!facesContext.getPartialViewContext().isAjaxRequest()) {
+    if (!ajax) {
       viewHandler.writeState(facesContext);
     }
     writer.endElement(HtmlElements.SPAN);

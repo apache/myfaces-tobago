@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+-->
+
+<ui:composition template="/main.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:demo="http://myfaces.apache.org/tobago/example/demo"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:tc="http://myfaces.apache.org/tobago/component"
+                xmlns:ui="http://java.sun.com/jsf/facelets">
+  <ui:param name="title" value="#{demoBundle.exception_handler}"/>
+  <p>Since Tobago 4.0.0 an AjaxExceptionHandler takes care of exceptions in ajax case.</p>
+  <p><span class="#{demo:bootstrapClass('BADGE')} #{demo:bootstrapClass('BADGE_DANGER')}">Important!</span>
+    The exception has to be throwns before the renderer phase.<br/>
+    To achieve that,
+    you can use <code class="language-markup">&lt;f:event type="preRenderView" listener="..."/></code>.</p>
+
+  <tc:section label="Example One">
+    <p>The output field is updated after an change event of the input field.</p>
+    <p>Set the input value to '<b>x</b>' to throw an exeption.</p>
+
+    <tc:in id="inputAjax" label="Input" value="#{exceptionHandlerController.value}">
+      <f:ajax render="outputAjax" listener="#{exceptionHandlerController.update}"/>
+    </tc:in>
+    <tc:out id="outputAjax" label="Output" value="#{exceptionHandlerController.value}"/>
+  </tc:section>
+
+  <tc:section label="Example Two">
+    <p>This example use the <code class="language-markup">&lt;f:event type="preRenderView"/></code> tag.</p>
+    <p>An exceptions is thrown after page 7 or higher is selected.</p>
+
+    <f:event type="preRenderView" listener="#{exceptionHandlerController.preRenderViewListener}"/>
+
+    <tc:sheet id="s1" value="#{exceptionHandlerController.solarList}" var="object" rows="4"
+              state="#{exceptionHandlerController.sheetState}">
+      <tc:style maxHeight="500px"/>
+      <tc:column label="Name">
+        <tc:out value="#{object.name}" labelLayout="skip"/>
+      </tc:column>
+      <tc:column label="Orbit">
+        <tc:out value="#{object.orbit}" labelLayout="skip"/>
+      </tc:column>
+      <tc:column label="Period (Days)">
+        <tc:out value="#{object.period}" labelLayout="skip"/>
+      </tc:column>
+      <tc:column label="Discoverer">
+        <tc:out value="#{object.discoverer}" labelLayout="skip"/>
+      </tc:column>
+      <tc:column label="Year">
+        <tc:out value="#{object.discoverYear}" labelLayout="skip"/>
+      </tc:column>
+    </tc:sheet>
+  </tc:section>
+</ui:composition>
