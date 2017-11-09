@@ -61,6 +61,17 @@ public class StyleRenderer extends RendererBase {
       writer.writeAttribute(HtmlAttributes.TYPE, "text/css", false);
       writer.endElement(HtmlElements.LINK);
 
+/* tbd: check, if this
+      writer.startElement(HtmlElements.STYLE);
+      writer.writeAttribute(HtmlAttributes.TYPE, "text/css", false);
+      writer.writeAttribute(HtmlAttributes.NONCE, Nonce.getNonce(facesContext), false);
+//    writer.writeAttribute(HtmlAttributes.MEDIA, "screen", false);
+      writer.writeText("@import url(");
+      writer.writeText(file);
+      writer.writeText(");");
+      writer.endElement(HtmlElements.STYLE);
+*/
+
     } else {
 
       final Measure width = style.getWidth();
