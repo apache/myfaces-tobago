@@ -43,10 +43,10 @@ import java.util.Map;
 
 public class WebXmlUtils {
 
-  private final static Map<Class<Throwable>, String> errorPageLocations = new HashMap<>();
+  private static final Map<Class<Throwable>, String> ERROR_PAGE_LOCATIONS = new HashMap<>();
 
   public static String getErrorPageLocation(final Throwable exception) {
-    if (errorPageLocations.size() <= 0) {
+    if (ERROR_PAGE_LOCATIONS.size() <= 0) {
       init();
     }
 
@@ -54,12 +54,12 @@ public class WebXmlUtils {
 
     Class<?> exceptionClass = exception.getClass();
     while (exceptionClass != null && location == null) {
-      location = errorPageLocations.get(exceptionClass);
+      location = ERROR_PAGE_LOCATIONS.get(exceptionClass);
       exceptionClass = exceptionClass.getSuperclass();
     }
 
     if (location == null) {
-      location = errorPageLocations.get(null);
+      location = ERROR_PAGE_LOCATIONS.get(null);
     }
 
     return location;
@@ -102,7 +102,7 @@ public class WebXmlUtils {
           if (exceptionType != null) {
             final Class<Throwable> key = (Class<Throwable>) Class.forName(exceptionType);
             final String value = normalizePath(externalContext, location);
-            errorPageLocations.put(key, value);
+            ERROR_PAGE_LOCATIONS.put(key, value);
           } else if ("500".equals(errorCode)) {
             location500 = location;
           } else if (errorCode == null && exceptionType == null) {
@@ -111,9 +111,9 @@ public class WebXmlUtils {
         }
       }
 
-      if (!errorPageLocations.containsKey(null)) {
+      if (!ERROR_PAGE_LOCATIONS.containsKey(null)) {
         final String value = normalizePath(externalContext, location500 != null ? location500 : locationDefault);
-        errorPageLocations.put(null, value);
+        ERROR_PAGE_LOCATIONS.put(null, value);
       }
     } catch (IOException | ParserConfigurationException | ClassNotFoundException | SAXException e) {
       throw new UnsupportedOperationException(e);
