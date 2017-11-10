@@ -54,6 +54,8 @@
     <directive name="child-src">https://*.apache.org</directive>
     <!-- needed for the test suite -->
     <directive name="child-src">'self'</directive>
+    <!-- needed for the test suite -->
+    <directive name="frame-ancestors">'self'</directive>
   </content-security-policy>
 
   <!-- "disable" is the default -->

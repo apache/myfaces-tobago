@@ -30,6 +30,7 @@
     <directive name="style-src">'nonce-${nonce}'</directive>
     <directive name="style-src">'self'</directive>
     <directive name="script-src">'self'</directive>
+    <directive name="frame-ancestors">'none'</directive>
   </content-security-policy>
 
 </tobago-config>
