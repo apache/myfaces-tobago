@@ -435,8 +435,6 @@ var Tobago = {
                     execute: command.execute,
                     render: command.render
                   });
-              event.preventDefault();
-              event.stopPropagation();
             } else {
               Tobago.submitAction(this, action, command);
             }

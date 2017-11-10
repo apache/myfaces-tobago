@@ -487,14 +487,20 @@ public class QUnitTests {
   }
 
   @Test
+  public void testSheetTypes() throws UnsupportedEncodingException, InterruptedException {
+    String page = "content/40-test/3000-sheet/10-sheet-types/sheet-types.xhtml";
+    runStandardTest(page);
+  }
+
+  @Test
   public void testButtonLink() throws UnsupportedEncodingException, InterruptedException {
     String page = "content/40-test/4000-button+link/button+link.xhtml";
     runStandardTest(page);
   }
 
   @Test
-  public void testSheetTypes() throws UnsupportedEncodingException, InterruptedException {
-    String page = "content/40-test/3000-sheet/10-sheet-types/sheet-types.xhtml";
+  public void testAjaxDropdown() throws UnsupportedEncodingException, InterruptedException {
+    String page = "content/40-test/4000-button+link/4050-ajax-dropdown/ajax-dropdown.xhtml";
     runStandardTest(page);
   }
 
