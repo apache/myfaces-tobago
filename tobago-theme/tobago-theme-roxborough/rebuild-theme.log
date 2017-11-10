@@ -1,4 +1,4 @@
-Build date: 2017-11-09 14:18:08
+Build date: 2017-11-10 10:49:23
 [INFO] Scanning for projects...
 [INFO] 
 [INFO] ------------------------------------------------------------------------
@@ -13,8 +13,8 @@ Build date: 2017-11-09 14:18:08
 [INFO] Removing __CURRENT__/tobago-theme-roxborough/target/checkout
 [INFO] Executing: /bin/sh -c cd __CURRENT__/tobago-theme-roxborough/target && git clone --branch v4.0.0-beta.2 https://github.com/twbs/bootstrap __CURRENT__/tobago-theme-roxborough/target/checkout
 [INFO] Working directory: __CURRENT__/tobago-theme-roxborough/target
-[INFO] Executing: /bin/sh -c cd /var/folders/w0/pg4pxr7972l6bq85x08s5cl00000gn/T/ && git ls-remote https://github.com/twbs/bootstrap
-[INFO] Working directory: /var/folders/w0/pg4pxr7972l6bq85x08s5cl00000gn/T
+[INFO] Executing: /bin/sh -c cd /var/folders/yp/1vrxjnrs20798ydt_yl8wrpr0000gp/T/ && git ls-remote https://github.com/twbs/bootstrap
+[INFO] Working directory: /var/folders/yp/1vrxjnrs20798ydt_yl8wrpr0000gp/T
 [INFO] Executing: /bin/sh -c cd __CURRENT__/tobago-theme-roxborough/target/checkout && git pull https://github.com/twbs/bootstrap v4.0.0-beta.2:v4.0.0-beta.2
 [INFO] Working directory: __CURRENT__/tobago-theme-roxborough/target/checkout
 [INFO] Executing: /bin/sh -c cd __CURRENT__/tobago-theme-roxborough/target/checkout && git checkout v4.0.0-beta.2
@@ -65,11 +65,11 @@ Build date: 2017-11-09 14:18:08
 [INFO] > node install.js
 [INFO] 
 [INFO] PhantomJS not found on PATH
-[INFO] Download already available at /var/folders/w0/pg4pxr7972l6bq85x08s5cl00000gn/T/phantomjs/phantomjs-2.1.1-macosx.zip
+[INFO] Download already available at /var/folders/yp/1vrxjnrs20798ydt_yl8wrpr0000gp/T/phantomjs/phantomjs-2.1.1-macosx.zip
 [INFO] Verified checksum of previously downloaded file
 [INFO] Extracting zip contents
 [INFO] Removing __CURRENT__/tobago-theme-roxborough/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom
-[INFO] Copying extracted folder /var/folders/w0/pg4pxr7972l6bq85x08s5cl00000gn/T/phantomjs/phantomjs-2.1.1-macosx.zip-extract-1510233607191/phantomjs-2.1.1-macosx -> __CURRENT__/tobago-theme-roxborough/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom
+[INFO] Copying extracted folder /var/folders/yp/1vrxjnrs20798ydt_yl8wrpr0000gp/T/phantomjs/phantomjs-2.1.1-macosx.zip-extract-1510307525491/phantomjs-2.1.1-macosx -> __CURRENT__/tobago-theme-roxborough/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom
 [INFO] Writing location.js file
 [INFO] Done. Phantomjs binary available at __CURRENT__/tobago-theme-roxborough/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom/bin/phantomjs
 [INFO] 
@@ -150,7 +150,6 @@ Build date: 2017-11-09 14:18:08
 [INFO] │ │ │   ├─┬ rc@1.2.1 
 [INFO] │ │ │   │ ├── deep-extend@0.4.2 
 [INFO] │ │ │   │ ├── ini@1.3.4 
-[WARNING] npm WARN bootstrap@4.0.0-beta.2 requires a peer of jquery@1.9.1 - 3 but none was installed.
 [INFO] │ │ │   │ ├── minimist@1.2.0 
 [INFO] │ │ │   │ └── strip-json-comments@2.0.1 
 [INFO] │ │ │   ├─┬ request@2.81.0 
@@ -264,6 +263,7 @@ Build date: 2017-11-09 14:18:08
 [INFO] │ ├─┬ @babel/traverse@7.0.0-beta.31 
 [INFO] │ │ ├─┬ @babel/helper-function-name@7.0.0-beta.31 
 [INFO] │ │ │ ├── @babel/helper-get-function-arity@7.0.0-beta.31 
+[WARNING] npm WARN bootstrap@4.0.0-beta.2 requires a peer of jquery@1.9.1 - 3 but none was installed.
 [INFO] │ │ │ └─┬ @babel/template@7.0.0-beta.31 
 [INFO] │ │ │   └── babylon@7.0.0-beta.31 
 [INFO] │ │ ├── babylon@7.0.0-beta.31 
@@ -1032,8 +1032,8 @@ Build date: 2017-11-09 14:18:08
 [ERROR] Wrote Source Map to __CURRENT__/tobago-theme-roxborough/target/bootstrap/dist/css/bootstrap.css.map
 [ERROR] Wrote CSS to __CURRENT__/tobago-theme-roxborough/target/bootstrap/dist/css/bootstrap.css
 [ERROR] Rendering Complete, saving .css file...
-[ERROR] Wrote Source Map to __CURRENT__/tobago-theme-roxborough/target/bootstrap/dist/css/bootstrap-grid.css.map
 [ERROR] Wrote CSS to __CURRENT__/tobago-theme-roxborough/target/bootstrap/dist/css/bootstrap-grid.css
+[ERROR] Wrote Source Map to __CURRENT__/tobago-theme-roxborough/target/bootstrap/dist/css/bootstrap-grid.css.map
 [ERROR] Rendering Complete, saving .css file...
 [ERROR] Wrote CSS to __CURRENT__/tobago-theme-roxborough/target/bootstrap/dist/css/bootstrap-reboot.css
 [ERROR] Wrote Source Map to __CURRENT__/tobago-theme-roxborough/target/bootstrap/dist/css/bootstrap-reboot.css.map
@@ -1044,12 +1044,12 @@ Build date: 2017-11-09 14:18:08
 [INFO] > bootstrap@4.0.0-beta.2 css-prefix __CURRENT__/tobago-theme-roxborough/target/bootstrap
 [INFO] > postcss --config build/postcss.config.js --replace "dist/css/*.css"
 [INFO] 
-[ERROR] ✔ Finished dist/css/bootstrap-grid.min.css (1.69 s)
-[ERROR] ✔ Finished dist/css/bootstrap-reboot.css (1.69 s)
-[ERROR] ✔ Finished dist/css/bootstrap-grid.css (1.69 s)
-[ERROR] ✔ Finished dist/css/bootstrap-reboot.min.css (1.69 s)
-[ERROR] ✔ Finished dist/css/bootstrap.css (1.69 s)
-[ERROR] ✔ Finished dist/css/bootstrap.min.css (1.69 s)
+[ERROR] ✔ Finished dist/css/bootstrap-grid.min.css (1.1 s)
+[ERROR] ✔ Finished dist/css/bootstrap-reboot.css (1.1 s)
+[ERROR] ✔ Finished dist/css/bootstrap-grid.css (1.1 s)
+[ERROR] ✔ Finished dist/css/bootstrap.css (1.1 s)
+[ERROR] ✔ Finished dist/css/bootstrap-reboot.min.css (1.1 s)
+[ERROR] ✔ Finished dist/css/bootstrap.min.css (1.1 s)
 [INFO] 
 [INFO] --- frontend-maven-plugin:1.4:npm (step #10: npm run css-minify) @ tobago-theme-roxborough ---
 [INFO] Running 'npm run css-minify' in __CURRENT__/tobago-theme-roxborough/target/bootstrap
@@ -1077,12 +1077,12 @@ Build date: 2017-11-09 14:18:08
 [INFO] > npm-run-all --parallel js-compile-*
 [INFO] 
 [INFO] 
-[INFO] > bootstrap@4.0.0-beta.2 js-compile-plugins __CURRENT__/tobago-theme-roxborough/target/bootstrap
-[INFO] > cross-env PLUGINS=true babel js/src/ --out-dir js/dist/ --source-maps
-[INFO] 
-[INFO] 
 [INFO] > bootstrap@4.0.0-beta.2 js-compile-standalone __CURRENT__/tobago-theme-roxborough/target/bootstrap
 [INFO] > cross-env ROLLUP=true rollup --environment BUNDLE:false --config build/rollup.config.js --sourcemap
+[INFO] 
+[INFO] 
+[INFO] > bootstrap@4.0.0-beta.2 js-compile-plugins __CURRENT__/tobago-theme-roxborough/target/bootstrap
+[INFO] > cross-env PLUGINS=true babel js/src/ --out-dir js/dist/ --source-maps
 [INFO] 
 [INFO] 
 [INFO] > bootstrap@4.0.0-beta.2 js-compile-bundle __CURRENT__/tobago-theme-roxborough/target/bootstrap
@@ -1104,8 +1104,8 @@ Build date: 2017-11-09 14:18:08
 [INFO] js/src/tab.js -> js/dist/tab.js
 [INFO] js/src/tooltip.js -> js/dist/tooltip.js
 [INFO] js/src/util.js -> js/dist/util.js
-[ERROR] created dist/js/bootstrap.js in 1.8s
-[ERROR] created dist/js/bootstrap.bundle.js in 2s
+[ERROR] created dist/js/bootstrap.js in 2.4s
+[ERROR] created dist/js/bootstrap.bundle.js in 2.6s
 [INFO] 
 [INFO] > bootstrap@4.0.0-beta.2 js-compile-standalone __CURRENT__/tobago-theme-roxborough/target/bootstrap
 [INFO] > cross-env ROLLUP=true rollup --environment BUNDLE:false --config build/rollup.config.js --sourcemap
@@ -1141,6 +1141,10 @@ Build date: 2017-11-09 14:18:08
 [INFO] > npm-run-all --parallel js-minify-*
 [INFO] 
 [INFO] 
+[INFO] > bootstrap@4.0.0-beta.2 js-minify-bundle __CURRENT__/tobago-theme-roxborough/target/bootstrap
+[INFO] > uglifyjs --compress typeofs=false --mangle --comments "/^!/" --source-map "content=dist/js/bootstrap.bundle.js.map,includeSources,url=bootstrap.bundle.min.js.map" --output dist/js/bootstrap.bundle.min.js dist/js/bootstrap.bundle.js
+[INFO] 
+[INFO] 
 [INFO] > bootstrap@4.0.0-beta.2 js-minify-docs __CURRENT__/tobago-theme-roxborough/target/bootstrap
 [INFO] > uglifyjs --mangle --comments "/^!/" --output assets/js/docs.min.js assets/js/vendor/anchor.min.js assets/js/vendor/clipboard.min.js assets/js/vendor/holder.min.js assets/js/src/application.js assets/js/src/pwa.js
 [INFO] 
@@ -1148,12 +1152,8 @@ Build date: 2017-11-09 14:18:08
 [INFO] > bootstrap@4.0.0-beta.2 js-minify-standalone __CURRENT__/tobago-theme-roxborough/target/bootstrap
 [INFO] > uglifyjs --compress typeofs=false --mangle --comments "/^!/" --source-map "content=dist/js/bootstrap.js.map,includeSources,url=bootstrap.min.js.map" --output dist/js/bootstrap.min.js dist/js/bootstrap.js
 [INFO] 
-[INFO] 
-[INFO] > bootstrap@4.0.0-beta.2 js-minify-bundle __CURRENT__/tobago-theme-roxborough/target/bootstrap
-[INFO] > uglifyjs --compress typeofs=false --mangle --comments "/^!/" --source-map "content=dist/js/bootstrap.bundle.js.map,includeSources,url=bootstrap.bundle.min.js.map" --output dist/js/bootstrap.bundle.min.js dist/js/bootstrap.bundle.js
-[INFO] 
-[ERROR] INFO: Using input source map: dist/js/bootstrap.js.map
 [ERROR] INFO: Using input source map: dist/js/bootstrap.bundle.js.map
+[ERROR] INFO: Using input source map: dist/js/bootstrap.js.map
 [INFO] 
 [INFO] > bootstrap@4.0.0-beta.2 js-minify-standalone __CURRENT__/tobago-theme-roxborough/target/bootstrap
 [INFO] > uglifyjs --compress typeofs=false --mangle --comments "/^!/" --source-map "content=dist/js/bootstrap.js.map,includeSources,url=bootstrap.min.js.map" --output dist/js/bootstrap.min.js dist/js/bootstrap.js
@@ -1210,7 +1210,7 @@ main:
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
-[INFO] Total time: 02:34 min
-[INFO] Finished at: 2017-11-09T14:20:43+01:00
-[INFO] Final Memory: 30M/384M
+[INFO] Total time: 03:27 min
+[INFO] Finished at: 2017-11-10T10:52:51+01:00
+[INFO] Final Memory: 34M/500M
 [INFO] ------------------------------------------------------------------------
