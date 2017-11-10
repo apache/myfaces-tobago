@@ -1,0 +1,924 @@
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+html {
+  font-size: $font-size-root;
+}
+
+button, input, optgroup, select, textarea {
+  // overwrite _normalize.scss
+  font-family: $font-family-sans-serif;
+}
+
+// header styling
+header.tobago-header.fixed-top {
+  padding: 0;
+  vertical-align: middle;
+  margin-bottom: 1em;
+  line-height: $header-height;
+
+  .navbar {
+    padding-top: 0;
+    padding-bottom: 0;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+  }
+  .form-group {
+    margin-bottom: 0;
+  }
+  .tobago-link > i.fa {
+    font-size: 1.345em;
+    margin-right: 0.5rem;
+  }
+  button.tobago-link.dropdown-item {
+    color: theme-color("primary");
+    background-color: transparent;
+
+    &:active {
+      color: $navbar-light-active-color;
+    }
+    &:hover, &:focus {
+      color: $navbar-light-hover-color;
+    }
+  }
+  .tobago-dropdown-submenu.dropdown-item {
+    background-color: transparent;
+  }
+  .nav-link {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+  .nav-item {
+    font-size: 1.16em;
+    float: left;
+  }
+
+  a, button.tobago-link:not(.dropdown-item) {
+    color: theme-color("primary");
+    text-decoration: none;
+
+    &:hover, &:focus {
+      color: $navbar-light-hover-color;
+      cursor: pointer;
+      text-decoration: none;
+    }
+  }
+}
+
+button {
+  &.tobago-link {
+    font-family: $font-family-base;
+
+    > span {
+      position: relative;
+    }
+  }
+
+  &.tobago-link, &.tobago-command, &.tobago-treeCommand {
+    color: $link-color;
+    text-decoration: none;
+
+    &:focus, &:hover {
+      color: $link-hover-color;
+      text-decoration: none;
+    }
+  }
+}
+
+.btn:focus {
+  box-shadow: none;
+}
+
+.btn-primary:active:hover, .btn-primary:active:focus {
+  background-color: $btn-primary-active-hover-background-color;
+  border-color: $btn-primary-active-hover-border-color;
+}
+
+.btn-secondary:active:hover, .btn-secondary:active:focus {
+  background-color: $btn-secondary-active-hover-background-color;
+  border-color: $btn-secondary-active-hover-border-color;
+}
+
+.btn-info {
+  color: $white;
+}
+
+td button {
+  &.tobago-link, &.tobago-command, &.tobago-treeCommand {
+    padding-top: 5px;
+    margin-bottom: 12px;
+  }
+}
+
+.form-group, .tobago-label {
+  ~ a.tobago-link {
+    padding-top: 0.46em;
+    margin-bottom: 0;
+  }
+  ~ button.tobago-link {
+    margin-bottom: 1rem;
+  }
+}
+
+.tobago-sheet-cell {
+  button.tobago-link {
+    margin-bottom: 0;
+  }
+}
+
+header.fixed-top {
+  a[disabled], a[disabled]:hover, button[disabled], button[disabled]:hover {
+    color: $gray-600 !important;
+  }
+}
+
+.navbar-light {
+  background-color: $gray-300;
+
+  .navbar-brand {
+    color: theme-color("primary");
+  }
+}
+
+.tobago-bar.navbar-light .navbar-brand > .tobago-link {
+  color: theme-color("primary");
+
+}
+
+.navbar-brand {
+  font-size: 1.16em;
+  font-weight: bold;
+  padding-top: 0;
+  padding-bottom: 0;
+
+  > a.tobago-link > span {
+    white-space: nowrap;
+  }
+
+  button.tobago-link {
+    font-weight: bold;
+  }
+}
+
+.navbar {
+  .nav-item.dropdown > .dropdown-menu, .tobago-dropdown-submenu > .dropdown-menu {
+    border: 0;
+    background: $gray-200;
+    margin-top: 0;
+    margin-left: 0;
+  }
+
+  .dropdown-item {
+    color: theme-color("primary");
+    font-size: 1.1em;
+
+    &:focus, &:hover {
+      background: $gray-200;
+      color: $orange;
+    }
+  }
+}
+
+/** collapsed menu */
+@media (max-width: 991px) {
+  header.tobago-header.fixed-top .navbar-collapse.collapse.show {
+    line-height: $header-height-collapsed;
+    padding: $spacer 0;
+  }
+}
+
+/* expanded menu */
+@media (min-width: 992px) {
+
+  .sidebar {
+    display: none;
+
+    a.nav-link {
+      padding-top: 0;
+      padding-bottom: 0;
+      padding-right: 0;
+    }
+
+    &.show, .show {
+      display: inline;
+    }
+    > ul {
+      visibility: hidden;
+      opacity: 0;
+      transition: visibility 0s 0.2s, opacity 0.2s ease;
+      padding: 10px;
+      position: fixed;
+      max-width: 200px;
+      right: 0px;
+      background-color: white;
+      box-shadow: 1px 2px 4px 0px rgba(0, 0, 0, 0.1);
+      margin-top: 2em;
+      z-index: 2000;
+    }
+    ul {
+      display: none;
+    }
+    > ul.showhide {
+      visibility: visible;
+      transition: visibility 0s 0s, opacity 0.2s ease;
+      opacity: 1;
+    }
+  }
+  * {
+    outline: none !important;
+  }
+  .sidebar {
+    ul > li:hover > ul {
+      display: inline !important;
+    }
+    .nav .dropdown-item {
+      /* Custom sidemenu styling */
+      display: inline;
+      font-size: small;
+      color: #788c94;
+    }
+    a:focus {
+      color: #788c94;
+    }
+
+    .active.dropdown-item {
+      background-color: transparent;
+    }
+    .active.dropdown-item, .nav .dropdown-item {
+      &:focus, &:hover {
+        background-color: transparent;
+      }
+    }
+
+    li {
+      a.active {
+        padding-left: 3px !important;
+        border-left: 2px solid $darkgreen !important;
+        color: $darkgreen !important;
+      }
+      li a.active {
+        padding-left: 18px !important;
+      }
+      li li a.active {
+        padding-left: 38px !important;
+      }
+      a {
+        padding-left: 5px;
+        &:hover {
+          padding-left: 4px;
+          border-left: 1px solid $darkgreen;
+          color: $darkgreen !important;
+        }
+      }
+      li li a:hover {
+        padding-left: 39px;
+      }
+      li a:hover {
+        padding-left: 19px;
+      }
+      li a {
+        padding-left: 20px;
+      }
+      li li a {
+        padding-left: 40px;
+      }
+    }
+  }
+
+  #blur {
+    background-color: rgba(240, 240, 240, 0.5);
+    width: 100%;
+    height: 100%;
+    z-index: 999;
+    display: none;
+    top: 0px;
+    left: 0px;
+    position: fixed;
+    &.blur {
+      display: block;
+    }
+  }
+  .nav .dropdown-item:focus {
+    color: $darkgreen;
+  }
+  .collapse.navbar-collapse > ul > li > span > ul > li > span > a {
+    color: $darkgreen !important;
+    cursor: default;
+  }
+  .navbar-toggleable-xs > ul > li > span > ul > li > span {
+    cursor: default;
+  }
+  html.opendd {
+    overflow: hidden;
+  }
+  body.opendd {
+    position: fixed;
+  }
+
+  .navbar-collapsed-top-tools, .navbar-collapsed-bottom-tools {
+    display: none;
+  }
+
+  header.fixed-top {
+    .open {
+      background-image: url('../image/top_menu_active.png');
+      background-repeat: no-repeat;
+      background-position: 50% 70px;
+    }
+
+    .navbar {
+      .navbar-toggler {
+        display: none;
+      }
+      .navbar-nav {
+        flex-direction: row;
+      }
+    }
+
+    .nav-item.dropdown {
+
+      > button.dropdown-toggle {
+        padding-top: 0px;
+        padding-bottom: 0px;
+        color: $darkgreen;
+        text-decoration: none;
+
+        &:hover, &:focus {
+          color: $navbar-light-hover-color;
+        }
+      }
+
+      > .dropdown-menu {
+        position: fixed;
+        width: 100%;
+        top: auto;
+        top: initial;
+        left: 0;
+        line-height: normal;
+        line-height: initial;
+        padding: 0 10% 1em 10%;
+
+        > .dropdown-item {
+          display: inline-block;
+          font-size: 1.3em;
+          width: calc(25% - 3px);
+          min-width: 250px;
+          vertical-align: top;
+          padding-top: 1em;
+
+          > a, > button {
+            margin-bottom: 0.5em;
+          }
+        }
+      }
+    }
+
+    .navbar-nav > .nav-item.dropdown > .dropdown-toggle {
+      padding-left: 22px;
+      padding-right: .5rem;
+
+      &::before {
+        content: "\F107";
+        font-family: FontAwesome;
+        left: -5px;
+        position: absolute;
+        top: 0;
+        margin-left: 10px;
+      }
+    }
+
+    .tobago-dropdown-submenu {
+      &.dropdown-item {
+        display: block;
+
+        > .dropdown-menu {
+          display: block;
+          border-radius: 0;
+          position: static;
+          float: none;
+          padding: 0;
+
+          .dropdown-item {
+            padding-left: 0;
+
+            &::before {
+              content: "> ";
+              position: relative;
+              vertical-align: top;
+            }
+          }
+        }
+      }
+
+      &::after {
+        content: none;
+      }
+    }
+  }
+
+  .dropdown-item .nav-link {
+    display: inline-block;
+  }
+}
+
+.nav-item > .dropdown > button {
+  &.tobago-link, &.tobago-command {
+    padding-top: 0px;
+    padding-bottom: 0px;
+  }
+}
+
+.navbar-nav {
+
+  .dropdown-toggle {
+    // overwrite default toggle
+    &::after {
+      display: inline-block;
+      width: 0;
+      height: 0;
+      margin-right: 0;
+      margin-left: 0;
+      vertical-align: middle;
+      content: "";
+      border-top: 0;
+      border-right: 0;
+      border-left: 0;
+    }
+
+    // Prevent the focus on the dropdown toggle when closing dropdowns
+    &:focus {
+      outline: 0;
+    }
+
+  }
+  .nav-item {
+    float: none;
+    display: inline;
+  }
+
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 300;
+}
+
+p, .control-label {
+  hyphens: auto;
+}
+
+// Tabs
+.nav-tabs {
+  background-color: $gray-300;
+
+  .nav-item {
+    border-right: 1px solid white;
+
+    .nav-link {
+      color: $darkgreen;
+
+      &:hover {
+        color: $orange;
+        cursor: pointer;
+      }
+    }
+    .nav-link.active {
+      background-color: white;
+    }
+  }
+  .nav-item.tobago-tab-markup-disabled {
+    background-color: $gray-100;
+
+    > a, > button.tobago-link {
+      color: $gray-300;
+
+      &:hover {
+        color: $gray-300;
+        cursor: default;
+      }
+    }
+  }
+}
+
+.card-body {
+  .nav-tabs {
+    border-left: 1px solid $gray-300;
+  }
+
+  .tab-content {
+    margin-top: 1.5em;
+    padding: 0;
+  }
+}
+
+/* padding: 0.1px = hack! Padding '0' would be remove margin-bottom from .form-group */
+.tab-content {
+  background-color: white;
+  padding: 1.25rem 1.25rem 0.1px 1.25rem;
+  border-width: 0;
+}
+
+.nav-tabs .nav-item + .nav-item {
+  margin-left: 0;
+}
+
+.tobago-box-header {
+  h3 {
+    display: inline;
+  }
+  > .navbar, > .tobago-links {
+    float: right;
+
+    .nav-item > .tobago-link {
+      padding: 0 .5rem;
+    }
+  }
+  .navbar {
+    .navbar-toggler {
+      display: none;
+    }
+    .navbar-collapse.collapse {
+      display: flex;
+      flex-basis: auto;
+      position: static;
+      width: auto;
+
+      .tobago-links.navbar-nav {
+        flex-direction: row;
+        position: static;
+        width: auto;
+        background-color: transparent;
+
+        .nav-item {
+          border: 0;
+        }
+      }
+    }
+  }
+}
+
+.tobago-box, .tobago-tabGroup {
+  .tobago-box {
+    .tobago-box-header {
+      // second level boxes
+      h3 {
+        float: left;
+      }
+    }
+    .card-body {
+      .tobago-in-markup-disabled {
+        border-color: $input-border-color;
+      }
+    }
+  }
+}
+
+.tobago-footer {
+}
+
+.table {
+  background-color: white;
+
+  .checkbox {
+    margin-bottom: initial;
+    margin-bottom: auto;
+  }
+
+  select[disabled] {
+    margin-left: -4px;
+  }
+
+  .btn[disabled] {
+    display: none;
+  }
+}
+
+a, button.tobago-link, button.tobago-command, button.tobago-treeCommand {
+  &[disabled] {
+    color: $gray-300;
+  }
+}
+
+select[disabled] {
+  text-indent: 0.01px;
+  text-overflow: '';
+  appearance: none;
+}
+
+input.form-control {
+  border-radius: 0;
+}
+
+.input-group-btn {
+  .btn {
+    box-shadow: none;
+    margin-bottom: 0;
+    padding: $input-btn-padding-y $input-btn-padding-x;
+  }
+
+  > .form-control {
+    flex-direction: row;
+  }
+}
+
+.input-group-addon {
+  .btn {
+    margin: 0;
+    box-shadow: none;
+  }
+
+  > .form-group {
+    margin-bottom: 0;
+  }
+
+  .form-control-static {
+    padding-top: 0; // for tc:out
+  }
+}
+
+.tobago-flexLayout > .mce-container {
+  // identical width for tinymce / textarea
+  margin-left: 3px;
+  margin-right: 3px;
+}
+
+td .form-group {
+  margin-bottom: 0
+}
+
+li:last-child {
+  margin-bottom: 0;
+}
+
+.form-group {
+  ol, ul, dl {
+    margin-bottom: 0;
+  }
+}
+
+.btn {
+  padding: $btn-padding-y $btn-padding-x;
+  box-shadow: 1px 2px 4px 0px rgba(0, 0, 0, 0.1);
+}
+
+.modal-dialog .card {
+  margin-bottom: 0;
+}
+
+// border from disabled form-controls should have background-color
+.form-control {
+  &:disabled, &[readonly] {
+    border-color: $gray-100;
+    &:focus {
+      border-color: $gray-100;
+    }
+  }
+  &:focus {
+    border-color: $orange-light;
+    box-shadow: 0 0 0 0.2rem $orange-lighter;
+  }
+}
+
+// Errormessages
+.alert > label {
+  display: block;
+}
+
+.input-group-addon {
+  line-height: 1.3em;
+}
+
+// Nav-Stacks
+.nav-stacked {
+  text-align: center;
+  font-size: 0.9em;
+  margin-right: 1em;
+  margin-top: 1em;
+  margin-left: -1.5em;
+
+  .active .fa {
+    color: white;
+  }
+
+  .fa {
+    font-size: 2em;
+    color: #788C94;
+    display: block;
+    padding-bottom: 0.2em;
+  }
+
+  .nav-item {
+    padding: 0.3em 0;
+  }
+}
+
+.bootstrap-datetimepicker-widget .datepicker-days {
+  .past.day {
+    opacity: 0.7;
+  }
+  .old.day, .new.day {
+    opacity: 0.5;
+  }
+}
+
+.label {
+  display: inline-block;
+  padding: .25em .4em;
+  font-size: 75%;
+  font-weight: 700;
+  line-height: 1;
+  color: #fff;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+  border-radius: .25rem
+
+}
+
+.label-pill {
+  padding-right: .6em;
+  padding-left: .6em;
+  border-radius: 10rem
+}
+
+.label-danger {
+  background-color: theme-color("danger");
+}
+
+.label-info {
+  background-color: theme-color("info");
+}
+
+.label-warning {
+  background-color: theme-color("warning");
+}
+
+.label-success {
+  background-color: theme-color("success");
+}
+
+.label-primary {
+  background-color: theme-color("primary");
+}
+
+.label-default {
+  background-color: $gray-700;
+}
+
+// checkboxes and radio buttons
+.tobago-selectBooleanCheckbox, .tobago-selectManyCheckbox, .tobago-selectOneRadio {
+  &-markup-readonly .form-check-label {
+    cursor: default;
+  }
+  .form-check-label {
+    padding-left: 0;
+
+    .tobago-inputPseudo {
+      margin-bottom: 2px;
+      height: 14px;
+      width: 14px;
+      display: inline-block;
+      margin-right: 5px;
+      transition: all 0.2s;
+      vertical-align: middle;
+      border: 1px solid $gray-300;
+      background: #fff;
+
+      &:before {
+        content: "";
+      }
+    }
+  }
+}
+
+.tobago-selectBooleanCheckbox, .tobago-selectManyCheckbox {
+  .form-check-label {
+    .tobago-inputPseudo {
+      overflow: hidden;
+
+      &:before {
+        font-size: medium;
+        color: $dropdown-link-active-bg;
+        position: relative;
+        top: -6px;
+        left: 13px;
+      }
+    }
+    input[type="checkbox"]:checked + .tobago-inputPseudo {
+      border-color: $dropdown-link-active-bg;
+      &:before {
+        content: "\f00c";
+      }
+    }
+    input[type="checkbox"]:active + .tobago-inputPseudo,
+    input[type="checkbox"]:focus + .tobago-inputPseudo {
+      border-color: $orange-light;
+    }
+    input[type="checkbox"]:active:not(:disabled) + .tobago-inputPseudo:before,
+    input[type="checkbox"]:focus:not(:disabled) + .tobago-inputPseudo:before {
+      text-shadow: none;
+    }
+    input[type="checkbox"] {
+      &[readonly], &[disabled] {
+        & + .tobago-inputPseudo {
+          opacity: 0.6;
+          background: $input-disabled-bg;
+        }
+      }
+    }
+  }
+}
+
+.tobago-selectOneRadio {
+  .form-check-label {
+    .tobago-inputPseudo {
+      border-radius: 100%;
+    }
+    input[type="radio"]:checked + .tobago-inputPseudo {
+      background: $dropdown-link-active-bg;
+      border: 0;
+      &:before {
+        content: "";
+      }
+    }
+    input[type="radio"]:active + .tobago-inputPseudo,
+    input[type="radio"]:focus + .tobago-inputPseudo {
+      border: 1px solid $orange-light;
+    }
+    input[type="radio"] {
+      &[readonly], &[disabled] {
+        & + .tobago-inputPseudo {
+          opacity: 0.6;
+          background: $input-disabled-bg;
+        }
+      }
+    }
+  }
+}
+
+.tobago-dropdown-submenu > .dropdown-menu {
+  border-radius: 0;
+}
+
+.dropdown-menu {
+  border-radius: 0;
+
+  .tobago-selectBooleanCheckbox, .tobago-selectManyCheckbox, .tobago-selectOneRadio {
+    .form-check-label {
+      padding-left: $dropdown-item-padding-x;
+    }
+  }
+}
+
+.dropdown-toggle:after {
+  vertical-align: 0.1em;
+}
+
+.tobago-dropdown-submenu:after {
+  margin-top: 5px;
+}
+
+.tobago-selectBooleanCheckbox.form-check,
+.tobago-selectManyCheckbox-inline,
+.tobago-selectOneRadio-inline,
+.slider {
+  min-height: 26px;
+}
+
+// fix tobago-suggest
+.twitter-typeahead {
+  width: 100%;
+  display: inherit !important;
+}
+
+.tobago-sheet-cell > .twitter-typeahead {
+  display: block !important;
+}
+
+.tobago-section-header {
+  border-bottom: 1px solid rgba(1, 1, 1, 0.05);
+  margin-bottom: .5rem;
+
+  h1 {
+    margin-bottom: 0;
+  }
+
+  h2, h3, h4, h5, h6 {
+    margin-top: 1rem;
+    margin-bottom: 0;
+  }
+}

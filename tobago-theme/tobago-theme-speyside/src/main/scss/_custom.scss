@@ -15,9 +15,258 @@
  * limitations under the License.
  */
 
-// Bootstrap overrides
-//
-// Copy variables from `_variables.scss` to this file to override default values
-// without modifying source files.
+//Colors
 
-$body-bg:    #e2e2e2;
+$white:           #fff;
+$lightsilver:     rgba(233,229,210,0.5);
+$silvergrey:      rgba(199,199,199,0.1);
+$greygold:        #e0d0be;
+$red:             rgb(211,0,64);
+$orange:          #d90;
+$orange-light:    #ea0;
+$orange-lighter:  rgba(255, 123, 0, 0.25);
+$yellow-lighter:  #fec;
+$brown-light:     #ce8636;
+$darkbrown:       rgb(138,83,24);
+$brown:           rgb(163,103,37);
+$purple:          rgb(58,37,100);
+$darkgreen:       rgb(24,87,34);
+$green:           rgb(29,163,50);
+
+$gray-100:        #f7f7f7;
+$gray-200:        #e3e4e5;
+$gray-300:        #d7d7d7;
+$gray-500:        #acacac;
+$gray-600:        rgb(120,140,148);
+$gray-700:        #55595c;
+$gray-800:        #323232;
+
+$primary:         $darkgreen;
+$secondary:       $gray-300;
+$success:         $green;
+$info:            #5bc0de;
+$warning:         #f0ad4e;
+$danger:          $red;
+$light:           $gray-100;
+$dark:            $gray-800;
+
+$theme-colors: ();
+$theme-colors: map-merge((
+        "primary":    $primary,
+        "secondary":  $secondary,
+        "success":    $success,
+        "info":       $info,
+        "warning":    $warning,
+        "danger":     $danger,
+        "light":      $light,
+        "dark":       $dark
+), $theme-colors);
+
+
+// Options
+$header-height:             80px;
+$header-height-collapsed:   30px;
+
+$enable-rounded:            false;
+$enable-transitions:        true;
+$enable-hover-media-query:  false;
+
+// Spacing
+$spacer:  1rem;
+
+
+// Body
+//
+// Settings for the `<body>` element.
+
+$body-bg: white;
+
+
+// Links
+//
+// Style anchor elements.
+
+$link-color:            $brown-light;
+$link-hover-color:      $darkbrown;
+$link-hover-decoration: none;
+
+
+// Grid breakpoints
+//
+// Define the minimum and maximum dimensions at which your layout will change,
+// adapting to different screen sizes, for use in media queries.
+
+
+// Grid containers
+//
+// Define the maximum width of `.container` for different screen sizes.
+
+
+// Grid columns
+//
+// Set the number of columns and specify the width of the gutters.
+
+
+// Typography
+//
+// Font, line-height, and color for body text, headings, and more.
+
+$font-family-sans-serif: verdana, sans-serif;
+$font-family-base: $font-family-sans-serif;
+
+// Pixel value used to responsively scale all typography. Applied to the `<html>` element.
+$font-size-root: 12px;
+
+$font-size-base: 1rem;
+
+$h1-font-size: 1.7rem;
+$h2-font-size: 1.55rem;
+$h3-font-size: 1.4rem;
+$h4-font-size: 1.1rem;
+$h5-font-size: 1rem;
+$h6-font-size: 1rem;
+
+$headings-margin-bottom: ($spacer);
+
+// Components
+//
+// Define common padding and border radius sizes and more.
+
+// Tables
+//
+// Customizes the `.table` component with basic values, each used across all table variations.
+
+$table-cell-padding:             .5rem;
+
+$table-bg:                       white;
+$table-accent-bg: $silvergrey;
+$table-hover-bg:                 $lightsilver;
+
+$pagination-color:               $link-color;
+
+$pagination-active-bg:           theme-color("primary");
+$pagination-active-border-color: theme-color("primary");
+
+// Buttons
+//
+// For each of Bootstrap's buttons, define text, background and border color.
+
+$input-btn-padding-x:            .75rem;
+$input-btn-padding-y:            .375rem;
+$input-btn-padding-x-sm:         .75rem;
+$input-btn-padding-y-sm:         .275rem;
+$input-btn-padding-x-lg:         1.25rem;
+$input-btn-padding-y-lg:         .75rem;
+
+$btn-padding-x:                  1rem;
+$btn-padding-y:                  .375rem;
+$btn-font-weight:                normal;
+
+$box-spacer-x:                    .5rem;
+$box-title-background-color:      $greygold;
+
+$btn-primary-active-hover-background-color:     $black;
+$btn-primary-active-hover-border-color:         $black;
+$btn-secondary-active-hover-background-color:   $gray-500;
+$btn-secondary-active-hover-border-color:       $gray-600;
+
+
+// Forms
+
+$input-placeholder-color: #999;
+$input-disabled-bg:       $gray-100;
+$input-border-color:      #ccc;
+
+
+// Dropdowns
+//
+// Dropdown menu container and contents.
+
+$dropdown-link-active-bg: $brown;
+
+// Z-index master list
+//
+// Warning: Avoid customizing these values. They're used for a bird's eye view
+// of components dependent on the z-axis and are designed to all work together.
+
+// Navbar
+
+$navbar-light-color:          $darkgreen;
+$navbar-light-hover-color:    $orange;
+$navbar-light-active-color:   $orange;
+$navbar-light-disabled-color: $gray-600;
+
+
+// Navs
+
+$nav-link-padding-y:      .5rem;
+$nav-link-padding-x:      1rem;
+$nav-link-disabled-color: $gray-300;
+
+$nav-tabs-border-color:       white;
+$nav-tabs-border-width:       white;
+$nav-pills-link-active-color: $darkgreen;
+$nav-pills-link-active-bg:    white;
+
+
+// Pagination
+
+
+// Jumbotron
+
+
+// Form states and alerts
+//
+// Define colors for form feedback states and, by default, alerts.
+
+
+// Cards
+$card-border-color: #e5e5e5;
+
+// Tooltips
+
+$tooltip-bg:  $darkgreen;
+
+// Popovers
+
+
+// Modals
+
+// Padding applied to the modal body
+$modal-title-line-height:     1.3;
+
+$modal-content-bg:            #fff;
+$modal-content-border-color:  rgba(0,0,0,.2);
+
+$modal-lg:                    900px;
+$modal-md:                    600px;
+$modal-sm:                    300px;
+
+
+// Alerts
+//
+// Define alert colors, border radius, and padding.
+
+
+// Progress bars
+
+$progress-bg:         $gray-200;
+$progress-bar-color:  $orange;
+$progress-bar-bg:     $orange;
+
+
+// List group
+
+// Image thumbnails
+
+// Figures
+
+// Breadcrumbs
+
+// Media Objects
+
+// Carousel
+
+// Close
+
+// Code
