@@ -15,8 +15,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# XXX temporary help script. How to call this like:  mvn -P rebuild-theme only for the children?
-
 set -e
 
 REPO=`mvn help:evaluate -Dexpression=settings.localRepository --batch-mode | grep -v '\[INFO\]'`
