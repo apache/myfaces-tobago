@@ -22,7 +22,7 @@ package org.apache.myfaces.tobago.layout;
 import java.beans.PropertyEditorSupport;
 
 /**
- * Converter for {@link Measure}
+ * Converter for {@link MeasureList}
  */
 public class MeasureListEditor extends PropertyEditorSupport {
 

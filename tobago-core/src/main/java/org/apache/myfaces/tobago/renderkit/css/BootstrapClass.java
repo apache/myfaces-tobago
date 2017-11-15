@@ -39,7 +39,6 @@ import java.util.Map;
 
 /**
  * CSS classes for the Bootstrap Library.
- *
  * @since 3.0.0
  */
 public enum BootstrapClass implements CssItem {
@@ -663,14 +662,28 @@ public enum BootstrapClass implements CssItem {
       Object overwrite = attributes.get(attribute.name());
 
       if (overwrite != null) {
-        final Measure measure = Measure.valueOf(overwrite);
-        final BootstrapClass bootstrapClass = valueOf(measure, attribute);
+        final Measure measure = Measure.valueOf(overwrite.toString(), Measure.Unit.SEG);
+        final BootstrapClass bootstrapClass = valueOf(getSegmentMeasure(measure), attribute);
         result.add(bootstrapClass);
       } else if (tokens != null) {
         final Measure measure = tokens.get(index % tokens.getSize());
-        final BootstrapClass bootstrapClass = valueOf(measure, attribute);
+        final BootstrapClass bootstrapClass = valueOf(getSegmentMeasure(measure), attribute);
         result.add(bootstrapClass);
       }
+    }
+
+    private Measure getSegmentMeasure(final Measure measure) {
+      if (measure != null && Measure.Unit.SEG.equals(measure.getUnit())) {
+        int number = (int) measure.getValue();
+        if (number < 1) {
+          LOG.warn("Segment values must been between 1 and 12. Use '1' instead of '{}'.", number);
+          return new Measure(1, Measure.Unit.SEG);
+        } else if (number > 12) {
+          LOG.warn("Segment values must been between 1 and 12. Use '12' instead of '{}'.", number);
+          return new Measure(12, Measure.Unit.SEG);
+        }
+      }
+      return measure;
     }
 
     private void generate(final List<BootstrapClass> result, final MarginTokens margins,
@@ -702,17 +715,18 @@ public enum BootstrapClass implements CssItem {
   public static BootstrapClass valueOf(Measure measure, Attributes attributes) {
     final String size = getSizeSuffix(attributes);
 
-    if (measure.getUnit() == Measure.Unit.FR) {
-      return valueOf("COL" + size);
-    } else if (measure.getUnit() == Measure.Unit.AUTO) {
-      return valueOf("COL" + size + "_AUTO");
-    } else if (measure.getUnit() == Measure.Unit.SEG) {
-      final float value = measure.getValue();
-      return valueOf(
-          "COL" + size + "_" + (value == (long) value ? Long.toString((long) value) : Float.toString(value)));
-    } else {
-      return null;
+    if (measure != null) {
+      if (measure.getUnit() == Measure.Unit.FR) {
+        return valueOf("COL" + size);
+      } else if (measure.getUnit() == Measure.Unit.AUTO) {
+        return valueOf("COL" + size + "_AUTO");
+      } else if (measure.getUnit() == Measure.Unit.SEG) {
+        final float value = measure.getValue();
+        return valueOf(
+            "COL" + size + "_" + (value == (long) value ? Long.toString((long) value) : Float.toString(value)));
+      }
     }
+    return null;
   }
 
   public static BootstrapClass valueOf(Margin margin, Attributes attribute) {

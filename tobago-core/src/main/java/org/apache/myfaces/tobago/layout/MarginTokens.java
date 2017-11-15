@@ -53,7 +53,7 @@ public class MarginTokens {
       return null;
     }
     final MarginTokens marginTokens = new MarginTokens();
-    final StringTokenizer tokenizer = new StringTokenizer(tokens, ";");
+    final StringTokenizer tokenizer = new StringTokenizer(tokens, "; ");
 
     while (tokenizer.hasMoreTokens()) {
       final String token = tokenizer.nextToken().trim();

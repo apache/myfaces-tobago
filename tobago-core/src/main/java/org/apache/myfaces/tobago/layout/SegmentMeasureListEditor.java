@@ -24,7 +24,7 @@ import org.apache.myfaces.tobago.apt.annotation.Preliminary;
 import java.beans.PropertyEditorSupport;
 
 /**
- * Converter for {@link Measure}
+ * Converter for {@link SegmentMeasureList}
  */
 @Preliminary
 public class SegmentMeasureListEditor extends PropertyEditorSupport {

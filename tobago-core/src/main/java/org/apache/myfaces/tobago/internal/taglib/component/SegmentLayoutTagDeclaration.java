@@ -49,90 +49,90 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
 public interface SegmentLayoutTagDeclaration extends HasIdBindingAndRendered, IsVisual {
 
   /**
-   * The semicolon-separated definition of the columns for extra small devices.
-   * Possible values are: integer values &gt; 0, 'auto' and '*'.
-   * Example: '1;5;*;auto'
+   * The space-separated definition of the columns for extra small devices.
+   * Possible values are: segment values between 1 and 12, 'auto' and '*'.
+   * Example: '1seg 5seg * auto'
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.SegmentMeasureList")
   void setExtraSmall(String extraSmall);
 
   /**
-   * The semicolon-separated definition of the columns for small devices.
-   * Possible values are: integer values &gt; 0, 'auto' and '*'.
-   * Example: '1;5;*;auto'
+   * The space-separated definition of the columns for small devices.
+   * Possible values are: segment values between 1 and 12, 'auto' and '*'.
+   * Example: '1seg 5seg * auto'
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.SegmentMeasureList")
   void setSmall(String small);
 
   /**
-   * The semicolon-separated definition of the columns for medium devices.
-   * Possible values are: integer values &gt; 0, 'auto' and '*'.
-   * Example: '1;5;*;auto'
+   * The space-separated definition of the columns for medium devices.
+   * Possible values are: segment values between 1 and 12, 'auto' and '*'.
+   * Example: '1seg 5seg * auto'
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.SegmentMeasureList")
   void setMedium(String medium);
 
   /**
-   * The semicolon-separated definition of the columns for large devices.
-   * Possible values are: integer values &gt; 0, 'auto' and '*'.
-   * Example: '1;5;*;auto'
+   * The space-separated definition of the columns for large devices.
+   * Possible values are: segment values between 1 and 12, 'auto' and '*'.
+   * Example: '1seg 5seg * auto'
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.SegmentMeasureList")
   void setLarge(String large);
 
   /**
-   * The semicolon-separated definition of the columns for extra large devices.
-   * Possible values are: integer values &gt; 0, 'auto' and '*'.
-   * Example: '1;5;*;auto'
+   * The space-separated definition of the columns for extra large devices.
+   * Possible values are: segment values between 1 and 12, 'auto' and '*'.
+   * Example: '1seg 5seg * auto'
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.SegmentMeasureList")
   void setExtraLarge(String extraLarge);
 
   /**
-   * The semicolon-separated definition of the column margins for extra small devices.
+   * The space-separated definition of the column margins for extra small devices.
    * Allowed values are: none, left, right, both
-   * Example: 'left;none;both'
+   * Example: 'left none both'
    */
   @TagAttribute
   @UIComponentTagAttribute
   void setMarginExtraSmall(String marginExtraSmall);
 
   /**
-   * The semicolon-separated definition of the column margins for small devices.
+   * The space-separated definition of the column margins for small devices.
    * Allowed values are: none, left, right, both
-   * Example: 'left;none;both'
+   * Example: 'left none both'
    */
   @TagAttribute
   @UIComponentTagAttribute
   void setMarginSmall(String marginSmall);
 
   /**
-   * The semicolon-separated definition of the column margins for medium devices.
+   * The space-separated definition of the column margins for medium devices.
    * Allowed values are: none, left, right, both
-   * Example: 'left;none;both'
+   * Example: 'left none both'
    */
   @TagAttribute
   @UIComponentTagAttribute
   void setMarginMedium(String marginMedium);
 
   /**
-   * The semicolon-separated definition of the column margins for large devices.
+   * The space-separated definition of the column margins for large devices.
    * Allowed values are: none, left, right, both
-   * Example: 'left;none;both'
+   * Example: 'left none both'
    */
   @TagAttribute
   @UIComponentTagAttribute
   void setMarginLarge(String marginLarge);
 
   /**
-   * The semicolon-separated definition of the column margins for extra large devices.
+   * The space-separated definition of the column margins for extra large devices.
    * Allowed values are: none, left, right, both
-   * Example: 'left;none;both'
+   * Example: 'left none both'
    */
   @TagAttribute
   @UIComponentTagAttribute

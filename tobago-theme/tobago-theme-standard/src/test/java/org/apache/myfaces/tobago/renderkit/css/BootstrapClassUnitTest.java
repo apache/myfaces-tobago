@@ -19,6 +19,8 @@
 
 package org.apache.myfaces.tobago.renderkit.css;
 
+import org.apache.myfaces.tobago.component.Attributes;
+import org.apache.myfaces.tobago.layout.Measure;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -82,5 +84,21 @@ public class BootstrapClassUnitTest {
         toCheck.toArray(new BootstrapClass[toCheck.size()]));
 
     Assert.assertTrue("These classes are missing in bootstrap.css: " + missing, missing.isEmpty());
+  }
+
+  @Test
+  public void testValueOfMeasureAttributes() {
+    Assert.assertEquals(BootstrapClass.COL_1,
+        BootstrapClass.valueOf(new Measure("1", Measure.Unit.SEG), Attributes.extraSmall));
+    Assert.assertEquals(BootstrapClass.COL_12,
+        BootstrapClass.valueOf(new Measure("12", Measure.Unit.SEG), Attributes.extraSmall));
+    Assert.assertEquals(null,
+        BootstrapClass.valueOf((Measure) null, Attributes.extraSmall));
+    Assert.assertEquals(BootstrapClass.COL_MD_5,
+        BootstrapClass.valueOf(new Measure("5", Measure.Unit.SEG), Attributes.medium));
+    Assert.assertEquals(BootstrapClass.COL_LG,
+        BootstrapClass.valueOf(Measure.valueOf("*"), Attributes.large));
+    Assert.assertEquals(BootstrapClass.COL_XL_AUTO,
+        BootstrapClass.valueOf(Measure.valueOf("auto"), Attributes.extraLarge));
   }
 }

@@ -36,35 +36,35 @@ public interface SegmentLayoutConstraintTagDeclaration {
 
   /**
    * Overwrite the default layout for extra small devices.
-   * Possible values are: integer value &gt; 0, 'auto' and '*'.
+   * Possible values are: segment values between 1 and 12, 'auto' and '*'.
    */
   @TagAttribute
   void setExtraSmall(final ValueExpression extraSmall);
 
   /**
    * Overwrite the default layout for small devices.
-   * Possible values are: integer value &gt; 0, 'auto' and '*'.
+   * Possible values are: segment values between 1 and 12, 'auto' and '*'.
    */
   @TagAttribute
   void setSmall(final ValueExpression small);
 
   /**
    * Overwrite the default layout for medium devices.
-   * Possible values are: integer value &gt; 0, 'auto' and '*'.
+   * Possible values are: segment values between 1 and 12, 'auto' and '*'.
    */
   @TagAttribute
   void setMedium(final ValueExpression medium);
 
   /**
    * Overwrite the default layout for large devices.
-   * Possible values are: integer value &gt; 0, 'auto' and '*'.
+   * Possible values are: segment values between 1 and 12, 'auto' and '*'.
    */
   @TagAttribute
   void setLarge(final ValueExpression large);
 
   /**
    * Overwrite the default layout for extra large devices.
-   * Possible values are: integer value &gt; 0, 'auto' or '*'.
+   * Possible values are: segment values between 1 and 12, 'auto' and '*'.
    */
   @TagAttribute
   void setExtraLarge(final ValueExpression extraLarge);

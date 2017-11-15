@@ -33,8 +33,8 @@
     <p>This example show a segment layout with four and three columns and a segment layout with 'auto' and '*'.</p>
     <tc:section label="4 Columns">
       <p>The sum of the values is 12.</p>
-      <pre><code class="language-markup">&lt;tc:segmentLayout extraSmall="2;3;4;3"></code></pre>
-      <tc:segmentLayout extraSmall="2;3;4;3">
+      <pre><code class="language-markup">&lt;tc:segmentLayout extraSmall="2seg 3seg 4seg 3seg"></code></pre>
+      <tc:segmentLayout extraSmall="2seg 3seg 4seg 3seg">
         <tc:in value="2"/>
         <tc:in value="3"/>
         <tc:in value="4"/>
@@ -48,8 +48,8 @@
     <tc:section label="5 Columns">
       <p>The sum of the values is 8. After the third element, the sequence starts from the beginning.
         So the fourth element got a value of 2.</p>
-      <pre><code class="language-markup">&lt;tc:segmentLayout extraSmall="2;2;4"></code></pre>
-      <tc:segmentLayout extraSmall="2;2;4">
+      <pre><code class="language-markup">&lt;tc:segmentLayout extraSmall="2seg 2seg 4seg"></code></pre>
+      <tc:segmentLayout extraSmall="2seg 2seg 4seg">
         <tc:in value="2"/>
         <tc:in value="2"/>
         <tc:in value="4"/>
@@ -59,8 +59,8 @@
       </tc:segmentLayout>
     </tc:section>
     <tc:section label="'auto' and '*'">
-      <pre><code class="language-markup">&lt;tc:segmentLayout extraSmall="*;auto;*"></code></pre>
-      <tc:segmentLayout extraSmall="*;auto;*">
+      <pre><code class="language-markup">&lt;tc:segmentLayout extraSmall="* auto *"></code></pre>
+      <tc:segmentLayout extraSmall="* auto *">
         <tc:panel>
           <tc:style customClass="blue"/>
           <p>the remaining space</p>
@@ -85,11 +85,11 @@
       <code>small</code> and <code>extraSmall</code>.</p>
     <p>In the following example, all attributes are used. If you are on a desktop you can see the different
       behavior by changing the size of the browser window.</p>
-    <pre><code class="language-markup">&lt;tc:segmentLayout extraLarge="1" large="2"
-      medium="3" small="4" extraSmall="6">
+    <pre><code class="language-markup">&lt;tc:segmentLayout extraLarge="1seg" large="2seg"
+      medium="3seg" small="4seg" extraSmall="6seg">
     ...</code></pre>
 
-    <tc:segmentLayout extraLarge="1" large="2" medium="3" small="4" extraSmall="6">
+    <tc:segmentLayout extraLarge="1seg" large="2seg" medium="3seg" small="4seg" extraSmall="6seg">
       <tc:in value="1"/>
       <tc:in value="2"/>
       <tc:in value="3"/>
@@ -111,10 +111,10 @@
       <code>marginExtraLarge</code>.</p>
     <p>Possible values are <code>none</code>, <code>left</code>, <code>right</code> and <code>both</code>.</p>
 
-    <pre><code class="language-markup">&lt;tc:segmentLayout extraSmall="5;3"
-      marginExtraSmall="none;both;left;both">
+    <pre><code class="language-markup">&lt;tc:segmentLayout extraSmall="5seg 3seg"
+      marginExtraSmall="none both left both">
     ...</code></pre>
-    <tc:segmentLayout extraSmall="5;3" marginExtraSmall="none;both;left;both">
+    <tc:segmentLayout extraSmall="5seg 3seg" marginExtraSmall="none both left both">
       <tc:in value="none"/>
       <tc:in value="both"/>
       <tc:in value="none"/>
@@ -132,7 +132,7 @@
     <p>Possible values are from 1 to 11 for <code>offsetExtraSmall</code>.<br/>
       For the other attributes possible values are from 0 to 11.<br/>
       A <code>offsetMedium="0"</code> overwrite the offset from smaller proportions.</p>
-    <pre><code class="language-markup">&lt;tc:segmentLayout extraSmall="2;2;2;2;2;2">
+    <pre><code class="language-markup">&lt;tc:segmentLayout extraSmall="2seg 2seg 2seg 2seg 2seg 2seg">
   &lt;tc:in value="1"/>
   &lt;tc:in value="2">
     &lt;tc:segmentLayoutConstraint offsetExtraSmall="1" offsetSmall="2"
@@ -140,7 +140,7 @@
   &lt;/tc:in>
   ...
 &lt;/tc:segmentLayout></code></pre>
-    <tc:segmentLayout extraSmall="2;2;2;2;2;2">
+    <tc:segmentLayout extraSmall="2seg 2seg 2seg 2seg 2seg 2seg">
       <tc:in value="1"/>
       <tc:in value="2">
         <tc:segmentLayoutConstraint offsetExtraSmall="1" offsetSmall="2" offsetMedium="3" offsetLarge="4"
@@ -166,7 +166,7 @@
       <code>extraLarge</code> for the layout.<br/>
       And: <code>marginExtraSmall</code>, <code>marginSmall</code>, <code>marginMedium</code>, <code>marginLarge</code>,
       <code>marginExtraLarge</code> for the margins.</p>
-    <pre><code class="language-markup">&lt;tc:segmentLayout extraSmall="4;8">
+    <pre><code class="language-markup">&lt;tc:segmentLayout extraSmall="4seg 8seg">
   &lt;tc:in value="4"/>
   &lt;tc:in value="8"/>
   &lt;tc:in value="3 - both">
@@ -174,7 +174,7 @@
   &lt;/tc:in>
   &lt;tc:in value="8"/>
 &lt;/tc:segmentLayout></code></pre>
-    <tc:segmentLayout extraSmall="4;8">
+    <tc:segmentLayout extraSmall="4seg 8seg">
       <tc:in value="4"/>
       <tc:in value="8"/>
       <tc:in value="3 - both">
