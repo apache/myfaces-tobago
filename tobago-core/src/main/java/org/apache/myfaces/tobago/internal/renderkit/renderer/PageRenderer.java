@@ -147,7 +147,6 @@ public class PageRenderer extends RendererBase {
     } else {
       partialAction = null;
     }
-    final boolean ajax = facesContext.getPartialViewContext().isAjaxRequest();
 
     final String contentType = writer.getContentTypeWithCharSet();
     ResponseUtils.ensureContentTypeHeader(facesContext, contentType);
@@ -164,95 +163,95 @@ public class PageRenderer extends RendererBase {
     final boolean productionMode = facesContext.isProjectStage(ProjectStage.Production);
     final Markup markup = page.getMarkup();
     final TobagoClass spread = markup != null && markup.contains(Markup.SPREAD) ? TobagoClass.SPREAD : null;
-    final boolean renderAll = facesContext.getPartialViewContext().isRenderAll();
+    final String title = page.getLabel();
 
-    if (renderAll || !ajax) {
-      final String title = page.getLabel();
-
-      if (!portlet) {
-        writer.startElement(HtmlElements.HTML);
-        final Locale locale = viewRoot.getLocale();
-        if (locale != null) {
-          final String language = locale.getLanguage();
-          if (language != null) {
-            writer.writeAttribute(HtmlAttributes.LANG, language, false);
-          }
+    if (!portlet) {
+      writer.startElement(HtmlElements.HTML);
+      final Locale locale = viewRoot.getLocale();
+      if (locale != null) {
+        final String language = locale.getLanguage();
+        if (language != null) {
+          writer.writeAttribute(HtmlAttributes.LANG, language, false);
         }
       }
-      writer.writeClassAttribute(spread);
+    }
+    writer.writeClassAttribute(spread);
 
-      writer.startElement(HtmlElements.HEAD);
+    writer.startElement(HtmlElements.HEAD);
 
-      final HeadResources headResources = new HeadResources(
-          facesContext, viewRoot.getComponentResources(facesContext, HEAD_TARGET), writer.getCharacterEncoding());
+    final HeadResources headResources = new HeadResources(
+        facesContext, viewRoot.getComponentResources(facesContext, HEAD_TARGET), writer.getCharacterEncoding());
 
-      // meta tags
-      for (UIComponent metas : headResources.getMetas()) {
-        metas.encodeAll(facesContext);
-      }
-
-      // title
-      writer.startElement(HtmlElements.TITLE);
-      writer.writeText(title != null ? title : "");
-      writer.endElement(HtmlElements.TITLE);
-
-      // style files from theme
-      UIStyle style = null;
-      for (final String styleFile : theme.getStyleResources(productionMode)) {
-        if (style == null) {
-          style = (UIStyle) facesContext.getApplication()
-             .createComponent(facesContext, UIStyle.COMPONENT_TYPE, RendererTypes.Style.name());
-          style.setTransient(true);
-        }
-        style.setFile(contextPath + styleFile);
-        style.encodeAll(facesContext);
-      }
-
-      // style files individual files
-      for (UIComponent styles : headResources.getStyles()) {
-        styles.encodeAll(facesContext);
-      }
-
-      final String icon = page.getApplicationIcon();
-      if (icon != null) {
-        writer.startElement(HtmlElements.LINK);
-        if (icon.endsWith(".ico")) {
-          writer.writeAttribute(HtmlAttributes.REL, "shortcut icon", false);
-          writer.writeAttribute(HtmlAttributes.HREF, icon, true);
-        } else {
-          // XXX IE only supports ICO files for favicons
-          writer.writeAttribute(HtmlAttributes.REL, "icon", false);
-          writer.writeAttribute(HtmlAttributes.TYPE, MimeTypeUtils.getMimeTypeForFile(icon), true);
-          writer.writeAttribute(HtmlAttributes.HREF, icon, true);
-        }
-        writer.endElement(HtmlElements.LINK);
-      }
-
-      // script files from theme
-      UIScript script = null;
-      for (final String scriptFile : theme.getScriptResources(productionMode)) {
-        if (script == null) {
-          script = (UIScript) facesContext.getApplication()
-              .createComponent(facesContext, UIScript.COMPONENT_TYPE, RendererTypes.Script.name());
-          script.setTransient(true);
-        }
-        script.setFile(contextPath + scriptFile);
-        script.encodeAll(facesContext);
-      }
-
-      // script files individual files
-      for (UIComponent scripts : headResources.getScripts()) {
-        scripts.encodeAll(facesContext);
-      }
-
-      for (UIComponent misc : headResources.getMisc()) {
-        misc.encodeAll(facesContext);
-      }
-
-      writer.endElement(HtmlElements.HEAD);
+    // meta tags
+    for (UIComponent metas : headResources.getMetas()) {
+      metas.encodeAll(facesContext);
     }
 
-    writer.startElement(portlet ? HtmlElements.DIV : HtmlElements.BODY);
+    // title
+    writer.startElement(HtmlElements.TITLE);
+    writer.writeText(title != null ? title : "");
+    writer.endElement(HtmlElements.TITLE);
+
+    // style files from theme
+    UIStyle style = null;
+    for (final String styleFile : theme.getStyleResources(productionMode)) {
+      if (style == null) {
+        style = (UIStyle) facesContext.getApplication()
+           .createComponent(facesContext, UIStyle.COMPONENT_TYPE, RendererTypes.Style.name());
+        style.setTransient(true);
+      }
+      style.setFile(contextPath + styleFile);
+      style.encodeAll(facesContext);
+    }
+
+    // style files individual files
+    for (UIComponent styles : headResources.getStyles()) {
+      styles.encodeAll(facesContext);
+    }
+
+    final String icon = page.getApplicationIcon();
+    if (icon != null) {
+      writer.startElement(HtmlElements.LINK);
+      if (icon.endsWith(".ico")) {
+        writer.writeAttribute(HtmlAttributes.REL, "shortcut icon", false);
+        writer.writeAttribute(HtmlAttributes.HREF, icon, true);
+      } else {
+        // XXX IE only supports ICO files for favicons
+        writer.writeAttribute(HtmlAttributes.REL, "icon", false);
+        writer.writeAttribute(HtmlAttributes.TYPE, MimeTypeUtils.getMimeTypeForFile(icon), true);
+        writer.writeAttribute(HtmlAttributes.HREF, icon, true);
+      }
+      writer.endElement(HtmlElements.LINK);
+    }
+
+    // script files from theme
+    UIScript script = null;
+    for (final String scriptFile : theme.getScriptResources(productionMode)) {
+      if (script == null) {
+        script = (UIScript) facesContext.getApplication()
+            .createComponent(facesContext, UIScript.COMPONENT_TYPE, RendererTypes.Script.name());
+        script.setTransient(true);
+      }
+      script.setFile(contextPath + scriptFile);
+      script.encodeAll(facesContext);
+    }
+
+    // script files individual files
+    for (UIComponent scripts : headResources.getScripts()) {
+      scripts.encodeAll(facesContext);
+    }
+
+    for (UIComponent misc : headResources.getMisc()) {
+      misc.encodeAll(facesContext);
+    }
+
+    writer.endElement(HtmlElements.HEAD);
+
+    if (!portlet) {
+      writer.startElement(HtmlElements.BODY);
+    }
+
+    writer.startElement(HtmlElements.DIV);
 
     writer.writeClassAttribute(
         TobagoClass.PAGE,
@@ -326,16 +325,6 @@ public class PageRenderer extends RendererBase {
     }
 */
 
-  private void checkDuplicates(final String[] resources, final Collection<String> files) {
-    for (final String resource : resources) {
-      if (files.contains(resource)) {
-        throw new RuntimeException("The resource '" + resource + "' will be included twice! "
-            + "The resource is in the theme list, and explicit in the page. "
-            + "Please remove it from the page!");
-      }
-    }
-  }
-
   @Override
   public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
 
@@ -369,10 +358,9 @@ public class PageRenderer extends RendererBase {
     writer.writeText(TobagoResourceBundle.getString(facesContext, "pageNoscript"));
     writer.endElement(HtmlElements.DIV);
     writer.endElement(HtmlElements.NOSCRIPT);
+    writer.endElement(HtmlElements.DIV);
 
-    if (portlet) {
-      writer.endElement(HtmlElements.DIV);
-    } else {
+    if (!portlet) {
       writer.endElement(HtmlElements.BODY);
       writer.endElement(HtmlElements.HTML);
     }

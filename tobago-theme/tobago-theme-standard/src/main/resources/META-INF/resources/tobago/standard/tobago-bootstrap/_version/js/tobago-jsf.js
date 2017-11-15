@@ -7660,7 +7660,18 @@ _MF_SINGLTN(_PFX_XHR + "_AjaxResponse", _MF_OBJECT, /** @lends myfaces._impl.xhr
                     break;
 
                 default:
+// begin TOBAGO-JSF-JS
+// XXX hack
+                if (node.getAttribute('id') === document.getElementsByClassName("tobago-page")[0].getAttribute('id')) {
+                    newDoc = document.open("text/html", "replace");
+                    newDoc.write(cDataBlock);
+                    newDoc.close();
+                    resultNode = document.documentElement;
+                } else {
                     resultNode = this.replaceHtmlItem(request, context, node.getAttribute('id'), cDataBlock);
+                }
+
+// end TOBAGO-JSF-JS
                     if (resultNode) {
                         pushOpRes(context, resultNode);
                     }
