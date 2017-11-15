@@ -1,4 +1,4 @@
-Build date: 2017-11-10 10:56:26
+Build date: 2017-11-15 14:52:31
 [INFO] Scanning for projects...
 [INFO] 
 [INFO] ------------------------------------------------------------------------
@@ -9,18 +9,8 @@ Build date: 2017-11-10 10:56:26
 [INFO] 
 [INFO] --- maven-remote-resources-plugin:1.5:process (default) @ tobago-theme-speyside ---
 [INFO] 
-[INFO] --- maven-scm-plugin:1.9.5:checkout (step #1: checkout-bootstrap) @ tobago-theme-speyside ---
-[INFO] Removing __CURRENT__/tobago-theme-speyside/target/checkout
-[INFO] Executing: /bin/sh -c cd __CURRENT__/tobago-theme-speyside/target && git clone --branch v4.0.0-beta.2 https://github.com/twbs/bootstrap __CURRENT__/tobago-theme-speyside/target/checkout
-[INFO] Working directory: __CURRENT__/tobago-theme-speyside/target
-[INFO] Executing: /bin/sh -c cd /var/folders/yp/1vrxjnrs20798ydt_yl8wrpr0000gp/T/ && git ls-remote https://github.com/twbs/bootstrap
-[INFO] Working directory: /var/folders/yp/1vrxjnrs20798ydt_yl8wrpr0000gp/T
-[INFO] Executing: /bin/sh -c cd __CURRENT__/tobago-theme-speyside/target/checkout && git pull https://github.com/twbs/bootstrap v4.0.0-beta.2:v4.0.0-beta.2
-[INFO] Working directory: __CURRENT__/tobago-theme-speyside/target/checkout
-[INFO] Executing: /bin/sh -c cd __CURRENT__/tobago-theme-speyside/target/checkout && git checkout v4.0.0-beta.2
-[INFO] Working directory: __CURRENT__/tobago-theme-speyside/target/checkout
-[INFO] Executing: /bin/sh -c cd __CURRENT__/tobago-theme-speyside/target/checkout && git ls-files
-[INFO] Working directory: __CURRENT__/tobago-theme-speyside/target/checkout
+[INFO] --- download-maven-plugin:1.4.0:wget (step #1: download-bootstrap) @ tobago-theme-speyside ---
+[INFO] Got from cache: __REPO__/.cache/download-maven-plugin/v4.0.0-beta.2.zip_d5ec29f0dc587145274c81abc6564aed
 [INFO] 
 [INFO] --- maven-resources-plugin:2.7:copy-resources (step #2: copy-bootstrap) @ tobago-theme-speyside ---
 [INFO] Using 'UTF-8' encoding to copy filtered resources.
@@ -51,29 +41,29 @@ Build date: 2017-11-10 10:56:26
 [WARNING] npm WARN deprecated qunitjs@2.4.1: 2.4.1 is the last version where QUnit will be published as 'qunitjs'. To receive future updates, you will need to change the package name to 'qunit'.
 [WARNING] npm WARN prefer global node-gyp@3.6.2 should be installed with -g
 [INFO] 
-[INFO] > fsevents@1.1.2 install __CURRENT__/tobago-theme-speyside/target/bootstrap/node_modules/fsevents
+[INFO] > fsevents@1.1.3 install __CURRENT__/tobago-theme-speyside/target/bootstrap/node_modules/fsevents
 [INFO] > node install
 [INFO] 
 [INFO] [fsevents] Success: "__CURRENT__/tobago-theme-speyside/target/bootstrap/node_modules/fsevents/lib/binding/Release/node-v51-darwin-x64/fse.node" is installed via remote
 [INFO] 
-[INFO] > node-sass@4.6.0 install __CURRENT__/tobago-theme-speyside/target/bootstrap/node_modules/node-sass
+[INFO] > node-sass@4.6.1 install __CURRENT__/tobago-theme-speyside/target/bootstrap/node_modules/node-sass
 [INFO] > node scripts/install.js
 [INFO] 
-[INFO] Cached binary found at __HOME__/.npm/node-sass/4.6.0/darwin-x64-51_binding.node
+[INFO] Cached binary found at __HOME__/.npm/node-sass/4.6.1/darwin-x64-51_binding.node
 [INFO] 
 [INFO] > phantomjs-prebuilt@2.1.16 install __CURRENT__/tobago-theme-speyside/target/bootstrap/node_modules/phantomjs-prebuilt
 [INFO] > node install.js
 [INFO] 
 [INFO] PhantomJS not found on PATH
-[INFO] Download already available at /var/folders/yp/1vrxjnrs20798ydt_yl8wrpr0000gp/T/phantomjs/phantomjs-2.1.1-macosx.zip
+[INFO] Download already available at /var/folders/w0/pg4pxr7972l6bq85x08s5cl00000gn/T/phantomjs/phantomjs-2.1.1-macosx.zip
 [INFO] Verified checksum of previously downloaded file
 [INFO] Extracting zip contents
 [INFO] Removing __CURRENT__/tobago-theme-speyside/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom
-[INFO] Copying extracted folder /var/folders/yp/1vrxjnrs20798ydt_yl8wrpr0000gp/T/phantomjs/phantomjs-2.1.1-macosx.zip-extract-1510307894071/phantomjs-2.1.1-macosx -> __CURRENT__/tobago-theme-speyside/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom
+[INFO] Copying extracted folder /var/folders/w0/pg4pxr7972l6bq85x08s5cl00000gn/T/phantomjs/phantomjs-2.1.1-macosx.zip-extract-1510753989616/phantomjs-2.1.1-macosx -> __CURRENT__/tobago-theme-speyside/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom
 [INFO] Writing location.js file
 [INFO] Done. Phantomjs binary available at __CURRENT__/tobago-theme-speyside/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom/bin/phantomjs
 [INFO] 
-[INFO] > node-sass@4.6.0 postinstall __CURRENT__/tobago-theme-speyside/target/bootstrap/node_modules/node-sass
+[INFO] > node-sass@4.6.1 postinstall __CURRENT__/tobago-theme-speyside/target/bootstrap/node_modules/node-sass
 [INFO] > node scripts/build.js
 [INFO] 
 [INFO] Binary found at __CURRENT__/tobago-theme-speyside/target/bootstrap/node_modules/node-sass/vendor/darwin-x64-51/binding.node
@@ -81,9 +71,9 @@ Build date: 2017-11-10 10:56:26
 [INFO] Binary is fine
 [INFO] bootstrap@4.0.0-beta.2 __CURRENT__/tobago-theme-speyside/target/bootstrap
 [INFO] ├─┬ autoprefixer@7.1.6 
-[INFO] │ ├─┬ browserslist@2.8.0 
+[INFO] │ ├─┬ browserslist@2.9.0 
 [INFO] │ │ └── electron-to-chromium@1.3.27 
-[INFO] │ ├── caniuse-lite@1.0.30000760 
+[INFO] │ ├── caniuse-lite@1.0.30000764 
 [INFO] │ ├── normalize-range@0.1.2 
 [INFO] │ ├── num2fraction@1.2.2 
 [INFO] │ ├─┬ postcss@6.0.14 
@@ -114,15 +104,21 @@ Build date: 2017-11-10 10:56:26
 [INFO] │ │ │ ├── make-dir@1.1.0 
 [INFO] │ │ │ └── pkg-dir@2.0.0 
 [INFO] │ │ ├── home-or-tmp@3.0.0 
-[INFO] │ │ ├─┬ pirates@3.0.1 
+[INFO] │ │ ├─┬ pirates@3.0.2 
 [INFO] │ │ │ └── node-modules-regexp@1.0.0 
 [INFO] │ │ └─┬ source-map-support@0.4.18 
 [INFO] │ │   └── source-map@0.5.7 
 [INFO] │ ├─┬ chokidar@1.7.0 
 [INFO] │ │ ├── anymatch@1.3.2 
 [INFO] │ │ ├── async-each@1.0.1 
-[INFO] │ │ ├─┬ fsevents@1.1.2 
-[INFO] │ │ │ └─┬ node-pre-gyp@0.6.36 
+[INFO] │ │ ├─┬ fsevents@1.1.3 
+[INFO] │ │ │ └─┬ node-pre-gyp@0.6.39 
+[INFO] │ │ │   ├── detect-libc@1.0.2 
+[INFO] │ │ │   ├─┬ hawk@3.1.3 
+[INFO] │ │ │   │ ├── boom@2.10.1 
+[INFO] │ │ │   │ ├── cryptiles@2.0.5 
+[INFO] │ │ │   │ ├── hoek@2.16.3 
+[INFO] │ │ │   │ └── sntp@1.0.9 
 [INFO] │ │ │   ├─┬ mkdirp@0.5.1 
 [INFO] │ │ │   │ └── minimist@0.0.8 
 [INFO] │ │ │   ├─┬ nopt@4.0.1 
@@ -147,6 +143,7 @@ Build date: 2017-11-10 10:56:26
 [INFO] │ │ │   │ │ │ └── ansi-regex@2.1.1 
 [INFO] │ │ │   │ │ └── wide-align@1.1.2 
 [INFO] │ │ │   │ └── set-blocking@2.0.0 
+[WARNING] npm WARN bootstrap@4.0.0-beta.2 requires a peer of jquery@1.9.1 - 3 but none was installed.
 [INFO] │ │ │   ├─┬ rc@1.2.1 
 [INFO] │ │ │   │ ├── deep-extend@0.4.2 
 [INFO] │ │ │   │ ├── ini@1.3.4 
@@ -168,11 +165,6 @@ Build date: 2017-11-10 10:56:26
 [INFO] │ │ │   │ │ │ └─┬ json-stable-stringify@1.0.1 
 [INFO] │ │ │   │ │ │   └── jsonify@0.0.0 
 [INFO] │ │ │   │ │ └── har-schema@1.0.5 
-[INFO] │ │ │   │ ├─┬ hawk@3.1.3 
-[INFO] │ │ │   │ │ ├── boom@2.10.1 
-[INFO] │ │ │   │ │ ├── cryptiles@2.0.5 
-[INFO] │ │ │   │ │ ├── hoek@2.16.3 
-[INFO] │ │ │   │ │ └── sntp@1.0.9 
 [INFO] │ │ │   │ ├─┬ http-signature@1.1.1 
 [INFO] │ │ │   │ │ ├── assert-plus@0.2.0 
 [INFO] │ │ │   │ │ ├─┬ jsprim@1.4.0 
@@ -245,7 +237,7 @@ Build date: 2017-11-10 10:56:26
 [INFO] │ │   └── set-immediate-shim@1.0.1 
 [INFO] │ ├── commander@2.11.0 
 [INFO] │ ├── convert-source-map@1.5.0 
-[INFO] │ ├── fs-readdir-recursive@1.0.0 
+[INFO] │ ├── fs-readdir-recursive@1.1.0 
 [INFO] │ ├─┬ glob@7.1.2 
 [INFO] │ │ ├── fs.realpath@1.0.0 
 [INFO] │ │ ├─┬ inflight@1.0.6 
@@ -258,18 +250,18 @@ Build date: 2017-11-10 10:56:26
 [INFO] │ ├── slash@1.0.0 
 [INFO] │ └── source-map@0.5.7 
 [INFO] ├─┬ babel-eslint@8.0.2 
-[INFO] │ ├─┬ @babel/code-frame@7.0.0-beta.31 
+[INFO] │ ├─┬ @babel/code-frame@7.0.0-beta.32 
 [INFO] │ │ └── js-tokens@3.0.2 
-[INFO] │ ├─┬ @babel/traverse@7.0.0-beta.31 
-[INFO] │ │ ├─┬ @babel/helper-function-name@7.0.0-beta.31 
-[INFO] │ │ │ ├── @babel/helper-get-function-arity@7.0.0-beta.31 
-[INFO] │ │ │ └─┬ @babel/template@7.0.0-beta.31 
-[INFO] │ │ │   └── babylon@7.0.0-beta.31 
-[INFO] │ │ ├── babylon@7.0.0-beta.31 
+[INFO] │ ├─┬ @babel/traverse@7.0.0-beta.32 
+[INFO] │ │ ├─┬ @babel/helper-function-name@7.0.0-beta.32 
+[INFO] │ │ │ ├── @babel/helper-get-function-arity@7.0.0-beta.32 
+[INFO] │ │ │ └─┬ @babel/template@7.0.0-beta.32 
+[INFO] │ │ │   └── babylon@7.0.0-beta.32 
+[INFO] │ │ ├── babylon@7.0.0-beta.32 
 [INFO] │ │ └── globals@10.3.0 
-[INFO] │ ├─┬ @babel/types@7.0.0-beta.31 
+[INFO] │ ├─┬ @babel/types@7.0.0-beta.32 
 [INFO] │ │ └── to-fast-properties@2.0.0 
-[INFO] │ └── babylon@7.0.0-beta.31 
+[INFO] │ └── babylon@7.0.0-beta.32 
 [INFO] ├── babel-plugin-external-helpers@7.0.0-beta.2 
 [INFO] ├── babel-plugin-transform-es2015-modules-strip@0.1.1 
 [INFO] ├─┬ babel-preset-env@2.0.0-beta.2 
@@ -353,7 +345,7 @@ Build date: 2017-11-10 10:56:26
 [INFO] │ │ │ └── debug@2.6.9 
 [INFO] │ │ └── is-buffer@1.1.6 
 [INFO] │ ├── bytes@3.0.0 
-[INFO] │ ├── ci-env@1.5.1 
+[INFO] │ ├── ci-env@1.5.2 
 [INFO] │ ├─┬ github-build@1.2.0 
 [INFO] │ │ └─┬ axios@0.15.3 
 [INFO] │ │   └─┬ follow-redirects@1.0.0 
@@ -394,7 +386,7 @@ Build date: 2017-11-10 10:56:26
 [INFO] │ │ └─┬ shebang-command@1.2.0 
 [INFO] │ │   └── shebang-regex@1.0.0 
 [INFO] │ └── is-windows@1.0.1 
-[INFO] ├─┬ eslint@4.10.0 
+[INFO] ├─┬ eslint@4.11.0 
 [INFO] │ ├─┬ ajv@5.3.0 
 [INFO] │ │ ├── co@4.6.0 
 [INFO] │ │ ├── fast-deep-equal@1.0.0 
@@ -420,7 +412,7 @@ Build date: 2017-11-10 10:56:26
 [INFO] │ │ └── isarray@1.0.0 
 [INFO] │ ├─┬ eslint-scope@3.7.1 
 [INFO] │ │ └── esrecurse@4.2.0 
-[INFO] │ ├─┬ espree@3.5.1 
+[INFO] │ ├─┬ espree@3.5.2 
 [INFO] │ │ ├── acorn@5.2.1 
 [INFO] │ │ └─┬ acorn-jsx@3.0.1 
 [INFO] │ │   └── acorn@3.3.0 
@@ -470,8 +462,7 @@ Build date: 2017-11-10 10:56:26
 [INFO] │ │ ├─┬ argparse@1.0.9 
 [INFO] │ │ │ └── sprintf-js@1.0.3 
 [INFO] │ │ └── esprima@4.0.0 
-[INFO] │ ├─┬ json-stable-stringify@1.0.1 
-[INFO] │ │ └── jsonify@0.0.0 
+[INFO] │ ├── json-stable-stringify-without-jsonify@1.0.1 
 [INFO] │ ├─┬ levn@0.3.0 
 [INFO] │ │ ├── prelude-ls@1.1.2 
 [INFO] │ │ └── type-check@0.3.2 
@@ -501,7 +492,7 @@ Build date: 2017-11-10 10:56:26
 [INFO] │ └── text-table@0.2.0 
 [INFO] ├─┬ eslint-plugin-compat@2.1.0 
 [INFO] │ ├── babel-runtime@6.26.0 
-[INFO] │ ├── caniuse-db@1.0.30000760 
+[INFO] │ ├── caniuse-db@1.0.30000764 
 [INFO] │ └── requireindex@1.1.0 
 [INFO] ├─┬ htmllint-cli@0.0.6 
 [INFO] │ ├── bluebird@3.5.1 
@@ -591,7 +582,7 @@ Build date: 2017-11-10 10:56:26
 [INFO] │   │ ├── ansi-styles@2.2.1 
 [INFO] │   │ └── supports-color@2.0.0 
 [INFO] │   └── split@1.0.1 
-[INFO] ├─┬ node-sass@4.6.0 
+[INFO] ├─┬ node-sass@4.6.1 
 [INFO] │ ├── async-foreach@0.1.3 
 [INFO] │ ├─┬ chalk@1.1.3 
 [INFO] │ │ ├── ansi-styles@2.2.1 
@@ -634,7 +625,7 @@ Build date: 2017-11-10 10:56:26
 [INFO] │ │ │ │   └── is-finite@1.0.2 
 [INFO] │ │ │ └── strip-indent@1.0.1 
 [INFO] │ │ └── trim-newlines@1.0.0 
-[INFO] │ ├── nan@2.7.0 
+[INFO] │ ├── nan@2.8.0 
 [INFO] │ ├─┬ node-gyp@3.6.2 
 [INFO] │ │ ├── fstream@1.0.11 
 [INFO] │ │ ├─┬ nopt@3.0.6 
@@ -802,7 +793,8 @@ Build date: 2017-11-10 10:56:26
 [INFO] │ ├─┬ shell-quote@1.6.1 
 [INFO] │ │ ├── array-filter@0.0.1 
 [INFO] │ │ ├── array-map@0.0.0 
-[INFO] │ │ └── array-reduce@0.0.0 
+[INFO] │ │ ├── array-reduce@0.0.0 
+[INFO] │ │ └── jsonify@0.0.0 
 [INFO] │ └─┬ string.prototype.padend@3.0.0 
 [INFO] │   ├─┬ define-properties@1.1.2 
 [INFO] │   │ ├── foreach@2.0.5 
@@ -836,7 +828,7 @@ Build date: 2017-11-10 10:56:26
 [INFO] │ │ └── throttleit@1.0.0 
 [INFO] │ └─┬ which@1.3.0 
 [INFO] │   └── isexe@2.0.0 
-[INFO] ├── popper.js@1.12.6 
+[INFO] ├── popper.js@1.12.9 
 [INFO] ├─┬ postcss-cli@4.1.1 
 [INFO] │ ├── dependency-graph@0.5.2 
 [INFO] │ ├─┬ fs-extra@4.0.2 
@@ -975,7 +967,7 @@ Build date: 2017-11-10 10:56:26
 [INFO] │ │     └── is-primitive@2.0.0 
 [INFO] │ ├── normalize-selector@0.2.0 
 [INFO] │ ├── pify@3.0.0 
-[INFO] │ ├─┬ postcss-less@1.1.2 
+[INFO] │ ├─┬ postcss-less@1.1.3 
 [INFO] │ │ └─┬ postcss@5.2.18 
 [INFO] │ │   ├─┬ chalk@1.1.3 
 [INFO] │ │   │ ├── ansi-styles@2.2.1 
@@ -1006,7 +998,7 @@ Build date: 2017-11-10 10:56:26
 [INFO] ├─┬ stylelint-order@0.7.0 
 [INFO] │ └── postcss-sorting@3.1.0 
 [INFO] ├── stylelint-scss@2.1.0 
-[INFO] ├─┬ uglify-js@3.1.8 
+[INFO] ├─┬ uglify-js@3.1.9 
 [INFO] │ └── source-map@0.6.1 
 [INFO] ├── vnu-jar@17.11.1 
 [INFO] └─┬ workbox-build@2.1.1 
@@ -1020,7 +1012,6 @@ Build date: 2017-11-10 10:56:26
 [INFO]   │ └── lodash.templatesettings@4.1.0 
 [INFO]   └── workbox-sw@2.1.1 
 [INFO] 
-[WARNING] npm WARN bootstrap@4.0.0-beta.2 requires a peer of jquery@1.9.1 - 3 but none was installed.
 [INFO] 
 [INFO] --- frontend-maven-plugin:1.4:npm (step #8: npm run css-compile) @ tobago-theme-speyside ---
 [INFO] Running 'npm run css-compile' in __CURRENT__/tobago-theme-speyside/target/bootstrap
@@ -1035,8 +1026,8 @@ Build date: 2017-11-10 10:56:26
 [ERROR] Wrote Source Map to __CURRENT__/tobago-theme-speyside/target/bootstrap/dist/css/bootstrap-grid.css.map
 [ERROR] Wrote CSS to __CURRENT__/tobago-theme-speyside/target/bootstrap/dist/css/bootstrap-grid.css
 [ERROR] Rendering Complete, saving .css file...
-[ERROR] Wrote Source Map to __CURRENT__/tobago-theme-speyside/target/bootstrap/dist/css/bootstrap-reboot.css.map
 [ERROR] Wrote CSS to __CURRENT__/tobago-theme-speyside/target/bootstrap/dist/css/bootstrap-reboot.css
+[ERROR] Wrote Source Map to __CURRENT__/tobago-theme-speyside/target/bootstrap/dist/css/bootstrap-reboot.css.map
 [INFO] 
 [INFO] --- frontend-maven-plugin:1.4:npm (step #9: npm run css-prefix) @ tobago-theme-speyside ---
 [INFO] Running 'npm run css-prefix' in __CURRENT__/tobago-theme-speyside/target/bootstrap
@@ -1044,12 +1035,12 @@ Build date: 2017-11-10 10:56:26
 [INFO] > bootstrap@4.0.0-beta.2 css-prefix __CURRENT__/tobago-theme-speyside/target/bootstrap
 [INFO] > postcss --config build/postcss.config.js --replace "dist/css/*.css"
 [INFO] 
-[ERROR] ✔ Finished dist/css/bootstrap-grid.min.css (1.31 s)
-[ERROR] ✔ Finished dist/css/bootstrap-reboot.min.css (1.31 s)
-[ERROR] ✔ Finished dist/css/bootstrap-grid.css (1.31 s)
-[ERROR] ✔ Finished dist/css/bootstrap-reboot.css (1.31 s)
-[ERROR] ✔ Finished dist/css/bootstrap.min.css (1.31 s)
-[ERROR] ✔ Finished dist/css/bootstrap.css (1.31 s)
+[ERROR] ✔ Finished dist/css/bootstrap-reboot.min.css (1.13 s)
+[ERROR] ✔ Finished dist/css/bootstrap-reboot.css (1.14 s)
+[ERROR] ✔ Finished dist/css/bootstrap-grid.css (1.14 s)
+[ERROR] ✔ Finished dist/css/bootstrap.css (1.14 s)
+[ERROR] ✔ Finished dist/css/bootstrap-grid.min.css (1.14 s)
+[ERROR] ✔ Finished dist/css/bootstrap.min.css (1.14 s)
 [INFO] 
 [INFO] --- frontend-maven-plugin:1.4:npm (step #10: npm run css-minify) @ tobago-theme-speyside ---
 [INFO] Running 'npm run css-minify' in __CURRENT__/tobago-theme-speyside/target/bootstrap
@@ -1077,16 +1068,16 @@ Build date: 2017-11-10 10:56:26
 [INFO] > npm-run-all --parallel js-compile-*
 [INFO] 
 [INFO] 
-[INFO] > bootstrap@4.0.0-beta.2 js-compile-bundle __CURRENT__/tobago-theme-speyside/target/bootstrap
-[INFO] > cross-env ROLLUP=true rollup --environment BUNDLE:true --config build/rollup.config.js --sourcemap
-[INFO] 
-[INFO] 
 [INFO] > bootstrap@4.0.0-beta.2 js-compile-standalone __CURRENT__/tobago-theme-speyside/target/bootstrap
 [INFO] > cross-env ROLLUP=true rollup --environment BUNDLE:false --config build/rollup.config.js --sourcemap
 [INFO] 
 [INFO] 
 [INFO] > bootstrap@4.0.0-beta.2 js-compile-plugins __CURRENT__/tobago-theme-speyside/target/bootstrap
 [INFO] > cross-env PLUGINS=true babel js/src/ --out-dir js/dist/ --source-maps
+[INFO] 
+[INFO] 
+[INFO] > bootstrap@4.0.0-beta.2 js-compile-bundle __CURRENT__/tobago-theme-speyside/target/bootstrap
+[INFO] > cross-env ROLLUP=true rollup --environment BUNDLE:true --config build/rollup.config.js --sourcemap
 [INFO] 
 [ERROR] 
 [ERROR] __CURRENT__/tobago-theme-speyside/target/bootstrap/js/src/index.js → dist/js/bootstrap.bundle.js...
@@ -1104,15 +1095,15 @@ Build date: 2017-11-10 10:56:26
 [INFO] js/src/tab.js -> js/dist/tab.js
 [INFO] js/src/tooltip.js -> js/dist/tooltip.js
 [INFO] js/src/util.js -> js/dist/util.js
-[ERROR] created dist/js/bootstrap.js in 2.5s
-[ERROR] created dist/js/bootstrap.bundle.js in 2.6s
+[ERROR] created dist/js/bootstrap.js in 1.6s
+[ERROR] created dist/js/bootstrap.bundle.js in 1.8s
 [INFO] 
 [INFO] > bootstrap@4.0.0-beta.2 js-compile-standalone __CURRENT__/tobago-theme-speyside/target/bootstrap
 [INFO] > cross-env ROLLUP=true rollup --environment BUNDLE:false --config build/rollup.config.js --sourcemap
 [INFO] 
 [ERROR] 
 [ERROR] __CURRENT__/tobago-theme-speyside/target/bootstrap/js/src/index.js → dist/js/bootstrap.js...
-[ERROR] created dist/js/bootstrap.js in 1.6s
+[ERROR] created dist/js/bootstrap.js in 1.4s
 [INFO] 
 [INFO] > bootstrap@4.0.0-beta.2 js-compile-bundle __CURRENT__/tobago-theme-speyside/target/bootstrap
 [INFO] > cross-env ROLLUP=true rollup --environment BUNDLE:true --config build/rollup.config.js --sourcemap
@@ -1141,6 +1132,10 @@ Build date: 2017-11-10 10:56:26
 [INFO] > npm-run-all --parallel js-minify-*
 [INFO] 
 [INFO] 
+[INFO] > bootstrap@4.0.0-beta.2 js-minify-standalone __CURRENT__/tobago-theme-speyside/target/bootstrap
+[INFO] > uglifyjs --compress typeofs=false --mangle --comments "/^!/" --source-map "content=dist/js/bootstrap.js.map,includeSources,url=bootstrap.min.js.map" --output dist/js/bootstrap.min.js dist/js/bootstrap.js
+[INFO] 
+[INFO] 
 [INFO] > bootstrap@4.0.0-beta.2 js-minify-bundle __CURRENT__/tobago-theme-speyside/target/bootstrap
 [INFO] > uglifyjs --compress typeofs=false --mangle --comments "/^!/" --source-map "content=dist/js/bootstrap.bundle.js.map,includeSources,url=bootstrap.bundle.min.js.map" --output dist/js/bootstrap.bundle.min.js dist/js/bootstrap.bundle.js
 [INFO] 
@@ -1148,12 +1143,8 @@ Build date: 2017-11-10 10:56:26
 [INFO] > bootstrap@4.0.0-beta.2 js-minify-docs __CURRENT__/tobago-theme-speyside/target/bootstrap
 [INFO] > uglifyjs --mangle --comments "/^!/" --output assets/js/docs.min.js assets/js/vendor/anchor.min.js assets/js/vendor/clipboard.min.js assets/js/vendor/holder.min.js assets/js/src/application.js assets/js/src/pwa.js
 [INFO] 
-[INFO] 
-[INFO] > bootstrap@4.0.0-beta.2 js-minify-standalone __CURRENT__/tobago-theme-speyside/target/bootstrap
-[INFO] > uglifyjs --compress typeofs=false --mangle --comments "/^!/" --source-map "content=dist/js/bootstrap.js.map,includeSources,url=bootstrap.min.js.map" --output dist/js/bootstrap.min.js dist/js/bootstrap.js
-[INFO] 
-[ERROR] INFO: Using input source map: dist/js/bootstrap.bundle.js.map
 [ERROR] INFO: Using input source map: dist/js/bootstrap.js.map
+[ERROR] INFO: Using input source map: dist/js/bootstrap.bundle.js.map
 [INFO] 
 [INFO] > bootstrap@4.0.0-beta.2 js-minify-standalone __CURRENT__/tobago-theme-speyside/target/bootstrap
 [INFO] > uglifyjs --compress typeofs=false --mangle --comments "/^!/" --source-map "content=dist/js/bootstrap.js.map,includeSources,url=bootstrap.min.js.map" --output dist/js/bootstrap.min.js dist/js/bootstrap.js
@@ -1210,7 +1201,7 @@ main:
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
-[INFO] Total time: 02:32 min
-[INFO] Finished at: 2017-11-10T10:59:00+01:00
-[INFO] Final Memory: 34M/504M
+[INFO] Total time: 01:10 min
+[INFO] Finished at: 2017-11-15T14:53:42+01:00
+[INFO] Final Memory: 28M/382M
 [INFO] ------------------------------------------------------------------------
