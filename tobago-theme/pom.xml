@@ -15,7 +15,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>org.apache.myfaces.tobago</groupId>
@@ -95,11 +96,33 @@
         <plugins>
 
           <plugin>
+            <groupId>com.googlecode.maven-download-plugin</groupId>
+            <artifactId>download-maven-plugin</artifactId>
+            <version>1.4.0</version>
+            <executions>
+              <execution>
+                <id>step #1: download-bootstrap</id>
+                <phase>generate-resources</phase>
+                <goals>
+                  <goal>wget</goal>
+                </goals>
+                <configuration>
+                  <url>https://github.com/twbs/bootstrap/archive/v${bootstrap.version}.zip</url>
+                  <unpack>true</unpack>
+                  <outputDirectory>${project.build.directory}</outputDirectory>
+                  <md5>a6588481a5a418cd1943d2d1c4a28a04</md5>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+          <!-- alternative way, if there is no direct download of a release (e.g. to test current snapshot) -->
+<!--
+          <plugin>
             <artifactId>maven-scm-plugin</artifactId>
             <version>1.9.5</version>
             <executions>
               <execution>
-                <!--load Bootstrap sources via git to target/checkout -->
+                &lt;!&ndash;load Bootstrap sources via git to target/checkout &ndash;&gt;
                 <id>step #1: checkout-bootstrap</id>
                 <phase>generate-resources</phase>
                 <goals>
@@ -110,10 +133,12 @@
                   <skipCheckoutIfExists>true</skipCheckoutIfExists>
                   <scmVersion>v${bootstrap.version}</scmVersion>
                   <scmVersionType>branch</scmVersionType>
+                  <checkoutDirectory>${project.build.directory}/bootstrap-${bootstrap.version}</checkoutDirectory>
                 </configuration>
               </execution>
             </executions>
           </plugin>
+-->
 
           <plugin>
             <artifactId>maven-resources-plugin</artifactId>
@@ -130,7 +155,7 @@
                   <outputDirectory>${project.build.directory}/bootstrap</outputDirectory>
                   <resources>
                     <resource>
-                      <directory>${project.build.directory}/checkout</directory>
+                      <directory>${project.build.directory}/bootstrap-${bootstrap.version}</directory>
                       <exclude>scss/_custom.scss</exclude>
                     </resource>
                   </resources>
