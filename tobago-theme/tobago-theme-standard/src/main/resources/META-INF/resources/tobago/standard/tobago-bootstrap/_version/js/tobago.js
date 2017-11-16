@@ -1361,7 +1361,7 @@ Tobago.registerListener(Tobago.Codi.init, Tobago.Phase.DOCUMENT_READY);
 
 // ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-Tobago.jsf = {
+Tobago.Jsf = {
   VIEW_STATE: "javax.faces.ViewState",
   CLIENT_WINDOW: "javax.faces.ClientWindow",
   VIEW_ROOT: "javax.faces.ViewRoot",
@@ -1369,11 +1369,11 @@ Tobago.jsf = {
   VIEW_BODY: "javax.faces.ViewBody",
   isId: function (id) {
     switch (id) {
-      case Tobago.jsf.VIEW_STATE:
-      case Tobago.jsf.CLIENT_WINDOW:
-      case Tobago.jsf.VIEW_ROOT:
-      case Tobago.jsf.VIEW_HEAD:
-      case Tobago.jsf.VIEW_BODY:
+      case Tobago.Jsf.VIEW_STATE:
+      case Tobago.Jsf.CLIENT_WINDOW:
+      case Tobago.Jsf.VIEW_ROOT:
+      case Tobago.Jsf.VIEW_HEAD:
+      case Tobago.Jsf.VIEW_BODY:
         return false;
       default:
         return true;
@@ -1381,8 +1381,8 @@ Tobago.jsf = {
   },
   isBody: function (id) {
     switch (id) {
-      case Tobago.jsf.VIEW_ROOT:
-      case Tobago.jsf.VIEW_BODY:
+      case Tobago.Jsf.VIEW_ROOT:
+      case Tobago.Jsf.VIEW_BODY:
         return true;
       default:
         return false;
@@ -1390,44 +1390,48 @@ Tobago.jsf = {
   }
 };
 
-jsf.ajax.addOnEvent(function (event) {
-  console.timeEnd("x"); // @DEV_ONLY
-  console.time("x"); // @DEV_ONLY
-  console.log(event); // @DEV_ONLY
-  if (event.status === "success") {
-    console.log("success");// @DEV_ONLY
+Tobago.Jsf.init = function() {
+  jsf.ajax.addOnEvent(function (event) {
+    console.timeEnd("x"); // @DEV_ONLY
+    console.time("x"); // @DEV_ONLY
+    console.log(event); // @DEV_ONLY
+    if (event.status === "success") {
+      console.log("success");// @DEV_ONLY
 
-    jQuery(event.responseXML).find("update").each(function () {
-      var id = jQuery(this).attr("id");
-      console.info("Update after jsf.ajax success: id='" + id + "'"); // @DEV_ONLY
-      var newElement;
-      if (Tobago.jsf.isId(id)) {
-        console.log("updating id: " + id);// @DEV_ONLY
-        newElement = jQuery(Tobago.Utils.escapeClientId(id));
-      } else if (Tobago.jsf.isBody(id)) {
-        console.log("updating body");// @DEV_ONLY
-        newElement = jQuery(".tobago-page");
-      }
-      if (newElement) {
-        for (var order = 0; order < Tobago.listeners.afterUpdate.length; order++) {
-          var list = Tobago.listeners.afterUpdate[order];
-          for (var i = 0; i < list.length; i++) {
-            list[i](newElement);
+      jQuery(event.responseXML).find("update").each(function () {
+        var id = jQuery(this).attr("id");
+        console.info("Update after jsf.ajax success: id='" + id + "'"); // @DEV_ONLY
+        var newElement;
+        if (Tobago.Jsf.isId(id)) {
+          console.log("updating id: " + id);// @DEV_ONLY
+          newElement = jQuery(Tobago.Utils.escapeClientId(id));
+        } else if (Tobago.Jsf.isBody(id)) {
+          console.log("updating body");// @DEV_ONLY
+          newElement = jQuery(".tobago-page");
+        }
+        if (newElement) {
+          for (var order = 0; order < Tobago.listeners.afterUpdate.length; order++) {
+            var list = Tobago.listeners.afterUpdate[order];
+            for (var i = 0; i < list.length; i++) {
+              list[i](newElement);
+            }
           }
         }
-      }
-    });
-  } else if (event.status === "complete") {
-    console.log("complete");// @DEV_ONLY
-    jQuery(event.responseXML).find("update").each(function () {
-      var updateId = jQuery(this).attr("id");
-      if ("javax.faces.ViewState" !== updateId) {
-        var oldElement = jQuery(Tobago.Utils.escapeClientId(updateId));
-        console.info("Update after jsf.ajax complete: id='" + oldElement.attr("id") + "'"); // @DEV_ONLY
-        if (oldElement.data("tobago-partial-overlay-set")) {
-          oldElement.overlay("destroy")
+      });
+    } else if (event.status === "complete") {
+      console.log("complete");// @DEV_ONLY
+      jQuery(event.responseXML).find("update").each(function () {
+        var updateId = jQuery(this).attr("id");
+        if ("javax.faces.ViewState" !== updateId) {
+          var oldElement = jQuery(Tobago.Utils.escapeClientId(updateId));
+          console.info("Update after jsf.ajax complete: id='" + oldElement.attr("id") + "'"); // @DEV_ONLY
+          if (oldElement.data("tobago-partial-overlay-set")) {
+            oldElement.overlay("destroy")
+          }
         }
-      }
-    });
-  }
-});
+      });
+    }
+  });
+};
+
+Tobago.registerListener(Tobago.Jsf.init, Tobago.Phase.DOCUMENT_READY);
