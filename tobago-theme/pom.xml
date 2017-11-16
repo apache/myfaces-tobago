@@ -68,6 +68,7 @@
 
   <modules>
     <module>tobago-theme-standard</module>
+    <module>tobago-theme-scarborough</module>
     <module>tobago-theme-speyside</module>
     <module>tobago-theme-roxborough</module>
   </modules>
