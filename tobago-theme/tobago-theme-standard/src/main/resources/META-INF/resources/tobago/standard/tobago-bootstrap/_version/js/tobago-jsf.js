@@ -7630,9 +7630,12 @@ _MF_SINGLTN(_PFX_XHR + "_AjaxResponse", _MF_OBJECT, /** @lends myfaces._impl.xhr
 
                     cDataBlock = cDataBlock.substring(cDataBlock.indexOf("<html"));
 // begin TOBAGO-JSF-JS
-                    var newDoc = document.open("text/html", "replace");
-                    newDoc.write(cDataBlock);
-                    newDoc.close();
+//                     var newDoc = document.open("text/html", "replace");
+//                     newDoc.write(cDataBlock);
+//                     newDoc.close();
+                //change only the body, because change the head doesn't work with CSP
+                    var newPage = jQuery(cDataBlock).filter(".tobago-page");
+                    jQuery(".tobago-page").replaceWith(newPage);
                     resultNode = document.documentElement;
 
 /* original
@@ -7663,9 +7666,12 @@ _MF_SINGLTN(_PFX_XHR + "_AjaxResponse", _MF_OBJECT, /** @lends myfaces._impl.xhr
 // begin TOBAGO-JSF-JS
 // XXX hack
                 if (node.getAttribute('id') === document.getElementsByClassName("tobago-page")[0].getAttribute('id')) {
-                    newDoc = document.open("text/html", "replace");
-                    newDoc.write(cDataBlock);
-                    newDoc.close();
+                    // newDoc = document.open("text/html", "replace");
+                    // newDoc.write(cDataBlock);
+                    // newDoc.close();
+                  //change only the body, because change the head doesn't work with CSP
+                    newPage = jQuery(cDataBlock).filter(".tobago-page");
+                    jQuery(".tobago-page").replaceWith(newPage);
                     resultNode = document.documentElement;
                 } else {
                     resultNode = this.replaceHtmlItem(request, context, node.getAttribute('id'), cDataBlock);

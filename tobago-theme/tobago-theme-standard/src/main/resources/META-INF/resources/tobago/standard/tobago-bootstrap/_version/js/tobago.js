@@ -1361,6 +1361,35 @@ Tobago.registerListener(Tobago.Codi.init, Tobago.Phase.DOCUMENT_READY);
 
 // ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+Tobago.jsf = {
+  VIEW_STATE: "javax.faces.ViewState",
+  CLIENT_WINDOW: "javax.faces.ClientWindow",
+  VIEW_ROOT: "javax.faces.ViewRoot",
+  VIEW_HEAD: "javax.faces.ViewHead",
+  VIEW_BODY: "javax.faces.ViewBody",
+  isId: function (id) {
+    switch (id) {
+      case Tobago.jsf.VIEW_STATE:
+      case Tobago.jsf.CLIENT_WINDOW:
+      case Tobago.jsf.VIEW_ROOT:
+      case Tobago.jsf.VIEW_HEAD:
+      case Tobago.jsf.VIEW_BODY:
+        return false;
+      default:
+        return true;
+    }
+  },
+  isBody: function (id) {
+    switch (id) {
+      case Tobago.jsf.VIEW_ROOT:
+      case Tobago.jsf.VIEW_BODY:
+        return true;
+      default:
+        return false;
+    }
+  }
+};
+
 jsf.ajax.addOnEvent(function (event) {
   console.timeEnd("x"); // @DEV_ONLY
   console.time("x"); // @DEV_ONLY
@@ -1371,12 +1400,20 @@ jsf.ajax.addOnEvent(function (event) {
     jQuery(event.responseXML).find("update").each(function () {
       var id = jQuery(this).attr("id");
       console.info("Update after jsf.ajax success: id='" + id + "'"); // @DEV_ONLY
-      var newElement = jQuery(Tobago.Utils.escapeClientId(id));
-
-      for (var order = 0; order < Tobago.listeners.afterUpdate.length; order++) {
-        var list = Tobago.listeners.afterUpdate[order];
-        for (var i = 0; i < list.length; i++) {
-          list[i](newElement);
+      var newElement;
+      if (Tobago.jsf.isId(id)) {
+        console.log("updating id: " + id);// @DEV_ONLY
+        newElement = jQuery(Tobago.Utils.escapeClientId(id));
+      } else if (Tobago.jsf.isBody(id)) {
+        console.log("updating body");// @DEV_ONLY
+        newElement = jQuery(".tobago-page");
+      }
+      if (newElement) {
+        for (var order = 0; order < Tobago.listeners.afterUpdate.length; order++) {
+          var list = Tobago.listeners.afterUpdate[order];
+          for (var i = 0; i < list.length; i++) {
+            list[i](newElement);
+          }
         }
       }
     });
