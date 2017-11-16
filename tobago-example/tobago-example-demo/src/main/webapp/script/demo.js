@@ -15,6 +15,8 @@
  * limitations under the License.
  */
 
+Demo = {};
+
 (function ($) {
   $.widget("demo.alert", {
     _create: function () {
@@ -42,6 +44,7 @@ var initInspect = function (elements) {
   // var tobagoElements = Tobago.Utils.selectWithJQuery(elements, ".tobago-in,.tobago-out,.tobago-date");
   var tobagoElements = Tobago.Utils.selectWithJQuery(elements, ".tobago-flexLayout");
 
+  // do highlighting with hovering only in the content-area
   tobagoElements = tobagoElements.filter(function () {
     return jQuery(this).parents("#page\\:content").length === 1;
   });
@@ -70,6 +73,13 @@ var initInspect = function (elements) {
 Tobago.registerListener(initInspect, Tobago.Phase.DOCUMENT_READY);
 Tobago.registerListener(initInspect, Tobago.Phase.AFTER_UPDATE);
 
+Demo.prismHighlight = function(elements) {
+  // call highlighting again. (is called for all, not only for the elements, because it's easier to implement.)
+  Prism.highlightAll();
+};
+
+Tobago.registerListener(Demo.prismHighlight, Tobago.Phase.AFTER_UPDATE);
+
 var initTestLinks = function () {
   var $runLink = jQuery("#page\\:header\\:runtest");
   var $closeLink = jQuery("#page\\:header\\:closetest");
@@ -91,8 +101,6 @@ var initTestframe = function () {
 
 Tobago.registerListener(initTestframe, Tobago.Phase.DOCUMENT_READY);
 Tobago.registerListener(initTestframe, Tobago.Phase.AFTER_UPDATE);
-
-Demo = {};
 
 /**
  * Copies the values from the data-login attribute to the username/password fields.
