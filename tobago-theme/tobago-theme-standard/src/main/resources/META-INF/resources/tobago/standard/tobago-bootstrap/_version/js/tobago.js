@@ -93,22 +93,22 @@ var Tobago = {
    */
   registerListener: function(listener, phase, order) {
 
-    if (order == undefined) {
+    if (order === undefined) {
       order = Tobago.Phase.Order.NORMAL;
     }
 
     var phaseMap;
-    if (Tobago.Phase.DOCUMENT_READY == phase) {
+    if (Tobago.Phase.DOCUMENT_READY === phase) {
       phaseMap = Tobago.listeners.documentReady;
-    } else if (Tobago.Phase.WINDOW_LOAD == phase) {
+    } else if (Tobago.Phase.WINDOW_LOAD === phase) {
       phaseMap = Tobago.listeners.windowLoad;
-    } else if (Tobago.Phase.BEFORE_SUBMIT == phase) {
+    } else if (Tobago.Phase.BEFORE_SUBMIT === phase) {
       phaseMap = Tobago.listeners.beforeSubmit;
-    } else if (Tobago.Phase.AFTER_UPDATE == phase) {
+    } else if (Tobago.Phase.AFTER_UPDATE === phase) {
       phaseMap = Tobago.listeners.afterUpdate;
-    } else if (Tobago.Phase.BEFORE_UNLOAD == phase) {
+    } else if (Tobago.Phase.BEFORE_UNLOAD === phase) {
       phaseMap = Tobago.listeners.beforeUnload;
-    } else if (Tobago.Phase.BEFORE_EXIT == phase) {
+    } else if (Tobago.Phase.BEFORE_EXIT === phase) {
       phaseMap = Tobago.listeners.beforeExit;
     } else {
       console.error("Unknown phase: " + phase); // @DEV_ONLY
@@ -1338,18 +1338,17 @@ Tobago.Codi.hasUrlWindowId = function(base) {
 /**
  * taken from myfaces-extcdi (Codi)
  */
-Tobago.Codi.urlWithoutWindowId = function(base) {
-    var query = base;
+Tobago.Codi.urlWithoutWindowId = function(query) {
     var vars = query.split(/&|\?/g);
     var newQuery = "";
     var iParam = 0;
-    for (var i=0; vars != null && i < vars.length; i++) {
+    for (var i=0; vars !== null && i < vars.length; i++) {
         var pair = vars[i].split("=");
-        if (pair.length == 1) {
+        if (pair.length === 1) {
             newQuery = pair[0];
         }
         else {
-            if (pair[0] != "windowId") {
+            if (pair[0] !== "windowId") {
                 var amp = iParam++ > 0 ? "&" : "?";
                 newQuery =  newQuery + amp + pair[0] + "=" + pair[1];
             }
@@ -1360,16 +1359,19 @@ Tobago.Codi.urlWithoutWindowId = function(base) {
 
 Tobago.registerListener(Tobago.Codi.init, Tobago.Phase.DOCUMENT_READY);
 
+// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 jsf.ajax.addOnEvent(function (event) {
   console.timeEnd("x"); // @DEV_ONLY
   console.time("x"); // @DEV_ONLY
-  console.log(event);
-  if (event.status == "success") {
+  console.log(event); // @DEV_ONLY
+  if (event.status === "success") {
     console.log("success");// @DEV_ONLY
 
     jQuery(event.responseXML).find("update").each(function () {
-      var newElement = jQuery(Tobago.Utils.escapeClientId(jQuery(this).attr("id")));
-      console.info("Update after jsf.ajax success: id='" + newElement.attr("id") + "'"); // @DEV_ONLY
+      var id = jQuery(this).attr("id");
+      console.info("Update after jsf.ajax success: id='" + id + "'"); // @DEV_ONLY
+      var newElement = jQuery(Tobago.Utils.escapeClientId(id));
 
       for (var order = 0; order < Tobago.listeners.afterUpdate.length; order++) {
         var list = Tobago.listeners.afterUpdate[order];
@@ -1378,11 +1380,11 @@ jsf.ajax.addOnEvent(function (event) {
         }
       }
     });
-  } else if (event.status == "complete") {
+  } else if (event.status === "complete") {
     console.log("complete");// @DEV_ONLY
     jQuery(event.responseXML).find("update").each(function () {
       var updateId = jQuery(this).attr("id");
-      if ("javax.faces.ViewState" != updateId) {
+      if ("javax.faces.ViewState" !== updateId) {
         var oldElement = jQuery(Tobago.Utils.escapeClientId(updateId));
         console.info("Update after jsf.ajax complete: id='" + oldElement.attr("id") + "'"); // @DEV_ONLY
         if (oldElement.data("tobago-partial-overlay-set")) {
