@@ -8405,6 +8405,35 @@ a.text-dark:focus, a.text-dark:hover {
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+.btn-secondary {
+  color: #111;
+  background-color: #fff;
+  border-color: #ced4da;
+}
+
+.btn-secondary:hover {
+  color: #111;
+  background-color: #ececec;
+  border-color: #b1bbc4;
+}
+
+.btn-secondary:focus, .btn-secondary.focus {
+  box-shadow: 0 0 0 0.2rem rgba(206, 212, 218, 0.5);
+}
+
+.btn-secondary.disabled, .btn-secondary:disabled {
+  background-color: #fff;
+  border-color: #ced4da;
+}
+
+.btn-secondary:not([disabled]):not(.disabled):active, .btn-secondary:not([disabled]):not(.disabled).active,
+.show > .btn-secondary.dropdown-toggle {
+  color: #111;
+  background-color: #e6e6e6;
+  border-color: #aab4bf;
+  box-shadow: 0 0 0 0.2rem rgba(206, 212, 218, 0.5);
+}
+
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
