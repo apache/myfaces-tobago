@@ -24,28 +24,6 @@
 
     <tc:messages/>
     <tc:section id="errorSection" label="An error has occurred!">
-      <!-- TODO
-      <tc:out value="#{exceptionContext.exception}" escape="false"/>
-
-
-      <%!
-        public static String exceptionToString(Throwable exception) {
-          if (exception == null) {
-            return "No Exception available!";
-          }
-          StringBuilder builder = new StringBuilder();
-          builder.append("<pre>");
-          StringWriter stringWriter = new StringWriter();
-          exception.printStackTrace(new PrintWriter(stringWriter));
-          builder.append(stringWriter.toString());
-          builder.append("</pre>");
-          return builder.toString();
-        }
-      %>
-      <%
-        request.setAttribute("exceptionText", exceptionToString(exception));
-      %>
--->
       <pre>
         <tc:out value="#{exceptionController.stackTrace}"/>
       </pre>
