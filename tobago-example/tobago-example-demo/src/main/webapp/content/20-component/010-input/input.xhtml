@@ -33,12 +33,12 @@
   <tc:section label="#{demoBundle.suggest}">
     <pre><code class="language-markup">&lt;tc:in label="Language">
   &lt;tc:suggest query="\#{suggestController.query}">
-    &lt;tc:selectItems value="\#{suggestController.languages}" var="language" itemValue="\#{language}"/>
+    &lt;tc:selectItems value="\#{suggestController.solarObjects}" var="name" itemValue="\#{name}"/>
   &lt;/tc:suggest>
 &lt;/tc:in></code></pre>
     <tc:in id="i2" label="Language">
       <tc:suggest query="#{suggestController.query}">
-        <tc:selectItems value="#{suggestController.languages}" var="language" itemValue="#{language}"/>
+        <tc:selectItems value="#{suggestController.solarObjects}" var="name" itemValue="#{name}"/>
       </tc:suggest>
     </tc:in>
   </tc:section>

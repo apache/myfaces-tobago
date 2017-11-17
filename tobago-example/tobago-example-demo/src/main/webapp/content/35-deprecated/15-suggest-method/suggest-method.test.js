@@ -15,9 +15,9 @@
  * limitations under the License.
  */
 
-QUnit.test("Deprecated: 'Chile'", function (assert) {
-  var inputString = "Chile";
-  var expectedLength = 7;
+QUnit.test("Deprecated: 'Ma'", function (assert) {
+  var inputString = "Ma";
+  var expectedLength = 4;
 
   assert.expect(expectedLength + 1);
   var done = assert.async();
@@ -42,9 +42,9 @@ QUnit.test("Deprecated: 'Chile'", function (assert) {
   });
 });
 
-QUnit.test("Replacement: 'Chile'", function (assert) {
-  var inputString = "Chile";
-  var expectedLength = 7;
+QUnit.test("Replacement: 'Ma'", function (assert) {
+  var inputString = "Ma";
+  var expectedLength = 4;
 
   assert.expect(expectedLength + 1);
   var done = assert.async();
@@ -71,5 +71,5 @@ QUnit.test("Replacement: 'Chile'", function (assert) {
 
 function getSuggestions(id) {
   return jQueryFrame(Tobago.Utils.escapeClientId(
-          jQueryFrame(id + " .tobago-suggest").attr("id") + "::popup") + " .tt-suggestion");
+      jQueryFrame(id + " .tobago-suggest").attr("id") + "::popup") + " .tt-suggestion");
 }

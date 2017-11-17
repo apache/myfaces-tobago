@@ -20,7 +20,7 @@
 package org.apache.myfaces.tobago.example.demo;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.myfaces.tobago.example.data.LocaleList;
+import org.apache.myfaces.tobago.example.data.SolarObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -30,15 +30,21 @@ import javax.inject.Named;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @SessionScoped
 @Named
 public class SuggestController implements Serializable {
 
   private static final Logger LOG = LoggerFactory.getLogger(SuggestController.class);
+  private List<String> solarObjects;
   private String query;
   private String selection1;
   private String selection2;
+
+  public SuggestController() {
+    solarObjects = SolarObject.getList().stream().map(SolarObject::getName).collect(Collectors.toList());
+  }
 
   public String getQuery() {
     return query;
@@ -48,20 +54,14 @@ public class SuggestController implements Serializable {
     this.query = query;
   }
 
-  public List<String> getLanguages() {
+  public List<String> getSolarObjects() {
     final String substring = query != null ? query : "";
     LOG.info("Creating items for substring: '" + substring + "'");
-    final List<String> result = new ArrayList<>(LocaleList.COUNTRY_LANGUAGE.size());
-    for (final String name : LocaleList.COUNTRY_LANGUAGE) {
-      if (StringUtils.containsIgnoreCase(name, substring)) {
-        result.add(name);
-      }
-    }
-    return result;
+    return solarObjects.stream().filter(s -> StringUtils.containsIgnoreCase(s, substring)).collect(Collectors.toList());
   }
 
-  public List<String> getAllLanguages() {
-    return LocaleList.COUNTRY_LANGUAGE;
+  public List<String> getAllSolarObjects() {
+    return solarObjects;
   }
 
   /*
@@ -75,7 +75,7 @@ public class SuggestController implements Serializable {
     }
     LOG.info("Creating items for substring: '" + substring + "'");
     final List<String> result = new ArrayList<>();
-    for (final String name : LocaleList.COUNTRY_LANGUAGE) {
+    for (final String name : solarObjects) {
       if (StringUtils.containsIgnoreCase(name, substring)) {
         result.add(name);
       }

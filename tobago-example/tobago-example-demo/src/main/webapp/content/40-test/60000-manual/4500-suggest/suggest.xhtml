@@ -29,7 +29,7 @@
     <tc:out id="outBasic" label="Selection" value="#{suggestController.selection1}"/>
     <tc:in id="inBasic" value="#{suggestController.selection1}">
       <tc:suggest totalCount="10" query="#{suggestController.query}">
-        <tc:selectItems value="#{suggestController.languages}" var="language" itemValue="#{language}"/>
+        <tc:selectItems value="#{suggestController.solarObjects}" var="name" itemValue="#{name}"/>
       </tc:suggest>
       <f:ajax render="outBasic"/>
     </tc:in>
@@ -40,7 +40,7 @@
     <tc:out id="outTwo" label="Selection" value="#{suggestController.selection2}"/>
     <tc:in id="inTwo" value="#{suggestController.selection2}">
       <tc:suggest totalCount="10" query="#{suggestController.query}">
-        <tc:selectItems value="#{suggestController.languages}" var="language" itemValue="#{language}"/>
+        <tc:selectItems value="#{suggestController.solarObjects}" var="name" itemValue="#{name}"/>
       </tc:suggest>
       <tc:event/>
     </tc:in>
@@ -50,7 +50,7 @@
     <tc:in id="withFacets" >
       <f:facet name="before">Before</f:facet>
       <tc:suggest totalCount="10" query="#{suggestController.query}">
-        <tc:selectItems value="#{suggestController.languages}" var="language" itemValue="#{language}"/>
+        <tc:selectItems value="#{suggestController.solarObjects}" var="name" itemValue="#{name}"/>
       </tc:suggest>
       <f:facet name="after">After</f:facet>
     </tc:in>

@@ -38,7 +38,7 @@
     <!-- phantomjs works not with CSP (report-only) -->
     <arquillian.browser>phantomjs</arquillian.browser>
     <selenium.version>3.5.1</selenium.version>
-    <tomee.version>7.0.3</tomee.version>
+    <tomee.version>7.0.4</tomee.version>
   </properties>
   <build>
     <finalName>tobago-example-demo</finalName>

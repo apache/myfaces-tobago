@@ -15,8 +15,8 @@
  * limitations under the License.
  */
 
-QUnit.test("Basics: 'C'", function(assert) {
-  var inputString = "C";
+QUnit.test("Basics: 'M'", function (assert) {
+  var inputString = "M";
   var expectedLength = 10;
 
   assert.expect(expectedLength + 1);
@@ -27,10 +27,10 @@ QUnit.test("Basics: 'C'", function(assert) {
 
   $in.val(inputString).trigger('input');
 
-  waitForAjax(function() {
+  waitForAjax(function () {
     $suggestions = jQueryFrame($suggestions.selector);
     return $suggestions.length === expectedLength;
-  }, function() {
+  }, function () {
     $suggestions = jQueryFrame($suggestions.selector);
 
     assert.equal($suggestions.length, expectedLength);
@@ -43,9 +43,9 @@ QUnit.test("Basics: 'C'", function(assert) {
 });
 
 
-QUnit.test("Basics: 'Ch'", function(assert) {
-  var inputString = "Ch";
-  var expectedLength = 10;
+QUnit.test("Basics: 'Ma'", function (assert) {
+  var inputString = "Ma";
+  var expectedLength = 4;
 
   assert.expect(expectedLength + 1);
   var done = assert.async();
@@ -55,10 +55,10 @@ QUnit.test("Basics: 'Ch'", function(assert) {
 
   $in.val(inputString).trigger('input');
 
-  waitForAjax(function() {
+  waitForAjax(function () {
     $suggestions = jQueryFrame($suggestions.selector);
     return $suggestions.length === expectedLength;
-  }, function() {
+  }, function () {
     $suggestions = jQueryFrame($suggestions.selector);
 
     assert.equal($suggestions.length, expectedLength);
@@ -70,278 +70,8 @@ QUnit.test("Basics: 'Ch'", function(assert) {
   });
 });
 
-QUnit.test("Basics: 'Chi'", function(assert) {
-  var inputString = "Chi";
-  var expectedLength = 10;
-
-  assert.expect(expectedLength + 1);
-  var done = assert.async();
-
-  var $in = jQueryFrame("#page\\:mainForm\\:inBasic\\:\\:field");
-  var $suggestions = getSuggestions("#page\\:mainForm\\:inBasic");
-
-  $in.val(inputString).trigger('input');
-
-  waitForAjax(function() {
-    $suggestions = jQueryFrame($suggestions.selector);
-    return $suggestions.length === expectedLength;
-  }, function() {
-    $suggestions = jQueryFrame($suggestions.selector);
-
-    assert.equal($suggestions.length, expectedLength);
-    for (i = 0; i < expectedLength; i++) {
-      assert.ok($suggestions.eq(i).find("strong").text().toUpperCase().indexOf(inputString.toUpperCase()) >= 0);
-    }
-
-    done();
-  });
-});
-
-QUnit.test("Basics: 'Chil'", function(assert) {
-  var inputString = "Chil";
-  var expectedLength = 10;
-
-  assert.expect(expectedLength + 1);
-  var done = assert.async();
-
-  var $in = jQueryFrame("#page\\:mainForm\\:inBasic\\:\\:field");
-  var $suggestions = getSuggestions("#page\\:mainForm\\:inBasic");
-
-  $in.val(inputString).trigger('input');
-
-  waitForAjax(function() {
-    $suggestions = jQueryFrame($suggestions.selector);
-    return $suggestions.length === expectedLength;
-  }, function() {
-    $suggestions = jQueryFrame($suggestions.selector);
-
-    assert.equal($suggestions.length, expectedLength);
-    for (i = 0; i < expectedLength; i++) {
-      assert.ok($suggestions.eq(i).find("strong").text().toUpperCase().indexOf(inputString.toUpperCase()) >= 0);
-    }
-
-    done();
-  });
-});
-
-QUnit.test("Basics: 'Chile'", function(assert) {
-  var inputString = "Chile";
-  var expectedLength = 7;
-
-  assert.expect(expectedLength + 1);
-  var done = assert.async();
-
-  var $in = jQueryFrame("#page\\:mainForm\\:inBasic\\:\\:field");
-  var $suggestions = getSuggestions("#page\\:mainForm\\:inBasic");
-
-  $in.val(inputString).trigger('input');
-
-  waitForAjax(function() {
-    $suggestions = jQueryFrame($suggestions.selector);
-    return $suggestions.length === expectedLength;
-  }, function() {
-    $suggestions = jQueryFrame($suggestions.selector);
-
-    assert.equal($suggestions.length, expectedLength);
-    for (i = 0; i < expectedLength; i++) {
-      assert.ok($suggestions.eq(i).find("strong").text().toUpperCase().indexOf(inputString.toUpperCase()) >= 0);
-    }
-
-    done();
-  });
-});
-
-QUnit.test("Basics: 'Chile '", function(assert) {
-  var inputString = "Chile ";
-  var expectedLength = 7;
-
-  assert.expect(expectedLength + 1);
-  var done = assert.async();
-
-  var $in = jQueryFrame("#page\\:mainForm\\:inBasic\\:\\:field");
-  var $suggestions = getSuggestions("#page\\:mainForm\\:inBasic");
-
-  $in.val(inputString).trigger('input');
-
-  waitForAjax(function() {
-    $suggestions = jQueryFrame($suggestions.selector);
-    return $suggestions.length === expectedLength;
-  }, function() {
-    $suggestions = jQueryFrame($suggestions.selector);
-
-    assert.equal($suggestions.length, expectedLength);
-    for (i = 0; i < expectedLength; i++) {
-      assert.ok($suggestions.eq(i).find("strong").text().toUpperCase().indexOf(inputString.toUpperCase()) >= 0);
-    }
-
-    done();
-  });
-});
-
-QUnit.test("Basics: 'Chile ('", function(assert) {
-  var inputString = "Chile (";
-  var expectedLength = 7;
-
-  assert.expect(expectedLength + 1);
-  var done = assert.async();
-
-  var $in = jQueryFrame("#page\\:mainForm\\:inBasic\\:\\:field");
-  var $suggestions = getSuggestions("#page\\:mainForm\\:inBasic");
-
-  $in.val(inputString).trigger('input');
-
-  waitForAjax(function() {
-    $suggestions = jQueryFrame($suggestions.selector);
-    return $suggestions.length === expectedLength;
-  }, function() {
-    $suggestions = jQueryFrame($suggestions.selector);
-
-    assert.equal($suggestions.length, expectedLength);
-    for (i = 0; i < expectedLength; i++) {
-      assert.ok($suggestions.eq(i).find("strong").text().toUpperCase().indexOf(inputString.toUpperCase()) >= 0);
-    }
-
-    done();
-  });
-});
-
-QUnit.test("Basics: 'Chile (e'", function(assert) {
-  var inputString = "Chile (e";
-  var expectedLength = 3;
-
-  assert.expect(expectedLength + 1);
-  var done = assert.async();
-
-  var $in = jQueryFrame("#page\\:mainForm\\:inBasic\\:\\:field");
-  var $suggestions = getSuggestions("#page\\:mainForm\\:inBasic");
-
-  $in.val(inputString).trigger('input');
-
-  waitForAjax(function() {
-    $suggestions = jQueryFrame($suggestions.selector);
-    return $suggestions.length === expectedLength;
-  }, function() {
-    $suggestions = jQueryFrame($suggestions.selector);
-
-    assert.equal($suggestions.length, expectedLength);
-    for (i = 0; i < expectedLength; i++) {
-      assert.ok($suggestions.eq(i).find("strong").text().toUpperCase().indexOf(inputString.toUpperCase()) >= 0);
-    }
-
-    done();
-  });
-});
-
-QUnit.test("Basics: 'Chile (es'", function(assert) {
-  var inputString = "Chile (es";
-  var expectedLength = 3;
-
-  assert.expect(expectedLength + 1);
-  var done = assert.async();
-
-  var $in = jQueryFrame("#page\\:mainForm\\:inBasic\\:\\:field");
-  var $suggestions = getSuggestions("#page\\:mainForm\\:inBasic");
-
-  $in.val(inputString).trigger('input');
-
-  waitForAjax(function() {
-    $suggestions = jQueryFrame($suggestions.selector);
-    return $suggestions.length === expectedLength;
-  }, function() {
-    $suggestions = jQueryFrame($suggestions.selector);
-
-    assert.equal($suggestions.length, expectedLength);
-    for (i = 0; i < expectedLength; i++) {
-      assert.ok($suggestions.eq(i).find("strong").text().toUpperCase().indexOf(inputString.toUpperCase()) >= 0);
-    }
-
-    done();
-  });
-});
-
-QUnit.test("Basics: 'Chile (esp'", function(assert) {
-  var inputString = "Chile (esp";
-  var expectedLength = 3;
-
-  assert.expect(expectedLength + 1);
-  var done = assert.async();
-
-  var $in = jQueryFrame("#page\\:mainForm\\:inBasic\\:\\:field");
-  var $suggestions = getSuggestions("#page\\:mainForm\\:inBasic");
-
-  $in.val(inputString).trigger('input');
-
-  waitForAjax(function() {
-    $suggestions = jQueryFrame($suggestions.selector);
-    return expectedLength === $suggestions.length;
-  }, function() {
-    $suggestions = jQueryFrame($suggestions.selector);
-
-    assert.equal($suggestions.length, expectedLength);
-    for (i = 0; i < expectedLength; i++) {
-      assert.ok($suggestions.eq(i).find("strong").text().toUpperCase().indexOf(inputString.toUpperCase()) >= 0);
-    }
-
-    done();
-  });
-});
-
-QUnit.test("Basics: 'Chile (espa'", function(assert) {
-  var inputString = "Chile (espa";
-  var expectedLength = 3;
-
-  assert.expect(expectedLength + 1);
-  var done = assert.async();
-
-  var $in = jQueryFrame("#page\\:mainForm\\:inBasic\\:\\:field");
-  var $suggestions = getSuggestions("#page\\:mainForm\\:inBasic");
-
-  $in.val(inputString).trigger('input');
-
-  waitForAjax(function() {
-    $suggestions = jQueryFrame($suggestions.selector);
-    return $suggestions.length === expectedLength;
-  }, function() {
-    $suggestions = jQueryFrame($suggestions.selector);
-
-    assert.equal($suggestions.length, expectedLength);
-    for (i = 0; i < expectedLength; i++) {
-      assert.ok($suggestions.eq(i).find("strong").text().toUpperCase().indexOf(inputString.toUpperCase()) >= 0);
-    }
-
-    done();
-  });
-});
-
-QUnit.test("Basics: 'Chile (espan'", function(assert) {
-  var inputString = "Chile (espan";
-  var expectedLength = 2;
-
-  assert.expect(expectedLength + 1);
-  var done = assert.async();
-
-  var $in = jQueryFrame("#page\\:mainForm\\:inBasic\\:\\:field");
-  var $suggestions = getSuggestions("#page\\:mainForm\\:inBasic");
-
-  $in.val(inputString).trigger('input');
-
-  waitForAjax(function() {
-    $suggestions = jQueryFrame($suggestions.selector);
-    return $suggestions.length === expectedLength;
-  }, function() {
-    $suggestions = jQueryFrame($suggestions.selector);
-
-    assert.equal($suggestions.length, expectedLength);
-    for (i = 0; i < expectedLength; i++) {
-      assert.ok($suggestions.eq(i).find("strong").text().toUpperCase().indexOf(inputString.toUpperCase()) >= 0);
-    }
-
-    done();
-  });
-});
-
-QUnit.test("Basics: 'Chile (espanj'", function(assert) {
-  var inputString = "Chile (espanj";
+QUnit.test("Basics: 'Mar'", function (assert) {
+  var inputString = "Mar";
   var expectedLength = 1;
 
   assert.expect(expectedLength + 1);
@@ -352,10 +82,10 @@ QUnit.test("Basics: 'Chile (espanj'", function(assert) {
 
   $in.val(inputString).trigger('input');
 
-  waitForAjax(function() {
+  waitForAjax(function () {
     $suggestions = jQueryFrame($suggestions.selector);
     return $suggestions.length === expectedLength;
-  }, function() {
+  }, function () {
     $suggestions = jQueryFrame($suggestions.selector);
 
     assert.equal($suggestions.length, expectedLength);
@@ -367,8 +97,8 @@ QUnit.test("Basics: 'Chile (espanj'", function(assert) {
   });
 });
 
-QUnit.test("Basics: 'Chile (espanja'", function(assert) {
-  var inputString = "Chile (espanja";
+QUnit.test("Basics: 'Mars'", function (assert) {
+  var inputString = "Mars";
   var expectedLength = 1;
 
   assert.expect(expectedLength + 1);
@@ -379,10 +109,10 @@ QUnit.test("Basics: 'Chile (espanja'", function(assert) {
 
   $in.val(inputString).trigger('input');
 
-  waitForAjax(function() {
+  waitForAjax(function () {
     $suggestions = jQueryFrame($suggestions.selector);
     return $suggestions.length === expectedLength;
-  }, function() {
+  }, function () {
     $suggestions = jQueryFrame($suggestions.selector);
 
     assert.equal($suggestions.length, expectedLength);
@@ -394,70 +124,38 @@ QUnit.test("Basics: 'Chile (espanja'", function(assert) {
   });
 });
 
-QUnit.test("Basics: 'Chile (espanja)'", function(assert) {
-  var inputString = "Chile (espanja)";
-  var expectedLength = 1;
-
-  assert.expect(expectedLength + 1);
+QUnit.test("Basics: Add 'eus' and click first entry.", function (assert) {
+  assert.expect(7);
   var done = assert.async();
 
   var $in = jQueryFrame("#page\\:mainForm\\:inBasic\\:\\:field");
   var $suggestions = getSuggestions("#page\\:mainForm\\:inBasic");
 
-  $in.val(inputString).trigger('input');
+  $in.val("eus").trigger('input');
+  assert.equal($in.val(), "eus");
 
-  waitForAjax(function() {
+  waitForAjax(function () {
     $suggestions = jQueryFrame($suggestions.selector);
-    return $suggestions.length === expectedLength;
-  }, function() {
-    $suggestions = jQueryFrame($suggestions.selector);
-
-    assert.equal($suggestions.length, expectedLength);
-    for (i = 0; i < expectedLength; i++) {
-      assert.ok($suggestions.eq(i).find("strong").text().toUpperCase().indexOf(inputString.toUpperCase()) >= 0);
-    }
-
-    done();
-  });
-});
-
-QUnit.test("Basics: Add 'Belgiu' and click first entry.", function(assert) {
-  assert.expect(12);
-  var done = assert.async();
-
-  assert.equal(1, 1);
-  var $in = jQueryFrame("#page\\:mainForm\\:inBasic\\:\\:field");
-  assert.equal(1, 1);
-  var $suggestions = getSuggestions("#page\\:mainForm\\:inBasic");
-  assert.equal(1, 1);
-
-  $in.val("Belgiu").trigger('input');
-  assert.equal($in.val(), "Belgiu");
-
-  waitForAjax(function() {
-    $suggestions = jQueryFrame($suggestions.selector);
-    return $suggestions.length === 2;
-  }, function() {
-    assert.equal(1, 1);
+    return $suggestions.length === 3;
+  }, function () {
     $in = jQueryFrame($in.selector);
-    assert.equal(1, 1);
     $suggestions = jQueryFrame($suggestions.selector);
-    assert.equal(1, 1);
 
-    assert.equal($suggestions.length, 2);
-    assert.equal($suggestions.eq(0).find("strong").text(), "Belgiu");
-    assert.equal($suggestions.eq(1).find("strong").text(), "Belgiu");
+    assert.equal($suggestions.length, 3);
+    assert.equal($suggestions.eq(0).find("strong").text(), "eus");
+    assert.equal($suggestions.eq(1).find("strong").text(), "eus");
+    assert.equal($suggestions.eq(2).find("strong").text(), "eus");
 
     // click first entry
-    assert.equal($in.val(), "Belgiu");
+    assert.equal($in.val(), "eus");
     $suggestions.eq(0).click();
-    assert.equal($in.val(), "Belgium (Dutch)");
+    assert.equal($in.val(), "Prometheus");
 
     done();
   });
 });
 
-QUnit.test("Advanced: 'H'", function(assert) {
+QUnit.test("Advanced: 'C'", function (assert) {
   assert.expect(1);
   var done = assert.async();
 
@@ -465,13 +163,13 @@ QUnit.test("Advanced: 'H'", function(assert) {
   var $suggestions = getSuggestions("#page\\:mainForm\\:inAdvanced");
   var suggestionDelay = 2000;
 
-  $in.val("H").trigger('input');
+  $in.val("C").trigger('input');
 
-  setTimeout(function() {
-    waitForAjax(function() {
+  setTimeout(function () {
+    waitForAjax(function () {
       $suggestions = jQueryFrame($suggestions.selector);
       return $suggestions.length === 0;
-    }, function() {
+    }, function () {
       $suggestions = jQueryFrame($suggestions.selector);
       assert.equal($suggestions.length, 0);
       done();
@@ -479,7 +177,7 @@ QUnit.test("Advanced: 'H'", function(assert) {
   }, suggestionDelay);
 });
 
-QUnit.test("Advanced: 'Ho'", function(assert) {
+QUnit.test("Advanced: 'Ca'", function (assert) {
   assert.expect(4);
   var done = assert.async(2);
 
@@ -487,9 +185,9 @@ QUnit.test("Advanced: 'Ho'", function(assert) {
   var $suggestions = getSuggestions("#page\\:mainForm\\:inAdvanced");
   var suggestionDelay = 2000;
 
-  $in.val("Ho").trigger('input');
+  $in.val("Ca").trigger('input');
 
-  setTimeout(function() {
+  setTimeout(function () {
     $suggestions = jQueryFrame($suggestions.selector);
 
     // Nothing happen, because the delay is greater than the default delay.
@@ -498,44 +196,42 @@ QUnit.test("Advanced: 'Ho'", function(assert) {
     done();
   }, 200); // default suggestion delay
 
-  setTimeout(function() {
-    waitForAjax(function() {
+  setTimeout(function () {
+    waitForAjax(function () {
       $in = jQueryFrame($in.selector);
       $suggestions = jQueryFrame($suggestions.selector);
 
       return $suggestions.length === 2
-          && $suggestions.eq(0).find("strong").text() === "ho"
-          && $suggestions.eq(1).find("strong").text() === "ho";
-    }, function() {
+          && $suggestions.eq(0).find("strong").text() === "Ca"
+          && $suggestions.eq(1).find("strong").text() === "Ca";
+    }, function () {
       $in = jQueryFrame($in.selector);
       $suggestions = jQueryFrame($suggestions.selector);
 
       assert.equal($suggestions.length, 2);
-      assert.equal($suggestions.eq(0).find("strong").text(), "ho");
-      assert.equal($suggestions.eq(1).find("strong").text(), "ho");
+      assert.equal($suggestions.eq(0).find("strong").text(), "Ca");
+      assert.equal($suggestions.eq(1).find("strong").text(), "Ca");
 
       done();
     });
   }, suggestionDelay);
 });
 
-QUnit.test("Client sided: 'Korean'", function(assert) {
-  assert.expect(5);
+QUnit.test("Client sided: 'Ju'", function (assert) {
+  assert.expect(3);
 
   var $in = jQueryFrame("#page\\:mainForm\\:inClient\\:\\:field");
   var $suggestions = getSuggestions("#page\\:mainForm\\:inClient");
 
-  $in.val("Korean").trigger('input');
+  $in.val("Ju").trigger('input');
 
   $suggestions = jQueryFrame($suggestions.selector);
-  assert.equal($suggestions.length, 4);
-  assert.equal($suggestions.eq(0).find("strong").text(), "Korean");
-  assert.equal($suggestions.eq(1).find("strong").text(), "Korean");
-  assert.equal($suggestions.eq(2).find("strong").text(), "Korean");
-  assert.equal($suggestions.eq(3).find("strong").text(), "Korean");
+  assert.equal($suggestions.length, 2);
+  assert.equal($suggestions.eq(0).find("strong").text(), "Ju");
+  assert.equal($suggestions.eq(1).find("strong").text(), "Ju");
 });
 
 function getSuggestions(id) {
   return jQueryFrame(Tobago.Utils.escapeClientId(
-          jQueryFrame(id + " .tobago-suggest").attr("id") + "::popup") + " .tt-suggestion");
+      jQueryFrame(id + " .tobago-suggest").attr("id") + "::popup") + " .tt-suggestion");
 }

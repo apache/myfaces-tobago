@@ -44,7 +44,7 @@
     <tc:in required="true"/>
     <tc:in label="Suggest" required="true">
       <tc:suggest totalCount="10" query="#{suggestController.query}">
-        <tc:selectItems value="#{suggestController.languages}" var="language" itemValue="#{language}"/>
+        <tc:selectItems value="#{suggestController.solarObjects}" var="name" itemValue="#{name}"/>
       </tc:suggest>
     </tc:in>
     <tc:in label="Input Group" required="true">

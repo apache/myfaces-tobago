@@ -41,12 +41,12 @@
   <tc:section label="Replacement">
     <pre><code class="language-markup">&lt;tc:in label="Language">
   &lt;tc:suggest totalCount="10" query="\#{suggestController.query}">
-    &lt;tc:selectItems value="\#{suggestController.languages}" var="language" itemValue="\#{language}"/>
+    &lt;tc:selectItems value="\#{suggestController.solarObjects}" var="name" itemValue="\#{name}"/>
   &lt;/tc:suggest>
 &lt;/tc:in></code></pre>
     <tc:in id="replacement" label="Language">
       <tc:suggest totalCount="10" query="#{suggestController.query}">
-        <tc:selectItems value="#{suggestController.languages}" var="language" itemValue="#{language}"/>
+        <tc:selectItems value="#{suggestController.solarObjects}" var="name" itemValue="#{name}"/>
       </tc:suggest>
     </tc:in>
   </tc:section>
