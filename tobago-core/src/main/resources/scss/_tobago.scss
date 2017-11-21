@@ -19,6 +19,7 @@
 XXX used variables: only for the IDE, will not really used by the build system, because this
 XXX code will be inserted after the _variables.scss
 */
+$border-radius: .25rem !default;
 $zindex-dropdown: 1000 !default;
 $zindex-popover: 1060 !default;
 $spacer: 1rem !default;
@@ -1119,8 +1120,27 @@ th.tobago-sheet-headerCell-markup-filler > .tobago-sheet-header {
   flex-grow: 1;
 }
 
-.input-group > .twitter-typeahead > .tobago-in {
-  border-right: 0;
+.input-group > .twitter-typeahead {
+  /* suggest in center of an input group */
+  .tobago-in.tt-hint {
+    width: 100%;
+    border-radius: 0;
+  }
+
+  &:first-child {
+    /* suggest on the left of an input group */
+    .tobago-in.tt-input {
+      border-top-left-radius: $border-radius;
+      border-bottom-left-radius: $border-radius;
+    }
+  }
+  &:last-child {
+    /* suggest on the right of an input group */
+    .tobago-in.tt-input {
+      border-top-right-radius: $border-radius;
+      border-bottom-right-radius: $border-radius;
+    }
+  }
 }
 
 /* tab / tab-group ----------------------------------------------------------------- */

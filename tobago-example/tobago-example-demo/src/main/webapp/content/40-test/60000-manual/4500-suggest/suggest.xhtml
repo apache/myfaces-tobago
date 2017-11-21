@@ -47,7 +47,7 @@
   </tc:section>
 
   <tc:section label="Suggest inside an Input Group">
-    <tc:in id="withFacets" >
+    <tc:in id="withFacets">
       <f:facet name="before">Before</f:facet>
       <tc:suggest totalCount="10" query="#{suggestController.query}">
         <tc:selectItems value="#{suggestController.solarObjects}" var="name" itemValue="#{name}"/>
@@ -55,4 +55,35 @@
       <f:facet name="after">After</f:facet>
     </tc:in>
   </tc:section>
+
+  <tc:box label="Input Group Suggest Variants">
+    <tc:style customClass="badge-info"/>
+    <tc:in id="suggest21">
+      <tc:suggest totalCount="10" query="#{suggestController.query}">
+        <tc:selectItems value="#{suggestController.solarObjects}" var="name" itemValue="#{name}"/>
+      </tc:suggest>
+      <f:facet name="after">
+        <tc:button label="Submit" defaultCommand="true"/>
+      </f:facet>
+    </tc:in>
+    <tc:in id="suggest22">
+      <f:facet name="before">
+        <tc:button label="Submit" defaultCommand="true"/>
+      </f:facet>
+      <tc:suggest totalCount="10" query="#{suggestController.query}">
+        <tc:selectItems value="#{suggestController.solarObjects}" var="name" itemValue="#{name}"/>
+      </tc:suggest>
+    </tc:in>
+    <tc:in id="suggest23">
+      <f:facet name="before">
+        <tc:button label="Submit" defaultCommand="true"/>
+      </f:facet>
+      <tc:suggest totalCount="10" query="#{suggestController.query}">
+        <tc:selectItems value="#{suggestController.solarObjects}" var="name" itemValue="#{name}"/>
+      </tc:suggest>
+      <f:facet name="after">
+        <tc:button label="Submit" defaultCommand="true"/>
+      </f:facet>
+    </tc:in>
+  </tc:box>
 </ui:composition>
