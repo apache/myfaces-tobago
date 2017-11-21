@@ -9169,8 +9169,31 @@ th.tobago-sheet-headerCell-markup-filler > .tobago-sheet-header {
       flex-grow: 1;
 }
 
-.input-group > .twitter-typeahead > .tobago-in {
-  border-right: 0;
+.input-group > .twitter-typeahead {
+  /* suggest in center of an input group */
+}
+
+.input-group > .twitter-typeahead .tobago-in.tt-hint {
+  width: 100%;
+  border-radius: 0;
+}
+
+.input-group > .twitter-typeahead:first-child {
+  /* suggest on the left of an input group */
+}
+
+.input-group > .twitter-typeahead:first-child .tobago-in.tt-input {
+  border-top-left-radius: 0.25rem;
+  border-bottom-left-radius: 0.25rem;
+}
+
+.input-group > .twitter-typeahead:last-child {
+  /* suggest on the right of an input group */
+}
+
+.input-group > .twitter-typeahead:last-child .tobago-in.tt-input {
+  border-top-right-radius: 0.25rem;
+  border-bottom-right-radius: 0.25rem;
 }
 
 /* tab / tab-group ----------------------------------------------------------------- */

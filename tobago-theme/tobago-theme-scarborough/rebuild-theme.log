@@ -1,4 +1,4 @@
-Build date: 2017-11-16 10:43:29
+Build date: 2017-11-21 19:08:42
 [INFO] Scanning for projects...
 [INFO] 
 [INFO] ------------------------------------------------------------------------
@@ -46,10 +46,10 @@ Build date: 2017-11-16 10:43:29
 [INFO] 
 [INFO] [fsevents] Success: "__CURRENT__/tobago-theme-scarborough/target/bootstrap/node_modules/fsevents/lib/binding/Release/node-v51-darwin-x64/fse.node" is installed via remote
 [INFO] 
-[INFO] > node-sass@4.6.1 install __CURRENT__/tobago-theme-scarborough/target/bootstrap/node_modules/node-sass
+[INFO] > node-sass@4.7.2 install __CURRENT__/tobago-theme-scarborough/target/bootstrap/node_modules/node-sass
 [INFO] > node scripts/install.js
 [INFO] 
-[INFO] Cached binary found at __HOME__/.npm/node-sass/4.6.1/darwin-x64-51_binding.node
+[INFO] Cached binary found at __HOME__/.npm/node-sass/4.7.2/darwin-x64-51_binding.node
 [INFO] 
 [INFO] > phantomjs-prebuilt@2.1.16 install __CURRENT__/tobago-theme-scarborough/target/bootstrap/node_modules/phantomjs-prebuilt
 [INFO] > node install.js
@@ -59,11 +59,11 @@ Build date: 2017-11-16 10:43:29
 [INFO] Verified checksum of previously downloaded file
 [INFO] Extracting zip contents
 [INFO] Removing __CURRENT__/tobago-theme-scarborough/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom
-[INFO] Copying extracted folder /var/folders/yp/1vrxjnrs20798ydt_yl8wrpr0000gp/T/phantomjs/phantomjs-2.1.1-macosx.zip-extract-1510825469173/phantomjs-2.1.1-macosx -> __CURRENT__/tobago-theme-scarborough/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom
+[INFO] Copying extracted folder /var/folders/yp/1vrxjnrs20798ydt_yl8wrpr0000gp/T/phantomjs/phantomjs-2.1.1-macosx.zip-extract-1511287763335/phantomjs-2.1.1-macosx -> __CURRENT__/tobago-theme-scarborough/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom
 [INFO] Writing location.js file
 [INFO] Done. Phantomjs binary available at __CURRENT__/tobago-theme-scarborough/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom/bin/phantomjs
 [INFO] 
-[INFO] > node-sass@4.6.1 postinstall __CURRENT__/tobago-theme-scarborough/target/bootstrap/node_modules/node-sass
+[INFO] > node-sass@4.7.2 postinstall __CURRENT__/tobago-theme-scarborough/target/bootstrap/node_modules/node-sass
 [INFO] > node scripts/build.js
 [INFO] 
 [INFO] Binary found at __CURRENT__/tobago-theme-scarborough/target/bootstrap/node_modules/node-sass/vendor/darwin-x64-51/binding.node
@@ -73,7 +73,7 @@ Build date: 2017-11-16 10:43:29
 [INFO] ├─┬ autoprefixer@7.1.6 
 [INFO] │ ├─┬ browserslist@2.9.0 
 [INFO] │ │ └── electron-to-chromium@1.3.27 
-[INFO] │ ├── caniuse-lite@1.0.30000765 
+[INFO] │ ├── caniuse-lite@1.0.30000769 
 [INFO] │ ├── normalize-range@0.1.2 
 [INFO] │ ├── num2fraction@1.2.2 
 [INFO] │ ├─┬ postcss@6.0.14 
@@ -88,6 +88,7 @@ Build date: 2017-11-16 10:43:29
 [INFO] │ │ │ ├── source-map@0.5.7 
 [INFO] │ │ │ └── trim-right@1.0.1 
 [INFO] │ │ ├── babel-helpers@7.0.0-beta.2 
+[WARNING] npm WARN bootstrap@4.0.0-beta.2 requires a peer of jquery@1.9.1 - 3 but none was installed.
 [INFO] │ │ ├── babel-messages@7.0.0-beta.2 
 [INFO] │ │ ├── babel-template@7.0.0-beta.2 
 [INFO] │ │ ├── babel-traverse@7.0.0-beta.2 
@@ -229,7 +230,7 @@ Build date: 2017-11-16 10:43:29
 [INFO] │ │ ├── glob-parent@2.0.0 
 [INFO] │ │ ├── inherits@2.0.3 
 [INFO] │ │ ├─┬ is-binary-path@1.0.1 
-[INFO] │ │ │ └── binary-extensions@1.10.0 
+[INFO] │ │ │ └── binary-extensions@1.11.0 
 [INFO] │ │ ├── is-glob@2.0.1 
 [INFO] │ │ ├── path-is-absolute@1.0.1 
 [INFO] │ │ └─┬ readdirp@2.1.0 
@@ -257,7 +258,7 @@ Build date: 2017-11-16 10:43:29
 [INFO] │ │ │ └─┬ @babel/template@7.0.0-beta.32 
 [INFO] │ │ │   └── babylon@7.0.0-beta.32 
 [INFO] │ │ ├── babylon@7.0.0-beta.32 
-[INFO] │ │ └── globals@10.3.0 
+[INFO] │ │ └── globals@10.4.0 
 [INFO] │ ├─┬ @babel/types@7.0.0-beta.32 
 [INFO] │ │ └── to-fast-properties@2.0.0 
 [INFO] │ └── babylon@7.0.0-beta.32 
@@ -386,7 +387,7 @@ Build date: 2017-11-16 10:43:29
 [INFO] │ │   └── shebang-regex@1.0.0 
 [INFO] │ └── is-windows@1.0.1 
 [INFO] ├─┬ eslint@4.11.0 
-[INFO] │ ├─┬ ajv@5.3.0 
+[INFO] │ ├─┬ ajv@5.4.0 
 [INFO] │ │ ├── co@4.6.0 
 [INFO] │ │ ├── fast-deep-equal@1.0.0 
 [INFO] │ │ ├── fast-json-stable-stringify@2.0.0 
@@ -443,9 +444,9 @@ Build date: 2017-11-16 10:43:29
 [INFO] │ │ │ └─┬ restore-cursor@2.0.0 
 [INFO] │ │ │   └── onetime@2.0.1 
 [INFO] │ │ ├── cli-width@2.2.0 
-[INFO] │ │ ├─┬ external-editor@2.0.5 
+[INFO] │ │ ├─┬ external-editor@2.1.0 
+[INFO] │ │ │ ├── chardet@0.4.0 
 [INFO] │ │ │ ├── iconv-lite@0.4.19 
-[INFO] │ │ │ ├── jschardet@1.6.0 
 [INFO] │ │ │ └── tmp@0.0.33 
 [INFO] │ │ ├── figures@2.0.0 
 [INFO] │ │ ├── mute-stream@0.0.7 
@@ -491,7 +492,7 @@ Build date: 2017-11-16 10:43:29
 [INFO] │ └── text-table@0.2.0 
 [INFO] ├─┬ eslint-plugin-compat@2.1.0 
 [INFO] │ ├── babel-runtime@6.26.0 
-[INFO] │ ├── caniuse-db@1.0.30000765 
+[INFO] │ ├── caniuse-db@1.0.30000769 
 [INFO] │ └── requireindex@1.1.0 
 [INFO] ├─┬ htmllint-cli@0.0.6 
 [INFO] │ ├── bluebird@3.5.1 
@@ -581,7 +582,7 @@ Build date: 2017-11-16 10:43:29
 [INFO] │   │ ├── ansi-styles@2.2.1 
 [INFO] │   │ └── supports-color@2.0.0 
 [INFO] │   └── split@1.0.1 
-[INFO] ├─┬ node-sass@4.6.1 
+[INFO] ├─┬ node-sass@4.7.2 
 [INFO] │ ├── async-foreach@0.1.3 
 [INFO] │ ├─┬ chalk@1.1.3 
 [INFO] │ │ ├── ansi-styles@2.2.1 
@@ -648,25 +649,29 @@ Build date: 2017-11-16 10:43:29
 [INFO] │ │   └─┬ wide-align@1.1.2 
 [INFO] │ │     └─┬ string-width@1.0.2 
 [INFO] │ │       └── is-fullwidth-code-point@1.0.0 
-[INFO] │ ├─┬ request@2.83.0 
-[INFO] │ │ ├── aws-sign2@0.7.0 
+[INFO] │ ├─┬ request@2.79.0 
+[INFO] │ │ ├── aws-sign2@0.6.0 
 [INFO] │ │ ├── aws4@1.6.0 
-[INFO] │ │ ├── caseless@0.12.0 
+[INFO] │ │ ├── caseless@0.11.0 
 [INFO] │ │ ├─┬ combined-stream@1.0.5 
 [INFO] │ │ │ └── delayed-stream@1.0.0 
 [INFO] │ │ ├── forever-agent@0.6.1 
-[INFO] │ │ ├─┬ form-data@2.3.1 
+[INFO] │ │ ├─┬ form-data@2.1.4 
 [INFO] │ │ │ └── asynckit@0.4.0 
-[INFO] │ │ ├─┬ har-validator@5.0.3 
-[INFO] │ │ │ └── har-schema@2.0.0 
-[INFO] │ │ ├─┬ hawk@6.0.2 
-[INFO] │ │ │ ├── boom@4.3.1 
-[INFO] │ │ │ ├─┬ cryptiles@3.1.2 
-[INFO] │ │ │ │ └── boom@5.2.0 
-[INFO] │ │ │ ├── hoek@4.2.0 
-[INFO] │ │ │ └── sntp@2.1.0 
-[INFO] │ │ ├─┬ http-signature@1.2.0 
-[INFO] │ │ │ ├── assert-plus@1.0.0 
+[INFO] │ │ ├─┬ har-validator@2.0.6 
+[INFO] │ │ │ └─┬ is-my-json-valid@2.16.1 
+[INFO] │ │ │   ├── generate-function@2.0.0 
+[INFO] │ │ │   ├─┬ generate-object-property@1.2.0 
+[INFO] │ │ │   │ └── is-property@1.0.2 
+[INFO] │ │ │   ├── jsonpointer@4.0.1 
+[INFO] │ │ │   └── xtend@4.0.1 
+[INFO] │ │ ├─┬ hawk@3.1.3 
+[INFO] │ │ │ ├── boom@2.10.1 
+[INFO] │ │ │ ├── cryptiles@2.0.5 
+[INFO] │ │ │ ├── hoek@2.16.3 
+[INFO] │ │ │ └── sntp@1.0.9 
+[INFO] │ │ ├─┬ http-signature@1.1.1 
+[INFO] │ │ │ ├── assert-plus@0.2.0 
 [INFO] │ │ │ ├─┬ jsprim@1.4.1 
 [INFO] │ │ │ │ ├── extsprintf@1.3.0 
 [INFO] │ │ │ │ ├── json-schema@0.2.3 
@@ -685,13 +690,11 @@ Build date: 2017-11-16 10:43:29
 [INFO] │ │ ├─┬ mime-types@2.1.17 
 [INFO] │ │ │ └── mime-db@1.30.0 
 [INFO] │ │ ├── oauth-sign@0.8.2 
-[INFO] │ │ ├── performance-now@2.1.0 
-[INFO] │ │ ├── qs@6.5.1 
-[INFO] │ │ ├── safe-buffer@5.1.1 
+[INFO] │ │ ├── qs@6.3.2 
 [INFO] │ │ ├── stringstream@0.0.5 
 [INFO] │ │ ├─┬ tough-cookie@2.3.3 
 [INFO] │ │ │ └── punycode@1.4.1 
-[INFO] │ │ ├── tunnel-agent@0.6.0 
+[INFO] │ │ ├── tunnel-agent@0.4.3 
 [INFO] │ │ └── uuid@3.1.0 
 [INFO] │ ├─┬ sass-graph@2.2.4 
 [INFO] │ │ ├─┬ scss-tokenizer@0.2.3 
@@ -710,7 +713,9 @@ Build date: 2017-11-16 10:43:29
 [INFO] │ │   ├─┬ string-width@1.0.2 
 [INFO] │ │   │ └── is-fullwidth-code-point@1.0.0 
 [INFO] │ │   └── yargs-parser@5.0.0 
-[INFO] │ └── stdout-stream@1.4.0 
+[INFO] │ ├── stdout-stream@1.4.0 
+[INFO] │ └─┬ true-case-path@1.0.2 
+[INFO] │   └── glob@6.0.4 
 [INFO] ├─┬ nodemon@1.12.1 
 [INFO] │ ├── debug@2.6.9 
 [INFO] │ ├── es6-promise@3.3.1 
@@ -754,7 +759,7 @@ Build date: 2017-11-16 10:43:29
 [INFO] │   │ └── write-file-atomic@2.3.0 
 [INFO] │   ├── import-lazy@2.1.0 
 [INFO] │   ├─┬ is-installed-globally@0.1.0 
-[INFO] │   │ ├─┬ global-dirs@0.1.0 
+[INFO] │   │ ├─┬ global-dirs@0.1.1 
 [INFO] │   │ │ └── ini@1.3.4 
 [INFO] │   │ └── is-path-inside@1.0.0 
 [INFO] │   ├── is-npm@1.0.0 
@@ -823,6 +828,24 @@ Build date: 2017-11-16 10:43:29
 [INFO] │ │   └── pinkie@2.0.4 
 [INFO] │ ├── kew@0.7.0 
 [INFO] │ ├── progress@1.1.8 
+[INFO] │ ├─┬ request@2.83.0 
+[INFO] │ │ ├── aws-sign2@0.7.0 
+[INFO] │ │ ├── caseless@0.12.0 
+[INFO] │ │ ├── form-data@2.3.1 
+[INFO] │ │ ├─┬ har-validator@5.0.3 
+[INFO] │ │ │ └── har-schema@2.0.0 
+[INFO] │ │ ├─┬ hawk@6.0.2 
+[INFO] │ │ │ ├── boom@4.3.1 
+[INFO] │ │ │ ├─┬ cryptiles@3.1.2 
+[INFO] │ │ │ │ └── boom@5.2.0 
+[INFO] │ │ │ ├── hoek@4.2.0 
+[INFO] │ │ │ └── sntp@2.1.0 
+[INFO] │ │ ├─┬ http-signature@1.2.0 
+[INFO] │ │ │ └── assert-plus@1.0.0 
+[INFO] │ │ ├── performance-now@2.1.0 
+[INFO] │ │ ├── qs@6.5.1 
+[INFO] │ │ ├── safe-buffer@5.1.1 
+[INFO] │ │ └── tunnel-agent@0.6.0 
 [INFO] │ ├─┬ request-progress@2.0.1 
 [INFO] │ │ └── throttleit@1.0.0 
 [INFO] │ └─┬ which@1.3.0 
@@ -997,10 +1020,10 @@ Build date: 2017-11-16 10:43:29
 [INFO] ├─┬ stylelint-order@0.7.0 
 [INFO] │ └── postcss-sorting@3.1.0 
 [INFO] ├── stylelint-scss@2.1.0 
-[INFO] ├─┬ uglify-js@3.1.9 
+[INFO] ├─┬ uglify-js@3.1.10 
 [INFO] │ └── source-map@0.6.1 
 [INFO] ├── vnu-jar@17.11.1 
-[INFO] └─┬ workbox-build@2.1.1 
+[INFO] └─┬ workbox-build@2.1.2 
 [INFO]   ├─┬ chalk@1.1.3 
 [INFO]   │ ├── ansi-styles@2.2.1 
 [INFO]   │ └── supports-color@2.0.0 
@@ -1009,9 +1032,8 @@ Build date: 2017-11-16 10:43:29
 [INFO]   ├─┬ lodash.template@4.4.0 
 [INFO]   │ ├── lodash._reinterpolate@3.0.0 
 [INFO]   │ └── lodash.templatesettings@4.1.0 
-[INFO]   └── workbox-sw@2.1.1 
+[INFO]   └── workbox-sw@2.1.2 
 [INFO] 
-[WARNING] npm WARN bootstrap@4.0.0-beta.2 requires a peer of jquery@1.9.1 - 3 but none was installed.
 [INFO] 
 [INFO] --- frontend-maven-plugin:1.4:npm (step #8: npm run css-compile) @ tobago-theme-scarborough ---
 [INFO] Running 'npm run css-compile' in __CURRENT__/tobago-theme-scarborough/target/bootstrap
@@ -1023,11 +1045,11 @@ Build date: 2017-11-16 10:43:29
 [ERROR] Wrote CSS to __CURRENT__/tobago-theme-scarborough/target/bootstrap/dist/css/bootstrap.css
 [ERROR] Wrote Source Map to __CURRENT__/tobago-theme-scarborough/target/bootstrap/dist/css/bootstrap.css.map
 [ERROR] Rendering Complete, saving .css file...
-[ERROR] Wrote CSS to __CURRENT__/tobago-theme-scarborough/target/bootstrap/dist/css/bootstrap-grid.css
 [ERROR] Wrote Source Map to __CURRENT__/tobago-theme-scarborough/target/bootstrap/dist/css/bootstrap-grid.css.map
+[ERROR] Wrote CSS to __CURRENT__/tobago-theme-scarborough/target/bootstrap/dist/css/bootstrap-grid.css
 [ERROR] Rendering Complete, saving .css file...
-[ERROR] Wrote Source Map to __CURRENT__/tobago-theme-scarborough/target/bootstrap/dist/css/bootstrap-reboot.css.map
 [ERROR] Wrote CSS to __CURRENT__/tobago-theme-scarborough/target/bootstrap/dist/css/bootstrap-reboot.css
+[ERROR] Wrote Source Map to __CURRENT__/tobago-theme-scarborough/target/bootstrap/dist/css/bootstrap-reboot.css.map
 [INFO] 
 [INFO] --- frontend-maven-plugin:1.4:npm (step #9: npm run css-prefix) @ tobago-theme-scarborough ---
 [INFO] Running 'npm run css-prefix' in __CURRENT__/tobago-theme-scarborough/target/bootstrap
@@ -1035,12 +1057,12 @@ Build date: 2017-11-16 10:43:29
 [INFO] > bootstrap@4.0.0-beta.2 css-prefix __CURRENT__/tobago-theme-scarborough/target/bootstrap
 [INFO] > postcss --config build/postcss.config.js --replace "dist/css/*.css"
 [INFO] 
-[ERROR] ✔ Finished dist/css/bootstrap-reboot.css (1.24 s)
-[ERROR] ✔ Finished dist/css/bootstrap-grid.css (1.24 s)
-[ERROR] ✔ Finished dist/css/bootstrap-grid.min.css (1.24 s)
-[ERROR] ✔ Finished dist/css/bootstrap.min.css (1.24 s)
-[ERROR] ✔ Finished dist/css/bootstrap-reboot.min.css (1.24 s)
-[ERROR] ✔ Finished dist/css/bootstrap.css (1.25 s)
+[ERROR] ✔ Finished dist/css/bootstrap-grid.css (1.04 s)
+[ERROR] ✔ Finished dist/css/bootstrap-grid.min.css (1.04 s)
+[ERROR] ✔ Finished dist/css/bootstrap-reboot.min.css (1.05 s)
+[ERROR] ✔ Finished dist/css/bootstrap-reboot.css (1.05 s)
+[ERROR] ✔ Finished dist/css/bootstrap.css (1.05 s)
+[ERROR] ✔ Finished dist/css/bootstrap.min.css (1.05 s)
 [INFO] 
 [INFO] --- frontend-maven-plugin:1.4:npm (step #10: npm run css-minify) @ tobago-theme-scarborough ---
 [INFO] Running 'npm run css-minify' in __CURRENT__/tobago-theme-scarborough/target/bootstrap
@@ -1068,16 +1090,16 @@ Build date: 2017-11-16 10:43:29
 [INFO] > npm-run-all --parallel js-compile-*
 [INFO] 
 [INFO] 
+[INFO] > bootstrap@4.0.0-beta.2 js-compile-plugins __CURRENT__/tobago-theme-scarborough/target/bootstrap
+[INFO] > cross-env PLUGINS=true babel js/src/ --out-dir js/dist/ --source-maps
+[INFO] 
+[INFO] 
 [INFO] > bootstrap@4.0.0-beta.2 js-compile-standalone __CURRENT__/tobago-theme-scarborough/target/bootstrap
 [INFO] > cross-env ROLLUP=true rollup --environment BUNDLE:false --config build/rollup.config.js --sourcemap
 [INFO] 
 [INFO] 
 [INFO] > bootstrap@4.0.0-beta.2 js-compile-bundle __CURRENT__/tobago-theme-scarborough/target/bootstrap
 [INFO] > cross-env ROLLUP=true rollup --environment BUNDLE:true --config build/rollup.config.js --sourcemap
-[INFO] 
-[INFO] 
-[INFO] > bootstrap@4.0.0-beta.2 js-compile-plugins __CURRENT__/tobago-theme-scarborough/target/bootstrap
-[INFO] > cross-env PLUGINS=true babel js/src/ --out-dir js/dist/ --source-maps
 [INFO] 
 [ERROR] 
 [ERROR] __CURRENT__/tobago-theme-scarborough/target/bootstrap/js/src/index.js → dist/js/bootstrap.bundle.js...
@@ -1095,22 +1117,22 @@ Build date: 2017-11-16 10:43:29
 [INFO] js/src/tab.js -> js/dist/tab.js
 [INFO] js/src/tooltip.js -> js/dist/tooltip.js
 [INFO] js/src/util.js -> js/dist/util.js
-[ERROR] created dist/js/bootstrap.js in 3.3s
-[ERROR] created dist/js/bootstrap.bundle.js in 3.6s
+[ERROR] created dist/js/bootstrap.js in 2.3s
+[ERROR] created dist/js/bootstrap.bundle.js in 2.5s
 [INFO] 
 [INFO] > bootstrap@4.0.0-beta.2 js-compile-standalone __CURRENT__/tobago-theme-scarborough/target/bootstrap
 [INFO] > cross-env ROLLUP=true rollup --environment BUNDLE:false --config build/rollup.config.js --sourcemap
 [INFO] 
 [ERROR] 
 [ERROR] __CURRENT__/tobago-theme-scarborough/target/bootstrap/js/src/index.js → dist/js/bootstrap.js...
-[ERROR] created dist/js/bootstrap.js in 1.8s
+[ERROR] created dist/js/bootstrap.js in 1.5s
 [INFO] 
 [INFO] > bootstrap@4.0.0-beta.2 js-compile-bundle __CURRENT__/tobago-theme-scarborough/target/bootstrap
 [INFO] > cross-env ROLLUP=true rollup --environment BUNDLE:true --config build/rollup.config.js --sourcemap
 [INFO] 
 [ERROR] 
 [ERROR] __CURRENT__/tobago-theme-scarborough/target/bootstrap/js/src/index.js → dist/js/bootstrap.bundle.js...
-[ERROR] created dist/js/bootstrap.bundle.js in 1.9s
+[ERROR] created dist/js/bootstrap.bundle.js in 1.6s
 [INFO] 
 [INFO] > bootstrap@4.0.0-beta.2 js-compile-plugins __CURRENT__/tobago-theme-scarborough/target/bootstrap
 [INFO] > cross-env PLUGINS=true babel js/src/ --out-dir js/dist/ --source-maps
@@ -1143,8 +1165,8 @@ Build date: 2017-11-16 10:43:29
 [INFO] > bootstrap@4.0.0-beta.2 js-minify-docs __CURRENT__/tobago-theme-scarborough/target/bootstrap
 [INFO] > uglifyjs --mangle --comments "/^!/" --output assets/js/docs.min.js assets/js/vendor/anchor.min.js assets/js/vendor/clipboard.min.js assets/js/vendor/holder.min.js assets/js/src/application.js assets/js/src/pwa.js
 [INFO] 
-[ERROR] INFO: Using input source map: dist/js/bootstrap.js.map
 [ERROR] INFO: Using input source map: dist/js/bootstrap.bundle.js.map
+[ERROR] INFO: Using input source map: dist/js/bootstrap.js.map
 [INFO] 
 [INFO] > bootstrap@4.0.0-beta.2 js-minify-standalone __CURRENT__/tobago-theme-scarborough/target/bootstrap
 [INFO] > uglifyjs --compress typeofs=false --mangle --comments "/^!/" --source-map "content=dist/js/bootstrap.js.map,includeSources,url=bootstrap.min.js.map" --output dist/js/bootstrap.min.js dist/js/bootstrap.js
@@ -1201,7 +1223,7 @@ main:
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
-[INFO] Total time: 01:43 min
-[INFO] Finished at: 2017-11-16T10:45:14+01:00
-[INFO] Final Memory: 26M/86M
+[INFO] Total time: 01:13 min
+[INFO] Finished at: 2017-11-21T19:09:57+01:00
+[INFO] Final Memory: 25M/85M
 [INFO] ------------------------------------------------------------------------
