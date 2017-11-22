@@ -32,7 +32,10 @@ import javax.faces.component.UIOutput;
 
 /**
  * Renders a calendar.
+ *
+ * @deprecated
  */
+@Deprecated
 @Tag(name = "calendar")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UICalendar",

@@ -23,6 +23,10 @@ import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
+/**
+ * @deprecated
+ */
+@Deprecated
 public class CalendarModel {
 
   private DateModel[][] calendarArray;
