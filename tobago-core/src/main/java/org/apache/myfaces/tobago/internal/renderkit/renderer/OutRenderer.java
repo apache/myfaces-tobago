@@ -21,11 +21,14 @@ package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
 import org.apache.myfaces.tobago.component.UIOut;
 import org.apache.myfaces.tobago.config.TobagoConfig;
+import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.internal.component.AbstractUIOut;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
+import org.apache.myfaces.tobago.internal.util.JsonUtils;
 import org.apache.myfaces.tobago.internal.util.RenderUtils;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
+import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.sanitizer.SanitizeMode;
@@ -53,17 +56,19 @@ public class OutRenderer extends MessageLayoutRendererBase {
 
     final boolean escape = out.isEscape();
     final boolean compact = out.isCompact() || !out.isCreateSpan();
+    final Markup markup = out.getMarkup();
 
     if (!compact) {
       writer.startElement(HtmlElements.SPAN);
       if (out.isLabelLayoutSkip()) {
         writer.writeIdAttribute(out.getClientId());
+        writer.writeAttribute(DataAttributes.MARKUP, JsonUtils.encode(markup), false);
       }
       HtmlRendererUtils.writeDataAttributes(facesContext, writer, out);
 
       writer.writeClassAttribute(
           TobagoClass.OUT,
-          TobagoClass.OUT.createMarkup(out.getMarkup()),
+          TobagoClass.OUT.createMarkup(markup),
           TobagoClass.OUT.createDefaultMarkups(out),
           BootstrapClass.FORM_CONTROL_PLAINTEXT,
           out.getCustomClass());

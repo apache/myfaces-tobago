@@ -22,11 +22,14 @@ package org.apache.myfaces.tobago.internal.renderkit.renderer;
 import org.apache.myfaces.tobago.component.LabelLayout;
 import org.apache.myfaces.tobago.component.SupportsLabelLayout;
 import org.apache.myfaces.tobago.component.UISegmentLayout;
+import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.internal.component.AbstractUISegmentLayout;
+import org.apache.myfaces.tobago.internal.util.JsonUtils;
 import org.apache.myfaces.tobago.layout.MarginTokens;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
+import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import org.slf4j.Logger;
@@ -51,18 +54,21 @@ public class SegmentLayoutRenderer extends RendererBase {
 
   @Override
   public void encodeBegin(final FacesContext facesContext, final UIComponent component) throws IOException {
-    final AbstractUISegmentLayout layout = (AbstractUISegmentLayout) component;
+
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
+    final AbstractUISegmentLayout layout = (AbstractUISegmentLayout) component;
+    final Markup markup = layout.getMarkup();
 
     writer.startElement(HtmlElements.DIV);
+    writer.writeIdAttribute(layout.getClientId(facesContext));
+    writer.writeAttribute(DataAttributes.MARKUP, JsonUtils.encode(markup), false);
 //    writer.writeClassAttribute(BootstrapClass.FORM_HORIZONTAL, BootstrapClass.CONTAINER_FLUID);
     writer.writeClassAttribute(
         TobagoClass.SEGMENT_LAYOUT,
-        TobagoClass.SEGMENT_LAYOUT.createMarkup(layout.getMarkup()),
+        TobagoClass.SEGMENT_LAYOUT.createMarkup(markup),
         TobagoClass.SEGMENT_LAYOUT.createDefaultMarkups(layout),
         BootstrapClass.ROW);
 //    writer.writeClassAttribute(Classes.create(layout), BootstrapClass.FORM_GROUP);
-    writer.writeIdAttribute(layout.getClientId(facesContext));
   }
 
   @Override

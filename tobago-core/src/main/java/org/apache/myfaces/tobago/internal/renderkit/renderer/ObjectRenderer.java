@@ -20,10 +20,13 @@
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
 import org.apache.myfaces.tobago.component.UIObject;
+import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.context.TobagoResourceBundle;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
+import org.apache.myfaces.tobago.internal.util.JsonUtils;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
+import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
@@ -37,11 +40,13 @@ public class ObjectRenderer extends RendererBase {
   public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
     final UIObject object = (UIObject) component;
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
+    final Markup markup = object.getMarkup();
 
     writer.startElement(HtmlElements.IFRAME);
     writer.writeAttribute(HtmlAttributes.FRAMEBORDER, "0", false);
     final String clientId = object.getClientId(facesContext);
     writer.writeIdAttribute(clientId);
+    writer.writeAttribute(DataAttributes.MARKUP, JsonUtils.encode(markup), false);
     String name = object.getName();
     if (name == null) {
       name = clientId;
@@ -51,7 +56,7 @@ public class ObjectRenderer extends RendererBase {
     writer.writeAttribute(HtmlAttributes.SRC, object.getSrc(), true);
     writer.writeClassAttribute(
         TobagoClass.OBJECT,
-        TobagoClass.OBJECT.createMarkup(object.getMarkup()),
+        TobagoClass.OBJECT.createMarkup(markup),
         TobagoClass.OBJECT.createDefaultMarkups(object),
         object.getCustomClass());
 

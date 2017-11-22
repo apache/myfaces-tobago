@@ -20,10 +20,13 @@
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
 import org.apache.myfaces.tobago.component.UIFlowLayout;
+import org.apache.myfaces.tobago.context.Markup;
+import org.apache.myfaces.tobago.internal.util.JsonUtils;
 import org.apache.myfaces.tobago.layout.TextAlign;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
+import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
@@ -37,16 +40,18 @@ public class FlowLayoutRenderer extends RendererBase {
   public void encodeBegin(final FacesContext facesContext, final UIComponent component) throws IOException {
 
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
-    final UIFlowLayout layout = (UIFlowLayout) component;
+    final UIFlowLayout flowLayout = (UIFlowLayout) component;
+    final Markup markup = flowLayout.getMarkup();
 
     writer.startElement(HtmlElements.DIV);
-    writer.writeIdAttribute(layout.getClientId());
-    final TextAlign textAlign = layout.getTextAlign();
+    writer.writeIdAttribute(flowLayout.getClientId());
+    writer.writeAttribute(DataAttributes.MARKUP, JsonUtils.encode(markup), false);
+    final TextAlign textAlign = flowLayout.getTextAlign();
     writer.writeClassAttribute(
         TobagoClass.FLOW_LAYOUT,
-        TobagoClass.FLOW_LAYOUT.createMarkup(layout.getMarkup()),
-        TobagoClass.FLOW_LAYOUT.createDefaultMarkups(layout),
-        layout.getCustomClass(),
+        TobagoClass.FLOW_LAYOUT.createMarkup(markup),
+        TobagoClass.FLOW_LAYOUT.createDefaultMarkups(flowLayout),
+        flowLayout.getCustomClass(),
         textAlign != null ? BootstrapClass.textAlign(textAlign) : null);
   }
 

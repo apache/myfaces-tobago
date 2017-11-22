@@ -20,6 +20,7 @@
 package org.apache.myfaces.tobago.internal.util;
 
 import org.apache.myfaces.tobago.component.ClientBehaviors;
+import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.internal.context.DateTimeI18n;
 import org.apache.myfaces.tobago.internal.renderkit.Collapse;
 import org.apache.myfaces.tobago.internal.renderkit.Command;
@@ -288,5 +289,24 @@ public class JsonUtils {
       }
     }
     return result;
+  }
+
+  public static String encode(final Markup markups) {
+    if (markups == null || markups.isEmpty()) {
+      return null;
+    }
+    StringBuilder builder = new StringBuilder(20);
+    builder.append('[');
+    for (String markup : markups) {
+      builder.append('"');
+      builder.append(markup);
+      builder.append('"');
+      builder.append(',');
+    }
+    if (builder.length() > 1) {
+      builder.deleteCharAt(builder.length() - 1);
+    }
+    builder.append(']');
+    return builder.toString();
   }
 }

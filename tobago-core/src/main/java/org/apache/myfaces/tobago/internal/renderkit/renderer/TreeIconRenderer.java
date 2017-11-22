@@ -23,6 +23,7 @@ import org.apache.myfaces.tobago.component.UITreeIcon;
 import org.apache.myfaces.tobago.component.UITreeNode;
 import org.apache.myfaces.tobago.internal.component.AbstractUIData;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
+import org.apache.myfaces.tobago.internal.util.JsonUtils;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Icons;
@@ -58,15 +59,15 @@ public class TreeIconRenderer extends RendererBase {
   @Override
   public void encodeBegin(final FacesContext facesContext, final UIComponent component) throws IOException {
 
-    final UITreeIcon image = (UITreeIcon) component;
-    final AbstractUIData data = ComponentUtils.findAncestor(image, AbstractUIData.class);
-    final UITreeNode node = ComponentUtils.findAncestor(image, UITreeNode.class);
+    final UITreeIcon treeIcon = (UITreeIcon) component;
+    final AbstractUIData data = ComponentUtils.findAncestor(treeIcon, AbstractUIData.class);
+    final UITreeNode node = ComponentUtils.findAncestor(treeIcon, UITreeNode.class);
     final boolean folder = node.isFolder();
     final boolean expanded = folder && data.getExpandedState().isExpanded(node.getPath());
 
-    final String value = (String) image.getValue();
-    String closed = image.getClosed();
-    String open = image.getOpen();
+    final String value = (String) treeIcon.getValue();
+    String closed = treeIcon.getClosed();
+    String open = treeIcon.getOpen();
 
     if (closed == null) {
       closed = value;
@@ -90,7 +91,8 @@ public class TreeIconRenderer extends RendererBase {
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
     writer.startElement(HtmlElements.SPAN);
-    writer.writeIdAttribute(image.getClientId());
+    writer.writeIdAttribute(treeIcon.getClientId());
+    writer.writeAttribute(DataAttributes.MARKUP, JsonUtils.encode(treeIcon.getMarkup()), false);
     writer.writeClassAttribute(TobagoClass.TREE_NODE__TOGGLE);
 
     if (StringUtils.startsWith(source, "fa-")) {
@@ -103,7 +105,7 @@ public class TreeIconRenderer extends RendererBase {
       writer.endElement(HtmlElements.I);
     } else {
       writer.startElement(HtmlElements.IMG);
-      HtmlRendererUtils.writeDataAttributes(facesContext, writer, image);
+      HtmlRendererUtils.writeDataAttributes(facesContext, writer, treeIcon);
       writer.writeAttribute(HtmlAttributes.SRC, source, true);
       if (folder) {
         writer.writeAttribute(DataAttributes.OPEN, open, true);

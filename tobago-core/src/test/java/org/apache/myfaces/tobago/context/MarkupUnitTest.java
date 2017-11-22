@@ -40,7 +40,7 @@ public class MarkupUnitTest {
     Assert.assertArrayEquals(AB, toArray(Markup.valueOf("a,b").iterator()));
     
     Assert.assertArrayEquals(AB, toArray(Markup.valueOf("a, b").iterator()));
-    
+
     Assert.assertArrayEquals(AB, toArray(Markup.valueOf(", \ta , ,\n b ,").iterator()));
   }
   
@@ -146,6 +146,16 @@ public class MarkupUnitTest {
     Assert.assertTrue(ab.contains(Markup.valueOf("a,a")));
     Assert.assertFalse(ab.contains(Markup.valueOf("a,c")));
     Assert.assertFalse(ab.contains(Markup.valueOf("a,c,d,e,c,f,e,f")));
+  }
+
+  @Test
+  public void testIsEmpty() {
+    final Markup a = Markup.valueOf("a");
+    final Markup ab = Markup.valueOf("a,b");
+
+    Assert.assertFalse(a.isEmpty());
+    Assert.assertFalse(ab.isEmpty());
+    Assert.assertTrue(Markup.NULL.isEmpty());
   }
 
   public static Object[] toArray(final Iterator<?> iterator) {

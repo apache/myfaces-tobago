@@ -20,12 +20,15 @@
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
 import org.apache.myfaces.tobago.component.RendererTypes;
+import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.internal.component.AbstractUIButton;
 import org.apache.myfaces.tobago.internal.component.AbstractUIButtons;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
+import org.apache.myfaces.tobago.internal.util.JsonUtils;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
+import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRoleValues;
@@ -41,14 +44,16 @@ public class ButtonsRenderer extends RendererBase {
   public void encodeBegin(FacesContext facesContext, UIComponent component) throws IOException {
 
     final AbstractUIButtons buttons = (AbstractUIButtons) component;
+    final Markup markup = buttons.getMarkup();
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
     writer.startElement(HtmlElements.DIV);
     writer.writeIdAttribute(buttons.getClientId(facesContext));
+    writer.writeAttribute(DataAttributes.MARKUP, JsonUtils.encode(markup), false);
 
     writer.writeClassAttribute(
         TobagoClass.BUTTONS,
-        TobagoClass.BUTTONS.createMarkup(buttons.getMarkup()),
+        TobagoClass.BUTTONS.createMarkup(markup),
         TobagoClass.BUTTONS.createDefaultMarkups(buttons),
         BootstrapClass.BTN_GROUP,
         buttons.getCustomClass());

@@ -24,6 +24,7 @@ import org.apache.myfaces.tobago.component.UITreeIndent;
 import org.apache.myfaces.tobago.internal.component.AbstractUIData;
 import org.apache.myfaces.tobago.internal.component.AbstractUITreeNodeBase;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
+import org.apache.myfaces.tobago.internal.util.JsonUtils;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.Icons;
@@ -43,16 +44,16 @@ public class TreeIndentRenderer extends RendererBase {
   @Override
   public void encodeBegin(final FacesContext facesContext, final UIComponent component) throws IOException {
 
-    final UITreeIndent indent = (UITreeIndent) component;
-    final AbstractUITreeNodeBase node = ComponentUtils.findAncestor(indent, AbstractUITreeNodeBase.class);
-    final AbstractUIData data = ComponentUtils.findAncestor(indent, AbstractUIData.class);
+    final UITreeIndent treeIndent = (UITreeIndent) component;
+    final AbstractUITreeNodeBase node = ComponentUtils.findAncestor(treeIndent, AbstractUITreeNodeBase.class);
+    final AbstractUIData data = ComponentUtils.findAncestor(treeIndent, AbstractUIData.class);
 
     final boolean folder = node.isFolder();
     final int level = node.getLevel();
     final List<Boolean> junctions = node.getJunctions();
 
     final boolean showRoot = data.isShowRoot();
-    final boolean showJunctions = indent.isShowJunctions();
+    final boolean showJunctions = treeIndent.isShowJunctions();
     final boolean showRootJunction = data.isShowRootJunction();
     final boolean expanded = folder && data.getExpandedState().isExpanded(node.getPath());
     final boolean showLines = showJunctions && data instanceof UITree; // sheet should not show lines
@@ -61,8 +62,9 @@ public class TreeIndentRenderer extends RendererBase {
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
     writer.startElement(HtmlElements.SPAN);
-    writer.writeIdAttribute(indent.getClientId(facesContext));
-    HtmlRendererUtils.writeDataAttributes(facesContext, writer, indent);
+    writer.writeIdAttribute(treeIndent.getClientId(facesContext));
+    writer.writeAttribute(DataAttributes.MARKUP, JsonUtils.encode(treeIndent.getMarkup()), false);
+    HtmlRendererUtils.writeDataAttributes(facesContext, writer, treeIndent);
     writer.writeClassAttribute(TobagoClass.TREE_NODE__TOGGLE);
 
     // encode indent

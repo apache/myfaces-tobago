@@ -20,9 +20,11 @@
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
 import org.apache.myfaces.tobago.internal.component.AbstractUIForm;
+import org.apache.myfaces.tobago.internal.util.JsonUtils;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
+import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
@@ -41,6 +43,7 @@ public class FormRenderer extends RendererBase {
 
     writer.startElement(HtmlElements.DIV);
     writer.writeIdAttribute(clientId);
+    writer.writeAttribute(DataAttributes.MARKUP, JsonUtils.encode(form.getMarkup()), false);
     writer.writeClassAttribute(
         TobagoClass.FORM,
         inline ? BootstrapClass.D_INLINE : null,

@@ -143,6 +143,7 @@ public class SheetRenderer extends RendererBase {
 
     final UISheet sheet = (UISheet) component;
     final String sheetId = sheet.getClientId(facesContext);
+    final Markup markup = sheet.getMarkup();
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
     UIComponent header = sheet.getHeader();
@@ -179,10 +180,11 @@ public class SheetRenderer extends RendererBase {
     // Outer sheet div
     writer.startElement(HtmlElements.DIV);
     writer.writeIdAttribute(sheetId);
+    writer.writeAttribute(DataAttributes.MARKUP, JsonUtils.encode(markup), false);
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, sheet);
     writer.writeClassAttribute(
         TobagoClass.SHEET,
-        TobagoClass.SHEET.createMarkup(sheet.getMarkup()),
+        TobagoClass.SHEET.createMarkup(markup),
         TobagoClass.SHEET.createDefaultMarkups(sheet),
         sheet.getCustomClass());
     final UIComponent facetReload = ComponentUtils.getFacet(sheet, Facets.reload);

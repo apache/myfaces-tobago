@@ -20,7 +20,9 @@
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
 import org.apache.myfaces.tobago.component.UIMessages;
+import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
+import org.apache.myfaces.tobago.internal.util.JsonUtils;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
@@ -75,9 +77,11 @@ public class MessagesRenderer extends RendererBase {
 
     writer.startElement(HtmlElements.DIV);
     writer.writeIdAttribute(messages.getClientId(facesContext));
+    final Markup markup = messages.getMarkup();
+    writer.writeAttribute(DataAttributes.MARKUP, JsonUtils.encode(markup), false);
     writer.writeClassAttribute(
         TobagoClass.MESSAGES,
-        TobagoClass.MESSAGES.createMarkup(messages.getMarkup()),
+        TobagoClass.MESSAGES.createMarkup(markup),
         TobagoClass.MESSAGES.createDefaultMarkups(messages),
         messages.getCustomClass());
 

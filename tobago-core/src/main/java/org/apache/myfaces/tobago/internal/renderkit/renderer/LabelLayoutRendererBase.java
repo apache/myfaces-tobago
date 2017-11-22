@@ -23,12 +23,15 @@ import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.LabelLayout;
 import org.apache.myfaces.tobago.component.SupportsAccessKey;
 import org.apache.myfaces.tobago.component.SupportsLabelLayout;
+import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.internal.component.AbstractUIStyle;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
+import org.apache.myfaces.tobago.internal.util.JsonUtils;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
+import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.util.ComponentUtils;
@@ -124,6 +127,7 @@ public abstract class LabelLayoutRendererBase extends DecodingInputRendererBase 
 
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
     String clientId = component.getClientId(facesContext);
+    final Markup markup = (Markup) ComponentUtils.getAttribute(component, Attributes.markup);
 
     // possible values:
     // - none
@@ -166,6 +170,7 @@ public abstract class LabelLayoutRendererBase extends DecodingInputRendererBase 
 
     writer.startElement(HtmlElements.DIV);
     writer.writeIdAttribute(clientId);
+    writer.writeAttribute(DataAttributes.MARKUP, JsonUtils.encode(markup), false);
 
     writer.writeClassAttribute(
         flex ? TobagoClass.FLEX_LAYOUT : null,

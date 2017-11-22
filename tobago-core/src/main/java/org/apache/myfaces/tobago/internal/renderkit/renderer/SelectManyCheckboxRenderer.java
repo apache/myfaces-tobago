@@ -19,6 +19,7 @@
 
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
+import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.internal.component.AbstractUISelectManyCheckbox;
 import org.apache.myfaces.tobago.internal.util.ArrayUtils;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
@@ -28,6 +29,7 @@ import org.apache.myfaces.tobago.internal.util.SelectItemUtils;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.CssItem;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
+import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
@@ -52,15 +54,17 @@ public class SelectManyCheckboxRenderer extends SelectManyRendererBase {
     final boolean readonly = select.isReadonly();
     final boolean required = select.isRequired();
     final boolean inline = select.isInline();
+    final Markup markup = select.getMarkup();
 
     writer.startElement(HtmlElements.DIV);
     if (select.isLabelLayoutSkip()) {
       writer.writeIdAttribute(id);
+      writer.writeAttribute(DataAttributes.MARKUP, JsonUtils.encode(markup), false);
     }
 
     writer.writeClassAttribute(
         TobagoClass.SELECT_MANY_CHECKBOX,
-        TobagoClass.SELECT_MANY_CHECKBOX.createMarkup(select.getMarkup()),
+        TobagoClass.SELECT_MANY_CHECKBOX.createMarkup(markup),
         TobagoClass.SELECT_MANY_CHECKBOX.createDefaultMarkups(select),
         inline ? TobagoClass.SELECT_MANY_CHECKBOX__INLINE : null,
         select.getCustomClass());

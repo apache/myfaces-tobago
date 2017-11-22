@@ -20,6 +20,7 @@
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
 import org.apache.myfaces.tobago.component.UISelectManyShuttle;
+import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.internal.util.JsonUtils;
 import org.apache.myfaces.tobago.internal.util.RenderUtils;
@@ -27,6 +28,7 @@ import org.apache.myfaces.tobago.internal.util.SelectItemUtils;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.Icons;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
+import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlButtonTypes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
@@ -43,16 +45,20 @@ public class SelectManyShuttleRenderer extends SelectManyRendererBase {
 
   @Override
   public void encodeBeginField(final FacesContext facesContext, final UIComponent component) throws IOException {
+
+    final TobagoResponseWriter writer = getResponseWriter(facesContext);
     final UISelectManyShuttle select = (UISelectManyShuttle) component;
     final String clientId = select.getClientId(facesContext);
-    final TobagoResponseWriter writer = getResponseWriter(facesContext);
+    final Markup markup = select.getMarkup();
+
     writer.startElement(HtmlElements.DIV);
     if (select.isLabelLayoutSkip()) {
       writer.writeIdAttribute(clientId);
+      writer.writeAttribute(DataAttributes.MARKUP, JsonUtils.encode(markup), false);
     }
     writer.writeClassAttribute(
         TobagoClass.SELECT_MANY_SHUTTLE,
-        TobagoClass.SELECT_MANY_SHUTTLE.createMarkup(select.getMarkup()),
+        TobagoClass.SELECT_MANY_SHUTTLE.createMarkup(markup),
         TobagoClass.SELECT_MANY_SHUTTLE.createDefaultMarkups(select),
         select.getCustomClass());
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, select);

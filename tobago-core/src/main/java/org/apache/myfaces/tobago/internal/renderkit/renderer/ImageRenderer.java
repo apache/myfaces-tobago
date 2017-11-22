@@ -19,14 +19,17 @@
 
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
+import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.internal.component.AbstractUICommandBase;
 import org.apache.myfaces.tobago.internal.component.AbstractUIImage;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
+import org.apache.myfaces.tobago.internal.util.JsonUtils;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.Icons;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
+import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
@@ -49,9 +52,11 @@ public class ImageRenderer extends RendererBase {
         || (image.getParent() instanceof AbstractUICommandBase
         && ((AbstractUICommandBase) image.getParent()).isDisabled());
     final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, image);
+    final Markup markup = image.getMarkup();
     if (fontAwesome) {
       writer.startElement(HtmlElements.I);
       writer.writeIdAttribute(image.getClientId(facesContext));
+      writer.writeAttribute(DataAttributes.MARKUP, JsonUtils.encode(markup), false);
       writer.writeClassAttribute(
           Icons.FA,
           Icons.custom(value),
@@ -62,12 +67,13 @@ public class ImageRenderer extends RendererBase {
       final String alt = image.getAlt();
       writer.startElement(HtmlElements.IMG);
       writer.writeIdAttribute(image.getClientId(facesContext));
+      writer.writeAttribute(DataAttributes.MARKUP, JsonUtils.encode(markup), false);
       HtmlRendererUtils.writeDataAttributes(facesContext, writer, image);
       writer.writeAttribute(HtmlAttributes.SRC, value, true);
       writer.writeAttribute(HtmlAttributes.ALT, alt != null ? alt : "", true);
       writer.writeClassAttribute(
           TobagoClass.IMAGE,
-          TobagoClass.IMAGE.createMarkup(image.getMarkup()),
+          TobagoClass.IMAGE.createMarkup(markup),
           TobagoClass.IMAGE.createDefaultMarkups(image),
           disabled ? BootstrapClass.DISABLED : null,
           image.getCustomClass());

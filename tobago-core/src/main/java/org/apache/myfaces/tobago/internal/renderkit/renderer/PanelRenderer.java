@@ -22,6 +22,7 @@ package org.apache.myfaces.tobago.internal.renderkit.renderer;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.UIPanel;
 import org.apache.myfaces.tobago.component.UIReload;
+import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.internal.util.JsonUtils;
 import org.apache.myfaces.tobago.internal.util.RenderUtils;
@@ -46,13 +47,15 @@ public class PanelRenderer extends PanelRendererBase {
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
     final String clientId = panel.getClientId(facesContext);
     final boolean collapsed = panel.isCollapsed();
+    final Markup markup = panel.getMarkup();
 
     writer.startElement(HtmlElements.DIV);
     writer.writeIdAttribute(clientId);
+    writer.writeAttribute(DataAttributes.MARKUP, JsonUtils.encode(markup), false);
 
     writer.writeClassAttribute(
         TobagoClass.PANEL,
-        TobagoClass.PANEL.createMarkup(panel.getMarkup()),
+        TobagoClass.PANEL.createMarkup(markup),
         TobagoClass.PANEL.createDefaultMarkups(panel),
         collapsed ? TobagoClass.COLLAPSED : null,
         panel.getCustomClass());

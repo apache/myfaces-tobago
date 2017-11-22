@@ -20,11 +20,14 @@
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
 import org.apache.myfaces.tobago.component.Facets;
+import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.internal.component.AbstractUISection;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
+import org.apache.myfaces.tobago.internal.util.JsonUtils;
 import org.apache.myfaces.tobago.model.CollapseMode;
 import org.apache.myfaces.tobago.renderkit.css.Icons;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
+import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
@@ -42,13 +45,14 @@ public class SectionRenderer extends PanelRendererBase {
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
     final String clientId = section.getClientId(facesContext);
     final boolean collapsed = section.isCollapsed();
+    final Markup markup = section.getMarkup();
 
     writer.startElement(HtmlElements.DIV);
     writer.writeIdAttribute(clientId);
-
+    writer.writeAttribute(DataAttributes.MARKUP, JsonUtils.encode(markup), false);
     writer.writeClassAttribute(
         TobagoClass.SECTION,
-        TobagoClass.SECTION.createMarkup(section.getMarkup()),
+        TobagoClass.SECTION.createMarkup(markup),
         TobagoClass.SECTION.createDefaultMarkups(section),
         collapsed ? TobagoClass.COLLAPSED : null,
         section.getCustomClass());

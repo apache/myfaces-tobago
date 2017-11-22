@@ -24,10 +24,12 @@ import org.apache.myfaces.tobago.component.UILabel;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.internal.util.AccessKeyLogger;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
+import org.apache.myfaces.tobago.internal.util.JsonUtils;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
+import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.util.ComponentUtils;
@@ -79,6 +81,7 @@ public class LabelRenderer extends RendererBase implements ComponentSystemEventL
         BootstrapClass.COL_FORM_LABEL,
         label.getCustomClass());
     writer.writeIdAttribute(clientId);
+    writer.writeAttribute(DataAttributes.MARKUP, JsonUtils.encode(label.getMarkup()), false);
     if (forId != null) {
       writer.writeAttribute(HtmlAttributes.FOR, forId, false);
     }

@@ -20,10 +20,13 @@
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
 import org.apache.myfaces.tobago.component.UIFooter;
+import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
+import org.apache.myfaces.tobago.internal.util.JsonUtils;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
+import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
@@ -38,12 +41,14 @@ public class FooterRenderer extends RendererBase {
   public void encodeBegin(FacesContext facesContext, UIComponent component) throws IOException {
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
     final UIFooter footer = (UIFooter) component;
+    final Markup markup = footer.getMarkup();
     writer.startElement(HtmlElements.FOOTER);
     writer.writeIdAttribute(component.getClientId(facesContext));
+    writer.writeAttribute(DataAttributes.MARKUP, JsonUtils.encode(markup), false);
 
     writer.writeClassAttribute(
         TobagoClass.FOOTER,
-        TobagoClass.FOOTER.createMarkup(footer.getMarkup()),
+        TobagoClass.FOOTER.createMarkup(markup),
         TobagoClass.FOOTER.createDefaultMarkups(footer),
         footer.isFixed() ? BootstrapClass.FIXED_BOTTOM : null,
         footer.getCustomClass());

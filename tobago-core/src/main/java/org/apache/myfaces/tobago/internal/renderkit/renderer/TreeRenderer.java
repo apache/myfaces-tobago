@@ -20,9 +20,11 @@
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
 import org.apache.myfaces.tobago.component.UITreeNode;
+import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.internal.component.AbstractUIData;
 import org.apache.myfaces.tobago.internal.component.AbstractUITree;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
+import org.apache.myfaces.tobago.internal.util.JsonUtils;
 import org.apache.myfaces.tobago.internal.util.RenderUtils;
 import org.apache.myfaces.tobago.model.ExpandedState;
 import org.apache.myfaces.tobago.model.Selectable;
@@ -73,9 +75,10 @@ public class TreeRenderer extends RendererBase {
   @Override
   public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
 
+    final TobagoResponseWriter writer = getResponseWriter(facesContext);
     final AbstractUITree tree = (AbstractUITree) component;
-
     final String clientId = tree.getClientId(facesContext);
+    final Markup markup = tree.getMarkup();
     final UIComponent root = ComponentUtils.findDescendant(tree, UITreeNode.class);
     if (root == null) {
       LOG.error("Can't find the tree root. This may occur while updating a tree from Tobago 1.0 to 1.5. "
@@ -83,15 +86,14 @@ public class TreeRenderer extends RendererBase {
       return;
     }
 
-    final TobagoResponseWriter writer = getResponseWriter(facesContext);
-
     writer.startElement(HtmlElements.DIV);
+    writer.writeIdAttribute(clientId);
+    writer.writeAttribute(DataAttributes.MARKUP, JsonUtils.encode(markup), false);
     writer.writeClassAttribute(
         TobagoClass.TREE,
-        TobagoClass.TREE.createMarkup(tree.getMarkup()),
+        TobagoClass.TREE.createMarkup(markup),
         TobagoClass.TREE.createDefaultMarkups(tree),
         tree.getCustomClass());
-    writer.writeIdAttribute(clientId);
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, tree);
     writer.writeAttribute(DataAttributes.SCROLL_PANEL, Boolean.TRUE.toString(), false);
 

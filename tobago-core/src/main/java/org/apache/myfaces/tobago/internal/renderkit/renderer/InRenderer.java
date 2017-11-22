@@ -22,6 +22,7 @@ package org.apache.myfaces.tobago.internal.renderkit.renderer;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.RendererTypes;
+import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.internal.component.AbstractUIButton;
 import org.apache.myfaces.tobago.internal.component.AbstractUIInput;
 import org.apache.myfaces.tobago.internal.component.AbstractUISelectOneChoice;
@@ -33,6 +34,7 @@ import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.CssItem;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
+import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
@@ -71,6 +73,7 @@ public class InRenderer extends MessageLayoutRendererBase {
     final boolean readonly = input.isReadonly();
     final boolean disabled = input.isDisabled();
     final boolean required = ComponentUtils.getBooleanAttribute(input, Attributes.required);
+    final Markup markup = input.getMarkup();
 
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
@@ -81,6 +84,7 @@ public class InRenderer extends MessageLayoutRendererBase {
       writer.startElement(HtmlElements.DIV); // Wrapping the field to fix input groups with flexLeft/flexRight
       if (input.isLabelLayoutSkip()) {
         writer.writeIdAttribute(clientId);
+        writer.writeAttribute(DataAttributes.MARKUP, JsonUtils.encode(markup), false);
       }
       writer.writeClassAttribute(TobagoClass.INPUT__GROUP__OUTER);
       writer.startElement(HtmlElements.DIV);
@@ -114,8 +118,8 @@ public class InRenderer extends MessageLayoutRendererBase {
         maxLength = lengthValidator.getMaximum();
         minLength = lengthValidator.getMinimum();
       } else if (validator instanceof RegexValidator) {
-          RegexValidator regexValidator = (RegexValidator) validator;
-          pattern = regexValidator.getPattern();
+        RegexValidator regexValidator = (RegexValidator) validator;
+        pattern = regexValidator.getPattern();
       }
     }
     if (maxLength > 0) {
@@ -138,7 +142,7 @@ public class InRenderer extends MessageLayoutRendererBase {
 
     writer.writeClassAttribute(
         getRendererCssClass(),
-        getRendererCssClass().createMarkup(input.getMarkup()),
+        getRendererCssClass().createMarkup(markup),
         getRendererCssClass().createDefaultMarkups(input),
         BootstrapClass.borderColor(ComponentUtils.getMaximumSeverity(input)),
         BootstrapClass.FORM_CONTROL,

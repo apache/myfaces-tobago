@@ -23,9 +23,11 @@ import org.apache.myfaces.tobago.component.UITreeLabel;
 import org.apache.myfaces.tobago.component.UITreeListbox;
 import org.apache.myfaces.tobago.component.UITreeNode;
 import org.apache.myfaces.tobago.component.UITreeSelect;
+import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.internal.component.AbstractUITree;
 import org.apache.myfaces.tobago.internal.component.AbstractUITreeListbox;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
+import org.apache.myfaces.tobago.internal.util.JsonUtils;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
@@ -51,9 +53,10 @@ public class TreeListboxRenderer extends RendererBase {
   @Override
   public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
 
+    final TobagoResponseWriter writer = getResponseWriter(facesContext);
     final UITreeListbox tree = (UITreeListbox) component;
     final String clientId = tree.getClientId(facesContext);
-    final TobagoResponseWriter writer = getResponseWriter(facesContext);
+    final Markup markup = tree.getMarkup();
     //    final Style scrollDivStyle = new Style();
 
     writer.startElement(HtmlElements.DIV);
@@ -64,9 +67,11 @@ public class TreeListboxRenderer extends RendererBase {
 //    writer.writeStyleAttribute(scrollDivStyle);
 
     writer.startElement(HtmlElements.DIV);
+    // todo: the id must be in this DIV
+    writer.writeAttribute(DataAttributes.MARKUP, JsonUtils.encode(markup), false);
     writer.writeClassAttribute(
         TobagoClass.TREE_LISTBOX,
-        TobagoClass.TREE_LISTBOX.createMarkup(tree.getMarkup()),
+        TobagoClass.TREE_LISTBOX.createMarkup(markup),
         TobagoClass.TREE_LISTBOX.createDefaultMarkups(tree));
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, tree);
 

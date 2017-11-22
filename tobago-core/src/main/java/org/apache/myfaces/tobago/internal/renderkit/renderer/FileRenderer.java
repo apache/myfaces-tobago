@@ -122,6 +122,7 @@ public class FileRenderer extends MessageLayoutRendererBase implements Component
     writer.startElement(HtmlElements.DIV);
     if (file.isLabelLayoutSkip()) {
       writer.writeIdAttribute(clientId);
+      writer.writeAttribute(DataAttributes.MARKUP, JsonUtils.encode(file.getMarkup()), false);
     }
     writer.writeClassAttribute(
         TobagoClass.FILE,

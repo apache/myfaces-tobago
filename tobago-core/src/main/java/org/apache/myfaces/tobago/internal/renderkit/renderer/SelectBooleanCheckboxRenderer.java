@@ -19,6 +19,7 @@
 
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
+import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.internal.component.AbstractUISelectBooleanCheckbox;
 import org.apache.myfaces.tobago.internal.util.AccessKeyLogger;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
@@ -28,6 +29,7 @@ import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.CssItem;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
+import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
@@ -79,15 +81,17 @@ public class SelectBooleanCheckboxRenderer extends MessageLayoutRendererBase {
     final boolean disabled = select.isDisabled();
     final LabelWithAccessKey label = new LabelWithAccessKey(select, true);
     final String itemLabel = select.getItemLabel();
+    final Markup markup = select.getMarkup();
 
     writer.startElement(HtmlElements.DIV);
     if (select.isLabelLayoutSkip()) {
       writer.writeIdAttribute(clientId);
+      writer.writeAttribute(DataAttributes.MARKUP, JsonUtils.encode(markup), false);
     }
 
     writer.writeClassAttribute(
         TobagoClass.SELECT_BOOLEAN_CHECKBOX,
-        TobagoClass.SELECT_BOOLEAN_CHECKBOX.createMarkup(select.getMarkup()),
+        TobagoClass.SELECT_BOOLEAN_CHECKBOX.createMarkup(markup),
         TobagoClass.SELECT_BOOLEAN_CHECKBOX.createDefaultMarkups(select),
         getOuterCssItems(facesContext, select),
         disabled ? BootstrapClass.DISABLED : null,

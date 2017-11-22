@@ -20,6 +20,7 @@
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
 import org.apache.myfaces.tobago.component.UITreeSelect;
+import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.internal.component.AbstractUIData;
 import org.apache.myfaces.tobago.internal.component.AbstractUITreeListbox;
 import org.apache.myfaces.tobago.internal.component.AbstractUITreeNodeBase;
@@ -31,6 +32,7 @@ import org.apache.myfaces.tobago.model.Selectable;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
+import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
@@ -82,21 +84,21 @@ public class TreeSelectRenderer extends RendererBase {
   @Override
   public void encodeBegin(final FacesContext facesContext, final UIComponent component) throws IOException {
 
-    final UITreeSelect select = (UITreeSelect) component;
-    final AbstractUITreeNodeBase node = ComponentUtils.findAncestor(select, AbstractUITreeNodeBase.class);
+    final UITreeSelect treeSelect = (UITreeSelect) component;
+    final AbstractUITreeNodeBase node = ComponentUtils.findAncestor(treeSelect, AbstractUITreeNodeBase.class);
     final AbstractUIData data = ComponentUtils.findAncestor(node, AbstractUIData.class);
 
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
     if (data instanceof AbstractUITreeListbox) {
-      writer.write(StringUtils.defaultString(select.getLabel()));
+      writer.write(StringUtils.defaultString(treeSelect.getLabel()));
       return;
     }
 
-    final String id = select.getClientId(facesContext);
-    final String currentValue = getCurrentValue(facesContext, select);
+    final String id = treeSelect.getClientId(facesContext);
+    final String currentValue = getCurrentValue(facesContext, treeSelect);
     final boolean checked;
-    if (select.isValueStoredInState()) {
+    if (treeSelect.isValueStoredInState()) {
       checked = data.getSelectedState().isSelected(node.getPath());
     } else {
       checked = "true".equals(currentValue);
@@ -106,13 +108,15 @@ public class TreeSelectRenderer extends RendererBase {
     final Selectable selectable = data.getSelectable();
 
     writer.startElement(HtmlElements.SPAN);
+    final Markup markup = treeSelect.getMarkup();
+    writer.writeAttribute(DataAttributes.MARKUP, JsonUtils.encode(markup), false);
     writer.writeClassAttribute(
         TobagoClass.TREE_SELECT,
-        TobagoClass.TREE_SELECT.createMarkup(select.getMarkup()),
-        TobagoClass.TREE_SELECT.createDefaultMarkups(select));
-    HtmlRendererUtils.writeDataAttributes(facesContext, writer, select);
+        TobagoClass.TREE_SELECT.createMarkup(markup),
+        TobagoClass.TREE_SELECT.createDefaultMarkups(treeSelect));
+    HtmlRendererUtils.writeDataAttributes(facesContext, writer, treeSelect);
 
-    if (select.isShowCheckbox()
+    if (treeSelect.isShowCheckbox()
         && selectable != Selectable.none
         && (!selectable.isLeafOnly() || !folder)) {
       writer.startElement(HtmlElements.INPUT);
@@ -125,20 +129,21 @@ public class TreeSelectRenderer extends RendererBase {
         writer.writeNameAttribute(id);
       }
       writer.writeAttribute(HtmlAttributes.VALUE, id, false);
+      // TODO: ID must be at the outer tag
       writer.writeIdAttribute(id);
       writer.writeAttribute(HtmlAttributes.CHECKED, checked);
 
-      writer.writeCommandMapAttribute(JsonUtils.encode(RenderUtils.getBehaviorCommands(facesContext, select)));
+      writer.writeCommandMapAttribute(JsonUtils.encode(RenderUtils.getBehaviorCommands(facesContext, treeSelect)));
 
       writer.endElement(HtmlElements.INPUT);
     }
 
     // label
-    final String label = select.getLabel();
+    final String label = treeSelect.getLabel();
     if (StringUtils.isNotEmpty(label)) {
       writer.startElement(HtmlElements.LABEL);
       writer.writeClassAttribute(TobagoClass.TREE_SELECT__LABEL);
-      final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, select);
+      final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, treeSelect);
       if (title != null) {
         writer.writeAttribute(HtmlAttributes.TITLE, title, true);
       }

@@ -19,11 +19,14 @@
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
 import org.apache.myfaces.tobago.component.Facets;
+import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.internal.component.AbstractUIBox;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
+import org.apache.myfaces.tobago.internal.util.JsonUtils;
 import org.apache.myfaces.tobago.model.CollapseMode;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
+import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.util.ComponentUtils;
@@ -40,6 +43,7 @@ public class BoxRenderer extends PanelRendererBase {
 
     final AbstractUIBox box = (AbstractUIBox) component;
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
+    final Markup markup = box.getMarkup();
 
     final UIComponent label = ComponentUtils.getFacet(box, Facets.label);
     final String labelString = box.getLabel();
@@ -50,13 +54,14 @@ public class BoxRenderer extends PanelRendererBase {
 
     writer.writeClassAttribute(
         TobagoClass.BOX,
-        TobagoClass.BOX.createMarkup(box.getMarkup()),
+        TobagoClass.BOX.createMarkup(markup),
         TobagoClass.BOX.createDefaultMarkups(box),
         BootstrapClass.CARD,
         collapsed ? TobagoClass.COLLAPSED : null,
         box.getCustomClass());
     final String clientId = box.getClientId(facesContext);
     writer.writeIdAttribute(clientId);
+    writer.writeAttribute(DataAttributes.MARKUP, JsonUtils.encode(markup), false);
     final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, box);
     if (title != null) {
       writer.writeAttribute(HtmlAttributes.TITLE, title, true);

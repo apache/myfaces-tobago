@@ -19,6 +19,7 @@
 
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
+import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.internal.component.AbstractUISelectOneRadio;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.internal.util.JsonUtils;
@@ -28,6 +29,7 @@ import org.apache.myfaces.tobago.internal.util.SelectItemUtils;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.CssItem;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
+import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
@@ -53,15 +55,17 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
     final boolean readonly = select.isReadonly();
     final boolean required = select.isRequired();
     final boolean inline = select.isInline();
+    final Markup markup = select.getMarkup();
 
     writer.startElement(HtmlElements.DIV);
     if (select.isLabelLayoutSkip()) {
       writer.writeIdAttribute(id);
+      writer.writeAttribute(DataAttributes.MARKUP, JsonUtils.encode(markup), false);
     }
 
     writer.writeClassAttribute(
         TobagoClass.SELECT_ONE_RADIO,
-        TobagoClass.SELECT_ONE_RADIO.createMarkup(select.getMarkup()),
+        TobagoClass.SELECT_ONE_RADIO.createMarkup(markup),
         TobagoClass.SELECT_ONE_RADIO.createDefaultMarkups(select),
         inline ? TobagoClass.SELECT_ONE_RADIO__INLINE : null,
         select.getCustomClass());

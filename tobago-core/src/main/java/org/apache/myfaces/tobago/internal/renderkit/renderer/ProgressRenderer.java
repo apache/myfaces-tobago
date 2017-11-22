@@ -21,6 +21,7 @@ package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.component.UIStyle;
+import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.internal.component.AbstractUIProgress;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.internal.util.JsonUtils;
@@ -31,6 +32,7 @@ import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.Arias;
+import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRoleValues;
@@ -53,16 +55,17 @@ public class ProgressRenderer extends RendererBase {
     final double value = progress.getRangeValue();
     final double max = progress.getRangeMax();
     final double percent = value / max;
+    final Markup markup = progress.getMarkup();
 
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
     writer.startElement(HtmlElements.DIV);
     final String clientId = progress.getClientId(facesContext);
     writer.writeIdAttribute(clientId);
-
+    writer.writeAttribute(DataAttributes.MARKUP, JsonUtils.encode(markup), false);
     writer.writeClassAttribute(
         TobagoClass.PROGRESS,
-        TobagoClass.PROGRESS.createMarkup(progress.getMarkup()),
+        TobagoClass.PROGRESS.createMarkup(markup),
         TobagoClass.PROGRESS.createDefaultMarkups(progress),
         BootstrapClass.PROGRESS,
         progress.getCustomClass());

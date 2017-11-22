@@ -23,6 +23,7 @@ import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.ClientBehaviors;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.component.UIButton;
+import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.internal.component.AbstractUICommand;
 import org.apache.myfaces.tobago.internal.config.AbstractTobagoTestBase;
 import org.apache.myfaces.tobago.internal.context.DateTimeI18n;
@@ -156,6 +157,21 @@ public class JsonUtilsUnitTest extends AbstractTobagoTestBase {
   @Test
   public void encodeStringArray() {
     Assert.assertEquals("[\"A-rập Xê-út (Tiếng A-rập)\"]", JsonUtils.encode(new String[]{"A-rập Xê-út (Tiếng A-rập)"}));
+  }
+
+  @Test
+  public void encodeMarkup() {
+    final Markup a = Markup.valueOf("a");
+    final Markup ab = Markup.valueOf("a,b");
+
+    final String expectedA = "['a']".replaceAll("'", "\"");
+    final String expectedAb = "['a','b']".replaceAll("'", "\"");
+
+    Assert.assertEquals(expectedA, JsonUtils.encode(a));
+    Assert.assertEquals(expectedAb, JsonUtils.encode(ab));
+    Assert.assertEquals(null, JsonUtils.encode(Markup.NULL));
+    Assert.assertEquals(null, JsonUtils.encode((Markup) null));
+
   }
 
 }

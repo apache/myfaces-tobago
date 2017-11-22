@@ -20,8 +20,10 @@
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
 import org.apache.myfaces.tobago.component.UISeparator;
+import org.apache.myfaces.tobago.internal.util.JsonUtils;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
+import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
@@ -39,6 +41,7 @@ public class SeparatorInsideCommandRenderer extends SeparatorRenderer {
 
     writer.startElement(HtmlElements.DIV);
     writer.writeIdAttribute(clientId);
+    writer.writeAttribute(DataAttributes.MARKUP, JsonUtils.encode(separator.getMarkup()), false);
     writer.writeClassAttribute(
         TobagoClass.SEPARATOR,
         BootstrapClass.DROPDOWN_DIVIDER,

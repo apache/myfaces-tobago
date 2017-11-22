@@ -143,13 +143,15 @@ public class TabGroupRenderer extends RendererBase implements ComponentSystemEve
     final String clientId = tabGroup.getClientId(facesContext);
     final String hiddenId = clientId + TabGroupRenderer.ACTIVE_INDEX_POSTFIX;
     final SwitchType switchType = tabGroup.getSwitchType();
+    final Markup markup = tabGroup.getMarkup();
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
     writer.startElement(HtmlElements.DIV);
     writer.writeIdAttribute(clientId);
+    writer.writeAttribute(DataAttributes.MARKUP, JsonUtils.encode(markup), false);
     writer.writeClassAttribute(
         TobagoClass.TAB_GROUP,
-        TobagoClass.TAB_GROUP.createMarkup(tabGroup.getMarkup()),
+        TobagoClass.TAB_GROUP.createMarkup(markup),
         TobagoClass.TAB_GROUP.createDefaultMarkups(tabGroup),
         tabGroup.getCustomClass());
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, tabGroup);
@@ -235,6 +237,7 @@ public class TabGroupRenderer extends RendererBase implements ComponentSystemEve
 
           writer.startElement(HtmlElements.LI);
           writer.writeIdAttribute(tabId);
+          writer.writeAttribute(DataAttributes.MARKUP, JsonUtils.encode(markup), false);
           writer.writeClassAttribute(
               TobagoClass.TAB,
               TobagoClass.TAB.createMarkup(markup),

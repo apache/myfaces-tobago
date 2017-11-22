@@ -22,9 +22,11 @@ package org.apache.myfaces.tobago.internal.renderkit.renderer;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.component.UIStyle;
 import org.apache.myfaces.tobago.internal.component.AbstractUIGridLayout;
+import org.apache.myfaces.tobago.internal.util.JsonUtils;
 import org.apache.myfaces.tobago.layout.MeasureList;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
+import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRoleValues;
@@ -48,6 +50,7 @@ public class GridLayoutRenderer extends RendererBase {
     writer.startElement(HtmlElements.DIV);
     writer.writeAttribute(HtmlAttributes.ROLE, HtmlRoleValues.PRESENTATION.toString(), false);
     writer.writeIdAttribute(gridLayout.getClientId(facesContext));
+    writer.writeAttribute(DataAttributes.MARKUP, JsonUtils.encode(gridLayout.getMarkup()), false);
     writer.writeClassAttribute(TobagoClass.GRID_LAYOUT);
 
     final MeasureList columns = MeasureList.parse(gridLayout.getColumns());

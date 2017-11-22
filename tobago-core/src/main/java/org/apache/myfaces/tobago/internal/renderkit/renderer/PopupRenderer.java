@@ -22,9 +22,11 @@ package org.apache.myfaces.tobago.internal.renderkit.renderer;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.internal.component.AbstractUIPopup;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
+import org.apache.myfaces.tobago.internal.util.JsonUtils;
 import org.apache.myfaces.tobago.model.CollapseMode;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
+import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRoleValues;
@@ -44,21 +46,21 @@ public class PopupRenderer extends PanelRendererBase {
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
     final String clientId = popup.getClientId(facesContext);
     final boolean collapsed = popup.isCollapsed();
-    Markup popupMarkup = popup.getMarkup() != null ? popup.getMarkup() : Markup.NULL;
+    final Markup markup = popup.getMarkup();
 
     // this makes the popup NOT closable with a click to the background
     ComponentUtils.putDataAttribute(popup, "backdrop", "static");
 
     writer.startElement(HtmlElements.DIV);
-
+    writer.writeIdAttribute(clientId);
+    writer.writeAttribute(DataAttributes.MARKUP, JsonUtils.encode(markup), false);
     writer.writeClassAttribute(
         TobagoClass.POPUP,
-        TobagoClass.POPUP.createMarkup(popup.getMarkup()),
+        TobagoClass.POPUP.createMarkup(markup),
         TobagoClass.POPUP.createDefaultMarkups(popup),
         BootstrapClass.MODAL,
         BootstrapClass.FADE,
         popup.getCustomClass());
-    writer.writeIdAttribute(clientId);
     writer.writeAttribute(HtmlAttributes.TABINDEX, -1);
     writer.writeAttribute(HtmlAttributes.ROLE, HtmlRoleValues.DIALOG.toString(), false);
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, popup);
@@ -66,8 +68,8 @@ public class PopupRenderer extends PanelRendererBase {
     writer.startElement(HtmlElements.DIV);
     writer.writeClassAttribute(
         BootstrapClass.MODAL_DIALOG,
-        popupMarkup.contains(Markup.LARGE) ? BootstrapClass.MODAL_LG : null,
-        popupMarkup.contains(Markup.SMALL) ? BootstrapClass.MODAL_SM : null);
+        markup != null && markup.contains(Markup.LARGE) ? BootstrapClass.MODAL_LG : null,
+        markup != null && markup.contains(Markup.SMALL) ? BootstrapClass.MODAL_SM : null);
     writer.writeAttribute(HtmlAttributes.ROLE, HtmlRoleValues.DOCUMENT.toString(), false);
     writer.startElement(HtmlElements.DIV);
     writer.writeClassAttribute(BootstrapClass.MODAL_CONTENT);

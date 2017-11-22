@@ -22,8 +22,11 @@ package org.apache.myfaces.tobago.internal.renderkit.renderer;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.UILabel;
 import org.apache.myfaces.tobago.component.UISeparator;
+import org.apache.myfaces.tobago.context.Markup;
+import org.apache.myfaces.tobago.internal.util.JsonUtils;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
+import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
@@ -41,10 +44,12 @@ public class SeparatorRenderer extends RendererBase {
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
     final String clientId = separator.getClientId(facesContext);
     final String label = getLabel(separator);
+    final Markup markup = separator.getMarkup();
 
     if (label != null) {
       writer.startElement(HtmlElements.P);
       writer.writeIdAttribute(clientId);
+      writer.writeAttribute(DataAttributes.MARKUP, JsonUtils.encode(markup), false);
       writer.writeClassAttribute(
           TobagoClass.SEPARATOR,
           TobagoClass.SEPARATOR.createMarkup(separator.getMarkup()),
@@ -55,6 +60,7 @@ public class SeparatorRenderer extends RendererBase {
     } else {
       writer.startElement(HtmlElements.HR);
       writer.writeIdAttribute(clientId);
+      writer.writeAttribute(DataAttributes.MARKUP, JsonUtils.encode(markup), false);
       writer.writeClassAttribute(
           TobagoClass.SEPARATOR,
           TobagoClass.SEPARATOR.createMarkup(separator.getMarkup()),

@@ -28,6 +28,7 @@ import org.apache.myfaces.tobago.internal.component.AbstractUITreeListbox;
 import org.apache.myfaces.tobago.internal.component.AbstractUITreeMenu;
 import org.apache.myfaces.tobago.internal.component.AbstractUITreeNodeBase;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
+import org.apache.myfaces.tobago.internal.util.JsonUtils;
 import org.apache.myfaces.tobago.model.Selectable;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
@@ -117,6 +118,16 @@ public class TreeNodeRenderer extends RendererBase {
     final String parentId = data.getRowParentClientId();
     final boolean visible = data.isRowVisible();
     final boolean folder = node.isFolder();
+    Markup markup = Markup.NULL;
+    if (data instanceof AbstractUITree && data.getSelectedState().isSelected(node.getPath())) {
+      markup = markup.add(Markup.SELECTED);
+    }
+    if (folder) {
+      markup = markup.add(Markup.FOLDER);
+      if (data.getExpandedState().isExpanded(node.getPath())) {
+        markup = markup.add(Markup.EXPANDED);
+      }
+    }
 
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
@@ -126,23 +137,15 @@ public class TreeNodeRenderer extends RendererBase {
       //        writer.writeAttribute(HtmlAttributes.value, node.getValue().toString(), true); // XXX converter?
       writer.writeAttribute(HtmlAttributes.VALUE, clientId, true);
       writer.writeIdAttribute(clientId);
+      writer.writeAttribute(DataAttributes.MARKUP, JsonUtils.encode(markup), false);
       writer.writeAttribute(HtmlAttributes.SELECTED, folder);
     } else {
       writer.startElement(HtmlElements.DIV);
 
       // div id
       writer.writeIdAttribute(clientId);
+      writer.writeAttribute(DataAttributes.MARKUP, JsonUtils.encode(markup), false);
 
-      Markup markup = Markup.NULL;
-      if (data instanceof AbstractUITree && data.getSelectedState().isSelected(node.getPath())) {
-        markup = markup.add(Markup.SELECTED);
-      }
-      if (folder) {
-        markup = markup.add(Markup.FOLDER);
-        if (data.getExpandedState().isExpanded(node.getPath())) {
-          markup = markup.add(Markup.EXPANDED);
-        }
-      }
       // In the case of a sheet, we need not hiding the node, because the whole TR will be hidden.
       final boolean hidden = !dataRendersRowContainer && !visible;
 

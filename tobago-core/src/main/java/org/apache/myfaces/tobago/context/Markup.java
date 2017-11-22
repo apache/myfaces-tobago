@@ -377,6 +377,13 @@ public final class Markup implements Serializable, Iterable<String> {
     }
   }
 
+  /**
+   * Check if there is no value set inside this markup.
+   */
+  public boolean isEmpty() {
+    return !(value != null || values != null && values.length != 0);
+  }
+
   @Override
   public String toString() {
     if (value != null) {
