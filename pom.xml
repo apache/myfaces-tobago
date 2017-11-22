@@ -1013,7 +1013,6 @@
     <module>tobago-tool</module>
     <module>tobago-core</module>
     <module>tobago-theme</module>
-    <module>tobago-extension</module>
     <module>tobago-example</module>
     <module>tobago-assembly</module>
   </modules>
