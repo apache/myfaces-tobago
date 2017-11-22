@@ -23,7 +23,6 @@ import org.apache.myfaces.tobago.component.UIBar;
 import org.apache.myfaces.tobago.component.UIBox;
 import org.apache.myfaces.tobago.component.UIButton;
 import org.apache.myfaces.tobago.component.UIButtons;
-import org.apache.myfaces.tobago.component.UICalendar;
 import org.apache.myfaces.tobago.component.UIColumn;
 import org.apache.myfaces.tobago.component.UIColumnNode;
 import org.apache.myfaces.tobago.component.UIColumnSelector;
@@ -110,7 +109,6 @@ public class EventController implements Serializable {
     eventsOnComponents.add(new EventsOnComponent(new UIBox()));
     eventsOnComponents.add(new EventsOnComponent(new UIButton()));
     eventsOnComponents.add(new EventsOnComponent(new UIButtons()));
-    eventsOnComponents.add(new EventsOnComponent(new UICalendar()));
     eventsOnComponents.add(new EventsOnComponent(new UIColumn()));
     eventsOnComponents.add(new EventsOnComponent(new UIColumnNode()));
     eventsOnComponents.add(new EventsOnComponent(new UIColumnSelector()));
