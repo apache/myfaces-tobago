@@ -169,6 +169,10 @@ public class WebXmlUtils {
   }
 
   private static String normalizePath(final ExternalContext externalContext, final String path) {
+    if (path == null) {
+      return null;
+    }
+
     if (externalContext.getRequestPathInfo() != null) {
       final String prefix = externalContext.getRequestServletPath();
       if (path.startsWith(prefix)) {

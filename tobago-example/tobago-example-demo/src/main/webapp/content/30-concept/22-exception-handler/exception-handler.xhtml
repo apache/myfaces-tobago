@@ -26,10 +26,16 @@
   <ui:param name="title" value="#{demoBundle.exception_handler}"/>
   <p>Since Tobago 4.0.0 an AjaxExceptionHandler takes care of exceptions in ajax case.</p>
   <p><span class="#{demo:bootstrapClass('BADGE')} #{demo:bootstrapClass('BADGE_DANGER')}">Important!</span>
-    The exception has to be throwns before the renderer phase.
+    The exception has to be thrown before the renderer phase.
     This is the case, in normal actions, but if you need e. g. some initialization of data in a page, you
     can achieve that with an
     <code class="language-markup">&lt;f:event type="preRenderView" listener="\#{bean.doSomeCriticalWork}"/></code>.</p>
+  <p>The AjaxExceptionHandler take the first exception that occurs and try to find a proper error page.
+    Error pages are defined in the web.xml.</p>
+  <p>If no proper error page could be found, the error page for error code 500 is displayed instead.
+    If no 500-error-page is defined, the general error page (no exceptiontype or error code defined) is used.</p>
+  <p>If there is no ajax case, the error page could not be found or the renderer phase is active,
+    the AjaxExceptionHandler do nothing and let JSF handle the exception.</p>
 
   <tc:section label="Example One">
     <p>The output field is updated after an change event of the input field.</p>
