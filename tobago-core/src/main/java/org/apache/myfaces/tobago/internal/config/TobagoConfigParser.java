@@ -64,9 +64,25 @@ public class TobagoConfigParser extends TobagoConfigEntityResolver {
   private static final int CONTENT_SECURITY_POLICY = 1207440139;
   private static final int SECURITY_ANNOTATION = 1744426972;
   private static final int DIRECTIVE = -962590641;
+  /**
+   * @deprecated since 4.0.0
+   */
+  @Deprecated
   private static final int RENDERERS = 1839650832;
+  /**
+   * @deprecated since 4.0.0
+   */
+  @Deprecated
   private static final int RENDERER = -494845757;
+  /**
+   * @deprecated since 4.0.0
+   */
+  @Deprecated
   private static final int SUPPORTED_MARKUP = 71904295;
+  /**
+   * @deprecated since 4.0.0
+   */
+  @Deprecated
   private static final int MARKUP = -1081305560;
   private static final int THEME_DEFINITIONS = -255617156;
   private static final int THEME_DEFINITION = 1515774935;
@@ -241,6 +257,9 @@ public class TobagoConfigParser extends TobagoConfigEntityResolver {
       case MIME_TYPE:
       case EXTENSION:
       case TYPE:
+      case RENDERERS:
+      case RENDERER:
+        // nothing to do
         break;
 
       default:
@@ -282,8 +301,12 @@ public class TobagoConfigParser extends TobagoConfigEntityResolver {
             currentTheme.setName(text);
             break;
 
+          case RENDERER:
+            // nothing to do
+            break;
+
           default:
-            LOG.warn("Ignoring unknown parent <" + qName + "> of tag <name>");
+            LOG.warn("Ignoring unknown parent <" + parent + "> of tag <name>");
         }
         break;
 
@@ -398,6 +421,8 @@ public class TobagoConfigParser extends TobagoConfigEntityResolver {
       case STYLE:
       case PROPERTIES:
       case MIME_TYPES:
+      case MARKUP:
+        // nothing to do
         break;
 
       default:
