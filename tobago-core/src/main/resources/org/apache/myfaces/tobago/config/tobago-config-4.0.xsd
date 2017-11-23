@@ -79,7 +79,6 @@
       <xs:element name="sanitizer" type="tobago:sanitizer-type" minOccurs="0"/>
       <xs:element name="decode-line-feed" type="xs:boolean" minOccurs="0" default="true"/>
       <xs:element name="security-annotation" type="tobago:security-annotation-type" minOccurs="0" default="disable"/>
-      <xs:element name="renderers" type="tobago:renderers-type" minOccurs="0"/>
       <xs:element name="theme-definitions" type="tobago:theme-definitions-type" minOccurs="0"/>
     </xs:sequence>
     <xs:attribute name="version"
@@ -143,25 +142,6 @@
     </xs:restriction>
   </xs:simpleType>
 
-  <xs:complexType name="renderers-type">
-    <xs:sequence>
-      <xs:element name="renderer" type="tobago:renderer-type" maxOccurs="unbounded"/>
-    </xs:sequence>
-  </xs:complexType>
-
-  <xs:complexType name="renderer-type">
-    <xs:sequence>
-      <xs:element name="name" type="xs:string"/>
-      <xs:element name="supported-markup" type="tobago:supported-markup-type"/>
-    </xs:sequence>
-  </xs:complexType>
-
-  <xs:complexType name="supported-markup-type">
-    <xs:sequence>
-      <xs:element name="markup" type="xs:string" maxOccurs="unbounded"/>
-    </xs:sequence>
-  </xs:complexType>
-
   <xs:complexType name="theme-definitions-type">
     <xs:sequence>
       <xs:element name="theme-definition" type="tobago:theme-definition-type" maxOccurs="unbounded"/>
@@ -174,7 +154,6 @@
       <xs:element name="display-name" type="xs:string" minOccurs="0"/>
       <xs:element name="fallback" type="xs:string" minOccurs="0"/>
       <xs:element name="versioned" type="xs:boolean" minOccurs="0" default="false"/>
-      <xs:element name="renderers" type="tobago:renderers-type" minOccurs="0"/>
       <xs:element name="resources" type="tobago:resources-type" minOccurs="0" maxOccurs="unbounded"/>
     </xs:sequence>
   </xs:complexType>

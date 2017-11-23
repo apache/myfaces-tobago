@@ -21,9 +21,6 @@ package org.apache.myfaces.tobago.renderkit.css;
 
 import org.apache.myfaces.tobago.apt.annotation.Preliminary;
 import org.apache.myfaces.tobago.context.Markup;
-import org.apache.myfaces.tobago.context.Theme;
-import org.apache.myfaces.tobago.context.TobagoContext;
-import org.apache.myfaces.tobago.internal.util.Deprecation;
 import org.apache.myfaces.tobago.layout.AlignItems;
 import org.apache.myfaces.tobago.layout.JustifyContent;
 import org.apache.myfaces.tobago.util.ComponentUtils;
@@ -31,7 +28,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -286,20 +282,9 @@ public enum TobagoClass implements CssItem {
     public String getName() {
       // These values are statistically tested length of the html class attribute
       final StringBuilder builder = new StringBuilder(80);
-      final String name = rendererClass.getName().substring("tobago-".length());
-      final String rendererName = name.contains("-") ? name.substring(0, name.indexOf("-")) : name;
-      final Theme theme = TobagoContext.getInstance(FacesContext.getCurrentInstance()).getTheme();
-
-      if (theme.getRenderersConfig().isMarkupSupported(rendererName, markup)) {
-        builder.append(rendererClass.getName());
-        builder.append("-markup-");
-        builder.append(markup);
-      } else if ("none".equals(markup)) {
-        Deprecation.LOG.warn("Markup 'none' is deprecated, please use a NULL pointer instead.");
-      } else {
-        LOG.warn("Ignoring unknown markup='" + markup + "' for rendererClass='" + rendererClass + "'");
-      }
-
+      builder.append(rendererClass.getName());
+      builder.append("-markup-");
+      builder.append(markup);
       return builder.toString();
     }
   }

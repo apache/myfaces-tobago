@@ -90,15 +90,6 @@ public class TobagoConfigSorter implements Comparator<TobagoConfigFragment> {
         result.addSupportedThemeName(supported);
       }
 
-      // renderers config
-      if (fragment.getRenderersConfig() != null) {
-        if (result.getRenderersConfig() instanceof RenderersConfigImpl) {
-          ((RenderersConfigImpl) result.getRenderersConfig()).merge(fragment.getRenderersConfig(), false);
-        } else if (result.getRenderersConfig() == null) {
-          result.setRenderersConfig(fragment.getRenderersConfig());
-        }
-      }
-
       // session secret
       if (fragment.getCreateSessionSecret() != null) {
         result.setCreateSessionSecret(fragment.getCreateSessionSecret());
@@ -295,9 +286,6 @@ public class TobagoConfigSorter implements Comparator<TobagoConfigFragment> {
     }
     for (final ThemeImpl theme : map.values()) {
       theme.resolveFallbacks();
-    }
-    for (final ThemeImpl theme : map.values()) {
-      theme.resolveRendererConfig(tobagoConfig.getRenderersConfig());
     }
     for (final ThemeImpl theme : map.values()) {
       theme.resolveResources();

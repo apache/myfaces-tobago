@@ -88,7 +88,6 @@ public class TobagoConfigParser extends TobagoConfigEntityResolver {
   private static final int TYPE = 3575610;
 
   private TobagoConfigFragment tobagoConfig;
-  private RendererConfig currentRenderer;
   private ThemeImpl currentTheme;
   private Boolean production;
   private boolean exclude;
@@ -171,18 +170,6 @@ public class TobagoConfigParser extends TobagoConfigEntityResolver {
       case CONTENT_SECURITY_POLICY:
         final String mode = attributes.getValue("mode");
         tobagoConfig.setContentSecurityPolicy(new ContentSecurityPolicy(mode));
-        break;
-
-      case RENDERERS:
-        if (currentTheme != null) {
-          currentTheme.setRenderersConfig(new RenderersConfigImpl());
-        } else {
-          tobagoConfig.setRenderersConfig(new RenderersConfigImpl());
-        }
-        break;
-
-      case RENDERER:
-        currentRenderer = new RendererConfig();
         break;
 
       case THEME_DEFINITION:
@@ -291,15 +278,6 @@ public class TobagoConfigParser extends TobagoConfigEntityResolver {
             tobagoConfig.addAfter(text);
             break;
 
-          case RENDERER:
-            currentRenderer.setName(text);
-            if (currentTheme != null) {
-              ((RenderersConfigImpl) currentTheme.getRenderersConfig()).addRenderer(currentRenderer);
-            } else {
-              ((RenderersConfigImpl) tobagoConfig.getRenderersConfig()).addRenderer(currentRenderer);
-            }
-            break;
-
           case THEME_DEFINITION:
             currentTheme.setName(text);
             break;
@@ -348,10 +326,6 @@ public class TobagoConfigParser extends TobagoConfigEntityResolver {
           tobagoConfig.getContentSecurityPolicy().addDirective(directiveName, text);
         }
         directiveName = null;
-        break;
-
-      case MARKUP:
-        currentRenderer.addSupportedMarkup(text);
         break;
 
       case DISPLAY_NAME:

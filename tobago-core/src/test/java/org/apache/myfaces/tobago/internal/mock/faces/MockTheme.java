@@ -21,7 +21,6 @@ package org.apache.myfaces.tobago.internal.mock.faces;
 
 import org.apache.myfaces.tobago.context.Theme;
 import org.apache.myfaces.tobago.context.ThemeImpl;
-import org.apache.myfaces.tobago.internal.config.RenderersConfig;
 
 import java.util.List;
 
@@ -32,8 +31,6 @@ public class MockTheme extends ThemeImpl {
   private String displayName;
 
   private List<Theme> fallbackThemeList;
-
-  private RenderersConfig config = new MockRenderersConfig();
 
   private boolean versioned;
 
@@ -58,11 +55,6 @@ public class MockTheme extends ThemeImpl {
   @Override
   public String getDisplayName() {
     return displayName;
-  }
-
-  @Override
-  public RenderersConfig getRenderersConfig() {
-    return config;
   }
 
   @Override
