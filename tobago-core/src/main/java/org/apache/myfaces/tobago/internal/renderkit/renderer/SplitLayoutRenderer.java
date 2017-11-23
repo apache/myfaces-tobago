@@ -21,13 +21,13 @@ package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
 import org.apache.myfaces.tobago.apt.annotation.Preliminary;
 import org.apache.myfaces.tobago.internal.component.AbstractUISplitLayout;
-import org.apache.myfaces.tobago.internal.layout.LayoutUtils;
 import org.apache.myfaces.tobago.internal.util.JsonUtils;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
+import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -89,7 +89,7 @@ public class SplitLayoutRenderer extends RendererBase {
   public void encodeChildren(final FacesContext facesContext, final UIComponent component) throws IOException {
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
     final AbstractUISplitLayout splitLayout = (AbstractUISplitLayout) component;
-    final List<UIComponent> components = LayoutUtils.findLayoutChildren(splitLayout);
+    final List<UIComponent> components = ComponentUtils.findLayoutChildren(splitLayout);
     if (components.size() != 2) {
       LOG.warn("Illegal component count in splitLayout: {}", components.size());
     }

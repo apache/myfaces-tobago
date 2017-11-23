@@ -20,49 +20,11 @@
 package org.apache.myfaces.tobago.internal.component;
 
 import org.apache.myfaces.tobago.component.Visual;
-import org.apache.myfaces.tobago.internal.layout.LayoutUtils;
-
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import java.io.IOException;
 
 /**
  * Base class for panels.
  */
 public abstract class AbstractUIPanelBase extends javax.faces.component.UIPanel implements Visual {
-
-  @Override
-  public void encodeBegin(final FacesContext facesContext) throws IOException {
-
-    super.encodeBegin(facesContext);
-
-    final UIComponent layoutManager = LayoutUtils.getLayoutManager(this);
-    if (layoutManager != null) {
-      layoutManager.encodeBegin(facesContext);
-    }
-  }
-
-  @Override
-  public void encodeChildren(final FacesContext facesContext) throws IOException {
-
-    final UIComponent layoutManager = LayoutUtils.getLayoutManager(this);
-    if (layoutManager != null) {
-      layoutManager.encodeChildren(facesContext);
-    } else {
-      super.encodeChildren(facesContext);
-    }
-  }
-
-  @Override
-  public void encodeEnd(final FacesContext facesContext) throws IOException {
-
-    final UIComponent layoutManager = LayoutUtils.getLayoutManager(this);
-    if (layoutManager != null) {
-      layoutManager.encodeEnd(facesContext);
-    }
-
-    super.encodeEnd(facesContext);
-  }
 
   public abstract java.lang.String getTip();
 }

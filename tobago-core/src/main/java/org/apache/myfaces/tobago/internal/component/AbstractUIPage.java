@@ -19,7 +19,6 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
-import org.apache.myfaces.tobago.internal.layout.LayoutUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.util.DebugUtils;
 import org.slf4j.Logger;
@@ -29,7 +28,6 @@ import javax.faces.component.UIComponent;
 import javax.faces.component.UIViewRoot;
 import javax.faces.component.behavior.ClientBehaviorHolder;
 import javax.faces.context.FacesContext;
-import java.io.IOException;
 import java.util.Iterator;
 
 /**
@@ -55,37 +53,6 @@ public abstract class AbstractUIPage extends AbstractUIFormBase implements Clien
       formId = getClientId(facesContext) + ComponentUtils.SUB_SEPARATOR + "form";
     }
     return formId;
-  }
-
-  @Override
-  public void encodeBegin(final FacesContext facesContext) throws IOException {
-    super.encodeBegin(facesContext);
-    final UIComponent layoutManager = LayoutUtils.getLayoutManager(this);
-    if (layoutManager != null) {
-      layoutManager.encodeBegin(facesContext);
-    }
-  }
-
-  @Override
-  public void encodeChildren(final FacesContext facesContext) throws IOException {
-    final UIComponent layoutManager = LayoutUtils.getLayoutManager(this);
-    if (layoutManager != null) {
-      layoutManager.encodeChildren(facesContext);
-    } else {
-      super.encodeChildren(facesContext);
-    }
-  }
-
-  @Override
-  public void encodeEnd(final FacesContext facesContext) throws IOException {
-    final UIComponent layoutManager = LayoutUtils.getLayoutManager(this);
-    if (layoutManager != null) {
-      layoutManager.encodeEnd(facesContext);
-    }
-    super.encodeEnd(facesContext);
-    if (LOG.isTraceEnabled()) {
-      LOG.trace(DebugUtils.toString(this.getParent(), 0));
-    }
   }
 
   @Override

@@ -25,7 +25,6 @@ import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.component.UIPanel;
 import org.apache.myfaces.tobago.component.UIStyle;
 import org.apache.myfaces.tobago.component.Visual;
-import org.apache.myfaces.tobago.internal.layout.LayoutUtils;
 import org.apache.myfaces.tobago.layout.GridSpan;
 import org.apache.myfaces.tobago.layout.MeasureList;
 import org.apache.myfaces.tobago.util.ComponentUtils;
@@ -78,7 +77,7 @@ public abstract class AbstractUIGridLayout extends AbstractUILayoutBase
       layout(
           MeasureList.parse(getColumns()).getSize(),
           MeasureList.parse(getRows()).getSize(),
-          LayoutUtils.findLayoutChildren(this));
+          ComponentUtils.findLayoutChildren(this));
 
     }
   }

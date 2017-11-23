@@ -22,6 +22,7 @@ package org.apache.myfaces.tobago.util;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.RendererTypes;
+import org.apache.myfaces.tobago.component.Visual;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.context.TransientStateHolder;
 import org.apache.myfaces.tobago.internal.component.AbstractUIForm;
@@ -895,5 +896,32 @@ public final class ComponentUtils {
     }
     component.setId(clientId);
     return component;
+  }
+
+  public static List<UIComponent> findLayoutChildren(final UIComponent container) {
+    final List<UIComponent> result = new ArrayList<>();
+    addLayoutChildren(container, result);
+    return result;
+  }
+
+  private static void addLayoutChildren(final UIComponent component, final List<UIComponent> result) {
+    for (final UIComponent child : component.getChildren()) {
+      if (child instanceof Visual) {
+        result.add(child);
+      } else {
+        // Child seems to be transparent for layout, like UIForm.
+        // So we try to add the inner components.
+        addLayoutChildren(child, result);
+      }
+    }
+
+    final UIComponent child = component.getFacet(UIComponent.COMPOSITE_FACET_NAME);
+    if (child instanceof Visual) {
+      result.add(child);
+    } else if (child != null) {
+      // Child seems to be transparent for layout, like UIForm.
+      // So we try to add the inner components.
+      addLayoutChildren(child, result);
+    }
   }
 }

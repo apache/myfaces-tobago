@@ -20,15 +20,17 @@
 package org.apache.myfaces.tobago.internal.layout;
 
 import org.apache.myfaces.tobago.component.Facets;
-import org.apache.myfaces.tobago.component.Visual;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 
 import javax.faces.component.UIComponent;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
 import java.util.regex.Pattern;
 
+/**
+ * @deprecated since 4.0.0
+ */
+@Deprecated
 public final class LayoutUtils {
 
   private static final Pattern TOKEN_PATTERN = Pattern.compile("^(\\d*px|\\d*\\*|\\d*%|auto|fixed)$");
@@ -37,6 +39,10 @@ public final class LayoutUtils {
     // to prevent instantiation
   }
 
+  /**
+   * @deprecated since 4.0.0
+   */
+  @Deprecated
   public static boolean checkTokens(final String columns) {
     final StringTokenizer st = new StringTokenizer(columns, ";");
     while (st.hasMoreTokens()) {
@@ -48,31 +54,12 @@ public final class LayoutUtils {
     return true;
   }
 
+  /**
+   * @deprecated since 4.0.0
+   */
+  @Deprecated
   public static List<UIComponent> findLayoutChildren(final UIComponent container) {
-    final List<UIComponent> result = new ArrayList<>();
-    addLayoutChildren(container, result);
-    return result;
-  }
-
-  private static void addLayoutChildren(final UIComponent component, final List<UIComponent> result) {
-    for (final UIComponent child : component.getChildren()) {
-      if (child instanceof Visual) {
-        result.add(child);
-      } else {
-        // Child seems to be transparent for layout, like UIForm. 
-        // So we try to add the inner components.
-        addLayoutChildren(child, result);
-      }
-    }
-
-    final UIComponent child = component.getFacet(UIComponent.COMPOSITE_FACET_NAME);
-    if (child instanceof Visual) {
-      result.add(child);
-    } else if (child != null) {
-      // Child seems to be transparent for layout, like UIForm.
-      // So we try to add the inner components.
-      addLayoutChildren(child, result);
-    }
+    return ComponentUtils.findLayoutChildren(container);
   }
 
   /**
