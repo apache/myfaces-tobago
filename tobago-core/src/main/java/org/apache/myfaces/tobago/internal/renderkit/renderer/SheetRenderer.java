@@ -38,6 +38,7 @@ import org.apache.myfaces.tobago.internal.component.AbstractUIData;
 import org.apache.myfaces.tobago.internal.component.AbstractUIOut;
 import org.apache.myfaces.tobago.internal.component.AbstractUIRow;
 import org.apache.myfaces.tobago.internal.component.AbstractUISheet;
+import org.apache.myfaces.tobago.internal.component.AbstractUIStyle;
 import org.apache.myfaces.tobago.internal.layout.Cell;
 import org.apache.myfaces.tobago.internal.layout.Grid;
 import org.apache.myfaces.tobago.internal.layout.OriginCell;
@@ -209,8 +210,13 @@ public class SheetRenderer extends RendererBase {
   }
 
   @Override
-  public void encodeChildren(final FacesContext context, final UIComponent component) throws IOException {
-    // DO Nothing
+  public void encodeChildren(final FacesContext facesContext, final UIComponent component) throws IOException {
+    final UISheet sheet = (UISheet) component;
+    for (UIComponent child : sheet.getChildren()) {
+      if (child instanceof AbstractUIStyle) {
+        child.encodeAll(facesContext);
+      }
+    }
   }
 
   @Override
