@@ -19,8 +19,6 @@
 
 package org.apache.myfaces.tobago.context;
 
-import org.apache.myfaces.tobago.internal.config.RenderersConfig;
-
 import java.util.List;
 
 public interface Theme {
@@ -29,11 +27,6 @@ public interface Theme {
   List<Theme> getFallbackList();
 
   String getDisplayName();
-
-  /**
-   * For internal use only.
-   */
-  RenderersConfig getRenderersConfig();
 
   String[] getScriptResources(boolean production);
 

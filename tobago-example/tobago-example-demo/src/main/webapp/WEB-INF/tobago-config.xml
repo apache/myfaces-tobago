@@ -76,26 +76,4 @@
   <!-- true is the default -->
   <!--<decode-line-feed>false</decode-line-feed>-->
 
-  <renderers>
-
-    <renderer>
-      <name>Sheet</name>
-      <supported-markup>
-        <markup>sun</markup>
-        <markup>planet</markup>
-        <markup>moon</markup>
-        <markup>lightred</markup>
-        <markup>lightgreen</markup>
-      </supported-markup>
-    </renderer>
-
-    <renderer>
-      <name>Out</name>
-      <supported-markup>
-        <markup>demoSeconds</markup>
-      </supported-markup>
-    </renderer>
-
-  </renderers>
-
 </tobago-config>

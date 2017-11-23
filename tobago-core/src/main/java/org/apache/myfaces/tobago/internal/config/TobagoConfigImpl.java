@@ -54,7 +54,6 @@ public class TobagoConfigImpl extends TobagoConfig {
   private Theme defaultTheme;
   private String defaultThemeName;
   private Map<String, ThemeImpl> availableThemes;
-  private RenderersConfig renderersConfig;
   private boolean createSessionSecret;
   private boolean checkSessionSecret;
   private boolean preventFrameAttacks;
@@ -94,9 +93,6 @@ public class TobagoConfigImpl extends TobagoConfig {
     supportedThemeNames = Collections.unmodifiableList(supportedThemeNames);
     availableThemes = Collections.unmodifiableMap(availableThemes);
 
-    if (renderersConfig instanceof RenderersConfigImpl) {
-      ((RenderersConfigImpl) renderersConfig).lock();
-    }
     contentSecurityPolicy.lock();
 
     mimeTypes = Collections.unmodifiableMap(mimeTypes);
@@ -208,15 +204,6 @@ public class TobagoConfigImpl extends TobagoConfig {
 
   public Map<String, ThemeImpl> getAvailableThemes() {
     return availableThemes;
-  }
-
-  protected RenderersConfig getRenderersConfig() {
-    return renderersConfig;
-  }
-
-  protected void setRenderersConfig(final RenderersConfig renderersConfig) {
-    checkLocked();
-    this.renderersConfig = renderersConfig;
   }
 
   /**

@@ -19,9 +19,6 @@
 
 package org.apache.myfaces.tobago.context;
 
-import org.apache.myfaces.tobago.internal.config.RendererConfig;
-import org.apache.myfaces.tobago.internal.config.RenderersConfig;
-import org.apache.myfaces.tobago.internal.config.RenderersConfigImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -41,7 +38,6 @@ public class ThemeImpl implements Theme, Serializable {
   private ThemeImpl fallback;
   private String fallbackName;
   private List<Theme> fallbackList;
-  private RenderersConfigImpl renderersConfig;
   private ThemeResources productionResources;
   private ThemeResources resources;
   private String[] productionScripts;
@@ -132,29 +128,6 @@ public class ThemeImpl implements Theme, Serializable {
     }
   }
 
-  public void resolveRendererConfig(final RenderersConfig rendererConfigFromTobagoConfig) {
-    checkLocked();
-    if (renderersConfig == null) {
-      renderersConfig = new RenderersConfigImpl();
-    }
-    if (!renderersConfig.isMerged()) {
-      final ThemeImpl fallbackTheme = getFallback();
-      if (fallbackTheme != null) {
-        fallbackTheme.resolveRendererConfig(rendererConfigFromTobagoConfig);
-        final RenderersConfigImpl fallbackRenderersConfig = fallbackTheme.getRenderersConfigImpl();
-        if (fallbackRenderersConfig != null) {
-          renderersConfig.merge(fallbackRenderersConfig, false);
-          LOG.debug("merge markupconfig from {} for {}", fallbackTheme.getName(), getName());
-        }
-      }
-      if (rendererConfigFromTobagoConfig != null) {
-        renderersConfig.merge(rendererConfigFromTobagoConfig, true);
-      }
-      renderersConfig.setMerged(true);
-      LOG.debug("{} {}", getName(), renderersConfig);
-    }
-  }
-
   public void resolveResources() {
     checkLocked();
     final ThemeImpl fallbackTheme = getFallback();
@@ -163,20 +136,6 @@ public class ThemeImpl implements Theme, Serializable {
       addResources(fallbackTheme.getProductionResources());
       addResources(fallbackTheme.getResources());
     }
-  }
-
-  public void setRenderersConfig(final RenderersConfigImpl renderersConfig) {
-    checkLocked();
-    this.renderersConfig = renderersConfig;
-  }
-
-  @Override
-  public RenderersConfig getRenderersConfig() {
-    return renderersConfig;
-  }
-
-  RenderersConfigImpl getRenderersConfigImpl() {
-    return renderersConfig;
   }
 
   public ThemeResources getResources() {
@@ -288,13 +247,6 @@ public class ThemeImpl implements Theme, Serializable {
     for (String s : styles != null ? styles : new String[0]) {
       builder.append("\n");
       builder.append(s);
-    }
-    if (renderersConfig != null) {
-      builder.append("\n");
-      for (final RendererConfig config : renderersConfig.getRendererConfigs()) {
-        builder.append(config);
-        builder.append("\n");
-      }
     }
     return builder.toString();
   }

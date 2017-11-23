@@ -53,35 +53,11 @@
 
   <security-annotation>ignore</security-annotation>
 
-  <renderers>
-    <renderer>
-      <name>MyRenderer-1</name>
-      <supported-markup>
-        <markup>my-markup-1</markup>
-      </supported-markup>
-    </renderer>
-    <renderer>
-      <name>MyRenderer-2</name>
-      <supported-markup>
-        <markup>my-markup-2-1</markup>
-        <markup>my-markup-2-2</markup>
-      </supported-markup>
-    </renderer>
-  </renderers>
-
   <theme-definitions>
     <theme-definition>
       <name>my-theme-1</name>
       <display-name>My Theme 1</display-name>
       <versioned>true</versioned>
-      <renderers>
-        <renderer>
-          <name>ThemeRenderer</name>
-          <supported-markup>
-            <markup>theme-markup</markup>
-          </supported-markup>
-        </renderer>
-      </renderers>
       <resources production="true">
         <script name="script.js"/>
         <style name="style.css"/>

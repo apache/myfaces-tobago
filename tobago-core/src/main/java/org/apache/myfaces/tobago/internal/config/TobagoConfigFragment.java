@@ -40,7 +40,6 @@ public class TobagoConfigFragment {
 
   private List<String> supportedThemeNames;
   private String defaultThemeName;
-  private RenderersConfig renderersConfig;
   private Boolean createSessionSecret;
   private Boolean checkSessionSecret;
   private Boolean preventFrameAttacks;
@@ -76,14 +75,6 @@ public class TobagoConfigFragment {
 
   public void setDefaultThemeName(final String defaultThemeName) {
     this.defaultThemeName = defaultThemeName;
-  }
-
-  public RenderersConfig getRenderersConfig() {
-    return renderersConfig;
-  }
-
-  public void setRenderersConfig(final RenderersConfig renderersConfig) {
-    this.renderersConfig = renderersConfig;
   }
 
   public String getName() {

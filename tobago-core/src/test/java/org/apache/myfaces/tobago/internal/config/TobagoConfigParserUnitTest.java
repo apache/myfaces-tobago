@@ -74,17 +74,11 @@ public class TobagoConfigParserUnitTest {
     Assert.assertEquals("'self'", directiveMap.get("default-src"));
     Assert.assertEquals("http://apache.org", directiveMap.get("child-src"));
 
-    Assert.assertEquals(2, fragment.getRenderersConfig().getRendererConfigs().size());
-    Assert.assertTrue(fragment.getRenderersConfig().isMarkupSupported("myRenderer-1", "my-markup-1"));
-    Assert.assertTrue(fragment.getRenderersConfig().isMarkupSupported("myRenderer-2", "my-markup-2-1"));
-    Assert.assertTrue(fragment.getRenderersConfig().isMarkupSupported("myRenderer-2", "my-markup-2-2"));
-
     Assert.assertEquals(2, fragment.getThemeDefinitions().size());
     final ThemeImpl theme1 = fragment.getThemeDefinitions().get(0);
     Assert.assertEquals("my-theme-1", theme1.getName());
     Assert.assertEquals("My Theme 1", theme1.getDisplayName());
     Assert.assertTrue(theme1.isVersioned());
-    Assert.assertTrue(theme1.getRenderersConfig().isMarkupSupported("themeRenderer", "theme-markup"));
     Assert.assertTrue(theme1.getProductionResources().isProduction());
     Assert.assertEquals("script.js", theme1.getProductionResources().getScriptList().get(0).getName());
     Assert.assertEquals("style.css", theme1.getProductionResources().getStyleList().get(0).getName());
