@@ -124,6 +124,17 @@ Tobago.DateTime.init = function (elements) {
         $date.parent().on('dp.update', function () {
           Tobago.DateTime.addPastClass($date);
         });
+
+        // fix for bootstrap-datetimepicker v4.17.45
+        $date.parent().on('dp.show', function () {
+          jQuery(".bootstrap-datetimepicker-widget .collapse.in").addClass("show");
+          jQuery(".bootstrap-datetimepicker-widget .picker-switch a").click(function () {
+            // the click is executed before togglePicker() function
+            var $datetimepicker = jQuery(".bootstrap-datetimepicker-widget");
+            $datetimepicker.find(".collapse.in").removeClass("in");
+            $datetimepicker.find(".collapse.show").addClass("in");
+          });
+        });
       });
 };
 
