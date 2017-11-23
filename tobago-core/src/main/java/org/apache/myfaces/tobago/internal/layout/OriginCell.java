@@ -21,6 +21,10 @@ package org.apache.myfaces.tobago.internal.layout;
 
 import javax.faces.component.UIComponent;
 
+/**
+ * @deprecated since 4.0.0
+ */
+@Deprecated
 public class OriginCell implements Cell {
 
   private UIComponent component;

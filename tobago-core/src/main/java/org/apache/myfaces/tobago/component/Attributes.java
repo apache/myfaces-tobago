@@ -133,7 +133,7 @@ public enum Attributes {
   left,
   lang,
   link,
-  /** @deprecated since Tobago 2.0.0 */
+  /** @deprecated since 2.0.0 */
   @Deprecated
   margin,
   /**

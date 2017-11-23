@@ -117,7 +117,7 @@ public final class ComponentUtils {
   }
 
   /**
-   * @deprecated since Tobago 3.0.1
+   * @deprecated since 3.0.1
    */
   @Deprecated
   public static boolean isInPopup(final UIComponent component) {
@@ -132,7 +132,7 @@ public final class ComponentUtils {
   }
 
   /**
-   * @deprecated since Tobago 3.0.1
+   * @deprecated since 3.0.1
    */
   @Deprecated
   public static void resetPage(final FacesContext context) {

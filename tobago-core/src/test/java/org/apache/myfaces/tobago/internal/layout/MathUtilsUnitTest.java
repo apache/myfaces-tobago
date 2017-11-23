@@ -23,7 +23,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 /**
- * @deprecated since Tobago 3.0.1
+ * @deprecated since 3.0.1
  */
 @Deprecated
 public class MathUtilsUnitTest {

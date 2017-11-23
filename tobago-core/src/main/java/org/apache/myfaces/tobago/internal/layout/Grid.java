@@ -28,7 +28,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @deprecated
+ * @deprecated since 4.0.0
  */
 @Deprecated
 public class Grid {

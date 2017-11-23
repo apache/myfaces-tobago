@@ -20,7 +20,7 @@
 package org.apache.myfaces.tobago.internal.layout;
 
 /**
- * @deprecated since Tobago 3.0.1
+ * @deprecated since 3.0.1
  */
 @Deprecated
 public final class MathUtils {
