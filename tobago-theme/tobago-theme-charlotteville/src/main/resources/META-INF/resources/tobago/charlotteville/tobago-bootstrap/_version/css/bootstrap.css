@@ -9605,7 +9605,7 @@ fixme: there is a problem with the selectManyShuttle with this style.
 
 .tobago-required .tobago-label:after {
   content: "*";
-  color: red;
+  color: #dc3545;
 }
 
 /* Bootstrap datetimepicker workarounds ------------------------------------------------------------------ */

@@ -20,12 +20,14 @@
 // Copy variables from `_variables.scss` to this file to override default values
 // without modifying source files.
 
-$orange: #B26812;
+$orange: #d68200;
 $green: #1C690A;
 $blue: #130E8F;
-$dark-orange: #A84711;
-$light-orange: #E85400;
-$purple: #5400A8;
+$dark-orange: #B26812;
+$light-orange: #ffb243;
+$purple: #6c00cb;
+$dark-purple: #5400a8;
+$gray-400: #a0a0a0;
 $gray-600: #777777;
 $gray-800: #323232;
 $black: #000000;
@@ -51,10 +53,27 @@ $theme-colors: map-merge((
         "dark": $dark
 ), $theme-colors);
 
-$body-bg: $black;
-$body-color: $gray-600;
+$border-width: 2px;
 
-$input-bg: $gray-600;
+$body-color: $gray-600;
+$body-bg: $black;
+
+//$input-disabled-color: $input-color;
+//$input-disabled-bg: $gray-800;
+//$input-disabled-border-color: $input-border-color;
+
+$input-bg:                              $body-bg;
+$input-disabled-bg:                     $gray-800;
+$input-color:                           $gray-400;
+$input-border-color:                    $gray-600;
+$input-btn-border-width:                $border-width;
+$input-focus-bg:                        $input-bg;
+$input-focus-border-color:              lighten(theme-color("primary"), 25%);
+$input-focus-color:                     $gray-400;
+$input-placeholder-color:               $gray-600;
+
+$link-color: lighten(theme-color("secondary"), 20%);
+$link-hover-color: lighten($link-color, 25%);
 
 $navbar-light-color: $orange;
 $navbar-light-active-color: $light-orange;
@@ -63,11 +82,26 @@ $navbar-light-disabled-color: $dark-orange;
 
 $card-bg: $black;
 $card-border-color: $gray-600;
-$card-border-width: 2px;
+$card-border-width: $border-width;
 $card-cap-bg: $gray-800;
 
+$dropdown-link-color: $gray-400;
 $dropdown-link-active-color: $light-orange;
 $dropdown-bg: $black;
+
+$pagination-color: $gray-600;
+$pagination-bg: $black;
+$pagination-border-color: $gray-600;
+$pagination-border-width: $border-width;
+$pagination-active-color: $gray-400;
+$pagination-active-bg: $purple;
+$pagination-active-border-color: $gray-400;
+$pagination-hover-color: $pagination-active-color;
+$pagination-hover-bg: $dark-purple;
+$pagination-hover-border-color: $pagination-active-border-color;
+$pagination-disabled-color: $pagination-color;
+$pagination-disabled-bg: $gray-800;
+$pagination-disabled-border-color: $pagination-border-color;
 
 @font-face {
   font-family: 'Amaranth';
