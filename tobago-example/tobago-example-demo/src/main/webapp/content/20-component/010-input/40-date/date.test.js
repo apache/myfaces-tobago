@@ -44,7 +44,44 @@ QUnit.test("date with label", function (assert) {
   $dateButton.click(); // IE11: close datetimepicker for next test
 });
 
-QUnit.test("submit", function(assert) {
+QUnit.test("date+time pattern", function (assert) {
+  assert.expect(5);
+  var done = assert.async();
+  var step = 1;
+
+  var $dateButton = jQueryFrame("#page\\:mainForm\\:dateTimePattern .datepickerbutton");
+  $dateButton.click();
+
+  var $datepicker = jQueryFrame(".bootstrap-datetimepicker-widget");
+  assert.equal($datepicker.length, 1);
+
+  var $firstLi = jQueryFrame(".bootstrap-datetimepicker-widget .list-unstyled li:first-child");
+  var $lastLi = jQueryFrame(".bootstrap-datetimepicker-widget .list-unstyled li:last-child");
+
+  assert.notEqual($firstLi.css("display"), "none"); //block
+  assert.equal($lastLi.css("display"), "none");
+
+  var $togglePickerButton = jQueryFrame(".bootstrap-datetimepicker-widget .picker-switch a");
+  $togglePickerButton.click();
+  step++;
+
+  waitForAjax(function () {
+    $firstLi = jQueryFrame($firstLi.selector);
+    $lastLi = jQueryFrame($lastLi.selector);
+    return step === 2 && $firstLi.css("display") === "none" && $lastLi.css("display") !== "none";
+  }, function () {
+    $firstLi = jQueryFrame($firstLi.selector);
+    $lastLi = jQueryFrame($lastLi.selector);
+
+    assert.equal($firstLi.css("display"), "none");
+    assert.notEqual($lastLi.css("display"), "none"); //block
+
+    $dateButton.click(); // IE11: close datetimepicker for next test
+    done();
+  });
+});
+
+QUnit.test("submit", function (assert) {
   assert.expect(6);
   var done = assert.async();
 
