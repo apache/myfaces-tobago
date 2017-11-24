@@ -89,8 +89,8 @@ import javax.faces.component.UIInput;
     },
     markups = {
         @Markup(name = "localMenu",
-            description = "If a suggest menu is available, it will be rendered on the component, " +
-                "not in the '.tobago-page-menuStore'."
+            description = "If a suggest menu is available, it will be rendered on the component, "
+                + "not in the '.tobago-page-menuStore'."
         )
     })
 public interface InTagDeclaration
