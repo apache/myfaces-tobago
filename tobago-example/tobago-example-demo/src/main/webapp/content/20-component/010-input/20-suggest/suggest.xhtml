@@ -84,4 +84,17 @@
       </tc:suggest>
     </tc:in>
   </tc:section>
+
+  <tc:section label="Render local menu">
+    <p>By default, the suggest menu is rendered in the <code>.tobago-page-menuStore</code>
+      and positioned relative to the page. The suggest menu will be scrolled with the page.</p>
+    <p>Sometimes this behavior causes problems. For example if tc:suggest is used in a fixed header.
+      In this case the suggest menu must not scroll with the page. Instead it should stick on the input component.</p>
+    <p>To render a suggest menu local on the component, markup <code>localMenu</code> can be used.</p>
+    <tc:in id="inLocalMenu" markup="localMenu">
+      <tc:suggest totalCount="10" query="#{suggestController.query}">
+        <tc:selectItems value="#{suggestController.solarObjects}" var="name" itemValue="#{name}"/>
+      </tc:suggest>
+    </tc:in>
+  </tc:section>
 </ui:composition>

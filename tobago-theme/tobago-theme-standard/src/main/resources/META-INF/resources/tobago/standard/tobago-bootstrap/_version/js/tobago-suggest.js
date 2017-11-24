@@ -17,7 +17,7 @@
 
 Tobago.Suggest = {};
 
-Tobago.Suggest.loadFromServer = function(input) {
+Tobago.Suggest.loadFromServer = function (input) {
 
   var timeout;
 
@@ -33,7 +33,7 @@ Tobago.Suggest.loadFromServer = function(input) {
 
       var delay = suggest.data("tobago-suggest-delay");
 
-      timeout = setTimeout(function() {
+      timeout = setTimeout(function () {
         suggest.val(query);
         suggest.data("tobago-suggest-callback", asyncResults);
         suggest.removeData("tobago-suggest-data"); // clear jQuery-data-cache
@@ -54,7 +54,7 @@ Tobago.Suggest.loadFromServer = function(input) {
   };
 };
 
-Tobago.Suggest.fromClient = function(data) {
+Tobago.Suggest.fromClient = function (data) {
   return function findMatches(query, syncResults) {
     var result = [];
     for (i = 0; i < data.length; i++) {
@@ -66,11 +66,11 @@ Tobago.Suggest.fromClient = function(data) {
   };
 };
 
-Tobago.Suggest.init = function(elements) {
+Tobago.Suggest.init = function (elements) {
 
   var suggests = Tobago.Utils.selectWithJQuery(elements, ".tobago-suggest");
 
-  suggests.each(function() {
+  suggests.each(function () {
     var suggest = jQuery(this);
     var input = jQuery(Tobago.Utils.escapeClientId(suggest.data("tobago-suggest-for")));
 
@@ -79,6 +79,17 @@ Tobago.Suggest.init = function(elements) {
 
     var update = typeof suggest.data("tobago-suggest-update") != "undefined";
     var totalCount = suggest.data("tobago-suggest-total-count"); // todo
+
+    var localMenu = false;
+    var dataTobagoMarkup = jQuery(Tobago.Utils.escapeClientId(input.attr("name"))).attr("data-tobago-markup");
+    if (dataTobagoMarkup !== undefined) {
+      var markups = jQuery.parseJSON(jQuery(Tobago.Utils.escapeClientId(input.attr("name"))).attr("data-tobago-markup"));
+      markups.forEach(function (markup) {
+        if (markup === "localMenu") {
+          localMenu = true;
+        }
+      });
+    }
 
     if (update && input.hasClass("tt-input")) { // already initialized: so only update data
       var asyncResults = suggest.data("tobago-suggest-callback"); // comes from "findMatches()"
@@ -108,7 +119,7 @@ Tobago.Suggest.init = function(elements) {
       $suggestPopup = jQuery($suggestPopup.selector);
 
       input.typeahead({
-        menu: $suggestPopup,
+        menu: localMenu ? null : $suggestPopup,
         minLength: minChars,
         hint: true,// todo
         highlight: true // todo
@@ -116,14 +127,14 @@ Tobago.Suggest.init = function(elements) {
         //name: 'test',// todo
         limit: maxItems,
         source: source
-      }).on('typeahead:change', function(event) {
+      }).on('typeahead:change', function (event) {
         input.trigger('change');
       });
 
-      input.bind('typeahead:open', function() {
+      input.bind('typeahead:open', function () {
         var $input = jQuery(this);
         var $suggest = $input.parent().siblings(".tobago-suggest");
-        if($suggest.length == 0) {
+        if ($suggest.length == 0) {
           $suggest = $input.parent().parent().parent().siblings(".tobago-suggest");
         }
         var $suggestPopup = jQuery(Tobago.Utils.escapeClientId($suggest.attr('id') + "::popup"));
