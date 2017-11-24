@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+-->
+
+<ui:composition template="/main.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:tc="http://myfaces.apache.org/tobago/component"
+                xmlns:ui="http://java.sun.com/jsf/facelets">
+  <ui:param name="title" value="Test position of ids and markups"/>
+
+  <tc:section id="sectionNoLabel" label="No label set">
+    <tc:in id="inNoLabel" markup="testmarkup"/>
+  </tc:section>
+
+  <tc:section id="sectionNone" label="labelLayout=none">
+    <tc:in id="inNone" label="Input" markup="testmarkup" labelLayout="none"/>
+  </tc:section>
+
+  <tc:section id="sectionSkip" label="labelLayout=skip">
+    <tc:in id="inSkip" label="Input" markup="testmarkup" labelLayout="skip"/>
+  </tc:section>
+
+  <tc:section id="sectionTop" label="labelLayout=top">
+    <tc:in id="inTop" label="Input" markup="testmarkup" labelLayout="top"/>
+  </tc:section>
+
+  <tc:section label="FlowLayout">
+    <tc:section id="sectionFlowLeft" label="labelLayout=flowLeft">
+      <tc:in id="inFlowLeft" label="Input" markup="testmarkup" labelLayout="flowLeft"/>
+    </tc:section>
+    <tc:section id="sectionFlowRight" label="labelLayout=flowRight">
+      <tc:in id="inFlowRight" label="Input" markup="testmarkup" labelLayout="flowRight"/>
+    </tc:section>
+  </tc:section>
+
+  <tc:section label="FlexLayout">
+    <tc:section id="sectionFlexLeft" label="labelLayout=flexLeft">
+      <tc:in id="inFlexLeft" label="Input" markup="testmarkup" labelLayout="flexLeft"/>
+    </tc:section>
+    <tc:section id="sectionFlexRight" label="labelLayout=flexRight">
+      <tc:in id="inFlexRight" label="Input" markup="testmarkup" labelLayout="flexRight"/>
+    </tc:section>
+  </tc:section>
+
+  <tc:section label="SegmentLayout">
+    <tc:section id="sectionSegmentLeft" label="labelLayout=segmentLeft">
+      <tc:segmentLayout extraSmall="3 9">
+        <tc:in id="inSegmentLeft" label="Input" markup="testmarkup" labelLayout="segmentLeft"/>
+      </tc:segmentLayout>
+    </tc:section>
+    <tc:section id="sectionSegmentRight" label="labelLayout=segmentRight">
+      <tc:segmentLayout extraSmall="9 3">
+        <tc:in id="inSegmentRight" label="Input" markup="testmarkup" labelLayout="segmentRight"/>
+      </tc:segmentLayout>
+    </tc:section>
+  </tc:section>
+</ui:composition>

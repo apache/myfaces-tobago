@@ -505,6 +505,12 @@ public class QUnitTests {
   }
 
   @Test
+  public void testIdMarkup() throws UnsupportedEncodingException, InterruptedException {
+    String page = "content/40-test/4800-labelLayout/100-id-markup/id-markup.xhtml";
+    runStandardTest(page);
+  }
+
+  @Test
   public void testLabelLayoutTop() throws UnsupportedEncodingException, InterruptedException {
     String page = "content/40-test/4810-labelLayoutTop/labelLayoutTop.xhtml";
     runStandardTest(page);
