@@ -1,4 +1,4 @@
-Build date: 2017-11-23 12:02:01
+Build date: 2017-11-24 12:47:57
 [INFO] Scanning for projects...
 [INFO] 
 [INFO] ------------------------------------------------------------------------
@@ -55,11 +55,14 @@ Build date: 2017-11-23 12:02:01
 [INFO] > node install.js
 [INFO] 
 [INFO] PhantomJS not found on PATH
-[INFO] Download already available at /var/folders/w0/pg4pxr7972l6bq85x08s5cl00000gn/T/phantomjs/phantomjs-2.1.1-macosx.zip
-[INFO] Verified checksum of previously downloaded file
+[INFO] Downloading https://github.com/Medium/phantomjs/releases/download/v2.1.1/phantomjs-2.1.1-macosx.zip
+[INFO] Saving to /var/folders/yp/1vrxjnrs20798ydt_yl8wrpr0000gp/T/phantomjs/phantomjs-2.1.1-macosx.zip
+[INFO] Receiving...
+[INFO] 
+[INFO] Received 16746K total.
 [INFO] Extracting zip contents
 [INFO] Removing __CURRENT__/tobago-theme-charlotteville/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom
-[INFO] Copying extracted folder /var/folders/w0/pg4pxr7972l6bq85x08s5cl00000gn/T/phantomjs/phantomjs-2.1.1-macosx.zip-extract-1511434962544/phantomjs-2.1.1-macosx -> __CURRENT__/tobago-theme-charlotteville/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom
+[INFO] Copying extracted folder /var/folders/yp/1vrxjnrs20798ydt_yl8wrpr0000gp/T/phantomjs/phantomjs-2.1.1-macosx.zip-extract-1511524131943/phantomjs-2.1.1-macosx -> __CURRENT__/tobago-theme-charlotteville/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom
 [INFO] Writing location.js file
 [INFO] Done. Phantomjs binary available at __CURRENT__/tobago-theme-charlotteville/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom/bin/phantomjs
 [INFO] 
@@ -71,7 +74,7 @@ Build date: 2017-11-23 12:02:01
 [INFO] Binary is fine
 [INFO] bootstrap@4.0.0-beta.2 __CURRENT__/tobago-theme-charlotteville/target/bootstrap
 [INFO] ├─┬ autoprefixer@7.1.6 
-[INFO] │ ├─┬ browserslist@2.9.0 
+[INFO] │ ├─┬ browserslist@2.9.1 
 [INFO] │ │ └── electron-to-chromium@1.3.27 
 [INFO] │ ├── caniuse-lite@1.0.30000770 
 [INFO] │ ├── normalize-range@0.1.2 
@@ -126,7 +129,6 @@ Build date: 2017-11-23 12:02:01
 [INFO] │ │ │   │ └─┬ osenv@0.1.4 
 [INFO] │ │ │   │   ├── os-homedir@1.0.2 
 [INFO] │ │ │   │   └── os-tmpdir@1.0.2 
-[WARNING] npm WARN bootstrap@4.0.0-beta.2 requires a peer of jquery@1.9.1 - 3 but none was installed.
 [INFO] │ │ │   ├─┬ npmlog@4.1.0 
 [INFO] │ │ │   │ ├─┬ are-we-there-yet@1.1.4 
 [INFO] │ │ │   │ │ └── delegates@1.0.0 
@@ -1034,6 +1036,7 @@ Build date: 2017-11-23 12:02:01
 [INFO]   │ └── lodash.templatesettings@4.1.0 
 [INFO]   └── workbox-sw@2.1.2 
 [INFO] 
+[WARNING] npm WARN bootstrap@4.0.0-beta.2 requires a peer of jquery@1.9.1 - 3 but none was installed.
 [INFO] 
 [INFO] --- frontend-maven-plugin:1.4:npm (step #8: npm run css-compile) @ tobago-theme-charlotteville ---
 [INFO] Running 'npm run css-compile' in __CURRENT__/tobago-theme-charlotteville/target/bootstrap
@@ -1042,11 +1045,11 @@ Build date: 2017-11-23 12:02:01
 [INFO] > node-sass --output-style expanded --source-map true --source-map-contents true --precision 6 scss/bootstrap.scss dist/css/bootstrap.css && node-sass --output-style expanded --source-map true --source-map-contents true --precision 6 scss/bootstrap-grid.scss dist/css/bootstrap-grid.css && node-sass --output-style expanded --source-map true --source-map-contents true --precision 6 scss/bootstrap-reboot.scss dist/css/bootstrap-reboot.css
 [INFO] 
 [ERROR] Rendering Complete, saving .css file...
-[ERROR] Wrote Source Map to __CURRENT__/tobago-theme-charlotteville/target/bootstrap/dist/css/bootstrap.css.map
 [ERROR] Wrote CSS to __CURRENT__/tobago-theme-charlotteville/target/bootstrap/dist/css/bootstrap.css
+[ERROR] Wrote Source Map to __CURRENT__/tobago-theme-charlotteville/target/bootstrap/dist/css/bootstrap.css.map
 [ERROR] Rendering Complete, saving .css file...
-[ERROR] Wrote CSS to __CURRENT__/tobago-theme-charlotteville/target/bootstrap/dist/css/bootstrap-grid.css
 [ERROR] Wrote Source Map to __CURRENT__/tobago-theme-charlotteville/target/bootstrap/dist/css/bootstrap-grid.css.map
+[ERROR] Wrote CSS to __CURRENT__/tobago-theme-charlotteville/target/bootstrap/dist/css/bootstrap-grid.css
 [ERROR] Rendering Complete, saving .css file...
 [ERROR] Wrote CSS to __CURRENT__/tobago-theme-charlotteville/target/bootstrap/dist/css/bootstrap-reboot.css
 [ERROR] Wrote Source Map to __CURRENT__/tobago-theme-charlotteville/target/bootstrap/dist/css/bootstrap-reboot.css.map
@@ -1057,12 +1060,12 @@ Build date: 2017-11-23 12:02:01
 [INFO] > bootstrap@4.0.0-beta.2 css-prefix __CURRENT__/tobago-theme-charlotteville/target/bootstrap
 [INFO] > postcss --config build/postcss.config.js --replace "dist/css/*.css"
 [INFO] 
-[ERROR] ✔ Finished dist/css/bootstrap-reboot.css (1.36 s)
-[ERROR] ✔ Finished dist/css/bootstrap-grid.css (1.37 s)
-[ERROR] ✔ Finished dist/css/bootstrap.css (1.37 s)
-[ERROR] ✔ Finished dist/css/bootstrap-grid.min.css (1.37 s)
-[ERROR] ✔ Finished dist/css/bootstrap-reboot.min.css (1.37 s)
-[ERROR] ✔ Finished dist/css/bootstrap.min.css (1.37 s)
+[ERROR] ✔ Finished dist/css/bootstrap-grid.min.css (1.04 s)
+[ERROR] ✔ Finished dist/css/bootstrap-grid.css (1.04 s)
+[ERROR] ✔ Finished dist/css/bootstrap-reboot.min.css (1.04 s)
+[ERROR] ✔ Finished dist/css/bootstrap.min.css (1.04 s)
+[ERROR] ✔ Finished dist/css/bootstrap.css (1.04 s)
+[ERROR] ✔ Finished dist/css/bootstrap-reboot.css (1.05 s)
 [INFO] 
 [INFO] --- frontend-maven-plugin:1.4:npm (step #10: npm run css-minify) @ tobago-theme-charlotteville ---
 [INFO] Running 'npm run css-minify' in __CURRENT__/tobago-theme-charlotteville/target/bootstrap
@@ -1090,16 +1093,16 @@ Build date: 2017-11-23 12:02:01
 [INFO] > npm-run-all --parallel js-compile-*
 [INFO] 
 [INFO] 
+[INFO] > bootstrap@4.0.0-beta.2 js-compile-bundle __CURRENT__/tobago-theme-charlotteville/target/bootstrap
+[INFO] > cross-env ROLLUP=true rollup --environment BUNDLE:true --config build/rollup.config.js --sourcemap
+[INFO] 
+[INFO] 
 [INFO] > bootstrap@4.0.0-beta.2 js-compile-standalone __CURRENT__/tobago-theme-charlotteville/target/bootstrap
 [INFO] > cross-env ROLLUP=true rollup --environment BUNDLE:false --config build/rollup.config.js --sourcemap
 [INFO] 
 [INFO] 
 [INFO] > bootstrap@4.0.0-beta.2 js-compile-plugins __CURRENT__/tobago-theme-charlotteville/target/bootstrap
 [INFO] > cross-env PLUGINS=true babel js/src/ --out-dir js/dist/ --source-maps
-[INFO] 
-[INFO] 
-[INFO] > bootstrap@4.0.0-beta.2 js-compile-bundle __CURRENT__/tobago-theme-charlotteville/target/bootstrap
-[INFO] > cross-env ROLLUP=true rollup --environment BUNDLE:true --config build/rollup.config.js --sourcemap
 [INFO] 
 [ERROR] 
 [ERROR] __CURRENT__/tobago-theme-charlotteville/target/bootstrap/js/src/index.js → dist/js/bootstrap.bundle.js...
@@ -1117,22 +1120,22 @@ Build date: 2017-11-23 12:02:01
 [INFO] js/src/tab.js -> js/dist/tab.js
 [INFO] js/src/tooltip.js -> js/dist/tooltip.js
 [INFO] js/src/util.js -> js/dist/util.js
-[ERROR] created dist/js/bootstrap.js in 1.8s
-[ERROR] created dist/js/bootstrap.bundle.js in 2s
+[ERROR] created dist/js/bootstrap.js in 2.4s
+[ERROR] created dist/js/bootstrap.bundle.js in 2.6s
 [INFO] 
 [INFO] > bootstrap@4.0.0-beta.2 js-compile-standalone __CURRENT__/tobago-theme-charlotteville/target/bootstrap
 [INFO] > cross-env ROLLUP=true rollup --environment BUNDLE:false --config build/rollup.config.js --sourcemap
 [INFO] 
 [ERROR] 
 [ERROR] __CURRENT__/tobago-theme-charlotteville/target/bootstrap/js/src/index.js → dist/js/bootstrap.js...
-[ERROR] created dist/js/bootstrap.js in 1.6s
+[ERROR] created dist/js/bootstrap.js in 1.5s
 [INFO] 
 [INFO] > bootstrap@4.0.0-beta.2 js-compile-bundle __CURRENT__/tobago-theme-charlotteville/target/bootstrap
 [INFO] > cross-env ROLLUP=true rollup --environment BUNDLE:true --config build/rollup.config.js --sourcemap
 [INFO] 
 [ERROR] 
 [ERROR] __CURRENT__/tobago-theme-charlotteville/target/bootstrap/js/src/index.js → dist/js/bootstrap.bundle.js...
-[ERROR] created dist/js/bootstrap.bundle.js in 1.6s
+[ERROR] created dist/js/bootstrap.bundle.js in 1.7s
 [INFO] 
 [INFO] > bootstrap@4.0.0-beta.2 js-compile-plugins __CURRENT__/tobago-theme-charlotteville/target/bootstrap
 [INFO] > cross-env PLUGINS=true babel js/src/ --out-dir js/dist/ --source-maps
@@ -1154,16 +1157,16 @@ Build date: 2017-11-23 12:02:01
 [INFO] > npm-run-all --parallel js-minify-*
 [INFO] 
 [INFO] 
-[INFO] > bootstrap@4.0.0-beta.2 js-minify-docs __CURRENT__/tobago-theme-charlotteville/target/bootstrap
-[INFO] > uglifyjs --mangle --comments "/^!/" --output assets/js/docs.min.js assets/js/vendor/anchor.min.js assets/js/vendor/clipboard.min.js assets/js/vendor/holder.min.js assets/js/src/application.js assets/js/src/pwa.js
+[INFO] > bootstrap@4.0.0-beta.2 js-minify-bundle __CURRENT__/tobago-theme-charlotteville/target/bootstrap
+[INFO] > uglifyjs --compress typeofs=false --mangle --comments "/^!/" --source-map "content=dist/js/bootstrap.bundle.js.map,includeSources,url=bootstrap.bundle.min.js.map" --output dist/js/bootstrap.bundle.min.js dist/js/bootstrap.bundle.js
 [INFO] 
 [INFO] 
 [INFO] > bootstrap@4.0.0-beta.2 js-minify-standalone __CURRENT__/tobago-theme-charlotteville/target/bootstrap
 [INFO] > uglifyjs --compress typeofs=false --mangle --comments "/^!/" --source-map "content=dist/js/bootstrap.js.map,includeSources,url=bootstrap.min.js.map" --output dist/js/bootstrap.min.js dist/js/bootstrap.js
 [INFO] 
 [INFO] 
-[INFO] > bootstrap@4.0.0-beta.2 js-minify-bundle __CURRENT__/tobago-theme-charlotteville/target/bootstrap
-[INFO] > uglifyjs --compress typeofs=false --mangle --comments "/^!/" --source-map "content=dist/js/bootstrap.bundle.js.map,includeSources,url=bootstrap.bundle.min.js.map" --output dist/js/bootstrap.bundle.min.js dist/js/bootstrap.bundle.js
+[INFO] > bootstrap@4.0.0-beta.2 js-minify-docs __CURRENT__/tobago-theme-charlotteville/target/bootstrap
+[INFO] > uglifyjs --mangle --comments "/^!/" --output assets/js/docs.min.js assets/js/vendor/anchor.min.js assets/js/vendor/clipboard.min.js assets/js/vendor/holder.min.js assets/js/src/application.js assets/js/src/pwa.js
 [INFO] 
 [ERROR] INFO: Using input source map: dist/js/bootstrap.bundle.js.map
 [ERROR] INFO: Using input source map: dist/js/bootstrap.js.map
@@ -1223,7 +1226,7 @@ main:
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
-[INFO] Total time: 01:16 min
-[INFO] Finished at: 2017-11-23T12:03:18+01:00
-[INFO] Final Memory: 28M/389M
+[INFO] Total time: 01:29 min
+[INFO] Finished at: 2017-11-24T12:49:27+01:00
+[INFO] Final Memory: 26M/86M
 [INFO] ------------------------------------------------------------------------

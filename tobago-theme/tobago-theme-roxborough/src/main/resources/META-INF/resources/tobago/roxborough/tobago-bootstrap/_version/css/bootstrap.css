@@ -9379,6 +9379,11 @@ th.tobago-sheet-headerCell-markup-filler > .tobago-sheet-header {
   display: block;
 }
 
+.twitter-typeahead .tt-open {
+  /* for markup 'localMenu' - if suggest menu rendered directly on component - not in .tobago-page-menuStore */
+  width: 100%;
+}
+
 .tt-empty {
   display: none;
 }

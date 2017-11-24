@@ -1,4 +1,4 @@
-Build date: 2017-11-23 12:07:06
+Build date: 2017-11-24 12:54:06
 [INFO] Scanning for projects...
 [INFO] 
 [INFO] ------------------------------------------------------------------------
@@ -55,11 +55,11 @@ Build date: 2017-11-23 12:07:06
 [INFO] > node install.js
 [INFO] 
 [INFO] PhantomJS not found on PATH
-[INFO] Download already available at /var/folders/w0/pg4pxr7972l6bq85x08s5cl00000gn/T/phantomjs/phantomjs-2.1.1-macosx.zip
+[INFO] Download already available at /var/folders/yp/1vrxjnrs20798ydt_yl8wrpr0000gp/T/phantomjs/phantomjs-2.1.1-macosx.zip
 [INFO] Verified checksum of previously downloaded file
 [INFO] Extracting zip contents
 [INFO] Removing __CURRENT__/tobago-theme-standard/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom
-[INFO] Copying extracted folder /var/folders/w0/pg4pxr7972l6bq85x08s5cl00000gn/T/phantomjs/phantomjs-2.1.1-macosx.zip-extract-1511435268669/phantomjs-2.1.1-macosx -> __CURRENT__/tobago-theme-standard/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom
+[INFO] Copying extracted folder /var/folders/yp/1vrxjnrs20798ydt_yl8wrpr0000gp/T/phantomjs/phantomjs-2.1.1-macosx.zip-extract-1511524490550/phantomjs-2.1.1-macosx -> __CURRENT__/tobago-theme-standard/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom
 [INFO] Writing location.js file
 [INFO] Done. Phantomjs binary available at __CURRENT__/tobago-theme-standard/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom/bin/phantomjs
 [INFO] 
@@ -71,7 +71,7 @@ Build date: 2017-11-23 12:07:06
 [INFO] Binary is fine
 [INFO] bootstrap@4.0.0-beta.2 __CURRENT__/tobago-theme-standard/target/bootstrap
 [INFO] ├─┬ autoprefixer@7.1.6 
-[INFO] │ ├─┬ browserslist@2.9.0 
+[INFO] │ ├─┬ browserslist@2.9.1 
 [INFO] │ │ └── electron-to-chromium@1.3.27 
 [INFO] │ ├── caniuse-lite@1.0.30000770 
 [INFO] │ ├── normalize-range@0.1.2 
@@ -99,6 +99,7 @@ Build date: 2017-11-23 12:07:06
 [INFO] │ │ ├── core-js@2.5.1 
 [INFO] │ │ └── regenerator-runtime@0.11.0 
 [INFO] │ ├─┬ babel-register@7.0.0-beta.2 
+[WARNING] npm WARN bootstrap@4.0.0-beta.2 requires a peer of jquery@1.9.1 - 3 but none was installed.
 [INFO] │ │ ├─┬ find-cache-dir@1.0.0 
 [INFO] │ │ │ ├── commondir@1.0.1 
 [INFO] │ │ │ ├── make-dir@1.1.0 
@@ -121,7 +122,6 @@ Build date: 2017-11-23 12:07:06
 [INFO] │ │ │   │ └── sntp@1.0.9 
 [INFO] │ │ │   ├─┬ mkdirp@0.5.1 
 [INFO] │ │ │   │ └── minimist@0.0.8 
-[WARNING] npm WARN bootstrap@4.0.0-beta.2 requires a peer of jquery@1.9.1 - 3 but none was installed.
 [INFO] │ │ │   ├─┬ nopt@4.0.1 
 [INFO] │ │ │   │ ├── abbrev@1.1.0 
 [INFO] │ │ │   │ └─┬ osenv@0.1.4 
@@ -1045,11 +1045,11 @@ Build date: 2017-11-23 12:07:06
 [ERROR] Wrote CSS to __CURRENT__/tobago-theme-standard/target/bootstrap/dist/css/bootstrap.css
 [ERROR] Wrote Source Map to __CURRENT__/tobago-theme-standard/target/bootstrap/dist/css/bootstrap.css.map
 [ERROR] Rendering Complete, saving .css file...
-[ERROR] Wrote Source Map to __CURRENT__/tobago-theme-standard/target/bootstrap/dist/css/bootstrap-grid.css.map
 [ERROR] Wrote CSS to __CURRENT__/tobago-theme-standard/target/bootstrap/dist/css/bootstrap-grid.css
+[ERROR] Wrote Source Map to __CURRENT__/tobago-theme-standard/target/bootstrap/dist/css/bootstrap-grid.css.map
 [ERROR] Rendering Complete, saving .css file...
-[ERROR] Wrote Source Map to __CURRENT__/tobago-theme-standard/target/bootstrap/dist/css/bootstrap-reboot.css.map
 [ERROR] Wrote CSS to __CURRENT__/tobago-theme-standard/target/bootstrap/dist/css/bootstrap-reboot.css
+[ERROR] Wrote Source Map to __CURRENT__/tobago-theme-standard/target/bootstrap/dist/css/bootstrap-reboot.css.map
 [INFO] 
 [INFO] --- frontend-maven-plugin:1.4:npm (step #9: npm run css-prefix) @ tobago-theme-standard ---
 [INFO] Running 'npm run css-prefix' in __CURRENT__/tobago-theme-standard/target/bootstrap
@@ -1057,12 +1057,12 @@ Build date: 2017-11-23 12:07:06
 [INFO] > bootstrap@4.0.0-beta.2 css-prefix __CURRENT__/tobago-theme-standard/target/bootstrap
 [INFO] > postcss --config build/postcss.config.js --replace "dist/css/*.css"
 [INFO] 
-[ERROR] ✔ Finished dist/css/bootstrap.css (1.33 s)
-[ERROR] ✔ Finished dist/css/bootstrap-reboot.min.css (1.33 s)
-[ERROR] ✔ Finished dist/css/bootstrap-reboot.css (1.34 s)
-[ERROR] ✔ Finished dist/css/bootstrap-grid.css (1.34 s)
-[ERROR] ✔ Finished dist/css/bootstrap-grid.min.css (1.33 s)
-[ERROR] ✔ Finished dist/css/bootstrap.min.css (1.33 s)
+[ERROR] ✔ Finished dist/css/bootstrap-reboot.min.css (993 ms)
+[ERROR] ✔ Finished dist/css/bootstrap-grid.css (996 ms)
+[ERROR] ✔ Finished dist/css/bootstrap-grid.min.css (995 ms)
+[ERROR] ✔ Finished dist/css/bootstrap.min.css (997 ms)
+[ERROR] ✔ Finished dist/css/bootstrap.css (997 ms)
+[ERROR] ✔ Finished dist/css/bootstrap-reboot.css (997 ms)
 [INFO] 
 [INFO] --- frontend-maven-plugin:1.4:npm (step #10: npm run css-minify) @ tobago-theme-standard ---
 [INFO] Running 'npm run css-minify' in __CURRENT__/tobago-theme-standard/target/bootstrap
@@ -1090,16 +1090,16 @@ Build date: 2017-11-23 12:07:06
 [INFO] > npm-run-all --parallel js-compile-*
 [INFO] 
 [INFO] 
-[INFO] > bootstrap@4.0.0-beta.2 js-compile-plugins __CURRENT__/tobago-theme-standard/target/bootstrap
-[INFO] > cross-env PLUGINS=true babel js/src/ --out-dir js/dist/ --source-maps
-[INFO] 
-[INFO] 
 [INFO] > bootstrap@4.0.0-beta.2 js-compile-standalone __CURRENT__/tobago-theme-standard/target/bootstrap
 [INFO] > cross-env ROLLUP=true rollup --environment BUNDLE:false --config build/rollup.config.js --sourcemap
 [INFO] 
 [INFO] 
 [INFO] > bootstrap@4.0.0-beta.2 js-compile-bundle __CURRENT__/tobago-theme-standard/target/bootstrap
 [INFO] > cross-env ROLLUP=true rollup --environment BUNDLE:true --config build/rollup.config.js --sourcemap
+[INFO] 
+[INFO] 
+[INFO] > bootstrap@4.0.0-beta.2 js-compile-plugins __CURRENT__/tobago-theme-standard/target/bootstrap
+[INFO] > cross-env PLUGINS=true babel js/src/ --out-dir js/dist/ --source-maps
 [INFO] 
 [ERROR] 
 [ERROR] __CURRENT__/tobago-theme-standard/target/bootstrap/js/src/index.js → dist/js/bootstrap.js...
@@ -1117,22 +1117,22 @@ Build date: 2017-11-23 12:07:06
 [INFO] js/src/tab.js -> js/dist/tab.js
 [INFO] js/src/tooltip.js -> js/dist/tooltip.js
 [INFO] js/src/util.js -> js/dist/util.js
-[ERROR] created dist/js/bootstrap.js in 1.8s
-[ERROR] created dist/js/bootstrap.bundle.js in 2s
+[ERROR] created dist/js/bootstrap.js in 2.3s
+[ERROR] created dist/js/bootstrap.bundle.js in 2.5s
 [INFO] 
 [INFO] > bootstrap@4.0.0-beta.2 js-compile-standalone __CURRENT__/tobago-theme-standard/target/bootstrap
 [INFO] > cross-env ROLLUP=true rollup --environment BUNDLE:false --config build/rollup.config.js --sourcemap
 [INFO] 
 [ERROR] 
 [ERROR] __CURRENT__/tobago-theme-standard/target/bootstrap/js/src/index.js → dist/js/bootstrap.js...
-[ERROR] created dist/js/bootstrap.js in 1.5s
+[ERROR] created dist/js/bootstrap.js in 1.4s
 [INFO] 
 [INFO] > bootstrap@4.0.0-beta.2 js-compile-bundle __CURRENT__/tobago-theme-standard/target/bootstrap
 [INFO] > cross-env ROLLUP=true rollup --environment BUNDLE:true --config build/rollup.config.js --sourcemap
 [INFO] 
 [ERROR] 
 [ERROR] __CURRENT__/tobago-theme-standard/target/bootstrap/js/src/index.js → dist/js/bootstrap.bundle.js...
-[ERROR] created dist/js/bootstrap.bundle.js in 1.7s
+[ERROR] created dist/js/bootstrap.bundle.js in 1.6s
 [INFO] 
 [INFO] > bootstrap@4.0.0-beta.2 js-compile-plugins __CURRENT__/tobago-theme-standard/target/bootstrap
 [INFO] > cross-env PLUGINS=true babel js/src/ --out-dir js/dist/ --source-maps
@@ -1154,19 +1154,19 @@ Build date: 2017-11-23 12:07:06
 [INFO] > npm-run-all --parallel js-minify-*
 [INFO] 
 [INFO] 
-[INFO] > bootstrap@4.0.0-beta.2 js-minify-docs __CURRENT__/tobago-theme-standard/target/bootstrap
-[INFO] > uglifyjs --mangle --comments "/^!/" --output assets/js/docs.min.js assets/js/vendor/anchor.min.js assets/js/vendor/clipboard.min.js assets/js/vendor/holder.min.js assets/js/src/application.js assets/js/src/pwa.js
+[INFO] > bootstrap@4.0.0-beta.2 js-minify-standalone __CURRENT__/tobago-theme-standard/target/bootstrap
+[INFO] > uglifyjs --compress typeofs=false --mangle --comments "/^!/" --source-map "content=dist/js/bootstrap.js.map,includeSources,url=bootstrap.min.js.map" --output dist/js/bootstrap.min.js dist/js/bootstrap.js
 [INFO] 
 [INFO] 
 [INFO] > bootstrap@4.0.0-beta.2 js-minify-bundle __CURRENT__/tobago-theme-standard/target/bootstrap
 [INFO] > uglifyjs --compress typeofs=false --mangle --comments "/^!/" --source-map "content=dist/js/bootstrap.bundle.js.map,includeSources,url=bootstrap.bundle.min.js.map" --output dist/js/bootstrap.bundle.min.js dist/js/bootstrap.bundle.js
 [INFO] 
 [INFO] 
-[INFO] > bootstrap@4.0.0-beta.2 js-minify-standalone __CURRENT__/tobago-theme-standard/target/bootstrap
-[INFO] > uglifyjs --compress typeofs=false --mangle --comments "/^!/" --source-map "content=dist/js/bootstrap.js.map,includeSources,url=bootstrap.min.js.map" --output dist/js/bootstrap.min.js dist/js/bootstrap.js
+[INFO] > bootstrap@4.0.0-beta.2 js-minify-docs __CURRENT__/tobago-theme-standard/target/bootstrap
+[INFO] > uglifyjs --mangle --comments "/^!/" --output assets/js/docs.min.js assets/js/vendor/anchor.min.js assets/js/vendor/clipboard.min.js assets/js/vendor/holder.min.js assets/js/src/application.js assets/js/src/pwa.js
 [INFO] 
-[ERROR] INFO: Using input source map: dist/js/bootstrap.bundle.js.map
 [ERROR] INFO: Using input source map: dist/js/bootstrap.js.map
+[ERROR] INFO: Using input source map: dist/js/bootstrap.bundle.js.map
 [INFO] 
 [INFO] > bootstrap@4.0.0-beta.2 js-minify-standalone __CURRENT__/tobago-theme-standard/target/bootstrap
 [INFO] > uglifyjs --compress typeofs=false --mangle --comments "/^!/" --source-map "content=dist/js/bootstrap.js.map,includeSources,url=bootstrap.min.js.map" --output dist/js/bootstrap.min.js dist/js/bootstrap.js
@@ -1203,8 +1203,8 @@ Build date: 2017-11-23 12:07:06
 [INFO] nothing to do, __CURRENT__/tobago-theme-standard/target/classes/META-INF/resources/tobago/standard/tether/1.1.1/css/tether-theme-basic.min.css is younger than original, use 'force' option or clean your target
 [INFO] tether-theme-arrows-dark.min.css (4681b) -> tether-theme-arrows-dark.min.min.css (4681b)[100%]
 [INFO] nothing to do, __CURRENT__/tobago-theme-standard/target/classes/META-INF/resources/tobago/standard/tether/1.1.1/css/tether-theme-arrows.min.css is younger than original, use 'force' option or clean your target
-[INFO] bootstrap.min.css (145830b) -> bootstrap.min.min.css (145574b)[99%]
-[INFO] bootstrap.css (190340b) -> bootstrap.min.css (146000b)[76%]
+[INFO] bootstrap.min.css (145869b) -> bootstrap.min.min.css (145613b)[99%]
+[INFO] bootstrap.css (190500b) -> bootstrap.min.css (146039b)[76%]
 [INFO] nothing to do, __CURRENT__/tobago-theme-standard/target/classes/META-INF/resources/tobago/standard/font-awesome/4.7.0/css/font-awesome.min.css is younger than original, use 'force' option or clean your target
 [INFO] font-awesome.min.css (31000b) -> font-awesome.min.min.css (30990b)[99%]
 [INFO] nothing to do, __CURRENT__/tobago-theme-standard/target/classes/META-INF/resources/tobago/standard/bootstrap-datetimepicker/4.17.45/css/bootstrap-datetimepicker.min.css is younger than original, use 'force' option or clean your target
@@ -1221,7 +1221,7 @@ Build date: 2017-11-23 12:07:06
 [INFO] nothing to do, __CURRENT__/tobago-theme-standard/target/classes/META-INF/resources/tobago/standard/tobago-bootstrap/_version/css/bootstrap.min.css is younger than original, use 'force' option or clean your target
 [INFO] nothing to do, __CURRENT__/tobago-theme-standard/target/classes/META-INF/resources/tobago/standard/font-awesome/4.7.0/css/font-awesome.min.css is younger than original, use 'force' option or clean your target
 [INFO] nothing to do, __CURRENT__/tobago-theme-standard/target/classes/META-INF/resources/tobago/standard/font-awesome/4.7.0/css/font-awesome.min.min.css is younger than original, use 'force' option or clean your target
-[INFO] total input (385086b) -> output (340422b)[88%]
+[INFO] total input (385285b) -> output (340500b)[88%]
 [INFO] nb warnings: 0, nb errors: 0
 [INFO] 
 [INFO] --- maven-compiler-plugin:3.6.2:compile (default-compile) @ tobago-theme-standard ---
@@ -1248,6 +1248,7 @@ main:
 [INFO] 
 [INFO] --- maven-compiler-plugin:3.6.2:testCompile (default-testCompile) @ tobago-theme-standard ---
 [INFO] Compiling 1 source file to __CURRENT__/tobago-theme-standard/target/test-classes
+[WARNING] bootstrap class path not set in conjunction with -source 1.8
 [INFO] 
 [INFO] --- maven-surefire-plugin:2.19.1:test (default-test) @ tobago-theme-standard ---
 
@@ -1255,7 +1256,7 @@ main:
  T E S T S
 -------------------------------------------------------
 Running org.apache.myfaces.tobago.renderkit.css.BootstrapClassUnitTest
-Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.252 sec - in org.apache.myfaces.tobago.renderkit.css.BootstrapClassUnitTest
+Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.469 sec - in org.apache.myfaces.tobago.renderkit.css.BootstrapClassUnitTest
 
 Results :
 
@@ -1274,7 +1275,7 @@ Tests run: 3, Failures: 0, Errors: 0, Skipped: 0
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
-[INFO] Total time: 01:22 min
-[INFO] Finished at: 2017-11-23T12:08:29+01:00
-[INFO] Final Memory: 38M/492M
+[INFO] Total time: 01:23 min
+[INFO] Finished at: 2017-11-24T12:55:31+01:00
+[INFO] Final Memory: 33M/112M
 [INFO] ------------------------------------------------------------------------
