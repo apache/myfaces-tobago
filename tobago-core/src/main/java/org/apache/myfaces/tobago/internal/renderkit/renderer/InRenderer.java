@@ -84,7 +84,6 @@ public class InRenderer extends MessageLayoutRendererBase {
       writer.startElement(HtmlElements.DIV); // Wrapping the field to fix input groups with flexLeft/flexRight
       if (input.isLabelLayoutSkip()) {
         writer.writeIdAttribute(clientId);
-        writer.writeAttribute(DataAttributes.MARKUP, JsonUtils.encode(markup), false);
       }
       writer.writeClassAttribute(TobagoClass.INPUT__GROUP__OUTER);
       writer.startElement(HtmlElements.DIV);
@@ -102,6 +101,9 @@ public class InRenderer extends MessageLayoutRendererBase {
     writer.writeAttribute(HtmlAttributes.TYPE, type);
     writer.writeNameAttribute(clientId);
     writer.writeIdAttribute(fieldId);
+    if (input.isLabelLayoutSkip()) {
+      writer.writeAttribute(DataAttributes.MARKUP, JsonUtils.encode(markup), false);
+    }
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, input);
     if (currentValue != null) {
       writer.writeAttribute(HtmlAttributes.VALUE, currentValue, true);
