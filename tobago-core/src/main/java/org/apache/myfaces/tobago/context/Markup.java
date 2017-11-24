@@ -83,10 +83,15 @@ public final class Markup implements Serializable, Iterable<String> {
   public static final Markup INFO = valueOf("info");
   public static final Markup INLINE = valueOf("inline");
   public static final Markup JUSTIFY = valueOf("justify");
+  /**
+   * @deprecated since 4.0.0, please use {@link #DARK}
+   */
+  @Deprecated
   public static final Markup INVERSE = valueOf("inverse");
   public static final Markup LARGE = valueOf("large");
   public static final Markup LEFT = valueOf("left");
   public static final Markup LIGHT = valueOf("light");
+  public static final Markup LOCAL_MENU = valueOf("localMenu");
   public static final Markup MARKED = valueOf("marked");
   public static final Markup MEDIUM = valueOf("medium");
   public static final Markup MODAL = valueOf("modal");
@@ -128,6 +133,84 @@ public final class Markup implements Serializable, Iterable<String> {
   public static final Markup VERTICALLY = valueOf("vertically");
   public static final Markup WARN = valueOf("warn");
   public static final Markup WARNING = valueOf("warning");
+
+  public static final String STRING_ASCENDING = "ascending";
+  public static final String STRING_BIG = "big";
+  public static final String STRING_BORDERED = "bordered";
+  public static final String STRING_CENTER = "center";
+  public static final String STRING_CLICKABLE = "clickable";
+  public static final String STRING_DANGER = "danger";
+  public static final String STRING_DARK = "dark";
+  public static final String STRING_DEFAULT = "default";
+  public static final String STRING_DELETED = "deleted";
+  public static final String STRING_DESCENDING = "descending";
+  public static final String STRING_DISABLED = "disabled";
+  public static final String STRING_ERROR = "error";
+  public static final String STRING_EVEN = "even";
+  public static final String STRING_EXPANDED = "expanded";
+  public static final String STRING_EXTRA_LARGE = "extraLarge";
+  public static final String STRING_FILLER = "filler";
+  public static final String STRING_FATAL = "fatal";
+  /**
+   * @deprecated Can be selected via CSS3.
+   */
+  @Deprecated
+  public static final String STRING_FIRST = "first";
+  public static final String STRING_FOLDER = "folder";
+  public static final String STRING_HOVER = "hover";
+  public static final String STRING_INFO = "info";
+  public static final String STRING_INLINE = "inline";
+  public static final String STRING_JUSTIFY = "justify";
+  /**
+   * @deprecated since 4.0.0, please use {@link #DARK}
+   */
+  @Deprecated
+  public static final String STRING_INVERSE = "inverse";
+  public static final String STRING_LARGE = "large";
+  public static final String STRING_LEFT = "left";
+  public static final String STRING_LIGHT = "light";
+  public static final String STRING_LOCAL_MENU = "localMenu";
+  public static final String STRING_MARKED = "marked";
+  public static final String STRING_MEDIUM = "medium";
+  public static final String STRING_MODAL = "modal";
+  public static final String STRING_NONE = "none";
+  public static final String STRING_NUMBER = "number";
+  public static final String STRING_ODD = "odd";
+  public static final String STRING_PORTLET = "portlet";
+  public static final String STRING_PRIMARY = "primary";
+  public static final String STRING_READONLY = "readonly";
+  public static final String STRING_REQUIRED = "required";
+  public static final String STRING_RESIZABLE = "resizable";
+  public static final String STRING_RIGHT = "right";
+  public static final String STRING_SECONDARY = "secondary";
+  public static final String STRING_SECONDS = "seconds";
+  public static final String STRING_SELECTED = "selected";
+  /**
+   * @deprecated since 3.0.4
+   */
+  @Deprecated
+  public static final String STRING_SHEET_SELECT_ALL = "sheetSelectAll";
+  /**
+   * @deprecated since 3.0.4
+   */
+  @Deprecated
+  public static final String STRING_SHEET_DESELECT_ALL = "sheetDeselectAll";
+  /**
+   * @deprecated since 3.0.4
+   */
+  @Deprecated
+  public static final String STRING_SHEET_TOGGLE_ALL = "sheetToggleAll";
+  public static final String STRING_SMALL = "small";
+  public static final String STRING_SORTABLE = "sortable";
+  public static final String STRING_SPREAD = "spread";
+  public static final String STRING_STRIPED = "striped";
+  public static final String STRING_STRONG = "strong";
+  public static final String STRING_SUCCESS = "success";
+  public static final String STRING_TOGGLER_LEFT = "togglerLeft";
+  public static final String STRING_TOP = "top";
+  public static final String STRING_VERTICALLY = "vertically";
+  public static final String STRING_WARN = "warn";
+  public static final String STRING_WARNING = "warning";
 
   /* Just one of "values" and "value" must be null */
 

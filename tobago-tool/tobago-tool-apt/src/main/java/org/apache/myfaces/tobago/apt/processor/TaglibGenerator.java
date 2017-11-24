@@ -23,6 +23,7 @@ import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.myfaces.tobago.apt.AnnotationUtils;
 import org.apache.myfaces.tobago.apt.annotation.Facet;
+import org.apache.myfaces.tobago.apt.annotation.Markup;
 import org.apache.myfaces.tobago.apt.annotation.Preliminary;
 import org.apache.myfaces.tobago.apt.annotation.SimpleTag;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
@@ -361,6 +362,20 @@ public class TaglibGenerator extends AbstractGenerator {
         description.append("</b></dt>");
         description.append("<dd>");
         description.append(facet.description());
+        description.append("</dd>");
+      }
+      description.append("</dl>");
+    }
+    final Markup[] markups = componentTag.markups();
+    if (markups.length > 0) {
+      description.append("<p><b>Supported markups:</b></p>");
+      description.append("<dl>");
+      for (final Markup markup : markups) {
+        description.append("<dt><b>");
+        description.append(markup.name());
+        description.append("</b></dt>");
+        description.append("<dd>");
+        description.append(markup.description());
         description.append("</dd>");
       }
       description.append("</dl>");

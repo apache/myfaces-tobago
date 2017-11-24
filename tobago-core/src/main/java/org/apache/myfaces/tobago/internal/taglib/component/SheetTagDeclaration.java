@@ -23,6 +23,7 @@ import org.apache.myfaces.tobago.apt.annotation.Behavior;
 import org.apache.myfaces.tobago.apt.annotation.BodyContentDescription;
 import org.apache.myfaces.tobago.apt.annotation.DynamicExpression;
 import org.apache.myfaces.tobago.apt.annotation.Facet;
+import org.apache.myfaces.tobago.apt.annotation.Markup;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
@@ -64,6 +65,28 @@ import javax.faces.component.UIData;
         @Behavior(
             name = ClientBehaviors.RELOAD, // XXX replace by click
             isDefault = true)
+    },
+    markups = {
+        @Markup(
+            name = "bordered",
+            description = "Add borders to the table cells."
+        ),
+        @Markup(
+            name = "dark",
+            description = "Set dark background."
+        ),
+        @Markup(
+            name = "hover",
+            description = "Background of row changed on hovering."
+        ),
+        @Markup(
+            name = "small",
+            description = "Small margins for table cells."
+        ),
+        @Markup(
+            name = "striped",
+            description = "Zebra-striping for table rows."
+        ),
     })
 public interface SheetTagDeclaration
     extends HasIdBindingAndRendered, IsVisual, IsShowRoot, IsShowRootJunction, HasVar {
@@ -238,7 +261,6 @@ public interface SheetTagDeclaration
 
   /**
    * Flag indicating if paging arrows are shown near direct links
-   *
    * @since 2.0.0
    */
   @TagAttribute
@@ -247,7 +269,6 @@ public interface SheetTagDeclaration
 
   /**
    * Flag indicating if paging arrows are shown near page range
-   *
    * @since 2.0.0
    */
   @TagAttribute

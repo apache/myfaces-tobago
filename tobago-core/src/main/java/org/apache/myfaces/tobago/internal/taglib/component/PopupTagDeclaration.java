@@ -19,6 +19,7 @@
 
 package org.apache.myfaces.tobago.internal.taglib.component;
 
+import org.apache.myfaces.tobago.apt.annotation.Markup;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
@@ -43,8 +44,17 @@ import org.apache.myfaces.tobago.model.CollapseMode;
         // As long as no behavior event names are defined, ClientBehaviorHolder must be implemented for Majorra.
         "javax.faces.component.behavior.ClientBehaviorHolder"
     },
-    rendererType = RendererTypes.POPUP
-)
+    rendererType = RendererTypes.POPUP,
+    markups = {
+        @Markup(
+            name = "large",
+            description = "Large popup"
+        ),
+        @Markup(
+            name = "small",
+            description = "Small popup"
+        )
+    })
 public interface PopupTagDeclaration
     extends HasIdBindingAndRendered, IsVisual, HasTip {
 

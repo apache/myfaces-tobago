@@ -22,6 +22,7 @@ package org.apache.myfaces.tobago.internal.taglib.component;
 import org.apache.myfaces.tobago.apt.annotation.Behavior;
 import org.apache.myfaces.tobago.apt.annotation.BodyContentDescription;
 import org.apache.myfaces.tobago.apt.annotation.Facet;
+import org.apache.myfaces.tobago.apt.annotation.Markup;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.component.ClientBehaviors;
@@ -82,6 +83,44 @@ import javax.faces.component.UICommand;
             name = ClientBehaviors.FOCUS),
         @Behavior(
             name = ClientBehaviors.BLUR)
+    },
+    markups = {
+        @Markup(
+            name = "primary",
+            description = "Set button color to primary color of the theme."
+        ),
+        @Markup(
+            name = "secondary",
+            description = "Set button color to secondary color of the theme."
+        ),
+        @Markup(
+            name = "success",
+            description = "Set button color to success color of the theme."
+        ),
+        @Markup(
+            name = "danger",
+            description = "Set button color to danger color of the theme."
+        ),
+        @Markup(
+            name = "warning",
+            description = "Set button color to warning color of the theme."
+        ),
+        @Markup(
+            name = "info",
+            description = "Set button color to info color of the theme."
+        ),
+        @Markup(
+            name = "light",
+            description = "Set button color to light color of the theme."
+        ),
+        @Markup(
+            name = "dark",
+            description = "Set button color to dark color of the theme."
+        ),
+        @Markup(
+            name = "none",
+            description = "Colorless button."
+        )
     })
 public interface ButtonTagDeclaration
     extends HasIdBindingAndRendered, HasAction, HasActionListener, IsImmediateCommand, HasConfirmation,

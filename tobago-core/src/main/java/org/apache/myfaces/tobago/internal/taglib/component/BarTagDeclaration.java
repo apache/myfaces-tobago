@@ -20,6 +20,7 @@
 package org.apache.myfaces.tobago.internal.taglib.component;
 
 import org.apache.myfaces.tobago.apt.annotation.Facet;
+import org.apache.myfaces.tobago.apt.annotation.Markup;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.component.Facets;
@@ -43,13 +44,39 @@ import javax.faces.component.UIPanel;
         // As long as no behavior event names are defined, ClientBehaviorHolder must be implemented for Majorra.
         "javax.faces.component.behavior.ClientBehaviorHolder"
     },
-facets = {
-    @Facet(
-        name = Facets.BRAND,
-        description = "Contains an element which will get a 'navbar-brand' style, e.g. use <tc:link> "),
-    @Facet(
-        name = Facets.AFTER,
-        description = "Content will be rendered usually at the right end of the bar.")})
+    facets = {
+        @Facet(
+            name = Facets.BRAND,
+            description = "Contains an element which will get a 'navbar-brand' style, e.g. use <tc:link> "),
+        @Facet(
+            name = Facets.AFTER,
+            description = "Content will be rendered usually at the right end of the bar.")},
+    markups = {
+        @Markup(
+            name = "dark",
+            description = "Theming for dark backgrounds"
+        ),
+        @Markup(
+            name = "light",
+            description = "Theming for light backgrounds"
+        ),
+        @Markup(
+            name = "small",
+            description = "Bar collapse at a small size."
+        ),
+        @Markup(
+            name = "medium",
+            description = "Bar collapse at a medium size."
+        ),
+        @Markup(
+            name = "large",
+            description = "Bar collapse at a large size."
+        ),
+        @Markup(
+            name = "extraLarge",
+            description = "Bar collapse at a extra large size."
+        )
+    })
 public interface BarTagDeclaration
     extends HasIdBindingAndRendered, HasTip, IsVisual {
 }
