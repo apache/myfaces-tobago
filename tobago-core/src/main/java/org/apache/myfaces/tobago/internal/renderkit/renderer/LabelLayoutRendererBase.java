@@ -149,13 +149,13 @@ public abstract class LabelLayoutRendererBase extends DecodingInputRendererBase 
         flex = true;
         break;
       case segmentLeft:
-        if (LabelLayout.getSegment(facesContext) == LabelLayout.segmentRight) {
+        if (LabelLayout.getSegment(facesContext) == LabelLayout.segmentLeft) {
           clientId += ComponentUtils.SUB_SEPARATOR + "label";
         }
         flex = false;
         break;
       case segmentRight:
-        if (LabelLayout.getSegment(facesContext) == LabelLayout.segmentLeft) {
+        if (LabelLayout.getSegment(facesContext) == LabelLayout.segmentRight) {
           clientId += ComponentUtils.SUB_SEPARATOR + "label";
         }
         flex = false;
