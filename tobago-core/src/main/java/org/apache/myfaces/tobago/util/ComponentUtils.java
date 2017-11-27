@@ -738,30 +738,6 @@ public final class ComponentUtils {
     return stringValue;
   }
 
-  public static Markup updateMarkup(final UIComponent component, final Markup markup) {
-    Markup m = markup;
-    if (m == null) {
-      m = Markup.NULL;
-    }
-    if (ComponentUtils.getBooleanAttribute(component, Attributes.disabled)) {
-      m = m.add(Markup.DISABLED);
-    }
-    if (ComponentUtils.getBooleanAttribute(component, Attributes.readonly)) {
-      m = m.add(Markup.READONLY);
-    }
-    if (component instanceof UIInput) {
-      final UIInput input = (UIInput) component;
-
-      final FacesMessage.Severity maximumSeverity = ComponentUtils.getMaximumSeverity(input);
-      m = m.add(markupOfSeverity(maximumSeverity));
-
-      if (input.isRequired()) {
-        m = m.add(Markup.REQUIRED);
-      }
-    }
-    return m;
-  }
-
   public static Markup markupOfSeverity(final FacesMessage.Severity maximumSeverity) {
     if (FacesMessage.SEVERITY_FATAL.equals(maximumSeverity)) {
       return Markup.FATAL;

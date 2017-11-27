@@ -340,7 +340,7 @@ table.tobago-gridLayout > tbody {
 .tobago-image {
 }
 
-.tobago-image-markup-disabled {
+.tobago-image.disabled {
   filter: grayscale(1) blur(2px) contrast(0.5) brightness(1.2);
 }
 

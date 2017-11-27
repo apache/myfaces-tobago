@@ -66,7 +66,6 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
     writer.writeClassAttribute(
         TobagoClass.SELECT_ONE_RADIO,
         TobagoClass.SELECT_ONE_RADIO.createMarkup(markup),
-        TobagoClass.SELECT_ONE_RADIO.createDefaultMarkups(select),
         inline ? TobagoClass.SELECT_ONE_RADIO__INLINE : null,
         select.getCustomClass());
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, select);

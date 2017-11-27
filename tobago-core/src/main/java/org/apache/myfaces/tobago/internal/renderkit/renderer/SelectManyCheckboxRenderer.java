@@ -65,7 +65,6 @@ public class SelectManyCheckboxRenderer extends SelectManyRendererBase {
     writer.writeClassAttribute(
         TobagoClass.SELECT_MANY_CHECKBOX,
         TobagoClass.SELECT_MANY_CHECKBOX.createMarkup(markup),
-        TobagoClass.SELECT_MANY_CHECKBOX.createDefaultMarkups(select),
         inline ? TobagoClass.SELECT_MANY_CHECKBOX__INLINE : null,
         select.getCustomClass());
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, select);

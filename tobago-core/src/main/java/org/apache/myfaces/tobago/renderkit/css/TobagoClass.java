@@ -23,11 +23,9 @@ import org.apache.myfaces.tobago.apt.annotation.Preliminary;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.layout.AlignItems;
 import org.apache.myfaces.tobago.layout.JustifyContent;
-import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.faces.component.UIComponent;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -262,10 +260,6 @@ public enum TobagoClass implements CssItem {
     } else {
       return null;
     }
-  }
-
-  public CssItem[] createDefaultMarkups(final UIComponent component) {
-    return createMarkup(ComponentUtils.updateMarkup(component, null));
   }
 
   private static class MarkupClass implements CssItem {

@@ -152,7 +152,6 @@ public class TabGroupRenderer extends RendererBase implements ComponentSystemEve
     writer.writeClassAttribute(
         TobagoClass.TAB_GROUP,
         TobagoClass.TAB_GROUP.createMarkup(markup),
-        TobagoClass.TAB_GROUP.createDefaultMarkups(tabGroup),
         tabGroup.getCustomClass());
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, tabGroup);
     writer.writeAttribute(HtmlAttributes.SWITCHTYPE, switchType.name(), false);
@@ -241,7 +240,6 @@ public class TabGroupRenderer extends RendererBase implements ComponentSystemEve
           writer.writeClassAttribute(
               TobagoClass.TAB,
               TobagoClass.TAB.createMarkup(markup),
-              TobagoClass.TAB.createDefaultMarkups(tab),
               BootstrapClass.NAV_ITEM,
               tab.getCustomClass());
           writer.writeAttribute(HtmlAttributes.ROLE, HtmlRoleValues.PRESENTATION.toString(), false);

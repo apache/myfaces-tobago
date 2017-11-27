@@ -71,7 +71,6 @@ public class SelectManyListboxRenderer extends SelectManyRendererBase {
     writer.writeClassAttribute(
         TobagoClass.SELECT_MANY_LISTBOX,
         TobagoClass.SELECT_MANY_LISTBOX.createMarkup(select.getMarkup()),
-        TobagoClass.SELECT_MANY_LISTBOX.createDefaultMarkups(select),
         BootstrapClass.borderColor(ComponentUtils.getMaximumSeverity(select)),
         BootstrapClass.FORM_CONTROL,
         select.getCustomClass());

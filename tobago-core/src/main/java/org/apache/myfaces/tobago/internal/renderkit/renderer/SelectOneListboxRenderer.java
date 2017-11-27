@@ -70,7 +70,6 @@ public class SelectOneListboxRenderer extends SelectOneRendererBase {
     writer.writeClassAttribute(
         TobagoClass.SELECT_ONE_LISTBOX,
         TobagoClass.SELECT_ONE_LISTBOX.createMarkup(select.getMarkup()),
-        TobagoClass.SELECT_ONE_LISTBOX.createDefaultMarkups(select),
         BootstrapClass.borderColor(ComponentUtils.getMaximumSeverity(select)),
         BootstrapClass.FORM_CONTROL,
         select.getCustomClass());

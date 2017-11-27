@@ -117,7 +117,6 @@ public abstract class CommandRendererBase extends DecodingCommandRendererBase {
     writer.writeClassAttribute(
         getRendererCssClass(),
         getRendererCssClass().createMarkup(command.getMarkup()),
-        getRendererCssClass().createDefaultMarkups(command),
         parentOfCommands ? null : getOuterCssItems(facesContext, command),
         getCssItems(facesContext, command),
         parentOfCommands && !dropdownSubmenu ? BootstrapClass.DROPDOWN_TOGGLE : null,

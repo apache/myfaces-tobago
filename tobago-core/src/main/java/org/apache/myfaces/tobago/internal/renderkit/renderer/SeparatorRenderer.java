@@ -53,7 +53,6 @@ public class SeparatorRenderer extends RendererBase {
       writer.writeClassAttribute(
           TobagoClass.SEPARATOR,
           TobagoClass.SEPARATOR.createMarkup(separator.getMarkup()),
-          TobagoClass.SEPARATOR.createDefaultMarkups(separator),
           separator.getCustomClass());
       writer.writeText(label);
       writer.endElement(HtmlElements.P);
@@ -64,7 +63,6 @@ public class SeparatorRenderer extends RendererBase {
       writer.writeClassAttribute(
           TobagoClass.SEPARATOR,
           TobagoClass.SEPARATOR.createMarkup(separator.getMarkup()),
-          TobagoClass.SEPARATOR.createDefaultMarkups(separator),
           separator.getCustomClass());
       writer.endElement(HtmlElements.HR);
     }

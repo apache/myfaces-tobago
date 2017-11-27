@@ -49,7 +49,6 @@ public class FooterRenderer extends RendererBase {
     writer.writeClassAttribute(
         TobagoClass.FOOTER,
         TobagoClass.FOOTER.createMarkup(markup),
-        TobagoClass.FOOTER.createDefaultMarkups(footer),
         footer.isFixed() ? BootstrapClass.FIXED_BOTTOM : null,
         footer.getCustomClass());
     writer.writeAttribute(HtmlAttributes.TITLE, footer.getTip(), true);

@@ -55,7 +55,6 @@ public class BoxRenderer extends PanelRendererBase {
     writer.writeClassAttribute(
         TobagoClass.BOX,
         TobagoClass.BOX.createMarkup(markup),
-        TobagoClass.BOX.createDefaultMarkups(box),
         BootstrapClass.CARD,
         collapsed ? TobagoClass.COLLAPSED : null,
         box.getCustomClass());

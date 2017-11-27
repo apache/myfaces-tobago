@@ -68,7 +68,6 @@ public class SelectOneChoiceRenderer extends SelectOneRendererBase {
     writer.writeClassAttribute(
         TobagoClass.SELECT_ONE_CHOICE,
         TobagoClass.SELECT_ONE_CHOICE.createMarkup(markup),
-        TobagoClass.SELECT_ONE_CHOICE.createDefaultMarkups(select), //readonly, disabled
         BootstrapClass.borderColor(ComponentUtils.getMaximumSeverity(select)),
         BootstrapClass.FORM_CONTROL,
         select.getCustomClass());

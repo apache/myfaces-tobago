@@ -152,7 +152,6 @@ public class TreeNodeRenderer extends RendererBase {
       writer.writeClassAttribute(
           TobagoClass.TREE_NODE,
           TobagoClass.TREE_NODE.createMarkup(markup),
-          TobagoClass.TREE_NODE.createDefaultMarkups(node),
           hidden ? BootstrapClass.D_NONE : null);
       HtmlRendererUtils.writeDataAttributes(facesContext, writer, node);
       if (parentId != null) {
