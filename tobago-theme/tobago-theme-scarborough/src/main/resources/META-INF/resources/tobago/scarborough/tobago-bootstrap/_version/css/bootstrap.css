@@ -8688,7 +8688,7 @@ table.tobago-gridLayout > tbody > tr:first-child > td {
 }
 
 /* image ----------------------------------------------------------- */
-.tobago-image-markup-disabled {
+.tobago-image.disabled {
   -webkit-filter: grayscale(1) blur(2px) contrast(0.5) brightness(1.2);
           filter: grayscale(1) blur(2px) contrast(0.5) brightness(1.2);
 }
