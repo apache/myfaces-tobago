@@ -9350,7 +9350,7 @@ th.tobago-sheet-headerCell-markup-filler > .tobago-sheet-header {
 
 .twitter-typeahead .tt-open {
   /* for markup 'localMenu' - if suggest menu rendered directly on component - not in .tobago-page-menuStore */
-  width: 100%;
+  min-width: 100%;
 }
 
 .tt-empty {

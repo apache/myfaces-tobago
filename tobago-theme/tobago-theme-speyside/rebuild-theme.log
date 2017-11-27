@@ -1,4 +1,4 @@
-Build date: 2017-11-24 12:52:34
+Build date: 2017-11-27 10:08:22
 [INFO] Scanning for projects...
 [INFO] 
 [INFO] ------------------------------------------------------------------------
@@ -59,7 +59,7 @@ Build date: 2017-11-24 12:52:34
 [INFO] Verified checksum of previously downloaded file
 [INFO] Extracting zip contents
 [INFO] Removing __CURRENT__/tobago-theme-speyside/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom
-[INFO] Copying extracted folder /var/folders/yp/1vrxjnrs20798ydt_yl8wrpr0000gp/T/phantomjs/phantomjs-2.1.1-macosx.zip-extract-1511524409034/phantomjs-2.1.1-macosx -> __CURRENT__/tobago-theme-speyside/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom
+[INFO] Copying extracted folder /var/folders/yp/1vrxjnrs20798ydt_yl8wrpr0000gp/T/phantomjs/phantomjs-2.1.1-macosx.zip-extract-1511773744720/phantomjs-2.1.1-macosx -> __CURRENT__/tobago-theme-speyside/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom
 [INFO] Writing location.js file
 [INFO] Done. Phantomjs binary available at __CURRENT__/tobago-theme-speyside/target/bootstrap/node_modules/phantomjs-prebuilt/lib/phantom/bin/phantomjs
 [INFO] 
@@ -73,7 +73,7 @@ Build date: 2017-11-24 12:52:34
 [INFO] ├─┬ autoprefixer@7.1.6 
 [INFO] │ ├─┬ browserslist@2.9.1 
 [INFO] │ │ └── electron-to-chromium@1.3.27 
-[INFO] │ ├── caniuse-lite@1.0.30000770 
+[INFO] │ ├── caniuse-lite@1.0.30000772 
 [INFO] │ ├── normalize-range@0.1.2 
 [INFO] │ ├── num2fraction@1.2.2 
 [INFO] │ ├─┬ postcss@6.0.14 
@@ -84,6 +84,8 @@ Build date: 2017-11-24 12:52:34
 [INFO] │ ├─┬ babel-core@7.0.0-beta.2 
 [INFO] │ │ ├── babel-code-frame@7.0.0-beta.2 
 [INFO] │ │ ├─┬ babel-generator@7.0.0-beta.2 
+[WARNING] npm WARN bootstrap@4.0.0-beta.2 requires a peer of jquery@1.9.1 - 3 but none was installed.
+[WARNING] npm WARN postcss-html@0.11.0 requires a peer of postcss-sass@>=0.2.0 but none was installed.
 [INFO] │ │ │ ├── jsesc@2.5.1 
 [INFO] │ │ │ ├── source-map@0.5.7 
 [INFO] │ │ │ └── trim-right@1.0.1 
@@ -256,7 +258,6 @@ Build date: 2017-11-24 12:52:34
 [INFO] │ │ │ ├── @babel/helper-get-function-arity@7.0.0-beta.32 
 [INFO] │ │ │ └─┬ @babel/template@7.0.0-beta.32 
 [INFO] │ │ │   └── babylon@7.0.0-beta.32 
-[WARNING] npm WARN bootstrap@4.0.0-beta.2 requires a peer of jquery@1.9.1 - 3 but none was installed.
 [INFO] │ │ ├── babylon@7.0.0-beta.32 
 [INFO] │ │ └── globals@10.4.0 
 [INFO] │ ├─┬ @babel/types@7.0.0-beta.32 
@@ -385,8 +386,8 @@ Build date: 2017-11-24 12:52:34
 [INFO] │ │ └─┬ shebang-command@1.2.0 
 [INFO] │ │   └── shebang-regex@1.0.0 
 [INFO] │ └── is-windows@1.0.1 
-[INFO] ├─┬ eslint@4.11.0 
-[INFO] │ ├─┬ ajv@5.4.0 
+[INFO] ├─┬ eslint@4.12.0 
+[INFO] │ ├─┬ ajv@5.5.0 
 [INFO] │ │ ├── co@4.6.0 
 [INFO] │ │ ├── fast-deep-equal@1.0.0 
 [INFO] │ │ ├── fast-json-stable-stringify@2.0.0 
@@ -401,14 +402,14 @@ Build date: 2017-11-24 12:52:34
 [INFO] │ ├─┬ concat-stream@1.6.0 
 [INFO] │ │ ├─┬ readable-stream@2.3.3 
 [INFO] │ │ │ ├── core-util-is@1.0.2 
+[INFO] │ │ │ ├── isarray@1.0.0 
 [INFO] │ │ │ ├── process-nextick-args@1.0.7 
 [INFO] │ │ │ ├── string_decoder@1.0.3 
 [INFO] │ │ │ └── util-deprecate@1.0.2 
 [INFO] │ │ └── typedarray@0.0.6 
 [INFO] │ ├─┬ debug@3.1.0 
 [INFO] │ │ └── ms@2.0.0 
-[INFO] │ ├─┬ doctrine@2.0.0 
-[INFO] │ │ └── isarray@1.0.0 
+[INFO] │ ├── doctrine@2.0.2 
 [INFO] │ ├─┬ eslint-scope@3.7.1 
 [INFO] │ │ └── esrecurse@4.2.0 
 [INFO] │ ├─┬ espree@3.5.2 
@@ -423,7 +424,6 @@ Build date: 2017-11-24 12:52:34
 [INFO] │ │ │ ├── circular-json@0.3.3 
 [INFO] │ │ │ ├─┬ del@2.2.2 
 [INFO] │ │ │ │ ├─┬ globby@5.0.0 
-[INFO] │ │ │ │ │ ├── arrify@1.0.1 
 [INFO] │ │ │ │ │ └── pify@2.3.0 
 [INFO] │ │ │ │ ├── is-path-cwd@1.0.0 
 [INFO] │ │ │ │ ├── is-path-in-cwd@1.0.0 
@@ -431,7 +431,7 @@ Build date: 2017-11-24 12:52:34
 [INFO] │ │ │ └── write@0.2.1 
 [INFO] │ │ └── object-assign@4.1.1 
 [INFO] │ ├── functional-red-black-tree@1.0.1 
-[INFO] │ ├── globals@9.18.0 
+[INFO] │ ├── globals@11.0.1 
 [INFO] │ ├── ignore@3.3.7 
 [INFO] │ ├── imurmurhash@0.1.4 
 [INFO] │ ├─┬ inquirer@3.0.6 
@@ -444,7 +444,7 @@ Build date: 2017-11-24 12:52:34
 [INFO] │ │ │   └── onetime@2.0.1 
 [INFO] │ │ ├── cli-width@2.2.0 
 [INFO] │ │ ├─┬ external-editor@2.1.0 
-[INFO] │ │ │ ├── chardet@0.4.0 
+[INFO] │ │ │ ├── chardet@0.4.2 
 [INFO] │ │ │ ├── iconv-lite@0.4.19 
 [INFO] │ │ │ └── tmp@0.0.33 
 [INFO] │ │ ├── figures@2.0.0 
@@ -491,7 +491,7 @@ Build date: 2017-11-24 12:52:34
 [INFO] │ └── text-table@0.2.0 
 [INFO] ├─┬ eslint-plugin-compat@2.1.0 
 [INFO] │ ├── babel-runtime@6.26.0 
-[INFO] │ ├── caniuse-db@1.0.30000770 
+[INFO] │ ├── caniuse-db@1.0.30000772 
 [INFO] │ └── requireindex@1.1.0 
 [INFO] ├─┬ htmllint-cli@0.0.6 
 [INFO] │ ├── bluebird@3.5.1 
@@ -751,8 +751,6 @@ Build date: 2017-11-24 12:52:34
 [INFO] │   │   └─┬ string-width@1.0.2 
 [INFO] │   │     └── is-fullwidth-code-point@1.0.0 
 [INFO] │   ├─┬ configstore@3.1.1 
-[INFO] │   │ ├─┬ dot-prop@4.2.0 
-[INFO] │   │ │ └── is-obj@1.0.1 
 [INFO] │   │ ├─┬ unique-string@1.0.0 
 [INFO] │   │ │ └── crypto-random-string@1.0.0 
 [INFO] │   │ └── write-file-atomic@2.3.0 
@@ -802,7 +800,7 @@ Build date: 2017-11-24 12:52:34
 [INFO] │   ├─┬ define-properties@1.1.2 
 [INFO] │   │ ├── foreach@2.0.5 
 [INFO] │   │ └── object-keys@1.0.11 
-[INFO] │   ├─┬ es-abstract@1.9.0 
+[INFO] │   ├─┬ es-abstract@1.10.0 
 [INFO] │   │ ├─┬ es-to-primitive@1.1.1 
 [INFO] │   │ │ ├── is-date-object@1.0.1 
 [INFO] │   │ │ └── is-symbol@1.0.1 
@@ -932,7 +930,7 @@ Build date: 2017-11-24 12:52:34
 [INFO] ├─┬ shx@0.2.2 
 [INFO] │ ├── es6-object-assign@1.1.0 
 [INFO] │ └── minimist@1.2.0 
-[INFO] ├─┬ stylelint@8.2.0 
+[INFO] ├─┬ stylelint@8.3.1 
 [INFO] │ ├── balanced-match@1.0.0 
 [INFO] │ ├─┬ cosmiconfig@3.1.0 
 [INFO] │ │ ├── is-directory@0.3.1 
@@ -945,8 +943,10 @@ Build date: 2017-11-24 12:52:34
 [INFO] │ │   ├── is-regexp@1.0.0 
 [INFO] │ │   └── is-supported-regexp-flag@1.0.0 
 [INFO] │ ├── get-stdin@5.0.1 
-[INFO] │ ├─┬ globby@6.1.0 
-[INFO] │ │ └── pify@2.3.0 
+[INFO] │ ├─┬ globby@7.1.1 
+[INFO] │ │ └─┬ dir-glob@2.0.0 
+[INFO] │ │   ├── arrify@1.0.1 
+[INFO] │ │   └── path-type@3.0.0 
 [INFO] │ ├── globjoin@0.1.4 
 [INFO] │ ├── html-tags@2.0.0 
 [INFO] │ ├── known-css-properties@0.4.1 
@@ -961,11 +961,10 @@ Build date: 2017-11-24 12:52:34
 [INFO] │ │ │ │ └─┬ fill-range@2.2.3 
 [INFO] │ │ │ │   ├── is-number@2.1.0 
 [INFO] │ │ │ │   ├── isobject@2.1.0 
-[INFO] │ │ │ │   ├─┬ randomatic@1.1.7 
-[INFO] │ │ │ │   │ ├─┬ is-number@3.0.0 
-[INFO] │ │ │ │   │ │ └── kind-of@3.2.2 
-[INFO] │ │ │ │   │ └── kind-of@4.0.0 
-[INFO] │ │ │ │   └── repeat-string@1.6.1 
+[INFO] │ │ │ │   └─┬ randomatic@1.1.7 
+[INFO] │ │ │ │     ├─┬ is-number@3.0.0 
+[INFO] │ │ │ │     │ └── kind-of@3.2.2 
+[INFO] │ │ │ │     └── kind-of@4.0.0 
 [INFO] │ │ │ ├── preserve@0.2.0 
 [INFO] │ │ │ └── repeat-element@1.1.2 
 [INFO] │ │ ├─┬ expand-brackets@0.1.5 
@@ -988,6 +987,50 @@ Build date: 2017-11-24 12:52:34
 [INFO] │ │     └── is-primitive@2.0.0 
 [INFO] │ ├── normalize-selector@0.2.0 
 [INFO] │ ├── pify@3.0.0 
+[INFO] │ ├─┬ postcss-html@0.11.0 
+[INFO] │ │ ├─┬ remark@8.0.0 
+[INFO] │ │ │ ├─┬ remark-parse@4.0.0 
+[INFO] │ │ │ │ ├── collapse-white-space@1.0.3 
+[INFO] │ │ │ │ ├── is-alphabetical@1.0.1 
+[INFO] │ │ │ │ ├── is-decimal@1.0.1 
+[INFO] │ │ │ │ ├── is-whitespace-character@1.0.1 
+[INFO] │ │ │ │ ├── is-word-character@1.0.1 
+[INFO] │ │ │ │ ├── markdown-escapes@1.0.1 
+[INFO] │ │ │ │ ├─┬ parse-entities@1.1.1 
+[INFO] │ │ │ │ │ ├── character-entities@1.2.1 
+[INFO] │ │ │ │ │ ├── character-entities-legacy@1.1.1 
+[INFO] │ │ │ │ │ ├── character-reference-invalid@1.1.1 
+[INFO] │ │ │ │ │ ├── is-alphanumerical@1.0.1 
+[INFO] │ │ │ │ │ └── is-hexadecimal@1.0.1 
+[INFO] │ │ │ │ ├── repeat-string@1.6.1 
+[INFO] │ │ │ │ ├── state-toggle@1.0.0 
+[INFO] │ │ │ │ ├── trim@0.0.1 
+[INFO] │ │ │ │ ├── trim-trailing-lines@1.1.0 
+[INFO] │ │ │ │ ├── unherit@1.1.0 
+[INFO] │ │ │ │ ├─┬ unist-util-remove-position@1.1.1 
+[INFO] │ │ │ │ │ └── unist-util-visit@1.2.0 
+[INFO] │ │ │ │ └── vfile-location@2.0.2 
+[INFO] │ │ │ ├─┬ remark-stringify@4.0.0 
+[INFO] │ │ │ │ ├── ccount@1.0.2 
+[INFO] │ │ │ │ ├── is-alphanumeric@1.0.0 
+[INFO] │ │ │ │ ├── longest-streak@2.0.2 
+[INFO] │ │ │ │ ├── markdown-table@1.1.1 
+[INFO] │ │ │ │ ├─┬ mdast-util-compact@1.0.1 
+[INFO] │ │ │ │ │ └─┬ unist-util-modify-children@1.1.1 
+[INFO] │ │ │ │ │   └── array-iterate@1.1.1 
+[INFO] │ │ │ │ └─┬ stringify-entities@1.3.1 
+[INFO] │ │ │ │   └── character-entities-html4@1.1.1 
+[INFO] │ │ │ └─┬ unified@6.1.6 
+[INFO] │ │ │   ├── bail@1.0.2 
+[INFO] │ │ │   ├── trough@1.0.1 
+[INFO] │ │ │   ├─┬ vfile@2.3.0 
+[INFO] │ │ │   │ ├── replace-ext@1.0.0 
+[INFO] │ │ │   │ ├── unist-util-stringify-position@1.1.1 
+[INFO] │ │ │   │ └── vfile-message@1.0.0 
+[INFO] │ │ │   ├── x-is-function@1.0.4 
+[INFO] │ │ │   └── x-is-string@0.1.0 
+[INFO] │ │ └─┬ unist-util-find-all-after@1.0.1 
+[INFO] │ │   └── unist-util-is@2.1.1 
 [INFO] │ ├─┬ postcss-less@1.1.3 
 [INFO] │ │ └─┬ postcss@5.2.18 
 [INFO] │ │   ├─┬ chalk@1.1.3 
@@ -999,9 +1042,11 @@ Build date: 2017-11-24 12:52:34
 [INFO] │ ├── postcss-media-query-parser@0.2.3 
 [INFO] │ ├── postcss-resolve-nested-selector@0.1.1 
 [INFO] │ ├── postcss-safe-parser@3.0.1 
+[INFO] │ ├── UNMET PEER DEPENDENCY postcss-sass@>=0.2.0
 [INFO] │ ├── postcss-scss@1.0.2 
-[INFO] │ ├─┬ postcss-selector-parser@2.2.3 
-[INFO] │ │ ├── flatten@1.0.2 
+[INFO] │ ├─┬ postcss-selector-parser@3.1.1 
+[INFO] │ │ ├─┬ dot-prop@4.2.0 
+[INFO] │ │ │ └── is-obj@1.0.1 
 [INFO] │ │ ├── indexes-of@1.0.1 
 [INFO] │ │ └── uniq@1.0.1 
 [INFO] │ ├── resolve-from@4.0.0 
@@ -1018,9 +1063,10 @@ Build date: 2017-11-24 12:52:34
 [INFO] ├── stylelint-config-standard@17.0.0 
 [INFO] ├─┬ stylelint-order@0.7.0 
 [INFO] │ └── postcss-sorting@3.1.0 
-[INFO] ├── stylelint-scss@2.1.0 
-[INFO] ├─┬ uglify-js@3.1.10 
-[INFO] │ ├── commander@2.11.0 
+[INFO] ├─┬ stylelint-scss@2.1.0 
+[INFO] │ └─┬ postcss-selector-parser@2.2.3 
+[INFO] │   └── flatten@1.0.2 
+[INFO] ├─┬ uglify-js@3.2.0 
 [INFO] │ └── source-map@0.6.1 
 [INFO] ├── vnu-jar@17.11.1 
 [INFO] └─┬ workbox-build@2.1.2 
@@ -1042,8 +1088,8 @@ Build date: 2017-11-24 12:52:34
 [INFO] > node-sass --output-style expanded --source-map true --source-map-contents true --precision 6 scss/bootstrap.scss dist/css/bootstrap.css && node-sass --output-style expanded --source-map true --source-map-contents true --precision 6 scss/bootstrap-grid.scss dist/css/bootstrap-grid.css && node-sass --output-style expanded --source-map true --source-map-contents true --precision 6 scss/bootstrap-reboot.scss dist/css/bootstrap-reboot.css
 [INFO] 
 [ERROR] Rendering Complete, saving .css file...
-[ERROR] Wrote Source Map to __CURRENT__/tobago-theme-speyside/target/bootstrap/dist/css/bootstrap.css.map
 [ERROR] Wrote CSS to __CURRENT__/tobago-theme-speyside/target/bootstrap/dist/css/bootstrap.css
+[ERROR] Wrote Source Map to __CURRENT__/tobago-theme-speyside/target/bootstrap/dist/css/bootstrap.css.map
 [ERROR] Rendering Complete, saving .css file...
 [ERROR] Wrote Source Map to __CURRENT__/tobago-theme-speyside/target/bootstrap/dist/css/bootstrap-grid.css.map
 [ERROR] Wrote CSS to __CURRENT__/tobago-theme-speyside/target/bootstrap/dist/css/bootstrap-grid.css
@@ -1057,12 +1103,12 @@ Build date: 2017-11-24 12:52:34
 [INFO] > bootstrap@4.0.0-beta.2 css-prefix __CURRENT__/tobago-theme-speyside/target/bootstrap
 [INFO] > postcss --config build/postcss.config.js --replace "dist/css/*.css"
 [INFO] 
-[ERROR] ✔ Finished dist/css/bootstrap-reboot.min.css (1.44 s)
-[ERROR] ✔ Finished dist/css/bootstrap-grid.min.css (1.44 s)
-[ERROR] ✔ Finished dist/css/bootstrap-grid.css (1.44 s)
-[ERROR] ✔ Finished dist/css/bootstrap-reboot.css (1.44 s)
-[ERROR] ✔ Finished dist/css/bootstrap.min.css (1.44 s)
-[ERROR] ✔ Finished dist/css/bootstrap.css (1.44 s)
+[ERROR] ✔ Finished dist/css/bootstrap-grid.css (1.05 s)
+[ERROR] ✔ Finished dist/css/bootstrap-grid.min.css (1.05 s)
+[ERROR] ✔ Finished dist/css/bootstrap-reboot.css (1.05 s)
+[ERROR] ✔ Finished dist/css/bootstrap.min.css (1.05 s)
+[ERROR] ✔ Finished dist/css/bootstrap.css (1.05 s)
+[ERROR] ✔ Finished dist/css/bootstrap-reboot.min.css (1.05 s)
 [INFO] 
 [INFO] --- frontend-maven-plugin:1.4:npm (step #10: npm run css-minify) @ tobago-theme-speyside ---
 [INFO] Running 'npm run css-minify' in __CURRENT__/tobago-theme-speyside/target/bootstrap
@@ -1117,8 +1163,8 @@ Build date: 2017-11-24 12:52:34
 [INFO] js/src/tab.js -> js/dist/tab.js
 [INFO] js/src/tooltip.js -> js/dist/tooltip.js
 [INFO] js/src/util.js -> js/dist/util.js
-[ERROR] created dist/js/bootstrap.js in 2.4s
-[ERROR] created dist/js/bootstrap.bundle.js in 2.6s
+[ERROR] created dist/js/bootstrap.js in 2.5s
+[ERROR] created dist/js/bootstrap.bundle.js in 2.7s
 [INFO] 
 [INFO] > bootstrap@4.0.0-beta.2 js-compile-standalone __CURRENT__/tobago-theme-speyside/target/bootstrap
 [INFO] > cross-env ROLLUP=true rollup --environment BUNDLE:false --config build/rollup.config.js --sourcemap
@@ -1154,16 +1200,16 @@ Build date: 2017-11-24 12:52:34
 [INFO] > npm-run-all --parallel js-minify-*
 [INFO] 
 [INFO] 
+[INFO] > bootstrap@4.0.0-beta.2 js-minify-docs __CURRENT__/tobago-theme-speyside/target/bootstrap
+[INFO] > uglifyjs --mangle --comments "/^!/" --output assets/js/docs.min.js assets/js/vendor/anchor.min.js assets/js/vendor/clipboard.min.js assets/js/vendor/holder.min.js assets/js/src/application.js assets/js/src/pwa.js
+[INFO] 
+[INFO] 
 [INFO] > bootstrap@4.0.0-beta.2 js-minify-bundle __CURRENT__/tobago-theme-speyside/target/bootstrap
 [INFO] > uglifyjs --compress typeofs=false --mangle --comments "/^!/" --source-map "content=dist/js/bootstrap.bundle.js.map,includeSources,url=bootstrap.bundle.min.js.map" --output dist/js/bootstrap.bundle.min.js dist/js/bootstrap.bundle.js
 [INFO] 
 [INFO] 
 [INFO] > bootstrap@4.0.0-beta.2 js-minify-standalone __CURRENT__/tobago-theme-speyside/target/bootstrap
 [INFO] > uglifyjs --compress typeofs=false --mangle --comments "/^!/" --source-map "content=dist/js/bootstrap.js.map,includeSources,url=bootstrap.min.js.map" --output dist/js/bootstrap.min.js dist/js/bootstrap.js
-[INFO] 
-[INFO] 
-[INFO] > bootstrap@4.0.0-beta.2 js-minify-docs __CURRENT__/tobago-theme-speyside/target/bootstrap
-[INFO] > uglifyjs --mangle --comments "/^!/" --output assets/js/docs.min.js assets/js/vendor/anchor.min.js assets/js/vendor/clipboard.min.js assets/js/vendor/holder.min.js assets/js/src/application.js assets/js/src/pwa.js
 [INFO] 
 [ERROR] INFO: Using input source map: dist/js/bootstrap.bundle.js.map
 [ERROR] INFO: Using input source map: dist/js/bootstrap.js.map
@@ -1223,7 +1269,7 @@ main:
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
-[INFO] Total time: 01:29 min
-[INFO] Finished at: 2017-11-24T12:54:06+01:00
-[INFO] Final Memory: 25M/85M
+[INFO] Total time: 01:17 min
+[INFO] Finished at: 2017-11-27T10:09:41+01:00
+[INFO] Final Memory: 26M/86M
 [INFO] ------------------------------------------------------------------------
