@@ -50,7 +50,8 @@ $component-active-color: $white !default;
 $dropdown-link-active-color: $component-active-color !default;
 $dropdown-link-disabled-color: $gray-light !default;
 $dropdown-link-hover-bg: $gray-lightest !default;
-$nav-disabled-link-color: $gray-light !default;
+$nav-tabs-link-active-color: #495057 !default;
+$nav-link-disabled-color: #868e96 !default;
 $btn-primary-color: $white !default;
 $btn-secondary-color: $gray-dark !default;
 $form-check-input-gutter: 1.25rem !default;
@@ -403,7 +404,7 @@ button {
     }
 
     &:disabled {
-      color: $nav-disabled-link-color;
+      color: $nav-link-disabled-color;
 
       &:hover {
         cursor: not-allowed;
@@ -481,7 +482,7 @@ a.tobago-messages-button {
 }
 
 .tobago-flexLayout.tobago-messages-container > {
-  .twitter-typeahead , .tobago-input-group-outer, .tobago-selectManyShuttle, .tobago-file {
+  .twitter-typeahead, .tobago-input-group-outer, .tobago-selectManyShuttle, .tobago-file {
     flex: 1 0 0px;
   }
 }
@@ -1157,6 +1158,30 @@ th.tobago-sheet-headerCell-markup-filler > .tobago-sheet-header {
   justify-content: space-between;
   align-content: center;
   margin-left: 0.2rem;
+
+  .nav-link:not([href]):not([tabindex]) {
+    /* fix .nav-links without 'href'; bootstrap tab only works if 'href' is set */
+    &.active {
+      color: $nav-tabs-link-active-color;
+      cursor: pointer;
+    }
+    &:not(.active) {
+      color: $link-color;
+      cursor: pointer;
+
+      &:hover {
+        color: $link-hover-color;
+      }
+    }
+    &.disabled {
+      color: $nav-link-disabled-color;
+      cursor: not-allowed;
+
+      &:focus, &:hover {
+        color: $nav-link-disabled-color;
+      }
+    }
+  }
 }
 
 .tab-content {
