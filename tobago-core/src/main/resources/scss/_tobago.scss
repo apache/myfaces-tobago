@@ -1158,6 +1158,7 @@ th.tobago-sheet-headerCell-markup-filler > .tobago-sheet-header {
   justify-content: space-between;
   align-content: center;
   margin-left: 0.2rem;
+  z-index: 0; /* IE11 fix to hide bottom border on active tab */
 
   .nav-link:not([href]):not([tabindex]) {
     /* fix .nav-links without 'href'; bootstrap tab only works if 'href' is set */
