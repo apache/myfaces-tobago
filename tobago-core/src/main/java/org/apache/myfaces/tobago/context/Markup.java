@@ -245,7 +245,7 @@ public final class Markup implements Serializable, Iterable<String> {
     if (StringUtils.isEmpty(value)) {
       return null;
     }
-    if (value.contains(",")) {
+    if (value.contains(" ") || value.contains(",")) {
       final String[] strings = StringUtils.split(value, ", \t\n");
       return new Markup(strings);
     } else {
