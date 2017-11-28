@@ -27,7 +27,9 @@ Tobago.TabGroup.init = function(elements) {
 
   // setting the active index
   tabGroups.each(function () {
-    jQuery(this).find(".tobago-tabGroup-header").first().children(".tobago-tab").not(".tobago-tab-markup-disabled")
+    jQuery(this).find(".tobago-tabGroup-header").first()
+        .children(".tobago-tab").find(".nav-link:not(.disabled)")
+        .parent()
         .click(function () {
       // Update the hidden field for the active index.
       var tab = jQuery(this);
@@ -43,7 +45,7 @@ Tobago.TabGroup.init = function(elements) {
     var tabGroup = jQuery(this).parents(".tobago-tabGroup:first");
     var selected = tabGroup.find(".tobago-tab-markup-selected");
     // the nearest of the previous siblings, which are not disabled
-    selected.prevAll(":not(.tobago-tab-markup-disabled):first").click();
+    selected.prevAll(".nav-link:not(.disabled):first").click();
   });
 
   // initialize next button
@@ -51,7 +53,7 @@ Tobago.TabGroup.init = function(elements) {
     var tabGroup = jQuery(this).parents(".tobago-tabGroup:first");
     var selected = tabGroup.find(".tobago-tab-markup-selected");
     // the nearest of the next siblings, which are not disabled
-    selected.nextAll(":not(.tobago-tab-markup-disabled):first").click();
+    selected.nextAll(".nav-link:not(.disabled):first").click();
   });
 
   // init scroll position
