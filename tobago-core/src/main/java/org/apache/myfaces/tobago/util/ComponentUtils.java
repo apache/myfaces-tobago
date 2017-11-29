@@ -707,7 +707,7 @@ public final class ComponentUtils {
           if (converted instanceof Object[]) {
             return ((Object[]) converted)[0];
           } else if (converted instanceof List) {
-            ((List) converted).get(0);
+            return ((List) converted).get(0);
           } else if (converted instanceof Collection) {
             return ((Collection) converted).iterator().next();
           } else {
