@@ -333,7 +333,10 @@ public final class Markup implements Serializable, Iterable<String> {
       Markup result = this;
       if (markup.values != null) {
         for (final String summand : markup.values) {
-          result = result.add(summand);
+          final Markup combined = result.add(summand);
+          if (combined != null) {
+            result = combined;
+          }
         }
       }
       return result;
@@ -373,7 +376,12 @@ public final class Markup implements Serializable, Iterable<String> {
       // this part is not optimized, but it will be used rarely, in the moment...
       Markup result = this;
       for (final String summand : markup.values) {
-        result = result.remove(summand);
+        final Markup removed = result.remove(summand);
+        if (removed == null) {
+          result = NULL;
+        } else {
+          result = removed;
+        }
       }
       return result;
     }
@@ -398,7 +406,7 @@ public final class Markup implements Serializable, Iterable<String> {
         final String[] strings = new String[values.length - 1];
         int found = 0;
         for (int i = 0; i < strings.length; i++) {
-          if (values[i].equals(summand)) {
+          if (summand.equals(values[i])) {
             found++;
           }
           strings[i] = values[i + found];
