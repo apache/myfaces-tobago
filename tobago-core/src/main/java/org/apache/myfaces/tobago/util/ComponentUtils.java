@@ -51,7 +51,6 @@ import javax.faces.component.ValueHolder;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
-import javax.faces.el.ValueBinding;
 import javax.faces.event.ActionEvent;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.render.RenderKit;
@@ -719,10 +718,10 @@ public final class ComponentUtils {
       } else if (component instanceof ValueHolder) {
         Converter converter = ((ValueHolder) component).getConverter();
         if (converter == null) {
-          //Try to find out by value binding
-          final ValueBinding vb = component.getValueBinding("value");
-          if (vb != null) {
-            final Class valueType = vb.getType(facesContext);
+          //Try to find out by value expression
+          final ValueExpression expression = component.getValueExpression("value");
+          if (expression != null) {
+            final Class valueType = expression.getType(facesContext.getELContext());
             if (valueType != null) {
               converter = facesContext.getApplication().createConverter(valueType);
             }
