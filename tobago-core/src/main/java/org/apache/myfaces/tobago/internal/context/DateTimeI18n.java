@@ -53,7 +53,7 @@ public class DateTimeI18n {
     for (int i = 0; i < monthNames.length; i++) {
       monthNames[i] = dateFormatMMMMM.format(calendar.getTime());
       monthNamesShort[i] = dateFormatMMM.format(calendar.getTime());
-      calendar.add(java.util.Calendar.MONTH, 1);
+      calendar.add(Calendar.MONTH, 1);
     }
 
     final SimpleDateFormat dateFormatEEEEE = new SimpleDateFormat("EEEEE", locale);

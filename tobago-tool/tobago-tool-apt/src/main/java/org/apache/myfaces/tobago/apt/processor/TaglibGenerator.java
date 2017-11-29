@@ -284,7 +284,7 @@ public class TaglibGenerator extends AbstractGenerator {
     }
     final UIComponentTagAttribute attributeTag = typeElement.getAnnotation(UIComponentTagAttribute.class);
     if (attributeTag != null) {
-      if (null != attributeTag.type() && attributeTag.type().length > 0) {
+      if (attributeTag.type().length > 0) {
         description.append("<br />Type: <code>")
             .append(attributeTag.type().length == 1 ? attributeTag.type()[0] : Arrays.toString(attributeTag.type()))
             .append("</code>");
@@ -440,21 +440,21 @@ public class TaglibGenerator extends AbstractGenerator {
     }
   }
 
-  protected void addComment(final String text, final org.w3c.dom.Element parent, final Document document) {
+  protected void addComment(final String text, final Element parent, final Document document) {
     final Comment comment = document.createComment(text);
     parent.appendChild(comment);
   }
 
   protected void addLeafTextElement(
-      final String text, final String node, final org.w3c.dom.Element parent, final Document document) {
-    final org.w3c.dom.Element element = document.createElement(node);
+      final String text, final String node, final Element parent, final Document document) {
+    final Element element = document.createElement(node);
     element.appendChild(document.createTextNode(text));
     parent.appendChild(element);
   }
 
   protected void addLeafCDATAElement(
-      final String text, final String node, final org.w3c.dom.Element parent, final Document document) {
-    final org.w3c.dom.Element element = document.createElement(node);
+      final String text, final String node, final Element parent, final Document document) {
+    final Element element = document.createElement(node);
     element.appendChild(document.createCDATASection(text));
     parent.appendChild(element);
   }
