@@ -25,9 +25,9 @@ import org.apache.myfaces.tobago.component.Visual;
 import org.apache.myfaces.tobago.event.PageActionEvent;
 import org.apache.myfaces.tobago.event.SheetStateChangeEvent;
 import org.apache.myfaces.tobago.event.SheetStateChangeListener;
-import org.apache.myfaces.tobago.event.SheetStateChangeSource2;
+import org.apache.myfaces.tobago.event.SheetStateChangeSource;
 import org.apache.myfaces.tobago.event.SortActionEvent;
-import org.apache.myfaces.tobago.event.SortActionSource2;
+import org.apache.myfaces.tobago.event.SortActionSource;
 import org.apache.myfaces.tobago.internal.layout.Grid;
 import org.apache.myfaces.tobago.internal.layout.OriginCell;
 import org.apache.myfaces.tobago.layout.Measure;
@@ -64,7 +64,7 @@ import java.util.List;
  */
 @ListenerFor(systemEventClass = PreRenderComponentEvent.class)
 public abstract class AbstractUISheet extends AbstractUIData
-    implements SheetStateChangeSource2, SortActionSource2, ClientBehaviorHolder, Visual,
+    implements SheetStateChangeSource, SortActionSource, ClientBehaviorHolder, Visual,
     ComponentSystemEventListener {
 
   private static final Logger LOG = LoggerFactory.getLogger(AbstractUISheet.class);

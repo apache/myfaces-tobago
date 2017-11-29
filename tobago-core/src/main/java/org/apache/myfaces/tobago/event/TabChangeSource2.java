@@ -19,12 +19,9 @@
 
 package org.apache.myfaces.tobago.event;
 
-import javax.el.MethodExpression;
-
+/**
+ * @deprecated since 4.0.0
+ */
+@Deprecated
 public interface TabChangeSource2 extends TabChangeSource {
-
-  MethodExpression getTabChangeListenerExpression();
-
-  void setTabChangeListenerExpression(MethodExpression actionListener);
-
 }

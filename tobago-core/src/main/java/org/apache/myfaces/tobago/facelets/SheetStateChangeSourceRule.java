@@ -20,7 +20,6 @@
 package org.apache.myfaces.tobago.facelets;
 
 import org.apache.myfaces.tobago.event.SheetStateChangeSource;
-import org.apache.myfaces.tobago.event.SheetStateChangeSource2;
 
 import javax.faces.event.ActionEvent;
 import javax.faces.view.facelets.FaceletContext;
@@ -55,7 +54,7 @@ public class SheetStateChangeSourceRule extends MetaRule {
 
     @Override
     public void applyMetadata(final FaceletContext ctx, final Object instance) {
-      ((SheetStateChangeSource2) instance).setStateChangeListenerExpression(
+      ((SheetStateChangeSource) instance).setStateChangeListenerExpression(
           attribute.getMethodExpression(ctx, null, SheetStateChangeSourceRule.ACTION_LISTENER));
     }
   }

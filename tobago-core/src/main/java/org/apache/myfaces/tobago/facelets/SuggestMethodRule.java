@@ -19,7 +19,7 @@
 
 package org.apache.myfaces.tobago.facelets;
 
-import org.apache.myfaces.tobago.component.InputSuggest2;
+import org.apache.myfaces.tobago.component.InputSuggest;
 import org.apache.myfaces.tobago.internal.component.AbstractUISuggest;
 import org.apache.myfaces.tobago.model.SuggestFilter;
 
@@ -38,7 +38,7 @@ public class SuggestMethodRule extends MetaRule {
   @Override
   public Metadata applyRule(final String name, final TagAttribute attribute, final MetadataTarget metadataTarget) {
 
-    if (metadataTarget.isTargetInstanceOf(InputSuggest2.class)) {
+    if (metadataTarget.isTargetInstanceOf(InputSuggest.class)) {
       if ("suggestMethod".equals(name)) {
         return new SuggestMethodMapper(attribute);
       }
@@ -62,7 +62,7 @@ public class SuggestMethodRule extends MetaRule {
 
     @Override
     public void applyMetadata(final FaceletContext ctx, final Object instance) {
-      ((InputSuggest2) instance).setSuggestMethodExpression(
+      ((InputSuggest) instance).setSuggestMethodExpression(
           attribute.getMethodExpression(ctx, null, SuggestMethodRule.SUGGEST_METHOD));
     }
   }

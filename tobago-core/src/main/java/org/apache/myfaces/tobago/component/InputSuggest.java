@@ -19,18 +19,11 @@
 
 package org.apache.myfaces.tobago.component;
 
-import javax.faces.el.MethodBinding;
+import javax.el.MethodExpression;
 
 public interface InputSuggest {
-  /**
-   * @deprecated since 2.0.0
-   */
-  @Deprecated
-  MethodBinding getSuggestMethod();
 
-  /**
-   * @deprecated since 2.0.0
-   */
-  @Deprecated
-  void setSuggestMethod(MethodBinding suggestMethod);
+  MethodExpression getSuggestMethodExpression();
+
+  void setSuggestMethodExpression(MethodExpression suggestExpression);
 }

@@ -19,11 +19,9 @@
 
 package org.apache.myfaces.tobago.component;
 
-import javax.el.MethodExpression;
-
+/**
+ * @deprecated since 4.0.0
+ */
+@Deprecated
 public interface InputSuggest2 extends InputSuggest {
-  
-  MethodExpression getSuggestMethodExpression();
-
-  void setSuggestMethodExpression(MethodExpression suggestExpression);
 }

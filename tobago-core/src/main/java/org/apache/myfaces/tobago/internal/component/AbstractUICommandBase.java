@@ -97,19 +97,19 @@ public abstract class AbstractUICommandBase extends UICommand
     final FacesContext facesContext = getFacesContext();
     final TobagoConfig tobagoConfig = TobagoConfig.getInstance(facesContext);
     return super.isRendered()
-            && (tobagoConfig.getSecurityAnnotation() != SecurityAnnotation.hide || isAllowed());
+        && (tobagoConfig.getSecurityAnnotation() != SecurityAnnotation.hide || isAllowed());
   }
 
   /**
-   Flag indicating that this element is disabled.
-   <br>Default: <code>false</code>
+   * Flag indicating that this element is disabled.
+   * <br>Default: <code>false</code>
    */
   public boolean isDisabled() {
     final FacesContext facesContext = getFacesContext();
     final TobagoConfig tobagoConfig = TobagoConfig.getInstance(facesContext);
     final Boolean disabled = (Boolean) getStateHelper().eval(AbstractUICommand.PropertyKeys.disabled);
     return disabled != null && disabled
-            || (tobagoConfig.getSecurityAnnotation() == SecurityAnnotation.disable && !isAllowed());
+        || (tobagoConfig.getSecurityAnnotation() == SecurityAnnotation.disable && !isAllowed());
   }
 
   private boolean isAllowed() {
@@ -118,7 +118,7 @@ public abstract class AbstractUICommandBase extends UICommand
     final MethodExpression actionExpression = getActionExpression();
     if (actionExpression != null) {
       final boolean authorized =
-              authorizationHelper.isAuthorized(facesContext, actionExpression.getExpressionString());
+          authorizationHelper.isAuthorized(facesContext, actionExpression.getExpressionString());
       if (!authorized) {
         return false;
       }

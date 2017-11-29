@@ -20,7 +20,6 @@
 package org.apache.myfaces.tobago.facelets;
 
 import org.apache.myfaces.tobago.event.SortActionSource;
-import org.apache.myfaces.tobago.event.SortActionSource2;
 
 import javax.faces.event.ActionEvent;
 import javax.faces.view.facelets.FaceletContext;
@@ -56,7 +55,7 @@ public class SortActionSourceRule extends MetaRule {
 
     @Override
     public void applyMetadata(final FaceletContext ctx, final Object instance) {
-      ((SortActionSource2) instance).setSortActionListenerExpression(
+      ((SortActionSource) instance).setSortActionListenerExpression(
           attribute.getMethodExpression(ctx, null, SortActionSourceRule.ACTION_LISTENER));
     }
   }

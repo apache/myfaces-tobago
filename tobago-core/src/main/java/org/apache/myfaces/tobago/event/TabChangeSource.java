@@ -19,19 +19,13 @@
 
 package org.apache.myfaces.tobago.event;
 
+import javax.el.MethodExpression;
+
 public interface TabChangeSource {
 
-  /**
-   * @deprecated since 2.0.0
-   */
-  @Deprecated
-  javax.faces.el.MethodBinding getTabChangeListener();
+  MethodExpression getTabChangeListenerExpression();
 
-  /**
-   * @deprecated since 2.0.0
-   */
-  @Deprecated
-  void setTabChangeListener(javax.faces.el.MethodBinding actionListener);
+  void setTabChangeListenerExpression(MethodExpression actionListener);
 
   void addTabChangeListener(TabChangeListener listener);
 

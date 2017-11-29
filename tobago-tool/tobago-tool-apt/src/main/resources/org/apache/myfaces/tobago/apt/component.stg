@@ -414,33 +414,6 @@ NumberProperty(property) ::= <<
 
 MethodExpressionProperty(property) ::= <<
 
-/**
- * @deprecated since 2.0.0
- */
-@Deprecated
-public javax.faces.el.MethodBinding get<property.upperCamelCaseName>() {
-  javax.el.MethodExpression expression = get<property.upperCamelCaseName>Expression();
-  if (expression instanceof MethodBindingToMethodExpression) {
-    return ((MethodBindingToMethodExpression)expression).getMethodBinding();
-  }
-  if (expression != null) {
-     return new MethodExpressionToMethodBinding(expression);
-  }
-  return null;
-}
-
-/**
- * @deprecated since 2.0.0
- */
-@Deprecated
-public void set<property.upperCamelCaseName>(javax.faces.el.MethodBinding <property.propertyName>) {
-  if (<property.propertyName> != null) {
-    set<property.upperCamelCaseName>Expression(new MethodBindingToMethodExpression(<property.propertyName>));
-  } else {
-    set<property.upperCamelCaseName>Expression(null);
-  }
-}
-
 public <property.type> get<property.upperCamelCaseName>Expression() {
   return (<property.type>) getStateHelper().eval(PropertyKeys.<property.propertyName>);
 }

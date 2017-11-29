@@ -19,11 +19,10 @@
 
 package org.apache.myfaces.tobago.event;
 
-import javax.el.MethodExpression;
-
+/**
+ * @deprecated since 4.0.0
+ */
+@Deprecated
 public interface SheetStateChangeSource2 extends SheetStateChangeSource {
 
-  MethodExpression getStateChangeListenerExpression();
-
-  void setStateChangeListenerExpression(MethodExpression actionListener);
 }

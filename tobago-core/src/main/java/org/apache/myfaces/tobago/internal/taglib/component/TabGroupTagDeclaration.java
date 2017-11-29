@@ -49,7 +49,6 @@ import javax.faces.component.UIPanel;
     uiComponentFacesClass = "javax.faces.component.UIPanel",
     componentFamily = UIPanel.COMPONENT_FAMILY,
     rendererType = RendererTypes.TAB_GROUP,
-    interfaces = "javax.faces.component.ActionSource2",
     allowedChildComponenents = "org.apache.myfaces.tobago.Tab",
     behaviors = {
         @Behavior(

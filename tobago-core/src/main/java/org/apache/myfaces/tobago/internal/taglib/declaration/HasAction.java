@@ -28,9 +28,9 @@ public interface HasAction {
    * Action to invoke when clicked.
    * This must be a MethodExpression or a String representing the application action to invoke when
    * this component is activated by the user.
-   * The MethodBinding must evaluate to a public method that takes no parameters,
-   * and returns a String (the logical outcome) which is passed to the
-   * NavigationHandler for this application.
+   * The {@link javax.el.MethodExpression} must evaluate to a public method that takes no parameters,
+   * and returns a {@link String} (the logical outcome) which is passed to the
+   * {@link javax.faces.application.NavigationHandler} for this application.
    * The string is directly passed to the navigation handler.
    */
   @TagAttribute

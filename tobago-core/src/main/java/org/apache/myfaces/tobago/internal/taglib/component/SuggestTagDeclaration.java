@@ -62,7 +62,7 @@ import javax.faces.component.UIInput;
 public interface SuggestTagDeclaration extends HasIdBindingAndRendered {
 
   /**
-   * MethodBinding which generates a list of suggested input values based on
+   * {@link javax.el.MethodExpression} which generates a list of suggested input values based on
    * the currently entered text, which could be retrieved via getSubmittedValue() on the UIIn.
    * The expression has to evaluate to a public method which has a javax.faces.component.UIInput parameter
    * and returns a List&lt;String&gt;, a List&lt;org.apache.myfaces.tobago.model.AutoSuggestItem&gt;

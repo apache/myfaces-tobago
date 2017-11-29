@@ -19,12 +19,9 @@
 
 package org.apache.myfaces.tobago.event;
 
-import javax.el.MethodExpression;
-
+/**
+ * @deprecated since 4.0.0
+ */
+@Deprecated
 public interface SortActionSource2 extends SortActionSource {
-
-  MethodExpression getSortActionListenerExpression();
-
-  void setSortActionListenerExpression(MethodExpression actionListener);
-
 }

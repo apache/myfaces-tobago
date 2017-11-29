@@ -19,19 +19,11 @@
 
 package org.apache.myfaces.tobago.event;
 
-import javax.faces.el.MethodBinding;
+import javax.el.MethodExpression;
 
 public interface SortActionSource {
 
-  /**
-   * @deprecated since 2.0.0
-   */
-  @Deprecated
-  MethodBinding getSortActionListener();
+  MethodExpression getSortActionListenerExpression();
 
-  /**
-   * @deprecated since 2.0.0
-   */
-  @Deprecated
-  void setSortActionListener(MethodBinding actionListener);
+  void setSortActionListenerExpression(MethodExpression actionListener);
 }

@@ -19,19 +19,13 @@
 
 package org.apache.myfaces.tobago.event;
 
+import javax.el.MethodExpression;
+
 public interface SheetStateChangeSource {
 
-  /**
-   * @deprecated since 2.0.0
-   */
-  @Deprecated
-  javax.faces.el.MethodBinding getStateChangeListener();
+  MethodExpression getStateChangeListenerExpression();
 
-  /**
-   * @deprecated since 2.0.0
-   */
-  @Deprecated
-  void setStateChangeListener(javax.faces.el.MethodBinding actionListener);
+  void setStateChangeListenerExpression(MethodExpression actionListener);
 
   void addStateChangeListener(SheetStateChangeListener listener);
 

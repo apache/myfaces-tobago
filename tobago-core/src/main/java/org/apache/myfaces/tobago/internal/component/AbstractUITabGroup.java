@@ -24,7 +24,8 @@ import org.apache.myfaces.tobago.component.UITab;
 import org.apache.myfaces.tobago.component.Visual;
 import org.apache.myfaces.tobago.event.TabChangeEvent;
 import org.apache.myfaces.tobago.event.TabChangeListener;
-import org.apache.myfaces.tobago.event.TabChangeSource2;
+import org.apache.myfaces.tobago.event.TabChangeSource;
+import org.apache.myfaces.tobago.event.TobagoActionSource;
 import org.apache.myfaces.tobago.model.SwitchType;
 import org.apache.myfaces.tobago.util.FacesELUtils;
 import org.slf4j.Logger;
@@ -32,7 +33,6 @@ import org.slf4j.LoggerFactory;
 
 import javax.el.MethodExpression;
 import javax.el.ValueExpression;
-import javax.faces.component.ActionSource2;
 import javax.faces.component.UIComponent;
 import javax.faces.component.behavior.ClientBehaviorHolder;
 import javax.faces.context.FacesContext;
@@ -48,7 +48,7 @@ import java.util.List;
  * {@link org.apache.myfaces.tobago.internal.taglib.component.TabGroupTagDeclaration}
  */
 public abstract class AbstractUITabGroup extends AbstractUIPanelBase
-    implements TabChangeSource2, ActionSource2, ClientBehaviorHolder, Visual {
+    implements TabChangeSource, TobagoActionSource, ClientBehaviorHolder, Visual {
 
   private static final Logger LOG = LoggerFactory.getLogger(AbstractUITabGroup.class);
 
