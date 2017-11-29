@@ -36,7 +36,7 @@
     <p>The <code class="language-markup">&lt;tc:tree/></code> tag must use the <code>selectable</code> attribute.
       The value of the attribute in this example can be changed by the radio buttons in the contentbox on the right.</p>
     <tc:panel id="examplePanel">
-      <tc:flexLayout columns="*;auto">
+      <tc:flexLayout columns="1fr auto">
         <tc:tree id="categoriesTree" value="#{treeSelectController.sample}" var="node" showRoot="true"
                  selectable="#{treeSelectController.selectable}">
           <tc:treeNode>

@@ -28,7 +28,7 @@
   <p><span class="#{demo:bootstrapClass('BADGE')} #{demo:bootstrapClass('BADGE_DANGER')}">Warning!</span>
   Preliminary implementation, work in progress!</p>
 
-  <tc:splitLayout columns="2fr;1fr;1fr">
+  <tc:splitLayout columns="2fr 1fr 1fr">
     <tc:panel>
       <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore
         et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.
@@ -41,13 +41,13 @@
 <!--    <tc:textarea value="Text 2" labelLayout="none"/> -->
   </tc:splitLayout>
 
-  <tc:splitLayout columns="1*;4*;1*">
+  <tc:splitLayout columns="1fr 4fr 1fr">
     <tc:button label="A"/>
     <tc:button label="B"/>
     <!--<tc:button label="C"/>-->
   </tc:splitLayout>
 
-  <tc:flexLayout rows="auto;*">
+  <tc:flexLayout rows="auto 1fr">
 
     <p>
     The SplitLayout implements a two component layout with a divider between

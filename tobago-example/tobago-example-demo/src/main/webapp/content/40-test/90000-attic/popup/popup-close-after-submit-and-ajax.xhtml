@@ -25,7 +25,7 @@
 
     <tc:box label="Popup close after submit and AJAX" id="global">
       <f:facet name="layout">
-        <tc:gridLayout rows="*;auto;auto"/>
+        <tc:gridLayout rows="1fr auto auto"/>
       </f:facet>
       <tc:out escape="false" value="Test: Close popup partially after the submit.
       &lt;br/>Checklist:
@@ -42,14 +42,14 @@
 
       <tc:panel>
         <f:facet name="layout">
-          <tc:gridLayout columns="auto;*"/>
+          <tc:gridLayout columns="auto 1fr"/>
         </f:facet>
         <tc:button label="Open Popup" id="open">
           <f:facet name="popup">
             <tc:popup width="200px" height="100px" id="popup">
               <tc:box label="Popup" id="box">
                 <f:facet name="layout">
-                  <tc:gridLayout rows="*;auto"/>
+                  <tc:gridLayout rows="1fr auto"/>
                 </f:facet>
                 <tc:in label="Edit Value" value="#{popupData.value}" fieldId="in"/>
                 <tc:button label="Save and Close" id="close">

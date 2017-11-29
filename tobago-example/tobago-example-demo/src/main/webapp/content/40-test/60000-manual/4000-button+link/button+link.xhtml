@@ -25,12 +25,12 @@
     <p>The left link is rendered as a <code>&lt;button></code>, the right side is rendered as an <code>&lt;a></code>.
       Both representations have to be similar.</p>
     <tc:segmentLayout extraSmall="6;6">
-      <tc:flexLayout columns="auto;auto" id="fl1">
+      <tc:flexLayout columns="auto auto" id="fl1">
         <tc:in id="action"/>
         <tc:link label="actionLink" action="#{buttonLinkController.linkToComponentsRoot}"/>
       </tc:flexLayout>
 
-      <tc:flexLayout columns="auto;auto" id="fl2">
+      <tc:flexLayout columns="auto auto" id="fl2">
         <tc:out label="label" value="value"/>
         <tc:in id="href"/>
         <tc:link label="hrefLink" link="https://www.apache.com/"/>

@@ -23,15 +23,15 @@
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns="http://www.w3.org/1999/xhtml">
   <ui:param name="title" value="Partial Update (AJAX)"/>
-  <tc:gridLayout id="parent" rows="20px;200px;*;auto">
+  <tc:gridLayout id="parent" rows="20px 200px 1fr auto">
 
     <tc:out value="Demonstration and test of partial reload"/>
 
     <tc:style file="content/50-partial/partial.css"/>
 
-    <tc:gridLayout columns="1*;1*">
+    <tc:gridLayout columns="1fr 1fr">
       <tc:box label="Left panel" id="left">
-        <tc:gridLayout rows="auto;*">
+        <tc:gridLayout rows="auto 1fr">
           <tc:label value="Current seconds on server: "/>
           <tc:out value="#{partialReloadController.currentDate}" markup="demoSeconds">
             <f:convertDateTime pattern="ss:SSS"/>
@@ -39,7 +39,7 @@
         </tc:gridLayout>
       </tc:box>
       <tc:box label="Right panel" id="right">
-        <tc:gridLayout rows="auto;*">
+        <tc:gridLayout rows="auto 1fr">
           <tc:label value="Current seconds on server: "/>
           <tc:out value="#{partialReloadController.currentDate}" markup="demoSeconds">
             <f:convertDateTime pattern="ss:SSS"/>
@@ -63,11 +63,11 @@
       </ul>
     </tc:flowLayout>
 
-    <tc:gridLayout columns="*;205px;*">
+    <tc:gridLayout columns="1fr 205px 1fr">
 
       <tc:panel/>
 
-      <tc:gridLayout columns="*;*" rows="auto;auto;auto;auto;auto;auto;auto;auto">
+      <tc:gridLayout columns="1fr 1fr" rows="auto auto auto auto auto auto auto auto">
 
         <tc:button label="Reload left" tip="Reload left side box"
                    action="#{partialReloadController.reload}">

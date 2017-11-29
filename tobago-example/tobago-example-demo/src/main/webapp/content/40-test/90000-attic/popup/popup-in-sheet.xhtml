@@ -24,11 +24,11 @@
   <tc:page width="800px" height="300px" id="page">
     <tc:box label="Popups inside sheet">
       <f:facet name="layout">
-        <tc:gridLayout rows="*;0px;0px"/>
+        <tc:gridLayout rows="1fr 0px 0px"/>
       </f:facet>
 
       <tc:sheet id="sheet"
-                var="entry" columns="1*;1*;1*;1*" value="#{popupReference.sheet}">
+                var="entry" columns="1fr 1fr 1fr 1fr" value="#{popupReference.sheet}">
 
         <tc:column label="Column 1">
           <tc:link label="#{entry.column1}" actionListener="#{popupReference.selectEntry}">
@@ -58,13 +58,13 @@
         <!-- the clientId of this popup is "page:sheet:popup1" -->
         <tc:box label="Popup1">
           <f:facet name="layout">
-            <tc:gridLayout rows="auto;1*;auto"/>
+            <tc:gridLayout rows="auto 1fr auto"/>
           </f:facet>
           <tc:in label="column 1 value:" value="#{popupReference.entry.column1}"/>
           <tc:panel/>
           <tc:panel>
             <f:facet name="layout">
-              <tc:gridLayout columns="1*;auto;auto"/>
+              <tc:gridLayout columns="1fr auto auto"/>
             </f:facet>
             <tc:panel/>
             <tc:button label="Save" actionListener="#{popupReference.saveChanges}">
@@ -82,7 +82,7 @@
         <!-- the clientId of this popup is "page:sheet:popup2" -->
         <tc:box label="Popup1">
           <f:facet name="layout">
-            <tc:gridLayout rows="auto;auto;auto;1*;auto"/>
+            <tc:gridLayout rows="auto auto auto 1fr auto"/>
           </f:facet>
           <tc:in label="column 1 value:" value="#{popupReference.entry.column1}"/>
           <tc:in label="column 2 value:" value="#{popupReference.entry.column2}"/>
@@ -90,7 +90,7 @@
           <tc:panel/>
           <tc:panel>
             <f:facet name="layout">
-              <tc:gridLayout columns="1*;auto;auto"/>
+              <tc:gridLayout columns="1fr auto auto"/>
             </f:facet>
             <tc:panel/>
             <tc:button label="Save" actionListener="#{popupReference.saveChanges}">

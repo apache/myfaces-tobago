@@ -24,7 +24,7 @@
   <tc:page id="page">
     <!-- <tc:gridLayoutConstraint width="600px" height="600px"/> -->
 
-    <tc:sheet value="#{sheet.solarArray}" id="s1" columns="*;*" var="luminary" rows="20">
+    <tc:sheet value="#{sheet.solarArray}" id="s1" columns="1fr 1fr" var="luminary" rows="20">
       <tc:column label="Name" id="name" sortable="true">
         <tc:out value="#{luminary.name}"/>
       </tc:column>

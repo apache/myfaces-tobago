@@ -258,7 +258,7 @@
 
 <tc:box label="Page (z-index = 0)">
   <f:facet name="layout">
-    <tc:gridLayout rows="60px;auto;auto;*;auto;auto"/>
+    <tc:gridLayout rows="60px auto auto 1fr auto auto"/>
   </f:facet>
   <tc:out
       value="This page is to check, if the layered presentation is corret. It will be usually defined by setting
@@ -266,7 +266,7 @@
            also have the z-index set in the common renderer."/>
   <tc:panel>
     <f:facet name="layout">
-      <tc:gridLayout columns="*;4*"/>
+      <tc:gridLayout columns="1fr 4fr"/>
     </f:facet>
 
     <tc:link label="Link to Apache" link="http://www.apache.org/"/>
@@ -279,14 +279,14 @@
     <tc:selectItem itemLabel="BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB" itemValue="B"/>
     <tc:selectItem itemLabel="CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC" itemValue="C"/>
   </tc:selectOneChoice>
-  <tc:sheet var="v1" columns="*;*;*" showRowRange="left" showPageRange="right" showDirectLinks="center">
+  <tc:sheet var="v1" columns="1fr 1fr 1fr" showRowRange="left" showPageRange="right" showDirectLinks="center">
     <tc:column label="Column 1"/>
     <tc:column label="Column 2"/>
     <tc:column label="Column 3"/>
   </tc:sheet>
   <tc:panel>
     <f:facet name="layout">
-      <tc:gridLayout columns="*;*"/>
+      <tc:gridLayout columns="1fr 1fr"/>
     </f:facet>
     <tc:selectBooleanCheckbox label="1st Popup Modal" value="#{zIndex.modal1}" id="modal1st"/>
     <tc:panel/>
@@ -295,14 +295,14 @@
   </tc:panel>
   <tc:panel>
     <f:facet name="layout">
-      <tc:gridLayout columns="auto;auto;auto;*"/>
+      <tc:gridLayout columns="auto auto auto 1fr"/>
     </f:facet>
     <tc:button label="Open Popup">
       <f:facet name="popup">
         <tc:popup width="600px" height="470px" left="100px" top="100px" id="popup-1" modal="#{zIndex.modal1}">
           <tc:box label="Popup (z-index = 1 (TODO))" id="box-1">
             <f:facet name="layout">
-              <tc:gridLayout rows="auto;auto;*;auto"/>
+              <tc:gridLayout rows="auto auto 1fr auto"/>
             </f:facet>
             <tc:date label="Date">
               <f:convertDateTime pattern="dd/MM/yyyy"/>
@@ -312,21 +312,21 @@
               <tc:selectItem itemLabel="BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB" itemValue="B"/>
               <tc:selectItem itemLabel="CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC" itemValue="C"/>
             </tc:selectOneChoice>
-            <tc:sheet var="v1" columns="*;*;*" showRowRange="left" showPageRange="right" showDirectLinks="center">
+            <tc:sheet var="v1" columns="1fr 1fr 1fr" showRowRange="left" showPageRange="right" showDirectLinks="center">
               <tc:column label="Column 1"/>
               <tc:column label="Column 2"/>
               <tc:column label="Column 3"/>
             </tc:sheet>
             <tc:panel>
               <f:facet name="layout">
-                <tc:gridLayout columns="*;*;*;*"/>
+                <tc:gridLayout columns="1fr 1fr 1fr 1fr"/>
               </f:facet>
               <tc:button label="Open Sub Popup">
                 <f:facet name="popup">
                   <tc:popup width="400px" height="500px" left="200px" top="50px" id="popup-2" modal="#{zIndex.modal2}">
                     <tc:box label="Popup (z-index = 2 (TODO))" id="box-2">
                       <f:facet name="layout">
-                        <tc:gridLayout rows="auto;auto;*;auto"/>
+                        <tc:gridLayout rows="auto auto 1fr auto"/>
                       </f:facet>
                       <tc:date label="Date">
                         <f:convertDateTime pattern="dd/MM/yyyy"/>
@@ -336,7 +336,7 @@
                         <tc:selectItem itemLabel="BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB" itemValue="B"/>
                         <tc:selectItem itemLabel="CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC" itemValue="C"/>
                       </tc:selectOneChoice>
-                      <tc:sheet var="v1" columns="*;*;*" showRowRange="left" showPageRange="right"
+                      <tc:sheet var="v1" columns="1fr 1fr 1fr" showRowRange="left" showPageRange="right"
                                 showDirectLinks="center">
                         <tc:column label="Column 1"/>
                         <tc:column label="Column 2"/>
@@ -344,7 +344,7 @@
                       </tc:sheet>
                       <tc:panel>
                         <f:facet name="layout">
-                          <tc:gridLayout columns="*;*;*"/>
+                          <tc:gridLayout columns="1fr 1fr 1fr"/>
                         </f:facet>
                         <tc:button label="Cancel">
                           <tc:attribute name="popupClose" value="immediate"/>

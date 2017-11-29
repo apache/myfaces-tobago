@@ -40,7 +40,7 @@
     <p>Select an object from the SolarObjects list.</p>
     <tc:segmentLayout id="example" medium="5;7">
       <tc:box label="Solar Objects">
-        <tc:sheet id="s1" value="#{sheetController.solarList}" var="object" columns="*" markup="small">
+        <tc:sheet id="s1" value="#{sheetController.solarList}" var="object" columns="1fr" markup="small">
           <tc:style maxHeight="486px"/>
           <tc:column label="#{demoBundle.solarArrayName}">
             <tc:out value="#{object.name}" id="t_name" labelLayout="skip"/>

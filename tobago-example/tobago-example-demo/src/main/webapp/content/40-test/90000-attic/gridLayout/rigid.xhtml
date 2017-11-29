@@ -29,12 +29,12 @@
     height = 21 + 5 +  51 + 5 +  51 + 5 +  51 + 5 + 2 = 196
     -->
     <f:facet name="layout">
-      <tc:gridLayout rowSpacing="20px" columns="326px" rows="196px;196px;196px"/>
+      <tc:gridLayout rowSpacing="20px" columns="326px" rows="196px 196px 196px"/>
     </f:facet>
 
     <tc:box label="1. All rendered">
       <f:facet name="layout">
-        <tc:gridLayout columns="*;*;*"/>
+        <tc:gridLayout columns="1fr 1fr 1fr"/>
       </f:facet>
 
       <tc:textarea value="1">
@@ -79,7 +79,7 @@
 
     <tc:box label="2. Middle row and column are not rendered.">
       <f:facet name="layout">
-        <tc:gridLayout columns="*;*;*"/>
+        <tc:gridLayout columns="1fr 1fr 1fr"/>
       </f:facet>
 
       <tc:textarea value="1">
@@ -109,7 +109,7 @@
 
     <tc:box label="3. Like 2. but rigid='true'">
       <f:facet name="layout">
-        <tc:gridLayout columns="*;*;*" rigid="true"/>
+        <tc:gridLayout columns="1fr 1fr 1fr" rigid="true"/>
       </f:facet>
 
       <tc:textarea value="1">

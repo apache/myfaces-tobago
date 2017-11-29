@@ -25,10 +25,10 @@
   <tc:page id="page">
     <!-- <tc:gridLayoutConstraint width="600px" height="600px"/> -->
     <f:facet name="layout">
-      <tc:gridLayout rows="*;auto"/>
+      <tc:gridLayout rows="1fr auto"/>
     </f:facet>
 
-    <tc:sheet value="#{sheet.localeList}" id="sheet" columns="auto;5*;5*;5*;*" var="entry" rows="1000">
+    <tc:sheet value="#{sheet.localeList}" id="sheet" columns="auto 5fr 5fr 5fr 1fr" var="entry" rows="1000">
       <tc:columnSelector disabled="#{entry.disabled}"/>
       <tc:column label="Locale" id="l" sortable="true">
         <tc:out value="#{entry.locale}"/>
@@ -46,7 +46,7 @@
 
     <tc:box label="Performance test">
       <f:facet name="layout">
-        <tc:gridLayout columns="2*;*"/>
+        <tc:gridLayout columns="2fr 1fr"/>
       </f:facet>
       <tc:in readonly="true" label="Select 1st row"/>
       <tc:button label="Run" omit="true">

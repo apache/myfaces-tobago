@@ -26,14 +26,14 @@
     <!-- <tc:gridLayoutConstraint width="500px" height="500px"/> -->
 
       <f:facet name="layout">
-        <tc:gridLayout id="page-grid" rows="*;auto"/>
+        <tc:gridLayout id="page-grid" rows="1fr auto"/>
       </f:facet>
 
       <tc:textarea id="textarea"/>
 
       <tc:panel id="panel">
         <f:facet name="layout">
-          <tc:gridLayout id="panel-grid" columns="*;100px"/>
+          <tc:gridLayout id="panel-grid" columns="1fr 100px"/>
         </f:facet>
         <tc:panel id="cell"/>
         <tc:button id="button" label="Submit"/>

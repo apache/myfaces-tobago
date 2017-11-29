@@ -43,7 +43,7 @@
   <tc:section label="Markup">
     <pre><code class="language-markup">&lt;tc:sheet markup="inverse hover" ...></code></pre>
     <tc:sheet markup="#{sheetController.markup}" value="#{sheetController.solarList}" var="object" rows="4"
-              columns="#{sheetController.automaticLayout ? null : '*;*;*;*;*'}">
+              columns="#{sheetController.automaticLayout ? null : '1fr 1fr 1fr 1fr 1fr'}">
       <tc:column label="Name">
         <tc:out value="#{object.name}" labelLayout="skip"/>
       </tc:column>

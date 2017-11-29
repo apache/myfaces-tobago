@@ -24,7 +24,7 @@
   <tc:page id="page">
     <!-- <tc:gridLayoutConstraint width="600px" height="300px"/> -->
     <f:facet name="layout">
-      <tc:gridLayout rows="20px;*;auto;auto"/>
+      <tc:gridLayout rows="20px 1fr auto auto"/>
     </f:facet>
 
     <tc:out value="Stores the selection value in the value attribute of the tc:treeSelect component."/>
@@ -40,7 +40,7 @@
     <tc:in fieldId="in" label="Required" required="true"/>
     <tc:panel>
       <f:facet name="layout">
-        <tc:gridLayout columns="*;auto;auto"/>
+        <tc:gridLayout columns="1fr auto auto"/>
       </f:facet>
       <tc:panel/>
       <tc:button id="cancel" label="Cancel" immediate="true"/>

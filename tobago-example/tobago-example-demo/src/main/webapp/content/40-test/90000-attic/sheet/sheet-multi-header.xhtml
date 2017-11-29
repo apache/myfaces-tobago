@@ -24,7 +24,7 @@
   <tc:page id="page">
     <!-- <tc:gridLayoutConstraint width="802px" height="230px"/> -->
     <f:facet name="layout">
-      <tc:gridLayout rows="auto;*;auto"/>
+      <tc:gridLayout rows="auto 1fr auto"/>
     </f:facet>
 
     <tc:script>
@@ -50,7 +50,7 @@
 
     <tc:messages />
 
-    <tc:sheet value="#{sheet.solarArray}" id="sheet" columns="*;*;*;*" var="luminary" showRoot="true"
+    <tc:sheet value="#{sheet.solarArray}" id="sheet" columns="1fr 1fr 1fr 1fr" var="luminary" showRoot="true"
         showRowRange="left" rows="5">
 
       <f:facet name="header">
@@ -93,7 +93,7 @@
 
     <tc:panel>
       <f:facet name="layout">
-        <tc:gridLayout columns="*;auto"/>
+        <tc:gridLayout columns="1fr auto"/>
       </f:facet>
 
       <tc:panel/>

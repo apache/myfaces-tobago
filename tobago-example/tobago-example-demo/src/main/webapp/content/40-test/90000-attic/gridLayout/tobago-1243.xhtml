@@ -23,7 +23,7 @@
   <tc:page id="page">
 
     <f:facet name="layout">
-      <tc:gridLayout rows="50px;*;*"/>
+      <tc:gridLayout rows="50px 1fr 1fr"/>
     </f:facet>
 
     <tc:out value="Test, if EL bindings to non initialized beans are not called, when rendererd = false."/>
@@ -38,7 +38,7 @@
 
     <tc:box id="box-2" label="A simple box, to test the layout bank assignment">
       <f:facet name="layout">
-        <tc:gridLayout rows="100px;*"/>
+        <tc:gridLayout rows="100px 1fr"/>
       </f:facet>
 
       <tc:textarea value="test 1" id="test-1" rendered="false"/>

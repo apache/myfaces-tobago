@@ -24,14 +24,14 @@
                 xmlns="http://www.w3.org/1999/xhtml">
   <ui:param name="title" value="Logging Info"/>
 
-  <tc:gridLayout rows="auto;auto;auto;*" rendered="#{info.enabled}">
+  <tc:gridLayout rows="auto auto auto 1fr" rendered="#{info.enabled}">
 
     <tc:in label="Test Category" value="#{universalLoggingInfo.testCategory}"/>
     <tc:button label="Update" action="#{universalLoggingInfo.update}"/>
 
     <tc:separator/>
 
-    <tc:gridLayout columns="auto;120px;auto;*">
+    <tc:gridLayout columns="auto 120px auto 1fr">
 
       <tc:label value="JUL" tip="Java Util Logging"/>
       <tc:selectBooleanCheckbox value="#{universalLoggingInfo.jul.available}" readonly="true"

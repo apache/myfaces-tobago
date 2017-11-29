@@ -24,7 +24,7 @@
   <!-- tbd: how to solve this? -->
 
 <!--
-  <tc:flexLayout columns="auto;*" alignItems="center">
+  <tc:flexLayout columns="auto 1fr" alignItems="center">
 
     <tc:image value="image/feather-leaf.png"/>
 -->
@@ -110,9 +110,9 @@
       </tc:form>
 
       <f:facet name="after">
-        <tc:flexLayout columns="auto;auto">
+        <tc:flexLayout columns="auto auto">
           <tc:form>
-            <tc:flexLayout columns="200px;auto">
+            <tc:flexLayout columns="200px auto">
               <tc:in placeholder="Search" labelLayout="skip"/>
               <tc:button defaultCommand="true" omit="true" label="go">
                 <tc:dataAttribute name="alert-text" value="Sorry: Search not implemented"/>
@@ -120,7 +120,7 @@
             </tc:flexLayout>
           </tc:form>
           <tc:form id="navbtns">
-            <tc:flexLayout columns="auto;auto">
+            <tc:flexLayout columns="auto auto">
               <tc:buttons>
                 <tc:button immediate="true" id="previous"
                            image="fa-angle-left"

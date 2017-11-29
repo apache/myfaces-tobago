@@ -27,7 +27,7 @@
       <tc:gridLayout rows="100px"/>
     </f:facet>
 
-    <tc:sheet value="#{sheet.solarArray}" id="s2" columns="*;*" var="luminary" rows="11">
+    <tc:sheet value="#{sheet.solarArray}" id="s2" columns="1fr 1fr" var="luminary" rows="11">
       <tc:column label="Name" id="name" sortable="true">
         <tc:out value="#{luminary.name}"/>
       </tc:column>

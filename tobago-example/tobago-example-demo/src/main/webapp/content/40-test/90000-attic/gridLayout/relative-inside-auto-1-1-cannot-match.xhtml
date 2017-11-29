@@ -25,16 +25,16 @@
   <tc:page id="page">
     <!-- <tc:gridLayoutConstraint width="1000px" height="300px"/> -->
     <f:facet name="layout">
-      <tc:gridLayout columns="auto;*" rows="20px;100px;100px;100px;*"/>
+      <tc:gridLayout columns="auto 1fr" rows="20px 100px 100px 100px 1fr"/>
     </f:facet>
 
     <tc:label value="one column with 'auto'"/>
 
-    <tc:label value="one column with '*'"/> 
+    <tc:label value="one column with '1fr'"/>
 
     <tc:panel id="panel">
       <f:facet name="layout">
-        <tc:gridLayout columns="*;*;auto"/>
+        <tc:gridLayout columns="1fr 1fr auto"/>
       </f:facet>
 
       <tc:textarea id="a1" value="50/100/150">

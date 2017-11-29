@@ -92,11 +92,11 @@
     <p>To get a static header, you have to set a maximal height and the
       <code>columns</code> attribute must be used to set the width of the columns manually.</p>
     <pre><code class="language-markup">&lt;tc:sheet value="\#{sheetController.solarList}" var="object" rows="10"
-      columns="3*;80px;20%;2*;1*">
+      columns="3fr 80px 20% 2fr 1fr">
   &lt;tc:style maxHeight="500px"/>
   ...</code></pre>
     <tc:sheet id="alwaysVisibleHeaderSheet" value="#{sheetController.solarList}" var="object" rows="10"
-              columns="3*;80px;20%;2*;1*">
+              columns="3fr 80px 20% 2fr 1fr">
       <tc:style maxHeight="500px"/>
       <tc:column label="Name">
         <tc:out value="#{object.name}"/>

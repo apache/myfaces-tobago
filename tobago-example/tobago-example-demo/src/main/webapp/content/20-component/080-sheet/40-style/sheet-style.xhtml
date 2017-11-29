@@ -31,7 +31,7 @@
   </p>
 
   <tc:sheet value="#{sheetController.solarList}" var="object" rows="20" markup="small"
-            columns="#{sheetController.automaticLayout ? null : '*;*;*;*;*'}">
+            columns="#{sheetController.automaticLayout ? null : '1fr 1fr 1fr 1fr 1fr'}">
     <tc:row>
       <tc:style customClass="#{object.orbit eq 'Sun' ? 'planet' : ''}"/>
     </tc:row>

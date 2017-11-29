@@ -23,7 +23,7 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets">
   <ui:param name="title" value="#{demoBundle.sheet_types}"/>
   <tc:sheet value="#{sheetController.solarList}" id="sheet" var="luminary"
-            columns="50px;70px;70px;10px;90px;160px;100px;70px;180px;90px;130px"
+            columns="50px 70px 70px 10px 90px 160px 100px 70px 180px 90px 130px"
             rows="10">
     <tc:columnSelector/>
     <tc:column label="&lt;tc:out>" id="c_out">
@@ -60,7 +60,7 @@
       </tc:image>
     </tc:column>
     <tc:column label="&lt;tc:flexLayout>" id="c_panel">
-      <tc:flexLayout columns="1*;10px;1*">
+      <tc:flexLayout columns="1fr 10px 1fr">
         <tc:in value="1st" labelLayout="skip"/>
         <tc:out value="/" labelLayout="skip"/>
         <tc:in value="2nd" labelLayout="skip"/>

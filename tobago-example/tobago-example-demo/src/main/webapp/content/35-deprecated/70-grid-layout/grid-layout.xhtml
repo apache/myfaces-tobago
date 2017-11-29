@@ -38,7 +38,7 @@
 
   <tc:section label="GridLayout">
     <tc:box label="Personal Information">
-      <tc:gridLayout columns="*;*" rows="auto;auto;auto;auto;auto;*">
+      <tc:gridLayout columns="1fr 1fr" rows="auto auto auto auto auto 1fr">
         <tc:selectOneChoice label="Salutation">
           <f:selectItem itemLabel="none"/>
           <f:selectItem itemLabel="Mr."/>
@@ -68,7 +68,7 @@
 
   <tc:section label="FlexLayout">
     <tc:box label="Personal Information">
-      <tc:flexLayout rows="auto;auto">
+      <tc:flexLayout rows="auto auto">
         <tc:flexLayout columns="auto">
           <tc:selectOneChoice label="Salutation">
             <f:selectItem itemLabel="none"/>
@@ -77,19 +77,19 @@
           </tc:selectOneChoice>
         </tc:flexLayout>
 
-        <tc:flexLayout columns="1;1">
+        <tc:flexLayout columns="1 1">
           <tc:in label="First Name"/>
           <tc:in label="Last Name"/>
         </tc:flexLayout>
 
         <tc:in label="c/o"/>
 
-        <tc:flexLayout columns="1;1">
+        <tc:flexLayout columns="1 1">
           <tc:in label="Street"/>
           <tc:in label="No"/>
         </tc:flexLayout>
 
-        <tc:flexLayout columns="1;1">
+        <tc:flexLayout columns="1 1">
           <tc:in label="ZIP"/>
           <tc:in label="City"/>
         </tc:flexLayout>

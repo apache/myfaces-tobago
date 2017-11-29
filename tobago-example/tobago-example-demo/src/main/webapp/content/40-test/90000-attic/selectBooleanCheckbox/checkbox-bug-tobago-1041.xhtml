@@ -25,7 +25,7 @@
     <!-- <tc:gridLayoutConstraint width="1000px" height="600px"/> -->
     <f:facet name="layout">
       <tc:gridLayout
-          rows="0px;auto;auto"
+          rows="0px auto auto"
           margin="30px"/>
     </f:facet>
 
@@ -35,8 +35,8 @@
     <tc:box label="test labels with literals">
 
       <f:facet name="layout">
-        <tc:gridLayout columns="2*;*;2*"
-                       rows="auto;auto;auto;auto;auto;auto;auto;auto;auto;auto"/>
+        <tc:gridLayout columns="2fr 1fr 2fr"
+                       rows="auto auto auto auto auto auto auto auto auto auto"/>
       </f:facet>
 
       <tc:label value="tag"/>
@@ -79,8 +79,8 @@
     <tc:box label="same with value expressions">
 
       <f:facet name="layout">
-      <tc:gridLayout columns="2*;*;2*"
-                     rows="auto;auto;auto;auto;auto;auto;auto;auto;auto;auto"/>
+      <tc:gridLayout columns="2fr 1fr 2fr"
+                     rows="auto auto auto auto auto auto auto auto auto auto"/>
       </f:facet>
 
       <tc:label value="tag"/>

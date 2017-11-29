@@ -23,7 +23,7 @@
   <ui:param name="title" value="#{demoBundle.sheet}"/>
 
     <tc:sheet value="#{demo.solarList}" id="sheet"
-              columns="*;2*" var="luminary">
+              columns="1fr 2fr" var="luminary">
       <tc:column label="#{demoBundle.solarArrayName}" id="name" sortable="true" markup="#{luminary.markup}">
         <tc:out value="#{luminary.name}" id="t_name"/>
       </tc:column>
@@ -31,7 +31,7 @@
                  tip="Chemical Composition of the Crust">
 
           <tc:sheet value="#{luminary.chemicalComposition}" id="nested"
-                    columns="*;*" var="element">
+                    columns="1fr 1fr" var="element">
               <tc:column label="Element" id="element" sortable="false" resizable="false">
                   <tc:out value="#{element.name}"/>
               </tc:column>
