@@ -144,8 +144,10 @@ public abstract class AbstractUITabGroup extends AbstractUIPanelBase
       if (!isRendered()) {
         return;
       }
-      final AbstractUITab renderedTab = getRenderedTab();
-      renderedTab.processValidators(context);
+      final AbstractUITab renderedTab = getTab(getRenderedIndex());
+      if (renderedTab != null) {
+        renderedTab.processValidators(context);
+      }
       for (final UIComponent facet : getFacets().values()) {
         facet.processValidators(context);
       }
@@ -160,8 +162,10 @@ public abstract class AbstractUITabGroup extends AbstractUIPanelBase
       if (!isRendered()) {
         return;
       }
-      final AbstractUITab renderedTab = getRenderedTab();
-      renderedTab.processUpdates(context);
+      final AbstractUITab renderedTab = getTab(getRenderedIndex());
+      if (renderedTab != null) {
+        renderedTab.processUpdates(context);
+      }
       for (final UIComponent facet : getFacets().values()) {
         facet.processUpdates(context);
       }
@@ -248,11 +252,6 @@ public abstract class AbstractUITabGroup extends AbstractUIPanelBase
     LOG.error("Found no component with index: " + index + " childCount: " + getChildCount());
     return null;
   }
-
-  private AbstractUITab getRenderedTab() {
-    return getTab(getRenderedIndex());
-  }
-
 
   /**
    * @since 1.5.0
