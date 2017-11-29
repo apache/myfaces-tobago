@@ -97,7 +97,8 @@ public final class HtmlRendererUtils {
    * @deprecated 4.0.0.
    */
   @Deprecated
-  public static void encodeIconWithLabel(final TobagoResponseWriter writer, final String image, final String label) throws IOException {
+  public static void encodeIconWithLabel(
+      final TobagoResponseWriter writer, final String image, final String label) throws IOException {
     if (image != null && image.startsWith("fa-")) { // XXX hack: should be integrated in the resource manager
       writer.writeIcon(null, Icons.custom(image)); // todo: should not be static
     }
@@ -113,7 +114,8 @@ public final class HtmlRendererUtils {
    */
   @Deprecated
   public static void encodeIconWithLabel(
-      final TobagoResponseWriter writer, final FacesContext facesContext, final String image, final LabelWithAccessKey label, final boolean disabled)
+      final TobagoResponseWriter writer, final FacesContext facesContext, final String image,
+      final LabelWithAccessKey label, final boolean disabled)
       throws IOException {
     if (image != null) {
       if (image.startsWith("fa-")) {

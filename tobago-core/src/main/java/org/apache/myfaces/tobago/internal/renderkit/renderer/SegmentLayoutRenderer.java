@@ -123,7 +123,8 @@ public class SegmentLayoutRenderer extends RendererBase {
   }
 
   private void encodeDiv(
-      final FacesContext facesContext, final TobagoResponseWriter writer, final BootstrapClass.Generator generator, final UIComponent child)
+      final FacesContext facesContext, final TobagoResponseWriter writer, final BootstrapClass.Generator generator,
+      final UIComponent child)
       throws IOException {
     writer.startElement(HtmlElements.DIV);
     writer.writeClassAttribute(null, null, generator.generate(child));

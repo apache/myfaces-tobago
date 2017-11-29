@@ -141,7 +141,8 @@ public class TreeEditorController implements Serializable {
     return null;
   }
 
-  private boolean isBaseNodeContainSelectedNode(final DefaultMutableTreeNode base, final DefaultMutableTreeNode selected) {
+  private boolean isBaseNodeContainSelectedNode(
+      final DefaultMutableTreeNode base, final DefaultMutableTreeNode selected) {
     if (base.equals(selected)) {
       return true;
     }

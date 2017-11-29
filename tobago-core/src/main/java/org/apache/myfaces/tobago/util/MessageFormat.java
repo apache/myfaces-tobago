@@ -27,46 +27,52 @@ import javax.faces.context.FacesContext;
 public class MessageFormat {
 
   public static String format(final String pattern, final Object param0) {
-    return createMessageFormat(pattern).format(new Object[] {param0});
+    return createMessageFormat(pattern).format(new Object[]{param0});
   }
 
   public static String format(final String pattern, final Object param0, final Object param1) {
-    return createMessageFormat(pattern).format(new Object[] {param0, param1});
+    return createMessageFormat(pattern).format(new Object[]{param0, param1});
   }
 
   public static String format(final String pattern, final Object param0, final Object param1, final Object param2) {
-    return createMessageFormat(pattern).format(new Object[] {param0, param1, param2});
+    return createMessageFormat(pattern).format(new Object[]{param0, param1, param2});
   }
 
-  public static String format(final String pattern, final Object param0, final Object param1, final Object param2, final Object param3) {
-    return createMessageFormat(pattern).format(new Object[] {param0, param1, param2, param3});
+  public static String format(
+      final String pattern, final Object param0, final Object param1, final Object param2, final Object param3) {
+    return createMessageFormat(pattern).format(new Object[]{param0, param1, param2, param3});
   }
 
-  public static String format(final String pattern, final Object param0, final Object param1, final Object param2, final Object param3,
-                              final Object param4) {
-    return createMessageFormat(pattern).format(new Object[] {param0, param1, param2, param3, param4});
+  public static String format(
+      final String pattern, final Object param0, final Object param1, final Object param2, final Object param3,
+      final Object param4) {
+    return createMessageFormat(pattern).format(new Object[]{param0, param1, param2, param3, param4});
   }
 
-  public static String format(final String pattern, final Object param0, final Object param1, final Object param2, final Object param3,
-                              final Object param4, final Object param5) {
-    return createMessageFormat(pattern).format(new Object[] {param0, param1, param2, param3, param4, param5});
+  public static String format(
+      final String pattern, final Object param0, final Object param1, final Object param2, final Object param3,
+      final Object param4, final Object param5) {
+    return createMessageFormat(pattern).format(new Object[]{param0, param1, param2, param3, param4, param5});
   }
 
-  public static String format(final String pattern, final Object param0, final Object param1, final Object param2, final Object param3,
-                              final Object param4, final Object param5, final Object param6) {
-    return createMessageFormat(pattern).format(new Object[] {param0, param1, param2, param3, param4, param5, param6});
+  public static String format(
+      final String pattern, final Object param0, final Object param1, final Object param2, final Object param3,
+      final Object param4, final Object param5, final Object param6) {
+    return createMessageFormat(pattern).format(new Object[]{param0, param1, param2, param3, param4, param5, param6});
   }
 
-  public static String format(final String pattern, final Object param0, final Object param1, final Object param2, final Object param3,
-                              final Object param4, final Object param5, final Object param6, final Object param7) {
+  public static String format(
+      final String pattern, final Object param0, final Object param1, final Object param2, final Object param3,
+      final Object param4, final Object param5, final Object param6, final Object param7) {
     return createMessageFormat(pattern).format(
-        new Object[] {param0, param1, param2, param3, param4, param5, param6, param7});
+        new Object[]{param0, param1, param2, param3, param4, param5, param6, param7});
   }
 
-  public static String format(final String pattern, final Object param0, final Object param1, final Object param2, final Object param3,
-                              final Object param4, final Object param5, final Object param6, final Object param7, final Object param8) {
+  public static String format(
+      final String pattern, final Object param0, final Object param1, final Object param2, final Object param3,
+      final Object param4, final Object param5, final Object param6, final Object param7, final Object param8) {
     return createMessageFormat(pattern).format(
-        new Object[] {param0, param1, param2, param3, param4, param5, param6, param7, param8});
+        new Object[]{param0, param1, param2, param3, param4, param5, param6, param7, param8});
   }
 
   private static java.text.MessageFormat createMessageFormat(final String pattern) {

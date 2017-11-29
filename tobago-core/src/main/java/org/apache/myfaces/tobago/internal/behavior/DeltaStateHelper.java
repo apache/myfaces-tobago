@@ -723,7 +723,8 @@ class DeltaStateHelper<A extends EventBehavior> implements StateHelper {
     }
   }
 
-  private static Object restoreAttachedState(final FacesContext context, final Object stateObj) throws IllegalStateException {
+  private static Object restoreAttachedState(final FacesContext context, final Object stateObj)
+      throws IllegalStateException {
     if (context == null) {
       throw new NullPointerException("context");
     }

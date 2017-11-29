@@ -719,7 +719,8 @@ public abstract class SelectManyRendererBase extends MessageLayoutRendererBase {
       return currentComponent;
     }
 
-    private boolean getBooleanAttribute(final UIComponent component, final String attrName, final boolean defaultValue) {
+    private boolean getBooleanAttribute(
+        final UIComponent component, final String attrName, final boolean defaultValue) {
       final Object value = component.getAttributes().get(attrName);
       if (value == null) {
         return defaultValue;

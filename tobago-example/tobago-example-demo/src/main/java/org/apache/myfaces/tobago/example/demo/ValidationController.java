@@ -41,7 +41,7 @@ public class ValidationController implements Serializable {
     this.letter = letter;
   }
 
-  public void customValidator(final FacesContext context, final UIComponent component, final Object value)
+  public void customValidator(final FacesContext facesContext, final UIComponent component, final Object value)
           throws ValidatorException {
     if (value == null) {
       return;
@@ -52,7 +52,8 @@ public class ValidationController implements Serializable {
     }
   }
 
-  public void passwordValidator(final FacesContext context, final UIComponent component, final Object value) throws ValidatorException {
+  public void passwordValidator(final FacesContext facesContext, final UIComponent component, final Object value)
+      throws ValidatorException {
     final String password = value.toString();
 
     final UIInput confirmationField = (UIInput) component.getAttributes().get("confirmationField");

@@ -257,7 +257,8 @@ public class StyleRenderer extends RendererBase {
     }
   }
 
-  private void encodeStyle(final TobagoResponseWriter writer, final Styles name, final String value) throws IOException {
+  private void encodeStyle(
+      final TobagoResponseWriter writer, final Styles name, final String value) throws IOException {
     writer.writeText(name.getCssName());
     writer.writeText(":");
     switch (name) {

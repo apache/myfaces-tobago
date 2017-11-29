@@ -151,7 +151,8 @@ public class BarRenderer extends RendererBase {
   }
 
   private void encodeOpener(
-      final FacesContext facesContext, final UIBar bar, final TobagoResponseWriter writer, final String navbarId) throws IOException {
+      final FacesContext facesContext, final UIBar bar, final TobagoResponseWriter writer, final String navbarId)
+      throws IOException {
     final boolean togglerLeft = bar.getMarkup() != null && bar.getMarkup().contains(Markup.TOGGLER_LEFT);
     final UIComponent brand = ComponentUtils.getFacet(bar, Facets.brand);
 

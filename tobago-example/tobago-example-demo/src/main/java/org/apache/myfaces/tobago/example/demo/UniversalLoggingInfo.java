@@ -240,7 +240,8 @@ public class UniversalLoggingInfo {
       throw new IllegalStateException();
     }
 
-    private boolean checkLevelGeneric(final String level, final Object c, final String clazz, final String enabledMethod, final String levelMethod)
+    private boolean checkLevelGeneric(
+        final String level, final Object c, final String clazz, final String enabledMethod, final String levelMethod)
         throws ClassNotFoundException, NoSuchMethodException, IllegalAccessException, InvocationTargetException {
       final Class<?> levelClass = Class.forName(clazz);
       final Method isLoggable = c.getClass().getMethod(enabledMethod, levelClass);

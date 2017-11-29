@@ -165,8 +165,9 @@ public class InRenderer extends MessageLayoutRendererBase {
     }
   }
 
-  private void encodeGroupAddon(final FacesContext facesContext, final TobagoResponseWriter writer, final UIComponent addon,
-                                final boolean isAfterFacet) throws IOException {
+  private void encodeGroupAddon(
+      final FacesContext facesContext, final TobagoResponseWriter writer, final UIComponent addon,
+      final boolean isAfterFacet) throws IOException {
     if (addon != null) {
       final List<UIComponent> children;
       if (addon instanceof UIPanel) {

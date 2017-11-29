@@ -98,7 +98,8 @@ public class TobagoBundle extends ResourceBundle {
       }
 
       public ResourceBundle newBundle(
-          final String baseName, final Locale locale, final String format, final ClassLoader loader, final boolean reload)
+          final String baseName, final Locale locale, final String format, final ClassLoader loader,
+          final boolean reload)
           throws IllegalAccessException, InstantiationException,
           IOException {
 

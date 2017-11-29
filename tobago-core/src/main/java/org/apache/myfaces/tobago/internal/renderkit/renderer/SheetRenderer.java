@@ -465,9 +465,10 @@ public class SheetRenderer extends RendererBase {
     writer.endElement(HtmlElements.DIV);
   }
 
-  private void encodeTableBody(final FacesContext facesContext, final UISheet sheet, final TobagoResponseWriter writer, final String sheetId,
-                               final Selectable selectable, final List<Integer> columnWidths, final List<Integer> selectedRows,
-                               final List<AbstractUIColumnBase> columns, final boolean autoLayout, final StringBuilder expandedValue)
+  private void encodeTableBody(
+      final FacesContext facesContext, final UISheet sheet, final TobagoResponseWriter writer, final String sheetId,
+      final Selectable selectable, final List<Integer> columnWidths, final List<Integer> selectedRows,
+      final List<AbstractUIColumnBase> columns, final boolean autoLayout, final StringBuilder expandedValue)
       throws IOException {
 
     final boolean showHeader = sheet.isShowHeader();
@@ -699,7 +700,8 @@ public class SheetRenderer extends RendererBase {
 // END RENDER BODY CONTENT
   }
 
-  private void encodeHiddenInput(final TobagoResponseWriter writer, final String value, final String idWithSuffix) throws IOException {
+  private void encodeHiddenInput(final TobagoResponseWriter writer, final String value, final String idWithSuffix)
+      throws IOException {
     writer.startElement(HtmlElements.INPUT);
     writer.writeIdAttribute(idWithSuffix);
     writer.writeNameAttribute(idWithSuffix);

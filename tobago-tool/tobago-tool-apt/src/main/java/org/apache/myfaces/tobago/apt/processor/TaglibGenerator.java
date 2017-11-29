@@ -168,8 +168,9 @@ public class TaglibGenerator extends AbstractGenerator {
     }
   }
 
-  private void addFunction(final Document document, final Element taglib, final String functionName, final String functionClass,
-                           final String functionSignature) {
+  private void addFunction(
+      final Document document, final Element taglib, final String functionName, final String functionClass,
+      final String functionSignature) {
     final Element function = document.createElement("function");
     taglib.appendChild(function);
     addLeafTextElement(functionName, "function-name", function, document);

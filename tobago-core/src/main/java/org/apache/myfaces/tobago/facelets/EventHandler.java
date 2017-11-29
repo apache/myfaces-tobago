@@ -176,7 +176,8 @@ public class EventHandler extends TobagoComponentHandler implements BehaviorHold
   }
 
   @Override
-  public void onComponentCreated(final FaceletContext faceletContext, final UIComponent component, final UIComponent parent) {
+  public void onComponentCreated(
+      final FaceletContext faceletContext, final UIComponent component, final UIComponent parent) {
     super.onComponentCreated(faceletContext, component, parent);
 
     final UIEvent event = (UIEvent) component;
