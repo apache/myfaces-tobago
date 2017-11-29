@@ -58,14 +58,10 @@ public class TobagoConfigBuilder {
     try {
       final TobagoConfigBuilder builder = new TobagoConfigBuilder(servletContext);
       builder.build();
-    } catch (final Error|Exception e) {
+    } catch (final Exception e) {
       final String error = "Error while deployment. Tobago can't be initialized! Application will not run correctly!";
       LOG.error(error, e);
-      if (e instanceof Error) {
-        throw (Error) e;
-      } else {
-        throw new RuntimeException(error, e);
-      }
+      throw new RuntimeException(error, e);
     }
   }
 
