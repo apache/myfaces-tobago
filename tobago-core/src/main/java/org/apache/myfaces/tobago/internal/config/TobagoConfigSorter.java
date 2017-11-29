@@ -146,7 +146,7 @@ public class TobagoConfigSorter implements Comparator<TobagoConfigFragment> {
         final Sanitizer sanitizer = aClass.newInstance();
         sanitizer.setProperties(sanitizerProperties);
         result.setSanitizer(sanitizer);
-      } catch (final Throwable e) {
+      } catch (final Error|Exception e) {
         LOG.error("Can't create sanitizer: '" + sanitizerClass + "'", e);
         result.setSanitizer(new IgnoringSanitizer());
       }
