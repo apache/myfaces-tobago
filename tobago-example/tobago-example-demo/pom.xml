@@ -32,7 +32,7 @@
   -->
 
   <properties>
-    <openwebbeans.version>2.0.0</openwebbeans.version>
+    <openwebbeans.version>2.0.2</openwebbeans.version>
     <deltaspike.version>1.8.0</deltaspike.version>
     <!--<arquillian.browser>firefox</arquillian.browser>-->
     <!-- phantomjs works not with CSP (report-only) -->
@@ -278,7 +278,7 @@
     <dependency>
       <groupId>org.apache.httpcomponents</groupId>
       <artifactId>httpcore</artifactId>
-      <version>4.4.7</version>
+      <version>4.4.8</version>
     </dependency>
     <dependency>
       <groupId>org.jboss.arquillian.junit</groupId>
@@ -314,7 +314,7 @@
         <dependency>
           <groupId>org.apache.geronimo.specs</groupId>
           <artifactId>geronimo-jcdi_2.0_spec</artifactId>
-          <version>1.0</version>
+          <version>1.0.1</version>
           <scope>provided</scope>
         </dependency>
         <dependency>
