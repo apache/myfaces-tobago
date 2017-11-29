@@ -21,7 +21,6 @@ package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
 import org.apache.myfaces.tobago.component.SupportFieldId;
 import org.apache.myfaces.tobago.component.UILabel;
-import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.internal.util.AccessKeyLogger;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.internal.util.JsonUtils;
@@ -66,18 +65,10 @@ public class LabelRenderer extends RendererBase implements ComponentSystemEventL
     }
     final String clientId = label.getClientId(facesContext);
 
-    // TBD: want to do this in JavaScript in Browser (or CSS)?
-    Markup correspondingMarkup = Markup.NULL;
-    // adding the markups from the corresponding input component
-    if (corresponding != null) {
-      correspondingMarkup = ComponentUtils.updateMarkup(corresponding, Markup.NULL);
-    }
-
     writer.startElement(HtmlElements.LABEL);
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, label);
     writer.writeClassAttribute(
         TobagoClass.LABEL,
-        TobagoClass.LABEL.createMarkup(correspondingMarkup),
         BootstrapClass.COL_FORM_LABEL,
         label.getCustomClass());
     writer.writeIdAttribute(clientId);

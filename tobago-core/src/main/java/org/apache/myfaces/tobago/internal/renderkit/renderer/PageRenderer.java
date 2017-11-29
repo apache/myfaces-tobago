@@ -256,7 +256,6 @@ public class PageRenderer extends RendererBase {
     writer.writeClassAttribute(
         TobagoClass.PAGE,
         TobagoClass.PAGE.createMarkup(portlet ? Markup.PORTLET.add(page.getMarkup()) : page.getMarkup()),
-        TobagoClass.PAGE.createDefaultMarkups(page),
         BootstrapClass.CONTAINER_FLUID,
         spread,
         page.getCustomClass());

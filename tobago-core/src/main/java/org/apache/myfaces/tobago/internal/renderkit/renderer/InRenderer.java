@@ -145,7 +145,6 @@ public class InRenderer extends MessageLayoutRendererBase {
     writer.writeClassAttribute(
         getRendererCssClass(),
         getRendererCssClass().createMarkup(markup),
-        getRendererCssClass().createDefaultMarkups(input),
         BootstrapClass.borderColor(ComponentUtils.getMaximumSeverity(input)),
         BootstrapClass.FORM_CONTROL,
         input.getCustomClass());

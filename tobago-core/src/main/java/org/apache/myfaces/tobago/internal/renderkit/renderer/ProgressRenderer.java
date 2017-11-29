@@ -66,7 +66,6 @@ public class ProgressRenderer extends RendererBase {
     writer.writeClassAttribute(
         TobagoClass.PROGRESS,
         TobagoClass.PROGRESS.createMarkup(markup),
-        TobagoClass.PROGRESS.createDefaultMarkups(progress),
         BootstrapClass.PROGRESS,
         progress.getCustomClass());
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, progress);

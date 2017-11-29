@@ -63,7 +63,6 @@ public class BarRenderer extends RendererBase {
     writer.writeClassAttribute(
         TobagoClass.BAR,
         TobagoClass.BAR.createMarkup(bar.getMarkup()),
-        TobagoClass.BAR.createDefaultMarkups(bar),
         BootstrapClass.NAVBAR,
         getNavbarExpand(markup),
         getNavbarColorScheme(markup),

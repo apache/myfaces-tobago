@@ -74,7 +74,6 @@ public class ImageRenderer extends RendererBase {
       writer.writeClassAttribute(
           TobagoClass.IMAGE,
           TobagoClass.IMAGE.createMarkup(markup),
-          TobagoClass.IMAGE.createDefaultMarkups(image),
           disabled ? BootstrapClass.DISABLED : null,
           image.getCustomClass());
       writer.writeAttribute(HtmlAttributes.TITLE, title, true);

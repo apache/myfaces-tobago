@@ -8690,7 +8690,7 @@ table.tobago-gridLayout > tbody > tr:first-child > td {
 }
 
 /* image ----------------------------------------------------------- */
-.tobago-image-markup-disabled {
+.tobago-image.disabled {
   -webkit-filter: grayscale(1) blur(2px) contrast(0.5) brightness(1.2);
           filter: grayscale(1) blur(2px) contrast(0.5) brightness(1.2);
 }
@@ -8744,7 +8744,7 @@ button.tobago-link:focus, button.tobago-link:hover, button.tobago-treeCommand:fo
 }
 
 button.tobago-link:disabled, button.tobago-treeCommand:disabled {
-  color: #636c72;
+  color: #868e96;
 }
 
 button.tobago-link:disabled:hover, button.tobago-treeCommand:disabled:hover {
@@ -9381,7 +9381,7 @@ th.tobago-sheet-headerCell-markup-filler > .tobago-sheet-header {
 
 .twitter-typeahead .tt-open {
   /* for markup 'localMenu' - if suggest menu rendered directly on component - not in .tobago-page-menuStore */
-  width: 100%;
+  min-width: 100%;
 }
 
 .tt-empty {
@@ -9450,6 +9450,35 @@ th.tobago-sheet-headerCell-markup-filler > .tobago-sheet-header {
   -ms-flex-line-pack: center;
       align-content: center;
   margin-left: 0.2rem;
+  z-index: 0;
+  /* IE11 fix to hide bottom border on active tab */
+}
+
+.tobago-tab .nav-link:not([href]):not([tabindex]) {
+  /* fix .nav-links without 'href'; bootstrap tab only works if 'href' is set */
+}
+
+.tobago-tab .nav-link:not([href]):not([tabindex]).active {
+  color: #495057;
+  cursor: pointer;
+}
+
+.tobago-tab .nav-link:not([href]):not([tabindex]):not(.active) {
+  color: #9f32ff;
+  cursor: pointer;
+}
+
+.tobago-tab .nav-link:not([href]):not([tabindex]):not(.active):hover {
+  color: #dbb2ff;
+}
+
+.tobago-tab .nav-link:not([href]):not([tabindex]).disabled {
+  color: #868e96;
+  cursor: not-allowed;
+}
+
+.tobago-tab .nav-link:not([href]):not([tabindex]).disabled:focus, .tobago-tab .nav-link:not([href]):not([tabindex]).disabled:hover {
+  color: #868e96;
 }
 
 .tab-content {

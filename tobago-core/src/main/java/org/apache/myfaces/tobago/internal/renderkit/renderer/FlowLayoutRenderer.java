@@ -50,7 +50,6 @@ public class FlowLayoutRenderer extends RendererBase {
     writer.writeClassAttribute(
         TobagoClass.FLOW_LAYOUT,
         TobagoClass.FLOW_LAYOUT.createMarkup(markup),
-        TobagoClass.FLOW_LAYOUT.createDefaultMarkups(flowLayout),
         flowLayout.getCustomClass(),
         textAlign != null ? BootstrapClass.textAlign(textAlign) : null);
   }

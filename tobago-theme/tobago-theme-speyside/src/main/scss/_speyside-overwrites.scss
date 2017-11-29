@@ -500,17 +500,10 @@ p, .control-label {
       background-color: white;
     }
   }
-  .nav-item.tobago-tab-markup-disabled {
+  .nav-item .nav-link.disabled {
     background-color: $gray-100;
-
-    > a, > button.tobago-link {
-      color: $gray-300;
-
-      &:hover {
-        color: $gray-300;
-        cursor: default;
-      }
-    }
+    color: $gray-300;
+    cursor: default;
   }
 }
 
@@ -781,9 +774,6 @@ li:last-child {
 
 // checkboxes and radio buttons
 .tobago-selectBooleanCheckbox, .tobago-selectManyCheckbox, .tobago-selectOneRadio {
-  &-markup-readonly .form-check-label {
-    cursor: default;
-  }
   .form-check-label {
     padding-left: 0;
 

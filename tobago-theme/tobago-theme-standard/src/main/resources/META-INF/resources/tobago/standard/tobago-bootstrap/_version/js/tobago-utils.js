@@ -22,14 +22,14 @@ Tobago.Utils = {};
  * @param id A JSF client id, type=string. Example: escapeClientId("page:input") -> "#page\\:input"
  * @return A string which can be used as a jQuery selector.
  */
-Tobago.Utils.escapeClientId = function(id) {
+Tobago.Utils.escapeClientId = function (id) {
   return '#' + id.replace(/([:\.])/g, '\\$1');
 };
 
 /**
  * @deprecated since Tobago 2.0.5 because of misspelling
  */
-Tobago.Utils.selectWidthJQuery = function(elements, selector) {
+Tobago.Utils.selectWidthJQuery = function (elements, selector) {
   return Tobago.Utils.selectWithJQuery(elements, selector);
 };
 
@@ -39,17 +39,17 @@ Tobago.Utils.selectWidthJQuery = function(elements, selector) {
  * @param elements a jQuery object to initialize (ajax) or null for initializing the whole document (full load).
  * @param selector a jQuery selector.
  */
-Tobago.Utils.selectWithJQuery = function(elements, selector) {
+Tobago.Utils.selectWithJQuery = function (elements, selector) {
   return elements == null
       ? jQuery(selector)
       : elements.find(selector).add(elements.filter(selector));
 };
 
-Tobago.Utils.findSubComponent = function(element, subId) {
+Tobago.Utils.findSubComponent = function (element, subId) {
   return jQuery(Tobago.Utils.getSubComponentId(element.attr('id'), subId));
 };
 
-Tobago.Utils.getSubComponentId = function(id, subId) {
+Tobago.Utils.getSubComponentId = function (id, subId) {
   if (id != null) {
     return "#" + id.replace(/:/g, "\\:") + "\\:\\:" + subId;
   } else {
@@ -58,11 +58,11 @@ Tobago.Utils.getSubComponentId = function(id, subId) {
 };
 
 /** @deprecated */
-Tobago.Utils.findSuperComponent = function(element) {
+Tobago.Utils.findSuperComponent = function (element) {
   return jQuery(Tobago.Utils.getSuperComponentId(element.attr('id')));
 };
 
-Tobago.Utils.getSuperComponentId = function(id) {
+Tobago.Utils.getSuperComponentId = function (id) {
   return "#" + id.substring(0, id.lastIndexOf("::")).replace(/:/g, "\\:");
 };
 
@@ -102,8 +102,8 @@ Tobago.Utils.getNamingContainerId = function (id) {
  * fix position, when the element it is outside of the current page
  * @param elements is an jQuery Array of elements to be fixed.
  */
-Tobago.Utils.keepElementInVisibleArea = function(elements) {
-  elements.each(function() {
+Tobago.Utils.keepElementInVisibleArea = function (elements) {
+  elements.each(function () {
     var element = jQuery(this);
     var page = jQuery(".tobago-page-content:first");
     var left = element.offset().left;
@@ -117,7 +117,36 @@ Tobago.Utils.keepElementInVisibleArea = function(elements) {
 };
 
 /** @deprecated */
-Tobago.Utils.acceleratorKeyEvent = function() {
+Tobago.Utils.acceleratorKeyEvent = function () {
   return Tobago.browser.isWebkit || Tobago.browser.isGecko ? 'keydown' : 'keypress';
 };
 
+Tobago.Utils.addDataMarkup = function (element, markupString) {
+  var dataTobagoMarkup = element.attr("data-tobago-markup");
+  if (dataTobagoMarkup !== undefined) {
+    var markups = jQuery.parseJSON(dataTobagoMarkup);
+    markups.push(markupString);
+    element.attr("data-tobago-markup", JSON.stringify(markups));
+  } else {
+    element.attr("data-tobago-markup", JSON.stringify(markupString));
+  }
+};
+
+Tobago.Utils.removeDataMarkup = function (element, markupString) {
+  var dataTobagoMarkup = element.attr("data-tobago-markup");
+  if (dataTobagoMarkup !== undefined) {
+    var markups = jQuery.parseJSON(dataTobagoMarkup);
+    var index = jQuery.inArray(markupString, markups);
+    if (index >= 0) {
+      markups.splice(index, 1);
+    } else if (markups === markupString) {
+      markups = [];
+    }
+
+    if (markups.length > 0) {
+      element.attr("data-tobago-markup", JSON.stringify(markups));
+    } else {
+      element.removeAttr("data-tobago-markup");
+    }
+  }
+};

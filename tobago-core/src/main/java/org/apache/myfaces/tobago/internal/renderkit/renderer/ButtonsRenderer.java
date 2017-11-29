@@ -54,7 +54,6 @@ public class ButtonsRenderer extends RendererBase {
     writer.writeClassAttribute(
         TobagoClass.BUTTONS,
         TobagoClass.BUTTONS.createMarkup(markup),
-        TobagoClass.BUTTONS.createDefaultMarkups(buttons),
         BootstrapClass.BTN_GROUP,
         buttons.getCustomClass());
     writer.writeAttribute(HtmlAttributes.ROLE, HtmlRoleValues.GROUP.toString(), false);

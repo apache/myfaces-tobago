@@ -92,7 +92,6 @@ public class SelectBooleanCheckboxRenderer extends MessageLayoutRendererBase {
     writer.writeClassAttribute(
         TobagoClass.SELECT_BOOLEAN_CHECKBOX,
         TobagoClass.SELECT_BOOLEAN_CHECKBOX.createMarkup(markup),
-        TobagoClass.SELECT_BOOLEAN_CHECKBOX.createDefaultMarkups(select),
         getOuterCssItems(facesContext, select),
         disabled ? BootstrapClass.DISABLED : null,
         select.getCustomClass());

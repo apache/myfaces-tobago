@@ -186,7 +186,6 @@ public class SheetRenderer extends RendererBase {
     writer.writeClassAttribute(
         TobagoClass.SHEET,
         TobagoClass.SHEET.createMarkup(markup),
-        TobagoClass.SHEET.createDefaultMarkups(sheet),
         sheet.getCustomClass());
     final UIComponent facetReload = ComponentUtils.getFacet(sheet, Facets.reload);
     if (facetReload != null && facetReload instanceof UIReload && facetReload.isRendered()) {

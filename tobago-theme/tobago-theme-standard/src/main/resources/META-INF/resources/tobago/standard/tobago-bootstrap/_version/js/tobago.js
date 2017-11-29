@@ -1222,7 +1222,7 @@ Tobago.registerListener(Tobago.SelectOneListbox.init, Tobago.Phase.AFTER_UPDATE)
 Tobago.SelectBooleanCheckbox = {};
 
 Tobago.SelectBooleanCheckbox.init = function(elements) {
-  var checkboxes = Tobago.Utils.selectWithJQuery(elements, ".tobago-selectBooleanCheckbox-markup-readonly input");
+  var checkboxes = Tobago.Utils.selectWithJQuery(elements, ".tobago-selectBooleanCheckbox input[readonly]");
   checkboxes.each(function() {
     // Save the initial state to restore it, when the user tries to manipulate it.
     var initial = jQuery(this).is(":checked");
@@ -1240,7 +1240,7 @@ Tobago.registerListener(Tobago.SelectBooleanCheckbox.init, Tobago.Phase.AFTER_UP
 Tobago.SelectManyCheckbox = {};
 
 Tobago.SelectManyCheckbox.init = function(elements) {
-  var checkboxes = Tobago.Utils.selectWithJQuery(elements, ".tobago-selectManyCheckbox-markup-readonly input");
+  var checkboxes = Tobago.Utils.selectWithJQuery(elements, ".tobago-selectManyCheckbox input[readonly]");
   checkboxes.each(function() {
     // Save the initial state to restore it, when the user tries to manipulate it.
     var initial = jQuery(this).is(":checked");

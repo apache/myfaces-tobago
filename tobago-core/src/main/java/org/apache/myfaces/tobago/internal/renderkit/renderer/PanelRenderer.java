@@ -56,7 +56,6 @@ public class PanelRenderer extends PanelRendererBase {
     writer.writeClassAttribute(
         TobagoClass.PANEL,
         TobagoClass.PANEL.createMarkup(markup),
-        TobagoClass.PANEL.createDefaultMarkups(panel),
         collapsed ? TobagoClass.COLLAPSED : null,
         panel.getCustomClass());
 

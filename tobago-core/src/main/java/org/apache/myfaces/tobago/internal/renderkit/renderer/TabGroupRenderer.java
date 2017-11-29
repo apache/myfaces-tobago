@@ -152,7 +152,6 @@ public class TabGroupRenderer extends RendererBase implements ComponentSystemEve
     writer.writeClassAttribute(
         TobagoClass.TAB_GROUP,
         TobagoClass.TAB_GROUP.createMarkup(markup),
-        TobagoClass.TAB_GROUP.createDefaultMarkups(tabGroup),
         tabGroup.getCustomClass());
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, tabGroup);
     writer.writeAttribute(HtmlAttributes.SWITCHTYPE, switchType.name(), false);
@@ -227,8 +226,11 @@ public class TabGroupRenderer extends RendererBase implements ComponentSystemEve
           final LabelWithAccessKey label = new LabelWithAccessKey(tab);
           final boolean disabled = tab.isDisabled();
           final String tabId = tab.getClientId(facesContext);
+          Markup markup = tab.getMarkup() != null ? tab.getMarkup() : Markup.NULL;
 
-          Markup markup = activeIndex == index ? Markup.SELECTED : Markup.NULL;
+          if (activeIndex == index) {
+            markup = markup.add(Markup.SELECTED);
+          }
           final FacesMessage.Severity maxSeverity
               = ComponentUtils.getMaximumSeverityOfChildrenMessages(facesContext, tab);
           if (maxSeverity != null) {
@@ -241,7 +243,6 @@ public class TabGroupRenderer extends RendererBase implements ComponentSystemEve
           writer.writeClassAttribute(
               TobagoClass.TAB,
               TobagoClass.TAB.createMarkup(markup),
-              TobagoClass.TAB.createDefaultMarkups(tab),
               BootstrapClass.NAV_ITEM,
               tab.getCustomClass());
           writer.writeAttribute(HtmlAttributes.ROLE, HtmlRoleValues.PRESENTATION.toString(), false);
@@ -261,10 +262,10 @@ public class TabGroupRenderer extends RendererBase implements ComponentSystemEve
           if (!tab.isDisabled()) {
             writer.writeAttribute(DataAttributes.TOGGLE, "tab", false);
           }
-          if (activeIndex == index) {
-            writer.writeClassAttribute(BootstrapClass.NAV_LINK, BootstrapClass.ACTIVE);
-          } else if (tab.isDisabled()) {
+          if (tab.isDisabled()) {
             writer.writeClassAttribute(BootstrapClass.NAV_LINK, BootstrapClass.DISABLED);
+          } else if (activeIndex == index) {
+            writer.writeClassAttribute(BootstrapClass.NAV_LINK, BootstrapClass.ACTIVE);
           } else {
             writer.writeClassAttribute(BootstrapClass.NAV_LINK);
           }

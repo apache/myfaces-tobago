@@ -57,7 +57,6 @@ public class ObjectRenderer extends RendererBase {
     writer.writeClassAttribute(
         TobagoClass.OBJECT,
         TobagoClass.OBJECT.createMarkup(markup),
-        TobagoClass.OBJECT.createDefaultMarkups(object),
         object.getCustomClass());
 
     String noframes = TobagoResourceBundle.getString(facesContext, "browser.noframe.message.prefix");

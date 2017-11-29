@@ -57,7 +57,6 @@ public class PopupRenderer extends PanelRendererBase {
     writer.writeClassAttribute(
         TobagoClass.POPUP,
         TobagoClass.POPUP.createMarkup(markup),
-        TobagoClass.POPUP.createDefaultMarkups(popup),
         BootstrapClass.MODAL,
         BootstrapClass.FADE,
         popup.getCustomClass());

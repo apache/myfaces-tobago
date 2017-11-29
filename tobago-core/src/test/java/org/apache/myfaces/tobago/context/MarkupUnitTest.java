@@ -42,6 +42,8 @@ public class MarkupUnitTest {
 
     Assert.assertArrayEquals(AB, toArray(Markup.valueOf("a, b").iterator()));
 
+    Assert.assertArrayEquals(AB, toArray(Markup.valueOf("a b").iterator()));
+
     Assert.assertArrayEquals(AB, toArray(Markup.valueOf(", \ta , ,\n b ,").iterator()));
   }
 

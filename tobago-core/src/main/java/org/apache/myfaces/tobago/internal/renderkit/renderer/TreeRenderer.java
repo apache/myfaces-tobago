@@ -92,7 +92,6 @@ public class TreeRenderer extends RendererBase {
     writer.writeClassAttribute(
         TobagoClass.TREE,
         TobagoClass.TREE.createMarkup(markup),
-        TobagoClass.TREE.createDefaultMarkups(tree),
         tree.getCustomClass());
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, tree);
     writer.writeAttribute(DataAttributes.SCROLL_PANEL, Boolean.TRUE.toString(), false);

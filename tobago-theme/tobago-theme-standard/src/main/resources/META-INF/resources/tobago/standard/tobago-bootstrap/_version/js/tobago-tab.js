@@ -21,73 +21,39 @@ Tobago.TabGroup = {};
  * Initializes the tab-groups.
  * @param elements  a jQuery object to initialize (ajax) or null for initializing the whole document (full load).
  */
-Tobago.TabGroup.init = function(elements) {
+Tobago.TabGroup.init = function (elements) {
 
-  var tabGroups = Tobago.Utils.selectWithJQuery(elements, ".tobago-tabGroup");
+  var $tabGroups = Tobago.Utils.selectWithJQuery(elements, ".tobago-tabGroup");
+  var markupString = "selected";
+  var markupCssClass = "tobago-tab-markup-selected";
 
   // setting the active index
-  tabGroups.each(function () {
-    jQuery(this).find(".tobago-tabGroup-header").first().children(".tobago-tab").not(".tobago-tab-markup-disabled")
-        .click(function () {
-      // Update the hidden field for the active index.
-      var tab = jQuery(this);
-      var tabGroup = tab.parents(".tobago-tabGroup:first");
-      var hidden = tabGroup.children("input");
-      var activeIndex = tab.attr("tabgroupindex");
-      hidden.val(activeIndex);
-    })
-  });
+  $tabGroups.each(function () {
+    var $tabGroup = jQuery(this);
+    var $hiddenInput = $tabGroup.find("> input[type=hidden]");
 
-  // initialize previous button
-  tabGroups.find("[data-tobago-tabgroup-toolbar-prev]").click(function() {
-    var tabGroup = jQuery(this).parents(".tobago-tabGroup:first");
-    var selected = tabGroup.find(".tobago-tab-markup-selected");
-    // the nearest of the previous siblings, which are not disabled
-    selected.prevAll(":not(.tobago-tab-markup-disabled):first").click();
-  });
+    $tabGroup.find(".tobago-tabGroup-header:first .tobago-tab .nav-link:not(.disabled)").click(function () {
+      var $navLink = jQuery(this);
+      var $tab = $navLink.parent(".tobago-tab");
 
-  // initialize next button
-  tabGroups.find("[data-tobago-tabgroup-toolbar-next]").click(function() {
-    var tabGroup = jQuery(this).parents(".tobago-tabGroup:first");
-    var selected = tabGroup.find(".tobago-tab-markup-selected");
-    // the nearest of the next siblings, which are not disabled
-    selected.nextAll(":not(.tobago-tab-markup-disabled):first").click();
-  });
+      $hiddenInput.val($tab.attr("tabgroupindex"));
 
-  // init scroll position
-  var header = tabGroups.find(".tobago-tabGroup-header");
-  header.each(function() {
-    Tobago.TabGroup.ensureScrollPosition(jQuery(this));
-  });
+      //remove data-markup, markup-css-class and .active
+      $tabGroup.find(".tobago-tab .nav-link.active").each(function () {
+        var $navLink = jQuery(this);
+        var $tab = $navLink.parent(".tobago-tab");
 
-    // tool tips
-  tabGroups.each(function() {
-    var tabGroup = jQuery(this);
-    tabGroup.find(".tobago-tab").each(function() {
-      var tab = jQuery(this);
-      var tabContent = tabGroup.find(".tobago-tab-content[tabgroupindex=" + tab.attr("tabgroupindex") + "]");
-      tabContent.attr("title", tab.attr("title"));
+        Tobago.Utils.removeDataMarkup($tab, markupString);
+        $tab.removeClass(markupCssClass);
+        $navLink.removeClass("active");
+      });
+
+      //add data-markup, markup-css-class and .active
+      Tobago.Utils.addDataMarkup($tab, markupString);
+      $tab.addClass(markupCssClass);
+      $navLink.addClass("active");
     });
   });
-
-
-  // XXX hack for webkit to avoid scrollbars in box
-//  jQuery('.tobago-tabGroup').hide();
-//  jQuery('.tobago-tabGroup').show();
-};
-
-Tobago.TabGroup.ensureScrollPosition = function (header) {
-  var tab = header.find(".tobago-tab-markup-selected");
-  if (tab.length > 0) {
-    var tabRight = tab.position().left + tab.outerWidth() - header.outerWidth();
-    if (tabRight > 0) {
-      header.scrollLeft(header.scrollLeft() + tabRight + 1); // +1 to avoid rounding problems
-    }
-    var tabLeft = tab.position().left;
-    if (tabLeft < 0) {
-      header.scrollLeft(header.scrollLeft() + tabLeft);
-    }
-  }
 };
 
 Tobago.registerListener(Tobago.TabGroup.init, Tobago.Phase.DOCUMENT_READY);

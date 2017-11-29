@@ -53,7 +53,6 @@ public class SectionRenderer extends PanelRendererBase {
     writer.writeClassAttribute(
         TobagoClass.SECTION,
         TobagoClass.SECTION.createMarkup(markup),
-        TobagoClass.SECTION.createDefaultMarkups(section),
         collapsed ? TobagoClass.COLLAPSED : null,
         section.getCustomClass());
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, section);

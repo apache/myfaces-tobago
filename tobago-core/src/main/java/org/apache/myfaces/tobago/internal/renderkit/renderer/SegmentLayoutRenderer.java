@@ -66,7 +66,6 @@ public class SegmentLayoutRenderer extends RendererBase {
     writer.writeClassAttribute(
         TobagoClass.SEGMENT_LAYOUT,
         TobagoClass.SEGMENT_LAYOUT.createMarkup(markup),
-        TobagoClass.SEGMENT_LAYOUT.createDefaultMarkups(layout),
         BootstrapClass.ROW);
 //    writer.writeClassAttribute(Classes.create(layout), BootstrapClass.FORM_GROUP);
   }
