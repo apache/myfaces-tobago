@@ -24,6 +24,7 @@ import org.slf4j.LoggerFactory;
 
 import javax.faces.event.AjaxBehaviorEvent;
 import javax.swing.tree.DefaultMutableTreeNode;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -31,7 +32,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class SolarObject {
+public class SolarObject implements Serializable {
 
   private static final Logger LOG = LoggerFactory.getLogger(SolarObject.class);
 
