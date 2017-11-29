@@ -36,13 +36,13 @@ public class SelectManyCheckboxController implements Serializable {
     return animals;
   }
 
-  public void setAnimals(List<String> animals) {
+  public void setAnimals(final List<String> animals) {
     this.animals = animals;
   }
 
   public String getAnimal() {
     String retValue = "";
-    for (String s : animals) {
+    for (final String s : animals) {
       retValue = retValue.concat(s + " ");
     }
     return retValue;
@@ -52,13 +52,13 @@ public class SelectManyCheckboxController implements Serializable {
     return numbers;
   }
 
-  public void setNumbers(List<String> numbers) {
+  public void setNumbers(final List<String> numbers) {
     this.numbers = numbers;
   }
 
   public int getResult() {
     int result = 0;
-    for (String number : numbers) {
+    for (final String number : numbers) {
       result += Integer.valueOf(number);
     }
     return result;

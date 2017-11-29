@@ -38,7 +38,7 @@ import java.io.IOException;
 public class FooterRenderer extends RendererBase {
 
   @Override
-  public void encodeBegin(FacesContext facesContext, UIComponent component) throws IOException {
+  public void encodeBegin(final FacesContext facesContext, final UIComponent component) throws IOException {
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
     final UIFooter footer = (UIFooter) component;
     final Markup markup = footer.getMarkup();
@@ -56,7 +56,7 @@ public class FooterRenderer extends RendererBase {
   }
 
   @Override
-  public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
+  public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
     writer.endElement(HtmlElements.FOOTER);
   }

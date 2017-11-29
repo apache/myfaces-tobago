@@ -35,24 +35,24 @@ public class ConstantMethodExpression extends MethodExpression implements StateH
   public ConstantMethodExpression() {
   }
 
-  public ConstantMethodExpression(String outcome) {
+  public ConstantMethodExpression(final String outcome) {
     this.outcome = outcome;
   }
 
   @Override
-  public MethodInfo getMethodInfo(ELContext context)
+  public MethodInfo getMethodInfo(final ELContext context)
       throws NullPointerException, ELException {
     return null;
   }
 
   @Override
-  public Object invoke(ELContext context, Object[] params)
+  public Object invoke(final ELContext context, final Object[] params)
       throws NullPointerException, ELException {
     return outcome;
   }
 
   @Override
-  public boolean equals(Object o) {
+  public boolean equals(final Object o) {
     if (this == o) {
       return true;
     }
@@ -60,7 +60,7 @@ public class ConstantMethodExpression extends MethodExpression implements StateH
       return false;
     }
 
-    ConstantMethodExpression that = (ConstantMethodExpression) o;
+    final ConstantMethodExpression that = (ConstantMethodExpression) o;
 
     return !(outcome != null ? !outcome.equals(that.outcome) : that.outcome != null);
 
@@ -82,12 +82,12 @@ public class ConstantMethodExpression extends MethodExpression implements StateH
   }
 
   @Override
-  public Object saveState(FacesContext context) {
+  public Object saveState(final FacesContext context) {
     return outcome;
   }
 
   @Override
-  public void restoreState(FacesContext context, Object state) {
+  public void restoreState(final FacesContext context, final Object state) {
     this.outcome = (String) state;
   }
 

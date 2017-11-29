@@ -66,12 +66,12 @@ public class CollapsibleActionListener implements ActionListener, StateHolder {
   }
 
   @Override
-  public Object saveState(FacesContext context) {
+  public Object saveState(final FacesContext context) {
     return forId;
   }
 
   @Override
-  public void restoreState(FacesContext context, Object state) {
+  public void restoreState(final FacesContext context, final Object state) {
     this.forId = (String) state;
   }
 
@@ -81,7 +81,7 @@ public class CollapsibleActionListener implements ActionListener, StateHolder {
   }
 
   @Override
-  public void setTransient(boolean transientFlag) {
+  public void setTransient(final boolean transientFlag) {
     this.transientFlag = transientFlag;
   }
 }

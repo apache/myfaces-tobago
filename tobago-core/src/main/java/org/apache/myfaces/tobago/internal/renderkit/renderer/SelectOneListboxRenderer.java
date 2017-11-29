@@ -82,13 +82,13 @@ public class SelectOneListboxRenderer extends SelectOneRendererBase {
   }
 
   @Override
-  protected void encodeEndField(FacesContext facesContext, UIComponent component) throws IOException {
+  protected void encodeEndField(final FacesContext facesContext, final UIComponent component) throws IOException {
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
     writer.endElement(HtmlElements.SELECT);
   }
 
   @Override
-  protected String getFieldId(FacesContext facesContext, UIComponent component) {
+  protected String getFieldId(final FacesContext facesContext, final UIComponent component) {
     final UISelectOneListbox select = (UISelectOneListbox) component;
     return select.getFieldId(facesContext);
   }

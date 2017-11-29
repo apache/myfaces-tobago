@@ -57,7 +57,7 @@ public class NavigationNode extends DefaultMutableTreeNode implements Comparable
     String t;
     try {
       t = DemoBundle.getString(FacesContext.getCurrentInstance(), key);
-    } catch (Exception e) {
+    } catch (final Exception e) {
       LOG.error("Not found key '{}' in bundle", key);
       t = name;
     }

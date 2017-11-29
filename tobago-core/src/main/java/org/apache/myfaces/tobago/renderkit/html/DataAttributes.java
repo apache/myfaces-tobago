@@ -221,7 +221,7 @@ public enum DataAttributes implements MarkupLanguageAttributes {
 
   private final String value;
 
-  DataAttributes(String value) {
+  DataAttributes(final String value) {
     this.value = value;
   }
 

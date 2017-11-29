@@ -24,7 +24,7 @@ public class Collapse {
   private Action action;
   private String forId;
 
-  public Collapse(Action action, String forId) {
+  public Collapse(final Action action, final String forId) {
     this.action = action;
     this.forId = forId;
   }

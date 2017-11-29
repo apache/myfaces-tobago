@@ -51,7 +51,7 @@ public abstract class AbstractUICommand extends AbstractUICommandBase
   public boolean isParentOfCommands() {
     if (parentOfCommands == null) {
       parentOfCommands = false;
-      for (UIComponent child : getChildren()) {
+      for (final UIComponent child : getChildren()) {
         if (child.isRendered()
             && !(child instanceof UIEvent)
             && (child instanceof UICommand || child instanceof UIInput)) {

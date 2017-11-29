@@ -35,7 +35,7 @@ public class SplitLayoutController implements Serializable {
     return horizontalLayout;
   }
 
-  public void setHorizontalLayout(String horizontalLayout) {
+  public void setHorizontalLayout(final String horizontalLayout) {
     this.horizontalLayout = horizontalLayout;
   }
 
@@ -43,7 +43,7 @@ public class SplitLayoutController implements Serializable {
     return verticalLayout;
   }
 
-  public void setVerticalLayout(String verticalLayout) {
+  public void setVerticalLayout(final String verticalLayout) {
     this.verticalLayout = verticalLayout;
   }
 

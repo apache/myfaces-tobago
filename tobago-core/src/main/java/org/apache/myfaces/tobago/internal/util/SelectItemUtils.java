@@ -77,7 +77,7 @@ public class SelectItemUtils {
     } else {
       final Iterable<SelectItem> iterator = getItemIterator(facesContext, selector);
       final List<SelectItem> result = new ArrayList<>();
-      for (SelectItem selectItem : iterator) {
+      for (final SelectItem selectItem : iterator) {
         result.add(selectItem);
       }
       return result;
@@ -145,14 +145,14 @@ public class SelectItemUtils {
           String image = null;
           Markup markup = null;
           if (uiSelectItem instanceof org.apache.myfaces.tobago.component.UISelectItem) {
-            org.apache.myfaces.tobago.component.UISelectItem tobagoSelectItem
+            final org.apache.myfaces.tobago.component.UISelectItem tobagoSelectItem
                 = (org.apache.myfaces.tobago.component.UISelectItem) uiSelectItem;
             image = tobagoSelectItem.getItemImage();
             markup = tobagoSelectItem.getMarkup();
           }
           item = new org.apache.myfaces.tobago.model.SelectItem(itemValue, label, description, disabled, image, markup);
         } else if (!(item instanceof SelectItem)) {
-          ValueExpression expression = uiSelectItem.getValueExpression("value");
+          final ValueExpression expression = uiSelectItem.getValueExpression("value");
           throw new IllegalArgumentException("ValueExpression '"
               + (expression == null ? null : expression.getExpressionString()) + "' of UISelectItem : "
               + child + " does not reference an Object of type SelectItem");
@@ -183,7 +183,7 @@ public class SelectItemUtils {
         } else if (value instanceof Map) {
           final Map<Object, Object> map = (Map<Object, Object>) value;
           final Collection<SelectItem> items = new ArrayList<>(map.size());
-          for (Map.Entry<Object, Object> entry : map.entrySet()) {
+          for (final Map.Entry<Object, Object> entry : map.entrySet()) {
             items.add(new org.apache.myfaces.tobago.model.SelectItem(entry.getValue(), entry.getKey().toString()));
           }
           nestedItems = items.iterator();

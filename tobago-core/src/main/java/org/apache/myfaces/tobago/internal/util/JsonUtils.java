@@ -50,7 +50,7 @@ public class JsonUtils {
     builder.append(",");
   }
 
-  public static void encode(StringBuilder builder, String[] value) {
+  public static void encode(final StringBuilder builder, final String[] value) {
     builder.append("[");
     boolean colon = false;
     for (final String item : value) {
@@ -65,7 +65,7 @@ public class JsonUtils {
     builder.append("]");
   }
 
-  public static void encode(StringBuilder builder, List<Integer> value) {
+  public static void encode(final StringBuilder builder, final List<Integer> value) {
     builder.append("[");
     boolean colon = false;
     for (final Integer item : value) {
@@ -282,7 +282,7 @@ public class JsonUtils {
         final String token = tokenizer.nextToken().trim();
         try {
           result.add(Integer.parseInt(token));
-        } catch (NumberFormatException e) {
+        } catch (final NumberFormatException e) {
           LOG.warn("Can't parse JSON array: not an integer token: '{}'", token);
           // ignoring so far
         }
@@ -295,9 +295,9 @@ public class JsonUtils {
     if (markups == null || markups.isEmpty()) {
       return null;
     }
-    StringBuilder builder = new StringBuilder(20);
+    final StringBuilder builder = new StringBuilder(20);
     builder.append('[');
-    for (String markup : markups) {
+    for (final String markup : markups) {
       builder.append('"');
       builder.append(markup);
       builder.append('"');

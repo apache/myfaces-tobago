@@ -61,7 +61,7 @@ public class SplitLayoutRenderer extends RendererBase {
   }
 
   @Override
-  public void encodeBegin(FacesContext facesContext, UIComponent component) throws IOException {
+  public void encodeBegin(final FacesContext facesContext, final UIComponent component) throws IOException {
 
     final AbstractUISplitLayout splitLayout = (AbstractUISplitLayout) component;
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
@@ -75,7 +75,7 @@ public class SplitLayoutRenderer extends RendererBase {
   }
 
   @Override
-  public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
+  public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
     writer.endElement(HtmlElements.DIV);
   }

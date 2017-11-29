@@ -37,7 +37,7 @@ public class RendererTypesUnitTest extends EnumUnitTest {
   }
 
   @Override
-  protected String constantCaseToEnum(String constant) {
+  protected String constantCaseToEnum(final String constant) {
     return StringUtils.constantToUpperCamelCase(constant);
   }
 }

@@ -40,14 +40,14 @@ public class StyleRenderUtils {
   /**
    * PRELIMINARY
    */
-  public static void writeIdSelector(TobagoResponseWriter writer, String id) throws IOException {
+  public static void writeIdSelector(final TobagoResponseWriter writer, final String id) throws IOException {
 
     writer.writeText("#");
 
     final char[] chars = id.toCharArray();
     int last = 0;
     for (int i = 0; i < chars.length; i++) {
-      char c = chars[i];
+      final char c = chars[i];
       if (c == ':') {
         writer.writeText(chars, last, i - last);
         writer.writeText("\\:");
@@ -73,7 +73,7 @@ public class StyleRenderUtils {
   /**
    * PRELIMINARY
    */
-  public static String encodeIdSelector(String clientId) {
+  public static String encodeIdSelector(final String clientId) {
     return "#" + clientId.replaceAll(":", "\\\\:");
   }
 

@@ -34,7 +34,7 @@ import java.io.IOException;
 public class HiddenRenderer extends DecodingInputRendererBase {
 
   @Override
-  public void encodeBegin(FacesContext facesContext, UIComponent component) throws IOException {
+  public void encodeBegin(final FacesContext facesContext, final UIComponent component) throws IOException {
 
     final AbstractUIHidden hidden = (AbstractUIHidden) component;
     final String clientId = hidden.getClientId(facesContext);
@@ -57,7 +57,7 @@ public class HiddenRenderer extends DecodingInputRendererBase {
   }
 
   @Override
-  public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
+  public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
     writer.endElement(HtmlElements.INPUT);
   }

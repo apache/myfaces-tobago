@@ -36,7 +36,7 @@ public class MessageLayoutController implements Serializable {
     return component;
   }
 
-  public void setComponent(UIComponent component) {
+  public void setComponent(final UIComponent component) {
     this.component = component;
   }
 

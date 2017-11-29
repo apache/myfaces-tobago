@@ -59,7 +59,7 @@ public class ComponentUtilsUnitTest extends AbstractTobagoTestBase {
   public void testGetMaximumSeverity() {
     final FacesContext facesContext = FacesContext.getCurrentInstance();
 
-    UIIn input = new UIIn();
+    final UIIn input = new UIIn();
     final String inputId = "InputID";
     input.setId(inputId);
 
@@ -81,7 +81,7 @@ public class ComponentUtilsUnitTest extends AbstractTobagoTestBase {
     Assert.assertEquals(FacesMessage.SEVERITY_FATAL, ComponentUtils.getMaximumSeverity(input));
 
 
-    UIOut output = new UIOut();
+    final UIOut output = new UIOut();
     final String outputId = "OutputID";
     output.setId(outputId);
 

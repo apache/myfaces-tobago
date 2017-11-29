@@ -40,7 +40,7 @@ public class MarginTokens {
     return margins.get(index);
   }
 
-  public void addMargin(Margin token) {
+  public void addMargin(final Margin token) {
     margins.add(token);
   }
 
@@ -63,7 +63,7 @@ public class MarginTokens {
   }
 
   public static Margin parseToken(final String token) {
-    for (Margin margin : Margin.values()) {
+    for (final Margin margin : Margin.values()) {
       if (margin.name().equals(token)) {
         return margin;
       }

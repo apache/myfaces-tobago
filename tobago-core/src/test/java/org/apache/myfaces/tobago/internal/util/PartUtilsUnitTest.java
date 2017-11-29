@@ -52,7 +52,7 @@ public class PartUtilsUnitTest {
 
     private String contentDisposition;
 
-    PartMock(String contentDisposition) {
+    PartMock(final String contentDisposition) {
       this.contentDisposition = contentDisposition;
     }
 
@@ -67,7 +67,7 @@ public class PartUtilsUnitTest {
     }
 
     @Override
-    public String getHeader(String headerName) {
+    public String getHeader(final String headerName) {
       if (headerName.equals("Content-Disposition")) {
         return contentDisposition;
       } else {
@@ -81,7 +81,7 @@ public class PartUtilsUnitTest {
     }
 
     @Override
-    public Collection<String> getHeaders(String headerName) {
+    public Collection<String> getHeaders(final String headerName) {
       return null;
     }
 
@@ -101,7 +101,7 @@ public class PartUtilsUnitTest {
     }
 
     @Override
-    public void write(String fileName) throws IOException {
+    public void write(final String fileName) throws IOException {
 
     }
   }

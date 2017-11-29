@@ -137,7 +137,7 @@ public class NavigationState implements Serializable {
     return viewSource;
   }
 
-  public void setViewSource(boolean viewSource) {
+  public void setViewSource(final boolean viewSource) {
     this.viewSource = viewSource;
   }
 }

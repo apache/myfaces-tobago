@@ -169,7 +169,7 @@ public class TobagoConfigFragment {
     return sanitizerClass;
   }
 
-  public void setSanitizerClass(String sanitizerClass) {
+  public void setSanitizerClass(final String sanitizerClass) {
     this.sanitizerClass = sanitizerClass;
   }
 
@@ -177,7 +177,7 @@ public class TobagoConfigFragment {
     return sanitizerProperties;
   }
 
-  public void setSanitizerProperties(Properties sanitizerProperties) {
+  public void setSanitizerProperties(final Properties sanitizerProperties) {
     this.sanitizerProperties = sanitizerProperties;
   }
 
@@ -185,11 +185,11 @@ public class TobagoConfigFragment {
     return decodeLineFeed;
   }
 
-  public void setDecodeLineFeed(Boolean decodeLineFeed) {
+  public void setDecodeLineFeed(final Boolean decodeLineFeed) {
     this.decodeLineFeed = decodeLineFeed;
   }
 
-  public void addMimeType(String extension, String type) {
+  public void addMimeType(final String extension, final String type) {
     this.mimeTypes.put(extension, type);
   }
 

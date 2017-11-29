@@ -26,7 +26,7 @@ public class AjaxExceptionHandlerFactory extends ExceptionHandlerFactory {
 
   private ExceptionHandlerFactory parent;
 
-  public AjaxExceptionHandlerFactory(ExceptionHandlerFactory parent) {
+  public AjaxExceptionHandlerFactory(final ExceptionHandlerFactory parent) {
     this.parent = parent;
   }
 

@@ -76,7 +76,7 @@ public class FishPond implements Serializable {
     return selectedFishId;
   }
 
-  public void setSelectedFishId(Integer selectedFishId) {
+  public void setSelectedFishId(final Integer selectedFishId) {
     this.selectedFishId = selectedFishId;
     LOG.info("setSelectedFishId via setter: '" + selectedFishId + "'");
   }

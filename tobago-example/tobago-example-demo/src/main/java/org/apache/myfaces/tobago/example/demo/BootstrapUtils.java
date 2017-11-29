@@ -7,7 +7,7 @@ public class BootstrapUtils {
   /**
    * This method ensures, the used Bootstrap class is really existing.
    */
-  public static String valueOf(String name) {
+  public static String valueOf(final String name) {
     return BootstrapClass.valueOf(name).getName();
   }
 }

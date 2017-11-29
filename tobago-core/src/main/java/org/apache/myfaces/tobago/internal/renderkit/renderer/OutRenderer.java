@@ -109,7 +109,7 @@ public class OutRenderer extends MessageLayoutRendererBase {
   }
 
   @Override
-  protected String getFieldId(FacesContext facesContext, UIComponent component) {
+  protected String getFieldId(final FacesContext facesContext, final UIComponent component) {
     return component.getClientId(facesContext);
   }
 }

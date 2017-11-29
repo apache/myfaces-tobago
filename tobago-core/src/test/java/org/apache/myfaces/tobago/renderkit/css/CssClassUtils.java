@@ -34,14 +34,14 @@ class CssClassUtils {
    */
   static List<CssItem> compareCss(final String cssFileName, final CssItem[] cssItems) throws FileNotFoundException {
 
-    List<CssItem> missing = new ArrayList<>();
+    final List<CssItem> missing = new ArrayList<>();
 
-    File cssFile = new File(cssFileName);
+    final File cssFile = new File(cssFileName);
     Assert.assertTrue(cssFile.exists());
 
-    String fileContent = new Scanner(cssFile).useDelimiter("\\Z").next();
+    final String fileContent = new Scanner(cssFile).useDelimiter("\\Z").next();
 
-    for (CssItem cssItem : cssItems) {
+    for (final CssItem cssItem : cssItems) {
       if (!containsClassName(fileContent, cssItem.getName())) {
         missing.add(cssItem);
       }

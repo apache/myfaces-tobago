@@ -73,14 +73,14 @@ public class QUnitTests {
     WebArchive webArchive;
     try {
       webArchive = createWebArchive(new File("tobago-example/tobago-example-demo/pom.xml"));
-    } catch (Exception e) {
+    } catch (final Exception e) {
       webArchive = createWebArchive(new File("pom.xml")); // Jenkins
     }
     return disableCSP(webArchive);
   }
 
-  private static WebArchive createWebArchive(File pom) {
-    WebArchive webArchive = ShrinkWrap.create(MavenImporter.class).
+  private static WebArchive createWebArchive(final File pom) {
+    final WebArchive webArchive = ShrinkWrap.create(MavenImporter.class).
         loadPomFromFile(pom, "jsf-provided", "!myfaces-2.0").importBuildOutput()
         .as(WebArchive.class);
     // XXX there should be a proper profile in POM for that
@@ -88,31 +88,31 @@ public class QUnitTests {
     return webArchive;
   }
 
-  private static WebArchive disableCSP(WebArchive webArchive) {
+  private static WebArchive disableCSP(final WebArchive webArchive) {
     try {
       final InputStream inputStream = webArchive.get("WEB-INF/tobago-config.xml").getAsset().openStream();
 
-      StringWriter stringWriter = new StringWriter();
+      final StringWriter stringWriter = new StringWriter();
       IOUtils.copy(inputStream, stringWriter, Charset.defaultCharset());
-      String modifiedTobagoConfig = stringWriter.toString()
+      final String modifiedTobagoConfig = stringWriter.toString()
           .replace("<content-security-policy mode=\"on\">", "<content-security-policy mode=\"off\">");
 
-      File tobagoConfigXml = new File("target/tobago-config.xml");
+      final File tobagoConfigXml = new File("target/tobago-config.xml");
       FileUtils.writeStringToFile(tobagoConfigXml, modifiedTobagoConfig, Charset.defaultCharset());
       webArchive.addAsWebInfResource(tobagoConfigXml);
-    } catch (IOException e) {
+    } catch (final IOException e) {
       LOG.error("could not modify tobago-config.xml", e);
     }
     return webArchive;
   }
 
-  private void setupBrowser(String base, boolean accessTest) throws UnsupportedEncodingException {
+  private void setupBrowser(final String base, final boolean accessTest) throws UnsupportedEncodingException {
     LOG.info("setup browser for: " + base + ".xhtml | accessTest=" + accessTest);
     browser.get(contextPath + "test.xhtml?base=" + URLEncoder.encode(base, "UTF-8")
         + (accessTest ? "&accessTest=true" : ""));
   }
 
-  private void runStandardTest(String page) throws UnsupportedEncodingException, InterruptedException {
+  private void runStandardTest(final String page) throws UnsupportedEncodingException, InterruptedException {
     testedPages.add(page);
 
     if (!ignorePages().contains(page)) {
@@ -123,23 +123,23 @@ public class QUnitTests {
     }
   }
 
-  private void checkQUnitResults(String page) throws InterruptedException {
+  private void checkQUnitResults(final String page) throws InterruptedException {
     final boolean timeout = waitForTest(page);
-    List<WebElement> testCases = qunitTests.findElements(By.xpath("li"));
+    final List<WebElement> testCases = qunitTests.findElements(By.xpath("li"));
     Assert.assertTrue("There must be at least one test case.", testCases.size() > 0);
 
     final String textContent = qunitTests.getAttribute("textContent");
 
-    boolean testFailed = timeout || (textContent != null
+    final boolean testFailed = timeout || (textContent != null
         && textContent.contains(" msfailed@ ") || textContent.contains("Expected:") || textContent.contains("Result:"));
 
     int testCaseCount = 1;
-    StringBuilder stringBuilder = new StringBuilder();
+    final StringBuilder stringBuilder = new StringBuilder();
     stringBuilder.append(qunitTestresult.getAttribute("textContent"));
     stringBuilder.append("\n");
 
     if (testFailed) {
-      for (WebElement testCase : testCases) {
+      for (final WebElement testCase : testCases) {
         final String testName = getText(testCase, "test-name");
         final String testStatus = testCase.getAttribute("class").toUpperCase();
 
@@ -152,10 +152,10 @@ public class QUnitTests {
         stringBuilder.append(getText(testCase, "runtime"));
         stringBuilder.append(")\n");
 
-        WebElement assertList = testCase.findElement(By.className("qunit-assert-list"));
-        List<WebElement> asserts = assertList.findElements(By.tagName("li"));
+        final WebElement assertList = testCase.findElement(By.className("qunit-assert-list"));
+        final List<WebElement> asserts = assertList.findElements(By.tagName("li"));
         int assertCount = 1;
-        for (WebElement assertion : asserts) {
+        for (final WebElement assertion : asserts) {
           final String assertStatus = assertion.getAttribute("class");
 
           stringBuilder.append("- ");
@@ -206,12 +206,12 @@ public class QUnitTests {
     }
   }
 
-  private boolean waitForTest(String page) throws InterruptedException {
-    long endTime = System.currentTimeMillis() + 90000;
+  private boolean waitForTest(final String page) throws InterruptedException {
+    final long endTime = System.currentTimeMillis() + 90000;
     String lastStatus = null;
     while (System.currentTimeMillis() < endTime) {
       try {
-        String status = qunitTestresult.getAttribute("textContent");
+        final String status = qunitTestresult.getAttribute("textContent");
         if (status == null) {
           LOG.info(page + " status=null");
         } else if (!status.equals(lastStatus)) {
@@ -221,7 +221,7 @@ public class QUnitTests {
             return false;
           }
         }
-      } catch (Exception e) {
+      } catch (final Exception e) {
         Thread.sleep(200);
       }
     }
@@ -229,7 +229,7 @@ public class QUnitTests {
     return true;
   }
 
-  private String getText(WebElement webElement, String className) {
+  private String getText(final WebElement webElement, final String className) {
     final List<WebElement> elements = webElement.findElements(By.className(className));
     if (elements.size() > 0) {
       return elements.get(0).getAttribute("textContent");
@@ -241,17 +241,17 @@ public class QUnitTests {
   @AfterClass
   public static void checkMissingTests() {
     if (testedPages.size() > 1) {
-      List<String> pages = getXHTMLs();
+      final List<String> pages = getXHTMLs();
       int testablePagesCount = 0;
 
-      StringBuilder stringBuilder = new StringBuilder();
-      for (String page : pages) {
+      final StringBuilder stringBuilder = new StringBuilder();
+      for (final String page : pages) {
         if (new File(page.substring(0, page.length() - 6) + ".test.js").exists()) {
           testablePagesCount++;
 
-          String pathForBrowser = page.substring(page.indexOf("src/main/webapp/") + "src/main/webapp/".length());
+          final String pathForBrowser = page.substring(page.indexOf("src/main/webapp/") + "src/main/webapp/".length());
           if (!testedPages.contains(pathForBrowser)) {
-            String errorString = "missing testmethod for " + pathForBrowser;
+            final String errorString = "missing testmethod for " + pathForBrowser;
             LOG.warn(errorString);
             stringBuilder.append("\n");
             stringBuilder.append(errorString);
@@ -264,13 +264,13 @@ public class QUnitTests {
 
   @Test
   public void testAccessAllPages() throws UnsupportedEncodingException, InterruptedException {
-    List<String> pages = getXHTMLs();
+    final List<String> pages = getXHTMLs();
     List<WebElement> results;
 
     // Test if 'has no exception' test is correct.
     setupBrowser("error/exception", true);
     results = qunitTests.findElements(By.xpath("li"));
-    for (WebElement result : results) {
+    for (final WebElement result : results) {
       if ("has no exception".equals(result.findElement(By.className("test-name")).getText())) {
         Assert.assertEquals(result.getAttribute("class"), "fail");
       }
@@ -279,14 +279,14 @@ public class QUnitTests {
     // Test if 'has no 404' test is correct.
     setupBrowser("error/404", true);
     results = qunitTests.findElements(By.xpath("li"));
-    for (WebElement result : results) {
+    for (final WebElement result : results) {
       if ("has no 404".equals(result.findElement(By.className("test-name")).getText())) {
         Assert.assertEquals(result.getAttribute("class"), "fail");
       }
     }
 
-    for (String page : pages) {
-      String pathForBrowser = page.substring(page.indexOf("src/main/webapp/") + "src/main/webapp/".length(),
+    for (final String page : pages) {
+      final String pathForBrowser = page.substring(page.indexOf("src/main/webapp/") + "src/main/webapp/".length(),
           page.length() - 6);
 
       //TODO: reimplement/remove/cleanup attic tests - currently too much failed
@@ -305,9 +305,9 @@ public class QUnitTests {
     return getXHTMLs(rootDir);
   }
 
-  private static List<String> getXHTMLs(File dir) {
-    List<String> xhtmls = new ArrayList<>();
-    for (File file : dir.listFiles()) {
+  private static List<String> getXHTMLs(final File dir) {
+    final List<String> xhtmls = new ArrayList<>();
+    for (final File file : dir.listFiles()) {
       if (file.isDirectory()) {
         xhtmls.addAll(getXHTMLs(file));
       } else if (!file.getName().startsWith("x-") && file.getName().endsWith(".xhtml")) {
@@ -318,7 +318,7 @@ public class QUnitTests {
   }
 
   private List<String> ignorePages() {
-    List<String> ignore = new ArrayList<>();
+    final List<String> ignore = new ArrayList<>();
     // Miscalculation of width.
     ignore.add("content/20-component/010-input/50-input-group/group.xhtml");
     //PhantomJs miscalculate the height of the dropdown box
@@ -332,211 +332,211 @@ public class QUnitTests {
 
   @Test
   public void in() throws UnsupportedEncodingException, InterruptedException {
-    String page = "content/20-component/010-input/10-in/in.xhtml";
+    final String page = "content/20-component/010-input/10-in/in.xhtml";
     runStandardTest(page);
   }
 
   @Test
   public void suggest() throws UnsupportedEncodingException, InterruptedException {
-    String page = "content/20-component/010-input/20-suggest/suggest.xhtml";
+    final String page = "content/20-component/010-input/20-suggest/suggest.xhtml";
     runStandardTest(page);
   }
 
   @Test
   public void date() throws UnsupportedEncodingException, InterruptedException {
-    String page = "content/20-component/010-input/40-date/date.xhtml";
+    final String page = "content/20-component/010-input/40-date/date.xhtml";
     runStandardTest(page);
   }
 
   @Test
   public void group() throws UnsupportedEncodingException, InterruptedException {
-    String page = "content/20-component/010-input/50-input-group/group.xhtml";
+    final String page = "content/20-component/010-input/50-input-group/group.xhtml";
     runStandardTest(page);
   }
 
   @Test
   public void selectBooleanCheckbox() throws UnsupportedEncodingException, InterruptedException {
-    String page = "content/20-component/030-select/10-selectBooleanCheckbox/selectBooleanCheckbox.xhtml";
+    final String page = "content/20-component/030-select/10-selectBooleanCheckbox/selectBooleanCheckbox.xhtml";
     runStandardTest(page);
   }
 
   @Test
   public void selectOneChoice() throws UnsupportedEncodingException, InterruptedException {
-    String page = "content/20-component/030-select/20-selectOneChoice/selectOneChoice.xhtml";
+    final String page = "content/20-component/030-select/20-selectOneChoice/selectOneChoice.xhtml";
     runStandardTest(page);
   }
 
   @Test
   public void selectOneRadio() throws UnsupportedEncodingException, InterruptedException {
-    String page = "content/20-component/030-select/30-selectOneRadio/selectOneRadio.xhtml";
+    final String page = "content/20-component/030-select/30-selectOneRadio/selectOneRadio.xhtml";
     runStandardTest(page);
   }
 
   @Test
   public void selectOneListbox() throws UnsupportedEncodingException, InterruptedException {
-    String page = "content/20-component/030-select/40-selectOneListbox/selectOneListbox.xhtml";
+    final String page = "content/20-component/030-select/40-selectOneListbox/selectOneListbox.xhtml";
     runStandardTest(page);
   }
 
   @Test
   public void selectManyCheckbox() throws UnsupportedEncodingException, InterruptedException {
-    String page = "content/20-component/030-select/50-selectManyCheckbox/selectManyCheckbox.xhtml";
+    final String page = "content/20-component/030-select/50-selectManyCheckbox/selectManyCheckbox.xhtml";
     runStandardTest(page);
   }
 
   @Test
   public void buttons() throws UnsupportedEncodingException, InterruptedException {
-    String page = "content/20-component/040-command/20-buttons/buttons.xhtml";
+    final String page = "content/20-component/040-command/20-buttons/buttons.xhtml";
     runStandardTest(page);
   }
 
   @Test
   public void popup() throws UnsupportedEncodingException, InterruptedException {
-    String page = "content/20-component/060-popup/popup.xhtml";
+    final String page = "content/20-component/060-popup/popup.xhtml";
     runStandardTest(page);
   }
 
   @Test
   public void sheetSorting() throws UnsupportedEncodingException, InterruptedException {
-    String page = "content/20-component/080-sheet/10-sort/sheet-sorting.xhtml";
+    final String page = "content/20-component/080-sheet/10-sort/sheet-sorting.xhtml";
     runStandardTest(page);
   }
 
   @Test
   public void sheetEvent() throws UnsupportedEncodingException, InterruptedException {
-    String page = "content/20-component/080-sheet/30-event/sheet-event.xhtml";
+    final String page = "content/20-component/080-sheet/30-event/sheet-event.xhtml";
     runStandardTest(page);
   }
 
   @Test
   public void treeSelect() throws UnsupportedEncodingException, InterruptedException {
-    String page = "content/20-component/090-tree/01-select/tree-select.xhtml";
+    final String page = "content/20-component/090-tree/01-select/tree-select.xhtml";
     runStandardTest(page);
   }
 
   @Test
   public void contentValidation() throws UnsupportedEncodingException, InterruptedException {
-    String page = "content/30-concept/06-validation/00/content-validation.xhtml";
+    final String page = "content/30-concept/06-validation/00/content-validation.xhtml";
     runStandardTest(page);
   }
 
   @Test
   public void validationJsr303() throws UnsupportedEncodingException, InterruptedException {
-    String page = "content/30-concept/06-validation/01/validation-jsr303.xhtml";
+    final String page = "content/30-concept/06-validation/01/validation-jsr303.xhtml";
     runStandardTest(page);
   }
 
   @Test
   public void form() throws UnsupportedEncodingException, InterruptedException {
-    String page = "content/30-concept/08-form/form.xhtml";
+    final String page = "content/30-concept/08-form/form.xhtml";
     runStandardTest(page);
   }
 
   @Test
   public void formRequired() throws UnsupportedEncodingException, InterruptedException {
-    String page = "content/30-concept/08-form/10-required/form-required.xhtml";
+    final String page = "content/30-concept/08-form/10-required/form-required.xhtml";
     runStandardTest(page);
   }
 
   @Test
   public void formAjax() throws UnsupportedEncodingException, InterruptedException {
-    String page = "content/30-concept/08-form/20-ajax/form-ajax.xhtml";
+    final String page = "content/30-concept/08-form/20-ajax/form-ajax.xhtml";
     runStandardTest(page);
   }
 
   @Test
   public void forEach() throws UnsupportedEncodingException, InterruptedException {
-    String page = "content/30-concept/51-for-each/for-each.xhtml";
+    final String page = "content/30-concept/51-for-each/for-each.xhtml";
     runStandardTest(page);
   }
 
   @Test
   public void collapsibleBox() throws UnsupportedEncodingException, InterruptedException {
-    String page = "content/30-concept/53-collapsible/00-collapsible-box/collapsible-box.xhtml";
+    final String page = "content/30-concept/53-collapsible/00-collapsible-box/collapsible-box.xhtml";
     runStandardTest(page);
   }
 
   @Test
   public void collapsiblePopup() throws UnsupportedEncodingException, InterruptedException {
-    String page = "content/30-concept/53-collapsible/10-collapsible-popup/collapsible-popup.xhtml";
+    final String page = "content/30-concept/53-collapsible/10-collapsible-popup/collapsible-popup.xhtml";
     runStandardTest(page);
   }
 
   @Test
   public void collapsiblePanel() throws UnsupportedEncodingException, InterruptedException {
-    String page = "content/30-concept/53-collapsible/20-collapsible-panel/collapsible-panel.xhtml";
+    final String page = "content/30-concept/53-collapsible/20-collapsible-panel/collapsible-panel.xhtml";
     runStandardTest(page);
   }
 
   @Test
   public void collapsibleSection() throws UnsupportedEncodingException, InterruptedException {
-    String page = "content/30-concept/53-collapsible/30-collapsible-section/collapsible-section.xhtml";
+    final String page = "content/30-concept/53-collapsible/30-collapsible-section/collapsible-section.xhtml";
     runStandardTest(page);
   }
 
   @Test
   public void suggestMethod() throws UnsupportedEncodingException, InterruptedException {
-    String page = "content/35-deprecated/15-suggest-method/suggest-method.xhtml";
+    final String page = "content/35-deprecated/15-suggest-method/suggest-method.xhtml";
     runStandardTest(page);
   }
 
   @Test
   public void testDate() throws UnsupportedEncodingException, InterruptedException {
-    String page = "content/40-test/1040-date/date.xhtml";
+    final String page = "content/40-test/1040-date/date.xhtml";
     runStandardTest(page);
   }
 
   @Test
   public void testSheetTypes() throws UnsupportedEncodingException, InterruptedException {
-    String page = "content/40-test/3000-sheet/10-sheet-types/sheet-types.xhtml";
+    final String page = "content/40-test/3000-sheet/10-sheet-types/sheet-types.xhtml";
     runStandardTest(page);
   }
 
   @Test
   public void testButtonLink() throws UnsupportedEncodingException, InterruptedException {
-    String page = "content/40-test/4000-button+link/button+link.xhtml";
+    final String page = "content/40-test/4000-button+link/button+link.xhtml";
     runStandardTest(page);
   }
 
   @Test
   public void testAjaxDropdown() throws UnsupportedEncodingException, InterruptedException {
-    String page = "content/40-test/4000-button+link/4050-ajax-dropdown/ajax-dropdown.xhtml";
+    final String page = "content/40-test/4000-button+link/4050-ajax-dropdown/ajax-dropdown.xhtml";
     runStandardTest(page);
   }
 
   @Test
   public void testIdMarkup() throws UnsupportedEncodingException, InterruptedException {
-    String page = "content/40-test/4800-labelLayout/100-id-markup/id-markup.xhtml";
+    final String page = "content/40-test/4800-labelLayout/100-id-markup/id-markup.xhtml";
     runStandardTest(page);
   }
 
   @Test
   public void testLabelLayoutTop() throws UnsupportedEncodingException, InterruptedException {
-    String page = "content/40-test/4810-labelLayoutTop/labelLayoutTop.xhtml";
+    final String page = "content/40-test/4810-labelLayoutTop/labelLayoutTop.xhtml";
     runStandardTest(page);
   }
 
   @Test
   public void testEvent() throws UnsupportedEncodingException, InterruptedException {
-    String page = "content/40-test/6000-event/event.xhtml";
+    final String page = "content/40-test/6000-event/event.xhtml";
     runStandardTest(page);
   }
 
   @Test
   public void rendererBaseGetCurrentValue() throws UnsupportedEncodingException, InterruptedException {
-    String page = "content/40-test/50000-java/10-rendererBase-getCurrentValue/rendererBase-getCurrentValue.xhtml";
+    final String page = "content/40-test/50000-java/10-rendererBase-getCurrentValue/rendererBase-getCurrentValue.xhtml";
     runStandardTest(page);
   }
 
   @Test
   public void ajaxExecute() throws UnsupportedEncodingException, InterruptedException {
-    String page = "content/40-test/50000-java/20-ajax-execute/ajax-execute.xhtml";
+    final String page = "content/40-test/50000-java/20-ajax-execute/ajax-execute.xhtml";
     runStandardTest(page);
   }
 
   @Test
   public void ajaxSpecialCharacter() throws UnsupportedEncodingException, InterruptedException {
-    String page = "content/40-test/50000-java/30-ajax-special-character/ajax-special-character.xhtml";
+    final String page = "content/40-test/50000-java/30-ajax-special-character/ajax-special-character.xhtml";
     runStandardTest(page);
   }
 }

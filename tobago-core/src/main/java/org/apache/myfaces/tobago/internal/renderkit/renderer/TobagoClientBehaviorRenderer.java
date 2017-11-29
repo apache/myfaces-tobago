@@ -56,7 +56,7 @@ public class TobagoClientBehaviorRenderer extends javax.faces.render.ClientBehav
    * @return "dummy" string or null, if nothing to do.
    */
   @Override
-  public String getScript(ClientBehaviorContext behaviorContext, ClientBehavior behavior) {
+  public String getScript(final ClientBehaviorContext behaviorContext, final ClientBehavior behavior) {
 
     final FacesContext facesContext = behaviorContext.getFacesContext();
     final UIComponent uiComponent = behaviorContext.getComponent();
@@ -72,7 +72,7 @@ public class TobagoClientBehaviorRenderer extends javax.faces.render.ClientBehav
     String actionId = null;
     boolean omit = false;
     if (behavior instanceof AjaxBehavior) {
-      AjaxBehavior ajaxBehavior = (AjaxBehavior) behavior;
+      final AjaxBehavior ajaxBehavior = (AjaxBehavior) behavior;
       if (ajaxBehavior.isDisabled()){
         return null;
       }
@@ -88,7 +88,7 @@ public class TobagoClientBehaviorRenderer extends javax.faces.render.ClientBehav
         executeIds = clientId;
       }
       if (uiComponent instanceof AbstractUICommand) { // <f:ajax> inside of a command
-        AbstractUICommand command = (AbstractUICommand) uiComponent;
+        final AbstractUICommand command = (AbstractUICommand) uiComponent;
         transition = command.isTransition();
         target = command.getTarget();
         omit = command.isOmit() || StringUtils.isNotBlank(RenderUtils.generateUrl(facesContext, command));
@@ -97,7 +97,7 @@ public class TobagoClientBehaviorRenderer extends javax.faces.render.ClientBehav
           ComponentUtils.evaluateClientIds(facesContext, uiComponent, render.toArray(new String[render.size()]));
       actionId = clientId;
     } else if (behavior instanceof EventBehavior) { // <tc:event>
-      AbstractUIEvent event = findEvent(uiComponent, eventName);
+      final AbstractUIEvent event = findEvent(uiComponent, eventName);
       if (event != null) {
         if (!event.isRendered()) {
           return null;
@@ -133,9 +133,9 @@ public class TobagoClientBehaviorRenderer extends javax.faces.render.ClientBehav
   }
 
   private AbstractUIEvent findEvent(final UIComponent component, final ClientBehaviors eventName) {
-    for (UIComponent child : component.getChildren()) {
+    for (final UIComponent child : component.getChildren()) {
       if (child instanceof AbstractUIEvent) {
-        AbstractUIEvent event = (AbstractUIEvent) child;
+        final AbstractUIEvent event = (AbstractUIEvent) child;
         if (eventName == event.getEvent()) {
           return event;
         }
@@ -145,8 +145,8 @@ public class TobagoClientBehaviorRenderer extends javax.faces.render.ClientBehav
   }
 
   @Override
-  public void decode(FacesContext context, UIComponent component, ClientBehavior behavior) {
-    AjaxBehavior ajaxBehavior = (AjaxBehavior) behavior;
+  public void decode(final FacesContext context, final UIComponent component, final ClientBehavior behavior) {
+    final AjaxBehavior ajaxBehavior = (AjaxBehavior) behavior;
     if (ajaxBehavior.isDisabled() || !component.isRendered()) {
       return;
     }
@@ -154,15 +154,15 @@ public class TobagoClientBehaviorRenderer extends javax.faces.render.ClientBehav
     dispatchBehaviorEvent(component, ajaxBehavior);
   }
 
-  private void dispatchBehaviorEvent(UIComponent component, AjaxBehavior ajaxBehavior) {
+  private void dispatchBehaviorEvent(final UIComponent component, final AjaxBehavior ajaxBehavior) {
 
-    AjaxBehaviorEvent event = new AjaxBehaviorEvent(component, ajaxBehavior);
-    boolean isImmediate = isImmediate(ajaxBehavior, component);
+    final AjaxBehaviorEvent event = new AjaxBehaviorEvent(component, ajaxBehavior);
+    final boolean isImmediate = isImmediate(ajaxBehavior, component);
     event.setPhaseId(isImmediate ? PhaseId.APPLY_REQUEST_VALUES : PhaseId.INVOKE_APPLICATION);
     component.queueEvent(event);
   }
 
-  private boolean isImmediate(AjaxBehavior ajaxBehavior, UIComponent component) {
+  private boolean isImmediate(final AjaxBehavior ajaxBehavior, final UIComponent component) {
     if (ajaxBehavior.isImmediateSet()) {
       return ajaxBehavior.isImmediate();
     }
@@ -178,7 +178,7 @@ public class TobagoClientBehaviorRenderer extends javax.faces.render.ClientBehav
   /**
    * @deprecated TBD
    */
-  public static Collapse createCollapsible(FacesContext facesContext, UIComponent component) {
+  public static Collapse createCollapsible(final FacesContext facesContext, final UIComponent component) {
     //// TBD: is this nice? May be implemented with a JSF behaviour?
     //// BEGIN
 

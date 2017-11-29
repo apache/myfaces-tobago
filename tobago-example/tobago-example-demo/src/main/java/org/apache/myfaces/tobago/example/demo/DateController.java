@@ -41,10 +41,10 @@ public class DateController implements Serializable {
 
   public DateController() {
     once = new Date();
-    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+    final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
     try {
       submitDate = sdf.parse("2016-05-22");
-    } catch (ParseException e) {
+    } catch (final ParseException e) {
       LOG.error("", e);
     }
   }
@@ -53,7 +53,7 @@ public class DateController implements Serializable {
     return once;
   }
 
-  public void setOnce(Date once) {
+  public void setOnce(final Date once) {
     this.once = once;
   }
 
@@ -61,7 +61,7 @@ public class DateController implements Serializable {
     return onchange;
   }
 
-  public void setOnchange(Date onchange) {
+  public void setOnchange(final Date onchange) {
     this.onchange = onchange;
   }
 
@@ -73,7 +73,7 @@ public class DateController implements Serializable {
     return submitDate;
   }
 
-  public void setSubmitDate(Date submitDate) {
+  public void setSubmitDate(final Date submitDate) {
     this.submitDate = submitDate;
   }
 }

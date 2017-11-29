@@ -90,7 +90,7 @@ public class SolarObject {
     return name;
   }
 
-  public void update(AjaxBehaviorEvent event) {
+  public void update(final AjaxBehaviorEvent event) {
     LOG.info("AjaxBehaviorEvent called. New value: '{}' event: {}", name, event);
   }
 
@@ -237,8 +237,8 @@ public class SolarObject {
   }
 
   // TODO: optimize
-  public static SolarObject find(String name) {
-    for (SolarObject solarObject : DATA) {
+  public static SolarObject find(final String name) {
+    for (final SolarObject solarObject : DATA) {
       if (solarObject.getName().equals(name)) {
         return solarObject;
       }
@@ -343,18 +343,18 @@ public class SolarObject {
   };
 
   static {
-    List<Element> sun = Arrays.asList(
+    final List<Element> sun = Arrays.asList(
         new Element("Hydrogen", 0.74),
         new Element("Helium", 0.25)
     );
     SUN.setChemicalComposition(sun);
-    List<Element> earth = Arrays.asList(
+    final List<Element> earth = Arrays.asList(
         new Element("Silica", 0.60),
         new Element("Alimina", 0.15),
         new Element("Lime", 0.05)
     );
     EARTH.setChemicalComposition(earth);
-    List<Element> moon = Arrays.asList(
+    final List<Element> moon = Arrays.asList(
         new Element("Silica", 0.45),
         new Element("Alimina", 0.24),
         new Element("Lime", 0.16)

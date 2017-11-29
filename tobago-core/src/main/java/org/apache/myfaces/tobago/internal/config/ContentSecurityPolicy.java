@@ -51,7 +51,7 @@ public class ContentSecurityPolicy {
 
   public void merge(final ContentSecurityPolicy other) {
     checkLocked();
-    for (Map.Entry<String, String> entry : other.directiveMap.entrySet()) {
+    for (final Map.Entry<String, String> entry : other.directiveMap.entrySet()) {
       addDirective(entry.getKey(), entry.getValue());
     }
     mode = other.mode;

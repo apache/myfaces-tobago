@@ -237,7 +237,7 @@ public enum TobagoClass implements CssItem {
    * @deprecated since 4.0.0, use {@link BootstrapClass#valueOf(AlignItems)}
    */
   @Deprecated
-  public static CssItem valueOf(AlignItems alignItems) {
+  public static CssItem valueOf(final AlignItems alignItems) {
     return BootstrapClass.valueOf(alignItems);
   }
 
@@ -245,7 +245,7 @@ public enum TobagoClass implements CssItem {
    * @deprecated since 4.0.0, use {@link BootstrapClass#valueOf(JustifyContent)}
    */
   @Deprecated
-  public static CssItem valueOf(JustifyContent justifyContent) {
+  public static CssItem valueOf(final JustifyContent justifyContent) {
     return BootstrapClass.valueOf(justifyContent);
   }
 

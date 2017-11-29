@@ -75,11 +75,11 @@ public class WebXmlUtils {
       String locationDefault = null;
       String location500 = null;
 
-      for (Document document : webXmls) {
+      for (final Document document : webXmls) {
         final NodeList errorPages = document.getElementsByTagName("error-page");
 
         for (int i = 0; i < errorPages.getLength(); i++) {
-          Node errorPage = errorPages.item(i);
+          final Node errorPage = errorPages.item(i);
 
           String errorCode = null;
           String exceptionType = null;
@@ -87,7 +87,7 @@ public class WebXmlUtils {
 
           final NodeList children = errorPage.getChildNodes();
           for (int j = 0; j < children.getLength(); j++) {
-            Node child = children.item(j);
+            final Node child = children.item(j);
             final String name = child.getNodeName();
 
             if ("error-code".equals(name)) {
@@ -122,10 +122,10 @@ public class WebXmlUtils {
 
   private static List<Document> getWebXmls(final FacesContext facesContext)
       throws ParserConfigurationException, IOException, SAXException {
-    List<Document> webXmls = new ArrayList<>();
+    final List<Document> webXmls = new ArrayList<>();
 
-    DocumentBuilder documentBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
-    for (URL url : getWebXmlUrls(facesContext)) {
+    final DocumentBuilder documentBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
+    for (final URL url : getWebXmlUrls(facesContext)) {
       webXmls.add(getWebXml(documentBuilder, url));
     }
 
@@ -133,8 +133,8 @@ public class WebXmlUtils {
   }
 
   private static List<URL> getWebXmlUrls(final FacesContext facesContext) throws IOException {
-    List<URL> urls = new ArrayList<>();
-    ServletContext servletContext = (ServletContext) facesContext.getExternalContext().getContext();
+    final List<URL> urls = new ArrayList<>();
+    final ServletContext servletContext = (ServletContext) facesContext.getExternalContext().getContext();
     urls.add(servletContext.getResource("/WEB-INF/web.xml"));
 
     final Enumeration<URL> webFragments = Thread.currentThread().getContextClassLoader()
@@ -149,7 +149,7 @@ public class WebXmlUtils {
   private static Document getWebXml(final DocumentBuilder documentBuilder, final URL url)
       throws ParserConfigurationException, IOException, SAXException {
     if (url != null) {
-      URLConnection connection = url.openConnection();
+      final URLConnection connection = url.openConnection();
       connection.setUseCaches(false);
       InputStream input = null;
 

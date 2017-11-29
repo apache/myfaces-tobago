@@ -108,7 +108,7 @@ public class ResourceServlet extends HttpServlet {
       throws ServletException, IOException {
 
     final String requestURI = request.getRequestURI();
-    String resource = requestURI.substring(request.getContextPath().length() + 1);
+    final String resource = requestURI.substring(request.getContextPath().length() + 1);
     if (expires != null) {
       response.setDateHeader("Last-Modified", 0);
       response.setHeader("Cache-Control", "Public, max-age=" + expires);

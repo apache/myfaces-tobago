@@ -77,7 +77,7 @@ public class ManifestReader {
           format.setTimeZone(TimeZone.getTimeZone("UTC"));
           try {
             buildTime = format.parse(attributes.getValue("Build-Time"));
-          } catch (ParseException e) {
+          } catch (final ParseException e) {
             LOG.error("Can't parse '" + attributes.getValue("Build-Time") + "'", e);
           }
         }

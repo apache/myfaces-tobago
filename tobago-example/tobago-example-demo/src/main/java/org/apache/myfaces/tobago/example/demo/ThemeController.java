@@ -56,7 +56,7 @@ public class ThemeController implements Serializable {
     return theme;
   }
 
-  public void setTheme(Theme theme) {
+  public void setTheme(final Theme theme) {
     this.theme = theme;
   }
 
@@ -64,7 +64,7 @@ public class ThemeController implements Serializable {
     return themeItems;
   }
 
-  public void setThemeItems(SelectItem[] themeItems) {
+  public void setThemeItems(final SelectItem[] themeItems) {
     this.themeItems = themeItems;
   }
 

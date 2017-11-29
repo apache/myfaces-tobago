@@ -33,7 +33,7 @@ public class CollapsiblePanelController implements Serializable {
     return panelCollapsed;
   }
 
-  public void setPanelCollapsed(boolean panelCollapsed) {
+  public void setPanelCollapsed(final boolean panelCollapsed) {
     this.panelCollapsed = panelCollapsed;
   }
 

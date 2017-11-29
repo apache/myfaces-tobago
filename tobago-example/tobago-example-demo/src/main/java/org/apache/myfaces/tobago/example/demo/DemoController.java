@@ -108,7 +108,7 @@ public class DemoController implements Serializable {
     final Salutation[] salutations = Salutation.values();
     final SelectItem[] items = new SelectItem[salutations.length];
     for (int i = 0; i < items.length; i++) {
-      String label = DemoBundle.getString(FacesContext.getCurrentInstance(), salutations[i].getKey());
+      final String label = DemoBundle.getString(FacesContext.getCurrentInstance(), salutations[i].getKey());
       if (LOG.isTraceEnabled()) {
         LOG.trace("label = " + label + "");
       }
@@ -120,7 +120,7 @@ public class DemoController implements Serializable {
   private static SelectItem[] getSelectItems(final Selectable[] keys) {
     final SelectItem[] items = new SelectItem[keys.length];
     for (int i = 0; i < items.length; i++) {
-      String label = DemoBundle.getString(FacesContext.getCurrentInstance(), keys[i].name());
+      final String label = DemoBundle.getString(FacesContext.getCurrentInstance(), keys[i].name());
       if (LOG.isTraceEnabled()) {
         LOG.trace("label = " + label + "");
       }

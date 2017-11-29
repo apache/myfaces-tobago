@@ -45,7 +45,7 @@ public class CurrentValueController {
 
     try {
       this.date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("1969-07-24 16:50:35");
-    } catch (ParseException e) {
+    } catch (final ParseException e) {
       LOG.error("", e);
     }
 
@@ -66,7 +66,7 @@ public class CurrentValueController {
     return calendar.getTime();
   }
 
-  public Currency toCurrency(String string) {
+  public Currency toCurrency(final String string) {
     return Currency.getInstance(string);
   }
 

@@ -36,7 +36,7 @@ import java.io.IOException;
 public class FigureRenderer extends RendererBase {
 
   @Override
-  public void encodeBegin(FacesContext facesContext, UIComponent component) throws IOException {
+  public void encodeBegin(final FacesContext facesContext, final UIComponent component) throws IOException {
     final AbstractUIFigure figure = (AbstractUIFigure) component;
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
     writer.startElement(HtmlElements.FIGURE);
@@ -56,7 +56,7 @@ public class FigureRenderer extends RendererBase {
   }
 
   @Override
-  public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
+  public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
     final AbstractUIFigure figure = (AbstractUIFigure) component;
     final UIComponent label = ComponentUtils.getFacet(figure, Facets.label);
     final String labelString = figure.getLabel();

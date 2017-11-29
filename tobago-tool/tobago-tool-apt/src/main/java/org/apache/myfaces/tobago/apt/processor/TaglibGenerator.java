@@ -168,8 +168,8 @@ public class TaglibGenerator extends AbstractGenerator {
     }
   }
 
-  private void addFunction(Document document, Element taglib, String functionName, String functionClass,
-                           String functionSignature) {
+  private void addFunction(final Document document, final Element taglib, final String functionName, final String functionClass,
+                           final String functionSignature) {
     final Element function = document.createElement("function");
     taglib.appendChild(function);
     addLeafTextElement(functionName, "function-name", function, document);
@@ -341,7 +341,7 @@ public class TaglibGenerator extends AbstractGenerator {
     description.append("<p><b>RendererType: </b>");
     description.append("<ul>");
     boolean first = true;
-    for (String rendererType : componentTag.rendererType()) {
+    for (final String rendererType : componentTag.rendererType()) {
       description.append("<li>");
       description.append(rendererType);
       if (first) {
@@ -459,7 +459,7 @@ public class TaglibGenerator extends AbstractGenerator {
     parent.appendChild(element);
   }
 
-  protected Element createTaglib(final Document document, Taglib taglibAnnotation) {
+  protected Element createTaglib(final Document document, final Taglib taglibAnnotation) {
     final Element taglib;
     taglib = document.createElement("facelet-taglib");
     taglib.setAttribute("id", taglibAnnotation.shortName());

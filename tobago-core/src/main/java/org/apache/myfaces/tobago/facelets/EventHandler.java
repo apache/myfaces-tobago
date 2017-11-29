@@ -78,12 +78,12 @@ public class EventHandler extends TobagoComponentHandler implements BehaviorHold
 
 // todo (see original AjaxHandler impl)  private final boolean _wrapMode;
 
-  public EventHandler(ComponentConfig config) {
+  public EventHandler(final ComponentConfig config) {
     super(config);
     event = getAttribute(Attributes.event.getName());
   }
 
-  public void apply(FaceletContext ctx, UIComponent parent)
+  public void apply(final FaceletContext ctx, final UIComponent parent)
       throws IOException {
 
     super.apply(ctx, parent);
@@ -133,13 +133,13 @@ public class EventHandler extends TobagoComponentHandler implements BehaviorHold
    * to the selected component through ClientBehaviorHolder.getEventNames() or
    * ClientBehaviorHolder.getDefaultEventName()
    */
-  public void applyAttachedObject(FacesContext context, UIComponent parent) {
+  public void applyAttachedObject(final FacesContext context, final UIComponent parent) {
     // Retrieve the current FaceletContext from FacesContext object
-    FaceletContext faceletContext = (FaceletContext) context
+    final FaceletContext faceletContext = (FaceletContext) context
         .getAttributes().get(FaceletContext.FACELET_CONTEXT_KEY);
 
     // cast to a ClientBehaviorHolder
-    ClientBehaviorHolder cvh = (ClientBehaviorHolder) parent;
+    final ClientBehaviorHolder cvh = (ClientBehaviorHolder) parent;
 
     String eventName = getEventName();
     if (eventName == null) {
@@ -151,11 +151,11 @@ public class EventHandler extends TobagoComponentHandler implements BehaviorHold
       throw new TagAttributeException(event, "event it is not a valid eventName defined for this component");
     }
 
-    Map<String, List<ClientBehavior>> clientBehaviors = cvh.getClientBehaviors();
+    final Map<String, List<ClientBehavior>> clientBehaviors = cvh.getClientBehaviors();
 
-    List<ClientBehavior> clientBehaviorList = clientBehaviors.get(eventName);
+    final List<ClientBehavior> clientBehaviorList = clientBehaviors.get(eventName);
     if (clientBehaviorList != null && !clientBehaviorList.isEmpty()) {
-      for (ClientBehavior cb : clientBehaviorList) {
+      for (final ClientBehavior cb : clientBehaviorList) {
         if (cb instanceof AjaxBehavior) {
           // The most inner one has been applied, so according to
           // jsf 2.0 spec section 10.4.1.1 it is not necessary to apply
@@ -166,17 +166,17 @@ public class EventHandler extends TobagoComponentHandler implements BehaviorHold
       }
     }
 
-    EventBehavior ajaxBehavior = createBehavior(context);
+    final EventBehavior ajaxBehavior = createBehavior(context);
 
     cvh.addClientBehavior(eventName, ajaxBehavior);
   }
 
-  protected EventBehavior createBehavior(FacesContext context) {
+  protected EventBehavior createBehavior(final FacesContext context) {
     return (EventBehavior) context.getApplication().createBehavior(EventBehavior.BEHAVIOR_ID);
   }
 
   @Override
-  public void onComponentCreated(FaceletContext faceletContext, UIComponent component, UIComponent parent) {
+  public void onComponentCreated(final FaceletContext faceletContext, final UIComponent component, final UIComponent parent) {
     super.onComponentCreated(faceletContext, component, parent);
 
     final UIEvent event = (UIEvent) component;
@@ -207,11 +207,11 @@ public class EventHandler extends TobagoComponentHandler implements BehaviorHold
     public AjaxBehaviorListenerImpl() {
     }
 
-    public AjaxBehaviorListenerImpl(MethodExpression expr) {
+    public AjaxBehaviorListenerImpl(final MethodExpression expr) {
       expression = expr;
     }
 
-    public void processAjaxBehavior(AjaxBehaviorEvent event)
+    public void processAjaxBehavior(final AjaxBehaviorEvent event)
         throws AbortProcessingException {
       expression.invoke(FacesContext.getCurrentInstance().getELContext(),
           new Object[]{event});
@@ -221,21 +221,21 @@ public class EventHandler extends TobagoComponentHandler implements BehaviorHold
       return transientBoolean;
     }
 
-    public void restoreState(FacesContext context, Object state) {
+    public void restoreState(final FacesContext context, final Object state) {
       if (state == null) {
         return;
       }
       expression = (MethodExpression) state;
     }
 
-    public Object saveState(FacesContext context) {
+    public Object saveState(final FacesContext context) {
       if (initialStateMarked()) {
         return null;
       }
       return expression;
     }
 
-    public void setTransient(boolean newTransientValue) {
+    public void setTransient(final boolean newTransientValue) {
       transientBoolean = newTransientValue;
     }
 

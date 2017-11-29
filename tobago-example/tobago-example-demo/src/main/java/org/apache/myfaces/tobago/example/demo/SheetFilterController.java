@@ -73,8 +73,8 @@ public class SheetFilterController extends SheetController implements Serializab
         new SelectItem(new DistanceRange(1000000, Integer.MAX_VALUE), "1000000 < x")
     };
 
-    Set<Integer> years = new TreeSet<>();
-    for (SolarObject solarObject : getSolarList()) {
+    final Set<Integer> years = new TreeSet<>();
+    for (final SolarObject solarObject : getSolarList()) {
       if (solarObject.getDiscoverYear() != null) {
         years.add(solarObject.getDiscoverYear());
       }
@@ -84,8 +84,8 @@ public class SheetFilterController extends SheetController implements Serializab
     minYearItems[0] = new SelectItem(0, "min");
     maxYearItems[0] = new SelectItem(Integer.MAX_VALUE, "max");
     int i = 1;
-    for (Integer year : years) {
-      SelectItem selectItem = new SelectItem(year, String.valueOf(year));
+    for (final Integer year : years) {
+      final SelectItem selectItem = new SelectItem(year, String.valueOf(year));
 
       minYearItems[i] = selectItem;
       maxYearItems[i] = selectItem;
@@ -134,7 +134,7 @@ public class SheetFilterController extends SheetController implements Serializab
     return null;
   }
 
-  public void filter(AjaxBehaviorEvent event) {
+  public void filter(final AjaxBehaviorEvent event) {
     filter();
   }
 
@@ -162,7 +162,7 @@ public class SheetFilterController extends SheetController implements Serializab
     return name;
   }
 
-  public void setName(String name) {
+  public void setName(final String name) {
     this.name = name;
   }
 
@@ -170,7 +170,7 @@ public class SheetFilterController extends SheetController implements Serializab
     return orbit;
   }
 
-  public void setOrbit(String orbit) {
+  public void setOrbit(final String orbit) {
     this.orbit = orbit;
   }
 
@@ -178,7 +178,7 @@ public class SheetFilterController extends SheetController implements Serializab
     return distance;
   }
 
-  public void setDistance(DistanceRange distance) {
+  public void setDistance(final DistanceRange distance) {
     this.distance = distance;
   }
 
@@ -186,7 +186,7 @@ public class SheetFilterController extends SheetController implements Serializab
     return discoverer;
   }
 
-  public void setDiscoverer(String discoverer) {
+  public void setDiscoverer(final String discoverer) {
     this.discoverer = discoverer;
   }
 
@@ -194,7 +194,7 @@ public class SheetFilterController extends SheetController implements Serializab
     return minYear;
   }
 
-  public void setMinYear(Integer minYear) {
+  public void setMinYear(final Integer minYear) {
     this.minYear = minYear;
   }
 
@@ -202,7 +202,7 @@ public class SheetFilterController extends SheetController implements Serializab
     return maxYear;
   }
 
-  public void setMaxYear(Integer maxYear) {
+  public void setMaxYear(final Integer maxYear) {
     this.maxYear = maxYear;
   }
 
@@ -210,7 +210,7 @@ public class SheetFilterController extends SheetController implements Serializab
     return nameSuggestionQuery;
   }
 
-  public void setNameSuggestionQuery(String nameSuggestionQuery) {
+  public void setNameSuggestionQuery(final String nameSuggestionQuery) {
     this.nameSuggestionQuery = nameSuggestionQuery;
   }
 
@@ -219,7 +219,7 @@ public class SheetFilterController extends SheetController implements Serializab
     LOG.info("Creating items for substring: '" + substring + "'");
     final List<String> result = new ArrayList<>();
     for (final SolarObject solarObject : getSolarList()) {
-      String name = solarObject.getName();
+      final String name = solarObject.getName();
       if (StringUtils.containsIgnoreCase(name, substring)) {
         result.add(name);
       }
@@ -233,13 +233,13 @@ public class SheetFilterController extends SheetController implements Serializab
     private int max;
     private final String label;
 
-    DistanceRange(int min, int max) {
+    DistanceRange(final int min, final int max) {
       this.min = min;
       this.max = max;
       label = String.valueOf(min) + " < x ≤ " + String.valueOf(max);
     }
 
-    DistanceRange(int min, int max, String label) {
+    DistanceRange(final int min, final int max, final String label) {
       this.min = min;
       this.max = max;
       this.label = label;
@@ -280,13 +280,13 @@ public class SheetFilterController extends SheetController implements Serializab
     public Object getAsObject(final FacesContext context, final UIComponent component, final String value)
         throws ConverterException {
       try {
-        for (SelectItem distanceItem : distanceItems) {
+        for (final SelectItem distanceItem : distanceItems) {
           if (distanceItem.getLabel().equals(value)) {
             return distanceItem.getValue();
           }
         }
         return distanceItems[0].getValue();
-      } catch (RuntimeException e) {
+      } catch (final RuntimeException e) {
         LOG.warn("unknown value='" + value + "'", e);
         return distanceItems[0].getValue();
       }
@@ -296,7 +296,7 @@ public class SheetFilterController extends SheetController implements Serializab
     public String getAsString(
         final FacesContext context, final UIComponent component, final Object value) throws ConverterException {
       if (value instanceof DistanceRange) {
-        for (SelectItem distanceItem : distanceItems) {
+        for (final SelectItem distanceItem : distanceItems) {
           if (distanceItem.getValue().equals(value)) {
             return distanceItem.getLabel();
           }

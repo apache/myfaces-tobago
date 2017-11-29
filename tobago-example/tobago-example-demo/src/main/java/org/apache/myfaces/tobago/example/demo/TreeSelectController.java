@@ -46,22 +46,22 @@ public class TreeSelectController implements Serializable {
     return selectable;
   }
 
-  public void setSelectable(String selectable) {
+  public void setSelectable(final String selectable) {
     this.selectable = selectable;
     resetSelection(sample);
   }
 
-  public void resetSelection(DefaultMutableTreeNode node) {
-    Node userObject = (Node) node.getUserObject();
+  public void resetSelection(final DefaultMutableTreeNode node) {
+    final Node userObject = (Node) node.getUserObject();
     userObject.setSelected(false);
     for (int i = 0; i < node.getChildCount(); i++) {
-      DefaultMutableTreeNode child = (DefaultMutableTreeNode) node.getChildAt(i);
+      final DefaultMutableTreeNode child = (DefaultMutableTreeNode) node.getChildAt(i);
       resetSelection(child);
     }
   }
 
   public String getSelectedNodes() {
-    StringBuilder stringBuilder = new StringBuilder();
+    final StringBuilder stringBuilder = new StringBuilder();
     buildSelectedNodesString(stringBuilder, sample);
     if (stringBuilder.length() > 2) {
       return stringBuilder.substring(2); // Remove ', '.
@@ -70,13 +70,13 @@ public class TreeSelectController implements Serializable {
     }
   }
 
-  private void buildSelectedNodesString(StringBuilder stringBuilder, DefaultMutableTreeNode node) {
-    Node userObject = (Node) node.getUserObject();
+  private void buildSelectedNodesString(final StringBuilder stringBuilder, final DefaultMutableTreeNode node) {
+    final Node userObject = (Node) node.getUserObject();
     if (userObject.isSelected()) {
       stringBuilder.append(", " + userObject.getName());
     }
     for (int i = 0; i < node.getChildCount(); i++) {
-      DefaultMutableTreeNode child = (DefaultMutableTreeNode) node.getChildAt(i);
+      final DefaultMutableTreeNode child = (DefaultMutableTreeNode) node.getChildAt(i);
       buildSelectedNodesString(stringBuilder, child);
     }
   }

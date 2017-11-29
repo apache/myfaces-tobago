@@ -65,9 +65,9 @@ public enum Styles {
     cssName = createCssName(chars);
   }
 
-  private String createCssName(char[] chars) {
-    StringBuilder builder = new StringBuilder(chars.length + 1);
-    for (char c : chars) {
+  private String createCssName(final char[] chars) {
+    final StringBuilder builder = new StringBuilder(chars.length + 1);
+    for (final char c : chars) {
       if (Character.isLowerCase(c)) {
         builder.append(c);
       } else {

@@ -56,17 +56,17 @@ public class UploadController implements Serializable {
   }
 
   public String uploadMulti() {
-    for (Part part : fileMulti) {
+    for (final Part part : fileMulti) {
       upload(part);
     }
     return null;
   }
 
-  public void uploadAjax(AjaxBehaviorEvent event) {
+  public void uploadAjax(final AjaxBehaviorEvent event) {
     upload(fileAjax);
   }
 
-  private void upload(Part part) {
+  private void upload(final Part part) {
     LOG.info("checking file item");
     if (part == null || part.getSize() == 0) {
       return;
@@ -85,7 +85,7 @@ public class UploadController implements Serializable {
     return fileBasic;
   }
 
-  public void setFileBasic(Part fileBasic) {
+  public void setFileBasic(final Part fileBasic) {
     this.fileBasic = fileBasic;
   }
 
@@ -93,7 +93,7 @@ public class UploadController implements Serializable {
     return fileContentType;
   }
 
-  public void setFileContentType(Part fileContentType) {
+  public void setFileContentType(final Part fileContentType) {
     this.fileContentType = fileContentType;
   }
 
@@ -101,7 +101,7 @@ public class UploadController implements Serializable {
     return fileMulti;
   }
 
-  public void setFileMulti(Part[] fileMulti) {
+  public void setFileMulti(final Part[] fileMulti) {
     this.fileMulti = fileMulti;
   }
 
@@ -109,7 +109,7 @@ public class UploadController implements Serializable {
     return fileAjax;
   }
 
-  public void setFileAjax(Part fileAjax) {
+  public void setFileAjax(final Part fileAjax) {
     this.fileAjax = fileAjax;
   }
 

@@ -52,11 +52,11 @@ public final class Secret implements Serializable {
     final Map requestParameterMap = facesContext.getExternalContext().getRequestParameterMap();
     final String fromRequest = (String) requestParameterMap.get(Secret.KEY);
     final Object session = facesContext.getExternalContext().getSession(false);
-    Secret secret = getSecret(session);
+    final Secret secret = getSecret(session);
     return secret != null && secret.secret.equals(fromRequest);
   }
 
-  private static Secret getSecret(Object session) {
+  private static Secret getSecret(final Object session) {
     Secret secret = null;
     if (session!=null) {
       if (session instanceof HttpSession) {

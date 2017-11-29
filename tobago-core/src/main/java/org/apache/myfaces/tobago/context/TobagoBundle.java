@@ -77,28 +77,28 @@ public class TobagoBundle extends ResourceBundle {
 
     private Properties props;
 
-    private XmlTobagoBundle(InputStream stream) throws IOException {
+    private XmlTobagoBundle(final InputStream stream) throws IOException {
       props = new Properties();
       props.loadFromXML(stream);
     }
 
-    protected Object handleGetObject(String key) {
+    protected Object handleGetObject(final String key) {
       return props.getProperty(key);
     }
 
     public Enumeration<String> getKeys() {
-      Set<String> handleKeys = props.stringPropertyNames();
+      final Set<String> handleKeys = props.stringPropertyNames();
       return Collections.enumeration(handleKeys);
     }
 
     public static class XMLResourceBundleControl extends Control {
 
-      public List<String> getFormats(String baseName) {
+      public List<String> getFormats(final String baseName) {
         return Collections.singletonList(XML);
       }
 
       public ResourceBundle newBundle(
-          String baseName, Locale locale, String format, ClassLoader loader, boolean reload)
+          final String baseName, final Locale locale, final String format, final ClassLoader loader, final boolean reload)
           throws IllegalAccessException, InstantiationException,
           IOException {
 
@@ -110,24 +110,24 @@ public class TobagoBundle extends ResourceBundle {
           return null;
         }
 
-        String bundleName = toBundleName(baseName, locale);
-        String resourceName = toResourceName(bundleName, format);
-        URL url = loader.getResource(resourceName);
+        final String bundleName = toBundleName(baseName, locale);
+        final String resourceName = toResourceName(bundleName, format);
+        final URL url = loader.getResource(resourceName);
         if (url == null) {
           return null;
         }
-        URLConnection connection = url.openConnection();
+        final URLConnection connection = url.openConnection();
         if (connection == null) {
           return null;
         }
         if (reload) {
           connection.setUseCaches(false);
         }
-        InputStream stream = connection.getInputStream();
+        final InputStream stream = connection.getInputStream();
         if (stream == null) {
           return null;
         }
-        BufferedInputStream bis = new BufferedInputStream(stream);
+        final BufferedInputStream bis = new BufferedInputStream(stream);
         bundle = new XmlTobagoBundle(bis);
         bis.close();
 

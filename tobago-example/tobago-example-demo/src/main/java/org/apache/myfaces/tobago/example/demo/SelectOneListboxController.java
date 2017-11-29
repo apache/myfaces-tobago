@@ -47,7 +47,7 @@ public class SelectOneListboxController implements Serializable {
     return river;
   }
 
-  public void setRiver(String river) {
+  public void setRiver(final String river) {
     this.river = river;
   }
 
@@ -59,7 +59,7 @@ public class SelectOneListboxController implements Serializable {
     return mountain;
   }
 
-  public void setMountain(String mountain) {
+  public void setMountain(final String mountain) {
     this.mountain = mountain;
   }
 }

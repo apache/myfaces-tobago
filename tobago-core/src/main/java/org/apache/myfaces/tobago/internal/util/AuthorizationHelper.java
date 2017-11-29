@@ -75,7 +75,7 @@ public class AuthorizationHelper {
       // beanManager = CDI.context().getBeanManager();
       final InitialContext context = new InitialContext();
       beanManager = (BeanManager) context.lookup("java:comp/BeanManager");
-    } catch (Exception exception) {
+    } catch (final Exception exception) {
       LOG.warn("Can't obtain 'java:comp/BeanManager'");
     }
 
@@ -128,7 +128,7 @@ public class AuthorizationHelper {
     return true;
   }
 
-  private Annotation getSecurityAnnotation(final FacesContext facesContext, String expression) {
+  private Annotation getSecurityAnnotation(final FacesContext facesContext, final String expression) {
     if (cache.containsKey(expression)) {
       final Object obj = cache.get(expression);
       if (obj instanceof Annotation) {
@@ -145,7 +145,7 @@ public class AuthorizationHelper {
         Object bean = null;
 
         if (beanManager != null) { // CDI case
-          for (Bean<?> entry : beanManager.getBeans(beanString)) {
+          for (final Bean<?> entry : beanManager.getBeans(beanString)) {
             if (bean == null) {
               bean = entry;
             } else {
@@ -206,7 +206,7 @@ public class AuthorizationHelper {
     return null;
   }
 
-  private List<Method> findMethods(Object bean, String name) {
+  private List<Method> findMethods(final Object bean, final String name) {
     final Class clazz;
     if (bean instanceof Bean) {
       clazz = ((Bean) bean).getBeanClass();
@@ -216,7 +216,7 @@ public class AuthorizationHelper {
 
     final Method[] methods = clazz.getMethods();
     final List<Method> result = new ArrayList<>();
-    for (Method method : methods) {
+    for (final Method method : methods) {
       if (method.getName().equals(name)) {
         result.add(method);
       }

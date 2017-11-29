@@ -43,7 +43,7 @@ public class TabController implements Serializable {
     return index;
   }
 
-  public void setIndex(int index) {
+  public void setIndex(final int index) {
     this.index = index;
   }
 

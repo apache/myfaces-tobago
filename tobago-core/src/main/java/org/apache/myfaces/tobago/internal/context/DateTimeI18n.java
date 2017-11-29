@@ -41,7 +41,7 @@ public class DateTimeI18n {
   private final String[] dayNamesMin = new String[7];
   private final int firstDay;
 
-  private DateTimeI18n(Locale locale) {
+  private DateTimeI18n(final Locale locale) {
 
     LOG.debug("Creating DateTimeI18n for locale: " + locale);
 
@@ -70,7 +70,7 @@ public class DateTimeI18n {
     firstDay = calendar.getFirstDayOfWeek() - 1; // because Java: 1 = Sunday and jQuery UI DatePicker: 0 = Sunday
   }
 
-  public static synchronized DateTimeI18n valueOf(Locale locale) {
+  public static synchronized DateTimeI18n valueOf(final Locale locale) {
     DateTimeI18n dateTimeI18n;
     dateTimeI18n = CACHE.get(locale);
     if (dateTimeI18n == null) {

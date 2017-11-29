@@ -28,7 +28,7 @@ import javax.faces.view.facelets.TagConfig;
 @Deprecated
 public class SpanHandler extends GridLayoutConstraintHandler {
 
-  public SpanHandler(TagConfig config) {
+  public SpanHandler(final TagConfig config) {
     super(config);
   }
 }

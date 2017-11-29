@@ -38,7 +38,7 @@ public class TinyMceController extends SourceFileReader implements Serializable 
     return text;
   }
 
-  public void setText(String text) {
+  public void setText(final String text) {
     this.text = text;
   }
 

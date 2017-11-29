@@ -53,14 +53,14 @@ public abstract class AbstractUIProgress extends UIOutput
   }
 
   @Override
-  public void processEvent(ComponentSystemEvent event) throws AbortProcessingException {
+  public void processEvent(final ComponentSystemEvent event) throws AbortProcessingException {
 
     super.processEvent(event);
 
     if (event instanceof PreRenderComponentEvent) {
-      Object model = getValue();
+      final Object model = getValue();
       if (model instanceof BoundedRangeModel) {
-        BoundedRangeModel m = (BoundedRangeModel) model;
+        final BoundedRangeModel m = (BoundedRangeModel) model;
         rangeValue = (double) m.getValue();
         rangeMax = (double) m.getMaximum();
         final int min = m.getMinimum();

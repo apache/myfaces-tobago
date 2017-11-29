@@ -122,7 +122,7 @@ public class DurationConverter implements Converter {
     Unit unit;
     try {
       unit = Unit.valueOf(unitString);
-    } catch (Exception e) {
+    } catch (final Exception e) {
       LOG.warn("Unsupported unit: '{}'", unitString);
       unit = Unit.milli;
     }

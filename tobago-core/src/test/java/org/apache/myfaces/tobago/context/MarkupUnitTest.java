@@ -171,10 +171,10 @@ public class MarkupUnitTest {
 
   @Test
   public void testNames() throws IllegalAccessException {
-    List<Field> markups = new ArrayList<>();
-    List<Field> strings = new ArrayList<>();
+    final List<Field> markups = new ArrayList<>();
+    final List<Field> strings = new ArrayList<>();
 
-    for (Field field : Markup.class.getFields()) {
+    for (final Field field : Markup.class.getFields()) {
       if (field.getName().startsWith("STRING")) {
         strings.add(field);
       } else if (!field.getName().equals("NULL")) {
@@ -184,13 +184,13 @@ public class MarkupUnitTest {
 
     Assert.assertEquals("Is for every markup a string constant defined?", markups.size(), strings.size());
 
-    for (Field markupField : markups) {
-      Markup markup = (Markup) markupField.get(null);
+    for (final Field markupField : markups) {
+      final Markup markup = (Markup) markupField.get(null);
 
       boolean pendantFound = false;
-      for (Field stringField : strings) {
+      for (final Field stringField : strings) {
         if (stringField.getName().equals("STRING_" + markupField.getName())) {
-          String string = (String) stringField.get(null);
+          final String string = (String) stringField.get(null);
 
           Assert.assertEquals(markup.toString(), string);
           pendantFound = true;

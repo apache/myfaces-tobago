@@ -55,7 +55,7 @@ public abstract class AbstractUISection extends AbstractUICollapsiblePanel {
   public abstract String getImage();
 
   @Override
-  public void encodeBegin(FacesContext context) throws IOException {
+  public void encodeBegin(final FacesContext context) throws IOException {
 
     if (getLevel() == 0) {
       final AbstractUISection section = ComponentUtils.findAncestor(getParent(), AbstractUISection.class);
@@ -73,7 +73,7 @@ public abstract class AbstractUISection extends AbstractUICollapsiblePanel {
     return level;
   }
 
-  public void setLevel(int level) {
+  public void setLevel(final int level) {
     this.level = level;
   }
 }

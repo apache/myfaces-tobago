@@ -39,7 +39,7 @@ public class AttributesOfGeneratedUIComponentsUnitTest extends AbstractGenerated
           continue;
         }
 
-        String methodName = method.getName();
+        final String methodName = method.getName();
         if (!methodName.startsWith("set") || methodName.length() <= 3) {
           continue;
         }
@@ -51,7 +51,7 @@ public class AttributesOfGeneratedUIComponentsUnitTest extends AbstractGenerated
         final Attributes attribute;
         try {
           attribute = Attributes.valueOf(property);
-        } catch (IllegalArgumentException e) {
+        } catch (final IllegalArgumentException e) {
           Assert.fail(e.getMessage());
         }
 

@@ -33,7 +33,7 @@ public class CollapsibleBoxController implements Serializable {
     return collapsed;
   }
 
-  public void setCollapsed(boolean collapsed) {
+  public void setCollapsed(final boolean collapsed) {
     this.collapsed = collapsed;
   }
 

@@ -60,7 +60,7 @@ public class FileRenderer extends MessageLayoutRendererBase implements Component
   private static final Logger LOG = LoggerFactory.getLogger(FileRenderer.class);
 
   @Override
-  public void processEvent(ComponentSystemEvent event) {
+  public void processEvent(final ComponentSystemEvent event) {
     TobagoContext.getInstance(FacesContext.getCurrentInstance()).setEnctype("multipart/form-data");
   }
 
@@ -79,10 +79,10 @@ public class FileRenderer extends MessageLayoutRendererBase implements Component
     final Object request = facesContext.getExternalContext().getRequest();
     if (request instanceof HttpServletRequest) {
       try {
-        HttpServletRequest httpServletRequest = (HttpServletRequest) request;
+        final HttpServletRequest httpServletRequest = (HttpServletRequest) request;
         if (file.isMultiple()) {
-          List<Part> parts = new ArrayList<>();
-          for (Part part : httpServletRequest.getParts()) {
+          final List<Part> parts = new ArrayList<>();
+          for (final Part part : httpServletRequest.getParts()) {
             if (file.getClientId(facesContext).equals(part.getName())) {
               LOG.debug("Uploaded file '{}', size={}, type='{}'",
                   PartUtils.getSubmittedFileName(part), part.getSize(), part.getContentType());
@@ -98,7 +98,7 @@ public class FileRenderer extends MessageLayoutRendererBase implements Component
           }
           file.setSubmittedValue(new HttpPartWrapper(part));
         }
-      } catch (Exception e) {
+      } catch (final Exception e) {
         LOG.error("", e);
         file.setValid(false);
       }
@@ -110,7 +110,7 @@ public class FileRenderer extends MessageLayoutRendererBase implements Component
   }
 
   @Override
-  protected void encodeBeginField(FacesContext facesContext, UIComponent component) throws IOException {
+  protected void encodeBeginField(final FacesContext facesContext, final UIComponent component) throws IOException {
 
     final AbstractUIFile file = (AbstractUIFile) component;
     final String clientId = file.getClientId(facesContext);
@@ -156,7 +156,7 @@ public class FileRenderer extends MessageLayoutRendererBase implements Component
     writer.writeIdAttribute(fieldId);
     writer.writeClassAttribute(TobagoClass.FILE__REAL);
     writer.writeNameAttribute(clientId);
-    String multiFormat = TobagoResourceBundle.getString(facesContext, "tobago.file.multiFormat");
+    final String multiFormat = TobagoResourceBundle.getString(facesContext, "tobago.file.multiFormat");
     writer.writeAttribute(DataAttributes.dynamic("tobago-file-multi-format"), multiFormat, true);
     // readonly seems not making sense in browsers.
     writer.writeAttribute(HtmlAttributes.DISABLED, file.isDisabled() || file.isReadonly());
@@ -188,7 +188,7 @@ public class FileRenderer extends MessageLayoutRendererBase implements Component
 
   private String createAcceptFromValidators(final AbstractUIFile file) {
     final StringBuilder builder = new StringBuilder();
-    for (Validator validator : file.getValidators()) {
+    for (final Validator validator : file.getValidators()) {
       if (validator instanceof FileItemValidator) {
         final FileItemValidator fileItemValidator = (FileItemValidator) validator;
         for (final String contentType : fileItemValidator.getContentType()) {
@@ -205,13 +205,13 @@ public class FileRenderer extends MessageLayoutRendererBase implements Component
   }
 
   @Override
-  protected void encodeEndField(FacesContext facesContext, UIComponent component) throws IOException {
+  protected void encodeEndField(final FacesContext facesContext, final UIComponent component) throws IOException {
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
     writer.endElement(HtmlElements.DIV);
   }
 
   @Override
-  protected String getFieldId(FacesContext facesContext, UIComponent component) {
+  protected String getFieldId(final FacesContext facesContext, final UIComponent component) {
     final AbstractUIFile file = (AbstractUIFile) component;
     return file.getFieldId(facesContext);
   }

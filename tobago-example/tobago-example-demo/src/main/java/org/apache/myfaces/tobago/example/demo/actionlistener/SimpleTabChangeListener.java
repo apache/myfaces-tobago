@@ -30,7 +30,7 @@ public class SimpleTabChangeListener implements TabChangeListener {
   private String clientId;
 
   @Override
-  public void processTabChange(TabChangeEvent tabChangeEvent) {
+  public void processTabChange(final TabChangeEvent tabChangeEvent) {
     count++;
     newTabIndex = tabChangeEvent.getNewTabIndex();
     oldTabIndex = tabChangeEvent.getOldTabIndex();

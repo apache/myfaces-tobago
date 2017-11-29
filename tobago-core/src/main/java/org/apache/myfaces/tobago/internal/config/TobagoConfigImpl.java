@@ -87,7 +87,7 @@ public class TobagoConfigImpl extends TobagoConfig {
   protected void lock() {
     unmodifiable = true;
     supportedThemes = Collections.unmodifiableList(supportedThemes);
-    for (Theme theme : supportedThemes) {
+    for (final Theme theme : supportedThemes) {
       ((ThemeImpl) theme).lock();
     }
     supportedThemeNames = Collections.unmodifiableList(supportedThemeNames);
@@ -197,7 +197,7 @@ public class TobagoConfigImpl extends TobagoConfig {
     return defaultTheme;
   }
 
-  protected void addAvailableTheme(ThemeImpl availableTheme) {
+  protected void addAvailableTheme(final ThemeImpl availableTheme) {
     checkLocked();
     availableThemes.put(availableTheme.getName(), availableTheme);
   }
@@ -316,7 +316,7 @@ public class TobagoConfigImpl extends TobagoConfig {
     return decodeLineFeed;
   }
 
-  public void setDecodeLineFeed(boolean decodeLineFeed) {
+  public void setDecodeLineFeed(final boolean decodeLineFeed) {
     checkLocked();
     this.decodeLineFeed = decodeLineFeed;
   }

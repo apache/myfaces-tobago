@@ -211,7 +211,7 @@ public class SheetRenderer extends RendererBase {
   @Override
   public void encodeChildren(final FacesContext facesContext, final UIComponent component) throws IOException {
     final UISheet sheet = (UISheet) component;
-    for (UIComponent child : sheet.getChildren()) {
+    for (final UIComponent child : sheet.getChildren()) {
       if (child instanceof AbstractUIStyle) {
         child.encodeAll(facesContext);
       }
@@ -242,7 +242,7 @@ public class SheetRenderer extends RendererBase {
           sheetId + SUFFIX_WIDTHS);
 
       final ArrayList<String> encodedRendered = new ArrayList<>();
-      for (AbstractUIColumnBase column : columns) {
+      for (final AbstractUIColumnBase column : columns) {
         if (!(column instanceof AbstractUIRow)) {
           encodedRendered.add(Boolean.toString(column.isRendered()));
         }
@@ -465,13 +465,13 @@ public class SheetRenderer extends RendererBase {
     writer.endElement(HtmlElements.DIV);
   }
 
-  private void encodeTableBody(FacesContext facesContext, UISheet sheet, TobagoResponseWriter writer, String sheetId,
-                               Selectable selectable, List<Integer> columnWidths, List<Integer> selectedRows,
-                               List<AbstractUIColumnBase> columns, boolean autoLayout, StringBuilder expandedValue)
+  private void encodeTableBody(final FacesContext facesContext, final UISheet sheet, final TobagoResponseWriter writer, final String sheetId,
+                               final Selectable selectable, final List<Integer> columnWidths, final List<Integer> selectedRows,
+                               final List<AbstractUIColumnBase> columns, final boolean autoLayout, final StringBuilder expandedValue)
       throws IOException {
 
     final boolean showHeader = sheet.isShowHeader();
-    Markup sheetMarkup = sheet.getMarkup() != null ? sheet.getMarkup() : Markup.NULL;
+    final Markup sheetMarkup = sheet.getMarkup() != null ? sheet.getMarkup() : Markup.NULL;
     final ExpandedState expandedState = sheet.isTreeModel() ? sheet.getExpandedState() : null;
 
     if (showHeader && !autoLayout) {
@@ -615,7 +615,7 @@ public class SheetRenderer extends RendererBase {
       for (final UIColumn column : columns) {
         if (column.isRendered()) {
           if (column instanceof AbstractUIColumn) {
-            AbstractUIColumn normalColumn = (AbstractUIColumn) column;
+            final AbstractUIColumn normalColumn = (AbstractUIColumn) column;
             writer.startElement(HtmlElements.TD);
             Markup markup = normalColumn.getMarkup();
             if (markup == null) {
@@ -628,7 +628,7 @@ public class SheetRenderer extends RendererBase {
                 normalColumn.getCustomClass());
 
             if (normalColumn instanceof UIColumnSelector) {
-              UIColumnSelector selector = (UIColumnSelector) normalColumn;
+              final UIColumnSelector selector = (UIColumnSelector) normalColumn;
               writer.startElement(HtmlElements.INPUT);
               writer.writeNameAttribute(sheetId + "_data_row_selector_" + rowIndex);
               if (selectable.isSingle()) {
@@ -699,7 +699,7 @@ public class SheetRenderer extends RendererBase {
 // END RENDER BODY CONTENT
   }
 
-  private void encodeHiddenInput(TobagoResponseWriter writer, String value, String idWithSuffix) throws IOException {
+  private void encodeHiddenInput(final TobagoResponseWriter writer, final String value, final String idWithSuffix) throws IOException {
     writer.startElement(HtmlElements.INPUT);
     writer.writeIdAttribute(idWithSuffix);
     writer.writeNameAttribute(idWithSuffix);
@@ -714,9 +714,9 @@ public class SheetRenderer extends RendererBase {
     // on client site, we don't know nothing about the non-rendered columns.
     int i = 0;
     int j = 0;
-    for (AbstractUIColumnBase column : columns) {
+    for (final AbstractUIColumnBase column : columns) {
       if (!(column instanceof AbstractUIRow)) {
-        Integer newValue;
+        final Integer newValue;
         if (j < samples.size()) {
           newValue = samples.get(j);
           j++;
@@ -735,7 +735,7 @@ public class SheetRenderer extends RendererBase {
     }
   }
 
-  private Markup getMarkupForAlign(UIColumn column) {
+  private Markup getMarkupForAlign(final UIColumn column) {
     final String textAlign = ComponentUtils.getStringAttribute(column, Attributes.align);
     if (textAlign != null) {
       switch (TextAlign.valueOf(textAlign)) {
@@ -786,7 +786,7 @@ public class SheetRenderer extends RendererBase {
 
             final UIComponent cellComponent = cell.getComponent();
 
-            Markup align;
+            final Markup align;
             final String alignString = ComponentUtils.getStringAttribute(column, Attributes.align);
             if (multiHeader && cell.getColumnSpan() > 1) {
               align = Markup.CENTER;
@@ -920,11 +920,11 @@ public class SheetRenderer extends RendererBase {
 
   private void writeColgroup(
       final TobagoResponseWriter writer, final List<Integer> columnWidths,
-      final List<AbstractUIColumnBase> columns, boolean isHeader) throws IOException {
+      final List<AbstractUIColumnBase> columns, final boolean isHeader) throws IOException {
     writer.startElement(HtmlElements.COLGROUP);
 
     int i = 0;
-    for (AbstractUIColumnBase column : columns) {
+    for (final AbstractUIColumnBase column : columns) {
       if (!(column instanceof AbstractUIRow)) {
         if (column.isRendered()) {
           final Integer width = columnWidths.get(i);
@@ -978,7 +978,7 @@ public class SheetRenderer extends RendererBase {
 
   private void encodeLink(
       final FacesContext facesContext, final UISheet data, final Application application,
-      final boolean disabled, final SheetAction action, Integer target, Icons icon, CssItem liClass)
+      final boolean disabled, final SheetAction action, final Integer target, final Icons icon, final CssItem liClass)
       throws IOException {
 
     final String facet = action == SheetAction.toPage || action == SheetAction.toRow
@@ -1127,8 +1127,8 @@ public class SheetRenderer extends RendererBase {
     return command;
   }
 
-  private AjaxBehavior createReloadBehavior(UISheet sheet) {
-    AjaxBehavior reloadBehavior = findReloadBehavior(sheet);
+  private AjaxBehavior createReloadBehavior(final UISheet sheet) {
+    final AjaxBehavior reloadBehavior = findReloadBehavior(sheet);
     final ArrayList<String> renderIds = new ArrayList<>();
     if (!renderIds.contains(sheet.getId())) {
       renderIds.add(sheet.getId());
@@ -1149,7 +1149,7 @@ public class SheetRenderer extends RendererBase {
     return behavior;
   }
 
-  private AjaxBehavior findReloadBehavior(ClientBehaviorHolder holder) {
+  private AjaxBehavior findReloadBehavior(final ClientBehaviorHolder holder) {
     final List<ClientBehavior> reload = holder.getClientBehaviors().get("reload");
     if (reload != null && !reload.isEmpty() && reload.get(0) instanceof AjaxBehavior) {
       return (AjaxBehavior) reload.get(0);

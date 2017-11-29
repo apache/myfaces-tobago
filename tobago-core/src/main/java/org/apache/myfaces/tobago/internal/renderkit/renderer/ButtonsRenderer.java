@@ -41,7 +41,7 @@ import java.io.IOException;
 public class ButtonsRenderer extends RendererBase {
 
   @Override
-  public void encodeBegin(FacesContext facesContext, UIComponent component) throws IOException {
+  public void encodeBegin(final FacesContext facesContext, final UIComponent component) throws IOException {
 
     final AbstractUIButtons buttons = (AbstractUIButtons) component;
     final Markup markup = buttons.getMarkup();
@@ -70,8 +70,8 @@ public class ButtonsRenderer extends RendererBase {
   }
 
   @Override
-  public void encodeChildren(FacesContext facesContext, UIComponent component) throws IOException {
-    for (UIComponent child : component.getChildren()) {
+  public void encodeChildren(final FacesContext facesContext, final UIComponent component) throws IOException {
+    for (final UIComponent child : component.getChildren()) {
       if (child.isRendered()) {
         if (child instanceof AbstractUIButton) {
           child.setRendererType(RendererTypes.ButtonInsideButtons.name());
@@ -84,7 +84,7 @@ public class ButtonsRenderer extends RendererBase {
   }
 
   @Override
-  public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
+  public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
     writer.endElement(HtmlElements.DIV);
   }

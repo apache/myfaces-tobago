@@ -31,7 +31,7 @@ public abstract class SourceFileReader {
 
   private static final Logger LOG = LoggerFactory.getLogger(SourceFileReader.class);
 
-  public String getSource(String filename) {
+  public String getSource(final String filename) {
     final FacesContext facesContext = FacesContext.getCurrentInstance();
     final ExternalContext externalContext = facesContext.getExternalContext();
     final String viewId = facesContext.getViewRoot().getViewId();

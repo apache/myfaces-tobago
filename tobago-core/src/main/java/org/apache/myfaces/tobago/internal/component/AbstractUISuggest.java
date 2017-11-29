@@ -62,7 +62,7 @@ public abstract class AbstractUISuggest
     if (expression != null) {
       try {
         return (String) expression.getValue(FacesContext.getCurrentInstance().getELContext());
-      } catch (Exception e) {
+      } catch (final Exception e) {
         LOG.error("", e);
         return null;
       }
@@ -71,12 +71,12 @@ public abstract class AbstractUISuggest
     }
   }
 
-  public void setQuery(String query) {
+  public void setQuery(final String query) {
     final ValueExpression expression = this.getValueExpression("query");
     if (expression != null) {
       try {
         expression.setValue(FacesContext.getCurrentInstance().getELContext(), query);
-      } catch (Exception e) {
+      } catch (final Exception e) {
         LOG.error("query='" + query + "'", e);
       }
     } else {

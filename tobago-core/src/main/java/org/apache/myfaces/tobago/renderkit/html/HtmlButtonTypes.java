@@ -27,7 +27,7 @@ public enum HtmlButtonTypes implements HtmlTypes {
 
   private final String value;
 
-  HtmlButtonTypes(String value) {
+  HtmlButtonTypes(final String value) {
     this.value = value;
   }
 

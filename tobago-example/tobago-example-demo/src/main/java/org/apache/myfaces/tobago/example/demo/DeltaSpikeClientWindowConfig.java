@@ -28,7 +28,7 @@ import javax.faces.context.FacesContext;
 public class DeltaSpikeClientWindowConfig extends DefaultClientWindowConfig {
 
   @Override
-  public ClientWindowRenderMode getClientWindowRenderMode(FacesContext facesContext) {
+  public ClientWindowRenderMode getClientWindowRenderMode(final FacesContext facesContext) {
     String path = facesContext.getExternalContext().getRequestPathInfo();
     if (path == null) {
         path = facesContext.getExternalContext().getRequestServletPath();

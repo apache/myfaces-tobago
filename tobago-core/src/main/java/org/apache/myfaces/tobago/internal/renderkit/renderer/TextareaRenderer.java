@@ -118,7 +118,7 @@ public class TextareaRenderer extends MessageLayoutRendererBase {
         maxLength = lengthValidator.getMaximum();
         minLength = lengthValidator.getMinimum();
       } else if (validator instanceof RegexValidator) {
-        RegexValidator regexValidator = (RegexValidator) validator;
+        final RegexValidator regexValidator = (RegexValidator) validator;
         pattern = regexValidator.getPattern();
       }
     }
@@ -136,7 +136,7 @@ public class TextareaRenderer extends MessageLayoutRendererBase {
 
     HtmlRendererUtils.renderFocus(clientId, input.isFocus(), ComponentUtils.isError(input), facesContext, writer);
 
-    String placeholder = input.getPlaceholder();
+    final String placeholder = input.getPlaceholder();
     if (!disabled && !readonly && StringUtils.isNotBlank(placeholder)) {
       writer.writeAttribute(HtmlAttributes.PLACEHOLDER, placeholder, true);
     }
@@ -162,11 +162,11 @@ public class TextareaRenderer extends MessageLayoutRendererBase {
   }
 
   @Override
-  protected void encodeEndField(FacesContext facesContext, UIComponent component) throws IOException {
+  protected void encodeEndField(final FacesContext facesContext, final UIComponent component) throws IOException {
   }
 
   @Override
-  protected String getFieldId(FacesContext facesContext, UIComponent component) {
+  protected String getFieldId(final FacesContext facesContext, final UIComponent component) {
     final UITextarea input = (UITextarea) component;
     return input.getFieldId(facesContext);
   }

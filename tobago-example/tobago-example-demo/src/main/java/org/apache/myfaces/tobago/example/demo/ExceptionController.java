@@ -31,10 +31,10 @@ import java.io.StringWriter;
 public class ExceptionController implements Serializable {
 
   public String getStackTrace() {
-    Throwable exception = (Throwable) FacesContext.getCurrentInstance().getExternalContext()
+    final Throwable exception = (Throwable) FacesContext.getCurrentInstance().getExternalContext()
             .getRequestMap().get("javax.servlet.error.exception");
-    StringWriter stringWriter = new StringWriter();
-    PrintWriter printWriter = new PrintWriter(stringWriter);
+    final StringWriter stringWriter = new StringWriter();
+    final PrintWriter printWriter = new PrintWriter(stringWriter);
     if(exception != null) {
       exception.printStackTrace(printWriter);
     }

@@ -172,7 +172,7 @@ class DeltaStateHelper<A extends EventBehavior> implements StateHelper {
 
   private boolean transientBoolean = false;
 
-  DeltaStateHelper(A target) {
+  DeltaStateHelper(final A target) {
     super();
     this.target = target;
     fullState = new HashMap<>();
@@ -200,7 +200,7 @@ class DeltaStateHelper<A extends EventBehavior> implements StateHelper {
     return target.initialStateMarked();
   }
 
-  public void add(Serializable key, Object value) {
+  public void add(final Serializable key, final Object value) {
     if (createDeltas()) {
       //Track delta case
       Map<Object, Boolean> deltaListMapValues = (Map<Object, Boolean>) deltas
@@ -222,12 +222,12 @@ class DeltaStateHelper<A extends EventBehavior> implements StateHelper {
     fullListValues.add(value);
   }
 
-  public Object eval(Serializable key) {
-    Object returnValue = fullState.get(key);
+  public Object eval(final Serializable key) {
+    final Object returnValue = fullState.get(key);
     if (returnValue != null) {
       return returnValue;
     }
-    ValueExpression expression = target.getValueExpression(key
+    final ValueExpression expression = target.getValueExpression(key
         .toString());
     if (expression != null) {
       return expression.getValue(FacesContext.getCurrentInstance()
@@ -236,12 +236,12 @@ class DeltaStateHelper<A extends EventBehavior> implements StateHelper {
     return null;
   }
 
-  public Object eval(Serializable key, Object defaultValue) {
-    Object returnValue = fullState.get(key);
+  public Object eval(final Serializable key, final Object defaultValue) {
+    final Object returnValue = fullState.get(key);
     if (returnValue != null) {
       return returnValue;
     }
-    ValueExpression expression = target.getValueExpression(key
+    final ValueExpression expression = target.getValueExpression(key
         .toString());
     if (expression != null) {
       return expression.getValue(FacesContext.getCurrentInstance()
@@ -250,11 +250,11 @@ class DeltaStateHelper<A extends EventBehavior> implements StateHelper {
     return defaultValue;
   }
 
-  public Object get(Serializable key) {
+  public Object get(final Serializable key) {
     return fullState.get(key);
   }
 
-  public Object put(Serializable key, Object value) {
+  public Object put(final Serializable key, final Object value) {
     Object returnValue = null;
     if (createDeltas()) {
       if (deltas.containsKey(key)) {
@@ -278,7 +278,7 @@ class DeltaStateHelper<A extends EventBehavior> implements StateHelper {
     return returnValue;
   }
 
-  public Object put(Serializable key, String mapKey, Object value) {
+  public Object put(final Serializable key, final String mapKey, final Object value) {
     boolean returnSet = false;
     Object returnValue = null;
     if (createDeltas()) {
@@ -312,7 +312,7 @@ class DeltaStateHelper<A extends EventBehavior> implements StateHelper {
     return returnValue;
   }
 
-  public Object remove(Serializable key) {
+  public Object remove(final Serializable key) {
     Object returnValue = null;
     if (createDeltas()) {
       if (deltas.containsKey(key)) {
@@ -330,14 +330,14 @@ class DeltaStateHelper<A extends EventBehavior> implements StateHelper {
     return returnValue;
   }
 
-  public Object remove(Serializable key, Object valueOrKey) {
+  public Object remove(final Serializable key, final Object valueOrKey) {
     // Comment by lu4242 : The spec javadoc says if it is a Collection
     // or Map deal with it. But the intention of this method is work
     // with add(?,?) and put(?,?,?), this ones return instances of
     // InternalMap and InternalList to prevent mixing, so to be
     // consistent we'll cast to those classes here.
 
-    Object collectionOrMap = fullState.get(key);
+    final Object collectionOrMap = fullState.get(key);
     Object returnValue = null;
     if (collectionOrMap instanceof DeltaStateHelper.InternalMap) {
       if (createDeltas()) {
@@ -362,10 +362,10 @@ class DeltaStateHelper<A extends EventBehavior> implements StateHelper {
   }
 
   private static Object removeValueOrKeyFromCollectionDelta(
-      Map<Serializable, Object> stateMap, Serializable key,
-      Object valueOrKey) {
+      final Map<Serializable, Object> stateMap, final Serializable key,
+      final Object valueOrKey) {
     Object returnValue = null;
-    Map<Object, Boolean> c = (Map<Object, Boolean>) stateMap.get(key);
+    final Map<Object, Boolean> c = (Map<Object, Boolean>) stateMap.get(key);
     if (c != null) {
       if (c.containsKey(valueOrKey)) {
         returnValue = valueOrKey;
@@ -376,10 +376,10 @@ class DeltaStateHelper<A extends EventBehavior> implements StateHelper {
   }
 
   private static Object removeValueOrKeyFromCollection(
-      Map<Serializable, Object> stateMap, Serializable key,
-      Object valueOrKey) {
+      final Map<Serializable, Object> stateMap, final Serializable key,
+      final Object valueOrKey) {
     Object returnValue = null;
-    Collection c = (Collection) stateMap.get(key);
+    final Collection c = (Collection) stateMap.get(key);
     if (c != null) {
       if (c.remove(valueOrKey)) {
         returnValue = valueOrKey;
@@ -392,14 +392,14 @@ class DeltaStateHelper<A extends EventBehavior> implements StateHelper {
   }
 
   private static Object removeValueOrKeyFromMap(
-      Map<Serializable, Object> stateMap, Serializable key,
-      Object valueOrKey, boolean delta) {
+      final Map<Serializable, Object> stateMap, final Serializable key,
+      final Object valueOrKey, final boolean delta) {
     if (valueOrKey == null) {
       return null;
     }
 
     Object returnValue = null;
-    Map<String, Object> map = (Map<String, Object>) stateMap.get(key);
+    final Map<String, Object> map = (Map<String, Object>) stateMap.get(key);
     if (map != null) {
       if (delta) {
         // Keep track of the removed values using key/null pair on the delta map
@@ -430,8 +430,8 @@ class DeltaStateHelper<A extends EventBehavior> implements StateHelper {
    * <p>
    * the internal Map again is then mapped to a map with key value pairs
    */
-  public Object saveState(FacesContext context) {
-    Map serializableMap = (isInitialStateMarked()) ? deltas : fullState;
+  public Object saveState(final FacesContext context) {
+    final Map serializableMap = (isInitialStateMarked()) ? deltas : fullState;
 
     if (serializableMap == null || serializableMap.size() == 0) {
       return null;
@@ -453,22 +453,22 @@ class DeltaStateHelper<A extends EventBehavior> implements StateHelper {
 
     Map.Entry<Serializable, Object> entry;
     //entry == key, value, key, value
-    Object[] retArr = new Object[serializableMap.entrySet().size() * 2];
+    final Object[] retArr = new Object[serializableMap.entrySet().size() * 2];
     //Object[] retArr = new Object[serializableMap.entrySet().size() * 2 + stateHolderKeyCount];
 
-    Iterator<Map.Entry<Serializable, Object>> it = serializableMap.entrySet().iterator();
+    final Iterator<Map.Entry<Serializable, Object>> it = serializableMap.entrySet().iterator();
     int cnt = 0;
     while (it.hasNext()) {
       entry = it.next();
       retArr[cnt] = entry.getKey();
 
-      Object value = entry.getValue();
+      final Object value = entry.getValue();
 
       // The condition in which the call to saveAttachedState
       // is to handle List, StateHolder or non Serializable instances.
       // we check it here, to prevent unnecessary calls.
       if (value instanceof StateHolder || value instanceof List || !(value instanceof Serializable)) {
-        Object savedValue = saveAttachedState(context, value);
+        final Object savedValue = saveAttachedState(context, value);
         retArr[cnt + 1] = savedValue;
       } else {
         retArr[cnt + 1] = value;
@@ -512,12 +512,12 @@ class DeltaStateHelper<A extends EventBehavior> implements StateHelper {
     return retArr;
   }
 
-  public void restoreState(FacesContext context, Object state) {
+  public void restoreState(final FacesContext context, final Object state) {
     if (state == null) {
       return;
     }
 
-    Object[] serializedState = (Object[]) state;
+    final Object[] serializedState = (Object[]) state;
 
     if (!isInitialStateMarked() && !fullState.isEmpty()) {
       fullState.clear();
@@ -527,15 +527,15 @@ class DeltaStateHelper<A extends EventBehavior> implements StateHelper {
     }
 
     for (int cnt = 0; cnt < serializedState.length; cnt += 2) {
-      Serializable key = (Serializable) serializedState[cnt];
-      Object savedValue = restoreAttachedState(context,
+      final Serializable key = (Serializable) serializedState[cnt];
+      final Object savedValue = restoreAttachedState(context,
           serializedState[cnt + 1]);
 
       if (isInitialStateMarked()) {
         if (savedValue instanceof DeltaStateHelper.InternalDeltaListMap) {
-          for (Map.Entry<Object, Boolean> mapEntry : ((Map<Object, Boolean>) savedValue)
+          for (final Map.Entry<Object, Boolean> mapEntry : ((Map<Object, Boolean>) savedValue)
               .entrySet()) {
-            boolean addOrRemove = mapEntry.getValue();
+            final boolean addOrRemove = mapEntry.getValue();
             if (addOrRemove) {
               //add
               this.add(key, mapEntry.getKey());
@@ -545,7 +545,7 @@ class DeltaStateHelper<A extends EventBehavior> implements StateHelper {
             }
           }
         } else if (savedValue instanceof DeltaStateHelper.InternalMap) {
-          for (Map.Entry<String, Object> mapEntry : ((Map<String, Object>) savedValue)
+          for (final Map.Entry<String, Object> mapEntry : ((Map<String, Object>) savedValue)
               .entrySet()) {
             this.put(key, mapEntry.getKey(), mapEntry.getValue());
           }
@@ -568,7 +568,7 @@ class DeltaStateHelper<A extends EventBehavior> implements StateHelper {
     }
   }
 
-  public void setTransient(boolean transientValue) {
+  public void setTransient(final boolean transientValue) {
     transientBoolean = transientValue;
   }
 
@@ -579,15 +579,15 @@ class DeltaStateHelper<A extends EventBehavior> implements StateHelper {
       super();
     }
 
-    InternalMap(int initialCapacity, float loadFactor) {
+    InternalMap(final int initialCapacity, final float loadFactor) {
       super(initialCapacity, loadFactor);
     }
 
-    InternalMap(Map<? extends K, ? extends V> m) {
+    InternalMap(final Map<? extends K, ? extends V> m) {
       super(m);
     }
 
-    InternalMap(int initialSize) {
+    InternalMap(final int initialSize) {
       super(initialSize);
     }
 
@@ -595,23 +595,23 @@ class DeltaStateHelper<A extends EventBehavior> implements StateHelper {
       return false;
     }
 
-    public void setTransient(boolean newTransientValue) {
+    public void setTransient(final boolean newTransientValue) {
       // No op
     }
 
-    public void restoreState(FacesContext context, Object state) {
-      Object[] listAsMap = (Object[]) state;
+    public void restoreState(final FacesContext context, final Object state) {
+      final Object[] listAsMap = (Object[]) state;
       for (int cnt = 0; cnt < listAsMap.length; cnt += 2) {
         this.put((K) listAsMap[cnt], (V) UIComponentBase.restoreAttachedState(context, listAsMap[cnt + 1]));
       }
     }
 
-    public Object saveState(FacesContext context) {
+    public Object saveState(final FacesContext context) {
       int cnt = 0;
-      Object[] mapArr = new Object[this.size() * 2];
-      for (Map.Entry<K, V> entry : this.entrySet()) {
+      final Object[] mapArr = new Object[this.size() * 2];
+      for (final Map.Entry<K, V> entry : this.entrySet()) {
         mapArr[cnt] = entry.getKey();
-        Object value = entry.getValue();
+        final Object value = entry.getValue();
 
         if (value instanceof StateHolder || value instanceof List || !(value instanceof Serializable)) {
           mapArr[cnt + 1] = saveAttachedState(context, value);
@@ -633,15 +633,15 @@ class DeltaStateHelper<A extends EventBehavior> implements StateHelper {
       super();
     }
 
-    InternalDeltaListMap(int initialCapacity, float loadFactor) {
+    InternalDeltaListMap(final int initialCapacity, final float loadFactor) {
       super(initialCapacity, loadFactor);
     }
 
-    InternalDeltaListMap(int initialSize) {
+    InternalDeltaListMap(final int initialSize) {
       super(initialSize);
     }
 
-    InternalDeltaListMap(Map<? extends K, ? extends V> m) {
+    InternalDeltaListMap(final Map<? extends K, ? extends V> m) {
       super(m);
     }
   }
@@ -651,11 +651,11 @@ class DeltaStateHelper<A extends EventBehavior> implements StateHelper {
       super();
     }
 
-    InternalList(Collection<? extends T> c) {
+    InternalList(final Collection<? extends T> c) {
       super(c);
     }
 
-    InternalList(int initialSize) {
+    InternalList(final int initialSize) {
       super(initialSize);
     }
 
@@ -663,22 +663,22 @@ class DeltaStateHelper<A extends EventBehavior> implements StateHelper {
       return false;
     }
 
-    public void setTransient(boolean newTransientValue) {
+    public void setTransient(final boolean newTransientValue) {
     }
 
-    public void restoreState(FacesContext context, Object state) {
-      Object[] listAsArr = (Object[]) state;
+    public void restoreState(final FacesContext context, final Object state) {
+      final Object[] listAsArr = (Object[]) state;
       //since all other options would mean dual iteration
       //we have to do it the hard way
-      for (Object elem : listAsArr) {
+      for (final Object elem : listAsArr) {
         add((T) restoreAttachedState(context, elem));
       }
     }
 
-    public Object saveState(FacesContext context) {
-      Object[] values = new Object[size()];
+    public Object saveState(final FacesContext context) {
+      final Object[] values = new Object[size()];
       for (int i = 0; i < size(); i++) {
-        Object value = get(i);
+        final Object value = get(i);
 
         if (value instanceof StateHolder || value instanceof List || !(value instanceof Serializable)) {
           values[i] = saveAttachedState(context, value);
@@ -690,7 +690,7 @@ class DeltaStateHelper<A extends EventBehavior> implements StateHelper {
     }
   }
 
-  private static Object saveAttachedState(FacesContext context, Object attachedObject) {
+  private static Object saveAttachedState(final FacesContext context, final Object attachedObject) {
     if (context == null) {
       throw new NullPointerException("context");
     }
@@ -701,15 +701,15 @@ class DeltaStateHelper<A extends EventBehavior> implements StateHelper {
     // StateHolder interface should take precedence over
     // List children
     if (attachedObject instanceof StateHolder) {
-      StateHolder holder = (StateHolder) attachedObject;
+      final StateHolder holder = (StateHolder) attachedObject;
       if (holder.isTransient()) {
         return null;
       }
 
       return new AttachedStateWrapper(attachedObject.getClass(), holder.saveState(context));
     } else if (attachedObject instanceof List) {
-      List<Object> lst = new ArrayList<>(((List<?>) attachedObject).size());
-      for (Object item : (List<?>) attachedObject) {
+      final List<Object> lst = new ArrayList<>(((List<?>) attachedObject).size());
+      for (final Object item : (List<?>) attachedObject) {
         if (item != null) {
           lst.add(saveAttachedState(context, item));
         }
@@ -723,7 +723,7 @@ class DeltaStateHelper<A extends EventBehavior> implements StateHelper {
     }
   }
 
-  private static Object restoreAttachedState(FacesContext context, Object stateObj) throws IllegalStateException {
+  private static Object restoreAttachedState(final FacesContext context, final Object stateObj) throws IllegalStateException {
     if (context == null) {
       throw new NullPointerException("context");
     }
@@ -731,28 +731,28 @@ class DeltaStateHelper<A extends EventBehavior> implements StateHelper {
       return null;
     }
     if (stateObj instanceof AttachedListStateWrapper) {
-      List<Object> lst = ((AttachedListStateWrapper) stateObj).getWrappedStateList();
-      List<Object> restoredList = new ArrayList<>(lst.size());
-      for (Object item : lst) {
+      final List<Object> lst = ((AttachedListStateWrapper) stateObj).getWrappedStateList();
+      final List<Object> restoredList = new ArrayList<>(lst.size());
+      for (final Object item : lst) {
         restoredList.add(restoreAttachedState(context, item));
       }
       return restoredList;
     } else if (stateObj instanceof AttachedStateWrapper) {
-      Class<?> clazz = ((AttachedStateWrapper) stateObj).getClazz();
-      Object restoredObject;
+      final Class<?> clazz = ((AttachedStateWrapper) stateObj).getClazz();
+      final Object restoredObject;
       try {
         restoredObject = clazz.newInstance();
-      } catch (InstantiationException e) {
+      } catch (final InstantiationException e) {
         throw new RuntimeException("Could not restore StateHolder of type " + clazz.getName()
             + " (missing no-args constructor?)", e);
-      } catch (IllegalAccessException e) {
+      } catch (final IllegalAccessException e) {
         throw new RuntimeException(e);
       }
       if (restoredObject instanceof StateHolder) {
-        AttachedStateWrapper wrapper = (AttachedStateWrapper) stateObj;
-        Object wrappedState = wrapper.getWrappedStateObject();
+        final AttachedStateWrapper wrapper = (AttachedStateWrapper) stateObj;
+        final Object wrappedState = wrapper.getWrappedStateObject();
 
-        StateHolder holder = (StateHolder) restoredObject;
+        final StateHolder holder = (StateHolder) restoredObject;
         holder.restoreState(context, wrappedState);
       }
       return restoredObject;

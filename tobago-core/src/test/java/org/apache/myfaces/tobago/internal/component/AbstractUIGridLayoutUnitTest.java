@@ -246,7 +246,7 @@ public class AbstractUIGridLayoutUnitTest extends AbstractTobagoTestBase {
     Assert.assertEquals(null, expand[6][1]);
   }
 
-  private UIComponent createComponent(String id) {
+  private UIComponent createComponent(final String id) {
     return ComponentUtils.createComponent(facesContext, UIPanel.COMPONENT_TYPE, RendererTypes.Panel, id);
   }
 

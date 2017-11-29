@@ -87,16 +87,16 @@ public class TobagoComponentHandler extends ComponentHandler {
     if (validators.length > 0) {
       final Set<String> classNames = new HashSet<>();
       // collect classNames of validators
-      for (Validator validator : validators) {
+      for (final Validator validator : validators) {
         classNames.add(validator.getClass().getName());
       }
-      for (Map.Entry<String, String> entry : validatorInfoMap.entrySet()) {
-        if (!classNames.contains(entry.getValue())) {
-          component.addValidator(context.getApplication().createValidator((String) entry.getKey()));
+      validatorInfoMap.forEach((key, value) -> {
+        if (!classNames.contains(value)) {
+          component.addValidator(context.getApplication().createValidator(key));
         }
-      }
+      });
     } else {
-      for (String next : validatorInfoMap.keySet()) {
+      for (final String next : validatorInfoMap.keySet()) {
         component.addValidator(context.getApplication().createValidator(next));
       }
     }

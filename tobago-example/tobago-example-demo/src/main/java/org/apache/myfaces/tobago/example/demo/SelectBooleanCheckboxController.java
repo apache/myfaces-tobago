@@ -38,7 +38,7 @@ public class SelectBooleanCheckboxController implements Serializable {
     return a;
   }
 
-  public void setA(boolean a) {
+  public void setA(final boolean a) {
     this.a = a;
   }
 
@@ -46,7 +46,7 @@ public class SelectBooleanCheckboxController implements Serializable {
     return b;
   }
 
-  public void setB(boolean b) {
+  public void setB(final boolean b) {
     this.b = b;
   }
 
@@ -54,7 +54,7 @@ public class SelectBooleanCheckboxController implements Serializable {
     return c;
   }
 
-  public void setC(boolean c) {
+  public void setC(final boolean c) {
     this.c = c;
   }
 
@@ -62,7 +62,7 @@ public class SelectBooleanCheckboxController implements Serializable {
     return d;
   }
 
-  public void setD(boolean d) {
+  public void setD(final boolean d) {
     this.d = d;
   }
 
@@ -70,7 +70,7 @@ public class SelectBooleanCheckboxController implements Serializable {
     return e;
   }
 
-  public void setE(boolean e) {
+  public void setE(final boolean e) {
     this.e = e;
   }
 
@@ -78,7 +78,7 @@ public class SelectBooleanCheckboxController implements Serializable {
     return f;
   }
 
-  public void setF(boolean f) {
+  public void setF(final boolean f) {
     this.f = f;
   }
 

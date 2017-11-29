@@ -35,7 +35,7 @@ public class SelectOneRadioController extends PlanetExample implements Serializa
     return numberOne;
   }
 
-  public void setNumberOne(int numberOne) {
+  public void setNumberOne(final int numberOne) {
     this.numberOne = numberOne;
   }
 
@@ -43,7 +43,7 @@ public class SelectOneRadioController extends PlanetExample implements Serializa
     return numberTwo;
   }
 
-  public void setNumberTwo(int numberTwo) {
+  public void setNumberTwo(final int numberTwo) {
     this.numberTwo = numberTwo;
   }
 

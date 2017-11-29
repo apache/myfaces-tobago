@@ -104,9 +104,9 @@ public class CommandMap {
             c1.merge(c2);
           }
         } else {
-          for (Map.Entry<ClientBehaviors, Command> entry : m2.getOther().entrySet()) {
-            ClientBehaviors key = entry.getKey();
-            Command value = entry.getValue();
+          for (final Map.Entry<ClientBehaviors, Command> entry : m2.getOther().entrySet()) {
+            final ClientBehaviors key = entry.getKey();
+            final Command value = entry.getValue();
             if (m1.other.containsKey(key)) {
               final Command command = m1.other.get(key);
               command.merge(value);

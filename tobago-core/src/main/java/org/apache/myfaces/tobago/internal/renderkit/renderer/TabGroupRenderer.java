@@ -73,7 +73,7 @@ public class TabGroupRenderer extends RendererBase implements ComponentSystemEve
   private static final String ACTIVE_INDEX_POSTFIX = ComponentUtils.SUB_SEPARATOR + "activeIndex";
 
   @Override
-  public void processEvent(ComponentSystemEvent event) {
+  public void processEvent(final ComponentSystemEvent event) {
 
     final UITabGroup tabGroup = (UITabGroup) event.getComponent();
 
@@ -281,7 +281,7 @@ public class TabGroupRenderer extends RendererBase implements ComponentSystemEve
           }
           writer.writeAttribute(HtmlAttributes.ROLE, HtmlRoleValues.TAB.toString(), false);
 
-          String image = tab.getImage();
+          final String image = tab.getImage();
           // tab.getImage() resolves to empty string if el-expression resolves to null
           if (image != null && !image.isEmpty()) {
             writer.startElement(HtmlElements.IMG);
@@ -310,8 +310,8 @@ public class TabGroupRenderer extends RendererBase implements ComponentSystemEve
   }
 
   protected void encodeContent(
-      FacesContext facesContext, TobagoResponseWriter writer, UITabGroup tabGroup,
-      int activeIndex, SwitchType switchType) throws IOException {
+      final FacesContext facesContext, final TobagoResponseWriter writer, final UITabGroup tabGroup,
+      final int activeIndex, final SwitchType switchType) throws IOException {
     writer.startElement(HtmlElements.DIV);
     writer.writeClassAttribute(BootstrapClass.TAB_CONTENT);
     int index = 0;
@@ -343,7 +343,7 @@ public class TabGroupRenderer extends RendererBase implements ComponentSystemEve
     writer.endElement(HtmlElements.DIV);
   }
 
-  private String getTabPanelId(FacesContext facesContext, UITab tab) {
+  private String getTabPanelId(final FacesContext facesContext, final UITab tab) {
     return tab.getClientId(facesContext) + ComponentUtils.SUB_SEPARATOR + "content";
   }
 }

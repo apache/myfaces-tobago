@@ -111,7 +111,7 @@ public class DebugResponseWriterWrapper extends TobagoResponseWriter {
   }
 
   @Override
-  public void writeURIAttribute(MarkupLanguageAttributes name, String string) throws IOException {
+  public void writeURIAttribute(final MarkupLanguageAttributes name, final String string) throws IOException {
     responseWriter.writeURIAttribute(name, string);
     if (usedAttributes.contains(name)) {
       LOG.error("Duplicate attribute '" + name + "' in element <" + stack.peek() + "> with value '" + string + "'!",

@@ -43,7 +43,7 @@ public class TobagoResponseWriterWrapper extends TobagoResponseWriter {
   }
 
   @Override
-  public void startElement(HtmlElements name) throws IOException {
+  public void startElement(final HtmlElements name) throws IOException {
     responseWriter.startElement(name.getValue(), null);
   }
 
@@ -53,7 +53,7 @@ public class TobagoResponseWriterWrapper extends TobagoResponseWriter {
   }
 
   @Override
-  public void endElement(HtmlElements name) throws IOException {
+  public void endElement(final HtmlElements name) throws IOException {
     responseWriter.endElement(name.getValue());
   }
 
@@ -129,7 +129,7 @@ public class TobagoResponseWriterWrapper extends TobagoResponseWriter {
   }
 
   @Override
-  public void writeURIAttribute(MarkupLanguageAttributes name, String string) throws IOException {
+  public void writeURIAttribute(final MarkupLanguageAttributes name, final String string) throws IOException {
     responseWriter.writeURIAttribute(name.getValue(), string, null);
   }
 

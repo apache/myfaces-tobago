@@ -97,7 +97,7 @@ public final class HtmlRendererUtils {
    * @deprecated 4.0.0.
    */
   @Deprecated
-  public static void encodeIconWithLabel(TobagoResponseWriter writer, String image, String label) throws IOException {
+  public static void encodeIconWithLabel(final TobagoResponseWriter writer, final String image, final String label) throws IOException {
     if (image != null && image.startsWith("fa-")) { // XXX hack: should be integrated in the resource manager
       writer.writeIcon(null, Icons.custom(image)); // todo: should not be static
     }
@@ -113,7 +113,7 @@ public final class HtmlRendererUtils {
    */
   @Deprecated
   public static void encodeIconWithLabel(
-       TobagoResponseWriter writer, FacesContext facesContext, String image, LabelWithAccessKey label, boolean disabled)
+      final TobagoResponseWriter writer, final FacesContext facesContext, final String image, final LabelWithAccessKey label, final boolean disabled)
       throws IOException {
     if (image != null) {
       if (image.startsWith("fa-")) {
@@ -217,7 +217,7 @@ public final class HtmlRendererUtils {
           itemValue = ComponentUtils.getConvertedValue(facesContext, component, (String) itemValue);
         }
         final String formattedValue = ComponentUtils.getFormattedValue(facesContext, component, itemValue);
-        boolean contains;
+        final boolean contains;
         if (submittedValues == null) {
           contains = ArrayUtils.contains(values, itemValue);
         } else {

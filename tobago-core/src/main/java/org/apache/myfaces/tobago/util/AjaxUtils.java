@@ -59,7 +59,7 @@ public class AjaxUtils {
 
   public static void removeRenderIds(final FacesContext facesContext, final String... renderIds) {
     final Collection<String> collection = facesContext.getPartialViewContext().getRenderIds();
-    for (String renderId : renderIds) {
+    for (final String renderId : renderIds) {
       collection.remove(renderId);
     }
   }
@@ -68,9 +68,9 @@ public class AjaxUtils {
     return new HashSet<>(facesContext.getPartialViewContext().getRenderIds());
   }
 
-  public static void navigate(FacesContext facesContext, Object outcome) {
+  public static void navigate(final FacesContext facesContext, final Object outcome) {
     final Application application = facesContext.getApplication();
-    NavigationHandler navigationHandler = application.getNavigationHandler();
+    final NavigationHandler navigationHandler = application.getNavigationHandler();
     navigationHandler.handleNavigation(facesContext, null, outcome.toString());
     facesContext.renderResponse();
   }

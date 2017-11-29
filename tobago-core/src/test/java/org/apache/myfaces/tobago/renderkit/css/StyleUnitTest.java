@@ -32,14 +32,14 @@ public class StyleUnitTest extends AbstractJsfTestCase {
 
   @Test
   public void testEncodedEmpty() {
-    Style style = new Style();
+    final Style style = new Style();
     Assert.assertEquals("Check encoder", "", style.encode());
     Assert.assertEquals("Check encoder JSON", "{}", style.encodeJson());
   }
 
   @Test
   public void testEncodedFull() {
-    Style style = new Style();
+    final Style style = new Style();
 
     style.setWidth(Measure.valueOf(110));
     style.setHeight(Measure.valueOf(220));

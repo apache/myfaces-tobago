@@ -59,7 +59,7 @@ public abstract class AbstractUIFlexLayout extends AbstractUILayoutBase implemen
       if (tokens.getSize() > 0) {
         int i = 0;
 
-        for (UIComponent child : getChildren()) {
+        for (final UIComponent child : getChildren()) {
           if (child instanceof Visual) {
             if (i >= tokens.getSize()) {
               i = 0;

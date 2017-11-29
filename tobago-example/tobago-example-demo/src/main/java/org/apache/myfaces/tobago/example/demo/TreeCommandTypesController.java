@@ -46,7 +46,7 @@ public class TreeCommandTypesController implements Serializable {
     return actionOneCount;
   }
 
-  public void increaseActionCount(String name) {
+  public void increaseActionCount(final String name) {
     if ("ActionOne".equals(name)) {
       actionOneCount++;
     } else if ("ActionTwo".equals(name)) {

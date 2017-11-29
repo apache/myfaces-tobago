@@ -121,7 +121,7 @@ public class ComponentInfo extends TagInfo {
     return defaultBehavior;
   }
 
-  public void setDefaultBehavior(String defaultBehavior) {
+  public void setDefaultBehavior(final String defaultBehavior) {
     this.defaultBehavior = defaultBehavior;
   }
 }

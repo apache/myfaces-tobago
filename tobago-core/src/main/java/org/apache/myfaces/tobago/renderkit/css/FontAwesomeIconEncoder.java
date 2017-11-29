@@ -49,7 +49,7 @@ public class FontAwesomeIconEncoder implements IconEncoder {
 
   static {
     ICONS = new EnumMap<>(Icons.class);
-    for (Icons icon : Icons.values()) {
+    for (final Icons icon : Icons.values()) {
       ICONS.put(icon, new FontAwesomeCssItem("fa-" + icon.name().toLowerCase().replaceAll("_", "-")));
     }
   }
@@ -70,7 +70,7 @@ public class FontAwesomeIconEncoder implements IconEncoder {
     if (icon == null) {
       return null;
     }
-    CssItem result = ICONS.get(icon);
+    final CssItem result = ICONS.get(icon);
     if (result == null) {
       LOG.warn("Missing icon: '" + icon + "'");
     }
@@ -89,7 +89,7 @@ public class FontAwesomeIconEncoder implements IconEncoder {
 
     private String name;
 
-    FontAwesomeCssItem(String name) {
+    FontAwesomeCssItem(final String name) {
       this.name = name;
     }
 

@@ -92,7 +92,7 @@ public abstract class LabelLayoutRendererBase extends DecodingInputRendererBase 
     // render the styles here, because inside of <select> its not possible.
     if (component.getRendersChildren()) {
       final List<AbstractUIStyle> children = ComponentUtils.findDescendantList(component, AbstractUIStyle.class);
-      for (AbstractUIStyle child : children) {
+      for (final AbstractUIStyle child : children) {
         child.encodeAll(facesContext);
       }
     }
@@ -101,10 +101,10 @@ public abstract class LabelLayoutRendererBase extends DecodingInputRendererBase 
   }
 
   @Override
-  public void encodeChildren(FacesContext context, UIComponent component) throws IOException {
+  public void encodeChildren(final FacesContext context, final UIComponent component) throws IOException {
     if (component.getChildCount() > 0) {
       for (int i = 0, childCount = component.getChildCount(); i < childCount; i++) {
-        UIComponent child = component.getChildren().get(i);
+        final UIComponent child = component.getChildren().get(i);
         if (!child.isRendered()) {
           continue;
         }
@@ -232,7 +232,7 @@ public abstract class LabelLayoutRendererBase extends DecodingInputRendererBase 
       writer.writeAttribute(HtmlAttributes.FOR, getFieldId(facesContext, component), false);
       writer.writeClassAttribute(TobagoClass.LABEL, BootstrapClass.COL_FORM_LABEL);
       if (component instanceof SupportsAccessKey) {
-        LabelWithAccessKey labelWithAccessKey = new LabelWithAccessKey((SupportsAccessKey) component);
+        final LabelWithAccessKey labelWithAccessKey = new LabelWithAccessKey((SupportsAccessKey) component);
         HtmlRendererUtils.writeLabelWithAccessKey(writer, labelWithAccessKey);
       } else {
         writer.writeText(label);
@@ -241,7 +241,7 @@ public abstract class LabelLayoutRendererBase extends DecodingInputRendererBase 
     }
   }
 
-  private LabelLayout getType(UIComponent component) {
+  private LabelLayout getType(final UIComponent component) {
     return component instanceof SupportsLabelLayout
         ? ((SupportsLabelLayout) component).getLabelLayout()
         : LabelLayout.skip;

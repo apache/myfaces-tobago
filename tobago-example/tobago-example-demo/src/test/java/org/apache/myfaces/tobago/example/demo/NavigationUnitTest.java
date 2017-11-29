@@ -45,7 +45,7 @@ public class NavigationUnitTest extends AbstractTobagoTestBase {
     final NavigationTree navigation = new NavigationTree() {
       @Override
       protected List<String> locateResourcesInWar(
-          ServletContext servletContext, String directory, List<String> result) {
+          final ServletContext servletContext, final String directory, final List<String> result) {
         return LIST;
       }
     };

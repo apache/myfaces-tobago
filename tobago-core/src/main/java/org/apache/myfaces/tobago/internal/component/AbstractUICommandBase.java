@@ -46,12 +46,12 @@ public abstract class AbstractUICommandBase extends UICommand
     implements ComponentSystemEventListener {
 
   @Override
-  public void processEvent(ComponentSystemEvent event) {
+  public void processEvent(final ComponentSystemEvent event) {
     super.processEvent(event);
 
     if (event instanceof PostAddToViewEvent) {
       final List<AbstractUIOperation> list = ComponentUtils.findDescendantList(this, AbstractUIOperation.class);
-      for (AbstractUIOperation operation : list) {
+      for (final AbstractUIOperation operation : list) {
         addActionListener(new CollapsibleActionListener(operation.getFor()));
       }
     }
@@ -126,7 +126,7 @@ public abstract class AbstractUICommandBase extends UICommand
     return true;
   }
 
-  public void setDisabled(boolean disabled) {
+  public void setDisabled(final boolean disabled) {
     getStateHelper().put(AbstractUICommand.PropertyKeys.disabled, disabled);
   }
 

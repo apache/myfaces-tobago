@@ -33,7 +33,7 @@ public abstract class AbstractUISegmentLayout extends AbstractUILayoutBase imple
 
   @Override
   public String toString() {
-    StringBuilder builder = new StringBuilder(getClass().getSimpleName());
+    final StringBuilder builder = new StringBuilder(getClass().getSimpleName());
     if (getExtraSmall() != null) {
       builder.append("\n        extraSmall=");
       builder.append(getExtraSmall());

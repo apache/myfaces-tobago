@@ -36,7 +36,7 @@ public class HttpPartWrapper implements Part, FacesWrapper<Part>, StateHolder {
   public HttpPartWrapper() {
   }
 
-  public HttpPartWrapper(Part delegate) {
+  public HttpPartWrapper(final Part delegate) {
     this.delegate = delegate;
   }
 
@@ -51,7 +51,7 @@ public class HttpPartWrapper implements Part, FacesWrapper<Part>, StateHolder {
   }
 
   @Override
-  public String getHeader(String headerName) {
+  public String getHeader(final String headerName) {
     return getWrapped().getHeader(headerName);
   }
 
@@ -61,7 +61,7 @@ public class HttpPartWrapper implements Part, FacesWrapper<Part>, StateHolder {
   }
 
   @Override
-  public Collection<String> getHeaders(String headerName) {
+  public Collection<String> getHeaders(final String headerName) {
     return getWrapped().getHeaders(headerName);
   }
 
@@ -81,35 +81,35 @@ public class HttpPartWrapper implements Part, FacesWrapper<Part>, StateHolder {
   }
 
   @Override
-  public void write(String fileName) throws IOException {
+  public void write(final String fileName) throws IOException {
     getWrapped().write(fileName);
   }
 
   public String getSubmittedFileName() {
-    Part wrapped = getWrapped();
+    final Part wrapped = getWrapped();
     try {
-      Method m = wrapped.getClass().getMethod("getSubmittedFileName");
+      final Method m = wrapped.getClass().getMethod("getSubmittedFileName");
       return (String) m.invoke(wrapped);
-    } catch (NoSuchMethodException ex) {
+    } catch (final NoSuchMethodException ex) {
       throw new FacesException(ex);
-    } catch (SecurityException ex) {
+    } catch (final SecurityException ex) {
       throw new FacesException(ex);
-    } catch (IllegalAccessException ex) {
+    } catch (final IllegalAccessException ex) {
       throw new FacesException(ex);
-    } catch (IllegalArgumentException ex) {
+    } catch (final IllegalArgumentException ex) {
       throw new FacesException(ex);
-    } catch (InvocationTargetException ex) {
+    } catch (final InvocationTargetException ex) {
       throw new FacesException(ex);
     }
   }
 
   @Override
-  public Object saveState(FacesContext context) {
+  public Object saveState(final FacesContext context) {
     return null;
   }
 
   @Override
-  public void restoreState(FacesContext context, Object state) {
+  public void restoreState(final FacesContext context, final Object state) {
   }
 
   @Override
@@ -118,7 +118,7 @@ public class HttpPartWrapper implements Part, FacesWrapper<Part>, StateHolder {
   }
 
   @Override
-  public void setTransient(boolean newTransientValue) {
+  public void setTransient(final boolean newTransientValue) {
   }
 
   @Override

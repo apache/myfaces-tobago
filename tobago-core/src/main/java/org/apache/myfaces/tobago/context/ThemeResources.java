@@ -36,7 +36,7 @@ public final class ThemeResources implements Serializable {
   private final List<ThemeStyle> styleList = new ArrayList<>();
   private final List<ThemeStyle> styleExcludes = new ArrayList<>();
 
-  public ThemeResources(boolean production) {
+  public ThemeResources(final boolean production) {
     this.production = production;
   }
 
@@ -64,11 +64,11 @@ public final class ThemeResources implements Serializable {
     return production;
   }
 
-  public boolean addScript(final ThemeScript script, boolean exclude) {
+  public boolean addScript(final ThemeScript script, final boolean exclude) {
     return exclude ? scriptExcludes.add(script) : scriptList.add(script);
   }
 
-  public boolean addStyle(final ThemeStyle style, boolean exclude) {
+  public boolean addStyle(final ThemeStyle style, final boolean exclude) {
     return exclude ? styleExcludes.add(style) : styleList.add(style);
   }
 

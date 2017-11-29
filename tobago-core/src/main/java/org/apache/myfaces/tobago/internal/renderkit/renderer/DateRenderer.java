@@ -55,14 +55,14 @@ public class DateRenderer extends InRenderer {
 
     super.writeAdditionalAttributes(facesContext, writer, date);
     writer.writeAttribute(DataAttributes.PATTERN, date.getPattern(), true);
-    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+    final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
     writer.writeAttribute(DataAttributes.TODAY, sdf.format(new Date()), true);
     final DateTimeI18n dateTimeI18n = DateTimeI18n.valueOf(facesContext.getViewRoot().getLocale());
     writer.writeAttribute(DataAttributes.DATE_TIME_I18N, JsonUtils.encode(dateTimeI18n), true);
   }
 
   @Override
-  protected void encodeBeginField(FacesContext facesContext, UIComponent component) throws IOException {
+  protected void encodeBeginField(final FacesContext facesContext, final UIComponent component) throws IOException {
     final AbstractUIDate date = (AbstractUIDate) component;
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
@@ -80,7 +80,7 @@ public class DateRenderer extends InRenderer {
   }
 
   @Override
-  public void encodeEndField(FacesContext facesContext, UIComponent component) throws IOException {
+  public void encodeEndField(final FacesContext facesContext, final UIComponent component) throws IOException {
 
     super.encodeEndField(facesContext, component);
 

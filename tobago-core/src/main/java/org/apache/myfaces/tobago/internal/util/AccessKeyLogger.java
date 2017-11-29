@@ -52,10 +52,10 @@ public final class AccessKeyLogger extends HashMap<Character, List<String>> {
     return keyMap;
   }
 
-  public static void addAccessKey(final FacesContext facesContext, final Character key, String clientId) {
+  public static void addAccessKey(final FacesContext facesContext, final Character key, final String clientId) {
     if (LOG.isDebugEnabled()) {
       final AccessKeyLogger instance = getInstance(facesContext);
-      List<String> clientIds;
+      final List<String> clientIds;
       if (instance.containsKey(key)) {
         clientIds = instance.get(key);
       } else {
@@ -73,7 +73,7 @@ public final class AccessKeyLogger extends HashMap<Character, List<String>> {
       final StringBuilder builder = new StringBuilder();
       final AccessKeyLogger instance = AccessKeyLogger.getInstance(facesContext);
       builder.append("Used access keys:");
-      for (Map.Entry<Character, List<String>> entry : instance.entrySet()) {
+      for (final Map.Entry<Character, List<String>> entry : instance.entrySet()) {
         builder.append("\n'");
         builder.append(entry.getKey());
         builder.append("' -> ");

@@ -93,7 +93,7 @@ public class SelectManyCheckboxRenderer extends SelectManyRendererBase {
       writer.writeClassAttribute(BootstrapClass.FORM_CHECK_INPUT);
       writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.CHECKBOX);
       final String formattedValue = ComponentUtils.getFormattedValue(facesContext, select, item.getValue());
-      boolean checked;
+      final boolean checked;
       if (submittedValues == null) {
         checked = ArrayUtils.contains(values, item.getValue());
       } else {
@@ -119,7 +119,7 @@ public class SelectManyCheckboxRenderer extends SelectManyRendererBase {
       writer.endElement(HtmlElements.I);
 
       if (item instanceof org.apache.myfaces.tobago.model.SelectItem) {
-        org.apache.myfaces.tobago.model.SelectItem tobagoItem = (org.apache.myfaces.tobago.model.SelectItem) item;
+        final org.apache.myfaces.tobago.model.SelectItem tobagoItem = (org.apache.myfaces.tobago.model.SelectItem) item;
         final String image = tobagoItem.getImage();
 
         if (image != null) {
@@ -157,7 +157,7 @@ public class SelectManyCheckboxRenderer extends SelectManyRendererBase {
   }
 
   @Override
-  protected String getFieldId(FacesContext facesContext, UIComponent component) {
+  protected String getFieldId(final FacesContext facesContext, final UIComponent component) {
     return component.getClientId(facesContext);
   }
 }

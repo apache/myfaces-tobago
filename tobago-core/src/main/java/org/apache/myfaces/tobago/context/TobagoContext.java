@@ -67,7 +67,7 @@ public class TobagoContext implements Serializable {
       final ExternalContext externalContext = facesContext.getExternalContext();
 
       final String themeName;
-      Object request = externalContext.getRequest();
+      final Object request = externalContext.getRequest();
       if (request instanceof HttpServletRequest) {
         themeName = CookieUtils.getThemeNameFromCookie((HttpServletRequest) request);
       } else {
@@ -83,7 +83,7 @@ public class TobagoContext implements Serializable {
     return theme;
   }
 
-  public void setTheme(Theme theme) {
+  public void setTheme(final Theme theme) {
     this.theme = theme;
   }
 
@@ -111,7 +111,7 @@ public class TobagoContext implements Serializable {
     return focusId;
   }
 
-  public void setFocusId(String focusId) {
+  public void setFocusId(final String focusId) {
     this.focusId = focusId;
   }
 
@@ -119,7 +119,7 @@ public class TobagoContext implements Serializable {
     return enctype;
   }
 
-  public void setEnctype(String enctype) {
+  public void setEnctype(final String enctype) {
     this.enctype = enctype;
   }
 

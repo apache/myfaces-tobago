@@ -37,11 +37,11 @@ public class CookieUtils {
   private CookieUtils() {
   }
 
-  public static String getThemeNameFromCookie(HttpServletRequest request) {
+  public static String getThemeNameFromCookie(final HttpServletRequest request) {
     String themeName = null;
     final Cookie[] cookies = request.getCookies();
     if (cookies != null) {
-      for (Cookie cookie : cookies) {
+      for (final Cookie cookie : cookies) {
         if (LOG.isDebugEnabled()) {
           LOG.debug("cookie name  ='{}'", cookie.getName());
           LOG.debug("cookie value ='{}'", cookie.getValue());
@@ -60,14 +60,14 @@ public class CookieUtils {
   }
 
   public static void setThemeNameToCookie(
-      HttpServletRequest request, HttpServletResponse response, String themeName) {
+      final HttpServletRequest request, final HttpServletResponse response, final String themeName) {
 
     String path = request.getContextPath();
     path = StringUtils.isBlank(path) ? "/" : path;
     boolean found = false;
     final Cookie[] cookies = request.getCookies();
     if (cookies != null) {
-      for (Cookie cookie : cookies) {
+      for (final Cookie cookie : cookies) {
         if (THEME_PARAMETER.equals(cookie.getName())) {
           if (found) {
             if (LOG.isDebugEnabled()) {
@@ -95,7 +95,7 @@ public class CookieUtils {
       }
     }
     if (!found) {
-      Cookie cookie = new Cookie(THEME_PARAMETER, themeName);
+      final Cookie cookie = new Cookie(THEME_PARAMETER, themeName);
       cookie.setPath(path);
       cookie.setMaxAge(ONE_YEAR_IN_SECONDS);
       response.addCookie(cookie);
@@ -103,13 +103,13 @@ public class CookieUtils {
   }
 
   public static void removeThemeNameCookie(
-      HttpServletRequest request, HttpServletResponse response) {
+      final HttpServletRequest request, final HttpServletResponse response) {
 
     String path = request.getContextPath();
     path = StringUtils.isBlank(path) ? "/" : path;
     final Cookie[] cookies = request.getCookies();
     if (cookies != null) {
-      for (Cookie cookie : cookies) {
+      for (final Cookie cookie : cookies) {
         if (THEME_PARAMETER.equals(cookie.getName())) {
           cookie.setMaxAge(0);
           cookie.setValue(null);

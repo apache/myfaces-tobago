@@ -27,11 +27,11 @@ public class CommandNode extends DefaultMutableTreeNode {
   private String action;
   private String url;
 
-  public CommandNode(String name) {
+  public CommandNode(final String name) {
     this.name = name;
   }
 
-  public CommandNode(String name, String action, String url) {
+  public CommandNode(final String name, final String action, final String url) {
     this.name = name;
     this.action = action;
     this.url = url;

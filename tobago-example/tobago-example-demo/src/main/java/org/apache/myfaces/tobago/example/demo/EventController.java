@@ -240,7 +240,7 @@ public class EventController implements Serializable {
     private final String tagName;
     private final Collection<String> eventNames = new TreeSet<>();
 
-    EventsOnComponent(UIComponentBase component) {
+    EventsOnComponent(final UIComponentBase component) {
       final String simpleName = component.getClass().getSimpleName();
       tagName = simpleName.substring(2, 3).toLowerCase() + simpleName.substring(3);
       if (component.getEventNames() != null) {
@@ -309,11 +309,11 @@ public class EventController implements Serializable {
     }
 
     public String getSpecialEvents() {
-      Set<String> specialEventNames = new TreeSet<>();
+      final Set<String> specialEventNames = new TreeSet<>();
 
-      for (String eventName : eventNames) {
+      for (final String eventName : eventNames) {
         boolean isSpecialEvent = true;
-        for (CommonEvent commonEvent : CommonEvent.values()) {
+        for (final CommonEvent commonEvent : CommonEvent.values()) {
           if (eventName.equals(commonEvent.name())) {
             isSpecialEvent = false;
           }
@@ -327,11 +327,11 @@ public class EventController implements Serializable {
       return specialEventNames.size() > 0 ? concatStrings(specialEventNames) : "";
     }
 
-    private String concatStrings(Set<String> strings) {
-      StringBuilder stringBuilder = new StringBuilder();
+    private String concatStrings(final Set<String> strings) {
+      final StringBuilder stringBuilder = new StringBuilder();
 
       int i = 0;
-      for (String string : strings) {
+      for (final String string : strings) {
         i++;
         stringBuilder.append(string);
         if (i < strings.size()) {

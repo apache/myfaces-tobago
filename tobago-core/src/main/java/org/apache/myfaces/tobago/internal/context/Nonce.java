@@ -17,7 +17,7 @@ public class Nonce implements Serializable {
   private Nonce() {
   }
 
-  public static String getNonce(FacesContext facesContext) {
+  public static String getNonce(final FacesContext facesContext) {
     final UIViewRoot viewRoot = facesContext.getViewRoot();
     String nonce = (String) viewRoot.getViewMap().get(KEY);
     if (nonce == null) {

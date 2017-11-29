@@ -35,7 +35,7 @@ public class FormRequiredController implements Serializable {
     return outerValue;
   }
 
-  public void setOuterValue(String outerValue) {
+  public void setOuterValue(final String outerValue) {
     this.outerValue = outerValue;
   }
 
@@ -43,7 +43,7 @@ public class FormRequiredController implements Serializable {
     return innerValue1;
   }
 
-  public void setInnerValue1(String innerValue1) {
+  public void setInnerValue1(final String innerValue1) {
     this.innerValue1 = innerValue1;
   }
 
@@ -51,7 +51,7 @@ public class FormRequiredController implements Serializable {
     return innerValue2;
   }
 
-  public void setInnerValue2(String innerValue2) {
+  public void setInnerValue2(final String innerValue2) {
     this.innerValue2 = innerValue2;
   }
 }

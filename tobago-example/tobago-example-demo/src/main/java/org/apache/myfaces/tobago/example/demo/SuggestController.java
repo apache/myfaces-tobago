@@ -50,7 +50,7 @@ public class SuggestController implements Serializable {
     return query;
   }
 
-  public void setQuery(String query) {
+  public void setQuery(final String query) {
     this.query = query;
   }
 
@@ -90,7 +90,7 @@ public class SuggestController implements Serializable {
     return selection1;
   }
 
-  public void setSelection1(String selection1) {
+  public void setSelection1(final String selection1) {
     LOG.info("setSelection1 ->" + selection1);
     this.selection1 = selection1;
   }
@@ -99,7 +99,7 @@ public class SuggestController implements Serializable {
     return selection2;
   }
 
-  public void setSelection2(String selection2) {
+  public void setSelection2(final String selection2) {
     this.selection2 = selection2;
   }
 }

@@ -79,7 +79,7 @@ public class SelectItem extends javax.faces.model.SelectItem implements Visual {
   /**
    * Alias name for description.
    */
-  public void setTip(String tip) {
+  public void setTip(final String tip) {
     setDescription(tip);
   }
 
@@ -107,7 +107,7 @@ public class SelectItem extends javax.faces.model.SelectItem implements Visual {
   }
 
   @Override
-  public void setCustomClass(CustomClass customClass) {
+  public void setCustomClass(final CustomClass customClass) {
     this.customClass = customClass;
   }
 

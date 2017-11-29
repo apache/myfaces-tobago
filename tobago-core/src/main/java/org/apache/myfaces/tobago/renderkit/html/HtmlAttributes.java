@@ -131,7 +131,7 @@ public enum HtmlAttributes implements MarkupLanguageAttributes {
 
   private final String value;
 
-  HtmlAttributes(String value) {
+  HtmlAttributes(final String value) {
     this.value = value;
   }
 

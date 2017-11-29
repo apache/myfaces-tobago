@@ -40,7 +40,7 @@ import java.io.IOException;
 public class PopupRenderer extends PanelRendererBase {
 
   @Override
-  public void encodeBegin(FacesContext facesContext, UIComponent component) throws IOException {
+  public void encodeBegin(final FacesContext facesContext, final UIComponent component) throws IOException {
 
     final AbstractUIPopup popup = (AbstractUIPopup) component;
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
@@ -79,7 +79,7 @@ public class PopupRenderer extends PanelRendererBase {
   }
 
   @Override
-  public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
+  public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
 
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
     writer.endElement(HtmlElements.DIV);

@@ -47,7 +47,7 @@ public class ImageRenderer extends RendererBase {
 
     final AbstractUIImage image = (AbstractUIImage) component;
     final String value = image.getUrl();
-    boolean fontAwesome = StringUtils.startsWith(value, "fa-");
+    final boolean fontAwesome = StringUtils.startsWith(value, "fa-");
     final boolean disabled = image.isDisabled()
         || (image.getParent() instanceof AbstractUICommandBase
         && ((AbstractUICommandBase) image.getParent()).isDisabled());

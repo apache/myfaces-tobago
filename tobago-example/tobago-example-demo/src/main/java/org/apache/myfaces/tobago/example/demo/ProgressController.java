@@ -43,7 +43,7 @@ public class ProgressController implements Serializable {
   }
 
   public void addProgress() {
-    int value = progress.getValue();
+    final int value = progress.getValue();
 
     if (value >= progress.getMaximum()) {
       progress.setValue(0);
@@ -61,17 +61,17 @@ public class ProgressController implements Serializable {
   }
 
   public double getCurrentHours() {
-    SimpleDateFormat sdf = new SimpleDateFormat("HH");
+    final SimpleDateFormat sdf = new SimpleDateFormat("HH");
     return Double.valueOf(sdf.format(getCurrentDate()));
   }
 
   public double getCurrentMinutes() {
-    SimpleDateFormat sdf = new SimpleDateFormat("mm");
+    final SimpleDateFormat sdf = new SimpleDateFormat("mm");
     return Double.valueOf(sdf.format(getCurrentDate()));
   }
 
   public double getCurrentSeconds() {
-    SimpleDateFormat sdf = new SimpleDateFormat("ss");
+    final SimpleDateFormat sdf = new SimpleDateFormat("ss");
     return Double.valueOf(sdf.format(getCurrentDate()));
   }
 }

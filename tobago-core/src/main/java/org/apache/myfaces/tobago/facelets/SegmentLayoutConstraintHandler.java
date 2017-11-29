@@ -46,7 +46,7 @@ public class SegmentLayoutConstraintHandler extends TagHandler {
   private final TagAttribute offsetLarge;
   private final TagAttribute offsetExtraLarge;
 
-  public SegmentLayoutConstraintHandler(TagConfig config) {
+  public SegmentLayoutConstraintHandler(final TagConfig config) {
     super(config);
     overwriteExtraSmall = getAttribute(Attributes.extraSmall.getName());
     overwriteSmall = getAttribute(Attributes.small.getName());
@@ -66,7 +66,7 @@ public class SegmentLayoutConstraintHandler extends TagHandler {
   }
 
   @Override
-  public void apply(FaceletContext faceletContext, UIComponent parent) throws IOException {
+  public void apply(final FaceletContext faceletContext, final UIComponent parent) throws IOException {
     apply(faceletContext, parent, overwriteExtraSmall, Attributes.overwriteExtraSmall, Integer.TYPE);
     apply(faceletContext, parent, overwriteSmall, Attributes.overwriteSmall, Integer.TYPE);
     apply(faceletContext, parent, overwriteMedium, Attributes.overwriteMedium, Integer.TYPE);
@@ -86,8 +86,8 @@ public class SegmentLayoutConstraintHandler extends TagHandler {
     apply(faceletContext, parent, offsetExtraLarge, Attributes.offsetExtraLarge, Integer.TYPE);
   }
 
-  private void apply(FaceletContext faceletContext, UIComponent parent, final TagAttribute tagAttribute,
-      final Attributes attribute, final Class type) {
+  private void apply(final FaceletContext faceletContext, final UIComponent parent, final TagAttribute tagAttribute,
+                     final Attributes attribute, final Class type) {
     if (tagAttribute != null) {
       if (tagAttribute.isLiteral()) {
         parent.getAttributes().put(attribute.getName(), tagAttribute.getValue());

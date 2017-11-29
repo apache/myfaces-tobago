@@ -39,7 +39,7 @@ public class ValidationJsr303Controller implements Serializable {
     return required;
   }
 
-  public void setRequired(String required) {
+  public void setRequired(final String required) {
     this.required = required;
   }
 
@@ -47,7 +47,7 @@ public class ValidationJsr303Controller implements Serializable {
     return length;
   }
 
-  public void setLength(String length) {
+  public void setLength(final String length) {
     this.length = length;
   }
 }

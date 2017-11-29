@@ -74,7 +74,7 @@ public class PartialReloadController {
     return logAndNavigate(null);
   }
 
-  public void navigateAction(AjaxBehaviorEvent event) {
+  public void navigateAction(final AjaxBehaviorEvent event) {
     final FacesContext facesContext = FacesContext.getCurrentInstance();
 
     if (navigationState == null) {

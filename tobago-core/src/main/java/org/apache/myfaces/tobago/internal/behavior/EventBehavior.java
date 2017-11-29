@@ -80,11 +80,11 @@ public class EventBehavior extends ClientBehaviorBase {
     super();
   }
 
-  public void addAjaxBehaviorListener(AjaxBehaviorListener listener) {
+  public void addAjaxBehaviorListener(final AjaxBehaviorListener listener) {
     super.addBehaviorListener(listener);
   }
 
-  public void removeAjaxBehaviorListener(AjaxBehaviorListener listener) {
+  public void removeAjaxBehaviorListener(final AjaxBehaviorListener listener) {
     removeBehaviorListener(listener);
   }
 
@@ -95,7 +95,7 @@ public class EventBehavior extends ClientBehaviorBase {
     return evalForCollection(ATTR_EXECUTE);
   }
 
-  public void setExecute(Collection<String> execute) {
+  public void setExecute(final Collection<String> execute) {
     getStateHelper().put(ATTR_EXECUTE, execute);
   }
 
@@ -103,7 +103,7 @@ public class EventBehavior extends ClientBehaviorBase {
     return (String) getStateHelper().eval(ATTR_ON_ERROR);
   }
 
-  public void setOnerror(String onError) {
+  public void setOnerror(final String onError) {
     getStateHelper().put(ATTR_ON_ERROR, onError);
   }
 
@@ -111,7 +111,7 @@ public class EventBehavior extends ClientBehaviorBase {
     return (String) getStateHelper().eval(ATTR_ON_EVENT);
   }
 
-  public void setOnevent(String onEvent) {
+  public void setOnevent(final String onEvent) {
     getStateHelper().put(ATTR_ON_EVENT, onEvent);
   }
 
@@ -122,18 +122,18 @@ public class EventBehavior extends ClientBehaviorBase {
     return evalForCollection(ATTR_RENDER);
   }
 
-  public void setRender(Collection<String> render) {
+  public void setRender(final Collection<String> render) {
     getStateHelper().put(ATTR_RENDER, render);
   }
 
   @SuppressWarnings("unchecked")
-  public ValueExpression getValueExpression(String name) {
+  public ValueExpression getValueExpression(final String name) {
     //return getValueExpressionMap().get(name);
     if (name == null) {
       throw new NullPointerException("name can not be null");
     }
 
-    Map<String, Object> bindings = (Map<String, Object>) getStateHelper().
+    final Map<String, Object> bindings = (Map<String, Object>) getStateHelper().
         get(EventBehavior.PropertyKeys.bindings);
     if (bindings != null) {
       return (ValueExpression) bindings.get(name);
@@ -142,7 +142,7 @@ public class EventBehavior extends ClientBehaviorBase {
     }
   }
 
-  public void setValueExpression(String name, ValueExpression expression) {
+  public void setValueExpression(final String name, final ValueExpression expression) {
         /*
         if (item == null)
         {
@@ -171,7 +171,7 @@ public class EventBehavior extends ClientBehaviorBase {
     return retVal;
   }
 
-  public void setDisabled(boolean disabled) {
+  public void setDisabled(final boolean disabled) {
     getStateHelper().put(ATTR_DISABLED, disabled);
   }
 
@@ -181,7 +181,7 @@ public class EventBehavior extends ClientBehaviorBase {
     return retVal;
   }
 
-  public void setImmediate(boolean immediate) {
+  public void setImmediate(final boolean immediate) {
     getStateHelper().put(ATTR_IMMEDIATE, immediate);
   }
 
@@ -200,11 +200,11 @@ public class EventBehavior extends ClientBehaviorBase {
   }
 
   @Override
-  public void restoreState(FacesContext facesContext, Object o) {
+  public void restoreState(final FacesContext facesContext, final Object o) {
     if (o == null) {
       return;
     }
-    Object[] values = (Object[]) o;
+    final Object[] values = (Object[]) o;
     if (values[0] != null) {
       super.restoreState(facesContext, values[0]);
     }
@@ -222,7 +222,7 @@ public class EventBehavior extends ClientBehaviorBase {
    * @param create if true a state helper is created if not already existing
    * @return an implementation of the StateHelper interface or null if none exists and create is set to false
    */
-  private StateHelper getStateHelper(boolean create) {
+  private StateHelper getStateHelper(final boolean create) {
     if (stateHelper != null) {
       return stateHelper;
     }
@@ -233,11 +233,11 @@ public class EventBehavior extends ClientBehaviorBase {
   }
 
   @Override
-  public Object saveState(FacesContext facesContext) {
+  public Object saveState(final FacesContext facesContext) {
     if (initialStateMarked()) {
-      Object parentSaved = super.saveState(facesContext);
+      final Object parentSaved = super.saveState(facesContext);
       Object stateHelperSaved = null;
-      StateHelper stateHelper = getStateHelper(false);
+      final StateHelper stateHelper = getStateHelper(false);
       if (stateHelper != null) {
         stateHelperSaved = stateHelper.saveState(facesContext);
       }
@@ -248,9 +248,9 @@ public class EventBehavior extends ClientBehaviorBase {
       }
       return new Object[]{parentSaved, stateHelperSaved};
     } else {
-      Object[] values = new Object[2];
+      final Object[] values = new Object[2];
       values[0] = super.saveState(facesContext);
-      StateHelper stateHelper = getStateHelper(false);
+      final StateHelper stateHelper = getStateHelper(false);
       if (stateHelper != null) {
         values[1] = stateHelper.saveState(facesContext);
       }
@@ -271,8 +271,8 @@ public class EventBehavior extends ClientBehaviorBase {
    * @return
    */
   @SuppressWarnings("unchecked")
-  private Collection<String> evalForCollection(String attributeName) {
-    Object value = getStateHelper().eval(attributeName);
+  private Collection<String> evalForCollection(final String attributeName) {
+    final Object value = getStateHelper().eval(attributeName);
     if (value == null) {
       return Collections.emptyList();
     } else if (value instanceof Collection) {
@@ -292,7 +292,7 @@ public class EventBehavior extends ClientBehaviorBase {
    * @param stringValue
    * @return
    */
-  private Collection<String> getCollectionFromSpaceSplitString(String stringValue) {
+  private Collection<String> getCollectionFromSpaceSplitString(final String stringValue) {
     //@special handling for @all, @none, @form and @this
     if (stringValue.equals(VAL_FORM)) {
       return VAL_FORM_LIST;
@@ -305,7 +305,7 @@ public class EventBehavior extends ClientBehaviorBase {
     }
 
     // not one of the "normal" values - split it and return the Collection
-    String[] arrValue = stringValue.split(" ");
+    final String[] arrValue = stringValue.split(" ");
     return Arrays.asList(arrValue);
   }
 

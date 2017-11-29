@@ -48,7 +48,7 @@ public class TreeController implements Serializable {
     return treeShowRoot;
   }
 
-  public void setTreeShowRoot(boolean treeShowRoot) {
+  public void setTreeShowRoot(final boolean treeShowRoot) {
     this.treeShowRoot = treeShowRoot;
   }
 
@@ -56,7 +56,7 @@ public class TreeController implements Serializable {
     return treeShowRootJunction;
   }
 
-  public void setTreeShowRootJunction(boolean treeShowRootJunction) {
+  public void setTreeShowRootJunction(final boolean treeShowRootJunction) {
     this.treeShowRootJunction = treeShowRootJunction;
   }
 
@@ -64,7 +64,7 @@ public class TreeController implements Serializable {
     return treeIndentRendered;
   }
 
-  public void setTreeIndentRendered(boolean treeIndentRendered) {
+  public void setTreeIndentRendered(final boolean treeIndentRendered) {
     this.treeIndentRendered = treeIndentRendered;
   }
 
@@ -72,7 +72,7 @@ public class TreeController implements Serializable {
     return treeIndentShowJunction;
   }
 
-  public void setTreeIndentShowJunction(boolean treeIndentShowJunction) {
+  public void setTreeIndentShowJunction(final boolean treeIndentShowJunction) {
     this.treeIndentShowJunction = treeIndentShowJunction;
   }
 }

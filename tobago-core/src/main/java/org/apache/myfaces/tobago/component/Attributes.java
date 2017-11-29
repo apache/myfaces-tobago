@@ -397,7 +397,7 @@ public enum Attributes {
     this(null);
   }
 
-  Attributes(String explicit) {
+  Attributes(final String explicit) {
     this.explicit = explicit;
   }
 
@@ -409,10 +409,10 @@ public enum Attributes {
     }
   }
 
-  public static Attributes valueOfFailsafe(String name) {
+  public static Attributes valueOfFailsafe(final String name) {
     try {
       return Attributes.valueOf(name);
-    } catch (IllegalArgumentException e) {
+    } catch (final IllegalArgumentException e) {
       LOG.warn("Can't find enum for {} with name '{}'", Attributes.class.getName(), name);
       return null;
     }

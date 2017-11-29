@@ -183,7 +183,7 @@ public class PageRenderer extends RendererBase {
         facesContext, viewRoot.getComponentResources(facesContext, HEAD_TARGET), writer.getCharacterEncoding());
 
     // meta tags
-    for (UIComponent metas : headResources.getMetas()) {
+    for (final UIComponent metas : headResources.getMetas()) {
       metas.encodeAll(facesContext);
     }
 
@@ -205,7 +205,7 @@ public class PageRenderer extends RendererBase {
     }
 
     // style files individual files
-    for (UIComponent styles : headResources.getStyles()) {
+    for (final UIComponent styles : headResources.getStyles()) {
       styles.encodeAll(facesContext);
     }
 
@@ -237,11 +237,11 @@ public class PageRenderer extends RendererBase {
     }
 
     // script files individual files
-    for (UIComponent scripts : headResources.getScripts()) {
+    for (final UIComponent scripts : headResources.getScripts()) {
       scripts.encodeAll(facesContext);
     }
 
-    for (UIComponent misc : headResources.getMisc()) {
+    for (final UIComponent misc : headResources.getMisc()) {
       misc.encodeAll(facesContext);
     }
 
@@ -393,7 +393,7 @@ public class PageRenderer extends RendererBase {
 
     HeadResources(
         final FacesContext facesContext, final Collection<? extends UIComponent> collection, final String charset) {
-      for (UIComponent uiComponent : collection) {
+      for (final UIComponent uiComponent : collection) {
         if (uiComponent instanceof AbstractUIMeta) {
           metas.add(uiComponent);
         } else if (uiComponent instanceof AbstractUIStyle) {
@@ -450,7 +450,7 @@ public class PageRenderer extends RendererBase {
     }
 
     private boolean containsCharset(final List<UIComponent> headComponents) {
-      for (UIComponent headComponent : headComponents) {
+      for (final UIComponent headComponent : headComponents) {
         if (headComponent instanceof AbstractUIMeta
             && ((AbstractUIMeta) headComponent).getCharset() != null) {
           return true;
@@ -460,7 +460,7 @@ public class PageRenderer extends RendererBase {
     }
 
     private boolean containsNameViewport(final List<UIComponent> headComponents) {
-      for (UIComponent headComponent : headComponents) {
+      for (final UIComponent headComponent : headComponents) {
         if (headComponent instanceof AbstractUIMeta
             && "viewport".equals(((AbstractUIMeta) headComponent).getName())) {
           return true;

@@ -124,7 +124,7 @@ public class TobagoConfigSorter implements Comparator<TobagoConfigFragment> {
       }
 
       // theme definition
-      for (ThemeImpl theme : fragment.getThemeDefinitions()) {
+      for (final ThemeImpl theme : fragment.getThemeDefinitions()) {
         result.addAvailableTheme(theme);
       }
 
@@ -146,7 +146,7 @@ public class TobagoConfigSorter implements Comparator<TobagoConfigFragment> {
         final Sanitizer sanitizer = aClass.newInstance();
         sanitizer.setProperties(sanitizerProperties);
         result.setSanitizer(sanitizer);
-      } catch (Throwable e) {
+      } catch (final Throwable e) {
         LOG.error("Can't create sanitizer: '" + sanitizerClass + "'", e);
         result.setSanitizer(new IgnoringSanitizer());
       }
@@ -278,7 +278,7 @@ public class TobagoConfigSorter implements Comparator<TobagoConfigFragment> {
     return null;
   }
 
-  private void resolveThemes(TobagoConfigImpl tobagoConfig, Map<String, ThemeImpl> map) {
+  private void resolveThemes(final TobagoConfigImpl tobagoConfig, final Map<String, ThemeImpl> map) {
     for (final ThemeImpl theme : map.values()) {
       final String fallbackName = theme.getFallbackName();
       final ThemeImpl fallback = map.get(fallbackName);

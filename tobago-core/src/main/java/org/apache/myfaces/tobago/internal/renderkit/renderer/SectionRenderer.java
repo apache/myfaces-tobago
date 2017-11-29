@@ -57,7 +57,7 @@ public class SectionRenderer extends PanelRendererBase {
         section.getCustomClass());
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, section);
 
-    String label = section.getLabelToRender();
+    final String label = section.getLabelToRender();
     final HtmlElements tag;
     switch (section.getLevel()) {
       case 1:

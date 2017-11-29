@@ -34,7 +34,7 @@ public final class MimeTypeUtils {
 
   // todo: maybe support more extensions
   public static String getMimeTypeForFile(final String file) {
-    int length = file.length();
+    final int length = file.length();
     if (file.charAt(length - 4) == '.') {
       if (file.charAt(length - 1) == 'g') {
         if (file.regionMatches(length - 3, "png", 0, 2)) {
@@ -91,14 +91,14 @@ public final class MimeTypeUtils {
 
     final int index = file.lastIndexOf('.');
     if (index > -1) {
-      String extension = file.substring(index + 1);
+      final String extension = file.substring(index + 1);
       return additionalMimeTypes.get(extension);
     }
 
     return null;
   }
 
-  public static void init(ServletContext servletContext) {
+  public static void init(final ServletContext servletContext) {
     if (additionalMimeTypes == null) {
       final TobagoConfig tobagoConfig = TobagoConfig.getInstance(servletContext);
       additionalMimeTypes = tobagoConfig.getMimeTypes();

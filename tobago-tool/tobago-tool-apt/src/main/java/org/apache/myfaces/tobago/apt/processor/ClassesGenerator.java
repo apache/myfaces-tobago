@@ -115,7 +115,7 @@ public class ClassesGenerator extends AbstractGenerator {
       }
 
       if (componentTag.behaviors().length > 0) {
-        for (Behavior behavior : componentTag.behaviors()) {
+        for (final Behavior behavior : componentTag.behaviors()) {
           info("*************** ----------------------" + componentTag.behaviors().length);
           info("*************** " + behavior.name());
           info("*************** " + componentInfo.getBehaviors());

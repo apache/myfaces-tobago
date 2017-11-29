@@ -92,7 +92,7 @@ public class SelectManyListboxRenderer extends SelectManyRendererBase {
   }
 
   @Override
-  protected String getFieldId(FacesContext facesContext, UIComponent component) {
+  protected String getFieldId(final FacesContext facesContext, final UIComponent component) {
     final UISelectManyListbox select = (UISelectManyListbox) component;
     return select.getFieldId(facesContext);
   }

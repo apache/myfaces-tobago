@@ -38,7 +38,7 @@ public class SupportsMarkupRule extends MetaRule {
   @Override
   public Metadata applyRule(final String name, final TagAttribute attribute, final MetadataTarget metadataTarget) {
     if (metadataTarget.isTargetInstanceOf(Visual.class)) {
-      Attributes a = Attributes.valueOfFailsafe(name);
+      final Attributes a = Attributes.valueOfFailsafe(name);
       if (Attributes.markup == a) {
         return new SupportsMarkupMapper(attribute);
       }

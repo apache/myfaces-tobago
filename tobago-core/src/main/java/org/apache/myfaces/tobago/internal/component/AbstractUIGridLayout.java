@@ -64,7 +64,7 @@ public abstract class AbstractUIGridLayout extends AbstractUILayoutBase
    * Initialize the grid and remove the current width and height values from the component, recursively.
    */
   @Override
-  public void processEvent(ComponentSystemEvent event) throws AbortProcessingException {
+  public void processEvent(final ComponentSystemEvent event) throws AbortProcessingException {
 
     super.processEvent(event);
 
@@ -100,7 +100,7 @@ public abstract class AbstractUIGridLayout extends AbstractUILayoutBase
     int rowsCount = initalRowsCount;
 
     // #1 put all components with "gridRow" and "gridColumn" set into the grid cells
-    for (UIComponent component : components) {
+    for (final UIComponent component : components) {
       final Map<String, Object> attributes = component.getAttributes();
       final Integer gridColumn = (Integer) attributes.get(Attributes.gridColumn.getName());
       final Integer gridRow = (Integer) attributes.get(Attributes.gridRow.getName());
@@ -134,7 +134,7 @@ public abstract class AbstractUIGridLayout extends AbstractUILayoutBase
     // #2 distribute the rest of the components to the free grid cells
     int j = 0;
     int i = 0;
-    for (UIComponent component : components) {
+    for (final UIComponent component : components) {
       final Map<String, Object> attributes = component.getAttributes();
       final Integer gridColumn = (Integer) attributes.get(Attributes.gridColumn.getName());
       final Integer gridRow = (Integer) attributes.get(Attributes.gridRow.getName());
@@ -159,7 +159,7 @@ public abstract class AbstractUIGridLayout extends AbstractUILayoutBase
     }
 
     // #3 create UIStyle children. TODO: There might be a better way...
-    for (UIComponent component : components) {
+    for (final UIComponent component : components) {
       final Map<String, Object> attributes = component.getAttributes();
 
       UIStyle style = ComponentUtils.findChild(component, UIStyle.class);
@@ -236,8 +236,8 @@ public abstract class AbstractUIGridLayout extends AbstractUILayoutBase
   }
 
   protected UIComponent[][] expand(final UIComponent[][] cells, final Integer minRows, final int step) {
-    int rows = (int) Math.ceil((double) minRows / step) * step;
-    int columns = cells[0].length;
+    final int rows = (int) Math.ceil((double) minRows / step) * step;
+    final int columns = cells[0].length;
 
     final UIComponent[][] result = new UIComponent[rows][columns];
     for (int j = 0; j < cells.length; j++) {

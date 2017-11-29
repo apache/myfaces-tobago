@@ -51,7 +51,7 @@ public class SuggestRenderer extends RendererBase {
   private static final Logger LOG = LoggerFactory.getLogger(SuggestRenderer.class);
 
   @Override
-  public void decode(FacesContext facesContext, UIComponent component) {
+  public void decode(final FacesContext facesContext, final UIComponent component) {
     final AbstractUISuggest suggest = (AbstractUISuggest) component;
     final String clientId = suggest.getClientId(facesContext);
     final Map<String, String> requestParameterMap = facesContext.getExternalContext().getRequestParameterMap();
@@ -71,13 +71,13 @@ public class SuggestRenderer extends RendererBase {
   }
 
   @Override
-  public void encodeBegin(FacesContext facesContext, UIComponent component) throws IOException {
+  public void encodeBegin(final FacesContext facesContext, final UIComponent component) throws IOException {
     final AbstractUISuggest suggest = (AbstractUISuggest) component;
     final AbstractUIInput input = ComponentUtils.findAncestor(suggest, AbstractUIInput.class);
     final MethodExpression suggestMethodExpression = suggest.getSuggestMethodExpression();
 
     int totalCount = suggest.getTotalCount();
-    String[] array;
+    final String[] array;
 
     if (suggestMethodExpression != null && input != null) { // old way (deprecated)
       final AutoSuggestItems autoSuggestItems

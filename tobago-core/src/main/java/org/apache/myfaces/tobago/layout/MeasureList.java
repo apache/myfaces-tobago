@@ -51,7 +51,7 @@ public class MeasureList implements Iterable<Measure> {
     return list.size();
   }
 
-  public Measure get(int i) {
+  public Measure get(final int i) {
     return list.get(i);
   }
 

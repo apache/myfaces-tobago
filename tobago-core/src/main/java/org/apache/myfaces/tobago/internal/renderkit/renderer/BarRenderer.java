@@ -48,7 +48,7 @@ import java.io.IOException;
 public class BarRenderer extends RendererBase {
 
   @Override
-  public void encodeBegin(FacesContext facesContext, UIComponent component) throws IOException {
+  public void encodeBegin(final FacesContext facesContext, final UIComponent component) throws IOException {
 
     final UIBar bar = (UIBar) component;
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
@@ -80,7 +80,7 @@ public class BarRenderer extends RendererBase {
         BootstrapClass.ALIGN_ITEMS_CENTER);
   }
 
-  private BootstrapClass getNavbarExpand(Markup markup) {
+  private BootstrapClass getNavbarExpand(final Markup markup) {
     if (markup != null) {
       if (markup.contains(Markup.EXTRA_LARGE)) {
         return BootstrapClass.NAVBAR_EXPAND_XL;
@@ -95,7 +95,7 @@ public class BarRenderer extends RendererBase {
     return BootstrapClass.NAVBAR_EXPAND;
   }
 
-  private BootstrapClass getNavbarColorScheme(Markup markup) {
+  private BootstrapClass getNavbarColorScheme(final Markup markup) {
     if (markup != null) {
       if (markup.contains(Markup.DARK)) {
         return BootstrapClass.NAVBAR_DARK;
@@ -112,15 +112,15 @@ public class BarRenderer extends RendererBase {
   }
 
   @Override
-  public void encodeChildren(FacesContext facesContext, UIComponent component) throws IOException {
+  public void encodeChildren(final FacesContext facesContext, final UIComponent component) throws IOException {
     setRenderTypes(component);
-    for (UIComponent child : component.getChildren()) {
+    for (final UIComponent child : component.getChildren()) {
       child.encodeAll(facesContext);
     }
   }
 
-  private void setRenderTypes(UIComponent component) throws IOException {
-    for (UIComponent child : component.getChildren()) {
+  private void setRenderTypes(final UIComponent component) throws IOException {
+    for (final UIComponent child : component.getChildren()) {
       if (child.isRendered()) {
         if (child instanceof AbstractUIForm) {
           setRenderTypes(child);
@@ -132,7 +132,7 @@ public class BarRenderer extends RendererBase {
   }
 
   @Override
-  public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
+  public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
     final UIBar bar = (UIBar) component;
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
     final UIComponent after = ComponentUtils.getFacet(bar, Facets.after);
@@ -151,7 +151,7 @@ public class BarRenderer extends RendererBase {
   }
 
   private void encodeOpener(
-      FacesContext facesContext, UIBar bar, TobagoResponseWriter writer, String navbarId) throws IOException {
+      final FacesContext facesContext, final UIBar bar, final TobagoResponseWriter writer, final String navbarId) throws IOException {
     final boolean togglerLeft = bar.getMarkup() != null && bar.getMarkup().contains(Markup.TOGGLER_LEFT);
     final UIComponent brand = ComponentUtils.getFacet(bar, Facets.brand);
 

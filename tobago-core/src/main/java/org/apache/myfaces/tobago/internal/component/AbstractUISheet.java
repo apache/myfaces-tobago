@@ -126,7 +126,7 @@ public abstract class AbstractUISheet extends AbstractUIData
   public abstract String getColumns();
 
   @Override
-  public void processEvent(ComponentSystemEvent event) throws AbortProcessingException {
+  public void processEvent(final ComponentSystemEvent event) throws AbortProcessingException {
 
     super.processEvent(event);
 
@@ -138,7 +138,7 @@ public abstract class AbstractUISheet extends AbstractUIData
 
       autoLayout = true;
       if (columnLayout != null) {
-        for (Measure token : columnLayout) {
+        for (final Measure token : columnLayout) {
           if (token != Measure.AUTO) {
             autoLayout = false;
             break;
@@ -338,7 +338,7 @@ public abstract class AbstractUISheet extends AbstractUIData
   }
 
   public List<AbstractUIColumnBase> getAllColumns() {
-    ArrayList<AbstractUIColumnBase> result = new ArrayList<>();
+    final ArrayList<AbstractUIColumnBase> result = new ArrayList<>();
     findColumns(this, result, true);
     return result;
   }
@@ -394,7 +394,7 @@ public abstract class AbstractUISheet extends AbstractUIData
     }
   }
 
-  public void init(FacesContext facesContext) {
+  public void init(final FacesContext facesContext) {
     sort(facesContext, null);
     layoutHeader();
   }
@@ -418,8 +418,8 @@ public abstract class AbstractUISheet extends AbstractUIData
 
     for (final UIComponent child : header.getChildren()) {
       if (child.isRendered()) {
-        int columnSpan = ComponentUtils.getIntAttribute(child, Attributes.columnSpan, 1);
-        int rowSpan = ComponentUtils.getIntAttribute(child, Attributes.rowSpan, 1);
+        final int columnSpan = ComponentUtils.getIntAttribute(child, Attributes.columnSpan, 1);
+        final int rowSpan = ComponentUtils.getIntAttribute(child, Attributes.rowSpan, 1);
         grid.add(new OriginCell(child), columnSpan, rowSpan);
       }
     }
@@ -438,7 +438,7 @@ public abstract class AbstractUISheet extends AbstractUIData
                       ? event
                       : new SortActionEvent(this,
                       (UIColumn) findComponent(getSheetState(facesContext).getSortedColumnId()))});
-        } catch (Exception e) {
+        } catch (final Exception e) {
           LOG.warn("Sorting not possible!", e);
         }
       } else {

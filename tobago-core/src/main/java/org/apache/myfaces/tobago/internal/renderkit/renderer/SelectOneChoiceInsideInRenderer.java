@@ -26,12 +26,12 @@ import java.io.IOException;
 public class SelectOneChoiceInsideInRenderer extends SelectOneChoiceRenderer {
 
   @Override
-  public void encodeBegin(FacesContext facesContext, UIComponent component) throws IOException {
+  public void encodeBegin(final FacesContext facesContext, final UIComponent component) throws IOException {
     encodeBeginField(facesContext, component);
   }
 
   @Override
-  public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
+  public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
     encodeEndField(facesContext, component);
   }
 }

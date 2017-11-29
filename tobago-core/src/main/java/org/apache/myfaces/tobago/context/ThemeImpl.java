@@ -146,7 +146,7 @@ public class ThemeImpl implements Theme, Serializable {
     return productionResources;
   }
 
-  public void addResources(final ThemeResources themeResources) {
+  private void addResources(final ThemeResources themeResources) {
     checkLocked();
 
     if (themeResources.isProduction()) {
@@ -229,22 +229,22 @@ public class ThemeImpl implements Theme, Serializable {
       builder.append("null");
     }
     builder.append(", \nproductionScripts=[");
-    for (String s : productionScripts != null ? productionScripts : new String[0]) {
+    for (final String s : productionScripts != null ? productionScripts : new String[0]) {
       builder.append("\n");
       builder.append(s);
     }
     builder.append("], \nscripts=[");
-    for (String s : scripts != null ? scripts : new String[0]) {
+    for (final String s : scripts != null ? scripts : new String[0]) {
       builder.append("\n");
       builder.append(s);
     }
     builder.append("], \nproductionStyles=[");
-    for (String s : productionStyles != null ? productionStyles : new String[0]) {
+    for (final String s : productionStyles != null ? productionStyles : new String[0]) {
       builder.append("\n");
       builder.append(s);
     }
     builder.append("], \nstyles=[");
-    for (String s : styles != null ? styles : new String[0]) {
+    for (final String s : styles != null ? styles : new String[0]) {
       builder.append("\n");
       builder.append(s);
     }

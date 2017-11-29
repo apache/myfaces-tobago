@@ -44,7 +44,7 @@ import java.io.IOException;
 public class SelectOneRadioRenderer extends SelectOneRendererBase {
 
   @Override
-  protected void encodeBeginField(FacesContext facesContext, UIComponent component) throws IOException {
+  protected void encodeBeginField(final FacesContext facesContext, final UIComponent component) throws IOException {
     final AbstractUISelectOneRadio select = (AbstractUISelectOneRadio) component;
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
@@ -93,7 +93,7 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
       writer.writeClassAttribute(BootstrapClass.FORM_CHECK_INPUT);
       writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.RADIO);
       final String formattedValue = ComponentUtils.getFormattedValue(facesContext, select, item.getValue());
-      boolean checked;
+      final boolean checked;
       if (submittedValue == null) {
         checked = ObjectUtils.equals(item.getValue(), value);
       } else {
@@ -119,7 +119,7 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
       writer.endElement(HtmlElements.I);
 
       if (item instanceof org.apache.myfaces.tobago.model.SelectItem) {
-        org.apache.myfaces.tobago.model.SelectItem tobagoItem = (org.apache.myfaces.tobago.model.SelectItem) item;
+        final org.apache.myfaces.tobago.model.SelectItem tobagoItem = (org.apache.myfaces.tobago.model.SelectItem) item;
         final String image = tobagoItem.getImage();
         if (image != null) {
           writer.startElement(HtmlElements.IMG);
@@ -142,7 +142,7 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
   }
 
   @Override
-  protected void encodeEndField(FacesContext facesContext, UIComponent component) throws IOException {
+  protected void encodeEndField(final FacesContext facesContext, final UIComponent component) throws IOException {
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
     writer.endElement(HtmlElements.DIV);
   }
@@ -156,7 +156,7 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
   }
 
   @Override
-  protected String getFieldId(FacesContext facesContext, UIComponent component) {
+  protected String getFieldId(final FacesContext facesContext, final UIComponent component) {
     return component.getClientId(facesContext);
   }
 }

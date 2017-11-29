@@ -57,7 +57,7 @@ public abstract class PlanetExample {
     return planet;
   }
 
-  public void setPlanet(int planet) {
+  public void setPlanet(final int planet) {
     this.planet = planet;
   }
 

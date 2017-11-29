@@ -43,7 +43,7 @@ public class HtmlElementsUnitTest {
   public void testVoid() throws IllegalAccessException {
 
     // list from spec.
-    List<String> voids = Arrays.asList(
+    final List<String> voids = Arrays.asList(
         "area", "base", "br", "col", "command", "embed",
         "hr", "img", "input", "keygen", "link", "meta",
         "param", "source", "track", "wbr");

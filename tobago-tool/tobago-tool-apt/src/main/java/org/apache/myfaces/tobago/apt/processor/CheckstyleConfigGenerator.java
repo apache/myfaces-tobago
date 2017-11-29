@@ -198,7 +198,7 @@ public class CheckstyleConfigGenerator extends AbstractGenerator {
       final Document document)
       throws ClassNotFoundException {
 
-    List<String> attributes = new ArrayList<>();
+    final List<String> attributes = new ArrayList<>();
     for (final javax.lang.model.element.Element element : getAllMembers(type)) {
       if (element instanceof ExecutableElement) {
         final ExecutableElement executableElement = (ExecutableElement) element;
@@ -324,19 +324,19 @@ public class CheckstyleConfigGenerator extends AbstractGenerator {
   }
 
   protected static String getRegExpForUndefinedAttributes(
-      String taglib, String tagName, List<String> attributes) {
+      final String taglib, final String tagName, final List<String> attributes) {
     final StringBuilder builder = new StringBuilder();
     builder.append("<");
     builder.append(taglib);
     builder.append(":");
     builder.append(tagName);
     builder.append("(\\s+(");
-    for (String attribute : attributes) {
+    for (final String attribute : attributes) {
       builder.append(attribute);
       builder.append('|');
     }
     builder.append("xmlns:\\w*)=\\\"([^\"=<>]*)\\\")*\\s+(?!(");
-    for (String attribute : attributes) {
+    for (final String attribute : attributes) {
       builder.append(attribute);
       builder.append('|');
     }

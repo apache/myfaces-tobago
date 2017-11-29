@@ -21,11 +21,11 @@ package org.apache.myfaces.tobago.internal.util;
 
 public class JQueryUtils {
 
-  public static String escapeIdForHtml(String id) {
+  public static String escapeIdForHtml(final String id) {
     return "#" + id.replaceAll("([:\\.\\[\\],])", "\\\\$1");
   }
 
-  public static String escapeIdForJavaScript(String id) {
+  public static String escapeIdForJavaScript(final String id) {
     return "#" + id.replaceAll("([:\\.\\[\\],])", "\\\\\\\\$1");
   }
 

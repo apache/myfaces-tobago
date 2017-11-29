@@ -80,7 +80,7 @@ public class SelectItemModel implements Serializable {
     return currency2;
   }
 
-  public void setCurrency2(Currency currency2) {
+  public void setCurrency2(final Currency currency2) {
     this.currency2 = currency2;
   }
 

@@ -37,7 +37,7 @@ public class ValidationController implements Serializable {
     return letter;
   }
 
-  public void setLetter(String letter) {
+  public void setLetter(final String letter) {
     this.letter = letter;
   }
 
@@ -52,11 +52,11 @@ public class ValidationController implements Serializable {
     }
   }
 
-  public void passwordValidator(FacesContext context, UIComponent component, Object value) throws ValidatorException {
-    String password = value.toString();
+  public void passwordValidator(final FacesContext context, final UIComponent component, final Object value) throws ValidatorException {
+    final String password = value.toString();
 
-    UIInput confirmationField = (UIInput) component.getAttributes().get("confirmationField");
-    String confirmationFieldValue = confirmationField.getSubmittedValue().toString();
+    final UIInput confirmationField = (UIInput) component.getAttributes().get("confirmationField");
+    final String confirmationFieldValue = confirmationField.getSubmittedValue().toString();
 
     if (password.isEmpty() || confirmationFieldValue.isEmpty()) {
       return;

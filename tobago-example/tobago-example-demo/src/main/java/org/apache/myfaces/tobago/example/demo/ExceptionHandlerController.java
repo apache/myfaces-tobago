@@ -47,11 +47,11 @@ public class ExceptionHandlerController {
     return value;
   }
 
-  public void setValue(String value) {
+  public void setValue(final String value) {
     this.value = value;
   }
 
-  public void update(AjaxBehaviorEvent event) {
+  public void update(final AjaxBehaviorEvent event) {
     if (((String) event.getComponent().getAttributes().get("value")).contains("x")) {
       throw new RuntimeException("This exception is thrown, because the input value was 'x'.");
     }
@@ -66,11 +66,11 @@ public class ExceptionHandlerController {
     return sheetState;
   }
 
-  public void setSheetState(SheetState sheetState) {
+  public void setSheetState(final SheetState sheetState) {
     this.sheetState = sheetState;
   }
 
-  public void preRenderViewListener(ComponentSystemEvent event) {
+  public void preRenderViewListener(final ComponentSystemEvent event) {
     if (sheetState != null && sheetState.getFirst() > 20) {
       sheetState.setFirst(0);
       throw new NullPointerException("This exception is thrown, because page 7 or higher is selected.");

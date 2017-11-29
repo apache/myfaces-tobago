@@ -467,7 +467,7 @@ public final class StringUtils {
   /**
    * Basically taken from commons-lang
    */
-  public static boolean notEquals(String a, String b) {
+  public static boolean notEquals(final String a, final String b) {
     return a == null ? b != null : !a.equals(b);
   }
 
@@ -478,7 +478,7 @@ public final class StringUtils {
     if (link == null) {
       return false;
     }
-    int colon = link.indexOf(':');
+    final int colon = link.indexOf(':');
     if (colon < 1) {
       return false;
     }
@@ -490,7 +490,7 @@ public final class StringUtils {
     return true;
   }
 
-  public static boolean startsWith(String string, String prefix) {
+  public static boolean startsWith(final String string, final String prefix) {
     if (string == null || prefix == null) {
       return string == null && prefix == null;
     }
@@ -523,20 +523,20 @@ public final class StringUtils {
    *
    * Basically taken from commons-lang
    */
-  public static boolean containsAny(String str, String searchChars) {
+  public static boolean containsAny(final String str, final String searchChars) {
     if (searchChars == null) {
       return false;
     }
-    char[] searchChars1 = searchChars.toCharArray();
+    final char[] searchChars1 = searchChars.toCharArray();
     if (isEmpty(str) || searchChars1.length == 0) {
       return false;
     }
-    int csLength = str.length();
-    int searchLength = searchChars1.length;
-    int csLast = csLength - 1;
-    int searchLast = searchLength - 1;
+    final int csLength = str.length();
+    final int searchLength = searchChars1.length;
+    final int csLast = csLength - 1;
+    final int searchLast = searchLength - 1;
     for (int i = 0; i < csLength; i++) {
-      char ch = str.charAt(i);
+      final char ch = str.charAt(i);
       for (int j = 0; j < searchLength; j++) {
         if (searchChars1[j] == ch) {
           if (isHighSurrogate(ch)) {
@@ -566,7 +566,7 @@ public final class StringUtils {
    * @return {@code true} if {@code ch} is a high-surrogate code unit;
    *         {@code false} otherwise.
    */
-  private static boolean isHighSurrogate(char ch) {
+  private static boolean isHighSurrogate(final char ch) {
     return '\uD800' <= ch && '\uDBFF' >= ch;
   }
 

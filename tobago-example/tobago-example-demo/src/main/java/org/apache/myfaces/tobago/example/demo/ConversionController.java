@@ -33,7 +33,7 @@ public class ConversionController implements Serializable {
     return amount;
   }
 
-  public void setAmount(double amount) {
+  public void setAmount(final double amount) {
     this.amount = amount;
   }
 }

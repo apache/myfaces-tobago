@@ -33,7 +33,7 @@ class AttachedListStateWrapper implements Serializable {
 
   private List<Object> wrappedStateList;
 
-  AttachedListStateWrapper(List<Object> wrappedStateList) {
+  AttachedListStateWrapper(final List<Object> wrappedStateList) {
     this.wrappedStateList = wrappedStateList;
   }
 

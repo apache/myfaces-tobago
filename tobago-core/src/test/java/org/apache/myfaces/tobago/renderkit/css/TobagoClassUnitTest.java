@@ -34,8 +34,8 @@ public class TobagoClassUnitTest {
     final String fieldRegex = "[A-Z_]*[A-Z]";
     final String nameRegex = "[a-z][a-zA-Z\\-]*[a-z]";
 
-    for (TobagoClass value : TobagoClass.values()) {
-      boolean ignoreByTest = TobagoClass.class.getField(value.name()).isAnnotationPresent(Deprecated.class);
+    for (final TobagoClass value : TobagoClass.values()) {
+      final boolean ignoreByTest = TobagoClass.class.getField(value.name()).isAnnotationPresent(Deprecated.class);
       if (!ignoreByTest) {
         final String field = value.toString();
         final String name = value.getName();
@@ -43,12 +43,12 @@ public class TobagoClassUnitTest {
         Assert.assertTrue(field.matches(fieldRegex));
         Assert.assertTrue(name.matches(nameRegex));
 
-        StringBuilder calculatedName = new StringBuilder();
+        final StringBuilder calculatedName = new StringBuilder();
         calculatedName.append("tobago-");
         for (int i = 0; i < field.length(); i++) {
-          char c = field.charAt(i);
+          final char c = field.charAt(i);
           if (c == '_') {
-            char nextChar = field.charAt(i + 1);
+            final char nextChar = field.charAt(i + 1);
             if (nextChar == '_') {
               calculatedName.append("-");
             } else {
@@ -73,8 +73,8 @@ public class TobagoClassUnitTest {
 
     final TobagoClass[] allValues = TobagoClass.values();
     final List<TobagoClass> toCheck = new ArrayList<>();
-    for (TobagoClass value : allValues) {
-      boolean ignoreByTest = TobagoClass.class.getField(value.name()).isAnnotationPresent(Deprecated.class);
+    for (final TobagoClass value : allValues) {
+      final boolean ignoreByTest = TobagoClass.class.getField(value.name()).isAnnotationPresent(Deprecated.class);
       if (!ignoreByTest) {
         toCheck.add(value);
       }

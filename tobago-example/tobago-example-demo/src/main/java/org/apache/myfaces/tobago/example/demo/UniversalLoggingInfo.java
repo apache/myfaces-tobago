@@ -130,7 +130,7 @@ public class UniversalLoggingInfo {
     return testCategory;
   }
 
-  public void setTestCategory(String testCategory) {
+  public void setTestCategory(final String testCategory) {
     if (testCategory != null) {
       this.testCategory = testCategory;
     } else {
@@ -148,8 +148,8 @@ public class UniversalLoggingInfo {
     private String factoryMethod;
     private boolean usesString; // is false it uses "Object" for logging
 
-    public LoggingInfo(String id, String factoryClassName, String factoryMethod,
-                       String category, boolean usesString, String... calls) {
+    public LoggingInfo(final String id, final String factoryClassName, final String factoryMethod,
+                       final String category, final boolean usesString, final String... calls) {
       this.id = id;
       this.calls = calls;
       this.factoryClassName = factoryClassName;
@@ -159,16 +159,16 @@ public class UniversalLoggingInfo {
     }
 
     public void logDemo() {
-      for (String call : calls) {
+      for (final String call : calls) {
         try {
           invoke(id, logger, call);
-        } catch (Exception e) {
+        } catch (final Exception e) {
           LOG.println("Ignoring: " + e);
         }
       }
     }
 
-    private void invoke(String id, Object logger, String name) throws Exception {
+    private void invoke(final String id, final Object logger, final String name) throws Exception {
       final Class clazz = usesString ? String.class : Object.class;
       final Method method = logger.getClass().getMethod(name, clazz);
       method.invoke(logger, "Hello " + id + ", this is the level: " + name);
@@ -182,27 +182,27 @@ public class UniversalLoggingInfo {
       return activeLevels;
     }
 
-    protected void reset(String category) {
+    protected void reset(final String category) {
 
       logger = null;
 
       try {
         final Method method = Class.forName(factoryClassName).getMethod(factoryMethod, String.class);
         logger = method.invoke(null, category);
-      } catch (Exception e) {
+      } catch (final Exception e) {
         LOG.println("Ignoring: " + e);
       }
 
       if (logger != null) {
         activeLevels = "";
-        for (String call : calls) {
+        for (final String call : calls) {
           try {
             if (checkLevel(category, call)) {
               activeLevels += call + ":+ ";
             } else {
               activeLevels += call + ":- ";
             }
-          } catch (Exception e) {
+          } catch (final Exception e) {
             LOG.println(e.getMessage());
             e.printStackTrace();
             activeLevels += call + ":? ";
@@ -213,7 +213,7 @@ public class UniversalLoggingInfo {
       }
     }
 
-    private boolean checkLevel(String category, String level)
+    private boolean checkLevel(final String category, final String level)
         throws NoSuchMethodException, ClassNotFoundException, InvocationTargetException, IllegalAccessException {
 
       final Method method = Class.forName(factoryClassName).getMethod(factoryMethod, String.class);
@@ -232,7 +232,7 @@ public class UniversalLoggingInfo {
       }
 
       if (SLF4J.equals(id) || JCL.equals(id)) {
-        String methodName = "is" + level.substring(0, 1).toUpperCase() + level.substring(1) + "Enabled";
+        final String methodName = "is" + level.substring(0, 1).toUpperCase() + level.substring(1) + "Enabled";
         final Object hasLevel = c.getClass().getMethod(methodName).invoke(c);
         return (Boolean) hasLevel;
       }
@@ -240,7 +240,7 @@ public class UniversalLoggingInfo {
       throw new IllegalStateException();
     }
 
-    private boolean checkLevelGeneric(String level, Object c, String clazz, String enabledMethod, String levelMethod)
+    private boolean checkLevelGeneric(final String level, final Object c, final String clazz, final String enabledMethod, final String levelMethod)
         throws ClassNotFoundException, NoSuchMethodException, IllegalAccessException, InvocationTargetException {
       final Class<?> levelClass = Class.forName(clazz);
       final Method isLoggable = c.getClass().getMethod(enabledMethod, levelClass);

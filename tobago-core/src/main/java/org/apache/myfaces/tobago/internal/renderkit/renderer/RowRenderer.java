@@ -28,10 +28,10 @@ public class RowRenderer extends DecodingCommandRendererBase {
 
   // XXX hack to fix TOBAGO-1572
   @Override
-  protected void commandActivated(UIComponent component) {
+  protected void commandActivated(final UIComponent component) {
 
     AbstractUIEvent event = null;
-    for (UIComponent uiComponent : component.getChildren()) {
+    for (final UIComponent uiComponent : component.getChildren()) {
       if (uiComponent instanceof AbstractUIEvent) {
         event = (AbstractUIEvent) uiComponent;
       }

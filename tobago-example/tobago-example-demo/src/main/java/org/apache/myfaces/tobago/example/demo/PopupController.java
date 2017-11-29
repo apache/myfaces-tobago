@@ -36,7 +36,7 @@ public class PopupController implements Serializable {
     return popup1Collapsed;
   }
 
-  public void setPopup1Collapsed(boolean popup1Collapsed) {
+  public void setPopup1Collapsed(final boolean popup1Collapsed) {
     this.popup1Collapsed = popup1Collapsed;
   }
 
@@ -52,7 +52,7 @@ public class PopupController implements Serializable {
     return popup1Text;
   }
 
-  public void setPopup1Text(String popup1Text) {
+  public void setPopup1Text(final String popup1Text) {
     this.popup1Text = popup1Text;
   }
 
@@ -60,7 +60,7 @@ public class PopupController implements Serializable {
     return popup2Text;
   }
 
-  public void setPopup2Text(String popup2Text) {
+  public void setPopup2Text(final String popup2Text) {
     this.popup2Text = popup2Text;
   }
 }

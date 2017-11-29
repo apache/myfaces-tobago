@@ -47,7 +47,7 @@ import java.io.IOException;
 public class LabelRenderer extends RendererBase implements ComponentSystemEventListener {
 
   @Override
-  public void processEvent(ComponentSystemEvent event) {
+  public void processEvent(final ComponentSystemEvent event) {
     ComponentUtils.evaluateAutoFor(event.getComponent(), UIInput.class);
   }
 

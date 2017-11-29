@@ -86,7 +86,7 @@ public enum LabelLayout {
     return (LabelLayout) facesContext.getAttributes().get(SEGMENT_TO_RENDER_KEY);
   }
 
-  public static void removeSegment(FacesContext facesContext) {
+  public static void removeSegment(final FacesContext facesContext) {
     facesContext.getAttributes().remove(SEGMENT_TO_RENDER_KEY);
   }
 }

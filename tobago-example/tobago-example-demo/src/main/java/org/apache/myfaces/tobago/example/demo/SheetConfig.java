@@ -56,7 +56,7 @@ public class SheetConfig {
     sheetPagePagingPosition = ShowPosition.right;
     sheetPagingPositionItems = createSheetItems(ShowPosition.values());
     final Set<Selectable> selectableSupportedBySheet = new HashSet<>();
-    for (Selectable selectable : Selectable.values()) {
+    for (final Selectable selectable : Selectable.values()) {
       if (selectable.isSupportedBySheet()) {
         selectableSupportedBySheet.add(selectable);
       }
@@ -187,7 +187,7 @@ public class SheetConfig {
     return showDirectLinksArrows;
   }
 
-  public void setShowDirectLinksArrows(boolean showDirectLinksArrows) {
+  public void setShowDirectLinksArrows(final boolean showDirectLinksArrows) {
     this.showDirectLinksArrows = showDirectLinksArrows;
   }
 
@@ -195,7 +195,7 @@ public class SheetConfig {
     return showPageRangeArrows;
   }
 
-  public void setShowPageRangeArrows(boolean showPageRangeArrows) {
+  public void setShowPageRangeArrows(final boolean showPageRangeArrows) {
     this.showPageRangeArrows = showPageRangeArrows;
   }
 }

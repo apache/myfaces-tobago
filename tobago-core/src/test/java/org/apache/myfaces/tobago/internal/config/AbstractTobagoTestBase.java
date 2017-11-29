@@ -86,7 +86,7 @@ public abstract class AbstractTobagoTestBase extends AbstractJsfTestCase {
     servletContext.setAttribute(TobagoConfig.TOBAGO_CONFIG, tobagoConfig);
     try {
       MimeTypeUtils.init(servletContext);
-    } catch (IllegalStateException e) {
+    } catch (final IllegalStateException e) {
       // ignoring double call
     }
 

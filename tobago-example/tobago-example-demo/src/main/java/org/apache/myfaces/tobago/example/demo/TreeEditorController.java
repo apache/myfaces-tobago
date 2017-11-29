@@ -56,7 +56,7 @@ public class TreeEditorController implements Serializable {
     return name;
   }
 
-  public void setName(String name) {
+  public void setName(final String name) {
     this.name = name;
   }
 
@@ -110,11 +110,11 @@ public class TreeEditorController implements Serializable {
     return null;
   }
 
-  private DefaultMutableTreeNode cloneNode(DefaultMutableTreeNode node) {
-    String nodeName = ((Node) node.getUserObject()).getName();
-    DefaultMutableTreeNode resultNode = new DefaultMutableTreeNode(new Node(nodeName));
+  private DefaultMutableTreeNode cloneNode(final DefaultMutableTreeNode node) {
+    final String nodeName = ((Node) node.getUserObject()).getName();
+    final DefaultMutableTreeNode resultNode = new DefaultMutableTreeNode(new Node(nodeName));
 
-    Enumeration children = node.children();
+    final Enumeration children = node.children();
     while (children.hasMoreElements()) {
       final DefaultMutableTreeNode child = (DefaultMutableTreeNode) children.nextElement();
       resultNode.insert(cloneNode(child), resultNode.getChildCount());
@@ -141,11 +141,11 @@ public class TreeEditorController implements Serializable {
     return null;
   }
 
-  private boolean isBaseNodeContainSelectedNode(DefaultMutableTreeNode base, DefaultMutableTreeNode selected) {
+  private boolean isBaseNodeContainSelectedNode(final DefaultMutableTreeNode base, final DefaultMutableTreeNode selected) {
     if (base.equals(selected)) {
       return true;
     }
-    Enumeration children = base.children();
+    final Enumeration children = base.children();
     while (children.hasMoreElements()) {
       final DefaultMutableTreeNode baseChild = (DefaultMutableTreeNode) children.nextElement();
 
@@ -157,10 +157,10 @@ public class TreeEditorController implements Serializable {
     return false;
   }
 
-  private void deselectAllNodes(DefaultMutableTreeNode node) {
+  private void deselectAllNodes(final DefaultMutableTreeNode node) {
     ((Node) node.getUserObject()).setSelected(false);
 
-    Enumeration children = node.children();
+    final Enumeration children = node.children();
     while (children.hasMoreElements()) {
       final DefaultMutableTreeNode child = (DefaultMutableTreeNode) children.nextElement();
       deselectAllNodes(child);
@@ -170,9 +170,9 @@ public class TreeEditorController implements Serializable {
   public String moveUp() {
     final DefaultMutableTreeNode node = findFirstSelected();
     if (node != null) {
-      DefaultMutableTreeNode previousSibling = node.getPreviousSibling();
+      final DefaultMutableTreeNode previousSibling = node.getPreviousSibling();
       if (previousSibling != null) {
-        DefaultMutableTreeNode parent = (DefaultMutableTreeNode) node.getParent();
+        final DefaultMutableTreeNode parent = (DefaultMutableTreeNode) node.getParent();
         parent.insert(node, parent.getIndex(previousSibling));
       } else {
         FacesContext.getCurrentInstance().addMessage(null,
@@ -185,9 +185,9 @@ public class TreeEditorController implements Serializable {
   public String moveDown() {
     final DefaultMutableTreeNode node = findFirstSelected();
     if (node != null) {
-      DefaultMutableTreeNode nextSibling = node.getNextSibling();
+      final DefaultMutableTreeNode nextSibling = node.getNextSibling();
       if (nextSibling != null) {
-        DefaultMutableTreeNode parent = (DefaultMutableTreeNode) node.getParent();
+        final DefaultMutableTreeNode parent = (DefaultMutableTreeNode) node.getParent();
         parent.insert(node, parent.getIndex(nextSibling));
       } else {
         FacesContext.getCurrentInstance().addMessage(null,

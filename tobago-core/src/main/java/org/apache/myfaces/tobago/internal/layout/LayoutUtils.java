@@ -69,7 +69,7 @@ public final class LayoutUtils {
    * @deprecated since 3.0.0
    */
   @Deprecated
-  public static UIComponent getLayoutManager(UIComponent component) {
+  public static UIComponent getLayoutManager(final UIComponent component) {
     final UIComponent base;
 
     final UIComponent compositeFacet = component.getFacet(UIComponent.COMPOSITE_FACET_NAME);

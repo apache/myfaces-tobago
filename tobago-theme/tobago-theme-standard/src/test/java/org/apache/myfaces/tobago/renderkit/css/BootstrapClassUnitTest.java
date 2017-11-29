@@ -40,8 +40,8 @@ public class BootstrapClassUnitTest {
     final String fieldRegex = "[A-Z][A-Z0-9_]*[A-Z0-9]";
     final String nameRegex = "[a-z][a-z0-9\\-]*[a-z0-9]";
 
-    for (BootstrapClass value : BootstrapClass.values()) {
-      boolean ignoreByTest = BootstrapClass.class.getField(value.name()).isAnnotationPresent(Deprecated.class);
+    for (final BootstrapClass value : BootstrapClass.values()) {
+      final boolean ignoreByTest = BootstrapClass.class.getField(value.name()).isAnnotationPresent(Deprecated.class);
       if (!ignoreByTest) {
         final String field = value.toString();
         final String name = value.getName();
@@ -49,9 +49,9 @@ public class BootstrapClassUnitTest {
         Assert.assertTrue("testing: '" + field + "' matches regexp for consts like FOO_BAR", field.matches(fieldRegex));
         Assert.assertTrue("testing: '" + name + "' matches regexp for CSS like foo-bar", name.matches(nameRegex));
 
-        StringBuilder calculatedName = new StringBuilder();
+        final StringBuilder calculatedName = new StringBuilder();
         for (int i = 0; i < field.length(); i++) {
-          char c = field.charAt(i);
+          final char c = field.charAt(i);
           if (c == '_') {
             calculatedName.append("-");
           } else {
@@ -72,8 +72,8 @@ public class BootstrapClassUnitTest {
 
     final BootstrapClass[] allValues = BootstrapClass.values();
     final List<BootstrapClass> toCheck = new ArrayList<>();
-    for (BootstrapClass value : allValues) {
-      boolean ignoreByTest = BootstrapClass.class.getField(value.name()).isAnnotationPresent(Deprecated.class);
+    for (final BootstrapClass value : allValues) {
+      final boolean ignoreByTest = BootstrapClass.class.getField(value.name()).isAnnotationPresent(Deprecated.class);
       if (!ignoreByTest) {
         toCheck.add(value);
       }

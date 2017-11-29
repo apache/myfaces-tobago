@@ -68,8 +68,8 @@ public class ArquillianTest {
 
   @Deployment(testable = false)
   public static WebArchive createDeployment() {
-    File pom = new File("tobago-example/tobago-example-demo/pom.xml");
-    WebArchive webArchive = ShrinkWrap.create(MavenImporter.class).
+    final File pom = new File("tobago-example/tobago-example-demo/pom.xml");
+    final WebArchive webArchive = ShrinkWrap.create(MavenImporter.class).
             loadPomFromFile(pom, "jsf-provided", "!myfaces-2.0").importBuildOutput()
             .as(WebArchive.class);
     // XXX there should be a proper profile in POM for that

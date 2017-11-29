@@ -67,7 +67,7 @@ public class GroupController implements Serializable {
     return newMessage;
   }
 
-  public void setNewMessage(String newMessage) {
+  public void setNewMessage(final String newMessage) {
     this.newMessage = newMessage;
   }
 
@@ -80,22 +80,22 @@ public class GroupController implements Serializable {
     return sendTo;
   }
 
-  public void setSendTo(String sendTo) {
+  public void setSendTo(final String sendTo) {
     this.sendTo = sendTo;
   }
 
-  public void sendToListener(AjaxBehaviorEvent event) {
+  public void sendToListener(final AjaxBehaviorEvent event) {
 
     LOG.info("AjaxBehaviorEvent called.");
 
     if (event != null && event.getComponent() instanceof AbstractUICommand) {
-      AbstractUICommand command = (AbstractUICommand) event.getComponent();
+      final AbstractUICommand command = (AbstractUICommand) event.getComponent();
       sendTo = command.getLabel();
       LOG.info("AjaxBehaviorEvent called. Current label: '{}'", sendTo);
     }
   }
 
-  public void compute(AjaxBehaviorEvent event) {
+  public void compute(final AjaxBehaviorEvent event) {
     LOG.info("AjaxBehaviorEvent called.");
     compute();
   }
@@ -119,7 +119,7 @@ public class GroupController implements Serializable {
     return value;
   }
 
-  public void setValue(double value) {
+  public void setValue(final double value) {
     this.value = value;
   }
 
@@ -131,7 +131,7 @@ public class GroupController implements Serializable {
     return currency;
   }
 
-  public void setCurrency(Currency currency) {
+  public void setCurrency(final Currency currency) {
     this.currency = currency;
   }
 

@@ -53,7 +53,7 @@ public class TobagoRenderKit extends RenderKit {
   private Map<Key, Renderer> renderers = new HashMap<>();
 
   public TobagoRenderKit() {
-    RenderKitFactory rkFactory = (RenderKitFactory) FactoryFinder.getFactory(FactoryFinder.RENDER_KIT_FACTORY);
+    final RenderKitFactory rkFactory = (RenderKitFactory) FactoryFinder.getFactory(FactoryFinder.RENDER_KIT_FACTORY);
     htmlBasicRenderKit =
         rkFactory.getRenderKit(FacesContext.getCurrentInstance(), RenderKitFactory.HTML_BASIC_RENDER_KIT);
     if (LOG.isDebugEnabled()) {
@@ -113,12 +113,12 @@ public class TobagoRenderKit extends RenderKit {
   }
 
   @Override
-  public void addClientBehaviorRenderer(String type, ClientBehaviorRenderer renderer) {
+  public void addClientBehaviorRenderer(final String type, final ClientBehaviorRenderer renderer) {
     htmlBasicRenderKit.addClientBehaviorRenderer(type, renderer);
   }
 
   @Override
-  public ClientBehaviorRenderer getClientBehaviorRenderer(String type) {
+  public ClientBehaviorRenderer getClientBehaviorRenderer(final String type) {
     return htmlBasicRenderKit.getClientBehaviorRenderer(type);
   }
 

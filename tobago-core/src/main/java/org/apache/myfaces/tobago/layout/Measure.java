@@ -46,17 +46,17 @@ public final class Measure implements Serializable {
     this.unit = Unit.AUTO;
   }
 
-  public Measure(int i, Unit unit) {
+  public Measure(final int i, final Unit unit) {
     this.value = i;
     this.unit = unit;
   }
 
-  public Measure(double d, Unit unit) {
+  public Measure(final double d, final Unit unit) {
     this.value = (float) d;
     this.unit = unit;
   }
 
-  public Measure(String string, Unit unit) {
+  public Measure(final String string, final Unit unit) {
     this.value = Float.parseFloat(string);
     this.unit = unit;
   }
@@ -140,7 +140,7 @@ public final class Measure implements Serializable {
   }
 
   public String serialize() {
-    StringBuilder builder = new StringBuilder();
+    final StringBuilder builder = new StringBuilder();
     if (unit != Unit.AUTO) {
       builder.append(value);
     }
@@ -166,7 +166,7 @@ public final class Measure implements Serializable {
   }
 
   @Override
-  public boolean equals(Object o) {
+  public boolean equals(final Object o) {
     if (this == o) {
       return true;
     }
@@ -174,7 +174,7 @@ public final class Measure implements Serializable {
       return false;
     }
 
-    Measure measure = (Measure) o;
+    final Measure measure = (Measure) o;
 
     if (Float.compare(measure.value, value) != 0) {
       return false;

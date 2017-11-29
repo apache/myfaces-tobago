@@ -169,7 +169,7 @@ public final class RenderUtils {
 
       // if the node is not rendered, the state must not be evaluated.
       boolean skip = false;
-      for (UIComponent uiComponent : data.getChildren()) {
+      for (final UIComponent uiComponent : data.getChildren()) {
         if (uiComponent instanceof AbstractUITreeNodeBase && !uiComponent.isRendered()) {
           skip = true;
           break;
@@ -271,7 +271,7 @@ public final class RenderUtils {
             final String characterEncoding = facesContext.getResponseWriter().getCharacterEncoding();
             try {
               builder.append(URLEncoder.encode(value.toString(), characterEncoding));
-            } catch (UnsupportedEncodingException e) {
+            } catch (final UnsupportedEncodingException e) {
               LOG.error("", e);
             }
           }
@@ -292,11 +292,11 @@ public final class RenderUtils {
   public static CommandMap getBehaviorCommands(final FacesContext facesContext, final ClientBehaviorHolder holder) {
     CommandMap map = null;
     final Map<String, List<ClientBehavior>> behaviors = holder.getClientBehaviors();
-    for (Map.Entry<String, List<ClientBehavior>> behaviorMap : behaviors.entrySet()) {
+    for (final Map.Entry<String, List<ClientBehavior>> behaviorMap : behaviors.entrySet()) {
       final String key = behaviorMap.getKey();
       final ClientBehaviorContext context = ClientBehaviorContext.createClientBehaviorContext(
           facesContext, (UIComponent) holder, key, ((UIComponent) holder).getClientId(facesContext), null);
-      for (ClientBehavior clientBehavior : behaviorMap.getValue()) {
+      for (final ClientBehavior clientBehavior : behaviorMap.getValue()) {
         if (clientBehavior instanceof ClientBehaviorBase) {
           String type = ((ClientBehaviorBase) clientBehavior).getRendererType();
           // XXX this is to use a different renderer for Tobago components and other components.
@@ -338,7 +338,7 @@ public final class RenderUtils {
           if (clientBehaviorList != null && !clientBehaviorList.isEmpty()) {
             final String clientId = paramMap.get("javax.faces.source");
             if (component.getClientId(facesContext).equals(clientId)) {
-              for (ClientBehavior clientBehavior : clientBehaviorList) {
+              for (final ClientBehavior clientBehavior : clientBehaviorList) {
                 clientBehavior.decode(facesContext, component);
               }
             }

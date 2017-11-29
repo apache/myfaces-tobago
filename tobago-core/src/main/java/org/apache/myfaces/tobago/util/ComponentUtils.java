@@ -216,7 +216,7 @@ public final class ComponentUtils {
     return null;
   }
 
-  public static <T> T findAncestor(UIComponent component, final Class<T> type) {
+  public static <T> T findAncestor(final UIComponent component, final Class<T> type) {
     UIComponent c = component;
     while (c != null) {
       if (type.isAssignableFrom(c.getClass())) {
@@ -419,7 +419,7 @@ public final class ComponentUtils {
 
   public static FacesMessage.Severity getMaximumSeverity(final List<FacesMessage> messages) {
     FacesMessage.Severity max = null;
-    for (FacesMessage message : messages) {
+    for (final FacesMessage message : messages) {
       if (max == null || message.getSeverity().getOrdinal() > max.getOrdinal()) {
         max = message.getSeverity();
       }
@@ -456,7 +456,7 @@ public final class ComponentUtils {
   public static boolean getBooleanAttribute(
       final UIComponent component, final Attributes name, final boolean defaultValue) {
 
-    Object bool = component.getAttributes().get(name.getName());
+    final Object bool = component.getAttributes().get(name.getName());
     if (bool == null) {
       return defaultValue;
     } else if (bool instanceof Boolean) {
@@ -809,7 +809,7 @@ public final class ComponentUtils {
   }
 
   public static Object getDataAttribute(final UIComponent component, final String name) {
-    Map<Object, Object> map = getDataAttributes(component);
+    final Map<Object, Object> map = getDataAttributes(component);
     return map != null ? map.get(name) : null;
   }
 
@@ -830,7 +830,7 @@ public final class ComponentUtils {
         Class converterType = null;
         try {
           converterType = valueExpression.getType(facesContext.getELContext());
-        } catch (Exception e) {
+        } catch (final Exception e) {
           // ignore, seems not to be possible, when EL is a function like #{bean.getName(item.id)}
         }
         if (converterType == null) {

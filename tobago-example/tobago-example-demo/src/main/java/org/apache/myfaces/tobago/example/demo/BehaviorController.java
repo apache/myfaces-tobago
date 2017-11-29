@@ -34,7 +34,7 @@ public class BehaviorController implements Serializable {
     return ajax;
   }
 
-  public void setAjax(String ajax) {
+  public void setAjax(final String ajax) {
     this.ajax = ajax;
   }
 
@@ -42,7 +42,7 @@ public class BehaviorController implements Serializable {
     return event;
   }
 
-  public void setEvent(String event) {
+  public void setEvent(final String event) {
     this.event = event;
   }
 }

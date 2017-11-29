@@ -45,7 +45,7 @@ public class AjaxExceptionHandler extends ExceptionHandlerWrapper {
 
   private ExceptionHandler wrapped;
 
-  AjaxExceptionHandler(ExceptionHandler exception) {
+  AjaxExceptionHandler(final ExceptionHandler exception) {
     this.wrapped = exception;
   }
 
@@ -85,7 +85,7 @@ public class AjaxExceptionHandler extends ExceptionHandlerWrapper {
 
             renderErrorPage(facesContext, errorPageLocation);
             cleanupExceptionQueuedEvents();
-          } catch (IOException e) {
+          } catch (final IOException e) {
             throw new FacesException(e);
           }
         } else {
@@ -98,12 +98,12 @@ public class AjaxExceptionHandler extends ExceptionHandlerWrapper {
   }
 
   private void renderErrorPage(final FacesContext facesContext, final String errorPageLocation) throws IOException {
-    ViewHandler viewHandler = facesContext.getApplication().getViewHandler();
+    final ViewHandler viewHandler = facesContext.getApplication().getViewHandler();
     final UIViewRoot viewRoot = viewHandler.createView(facesContext, errorPageLocation);
     facesContext.setViewRoot(viewRoot);
     facesContext.getPartialViewContext().setRenderAll(true);
 
-    ViewDeclarationLanguage viewDeclarationLanguage = viewHandler
+    final ViewDeclarationLanguage viewDeclarationLanguage = viewHandler
         .getViewDeclarationLanguage(facesContext, errorPageLocation);
     viewDeclarationLanguage.buildView(facesContext, viewRoot);
     facesContext.getApplication().publishEvent(facesContext, PreRenderViewEvent.class, viewRoot);

@@ -55,7 +55,7 @@ public final class PartUtils {
           }
         }
       }
-    } catch (Exception e) {
+    } catch (final Exception e) {
       // ignore
     }
     return null;
@@ -67,7 +67,7 @@ public final class PartUtils {
    *
    * @since Tobago 3.0.0
    */
-  public static String getSubmittedFileName(Part part) {
+  public static String getSubmittedFileName(final Part part) {
 
     try { // try to call the Servlet 3.1 function
       if (SUBMITTED_FILE_NAME_METHOD != null) {
@@ -75,19 +75,19 @@ public final class PartUtils {
         LOG.debug("Upload file name = '{}'", fileName);
         return fileName;
       }
-    } catch (Exception e) {
+    } catch (final Exception e) {
       // ignore
     }
 
     String fileName = null;
-    String cd = part.getHeader("Content-Disposition");
+    final String cd = part.getHeader("Content-Disposition");
     if (cd != null) {
-      String cdl = cd.toLowerCase(Locale.ENGLISH);
+      final String cdl = cd.toLowerCase(Locale.ENGLISH);
       if (cdl.startsWith("form-data") || cdl.startsWith("attachment")) {
-        ParameterParser paramParser = new ParameterParser();
+        final ParameterParser paramParser = new ParameterParser();
         paramParser.setLowerCaseNames(true);
         // Parameter parser can handle null input
-        Map<String, String> params =
+        final Map<String, String> params =
             paramParser.parse(cd, ';');
         if (params.containsKey("filename")) {
           fileName = params.get("filename");
@@ -166,7 +166,7 @@ public final class PartUtils {
      *               {@code false} otherwise.
      * @return the token
      */
-    private String getToken(boolean quoted) {
+    private String getToken(final boolean quoted) {
       // Trim leading white spaces
       while ((i1 < i2) && (Character.isWhitespace(chars[i1]))) {
         i1++;
@@ -198,9 +198,9 @@ public final class PartUtils {
      * @return {@code true} if the character is present in the array of
      * characters, {@code false} otherwise.
      */
-    private boolean isOneOf(char ch, final char[] charray) {
+    private boolean isOneOf(final char ch, final char[] charray) {
       boolean result = false;
-      for (char element : charray) {
+      for (final char element : charray) {
         if (ch == element) {
           result = true;
           break;
@@ -271,7 +271,7 @@ public final class PartUtils {
      *          converted to lower case when name/value pairs are parsed.
      *          {@code false} otherwise.
      */
-    public void setLowerCaseNames(boolean b) {
+    public void setLowerCaseNames(final boolean b) {
       this.lowerCaseNames = b;
     }
 
@@ -283,7 +283,7 @@ public final class PartUtils {
      * @param separator the name/value pairs separator
      * @return a map of name/value pairs
      */
-    public Map<String, String> parse(final String str, char separator) {
+    public Map<String, String> parse(final String str, final char separator) {
       if (str == null) {
         return new HashMap<>();
       }
@@ -299,7 +299,7 @@ public final class PartUtils {
      * @param separator the name/value pairs separator
      * @return a map of name/value pairs
      */
-    public Map<String, String> parse(final char[] charArray, char separator) {
+    public Map<String, String> parse(final char[] charArray, final char separator) {
       if (charArray == null) {
         return new HashMap<>();
       }
@@ -319,14 +319,14 @@ public final class PartUtils {
      */
     public Map<String, String> parse(
         final char[] charArray,
-        int offset,
-        int length,
-        char separator) {
+        final int offset,
+        final int length,
+        final char separator) {
 
       if (charArray == null) {
         return new HashMap<>();
       }
-      HashMap<String, String> params = new HashMap<>();
+      final HashMap<String, String> params = new HashMap<>();
       this.chars = charArray;
       this.pos = offset;
       this.len = length;

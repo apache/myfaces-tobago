@@ -49,7 +49,7 @@ public class TobagoConfigBuilder {
     this.configFragmentList = new ArrayList<>();
   }
 
-  public TobagoConfigBuilder(ServletContext servletContext, List<TobagoConfigFragment> configFragmentList) {
+  public TobagoConfigBuilder(final ServletContext servletContext, final List<TobagoConfigFragment> configFragmentList) {
     this(servletContext);
     this.configFragmentList.addAll(configFragmentList);
   }

@@ -49,7 +49,7 @@ public class SelectManyShuttleController implements Serializable {
     return selectedPlanets;
   }
 
-  public void setSelectedPlanets(SolarObject[] selectedPlanets) {
+  public void setSelectedPlanets(final SolarObject[] selectedPlanets) {
     this.selectedPlanets = selectedPlanets;
   }
 
@@ -65,7 +65,7 @@ public class SelectManyShuttleController implements Serializable {
     return selectedStars;
   }
 
-  public void setSelectedStars(String[] selectedStars) {
+  public void setSelectedStars(final String[] selectedStars) {
     this.selectedStars = selectedStars;
   }
 

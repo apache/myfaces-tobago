@@ -87,7 +87,7 @@ public abstract class SelectManyRendererBase extends MessageLayoutRendererBase {
     RenderUtils.decodeClientBehaviors(facesContext, select);
   }
 
-  public String[] getSubmittedValues(UIInput input) {
+  public String[] getSubmittedValues(final UIInput input) {
     return (String[]) input.getSubmittedValue();
   }
 
@@ -122,8 +122,8 @@ public abstract class SelectManyRendererBase extends MessageLayoutRendererBase {
   static final String COLLECTION_TYPE_KEY = "collectionType";
   static final String VALUE_TYPE_KEY = "valueType";
 
-  static Object getConvertedUISelectManyValue(FacesContext facesContext, UISelectMany component,
-                                              String[] submittedValue) throws ConverterException {
+  static Object getConvertedUISelectManyValue(final FacesContext facesContext, final UISelectMany component,
+                                              final String[] submittedValue) throws ConverterException {
     return getConvertedUISelectManyValue(facesContext, component,
         submittedValue, false);
   }
@@ -140,8 +140,8 @@ public abstract class SelectManyRendererBase extends MessageLayoutRendererBase {
    * @return
    * @throws ConverterException
    */
-  static Object getConvertedUISelectManyValue(FacesContext facesContext, UISelectMany component,
-                                              String[] submittedValue, boolean considerValueType)
+  static Object getConvertedUISelectManyValue(final FacesContext facesContext, final UISelectMany component,
+                                              final String[] submittedValue, final boolean considerValueType)
       throws ConverterException {
     // Attention!
     // This code is duplicated in shared renderkit package (except for considerValueType).
@@ -151,7 +151,7 @@ public abstract class SelectManyRendererBase extends MessageLayoutRendererBase {
       throw new NullPointerException("submittedValue");
     }
 
-    ValueExpression expression = component.getValueExpression("value");
+    final ValueExpression expression = component.getValueExpression("value");
     Object targetForConvertedValues = null;
 
     // if the component has an attached converter, use it
@@ -163,14 +163,14 @@ public abstract class SelectManyRendererBase extends MessageLayoutRendererBase {
     }
 
     if (expression != null) {
-      Class<?> modelType = expression
+      final Class<?> modelType = expression
           .getType(facesContext.getELContext());
       if (modelType == null) {
         // FIXME temporal workaround for MYFACES-2552
         return submittedValue;
       } else if (modelType.isArray()) {
         // the target should be an array
-        Class<?> componentType = modelType.getComponentType();
+        final Class<?> componentType = modelType.getComponentType();
         // check for optimization if the target is
         // a string array --> no conversion needed
         if (String.class.equals(componentType)) {
@@ -200,14 +200,14 @@ public abstract class SelectManyRendererBase extends MessageLayoutRendererBase {
       } else if (Collection.class.isAssignableFrom(modelType) || Object.class.equals(modelType)) {
         if (converter == null) {
           // try to get the by-type-converter from the type of the SelectItems
-          SelectItemsIterator iterator = new SelectItemsIterator(component, facesContext);
+          final SelectItemsIterator iterator = new SelectItemsIterator(component, facesContext);
           converter = getSelectItemsValueConverter(iterator, facesContext);
         }
 
-        Object collectionTypeAttr = component.getAttributes().get(
+        final Object collectionTypeAttr = component.getAttributes().get(
             COLLECTION_TYPE_KEY);
         if (collectionTypeAttr != null) {
-          Class<?> collectionType = getClassFromAttribute(facesContext, collectionTypeAttr);
+          final Class<?> collectionType = getClassFromAttribute(facesContext, collectionTypeAttr);
           if (collectionType == null) {
             throw new FacesException(
                 "The attribute "
@@ -228,26 +228,26 @@ public abstract class SelectManyRendererBase extends MessageLayoutRendererBase {
           // now we have a real collectionType --> try to instantiate it
           try {
             targetForConvertedValues = collectionType.newInstance();
-          } catch (Exception e) {
+          } catch (final Exception e) {
             throw new FacesException("The Collection "
                 + collectionType.getName()
                 + "can not be instantiated.", e);
           }
         } else if (Collection.class.isAssignableFrom(modelType)) {
           // component.getValue() will implement Collection at this point
-          Collection<?> componentValue = (Collection<?>) component
+          final Collection<?> componentValue = (Collection<?>) component
               .getValue();
           // can we clone the Collection
           if (componentValue instanceof Cloneable) {
             // clone method of Object is protected --> use reflection
             try {
-              Method cloneMethod = componentValue.getClass()
+              final Method cloneMethod = componentValue.getClass()
                   .getMethod("clone");
-              Collection<?> clone = (Collection<?>) cloneMethod
+              final Collection<?> clone = (Collection<?>) cloneMethod
                   .invoke(componentValue);
               clone.clear();
               targetForConvertedValues = clone;
-            } catch (Exception e) {
+            } catch (final Exception e) {
               LOG.error("Could not clone " + componentValue.getClass().getName(), e);
             }
           }
@@ -260,7 +260,7 @@ public abstract class SelectManyRendererBase extends MessageLayoutRendererBase {
               targetForConvertedValues = (componentValue != null
                   ? componentValue.getClass()
                   : modelType).newInstance();
-            } catch (Exception e) {
+            } catch (final Exception e) {
               // this did not work either
               // use the standard concrete type
               if (SortedSet.class.isAssignableFrom(modelType)) {
@@ -298,10 +298,10 @@ public abstract class SelectManyRendererBase extends MessageLayoutRendererBase {
 
     // convert the values with the selected converter (if any)
     // and store them in targetForConvertedValues
-    boolean isArray = targetForConvertedValues.getClass().isArray();
+    final boolean isArray = targetForConvertedValues.getClass().isArray();
     for (int i = 0; i < submittedValue.length; i++) {
       // get the value
-      Object value;
+      final Object value;
       if (converter != null) {
         value = converter.getAsObject(facesContext, component,
             submittedValue[i]);
@@ -348,7 +348,7 @@ public abstract class SelectManyRendererBase extends MessageLayoutRendererBase {
     if (attr instanceof String) {
       try {
         type = Class.forName((String) attr);
-      } catch (ClassNotFoundException cnfe) {
+      } catch (final ClassNotFoundException cnfe) {
         throw new FacesException("Unable to find class " + attr + " on the classpath.", cnfe);
       }
     } else if (attr instanceof Class) {
@@ -367,13 +367,13 @@ public abstract class SelectManyRendererBase extends MessageLayoutRendererBase {
    * @param component
    * @return
    */
-  static Converter getValueTypeConverter(FacesContext facesContext, UISelectMany component) {
+  static Converter getValueTypeConverter(final FacesContext facesContext, final UISelectMany component) {
     Converter converter = null;
 
-    Object valueTypeAttr = component.getAttributes().get(VALUE_TYPE_KEY);
+    final Object valueTypeAttr = component.getAttributes().get(VALUE_TYPE_KEY);
     if (valueTypeAttr != null) {
       // treat the valueType attribute exactly like the collectionType attribute
-      Class<?> valueType = getClassFromAttribute(facesContext, valueTypeAttr);
+      final Class<?> valueType = getClassFromAttribute(facesContext, valueTypeAttr);
       if (valueType == null) {
         throw new FacesException(
             "The attribute "
@@ -407,20 +407,20 @@ public abstract class SelectManyRendererBase extends MessageLayoutRendererBase {
    * @param facesContext
    * @return The first suitable Converter for the given SelectItems or null.
    */
-  static Converter getSelectItemsValueConverter(Iterator<SelectItem> iterator, FacesContext facesContext) {
+  static Converter getSelectItemsValueConverter(final Iterator<SelectItem> iterator, final FacesContext facesContext) {
     // Attention!
     // This code is duplicated in jsfapi component package.
     // If you change something here please do the same in the other class!
 
     Converter converter = null;
     while (converter == null && iterator.hasNext()) {
-      SelectItem item = iterator.next();
+      final SelectItem item = iterator.next();
       if (item instanceof SelectItemGroup) {
-        Iterator<SelectItem> groupIterator = Arrays.asList(
+        final Iterator<SelectItem> groupIterator = Arrays.asList(
             ((SelectItemGroup) item).getSelectItems()).iterator();
         converter = getSelectItemsValueConverter(groupIterator, facesContext);
       } else {
-        Class<?> selectItemsType = item.getValue().getClass();
+        final Class<?> selectItemsType = item.getValue().getClass();
 
         // optimization: no conversion for String values
         if (String.class.equals(selectItemsType)) {
@@ -429,7 +429,7 @@ public abstract class SelectManyRendererBase extends MessageLayoutRendererBase {
 
         try {
           converter = facesContext.getApplication().createConverter(selectItemsType);
-        } catch (FacesException e) {
+        } catch (final FacesException e) {
           // nothing - try again
         }
       }
@@ -445,8 +445,8 @@ public abstract class SelectManyRendererBase extends MessageLayoutRendererBase {
   // ### BEGIN copy out of https://svn.apache.org/repos/asf/myfaces/core/tags/myfaces-core-module-2.2.8/
   // ###     api/src/main/java/javax/faces/component/_ComponentUtils.java
   // #################################################################################################################
-  static String getPathToComponent(UIComponent component) {
-    StringBuilder builder = new StringBuilder();
+  static String getPathToComponent(final UIComponent component) {
+    final StringBuilder builder = new StringBuilder();
 
     if (component == null) {
       builder.append("{Component-Path : ");
@@ -462,12 +462,12 @@ public abstract class SelectManyRendererBase extends MessageLayoutRendererBase {
     return builder.toString();
   }
 
-  private static void getPathToComponent(UIComponent component, StringBuilder builder) {
+  private static void getPathToComponent(final UIComponent component, final StringBuilder builder) {
     if (component == null) {
       return;
     }
 
-    StringBuilder intBuilder = new StringBuilder();
+    final StringBuilder intBuilder = new StringBuilder();
 
     intBuilder.append("[Class: ");
     intBuilder.append(component.getClass().getName());
@@ -513,7 +513,7 @@ public abstract class SelectManyRendererBase extends MessageLayoutRendererBase {
     private UISelectItems currentUISelectItems;
     private FacesContext facesContext;
 
-    SelectItemsIterator(UIComponent selectItemsParent, FacesContext facesContext) {
+    SelectItemsIterator(final UIComponent selectItemsParent, final FacesContext facesContext) {
       children = selectItemsParent.getChildCount() > 0
           ? selectItemsParent.getChildren().iterator()
           : EMPTY_UICOMPONENT_ITERATOR;
@@ -553,22 +553,22 @@ public abstract class SelectManyRendererBase extends MessageLayoutRendererBase {
           }
         }
         if (child instanceof UISelectItem) {
-          UISelectItem uiSelectItem = (UISelectItem) child;
+          final UISelectItem uiSelectItem = (UISelectItem) child;
           Object item = uiSelectItem.getValue();
           if (item == null) {
             // no value attribute --> create the SelectItem out of the other attributes
-            Object itemValue = uiSelectItem.getItemValue();
+            final Object itemValue = uiSelectItem.getItemValue();
             String label = uiSelectItem.getItemLabel();
-            String description = uiSelectItem.getItemDescription();
-            boolean disabled = uiSelectItem.isItemDisabled();
-            boolean escape = uiSelectItem.isItemEscaped();
-            boolean noSelectionOption = uiSelectItem.isNoSelectionOption();
+            final String description = uiSelectItem.getItemDescription();
+            final boolean disabled = uiSelectItem.isItemDisabled();
+            final boolean escape = uiSelectItem.isItemEscaped();
+            final boolean noSelectionOption = uiSelectItem.isNoSelectionOption();
             if (label == null) {
               label = itemValue.toString();
             }
             item = new SelectItem(itemValue, label, description, disabled, escape, noSelectionOption);
           } else if (!(item instanceof SelectItem)) {
-            ValueExpression expression = uiSelectItem.getValueExpression("value");
+            final ValueExpression expression = uiSelectItem.getValueExpression("value");
             throw new IllegalArgumentException("ValueExpression '"
                 + (expression == null ? null : expression.getExpressionString()) + "' of UISelectItem : "
                 + getPathToComponent(child) + " does not reference an Object of type SelectItem");
@@ -578,7 +578,7 @@ public abstract class SelectManyRendererBase extends MessageLayoutRendererBase {
           return true;
         } else if (child instanceof UISelectItems) {
           currentUISelectItems = (UISelectItems) child;
-          Object value = currentUISelectItems.getValue();
+          final Object value = currentUISelectItems.getValue();
           currentComponent = child;
 
           if (value instanceof SelectItem) {
@@ -587,8 +587,8 @@ public abstract class SelectManyRendererBase extends MessageLayoutRendererBase {
           } else if (value != null && value.getClass().isArray()) {
             // value is any kind of array (primitive or non-primitive)
             // --> we have to use class Array to get the values
-            int length = Array.getLength(value);
-            Collection<Object> items = new ArrayList<>(length);
+            final int length = Array.getLength(value);
+            final Collection<Object> items = new ArrayList<>(length);
             for (int i = 0; i < length; i++) {
               items.add(Array.get(value, i));
             }
@@ -599,9 +599,9 @@ public abstract class SelectManyRendererBase extends MessageLayoutRendererBase {
             nestedItems = ((Iterable<?>) value).iterator();
             return hasNext();
           } else if (value instanceof Map) {
-            Map<Object, Object> map = (Map<Object, Object>) value;
-            Collection<SelectItem> items = new ArrayList<>(map.size());
-            for (Map.Entry<Object, Object> entry : map.entrySet()) {
+            final Map<Object, Object> map = (Map<Object, Object>) value;
+            final Collection<SelectItem> items = new ArrayList<>(map.size());
+            for (final Map.Entry<Object, Object> entry : map.entrySet()) {
               items.add(new SelectItem(entry.getValue(), entry.getKey().toString()));
             }
 
@@ -611,13 +611,13 @@ public abstract class SelectManyRendererBase extends MessageLayoutRendererBase {
 
             if ((facesContext.isProjectStage(ProjectStage.Production) && LOG.isDebugEnabled())
                 || LOG.isWarnEnabled()) {
-              ValueExpression expression = currentUISelectItems.getValueExpression("value");
-              Object[] objects = {
+              final ValueExpression expression = currentUISelectItems.getValueExpression("value");
+              final Object[] objects = {
                   expression == null ? null : expression.getExpressionString(),
                   getPathToComponent(child),
                   value == null ? null : value.getClass().getName()
               };
-              String message = "ValueExpression {0} of UISelectItems with component-path {1}"
+              final String message = "ValueExpression {0} of UISelectItems with component-path {1}"
                   + " does not reference an Object of type SelectItem,"
                   + " array, Iterable or Map, but of type: {2}";
               if (facesContext.isProjectStage(ProjectStage.Production)) {
@@ -640,7 +640,7 @@ public abstract class SelectManyRendererBase extends MessageLayoutRendererBase {
         throw new NoSuchElementException();
       }
       if (nextItem != null) {
-        SelectItem value = nextItem;
+        final SelectItem value = nextItem;
         nextItem = null;
         return value;
       }
@@ -651,12 +651,12 @@ public abstract class SelectManyRendererBase extends MessageLayoutRendererBase {
           // check new params of SelectItems (since 2.0): itemValue, itemLabel, itemDescription,...
           // Note that according to the spec UISelectItems does not provide Getter and Setter
           // methods for this values, so we have to use the attribute map
-          Map<String, Object> attributeMap = currentUISelectItems.getAttributes();
+          final Map<String, Object> attributeMap = currentUISelectItems.getAttributes();
 
           // write the current item into the request map under the key listed in var, if available
           boolean wroteRequestMapVarValue = false;
           Object oldRequestMapVarValue = null;
-          String var = (String) attributeMap.get(VAR_ATTR);
+          final String var = (String) attributeMap.get(VAR_ATTR);
           if (var != null && !"".equals(var)) {
             // save the current value of the key listed in var from the request map
             oldRequestMapVarValue = facesContext.getExternalContext().getRequestMap().put(var, item);
@@ -683,9 +683,9 @@ public abstract class SelectManyRendererBase extends MessageLayoutRendererBase {
           if (itemDescription != null) {
             itemDescription = itemDescription.toString();
           }
-          Boolean itemDisabled = getBooleanAttribute(currentUISelectItems, ITEM_DISABLED_ATTR, false);
-          Boolean itemLabelEscaped = getBooleanAttribute(currentUISelectItems, ITEM_LABEL_ESCAPED_ATTR, true);
-          Object noSelectionValue = attributeMap.get(NO_SELECTION_VALUE_ATTR);
+          final Boolean itemDisabled = getBooleanAttribute(currentUISelectItems, ITEM_DISABLED_ATTR, false);
+          final Boolean itemLabelEscaped = getBooleanAttribute(currentUISelectItems, ITEM_LABEL_ESCAPED_ATTR, true);
+          final Object noSelectionValue = attributeMap.get(NO_SELECTION_VALUE_ATTR);
           item = new SelectItem(itemValue,
               (String) itemLabel,
               (String) itemDescription,
@@ -719,8 +719,8 @@ public abstract class SelectManyRendererBase extends MessageLayoutRendererBase {
       return currentComponent;
     }
 
-    private boolean getBooleanAttribute(UIComponent component, String attrName, boolean defaultValue) {
-      Object value = component.getAttributes().get(attrName);
+    private boolean getBooleanAttribute(final UIComponent component, final String attrName, final boolean defaultValue) {
+      final Object value = component.getAttributes().get(attrName);
       if (value == null) {
         return defaultValue;
       } else if (value instanceof Boolean) {
@@ -733,8 +733,8 @@ public abstract class SelectManyRendererBase extends MessageLayoutRendererBase {
       }
     }
 
-    private String getPathToComponent(UIComponent component) {
-      StringBuilder builder = new StringBuilder();
+    private String getPathToComponent(final UIComponent component) {
+      final StringBuilder builder = new StringBuilder();
 
       if (component == null) {
         builder.append("{Component-Path : ");
@@ -750,12 +750,12 @@ public abstract class SelectManyRendererBase extends MessageLayoutRendererBase {
       return builder.toString();
     }
 
-    private void getPathToComponent(UIComponent component, StringBuilder builder) {
+    private void getPathToComponent(final UIComponent component, final StringBuilder builder) {
       if (component == null) {
         return;
       }
 
-      StringBuilder intBuilder = new StringBuilder();
+      final StringBuilder intBuilder = new StringBuilder();
 
       intBuilder.append("[Class: ");
       intBuilder.append(component.getClass().getName());

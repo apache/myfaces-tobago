@@ -51,15 +51,15 @@ public class SheetController implements Serializable {
   private static final SelectItem[] SHEET_SELECTABLE;
 
   static {
-    List<Selectable> collect = new ArrayList<>();
-    for (Selectable selectable : Selectable.values()) {
+    final List<Selectable> collect = new ArrayList<>();
+    for (final Selectable selectable : Selectable.values()) {
       if (selectable.isSupportedBySheet()) {
         collect.add(selectable);
       }
     }
     SHEET_SELECTABLE = new SelectItem[collect.size()];
     for (int i = 0; i < collect.size(); i++) {
-      Selectable selectable = collect.get(i);
+      final Selectable selectable = collect.get(i);
       SHEET_SELECTABLE[i] = new SelectItem(selectable, selectable.name());
     }
   }
@@ -78,8 +78,8 @@ public class SheetController implements Serializable {
 
     hugeSolarList = new ArrayList<>();
     for (int i = 1; i <= 12; i++) {
-      for (SolarObject solarObject : solarList) {
-        SolarObject solarObjectClone = new SolarObject(solarObject);
+      for (final SolarObject solarObject : solarList) {
+        final SolarObject solarObjectClone = new SolarObject(solarObject);
         solarObjectClone.setName(solarObject.getName() + " (" + i + ". entry)");
         hugeSolarList.add(solarObjectClone);
       }
@@ -98,7 +98,7 @@ public class SheetController implements Serializable {
     return sheetState;
   }
 
-  public void setSheetState(SheetState sheetState) {
+  public void setSheetState(final SheetState sheetState) {
     this.sheetState = sheetState;
   }
 
@@ -122,7 +122,7 @@ public class SheetController implements Serializable {
     return automaticLayout;
   }
 
-  public void setAutomaticLayout(boolean automaticLayout) {
+  public void setAutomaticLayout(final boolean automaticLayout) {
     this.automaticLayout = automaticLayout;
   }
 
@@ -130,11 +130,11 @@ public class SheetController implements Serializable {
     return markup;
   }
 
-  public void setMarkup(List<Markup> markup) {
+  public void setMarkup(final List<Markup> markup) {
     this.markup = markup;
   }
 
-  public void setColumnEventSample(int columnEventSample) {
+  public void setColumnEventSample(final int columnEventSample) {
     this.columnEventSample = columnEventSample;
   }
 
@@ -147,7 +147,7 @@ public class SheetController implements Serializable {
     final DateTimeConverter dateTimeConverter = new DateTimeConverter() {
 
       @Override
-      public Object getAsObject(FacesContext facesContext, UIComponent uiComponent, String value) {
+      public Object getAsObject(final FacesContext facesContext, final UIComponent uiComponent, final String value) {
         final Date date = (Date) super.getAsObject(facesContext, uiComponent, value);
         final Calendar calendar = GregorianCalendar.getInstance(facesContext.getViewRoot().getLocale());
         calendar.setTime(date);
@@ -155,7 +155,7 @@ public class SheetController implements Serializable {
       }
 
       @Override
-      public String getAsString(FacesContext facesContext, UIComponent uiComponent, Object value) {
+      public String getAsString(final FacesContext facesContext, final UIComponent uiComponent, final Object value) {
         final Calendar calendar = GregorianCalendar.getInstance(facesContext.getViewRoot().getLocale());
         calendar.set(Calendar.YEAR, (Integer) value);
         final Date date = calendar.getTime();
@@ -171,7 +171,7 @@ public class SheetController implements Serializable {
     return selectable;
   }
 
-  public void setSelectable(Selectable selectable) {
+  public void setSelectable(final Selectable selectable) {
     this.selectable = selectable;
   }
 

@@ -634,7 +634,7 @@ public enum BootstrapClass implements CssItem {
     }
 
     public BootstrapClass[] generate(final UIComponent child) {
-      ArrayList<BootstrapClass> result = new ArrayList<>(10);
+      final ArrayList<BootstrapClass> result = new ArrayList<>(10);
       final Map<String, Object> attributes = child.getAttributes();
       generate(result, extraSmall, attributes, Attributes.overwriteExtraSmall);
       generate(result, small, attributes, Attributes.overwriteSmall);
@@ -659,7 +659,7 @@ public enum BootstrapClass implements CssItem {
     private void generate(
         final List<BootstrapClass> result, final MeasureList tokens,
         final Map<String, Object> attributes, final Attributes attribute) {
-      Object overwrite = attributes.get(attribute.name());
+      final Object overwrite = attributes.get(attribute.name());
 
       if (overwrite != null) {
         final Measure measure = Measure.valueOf(overwrite.toString(), Measure.Unit.SEG);
@@ -674,7 +674,7 @@ public enum BootstrapClass implements CssItem {
 
     private Measure getSegmentMeasure(final Measure measure) {
       if (measure != null && Measure.Unit.SEG.equals(measure.getUnit())) {
-        int number = (int) measure.getValue();
+        final int number = (int) measure.getValue();
         if (number < 1) {
           LOG.warn("Segment values must been between 1 and 12. Use '1' instead of '{}'.", number);
           return new Measure(1, Measure.Unit.SEG);
@@ -688,7 +688,7 @@ public enum BootstrapClass implements CssItem {
 
     private void generate(final List<BootstrapClass> result, final MarginTokens margins,
         final Map<String, Object> attributes, final Attributes attribute) {
-      Object overwrite = attributes.get(attribute.name());
+      final Object overwrite = attributes.get(attribute.name());
 
       if (overwrite != null) {
         final Margin margin = MarginTokens.parseToken((String) overwrite);
@@ -712,7 +712,7 @@ public enum BootstrapClass implements CssItem {
     }
   }
 
-  public static BootstrapClass valueOf(Measure measure, Attributes attributes) {
+  public static BootstrapClass valueOf(final Measure measure, final Attributes attributes) {
     final String size = getSizeSuffix(attributes);
 
     if (measure != null) {
@@ -729,7 +729,7 @@ public enum BootstrapClass implements CssItem {
     return null;
   }
 
-  public static BootstrapClass valueOf(Margin margin, Attributes attribute) {
+  public static BootstrapClass valueOf(final Margin margin, final Attributes attribute) {
     final String size = getSizeSuffix(attribute);
 
     switch (margin) {
@@ -744,7 +744,7 @@ public enum BootstrapClass implements CssItem {
     }
   }
 
-  private static String getSizeSuffix(Attributes attribute) {
+  private static String getSizeSuffix(final Attributes attribute) {
     switch (attribute) {
       case extraLarge:
       case marginExtraLarge:
@@ -775,7 +775,7 @@ public enum BootstrapClass implements CssItem {
     }
   }
 
-  public static CssItem valueOf(AlignItems alignItems) {
+  public static CssItem valueOf(final AlignItems alignItems) {
     if (alignItems == null) {
       return null;
     } else {
@@ -797,7 +797,7 @@ public enum BootstrapClass implements CssItem {
     }
   }
 
-  public static CssItem valueOf(JustifyContent justifyContent) {
+  public static CssItem valueOf(final JustifyContent justifyContent) {
     if (justifyContent == null) {
       return null;
     } else {

@@ -43,7 +43,7 @@ public class TestController implements Serializable {
     final String testJsUrl = "/" + getBase() + ".test.js";
     try {
       return externalContext.getResource(testJsUrl) != null;
-    } catch (MalformedURLException e) {
+    } catch (final MalformedURLException e) {
       LOG.error("URL was: " + testJsUrl, e);
     }
     return false;
@@ -56,20 +56,20 @@ public class TestController implements Serializable {
   }
 
   public List<String> getAllPages() {
-    List<String> pages = new ArrayList<>();
+    final List<String> pages = new ArrayList<>();
 
     final File rootDir = new File("src/main/webapp/content");
     if (rootDir.exists()) {
-      for (String page : getXHTMLs(rootDir)) {
+      for (final String page : getXHTMLs(rootDir)) {
         pages.add(page.substring(16));
       }
     }
     return pages;
   }
 
-  private List<String> getXHTMLs(File dir) {
-    List<String> xhtmls = new ArrayList<>();
-    for (File file : dir.listFiles()) {
+  private List<String> getXHTMLs(final File dir) {
+    final List<String> xhtmls = new ArrayList<>();
+    for (final File file : dir.listFiles()) {
       if (file.isDirectory()) {
         xhtmls.addAll(getXHTMLs(file));
       } else if (!file.getName().startsWith("x-") && file.getName().endsWith(".xhtml")) {
@@ -80,12 +80,12 @@ public class TestController implements Serializable {
   }
 
   public List<TestPage> getTestPages() {
-    List<TestPage> testPages = new ArrayList<>();
+    final List<TestPage> testPages = new ArrayList<>();
 
     int idCount = 1;
     final File rootDir = new File("src/main/webapp/content");
     if (rootDir.exists()) {
-      for (String testJs : getTestJs(rootDir)) {
+      for (final String testJs : getTestJs(rootDir)) {
         final String base = testJs.substring(16, testJs.length() - 8);
         testPages.add(new TestPage("tp" + idCount++, base));
       }
@@ -93,9 +93,9 @@ public class TestController implements Serializable {
     return testPages;
   }
 
-  private List<String> getTestJs(File dir) {
-    List<String> testJsFiles = new ArrayList<>();
-    for (File file : dir.listFiles()) {
+  private List<String> getTestJs(final File dir) {
+    final List<String> testJsFiles = new ArrayList<>();
+    for (final File file : dir.listFiles()) {
       if (file.isDirectory()) {
         testJsFiles.addAll(getTestJs(file));
       } else if (!file.getName().startsWith("x-") && file.getName().endsWith(".test.js")) {
@@ -109,7 +109,7 @@ public class TestController implements Serializable {
     private final String id;
     private final String base;
 
-    TestPage(String id, String base) {
+    TestPage(final String id, final String base) {
       this.id = id;
       this.base = base;
     }

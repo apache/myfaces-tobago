@@ -125,12 +125,12 @@ public class LocaleController implements Serializable {
     final String suffix
         = StringUtils.isNotBlank(language) && StringUtils.isNotBlank(country) ? "_" + language + "_" + country : "";
     String url = "/image/country" + suffix + ".png";
-    ServletContext servletContext =
+    final ServletContext servletContext =
         (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
     URL resource = null;
     try {
       resource = servletContext.getResource(url);
-    } catch (MalformedURLException e) {
+    } catch (final MalformedURLException e) {
       // ignore
     }
     if (resource == null) {

@@ -90,7 +90,7 @@ public class CustomClass implements CssItem {
    * @deprecated since 4.0.0
    */
   @Deprecated
-  public static CustomClass valueOf(String text) {
+  public static CustomClass valueOf(final String text) {
     return new CustomClass(text);
   }
 }

@@ -47,7 +47,7 @@ public class ForEachController implements Serializable {
     return name;
   }
 
-  public void setName(String name) {
+  public void setName(final String name) {
     this.name = name;
   }
 
@@ -55,7 +55,7 @@ public class ForEachController implements Serializable {
     return length;
   }
 
-  public void setLength(String length) {
+  public void setLength(final String length) {
     this.length = length;
   }
 
@@ -63,7 +63,7 @@ public class ForEachController implements Serializable {
     return discharge;
   }
 
-  public void setDischarge(String discharge) {
+  public void setDischarge(final String discharge) {
     this.discharge = discharge;
   }
 
@@ -93,7 +93,7 @@ public class ForEachController implements Serializable {
     private int length;
     private int discharge;
 
-    public River(String name, int length, int discharge) {
+    public River(final String name, final int length, final int discharge) {
       this.name = name;
       this.length = length;
       this.discharge = discharge;

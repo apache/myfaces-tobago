@@ -14,7 +14,7 @@ public class MetaController implements Serializable {
     return formatDetection;
   }
 
-  public void setFormatDetection(boolean formatDetection) {
+  public void setFormatDetection(final boolean formatDetection) {
     this.formatDetection = formatDetection;
   }
 }

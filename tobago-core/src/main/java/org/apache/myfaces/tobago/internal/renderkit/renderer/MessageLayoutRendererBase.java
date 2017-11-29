@@ -101,7 +101,7 @@ public abstract class MessageLayoutRendererBase extends LabelLayoutRendererBase 
     int warningCount = 0;
     int informationCount = 0;
 
-    for (FacesMessage message : messages) {
+    for (final FacesMessage message : messages) {
       if (FacesMessage.SEVERITY_FATAL.equals(message.getSeverity())) {
         fatalCount++;
       } else if (FacesMessage.SEVERITY_ERROR.equals(message.getSeverity())) {
@@ -113,7 +113,7 @@ public abstract class MessageLayoutRendererBase extends LabelLayoutRendererBase 
       }
     }
 
-    StringBuilder stringBuilder = new StringBuilder();
+    final StringBuilder stringBuilder = new StringBuilder();
 
     if (messages.size() > 1) {
       if (fatalCount > 0) {
@@ -168,8 +168,8 @@ public abstract class MessageLayoutRendererBase extends LabelLayoutRendererBase 
   }
 
   private String getMessage(final List<FacesMessage> messages) {
-    StringBuilder stringBuilder = new StringBuilder();
-    for (FacesMessage message : messages) {
+    final StringBuilder stringBuilder = new StringBuilder();
+    for (final FacesMessage message : messages) {
       stringBuilder.append(message.getDetail());
       stringBuilder.append("\n\n");
     }

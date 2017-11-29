@@ -35,7 +35,7 @@ public class GridSpan {
 
   public static GridSpan valueOf(final String string) {
     final GridSpan item = new GridSpan();
-    StringTokenizer tokenizer = new StringTokenizer(string, " /");
+    final StringTokenizer tokenizer = new StringTokenizer(string, " /");
     if (tokenizer.hasMoreElements()) {
       item.start = Integer.parseInt(tokenizer.nextToken());
     }

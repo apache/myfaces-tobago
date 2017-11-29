@@ -33,7 +33,7 @@ public class SelectOneChoiceController extends PlanetExample implements Serializ
     return person;
   }
 
-  public void setPerson(String person) {
+  public void setPerson(final String person) {
     this.person = person;
   }
 }

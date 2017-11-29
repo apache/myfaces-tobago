@@ -174,7 +174,7 @@ public class SelectManyShuttleRenderer extends SelectManyRendererBase {
   }
 
   @Override
-  protected String getFieldId(FacesContext facesContext, UIComponent component) {
+  protected String getFieldId(final FacesContext facesContext, final UIComponent component) {
     return component.getClientId(facesContext) + ComponentUtils.SUB_SEPARATOR + "unselected";
   }
 }

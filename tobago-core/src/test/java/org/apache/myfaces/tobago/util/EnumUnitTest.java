@@ -30,11 +30,11 @@ public abstract class EnumUnitTest {
     return "[a-z][a-zA-Z]*";
   }
 
-  protected String constantCaseToEnum(String constant) {
+  protected String constantCaseToEnum(final String constant) {
     return StringUtils.constantToLowerCamelCase(constant);
   }
 
-  public <E extends Enum<E>> void testNames(Class<E> enumType)
+  public <E extends Enum<E>> void testNames(final Class<E> enumType)
       throws NoSuchFieldException, IllegalAccessException {
 
     final Field[] fields = enumType.getFields();

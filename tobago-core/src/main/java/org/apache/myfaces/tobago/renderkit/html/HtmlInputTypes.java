@@ -34,7 +34,7 @@ public enum HtmlInputTypes implements HtmlTypes {
 
   private final String value;
 
-  HtmlInputTypes(String value) {
+  HtmlInputTypes(final String value) {
     this.value = value;
   }
 

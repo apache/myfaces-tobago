@@ -33,13 +33,13 @@ public class OldLinksServlet extends HttpServlet {
 
     private static final Logger LOG = LoggerFactory.getLogger(OldLinksServlet.class);
 
-    protected void doPost(HttpServletRequest request,
-                          HttpServletResponse response)
+    protected void doPost(final HttpServletRequest request,
+                          final HttpServletResponse response)
             throws ServletException, IOException {
         doGet(request, response);
     }
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    protected void doGet(final HttpServletRequest request, final HttpServletResponse response)
             throws ServletException, IOException {
         response.setStatus(HttpServletResponse.SC_FOUND);
         final String redirect = request.getContextPath() + request.getPathInfo() + '?' + request.getQueryString();

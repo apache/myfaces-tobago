@@ -87,7 +87,7 @@ public class Command {
         command.isOmit());
   }
 
-  public Command(final FacesContext facesContext, UIComponent facetComponent, final String focusId) {
+  public Command(final FacesContext facesContext, final UIComponent facetComponent, final String focusId) {
     final UIComponent component;
     if (facetComponent instanceof UIForm && facetComponent.getChildCount() == 1) {
       LOG.warn("Please don't use a form, but a command with immediate=true instead.");
@@ -161,7 +161,7 @@ public class Command {
     return execute;
   }
 
-  public void setExecute(String execute) {
+  public void setExecute(final String execute) {
     if (StringUtils.isNotBlank(execute)) {
       this.execute = execute;
     }
@@ -171,7 +171,7 @@ public class Command {
     return render;
   }
 
-  public void setRender(String render) {
+  public void setRender(final String render) {
     if (StringUtils.isNotBlank(render)) {
       this.render = render;
     }
@@ -205,7 +205,7 @@ public class Command {
     return collapse;
   }
 
-  public void setCollapse(Collapse collapse) {
+  public void setCollapse(final Collapse collapse) {
     this.collapse = collapse;
   }
 
@@ -217,7 +217,7 @@ public class Command {
     this.omit = omit;
   }
 
-  public void merge(Command c) {
+  public void merge(final Command c) {
 
     //XXX TBD: check if this is okay.
     // we need at least this for "execute" and "render" in the moment.

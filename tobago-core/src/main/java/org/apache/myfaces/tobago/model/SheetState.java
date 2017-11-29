@@ -115,7 +115,7 @@ public class SheetState implements Serializable, ScrollPositionState {
   }
 
   public boolean isDefinedColumnWidths() {
-    for (Integer columnWidth : columnWidths) {
+    for (final Integer columnWidth : columnWidths) {
       if(columnWidth < 0) {
         return false;
       }
@@ -178,7 +178,7 @@ public class SheetState implements Serializable, ScrollPositionState {
     return toBeSorted;
   }
 
-  public void setToBeSorted(boolean toBeSorted) {
+  public void setToBeSorted(final boolean toBeSorted) {
     this.toBeSorted = toBeSorted;
   }
 }

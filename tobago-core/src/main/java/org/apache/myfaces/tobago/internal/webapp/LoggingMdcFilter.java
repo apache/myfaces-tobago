@@ -49,16 +49,16 @@ public class LoggingMdcFilter implements Filter {
 
     try {
       if (request instanceof HttpServletRequest) {
-        HttpServletRequest httpRequest = (HttpServletRequest) request;
-        HttpSession session = httpRequest.getSession(false);
+        final HttpServletRequest httpRequest = (HttpServletRequest) request;
+        final HttpSession session = httpRequest.getSession(false);
         if (session != null) {
           MDC.put("sessionId", session.getId());
         }
-        String remoteAddr = httpRequest.getRemoteAddr();
+        final String remoteAddr = httpRequest.getRemoteAddr();
         if (remoteAddr != null) {
           MDC.put("ip", remoteAddr);
         }
-        String remoteUser = httpRequest.getRemoteUser();
+        final String remoteUser = httpRequest.getRemoteUser();
         if (remoteUser != null) {
           MDC.put("user", remoteUser);
         }

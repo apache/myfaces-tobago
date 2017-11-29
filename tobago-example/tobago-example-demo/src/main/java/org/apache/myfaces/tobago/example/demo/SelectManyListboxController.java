@@ -49,13 +49,13 @@ public class SelectManyListboxController implements Serializable {
     return celestials;
   }
 
-  public void setCelestials(List<String> celestials) {
+  public void setCelestials(final List<String> celestials) {
     this.celestials = celestials;
   }
 
   public String getCelestial() {
     String retValue = "";
-    for (String s : celestials) {
+    for (final String s : celestials) {
       retValue = retValue.concat(s);
     }
     return retValue;
@@ -69,7 +69,7 @@ public class SelectManyListboxController implements Serializable {
     return selectedDeserts;
   }
 
-  public void setSelectedDeserts(List<String> selectedDeserts) {
+  public void setSelectedDeserts(final List<String> selectedDeserts) {
     this.selectedDeserts = selectedDeserts;
   }
 }

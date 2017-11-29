@@ -60,7 +60,7 @@ public class ScrollPosition implements Serializable {
     return left;
   }
 
-  public void setLeft(Integer left) {
+  public void setLeft(final Integer left) {
     this.left = left;
   }
 
@@ -68,7 +68,7 @@ public class ScrollPosition implements Serializable {
     return top;
   }
 
-  public void setTop(Integer top) {
+  public void setTop(final Integer top) {
     this.top = top;
   }
 }

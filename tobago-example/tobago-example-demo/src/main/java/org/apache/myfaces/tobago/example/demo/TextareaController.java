@@ -51,7 +51,7 @@ public class TextareaController implements Serializable {
     return longText;
   }
 
-  public void setLongText(String longText) {
+  public void setLongText(final String longText) {
     this.longText = longText;
   }
 }

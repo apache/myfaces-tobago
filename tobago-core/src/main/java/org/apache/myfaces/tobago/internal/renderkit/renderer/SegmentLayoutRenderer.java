@@ -91,7 +91,7 @@ public class SegmentLayoutRenderer extends RendererBase {
         MarginTokens.parse(segmentLayout.getMarginMedium()),
         MarginTokens.parse(segmentLayout.getMarginLarge()),
         MarginTokens.parse(segmentLayout.getMarginExtraLarge()));
-    for (UIComponent child : children) {
+    for (final UIComponent child : children) {
       if (child.isRendered()) {
         encodeChild(facesContext, writer, generator, child);
       }
@@ -123,7 +123,7 @@ public class SegmentLayoutRenderer extends RendererBase {
   }
 
   private void encodeDiv(
-      FacesContext facesContext, TobagoResponseWriter writer, BootstrapClass.Generator generator, UIComponent child)
+      final FacesContext facesContext, final TobagoResponseWriter writer, final BootstrapClass.Generator generator, final UIComponent child)
       throws IOException {
     writer.startElement(HtmlElements.DIV);
     writer.writeClassAttribute(null, null, generator.generate(child));

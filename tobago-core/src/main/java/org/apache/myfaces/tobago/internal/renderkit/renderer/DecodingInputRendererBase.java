@@ -50,7 +50,7 @@ public abstract class DecodingInputRendererBase extends RendererBase {
 
     final Map<String, String> requestParameterMap = facesContext.getExternalContext().getRequestParameterMap();
     if (requestParameterMap.containsKey(clientId)) {
-      String newValue = requestParameterMap.get(clientId);
+      final String newValue = requestParameterMap.get(clientId);
       if (LOG.isDebugEnabled()) {
         final boolean password = ComponentUtils.getBooleanAttribute(component, Attributes.password);
         LOG.debug("clientId='{}'", clientId);

@@ -58,7 +58,7 @@ public class InRenderer extends MessageLayoutRendererBase {
   private static final Logger LOG = LoggerFactory.getLogger(InRenderer.class);
 
   @Override
-  protected void encodeBeginField(FacesContext facesContext, UIComponent component)
+  protected void encodeBeginField(final FacesContext facesContext, final UIComponent component)
       throws IOException {
     final AbstractUIInput input = (AbstractUIInput) component;
     final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, input);
@@ -120,7 +120,7 @@ public class InRenderer extends MessageLayoutRendererBase {
         maxLength = lengthValidator.getMaximum();
         minLength = lengthValidator.getMinimum();
       } else if (validator instanceof RegexValidator) {
-        RegexValidator regexValidator = (RegexValidator) validator;
+        final RegexValidator regexValidator = (RegexValidator) validator;
         pattern = regexValidator.getPattern();
       }
     }
@@ -165,8 +165,8 @@ public class InRenderer extends MessageLayoutRendererBase {
     }
   }
 
-  private void encodeGroupAddon(FacesContext facesContext, TobagoResponseWriter writer, UIComponent addon,
-                                boolean isAfterFacet) throws IOException {
+  private void encodeGroupAddon(final FacesContext facesContext, final TobagoResponseWriter writer, final UIComponent addon,
+                                final boolean isAfterFacet) throws IOException {
     if (addon != null) {
       final List<UIComponent> children;
       if (addon instanceof UIPanel) {
@@ -174,7 +174,7 @@ public class InRenderer extends MessageLayoutRendererBase {
       } else {
         children = Collections.singletonList(addon);
       }
-      for (UIComponent child : children) {
+      for (final UIComponent child : children) {
         if (child instanceof AbstractUIButton && ((AbstractUIButton) child).isParentOfCommands()) {
           if (isAfterFacet) {
             child.setRendererType(RendererTypes.ButtonInsideInAfter.name());
@@ -204,7 +204,7 @@ public class InRenderer extends MessageLayoutRendererBase {
   }
 
   @Override
-  protected void encodeEndField(FacesContext facesContext, UIComponent component) throws IOException {
+  protected void encodeEndField(final FacesContext facesContext, final UIComponent component) throws IOException {
   }
 
   protected TobagoClass getRendererCssClass() {

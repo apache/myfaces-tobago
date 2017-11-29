@@ -267,14 +267,14 @@ public abstract class AbstractUIData extends javax.faces.component.UIData implem
    * This is, because we need to visit the UIRow for each row, which is not done in the base implementation.
    */
   @Override
-  public boolean visitTree(VisitContext context, VisitCallback callback) {
+  public boolean visitTree(final VisitContext context, final VisitCallback callback) {
 
     if (super.visitTree(context, callback)) {
       return true;
     }
 
     // save the current row index
-    int oldRowIndex = getRowIndex();
+    final int oldRowIndex = getRowIndex();
     // set row index to -1 to process the facets and to get the rowless clientId
     setRowIndex(-1);
     // push the Component to EL
@@ -295,7 +295,7 @@ public abstract class AbstractUIData extends javax.faces.component.UIData implem
         }
         // visit the children of every child of the UIData that is an instance of UIColumn
         for (int i = 0, childCount = getChildCount(); i < childCount; i++) {
-          UIComponent child = getChildren().get(i);
+          final UIComponent child = getChildren().get(i);
           if (child instanceof AbstractUIRow) {
             if (child.visitTree(context, callback)) {
               return true;
