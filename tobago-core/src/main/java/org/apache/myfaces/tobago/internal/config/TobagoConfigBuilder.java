@@ -59,16 +59,18 @@ public class TobagoConfigBuilder {
       final TobagoConfigBuilder builder = new TobagoConfigBuilder(servletContext);
       builder.build();
     } catch (final Throwable e) {
-      if (LOG.isErrorEnabled()) {
-        final String error = "Error while deploy process. Tobago can't be initialized! Application will not run!";
-        LOG.error(error, e);
+      final String error = "Error while deploy process. Tobago can't be initialized! Application will not run!";
+      LOG.error(error, e);
+      if (e instanceof Error) {
+        throw (Error) e;
+      } else {
         throw new RuntimeException(error, e);
       }
     }
   }
 
-  public TobagoConfig build() throws URISyntaxException, SAXException,
-     ParserConfigurationException, ServletException, IOException {
+  public TobagoConfig build()
+      throws URISyntaxException, SAXException, ParserConfigurationException, ServletException, IOException {
     final TobagoConfigImpl tobagoConfig = initializeConfigFromFiles();
     // prepare themes
     tobagoConfig.resolveThemes();
@@ -80,7 +82,7 @@ public class TobagoConfigBuilder {
   }
 
   protected TobagoConfigImpl initializeConfigFromFiles()
-     throws ServletException, IOException, SAXException, ParserConfigurationException, URISyntaxException {
+      throws ServletException, IOException, SAXException, ParserConfigurationException, URISyntaxException {
     configFromClasspath();
     configFromWebInf();
     final TobagoConfigSorter sorter = new TobagoConfigSorter(configFragmentList);
