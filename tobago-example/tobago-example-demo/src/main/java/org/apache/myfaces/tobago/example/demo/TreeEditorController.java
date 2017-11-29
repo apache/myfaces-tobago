@@ -125,18 +125,20 @@ public class TreeEditorController implements Serializable {
 
   public String paste() {
     final DefaultMutableTreeNode node = findFirstSelected();
-    if (cutNode != null) {
-      if (isBaseNodeContainSelectedNode(cutNode, node)) {
-        FacesContext.getCurrentInstance().addMessage(null,
-                new FacesMessage(FacesMessage.SEVERITY_INFO, "Cannot past a cut node into itself.", null));
-      } else {
-        node.insert(cutNode, 0);
-        cutNode = null;
+    if (node != null) {
+      if (cutNode != null) {
+        if (isBaseNodeContainSelectedNode(cutNode, node)) {
+          FacesContext.getCurrentInstance().addMessage(null,
+                  new FacesMessage(FacesMessage.SEVERITY_INFO, "Cannot past a cut node into itself.", null));
+        } else {
+          node.insert(cutNode, 0);
+          cutNode = null;
+        }
+      } else if (copyNode != null) {
+        node.insert(copyNode, 0);
+        copyNode = null;
+        deselectAllNodes(categoryTree);
       }
-    } else if (copyNode != null) {
-      node.insert(copyNode, 0);
-      copyNode = null;
-      deselectAllNodes(categoryTree);
     }
     return null;
   }
