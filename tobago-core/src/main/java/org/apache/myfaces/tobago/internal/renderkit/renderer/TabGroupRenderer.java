@@ -317,11 +317,8 @@ public class TabGroupRenderer extends RendererBase implements ComponentSystemEve
     int index = 0;
     for (final UIComponent tab : tabGroup.getChildren()) {
       if (tab instanceof UITab) {
-        if (tab.isRendered() && (switchType == SwitchType.client || index == activeIndex)) {
-
-          if (((UITab) tab).isDisabled()) {
-            continue;
-          }
+        if (tab.isRendered() && (switchType == SwitchType.client || index == activeIndex)
+            && !((UITab) tab).isDisabled()) {
 
           writer.startElement(HtmlElements.DIV);
           writer.writeClassAttribute(

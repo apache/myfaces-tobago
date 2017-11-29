@@ -27,31 +27,38 @@ Tobago.TabGroup.init = function (elements) {
   var markupString = "selected";
   var markupCssClass = "tobago-tab-markup-selected";
 
-  // setting the active index
   $tabGroups.each(function () {
     var $tabGroup = jQuery(this);
     var $hiddenInput = $tabGroup.find("> input[type=hidden]");
+    var $tabContent = $tabGroup.find("> .tab-content");
 
     $tabGroup.find(".tobago-tabGroup-header:first .tobago-tab .nav-link:not(.disabled)").click(function () {
       var $navLink = jQuery(this);
       var $tab = $navLink.parent(".tobago-tab");
+      var tabGroupIndex = $tab.attr("tabgroupindex");
 
-      $hiddenInput.val($tab.attr("tabgroupindex"));
+      $hiddenInput.val(tabGroupIndex);
 
-      //remove data-markup, markup-css-class and .active
-      $tabGroup.find(".tobago-tab .nav-link.active").each(function () {
-        var $navLink = jQuery(this);
-        var $tab = $navLink.parent(".tobago-tab");
+      if ($tabGroup.attr("switchtype") === "client") {
 
-        Tobago.Utils.removeDataMarkup($tab, markupString);
-        $tab.removeClass(markupCssClass);
-        $navLink.removeClass("active");
-      });
+        //remove data-markup, markup-css-class and .active from tabs/tab-content
+        $tabGroup.find(".tobago-tab .nav-link.active").each(function () {
+          var $navLink = jQuery(this);
+          var $tab = $navLink.parent(".tobago-tab");
+          var $activeTabContent = $tabContent.find(".tobago-tab-content.tab-pane.active");
 
-      //add data-markup, markup-css-class and .active
-      Tobago.Utils.addDataMarkup($tab, markupString);
-      $tab.addClass(markupCssClass);
-      $navLink.addClass("active");
+          Tobago.Utils.removeDataMarkup($tab, markupString);
+          $tab.removeClass(markupCssClass);
+          $navLink.removeClass("active");
+          $activeTabContent.removeClass("active");
+        });
+
+        //add data-markup, markup-css-class and .active from tabs/tab-content
+        Tobago.Utils.addDataMarkup($tab, markupString);
+        $tab.addClass(markupCssClass);
+        $navLink.addClass("active");
+        $tabContent.find(".tobago-tab-content.tab-pane[tabgroupindex=" + tabGroupIndex + "]").addClass("active");
+      }
     });
   });
 };
