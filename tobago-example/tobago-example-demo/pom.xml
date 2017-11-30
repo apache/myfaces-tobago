@@ -209,7 +209,8 @@
         <groupId>commons-codec</groupId>
         <artifactId>commons-codec</artifactId>
         <version>1.11</version>
-        <scope>test</scope>
+        <!-- scope must be "import" and not "test", because myfaces-impl also uses commons-codec -->
+        <scope>import</scope>
       </dependency>
       <dependency>
         <groupId>org.jboss.arquillian.graphene</groupId>
