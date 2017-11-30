@@ -23,6 +23,7 @@ import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 
 public class LinkRenderer extends CommandRendererBase {
 
+  @Override
   protected TobagoClass getRendererCssClass() {
     return TobagoClass.LINK;
   }

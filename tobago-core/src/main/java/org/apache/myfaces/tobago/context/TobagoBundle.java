@@ -82,10 +82,12 @@ public class TobagoBundle extends ResourceBundle {
       props.loadFromXML(stream);
     }
 
+    @Override
     protected Object handleGetObject(final String key) {
       return props.getProperty(key);
     }
 
+    @Override
     public Enumeration<String> getKeys() {
       final Set<String> handleKeys = props.stringPropertyNames();
       return Collections.enumeration(handleKeys);
@@ -93,10 +95,12 @@ public class TobagoBundle extends ResourceBundle {
 
     public static class XMLResourceBundleControl extends Control {
 
+      @Override
       public List<String> getFormats(final String baseName) {
         return Collections.singletonList(XML);
       }
 
+      @Override
       public ResourceBundle newBundle(
           final String baseName, final Locale locale, final String format, final ClassLoader loader,
           final boolean reload)

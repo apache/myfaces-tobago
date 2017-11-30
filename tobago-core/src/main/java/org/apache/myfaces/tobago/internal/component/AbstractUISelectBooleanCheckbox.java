@@ -74,6 +74,7 @@ public abstract class AbstractUISelectBooleanCheckbox extends UISelectBoolean
 
   public abstract Integer getTabIndex();
 
+  @Override
   public abstract String getLabel();
 
   public abstract String getItemLabel();

@@ -33,12 +33,14 @@ public class OldLinksServlet extends HttpServlet {
 
     private static final Logger LOG = LoggerFactory.getLogger(OldLinksServlet.class);
 
+    @Override
     protected void doPost(final HttpServletRequest request,
                           final HttpServletResponse response)
             throws ServletException, IOException {
         doGet(request, response);
     }
 
+    @Override
     protected void doGet(final HttpServletRequest request, final HttpServletResponse response)
             throws ServletException, IOException {
         response.setStatus(HttpServletResponse.SC_FOUND);

@@ -83,6 +83,7 @@ public class EventHandler extends TobagoComponentHandler implements BehaviorHold
     event = getAttribute(Attributes.event.getName());
   }
 
+  @Override
   public void apply(final FaceletContext ctx, final UIComponent parent)
       throws IOException {
 
@@ -117,6 +118,7 @@ public class EventHandler extends TobagoComponentHandler implements BehaviorHold
    * ViewDeclarationLanguage.retargetAttachedObjects uses it to check
    * if the the target to be processed is applicable for this handler
    */
+  @Override
   public String getEventName() {
     if (event == null) {
       return null;
@@ -133,6 +135,7 @@ public class EventHandler extends TobagoComponentHandler implements BehaviorHold
    * to the selected component through ClientBehaviorHolder.getEventNames() or
    * ClientBehaviorHolder.getDefaultEventName()
    */
+  @Override
   public void applyAttachedObject(final FacesContext context, final UIComponent parent) {
     // Retrieve the current FaceletContext from FacesContext object
     final FaceletContext faceletContext = (FaceletContext) context
@@ -192,6 +195,7 @@ public class EventHandler extends TobagoComponentHandler implements BehaviorHold
    * taken into account. Instead, getEventName is used on
    * ViewDeclarationLanguage.retargetAttachedObjects.
    */
+  @Override
   public String getFor() {
     return null;
   }
@@ -212,16 +216,19 @@ public class EventHandler extends TobagoComponentHandler implements BehaviorHold
       expression = expr;
     }
 
+    @Override
     public void processAjaxBehavior(final AjaxBehaviorEvent event)
         throws AbortProcessingException {
       expression.invoke(FacesContext.getCurrentInstance().getELContext(),
           new Object[]{event});
     }
 
+    @Override
     public boolean isTransient() {
       return transientBoolean;
     }
 
+    @Override
     public void restoreState(final FacesContext context, final Object state) {
       if (state == null) {
         return;
@@ -229,6 +236,7 @@ public class EventHandler extends TobagoComponentHandler implements BehaviorHold
       expression = (MethodExpression) state;
     }
 
+    @Override
     public Object saveState(final FacesContext context) {
       if (initialStateMarked()) {
         return null;
@@ -236,18 +244,22 @@ public class EventHandler extends TobagoComponentHandler implements BehaviorHold
       return expression;
     }
 
+    @Override
     public void setTransient(final boolean newTransientValue) {
       transientBoolean = newTransientValue;
     }
 
+    @Override
     public void clearInitialState() {
       initialStateMarked = false;
     }
 
+    @Override
     public boolean initialStateMarked() {
       return initialStateMarked;
     }
 
+    @Override
     public void markInitialState() {
       initialStateMarked = true;
     }

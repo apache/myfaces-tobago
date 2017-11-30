@@ -36,6 +36,7 @@ public class TobagoResponseWriterUnitTest extends AbstractJsfTestCase {
   private StringWriter stringWriter;
   private TobagoResponseWriter writer;
 
+  @Override
   @Before
   public void setUp() throws Exception {
     super.setUp();

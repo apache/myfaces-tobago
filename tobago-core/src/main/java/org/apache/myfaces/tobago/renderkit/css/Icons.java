@@ -66,6 +66,7 @@ public enum Icons implements CssItem {
     this.fa = "fa-" + name().toLowerCase().replaceAll("_", "-");
   }
 
+  @Override
   public String getName() {
     return fa;
   }

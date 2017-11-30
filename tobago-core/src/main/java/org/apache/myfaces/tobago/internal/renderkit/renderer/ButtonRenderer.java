@@ -31,6 +31,7 @@ import javax.faces.context.FacesContext;
 
 public class ButtonRenderer extends CommandRendererBase {
 
+  @Override
   protected TobagoClass getRendererCssClass() {
     return TobagoClass.BUTTON;
   }
