@@ -23,10 +23,10 @@
   <tc:treeMenu id="nav" value="#{navigationTree.tree}" var="node" state="#{navigationState.state}">
     <tc:treeNode id="node">
       <tc:treeCommand
-          id="cmd"
-          label="#{node.title}"
-          outcome="#{node.outcome}"
-          omit="true"/>
+              id="cmd"
+              label="» #{node.title}"
+              outcome="#{node.outcome}"
+              omit="true"/>
     </tc:treeNode>
   </tc:treeMenu>
 </f:subview>
