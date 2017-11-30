@@ -151,17 +151,11 @@ public class WebXmlUtils {
     if (url != null) {
       final URLConnection connection = url.openConnection();
       connection.setUseCaches(false);
-      InputStream input = null;
 
-      try {
-        input = connection.getInputStream();
+      try (final InputStream input = connection.getInputStream()) {
         final Document document = documentBuilder.parse(input);
         document.getDocumentElement().normalize();
         return document;
-      } finally {
-        if (input != null) {
-          input.close();
-        }
       }
     } else {
       return null;

@@ -87,15 +87,11 @@ public final class Resource {
     final Object ctx = externalContext.getContext();
     if (ctx instanceof ServletContext) {
       final ServletContext servletContext = (ServletContext) ctx;
-      final InputStream stream = servletContext.getResourceAsStream(path);
-      if (stream != null) {
-        try {
-          stream.close();
-        } catch (final IOException e) {
-          // Ignore here, since we donnot wanted to read from this
-          // resource anyway
-        }
-        return true;
+      try (final InputStream stream = servletContext.getResourceAsStream(path)) {
+        return stream != null;
+      } catch (final IOException e) {
+        // Ignore here, since we donnot wanted to read from this
+        // resource anyway
       }
     }
     return false;

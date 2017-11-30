@@ -20,7 +20,6 @@
 package org.apache.myfaces.tobago.servlet;
 
 import org.apache.myfaces.tobago.config.TobagoConfig;
-import org.apache.myfaces.tobago.internal.util.IoUtils;
 import org.apache.myfaces.tobago.internal.util.MimeTypeUtils;
 import org.apache.myfaces.tobago.internal.util.ResponseUtils;
 import org.slf4j.Logger;
@@ -127,18 +126,7 @@ public class ResourceServlet extends HttpServlet {
       return;
     }
 
-    InputStream inputStream = null;
-    try {
-      final ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-
-      // meta inf (like in servlet 3.0)
-      inputStream = classLoader.getResourceAsStream("META-INF/resources/" + resource);
-
-      // "normal" classpath
-      if (inputStream == null) {
-        inputStream = classLoader.getResourceAsStream(resource);
-      }
-
+    try (final InputStream inputStream = locateResource(resource)) {
       if (inputStream != null) {
         copy(inputStream, response.getOutputStream());
       } else {
@@ -146,9 +134,19 @@ public class ResourceServlet extends HttpServlet {
         LOG.warn(message);
         response.setStatus(HttpServletResponse.SC_NOT_FOUND);
       }
-    } finally {
-      IoUtils.closeQuietly(inputStream);
     }
+  }
+
+  private InputStream locateResource(String resource) {
+    final ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+    InputStream inputStream;// meta inf (like in servlet 3.0)
+    inputStream = classLoader.getResourceAsStream("META-INF/resources/" + resource);
+
+    // "normal" classpath
+    if (inputStream == null) {
+      inputStream = classLoader.getResourceAsStream(resource);
+    }
+    return inputStream;
   }
 
   @Override

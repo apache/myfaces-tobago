@@ -23,7 +23,6 @@ import org.apache.myfaces.tobago.context.ThemeImpl;
 import org.apache.myfaces.tobago.context.ThemeScript;
 import org.apache.myfaces.tobago.context.ThemeStyle;
 import org.apache.myfaces.tobago.exception.TobagoConfigurationException;
-import org.apache.myfaces.tobago.internal.util.IoUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.xml.sax.Attributes;
@@ -135,17 +134,13 @@ public class TobagoConfigParser extends TobagoConfigEntityResolver {
       validate(url, version);
     }
 
-    InputStream inputStream = null;
-    try {
-      inputStream = url.openStream();
+    try (final InputStream inputStream = url.openStream()) {
       final SAXParserFactory factory = SAXParserFactory.newInstance();
       if (!version.isSchema()) {
         factory.setValidating(true);
       }
       final SAXParser saxParser = factory.newSAXParser();
       saxParser.parse(inputStream, this);
-    } finally {
-      IoUtils.closeQuietly(inputStream);
     }
     return tobagoConfig;
   }

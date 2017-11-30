@@ -124,13 +124,9 @@ public class TobagoBundle extends ResourceBundle {
         if (reload) {
           connection.setUseCaches(false);
         }
-        final InputStream stream = connection.getInputStream();
-        if (stream == null) {
-          return null;
+        try (final BufferedInputStream bis = new BufferedInputStream(connection.getInputStream())) {
+          bundle = new XmlTobagoBundle(bis);
         }
-        final BufferedInputStream bis = new BufferedInputStream(stream);
-        bundle = new XmlTobagoBundle(bis);
-        bis.close();
 
         return bundle;
       }

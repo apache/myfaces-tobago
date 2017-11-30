@@ -19,7 +19,6 @@
 
 package org.apache.myfaces.tobago.internal.config;
 
-import org.apache.myfaces.tobago.internal.util.IoUtils;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 
@@ -40,14 +39,10 @@ public class TobagoConfigVersion extends TobagoConfigEntityResolver {
   public TobagoConfigVersion(final URL url) throws ParserConfigurationException, SAXException, IOException {
 
     // simple reading with no validation, at this time
-    InputStream inputStream = null;
-    try {
-      inputStream = url.openStream();
+    try (final InputStream inputStream = url.openStream()) {
       final SAXParserFactory factory = SAXParserFactory.newInstance();
       final SAXParser saxParser = factory.newSAXParser();
       saxParser.parse(inputStream, this);
-    } finally {
-      IoUtils.closeQuietly(inputStream);
     }
   }
 

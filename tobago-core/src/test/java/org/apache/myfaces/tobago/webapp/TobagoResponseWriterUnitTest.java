@@ -132,12 +132,12 @@ public class TobagoResponseWriterUnitTest extends AbstractJsfTestCase {
 
   @Test
   public void testNonUtf8() throws IOException {
-    final TobagoResponseWriter writer1 = new HtmlResponseWriter(stringWriter, "", "ISO-8859-1");
-    writer1.startElement(HtmlElements.INPUT);
-    writer1.writeAttribute(HtmlAttributes.VALUE, "Gutschein über 100 €.", true);
-    writer1.writeAttribute(HtmlAttributes.READONLY, true);
-    writer1.endElement(HtmlElements.INPUT);
-    writer1.close();
+    try (final TobagoResponseWriter writer1 = new HtmlResponseWriter(stringWriter, "", "ISO-8859-1")) {
+      writer1.startElement(HtmlElements.INPUT);
+      writer1.writeAttribute(HtmlAttributes.VALUE, "Gutschein über 100 €.", true);
+      writer1.writeAttribute(HtmlAttributes.READONLY, true);
+      writer1.endElement(HtmlElements.INPUT);
+    }
     Assert.assertEquals("\n<input value='Gutschein &uuml;ber 100 &euro;.' readonly='readonly'>",
         stringWriter.toString());
   }
