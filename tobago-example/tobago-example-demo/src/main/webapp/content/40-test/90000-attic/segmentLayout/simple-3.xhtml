@@ -23,18 +23,18 @@
 
   <tc:page id="page">
 
-    <tc:segmentLayout medium="2;4;2;4" small="6;6">
+    <tc:segmentLayout medium="2seg 4seg 2seg 4seg" small="6seg 6seg">
       <tc:in label="1st label" value="#{bootstrap.value}" labelLayout="segmentLeft"/>
       <tc:in label="2nd label" value="b bb bbb bbbb bbbbb b bb bbb bbbb bbbbb b bb bbb bbbb bbb bbbb bbbbb "
              labelLayout="segmentLeft"/>
     </tc:segmentLayout>
 
-    <tc:segmentLayout medium="2;4;2;4" small="6;6">
+    <tc:segmentLayout medium="2seg 4seg 2seg 4seg" small="6seg 6seg">
       <tc:textarea label="3rd label" value="c cc ccc cccc ccccc" labelLayout="segmentLeft"/>
       <tc:textarea label="4th label" value="d dd ddd dddd ddddd" labelLayout="segmentLeft"/>
     </tc:segmentLayout>
 
-    <tc:segmentLayout medium="1;1;1" extraSmall="4;4;4">
+    <tc:segmentLayout medium="1seg 1seg 1seg" extraSmall="4seg 4seg 4seg">
       <tc:button id="cancel" label="Cancel" action="#{bootstrap.reset}"/>
       <tc:button id="save" label="Save" action="#{bootstrap.save}"/>
       <tc:button id="delete" label="Delete" action="#{bootstrap.delete}"/>

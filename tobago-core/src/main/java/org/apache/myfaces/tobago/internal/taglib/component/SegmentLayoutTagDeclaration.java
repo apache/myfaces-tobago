@@ -32,7 +32,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
  * Renders a layout using a 12 columns grid.
  * Find more information on how the grid works in the Twitter Bootstrap documentation.
  *
- * If no attribute is defined, extraSmall="12" will be used as default.
+ * If no attribute is defined, extraSmall="12seg" will be used as default.
  * @since 3.0.0
  */
 @Tag(name = "segmentLayout")

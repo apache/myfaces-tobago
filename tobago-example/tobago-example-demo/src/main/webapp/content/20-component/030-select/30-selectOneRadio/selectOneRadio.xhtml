@@ -41,7 +41,7 @@
     <p>Radiobutton group with a label. The last item is disabled.
       Also the label set on top with the <code>labelLayout</code> attribute.</p>
     <pre><code class="language-markup">&lt;tc:selectOneRadio label="Radio Group" labelLayout="top"/></code></pre>
-    <tc:segmentLayout large="4;4;4">
+    <tc:segmentLayout large="4seg 4seg 4seg">
       <tc:selectOneRadio id="s1" label="Radio Group" labelLayout="top">
         <tc:selectItem itemLabel="Sun" itemValue="solis"/>
         <tc:selectItem itemLabel="Moon" itemValue="luna"/>
@@ -84,7 +84,7 @@
       The buttons trigger an action in the controller:
       <code class="language-markup">&lt;tc:button label="Addition" action="\#{selectOneRadioController.add}"/></code>
     </p>
-    <tc:segmentLayout large="6;6">
+    <tc:segmentLayout large="6seg 6seg">
       <tc:selectOneRadio id="selectNum1" label="Number 1" labelLayout="top" required="true"
                          value="#{selectOneRadioController.numberOne}">
         <tc:selectItem itemLabel="1" itemValue="1"/>
@@ -113,7 +113,7 @@
       <code class="language-markup">&lt;f:ajax render="moonradio"></code> element,
       which allows to rerender the radiogroup with the ID 'moonradio' every time, the value changed in the
       planet-radiogroup.</p>
-    <tc:segmentLayout large="6;6">
+    <tc:segmentLayout large="6seg 6seg">
       <tc:selectOneRadio id="selectPlanet" label="Planet" labelLayout="top" value="#{selectOneRadioController.planet}">
         <f:selectItems value="#{selectOneRadioController.planets}"/>
         <f:ajax render="moonradio"/>

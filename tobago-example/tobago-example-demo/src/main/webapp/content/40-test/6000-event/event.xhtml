@@ -41,7 +41,7 @@
   <tc:box id="compTestBox" label="Test Box" rendered="#{eventController.selectedComponent != null}">
     <tc:out id="outComponent" label="Component" value="&lt;tc:#{eventController.selectedComponent.tagName}>"/>
     <tc:out id="outEventName" label="Event Name" value="#{eventController.eventName}"/>
-    <tc:segmentLayout extraSmall="6;6">
+    <tc:segmentLayout extraSmall="6seg 6seg">
       <tc:box label="Event">
         <ui:include src="x-event-#{eventController.selectedComponent.tagName}.xhtml">
           <ui:param name="tag" value="#{eventController.selectedComponent.tagName}"/>

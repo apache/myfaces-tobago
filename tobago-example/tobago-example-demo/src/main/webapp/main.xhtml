@@ -39,11 +39,11 @@
 
       <ui:include src="/menu.xhtml"/>
 
-      <tc:segmentLayout large="#{navigationState.viewSource ? '8;4' : '12'}">
+      <tc:segmentLayout large="#{navigationState.viewSource ? '8seg 4seg' : '12seg'}">
 
         <tc:panel><!-- xxx this panel is needed currently because of a bug -->
 
-          <tc:segmentLayout large="2;10" medium="3;9" small="4;8" extraSmall="12">
+          <tc:segmentLayout large="2seg 10seg" medium="3seg 9seg" small="4seg 8seg" extraSmall="12seg">
 
             <tc:panel>
               <ui:include src="/navigation.xhtml"/>
