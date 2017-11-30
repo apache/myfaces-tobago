@@ -366,10 +366,6 @@ public class PageRenderer extends RendererBase {
     }
 
     AccessKeyLogger.logStatus(facesContext);
-
-    if (facesContext.getExternalContext().getRequestParameterMap().get("X") != null) {
-      throw new RuntimeException("Debugging activated via X parameter");
-    }
   }
 
   private String getMethod(final UIPage page) {
