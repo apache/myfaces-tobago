@@ -156,7 +156,7 @@ public class CheckstyleConfigGenerator extends AbstractGenerator {
         className = "org.apache.myfaces.tobago.internal.taglib." + StringUtils.capitalize(annotationTag.name())
             + "Tag";
       } else {
-        throw new RuntimeException("Not supported: " + typeElement.getQualifiedName());
+        throw new TobagoGeneratorException("Not supported: " + typeElement.getQualifiedName());
       }
       info("Replacing: " + typeElement.getQualifiedName() + " -> " + className);
       if (typeElement.getAnnotation(Deprecated.class) != null) {

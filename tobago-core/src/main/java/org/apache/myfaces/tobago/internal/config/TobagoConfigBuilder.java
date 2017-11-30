@@ -20,6 +20,7 @@
 package org.apache.myfaces.tobago.internal.config;
 
 import org.apache.myfaces.tobago.config.TobagoConfig;
+import org.apache.myfaces.tobago.exception.TobagoConfigurationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.xml.sax.SAXException;
@@ -61,7 +62,7 @@ public class TobagoConfigBuilder {
     } catch (final Exception e) {
       final String error = "Error while deployment. Tobago can't be initialized! Application will not run correctly!";
       LOG.error(error, e);
-      throw new RuntimeException(error, e);
+      throw new TobagoConfigurationException(error, e);
     }
   }
 

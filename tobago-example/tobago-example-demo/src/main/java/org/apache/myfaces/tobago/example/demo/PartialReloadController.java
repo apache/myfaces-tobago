@@ -52,7 +52,7 @@ public class PartialReloadController {
   }
 
   public String error() {
-    throw new RuntimeException("Test Exception");
+    throw new DemoException("Test Exception");
   }
   
   public String waitAndReload3() {

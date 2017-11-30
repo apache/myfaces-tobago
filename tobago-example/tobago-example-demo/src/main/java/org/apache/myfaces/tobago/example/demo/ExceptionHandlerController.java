@@ -53,7 +53,7 @@ public class ExceptionHandlerController {
 
   public void update(final AjaxBehaviorEvent event) {
     if (((String) event.getComponent().getAttributes().get("value")).contains("x")) {
-      throw new RuntimeException("This exception is thrown, because the input value was 'x'.");
+      throw new DemoException("This exception is thrown, because the input value was 'x'.");
     }
     LOG.info("AjaxBehaviorEvent called. Current value: '{}'", value);
   }

@@ -17,14 +17,11 @@
  * under the License.
  */
 
-package org.apache.myfaces.tobago.example.test;
+package org.apache.myfaces.tobago.example.demo;
 
-import org.apache.myfaces.tobago.example.demo.DemoException;
+public class DemoException extends RuntimeException {
 
-public class ErrorTest {
-
-  public String error() {
-    throw new DemoException("This exception is thrown to test error pages");
+  public DemoException(String message) {
+    super(message);
   }
-
 }

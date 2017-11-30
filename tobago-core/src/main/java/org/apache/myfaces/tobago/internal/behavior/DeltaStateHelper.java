@@ -19,6 +19,8 @@
 
 package org.apache.myfaces.tobago.internal.behavior;
 
+import org.apache.myfaces.tobago.exception.TobagoException;
+
 import javax.el.ValueExpression;
 import javax.faces.component.StateHelper;
 import javax.faces.component.StateHolder;
@@ -744,10 +746,10 @@ class DeltaStateHelper<A extends EventBehavior> implements StateHelper {
       try {
         restoredObject = clazz.newInstance();
       } catch (final InstantiationException e) {
-        throw new RuntimeException("Could not restore StateHolder of type " + clazz.getName()
+        throw new TobagoException("Could not restore StateHolder of type " + clazz.getName()
             + " (missing no-args constructor?)", e);
       } catch (final IllegalAccessException e) {
-        throw new RuntimeException(e);
+        throw new TobagoException(e);
       }
       if (restoredObject instanceof StateHolder) {
         final AttachedStateWrapper wrapper = (AttachedStateWrapper) stateObj;

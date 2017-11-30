@@ -19,6 +19,8 @@
 
 package org.apache.myfaces.tobago.internal.config;
 
+import org.apache.myfaces.tobago.exception.TobagoConfigurationException;
+
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -32,7 +34,7 @@ public class ContentSecurityPolicy {
 
   private void checkLocked() throws IllegalStateException {
     if (unmodifiable) {
-      throw new RuntimeException("The configuration must not be changed after initialization!");
+      throw new TobagoConfigurationException("The configuration must not be changed after initialization!");
     }
   }
 

@@ -17,14 +17,18 @@
  * under the License.
  */
 
-package org.apache.myfaces.tobago.example.test;
+package org.apache.myfaces.tobago.apt.processor;
 
-import org.apache.myfaces.tobago.example.demo.DemoException;
+/**
+ * @since Tobago 4.0.0
+ */
+public class TobagoGeneratorException extends RuntimeException {
 
-public class ErrorTest {
-
-  public String error() {
-    throw new DemoException("This exception is thrown to test error pages");
+  public TobagoGeneratorException(String message) {
+    super(message);
   }
 
+  public TobagoGeneratorException(String message, Throwable cause) {
+    super(message, cause);
+  }
 }

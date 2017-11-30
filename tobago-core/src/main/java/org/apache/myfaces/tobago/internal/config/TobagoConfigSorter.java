@@ -20,6 +20,7 @@
 package org.apache.myfaces.tobago.internal.config;
 
 import org.apache.myfaces.tobago.context.ThemeImpl;
+import org.apache.myfaces.tobago.exception.TobagoConfigurationException;
 import org.apache.myfaces.tobago.sanitizer.IgnoringSanitizer;
 import org.apache.myfaces.tobago.sanitizer.JsoupSanitizer;
 import org.apache.myfaces.tobago.sanitizer.Sanitizer;
@@ -190,7 +191,7 @@ public class TobagoConfigSorter implements Comparator<TobagoConfigFragment> {
             buffer.append("'\n");
 
           }
-          throw new RuntimeException(buffer.toString());
+          throw new TobagoConfigurationException(buffer.toString());
         }
       }
   }
@@ -218,7 +219,7 @@ public class TobagoConfigSorter implements Comparator<TobagoConfigFragment> {
             buffer.append("'\n");
 
           }
-          throw new RuntimeException(buffer.toString());
+          throw new TobagoConfigurationException(buffer.toString());
         }
       }
     }

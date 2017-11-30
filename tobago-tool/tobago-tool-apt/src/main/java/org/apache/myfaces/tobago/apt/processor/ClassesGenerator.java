@@ -92,7 +92,7 @@ public class ClassesGenerator extends AbstractGenerator {
         try {
           createTagOrComponent(element);
         } catch (final Exception e) {
-          throw new RuntimeException(
+          throw new TobagoGeneratorException(
               "Error during processing of " + element.getAnnotation(UIComponentTag.class).uiComponent(), e);
         }
       }
@@ -122,7 +122,7 @@ public class ClassesGenerator extends AbstractGenerator {
           componentInfo.getBehaviors().add(behavior.name());
           if (behavior.isDefault()) {
             if (componentInfo.getDefaultBehavior() != null) {
-              throw new RuntimeException("defaultBehavior '" + componentInfo.getDefaultBehavior()
+              throw new TobagoGeneratorException("defaultBehavior '" + componentInfo.getDefaultBehavior()
                   + "' will be overwritten with '" + behavior.name()
                   + "' in component '" + componentInfo.getSourceClass() + "'");
             }
@@ -130,7 +130,7 @@ public class ClassesGenerator extends AbstractGenerator {
           }
         }
         if (componentInfo.getDefaultBehavior() == null) {
-          throw new RuntimeException("defaultBehavior not set in component '" + componentInfo.getSourceClass() + "'");
+          throw new TobagoGeneratorException("defaultBehavior not set in component '" + componentInfo.getSourceClass() + "'");
         }
       }
 

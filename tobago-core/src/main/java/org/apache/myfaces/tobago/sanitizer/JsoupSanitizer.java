@@ -19,6 +19,7 @@
 
 package org.apache.myfaces.tobago.sanitizer;
 
+import org.apache.myfaces.tobago.exception.TobagoConfigurationException;
 import org.jsoup.Jsoup;
 import org.jsoup.safety.Whitelist;
 import org.slf4j.Logger;
@@ -68,11 +69,11 @@ public class JsoupSanitizer implements Sanitizer {
         } else if ("simpleText".equals(whitelistName)) {
           whitelist = Whitelist.simpleText();
         } else {
-          throw new RuntimeException(
+          throw new TobagoConfigurationException(
               "Unknown configuration value for 'whitelist' in tobago-config.xml found! value='" + whitelistName + "'");
         }
       } else {
-        throw new RuntimeException("Unknown configuration key in tobago-config.xml found! key='" + key + "'");
+        throw new TobagoConfigurationException("Unknown configuration key in tobago-config.xml found! key='" + key + "'");
       }
     }
 
@@ -83,7 +84,7 @@ public class JsoupSanitizer implements Sanitizer {
 
   private void checkLocked() throws IllegalStateException {
     if (unmodifiable) {
-      throw new RuntimeException("The configuration must not be changed after initialization!");
+      throw new TobagoConfigurationException("The configuration must not be changed after initialization!");
     }
   }
 

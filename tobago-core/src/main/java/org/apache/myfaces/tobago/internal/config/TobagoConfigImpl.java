@@ -22,6 +22,7 @@ package org.apache.myfaces.tobago.internal.config;
 import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.context.Theme;
 import org.apache.myfaces.tobago.context.ThemeImpl;
+import org.apache.myfaces.tobago.exception.TobagoConfigurationException;
 import org.apache.myfaces.tobago.sanitizer.Sanitizer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -100,7 +101,7 @@ public class TobagoConfigImpl extends TobagoConfig {
 
   private void checkLocked() throws IllegalStateException {
     if (unmodifiable) {
-      throw new RuntimeException("The configuration must not be changed after initialization!");
+      throw new TobagoConfigurationException("The configuration must not be changed after initialization!");
     }
   }
 
@@ -134,7 +135,7 @@ public class TobagoConfigImpl extends TobagoConfig {
             + "Please ensure you have a tobago-config.xml with a theme-definition in your "
             + "theme JAR. Please add a theme JAR to your WEB-INF/lib";
         LOG.error(error);
-        throw new RuntimeException(error);
+        throw new TobagoConfigurationException(error);
       } else {
         if (LOG.isInfoEnabled()) {
           LOG.info("Using default Theme {}", defaultTheme.getName());
@@ -160,7 +161,7 @@ public class TobagoConfigImpl extends TobagoConfig {
           + "Please ensure you have a tobago-config.xml with a theme-definition in your "
           + "theme JAR. Found the following themes: " + availableThemes.keySet();
       LOG.error(error);
-      throw new RuntimeException(error);
+      throw new TobagoConfigurationException(error);
     }
   }
 

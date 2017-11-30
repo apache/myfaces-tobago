@@ -20,6 +20,7 @@
 package org.apache.myfaces.tobago.example.demo.bestpractice;
 
 import org.apache.commons.io.IOUtils;
+import org.apache.myfaces.tobago.example.demo.DemoException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -39,7 +40,7 @@ public class BestPracticeController {
   private String status;
 
   public String throwException() {
-    throw new RuntimeException("This exception is forced by the user.");
+    throw new DemoException("This exception is forced by the user.");
   }
 
   public String viewPdfInBrowser() {

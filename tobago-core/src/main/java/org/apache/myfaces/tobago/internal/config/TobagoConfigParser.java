@@ -22,6 +22,7 @@ package org.apache.myfaces.tobago.internal.config;
 import org.apache.myfaces.tobago.context.ThemeImpl;
 import org.apache.myfaces.tobago.context.ThemeScript;
 import org.apache.myfaces.tobago.context.ThemeStyle;
+import org.apache.myfaces.tobago.exception.TobagoConfigurationException;
 import org.apache.myfaces.tobago.internal.util.IoUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -342,7 +343,7 @@ public class TobagoConfigParser extends TobagoConfigEntityResolver {
         if (directiveName == null) { // before Tobago 4.0
           final int i = text.indexOf(' ');
           if (i < 1) {
-            throw new RuntimeException("CSP directive can't be parsed!");
+            throw new TobagoConfigurationException("CSP directive can't be parsed!");
           }
           tobagoConfig.getContentSecurityPolicy().addDirective(text.substring(0, i), text.substring(i + 1));
         } else {

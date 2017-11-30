@@ -17,11 +17,22 @@
  * under the License.
  */
 
-package org.apache.myfaces.tobago.example.test;
+package org.apache.myfaces.tobago.exception;
 
-public class ErrorTestException extends RuntimeException {
+/**
+ * @since Tobago 4.0.0
+ */
+public class TobagoConfigurationException extends TobagoException {
 
-  public ErrorTestException(final String message) {
+  public TobagoConfigurationException(String message) {
     super(message);
+  }
+
+  public TobagoConfigurationException(String message, Throwable cause) {
+    super(message, cause);
+  }
+
+  public TobagoConfigurationException(Throwable cause) {
+    super(cause);
   }
 }
