@@ -21,6 +21,7 @@ package org.apache.myfaces.tobago.example.data;
 
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeNode;
+import java.io.Serializable;
 import java.math.BigInteger;
 import java.util.Enumeration;
 
@@ -90,7 +91,7 @@ public class CantorInterval extends DefaultMutableTreeNode {
     return getLabel();
   }
 
-  public static final class Fraction {
+  public static final class Fraction implements Serializable {
 
     private final BigInteger numerator;
     private final BigInteger denominator;

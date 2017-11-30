@@ -74,7 +74,7 @@ public class TabChangeListenerHandler extends TagHandler {
           try {
             listener = (TabChangeListener) listenerType.newInstance();
           } catch (final Exception e) {
-            throw new TagAttributeException(tag, type, e.getCause());
+            throw new TagAttributeException(tag, type, e);
           }
           if (valueExpression != null) {
             valueExpression.setValue(faceletContext, listener);

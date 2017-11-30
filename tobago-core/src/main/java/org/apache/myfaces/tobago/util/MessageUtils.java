@@ -107,6 +107,7 @@ public final class MessageUtils {
     try {
       return bundle == null ? null : bundle.getString(key);
     } catch (final MissingResourceException e) {
+      // ignore
       return null;
     }
   }

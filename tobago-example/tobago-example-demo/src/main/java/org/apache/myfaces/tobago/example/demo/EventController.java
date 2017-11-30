@@ -236,7 +236,7 @@ public class EventController implements Serializable {
     return planets;
   }
 
-  public class EventsOnComponent {
+  public class EventsOnComponent implements Serializable {
     private final String tagName;
     private final Collection<String> eventNames = new TreeSet<>();
 
