@@ -87,7 +87,8 @@ public abstract class AbstractGenerator extends AbstractProcessor {
 
   protected abstract void configure();
 
-  protected abstract void generate() throws Exception;
+  protected abstract void generate()
+      throws Exception;
 
   protected void info(final String message) {
     processingEnv.getMessager().printMessage(Diagnostic.Kind.NOTE,
@@ -103,7 +104,9 @@ public abstract class AbstractGenerator extends AbstractProcessor {
     final StringWriter out = new StringWriter();
     e.printStackTrace(new PrintWriter(out));
     processingEnv.getMessager().printMessage(Diagnostic.Kind.ERROR,
-        "<" + getClass().getSimpleName() + "> " + e.getMessage() + "\n" + out.toString());
+        "<" + getClass().getSimpleName() + "> " + e.getMessage() + "\n"
+            + (e.getCause() != null ? e.getCause().getMessage() + "\n" : "")
+            + out.toString());
   }
 
   public List<TypeElement> getTypes() {

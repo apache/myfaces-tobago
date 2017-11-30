@@ -151,94 +151,89 @@ public class FacesConfigGenerator extends AbstractGenerator {
   @Override
   protected void generate() throws Exception {
     final Document document;
-    Writer writer = null;
-    try {
-      final String content = IOUtils.toString(new FileInputStream(sourceFacesConfigFile));
-      final SAXBuilder builder = new SAXBuilder();
-      document = builder.build(new StringReader(content));
+    final String content = IOUtils.toString(new FileInputStream(sourceFacesConfigFile));
+    final SAXBuilder builder = new SAXBuilder();
+    document = builder.build(new StringReader(content));
 
-      // Normalise line endings. For some reason, JDOM replaces \r\n inside a comment with \n.
-      normaliseLineEndings(document);
+    // Normalise line endings. For some reason, JDOM replaces \r\n inside a comment with \n.
+    normaliseLineEndings(document);
 
-      // rewrite DOM as a string to find differences, since text outside the root element is not tracked
+    // rewrite DOM as a string to find differences, since text outside the root element is not tracked
 
-      final org.jdom2.Element rootElement = document.getRootElement();
+    final org.jdom2.Element rootElement = document.getRootElement();
 
-      rootElement.setNamespace(Namespace.getNamespace("http://java.sun.com/xml/ns/javaee"));
-      final Namespace xsi = Namespace.getNamespace("xsi", "http://www.w3.org/2001/XMLSchema-instance");
-      rootElement.addNamespaceDeclaration(Namespace.getNamespace("xi", "http://www.w3.org/2001/XInclude"));
-      rootElement.setAttribute(new Attribute("schemaLocation",
-          "http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd", xsi));
-      rootElement.setAttribute("version", "2.0");
+    rootElement.setNamespace(Namespace.getNamespace("http://java.sun.com/xml/ns/javaee"));
+    final Namespace xsi = Namespace.getNamespace("xsi", "http://www.w3.org/2001/XMLSchema-instance");
+    rootElement.addNamespaceDeclaration(Namespace.getNamespace("xi", "http://www.w3.org/2001/XInclude"));
+    rootElement.setAttribute(new Attribute("schemaLocation",
+        "http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd", xsi));
+    rootElement.setAttribute("version", "2.0");
 
-      final Namespace namespace = rootElement.getNamespace();
-      applyNamespace(rootElement, namespace);
-      final List<org.jdom2.Element> components = rootElement.getChildren(COMPONENT, namespace);
+    final Namespace namespace = rootElement.getNamespace();
+    applyNamespace(rootElement, namespace);
+    final List<org.jdom2.Element> components = rootElement.getChildren(COMPONENT, namespace);
 
-      final List<org.jdom2.Element> newComponents = new ArrayList<>();
-      final List<org.jdom2.Element> newRenderer = new ArrayList<>();
-      final List<org.jdom2.Element> newConverters = new ArrayList<>();
-      final List<org.jdom2.Element> newValidators = new ArrayList<>();
+    final List<org.jdom2.Element> newComponents = new ArrayList<>();
+    final List<org.jdom2.Element> newRenderer = new ArrayList<>();
+    final List<org.jdom2.Element> newConverters = new ArrayList<>();
+    final List<org.jdom2.Element> newValidators = new ArrayList<>();
 
-      for (final TypeElement element : getTypes()) {
-        if (element.getAnnotation(UIComponentTag.class) != null) {
-          addElement(element, newComponents, newRenderer, namespace);
-        } else if (element.getAnnotation(Converter.class) != null) {
-          addConverter(element, newConverters, namespace);
-        } else if (element.getAnnotation(Validator.class) != null) {
-          addValidator(element, newValidators, namespace);
-        }
+    for (final TypeElement element : getTypes()) {
+      if (element.getAnnotation(UIComponentTag.class) != null) {
+        addElement(element, newComponents, newRenderer, namespace);
+      } else if (element.getAnnotation(Converter.class) != null) {
+        addConverter(element, newConverters, namespace);
+      } else if (element.getAnnotation(Validator.class) != null) {
+        addValidator(element, newValidators, namespace);
       }
+    }
 
-      final List<org.jdom2.Element> elementsToAdd = new ArrayList<>();
-      // sort out duplicates
-      for (final org.jdom2.Element newElement : newComponents) {
-        final boolean found = containsElement(components, newElement);
-        if (!found) {
-          elementsToAdd.add(newElement);
-        }
+    final List<org.jdom2.Element> elementsToAdd = new ArrayList<>();
+    // sort out duplicates
+    for (final org.jdom2.Element newElement : newComponents) {
+      final boolean found = containsElement(components, newElement);
+      if (!found) {
+        elementsToAdd.add(newElement);
       }
-      if (!elementsToAdd.isEmpty()) {
-        // if faces-config contains no component section add the components after factory or application
-        final int lastIndex = getIndexAfter(rootElement, COMPONENT, FACTORY, APPLICATION);
-        rootElement.addContent(lastIndex, elementsToAdd);
+    }
+    if (!elementsToAdd.isEmpty()) {
+      // if faces-config contains no component section add the components after factory or application
+      final int lastIndex = getIndexAfter(rootElement, COMPONENT, FACTORY, APPLICATION);
+      rootElement.addContent(lastIndex, elementsToAdd);
+    }
+    if (!newRenderer.isEmpty()) {
+      org.jdom2.Element renderKit = getFirstElementByName(rootElement, RENDER_KIT);
+      if (renderKit == null) {
+        renderKit = new org.jdom2.Element(RENDER_KIT, namespace);
+        final int last = getIndexAfter(rootElement, CONVERTER, COMPONENT, FACTORY, APPLICATION, BEHAVIOR);
+        rootElement.addContent(last, renderKit);
       }
-      if (!newRenderer.isEmpty()) {
-        org.jdom2.Element renderKit = getFirstElementByName(rootElement, RENDER_KIT);
-        if (renderKit == null) {
-          renderKit = new org.jdom2.Element(RENDER_KIT, namespace);
-          final int last = getIndexAfter(rootElement, CONVERTER, COMPONENT, FACTORY, APPLICATION, BEHAVIOR);
-          rootElement.addContent(last, renderKit);
-        }
-        final org.jdom2.Element renderKitId = new org.jdom2.Element(RENDER_KIT_ID, namespace);
-        renderKitId.setText("tobago");
-        renderKit.addContent(0, renderKitId);
-        final org.jdom2.Element renderKitClass = new org.jdom2.Element(RENDER_KIT_CLASS, namespace);
-        renderKitClass.setText("org.apache.myfaces.tobago.renderkit.TobagoRenderKit");
-        renderKit.addContent(1, renderKitClass);
-        renderKit.addContent(2, newRenderer);
-      }
-      if (!newConverters.isEmpty()) {
-        final int last = getIndexAfter(rootElement, RENDER_KIT, CONVERTER, COMPONENT, FACTORY, APPLICATION, BEHAVIOR);
-        rootElement.addContent(last, newConverters);
-      }
-      if (!newValidators.isEmpty()) {
-        rootElement.addContent(newValidators);
-      }
-      final FileObject resource = processingEnv.getFiler().createResource(
-          StandardLocation.SOURCE_OUTPUT, "", targetFacesConfigFile);
-      info("Writing to file: " + resource.toUri());
-      writer = resource.openWriter();
+      final org.jdom2.Element renderKitId = new org.jdom2.Element(RENDER_KIT_ID, namespace);
+      renderKitId.setText("tobago");
+      renderKit.addContent(0, renderKitId);
+      final org.jdom2.Element renderKitClass = new org.jdom2.Element(RENDER_KIT_CLASS, namespace);
+      renderKitClass.setText("org.apache.myfaces.tobago.renderkit.TobagoRenderKit");
+      renderKit.addContent(1, renderKitClass);
+      renderKit.addContent(2, newRenderer);
+    }
+    if (!newConverters.isEmpty()) {
+      final int last = getIndexAfter(rootElement, RENDER_KIT, CONVERTER, COMPONENT, FACTORY, APPLICATION, BEHAVIOR);
+      rootElement.addContent(last, newConverters);
+    }
+    if (!newValidators.isEmpty()) {
+      rootElement.addContent(newValidators);
+    }
+    final FileObject resource = processingEnv.getFiler().createResource(
+        StandardLocation.SOURCE_OUTPUT, "", targetFacesConfigFile);
+    info("Writing to file: " + resource.toUri());
 
+    try (Writer writer = resource.openWriter()) {
       final StringWriter facesConfig = new StringWriter(1024);
       final Format format = Format.getPrettyFormat();
       format.setLineSeparator(SEPARATOR);
       final XMLOutputter out = new XMLOutputter(format);
       out.output(document, facesConfig);
       writer.append(facesConfig.toString());
-
-    } finally {
-      IOUtils.closeQuietly(writer);
     }
   }
 
@@ -294,7 +289,7 @@ public class FacesConfigGenerator extends AbstractGenerator {
   }
 
   private org.jdom2.Element getEqualElement(
-          final List<org.jdom2.Element> components, final org.jdom2.Element newElement) {
+      final List<org.jdom2.Element> components, final org.jdom2.Element newElement) {
     for (final org.jdom2.Element element : components) {
       if (equals(element, newElement)) {
         return element;
@@ -565,7 +560,7 @@ public class FacesConfigGenerator extends AbstractGenerator {
   }
 
   private void addFacets(
-          final UIComponentTag componentTag, final Namespace namespace, final org.jdom2.Element element) {
+      final UIComponentTag componentTag, final Namespace namespace, final org.jdom2.Element element) {
     final Facet[] facets = componentTag.facets();
     for (final Facet facet : facets) {
       final org.jdom2.Element facetElement = new org.jdom2.Element(FACET, namespace);
@@ -580,7 +575,7 @@ public class FacesConfigGenerator extends AbstractGenerator {
       facetElement.addContent(facetName);
       final org.jdom2.Element facetExtension = new org.jdom2.Element(FACET_EXTENSION, namespace);
       final org.jdom2.Element elementAllowedChildComponents
-              = new org.jdom2.Element(ALLOWED_CHILD_COMPONENTS, namespace);
+          = new org.jdom2.Element(ALLOWED_CHILD_COMPONENTS, namespace);
       final String[] allowedChildComponents = facet.allowedChildComponenents();
       final StringBuilder allowedComponentTypes = new StringBuilder();
       for (final String componentType : allowedChildComponents) {

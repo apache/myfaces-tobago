@@ -25,6 +25,7 @@ import org.slf4j.LoggerFactory;
 
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import java.io.IOException;
 import java.io.InputStream;
 
 public abstract class SourceFileReader {
@@ -36,15 +37,11 @@ public abstract class SourceFileReader {
     final ExternalContext externalContext = facesContext.getExternalContext();
     final String viewId = facesContext.getViewRoot().getViewId();
     final String file = viewId.substring(0, viewId.lastIndexOf("/")) + "/" + filename;
-    InputStream resourceAsStream = null;
-    try {
-      resourceAsStream = externalContext.getResourceAsStream(file);
+    try (final InputStream resourceAsStream = externalContext.getResourceAsStream(file)) {
       return IOUtils.toString(resourceAsStream, "UTF-8");
-    } catch (final Exception e) {
+    } catch (final IOException e) {
       LOG.error("", e);
       return null;
-    } finally {
-      IOUtils.closeQuietly(resourceAsStream);
     }
   }
 }

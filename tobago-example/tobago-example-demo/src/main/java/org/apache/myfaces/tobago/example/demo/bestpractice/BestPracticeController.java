@@ -55,13 +55,7 @@ public class BestPracticeController {
 
     final FacesContext facesContext = FacesContext.getCurrentInstance();
 
-    InputStream inputStream = null;
-    try {
-      final String path = "content/30-concept/24-non-faces-response/x-sample." + (pdf ? "pdf" : "txt");
-      inputStream = facesContext.getExternalContext().getResourceAsStream(path);
-      if (inputStream == null) {
-        inputStream = facesContext.getExternalContext().getResourceAsStream("/" + path);
-      }
+    try (final InputStream inputStream = getInputStream(pdf, facesContext)) {
       final HttpServletResponse response = (HttpServletResponse) facesContext.getExternalContext().getResponse();
       response.setContentType(pdf ? "application/pdf" : "text/plain");
       if (outside) {
@@ -71,11 +65,18 @@ public class BestPracticeController {
     } catch (final IOException e) {
       LOG.warn("Cannot deliver " + (pdf ? "pdf" : "txt"), e);
       return "error"; // response via faces
-    } finally {
-      IOUtils.closeQuietly(inputStream);
     }
     facesContext.responseComplete();
     return null;
+  }
+
+  private InputStream getInputStream(boolean pdf, FacesContext facesContext) {
+    final String path = "content/30-concept/24-non-faces-response/x-sample." + (pdf ? "pdf" : "txt");
+    InputStream inputStream = facesContext.getExternalContext().getResourceAsStream(path);
+    if (inputStream == null) {
+      inputStream = facesContext.getExternalContext().getResourceAsStream("/" + path);
+    }
+    return inputStream;
   }
 
   public String getStatus() {

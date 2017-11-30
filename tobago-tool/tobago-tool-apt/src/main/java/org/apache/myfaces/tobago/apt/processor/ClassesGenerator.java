@@ -86,12 +86,12 @@ public class ClassesGenerator extends AbstractGenerator {
   }
 
   @Override
-  public void generate() throws Exception {
+  public void generate() {
     for (final TypeElement element : getTypes()) {
       if (element.getAnnotation(UIComponentTag.class) != null) {
         try {
           createTagOrComponent(element);
-        } catch (final Exception e) {
+        } catch (final IOException|ClassNotFoundException|RuntimeException e) {
           throw new TobagoGeneratorException(
               "Error during processing of " + element.getAnnotation(UIComponentTag.class).uiComponent(), e);
         }

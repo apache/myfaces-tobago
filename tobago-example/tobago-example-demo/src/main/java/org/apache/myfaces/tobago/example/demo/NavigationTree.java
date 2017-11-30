@@ -156,15 +156,11 @@ public class NavigationTree implements Serializable {
     final FacesContext facesContext = FacesContext.getCurrentInstance();
     final ExternalContext externalContext = facesContext.getExternalContext();
     final String viewId = facesContext.getViewRoot().getViewId();
-    InputStream resourceAsStream = null;
-    try {
-      resourceAsStream = externalContext.getResourceAsStream(viewId);
+    try (final InputStream resourceAsStream = externalContext.getResourceAsStream(viewId)) {
       return IOUtils.toString(resourceAsStream, "UTF-8");
     } catch (final IOException e) {
       LOG.error("", e);
       return "error";
-    } finally {
-      IOUtils.closeQuietly(resourceAsStream);
     }
   }
 }
