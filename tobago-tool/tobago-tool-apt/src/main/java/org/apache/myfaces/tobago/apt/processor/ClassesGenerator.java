@@ -130,7 +130,8 @@ public class ClassesGenerator extends AbstractGenerator {
           }
         }
         if (componentInfo.getDefaultBehavior() == null) {
-          throw new TobagoGeneratorException("defaultBehavior not set in component '" + componentInfo.getSourceClass() + "'");
+          throw new TobagoGeneratorException(
+              "defaultBehavior not set in component '" + componentInfo.getSourceClass() + "'");
         }
       }
 
