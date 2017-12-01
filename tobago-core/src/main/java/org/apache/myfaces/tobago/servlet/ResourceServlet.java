@@ -78,7 +78,7 @@ public class ResourceServlet extends HttpServlet {
     super.init(servletConfig);
     final TobagoConfig tobagoConfig = TobagoConfig.getInstance(servletConfig.getServletContext());
     if (tobagoConfig.getProjectStage() == ProjectStage.Production) {
-       expires = 24 * 60 * 60 * 1000L;
+      expires = 24 * 60 * 60 * 1000L;
     }
 
     final String expiresString = servletConfig.getInitParameter("expires");
@@ -101,7 +101,7 @@ public class ResourceServlet extends HttpServlet {
     nosniffHeader = tobagoConfig.isSetNosniffHeader();
   }
 
-    @Override
+  @Override
   protected void doGet(
       final HttpServletRequest request, final HttpServletResponse response)
       throws ServletException, IOException {
@@ -139,7 +139,7 @@ public class ResourceServlet extends HttpServlet {
 
   private InputStream locateResource(String resource) {
     final ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-    InputStream inputStream;// meta inf (like in servlet 3.0)
+    InputStream inputStream; // meta inf (like in servlet 3.0)
     inputStream = classLoader.getResourceAsStream("META-INF/resources/" + resource);
 
     // "normal" classpath

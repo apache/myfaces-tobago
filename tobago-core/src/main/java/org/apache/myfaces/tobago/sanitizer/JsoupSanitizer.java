@@ -73,7 +73,8 @@ public class JsoupSanitizer implements Sanitizer {
               "Unknown configuration value for 'whitelist' in tobago-config.xml found! value='" + whitelistName + "'");
         }
       } else {
-        throw new TobagoConfigurationException("Unknown configuration key in tobago-config.xml found! key='" + key + "'");
+        throw new TobagoConfigurationException(
+            "Unknown configuration key in tobago-config.xml found! key='" + key + "'");
       }
     }
 
