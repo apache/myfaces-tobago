@@ -249,7 +249,8 @@ public class SolarObject implements Serializable {
 
 
   private static final SolarObject SUN = new SolarObject("Sun", "-", "-", 0, 0.0, 0.0, 0.0, "-", null);
-  private static final SolarObject EARTH = new SolarObject("Earth", "III", "Sun", 149600, 365.26, 0.00, 0.02, "-", null);
+  private static final SolarObject EARTH =
+      new SolarObject("Earth", "III", "Sun", 149600, 365.26, 0.00, 0.02, "-", null);
   private static final SolarObject MOON = new SolarObject("Moon", "I", "Earth", 384, 27.32, 5.14, 0.05, "-", null);
 
   private static final SolarObject[] DATA = {
