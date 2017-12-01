@@ -20,7 +20,7 @@
   <parent>
     <groupId>org.apache.myfaces.tobago</groupId>
     <artifactId>tobago-theme</artifactId>
-    <version>4.0.0-SNAPSHOT</version>
+    <version>4.0.0</version>
   </parent>
   <artifactId>tobago-theme-standard</artifactId>
   <packaging>jar</packaging>
@@ -44,8 +44,7 @@
             <configuration>
               <target>
                 <concat destfile="${project.build.directory}/javascript-min/tobago.min.js" force="no">
-                  <filelist dir="${basedir}/src/main/resources/META-INF/resources/tobago/standard/tobago-bootstrap/_version/js"
-                            files="tobago-jsf.js,tobago-deltaspike.js,tobago.js,tobago-dropdown.js,tobago-calendar.js,tobago-in.js,tobago-layout.js,tobago-overlay.js,tobago-popup.js,tobago-sheet.js,tobago-suggest.js,tobago-tab.js,tobago-tree.js,tobago-utils.js" />
+                  <filelist dir="${basedir}/src/main/resources/META-INF/resources/tobago/standard/tobago-bootstrap/_version/js" files="tobago-jsf.js,tobago-deltaspike.js,tobago.js,tobago-dropdown.js,tobago-calendar.js,tobago-in.js,tobago-layout.js,tobago-overlay.js,tobago-popup.js,tobago-sheet.js,tobago-suggest.js,tobago-tab.js,tobago-tree.js,tobago-utils.js" />
                 </concat>
                 <replaceregexp match="^.*//.*@DEV_ONLY.*$" replace="" byline="true">
                   <fileset dir="${project.build.directory}/javascript-min">
@@ -63,8 +62,7 @@
             <phase>compile</phase>
             <configuration>
               <target>
-                <move file="${project.build.outputDirectory}/META-INF/resources/tobago/standard/tobago-bootstrap/_version"
-                      tofile="${project.build.outputDirectory}/META-INF/resources/tobago/standard/tobago-bootstrap/${project.version}">
+                <move file="${project.build.outputDirectory}/META-INF/resources/tobago/standard/tobago-bootstrap/_version" tofile="${project.build.outputDirectory}/META-INF/resources/tobago/standard/tobago-bootstrap/${project.version}">
                 </move>
               </target>
             </configuration>

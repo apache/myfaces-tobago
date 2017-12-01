@@ -20,7 +20,7 @@
   <parent>
     <groupId>org.apache.myfaces.tobago</groupId>
     <artifactId>tobago-theme</artifactId>
-    <version>4.0.0-SNAPSHOT</version>
+    <version>4.0.0</version>
   </parent>
   <artifactId>tobago-theme-scarborough</artifactId>
   <packaging>jar</packaging>
@@ -43,8 +43,7 @@
             <phase>compile</phase>
             <configuration>
               <target>
-                <move file="${project.build.outputDirectory}/META-INF/resources/tobago/scarborough/tobago-bootstrap/_version"
-                      tofile="${project.build.outputDirectory}/META-INF/resources/tobago/scarborough/tobago-bootstrap/${project.version}">
+                <move file="${project.build.outputDirectory}/META-INF/resources/tobago/scarborough/tobago-bootstrap/_version" tofile="${project.build.outputDirectory}/META-INF/resources/tobago/scarborough/tobago-bootstrap/${project.version}">
                 </move>
               </target>
             </configuration>
