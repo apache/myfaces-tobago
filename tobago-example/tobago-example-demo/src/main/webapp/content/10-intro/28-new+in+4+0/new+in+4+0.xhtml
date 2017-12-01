@@ -22,20 +22,63 @@
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
                 xmlns:ui="http://java.sun.com/jsf/facelets">
   <ui:param name="title" value="#{demoBundle.new_in_4_0}"/>
-  <p>In fall 2017 the release of Tobago 4.0.0 is scheduled.
-    Here is a quick overview over the features and changes made in the last time to release this major revision.</p>
-  <p>Tobago 4.0.0 contains several entries in
-    <tc:link label="Jira"
-             link="https://issues.apache.org/jira/projects/TOBAGO/versions/12338728"/>.</p>
-  <p>Please take also a look at the <tc:link label="Migration from Tobago 3 to 4"
-                                             outcome="/content/10-intro/50-migration/96-migration/migration40.xhtml"/> guide.</p>
 
   <tc:section label="Overview and History">
-    <p>TODO</p>
+    <p>
+      After the last major release in December 2016, Tobago 4 comes with
+      127 changes, bugfixes and new features in December 2017.
+    </p>
+    <p>
+      In general, the step to version 4 is quite compatible,
+      so the migration is easy. Please follow the
+      <tc:link label="Migration from Tobago 3 to 4"
+               outcome="/content/10-intro/50-migration/96-migration/migration40.xhtml"/>
+      guide.
+    </p>
   </tc:section>
 
   <tc:section label="New Features and Enhancements">
-    <b>TODO</b>
-    <p>TODO</p>
+
+    The highlights are
+    <ul>
+      <li>Update to Bootstrap 4 beta 2</li>
+      <li>Reimplementation of grid layout mananger and split layout manager</li>
+      <li>CSP Level 2</li>
+    </ul>
+
+    The full list is available in
+    <tc:link label="Jira" image="fa-external-link"
+             link="https://issues.apache.org/jira/projects/TOBAGO/versions/12338728"/>.
+
+    <b>Layout Managers</b>
+    <ul>
+      <li>Grid Layout was reimplemented with use of the modern CSS grid</li>
+      <li>Split Layout was reimplemented (was not available in Tobago 3)</li>
+      <li>Segment Layout was enhanced: TODO offset</li>
+      <li>Flex Layout was enhanced: ? TODO</li>
+      <li>
+        The syntax of the layout attributes are refactored to be compatible to modern CSS.
+        E.g. use of "fr" as unit for fraction in grid layout.
+        The old syntax works also, so not migration is needed.</li>
+    </ul>
+
+    <b>Reimplementation of Inline Styles</b>
+    <p>
+      Is better and faster, because not use of JavaScript is needed now.
+      This is possible with CSP Level 2.
+    </p>
+
+    <b>Messages near the input fields</b>
+    <p>
+      messages
+    </p>
+
+    <b>Update FontAwesome to 4.7.0</b>
+    <p>
+      messages
+    </p>
+
+
+
   </tc:section>
 </ui:composition>
