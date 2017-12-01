@@ -25,7 +25,7 @@
   <p>The segment layout is a grid with 12 columns.
     The number and the proportion of the columns can be set with the attributes
     <code>extraSmall</code>, <code>small</code>, <code>medium</code>, <code>large</code> and <code>extraLarge</code>.
-    The value is a semicolon separated list. Allowed values are integers from 1 to 12, 'auto' and '*'.</p>
+    The value is a space separated list. Allowed are '1seg' to '12seg', 'auto' and '1fr'.</p>
   <tc:link label="Tag Library Documentation" image="#{request.contextPath}/image/feather-leaf.png"
            link="#{demoBundle.tagDocUrl}/#{info.stableVersion}/tld/tc/segmentLayout.html"/>
 
@@ -58,7 +58,7 @@
         <tc:in value="4"/>
       </tc:segmentLayout>
     </tc:section>
-    <tc:section label="'auto' and 'fr'">
+    <tc:section label="'auto' and '1fr'">
       <pre><code class="language-markup">&lt;tc:segmentLayout extraSmall="1fr auto 1fr"></code></pre>
       <tc:segmentLayout extraSmall="1fr auto 1fr">
         <tc:panel>

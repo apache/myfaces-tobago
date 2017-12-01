@@ -24,10 +24,6 @@
   <ui:param name="title" value="#{demoBundle.migration40}"/>
 
   <tc:section label="Migration from Tobago 3.0 to 4.0">
-
-    TODO: layout attributes: " " and "seg" and "fr"<br/>
-    TODO: XSD<br/>
-
     <p>
       There are some migration steps to do, dependent on the application
       you want to migrate. The steps can be classified by
@@ -35,11 +31,15 @@
 
     <ul>
       <li><tc:link link="" fragment="page:mainForm:taglib" label="Tag library"/></li>
+      <li><tc:link link="" fragment="page:mainForm:markups" label="Markups"/></li>
+      <li><tc:link link="" fragment="page:mainForm:flexLayout" label="&lt;tc:flexLayout>"/></li>
+      <li><tc:link link="" fragment="page:mainForm:segmentLayout" label="&lt;tc:segmentLayout>"/></li>
       <li><tc:link link="" fragment="page:mainForm:css" label="CSS / Bootstrap"/></li>
       <li><tc:link link="" fragment="page:mainForm:theme" label="Theme building"/></li>
       <li><tc:link link="" fragment="page:mainForm:crlf" label="CRLF in textarea"/></li>
       <li><tc:link link="" fragment="page:mainForm:resourceResolver"
                    label="Removed class: MetaInfResourcesClasspathResourceResolver"/></li>
+      <li><tc:link link="" fragment="page:mainForm:xsd" label="New XSD"/></li>
     </ul>
 
     <tc:section id="taglib" label="Tag Library">
@@ -108,11 +108,48 @@
       </tc:section>
     </tc:section>
 
+    <tc:section id="markups" label="Markups">
+      <p>Markups are now space separated. Instead of <code>markupOne, markupTwo</code> you can write
+        <code>markupOne markupTwo</code>. Comma seperated markups are deprecated but still possible.</p>
+
+      <p>Default markups are removed.
+        The default markups had rendered specific CSS classes for required/readonly/disabled components.</p>
+      <ul>
+        <li><code class="language-css">.tobago-[componentName]-markup-required</code></li>
+        <li><code class="language-css">.tobago-[componentName]-markup-readonly</code></li>
+        <li><code class="language-css">.tobago-[componentName]-markup-disabled</code></li>
+      </ul>
+    </tc:section>
+
+    <tc:section id="flexLayout" label="&lt;tc:flexLayout>">
+      <p>Column/row attribute values are now space separated. The '*' character is replaced by 'fr'.</p>
+      <p>Instead of <code class="language-markup">&lt;tc:flexLayout column="200px;auto;1*;2*;10rem"></code>
+        you can write <code class="language-markup">&lt;tc:flexLayout column="200px auto 1fr 2fr 10rem"></code>.</p>
+      <p>The old syntax is deprecated but still possible.</p>
+    </tc:section>
+
+    <tc:section id="segmentLayout" label="&lt;tc:segmentLayout>">
+      <p>Attribute values are now space seperated. Integer values now have the unit 'seg'.</p>
+      <p>The old syntax is deprecated but still possible.</p>
+      <p>The 12 columns of a segment layout are no longer filled up.</p>
+      <p>Explained on the example <code>medium="3seg 4seg"</code>:</p>
+      <ul>
+        <li>Result in Tobago3: The first child of the segment layout spans 3 columns, the second 4 columns,
+          the third 5 columns (filled up) and the fourth 3 columns again.
+        </li>
+        <li>Result in Tobago4: The first child spans 3 columns, the second 4 columns, the third 3columns again and the
+          fourth 4 columns.
+        </li>
+      </ul>
+      <p>There are also two new 'auto' and '1fr' attribute values. For more information see
+        <tc:link label="tc:segmentLayout" outcome="/content/30-concept/16-layout/30-segment/segment-layout.xhtml"/>.</p>
+    </tc:section>
+
     <tc:section id="css" label="CSS / Bootstrap">
       <p>
         The included Bootstrap CSS library has been updated from
-        <tc:link link="http://blog.getbootstrap.com/2016/10/19/bootstrap-4-alpha-5/" label="v4.0.0-alpha.5"/> to
-        <tc:link link="http://blog.getbootstrap.com/2017/08/10/bootstrap-4-beta/" label="v4.0.0-beta"/>.
+        <tc:link link="https://blog.getbootstrap.com/2016/10/19/bootstrap-4-alpha-5/" label="v4.0.0-alpha.5"/> to
+        <tc:link link="https://blog.getbootstrap.com/2017/10/19/bootstrap-4-beta-2/" label="v4.0.0-beta.2"/>.
         Thought some changes need to be made, if you use Bootstrap classes directly.
       </p>
       <p>
@@ -169,6 +206,23 @@
 
     </tc:section>
 
+    <tc:section id="xsd" label="New XSD Version">
+      <p>With Tobago4 there is a new XSD version for the tobago-confix.xml.</p>
+      <ul>
+        <li><code>decode-line-feed</code> added<br/>
+          Default value is 'false'. If set to 'true' control characters are not decoded on ajax requests.
+        </li>
+        <li><code>security-annotation</code> added<br/>
+          It determines what happen to the according component if - for example - @RolesAllowed()
+          is not 'true'.
+          Posible values are 'hide', 'disable' and 'ignore'.
+        </li>
+        <li><code>renderers</code>, <code>renderer</code>, <code>supported-markup-type</code> removed<br/>
+          It is not longer needed to specify which markups are allowed on specific components.<br/>
+          'renderers' only contains the 'supported-markup-type' element. So it was also removed.
+        </li>
+      </ul>
+    </tc:section>
 
   </tc:section>
 
