@@ -73,7 +73,7 @@ var initInspect = function (elements) {
 Tobago.registerListener(initInspect, Tobago.Phase.DOCUMENT_READY);
 Tobago.registerListener(initInspect, Tobago.Phase.AFTER_UPDATE);
 
-Demo.prismHighlight = function(elements) {
+Demo.prismHighlight = function (elements) {
   // call highlighting again. (is called for all, not only for the elements, because it's easier to implement.)
   Prism.highlightAll();
 };
@@ -105,8 +105,8 @@ Tobago.registerListener(initTestframe, Tobago.Phase.AFTER_UPDATE);
 /**
  * Copies the values from the data-login attribute to the username/password fields.
  */
-Demo.prepareQuickLinks = function() {
-  jQuery("button[data-login]").click(function() {
+Demo.prepareQuickLinks = function () {
+  jQuery("button[data-login]").click(function () {
     var link = jQuery(this);
     var login = link.data("login");
     jQuery(Tobago.Utils.escapeClientId("page:mainForm:username::field")).val(login.username);
@@ -116,3 +116,26 @@ Demo.prepareQuickLinks = function() {
 };
 
 Tobago.registerListener(Demo.prepareQuickLinks, Tobago.Phase.DOCUMENT_READY);
+
+Demo.initGoogleSearch = function () {
+  var $input = jQuery("#page\\:search\\:searchField");
+  var $button = jQuery("#page\\:search\\:searchCommand");
+
+  $input.change(function () {
+    $button.attr("href",
+        "https://www.google.com/search?q=" +
+        encodeURI($input.val())
+        + "+site%3Atobago-vm.apache.org%2Fdemo-4-snapshot&amp;oq=site%3Atobago-vm.apache.org%2Fdemo-4-snapshot");
+  });
+  $input.keypress(function (e) {
+    if (e.which === 13) {
+      console.log("ENTER");
+      window.location.href = "https://www.google.com/search?q=" +
+          encodeURI($input.val())
+          + "+site%3Atobago-vm.apache.org%2Fdemo-4-snapshot&amp;oq=site%3Atobago-vm.apache.org%2Fdemo-4-snapshot";
+    }
+  });
+};
+
+Tobago.registerListener(Demo.initGoogleSearch, Tobago.Phase.DOCUMENT_READY);
+Tobago.registerListener(Demo.initGoogleSearch, Tobago.Phase.AFTER_UPDATE);

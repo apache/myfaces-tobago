@@ -111,11 +111,11 @@
 
       <f:facet name="after">
         <tc:flexLayout columns="auto auto">
-          <tc:form>
+          <tc:form id="search">
             <tc:flexLayout columns="200px auto">
-              <tc:in placeholder="Search" labelLayout="skip"/>
-              <tc:button defaultCommand="true" omit="true" label="go">
-                <tc:dataAttribute name="alert-text" value="Sorry: Search not implemented"/>
+              <tc:in id="searchField" placeholder="Search by Google" labelLayout="skip"/>
+              <tc:button id="searchCommand" defaultCommand="true" label="go"
+                         link="https://www.google.com/search?q=site%3Atobago-vm.apache.org%2Fdemo-4-snapshot&amp;oq=site%3Atobago-vm.apache.org%2Fdemo-4-snapshot">
               </tc:button>
             </tc:flexLayout>
           </tc:form>
