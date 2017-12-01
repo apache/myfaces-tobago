@@ -20,7 +20,8 @@
 <ui:composition template="/main.xhtml"
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
-                xmlns:ui="http://java.sun.com/jsf/facelets">
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core">
   <ui:param name="title" value="#{demoBundle.new_in_4_0}"/>
 
   <tc:section label="Overview and History">
@@ -39,46 +40,96 @@
 
   <tc:section label="New Features and Enhancements">
 
-    The highlights are
-    <ul>
-      <li>Update to Bootstrap 4 beta 2</li>
-      <li>Reimplementation of grid layout mananger and split layout manager</li>
-      <li>CSP Level 2</li>
-    </ul>
+    <tc:section label="The highlights">
+      <ul>
+        <li>Update to Bootstrap 4 beta 2</li>
+        <li>Reimplementation of grid layout mananger and split layout manager</li>
+        <li>CSP Level 2</li>
+      </ul>
 
-    The full list is available in
-    <tc:link label="Jira" image="fa-external-link"
-             link="https://issues.apache.org/jira/projects/TOBAGO/versions/12338728"/>.
+      The full list is available in
+      <tc:link label="Jira" image="fa-external-link"
+               link="https://issues.apache.org/jira/projects/TOBAGO/versions/12338728"/>.
+    </tc:section>
 
-    <b>Layout Managers</b>
-    <ul>
-      <li>Grid Layout was reimplemented with use of the modern CSS grid</li>
-      <li>Split Layout was reimplemented (was not available in Tobago 3)</li>
-      <li>Segment Layout was enhanced: TODO offset</li>
-      <li>Flex Layout was enhanced: ? TODO</li>
-      <li>
-        The syntax of the layout attributes are refactored to be compatible to modern CSS.
-        E.g. use of "fr" as unit for fraction in grid layout.
-        The old syntax works also, so not migration is needed.</li>
-    </ul>
+    <tc:section label="Layout Managers">
+      <ul>
+        <li>Grid Layout was reimplemented with use of the modern CSS grid</li>
+        <li>Split Layout was reimplemented (was not available in Tobago 3)</li>
+        <li>Segment Layout was enhanced. New attributes "offset" and "margin".
+          Also it's possible to use "auto" and "1fr" as with of the children.
+        </li>
+        <li>
+          The syntax of the layout attributes are refactored to be compatible to modern CSS.
+          E.g. use of "fr" as unit for fraction in grid layout.
+          The old syntax works also, so not migration is needed.
+        </li>
+      </ul>
+    </tc:section>
 
-    <b>Reimplementation of Inline Styles</b>
-    <p>
-      Is better and faster, because not use of JavaScript is needed now.
-      This is possible with CSP Level 2.
-    </p>
+    <tc:section label="CSS Styles">
+      <tc:section label="Reimplementation of Inline Styles">
+        Is better and faster, because not use of JavaScript is needed now.
+        Background: This is possible with CSP Level 2.
+      </tc:section>
+      <tc:section label="Inline Style for Rows ans Columns">
+        &lt;tc:style> can now be used as subtag of &lt;tc:row> and &lt;tc:column>.
+      </tc:section>
+    </tc:section>
 
-    <b>Messages near the input fields</b>
-    <p>
-      messages
-    </p>
+    <tc:section label="Messages near the input fields">
+      The error messages are now rendered directly by the input control. In this demo you
+      please leave the content free and just click "check". (This also works with AJAX.)
+      <tc:in id="error-demo" label="Error demo" required="true">
+        <f:facet name="after">
+          <tc:button label="check">
+            <f:ajax execute="error-demo @this" render="error-demo"/>
+          </tc:button>
+        </f:facet>
+      </tc:in>
+    </tc:section>
 
-    <b>Update FontAwesome to 4.7.0</b>
-    <p>
-      messages
-    </p>
+    <tc:section label="Tag library">
+      <tc:section label="Image tag">
+        The &lt;tc:image> tag now supports a Font Awesome string as value.
+      </tc:section>
+      <tc:section label="Event tag">
+        The &lt;tc:event> tag now supports the rendered attribute.
+      </tc:section>
+      <tc:section label="AJAX tag">
+        The &lt;f:ajax> tag now supports the disabled attribute.
+      </tc:section>
+    </tc:section>
 
+    <tc:section label="Theming">
+      <tc:section label="Optimize the theme builder">
+        Faster loading the Bootstrap theme and using same base _tobago.scss for all theme.
+      </tc:section>
+      <tc:section label="Speyside Theme">
+        <p>
+          The Speyside theme is now part of the distribution. I looks a bit more condensed and the
+          menu is full viewable for all submenus.
+        </p>
+        <p>
+          You can switch the theme here in the demo menu under Configuration → Theme
+        </p>
+      </tc:section>
+      <tc:section label="Scarborough Theme">
+        The Scarborough theme is now part of the distribution. I look quite same
+        as the bootstrap theme, but a bit more nice.
+      </tc:section>
+      <tc:section label="Roxborough Theme">
+        The Scarborough theme is now part of the distribution.
+        I has a nice dark look for ambient light situations or photo galleries.
+      </tc:section>
+    </tc:section>
 
+    <tc:section label="Font Awesome updated to 4.7.0">
+      New icons are available from the
+      <tc:link label="FontAwesome" image="fa-external-link"
+               link="http://fontawesome.io/icons/"/>
+      icon library.
+    </tc:section>
 
   </tc:section>
 </ui:composition>
