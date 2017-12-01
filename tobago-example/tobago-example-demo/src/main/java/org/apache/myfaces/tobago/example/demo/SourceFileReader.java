@@ -38,10 +38,12 @@ public abstract class SourceFileReader {
     final String viewId = facesContext.getViewRoot().getViewId();
     final String file = viewId.substring(0, viewId.lastIndexOf("/")) + "/" + filename;
     try (final InputStream resourceAsStream = externalContext.getResourceAsStream(file)) {
-      return IOUtils.toString(resourceAsStream, "UTF-8");
+      if (resourceAsStream != null) {
+        return IOUtils.toString(resourceAsStream, "UTF-8");
+      }
     } catch (final IOException e) {
       LOG.error("", e);
-      return null;
     }
+    return null;
   }
 }
