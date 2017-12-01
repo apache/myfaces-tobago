@@ -24,7 +24,8 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns="http://www.w3.org/1999/xhtml">
   <f:view locale="#{localeController.locale}">
-    <tc:page applicationIcon="#{request.contextPath}/icon/favicon.ico" label="#{demoBundle.pageTitle} - #{title}" id="page">
+    <tc:page applicationIcon="#{request.contextPath}/icon/favicon.ico" label="#{demoBundle.pageTitle} - #{title}"
+             id="page">
 
       <!--
             <tc:dataAttribute name="tobago-log-level" value="DEBUG"/>
@@ -39,37 +40,27 @@
 
       <ui:include src="/menu.xhtml"/>
 
-      <tc:segmentLayout large="#{navigationState.viewSource ? '8seg 4seg' : '12seg'}">
-
-        <tc:panel><!-- xxx this panel is needed currently because of a bug -->
-
-          <tc:segmentLayout large="2seg 10seg" medium="3seg 9seg" small="4seg 8seg" extraSmall="12seg">
-
-            <tc:panel>
-              <ui:include src="/navigation.xhtml"/>
-            </tc:panel>
-
-            <tc:flexLayout rows="auto 1fr">
-
-            <tc:messages id="messages" orderBy="severity" rendered="#{!hideGlobalMessages}"/>
-
-              <tc:section label="#{title}" id="content">
-                <tc:form id="mainForm">
-                  <ui:insert/>
-                </tc:form>
-              </tc:section>
-
-            </tc:flexLayout>
-
-          </tc:segmentLayout>
+      <tc:segmentLayout extraLarge="auto 1fr 4seg" small="auto 1fr 12seg" extraSmall="12seg">
+        <tc:panel>
+          <tc:style width="250px"/>
+          <ui:include src="/navigation.xhtml"/>
         </tc:panel>
+
+        <tc:flexLayout rows="auto 1fr">
+          <tc:messages id="messages" orderBy="severity" rendered="#{!hideGlobalMessages}"/>
+
+          <tc:section label="#{title}" id="content">
+            <tc:form id="mainForm">
+              <ui:insert/>
+            </tc:form>
+          </tc:section>
+        </tc:flexLayout>
 
         <tc:panel rendered="#{navigationState.viewSource}">
           <pre><code class="language-markup" id="demo-view-source">
             <tc:out value="#{navigationTree.source}"/>
           </code></pre>
         </tc:panel>
-
       </tc:segmentLayout>
 
       <tc:popup id="info" collapsedMode="hidden">
@@ -79,17 +70,18 @@
               <tc:operation name="hide" for="info"/>
             </tc:button>
           </f:facet>
-          <tc:out label="Theme:" value="#{themeController.localizedTheme}" />
+          <tc:out label="Theme:" value="#{themeController.localizedTheme}"/>
           <tc:out label="Locale:" value="#{localeController.localizedLocale}"/>
           <tc:out label="Project Stage:" value="#{facesContext.application.projectStage}"/>
           <tc:out label="CSP mode:" value="#{tobagoContext.tobagoConfig.contentSecurityPolicy.mode}"/>
-          <tc:out label="Requests:" value="#{activityList.values[0].jsfRequest} / AJAX: #{activityList.values[0].ajaxRequest}"/>
+          <tc:out label="Requests:"
+                  value="#{activityList.values[0].jsfRequest} / AJAX: #{activityList.values[0].ajaxRequest}"/>
         </tc:box>
       </tc:popup>
 
       <tc:footer fixed="true">
         © 2017 Apache Software Foundation, Licensed under the <a
-          href="http://www.apache.org/licenses/LICENSE-2.0">Apache License, Version 2.0</a>.
+              href="http://www.apache.org/licenses/LICENSE-2.0">Apache License, Version 2.0</a>.
       </tc:footer>
 
     </tc:page>
