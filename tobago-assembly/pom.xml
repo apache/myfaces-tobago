@@ -48,7 +48,17 @@
     </dependency>
     <dependency>
       <groupId>org.apache.myfaces.tobago</groupId>
+      <artifactId>tobago-theme-scarborough</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.myfaces.tobago</groupId>
       <artifactId>tobago-theme-speyside</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.myfaces.tobago</groupId>
+      <artifactId>tobago-theme-roxborough</artifactId>
       <version>${project.version}</version>
     </dependency>
     <dependency>
@@ -194,14 +204,12 @@ XXX TOBAGO-1654
                       <version>${project.version}</version>
                       <classifier>sources</classifier>
                     </artifactItem>
-<!--
                     <artifactItem>
                       <groupId>${project.groupId}</groupId>
                       <artifactId>tobago-theme-scarborough</artifactId>
                       <version>${project.version}</version>
                       <classifier>sources</classifier>
                     </artifactItem>
--->
                     <artifactItem>
                       <groupId>${project.groupId}</groupId>
                       <artifactId>tobago-theme-standard</artifactId>
