@@ -992,9 +992,9 @@
         <plugin>
           <groupId>org.owasp</groupId>
           <artifactId>dependency-check-maven</artifactId>
-          <version>2.1.1</version>
+          <version>3.0.2</version>
           <configuration>
-            <failBuildOnCVSS>0</failBuildOnCVSS>
+            <failBuildOnCVSS>6</failBuildOnCVSS>
             <suppressionFile>tobago/dependency-check-suppression.xml</suppressionFile>
           </configuration>
           <dependencies>
