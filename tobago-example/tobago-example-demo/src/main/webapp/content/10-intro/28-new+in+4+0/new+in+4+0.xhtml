@@ -45,6 +45,7 @@
         <li>Update to Bootstrap 4 beta 2</li>
         <li>Reimplementation of grid layout mananger and split layout manager</li>
         <li>Security enhancements</li>
+        <li>Java 8 or 9</li>
       </ul>
 
       The full list is available in
@@ -54,10 +55,17 @@
 
     <tc:section label="Layout Managers">
       <ul>
-        <li>Grid Layout was reimplemented with use of the modern CSS grid</li>
-        <li>Split Layout was reimplemented (was not available in Tobago 3)</li>
-        <li>Flex Layout was optimized (works now without JavaScript)</li>
-        <li>Segment Layout was enhanced. New attributes "offset" and "margin".
+        <li><tc:link label="Grid Layout" outcome="/content/30-concept/16-layout/50-grid/grid-layout.xhtml"/>
+          was reimplemented with use of the modern CSS grid
+        </li>
+        <li><tc:link label="Split Layout" outcome="/content/30-concept/16-layout/60-split/split-layout.xhtml"/>
+          was reimplemented (was not available in Tobago 3)
+        </li>
+        <li><tc:link label="Flex Layout" outcome="/content/30-concept/16-layout/20-flex/flex-layout.xhtml"/>
+          was optimized (works now without JavaScript)
+        </li>
+        <li><tc:link label="Segment Layout" outcome="/content/30-concept/16-layout/30-segment/segment-layout.xhtml"/>
+          was enhanced. New attributes "offset" and "margin".
           Also it's possible to use "auto" and "1fr" as with of the children.
         </li>
         <li>
@@ -69,13 +77,46 @@
     </tc:section>
 
     <tc:section label="CSS Styles">
-      <tc:section label="Reimplementation of Inline Styles">
+      <p><b>Reimplementation of Inline Styles</b><br/>
         Is better and faster, because not use of JavaScript is needed now.
-        Background: This is possible with CSP Level 2.
-      </tc:section>
-      <tc:section label="Inline Style for Rows ans Columns">
+        Background: This is possible with CSP Level 2.</p>
+      <p><b>Inline Style for Rows ans Columns</b><br/>
         &lt;tc:style> can now be used as subtag of &lt;tc:row> and &lt;tc:column>.
-      </tc:section>
+        The styles are set dynamically, so different styling of rows is possible.</p>
+      <p><b>New components supported</b><br/>
+        Styles can be used in:</p>
+      <ul>
+        <li><tc:link label="&lt;tc:bar>" outcome="/content/20-component/050-container/60-bar/bar.xhtml"/></li>
+        <li><tc:link label="&lt;tc:link>"
+                     outcome="/content/20-component/040-command/00-button+link/button+link.xhtml"/></li>
+        <li><tc:link label="&lt;tc:tab>" outcome="/content/20-component/070-tab/tab.xhtml"/></li>
+      </ul>
+    </tc:section>
+
+    <tc:section label="Markups">
+      <p>Markups are now easily accessable by JavaScript.
+        The markup could be found on component root in the attribute <code>data-tobago-markup</code>.</p>
+
+      <p>New markups:</p>
+      <ul>
+        <li><tc:link label="&lt;tc:bar>" outcome="/content/20-component/050-container/60-bar/bar.xhtml"
+                     fragment="page:mainForm:backgroundColor"/>: <code>light</code>, <code>dark</code></li>
+        <li><tc:link label="&lt;tc:button>" outcome="/content/20-component/040-command/00-button+link/button+link.xhtml"
+                     fragment="page:mainForm:markup"/>:
+          <code>primary</code>,
+          <code>secondary</code>,
+          <code>success</code>,
+          <code>danger</code>,
+          <code>warning</code>,
+          <code>info</code>,
+          <code>light</code>,
+          <code>dark</code>,
+          <code>none</code></li>
+        <li><tc:link label="&lt;tc:in>" outcome="/content/20-component/010-input/20-suggest/suggest.xhtml"
+                     fragment="page:mainForm:localMenu"/> with &lt;tc:suggest>: <code>localMenu</code></li>
+        <li><tc:link label="&lt;tc:popup>" outcome="/content/20-component/060-popup/popup.xhtml"
+                     fragment="page:mainForm:markup"/>: <code>small</code>, <code>large</code></li>
+      </ul>
     </tc:section>
 
     <tc:section label="Messages near the input fields">
@@ -88,48 +129,48 @@
           </tc:button>
         </f:facet>
       </tc:in>
+      <p>For more information have a look at
+        <tc:link label="Message Layout"
+                 outcome="/content/30-concept/16-layout/90-message-layout/message-Layout.xhtml"/></p>
     </tc:section>
 
     <tc:section label="Tag library">
-      <tc:section label="Image tag">
-        The &lt;tc:image> tag now supports a Font Awesome string as value.
-      </tc:section>
-      <tc:section label="Event tag">
-        The &lt;tc:event> tag now supports the rendered attribute.
-      </tc:section>
-      <tc:section label="AJAX tag">
-        The &lt;f:ajax> tag now supports the disabled attribute.
-      </tc:section>
+      <ul>
+        <li>&lt;tc:image> now supports a Font Awesome string as value.</li>
+        <li>&lt;tc:event> now supports the <code>rendered</code> attribute.</li>
+        <li>&lt;f:ajax> now supports the <code>disabled</code> attribute.</li>
+        <li>&lt;tc:link> now supports <code>outcome</code> and <code>fragment</code> attribute.</li>
+        <li>&lt;tc:style> now supports the <code>rendered</code> attribute.</li>
+        <li>New tag &lt;tc:meta> implemented.</li>
+      </ul>
     </tc:section>
 
     <tc:section label="Theming">
-      <tc:section label="Optimize the theme builder">
-        Faster loading the Bootstrap theme and using same base _tobago.scss for all theme.
-      </tc:section>
-      <tc:section label="Speyside Theme">
-        <p>
-          The Speyside theme is now part of the distribution. I looks a bit more condensed and the
-          menu is full viewable for all submenus.
-        </p>
-        <p>
-          You can switch the theme here in the demo menu under Configuration → Theme
-        </p>
-      </tc:section>
-      <tc:section label="Scarborough Theme">
-        The Scarborough theme is now part of the distribution. I look quite same
-        as the bootstrap theme, but a bit more nice.
-      </tc:section>
-      <tc:section label="Roxborough Theme">
-        The Scarborough theme is now part of the distribution.
-        I has a nice dark look for ambient light situations or photo galleries.
-      </tc:section>
+      <ul>
+        <li><b>Optimize the theme builder</b><br/>
+          Faster loading the Bootstrap theme and using same base _tobago.scss for all theme.
+        </li>
+        <li><b>Speyside Theme</b><br/>
+          The Speyside theme is now part of the distribution.
+          I looks a bit more condensed and the menu is full viewable for all submenus.
+          You can switch the theme here in the demo menu under Configuration → Theme.
+        </li>
+        <li><b>Scarborough Theme</b><br/>
+          The Scarborough theme is now part of the distribution.
+          I look quite same as the bootstrap theme, but a bit more nice.
+        </li>
+        <li><b>Roxborough Theme</b><br/>
+          The Scarborough theme is now part of the distribution.
+          I has a nice dark look for ambient light situations or photo galleries.
+        </li>
+      </ul>
     </tc:section>
 
     <tc:section label="Security enhancements">
       <ul>
         <li>CSP level 2</li>
         <li>Frame attack protection via headers instead of JavaScript</li>
-        <li></li>
+        <li><tc:link label="Roles" outcome="/content/30-concept/80-security/20-roles/roles.xhtml"/></li>
       </ul>
     </tc:section>
 
@@ -140,5 +181,30 @@
       icon library.
     </tc:section>
 
+    <tc:section id="xsd" label="New XSD Version">
+      <p>With Tobago4 there is a new XSD version for the tobago-confix.xml.</p>
+      <ul>
+        <li><code>decode-line-feed</code> added<br/>
+          Default value is 'false'. If set to 'true' control characters are not decoded on ajax requests.
+        </li>
+        <li><code>security-annotation</code> added<br/>
+          It determines what happen to the according component if - for example - @RolesAllowed()
+          is not 'true'.
+          Posible values are 'hide', 'disable' and 'ignore'.
+        </li>
+        <li><code>renderers</code>, <code>renderer</code>, <code>supported-markup-type</code> removed<br/>
+          It is not longer needed to specify which markups are allowed on specific components.<br/>
+          'renderers' only contains the 'supported-markup-type' element. So it was also removed.
+        </li>
+      </ul>
+    </tc:section>
+
+    <tc:section label="More improvements">
+      <ul>
+        <li><tc:link label="#{demoBundle.exception_handler}"
+                     outcome="/content/30-concept/22-exception-handler/exception-handler.xhtml"/></li>
+        <li><p>The page is now loadable by ajax.</p></li>
+      </ul>
+    </tc:section>
   </tc:section>
 </ui:composition>

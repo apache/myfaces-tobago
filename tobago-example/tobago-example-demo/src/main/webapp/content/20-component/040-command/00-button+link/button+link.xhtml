@@ -27,9 +27,11 @@
     You can also set a link by <code class="language-markup">&lt;tc:button/></code>.
     The behavior of a link and a button is the same, it differs in the appearance.</p>
   <p>Tag Library Documentation:
-    <tc:link label="&lt;tc:link/>" image="#{request.contextPath}/image/feather-leaf.png" link="#{demoBundle.tagDocUrl}/#{info.stableVersion}/tld/tc/link.html"/>
+    <tc:link label="&lt;tc:link/>" image="#{request.contextPath}/image/feather-leaf.png"
+             link="#{demoBundle.tagDocUrl}/#{info.stableVersion}/tld/tc/link.html"/>
     |
-    <tc:link label="&lt;tc:button/>" image="#{request.contextPath}/image/feather-leaf.png" link="#{demoBundle.tagDocUrl}/#{info.stableVersion}/tld/tc/button.html"/></p>
+    <tc:link label="&lt;tc:button/>" image="#{request.contextPath}/image/feather-leaf.png"
+             link="#{demoBundle.tagDocUrl}/#{info.stableVersion}/tld/tc/button.html"/></p>
 
   <tc:section label="Basics">
     <p>The next two sections show how a link and a button is set.</p>
@@ -52,7 +54,8 @@
       |
       <tc:link id="l4" label="Action" action="#{buttonLinkController.linkToComponentsRoot}"/>
       |
-      <tc:link id="l5" label="Link with an image" image="#{request.contextPath}/image/feather-leaf.png" link="https://www.apache.org/"/>
+      <tc:link id="l5" label="Link with an image" image="#{request.contextPath}/image/feather-leaf.png"
+               link="https://www.apache.org/"/>
     </tc:section>
     <tc:section label="&lt;tc:button>">
       <pre><code class="language-markup">&lt;tc:button label="apache.org" link="https://www.apache.org/"/></code></pre>
@@ -61,6 +64,12 @@
       <tc:button id="b4" label="Action" action="#{buttonLinkController.linkToComponentsRoot}"/>
       <tc:button id="b5" image="#{request.contextPath}/image/feather-leaf.png" link="https://www.apache.org/"/>
     </tc:section>
+  </tc:section>
+
+  <tc:section label="outcome, link, fragment">
+    <p>Use the <code>outcome</code> attribute for internal links to a viewId.</p>
+    <p>Use the <code>link</code> attribute for links to resources or external URLs.</p>
+    <p>Use the <code>fragment</code> to jump to an ID on the linked site.</p>
   </tc:section>
 
   <tc:section label="Dropdown">
@@ -131,7 +140,7 @@
     </tc:section>
   </tc:section>
 
-  <tc:section label="Markups">
+  <tc:section id="markup" label="Markups">
     <p>Colors can be set with markups. Markup <code>none</code> unset the color.</p>
     <pre><code class="language-markup">&lt;tc:button label="Primary" markup="primary"/>
 &lt;tc:button label="Secondary" markup="secondary"/>
