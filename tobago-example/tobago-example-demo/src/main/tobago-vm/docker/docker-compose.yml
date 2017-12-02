@@ -22,6 +22,7 @@ services:
 # todo     - "443:443"
     links:
       - demo-4-snapshot
+      - demo-4-staging
       - demo-3-snapshot
 #      - demo-3-staging
       - demo-3-release
@@ -32,6 +33,7 @@ services:
       - demo-1-0-release
     depends_on:
       - demo-4-snapshot
+      - demo-4-staging
       - demo-3-snapshot
 #      - demo-3-staging
       - demo-3-release
@@ -43,8 +45,16 @@ services:
   demo-4-snapshot:
     image: tobago/tomcat:latest
     environment:
-      - TOBAGO_VERSION=4.0.0-SNAPSHOT
+      - TOBAGO_VERSION=4.0.1-SNAPSHOT
       - CONTEXT_PATH=demo-4-snapshot
+    volumes:
+      - /opt/docker/artifacts:/opt/docker/artifacts
+  demo-4-staging:
+    image: tobago/tomcat:latest
+    environment:
+      - TOBAGO_VERSION=4.0.0
+      - STAGING_NUMBER=1120
+      - CONTEXT_PATH=demo-4-staging
     volumes:
       - /opt/docker/artifacts:/opt/docker/artifacts
   demo-3-snapshot:

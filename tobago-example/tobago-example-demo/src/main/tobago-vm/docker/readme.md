@@ -18,4 +18,4 @@ docker-compose up
 ```
 
 TODOs:
-* Create and use the "docker" oder "demo" user.
+* Create and use the "docker" or "demo" user.
