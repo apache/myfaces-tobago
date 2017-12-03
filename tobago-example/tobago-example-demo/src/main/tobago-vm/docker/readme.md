@@ -3,9 +3,17 @@
 Copy these file to the server and login there:
 
 ```
-scp * tobago-vm.apache.org:docker
 ssh tobago-vm.apache.org
-cd tobago/tobago-example/tobago-example-demo/src/main/tobago-vm/docker/
+
+git checkout ...
+cd tobago
+
+or 
+
+cd tobago
+git pull --rebase
+
+cd tobago-example/tobago-example-demo/src/main/tobago-vm/docker/
 ```
 
 ```
@@ -14,7 +22,7 @@ docker build apache-proxy/ -t tobago/apache-proxy
 ```
 
 ```
-docker-compose up
+nohup docker-compose up &
 ```
 
 TODOs:
