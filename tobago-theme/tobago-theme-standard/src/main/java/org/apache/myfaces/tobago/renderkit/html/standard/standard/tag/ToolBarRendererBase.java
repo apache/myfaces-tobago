@@ -620,6 +620,7 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
       final FacesContext facesContext, final TobagoResponseWriter writer, final AbstractUIMenu dropDownMenu)
       throws IOException {
     writer.startElement(HtmlElements.OL, dropDownMenu);
+    writer.writeIdAttribute(dropDownMenu.getClientId(facesContext));
     // XXX fix naming conventions for CSS classes
     writer.writeClassAttribute("tobago-menuBar tobago-menu-dropDownMenu");
     RenderUtils.encode(facesContext, dropDownMenu);

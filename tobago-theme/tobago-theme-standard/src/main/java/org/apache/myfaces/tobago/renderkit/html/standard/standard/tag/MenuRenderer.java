@@ -118,6 +118,7 @@ public class MenuRenderer extends LayoutComponentRendererBase {
     writer.endElement(HtmlElements.A);
     if (isParentMenu) {
       writer.startElement(HtmlElements.OL, menu);
+      writer.writeIdAttribute(component.getClientId(facesContext) + "_ol");
     }
   }
 

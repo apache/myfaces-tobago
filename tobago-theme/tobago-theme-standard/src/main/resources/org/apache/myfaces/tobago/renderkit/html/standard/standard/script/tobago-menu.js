@@ -359,7 +359,12 @@ Tobago.Menu.init = function(elements) {
 
   menus.children("ol").each(function() {
     var subMenuContainer = jQuery(this);
-    jQuery(".tobago-page-menuStore").append(subMenuContainer);
+    var menuStore = jQuery(".tobago-page-menuStore");
+    if (elements && subMenuContainer.attr("id")) {
+      // ajax case: remove the existing (old) menu
+      menuStore.children("ol[id='" + subMenuContainer.attr("id") + "']").remove();
+    }
+    menuStore.append(subMenuContainer);
     if (elements) {
       // this is ajax case: the commands are just removed from elements and therefore not handled by Tobago.initDom,
       // so do it here
