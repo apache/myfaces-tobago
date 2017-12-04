@@ -35,7 +35,7 @@ public interface TobagoActionSource extends ActionSource2 {
   @Override
   @Deprecated
   default MethodBinding getAction() {
-    LOG.warn("No longer supported!");
+    LOG.debug("JSF 1.1 style is no longer supported!");
     return null;
   }
 
@@ -45,7 +45,7 @@ public interface TobagoActionSource extends ActionSource2 {
   @Override
   @Deprecated
   default void setAction(MethodBinding action) {
-    LOG.warn("No longer supported!");
+    LOG.debug("JSF 1.1 style is no longer supported!");
   }
 
   /**
@@ -54,7 +54,7 @@ public interface TobagoActionSource extends ActionSource2 {
   @Override
   @Deprecated
   default MethodBinding getActionListener() {
-    LOG.warn("No longer supported!");
+    LOG.debug("JSF 1.1 style is no longer supported!");
     return null;
   }
 
@@ -64,6 +64,6 @@ public interface TobagoActionSource extends ActionSource2 {
   @Override
   @Deprecated
   default void setActionListener(MethodBinding actionListener) {
-    LOG.warn("No longer supported!");
+    LOG.debug("JSF 1.1 style is no longer supported!");
   }
 }
