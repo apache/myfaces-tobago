@@ -55,13 +55,15 @@ public class TestController implements Serializable {
     return viewId.substring(1, viewId.length() - 6); //remove leading '/' and trailing '.xhtml'
   }
 
-  public List<String> getAllPages() {
-    final List<String> pages = new ArrayList<>();
+  public List<TestPage> getAllTestPages() {
+    final List<TestPage> pages = new ArrayList<>();
 
     final File rootDir = new File("src/main/webapp/content");
     if (rootDir.exists()) {
+      int idCount = 1;
       for (final String page : getXHTMLs(rootDir)) {
-        pages.add(page.substring(16));
+        final String base = page.substring(16, page.length() - 6);
+        pages.add(new TestPage("tp" + idCount++, base));
       }
     }
     return pages;
@@ -72,7 +74,8 @@ public class TestController implements Serializable {
     for (final File file : dir.listFiles()) {
       if (file.isDirectory()) {
         xhtmls.addAll(getXHTMLs(file));
-      } else if (!file.getName().startsWith("x-") && file.getName().endsWith(".xhtml")) {
+      } else if (!file.getName().startsWith("x-") && file.getName().endsWith(".xhtml")
+          && !file.getPath().contains("content/40-test/90000-attic/")) {
         xhtmls.add(file.getPath());
       }
     }

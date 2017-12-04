@@ -269,21 +269,31 @@ public class QUnitTests {
 
     // Test if 'has no exception' test is correct.
     setupBrowser("error/exception", true);
+    final boolean timeoutException = waitForTest("error/exception");
+    Assert.assertFalse("Could not verify 'has no exception' test: TIMEOUT", timeoutException);
     results = qunitTests.findElements(By.xpath("li"));
+    boolean testException = false;
     for (final WebElement result : results) {
       if ("has no exception".equals(result.findElement(By.className("test-name")).getText())) {
         Assert.assertEquals(result.getAttribute("class"), "fail");
+        testException = true;
       }
     }
+    Assert.assertTrue("Could not verify 'has no exception' test.", testException);
 
     // Test if 'has no 404' test is correct.
     setupBrowser("error/404", true);
+    final boolean timeout404 = waitForTest("error/404");
+    Assert.assertFalse("Could not verify 'has no 404' test. TIMEOUT", timeout404);
+    boolean test404 = false;
     results = qunitTests.findElements(By.xpath("li"));
     for (final WebElement result : results) {
       if ("has no 404".equals(result.findElement(By.className("test-name")).getText())) {
         Assert.assertEquals(result.getAttribute("class"), "fail");
+        test404 = true;
       }
     }
+    Assert.assertTrue("Could not verify 'has no 404' test.", test404);
 
     for (final String page : pages) {
       final String pathForBrowser = page.substring(page.indexOf("src/main/webapp/") + "src/main/webapp/".length(),

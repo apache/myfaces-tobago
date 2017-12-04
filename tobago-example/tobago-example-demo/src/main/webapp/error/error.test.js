@@ -16,7 +16,7 @@
  */
 
 QUnit.test("has no exception", function (assert) {
-  var $error = jQueryFrame("#page\\:errorSection .tobago-section-header span");
+  var $error = jQueryFrame("#page\\:mainForm\\:errorSection .tobago-section-header span");
   assert.notEqual($error.text(), "An error has occurred!");
 });
 
