@@ -20,7 +20,7 @@
 package org.apache.myfaces.tobago.facelets;
 
 import org.apache.myfaces.tobago.event.TabChangeEvent;
-import org.apache.myfaces.tobago.event.TabChangeSource2;
+import org.apache.myfaces.tobago.event.TabChangeSource;
 
 import javax.faces.view.facelets.FaceletContext;
 import javax.faces.view.facelets.MetaRule;
@@ -34,7 +34,7 @@ public class TabChangeSourceRule extends MetaRule {
 
   @Override
   public Metadata applyRule(final String name, final TagAttribute attribute, final MetadataTarget metadataTarget) {
-    if (metadataTarget.isTargetInstanceOf(TabChangeSource2.class)) {
+    if (metadataTarget.isTargetInstanceOf(TabChangeSource.class)) {
       if ("tabChangeListener".equals(name)) {
         return new TabChangeListenerMapper(attribute);
       }
@@ -52,7 +52,7 @@ public class TabChangeSourceRule extends MetaRule {
 
     @Override
     public void applyMetadata(final FaceletContext ctx, final Object instance) {
-      ((TabChangeSource2) instance).setTabChangeListenerExpression(
+      ((TabChangeSource) instance).setTabChangeListenerExpression(
           attribute.getMethodExpression(ctx, null, TabChangeSourceRule.ACTION_LISTENER));
     }
   }
