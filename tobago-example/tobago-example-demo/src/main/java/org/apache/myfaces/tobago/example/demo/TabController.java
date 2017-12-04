@@ -39,6 +39,10 @@ public class TabController implements Serializable {
   private int index;
   private SimpleTabChangeListener tabChangeListener;
 
+  public TabController() {
+    tabChangeListener = new SimpleTabChangeListener();
+  }
+
   public int getIndex() {
     return index;
   }
