@@ -27,6 +27,7 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasBinding;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasId;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasItemLabel;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
 
 /**
  * Add a child UISelectItems component to the UIComponent
@@ -40,7 +41,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasItemLabel;
     uiComponentFacesClass = "javax.faces.component.UISelectItems",
     isComponentAlreadyDefined = false,
     allowedChildComponenents = "NONE")
-public interface SelectItemsTagDeclaration extends HasId, HasBinding, HasItemLabel {
+public interface SelectItemsTagDeclaration extends HasId, HasBinding, HasItemLabel, HasTip {
 
   /**
    * Value binding expression pointing at a List or array of SelectItem instances containing
@@ -81,12 +82,4 @@ public interface SelectItemsTagDeclaration extends HasId, HasBinding, HasItemLab
   @TagAttribute
   @UIComponentTagAttribute()
   void setItemImage(String itemImage);
-
-  /**
-   * Text value to display as tooltip.
-   */
-  @TagAttribute
-  @UIComponentTagAttribute()
-  void setTip(String tip);
-
 }

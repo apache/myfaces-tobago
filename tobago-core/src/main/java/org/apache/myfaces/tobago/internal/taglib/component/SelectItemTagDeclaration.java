@@ -27,6 +27,7 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasBinding;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasId;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasItemLabel;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
 
 /**
@@ -40,7 +41,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
     uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUISelectItem",
     uiComponentFacesClass = "javax.faces.component.UISelectItem",
     allowedChildComponenents = "NONE")
-public interface SelectItemTagDeclaration extends HasBinding, HasId, IsVisual, HasItemLabel {
+public interface SelectItemTagDeclaration extends HasBinding, HasId, IsVisual, HasItemLabel, HasTip {
 
   /**
    * Description of an item, might be rendered as a tool tip.
@@ -82,11 +83,4 @@ public interface SelectItemTagDeclaration extends HasBinding, HasId, IsVisual, H
   @TagAttribute
   @UIComponentTagAttribute()
   void setItemImage(String itemImage);
-
-  /**
-   * Text value to display as tooltip.
-   */
-  @TagAttribute
-  @UIComponentTagAttribute()
-  void setTip(String tip);
 }
