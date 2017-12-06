@@ -116,9 +116,9 @@ public class ClassesGenerator extends AbstractGenerator {
 
       if (componentTag.behaviors().length > 0) {
         for (final Behavior behavior : componentTag.behaviors()) {
-          info("*************** ----------------------" + componentTag.behaviors().length);
-          info("*************** " + behavior.name());
-          info("*************** " + componentInfo.getBehaviors());
+//          info("*************** ----------------------" + componentTag.behaviors().length);
+//          info("*************** " + behavior.name());
+//          info("*************** " + componentInfo.getBehaviors());
           componentInfo.getBehaviors().add(behavior.name());
           if (behavior.isDefault()) {
             if (componentInfo.getDefaultBehavior() != null) {
@@ -248,9 +248,9 @@ public class ClassesGenerator extends AbstractGenerator {
         propertyInfo.setDescription(getDescription(declaration));
         propertyInfo.setTransient(uiComponentTagAttribute.isTransient());
         propertyInfo.setGenerate(uiComponentTagAttribute.generate());
-        if (properties.containsKey(name)) {
-          warn("Redefinition of attribute '" + name + "'.");
-        }
+//        if (properties.containsKey(name)) {
+//          warn("Redefinition of attribute '" + name + "'.");
+//        }
         properties.put(name, propertyInfo);
       }
     }
