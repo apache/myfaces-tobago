@@ -224,6 +224,7 @@ public class TabGroupRenderer extends RendererBase implements ComponentSystemEve
         final UITab tab = (UITab) child;
         if (tab.isRendered()) {
           final LabelWithAccessKey label = new LabelWithAccessKey(tab);
+          final UIComponent labelFacet = ComponentUtils.getFacet(tab, Facets.label);
           final boolean disabled = tab.isDisabled();
           final String tabId = tab.getClientId(facesContext);
           Markup markup = tab.getMarkup() != null ? tab.getMarkup() : Markup.NULL;
@@ -281,6 +282,7 @@ public class TabGroupRenderer extends RendererBase implements ComponentSystemEve
           }
           writer.writeAttribute(HtmlAttributes.ROLE, HtmlRoleValues.TAB.toString(), false);
 
+          boolean labelEmpty = true;
           final String image = tab.getImage();
           // tab.getImage() resolves to empty string if el-expression resolves to null
           if (image != null && !image.isEmpty()) {
@@ -288,10 +290,17 @@ public class TabGroupRenderer extends RendererBase implements ComponentSystemEve
             writer.writeAttribute(HtmlAttributes.SRC, image, true);
 // TBD      writer.writeClassAttribute(Classes.create(tab, (label.getLabel() != null? "image-right-margin" : "image")));
             writer.endElement(HtmlElements.IMG);
+            labelEmpty = false;
           }
           if (label.getLabel() != null) {
             HtmlRendererUtils.writeLabelWithAccessKey(writer, label);
-          } else if (image == null) {
+            labelEmpty = false;
+          }
+          if (labelFacet != null) {
+            labelFacet.encodeAll(facesContext);
+            labelEmpty = false;
+          }
+          if (labelEmpty) {
             writer.writeText(Integer.toString(index + 1));
           }
           writer.endElement(HtmlElements.A);

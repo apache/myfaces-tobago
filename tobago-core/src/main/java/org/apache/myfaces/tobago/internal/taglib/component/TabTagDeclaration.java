@@ -52,7 +52,9 @@ import javax.faces.component.UIPanel;
     rendererType = RendererTypes.TAB,
     facets = {
         @Facet(name = Facets.BAR,
-            description = "Contains some code to be placed in the header at the bar position.")},
+            description = "Contains some code to be placed in the header at the bar position."),
+        @Facet(name = Facets.LABEL,
+            description = "Contains some code to be placed in the header at the label position.")},
     behaviors = {
         @Behavior(
             name = ClientBehaviors.CLICK,
