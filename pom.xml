@@ -20,7 +20,9 @@
   <parent>
     <groupId>org.apache.myfaces</groupId>
     <artifactId>myfaces</artifactId>
-    <version>17-SNAPSHOT</version>
+    <!--TODO: RELEASEING version 17-->
+    <!--<version>17-SNAPSHOT</version>-->
+    <version>16</version>
   </parent>
   <groupId>org.apache.myfaces.tobago</groupId>
   <artifactId>tobago</artifactId>
@@ -319,7 +321,7 @@
           <targetJdk>${maven.compile.source}</targetJdk>
           <aggregate>true</aggregate>
         </configuration>
-      </plugin>                              
+      </plugin>
 
       <!-- TODO test dashboard plugin  -->
       <!--plugin>
@@ -1233,10 +1235,10 @@
     Attention: The next profiles should only be changed by a clean build.
     They define the JSF version which are generally incompatible.
     They also define the JSF implementation used to compile and for runtime.
-    
+
     Usage for a standard build (jsf-2.0):
-    mvn 
-    
+    mvn
+
     Usage for specific build:
     mvn -Pjsf-2.1
     mvn -Pjsf-2.2
