@@ -70,13 +70,16 @@ public interface OutTagDeclaration
    * (e. g. an span or div tag around the output text).
    * Use true, if you enable the possibility to apply styles to the output.
    * Use false, if you want to keep the code small (especially inside of sheets).
+   * @deprecated after 4.0.0 release. Use attribute 'compact' instead.
    */
+  @Deprecated
   @UIComponentTagAttribute(type = "boolean", defaultValue = "true")
   void setCreateSpan(String createSpan);
 
   /**
-   * Use true, if you enable the possibility to apply styles to the output.
-   * Use false, if you want to keep the code small (especially inside of sheets).
+   * This attribute is useful if labelLayout=skip is set.
+   * Use true, if you want to only render the text (no surrounding tag).
+   * Use false, if you enable the possibility to apply styles to the output.
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "boolean", defaultValue = "false")
