@@ -23,12 +23,20 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets">
   <ui:param name="title" value="#{demoBundle.out} &lt;tc:out&gt;"/>
   <p>The <code class="language-markup">&lt;tc:out/></code> display an outputtext combined with a label.</p>
-  <tc:link label="Tag Library Documentation" image="#{request.contextPath}/image/feather-leaf.png" link="#{demoBundle.tagDocUrl}/#{info.stableVersion}/tld/tc/out.html"/>
+  <tc:link label="Tag Library Documentation" image="#{request.contextPath}/image/feather-leaf.png"
+           link="#{demoBundle.tagDocUrl}/#{info.stableVersion}/tld/tc/out.html"/>
   <tc:section label="Basics">
     <p>To put a label in front of a outputtext, use the <code>label</code> attribute.</p>
     <pre><code class="language-markup">&lt;tc:out label="Output" value="Some Text"/&gt;</code></pre>
     <tc:out id="o1" label="Output" value="Some Text"/>
     <tc:out id="o2" value="Output without a label"/>
+    <tc:section label="Skip with compact">
+      <p>If using <code>labelLayout="skip"</code> there is still a tag surrounding the output text.</p>
+      <tc:out id="outSkip" value="This text is rendered by tc:out with labelLayout=skip." labelLayout="skip"/>
+      <p>Set <code>compact="true"</code> to remove the surrounding tag as well.</p>
+      <tc:out id="outSkipCompact" value="This text is rendered by tc:out with labelLayout=skip and compact=true."
+              labelLayout="skip" compact="true"/>
+    </tc:section>
   </tc:section>
   <tc:section label="Escape">
     <p>If the given string to the outputfield is HTML/XML code, it will be escaped by default.
