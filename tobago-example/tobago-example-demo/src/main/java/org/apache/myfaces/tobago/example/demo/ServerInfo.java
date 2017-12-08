@@ -50,7 +50,7 @@ public class ServerInfo {
   private static final String CONFIG_FILE_DEFAULT = "/etc/tobago-example-demo.properties";
   private static final String ENABLED_KEY = "server.info.enabled";
 
-  private static final String LAST_RELEASED_VERSION = "3.0.6";
+  private static final String LAST_RELEASED_VERSION = "4.0.0";
 
   private String version;
 

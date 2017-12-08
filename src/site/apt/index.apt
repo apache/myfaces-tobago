@@ -47,6 +47,19 @@ Apache Tobago
 
 News
 
+* December 7, 2017 - MyFaces Tobago 4.0.0 Released
+
+      The MyFaces Tobago component library in version 4.0.0 has been released.
+
+      A short overview you can find in the
+      {{{http://tobago-vm.apache.org/demo-4-staging/content/10-intro/28-new+in+4+0/new+in+4+0.xhtml}Tobago Demo 4}}.
+
+      Release notes can be found in
+      {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12338728}Jira}}.
+
+      \ {}
+      ~~ hack for a bit space
+
 * September 19, 2017 - MyFaces Tobago 3.0.6 Released
 
       The MyFaces Tobago component library in version 3.0.6 has been released.
