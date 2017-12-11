@@ -22,6 +22,7 @@ RUN apt-get update \
  && rm -rf /var/lib/apt/lists/* \
  && a2enmod proxy proxy_http
 
+# todo: SSL
 #COPY 000-default.conf 001-ssl.conf /etc/apache2/sites-enabled/
 COPY 000-default.conf /etc/apache2/sites-enabled/
 COPY index.html /var/www/html/
