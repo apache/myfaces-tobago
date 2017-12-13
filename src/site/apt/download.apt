@@ -192,23 +192,10 @@ Verifying signatures
     You need an installation of e. g. OpenPGP or GPG to check the files. More information you'll find on the Apache
     {{{https://www.apache.org/info/verification.html#CheckingSignatures}verification}} site.
 
-	  Then verify the signatures using ...
+	  Then verify the signatures for all downloaded files. With gpg for the dist.tar.gz it looks like
 
 +----------------------------------------
-$ pgpk -a KEYS
-$ pgpv myfaces-tobago-<version>-dist.tar.gz.asc
-+----------------------------------------
-
-	  <or>
-
-+----------------------------------------
-$ pgp -ka KEYS
-$ pgp myfaces-tobago-<version>-dist.tar.gz.asc
-+----------------------------------------
-
-	  <or>
-
-+----------------------------------------
+$ TOBAGO_VERSION=4.0.0
 $ gpg --import KEYS
-$ gpg --verify myfaces-tobago-<version>-dist.tar.gz.asc
+$ gpg --verify myfaces-tobago-$TOBAGO_VERSION-dist.tar.gz.asc myfaces-tobago-$TOBAGO_VERSION-dist.tar.gz
 +----------------------------------------
