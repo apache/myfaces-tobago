@@ -195,20 +195,20 @@ Verifying signatures
 	  Then verify the signatures using ...
 
 +----------------------------------------
-	  $ pgpk -a KEYS
-	  $ pgpv myfaces-tobago-<version>-dist.tar.gz.asc
+$ pgpk -a KEYS
+$ pgpv myfaces-tobago-<version>-dist.tar.gz.asc
 +----------------------------------------
 
 	  <or>
 
 +----------------------------------------
-	  $ pgp -ka KEYS
-	  $ pgp myfaces-tobago-<version>-dist.tar.gz.asc
+$ pgp -ka KEYS
+$ pgp myfaces-tobago-<version>-dist.tar.gz.asc
 +----------------------------------------
 
 	  <or>
 
 +----------------------------------------
-  	$ gpg --import KEYS
-	  $ gpg --verify myfaces-tobago-<version>-dist.tar.gz.asc
+$ gpg --import KEYS
+$ gpg --verify myfaces-tobago-<version>-dist.tar.gz.asc
 +----------------------------------------
