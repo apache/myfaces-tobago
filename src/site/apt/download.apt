@@ -184,28 +184,31 @@ Verifying signatures
   	PGP verification ensures that the file came from a certain person.
   	We recommend you verify your downloads with PGP.
 
-	  The PGP signatures can be verified using {{{https://www.openpgp.org/}OpenPGP}} or
-	  {{{https://www.gnupg.org/}GPG}}.  First download the Apache MyFaces
+	  First download the Apache MyFaces
 	  {{{https://www.apache.org/dist/myfaces/KEYS}KEYS}}	as well as the <<<asc>>> signature file
 	  for the particular distribution. It is important that you get these files from the ultimate
 	  trusted source - the main ASF distribution site, rather than from a mirror.
+
+    You need an installation of e. g. OpenPGP or GPG to check the files. More information you'll find on the Apache
+    {{{https://www.apache.org/info/verification.html#CheckingSignatures}verification}} site.
+
 	  Then verify the signatures using ...
 
-	  <<<
-	  % pgpk -a KEYS
-	  % pgpv myfaces-tobago-<version>-dist.tar.gz.asc
-	  >>>
++----------------------------------------
+	  $ pgpk -a KEYS
+	  $ pgpv myfaces-tobago-<version>-dist.tar.gz.asc
++----------------------------------------
 
 	  <or>
 
-	  <<<
-	  % pgp -ka KEYS
-	  % pgp myfaces-tobago-<version>-dist.tar.gz.asc
-	  >>>
++----------------------------------------
+	  $ pgp -ka KEYS
+	  $ pgp myfaces-tobago-<version>-dist.tar.gz.asc
++----------------------------------------
 
 	  <or>
 
-	  <<<
-  	% gpg --import KEYS
-	  % gpg --verify myfaces-tobago-<version>-dist.tar.gz.asc
-	  >>>
++----------------------------------------
+  	$ gpg --import KEYS
+	  $ gpg --verify myfaces-tobago-<version>-dist.tar.gz.asc
++----------------------------------------
