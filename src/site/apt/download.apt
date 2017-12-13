@@ -163,33 +163,30 @@ Nightly builds from SVN repository
 
 Archive of old releases
 
-    Older releases are available in the {{{http://archive.apache.org/dist/myfaces/} archive}}.  Those
+    Older releases are available in the {{{https://archive.apache.org/dist/myfaces/} archive}}. Those
     releases are only provided as historical artifacts. We strongly
     recommend not to use those releases, but upgrade to the most recent release.
 
 Verifying checksums
 
     It is essential that you verify the integrity of the downloaded
-    files using the PGP and MD5 signatures. MD5 verification ensures the
-    file was not corrupted during the download process. PGP verification
-    ensures that the file came from a certain person.
+    files using the SHA 256 or MD5 signatures.
+    This verification ensures the
+    file was not corrupted during the download or mirroring process.
 
-    To verify the MD5 signature on the files, you need to use a program
-    called <<<md5>>> or <<<md5sum>>>, which is
-    included in many UNIX distributions.  It is also available as part of
-    {{{http://www.gnu.org/software/textutils/textutils.html}GNU Textutils}}.
-    Windows users can get binary md5 programs from {{{http://www.fourmilab.ch/md5/}here}},
-    {{{http://www.pc-tools.net/win32/freeware/console/}here}}, or
-    {{{http://www.slavasoft.com/fsum/}here}}.
+    To verify the hash signature on the files, you need to use a program
+    called e. g. <<<sha>>>, <<<shasum>>>, <<<md5>>> or <<<md5sum>>>, which is
+    included in many UNIX distributions and MacOS.
+    It is also available for Windows.
 
 Verifying signatures
 
-  	PGP verification ensures that the file came from a certain person.  We strongly recommend
-	  you verify your downloads with both PGP and MD5.
+  	PGP verification ensures that the file came from a certain person.
+  	We recommend you verify your downloads with PGP.
 
-	  The PGP signatures can be verified using {{{http://www.pgpi.org/}PGP}} or
-	  {{{http://www.gnupg.org/}GPG}}.  First download the Apache MyFaces
-	  {{{http://www.apache.org/dist/myfaces/KEYS}KEYS}}	as well as the <<<asc>>> signature file
+	  The PGP signatures can be verified using {{{https://www.openpgp.org/}OpenPGP}} or
+	  {{{https://www.gnupg.org/}GPG}}.  First download the Apache MyFaces
+	  {{{https://www.apache.org/dist/myfaces/KEYS}KEYS}}	as well as the <<<asc>>> signature file
 	  for the particular distribution. It is important that you get these files from the ultimate
 	  trusted source - the main ASF distribution site, rather than from a mirror.
 	  Then verify the signatures using ...

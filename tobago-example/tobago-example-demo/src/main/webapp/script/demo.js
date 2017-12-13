@@ -121,18 +121,14 @@ Demo.initGoogleSearch = function () {
   var $input = jQuery("#page\\:search\\:searchField");
   var $button = jQuery("#page\\:search\\:searchCommand");
 
+  var search = "+site%3Atobago-vm.apache.org+demo-4";
   $input.change(function () {
-    $button.attr("href",
-        "https://www.google.com/search?q=" +
-        encodeURI($input.val())
-        + "+site%3Atobago-vm.apache.org%2Fdemo-4-snapshot&amp;oq=site%3Atobago-vm.apache.org%2Fdemo-4-snapshot");
+    $button.attr("href", "https://www.google.com/search?q=" + encodeURI($input.val()) + search);
   });
   $input.keypress(function (e) {
     if (e.which === 13) {
       console.log("ENTER");
-      window.location.href = "https://www.google.com/search?q=" +
-          encodeURI($input.val())
-          + "+site%3Atobago-vm.apache.org%2Fdemo-4-snapshot&amp;oq=site%3Atobago-vm.apache.org%2Fdemo-4-snapshot";
+      window.location.href = "https://www.google.com/search?q=" + encodeURI($input.val()) + search;
     }
   });
 };
