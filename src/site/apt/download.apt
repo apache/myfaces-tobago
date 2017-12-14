@@ -155,12 +155,6 @@ Latest source code from SVN repository
     version control with SVN. In the {{{./getting-started.html} Getting Started }}
     section you will find information how to use the ASF MyFaces Tobago SVN Repository.
 
-Nightly builds from SVN repository
-
-    There are also nightly {{{https://repository.apache.org/content/repositories/snapshots/org/apache/myfaces/tobago/tobago-assembly} dist builds}} and
-    {{{https://repository.apache.org/content/repositories/snapshots/org/apache/myfaces/tobago/tobago} source builds}}
-    available every 24 hours (11:00 PM EST).
-
 Archive of old releases
 
     Older releases are available in the {{{https://archive.apache.org/dist/myfaces/} archive}}. Those
