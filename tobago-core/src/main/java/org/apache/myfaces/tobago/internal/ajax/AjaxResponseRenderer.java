@@ -136,7 +136,8 @@ public class AjaxResponseRenderer {
     ResponseUtils.ensureNoCacheHeader(facesContext);
     final UIComponent page = ComponentUtils.findPage(facesContext);
     final String charset;
-    if (page != null) {  // in case of CODE_RELOAD_REQUIRED page is null
+    if (page != null && page.getAttributes().get(Attributes.CHARSET) != null) {
+      // in case of CODE_RELOAD_REQUIRED page is null
       charset = (String) page.getAttributes().get(Attributes.CHARSET);
     } else {
       charset = "UTF-8";
