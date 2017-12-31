@@ -98,6 +98,7 @@
             </manifest>
             <manifestEntries>
               <Revision>${scm.revision}</Revision>
+              <Automatic-Module-Name>${project.groupId}</Automatic-Module-Name>
             </manifestEntries>
             <manifestSections>
               <manifestSection>
