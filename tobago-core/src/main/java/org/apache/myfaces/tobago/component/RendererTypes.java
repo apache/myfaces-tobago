@@ -58,6 +58,7 @@ public enum RendererTypes {
   Object,
   Operation,
   Out,
+  OutInsideIn,
   Page,
   Panel,
   Popup,
@@ -133,6 +134,7 @@ public enum RendererTypes {
   public static final String OBJECT = "Object";
   public static final String OPERATION = "Operation";
   public static final String OUT = "Out";
+  public static final String OUT_INSIDE_IN = "OutInsideIn";
   public static final String PAGE = "Page";
   public static final String PANEL = "Panel";
   public static final String POPUP = "Popup";

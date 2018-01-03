@@ -230,6 +230,7 @@ public enum BootstrapClass implements CssItem {
   COL_XS_12("col-12"),
   CONTAINER("container"),
   CONTAINER_FLUID("container-fluid"),
+  CUSTOM_SELECT("custom-select"),
   D_FLEX("d-flex"),
   D_INLINE("d-inline"),
   D_NONE("d-none"),
@@ -286,8 +287,19 @@ public enum BootstrapClass implements CssItem {
   @Deprecated
   HIDDEN_SM_UP("d-sm-none"),
   INPUT_GROUP("input-group"),
+  INPUT_GROUP_APPEND("input-group-append"),
+  /**
+   * @deprecated since 4.1.0
+   */
+  @Deprecated
   INPUT_GROUP_ADDON("input-group-addon"),
+  /**
+   * @deprecated since 4.1.0
+   */
+  @Deprecated
   INPUT_GROUP_BTN("input-group-btn"),
+  INPUT_GROUP_PREPEND("input-group-prepend"),
+  INPUT_GROUP_TEXT("input-group-text"),
   INVISIBLE("invisible"),
   JUSTIFY_CONTENT_AROUND("justify-content-around"),
   JUSTIFY_CONTENT_BETWEEN("justify-content-between"),

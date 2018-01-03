@@ -19,7 +19,7 @@
 
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
-import org.apache.myfaces.tobago.component.UISelectOneChoice;
+import org.apache.myfaces.tobago.internal.component.AbstractUIOut;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.CssItem;
 
@@ -27,7 +27,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 
-public class SelectOneChoiceInsideInRenderer extends SelectOneChoiceRenderer {
+public class OutInsideInRenderer extends OutRenderer {
 
   @Override
   public void encodeBegin(final FacesContext facesContext, final UIComponent component) throws IOException {
@@ -40,7 +40,7 @@ public class SelectOneChoiceInsideInRenderer extends SelectOneChoiceRenderer {
   }
 
   @Override
-  protected CssItem[] getCssItems(final FacesContext facesContext, final UISelectOneChoice select) {
-    return new CssItem[]{BootstrapClass.CUSTOM_SELECT};
+  protected CssItem[] getCssItems(final FacesContext facesContext, final AbstractUIOut out) {
+    return new CssItem[]{BootstrapClass.INPUT_GROUP_TEXT};
   }
 }

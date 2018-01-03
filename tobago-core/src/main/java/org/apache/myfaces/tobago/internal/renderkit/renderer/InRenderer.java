@@ -25,6 +25,7 @@ import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.internal.component.AbstractUIButton;
 import org.apache.myfaces.tobago.internal.component.AbstractUIInput;
+import org.apache.myfaces.tobago.internal.component.AbstractUIOut;
 import org.apache.myfaces.tobago.internal.component.AbstractUISelectOneChoice;
 import org.apache.myfaces.tobago.internal.util.AccessKeyLogger;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
@@ -32,7 +33,6 @@ import org.apache.myfaces.tobago.internal.util.JsonUtils;
 import org.apache.myfaces.tobago.internal.util.RenderUtils;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
-import org.apache.myfaces.tobago.renderkit.css.CssItem;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
@@ -184,21 +184,26 @@ public class InRenderer extends MessageLayoutRendererBase {
           }
           child.encodeAll(facesContext);
         } else {
-          writer.startElement(HtmlElements.SPAN);
+          writer.startElement(HtmlElements.DIV);
+          writer.writeClassAttribute(isAfterFacet
+              ? BootstrapClass.INPUT_GROUP_APPEND : BootstrapClass.INPUT_GROUP_PREPEND);
 
-          final CssItem cssItem;
           if (child instanceof AbstractUIButton) {
-            cssItem = BootstrapClass.INPUT_GROUP_BTN;
+            child.encodeAll(facesContext);
+          } else if (child instanceof AbstractUIOut) {
+            child.setRendererType(RendererTypes.OutInsideIn.name());
+            child.encodeAll(facesContext);
           } else if (child instanceof AbstractUISelectOneChoice) {
-            cssItem = BootstrapClass.INPUT_GROUP_BTN;
             child.setRendererType(RendererTypes.SelectOneChoiceInsideIn.name());
+            child.encodeAll(facesContext);
           } else {
-            cssItem = BootstrapClass.INPUT_GROUP_ADDON;
+            writer.startElement(HtmlElements.SPAN);
+            writer.writeClassAttribute(BootstrapClass.INPUT_GROUP_TEXT);
+            child.encodeAll(facesContext);
+            writer.endElement(HtmlElements.SPAN);
           }
 
-          writer.writeClassAttribute(cssItem);
-          child.encodeAll(facesContext);
-          writer.endElement(HtmlElements.SPAN);
+          writer.endElement(HtmlElements.DIV);
         }
       }
     }

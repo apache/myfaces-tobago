@@ -29,6 +29,6 @@ public class ButtonInsideInRenderer extends ButtonRenderer {
 
   @Override
   protected CssItem[] getOuterCssItems(final FacesContext facesContext, final AbstractUICommand command) {
-    return new CssItem[]{BootstrapClass.INPUT_GROUP_BTN};
+    return new CssItem[]{BootstrapClass.INPUT_GROUP_PREPEND};
   }
 }
