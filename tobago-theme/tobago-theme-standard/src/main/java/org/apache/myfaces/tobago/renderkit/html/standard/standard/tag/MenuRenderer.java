@@ -112,6 +112,7 @@ public class MenuRenderer extends LayoutComponentRendererBase {
       AccessKeyLogger.addAccessKey(facesContext, label.getAccessKey(),
           component.isTransient() ? null : component.getClientId(facesContext));
     }
+    HtmlRendererUtils.writeDataAttributes(facesContext, writer, menu);
 
     HtmlRendererUtils.writeLabelWithAccessKey(writer, label);
 
