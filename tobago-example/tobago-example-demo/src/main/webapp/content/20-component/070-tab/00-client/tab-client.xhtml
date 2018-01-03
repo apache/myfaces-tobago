@@ -20,7 +20,8 @@
 <ui:composition template="/main.xhtml"
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
-                xmlns:ui="http://java.sun.com/jsf/facelets">
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core">
   <ui:param name="title" value="#{demoBundle.tab} - #{demoBundle.tab_client} &lt;tc:tab>"/>
   <p>Tabs can be created with one or more <code class="language-markup">&lt;tc:tab/></code> within a
     <code class="language-markup">&lt;tc:tabGroup></code>.
@@ -68,6 +69,21 @@
       <tc:tab id="t24">
         <p>Neither a label or an image are set. In this case the header gets a label with the indexnumber of the tab in
           the tabgroup.</p>
+      </tc:tab>
+      <tc:tab id="t25">
+        <f:facet name="label">
+          <tc:out value="Once: " labelLayout="skip" compact="true"/>
+          <tc:out value="#{dateController.once}" labelLayout="skip" compact="true">
+            <f:convertDateTime dateStyle="short" type="date"/>
+          </tc:out>
+        </f:facet>
+        <p>
+          It's also possible to set the label via a label facet. So you can use e. g. converters.
+        </p>
+        <p>
+          If using this, don't forget to set <code>labelLayout="skip" compact="true"</code> to switch off
+          the layout and boxes of the components.
+        </p>
       </tc:tab>
     </tc:tabGroup>
   </tc:section>
