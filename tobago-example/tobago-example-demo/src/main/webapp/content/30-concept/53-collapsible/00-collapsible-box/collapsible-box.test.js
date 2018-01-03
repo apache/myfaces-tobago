@@ -231,7 +231,7 @@ QUnit.test("Full Server Request: close both boxes", function (assert) {
   });
 });
 
-QUnit.test("Client Sided: show -> hide transition", function (assert) {
+QUnit.test("Client Side: show -> hide transition", function (assert) {
   assert.expect(2);
 
   var $show = jQueryFrame("#page\\:mainForm\\:client\\:showNoRequestBox");
@@ -245,7 +245,7 @@ QUnit.test("Client Sided: show -> hide transition", function (assert) {
   assert.equal($box.hasClass("tobago-collapsed"), true);
 });
 
-QUnit.test("Client Sided: hide -> show transition", function (assert) {
+QUnit.test("Client Side: hide -> show transition", function (assert) {
   assert.expect(2);
 
   var $show = jQueryFrame("#page\\:mainForm\\:client\\:showNoRequestBox");
@@ -259,7 +259,7 @@ QUnit.test("Client Sided: hide -> show transition", function (assert) {
   assert.equal($box.hasClass("tobago-collapsed"), false);
 });
 
-QUnit.test("Client Sided: hide content and submit empty string", function (assert) {
+QUnit.test("Client Side: hide content and submit empty string", function (assert) {
   assert.expect(2);
   var done = assert.async();
   var step = 1;

@@ -217,7 +217,7 @@ QUnit.test("Advanced: 'Ca'", function (assert) {
   }, suggestionDelay);
 });
 
-QUnit.test("Client sided: 'Ju'", function (assert) {
+QUnit.test("Client side: 'Ju'", function (assert) {
   assert.expect(3);
 
   var $in = jQueryFrame("#page\\:mainForm\\:inClient\\:\\:field");

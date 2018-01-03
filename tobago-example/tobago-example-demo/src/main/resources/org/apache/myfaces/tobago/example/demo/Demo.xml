@@ -86,9 +86,9 @@
   <entry key="bar">Bar</entry>
   <entry key="popup">Popup Dialog</entry>
   <entry key="tab">Tab Group</entry>
-  <entry key="tab_client">Client sided</entry>
+  <entry key="tab_client">Client side</entry>
   <entry key="tab_ajax">Ajax</entry>
-  <entry key="tab_server">Server sided</entry>
+  <entry key="tab_server">Server side</entry>
   <entry key="sheet">Sheet Control</entry>
   <entry key="sheet_column_content">Column Content</entry>
   <entry key="sheet_sorting">Sorting</entry>

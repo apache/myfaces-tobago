@@ -85,19 +85,19 @@
           The content of <code class="language-markup">&lt;tc:bar&gt;</code> needs to be checked.
           The layout inside of the bar has been changed by CSS.
         </p>
-        <p>There is a new after-facet for right sided content. Old code which uses
+        <p>There is a new after-facet for right side content. Old code which uses
           <code class="language-markup">&lt;tc:flowLayout align=right></code> probably doesn't work correctly.</p>
         <p>Replace the following code...</p>
         <pre><code class="language-markup">&lt;tc:bar>
   &lt;tc:flowLayout textAlign="right">
-    // right sided content
+    // right side content
   &lt;/tc:flowLayout>
 &lt;/tc:bar></code></pre>
         <p>... with this:</p>
         <pre><code class="language-markup">&lt;tc:bar>
   &lt;f:facet name="after">
     &lt;tc:flexLayout columns="1fr auto">
-      // right sided content
+      // right side content
     &lt;/tc:flexLayout>
   &lt;/f:facet>
 &lt;/tc:bar></code></pre>

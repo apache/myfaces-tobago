@@ -35,9 +35,9 @@
     <tc:link label="&lt;tc:operation/>" image="#{request.contextPath}/image/feather-leaf.png"
              link="#{demoBundle.tagDocUrl}/#{info.stableVersion}/tld/tc/operation.html"/></p>
 
-  <tc:section label="Client Sided Popup">
+  <tc:section label="Client Side Popup">
     <tc:form id="form2">
-      <p>To create a client sided popup you have to know about <code>collapsedMode</code>.
+      <p>To create a client side popup you have to know about <code>collapsedMode</code>.
         The mode indicated whether a collapsed popup should be rendered.
         If <code>collapsedMode="absent"</code>, which is default, a hidden popup dialog will no be rendered.
         If <code>collapsedMode="hidden"</code>, a hidden popup dialog will be rendered on the page, but hidden by CSS.
@@ -48,7 +48,7 @@
         The attribute <code class="language-markup">collapsed="true"</code> is default,
         because the popup should normally not be opened after loading the page.
         The hidden popup must be already rendered, so the client don't have to send any requests to the server.</p>
-      <p>Client sided opening and closing can be done with the
+      <p>Client side opening and closing can be done with the
         <code class="language-markup">&lt;tc:operation name="show|hide" for="[ID]"/></code> tag.
         The attribute <code>name</code> must be set and can have the value 'show' and 'hide'
         which is to show and hide the popup, obviously.
@@ -64,7 +64,7 @@
       <tc:out id="out" label="Text from Popup" value="#{popupController.popup2Text}"/>
 
       <tc:popup id="clientPopup" collapsedMode="hidden">
-        <tc:box label="Client Sided Popup">
+        <tc:box label="Client Side Popup">
           <tc:panel id="clientPopupMessages">
             <tc:messages id="messages"/>
           </tc:panel>

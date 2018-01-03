@@ -20,13 +20,30 @@
 <ui:composition template="/main.xhtml"
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
-                xmlns:ui="http://java.sun.com/jsf/facelets">
+                xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
   <ui:param name="title" value="#{demoBundle.intro}"/>
-  <p>This is the demo of Tobago.
+  <p>This is the demo of <mark>Tobago</mark>.
     It shows the components and concepts of Tobago and is also a main part of the documentation.</p>
   <p>If you want to migrate from an older version, you'll find further information in the
     <tc:link label="migration guide" outcome="/content/10-intro/50-migration/migration.xhtml"/>.</p>
   <p>If you want to start this demo on you local machine, have a look at the section 'Local Demo'.</p>
+
+  <p>
+    10 + 5 = <output name="sum">15</output>
+  </p>
+
+  <!--<tc:in pt:placeholder="Browser eingeben" pt:list="browsers" />-->
+  <tc:in label="dies ist " pt:list="browsers" />
+  <tc:in label="dies ist ein lang ggelld d fjksdfjkls fjkdsl " pt:list="browsers" />
+
+  <input list="browsers" />
+  <datalist id="browsers">
+    <option value="Chrome"/>
+    <option value="Firefox"/>
+    <option value="Internet Explorer"/>
+    <option value="Opera"/>
+    <option value="Safari"/>
+  </datalist>
 
   <tc:section label="Description">
     <p>Tobago is a user interface framework for developing web applications.

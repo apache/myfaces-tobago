@@ -179,7 +179,7 @@ QUnit.test("Full Server Request", function (assert) {
   });
 });
 
-QUnit.test("Client Sided", function (assert) {
+QUnit.test("Client Side", function (assert) {
   assert.expect(14);
   var done = assert.async(3);
   var step = 1;
