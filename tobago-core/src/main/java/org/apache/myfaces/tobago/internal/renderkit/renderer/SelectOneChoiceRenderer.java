@@ -26,6 +26,7 @@ import org.apache.myfaces.tobago.internal.util.JsonUtils;
 import org.apache.myfaces.tobago.internal.util.RenderUtils;
 import org.apache.myfaces.tobago.internal.util.SelectItemUtils;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
+import org.apache.myfaces.tobago.renderkit.css.CssItem;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
@@ -68,8 +69,8 @@ public class SelectOneChoiceRenderer extends SelectOneRendererBase {
     writer.writeClassAttribute(
         TobagoClass.SELECT_ONE_CHOICE,
         TobagoClass.SELECT_ONE_CHOICE.createMarkup(markup),
+        getCssItems(facesContext, select),
         BootstrapClass.borderColor(ComponentUtils.getMaximumSeverity(select)),
-        BootstrapClass.FORM_CONTROL,
         select.getCustomClass());
     if (title != null) {
       writer.writeAttribute(HtmlAttributes.TITLE, title, true);
@@ -91,5 +92,9 @@ public class SelectOneChoiceRenderer extends SelectOneRendererBase {
   protected String getFieldId(final FacesContext facesContext, final UIComponent component) {
     final UISelectOneChoice select = (UISelectOneChoice) component;
     return select.getFieldId(facesContext);
+  }
+
+  protected CssItem[] getCssItems(final FacesContext facesContext, final UISelectOneChoice select) {
+    return new CssItem[]{BootstrapClass.FORM_CONTROL};
   }
 }

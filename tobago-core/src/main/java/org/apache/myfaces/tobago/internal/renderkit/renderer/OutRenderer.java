@@ -27,6 +27,7 @@ import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.internal.util.JsonUtils;
 import org.apache.myfaces.tobago.internal.util.RenderUtils;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
+import org.apache.myfaces.tobago.renderkit.css.CssItem;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
@@ -69,7 +70,7 @@ public class OutRenderer extends MessageLayoutRendererBase {
       writer.writeClassAttribute(
           TobagoClass.OUT,
           TobagoClass.OUT.createMarkup(markup),
-          BootstrapClass.FORM_CONTROL_PLAINTEXT,
+          getCssItems(facesContext, out),
           out.getCustomClass());
       final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, out);
       if (title != null) {
@@ -111,5 +112,9 @@ public class OutRenderer extends MessageLayoutRendererBase {
   @Override
   protected String getFieldId(final FacesContext facesContext, final UIComponent component) {
     return component.getClientId(facesContext);
+  }
+
+  protected CssItem[] getCssItems(final FacesContext facesContext, final AbstractUIOut out) {
+    return new CssItem[]{BootstrapClass.FORM_CONTROL_PLAINTEXT};
   }
 }

@@ -171,10 +171,6 @@ button.tobago-button {
   }
 }
 
-.input-group-btn > .btn-group {
-  z-index: $zindex-dropdown !important; /* workaround for TOBAGO-1708, better restructure the HTML */
-}
-
 /* collapsible -------------------------------------------------------------- */
 
 .tobago-collapsed.tobago-box .card-body,
@@ -836,18 +832,12 @@ h1, h2, h3, h4, h5, h6 {
 .tobago-selectOneChoice-option {
 }
 
-.input-group-btn:not(:last-child) > .tobago-selectOneChoice { /* before facet */
-  width: 100%;
-  -webkit-appearance: none;
-  margin-right: -1px;
+.input-group-prepend > .tobago-selectOneChoice { /* before facet */
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
 }
 
-.input-group-btn:not(:first-child) > .tobago-selectOneChoice { /* after facet */
-  width: 100%;
-  -webkit-appearance: none;
-  margin-left: -1px;
+.input-group-append > .tobago-selectOneChoice { /* after facet */
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
 }

@@ -28,6 +28,11 @@ import javax.faces.context.FacesContext;
 public class ButtonInsideInAfterRenderer extends ButtonInsideInRenderer {
 
   @Override
+  protected CssItem[] getOuterCssItems(final FacesContext facesContext, final AbstractUICommand command) {
+    return new CssItem[]{BootstrapClass.INPUT_GROUP_APPEND};
+  }
+
+  @Override
   protected CssItem[] getDropdownCssItems(final FacesContext facesContext, final AbstractUICommand command) {
     return new CssItem[]{BootstrapClass.DROPDOWN_MENU_RIGHT};
   }
