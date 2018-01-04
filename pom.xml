@@ -482,7 +482,7 @@
         <!-- jsoup HTML parser library -->
         <groupId>org.jsoup</groupId>
         <artifactId>jsoup</artifactId>
-        <version>1.8.2</version>
+        <version>1.11.2</version>
       </dependency>
       <dependency>
         <groupId>org.apache.myfaces.test</groupId>
