@@ -15,7 +15,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <artifactId>tobago-assembly</artifactId>
   <packaging>pom</packaging>
@@ -97,36 +98,10 @@
                       <classifier>javadoc</classifier>
                     </artifactItem>
                   </artifactItems>
-                  <outputDirectory>${project.build.directory}/javadoc
-                  </outputDirectory>
+                  <outputDirectory>${project.build.directory}/javadoc</outputDirectory>
                 </configuration>
               </execution>
 
-              <!--execution>
-                <id>copy-project</id>
-                <phase>generate-resources</phase>
-                <goals>
-                  <goal>copy</goal>
-                </goals>
-                <configuration>
-                  <artifactItems>
-                    <artifactItem>
-                      <groupId>${project.groupId}</groupId>
-                      <artifactId>tobago</artifactId>
-                      <version>${project.version}</version>
-                      <classifier>source-release</classifier>
-                      <type>zip</type>
-                    </artifactItem>
-                  </artifactItems>
-                  <outputDirectory>${project.build.directory}/assembly/out
-                  </outputDirectory>
-                  <unpackMarkersDirectory>${project.build.directory}/project
-                  </unpackMarkersDirectory>
-                </configuration>
-              </execution-->
-
-<!--
-XXX TOBAGO-1654
               <execution>
                 <id>copy-tlddoc</id>
                 <phase>generate-resources</phase>
@@ -144,13 +119,11 @@ XXX TOBAGO-1654
                     </artifactItem>
 
                   </artifactItems>
-                  <outputDirectory>${project.build.directory}/tlddoc
-                  </outputDirectory>
+                  <outputDirectory>${project.build.directory}/tlddoc</outputDirectory>
                 </configuration>
               </execution>
--->
 
-               <execution>
+              <execution>
                 <id>copy-tld</id>
                 <phase>generate-resources</phase>
                 <goals>
@@ -184,14 +157,14 @@ XXX TOBAGO-1654
                       <version>${project.version}</version>
                       <classifier>sources</classifier>
                     </artifactItem>
-<!--
+                    <!--
                     <artifactItem>
                       <groupId>${project.groupId}</groupId>
                       <artifactId>tobago-theme-charlotteville</artifactId>
                       <version>${project.version}</version>
                       <classifier>sources</classifier>
                     </artifactItem>
--->
+                    -->
                     <artifactItem>
                       <groupId>${project.groupId}</groupId>
                       <artifactId>tobago-theme-roxborough</artifactId>
