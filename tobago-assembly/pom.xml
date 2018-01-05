@@ -93,33 +93,9 @@
                       <classifier>javadoc</classifier>
                     </artifactItem>
                   </artifactItems>
-                  <outputDirectory>${project.build.directory}/javadoc
-                  </outputDirectory>
+                  <outputDirectory>${project.build.directory}/javadoc</outputDirectory>
                 </configuration>
               </execution>
-
-              <!--execution>
-                <id>copy-project</id>
-                <phase>generate-resources</phase>
-                <goals>
-                  <goal>copy</goal>
-                </goals>
-                <configuration>
-                  <artifactItems>
-                    <artifactItem>
-                      <groupId>${project.groupId}</groupId>
-                      <artifactId>tobago</artifactId>
-                      <version>${project.version}</version>
-                      <classifier>source-release</classifier>
-                      <type>zip</type>
-                    </artifactItem>
-                  </artifactItems>
-                  <outputDirectory>${project.build.directory}/assembly/out
-                  </outputDirectory>
-                  <unpackMarkersDirectory>${project.build.directory}/project
-                  </unpackMarkersDirectory>
-                </configuration>
-              </execution-->
 
               <execution>
                 <id>copy-sandbox</id>
@@ -140,8 +116,6 @@
                 </configuration>
               </execution>
 
-<!--
-XXX TOBAGO-1654
               <execution>
                 <id>copy-tlddoc</id>
                 <phase>generate-resources</phase>
@@ -159,13 +133,11 @@ XXX TOBAGO-1654
                     </artifactItem>
 
                   </artifactItems>
-                  <outputDirectory>${project.build.directory}/tlddoc
-                  </outputDirectory>
+                  <outputDirectory>${project.build.directory}/tlddoc</outputDirectory>
                 </configuration>
               </execution>
--->
 
-               <execution>
+              <execution>
                 <id>copy-tld</id>
                 <phase>generate-resources</phase>
                 <goals>
@@ -254,7 +226,9 @@ XXX TOBAGO-1654
                 </goals>
 
                 <configuration>
-                  <descriptor>src/main/assembly/dep.xml</descriptor>
+                  <descriptors>
+                    <descriptor>src/main/assembly/dep.xml</descriptor>
+                  </descriptors>
                   <finalName>myfaces-tobago-${project.version}</finalName>
                   <outputDirectory>target/assembly/out</outputDirectory>
                   <workDirectory>target/assembly/work</workDirectory>

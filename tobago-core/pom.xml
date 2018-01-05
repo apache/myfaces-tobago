@@ -52,6 +52,11 @@
             <arg>-AtargetCheckstyle=META-INF</arg>
           </compilerArgs>
         </configuration>
+        <executions>
+          <execution>
+            <id>generate-sources</id>
+          </execution>
+        </executions>
       </plugin>
       <plugin>
         <artifactId>maven-resources-plugin</artifactId>
@@ -81,13 +86,14 @@
           <execution>
             <id>test-jar</id>
             <goals>
-             <goal>test-jar</goal>
-           </goals>
+              <goal>test-jar</goal>
+            </goals>
           </execution>
           <execution>
+            <id>default-jar</id>
             <goals>
-             <goal>jar</goal>
-           </goals>
+              <goal>jar</goal>
+            </goals>
           </execution>
         </executions>
         <configuration>
@@ -116,7 +122,9 @@
         <executions>
           <execution>
             <id>attach-source</id>
-            <goals><goal>jar</goal></goals>
+            <goals>
+              <goal>jar</goal>
+            </goals>
           </execution>
         </executions>
       </plugin>
@@ -226,7 +234,7 @@
             <executions>
               <execution>
                 <id>attach-tlddoc</id>
-                <phase>generate-sources</phase>
+                <phase>prepare-package</phase>
                 <goals>
                   <goal>vdldoc</goal>
                 </goals>
@@ -239,14 +247,13 @@
             <executions>
               <execution>
                 <id>tlddoc-jar</id>
-                <phase>process-resources</phase>
+                <phase>package</phase>
                 <goals>
-                  <goal>assembly</goal>
+                  <goal>single</goal>
                 </goals>
               </execution>
             </executions>
             <configuration>
-              <classifier>tlddoc</classifier>
               <descriptors>
                 <descriptor>assembly-tlddoc.xml</descriptor>
               </descriptors>
@@ -256,56 +263,6 @@
       </build>
     </profile>
 
-    <profile>
-      <id>generate-assembly</id>
-      <build>
-        <plugins>
-          <plugin>
-            <groupId>com.github.matinh.vdldoc</groupId>
-            <artifactId>vdldoc-maven-plugin</artifactId>
-            <configuration>
-              <destDir>tlddoc</destDir>
-              <documentTitle>Tag Library Documentation</documentTitle>
-              <excludes>
-                <exclude>target/classes/**</exclude>
-              </excludes>
-              <includes>
-                <include>target/generated/META-INF/tobago.taglib.xml</include>
-              </includes>
-              <reportOutputDirectory>target</reportOutputDirectory>
-            </configuration>
-            <executions>
-              <execution>
-                <id>attach-tlddoc</id>
-                <phase>generate-resources</phase>
-                <goals>
-                  <goal>vdldoc</goal>
-                </goals>
-              </execution>
-            </executions>
-          </plugin>
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-assembly-plugin</artifactId>
-            <executions>
-              <execution>
-                <id>tlddoc-jar</id>
-                <phase>process-resources</phase>
-                <goals>
-                  <goal>assembly</goal>
-                </goals>
-              </execution>
-            </executions>
-            <configuration>
-              <classifier>tlddoc</classifier>
-              <descriptors>
-                <descriptor>assembly-tlddoc.xml</descriptor>
-              </descriptors>
-            </configuration>
-          </plugin>
-        </plugins>
-      </build>
-    </profile>
     <profile>
       <id>attach-source</id>
       <build>
