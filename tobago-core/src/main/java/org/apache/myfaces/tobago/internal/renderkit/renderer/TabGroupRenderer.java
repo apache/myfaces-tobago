@@ -178,8 +178,8 @@ public class TabGroupRenderer extends RendererBase implements ComponentSystemEve
     int index = -1;
     int closestRenderedTabIndex = -1;
     for (final UIComponent tab : tabGroup.getChildren()) {
-      index++;
       if (tab instanceof AbstractUIPanelBase) {
+        index++;
         if (index == activeIndex) {
           if (tab.isRendered()) {
             return index;
@@ -312,8 +312,8 @@ public class TabGroupRenderer extends RendererBase implements ComponentSystemEve
 
           writer.endElement(HtmlElements.LI);
         }
+        index++;
       }
-      index++;
     }
     writer.endElement(HtmlElements.UL);
   }
