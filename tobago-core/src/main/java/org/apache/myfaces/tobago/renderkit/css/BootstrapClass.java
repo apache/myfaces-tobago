@@ -677,7 +677,7 @@ public enum BootstrapClass implements CssItem {
         final Measure measure = Measure.valueOf(overwrite.toString(), Measure.Unit.SEG);
         final BootstrapClass bootstrapClass = valueOf(getSegmentMeasure(measure), attribute);
         result.add(bootstrapClass);
-      } else if (tokens != null) {
+      } else if (tokens != null && tokens.getSize() > 0) {
         final Measure measure = tokens.get(index % tokens.getSize());
         final BootstrapClass bootstrapClass = valueOf(getSegmentMeasure(measure), attribute);
         result.add(bootstrapClass);
@@ -706,7 +706,7 @@ public enum BootstrapClass implements CssItem {
         final Margin margin = MarginTokens.parseToken((String) overwrite);
         final BootstrapClass bootstrapClass = valueOf(margin, attribute);
         result.add(bootstrapClass);
-      } else if (margins != null) {
+      } else if (margins != null && margins.getSize() > 0) {
         final Margin margin = margins.get(index % margins.getSize());
         final BootstrapClass bootstrapClass = valueOf(margin, attribute);
         result.add(bootstrapClass);
