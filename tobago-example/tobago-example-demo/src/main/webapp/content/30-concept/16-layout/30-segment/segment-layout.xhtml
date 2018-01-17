@@ -30,7 +30,8 @@
            link="#{demoBundle.tagDocUrl}/#{info.stableVersion}/tld/tc/segmentLayout.html"/>
 
   <tc:section label="Basics">
-    <p>This example show a segment layout with four and three columns and a segment layout with 'auto' and '*'.</p>
+    <p>The following examples show a segment layout with four and three columns
+      and a segment layout with 'auto' and '1fr'.</p>
     <tc:section label="4 Columns">
       <p>The sum of the values is 12.</p>
       <pre><code class="language-markup">&lt;tc:segmentLayout extraSmall="2seg 3seg 4seg 3seg"></code></pre>
@@ -45,7 +46,7 @@
         <tc:in value="3"/>
       </tc:segmentLayout>
     </tc:section>
-    <tc:section label="5 Columns">
+    <tc:section label="3 Columns">
       <p>The sum of the values is 8. After the third element, the sequence starts from the beginning.
         So the fourth element got a value of 2.</p>
       <pre><code class="language-markup">&lt;tc:segmentLayout extraSmall="2seg 2seg 4seg"></code></pre>
