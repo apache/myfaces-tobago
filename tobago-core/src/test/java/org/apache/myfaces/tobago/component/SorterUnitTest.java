@@ -34,7 +34,7 @@ public class SorterUnitTest extends AbstractTobagoTestBase {
         final UISheet sheet = new UISheet();
         final UIColumn column = new UIColumn();
         sheet.getChildren().add(column);
-        
+
         final Sorter sorter = new Sorter();
         final SortActionEvent sortActionEvent = new SortActionEvent(sheet, column);
         sorter.perform(sortActionEvent);
@@ -47,7 +47,7 @@ public class SorterUnitTest extends AbstractTobagoTestBase {
         column.getChildren().add(link);
 
         sorter.perform(sortActionEvent);
-        
+
         link.setValueExpression(Attributes.label.getName(),
                 new MockValueExpression("var.test", String.class));
 

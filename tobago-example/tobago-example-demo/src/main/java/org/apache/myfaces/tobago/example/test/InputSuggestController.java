@@ -44,5 +44,4 @@ public class InputSuggestController implements Serializable {
     li.add(prefix + 6);
     return li;
   }
-  
 }

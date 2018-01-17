@@ -49,7 +49,7 @@ public class UISheetUnitTest extends AbstractTobagoTestBase {
     unknown = new UISheet();
     unknown.setValue(new DataModelWithUnknownRows(nineRows));
   }
-  
+
   @Test
   public void test5RowsPerPage() {
     data.setRows(5);
@@ -400,5 +400,5 @@ public class UISheetUnitTest extends AbstractTobagoTestBase {
       return -1;
     }
   }
-  
+
 }

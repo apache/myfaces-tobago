@@ -37,10 +37,8 @@ import java.io.IOException;
 import java.io.Writer;
 
 /**
- * <p>
- * This provides an alternative ResponseWriter interfaces, which allows optimizations.
- * E. g. some attributes needed to to be escaped.
- * </p>
+ * <p> This provides an alternative ResponseWriter interfaces, which allows optimizations. E. g. some attributes needed
+ * to to be escaped. </p>
  */
 public abstract class TobagoResponseWriter extends ResponseWriter {
 
@@ -63,7 +61,7 @@ public abstract class TobagoResponseWriter extends ResponseWriter {
   @Deprecated
   @Override
   public abstract void endElement(String name) throws IOException;
-    
+
   public abstract void endElement(HtmlElements name) throws IOException;
 
   @Override
@@ -102,8 +100,8 @@ public abstract class TobagoResponseWriter extends ResponseWriter {
   // others (not from ResponseWriter)
 
   /**
-   * Writes a string attribute. The renderer may set escape=false to switch of escaping of the string,
-   * if it is not necessary.
+   * Writes a string attribute. The renderer may set escape=false to switch of escaping of the string, if it is not
+   * necessary.
    */
   public abstract void writeAttribute(MarkupLanguageAttributes name, String string, boolean escape) throws IOException;
 
@@ -175,7 +173,7 @@ public abstract class TobagoResponseWriter extends ResponseWriter {
    * Write the class attribute. The value will not escaped.
    */
   public void writeClassAttribute(final CssItem first, final CssItem[] second, final CssItem[] third,
-      final CssItem... fourth) throws IOException {
+                                  final CssItem... fourth) throws IOException {
     writeClassAttribute(first, second, third, null, null, fourth);
   }
 
@@ -183,12 +181,13 @@ public abstract class TobagoResponseWriter extends ResponseWriter {
    * Write the class attribute. The value will not escaped.
    */
   public void writeClassAttribute(final CssItem first, final CssItem[] second, final CssItem[] third,
-      final CssItem[] fourth, final CssItem... fifth) throws IOException {
+                                  final CssItem[] fourth, final CssItem... fifth) throws IOException {
     writeClassAttribute(first, second, third, fourth, null, fifth);
   }
 
   public void writeClassAttribute(final CssItem first, final CssItem[] second, final CssItem[] third,
-      final CssItem[] fourth, final CssItem[] fifth, final CssItem... sixth) throws IOException {
+                                  final CssItem[] fourth, final CssItem[] fifth, final CssItem... sixth)
+      throws IOException {
     final StringBuilder builder = new StringBuilder();
     boolean render = false;
     if (first != null) {
@@ -230,6 +229,7 @@ public abstract class TobagoResponseWriter extends ResponseWriter {
 
   /**
    * Write the style attribute. The value may be escaped (depending of the content).
+   *
    * @deprecated since 4.0.0. UIStyle now renders itself.
    */
   @Deprecated

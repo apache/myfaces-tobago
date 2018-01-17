@@ -78,7 +78,7 @@ public enum DynamicExpression {
       case PROHIBITED:
         return "PROHIBITED";
       default:
-        throw new IllegalStateException("Unexpected DynamicExpression " + name());      
+        throw new IllegalStateException("Unexpected DynamicExpression " + name());
     }
   }
 

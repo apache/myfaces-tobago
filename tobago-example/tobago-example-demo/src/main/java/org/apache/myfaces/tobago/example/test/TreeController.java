@@ -36,7 +36,7 @@ public class TreeController implements Serializable {
   private DefaultMutableTreeNode tree = CategoryTree.createSample();
 
   private DefaultMutableTreeNode small = SmallTree.createSample();
-  
+
   private TreeState state = new TreeState(new ExpandedState(1), new SelectedState());
 
   private TreeDataModel treeInSheet = new TreeNodeDataModel(tree, false, state.getExpandedState());

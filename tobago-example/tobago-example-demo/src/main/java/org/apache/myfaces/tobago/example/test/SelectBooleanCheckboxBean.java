@@ -22,7 +22,7 @@ package org.apache.myfaces.tobago.example.test;
 import java.io.Serializable;
 
 public class SelectBooleanCheckboxBean implements Serializable {
-  
+
   private boolean value00 = true;
   private boolean value01 = true;
   private boolean value02 = true;

@@ -23,7 +23,7 @@ package org.apache.myfaces.tobago.layout;
  * Layout relevant values for the orientation.
  */
 public enum Orientation {
-  
+
   horizontal,
   vertical;
 

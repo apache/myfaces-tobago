@@ -153,7 +153,7 @@ public class Grid {
   }
 
   private void enlarge(final int newRows) {
-    
+
     // process cells
     for (int i = 0; i < newRows; i++) {
       for (int j = 0; j < columnCount; j++) {

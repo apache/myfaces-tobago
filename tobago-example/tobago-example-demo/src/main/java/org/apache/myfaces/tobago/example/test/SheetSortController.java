@@ -53,7 +53,7 @@ public class SheetSortController implements Serializable {
   }
 
   public static final class Entry {
-    
+
     private String first;
     private String second;
     private String third;
@@ -82,7 +82,7 @@ public class SheetSortController implements Serializable {
       i++;
       this.sixth = "" + upper(i) + lower(i) + lower(i) + lower(i) + lower(i);
     }
-    
+
     private char upper(final int i) {
       return (char) (i % 26 + 'A');
     }

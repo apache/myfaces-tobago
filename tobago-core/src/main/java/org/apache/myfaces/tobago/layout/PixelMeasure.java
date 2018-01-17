@@ -22,20 +22,24 @@ package org.apache.myfaces.tobago.layout;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * @deprecated since 4.1.0, please use {@link Measure}
+ */
+@Deprecated
 public final class PixelMeasure /*extends Measure*/ {
 
   private static final Logger LOG = LoggerFactory.getLogger(PixelMeasure.class);
 
   static final PixelMeasure[] PIXEL_CACHE;
   static final int PIXEL_CACHE_MAX = 4000;
-  
+
   static {
     PIXEL_CACHE = new PixelMeasure[PIXEL_CACHE_MAX + 1];
     for (int i = 0; i < PIXEL_CACHE.length; i++) {
       PIXEL_CACHE[i] = new PixelMeasure(i);
     }
   }
-  
+
   private final int pixel;
 
   private PixelMeasure(final int pixel) {
@@ -48,7 +52,7 @@ public final class PixelMeasure /*extends Measure*/ {
     }
     return new PixelMeasure(value);
   }
-  
+
   public int getPixel() {
     return pixel;
   }

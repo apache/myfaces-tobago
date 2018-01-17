@@ -35,7 +35,7 @@ public class TabChangeEvent extends ActionEvent {
     this.oldTabIndex = oldTabIndex;
     this.newTabIndex = newTabIndex;
   }
-  
+
   /**
    * @deprecated Please use {@link #TabChangeEvent(UIComponent, Integer, Integer)}
    */

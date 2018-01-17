@@ -54,7 +54,7 @@ public class PartialReloadController {
   public String error() {
     throw new DemoException("Test Exception");
   }
-  
+
   public String waitAndReload3() {
     return waitAndReload(3000);
   }

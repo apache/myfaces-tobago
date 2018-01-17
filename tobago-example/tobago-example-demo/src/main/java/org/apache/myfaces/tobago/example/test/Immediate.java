@@ -32,13 +32,13 @@ public class Immediate implements Serializable {
   private int selectOne;
   private Integer[] selectMany;
 
-  private SelectItem[] selectItems = new SelectItem[] {
-        new SelectItem(0, "Zero"),
-        new SelectItem(1, "One"),
-        new SelectItem(2, "Two"),
-        new SelectItem(3, "Tree"),
-        new SelectItem(4, "Four"),
-    };
+  private SelectItem[] selectItems = new SelectItem[]{
+      new SelectItem(0, "Zero"),
+      new SelectItem(1, "One"),
+      new SelectItem(2, "Two"),
+      new SelectItem(3, "Tree"),
+      new SelectItem(4, "Four"),
+  };
 
   private static final Logger LOG = LoggerFactory.getLogger(Immediate.class);
 
@@ -49,7 +49,7 @@ public class Immediate implements Serializable {
     LOG.warn("sess: " + facesContext.getExternalContext().getSessionMap().hashCode());
     return null;
   }
-  
+
   public String getIn() {
     return in;
   }

@@ -70,7 +70,7 @@ public final class LocaleUtils {
 
   /**
    * Returns a list of strings, which are used as suffix for resources from resource manager.
-   * 
+   * <p>
    * Sample: "de_DE" -&gt; "_de_DE", "_de", ""
    */
   public static List<String> getLocaleSuffixList(final Locale locale) {
@@ -78,7 +78,7 @@ public final class LocaleUtils {
     if (locale == null) {
       return Arrays.asList("");
     }
-    
+
     String string = locale.toString();
     final String prefix = "_";
     final List<String> locales = new ArrayList<>(4);

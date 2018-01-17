@@ -49,7 +49,7 @@ public class Upload implements Serializable {
 
     return "/test/file/file.xhtml";
   }
-  
+
   public Part getFile() {
     return part;
   }

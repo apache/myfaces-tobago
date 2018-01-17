@@ -105,7 +105,7 @@ public interface TabGroupTagDeclaration
   @UIComponentTagAttribute(type = "java.lang.Integer", defaultValue = "0")
   void setRenderedIndex(String renderedIndex);
 
-  @TagAttribute  
+  @TagAttribute
   @UIComponentTagAttribute(
       type = {},
       expression = DynamicExpression.METHOD_EXPRESSION_REQUIRED,

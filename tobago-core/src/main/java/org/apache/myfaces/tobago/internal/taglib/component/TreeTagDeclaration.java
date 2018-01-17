@@ -37,7 +37,7 @@ import org.apache.myfaces.tobago.model.Selectable;
 import javax.faces.component.UIData;
 
 /**
- * A tree with classical look. 
+ * A tree with classical look.
  * Usually used with icons and junction lines to open folder, etc.
  */
 @Tag(name = "tree")
