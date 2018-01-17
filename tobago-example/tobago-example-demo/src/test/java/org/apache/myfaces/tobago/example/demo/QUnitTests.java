@@ -497,6 +497,12 @@ public class QUnitTests {
   }
 
   @Test
+  public void testTabgroupStyle() throws UnsupportedEncodingException, InterruptedException {
+    final String page = "content/40-test/2500-tab/tabgroup-style.xhtml";
+    runStandardTest(page);
+  }
+
+  @Test
   public void testSheetTypes() throws UnsupportedEncodingException, InterruptedException {
     final String page = "content/40-test/3000-sheet/10-sheet-types/sheet-types.xhtml";
     runStandardTest(page);
