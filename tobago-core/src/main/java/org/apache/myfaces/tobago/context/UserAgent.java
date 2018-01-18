@@ -100,6 +100,7 @@ public final class UserAgent implements Serializable {
   /**
    * @deprecated no longer supported, since Tobago 1.5. Please use {@link #PRESTO}.
    */
+  @Deprecated
   public static final UserAgent OPERA = new UserAgent("opera", null);
 
   /**

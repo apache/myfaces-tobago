@@ -52,6 +52,9 @@ import javax.faces.component.UIColumn;
 public interface TreeNodeTagDeclaration
     extends HasIdBindingAndRendered, HasTip, IsDisabled, IsVisual {
 
+  /**
+   * @deprecated since 2.0.0
+   */
   @Deprecated
   @TagAttribute()
   @UIComponentTagAttribute(type = "boolean", generate = false, defaultValue = "false")

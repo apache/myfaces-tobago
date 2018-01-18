@@ -159,9 +159,9 @@ public abstract class AbstractUISheet extends AbstractUIData
   }
 
   /**
-   * @deprecated The name of this method is ambiguous.
-   * You may use {@link #getLastRowIndexOfCurrentPage()}. Deprecated since 1.5.5.
+   * @deprecated since 1.5.5, the name of this method is ambiguous. You may use {@link #getLastRowIndexOfCurrentPage()}.
    */
+  @Deprecated
   public int getLast() {
     final int last = getFirst() + getRows();
     return last < getRowCount() ? last : getRowCount();
@@ -204,7 +204,7 @@ public abstract class AbstractUISheet extends AbstractUIData
 
   /**
    * @return returns the current page (based by 1).
-   * @deprecated Please use {@link #getCurrentPage()} which returns the value zero-based. Deprecated since 1.5.5.
+   * @deprecated since 1.5.5, please use {@link #getCurrentPage()} which returns the value zero-based.
    */
   @Deprecated
   public int getPage() {

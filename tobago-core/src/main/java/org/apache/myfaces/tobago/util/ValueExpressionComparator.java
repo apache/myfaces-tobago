@@ -37,6 +37,9 @@ public class ValueExpressionComparator extends ComparatorBase {
 
   private ValueExpression valueExpression;
 
+  /**
+   * @deprecated since 4.0.0
+   */
   @Deprecated
   public ValueExpressionComparator(
       final FacesContext facesContext, final String var, final ValueExpression valueExpression) {
@@ -45,6 +48,9 @@ public class ValueExpressionComparator extends ComparatorBase {
     this.valueExpression = valueExpression;
   }
 
+  /**
+   * @deprecated since 4.0.0
+   */
   @Deprecated
   public ValueExpressionComparator(
       final FacesContext facesContext, final String var, final ValueExpression valueExpression,
@@ -55,6 +61,9 @@ public class ValueExpressionComparator extends ComparatorBase {
     this.valueExpression = valueExpression;
   }
 
+  /**
+   * @deprecated since 4.0.0
+   */
   @Deprecated
   public ValueExpressionComparator(
       final FacesContext facesContext, final String var,

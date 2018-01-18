@@ -48,7 +48,7 @@ public abstract class AbstractUIData extends javax.faces.component.UIData implem
   private static final Logger LOG = LoggerFactory.getLogger(AbstractUIData.class);
 
   /**
-   * @deprecated Since 2.0.0. The marked concept has been replaced by "selected".
+   * @deprecated since 2.0.0. The marked concept has been replaced by "selected".
    */
   @Deprecated
   public static final String SUFFIX_MARKED = "marked";
@@ -101,8 +101,9 @@ public abstract class AbstractUIData extends javax.faces.component.UIData implem
   }
 
   /**
-   * @deprecated since Tobago 3.0.0, please use {@link #getSelectable}
+   * @deprecated since 3.0.0, please use {@link #getSelectable}
    */
+  @Deprecated
   public Selectable getSelectableAsEnum() {
     return getSelectable();
   }

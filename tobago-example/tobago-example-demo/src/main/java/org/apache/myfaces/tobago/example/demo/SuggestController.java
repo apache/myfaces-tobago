@@ -64,8 +64,8 @@ public class SuggestController implements Serializable {
     return solarObjects;
   }
 
-  /*
-   * use <tc:selectItems/> instead
+  /**
+   * @deprecated use <tc:selectItems/> instead
    */
   @Deprecated
   public List<String> getInputSuggestItems(final UIInput component) {

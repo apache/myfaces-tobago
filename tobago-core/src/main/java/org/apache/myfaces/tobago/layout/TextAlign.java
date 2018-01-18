@@ -21,7 +21,7 @@ package org.apache.myfaces.tobago.layout;
 
 /**
  * Values for text alignments used with CSS.
- *
+ * <p>
  * Note: the enums are not capitalized, because of problems with {@link java.beans.PropertyEditor}.
  */
 public enum TextAlign {
@@ -54,6 +54,7 @@ public enum TextAlign {
   /**
    * @deprecated Since Tobago 3.0.0 Please use {@link TextAlign#name}
    */
+  @Deprecated
   public String getValue() {
     return name();
   }

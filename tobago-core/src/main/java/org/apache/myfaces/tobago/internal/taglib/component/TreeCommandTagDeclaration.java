@@ -49,8 +49,10 @@ import javax.faces.component.UICommand;
 
 /**
  * Renders a command inside of a tree.
+ *
  * @deprecated since 4.0.0, please use tc:link
  */
+@Deprecated
 @Tag(name = "treeCommand")
 @BodyContentDescription(anyTagOf = "facestag")
 @UIComponentTag(
@@ -78,6 +80,6 @@ import javax.faces.component.UICommand;
     rendererType = RendererTypes.TREE_COMMAND)
 public interface TreeCommandTagDeclaration
     extends HasIdBindingAndRendered, HasAction, HasActionListener, IsImmediateCommand, HasConfirmation,
-            HasLink, HasOutcome, HasFragment, IsTransition, HasTarget, IsDisabledBySecurity,
-            IsOmit, HasLabel, HasAccessKey, HasTip, HasTabIndex, IsVisual {
+    HasLink, HasOutcome, HasFragment, IsTransition, HasTarget, IsDisabledBySecurity,
+    IsOmit, HasLabel, HasAccessKey, HasTip, HasTabIndex, IsVisual {
 }

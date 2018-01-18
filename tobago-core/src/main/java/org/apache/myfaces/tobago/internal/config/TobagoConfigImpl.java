@@ -208,7 +208,7 @@ public class TobagoConfigImpl extends TobagoConfig {
   }
 
   /**
-   * @deprecated use FacesContext.isProjectStage
+   * @deprecated since 4.0.0, use FacesContext.isProjectStage
    * @return the ProjectStage
    */
   @Override
@@ -329,6 +329,7 @@ public class TobagoConfigImpl extends TobagoConfig {
 
   /**
    * {@inheritDoc}
+   * @deprecated since Tobago 3.0.0
    */
   @Override
   @Deprecated

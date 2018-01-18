@@ -45,6 +45,9 @@ public class ComponentInfo extends TagInfo {
     setComponentClassName(componentTag.uiComponent());
   }
 
+  /**
+   * @deprecated since 2.0.0
+   */
   @Deprecated
   public ComponentInfo(final String sourceClass, final String qualifiedName, final String rendererType) {
     super(sourceClass, qualifiedName, new String[]{rendererType});

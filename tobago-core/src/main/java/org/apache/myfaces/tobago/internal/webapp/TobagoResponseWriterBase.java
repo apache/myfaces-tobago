@@ -272,6 +272,9 @@ public abstract class TobagoResponseWriterBase extends TobagoResponseWriter {
     write("-->");
   }
 
+  /**
+   * @deprecated since 3.0.0
+   */
   @Override
   @Deprecated
   public void writeAttribute(final String name, final Object value, final String property)

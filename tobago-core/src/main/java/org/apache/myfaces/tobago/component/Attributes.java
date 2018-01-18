@@ -63,6 +63,9 @@ public enum Attributes {
   closed,
   collapsed,
   collapsedMode,
+  /**
+   * @deprecated since 4.0.0
+   */
   @Deprecated
   column,
   columnSpan,
@@ -259,10 +262,14 @@ public enum Attributes {
    */
   overwriteSmall,
   omit,
-  /** @deprecated */
+  /**
+   * @deprecated since 3.0.0
+   */
   @Deprecated
   onclick,
-  /** @deprecated */
+  /**
+   * @deprecated since 3.0.0
+   */
   @Deprecated
   onchange,
   open,
@@ -310,9 +317,15 @@ public enum Attributes {
   required,
   resizable,
   right,
+  /**
+   * @deprecated since 4.0.0
+   */
   @Deprecated
   rigid,
   rowId,
+  /**
+   * @deprecated since 4.0.0
+   */
   @Deprecated
   row,
   rowSpan,

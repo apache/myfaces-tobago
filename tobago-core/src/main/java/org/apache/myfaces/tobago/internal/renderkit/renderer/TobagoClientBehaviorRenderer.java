@@ -178,6 +178,7 @@ public class TobagoClientBehaviorRenderer extends javax.faces.render.ClientBehav
   /**
    * @deprecated TBD
    */
+  @Deprecated
   public static Collapse createCollapsible(final FacesContext facesContext, final UIComponent component) {
     //// TBD: is this nice? May be implemented with a JSF behaviour?
     //// BEGIN

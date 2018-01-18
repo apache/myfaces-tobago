@@ -71,12 +71,18 @@ public class DebugResponseWriterWrapper extends TobagoResponseWriter {
     return new DebugResponseWriterWrapper((TobagoResponseWriter) responseWriter.cloneWithWriter(writer));
   }
 
+  /**
+   * @deprecated since 1.0.11
+   */
   @Override
   @Deprecated
   public void writeAttribute(final String name, final Object value, final String property) throws IOException {
     responseWriter.writeAttribute(name, value, property);
   }
 
+  /**
+   * @deprecated since 1.0.11
+   */
   @Override
   @Deprecated
   public void writeText(final Object text, final String property) throws IOException {
