@@ -237,9 +237,9 @@ public class EventBehavior extends ClientBehaviorBase {
     if (initialStateMarked()) {
       final Object parentSaved = super.saveState(facesContext);
       Object stateHelperSaved = null;
-      final StateHelper stateHelper = getStateHelper(false);
-      if (stateHelper != null) {
-        stateHelperSaved = stateHelper.saveState(facesContext);
+      final StateHelper myStateHelper = getStateHelper(false);
+      if (myStateHelper != null) {
+        stateHelperSaved = myStateHelper.saveState(facesContext);
       }
 
       if (parentSaved == null && stateHelperSaved == null) {
@@ -250,9 +250,9 @@ public class EventBehavior extends ClientBehaviorBase {
     } else {
       final Object[] values = new Object[2];
       values[0] = super.saveState(facesContext);
-      final StateHelper stateHelper = getStateHelper(false);
-      if (stateHelper != null) {
-        values[1] = stateHelper.saveState(facesContext);
+      final StateHelper myStateHelper = getStateHelper(false);
+      if (myStateHelper != null) {
+        values[1] = myStateHelper.saveState(facesContext);
       }
       return values;
     }

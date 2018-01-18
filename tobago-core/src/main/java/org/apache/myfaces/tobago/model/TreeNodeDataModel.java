@@ -79,8 +79,8 @@ public class TreeNodeDataModel extends TreeDataModel {
   }
 
   @Override
-  public void update(final ExpandedState expandedState) {
-    this.expandedState = expandedState;
+  public void update(final ExpandedState update) {
+    this.expandedState = update;
     TreeNode current = data;
     int counter = back.size();
     while (current != null) {
@@ -188,8 +188,8 @@ public class TreeNodeDataModel extends TreeDataModel {
   }
 
   @Override
-  public void setWrappedData(final Object data) {
-    this.data = (TreeNode) data;
+  public void setWrappedData(final Object wrappedData) {
+    this.data = (TreeNode) wrappedData;
   }
 
   @Override
@@ -203,8 +203,8 @@ public class TreeNodeDataModel extends TreeDataModel {
     }
     TreeNode node = start.getParent();
     while (node != null && back.get(node) != null) {
-      final Data data = mapping.get(back.get(node));
-      if (data.getNode().getParent() == null && !showRoot) {
+      final Data temp = mapping.get(back.get(node));
+      if (temp.getNode().getParent() == null && !showRoot) {
         return true;
       }
       if (!expandedState.isExpanded(new TreePath(node))) {

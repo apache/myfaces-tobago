@@ -311,16 +311,16 @@ public class EventController implements Serializable {
     public String getSpecialEvents() {
       final Set<String> specialEventNames = new TreeSet<>();
 
-      for (final String eventName : eventNames) {
+      for (final String name : eventNames) {
         boolean isSpecialEvent = true;
         for (final CommonEvent commonEvent : CommonEvent.values()) {
-          if (eventName.equals(commonEvent.name())) {
+          if (name.equals(commonEvent.name())) {
             isSpecialEvent = false;
           }
         }
 
         if (isSpecialEvent) {
-          specialEventNames.add(eventName);
+          specialEventNames.add(name);
         }
       }
 

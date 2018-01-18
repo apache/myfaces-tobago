@@ -100,17 +100,17 @@ public class Command {
     if (!ComponentUtils.getBooleanAttribute(component, Attributes.transition)) {
       this.transition = Boolean.FALSE;
     }
-    final String target = ComponentUtils.getStringAttribute(component, Attributes.target);
-    if (target != null) {
-      this.target = target;
+    final String targetAttribute = ComponentUtils.getStringAttribute(component, Attributes.target);
+    if (targetAttribute != null) {
+      this.target = targetAttribute;
     }
     if (focusId != null) {
       this.focus = focusId;
     }
 
-    final int delay = ComponentUtils.getIntAttribute(component, Attributes.delay);
-    if (delay > 0) {
-      this.delay = delay;
+    final int delayAttribute = ComponentUtils.getIntAttribute(component, Attributes.delay);
+    if (delayAttribute > 0) {
+      this.delay = delayAttribute;
     }
     // omit == false is the default
     if (ComponentUtils.getBooleanAttribute(component, Attributes.omit)) {

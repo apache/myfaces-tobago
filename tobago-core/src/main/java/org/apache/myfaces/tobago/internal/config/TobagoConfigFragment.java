@@ -61,8 +61,8 @@ public class TobagoConfigFragment {
     mimeTypes = new HashMap<>();
   }
 
-  public void addSupportedThemeName(final String name) {
-    supportedThemeNames.add(name);
+  public void addSupportedThemeName(final String supportedThemeName) {
+    supportedThemeNames.add(supportedThemeName);
   }
 
   public List<String> getSupportedThemeNames() {
@@ -89,16 +89,16 @@ public class TobagoConfigFragment {
     return before;
   }
 
-  public void addBefore(final String name) {
-    before.add(name);
+  public void addBefore(final String nameBefore) {
+    before.add(nameBefore);
   }
 
   public List<String> getAfter() {
     return after;
   }
 
-  public void addAfter(final String name) {
-    after.add(name);
+  public void addAfter(final String nameAfter) {
+    after.add(nameAfter);
   }
 
   public void addThemeDefinition(final ThemeImpl theme) {

@@ -145,8 +145,8 @@ public class TobagoResponseWriterUnitTest extends AbstractJsfTestCase {
 
   @Test
   public void testCharArray() throws IOException {
-    final TobagoResponseWriter writer = new XmlResponseWriter(stringWriter, "text/xml", "ISO-8859-1");
-    writer.writeText("123".toCharArray(), 0, 3);
+    final TobagoResponseWriter xmlResponseWriter = new XmlResponseWriter(stringWriter, "text/xml", "ISO-8859-1");
+    xmlResponseWriter.writeText("123".toCharArray(), 0, 3);
     Assert.assertEquals("123", stringWriter.toString());
   }
 }

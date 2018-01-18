@@ -92,7 +92,7 @@ public class ConstantMethodExpression extends MethodExpression implements StateH
   }
 
   @Override
-  public void setTransient(final boolean transientFlag) {
+  public void setTransient(final boolean transientFlagParameter) {
     this.transientFlag = transientFlag;
   }
 

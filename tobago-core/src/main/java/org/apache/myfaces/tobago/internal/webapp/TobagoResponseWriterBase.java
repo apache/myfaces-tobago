@@ -122,15 +122,15 @@ public abstract class TobagoResponseWriterBase extends TobagoResponseWriter {
     writeInternal(writer, string);
   }
 
-  protected final void writeInternal(final Writer writer, final String string) throws IOException {
+  protected final void writeInternal(final Writer sink, final String string) throws IOException {
     closeOpenTag();
-    writer.write(string);
+    sink.write(string);
   }
 
   @Override
-  public void write(final int i) throws IOException {
+  public void write(final int j) throws IOException {
     closeOpenTag();
-    writer.write(i);
+    writer.write(j);
   }
 
   @Override
@@ -140,9 +140,9 @@ public abstract class TobagoResponseWriterBase extends TobagoResponseWriter {
   }
 
   @Override
-  public void write(final String string, final int i, final int i1) throws IOException {
+  public void write(final String string, final int j, final int k) throws IOException {
     closeOpenTag();
-    writer.write(string, i, i1);
+    writer.write(string, j, k);
   }
 
   @Override
@@ -211,18 +211,18 @@ public abstract class TobagoResponseWriterBase extends TobagoResponseWriter {
     }
   }
 
-  protected void startElementInternal(final Writer writer, final String name, final boolean inline)
+  protected void startElementInternal(final Writer sink, final String name, final boolean inline)
       throws IOException {
 //    closeOpenTag();
     if (startStillOpen) {
-      writer.write(">");
+      sink.write(">");
     }
     if (!ajax && inlineStack <= 1) {
-      writer.write("\n");
-      writer.write(StringUtils.repeat("  ", i));
+      sink.write("\n");
+      sink.write(StringUtils.repeat("  ", i));
     }
-    writer.write("<");
-    writer.write(name);
+    sink.write("<");
+    sink.write(name);
     startStillOpen = true;
   }
 
@@ -288,11 +288,11 @@ public abstract class TobagoResponseWriterBase extends TobagoResponseWriter {
 
   protected final String getCallingClassStackTraceElementString() {
     final StackTraceElement[] stackTrace = new Exception().getStackTrace();
-    int i = 1;
-    while (stackTrace[i].getClassName().contains("ResponseWriter")) {
-      i++;
+    int j = 1;
+    while (stackTrace[j].getClassName().contains("ResponseWriter")) {
+      j++;
     }
-    return stackTrace[i].toString();
+    return stackTrace[j].toString();
   }
 
   @Override
@@ -326,23 +326,23 @@ public abstract class TobagoResponseWriterBase extends TobagoResponseWriter {
     }
   }
 
-  protected void endElementInternal(final Writer writer, final String name, final boolean inline) throws IOException {
+  protected void endElementInternal(final Writer sink, final String name, final boolean inline) throws IOException {
     if (startStillOpen) {
-      writer.write(">");
+      sink.write(">");
     }
     if (inline || ajax) {
-      writer.write("</");
+      sink.write("</");
     } else {
-      writer.write("\n" + StringUtils.repeat("  ", i) + "</");
+      sink.write("\n" + StringUtils.repeat("  ", i) + "</");
     }
-    writer.write(name);
-    writer.write(">");
+    sink.write(name);
+    sink.write(">");
   }
 
   protected abstract void closeEmptyTag() throws IOException;
 
   protected void writeAttributeInternal(
-      final Writer writer, final MarkupLanguageAttributes name, final String value, final boolean escape)
+      final Writer sink, final MarkupLanguageAttributes name, final String value, final boolean escape)
       throws IOException {
     if (!startStillOpen) {
       final String trace = getCallingClassStackTraceElementString();
@@ -355,11 +355,11 @@ public abstract class TobagoResponseWriterBase extends TobagoResponseWriter {
     }
 
     if (value != null) {
-      writer.write(' ');
-      writer.write(name.getValue());
-      writer.write("='");
+      sink.write(' ');
+      sink.write(name.getValue());
+      sink.write("='");
       writerAttributeValue(value, escape);
-      writer.write('\'');
+      sink.write('\'');
     }
   }
   protected abstract void writerAttributeValue(String value, boolean escape) throws IOException;

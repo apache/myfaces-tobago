@@ -351,163 +351,163 @@ public class Style implements Serializable {
   public String encodeJson() {
     final StringBuilder buf = new StringBuilder("{");
 
-    final Measure width = getWidth();
-    if (width != null) {
+    final Measure widthValue = getWidth();
+    if (widthValue != null) {
       buf.append("\"width\":\"");
-      buf.append(width.serialize());
+      buf.append(widthValue.serialize());
       buf.append("\",");
     }
-    final Measure height = getHeight();
-    if (height != null) {
+    final Measure heightValue = getHeight();
+    if (heightValue != null) {
       buf.append("\"height\":\"");
-      buf.append(height.serialize());
+      buf.append(heightValue.serialize());
       buf.append("\",");
     }
-    final Measure minWidth = getMinWidth();
-    if (minWidth != null) {
+    final Measure minWidthValue = getMinWidth();
+    if (minWidthValue != null) {
       buf.append("\"minWidth\":\"");
-      buf.append(minWidth.serialize());
+      buf.append(minWidthValue.serialize());
       buf.append("\",");
     }
-    final Measure minHeight = getMinHeight();
-    if (minHeight != null) {
+    final Measure minHeightValue = getMinHeight();
+    if (minHeightValue != null) {
       buf.append("\"minHeight\":\"");
-      buf.append(minHeight.serialize());
+      buf.append(minHeightValue.serialize());
       buf.append("\",");
     }
-    final Measure maxWidth = getMaxWidth();
-    if (maxWidth != null) {
+    final Measure maxWidthValue = getMaxWidth();
+    if (maxWidthValue != null) {
       buf.append("\"maxWidth\":\"");
-      buf.append(maxWidth.serialize());
+      buf.append(maxWidthValue.serialize());
       buf.append("\",");
     }
-    final Measure maxHeight = getMaxHeight();
-    if (maxHeight != null) {
+    final Measure maxHeightValue = getMaxHeight();
+    if (maxHeightValue != null) {
       buf.append("\"maxHeight\":\"");
-      buf.append(maxHeight.serialize());
+      buf.append(maxHeightValue.serialize());
       buf.append("\",");
     }
-    final Measure left = getLeft();
-    if (left != null) {
+    final Measure leftValue = getLeft();
+    if (leftValue != null) {
       buf.append("\"left\":\"");
-      buf.append(left.serialize());
+      buf.append(leftValue.serialize());
       buf.append("\",");
     }
-    final Measure right = getRight();
-    if (right != null) {
+    final Measure rightValue = getRight();
+    if (rightValue != null) {
       buf.append("\"right\":\"");
-      buf.append(right.serialize());
+      buf.append(rightValue.serialize());
       buf.append("\",");
     }
-    final Measure top = getTop();
-    if (top != null) {
+    final Measure topValue = getTop();
+    if (topValue != null) {
       buf.append("\"top\":\"");
-      buf.append(top.serialize());
+      buf.append(topValue.serialize());
       buf.append("\",");
     }
-    final Measure bottom = getBottom();
-    if (bottom != null) {
+    final Measure bottomValue = getBottom();
+    if (bottomValue != null) {
       buf.append("\"bottom\":\"");
-      buf.append(bottom.serialize());
+      buf.append(bottomValue.serialize());
       buf.append("\",");
     }
-    final Measure paddingLeft = getPaddingLeft();
-    if (paddingLeft != null) {
+    final Measure paddingLeftValue = getPaddingLeft();
+    if (paddingLeftValue != null) {
       buf.append("\"paddingLeft\":\"");
-      buf.append(paddingLeft.serialize());
+      buf.append(paddingLeftValue.serialize());
       buf.append("\",");
     }
-    final Measure paddingRight = getPaddingRight();
-    if (paddingRight != null) {
+    final Measure paddingRightValue = getPaddingRight();
+    if (paddingRightValue != null) {
       buf.append("\"paddingRight\":\"");
-      buf.append(paddingRight.serialize());
+      buf.append(paddingRightValue.serialize());
       buf.append("\",");
     }
-    final Measure paddingTop = getPaddingTop();
-    if (paddingTop != null) {
+    final Measure paddingTopValue = getPaddingTop();
+    if (paddingTopValue != null) {
       buf.append("\"paddingTop\":\"");
-      buf.append(paddingTop.serialize());
+      buf.append(paddingTopValue.serialize());
       buf.append("\",");
     }
-    final Measure paddingBottom = getPaddingBottom();
-    if (paddingBottom != null) {
+    final Measure paddingBottomValue = getPaddingBottom();
+    if (paddingBottomValue != null) {
       buf.append("\"paddingBottom\":\"");
-      buf.append(paddingBottom.serialize());
+      buf.append(paddingBottomValue.serialize());
       buf.append("\",");
     }
-    final Measure marginLeft = getMarginLeft();
-    if (marginLeft != null) {
+    final Measure marginLeftValue = getMarginLeft();
+    if (marginLeftValue != null) {
       buf.append("\"marginLeft\":\"");
-      buf.append(marginLeft.serialize());
+      buf.append(marginLeftValue.serialize());
       buf.append("\",");
     }
-    final Measure marginRight = getMarginRight();
-    if (marginRight != null) {
+    final Measure marginRightValue = getMarginRight();
+    if (marginRightValue != null) {
       buf.append("\"marginRight\":\"");
-      buf.append(marginRight.serialize());
+      buf.append(marginRightValue.serialize());
       buf.append("\",");
     }
-    final Measure marginTop = getMarginTop();
-    if (marginTop != null) {
+    final Measure marginTopValue = getMarginTop();
+    if (marginTopValue != null) {
       buf.append("\"marginTop\":\"");
-      buf.append(marginTop.serialize());
+      buf.append(marginTopValue.serialize());
       buf.append("\",");
     }
-    final Measure marginBottom = getMarginBottom();
-    if (marginBottom != null) {
+    final Measure marginBottomValue = getMarginBottom();
+    if (marginBottomValue != null) {
       buf.append("\"marginBottom\":\"");
-      buf.append(marginBottom.serialize());
+      buf.append(marginBottomValue.serialize());
       buf.append("\",");
     }
-    final Overflow overflowX = getOverflowX();
-    if (overflowX != null) {
+    final Overflow overflowXValue = getOverflowX();
+    if (overflowXValue != null) {
       buf.append("\"overflowX\":\"");
-      buf.append(overflowX.name());
+      buf.append(overflowXValue.name());
       buf.append("\",");
     }
-    final Overflow overflowY = getOverflowY();
-    if (overflowY != null) {
+    final Overflow overflowYValue = getOverflowY();
+    if (overflowYValue != null) {
       buf.append("\"overflowY\":\"");
-      buf.append(overflowY.name());
+      buf.append(overflowYValue.name());
       buf.append("\",");
     }
-    final Display display = getDisplay();
-    if (display != null) {
+    final Display displayValue = getDisplay();
+    if (displayValue != null) {
       buf.append("\"display\":\"");
-      buf.append(display.name());
+      buf.append(displayValue.name());
       buf.append("\",");
     }
-    final Position position = getPosition();
-    if (position != null) {
+    final Position positionValue = getPosition();
+    if (positionValue != null) {
       buf.append("\"position\":\"");
-      buf.append(position.name());
+      buf.append(positionValue.name());
       buf.append("\",");
     }
     // tbd
-    final String backgroundImage = getBackgroundImage();
-    if (backgroundImage != null) {
+    final String backgroundImageValue = getBackgroundImage();
+    if (backgroundImageValue != null) {
       buf.append("\"backgroundImage\":\"");
-      buf.append(backgroundImage);
+      buf.append(backgroundImageValue);
       buf.append("\",");
     }
     // tbd
-    final String backgroundPosition = getBackgroundPosition();
-    if (backgroundPosition != null) {
+    final String backgroundPositionValue = getBackgroundPosition();
+    if (backgroundPositionValue != null) {
       buf.append("\"backgroundPosition\":\"");
-      buf.append(backgroundPosition);
+      buf.append(backgroundPositionValue);
       buf.append("\",");
     }
     // tbd
-    final Integer zIndex = getZIndex();
-    if (zIndex != null) {
+    final Integer zIndexValue = getZIndex();
+    if (zIndexValue != null) {
       buf.append("\"zIndex\":");
-      buf.append(zIndex);
+      buf.append(zIndexValue);
       buf.append(",");
     }
-    final TextAlign textAlign = getTextAlign();
-    if (textAlign != null) {
+    final TextAlign textAlignValue = getTextAlign();
+    if (textAlignValue != null) {
       buf.append("\"textAlign\":\"");
-      buf.append(textAlign.name());
+      buf.append(textAlignValue.name());
       buf.append("\",");
     }
 
@@ -1052,15 +1052,15 @@ public class Style implements Serializable {
   }
 
   // tbd
-  public void setZIndex(final Integer zIndex) {
+  public void setZIndex(final Integer zIndexValue) {
     empty = null;
-    this.zIndex = zIndex;
+    this.zIndex = zIndexValue;
   }
 
   // tbd
-  public void setZIndex(final ValueExpression zIndex) {
+  public void setZIndex(final ValueExpression zIndexValue) {
     empty = null;
-    this.zIndexVE = zIndex;
+    this.zIndexVE = zIndexValue;
   }
 
   public TextAlign getTextAlign() {

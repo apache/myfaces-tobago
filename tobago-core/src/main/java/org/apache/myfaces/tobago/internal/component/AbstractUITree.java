@@ -198,12 +198,12 @@ public abstract class AbstractUITree extends AbstractUIData implements NamingCon
     final ValueExpression expression = getValueExpression(Attributes.state.getName());
 
     if (expression != null) {
-      TreeState state = (TreeState) expression.getValue(elContext);
-      if (state == null) {
-        state = new TreeState(new ExpandedState(2), new SelectedState(), new ScrollPosition());
-        expression.setValue(elContext, state);
+      TreeState treeState = (TreeState) expression.getValue(elContext);
+      if (treeState == null) {
+        treeState = new TreeState(new ExpandedState(2), new SelectedState(), new ScrollPosition());
+        expression.setValue(elContext, treeState);
       }
-      return state;
+      return treeState;
     }
 
     state = new TreeState(new ExpandedState(2), new SelectedState(), new ScrollPosition());

@@ -219,9 +219,9 @@ public class SheetFilterController extends SheetController implements Serializab
     LOG.info("Creating items for substring: '" + substring + "'");
     final List<String> result = new ArrayList<>();
     for (final SolarObject solarObject : getSolarList()) {
-      final String name = solarObject.getName();
-      if (StringUtils.containsIgnoreCase(name, substring)) {
-        result.add(name);
+      final String solarObjectName = solarObject.getName();
+      if (StringUtils.containsIgnoreCase(solarObjectName, substring)) {
+        result.add(solarObjectName);
       }
     }
     return result;

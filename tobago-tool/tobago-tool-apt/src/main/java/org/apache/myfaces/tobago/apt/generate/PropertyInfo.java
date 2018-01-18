@@ -109,12 +109,12 @@ public class PropertyInfo {
   }
 
   public String getShortTypeProperty() {
-    final String type = getShortType();
-    final int index = type.lastIndexOf('.');
+    final String shortType = getShortType();
+    final int index = shortType.lastIndexOf('.');
     if (index != -1) {
-      return type.substring(type.lastIndexOf('.') + 1, type.length());
+      return shortType.substring(shortType.lastIndexOf('.') + 1, shortType.length());
     }
-    return type;
+    return shortType;
   }
 
   public String getUpperCamelCaseName() {
@@ -248,8 +248,8 @@ public class PropertyInfo {
     return transientValue;
   }
 
-  public void setTransient(final boolean transientValue) {
-    this.transientValue = transientValue;
+  public void setTransient(final boolean transientValueParameter) {
+    this.transientValue = transientValueParameter;
   }
 
   public boolean isGenerate() {

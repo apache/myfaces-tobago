@@ -81,8 +81,8 @@ public abstract class AbstractUISheet extends AbstractUIData
 
   @Override
   public void encodeBegin(final FacesContext facesContext) throws IOException {
-    final SheetState state = getSheetState(facesContext);
-    final int first = state.getFirst();
+    final SheetState theState = getSheetState(facesContext);
+    final int first = theState.getFirst();
     if (first > -1 && (!hasRowCount() || first < getRowCount())) {
       final ValueExpression expression = getValueExpression(Attributes.first.getName());
       if (expression != null) {
@@ -313,10 +313,10 @@ public abstract class AbstractUISheet extends AbstractUIData
   public void processUpdates(final FacesContext context) {
     super.processUpdates(context);
 
-    final SheetState state = getSheetState(context);
-    if (state != null) {
+    final SheetState sheetState = getSheetState(context);
+    if (sheetState != null) {
       final List<Integer> list = (List<Integer>) ComponentUtils.getAttribute(this, Attributes.selectedListString);
-      state.setSelectedRows(list != null ? list : Collections.emptyList());
+      sheetState.setSelectedRows(list != null ? list : Collections.emptyList());
       ComponentUtils.removeAttribute(this, Attributes.selectedListString);
       ComponentUtils.removeAttribute(this, Attributes.scrollPosition);
     }

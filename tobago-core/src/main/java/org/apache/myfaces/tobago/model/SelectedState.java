@@ -29,27 +29,27 @@ import java.util.Set;
 // TODO: might be renamed to SelectedTreeState?
 public class SelectedState implements Serializable {
 
-  private Set<TreePath> selected = new HashSet<>();
+  private Set<TreePath> selectedPaths = new HashSet<>();
 
   /**
    * Checks if the given is selected.
    */
   public boolean isSelected(final TreePath path) {
-    return selected.contains(path);
+    return selectedPaths.contains(path);
   }
 
   /**
    * Select the given path.
    */
   public void select(final TreePath path) {
-    selected.add(path);
+    selectedPaths.add(path);
   }
 
   /**
    * Unselect the given path.
    */
   public void unselect(final TreePath path) {
-    selected.remove(path);
+    selectedPaths.remove(path);
   }
 
   /**
@@ -65,7 +65,7 @@ public class SelectedState implements Serializable {
    * Clears the selected state, so that no TreePath is selected.
    */
   public void clear() {
-    selected.clear();
+    selectedPaths.clear();
   }
 
   /**

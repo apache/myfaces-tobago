@@ -242,14 +242,12 @@ public class Sudoku {
 
     public Stack<Byte> asStack() {
       final Stack<Byte> stack = new Stack<>();
-      for (final Byte aByte : list) {
-        stack.add(aByte);
-      }
+      stack.addAll(list);
       return stack;
     }
 
-    public void removeSmallest(final int n) {
-      for (byte i = 0; i < n; i++) {
+    public void removeSmallest(final int m) {
+      for (byte i = 0; i < m; i++) {
         list.remove((Byte) i);
       }
     }

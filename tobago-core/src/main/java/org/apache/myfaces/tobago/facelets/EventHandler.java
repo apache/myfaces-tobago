@@ -183,10 +183,10 @@ public class EventHandler extends TobagoComponentHandler implements BehaviorHold
       final FaceletContext faceletContext, final UIComponent component, final UIComponent parent) {
     super.onComponentCreated(faceletContext, component, parent);
 
-    final UIEvent event = (UIEvent) component;
-    if (event.getEvent() == null) {
-      final ClientBehaviorHolder cvh = (ClientBehaviorHolder) parent;
-      event.setEvent(ClientBehaviors.valueOf(cvh.getDefaultEventName()));
+    final UIEvent uiEvent = (UIEvent) component;
+    if (uiEvent.getEvent() == null) {
+      final ClientBehaviorHolder holder = (ClientBehaviorHolder) parent;
+      uiEvent.setEvent(ClientBehaviors.valueOf(holder.getDefaultEventName()));
     }
   }
 

@@ -81,7 +81,7 @@ public class CollapsibleActionListener implements ActionListener, StateHolder {
   }
 
   @Override
-  public void setTransient(final boolean transientFlag) {
-    this.transientFlag = transientFlag;
+  public void setTransient(final boolean newTransientValue) {
+    this.transientFlag = newTransientValue;
   }
 }

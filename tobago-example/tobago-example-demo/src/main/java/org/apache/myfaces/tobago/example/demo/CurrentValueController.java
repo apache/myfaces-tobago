@@ -66,8 +66,8 @@ public class CurrentValueController {
     return calendar.getTime();
   }
 
-  public Currency toCurrency(final String string) {
-    return Currency.getInstance(string);
+  public Currency toCurrency(final String currencyString) {
+    return Currency.getInstance(currencyString);
   }
 
   public String getString() {

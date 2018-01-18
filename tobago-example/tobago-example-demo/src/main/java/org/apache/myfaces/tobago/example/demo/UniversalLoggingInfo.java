@@ -168,10 +168,10 @@ public class UniversalLoggingInfo {
       }
     }
 
-    private void invoke(final String id, final Object logger, final String name) throws Exception {
+    private void invoke(final String idString, final Object loggerObject, final String nameString) throws Exception {
       final Class clazz = usesString ? String.class : Object.class;
-      final Method method = logger.getClass().getMethod(name, clazz);
-      method.invoke(logger, "Hello " + id + ", this is the level: " + name);
+      final Method method = loggerObject.getClass().getMethod(nameString, clazz);
+      method.invoke(loggerObject, "Hello " + idString + ", this is the level: " + nameString);
     }
 
     public boolean isAvailable() {
@@ -194,20 +194,24 @@ public class UniversalLoggingInfo {
       }
 
       if (logger != null) {
-        activeLevels = "";
+        StringBuilder builder = new StringBuilder();
         for (final String call : calls) {
           try {
             if (checkLevel(category, call)) {
-              activeLevels += call + ":+ ";
+              builder.append(call);
+              builder.append(":+ ");
             } else {
-              activeLevels += call + ":- ";
+              builder.append(call);
+              builder.append(":- ");
             }
           } catch (final Exception e) {
             LOG.println(e.getMessage());
             e.printStackTrace();
-            activeLevels += call + ":? ";
+            builder.append(call);
+            builder.append(":? ");
           }
         }
+        activeLevels = builder.toString();
       } else {
         activeLevels = "n/a";
       }

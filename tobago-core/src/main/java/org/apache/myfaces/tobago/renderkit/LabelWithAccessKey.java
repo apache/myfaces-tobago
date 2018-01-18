@@ -90,7 +90,7 @@ public final class LabelWithAccessKey {
    * Ensures, that no illegal character will be write out.
    * (If this is changed from only allowing normal letters and numbers, the renderers may change the escaping)
    */
-  private boolean isPermitted(final Character accessKey) {
-    return accessKey == null || accessKey >= 'a' && accessKey <= 'z' || accessKey >= '0' && accessKey <= '9';
+  private boolean isPermitted(final Character key) {
+    return key == null || key >= 'a' && key <= 'z' || key >= '0' && key <= '9';
   }
 }

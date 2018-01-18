@@ -37,7 +37,7 @@ public class TabChangeEvent extends ActionEvent {
   }
 
   /**
-   * @deprecated Please use {@link #TabChangeEvent(UIComponent, Integer, Integer)}
+   * @deprecated since 2.0.0, please use {@link #TabChangeEvent(UIComponent, Integer, Integer)}
    */
   @Deprecated
   public TabChangeEvent(final UIComponent uiComponent, final Object oldState, final Object newState) {
@@ -67,7 +67,7 @@ public class TabChangeEvent extends ActionEvent {
   }
 
   /**
-   * @deprecated Please use {@link #getOldTabIndex()}
+   * @deprecated since 1.0.31, please use {@link #getOldTabIndex()}
    */
   @Deprecated
   public Object getOldState() {
@@ -75,15 +75,15 @@ public class TabChangeEvent extends ActionEvent {
   }
 
   /**
-   * @deprecated Not supported anymore
+   * @deprecated since 1.0.31, not supported anymore
    */
   @Deprecated
-  public void setOldState(final Object oldTabIndex) {
-    this.oldTabIndex = oldTabIndex instanceof Integer ? (Integer) oldTabIndex : -1;
+  public void setOldState(final Object oldState) {
+    this.oldTabIndex = oldState instanceof Integer ? (Integer) oldState : -1;
   }
 
   /**
-   * @deprecated Please use {@link #getNewTabIndex()}
+   * @deprecated since 1.0.31, please use {@link #getNewTabIndex()}
    */
   @Deprecated
   public Object getNewState() {
@@ -91,10 +91,10 @@ public class TabChangeEvent extends ActionEvent {
   }
 
   /**
-   * @deprecated Not supported anymore
+   * @deprecated since 1.0.31, not supported anymore
    */
   @Deprecated
-  public void setNewState(final Object newTabIndex) {
-    this.newTabIndex = newTabIndex instanceof Integer ? (Integer) newTabIndex : -1;
+  public void setNewState(final Object newState) {
+    this.newTabIndex = newState instanceof Integer ? (Integer) newState : -1;
   }
 }
