@@ -2103,6 +2103,9 @@ Tobago.Updater = {
               $container = jQuery(Tobago.Utils.escapeClientId(id));
               console.info("OVERLAY for 'id' " + $container.attr("id")); // @DEV_ONLY
             }
+            $container = $container.filter(function (index) {
+              return this instanceof HTMLElement;
+            });
             $container.overlay({error: false, ajax: true});
           }
         }
