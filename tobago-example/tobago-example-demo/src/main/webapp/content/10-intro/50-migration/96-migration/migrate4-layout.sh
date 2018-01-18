@@ -5,47 +5,48 @@
 # usage: run this file "migrate-layout.sh" in the project parent directory.
 # it will process all files in all subfolder with suffix .xhtml
 
+# The sed command syntax works with macOS.
+# For Windows (MinGW) or Linux you'll need to remove the "" behind all sed -i commands.
+# For Windows (MinGW) you may need to call unix2dos at the end.
+
 function replace_segment_one {
- file=$1
- sed -i -E "s/(extraSmall|small|medium|large|extraLarge)=\"([^\"^ ]*)([0-9]+);([0-9]+)/\1=\"\2\3seg \4/g" $file
+  sed -i "" -E "s/(extraSmall|small|medium|large|extraLarge)=\"([^\"^ ]*)([0-9]+);([0-9]+)/\1=\"\2\3seg \4/g" $1
 }
 
 function replace_segment_last {
- file=$1
- sed -i -E "s/(extraSmall|small|medium|large|extraLarge)=\"([^\"]*)([0-9]+)\"/\1=\"\2\3seg\"/g" $file
+ sed -i "" -E "s/(extraSmall|small|medium|large|extraLarge)=\"([^\"]*)([0-9]+)\"/\1=\"\2\3seg\"/g" $1
 }
 
 function replace_columns_rows {
- file=$1
- sed -i -E "s/(columns|rows)=\"([^\"]*)([0-9]+)\*/\1=\"\2\3fr/g" $file
+ sed -i "" -E "s/(columns|rows)=\"([^\"]*)([0-9]+)\*/\1=\"\2\3fr/g" $1
 }
 
 function replace_columns_rows_one {
- file=$1
- sed -i -E "s/(columns|rows)=\"([^\"]*)\*/\1=\"\21fr/g" $file
+ sed -i "" -E "s/(columns|rows)=\"([^\"]*)\*/\1=\"\21fr/g" $1
 }
 
 find . -name "*.xhtml" | while read file; do
 
-   echo "Processing file $file"
+  echo "Processing file $file"
 
-   for i in `seq 1 11`;
-   do
-       replace_segment_one $file
-   done
+  for i in `seq 1 11`;
+  do
+    replace_segment_one $file
+  done
 
-   replace_segment_last $file
+  replace_segment_last $file
 
-   for i in `seq 1 20`;
-   do
-       replace_columns_rows $file
-   done
+  for i in `seq 1 20`;
+  do
+    replace_columns_rows $file
+  done
 
-   for i in `seq 1 20`;
-   do
-       replace_columns_rows_one $file
-   done
+  for i in `seq 1 20`;
+  do
+    replace_columns_rows_one $file
+  done
 
-# only on Windows:
-#   unix2dos -q $file
+  # Windows only
+  # unix2dos -q $file
+
 done
