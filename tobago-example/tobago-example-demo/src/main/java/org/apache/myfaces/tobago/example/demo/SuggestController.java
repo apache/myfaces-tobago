@@ -65,7 +65,7 @@ public class SuggestController implements Serializable {
   }
 
   /**
-   * @deprecated use <tc:selectItems/> instead
+   * @deprecated use &lt;tc:selectItems/&gt; instead
    */
   @Deprecated
   public List<String> getInputSuggestItems(final UIInput component) {
