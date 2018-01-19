@@ -26,11 +26,9 @@ import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.internal.component.AbstractUIForm;
 import org.apache.myfaces.tobago.internal.component.AbstractUILinks;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
-import org.apache.myfaces.tobago.internal.util.JQueryUtils;
 import org.apache.myfaces.tobago.internal.util.JsonUtils;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
-import org.apache.myfaces.tobago.renderkit.css.Icons;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.Arias;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
@@ -167,17 +165,13 @@ public class BarRenderer extends RendererBase {
     writer.writeAttribute(HtmlAttributes.TYPE, HtmlButtonTypes.BUTTON);
     writer.writeClassAttribute(BootstrapClass.NAVBAR_TOGGLER);
     writer.writeAttribute(DataAttributes.TOGGLE, "collapse", false);
-    writer.writeAttribute(DataAttributes.TARGET, JQueryUtils.escapeIdForHtml(navbarId), true);
+    writer.writeAttribute(DataAttributes.TARGET, "#" + navbarId, true);
     writer.writeAttribute(Arias.EXPANDED, Boolean.FALSE.toString(), false);
     writer.writeAttribute(Arias.CONTROLS, navbarId, false);
-
-    writer.startElement(HtmlElements.I);
-    writer.writeClassAttribute(Icons.FA, Icons.BARS);
-    writer.endElement(HtmlElements.I);
+    writer.writeAttribute(Arias.LABEL, "Toggle navigation", false);
 
     writer.startElement(HtmlElements.SPAN);
-    writer.writeClassAttribute(BootstrapClass.SR_ONLY);
-    writer.writeText("Toggle navigation"); // todo: i18n
+    writer.writeClassAttribute(BootstrapClass.NAVBAR_TOGGLER_ICON);
     writer.endElement(HtmlElements.SPAN);
 
     writer.endElement(HtmlElements.BUTTON);

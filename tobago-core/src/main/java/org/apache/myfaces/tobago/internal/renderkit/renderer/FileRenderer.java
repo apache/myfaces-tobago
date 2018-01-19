@@ -172,7 +172,7 @@ public class FileRenderer extends MessageLayoutRendererBase implements Component
     writer.endElement(HtmlElements.INPUT);
 
     writer.startElement(HtmlElements.SPAN);
-    writer.writeClassAttribute(BootstrapClass.INPUT_GROUP_BTN);
+    writer.writeClassAttribute(BootstrapClass.INPUT_GROUP_APPEND);
     writer.startElement(HtmlElements.BUTTON);
     writer.writeAttribute(HtmlAttributes.TABINDEX, file.getTabIndex());
     writer.writeClassAttribute(BootstrapClass.BTN, BootstrapClass.BTN_SECONDARY);

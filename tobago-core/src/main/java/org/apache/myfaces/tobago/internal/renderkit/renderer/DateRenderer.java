@@ -89,7 +89,7 @@ public class DateRenderer extends InRenderer {
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
     writer.startElement(HtmlElements.SPAN);
-    writer.writeClassAttribute(BootstrapClass.INPUT_GROUP_BTN);
+    writer.writeClassAttribute(BootstrapClass.INPUT_GROUP_APPEND);
     writer.startElement(HtmlElements.BUTTON);
     writer.writeClassAttribute(
         BootstrapClass.BTN,
