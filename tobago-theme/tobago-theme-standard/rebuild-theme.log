@@ -1,20 +1,22 @@
-Build date: 2018-01-03 13:37:05
+Build date: 2018-01-19 15:31:40
 [INFO] Scanning for projects...
 [INFO] 
 [INFO] ------------------------------------------------------------------------
-[INFO] Building Tobago Theme Standard 4.0.1-SNAPSHOT
+[INFO] Building Tobago Theme Standard 4.1.0-SNAPSHOT
 [INFO] ------------------------------------------------------------------------
 [INFO] 
 [INFO] --- maven-enforcer-plugin:3.0.0-M1:enforce (enforce) @ tobago-theme-standard ---
 [INFO] 
 [INFO] --- maven-remote-resources-plugin:1.5:process (default) @ tobago-theme-standard ---
 [INFO] 
+[INFO] --- maven-remote-resources-plugin:1.5:process (process-resource-bundles) @ tobago-theme-standard ---
+[INFO] 
 [INFO] --- download-maven-plugin:1.4.0:wget (step #1: download-bootstrap) @ tobago-theme-standard ---
-[INFO] Got from cache: __REPO__/.cache/download-maven-plugin/v4.0.0-beta.3.zip_1da0a689af3fcbb242f6b305c138783d
+[INFO] Got from cache: __REPO__/.cache/download-maven-plugin/v4.0.0.zip_c3f0263da6170d354f8ee2265006408f
 [INFO] 
 [INFO] --- maven-resources-plugin:2.7:copy-resources (step #2: copy-bootstrap) @ tobago-theme-standard ---
 [INFO] Using 'UTF-8' encoding to copy filtered resources.
-[INFO] Copying 420 resources
+[INFO] Copying 432 resources
 [INFO] 
 [INFO] --- maven-resources-plugin:2.7:copy-resources (step #3: copy-custom) @ tobago-theme-standard ---
 [INFO] Using 'UTF-8' encoding to copy filtered resources.
@@ -24,8 +26,8 @@ Build date: 2018-01-03 13:37:05
 [INFO] Applying patch: append-tobago-theme-to-bootstrap.patch
 [INFO] 
 [INFO] --- maven-dependency-plugin:3.0.2:unpack (step #5: unpack-custom) @ tobago-theme-standard ---
-[INFO] Configured Artifact: org.apache.myfaces.tobago:tobago-core:4.0.1-SNAPSHOT:jar
-[INFO] Unpacking __REPO__/org/apache/myfaces/tobago/tobago-core/4.0.1-SNAPSHOT/tobago-core-4.0.1-SNAPSHOT.jar to __CURRENT__/tobago-theme-standard/target/bootstrap with includes "**/*.scss" and excludes ""
+[INFO] Configured Artifact: org.apache.myfaces.tobago:tobago-core:4.1.0-SNAPSHOT:jar
+[INFO] Unpacking __REPO__/org/apache/myfaces/tobago/tobago-core/4.1.0-SNAPSHOT/tobago-core-4.1.0-SNAPSHOT.jar to __CURRENT__/tobago-theme-standard/target/bootstrap with includes "**/*.scss" and excludes ""
 [INFO] 
 [INFO] --- frontend-maven-plugin:1.4:install-node-and-npm (step #6: install node and npm) @ tobago-theme-standard ---
 [INFO] Installing node version v8.9.3
@@ -38,6 +40,12 @@ Build date: 2018-01-03 13:37:05
 [INFO] 
 [INFO] --- frontend-maven-plugin:1.4:npm (step #7: npm install) @ tobago-theme-standard ---
 [INFO] Running 'npm install' in __CURRENT__/tobago-theme-standard/target/bootstrap
+[INFO] 
+[INFO] > fsevents@1.1.3 install __CURRENT__/tobago-theme-standard/target/bootstrap/node_modules/fsevents
+[INFO] > node install
+[INFO] 
+[INFO] [fsevents] Success: "__CURRENT__/tobago-theme-standard/target/bootstrap/node_modules/fsevents/lib/binding/Release/node-v57-darwin-x64/fse.node" already installed
+[INFO] Pass --update-binary to reinstall or --build-from-source to recompile
 [INFO] 
 [INFO] > uws@0.14.5 install __CURRENT__/tobago-theme-standard/target/bootstrap/node_modules/uws
 [INFO] > node-gyp rebuild > build_log.txt 2>&1 || exit 0
@@ -55,20 +63,20 @@ Build date: 2018-01-03 13:37:05
 [INFO] Testing binary
 [INFO] Binary is fine
 [INFO] 
-[INFO] > nodemon@1.14.1 postinstall __CURRENT__/tobago-theme-standard/target/bootstrap/node_modules/nodemon
-[INFO] > node -e "console.log('\u001b[32mLove nodemon? You can now support the project via the open collective:\u001b[22m\u001b[39m\n > \u001b[96m\u001b[1mhttps://opencollective.com/nodemon/donate\u001b[0m\n')"
+[INFO] > nodemon@1.14.10 postinstall __CURRENT__/tobago-theme-standard/target/bootstrap/node_modules/nodemon
+[INFO] > node -e "console.log('\u001b[32mLove nodemon? You can now support the project via the open collective:\u001b[22m\u001b[39m\n > \u001b[96m\u001b[1mhttps://opencollective.com/nodemon/donate\u001b[0m\n')" || exit 0
 [INFO] 
 [INFO] Love nodemon? You can now support the project via the open collective:
 [INFO]  > https://opencollective.com/nodemon/donate
 [INFO] 
-[WARNING] npm WARN bootstrap@4.0.0-beta.3 requires a peer of jquery@1.9.1 - 3 but none is installed. You must install peer dependencies yourself.
+[WARNING] npm WARN bootstrap@4.0.0 requires a peer of jquery@1.9.1 - 3 but none is installed. You must install peer dependencies yourself.
 [ERROR] 
-[INFO] added 1258 packages in 24.35s
+[INFO] added 1405 packages in 25.861s
 [INFO] 
 [INFO] --- frontend-maven-plugin:1.4:npm (step #8: npm run css-compile) @ tobago-theme-standard ---
 [INFO] Running 'npm run css-compile' in __CURRENT__/tobago-theme-standard/target/bootstrap
 [INFO] 
-[INFO] > bootstrap@4.0.0-beta.3 css-compile __CURRENT__/tobago-theme-standard/target/bootstrap
+[INFO] > bootstrap@4.0.0 css-compile __CURRENT__/tobago-theme-standard/target/bootstrap
 [INFO] > node-sass --output-style expanded --source-map true --source-map-contents true --precision 6 scss/bootstrap.scss dist/css/bootstrap.css && node-sass --output-style expanded --source-map true --source-map-contents true --precision 6 scss/bootstrap-grid.scss dist/css/bootstrap-grid.css && node-sass --output-style expanded --source-map true --source-map-contents true --precision 6 scss/bootstrap-reboot.scss dist/css/bootstrap-reboot.css
 [INFO] 
 [ERROR] Rendering Complete, saving .css file...
@@ -84,54 +92,54 @@ Build date: 2018-01-03 13:37:05
 [INFO] --- frontend-maven-plugin:1.4:npm (step #9: npm run css-prefix) @ tobago-theme-standard ---
 [INFO] Running 'npm run css-prefix' in __CURRENT__/tobago-theme-standard/target/bootstrap
 [INFO] 
-[INFO] > bootstrap@4.0.0-beta.3 css-prefix __CURRENT__/tobago-theme-standard/target/bootstrap
+[INFO] > bootstrap@4.0.0 css-prefix __CURRENT__/tobago-theme-standard/target/bootstrap
 [INFO] > postcss --config build/postcss.config.js --replace "dist/css/*.css" "!dist/css/*.min.css"
 [INFO] 
-[ERROR] ✔ Finished dist/css/bootstrap-grid.css (952 ms)
-[ERROR] ✔ Finished dist/css/bootstrap-reboot.css (955 ms)
-[ERROR] ✔ Finished dist/css/bootstrap.css (955 ms)
+[ERROR] ✔ Finished dist/css/bootstrap-reboot.css (912 ms)
+[ERROR] ✔ Finished dist/css/bootstrap-grid.css (915 ms)
+[ERROR] ✔ Finished dist/css/bootstrap.css (915 ms)
 [INFO] 
 [INFO] --- frontend-maven-plugin:1.4:npm (step #10: npm run css-minify) @ tobago-theme-standard ---
 [INFO] Running 'npm run css-minify' in __CURRENT__/tobago-theme-standard/target/bootstrap
 [INFO] 
-[INFO] > bootstrap@4.0.0-beta.3 css-minify __CURRENT__/tobago-theme-standard/target/bootstrap
+[INFO] > bootstrap@4.0.0 css-minify __CURRENT__/tobago-theme-standard/target/bootstrap
 [INFO] > cleancss --level 1 --source-map --source-map-inline-sources --output dist/css/bootstrap.min.css dist/css/bootstrap.css && cleancss --level 1 --source-map --source-map-inline-sources --output dist/css/bootstrap-grid.min.css dist/css/bootstrap-grid.css && cleancss --level 1 --source-map --source-map-inline-sources --output dist/css/bootstrap-reboot.min.css dist/css/bootstrap-reboot.css
 [INFO] 
 [INFO] 
 [INFO] --- frontend-maven-plugin:1.4:npm (step #11: npm run js) @ tobago-theme-standard ---
 [INFO] Running 'npm run js' in __CURRENT__/tobago-theme-standard/target/bootstrap
 [INFO] 
-[INFO] > bootstrap@4.0.0-beta.3 js __CURRENT__/tobago-theme-standard/target/bootstrap
+[INFO] > bootstrap@4.0.0 js __CURRENT__/tobago-theme-standard/target/bootstrap
 [INFO] > npm-run-all js-lint* js-compile js-minify
 [INFO] 
 [INFO] 
-[INFO] > bootstrap@4.0.0-beta.3 js-lint __CURRENT__/tobago-theme-standard/target/bootstrap
-[INFO] > eslint js/ && eslint --config js/tests/.eslintrc.json --env node build/
+[INFO] > bootstrap@4.0.0 js-lint __CURRENT__/tobago-theme-standard/target/bootstrap
+[INFO] > eslint js/ build/
 [INFO] 
 [INFO] 
-[INFO] > bootstrap@4.0.0-beta.3 js-lint-docs __CURRENT__/tobago-theme-standard/target/bootstrap
-[INFO] > eslint --config js/tests/.eslintrc.json assets/js/ docs/ sw.js
+[INFO] > bootstrap@4.0.0 js-lint-docs __CURRENT__/tobago-theme-standard/target/bootstrap
+[INFO] > eslint assets/js/ docs/ sw.js
 [INFO] 
 [INFO] 
-[INFO] > bootstrap@4.0.0-beta.3 js-compile __CURRENT__/tobago-theme-standard/target/bootstrap
+[INFO] > bootstrap@4.0.0 js-compile __CURRENT__/tobago-theme-standard/target/bootstrap
 [INFO] > npm-run-all --parallel js-compile-*
 [INFO] 
 [INFO] 
-[INFO] > bootstrap@4.0.0-beta.3 js-compile-standalone __CURRENT__/tobago-theme-standard/target/bootstrap
-[INFO] > rollup --environment BUNDLE:false --config build/rollup.config.js --sourcemap
-[INFO] 
-[INFO] 
-[INFO] > bootstrap@4.0.0-beta.3 js-compile-bundle __CURRENT__/tobago-theme-standard/target/bootstrap
+[INFO] > bootstrap@4.0.0 js-compile-bundle __CURRENT__/tobago-theme-standard/target/bootstrap
 [INFO] > rollup --environment BUNDLE:true --config build/rollup.config.js --sourcemap
 [INFO] 
 [INFO] 
-[INFO] > bootstrap@4.0.0-beta.3 js-compile-plugins __CURRENT__/tobago-theme-standard/target/bootstrap
+[INFO] > bootstrap@4.0.0 js-compile-plugins __CURRENT__/tobago-theme-standard/target/bootstrap
 [INFO] > cross-env PLUGINS=true babel js/src/ --out-dir js/dist/ --source-maps
 [INFO] 
-[ERROR] 
-[ERROR] __CURRENT__/tobago-theme-standard/target/bootstrap/js/src/index.js → dist/js/bootstrap.js...
+[INFO] 
+[INFO] > bootstrap@4.0.0 js-compile-standalone __CURRENT__/tobago-theme-standard/target/bootstrap
+[INFO] > rollup --environment BUNDLE:false --config build/rollup.config.js --sourcemap
+[INFO] 
 [ERROR] 
 [ERROR] __CURRENT__/tobago-theme-standard/target/bootstrap/js/src/index.js → dist/js/bootstrap.bundle.js...
+[ERROR] 
+[ERROR] __CURRENT__/tobago-theme-standard/target/bootstrap/js/src/index.js → dist/js/bootstrap.js...
 [INFO] js/src/alert.js -> js/dist/alert.js
 [INFO] js/src/button.js -> js/dist/button.js
 [INFO] js/src/carousel.js -> js/dist/carousel.js
@@ -144,22 +152,22 @@ Build date: 2018-01-03 13:37:05
 [INFO] js/src/tab.js -> js/dist/tab.js
 [INFO] js/src/tooltip.js -> js/dist/tooltip.js
 [INFO] js/src/util.js -> js/dist/util.js
-[ERROR] created dist/js/bootstrap.js in 2.2s
-[ERROR] created dist/js/bootstrap.bundle.js in 2.3s
+[ERROR] created dist/js/bootstrap.js in 2.3s
+[ERROR] created dist/js/bootstrap.bundle.js in 2.5s
 [INFO] 
-[INFO] > bootstrap@4.0.0-beta.3 js-minify __CURRENT__/tobago-theme-standard/target/bootstrap
+[INFO] > bootstrap@4.0.0 js-minify __CURRENT__/tobago-theme-standard/target/bootstrap
 [INFO] > npm-run-all --parallel js-minify-*
 [INFO] 
 [INFO] 
-[INFO] > bootstrap@4.0.0-beta.3 js-minify-standalone __CURRENT__/tobago-theme-standard/target/bootstrap
+[INFO] > bootstrap@4.0.0 js-minify-standalone __CURRENT__/tobago-theme-standard/target/bootstrap
 [INFO] > uglifyjs --compress typeofs=false --mangle --comments "/^!/" --source-map "content=dist/js/bootstrap.js.map,includeSources,url=bootstrap.min.js.map" --output dist/js/bootstrap.min.js dist/js/bootstrap.js
 [INFO] 
 [INFO] 
-[INFO] > bootstrap@4.0.0-beta.3 js-minify-bundle __CURRENT__/tobago-theme-standard/target/bootstrap
+[INFO] > bootstrap@4.0.0 js-minify-bundle __CURRENT__/tobago-theme-standard/target/bootstrap
 [INFO] > uglifyjs --compress typeofs=false --mangle --comments "/^!/" --source-map "content=dist/js/bootstrap.bundle.js.map,includeSources,url=bootstrap.bundle.min.js.map" --output dist/js/bootstrap.bundle.min.js dist/js/bootstrap.bundle.js
 [INFO] 
 [INFO] 
-[INFO] > bootstrap@4.0.0-beta.3 js-minify-docs __CURRENT__/tobago-theme-standard/target/bootstrap
+[INFO] > bootstrap@4.0.0 js-minify-docs __CURRENT__/tobago-theme-standard/target/bootstrap
 [INFO] > uglifyjs --mangle --comments "/^!/" --output assets/js/docs.min.js assets/js/vendor/anchor.min.js assets/js/vendor/clipboard.min.js assets/js/vendor/holder.min.js "assets/js/src/*.js"
 [INFO] 
 [ERROR] INFO: Using input source map: dist/js/bootstrap.js.map
@@ -169,6 +177,7 @@ Build date: 2018-01-03 13:37:05
 [INFO] Using 'UTF-8' encoding to copy filtered resources.
 [INFO] Copying 1 resource
 [INFO] Copying 56 resources
+[INFO] Copying 3 resources
 [INFO] Copying 3 resources
 [INFO] 
 [INFO] --- maven-resources-plugin:2.7:copy-resources (step #12: copy-bootstrap-dist) @ tobago-theme-standard ---
@@ -186,8 +195,8 @@ Build date: 2018-01-03 13:37:05
 [INFO] nothing to do, __CURRENT__/tobago-theme-standard/target/classes/META-INF/resources/tobago/standard/tether/1.1.1/css/tether-theme-basic.min.css is younger than original, use 'force' option or clean your target
 [INFO] tether-theme-arrows-dark.min.css (4681b) -> tether-theme-arrows-dark.min.min.css (4681b)[100%]
 [INFO] nothing to do, __CURRENT__/tobago-theme-standard/target/classes/META-INF/resources/tobago/standard/tether/1.1.1/css/tether-theme-arrows.min.css is younger than original, use 'force' option or clean your target
-[INFO] bootstrap.min.css (161558b) -> bootstrap.min.min.css (161296b)[99%]
-[INFO] bootstrap.css (207221b) -> bootstrap.min.css (161761b)[78%]
+[INFO] bootstrap.min.css (164254b) -> bootstrap.min.min.css (163992b)[99%]
+[INFO] bootstrap.css (210469b) -> bootstrap.min.css (164479b)[78%]
 [INFO] nothing to do, __CURRENT__/tobago-theme-standard/target/classes/META-INF/resources/tobago/standard/font-awesome/4.7.0/css/font-awesome.min.css is younger than original, use 'force' option or clean your target
 [INFO] font-awesome.min.css (31000b) -> font-awesome.min.min.css (30990b)[99%]
 [INFO] nothing to do, __CURRENT__/tobago-theme-standard/target/classes/META-INF/resources/tobago/standard/bootstrap-datetimepicker/4.17.45/css/bootstrap-datetimepicker.min.css is younger than original, use 'force' option or clean your target
@@ -200,11 +209,11 @@ Build date: 2018-01-03 13:37:05
 [INFO] nothing to do, __CURRENT__/tobago-theme-standard/target/classes/META-INF/resources/tobago/standard/tether/1.1.1/css/tether-theme-basic.min.css is younger than original, use 'force' option or clean your target
 [INFO] nothing to do, __CURRENT__/tobago-theme-standard/target/classes/META-INF/resources/tobago/standard/tether/1.1.1/css/tether-theme-arrows-dark.min.min.css is younger than original, use 'force' option or clean your target
 [INFO] nothing to do, __CURRENT__/tobago-theme-standard/target/classes/META-INF/resources/tobago/standard/tether/1.1.1/css/tether-theme-arrows.min.css is younger than original, use 'force' option or clean your target
-[INFO] bootstrap.min.css (161558b) -> bootstrap.min.min.css (161296b)[99%]
-[INFO] bootstrap.css (207221b) -> bootstrap.min.css (161761b)[78%]
+[INFO] nothing to do, __CURRENT__/tobago-theme-standard/target/classes/META-INF/resources/tobago/standard/tobago-bootstrap/_version/css/bootstrap.min.min.css is younger than original, use 'force' option or clean your target
+[INFO] nothing to do, __CURRENT__/tobago-theme-standard/target/classes/META-INF/resources/tobago/standard/tobago-bootstrap/_version/css/bootstrap.min.css is younger than original, use 'force' option or clean your target
 [INFO] nothing to do, __CURRENT__/tobago-theme-standard/target/classes/META-INF/resources/tobago/standard/font-awesome/4.7.0/css/font-awesome.min.css is younger than original, use 'force' option or clean your target
 [INFO] nothing to do, __CURRENT__/tobago-theme-standard/target/classes/META-INF/resources/tobago/standard/font-awesome/4.7.0/css/font-awesome.min.min.css is younger than original, use 'force' option or clean your target
-[INFO] total input (786474b) -> output (694962b)[88%]
+[INFO] total input (423639b) -> output (377319b)[89%]
 [INFO] nb warnings: 0, nb errors: 0
 [INFO] 
 [INFO] --- maven-compiler-plugin:3.6.2:compile (default-compile) @ tobago-theme-standard ---
@@ -228,6 +237,7 @@ main:
 [INFO] Using 'UTF-8' encoding to copy filtered resources.
 [INFO] skip non existing resourceDirectory __CURRENT__/tobago-theme-standard/src/test/resources
 [INFO] Copying 3 resources
+[INFO] Copying 3 resources
 [INFO] 
 [INFO] --- maven-compiler-plugin:3.6.2:testCompile (default-testCompile) @ tobago-theme-standard ---
 [INFO] Compiling 1 source file to __CURRENT__/tobago-theme-standard/target/test-classes
@@ -238,7 +248,7 @@ main:
  T E S T S
 -------------------------------------------------------
 Running org.apache.myfaces.tobago.renderkit.css.BootstrapClassUnitTest
-Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.306 sec - in org.apache.myfaces.tobago.renderkit.css.BootstrapClassUnitTest
+Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.304 sec - in org.apache.myfaces.tobago.renderkit.css.BootstrapClassUnitTest
 
 Results :
 
@@ -246,18 +256,18 @@ Tests run: 3, Failures: 0, Errors: 0, Skipped: 0
 
 [INFO] 
 [INFO] --- maven-jar-plugin:3.0.2:jar (default-jar) @ tobago-theme-standard ---
-[INFO] Building jar: __CURRENT__/tobago-theme-standard/target/tobago-theme-standard-4.0.1-SNAPSHOT.jar
+[INFO] Building jar: __CURRENT__/tobago-theme-standard/target/tobago-theme-standard-4.1.0-SNAPSHOT.jar
 [INFO] 
 [INFO] --- maven-site-plugin:3.6:attach-descriptor (attach-descriptor) @ tobago-theme-standard ---
 [INFO] Skipping because packaging 'jar' is not pom.
 [INFO] 
 [INFO] --- maven-install-plugin:2.5.2:install (default-install) @ tobago-theme-standard ---
-[INFO] Installing __CURRENT__/tobago-theme-standard/target/tobago-theme-standard-4.0.1-SNAPSHOT.jar to __REPO__/org/apache/myfaces/tobago/tobago-theme-standard/4.0.1-SNAPSHOT/tobago-theme-standard-4.0.1-SNAPSHOT.jar
-[INFO] Installing __CURRENT__/tobago-theme-standard/pom.xml to __REPO__/org/apache/myfaces/tobago/tobago-theme-standard/4.0.1-SNAPSHOT/tobago-theme-standard-4.0.1-SNAPSHOT.pom
+[INFO] Installing __CURRENT__/tobago-theme-standard/target/tobago-theme-standard-4.1.0-SNAPSHOT.jar to __REPO__/org/apache/myfaces/tobago/tobago-theme-standard/4.1.0-SNAPSHOT/tobago-theme-standard-4.1.0-SNAPSHOT.jar
+[INFO] Installing __CURRENT__/tobago-theme-standard/pom.xml to __REPO__/org/apache/myfaces/tobago/tobago-theme-standard/4.1.0-SNAPSHOT/tobago-theme-standard-4.1.0-SNAPSHOT.pom
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
-[INFO] Total time: 57.051 s
-[INFO] Finished at: 2018-01-03T13:38:03+01:00
-[INFO] Final Memory: 43M/839M
+[INFO] Total time: 58.438 s
+[INFO] Finished at: 2018-01-19T15:32:40+01:00
+[INFO] Final Memory: 40M/693M
 [INFO] ------------------------------------------------------------------------
