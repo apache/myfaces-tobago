@@ -9789,7 +9789,7 @@ th.tobago-sheet-headerCell-markup-filler > .tobago-sheet-header {
   /* suggest in center of an input group */
 }
 
-.input-group > .twitter-typeahead .tobago-in.tt-hint {
+.input-group > .twitter-typeahead > .tobago-in {
   width: 100%;
   border-radius: 0;
 }
@@ -9798,7 +9798,7 @@ th.tobago-sheet-headerCell-markup-filler > .tobago-sheet-header {
   /* suggest on the left of an input group */
 }
 
-.input-group > .twitter-typeahead:first-child .tobago-in.tt-input {
+.input-group > .twitter-typeahead:first-child > .tobago-in {
   border-top-left-radius: 0.25rem;
   border-bottom-left-radius: 0.25rem;
 }
@@ -9807,7 +9807,7 @@ th.tobago-sheet-headerCell-markup-filler > .tobago-sheet-header {
   /* suggest on the right of an input group */
 }
 
-.input-group > .twitter-typeahead:last-child .tobago-in.tt-input {
+.input-group > .twitter-typeahead:last-child > .tobago-in {
   border-top-right-radius: 0.25rem;
   border-bottom-right-radius: 0.25rem;
 }
