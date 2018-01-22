@@ -28,7 +28,7 @@ import javax.faces.convert.ConverterException;
 import java.util.Currency;
 
 /**
- * JSF converter for the java.util.Currency class.
+ * JSF converter for the {@link java.util.Currency} class.
  */
 @org.apache.myfaces.tobago.apt.annotation.Converter(forClass = "java.util.Currency")
 public class CurrencyConverter implements Converter {
