@@ -214,7 +214,7 @@
 
   <profiles>
     <profile>
-      <id>apache-release</id>
+      <id>generate-assembly</id>
       <build>
         <plugins>
           <plugin>
