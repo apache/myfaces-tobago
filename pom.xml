@@ -1008,9 +1008,10 @@
         <plugin>
           <groupId>org.owasp</groupId>
           <artifactId>dependency-check-maven</artifactId>
-          <version>1.4.5</version>
+          <version>3.1.0</version>
           <configuration>
-            <failBuildOnCVSS>0</failBuildOnCVSS>
+            <!-- XXX can be set to 0, after releasing checkstyle-rules 10 -->
+            <failBuildOnCVSS>5.5</failBuildOnCVSS>
             <suppressionFile>tobago/dependency-check-suppression-for-tobago-2.0.xml</suppressionFile>
           </configuration>
           <dependencies>
@@ -1522,7 +1523,7 @@
     <mojarra20.version>2.0.11-04</mojarra20.version>
     <mojarra21.version>2.1.29-08</mojarra21.version>
     <mojarra22.version>2.2.14</mojarra22.version>
-    <slf4j.version>1.7.22</slf4j.version>
+    <slf4j.version>1.7.25</slf4j.version>
     <logback.version>1.2.3</logback.version>
     <log4j.version>1.2.17</log4j.version>
     <commons-io.version>2.4</commons-io.version>
@@ -1535,7 +1536,7 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <jsf.target>2.0</jsf.target>
     <required.maven.version>2.2.1</required.maven.version>
-    <checkstyle-rules.version>8</checkstyle-rules.version>
+    <checkstyle-rules.version>9</checkstyle-rules.version>
     <tobago.basedir>${project.basedir}</tobago.basedir>
   </properties>
 </project>
