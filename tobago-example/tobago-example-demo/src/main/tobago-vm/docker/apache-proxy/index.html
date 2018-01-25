@@ -5,15 +5,112 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>Tobago Demo</title>
   <link href="https://getbootstrap.com/dist/css/bootstrap.css" rel="stylesheet">
+  <script src="https://code.jquery.com/jquery-1.11.3.js"></script>
   <style>
     div.disabled {
       opacity: 0.3;
     }
+
     .na {
       text-align: center;
       vertical-align: middle;
     }
   </style>
+  <script>
+
+    jQuery(document).ready(function () {
+
+      //
+      // EDIT HERE (START)
+      //
+
+      var versions = [
+        {
+          major: "4",
+          release: "4.0.0",
+          staging: "",
+          snapshot: "4.1.0-SNAPSHOT",
+          link: "4",
+          archived: false
+        },
+        {
+          major: "3",
+          release: "3.0.6",
+          staging: "",
+          snapshot: "3.0.7-SNAPSHOT",
+          link: "3",
+          archived: false
+        },
+        {
+          major: "2",
+          release: "2.1.0",
+          staging: "2.1.1",
+          snapshot: "2.1.2-SNAPSHOT",
+          link: "2",
+          archived: false
+        },
+        {
+          major: "1.5",
+          release: "1.5.13",
+          staging: "",
+          snapshot: "",
+          link: "1-5",
+          archived: true
+
+        },
+        {
+          major: "1.0",
+          release: "1.0.42",
+          staging: "",
+          snapshot: "",
+          link: "1-0",
+          archived: true
+        }
+      ];
+
+      //
+      // EDIT HERE (END)
+      //
+
+      var template = jQuery("#template");
+
+      for (var v = versions.length - 1; v >= 0; v--) {
+        var version = versions[v];
+        var clone = template.clone();
+
+        clone.find(".x-title").append(version.major);
+        clone.find(".x-release-version").append(version.release);
+        clone.find(".x-staging-version").prepend(version.staging + " ");
+        clone.find(".x-snapshot-version").append(version.snapshot);
+
+        if (version.staging) {
+          clone.find(".x-staging-off").get(0).setAttribute("style", "display:none !important");
+        } else {
+          clone.find(".x-staging-on").get(0).setAttribute("style", "display:none !important");
+        }
+
+        if (version.snapshot) {
+          clone.find(".x-snapshot-off").get(0).setAttribute("style", "display:none !important");
+        } else {
+          clone.find(".x-snapshot-on").get(0).setAttribute("style", "display:none !important");
+        }
+
+        clone.find(".x-release-link").attr("href", "/demo-" + version.link + "-release/");
+        clone.find(".x-staging-link").attr("href", "/demo-" + version.link + "-staging/");
+        clone.find(".x-snapshot-link").attr("href", "/demo-" + version.link + "-snapshot/");
+
+        if (version.archived) {
+          clone.find(".btn-success").removeClass("btn-success").addClass("btn-secondary");
+          clone.find(".x-release-version").append(" (archived)");
+        }
+
+        clone.insertAfter(template);
+      }
+
+      template.hide();
+
+    });
+  </script>
 </head>
 <body class="bd-home">
 
@@ -45,118 +142,38 @@
       </div>
     </div>
 
-    <!-- 4 -->
+    <!-- template -->
 
-    <div class="masthead-followup row m-0 border border-white">
+    <div id="template"
+         class="masthead-followup row m-0 border border-white">
+
       <div class="col-12 col-md-4 p-3 p-md-5 bg-light border border-white">
-        <h3>Tobago 4</h3>
-        <h5>4.0.0</h5>
+        <h3 class="x-title">Tobago </h3>
+        <h5 class="x-release-version"></h5>
         <p>Last released version.</p>
-        <a class="btn btn-success" href="/demo-4-release/">Demo</a>
+        <a  class="x-release-link btn btn-success" href="/">Demo</a>
       </div>
-      <div class="col-12 col-md-4 p-3 p-md-5 bg-light border border-white disabled d-md-flex d-none">
+
+      <div class="x-staging-on col-12 col-md-4 p-3 p-md-5 bg-light border border-white">
+        <h3 class="x-title">Tobago </h3>
+        <h5 class="x-staging-version">(not released yet)</h5>
+        <p>Voting in progress.</p>
+        <a class="x-staging-link btn btn-warning" href="/">Demo</a>
+      </div>
+      <div class="x-staging-off col-12 col-md-4 p-3 p-md-5 bg-light border border-white disabled d-md-flex d-none">
         <h3 class="na">Currently no voting active.</h3>
       </div>
-<!--
-      <div class="col-12 col-md-4 p-3 p-md-5 bg-light border border-white">
-        <h3>Tobago 4</h3>
-        <h5>4.0.0 (coming soon)</h5>
-        <p>Voting in progress.</p>
-        <a class="btn btn-warning" href="/demo-4-staging/">Demo</a>
-      </div>
--->
-      <div class="col-12 col-md-4 p-3 p-md-5 bg-light border border-white">
-        <h3>Tobago 4</h3>
-        <h5>4.0.1-SNAPSHOT</h5>
+
+      <div class="x-snapshot-on col-12 col-md-4 p-3 p-md-5 bg-light border border-white">
+        <h3 class="x-title">Tobago </h3>
+        <h5 class="x-snapshot-version"></h5>
         <p>Current development version. Work in progress.</p>
-        <a class="btn btn-danger" href="/demo-4-snapshot/">Demo</a>
+        <a class="x-snapshot-link btn btn-danger" href="/">Demo</a>
       </div>
-    </div>
+      <div class="x-snapshot-off col-12 col-md-4 p-3 p-md-5 bg-light border border-white disabled d-md-flex d-none">
+        <h3 class="na">No active development.</h3>
+      </div>
 
-    <!-- 3 -->
-
-    <div class="masthead-followup row m-0 border border-white">
-      <div class="col-12 col-md-4 p-3 p-md-5 bg-light border border-white">
-        <h3>Tobago 3</h3>
-        <h5>3.0.6</h5>
-        <p>Last released version.</p>
-        <a class="btn btn-success" href="/demo-3-release/">Demo</a>
-      </div>
-      <div class="col-12 col-md-4 p-3 p-md-5 bg-light border border-white disabled d-md-flex d-none">
-        <h3 class="na">Currently no voting active.</h3>
-<!--
-        <h3>Tobago 3</h3>
-        <h5>3.0.6 (coming soon)</h5>
-        <p>Voting in progress.</p>
-        <a class="btn btn-warning" href="/demo-3-staging/">Demo</a>
--->
-      </div>
-      <div class="col-12 col-md-4 p-3 p-md-5 bg-light border border-white">
-        <h3>Tobago 3</h3>
-        <h5>3.0.7-SNAPSHOT</h5>
-        <p>Next version in development.</p>
-        <a class="btn btn-danger" href="/demo-3-snapshot/">Demo</a>
-      </div>
-    </div>
-
-    <!-- 2 -->
-
-    <div class="masthead-followup row m-0 border border-white">
-      <div class="col-12 col-md-4 p-3 p-md-5 bg-light border border-white">
-        <h3>Tobago 2</h3>
-        <h5>2.1.0</h5>
-        <p>Last released version.</p>
-        <a class="btn btn-success" href="/demo-2-release/">Demo</a>
-      </div>
-      <div class="col-12 col-md-4 p-3 p-md-5 bg-light border border-white disabled d-md-flex d-none">
-        <h3 class="na">Currently no voting active.</h3>
-<!--
-        <h3>Tobago 2</h3>
-        <h5>2.1.1  (coming soon)</h5>
-        <p>Voting in progress.</p>
-        <a class="btn btn-warning" href="/demo-2-staging/">Demo</a>
--->
-      </div>
-      <div class="col-12 col-md-4 p-3 p-md-5 bg-light border border-white">
-        <h3>Tobago 2</h3>
-        <h5>2.1.1-SNAPSHOT</h5>
-        <p>Next version in development.</p>
-        <a class="btn btn-danger" href="/demo-2-snapshot/">Demo</a>
-      </div>
-    </div>
-
-    <!-- 1.5 -->
-
-    <div class="masthead-followup row m-0 border border-white">
-      <div class="col-12 col-md-4 p-3 p-md-5 bg-light border border-white">
-        <h3>Tobago 1.5</h3>
-        <h5>1.5.13</h5>
-        <p>Old released version.</p>
-        <a class="btn btn-secondary" href="/demo-1-5-release/">Demo</a>
-      </div>
-      <div class="col-12 col-md-4 p-3 p-md-5 bg-light border border-white disabled d-md-flex d-none">
-        <h3 class="na"></h3>
-      </div>
-      <div class="col-12 col-md-4 p-3 p-md-5 bg-light border border-white disabled d-md-flex d-none">
-        <h3 class="na"></h3>
-      </div>
-    </div>
-
-    <!-- 1 -->
-
-    <div class="masthead-followup row m-0 border border-white">
-      <div class="col-12 col-md-4 p-3 p-md-5 bg-light border border-white">
-        <h3>Tobago 1.0</h3>
-        <h5>1.0.42</h5>
-        <p>Old released version.</p>
-        <a class="btn btn-secondary" href="/demo-1-0-release/">Demo</a>
-      </div>
-      <div class="col-12 col-md-4 p-3 p-md-5 bg-light border border-white disabled d-md-flex d-none">
-        <h3 class="na"></h3>
-      </div>
-      <div class="col-12 col-md-4 p-3 p-md-5 bg-light border border-white disabled d-md-flex d-none">
-        <h3 class="na"></h3>
-      </div>
     </div>
 
   </div>
