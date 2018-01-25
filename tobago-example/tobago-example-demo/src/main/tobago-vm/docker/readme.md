@@ -16,14 +16,16 @@ git pull --rebase
 cd tobago-example/tobago-example-demo/src/main/tobago-vm/docker/
 ```
 
-```
-docker build tomcat/ -t tobago/tomcat
-docker build apache-proxy/ -t tobago/apache-proxy
-```
+Update, rebuild, run: 
 
 ```
-docker-compose pull
+docker-compose down
+
+docker pull tomcat:8.5-jre8
+docker pull debian:stable-slim
+
 docker-compose build
+
 nohup docker-compose up &
 ```
 
