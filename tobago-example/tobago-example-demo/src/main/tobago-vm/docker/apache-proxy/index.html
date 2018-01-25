@@ -4,8 +4,8 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>Tobago Demo</title>
-  <link href="https://getbootstrap.com/dist/css/bootstrap.css" rel="stylesheet">
-  <script src="https://code.jquery.com/jquery-1.11.3.js"></script>
+  <link href="bootstrap-4.0.0.css" rel="stylesheet">
+  <script src="jquery-1.11.3.js"></script>
   <style>
     div.disabled {
       opacity: 0.3;
@@ -78,6 +78,8 @@
         var version = versions[v];
         var clone = template.clone();
 
+        clone.removeClass("d-none");
+
         clone.find(".x-title").append(version.major);
         clone.find(".x-release-version").append(version.release);
         clone.find(".x-staging-version").prepend(version.staging + " ");
@@ -120,7 +122,12 @@
 </header>
 
 <main class="bd-masthead" id="content" role="main">
+
   <div class="container">
+
+    <noscript class="jumbotron masthead-followup row m-0 border border-white bg-warning">
+      <h3>Please activate JavaScript, to use this page!</h3>
+    </noscript>
 
     <div class="jumbotron masthead-followup row m-0 border border-white d-md-flex d-none">
       <h1>Demo Applications of Tobago</h1>
@@ -145,7 +152,7 @@
     <!-- template -->
 
     <div id="template"
-         class="masthead-followup row m-0 border border-white">
+         class="masthead-followup row m-0 border border-white d-none">
 
       <div class="col-12 col-md-4 p-3 p-md-5 bg-light border border-white">
         <h3 class="x-title">Tobago </h3>
