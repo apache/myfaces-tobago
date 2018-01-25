@@ -22,6 +22,8 @@ docker build apache-proxy/ -t tobago/apache-proxy
 ```
 
 ```
+docker-compose pull
+docker-compose build
 nohup docker-compose up &
 ```
 

@@ -16,7 +16,7 @@
 version: '2'
 services:
   apache:
-    image: tobago/apache-proxy:latest
+    build: apache-proxy
     ports:
       - "80:80"
 # todo     - "443:443"
@@ -53,14 +53,14 @@ services:
 #      - demo-1-0-staging
 #      - demo-1-0-snapshot
   demo-4-release:
-    image: tobago/tomcat:latest
+    build: tomcat
     environment:
       - TOBAGO_VERSION=4.0.0
       - CONTEXT_PATH=demo-4-release
     volumes:
       - /opt/docker/artifacts:/opt/docker/artifacts
 #  demo-4-staging:
-#    image: tobago/tomcat:latest
+#    build: tomcat
 #    environment:
 #      - TOBAGO_VERSION=4.0.0
 #      - STAGING_NUMBER=1122
@@ -68,21 +68,21 @@ services:
 #    volumes:
 #      - /opt/docker/artifacts:/opt/docker/artifacts
   demo-4-snapshot:
-    image: tobago/tomcat:latest
+    build: tomcat
     environment:
       - TOBAGO_VERSION=4.1.0-SNAPSHOT
       - CONTEXT_PATH=demo-4-snapshot
     volumes:
       - /opt/docker/artifacts:/opt/docker/artifacts
   demo-3-release:
-    image: tobago/tomcat:latest
+    build: tomcat
     environment:
       - TOBAGO_VERSION=3.0.6
       - CONTEXT_PATH=demo-3-release
     volumes:
       - /opt/docker/artifacts:/opt/docker/artifacts
 #  demo-3-staging:
-#    image: tobago/tomcat:latest
+#    build: tomcat
 #    environment:
 #      - TOBAGO_VERSION=3.0.6
 #      - STAGING_NUMBER=1118
@@ -90,21 +90,21 @@ services:
 #    volumes:
 #      - /opt/docker/artifacts:/opt/docker/artifacts
   demo-3-snapshot:
-    image: tobago/tomcat:latest
+    build: tomcat
     environment:
       - TOBAGO_VERSION=3.0.7-SNAPSHOT
       - CONTEXT_PATH=demo-3-snapshot
     volumes:
       - /opt/docker/artifacts:/opt/docker/artifacts
   demo-2-release:
-    image: tobago/tomcat:latest
+    build: tomcat
     environment:
       - TOBAGO_VERSION=2.1.0
       - CONTEXT_PATH=demo-2-release
     volumes:
       - /opt/docker/artifacts:/opt/docker/artifacts
   demo-2-staging:
-    image: tobago/tomcat:latest
+    build: tomcat
     environment:
       - TOBAGO_VERSION=2.1.1
       - STAGING_NUMBER=1125
@@ -112,21 +112,21 @@ services:
     volumes:
       - /opt/docker/artifacts:/opt/docker/artifacts
   demo-2-snapshot:
-    image: tobago/tomcat:latest
+    build: tomcat
     environment:
       - TOBAGO_VERSION=2.1.2-SNAPSHOT
       - CONTEXT_PATH=demo-2-snapshot
     volumes:
       - /opt/docker/artifacts:/opt/docker/artifacts
   demo-1-5-release:
-    image: tobago/tomcat:latest
+    build: tomcat
     environment:
       - TOBAGO_VERSION=1.5.13
       - CONTEXT_PATH=demo-1-5-release
     volumes:
       - /opt/docker/artifacts:/opt/docker/artifacts
   demo-1-0-release:
-    image: tobago/tomcat:latest
+    build: tomcat
     environment:
       - TOBAGO_VERSION=1.0.42
       - CONTEXT_PATH=demo-1-0-release
