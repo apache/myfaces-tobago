@@ -8905,6 +8905,10 @@ a.tobago-button.btn-secondary:focus {
   color: #292b2c;
 }
 
+button.tobago-button:disabled {
+  cursor: not-allowed;
+}
+
 button.tobago-button:disabled img, button.tobago-button:disabled span {
   pointer-events: none;
 }
