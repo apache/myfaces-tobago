@@ -9813,20 +9813,6 @@ th.tobago-sheet-headerCell-markup-filler > .tobago-sheet-header {
 }
 
 /* tab / tab-group ----------------------------------------------------------------- */
-.tobago-tab {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: justify;
-  -ms-flex-pack: justify;
-  justify-content: space-between;
-  -ms-flex-line-pack: center;
-  align-content: center;
-  margin-left: 0.2rem;
-  z-index: 0;
-  /* IE11 fix to hide bottom border on active tab */
-}
-
 .tobago-tab .nav-link:not([href]):not([tabindex]) {
   /* fix .nav-links without 'href'; bootstrap tab only works if 'href' is set */
 }
@@ -9854,18 +9840,45 @@ th.tobago-sheet-headerCell-markup-filler > .tobago-sheet-header {
   color: #d7d7d7;
 }
 
-.tab-content {
-  border: 1px solid #ddd;
-  border-radius: 0.25rem;
-  padding: 0.3rem;
+.tobago-tab.tobago-tab-barFacet {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.tobago-tab.tobago-tab-barFacet > .nav-link {
+  border-right: 0;
+  border-top-right-radius: 0;
+}
+
+.tobago-tab.tobago-tab-barFacet > div {
+  border: white solid transparent;
+  border-top-right-radius: 0.25rem;
+  padding-right: 1rem;
+}
+
+.tobago-tab.tobago-tab-barFacet > div > button {
+  height: 100%;
+}
+
+.tobago-tab.tobago-tab-barFacet > div > a {
+  display: inline-block;
+  padding-top: 0.5rem;
+}
+
+.tobago-tab.tobago-tab-barFacet .nav-link.active + div {
+  background-color: #fff;
+  border-top-color: white;
+  border-right-color: white;
+}
+
+.tobago-tab.tobago-tab-barFacet .nav-link:not(.disabled):hover + div {
+  border-top-color: #e3e4e5;
+  border-right-color: #e3e4e5;
 }
 
 .tobago-tabGroup {
   margin-bottom: 1rem;
-}
-
-.tobago-tabGroup > .tobago-tabGroup-header.nav-tabs {
-  border-bottom-width: 0;
 }
 
 /* tree ---------------------------------------------------------------------- */
@@ -10102,20 +10115,20 @@ fixme: there is a problem with the selectManyShuttle with this style.
   right: 1em;
 }
 
-.card {
+.tobago-box.card {
   border: 0;
   box-shadow: none;
   border-left: 10px solid #e0d0be;
 }
 
-.card-header {
+.tobago-box-header.card-header {
   overflow: hidden;
   border-bottom: 0;
   background-color: #e0d0be;
   padding-left: 0.5rem;
 }
 
-.card-header h3 {
+.tobago-box-header.card-header h3 {
   margin-bottom: 0;
 }
 
@@ -10269,12 +10282,12 @@ header.tobago-header.fixed-top .nav-item {
   float: left;
 }
 
-header.tobago-header.fixed-top a, header.tobago-header.fixed-top button.tobago-link:not(.dropdown-item) {
+header.tobago-header.fixed-top a.tobago-link:not(.dropdown-item), header.tobago-header.fixed-top button.tobago-link:not(.dropdown-item) {
   color: #185722;
   text-decoration: none;
 }
 
-header.tobago-header.fixed-top a:hover, header.tobago-header.fixed-top a:focus, header.tobago-header.fixed-top button.tobago-link:not(.dropdown-item):hover, header.tobago-header.fixed-top button.tobago-link:not(.dropdown-item):focus {
+header.tobago-header.fixed-top a.tobago-link:not(.dropdown-item):hover, header.tobago-header.fixed-top a.tobago-link:not(.dropdown-item):focus, header.tobago-header.fixed-top button.tobago-link:not(.dropdown-item):hover, header.tobago-header.fixed-top button.tobago-link:not(.dropdown-item):focus {
   color: #d90;
   cursor: pointer;
   text-decoration: none;
@@ -10662,6 +10675,54 @@ p, .control-label {
 .card-body .tab-content {
   margin-top: 1.5em;
   padding: 0;
+}
+
+.tobago-tabGroup.card {
+  border: 0;
+}
+
+.tobago-tabGroup.card > .card-header {
+  padding-top: 0;
+  padding-left: 0.5rem;
+  padding-right: 0.6rem;
+  border-bottom: 0;
+}
+
+.tobago-tab {
+  margin-left: 0.2rem;
+}
+
+.tobago-tabGroup .nav-tabs .nav-item .nav-link {
+  color: #185722;
+}
+
+.tobago-tabGroup .nav-tabs .nav-item .nav-link:hover {
+  color: #d90;
+}
+
+.tobago-tabGroup .nav-tabs .nav-item .nav-link.active:hover {
+  color: #185722;
+}
+
+.tobago-tabGroup .nav-tabs .nav-item .nav-link.disabled {
+  color: #d7d7d7;
+}
+
+.tobago-tabGroup .nav-tabs .nav-item .nav-link.disabled:hover {
+  color: #d7d7d7;
+}
+
+.tobago-tab .nav-link:not([href]):not([tabindex]):not(.active):not(.disabled) {
+  /* fix style form standard theme */
+  color: #185722;
+}
+
+.tobago-tab .nav-link:not([href]):not([tabindex]):not(.active):not(.disabled):hover {
+  color: #d90;
+}
+
+.tobago-tab.tobago-tab-barFacet .nav-link.disabled + div {
+  background-color: #f7f7f7;
 }
 
 /* padding: 0.1px = hack! Padding '0' would be remove margin-bottom from .form-group */

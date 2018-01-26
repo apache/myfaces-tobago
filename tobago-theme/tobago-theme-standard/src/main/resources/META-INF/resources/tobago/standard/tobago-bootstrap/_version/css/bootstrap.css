@@ -10022,20 +10022,6 @@ th.tobago-sheet-headerCell-markup-filler > .tobago-sheet-header {
 }
 
 /* tab / tab-group ----------------------------------------------------------------- */
-.tobago-tab {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: justify;
-  -ms-flex-pack: justify;
-  justify-content: space-between;
-  -ms-flex-line-pack: center;
-  align-content: center;
-  margin-left: 0.2rem;
-  z-index: 0;
-  /* IE11 fix to hide bottom border on active tab */
-}
-
 .tobago-tab .nav-link:not([href]):not([tabindex]) {
   /* fix .nav-links without 'href'; bootstrap tab only works if 'href' is set */
 }
@@ -10063,18 +10049,45 @@ th.tobago-sheet-headerCell-markup-filler > .tobago-sheet-header {
   color: #6c757d;
 }
 
-.tab-content {
-  border: 1px solid #ddd;
-  border-radius: 0.25rem;
-  padding: 0.3rem;
+.tobago-tab.tobago-tab-barFacet {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.tobago-tab.tobago-tab-barFacet > .nav-link {
+  border-right: 0;
+  border-top-right-radius: 0;
+}
+
+.tobago-tab.tobago-tab-barFacet > div {
+  border: 1px solid transparent;
+  border-top-right-radius: 0.25rem;
+  padding-right: 1rem;
+}
+
+.tobago-tab.tobago-tab-barFacet > div > button {
+  height: 100%;
+}
+
+.tobago-tab.tobago-tab-barFacet > div > a {
+  display: inline-block;
+  padding-top: 0.5rem;
+}
+
+.tobago-tab.tobago-tab-barFacet .nav-link.active + div {
+  background-color: #fff;
+  border-top-color: #dee2e6;
+  border-right-color: #dee2e6;
+}
+
+.tobago-tab.tobago-tab-barFacet .nav-link:not(.disabled):hover + div {
+  border-top-color: #e9ecef;
+  border-right-color: #e9ecef;
 }
 
 .tobago-tabGroup {
   margin-bottom: 1rem;
-}
-
-.tobago-tabGroup > .tobago-tabGroup-header.nav-tabs {
-  border-bottom-width: 0;
 }
 
 /* tree ---------------------------------------------------------------------- */
