@@ -165,6 +165,8 @@ a.tobago-button {
 
 button.tobago-button {
   &:disabled {
+    cursor: not-allowed;
+
     img, span {
       pointer-events: none;
     }
