@@ -47,13 +47,13 @@
   right: 1em;
 }
 
-.card {
+.tobago-box.card {
   border: 0;
   box-shadow: none;
   border-left: 10px solid $box-title-background-color;
 }
 
-.card-header  {
+.tobago-box-header.card-header  {
   overflow: hidden;
   border-bottom: 0;
   background-color: $box-title-background-color;

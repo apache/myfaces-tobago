@@ -152,6 +152,7 @@ public class TabGroupRenderer extends RendererBase implements ComponentSystemEve
     writer.writeClassAttribute(
         TobagoClass.TAB_GROUP,
         TobagoClass.TAB_GROUP.createMarkup(markup),
+        BootstrapClass.CARD,
         tabGroup.getCustomClass());
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, tabGroup);
     writer.writeAttribute(HtmlAttributes.SWITCHTYPE, switchType.name(), false);
@@ -213,8 +214,14 @@ public class TabGroupRenderer extends RendererBase implements ComponentSystemEve
       final int activeIndex, final SwitchType switchType)
       throws IOException {
 
+    writer.startElement(HtmlElements.DIV);
+    writer.writeClassAttribute(BootstrapClass.CARD_HEADER);
     writer.startElement(HtmlElements.UL);
-    writer.writeClassAttribute(TobagoClass.TAB_GROUP__HEADER, BootstrapClass.NAV, BootstrapClass.NAV_TABS);
+    writer.writeClassAttribute(
+        TobagoClass.TAB_GROUP__HEADER,
+        BootstrapClass.NAV,
+        BootstrapClass.NAV_TABS,
+        BootstrapClass.CARD_HEADER_TABS);
     writer.writeAttribute(HtmlAttributes.ROLE, HtmlRoleValues.TABLIST.toString(), false);
     final CommandMap tabGroupMap = RenderUtils.getBehaviorCommands(facesContext, tabGroup);
 
@@ -225,6 +232,7 @@ public class TabGroupRenderer extends RendererBase implements ComponentSystemEve
         if (tab.isRendered()) {
           final LabelWithAccessKey label = new LabelWithAccessKey(tab);
           final UIComponent labelFacet = ComponentUtils.getFacet(tab, Facets.label);
+          final UIComponent barFacet = ComponentUtils.getFacet(tab, Facets.bar);
           final boolean disabled = tab.isDisabled();
           final String tabId = tab.getClientId(facesContext);
           Markup markup = tab.getMarkup() != null ? tab.getMarkup() : Markup.NULL;
@@ -245,18 +253,13 @@ public class TabGroupRenderer extends RendererBase implements ComponentSystemEve
               TobagoClass.TAB,
               TobagoClass.TAB.createMarkup(markup),
               BootstrapClass.NAV_ITEM,
+              barFacet != null ? TobagoClass.TAB__BAR_FACET : null,
               tab.getCustomClass());
           writer.writeAttribute(HtmlAttributes.ROLE, HtmlRoleValues.PRESENTATION.toString(), false);
           writer.writeAttribute(HtmlAttributes.TABGROUPINDEX, index);
           final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, tab);
           if (title != null) {
             writer.writeAttribute(HtmlAttributes.TITLE, title, true);
-          }
-
-          if (!disabled) {
-            final CommandMap map = RenderUtils.getBehaviorCommands(facesContext, tab);
-            CommandMap.merge(map, tabGroupMap);
-            writer.writeAttribute(DataAttributes.COMMANDS, JsonUtils.encode(map), false);
           }
 
           writer.startElement(HtmlElements.A);
@@ -274,6 +277,12 @@ public class TabGroupRenderer extends RendererBase implements ComponentSystemEve
             writer.writeAttribute(HtmlAttributes.HREF, '#' + getTabPanelId(facesContext, tab), false);
             writer.writeAttribute(
                 DataAttributes.TARGET, '#' + getTabPanelId(facesContext, tab).replaceAll(":", "\\\\:"), false);
+          }
+
+          if (!disabled) {
+            final CommandMap map = RenderUtils.getBehaviorCommands(facesContext, tab);
+            CommandMap.merge(map, tabGroupMap);
+            writer.writeAttribute(DataAttributes.COMMANDS, JsonUtils.encode(map), false);
           }
 
           if (!disabled && label.getAccessKey() != null) {
@@ -305,9 +314,10 @@ public class TabGroupRenderer extends RendererBase implements ComponentSystemEve
           }
           writer.endElement(HtmlElements.A);
 
-          final UIComponent bar = ComponentUtils.getFacet(tab, Facets.bar);
-          if (bar != null) {
-            bar.encodeAll(facesContext);
+          if (barFacet != null) {
+            writer.startElement(HtmlElements.DIV);
+            barFacet.encodeAll(facesContext);
+            writer.endElement(HtmlElements.DIV);
           }
 
           writer.endElement(HtmlElements.LI);
@@ -316,13 +326,14 @@ public class TabGroupRenderer extends RendererBase implements ComponentSystemEve
       }
     }
     writer.endElement(HtmlElements.UL);
+    writer.endElement(HtmlElements.DIV);
   }
 
   protected void encodeContent(
       final FacesContext facesContext, final TobagoResponseWriter writer, final UITabGroup tabGroup,
       final int activeIndex, final SwitchType switchType) throws IOException {
     writer.startElement(HtmlElements.DIV);
-    writer.writeClassAttribute(BootstrapClass.TAB_CONTENT);
+    writer.writeClassAttribute(BootstrapClass.CARD_BODY, BootstrapClass.TAB_CONTENT);
     int index = 0;
     for (final UIComponent tab : tabGroup.getChildren()) {
       if (tab instanceof UITab) {

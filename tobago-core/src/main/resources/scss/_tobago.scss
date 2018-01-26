@@ -1140,15 +1140,10 @@ th.tobago-sheet-headerCell-markup-filler > .tobago-sheet-header {
 }
 
 /* tab / tab-group ----------------------------------------------------------------- */
-.tobago-tab-content {
+.tobago-tabGroup-header, .tobago-tab-content {
 }
 
 .tobago-tab {
-  display: flex;
-  justify-content: space-between;
-  align-content: center;
-  margin-left: 0.2rem;
-  z-index: 0; /* IE11 fix to hide bottom border on active tab */
 
   .nav-link:not([href]):not([tabindex]) {
     /* fix .nav-links without 'href'; bootstrap tab only works if 'href' is set */
@@ -1175,18 +1170,42 @@ th.tobago-sheet-headerCell-markup-filler > .tobago-sheet-header {
   }
 }
 
-.tab-content {
-  border: 1px solid #ddd;
-  border-radius: 0.25rem;
-  padding: 0.3rem;
+.tobago-tab.tobago-tab-barFacet {
+  display: flex;
+
+  > .nav-link {
+    border-right: 0;
+    border-top-right-radius: 0;
+  }
+
+  > div {
+    border: $nav-tabs-border-width solid transparent;
+    border-top-right-radius: $nav-tabs-border-radius;
+    padding-right: $nav-link-padding-x;
+
+    & > button {
+      height: 100%;
+    }
+    & > a {
+      display: inline-block;
+      padding-top: 0.5rem;
+    }
+  }
+
+  .nav-link.active + div {
+    background-color: $nav-tabs-link-active-bg;
+    border-top-color: $nav-tabs-border-color;
+    border-right-color: $nav-tabs-border-color;
+  }
+
+  .nav-link:not(.disabled):hover + div {
+    border-top-color: $gray-200;
+    border-right-color: $gray-200;
+  }
 }
 
 .tobago-tabGroup {
   margin-bottom: $form-group-margin-bottom;
-}
-
-.tobago-tabGroup > .tobago-tabGroup-header.nav-tabs {
-  border-bottom-width: 0;
 }
 
 /* tree ---------------------------------------------------------------------- */

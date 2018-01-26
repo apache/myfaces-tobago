@@ -68,14 +68,16 @@ header.tobago-header.fixed-top {
     float: left;
   }
 
-  a, button.tobago-link:not(.dropdown-item) {
-    color: theme-color("primary");
-    text-decoration: none;
-
-    &:hover, &:focus {
-      color: $navbar-light-hover-color;
-      cursor: pointer;
+  a, button {
+    &.tobago-link:not(.dropdown-item) {
+      color: theme-color("primary");
       text-decoration: none;
+
+      &:hover, &:focus {
+        color: $navbar-light-hover-color;
+        cursor: pointer;
+        text-decoration: none;
+      }
     }
   }
 }
@@ -515,6 +517,55 @@ p, .control-label {
   .tab-content {
     margin-top: 1.5em;
     padding: 0;
+  }
+}
+
+.tobago-tabGroup.card {
+  border: 0;
+
+  > .card-header {
+    padding-top: 0;
+    padding-left: 0.5rem;
+    padding-right: 0.6rem;
+    border-bottom: 0;
+  }
+}
+
+.tobago-tab {
+  margin-left: 0.2rem;
+}
+
+.tobago-tabGroup .nav-tabs .nav-item {
+  .nav-link {
+    color: $darkgreen;
+
+    &:hover {
+      color: $orange;
+    }
+  }
+  .nav-link.active:hover {
+    color: $darkgreen;
+  }
+  .nav-link.disabled {
+    color: $gray-300;
+    &:hover {
+      color: $gray-300;
+    }
+  }
+}
+
+.tobago-tab .nav-link:not([href]):not([tabindex]):not(.active):not(.disabled) {
+  /* fix style form standard theme */
+  color: $darkgreen;
+
+  &:hover {
+    color: $orange;
+  }
+}
+
+.tobago-tab.tobago-tab-barFacet {
+  .nav-link.disabled + div {
+    background-color: $gray-100;
   }
 }
 

@@ -94,6 +94,7 @@ public enum BootstrapClass implements CssItem {
   CARD_BLOCK("card-body"),
   CARD_BODY("card-body"),
   CARD_HEADER("card-header"),
+  CARD_HEADER_TABS("card-header-tabs"),
   CARD_TITLE("card-title"),
   CLOSE("close"),
   COLLAPSE("collapse"),

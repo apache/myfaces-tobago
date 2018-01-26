@@ -203,6 +203,7 @@ public enum TobagoClass implements CssItem {
   SPLIT_LAYOUT__VERTICAL("tobago-splitLayout-vertical"),
   SUGGEST("tobago-suggest"),
   TAB("tobago-tab"),
+  TAB__BAR_FACET("tobago-tab-barFacet"),
   TAB__CONTENT("tobago-tab-content"),
   TAB_GROUP("tobago-tabGroup"),
   TAB_GROUP__HEADER("tobago-tabGroup-header"),
