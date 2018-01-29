@@ -25,6 +25,7 @@ public enum HtmlInputTypes implements HtmlTypes {
   PASSWORD("password"),
   CHECKBOX("checkbox"),
   RADIO("radio"),
+  RANGE("range"),
   SUBMIT("submit"),
   RESET("reset"),
   FILE("file"),

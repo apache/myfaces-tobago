@@ -55,6 +55,7 @@ public enum HtmlAttributes implements MarkupLanguageAttributes {
   MULTIPLE("multiple"),
   NAME("name"),
   NONCE("nonce"),
+  MIN("min"),
   MINLENGTH("minlength"),
   /** @deprecated Since 2.0.0. This attribute work not with SCP */
   @Deprecated
@@ -104,6 +105,7 @@ public enum HtmlAttributes implements MarkupLanguageAttributes {
   SELECTED("selected"),
   SIZE("size"),
   SRC("src"),
+  STEP("step"),
   /** @deprecated Since 2.0.0. This attribute work not with SCP */
   @Deprecated
   STYLE("style"),

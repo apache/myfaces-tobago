@@ -32,11 +32,17 @@ $link-color: $brand-primary !default;
 $link-hover-color: darken($link-color, 15%) !default;
 $nav-link-padding: .5em 1em !default;
 $blue: #0275d8 !default;
-$white: #fff !default;
-$gray-dark: #292b2c !default;
-$gray-light: #636c72 !default;
-$gray-lightest: #f7f7f9 !default;
-$black: #000 !default;
+$white:    #fff !default;
+$gray-100: #f8f9fa !default;
+$gray-200: #e9ecef !default;
+$gray-300: #dee2e6 !default;
+$gray-400: #ced4da !default;
+$gray-500: #adb5bd !default;
+$gray-600: #6c757d !default;
+$gray-700: #495057 !default;
+$gray-800: #343a40 !default;
+$gray-900: #212529 !default;
+$black:    #000 !default;
 $navbar-dark-active-color: rgba($white, 1) !default;
 $navbar-light-active-color: rgba($black, .9) !default;
 $border-width: 1px !default;
@@ -45,7 +51,7 @@ $input-btn-padding-y: .5rem !default;
 $input-btn-padding-x: .75rem !default;
 $dropdown-item-padding-x: 1.5rem !default;
 $dropdown-item-padding-y: .25rem !default;
-$dropdown-link-color: $gray-dark !default;
+$dropdown-link-color: colors("gray-dark") !default;
 $component-active-color: $white !default;
 $dropdown-link-active-color: $component-active-color !default;
 $dropdown-link-disabled-color: $gray-light !default;
@@ -53,8 +59,13 @@ $dropdown-link-hover-bg: $gray-lightest !default;
 $nav-tabs-link-active-color: #495057 !default;
 $nav-link-disabled-color: #868e96 !default;
 $btn-primary-color: $white !default;
-$btn-secondary-color: $gray-dark !default;
+$btn-secondary-color: colors("gray-dark") !default;
 $form-check-input-gutter: 1.25rem !default;
+$input-box-shadow: inset 0 1px 1px rgba($black, .075) !default;
+$input-btn-focus-width: .2rem !default;
+$input-btn-focus-color: rgba(theme-color("primary"), .25) !default;
+$input-btn-focus-box-shadow: 0 0 0 $input-btn-focus-width $input-btn-focus-color !default;
+$input-focus-box-shadow: $input-btn-focus-box-shadow !default;
 
 /* used icons ---------------------------------------------------- */
 
@@ -664,6 +675,121 @@ span.tobago-out:empty:before {
 
 /* progress ---------------------------------------------------------- */
 .tobago-progress {
+}
+
+/* stars rating ------------------------------------------------------------ */
+.tobago-stars {
+  .tobago-stars-container {
+    position: relative;
+    display: inline-block;
+    color: transparent;
+    font-family: FontAwesome;
+    font-size: 1.5rem;
+
+    &:before {
+      content: "\f005 \f005 \f005 \f005 \f005";
+    }
+
+    .tobago-stars-focusBox {
+      display: inline-block;
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      left: 0;
+      top: 0;
+    }
+    .tobago-stars-slider:focus ~ .tobago-stars-focusBox {
+      box-shadow: $input-box-shadow, $input-focus-box-shadow;
+    }
+
+    .tobago-stars-tooltip {
+      display: inline-block;
+      position: absolute;
+      font-family: sans-serif;
+      font-size: 1.1rem;
+      background-color: $black;
+      color: $white;
+      padding-left: 0.25rem;
+      padding-right: 0.25rem;
+      text-align: center;
+      border-radius: 0.25rem;
+      width: 40px;
+      top: -23px;
+      left: 35px;
+
+      &.trash:before {
+        font-family: FontAwesome;
+        content: "\f014";
+      }
+    }
+
+    .tobago-stars-selected {
+      display: block;
+      position: absolute;
+      top: 0;
+      overflow: hidden;
+      white-space: nowrap;
+      color: $progress-bar-bg;
+
+      &:before {
+        content: "\f005 \f005 \f005 \f005 \f005";
+      }
+    }
+    .tobago-stars-slider:disabled ~ .tobago-stars-selected {
+      filter: grayscale(1);
+    }
+    .tobago-stars-selected.tobago-placeholder {
+      filter: grayscale(0.3);
+    }
+
+    .tobago-stars-unselected {
+      display: block;
+      position: absolute;
+      top: 0;
+      overflow: hidden;
+      white-space: nowrap;
+      color: $progress-bg;
+      direction: rtl;
+
+      &:before {
+        content: "\f005 \f005 \f005 \f005 \f005";
+      }
+    }
+    input[type="range"]:disabled ~ .tobago-stars-unselected {
+      filter: grayscale(1);
+    }
+
+    .tobago-stars-preselected {
+      display: none;
+      position: absolute;
+      top: 0;
+      overflow: hidden;
+      white-space: nowrap;
+      color: lighten($progress-bar-bg, 25%);
+      opacity: 0.8;
+
+      &:before {
+        content: "\f005 \f005 \f005 \f005 \f005";
+      }
+
+      &.show {
+        display: block;
+      }
+    }
+
+    .tobago-stars-slider {
+      position: absolute;
+      height: 100%;
+      opacity: 0;
+      z-index: 1;
+      left: 0;
+      width: 100%;
+
+      &::-ms-tooltip {
+        display: none;
+      }
+    }
+  }
 }
 
 /* section ----------------------------------------------------------- */

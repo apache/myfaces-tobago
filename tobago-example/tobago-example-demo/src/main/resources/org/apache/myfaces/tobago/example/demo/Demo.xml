@@ -55,6 +55,7 @@
   <entry key="textarea">Text Area</entry>
   <entry key="date">Date</entry>
   <entry key="group">Input Group</entry>
+  <entry key="stars">5 Star Rating</entry>
   <entry key="output">Output Fields</entry>
   <entry key="out">Output</entry>
   <entry key="label">Label</entry>

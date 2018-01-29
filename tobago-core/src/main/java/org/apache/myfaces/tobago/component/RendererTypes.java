@@ -83,6 +83,7 @@ public enum RendererTypes {
   SeparatorInsideCommand,
   Sheet,
   SheetPageCommand,
+  Stars,
   Style,
   Suggest,
   Textarea,
@@ -159,6 +160,7 @@ public enum RendererTypes {
   public static final String SEPARATOR_INSIDE_COMMAND = "SeparatorInsideCommand";
   public static final String SHEET = "Sheet";
   public static final String SHEET_PAGE_COMMAND = "SheetPageCommand";
+  public static final String STARS = "Stars";
   public static final String STYLE = "Style";
   public static final String SUGGEST = "Suggest";
   public static final String TEXTAREA = "Textarea";
