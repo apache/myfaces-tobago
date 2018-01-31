@@ -99,18 +99,18 @@ services:
   demo-2-release:
     build: tomcat
     environment:
-      - TOBAGO_VERSION=2.1.0
+      - TOBAGO_VERSION=2.1.1
       - CONTEXT_PATH=demo-2-release
     volumes:
       - /opt/docker/artifacts:/opt/docker/artifacts
-  demo-2-staging:
-    build: tomcat
-    environment:
-      - TOBAGO_VERSION=2.1.1
-      - STAGING_NUMBER=1125
-      - CONTEXT_PATH=demo-2-staging
-    volumes:
-      - /opt/docker/artifacts:/opt/docker/artifacts
+#  demo-2-staging:
+#    build: tomcat
+#    environment:
+#      - TOBAGO_VERSION=2.1.1
+#      - STAGING_NUMBER=1125
+#      - CONTEXT_PATH=demo-2-staging
+#    volumes:
+#      - /opt/docker/artifacts:/opt/docker/artifacts
   demo-2-snapshot:
     build: tomcat
     environment:
