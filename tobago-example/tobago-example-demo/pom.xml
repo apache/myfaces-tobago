@@ -32,7 +32,7 @@
   -->
 
   <properties>
-    <openwebbeans.version>2.0.2</openwebbeans.version>
+    <openwebbeans.version>2.0.3</openwebbeans.version>
     <deltaspike.version>1.8.1</deltaspike.version>
     <!--<arquillian.browser>firefox</arquillian.browser>-->
     <!-- phantomjs works not with CSP (report-only) -->
@@ -169,7 +169,7 @@
       <plugin>
         <groupId>org.apache.meecrowave</groupId>
         <artifactId>meecrowave-maven-plugin</artifactId>
-        <version>1.1.0</version>
+        <version>1.2.0</version>
         <dependencies>
           <dependency>
             <groupId>org.apache.geronimo.specs</groupId>
@@ -507,6 +507,12 @@
         </property>
       </activation>
       <dependencies>
+        <dependency>
+          <groupId>org.apache.myfaces.test</groupId>
+          <artifactId>myfaces-test23</artifactId>
+          <version>1.0.8</version>
+          <scope>test</scope>
+        </dependency>
 
         <!-- Specs -->
         <dependency>
