@@ -22,13 +22,13 @@ services:
 # todo     - "443:443"
     links:
       - demo-4-release
-#      - demo-4-staging
+      - demo-4-staging
       - demo-4-snapshot
       - demo-3-release
 #      - demo-3-staging
       - demo-3-snapshot
       - demo-2-release
-      - demo-2-staging
+#      - demo-2-staging
       - demo-2-snapshot
       - demo-1-5-release
 #      - demo-1-5-staging
@@ -38,13 +38,13 @@ services:
 #      - demo-1-0-snapshot
     depends_on:
       - demo-4-release
-#      - demo-4-staging
+      - demo-4-staging
       - demo-4-snapshot
       - demo-3-release
 #      - demo-3-staging
       - demo-3-snapshot
       - demo-2-release
-      - demo-2-staging
+#      - demo-2-staging
       - demo-2-snapshot
       - demo-1-5-release
 #      - demo-1-5-staging
