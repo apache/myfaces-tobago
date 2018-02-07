@@ -983,9 +983,10 @@
         <plugin>
           <groupId>org.owasp</groupId>
           <artifactId>dependency-check-maven</artifactId>
-          <version>3.1.0</version>
+          <version>3.1.1</version>
           <configuration>
-            <failBuildOnCVSS>0</failBuildOnCVSS>
+            <!-- todo: reset to zero after releasing checkstyle-rules.version 10 -->
+            <failBuildOnCVSS>2.2</failBuildOnCVSS>
             <suppressionFile>tobago/dependency-check-suppression.xml</suppressionFile>
           </configuration>
           <dependencies>
