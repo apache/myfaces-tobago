@@ -25,6 +25,14 @@ function replace_columns_rows_one {
  sed -i "" -E "s/(columns|rows)=\"([^\"]*)\*/\1=\"\21fr/g" $1
 }
 
+function replace_columns_rows_fixed {
+ sed -i "" -E "s/(columns|rows)=\"([^\"]*)fixed/\1=\"\2auto/g" $1
+}
+
+function replace_columns_rows_semicolon {
+ sed -i "" -E "s/(columns|rows)=\"([^\"]*);/\1=\"\2 /g" $1
+}
+
 find . -name "*.xhtml" | while read file; do
 
   echo "Processing file $file"
@@ -44,6 +52,16 @@ find . -name "*.xhtml" | while read file; do
   for i in `seq 1 20`;
   do
     replace_columns_rows_one $file
+  done
+
+  for i in `seq 1 20`;
+  do
+    replace_columns_rows_fixed $file
+  done
+
+  for i in `seq 1 40`;
+  do
+    replace_columns_rows_semicolon $file
   done
 
   # Windows only
