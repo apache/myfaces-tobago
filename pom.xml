@@ -933,6 +933,10 @@
 
               <!-- readme -->
               <exclude>**/readme.*</exclude>
+
+              <!-- tobago-vm index page -->
+              <exclude>**/tobago-vm/docker/apache-proxy/jquery-*.js</exclude>
+              <exclude>**/tobago-vm/docker/apache-proxy/bootstrap-*.css</exclude>
             </excludes>
           </configuration>
         </plugin>
