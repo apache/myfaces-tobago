@@ -63,7 +63,7 @@ services:
     build: tomcat
     environment:
       - TOBAGO_VERSION=4.1.0
-      - STAGING_NUMBER=1127
+      - STAGING_NUMBER=1128
       - CONTEXT_PATH=demo-4-staging
     volumes:
       - /opt/docker/artifacts:/opt/docker/artifacts
