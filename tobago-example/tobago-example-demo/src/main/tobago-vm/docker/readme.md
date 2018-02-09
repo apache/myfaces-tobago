@@ -26,7 +26,7 @@ docker pull debian:stable-slim
 
 docker-compose build
 
-nohup docker-compose up &
+docker-compose up -d
 ```
 
 TODOs:
