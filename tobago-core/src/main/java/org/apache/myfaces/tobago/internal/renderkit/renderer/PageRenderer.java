@@ -249,6 +249,7 @@ public class PageRenderer extends RendererBase {
 
     if (!portlet) {
       writer.startElement(HtmlElements.BODY);
+      writer.writeClassAttribute(spread);
     }
 
     writer.startElement(HtmlElements.DIV);

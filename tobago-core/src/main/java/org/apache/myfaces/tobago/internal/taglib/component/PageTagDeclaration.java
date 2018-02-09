@@ -21,6 +21,7 @@ package org.apache.myfaces.tobago.internal.taglib.component;
 
 import org.apache.myfaces.tobago.apt.annotation.Behavior;
 import org.apache.myfaces.tobago.apt.annotation.Facet;
+import org.apache.myfaces.tobago.apt.annotation.Markup;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
@@ -53,9 +54,9 @@ import javax.faces.component.UIForm;
     uiComponentFacesClass = "javax.faces.component.UIForm",
     componentFamily = UIForm.COMPONENT_FAMILY,
     rendererType = RendererTypes.PAGE,
-    facets =
-        { @Facet(name=Facets.LAYOUT, description = "Deprecated! Contains an layout manager. "
-              + "The layout manager tag should surround the content instead.")},
+    facets = {
+        @Facet(name = Facets.LAYOUT, description = "Deprecated! Contains an layout manager. "
+            + "The layout manager tag should surround the content instead.")},
     behaviors = {
         @Behavior(
             name = ClientBehaviors.CLICK,
@@ -66,6 +67,12 @@ import javax.faces.component.UIForm;
             name = ClientBehaviors.LOAD),
         @Behavior(
             name = ClientBehaviors.RESIZE)
+    },
+    markups = {
+        @Markup(
+            name = "spread",
+            description = "Use the full browser height for the HTML content."
+        )
     })
 
 public interface PageTagDeclaration
