@@ -38,10 +38,10 @@ function rebuild_theme() {
   mvn -Prebuild-theme -f ${DIR}/pom.xml --batch-mode | tee -a ${DIR}/target/temp.log
 
   # removing system dependent directories from the log file
-  cat ${DIR}/target/temp.log | sed s/${CURRENT_REGEX}/__CURRENT__/g | sed s/${REPO_REGEX}/__REPO__/g | sed s/${HOME_REGEX}/__HOME__/g >${DIR}/rebuild-theme.log
+  cat ${DIR}/target/temp.log | sed s/${CURRENT_REGEX}/__CURRENT__/g | sed s/${REPO_REGEX}/__REPO__/g | sed s/${HOME_REGEX}/__HOME__/g >${DIR}/rebuild-theme.txt
 }
 
-# The rebuild-theme.log files are created, to protocol changes in the build.
+# The rebuild-theme.txt files are created, to protocol changes in the build.
 # Is seems, that bootstrap.min.js output change, without changing anything, so we assume
 # the build process is not time invariant.
 # This can later be removed.
