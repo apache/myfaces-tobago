@@ -88,7 +88,7 @@ import javax.faces.component.UIInput;
             name = ClientBehaviors.BLUR)
     },
     markups = {
-        @Markup(name = "localMenu",
+        @Markup(name = org.apache.myfaces.tobago.context.Markup.STRING_LOCAL_MENU,
             description = "If a suggest menu is available, it will be rendered on the component, "
                 + "not in the '.tobago-page-menuStore'."
         )

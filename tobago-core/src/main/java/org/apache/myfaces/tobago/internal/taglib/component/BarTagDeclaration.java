@@ -53,27 +53,27 @@ import javax.faces.component.UIPanel;
             description = "Content will be rendered usually at the right end of the bar.")},
     markups = {
         @Markup(
-            name = "dark",
+            name = org.apache.myfaces.tobago.context.Markup.STRING_DARK,
             description = "Theming for dark backgrounds"
         ),
         @Markup(
-            name = "light",
+            name = org.apache.myfaces.tobago.context.Markup.STRING_LIGHT,
             description = "Theming for light backgrounds"
         ),
         @Markup(
-            name = "small",
+            name = org.apache.myfaces.tobago.context.Markup.STRING_SMALL,
             description = "Bar collapse at a small size."
         ),
         @Markup(
-            name = "medium",
+            name = org.apache.myfaces.tobago.context.Markup.STRING_MEDIUM,
             description = "Bar collapse at a medium size."
         ),
         @Markup(
-            name = "large",
+            name = org.apache.myfaces.tobago.context.Markup.STRING_LARGE,
             description = "Bar collapse at a large size."
         ),
         @Markup(
-            name = "extraLarge",
+            name = org.apache.myfaces.tobago.context.Markup.STRING_EXTRA_LARGE,
             description = "Bar collapse at a extra large size."
         )
     })

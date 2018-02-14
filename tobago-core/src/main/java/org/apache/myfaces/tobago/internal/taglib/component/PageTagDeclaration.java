@@ -70,7 +70,7 @@ import javax.faces.component.UIForm;
     },
     markups = {
         @Markup(
-            name = "spread",
+            name = org.apache.myfaces.tobago.context.Markup.STRING_SPREAD,
             description = "Use the full browser height for the HTML content."
         )
     })

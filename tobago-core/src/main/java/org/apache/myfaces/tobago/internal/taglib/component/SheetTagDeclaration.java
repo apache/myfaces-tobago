@@ -67,23 +67,23 @@ import javax.faces.component.UIData;
     },
     markups = {
         @Markup(
-            name = "bordered",
+            name = org.apache.myfaces.tobago.context.Markup.STRING_BORDERED,
             description = "Add borders to the table cells."
         ),
         @Markup(
-            name = "dark",
+            name = org.apache.myfaces.tobago.context.Markup.STRING_DARK,
             description = "Set dark background."
         ),
         @Markup(
-            name = "hover",
+            name = org.apache.myfaces.tobago.context.Markup.STRING_HOVER,
             description = "Background of row changed on hovering."
         ),
         @Markup(
-            name = "small",
+            name = org.apache.myfaces.tobago.context.Markup.STRING_SMALL,
             description = "Small margins for table cells."
         ),
         @Markup(
-            name = "striped",
+            name = org.apache.myfaces.tobago.context.Markup.STRING_STRIPED,
             description = "Zebra-striping for table rows."
         ),
     })

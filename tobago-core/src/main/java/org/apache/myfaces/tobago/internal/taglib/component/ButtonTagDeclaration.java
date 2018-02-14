@@ -86,39 +86,39 @@ import javax.faces.component.UICommand;
     },
     markups = {
         @Markup(
-            name = "primary",
+            name = org.apache.myfaces.tobago.context.Markup.STRING_PRIMARY,
             description = "Set button color to primary color of the theme."
         ),
         @Markup(
-            name = "secondary",
+            name = org.apache.myfaces.tobago.context.Markup.STRING_SECONDARY,
             description = "Set button color to secondary color of the theme."
         ),
         @Markup(
-            name = "success",
+            name = org.apache.myfaces.tobago.context.Markup.STRING_SUCCESS,
             description = "Set button color to success color of the theme."
         ),
         @Markup(
-            name = "danger",
+            name = org.apache.myfaces.tobago.context.Markup.STRING_DANGER,
             description = "Set button color to danger color of the theme."
         ),
         @Markup(
-            name = "warning",
+            name = org.apache.myfaces.tobago.context.Markup.STRING_WARNING,
             description = "Set button color to warning color of the theme."
         ),
         @Markup(
-            name = "info",
+            name = org.apache.myfaces.tobago.context.Markup.STRING_INFO,
             description = "Set button color to info color of the theme."
         ),
         @Markup(
-            name = "light",
+            name = org.apache.myfaces.tobago.context.Markup.STRING_LIGHT,
             description = "Set button color to light color of the theme."
         ),
         @Markup(
-            name = "dark",
+            name = org.apache.myfaces.tobago.context.Markup.STRING_DARK,
             description = "Set button color to dark color of the theme."
         ),
         @Markup(
-            name = "none",
+            name = org.apache.myfaces.tobago.context.Markup.STRING_NONE,
             description = "Colorless button."
         )
     })
