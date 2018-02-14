@@ -158,6 +158,8 @@ mvn site:site
 mvn site:stage -DstagingDirectory=$TOBAGO_SITE/tobago-publish
 +------------------------+
 
+  * Call "reformat code" on all *.html file in $TOBAGO_SITE/tobago-publish in the IDE
+    (the generated code has the main content in only one single line).
 
   * Update the site after the distribution is on the Apache mirrors available.
 
