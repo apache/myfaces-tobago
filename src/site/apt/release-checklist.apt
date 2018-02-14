@@ -147,14 +147,15 @@ src/site/resources/doap_tobago.rdf
       Disk Utility.
 
 +------------------------+
-cd /Volumes/tobago-site
-git clone https://github.com/apache/myfaces-tobago tobago-trunk
+TOBAGO_SITE=/Volumes/tobago-site
+cd $TOBAGO_SITE
+git clone https://github.com/apache/myfaces-tobago tobago-master
 svn co https://svn.apache.org/repos/asf/myfaces/site/publish/tobago tobago-publish
-cd tobago-trunk
+cd tobago-master
 export MAVEN_OPTS="-Xmx1500m ${MAVEN_OPTS}"
 mvn clean package -Pattach-source
 mvn site:site
-mvn site:stage -DstagingDirectory=/Volumes/tobago-site/tobago-publish
+mvn site:stage -DstagingDirectory=$TOBAGO_SITE/tobago-publish
 +------------------------+
 
 
