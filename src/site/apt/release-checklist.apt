@@ -106,7 +106,7 @@ mvn release:perform
 
 * Staging repository
 
-  * <Close> the repository on the {{{https://repository.apache.org/}Nexus}} instance for stating (you will receive a mail with the staging location).
+  * <Close> the repository on the {{{https://repository.apache.org/}Nexus}} instance for staging (you will receive a mail with the staging location).
 
   * Update the staging and snapshot version on tobago-vm.apache.org
 
@@ -128,7 +128,7 @@ mvn release:perform
 
   * Add the release version and date to the {{{https://reporter.apache.org/addrelease.html?myfaces}Apache Committee Report Helper}}.
 
-  * Update the release and stating version on tobago-vm.apache.org
+  * Update the release and staging version on tobago-vm.apache.org
 
   * Building the site
 
