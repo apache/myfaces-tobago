@@ -74,10 +74,10 @@
     <release>
       <Version>
         <name>Latest stable release of 4.x</name>
-        <created>2017-12-07</created>
-        <revision>4.0.0</revision>
-        <file-release>http://www.apache.org/dyn/closer.lua/myfaces/binaries/myfaces-tobago-4.0.0-dist.tar.gz</file-release>
-        <file-release>http://www.apache.org/dyn/closer.lua/myfaces/binaries/myfaces-tobago-4.0.0-dist.zip</file-release>
+        <created>2018-02-12</created>
+        <revision>4.1.0</revision>
+        <file-release>http://www.apache.org/dyn/closer.lua/myfaces/binaries/myfaces-tobago-4.1.0-dist.tar.gz</file-release>
+        <file-release>http://www.apache.org/dyn/closer.lua/myfaces/binaries/myfaces-tobago-4.1.0-dist.zip</file-release>
       </Version>
     </release>
     <repository>
