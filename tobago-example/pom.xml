@@ -411,12 +411,6 @@
       </properties>
       <dependencies>
         <dependency>
-          <groupId>javax.faces</groupId>
-          <artifactId>javax.faces-api</artifactId>
-          <version>2.3</version>
-          <optional>true</optional>
-        </dependency>
-        <dependency>
           <groupId>org.glassfish</groupId>
           <artifactId>javax.faces</artifactId>
           <version>${mojarra23.version}</version>

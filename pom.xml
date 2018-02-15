@@ -38,7 +38,7 @@
     <myfaces23.version>2.3.0-beta</myfaces23.version>
     <mojarra20.version>2.0.11-04</mojarra20.version>
     <mojarra21.version>2.1.29-08</mojarra21.version>
-    <mojarra22.version>2.2.14</mojarra22.version>
+    <mojarra22.version>2.2.16</mojarra22.version>
     <mojarra23.version>2.3.3</mojarra23.version>
     <slf4j.version>1.7.25</slf4j.version>
     <logback.version>1.2.3</logback.version>
@@ -1404,13 +1404,7 @@
       </activation>
       <dependencyManagement>
         <dependencies>
-          <dependency>
-            <groupId>javax.faces</groupId>
-            <artifactId>javax.faces-api</artifactId>
-            <version>2.3</version>
-            <optional>true</optional>
-          </dependency>
-          <dependency>
+         <dependency>
             <groupId>org.glassfish</groupId>
             <artifactId>javax.faces</artifactId>
             <version>${mojarra23.version}</version>
