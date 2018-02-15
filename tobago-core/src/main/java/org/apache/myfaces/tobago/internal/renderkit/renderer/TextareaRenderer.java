@@ -21,6 +21,7 @@ package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
 import org.apache.myfaces.tobago.component.UITextarea;
 import org.apache.myfaces.tobago.config.TobagoConfig;
+import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.internal.component.AbstractUITextarea;
 import org.apache.myfaces.tobago.internal.util.AccessKeyLogger;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
@@ -86,6 +87,7 @@ public class TextareaRenderer extends MessageLayoutRendererBase {
     final Integer rows = input.getRows();
     final boolean readonly = input.isReadonly();
     final boolean disabled = input.isDisabled();
+    final Markup markup = input.getMarkup();
 
     writer.startElement(HtmlElements.TEXTAREA);
     writer.writeNameAttribute(clientId);
@@ -108,7 +110,8 @@ public class TextareaRenderer extends MessageLayoutRendererBase {
         TobagoClass.TEXTAREA.createMarkup(input.getMarkup()),
         BootstrapClass.borderColor(ComponentUtils.getMaximumSeverity(input)),
         BootstrapClass.FORM_CONTROL,
-        input.getCustomClass());
+        input.getCustomClass(),
+        markup != null && markup.contains(Markup.SPREAD) ? TobagoClass.SPREAD : null);
     int maxLength = 0;
     int minLength = 0;
     String pattern = null;

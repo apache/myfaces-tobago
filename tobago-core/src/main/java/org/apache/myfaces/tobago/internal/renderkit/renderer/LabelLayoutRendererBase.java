@@ -177,7 +177,8 @@ public abstract class LabelLayoutRendererBase extends DecodingInputRendererBase 
         flex ? BootstrapClass.D_FLEX : null,
         TobagoClass.LABEL__CONTAINER,
         BootstrapClass.FORM_GROUP,
-        ComponentUtils.getBooleanAttribute(component, Attributes.required) ? TobagoClass.REQUIRED : null);
+        ComponentUtils.getBooleanAttribute(component, Attributes.required) ? TobagoClass.REQUIRED : null,
+        markup != null && markup.contains(Markup.SPREAD) ? TobagoClass.SPREAD : null);
 
     switch (labelLayout) {
       case none:

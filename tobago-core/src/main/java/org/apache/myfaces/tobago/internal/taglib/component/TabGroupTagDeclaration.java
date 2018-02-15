@@ -22,6 +22,7 @@ package org.apache.myfaces.tobago.internal.taglib.component;
 import org.apache.myfaces.tobago.apt.annotation.Behavior;
 import org.apache.myfaces.tobago.apt.annotation.BodyContentDescription;
 import org.apache.myfaces.tobago.apt.annotation.DynamicExpression;
+import org.apache.myfaces.tobago.apt.annotation.Markup;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
@@ -54,6 +55,12 @@ import javax.faces.component.UIPanel;
         @Behavior(
             name = ClientBehaviors.CLICK,
             isDefault = true)
+    },
+    markups = {
+        @Markup(
+            name = org.apache.myfaces.tobago.context.Markup.STRING_SPREAD,
+            description = "Use the full height for the HTML content."
+        )
     })
 public interface TabGroupTagDeclaration
     extends HasIdBindingAndRendered, IsImmediateCommand, HasAction, HasActionListener, IsVisual, HasTip {

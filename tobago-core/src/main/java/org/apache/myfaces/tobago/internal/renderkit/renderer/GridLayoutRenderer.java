@@ -21,6 +21,7 @@ package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.component.UIStyle;
+import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.internal.component.AbstractUIGridLayout;
 import org.apache.myfaces.tobago.internal.util.JsonUtils;
 import org.apache.myfaces.tobago.layout.MeasureList;
@@ -31,8 +32,6 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRoleValues;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -40,18 +39,19 @@ import java.io.IOException;
 
 public class GridLayoutRenderer extends RendererBase {
 
-  private static final Logger LOG = LoggerFactory.getLogger(GridLayoutRenderer.class);
-
   @Override
   public void encodeBegin(final FacesContext facesContext, final UIComponent component) throws IOException {
     final AbstractUIGridLayout gridLayout = (AbstractUIGridLayout) component;
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
+    final Markup markup = gridLayout.getMarkup();
 
     writer.startElement(HtmlElements.DIV);
     writer.writeAttribute(HtmlAttributes.ROLE, HtmlRoleValues.PRESENTATION.toString(), false);
     writer.writeIdAttribute(gridLayout.getClientId(facesContext));
     writer.writeAttribute(DataAttributes.MARKUP, JsonUtils.encode(gridLayout.getMarkup()), false);
-    writer.writeClassAttribute(TobagoClass.GRID_LAYOUT);
+    writer.writeClassAttribute(
+        TobagoClass.GRID_LAYOUT,
+        markup != null && markup.contains(Markup.SPREAD) ? TobagoClass.SPREAD : null);
 
     final MeasureList columns = MeasureList.parse(gridLayout.getColumns());
     final MeasureList rows = MeasureList.parse(gridLayout.getRows());

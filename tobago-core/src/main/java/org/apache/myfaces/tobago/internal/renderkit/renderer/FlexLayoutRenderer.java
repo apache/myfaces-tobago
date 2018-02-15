@@ -20,6 +20,7 @@
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
 import org.apache.myfaces.tobago.component.UIFlexLayout;
+import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.internal.util.JsonUtils;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
@@ -38,15 +39,17 @@ public class FlexLayoutRenderer extends RendererBase {
   public void encodeBegin(final FacesContext facesContext, final UIComponent component) throws IOException {
     final UIFlexLayout flexLayout = (UIFlexLayout) component;
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
+    final Markup markup = flexLayout.getMarkup();
 
     writer.startElement(HtmlElements.DIV);
     writer.writeIdAttribute(flexLayout.getClientId());
-    writer.writeAttribute(DataAttributes.MARKUP, JsonUtils.encode(flexLayout.getMarkup()), false);
+    writer.writeAttribute(DataAttributes.MARKUP, JsonUtils.encode(markup), false);
     writer.writeClassAttribute(
         TobagoClass.FLEX_LAYOUT,
         BootstrapClass.D_FLEX,
         flexLayout.isHorizontal() ? BootstrapClass.FLEX_ROW : BootstrapClass.FLEX_COLUMN,
-        BootstrapClass.valueOf(flexLayout.getAlignItems()));
+        BootstrapClass.valueOf(flexLayout.getAlignItems()),
+        markup != null && markup.contains(Markup.SPREAD) ? TobagoClass.SPREAD : null);
   }
 
   @Override

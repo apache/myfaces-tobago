@@ -19,6 +19,7 @@
 
 package org.apache.myfaces.tobago.internal.taglib.component;
 
+import org.apache.myfaces.tobago.apt.annotation.Markup;
 import org.apache.myfaces.tobago.apt.annotation.Preliminary;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
@@ -46,7 +47,13 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
     uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUISplitLayout",
     componentFamily = AbstractUIGridLayout.COMPONENT_FAMILY,
     rendererType = "SplitLayout",
-    allowedChildComponenents = "NONE")
+    allowedChildComponenents = "NONE",
+    markups = {
+        @Markup(
+            name = org.apache.myfaces.tobago.context.Markup.STRING_SPREAD,
+            description = "Use the full height for the HTML content."
+        )
+    })
 public interface SplitLayoutTagDeclaration
       extends HasId, HasSpacing, HasBinding, IsVisual {
 

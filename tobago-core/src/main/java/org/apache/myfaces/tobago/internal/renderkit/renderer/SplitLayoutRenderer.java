@@ -20,6 +20,7 @@
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
 import org.apache.myfaces.tobago.apt.annotation.Preliminary;
+import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.internal.component.AbstractUISplitLayout;
 import org.apache.myfaces.tobago.internal.util.JsonUtils;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
@@ -65,13 +66,15 @@ public class SplitLayoutRenderer extends RendererBase {
 
     final AbstractUISplitLayout splitLayout = (AbstractUISplitLayout) component;
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
+    final Markup markup = splitLayout.getMarkup();
 
     writer.startElement(HtmlElements.DIV);
     writer.writeIdAttribute(splitLayout.getClientId(facesContext));
     writer.writeAttribute(DataAttributes.MARKUP, JsonUtils.encode(splitLayout.getMarkup()), false);
     writer.writeClassAttribute(
         BootstrapClass.D_FLEX, // tbd: SPLIT_LAYOUT
-        splitLayout.isHorizontal() ? BootstrapClass.FLEX_ROW : BootstrapClass.FLEX_COLUMN);
+        splitLayout.isHorizontal() ? BootstrapClass.FLEX_ROW : BootstrapClass.FLEX_COLUMN,
+        markup != null && markup.contains(Markup.SPREAD) ? TobagoClass.SPREAD : null);
   }
 
   @Override

@@ -21,6 +21,7 @@ package org.apache.myfaces.tobago.internal.taglib.component;
 
 import org.apache.myfaces.tobago.apt.annotation.Behavior;
 import org.apache.myfaces.tobago.apt.annotation.BodyContentDescription;
+import org.apache.myfaces.tobago.apt.annotation.Markup;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
@@ -76,6 +77,12 @@ import javax.faces.component.UISelectOne;
             name = ClientBehaviors.FOCUS),
         @Behavior(
             name = ClientBehaviors.BLUR)
+    },
+    markups = {
+        @Markup(
+            name = org.apache.myfaces.tobago.context.Markup.STRING_SPREAD,
+            description = "Use the full height for the HTML content."
+        )
     })
 public interface SelectOneListboxTagDeclaration
     extends HasValidator, HasValue, HasValueChangeListener, HasTabIndex, IsFocus, IsVisual,

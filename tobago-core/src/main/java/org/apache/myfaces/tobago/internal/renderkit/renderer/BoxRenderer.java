@@ -57,7 +57,8 @@ public class BoxRenderer extends PanelRendererBase {
         TobagoClass.BOX.createMarkup(markup),
         BootstrapClass.CARD,
         collapsed ? TobagoClass.COLLAPSED : null,
-        box.getCustomClass());
+        box.getCustomClass(),
+        markup != null && markup.contains(Markup.SPREAD) ? TobagoClass.SPREAD : null);
     final String clientId = box.getClientId(facesContext);
     writer.writeIdAttribute(clientId);
     writer.writeAttribute(DataAttributes.MARKUP, JsonUtils.encode(markup), false);

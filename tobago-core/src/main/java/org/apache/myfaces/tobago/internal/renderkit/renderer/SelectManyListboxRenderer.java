@@ -20,6 +20,7 @@
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
 import org.apache.myfaces.tobago.component.UISelectManyListbox;
+import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.internal.util.JsonUtils;
 import org.apache.myfaces.tobago.internal.util.RenderUtils;
@@ -54,6 +55,7 @@ public class SelectManyListboxRenderer extends SelectManyRendererBase {
     final List<SelectItem> items = SelectItemUtils.getItemList(facesContext, select);
     final boolean readonly = select.isReadonly();
     final boolean disabled = !items.iterator().hasNext() || select.isDisabled() || readonly;
+    final Markup markup = select.getMarkup();
     Integer size = select.getSize();
     size = Math.max(size != null ? size : items.size(), 2); // must be > 1
 
@@ -73,7 +75,8 @@ public class SelectManyListboxRenderer extends SelectManyRendererBase {
         TobagoClass.SELECT_MANY_LISTBOX.createMarkup(select.getMarkup()),
         BootstrapClass.borderColor(ComponentUtils.getMaximumSeverity(select)),
         BootstrapClass.FORM_CONTROL,
-        select.getCustomClass());
+        select.getCustomClass(),
+        markup != null && markup.contains(Markup.SPREAD) ? TobagoClass.SPREAD : null);
     writer.writeAttribute(HtmlAttributes.MULTIPLE, true);
     writer.writeAttribute(HtmlAttributes.SIZE, size);
     writer.writeAttribute(HtmlAttributes.TITLE, title, true);

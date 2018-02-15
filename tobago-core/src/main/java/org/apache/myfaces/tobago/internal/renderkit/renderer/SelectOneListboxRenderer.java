@@ -20,6 +20,7 @@
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
 import org.apache.myfaces.tobago.component.UISelectOneListbox;
+import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.internal.util.JsonUtils;
 import org.apache.myfaces.tobago.internal.util.RenderUtils;
@@ -53,6 +54,7 @@ public class SelectOneListboxRenderer extends SelectOneRendererBase {
     final String fieldId = select.getFieldId(facesContext);
     final List<SelectItem> items = SelectItemUtils.getItemList(facesContext, select);
     final boolean disabled = !items.iterator().hasNext() || select.isDisabled() || select.isReadonly();
+    final Markup markup = select.getMarkup();
     Integer size = select.getSize();
     size = Math.max(size != null ? size : items.size(), 2); // must be > 1
 
@@ -72,7 +74,8 @@ public class SelectOneListboxRenderer extends SelectOneRendererBase {
         TobagoClass.SELECT_ONE_LISTBOX.createMarkup(select.getMarkup()),
         BootstrapClass.borderColor(ComponentUtils.getMaximumSeverity(select)),
         BootstrapClass.FORM_CONTROL,
-        select.getCustomClass());
+        select.getCustomClass(),
+        markup != null && markup.contains(Markup.SPREAD) ? TobagoClass.SPREAD : null);
     final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, select);
     writer.writeAttribute(HtmlAttributes.TITLE, title, true);
     writer.writeAttribute(HtmlAttributes.SIZE, size);

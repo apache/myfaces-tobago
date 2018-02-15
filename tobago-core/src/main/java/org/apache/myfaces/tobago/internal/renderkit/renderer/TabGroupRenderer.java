@@ -153,7 +153,8 @@ public class TabGroupRenderer extends RendererBase implements ComponentSystemEve
         TobagoClass.TAB_GROUP,
         TobagoClass.TAB_GROUP.createMarkup(markup),
         BootstrapClass.CARD,
-        tabGroup.getCustomClass());
+        tabGroup.getCustomClass(),
+        markup != null && markup.contains(Markup.SPREAD) ? TobagoClass.SPREAD : null);
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, tabGroup);
     writer.writeAttribute(HtmlAttributes.SWITCHTYPE, switchType.name(), false);
 

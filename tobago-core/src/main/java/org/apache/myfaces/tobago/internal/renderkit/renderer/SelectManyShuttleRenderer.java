@@ -59,7 +59,8 @@ public class SelectManyShuttleRenderer extends SelectManyRendererBase {
     writer.writeClassAttribute(
         TobagoClass.SELECT_MANY_SHUTTLE,
         TobagoClass.SELECT_MANY_SHUTTLE.createMarkup(markup),
-        select.getCustomClass());
+        select.getCustomClass(),
+        markup != null && markup.contains(Markup.SPREAD) ? TobagoClass.SPREAD : null);
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, select);
     final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, select);
     if (title != null) {

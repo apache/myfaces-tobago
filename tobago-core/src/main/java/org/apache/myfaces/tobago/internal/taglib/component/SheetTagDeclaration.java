@@ -86,6 +86,10 @@ import javax.faces.component.UIData;
             name = org.apache.myfaces.tobago.context.Markup.STRING_STRIPED,
             description = "Zebra-striping for table rows."
         ),
+        @Markup(
+            name = org.apache.myfaces.tobago.context.Markup.STRING_SPREAD,
+            description = "Use the full height for the HTML content."
+        )
     })
 public interface SheetTagDeclaration
     extends HasIdBindingAndRendered, IsVisual, IsShowRoot, IsShowRootJunction, HasVar {

@@ -20,6 +20,7 @@
 package org.apache.myfaces.tobago.internal.taglib.component;
 
 import org.apache.myfaces.tobago.apt.annotation.Facet;
+import org.apache.myfaces.tobago.apt.annotation.Markup;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.component.Facets;
@@ -53,7 +54,13 @@ import javax.faces.component.UIPanel;
         @Facet(name = Facets.LABEL,
             description = "Contains some code to be placed in the header at the label position."),
         @Facet(name=Facets.LAYOUT, description = "Deprecated! Contains an layout manager. "
-            + "The layout manager tag should surround the content instead.")})
+            + "The layout manager tag should surround the content instead.")},
+    markups = {
+        @Markup(
+            name = org.apache.myfaces.tobago.context.Markup.STRING_SPREAD,
+            description = "Use the full height for the HTML content."
+        )
+    })
 
 public interface BoxTagDeclaration
     extends HasIdBindingAndRendered, IsVisual, HasLabel, HasTip, IsCollapsed, HasCollapsedMode {

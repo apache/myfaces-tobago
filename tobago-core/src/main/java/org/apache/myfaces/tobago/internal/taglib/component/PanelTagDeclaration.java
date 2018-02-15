@@ -21,6 +21,7 @@ package org.apache.myfaces.tobago.internal.taglib.component;
 
 import org.apache.myfaces.tobago.apt.annotation.Behavior;
 import org.apache.myfaces.tobago.apt.annotation.Facet;
+import org.apache.myfaces.tobago.apt.annotation.Markup;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.component.ClientBehaviors;
@@ -61,6 +62,12 @@ import javax.faces.component.UIPanel;
             name = ClientBehaviors.MOUSEOVER),
         @Behavior(
             name = ClientBehaviors.MOUSEOUT)
+    },
+    markups = {
+        @Markup(
+            name = org.apache.myfaces.tobago.context.Markup.STRING_SPREAD,
+            description = "Use the full height for the HTML content."
+        )
     })
 public interface PanelTagDeclaration
     extends HasIdBindingAndRendered, IsVisual, IsCollapsed, HasCollapsedMode, HasTip {
