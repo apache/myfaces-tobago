@@ -796,7 +796,7 @@ span.tobago-out:empty:before {
 
 /* to separate the icon from the rest of the title */
 h1, h2, h3, h4, h5, h6 {
-  > .fa:first-child {
+  > .fa:first-child, > img {
     margin-right: 0.7em;
   }
 }

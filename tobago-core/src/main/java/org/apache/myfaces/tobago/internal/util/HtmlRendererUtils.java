@@ -109,6 +109,21 @@ public final class HtmlRendererUtils {
     }
   }
 
+  public static void encodeIconOrImage(final TobagoResponseWriter writer, final String image) throws IOException {
+    if (image != null) {
+      if (image.startsWith("fa-")) {
+        writer.startElement(HtmlElements.I);
+        writer.writeClassAttribute(Icons.FA, Icons.custom(image));
+        writer.endElement(HtmlElements.I);
+      } else {
+        writer.startElement(HtmlElements.IMG);
+        writer.writeAttribute(HtmlAttributes.SRC, image, true);
+        writer.writeAttribute(HtmlAttributes.ALT, "", false);
+        writer.endElement(HtmlElements.IMG);
+      }
+    }
+  }
+
   /**
    * @deprecated 4.0.0.
    */

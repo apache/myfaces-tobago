@@ -35,7 +35,6 @@ import org.apache.myfaces.tobago.internal.util.RenderUtils;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.CssItem;
-import org.apache.myfaces.tobago.renderkit.css.Icons;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.Arias;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
@@ -129,18 +128,7 @@ public abstract class CommandRendererBase extends DecodingCommandRendererBase {
     }
 
     final String image = ComponentUtils.getStringAttribute(command, Attributes.image);
-    if (image != null) {
-      if (image.startsWith("fa-")) {
-        writer.startElement(HtmlElements.I);
-        writer.writeClassAttribute(Icons.FA, Icons.custom(image));
-        writer.endElement(HtmlElements.I);
-      } else {
-        writer.startElement(HtmlElements.IMG);
-        writer.writeAttribute(HtmlAttributes.SRC, image, true);
-        writer.writeAttribute(HtmlAttributes.ALT, "", false);
-        writer.endElement(HtmlElements.IMG);
-      }
-    }
+    HtmlRendererUtils.encodeIconOrImage(writer, image);
 
     if (label.getLabel() != null) {
       writer.startElement(HtmlElements.SPAN);

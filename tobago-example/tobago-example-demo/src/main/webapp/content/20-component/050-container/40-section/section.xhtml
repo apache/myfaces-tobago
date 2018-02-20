@@ -52,15 +52,16 @@
   </tc:section>
 
   <tc:section label="Image">
-    <p>A section can have an image in the header. The following section have pie-chart in the header.</p>
-    <pre><code class="language-markup">&lt;tc:section label="Pie-Chart" image="fa-pie-chart"></code></pre>
-    <tc:section label="Pie-Chart" image="fa-pie-chart">
-      <p>It's also possible to use image files, instead of font awesome.</p>
+    <p>Sections can have an image or a FontAwesome icon in the header.</p>
+    <tc:section image="fa-pie-chart" label="FontAwesome: Pie-Chart">
+      <pre><code class="language-markup">&lt;tc:section
+    image="fa-pie-chart"
+    label="FontAwesome: Pie-Chart"></code></pre>
     </tc:section>
-    <tc:section label="Image Files" image="/image/alps.png">
-      <p><b>(TODO: currently not working!)</b></p>
-      <!-- todo: this image is only a reminder. -->
-      <tc:image value="/image/alps.png"/>
+    <tc:section image="#{request.contextPath}/image/feather-leaf.png" label="Image File: feather-leaf.png">
+      <pre><code class="language-markup">&lt;tc:section
+    image="#{request.contextPath}/image/feather-leaf.png"
+    label="Image File: feather-leaf.png"></code></pre>
     </tc:section>
   </tc:section>
 </ui:composition>
