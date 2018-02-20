@@ -1,8 +1,8 @@
-Build date: 2018-01-29 14:59:16
+Build date: 2018-02-20 09:53:26
 [INFO] Scanning for projects...
 [INFO] 
 [INFO] ------------------------------------------------------------------------
-[INFO] Building Tobago Theme Speyside 4.1.0-SNAPSHOT
+[INFO] Building Tobago Theme Speyside 4.1.1-SNAPSHOT
 [INFO] ------------------------------------------------------------------------
 [INFO] 
 [INFO] --- maven-enforcer-plugin:3.0.0-M1:enforce (enforce) @ tobago-theme-speyside ---
@@ -26,19 +26,17 @@ Build date: 2018-01-29 14:59:16
 [INFO] Applying patch: append-tobago-theme-to-bootstrap.patch
 [INFO] 
 [INFO] --- maven-dependency-plugin:3.0.2:unpack (step #5: unpack-custom) @ tobago-theme-speyside ---
-[INFO] Configured Artifact: org.apache.myfaces.tobago:tobago-core:4.1.0-SNAPSHOT:jar
-[INFO] Unpacking __REPO__/org/apache/myfaces/tobago/tobago-core/4.1.0-SNAPSHOT/tobago-core-4.1.0-SNAPSHOT.jar to __CURRENT__/tobago-theme-speyside/target/bootstrap with includes "**/*.scss" and excludes ""
+[INFO] Configured Artifact: org.apache.myfaces.tobago:tobago-core:4.1.1-SNAPSHOT:jar
+[INFO] Unpacking __REPO__/org/apache/myfaces/tobago/tobago-core/4.1.1-SNAPSHOT/tobago-core-4.1.1-SNAPSHOT.jar to __CURRENT__/tobago-theme-speyside/target/bootstrap with includes "**/*.scss" and excludes ""
 [INFO] 
-[INFO] --- frontend-maven-plugin:1.4:install-node-and-npm (step #6: install node and npm) @ tobago-theme-speyside ---
+[INFO] --- frontend-maven-plugin:1.6:install-node-and-npm (step #6: install node and npm) @ tobago-theme-speyside ---
 [INFO] Installing node version v8.9.3
 [INFO] Unpacking __REPO__/com/github/eirslett/node/8.9.3/node-8.9.3-darwin-x64.tar.gz into __CURRENT__/tobago-theme-speyside/target/frontend/node/tmp
 [INFO] Copying node binary from __CURRENT__/tobago-theme-speyside/target/frontend/node/tmp/node-v8.9.3-darwin-x64/bin/node to __CURRENT__/tobago-theme-speyside/target/frontend/node/node
+[INFO] Extracting NPM
 [INFO] Installed node locally.
-[INFO] Installing npm version 5.5.1
-[INFO] Unpacking __REPO__/com/github/eirslett/npm/5.5.1/npm-5.5.1.tar.gz into __CURRENT__/tobago-theme-speyside/target/frontend/node/node_modules
-[INFO] Installed npm locally.
 [INFO] 
-[INFO] --- frontend-maven-plugin:1.4:npm (step #7: npm install) @ tobago-theme-speyside ---
+[INFO] --- frontend-maven-plugin:1.6:npm (step #7: npm install) @ tobago-theme-speyside ---
 [INFO] Running 'npm install' in __CURRENT__/tobago-theme-speyside/target/bootstrap
 [INFO] 
 [INFO] > fsevents@1.1.3 install __CURRENT__/tobago-theme-speyside/target/bootstrap/node_modules/fsevents
@@ -71,17 +69,17 @@ Build date: 2018-01-29 14:59:16
 [INFO] 
 [WARNING] npm WARN bootstrap@4.0.0 requires a peer of jquery@1.9.1 - 3 but none is installed. You must install peer dependencies yourself.
 [ERROR] 
-[INFO] added 1405 packages in 26.897s
+[INFO] added 1405 packages in 15.06s
 [INFO] 
-[INFO] --- frontend-maven-plugin:1.4:npm (step #8: npm run css-compile) @ tobago-theme-speyside ---
+[INFO] --- frontend-maven-plugin:1.6:npm (step #8: npm run css-compile) @ tobago-theme-speyside ---
 [INFO] Running 'npm run css-compile' in __CURRENT__/tobago-theme-speyside/target/bootstrap
 [INFO] 
 [INFO] > bootstrap@4.0.0 css-compile __CURRENT__/tobago-theme-speyside/target/bootstrap
 [INFO] > node-sass --output-style expanded --source-map true --source-map-contents true --precision 6 scss/bootstrap.scss dist/css/bootstrap.css && node-sass --output-style expanded --source-map true --source-map-contents true --precision 6 scss/bootstrap-grid.scss dist/css/bootstrap-grid.css && node-sass --output-style expanded --source-map true --source-map-contents true --precision 6 scss/bootstrap-reboot.scss dist/css/bootstrap-reboot.css
 [INFO] 
 [ERROR] Rendering Complete, saving .css file...
-[ERROR] Wrote CSS to __CURRENT__/tobago-theme-speyside/target/bootstrap/dist/css/bootstrap.css
 [ERROR] Wrote Source Map to __CURRENT__/tobago-theme-speyside/target/bootstrap/dist/css/bootstrap.css.map
+[ERROR] Wrote CSS to __CURRENT__/tobago-theme-speyside/target/bootstrap/dist/css/bootstrap.css
 [ERROR] Rendering Complete, saving .css file...
 [ERROR] Wrote Source Map to __CURRENT__/tobago-theme-speyside/target/bootstrap/dist/css/bootstrap-grid.css.map
 [ERROR] Wrote CSS to __CURRENT__/tobago-theme-speyside/target/bootstrap/dist/css/bootstrap-grid.css
@@ -89,24 +87,24 @@ Build date: 2018-01-29 14:59:16
 [ERROR] Wrote CSS to __CURRENT__/tobago-theme-speyside/target/bootstrap/dist/css/bootstrap-reboot.css
 [ERROR] Wrote Source Map to __CURRENT__/tobago-theme-speyside/target/bootstrap/dist/css/bootstrap-reboot.css.map
 [INFO] 
-[INFO] --- frontend-maven-plugin:1.4:npm (step #9: npm run css-prefix) @ tobago-theme-speyside ---
+[INFO] --- frontend-maven-plugin:1.6:npm (step #9: npm run css-prefix) @ tobago-theme-speyside ---
 [INFO] Running 'npm run css-prefix' in __CURRENT__/tobago-theme-speyside/target/bootstrap
 [INFO] 
 [INFO] > bootstrap@4.0.0 css-prefix __CURRENT__/tobago-theme-speyside/target/bootstrap
 [INFO] > postcss --config build/postcss.config.js --replace "dist/css/*.css" "!dist/css/*.min.css"
 [INFO] 
-[ERROR] ✔ Finished dist/css/bootstrap-reboot.css (998 ms)
-[ERROR] ✔ Finished dist/css/bootstrap-grid.css (1 s)
-[ERROR] ✔ Finished dist/css/bootstrap.css (1 s)
+[ERROR] ✔ Finished dist/css/bootstrap-grid.css (898 ms)
+[ERROR] ✔ Finished dist/css/bootstrap-reboot.css (900 ms)
+[ERROR] ✔ Finished dist/css/bootstrap.css (900 ms)
 [INFO] 
-[INFO] --- frontend-maven-plugin:1.4:npm (step #10: npm run css-minify) @ tobago-theme-speyside ---
+[INFO] --- frontend-maven-plugin:1.6:npm (step #10: npm run css-minify) @ tobago-theme-speyside ---
 [INFO] Running 'npm run css-minify' in __CURRENT__/tobago-theme-speyside/target/bootstrap
 [INFO] 
 [INFO] > bootstrap@4.0.0 css-minify __CURRENT__/tobago-theme-speyside/target/bootstrap
 [INFO] > cleancss --level 1 --source-map --source-map-inline-sources --output dist/css/bootstrap.min.css dist/css/bootstrap.css && cleancss --level 1 --source-map --source-map-inline-sources --output dist/css/bootstrap-grid.min.css dist/css/bootstrap-grid.css && cleancss --level 1 --source-map --source-map-inline-sources --output dist/css/bootstrap-reboot.min.css dist/css/bootstrap-reboot.css
 [INFO] 
 [INFO] 
-[INFO] --- frontend-maven-plugin:1.4:npm (step #11: npm run js) @ tobago-theme-speyside ---
+[INFO] --- frontend-maven-plugin:1.6:npm (step #11: npm run js) @ tobago-theme-speyside ---
 [INFO] Running 'npm run js' in __CURRENT__/tobago-theme-speyside/target/bootstrap
 [INFO] 
 [INFO] > bootstrap@4.0.0 js __CURRENT__/tobago-theme-speyside/target/bootstrap
@@ -125,21 +123,21 @@ Build date: 2018-01-29 14:59:16
 [INFO] > npm-run-all --parallel js-compile-*
 [INFO] 
 [INFO] 
-[INFO] > bootstrap@4.0.0 js-compile-standalone __CURRENT__/tobago-theme-speyside/target/bootstrap
-[INFO] > rollup --environment BUNDLE:false --config build/rollup.config.js --sourcemap
-[INFO] 
-[INFO] 
 [INFO] > bootstrap@4.0.0 js-compile-bundle __CURRENT__/tobago-theme-speyside/target/bootstrap
 [INFO] > rollup --environment BUNDLE:true --config build/rollup.config.js --sourcemap
+[INFO] 
+[INFO] 
+[INFO] > bootstrap@4.0.0 js-compile-standalone __CURRENT__/tobago-theme-speyside/target/bootstrap
+[INFO] > rollup --environment BUNDLE:false --config build/rollup.config.js --sourcemap
 [INFO] 
 [INFO] 
 [INFO] > bootstrap@4.0.0 js-compile-plugins __CURRENT__/tobago-theme-speyside/target/bootstrap
 [INFO] > cross-env PLUGINS=true babel js/src/ --out-dir js/dist/ --source-maps
 [INFO] 
 [ERROR] 
-[ERROR] __CURRENT__/tobago-theme-speyside/target/bootstrap/js/src/index.js → dist/js/bootstrap.js...
-[ERROR] 
 [ERROR] __CURRENT__/tobago-theme-speyside/target/bootstrap/js/src/index.js → dist/js/bootstrap.bundle.js...
+[ERROR] 
+[ERROR] __CURRENT__/tobago-theme-speyside/target/bootstrap/js/src/index.js → dist/js/bootstrap.js...
 [INFO] js/src/alert.js -> js/dist/alert.js
 [INFO] js/src/button.js -> js/dist/button.js
 [INFO] js/src/carousel.js -> js/dist/carousel.js
@@ -152,8 +150,8 @@ Build date: 2018-01-29 14:59:16
 [INFO] js/src/tab.js -> js/dist/tab.js
 [INFO] js/src/tooltip.js -> js/dist/tooltip.js
 [INFO] js/src/util.js -> js/dist/util.js
-[ERROR] created dist/js/bootstrap.js in 2.2s
-[ERROR] created dist/js/bootstrap.bundle.js in 2.4s
+[ERROR] created dist/js/bootstrap.js in 2s
+[ERROR] created dist/js/bootstrap.bundle.js in 2.3s
 [INFO] 
 [INFO] > bootstrap@4.0.0 js-minify __CURRENT__/tobago-theme-speyside/target/bootstrap
 [INFO] > npm-run-all --parallel js-minify-*
@@ -163,15 +161,15 @@ Build date: 2018-01-29 14:59:16
 [INFO] > uglifyjs --compress typeofs=false --mangle --comments "/^!/" --source-map "content=dist/js/bootstrap.js.map,includeSources,url=bootstrap.min.js.map" --output dist/js/bootstrap.min.js dist/js/bootstrap.js
 [INFO] 
 [INFO] 
-[INFO] > bootstrap@4.0.0 js-minify-docs __CURRENT__/tobago-theme-speyside/target/bootstrap
-[INFO] > uglifyjs --mangle --comments "/^!/" --output assets/js/docs.min.js assets/js/vendor/anchor.min.js assets/js/vendor/clipboard.min.js assets/js/vendor/holder.min.js "assets/js/src/*.js"
-[INFO] 
-[INFO] 
 [INFO] > bootstrap@4.0.0 js-minify-bundle __CURRENT__/tobago-theme-speyside/target/bootstrap
 [INFO] > uglifyjs --compress typeofs=false --mangle --comments "/^!/" --source-map "content=dist/js/bootstrap.bundle.js.map,includeSources,url=bootstrap.bundle.min.js.map" --output dist/js/bootstrap.bundle.min.js dist/js/bootstrap.bundle.js
 [INFO] 
-[ERROR] INFO: Using input source map: dist/js/bootstrap.js.map
+[INFO] 
+[INFO] > bootstrap@4.0.0 js-minify-docs __CURRENT__/tobago-theme-speyside/target/bootstrap
+[INFO] > uglifyjs --mangle --comments "/^!/" --output assets/js/docs.min.js assets/js/vendor/anchor.min.js assets/js/vendor/clipboard.min.js assets/js/vendor/holder.min.js "assets/js/src/*.js"
+[INFO] 
 [ERROR] INFO: Using input source map: dist/js/bootstrap.bundle.js.map
+[ERROR] INFO: Using input source map: dist/js/bootstrap.js.map
 [INFO] 
 [INFO] --- maven-resources-plugin:2.7:resources (default-resources) @ tobago-theme-speyside ---
 [INFO] Using 'UTF-8' encoding to copy filtered resources.
@@ -205,18 +203,18 @@ main:
 [INFO] --- maven-surefire-plugin:2.19.1:test (default-test) @ tobago-theme-speyside ---
 [INFO] 
 [INFO] --- maven-jar-plugin:3.0.2:jar (default-jar) @ tobago-theme-speyside ---
-[INFO] Building jar: __CURRENT__/tobago-theme-speyside/target/tobago-theme-speyside-4.1.0-SNAPSHOT.jar
+[INFO] Building jar: __CURRENT__/tobago-theme-speyside/target/tobago-theme-speyside-4.1.1-SNAPSHOT.jar
 [INFO] 
 [INFO] --- maven-site-plugin:3.6:attach-descriptor (attach-descriptor) @ tobago-theme-speyside ---
 [INFO] Skipping because packaging 'jar' is not pom.
 [INFO] 
 [INFO] --- maven-install-plugin:2.5.2:install (default-install) @ tobago-theme-speyside ---
-[INFO] Installing __CURRENT__/tobago-theme-speyside/target/tobago-theme-speyside-4.1.0-SNAPSHOT.jar to __REPO__/org/apache/myfaces/tobago/tobago-theme-speyside/4.1.0-SNAPSHOT/tobago-theme-speyside-4.1.0-SNAPSHOT.jar
-[INFO] Installing __CURRENT__/tobago-theme-speyside/pom.xml to __REPO__/org/apache/myfaces/tobago/tobago-theme-speyside/4.1.0-SNAPSHOT/tobago-theme-speyside-4.1.0-SNAPSHOT.pom
+[INFO] Installing __CURRENT__/tobago-theme-speyside/target/tobago-theme-speyside-4.1.1-SNAPSHOT.jar to __REPO__/org/apache/myfaces/tobago/tobago-theme-speyside/4.1.1-SNAPSHOT/tobago-theme-speyside-4.1.1-SNAPSHOT.jar
+[INFO] Installing __CURRENT__/tobago-theme-speyside/pom.xml to __REPO__/org/apache/myfaces/tobago/tobago-theme-speyside/4.1.1-SNAPSHOT/tobago-theme-speyside-4.1.1-SNAPSHOT.pom
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
-[INFO] Total time: 53.913 s
-[INFO] Finished at: 2018-01-29T15:00:11+01:00
-[INFO] Final Memory: 36M/506M
+[INFO] Total time: 41.454 s
+[INFO] Finished at: 2018-02-20T09:54:09+01:00
+[INFO] Final Memory: 32M/424M
 [INFO] ------------------------------------------------------------------------
