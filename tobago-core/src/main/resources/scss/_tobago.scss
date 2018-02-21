@@ -592,6 +592,10 @@ a.tobago-messages-button {
 
 /* out -------------------------------------------------------------------- */
 
+.tobago-out {
+  display: inline-block;
+}
+
 .tobago-out-markup-strong {
   font-weight: bold;
 }
@@ -1039,6 +1043,28 @@ th.tobago-sheet-headerCell {
 .tobago-sheet-header {
   overflow: hidden;
   flex-shrink: 0;
+  display: block;
+}
+
+.tobago-sheet-headerCell > .tobago-sheet-header > * {
+  display: inline;
+}
+
+.tobago-sheet-header-markup-sortable::after {
+  content: "\f0dc";
+  font-family: FontAwesome;
+  color: $gray-300;
+  margin-left: $spacer-x;
+}
+
+.tobago-sheet-header-markup-ascending::after {
+  content: "\f0de";
+  color: inherit;
+}
+
+.tobago-sheet-header-markup-descending::after {
+  content: "\f0dd";
+  color: inherit;
 }
 
 th.tobago-sheet-headerCell-markup-filler > .tobago-sheet-header {
@@ -1362,12 +1388,6 @@ th.tobago-sheet-headerCell-markup-filler > .tobago-sheet-header {
   .tobago-treeNode[data-tobago-level='#{$i}'] {
     margin-left: #{$i}rem;
   }
-}
-
-/* out -------------------------------------------------------------- */
-
-.tobago-out {
-  display: inline-block;
 }
 
 /* textarea --------------------------------------------------------- */

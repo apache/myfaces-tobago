@@ -1,4 +1,4 @@
-Build date: 2018-02-20 09:51:55
+Build date: 2018-02-21 14:52:23
 [INFO] Scanning for projects...
 [INFO] 
 [INFO] ------------------------------------------------------------------------
@@ -64,12 +64,12 @@ Build date: 2018-02-20 09:51:55
 [INFO] > nodemon@1.14.10 postinstall __CURRENT__/tobago-theme-roxborough/target/bootstrap/node_modules/nodemon
 [INFO] > node -e "console.log('\u001b[32mLove nodemon? You can now support the project via the open collective:\u001b[22m\u001b[39m\n > \u001b[96m\u001b[1mhttps://opencollective.com/nodemon/donate\u001b[0m\n')" || exit 0
 [INFO] 
-[INFO] Love nodemon? You can now support the project via the open collective:
-[INFO]  > https://opencollective.com/nodemon/donate
+[INFO] [32mLove nodemon? You can now support the project via the open collective:[22m[39m
+[INFO]  > [96m[1mhttps://opencollective.com/nodemon/donate[0m
 [INFO] 
 [WARNING] npm WARN bootstrap@4.0.0 requires a peer of jquery@1.9.1 - 3 but none is installed. You must install peer dependencies yourself.
 [ERROR] 
-[INFO] added 1405 packages in 13.811s
+[INFO] added 1405 packages in 28.638s
 [INFO] 
 [INFO] --- frontend-maven-plugin:1.6:npm (step #8: npm run css-compile) @ tobago-theme-roxborough ---
 [INFO] Running 'npm run css-compile' in __CURRENT__/tobago-theme-roxborough/target/bootstrap
@@ -78,14 +78,14 @@ Build date: 2018-02-20 09:51:55
 [INFO] > node-sass --output-style expanded --source-map true --source-map-contents true --precision 6 scss/bootstrap.scss dist/css/bootstrap.css && node-sass --output-style expanded --source-map true --source-map-contents true --precision 6 scss/bootstrap-grid.scss dist/css/bootstrap-grid.css && node-sass --output-style expanded --source-map true --source-map-contents true --precision 6 scss/bootstrap-reboot.scss dist/css/bootstrap-reboot.css
 [INFO] 
 [ERROR] Rendering Complete, saving .css file...
-[ERROR] Wrote Source Map to __CURRENT__/tobago-theme-roxborough/target/bootstrap/dist/css/bootstrap.css.map
 [ERROR] Wrote CSS to __CURRENT__/tobago-theme-roxborough/target/bootstrap/dist/css/bootstrap.css
+[ERROR] Wrote Source Map to __CURRENT__/tobago-theme-roxborough/target/bootstrap/dist/css/bootstrap.css.map
 [ERROR] Rendering Complete, saving .css file...
 [ERROR] Wrote Source Map to __CURRENT__/tobago-theme-roxborough/target/bootstrap/dist/css/bootstrap-grid.css.map
 [ERROR] Wrote CSS to __CURRENT__/tobago-theme-roxborough/target/bootstrap/dist/css/bootstrap-grid.css
 [ERROR] Rendering Complete, saving .css file...
-[ERROR] Wrote CSS to __CURRENT__/tobago-theme-roxborough/target/bootstrap/dist/css/bootstrap-reboot.css
 [ERROR] Wrote Source Map to __CURRENT__/tobago-theme-roxborough/target/bootstrap/dist/css/bootstrap-reboot.css.map
+[ERROR] Wrote CSS to __CURRENT__/tobago-theme-roxborough/target/bootstrap/dist/css/bootstrap-reboot.css
 [INFO] 
 [INFO] --- frontend-maven-plugin:1.6:npm (step #9: npm run css-prefix) @ tobago-theme-roxborough ---
 [INFO] Running 'npm run css-prefix' in __CURRENT__/tobago-theme-roxborough/target/bootstrap
@@ -93,9 +93,9 @@ Build date: 2018-02-20 09:51:55
 [INFO] > bootstrap@4.0.0 css-prefix __CURRENT__/tobago-theme-roxborough/target/bootstrap
 [INFO] > postcss --config build/postcss.config.js --replace "dist/css/*.css" "!dist/css/*.min.css"
 [INFO] 
-[ERROR] ✔ Finished dist/css/bootstrap-grid.css (1.16 s)
-[ERROR] ✔ Finished dist/css/bootstrap.css (1.16 s)
-[ERROR] ✔ Finished dist/css/bootstrap-reboot.css (1.16 s)
+[ERROR] ✔ Finished dist/css/bootstrap-reboot.css (861 ms)
+[ERROR] ✔ Finished dist/css/bootstrap-grid.css (863 ms)
+[ERROR] ✔ Finished dist/css/bootstrap.css (863 ms)
 [INFO] 
 [INFO] --- frontend-maven-plugin:1.6:npm (step #10: npm run css-minify) @ tobago-theme-roxborough ---
 [INFO] Running 'npm run css-minify' in __CURRENT__/tobago-theme-roxborough/target/bootstrap
@@ -150,15 +150,11 @@ Build date: 2018-02-20 09:51:55
 [INFO] js/src/tab.js -> js/dist/tab.js
 [INFO] js/src/tooltip.js -> js/dist/tooltip.js
 [INFO] js/src/util.js -> js/dist/util.js
-[ERROR] created dist/js/bootstrap.js in 1.6s
-[ERROR] created dist/js/bootstrap.bundle.js in 1.8s
+[ERROR] created dist/js/bootstrap.js in 1.5s
+[ERROR] created dist/js/bootstrap.bundle.js in 1.6s
 [INFO] 
 [INFO] > bootstrap@4.0.0 js-minify __CURRENT__/tobago-theme-roxborough/target/bootstrap
 [INFO] > npm-run-all --parallel js-minify-*
-[INFO] 
-[INFO] 
-[INFO] > bootstrap@4.0.0 js-minify-bundle __CURRENT__/tobago-theme-roxborough/target/bootstrap
-[INFO] > uglifyjs --compress typeofs=false --mangle --comments "/^!/" --source-map "content=dist/js/bootstrap.bundle.js.map,includeSources,url=bootstrap.bundle.min.js.map" --output dist/js/bootstrap.bundle.min.js dist/js/bootstrap.bundle.js
 [INFO] 
 [INFO] 
 [INFO] > bootstrap@4.0.0 js-minify-standalone __CURRENT__/tobago-theme-roxborough/target/bootstrap
@@ -167,6 +163,10 @@ Build date: 2018-02-20 09:51:55
 [INFO] 
 [INFO] > bootstrap@4.0.0 js-minify-docs __CURRENT__/tobago-theme-roxborough/target/bootstrap
 [INFO] > uglifyjs --mangle --comments "/^!/" --output assets/js/docs.min.js assets/js/vendor/anchor.min.js assets/js/vendor/clipboard.min.js assets/js/vendor/holder.min.js "assets/js/src/*.js"
+[INFO] 
+[INFO] 
+[INFO] > bootstrap@4.0.0 js-minify-bundle __CURRENT__/tobago-theme-roxborough/target/bootstrap
+[INFO] > uglifyjs --compress typeofs=false --mangle --comments "/^!/" --source-map "content=dist/js/bootstrap.bundle.js.map,includeSources,url=bootstrap.bundle.min.js.map" --output dist/js/bootstrap.bundle.min.js dist/js/bootstrap.bundle.js
 [INFO] 
 [ERROR] INFO: Using input source map: dist/js/bootstrap.js.map
 [ERROR] INFO: Using input source map: dist/js/bootstrap.bundle.js.map
@@ -214,7 +214,7 @@ main:
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
-[INFO] Total time: 41.120 s
-[INFO] Finished at: 2018-02-20T09:52:37+01:00
-[INFO] Final Memory: 31M/410M
+[INFO] Total time: 53.600 s
+[INFO] Finished at: 2018-02-21T14:53:17+01:00
+[INFO] Final Memory: 32M/372M
 [INFO] ------------------------------------------------------------------------

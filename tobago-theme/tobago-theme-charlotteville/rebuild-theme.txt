@@ -1,11 +1,11 @@
-Build date: 2018-02-20 09:51:07
+Build date: 2018-02-21 14:51:29
 [INFO] Scanning for projects...
 [INFO] 
 [INFO] ------------------------------------------------------------------------
 [INFO] Building Tobago Theme Charlotteville 4.1.0-SNAPSHOT
 [INFO] ------------------------------------------------------------------------
-[INFO] Downloading from apache.snapshots: https://repository.apache.org/snapshots/org/apache/myfaces/tobago/tobago-theme-standard/4.1.0-SNAPSHOT/maven-metadata.xml
-[INFO] Downloading from apache.snapshots: https://repository.apache.org/snapshots/org/apache/myfaces/tobago/tobago-core/4.1.0-SNAPSHOT/maven-metadata.xml
+[INFO] Downloading: https://repository.apache.org/snapshots/org/apache/myfaces/tobago/tobago-theme-standard/4.1.0-SNAPSHOT/maven-metadata.xml
+[INFO] Downloading: https://repository.apache.org/snapshots/org/apache/myfaces/tobago/tobago-core/4.1.0-SNAPSHOT/maven-metadata.xml
 [INFO] 
 [INFO] --- maven-enforcer-plugin:3.0.0-M1:enforce (enforce) @ tobago-theme-charlotteville ---
 [INFO] 
@@ -68,12 +68,12 @@ Build date: 2018-02-20 09:51:07
 [INFO] > nodemon@1.14.10 postinstall __CURRENT__/tobago-theme-charlotteville/target/bootstrap/node_modules/nodemon
 [INFO] > node -e "console.log('\u001b[32mLove nodemon? You can now support the project via the open collective:\u001b[22m\u001b[39m\n > \u001b[96m\u001b[1mhttps://opencollective.com/nodemon/donate\u001b[0m\n')" || exit 0
 [INFO] 
-[INFO] Love nodemon? You can now support the project via the open collective:
-[INFO]  > https://opencollective.com/nodemon/donate
+[INFO] [32mLove nodemon? You can now support the project via the open collective:[22m[39m
+[INFO]  > [96m[1mhttps://opencollective.com/nodemon/donate[0m
 [INFO] 
 [WARNING] npm WARN bootstrap@4.0.0 requires a peer of jquery@1.9.1 - 3 but none is installed. You must install peer dependencies yourself.
 [ERROR] 
-[INFO] added 1405 packages in 15.945s
+[INFO] added 1405 packages in 27.212s
 [INFO] 
 [INFO] --- frontend-maven-plugin:1.4:npm (step #8: npm run css-compile) @ tobago-theme-charlotteville ---
 [INFO] Running 'npm run css-compile' in __CURRENT__/tobago-theme-charlotteville/target/bootstrap
@@ -82,14 +82,14 @@ Build date: 2018-02-20 09:51:07
 [INFO] > node-sass --output-style expanded --source-map true --source-map-contents true --precision 6 scss/bootstrap.scss dist/css/bootstrap.css && node-sass --output-style expanded --source-map true --source-map-contents true --precision 6 scss/bootstrap-grid.scss dist/css/bootstrap-grid.css && node-sass --output-style expanded --source-map true --source-map-contents true --precision 6 scss/bootstrap-reboot.scss dist/css/bootstrap-reboot.css
 [INFO] 
 [ERROR] Rendering Complete, saving .css file...
-[ERROR] Wrote CSS to __CURRENT__/tobago-theme-charlotteville/target/bootstrap/dist/css/bootstrap.css
 [ERROR] Wrote Source Map to __CURRENT__/tobago-theme-charlotteville/target/bootstrap/dist/css/bootstrap.css.map
+[ERROR] Wrote CSS to __CURRENT__/tobago-theme-charlotteville/target/bootstrap/dist/css/bootstrap.css
 [ERROR] Rendering Complete, saving .css file...
-[ERROR] Wrote CSS to __CURRENT__/tobago-theme-charlotteville/target/bootstrap/dist/css/bootstrap-grid.css
 [ERROR] Wrote Source Map to __CURRENT__/tobago-theme-charlotteville/target/bootstrap/dist/css/bootstrap-grid.css.map
+[ERROR] Wrote CSS to __CURRENT__/tobago-theme-charlotteville/target/bootstrap/dist/css/bootstrap-grid.css
 [ERROR] Rendering Complete, saving .css file...
-[ERROR] Wrote Source Map to __CURRENT__/tobago-theme-charlotteville/target/bootstrap/dist/css/bootstrap-reboot.css.map
 [ERROR] Wrote CSS to __CURRENT__/tobago-theme-charlotteville/target/bootstrap/dist/css/bootstrap-reboot.css
+[ERROR] Wrote Source Map to __CURRENT__/tobago-theme-charlotteville/target/bootstrap/dist/css/bootstrap-reboot.css.map
 [INFO] 
 [INFO] --- frontend-maven-plugin:1.4:npm (step #9: npm run css-prefix) @ tobago-theme-charlotteville ---
 [INFO] Running 'npm run css-prefix' in __CURRENT__/tobago-theme-charlotteville/target/bootstrap
@@ -97,9 +97,9 @@ Build date: 2018-02-20 09:51:07
 [INFO] > bootstrap@4.0.0 css-prefix __CURRENT__/tobago-theme-charlotteville/target/bootstrap
 [INFO] > postcss --config build/postcss.config.js --replace "dist/css/*.css" "!dist/css/*.min.css"
 [INFO] 
-[ERROR] ✔ Finished dist/css/bootstrap-grid.css (1.15 s)
-[ERROR] ✔ Finished dist/css/bootstrap-reboot.css (1.15 s)
-[ERROR] ✔ Finished dist/css/bootstrap.css (1.15 s)
+[ERROR] ✔ Finished dist/css/bootstrap-grid.css (875 ms)
+[ERROR] ✔ Finished dist/css/bootstrap-reboot.css (877 ms)
+[ERROR] ✔ Finished dist/css/bootstrap.css (877 ms)
 [INFO] 
 [INFO] --- frontend-maven-plugin:1.4:npm (step #10: npm run css-minify) @ tobago-theme-charlotteville ---
 [INFO] Running 'npm run css-minify' in __CURRENT__/tobago-theme-charlotteville/target/bootstrap
@@ -127,21 +127,21 @@ Build date: 2018-02-20 09:51:07
 [INFO] > npm-run-all --parallel js-compile-*
 [INFO] 
 [INFO] 
-[INFO] > bootstrap@4.0.0 js-compile-standalone __CURRENT__/tobago-theme-charlotteville/target/bootstrap
-[INFO] > rollup --environment BUNDLE:false --config build/rollup.config.js --sourcemap
+[INFO] > bootstrap@4.0.0 js-compile-bundle __CURRENT__/tobago-theme-charlotteville/target/bootstrap
+[INFO] > rollup --environment BUNDLE:true --config build/rollup.config.js --sourcemap
 [INFO] 
 [INFO] 
 [INFO] > bootstrap@4.0.0 js-compile-plugins __CURRENT__/tobago-theme-charlotteville/target/bootstrap
 [INFO] > cross-env PLUGINS=true babel js/src/ --out-dir js/dist/ --source-maps
 [INFO] 
 [INFO] 
-[INFO] > bootstrap@4.0.0 js-compile-bundle __CURRENT__/tobago-theme-charlotteville/target/bootstrap
-[INFO] > rollup --environment BUNDLE:true --config build/rollup.config.js --sourcemap
+[INFO] > bootstrap@4.0.0 js-compile-standalone __CURRENT__/tobago-theme-charlotteville/target/bootstrap
+[INFO] > rollup --environment BUNDLE:false --config build/rollup.config.js --sourcemap
 [INFO] 
 [ERROR] 
-[ERROR] __CURRENT__/tobago-theme-charlotteville/target/bootstrap/js/src/index.js → dist/js/bootstrap.js...
-[ERROR] 
 [ERROR] __CURRENT__/tobago-theme-charlotteville/target/bootstrap/js/src/index.js → dist/js/bootstrap.bundle.js...
+[ERROR] 
+[ERROR] __CURRENT__/tobago-theme-charlotteville/target/bootstrap/js/src/index.js → dist/js/bootstrap.js...
 [INFO] js/src/alert.js -> js/dist/alert.js
 [INFO] js/src/button.js -> js/dist/button.js
 [INFO] js/src/carousel.js -> js/dist/carousel.js
@@ -154,19 +154,19 @@ Build date: 2018-02-20 09:51:07
 [INFO] js/src/tab.js -> js/dist/tab.js
 [INFO] js/src/tooltip.js -> js/dist/tooltip.js
 [INFO] js/src/util.js -> js/dist/util.js
-[ERROR] created dist/js/bootstrap.js in 2.2s
-[ERROR] created dist/js/bootstrap.bundle.js in 2.4s
+[ERROR] created dist/js/bootstrap.js in 1.5s
+[ERROR] created dist/js/bootstrap.bundle.js in 1.6s
 [INFO] 
 [INFO] > bootstrap@4.0.0 js-minify __CURRENT__/tobago-theme-charlotteville/target/bootstrap
 [INFO] > npm-run-all --parallel js-minify-*
 [INFO] 
 [INFO] 
-[INFO] > bootstrap@4.0.0 js-minify-standalone __CURRENT__/tobago-theme-charlotteville/target/bootstrap
-[INFO] > uglifyjs --compress typeofs=false --mangle --comments "/^!/" --source-map "content=dist/js/bootstrap.js.map,includeSources,url=bootstrap.min.js.map" --output dist/js/bootstrap.min.js dist/js/bootstrap.js
-[INFO] 
-[INFO] 
 [INFO] > bootstrap@4.0.0 js-minify-docs __CURRENT__/tobago-theme-charlotteville/target/bootstrap
 [INFO] > uglifyjs --mangle --comments "/^!/" --output assets/js/docs.min.js assets/js/vendor/anchor.min.js assets/js/vendor/clipboard.min.js assets/js/vendor/holder.min.js "assets/js/src/*.js"
+[INFO] 
+[INFO] 
+[INFO] > bootstrap@4.0.0 js-minify-standalone __CURRENT__/tobago-theme-charlotteville/target/bootstrap
+[INFO] > uglifyjs --compress typeofs=false --mangle --comments "/^!/" --source-map "content=dist/js/bootstrap.js.map,includeSources,url=bootstrap.min.js.map" --output dist/js/bootstrap.min.js dist/js/bootstrap.js
 [INFO] 
 [INFO] 
 [INFO] > bootstrap@4.0.0 js-minify-bundle __CURRENT__/tobago-theme-charlotteville/target/bootstrap
@@ -218,7 +218,7 @@ main:
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
-[INFO] Total time: 46.544 s
-[INFO] Finished at: 2018-02-20T09:51:54+01:00
-[INFO] Final Memory: 31M/538M
+[INFO] Total time: 52.679 s
+[INFO] Finished at: 2018-02-21T14:52:23+01:00
+[INFO] Final Memory: 30M/523M
 [INFO] ------------------------------------------------------------------------

@@ -815,7 +815,6 @@ public class SheetRenderer extends RendererBase {
                 TobagoClass.SHEET__CELL.createMarkup(align),
                 column.getCustomClass());
             writer.startElement(HtmlElements.SPAN);
-            Icons sorterIcon = null;
             Markup markup = Markup.NULL;
             String tip = ComponentUtils.getStringAttribute(column, Attributes.tip);
             // sorter icons should only displayed when there is only 1 column and not input
@@ -851,11 +850,9 @@ public class SheetRenderer extends RendererBase {
                 if (column.getId().equals(sheetState.getSortedColumnId())) {
                   final String sortTitle;
                   if (sheetState.isAscending()) {
-                    sorterIcon = Icons.ANGLE_UP;
                     sortTitle = TobagoResourceBundle.getString(facesContext, "sheetAscending");
                     markup = markup.add(Markup.ASCENDING);
                   } else {
-                    sorterIcon = Icons.ANGLE_DOWN;
                     sortTitle = TobagoResourceBundle.getString(facesContext, "sheetDescending");
                     markup = markup.add(Markup.DESCENDING);
                   }
@@ -881,12 +878,6 @@ public class SheetRenderer extends RendererBase {
               writer.endElement(HtmlElements.INPUT);
             } else {
               cellComponent.encodeAll(facesContext);
-            }
-
-            if (sorterIcon != null) {
-              writer.startElement(HtmlElements.I);
-              writer.writeClassAttribute(Icons.FA, sorterIcon);
-              writer.endElement(HtmlElements.I);
             }
 
             writer.endElement(HtmlElements.SPAN);

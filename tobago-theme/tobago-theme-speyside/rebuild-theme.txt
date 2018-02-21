@@ -1,4 +1,4 @@
-Build date: 2018-02-20 09:53:26
+Build date: 2018-02-21 14:54:12
 [INFO] Scanning for projects...
 [INFO] 
 [INFO] ------------------------------------------------------------------------
@@ -64,12 +64,12 @@ Build date: 2018-02-20 09:53:26
 [INFO] > nodemon@1.14.10 postinstall __CURRENT__/tobago-theme-speyside/target/bootstrap/node_modules/nodemon
 [INFO] > node -e "console.log('\u001b[32mLove nodemon? You can now support the project via the open collective:\u001b[22m\u001b[39m\n > \u001b[96m\u001b[1mhttps://opencollective.com/nodemon/donate\u001b[0m\n')" || exit 0
 [INFO] 
-[INFO] Love nodemon? You can now support the project via the open collective:
-[INFO]  > https://opencollective.com/nodemon/donate
+[INFO] [32mLove nodemon? You can now support the project via the open collective:[22m[39m
+[INFO]  > [96m[1mhttps://opencollective.com/nodemon/donate[0m
 [INFO] 
 [WARNING] npm WARN bootstrap@4.0.0 requires a peer of jquery@1.9.1 - 3 but none is installed. You must install peer dependencies yourself.
 [ERROR] 
-[INFO] added 1405 packages in 15.06s
+[INFO] added 1405 packages in 27.446s
 [INFO] 
 [INFO] --- frontend-maven-plugin:1.6:npm (step #8: npm run css-compile) @ tobago-theme-speyside ---
 [INFO] Running 'npm run css-compile' in __CURRENT__/tobago-theme-speyside/target/bootstrap
@@ -93,9 +93,9 @@ Build date: 2018-02-20 09:53:26
 [INFO] > bootstrap@4.0.0 css-prefix __CURRENT__/tobago-theme-speyside/target/bootstrap
 [INFO] > postcss --config build/postcss.config.js --replace "dist/css/*.css" "!dist/css/*.min.css"
 [INFO] 
-[ERROR] ✔ Finished dist/css/bootstrap-grid.css (898 ms)
-[ERROR] ✔ Finished dist/css/bootstrap-reboot.css (900 ms)
-[ERROR] ✔ Finished dist/css/bootstrap.css (900 ms)
+[ERROR] ✔ Finished dist/css/bootstrap.css (966 ms)
+[ERROR] ✔ Finished dist/css/bootstrap-grid.css (969 ms)
+[ERROR] ✔ Finished dist/css/bootstrap-reboot.css (969 ms)
 [INFO] 
 [INFO] --- frontend-maven-plugin:1.6:npm (step #10: npm run css-minify) @ tobago-theme-speyside ---
 [INFO] Running 'npm run css-minify' in __CURRENT__/tobago-theme-speyside/target/bootstrap
@@ -123,12 +123,12 @@ Build date: 2018-02-20 09:53:26
 [INFO] > npm-run-all --parallel js-compile-*
 [INFO] 
 [INFO] 
-[INFO] > bootstrap@4.0.0 js-compile-bundle __CURRENT__/tobago-theme-speyside/target/bootstrap
-[INFO] > rollup --environment BUNDLE:true --config build/rollup.config.js --sourcemap
-[INFO] 
-[INFO] 
 [INFO] > bootstrap@4.0.0 js-compile-standalone __CURRENT__/tobago-theme-speyside/target/bootstrap
 [INFO] > rollup --environment BUNDLE:false --config build/rollup.config.js --sourcemap
+[INFO] 
+[INFO] 
+[INFO] > bootstrap@4.0.0 js-compile-bundle __CURRENT__/tobago-theme-speyside/target/bootstrap
+[INFO] > rollup --environment BUNDLE:true --config build/rollup.config.js --sourcemap
 [INFO] 
 [INFO] 
 [INFO] > bootstrap@4.0.0 js-compile-plugins __CURRENT__/tobago-theme-speyside/target/bootstrap
@@ -150,8 +150,8 @@ Build date: 2018-02-20 09:53:26
 [INFO] js/src/tab.js -> js/dist/tab.js
 [INFO] js/src/tooltip.js -> js/dist/tooltip.js
 [INFO] js/src/util.js -> js/dist/util.js
-[ERROR] created dist/js/bootstrap.js in 2s
-[ERROR] created dist/js/bootstrap.bundle.js in 2.3s
+[ERROR] created dist/js/bootstrap.js in 1.5s
+[ERROR] created dist/js/bootstrap.bundle.js in 1.7s
 [INFO] 
 [INFO] > bootstrap@4.0.0 js-minify __CURRENT__/tobago-theme-speyside/target/bootstrap
 [INFO] > npm-run-all --parallel js-minify-*
@@ -168,8 +168,8 @@ Build date: 2018-02-20 09:53:26
 [INFO] > bootstrap@4.0.0 js-minify-docs __CURRENT__/tobago-theme-speyside/target/bootstrap
 [INFO] > uglifyjs --mangle --comments "/^!/" --output assets/js/docs.min.js assets/js/vendor/anchor.min.js assets/js/vendor/clipboard.min.js assets/js/vendor/holder.min.js "assets/js/src/*.js"
 [INFO] 
-[ERROR] INFO: Using input source map: dist/js/bootstrap.bundle.js.map
 [ERROR] INFO: Using input source map: dist/js/bootstrap.js.map
+[ERROR] INFO: Using input source map: dist/js/bootstrap.bundle.js.map
 [INFO] 
 [INFO] --- maven-resources-plugin:2.7:resources (default-resources) @ tobago-theme-speyside ---
 [INFO] Using 'UTF-8' encoding to copy filtered resources.
@@ -214,7 +214,7 @@ main:
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
-[INFO] Total time: 41.454 s
-[INFO] Finished at: 2018-02-20T09:54:09+01:00
-[INFO] Final Memory: 32M/424M
+[INFO] Total time: 53.964 s
+[INFO] Finished at: 2018-02-21T14:55:07+01:00
+[INFO] Final Memory: 32M/392M
 [INFO] ------------------------------------------------------------------------
