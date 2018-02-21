@@ -72,6 +72,7 @@ public abstract class AbstractUISheet extends AbstractUIData
   public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.Data";
 
   public static final String SORTER_ID = "sorter";
+  public static final String NOT_SORTABLE_MESSAGE_ID = "org.apache.myfaces.tobago.Sheet.SORTING_ERROR";
 
   private SheetState state;
   private transient MeasureList columnLayout;
@@ -389,7 +390,7 @@ public abstract class AbstractUISheet extends AbstractUIData
         performPaging((PageActionEvent) facesEvent);
       }
     } else if (facesEvent instanceof SortActionEvent) {
-      getSheetState(getFacesContext()).updateSortState((SortActionEvent) facesEvent);
+      getSheetState(getFacesContext()).updateSortState(((SortActionEvent) facesEvent).getColumn().getId());
       sort(getFacesContext(), (SortActionEvent) facesEvent);
     }
   }

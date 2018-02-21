@@ -39,6 +39,8 @@
   <entry key="tobago.SelectOne.MESSAGE_VALUE_REQUIRED">Eine Auswahl wird benötigt!</entry>
 
   <entry key="tobago.ajax.response.error">Server Error: Fehler beim Bearbeiten der Anfrage. Eventuell ein Session Timeout!</entry>
+  <entry key="org.apache.myfaces.tobago.Sheet.SORTING_ERROR">Sortieren nicht möglich!</entry>
+  <entry key="org.apache.myfaces.tobago.Sheet.SORTING_ERROR_detail">Nach Spalte ''{0}'' kann nicht sortiert werden!</entry>
   <entry key="org.apache.myfaces.tobago.FileItemValidator.CONTENT_TYPE">Dateityp Fehler</entry>
   <entry key="org.apache.myfaces.tobago.FileItemValidator.CONTENT_TYPE_detail">Die hochgeladene Datei ist nicht vom Typ "{0}".</entry>
   <entry key="org.apache.myfaces.tobago.FileItemValidator.SIZE_LIMIT">Dateigröße Fehler</entry>

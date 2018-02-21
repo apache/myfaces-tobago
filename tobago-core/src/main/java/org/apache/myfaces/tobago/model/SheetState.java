@@ -24,7 +24,6 @@ import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.faces.component.UIColumn;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -116,7 +115,7 @@ public class SheetState implements Serializable, ScrollPositionState {
 
   public boolean isDefinedColumnWidths() {
     for (final Integer columnWidth : columnWidths) {
-      if(columnWidth < 0) {
+      if (columnWidth < 0) {
         return false;
       }
     }
@@ -131,16 +130,26 @@ public class SheetState implements Serializable, ScrollPositionState {
     this.first = first;
   }
 
+  /**
+   * @deprecated since 4.2.0, please use {@link #updateSortState(String id)}
+   */
+  @Deprecated
   public void updateSortState(final SortActionEvent sortEvent) {
+    updateSortState(sortEvent.getColumn().getId());
+  }
 
-    final UIColumn actualColumn = sortEvent.getColumn();
-
-    if (actualColumn.getId().equals(sortedColumnId)) {
+  public void updateSortState(final String columnId) {
+    if (columnId.equals(sortedColumnId)) {
       setAscending(!isAscending());
     } else {
       setAscending(true);
-      setSortedColumnId(actualColumn.getId());
+      setSortedColumnId(columnId);
     }
+  }
+
+  public void resetSortState() {
+    setAscending(true);
+    setSortedColumnId(null);
   }
 
   @Override

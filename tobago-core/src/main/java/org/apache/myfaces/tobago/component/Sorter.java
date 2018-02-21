@@ -25,11 +25,13 @@ import org.apache.myfaces.tobago.internal.component.AbstractUISheet;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.model.SheetState;
 import org.apache.myfaces.tobago.util.BeanComparator;
+import org.apache.myfaces.tobago.util.MessageUtils;
 import org.apache.myfaces.tobago.util.ValueExpressionComparator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.el.ValueExpression;
+import javax.faces.application.FacesMessage;
 import javax.faces.component.UIColumn;
 import javax.faces.component.UICommand;
 import javax.faces.component.UIComponent;
@@ -53,7 +55,7 @@ public class Sorter {
   private Comparator comparator;
 
   /**
-   * @deprecated Please use {@link #perform(org.apache.myfaces.tobago.internal.component.AbstractUISheet)}
+   * @deprecated since 2.0.7, please use {@link #perform(org.apache.myfaces.tobago.internal.component.AbstractUISheet)}
    */
   @Deprecated
   public void perform(final SortActionEvent sortEvent) {
@@ -61,34 +63,45 @@ public class Sorter {
     perform(data);
   }
 
-  public void perform(final AbstractUISheet data) {
-
-    Object value = data.getValue();
-    if (value instanceof DataModel) {
-      value = ((DataModel) value).getWrappedData();
-    }
+  public void perform(final AbstractUISheet sheet) {
     final FacesContext facesContext = FacesContext.getCurrentInstance();
-    final SheetState sheetState = data.getSheetState(facesContext);
+    Object data = sheet.getValue();
+    if (data instanceof DataModel) {
+      data = ((DataModel) data).getWrappedData();
+    }
+    final SheetState sheetState = sheet.getSheetState(facesContext);
 
     final String sortedColumnId = sheetState.getSortedColumnId();
     if (LOG.isDebugEnabled()) {
       LOG.debug("sorterId = '{}'", sortedColumnId);
     }
 
-    if (sortedColumnId == null) {
-      // not to be sorted
-      return;
+    boolean success = false;
+    if (sortedColumnId != null) {
+      final UIColumn column = (UIColumn) sheet.findComponent(sortedColumnId);
+      if (column != null) {
+        success = perform(facesContext, sheet, data, column, sheetState);
+      } else {
+        LOG.error("No column to sort found, sorterId = '{}'!", sortedColumnId);
+        addNotSortableMessage(facesContext, null);
+      }
+    } else {
+      LOG.error("No sorterId!");
+      addNotSortableMessage(facesContext, null);
     }
 
-    final UIColumn column = (UIColumn) data.findComponent(sortedColumnId);
-    if (column == null) {
-      LOG.warn("No column to sort found, sorterId = '{}'", sortedColumnId);
-      return;
+    if (!success) {
+      sheetState.resetSortState();
     }
+  }
+
+  private boolean perform(
+      final FacesContext facesContext, final AbstractUISheet sheet, final Object data, final UIColumn column,
+      final SheetState sheetState) {
 
     final Comparator actualComparator;
 
-    if (value instanceof List || value instanceof Object[]) {
+    if (data instanceof List || data instanceof Object[]) {
       final String sortProperty;
 
       try {
@@ -97,11 +110,11 @@ public class Sorter {
 
           final Attributes attribute = child instanceof AbstractUICommand ? Attributes.label : Attributes.value;
           if (child.getValueExpression(attribute.getName()) != null) {
-            final String var = data.getVar();
+            final String var = sheet.getVar();
             if (var == null) {
                 LOG.error("No sorting performed. Property var of sheet is not set!");
-                unsetSortableAttribute(column);
-                return;
+                addNotSortableMessage(facesContext, column);
+                return false;
             }
             String expressionString = child.getValueExpression(attribute.getName()).getExpressionString();
             if (isSimpleProperty(expressionString)) {
@@ -126,21 +139,21 @@ public class Sorter {
               actualComparator = new ValueExpressionComparator(facesContext, var, expression, descending, comparator);
             }
           } else {
-              LOG.error("No sorting performed. No Expression target found for sorting!");
-              unsetSortableAttribute(column);
-              return;
+            LOG.error("No sorting performed, because no expression found for "
+                    + "attribute '{}' in component '{}' with id='{}'! You may check the type of the component!",
+                attribute.getName(), child.getClass().getName(), child.getClientId());
+            addNotSortableMessage(facesContext, column);
+            return false;
           }
         } else {
           LOG.error("No sorting performed. Value is not instanceof List or Object[]!");
-          unsetSortableAttribute(column);
-          return;
+          addNotSortableMessage(facesContext, column);
+          return false;
         }
       } catch (final Exception e) {
         LOG.error("Error while extracting sortMethod :" + e.getMessage(), e);
-        if (column != null) {
-          unsetSortableAttribute(column);
-        }
-        return;
+        addNotSortableMessage(facesContext, column);
+        return false;
       }
 
       // TODO: locale / comparator parameter?
@@ -154,20 +167,20 @@ public class Sorter {
         selectedDataRows = new ArrayList<>(sheetState.getSelectedRows().size());
         Object dataRow;
         for (final Integer index : sheetState.getSelectedRows()) {
-          if (value instanceof List) {
-            dataRow = ((List) value).get(index);
+          if (data instanceof List) {
+            dataRow = ((List) data).get(index);
           } else {
-            dataRow = ((Object[]) value)[index];
+            dataRow = ((Object[]) data)[index];
           }
           selectedDataRows.add(dataRow);
         }
       }
 
       // do sorting
-      if (value instanceof List) {
-        Collections.sort((List) value, actualComparator);
+      if (data instanceof List) {
+        Collections.sort((List) data, actualComparator);
       } else { // value is instanceof Object[]
-        Arrays.sort((Object[]) value, actualComparator);
+        Arrays.sort((Object[]) data, actualComparator);
       }
 
       // restore selected rows
@@ -175,15 +188,15 @@ public class Sorter {
         sheetState.getSelectedRows().clear();
         for (final Object dataRow : selectedDataRows) {
           int index = -1;
-          if (value instanceof List) {
-            for (int i = 0; i < ((List) value).size() && index < 0; i++) {
-              if (dataRow == ((List) value).get(i)) {
+          if (data instanceof List) {
+            for (int i = 0; i < ((List) data).size() && index < 0; i++) {
+              if (dataRow == ((List) data).get(i)) {
                 index = i;
               }
             }
           } else {
-            for (int i = 0; i < ((Object[]) value).length && index < 0; i++) {
-              if (dataRow == ((Object[]) value)[i]) {
+            for (int i = 0; i < ((Object[]) data).length && index < 0; i++) {
+              if (dataRow == ((Object[]) data)[i]) {
                 index = i;
               }
             }
@@ -196,8 +209,9 @@ public class Sorter {
 
     } else {  // DataModel?, ResultSet, Result or Object
       LOG.warn("Sorting not supported for type "
-          + (value != null ? value.getClass().toString() : "null"));
+          + (data != null ? data.getClass().toString() : "null"));
     }
+    return true;
   }
 
   // XXX needs to be tested
@@ -216,9 +230,9 @@ public class Sorter {
     return false;
   }
 
-  private void unsetSortableAttribute(final UIColumn uiColumn) {
-    LOG.warn("removing attribute sortable from column " + uiColumn.getId());
-    uiColumn.getAttributes().put(Attributes.sortable.getName(), Boolean.FALSE);
+  private void addNotSortableMessage(final FacesContext facesContext, final UIColumn column) {
+    MessageUtils.addMessage(facesContext, column, FacesMessage.SEVERITY_WARN,
+        AbstractUISheet.NOT_SORTABLE_MESSAGE_ID, new Object[]{MessageUtils.getLabel(facesContext, column)});
   }
 
   private UIComponent getFirstSortableChild(final List<UIComponent> children) {

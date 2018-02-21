@@ -36,6 +36,8 @@
   <entry key="tobago.SelectOne.MESSAGE_VALUE_REQUIRED">Se requiere seleccionar.</entry>
 
   <entry key="tobago.ajax.response.error">Error en el servidor: No hay respuesta del servidor. Probablemente debido a un tiempo agotado de sesion!</entry>
+  <entry key="org.apache.myfaces.tobago.Sheet.SORTING_ERROR">Después de columna ''{0}'' no se puede ordenar!</entry>
+  <entry key="org.apache.myfaces.tobago.Sheet.SORTING_ERROR_detail">No se puede ordenar!</entry>
   <entry key="org.apache.myfaces.tobago.FileItemValidator.CONTENT_TYPE">Error de tipo de contenido</entry>
   <entry key="org.apache.myfaces.tobago.FileItemValidator.CONTENT_TYPE_detail">El archivo no es del tipo de contenido "{0}".</entry>
   <entry key="org.apache.myfaces.tobago.FileItemValidator.SIZE_LIMIT">Error en el tamaño del archivo</entry>

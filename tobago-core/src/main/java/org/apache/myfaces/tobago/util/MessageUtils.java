@@ -20,6 +20,8 @@
 package org.apache.myfaces.tobago.util;
 
 import org.apache.myfaces.tobago.application.LabelValueExpressionFacesMessage;
+import org.apache.myfaces.tobago.context.TobagoContext;
+import org.apache.myfaces.tobago.context.TobagoMessageBundle;
 import org.apache.myfaces.tobago.context.TobagoResourceBundle;
 
 import javax.el.ValueExpression;
@@ -32,12 +34,8 @@ import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
 /**
- * Utility to create and add {@link FacesMessage} object to the context.
- * The message will be internationalized with a bundle in the following order:
- * <ol>
- * <li>Application bundle</li>
- * <li>Tobago bundle</li>
- * <li>Default JSF bundle</li>
+ * Utility to create and add {@link FacesMessage} object to the context. The message will be internationalized with a
+ * bundle in the following order: <ol> <li>Application bundle</li> <li>Tobago bundle</li> <li>Default JSF bundle</li>
  * </ol>
  */
 public final class MessageUtils {
@@ -50,7 +48,7 @@ public final class MessageUtils {
   public static void addMessage(
       final FacesContext facesContext, final UIComponent component, final FacesMessage.Severity severity,
       final String messageId, final Object[] args) {
-    facesContext.addMessage(component.getClientId(facesContext),
+    facesContext.addMessage(component != null ? component.getClientId(facesContext) : null,
         getMessage(facesContext, facesContext.getViewRoot().getLocale(), severity, messageId, args));
   }
 
@@ -63,21 +61,31 @@ public final class MessageUtils {
     String detail = getBundleString(appBundle, messageId + DETAIL_SUFFIX);
 
     if (summary == null || detail == null) {
-      final ResourceBundle tobagoBundle = new TobagoResourceBundle();
+      final TobagoMessageBundle tobagoMessages = TobagoContext.getInstance(facesContext).getMessageBundle();
       if (summary == null) {
-        summary = getBundleString(tobagoBundle, messageId);
+        summary = getBundleString(tobagoMessages, messageId);
       }
       if (detail == null) {
-        detail = getBundleString(tobagoBundle, messageId + DETAIL_SUFFIX);
+        detail = getBundleString(tobagoMessages, messageId + DETAIL_SUFFIX);
       }
 
       if (summary == null || detail == null) {
-        final ResourceBundle defBundle = getDefaultBundle(facesContext, locale);
+        final TobagoResourceBundle tobagoBundle = TobagoContext.getInstance(facesContext).getResourceBundle();
         if (summary == null) {
-          summary = getBundleString(defBundle, messageId);
+          summary = getBundleString(tobagoBundle, messageId);
         }
         if (detail == null) {
-          detail = getBundleString(defBundle, messageId + DETAIL_SUFFIX);
+          detail = getBundleString(tobagoBundle, messageId + DETAIL_SUFFIX);
+        }
+
+        if (summary == null || detail == null) {
+          final ResourceBundle defBundle = getDefaultBundle(facesContext, locale);
+          if (summary == null) {
+            summary = getBundleString(defBundle, messageId);
+          }
+          if (detail == null) {
+            detail = getBundleString(defBundle, messageId + DETAIL_SUFFIX);
+          }
         }
       }
     }
@@ -136,6 +144,9 @@ public final class MessageUtils {
   }
 
   public static String getLabel(final FacesContext facesContext, final UIComponent component) {
+    if (component == null) {
+      return null;
+    }
     final Object label = component.getAttributes().get("label");
     if (label != null) {
       return label.toString();

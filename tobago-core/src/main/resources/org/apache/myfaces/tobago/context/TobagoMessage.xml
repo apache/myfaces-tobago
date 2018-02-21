@@ -35,6 +35,8 @@
   <entry key="tobago.tree.MESSAGE_NOT_LEAF">Only leaf selection allowed.</entry>
   <entry key="tobago.SelectOne.MESSAGE_VALUE_REQUIRED">Selection required</entry>
 
+  <entry key="org.apache.myfaces.tobago.Sheet.SORTING_ERROR">Sorting not possible!</entry>
+  <entry key="org.apache.myfaces.tobago.Sheet.SORTING_ERROR_detail">Can't sort the column ''{0}''!</entry>
   <entry key="org.apache.myfaces.tobago.FileItemValidator.CONTENT_TYPE">Content type error</entry>
   <entry key="org.apache.myfaces.tobago.FileItemValidator.CONTENT_TYPE_detail">The given file is not content type of "{0}".</entry>
   <entry key="org.apache.myfaces.tobago.FileItemValidator.SIZE_LIMIT">File size error</entry>
