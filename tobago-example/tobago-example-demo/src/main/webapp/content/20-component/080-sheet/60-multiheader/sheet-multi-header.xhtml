@@ -92,32 +92,32 @@
         </tc:panel>
       </f:facet>
 
-      <tc:column align="center">
-        #{luminary.name}
+      <tc:column id="c_name" align="center" sortable="true">
+        <tc:out value="#{luminary.name}" labelLayout="skip"/>
+      </tc:column>
+      <tc:column id="c_orbit" sortable="true">
+        <tc:out value="#{luminary.orbit}" labelLayout="skip"/>
+      </tc:column>
+      <tc:column  id="c_number" align="center">
+        <tc:out value="#{luminary.number}" labelLayout="skip"/>
+      </tc:column>
+      <tc:column align="right" sortable="true">
+        <tc:out value="#{luminary.distance}" labelLayout="skip"/>
+      </tc:column>
+      <tc:column align="right" sortable="true">
+        <tc:out value="#{luminary.period}" labelLayout="skip"/>
+      </tc:column>
+      <tc:column align="right" sortable="true">
+        <tc:out value="#{luminary.incl}" labelLayout="skip"/>
+      </tc:column>
+      <tc:column align="right" sortable="true">
+        <tc:out value="#{luminary.eccen}" labelLayout="skip"/>
       </tc:column>
       <tc:column sortable="true">
-        #{luminary.orbit}
-      </tc:column>
-      <tc:column align="center">
-        #{luminary.number}
-      </tc:column>
-      <tc:column align="right" sortable="true">
-        #{luminary.distance}
-      </tc:column>
-      <tc:column align="right" sortable="true">
-        #{luminary.period}
-      </tc:column>
-      <tc:column align="right" sortable="true">
-        #{luminary.incl}
-      </tc:column>
-      <tc:column align="right" sortable="true">
-        #{luminary.eccen}
-      </tc:column>
-      <tc:column sortable="true">
-        #{luminary.discoverer}
+        <tc:out value="#{luminary.discoverer}" labelLayout="skip"/>
       </tc:column>
       <tc:column align="center" sortable="true">
-        #{luminary.discoverYear}
+        <tc:out value="#{luminary.discoverYear}" labelLayout="skip"/>
       </tc:column>
     </tc:sheet>
   </tc:section>
