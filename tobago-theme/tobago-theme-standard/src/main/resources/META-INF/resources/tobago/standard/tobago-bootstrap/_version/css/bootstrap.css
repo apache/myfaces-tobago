@@ -9783,6 +9783,7 @@ h1 > .fa:first-child, h1 > img, h2 > .fa:first-child, h2 > img, h3 > .fa:first-c
 
 .tobago-selectManyCheckbox-inline .form-check.form-check-inline, .tobago-selectOneRadio-inline .form-check.form-check-inline {
   margin-bottom: 0;
+  padding-left: 1rem;
 }
 
 .tobago-selectManyCheckbox-inline .form-check.form-check-inline .form-check-label, .tobago-selectOneRadio-inline .form-check.form-check-inline .form-check-label {
