@@ -549,6 +549,10 @@ public class SheetRenderer extends RendererBase {
     }
 
     writer.endElement(HtmlElements.DIV);
+    UIComponent header = sheet.getHeader();
+    if (header.isTransient()) {
+      sheet.getFacets().remove("header");
+    }
   }
 
   private void encodeTableBody(
