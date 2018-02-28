@@ -531,6 +531,10 @@ public final class ComponentUtils {
     component.getFacets().put(facet.name(), child);
   }
 
+  public static void removeFacet(final UIComponent component, final Facets facet) {
+    component.getFacets().remove(facet.name());
+  }
+
   public static boolean isFacetOf(final UIComponent component, final UIComponent parent) {
     for (final Object o : parent.getFacets().keySet()) {
       final UIComponent facet = parent.getFacet((String) o);

@@ -419,6 +419,7 @@ public class PageRenderer extends RendererBase {
             .createComponent(facesContext, UIMeta.COMPONENT_TYPE, RendererTypes.Meta.name());
         viewportMeta.setName("viewport");
         viewportMeta.setContent("width=device-width, initial-scale=1.0");
+        viewportMeta.setTransient(true);
         metas.add(0, viewportMeta);
       }
 
@@ -426,6 +427,7 @@ public class PageRenderer extends RendererBase {
         final UIMeta charsetMeta = (UIMeta) facesContext.getApplication()
             .createComponent(facesContext, UIMeta.COMPONENT_TYPE, RendererTypes.Meta.name());
         charsetMeta.setCharset(charset);
+        charsetMeta.setTransient(true);
         metas.add(0, charsetMeta);
       }
     }

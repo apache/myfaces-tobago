@@ -116,6 +116,13 @@ public class <componentInfo.className>
   }
   <endif>
 
+  @Override
+  public void restoreState(FacesContext context, Object state) {
+    pushComponentToEL(context, this);
+    super.restoreState(context, state);
+    popComponentFromEL(context);
+  }
+
 }
 >>
 
