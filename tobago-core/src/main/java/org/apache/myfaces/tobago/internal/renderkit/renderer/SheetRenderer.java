@@ -31,7 +31,9 @@ import org.apache.myfaces.tobago.component.UIReload;
 import org.apache.myfaces.tobago.component.UISheet;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.context.TobagoResourceBundle;
+import org.apache.myfaces.tobago.event.PageActionEvent;
 import org.apache.myfaces.tobago.event.SheetAction;
+import org.apache.myfaces.tobago.event.SortActionEvent;
 import org.apache.myfaces.tobago.internal.component.AbstractUIColumn;
 import org.apache.myfaces.tobago.internal.component.AbstractUIColumnBase;
 import org.apache.myfaces.tobago.internal.component.AbstractUIData;
@@ -72,10 +74,14 @@ import javax.el.ValueExpression;
 import javax.faces.application.Application;
 import javax.faces.component.UIColumn;
 import javax.faces.component.UIComponent;
+import javax.faces.component.UIData;
+import javax.faces.component.UINamingContainer;
 import javax.faces.component.behavior.AjaxBehavior;
 import javax.faces.component.behavior.ClientBehavior;
 import javax.faces.component.behavior.ClientBehaviorHolder;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
+
 import java.io.IOException;
 import java.text.MessageFormat;
 import java.util.ArrayList;
@@ -92,6 +98,7 @@ public class SheetRenderer extends RendererBase {
   private static final String SUFFIX_COLUMN_RENDERED = ComponentUtils.SUB_SEPARATOR + "rendered";
   private static final String SUFFIX_SCROLL_POSITION = ComponentUtils.SUB_SEPARATOR + "scrollPosition";
   private static final String SUFFIX_SELECTED = ComponentUtils.SUB_SEPARATOR + "selected";
+  private static final String SUFFIX_PAGE_ACTION = "pageAction";
 
   @Override
   public void decode(final FacesContext facesContext, final UIComponent component) {
@@ -132,11 +139,84 @@ public class SheetRenderer extends RendererBase {
     }
     RenderUtils.decodedStateOfTreeData(facesContext, sheet);
 
+    decodeSheetAction(facesContext, sheet);
+    decodeColumnAction(facesContext, columns);
 /* this will be done by the javax.faces.component.UIData.processDecodes() because these are facets.
     for (UIComponent facet : sheet.getFacets().values()) {
       facet.decode(facesContext);
     }
 */
+  }
+
+  private void decodeColumnAction(final FacesContext facesContext, List<AbstractUIColumnBase> columns) {
+    for (final AbstractUIColumnBase column : columns) {
+      final boolean sortable = ComponentUtils.getBooleanAttribute(column, Attributes.sortable);
+      if (sortable) {
+        final String sourceId = facesContext.getExternalContext().getRequestParameterMap().get("javax.faces.source");
+        final String columnId = column.getClientId(facesContext);
+        final String sorterId = columnId + "_" + UISheet.SORTER_ID;
+
+        if (sorterId.equals(sourceId)) {
+          final UIData data = (UIData) column.getParent();
+          data.queueEvent(new SortActionEvent(data, column));
+        }
+      }
+    }
+  }
+
+
+  private void decodeSheetAction(final FacesContext facesContext, UISheet component) {
+    final String sourceId = facesContext.getExternalContext().getRequestParameterMap().get("javax.faces.source");
+
+    final String clientId = component.getClientId(facesContext);
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("sourceId = '{}'", sourceId);
+      LOG.debug("clientId = '{}'", clientId);
+    }
+
+    final String sheetClientIdWithAction = clientId + UINamingContainer.getSeparatorChar(facesContext) + SUFFIX_PAGE_ACTION;
+    if (sourceId != null && sourceId.startsWith(sheetClientIdWithAction)) {
+      String actionString  = sourceId.substring(sheetClientIdWithAction.length());
+      int index = actionString.indexOf('-');
+      SheetAction action;
+      if (index != -1) {
+        action = SheetAction.valueOf(actionString.substring(0, index));
+      } else {
+        action = SheetAction.valueOf(actionString);
+      }
+      ActionEvent event = null;
+      switch (action) {
+        case first:
+        case prev:
+        case next:
+        case last:
+          event = new PageActionEvent(component, action);
+          break;
+        case toPage:
+        case toRow:
+          event = new PageActionEvent(component, action);
+          Integer target = null;
+          Object value = null;
+          if (index == -1) {
+            final Map map = facesContext.getExternalContext().getRequestParameterMap();
+            value = map.get(sourceId);
+          } else {
+            value = actionString.substring(index+1);
+          }
+          try {
+            target = Integer.parseInt((String) value);
+          } catch (final NumberFormatException e) {
+            LOG.error("Can't parse integer value for action " + action.name() + ": " + value);
+            break;
+          }
+          ((PageActionEvent) event).setValue(target);
+          break;
+        default:
+      }
+      if (event != null) {
+        component.queueEvent(event);
+      }
+    }
   }
 
   @Override
@@ -281,7 +361,7 @@ public class SheetRenderer extends RendererBase {
       final Markup showRowRange = markupForLeftCenterRight(sheet.getShowRowRange());
       if (showRowRange != Markup.NULL) {
         final UILink command
-            = ensurePagingCommand(application, sheet, Facets.pagerRow.name(), SheetAction.toRow, false);
+            = ensurePagingCommand(facesContext, sheet, Facets.pagerRow.name(), SheetAction.toRow.name(), false);
         final String pagerCommandId = command.getClientId(facesContext);
 
         writer.startElement(HtmlElements.UL);
@@ -343,6 +423,7 @@ public class SheetRenderer extends RendererBase {
         } else {
           writer.write(TobagoResourceBundle.getString(facesContext, "sheetPagingInfoEmptyRow"));
         }
+        ComponentUtils.removeFacet(sheet, Facets.pagerRow);
         writer.endElement(HtmlElements.SPAN);
         writer.endElement(HtmlElements.LI);
         writer.endElement(HtmlElements.UL);
@@ -373,7 +454,7 @@ public class SheetRenderer extends RendererBase {
       final Markup showPageRange = markupForLeftCenterRight(sheet.getShowPageRange());
       if (showPageRange != Markup.NULL) {
         final UILink command
-            = ensurePagingCommand(application, sheet, Facets.pagerPage.name(), SheetAction.toPage, false);
+            = ensurePagingCommand(facesContext, sheet, Facets.pagerPage.name(), SheetAction.toPage.name(), false);
         final String pagerCommandId = command.getClientId(facesContext);
 
         writer.startElement(HtmlElements.UL);
@@ -438,6 +519,7 @@ public class SheetRenderer extends RendererBase {
         } else {
           writer.writeText(TobagoResourceBundle.getString(facesContext, "sheetPagingInfoEmptyPage"));
         }
+        ComponentUtils.removeFacet(sheet, Facets.pagerPage);
         writer.endElement(HtmlElements.SPAN);
         writer.endElement(HtmlElements.LI);
         if (sheet.isShowPageRangeArrows()) {
@@ -823,20 +905,20 @@ public class SheetRenderer extends RendererBase {
               if (sortable) {
                 UILink sortCommand = (UILink) ComponentUtils.getFacet(column, Facets.sorter);
                 if (sortCommand == null) {
-                  final String columnId = column.getClientId(facesContext);
-                  final String sorterId = columnId.substring(columnId.lastIndexOf(":") + 1) + "_" + UISheet.SORTER_ID;
+                  // assign id to column
+                  column.getClientId(facesContext);
+                  final String sorterId = column.getId() + "_" + UISheet.SORTER_ID;
                   sortCommand = (UILink) ComponentUtils.createComponent(
-                      facesContext, UILink.COMPONENT_TYPE, RendererTypes.Link, sorterId);
+                          facesContext, UILink.COMPONENT_TYPE, RendererTypes.Link, sorterId);
+                  sortCommand.setTransient(true);
                   final AjaxBehavior reloadBehavior = createReloadBehavior(sheet);
                   sortCommand.addClientBehavior("click", reloadBehavior);
-                  sortCommand.setRendererType(RendererTypes.SHEET_PAGE_COMMAND);
-                  ComponentUtils.setAttribute(sortCommand, Attributes.sheetAction, SheetAction.sort);
                   ComponentUtils.setFacet(column, Facets.sorter, sortCommand);
                 }
                 writer.writeIdAttribute(sortCommand.getClientId(facesContext));
                 writer.writeCommandMapAttribute(
                     JsonUtils.encode(RenderUtils.getBehaviorCommands(facesContext, sortCommand)));
-
+                ComponentUtils.removeFacet(column, Facets.sorter);
                 if (tip == null) {
                   tip = "";
                 } else {
@@ -978,7 +1060,7 @@ public class SheetRenderer extends RendererBase {
     final String facet = action == SheetAction.toPage || action == SheetAction.toRow
         ? action.name() + "-" + target
         : action.name();
-    final UILink command = ensurePagingCommand(application, data, facet, action, disabled);
+    final UILink command = ensurePagingCommand(facesContext, data, facet, facet, disabled);
     if (target != null) {
       ComponentUtils.setAttribute(command, Attributes.pagingTarget, target);
     }
@@ -1007,6 +1089,7 @@ public class SheetRenderer extends RendererBase {
     } else {
       writer.writeText(String.valueOf(target));
     }
+    data.getFacets().remove(facet);
     writer.endElement(HtmlElements.A);
     writer.endElement(HtmlElements.LI);
   }
@@ -1028,8 +1111,6 @@ public class SheetRenderer extends RendererBase {
       final FacesContext facesContext, final Application application, final UISheet sheet)
       throws IOException {
 
-    final UILink command
-        = ensurePagingCommand(application, sheet, Facets.PAGER_PAGE_DIRECT, SheetAction.toPage, false);
     int linkCount = ComponentUtils.getIntAttribute(sheet, Attributes.directLinkCount);
     linkCount--;  // current page needs no link
     final ArrayList<Integer> prevs = new ArrayList<>(linkCount);
@@ -1100,18 +1181,16 @@ public class SheetRenderer extends RendererBase {
   }
 
   private UILink ensurePagingCommand(
-      final Application application, final UISheet sheet, final String facet, final SheetAction action,
+      final FacesContext facesContext, final UISheet sheet, final String facet, final String id,
       final boolean disabled) {
 
     final Map<String, UIComponent> facets = sheet.getFacets();
     UILink command = (UILink) facets.get(facet);
     if (command == null) {
-      command = (UILink) application.createComponent(UILink.COMPONENT_TYPE);
-      command.setRendererType(RendererTypes.SHEET_PAGE_COMMAND);
-//      command.addActionListener(new SheetActionListener()); XXX to activate: remove RendererType
+      command = (UILink) ComponentUtils.createComponent(facesContext, UILink.COMPONENT_TYPE, RendererTypes.Link, SUFFIX_PAGE_ACTION + id);
       command.setRendered(true);
-      ComponentUtils.setAttribute(command, Attributes.sheetAction, action);
       command.setDisabled(disabled);
+      command.setTransient(true);
       facets.put(facet, command);
 
       // add AjaxBehavior
@@ -1140,6 +1219,7 @@ public class SheetRenderer extends RendererBase {
     final AjaxBehavior behavior = new AjaxBehavior();
     behavior.setExecute(executeIds);
     behavior.setRender(renderIds);
+    behavior.setTransient(true);
     return behavior;
   }
 
