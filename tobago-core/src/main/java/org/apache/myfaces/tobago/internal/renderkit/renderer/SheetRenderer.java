@@ -148,7 +148,7 @@ public class SheetRenderer extends RendererBase {
 */
   }
 
-  private void decodeColumnAction(final FacesContext facesContext, List<AbstractUIColumnBase> columns) {
+  private void decodeColumnAction(final FacesContext facesContext, final List<AbstractUIColumnBase> columns) {
     for (final AbstractUIColumnBase column : columns) {
       final boolean sortable = ComponentUtils.getBooleanAttribute(column, Attributes.sortable);
       if (sortable) {
@@ -165,7 +165,7 @@ public class SheetRenderer extends RendererBase {
   }
 
 
-  private void decodeSheetAction(final FacesContext facesContext, UISheet component) {
+  private void decodeSheetAction(final FacesContext facesContext, final UISheet component) {
     final String sourceId = facesContext.getExternalContext().getRequestParameterMap().get("javax.faces.source");
 
     final String clientId = component.getClientId(facesContext);
@@ -174,7 +174,8 @@ public class SheetRenderer extends RendererBase {
       LOG.debug("clientId = '{}'", clientId);
     }
 
-    final String sheetClientIdWithAction = clientId + UINamingContainer.getSeparatorChar(facesContext) + SUFFIX_PAGE_ACTION;
+    final String sheetClientIdWithAction =
+            clientId + UINamingContainer.getSeparatorChar(facesContext) + SUFFIX_PAGE_ACTION;
     if (sourceId != null && sourceId.startsWith(sheetClientIdWithAction)) {
       String actionString  = sourceId.substring(sheetClientIdWithAction.length());
       int index = actionString.indexOf('-');
@@ -230,6 +231,7 @@ public class SheetRenderer extends RendererBase {
     UIComponent header = sheet.getHeader();
     if (header == null) {
       header = ComponentUtils.createComponent(facesContext, UIPanel.COMPONENT_TYPE, null, "_header");
+      header.setTransient(true);
       final List<AbstractUIColumnBase> columns = sheet.getAllColumns();
       int i = 0;
       for (final AbstractUIColumnBase column : columns) {
@@ -237,6 +239,7 @@ public class SheetRenderer extends RendererBase {
           final AbstractUIOut out = (AbstractUIOut) ComponentUtils.createComponent(
               facesContext, UIOut.COMPONENT_TYPE, RendererTypes.Out, "_col" + i);
 //        out.setValue(column.getLabel());
+          out.setTransient(true);
           ValueExpression valueExpression = column.getValueExpression(Attributes.label.getName());
           if (valueExpression != null) {
             out.setValueExpression(Attributes.value.getName(), valueExpression);
@@ -1187,7 +1190,9 @@ public class SheetRenderer extends RendererBase {
     final Map<String, UIComponent> facets = sheet.getFacets();
     UILink command = (UILink) facets.get(facet);
     if (command == null) {
-      command = (UILink) ComponentUtils.createComponent(facesContext, UILink.COMPONENT_TYPE, RendererTypes.Link, SUFFIX_PAGE_ACTION + id);
+      command =
+              (UILink) ComponentUtils.createComponent(facesContext, UILink.COMPONENT_TYPE,
+                      RendererTypes.Link, SUFFIX_PAGE_ACTION + id);
       command.setRendered(true);
       command.setDisabled(disabled);
       command.setTransient(true);
