@@ -352,9 +352,8 @@ public class SheetRenderer extends RendererBase {
       expandedValue = new StringBuilder(",");
     }
 
-    encodeTableBody(
-        facesContext, sheet, writer, sheetId, selectable, columnWidths, selectedRows, columns,
-        autoLayout, expandedValue);
+    encodeTableBody(facesContext, sheet, writer, sheetId, selectable, columnWidths, selectedRows, columns, autoLayout,
+        expandedValue);
 
     if (sheet.isPagingVisible()) {
       writer.startElement(HtmlElements.FOOTER);
