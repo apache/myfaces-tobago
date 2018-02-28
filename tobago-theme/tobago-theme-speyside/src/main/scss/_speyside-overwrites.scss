@@ -779,50 +779,6 @@ li:last-child {
   }
 }
 
-.label {
-  display: inline-block;
-  padding: .25em .4em;
-  font-size: 75%;
-  font-weight: 700;
-  line-height: 1;
-  color: #fff;
-  text-align: center;
-  white-space: nowrap;
-  vertical-align: baseline;
-  border-radius: .25rem
-
-}
-
-.label-pill {
-  padding-right: .6em;
-  padding-left: .6em;
-  border-radius: 10rem
-}
-
-.label-danger {
-  background-color: theme-color("danger");
-}
-
-.label-info {
-  background-color: theme-color("info");
-}
-
-.label-warning {
-  background-color: theme-color("warning");
-}
-
-.label-success {
-  background-color: theme-color("success");
-}
-
-.label-primary {
-  background-color: theme-color("primary");
-}
-
-.label-default {
-  background-color: $gray-700;
-}
-
 // checkboxes and radio buttons
 .tobago-selectBooleanCheckbox, .tobago-selectManyCheckbox, .tobago-selectOneRadio {
   .form-check-label {
