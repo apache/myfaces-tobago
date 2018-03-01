@@ -16,7 +16,7 @@
  */
 
 QUnit.test("Basics: Name", function (assert) {
-  assert.expect(37);
+  assert.expect(39);
   var done = assert.async(4);
   var step = 1;
 
@@ -24,16 +24,21 @@ QUnit.test("Basics: Name", function (assert) {
   var $rows = jQueryFrame("#page\\:mainForm\\:s1 .tobago-sheet-bodyTable tbody .tobago-sheet-row");
   var $leftPaging = jQueryFrame("#page\\:mainForm\\:s1 .tobago-sheet-paging-markup-left input");
 
-  if ($colName.find(".fa-angle-up").length !== 1) {
+  if (!$colName.hasClass("tobago-sheet-header-markup-ascending")) {
     $colName.click();
   }
 
   waitForAjax(function () {
     $colName = jQueryFrame($colName.selector);
-    return step === 1 && $colName.find(".fa-angle-up").length === 1;
+    return step === 1
+        && $colName.hasClass("tobago-sheet-header-markup-sortable")
+        && $colName.hasClass("tobago-sheet-header-markup-ascending")
+        && !$colName.hasClass("tobago-sheet-header-markup-descending");
   }, function () {
     $colName = jQueryFrame($colName.selector);
-    assert.equal($colName.find(".fa-angle-up").length, 1);
+    assert.ok($colName.hasClass("tobago-sheet-header-markup-sortable"));
+    assert.ok($colName.hasClass("tobago-sheet-header-markup-ascending"));
+    assert.notOk($colName.hasClass("tobago-sheet-header-markup-descending"));
 
     $leftPaging = jQueryFrame($leftPaging.selector);
     $leftPaging.val("22").trigger("blur");
@@ -101,7 +106,7 @@ QUnit.test("Basics: Name", function (assert) {
 });
 
 QUnit.test("Basics: Period", function (assert) {
-  assert.expect(37);
+  assert.expect(39);
   var done = assert.async(4);
   var step = 1;
 
@@ -109,16 +114,21 @@ QUnit.test("Basics: Period", function (assert) {
   var $rows = jQueryFrame("#page\\:mainForm\\:s1 .tobago-sheet-bodyTable tbody .tobago-sheet-row");
   var $leftPaging = jQueryFrame("#page\\:mainForm\\:s1 .tobago-sheet-paging-markup-left input");
 
-  if ($colPeriod.find(".fa-angle-up").length !== 1) {
+  if (!$colPeriod.hasClass("tobago-sheet-header-markup-ascending")) {
     $colPeriod.click();
   }
 
   waitForAjax(function () {
     $colPeriod = jQueryFrame($colPeriod.selector);
-    return step === 1 && $colPeriod.find(".fa-angle-up").length === 1;
+    return step === 1
+        && $colPeriod.hasClass("tobago-sheet-header-markup-sortable")
+        && $colPeriod.hasClass("tobago-sheet-header-markup-ascending")
+        && !$colPeriod.hasClass("tobago-sheet-header-markup-descending");
   }, function () {
     $colPeriod = jQueryFrame($colPeriod.selector);
-    assert.equal($colPeriod.find(".fa-angle-up").length, 1);
+    assert.ok($colPeriod.hasClass("tobago-sheet-header-markup-sortable"));
+    assert.ok($colPeriod.hasClass("tobago-sheet-header-markup-ascending"));
+    assert.notOk($colPeriod.hasClass("tobago-sheet-header-markup-descending"));
 
     $leftPaging = jQueryFrame($leftPaging.selector);
     $leftPaging.val("22").trigger("blur");
@@ -186,7 +196,7 @@ QUnit.test("Basics: Period", function (assert) {
 });
 
 QUnit.test("Basics: Year", function (assert) {
-  assert.expect(13);
+  assert.expect(15);
   var done = assert.async(4);
   var step = 1;
 
@@ -194,16 +204,21 @@ QUnit.test("Basics: Year", function (assert) {
   var $rows = jQueryFrame("#page\\:mainForm\\:s1 .tobago-sheet-bodyTable tbody .tobago-sheet-row");
   var $leftPaging = jQueryFrame("#page\\:mainForm\\:s1 .tobago-sheet-paging-markup-left input");
 
-  if ($colYear.find(".fa-angle-up").length !== 1) {
+  if (!$colYear.hasClass("tobago-sheet-header-markup-ascending")) {
     $colYear.click();
   }
 
   waitForAjax(function () {
     $colYear = jQueryFrame($colYear.selector);
-    return $colYear.find(".fa-angle-up").length === 1;
+    return step === 1
+        && $colYear.hasClass("tobago-sheet-header-markup-sortable")
+        && $colYear.hasClass("tobago-sheet-header-markup-ascending")
+        && !$colYear.hasClass("tobago-sheet-header-markup-descending");
   }, function () {
     $colYear = jQueryFrame($colYear.selector);
-    assert.equal($colYear.find(".fa-angle-up").length, 1);
+    assert.ok($colYear.hasClass("tobago-sheet-header-markup-sortable"));
+    assert.ok($colYear.hasClass("tobago-sheet-header-markup-ascending"));
+    assert.notOk($colYear.hasClass("tobago-sheet-header-markup-descending"));
 
     $leftPaging = jQueryFrame($leftPaging.selector);
     $leftPaging.val("22").trigger("blur");
@@ -269,7 +284,7 @@ QUnit.test("Basics: Year", function (assert) {
  * 2. goto line 9
  */
 QUnit.test("Basics: left paging", function (assert) {
-  assert.expect(25);
+  assert.expect(27);
   var done = assert.async(3);
   var step = 1;
 
@@ -277,16 +292,21 @@ QUnit.test("Basics: left paging", function (assert) {
   var $rows = jQueryFrame("#page\\:mainForm\\:s1 .tobago-sheet-bodyTable tbody .tobago-sheet-row");
   var $leftPaging = jQueryFrame("#page\\:mainForm\\:s1 .tobago-sheet-paging-markup-left input");
 
-  if ($colName.find(".fa-angle-up").length !== 1) {
+  if (!$colName.hasClass("tobago-sheet-header-markup-ascending")) {
     $colName.click();
   }
 
   waitForAjax(function () {
     $colName = jQueryFrame($colName.selector);
-    return step === 1 && $colName.find(".fa-angle-up").length === 1;
+    return step === 1
+        && $colName.hasClass("tobago-sheet-header-markup-sortable")
+        && $colName.hasClass("tobago-sheet-header-markup-ascending")
+        && !$colName.hasClass("tobago-sheet-header-markup-descending");
   }, function () {
     $colName = jQueryFrame($colName.selector);
-    assert.equal($colName.find(".fa-angle-up").length, 1);
+    assert.ok($colName.hasClass("tobago-sheet-header-markup-sortable"));
+    assert.ok($colName.hasClass("tobago-sheet-header-markup-ascending"));
+    assert.notOk($colName.hasClass("tobago-sheet-header-markup-descending"));
 
     $leftPaging = jQueryFrame($leftPaging.selector);
     $leftPaging.val("8").trigger("blur");
@@ -340,7 +360,7 @@ QUnit.test("Basics: left paging", function (assert) {
  * 3. goto page 13
  */
 QUnit.test("Basics: center paging", function (assert) {
-  assert.expect(49);
+  assert.expect(51);
   var done = assert.async(5);
   var step = 1;
 
@@ -349,16 +369,21 @@ QUnit.test("Basics: center paging", function (assert) {
   var $leftPaging = jQueryFrame("#page\\:mainForm\\:s1 .tobago-sheet-paging-markup-left input");
   var $centerPaging = jQueryFrame("#page\\:mainForm\\:s1 .tobago-sheet-paging-markup-center li .page-link");
 
-  if ($colName.find(".fa-angle-up").length !== 1) {
+  if (!$colName.hasClass("tobago-sheet-header-markup-ascending")) {
     $colName.click();
   }
 
   waitForAjax(function () {
     $colName = jQueryFrame($colName.selector);
-    return step === 1 && $colName.find(".fa-angle-up").length === 1;
+    return step === 1
+        && $colName.hasClass("tobago-sheet-header-markup-sortable")
+        && $colName.hasClass("tobago-sheet-header-markup-ascending")
+        && !$colName.hasClass("tobago-sheet-header-markup-descending");
   }, function () {
     $colName = jQueryFrame($colName.selector);
-    assert.equal($colName.find(".fa-angle-up").length, 1);
+    assert.ok($colName.hasClass("tobago-sheet-header-markup-sortable"));
+    assert.ok($colName.hasClass("tobago-sheet-header-markup-ascending"));
+    assert.notOk($colName.hasClass("tobago-sheet-header-markup-descending"));
 
     $leftPaging = jQueryFrame($leftPaging.selector);
     $leftPaging.val("1").trigger("blur");
@@ -456,7 +481,7 @@ QUnit.test("Basics: center paging", function (assert) {
  * 5. goto page 14
  */
 QUnit.test("Basics: right paging", function (assert) {
-  assert.expect(73);
+  assert.expect(75);
   var done = assert.async(7);
   var step = 1;
 
@@ -465,16 +490,21 @@ QUnit.test("Basics: right paging", function (assert) {
   var $leftPaging = jQueryFrame("#page\\:mainForm\\:s1 .tobago-sheet-paging-markup-left input");
   var $rightPaging = jQueryFrame("#page\\:mainForm\\:s1 .tobago-sheet-paging-markup-right .page-link");
 
-  if ($colName.find(".fa-angle-up").length !== 1) {
+  if (!$colName.hasClass("tobago-sheet-header-markup-ascending")) {
     $colName.click();
   }
 
   waitForAjax(function () {
     $colName = jQueryFrame($colName.selector);
-    return step === 1 && $colName.find(".fa-angle-up").length === 1;
+    return step === 1
+        && $colName.hasClass("tobago-sheet-header-markup-sortable")
+        && $colName.hasClass("tobago-sheet-header-markup-ascending")
+        && !$colName.hasClass("tobago-sheet-header-markup-descending");
   }, function () {
     $colName = jQueryFrame($colName.selector);
-    assert.equal($colName.find(".fa-angle-up").length, 1);
+    assert.ok($colName.hasClass("tobago-sheet-header-markup-sortable"));
+    assert.ok($colName.hasClass("tobago-sheet-header-markup-ascending"));
+    assert.notOk($colName.hasClass("tobago-sheet-header-markup-descending"));
 
     $leftPaging = jQueryFrame($leftPaging.selector);
     $leftPaging.val("22").trigger("blur");
@@ -607,7 +637,7 @@ QUnit.test("Basics: right paging", function (assert) {
 });
 
 QUnit.test("Custom Sorting: Name", function (assert) {
-  assert.expect(37);
+  assert.expect(39);
   var done = assert.async(4);
   var step = 1;
 
@@ -615,16 +645,21 @@ QUnit.test("Custom Sorting: Name", function (assert) {
   var $rows = jQueryFrame("#page\\:mainForm\\:s2 .tobago-sheet-bodyTable tbody .tobago-sheet-row");
   var $leftPaging = jQueryFrame("#page\\:mainForm\\:s2 .tobago-sheet-paging-markup-left input");
 
-  if ($colName.find(".fa-angle-up").length !== 1) {
+  if (!$colName.hasClass("tobago-sheet-header-markup-ascending")) {
     $colName.click();
   }
 
   waitForAjax(function () {
     $colName = jQueryFrame($colName.selector);
-    return step === 1 && $colName.find(".fa-angle-up").length === 1;
+    return step === 1
+        && $colName.hasClass("tobago-sheet-header-markup-sortable")
+        && $colName.hasClass("tobago-sheet-header-markup-ascending")
+        && !$colName.hasClass("tobago-sheet-header-markup-descending");
   }, function () {
     $colName = jQueryFrame($colName.selector);
-    assert.equal($colName.find(".fa-angle-up").length, 1);
+    assert.ok($colName.hasClass("tobago-sheet-header-markup-sortable"));
+    assert.ok($colName.hasClass("tobago-sheet-header-markup-ascending"));
+    assert.notOk($colName.hasClass("tobago-sheet-header-markup-descending"));
 
     $leftPaging = jQueryFrame($leftPaging.selector);
     $leftPaging.val("22").trigger("blur");
@@ -692,7 +727,7 @@ QUnit.test("Custom Sorting: Name", function (assert) {
 });
 
 QUnit.test("Custom Sorting: Period", function (assert) {
-  assert.expect(37);
+  assert.expect(39);
   var done = assert.async(4);
   var step = 1;
 
@@ -700,16 +735,21 @@ QUnit.test("Custom Sorting: Period", function (assert) {
   var $rows = jQueryFrame("#page\\:mainForm\\:s2 .tobago-sheet-bodyTable tbody .tobago-sheet-row");
   var $leftPaging = jQueryFrame("#page\\:mainForm\\:s2 .tobago-sheet-paging-markup-left input");
 
-  if ($colPeriod.find(".fa-angle-up").length !== 1) {
+  if (!$colPeriod.hasClass("tobago-sheet-header-markup-ascending")) {
     $colPeriod.click();
   }
 
   waitForAjax(function () {
     $colPeriod = jQueryFrame($colPeriod.selector);
-    return step === 1 && $colPeriod.find(".fa-angle-up").length === 1;
+    return step === 1
+        && $colPeriod.hasClass("tobago-sheet-header-markup-sortable")
+        && $colPeriod.hasClass("tobago-sheet-header-markup-ascending")
+        && !$colPeriod.hasClass("tobago-sheet-header-markup-descending");
   }, function () {
     $colPeriod = jQueryFrame($colPeriod.selector);
-    assert.equal($colPeriod.find(".fa-angle-up").length, 1);
+    assert.ok($colPeriod.hasClass("tobago-sheet-header-markup-sortable"));
+    assert.ok($colPeriod.hasClass("tobago-sheet-header-markup-ascending"));
+    assert.notOk($colPeriod.hasClass("tobago-sheet-header-markup-descending"));
 
     $leftPaging = jQueryFrame($leftPaging.selector);
     $leftPaging.val("22").trigger("blur");
@@ -777,7 +817,7 @@ QUnit.test("Custom Sorting: Period", function (assert) {
 });
 
 QUnit.test("Custom Sorting: Year", function (assert) {
-  assert.expect(13);
+  assert.expect(15);
   var done = assert.async(4);
   var step = 1;
 
@@ -785,16 +825,20 @@ QUnit.test("Custom Sorting: Year", function (assert) {
   var $rows = jQueryFrame("#page\\:mainForm\\:s2 .tobago-sheet-bodyTable tbody .tobago-sheet-row");
   var $leftPaging = jQueryFrame("#page\\:mainForm\\:s2 .tobago-sheet-paging-markup-left input");
 
-  if ($colYear.find(".fa-angle-up").length !== 1) {
+  if (!$colYear.hasClass("tobago-sheet-header-markup-ascending")) {
     $colYear.click();
   }
 
   waitForAjax(function () {
     $colYear = jQueryFrame($colYear.selector);
-    return step === 1 && $colYear.find(".fa-angle-up").length === 1;
+    return step === 1 && $colYear.hasClass("tobago-sheet-header-markup-sortable")
+        && $colYear.hasClass("tobago-sheet-header-markup-ascending")
+        && !$colYear.hasClass("tobago-sheet-header-markup-descending");
   }, function () {
     $colYear = jQueryFrame($colYear.selector);
-    assert.equal($colYear.find(".fa-angle-up").length, 1);
+    assert.ok($colYear.hasClass("tobago-sheet-header-markup-sortable"));
+    assert.ok($colYear.hasClass("tobago-sheet-header-markup-ascending"));
+    assert.notOk($colYear.hasClass("tobago-sheet-header-markup-descending"));
 
     $leftPaging = jQueryFrame($leftPaging.selector);
     $leftPaging.val("22").trigger("blur");
@@ -863,7 +907,7 @@ QUnit.test("Custom Sorting: Year", function (assert) {
  * 2. goto line 9
  */
 QUnit.test("Custom Sorting: left paging", function (assert) {
-  assert.expect(25);
+  assert.expect(27);
   var done = assert.async(3);
   var step = 1;
 
@@ -871,16 +915,20 @@ QUnit.test("Custom Sorting: left paging", function (assert) {
   var $rows = jQueryFrame("#page\\:mainForm\\:s2 .tobago-sheet-bodyTable tbody .tobago-sheet-row");
   var $leftPaging = jQueryFrame("#page\\:mainForm\\:s2 .tobago-sheet-paging-markup-left input");
 
-  if ($colName.find(".fa-angle-up").length !== 1) {
+  if (!$colName.hasClass("tobago-sheet-header-markup-ascending")) {
     $colName.click();
   }
 
   waitForAjax(function () {
     $colName = jQueryFrame($colName.selector);
-    return step === 1 && $colName.find(".fa-angle-up").length === 1;
+    return step === 1 && $colName.hasClass("tobago-sheet-header-markup-sortable")
+        && $colName.hasClass("tobago-sheet-header-markup-ascending")
+        && !$colName.hasClass("tobago-sheet-header-markup-descending");
   }, function () {
     $colName = jQueryFrame($colName.selector);
-    assert.equal($colName.find(".fa-angle-up").length, 1);
+    assert.ok($colName.hasClass("tobago-sheet-header-markup-sortable"));
+    assert.ok($colName.hasClass("tobago-sheet-header-markup-ascending"));
+    assert.notOk($colName.hasClass("tobago-sheet-header-markup-descending"));
 
     $leftPaging = jQueryFrame($leftPaging.selector);
     $leftPaging.val("8").trigger("blur");
@@ -934,7 +982,7 @@ QUnit.test("Custom Sorting: left paging", function (assert) {
  * 3. goto page 13
  */
 QUnit.test("Custom Sorting: center paging", function (assert) {
-  assert.expect(49);
+  assert.expect(51);
   var done = assert.async(5);
   var step = 1;
 
@@ -943,16 +991,20 @@ QUnit.test("Custom Sorting: center paging", function (assert) {
   var $leftPaging = jQueryFrame("#page\\:mainForm\\:s2 .tobago-sheet-paging-markup-left input");
   var $centerPaging = jQueryFrame("#page\\:mainForm\\:s2 .tobago-sheet-paging-markup-center li .page-link");
 
-  if ($colName.find(".fa-angle-up").length !== 1) {
+  if (!$colName.hasClass("tobago-sheet-header-markup-ascending")) {
     $colName.click();
   }
 
   waitForAjax(function () {
     $colName = jQueryFrame($colName.selector);
-    return step === 1 && $colName.find(".fa-angle-up").length === 1;
+    return step === 1 && $colName.hasClass("tobago-sheet-header-markup-sortable")
+        && $colName.hasClass("tobago-sheet-header-markup-ascending")
+        && !$colName.hasClass("tobago-sheet-header-markup-descending");
   }, function () {
     $colName = jQueryFrame($colName.selector);
-    assert.equal($colName.find(".fa-angle-up").length, 1);
+    assert.ok($colName.hasClass("tobago-sheet-header-markup-sortable"));
+    assert.ok($colName.hasClass("tobago-sheet-header-markup-ascending"));
+    assert.notOk($colName.hasClass("tobago-sheet-header-markup-descending"));
 
     $leftPaging = jQueryFrame($leftPaging.selector);
     $leftPaging.val("1").trigger("blur");
@@ -1050,7 +1102,7 @@ QUnit.test("Custom Sorting: center paging", function (assert) {
  * 5. goto page 14
  */
 QUnit.test("Custom Sorting: right paging", function (assert) {
-  assert.expect(73);
+  assert.expect(75);
   var done = assert.async(7);
   var step = 1;
 
@@ -1059,16 +1111,20 @@ QUnit.test("Custom Sorting: right paging", function (assert) {
   var $leftPaging = jQueryFrame("#page\\:mainForm\\:s2 .tobago-sheet-paging-markup-left input");
   var $rightPaging = jQueryFrame("#page\\:mainForm\\:s2 .tobago-sheet-paging-markup-right .page-link");
 
-  if ($colName.find(".fa-angle-up").length !== 1) {
+  if (!$colName.hasClass("tobago-sheet-header-markup-ascending")) {
     $colName.click();
   }
 
   waitForAjax(function () {
     $colName = jQueryFrame($colName.selector);
-    return step === 1 && $colName.find(".fa-angle-up").length === 1;
+    return step === 1 && $colName.hasClass("tobago-sheet-header-markup-sortable")
+        && $colName.hasClass("tobago-sheet-header-markup-ascending")
+        && !$colName.hasClass("tobago-sheet-header-markup-descending");
   }, function () {
     $colName = jQueryFrame($colName.selector);
-    assert.equal($colName.find(".fa-angle-up").length, 1);
+    assert.ok($colName.hasClass("tobago-sheet-header-markup-sortable"));
+    assert.ok($colName.hasClass("tobago-sheet-header-markup-ascending"));
+    assert.notOk($colName.hasClass("tobago-sheet-header-markup-descending"));
 
     $leftPaging = jQueryFrame($leftPaging.selector);
     $leftPaging.val("22").trigger("blur");
