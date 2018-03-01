@@ -20,11 +20,14 @@
 package org.apache.myfaces.tobago.internal.component;
 
 import org.apache.myfaces.tobago.component.LabelLayout;
+import org.apache.myfaces.tobago.component.RenderRange;
 
 /**
  * {@link org.apache.myfaces.tobago.internal.taglib.component.SelectManyCheckboxTagDeclaration}
  */
-public abstract class AbstractUISelectManyCheckbox extends AbstractUISelectManyBase {
+public abstract class AbstractUISelectManyCheckbox extends AbstractUISelectManyBase implements RenderRange {
+
+  private transient AbstractUISelectReference renderRangeReference;
 
   public abstract boolean isDisabled();
 
@@ -35,6 +38,18 @@ public abstract class AbstractUISelectManyCheckbox extends AbstractUISelectManyB
   public abstract boolean isReadonly();
 
   public abstract Integer getTabIndex();
+
+  public abstract String getRenderRange();
+
+  @Override
+  public void setRenderRangeReference(AbstractUISelectReference reference) {
+    this.renderRangeReference = reference;
+  }
+
+  @Override
+  public AbstractUISelectReference getRenderRangeReference() {
+    return renderRangeReference;
+  }
 
   public boolean isLabelLayoutSkip() {
     return getLabelLayout() == LabelLayout.skip;

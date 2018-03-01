@@ -247,6 +247,19 @@ public class SolarObject implements Serializable {
     return null;
   }
 
+  public static List<SolarObject> findByName(String... filter) {
+    final List<SolarObject> list = new ArrayList<>(filter.length);
+
+    for (SolarObject star : DATA) {
+      for (String name : filter) {
+        if (name.equals(star.getName())) {
+          list.add(star);
+          break;
+        }
+      }
+    }
+    return list;
+  }
 
   private static final SolarObject SUN = new SolarObject("Sun", "-", "-", 0, 0.0, 0.0, 0.0, "-", null);
   private static final SolarObject EARTH =

@@ -51,4 +51,41 @@ public class StringUtilsUnitTest {
     Assert.assertFalse(StringUtils.isUrl("test.xhtml?id=#page:input"));
     Assert.assertFalse(StringUtils.isUrl(":test"));
   }
+
+  @Test
+  public void testGetIndices0() {
+
+    int[] ints = {0, 5, 10};
+    Assert.assertArrayEquals(ints, StringUtils.getIndices("0,5,10"));
+    Assert.assertArrayEquals(ints, StringUtils.getIndices("0, 5, 10"));
+    Assert.assertArrayEquals(ints, StringUtils.getIndices(" 0 , 5 , 10 "));
+
+  }
+
+  @Test
+  public void testGetIndices1() {
+
+    int[] ints = new int[]{3, 4, 5, 6, 7, 15, 16, 17};
+    Assert.assertArrayEquals(ints, StringUtils.getIndices("3-7,15-17"));
+    Assert.assertArrayEquals(ints, StringUtils.getIndices("3-5,6,7,15,16-17"));
+    Assert.assertArrayEquals(ints, StringUtils.getIndices("3-5, 6, 7, 15, 16 - 17 "));
+  }
+
+  @Test
+  public void testGetIndices2() {
+
+    int[] ints = new int[]{3, 4, 5, 6, 7, 15, 14, 13};
+    Assert.assertArrayEquals(ints, StringUtils.getIndices("3-7,15-13"));
+    Assert.assertArrayEquals(ints, StringUtils.getIndices("3 - 7, 15 - 13"));
+  }
+
+  @Test
+  public void testGetIndices3() {
+
+    int[] ints = new int[]{};
+    Assert.assertArrayEquals(ints, StringUtils.getIndices(null));
+    Assert.assertArrayEquals(ints, StringUtils.getIndices(""));
+    Assert.assertArrayEquals(ints, StringUtils.getIndices(" "));
+  }
+
 }

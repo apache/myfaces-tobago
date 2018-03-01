@@ -61,8 +61,11 @@ public final class StringUtils {
   }
 
   public static int[] getIndices(final String list) {
+    if (list == null) {
+      return new int[0];
+    }
     final List<String> indexList = new ArrayList<>();
-    final StringTokenizer st = new StringTokenizer(list, ",");
+    final StringTokenizer st = new StringTokenizer(list.trim(), ",");
     while (st.hasMoreTokens()) {
       final String token = st.nextToken().trim();
       final int idx = token.indexOf('-');

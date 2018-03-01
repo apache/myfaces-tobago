@@ -21,7 +21,9 @@
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:f="http://java.sun.com/jsf/core">
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:demo="http://myfaces.apache.org/tobago/example/demo">
   <ui:param name="title" value="Select One Radio: &lt;tc:selectOneRadio>"/>
   <p>A group of radiobuttons will be created with the <code class="language-markup">&lt;tc:selectOneRadio/></code> tag.
     Static entries are added with <code class="language-markup">&lt;tc:selectItem/></code> tag.
@@ -123,4 +125,65 @@
       </tc:selectOneRadio>
     </tc:segmentLayout>
   </tc:section>
+
+  <tc:section id="selectReference" label="Free layout with &lt;tc:selectReference>">
+
+    <p>
+      <span class="#{demo:bootstrapClass('BADGE')} #{demo:bootstrapClass('BADGE_DANGER')}">Attanion!</span>
+      The <code class="language-markup">&lt;tc:selectReference></code> currently works only, when the referenced
+      component <code class="language-markup">&lt;tc:selectOneRadio></code> has
+      set <code class="language-markup">labelLayout="skip"</code>.
+    </p>
+
+    <tc:segmentLayout medium="4seg 4seg 4seg">
+    <tc:box>
+      First and second giant planets:
+      <tc:selectOneRadio id="giant0" value="#{selectOneRadioController.selectedGiantPlanet}" renderRange="0,1"
+                         labelLayout="skip">
+        <f:selectItems value="#{astroData.giantPlanets}"/>
+      </tc:selectOneRadio>
+    </tc:box>
+
+    <tc:box>
+    Discovered #{astroData.giantPlanets[2].value.discoverYear}:
+    <tc:selectReference id="giant1" for="giant0" renderRange="2"/>
+  </tc:box>
+
+    <tc:box>
+    Discovered #{astroData.giantPlanets[3].value.discoverYear}:
+    <tc:selectReference id="giant2" for="giant0" renderRange="3"/>
+    </tc:box>
+    </tc:segmentLayout>
+
+    <tc:button label="Submit">
+      <f:ajax execute="selectReference" render="selectReference"/>
+    </tc:button>
+
+    <tc:out label="Selected:" value="#{selectOneRadioController.selectedGiantPlanet.name}"/>
+
+  </tc:section>
+
+  <tc:section label="Free layout with pure JSF (JSF 2.3 only)">
+
+    <p>
+      <span class="#{demo:bootstrapClass('BADGE')} #{demo:bootstrapClass('BADGE_DANGER')}">Attanion!</span>
+      This example is only temporary for testing purpose.
+    </p>
+
+    <h:selectOneRadio id="terrestrial0" group="terrestrial"
+                      value="#{selectOneRadioController.selectedTerrestrialPlanet}">
+      <f:selectItems value="#{astroData.terrestrialPlanets}"/>
+    </h:selectOneRadio>
+
+    <br/>
+    <h:selectOneRadio id="terrestrial1" group="terrestrial"/>
+
+    <br/>
+    <h:selectOneRadio id="terrestrial2" group="terrestrial"/>
+
+    <br/>
+    <h:selectOneRadio id="terrestrial3" group="terrestrial"/>
+
+  </tc:section>
+
 </ui:composition>

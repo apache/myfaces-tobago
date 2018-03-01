@@ -20,11 +20,14 @@
 package org.apache.myfaces.tobago.internal.component;
 
 import org.apache.myfaces.tobago.component.LabelLayout;
+import org.apache.myfaces.tobago.component.RenderRange;
 
 /**
  * {@link org.apache.myfaces.tobago.internal.taglib.component.SelectOneRadioTagDeclaration}
  */
-public abstract class AbstractUISelectOneRadio extends AbstractUISelectOneBase {
+public abstract class AbstractUISelectOneRadio extends AbstractUISelectOneBase implements RenderRange {
+
+  private transient AbstractUISelectReference renderRangeReference;
 
   public abstract boolean isDisabled();
 
@@ -33,6 +36,18 @@ public abstract class AbstractUISelectOneRadio extends AbstractUISelectOneBase {
   public abstract boolean isInline();
 
   public abstract Integer getTabIndex();
+
+  public abstract String getRenderRange();
+
+  @Override
+  public void setRenderRangeReference(AbstractUISelectReference reference) {
+    this.renderRangeReference = reference;
+  }
+
+  @Override
+  public AbstractUISelectReference getRenderRangeReference() {
+    return renderRangeReference;
+  }
 
   public boolean isLabelLayoutSkip() {
     return getLabelLayout() == LabelLayout.skip;

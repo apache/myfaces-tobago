@@ -31,21 +31,21 @@ public abstract class PlanetExample {
 
   public PlanetExample() {
     planets = new SelectItem[]{
-            new SelectItem(0, "Earth"),
-            new SelectItem(1, "Mars"),
-            new SelectItem(2, "Jupiter")};
+        new SelectItem(0, "Earth"),
+        new SelectItem(1, "Mars"),
+        new SelectItem(2, "Jupiter")};
     earthMoons = new SelectItem[]{
-            new SelectItem(0, "Moon")
+        new SelectItem(0, "Moon")
     };
     marsMoons = new SelectItem[]{
-            new SelectItem(0, "Phobos"),
-            new SelectItem(1, "Deimos")
+        new SelectItem(0, "Phobos"),
+        new SelectItem(1, "Deimos")
     };
     jupiterMoons = new SelectItem[]{
-            new SelectItem(0, "Europa"),
-            new SelectItem(1, "Ganymed"),
-            new SelectItem(2, "Io"),
-            new SelectItem(3, "Kallisto")
+        new SelectItem(0, "Europa"),
+        new SelectItem(1, "Ganymed"),
+        new SelectItem(2, "Io"),
+        new SelectItem(3, "Kallisto")
     };
   }
 

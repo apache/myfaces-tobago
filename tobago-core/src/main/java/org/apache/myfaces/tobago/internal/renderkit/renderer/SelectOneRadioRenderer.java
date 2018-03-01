@@ -21,11 +21,14 @@ package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.internal.component.AbstractUISelectOneRadio;
+import org.apache.myfaces.tobago.internal.component.AbstractUISelectReference;
+import org.apache.myfaces.tobago.internal.util.ArrayUtils;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.internal.util.JsonUtils;
 import org.apache.myfaces.tobago.internal.util.ObjectUtils;
 import org.apache.myfaces.tobago.internal.util.RenderUtils;
 import org.apache.myfaces.tobago.internal.util.SelectItemUtils;
+import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.CssItem;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
@@ -46,9 +49,11 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
   @Override
   protected void encodeBeginField(final FacesContext facesContext, final UIComponent component) throws IOException {
     final AbstractUISelectOneRadio select = (AbstractUISelectOneRadio) component;
+    final AbstractUISelectReference reference = select.getRenderRangeReference();
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
     final String id = select.getClientId(facesContext);
+    final String referenceId = reference != null ? reference.getClientId(facesContext) : id;
     final Iterable<SelectItem> items = SelectItemUtils.getItemIterator(facesContext, select);
     final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, select);
     final boolean disabled = select.isDisabled();
@@ -59,7 +64,7 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
 
     writer.startElement(HtmlElements.DIV);
     if (select.isLabelLayoutSkip()) {
-      writer.writeIdAttribute(id);
+      writer.writeIdAttribute(referenceId);
       writer.writeAttribute(DataAttributes.MARKUP, JsonUtils.encode(markup), false);
     }
 
@@ -76,69 +81,81 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
     final Object value = select.getValue();
     final String submittedValue = (String) select.getSubmittedValue();
     int i = 0;
+    final int[] renderRange = getRenderRangeList(select, reference);
     for (final SelectItem item : items) {
-      final boolean itemDisabled = item.isDisabled() || disabled;
-      final String itemId = id + ComponentUtils.SUB_SEPARATOR + i++;
-      if (renderOuterItem()) {
-        writer.startElement(HtmlElements.DIV);
+      if (renderRange == null || ArrayUtils.contains(renderRange, i)) {
+        final boolean itemDisabled = item.isDisabled() || disabled;
+        final String itemId = id + ComponentUtils.SUB_SEPARATOR + i;
+        if (renderOuterItem()) {
+          writer.startElement(HtmlElements.DIV);
+          writer.writeClassAttribute(
+              BootstrapClass.FORM_CHECK,
+              inline ? BootstrapClass.FORM_CHECK_INLINE : null,
+              itemDisabled ? BootstrapClass.DISABLED : null);
+        }
+        writer.startElement(HtmlElements.LABEL);
         writer.writeClassAttribute(
-            BootstrapClass.FORM_CHECK,
-            inline ? BootstrapClass.FORM_CHECK_INLINE : null,
-            itemDisabled ? BootstrapClass.DISABLED : null);
-      }
-      writer.startElement(HtmlElements.LABEL);
-      writer.writeClassAttribute(BootstrapClass.FORM_CHECK_LABEL,
-          getCssItems(facesContext, select));
-      writer.startElement(HtmlElements.INPUT);
-      writer.writeClassAttribute(BootstrapClass.FORM_CHECK_INPUT);
-      writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.RADIO);
-      final String formattedValue = ComponentUtils.getFormattedValue(facesContext, select, item.getValue());
-      final boolean checked;
-      if (submittedValue == null) {
-        checked = ObjectUtils.equals(item.getValue(), value);
-      } else {
-        checked = ObjectUtils.equals(formattedValue, submittedValue);
-      }
-      writer.writeAttribute(HtmlAttributes.CHECKED, checked);
-      writer.writeNameAttribute(id);
-      writer.writeIdAttribute(itemId);
-      writer.writeAttribute(HtmlAttributes.VALUE, formattedValue, true);
-      writer.writeAttribute(HtmlAttributes.DISABLED, itemDisabled);
-      writer.writeAttribute(HtmlAttributes.READONLY, readonly);
-      writer.writeAttribute(HtmlAttributes.REQUIRED, required);
-      if (first) {
-        HtmlRendererUtils.renderFocus(id, select.isFocus(), ComponentUtils.isError(select), facesContext, writer);
-        first = false;
-      }
-      writer.writeAttribute(HtmlAttributes.TABINDEX, select.getTabIndex());
-      writer.writeCommandMapAttribute(JsonUtils.encode(RenderUtils.getBehaviorCommands(facesContext, select)));
-      writer.endElement(HtmlElements.INPUT);
+            BootstrapClass.FORM_CHECK_LABEL,
+            getCssItems(facesContext, select));
+        writer.startElement(HtmlElements.INPUT);
+        writer.writeClassAttribute(BootstrapClass.FORM_CHECK_INPUT);
+        writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.RADIO);
+        final String formattedValue = ComponentUtils.getFormattedValue(facesContext, select, item.getValue());
+        final boolean checked;
+        if (submittedValue == null) {
+          checked = ObjectUtils.equals(item.getValue(), value);
+        } else {
+          checked = ObjectUtils.equals(formattedValue, submittedValue);
+        }
+        writer.writeAttribute(HtmlAttributes.CHECKED, checked);
+        writer.writeNameAttribute(id);
+        writer.writeIdAttribute(itemId);
+        writer.writeAttribute(HtmlAttributes.VALUE, formattedValue, true);
+        writer.writeAttribute(HtmlAttributes.DISABLED, itemDisabled);
+        writer.writeAttribute(HtmlAttributes.READONLY, readonly);
+        writer.writeAttribute(HtmlAttributes.REQUIRED, required);
+        if (first) {
+          HtmlRendererUtils.renderFocus(id, select.isFocus(), ComponentUtils.isError(select), facesContext, writer);
+          first = false;
+        }
+        writer.writeAttribute(HtmlAttributes.TABINDEX, select.getTabIndex());
+        writer.writeCommandMapAttribute(JsonUtils.encode(RenderUtils.getBehaviorCommands(facesContext, select)));
+        writer.endElement(HtmlElements.INPUT);
 
-      writer.startElement(HtmlElements.I);
-      writer.writeClassAttribute(TobagoClass.INPUT_PSEUDO);
-      writer.endElement(HtmlElements.I);
+        writer.startElement(HtmlElements.I);
+        writer.writeClassAttribute(TobagoClass.INPUT_PSEUDO);
+        writer.endElement(HtmlElements.I);
 
-      if (item instanceof org.apache.myfaces.tobago.model.SelectItem) {
-        final org.apache.myfaces.tobago.model.SelectItem tobagoItem = (org.apache.myfaces.tobago.model.SelectItem) item;
-        final String image = tobagoItem.getImage();
-        if (image != null) {
-          writer.startElement(HtmlElements.IMG);
-          writer.writeAttribute(HtmlAttributes.SRC, image, true);
-          writer.writeAttribute(HtmlAttributes.ALT, "", false);
-          writer.endElement(HtmlElements.IMG);
+        if (item instanceof org.apache.myfaces.tobago.model.SelectItem) {
+          final org.apache.myfaces.tobago.model.SelectItem tobagoItem =
+              (org.apache.myfaces.tobago.model.SelectItem) item;
+          final String image = tobagoItem.getImage();
+          if (image != null) {
+            writer.startElement(HtmlElements.IMG);
+            writer.writeAttribute(HtmlAttributes.SRC, image, true);
+            writer.writeAttribute(HtmlAttributes.ALT, "", false);
+            writer.endElement(HtmlElements.IMG);
+          }
+        }
+
+        final String label = item.getLabel();
+        if (label != null) {
+          writer.writeText(label);
+        }
+
+        writer.endElement(HtmlElements.LABEL);
+        if (renderOuterItem()) {
+          writer.endElement(HtmlElements.DIV);
         }
       }
-
-      final String label = item.getLabel();
-      if (label != null) {
-        writer.writeText(label);
-      }
-
-      writer.endElement(HtmlElements.LABEL);
-      if (renderOuterItem()) {
-        writer.endElement(HtmlElements.DIV);
-      }
+      i++;
     }
+  }
+
+  private int[] getRenderRangeList(AbstractUISelectOneRadio select, AbstractUISelectReference reference) {
+    final int[] indices
+        = StringUtils.getIndices(reference != null ? reference.getRenderRange() : select.getRenderRange());
+    return indices.length > 0 ? indices : null;
   }
 
   @Override

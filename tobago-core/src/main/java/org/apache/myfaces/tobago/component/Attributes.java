@@ -313,6 +313,10 @@ public enum Attributes {
   rendererType,
   renderAs,
   renderRange,
+  /**
+   * @deprecated since 4.2.0
+   */
+  @Deprecated
   renderRangeExtern,
   required,
   resizable,

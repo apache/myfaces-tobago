@@ -19,6 +19,8 @@
 
 package org.apache.myfaces.tobago.example.demo;
 
+import org.apache.myfaces.tobago.example.data.SolarObject;
+
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 import java.io.Serializable;
@@ -31,6 +33,9 @@ public class SelectManyCheckboxController implements Serializable {
 
   private List<String> animals = new ArrayList<>();
   private List<String> numbers = new ArrayList<>();
+
+  private SolarObject[] selectedTerrestrialPlanet;
+  private SolarObject[] selectedGiantPlanet;
 
   public List getAnimals() {
     return animals;
@@ -62,5 +67,21 @@ public class SelectManyCheckboxController implements Serializable {
       result += Integer.valueOf(number);
     }
     return result;
+  }
+
+  public SolarObject[] getSelectedTerrestrialPlanet() {
+    return selectedTerrestrialPlanet;
+  }
+
+  public void setSelectedTerrestrialPlanet(SolarObject[] selectedTerrestrialPlanet) {
+    this.selectedTerrestrialPlanet = selectedTerrestrialPlanet;
+  }
+
+  public SolarObject[] getSelectedGiantPlanet() {
+    return selectedGiantPlanet;
+  }
+
+  public void setSelectedGiantPlanet(SolarObject[] selectedGiantPlanet) {
+    this.selectedGiantPlanet = selectedGiantPlanet;
   }
 }

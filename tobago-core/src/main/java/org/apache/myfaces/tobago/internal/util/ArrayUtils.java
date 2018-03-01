@@ -35,4 +35,16 @@ public class ArrayUtils {
     return false;
   }
 
+  public static boolean contains(final int[] list, final int value) {
+    if (list == null) {
+      return false;
+    }
+    for (final int element : list) {
+      if (element == value) {
+        return true;
+      }
+    }
+    return false;
+  }
+
 }

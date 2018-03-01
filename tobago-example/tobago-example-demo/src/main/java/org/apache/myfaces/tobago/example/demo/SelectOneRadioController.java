@@ -19,6 +19,8 @@
 
 package org.apache.myfaces.tobago.example.demo;
 
+import org.apache.myfaces.tobago.example.data.SolarObject;
+
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 import java.io.Serializable;
@@ -30,6 +32,9 @@ public class SelectOneRadioController extends PlanetExample implements Serializa
   private int numberOne;
   private int numberTwo;
   private int result;
+
+  private SolarObject selectedTerrestrialPlanet;
+  private SolarObject selectedGiantPlanet;
 
   public int getNumberOne() {
     return numberOne;
@@ -57,5 +62,21 @@ public class SelectOneRadioController extends PlanetExample implements Serializa
 
   public int getResult() {
     return result;
+  }
+
+  public SolarObject getSelectedTerrestrialPlanet() {
+    return selectedTerrestrialPlanet;
+  }
+
+  public void setSelectedTerrestrialPlanet(SolarObject selectedTerrestrialPlanet) {
+    this.selectedTerrestrialPlanet = selectedTerrestrialPlanet;
+  }
+
+  public SolarObject getSelectedGiantPlanet() {
+    return selectedGiantPlanet;
+  }
+
+  public void setSelectedGiantPlanet(SolarObject selectedGiantPlanet) {
+    this.selectedGiantPlanet = selectedGiantPlanet;
   }
 }

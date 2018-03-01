@@ -19,11 +19,9 @@
 
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
-import org.apache.myfaces.tobago.component.Attributes;
+import org.apache.myfaces.tobago.component.RenderRange;
+import org.apache.myfaces.tobago.internal.component.AbstractUISelectReference;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
-import org.apache.myfaces.tobago.util.ComponentUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -31,20 +29,16 @@ import java.io.IOException;
 
 public class SelectReferenceRenderer extends RendererBase {
 
-  private static final Logger LOG = LoggerFactory.getLogger(SelectReferenceRenderer.class);
-
   @Override
-  public void encodeEnd(final FacesContext facesContext,
-                        final UIComponent component)
-      throws IOException {
-    final String referenceId = ComponentUtils.getStringAttribute(component, Attributes.forValue);
-    final UIComponent reference = component.findComponent(referenceId);
+  public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
 
-    final Object renderRange = ComponentUtils.getAttribute(component, Attributes.renderRange);
-    ComponentUtils.setAttribute(reference, Attributes.renderRangeExtern, renderRange);
+    final AbstractUISelectReference reference = (AbstractUISelectReference) component;
+    final UIComponent select = component.findComponent(reference.getFor());
+    final RenderRange range = (RenderRange) select;
+    range.setRenderRangeReference(reference);
 
-    reference.encodeAll(facesContext);
+    select.encodeAll(facesContext);
 
-    ComponentUtils.removeAttribute(reference, Attributes.renderRangeExtern);
+    range.setRenderRangeReference(null);
   }
 }

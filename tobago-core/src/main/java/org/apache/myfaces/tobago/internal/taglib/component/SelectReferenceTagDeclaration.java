@@ -35,7 +35,7 @@ import javax.faces.component.UIOutput;
 @Tag(name = "selectReference")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UISelectReference",
-    uiComponentBaseClass = "javax.faces.component.UIOutput",
+    uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUISelectReference",
     uiComponentFacesClass = "javax.faces.component.UIOutput",
     componentFamily = UIOutput.COMPONENT_FAMILY,
     rendererType = RendererTypes.SELECT_REFERENCE,
