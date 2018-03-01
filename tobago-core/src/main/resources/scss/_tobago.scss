@@ -122,6 +122,9 @@ Todo: check, if this is needed? (It doesn't work with the build system)
 
 .tobago-box {
   margin-bottom: $card-spacer-y;
+  > .card-body {
+    overflow: auto;
+  }
 }
 
 .tobago-box-header {
@@ -666,6 +669,12 @@ span.tobago-out:empty:before {
 
 .tobago-spread {
   height: 100%;
+}
+
+/* panel ------------------------------------------------------------- */
+
+.tobago-panel {
+  overflow: auto;
 }
 
 /* popup ------------------------------------------------------------- */
