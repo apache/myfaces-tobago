@@ -9082,6 +9082,16 @@ Todo: check, if this is needed? (It doesn't work with the build system)
  * theme: standard
  * agent: standard
  */
+/* badge -------------------------------------------------------------- */
+.badge.btn {
+  border: 0;
+}
+
+.btn-group > .tobago-badge.badge.btn {
+  z-index: initial;
+  cursor: initial;
+}
+
 /* bar -------------------------------------------------------------- */
 .tobago-bar.navbar-light .navbar-brand > .tobago-link {
   color: rgba(0, 0, 0, 0.9);
@@ -9102,6 +9112,10 @@ Todo: check, if this is needed? (It doesn't work with the build system)
 /* box -------------------------------------------------------------- */
 .tobago-box {
   margin-bottom: 0.75rem;
+}
+
+.tobago-box > .card-body {
+  overflow: auto;
 }
 
 .tobago-box-header {
@@ -9593,6 +9607,11 @@ span.tobago-out:empty:before {
 
 .tobago-spread {
   height: 100%;
+}
+
+/* panel ------------------------------------------------------------- */
+.tobago-panel {
+  overflow: auto;
 }
 
 /* popup ------------------------------------------------------------- */
