@@ -21,6 +21,7 @@ package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.RendererTypes;
+import org.apache.myfaces.tobago.internal.component.AbstractUIBadge;
 import org.apache.myfaces.tobago.internal.component.AbstractUICommand;
 import org.apache.myfaces.tobago.internal.component.AbstractUIFormBase;
 import org.apache.myfaces.tobago.internal.component.AbstractUILink;
@@ -134,6 +135,7 @@ public abstract class CommandRendererBase extends DecodingCommandRendererBase {
       writer.startElement(HtmlElements.SPAN);
       HtmlRendererUtils.writeLabelWithAccessKey(writer, label);
       writer.endElement(HtmlElements.SPAN);
+      encodeBadge(facesContext, command);
     }
 
     if (anchor) {
@@ -163,7 +165,9 @@ public abstract class CommandRendererBase extends DecodingCommandRendererBase {
       writer.writeAttribute(Arias.LABELLEDBY, "dropdownMenuButton", false);
 
       for (final UIComponent child : component.getChildren()) {
-        if (!(child instanceof UIParameter) && child.isRendered()) {
+        if (child.isRendered()
+            && !(child instanceof UIParameter)
+            && !(child instanceof AbstractUIBadge)) {
           if (child instanceof AbstractUILink) {
             child.setRendererType(RendererTypes.LinkInsideCommand.name());
             child.encodeAll(facesContext);
@@ -189,7 +193,11 @@ public abstract class CommandRendererBase extends DecodingCommandRendererBase {
       }
       writer.endElement(HtmlElements.DIV);
     } else {
-      super.encodeChildren(facesContext, component);
+      for (final UIComponent child : component.getChildren()) {
+        if (!(child instanceof AbstractUIBadge)) {
+          child.encodeAll(facesContext);
+        }
+      }
     }
   }
 
@@ -237,5 +245,8 @@ public abstract class CommandRendererBase extends DecodingCommandRendererBase {
 
   protected CssItem[] getDropdownCssItems(final FacesContext facesContext, final AbstractUICommand command) {
     return null;
+  }
+
+  protected void encodeBadge(final FacesContext facesContext, final AbstractUICommand command) throws IOException {
   }
 }

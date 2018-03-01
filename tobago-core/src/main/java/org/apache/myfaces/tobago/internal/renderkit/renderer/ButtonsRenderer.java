@@ -21,6 +21,7 @@ package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.context.Markup;
+import org.apache.myfaces.tobago.internal.component.AbstractUIBadge;
 import org.apache.myfaces.tobago.internal.component.AbstractUIButton;
 import org.apache.myfaces.tobago.internal.component.AbstractUIButtons;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
@@ -75,6 +76,9 @@ public class ButtonsRenderer extends RendererBase {
       if (child.isRendered()) {
         if (child instanceof AbstractUIButton) {
           child.setRendererType(RendererTypes.ButtonInsideButtons.name());
+          child.encodeAll(facesContext);
+        } else if (child instanceof AbstractUIBadge) {
+          child.setRendererType(RendererTypes.BadgeInsideButtons.name());
           child.encodeAll(facesContext);
         } else {
           child.encodeAll(facesContext);

@@ -483,6 +483,11 @@ p, .control-label {
   hyphens: auto;
 }
 
+// Badge
+.badge-pill {
+  border-radius: 10rem;
+}
+
 // Tabs
 .nav-tabs {
   background-color: $gray-300;
@@ -714,7 +719,7 @@ li:last-child {
   }
 }
 
-.btn {
+.btn:not(.badge) {
   padding: $btn-padding-y $btn-padding-x;
   box-shadow: 1px 2px 4px 0px rgba(0, 0, 0, 0.1);
 }

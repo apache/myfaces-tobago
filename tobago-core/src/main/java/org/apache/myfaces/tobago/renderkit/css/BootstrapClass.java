@@ -62,13 +62,17 @@ public enum BootstrapClass implements CssItem {
   BG_INVERSE("bg-dark"),
   BADGE("badge"),
   BADGE_DANGER("badge-danger"),
+  BADGE_DARK("badge-dark"),
   /**
    * @deprecated since 4.0.0
    */
   @Deprecated
   BADGE_DEFAULT("badge-default"),
   BADGE_INFO("badge-info"),
+  BADGE_LIGHT("badge-light"),
+  BADGE_PILL("badge-pill"),
   BADGE_PRIMARY("badge-primary"),
+  BADGE_SECONDARY("badge-secondary"),
   BADGE_SUCCESS("badge-success"),
   BADGE_WARNING("badge-warning"),
   BORDER_DANGER("border-danger"),

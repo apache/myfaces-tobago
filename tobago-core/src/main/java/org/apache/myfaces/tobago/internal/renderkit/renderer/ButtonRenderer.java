@@ -21,13 +21,17 @@ package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.context.Markup;
+import org.apache.myfaces.tobago.internal.component.AbstractUIBadge;
+import org.apache.myfaces.tobago.internal.component.AbstractUIButton;
 import org.apache.myfaces.tobago.internal.component.AbstractUICommand;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.CssItem;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 
+import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
+import java.io.IOException;
 
 public class ButtonRenderer extends CommandRendererBase {
 
@@ -39,10 +43,13 @@ public class ButtonRenderer extends CommandRendererBase {
   @Override
   protected CssItem[] getCssItems(final FacesContext facesContext, final AbstractUICommand command) {
     final boolean defaultCommand = ComponentUtils.getBooleanAttribute(command, Attributes.defaultCommand);
+    final Markup markup = command.getMarkup() != null ? command.getMarkup() : Markup.NULL;
 
     return new CssItem[]{
         BootstrapClass.BTN,
-        getButtonColor(command.getMarkup(), defaultCommand)
+        getButtonColor(command.getMarkup(), defaultCommand),
+        markup.contains(Markup.BADGE) ? BootstrapClass.BADGE : null,
+        markup.contains(Markup.BADGE) && markup.contains(Markup.PILL) ? BootstrapClass.BADGE_PILL : null,
     };
   }
 
@@ -69,5 +76,16 @@ public class ButtonRenderer extends CommandRendererBase {
       }
     }
     return defaultCommand ? BootstrapClass.BTN_PRIMARY : BootstrapClass.BTN_SECONDARY;
+  }
+
+  @Override
+  protected void encodeBadge(FacesContext facesContext, AbstractUICommand command) throws IOException {
+    final AbstractUIButton button = (AbstractUIButton) command;
+
+    for (final UIComponent child : button.getChildren()) {
+      if (child instanceof AbstractUIBadge) {
+        child.encodeAll(facesContext);
+      }
+    }
   }
 }

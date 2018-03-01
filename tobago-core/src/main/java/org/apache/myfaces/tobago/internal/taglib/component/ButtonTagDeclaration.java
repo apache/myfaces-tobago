@@ -120,6 +120,14 @@ import javax.faces.component.UICommand;
         @Markup(
             name = org.apache.myfaces.tobago.context.Markup.STRING_NONE,
             description = "Colorless button."
+        ),
+        @Markup(
+            name = org.apache.myfaces.tobago.context.Markup.STRING_BADGE,
+            description = "Display the button as a badge."
+        ),
+        @Markup(
+            name = org.apache.myfaces.tobago.context.Markup.STRING_PILL,
+            description = "Make badges more rounded if button is displayed as a badge."
         )
     })
 public interface ButtonTagDeclaration

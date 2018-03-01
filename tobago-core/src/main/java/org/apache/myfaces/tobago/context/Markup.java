@@ -57,6 +57,7 @@ public final class Markup implements Serializable, Iterable<String> {
   public static final Markup NULL = new Markup((String) null);
 
   public static final Markup ASCENDING = valueOf("ascending");
+  public static final Markup BADGE = valueOf("badge");
   public static final Markup BIG = valueOf("big");
   public static final Markup BORDERED = valueOf("bordered");
   public static final Markup CENTER = valueOf("center");
@@ -98,6 +99,7 @@ public final class Markup implements Serializable, Iterable<String> {
   public static final Markup NONE = valueOf("none");
   public static final Markup NUMBER = valueOf("number");
   public static final Markup ODD = valueOf("odd");
+  public static final Markup PILL = valueOf("pill");
   public static final Markup PORTLET = valueOf("portlet");
   public static final Markup PRIMARY = valueOf("primary");
   public static final Markup READONLY = valueOf("readonly");
@@ -135,6 +137,7 @@ public final class Markup implements Serializable, Iterable<String> {
   public static final Markup WARNING = valueOf("warning");
 
   public static final String STRING_ASCENDING = "ascending";
+  public static final String STRING_BADGE = "badge";
   public static final String STRING_BIG = "big";
   public static final String STRING_BORDERED = "bordered";
   public static final String STRING_CENTER = "center";
@@ -176,6 +179,7 @@ public final class Markup implements Serializable, Iterable<String> {
   public static final String STRING_NONE = "none";
   public static final String STRING_NUMBER = "number";
   public static final String STRING_ODD = "odd";
+  public static final String STRING_PILL = "pill";
   public static final String STRING_PORTLET = "portlet";
   public static final String STRING_PRIMARY = "primary";
   public static final String STRING_READONLY = "readonly";

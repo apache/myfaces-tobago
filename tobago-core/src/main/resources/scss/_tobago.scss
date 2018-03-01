@@ -100,6 +100,19 @@ Todo: check, if this is needed? (It doesn't work with the build system)
 .tobago-label-container {
 }
 
+/* badge -------------------------------------------------------------- */
+.tobago-badge {
+}
+
+.badge.btn {
+  border: 0;
+}
+
+.btn-group > .tobago-badge.badge.btn {
+  z-index: initial;
+  cursor: initial;
+}
+
 /* bar -------------------------------------------------------------- */
 .tobago-bar {
   &.navbar-light .navbar-brand > .tobago-link {
