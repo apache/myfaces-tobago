@@ -52,7 +52,9 @@ public class AstroData {
         builder.append(object.getName());
         builder.append(", ");
       }
-      builder.delete(builder.length() - 2, builder.length());
+      if (builder.length() >= 2) {
+        builder.delete(builder.length() - 2, builder.length());
+      }
       return builder.toString();
     }
   }
