@@ -32,7 +32,7 @@
   -->
 
   <properties>
-    <openwebbeans.version>2.0.3</openwebbeans.version>
+    <openwebbeans.version>2.0.4</openwebbeans.version>
     <deltaspike.version>1.8.1</deltaspike.version>
     <!--<arquillian.browser>firefox</arquillian.browser>-->
     <!-- phantomjs works not with CSP (report-only) -->
