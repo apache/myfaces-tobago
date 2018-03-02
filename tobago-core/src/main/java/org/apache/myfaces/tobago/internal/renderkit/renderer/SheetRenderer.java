@@ -63,6 +63,7 @@ import org.apache.myfaces.tobago.renderkit.css.Icons;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
+import org.apache.myfaces.tobago.renderkit.html.HtmlButtonTypes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
 import org.apache.myfaces.tobago.util.ComponentUtils;
@@ -1078,10 +1079,9 @@ public class SheetRenderer extends RendererBase {
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
     writer.startElement(HtmlElements.LI);
     writer.writeClassAttribute(liClass, disabled ? BootstrapClass.DISABLED : null, BootstrapClass.PAGE_ITEM);
-// todo button
-    writer.startElement(HtmlElements.A);
+    writer.startElement(HtmlElements.BUTTON);
+    writer.writeAttribute(HtmlAttributes.TYPE, HtmlButtonTypes.BUTTON);
     writer.writeClassAttribute(BootstrapClass.PAGE_LINK);
-    writer.writeAttribute(HtmlAttributes.HREF, "#/", false);
     writer.writeIdAttribute(command.getClientId(facesContext));
     writer.writeAttribute(HtmlAttributes.TITLE, tip, true);
     if (!disabled) {
@@ -1096,7 +1096,7 @@ public class SheetRenderer extends RendererBase {
       writer.writeText(String.valueOf(target));
     }
     data.getFacets().remove(facet);
-    writer.endElement(HtmlElements.A);
+    writer.endElement(HtmlElements.BUTTON);
     writer.endElement(HtmlElements.LI);
   }
 
