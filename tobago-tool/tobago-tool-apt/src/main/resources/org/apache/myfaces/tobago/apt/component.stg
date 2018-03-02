@@ -43,6 +43,7 @@ package <componentInfo.packageName>;
 import org.apache.myfaces.tobago.internal.util.ArrayUtils;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.internal.util.Deprecation;
+import javax.annotation.Generated;
 import javax.el.ELException;
 import javax.faces.FacesException;
 import java.util.Arrays;
@@ -66,6 +67,7 @@ import javax.el.ValueExpression;
 @Deprecated
 
 <endif>
+@Generated("component.stg")
 public class <componentInfo.className>
     extends <componentInfo.superClassName> <first(componentInfo.interfaces):{ n | implements <n>}><rest(componentInfo.interfaces):{ n |, <n>}> {
 
