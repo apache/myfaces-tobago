@@ -120,6 +120,7 @@ public class <componentInfo.className>
 
   @Override
   public void restoreState(FacesContext context, Object state) {
+    // FIXME HACK for mojarra SystemEventListener state restoring bug
     pushComponentToEL(context, this);
     super.restoreState(context, state);
     popComponentFromEL(context);
