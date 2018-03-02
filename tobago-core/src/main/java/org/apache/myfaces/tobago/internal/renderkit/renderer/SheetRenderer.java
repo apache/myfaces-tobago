@@ -175,10 +175,10 @@ public class SheetRenderer extends RendererBase {
       LOG.debug("clientId = '{}'", clientId);
     }
 
-    final String sheetClientIdWithAction =
-            clientId + UINamingContainer.getSeparatorChar(facesContext) + SUFFIX_PAGE_ACTION;
+    final String sheetClientIdWithAction
+        = clientId + UINamingContainer.getSeparatorChar(facesContext) + SUFFIX_PAGE_ACTION;
     if (sourceId != null && sourceId.startsWith(sheetClientIdWithAction)) {
-      String actionString  = sourceId.substring(sheetClientIdWithAction.length());
+      String actionString = sourceId.substring(sheetClientIdWithAction.length());
       int index = actionString.indexOf('-');
       SheetAction action;
       if (index != -1) {
@@ -197,13 +197,13 @@ public class SheetRenderer extends RendererBase {
         case toPage:
         case toRow:
           event = new PageActionEvent(component, action);
-          Integer target = null;
-          Object value = null;
+          final Integer target;
+          final Object value;
           if (index == -1) {
             final Map map = facesContext.getExternalContext().getRequestParameterMap();
             value = map.get(sourceId);
           } else {
-            value = actionString.substring(index+1);
+            value = actionString.substring(index + 1);
           }
           try {
             target = Integer.parseInt((String) value);
