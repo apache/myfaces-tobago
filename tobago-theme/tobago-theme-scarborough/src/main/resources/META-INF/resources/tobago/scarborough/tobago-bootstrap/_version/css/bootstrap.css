@@ -9061,27 +9061,6 @@ XXX used variables: only for the IDE, will not really used by the build system, 
 XXX code will be inserted after the _variables.scss
 */
 /* used icons ---------------------------------------------------- */
-/* fix bootstrap ---------------------------------------------------- */
-span.dropdown {
-  display: -webkit-inline-box;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-}
-
-/*
-Todo: check, if this is needed? (It doesn't work with the build system)
-
-.tobago-file-real {
-  filter: alpha(opacity: 0);
-}
-*/
-/*
-.tobago-treeNode-toggle // XXX dummy: only occurs in JavaScript, is here to satisfy the TobagoClassUnitTest
- */
-/*
- * theme: standard
- * agent: standard
- */
 /* badge -------------------------------------------------------------- */
 .badge.btn {
   border: 0;
@@ -9411,6 +9390,14 @@ button.nav-link {
 .navbar-nav button.nav-link {
   padding-left: 0;
   padding-right: 0;
+}
+
+span.dropdown {
+  display: inline-block;
+}
+
+.dropdown > .btn.dropdown-toggle {
+  width: 100%;
 }
 
 /* messages ----------------------------------------------------------- */
