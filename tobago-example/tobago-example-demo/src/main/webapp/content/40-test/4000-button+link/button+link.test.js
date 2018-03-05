@@ -111,6 +111,20 @@ QUnit.test("Target Link Link", function (assert) {
   testTargetCommands($command, $targetTextInput, "accessed by link", assert, done);
 });
 
+QUnit.test("Style must not be a dropdown item", function (assert) {
+  assert.expect(3);
+
+  var $buttonContainer = jQueryFrame("#page\\:mainForm\\:dropdownWithStyle");
+  var $dropdownMenu = $buttonContainer.find(".dropdown-menu");
+  assert.equal($dropdownMenu.length, 1);
+
+  var $styleAsItem = $dropdownMenu.find(".dropdown-item > style");
+  assert.equal($styleAsItem.length, 0);
+
+  var $button = $buttonContainer.find("> .tobago-button");
+  assert.equal($button.css("width"), "200px");
+});
+
 function testTargetCommands($command, $targetTextInput, expectedText, assert, done) {
   $command[0].click();
 

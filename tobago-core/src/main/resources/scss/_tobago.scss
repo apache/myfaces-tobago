@@ -32,7 +32,7 @@ $link-color: $brand-primary !default;
 $link-hover-color: darken($link-color, 15%) !default;
 $nav-link-padding: .5em 1em !default;
 $blue: #0275d8 !default;
-$white:    #fff !default;
+$white: #fff !default;
 $gray-100: #f8f9fa !default;
 $gray-200: #e9ecef !default;
 $gray-300: #dee2e6 !default;
@@ -42,7 +42,7 @@ $gray-600: #6c757d !default;
 $gray-700: #495057 !default;
 $gray-800: #343a40 !default;
 $gray-900: #212529 !default;
-$black:    #000 !default;
+$black: #000 !default;
 $navbar-dark-active-color: rgba($white, 1) !default;
 $navbar-light-active-color: rgba($black, .9) !default;
 $border-width: 1px !default;
@@ -74,31 +74,6 @@ $fa-check-square-o: "\f046";
 $fa-circle-thin: "\f1db";
 $fa-dot-circle-o: "\f192";
 $zero-width-space: "\200b";
-
-/* fix bootstrap ---------------------------------------------------- */
-span.dropdown {
-  display: inline-flex;
-}
-
-/*
-Todo: check, if this is needed? (It doesn't work with the build system)
-
-.tobago-file-real {
-  filter: alpha(opacity: 0);
-}
-*/
-
-/*
-.tobago-treeNode-toggle // XXX dummy: only occurs in JavaScript, is here to satisfy the TobagoClassUnitTest
- */
-
-/*
- * theme: standard
- * agent: standard
- */
-
-.tobago-label-container {
-}
 
 /* badge -------------------------------------------------------------- */
 .tobago-badge {
@@ -478,6 +453,14 @@ button {
 .navbar-nav button.nav-link {
   padding-left: 0;
   padding-right: 0;
+}
+
+span.dropdown {
+  display: inline-block;
+}
+
+.dropdown > .btn.dropdown-toggle {
+  width: 100%;
 }
 
 /* messages ----------------------------------------------------------- */
@@ -1395,6 +1378,7 @@ th.tobago-sheet-headerCell-markup-filler > .tobago-sheet-header {
 .tobago-treeListbox-level,
 .tobago-treeListbox-select,
 .tobago-treeNode,
+.tobago-treeNode-toggle,
 .tobago-treeSelect,
 .tobago-treeSelect-label {
 }

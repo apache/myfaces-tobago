@@ -29,6 +29,7 @@ import org.apache.myfaces.tobago.internal.component.AbstractUISelectBooleanCheck
 import org.apache.myfaces.tobago.internal.component.AbstractUISelectManyCheckbox;
 import org.apache.myfaces.tobago.internal.component.AbstractUISelectOneRadio;
 import org.apache.myfaces.tobago.internal.component.AbstractUISeparator;
+import org.apache.myfaces.tobago.internal.component.AbstractUIStyle;
 import org.apache.myfaces.tobago.internal.util.AccessKeyLogger;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.internal.util.JsonUtils;
@@ -51,6 +52,8 @@ import javax.faces.component.UIComponent;
 import javax.faces.component.UIParameter;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public abstract class CommandRendererBase extends DecodingCommandRendererBase {
 
@@ -158,6 +161,8 @@ public abstract class CommandRendererBase extends DecodingCommandRendererBase {
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
     if (parentOfCommands) {
+      List<UIComponent> renderLater = null;
+
       writer.startElement(HtmlElements.DIV);
       writer.writeClassAttribute(
           BootstrapClass.DROPDOWN_MENU,
@@ -168,7 +173,12 @@ public abstract class CommandRendererBase extends DecodingCommandRendererBase {
         if (child.isRendered()
             && !(child instanceof UIParameter)
             && !(child instanceof AbstractUIBadge)) {
-          if (child instanceof AbstractUILink) {
+          if (child instanceof AbstractUIStyle) {
+            if (renderLater == null) {
+              renderLater = new ArrayList<>();
+            }
+            renderLater.add(child);
+          } else if (child instanceof AbstractUILink) {
             child.setRendererType(RendererTypes.LinkInsideCommand.name());
             child.encodeAll(facesContext);
           } else if (child instanceof AbstractUISelectBooleanCheckbox) {
@@ -192,6 +202,12 @@ public abstract class CommandRendererBase extends DecodingCommandRendererBase {
         }
       }
       writer.endElement(HtmlElements.DIV);
+
+      if (renderLater != null) {
+        for (UIComponent child : renderLater) {
+          child.encodeAll(facesContext);
+        }
+      }
     } else {
       for (final UIComponent child : component.getChildren()) {
         if (!(child instanceof AbstractUIBadge)) {
