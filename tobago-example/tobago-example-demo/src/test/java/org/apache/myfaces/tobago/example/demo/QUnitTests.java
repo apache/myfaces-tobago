@@ -555,4 +555,10 @@ public class QUnitTests {
     final String page = "content/40-test/50000-java/30-ajax-special-character/ajax-special-character.xhtml";
     runStandardTest(page);
   }
+
+  @Test
+  public void testBehavior() throws UnsupportedEncodingException, InterruptedException {
+    final String page = "content/40-test/6500-behavior/behavior.xhtml";
+    runStandardTest(page);
+  }
 }

@@ -19,16 +19,19 @@
 
 package org.apache.myfaces.tobago.example.demo;
 
-import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
+import javax.faces.event.ActionEvent;
+import javax.faces.event.AjaxBehaviorEvent;
 import javax.inject.Named;
 import java.io.Serializable;
 
-@RequestScoped
+@SessionScoped
 @Named
 public class BehaviorController implements Serializable {
 
   private String ajax;
   private String event;
+  private int counter;
 
   public String getAjax() {
     return ajax;
@@ -44,5 +47,17 @@ public class BehaviorController implements Serializable {
 
   public void setEvent(final String event) {
     this.event = event;
+  }
+
+  public int getCounter() {
+    return counter;
+  }
+
+  public void countUp(final AjaxBehaviorEvent event) {
+    counter++;
+  }
+
+  public void countUp(final ActionEvent event) {
+    counter++;
   }
 }

@@ -23,12 +23,11 @@ import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.ClientBehaviors;
 import org.apache.myfaces.tobago.component.UIEvent;
 import org.apache.myfaces.tobago.internal.behavior.EventBehavior;
+import org.apache.myfaces.tobago.internal.component.AbstractUIEvent;
 
 import javax.el.MethodExpression;
 import javax.faces.component.PartialStateHolder;
 import javax.faces.component.UIComponent;
-import javax.faces.component.behavior.AjaxBehavior;
-import javax.faces.component.behavior.ClientBehavior;
 import javax.faces.component.behavior.ClientBehaviorHolder;
 import javax.faces.context.FacesContext;
 import javax.faces.event.AbortProcessingException;
@@ -42,8 +41,6 @@ import javax.faces.view.facelets.TagAttribute;
 import javax.faces.view.facelets.TagAttributeException;
 import javax.faces.view.facelets.TagException;
 import java.io.IOException;
-import java.util.List;
-import java.util.Map;
 
 /**
  * This tag creates an instance of AjaxBehavior, and associates it with the nearest
@@ -141,37 +138,26 @@ public class EventHandler extends TobagoComponentHandler implements BehaviorHold
     final FaceletContext faceletContext = (FaceletContext) context
         .getAttributes().get(FaceletContext.FACELET_CONTEXT_KEY);
 
-    // cast to a ClientBehaviorHolder
-    final ClientBehaviorHolder cvh = (ClientBehaviorHolder) parent;
+    final ClientBehaviorHolder clientBehaviorHolder = (ClientBehaviorHolder) parent;
+    final UIComponent lastChild = parent.getChildren().stream().skip(parent.getChildCount() - 1).findFirst().orElse(null);
+    final AbstractUIEvent abstractUIEvent = lastChild instanceof AbstractUIEvent ? (AbstractUIEvent) lastChild : null;
 
-    String eventName = getEventName();
-    if (eventName == null) {
-      eventName = cvh.getDefaultEventName();
+    if (abstractUIEvent != null) {
+      String eventName = getEventName();
       if (eventName == null) {
-        throw new TagAttributeException(event, "eventName could not be defined for f:ajax tag with no wrap mode.");
-      }
-    } else if (!cvh.getEventNames().contains(eventName)) {
-      throw new TagAttributeException(event, "event it is not a valid eventName defined for this component");
-    }
-
-    final Map<String, List<ClientBehavior>> clientBehaviors = cvh.getClientBehaviors();
-
-    final List<ClientBehavior> clientBehaviorList = clientBehaviors.get(eventName);
-    if (clientBehaviorList != null && !clientBehaviorList.isEmpty()) {
-      for (final ClientBehavior cb : clientBehaviorList) {
-        if (cb instanceof AjaxBehavior) {
-          // The most inner one has been applied, so according to
-          // jsf 2.0 spec section 10.4.1.1 it is not necessary to apply
-          // this one, because the inner one has precendece over
-          // the outer one.
-          return;
+        eventName = clientBehaviorHolder.getDefaultEventName();
+        if (eventName == null) {
+          throw new TagAttributeException(event, "eventName could not be defined for f:ajax tag with no wrap mode.");
         }
+      } else if (!clientBehaviorHolder.getEventNames().contains(eventName)) {
+        throw new TagAttributeException(event, "event it is not a valid eventName defined for this component");
       }
+
+      final EventBehavior eventBehavior = createBehavior(context);
+      eventBehavior.setId(abstractUIEvent.getId());
+
+      clientBehaviorHolder.addClientBehavior(eventName, eventBehavior);
     }
-
-    final EventBehavior ajaxBehavior = createBehavior(context);
-
-    cvh.addClientBehavior(eventName, ajaxBehavior);
   }
 
   protected EventBehavior createBehavior(final FacesContext context) {

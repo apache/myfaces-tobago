@@ -201,3 +201,112 @@ QUnit.test("On double click with full request", function (assert) {
     }
   });
 });
+
+QUnit.test("Open popup on click with ajax", function (assert) {
+  assert.expect(12);
+  var done = assert.async(7);
+
+  var $radioButton = jQueryFrame("#page\\:mainForm\\:changeExample\\:\\:3");
+  var $venus = jQueryFrame("#page\\:mainForm\\:s1\\:2\\:sample3");
+  var $jupiter = jQueryFrame("#page\\:mainForm\\:s1\\:5\\:sample3");
+  var $saturn = jQueryFrame("#page\\:mainForm\\:s1\\:6\\:sample3");
+  var $popup = jQueryFrame("#page\\:mainForm\\:popup");
+  var $name = jQueryFrame("#page\\:mainForm\\:popup\\:popupName\\:\\:field");
+  var $cancel = jQueryFrame("#page\\:mainForm\\:popup\\:cancel");
+
+  $radioButton.click();
+
+  waitForAjax(function () {
+    $venus = jQueryFrame($venus.selector);
+    $jupiter = jQueryFrame($jupiter.selector);
+    $saturn = jQueryFrame($saturn.selector);
+    return $venus.length === 1 && $jupiter.length === 1 && $saturn.length === 1;
+  }, function () {
+    $venus = jQueryFrame($venus.selector);
+    $jupiter = jQueryFrame($jupiter.selector);
+    $saturn = jQueryFrame($saturn.selector);
+    assert.equal($venus.length, 1);
+    assert.equal($jupiter.length, 1);
+    assert.equal($saturn.length, 1);
+    done();
+
+    $venus.click();
+
+    waitForAjax(function () {
+      $popup = jQueryFrame($popup.selector);
+      $name = jQueryFrame($name.selector);
+      return $popup.hasClass("show") && $name.val() === "Venus";
+    }, function () {
+      $popup = jQueryFrame($popup.selector);
+      $name = jQueryFrame($name.selector);
+      assert.ok($popup.hasClass("show"));
+      assert.equal($name.val(), "Venus");
+      done();
+
+      waitForAjax(function () {
+        $cancel = jQueryFrame($cancel.selector);
+        $popup = jQueryFrame($popup.selector);
+
+        $cancel.click();
+        return !$popup.hasClass("show");
+      }, function () {
+        $popup = jQueryFrame($popup.selector);
+        assert.notOk($popup.hasClass("show"));
+        done();
+
+        $jupiter.click();
+
+        waitForAjax(function () {
+          $popup = jQueryFrame($popup.selector);
+          $name = jQueryFrame($name.selector);
+          return $popup.hasClass("show") && $name.val() === "Jupiter";
+        }, function () {
+          $popup = jQueryFrame($popup.selector);
+          $name = jQueryFrame($name.selector);
+          assert.ok($popup.hasClass("show"));
+          assert.equal($name.val(), "Jupiter");
+          done();
+
+          waitForAjax(function () {
+            $cancel = jQueryFrame($cancel.selector);
+            $popup = jQueryFrame($popup.selector);
+
+            $cancel.click();
+            return !$popup.hasClass("show");
+          }, function () {
+            $popup = jQueryFrame($popup.selector);
+            assert.notOk($popup.hasClass("show"));
+            done();
+
+            $saturn.click();
+
+            waitForAjax(function () {
+              $popup = jQueryFrame($popup.selector);
+              $name = jQueryFrame($name.selector);
+              return $popup.hasClass("show") && $name.val() === "Saturn";
+            }, function () {
+              $popup = jQueryFrame($popup.selector);
+              $name = jQueryFrame($name.selector);
+              assert.ok($popup.hasClass("show"));
+              assert.equal($name.val(), "Saturn");
+              done();
+
+
+              waitForAjax(function () {
+                $cancel = jQueryFrame($cancel.selector);
+                $popup = jQueryFrame($popup.selector);
+
+                $cancel.click();
+                return !$popup.hasClass("show");
+              }, function () {
+                $popup = jQueryFrame($popup.selector);
+                assert.notOk($popup.hasClass("show"));
+                done();
+              });
+            });
+          });
+        });
+      });
+    });
+  });
+});
