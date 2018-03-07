@@ -19,10 +19,12 @@
 
 package org.apache.myfaces.tobago.internal.taglib.component;
 
+import org.apache.myfaces.tobago.apt.annotation.Behavior;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
+import org.apache.myfaces.tobago.component.ClientBehaviors;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasAction;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasActionListener;
@@ -52,6 +54,22 @@ import javax.faces.component.UICommand;
     interfaces = {
         // As long as no behavior event names are defined, ClientBehaviorHolder must be implemented for Majorra.
         "javax.faces.component.behavior.ClientBehaviorHolder"
+    },
+    behaviors = {
+        @Behavior(name = ClientBehaviors.CHANGE),
+        @Behavior(
+            name = ClientBehaviors.CLICK,
+            description = "Behavior of a click event.",
+            isDefault = true),
+        @Behavior(name = ClientBehaviors.DBLCLICK),
+        @Behavior(name = ClientBehaviors.FOCUS),
+        @Behavior(name = ClientBehaviors.BLUR),
+        @Behavior(name = ClientBehaviors.MOUSEOUT),
+        @Behavior(name = ClientBehaviors.MOUSEOVER),
+        @Behavior(name = ClientBehaviors.COMPLETE),
+        @Behavior(name = ClientBehaviors.LOAD),
+        @Behavior(name = ClientBehaviors.RELOAD),
+        @Behavior(name = ClientBehaviors.RESIZE)
     },
     faceletHandler = "org.apache.myfaces.tobago.facelets.EventHandler")
 public interface EventTagDeclaration

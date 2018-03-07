@@ -20,9 +20,11 @@
 package org.apache.myfaces.tobago.internal.util;
 
 import org.apache.myfaces.tobago.component.ClientBehaviors;
+import org.apache.myfaces.tobago.internal.behavior.EventBehavior;
 import org.apache.myfaces.tobago.internal.component.AbstractUICommand;
 import org.apache.myfaces.tobago.internal.component.AbstractUICommandBase;
 import org.apache.myfaces.tobago.internal.component.AbstractUIData;
+import org.apache.myfaces.tobago.internal.component.AbstractUIEvent;
 import org.apache.myfaces.tobago.internal.component.AbstractUITreeNodeBase;
 import org.apache.myfaces.tobago.internal.renderkit.Command;
 import org.apache.myfaces.tobago.internal.renderkit.CommandMap;
@@ -51,6 +53,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 public final class RenderUtils {
 
@@ -289,41 +292,79 @@ public final class RenderUtils {
     return url;
   }
 
-  public static CommandMap getBehaviorCommands(final FacesContext facesContext, final ClientBehaviorHolder holder) {
-    CommandMap map = null;
-    final Map<String, List<ClientBehavior>> behaviors = holder.getClientBehaviors();
-    for (final Map.Entry<String, List<ClientBehavior>> behaviorMap : behaviors.entrySet()) {
-      final String key = behaviorMap.getKey();
-      final ClientBehaviorContext context = ClientBehaviorContext.createClientBehaviorContext(
-          facesContext, (UIComponent) holder, key, ((UIComponent) holder).getClientId(facesContext), null);
-      for (final ClientBehavior clientBehavior : behaviorMap.getValue()) {
-        if (clientBehavior instanceof ClientBehaviorBase) {
-          String type = ((ClientBehaviorBase) clientBehavior).getRendererType();
-          // XXX this is to use a different renderer for Tobago components and other components.
-          if (type.equals(AjaxBehavior.BEHAVIOR_ID)) {
-            type = "org.apache.myfaces.tobago.behavior.Ajax";
+  public static CommandMap getBehaviorCommands(final FacesContext facesContext,
+      final ClientBehaviorHolder clientBehaviorHolder) {
+    CommandMap commandMap = null;
+
+    for (final Map.Entry<String, List<ClientBehavior>> entry : clientBehaviorHolder.getClientBehaviors().entrySet()) {
+      final String eventName = entry.getKey();
+      final ClientBehaviorContext clientBehaviorContext
+          = getClientBehaviorContext(facesContext, clientBehaviorHolder, eventName);
+
+      for (final ClientBehavior clientBehavior : entry.getValue()) {
+        if (clientBehavior instanceof EventBehavior) {
+          final EventBehavior eventBehavior = (EventBehavior) clientBehavior;
+          final AbstractUIEvent abstractUIEvent = getAbstractUIEvent((UIComponent) clientBehaviorHolder, eventBehavior);
+
+          if (abstractUIEvent != null && abstractUIEvent.isRendered() && !abstractUIEvent.isDisabled()) {
+            for (List<ClientBehavior> children : abstractUIEvent.getClientBehaviors().values()) {
+              for (ClientBehavior child : children) {
+                final CommandMap childMap = getCommandMap(facesContext, clientBehaviorContext, child);
+                commandMap = CommandMap.merge(commandMap, childMap);
+              }
+            }
           }
-          final ClientBehaviorRenderer renderer = facesContext.getRenderKit().getClientBehaviorRenderer(type);
-          final String dummy = renderer.getScript(context, clientBehavior);
-          if (dummy != null) {
-            map = CommandMap.merge(map, CommandMap.restoreCommandMap(facesContext));
-          }
-        } else {
-          LOG.warn("Ignoring: '{}'", clientBehavior);
         }
+
+        final CommandMap map = getCommandMap(facesContext, clientBehaviorContext, clientBehavior);
+        commandMap = CommandMap.merge(commandMap, map);
       }
     }
 
     // if there is no explicit behavior (with f:ajax or tc:event), use the command properties as default.
-    // tbd: think about refactoring: put this into TobagoClientBehaviorRenderer
-    if ((map == null || map.isEmpty()) && holder instanceof AbstractUICommand) {
-      if (map == null) {
-        map = new CommandMap();
+    if ((commandMap == null || commandMap.isEmpty()) && clientBehaviorHolder instanceof AbstractUICommand) {
+      if (commandMap == null) {
+        commandMap = new CommandMap();
       }
-      map.addCommand(ClientBehaviors.click, new Command(facesContext, (AbstractUICommand) holder));
+      commandMap.addCommand(ClientBehaviors.click, new Command(facesContext, (AbstractUICommand) clientBehaviorHolder));
     }
 
-    return map;
+    return commandMap;
+  }
+
+  private static ClientBehaviorContext getClientBehaviorContext(final FacesContext facesContext,
+      final ClientBehaviorHolder clientBehaviorHolder, final String eventName) {
+    UIComponent component = (UIComponent) clientBehaviorHolder;
+    return ClientBehaviorContext.createClientBehaviorContext(facesContext, component, eventName,
+        component.getClientId(facesContext), null);
+  }
+
+  public static AbstractUIEvent getAbstractUIEvent(final UIComponent parent,
+      final EventBehavior eventBehavior) {
+    return (AbstractUIEvent) parent.getChildren().stream()
+        .filter(child -> child instanceof AbstractUIEvent)
+        .filter(child -> Objects.equals(child.getId(), eventBehavior.getId()))
+        .findFirst().orElse(null);
+  }
+
+  private static CommandMap getCommandMap(final FacesContext facesContext,
+      final ClientBehaviorContext clientBehaviorContext, final ClientBehavior clientBehavior) {
+    if (clientBehavior instanceof ClientBehaviorBase) {
+      String type = ((ClientBehaviorBase) clientBehavior).getRendererType();
+
+      // this is to use a different renderer for Tobago components and other components.
+      if (type.equals(AjaxBehavior.BEHAVIOR_ID)) {
+        type = "org.apache.myfaces.tobago.behavior.Ajax";
+      }
+      final ClientBehaviorRenderer renderer = facesContext.getRenderKit().getClientBehaviorRenderer(type);
+      final String dummy = renderer.getScript(clientBehaviorContext, clientBehavior);
+      if (dummy != null) {
+        return CommandMap.restoreCommandMap(facesContext);
+      }
+    } else {
+      LOG.warn("Ignoring: '{}'", clientBehavior);
+    }
+    return null;
   }
 
   public static void decodeClientBehaviors(final FacesContext facesContext, final UIComponent component) {

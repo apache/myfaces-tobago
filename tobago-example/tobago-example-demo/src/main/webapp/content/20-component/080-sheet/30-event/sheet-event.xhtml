@@ -62,8 +62,9 @@
           </tc:row>
 
           <tc:row id="sample3" rendered="#{sheetController.columnEventSample == 3}">
-            <f:ajax execute=":::popup" render=":::popup" listener="#{sheetController.selectSolarObject}" id="columnEventPopup"/>
-            <tc:event omit="true">
+            <tc:event>
+              <f:ajax id="columnEventPopup" execute=":::popup" render=":::popup"
+                      listener="#{sheetController.selectSolarObject}"/>
               <tc:operation name="show" for=":::popup"/>
             </tc:event>
           </tc:row>

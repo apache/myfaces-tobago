@@ -53,6 +53,7 @@ public class TobagoClientBehaviorRenderer extends javax.faces.render.ClientBehav
   /**
    * In standard JSF this method returns a JavaScript string. Because of CSP, Tobago doesn't render JavaScript
    * into the HTML content. It transports the return value a bit hacky by {@link CommandMap#storeCommandMap}.
+   *
    * @return "dummy" string or null, if nothing to do.
    */
   @Override
@@ -63,7 +64,7 @@ public class TobagoClientBehaviorRenderer extends javax.faces.render.ClientBehav
     final ClientBehaviors eventName = ClientBehaviors.valueOf(behaviorContext.getEventName());
 
     //// TBD: is this nice? May be implemented with a JSF behaviour?
-    final Collapse collapse = createCollapsible(facesContext, uiComponent);
+    Collapse collapse = createCollapsible(facesContext, uiComponent);
 
     String executeIds = null;
     String renderIds = null;
@@ -73,7 +74,7 @@ public class TobagoClientBehaviorRenderer extends javax.faces.render.ClientBehav
     boolean omit = false;
     if (behavior instanceof AjaxBehavior) {
       final AjaxBehavior ajaxBehavior = (AjaxBehavior) behavior;
-      if (ajaxBehavior.isDisabled()){
+      if (ajaxBehavior.isDisabled()) {
         return null;
       }
       final Collection<String> execute = ajaxBehavior.getExecute();
@@ -97,14 +98,19 @@ public class TobagoClientBehaviorRenderer extends javax.faces.render.ClientBehav
           ComponentUtils.evaluateClientIds(facesContext, uiComponent, render.toArray(new String[render.size()]));
       actionId = clientId;
     } else if (behavior instanceof EventBehavior) { // <tc:event>
-      final AbstractUIEvent event = findEvent(uiComponent, eventName);
+      final EventBehavior eventBehavior = (EventBehavior) behavior;
+      final AbstractUIEvent event = RenderUtils.getAbstractUIEvent(uiComponent, eventBehavior);
+
       if (event != null) {
-        if (!event.isRendered()) {
+        if (!event.isRendered() || event.isDisabled()) {
           return null;
         } else {
           transition = event.isTransition();
           target = event.getTarget();
           actionId = event.getClientId(facesContext);
+          if (collapse == null) {
+            collapse = createCollapsible(facesContext, event);
+          }
           omit = event.isOmit() || StringUtils.isNotBlank(RenderUtils.generateUrl(facesContext, event));
         }
       }
@@ -132,39 +138,52 @@ public class TobagoClientBehaviorRenderer extends javax.faces.render.ClientBehav
     return "dummy";
   }
 
-  private AbstractUIEvent findEvent(final UIComponent component, final ClientBehaviors eventName) {
-    for (final UIComponent child : component.getChildren()) {
-      if (child instanceof AbstractUIEvent) {
-        final AbstractUIEvent event = (AbstractUIEvent) child;
-        if (eventName == event.getEvent()) {
-          return event;
+  @Override
+  public void decode(final FacesContext facesContext, final UIComponent component,
+      final ClientBehavior clientBehavior) {
+    if (clientBehavior instanceof AjaxBehavior) {
+      AjaxBehavior ajaxBehavior = (AjaxBehavior) clientBehavior;
+      if (!component.isRendered() || ajaxBehavior.isDisabled()) {
+        return;
+      }
+
+      dispatchBehaviorEvent(component, ajaxBehavior);
+    } else if (clientBehavior instanceof EventBehavior) {
+      final EventBehavior eventBehavior = (EventBehavior) clientBehavior;
+      final AbstractUIEvent abstractUIEvent = RenderUtils.getAbstractUIEvent(component, eventBehavior);
+
+      if (!component.isRendered() || abstractUIEvent == null
+          || !abstractUIEvent.isRendered() || abstractUIEvent.isDisabled()) {
+        return;
+      }
+
+      for (List<ClientBehavior> children : abstractUIEvent.getClientBehaviors().values()) {
+        for (ClientBehavior child : children) {
+          decode(facesContext, component, child);
         }
       }
+      dispatchBehaviorEvent(component, eventBehavior);
     }
-    return null;
   }
 
-  @Override
-  public void decode(final FacesContext context, final UIComponent component, final ClientBehavior behavior) {
-    final AjaxBehavior ajaxBehavior = (AjaxBehavior) behavior;
-    if (ajaxBehavior.isDisabled() || !component.isRendered()) {
-      return;
-    }
-
-    dispatchBehaviorEvent(component, ajaxBehavior);
-  }
-
-  private void dispatchBehaviorEvent(final UIComponent component, final AjaxBehavior ajaxBehavior) {
-
-    final AjaxBehaviorEvent event = new AjaxBehaviorEvent(component, ajaxBehavior);
-    final boolean isImmediate = isImmediate(ajaxBehavior, component);
+  private void dispatchBehaviorEvent(final UIComponent component, final ClientBehavior clientBehavior) {
+    final AjaxBehaviorEvent event = new AjaxBehaviorEvent(component, clientBehavior);
+    final boolean isImmediate = isImmediate(clientBehavior, component);
     event.setPhaseId(isImmediate ? PhaseId.APPLY_REQUEST_VALUES : PhaseId.INVOKE_APPLICATION);
     component.queueEvent(event);
   }
 
-  private boolean isImmediate(final AjaxBehavior ajaxBehavior, final UIComponent component) {
-    if (ajaxBehavior.isImmediateSet()) {
-      return ajaxBehavior.isImmediate();
+  private boolean isImmediate(final ClientBehavior clientBehavior, final UIComponent component) {
+    if (clientBehavior instanceof AjaxBehavior) {
+      AjaxBehavior ajaxBehavior = (AjaxBehavior) clientBehavior;
+      if (ajaxBehavior.isImmediateSet()) {
+        return ajaxBehavior.isImmediate();
+      }
+    } else if (clientBehavior instanceof EventBehavior) {
+      EventBehavior eventBehavior = (EventBehavior) clientBehavior;
+      if (eventBehavior.isImmediateSet()) {
+        return eventBehavior.isImmediate();
+      }
     }
     if (component instanceof EditableValueHolder) {
       return ((EditableValueHolder) component).isImmediate();
