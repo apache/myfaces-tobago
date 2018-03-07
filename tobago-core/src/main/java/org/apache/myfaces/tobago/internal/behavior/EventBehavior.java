@@ -56,6 +56,7 @@ public class EventBehavior extends ClientBehaviorBase {
   private static final String ATTR_RENDER = "render";
   private static final String ATTR_DISABLED = "disabled";
   private static final String ATTR_IMMEDIATE = "immediate";
+  private static final String ATTR_ID = "id";
 
   /**
    * special render and execute targets
@@ -187,6 +188,14 @@ public class EventBehavior extends ClientBehaviorBase {
 
   public boolean isImmediateSet() {
     return (getStateHelper().get(ATTR_IMMEDIATE) != null) || (getValueExpression(ATTR_IMMEDIATE) != null);
+  }
+
+  public String getId() {
+    return (String) getStateHelper().eval(ATTR_ID);
+  }
+
+  public void setId(final String clientId) {
+    getStateHelper().put(ATTR_ID, clientId);
   }
 
   @Override
