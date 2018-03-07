@@ -9541,6 +9541,7 @@ span.tobago-out:empty:before {
 /* page ----------------------------------------------------------- */
 .tobago-page {
   padding-top: 1rem;
+  padding-bottom: 1rem;
 }
 
 .tobago-page-overlay {
