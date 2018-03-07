@@ -47,7 +47,7 @@
           <ui:include src="/navigation.xhtml"/>
         </tc:panel>
 
-        <tc:flexLayout rows="auto 1fr">
+        <tc:panel>
           <tc:messages id="messages" orderBy="severity" rendered="#{!hideGlobalMessages}"/>
 
           <tc:section label="#{title}" id="content">
@@ -55,7 +55,7 @@
               <ui:insert/>
             </tc:form>
           </tc:section>
-        </tc:flexLayout>
+        </tc:panel>
 
         <tc:panel rendered="#{navigationState.viewSource}">
           <pre><code class="language-markup" id="demo-view-source">

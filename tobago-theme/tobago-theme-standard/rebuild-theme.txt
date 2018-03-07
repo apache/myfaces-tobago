@@ -1,4 +1,4 @@
-Build date: 2018-03-07 13:45:48
+Build date: 2018-03-07 16:07:13
 [INFO] Scanning for projects...
 [INFO] 
 [INFO] ------------------------------------------------------------------------
@@ -69,7 +69,7 @@ Build date: 2018-03-07 13:45:48
 [INFO] 
 [WARNING] npm WARN bootstrap@4.0.0 requires a peer of jquery@1.9.1 - 3 but none is installed. You must install peer dependencies yourself.
 [ERROR] 
-[INFO] added 1405 packages in 22.994s
+[INFO] added 1405 packages in 29.417s
 [INFO] 
 [INFO] --- frontend-maven-plugin:1.6:npm (step #8: npm run css-compile) @ tobago-theme-standard ---
 [INFO] Running 'npm run css-compile' in __CURRENT__/tobago-theme-standard/target/bootstrap
@@ -81,11 +81,11 @@ Build date: 2018-03-07 13:45:48
 [ERROR] Wrote Source Map to __CURRENT__/tobago-theme-standard/target/bootstrap/dist/css/bootstrap.css.map
 [ERROR] Wrote CSS to __CURRENT__/tobago-theme-standard/target/bootstrap/dist/css/bootstrap.css
 [ERROR] Rendering Complete, saving .css file...
-[ERROR] Wrote Source Map to __CURRENT__/tobago-theme-standard/target/bootstrap/dist/css/bootstrap-grid.css.map
 [ERROR] Wrote CSS to __CURRENT__/tobago-theme-standard/target/bootstrap/dist/css/bootstrap-grid.css
+[ERROR] Wrote Source Map to __CURRENT__/tobago-theme-standard/target/bootstrap/dist/css/bootstrap-grid.css.map
 [ERROR] Rendering Complete, saving .css file...
-[ERROR] Wrote Source Map to __CURRENT__/tobago-theme-standard/target/bootstrap/dist/css/bootstrap-reboot.css.map
 [ERROR] Wrote CSS to __CURRENT__/tobago-theme-standard/target/bootstrap/dist/css/bootstrap-reboot.css
+[ERROR] Wrote Source Map to __CURRENT__/tobago-theme-standard/target/bootstrap/dist/css/bootstrap-reboot.css.map
 [INFO] 
 [INFO] --- frontend-maven-plugin:1.6:npm (step #9: npm run css-prefix) @ tobago-theme-standard ---
 [INFO] Running 'npm run css-prefix' in __CURRENT__/tobago-theme-standard/target/bootstrap
@@ -93,9 +93,9 @@ Build date: 2018-03-07 13:45:48
 [INFO] > bootstrap@4.0.0 css-prefix __CURRENT__/tobago-theme-standard/target/bootstrap
 [INFO] > postcss --config build/postcss.config.js --replace "dist/css/*.css" "!dist/css/*.min.css"
 [INFO] 
-[ERROR] ✔ Finished dist/css/bootstrap-reboot.css (847 ms)
-[ERROR] ✔ Finished dist/css/bootstrap-grid.css (850 ms)
-[ERROR] ✔ Finished dist/css/bootstrap.css (849 ms)
+[ERROR] ✔ Finished dist/css/bootstrap.css (907 ms)
+[ERROR] ✔ Finished dist/css/bootstrap-grid.css (909 ms)
+[ERROR] ✔ Finished dist/css/bootstrap-reboot.css (909 ms)
 [INFO] 
 [INFO] --- frontend-maven-plugin:1.6:npm (step #10: npm run css-minify) @ tobago-theme-standard ---
 [INFO] Running 'npm run css-minify' in __CURRENT__/tobago-theme-standard/target/bootstrap
@@ -127,17 +127,17 @@ Build date: 2018-03-07 13:45:48
 [INFO] > rollup --environment BUNDLE:false --config build/rollup.config.js --sourcemap
 [INFO] 
 [INFO] 
-[INFO] > bootstrap@4.0.0 js-compile-plugins __CURRENT__/tobago-theme-standard/target/bootstrap
-[INFO] > cross-env PLUGINS=true babel js/src/ --out-dir js/dist/ --source-maps
-[INFO] 
-[INFO] 
 [INFO] > bootstrap@4.0.0 js-compile-bundle __CURRENT__/tobago-theme-standard/target/bootstrap
 [INFO] > rollup --environment BUNDLE:true --config build/rollup.config.js --sourcemap
 [INFO] 
-[ERROR] 
-[ERROR] __CURRENT__/tobago-theme-standard/target/bootstrap/js/src/index.js → dist/js/bootstrap.js...
+[INFO] 
+[INFO] > bootstrap@4.0.0 js-compile-plugins __CURRENT__/tobago-theme-standard/target/bootstrap
+[INFO] > cross-env PLUGINS=true babel js/src/ --out-dir js/dist/ --source-maps
+[INFO] 
 [ERROR] 
 [ERROR] __CURRENT__/tobago-theme-standard/target/bootstrap/js/src/index.js → dist/js/bootstrap.bundle.js...
+[ERROR] 
+[ERROR] __CURRENT__/tobago-theme-standard/target/bootstrap/js/src/index.js → dist/js/bootstrap.js...
 [INFO] js/src/alert.js -> js/dist/alert.js
 [INFO] js/src/button.js -> js/dist/button.js
 [INFO] js/src/carousel.js -> js/dist/carousel.js
@@ -150,15 +150,11 @@ Build date: 2018-03-07 13:45:48
 [INFO] js/src/tab.js -> js/dist/tab.js
 [INFO] js/src/tooltip.js -> js/dist/tooltip.js
 [INFO] js/src/util.js -> js/dist/util.js
-[ERROR] created dist/js/bootstrap.js in 1.5s
-[ERROR] created dist/js/bootstrap.bundle.js in 1.6s
+[ERROR] created dist/js/bootstrap.js in 1.8s
+[ERROR] created dist/js/bootstrap.bundle.js in 2s
 [INFO] 
 [INFO] > bootstrap@4.0.0 js-minify __CURRENT__/tobago-theme-standard/target/bootstrap
 [INFO] > npm-run-all --parallel js-minify-*
-[INFO] 
-[INFO] 
-[INFO] > bootstrap@4.0.0 js-minify-standalone __CURRENT__/tobago-theme-standard/target/bootstrap
-[INFO] > uglifyjs --compress typeofs=false --mangle --comments "/^!/" --source-map "content=dist/js/bootstrap.js.map,includeSources,url=bootstrap.min.js.map" --output dist/js/bootstrap.min.js dist/js/bootstrap.js
 [INFO] 
 [INFO] 
 [INFO] > bootstrap@4.0.0 js-minify-docs __CURRENT__/tobago-theme-standard/target/bootstrap
@@ -168,8 +164,12 @@ Build date: 2018-03-07 13:45:48
 [INFO] > bootstrap@4.0.0 js-minify-bundle __CURRENT__/tobago-theme-standard/target/bootstrap
 [INFO] > uglifyjs --compress typeofs=false --mangle --comments "/^!/" --source-map "content=dist/js/bootstrap.bundle.js.map,includeSources,url=bootstrap.bundle.min.js.map" --output dist/js/bootstrap.bundle.min.js dist/js/bootstrap.bundle.js
 [INFO] 
-[ERROR] INFO: Using input source map: dist/js/bootstrap.js.map
+[INFO] 
+[INFO] > bootstrap@4.0.0 js-minify-standalone __CURRENT__/tobago-theme-standard/target/bootstrap
+[INFO] > uglifyjs --compress typeofs=false --mangle --comments "/^!/" --source-map "content=dist/js/bootstrap.js.map,includeSources,url=bootstrap.min.js.map" --output dist/js/bootstrap.min.js dist/js/bootstrap.js
+[INFO] 
 [ERROR] INFO: Using input source map: dist/js/bootstrap.bundle.js.map
+[ERROR] INFO: Using input source map: dist/js/bootstrap.js.map
 [INFO] 
 [INFO] --- maven-resources-plugin:2.7:resources (default-resources) @ tobago-theme-standard ---
 [INFO] Using 'UTF-8' encoding to copy filtered resources.
@@ -193,8 +193,8 @@ Build date: 2018-03-07 13:45:48
 [INFO] nothing to do, __CURRENT__/tobago-theme-standard/target/classes/META-INF/resources/tobago/standard/tether/1.1.1/css/tether-theme-basic.min.css is younger than original, use 'force' option or clean your target
 [INFO] tether-theme-arrows-dark.min.css (4681b) -> tether-theme-arrows-dark.min.min.css (4681b)[100%]
 [INFO] nothing to do, __CURRENT__/tobago-theme-standard/target/classes/META-INF/resources/tobago/standard/tether/1.1.1/css/tether-theme-arrows.min.css is younger than original, use 'force' option or clean your target
-[INFO] bootstrap.min.css (167575b) -> bootstrap.min.min.css (167313b)[99%]
-[INFO] bootstrap.css (214097b) -> bootstrap.min.css (167812b)[78%]
+[INFO] bootstrap.min.css (167618b) -> bootstrap.min.min.css (167356b)[99%]
+[INFO] bootstrap.css (214149b) -> bootstrap.min.css (167855b)[78%]
 [INFO] nothing to do, __CURRENT__/tobago-theme-standard/target/classes/META-INF/resources/tobago/standard/font-awesome/4.7.0/css/font-awesome.min.css is younger than original, use 'force' option or clean your target
 [INFO] font-awesome.min.css (31000b) -> font-awesome.min.min.css (30990b)[99%]
 [INFO] nothing to do, __CURRENT__/tobago-theme-standard/target/classes/META-INF/resources/tobago/standard/bootstrap-datetimepicker/4.17.45/css/bootstrap-datetimepicker.min.css is younger than original, use 'force' option or clean your target
@@ -207,11 +207,11 @@ Build date: 2018-03-07 13:45:48
 [INFO] nothing to do, __CURRENT__/tobago-theme-standard/target/classes/META-INF/resources/tobago/standard/tether/1.1.1/css/tether-theme-basic.min.css is younger than original, use 'force' option or clean your target
 [INFO] nothing to do, __CURRENT__/tobago-theme-standard/target/classes/META-INF/resources/tobago/standard/tether/1.1.1/css/tether-theme-arrows-dark.min.min.css is younger than original, use 'force' option or clean your target
 [INFO] nothing to do, __CURRENT__/tobago-theme-standard/target/classes/META-INF/resources/tobago/standard/tether/1.1.1/css/tether-theme-arrows.min.css is younger than original, use 'force' option or clean your target
-[INFO] bootstrap.min.css (167575b) -> bootstrap.min.min.css (167313b)[99%]
-[INFO] bootstrap.css (214097b) -> bootstrap.min.css (167812b)[78%]
+[INFO] nothing to do, __CURRENT__/tobago-theme-standard/target/classes/META-INF/resources/tobago/standard/tobago-bootstrap/_version/css/bootstrap.min.min.css is younger than original, use 'force' option or clean your target
+[INFO] nothing to do, __CURRENT__/tobago-theme-standard/target/classes/META-INF/resources/tobago/standard/tobago-bootstrap/_version/css/bootstrap.min.css is younger than original, use 'force' option or clean your target
 [INFO] nothing to do, __CURRENT__/tobago-theme-standard/target/classes/META-INF/resources/tobago/standard/font-awesome/4.7.0/css/font-awesome.min.css is younger than original, use 'force' option or clean your target
 [INFO] nothing to do, __CURRENT__/tobago-theme-standard/target/classes/META-INF/resources/tobago/standard/font-awesome/4.7.0/css/font-awesome.min.min.css is younger than original, use 'force' option or clean your target
-[INFO] total input (812260b) -> output (719098b)[88%]
+[INFO] total input (430683b) -> output (384059b)[89%]
 [INFO] nb warnings: 0, nb errors: 0
 [INFO] 
 [INFO] --- maven-compiler-plugin:3.6.2:compile (default-compile) @ tobago-theme-standard ---
@@ -246,7 +246,7 @@ main:
  T E S T S
 -------------------------------------------------------
 Running org.apache.myfaces.tobago.renderkit.css.BootstrapClassUnitTest
-Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.295 sec - in org.apache.myfaces.tobago.renderkit.css.BootstrapClassUnitTest
+Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.357 sec - in org.apache.myfaces.tobago.renderkit.css.BootstrapClassUnitTest
 
 Results :
 
@@ -265,7 +265,7 @@ Tests run: 3, Failures: 0, Errors: 0, Skipped: 0
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
-[INFO] Total time: 51.453 s
-[INFO] Finished at: 2018-03-07T13:46:40+01:00
-[INFO] Final Memory: 41M/607M
+[INFO] Total time: 01:06 min
+[INFO] Finished at: 2018-03-07T16:08:20+01:00
+[INFO] Final Memory: 39M/583M
 [INFO] ------------------------------------------------------------------------

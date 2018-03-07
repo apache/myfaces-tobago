@@ -1,4 +1,4 @@
-Build date: 2018-03-07 13:42:36
+Build date: 2018-03-07 16:03:26
 [INFO] Scanning for projects...
 [INFO] 
 [INFO] ------------------------------------------------------------------------
@@ -69,7 +69,7 @@ Build date: 2018-03-07 13:42:36
 [INFO] 
 [WARNING] npm WARN bootstrap@4.0.0 requires a peer of jquery@1.9.1 - 3 but none is installed. You must install peer dependencies yourself.
 [ERROR] 
-[INFO] added 1405 packages in 24.255s
+[INFO] added 1405 packages in 30.239s
 [INFO] 
 [INFO] --- frontend-maven-plugin:1.6:npm (step #8: npm run css-compile) @ tobago-theme-charlotteville ---
 [INFO] Running 'npm run css-compile' in __CURRENT__/tobago-theme-charlotteville/target/bootstrap
@@ -78,11 +78,11 @@ Build date: 2018-03-07 13:42:36
 [INFO] > node-sass --output-style expanded --source-map true --source-map-contents true --precision 6 scss/bootstrap.scss dist/css/bootstrap.css && node-sass --output-style expanded --source-map true --source-map-contents true --precision 6 scss/bootstrap-grid.scss dist/css/bootstrap-grid.css && node-sass --output-style expanded --source-map true --source-map-contents true --precision 6 scss/bootstrap-reboot.scss dist/css/bootstrap-reboot.css
 [INFO] 
 [ERROR] Rendering Complete, saving .css file...
-[ERROR] Wrote Source Map to __CURRENT__/tobago-theme-charlotteville/target/bootstrap/dist/css/bootstrap.css.map
 [ERROR] Wrote CSS to __CURRENT__/tobago-theme-charlotteville/target/bootstrap/dist/css/bootstrap.css
+[ERROR] Wrote Source Map to __CURRENT__/tobago-theme-charlotteville/target/bootstrap/dist/css/bootstrap.css.map
 [ERROR] Rendering Complete, saving .css file...
-[ERROR] Wrote CSS to __CURRENT__/tobago-theme-charlotteville/target/bootstrap/dist/css/bootstrap-grid.css
 [ERROR] Wrote Source Map to __CURRENT__/tobago-theme-charlotteville/target/bootstrap/dist/css/bootstrap-grid.css.map
+[ERROR] Wrote CSS to __CURRENT__/tobago-theme-charlotteville/target/bootstrap/dist/css/bootstrap-grid.css
 [ERROR] Rendering Complete, saving .css file...
 [ERROR] Wrote Source Map to __CURRENT__/tobago-theme-charlotteville/target/bootstrap/dist/css/bootstrap-reboot.css.map
 [ERROR] Wrote CSS to __CURRENT__/tobago-theme-charlotteville/target/bootstrap/dist/css/bootstrap-reboot.css
@@ -93,9 +93,9 @@ Build date: 2018-03-07 13:42:36
 [INFO] > bootstrap@4.0.0 css-prefix __CURRENT__/tobago-theme-charlotteville/target/bootstrap
 [INFO] > postcss --config build/postcss.config.js --replace "dist/css/*.css" "!dist/css/*.min.css"
 [INFO] 
-[ERROR] ✔ Finished dist/css/bootstrap-reboot.css (879 ms)
-[ERROR] ✔ Finished dist/css/bootstrap.css (881 ms)
-[ERROR] ✔ Finished dist/css/bootstrap-grid.css (881 ms)
+[ERROR] ✔ Finished dist/css/bootstrap-grid.css (1.13 s)
+[ERROR] ✔ Finished dist/css/bootstrap.css (1.13 s)
+[ERROR] ✔ Finished dist/css/bootstrap-reboot.css (1.13 s)
 [INFO] 
 [INFO] --- frontend-maven-plugin:1.6:npm (step #10: npm run css-minify) @ tobago-theme-charlotteville ---
 [INFO] Running 'npm run css-minify' in __CURRENT__/tobago-theme-charlotteville/target/bootstrap
@@ -214,7 +214,7 @@ main:
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
-[INFO] Total time: 47.739 s
-[INFO] Finished at: 2018-03-07T13:43:24+01:00
-[INFO] Final Memory: 29M/397M
+[INFO] Total time: 55.788 s
+[INFO] Finished at: 2018-03-07T16:04:23+01:00
+[INFO] Final Memory: 28M/393M
 [INFO] ------------------------------------------------------------------------

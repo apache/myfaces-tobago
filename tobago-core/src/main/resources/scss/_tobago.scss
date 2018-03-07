@@ -674,6 +674,10 @@ span.tobago-out:empty:before {
   overflow: auto;
 }
 
+.tobago-bar .tobago-panel {
+  overflow: inherit;
+}
+
 /* popup ------------------------------------------------------------- */
 
 .tobago-popup {

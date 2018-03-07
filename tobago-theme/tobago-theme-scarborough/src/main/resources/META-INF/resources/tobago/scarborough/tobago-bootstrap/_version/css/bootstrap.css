@@ -9602,6 +9602,10 @@ span.tobago-out:empty:before {
   overflow: auto;
 }
 
+.tobago-bar .tobago-panel {
+  overflow: inherit;
+}
+
 /* popup ------------------------------------------------------------- */
 .modal-content > .card {
   margin-bottom: 0;
