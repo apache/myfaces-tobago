@@ -47,6 +47,8 @@ function check() {
 
   echo "Checking file ${FILE}: "
 
+  # md5 is deprecated, but supported here. The hashes will be uploaded, but no link will reference it.
+
   md5 -q "${FILE}" > "${FILE}.md5.temp"
   if ! diff --ignore-all-space "${FILE}.md5" "${FILE}.md5.temp" ; then
     echo "Error: MD5 check failed!"
