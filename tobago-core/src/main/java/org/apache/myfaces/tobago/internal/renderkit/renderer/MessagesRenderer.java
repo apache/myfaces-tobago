@@ -122,6 +122,15 @@ public class MessagesRenderer extends RendererBase {
     if (messageList.size() > 0) {
       writer.endElement(HtmlElements.DIV); // close open tag from for-loop
     }
+    if (messages.getFor() == null) {
+      final String id = messages.getClientId(facesContext) + ComponentUtils.SUB_SEPARATOR + "messagesExists";
+      writer.startElement(HtmlElements.INPUT);
+      writer.writeAttribute(HtmlAttributes.VALUE, Boolean.TRUE.toString(), false);
+      writer.writeAttribute(HtmlAttributes.ID, id, false);
+      writer.writeAttribute(HtmlAttributes.NAME, id, false);
+      writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN);
+      writer.endElement(HtmlElements.INPUT);
+    }
     writer.endElement(HtmlElements.DIV);
 /*
       while(clientIds.hasNext()) {
@@ -136,15 +145,6 @@ public class MessagesRenderer extends RendererBase {
         ComponentUtils.findPage(facesContext, messages).setFocusId(focusId);
       }
 */
-    if (messages.getFor() == null) {
-      final String id = messages.getClientId(facesContext) + ComponentUtils.SUB_SEPARATOR + "messagesExists";
-      writer.startElement(HtmlElements.INPUT);
-      writer.writeAttribute(HtmlAttributes.VALUE, Boolean.TRUE.toString(), false);
-      writer.writeAttribute(HtmlAttributes.ID, id, false);
-      writer.writeAttribute(HtmlAttributes.NAME, id, false);
-      writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN);
-      writer.endElement(HtmlElements.INPUT);
-    }
   }
 
   private void encodeMessage(
