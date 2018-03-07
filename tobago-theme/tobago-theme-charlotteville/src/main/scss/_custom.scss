@@ -20,4 +20,80 @@
 // Copy variables from `_variables.scss` to this file to override default values
 // without modifying source files.
 
-$body-bg:    #ffeecf;
+$sand: #f6d8ac;
+$dark-sand: #db9833;
+$dark-sea: #2a6592;
+$light-sea: #8ec3eb;
+$green: #44aa44;
+$red: #ee4444;
+$cement: #7e9a9a;
+
+$gray-400: #a0a0a0;
+$gray-600: #777777;
+$gray-800: #323232;
+$black: #000000;
+
+$primary: $dark-sea;
+$secondary: $dark-sand;
+$success: $light-sea;
+$info: $green;
+$warning: $dark-sand;
+$danger: $red;
+$light: $light-sea;
+$dark: $dark-sea;
+
+$theme-colors: ();
+$theme-colors: map-merge((
+        "primary": $primary,
+        "secondary": $secondary,
+        "success": $success,
+        "info": $info,
+        "warning": $warning,
+        "danger": $danger,
+        "light": $light,
+        "dark": $dark
+), $theme-colors);
+
+$body-color: $dark-sand;
+$body-bg: $sand;
+
+$input-bg:                              $body-bg;
+$input-disabled-bg:                     $gray-800;
+$input-color:                           $gray-400;
+$input-border-color:                    $gray-600;
+$input-btn-border-width:                $border-width;
+$input-focus-bg:                        $input-bg;
+$input-focus-border-color:              lighten($dark-sand, 25%);
+$input-focus-color:                     $gray-400;
+$input-placeholder-color:               $gray-600;
+
+$link-color: darken($secondary, 10%);
+$link-hover-color: darken($link-color, 25%);
+
+$navbar-light-color: lighten($light-sea, 15%);
+$navbar-light-active-color: lighten($light-sea, 25%);
+$navbar-light-hover-color: lighten($light-sea, 35%);
+$navbar-light-disabled-color: darken($light-sea, 25%);
+
+$card-bg: $black;
+$card-border-color: $gray-600;
+$card-border-width: $border-width;
+$card-cap-bg: $gray-800;
+
+$dropdown-link-color: $gray-400;
+$dropdown-link-active-color: $light-sea;
+$dropdown-bg: $black;
+
+$pagination-color: $dark-sand;
+$pagination-bg: lighten($sand, 15%);
+$pagination-border-color: $dark-sand;
+//$pagination-border-width: $border-width;
+$pagination-active-color: lighten($sand, 15%);
+$pagination-active-bg: lighten($dark-sand, 15%);
+$pagination-active-border-color: $pagination-border-color;
+$pagination-hover-color: lighten($sand, 25%);
+$pagination-hover-bg: lighten($dark-sand, 15%);
+$pagination-hover-border-color: $pagination-active-border-color;
+$pagination-disabled-color: lighten($cement, 15%);
+$pagination-disabled-bg: lighten($cement, 25%);
+$pagination-disabled-border-color: $pagination-border-color;

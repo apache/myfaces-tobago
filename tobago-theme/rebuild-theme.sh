@@ -46,7 +46,7 @@ function rebuild_theme() {
 # the build process is not time invariant.
 # This can later be removed.
 
-mvn -Pall-modules clean
+mvn clean
 
 rebuild_theme charlotteville
 rebuild_theme roxborough
@@ -54,7 +54,7 @@ rebuild_theme scarborough
 rebuild_theme speyside
 rebuild_theme standard
 
-mvn -Pall-modules install
+mvn install
 
 echo "DONE"
 echo "Now you will find the bootstrap stuff inside the src trees. This might be committed."
