@@ -35,10 +35,11 @@ function rebuild_theme() {
 
   date "+Build date: %Y-%m-%d %H:%M:%S" >${DIR}/target/temp.log
 
-  mvn -Prebuild-theme -f ${DIR}/pom.xml --batch-mode | tee -a ${DIR}/target/temp.log
+  mvn clean install -Prebuild-theme -f ${DIR}/pom.xml --batch-mode | tee -a ${DIR}/temp.log
 
   # removing system dependent directories from the log file
-  cat ${DIR}/target/temp.log | sed s/${CURRENT_REGEX}/__CURRENT__/g | sed s/${REPO_REGEX}/__REPO__/g | sed s/${HOME_REGEX}/__HOME__/g >${DIR}/rebuild-theme.txt
+  cat ${DIR}/temp.log | sed s/${CURRENT_REGEX}/__CURRENT__/g | sed s/${REPO_REGEX}/__REPO__/g | sed s/${HOME_REGEX}/__HOME__/g >${DIR}/rebuild-theme.txt
+  rm ${DIR}/temp.log
 }
 
 # The rebuild-theme.txt files are created, to protocol changes in the build.
@@ -46,15 +47,13 @@ function rebuild_theme() {
 # the build process is not time invariant.
 # This can later be removed.
 
-mvn clean
+rebuild_theme charlotteville &
+rebuild_theme roxborough &
+rebuild_theme scarborough &
+rebuild_theme speyside &
+rebuild_theme standard &
 
-rebuild_theme charlotteville
-rebuild_theme roxborough
-rebuild_theme scarborough
-rebuild_theme speyside
-rebuild_theme standard
-
-mvn install
+wait
 
 echo "DONE"
 echo "Now you will find the bootstrap stuff inside the src trees. This might be committed."
