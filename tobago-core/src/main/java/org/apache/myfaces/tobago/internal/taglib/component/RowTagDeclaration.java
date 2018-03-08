@@ -27,6 +27,8 @@ import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
 
+import javax.faces.component.UIColumn;
+
 /**
  * This component creates a representative in a UISheet for each row.
  * The tag must be a subtag of &lt;tc:sheet&gt;
@@ -36,6 +38,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
     uiComponent = "org.apache.myfaces.tobago.component.UIRow",
     uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUIRow",
     uiComponentFacesClass = "javax.faces.component.UIColumn",
+    componentFamily = UIColumn.COMPONENT_FAMILY,
     rendererType = RendererTypes.ROW,
     behaviors = {
         @Behavior(
