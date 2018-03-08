@@ -39,30 +39,35 @@ import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ComponentSystemEvent;
 import javax.faces.event.ListenerFor;
+import javax.faces.event.ListenersFor;
 import javax.faces.event.PostAddToViewEvent;
+import javax.faces.event.PreRenderViewEvent;
 
 /**
  * {@link org.apache.myfaces.tobago.internal.taglib.component.StyleTagDeclaration}
  *
  * @since 4.0.0
  */
-@ListenerFor(systemEventClass = PostAddToViewEvent.class)
+@ListenersFor(
+    { @ListenerFor(systemEventClass = PostAddToViewEvent.class),
+      @ListenerFor(systemEventClass = PreRenderViewEvent.class)
+    })
 public abstract class AbstractUIStyle extends UIComponentBase {
 
   private static final Logger LOG = LoggerFactory.getLogger(AbstractUIStyle.class);
 
   @Override
   public void processEvent(final ComponentSystemEvent event) {
-
+    super.processEvent(event);
     final FacesContext facesContext = getFacesContext();
 
-    if (event instanceof PostAddToViewEvent) {
-
+    if (event instanceof PreRenderViewEvent) {
       // attribute file
       if (StringUtils.isNotBlank(getFile())) {
         final UIViewRoot root = facesContext.getViewRoot();
         root.addComponentResource(facesContext, this);
       }
+    } else if (event instanceof PostAddToViewEvent) {
 
       // attribute customClass
       final ValueExpression valueExpression = getValueExpression(Attributes.customClass.getName());

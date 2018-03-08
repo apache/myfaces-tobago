@@ -24,21 +24,26 @@ import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ComponentSystemEvent;
 import javax.faces.event.ListenerFor;
-import javax.faces.event.PostAddToViewEvent;
+import javax.faces.event.PreRenderViewEvent;
 
 /**
  * {@link org.apache.myfaces.tobago.internal.taglib.component.ScriptTagDeclaration}
  *
  * @since 3.0.0
  */
-@ListenerFor(systemEventClass = PostAddToViewEvent.class)
+@ListenerFor(systemEventClass = PreRenderViewEvent.class)
 public abstract class AbstractUIScript extends UIComponentBase {
 
   @Override
   public void processEvent(final ComponentSystemEvent event) {
-    final FacesContext facesContext = getFacesContext();
-    final UIViewRoot root = facesContext.getViewRoot();
-    root.addComponentResource(facesContext, this);
+
+    super.processEvent(event);
+    
+    if (event instanceof PreRenderViewEvent) {
+      final FacesContext facesContext = getFacesContext();
+      final UIViewRoot root = facesContext.getViewRoot();
+      root.addComponentResource(facesContext, this);
+    }
   }
 
   public abstract String getFile();
