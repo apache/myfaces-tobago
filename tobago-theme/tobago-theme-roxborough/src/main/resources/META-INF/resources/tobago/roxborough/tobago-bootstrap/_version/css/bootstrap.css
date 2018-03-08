@@ -9091,7 +9091,8 @@ XXX code will be inserted after the _variables.scss
 }
 
 .tobago-box > .card-body {
-  overflow: auto;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 .tobago-box-header {
@@ -9596,11 +9597,12 @@ span.tobago-out:empty:before {
 
 /* panel ------------------------------------------------------------- */
 .tobago-panel {
-  overflow: auto;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 .tobago-bar .tobago-panel {
-  overflow: inherit;
+  overflow-y: inherit;
 }
 
 /* popup ------------------------------------------------------------- */

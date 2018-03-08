@@ -111,7 +111,8 @@ $zero-width-space: "\200b";
 .tobago-box {
   margin-bottom: $card-spacer-y;
   > .card-body {
-    overflow: auto;
+    overflow-x: hidden;
+    overflow-y: auto;
   }
 }
 
@@ -671,11 +672,8 @@ span.tobago-out:empty:before {
 /* panel ------------------------------------------------------------- */
 
 .tobago-panel {
-  overflow: auto;
-}
-
-.tobago-bar .tobago-panel {
-  overflow: inherit;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 /* popup ------------------------------------------------------------- */
