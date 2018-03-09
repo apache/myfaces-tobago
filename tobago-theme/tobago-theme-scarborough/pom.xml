@@ -17,6 +17,7 @@
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
+
   <parent>
     <groupId>org.apache.myfaces.tobago</groupId>
     <artifactId>tobago-theme</artifactId>
@@ -30,36 +31,6 @@
     <theme.name>scarborough</theme.name>
   </properties>
 
-  <build>
-    <plugins>
-      <plugin>
-        <artifactId>maven-antrun-plugin</artifactId>
-        <executions>
-          <execution>
-            <id>set-version</id>
-            <goals>
-              <goal>run</goal>
-            </goals>
-            <phase>compile</phase>
-            <configuration>
-              <target>
-                <move file="${project.build.outputDirectory}/META-INF/resources/tobago/scarborough/tobago-bootstrap/_version" tofile="${project.build.outputDirectory}/META-INF/resources/tobago/scarborough/tobago-bootstrap/${project.version}">
-                </move>
-              </target>
-            </configuration>
-          </execution>
-        </executions>
-        <dependencies>
-          <dependency>
-            <groupId>ant</groupId>
-            <artifactId>ant-apache-regexp</artifactId>
-            <version>1.6.5</version>
-          </dependency>
-        </dependencies>
-      </plugin>
-    </plugins>
-  </build>
-
   <dependencies>
     <dependency>
       <groupId>org.apache.myfaces.tobago</groupId>
@@ -72,4 +43,5 @@
       <version>${project.version}</version>
     </dependency>
   </dependencies>
+
 </project>
