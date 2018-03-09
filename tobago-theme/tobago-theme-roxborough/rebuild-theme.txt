@@ -1,9 +1,10 @@
-Build date: 2018-03-07 16:04:23
 [INFO] Scanning for projects...
 [INFO] 
 [INFO] ------------------------------------------------------------------------
 [INFO] Building Tobago Theme Roxborough 4.2.0-SNAPSHOT
 [INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-enforcer-plugin:3.0.0-M1:enforce (enforce-maven-version) @ tobago-theme-roxborough ---
 [INFO] 
 [INFO] --- maven-enforcer-plugin:3.0.0-M1:enforce (enforce) @ tobago-theme-roxborough ---
 [INFO] 
@@ -69,7 +70,7 @@ Build date: 2018-03-07 16:04:23
 [INFO] 
 [WARNING] npm WARN bootstrap@4.0.0 requires a peer of jquery@1.9.1 - 3 but none is installed. You must install peer dependencies yourself.
 [ERROR] 
-[INFO] added 1405 packages in 27.008s
+[INFO] added 1405 packages in 59.152s
 [INFO] 
 [INFO] --- frontend-maven-plugin:1.6:npm (step #8: npm run css-compile) @ tobago-theme-roxborough ---
 [INFO] Running 'npm run css-compile' in __CURRENT__/tobago-theme-roxborough/target/bootstrap
@@ -84,8 +85,8 @@ Build date: 2018-03-07 16:04:23
 [ERROR] Wrote Source Map to __CURRENT__/tobago-theme-roxborough/target/bootstrap/dist/css/bootstrap-grid.css.map
 [ERROR] Wrote CSS to __CURRENT__/tobago-theme-roxborough/target/bootstrap/dist/css/bootstrap-grid.css
 [ERROR] Rendering Complete, saving .css file...
-[ERROR] Wrote CSS to __CURRENT__/tobago-theme-roxborough/target/bootstrap/dist/css/bootstrap-reboot.css
 [ERROR] Wrote Source Map to __CURRENT__/tobago-theme-roxborough/target/bootstrap/dist/css/bootstrap-reboot.css.map
+[ERROR] Wrote CSS to __CURRENT__/tobago-theme-roxborough/target/bootstrap/dist/css/bootstrap-reboot.css
 [INFO] 
 [INFO] --- frontend-maven-plugin:1.6:npm (step #9: npm run css-prefix) @ tobago-theme-roxborough ---
 [INFO] Running 'npm run css-prefix' in __CURRENT__/tobago-theme-roxborough/target/bootstrap
@@ -93,9 +94,9 @@ Build date: 2018-03-07 16:04:23
 [INFO] > bootstrap@4.0.0 css-prefix __CURRENT__/tobago-theme-roxborough/target/bootstrap
 [INFO] > postcss --config build/postcss.config.js --replace "dist/css/*.css" "!dist/css/*.min.css"
 [INFO] 
-[ERROR] ✔ Finished dist/css/bootstrap.css (917 ms)
-[ERROR] ✔ Finished dist/css/bootstrap-reboot.css (919 ms)
-[ERROR] ✔ Finished dist/css/bootstrap-grid.css (920 ms)
+[ERROR] ✔ Finished dist/css/bootstrap.css (1.55 s)
+[ERROR] ✔ Finished dist/css/bootstrap-grid.css (1.55 s)
+[ERROR] ✔ Finished dist/css/bootstrap-reboot.css (1.55 s)
 [INFO] 
 [INFO] --- frontend-maven-plugin:1.6:npm (step #10: npm run css-minify) @ tobago-theme-roxborough ---
 [INFO] Running 'npm run css-minify' in __CURRENT__/tobago-theme-roxborough/target/bootstrap
@@ -127,12 +128,12 @@ Build date: 2018-03-07 16:04:23
 [INFO] > rollup --environment BUNDLE:false --config build/rollup.config.js --sourcemap
 [INFO] 
 [INFO] 
-[INFO] > bootstrap@4.0.0 js-compile-plugins __CURRENT__/tobago-theme-roxborough/target/bootstrap
-[INFO] > cross-env PLUGINS=true babel js/src/ --out-dir js/dist/ --source-maps
-[INFO] 
-[INFO] 
 [INFO] > bootstrap@4.0.0 js-compile-bundle __CURRENT__/tobago-theme-roxborough/target/bootstrap
 [INFO] > rollup --environment BUNDLE:true --config build/rollup.config.js --sourcemap
+[INFO] 
+[INFO] 
+[INFO] > bootstrap@4.0.0 js-compile-plugins __CURRENT__/tobago-theme-roxborough/target/bootstrap
+[INFO] > cross-env PLUGINS=true babel js/src/ --out-dir js/dist/ --source-maps
 [INFO] 
 [ERROR] 
 [ERROR] __CURRENT__/tobago-theme-roxborough/target/bootstrap/js/src/index.js → dist/js/bootstrap.js...
@@ -150,26 +151,26 @@ Build date: 2018-03-07 16:04:23
 [INFO] js/src/tab.js -> js/dist/tab.js
 [INFO] js/src/tooltip.js -> js/dist/tooltip.js
 [INFO] js/src/util.js -> js/dist/util.js
-[ERROR] created dist/js/bootstrap.js in 1.5s
-[ERROR] created dist/js/bootstrap.bundle.js in 1.7s
+[ERROR] created dist/js/bootstrap.js in 6.1s
+[ERROR] created dist/js/bootstrap.bundle.js in 6.5s
 [INFO] 
 [INFO] > bootstrap@4.0.0 js-minify __CURRENT__/tobago-theme-roxborough/target/bootstrap
 [INFO] > npm-run-all --parallel js-minify-*
 [INFO] 
 [INFO] 
-[INFO] > bootstrap@4.0.0 js-minify-standalone __CURRENT__/tobago-theme-roxborough/target/bootstrap
-[INFO] > uglifyjs --compress typeofs=false --mangle --comments "/^!/" --source-map "content=dist/js/bootstrap.js.map,includeSources,url=bootstrap.min.js.map" --output dist/js/bootstrap.min.js dist/js/bootstrap.js
+[INFO] > bootstrap@4.0.0 js-minify-docs __CURRENT__/tobago-theme-roxborough/target/bootstrap
+[INFO] > uglifyjs --mangle --comments "/^!/" --output assets/js/docs.min.js assets/js/vendor/anchor.min.js assets/js/vendor/clipboard.min.js assets/js/vendor/holder.min.js "assets/js/src/*.js"
 [INFO] 
 [INFO] 
 [INFO] > bootstrap@4.0.0 js-minify-bundle __CURRENT__/tobago-theme-roxborough/target/bootstrap
 [INFO] > uglifyjs --compress typeofs=false --mangle --comments "/^!/" --source-map "content=dist/js/bootstrap.bundle.js.map,includeSources,url=bootstrap.bundle.min.js.map" --output dist/js/bootstrap.bundle.min.js dist/js/bootstrap.bundle.js
 [INFO] 
 [INFO] 
-[INFO] > bootstrap@4.0.0 js-minify-docs __CURRENT__/tobago-theme-roxborough/target/bootstrap
-[INFO] > uglifyjs --mangle --comments "/^!/" --output assets/js/docs.min.js assets/js/vendor/anchor.min.js assets/js/vendor/clipboard.min.js assets/js/vendor/holder.min.js "assets/js/src/*.js"
+[INFO] > bootstrap@4.0.0 js-minify-standalone __CURRENT__/tobago-theme-roxborough/target/bootstrap
+[INFO] > uglifyjs --compress typeofs=false --mangle --comments "/^!/" --source-map "content=dist/js/bootstrap.js.map,includeSources,url=bootstrap.min.js.map" --output dist/js/bootstrap.min.js dist/js/bootstrap.js
 [INFO] 
-[ERROR] INFO: Using input source map: dist/js/bootstrap.js.mapINFO: Using input source map: dist/js/bootstrap.bundle.js.map
-[ERROR] 
+[ERROR] INFO: Using input source map: dist/js/bootstrap.bundle.js.map
+[ERROR] INFO: Using input source map: dist/js/bootstrap.js.map
 [INFO] 
 [INFO] --- maven-resources-plugin:2.7:resources (default-resources) @ tobago-theme-roxborough ---
 [INFO] Using 'UTF-8' encoding to copy filtered resources.
@@ -214,7 +215,7 @@ main:
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
-[INFO] Total time: 51.341 s
-[INFO] Finished at: 2018-03-07T16:05:16+01:00
-[INFO] Final Memory: 33M/395M
+[INFO] Total time: 02:04 min
+[INFO] Finished at: 2018-03-08T15:07:34+01:00
+[INFO] Final Memory: 25M/275M
 [INFO] ------------------------------------------------------------------------
