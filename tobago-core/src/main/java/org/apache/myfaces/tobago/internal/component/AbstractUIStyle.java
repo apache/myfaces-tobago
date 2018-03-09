@@ -39,7 +39,6 @@ import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ComponentSystemEvent;
 import javax.faces.event.ListenerFor;
-import javax.faces.event.ListenersFor;
 import javax.faces.event.PostAddToViewEvent;
 import javax.faces.event.PreRenderViewEvent;
 
@@ -48,10 +47,7 @@ import javax.faces.event.PreRenderViewEvent;
  *
  * @since 4.0.0
  */
-@ListenersFor(
-    { @ListenerFor(systemEventClass = PostAddToViewEvent.class),
-      @ListenerFor(systemEventClass = PreRenderViewEvent.class)
-    })
+@ListenerFor(systemEventClass = PostAddToViewEvent.class)
 public abstract class AbstractUIStyle extends UIComponentBase {
 
   private static final Logger LOG = LoggerFactory.getLogger(AbstractUIStyle.class);
@@ -68,7 +64,9 @@ public abstract class AbstractUIStyle extends UIComponentBase {
         root.addComponentResource(facesContext, this);
       }
     } else if (event instanceof PostAddToViewEvent) {
-
+      if (StringUtils.isNotBlank(getFile())) {
+        facesContext.getViewRoot().subscribeToEvent(PreRenderViewEvent.class, this);
+      }
       // attribute customClass
       final ValueExpression valueExpression = getValueExpression(Attributes.customClass.getName());
       if (valueExpression != null) {

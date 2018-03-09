@@ -24,9 +24,10 @@ import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ComponentSystemEvent;
 import javax.faces.event.ListenerFor;
+import javax.faces.event.PostAddToViewEvent;
 import javax.faces.event.PreRenderViewEvent;
 
-@ListenerFor(systemEventClass = PreRenderViewEvent.class)
+@ListenerFor(systemEventClass = PostAddToViewEvent.class)
 public abstract class AbstractUIMeta extends UIComponentBase {
 
   @Override
@@ -38,6 +39,8 @@ public abstract class AbstractUIMeta extends UIComponentBase {
       final FacesContext facesContext = getFacesContext();
       final UIViewRoot root = facesContext.getViewRoot();
       root.addComponentResource(facesContext, this);
+    } else if (event instanceof PostAddToViewEvent) {
+      getFacesContext().getViewRoot().subscribeToEvent(PreRenderViewEvent.class, this);
     }
   }
 

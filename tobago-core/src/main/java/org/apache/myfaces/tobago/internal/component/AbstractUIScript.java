@@ -24,6 +24,7 @@ import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ComponentSystemEvent;
 import javax.faces.event.ListenerFor;
+import javax.faces.event.PostAddToViewEvent;
 import javax.faces.event.PreRenderViewEvent;
 
 /**
@@ -31,18 +32,20 @@ import javax.faces.event.PreRenderViewEvent;
  *
  * @since 3.0.0
  */
-@ListenerFor(systemEventClass = PreRenderViewEvent.class)
+@ListenerFor(systemEventClass = PostAddToViewEvent.class)
 public abstract class AbstractUIScript extends UIComponentBase {
 
   @Override
   public void processEvent(final ComponentSystemEvent event) {
 
     super.processEvent(event);
-    
+
     if (event instanceof PreRenderViewEvent) {
       final FacesContext facesContext = getFacesContext();
       final UIViewRoot root = facesContext.getViewRoot();
       root.addComponentResource(facesContext, this);
+    } else if (event instanceof PostAddToViewEvent) {
+      getFacesContext().getViewRoot().subscribeToEvent(PreRenderViewEvent.class, this);
     }
   }
 
