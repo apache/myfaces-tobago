@@ -17,6 +17,8 @@
 
 set -e
 
+START=$(date +%s)
+
 REPO=`mvn help:evaluate -Dexpression=settings.localRepository --batch-mode | grep -v '\[INFO\]'`
 echo "Maven repo: ${REPO}"
 REPO_REGEX=`echo ${REPO} | sed s/\\\\//\\\\\\\\\\\\//g`
@@ -55,6 +57,8 @@ rebuild_theme standard &
 
 wait
 
-echo "DONE"
+END=$(date +%s)
+
+echo "DONE in $(($END - $START)) seconds"
 echo "Now you will find the bootstrap stuff inside the src trees. This might be committed."
 echo "Use: git status"
