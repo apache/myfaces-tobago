@@ -68,9 +68,9 @@
   </listener>
 
   <!-- activate this for some containers -->
-  <listener>
+  <!--<listener>
     <listener-class>org.apache.myfaces.webapp.StartupServletContextListener</listener-class>
-  </listener>
+  </listener>-->
 
 <!-- this is not needed for websphere 8.5 -->
 <!-- and neither for tomcat if setup correctly... but needed for jetty -->
