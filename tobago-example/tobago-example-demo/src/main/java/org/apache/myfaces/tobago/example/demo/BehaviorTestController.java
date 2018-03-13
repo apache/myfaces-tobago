@@ -140,6 +140,7 @@ public class BehaviorTestController implements Serializable {
         ajaxEnabled2 = true;
         ajaxEnabled3 = true;
         break;
+      default:
     }
   }
 

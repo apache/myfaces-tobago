@@ -139,7 +139,8 @@ public class EventHandler extends TobagoComponentHandler implements BehaviorHold
         .getAttributes().get(FaceletContext.FACELET_CONTEXT_KEY);
 
     final ClientBehaviorHolder clientBehaviorHolder = (ClientBehaviorHolder) parent;
-    final UIComponent lastChild = parent.getChildren().stream().skip(parent.getChildCount() - 1).findFirst().orElse(null);
+    final UIComponent lastChild = parent.getChildren().stream().skip(parent.getChildCount() - 1)
+        .findFirst().orElse(null);
     final AbstractUIEvent abstractUIEvent = lastChild instanceof AbstractUIEvent ? (AbstractUIEvent) lastChild : null;
 
     if (abstractUIEvent != null) {

@@ -19,6 +19,9 @@
 
 package org.apache.myfaces.tobago.example.demo;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javax.enterprise.context.SessionScoped;
 import javax.faces.event.ActionEvent;
 import javax.faces.event.AjaxBehaviorEvent;
@@ -28,6 +31,8 @@ import java.io.Serializable;
 @SessionScoped
 @Named
 public class BehaviorController implements Serializable {
+
+  private static final Logger LOG = LoggerFactory.getLogger(BehaviorController.class);
 
   private String ajax;
   private String event;
@@ -53,11 +58,13 @@ public class BehaviorController implements Serializable {
     return counter;
   }
 
-  public void countUp(final AjaxBehaviorEvent event) {
+  public void countUp(final AjaxBehaviorEvent ajaxBehaviorEvent) {
+    LOG.info("ajaxBehaviorEvent=" + ajaxBehaviorEvent);
     counter++;
   }
 
-  public void countUp(final ActionEvent event) {
+  public void countUp(final ActionEvent actionEvent) {
+    LOG.info("actionEvent=" + actionEvent);
     counter++;
   }
 }
