@@ -104,14 +104,16 @@ public class CommandMap {
             c1.merge(c2);
           }
         } else {
-          for (final Map.Entry<ClientBehaviors, Command> entry : m2.getOther().entrySet()) {
-            final ClientBehaviors key = entry.getKey();
-            final Command value = entry.getValue();
-            if (m1.other.containsKey(key)) {
-              final Command command = m1.other.get(key);
-              command.merge(value);
-            } else {
-              m1.addCommand(key, value);
+          if (m1.other != null && m2.getOther() != null) {
+            for (final Map.Entry<ClientBehaviors, Command> entry : m2.getOther().entrySet()) {
+              final ClientBehaviors key = entry.getKey();
+              final Command value = entry.getValue();
+              if (m1.other.containsKey(key)) {
+                final Command command = m1.other.get(key);
+                command.merge(value);
+              } else {
+                m1.addCommand(key, value);
+              }
             }
           }
         }

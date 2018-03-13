@@ -692,7 +692,7 @@ public final class ComponentUtils {
       return clientId;
     }
     LOG.error("No component found for id='{}', search base component is '{}'",
-        component != null ? component.getClientId(context) : "<null>");
+        componentId, component != null ? component.getClientId(context) : "<null>");
     return null;
   }
 

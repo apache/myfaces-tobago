@@ -28,7 +28,6 @@
     <li><code class="language-markup">&lt;f:ajax/></code> send an ajax request</li>
     <li><code class="language-markup">&lt;tc:event/></code> do a full page reload</li>
   </ul>
-  <p>You find more <tc:link label="examples" outcome="/content/40-test/6000-event/event.xhtml"/> in the test section.</p>
   <p>Tag Library Documentation:
     <tc:link label="&lt;f:ajax/>" image="#{request.contextPath}/image/feather-leaf.png"
              link="http://docs.oracle.com/javaee/6/javaserverfaces/2.1/docs/vdldocs/facelets/f/ajax.html"/>
@@ -36,7 +35,7 @@
     <tc:link label="&lt;tc:event/>" image="#{request.contextPath}/image/feather-leaf.png"
              link="#{demoBundle.tagDocUrl}/#{info.stableVersion}/tld/tc/event.html"/></p>
 
-  <tc:section label="Examples">
+  <tc:section label="Basic examples">
     <p>Type a text into the input field. After leaving the input field, the given text is shown in the output field.</p>
     <tc:section label="f:ajax">
       <pre><code class="language-markup">&lt;tc:in label="Ajax Input" value="\#{behaviorController.ajax}">
@@ -60,11 +59,42 @@
     </tc:section>
   </tc:section>
 
-  <tc:section label="Limitations">
-    <p>The <code class="language-markup">&lt;f:ajax></code> tag cannot inserted along with the
-      <code class="language-markup">&lt;tc:event></code> tag if both have the same <code>event</code> attribute value.
-      <br/>
-      The latter also applies if <code class="language-markup">&lt;f:ajax></code> is disabled
-      or if <code class="language-markup">&lt;tc:event></code> is not rendered.</p>
+  <tc:section label="Change the event name">
+    <p>It's possible to change the event name. For example if you want a double click event, change the event name to
+      <code>dblclick</code>. This is done for the following two buttons.</p>
+
+    <pre><code class="language-markup">&lt;tc:button label="Ajax Double Click">
+  &lt;f:ajax event="dblclick" render="outCounter" listener="..."/>
+&lt;/tc:button>
+&lt;tc:button label="Event Double Click">
+  &lt;tc:event event="dblclick" actionListener="..."/>
+&lt;/tc:button></code></pre>
+    <tc:button label="Ajax Double Click">
+      <f:ajax event="dblclick" render="outCounter" listener="#{behaviorController.countUp}"/>
+    </tc:button>
+    <tc:button label="Event Double Click">
+      <tc:event event="dblclick" actionListener="#{behaviorController.countUp}"/>
+    </tc:button>
+    <tc:out id="outCounter" label="Counter" value="#{behaviorController.counter}"/>
+  </tc:section>
+
+  <tc:section label="Advanced">
+    <p><code class="language-markup">&lt;tc:event></code> may contain <code class="language-markup">&lt;f:ajax></code>
+      and <code class="language-markup">&lt;tc:operation></code> tags.</p>
+    <p>This is helpfull if the parent component cannot handle operations by itself.</p>
+    <p><tc:badge value="Important" markup="danger"/>
+      The <code>event</code> attribute of the ajax children will be ignored.</p>
+
+    <tc:section label="Example">
+      <p>An example can be found for
+        <tc:link label="&lt;tc:row>" outcome="/content/20-component/080-sheet/30-event/sheet-event.xhtml"/>
+        Option: 'open popup on click with AJAX'.</p>
+      <pre><code class="language-markup">&lt;tc:row>
+  &lt;tc:event>
+    &lt;f:ajax execute=":::popup" render=":::popup" listener="..."/>
+    &lt;tc:operation name="show" for=":::popup"/>
+  &lt;/tc:event>
+&lt;/tc:row></code></pre>
+    </tc:section>
   </tc:section>
 </ui:composition>

@@ -24,7 +24,8 @@
                 xmlns:f="http://java.sun.com/jsf/core">
   <ui:param name="title" value="#{demoBundle.sheet_event} &lt;tc:row>"/>
   <p>A <code class="language-markup">&lt;tc:sheet/&gt;</code> can contain a
-    <code class="language-markup">&lt;tc:row/&gt;</code> tag with a containing <code class="language-markup">&lt;tc:event/&gt;</code> tag.
+    <code class="language-markup">&lt;tc:row/&gt;</code> tag with a containing <code
+            class="language-markup">&lt;tc:event/&gt;</code> tag.
     The event type can be set by the <code>event</code> attribute. Possible values are 'click' and 'dblclick'.
   </p>
 
@@ -62,8 +63,9 @@
           </tc:row>
 
           <tc:row id="sample3" rendered="#{sheetController.columnEventSample == 3}">
-            <f:ajax execute=":::popup" render=":::popup" listener="#{sheetController.selectSolarObject}" id="columnEventPopup"/>
-            <tc:event omit="true">
+            <tc:event>
+              <f:ajax id="columnEventPopup" execute=":::popup" render=":::popup"
+                      listener="#{sheetController.selectSolarObject}"/>
               <tc:operation name="show" for=":::popup"/>
             </tc:event>
           </tc:row>
@@ -94,7 +96,7 @@
 
       <tc:popup id="popup">
         <tc:box label="Details">
-          <tc:in label="Name" value="#{sheetController.selectedSolarObject.name}" required="true"/>
+          <tc:in id="popupName" label="Name" value="#{sheetController.selectedSolarObject.name}" required="true"/>
           <tc:in label="Number" value="#{sheetController.selectedSolarObject.number}"/>
           <tc:in label="Orbit" value="#{sheetController.selectedSolarObject.orbit}"/>
           <tc:in label="Distance" value="#{sheetController.selectedSolarObject.distance}"/>

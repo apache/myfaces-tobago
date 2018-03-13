@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+-->
+
+<ui:composition template="/main.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:tc="http://myfaces.apache.org/tobago/component"
+                xmlns:ui="http://java.sun.com/jsf/facelets">
+  <ui:param name="title" value="#{demoBundle.behavior}"/>
+
+
+  <tc:box id="counter" label="Counter">
+    <f:facet name="bar">
+      <tc:button id="reset" label="Reset" action="#{behaviorTestController.reset}"/>
+    </f:facet>
+    <tc:segmentLayout extraSmall="3seg 2seg 4seg 3seg">
+      <tc:panel/>
+      <tc:out value="Action"/>
+      <tc:out value="ActionListener"/>
+      <tc:out value="AjaxListener"/>
+
+      <tc:out value="Button Counter" labelLayout="skip"/>
+      <tc:out id="buttonActionCounter" value="#{behaviorTestController.buttonActionCounter}" labelLayout="skip"/>
+      <tc:out id="buttonActionListenerCounter" value="#{behaviorTestController.buttonActionListenerCounter}"
+              labelLayout="skip"/>
+      <tc:panel/>
+
+      <tc:out value="Counter 1" labelLayout="skip"/>
+      <tc:out id="actionCounter1" value="#{behaviorTestController.actionCounter1}" labelLayout="skip"/>
+      <tc:out id="actionListenerCounter1" value="#{behaviorTestController.actionListenerCounter1}" labelLayout="skip"/>
+      <tc:out id="ajaxListenerCounter1" value="#{behaviorTestController.ajaxListenerCounter1}" labelLayout="skip"/>
+
+      <tc:out value="Counter 2" labelLayout="skip"/>
+      <tc:out id="actionCounter2" value="#{behaviorTestController.actionCounter2}" labelLayout="skip"/>
+      <tc:out id="actionListenerCounter2" value="#{behaviorTestController.actionListenerCounter2}" labelLayout="skip"/>
+      <tc:out id="ajaxListenerCounter2" value="#{behaviorTestController.ajaxListenerCounter2}" labelLayout="skip"/>
+
+      <tc:out value="Counter 3" labelLayout="skip"/>
+      <tc:out id="actionCounter3" value="#{behaviorTestController.actionCounter3}" labelLayout="skip"/>
+      <tc:out id="actionListenerCounter3" value="#{behaviorTestController.actionListenerCounter3}" labelLayout="skip"/>
+      <tc:out id="ajaxListenerCounter3" value="#{behaviorTestController.ajaxListenerCounter3}" labelLayout="skip"/>
+    </tc:segmentLayout>
+  </tc:box>
+  <tc:box id="operationTestBox" label="&lt;tc:operation> Test" collapsedMode="absent">
+    <f:facet name="bar">
+      <tc:button id="hideOperationTextBox" label="Hide">
+        <tc:operation name="hide" for="operationTestBox"/>
+      </tc:button>
+    </f:facet>
+    <tc:out id="operationOut" value="Content"/>
+  </tc:box>
+
+  <tc:section label="&lt;tc:button>">
+    <tc:section label="Basics">
+      <tc:button id="simpleEvent" label="Simple Event">
+        <tc:event action="#{behaviorTestController.countAction1}"
+                  actionListener="#{behaviorTestController.countActionListener1}"/>
+      </tc:button>
+      <tc:button id="simpleAjax" label="Simple Ajax">
+        <f:ajax render="counter operationTestBox" listener="#{behaviorTestController.countAjaxListener1}"/>
+      </tc:button>
+
+      <tc:button id="simpleEventAjax" label="Simple EventAjax">
+        <tc:event>
+          <f:ajax render="counter operationTestBox" listener="#{behaviorTestController.countAjaxListener1}"/>
+        </tc:event>
+      </tc:button>
+      <p/>
+    </tc:section>
+
+    <tc:section label="Advanced">
+      <tc:selectOneRadio id="advancedSelector" value="#{behaviorTestController.selector}">
+        <tc:selectItem itemValue="1" itemLabel="Event 1 + no Ajax enabled"/>
+        <tc:selectItem itemValue="2" itemLabel="Event 2 + Ajax 3 enabled"/>
+        <tc:selectItem itemValue="3" itemLabel="Event 3 + all Ajax enabled"/>
+        <tc:event action="#{behaviorTestController.submitSelection}"/>
+      </tc:selectOneRadio>
+      <tc:separator/>
+
+      <tc:button id="advancedButton" label="Advanced Button"
+                 action="#{behaviorTestController.countButtonAction}"
+                 actionListener="#{behaviorTestController.countButtonActionListener}">
+        <tc:event event="dblclick" action="#{behaviorTestController.countAction1}"
+                  actionListener="#{behaviorTestController.countActionListener1}"
+                  rendered="#{behaviorTestController.eventEnabled1}">
+          <f:ajax execute="operationTestBox" render="counter operationTestBox"
+                  listener="#{behaviorTestController.countAjaxListener1}"
+                  disabled="#{!behaviorTestController.ajaxEnabled1}"/>
+          <f:ajax event="blur" execute="operationTestBox" render="counter operationTestBox"
+                  listener="#{behaviorTestController.countAjaxListener2}"
+                  disabled="#{!behaviorTestController.ajaxEnabled2}"/>
+          <f:ajax event="focus" execute="operationTestBox" render="counter operationTestBox"
+                  listener="#{behaviorTestController.countAjaxListener3}"
+                  disabled="#{!behaviorTestController.ajaxEnabled3}"/>
+          <tc:operation name="show" for="operationTestBox"/>
+        </tc:event>
+        <tc:event event="dblclick" action="#{behaviorTestController.countAction2}"
+                  actionListener="#{behaviorTestController.countActionListener2}"
+                  disabled="#{!behaviorTestController.eventEnabled2}">
+          <f:ajax execute="operationTestBox" render="counter operationTestBox"
+                  listener="#{behaviorTestController.countAjaxListener1}"
+                  disabled="#{!behaviorTestController.ajaxEnabled1}"/>
+          <f:ajax event="blur" execute="operationTestBox" render="counter operationTestBox"
+                  listener="#{behaviorTestController.countAjaxListener2}"
+                  disabled="#{!behaviorTestController.ajaxEnabled2}"/>
+          <f:ajax event="focus" execute="operationTestBox" render="counter operationTestBox"
+                  listener="#{behaviorTestController.countAjaxListener3}"
+                  disabled="#{!behaviorTestController.ajaxEnabled3}"/>
+          <tc:operation name="show" for="operationTestBox"/>
+        </tc:event>
+        <tc:event action="#{behaviorTestController.countAction3}"
+                  actionListener="#{behaviorTestController.countActionListener3}"
+                  rendered="#{behaviorTestController.eventEnabled3}">
+          <f:ajax execute="operationTestBox" render="counter operationTestBox"
+                  listener="#{behaviorTestController.countAjaxListener1}"
+                  disabled="#{!behaviorTestController.ajaxEnabled1}"/>
+          <f:ajax event="blur" execute="operationTestBox" render="counter operationTestBox"
+                  listener="#{behaviorTestController.countAjaxListener2}"
+                  disabled="#{!behaviorTestController.ajaxEnabled2}"/>
+          <f:ajax event="focus" execute="operationTestBox" render="counter operationTestBox"
+                  listener="#{behaviorTestController.countAjaxListener3}"
+                  disabled="#{!behaviorTestController.ajaxEnabled3}"/>
+          <tc:operation name="show" for="operationTestBox"/>
+        </tc:event>
+      </tc:button>
+    </tc:section>
+  </tc:section>
+
+  <tc:section label="&lt;tc:row>">
+    <tc:sheet id="sheet" value="#{sheetController.solarList}" var="object" markup="small">
+      <tc:style maxHeight="100px"/>
+      <tc:column label="Solarobjects">
+        <tc:out value="#{object.name}" labelLayout="skip"/>
+      </tc:column>
+      <tc:row id="row">
+        <tc:event id="e1" event="dblclick" action="#{behaviorTestController.countAction1}"
+                  actionListener="#{behaviorTestController.countActionListener1}"
+                  rendered="#{behaviorTestController.eventEnabled1}">
+          <f:ajax execute=":::operationTestBox" render=":::counter :::operationTestBox"
+                  listener="#{behaviorTestController.countAjaxListener1}"
+                  disabled="#{!behaviorTestController.ajaxEnabled1}"/>
+          <f:ajax event="blur" execute=":::operationTestBox" render=":::counter :::operationTestBox"
+                  listener="#{behaviorTestController.countAjaxListener2}"
+                  disabled="#{!behaviorTestController.ajaxEnabled2}"/>
+          <f:ajax event="focus" execute=":::operationTestBox" render=":::counter :::operationTestBox"
+                  listener="#{behaviorTestController.countAjaxListener3}"
+                  disabled="#{!behaviorTestController.ajaxEnabled3}"/>
+          <tc:operation name="show" for=":::operationTestBox"/>
+        </tc:event>
+        <tc:event id="e2" event="dblclick" action="#{behaviorTestController.countAction2}"
+                  actionListener="#{behaviorTestController.countActionListener2}"
+                  disabled="#{!behaviorTestController.eventEnabled2}">
+          <f:ajax execute=":::operationTestBox" render=":::counter :::operationTestBox"
+                  listener="#{behaviorTestController.countAjaxListener1}"
+                  disabled="#{!behaviorTestController.ajaxEnabled1}"/>
+          <f:ajax event="blur" execute=":::operationTestBox" render=":::counter :::operationTestBox"
+                  listener="#{behaviorTestController.countAjaxListener2}"
+                  disabled="#{!behaviorTestController.ajaxEnabled2}"/>
+          <f:ajax event="focus" execute=":::operationTestBox" render=":::counter :::operationTestBox"
+                  listener="#{behaviorTestController.countAjaxListener3}"
+                  disabled="#{!behaviorTestController.ajaxEnabled3}"/>
+          <tc:operation name="show" for=":::operationTestBox"/>
+        </tc:event>
+        <tc:event id="e3" action="#{behaviorTestController.countAction3}"
+                  actionListener="#{behaviorTestController.countActionListener3}"
+                  rendered="#{behaviorTestController.eventEnabled3}">
+          <f:ajax execute=":::operationTestBox" render=":::counter :::operationTestBox"
+                  listener="#{behaviorTestController.countAjaxListener1}"
+                  disabled="#{!behaviorTestController.ajaxEnabled1}"/>
+          <f:ajax event="blur" execute=":::operationTestBox" render=":::counter :::operationTestBox"
+                  listener="#{behaviorTestController.countAjaxListener2}"
+                  disabled="#{!behaviorTestController.ajaxEnabled2}"/>
+          <f:ajax event="focus" execute=":::operationTestBox" render=":::counter :::operationTestBox"
+                  listener="#{behaviorTestController.countAjaxListener3}"
+                  disabled="#{!behaviorTestController.ajaxEnabled3}"/>
+          <tc:operation name="show" for=":::operationTestBox"/>
+        </tc:event>
+      </tc:row>
+    </tc:sheet>
+  </tc:section>
+
+  <tc:section label="&lt;tc:in>">
+    <tc:in id="inputClick" label="Event Input (click)">
+      <tc:event id="inputEventClick" event="click">
+        <tc:operation for="operationTestBox" name="show"/>
+      </tc:event>
+    </tc:in>
+  </tc:section>
+</ui:composition>

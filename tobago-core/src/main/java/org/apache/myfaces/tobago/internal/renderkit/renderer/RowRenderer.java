@@ -33,7 +33,11 @@ public class RowRenderer extends DecodingCommandRendererBase {
     AbstractUIEvent event = null;
     for (final UIComponent uiComponent : component.getChildren()) {
       if (uiComponent instanceof AbstractUIEvent) {
-        event = (AbstractUIEvent) uiComponent;
+        AbstractUIEvent abstractUIEvent = (AbstractUIEvent) uiComponent;
+        if (abstractUIEvent.isRendered() && !abstractUIEvent.isDisabled()) {
+          event = (AbstractUIEvent) uiComponent;
+          break;
+        }
       }
     }
     if (event != null) {
