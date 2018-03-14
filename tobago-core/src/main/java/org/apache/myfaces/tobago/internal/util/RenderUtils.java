@@ -343,7 +343,7 @@ public final class RenderUtils {
       final EventBehavior eventBehavior) {
     return (AbstractUIEvent) parent.getChildren().stream()
         .filter(child -> child instanceof AbstractUIEvent)
-        .filter(child -> Objects.equals(child.getId(), eventBehavior.getId()))
+        .filter(child -> Objects.equals(child.getId(), eventBehavior.getFor()))
         .findFirst().orElse(null);
   }
 

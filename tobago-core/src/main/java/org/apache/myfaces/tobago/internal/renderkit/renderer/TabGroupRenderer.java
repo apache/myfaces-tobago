@@ -97,12 +97,13 @@ public class TabGroupRenderer extends RendererBase implements ComponentSystemEve
             tab.addClientBehavior(click.name(), ajaxBehavior);
             break;
           case reloadPage:
-            final EventBehavior eventBehavior = new EventBehavior();
-            tab.addClientBehavior(click.name(), eventBehavior);
             final UIEvent component = (UIEvent) ComponentUtils.createComponent(
                 facesContext, UIEvent.COMPONENT_TYPE, RendererTypes.Event, "_click");
             component.setEvent(click);
             tab.getChildren().add(component);
+            final EventBehavior eventBehavior = new EventBehavior();
+            eventBehavior.setFor(component.getId());
+            tab.addClientBehavior(click.name(), eventBehavior);
             break;
           default:
             LOG.error("Unknown switch type: '{}'", tabGroup.getSwitchType());

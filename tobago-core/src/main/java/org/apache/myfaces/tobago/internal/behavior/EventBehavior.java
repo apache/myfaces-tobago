@@ -56,7 +56,7 @@ public class EventBehavior extends ClientBehaviorBase {
   private static final String ATTR_RENDER = "render";
   private static final String ATTR_DISABLED = "disabled";
   private static final String ATTR_IMMEDIATE = "immediate";
-  private static final String ATTR_ID = "id";
+  private static final String ATTR_FOR = "for";
 
   /**
    * special render and execute targets
@@ -190,12 +190,12 @@ public class EventBehavior extends ClientBehaviorBase {
     return (getStateHelper().get(ATTR_IMMEDIATE) != null) || (getValueExpression(ATTR_IMMEDIATE) != null);
   }
 
-  public String getId() {
-    return (String) getStateHelper().eval(ATTR_ID);
+  public String getFor() {
+    return (String) getStateHelper().eval(ATTR_FOR);
   }
 
-  public void setId(final String clientId) {
-    getStateHelper().put(ATTR_ID, clientId);
+  public void setFor(final String id) {
+    getStateHelper().put(ATTR_FOR, id);
   }
 
   @Override
@@ -275,9 +275,6 @@ public class EventBehavior extends ClientBehaviorBase {
   /**
    * Invokes eval on the getStateHelper() and tries to get a
    * Collection out of the result.
-   *
-   * @param attributeName
-   * @return
    */
   @SuppressWarnings("unchecked")
   private Collection<String> evalForCollection(final String attributeName) {
@@ -297,9 +294,6 @@ public class EventBehavior extends ClientBehaviorBase {
   /**
    * Splits the String based on spaces and returns the
    * resulting Strings as Collection.
-   *
-   * @param stringValue
-   * @return
    */
   private Collection<String> getCollectionFromSpaceSplitString(final String stringValue) {
     //@special handling for @all, @none, @form and @this

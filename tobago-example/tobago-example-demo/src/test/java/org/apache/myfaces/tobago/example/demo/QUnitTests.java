@@ -407,6 +407,12 @@ public class QUnitTests {
   }
 
   @Test
+  public void tab() throws UnsupportedEncodingException, InterruptedException {
+    final String page = "content/20-component/070-tab/tab.xhtml";
+    runStandardTest(page);
+  }
+
+  @Test
   public void sheetSorting() throws UnsupportedEncodingException, InterruptedException {
     final String page = "content/20-component/080-sheet/10-sort/sheet-sorting.xhtml";
     runStandardTest(page);
