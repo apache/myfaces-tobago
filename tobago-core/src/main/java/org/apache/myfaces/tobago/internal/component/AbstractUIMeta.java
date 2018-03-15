@@ -25,15 +25,27 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.ComponentSystemEvent;
 import javax.faces.event.ListenerFor;
 import javax.faces.event.PostAddToViewEvent;
+import javax.faces.event.PreRenderViewEvent;
 
 @ListenerFor(systemEventClass = PostAddToViewEvent.class)
 public abstract class AbstractUIMeta extends UIComponentBase {
 
   @Override
   public void processEvent(final ComponentSystemEvent event) {
-    final FacesContext facesContext = getFacesContext();
-    final UIViewRoot root = facesContext.getViewRoot();
-    root.addComponentResource(facesContext, this);
+
+    super.processEvent(event);
+
+    if (event instanceof PreRenderViewEvent) {
+      final FacesContext facesContext = getFacesContext();
+      final UIViewRoot root = facesContext.getViewRoot();
+      root.addComponentResource(facesContext, this);
+    } else if (event instanceof PostAddToViewEvent) {
+      // MyFaces core is removing the component resources in head if the view will be recreated before rendering.
+      // The view will be recreated because of expressions. For example  expressins in the ui:include src attribute
+      // The PostAddToViewEvent will not be broadcasted in this case again.
+      // A subscription to the PreRenderViewEvent avoids this problem
+      getFacesContext().getViewRoot().subscribeToEvent(PreRenderViewEvent.class, this);
+    }
   }
 
   public abstract String getCharset();

@@ -40,6 +40,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.ComponentSystemEvent;
 import javax.faces.event.ListenerFor;
 import javax.faces.event.PostAddToViewEvent;
+import javax.faces.event.PreRenderViewEvent;
 
 /**
  * {@link org.apache.myfaces.tobago.internal.taglib.component.StyleTagDeclaration}
@@ -53,17 +54,23 @@ public abstract class AbstractUIStyle extends UIComponentBase {
 
   @Override
   public void processEvent(final ComponentSystemEvent event) {
-
+    super.processEvent(event);
     final FacesContext facesContext = getFacesContext();
 
-    if (event instanceof PostAddToViewEvent) {
-
+    if (event instanceof PreRenderViewEvent) {
       // attribute file
       if (StringUtils.isNotBlank(getFile())) {
         final UIViewRoot root = facesContext.getViewRoot();
         root.addComponentResource(facesContext, this);
       }
-
+    } else if (event instanceof PostAddToViewEvent) {
+      // MyFaces core is removing the component resources in head if the view will be recreated before rendering.
+      // The view will be recreated because of expressions. For example  expressins in the ui:include src attribute
+      // The PostAddToViewEvent will not be broadcasted in this case again.
+      // A subscription to the PreRenderViewEvent avoids this problem
+      if (StringUtils.isNotBlank(getFile())) {
+        facesContext.getViewRoot().subscribeToEvent(PreRenderViewEvent.class, this);
+      }
       // attribute customClass
       final ValueExpression valueExpression = getValueExpression(Attributes.customClass.getName());
       if (valueExpression != null) {
