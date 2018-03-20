@@ -20,7 +20,7 @@
   <parent>
     <groupId>org.apache.myfaces</groupId>
     <artifactId>myfaces</artifactId>
-    <version>17</version>
+    <version>18</version>
   </parent>
   <groupId>org.apache.myfaces.tobago</groupId>
   <artifactId>tobago</artifactId>
