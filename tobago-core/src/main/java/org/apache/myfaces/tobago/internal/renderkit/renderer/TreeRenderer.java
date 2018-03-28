@@ -22,6 +22,7 @@ package org.apache.myfaces.tobago.internal.renderkit.renderer;
 import org.apache.myfaces.tobago.component.UITreeNode;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.internal.component.AbstractUIData;
+import org.apache.myfaces.tobago.internal.component.AbstractUIStyle;
 import org.apache.myfaces.tobago.internal.component.AbstractUITree;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.internal.util.JsonUtils;
@@ -68,8 +69,13 @@ public class TreeRenderer extends RendererBase {
   }
 
   @Override
-  public void encodeChildren(final FacesContext context, final UIComponent component) throws IOException {
-    // will be rendered in encodeEnd()
+  public void encodeChildren(final FacesContext facesContext, final UIComponent component) throws IOException {
+    final AbstractUITree tree = (AbstractUITree) component;
+    for (final UIComponent child : tree.getChildren()) {
+      if (child instanceof AbstractUIStyle) {
+        child.encodeAll(facesContext);
+      }
+    }
   }
 
   @Override
@@ -127,7 +133,11 @@ public class TreeRenderer extends RendererBase {
       }
 
       for (final UIComponent child : tree.getChildren()) {
-        child.encodeAll(facesContext);
+        if (child instanceof AbstractUIStyle) {
+          // ignore, this is rendered in encodeChildren()
+        } else {
+          child.encodeAll(facesContext);
+        }
       }
     }
     tree.setRowIndex(-1);
