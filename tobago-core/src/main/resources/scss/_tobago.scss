@@ -66,6 +66,7 @@ $input-btn-focus-width: .2rem !default;
 $input-btn-focus-color: rgba(theme-color("primary"), .25) !default;
 $input-btn-focus-box-shadow: 0 0 0 $input-btn-focus-width $input-btn-focus-color !default;
 $input-focus-box-shadow: $input-btn-focus-box-shadow !default;
+$form-check-inline-input-margin-x: 0.75rem;
 
 /* used icons ---------------------------------------------------- */
 
@@ -1384,6 +1385,11 @@ th.tobago-sheet-headerCell-markup-filler > .tobago-sheet-header {
 .tobago-treeNode-toggle,
 .tobago-treeSelect,
 .tobago-treeSelect-label {
+}
+
+.tobago-treeSelect .form-check-inline {
+  margin-left: $form-check-inline-input-margin-x / 2;
+  margin-right: $form-check-inline-input-margin-x / 2;
 }
 
 .tobago-treeCommand {

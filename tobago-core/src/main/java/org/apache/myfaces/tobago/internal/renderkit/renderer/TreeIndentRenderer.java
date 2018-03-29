@@ -19,7 +19,6 @@
 
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
-import org.apache.myfaces.tobago.component.UITree;
 import org.apache.myfaces.tobago.component.UITreeIndent;
 import org.apache.myfaces.tobago.internal.component.AbstractUIData;
 import org.apache.myfaces.tobago.internal.component.AbstractUITreeNodeBase;
@@ -37,7 +36,6 @@ import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
-import java.util.List;
 
 public class TreeIndentRenderer extends RendererBase {
 
@@ -48,16 +46,19 @@ public class TreeIndentRenderer extends RendererBase {
     final AbstractUITreeNodeBase node = ComponentUtils.findAncestor(treeIndent, AbstractUITreeNodeBase.class);
     final AbstractUIData data = ComponentUtils.findAncestor(treeIndent, AbstractUIData.class);
 
+    if (node == null) {
+      throw new NullPointerException(
+          "No AbstractUITreeNodeBase as ancestor found from '" + component.getClientId() + "'");
+    }
+    if (data == null) {
+      throw new NullPointerException("No AbstractUIData as ancestor found from '" + component.getClientId() + "'");
+    }
+
     final boolean folder = node.isFolder();
     final int level = node.getLevel();
-    final List<Boolean> junctions = node.getJunctions();
-
-    final boolean showRoot = data.isShowRoot();
     final boolean showJunctions = treeIndent.isShowJunctions();
     final boolean showRootJunction = data.isShowRootJunction();
     final boolean expanded = folder && data.getExpandedState().isExpanded(node.getPath());
-    final boolean showLines = showJunctions && data instanceof UITree; // sheet should not show lines
-    final boolean showIcons = showJunctions;
 
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
@@ -67,24 +68,17 @@ public class TreeIndentRenderer extends RendererBase {
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, treeIndent);
     writer.writeClassAttribute(TobagoClass.TREE_NODE__TOGGLE);
 
-    // encode indent
-    final boolean dropFirst = !showRoot || !showRootJunction && (showLines || showIcons);
-    for (int i = dropFirst ? 1 : 0; i < junctions.size() - 1; i++) {
-      writer.startElement(HtmlElements.I);
-      writer.writeClassAttribute(Icons.FA, Icons.SQUARE_O, BootstrapClass.INVISIBLE);
-      writer.endElement(HtmlElements.I);
-    }
-
     // encode tree junction
-    if (!showIcons || !showRootJunction && level == 0) {
+    if (!showJunctions || !showRootJunction && level == 0) {
       return;
     }
-    final Icons icon = folder ? expanded ? Icons.MINUS_SQUARE_O : Icons.PLUS_SQUARE_O : Icons.SQUARE_O;
     writer.startElement(HtmlElements.I);
-    writer.writeClassAttribute(Icons.FA, icon);
     if (folder) {
+      writer.writeClassAttribute(Icons.FA, expanded ? Icons.MINUS_SQUARE_O : Icons.PLUS_SQUARE_O);
       writer.writeAttribute(DataAttributes.OPEN, Icons.MINUS_SQUARE_O.getName(), false);
       writer.writeAttribute(DataAttributes.CLOSED, Icons.PLUS_SQUARE_O.getName(), false);
+    } else {
+      writer.writeClassAttribute(Icons.FA, Icons.SQUARE_O, BootstrapClass.INVISIBLE);
     }
     writer.endElement(HtmlElements.I);
   }

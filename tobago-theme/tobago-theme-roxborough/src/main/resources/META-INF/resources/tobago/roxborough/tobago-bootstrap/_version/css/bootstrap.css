@@ -10282,6 +10282,11 @@ th.tobago-sheet-headerCell-markup-filler > .tobago-sheet-header {
 }
 
 /* tree ---------------------------------------------------------------------- */
+.tobago-treeSelect .form-check-inline {
+  margin-left: 0.375rem;
+  margin-right: 0.375rem;
+}
+
 .tobago-treeCommand {
   cursor: pointer;
 }
