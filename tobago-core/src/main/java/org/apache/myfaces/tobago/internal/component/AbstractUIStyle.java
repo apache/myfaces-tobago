@@ -70,7 +70,7 @@ public abstract class AbstractUIStyle extends UIComponentBase {
         // The view will be recreated because of expressions. For example  expressins in the ui:include src attribute
         // The PostAddToViewEvent will not be broadcasted in this case again.
         // A subscription to the PreRenderViewEvent avoids this problem
-        // NOTE: PreRenderViewEvent can not used in myfaces prior 2.0.4 using PostAddToView for all myfaces 2.0 versions
+        // NOTE: PreRenderViewEvent can not used in myfaces prior 2.0.3 using PostAddToView for all myfaces 2.0 versions
         if (FacesVersion.supports21() || !FacesVersion.isMyfaces()) {
           facesContext.getViewRoot().subscribeToEvent(PreRenderViewEvent.class, this);
         } else {
