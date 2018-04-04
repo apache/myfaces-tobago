@@ -9086,6 +9086,10 @@ a.tobago-link.dropdown-item img, a.tobago-link.dropdown-item span {
   pointer-events: none;
 }
 
+h1 button.tobago-link, h2 button.tobago-link, h3 button.tobago-link, h4 button.tobago-link, h5 button.tobago-link, h6 button.tobago-link {
+  font-weight: 500;
+}
+
 button.tobago-link, button.tobago-treeCommand {
   color: #007bff;
   border-width: 0;
