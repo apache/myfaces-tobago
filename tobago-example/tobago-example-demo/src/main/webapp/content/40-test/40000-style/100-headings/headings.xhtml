@@ -1,0 +1,53 @@
+<!--
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+-->
+
+<ui:composition template="/main.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:tc="http://myfaces.apache.org/tobago/component"
+                xmlns:ui="http://java.sun.com/jsf/facelets">
+  <ui:param name="title" value="Components in heading tags"/>
+  <tc:box id="headingsBox" label="Links">
+    <p>The fonts of the apache.org-link and the ActionLink must be the same.</p>
+    <h1>H1
+      <tc:link id="link1" label="apache.org" link="https://www.apache.org/"/>
+      <tc:link id="actionLink1" label="ActionLink"/>
+    </h1>
+    <h2>H2
+      <tc:link id="link2" label="apache.org" link="https://www.apache.org/"/>
+      <tc:link id="actionLink2" label="ActionLink"/>
+    </h2>
+    <h3>H3
+      <tc:link id="link3" label="apache.org" link="https://www.apache.org/"/>
+      <tc:link id="actionLink3" label="ActionLink"/>
+    </h3>
+    <h4>H4
+      <tc:link id="link4" label="apache.org" link="https://www.apache.org/"/>
+      <tc:link id="actionLink4" label="ActionLink"/>
+    </h4>
+    <h5>H5
+      <tc:link id="link5" label="apache.org" link="https://www.apache.org/"/>
+      <tc:link id="actionLink5" label="ActionLink"/>
+    </h5>
+    <h6>H6
+      <tc:link id="link6" label="apache.org" link="https://www.apache.org/"/>
+      <tc:link id="actionLink6" label="ActionLink"/>
+    </h6>
+    <p>no heading
+      <tc:link id="link0" label="apache.org" link="https://www.apache.org/"/>
+      <tc:link id="actionLink0" label="ActionLink"/></p>
+  </tc:box>
+</ui:composition>

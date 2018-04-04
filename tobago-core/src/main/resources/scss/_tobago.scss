@@ -43,6 +43,7 @@ $gray-700: #495057 !default;
 $gray-800: #343a40 !default;
 $gray-900: #212529 !default;
 $black: #000 !default;
+$headings-font-weight: 500;
 $navbar-dark-active-color: rgba($white, 1) !default;
 $navbar-light-active-color: rgba($black, .9) !default;
 $border-width: 1px !default;
@@ -387,6 +388,12 @@ a.tobago-link.dropdown-item {
   img, span {
     display: inline-block; /* fix for IE11 - :active selector doesn't work for nested elements */
     pointer-events: none;
+  }
+}
+
+h1, h2, h3, h4, h5, h6 {
+  button.tobago-link {
+    font-weight: $headings-font-weight;
   }
 }
 

@@ -44,14 +44,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.faces.component.UIComponent;
-import javax.faces.component.UIPanel;
 import javax.faces.context.FacesContext;
 import javax.faces.validator.LengthValidator;
 import javax.faces.validator.RegexValidator;
 import javax.faces.validator.Validator;
 import java.io.IOException;
-import java.util.Collections;
-import java.util.List;
 
 public class InRenderer extends MessageLayoutRendererBase {
 
@@ -169,13 +166,7 @@ public class InRenderer extends MessageLayoutRendererBase {
       final FacesContext facesContext, final TobagoResponseWriter writer, final UIComponent addon,
       final boolean isAfterFacet) throws IOException {
     if (addon != null) {
-      final List<UIComponent> children;
-      if (addon instanceof UIPanel) {
-        children = addon.getChildren();
-      } else {
-        children = Collections.singletonList(addon);
-      }
-      for (final UIComponent child : children) {
+      for (final UIComponent child : RenderUtils.getFacetChildren(addon)) {
         if (child instanceof AbstractUIButton && ((AbstractUIButton) child).isParentOfCommands()) {
           if (isAfterFacet) {
             child.setRendererType(RendererTypes.ButtonInsideInAfter.name());

@@ -86,4 +86,61 @@
       </tc:box>
     </tc:box>
   </tc:section>
+
+  <tc:section label="Accordion">
+    <tc:box id="accordionBox1" collapsedMode="hidden" collapsed="#{boxController.box1collapsed}">
+      <f:facet name="label">
+        <tc:link label="Box 1" rendered="#{boxController.box1collapsed}">
+          <tc:operation for="accordionBox1" name="show"/>
+          <f:ajax execute="accordionBox1" render="accordionBox1"/>
+        </tc:link>
+        <tc:link label="Box 1" rendered="#{!boxController.box1collapsed}">
+          <tc:operation for="accordionBox1" name="hide"/>
+          <f:ajax execute="accordionBox1" render="accordionBox1"/>
+        </tc:link>
+      </f:facet>
+      <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore
+        et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.
+        Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet,
+        consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat,
+        sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea
+        takimata sanctus est Lorem ipsum dolor sit amet.</p>
+    </tc:box>
+    <tc:box id="accordionBox2" collapsedMode="hidden" collapsed="#{boxController.box2collapsed}">
+      <f:facet name="label">
+        <tc:link label="Box 2" rendered="#{boxController.box2collapsed}">
+          <tc:operation for="accordionBox2" name="show"/>
+          <f:ajax execute="accordionBox2" render="accordionBox2"/>
+        </tc:link>
+        <tc:link label="Box 2" rendered="#{!boxController.box2collapsed}">
+          <tc:operation for="accordionBox2" name="hide"/>
+          <f:ajax execute="accordionBox2" render="accordionBox2"/>
+        </tc:link>
+      </f:facet>
+      <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore
+        et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.
+        Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet,
+        consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat,
+        sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea
+        takimata sanctus est Lorem ipsum dolor sit amet.</p>
+    </tc:box>
+    <tc:box id="accordionBox3" collapsedMode="hidden" collapsed="#{boxController.box3collapsed}">
+      <f:facet name="label">
+        <tc:link label="Box 3" rendered="#{boxController.box3collapsed}">
+          <tc:operation for="accordionBox3" name="show"/>
+          <f:ajax execute="accordionBox3" render="accordionBox3"/>
+        </tc:link>
+        <tc:link label="Box 3" rendered="#{!boxController.box3collapsed}">
+          <tc:operation for="accordionBox3" name="hide"/>
+          <f:ajax execute="accordionBox3" render="accordionBox3"/>
+        </tc:link>
+      </f:facet>
+      <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore
+        et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.
+        Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet,
+        consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat,
+        sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea
+        takimata sanctus est Lorem ipsum dolor sit amet.</p>
+    </tc:box>
+  </tc:section>
 </ui:composition>

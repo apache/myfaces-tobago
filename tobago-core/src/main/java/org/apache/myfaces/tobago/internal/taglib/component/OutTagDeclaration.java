@@ -46,7 +46,8 @@ import javax.faces.component.UIOutput;
     uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUIOut",
     uiComponentFacesClass = "javax.faces.component.UIOutput",
     componentFamily = UIOutput.COMPONENT_FAMILY,
-    rendererType = {RendererTypes.OUT, RendererTypes.OUT_INSIDE_IN},
+    rendererType = {RendererTypes.OUT, RendererTypes.OUT_INSIDE_BOX_LABEL, RendererTypes.OUT_INSIDE_IN,
+        RendererTypes.OUT_INSIDE_SECTION_LABEL},
     interfaces = {
         // As long as no behavior event names are defined, ClientBehaviorHolder must be implemented for Majorra.
         "javax.faces.component.behavior.ClientBehaviorHolder"
