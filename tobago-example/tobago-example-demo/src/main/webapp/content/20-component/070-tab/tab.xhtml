@@ -32,16 +32,16 @@
   <tc:section label="#{demoBundle.tab_client}">
     <pre><code class="language-markup">&lt;tc:tabGroup></code></pre>
     <tc:tabGroup id="tabGroupClient">
-      <tc:tab id="tab1Client" label="Tab One">
+      <tc:tab id="tab1Client" label="Tab One" markup="one">
         Content of tab one.
       </tc:tab>
-      <tc:tab id="tab2Client" label="Tab Two" disabled="true">
+      <tc:tab id="tab2Client" label="Tab Two" disabled="true" markup="two">
         Content of tab two.
       </tc:tab>
-      <tc:tab id="tabNoneClient" label="Tab Not Rendered" rendered="false">
+      <tc:tab id="tabNoneClient" label="Tab Not Rendered" rendered="false" markup="none">
         This tab shouldn't be rendered.
       </tc:tab>
-      <tc:tab id="tab3Client" label="Tab Three">
+      <tc:tab id="tab3Client" label="Tab Three" markup="three">
         Content of tab three.
       </tc:tab>
     </tc:tabGroup>
@@ -50,16 +50,16 @@
   <tc:section label="#{demoBundle.tab_ajax}">
     <pre><code class="language-markup">&lt;tabGroup switchType="reloadTab"></code></pre>
     <tc:tabGroup id="tabGroupAjax" switchType="reloadTab">
-      <tc:tab id="tab1Ajax" label="Tab One">
+      <tc:tab id="tab1Ajax" label="Tab One" markup="one">
         Content of tab one.
       </tc:tab>
-      <tc:tab id="tab2Ajax" label="Tab Two" disabled="true">
+      <tc:tab id="tab2Ajax" label="Tab Two" disabled="true" markup="two">
         Content of tab two.
       </tc:tab>
-      <tc:tab id="tabNoneAjax" label="Tab Not Rendered" rendered="false">
+      <tc:tab id="tabNoneAjax" label="Tab Not Rendered" rendered="false" markup="none">
         This tab shouldn't be rendered.
       </tc:tab>
-      <tc:tab id="tab3Ajax" label="Tab Three">
+      <tc:tab id="tab3Ajax" label="Tab Three" markup="three">
         Content of tab three.
       </tc:tab>
     </tc:tabGroup>
@@ -68,16 +68,16 @@
   <tc:section label="#{demoBundle.tab_server}">
     <pre><code class="language-markup">&lt;tabGroup switchType="reloadPage"></code></pre>
     <tc:tabGroup id="tabGroupFullReload" switchType="reloadPage">
-      <tc:tab id="tab1FullReload" label="Tab One">
+      <tc:tab id="tab1FullReload" label="Tab One" markup="one">
         Content of tab one.
       </tc:tab>
-      <tc:tab id="tab2FullReload" label="Tab Two" disabled="true">
+      <tc:tab id="tab2FullReload" label="Tab Two" disabled="true" markup="two">
         Content of tab two.
       </tc:tab>
-      <tc:tab id="tabNoneFullReload" label="Tab Not Rendered" rendered="false">
+      <tc:tab id="tabNoneFullReload" label="Tab Not Rendered" rendered="false" markup="none">
         This tab shouldn't be rendered.
       </tc:tab>
-      <tc:tab id="tab3FullReload" label="Tab Three">
+      <tc:tab id="tab3FullReload" label="Tab Three" markup="three">
         <f:facet name="bar">
           <tc:link image="fa-remove" omit="true">
             <tc:dataAttribute name="alert-text" value="Not implemented yet!"/>
