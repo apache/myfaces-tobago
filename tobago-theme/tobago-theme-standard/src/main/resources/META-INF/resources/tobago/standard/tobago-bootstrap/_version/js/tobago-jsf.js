@@ -15,7 +15,7 @@
  */
 
 /*
- * XXX This is a modified copy of MyFaces 2.2.10 jsf-uncompressed-full.js
+ * XXX This is a modified copy of MyFaces 2.2.13-SNAPSHOT (2018-04-04) jsf-uncompressed-full.js
  * XXX Modifications are marked with TOBAGO-JSF-JS
  */
 
@@ -3450,10 +3450,10 @@ _MF_CLS(_PFX_UTIL+"_ListenerQueue", myfaces._impl._util._Queue,
 
     /**
      * generic broadcast with a number of arguments being passed down
-     * @param {Object} argument the arguments passed down which are broadcast
+     * @param {Object} args the arguments passed down which are broadcast
      */
-    broadcastEvent : function(argument) {
-        var _args = myfaces._impl._util._Lang.objToArray(arguments);
+    broadcastEvent : function(args) {
+        var _args = myfaces._impl._util._Lang.objToArray(arguments); // XXX arguments vs. args?
 
         var broadCastFunc = function(element) {
             element.apply(null, _args);
@@ -6405,7 +6405,6 @@ _MF_CLS(_PFX_XHR + "engine.IFrame", myfaces._impl.xhrCore.engine.BaseRequest,
              *
              * @param args
              */
-            /* TOBAGO-JSF-JS: rename "arguments" with "args", because the compressor would fail */
             constructor_: function (args) {
                 //we fetch in the standard arguments
 
@@ -7064,7 +7063,6 @@ _MF_CLS(_PFX_XHR + "_MultipartAjaxRequestLevel2", myfaces._impl.xhrCore._AjaxReq
 
     _sourceForm:null,
 
-    /* TOBAGO-JSF-JS: rename "arguments" with "args", because the compressor would fail */
     constructor_:function (args) {
         this._callSuper("constructor_", args);
         //TODO xhr level2 can deal with real props
@@ -7114,7 +7112,6 @@ _MF_CLS(_PFX_XHR + "_AjaxRequestLevel2", myfaces._impl.xhrCore._AjaxRequest, {
 
     _sourceForm:null,
 
-    /* TOBAGO-JSF-JS: rename "arguments" with "args", because the compressor would fail */
     constructor_:function (args) {
         this._callSuper("constructor_", args);
         //TODO xhr level2 can deal with real props
@@ -7173,7 +7170,6 @@ _MF_CLS(_PFX_XHR+"_IFrameRequest", myfaces._impl.xhrCore._AjaxRequest,
     MF_PART_FACES_REQUEST: "javax.faces.request",
 
 
-    /* TOBAGO-JSF-JS: rename "arguments" with "args", because the compressor would fail */
     constructor_: function(args) {
         this._callSuper("constructor_", args);
     },
@@ -7569,6 +7565,9 @@ _MF_SINGLTN(_PFX_XHR + "_AjaxResponse", _MF_OBJECT, /** @lends myfaces._impl.xhr
                     this.processAttributes(request, context, changes[i]);
                     break;
                 case this.CMD_EXTENSION:
+                    break;
+                case undefined:
+                    // ignoring white spaces
                     break;
                 default:
                     throw this._raiseError(new Error(), "_AjaxResponse.processChanges: Illegal Command Issued", "processChanges");

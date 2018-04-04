@@ -19,7 +19,6 @@
 
 package org.apache.myfaces.tobago.internal.webapp;
 
-import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlTypes;
 import org.apache.myfaces.tobago.renderkit.html.MarkupLanguageAttributes;
@@ -28,7 +27,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
 import java.io.IOException;
 import java.io.Writer;
 import java.net.URI;
@@ -41,7 +39,7 @@ public abstract class TobagoResponseWriterBase extends TobagoResponseWriter {
 
   protected static final char[] XML_VERSION_1_0_ENCODING_UTF_8_CHARS = XML_VERSION_1_0_ENCODING_UTF_8.toCharArray();
 
-  private int i = 0;
+  private int level = 0;
 
   private int inlineStack = 0;
 
@@ -55,13 +53,10 @@ public abstract class TobagoResponseWriterBase extends TobagoResponseWriter {
 
   private final String characterEncoding;
 
-  private final boolean ajax;
-
   protected TobagoResponseWriterBase(final Writer writer, final String contentType, final String characterEncoding) {
     this.writer = writer;
     this.contentType = contentType;
     this.characterEncoding = characterEncoding != null ? characterEncoding : "UTF-8";
-    this.ajax = FacesContext.getCurrentInstance().getPartialViewContext().isPartialRequest();
   }
 
   protected final Writer getWriter() {
@@ -164,7 +159,7 @@ public abstract class TobagoResponseWriterBase extends TobagoResponseWriter {
 
   protected void closeOpenTag() throws IOException {
     if (startStillOpen) {
-      writer.write(">");
+      writer.write('>');
       startStillOpen = false;
     }
   }
@@ -207,21 +202,22 @@ public abstract class TobagoResponseWriterBase extends TobagoResponseWriter {
     }
     startElementInternal(writer, name.getValue(), name.isInline());
     if (!name.isVoid()) {
-      i++;
+      level++;
     }
   }
 
   protected void startElementInternal(final Writer sink, final String name, final boolean inline)
       throws IOException {
-//    closeOpenTag();
     if (startStillOpen) {
-      sink.write(">");
+      sink.write('>');
     }
-    if (!ajax && inlineStack <= 1) {
-      sink.write("\n");
-      sink.write(StringUtils.repeat("  ", i));
+    if (inlineStack <= 1) {
+      sink.write('\n');
+      for (int i = 0; i < level; i++) {
+        sink.write(' ');
+      }
     }
-    sink.write("<");
+    sink.write('<');
     sink.write(name);
     startStillOpen = true;
   }
@@ -248,7 +244,7 @@ public abstract class TobagoResponseWriterBase extends TobagoResponseWriter {
       closeEmptyTag();
     } else {
       if (!name.isVoid()) {
-        i--;
+        level--;
       }
       endElementInternal(writer, name.getValue(), inline);
     }
@@ -263,9 +259,9 @@ public abstract class TobagoResponseWriterBase extends TobagoResponseWriter {
   public void writeComment(final Object obj) throws IOException {
     closeOpenTag();
     final String comment = obj.toString();
-    if (!ajax) {
-      writer.write("\n");
-      writer.write(StringUtils.repeat("  ", i));
+    writer.write('\n');
+    for (int i = 0; i < level; i++) {
+      writer.write(' ');
     }
     write("<!--");
     write(comment);
@@ -284,7 +280,7 @@ public abstract class TobagoResponseWriterBase extends TobagoResponseWriter {
     writeAttribute(new MarkupLanguageAttributes() {
       @Override
       public String getValue() {
-          return name;
+        return name;
       }
     }, attribute, true);
   }
@@ -331,15 +327,19 @@ public abstract class TobagoResponseWriterBase extends TobagoResponseWriter {
 
   protected void endElementInternal(final Writer sink, final String name, final boolean inline) throws IOException {
     if (startStillOpen) {
-      sink.write(">");
+      sink.write('>');
     }
-    if (inline || ajax) {
+    if (inline) {
       sink.write("</");
     } else {
-      sink.write("\n" + StringUtils.repeat("  ", i) + "</");
+      sink.write('\n');
+      for (int i = 0; i < level; i++) {
+        sink.write(' ');
+      }
+      sink.write("</");
     }
     sink.write(name);
-    sink.write(">");
+    sink.write('>');
   }
 
   protected abstract void closeEmptyTag() throws IOException;
@@ -365,6 +365,7 @@ public abstract class TobagoResponseWriterBase extends TobagoResponseWriter {
       sink.write('\'');
     }
   }
+
   protected abstract void writerAttributeValue(String value, boolean escape) throws IOException;
 
 
