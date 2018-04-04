@@ -16,7 +16,7 @@
  */
 
 QUnit.test("Client: Select Tab 3", function (assert) {
-  assert.expect(6);
+  assert.expect(10);
 
   var $hiddenInput = jQueryFrame("#page\\:mainForm\\:tabGroupClient\\:\\:activeIndex");
   var $tab1 = jQueryFrame("#page\\:mainForm\\:tab1Client");
@@ -26,16 +26,20 @@ QUnit.test("Client: Select Tab 3", function (assert) {
   assert.equal($hiddenInput.val(), 0);
   assert.ok($tab1.hasClass("tobago-tab-markup-selected"));
   assert.notOk($tab3.hasClass("tobago-tab-markup-selected"));
+  assert.ok($tab1.hasClass("tobago-tab-markup-one"));
+  assert.ok($tab3.hasClass("tobago-tab-markup-three"));
 
   $tab3link.click();
 
   assert.equal($hiddenInput.val(), 3);
   assert.notOk($tab1.hasClass("tobago-tab-markup-selected"));
   assert.ok($tab3.hasClass("tobago-tab-markup-selected"));
+  assert.ok($tab1.hasClass("tobago-tab-markup-one"));
+  assert.ok($tab3.hasClass("tobago-tab-markup-three"));
 });
 
 QUnit.test("Ajax: Select Tab 3", function (assert) {
-  assert.expect(6);
+  assert.expect(10);
   var done = assert.async();
   var step = 1;
 
@@ -47,6 +51,8 @@ QUnit.test("Ajax: Select Tab 3", function (assert) {
   assert.equal($hiddenInput.val(), 0);
   assert.ok($tab1.hasClass("tobago-tab-markup-selected"));
   assert.notOk($tab3.hasClass("tobago-tab-markup-selected"));
+  assert.ok($tab1.hasClass("tobago-tab-markup-one"));
+  assert.ok($tab3.hasClass("tobago-tab-markup-three"));
 
   $tab3link.click();
 
@@ -61,6 +67,8 @@ QUnit.test("Ajax: Select Tab 3", function (assert) {
     assert.equal($hiddenInput.val(), 3);
     assert.notOk($tab1.hasClass("tobago-tab-markup-selected"));
     assert.ok($tab3.hasClass("tobago-tab-markup-selected"));
+    assert.ok($tab1.hasClass("tobago-tab-markup-one"));
+    assert.ok($tab3.hasClass("tobago-tab-markup-three"));
 
     step++;
     done();
@@ -68,7 +76,7 @@ QUnit.test("Ajax: Select Tab 3", function (assert) {
 });
 
 QUnit.test("FullReload: Select Tab 3", function (assert) {
-  assert.expect(6);
+  assert.expect(10);
   var done = assert.async();
   var step = 1;
 
@@ -80,6 +88,8 @@ QUnit.test("FullReload: Select Tab 3", function (assert) {
   assert.equal($hiddenInput.val(), 0);
   assert.ok($tab1.hasClass("tobago-tab-markup-selected"));
   assert.notOk($tab3.hasClass("tobago-tab-markup-selected"));
+  assert.ok($tab1.hasClass("tobago-tab-markup-one"));
+  assert.ok($tab3.hasClass("tobago-tab-markup-three"));
 
   $tab3link.click();
 
@@ -92,6 +102,8 @@ QUnit.test("FullReload: Select Tab 3", function (assert) {
       assert.equal($hiddenInput.val(), 3);
       assert.notOk($tab1.hasClass("tobago-tab-markup-selected"));
       assert.ok($tab3.hasClass("tobago-tab-markup-selected"));
+      assert.ok($tab1.hasClass("tobago-tab-markup-one"));
+      assert.ok($tab3.hasClass("tobago-tab-markup-three"));
 
       step++;
       done();

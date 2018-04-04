@@ -20,10 +20,13 @@
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
 import org.apache.myfaces.tobago.component.Facets;
+import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.context.Markup;
+import org.apache.myfaces.tobago.internal.component.AbstractUIOut;
 import org.apache.myfaces.tobago.internal.component.AbstractUISection;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.internal.util.JsonUtils;
+import org.apache.myfaces.tobago.internal.util.RenderUtils;
 import org.apache.myfaces.tobago.model.CollapseMode;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
@@ -56,7 +59,6 @@ public class SectionRenderer extends PanelRendererBase {
         section.getCustomClass());
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, section);
 
-    final String label = section.getLabelToRender();
     final HtmlElements tag;
     switch (section.getLevel()) {
       case 1:
@@ -89,9 +91,18 @@ public class SectionRenderer extends PanelRendererBase {
     final String image = section.getImage();
     HtmlRendererUtils.encodeIconOrImage(writer, image);
 
-    if (label != null) {
+    final UIComponent labelFacet = ComponentUtils.getFacet(section, Facets.label);
+    final String labelString = section.getLabel();
+    if (labelFacet != null) {
+      for (final UIComponent child : RenderUtils.getFacetChildren(labelFacet)) {
+        if (child instanceof AbstractUIOut) {
+          child.setRendererType(RendererTypes.OutInsideSectionLabel.name());
+        }
+        child.encodeAll(facesContext);
+      }
+    } else if (labelString != null) {
       writer.startElement(HtmlElements.SPAN);
-      writer.writeText(label);
+      writer.writeText(labelString);
       writer.endElement(HtmlElements.SPAN);
     }
     writer.endElement(tag);

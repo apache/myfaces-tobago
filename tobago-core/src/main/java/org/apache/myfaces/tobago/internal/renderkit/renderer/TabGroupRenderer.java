@@ -337,18 +337,20 @@ public class TabGroupRenderer extends RendererBase implements ComponentSystemEve
     writer.startElement(HtmlElements.DIV);
     writer.writeClassAttribute(BootstrapClass.CARD_BODY, BootstrapClass.TAB_CONTENT);
     int index = 0;
-    for (final UIComponent tab : tabGroup.getChildren()) {
-      if (tab instanceof UITab) {
-        if (tab.isRendered() && (switchType == SwitchType.client || index == activeIndex)
-            && !((UITab) tab).isDisabled()) {
+    for (final UIComponent child : tabGroup.getChildren()) {
+      if (child instanceof UITab) {
+        final UITab tab = (UITab) child;
+        if (tab.isRendered() && (switchType == SwitchType.client || index == activeIndex) && !tab.isDisabled()) {
+          final Markup markup = tab.getMarkup();
 
           writer.startElement(HtmlElements.DIV);
           writer.writeClassAttribute(
               TobagoClass.TAB__CONTENT,
+              TobagoClass.TAB__CONTENT.createMarkup(markup),
               BootstrapClass.TAB_PANE,
               index == activeIndex ? BootstrapClass.ACTIVE : null);
           writer.writeAttribute(HtmlAttributes.ROLE, HtmlRoleValues.TABPANEL.toString(), false);
-          writer.writeIdAttribute(getTabPanelId(facesContext, (UITab) tab));
+          writer.writeIdAttribute(getTabPanelId(facesContext, tab));
 
           writer.writeAttribute(HtmlAttributes.TABGROUPINDEX, index);
 

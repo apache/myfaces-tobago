@@ -38,6 +38,7 @@ import org.slf4j.LoggerFactory;
 import javax.faces.application.ViewHandler;
 import javax.faces.component.EditableValueHolder;
 import javax.faces.component.UIComponent;
+import javax.faces.component.UIPanel;
 import javax.faces.component.UIParameter;
 import javax.faces.component.ValueHolder;
 import javax.faces.component.behavior.AjaxBehavior;
@@ -51,6 +52,7 @@ import javax.faces.render.ClientBehaviorRenderer;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -386,6 +388,14 @@ public final class RenderUtils {
           }
         }
       }
+    }
+  }
+
+  public static List<UIComponent> getFacetChildren(UIComponent facet) {
+    if (facet instanceof UIPanel) {
+      return facet.getChildren();
+    } else {
+      return Collections.singletonList(facet);
     }
   }
 }

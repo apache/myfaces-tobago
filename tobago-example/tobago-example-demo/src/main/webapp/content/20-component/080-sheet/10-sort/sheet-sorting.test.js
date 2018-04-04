@@ -1258,18 +1258,18 @@ QUnit.test("Custom Sorting: right paging", function (assert) {
 
 function ajaxWaitingBodyTableCheck($rows, row0col0, row0col1, row0col2, row1col0, row1col1, row1col2,
                                    row2col0, row2col1, row2col2, row3col0, row3col1, row3col2) {
-  var $row0Col0 = $rows.eq(0).find(".tobago-sheet-cell").eq(0).text();
-  var $row0Col1 = $rows.eq(0).find(".tobago-sheet-cell").eq(1).text();
-  var $row0Col2 = $rows.eq(0).find(".tobago-sheet-cell").eq(2).text();
-  var $row1Col0 = $rows.eq(1).find(".tobago-sheet-cell").eq(0).text();
-  var $row1Col1 = $rows.eq(1).find(".tobago-sheet-cell").eq(1).text();
-  var $row1Col2 = $rows.eq(1).find(".tobago-sheet-cell").eq(2).text();
-  var $row2Col0 = $rows.eq(2).find(".tobago-sheet-cell").eq(0).text();
-  var $row2Col1 = $rows.eq(2).find(".tobago-sheet-cell").eq(1).text();
-  var $row2Col2 = $rows.eq(2).find(".tobago-sheet-cell").eq(2).text();
-  var $row3Col0 = $rows.eq(3).find(".tobago-sheet-cell").eq(0).text();
-  var $row3Col1 = $rows.eq(3).find(".tobago-sheet-cell").eq(1).text();
-  var $row3Col2 = $rows.eq(3).find(".tobago-sheet-cell").eq(2).text();
+  var $row0Col0 = $rows.eq(0).find(".tobago-sheet-cell").eq(0).text().trim();
+  var $row0Col1 = $rows.eq(0).find(".tobago-sheet-cell").eq(1).text().trim();
+  var $row0Col2 = $rows.eq(0).find(".tobago-sheet-cell").eq(2).text().trim();
+  var $row1Col0 = $rows.eq(1).find(".tobago-sheet-cell").eq(0).text().trim();
+  var $row1Col1 = $rows.eq(1).find(".tobago-sheet-cell").eq(1).text().trim();
+  var $row1Col2 = $rows.eq(1).find(".tobago-sheet-cell").eq(2).text().trim();
+  var $row2Col0 = $rows.eq(2).find(".tobago-sheet-cell").eq(0).text().trim();
+  var $row2Col1 = $rows.eq(2).find(".tobago-sheet-cell").eq(1).text().trim();
+  var $row2Col2 = $rows.eq(2).find(".tobago-sheet-cell").eq(2).text().trim();
+  var $row3Col0 = $rows.eq(3).find(".tobago-sheet-cell").eq(0).text().trim();
+  var $row3Col1 = $rows.eq(3).find(".tobago-sheet-cell").eq(1).text().trim();
+  var $row3Col2 = $rows.eq(3).find(".tobago-sheet-cell").eq(2).text().trim();
 
   return $row0Col0 === row0col0 && $row0Col1 === row0col1 && $row0Col2 === row0col2
       && $row1Col0 === row1col0 && $row1Col1 === row1col1 && $row1Col2 === row1col2
@@ -1279,18 +1279,18 @@ function ajaxWaitingBodyTableCheck($rows, row0col0, row0col1, row0col2, row1col0
 
 function ajaxExecuteBodyTableCheck(assert, $rows, row0col0, row0col1, row0col2, row1col0, row1col1, row1col2,
                                    row2col0, row2col1, row2col2, row3col0, row3col1, row3col2) {
-  var $row0Col0 = $rows.eq(0).find(".tobago-sheet-cell").eq(0).text();
-  var $row0Col1 = $rows.eq(0).find(".tobago-sheet-cell").eq(1).text();
-  var $row0Col2 = $rows.eq(0).find(".tobago-sheet-cell").eq(2).text();
-  var $row1Col0 = $rows.eq(1).find(".tobago-sheet-cell").eq(0).text();
-  var $row1Col1 = $rows.eq(1).find(".tobago-sheet-cell").eq(1).text();
-  var $row1Col2 = $rows.eq(1).find(".tobago-sheet-cell").eq(2).text();
-  var $row2Col0 = $rows.eq(2).find(".tobago-sheet-cell").eq(0).text();
-  var $row2Col1 = $rows.eq(2).find(".tobago-sheet-cell").eq(1).text();
-  var $row2Col2 = $rows.eq(2).find(".tobago-sheet-cell").eq(2).text();
-  var $row3Col0 = $rows.eq(3).find(".tobago-sheet-cell").eq(0).text();
-  var $row3Col1 = $rows.eq(3).find(".tobago-sheet-cell").eq(1).text();
-  var $row3Col2 = $rows.eq(3).find(".tobago-sheet-cell").eq(2).text();
+  var $row0Col0 = $rows.eq(0).find(".tobago-sheet-cell").eq(0).text().trim();
+  var $row0Col1 = $rows.eq(0).find(".tobago-sheet-cell").eq(1).text().trim();
+  var $row0Col2 = $rows.eq(0).find(".tobago-sheet-cell").eq(2).text().trim();
+  var $row1Col0 = $rows.eq(1).find(".tobago-sheet-cell").eq(0).text().trim();
+  var $row1Col1 = $rows.eq(1).find(".tobago-sheet-cell").eq(1).text().trim();
+  var $row1Col2 = $rows.eq(1).find(".tobago-sheet-cell").eq(2).text().trim();
+  var $row2Col0 = $rows.eq(2).find(".tobago-sheet-cell").eq(0).text().trim();
+  var $row2Col1 = $rows.eq(2).find(".tobago-sheet-cell").eq(1).text().trim();
+  var $row2Col2 = $rows.eq(2).find(".tobago-sheet-cell").eq(2).text().trim();
+  var $row3Col0 = $rows.eq(3).find(".tobago-sheet-cell").eq(0).text().trim();
+  var $row3Col1 = $rows.eq(3).find(".tobago-sheet-cell").eq(1).text().trim();
+  var $row3Col2 = $rows.eq(3).find(".tobago-sheet-cell").eq(2).text().trim();
 
   assert.equal($row0Col0, row0col0, "row0col0");
   assert.equal($row0Col1, row0col1, "row0col1");

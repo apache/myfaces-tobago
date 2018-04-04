@@ -19,10 +19,13 @@
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
 import org.apache.myfaces.tobago.component.Facets;
+import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.internal.component.AbstractUIBox;
+import org.apache.myfaces.tobago.internal.component.AbstractUIOut;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.internal.util.JsonUtils;
+import org.apache.myfaces.tobago.internal.util.RenderUtils;
 import org.apache.myfaces.tobago.model.CollapseMode;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
@@ -44,10 +47,6 @@ public class BoxRenderer extends PanelRendererBase {
     final AbstractUIBox box = (AbstractUIBox) component;
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
     final Markup markup = box.getMarkup();
-
-    final UIComponent label = ComponentUtils.getFacet(box, Facets.label);
-    final String labelString = box.getLabel();
-    final UIComponent bar = ComponentUtils.getFacet(box, Facets.bar);
 
     writer.startElement(HtmlElements.DIV);
     final boolean collapsed = box.isCollapsed();
@@ -72,16 +71,23 @@ public class BoxRenderer extends PanelRendererBase {
       encodeHidden(writer, clientId, collapsed);
     }
 
-    if (label != null || labelString != null || bar != null) {
+    final UIComponent labelFacet = ComponentUtils.getFacet(box, Facets.label);
+    final String labelString = box.getLabel();
+    final UIComponent bar = ComponentUtils.getFacet(box, Facets.bar);
+    if (labelFacet != null || labelString != null || bar != null) {
       writer.startElement(HtmlElements.DIV);
       writer.writeClassAttribute(BootstrapClass.CARD_HEADER, TobagoClass.BOX__HEADER);
 
       writer.startElement(HtmlElements.H3);
-      if (labelString != null) {
+      if (labelFacet != null) {
+        for (final UIComponent child : RenderUtils.getFacetChildren(labelFacet)) {
+          if (child instanceof AbstractUIOut) {
+            child.setRendererType(RendererTypes.OutInsideBoxLabel.name());
+          }
+          child.encodeAll(facesContext);
+        }
+      } else if (labelString != null) {
         writer.writeText(labelString);
-      }
-      if (label != null) {
-        label.encodeAll(facesContext);
       }
       writer.endElement(HtmlElements.H3);
       if (bar != null) {

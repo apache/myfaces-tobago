@@ -19,13 +19,10 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
-import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.faces.component.UIComponent;
-import javax.faces.component.UIOutput;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 
@@ -37,18 +34,6 @@ public abstract class AbstractUISection extends AbstractUICollapsiblePanel {
   private static final Logger LOG = LoggerFactory.getLogger(AbstractUISection.class);
 
   private int level;
-
-  public String getLabelToRender() {
-
-    final UIComponent facet = ComponentUtils.getFacet(this, Facets.label);
-    if (facet instanceof UIOutput) {
-      return String.valueOf(((UIOutput) facet).getValue());
-    } else if (facet != null) {
-      LOG.warn("Wrong type: " + facet.getClass().getName());
-    }
-
-    return getLabel();
-  }
 
   public abstract String getLabel();
 
