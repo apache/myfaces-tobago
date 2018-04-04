@@ -27,6 +27,8 @@ import javax.faces.event.ListenerFor;
 import javax.faces.event.PostAddToViewEvent;
 import javax.faces.event.PreRenderViewEvent;
 
+import org.apache.myfaces.tobago.util.FacesVersion;
+
 /**
  * {@link org.apache.myfaces.tobago.internal.taglib.component.ScriptTagDeclaration}
  *
@@ -41,16 +43,25 @@ public abstract class AbstractUIScript extends UIComponentBase {
     super.processEvent(event);
 
     if (event instanceof PreRenderViewEvent) {
-      final FacesContext facesContext = getFacesContext();
-      final UIViewRoot root = facesContext.getViewRoot();
-      root.addComponentResource(facesContext, this);
+      addComponentResource();
     } else if (event instanceof PostAddToViewEvent) {
-      // MyFaces core is removing the component resources in head if the view will be recreated before rendering.
-      // The view will be recreated because of expressions. For example  expressins in the ui:include src attribute
-      // The PostAddToViewEvent will not be broadcasted in this case again.
-      // A subscription to the PreRenderViewEvent avoids this problem
-      getFacesContext().getViewRoot().subscribeToEvent(PreRenderViewEvent.class, this);
+      if (FacesVersion.supports21() || !FacesVersion.isMyfaces()) {
+        // MyFaces core is removing the component resources in head if the view will be recreated before rendering.
+        // The view will be recreated because of expressions. For example  expressins in the ui:include src attribute
+        // The PostAddToViewEvent will not be broadcasted in this case again.
+        // A subscription to the PreRenderViewEvent avoids this problem
+        // NOTE: PreRenderViewEvent can not used in myfaces prior 2.0.3 using PostAddToView for all myfaces 2.0 versions
+        getFacesContext().getViewRoot().subscribeToEvent(PreRenderViewEvent.class, this);
+      } else {
+        addComponentResource();
+      }
     }
+  }
+
+  private void addComponentResource() {
+    final FacesContext facesContext = getFacesContext();
+    final UIViewRoot root = facesContext.getViewRoot();
+    root.addComponentResource(facesContext, this);
   }
 
   public abstract String getFile();

@@ -29,6 +29,7 @@ import org.apache.myfaces.tobago.layout.Overflow;
 import org.apache.myfaces.tobago.layout.Position;
 import org.apache.myfaces.tobago.layout.TextAlign;
 import org.apache.myfaces.tobago.renderkit.css.CustomClass;
+import org.apache.myfaces.tobago.util.FacesVersion;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -64,12 +65,18 @@ public abstract class AbstractUIStyle extends UIComponentBase {
         root.addComponentResource(facesContext, this);
       }
     } else if (event instanceof PostAddToViewEvent) {
-      // MyFaces core is removing the component resources in head if the view will be recreated before rendering.
-      // The view will be recreated because of expressions. For example  expressins in the ui:include src attribute
-      // The PostAddToViewEvent will not be broadcasted in this case again.
-      // A subscription to the PreRenderViewEvent avoids this problem
       if (StringUtils.isNotBlank(getFile())) {
-        facesContext.getViewRoot().subscribeToEvent(PreRenderViewEvent.class, this);
+        // MyFaces core is removing the component resources in head if the view will be recreated before rendering.
+        // The view will be recreated because of expressions. For example  expressins in the ui:include src attribute
+        // The PostAddToViewEvent will not be broadcasted in this case again.
+        // A subscription to the PreRenderViewEvent avoids this problem
+        // NOTE: PreRenderViewEvent can not used in myfaces prior 2.0.3 using PostAddToView for all myfaces 2.0 versions
+        if (FacesVersion.supports21() || !FacesVersion.isMyfaces()) {
+          facesContext.getViewRoot().subscribeToEvent(PreRenderViewEvent.class, this);
+        } else {
+          final UIViewRoot root = facesContext.getViewRoot();
+          root.addComponentResource(facesContext, this);
+        }
       }
       // attribute customClass
       final ValueExpression valueExpression = getValueExpression(Attributes.customClass.getName());
