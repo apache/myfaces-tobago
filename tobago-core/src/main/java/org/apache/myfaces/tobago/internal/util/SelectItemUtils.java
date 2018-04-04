@@ -139,7 +139,7 @@ public class SelectItemUtils {
           final boolean disabled = uiSelectItem.isItemDisabled();
 //          boolean escape = uiSelectItem.isItemEscaped();
 //          boolean noSelectionOption = uiSelectItem.isNoSelectionOption();
-          if (label == null) {
+          if (label == null && itemValue != null) {
             label = itemValue.toString();
           }
           String image = null;

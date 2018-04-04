@@ -675,7 +675,9 @@ public abstract class SelectManyRendererBase extends MessageLayoutRendererBase {
           // must be called on the string rendered attribute values
           Object itemLabel = attributeMap.get(ITEM_LABEL_ATTR);
           if (itemLabel == null) {
-            itemLabel = itemValue.toString();
+            if (itemValue != null) {
+              itemLabel = itemValue.toString();
+            }
           } else {
             itemLabel = itemLabel.toString();
           }
