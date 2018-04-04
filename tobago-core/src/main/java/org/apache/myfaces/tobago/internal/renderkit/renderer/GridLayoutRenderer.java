@@ -51,6 +51,7 @@ public class GridLayoutRenderer extends RendererBase {
     writer.writeAttribute(DataAttributes.MARKUP, JsonUtils.encode(gridLayout.getMarkup()), false);
     writer.writeClassAttribute(
         TobagoClass.GRID_LAYOUT,
+        TobagoClass.GRID_LAYOUT.createMarkup(markup),
         markup != null && markup.contains(Markup.SPREAD) ? TobagoClass.SPREAD : null);
 
     final MeasureList columns = MeasureList.parse(gridLayout.getColumns());
