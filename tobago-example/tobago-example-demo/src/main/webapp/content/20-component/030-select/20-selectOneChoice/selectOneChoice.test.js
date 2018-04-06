@@ -73,12 +73,12 @@ QUnit.test("ajax: select Mars", function (assert) {
 
   waitForAjax(function () {
     $moons = jQueryFrame($moons.selector);
-    return $moons.eq(0).text() === "Phobos"
-        && $moons.eq(1).text() === "Deimos";
+    return $moons.eq(0).text().trim() === "Phobos"
+        && $moons.eq(1).text().trim() === "Deimos";
   }, function () {
     $moons = jQueryFrame($moons.selector);
-    assert.equal($moons.eq(0).text(), "Phobos");
-    assert.equal($moons.eq(1).text(), "Deimos");
+    assert.equal($moons.eq(0).text().trim(), "Phobos");
+    assert.equal($moons.eq(1).text().trim(), "Deimos");
     done();
   });
 });
@@ -95,16 +95,16 @@ QUnit.test("ajax: select Jupiter", function (assert) {
 
   waitForAjax(function () {
     $moons = jQueryFrame($moons.selector);
-    return $moons.eq(0).text() === "Europa"
-        && $moons.eq(1).text() === "Ganymed"
-        && $moons.eq(2).text() === "Io"
-        && $moons.eq(3).text() === "Kallisto";
+    return $moons.eq(0).text().trim() === "Europa"
+        && $moons.eq(1).text().trim() === "Ganymed"
+        && $moons.eq(2).text().trim() === "Io"
+        && $moons.eq(3).text().trim() === "Kallisto";
   }, function () {
     $moons = jQueryFrame($moons.selector);
-    assert.equal($moons.eq(0).text(), "Europa");
-    assert.equal($moons.eq(1).text(), "Ganymed");
-    assert.equal($moons.eq(2).text(), "Io");
-    assert.equal($moons.eq(3).text(), "Kallisto");
+    assert.equal($moons.eq(0).text().trim(), "Europa");
+    assert.equal($moons.eq(1).text().trim(), "Ganymed");
+    assert.equal($moons.eq(2).text().trim(), "Io");
+    assert.equal($moons.eq(3).text().trim(), "Kallisto");
     done();
   });
 });

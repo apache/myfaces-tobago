@@ -225,46 +225,46 @@ QUnit.test("Basics: Year", function (assert) {
 
     waitForAjax(function () {
       $rows = jQueryFrame($rows.selector);
-      return $rows.eq(0).find(".tobago-sheet-cell").eq(2).text() === "1789"
-          && $rows.eq(1).find(".tobago-sheet-cell").eq(2).text() === "1846"
-          && $rows.eq(2).find(".tobago-sheet-cell").eq(2).text() === "1846"
-          && $rows.eq(3).find(".tobago-sheet-cell").eq(2).text() === "1848";
+      return $rows.eq(0).find(".tobago-sheet-cell").eq(2).text().trim() === "1789"
+          && $rows.eq(1).find(".tobago-sheet-cell").eq(2).text().trim() === "1846"
+          && $rows.eq(2).find(".tobago-sheet-cell").eq(2).text().trim() === "1846"
+          && $rows.eq(3).find(".tobago-sheet-cell").eq(2).text().trim() === "1848";
     }, function () {
       $rows = jQueryFrame($rows.selector);
-      assert.equal($rows.eq(0).find(".tobago-sheet-cell").eq(2).text(), "1789", "row0col2");
-      assert.equal($rows.eq(1).find(".tobago-sheet-cell").eq(2).text(), "1846", "row1col2");
-      assert.equal($rows.eq(2).find(".tobago-sheet-cell").eq(2).text(), "1846", "row2col2");
-      assert.equal($rows.eq(3).find(".tobago-sheet-cell").eq(2).text(), "1848", "row3col2");
+      assert.equal($rows.eq(0).find(".tobago-sheet-cell").eq(2).text().trim(), "1789", "row0col2");
+      assert.equal($rows.eq(1).find(".tobago-sheet-cell").eq(2).text().trim(), "1846", "row1col2");
+      assert.equal($rows.eq(2).find(".tobago-sheet-cell").eq(2).text().trim(), "1846", "row2col2");
+      assert.equal($rows.eq(3).find(".tobago-sheet-cell").eq(2).text().trim(), "1848", "row3col2");
 
       $colYear.click();
 
       waitForAjax(function () {
         $rows = jQueryFrame($rows.selector);
-        return $rows.eq(0).find(".tobago-sheet-cell").eq(2).text() === "1989"
-            && $rows.eq(1).find(".tobago-sheet-cell").eq(2).text() === "1989"
-            && $rows.eq(2).find(".tobago-sheet-cell").eq(2).text() === "1989"
-            && $rows.eq(3).find(".tobago-sheet-cell").eq(2).text() === "1986";
+        return $rows.eq(0).find(".tobago-sheet-cell").eq(2).text().trim() === "1989"
+            && $rows.eq(1).find(".tobago-sheet-cell").eq(2).text().trim() === "1989"
+            && $rows.eq(2).find(".tobago-sheet-cell").eq(2).text().trim() === "1989"
+            && $rows.eq(3).find(".tobago-sheet-cell").eq(2).text().trim() === "1986";
       }, function () {
         $rows = jQueryFrame($rows.selector);
-        assert.equal($rows.eq(0).find(".tobago-sheet-cell").eq(2).text(), "1989", "row0col2");
-        assert.equal($rows.eq(1).find(".tobago-sheet-cell").eq(2).text(), "1989", "row1col2");
-        assert.equal($rows.eq(2).find(".tobago-sheet-cell").eq(2).text(), "1989", "row2col2");
-        assert.equal($rows.eq(3).find(".tobago-sheet-cell").eq(2).text(), "1986", "row3col2");
+        assert.equal($rows.eq(0).find(".tobago-sheet-cell").eq(2).text().trim(), "1989", "row0col2");
+        assert.equal($rows.eq(1).find(".tobago-sheet-cell").eq(2).text().trim(), "1989", "row1col2");
+        assert.equal($rows.eq(2).find(".tobago-sheet-cell").eq(2).text().trim(), "1989", "row2col2");
+        assert.equal($rows.eq(3).find(".tobago-sheet-cell").eq(2).text().trim(), "1986", "row3col2");
 
         $colYear.click();
 
         waitForAjax(function () {
           $rows = jQueryFrame($rows.selector);
-          return $rows.eq(0).find(".tobago-sheet-cell").eq(2).text() === "1789"
-              && $rows.eq(1).find(".tobago-sheet-cell").eq(2).text() === "1846"
-              && $rows.eq(2).find(".tobago-sheet-cell").eq(2).text() === "1846"
-              && $rows.eq(3).find(".tobago-sheet-cell").eq(2).text() === "1848";
+          return $rows.eq(0).find(".tobago-sheet-cell").eq(2).text().trim() === "1789"
+              && $rows.eq(1).find(".tobago-sheet-cell").eq(2).text().trim() === "1846"
+              && $rows.eq(2).find(".tobago-sheet-cell").eq(2).text().trim() === "1846"
+              && $rows.eq(3).find(".tobago-sheet-cell").eq(2).text().trim() === "1848";
         }, function () {
           $rows = jQueryFrame($rows.selector);
-          assert.equal($rows.eq(0).find(".tobago-sheet-cell").eq(2).text(), "1789", "row0col2");
-          assert.equal($rows.eq(1).find(".tobago-sheet-cell").eq(2).text(), "1846", "row1col2");
-          assert.equal($rows.eq(2).find(".tobago-sheet-cell").eq(2).text(), "1846", "row2col2");
-          assert.equal($rows.eq(3).find(".tobago-sheet-cell").eq(2).text(), "1848", "row3col2");
+          assert.equal($rows.eq(0).find(".tobago-sheet-cell").eq(2).text().trim(), "1789", "row0col2");
+          assert.equal($rows.eq(1).find(".tobago-sheet-cell").eq(2).text().trim(), "1846", "row1col2");
+          assert.equal($rows.eq(2).find(".tobago-sheet-cell").eq(2).text().trim(), "1846", "row2col2");
+          assert.equal($rows.eq(3).find(".tobago-sheet-cell").eq(2).text().trim(), "1848", "row3col2");
           step++;
           done();
         });
@@ -846,48 +846,48 @@ QUnit.test("Custom Sorting: Year", function (assert) {
     waitForAjax(function () {
       $rows = jQueryFrame($rows.selector);
       return step === 2
-          && $rows.eq(0).find(".tobago-sheet-cell").eq(2).text() === "1789"
-          && $rows.eq(1).find(".tobago-sheet-cell").eq(2).text() === "1846"
-          && $rows.eq(2).find(".tobago-sheet-cell").eq(2).text() === "1846"
-          && $rows.eq(3).find(".tobago-sheet-cell").eq(2).text() === "1848";
+          && $rows.eq(0).find(".tobago-sheet-cell").eq(2).text().trim() === "1789"
+          && $rows.eq(1).find(".tobago-sheet-cell").eq(2).text().trim() === "1846"
+          && $rows.eq(2).find(".tobago-sheet-cell").eq(2).text().trim() === "1846"
+          && $rows.eq(3).find(".tobago-sheet-cell").eq(2).text().trim() === "1848";
     }, function () {
       $rows = jQueryFrame($rows.selector);
-      assert.equal($rows.eq(0).find(".tobago-sheet-cell").eq(2).text(), "1789", "row0col2");
-      assert.equal($rows.eq(1).find(".tobago-sheet-cell").eq(2).text(), "1846", "row1col2");
-      assert.equal($rows.eq(2).find(".tobago-sheet-cell").eq(2).text(), "1846", "row2col2");
-      assert.equal($rows.eq(3).find(".tobago-sheet-cell").eq(2).text(), "1848", "row3col2");
+      assert.equal($rows.eq(0).find(".tobago-sheet-cell").eq(2).text().trim(), "1789", "row0col2");
+      assert.equal($rows.eq(1).find(".tobago-sheet-cell").eq(2).text().trim(), "1846", "row1col2");
+      assert.equal($rows.eq(2).find(".tobago-sheet-cell").eq(2).text().trim(), "1846", "row2col2");
+      assert.equal($rows.eq(3).find(".tobago-sheet-cell").eq(2).text().trim(), "1848", "row3col2");
 
       $colYear.click();
 
       waitForAjax(function () {
         $rows = jQueryFrame($rows.selector);
         return step === 3
-            && $rows.eq(0).find(".tobago-sheet-cell").eq(2).text() === "1989"
-            && $rows.eq(1).find(".tobago-sheet-cell").eq(2).text() === "1989"
-            && $rows.eq(2).find(".tobago-sheet-cell").eq(2).text() === "1989"
-            && $rows.eq(3).find(".tobago-sheet-cell").eq(2).text() === "1986";
+            && $rows.eq(0).find(".tobago-sheet-cell").eq(2).text().trim() === "1989"
+            && $rows.eq(1).find(".tobago-sheet-cell").eq(2).text().trim() === "1989"
+            && $rows.eq(2).find(".tobago-sheet-cell").eq(2).text().trim() === "1989"
+            && $rows.eq(3).find(".tobago-sheet-cell").eq(2).text().trim() === "1986";
       }, function () {
         $rows = jQueryFrame($rows.selector);
-        assert.equal($rows.eq(0).find(".tobago-sheet-cell").eq(2).text(), "1989", "row0col2");
-        assert.equal($rows.eq(1).find(".tobago-sheet-cell").eq(2).text(), "1989", "row1col2");
-        assert.equal($rows.eq(2).find(".tobago-sheet-cell").eq(2).text(), "1989", "row2col2");
-        assert.equal($rows.eq(3).find(".tobago-sheet-cell").eq(2).text(), "1986", "row3col2");
+        assert.equal($rows.eq(0).find(".tobago-sheet-cell").eq(2).text().trim(), "1989", "row0col2");
+        assert.equal($rows.eq(1).find(".tobago-sheet-cell").eq(2).text().trim(), "1989", "row1col2");
+        assert.equal($rows.eq(2).find(".tobago-sheet-cell").eq(2).text().trim(), "1989", "row2col2");
+        assert.equal($rows.eq(3).find(".tobago-sheet-cell").eq(2).text().trim(), "1986", "row3col2");
 
         $colYear.click();
 
         waitForAjax(function () {
           $rows = jQueryFrame($rows.selector);
           return step === 4
-              && $rows.eq(0).find(".tobago-sheet-cell").eq(2).text() === "1789"
-              && $rows.eq(1).find(".tobago-sheet-cell").eq(2).text() === "1846"
-              && $rows.eq(2).find(".tobago-sheet-cell").eq(2).text() === "1846"
-              && $rows.eq(3).find(".tobago-sheet-cell").eq(2).text() === "1848";
+              && $rows.eq(0).find(".tobago-sheet-cell").eq(2).text().trim() === "1789"
+              && $rows.eq(1).find(".tobago-sheet-cell").eq(2).text().trim() === "1846"
+              && $rows.eq(2).find(".tobago-sheet-cell").eq(2).text().trim() === "1846"
+              && $rows.eq(3).find(".tobago-sheet-cell").eq(2).text().trim() === "1848";
         }, function () {
           $rows = jQueryFrame($rows.selector);
-          assert.equal($rows.eq(0).find(".tobago-sheet-cell").eq(2).text(), "1789", "row0col2");
-          assert.equal($rows.eq(1).find(".tobago-sheet-cell").eq(2).text(), "1846", "row1col2");
-          assert.equal($rows.eq(2).find(".tobago-sheet-cell").eq(2).text(), "1846", "row2col2");
-          assert.equal($rows.eq(3).find(".tobago-sheet-cell").eq(2).text(), "1848", "row3col2");
+          assert.equal($rows.eq(0).find(".tobago-sheet-cell").eq(2).text().trim(), "1789", "row0col2");
+          assert.equal($rows.eq(1).find(".tobago-sheet-cell").eq(2).text().trim(), "1846", "row1col2");
+          assert.equal($rows.eq(2).find(".tobago-sheet-cell").eq(2).text().trim(), "1846", "row2col2");
+          assert.equal($rows.eq(3).find(".tobago-sheet-cell").eq(2).text().trim(), "1848", "row3col2");
           step++;
           done();
         });
