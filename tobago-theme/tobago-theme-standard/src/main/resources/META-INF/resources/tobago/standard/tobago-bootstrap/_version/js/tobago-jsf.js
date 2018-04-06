@@ -4068,6 +4068,7 @@ _MF_SINGLTN(_PFX_UTIL + "_Dom", Object, /** @lends myfaces._impl._util._Dom.prot
      */
     outerHTML : function(item, markup, preserveFocus) {
         this._assertStdParams(item, markup, "outerHTML");
+        markup = this._Lang.trim(markup);
         // we can work on a single element in a cross browser fashion
         // regarding the focus thanks to the
         // icefaces team for providing the code
@@ -4076,7 +4077,6 @@ _MF_SINGLTN(_PFX_UTIL + "_Dom", Object, /** @lends myfaces._impl._util._Dom.prot
             this.cloneAttributes(item, replacingInput);
             return item;
         } else {
-            markup = this._Lang.trim(markup);
             if (markup !== "") {
                 var ret = null;
 
