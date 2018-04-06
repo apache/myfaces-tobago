@@ -42,10 +42,10 @@
     <p>The suggestion list is calculated in the controller. User the <code>query</code> attribute to pass
       the query string to the controller.</p>
     <pre><code class="language-markup">&lt;tc:in id="inBasic">
-      &lt;tc:suggest totalCount="10" query="\#{suggestController.query}">
-        &lt;tc:selectItems value="\#{suggestController.solarObjects}" var="name" itemValue="\#{name}"/>
-      &lt;/tc:suggest>
-    &lt;/tc:in></code></pre>
+  &lt;tc:suggest totalCount="10" query="\#{suggestController.query}">
+    &lt;tc:selectItems value="\#{suggestController.solarObjects}" var="name" itemValue="\#{name}"/>
+  &lt;/tc:suggest>
+&lt;/tc:in></code></pre>
     <tc:in id="inBasic">
       <tc:suggest totalCount="10" query="#{suggestController.query}">
         <tc:selectItems value="#{suggestController.solarObjects}" var="name" itemValue="#{name}"/>
@@ -61,7 +61,7 @@
       because of the <code>minimumCharacters</code> attribute which has the value '2'.
       And by setting the <code>delay</code> to '2000', the user have to wait two seconds,
       before the suggestion list is shown.</p>
-    <pre><code class="language-markup">&lt;tc:suggest query="\#{suggestController.query}
+    <pre><code class="language-markup">&lt;tc:suggest query="\#{suggestController.query}"
             maximumItems="2" minimumCharacters="2" delay="2000">
   &lt;tc:selectItems value="\#{suggestController.solarObjects}" var="name" itemValue="\#{name}"/>
 &lt;/tc:suggest></code></pre>
@@ -75,8 +75,8 @@
 
   <tc:section label="Client side">
     <p>Filtering can also be done by the client. For that, set <code>update="false"</code>.</p>
-    <p>If client side, you can also use <code class="language-markup"><tc:selectItem/></code>
-      instead of <code class="language-markup"><tc:selectItems/></code>.</p>
+    <p>If client side, you can also use <code class="language-markup">&lt;tc:selectItem/></code>
+      instead of <code class="language-markup">&lt;tc:selectItems/></code>.</p>
     <pre><code class="language-markup">&lt;tc:suggest update="false"/></code></pre>
     <tc:in id="inClient" label="Solar Objects">
       <tc:suggest update="false">
