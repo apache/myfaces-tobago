@@ -9296,7 +9296,7 @@ a.tobago-link.dropdown-item img, a.tobago-link.dropdown-item span {
 }
 
 h1 button.tobago-link, h2 button.tobago-link, h3 button.tobago-link, h4 button.tobago-link, h5 button.tobago-link, h6 button.tobago-link {
-  font-weight: 500;
+  font-weight: inherit;
 }
 
 button.tobago-link, button.tobago-treeCommand {
