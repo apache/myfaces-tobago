@@ -19,39 +19,4 @@
 
 Howto create QUnit tests for Tobago Demo 3.0 or higher
 
-  [[1]] Choose a \<sample\>.xhtml file for testing.
-
-  [[2]] Create a \<sample\>.test.js file (with same name).
-
-  [[3]] Add a {{{http://api.qunitjs.com/QUnit.test/}QUnit test}} to the \<sample\>.test.js.
-
-+----------------------------------------
-  QUnit.test("Testtitle", function(assert) {
-    ...
-  });
-+----------------------------------------
-
-    [[a]] The test will run in a different frame.
-    To get an element in the test frame use <<<jQueryFrame()>>> instead of <<<jQuery()>>>.
-
-    [[b]] To wait for a submit use <<<jQuery("#page\\:testframe").load()>>>.
-
-    [[c]] To wait for an AJAX event use <<<waitForAjax(waitingDone, executeWhenDone)>>>.
-    The function <<<waitingDone>>> must return false if still waiting and true if the waiting is done.
-    The function <<<executeWhenDone>>> is executed afterwards.
-
-  [[4]] Add the test to QUnitTests.
-
-+----------------------------------------
-  @Test
-  public void testname() throws UnsupportedEncodingException, InterruptedException {
-    String page = "content/.../testname.xhtml";
-    runStandardTest(page);
-  }
-+----------------------------------------
-
-  [[5]] Run the tests from QUnitTests or type
-
-+----------------------------------------
-  mvn verify -Pqunit-integration-tests
-+----------------------------------------
+  The content of this page was moved to {{{http://tobago-vm.apache.org/faq.html}}}

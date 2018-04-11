@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+-->
+
+<ui:composition template="/main.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:tc="http://myfaces.apache.org/tobago/component"
+                xmlns:ui="http://java.sun.com/jsf/facelets">
+  <ui:param name="title" value="#{demoBundle.getting_started}"/>
+
+  This section describes how to build Tobago and run the
+  example applications from the sources.
+
+  <tc:section label="Checking Out">
+
+    Check out the 4.x.x sources by running the following:
+
+    <pre><code class="language-bash">$ git clone https://github.com/apache/myfaces-tobago tobago</code></pre>
+
+    Check out the 3.0.x sources by running the following:
+
+    <pre><code
+        class="language-bash">$ git clone -b tobago-3.0.x https://github.com/apache/myfaces-tobago tobago-3.0.x</code></pre>
+
+    Check out the 2.0.x sources by running the following:
+
+    <pre><code
+        class="language-bash">$ git clone -b tobago-2.0.x https://github.com/apache/myfaces-tobago tobago-2.0.x</code></pre>
+
+  </tc:section>
+
+  <tc:section label="Building">
+
+    <p>
+      You need <tc:link label="Maven" link="http://maven.apache.org/download.html" image="fa-external-link"/> (at
+      least version 3.0.4)
+      and Java (version 8 or higher) to build Tobago.
+    </p>
+
+    <p>
+      Change to the local loaded source directory and call
+    </p>
+
+    <pre><code class="language-bash">$ mvn</code></pre>
+
+    <p>
+      or
+    </p>
+
+    <pre><code class="language-bash">$ mvn clean install</code></pre>
+
+    <p>
+      to run the install target on all sub projects. This will
+      download all necessary artifacts into your local Maven repository.
+    </p>
+
+  </tc:section>
+
+  <tc:section label="Examples">
+
+    You can run the examples inside tobago-example with jetty
+
+    <pre><code class="language-bash">$ mvn jetty:run</code></pre>
+
+    or
+
+    <pre><code class="language-bash">$ mvn package</code></pre>
+
+    and deploy the WAR from the target directory manually.
+
+    <tc:section label="Using different JSF implementations">
+
+      By default the example will be started with MyFaces 2.0
+      You can run the examples with other version like you see here:
+
+      <pre><code class="language-bash">$ mvn jetty:run</code></pre>
+
+      You can select a specific MyFaces version with the <i>jsf</i> variable.
+
+      <pre><code class="language-bash">$ mvn jetty:run -Djsf=myfaces-2.1
+$ mvn jetty:run -Djsf=myfaces-2.2
+$ mvn jetty:run -Djsf=myfaces-2.3</code></pre>
+
+      Or you can select Mojarra with a specific version.
+
+      <pre><code class="language-bash">$ mvn jetty:run -Djsf=mojarra-2.0
+$ mvn jetty:run -Djsf=mojarra-2.1
+$ mvn jetty:run -Djsf=mojarra-2.2
+$ mvn jetty:run -Djsf=mojarra-2.3</code></pre>
+    </tc:section>
+
+  </tc:section>
+
+</ui:composition>

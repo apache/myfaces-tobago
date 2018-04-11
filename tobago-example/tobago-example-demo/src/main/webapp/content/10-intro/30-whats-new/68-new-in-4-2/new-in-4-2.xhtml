@@ -20,34 +20,30 @@
 <ui:composition template="/main.xhtml"
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
-                xmlns:ui="http://java.sun.com/jsf/facelets">
-  <ui:param name="title" value="#{demoBundle.migration}"/>
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core">
+  <ui:param name="title" value="#{demoBundle.new_in_4_2}"/>
 
-  <tc:section label="Migration of Tobago applications">
-
+  <tc:section label="Overview">
     <p>
-      Here you can find migration guides to the major versions of Tobago.
+      In April 2018, Tobago 4.2 was released with some bugfixes and new features.
     </p>
-
-    <ul>
-      <li>
-        <tc:link label="#{demoBundle.migration40}"
-                 outcome="/content/10-intro/50-migration/96-migration/migration40.xhtml"/>
-      </li>
-      <li>
-        <tc:link label="#{demoBundle.migration30}"
-                 outcome="/content/10-intro/50-migration/97-migration/migration30.xhtml"/>
-      </li>
-      <li>
-        <tc:link label="#{demoBundle.migration20}"
-                 outcome="/content/10-intro/50-migration/98-migration/migration20.xhtml"/>
-      </li>
-      <li>
-        <tc:link label="#{demoBundle.migration15}"
-                 outcome="/content/10-intro/50-migration/99-migration/migration15.xhtml"/>
-      </li>
-    </ul>
-
   </tc:section>
 
+  <tc:section label="New Features and Enhancements">
+
+    <ul>
+      <li>Desktop-like vertial layout is possible (like in Tobago 2), use <code>markup="spread"</code></li>
+      <li>New component &lt;tc:badge/> <tc:badge value="badge"/></li>
+      <li>&lt;tc:selectReference> is fixed</li>
+      <li>Better compatibility with Mojarra</li>
+      <li>Theme Charlotteville</li>
+      <li>Many other enhancements and bugfixes</li>
+    </ul>
+
+    The full list is available in
+    <tc:link label="Jira" image="fa-external-link"
+             link="https://issues.apache.org/jira/projects/TOBAGO/versions/12342739"/>.
+
+  </tc:section>
 </ui:composition>

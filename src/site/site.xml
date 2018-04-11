@@ -38,28 +38,14 @@
       <item name="Apache"   href="http://www.apache.org/"/>
       <item name="MyFaces"  href="http://myfaces.apache.org/"/>
       <item name="Tobago"   href="http://myfaces.apache.org/tobago"/>
-      <item name="Download" href="http://myfaces.apache.org/download.html" />
       <item name="Mailing Lists"    href="http://myfaces.apache.org/tobago/mail-lists.html" />
     </links>
 
     <menu name="Tobago">
       <item name="Introduction"  href="http://myfaces.apache.org/tobago/index.html"/>
-      <item name="Download"      href="http://myfaces.apache.org/tobago/download.html"/>
-      <item name="Demo"          href="http://myfaces.apache.org/tobago/demo.html"/>
-      <item name="Mailing Lists" href="mail-lists.html" />
-    </menu>
-
-    <menu name="Documentation">
-      <item name="Getting Started" href="http://myfaces.apache.org/tobago/getting-started.html"/>
-      <item name="Compatibility" href="http://myfaces.apache.org/tobago/compatibility.html"/>
-      <item name="New in Tobago 4.0" href="http://tobago-vm.apache.org/demo-4-release/content/10-intro/28-new+in+4+0/new+in+4+0.xhtml"/>
+      <item name="Download"      href="http://tobago-vm.apache.org/download.html"/>
+      <item name="Demo &amp; Docs"          href="http://tobago-vm.apache.org/"/>
       <item name="Guide to Tobago" href="http://myfaces.apache.org/tobago/guide.html"/>
-      <item name="Test Tobago" href="http://myfaces.apache.org/tobago/howto-test.html"/>
-      <item name="Migration" href="http://tobago-vm.apache.org/demo-4-release/content/10-intro/50-migration/migration.xhtml"/>
-      <item name="Roadmap" href="https://issues.apache.org/jira/browse/TOBAGO?selectedTab=com.atlassian.jira.plugin.system.project%3Aroadmap-panel" />
-      <item name="FAQ" href="http://myfaces.apache.org/tobago/faq.html" />
-      <item name="API Documentation" href="http://myfaces.apache.org/tobago/api.html" />
-      <item name="Release Checklist" href="http://myfaces.apache.org/tobago/release-checklist.html" />
     </menu>
 
 <!--

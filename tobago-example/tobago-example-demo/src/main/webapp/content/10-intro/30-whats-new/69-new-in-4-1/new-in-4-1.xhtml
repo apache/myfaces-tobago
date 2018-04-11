@@ -20,34 +20,28 @@
 <ui:composition template="/main.xhtml"
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
-                xmlns:ui="http://java.sun.com/jsf/facelets">
-  <ui:param name="title" value="#{demoBundle.migration}"/>
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core">
+  <ui:param name="title" value="#{demoBundle.new_in_4_1}"/>
 
-  <tc:section label="Migration of Tobago applications">
-
+  <tc:section label="Overview">
     <p>
-      Here you can find migration guides to the major versions of Tobago.
+      In February 2018, Tobago 4.1 was released with some bugfixes and new features.
     </p>
-
-    <ul>
-      <li>
-        <tc:link label="#{demoBundle.migration40}"
-                 outcome="/content/10-intro/50-migration/96-migration/migration40.xhtml"/>
-      </li>
-      <li>
-        <tc:link label="#{demoBundle.migration30}"
-                 outcome="/content/10-intro/50-migration/97-migration/migration30.xhtml"/>
-      </li>
-      <li>
-        <tc:link label="#{demoBundle.migration20}"
-                 outcome="/content/10-intro/50-migration/98-migration/migration20.xhtml"/>
-      </li>
-      <li>
-        <tc:link label="#{demoBundle.migration15}"
-                 outcome="/content/10-intro/50-migration/99-migration/migration15.xhtml"/>
-      </li>
-    </ul>
-
   </tc:section>
 
+  <tc:section label="New Features and Enhancements">
+
+    <ul>
+      <li>Update to Bootstrap 4.0.0 (final)</li>
+      <li>New component for rating: &lt;tc:stars> <tc:stars value="4"/></li>
+      <li>Converter for tab label and box label</li>
+      <li>Change style of &lt;tc:tabGroup> to Bootstrap 4</li>
+    </ul>
+
+    The full list is available in
+    <tc:link label="Jira" image="fa-external-link"
+             link="https://issues.apache.org/jira/projects/TOBAGO/versions/12339443"/>.
+
+  </tc:section>
 </ui:composition>

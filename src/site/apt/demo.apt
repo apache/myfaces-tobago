@@ -14,10 +14,10 @@
  ~~ limitations under the License.
  
  ------
- Demo
+ Demo and Documentation
  ------
 
-Live Demo
+Live Demo and Documentation
 
   The Tobago demo is for demonstration and documentation purpose.
   It presents the features of Tobago including layout and themes and contains
@@ -25,10 +25,7 @@ Live Demo
 
   A {{{http://tobago-vm.apache.org/}live demo}} can be found for different versions.
 
-  This demo and more examples you can find in the VCS (see {{{./getting-started.html}Getting Started}} section).
-
-  The current snapshot of the demo war can be downloaded at:
-  {{https://repository.apache.org/content/repositories/snapshots/org/apache/myfaces/tobago/tobago-example-demo/}}
+  This demo and more examples you can find in the VCS (see {{{http://tobago-vm.apache.org/getting-started.html}Getting Started}} section).
 
 Blank WAR
 

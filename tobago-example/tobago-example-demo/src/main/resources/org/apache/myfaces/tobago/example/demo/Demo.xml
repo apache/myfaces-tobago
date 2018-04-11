@@ -38,14 +38,23 @@
 
   <!-- navigate -->
   <entry key="intro">Intro</entry>
+  <entry key="getting_started">Getting started</entry>
+  <entry key="whats_new">What's new?</entry>
+  <entry key="new_in_4_2">Tobago 4.2</entry>
+  <entry key="new_in_4_1">Tobago 4.1</entry>
   <entry key="new_in_4_0">Tobago 4</entry>
   <entry key="new_in_3_0">Tobago 3</entry>
   <entry key="new_in_2_0">Tobago 2</entry>
   <entry key="migration">Migration</entry>
-  <entry key="migration15">to 1.5</entry>
-  <entry key="migration20">to 2</entry>
-  <entry key="migration30">to 3</entry>
-  <entry key="migration40">to 4</entry>
+  <entry key="migration15">1.0 to 1.5</entry>
+  <entry key="migration20">1.5 to 2</entry>
+  <entry key="migration30">2 to 3</entry>
+  <entry key="migration40">3 to 4</entry>
+  <entry key="compatibility">Compatibility</entry>
+  <entry key="faq">FAQ</entry>
+  <entry key="api">API</entry>
+  <entry key="download">Download</entry>
+  <entry key="release_checklist">Release Checklist</entry>
 
   <!-- navigate : components -->
   <entry key="component">Components</entry>

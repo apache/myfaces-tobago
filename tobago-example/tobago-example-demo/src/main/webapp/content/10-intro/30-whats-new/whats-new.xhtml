@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+-->
+
+<ui:composition template="/main.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:tc="http://myfaces.apache.org/tobago/component"
+                xmlns:ui="http://java.sun.com/jsf/facelets">
+  <ui:param name="title" value="#{demoBundle.whats_new}"/>
+
+  <p>
+    Here you find a condensed overview by versions:
+  </p>
+  <ul>
+    <li>
+      <tc:link label="#{demoBundle.new_in_4_2}"
+               outcome="/content/10-intro/30-whats-new/68-new-in-4-2/new-in-4-2.xhtml"/>
+    </li>
+    <li>
+      <tc:link label="#{demoBundle.new_in_4_1}"
+               outcome="/content/10-intro/30-whats-new/69-new-in-4-1/new-in-4-1.xhtml"/>
+    </li>
+    <li>
+      <tc:link label="#{demoBundle.new_in_4_0}"
+               outcome="/content/10-intro/30-whats-new/70-new-in-4-0/new-in-4-0.xhtml"/>
+    </li>
+    <li>
+      <tc:link label="#{demoBundle.new_in_3_0}"
+               outcome="/content/10-intro/30-whats-new/80-new-in-3-0/new-in-3-0.xhtml"/>
+    </li>
+    <li>
+      <tc:link label="#{demoBundle.new_in_2_0}"
+               outcome="/content/10-intro/30-whats-new/90-new-in-2-0/new-in-2-0.xhtml"/>
+    </li>
+  </ul>
+  <p>
+    You'll find all changes in the issue tracking system
+    <tc:link label="Jira" link="https://issues.apache.org/jira/projects/TOBAGO" image="fa-external-link"/>.
+  </p>
+
+</ui:composition>
