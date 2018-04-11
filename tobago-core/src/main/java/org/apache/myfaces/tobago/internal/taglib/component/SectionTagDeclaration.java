@@ -48,8 +48,10 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
     },
     facets = {
         @Facet(name = Facets.LABEL,
-            description = "This facet contains a UILabel",
-            allowedChildComponenents = "org.apache.myfaces.tobago.Label")})
+            description = "Contains some code to be placed in the header at the label position."),
+        @Facet(name = Facets.BAR,
+            description = "Contains some code to be placed in the header at the bar position.")
+    })
 
 public interface SectionTagDeclaration
     extends HasIdBindingAndRendered, HasLabel, IsVisual, HasImage, IsCollapsed, HasCollapsedMode, HasTip {

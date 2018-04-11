@@ -44,6 +44,10 @@ public abstract class AbstractUICollapsiblePanel extends AbstractUIPanelBase {
       if (bar != null) {
         bar.processDecodes(facesContext);
       }
+      final UIComponent label = getFacet(Facets.LABEL); // XXX is from Box or Section
+      if (label != null) {
+        label.processDecodes(facesContext);
+      }
     }
   }
 
@@ -56,6 +60,10 @@ public abstract class AbstractUICollapsiblePanel extends AbstractUIPanelBase {
       if (bar != null) {
         bar.processValidators(facesContext);
       }
+      final UIComponent label = getFacet(Facets.LABEL); // XXX is from Box or Section
+      if (label != null) {
+        label.processValidators(facesContext);
+      }
     }
   }
 
@@ -67,6 +75,10 @@ public abstract class AbstractUICollapsiblePanel extends AbstractUIPanelBase {
       final UIComponent bar = getFacet(Facets.BAR); // XXX is from Box or Section
       if (bar != null) {
         bar.processUpdates(facesContext);
+      }
+      final UIComponent label = getFacet(Facets.LABEL); // XXX is from Box or Section
+      if (label != null) {
+        label.processUpdates(facesContext);
       }
     }
   }
