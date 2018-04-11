@@ -2,7 +2,7 @@
 
 ## Building
 
-You need Maven 3 (at least 3.0.4) and Java 8 or 9 to build Tobago.
+You need Maven 3 (at least 3.0.4) and Java 8 or later to build Tobago.
 
 In the project directory you can use:
 
