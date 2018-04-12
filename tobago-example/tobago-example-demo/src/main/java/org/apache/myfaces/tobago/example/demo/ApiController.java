@@ -45,7 +45,7 @@ public class ApiController implements Serializable {
   private void init() {
     releases = new ArrayList<>();
     for (Release release : Release.values()) {
-      if (! release.isUnreleased() && (!onlyCurrent || release.isCurrent())) {
+      if (!release.isUnreleased() && (!onlyCurrent || release.isCurrent())) {
         releases.add(release);
       }
     }
