@@ -134,6 +134,7 @@ public enum Attributes {
   large,
   layoutOrder,
   left,
+  level,
   lang,
   link,
   /** @deprecated since 2.0.0 */
