@@ -37,7 +37,7 @@ public class Hello {
     if (LOG.isInfoEnabled()) {
       LOG.info("Action was called, name is '{}'", name);
     }
-    return null;
+    return "/result.xhtml";
   }
 
   public String getName() {

@@ -21,11 +21,8 @@
         xmlns:tc="http://myfaces.apache.org/tobago/component">
 
   <tc:page>
-    <tc:in label="Name" value="#{hello.name}">
-      <f:facet name="after">
-        <tc:button label="Submit" defaultCommand="true" action="#{hello.sayHello}"/>
-      </f:facet>
-    </tc:in>
+    <tc:link label="Back" outcome="/helloWorld.xhtml"/>
+    <tc:out value="Hello, #{hello.name}!"/>
   </tc:page>
 
 </f:view>
