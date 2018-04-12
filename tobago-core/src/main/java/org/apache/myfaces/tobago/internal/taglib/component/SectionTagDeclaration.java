@@ -21,7 +21,9 @@ package org.apache.myfaces.tobago.internal.taglib.component;
 
 import org.apache.myfaces.tobago.apt.annotation.Facet;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
+import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
+import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasCollapsedMode;
@@ -55,4 +57,12 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
 
 public interface SectionTagDeclaration
     extends HasIdBindingAndRendered, HasLabel, IsVisual, HasImage, IsCollapsed, HasCollapsedMode, HasTip {
+
+  /**
+   * Level of the title. Lower value means bigger title, greater value means smaller title.
+   * Value goes from 1 to 6.
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(type = {"java.lang.Integer"})
+  void setLevel(String level);
 }

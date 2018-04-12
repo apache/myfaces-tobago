@@ -33,32 +33,28 @@ public abstract class AbstractUISection extends AbstractUICollapsiblePanel {
 
   private static final Logger LOG = LoggerFactory.getLogger(AbstractUISection.class);
 
-  private int level;
-
   public abstract String getLabel();
+
+  public abstract Integer getLevel();
+
+  public abstract void setLevel(Integer level);
 
   public abstract String getImage();
 
   @Override
   public void encodeBegin(final FacesContext context) throws IOException {
-
-    if (getLevel() == 0) {
+    final Integer level = getLevel();
+    if (level == null) {
       final AbstractUISection section = ComponentUtils.findAncestor(getParent(), AbstractUISection.class);
       if (section != null) {
         setLevel(section.getLevel() + 1);
       } else {
         setLevel(1);
       }
+    } else if (level < 1) {
+      setLevel(1);
     }
 
     super.encodeBegin(context);
-  }
-
-  public int getLevel() {
-    return level;
-  }
-
-  public void setLevel(final int level) {
-    this.level = level;
   }
 }

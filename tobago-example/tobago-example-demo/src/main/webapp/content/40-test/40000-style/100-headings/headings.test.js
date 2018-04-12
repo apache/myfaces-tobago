@@ -66,3 +66,38 @@ function testFont(assert, $alink, $buttonlink) {
   assert.equal($alink.css("font-weight"), $buttonlink.css("font-weight"));
   assert.equal($alink.css("text-decoration"), $buttonlink.css("text-decoration"));
 }
+
+QUnit.test("Ajax reload for section 2", function (assert) {
+  assert.expect(3);
+  var done = assert.async(1);
+  var step = 1;
+
+  var $reloadButton = jQueryFrame("#page\\:mainForm\\:reloadSection2");
+  var $section2 = jQueryFrame("#page\\:mainForm\\:levelTwoSection");
+  var $section2Header = $section2.find("h3");
+  var $timestamp = jQueryFrame("#page\\:mainForm\\:timestamp");
+  var firstTimestamp = $timestamp.find("span").text();
+
+  assert.equal($section2Header.length, 1);
+  $reloadButton.click();
+
+  waitForAjax(function () {
+    $section2Header = jQueryFrame($section2Header.selector);
+    $timestamp = jQueryFrame($timestamp.selector);
+    var newTimestamp = $timestamp.find("span").text();
+
+    return step === 1
+        && $section2Header.length === 1
+        && firstTimestamp < newTimestamp;
+  }, function () {
+    $section2Header = jQueryFrame($section2Header.selector);
+    $timestamp = jQueryFrame($timestamp.selector);
+    var newTimestamp = $timestamp.find("span").text();
+
+    assert.equal($section2Header.length, 1);
+    assert.ok(firstTimestamp < newTimestamp, "value of new timestamp must be higher");
+
+    step++;
+    done();
+  });
+});
