@@ -986,8 +986,7 @@
           <artifactId>dependency-check-maven</artifactId>
           <version>3.1.1</version>
           <configuration>
-            <!-- todo: reset to zero after releasing checkstyle-rules.version 10 -->
-            <failBuildOnCVSS>2.2</failBuildOnCVSS>
+            <failBuildOnCVSS>0</failBuildOnCVSS>
             <suppressionFile>tobago/dependency-check-suppression.xml</suppressionFile>
           </configuration>
           <dependencies>
