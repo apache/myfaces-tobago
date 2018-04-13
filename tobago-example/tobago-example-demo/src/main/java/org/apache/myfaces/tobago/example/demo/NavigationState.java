@@ -57,6 +57,7 @@ public class NavigationState implements Serializable {
   private void initState() {
     if (currentNode != null) {
       state.getSelectedState().clearAndSelect(currentNode.getTreePath());
+      state.getExpandedState().collapseAllButRoot();
       state.getExpandedState().expand(currentNode.getTreePath(), true);
     }
   }
@@ -101,9 +102,11 @@ public class NavigationState implements Serializable {
     if (node == null) {
       return gotoFirst();
     } else {
-      currentNode = node;
+      if (!node.equals(currentNode)) {
+        currentNode = node;
+        LOG.info("Navigate to '" + currentNode.getOutcome() + "'");
+      }
       initState();
-      LOG.info("Navigate to '" + currentNode.getOutcome() + "'");
       return currentNode.getOutcome();
     }
   }
