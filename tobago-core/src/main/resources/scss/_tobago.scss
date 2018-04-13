@@ -675,14 +675,14 @@ span.tobago-out:empty:before {
 
 .tobago-spread {
   height: 100%;
+
+  &.tobago-panel {
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
 }
 
 /* panel ------------------------------------------------------------- */
-
-.tobago-panel {
-  overflow-x: hidden;
-  overflow-y: auto;
-}
 
 /* popup ------------------------------------------------------------- */
 

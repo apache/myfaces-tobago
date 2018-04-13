@@ -9599,12 +9599,12 @@ span.tobago-out:empty:before {
   height: 100%;
 }
 
-/* panel ------------------------------------------------------------- */
-.tobago-panel {
+.tobago-spread.tobago-panel {
   overflow-x: hidden;
   overflow-y: auto;
 }
 
+/* panel ------------------------------------------------------------- */
 /* popup ------------------------------------------------------------- */
 .modal-content > .card {
   margin-bottom: 0;
