@@ -19,6 +19,8 @@
 
 <ui:composition template="/main.xhtml"
                 xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:c="http://java.sun.com/jsp/jstl/core"
+                xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
                 xmlns:ui="http://java.sun.com/jsf/facelets">
   <ui:param name="title" value="#{demoBundle.release_checklist}"/>
@@ -31,48 +33,85 @@
       <tc:link label="Publishing Maven Artifacts" link="http://www.apache.org/dev/publishing-maven-artifacts.html"
                image="fa-external-link"/>.
 
-      <ul>
-        <li>Preparation</li>
+      <tc:section label="Preparation">
 
-        <li>You need to add your GPG keys in <tc:link label="Subversion"
-                                                      link="https://svn.apache.org/repos/asf/myfaces/keys/KEYS"
-                                                      image="fa-external-link"/>
-          and the <tc:link label="Apache site" link="https://www.apache.org/dist/myfaces/KEYS"
-                           image="fa-external-link"/> before a release.
-        </li>
+        <ul>
+          <li>You need to add your GPG keys in <tc:link label="Subversion"
+                                                        link="https://svn.apache.org/repos/asf/myfaces/keys/KEYS"
+                                                        image="fa-external-link"/>
+            and the <tc:link label="Apache site" link="https://www.apache.org/dist/myfaces/KEYS"
+                             image="fa-external-link"/> before a release.
+          </li>
 
-        <li>Ensure that all open bugs and issues in <tc:link label="Jira" link="https://issues.apache.org/jira/"
-                                                             image="fa-external-link"/> have been either fixed
-          or moved to an other release version.
-        </li>
+          <li>Ensure that all open bugs and issues in <tc:link label="Jira" link="https://issues.apache.org/jira/"
+                                                               image="fa-external-link"/> have been either fixed
+            or moved to an other release version.
+          </li>
 
-        <li>Ensure that all examples are working with the release candidate.
-        </li>
+          <li>Ensure that all examples are working with the release candidate.
+          </li>
 
-        <li>Check the scheduled version number against "semantic versioning".
-        </li>
+          <li>Check the scheduled version number against "semantic versioning".
+          </li>
 
-        <li>Post a note and ask for problems with the release candidate (see {{Preparation template}} below).
-        </li>
+          <li>
+            <tc:link label="Post a note" omit="true" image="fa-info">
+              <tc:operation name="show" for="preparation-email"/>
+            </tc:link>
+            and ask for problems with the release candidate.
+            <tc:popup markup="large" collapsedMode="hidden" id="preparation-email">
+              <tc:box label="Preparation email">
+                <i>Replace the variable part &lt;sender-name></i>.
+                <tc:separator/>
+                <c:set var="subject" value="[Tobago] Preparation for the #{apiController.releases[0].version} release"/>
+                <c:set var="content"
+                       value="Hi, folks,
+&#x0a;
+&#x0a;we plan to build version #{apiController.releases[0].version} of Tobago soon.
+&#x0a;
+&#x0a;If you know any blocking problems with the current SNAPSHOT, give me a hint.
+&#x0a;
+&#x0a;Regards,
+&#x0a;&lt;sender-name>"/>
+                <pre><code>Subject: ${subject}
 
-        <li>Install (or unpack) a jdk 1.4 on your computer (only for Tobago 1.0.x).
-        </li>
+${content}
+</code></pre>
+                <tc:separator/>
+                <tc:button
+                    label="Create email"
+                    defaultCommand="true"
+                    link="mailto:MyFaces Development &lt;dev@myfaces.apache.org>"
+                    image="fa-external-link">
+                  <f:param name="subject" value="${subject}"/>
+                  <f:param name="body" value="${content}"/>
+                </tc:button>
+              </tc:box>
+            </tc:popup>
+          </li>
 
-        <li>Please switch to a jdk depending of the version to build:
-        </li>
+          <li>Install (or unpack) a jdk 1.4 on your computer (only for Tobago 1.0.x).
+          </li>
 
-        <li>for Tobago 1.0.x use jdk 1.5 or 1.6 for build and 1.7 for deployment.
-        </li>
+          <li>Please switch to a jdk depending of the version to build:
+          </li>
 
-        <li>for Tobago 1.5.x use jdk 1.7.
-        </li>
+          <li>for Tobago 1.0.x:
+            <ul>
+              <li>use jdk 1.5 or 1.6 for build</li>
+              <li>use jdk 1.7 for deployment</li>
+            </ul>
+          </li>
 
-        <li>for Tobago 2.x and higher use jdk 1.8.
-        </li>
+          <li>for Tobago 1.5.x use jdk 1.7.
+          </li>
 
-        <li>Perform basic checks on an unmodified checkout for all modules:
+          <li>for Tobago 2.x and higher use jdk 1.8 or higher.
+          </li>
 
-          <pre><code class="language-bash"># for Tobago 1.0.x
+          <li>Perform basic checks on an unmodified checkout for all modules:
+
+            <pre><code class="language-bash"># for Tobago 1.0.x
 $ mvn checkstyle:check rat:check -Pall-modules
 
 # for Tobago 1.5.x and higher
@@ -87,33 +126,33 @@ $ mvn clean install -Pall-modules &amp;&amp; mvn checkstyle:check apache-rat:che
 # for Tobago 4.2.0 and higher
 $ mvn clean install &amp;&amp; mvn checkstyle:check apache-rat:check animal-sniffer:check dependency-check:check
 </code></pre>
-        </li>
+          </li>
 
-        <li>Check version info in this file manually:
-          <pre><code
-              class="language-bash">$ tobago-core/src/main/java/org/apache/myfaces/tobago/internal/taglib/component/package-info.java</code></pre>
-        </li>
+          <li>Check version info in this file manually:
+            <pre><code
+                class="language-bash">$ tobago-core/src/main/java/org/apache/myfaces/tobago/internal/taglib/component/package-info.java</code></pre>
+          </li>
+        </ul>
+      </tc:section>
+      <tc:section label="Building the Release (Tobago 1.0.x to 2.0.8)">
+        <tc:badge value="Todo:" markup="warning"/> Migrate this docs to use git!
+        <ul>
+          <li>Prepare the release with:
 
-        <li>Building the Release (Tobago 1.0.x to 2.0.8) [<tc:badge value="TODO"
-                                                                    markup="warning"/>: migrate this docs to git]
-        </li>
+            <pre><code class="language-bash">$ mvn release:prepare -Pall-modules</code></pre>
+          </li>
 
-        <li>Prepare the release with:
+          <li>Check out a fresh copy of the svn tag:
 
-          <pre><code class="language-bash">$ mvn release:prepare -Pall-modules</code></pre>
-        </li>
-
-        <li>Check out a fresh copy of the svn tag:
-
-          <pre><code class="language-bash">cd ..
+            <pre><code class="language-bash">cd ..
 svn co https://svn.apache.org/repos/asf/myfaces/tobago/tags/tobago-&lt;version>
 cd tobago-&lt;version>
 </code></pre>
-        </li>
+          </li>
 
-        <li>Deploy the fresh copy to the Nexus repository with the apache-release profile (we are not using release:perform here, because of some different options):
+          <li>Deploy the fresh copy to the Nexus repository with the apache-release profile (we are not using release:perform here, because of some different options):
 
-          <pre><code class="language-bash"># for Tobago 1.0.x
+            <pre><code class="language-bash"># for Tobago 1.0.x
 # "install" with Java 1.6 and Maven 2
 $ mvn install -Papache-release,jdk14retro,generate-assembly --no-plugin-updates -Dnon-default-modules -Djava14.home=\${java14.jre}
 # "deploy" with Java 1.7 and Maven 3 (hotfix: also comment out the maven-apt-plugin stuff)
@@ -122,81 +161,136 @@ $ mvn deploy -Papache-release,generate-assembly --no-plugin-updates -Dnon-defaul
 # for Tobago 1.5.x to 2.0.8
 $ mvn deploy -Papache-release,generate-assembly --no-plugin-updates -Dnon-default-modules
 </code></pre>
-        </li>
+          </li>
+        </ul>
+      </tc:section>
 
-        <li>Building the Release (Tobago 2.0.9 and higher)
-        </li>
+      <tc:section label="Building the Release (Tobago 2.0.9 and higher)">
+        <ul>
+          <li>Prepare and perform the release with:
 
-        <li>Prepare and perform the release with:
-
-          <pre><code class="language-bash">$ mvn release:prepare
+            <pre><code class="language-bash">$ mvn release:prepare
 $ mvn release:perform
 </code></pre>
-        </li>
+          </li>
+        </ul>
+      </tc:section>
 
-        <li>Staging repository
-        </li>
+      <tc:section label="Staging repository">
+        <ul>
+          <li><i>Close</i> the repository on the <tc:link label="Nexus" link="https://repository.apache.org/"
+                                                          image="fa-external-link"/> instance for staging (you will receive a mail with the staging location).
+          </li>
 
-        <li><i>Close</i> the repository on the <tc:link label="Nexus" link="https://repository.apache.org/"
-                                                        image="fa-external-link"/> instance for staging (you will receive a mail with the staging location).
-        </li>
+          <li>Update the staging and snapshot version on tobago-vm.apache.org
+          </li>
+        </ul>
+      </tc:section>
 
-        <li>Update the staging and snapshot version on tobago-vm.apache.org
-        </li>
+      <tc:section label="Voting">
+        <ul>
+          <li>Propose a
+            <tc:link label="vote on the dev list" omit="true" image="fa-info">
+              <tc:operation name="show" for="vote-email"/>
+            </tc:link> with the staging location.
+            <tc:popup markup="large" collapsedMode="hidden" id="vote-email">
+              <tc:box label="Voting email">
+                <i>Replace the variable part &lt;sender-name>, &lt;insert-list>, &lt;use-one-of>, &lt;a>, &lt;b>or, &lt;c>, &lt;id-from-nexus></i>.
+                <tc:separator/>
+                <c:set var="subject" value="[VOTE] Release Tobago #{apiController.releases[0].version}"/>
+                <c:set var="content"
+                       value="Hello,
+&#x0a;
+&#x0a;We would like to release Tobago #{apiController.releases[0].version}.
+&#x0a;
+&#x0a;Major changes since last release are:
+&#x0a;
+&#x0a;&lt;insert-list>
+&#x0a;
+&#x0a;&lt;use-one-of>
+&#x0a;&lt;a> This is a MAJOR release and may contain incompatible API changes.
+&#x0a;&lt;b> This is a MINOR release with new functionality in a backwards-compatible manner.
+&#x0a;&lt;c> This is a PATCH release with backwards-compatible bug fixes.
+&#x0a;
+&#x0a;For a detail list please consult the release notes at:
+&#x0a;
+&#x0a;https://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&amp;version=#{apiController.releases[0].jira}
+&#x0a;
+&#x0a;The version is available at the staging repository (Nexus) at:
+&#x0a;
+&#x0a;https://repository.apache.org/content/repositories/orgapachemyfaces-&lt;id-from-nexus>/
+&#x0a;
+&#x0a;Please vote now! (The vote is open for 72h.)
+&#x0a;
+&#x0a;[ ] +1
+&#x0a;[ ] +0
+&#x0a;[ ] -1
+&#x0a;
+&#x0a;Regards,
+&#x0a;&lt;sender-name>"/>
+                <pre><code>Subject: ${subject}
 
-        <li>Voting
-        </li>
+${content}</code></pre>
+                <tc:separator/>
+                <tc:button
+                    label="Create email"
+                    defaultCommand="true"
+                    link="mailto:MyFaces Development &lt;dev@myfaces.apache.org>"
+                    image="fa-pencil">
+                  <f:param name="subject" value="${subject}"/>
+                  <f:param name="body" value="${content}"/>
+                </tc:button>
+              </tc:box>
+            </tc:popup>
+          </li>
 
-        <li>Propose a vote on the dev list with the staging location (see {{Vote template}} below).
-        </li>
+          <li>For a positive result wait at least 72 hours.
+          </li>
 
-        <li>For a positive result wait at least 72 hours.
-        </li>
+          <li>Once a vote is successful, post the result to the dev list.
+          </li>
+        </ul>
+      </tc:section>
 
-        <li>Once a vote is successful, post the result to the dev list.
-        </li>
+      <tc:section label="Publishing">
+        <ul>
+          <li><i>Release</i> the version in <tc:link label="Jira" link="https://issues.apache.org/jira/"
+                                                     image="fa-external-link"/> and close all resolved issues for the release.
+          </li>
 
-        <li>Publishing
-        </li>
+          <li><i>Release</i> the staging repository on the <tc:link label="Nexus" link="https://repository.apache.org/"
+                                                                    image="fa-external-link"/> instance.
+          </li>
 
-        <li><i>Release</i> the version in <tc:link label="Jira" link="https://issues.apache.org/jira/"
-                                                   image="fa-external-link"/> and close all resolved issues for the release.
-        </li>
+          <li>Copy the download artifacts from the repository to the site (see script
+            <tc:link label="release-artifacts.sh" link="./release-artifacts.sh" image="fa-download"/>).
+          </li>
 
-        <li><i>Release</i> the staging repository on the <tc:link label="Nexus" link="https://repository.apache.org/"
-                                                                  image="fa-external-link"/> instance.
-        </li>
+          <li>Add the release version and date to the <tc:link label="Apache Committee Report Helper"
+                                                               link="https://reporter.apache.org/addrelease.html?myfaces"
+                                                               image="fa-external-link"/>.
+          </li>
 
-        <li>Copy the download artifacts from the repository to the site (see script <tc:link
-            label="release-artifacts.sh" link="./release-artifacts.sh"/>).
-        </li>
+          <li>Update the release and staging version on tobago-vm.apache.org
+          </li>
 
-        <li>Add the release version and date to the <tc:link label="Apache Committee Report Helper"
-                                                             link="https://reporter.apache.org/addrelease.html?myfaces"
-                                                             image="fa-external-link"/>.
-        </li>
+          <li>Building the site
 
-        <li>Update the release and staging version on tobago-vm.apache.org
-        </li>
+            <ul>
+              <li>Updating the release and version information in the APT files of trunk, e. g.:
 
-        <li>Building the site
-        </li>
-
-        <li>Updating the release and version information in the APT files of trunk, e. g.:
-
-          <!--todo this has changed!-->
-          <pre><code class="language-bash">src/site/apt/api.apt
-src/site/apt/download.apt
+                <!--todo this has changed!-->
+                <pre><code class="language-bash">tobago-example/tobago-example-demo/src/main/java/org/apache/myfaces/tobago/example/demo/Release.java
 src/site/apt/index.apt
 src/site/resources/doap_tobago.rdf</code></pre>
-        </li>
+              </li>
 
-        <li>Note: The site can only be build correctly on file systems that supports to differ upper-/lower-case.
-          This is not the default on Windows and Mac OS X machines.
-          On Mac OS X you can mount a virtual filesystem (sparse bundle) that supports upper-/lower-case with the
-          Disk Utility.
+              <li>Note: The site can only be build correctly on file systems that supports to differ upper-/lower-case.
+                This is not the default on Windows and Mac OS X machines.
+                On Mac OS X you can mount a virtual filesystem (sparse bundle) that supports upper-/lower-case with the
+                Disk Utility.
 
-          <pre><code class="language-bash">$ TOBAGO_SITE=/Volumes/tobago-site
+                <pre><code class="language-bash">$ TOBAGO_SITE=/Volumes/tobago-site
 $ cd $TOBAGO_SITE
 $ git clone https://github.com/apache/myfaces-tobago tobago-master
 $ svn co https://svn.apache.org/repos/asf/myfaces/site/publish/tobago tobago-publish
@@ -205,144 +299,100 @@ $ export MAVEN_OPTS="-Xmx1500m \${MAVEN_OPTS}"
 $ mvn clean package -Pattach-source
 $ mvn site:site
 $ mvn site:stage -DstagingDirectory=$TOBAGO_SITE/tobago-publish</code></pre>
-        </li>
+              </li>
+            </ul>
+          </li>
 
-        <li>Call "reformat code" on all *.html file in $TOBAGO_SITE/tobago-publish in the IDE
-          (the generated code has the main content in only one single line).
-        </li>
+          <li>Call "reformat code" on all *.html file in $TOBAGO_SITE/tobago-publish in the IDE
+            (the generated code has the main content in only one single line).
+          </li>
 
-        <li>Update the site after the distribution is on the Apache mirrors available.
-        </li>
+          <li>Update the site after the distribution is on the Apache mirrors available.
+          </li>
 
-        <li>Unpack and commit the API Docs of the release with the update.sh (or update-1.5.sh) script in
-          /Volumes/tobago-site/tobago-publish.
-        </li>
+          <li>Unpack and commit the API Docs of the release with the update.sh (or update-1.5.sh) script in
+            /Volumes/tobago-site/tobago-publish.
+          </li>
 
-        <li>Remove old download artifacts from the site (see script <tc:link label="drop-artifacts.sh"
-                                                                             link="./drop-artifacts.sh"/>).
-          Older releases are automatic available in the <tc:link label=" archive"
-                                                                 link="http://archive.apache.org/dist/myfaces/"
-                                                                 image="fa-external-link"/>.
-        </li>
+          <li>Remove old download artifacts from the site (see script
+            <tc:link label="drop-artifacts.sh" link="./drop-artifacts.sh" image="fa-download"/>).
+            Older releases are automatic available in the <tc:link label=" archive"
+                                                                   link="http://archive.apache.org/dist/myfaces/"
+                                                                   image="fa-external-link"/>.
+          </li>
 
-        <li>Remove old snapshots in the maven snapshot repository. This is done automatically, it is only needed, when
-          there are dead development ends, e. g. last alpha or beta version like 3.0.0-beta-2-SNAPSHOT which
-          will no longer developed.
-        </li>
+          <li>Remove old snapshots in the maven snapshot repository. This is done automatically, it is only needed, when
+            there are dead development ends, e. g. last alpha or beta version like 3.0.0-beta-2-SNAPSHOT which
+            will no longer developed.
+          </li>
 
-        <li>Create and send announcement (see {{Announcement template}} below).
-        </li>
-      </ul>
+          <li>
+            <tc:link label="Create and send announcement" omit="true" image="fa-info">
+              <tc:operation name="show" for="announcement-email"/>
+            </tc:link>.
+            <tc:popup markup="large" collapsedMode="hidden" id="announcement-email">
+              <tc:box label="Announcement email">
+                <i>Replace the variable parts &lt;edit-me></i>.
+                <tc:separator/>
+                <c:set var="subject" value="[ANNOUNCE] Apache Tobago #{apiController.releases[0].version} released"/>
+                <c:set var="content"
+                       value="The Apache MyFaces team is pleased to announce the release of Apache
+&#x0a;Tobago &lt;version>.
+&#x0a;
+&#x0a;Apache Tobago is a component library for JavaServer Faces (JSF) that
+&#x0a;allows to write web-applications without the need of coding HTML, CSS
+&#x0a;and JavaScript
+&#x0a;
+&#x0a;Main new features
+&#x0a;-----------------
+&#x0a;
+&#x0a;&lt;list of main new features here or remove this section>
+&#x0a;
+&#x0a;Changes
+&#x0a;-------
+&#x0a;
+&#x0a;Please check the release notes at
+&#x0a;http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&amp;version=#{apiController.releases[0].jira}
+&#x0a;for a full list of the changes in this version.
+&#x0a;
+&#x0a;Known limitations and bugs
+&#x0a;--------------------------
+&#x0a;
+&#x0a;&lt;add main limitations and known bugs here or remove this section>
+&#x0a;
+&#x0a;For more information about Apache Tobago, please visit
+&#x0a;http://myfaces.apache.org/tobago/.
+&#x0a;
+&#x0a;Have fun,
+&#x0a;-The MyFaces team"/>
+                <pre><code>Subject: ${subject}
 
-    </tc:section>
-
-    <tc:section label="Preparation template">
-
-      Send to: <tc:link label="MyFaces Development"
-                        link="mailto:MyFaces Development &lt;dev@myfaces.apache.org>"
-                        image="fa-external-link"/>
-
-      <i>Replace the variable parts like &lt;version></i>.
-
-      <pre><code>Subject: [Tobago] Preparation for the &lt;version> release
-
-Hi, folks,
-
-I plan to build the &lt;version> of Tobago soon.
-
-If you know any blocking problems with the current SNAPSHOT, give me a hint.
-
-Regards,
-  &lt;sender></code></pre>
-
-    </tc:section>
-
-    <tc:section label="Vote template">
-
-      Send to: <tc:link link="mailto:MyFaces Development &lt;dev@myfaces.apache.org>" label="MyFaces Development"
-                        image="fa-pencil"/>
-
-      <i>Replace the variable parts like &lt;version></i>.
-
-      <pre><code>Subject: [VOTE] Release Tobago &lt;version>
-
-Hello,
-
-I would like to release Tobago &lt;version>.
-
-Major changes since last release are:
-
-&lt;insert list>
-
-&lt;use one of>
-&lt;a> This is a MAJOR release and may contain incompatible API changes.
-&lt;b> This is a MINOR release with new functionality in a backwards-compatible manner.
-&lt;c> This is a PATCH release with backwards-compatible bug fixes.
-
-For a detail list please consult the release notes at:
-
-https://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&amp;version=&lt;version_id_from_jira>
-
-The version is available at the staging repository (Nexus) at:
-
-https://repository.apache.org/content/repositories/orgapachemyfaces-&lt;id_from_nexus>/
-
-Please vote now! (The vote is open for 72h.)
-
-[ ] +1
-[ ] +0
-[ ] -1
-
-Regards,
-&lt;sender>
-
-</code></pre>
-
-    </tc:section>
-
-    <tc:section label="Announcement template">
-      For all versions send to:
-      <tc:link link="mailto:MyFaces Discussion &lt;users@myfaces.apache.org\>" label="MyFaces Discussion"
-               image="fa-pencil"/>
-      Only for major versions send to:
-      <tc:link link="mailto:Apache Announces &lt;announce@apache.org\>" label="Apache Announces"
-               image="fa-pencil"/>
-
-      <i>Replace the variable parts like &lt;version\></i>.
-
-      <pre><code>Subject: [ANNOUNCE] Apache Tobago &lt;version> released
-
-The Apache MyFaces team is pleased to announce the release of Apache
-Tobago &lt;version>.
-
-Apache Tobago is a component library for JavaServer Faces (JSF) that
-allows to write web-applications without the need of coding HTML, CSS
-and JavaScript
-
-Main new features
------------------
-
-&lt;list of main new features here or remove this section>
-
-Changes
--------
-
-Please check the release notes at
-http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&amp;styleName=Html&amp;version=&lt;versionidfromjira>
-for a full list of the changes in this version.
-
-Known limitations and bugs
---------------------------
-
-&lt;add main limitations and known bugs here or remove this section>
-
-For more information about Apache Tobago, please visit
-http://myfaces.apache.org/tobago/.
-
-Have fun,
--The MyFaces team
-</code></pre>
-
+${content}</code></pre>
+                <tc:separator/>
+                <p>
+                  For all versions send to MyFaces Discussion list. Only for major versions send to Apache Announces list.
+                </p>
+                <tc:button
+                    label="Create email for any version"
+                    defaultCommand="true"
+                    link="mailto:MyFaces Discussion &lt;users@myfaces.apache.org>"
+                    image="fa-pencil">
+                  <f:param name="subject" value="${subject}"/>
+                  <f:param name="body" value="${content}"/>
+                </tc:button>
+                <tc:button
+                    label="Create email for major version"
+                    defaultCommand="true"
+                    link="mailto:MyFaces Announces &lt;announce@apache.org>"
+                    image="fa-pencil">
+                  <f:param name="subject" value="${subject}"/>
+                  <f:param name="body" value="${content}"/>
+                </tc:button>
+              </tc:box>
+            </tc:popup>
+          </li>
+        </ul>
+      </tc:section>
     </tc:section>
 
   </tc:section>

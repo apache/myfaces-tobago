@@ -135,3 +135,15 @@ Demo.initGoogleSearch = function () {
 
 Tobago.registerListener(Demo.initGoogleSearch, Tobago.Phase.DOCUMENT_READY);
 Tobago.registerListener(Demo.initGoogleSearch, Tobago.Phase.AFTER_UPDATE);
+
+Demo.initMailTo = function () {
+  var $command = jQuery("[href^=mailto]");
+  $command.each(function() {
+    var $this = jQuery(this);
+    // this is, to fix URL encoded spaces
+    $this.attr("href", $this.attr("href").replace(/\+/g, "%20"));
+  });
+};
+
+Tobago.registerListener(Demo.initMailTo, Tobago.Phase.DOCUMENT_READY);
+Tobago.registerListener(Demo.initMailTo, Tobago.Phase.AFTER_UPDATE);
