@@ -98,7 +98,15 @@ public class JsonUtils {
     builder.append("\"");
     builder.append(name);
     builder.append("\":\"");
-    builder.append(value.replaceAll("\\\"", "\\\\\\\"")); // todo: optimize
+    int length = value.length();
+    for (int i = 0; i < length; i++) {
+      final char c = value.charAt(i);
+      if (c == '\"') {
+        builder.append("\\\"");
+      } else {
+        builder.append(c);
+      }
+    }
     builder.append("\",");
   }
 
