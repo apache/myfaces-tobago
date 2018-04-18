@@ -46,7 +46,7 @@
       Such an inputfield must contain a value, otherwise a submit is not possible.
       Leave the field blank and press 'submit' to see the errormessage.</p>
     <pre><code class="language-markup">&lt;tc:in label="Input (required)" required="true"/></code></pre>
-    <tc:in id="ireq" label="Input (required)" required="true"/>
+    <tc:in id="ireq" label="Input (required)" required="true" value="#{inController.requiredValue}"/>
     <tc:button label="Submit"/>
   </tc:section>
 

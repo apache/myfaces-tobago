@@ -34,6 +34,8 @@ public class InController {
 
   private String changeValue;
 
+  private String requiredValue;
+
   public void update(final AjaxBehaviorEvent event) {
     LOG.info("AjaxBehaviorEvent called. Current value: '{}'", changeValue);
   }
@@ -44,5 +46,13 @@ public class InController {
 
   public void setChangeValue(final String changeValue) {
     this.changeValue = changeValue;
+  }
+
+  public String getRequiredValue() {
+    return requiredValue;
+  }
+
+  public void setRequiredValue(String requiredValue) {
+    this.requiredValue = requiredValue;
   }
 }
