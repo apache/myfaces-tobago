@@ -32,12 +32,12 @@ public class ButtonLinkController implements Serializable {
 
   public String linkToComponentsRoot() {
     LOG.info("link to components root");
-    return "/content/20-component/component.xhtml";
+    return "/content/20-component/component.xhtml?faces-redirect=true";
   }
 
   public String actionPage() {
     LOG.info("link to action.xhtml");
-    return "/content/40-test/4000-button+link/x-action.xhtml";
+    return "/content/40-test/4000-button+link/x-action.xhtml?faces-redirect=true";
   }
 
   public String targetActionPage() {

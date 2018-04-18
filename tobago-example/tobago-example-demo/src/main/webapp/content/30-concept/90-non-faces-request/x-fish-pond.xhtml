@@ -38,7 +38,8 @@
       <tc:button label="random" action="#{fishPond.random}">
         <f:ajax render="pond :page:header:headerInfo" execute="pond"/>
       </tc:button>
-      <tc:button label="back to start" action="/content/30-concept/90-non-faces-request/non-faces-request.xhtml"/>
+      <tc:button label="back to start"
+                 action="/content/30-concept/90-non-faces-request/non-faces-request.xhtml?faces-redirect=true"/>
     </tc:buttons>
 
   </tc:panel>

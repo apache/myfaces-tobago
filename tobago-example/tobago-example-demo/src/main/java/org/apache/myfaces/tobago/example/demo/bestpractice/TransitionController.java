@@ -36,7 +36,7 @@ public class TransitionController {
     LOG.info("Waiting " + sleep + " millis.");
     Thread.sleep(sleep);
 
-    return "/content/30-concept/23-transition/x-transition-after-sleep.xhtml";
+    return "/content/30-concept/23-transition/x-transition-after-sleep.xhtml?faces-redirect=true";
   }
 
   public String sleep5s() throws InterruptedException {

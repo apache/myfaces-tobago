@@ -65,7 +65,7 @@ public class FishPond implements Serializable {
   public String select(final Integer fishId) {
     selectedFishId = fishId;
     LOG.info("select via id: '" + getSelectedFish() + "'");
-    return "/content/90-non-faces-request/x-fish-pond.xhtml";
+    return "/content/90-non-faces-request/x-fish-pond.xhtml?faces-redirect=true";
   }
 
   public String getSelectedFish() {

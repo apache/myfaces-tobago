@@ -31,8 +31,6 @@
       <tc:link id="standardLinkAction" label="Action" action="#{buttonLinkController.actionPage}"/>
       <tc:link id="standardLinkLink" label="Link" outcome="/content/40-test/4000-button+link/x-link.xhtml"/>
     </tc:links>
-    <br/>
-    <br/>
   </tc:section>
 
   <tc:section label="Confirmation">
@@ -48,8 +46,6 @@
       <tc:link id="confirmationLinkLink" label="Link" outcome="/content/40-test/4000-button+link/x-link.xhtml"
                confirmation="Are you sure?"/>
     </tc:links>
-    <br/>
-    <br/>
   </tc:section>
 
   <tc:section label="Target">
@@ -65,11 +61,11 @@
       <tc:link id="targetLinkLink" label="Link" outcome="/content/40-test/4000-button+link/x-targetLink.html"
                target="targetFrame"/>
     </tc:links>
-    <br/>
-    <br/>
+    <tc:box label="iframe">
     <tc:object id="targetFrame" name="targetFrame">
       <tc:style width="100%" height="150px"/>
     </tc:object>
+    </tc:box>
   </tc:section>
 
   <tc:section label="JavaScript">
