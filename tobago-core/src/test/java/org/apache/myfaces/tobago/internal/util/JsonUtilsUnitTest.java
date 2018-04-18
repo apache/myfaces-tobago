@@ -174,4 +174,27 @@ public class JsonUtilsUnitTest extends AbstractTobagoTestBase {
 
   }
 
+  @Test
+  public void testCommandMap() {
+    CommandMap map = new CommandMap();
+    map.addCommand(
+        ClientBehaviors.blur,
+        new Command(
+            "doit", false, "field", "execute", "render", "focus", "Do \"you\" want?", 100,
+            new Collapse(Collapse.Action.hide, "box"), false));
+
+    final String expected
+        = ("{'blur':"
+        + "{'action':'doit',"
+        + "'transition':false,"
+        + "'target':'field',"
+        + "'execute':'execute',"
+        + "'render':'render',"
+        + "'collapse':{'transition':'hide','forId':'box'},"
+        + "'focus':'focus',"
+        + "'confirmation':'Do \\'you\\' want?',"
+        + "'delay':100}}").replaceAll("'", "\"");
+    Assert.assertEquals("command map", expected, JsonUtils.encode(map));
+  }
+
 }
