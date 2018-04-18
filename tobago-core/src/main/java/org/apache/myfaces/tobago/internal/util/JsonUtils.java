@@ -42,15 +42,16 @@ public class JsonUtils {
   private JsonUtils() {
   }
 
-  private static void encode(final StringBuilder builder, final String name, final String[] value) {
+  private static void encode(final StringBuilder builder, final String name, final String[] value,
+      final boolean escape) {
     builder.append("\"");
     builder.append(name);
     builder.append("\":");
-    encode(builder, value);
+    encode(builder, value, escape);
     builder.append(",");
   }
 
-  public static void encode(final StringBuilder builder, final String[] value) {
+  public static void encode(final StringBuilder builder, final String[] value, final boolean escape) {
     builder.append("[");
     boolean colon = false;
     for (final String item : value) {
@@ -58,7 +59,18 @@ public class JsonUtils {
         builder.append(",");
       }
       builder.append("\"");
-      builder.append(item);
+      if (escape) {
+        for (int i = 0; i < item.length(); i++) {
+          final char c = item.charAt(i);
+          if (c == '\"') {
+            builder.append("\\\"");
+          } else {
+            builder.append(c);
+          }
+        }
+      } else {
+        builder.append(item);
+      }
       builder.append("\"");
       colon = true;
     }
@@ -223,11 +235,11 @@ public class JsonUtils {
     builder.append("{");
     final int initialLength = builder.length();
 
-    encode(builder, "monthNames", dateTimeI18n.getMonthNames());
-    encode(builder, "monthNamesShort", dateTimeI18n.getMonthNamesShort());
-    encode(builder, "dayNames", dateTimeI18n.getDayNames());
-    encode(builder, "dayNamesShort", dateTimeI18n.getDayNamesShort());
-    encode(builder, "dayNamesMin", dateTimeI18n.getDayNamesMin());
+    encode(builder, "monthNames", dateTimeI18n.getMonthNames(), false);
+    encode(builder, "monthNamesShort", dateTimeI18n.getMonthNamesShort(), false);
+    encode(builder, "dayNames", dateTimeI18n.getDayNames(), false);
+    encode(builder, "dayNamesShort", dateTimeI18n.getDayNamesShort(), false);
+    encode(builder, "dayNamesMin", dateTimeI18n.getDayNamesMin(), false);
     encode(builder, "firstDay", dateTimeI18n.getFirstDay());
 
     if (builder.length() - initialLength > 0) {
@@ -238,12 +250,12 @@ public class JsonUtils {
     return builder.toString();
   }
 
-  public static String encode(final String[] strings) {
+  public static String encode(final String[] strings, final boolean escape) {
     if (strings == null) {
       return null;
     }
     final StringBuilder builder = new StringBuilder();
-    encode(builder, strings);
+    encode(builder, strings, escape);
     return builder.toString();
   }
 
