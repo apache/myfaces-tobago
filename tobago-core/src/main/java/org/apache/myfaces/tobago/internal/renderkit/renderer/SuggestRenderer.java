@@ -123,10 +123,10 @@ public class SuggestRenderer extends RendererBase {
     writer.writeAttribute(DataAttributes.SUGGEST_MAX_ITEMS, suggest.getMaximumItems());
     writer.writeAttribute(DataAttributes.SUGGEST_UPDATE, suggest.isUpdate());
     writer.writeAttribute(DataAttributes.SUGGEST_TOTAL_COUNT, totalCount);
-    writer.writeAttribute(DataAttributes.SUGGEST_DATA, JsonUtils.encode(array), true);
+    writer.writeAttribute(DataAttributes.SUGGEST_DATA, JsonUtils.encode(array, true), true);
 
     if (LOG.isDebugEnabled()) {
-      LOG.debug("suggest list: " + JsonUtils.encode(array));
+      LOG.debug("suggest list: " + JsonUtils.encode(array, true));
     }
 
     writer.endElement(HtmlElements.INPUT);
