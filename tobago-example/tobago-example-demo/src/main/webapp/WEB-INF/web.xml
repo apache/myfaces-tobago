@@ -117,8 +117,8 @@
     <load-on-startup>3</load-on-startup>
     <!-- This is needed, for file upload e.g. <tc:file> with JSF 2.0 or 2.1, JSF 2.2 doesn't need it. -->
     <multipart-config>
-      <max-request-size>20000000</max-request-size>
       <max-file-size>1000000</max-file-size>
+      <max-request-size>20000000</max-request-size>
     </multipart-config>
   </servlet>
 
