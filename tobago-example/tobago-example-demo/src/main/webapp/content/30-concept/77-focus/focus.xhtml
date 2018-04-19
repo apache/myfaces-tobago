@@ -18,6 +18,7 @@
 -->
 
 <ui:composition template="/main.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://java.sun.com/jsf/facelets">
   <ui:param name="title" value="Focus"/>
 
@@ -31,13 +32,13 @@
   </p>
   <p>
     The priority order is:
-    <ul>
-      <li>error (the first error element gets the focus)</li>
-      <li>auto (the element with the tobago tag attribute focus="true" gets the focus)</li>
-      <li>last (the element from the last request with same id gets the focus, not AJAX)</li>
-      <li>page (use the focusId attribute of the tc:page)</li>
-      <li>first (the first input element (without tabindex=-1) gets the focus, not AJAX)</li>
-    </ul>
   </p>
+  <ul>
+    <li>error (the first error element gets the focus)</li>
+    <li>auto (the element with the tobago tag attribute focus="true" gets the focus)</li>
+    <li>last (the element from the last request with same id gets the focus, not AJAX)</li>
+    <li>page (use the focusId attribute of the tc:page)</li>
+    <li>first (the first input element (without tabindex=-1) gets the focus, not AJAX)</li>
+  </ul>
 
 </ui:composition>

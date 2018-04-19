@@ -154,6 +154,9 @@
   <entry key="collapsible_section">Section</entry>
   <entry key="accessKey">Access Keys</entry>
   <entry key="dataAttribute">Data Attributes</entry>
+  <entry key="security">Security</entry>
+  <entry key="content_security_policy">Content Security Policy</entry>
+  <entry key="sanitize">Sanitize</entry>
   <entry key="roles">Roles</entry>
 
   <!-- navigate : deprecated -->

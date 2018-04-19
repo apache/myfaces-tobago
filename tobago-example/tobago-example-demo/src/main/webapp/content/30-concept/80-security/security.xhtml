@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+-->
+
+<ui:composition template="/main.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:tc="http://myfaces.apache.org/tobago/component"
+                xmlns:ui="http://java.sun.com/jsf/facelets">
+  <ui:param name="title" value="Security"/>
+
+  <p>
+    By using Java and JSF with Facelets you have a good base to build secure applications.
+    Tobago supports additional security concepts:
+  </p>
+  <ul>
+    <li><tc:link label="#{demoBundle.content_security_policy}"
+                 outcome="/content/30-concept/80-security/05-csp/content-security-policy.xhtml"/></li>
+    <li><tc:link label="#{demoBundle.sanitize}"
+                 outcome="/content/30-concept/80-security/10-sanitize/sanitize.xhtml"/> suspicious code.
+    </li>
+    <li>Checking annotated method calls for <tc:link label="#{demoBundle.roles}"
+                 outcome="/content/30-concept/80-security/20-roles/roles.xhtml"/>.</li>
+    <li>Setting HTTP headers <code>X-Frame-Options</code> and <code>X-Content-Type-Options</code></li>
+    <li>Using session secrects to avoid
+      <tc:link label="Cross-Site Request Forgery (CSRF)"
+    link="https://www.owasp.org/index.php/Cross-Site_Request_Forgery_(CSRF)" image="fa-external-link" />.
+    This is configurable in the <code>tobago-config.xml</code></li>
+    <li>and some mottle features...</li>
+  </ul>
+
+</ui:composition>

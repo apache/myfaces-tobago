@@ -18,16 +18,18 @@
 -->
 
 <ui:composition template="/main.xhtml"
+                xmlns:tc="http://myfaces.apache.org/tobago/component"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns="http://www.w3.org/1999/xhtml">
 
   <ui:param name="title" value="Sanitizer"/>
 
-  <p>
-    <b>Todo: </b>Explain the concept of the sanitizer. Short:
-  </p>
   <ul>
     <li>Filter all suspicious content from tc:textarea and tc:out with escape=false.</li>
+    <li>See <tc:link label="OWASP Java HTML Sanitizer Project"
+                     link="https://www.owasp.org/index.php/OWASP_Java_HTML_Sanitizer_Project"
+                     image="fa-external-link" /></li>
+    <li>The filter can be configured the <code>tobago-config.xml</code> file.</li>
   </ul>
 
 </ui:composition>
