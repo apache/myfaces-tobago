@@ -21,6 +21,8 @@ package org.apache.myfaces.tobago.context;
 
 import org.apache.myfaces.tobago.internal.util.ArrayUtils;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -53,6 +55,8 @@ import java.util.List;
  * </p>
  */
 public final class Markup implements Serializable, Iterable<String> {
+
+  private static final Logger LOG = LoggerFactory.getLogger(Markup.class);
 
   public static final Markup NULL = new Markup((String) null);
 
@@ -222,13 +226,41 @@ public final class Markup implements Serializable, Iterable<String> {
   private final String value;
 
   private Markup(final String[] values) {
-    this.values = values;
+    this.values = values != null ? filterSpecialChars(values) : null;
     this.value = null;
   }
 
   private Markup(final String value) {
     this.values = null;
-    this.value = value;
+    this.value = value != null ? filterSpecialChars(value) : null;
+  }
+
+  private String[] filterSpecialChars(final String[] values) {
+    for (int i = 0; i < values.length; i++) {
+      values[i] = filterSpecialChars(values[i]);
+    }
+    return values;
+  }
+
+  private String filterSpecialChars(String value) {
+    StringBuilder stringBuilder = new StringBuilder(value.length());
+    boolean forbiddenCharFound = false;
+    for (int i = 0; i < value.length(); i++) {
+      final char c = value.charAt(i);
+      if (('0' <= c && c <= '9') || ('A' <= c && c <= 'Z') || ('a' <= c && c <= 'z')) {
+        stringBuilder.append(c);
+      } else {
+        forbiddenCharFound = true;
+      }
+    }
+    if (forbiddenCharFound) {
+      final String newValue = stringBuilder.toString();
+      LOG.warn("Only numeric and alphabetic characters are allowed for markups: '{}' converted to '{}'.", value,
+          newValue);
+      return newValue;
+    } else {
+      return value;
+    }
   }
 
   public static Markup valueOf(final String[] values) {
@@ -237,11 +269,11 @@ public final class Markup implements Serializable, Iterable<String> {
     } else if (values.length == 1) {
       return valueOf(values[0]);
     } else {
-      final Markup markup = new Markup(values.clone());
-      for (int i = 0; i < markup.values.length; i++) {
-        markup.values[i] = markup.values[i].trim();
+      final String[] clonedValues = values.clone();
+      for (int i = 0; i < clonedValues.length; i++) {
+        clonedValues[i] = clonedValues[i].trim();
       }
-      return markup;
+      return new Markup(clonedValues);
     }
   }
 

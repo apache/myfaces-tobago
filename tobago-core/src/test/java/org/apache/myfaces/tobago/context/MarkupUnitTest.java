@@ -36,6 +36,10 @@ public class MarkupUnitTest {
   public void testString() {
     Assert.assertNull(Markup.valueOf((String) null));
 
+    Assert.assertEquals("foobar", Markup.valueOf("foo$bar").toString());
+
+    Assert.assertEquals("fooBar", Markup.valueOf("fooBar").toString());
+
     Assert.assertArrayEquals(new String[]{"accent"}, toArray(Markup.valueOf("accent").iterator()));
 
     Assert.assertArrayEquals(AB, toArray(Markup.valueOf("a,b").iterator()));
@@ -45,6 +49,8 @@ public class MarkupUnitTest {
     Assert.assertArrayEquals(AB, toArray(Markup.valueOf("a b").iterator()));
 
     Assert.assertArrayEquals(AB, toArray(Markup.valueOf(", \ta , ,\n b ,").iterator()));
+
+    Assert.assertArrayEquals(AB, toArray(Markup.valueOf(", \ta\" , ,\n b ,").iterator()));
   }
 
   @Test
