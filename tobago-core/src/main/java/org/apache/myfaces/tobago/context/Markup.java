@@ -235,18 +235,18 @@ public final class Markup implements Serializable, Iterable<String> {
     this.value = value != null ? filterSpecialChars(value) : null;
   }
 
-  private String[] filterSpecialChars(final String[] values) {
-    for (int i = 0; i < values.length; i++) {
-      values[i] = filterSpecialChars(values[i]);
+  private String[] filterSpecialChars(final String[] strings) {
+    for (int i = 0; i < strings.length; i++) {
+      strings[i] = filterSpecialChars(strings[i]);
     }
-    return values;
+    return strings;
   }
 
-  private String filterSpecialChars(String value) {
-    StringBuilder stringBuilder = new StringBuilder(value.length());
+  private String filterSpecialChars(String string) {
+    StringBuilder stringBuilder = new StringBuilder(string.length());
     boolean forbiddenCharFound = false;
-    for (int i = 0; i < value.length(); i++) {
-      final char c = value.charAt(i);
+    for (int i = 0; i < string.length(); i++) {
+      final char c = string.charAt(i);
       if (('0' <= c && c <= '9') || ('A' <= c && c <= 'Z') || ('a' <= c && c <= 'z')) {
         stringBuilder.append(c);
       } else {
@@ -254,12 +254,12 @@ public final class Markup implements Serializable, Iterable<String> {
       }
     }
     if (forbiddenCharFound) {
-      final String newValue = stringBuilder.toString();
-      LOG.warn("Only numeric and alphabetic characters are allowed for markups: '{}' converted to '{}'.", value,
-          newValue);
-      return newValue;
+      final String newString = stringBuilder.toString();
+      LOG.warn("Only numeric and alphabetic characters are allowed for markups: '{}' converted to '{}'.", string,
+          newString);
+      return newString;
     } else {
-      return value;
+      return string;
     }
   }
 
