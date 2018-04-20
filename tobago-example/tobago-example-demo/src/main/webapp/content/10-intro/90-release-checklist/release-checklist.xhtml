@@ -43,8 +43,10 @@
                              image="fa-external-link"/> before a release.
           </li>
 
-          <li>Ensure that all open bugs and issues in <tc:link label="Jira" link="https://issues.apache.org/jira/"
-                                                               image="fa-external-link"/> have been either fixed
+          <li>Ensure that all open bugs and issues in
+            <tc:link label="Jira"
+                     link="https://issues.apache.org/jira/issues/?jql=project%20%3D%20TOBAGO%20AND%20fixVersion%20%3D%20#{apiController.releases[0].version}"
+                     image="fa-external-link"/> have been either fixed
             or moved to an other release version.
           </li>
 
