@@ -55,7 +55,9 @@
                 <tc:selectItems value="#{localeController.localeItems}"/>
               </tc:selectOneRadio>
             </tc:link>
-            <tc:link action="#{login.resetSession}" label="Reset Session"/>
+            <tc:link outcome="/login.xhtml" label="Login" rendered="#{request.userPrincipal == null}"/>
+            <tc:link action="#{loginController.logout}" label="Logout '#{request.userPrincipal.name}'" rendered="#{request.userPrincipal != null}"/>
+            <tc:link action="#{loginController.resetSession}" label="Reset Session"/>
           </tc:link>
 
           <tc:link label="#{demoBundle.menu_test}" omit="true">

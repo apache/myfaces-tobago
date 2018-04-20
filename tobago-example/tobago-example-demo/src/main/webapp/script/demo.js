@@ -102,21 +102,6 @@ var initTestframe = function () {
 Tobago.registerListener(initTestframe, Tobago.Phase.DOCUMENT_READY);
 Tobago.registerListener(initTestframe, Tobago.Phase.AFTER_UPDATE);
 
-/**
- * Copies the values from the data-login attribute to the username/password fields.
- */
-Demo.prepareQuickLinks = function () {
-  jQuery("button[data-login]").click(function () {
-    var link = jQuery(this);
-    var login = link.data("login");
-    jQuery(Tobago.Utils.escapeClientId("page:mainForm:username::field")).val(login.username);
-    jQuery(Tobago.Utils.escapeClientId("page:mainForm:password::field")).val(login.password);
-    return false;
-  });
-};
-
-Tobago.registerListener(Demo.prepareQuickLinks, Tobago.Phase.DOCUMENT_READY);
-
 Demo.initGoogleSearch = function () {
   var $input = jQuery("#page\\:search\\:searchField");
   var $button = jQuery("#page\\:search\\:searchCommand");

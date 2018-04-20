@@ -34,15 +34,16 @@ import java.io.IOException;
 
 @Named
 @RequestScoped
-public class Login {
+public class LoginController {
 
-  private static final Logger LOG = LoggerFactory.getLogger(Login.class);
+  private static final Logger LOG = LoggerFactory.getLogger(LoginController.class);
 
   private String username;
   private String password;
 
-  public void login() throws ServletException, IOException {
-    final ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+  public String login() throws ServletException, IOException {
+    final FacesContext facesContext = FacesContext.getCurrentInstance();
+    final ExternalContext externalContext = facesContext.getExternalContext();
     final HttpServletRequest request = (HttpServletRequest) externalContext.getRequest();
     final HttpServletResponse response = (HttpServletResponse) externalContext.getResponse();
 
@@ -50,19 +51,17 @@ public class Login {
     request.login(username, password);
     LOG.info("Successful login user: '{}'", username);
 
-    response.sendRedirect(response.encodeRedirectURL(
-            request.getContextPath() + "/content/30-concept/80-security/20-roles/roles.xhtml"));
+    return "/content/30-concept/80-security/20-roles/x-login.xhtml?faces-redirect=true";
   }
 
-  public void logout() throws ServletException, IOException {
-    final ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+  public String logout() throws ServletException, IOException {
+    final FacesContext facesContext = FacesContext.getCurrentInstance();
+    final ExternalContext externalContext = facesContext.getExternalContext();
     final HttpServletRequest request = (HttpServletRequest) externalContext.getRequest();
-    final HttpServletResponse response = (HttpServletResponse) externalContext.getResponse();
 
     request.logout();
 
-    response.sendRedirect(response.encodeRedirectURL(
-            request.getContextPath() + "/content/30-concept/80-security/20-roles/roles.xhtml"));
+    return facesContext.getViewRoot().getViewId();
   }
 
   public String resetSession() throws IOException {

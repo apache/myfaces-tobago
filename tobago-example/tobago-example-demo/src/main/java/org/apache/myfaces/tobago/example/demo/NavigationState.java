@@ -67,7 +67,7 @@ public class NavigationState implements Serializable {
   }
 
   public String gotoFirst() {
-    return gotoNode(tree.getTree().getNextNode()); // the "first" is the first after the root node
+    return gotoNode(tree.getTree().getNextNode()) + "?faces-redirect=true"; // the first after the root node
   }
 
   public String gotoPrevious() {

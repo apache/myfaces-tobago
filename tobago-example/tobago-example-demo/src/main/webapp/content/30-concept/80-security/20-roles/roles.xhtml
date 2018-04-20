@@ -71,11 +71,11 @@ admin: admin,demo-admin</code></pre>
       </tc:box>
       <tc:box label="Guest Box">
         <p>This is a box for guests and admins. It displays the text which is set by an admin on the left.
-          You also can hit the logout button to relogin.</p>
+          You also can hit the logout button to login again.</p>
         <tc:out id="o1" label="Output" value="#{roleController.text}"/>
         <tc:separator/>
         <tc:form>
-          <tc:button label="Logout" action="#{login.logout}"/>
+          <tc:button label="Logout" action="#{loginController.logout}"/>
         </tc:form>
       </tc:box>
     </tc:segmentLayout>
