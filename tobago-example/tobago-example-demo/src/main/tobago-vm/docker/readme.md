@@ -4,8 +4,8 @@ The demo on tobago-vm works with docker.
 Each user with an account on the vm and 
 member of the docker group can manage the containers.
 
-How to become root access (on Mac) is described 
-[in this video](https://home.apache.org/~gmcdonald/using_opie_orthrus.mov).
+How to become root access is described on the
+[Apache site](https://reference.apache.org/committer/opie).
 
 There is a copy of the source code repo of Tobago in the directory 
 ```/opt/docker/tobago/``` which contains the docker-compose configuration 
