@@ -22,24 +22,28 @@
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
                 xmlns:ui="http://java.sun.com/jsf/facelets">
   <ui:param name="title" value="#{demoBundle.tree_menu} &lt;tc:treeMenu>"/>
-  <p>The <code class="language-markup">&lt;tc:treeMenu/></code> tag can be used for menus
-    like the one on the left side of this site.
-    The nodes have to be <code class="language-markup">&lt;tc:treeCommand/></code> tags,
-    otherwise <code class="language-markup">&lt;tc:treeMenu/></code> behaves the same way as
-    <code class="language-markup">&lt;tc:tree/></code>.
-    <code class="language-markup">&lt;tc:treeMenu/></code> set indents automatically for
-    <code class="language-markup">&lt;tc:treeCommand/></code>.
-    So the <code class="language-markup">&lt;tc:treeIndent/></code> tag is not needed.</p>
-  <tc:link label="Tag Library Documentation:" image="#{request.contextPath}/image/feather-leaf.png"
-           link="#{demoBundle.tagDocUrl}/#{info.stableVersion}/tld/tc/treeMenu.html"/>
+
+  <p>The <code class="language-markup">&lt;tc:treeMenu/></code> tag is deprecated, because it's easy to
+    build a tree menu with the <code class="language-markup">&lt;tc:tree/></code> tag.
+    You find an example as the navigation bar on the left side of this site.
+  </p>
+  <p>
+    The menu nodes can be build inside of <code class="language-markup">&lt;tc:treeNode/></code> with
+    <code class="language-markup">&lt;tc:treeCommand/></code>,
+    <code class="language-markup">&lt;tc:treeLabel/></code>,
+    <code class="language-markup">&lt;tc:treeIcon/></code> and
+    <code class="language-markup">&lt;tc:treeIndent/></code> tags.
+    It might be helpful to use cumstom classes here.
+  </p>
 
   <tc:section label="Example">
     <p>In this example, a click on a node has no effect.</p>
-    <pre><code class="language-markup">&lt;tc:treeMenu value="\#{treeController.sample}" ...></code></pre>
-    <tc:treeMenu value="#{treeController.sample}" var="node">
+    <pre><code class="language-markup">&lt;tc:tree value="\#{treeController.sample}" ...></code></pre>
+    <tc:tree value="#{treeController.sample}" var="node">
       <tc:treeNode>
         <tc:treeCommand label="#{node.userObject.name}"/>
+        <tc:treeIndent/>
       </tc:treeNode>
-    </tc:treeMenu>
+    </tc:tree>
   </tc:section>
 </ui:composition>

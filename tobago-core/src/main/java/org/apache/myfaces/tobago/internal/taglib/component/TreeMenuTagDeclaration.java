@@ -37,9 +37,12 @@ import javax.faces.component.UIData;
 /**
  * A tree which will be displayed like a flat menu.
  * This menu is often used for navigation on the left side of an application.
+ *
+ * @deprecated since 4.2.1. Please use {@link TreeTagDeclaration} or <tc:tree> instead.
  */
+@Deprecated
 @Tag(name = "treeMenu")
-@BodyContentDescription(anyTagOf = "<tc:treeData>")
+@BodyContentDescription(anyTagOf = "<tc:treeNode>")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UITreeMenu",
     uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUITreeMenu",
@@ -51,8 +54,7 @@ import javax.faces.component.UIData;
         "javax.faces.component.behavior.ClientBehaviorHolder"
     },
     allowedChildComponenents = {
-        "org.apache.myfaces.tobago.TreeNode",
-        "org.apache.myfaces.tobago.TreeData"
+        "org.apache.myfaces.tobago.TreeNode"
         })
 public interface TreeMenuTagDeclaration
     extends HasIdBindingAndRendered, HasValue, HasVar, IsVisual,

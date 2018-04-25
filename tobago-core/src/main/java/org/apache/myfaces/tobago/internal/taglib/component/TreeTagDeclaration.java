@@ -41,7 +41,7 @@ import javax.faces.component.UIData;
  * Usually used with icons and junction lines to open folder, etc.
  */
 @Tag(name = "tree")
-@BodyContentDescription(anyTagOf = "<tc:treeData>")
+@BodyContentDescription(anyTagOf = "<tc:treeNode>")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UITree",
     uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUITree",
@@ -53,8 +53,7 @@ import javax.faces.component.UIData;
         "javax.faces.component.behavior.ClientBehaviorHolder"
     },
     allowedChildComponenents = {
-        "org.apache.myfaces.tobago.TreeNode",
-        "org.apache.myfaces.tobago.TreeData"
+        "org.apache.myfaces.tobago.TreeNode"
         })
 public interface TreeTagDeclaration
     extends HasIdBindingAndRendered, HasValue, HasVar, IsVisual,

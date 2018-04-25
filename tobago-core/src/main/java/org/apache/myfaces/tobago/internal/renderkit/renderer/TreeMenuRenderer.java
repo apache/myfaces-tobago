@@ -19,5 +19,9 @@
 
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
+/**
+ * @deprecated since 4.2.1, please user {@link TreeRenderer} instead.
+ */
+@Deprecated
 public class TreeMenuRenderer extends TreeRenderer {
 }

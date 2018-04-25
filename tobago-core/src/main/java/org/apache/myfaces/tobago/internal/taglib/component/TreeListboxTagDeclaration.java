@@ -40,7 +40,7 @@ import javax.faces.component.UIData;
  * A tree data structure displayed as a set of list boxes.
  */
 @Tag(name = "treeListbox")
-@BodyContentDescription(anyTagOf = "<tc:treeNode>|<tc:treeData>")
+@BodyContentDescription(anyTagOf = "<tc:treeNode>")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UITreeListbox",
     uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUITreeListbox",
@@ -52,8 +52,7 @@ import javax.faces.component.UIData;
         "javax.faces.component.behavior.ClientBehaviorHolder"
     },
     allowedChildComponenents = {
-        "org.apache.myfaces.tobago.TreeNode",
-        "org.apache.myfaces.tobago.TreeData"
+        "org.apache.myfaces.tobago.TreeNode"
     })
 public interface TreeListboxTagDeclaration
     extends HasIdBindingAndRendered, HasValue, HasVar, IsVisual, IsRequired, HasSize {

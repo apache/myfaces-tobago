@@ -95,12 +95,20 @@ public enum RendererTypes {
   TabGroup,
   ToolBar,
   Tree,
+  /**
+   * @deprecated since 2.0.0
+   */
+  @Deprecated
   TreeData,
   TreeCommand,
   TreeIcon,
   TreeIndent,
   TreeLabel,
   TreeListbox,
+  /**
+   * @deprecated since 4.2.1
+   */
+  @Deprecated
   TreeMenu,
   TreeNode,
   TreeSelect;
@@ -176,12 +184,20 @@ public enum RendererTypes {
   public static final String TAB_GROUP = "TabGroup";
   public static final String TOOL_BAR = "ToolBar";
   public static final String TREE = "Tree";
+  /**
+   * @deprecated since 2.0.0
+   */
+  @Deprecated
   public static final String TREE_DATA = "TreeData";
   public static final String TREE_COMMAND = "TreeCommand";
   public static final String TREE_ICON = "TreeIcon";
   public static final String TREE_INDENT = "TreeIndent";
   public static final String TREE_LABEL = "TreeLabel";
   public static final String TREE_LISTBOX = "TreeListbox";
+  /**
+   * @deprecated since 4.2.1
+   */
+  @Deprecated
   public static final String TREE_MENU = "TreeMenu";
   public static final String TREE_NODE = "TreeNode";
   public static final String TREE_SELECT = "TreeSelect";

@@ -46,8 +46,7 @@ import javax.faces.component.UIColumn;
     componentFamily = UIColumn.COMPONENT_FAMILY,
     rendererType = RendererTypes.TREE_NODE,
     allowedChildComponenents = {
-        "org.apache.myfaces.tobago.TreeNode",
-        "org.apache.myfaces.tobago.TreeData"
+        "org.apache.myfaces.tobago.TreeNode"
     })
 public interface TreeNodeTagDeclaration
     extends HasIdBindingAndRendered, HasTip, IsDisabled, IsVisual {
