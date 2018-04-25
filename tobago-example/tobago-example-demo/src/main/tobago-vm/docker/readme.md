@@ -33,6 +33,7 @@ only minor changes like version, or staging for votes:
 ```
 cd /opt/docker/tobago/tobago-example/tobago-example-demo/src/main/tobago-vm/docker/
 git pull --rebase
+docker-compose build
 docker-compose up -d
 ```
 
