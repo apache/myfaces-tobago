@@ -22,6 +22,7 @@ package org.apache.myfaces.tobago.example.demo;
 import org.apache.deltaspike.core.api.scope.WindowScoped;
 import org.apache.myfaces.tobago.model.ExpandedState;
 import org.apache.myfaces.tobago.model.SelectedState;
+import org.apache.myfaces.tobago.model.TreePath;
 import org.apache.myfaces.tobago.model.TreeState;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -56,9 +57,12 @@ public class NavigationState implements Serializable {
 
   private void initState() {
     if (currentNode != null) {
-      state.getSelectedState().clearAndSelect(currentNode.getTreePath());
+      final TreePath treePath = currentNode.getTreePath();
+      state.getSelectedState().clearAndSelect(treePath);
+      if (!treePath.isRoot()) {
       state.getExpandedState().collapseAllButRoot();
-      state.getExpandedState().expand(currentNode.getTreePath(), true);
+        state.getExpandedState().expand(treePath, true);
+      }
     }
   }
 

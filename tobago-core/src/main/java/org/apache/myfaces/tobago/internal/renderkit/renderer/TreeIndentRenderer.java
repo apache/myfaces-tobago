@@ -66,7 +66,9 @@ public class TreeIndentRenderer extends RendererBase {
     writer.writeIdAttribute(treeIndent.getClientId(facesContext));
     writer.writeAttribute(DataAttributes.MARKUP, JsonUtils.encode(treeIndent.getMarkup()), false);
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, treeIndent);
-    writer.writeClassAttribute(TobagoClass.TREE_NODE__TOGGLE);
+    writer.writeClassAttribute(
+        TobagoClass.TREE_NODE__TOGGLE,
+        treeIndent.getCustomClass());
 
     // encode tree junction
     if (!showJunctions || !showRootJunction && level == 0) {

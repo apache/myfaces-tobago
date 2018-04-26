@@ -93,7 +93,9 @@ public class TreeIconRenderer extends RendererBase {
     writer.startElement(HtmlElements.SPAN);
     writer.writeIdAttribute(treeIcon.getClientId());
     writer.writeAttribute(DataAttributes.MARKUP, JsonUtils.encode(treeIcon.getMarkup()), false);
-    writer.writeClassAttribute(TobagoClass.TREE_NODE__TOGGLE);
+    writer.writeClassAttribute(
+        TobagoClass.TREE_NODE__TOGGLE,
+        treeIcon.getCustomClass());
 
     if (StringUtils.startsWith(source, "fa-")) {
       writer.startElement(HtmlElements.I);

@@ -42,7 +42,9 @@
     <tc:tree value="#{treeController.sample}" var="node">
       <tc:treeNode>
         <tc:treeCommand label="#{node.userObject.name}"/>
-        <tc:treeIndent/>
+        <tc:treeIndent showJunctions="true">
+          <tc:style customClass="float-right"/>
+        </tc:treeIndent>
       </tc:treeNode>
     </tc:tree>
   </tc:section>
