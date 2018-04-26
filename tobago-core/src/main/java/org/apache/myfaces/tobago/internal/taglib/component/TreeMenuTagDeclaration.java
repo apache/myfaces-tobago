@@ -38,7 +38,7 @@ import javax.faces.component.UIData;
  * A tree which will be displayed like a flat menu.
  * This menu is often used for navigation on the left side of an application.
  *
- * @deprecated since 4.2.1. Please use {@link TreeTagDeclaration} or <tc:tree> instead.
+ * @deprecated since 4.2.1. Please use {@link TreeTagDeclaration} or &lt;tc:tree> instead.
  */
 @Deprecated
 @Tag(name = "treeMenu")
