@@ -19,12 +19,13 @@
 
 package org.apache.myfaces.tobago.layout;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.StringTokenizer;
 
-public class MeasureList implements Iterable<Measure> {
+public class MeasureList implements Iterable<Measure>, Serializable {
 
   private List<Measure> list = new ArrayList<>();
 
