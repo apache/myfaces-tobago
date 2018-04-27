@@ -20,24 +20,40 @@
 <ui:composition template="/plain.xhtml"
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
-                xmlns:ui="http://java.sun.com/jsf/facelets">
-  <tc:header fixed="true">
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core">
+  <tc:header fixed="#{headerFooterController.fixHeader}" rendered="#{headerFooterController.renderHeader}">
     <tc:style customClass="bg-warning"/>
     <p>This is the header.</p>
   </tc:header>
   <tc:box label="Content Box">
-    <p>Content between header and footer.</p>
-    <p>Content between header and footer.</p>
-    <p>Content between header and footer.</p>
-    <p>Content between header and footer.</p>
-    <p>Content between header and footer.</p>
-    <p>Content between header and footer.</p>
-    <p>Content between header and footer.</p>
-    <p>Content between header and footer.</p>
-    <p>Content between header and footer.</p>
-    <p>Content between header and footer.</p>
+    <tc:segmentLayout medium="3seg 3seg 3seg 3seg" small="6seg 6seg">
+      <tc:selectBooleanCheckbox value="#{headerFooterController.renderHeader}" label="Render header">
+        <tc:event/>
+      </tc:selectBooleanCheckbox>
+      <tc:selectBooleanCheckbox value="#{headerFooterController.fixHeader}" label="Fix header">
+        <tc:event/>
+      </tc:selectBooleanCheckbox>
+      <tc:selectBooleanCheckbox value="#{headerFooterController.renderFooter}" label="Render footer">
+        <tc:event/>
+      </tc:selectBooleanCheckbox>
+      <tc:selectBooleanCheckbox value="#{headerFooterController.fixFooter}" label="Fix footer">
+        <tc:event/>
+      </tc:selectBooleanCheckbox>
+    </tc:segmentLayout>
+
+    <p>Content between header and footer #1.</p>
+    <p>Content between header and footer #2.</p>
+    <p>Content between header and footer #3.</p>
+    <p>Content between header and footer #4.</p>
+    <p>Content between header and footer #5.</p>
+    <p>Content between header and footer #6.</p>
+    <p>Content between header and footer #7.</p>
+    <p>Content between header and footer #8.</p>
+    <p>Content between header and footer #9.</p>
+    <p>Content between header and footer #10.</p>
   </tc:box>
-  <tc:footer fixed="true">
+  <tc:footer fixed="#{headerFooterController.fixFooter}" rendered="#{headerFooterController.renderFooter}">
     <tc:style customClass="bg-info"/>
     <p>This is the footer.</p>
   </tc:footer>
