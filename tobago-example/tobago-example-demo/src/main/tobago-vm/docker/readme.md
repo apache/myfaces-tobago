@@ -19,7 +19,7 @@ Copy these file to the server and login there:
 ssh tobago-vm.apache.org
 
 cd /opt/docker
-git checkout https://github.com/apache/myfaces-tobago tobago
+git clone https://github.com/apache/myfaces-tobago tobago
 chmod o+w -R tobago
 cd /opt/docker/tobago/tobago-example/tobago-example-demo/src/main/tobago-vm/docker/
 
