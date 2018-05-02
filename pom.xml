@@ -35,7 +35,8 @@
     <myfaces20.version>2.0.24</myfaces20.version>
     <myfaces21.version>2.1.18</myfaces21.version>
     <myfaces22.version>2.2.12</myfaces22.version>
-    <myfaces23.version>2.3.0</myfaces23.version>
+    <myfaces23.version>2.3.1-SNAPSHOT</myfaces23.version><!-- XXX: 2.3.1 release vote in progress... -->
+    <myfaces-test.version>1.0.8</myfaces-test.version>
     <mojarra20.version>2.0.11-04</mojarra20.version>
     <mojarra21.version>2.1.29-08</mojarra21.version>
     <mojarra22.version>2.2.16</mojarra22.version>
@@ -469,7 +470,19 @@
       <dependency>
         <groupId>org.apache.myfaces.test</groupId>
         <artifactId>myfaces-test20</artifactId>
-        <version>1.0.8</version>
+        <version>${myfaces-test.version}</version>
+        <scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.myfaces.test</groupId>
+        <artifactId>myfaces-test22</artifactId>
+        <version>${myfaces-test.version}</version>
+        <scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.myfaces.test</groupId>
+        <artifactId>myfaces-test23</artifactId>
+        <version>${myfaces-test.version}</version>
         <scope>test</scope>
       </dependency>
       <dependency>
