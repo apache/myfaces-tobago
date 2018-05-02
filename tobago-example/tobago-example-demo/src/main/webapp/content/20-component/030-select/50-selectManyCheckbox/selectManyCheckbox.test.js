@@ -16,127 +16,107 @@
  */
 
 QUnit.test("submit: select cat", function (assert) {
-  assert.expect(1);
-  var done = assert.async();
-  var step = 1;
-  var $animals = jQueryFrame("#page\\:mainForm\\:animals input");
-  var $submit = jQueryFrame("#page\\:mainForm\\:submit");
+  var $animals = jQueryFrameFn("#page\\:mainForm\\:animals input");
+  var $submit = jQueryFrameFn("#page\\:mainForm\\:submit");
+  var $output = jQueryFrameFn("#page\\:mainForm\\:animalsOutput span");
 
-  $animals.eq(0).prop("checked", true);
-  $animals.eq(1).prop("checked", false);
-  $animals.eq(2).prop("checked", false);
-  $animals.eq(3).prop("checked", false);
-  $submit.click();
-
-  jQuery("#page\\:testframe").load(function () {
-    if (step === 1) {
-      var $output = jQueryFrame("#page\\:mainForm\\:animalsOutput span");
-      assert.equal($output.text(), "Cat ");
-
-      step++;
-      done();
-    }
+  var TTT = new TobagoTestTools(assert);
+  TTT.action(function () {
+    $animals().eq(0).prop("checked", true);
+    $animals().eq(1).prop("checked", false);
+    $animals().eq(2).prop("checked", false);
+    $animals().eq(3).prop("checked", false);
+    $submit().click();
   });
+  TTT.waitForResponse();
+  TTT.asserts(1, function () {
+    assert.equal($output().text(), "Cat ");
+  });
+  TTT.startTest();
 });
 
 QUnit.test("submit: select fox and rabbit", function (assert) {
-  assert.expect(1);
-  var done = assert.async();
-  var step = 1;
-  var $animals = jQueryFrame("#page\\:mainForm\\:animals input");
-  var $submit = jQueryFrame("#page\\:mainForm\\:submit");
+  var $animals = jQueryFrameFn("#page\\:mainForm\\:animals input");
+  var $submit = jQueryFrameFn("#page\\:mainForm\\:submit");
+  var $output = jQueryFrameFn("#page\\:mainForm\\:animalsOutput span");
 
-  $animals.eq(0).prop("checked", false);
-  $animals.eq(1).prop("checked", false);
-  $animals.eq(2).prop("checked", true);
-  $animals.eq(3).prop("checked", true);
-  $submit.click();
-
-  jQuery("#page\\:testframe").load(function () {
-    if (step === 1) {
-      var $output = jQueryFrame("#page\\:mainForm\\:animalsOutput span");
-      assert.equal($output.text(), "Fox Rabbit ");
-
-      step++;
-      done();
-    }
+  var TTT = new TobagoTestTools(assert);
+  TTT.action(function () {
+    $animals().eq(0).prop("checked", false);
+    $animals().eq(1).prop("checked", false);
+    $animals().eq(2).prop("checked", true);
+    $animals().eq(3).prop("checked", true);
+    $submit().click();
   });
+  TTT.waitForResponse();
+  TTT.asserts(1, function () {
+    assert.equal($output().text(), "Fox Rabbit ");
+  });
+  TTT.startTest();
 });
 
 QUnit.test("ajax: click 'Two'", function (assert) {
-  assert.expect(1);
-  var done = assert.async();
-  var $number2 = jQueryFrame("#page\\:mainForm\\:numbers\\:\\:1");
-  var $output = jQueryFrame("#page\\:mainForm\\:resultOutput span");
-
+  var $number2 = jQueryFrameFn("#page\\:mainForm\\:numbers\\:\\:1");
+  var $output = jQueryFrameFn("#page\\:mainForm\\:resultOutput span");
   var newOutputValue;
 
-  if ($number2.attr("checked") === "checked") {
-    $number2.prop("checked", false).trigger("change");
-    newOutputValue = parseInt($output.text()) - 2;
-  } else {
-    $number2.prop("checked", true).trigger("change");
-    newOutputValue = parseInt($output.text()) + 2;
-  }
-
-  waitForAjax(function () {
-    $output = jQueryFrame($output.selector);
-    return parseInt($output.text()) === newOutputValue;
-  }, function () {
-    $output = jQueryFrame($output.selector);
-    assert.equal($output.text(), newOutputValue);
-    done();
+  var TTT = new TobagoTestTools(assert);
+  TTT.action(function () {
+    if ($number2().prop("checked")) {
+      newOutputValue = parseInt($output().text()) - 2;
+      $number2().prop("checked", false).trigger("change");
+    } else {
+      newOutputValue = parseInt($output().text()) + 2;
+      $number2().prop("checked", true).trigger("change");
+    }
   });
+  TTT.waitForResponse();
+  TTT.asserts(1, function () {
+    assert.equal($output().text(), newOutputValue);
+  });
+  TTT.startTest();
 });
 
 QUnit.test("ajax: click 'Three'", function (assert) {
-  assert.expect(1);
-  var done = assert.async();
-  var $number3 = jQueryFrame("#page\\:mainForm\\:numbers\\:\\:2");
-  var $output = jQueryFrame("#page\\:mainForm\\:resultOutput span");
-
+  var $number3 = jQueryFrameFn("#page\\:mainForm\\:numbers\\:\\:2");
+  var $output = jQueryFrameFn("#page\\:mainForm\\:resultOutput span");
   var newOutputValue;
 
-  if ($number3.prop("checked")) {
-    $number3.prop("checked", false).trigger("change");
-    newOutputValue = parseInt($output.text()) - 3;
-  } else {
-    $number3.prop("checked", true).trigger("change");
-    newOutputValue = parseInt($output.text()) + 3;
-  }
-
-  waitForAjax(function () {
-    $output = jQueryFrame($output.selector);
-    return parseInt($output.text()) === newOutputValue;
-  }, function () {
-    $output = jQueryFrame($output.selector);
-    assert.equal($output.text(), newOutputValue);
-    done();
+  var TTT = new TobagoTestTools(assert);
+  TTT.action(function () {
+    if ($number3().prop("checked")) {
+      newOutputValue = parseInt($output().text()) - 3;
+      $number3().prop("checked", false).trigger("change");
+    } else {
+      newOutputValue = parseInt($output().text()) + 3;
+      $number3().prop("checked", true).trigger("change");
+    }
   });
+  TTT.waitForResponse();
+  TTT.asserts(1, function () {
+    assert.equal($output().text(), newOutputValue);
+  });
+  TTT.startTest();
 });
 
 QUnit.test("ajax: click 'Two'", function (assert) {
-  assert.expect(1);
-  var done = assert.async();
-  var $number2 = jQueryFrame("#page\\:mainForm\\:numbers\\:\\:1");
-  var $output = jQueryFrame("#page\\:mainForm\\:resultOutput span");
-
+  var $number2 = jQueryFrameFn("#page\\:mainForm\\:numbers\\:\\:1");
+  var $output = jQueryFrameFn("#page\\:mainForm\\:resultOutput span");
   var newOutputValue;
 
-  if ($number2.prop("checked")) {
-    $number2.prop("checked", false).trigger("change");
-    newOutputValue = parseInt($output.text()) - 2;
-  } else {
-    $number2.prop("checked", true).trigger("change");
-    newOutputValue = parseInt($output.text()) + 2;
-  }
-
-  waitForAjax(function () {
-    $output = jQueryFrame($output.selector);
-    return parseInt($output.text()) === newOutputValue;
-  }, function () {
-    $output = jQueryFrame($output.selector);
-    assert.equal($output.text(), newOutputValue);
-    done();
+  var TTT = new TobagoTestTools(assert);
+  TTT.action(function () {
+    if ($number2().prop("checked")) {
+      newOutputValue = parseInt($output().text()) - 2;
+      $number2().prop("checked", false).trigger("change");
+    } else {
+      newOutputValue = parseInt($output().text()) + 2;
+      $number2().prop("checked", true).trigger("change");
+    }
   });
+  TTT.waitForResponse();
+  TTT.asserts(1, function () {
+    assert.equal($output().text(), newOutputValue);
+  });
+  TTT.startTest();
 });

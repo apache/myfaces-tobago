@@ -81,7 +81,6 @@ QUnit.test("Check width for tc:textarea", function (assert) {
 });
 
 function testWidth(assert, idPart) {
-  // assert.expect();
   var $compLabel = jQueryFrame("#page\\:mainForm\\:" + idPart + " label");
   var $compTopLabel = jQueryFrame("#page\\:mainForm\\:" + idPart + "Top label");
 

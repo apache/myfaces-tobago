@@ -16,86 +16,52 @@
  */
 
 QUnit.test("ajax excecute", function (assert) {
-  assert.expect(12);
-  var done = assert.async(3);
-  var step = 1;
+  var $in1 = jQueryFrameFn("#page\\:mainForm\\:in1\\:\\:field");
+  var $in2 = jQueryFrameFn("#page\\:mainForm\\:in2\\:\\:field");
+  var $in3 = jQueryFrameFn("#page\\:mainForm\\:in3\\:\\:field");
+  var $in4 = jQueryFrameFn("#page\\:mainForm\\:in4\\:\\:field");
+  var $clearButton = jQueryFrameFn("#page\\:mainForm\\:clear");
+  var $submitButton = jQueryFrameFn("#page\\:mainForm\\:submit");
+  var $reloadButton = jQueryFrameFn("#page\\:mainForm\\:reload");
 
-  var $in1 = jQueryFrame("#page\\:mainForm\\:in1\\:\\:field");
-  var $in2 = jQueryFrame("#page\\:mainForm\\:in2\\:\\:field");
-  var $in3 = jQueryFrame("#page\\:mainForm\\:in3\\:\\:field");
-  var $in4 = jQueryFrame("#page\\:mainForm\\:in4\\:\\:field");
-  var $clearButton = jQueryFrame("#page\\:mainForm\\:clear");
-  var $submitButton = jQueryFrame("#page\\:mainForm\\:submit");
-  var $reloadButton = jQueryFrame("#page\\:mainForm\\:reload");
-
-  $in1.val("a");
-  $in2.val("b");
-  $in3.val("c");
-  $in4.val("d");
-  $clearButton.click();
-
-  jQuery("#page\\:testframe").load(function () {
-    if (step === 1) {
-      $in1 = jQueryFrame($in1.selector);
-      $in2 = jQueryFrame($in2.selector);
-      $in3 = jQueryFrame($in3.selector);
-      $in4 = jQueryFrame($in4.selector);
-      $submitButton = jQueryFrame($submitButton.selector);
-
-      assert.equal($in1.val(), "");
-      assert.equal($in2.val(), "");
-      assert.equal($in3.val(), "");
-      assert.equal($in4.val(), "");
-
-      $in1.val("a");
-      $in2.val("b");
-      $in3.val("c");
-      $in4.val("d");
-
-      $submitButton.click();
-
-      step++;
-      done();
-
-      waitForAjax(function () {
-        $in1 = jQueryFrame($in1.selector);
-        $in2 = jQueryFrame($in2.selector);
-        $in3 = jQueryFrame($in3.selector);
-        $in4 = jQueryFrame($in4.selector);
-        return step === 2
-            && $in1.val() === "a"
-            && $in2.val() === "b"
-            && $in3.val() === "c"
-            && $in4.val() === "";
-      }, function () {
-        $in1 = jQueryFrame($in1.selector);
-        $in2 = jQueryFrame($in2.selector);
-        $in3 = jQueryFrame($in3.selector);
-        $in4 = jQueryFrame($in4.selector);
-        $reloadButton = jQueryFrame($reloadButton.selector);
-
-        assert.equal($in1.val(), "a");
-        assert.equal($in2.val(), "b");
-        assert.equal($in3.val(), "c");
-        assert.equal($in4.val(), "");
-
-        $reloadButton.click();
-
-        step++;
-        done();
-      });
-    } else if (step === 3) {
-      $in1 = jQueryFrame($in1.selector);
-      $in2 = jQueryFrame($in2.selector);
-      $in3 = jQueryFrame($in3.selector);
-      $in4 = jQueryFrame($in4.selector);
-
-      assert.equal($in1.val(), "a");
-      assert.equal($in2.val(), "");
-      assert.equal($in3.val(), "c");
-      assert.equal($in4.val(), "");
-
-      done();
-    }
+  var TTT = new TobagoTestTools(assert);
+  TTT.action(function () {
+    $in1().val("a");
+    $in2().val("b");
+    $in3().val("c");
+    $in4().val("d");
+    $clearButton().click();
   });
+  TTT.waitForResponse();
+  TTT.asserts(4, function () {
+    assert.equal($in1().val(), "");
+    assert.equal($in2().val(), "");
+    assert.equal($in3().val(), "");
+    assert.equal($in4().val(), "");
+  });
+  TTT.action(function () {
+    $in1().val("a");
+    $in2().val("b");
+    $in3().val("c");
+    $in4().val("d");
+    $submitButton().click();
+  });
+  TTT.waitForResponse();
+  TTT.asserts(4, function () {
+    assert.equal($in1().val(), "a");
+    assert.equal($in2().val(), "b");
+    assert.equal($in3().val(), "c");
+    assert.equal($in4().val(), "");
+  });
+  TTT.action(function () {
+    $reloadButton().click();
+  });
+  TTT.waitForResponse();
+  TTT.asserts(4, function () {
+    assert.equal($in1().val(), "a");
+    assert.equal($in2().val(), "");
+    assert.equal($in3().val(), "c");
+    assert.equal($in4().val(), "");
+  });
+  TTT.startTest();
 });

@@ -16,106 +16,89 @@
  */
 
 QUnit.test("Simple Event", function (assert) {
-  assert.expect(11);
-  var done = assert.async();
-  var step = 1;
-
-  var $button = jQueryFrame("#page\\:mainForm\\:simpleEvent");
+  var $button = jQueryFrameFn("#page\\:mainForm\\:simpleEvent");
   var oldCounterValues = getCounterValues();
 
-  $button.click();
-
-  jQuery("#page\\:testframe").load(function () {
-    if (step === 1) {
-      compareCounterValues(assert, oldCounterValues, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0);
-
-      step++;
-      done();
-    }
+  var TTT = new TobagoTestTools(assert);
+  TTT.action(function () {
+    $button().click();
   });
+  TTT.waitForResponse();
+  TTT.asserts(11, function () {
+    compareCounterValues(assert, oldCounterValues, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0);
+  });
+  TTT.startTest();
 });
 
 QUnit.test("Simple Ajax", function (assert) {
-  assert.expect(11);
-  var done = assert.async();
-  var step = 1;
-
-  var $button = jQueryFrame("#page\\:mainForm\\:simpleAjax");
+  var $button = jQueryFrameFn("#page\\:mainForm\\:simpleAjax");
   var oldCounterValues = getCounterValues();
 
-  $button.click();
-
-  waitForAjax(function () {
-    var newCounterValues = getCounterValues();
-    return step === 1 && oldCounterValues !== newCounterValues;
-  }, function () {
-    compareCounterValues(assert, oldCounterValues, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0);
-
-    step++;
-    done();
+  var TTT = new TobagoTestTools(assert);
+  TTT.action(function () {
+    $button().click();
   });
+  TTT.waitForResponse();
+  TTT.asserts(11, function () {
+    compareCounterValues(assert, oldCounterValues, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0);
+  });
+  TTT.startTest();
 });
 
 QUnit.test("Simple EventAjax", function (assert) {
-  assert.expect(11);
-  var done = assert.async();
-  var step = 1;
-
-  var $button = jQueryFrame("#page\\:mainForm\\:simpleEventAjax");
+  var $button = jQueryFrameFn("#page\\:mainForm\\:simpleEventAjax");
   var oldCounterValues = getCounterValues();
 
-  $button.click();
-
-  waitForAjax(function () {
-    var newCounterValues = getCounterValues();
-    return step === 1 && oldCounterValues !== newCounterValues;
-  }, function () {
-    compareCounterValues(assert, oldCounterValues, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0);
-
-    step++;
-    done();
+  var TTT = new TobagoTestTools(assert);
+  TTT.action(function () {
+    $button().click();
   });
+  TTT.waitForResponse();
+  TTT.asserts(11, function () {
+    compareCounterValues(assert, oldCounterValues, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0);
+  });
+  TTT.startTest();
 });
 
 QUnit.test("Advanced Button: Option 1", function (assert) {
-  var $option = jQueryFrame("#page\\:mainForm\\:advancedSelector\\:\\:0");
-  var $button = jQueryFrame("#page\\:mainForm\\:advancedButton");
+  var $option = jQueryFrameFn("#page\\:mainForm\\:advancedSelector\\:\\:0");
+  var $button = jQueryFrameFn("#page\\:mainForm\\:advancedButton");
   testEventOption(assert, $option, $button, "dblclick", 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0);
 });
 
 QUnit.test("Advanced Button: Option 2", function (assert) {
-  var $option = jQueryFrame("#page\\:mainForm\\:advancedSelector\\:\\:1");
-  var $button = jQueryFrame("#page\\:mainForm\\:advancedButton");
+  var $option = jQueryFrameFn("#page\\:mainForm\\:advancedSelector\\:\\:1");
+  var $button = jQueryFrameFn("#page\\:mainForm\\:advancedButton");
 
   testAjaxOption(assert, $option, $button, "dblclick", 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1);
 });
 
 QUnit.test("Advanced Button: Option 3", function (assert) {
-  var $option = jQueryFrame("#page\\:mainForm\\:advancedSelector\\:\\:2");
-  var $button = jQueryFrame("#page\\:mainForm\\:advancedButton");
+  var $option = jQueryFrameFn("#page\\:mainForm\\:advancedSelector\\:\\:2");
+  var $button = jQueryFrameFn("#page\\:mainForm\\:advancedButton");
   testAjaxOption(assert, $option, $button, "click", 1, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1);
 });
 
 QUnit.test("Row: Option 1", function (assert) {
-  var $option = jQueryFrame("#page\\:mainForm\\:advancedSelector\\:\\:0");
-  var $row = jQueryFrame("#page\\:mainForm\\:sheet\\:0\\:row");
+  var $option = jQueryFrameFn("#page\\:mainForm\\:advancedSelector\\:\\:0");
+  var $row = jQueryFrameFn("#page\\:mainForm\\:sheet\\:0\\:row");
   testEventOption(assert, $option, $row, "dblclick", 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0);
 });
 
 QUnit.test("Row: Option 2", function (assert) {
-  var $option = jQueryFrame("#page\\:mainForm\\:advancedSelector\\:\\:1");
-  var $row = jQueryFrame("#page\\:mainForm\\:sheet\\:0\\:row");
+  var $option = jQueryFrameFn("#page\\:mainForm\\:advancedSelector\\:\\:1");
+  var $row = jQueryFrameFn("#page\\:mainForm\\:sheet\\:0\\:row");
   testAjaxOption(assert, $option, $row, "dblclick", 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1);
 });
 
 QUnit.test("Row: Option 3", function (assert) {
-  var $option = jQueryFrame("#page\\:mainForm\\:advancedSelector\\:\\:2");
-  var $row = jQueryFrame("#page\\:mainForm\\:sheet\\:0\\:row");
+  var $option = jQueryFrameFn("#page\\:mainForm\\:advancedSelector\\:\\:2");
+  var $row = jQueryFrameFn("#page\\:mainForm\\:sheet\\:0\\:row");
   testAjaxOption(assert, $option, $row, "click", 0, 0, 0, 0, 1, 0, 0, 1, 1, 1, 1);
 });
 
 QUnit.test("Input: Click Event", function (assert) {
-  var $input = jQueryFrame("#page\\:mainForm\\:inputClick\\:\\:field");
+  var $input = jQueryFrameFn("#page\\:mainForm\\:inputClick\\:\\:field");
   testInputSection(assert, $input, "click");
 });
 
@@ -124,46 +107,36 @@ function testEventOption(assert, $option, $component, event,
                          action1Plus, actionListener1Plus, ajaxListener1Plus,
                          action2Plus, actionListener2Plus, ajaxListener2Plus,
                          action3Plus, actionListener3Plus, ajaxListener3Plus) {
-  assert.expect(13);
-  var done = assert.async(3);
-  var step = 1;
-
-  var $hide = jQueryFrame("#page\\:mainForm\\:hideOperationTextBox");
-  var $operationOut = jQueryFrame("#page\\:mainForm\\:operationOut");
+  var $hide = jQueryFrameFn("#page\\:mainForm\\:hideOperationTextBox");
+  var $operationOut = jQueryFrameFn("#page\\:mainForm\\:operationOut");
   var oldCounterValues = getCounterValues();
 
-  $hide.click();
-
-  jQuery("#page\\:testframe").load(function () {
-    if (step === 1) {
-      $operationOut = jQueryFrame($operationOut.selector);
-      $option = jQueryFrame($option.selector);
-      assert.equal($operationOut.length, 0, "Content of operation test box must be hidden.");
-
-      $option.click();
-
-      step++;
-      done();
-    } else if (step === 2) {
-      $component = jQueryFrame($component.selector);
-      $component.trigger(event);
-
-      step++;
-      done();
-    } else if (step === 3) {
-      $operationOut = jQueryFrame($operationOut.selector);
-      assert.equal($operationOut.length, 1, "Content of operation test box must be shown.");
-
-      compareCounterValues(assert, oldCounterValues,
-          buttonActionPlus, buttonActionListenerPlus,
-          action1Plus, actionListener1Plus, ajaxListener1Plus,
-          action2Plus, actionListener2Plus, ajaxListener2Plus,
-          action3Plus, actionListener3Plus, ajaxListener3Plus);
-
-      step++;
-      done();
-    }
+  var TTT = new TobagoTestTools(assert);
+  TTT.action(function () {
+    $hide().click();
   });
+  TTT.waitForResponse();
+  TTT.asserts(1, function () {
+    assert.equal($operationOut().length, 0, "Content of operation test box must be hidden.");
+  });
+  TTT.action(function () {
+    $option().click();
+  });
+  TTT.waitForResponse();
+  TTT.action(function () {
+    $component().trigger(event);
+  });
+  TTT.waitForResponse();
+  TTT.asserts(12, function () {
+    assert.equal($operationOut().length, 1, "Content of operation test box must be shown.");
+
+    compareCounterValues(assert, oldCounterValues,
+        buttonActionPlus, buttonActionListenerPlus,
+        action1Plus, actionListener1Plus, ajaxListener1Plus,
+        action2Plus, actionListener2Plus, ajaxListener2Plus,
+        action3Plus, actionListener3Plus, ajaxListener3Plus);
+  });
+  TTT.startTest();
 }
 
 function testAjaxOption(assert, $option, $component, event,
@@ -171,77 +144,57 @@ function testAjaxOption(assert, $option, $component, event,
                         action1Plus, actionListener1Plus, ajaxListener1Plus,
                         action2Plus, actionListener2Plus, ajaxListener2Plus,
                         action3Plus, actionListener3Plus, ajaxListener3Plus) {
-  assert.expect(13);
-  var done = assert.async(3);
-  var step = 1;
-
-  var $hide = jQueryFrame("#page\\:mainForm\\:hideOperationTextBox");
-  var $operationOut = jQueryFrame("#page\\:mainForm\\:operationOut");
+  var $hide = jQueryFrameFn("#page\\:mainForm\\:hideOperationTextBox");
+  var $operationOut = jQueryFrameFn("#page\\:mainForm\\:operationOut");
   var oldCounterValues = getCounterValues();
 
-  $hide.click();
-
-  jQuery("#page\\:testframe").load(function () {
-    if (step === 1) {
-      $operationOut = jQueryFrame($operationOut.selector);
-      $option = jQueryFrame($option.selector);
-      assert.equal($operationOut.length, 0, "Content of operation test box must be hidden.");
-
-      $option.click();
-
-      step++;
-      done();
-    } else if (step === 2) {
-      $component = jQueryFrame($component.selector);
-      $component.trigger(event);
-
-      step++;
-      done();
-
-      waitForAjax(function () {
-        var newCounterValues = getCounterValues();
-        return step === 3 && oldCounterValues !== newCounterValues;
-      }, function () {
-        $operationOut = jQueryFrame($operationOut.selector);
-        assert.equal($operationOut.length, 1, "Content of operation test box must be shown.");
-
-        compareCounterValues(assert, oldCounterValues,
-            buttonActionPlus, buttonActionListenerPlus,
-            action1Plus, actionListener1Plus, ajaxListener1Plus,
-            action2Plus, actionListener2Plus, ajaxListener2Plus,
-            action3Plus, actionListener3Plus, ajaxListener3Plus);
-
-        step++;
-        done();
-      });
-    }
+  var TTT = new TobagoTestTools(assert);
+  TTT.action(function () {
+    $hide().click();
   });
+  TTT.waitForResponse();
+  TTT.asserts(1, function () {
+    assert.equal($operationOut().length, 0, "Content of operation test box must be hidden.");
+  });
+  TTT.action(function () {
+    $option().click();
+  });
+  TTT.waitForResponse();
+  TTT.action(function () {
+    $component().trigger(event);
+  });
+  TTT.waitForResponse();
+  TTT.asserts(12, function () {
+    assert.equal($operationOut().length, 1, "Content of operation test box must be shown.");
+
+    compareCounterValues(assert, oldCounterValues,
+        buttonActionPlus, buttonActionListenerPlus,
+        action1Plus, actionListener1Plus, ajaxListener1Plus,
+        action2Plus, actionListener2Plus, ajaxListener2Plus,
+        action3Plus, actionListener3Plus, ajaxListener3Plus);
+  });
+  TTT.startTest();
 }
 
 function testInputSection(assert, $input, eventName) {
-  assert.expect(2);
-  var done = assert.async(2);
-  var step = 1;
+  var $hide = jQueryFrameFn("#page\\:mainForm\\:hideOperationTextBox");
 
-  var $hide = jQueryFrame("#page\\:mainForm\\:hideOperationTextBox");
-  $hide.click();
-
-  jQuery("#page\\:testframe").load(function () {
-    if (step === 1) {
-      $input = jQueryFrame($input.selector);
-      assert.ok(isOperationTestBoxCollapsed(), "Content of operation test box must be hidden.");
-
-      $input.trigger(eventName);
-
-      step++;
-      done();
-    } else if (step === 2) {
-      assert.notOk(isOperationTestBoxCollapsed(), "Content of operation test box must be shown.");
-
-      step++;
-      done();
-    }
+  var TTT = new TobagoTestTools(assert);
+  TTT.action(function () {
+    $hide().click();
   });
+  TTT.waitForResponse();
+  TTT.asserts(1, function () {
+    assert.ok(isOperationTestBoxCollapsed(), "Content of operation test box must be hidden.");
+  });
+  TTT.action(function () {
+    $input().trigger(eventName);
+  });
+  TTT.waitForResponse();
+  TTT.asserts(1, function () {
+    assert.notOk(isOperationTestBoxCollapsed(), "Content of operation test box must be shown.");
+  });
+  TTT.startTest();
 }
 
 function getCounterValues() {

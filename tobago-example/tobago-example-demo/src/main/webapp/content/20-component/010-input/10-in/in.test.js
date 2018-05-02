@@ -16,35 +16,41 @@
  */
 
 QUnit.test("inputfield with label", function (assert) {
-  var $label = jQueryFrame("#page\\:mainForm\\:iNormal > label");
-  var $inputField = jQueryFrame("#page\\:mainForm\\:iNormal\\:\\:field");
+  var $label = jQueryFrameFn("#page\\:mainForm\\:iNormal > label");
+  var $inputField = jQueryFrameFn("#page\\:mainForm\\:iNormal\\:\\:field");
 
-  assert.equal($label.text(), "Input");
-  assert.equal($inputField.val(), "Some Text");
-
-  $inputField.val("abc");
-  assert.equal($inputField.val(), "abc");
+  var TTT = new TobagoTestTools(assert);
+  TTT.asserts(2, function () {
+    assert.equal($label().text(), "Input");
+    assert.equal($inputField().val(), "Some Text");
+  });
+  TTT.action(function () {TTT.waitForResponse();
+    $inputField().val("abc");
+  });
+  TTT.asserts(1, function () {
+    assert.equal($inputField().val(), "abc");
+  });
+  TTT.startTest();
 });
 
 QUnit.test("ajax change event", function (assert) {
-  assert.expect(4);
-  var done = assert.async();
+  var $inputField = jQueryFrameFn("#page\\:mainForm\\:inputAjax\\:\\:field");
+  var $outputField = jQueryFrameFn("#page\\:mainForm\\:outputAjax span:first");
 
-  var $inputField = jQueryFrame("#page\\:mainForm\\:inputAjax\\:\\:field");
-  var $outputField = jQueryFrame("#page\\:mainForm\\:outputAjax span:first");
-
-  assert.equal($inputField.val(), "");
-  assert.equal($outputField.text(), "");
-
-  $inputField.val("qwe").trigger("change");
-  assert.equal($inputField.val(), "qwe");
-
-  waitForAjax(function () {
-    $outputField = jQueryFrame($outputField.selector);
-    return $outputField.text() === "qwe";
-  }, function () {
-    $outputField = jQueryFrame($outputField.selector);
-    assert.equal($outputField.text(), "qwe");
-    done();
+  var TTT = new TobagoTestTools(assert);
+  TTT.asserts(2, function () {
+    assert.equal($inputField().val(), "");
+    assert.equal($outputField().text(), "");
   });
+  TTT.action(function () {TTT.waitForResponse();
+    $inputField().val("qwe").trigger("change");
+  });
+  TTT.waitForResponse();
+  TTT.asserts(1, function () {
+    assert.equal($inputField().val(), "qwe");
+  });
+  TTT.asserts(1, function () {
+    assert.equal($outputField().text(), "qwe");
+  });
+  TTT.startTest();
 });

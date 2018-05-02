@@ -19,111 +19,49 @@ QUnit.test("Basics: 'M'", function (assert) {
   var inputString = "M";
   var expectedLength = 3;
 
-  assert.expect(expectedLength + 1);
-  var done = assert.async();
-
-  var $in = jQueryFrame("#page\\:mainForm\\:input\\:\\:field");
-  var $suggestions = getSuggestions("#page\\:mainForm\\:input");
-
-  $in.val(inputString).trigger('input');
-
-  waitForAjax(function () {
-    $suggestions = jQueryFrame($suggestions.selector);
-    return $suggestions.length === expectedLength;
-  }, function () {
-    $suggestions = jQueryFrame($suggestions.selector);
-
-    assert.equal($suggestions.length, expectedLength);
-    for (i = 0; i < expectedLength; i++) {
-      assert.ok($suggestions.eq(i).find("strong").text().toUpperCase().indexOf(inputString.toUpperCase()) >= 0);
-    }
-
-    done();
-  });
+  testMarsBasics(assert, inputString, expectedLength);
 });
 
 QUnit.test("Basics: 'Ma'", function (assert) {
   var inputString = "Ma";
   var expectedLength = 2;
 
-  assert.expect(expectedLength + 1);
-  var done = assert.async();
-
-  var $in = jQueryFrame("#page\\:mainForm\\:input\\:\\:field");
-  var $suggestions = getSuggestions("#page\\:mainForm\\:input");
-
-  $in.val(inputString).trigger('input');
-
-  waitForAjax(function () {
-    $suggestions = jQueryFrame($suggestions.selector);
-    return $suggestions.length === expectedLength;
-  }, function () {
-    $suggestions = jQueryFrame($suggestions.selector);
-
-    assert.equal($suggestions.length, expectedLength);
-    for (i = 0; i < expectedLength; i++) {
-      assert.ok($suggestions.eq(i).find("strong").text().toUpperCase().indexOf(inputString.toUpperCase()) >= 0);
-    }
-
-    done();
-  });
+  testMarsBasics(assert, inputString, expectedLength);
 });
 
 QUnit.test("Basics: 'Mar'", function (assert) {
   var inputString = "Mar";
   var expectedLength = 2;
 
-  assert.expect(expectedLength + 1);
-  var done = assert.async();
-
-  var $in = jQueryFrame("#page\\:mainForm\\:input\\:\\:field");
-  var $suggestions = getSuggestions("#page\\:mainForm\\:input");
-
-  $in.val(inputString).trigger('input');
-
-  waitForAjax(function () {
-    $suggestions = jQueryFrame($suggestions.selector);
-    return $suggestions.length === expectedLength;
-  }, function () {
-    $suggestions = jQueryFrame($suggestions.selector);
-
-    assert.equal($suggestions.length, expectedLength);
-    for (i = 0; i < expectedLength; i++) {
-      assert.ok($suggestions.eq(i).find("strong").text().toUpperCase().indexOf(inputString.toUpperCase()) >= 0);
-    }
-
-    done();
-  });
+  testMarsBasics(assert, inputString, expectedLength);
 });
 
 QUnit.test("Basics: 'Mars'", function (assert) {
   var inputString = "Mars";
   var expectedLength = 1;
 
-  assert.expect(expectedLength + 1);
-  var done = assert.async();
-
-  var $in = jQueryFrame("#page\\:mainForm\\:input\\:\\:field");
-  var $suggestions = getSuggestions("#page\\:mainForm\\:input");
-
-  $in.val(inputString).trigger('input');
-
-  waitForAjax(function () {
-    $suggestions = jQueryFrame($suggestions.selector);
-    return $suggestions.length === expectedLength;
-  }, function () {
-    $suggestions = jQueryFrame($suggestions.selector);
-
-    assert.equal($suggestions.length, expectedLength);
-    for (i = 0; i < expectedLength; i++) {
-      assert.ok($suggestions.eq(i).find("strong").text().toUpperCase().indexOf(inputString.toUpperCase()) >= 0);
-    }
-
-    done();
-  });
+  testMarsBasics(assert, inputString, expectedLength);
 });
 
+function testMarsBasics(assert, inputString, expectedLength) {
+  var $in = jQueryFrameFn("#page\\:mainForm\\:input\\:\\:field");
+  var $suggestions = getSuggestions("#page\\:mainForm\\:input");
+
+  var TTT = new TobagoTestTools(assert);
+  TTT.action(function () {
+    $in().val(inputString).trigger('input');
+  });
+  TTT.waitForResponse();
+  TTT.asserts(expectedLength + 1, function () {
+    assert.equal($suggestions().length, expectedLength);
+    for (i = 0; i < expectedLength; i++) {
+      assert.ok($suggestions().eq(i).find("strong").text().toUpperCase().indexOf(inputString.toUpperCase()) >= 0);
+    }
+  });
+  TTT.startTest();
+}
+
 function getSuggestions(id) {
-  return jQueryFrame(Tobago.Utils.escapeClientId(
+  return jQueryFrameFn(Tobago.Utils.escapeClientId(
       jQueryFrame(id + " .tobago-suggest").attr("id") + "::popup") + " .tt-suggestion");
 }

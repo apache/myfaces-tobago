@@ -17,43 +17,41 @@
 
 QUnit.test("tc:button", function (assert) {
   var eventNames = ["click", "dblclick", "focus", "blur"];
-  var $eventComponent = jQueryFrame("#page\\:mainForm\\:buttonevent");
-  var $ajaxComponent = jQueryFrame("#page\\:mainForm\\:buttonajax");
+  var $eventComponent = jQueryFrameFn("#page\\:mainForm\\:buttonevent");
+  var $ajaxComponent = jQueryFrameFn("#page\\:mainForm\\:buttonajax");
   testEvent(assert, "button", eventNames, $eventComponent, $ajaxComponent, null);
 });
 
 QUnit.test("tc:in", function (assert) {
   var eventNames = ["change", "click", "dblclick", "focus", "blur"];
-  var $eventComponent = jQueryFrame("#page\\:mainForm\\:inevent\\:\\:field");
-  var $ajaxComponent = jQueryFrame("#page\\:mainForm\\:inajax\\:\\:field");
+  var $eventComponent = jQueryFrameFn("#page\\:mainForm\\:inevent\\:\\:field");
+  var $ajaxComponent = jQueryFrameFn("#page\\:mainForm\\:inajax\\:\\:field");
   var changeValue = function ($component) {
-    var oldValue = $component.val();
+    var oldValue = $component().val();
     var newValue = "hello";
     if (oldValue === "hello") {
       newValue = "hello there!"
     }
-    return $component.val(newValue);
+    $component().val(newValue);
   };
   testEvent(assert, "in", eventNames, $eventComponent, $ajaxComponent, changeValue);
 });
 
 QUnit.test("tc:row", function (assert) {
   var eventNames = ["click", "dblclick"];
-  var $eventComponent = jQueryFrame("#page\\:mainForm\\:sheetevent\\:0\\:selectPlanet");
-  var $ajaxComponent = jQueryFrame("#page\\:mainForm\\:sheetajax\\:0\\:selectPlanet");
+  var $eventComponent = jQueryFrameFn("#page\\:mainForm\\:sheetevent\\:0\\:selectPlanet");
+  var $ajaxComponent = jQueryFrameFn("#page\\:mainForm\\:sheetajax\\:0\\:selectPlanet");
   testEvent(assert, "row", eventNames, $eventComponent, $ajaxComponent, null);
 });
 
 QUnit.test("tc:selectBooleanCheckbox", function (assert) {
   var eventNames = ["change", "click", "dblclick", "focus", "blur"];
-  var $eventComponent = jQueryFrame("#page\\:mainForm\\:selectBooleanCheckboxevent\\:\\:field");
-  var $ajaxComponent = jQueryFrame("#page\\:mainForm\\:selectBooleanCheckboxajax\\:\\:field");
+  var $eventComponent = jQueryFrameFn("#page\\:mainForm\\:selectBooleanCheckboxevent\\:\\:field");
+  var $ajaxComponent = jQueryFrameFn("#page\\:mainForm\\:selectBooleanCheckboxajax\\:\\:field");
   var changeValue = function ($component) {
     var currentEvent = jQueryFrame("#page\\:mainForm\\:outEventName span").text();
     if (currentEvent !== "click") {
-      return $component.prop("checked", !$component.prop("checked"));
-    } else {
-      return $component;
+      $component().prop("checked", !$component().prop("checked"));
     }
   };
   testEvent(assert, "selectBooleanCheckbox", eventNames, $eventComponent, $ajaxComponent, changeValue);
@@ -61,125 +59,88 @@ QUnit.test("tc:selectBooleanCheckbox", function (assert) {
 
 QUnit.test("tc:textarea", function (assert) {
   var eventNames = ["change", "click", "dblclick", "focus", "blur"];
-  var $eventComponent = jQueryFrame("#page\\:mainForm\\:textareaevent\\:\\:field");
-  var $ajaxComponent = jQueryFrame("#page\\:mainForm\\:textareaajax\\:\\:field");
+  var $eventComponent = jQueryFrameFn("#page\\:mainForm\\:textareaevent\\:\\:field");
+  var $ajaxComponent = jQueryFrameFn("#page\\:mainForm\\:textareaajax\\:\\:field");
   var changeValue = function ($component) {
-    var oldValue = $component.val();
+    var oldValue = $component().val();
     var newValue = "hello";
     if (oldValue === "hello") {
       newValue = "hello there!"
     }
-    return $component.val(newValue);
+    $component().val(newValue);
   };
   testEvent(assert, "textarea", eventNames, $eventComponent, $ajaxComponent, changeValue);
 });
 
-function testEvent(assert, componentName, eventNames, $eventComponent, $ajaxComponent, changeValue) {
-  assert.expect(10 * eventNames.length);
-  var step = 0;
-  var done = assert.async(3 * eventNames.length);
-
+function testEvent(assert, componentName, eventNames, $eventComponent, $ajaxComponent, changeValueFunc) {
   var oldActionCount;
   var oldActionListenerCount;
   var oldAjaxListenerCount;
   var oldValueChangeListenerCount;
   var oldTimestamp;
 
-  var eventName = eventNames[0];
-  activateComponent(componentName, eventName);
+  var TTT = new TobagoTestTools(assert);
+  for (i = 0; i < eventNames.length; i++) {
+    var eventName = eventNames[i];
 
-  jQuery("#page\\:testframe").on("load", function () {
-    if (step === 0) {
+    TTT.action(function () {TTT.waitForResponse();
+      activateComponent(componentName, eventName);
+    });
+    TTT.waitForResponse();
+    TTT.action(function () {TTT.waitForResponse();
       oldActionCount = getActionCount();
       oldActionListenerCount = getActionListenerCount();
       oldAjaxListenerCount = getAjaxListenerCount();
       oldValueChangeListenerCount = getValueChangeListenerCount();
       oldTimestamp = getTimestamp();
 
-      $eventComponent = jQueryFrame($eventComponent.selector);
-      if (changeValue !== null) {
-        $eventComponent = changeValue($eventComponent);
+      if (changeValueFunc !== null) {
+        changeValueFunc($eventComponent);
       }
-      $eventComponent.trigger(eventName);
-      step++;
-      done();
-    } else if (step === 1) {
-      var newActionCount = getActionCount();
-      var newActionListenerCount = getActionListenerCount();
-      var newAjaxListenerCount = getAjaxListenerCount();
-      var newValueChangeListenerCount = getValueChangeListenerCount();
-      var newTimestamp = getTimestamp();
-
-      assert.equal(newActionCount, oldActionCount + 1, eventName + " - tc:event - action");
-      assert.equal(newActionListenerCount, oldActionListenerCount + 1, eventName + " - tc:event - actionListener");
-      assert.equal(newAjaxListenerCount, oldAjaxListenerCount, eventName + " - tc:event - ajaxListener");
-      if (changeValue !== null) {
-        assert.equal(newValueChangeListenerCount, oldValueChangeListenerCount + 1,
+      $eventComponent().trigger(eventName);
+    });
+    TTT.waitForResponse();
+    TTT.asserts(5, function () {
+      assert.equal(getActionCount(), oldActionCount + 1, eventName + " - tc:event - action");
+      assert.equal(getActionListenerCount(), oldActionListenerCount + 1, eventName + " - tc:event - actionListener");
+      assert.equal(getAjaxListenerCount(), oldAjaxListenerCount, eventName + " - tc:event - ajaxListener");
+      if (changeValueFunc !== null) {
+        assert.equal(getValueChangeListenerCount(), oldValueChangeListenerCount + 1,
             eventName + " - tc:event - valueChangeListener");
       } else {
-        assert.equal(newValueChangeListenerCount, oldValueChangeListenerCount,
+        assert.equal(getValueChangeListenerCount(), oldValueChangeListenerCount,
             eventName + " - tc:event - valueChangeListener");
       }
-      assert.ok(newTimestamp > oldTimestamp, eventName + " - tc:event - timestamp");
-
-
+      assert.ok(getTimestamp() > oldTimestamp, eventName + " - tc:event - timestamp");
+    });
+    TTT.action(function () {TTT.waitForResponse();
       oldActionCount = getActionCount();
       oldActionListenerCount = getActionListenerCount();
       oldAjaxListenerCount = getAjaxListenerCount();
       oldValueChangeListenerCount = getValueChangeListenerCount();
       oldTimestamp = getTimestamp();
 
-      $ajaxComponent = jQueryFrame($ajaxComponent.selector);
-      if (changeValue !== null) {
-        $ajaxComponent = changeValue($ajaxComponent);
+      if (changeValueFunc !== null) {
+        changeValueFunc($ajaxComponent);
       }
-      $ajaxComponent.trigger(eventName);
-
-      waitForAjax(function () {
-        newActionCount = getActionCount();
-        newActionListenerCount = getActionListenerCount();
-        newAjaxListenerCount = getAjaxListenerCount();
-        newValueChangeListenerCount = getValueChangeListenerCount();
-        newTimestamp = getTimestamp();
-
-        return step === 2
-            && newAjaxListenerCount === oldAjaxListenerCount + 1
-            && newTimestamp > oldTimestamp;
-      }, function () {
-        newActionCount = getActionCount();
-        newActionListenerCount = getActionListenerCount();
-        newAjaxListenerCount = getAjaxListenerCount();
-        newValueChangeListenerCount = getValueChangeListenerCount();
-        newTimestamp = getTimestamp();
-
-        assert.equal(newActionCount, oldActionCount, eventName + " - f:ajax - action");
-        assert.equal(newActionListenerCount, oldActionListenerCount, eventName + " - f:ajax - actionListener");
-        assert.equal(newAjaxListenerCount, oldAjaxListenerCount + 1, eventName + " - f:ajax - ajaxListener");
-        if (changeValue !== null) {
-          assert.equal(newValueChangeListenerCount, oldValueChangeListenerCount + 1,
-              eventName + " - f:ajax - valueChangeListener");
-        } else {
-          assert.equal(newValueChangeListenerCount, oldValueChangeListenerCount,
-              eventName + " - f:ajax - valueChangeListener");
-        }
-        assert.ok(newTimestamp > oldTimestamp, eventName + " - f:ajax - timestamp");
-
-        step++;
-        done();
-
-        // activate next event
-        eventName = eventNames[eventNames.indexOf(eventName) + 1];
-        if (eventName !== undefined) {
-          activateComponent(componentName, eventName);
-          step = 0;
-        } else {
-          jQuery("#page\\:testframe").off("load");
-        }
-      });
-      step++;
-      done();
-    }
-  });
+      $ajaxComponent().trigger(eventName);
+    });
+    TTT.waitForResponse();
+    TTT.asserts(5, function () {
+      assert.equal(getActionCount(), oldActionCount, eventName + " - f:ajax - action");
+      assert.equal(getActionListenerCount(), oldActionListenerCount, eventName + " - f:ajax - actionListener");
+      assert.equal(getAjaxListenerCount(), oldAjaxListenerCount + 1, eventName + " - f:ajax - ajaxListener");
+      if (changeValueFunc !== null) {
+        assert.equal(getValueChangeListenerCount(), oldValueChangeListenerCount + 1,
+            eventName + " - f:ajax - valueChangeListener");
+      } else {
+        assert.equal(getValueChangeListenerCount(), oldValueChangeListenerCount,
+            eventName + " - f:ajax - valueChangeListener");
+      }
+      assert.ok(getTimestamp() > oldTimestamp, eventName + " - f:ajax - timestamp");
+    });
+  }
+  TTT.startTest();
 }
 
 function activateComponent(componentName, eventName) {

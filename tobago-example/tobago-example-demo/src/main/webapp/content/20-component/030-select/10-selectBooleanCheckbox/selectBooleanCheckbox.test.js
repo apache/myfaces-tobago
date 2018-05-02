@@ -16,159 +16,133 @@
  */
 
 QUnit.test("submit: select A", function (assert) {
-  assert.expect(1);
-  var done = assert.async();
-  var step = 1;
-  var $selectA = jQueryFrame("#page\\:mainForm\\:selectA input");
-  var $selectB = jQueryFrame("#page\\:mainForm\\:selectB input");
-  var $selectC = jQueryFrame("#page\\:mainForm\\:selectC input");
-  var $submit = jQueryFrame("#page\\:mainForm\\:submit");
+  var $selectA = jQueryFrameFn("#page\\:mainForm\\:selectA input");
+  var $selectB = jQueryFrameFn("#page\\:mainForm\\:selectB input");
+  var $selectC = jQueryFrameFn("#page\\:mainForm\\:selectC input");
+  var $submit = jQueryFrameFn("#page\\:mainForm\\:submit");
+  var $output = jQueryFrameFn("#page\\:mainForm\\:submitOutput span");
 
-  $selectA.prop("checked", true);
-  $selectB.prop("checked", false);
-  $selectC.prop("checked", false);
-  $submit.click();
-
-  jQuery("#page\\:testframe").load(function () {
-    if (step === 1) {
-      var $output = jQueryFrame("#page\\:mainForm\\:submitOutput span");
-      assert.equal($output.text(), "A ");
-
-      step++;
-      done();
-    }
+  var TTT = new TobagoTestTools(assert);
+  TTT.action(function () {
+    $selectA().prop("checked", true);
+    $selectB().prop("checked", false);
+    $selectC().prop("checked", false);
+    $submit().click();
   });
+  TTT.waitForResponse();
+  TTT.asserts(1, function () {
+    assert.equal($output().text(), "A ");
+  });
+  TTT.startTest();
 });
 
 QUnit.test("submit: select B and C", function (assert) {
-  assert.expect(1);
-  var done = assert.async();
-  var step = 1;
-  var $selectA = jQueryFrame("#page\\:mainForm\\:selectA input");
-  var $selectB = jQueryFrame("#page\\:mainForm\\:selectB input");
-  var $selectC = jQueryFrame("#page\\:mainForm\\:selectC input");
-  var $submit = jQueryFrame("#page\\:mainForm\\:submit");
+  var $selectA = jQueryFrameFn("#page\\:mainForm\\:selectA input");
+  var $selectB = jQueryFrameFn("#page\\:mainForm\\:selectB input");
+  var $selectC = jQueryFrameFn("#page\\:mainForm\\:selectC input");
+  var $submit = jQueryFrameFn("#page\\:mainForm\\:submit");
+  var $output = jQueryFrameFn("#page\\:mainForm\\:submitOutput span");
 
-  $selectA.prop("checked", false);
-  $selectB.prop("checked", true);
-  $selectC.prop("checked", true);
-  $submit.click();
-
-  jQuery("#page\\:testframe").load(function () {
-    if (step === 1) {
-      var $output = jQueryFrame("#page\\:mainForm\\:submitOutput span");
-      assert.equal($output.text(), "B C ");
-
-      step++;
-      done();
-    }
+  var TTT = new TobagoTestTools(assert);
+  TTT.action(function () {
+    $selectA().prop("checked", false);
+    $selectB().prop("checked", true);
+    $selectC().prop("checked", true);
+    $submit().click();
   });
+  TTT.waitForResponse();
+  TTT.asserts(1, function () {
+    assert.equal($output().text(), "B C ");
+  });
+  TTT.startTest();
 });
 
 QUnit.test("ajax: select D", function (assert) {
-  assert.expect(1);
-  var done = assert.async();
-  var $selectD = jQueryFrame("#page\\:mainForm\\:selectD input");
-  var $outputD = jQueryFrame("#page\\:mainForm\\:outputD span");
+  var $selectD = jQueryFrameFn("#page\\:mainForm\\:selectD input");
+  var $outputD = jQueryFrameFn("#page\\:mainForm\\:outputD span");
 
-  $selectD.prop("checked", true).trigger("change");
-
-  waitForAjax(function () {
-    $outputD = jQueryFrame($outputD.selector);
-    return $outputD.text() === "true";
-  }, function () {
-    $outputD = jQueryFrame($outputD.selector);
-    assert.equal($outputD.text(), "true");
-    done();
+  var TTT = new TobagoTestTools(assert);
+  TTT.action(function () {
+    $selectD().prop("checked", true).trigger("change");
   });
+  TTT.waitForResponse();
+  TTT.asserts(1, function () {
+    assert.equal($outputD().text(), "true");
+  });
+  TTT.startTest();
 });
 
 QUnit.test("ajax: deselect D", function (assert) {
-  assert.expect(1);
-  var done = assert.async();
-  var $selectD = jQueryFrame("#page\\:mainForm\\:selectD input");
-  var $outputD = jQueryFrame("#page\\:mainForm\\:outputD span");
+  var $selectD = jQueryFrameFn("#page\\:mainForm\\:selectD input");
+  var $outputD = jQueryFrameFn("#page\\:mainForm\\:outputD span");
 
-  $selectD.prop("checked", false).trigger("change");
-
-  waitForAjax(function () {
-    $outputD = jQueryFrame($outputD.selector);
-    return $outputD.text() === "false";
-  }, function () {
-    $outputD = jQueryFrame($outputD.selector);
-    assert.equal($outputD.text(), "false");
-    done();
+  var TTT = new TobagoTestTools(assert);
+  TTT.action(function () {
+    $selectD().prop("checked", false).trigger("change");
   });
+  TTT.waitForResponse();
+  TTT.asserts(1, function () {
+    assert.equal($outputD().text(), "false");
+  });
+  TTT.startTest();
 });
 
 QUnit.test("ajax: select E", function (assert) {
-  assert.expect(1);
-  var done = assert.async();
-  var $selectE = jQueryFrame("#page\\:mainForm\\:selectE input");
-  var $outputE = jQueryFrame("#page\\:mainForm\\:outputE span");
+  var $selectE = jQueryFrameFn("#page\\:mainForm\\:selectE input");
+  var $outputE = jQueryFrameFn("#page\\:mainForm\\:outputE span");
 
-  $selectE.prop("checked", true).trigger("change");
-
-  waitForAjax(function () {
-    $outputE = jQueryFrame($outputE.selector);
-    return $outputE.text() === "true";
-  }, function () {
-    $outputE = jQueryFrame($outputE.selector);
-    assert.equal($outputE.text(), "true");
-    done();
+  var TTT = new TobagoTestTools(assert);
+  TTT.action(function () {
+    $selectE().prop("checked", true).trigger("change");
   });
+  TTT.waitForResponse();
+  TTT.asserts(1, function () {
+    assert.equal($outputE().text(), "true");
+  });
+  TTT.startTest();
 });
 
 QUnit.test("ajax: deselect E", function (assert) {
-  assert.expect(1);
-  var done = assert.async();
-  var $selectE = jQueryFrame("#page\\:mainForm\\:selectE input");
-  var $outputE = jQueryFrame("#page\\:mainForm\\:outputE span");
+  var $selectE = jQueryFrameFn("#page\\:mainForm\\:selectE input");
+  var $outputE = jQueryFrameFn("#page\\:mainForm\\:outputE span");
 
-  $selectE.prop("checked", false).trigger("change");
-
-  waitForAjax(function () {
-    $outputE = jQueryFrame($outputE.selector);
-    return $outputE.text() === "false";
-  }, function () {
-    $outputE = jQueryFrame($outputE.selector);
-    assert.equal($outputE.text(), "false");
-    done();
+  var TTT = new TobagoTestTools(assert);
+  TTT.action(function () {
+    $selectE().prop("checked", false).trigger("change");
   });
+  TTT.waitForResponse();
+  TTT.asserts(1, function () {
+    assert.equal($outputE().text(), "false");
+  });
+  TTT.startTest();
 });
 
 QUnit.test("ajax: select F", function (assert) {
-  assert.expect(1);
-  var done = assert.async();
-  var $selectF = jQueryFrame("#page\\:mainForm\\:selectF input");
-  var $outputF = jQueryFrame("#page\\:mainForm\\:outputF span");
+  var $selectF = jQueryFrameFn("#page\\:mainForm\\:selectF input");
+  var $outputF = jQueryFrameFn("#page\\:mainForm\\:outputF span");
 
-  $selectF.prop("checked", true).trigger("change");
-
-  waitForAjax(function () {
-    $outputF = jQueryFrame($outputF.selector);
-    return $outputF.text() === "true";
-  }, function () {
-    $outputF = jQueryFrame($outputF.selector);
-    assert.equal($outputF.text(), "true");
-    done();
+  var TTT = new TobagoTestTools(assert);
+  TTT.action(function () {
+    $selectF().prop("checked", true).trigger("change");
   });
+  TTT.waitForResponse();
+  TTT.asserts(1, function () {
+    assert.equal($outputF().text(), "true");
+  });
+  TTT.startTest();
 });
 
 QUnit.test("ajax: deselect F", function (assert) {
-  assert.expect(1);
-  var done = assert.async();
-  var $selectF = jQueryFrame("#page\\:mainForm\\:selectF input");
-  var $outputF = jQueryFrame("#page\\:mainForm\\:outputF span");
+  var $selectF = jQueryFrameFn("#page\\:mainForm\\:selectF input");
+  var $outputF = jQueryFrameFn("#page\\:mainForm\\:outputF span");
 
-  $selectF.prop("checked", false).trigger("change");
-
-  waitForAjax(function () {
-    $outputF = jQueryFrame($outputF.selector);
-    return $outputF.text() === "false";
-  }, function () {
-    $outputF = jQueryFrame($outputF.selector);
-    assert.equal($outputF.text(), "false");
-    done();
+  var TTT = new TobagoTestTools(assert);
+  TTT.action(function () {
+    $selectF().prop("checked", false).trigger("change");
   });
+  TTT.waitForResponse();
+  TTT.asserts(1, function () {
+    assert.equal($outputF().text(), "false");
+  });
+  TTT.startTest();
 });

@@ -16,95 +16,82 @@
  */
 
 QUnit.test("submit: select 'Nile'", function (assert) {
-  assert.expect(1);
-  var done = assert.async();
-  var step = 1;
-  var $rivers = jQueryFrame("#page\\:mainForm\\:riverList option");
-  var $submit = jQueryFrame("#page\\:mainForm\\:riverSubmit");
+  var $rivers = jQueryFrameFn("#page\\:mainForm\\:riverList option");
+  var $submit = jQueryFrameFn("#page\\:mainForm\\:riverSubmit");
+  var $output = jQueryFrameFn("#page\\:mainForm\\:riverOutput span");
 
-  $rivers.eq(0).prop("selected", true); // Nile
-  $rivers.eq(1).prop("selected", false); // Amazon
-  $rivers.eq(2).prop("selected", false); // Yangtze
-  $rivers.eq(3).prop("selected", false); // Yellow River
-  $rivers.eq(4).prop("selected", false); // Paraná River
-  $submit.click();
-
-  jQuery("#page\\:testframe").load(function () {
-    if (step === 1) {
-      var $output = jQueryFrame("#page\\:mainForm\\:riverOutput span");
-      assert.equal($output.text(), "6853 km");
-
-      step++;
-      done();
-    }
+  var TTT = new TobagoTestTools(assert);
+  TTT.action(function () {
+    $rivers().eq(0).prop("selected", true); // Nile
+    $rivers().eq(1).prop("selected", false); // Amazon
+    $rivers().eq(2).prop("selected", false); // Yangtze
+    $rivers().eq(3).prop("selected", false); // Yellow River
+    $rivers().eq(4).prop("selected", false); // Paraná River
+    $submit().click();
   });
+  TTT.waitForResponse();
+  TTT.asserts(1, function () {
+    assert.equal($output().text(), "6853 km");
+  });
+  TTT.startTest();
 });
 
 QUnit.test("submit: select 'Yangtze'", function (assert) {
-  assert.expect(1);
-  var done = assert.async();
-  var step = 1;
-  var $rivers = jQueryFrame("#page\\:mainForm\\:riverList option");
-  var $submit = jQueryFrame("#page\\:mainForm\\:riverSubmit");
+  var $rivers = jQueryFrameFn("#page\\:mainForm\\:riverList option");
+  var $submit = jQueryFrameFn("#page\\:mainForm\\:riverSubmit");
+  var $output = jQueryFrameFn("#page\\:mainForm\\:riverOutput span");
 
-  $rivers.eq(0).prop("selected", false); // Nile
-  $rivers.eq(1).prop("selected", false); // Amazon
-  $rivers.eq(2).prop("selected", true); // Yangtze
-  $rivers.eq(3).prop("selected", false); // Yellow River
-  $rivers.eq(4).prop("selected", false); // Paraná River
-  $submit.click();
-
-  jQuery("#page\\:testframe").load(function () {
-    if (step === 1) {
-      var $output = jQueryFrame("#page\\:mainForm\\:riverOutput span");
-      assert.equal($output.text(), "6300 km");
-
-      step++;
-      done();
-    }
+  var TTT = new TobagoTestTools(assert);
+  TTT.action(function () {
+    $rivers().eq(0).prop("selected", false); // Nile
+    $rivers().eq(1).prop("selected", false); // Amazon
+    $rivers().eq(2).prop("selected", true); // Yangtze
+    $rivers().eq(3).prop("selected", false); // Yellow River
+    $rivers().eq(4).prop("selected", false); // Paraná River
+    $submit().click();
   });
+  TTT.waitForResponse();
+  TTT.asserts(1, function () {
+    assert.equal($output().text(), "6300 km");
+
+  });
+  TTT.startTest();
 });
 
 QUnit.test("ajax: select Everest", function (assert) {
-  assert.expect(1);
-  var done = assert.async();
-  var $mountains = jQueryFrame("#page\\:mainForm\\:mountainList option");
-  var $output = jQueryFrame("#page\\:mainForm\\:selectedMountain span");
+  var $mountains = jQueryFrameFn("#page\\:mainForm\\:mountainList option");
+  var $output = jQueryFrameFn("#page\\:mainForm\\:selectedMountain span");
 
-  $mountains.eq(1).prop("selected", false);
-  $mountains.eq(2).prop("selected", false);
-  $mountains.eq(3).prop("selected", false);
-  $mountains.eq(4).prop("selected", false);
-  $mountains.eq(0).prop("selected", true).trigger("change"); // Everest
-
-  waitForAjax(function () {
-    $output = jQueryFrame($output.selector);
-    return $output.text() === "8848 m";
-  }, function () {
-    $output = jQueryFrame($output.selector);
-    assert.equal($output.text(), "8848 m");
-    done();
+  var TTT = new TobagoTestTools(assert);
+  TTT.action(function () {
+    $mountains().eq(1).prop("selected", false);
+    $mountains().eq(2).prop("selected", false);
+    $mountains().eq(3).prop("selected", false);
+    $mountains().eq(4).prop("selected", false);
+    $mountains().eq(0).prop("selected", true).trigger("change"); // Everest
   });
+  TTT.waitForResponse();
+  TTT.asserts(1, function () {
+    assert.equal($output().text(), "8848 m");
+  });
+  TTT.startTest();
 });
 
 QUnit.test("ajax: select Makalu", function (assert) {
-  assert.expect(1);
-  var done = assert.async();
-  var $mountains = jQueryFrame("#page\\:mainForm\\:mountainList option");
-  var $output = jQueryFrame("#page\\:mainForm\\:selectedMountain span");
+  var $mountains = jQueryFrameFn("#page\\:mainForm\\:mountainList option");
+  var $output = jQueryFrameFn("#page\\:mainForm\\:selectedMountain span");
 
-  $mountains.eq(0).prop("selected", false);
-  $mountains.eq(1).prop("selected", false);
-  $mountains.eq(2).prop("selected", false);
-  $mountains.eq(3).prop("selected", false);
-  $mountains.eq(4).prop("selected", true).trigger("change"); // Everest
-
-  waitForAjax(function () {
-    $output = jQueryFrame($output.selector);
-    return $output.text() === "8481 m";
-  }, function () {
-    $output = jQueryFrame($output.selector);
-    assert.equal($output.text(), "8481 m");
-    done();
+  var TTT = new TobagoTestTools(assert);
+  TTT.action(function () {
+    $mountains().eq(0).prop("selected", false);
+    $mountains().eq(1).prop("selected", false);
+    $mountains().eq(2).prop("selected", false);
+    $mountains().eq(3).prop("selected", false);
+    $mountains().eq(4).prop("selected", true).trigger("change"); // Everest
   });
+  TTT.waitForResponse();
+  TTT.asserts(1, function () {
+    assert.equal($output().text(), "8481 m");
+  });
+  TTT.startTest();
 });

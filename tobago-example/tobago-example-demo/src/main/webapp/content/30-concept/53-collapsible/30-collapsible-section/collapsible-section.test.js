@@ -16,328 +16,230 @@
  */
 
 QUnit.test("Simple Panel", function (assert) {
-  assert.expect(14);
-  var done = assert.async(5);
-  var step = 1;
+  var $messages = jQueryFrameFn("#page\\:messages.tobago-messages div");
+  var $submit = jQueryFrameFn("#\\page\\:mainForm\\:simple\\:submitSimple");
+  var $show = jQueryFrameFn("#\\page\\:mainForm\\:simple\\:showSimple");
+  var $hide = jQueryFrameFn("#\\page\\:mainForm\\:simple\\:hideSimple");
+  var $sectionCollapsed = jQueryFrameFn("#page\\:mainForm\\:simple\\:simpleSection\\:\\:collapse");
+  var $in = jQueryFrameFn("#page\\:mainForm\\:simple\\:inSimple\\:\\:field");
 
-  var $messages = jQueryFrame("#page\\:messages.tobago-messages div");
-  var $submit = jQueryFrame("#\\page\\:mainForm\\:simple\\:submitSimple");
-  var $show = jQueryFrame("#\\page\\:mainForm\\:simple\\:showSimple");
-  var $hide = jQueryFrame("#\\page\\:mainForm\\:simple\\:hideSimple");
-  var $sectionCollapsed = jQueryFrame("#page\\:mainForm\\:simple\\:simpleSection\\:\\:collapse");
-  var $in = jQueryFrame("#page\\:mainForm\\:simple\\:inSimple\\:\\:field");
-
-  $show.click();
-
-  jQuery("#page\\:testframe").load(function () {
-    if (step === 1) {
-      $sectionCollapsed = jQueryFrame($sectionCollapsed.selector);
-      $in = jQueryFrame($in.selector);
-      $submit = jQueryFrame($submit.selector);
-
-      assert.equal($sectionCollapsed.val(), "false");
-      assert.equal($in.length, 1);
-      $in.val("some text");
-      $submit.click();
-
-      step++;
-      done();
-    } else if (step === 2) {
-      $messages = jQueryFrame($messages.selector);
-      $sectionCollapsed = jQueryFrame($sectionCollapsed.selector);
-      $in = jQueryFrame($in.selector);
-      $submit = jQueryFrame($submit.selector);
-
-      assert.equal($messages.length, 0);
-      assert.equal($sectionCollapsed.val(), "false");
-      assert.equal($in.length, 1);
-      $in.val("");
-      $submit.click();
-
-      step++;
-      done();
-    } else if (step === 3) {
-      $messages = jQueryFrame($messages.selector);
-      $sectionCollapsed = jQueryFrame($sectionCollapsed.selector);
-      $in = jQueryFrame($in.selector);
-      $hide = jQueryFrame($hide.selector);
-
-      assert.equal($messages.length, 1);
-      assert.equal($sectionCollapsed.val(), "false");
-      assert.equal($in.length, 1);
-      $hide.click();
-
-      step++;
-      done();
-    } else if (step === 4) {
-      $messages = jQueryFrame($messages.selector);
-      $sectionCollapsed = jQueryFrame($sectionCollapsed.selector);
-      $in = jQueryFrame($in.selector);
-      $submit = jQueryFrame($submit.selector);
-
-      assert.equal($messages.length, 0);
-      assert.equal($sectionCollapsed.val(), "true");
-      assert.equal($in.length, 0);
-      $submit.click();
-
-      step++;
-      done();
-    } else if (step === 5) {
-      $messages = jQueryFrame($messages.selector);
-      $sectionCollapsed = jQueryFrame($sectionCollapsed.selector);
-      $in = jQueryFrame($in.selector);
-
-      assert.equal($messages.length, 0);
-      assert.equal($sectionCollapsed.val(), "true");
-      assert.equal($in.length, 0);
-
-      step++;
-      done();
-    }
+  var TTT = new TobagoTestTools(assert);
+  TTT.action(function () {
+    $show().click();
   });
+  TTT.waitForResponse();
+  TTT.asserts(2, function () {
+    assert.equal($sectionCollapsed().val(), "false");
+    assert.equal($in().length, 1);
+  });
+  TTT.action(function () {
+    $in().val("some text");
+    $submit().click();
+  });
+  TTT.waitForResponse();
+  TTT.asserts(3, function () {
+    assert.equal($messages().length, 0);
+    assert.equal($sectionCollapsed().val(), "false");
+    assert.equal($in().length, 1);
+  });
+  TTT.action(function () {
+    $in().val("");
+    $submit().click();
+  });
+  TTT.waitForResponse();
+  TTT.asserts(3, function () {
+    assert.equal($messages().length, 1);
+    assert.equal($sectionCollapsed().val(), "false");
+    assert.equal($in().length, 1);
+  });
+  TTT.action(function () {
+    $hide().click();
+  });
+  TTT.waitForResponse();
+  TTT.asserts(3, function () {
+    assert.equal($messages().length, 0);
+    assert.equal($sectionCollapsed().val(), "true");
+    assert.equal($in().length, 0);
+  });
+  TTT.action(function () {
+    $submit().click();
+  });
+  TTT.waitForResponse();
+  TTT.asserts(3, function () {
+    assert.equal($messages().length, 0);
+    assert.equal($sectionCollapsed().val(), "true");
+    assert.equal($in().length, 0);
+  });
+  TTT.startTest();
 });
 
 QUnit.test("Full Server Request", function (assert) {
-  assert.expect(14);
-  var done = assert.async(5);
-  var step = 1;
+  var $messages = jQueryFrameFn("#page\\:messages.tobago-messages div");
+  var $submit = jQueryFrameFn("#\\page\\:mainForm\\:server\\:submitServer");
+  var $show = jQueryFrameFn("#\\page\\:mainForm\\:server\\:showServer");
+  var $hide = jQueryFrameFn("#\\page\\:mainForm\\:server\\:hideServer");
+  var $sectionCollapsed = jQueryFrameFn("#page\\:mainForm\\:server\\:fullRequestSection\\:\\:collapse");
+  var $in = jQueryFrameFn("#page\\:mainForm\\:server\\:inServer\\:\\:field");
 
-  var $messages = jQueryFrame("#page\\:messages.tobago-messages div");
-  var $submit = jQueryFrame("#\\page\\:mainForm\\:server\\:submitServer");
-  var $show = jQueryFrame("#\\page\\:mainForm\\:server\\:showServer");
-  var $hide = jQueryFrame("#\\page\\:mainForm\\:server\\:hideServer");
-  var $sectionCollapsed = jQueryFrame("#page\\:mainForm\\:server\\:fullRequestSection\\:\\:collapse");
-  var $in = jQueryFrame("#page\\:mainForm\\:server\\:inServer\\:\\:field");
-
-  $show.click();
-
-  jQuery("#page\\:testframe").load(function () {
-    if (step === 1) {
-      $sectionCollapsed = jQueryFrame($sectionCollapsed.selector);
-      $in = jQueryFrame($in.selector);
-      $submit = jQueryFrame($submit.selector);
-
-      assert.equal($sectionCollapsed.val(), "false");
-      assert.equal($in.length, 1);
-      $in.val("some text");
-      $submit.click();
-
-      step++;
-      done();
-    } else if (step === 2) {
-      $messages = jQueryFrame($messages.selector);
-      $sectionCollapsed = jQueryFrame($sectionCollapsed.selector);
-      $in = jQueryFrame($in.selector);
-      $submit = jQueryFrame($submit.selector);
-
-      assert.equal($messages.length, 0);
-      assert.equal($sectionCollapsed.val(), "false");
-      assert.equal($in.length, 1);
-      $in.val("");
-      $submit.click();
-
-      step++;
-      done();
-    } else if (step === 3) {
-      $messages = jQueryFrame($messages.selector);
-      $sectionCollapsed = jQueryFrame($sectionCollapsed.selector);
-      $in = jQueryFrame($in.selector);
-      $hide = jQueryFrame($hide.selector);
-
-      assert.equal($messages.length, 1);
-      assert.equal($sectionCollapsed.val(), "false");
-      assert.equal($in.length, 1);
-      $hide.click();
-
-      step++;
-      done();
-    } else if (step === 4) {
-      $messages = jQueryFrame($messages.selector);
-      $sectionCollapsed = jQueryFrame($sectionCollapsed.selector);
-      $in = jQueryFrame($in.selector);
-      $submit = jQueryFrame($submit.selector);
-
-      assert.equal($messages.length, 0);
-      assert.equal($sectionCollapsed.val(), "true");
-      assert.equal($in.length, 0);
-      $submit.click();
-
-      step++;
-      done();
-    } else if (step === 5) {
-      $messages = jQueryFrame($messages.selector);
-      $sectionCollapsed = jQueryFrame($sectionCollapsed.selector);
-      $in = jQueryFrame($in.selector);
-
-      assert.equal($messages.length, 0);
-      assert.equal($sectionCollapsed.val(), "true");
-      assert.equal($in.length, 0);
-
-      step++;
-      done();
-    }
+  var TTT = new TobagoTestTools(assert);
+  TTT.action(function () {
+    $show().click();
   });
+  TTT.waitForResponse();
+  TTT.asserts(2, function () {
+    assert.equal($sectionCollapsed().val(), "false");
+    assert.equal($in().length, 1);
+  });
+  TTT.action(function () {
+    $in().val("some text");
+    $submit().click();
+  });
+  TTT.waitForResponse();
+  TTT.asserts(3, function () {
+    assert.equal($messages().length, 0);
+    assert.equal($sectionCollapsed().val(), "false");
+    assert.equal($in().length, 1);
+  });
+  TTT.action(function () {
+    $in().val("");
+    $submit().click();
+  });
+  TTT.waitForResponse();
+  TTT.asserts(3, function () {
+    assert.equal($messages().length, 1);
+    assert.equal($sectionCollapsed().val(), "false");
+    assert.equal($in().length, 1);
+  });
+  TTT.action(function () {
+    $hide().click();
+  });
+  TTT.waitForResponse();
+  TTT.asserts(3, function () {
+    assert.equal($messages().length, 0);
+    assert.equal($sectionCollapsed().val(), "true");
+    assert.equal($in().length, 0);
+  });
+  TTT.action(function () {
+    $submit().click();
+  });
+  TTT.waitForResponse();
+  TTT.asserts(3, function () {
+    assert.equal($messages().length, 0);
+    assert.equal($sectionCollapsed().val(), "true");
+    assert.equal($in().length, 0);
+  });
+  TTT.startTest();
 });
 
 QUnit.test("Client Side", function (assert) {
-  assert.expect(14);
-  var done = assert.async(3);
-  var step = 1;
+  var $messages = jQueryFrameFn("#page\\:messages.tobago-messages div");
+  var $submit = jQueryFrameFn("#\\page\\:mainForm\\:client\\:submitClient");
+  var $show = jQueryFrameFn("#\\page\\:mainForm\\:client\\:showClient");
+  var $hide = jQueryFrameFn("#\\page\\:mainForm\\:client\\:hideClient");
+  var $sectionCollapsed = jQueryFrameFn("#page\\:mainForm\\:client\\:clientSection\\:\\:collapse");
+  var $in = jQueryFrameFn("#page\\:mainForm\\:client\\:inClient\\:\\:field");
 
-  var $messages = jQueryFrame("#page\\:messages.tobago-messages div");
-  var $submit = jQueryFrame("#\\page\\:mainForm\\:client\\:submitClient");
-  var $show = jQueryFrame("#\\page\\:mainForm\\:client\\:showClient");
-  var $hide = jQueryFrame("#\\page\\:mainForm\\:client\\:hideClient");
-  var $sectionCollapsed = jQueryFrame("#page\\:mainForm\\:client\\:clientSection\\:\\:collapse");
-  var $in = jQueryFrame("#page\\:mainForm\\:client\\:inClient\\:\\:field");
-
-  $show.click();
-  assert.equal($sectionCollapsed.val(), "false");
-  assert.equal($in.length, 1);
-  $in.val("some text");
-  $submit.click();
-
-  jQuery("#page\\:testframe").load(function () {
-    if (step === 1) {
-      $messages = jQueryFrame($messages.selector);
-      $sectionCollapsed = jQueryFrame($sectionCollapsed.selector);
-      $in = jQueryFrame($in.selector);
-      $submit = jQueryFrame($submit.selector);
-
-      assert.equal($messages.length, 0);
-      assert.equal($sectionCollapsed.val(), "false");
-      assert.equal($in.length, 1);
-      $in.val("");
-      $submit.click();
-
-      step++;
-      done();
-    } else if (step === 2) {
-      $messages = jQueryFrame($messages.selector);
-      $sectionCollapsed = jQueryFrame($sectionCollapsed.selector);
-      $in = jQueryFrame($in.selector);
-      $hide = jQueryFrame($hide.selector);
-      $submit = jQueryFrame($submit.selector);
-
-      assert.equal($messages.length, 1);
-      assert.equal($sectionCollapsed.val(), "false");
-      assert.equal($in.length, 1);
-      $hide.click();
-
-      assert.equal($messages.length, 1);
-      assert.equal($sectionCollapsed.val(), "true");
-      assert.equal($in.length, 1);
-      $submit.click();
-
-      step++;
-      done();
-    } else if (step === 3) {
-      $messages = jQueryFrame($messages.selector);
-      $sectionCollapsed = jQueryFrame($sectionCollapsed.selector);
-      $in = jQueryFrame($in.selector);
-
-      assert.equal($messages.length, 1);
-      assert.equal($sectionCollapsed.val(), "false");
-      assert.equal($in.length, 1);
-
-      step++;
-      done();
-    }
+  var TTT = new TobagoTestTools(assert);
+  TTT.action(function () {
+    $show().click();
   });
+  TTT.asserts(2, function () {
+    assert.equal($sectionCollapsed().val(), "false");
+    assert.equal($in().length, 1);
+  });
+  TTT.action(function () {
+    $in().val("some text");
+    $submit().click();
+  });
+  TTT.waitForResponse();
+  TTT.asserts(3, function () {
+    assert.equal($messages().length, 0);
+    assert.equal($sectionCollapsed().val(), "false");
+    assert.equal($in().length, 1);
+  });
+  TTT.action(function () {
+    $in().val("");
+    $submit().click();
+  });
+  TTT.waitForResponse();
+  TTT.asserts(3, function () {
+    assert.equal($messages().length, 1);
+    assert.equal($sectionCollapsed().val(), "false");
+    assert.equal($in().length, 1);
+  });
+  TTT.action(function () {
+    $hide().click();
+  });
+  TTT.asserts(3, function () {
+    assert.equal($messages().length, 1);
+    assert.equal($sectionCollapsed().val(), "true");
+    assert.equal($in().length, 1);
+  });
+  TTT.action(function () {
+    $submit().click();
+  });
+  TTT.waitForResponse();
+  TTT.asserts(3, function () {
+    assert.equal($messages().length, 1);
+    assert.equal($sectionCollapsed().val(), "false");
+    assert.equal($in().length, 1);
+  });
+  TTT.startTest();
 });
 
 QUnit.test("Ajax", function (assert) {
-  assert.expect(13);
-  var done = assert.async(5);
-  var step = 1;
+  var $messages = jQueryFrameFn("#page\\:messages.tobago-messages div");
+  var $submit = jQueryFrameFn("#\\page\\:mainForm\\:ajax\\:submitAjax");
+  var $show = jQueryFrameFn("#\\page\\:mainForm\\:ajax\\:showAjax");
+  var $hide = jQueryFrameFn("#\\page\\:mainForm\\:ajax\\:hideAjax");
+  var $sectionCollapsed = jQueryFrameFn("#page\\:mainForm\\:ajax\\:ajaxSection\\:\\:collapse");
+  var $in = jQueryFrameFn("#page\\:mainForm\\:ajax\\:inAjax\\:\\:field");
 
-  var $messages = jQueryFrame("#page\\:messages.tobago-messages div");
-  var $submit = jQueryFrame("#\\page\\:mainForm\\:ajax\\:submitAjax");
-  var $show = jQueryFrame("#\\page\\:mainForm\\:ajax\\:showAjax");
-  var $hide = jQueryFrame("#\\page\\:mainForm\\:ajax\\:hideAjax");
-  var $sectionCollapsed = jQueryFrame("#page\\:mainForm\\:ajax\\:ajaxSection\\:\\:collapse");
-  var $in = jQueryFrame("#page\\:mainForm\\:ajax\\:inAjax\\:\\:field");
-
-  $show.click();
-
-  waitForAjax(function () {
-    $sectionCollapsed = jQueryFrame($sectionCollapsed.selector);
-    $in = jQueryFrame($in.selector);
-    return step === 1
-        && $sectionCollapsed.val() === "false"
-        && $in.length === 1;
-  }, function () {
-    $sectionCollapsed = jQueryFrame($sectionCollapsed.selector);
-    $in = jQueryFrame($in.selector);
-    $submit = jQueryFrame($submit.selector);
-
-    assert.equal($sectionCollapsed.val(), "false");
-    assert.equal($in.length, 1);
-    $in.val("some text");
-    $submit.click();
-
-    step++;
-    done();
+  var TTT = new TobagoTestTools(assert);
+  TTT.action(function () {
+    $show().click();
   });
-
-  jQuery("#page\\:testframe").load(function () {
-    if (step === 2) {
-      $messages = jQueryFrame($messages.selector);
-      $sectionCollapsed = jQueryFrame($sectionCollapsed.selector);
-      $in = jQueryFrame($in.selector);
-      $submit = jQueryFrame($submit.selector);
-
-      assert.equal($messages.length, 0);
-      assert.equal($sectionCollapsed.val(), "false");
-      assert.equal($in.length, 1);
-      $in.val("");
-      $submit.click();
-
-      step++;
-      done();
-    } else if (step === 3) {
-      $messages = jQueryFrame($messages.selector);
-      $sectionCollapsed = jQueryFrame($sectionCollapsed.selector);
-      $in = jQueryFrame($in.selector);
-      $hide = jQueryFrame($hide.selector);
-
-      assert.equal($messages.length, 1);
-      assert.equal($sectionCollapsed.val(), "false");
-      assert.equal($in.length, 1);
-      $hide.click();
-
-      step++;
-      done();
-
-      waitForAjax(function () {
-        $sectionCollapsed = jQueryFrame($sectionCollapsed.selector);
-        $in = jQueryFrame($in.selector);
-        return step === 4
-            && $sectionCollapsed.val() === "true"
-            && $in.length === 0;
-      }, function () {
-        $sectionCollapsed = jQueryFrame($sectionCollapsed.selector);
-        $in = jQueryFrame($in.selector);
-        $submit = jQueryFrame($submit.selector);
-
-        assert.equal($sectionCollapsed.val(), "true");
-        assert.equal($in.length, 0);
-        $submit.click();
-
-        step++;
-        done();
-      });
-    } else if (step === 5) {
-      $messages = jQueryFrame($messages.selector);
-      $sectionCollapsed = jQueryFrame($sectionCollapsed.selector);
-      $in = jQueryFrame($in.selector);
-
-      assert.equal($messages.length, 0);
-      assert.equal($sectionCollapsed.val(), "true");
-      assert.equal($in.length, 0);
-
-      step++;
-      done();
-    }
+  TTT.waitForResponse();
+  TTT.asserts(2, function () {
+    assert.equal($sectionCollapsed().val(), "false");
+    assert.equal($in().length, 1);
   });
+  TTT.action(function () {
+    $in().val("some text");
+    $submit().click();
+  });
+  TTT.waitForResponse();
+  TTT.asserts(3, function () {
+    assert.equal($messages().length, 0);
+    assert.equal($sectionCollapsed().val(), "false");
+    assert.equal($in().length, 1);
+  });
+  TTT.action(function () {
+    $in().val("");
+    $submit().click();
+  });
+  TTT.waitForResponse();
+  TTT.asserts(3, function () {
+    assert.equal($messages().length, 1);
+    assert.equal($sectionCollapsed().val(), "false");
+    assert.equal($in().length, 1);
+  });
+  TTT.action(function () {
+    $hide().click();
+  });
+  TTT.waitForResponse();
+  TTT.asserts(2, function () {
+    assert.equal($sectionCollapsed().val(), "true");
+    assert.equal($in().length, 0);
+  });
+  TTT.action(function () {
+    $submit().click();
+  });
+  TTT.waitForResponse();
+  TTT.asserts(3, function () {
+    assert.equal($messages().length, 0);
+    assert.equal($sectionCollapsed().val(), "true");
+    assert.equal($in().length, 0);
+  });
+  TTT.startTest();
 });

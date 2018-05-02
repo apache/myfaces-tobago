@@ -16,58 +16,41 @@
  */
 
 QUnit.test("Add a river and reset.", function (assert) {
-  assert.expect(6);
-  var done = assert.async(3);
-  var step = 1;
+  var $name = jQueryFrameFn("#page\\:mainForm\\:add\\:inName\\:\\:field");
+  var $length = jQueryFrameFn("#page\\:mainForm\\:add\\:inLength\\:\\:field");
+  var $discharge = jQueryFrameFn("#page\\:mainForm\\:add\\:inDischarge\\:\\:field");
+  var $add = jQueryFrameFn("#page\\:mainForm\\:add\\:buttonAdd");
+  var $reset = jQueryFrameFn("#page\\:mainForm\\:reset\\:buttonReset");
+  var $forEachBoxes = jQueryFrameFn("#page\\:mainForm\\:forEach .tobago-box");
+  var $uiRepeatSections = jQueryFrameFn("#page\\:mainForm\\:uiRepeat .tobago-section");
 
-  var $name = jQueryFrame("#page\\:mainForm\\:add\\:inName\\:\\:field");
-  var $length = jQueryFrame("#page\\:mainForm\\:add\\:inLength\\:\\:field");
-  var $discharge = jQueryFrame("#page\\:mainForm\\:add\\:inDischarge\\:\\:field");
-  var $add = jQueryFrame("#page\\:mainForm\\:add\\:buttonAdd");
-  var $reset = jQueryFrame("#page\\:mainForm\\:reset\\:buttonReset");
-  var $forEachBoxes = jQueryFrame("#page\\:mainForm\\:forEach .tobago-box");
-  var $uiRepeatSections = jQueryFrame("#page\\:mainForm\\:uiRepeat .tobago-section");
-
-  $reset.click();
-
-  jQuery("#page\\:testframe").load(function () {
-    if (step === 1) {
-      $name = jQueryFrame($name.selector);
-      $length = jQueryFrame($length.selector);
-      $discharge = jQueryFrame($discharge.selector);
-      $add = jQueryFrame($add.selector);
-      $forEachBoxes = jQueryFrame($forEachBoxes.selector);
-      $uiRepeatSections = jQueryFrame($uiRepeatSections.selector);
-
-      assert.equal($forEachBoxes.length, 3);
-      assert.equal($uiRepeatSections.length, 3);
-
-      $name.val("Mississippi");
-      $length.val("6275");
-      $discharge.val("16200");
-      $add.click();
-
-      done();
-    } else if (step === 2) {
-      $reset = jQueryFrame($reset.selector);
-      $forEachBoxes = jQueryFrame($forEachBoxes.selector);
-      $uiRepeatSections = jQueryFrame($uiRepeatSections.selector);
-
-      assert.equal($forEachBoxes.length, 4);
-      assert.equal($uiRepeatSections.length, 4);
-
-      $reset.click();
-
-      done();
-    } else if (step === 3) {
-      $forEachBoxes = jQueryFrame($forEachBoxes.selector);
-      $uiRepeatSections = jQueryFrame($uiRepeatSections.selector);
-
-      assert.equal($forEachBoxes.length, 3);
-      assert.equal($uiRepeatSections.length, 3);
-
-      done();
-    }
-    step++;
+  var TTT = new TobagoTestTools(assert);
+  TTT.action(function () {
+    $reset().click();
   });
+  TTT.waitForResponse();
+  TTT.asserts(2, function () {
+    assert.equal($forEachBoxes().length, 3);
+    assert.equal($uiRepeatSections().length, 3);
+  });
+  TTT.action(function () {
+    $name().val("Mississippi");
+    $length().val("6275");
+    $discharge().val("16200");
+    $add().click();
+  });
+  TTT.waitForResponse();
+  TTT.asserts(2, function () {
+    assert.equal($forEachBoxes().length, 4);
+    assert.equal($uiRepeatSections().length, 4);
+  });
+  TTT.action(function () {
+    $reset().click();
+  });
+  TTT.waitForResponse();
+  TTT.asserts(2, function () {
+    assert.equal($forEachBoxes().length, 3);
+    assert.equal($uiRepeatSections().length, 3);
+  });
+  TTT.startTest();
 });

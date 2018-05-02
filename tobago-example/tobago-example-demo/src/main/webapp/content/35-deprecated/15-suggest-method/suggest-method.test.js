@@ -19,57 +19,45 @@ QUnit.test("Deprecated: 'Ma'", function (assert) {
   var inputString = "Ma";
   var expectedLength = 4;
 
-  assert.expect(expectedLength + 1);
-  var done = assert.async();
-
-  var $in = jQueryFrame("#page\\:mainForm\\:deprecated\\:\\:field");
+  var $in = jQueryFrameFn("#page\\:mainForm\\:deprecated\\:\\:field");
   var $suggestions = getSuggestions("#page\\:mainForm\\:deprecated");
 
-  $in.val(inputString).trigger('input');
-
-  waitForAjax(function () {
-    $suggestions = jQueryFrame($suggestions.selector);
-    return $suggestions.length === expectedLength;
-  }, function () {
-    $suggestions = jQueryFrame($suggestions.selector);
-
-    assert.equal($suggestions.length, expectedLength);
-    for (i = 0; i < expectedLength; i++) {
-      assert.ok($suggestions.eq(i).find("strong").text().toUpperCase().indexOf(inputString.toUpperCase()) >= 0);
-    }
-
-    done();
+  var TTT = new TobagoTestTools(assert);
+  TTT.action(function () {
+    $in().val(inputString).trigger('input');
   });
+  TTT.waitForResponse();
+  TTT.asserts(expectedLength + 1, function () {
+    assert.equal($suggestions().length, expectedLength);
+    for (i = 0; i < expectedLength; i++) {
+      assert.ok($suggestions().eq(i).find("strong").text().toUpperCase().indexOf(inputString.toUpperCase()) >= 0);
+    }
+  });
+  TTT.startTest();
 });
 
 QUnit.test("Replacement: 'Ma'", function (assert) {
   var inputString = "Ma";
   var expectedLength = 4;
 
-  assert.expect(expectedLength + 1);
-  var done = assert.async();
-
-  var $in = jQueryFrame("#page\\:mainForm\\:replacement\\:\\:field");
+  var $in = jQueryFrameFn("#page\\:mainForm\\:replacement\\:\\:field");
   var $suggestions = getSuggestions("#page\\:mainForm\\:replacement");
 
-  $in.val(inputString).trigger('input');
-
-  waitForAjax(function () {
-    $suggestions = jQueryFrame($suggestions.selector);
-    return $suggestions.length === expectedLength;
-  }, function () {
-    $suggestions = jQueryFrame($suggestions.selector);
-
-    assert.equal($suggestions.length, expectedLength);
-    for (i = 0; i < expectedLength; i++) {
-      assert.ok($suggestions.eq(i).find("strong").text().toUpperCase().indexOf(inputString.toUpperCase()) >= 0);
-    }
-
-    done();
+  var TTT = new TobagoTestTools(assert);
+  TTT.action(function () {
+    $in().val(inputString).trigger('input');
   });
+  TTT.waitForResponse();
+  TTT.asserts(expectedLength + 1, function () {
+    assert.equal($suggestions().length, expectedLength);
+    for (i = 0; i < expectedLength; i++) {
+      assert.ok($suggestions().eq(i).find("strong").text().toUpperCase().indexOf(inputString.toUpperCase()) >= 0);
+    }
+  });
+  TTT.startTest();
 });
 
 function getSuggestions(id) {
-  return jQueryFrame(Tobago.Utils.escapeClientId(
+  return jQueryFrameFn(Tobago.Utils.escapeClientId(
       jQueryFrame(id + " .tobago-suggest").attr("id") + "::popup") + " .tt-suggestion");
 }

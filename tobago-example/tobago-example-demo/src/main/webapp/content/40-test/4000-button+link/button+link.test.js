@@ -16,130 +16,97 @@
  */
 
 QUnit.test("Standard Action Button", function (assert) {
-  assert.expect(2);
-  var done = assert.async(2);
-
-  var $command = jQueryFrame("#page\\:mainForm\\:standardButtonAction");
-  var $destinationSection = jQueryFrame("#page\\:actionSection");
-  testStandardCommands($command, $destinationSection, assert, done);
+  var $command = jQueryFrameFn("#page\\:mainForm\\:standardButtonAction");
+  var $destinationSection = jQueryFrameFn("#page\\:actionSection");
+  testStandardCommands($command, $destinationSection, assert);
 });
 
 QUnit.test("Standard Link Button", function (assert) {
-  assert.expect(2);
-  var done = assert.async(2);
-
-  var $command = jQueryFrame("#page\\:mainForm\\:standardButtonLink");
-  var $destinationSection = jQueryFrame("#page\\:linkSection");
-  testStandardCommands($command, $destinationSection, assert, done);
+  var $command = jQueryFrameFn("#page\\:mainForm\\:standardButtonLink");
+  var $destinationSection = jQueryFrameFn("#page\\:linkSection");
+  testStandardCommands($command, $destinationSection, assert);
 });
 
 QUnit.test("Standard Action Link", function (assert) {
-  assert.expect(2);
-  var done = assert.async(2);
-
-  var $command = jQueryFrame("#page\\:mainForm\\:standardLinkAction");
-  var $destinationSection = jQueryFrame("#page\\:actionSection");
-  testStandardCommands($command, $destinationSection, assert, done);
+  var $command = jQueryFrameFn("#page\\:mainForm\\:standardLinkAction");
+  var $destinationSection = jQueryFrameFn("#page\\:actionSection");
+  testStandardCommands($command, $destinationSection, assert);
 });
 
 QUnit.test("Standard Link Link", function (assert) {
-  assert.expect(2);
-  var done = assert.async(2);
-
-  var $command = jQueryFrame("#page\\:mainForm\\:standardLinkLink");
-  var $destinationSection = jQueryFrame("#page\\:linkSection");
-  testStandardCommands($command, $destinationSection, assert, done);
+  var $command = jQueryFrameFn("#page\\:mainForm\\:standardLinkLink");
+  var $destinationSection = jQueryFrameFn("#page\\:linkSection");
+  testStandardCommands($command, $destinationSection, assert);
 });
 
-function testStandardCommands($command, $destinationSection, assert, done) {
-  var step = 1;
-  $command[0].click();
+function testStandardCommands($command, $destinationSection, assert) {
+  var $back = jQueryFrameFn("#page\\:back");
 
-  jQuery("#page\\:testframe").load(function () {
-    if (step === 1) {
-      $destinationSection = jQueryFrame($destinationSection.selector);
-      assert.equal($destinationSection.length, 1);
-
-      var $back = jQueryFrame("#page\\:back");
-      $back[0].click();
-
-      step++;
-      done();
-    } else if (step === 2) {
-      $command = jQueryFrame($command.selector);
-      assert.equal($command.length, 1);
-
-      step++;
-      done();
-    }
+  var TTT = new TobagoTestTools(assert);
+  TTT.action(function () {
+    $command()[0].click();
   });
+  TTT.waitForResponse();
+  TTT.asserts(1, function () {
+    assert.equal($destinationSection().length, 1);
+  });
+  TTT.action(function () {
+    $back()[0].click();
+  });
+  TTT.waitForResponse();
+  TTT.asserts(1, function () {
+    assert.equal($command().length, 1);
+  });
+  TTT.startTest();
 }
 
 QUnit.test("Target Action Button", function (assert) {
-  assert.expect(1);
-  var done = assert.async();
-
-  var $command = jQueryFrame("#page\\:mainForm\\:targetButtonAction");
+  var $command = jQueryFrameFn("#page\\:mainForm\\:targetButtonAction");
   var $targetTextInput = jQueryTargetFrame("#textInput");
-  testTargetCommands($command, $targetTextInput, "accessed by action", assert, done);
+  testTargetCommands($command, $targetTextInput, "accessed by action", assert);
 });
 
 QUnit.test("Target Link Button", function (assert) {
-  assert.expect(1);
-  var done = assert.async();
-
-  var $command = jQueryFrame("#page\\:mainForm\\:targetButtonLink");
+  var $command = jQueryFrameFn("#page\\:mainForm\\:targetButtonLink");
   var $targetTextInput = jQueryTargetFrame("#textInput");
-  testTargetCommands($command, $targetTextInput, "accessed by link", assert, done);
+  testTargetCommands($command, $targetTextInput, "accessed by link", assert);
 });
 
 QUnit.test("Target Action Link", function (assert) {
-  assert.expect(1);
-  var done = assert.async();
-
-  var $command = jQueryFrame("#page\\:mainForm\\:targetLinkAction");
+  var $command = jQueryFrameFn("#page\\:mainForm\\:targetLinkAction");
   var $targetTextInput = jQueryTargetFrame("#textInput");
-  testTargetCommands($command, $targetTextInput, "accessed by action", assert, done);
+  testTargetCommands($command, $targetTextInput, "accessed by action", assert);
 });
 
 QUnit.test("Target Link Link", function (assert) {
-  assert.expect(1);
-  var done = assert.async();
-
-  var $command = jQueryFrame("#page\\:mainForm\\:targetLinkLink");
+  var $command = jQueryFrameFn("#page\\:mainForm\\:targetLinkLink");
   var $targetTextInput = jQueryTargetFrame("#textInput");
-  testTargetCommands($command, $targetTextInput, "accessed by link", assert, done);
+  testTargetCommands($command, $targetTextInput, "accessed by link", assert);
 });
 
 QUnit.test("Style must not be a dropdown item", function (assert) {
   assert.expect(3);
 
-  var $buttonContainer = jQueryFrame("#page\\:mainForm\\:dropdownWithStyle");
-  var $dropdownMenu = $buttonContainer.find(".dropdown-menu");
-  assert.equal($dropdownMenu.length, 1);
+  var $dropdownMenu = jQueryFrameFn("#page\\:mainForm\\:dropdownWithStyle .dropdown-menu");
+  var $styleAsItem = jQueryFrameFn("#page\\:mainForm\\:dropdownWithStyle .dropdown-menu .dropdown-item > style");
+  var $button = jQueryFrameFn("#page\\:mainForm\\:dropdownWithStyle > .tobago-button");
 
-  var $styleAsItem = $dropdownMenu.find(".dropdown-item > style");
-  assert.equal($styleAsItem.length, 0);
-
-  var $button = $buttonContainer.find("> .tobago-button");
-  assert.equal($button.css("width"), "200px");
+  assert.equal($dropdownMenu().length, 1);
+  assert.equal($styleAsItem().length, 0);
+  assert.equal($button().css("width"), "200px");
 });
 
-function testTargetCommands($command, $targetTextInput, expectedText, assert, done) {
-  $command[0].click();
-
-  /*
-   * phantomJs don't recognize jQueryFrame("#page\\:mainForm\\:targetFrame").load(),
-   * so the waitForAjax() method is used instead.
-   */
-  waitForAjax(function () {
-    $targetTextInput = jQueryTargetFrame($targetTextInput.selector);
-    return $targetTextInput.val() === expectedText;
-  }, function () {
+function testTargetCommands($command, $targetTextInput, expectedText, assert) {
+  var TTT = new TobagoTestTools(assert);
+  TTT.action(function () {
+    $command()[0].click();
+  });
+  TTT.waitMs(2000); //TobagoTestTools.waitForResponse() didn't recognize responses on a target frame, so we just wait
+  TTT.asserts(1, function () {
     $targetTextInput = jQueryTargetFrame($targetTextInput.selector);
     assert.equal($targetTextInput.val(), expectedText);
-    done();
   });
+  TTT.startTest();
 }
 
 function jQueryTargetFrame(expression) {

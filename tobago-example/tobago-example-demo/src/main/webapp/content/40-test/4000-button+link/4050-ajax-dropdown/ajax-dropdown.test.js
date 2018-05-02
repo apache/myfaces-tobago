@@ -16,36 +16,34 @@
  */
 
 QUnit.test("Execute 'AJAX' entry in dropdown menu", function (assert) {
-  assert.expect(5);
-  var done = assert.async(1);
+  var $dropdownMenuButton = jQueryFrameFn("#page\\:mainForm\\:dropdownMenuButton\\:\\:command");
+  var $ajaxEntry = jQueryFrameFn("#page\\:mainForm\\:ajaxEntry");
+  var $input = jQueryFrameFn("#page\\:mainForm\\:inputAjax\\:\\:field");
+  var $output = jQueryFrameFn("#page\\:mainForm\\:outputAjax .tobago-out");
 
-  var $dropdownMenuButton = jQueryFrame("#page\\:mainForm\\:dropdownMenuButton\\:\\:command");
-  var $ajaxEntry = jQueryFrame("#page\\:mainForm\\:ajaxEntry");
-  var $input = jQueryFrame("#page\\:mainForm\\:inputAjax\\:\\:field");
-  var $output = jQueryFrame("#page\\:mainForm\\:outputAjax .tobago-out");
-  var $menuStore = jQuery(".tobago-page-menuStore");
-
-  assert.equal($menuStore.find($ajaxEntry.selector).length, 0, "Dropdown menu should be closed.");
-  $dropdownMenuButton.click();
-
-  $menuStore = jQueryFrame($menuStore.selector);
-  assert.equal($menuStore.find($ajaxEntry.selector).length, 1, "Dropdown menu should be opened.");
-
-  $input.val("Tobago, yay!");
-  assert.equal($output.text(), "", "Output should be empty.");
-
-  $ajaxEntry = jQueryFrame($ajaxEntry.selector);
-  $ajaxEntry.click();
-
-  waitForAjax(function () {
-    $output = jQueryFrame($output.selector);
-    $menuStore = jQueryFrame($menuStore.selector);
-
-    return $output.text() === "Tobago, yay!" && $menuStore.find($ajaxEntry.selector).length === 0;
-  }, function () {
-    assert.equal($output.text(), "Tobago, yay!");
-    assert.equal($menuStore.find($ajaxEntry.selector).length, 0, "Dropdown menu should be closed.");
-
-    done();
+  var TTT = new TobagoTestTools(assert);
+  TTT.asserts(1, function () {
+    assert.equal($ajaxEntry().parents(".tobago-page-menuStore").length, 0, "Dropdown menu should be closed.");
   });
+  TTT.action(function () {
+    $dropdownMenuButton().click();
+  });
+  TTT.asserts(1, function () {
+    assert.equal($ajaxEntry().parents(".tobago-page-menuStore").length, 1, "Dropdown menu should be opened.");
+  });
+  TTT.action(function () {
+    $input().val("Tobago, yay!");
+  });
+  TTT.asserts(1, function () {
+    assert.equal($output().text(), "", "Output should be empty.");
+  });
+  TTT.action(function () {
+    $ajaxEntry().click();
+  });
+  TTT.waitForResponse();
+  TTT.asserts(2, function () {
+    assert.equal($output().text(), "Tobago, yay!");
+    assert.equal($ajaxEntry().parents(".tobago-page-menuStore").length, 0, "Dropdown menu should be closed.");
+  });
+  TTT.startTest();
 });

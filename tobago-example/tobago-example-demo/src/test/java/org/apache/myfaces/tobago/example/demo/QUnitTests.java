@@ -329,12 +329,6 @@ public class QUnitTests {
 
   private List<String> ignorePages() {
     final List<String> ignore = new ArrayList<>();
-    // Miscalculation of width.
-    ignore.add("content/20-component/010-input/50-input-group/group.xhtml");
-    //PhantomJs miscalculate the height of the dropdown box
-    ignore.add("content/40-test/3000-sheet/10-sheet-types/sheet-types.xhtml");
-    // Works only for larger browser window
-    ignore.add("content/40-test/4810-labelLayoutTop/labelLayoutTop.xhtml");
     //ajaxListener doesn't work for <tc:in> events: focus, blur, click, dblclick
     ignore.add("content/40-test/6000-event/event.xhtml");
     return ignore;
@@ -509,8 +503,20 @@ public class QUnitTests {
   }
 
   @Test
+  public void testSuggestQuotMark() throws UnsupportedEncodingException, InterruptedException {
+    final String page = "content/40-test/1020-suggest-quotMark/suggest-quotMark.xhtml";
+    runStandardTest(page);
+  }
+
+  @Test
   public void testDate() throws UnsupportedEncodingException, InterruptedException {
     final String page = "content/40-test/1040-date/date.xhtml";
+    runStandardTest(page);
+  }
+
+  @Test
+  public void testDatePattern() throws UnsupportedEncodingException, InterruptedException {
+    final String page = "content/40-test/1041-date-pattern/date-pattern.xhtml";
     runStandardTest(page);
   }
 
@@ -553,6 +559,18 @@ public class QUnitTests {
   @Test
   public void testEvent() throws UnsupportedEncodingException, InterruptedException {
     final String page = "content/40-test/6000-event/event.xhtml";
+    runStandardTest(page);
+  }
+
+  @Test
+  public void testModeValueIfSet() throws UnsupportedEncodingException, InterruptedException {
+    final String page = "content/40-test/9010-mode-valueIfSet/mode-valueIfSet.xhtml";
+    runStandardTest(page);
+  }
+
+  @Test
+  public void testHeadings() throws UnsupportedEncodingException, InterruptedException {
+    final String page = "content/40-test/40000-style/100-headings/headings.xhtml";
     runStandardTest(page);
   }
 

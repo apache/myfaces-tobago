@@ -16,88 +16,74 @@
  */
 
 QUnit.test("Test h1", function (assert) {
-  var $alink = jQueryFrame("#page\\:mainForm\\:link1");
-  var $buttonlink = jQueryFrame("#page\\:mainForm\\:actionLink1");
+  var $alink = jQueryFrameFn("#page\\:mainForm\\:link1");
+  var $buttonlink = jQueryFrameFn("#page\\:mainForm\\:actionLink1");
   testFont(assert, $alink, $buttonlink);
 });
 
 QUnit.test("Test h2", function (assert) {
-  var $alink = jQueryFrame("#page\\:mainForm\\:link2");
-  var $buttonlink = jQueryFrame("#page\\:mainForm\\:actionLink2");
+  var $alink = jQueryFrameFn("#page\\:mainForm\\:link2");
+  var $buttonlink = jQueryFrameFn("#page\\:mainForm\\:actionLink2");
   testFont(assert, $alink, $buttonlink);
 });
 
 QUnit.test("Test h3", function (assert) {
-  var $alink = jQueryFrame("#page\\:mainForm\\:link3");
-  var $buttonlink = jQueryFrame("#page\\:mainForm\\:actionLink3");
+  var $alink = jQueryFrameFn("#page\\:mainForm\\:link3");
+  var $buttonlink = jQueryFrameFn("#page\\:mainForm\\:actionLink3");
   testFont(assert, $alink, $buttonlink);
 });
 
 QUnit.test("Test h4", function (assert) {
-  var $alink = jQueryFrame("#page\\:mainForm\\:link4");
-  var $buttonlink = jQueryFrame("#page\\:mainForm\\:actionLink4");
+  var $alink = jQueryFrameFn("#page\\:mainForm\\:link4");
+  var $buttonlink = jQueryFrameFn("#page\\:mainForm\\:actionLink4");
   testFont(assert, $alink, $buttonlink);
 });
 
 QUnit.test("Test h5", function (assert) {
-  var $alink = jQueryFrame("#page\\:mainForm\\:link5");
-  var $buttonlink = jQueryFrame("#page\\:mainForm\\:actionLink5");
+  var $alink = jQueryFrameFn("#page\\:mainForm\\:link5");
+  var $buttonlink = jQueryFrameFn("#page\\:mainForm\\:actionLink5");
   testFont(assert, $alink, $buttonlink);
 });
 
 QUnit.test("Test h6", function (assert) {
-  var $alink = jQueryFrame("#page\\:mainForm\\:link6");
-  var $buttonlink = jQueryFrame("#page\\:mainForm\\:actionLink6");
+  var $alink = jQueryFrameFn("#page\\:mainForm\\:link6");
+  var $buttonlink = jQueryFrameFn("#page\\:mainForm\\:actionLink6");
   testFont(assert, $alink, $buttonlink);
 });
 
 QUnit.test("Test no heading", function (assert) {
-  var $alink = jQueryFrame("#page\\:mainForm\\:link0");
-  var $buttonlink = jQueryFrame("#page\\:mainForm\\:actionLink0");
+  var $alink = jQueryFrameFn("#page\\:mainForm\\:link0");
+  var $buttonlink = jQueryFrameFn("#page\\:mainForm\\:actionLink0");
   testFont(assert, $alink, $buttonlink);
 });
 
 function testFont(assert, $alink, $buttonlink) {
   assert.expect(5);
 
-  assert.equal($alink.css("color"), $buttonlink.css("color"));
-  assert.equal($alink.css("font-family"), $buttonlink.css("font-family"));
-  assert.equal($alink.css("font-size"), $buttonlink.css("font-size"));
-  assert.equal($alink.css("font-weight"), $buttonlink.css("font-weight"));
-  assert.equal($alink.css("text-decoration"), $buttonlink.css("text-decoration"));
+  assert.equal($alink().css("color"), $buttonlink().css("color"));
+  assert.equal($alink().css("font-family"), $buttonlink().css("font-family"));
+  assert.equal($alink().css("font-size"), $buttonlink().css("font-size"));
+  assert.equal($alink().css("font-weight"), $buttonlink().css("font-weight"));
+  assert.equal($alink().css("text-decoration"), $buttonlink().css("text-decoration"));
 }
 
 QUnit.test("Ajax reload for section 2", function (assert) {
-  assert.expect(3);
-  var done = assert.async(1);
-  var step = 1;
+  var $reloadButton = jQueryFrameFn("#page\\:mainForm\\:reloadSection2");
+  var $section2Header = jQueryFrameFn("#page\\:mainForm\\:levelTwoSection h3");
+  var $timestamp = jQueryFrameFn("#page\\:mainForm\\:timestamp span");
+  var firstTimestamp = $timestamp().text();
 
-  var $reloadButton = jQueryFrame("#page\\:mainForm\\:reloadSection2");
-  var $section2 = jQueryFrame("#page\\:mainForm\\:levelTwoSection");
-  var $section2Header = $section2.find("h3");
-  var $timestamp = jQueryFrame("#page\\:mainForm\\:timestamp");
-  var firstTimestamp = $timestamp.find("span").text();
-
-  assert.equal($section2Header.length, 1);
-  $reloadButton.click();
-
-  waitForAjax(function () {
-    $section2Header = jQueryFrame($section2Header.selector);
-    $timestamp = jQueryFrame($timestamp.selector);
-    var newTimestamp = $timestamp.find("span").text();
-
-    return step === 1
-        && $section2Header.length === 1
-        && firstTimestamp < newTimestamp;
-  }, function () {
-    $section2Header = jQueryFrame($section2Header.selector);
-    $timestamp = jQueryFrame($timestamp.selector);
-    var newTimestamp = $timestamp.find("span").text();
-
-    assert.equal($section2Header.length, 1);
-    assert.ok(firstTimestamp < newTimestamp, "value of new timestamp must be higher");
-
-    step++;
-    done();
+  var TTT = new TobagoTestTools(assert);
+  TTT.asserts(1, function () {
+    assert.equal($section2Header().length, 1);
   });
+  TTT.action(function () {
+    $reloadButton().click();
+  });
+  TTT.waitForResponse();
+  TTT.asserts(2, function () {
+    assert.equal($section2Header().length, 1);
+    assert.ok(firstTimestamp < $timestamp().text(), "value of new timestamp must be higher");
+  });
+  TTT.startTest();
 });
