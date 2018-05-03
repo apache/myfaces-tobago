@@ -7602,7 +7602,12 @@ _MF_SINGLTN(_PFX_XHR + "_AjaxResponse", _MF_OBJECT, /** @lends myfaces._impl.xhr
                     document.forms[mfInternal["_mfSourceFormId"]] : ((elemId) ? fuzzyFormDetection(elemId) : null);
 
             if(node.getAttribute('id').indexOf(this.P_VIEWSTATE) != -1) {
-                mfInternal.appliedViewState = _Lang.trim(this._Dom.concatCDATABlocks(node));//node.firstChild.nodeValue;
+// begin TOBAGO-JSF-JS
+                mfInternal.appliedViewState = _Lang.trim(this._Dom.concatCDATABlocks(node));
+/* original
+                mfInternal.appliedViewState = this._Dom.concatCDATABlocks(node);//node.firstChild.nodeValue;
+*/
+// end TOBAGO-JSF-JS
             } else if(node.getAttribute('id').indexOf(this.P_CLIENTWINDOW) != -1) {
                 mfInternal.appliedClientWindow = node.firstChild.nodeValue;
             }
