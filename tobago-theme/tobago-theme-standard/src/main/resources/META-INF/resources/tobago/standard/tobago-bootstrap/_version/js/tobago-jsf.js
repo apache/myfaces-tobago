@@ -7603,7 +7603,7 @@ _MF_SINGLTN(_PFX_XHR + "_AjaxResponse", _MF_OBJECT, /** @lends myfaces._impl.xhr
 
             if(node.getAttribute('id').indexOf(this.P_VIEWSTATE) != -1) {
 // begin TOBAGO-JSF-JS
-                mfInternal.appliedViewState = _Lang.trim(this._Dom.concatCDATABlocks(node));
+                mfInternal.appliedViewState = this._Lang.trim(this._Dom.concatCDATABlocks(node));
 /* original
                 mfInternal.appliedViewState = this._Dom.concatCDATABlocks(node);//node.firstChild.nodeValue;
 */
