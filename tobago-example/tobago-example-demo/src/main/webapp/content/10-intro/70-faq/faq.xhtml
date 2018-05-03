@@ -50,7 +50,7 @@
     <p>Tobago runs with Sun RI and with MyFaces.
       Please take a look at the
       <tc:link image="fa-external-link" link="http://tobago-vm.apache.org/compatibility.html" label="Compatibility"/>
-    List.</p>
+      List.</p>
   </tc:section>
 
   <tc:section id="tobago-facelets" label="Does Tobago supports Facelets?">
@@ -368,7 +368,7 @@
     </ol>
   </tc:section>
 
-  <tc:section id="testQUnit" label="Howto create QUnit tests? (Tobago 3 or higher)">
+  <tc:section id="testQUnit" label="Howto create QUnit tests? (Tobago 4.2.1)">
 
     Howto create QUnit tests for Tobago Demo 3.0 or higher
 
@@ -381,25 +381,44 @@
       </li>
       <li>
         Add a
-        <tc:link label="QUnit Test" link="http://api.qunitjs.com/QUnit.test/" image="fa-external-link"/>
+        <tc:link label="QUnit Test" link="https://api.qunitjs.com/" image="fa-external-link"/>
         to the <code>sample.test.js</code>.
 
-    <pre><code class="language-java">QUnit.test("Testtitle", function(assert) { 
+        <pre><code class="language-js">QUnit.test("Testtitle", function(assert) { 
 ...
 });</code></pre>
 
         <ol>
           <li>The test will run in a different frame.
-            To get an element in the test frame use <code>jQueryFrame()</code> instead of <code>jQuery()</code>.
+            To get an element in the test frame use <code>jQueryFrameFn()</code> instead of <code>jQuery()</code>.
+            Please note that <code>jQueryFrameFn()</code> return a function, so you have to write
+            <code>jQueryVar()</code> instead of <code>jQueryVar</code> to get the element.<br/>
+            This is very usefull, because elements are outdated after an AJAX request or a full page reload.
           </li>
-          <li>To wait for a submit use <code>jQuery("#page\\:testframe").load()</code>.
+          <li>Create a TobagoTestTools variable:
+            <pre><code class="language-js">var TTT = new TobagoTestTools(assert);</code></pre>
           </li>
-          <li>To wait for an AJAX event use <code>waitForAjax(waitingDone, executeWhenDone)</code>.
-            The function <code>waitingDone</code> must return false if still waiting and true if the waiting is done.
-            The function <code>executeWhenDone</code> is executed afterwards.
+          <li>
+            User actions like a click on a button can be added to an action function:
+            <pre><code class="language-js">TTT.action(function () {
+  $button().click();
+});</code></pre>
           </li>
-          <li>Add the test to QUnitTests.
+          <li>If the test have to wait for a response or a specific time use the waitForResponse
+            or the waitMs function:
+            <pre><code class="language-js">TTT.waitForResponse();
+TTT.waitMs(2000); // wait 2000 milliseconds</code></pre>
           </li>
+          <li>
+            <tc:link label="QUnit Assertions" link="https://api.qunitjs.com/assert/" image="fa-external-link"/>
+            can be added to a asserts function. The first parameter is the number of assertions:
+            <pre><code class="language-js">TTT.asserts(2, function () {
+  assert.equal($input().val(), "Alice");
+  assert.equal($output().text(), "Bob");
+});</code></pre>
+          </li>
+          <li>Start the test with:
+            <pre><code class="language-js">TTT.startTest();</code></pre></li>
         </ol>
 
         <pre><code class="language-java">@Test
@@ -439,7 +458,7 @@ public void testname() throws UnsupportedEncodingException, InterruptedException
       <li>
         Adding your server home to a property in the settings.xml of Maven
         <pre><code
-            class="language-markup">&lt;wlp.directory&gt;/opt/wlp-developers-runtime-8.5.5.0/wlp&lt;/wlp.directory&gt;</code></pre>
+                class="language-markup">&lt;wlp.directory&gt;/opt/wlp-developers-runtime-8.5.5.0/wlp&lt;/wlp.directory&gt;</code></pre>
       </li>
     </ul>
     <p>
