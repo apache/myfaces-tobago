@@ -24,8 +24,10 @@ import org.apache.myfaces.tobago.example.data.SolarObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.component.UIInput;
+import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -42,8 +44,12 @@ public class SuggestController implements Serializable {
   private String selection1;
   private String selection2;
 
-  public SuggestController() {
-    solarObjects = SolarObject.getList().stream().map(SolarObject::getName).collect(Collectors.toList());
+  @Inject
+  private AstroData astroData;
+
+  @PostConstruct
+  private void init() {
+    solarObjects = astroData.findAll().map(SolarObject::getName).collect(Collectors.toList());
   }
 
   public String getQuery() {

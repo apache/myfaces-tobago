@@ -31,6 +31,9 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Stream;
+
+import static java.util.stream.Collectors.toList;
 
 public class SolarObject implements Serializable {
 
@@ -70,7 +73,7 @@ public class SolarObject implements Serializable {
     this.eccen = eccen;
     this.discoverer = discoverer;
     this.discoverYear = discoverYear;
-    this.population = "Earth".equals(name) ? "ca. 6.800.000.000" : "0";
+    this.population = "Earth".equals(name) ? "~ 8.000.000.000" : "0";
   }
 
   public SolarObject(final SolarObject solarObject) {
@@ -84,8 +87,9 @@ public class SolarObject implements Serializable {
     this.discoverer = solarObject.getDiscoverer();
     this.discoverYear = solarObject.getDiscoverYear();
     this.population = getPopulation();
+    this.chemicalComposition
+        = chemicalComposition != null ? chemicalComposition.stream().map(Element::new).collect(toList()) : null;
   }
-
 
   public String getName() {
     return name;
@@ -199,8 +203,13 @@ public class SolarObject implements Serializable {
     return number.equals("II");
   }
 
+  @Deprecated
   public static SolarObject[] getArray() {
     return DATA;
+  }
+
+  public static Stream<SolarObject> getDataStream() {
+    return Arrays.stream(DATA);
   }
 
   public static List<SolarObject> getList() {
@@ -237,28 +246,9 @@ public class SolarObject implements Serializable {
     return collect;
   }
 
-  // TODO: optimize
+  @Deprecated
   public static SolarObject find(final String name) {
-    for (final SolarObject solarObject : DATA) {
-      if (solarObject.getName().equals(name)) {
-        return solarObject;
-      }
-    }
-    return null;
-  }
-
-  public static List<SolarObject> findByName(String... filter) {
-    final List<SolarObject> list = new ArrayList<>(filter.length);
-
-    for (SolarObject star : DATA) {
-      for (String name : filter) {
-        if (name.equals(star.getName())) {
-          list.add(star);
-          break;
-        }
-      }
-    }
-    return list;
+    return getDataStream().filter(solarObject -> solarObject.getName().equals(name)).findFirst().orElse(null);
   }
 
   private static final SolarObject SUN = new SolarObject("Sun", "-", "-", 0, 0.0, 0.0, 0.0, "-", null);

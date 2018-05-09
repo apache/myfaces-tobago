@@ -24,11 +24,14 @@ import org.apache.myfaces.tobago.model.SheetState;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.event.AjaxBehaviorEvent;
 import javax.faces.event.ComponentSystemEvent;
+import javax.inject.Inject;
 import javax.inject.Named;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RequestScoped
 @Named
@@ -39,8 +42,12 @@ public class ExceptionHandlerController {
   private List<SolarObject> solarList;
   private SheetState sheetState;
 
-  public ExceptionHandlerController() {
-    solarList = SolarObject.getList();
+  @Inject
+  private AstroData astroData;
+
+  @PostConstruct
+  private void init() {
+    solarList = astroData.findAll().collect(Collectors.toList());
   }
 
   public String getValue() {

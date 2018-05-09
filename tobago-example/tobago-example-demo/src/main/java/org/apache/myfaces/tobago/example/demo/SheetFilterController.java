@@ -25,24 +25,30 @@ import org.apache.myfaces.tobago.model.SelectItem;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
 import javax.faces.event.AjaxBehaviorEvent;
+import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
+import java.util.stream.Collectors;
 
 @SessionScoped
 @Named
-public class SheetFilterController extends SheetController implements Serializable {
+public class  SheetFilterController implements Serializable {
 
   private static final Logger LOG = LoggerFactory.getLogger(SheetFilterController.class);
+
+  @Inject
+  private AstroData astroData;
 
   private List<SolarObject> filteredSolarList = new ArrayList<>();
 
@@ -61,7 +67,8 @@ public class SheetFilterController extends SheetController implements Serializab
 
   private String nameSuggestionQuery;
 
-  public SheetFilterController() {
+  @PostConstruct
+  private void init() {
     distanceItems = new SelectItem[]{
         new SelectItem(new DistanceRange(-1, Integer.MAX_VALUE), "any"),
         new SelectItem(new DistanceRange(-1, 10), "≤ 10"),
@@ -74,7 +81,8 @@ public class SheetFilterController extends SheetController implements Serializab
     };
 
     final Set<Integer> years = new TreeSet<>();
-    for (final SolarObject solarObject : getSolarList()) {
+    // todo: use lambda
+    for (final SolarObject solarObject : astroData.findAll().collect(Collectors.toList())) {
       if (solarObject.getDiscoverYear() != null) {
         years.add(solarObject.getDiscoverYear());
       }
@@ -118,7 +126,8 @@ public class SheetFilterController extends SheetController implements Serializab
     if (maxYear == null) {
       maxYear = Integer.MAX_VALUE;
     }
-    for (final SolarObject solarObject : getSolarList()) {
+    // todo: use lambda
+    for (final SolarObject solarObject : astroData.findAll().collect(Collectors.toList())) {
       int discoverYear = 0;
       if (solarObject.getDiscoverYear() != null) {
         discoverYear = solarObject.getDiscoverYear();
@@ -218,7 +227,8 @@ public class SheetFilterController extends SheetController implements Serializab
     final String substring = nameSuggestionQuery != null ? nameSuggestionQuery : "";
     LOG.info("Creating items for substring: '" + substring + "'");
     final List<String> result = new ArrayList<>();
-    for (final SolarObject solarObject : getSolarList()) {
+    // todo: use lambda
+    for (final SolarObject solarObject : astroData.findAll().collect(Collectors.toList())) {
       final String solarObjectName = solarObject.getName();
       if (StringUtils.containsIgnoreCase(solarObjectName, substring)) {
         result.add(solarObjectName);

@@ -26,14 +26,18 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
 import javax.faces.convert.FacesConverter;
+import javax.inject.Inject;
 
 @FacesConverter(forClass = SolarObject.class)
 public class SolarConverter implements Converter {
 
+  @Inject
+  private AstroData astroData;
+
   @Override
   public Object getAsObject(final FacesContext context, final UIComponent component, final String value)
       throws ConverterException {
-    return SolarObject.find(value);
+    return value != null ? astroData.find(value) : null;
   }
 
   @Override

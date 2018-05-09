@@ -28,12 +28,14 @@ import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIData;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.DateTimeConverter;
 import javax.faces.event.FacesEvent;
+import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -41,6 +43,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @SessionScoped
 @Named
@@ -49,6 +52,9 @@ public class SheetController implements Serializable {
   private static final Logger LOG = LoggerFactory.getLogger(SheetController.class);
 
   private static final SelectItem[] SHEET_SELECTABLE;
+
+  @Inject
+  private AstroData astroData;
 
   static {
     final List<Selectable> collect = new ArrayList<>();
@@ -73,8 +79,9 @@ public class SheetController implements Serializable {
   private int columnEventSample;
   private Selectable selectable = Selectable.multi;
 
-  public SheetController() {
-    solarList = SolarObject.getList();
+  @PostConstruct
+  private void init() {
+    solarList = astroData.findAll().collect(Collectors.toList());
 
     hugeSolarList = new ArrayList<>();
     for (int i = 1; i <= 12; i++) {

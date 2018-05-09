@@ -23,7 +23,7 @@
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns="http://www.w3.org/1999/xhtml">
   <ui:param name="title" value="Partial Update (AJAX)"/>
-  <tc:gridLayout id="parent" rows="20px 200px 1fr auto">
+  <tc:panel id="parent">
 
     <tc:out value="Demonstration and test of partial reload"/>
 
@@ -63,11 +63,11 @@
       </ul>
     </tc:flowLayout>
 
-    <tc:gridLayout columns="1fr 205px 1fr">
+    <tc:gridLayout columns="1fr 300px 1fr">
 
       <tc:panel/>
 
-      <tc:gridLayout columns="1fr 1fr" rows="auto auto auto auto auto auto auto auto">
+      <tc:gridLayout columns="1fr 1fr">
 
         <tc:button label="Reload left" tip="Reload left side box"
                    action="#{partialReloadController.reload}">
@@ -140,5 +140,5 @@
       <tc:panel/>
 
     </tc:gridLayout>
-  </tc:gridLayout>
+  </tc:panel>
 </ui:composition>

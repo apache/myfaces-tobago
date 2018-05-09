@@ -34,7 +34,7 @@
   <tc:section label="Editable Sheet" id="basics">
     <p>In this sheet you can edit the data of solar objects. Press the 'Submit' button to see the results in the
       'Result' section.</p>
-    <tc:sheet id="editSheet" value="#{sheetController.solarList}" var="object" rows="5">
+    <tc:sheet id="editSheet" value="#{sheetEditableController.solarList}" var="object" rows="5">
       <tc:column label="Name">
         <tc:in id="nameCol" value="#{object.name}" labelLayout="skip">
           <f:ajax execute="nameCol" render="resultSheet"/>
@@ -60,7 +60,7 @@
 
   <tc:section label="Result">
     <p>The sheet in this section is for verifying the submitted data.</p>
-    <tc:sheet id="resultSheet" var="object" value="#{sheetController.solarList}">
+    <tc:sheet id="resultSheet" var="object" value="#{sheetEditableController.solarList}">
       <tc:column label="Name">
         <tc:out value="#{object.name}"/>
       </tc:column>

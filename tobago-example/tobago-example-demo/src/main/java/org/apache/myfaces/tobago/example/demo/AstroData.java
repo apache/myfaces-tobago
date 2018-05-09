@@ -24,41 +24,65 @@ import org.apache.myfaces.tobago.model.SelectItem;
 
 import javax.inject.Named;
 import javax.inject.Singleton;
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Singleton
 @Named
-public class AstroData {
+public class AstroData implements Serializable {
 
-  private SelectItem[] planets;
-  private SelectItem[] terrestrialPlanets;
-  private SelectItem[] giantPlanets;
+  private List<SelectItem> planets;
+  private List<SelectItem> terrestrialPlanets;
+  private List<SelectItem> giantPlanets;
 
   public AstroData() {
-    planets = createSelectItems(SolarObject.findByName(
-        "Mercury", "Venus", "Earth", "Mars", "Jupiter", "Saturn", "Uranus", "Neptune"));
-    terrestrialPlanets = createSelectItems(SolarObject.findByName("Mercury", "Venus", "Earth", "Mars"));
-    giantPlanets = createSelectItems(SolarObject.findByName("Jupiter", "Saturn", "Uranus", "Neptune"));
+    planets = findByName("Mercury", "Venus", "Earth", "Mars", "Jupiter", "Saturn", "Uranus", "Neptune")
+        .map(planet -> new SelectItem(planet, planet.getName())).collect(Collectors.toList());
+    terrestrialPlanets = findByName("Mercury", "Venus", "Earth", "Mars")
+        .map(planet -> new SelectItem(planet, planet.getName())).collect(Collectors.toList());
+    giantPlanets = findByName("Jupiter", "Saturn", "Uranus", "Neptune")
+        .map(planet -> new SelectItem(planet, planet.getName())).collect(Collectors.toList());
   }
 
-  private SelectItem[] createSelectItems(List<SolarObject> objects) {
-    List<SelectItem> list = new ArrayList<>();
+  public Stream<SolarObject> findAll() {
+    return SolarObject.getDataStream();
+  }
+
+  public Stream<SolarObject> findAllAsCopy() {
+    return SolarObject.getDataStream().map(SolarObject::new);
+  }
+
+  public SolarObject find(final String name) {
+    return SolarObject.getDataStream().filter(solarObject -> name.equals(solarObject.getName())).findFirst()
+        .orElse(null);
+  }
+
+  public Stream<SolarObject> findByName(String... filter) {
+    return SolarObject.getDataStream()
+        .filter(solarObject -> Arrays.asList(filter).contains(solarObject.getName()));
+  }
+
+  private List<SelectItem> createSelectItems(final List<SolarObject> objects) {
+    final List<SelectItem> list = new ArrayList<>();
     for (SolarObject object : objects) {
       list.add(new SelectItem(object, object.getName()));
     }
-    return list.toArray(new SelectItem[list.size()]);
+    return list;
   }
 
-  public SelectItem[] getPlanets() {
+  public List<SelectItem> getPlanets() {
     return planets;
   }
 
-  public SelectItem[] getTerrestrialPlanets() {
+  public List<SelectItem> getTerrestrialPlanets() {
     return terrestrialPlanets;
   }
 
-  public SelectItem[] getGiantPlanets() {
+  public List<SelectItem> getGiantPlanets() {
     return giantPlanets;
   }
 

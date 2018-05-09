@@ -17,36 +17,33 @@
  * under the License.
  */
 
-package org.apache.myfaces.tobago.example.data;
+package org.apache.myfaces.tobago.example.demo;
 
-public class Element {
+import org.apache.myfaces.tobago.example.data.SolarObject;
 
-  private String name;
-  private double ratio;
+import javax.annotation.PostConstruct;
+import javax.enterprise.context.SessionScoped;
+import javax.inject.Inject;
+import javax.inject.Named;
+import java.io.Serializable;
+import java.util.List;
+import java.util.stream.Collectors;
 
-  public Element(final String name, final double ratio) {
-    this.name = name;
-    this.ratio = ratio;
+@SessionScoped
+@Named
+public class SheetEditableController implements Serializable {
+
+  @Inject
+  private AstroData astroData;
+
+  private List<SolarObject> solarList;
+
+  @PostConstruct
+  private void init() {
+    solarList = astroData.findAllAsCopy().collect(Collectors.toList());
   }
 
-  public Element(Element element) {
-    this.name = element.name;
-    this.ratio = element.ratio;
-  }
-
-  public String getName() {
-    return name;
-  }
-
-  public void setName(final String name) {
-    this.name = name;
-  }
-
-  public double getRatio() {
-    return ratio;
-  }
-
-  public void setRatio(final double ratio) {
-    this.ratio = ratio;
+  public List<SolarObject> getSolarList() {
+    return solarList;
   }
 }
