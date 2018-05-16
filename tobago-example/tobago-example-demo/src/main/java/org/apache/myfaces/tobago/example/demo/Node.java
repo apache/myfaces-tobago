@@ -17,7 +17,7 @@
  * under the License.
  */
 
-package org.apache.myfaces.tobago.example.data;
+package org.apache.myfaces.tobago.example.demo;
 
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.event.TreeExpansionEvent;

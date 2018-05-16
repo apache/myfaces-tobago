@@ -17,32 +17,36 @@
  * under the License.
  */
 
-package org.apache.myfaces.tobago.example.data;
+package org.apache.myfaces.tobago.example.demo;
 
-public enum Salutation {
+public class Element {
 
-  UNKNOWN("basic_itemUnknown"),
+  private String name;
+  private double ratio;
 
-  MR("basic_itemMr"),
-
-  MRS("basic_itemMrs");
-
-  private String key;
-
-  Salutation(final String key) {
-    this.key = key;
+  public Element(final String name, final double ratio) {
+    this.name = name;
+    this.ratio = ratio;
   }
 
-  public String getKey() {
-    return key;
+  public Element(Element element) {
+    this.name = element.name;
+    this.ratio = element.ratio;
   }
 
-  public static Salutation getSalutation(final String key) {
-    for (final Salutation salutation : values()) {
-      if (salutation.getKey().equals(key)) {
-        return salutation;
-      }
-    }
-    return null;
+  public String getName() {
+    return name;
+  }
+
+  public void setName(final String name) {
+    this.name = name;
+  }
+
+  public double getRatio() {
+    return ratio;
+  }
+
+  public void setRatio(final double ratio) {
+    this.ratio = ratio;
   }
 }

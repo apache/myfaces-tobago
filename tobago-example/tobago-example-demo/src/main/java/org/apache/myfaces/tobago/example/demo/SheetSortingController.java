@@ -21,7 +21,6 @@ package org.apache.myfaces.tobago.example.demo;
 
 import org.apache.myfaces.tobago.component.UISheet;
 import org.apache.myfaces.tobago.event.SortActionEvent;
-import org.apache.myfaces.tobago.example.data.SolarObject;
 import org.apache.myfaces.tobago.model.SheetState;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

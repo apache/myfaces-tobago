@@ -20,7 +20,6 @@
 package org.apache.myfaces.tobago.example.demo;
 
 import org.apache.myfaces.tobago.context.Markup;
-import org.apache.myfaces.tobago.example.data.SolarObject;
 import org.apache.myfaces.tobago.model.SelectItem;
 import org.apache.myfaces.tobago.model.Selectable;
 import org.apache.myfaces.tobago.model.SheetState;

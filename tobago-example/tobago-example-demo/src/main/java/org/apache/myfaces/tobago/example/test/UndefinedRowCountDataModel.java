@@ -19,7 +19,7 @@
 
 package org.apache.myfaces.tobago.example.test;
 
-import org.apache.myfaces.tobago.example.data.SolarObject;
+import org.apache.myfaces.tobago.example.demo.SolarObject;
 
 import javax.faces.model.ArrayDataModel;
 import java.util.List;

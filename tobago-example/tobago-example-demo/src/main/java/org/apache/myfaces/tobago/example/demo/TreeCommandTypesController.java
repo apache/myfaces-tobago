@@ -19,9 +19,6 @@
 
 package org.apache.myfaces.tobago.example.demo;
 
-import org.apache.myfaces.tobago.example.data.CommandNode;
-import org.apache.myfaces.tobago.example.data.CommandNodeFactory;
-
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 import java.io.Serializable;

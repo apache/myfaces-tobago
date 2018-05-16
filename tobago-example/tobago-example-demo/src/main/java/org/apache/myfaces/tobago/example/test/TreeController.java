@@ -19,9 +19,9 @@
 
 package org.apache.myfaces.tobago.example.test;
 
-import org.apache.myfaces.tobago.example.data.CantorInterval;
-import org.apache.myfaces.tobago.example.data.CategoryTree;
-import org.apache.myfaces.tobago.example.data.SmallTree;
+import org.apache.myfaces.tobago.example.demo.CantorInterval;
+import org.apache.myfaces.tobago.example.demo.CategoryTree;
+import org.apache.myfaces.tobago.example.demo.SmallTree;
 import org.apache.myfaces.tobago.model.ExpandedState;
 import org.apache.myfaces.tobago.model.SelectedState;
 import org.apache.myfaces.tobago.model.TreeDataModel;

@@ -17,27 +17,24 @@
  * under the License.
  */
 
-package org.apache.myfaces.tobago.example.data;
+package org.apache.myfaces.tobago.example.demo;
 
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.convert.Converter;
-import javax.faces.convert.ConverterException;
+public class CommandNodeFactory {
 
-public class SalutationConverter implements Converter {
+  public static CommandNode createSample() {
+    final CommandNode root = new CommandNode("Commands");
 
-  @Override
-  public Object getAsObject(final FacesContext context, final UIComponent component, final String value)
-      throws ConverterException {
-    return Salutation.getSalutation(value);
-  }
+    final CommandNode actions = new CommandNode("Actions");
+    actions.add(new CommandNode("Action 1", "ActionOne", null));
+    actions.add(new CommandNode("Action 2", "ActionTwo", null));
+    root.add(actions);
 
-  @Override
-  public String getAsString(final FacesContext context, final UIComponent component, final Object value)
-      throws ConverterException {
-    if (value instanceof Salutation) {
-      return ((Salutation) value).getKey();
-    }
-    return "";
+    final CommandNode links = new CommandNode("Links");
+    links.add(new CommandNode("Apache", null, "https://www.apache.org/"));
+    links.add(new CommandNode("MyFaces", null, "https://myfaces.apache.org/"));
+    links.add(new CommandNode("Tobago", null, "https://myfaces.apache.org/tobago/"));
+    root.add(links);
+
+    return root;
   }
 }

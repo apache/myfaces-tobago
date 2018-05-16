@@ -19,8 +19,6 @@
 
 package org.apache.myfaces.tobago.example.demo;
 
-import org.apache.myfaces.tobago.example.data.CategoryTree;
-
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 import javax.swing.tree.DefaultMutableTreeNode;

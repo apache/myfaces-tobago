@@ -73,7 +73,6 @@ import org.apache.myfaces.tobago.component.UITreeLabel;
 import org.apache.myfaces.tobago.component.UITreeListbox;
 import org.apache.myfaces.tobago.component.UITreeMenu;
 import org.apache.myfaces.tobago.component.UITreeSelect;
-import org.apache.myfaces.tobago.example.data.SolarObject;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 
 import javax.enterprise.context.SessionScoped;

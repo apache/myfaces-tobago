@@ -19,8 +19,6 @@
 
 package org.apache.myfaces.tobago.example.demo;
 
-import org.apache.myfaces.tobago.example.data.CategoryTree;
-import org.apache.myfaces.tobago.example.data.Node;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

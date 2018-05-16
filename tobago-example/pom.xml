@@ -28,7 +28,6 @@
 
   <modules>
     <module>tobago-example-blank</module>
-    <module>tobago-example-data</module>
     <module>tobago-example-demo</module>
     <module>tobago-example-assembly</module>
   </modules>

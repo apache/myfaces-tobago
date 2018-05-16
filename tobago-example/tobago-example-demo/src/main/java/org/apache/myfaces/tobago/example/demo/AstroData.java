@@ -19,12 +19,15 @@
 
 package org.apache.myfaces.tobago.example.demo;
 
-import org.apache.myfaces.tobago.example.data.SolarObject;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 import org.apache.myfaces.tobago.model.SelectItem;
 
 import javax.inject.Named;
 import javax.inject.Singleton;
 import javax.swing.tree.DefaultMutableTreeNode;
+import java.io.InputStreamReader;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -38,11 +41,25 @@ import java.util.stream.Stream;
 @Named
 public class AstroData implements Serializable {
 
+  private List<SolarObject> dataList;
+  private Map<String, SolarObject> dataMap;
+
   private List<SelectItem> planets;
   private List<SelectItem> terrestrialPlanets;
   private List<SelectItem> giantPlanets;
 
   public AstroData() {
+
+    final InputStreamReader reader
+        = new InputStreamReader(AstroData.class.getResourceAsStream("astro-data.json"));
+
+    Gson gson = new GsonBuilder().create();
+    dataList = gson.fromJson(reader, new TypeToken<ArrayList<SolarObject>>(){}.getType());
+    dataMap = new HashMap<>(dataList.size());
+    for (SolarObject solarObject : dataList) {
+      dataMap.put(solarObject.getName(), solarObject);
+    }
+
     planets = findByName("Mercury", "Venus", "Earth", "Mars", "Jupiter", "Saturn", "Uranus", "Neptune")
         .map(planet -> new SelectItem(planet, planet.getName())).collect(Collectors.toList());
     terrestrialPlanets = findByName("Mercury", "Venus", "Earth", "Mars")
@@ -52,26 +69,30 @@ public class AstroData implements Serializable {
   }
 
   public Stream<SolarObject> findAll() {
-    return SolarObject.getDataStream();
+    return dataList.stream();
+  }
+
+  public Map<String, SolarObject> findAllAsMap() {
+    return dataMap;
   }
 
   public Stream<SolarObject> findAllAsCopy() {
-    return SolarObject.getDataStream().map(SolarObject::new);
+    return dataList.stream().map(SolarObject::new);
   }
 
   public SolarObject find(final String name) {
-    return SolarObject.getDataStream().filter(solarObject -> name.equals(solarObject.getName())).findFirst()
+    return dataList.stream().filter(solarObject -> name.equals(solarObject.getName())).findFirst()
         .orElse(null);
   }
 
   public Stream<SolarObject> findByName(String... filter) {
-    return SolarObject.getDataStream()
+    return dataList.stream()
         .filter(solarObject -> Arrays.asList(filter).contains(solarObject.getName()));
   }
 
   public DefaultMutableTreeNode getAllAsTree() {
     final Map<String, DefaultMutableTreeNode> cache = new HashMap<>();
-    for (final SolarObject solar : (Iterable<SolarObject>)findAll()::iterator) {
+    for (final SolarObject solar : (Iterable<SolarObject>) dataList.stream()::iterator) {
       final DefaultMutableTreeNode node = new DefaultMutableTreeNode(solar);
       cache.put(solar.getName(), node);
       final String orbitName = solar.getOrbit();
@@ -86,7 +107,7 @@ public class AstroData implements Serializable {
 
   public List<SolarObject> getSatellites(final String center) {
     final List<SolarObject> collect = new ArrayList<>();
-    for (final SolarObject solar : (Iterable<SolarObject>)findAll()::iterator) {
+    for (final SolarObject solar : (Iterable<SolarObject>) dataList.stream()::iterator) {
       // todo: use lambda
       if (solar.getOrbit().equals(center)) {
         collect.add(solar);

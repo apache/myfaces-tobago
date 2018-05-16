@@ -19,7 +19,9 @@
 
 package org.apache.myfaces.tobago.example.test;
 
-import org.apache.myfaces.tobago.example.data.SolarObject;
+import org.apache.myfaces.tobago.example.demo.LocaleEntry;
+import org.apache.myfaces.tobago.example.demo.LocaleList;
+import org.apache.myfaces.tobago.example.demo.SolarObject;
 import org.apache.myfaces.tobago.example.demo.AstroData;
 
 import javax.annotation.PostConstruct;
@@ -28,6 +30,7 @@ import javax.faces.model.DataModel;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -39,16 +42,29 @@ public class SheetTestController implements Serializable {
   private AstroData astroData;
 
   private List<SolarObject> solarArray;
+  private List<SolarObject> solarArray3;
   private DataModel undefined;
+  private List<LocaleEntry> localeList;
 
   @PostConstruct
   private void init() {
     solarArray = astroData.findAll().collect(Collectors.toList());
+    solarArray3 = astroData.findAll().limit(3).collect(Collectors.toList());
     undefined = new UndefinedRowCountDataModel(solarArray);
+    // Create a copy for sorting, because the LocaleList.DATA is not modifiable.
+    localeList = new ArrayList<>(LocaleList.DATA);
   }
 
   public List<SolarObject> getSolarArray() {
     return solarArray;
+  }
+
+  public List<SolarObject> getSolarArray3() {
+    return solarArray3;
+  }
+
+  public List<LocaleEntry> getLocaleList() {
+    return localeList;
   }
 
   public DataModel getUndefined() {

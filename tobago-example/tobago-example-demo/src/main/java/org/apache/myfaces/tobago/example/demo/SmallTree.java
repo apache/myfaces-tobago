@@ -17,36 +17,18 @@
  * under the License.
  */
 
-package org.apache.myfaces.tobago.example.data;
+package org.apache.myfaces.tobago.example.demo;
 
-public class Element {
+import javax.swing.tree.DefaultMutableTreeNode;
 
-  private String name;
-  private double ratio;
+public class SmallTree {
 
-  public Element(final String name, final double ratio) {
-    this.name = name;
-    this.ratio = ratio;
-  }
-
-  public Element(Element element) {
-    this.name = element.name;
-    this.ratio = element.ratio;
-  }
-
-  public String getName() {
-    return name;
-  }
-
-  public void setName(final String name) {
-    this.name = name;
-  }
-
-  public double getRatio() {
-    return ratio;
-  }
-
-  public void setRatio(final double ratio) {
-    this.ratio = ratio;
+  public static DefaultMutableTreeNode createSample() {
+    final DefaultMutableTreeNode tree = new DefaultMutableTreeNode(new Node("Root Node", "root"));
+    final DefaultMutableTreeNode music = new DefaultMutableTreeNode(new Node("Music", "music"));
+    tree.add(music);
+    music.add(new DefaultMutableTreeNode(new Node("Pop", "pop")));
+    tree.add(new DefaultMutableTreeNode(new Node("Sports", "sports")));
+    return tree;
   }
 }

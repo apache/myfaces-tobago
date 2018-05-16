@@ -48,7 +48,7 @@
 
   <converter>
     <converter-id>salutationId</converter-id>
-    <converter-class>org.apache.myfaces.tobago.example.data.SalutationConverter</converter-class>
+    <converter-class>org.apache.myfaces.tobago.example.demo.SalutationConverter</converter-class>
   </converter>
 
   <lifecycle>

@@ -17,24 +17,35 @@
  * under the License.
  */
 
-package org.apache.myfaces.tobago.example.data;
+package org.apache.myfaces.tobago.example.demo;
 
-public class CommandNodeFactory {
+import javax.swing.tree.DefaultMutableTreeNode;
 
-  public static CommandNode createSample() {
-    final CommandNode root = new CommandNode("Commands");
+public class CommandNode extends DefaultMutableTreeNode {
 
-    final CommandNode actions = new CommandNode("Actions");
-    actions.add(new CommandNode("Action 1", "ActionOne", null));
-    actions.add(new CommandNode("Action 2", "ActionTwo", null));
-    root.add(actions);
+  private String name;
+  private String action;
+  private String url;
 
-    final CommandNode links = new CommandNode("Links");
-    links.add(new CommandNode("Apache", null, "https://www.apache.org/"));
-    links.add(new CommandNode("MyFaces", null, "https://myfaces.apache.org/"));
-    links.add(new CommandNode("Tobago", null, "https://myfaces.apache.org/tobago/"));
-    root.add(links);
+  public CommandNode(final String name) {
+    this.name = name;
+  }
 
-    return root;
+  public CommandNode(final String name, final String action, final String url) {
+    this.name = name;
+    this.action = action;
+    this.url = url;
+  }
+
+  public String getName() {
+    return name;
+  }
+
+  public String getAction() {
+    return action;
+  }
+
+  public String getUrl() {
+    return url;
   }
 }

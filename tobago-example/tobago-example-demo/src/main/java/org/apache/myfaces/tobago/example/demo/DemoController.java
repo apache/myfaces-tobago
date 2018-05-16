@@ -21,7 +21,6 @@ package org.apache.myfaces.tobago.example.demo;
 
 import org.apache.deltaspike.core.api.scope.WindowScoped;
 import org.apache.myfaces.tobago.component.UISheet;
-import org.apache.myfaces.tobago.example.data.Salutation;
 import org.apache.myfaces.tobago.model.SelectItem;
 import org.apache.myfaces.tobago.model.Selectable;
 import org.slf4j.Logger;

@@ -17,35 +17,32 @@
  * under the License.
  */
 
-package org.apache.myfaces.tobago.example.data;
+package org.apache.myfaces.tobago.example.demo;
 
-import javax.swing.tree.DefaultMutableTreeNode;
+public enum Salutation {
 
-public class CommandNode extends DefaultMutableTreeNode {
+  UNKNOWN("basic_itemUnknown"),
 
-  private String name;
-  private String action;
-  private String url;
+  MR("basic_itemMr"),
 
-  public CommandNode(final String name) {
-    this.name = name;
+  MRS("basic_itemMrs");
+
+  private String key;
+
+  Salutation(final String key) {
+    this.key = key;
   }
 
-  public CommandNode(final String name, final String action, final String url) {
-    this.name = name;
-    this.action = action;
-    this.url = url;
+  public String getKey() {
+    return key;
   }
 
-  public String getName() {
-    return name;
-  }
-
-  public String getAction() {
-    return action;
-  }
-
-  public String getUrl() {
-    return url;
+  public static Salutation getSalutation(final String key) {
+    for (final Salutation salutation : values()) {
+      if (salutation.getKey().equals(key)) {
+        return salutation;
+      }
+    }
+    return null;
   }
 }
