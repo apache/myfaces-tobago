@@ -34,7 +34,7 @@
     <tc:out value="After 3 seconds there must only a 304 (not modified) reload, so we expect 0 as value."/>
     <tc:out value="After 5 seconds there must be a normal reload, so we expect 2 as value."/>
 
-    <tc:sheet value="#{sheet.solarArray}" id="sheet" columns="1fr 1fr" var="luminary" rows="5">
+    <tc:sheet value="#{sheetTestController.solarArray}" id="sheet" columns="1fr 1fr" var="luminary" rows="5">
 
       <f:facet name="reload">
         <tc:reload frequency="2000" update="#{reload.onlyEven}" />

@@ -104,11 +104,15 @@ $ mvn jetty:run -Djsf=mojarra-2.2
 $ mvn jetty:run -Djsf=mojarra-2.3</code></pre>
     </tc:section>
 
-    <!-- TODO -->
+    <!-- XXX -->
     <p>
       <tc:badge markup="warning" value="Warning: The example Jetty currently works not JSF 2.3 in combination with Java 9 or higher!" /><br/>
       because of <code>java.lang.ClassNotFoundException: javax.xml.bind.DatatypeConverter</code>, which is a problem with Jigsaw.
     </p>
+
+    It's also possible to run the demo in TomEE from Maven directly
+
+    <pre><code class="language-bash">$ mvn clean package tomee:run -Djsf=provided</code></pre>
 
   </tc:section>
 

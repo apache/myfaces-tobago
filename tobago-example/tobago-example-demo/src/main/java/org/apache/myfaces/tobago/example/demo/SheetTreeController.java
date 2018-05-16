@@ -19,9 +19,9 @@
 
 package org.apache.myfaces.tobago.example.demo;
 
-import org.apache.myfaces.tobago.example.data.SolarObject;
-
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 import javax.swing.tree.DefaultMutableTreeNode;
 import java.io.Serializable;
@@ -30,10 +30,14 @@ import java.io.Serializable;
 @Named
 public class SheetTreeController implements Serializable {
 
+  @Inject
+  private AstroData astroData;
+
   private DefaultMutableTreeNode solarTree;
 
-  public SheetTreeController() {
-    solarTree = SolarObject.getTree();
+  @PostConstruct
+  public void init() {
+    solarTree = astroData.getAllAsTree();
   }
 
   public DefaultMutableTreeNode getSolarTree() {

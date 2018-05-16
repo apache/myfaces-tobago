@@ -32,7 +32,7 @@
       </f:facet>
 
       <!-- fixed rows = 3 - show exactly 3 rows, but have more -->
-      <tc:sheet value="#{sheet.solarArray}" id="sheet1" columns="1fr 1fr" var="luminary" rows="3"
+      <tc:sheet value="#{sheetTestController.solarArray}" id="sheet1" columns="1fr 1fr" var="luminary" rows="3"
                 showHeader="true" showPagingAlways="true">
         <tc:column label="Name" id="name" sortable="true">
           <tc:out value="#{luminary.name}"/>
@@ -43,7 +43,7 @@
       </tc:sheet>
 
       <!-- rows = undefined (default 0), data model has 3 => show all = 3 -->
-      <tc:sheet value="#{sheet.solarArray3}" id="sheet2" columns="1fr 1fr" var="luminary"
+      <tc:sheet value="#{sheetTestController.solarArray3}" id="sheet2" columns="1fr 1fr" var="luminary"
                 showHeader="true" showPagingAlways="true">
         <tc:column label="Name" id="name" sortable="true">
           <tc:out value="#{luminary.name}"/>
@@ -54,7 +54,7 @@
       </tc:sheet>
 
       <!-- data-model has undefined rowCount, rows=3 -->
-      <tc:sheet value="#{sheet.undefined}" id="sheet3" columns="1fr 1fr" var="luminary" rows="3"
+      <tc:sheet value="#{sheetTestController.undefined}" id="sheet3" columns="1fr 1fr" var="luminary" rows="3"
                 showHeader="true" showPagingAlways="true">
         <tc:column label="Name" id="name" sortable="true">
           <tc:out value="#{luminary.name}"/>
@@ -65,7 +65,7 @@
       </tc:sheet>
 
       <!-- data-model has undefined rowCount, rows = undefined -->
-      <tc:sheet value="#{sheet.undefined}" id="sheet4" columns="1fr 1fr" var="luminary"
+      <tc:sheet value="#{sheetTestController.undefined}" id="sheet4" columns="1fr 1fr" var="luminary"
                 showHeader="true" showPagingAlways="true">
         <tc:column label="Name" id="name" sortable="true">
           <tc:out value="#{luminary.name}"/>

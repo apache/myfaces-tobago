@@ -31,7 +31,7 @@
         <tc:gridLayout columns="auto" rows="auto"/>
       </f:facet>
 
-      <tc:sheet value="#{sheet.solarArray}" id="sheet1" columns="1fr 1fr" var="luminary" rows="3"
+      <tc:sheet value="#{sheetTestController.solarArray}" id="sheet1" columns="1fr 1fr" var="luminary" rows="3"
                 showHeader="true" showPagingAlways="true">
         <tc:column label="Name" id="name" sortable="true">
           <tc:out value="#{luminary.name}"/>

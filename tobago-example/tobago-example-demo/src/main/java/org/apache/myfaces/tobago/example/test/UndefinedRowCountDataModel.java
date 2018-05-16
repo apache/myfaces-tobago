@@ -22,11 +22,12 @@ package org.apache.myfaces.tobago.example.test;
 import org.apache.myfaces.tobago.example.data.SolarObject;
 
 import javax.faces.model.ArrayDataModel;
+import java.util.List;
 
 public class UndefinedRowCountDataModel extends ArrayDataModel {
 
-  public UndefinedRowCountDataModel(final SolarObject[] array) {
-    super(array);
+  public UndefinedRowCountDataModel(final List<SolarObject> array) {
+    super(array.toArray());
   }
 
   @Override

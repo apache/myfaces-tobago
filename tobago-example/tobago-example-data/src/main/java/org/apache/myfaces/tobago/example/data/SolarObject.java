@@ -23,14 +23,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.faces.event.AjaxBehaviorEvent;
-import javax.swing.tree.DefaultMutableTreeNode;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Stream;
 
 import static java.util.stream.Collectors.toList;
@@ -199,56 +195,8 @@ public class SolarObject implements Serializable {
     return name;
   }
 
-  public boolean isSelectionDisabled() {
-    return number.equals("II");
-  }
-
-  @Deprecated
-  public static SolarObject[] getArray() {
-    return DATA;
-  }
-
   public static Stream<SolarObject> getDataStream() {
     return Arrays.stream(DATA);
-  }
-
-  public static List<SolarObject> getList() {
-    final SolarObject[] array = getArray();
-    final List<SolarObject> list = new ArrayList<>(array.length);
-    Collections.addAll(list, array);
-    return list;
-  }
-
-  public static DefaultMutableTreeNode getTree() {
-    final SolarObject[] array = getArray();
-    final Map<String, DefaultMutableTreeNode> cache = new HashMap<>();
-    for (final SolarObject solar : array) {
-      final DefaultMutableTreeNode node = new DefaultMutableTreeNode(solar);
-      cache.put(solar.getName(), node);
-      final String orbitName = solar.getOrbit();
-      if (orbitName.equals("-")) {
-        continue;
-      }
-      // adds a solar object as node to its orbit as tree child.
-      cache.get(orbitName).add(node);
-    }
-    return cache.get("Sun");
-  }
-
-  public static List<SolarObject> getSatellites(final String center) {
-    final List<SolarObject> collect = new ArrayList<>();
-    final SolarObject[] all = getArray();
-    for (final SolarObject anAll : all) {
-      if (anAll.getOrbit().equals(center)) {
-        collect.add(anAll);
-      }
-    }
-    return collect;
-  }
-
-  @Deprecated
-  public static SolarObject find(final String name) {
-    return getDataStream().filter(solarObject -> solarObject.getName().equals(name)).findFirst().orElse(null);
   }
 
   private static final SolarObject SUN = new SolarObject("Sun", "-", "-", 0, 0.0, 0.0, 0.0, "-", null);

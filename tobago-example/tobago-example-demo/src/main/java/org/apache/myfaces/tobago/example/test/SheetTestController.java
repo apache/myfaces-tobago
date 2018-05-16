@@ -19,46 +19,36 @@
 
 package org.apache.myfaces.tobago.example.test;
 
-import org.apache.myfaces.tobago.example.data.LocaleEntry;
-import org.apache.myfaces.tobago.example.data.LocaleList;
 import org.apache.myfaces.tobago.example.data.SolarObject;
+import org.apache.myfaces.tobago.example.demo.AstroData;
 
+import javax.annotation.PostConstruct;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.model.DataModel;
+import javax.inject.Inject;
+import javax.inject.Named;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
-public class SheetController implements Serializable {
+@SessionScoped
+@Named
+public class SheetTestController implements Serializable {
 
-  private SolarObject[] solarArray = SolarObject.getArray();
-  private SolarObject[] solarArray3 = init3();
-  private DataModel undefined = new UndefinedRowCountDataModel(solarArray);
+  @Inject
+  private AstroData astroData;
 
-  public SheetController() {
-    init3();
+  private List<SolarObject> solarArray;
+  private DataModel undefined;
+
+  @PostConstruct
+  private void init() {
+    solarArray = astroData.findAll().collect(Collectors.toList());
+    undefined = new UndefinedRowCountDataModel(solarArray);
   }
 
-  private SolarObject[] init3() {
-    final SolarObject[] help = new SolarObject[3];
-    for (int i = 0; i < 3; i++) {
-      help[i] = solarArray[i];
-    }
-    return help;
-  }
-
-  // Create a copy for sorting, because the LocaleList.DATA is not modifiable.
-  private List<LocaleEntry> localeList = new ArrayList<>(LocaleList.DATA);
-
-  public SolarObject[] getSolarArray() {
+  public List<SolarObject> getSolarArray() {
     return solarArray;
-  }
-
-  public SolarObject[] getSolarArray3() {
-    return solarArray3;
-  }
-
-  public List<LocaleEntry> getLocaleList() {
-    return localeList;
   }
 
   public DataModel getUndefined() {

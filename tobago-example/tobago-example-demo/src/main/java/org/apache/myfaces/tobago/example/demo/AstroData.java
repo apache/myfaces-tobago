@@ -24,10 +24,13 @@ import org.apache.myfaces.tobago.model.SelectItem;
 
 import javax.inject.Named;
 import javax.inject.Singleton;
+import javax.swing.tree.DefaultMutableTreeNode;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -65,6 +68,33 @@ public class AstroData implements Serializable {
     return SolarObject.getDataStream()
         .filter(solarObject -> Arrays.asList(filter).contains(solarObject.getName()));
   }
+
+  public DefaultMutableTreeNode getAllAsTree() {
+    final Map<String, DefaultMutableTreeNode> cache = new HashMap<>();
+    for (final SolarObject solar : (Iterable<SolarObject>)findAll()::iterator) {
+      final DefaultMutableTreeNode node = new DefaultMutableTreeNode(solar);
+      cache.put(solar.getName(), node);
+      final String orbitName = solar.getOrbit();
+      if (orbitName.equals("-")) {
+        continue;
+      }
+      // adds a solar object as node to its orbit as tree child.
+      cache.get(orbitName).add(node);
+    }
+    return cache.get("Sun");
+  }
+
+  public List<SolarObject> getSatellites(final String center) {
+    final List<SolarObject> collect = new ArrayList<>();
+    for (final SolarObject solar : (Iterable<SolarObject>)findAll()::iterator) {
+      // todo: use lambda
+      if (solar.getOrbit().equals(center)) {
+        collect.add(solar);
+      }
+    }
+    return collect;
+  }
+
 
   private List<SelectItem> createSelectItems(final List<SolarObject> objects) {
     final List<SelectItem> list = new ArrayList<>();

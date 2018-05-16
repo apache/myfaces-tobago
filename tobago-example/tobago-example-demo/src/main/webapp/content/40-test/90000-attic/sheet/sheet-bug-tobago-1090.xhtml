@@ -42,7 +42,7 @@
             &lt;li>Check: 2nd row (Saturn) must be selected&lt;/li>
             &lt;/ol>"/>
 
-      <tc:sheet value="#{sheet.solarArray}" id="sheet" columns="1fr 1fr" var="luminary" rows="5" selectable="single">
+      <tc:sheet value="#{sheetTestController.solarArray}" id="sheet" columns="1fr 1fr" var="luminary" rows="5" selectable="single">
         <tc:column label="Name" sortable="true">
           <tc:out value="#{luminary.name}" id="name"/>
         </tc:column>

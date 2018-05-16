@@ -21,10 +21,11 @@ package org.apache.myfaces.tobago.example.demo;
 
 import org.apache.myfaces.tobago.example.data.SolarObject;
 
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -32,13 +33,17 @@ import java.util.List;
 @Named
 public class SelectManyShuttleController implements Serializable {
 
-  private List<SolarObject> planets = new ArrayList<>();
+  @Inject
+  private AstroData astroData;
+
+  private List<SolarObject> planets;
   private SolarObject[] selectedPlanets = new SolarObject[0];
   private List<String> stars = Arrays.asList("Proxima Centauri", "Alpha Centauri", "Wolf 359", "Sirius");
   private String[] selectedStars = new String[0];
 
-  public SelectManyShuttleController() {
-    planets = SolarObject.getSatellites("Sun");
+  @PostConstruct
+  public void init() {
+    planets = astroData.getSatellites("Sun");
   }
 
   public List<SolarObject> getPlanets() {

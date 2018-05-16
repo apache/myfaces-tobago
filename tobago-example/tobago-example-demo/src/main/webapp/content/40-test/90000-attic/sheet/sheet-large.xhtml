@@ -28,7 +28,7 @@
       <tc:gridLayout rows="1fr auto"/>
     </f:facet>
 
-    <tc:sheet value="#{sheet.localeList}" id="sheet" columns="auto 5fr 5fr 5fr 1fr" var="entry" rows="1000">
+    <tc:sheet value="#{sheetTestController.localeList}" id="sheet" columns="auto 5fr 5fr 5fr 1fr" var="entry" rows="1000">
       <tc:columnSelector disabled="#{entry.disabled}"/>
       <tc:column label="Locale" id="l" sortable="true">
         <tc:out value="#{entry.locale}"/>

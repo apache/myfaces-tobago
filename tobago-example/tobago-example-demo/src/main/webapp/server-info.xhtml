@@ -58,6 +58,13 @@
         <tc:selectBooleanCheckbox value="#{version.myfaces}" readonly="true" label="MyFaces"/>
       </tc:segmentLayout>
 
+      <tc:segmentLayout medium="6seg 6seg" large="4seg 4seg 4seg" extraLarge="3seg 3seg 3seg">
+        <tc:selectBooleanCheckbox value="#{facesContext.isProjectStage('Production')}" readonly="true" label="Production"/>
+        <tc:selectBooleanCheckbox value="#{facesContext.isProjectStage('Development')}" readonly="true" label="Development"/>
+        <tc:selectBooleanCheckbox value="#{facesContext.isProjectStage('SystemTest')}" readonly="true" label="SystemTest"/>
+        <tc:selectBooleanCheckbox value="#{facesContext.isProjectStage('UnitTest')}" readonly="true" label="UnitTest"/>
+      </tc:segmentLayout>
+
     </tc:section>
 
     <tc:section label="System Properties">
