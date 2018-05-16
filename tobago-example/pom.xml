@@ -71,6 +71,7 @@
           <tomeeVersion>1.7.4</tomeeVersion>
           <tomeeClassifier>plus</tomeeClassifier>
           <!--<tomeeHttpPort>9090</tomeeHttpPort>-->
+          <context>ROOT</context>
           <!--<context>/demo</context>-->
           <config>${project.basedir}/src/test/tomee/conf</config>
         </configuration>
