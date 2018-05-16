@@ -61,38 +61,35 @@
     </tc:section>
 
     <tc:section label="System Properties">
-
-      <tc:sheet var="entry" value="#{info.systemPropertiesAsList}" columns="1fr 2fr" rows="1000">
+      <tc:sheet var="entry" value="#{info.systemPropertiesAsList}" rows="1000">
         <tc:column label="Key">
-          <tc:out value="#{entry.key}"/>
+          <tc:out value="#{entry.key}" labelLayout="skip"/>
         </tc:column>
         <tc:column label="Value">
-          <tc:out value="#{entry.value}"/>
+          <tc:out value="#{entry.value}" labelLayout="skip"/>
         </tc:column>
       </tc:sheet>
     </tc:section>
 
     <tc:section label="Sessions">
-
       <tc:sheet value="#{activityList.values}" var="activity"
                 showRowRange="left" showPageRange="right" showDirectLinks="center">
         <tc:column label="Session Id">
-          <tc:out value="#{activity.sessionId}"/>
+          <tc:out value="#{activity.sessionId}" labelLayout="skip"/>
         </tc:column>
         <tc:column label="Creation Date">
-          <tc:out value="#{activity.creationDate}"/>
+          <tc:out value="#{activity.creationDate}" labelLayout="skip"/>
         </tc:column>
         <tc:column label="Jsf Request Count">
-          <tc:out value="#{activity.jsfRequest}"/>
+          <tc:out value="#{activity.jsfRequest}" labelLayout="skip"/>
         </tc:column>
         <tc:column label="Ajax Request Count">
-          <tc:out value="#{activity.ajaxRequest}"/>
+          <tc:out value="#{activity.ajaxRequest}" labelLayout="skip"/>
         </tc:column>
       </tc:sheet>
     </tc:section>
 
     <tc:section label="Manifest">
-
       <tc:sheet value="#{manifestReader.manifestTree}" state="#{manifestReader.state}" var="manifest">
         <tc:columnNode label="Library/Key">
           <tc:treeIndent/>
@@ -102,7 +99,6 @@
           <tc:out value="#{manifest.value}"/>
         </tc:column>
       </tc:sheet>
-
     </tc:section>
 
   </tc:panel>
