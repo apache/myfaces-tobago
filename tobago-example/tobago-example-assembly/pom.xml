@@ -20,7 +20,10 @@
   <artifactId>tobago-example-assembly</artifactId>
   <packaging>pom</packaging>
   <name>Tobago Example Assembly</name>
-  <description>Helps to build the Tobago releases,</description>
+  <description>
+    This builds an archive which contains the Tobago examples.
+    Theses archives are downloadable via the Tobago website for each release.
+  </description>
 
   <parent>
     <groupId>org.apache.myfaces.tobago</groupId>
