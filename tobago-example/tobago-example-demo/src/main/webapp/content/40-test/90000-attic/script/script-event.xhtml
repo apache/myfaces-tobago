@@ -46,7 +46,7 @@
       <tc:out value="TODO: write an automated tests."/>
 
       <tc:button label="No Action"/>
-      <tc:button label="Action" action="#{scriptEvent.action}"/>
+      <tc:button label="Action" action="#{scriptEventController.action}"/>
       <tc:button label="External link" link="http://www.apache.org" target="_blank"/>
 
     </tc:box>
@@ -60,7 +60,7 @@
         <f:ajax render="list" execute="list"/>
       </tc:button>
 
-      <tc:sheet value="#{scriptEvent.items}" var="item">
+      <tc:sheet value="#{scriptEventController.items}" var="item">
         <tc:column label="Event">
           <tc:out value="#{item.name}"/>
         </tc:column>

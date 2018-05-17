@@ -19,29 +19,17 @@
 
 package org.apache.myfaces.tobago.example.test;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.myfaces.tobago.example.demo.DemoException;
 
-import javax.faces.component.UIInput;
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
+import javax.inject.Named;
+import javax.inject.Singleton;
 
+@Singleton
+@Named
+public class ErrorController {
 
-public class InputSuggestController implements Serializable {
-
-  private static final Logger LOG = LoggerFactory.getLogger(InputSuggestController.class);
-
-  public List<String> inputSuggestItems(final UIInput component) {
-    final String prefix = (String) component.getSubmittedValue();
-    LOG.info("Creating items for prefix :\"" + prefix + "\"");
-    final List<String> li = new ArrayList<>();
-    li.add(prefix + 1);
-    li.add(prefix + 2);
-    li.add(prefix + 3);
-    li.add(prefix + 4);
-    li.add(prefix + 5);
-    li.add(prefix + 6);
-    return li;
+  public String error() {
+    throw new DemoException("This exception is thrown to test error pages");
   }
+
 }

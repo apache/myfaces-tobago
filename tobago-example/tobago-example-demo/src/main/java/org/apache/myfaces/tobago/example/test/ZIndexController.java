@@ -19,8 +19,12 @@
 
 package org.apache.myfaces.tobago.example.test;
 
+import javax.enterprise.context.SessionScoped;
+import javax.inject.Named;
 import java.io.Serializable;
 
+@SessionScoped
+@Named
 public class ZIndexController implements Serializable {
 
   private Boolean modal1 = true;

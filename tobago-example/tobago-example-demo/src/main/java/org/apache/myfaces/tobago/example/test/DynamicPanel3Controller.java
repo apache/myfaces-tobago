@@ -19,9 +19,13 @@
 
 package org.apache.myfaces.tobago.example.test;
 
+import javax.enterprise.context.SessionScoped;
+import javax.inject.Named;
 import java.io.Serializable;
 
-public class DynamicPanel3 extends DynamicPanel implements Serializable {
+@SessionScoped
+@Named
+public class DynamicPanel3Controller extends AbstractDynamicPanel implements Serializable {
 
   private String street;
   private String city;

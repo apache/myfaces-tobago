@@ -19,15 +19,17 @@
 
 package org.apache.myfaces.tobago.example.test;
 
-public class DynamicPanel1 extends DynamicPanel {
+import javax.inject.Named;
+import javax.inject.Singleton;
+import java.util.ArrayList;
 
-  private String value;
+@Singleton
+@Named
+public class TrueAndFalseListController extends ArrayList<Boolean> {
 
-  public String getValue() {
-    return value;
-  }
-
-  public void setValue(final String value) {
-    this.value = value;
+  public TrueAndFalseListController() {
+    super(2);
+    add(true);
+    add(false);
   }
 }

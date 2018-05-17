@@ -19,42 +19,48 @@
 
 package org.apache.myfaces.tobago.example.test;
 
-import org.apache.myfaces.tobago.internal.util.PartUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
+import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
-import javax.servlet.http.Part;
+import javax.inject.Named;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
-public class Upload implements Serializable {
+@SessionScoped
+@Named
+public class DynamicController implements Serializable {
 
-  private static final Logger LOG = LoggerFactory.getLogger(Upload.class);
+  private List<AbstractDynamicPanel> panels = new ArrayList<>();
 
-  private Part part;
+  public String addPanel() {
 
-  public String upload() {
-    if (part == null) {
-      FacesContext.getCurrentInstance().addMessage(
-          null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "No UploadItem found!", null));
-      return null;
+    switch (panels.size()) {
+      case 0:
+        panels.add(new DynamicPanel1Controller());
+        break;
+      case 1:
+        panels.add(new DynamicPanel2Controller());
+        break;
+      case 2:
+        panels.add(new DynamicPanel3Controller());
+        break;
+      default:
+        FacesContext.getCurrentInstance().addMessage(null,
+            new FacesMessage(FacesMessage.SEVERITY_WARN, "All panels where added!", null));
     }
-    LOG.info("type=" + part.getContentType());
-    LOG.info("size=" + part.getSize());
-    final String name = PartUtils.getSubmittedFileName(part);
-    LOG.info("name=" + name);
-    FacesContext.getCurrentInstance().addMessage(
-        null, new FacesMessage(FacesMessage.SEVERITY_INFO, "File was uploaded: " + name, null));
-
-    return "/test/file/file.xhtml";
+    return "/test/forEach/dynamic-include.xhtml";
+//    return null;
   }
 
-  public Part getFile() {
-    return part;
+  public String reset() {
+    panels.clear();
+    return "/test/forEach/dynamic-include.xhtml";
+//    return null;
   }
 
-  public void setFile(final Part file) {
-    this.part = file;
+  public List<AbstractDynamicPanel> getPanels() {
+    return panels;
   }
+
 }

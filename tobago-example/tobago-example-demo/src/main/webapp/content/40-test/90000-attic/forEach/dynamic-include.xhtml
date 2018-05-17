@@ -46,15 +46,15 @@
         </p>
       </tc:panel>
       <tc:messages/>
-      <c:forEach var="panel" items="#{dynamic.panels}">
+      <c:forEach var="panel" items="#{dynamicController.panels}">
         <ui:include src="#{panel.name}"/>
       </c:forEach>
       <tc:panel>
         <f:facet name="layout">
           <tc:gridLayout columns="100px 100px 1fr" rows="auto"/>
         </f:facet>
-        <tc:button label="Next" action="#{dynamic.addPanel}"/>
-        <tc:button label="Reset" immediate="true" action="#{dynamic.reset}"/>
+        <tc:button label="Next" action="#{dynamicController.addPanel}"/>
+        <tc:button label="Reset" immediate="true" action="#{dynamicController.reset}"/>
       </tc:panel>
     </tc:box>
   </tc:page>

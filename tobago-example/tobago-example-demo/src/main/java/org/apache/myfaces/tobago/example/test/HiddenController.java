@@ -19,12 +19,38 @@
 
 package org.apache.myfaces.tobago.example.test;
 
-import org.apache.myfaces.tobago.example.demo.DemoException;
+import javax.enterprise.context.RequestScoped;
+import javax.inject.Named;
 
-public class ErrorTest {
+@RequestScoped
+@Named
+public class HiddenController {
 
-  public String error() {
-    throw new DemoException("This exception is thrown to test error pages");
+  private String value1 = "value 1";
+  private String value2 = "value 2";
+  private String value3 = "value 3";
+
+  public String getValue1() {
+    return value1;
   }
 
+  public void setValue1(final String value1) {
+    this.value1 = value1;
+  }
+
+  public String getValue2() {
+    return value2;
+  }
+
+  public void setValue2(final String value2) {
+    this.value2 = value2;
+  }
+
+  public String getValue3() {
+    return value3;
+  }
+
+  public void setValue3(final String value3) {
+    this.value3 = value3;
+  }
 }

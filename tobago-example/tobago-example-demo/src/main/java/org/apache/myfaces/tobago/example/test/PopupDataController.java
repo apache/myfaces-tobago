@@ -19,7 +19,12 @@
 
 package org.apache.myfaces.tobago.example.test;
 
-public class PopupData {
+import javax.enterprise.context.RequestScoped;
+import javax.inject.Named;
+
+@RequestScoped
+@Named
+public class PopupDataController {
 
   private String value;
 

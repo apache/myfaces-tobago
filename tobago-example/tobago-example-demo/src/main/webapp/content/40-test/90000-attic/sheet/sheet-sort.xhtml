@@ -23,9 +23,8 @@
     xmlns:f="http://java.sun.com/jsf/core">
 
   <tc:page id="page">
-    <!-- <tc:gridLayoutConstraint width="600px" height="600px"/> -->
 
-    <tc:sheet value="#{sort.list}" id="sheet" columns="1fr 1fr 1fr 1fr 1fr 1fr" var="entry">
+    <tc:sheet value="#{sheetSortController.list}" id="sheet" columns="1fr 1fr 1fr 1fr 1fr 1fr" var="entry">
       <tc:column label="tc:out" id="first" sortable="true">
         <tc:out value="#{entry.first}" id="out"/>
       </tc:column>

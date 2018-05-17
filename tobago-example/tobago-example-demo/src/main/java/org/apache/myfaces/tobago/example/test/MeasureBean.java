@@ -21,6 +21,11 @@ package org.apache.myfaces.tobago.example.test;
 
 import org.apache.myfaces.tobago.layout.Measure;
 
+import javax.inject.Named;
+import javax.inject.Singleton;
+
+@Singleton
+@Named
 public class MeasureBean {
 
   public int getIntWidth() {

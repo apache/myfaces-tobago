@@ -19,16 +19,20 @@
 
 package org.apache.myfaces.tobago.example.test;
 
+import javax.enterprise.context.RequestScoped;
 import javax.faces.context.FacesContext;
+import javax.inject.Named;
 import java.util.Arrays;
 import java.util.List;
 
-public class ResourceBean {
+@RequestScoped
+@Named
+public class ResourceBeanController {
 
   private List<ResourceEntry> resources;
   private int fails;
 
-  public ResourceBean() {
+  public ResourceBeanController() {
     if (resources == null) {
       final FacesContext facesContext = FacesContext.getCurrentInstance();
 

@@ -288,9 +288,9 @@
     <f:facet name="layout">
       <tc:gridLayout columns="1fr 1fr"/>
     </f:facet>
-    <tc:selectBooleanCheckbox label="1st Popup Modal" value="#{zIndex.modal1}" id="modal1st"/>
+    <tc:selectBooleanCheckbox label="1st Popup Modal" value="#{zIndexController.modal1}" id="modal1st"/>
     <tc:panel/>
-    <tc:selectBooleanCheckbox label="2nd Popup Modal" value="#{zIndex.modal2}"/>
+    <tc:selectBooleanCheckbox label="2nd Popup Modal" value="#{zIndexController.modal2}"/>
     <tc:panel/>
   </tc:panel>
   <tc:panel>
@@ -299,7 +299,7 @@
     </f:facet>
     <tc:button label="Open Popup">
       <f:facet name="popup">
-        <tc:popup width="600px" height="470px" left="100px" top="100px" id="popup-1" modal="#{zIndex.modal1}">
+        <tc:popup width="600px" height="470px" left="100px" top="100px" id="popup-1" modal="#{zIndexController.modal1}">
           <tc:box label="Popup (z-index = 1 (TODO))" id="box-1">
             <f:facet name="layout">
               <tc:gridLayout rows="auto auto 1fr auto"/>
@@ -323,7 +323,7 @@
               </f:facet>
               <tc:button label="Open Sub Popup">
                 <f:facet name="popup">
-                  <tc:popup width="400px" height="500px" left="200px" top="50px" id="popup-2" modal="#{zIndex.modal2}">
+                  <tc:popup width="400px" height="500px" left="200px" top="50px" id="popup-2" modal="#{zIndexController.modal2}">
                     <tc:box label="Popup (z-index = 2 (TODO))" id="box-2">
                       <f:facet name="layout">
                         <tc:gridLayout rows="auto auto 1fr auto"/>

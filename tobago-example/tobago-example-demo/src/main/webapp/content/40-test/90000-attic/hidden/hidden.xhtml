@@ -30,17 +30,17 @@
 
     <tc:out value="Click 'fill' and than 'submit' and check that the 2. field has not modified, because the hidden field 2 has rendered=false"/>
     
-    <tc:hidden id="h1" value="#{hidden.value1}"/>
+    <tc:hidden id="h1" value="#{hiddenController.value1}"/>
     <tc:in label="Value of the hidden field 1 on server"
-           labelWidth="350px" value="#{hidden.value1}" disabled="true"/>
+           labelWidth="350px" value="#{hiddenController.value1}" disabled="true"/>
     
-    <tc:hidden id="h2" value="#{hidden.value2}" rendered="false"/>
+    <tc:hidden id="h2" value="#{hiddenController.value2}" rendered="false"/>
     <tc:in label="Value of the hidden field 2 on server (rendered=false)"
-           labelWidth="350px" value="#{hidden.value2}" disabled="true"/>
+           labelWidth="350px" value="#{hiddenController.value2}" disabled="true"/>
     
-    <tc:hidden id="h3" value="#{hidden.value3}" rendered="true"/>
+    <tc:hidden id="h3" value="#{hiddenController.value3}" rendered="true"/>
     <tc:in label="Value of the hidden field 3 on server (rendered=true)"
-           labelWidth="350px" value="#{hidden.value3}" disabled="true"/>
+           labelWidth="350px" value="#{hiddenController.value3}" disabled="true"/>
     
     <tc:button id="fill" label="1. fill hidden fields" onclick="fillHiddenFields();"/>
     <tc:button label="2. submit hidden fields..."/>

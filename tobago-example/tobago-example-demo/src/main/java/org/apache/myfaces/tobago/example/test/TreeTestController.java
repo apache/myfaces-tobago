@@ -28,10 +28,14 @@ import org.apache.myfaces.tobago.model.TreeDataModel;
 import org.apache.myfaces.tobago.model.TreeNodeDataModel;
 import org.apache.myfaces.tobago.model.TreeState;
 
+import javax.enterprise.context.SessionScoped;
+import javax.inject.Named;
 import javax.swing.tree.DefaultMutableTreeNode;
 import java.io.Serializable;
 
-public class TreeController implements Serializable {
+@SessionScoped
+@Named
+public class TreeTestController implements Serializable {
 
   private DefaultMutableTreeNode tree = CategoryTree.createSample();
 
@@ -43,7 +47,7 @@ public class TreeController implements Serializable {
 
   private CantorInterval infinite = new CantorInterval();
 
-  public TreeController() {
+  public TreeTestController() {
     state.getExpandedState().expand(tree);
   }
 

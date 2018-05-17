@@ -30,8 +30,8 @@
         <f:facet name="layout">
           <tc:gridLayout columns="1fr 1fr"/>
         </f:facet>
-        <tc:selectBooleanCheckbox value="#{attribute.condition}"/>
-        <tc:button label="update" action="#{attribute.update}"/>
+        <tc:selectBooleanCheckbox value="#{attributeController.condition}"/>
+        <tc:button label="update" action="#{attributeController.update}"/>
       </tc:panel>
 
       <tc:label value="simple output"/>
@@ -41,34 +41,34 @@
 
       <tc:label value="output over EL"/>
       <tc:in readonly="true">
-        <tc:attribute name="value" value="#{attribute.counter}"/>
+        <tc:attribute name="value" value="#{attributeController.counter}"/>
       </tc:in>
 
       <tc:label value="action"/>
       <tc:button label="Click">
-        <tc:attribute name="action" value="#{attribute.reload}"/>
+        <tc:attribute name="action" value="#{attributeController.reload}"/>
       </tc:button>
 
-      <tc:label value="conditional action (#{attribute.condition})"/>
+      <tc:label value="conditional action (#{attributeController.condition})"/>
       <tc:button label="Click">
-        <c:if test="${attribute.condition}">
-          <tc:attribute name="action" value="#{attribute.reload}"/>
+        <c:if test="${attributeController.condition}">
+          <tc:attribute name="action" value="#{attributeController.reload}"/>
         </c:if>
       </tc:button>
 
-      <tc:label value="conditional action not (#{not attribute.condition})"/>
+      <tc:label value="conditional action not (#{not attributeController.condition})"/>
       <tc:button label="Click">
-        <c:if test="${not attribute.condition}">
-          <tc:attribute name="action" value="#{attribute.reload}"/>
+        <c:if test="${not attributeController.condition}">
+          <tc:attribute name="action" value="#{attributeController.reload}"/>
         </c:if>
       </tc:button>
 
-      <tc:label value="conditional action (#{attribute.condition}) and outcome not (#{not attribute.condition})"/>
+      <tc:label value="conditional action (#{attributeController.condition}) and outcome not (#{not attributeController.condition})"/>
       <tc:button label="Click">
-        <c:if test="${attribute.condition}">
-          <tc:attribute name="action" value="#{attribute.reload}"/>
+        <c:if test="${attributeController.condition}">
+          <tc:attribute name="action" value="#{attributeController.reload}"/>
         </c:if>
-        <c:if test="${not attribute.condition}">
+        <c:if test="${not attributeController.condition}">
           <tc:attribute name="outcome" value="/content/10-intro/intro.xhtml"/>
         </c:if>
       </tc:button>

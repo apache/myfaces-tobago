@@ -19,33 +19,25 @@
 
 package org.apache.myfaces.tobago.example.test;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.io.Serializable;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
-public class DateController implements Serializable {
+public abstract class AbstractDynamicPanel implements Serializable {
 
-  private static final Logger LOG = LoggerFactory.getLogger(DateController.class);
+  private static final String[] PANEL_FILES = new String[]{
+      "x-panel-1.xhtml",
+      "x-panel-2.xhtml",
+      "x-panel-3.xhtml"};
 
-  private Date once;
+  private final String name;
 
-  public DateController() {
-    try {
-      once = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss SSS").parse("1980-03-07 21:05:09 012");
-    } catch (final ParseException e) {
-      LOG.error("should not happen. ", e);
-    }
+  public AbstractDynamicPanel() {
+    final String simpleName = this.getClass().getSimpleName();
+    final int pos = simpleName.length() - 1 - "Controller".length();
+    final int number = Integer.parseInt(simpleName.substring(pos, pos + 1)) - 1;
+    this.name = PANEL_FILES[number];
   }
 
-  public Date getOnce() {
-    return once;
-  }
-
-  public void setOnce(final Date once) {
-    this.once = once;
+  public String getName() {
+    return name;
   }
 }

@@ -17,41 +17,26 @@
  * under the License.
  */
 
-package org.apache.myfaces.tobago.example.test;
+package org.apache.myfaces.tobago.example.demo;
 
+import javax.enterprise.context.SessionScoped;
+import javax.inject.Named;
 import java.io.Serializable;
 
-public class Partially implements Serializable {
+@Named
+@SessionScoped
+public class AttributeController implements Serializable {
 
   private int counter;
+  private boolean condition;
 
-  private String characters;
-
-  public Partially() {
-    final StringBuilder builder = new StringBuilder();
-    builder.append("test_characters = [ ");
-    for (char c = 0; c < 0x24F; c++) {
-
-      builder.append('\'');
-      if (c == '\'' || c == '\\' || c == '\n' || c == '\r') { // to have a valid JavaScript string.
-        builder.append('\\');
-      }
-      builder.append(c);
-      builder.append("\', ");
-      if (c % 16 == 15) {
-        builder.append("\n");
-      }
-    }
-    builder.append("];");
-    characters = builder.toString();
+  public String update() {
+    return "/content/40-test/9000-attribute/attribute.xhtml?faces-redirect=true";
   }
 
-  public void resetCounter() {
-    counter = 0;
-  }
-
-  public void reload() {
+  public String reload() {
     counter++;
+    return null;
   }
 
   public int getCounter() {
@@ -62,11 +47,15 @@ public class Partially implements Serializable {
     this.counter = counter;
   }
 
-  public String getCharacters() {
-    return characters;
+  public boolean isCondition() {
+    return condition;
   }
 
-  public void setCharacters(final String characters) {
-    this.characters = characters;
+  public void setCondition(final boolean condition) {
+    this.condition = condition;
+  }
+
+  public String getValue() {
+    return "value from model";
   }
 }

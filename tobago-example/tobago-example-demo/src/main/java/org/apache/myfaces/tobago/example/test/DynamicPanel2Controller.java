@@ -19,22 +19,29 @@
 
 package org.apache.myfaces.tobago.example.test;
 
-public abstract class DynamicPanel {
+import javax.enterprise.context.SessionScoped;
+import javax.inject.Named;
 
-  private static final String[] PANEL_FILES = new String[]{
-      "panel-one-fragment.xhtml",
-      "panel-two-fragment.xhtml",
-      "panel-three-fragment.xhtml"};
+@SessionScoped
+@Named
+public class DynamicPanel2Controller extends AbstractDynamicPanel {
 
-  private final String name;
+  private String firstName;
+  private String secondName;
 
-  public DynamicPanel() {
-    final String simpleName = this.getClass().getSimpleName();
-    final int number = Integer.parseInt(simpleName.substring(simpleName.length() - 1)) - 1;
-    this.name = PANEL_FILES[number];
+  public String getFirstName() {
+    return firstName;
   }
 
-  public String getName() {
-    return name;
+  public void setFirstName(final String firstName) {
+    this.firstName = firstName;
+  }
+
+  public String getSecondName() {
+    return secondName;
+  }
+
+  public void setSecondName(final String secondName) {
+    this.secondName = secondName;
   }
 }

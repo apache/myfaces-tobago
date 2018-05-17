@@ -55,7 +55,7 @@
           <tc:attribute name="value" value="#{value3}" mode="valueIfSet"/>
         </tc:in>
 
-        <c:set var="value4" value="#{attribute.value}"/>
+        <c:set var="value4" value="#{attributeController.value}"/>
         <tc:label value="java session variable"/>
         <tc:in id="v4" label="value from model" labelLayout="segmentRight">
           <tc:attribute name="value" value="#{value4}" mode="valueIfSet"/>

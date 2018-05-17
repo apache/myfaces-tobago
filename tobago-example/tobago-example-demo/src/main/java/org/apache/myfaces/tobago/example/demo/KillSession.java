@@ -17,15 +17,20 @@
  * under the License.
  */
 
-package org.apache.myfaces.tobago.example.test;
+package org.apache.myfaces.tobago.example.demo;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
+/**
+ * Simple Servlet to kill the user session.
+ */
+@WebServlet(urlPatterns = "/KillSession")
 public class KillSession extends HttpServlet {
 
   @Override
@@ -33,8 +38,10 @@ public class KillSession extends HttpServlet {
       throws ServletException, IOException {
     final HttpSession session = request.getSession(false);
     if (session != null) {
-       session.invalidate();
+      session.invalidate();
+      response.getOutputStream().write("The user session was killed!".getBytes());
+    } else {
+      response.getOutputStream().write("There is no user session to kill!".getBytes());
     }
-    response.getOutputStream().write("session killed".getBytes());
   }
 }

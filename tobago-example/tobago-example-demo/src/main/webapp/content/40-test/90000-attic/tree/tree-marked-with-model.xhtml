@@ -39,8 +39,8 @@
     &lt;li>Check: Only the Sports node should be marked&lt;/li>
     &lt;/ol>"/>
 
-    <tc:tree id="tree" value="#{tree.tree}" var="node" showRoot="true" showRootJunction="true"
-        state="#{tree.state}">
+    <tc:tree id="tree" value="#{treeTestController.tree}" var="node" showRoot="true" showRootJunction="true"
+             state="#{treeTestController.state}">
       <tc:treeNode id="node">
         <tc:treeIndent id="indent"/>
         <tc:treeCommand label="#{node.userObject.name}" id="command"/>
@@ -54,7 +54,7 @@
 
       <tc:panel/>
       <tc:button id="reload" link="#{request.pathInfo}" label="Reload with fresh view"/>
-      <tc:button id="clear" action="#{tree.clearSelected}" label="Reload with fresh view"/>
+      <tc:button id="clear" action="#{treeTestController.clearSelected}" label="Reload with fresh view"/>
 
     </tc:panel>
 

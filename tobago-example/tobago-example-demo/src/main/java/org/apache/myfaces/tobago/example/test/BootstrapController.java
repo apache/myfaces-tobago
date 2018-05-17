@@ -19,13 +19,39 @@
 
 package org.apache.myfaces.tobago.example.test;
 
-public class PopupModalAttribute {
+import javax.enterprise.context.SessionScoped;
+import javax.inject.Named;
+import java.io.Serializable;
 
-  public boolean isAlwaysTrue() {
-    return true;
+@SessionScoped
+@Named
+public class BootstrapController implements Serializable {
+
+  private String value;
+
+  public BootstrapController() {
+    reset();
   }
 
-  public boolean isAlwaysFalse() {
-    return false;
+  public String save() {
+    return "test/html/bootstrap.xhtml";
+  }
+
+  public String delete() {
+    value = null;
+    return "test/html/bootstrap.xhtml";
+  }
+
+  public String reset() {
+    value = "initial value";
+    return "test/html/bootstrap.xhtml";
+  }
+
+  public String getValue() {
+    return value;
+  }
+
+  public void setValue(final String value) {
+    this.value = value;
   }
 }

@@ -38,7 +38,7 @@ public class ScriptEventServlet extends HttpServlet {
       throws ServletException, IOException {
     final HttpSession session = request.getSession(false);
     if (session != null) {
-      final ScriptEvent scriptEvent = (ScriptEvent) session.getAttribute("scriptEvent");
+      final ScriptEventController scriptEvent = (ScriptEventController) session.getAttribute("scriptEvent");
       if (scriptEvent != null) {
         final String event = request.getParameter("event");
         if (event.equals("onload")) {

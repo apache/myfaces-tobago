@@ -38,7 +38,7 @@
       &lt;li>Check if the readonly value has been changed&lt;/li>
       &lt;/ol>"/>
 
-      <tc:in label="Readonly Value" value="#{popupData.value}" readonly="true" fieldId="readonly"/>
+      <tc:in label="Readonly Value" value="#{popupDataController.value}" readonly="true" fieldId="readonly"/>
 
       <tc:panel>
         <f:facet name="layout">
@@ -51,7 +51,7 @@
                 <f:facet name="layout">
                   <tc:gridLayout rows="1fr auto"/>
                 </f:facet>
-                <tc:in label="Edit Value" value="#{popupData.value}" fieldId="in"/>
+                <tc:in label="Edit Value" value="#{popupDataController.value}" fieldId="in"/>
                 <tc:button label="Save and Close" id="close">
                   <f:ajax render=":page:global" execute=":page:global"/>
                   <tc:attribute name="popupClose" value="afterSubmit"/>

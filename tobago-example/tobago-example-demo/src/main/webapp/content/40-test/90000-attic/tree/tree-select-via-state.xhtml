@@ -29,7 +29,7 @@
 
     <tc:out value="Stores the selection value in the state object of the tree."/>
 
-    <tc:tree id="tree" selectable="single" showRoot="true" showRootJunction="true" value="#{tree.tree}" var="node">
+    <tc:tree id="tree" selectable="single" showRoot="true" showRootJunction="true" value="#{treeTestController.tree}" var="node">
       <tc:treeNode id="template">
         <tc:treeIndent/>
         <tc:treeSelect id="select" label="#{node.userObject.name}"/>

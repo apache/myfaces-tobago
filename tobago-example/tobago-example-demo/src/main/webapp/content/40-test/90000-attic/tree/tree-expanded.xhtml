@@ -29,9 +29,9 @@
 
     <tc:out value="Test expanded state of the tree nodes:"/>
 
-    <tc:button label="Reset" action="#{tree.openAll}" id="reset" immediate="true"/>
+    <tc:button label="Reset" action="#{treeTestController.openAll}" id="reset" immediate="true"/>
 
-    <tc:tree id="tree" value="#{tree.tree}" state="#{tree.state}" var="node" showRoot="true" showRootJunction="true">
+    <tc:tree id="tree" value="#{treeTestController.tree}" state="#{treeTestController.state}" var="node" showRoot="true" showRootJunction="true">
       <tc:treeNode id="node">
         <tc:treeIndent id="indent"/>
         <tc:treeCommand id="command" label="#{node.userObject.name}"/>

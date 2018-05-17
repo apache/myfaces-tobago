@@ -39,7 +39,7 @@
     &lt;li>Check: Only the Sports node should be marked&lt;/li>
     &lt;/ol>"/>
 
-    <tc:tree id="tree" value="#{tree.tree}" var="node" showRoot="true" showRootJunction="true">
+    <tc:tree id="tree" value="#{treeTestController.tree}" var="node" showRoot="true" showRootJunction="true">
       <tc:treeNode id="node">
         <tc:treeIndent id="indent"/>
         <tc:treeCommand label="#{node.userObject.name}" id="command"/>

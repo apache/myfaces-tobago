@@ -64,16 +64,16 @@
 
     </tc:panel>
 
-    <c:forEach items="#{trueAndFalseList}" var="showRoot">
-      <c:forEach items="#{trueAndFalseList}" var="showRootJunction">
-        <c:forEach items="#{trueAndFalseList}" var="showJunctions">
-          <c:forEach items="#{trueAndFalseList}" var="showIcons">
+    <c:forEach items="#{trueAndFalseListController}" var="showRoot">
+      <c:forEach items="#{trueAndFalseListController}" var="showRootJunction">
+        <c:forEach items="#{trueAndFalseListController}" var="showJunctions">
+          <c:forEach items="#{trueAndFalseListController}" var="showIcons">
 
             <tc:box
                 label="#{showRoot}, #{showRootJunction}, #{showJunctions}, #{showIcons}"
                 tip="show root = #{showRoot}, show root junctions = #{showRootJunction}, show junctions = #{showJunctions}, show icons = #{showIcons}">
               <tc:tree showRoot="#{showRoot}" showRootJunction="#{showRootJunction}"
-                       value="#{tree.small}" var="node">
+                       value="#{treeTestController.small}" var="node">
                   <tc:treeNode id="template">
                     <tc:treeIndent showJunctions="#{showJunctions}"/>
                     <tc:treeIcon rendered="#{showIcons}"/>
