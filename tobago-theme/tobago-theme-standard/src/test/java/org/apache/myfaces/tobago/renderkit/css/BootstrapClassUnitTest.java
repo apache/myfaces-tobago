@@ -24,7 +24,7 @@ import org.apache.myfaces.tobago.layout.Measure;
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -68,7 +68,7 @@ public class BootstrapClassUnitTest {
    * This test checks, if every item of the {@link BootstrapClass} occurs in the bootstrap.css.
    */
   @Test
-  public void testCompareBootstrapCss() throws FileNotFoundException, NoSuchFieldException {
+  public void testCompareBootstrapCss() throws IOException, NoSuchFieldException {
 
     final BootstrapClass[] allValues = BootstrapClass.values();
     final List<BootstrapClass> toCheck = new ArrayList<>();
