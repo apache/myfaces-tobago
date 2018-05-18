@@ -19,6 +19,10 @@
 
 package org.apache.myfaces.tobago.context;
 
+/**
+ * @deprecated since Tobago 4.2.2
+ */
+@Deprecated
 public final class ResourceUtils {
 
   /**
@@ -68,6 +72,10 @@ public final class ResourceUtils {
     return folder + FOLDER_SEPARATOR + component + SEPARATOR + name + DOT + extension;
   }
 
+  /**
+   * @deprecated since Tobago 4.2.2
+   */
+  @Deprecated
   public static String addPostfixToFilename(final String filename, final String postfix) {
     final int dotIndex = filename.lastIndexOf('.');
     if (dotIndex == -1) {
