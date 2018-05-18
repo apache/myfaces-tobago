@@ -26,8 +26,8 @@ import java.math.BigInteger;
 import java.util.Enumeration;
 
 /**
- * Builds a tree with the iterations of the <a href="http://en.wikipedia.org/wiki/Cantor_set">Cantor set</a>.
- * The tree is infinitive, so it will be created on the fly.
+ * Builds a tree with the iterations of the <a href="http://en.wikipedia.org/wiki/Cantor_set">Cantor set</a>. The tree
+ * is infinitive, so it will be created on the fly.
  */
 public class CantorInterval extends DefaultMutableTreeNode {
 
@@ -78,13 +78,7 @@ public class CantorInterval extends DefaultMutableTreeNode {
   }
 
   public String getLabel() {
-    final StringBuilder builder = new StringBuilder();
-    builder.append("[");
-    builder.append(begin);
-    builder.append(", ");
-    builder.append(end);
-    builder.append("]");
-    return builder.toString();
+    return "[" + begin + ", " + end + "]";
   }
 
   public String toString() {

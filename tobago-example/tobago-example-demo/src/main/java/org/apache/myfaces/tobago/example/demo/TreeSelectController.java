@@ -70,7 +70,8 @@ public class TreeSelectController implements Serializable {
   private void buildSelectedNodesString(final StringBuilder stringBuilder, final DefaultMutableTreeNode node) {
     final Node userObject = (Node) node.getUserObject();
     if (userObject.isSelected()) {
-      stringBuilder.append(", " + userObject.getName());
+      stringBuilder.append(", ");
+      stringBuilder.append(userObject.getName());
     }
     for (int i = 0; i < node.getChildCount(); i++) {
       final DefaultMutableTreeNode child = (DefaultMutableTreeNode) node.getChildAt(i);

@@ -92,7 +92,7 @@ public abstract class AbstractUITabGroup extends AbstractUIPanelBase
         LOG.error("Invalid component in UITabGroup: " + kid);
       }
     }
-    return tabs.toArray(new AbstractUITab[tabs.size()]);
+    return tabs.toArray(new AbstractUITab[0]);
   }
 
   public AbstractUITab getActiveTab() {

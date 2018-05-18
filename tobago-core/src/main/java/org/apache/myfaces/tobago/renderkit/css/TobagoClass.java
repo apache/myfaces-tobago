@@ -266,7 +266,7 @@ public enum TobagoClass implements CssItem {
       for (final String markupString : markup) {
         markups.add(new MarkupClass(this, markupString));
       }
-      return markups.toArray(new CssItem[markups.size()]);
+      return markups.toArray(new CssItem[0]);
     } else {
       return null;
     }
@@ -285,11 +285,7 @@ public enum TobagoClass implements CssItem {
     @Override
     public String getName() {
       // These values are statistically tested length of the html class attribute
-      final StringBuilder builder = new StringBuilder(80);
-      builder.append(rendererClass.getName());
-      builder.append("-markup-");
-      builder.append(markup);
-      return builder.toString();
+      return rendererClass.getName() + "-markup-" + markup;
     }
   }
 }

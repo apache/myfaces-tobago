@@ -82,7 +82,7 @@ public class TobagoClassUnitTest {
 
     final List<CssItem> missing =
         CssClassUtils.compareCss("src/main/resources/scss/_tobago.scss",
-        toCheck.toArray(new CssItem[toCheck.size()]));
+        toCheck.toArray(new CssItem[0]));
 
     Assert.assertTrue("These classes are missing in _tobago.scss: " + missing, missing.isEmpty());
   }

@@ -45,7 +45,7 @@ public class TreeExpansionEvent extends FacesEvent {
   public void processListener(final FacesListener facesListener) {
     if (facesListener instanceof TreeExpansionListener) {
       if (oldExpanded && !newExpanded) {
-   //todo     ((TreeExpansionListener) facesListener).treeCollapsed(this);
+        //todo ((TreeExpansionListener) facesListener).treeCollapsed(this);
         ((TreeExpansionListener) facesListener).treeExpanded(this);
       } else if (!oldExpanded && newExpanded) {
         ((TreeExpansionListener) facesListener).treeExpanded(this);
@@ -65,10 +65,6 @@ public class TreeExpansionEvent extends FacesEvent {
 
   @Override
   public String toString() {
-    return new StringBuilder()
-        .append(super.toString())
-        .append("expanded=")
-        .append(newExpanded)
-        .toString();
+    return super.toString() + "expanded=" + newExpanded;
   }
 }

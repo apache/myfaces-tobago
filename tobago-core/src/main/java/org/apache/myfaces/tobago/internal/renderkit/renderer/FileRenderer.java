@@ -88,7 +88,7 @@ public class FileRenderer extends MessageLayoutRendererBase implements Component
                   PartUtils.getSubmittedFileName(part), part.getSize(), part.getContentType());
               parts.add(new HttpPartWrapper(part));
             }
-            file.setSubmittedValue(parts.toArray(new Part[parts.size()]));
+            file.setSubmittedValue(parts.toArray(new Part[0]));
           }
         } else {
           final Part part = httpServletRequest.getPart(file.getClientId(facesContext));

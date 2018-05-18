@@ -334,7 +334,7 @@ public class SheetRenderer extends RendererBase {
       }
 
       encodeHiddenInput(writer,
-          JsonUtils.encode(encodedRendered.toArray(new String[encodedRendered.size()]), false),
+          JsonUtils.encode(encodedRendered.toArray(new String[0]), false),
           sheetId + SUFFIX_COLUMN_RENDERED);
     }
 

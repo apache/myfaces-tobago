@@ -227,7 +227,7 @@ public final class StringUtils {
     if (match) {
       list.add(string.substring(start, i));
     }
-    return list.toArray(new String[list.size()]);
+    return list.toArray(new String[0]);
   }
 
   /**
@@ -307,7 +307,7 @@ public final class StringUtils {
     if (match) {
       list.add(string.substring(start, i));
     }
-    return list.toArray(new String[list.size()]);
+    return list.toArray(new String[0]);
   }
 
   /**

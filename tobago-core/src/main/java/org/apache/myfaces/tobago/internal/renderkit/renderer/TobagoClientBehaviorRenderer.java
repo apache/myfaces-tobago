@@ -81,8 +81,7 @@ public class TobagoClientBehaviorRenderer extends javax.faces.render.ClientBehav
       final Collection<String> render = ajaxBehavior.getRender();
       final String clientId = uiComponent.getClientId(facesContext);
 
-      executeIds
-          = ComponentUtils.evaluateClientIds(facesContext, uiComponent, execute.toArray(new String[execute.size()]));
+      executeIds = ComponentUtils.evaluateClientIds(facesContext, uiComponent, execute.toArray(new String[0]));
       if (executeIds != null) {
         executeIds = executeIds + " " + clientId;
       } else {
@@ -94,8 +93,7 @@ public class TobagoClientBehaviorRenderer extends javax.faces.render.ClientBehav
         target = command.getTarget();
         omit = command.isOmit() || StringUtils.isNotBlank(RenderUtils.generateUrl(facesContext, command));
       }
-      renderIds =
-          ComponentUtils.evaluateClientIds(facesContext, uiComponent, render.toArray(new String[render.size()]));
+      renderIds = ComponentUtils.evaluateClientIds(facesContext, uiComponent, render.toArray(new String[0]));
       actionId = clientId;
     } else if (behavior instanceof EventBehavior) { // <tc:event>
       final EventBehavior eventBehavior = (EventBehavior) behavior;

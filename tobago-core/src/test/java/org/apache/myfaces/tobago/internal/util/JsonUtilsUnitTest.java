@@ -172,8 +172,8 @@ public class JsonUtilsUnitTest extends AbstractTobagoTestBase {
 
     Assert.assertEquals(expectedA, JsonUtils.encode(a));
     Assert.assertEquals(expectedAb, JsonUtils.encode(ab));
-    Assert.assertEquals(null, JsonUtils.encode(Markup.NULL));
-    Assert.assertEquals(null, JsonUtils.encode((Markup) null));
+    Assert.assertNull(JsonUtils.encode(Markup.NULL));
+    Assert.assertNull(JsonUtils.encode((Markup) null));
 
   }
 

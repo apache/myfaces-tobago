@@ -307,7 +307,7 @@ public final class Markup implements Serializable, Iterable<String> {
       for (final Object object : (Iterable) value) {
         list.add(object.toString());
       }
-      return valueOf(list.toArray(new String[list.size()]));
+      return valueOf(list.toArray(new String[0]));
     }
     return valueOf(value.toString());
   }

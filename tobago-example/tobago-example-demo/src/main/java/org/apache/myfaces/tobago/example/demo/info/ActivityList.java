@@ -26,7 +26,6 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -42,20 +41,17 @@ public class ActivityList implements Serializable {
   private Map<String, Activity> data = new ConcurrentHashMap<>();
 
   public void add(final Activity activity) {
-    LOG.info("Adding session id: " + activity.getSessionId());
+    LOG.info("Adding session id: '{}'", activity.getSessionId());
     data.put(activity.getSessionId(), activity);
   }
 
   public void remove(final String sessionId) {
-    LOG.info("Removing session id: " + sessionId);
+    LOG.info("Removing session id: '{}'", sessionId);
     data.remove(sessionId);
   }
 
   public List<Activity> getValues() {
-    final Collection<Activity> values = data.values();
-    final ArrayList<Activity> result = new ArrayList<>();
-    result.addAll(values);
-    return result;
+    return new ArrayList<>(data.values());
   }
 
   public void executeJsfRequest(final String sessionId) {
