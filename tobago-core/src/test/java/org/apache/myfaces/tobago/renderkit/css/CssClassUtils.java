@@ -19,27 +19,23 @@
 
 package org.apache.myfaces.tobago.renderkit.css;
 
-import org.junit.Assert;
-
-import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 class CssClassUtils {
 
   /**
    * Checks, if CSS class names are defined in the file.
    */
-  static List<CssItem> compareCss(final String cssFileName, final CssItem[] cssItems) throws FileNotFoundException {
+  static List<CssItem> compareCss(final String cssFileName, final CssItem[] cssItems) throws IOException {
 
     final List<CssItem> missing = new ArrayList<>();
 
-    final File cssFile = new File(cssFileName);
-    Assert.assertTrue(cssFile.exists());
-
-    final String fileContent = new Scanner(cssFile).useDelimiter("\\Z").next();
+    final String fileContent = new String(Files.readAllBytes(Paths.get(cssFileName)), Charset.forName("UTF-8"));
 
     for (final CssItem cssItem : cssItems) {
       if (!containsClassName(fileContent, cssItem.getName())) {

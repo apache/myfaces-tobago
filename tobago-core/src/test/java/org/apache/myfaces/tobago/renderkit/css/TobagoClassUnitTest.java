@@ -22,7 +22,7 @@ package org.apache.myfaces.tobago.renderkit.css;
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -69,7 +69,7 @@ public class TobagoClassUnitTest {
    * This test checks whether every item of the {@link TobagoClass} occurs in the _tobago.scss.
    */
   @Test
-  public void testCompareTobagoCss() throws FileNotFoundException, NoSuchFieldException {
+  public void testCompareTobagoCss() throws IOException, NoSuchFieldException {
 
     final TobagoClass[] allValues = TobagoClass.values();
     final List<TobagoClass> toCheck = new ArrayList<>();
