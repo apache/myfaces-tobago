@@ -26,13 +26,10 @@
     <tc:gridLayout columns="250px 1fr">
 
       <tc:label value="condition"/>
-      <tc:panel>
-        <f:facet name="layout">
-          <tc:gridLayout columns="1fr 1fr"/>
-        </f:facet>
+      <tc:gridLayout columns="1fr 1fr">
         <tc:selectBooleanCheckbox value="#{attributeController.condition}"/>
         <tc:button label="update" action="#{attributeController.update}"/>
-      </tc:panel>
+      </tc:gridLayout>
 
       <tc:label value="simple output"/>
       <tc:in readonly="true">
@@ -63,7 +60,8 @@
         </c:if>
       </tc:button>
 
-      <tc:label value="conditional action (#{attributeController.condition}) and outcome not (#{not attributeController.condition})"/>
+      <tc:label
+          value="conditional action (#{attributeController.condition}) and outcome not (#{not attributeController.condition})"/>
       <tc:button label="Click">
         <c:if test="${attributeController.condition}">
           <tc:attribute name="action" value="#{attributeController.reload}"/>

@@ -23,25 +23,15 @@
     xmlns:f="http://java.sun.com/jsf/core">
 
   <tc:page>
-    <!-- <tc:gridLayoutConstraint width="600px" height="300px"/> -->
-
     <tc:box label="Error Test">
-      <f:facet name="layout">
-        <tc:gridLayout rows="100px auto"/>
-      </f:facet>
 
       <tc:panel>
         Please click the button, that will throw an exception!
       </tc:panel>
 
-      <tc:panel>
-        <f:facet name="layout">
-          <tc:gridLayout columns="1fr auto"/>
-        </f:facet>
-
-        <tc:panel/>
-        <tc:button label="Error" action="#{errorController.error}"/>
-      </tc:panel>
+      <tc:flowLayout textAlign="right">
+        <tc:button label="Throw an error" action="#{errorController.error}"/>
+      </tc:flowLayout>
 
     </tc:box>
   </tc:page>
