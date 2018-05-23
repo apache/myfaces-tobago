@@ -23,11 +23,6 @@
 
   <tc:page>
 
-    <f:facet name="layout">
-      <tc:gridLayout rows="auto auto 1fr"/>
-    </f:facet>
-    <!-- <tc:gridLayoutConstraint width="600px" height="300px"/> -->
-
     <tc:in label="Fails" markup="#{resourceBeanController.fails == 2 ? '' : 'error' }"
            value="#{resourceBeanController.fails}" tip="expected are 2"/>
 
