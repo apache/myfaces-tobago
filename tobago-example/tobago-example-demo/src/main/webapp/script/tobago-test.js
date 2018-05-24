@@ -33,7 +33,8 @@ QUnit.test("wait for test", function (assert) {
   var waitingDone = false;
   var interval = setInterval(function () {
     contentWindowName = document.getElementById("page:testframe").contentWindow.name;
-    waitingDone = contentWindowName !== "page:testframe" && contentWindowName !== "ds-tempWindowId";
+    waitingDone = (contentWindowName !== "page:testframe" && contentWindowName !== "ds-tempWindowId")
+        || new RegExp('[\?&]base=([^&#]*)').exec(window.location.href)[1].indexOf("error%2F") === 0;
     if (new Date().getTime() - startTime >= 20000 || waitingDone) {
       clearInterval(interval);
       assert.ok(waitingDone);

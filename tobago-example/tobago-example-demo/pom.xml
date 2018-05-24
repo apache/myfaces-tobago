@@ -34,10 +34,7 @@
   <properties>
     <openwebbeans.version>2.0.4</openwebbeans.version>
     <deltaspike.version>1.8.1</deltaspike.version>
-    <!--<arquillian.browser>firefox</arquillian.browser>-->
-    <!-- phantomjs works not with CSP (report-only) -->
-    <arquillian.browser>phantomjs</arquillian.browser>
-    <selenium.version>3.7.1</selenium.version>
+    <selenium.version>3.12.0</selenium.version>
     <tomee.version>7.0.4</tomee.version>
     <meecrowave.version>1.2.1</meecrowave.version>
     <tomcat.version>9.0.5</tomcat.version>
@@ -139,34 +136,9 @@
       <plugin>
         <artifactId>maven-surefire-plugin</artifactId>
         <configuration>
-          <excludes><!-- TODO define group for ArquillianTests and use excludeGroups -->
-            <exclude>**/ArquillianTest.java</exclude>
+          <excludes>
+            <exclude>qunit/*</exclude>
           </excludes>
-        </configuration>
-      </plugin>
-      <plugin>
-        <artifactId>maven-failsafe-plugin</artifactId>
-        <configuration>
-          <includes><!-- TODO define group for ArquillianTests or use convention *IT.java, *ITCase.java -->
-            <include>**/ArquillianTest.java</include>
-          </includes>
-        </configuration>
-      </plugin>
-      <plugin>
-        <groupId>io.fabric8</groupId>
-        <artifactId>docker-maven-plugin</artifactId>
-        <version>0.22.1</version>
-        <configuration>
-          <images>
-            <image>
-              <name>selenium/standalone-firefox:${selenium.version}</name>
-              <run>
-                <ports>
-                  <port>4444:4444</port>
-                </ports>
-              </run>
-            </image>
-          </images>
         </configuration>
       </plugin>
     </plugins>
@@ -175,45 +147,9 @@
   <dependencyManagement>
     <dependencies>
       <dependency>
-        <groupId>org.jboss.arquillian</groupId>
-        <artifactId>arquillian-bom</artifactId>
-        <version>1.1.15.Final</version>
-        <scope>import</scope>
-        <type>pom</type>
-      </dependency>
-      <dependency>
-        <groupId>org.jboss.arquillian.selenium</groupId>
-        <artifactId>selenium-bom</artifactId>
+        <groupId>org.seleniumhq.selenium</groupId>
+        <artifactId>selenium-java</artifactId>
         <version>${selenium.version}</version>
-        <type>pom</type>
-        <scope>import</scope>
-      </dependency>
-      <dependency>
-        <groupId>org.jboss.arquillian.extension</groupId>
-        <artifactId>arquillian-drone-bom</artifactId>
-        <version>2.4.5</version>
-        <scope>import</scope>
-        <type>pom</type>
-      </dependency>
-      <!-- this is needed for arquillian drone (QUnitTests) -->
-      <dependency>
-        <groupId>commons-codec</groupId>
-        <artifactId>commons-codec</artifactId>
-        <version>1.11</version>
-        <!-- scope must not be "test", because myfaces-impl also uses commons-codec -->
-      </dependency>
-      <dependency>
-        <groupId>org.jboss.arquillian.graphene</groupId>
-        <artifactId>graphene-webdriver</artifactId>
-        <version>2.3.2</version>
-        <type>pom</type>
-        <scope>test</scope>
-        <exclusions>
-          <exclusion>
-            <groupId>com.google.guava</groupId>
-            <artifactId>guava</artifactId>
-          </exclusion>
-        </exclusions>
       </dependency>
       <dependency>
         <groupId>com.google.guava</groupId>
@@ -278,24 +214,8 @@
       <version>4.4.8</version>
     </dependency>
     <dependency>
-      <groupId>org.jboss.arquillian.junit</groupId>
-      <artifactId>arquillian-junit-container</artifactId>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.jboss.shrinkwrap.resolver</groupId>
-      <artifactId>shrinkwrap-resolver-api-maven-archive</artifactId>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.jboss.shrinkwrap.resolver</groupId>
-      <artifactId>shrinkwrap-resolver-impl-maven-archive</artifactId>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.jboss.arquillian.graphene</groupId>
-      <artifactId>graphene-webdriver</artifactId>
-      <type>pom</type>
+      <groupId>org.seleniumhq.selenium</groupId>
+      <artifactId>selenium-java</artifactId>
       <scope>test</scope>
     </dependency>
   </dependencies>
@@ -862,6 +782,151 @@
           </exclusions>
         </dependency>
       </dependencies>
+    </profile>
+
+    <profile>
+      <id>docker-qunit-tests</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>io.fabric8</groupId>
+            <artifactId>docker-maven-plugin</artifactId>
+            <version>0.25.2</version>
+            <configuration>
+              <images>
+                <image>
+                  <name>tomcat:8.5-jre8</name>
+                  <run>
+                    <ports>
+                      <port>8081:8080</port>
+                    </ports>
+                    <volumes>
+                      <bind>
+                        <volume>
+                          ${project.build.directory}/${project.artifactId}:/usr/local/tomcat/webapps/${project.artifactId}
+                        </volume>
+                      </bind>
+                    </volumes>
+                    <wait>
+                      <http>
+                        <url>http://localhost:8081/${project.artifactId}</url>
+                      </http>
+                      <time>60000</time>
+                    </wait>
+                  </run>
+                </image>
+                <image>
+                  <alias>selenium-hub</alias>
+                  <name>selenium/hub:${selenium.version}</name>
+                  <run>
+                    <ports>
+                      <port>4444:4444</port>
+                    </ports>
+                    <wait>
+                      <http>
+                        <url>http://localhost:4444</url>
+                        <status>200</status>
+                      </http>
+                      <time>20000</time>
+                    </wait>
+                  </run>
+                </image>
+                <image>
+                  <name>selenium/node-chrome:${selenium.version}</name>
+                  <run>
+                    <dependsOn>
+                      <container>selenium-hub</container>
+                    </dependsOn>
+                    <links>
+                      <link>selenium-hub</link>
+                    </links>
+                    <env>
+                      <HUB_HOST>selenium-hub</HUB_HOST>
+                      <HOB_PORT>4444</HOB_PORT>
+                    </env>
+                    <ports>
+                      <port>5556:5555</port>
+                    </ports>
+                    <wait>
+                      <http>
+                        <url>http://localhost:5556</url>
+                        <status>200</status>
+                      </http>
+                      <time>20000</time>
+                    </wait>
+                  </run>
+                </image>
+                <image>
+                  <name>selenium/node-firefox:${selenium.version}</name>
+                  <run>
+                    <dependsOn>
+                      <container>selenium-hub</container>
+                    </dependsOn>
+                    <links>
+                      <link>selenium-hub</link>
+                    </links>
+                    <env>
+                      <HUB_HOST>selenium-hub</HUB_HOST>
+                      <HOB_PORT>4444</HOB_PORT>
+                    </env>
+                    <ports>
+                      <port>5557:5555</port>
+                    </ports>
+                    <wait>
+                      <http>
+                        <url>http://localhost:5557</url>
+                        <status>200</status>
+                      </http>
+                      <time>20000</time>
+                    </wait>
+                  </run>
+                </image>
+              </images>
+            </configuration>
+            <executions>
+              <execution>
+                <id>start-container</id>
+                <phase>pre-integration-test</phase>
+                <goals>
+                  <goal>stop</goal>
+                  <goal>build</goal>
+                  <goal>start</goal>
+                </goals>
+              </execution>
+              <execution>
+                <id>stop-container</id>
+                <phase>post-integration-test</phase>
+                <goals>
+                  <goal>stop</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <artifactId>maven-failsafe-plugin</artifactId>
+            <dependencies>
+              <dependency>
+                <groupId>org.junit.platform</groupId>
+                <artifactId>junit-platform-surefire-provider</artifactId>
+                <version>1.2.0</version>
+              </dependency>
+            </dependencies>
+            <configuration>
+              <includes>
+                <include>qunit/*</include>
+              </includes>
+            </configuration>
+            <executions>
+              <execution>
+                <phase>integration-test</phase>
+                <goals>
+                  <goal>integration-test</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
     </profile>
 
     <profile>
