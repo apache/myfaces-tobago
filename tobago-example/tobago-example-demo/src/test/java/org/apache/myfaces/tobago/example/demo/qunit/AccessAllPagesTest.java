@@ -25,8 +25,6 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.FluentWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -37,7 +35,6 @@ import java.net.UnknownHostException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.time.Duration;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -61,13 +58,8 @@ class AccessAllPagesTest extends SeleniumBase {
     final String path = "error/exception.xhtml";
     setupWebDriver(portContextPath, path, true);
 
-    WebElement qunitBanner = getWebDriver().findElement(By.id("qunit-banner"));
+    waitForQUnitBanner();
     WebElement qunitTests = getWebDriver().findElement(By.id("qunit-tests"));
-
-    new FluentWait(getWebDriver())
-        .withTimeout(Duration.ofSeconds(90))
-        .pollingEvery(Duration.ofSeconds(1))
-        .until(ExpectedConditions.attributeToBeNotEmpty(qunitBanner, "class"));
 
     List<WebElement> results = qunitTests.findElements(By.xpath("li"));
     boolean testException = false;
@@ -94,13 +86,8 @@ class AccessAllPagesTest extends SeleniumBase {
     final String path = "error/404.xhtml";
     setupWebDriver(portContextPath, path, true);
 
-    WebElement qunitBanner = getWebDriver().findElement(By.id("qunit-banner"));
+    waitForQUnitBanner();
     WebElement qunitTests = getWebDriver().findElement(By.id("qunit-tests"));
-
-    new FluentWait(getWebDriver())
-        .withTimeout(Duration.ofSeconds(90))
-        .pollingEvery(Duration.ofSeconds(1))
-        .until(ExpectedConditions.attributeToBeNotEmpty(qunitBanner, "class"));
 
     List<WebElement> results = qunitTests.findElements(By.xpath("li"));
     boolean test404 = false;

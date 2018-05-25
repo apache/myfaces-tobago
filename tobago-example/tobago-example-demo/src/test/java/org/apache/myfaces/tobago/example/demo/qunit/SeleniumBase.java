@@ -23,6 +23,7 @@ import org.junit.Assert;
 import org.junit.jupiter.api.AfterEach;
 import org.openqa.selenium.By;
 import org.openqa.selenium.MutableCapabilities;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -92,16 +93,29 @@ abstract class SeleniumBase {
     return webDriver;
   }
 
-  void parseQUnitResults(final Browser browser, final String portContextPath, final String path)
-      throws UnknownHostException {
-    WebElement qunitBanner = webDriver.findElement(By.id("qunit-banner"));
-    WebElement qunitTestResult = webDriver.findElement(By.id("qunit-testresult"));
-    WebElement qunitTests = webDriver.findElement(By.id("qunit-tests"));
-
-    new FluentWait(webDriver)
+  /**
+   * Wait for the qunit-banner web element and return it.
+   * If the web element is available, the execution of qunit test should be done and it is safe to parse the results.
+   *
+   * @return qunit-banner web element
+   */
+  WebElement waitForQUnitBanner() {
+    final FluentWait<WebDriver> fluentWait = new FluentWait<>(webDriver)
         .withTimeout(Duration.ofSeconds(90))
         .pollingEvery(Duration.ofSeconds(1))
-        .until(ExpectedConditions.attributeToBeNotEmpty(qunitBanner, "class"));
+        .ignoring(NoSuchElementException.class);
+
+    WebElement qunitBanner = fluentWait.until(driver -> driver.findElement(By.id("qunit-banner")));
+    fluentWait.until(ExpectedConditions.attributeToBeNotEmpty(qunitBanner, "class"));
+
+    return qunitBanner;
+  }
+
+  void parseQUnitResults(final Browser browser, final String portContextPath, final String path)
+      throws UnknownHostException {
+    WebElement qunitBanner = waitForQUnitBanner();
+    WebElement qunitTestResult = webDriver.findElement(By.id("qunit-testresult"));
+    WebElement qunitTests = webDriver.findElement(By.id("qunit-tests"));
 
     final List<WebElement> testCases = qunitTests.findElements(By.xpath("li"));
     Assert.assertTrue("There must be at least one test case.", testCases.size() > 0);
