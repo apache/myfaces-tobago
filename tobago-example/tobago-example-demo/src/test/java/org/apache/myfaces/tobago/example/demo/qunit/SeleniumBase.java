@@ -47,7 +47,7 @@ abstract class SeleniumBase {
 
   private static final Logger LOG = LoggerFactory.getLogger(SeleniumBase.class);
 
-  WebDriver webDriver;
+  private WebDriver webDriver;
 
   @AfterEach
   void tearDown() {
@@ -60,9 +60,9 @@ abstract class SeleniumBase {
     chrome, firefox
   }
 
-  static String[] serverPortWithContextPath = {
-      "8081/tobago-example-demo"
-  };
+  static String[] getServerPortWithContextPath() {
+    return new String[]{"8081/tobago-example-demo"};
+  }
 
   void setupBrowser(final Browser browser) throws MalformedURLException {
     MutableCapabilities options = null;
@@ -71,6 +71,7 @@ abstract class SeleniumBase {
         options = new ChromeOptions();
         break;
       case firefox:
+      default:
         options = new FirefoxOptions();
         break;
     }
@@ -87,7 +88,12 @@ abstract class SeleniumBase {
     webDriver.get(url);
   }
 
-  void parseQUnitResults(final Browser browser, final String portContextPath, final String path) throws UnknownHostException {
+  WebDriver getWebDriver() {
+    return webDriver;
+  }
+
+  void parseQUnitResults(final Browser browser, final String portContextPath, final String path)
+      throws UnknownHostException {
     WebElement qunitBanner = webDriver.findElement(By.id("qunit-banner"));
     WebElement qunitTestResult = webDriver.findElement(By.id("qunit-testresult"));
     WebElement qunitTests = webDriver.findElement(By.id("qunit-tests"));

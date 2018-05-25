@@ -61,10 +61,10 @@ class AccessAllPagesTest extends SeleniumBase {
     final String path = "error/exception.xhtml";
     setupWebDriver(portContextPath, path, true);
 
-    WebElement qunitBanner = webDriver.findElement(By.id("qunit-banner"));
-    WebElement qunitTests = webDriver.findElement(By.id("qunit-tests"));
+    WebElement qunitBanner = getWebDriver().findElement(By.id("qunit-banner"));
+    WebElement qunitTests = getWebDriver().findElement(By.id("qunit-tests"));
 
-    new FluentWait(webDriver)
+    new FluentWait(getWebDriver())
         .withTimeout(Duration.ofSeconds(90))
         .pollingEvery(Duration.ofSeconds(1))
         .until(ExpectedConditions.attributeToBeNotEmpty(qunitBanner, "class"));
@@ -78,8 +78,6 @@ class AccessAllPagesTest extends SeleniumBase {
       }
     }
     Assert.assertTrue("Could not verify 'has no exception' test.", testException);
-
-    webDriver.quit();
   }
 
   /**
@@ -96,10 +94,10 @@ class AccessAllPagesTest extends SeleniumBase {
     final String path = "error/404.xhtml";
     setupWebDriver(portContextPath, path, true);
 
-    WebElement qunitBanner = webDriver.findElement(By.id("qunit-banner"));
-    WebElement qunitTests = webDriver.findElement(By.id("qunit-tests"));
+    WebElement qunitBanner = getWebDriver().findElement(By.id("qunit-banner"));
+    WebElement qunitTests = getWebDriver().findElement(By.id("qunit-tests"));
 
-    new FluentWait(webDriver)
+    new FluentWait(getWebDriver())
         .withTimeout(Duration.ofSeconds(90))
         .pollingEvery(Duration.ofSeconds(1))
         .until(ExpectedConditions.attributeToBeNotEmpty(qunitBanner, "class"));
@@ -113,8 +111,6 @@ class AccessAllPagesTest extends SeleniumBase {
       }
     }
     Assert.assertTrue("Could not verify 'has no 404' test.", test404);
-
-    webDriver.quit();
   }
 
   @ParameterizedTest
@@ -127,15 +123,13 @@ class AccessAllPagesTest extends SeleniumBase {
     setupWebDriver(portContextPath, path, true);
 
     parseQUnitResults(browser, portContextPath, path);
-
-    webDriver.quit();
   }
 
   private static Stream<Arguments> verifyNoException404TestProvider() throws IOException {
     List<Arguments> arguments = new LinkedList<>();
 
     for (Browser browser : Browser.values()) {
-      for (String portWithContextPath : serverPortWithContextPath) {
+      for (String portWithContextPath : getServerPortWithContextPath()) {
         arguments.add(Arguments.of(browser, portWithContextPath));
       }
     }
@@ -157,7 +151,7 @@ class AccessAllPagesTest extends SeleniumBase {
     List<Arguments> arguments = new LinkedList<>();
 
     for (Browser browser : Browser.values()) {
-      for (String portWithContextPath : serverPortWithContextPath) {
+      for (String portWithContextPath : getServerPortWithContextPath()) {
         for (String path : paths) {
           arguments.add(Arguments.of(browser, portWithContextPath, path));
         }

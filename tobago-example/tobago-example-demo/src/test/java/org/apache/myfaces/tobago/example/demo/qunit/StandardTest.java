@@ -49,7 +49,7 @@ class StandardTest extends SeleniumBase {
   @Test
   void testSinglePage() throws MalformedURLException, UnknownHostException, UnsupportedEncodingException {
     final Browser browser = Browser.chrome;
-    final String portContextPath = serverPortWithContextPath[0];
+    final String portContextPath = getServerPortWithContextPath()[0];
     final String path = "content/10-intro/intro.xhtml";
 
     LOG.info("browser: " + browser + " - port and context path: " + portContextPath + " - path: " + path);
@@ -58,8 +58,6 @@ class StandardTest extends SeleniumBase {
     setupWebDriver(portContextPath, path, false);
 
     parseQUnitResults(browser, portContextPath, path);
-
-    webDriver.quit();
   }
 
   @ParameterizedTest
@@ -72,8 +70,6 @@ class StandardTest extends SeleniumBase {
     setupWebDriver(portContextPath, path, false);
 
     parseQUnitResults(browser, portContextPath, path);
-
-    webDriver.quit();
   }
 
   private static Stream<Arguments> standardTestProvider() throws IOException {
@@ -89,7 +85,7 @@ class StandardTest extends SeleniumBase {
     List<Arguments> arguments = new LinkedList<>();
 
     for (Browser browser : Browser.values()) {
-      for (String portWithContextPath : serverPortWithContextPath) {
+      for (String portWithContextPath : getServerPortWithContextPath()) {
         for (String path : paths) {
           arguments.add(Arguments.of(browser, portWithContextPath, path));
         }
