@@ -311,45 +311,42 @@
         SUBST X: "C:\Dokumente und Einstellungen\MyUser\Apache Projects\"</code></pre>
   </tc:section>
 
-  <tc:section id="seleniumTobago12" label="How can I run the Selenium tests? (Tobago 1 and 2)">
-    <p>
-      In the tobago-example-test application, the pages can be checked with selenium since Tobago 1.5.
-      To run the full test automatically call
-    </p>
-    <pre><code class="language-markup">
-          mvn -P integration-test</code></pre>
-    <p>
-      This will start a jetty server and a selenium server and calls every listed page in the test application.
-    </p>
+  <tc:section id="integrationTest" label="How can I run the integration tests?">
+    <tc:section id="seleniumTobago12" label="Tobago 1 and 2">
+      <p>In the tobago-example-test application, the pages can be checked with selenium since Tobago 1.5.
+        To run the full test automatically call</p>
+      <pre><code class="language-markup">mvn -P integration-test</code></pre>
+      <p>This will start a jetty server and a selenium server and calls every listed page in the test application.</p>
+      <p>If you want to run the tests from your IDE, please start the jetty with
+        <code class="language-markup">mvn jetty:run</code> or
+        <code class="language-markup">mvn jetty:run-exploded</code>
+        and start the selenium server with</p>
+      <pre><code class="language-markup">mvn selenium:start-server</code></pre>
+      <p>Now you can start the selenium tests in the IDE.</p>
+      <p>Sometimes there is a problem with Firefox. You may try to use a different version, or an installation without
+        plugins.</p>
+    </tc:section>
 
-    <p>
-      If you want to run the tests from your IDE, please start the jetty with
-      <code class="language-markup">
-        mvn jetty:run</code> or <code class="language-markup">mvn jetty:run-exploded</code>
-      and start the selenium server with
-    </p>
-    <pre><code class="language-markup">
-          mvn selenium:start-server</code></pre>
-    <p>
-      Now you can start the selenium tests in the IDE.
-    </p>
-    <p>
-      Sometimes there is a problem with Firefox. You may try to use a different version, or an installation without
-      plugins.
-    </p>
-  </tc:section>
+    <tc:section id="integrationTestTobago3" label="Tobago 3">
+      <p>In the tobago-example-demo application, the pages can be checked with QUnit/Arquillian.
+        To run the full test automatically call</p>
+      <pre><code class="language-markup">cd tobago-example/tobago-example-demo
+mvn verify -Pqunit-integration-tests</code></pre>
+      <p>The default arquillian browser is 'phantomjs'.
+        You can change it in tobago-example-demo/pom.xml &lt;arquillian.browser>.</p>
+      <p>If you want to run the tests from your IDE, please use the maven profile 'tomee'.
+        After that, you can start the test from the QUnitTests class.</p>
+    </tc:section>
 
-  <tc:section id="integrationTestTobago3" label="How can I run the integration tests? (Tobago 3)">
-    <p>In the tobago-example-demo application, the pages can be checked with QUnit/Arquillian.
-      To run the full test automatically call
-    </p>
-    <pre><code class="language-markup">cd tobago-example/tobago-example-demo
-          mvn verify -Pqunit-integration-tests</code></pre>
-    <p>
-      The default arquillian browser is 'phantomjs'.
-      You can change it in tobago-example-demo/pom.xml &lt;arquillian.browser>.</p>
-    <p>If you want to run the tests from your IDE, please use the maven profile 'tomee'.
-      After that, you can start the test from the QUnitTests class.</p>
+    <tc:section id="integrationTestTobago4" label="Tobago 4">
+      <p>Since Tobago 4.2.2 the integration tests are reimplemented with docker.</p>
+      <p>To run the integration tests:</p>
+      <pre><code class="language-markup">cd tobago-example/tobago-example-demo
+mvn -Pdocker-qunit-tests</code></pre>
+      <p>You can also just start/stop the docker container manually to run the tests from your IDE.</p>
+      <pre><code class="language-markup">mvn -Pdocker-qunit-tests docker:start
+mvn -Pdocker-qunit-tests docker:stop</code></pre>
+    </tc:section>
   </tc:section>
 
   <tc:section id="testInBrowser" label="How can I run tests in the browser? (Tobago 3)">

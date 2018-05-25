@@ -930,59 +930,6 @@
     </profile>
 
     <profile>
-      <id>qunit-integration-tests</id>
-      <build>
-        <plugins>
-          <plugin>
-            <artifactId>maven-failsafe-plugin</artifactId>
-            <configuration>
-              <includes>
-                <include>**/QUnitTests.java</include>
-              </includes>
-              <forkMode>never</forkMode>
-            </configuration>
-            <executions>
-              <execution>
-                <goals>
-                  <goal>integration-test</goal>
-                  <goal>verify</goal>
-                </goals>
-              </execution>
-            </executions>
-          </plugin>
-        </plugins>
-      </build>
-      <dependencies>
-        <dependency>
-          <groupId>org.apache.tomee</groupId>
-          <artifactId>apache-tomee</artifactId>
-          <version>${tomee.version}</version>
-          <classifier>webprofile</classifier>
-          <type>zip</type>
-          <scope>test</scope>
-          <exclusions>
-            <exclusion>
-              <groupId>org.slf4j</groupId>
-              <artifactId>slf4j-jdk14</artifactId>
-            </exclusion>
-          </exclusions>
-        </dependency>
-        <dependency>
-          <groupId>org.apache.tomee</groupId>
-          <artifactId>arquillian-tomee-remote</artifactId>
-          <version>${tomee.version}</version>
-          <scope>test</scope>
-          <exclusions>
-            <exclusion>
-              <groupId>org.slf4j</groupId>
-              <artifactId>slf4j-jdk14</artifactId>
-            </exclusion>
-          </exclusions>
-        </dependency>
-      </dependencies>
-    </profile>
-
-    <profile>
       <id>checkstyle-for-view-definition-language</id>
       <build>
         <plugins>

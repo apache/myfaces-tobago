@@ -44,6 +44,7 @@ class StandardTest extends SeleniumBase {
 
   /**
    * To test only a singe page, just change browser setup, 'portContextPath' and/or 'path'.
+   * Start the docker container with mvn -Pdocker-qunit-tests docker:start
    */
   @Test
   void testSinglePage() throws MalformedURLException, UnknownHostException, UnsupportedEncodingException {
