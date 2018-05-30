@@ -592,13 +592,13 @@ var Tobago = {
 
     var $hasDanger = Tobago.Utils.selectWithJQuery(elements, '.has-danger');
     var $dangerInput = $hasDanger.find("*").filter(":input:enabled:visible:first");
-    if ($dangerInput.size() > 0) {
+    if ($dangerInput.length > 0) {
       Tobago.setFocus($dangerInput);
       return;
     }
 
     var $autoFocus = Tobago.Utils.selectWithJQuery(elements, '[autofocus]');
-    var hasAutoFocus = $autoFocus.size() > 0;
+    var hasAutoFocus = $autoFocus.length > 0;
     if (hasAutoFocus) {
       // nothing to do, because the browser make the work.
 
@@ -622,7 +622,7 @@ var Tobago = {
     }
 
     var $firstInput = jQuery(":input:enabled:visible:not(button):not([tabindex='-1']):first");
-    if ($firstInput.size() > 0) {
+    if ($firstInput.length > 0) {
       Tobago.setFocus($firstInput);
       return;
     }
@@ -873,7 +873,7 @@ jQuery(document).ready(function() {
   Tobago.init();
 });
 
-jQuery(window).load(function() {
+jQuery(window).on("load", function() {
   for (var order = 0; order < Tobago.listeners.windowLoad.length; order++) {
     var list = Tobago.listeners.windowLoad[order];
     for (var i = 0; i < list.length; i++) {
@@ -1074,7 +1074,7 @@ Tobago.Command.initEnter = function(elements) {
       var id = target.name ? target.name : target.id;
       while (id != null) {
         var command = jQuery("[data-tobago-default='" + id + "']");
-        if (command.size() > 0) {
+        if (command.length > 0) {
           command.click();
           break;
         }
@@ -1119,27 +1119,27 @@ Tobago.SelectManyShuttle.init = function(elements) {
   });
 };
 
-Tobago.SelectManyShuttle.moveSelectedItems = function(shuttle, direction, all) {
-  var unselected = shuttle.find(".tobago-selectManyShuttle-unselected");
-  var selected = shuttle.find(".tobago-selectManyShuttle-selected");
-  var count = selected.children().size();
-  var source = direction ? unselected : selected;
-  var target = direction ? selected : unselected;
-  var shifted = source.find(all ? "option:not(:disabled)" : "option:selected").remove().appendTo(target);
+Tobago.SelectManyShuttle.moveSelectedItems = function($shuttle, direction, all) {
+  var $unselected = $shuttle.find(".tobago-selectManyShuttle-unselected");
+  var $selected = $shuttle.find(".tobago-selectManyShuttle-selected");
+  var count = $selected.children().length;
+  var $source = direction ? $unselected : $selected;
+  var $target = direction ? $selected : $unselected;
+  var $shifted = $source.find(all ? "option:not(:disabled)" : "option:selected").remove().appendTo($target);
 
   // synchronize the hidden select
-  var hidden = shuttle.find(".tobago-selectManyShuttle-hidden");
-  var hiddenOptions = hidden.find("option");
+  var $hidden = $shuttle.find(".tobago-selectManyShuttle-hidden");
+  var $hiddenOptions = $hidden.find("option");
   // todo: may be optimized: put values in a hash map?
-  shifted.each(function() {
-    var option = jQuery(this);
-    hiddenOptions.filter("[value='" + option.val() + "']").prop("selected", direction);
+  $shifted.each(function() {
+    var $option = jQuery(this);
+    $hiddenOptions.filter("[value='" + $option.val() + "']").prop("selected", direction);
   });
 
-  if (count != selected.children().size()) {
+  if (count !== $selected.children().length) {
     var e = jQuery.Event("change");
     // trigger an change event for command facets
-    hidden.trigger( e );
+    $hidden.trigger( e );
   }
 };
 

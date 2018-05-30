@@ -158,7 +158,7 @@ TobagoTestTools.prototype = {
 
     TobagoFrame().registerListener(detectAjaxResponse, TobagoFrame().Phase.AFTER_UPDATE);
 
-    jQuery("#page\\:testframe").load(function () {
+    jQuery("#page\\:testframe").on("load", function () {
       if (!isFinished() && !isTimeout()) {
         responses++;
 

@@ -28,7 +28,7 @@ QUnit.test("No label set", function (assert) {
   assert.equal($input.attr('id'), "page:mainForm:inNoLabel::field");
   assert.equal($input.attr('name'), "page:mainForm:inNoLabel");
 
-  assert.equal(jQuery.parseJSON($rootDiv.attr('data-tobago-markup'))[0], "testmarkup");
+  assert.equal(JSON.parse($rootDiv.attr('data-tobago-markup'))[0], "testmarkup");
 });
 
 QUnit.test("labelLayout=none", function (assert) {
@@ -44,7 +44,7 @@ QUnit.test("labelLayout=none", function (assert) {
   assert.equal($input.attr('id'), "page:mainForm:inNone::field");
   assert.equal($input.attr('name'), "page:mainForm:inNone");
 
-  assert.equal(jQuery.parseJSON($rootDiv.attr('data-tobago-markup'))[0], "testmarkup");
+  assert.equal(JSON.parse($rootDiv.attr('data-tobago-markup'))[0], "testmarkup");
 });
 
 QUnit.test("labelLayout=skip", function (assert) {
@@ -57,7 +57,7 @@ QUnit.test("labelLayout=skip", function (assert) {
   assert.equal($label.length, 0);
   assert.equal($rootInput.attr('id'), "page:mainForm:inSkip");
 
-  assert.equal(jQuery.parseJSON($rootInput.attr('data-tobago-markup'))[0], "testmarkup");
+  assert.equal(JSON.parse($rootInput.attr('data-tobago-markup'))[0], "testmarkup");
 });
 
 QUnit.test("labelLayout=top", function (assert) {
@@ -73,7 +73,7 @@ QUnit.test("labelLayout=top", function (assert) {
   assert.equal($input.attr('id'), "page:mainForm:inTop::field");
   assert.equal($input.attr('name'), "page:mainForm:inTop");
 
-  assert.equal(jQuery.parseJSON($rootDiv.attr('data-tobago-markup'))[0], "testmarkup");
+  assert.equal(JSON.parse($rootDiv.attr('data-tobago-markup'))[0], "testmarkup");
 });
 
 QUnit.test("labelLayout=flowLeft", function (assert) {
@@ -89,7 +89,7 @@ QUnit.test("labelLayout=flowLeft", function (assert) {
   assert.equal($input.attr('id'), "page:mainForm:inFlowLeft::field");
   assert.equal($input.attr('name'), "page:mainForm:inFlowLeft");
 
-  assert.equal(jQuery.parseJSON($rootDiv.attr('data-tobago-markup'))[0], "testmarkup");
+  assert.equal(JSON.parse($rootDiv.attr('data-tobago-markup'))[0], "testmarkup");
 });
 
 QUnit.test("labelLayout=flowRight", function (assert) {
@@ -105,7 +105,7 @@ QUnit.test("labelLayout=flowRight", function (assert) {
   assert.equal($input.attr('id'), "page:mainForm:inFlowRight::field");
   assert.equal($input.attr('name'), "page:mainForm:inFlowRight");
 
-  assert.equal(jQuery.parseJSON($rootDiv.attr('data-tobago-markup'))[0], "testmarkup");
+  assert.equal(JSON.parse($rootDiv.attr('data-tobago-markup'))[0], "testmarkup");
 });
 
 QUnit.test("labelLayout=flexLeft", function (assert) {
@@ -121,7 +121,7 @@ QUnit.test("labelLayout=flexLeft", function (assert) {
   assert.equal($input.attr('id'), "page:mainForm:inFlexLeft::field");
   assert.equal($input.attr('name'), "page:mainForm:inFlexLeft");
 
-  assert.equal(jQuery.parseJSON($rootDiv.attr('data-tobago-markup'))[0], "testmarkup");
+  assert.equal(JSON.parse($rootDiv.attr('data-tobago-markup'))[0], "testmarkup");
 });
 
 QUnit.test("labelLayout=flexRight", function (assert) {
@@ -137,7 +137,7 @@ QUnit.test("labelLayout=flexRight", function (assert) {
   assert.equal($input.attr('id'), "page:mainForm:inFlexRight::field");
   assert.equal($input.attr('name'), "page:mainForm:inFlexRight");
 
-  assert.equal(jQuery.parseJSON($rootDiv.attr('data-tobago-markup'))[0], "testmarkup");
+  assert.equal(JSON.parse($rootDiv.attr('data-tobago-markup'))[0], "testmarkup");
 });
 
 QUnit.test("labelLayout=segmentLeft", function (assert) {
@@ -156,8 +156,8 @@ QUnit.test("labelLayout=segmentLeft", function (assert) {
   assert.equal($input.attr('id'), "page:mainForm:inSegmentLeft::field");
   assert.equal($input.attr('name'), "page:mainForm:inSegmentLeft");
 
-  assert.equal(jQuery.parseJSON($labelSegment.attr('data-tobago-markup'))[0], "testmarkup");
-  assert.equal(jQuery.parseJSON($inputSegment.attr('data-tobago-markup'))[0], "testmarkup");
+  assert.equal(JSON.parse($labelSegment.attr('data-tobago-markup'))[0], "testmarkup");
+  assert.equal(JSON.parse($inputSegment.attr('data-tobago-markup'))[0], "testmarkup");
 });
 
 QUnit.test("labelLayout=segmentRight", function (assert) {
@@ -176,8 +176,8 @@ QUnit.test("labelLayout=segmentRight", function (assert) {
   assert.equal($input.attr('id'), "page:mainForm:inSegmentRight::field");
   assert.equal($input.attr('name'), "page:mainForm:inSegmentRight");
 
-  assert.equal(jQuery.parseJSON($labelSegment.attr('data-tobago-markup'))[0], "testmarkup");
-  assert.equal(jQuery.parseJSON($inputSegment.attr('data-tobago-markup'))[0], "testmarkup");
+  assert.equal(JSON.parse($labelSegment.attr('data-tobago-markup'))[0], "testmarkup");
+  assert.equal(JSON.parse($inputSegment.attr('data-tobago-markup'))[0], "testmarkup");
 });
 
 QUnit.test("Number of data-tobago-markup attributes", function (assert) {
