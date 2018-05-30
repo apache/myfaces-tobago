@@ -16,7 +16,7 @@
  */
 
 /*
- jQuery(document).ready(function () {
+ jQuery(function () {
  jQuery("[data-colored]")
  .css("background-color", "#aaaaaa")
  .click(function () {

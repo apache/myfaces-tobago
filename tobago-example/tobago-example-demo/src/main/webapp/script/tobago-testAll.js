@@ -17,7 +17,7 @@
 
 Tobago.registerListener(function() {
   jQuery("iframe").each(function() {
-    jQuery(this).load(function() {
+    jQuery(this).on("load", function() {
 
       var idCount = jQuery(this).attr("id").substring(7);
       var $thisFrame = jQuery("#page\\:tp" + idCount);

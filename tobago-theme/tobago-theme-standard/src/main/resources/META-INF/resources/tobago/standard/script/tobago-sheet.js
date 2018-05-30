@@ -55,16 +55,16 @@ Tobago.Sheet.init = function(elements) {
     var click = commands ? commands.click : undefined;
     var dblclick = commands ? commands.dblclick : undefined;
     new Tobago.Sheet(id, undefined, undefined, undefined, undefined,
-        click != undefined ? click.action  : undefined,
-        click != undefined ? click.partially : undefined, // fixme: partially no longer used
-        dblclick != undefined ? dblclick.action : undefined,
-        dblclick != undefined ? dblclick.partially: undefined, // fixme: partially no longer used
+        click !== undefined ? click.action  : undefined,
+        click !== undefined ? click.partially : undefined, // fixme: partially no longer used
+        dblclick !== undefined ? dblclick.action : undefined,
+        dblclick !== undefined ? dblclick.partially: undefined, // fixme: partially no longer used
         sheet.data("tobago-behavior-commands")); // type array
 
     //////////////////////////////////////////////
     // XXX bugfix for IE11 (lower than IE11 isn't supported for that feature)
     // if a max-height is set on the sheet,
-    if (Tobago.browser.isMsie && sheet.css("max-height") != "none") {
+    if (Tobago.browser.isMsie && sheet.css("max-height") !== "none") {
       sheet.css("height", sheet.css("height")); // reset the height to the same value
     }
   });
@@ -136,7 +136,7 @@ Tobago.Sheet.setup2 = function (sheets) {
       var columnWidths = jQuery.parseJSON(hidden.val());
       console.info("columnWidths: " + columnWidths); // @DEV_ONLY
     }
-    if (columnWidths != undefined && columnWidths.length == 0) {
+    if (columnWidths !== undefined && columnWidths.length === 0) {
       // otherwise use the layout definition
       var layout = $sheet.data("tobago-layout");
       if (layout && layout.columns && layout.columns.length > 0) {
@@ -148,17 +148,17 @@ Tobago.Sheet.setup2 = function (sheets) {
         var $bodyTable = $sheet.children("div").children("table");
         var $bodyCol = $bodyTable.children("colgroup").children("col");
 
-        console.assert($headerCol.length - 1 == $bodyCol.length, "header and body column number doesn't match");  // @DEV_ONLY
+        console.assert($headerCol.length - 1 === $bodyCol.length, "header and body column number doesn't match");  // @DEV_ONLY
 
         var i;
         var intValue;
         var sumRelative = 0;
         var widthRelative = $bodyTable.width();
         for (i = 0; i < tokens.length; i++) {
-          if (rendered[i] == "true") {
-            if (typeof tokens[i] == "number") {
+          if (rendered[i] === "true") {
+            if (typeof tokens[i] === "number") {
               sumRelative += tokens[i];
-            } else if (typeof tokens[i] == "object" && tokens[i].measure != undefined) {
+            } else if (typeof tokens[i] === "object" && tokens[i].measure !== undefined) {
               intValue = parseInt(tokens[i].measure);
               if (tokens[i].measure.lastIndexOf("px") > 0) {
                 widthRelative -= intValue;
@@ -175,10 +175,10 @@ Tobago.Sheet.setup2 = function (sheets) {
         var headerBodyColCount = 0;
         for (i = 0; i < tokens.length; i++) {
           var colWidth = 0;
-          if (rendered[i] == "true") {
-            if (typeof tokens[i] == "number") {
+          if (rendered[i] === "true") {
+            if (typeof tokens[i] === "number") {
               colWidth = parseInt((tokens[i] * widthRelative) / sumRelative);
-            } else if (typeof tokens[i] == "object" && tokens[i].measure != undefined) {
+            } else if (typeof tokens[i] === "object" && tokens[i].measure !== undefined) {
               intValue = parseInt(tokens[i].measure);
               if (tokens[i].measure.lastIndexOf("px") > 0) {
                 colWidth = intValue;
@@ -257,7 +257,7 @@ Tobago.Sheet.setup2 = function (sheets) {
         var usedWidth = 0;
         var headerBodyColCount = 0;
         for (i = 0; i < rendered.length; i++) {
-          if (rendered[i] == "true") {
+          if (rendered[i] === "true") {
             // last column is the filler column
             var newWidth = headerCols.eq(headerBodyColCount).width();
             // for the hidden field
@@ -265,25 +265,25 @@ Tobago.Sheet.setup2 = function (sheets) {
             usedWidth += newWidth;
 
             var oldWidth = bodyCols.eq(headerBodyColCount).width();
-            if (oldWidth != newWidth) {
+            if (oldWidth !== newWidth) {
               // set to the body
               bodyCols.eq(headerBodyColCount).attr("width", newWidth);
               // reset the width inside of the cells (TD) if the value was changed.
-              var tds = jQuery("td:nth-child(" + (headerBodyColCount + 1) + ")", bodyTable);
-              if (tds.size() > 0) {
-                var innerWidth = tds.children().eq(0).width() - oldWidthList[headerBodyColCount] + newWidth;
+              var $tds = jQuery("td:nth-child(" + (headerBodyColCount + 1) + ")", bodyTable);
+              if ($tds.length > 0) {
+                var innerWidth = $tds.children().eq(0).width() - oldWidthList[headerBodyColCount] + newWidth;
                 // setting all sizes of the inner cells to the same value
-                tds.children().width(innerWidth);
+                $tds.children().width(innerWidth);
                 // XXX later, if we have box-sizing: border-box we can set the width to 100%
               }
             }
             headerBodyColCount++;
-          } else if (hiddenWidths != undefined && hiddenWidths.length >= i) {
+          } else if (hiddenWidths !== undefined && hiddenWidths.length >= i) {
             widths[i] = hiddenWidths[i];
           } else {
-            if (typeof tokens[i] == "number") {
+            if (typeof tokens[i] === "number") {
               widths[i] = 100;
-            } else if (typeof tokens[i] == "object" && tokens[i].measure != undefined) {
+            } else if (typeof tokens[i] === "object" && tokens[i].measure !== undefined) {
               var intValue = parseInt(tokens[i].measure);
               if (tokens[i].measure.lastIndexOf("px") > 0) {
                 widths[i] = intValue;
@@ -323,7 +323,7 @@ Tobago.Sheet.setup2 = function (sheets) {
     var sheet = jQuery(this);
     var hidden = Tobago.Sheet.findHiddenScrollPosition(sheet);
     var sep = hidden.val().indexOf(";");
-    if (sep != -1) {
+    if (sep !== -1) {
       var scrollLeft = hidden.val().substr(0, sep);
       var scrollTop = hidden.val().substr(sep + 1);
       var body = sheet.children(".tobago-sheet-body");
@@ -337,7 +337,7 @@ Tobago.Sheet.setup2 = function (sheets) {
   jQuery(sheets).each(function () {
     var sheet = jQuery(this);
     var selectionMode = sheet.data("tobago-selection-mode");
-    if (selectionMode == "single" || selectionMode == "singleOrNone" || selectionMode == "multi") {
+    if (selectionMode === "single" || selectionMode === "singleOrNone" || selectionMode === "multi") {
       Tobago.Sheet.getRows(sheet).each(function () {
         var row = jQuery(this);
         row.bind("mousedown", function (event) {
@@ -364,20 +364,20 @@ Tobago.Sheet.setup2 = function (sheets) {
 
             var selectionMode = $sheet.data("tobago-selection-mode");
 
-            if ((!event.ctrlKey && !event.metaKey && $selector.size() == 0)
-                || selectionMode == "single" || selectionMode == "singleOrNone") {
+            if ((!event.ctrlKey && !event.metaKey && $selector.length === 0)
+                || selectionMode === "single" || selectionMode === "singleOrNone") {
               Tobago.Sheet.deselectAll($sheet);
               Tobago.Sheet.resetSelected($sheet);
             }
 
             var lastClickedRowIndex = $sheet.data("tobago-last-clicked-row-index");
-            if (event.shiftKey && selectionMode == "multi" && lastClickedRowIndex > -1) {
+            if (event.shiftKey && selectionMode === "multi" && lastClickedRowIndex > -1) {
               if (lastClickedRowIndex <= $row.index()) {
                 Tobago.Sheet.selectRange($sheet, $rows, lastClickedRowIndex, $row.index(), true, false);
               } else {
                 Tobago.Sheet.selectRange($sheet, $rows, $row.index(), lastClickedRowIndex, true, false);
               }
-            } else if (selectionMode != "singleOrNone" || !Tobago.Sheet.isRowSelected($sheet, $row)) {
+            } else if (selectionMode !== "singleOrNone" || !Tobago.Sheet.isRowSelected($sheet, $row)) {
               Tobago.Sheet.toggleSelection($sheet, $row, $selector);
             }
             var commands = sheet.data("tobago-row-action");
@@ -443,7 +443,7 @@ Tobago.Sheet.setup2 = function (sheets) {
         .blur(function () {
           Tobago.Sheet.hideInputOrSubmit(jQuery(this));
         }).keydown(function (event) {
-          if (event.keyCode == 13) {
+          if (event.keyCode === 13) {
             event.stopPropagation();
             event.preventDefault();
             jQuery(this).blur();
@@ -454,7 +454,7 @@ Tobago.Sheet.setup2 = function (sheets) {
 
 Tobago.Sheet.hideInputOrSubmit = function(input) {
   var output = input.siblings(".tobago-sheet-pagingOutput");
-  var changed = output.html() != input.val();
+  var changed = output.html() !== input.val();
   var sheetId = input.parents(".tobago-sheet:first").attr("id");
   output.html(input.val());
   if (changed) {
@@ -508,7 +508,7 @@ Tobago.Sheet.prototype.setup = function() {
 Tobago.Sheet.prototype.initReload = function() {
   var sheet = jQuery(Tobago.Utils.escapeClientId(this.id));
   var reload = sheet.data("tobago-reload");
-  if (typeof reload == "number") {
+  if (typeof reload === "number") {
     Tobago.addReloadTimeout(this.id, Tobago.bind2(this, "reloadWithAction", null, this.id), reload);
   }
 };
@@ -603,21 +603,21 @@ Tobago.Sheet.toggleSelection = function($sheet, $row, $checkbox) {
 
 Tobago.Sheet.selectAll = function($sheet) {
   var $rows = Tobago.Sheet.getRows($sheet);
-  Tobago.Sheet.selectRange($sheet, $rows, 0, $rows.size() - 1, true, false);
+  Tobago.Sheet.selectRange($sheet, $rows, 0, $rows.length - 1, true, false);
 };
 
 Tobago.Sheet.deselectAll = function($sheet) {
   var $rows = Tobago.Sheet.getRows($sheet);
-  Tobago.Sheet.selectRange($sheet, $rows, 0, $rows.size() - 1, false, true);
+  Tobago.Sheet.selectRange($sheet, $rows, 0, $rows.length - 1, false, true);
 };
 
 Tobago.Sheet.toggleAll = function(sheet) {
   var rows = Tobago.Sheet.getRows(sheet);
-  Tobago.Sheet.selectRange(sheet, rows, 0, rows.size() - 1, true, true);
+  Tobago.Sheet.selectRange(sheet, rows, 0, rows.length - 1, true, true);
 };
 
 Tobago.Sheet.selectRange = function($sheet, $rows, first, last, selectDeselected, deselectSelected) {
-  if ($rows.size() == 0) {
+  if ($rows.length === 0) {
     return;
   }
   var selected = Tobago.Sheet.findHiddenSelected($sheet);

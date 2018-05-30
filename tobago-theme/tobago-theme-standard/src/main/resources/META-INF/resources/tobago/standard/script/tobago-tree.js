@@ -132,7 +132,7 @@ Tobago.Tree.init = function(elements) {
   Tobago.Utils.selectWithJQuery(elements, ".tobago-treeMenuNode-markup-folder .tobago-treeMenuNode-toggle")
       .parent().each(function() {
     // if there is no command, than the whole node element should be the toggle
-    var toggle = jQuery(this).children(".tobago-treeMenuCommand").size() == 0
+    var toggle = jQuery(this).children(".tobago-treeMenuCommand").length === 0
         ? jQuery(this)
         : jQuery(this).find(".tobago-treeMenuNode-toggle");
     toggle.click(function(event) {
@@ -163,7 +163,7 @@ Tobago.Tree.init = function(elements) {
     var data = select.closest(".tobago-treeMenu, .tobago-tree, .tobago-sheet");
     var hidden = data.children(".tobago-treeMenu-selected, .tobago-tree-selected, .tobago-sheet-selected");
     var newValue;
-    if (select.attr("type") == "radio") {
+    if (select.attr("type") === "radio") {
       newValue = "," + Tobago.Tree.rowIndex(select) + ",";
     } else if (selected) {
       newValue = hidden.val() + Tobago.Tree.rowIndex(select) + ",";
@@ -245,7 +245,7 @@ Tobago.Tree.findChildren = function (node) {
 };
 
 Tobago.Tree.isInSheet = function(node) {
-  return node.parent("td").size() == 1;
+  return node.parent("td").length === 1;
 };
 
 Tobago.registerListener(Tobago.Tree.init, Tobago.Phase.DOCUMENT_READY);
