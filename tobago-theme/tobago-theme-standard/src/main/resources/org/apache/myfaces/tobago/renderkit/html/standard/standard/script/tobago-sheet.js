@@ -362,7 +362,7 @@ Tobago.Sheet.setup2 = function (sheets) {
             bodyCols.eq(i).attr("width", newWidth);
             // reset the width inside of the cells (TD) if the value was changed.
             var tds = jQuery("td:nth-child(" + (i + 1) + ")", bodyTable);
-            if (tds.size() > 0) {
+            if (tds.length > 0) {
               var innerWidth = tds.children().eq(0).width() - oldWidthList[i] + newWidth;
               // setting all sizes of the inner cells to the same value
               tds.children().width(innerWidth);
@@ -585,7 +585,7 @@ Tobago.Sheet.prototype.doSelection = function(event) {
 
       var selectionMode = sheet.data("tobago-selection-mode");
 
-      if ((!event.ctrlKey && !event.metaKey && selector.size() == 0)
+      if ((!event.ctrlKey && !event.metaKey && selector.length === 0)
           || selectionMode == "single" || selectionMode == "singleOrNone") {
         Tobago.Sheet.deselectAll(sheet);
         Tobago.Sheet.resetSelected(sheet);
@@ -701,22 +701,22 @@ Tobago.Sheet.toggleSelection = function(sheet, row, checkbox) {
 
 Tobago.Sheet.selectAll = function(sheet) {
   var rows = Tobago.Sheet.getRows(sheet);
-  if (rows.size() > 0) {
-    Tobago.Sheet.selectRange(sheet, rows, 0, rows.size() - 1, true, false);
+  if (rows.length > 0) {
+    Tobago.Sheet.selectRange(sheet, rows, 0, rows.length - 1, true, false);
   }
 };
 
 Tobago.Sheet.deselectAll = function(sheet) {
   var rows = Tobago.Sheet.getRows(sheet);
-  if (rows.size() > 0) {
-    Tobago.Sheet.selectRange(sheet, rows, 0, rows.size() - 1, false, true);
+  if (rows.length > 0) {
+    Tobago.Sheet.selectRange(sheet, rows, 0, rows.length - 1, false, true);
   }
 };
 
 Tobago.Sheet.toggleAll = function(sheet) {
   var rows = Tobago.Sheet.getRows(sheet);
-  if (rows.size() > 0) {
-    Tobago.Sheet.selectRange(sheet, rows, 0, rows.size() - 1, true, true);
+  if (rows.length > 0) {
+    Tobago.Sheet.selectRange(sheet, rows, 0, rows.length - 1, true, true);
   }
 };
 

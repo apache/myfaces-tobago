@@ -48,7 +48,7 @@ Tobago.Popup.init = function (elements) {
   });
 
   // add the new shield to the highest modal popup
-  if (maxModalPopup != null && maxModalPopup.size() > 0) { // same as == 1
+  if (maxModalPopup != null && maxModalPopup.length > 0) { // same as == 1
 
     maxModalPopup.prepend("<div class='tobago-popup-shield' onclick='Tobago.Popup.blink(this)'/>");
     var shield = maxModalPopup.children('.tobago-popup-shield');

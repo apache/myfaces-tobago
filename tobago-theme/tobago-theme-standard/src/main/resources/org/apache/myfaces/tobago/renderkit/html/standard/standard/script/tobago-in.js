@@ -150,7 +150,7 @@ Tobago.In.initPlaceholder = function(elements) {
           .on("blur", function () {
             var input = jQuery(this);
             var placeholder = input.next(".tobago-in-placeholder");
-            if (placeholder.size() == 0) {
+            if (placeholder.length === 0) {
               // lazy init, create a new one
               placeholder = input.after("<span/>").next();
               placeholder.addClass("tobago-in-placeholder");
@@ -165,7 +165,7 @@ Tobago.In.initPlaceholder = function(elements) {
                 jQuery(this).prev().focus();
               });
             }
-            if (input.val() == "") {
+            if (input.val() === "") {
               // xxx why this doesn't work?
               // placeholder.show();
               placeholder.css("display", "block");

@@ -126,7 +126,7 @@ Tobago.Menu.handelKey = function(event) {
           // goto next
           nextMenu.children('a').eq(0).focus();
         }
-      } else if (anchor.nextAll('ol').children('li').not(".tobago-menu-markup-disabled").size() > 0) {
+      } else if (anchor.nextAll('ol').children('li').not(".tobago-menu-markup-disabled").length > 0) {
         anchor.nextAll('ol').children('li').not(".tobago-menu-markup-disabled").first().children('a').focus();
       } else {
         var menuTop = anchor.parent().tobagoMenu_findTopMenu();
@@ -183,7 +183,7 @@ Tobago.Menu.open = function(event) {
   sub.css('display', 'block');
 
   // open sub menu
-  if (sub.size() > 0) {
+  if (sub.length > 0) {
     // compute position
     var left;
     var top;
@@ -267,10 +267,10 @@ Tobago.Menu.switchOn = function(menuBar, menu) {
       .bind(compatibleKeyEvent(), Tobago.Menu.handelKey);
   var a = menu.children('a');
   if (! a.data("tobago-ignore-focus")) { // can be removed, after refactoring to a jQuery widget variable
-    if (menu.parents(".tobago-toolBar").size() == 0
-        && menu.parents(".tobago-box-headerToolBar").size() == 0
-        && menu.parents(".tobago-column-menu").size() == 0
-        && menu.parents(".tobago-tabGroupToolBar-menu").size() == 0) {
+    if (menu.parents(".tobago-toolBar").length === 0
+        && menu.parents(".tobago-box-headerToolBar").length === 0
+        && menu.parents(".tobago-column-menu").length === 0
+        && menu.parents(".tobago-tabGroupToolBar-menu").length === 0) {
       a.trigger("focus");
     } else {
       // XXX the call in the previous line doesn't work with toolBar -> dropDown (don't know why), so using direct call
@@ -403,7 +403,7 @@ Tobago.Menu.init = function(elements) {
   }
   menu.each(function() {
     var menuItem = jQuery(this);
-    if (menuItem.children("ol").size() > 0) {
+    if (menuItem.children("ol").length > 0) {
       menuItem.click(function(event) {
         console.info("prevent default"); // @DEV_ONLY
         event.preventDefault();

@@ -995,7 +995,7 @@ var Tobago = {
     if (self == top) {
       jQuery(".tobago-page-preventFrameAttacks").removeClass("tobago-page-preventFrameAttacks");
     } else {
-      if (jQuery(".tobago-page-preventFrameAttacks").size() > 0) { // preventFrameAttacks is true
+      if (jQuery(".tobago-page-preventFrameAttacks").length > 0) { // preventFrameAttacks is true
         var page = jQuery(".tobago-page");
         page.attr("title", "This application can't be used embedded inside an other site " +
         "(configuration: prevent-frame-attacks=true)!");
@@ -1592,7 +1592,7 @@ jQuery(document).ready(function() {
   Tobago.init();
 });
 
-jQuery(window).load(function() {
+jQuery(window).on("load", function() {
   for (var order = 0; order < Tobago.listeners.windowLoad.length; order++) {
     var list = Tobago.listeners.windowLoad[order];
     for (var i = 0; i < list.length; i++) {
@@ -2302,7 +2302,7 @@ Tobago.Updater = {
         // if there is html data, we replace the ajax element with the new data
         if (data.html.length > 0) {
           var newElement = jQuery(data.html);
-          if (element.size() == 0 && newElement.hasClass("tobago-popup")) {
+          if (element.length === 0 && newElement.hasClass("tobago-popup")) {
             element = jQuery("<div>");
             element.attr("id", data.ajaxId);
             // try append the popup before the jsf-state-container span because of IE bug see TOBAGO-1749
@@ -2554,7 +2554,7 @@ Tobago.Command.initEnter = function(elements) {
       var id = target.id;
       while (id != null) {
         var command = jQuery("[data-tobago-default='" + id + "']");
-        if (command.size() > 0) {
+        if (command.length > 0) {
           command.click();
           break;
         }
@@ -2577,14 +2577,14 @@ Tobago.Command.initInputElements = function(elements) {
     } else {
       while (id != null) {
         command = jQuery("[data-tobago-default='" + id + "']");
-        if (command.size() > 0) {
+        if (command.length > 0) {
           break;
         }
         id = Tobago.Utils.getNamingContainerId(id);
       }
     }
 
-    if (command.size() > 0) {
+    if (command.length > 0) {
       // add new classes
       command.filter("a").addClass("tobago-link-markup-default");
       command.filter("button").addClass("tobago-button-markup-default");
@@ -2599,14 +2599,14 @@ Tobago.Command.initInputElements = function(elements) {
     } else {
       while (id != null) {
         command = jQuery("[data-tobago-default='" + id + "']");
-        if (command.size() > 0) {
+        if (command.length > 0) {
           break;
         }
         id = Tobago.Utils.getNamingContainerId(id);
       }
     }
 
-    if (command.size() > 0) {
+    if (command.length > 0) {
       // remove old
       command.filter("a").removeClass("tobago-link-markup-default");
       command.filter("button").removeClass("tobago-button-markup-default");
@@ -2655,7 +2655,7 @@ Tobago.SelectManyShuttle.init = function(elements) {
 Tobago.SelectManyShuttle.moveSelectedItems = function(shuttle, direction, all) {
   var unselected = shuttle.find(".tobago-selectManyShuttle-unselected");
   var selected = shuttle.find(".tobago-selectManyShuttle-selected");
-  var count = selected.children().size();
+  var count = selected.children().length;
   var source = direction ? unselected : selected;
   var target = direction ? selected : unselected;
   var shifted = source.find(all ? "option:not(:disabled)" : "option:selected").remove().appendTo(target);
@@ -2669,7 +2669,7 @@ Tobago.SelectManyShuttle.moveSelectedItems = function(shuttle, direction, all) {
     hiddenOptions.filter("[value='" + option.val() + "']").prop("selected", direction);
   });
 
-  if (count != selected.children().size()) {
+  if (count !== selected.children().length) {
     var e = jQuery.Event("change");
     // trigger an change event for command facets
     hidden.trigger( e );
