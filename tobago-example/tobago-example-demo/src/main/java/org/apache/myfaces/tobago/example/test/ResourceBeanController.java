@@ -40,7 +40,7 @@ public class ResourceBeanController {
           new ResourceEntry(
               "data/sun-behind-mountains.jpg",
               ResourceType.IMAGE,
-              "comes from JAR (tobago-example-data): META-INF/resources"),
+              "comes from WAR: META-INF/resources"),
           new ResourceEntry(
               "non-existing.jpg",
               ResourceType.IMAGE,
