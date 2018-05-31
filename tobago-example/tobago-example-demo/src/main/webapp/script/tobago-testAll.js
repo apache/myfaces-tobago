@@ -15,32 +15,34 @@
  * limitations under the License.
  */
 
-Tobago.registerListener(function() {
-  jQuery("iframe").each(function() {
-    jQuery(this).on("load", function() {
+Tobago.registerListener(function () {
 
-      var idCount = jQuery(this).attr("id").substring(7);
-      var $thisFrame = jQuery("#page\\:tp" + idCount);
-      var $nextFrame = jQuery("#page\\:tp" + ++idCount);
+  var prefix = "page:tp";
 
-      waitForTest(function() {
-        $thisFrame = jQuery($thisFrame.selector);
-        return $thisFrame.contents().find("#qunit-banner").length > 0
-            && $thisFrame.contents().find("#qunit-banner").attr("class") !== "";
-      }, function() {
-        $nextFrame = jQuery($nextFrame.selector);
+  jQuery("iframe").each(function () {
+    jQuery(this).on("load", function () {
+
+      var counter = Number(jQuery(this).attr("id").substring(prefix.length));
+
+      waitForTest(function () {
+        var $thisFrame = jQuery(Tobago.Utils.escapeClientId(prefix + counter));
+        var $banner = $thisFrame.contents().find("#qunit-banner");
+        return $banner.length > 0
+            && $banner.attr("class") !== "";
+      }, function () {
+        var $nextFrame = jQuery(Tobago.Utils.escapeClientId(prefix + (counter + 1)));
         runNextFrame($nextFrame);
       });
     });
   });
 
-  var $firstFrame = jQuery("#page\\:tp1");
+  var $firstFrame = jQuery(Tobago.Utils.escapeClientId(prefix + 1));
   runNextFrame($firstFrame);
 }, Tobago.Phase.DOCUMENT_READY);
 
 function waitForTest(waitingDone, executeWhenDone) {
   var stillWaiting = true;
-  var interval = setInterval(function() {
+  var interval = setInterval(function () {
     if (stillWaiting) {
       stillWaiting = !waitingDone();
     } else {
