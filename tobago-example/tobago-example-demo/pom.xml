@@ -154,7 +154,7 @@
       <dependency>
         <groupId>com.google.guava</groupId>
         <artifactId>guava</artifactId>
-        <version>25.0-jre</version>
+        <version>25.1-jre</version>
       </dependency>
     </dependencies>
   </dependencyManagement>
@@ -872,6 +872,8 @@
                     <ports>
                       <port>5557:5555</port>
                     </ports>
+                    <!-- Set shm size to avoid firefox crashes: https://github.com/SeleniumHQ/docker-selenium/tree/3.12.0-boron#running-the-images -->
+                    <shmSize>2147483648</shmSize>
                     <wait>
                       <http>
                         <url>http://localhost:5557</url>

@@ -28,7 +28,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxOptions;
-import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
@@ -76,8 +75,7 @@ abstract class SeleniumBase {
         options = new FirefoxOptions();
         break;
     }
-
-    webDriver = new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"), new DesiredCapabilities(options));
+    webDriver = new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"), options);
   }
 
   void setupWebDriver(final String portContextPath, final String path, final boolean accessTest)
