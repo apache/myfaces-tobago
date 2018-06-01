@@ -19,7 +19,7 @@ QUnit.test("Accordion: Box 1: 'hide' to 'show' to 'hide'", function (assert) {
   var $box = jQueryFrameFn("#page\\:mainForm\\:accordionBox1");
   var $showBox = jQueryFrameFn("#page\\:mainForm\\:showBox1");
   var $hideBox = jQueryFrameFn("#page\\:mainForm\\:hideBox1");
-  var $boxBody = jQueryFrameFn($box().find(".card-body").selector);
+  var $boxBody = jQueryFrameFn("#page\\:mainForm\\:accordionBox1 .card-body");
 
   var TTT = new TobagoTestTools(assert);
   TTT.asserts(3, function () {
@@ -52,7 +52,7 @@ QUnit.test("Accordion: Box 2: 'hide' to 'show' to 'hide'", function (assert) {
   var $box = jQueryFrameFn("#page\\:mainForm\\:accordionBox2");
   var $showBox = jQueryFrameFn("#page\\:mainForm\\:showBox2");
   var $hideBox = jQueryFrameFn("#page\\:mainForm\\:hideBox2");
-  var $boxBody = jQueryFrameFn($box().find(".card-body").selector);
+  var $boxBody = jQueryFrameFn("#page\\:mainForm\\:accordionBox2 .card-body");
 
   var TTT = new TobagoTestTools(assert);
   TTT.asserts(3, function () {

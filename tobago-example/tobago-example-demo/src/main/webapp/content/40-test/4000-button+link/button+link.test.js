@@ -62,26 +62,22 @@ function testStandardCommands($command, $destinationSection, assert) {
 
 QUnit.test("Target Action Button", function (assert) {
   var $command = jQueryFrameFn("#page\\:mainForm\\:targetButtonAction");
-  var $targetTextInput = jQueryTargetFrame("#textInput");
-  testTargetCommands($command, $targetTextInput, "accessed by action", assert);
+  testTargetCommands($command, "#textInput", "accessed by action", assert);
 });
 
 QUnit.test("Target Link Button", function (assert) {
   var $command = jQueryFrameFn("#page\\:mainForm\\:targetButtonLink");
-  var $targetTextInput = jQueryTargetFrame("#textInput");
-  testTargetCommands($command, $targetTextInput, "accessed by link", assert);
+  testTargetCommands($command, "#textInput", "accessed by link", assert);
 });
 
 QUnit.test("Target Action Link", function (assert) {
   var $command = jQueryFrameFn("#page\\:mainForm\\:targetLinkAction");
-  var $targetTextInput = jQueryTargetFrame("#textInput");
-  testTargetCommands($command, $targetTextInput, "accessed by action", assert);
+  testTargetCommands($command, "#textInput", "accessed by action", assert);
 });
 
 QUnit.test("Target Link Link", function (assert) {
   var $command = jQueryFrameFn("#page\\:mainForm\\:targetLinkLink");
-  var $targetTextInput = jQueryTargetFrame("#textInput");
-  testTargetCommands($command, $targetTextInput, "accessed by link", assert);
+  testTargetCommands($command, "#textInput", "accessed by link", assert);
 });
 
 QUnit.test("Style must not be a dropdown item", function (assert) {
@@ -96,14 +92,14 @@ QUnit.test("Style must not be a dropdown item", function (assert) {
   assert.equal($button().css("width"), "200px");
 });
 
-function testTargetCommands($command, $targetTextInput, expectedText, assert) {
+function testTargetCommands($command, targetTextInputSelector, expectedText, assert) {
   var TTT = new TobagoTestTools(assert);
   TTT.action(function () {
     $command()[0].click();
   });
   TTT.waitMs(2000); //TobagoTestTools.waitForResponse() didn't recognize responses on a target frame, so we just wait
   TTT.asserts(1, function () {
-    $targetTextInput = jQueryTargetFrame($targetTextInput.selector);
+    var $targetTextInput = jQueryTargetFrame(targetTextInputSelector);
     assert.equal($targetTextInput.val(), expectedText);
   });
   TTT.startTest();
