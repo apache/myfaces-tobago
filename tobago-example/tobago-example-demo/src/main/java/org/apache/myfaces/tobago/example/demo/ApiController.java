@@ -67,4 +67,8 @@ public class ApiController implements Serializable {
   public void setOnlyCurrent(boolean onlyCurrent) {
     this.onlyCurrent = onlyCurrent;
   }
+
+  public String getDockerQUnitTestsVersion() {
+    return Release.v4_2_2.getVersion();
+  }
 }
