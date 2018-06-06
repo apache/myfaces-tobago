@@ -46,7 +46,7 @@ public class OutRenderer extends MessageLayoutRendererBase {
   @Override
   public void encodeBeginField(final FacesContext facesContext, final UIComponent component) throws IOException {
 
-    final AbstractUIOut out = (UIOut) component;
+    final AbstractUIOut out = (AbstractUIOut) component;
 
     String text = RenderUtils.currentValue(out);
     if (text == null) {
@@ -56,6 +56,7 @@ public class OutRenderer extends MessageLayoutRendererBase {
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
     final boolean escape = out.isEscape();
+    final boolean keepLineBreaks = out.isKeepLineBreaks();
     final boolean compact = out.isCompact() || !out.isCreateSpan();
     final Markup markup = out.getMarkup();
 
@@ -78,14 +79,18 @@ public class OutRenderer extends MessageLayoutRendererBase {
       }
     }
     if (escape) {
-      final StringTokenizer tokenizer = new StringTokenizer(text, "\r\n");
-      while (tokenizer.hasMoreTokens()) {
-        final String token = tokenizer.nextToken();
-        writer.writeText(token);
-        if (tokenizer.hasMoreTokens()) {
-          writer.startElement(HtmlElements.BR);
-          writer.endElement(HtmlElements.BR);
+      if (keepLineBreaks) {
+        final StringTokenizer tokenizer = new StringTokenizer(text, "\r\n");
+        while (tokenizer.hasMoreTokens()) {
+          final String token = tokenizer.nextToken();
+          writer.writeText(token);
+          if (tokenizer.hasMoreTokens()) {
+            writer.startElement(HtmlElements.BR);
+            writer.endElement(HtmlElements.BR);
+          }
         }
+      } else {
+        writer.writeText(text);
       }
     } else { // escape="false"
       writer.writeText("", null); // to ensure the closing > of the <span> start tag.

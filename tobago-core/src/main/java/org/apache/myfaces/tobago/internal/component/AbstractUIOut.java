@@ -33,6 +33,8 @@ public abstract class AbstractUIOut extends UIOutput implements SupportsLabelLay
 
   public abstract boolean isEscape();
 
+  public abstract boolean isKeepLineBreaks();
+
   public abstract boolean isCreateSpan();
 
   public abstract boolean isCompact();

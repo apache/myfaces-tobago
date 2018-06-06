@@ -67,6 +67,15 @@ public interface OutTagDeclaration
   void setEscape(String escape);
 
   /**
+   * Flag indicating that new-line characters will be converted to HTML &lt;br&gt;.
+   * This is useful for pre-formatted plain text.
+   * This has only an effect, with escape="true".
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(type = "boolean", defaultValue = "true")
+  void setKeepLineBreaks(String keepLineBreaks);
+
+  /**
    * Indicates that the renderer should create an element in the output language
    * (e. g. an span or div tag around the output text).
    * Use true, if you enable the possibility to apply styles to the output.
