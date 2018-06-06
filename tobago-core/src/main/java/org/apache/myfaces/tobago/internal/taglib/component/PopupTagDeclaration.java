@@ -41,7 +41,7 @@ import org.apache.myfaces.tobago.model.CollapseMode;
     uiComponentFacesClass = "javax.faces.component.UIPanel",
     componentFamily = AbstractUIPopup.COMPONENT_FAMILY,
     interfaces = {
-        // As long as no behavior event names are defined, ClientBehaviorHolder must be implemented for Majorra.
+        // As long as no behavior event names are defined, ClientBehaviorHolder must be implemented for Mojarra.
         "javax.faces.component.behavior.ClientBehaviorHolder"
     },
     rendererType = RendererTypes.POPUP,

@@ -38,7 +38,7 @@ import javax.faces.component.UIPanel;
     uiComponentFacesClass = "javax.faces.component.UIPanel",
     componentFamily = UIPanel.COMPONENT_FAMILY,
     interfaces = {
-        // As long as no behavior event names are defined, ClientBehaviorHolder must be implemented for Majorra.
+        // As long as no behavior event names are defined, ClientBehaviorHolder must be implemented for Mojarra.
         "javax.faces.component.behavior.ClientBehaviorHolder"
     },
     rendererType = {RendererTypes.LINKS, RendererTypes.LINKS_INSIDE_BAR})

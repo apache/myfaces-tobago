@@ -53,7 +53,7 @@ import javax.faces.component.UICommand;
     componentFamily = UICommand.COMPONENT_FAMILY,
     rendererType = RendererTypes.EVENT,
     interfaces = {
-        // As long as no behavior event names are defined, ClientBehaviorHolder must be implemented for Majorra.
+        // As long as no behavior event names are defined, ClientBehaviorHolder must be implemented for Mojarra.
         "javax.faces.component.behavior.ClientBehaviorHolder"
     },
     behaviors = {

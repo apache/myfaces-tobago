@@ -39,7 +39,7 @@ import javax.faces.component.UIColumn;
     componentFamily = UIColumn.COMPONENT_FAMILY,
     rendererType = RendererTypes.COLUMN_SELECTOR,
     interfaces = {
-        // As long as no behavior event names are defined, ClientBehaviorHolder must be implemented for Majorra.
+        // As long as no behavior event names are defined, ClientBehaviorHolder must be implemented for Mojarra.
         "javax.faces.component.behavior.ClientBehaviorHolder"
     },
     allowedChildComponenents = "NONE")

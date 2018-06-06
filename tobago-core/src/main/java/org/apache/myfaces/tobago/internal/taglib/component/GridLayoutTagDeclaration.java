@@ -101,7 +101,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
     componentFamily = AbstractUIGridLayout.COMPONENT_FAMILY,
     rendererType = RendererTypes.GRID_LAYOUT,
     interfaces = {
-        // As long as no behavior event names are defined, ClientBehaviorHolder must be implemented for Majorra.
+        // As long as no behavior event names are defined, ClientBehaviorHolder must be implemented for Mojarra.
         "javax.faces.component.behavior.ClientBehaviorHolder"
     },
     allowedChildComponenents = "NONE",

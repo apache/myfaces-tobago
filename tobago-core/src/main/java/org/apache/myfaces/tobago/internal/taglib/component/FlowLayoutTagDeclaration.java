@@ -39,7 +39,7 @@ import org.apache.myfaces.tobago.layout.TextAlign;
     componentFamily = AbstractUIFlowLayout.COMPONENT_FAMILY,
     rendererType = RendererTypes.FLOW_LAYOUT,
     interfaces = {
-        // As long as no behavior event names are defined, ClientBehaviorHolder must be implemented for Majorra.
+        // As long as no behavior event names are defined, ClientBehaviorHolder must be implemented for Mojarra.
         "javax.faces.component.behavior.ClientBehaviorHolder"
     },
     allowedChildComponenents = "NONE")

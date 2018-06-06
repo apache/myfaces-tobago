@@ -43,7 +43,7 @@ import javax.faces.component.UIGraphic;
     componentFamily = UIGraphic.COMPONENT_FAMILY,
     rendererType = RendererTypes.IMAGE,
     interfaces = {
-        // As long as no behavior event names are defined, ClientBehaviorHolder must be implemented for Majorra.
+        // As long as no behavior event names are defined, ClientBehaviorHolder must be implemented for Mojarra.
         "javax.faces.component.behavior.ClientBehaviorHolder"
     },
     allowedChildComponenents = "NONE")

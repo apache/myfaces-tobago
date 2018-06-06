@@ -48,7 +48,7 @@ import javax.faces.component.UIData;
     componentFamily = UIData.COMPONENT_FAMILY,
     rendererType = RendererTypes.TREE_LISTBOX,
     interfaces = {
-        // As long as no behavior event names are defined, ClientBehaviorHolder must be implemented for Majorra.
+        // As long as no behavior event names are defined, ClientBehaviorHolder must be implemented for Mojarra.
         "javax.faces.component.behavior.ClientBehaviorHolder"
     },
     allowedChildComponenents = {

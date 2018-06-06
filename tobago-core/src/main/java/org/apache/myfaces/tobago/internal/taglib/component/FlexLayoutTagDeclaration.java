@@ -43,7 +43,7 @@ import org.apache.myfaces.tobago.layout.JustifyContent;
     componentFamily = AbstractUIFlexLayout.COMPONENT_FAMILY,
     rendererType = RendererTypes.FLEX_LAYOUT,
     interfaces = {
-        // As long as no behavior event names are defined, ClientBehaviorHolder must be implemented for Majorra.
+        // As long as no behavior event names are defined, ClientBehaviorHolder must be implemented for Mojarra.
         "javax.faces.component.behavior.ClientBehaviorHolder"
     },
     allowedChildComponenents = "ALL",

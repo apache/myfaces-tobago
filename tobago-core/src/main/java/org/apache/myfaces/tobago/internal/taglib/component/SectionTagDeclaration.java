@@ -45,7 +45,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
     componentFamily = "org.apache.myfaces.tobago.Section",
     rendererType = RendererTypes.SECTION,
     interfaces = {
-        // As long as no behavior event names are defined, ClientBehaviorHolder must be implemented for Majorra.
+        // As long as no behavior event names are defined, ClientBehaviorHolder must be implemented for Mojarra.
         "javax.faces.component.behavior.ClientBehaviorHolder"
     },
     facets = {
