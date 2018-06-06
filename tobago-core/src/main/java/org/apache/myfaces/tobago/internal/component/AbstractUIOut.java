@@ -21,8 +21,18 @@ package org.apache.myfaces.tobago.internal.component;
 
 import org.apache.myfaces.tobago.component.SupportsLabelLayout;
 import org.apache.myfaces.tobago.component.Visual;
+import org.apache.myfaces.tobago.sanitizer.SanitizeMode;
 
 import javax.faces.component.UIOutput;
 
 public abstract class AbstractUIOut extends UIOutput implements SupportsLabelLayout, Visual {
+
+  public abstract boolean isEscape();
+
+  public abstract boolean isKeepLineBreaks();
+
+  public abstract boolean isCreateSpan();
+
+  public abstract SanitizeMode getSanitize();
+
 }

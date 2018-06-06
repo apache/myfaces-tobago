@@ -98,6 +98,7 @@ public enum Attributes {
   itemLabel,
   itemImage,
   itemValue,
+  keepLineBreaks,
   label,
   labelLayout,
   labelPosition,

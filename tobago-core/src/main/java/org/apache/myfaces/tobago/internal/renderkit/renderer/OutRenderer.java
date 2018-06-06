@@ -21,12 +21,13 @@ package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
 import org.apache.myfaces.tobago.component.UIOut;
 import org.apache.myfaces.tobago.config.TobagoConfig;
+import org.apache.myfaces.tobago.internal.component.AbstractUIOut;
+import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
+import org.apache.myfaces.tobago.internal.util.RenderUtils;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
-import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
-import org.apache.myfaces.tobago.internal.util.RenderUtils;
 import org.apache.myfaces.tobago.sanitizer.SanitizeMode;
 import org.apache.myfaces.tobago.sanitizer.Sanitizer;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
@@ -41,7 +42,7 @@ public class OutRenderer extends LabelLayoutRendererBase {
   @Override
   public void encodeBeginField(final FacesContext facesContext, final UIComponent component) throws IOException {
 
-    final UIOut out = (UIOut) component;
+    final AbstractUIOut out = (AbstractUIOut) component;
 
     String text = RenderUtils.currentValue(out);
     if (text == null) {
@@ -51,6 +52,7 @@ public class OutRenderer extends LabelLayoutRendererBase {
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
     final boolean escape = out.isEscape();
+    final boolean keepLineBreaks = out.isKeepLineBreaks();
     final boolean createSpan = out.isCreateSpan();
 
     if (createSpan) {
@@ -64,6 +66,7 @@ public class OutRenderer extends LabelLayoutRendererBase {
       }
     }
     if (escape) {
+      if (keepLineBreaks) {
       final StringTokenizer tokenizer = new StringTokenizer(text, "\r\n");
       while (tokenizer.hasMoreTokens()) {
         final String token = tokenizer.nextToken();
@@ -72,6 +75,9 @@ public class OutRenderer extends LabelLayoutRendererBase {
           writer.startElement(HtmlElements.BR);
           writer.endElement(HtmlElements.BR);
         }
+      }
+      } else {
+        writer.writeText(text);
       }
     } else { // escape="false"
       writer.writeText("", null); // to ensure the closing > of the <span> start tag.

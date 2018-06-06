@@ -63,7 +63,7 @@
 
         <tc:panel rendered="#{navigationState.viewSource}">
           <pre><code class="language-markup" id="demo-view-source">
-            <tc:out value="#{navigationTree.source}"/>
+            <tc:out keepLineBreaks="false" value="#{navigationTree.source}"/>
           </code></pre>
         </tc:panel>
 
