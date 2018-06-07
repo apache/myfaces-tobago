@@ -24,28 +24,28 @@ QUnit.test("single: select Music, select Mathematics", function (assert) {
   var $input = jQueryFrameFn(".tobago-treeSelect input");
 
   var TTT = new TobagoTestTools(assert);
-  TTT.action(function () {TTT.waitForResponse();
+  TTT.action(function () {
     $selectableNone().prop("checked", true).trigger("change");
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
     assert.equal($input().length, 0);
   });
-  TTT.action(function () {TTT.waitForResponse();
+  TTT.action(function () {
     $selectableSingle().prop("checked", true).trigger("change");
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
     assert.notEqual($input().length, 0);
   });
-  TTT.action(function () {TTT.waitForResponse();
+  TTT.action(function () {
     $music().prop("checked", true).trigger("change");
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
     assert.equal($output().text(), "Music");
   });
-  TTT.action(function () {TTT.waitForResponse();
+  TTT.action(function () {
     $mathematics().prop("checked", true).trigger("change");
   });
   TTT.waitForResponse();
@@ -64,28 +64,28 @@ QUnit.test("singleLeafOnly: select Classic, select Mathematics", function (asser
   var $input = jQueryFrameFn(".tobago-treeSelect input");
 
   var TTT = new TobagoTestTools(assert);
-  TTT.action(function () {TTT.waitForResponse();
+  TTT.action(function () {
     $selectableNone().prop("checked", true).trigger("change");
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
     assert.equal($input().length, 0);
   });
-  TTT.action(function () {TTT.waitForResponse();
+  TTT.action(function () {
     $selectableSingleLeafOnly().prop("checked", true).trigger("change");
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
     assert.notEqual($input().length, 0);
   });
-  TTT.action(function () {TTT.waitForResponse();
+  TTT.action(function () {
     $classic().prop("checked", true).trigger("change");
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
     assert.equal($output().text(), "Classic");
   });
-  TTT.action(function () {TTT.waitForResponse();
+  TTT.action(function () {
     $mathematics().prop("checked", true).trigger("change");
   });
   TTT.waitForResponse();
@@ -104,35 +104,35 @@ QUnit.test("multi: select Music, select Mathematics, deselect Music", function (
   var $input = jQueryFrameFn(".tobago-treeSelect input");
 
   var TTT = new TobagoTestTools(assert);
-  TTT.action(function () {TTT.waitForResponse();
+  TTT.action(function () {
     $selectableNone().prop("checked", true).trigger("change");
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
     assert.equal($input().length, 0);
   });
-  TTT.action(function () {TTT.waitForResponse();
+  TTT.action(function () {
     $selectableMulti().prop("checked", true).trigger("change");
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
     assert.notEqual($input().length, 0);
   });
-  TTT.action(function () {TTT.waitForResponse();
+  TTT.action(function () {
     $music().prop("checked", true).trigger("change");
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
     assert.equal($output().text(), "Music");
   });
-  TTT.action(function () {TTT.waitForResponse();
+  TTT.action(function () {
     $mathematics().prop("checked", true).trigger("change");
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
     assert.equal($output().text(), "Music, Mathematics");
   });
-  TTT.action(function () {TTT.waitForResponse();
+  TTT.action(function () {
     $music().prop("checked", false).trigger("change");
   });
   TTT.waitForResponse();
@@ -151,35 +151,35 @@ QUnit.test("multiLeafOnly: select Classic, select Mathematics, deselect Classic"
   var $input = jQueryFrameFn(".tobago-treeSelect input");
 
   var TTT = new TobagoTestTools(assert);
-  TTT.action(function () {TTT.waitForResponse();
+  TTT.action(function () {
     $selectableNone().prop("checked", true).trigger("change");
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
     assert.equal($input().length, 0);
   });
-  TTT.action(function () {TTT.waitForResponse();
+  TTT.action(function () {
     $selectableMultiLeafOnly().prop("checked", true).trigger("change");
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
     assert.notEqual($input().length, 0);
   });
-  TTT.action(function () {TTT.waitForResponse();
+  TTT.action(function () {
     $classic().prop("checked", true).trigger("change");
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
     assert.equal($output().text(), "Classic");
   });
-  TTT.action(function () {TTT.waitForResponse();
+  TTT.action(function () {
     $mathematics().prop("checked", true).trigger("change");
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
     assert.equal($output().text(), "Classic, Mathematics");
   });
-  TTT.action(function () {TTT.waitForResponse();
+  TTT.action(function () {
     $classic().prop("checked", false).trigger("change");
   });
   TTT.waitForResponse();
@@ -199,21 +199,21 @@ QUnit.test("multiCascade: select Music, select Mathematics, deselect Classic", f
   var $input = jQueryFrameFn(".tobago-treeSelect input");
 
   var TTT = new TobagoTestTools(assert);
-  TTT.action(function () {TTT.waitForResponse();
+  TTT.action(function () {
     $selectableNone().prop("checked", true).trigger("change");
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
     assert.equal($input().length, 0);
   });
-  TTT.action(function () {TTT.waitForResponse();
+  TTT.action(function () {
     $selectableMultiCascade().prop("checked", true).trigger("change");
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
     assert.notEqual($input().length, 0);
   });
-  TTT.action(function () {TTT.waitForResponse();
+  TTT.action(function () {
     $music().prop("checked", true).trigger("change");
   });
   TTT.waitForResponse(); // an ajax request is send for every leaf (Music, Classic, Pop, World)
@@ -221,14 +221,14 @@ QUnit.test("multiCascade: select Music, select Mathematics, deselect Classic", f
   TTT.asserts(1, function () {
     assert.equal($output().text(), "Music, Classic, Pop, World");
   });
-  TTT.action(function () {TTT.waitForResponse();
+  TTT.action(function () {
     $mathematics().prop("checked", true).trigger("change");
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
     assert.equal($output().text(), "Music, Classic, Pop, World, Mathematics");
   });
-  TTT.action(function () {TTT.waitForResponse();
+  TTT.action(function () {
     $classic().prop("checked", false).trigger("change");
   });
   TTT.waitForResponse();

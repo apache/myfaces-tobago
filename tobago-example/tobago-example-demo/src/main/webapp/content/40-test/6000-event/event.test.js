@@ -83,11 +83,11 @@ function testEvent(assert, componentName, eventNames, $eventComponent, $ajaxComp
   for (i = 0; i < eventNames.length; i++) {
     var eventName = eventNames[i];
 
-    TTT.action(function () {TTT.waitForResponse();
+    TTT.action(function () {
       activateComponent(componentName, eventName);
     });
     TTT.waitForResponse();
-    TTT.action(function () {TTT.waitForResponse();
+    TTT.action(function () {
       oldActionCount = getActionCount();
       oldActionListenerCount = getActionListenerCount();
       oldAjaxListenerCount = getAjaxListenerCount();
@@ -113,7 +113,7 @@ function testEvent(assert, componentName, eventNames, $eventComponent, $ajaxComp
       }
       assert.ok(getTimestamp() > oldTimestamp, eventName + " - tc:event - timestamp");
     });
-    TTT.action(function () {TTT.waitForResponse();
+    TTT.action(function () {
       oldActionCount = getActionCount();
       oldActionListenerCount = getActionListenerCount();
       oldAjaxListenerCount = getAjaxListenerCount();

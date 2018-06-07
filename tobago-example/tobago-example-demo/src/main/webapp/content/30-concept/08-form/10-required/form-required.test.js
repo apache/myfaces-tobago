@@ -22,7 +22,7 @@ QUnit.test("submit inner form 1 without violations", function (assert) {
   var $alert = jQueryFrameFn("#page\\:messages .alert-danger label");
 
   var TTT = new TobagoTestTools(assert);
-  TTT.action(function () {TTT.waitForResponse();
+  TTT.action(function () {
     $form1InputField().val("Alice");
     $form1SubmitButton().click();
   });
@@ -43,13 +43,13 @@ QUnit.test("submit inner form 2, violate required field", function (assert) {
   var $alert = jQueryFrameFn("#page\\:messages .alert-danger label");
 
   var TTT = new TobagoTestTools(assert);
-  TTT.action(function () {TTT.waitForResponse();
+  TTT.action(function () {
     $form2InputField().val("");
   });
   TTT.asserts(1, function () {
     assert.equal($form2InputField().val(), "");
   });
-  TTT.action(function () {TTT.waitForResponse();
+  TTT.action(function () {
     $form2SubmitButton().click();
   });
   TTT.waitForResponse();
@@ -68,13 +68,13 @@ QUnit.test("submit inner form 2 without violations", function (assert) {
   var $alert = jQueryFrameFn("#page\\:messages .alert-danger label");
 
   var TTT = new TobagoTestTools(assert);
-  TTT.action(function () {TTT.waitForResponse();
+  TTT.action(function () {
     $form2InputField().val("Bob");
   });
   TTT.asserts(1, function () {
     assert.equal($form2InputField().val(), "Bob");
   });
-  TTT.action(function () {TTT.waitForResponse();
+  TTT.action(function () {
     $form2SubmitButton().click();
   });
   TTT.waitForResponse();
@@ -98,7 +98,7 @@ QUnit.test("submit outer form, violate both required fields", function (assert) 
   var outerFormOutputFieldValue = $outerFormOutputField().text();
 
   var TTT = new TobagoTestTools(assert);
-  TTT.action(function () {TTT.waitForResponse();
+  TTT.action(function () {
     $form2InputField().val("");
     $outerFormInputField().val("");
     $outerFormSubmitButton().click();
@@ -126,7 +126,7 @@ QUnit.test("submit outer form, violate required field in form 2", function (asse
   var outerFormOutputFieldValue = $outerFormOutputField().text();
 
   var TTT = new TobagoTestTools(assert);
-  TTT.action(function () {TTT.waitForResponse();
+  TTT.action(function () {
     $form2InputField().val("");
     $outerFormInputField().val("Charlie");
     $outerFormSubmitButton().click();
@@ -154,7 +154,7 @@ QUnit.test("submit outer form, violate required field in outer form", function (
   var outerFormOutputFieldValue = $outerFormOutputField().text();
 
   var TTT = new TobagoTestTools(assert);
-  TTT.action(function () {TTT.waitForResponse();
+  TTT.action(function () {
     $form2InputField().val("Dave");
     $outerFormInputField().val("");
     $outerFormSubmitButton().click();
@@ -181,7 +181,7 @@ QUnit.test("submit outer form without violations", function (assert) {
   var $alert = jQueryFrameFn("#page\\:messages .alert-danger label");
 
   var TTT = new TobagoTestTools(assert);
-  TTT.action(function () {TTT.waitForResponse();
+  TTT.action(function () {
     $form1InputField().val("Eve");
     $form2InputField().val("Frank");
     $outerFormInputField().val("Grace");

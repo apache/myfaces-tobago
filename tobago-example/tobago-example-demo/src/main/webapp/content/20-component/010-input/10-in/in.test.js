@@ -24,7 +24,7 @@ QUnit.test("inputfield with label", function (assert) {
     assert.equal($label().text(), "Input");
     assert.equal($inputField().val(), "Some Text");
   });
-  TTT.action(function () {TTT.waitForResponse();
+  TTT.action(function () {
     $inputField().val("abc");
   });
   TTT.asserts(1, function () {
@@ -42,7 +42,7 @@ QUnit.test("ajax change event", function (assert) {
     assert.equal($inputField().val(), "");
     assert.equal($outputField().text(), "");
   });
-  TTT.action(function () {TTT.waitForResponse();
+  TTT.action(function () {
     $inputField().val("qwe").trigger("change");
   });
   TTT.waitForResponse();
