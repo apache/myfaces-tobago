@@ -16,14 +16,14 @@
  */
 
 QUnit.test("Simple Panel", function (assert) {
-  var $messages = jQueryFrameFn("#page\\:messages.tobago-messages div");
-  var $submit = jQueryFrameFn("#\\page\\:mainForm\\:simple\\:submitSimple");
-  var $show = jQueryFrameFn("#\\page\\:mainForm\\:simple\\:showSimple");
-  var $hide = jQueryFrameFn("#\\page\\:mainForm\\:simple\\:hideSimple");
-  var $sectionCollapsed = jQueryFrameFn("#page\\:mainForm\\:simple\\:simpleSection\\:\\:collapse");
-  var $in = jQueryFrameFn("#page\\:mainForm\\:simple\\:inSimple\\:\\:field");
+  let $messages = jQueryFrameFn("#page\\:messages.tobago-messages div");
+  let $submit = jQueryFrameFn("#\\page\\:mainForm\\:simple\\:submitSimple");
+  let $show = jQueryFrameFn("#\\page\\:mainForm\\:simple\\:showSimple");
+  let $hide = jQueryFrameFn("#\\page\\:mainForm\\:simple\\:hideSimple");
+  let $sectionCollapsed = jQueryFrameFn("#page\\:mainForm\\:simple\\:simpleSection\\:\\:collapse");
+  let $in = jQueryFrameFn("#page\\:mainForm\\:simple\\:inSimple\\:\\:field");
 
-  var TTT = new TobagoTestTools(assert);
+  let TTT = new TobagoTestTools(assert);
   TTT.action(function () {
     $show().click();
   });
@@ -74,14 +74,14 @@ QUnit.test("Simple Panel", function (assert) {
 });
 
 QUnit.test("Full Server Request", function (assert) {
-  var $messages = jQueryFrameFn("#page\\:messages.tobago-messages div");
-  var $submit = jQueryFrameFn("#\\page\\:mainForm\\:server\\:submitServer");
-  var $show = jQueryFrameFn("#\\page\\:mainForm\\:server\\:showServer");
-  var $hide = jQueryFrameFn("#\\page\\:mainForm\\:server\\:hideServer");
-  var $sectionCollapsed = jQueryFrameFn("#page\\:mainForm\\:server\\:fullRequestSection\\:\\:collapse");
-  var $in = jQueryFrameFn("#page\\:mainForm\\:server\\:inServer\\:\\:field");
+  let $messages = jQueryFrameFn("#page\\:messages.tobago-messages div");
+  let $submit = jQueryFrameFn("#\\page\\:mainForm\\:server\\:submitServer");
+  let $show = jQueryFrameFn("#\\page\\:mainForm\\:server\\:showServer");
+  let $hide = jQueryFrameFn("#\\page\\:mainForm\\:server\\:hideServer");
+  let $sectionCollapsed = jQueryFrameFn("#page\\:mainForm\\:server\\:fullRequestSection\\:\\:collapse");
+  let $in = jQueryFrameFn("#page\\:mainForm\\:server\\:inServer\\:\\:field");
 
-  var TTT = new TobagoTestTools(assert);
+  let TTT = new TobagoTestTools(assert);
   TTT.action(function () {
     $show().click();
   });
@@ -132,14 +132,14 @@ QUnit.test("Full Server Request", function (assert) {
 });
 
 QUnit.test("Client Side", function (assert) {
-  var $messages = jQueryFrameFn("#page\\:messages.tobago-messages div");
-  var $submit = jQueryFrameFn("#\\page\\:mainForm\\:client\\:submitClient");
-  var $show = jQueryFrameFn("#\\page\\:mainForm\\:client\\:showClient");
-  var $hide = jQueryFrameFn("#\\page\\:mainForm\\:client\\:hideClient");
-  var $sectionCollapsed = jQueryFrameFn("#page\\:mainForm\\:client\\:clientSection\\:\\:collapse");
-  var $in = jQueryFrameFn("#page\\:mainForm\\:client\\:inClient\\:\\:field");
+  let $messages = jQueryFrameFn("#page\\:messages.tobago-messages div");
+  let $submit = jQueryFrameFn("#\\page\\:mainForm\\:client\\:submitClient");
+  let $show = jQueryFrameFn("#\\page\\:mainForm\\:client\\:showClient");
+  let $hide = jQueryFrameFn("#\\page\\:mainForm\\:client\\:hideClient");
+  let $sectionCollapsed = jQueryFrameFn("#page\\:mainForm\\:client\\:clientSection\\:\\:collapse");
+  let $in = jQueryFrameFn("#page\\:mainForm\\:client\\:inClient\\:\\:field");
 
-  var TTT = new TobagoTestTools(assert);
+  let TTT = new TobagoTestTools(assert);
   TTT.action(function () {
     $show().click();
   });
@@ -188,14 +188,14 @@ QUnit.test("Client Side", function (assert) {
 });
 
 QUnit.test("Ajax", function (assert) {
-  var $messages = jQueryFrameFn("#page\\:messages.tobago-messages div");
-  var $submit = jQueryFrameFn("#\\page\\:mainForm\\:ajax\\:submitAjax");
-  var $show = jQueryFrameFn("#\\page\\:mainForm\\:ajax\\:showAjax");
-  var $hide = jQueryFrameFn("#\\page\\:mainForm\\:ajax\\:hideAjax");
-  var $sectionCollapsed = jQueryFrameFn("#page\\:mainForm\\:ajax\\:ajaxSection\\:\\:collapse");
-  var $in = jQueryFrameFn("#page\\:mainForm\\:ajax\\:inAjax\\:\\:field");
+  let $messages = jQueryFrameFn("#page\\:messages.tobago-messages div");
+  let $submit = jQueryFrameFn("#\\page\\:mainForm\\:ajax\\:submitAjax");
+  let $show = jQueryFrameFn("#\\page\\:mainForm\\:ajax\\:showAjax");
+  let $hide = jQueryFrameFn("#\\page\\:mainForm\\:ajax\\:hideAjax");
+  let $sectionCollapsed = jQueryFrameFn("#page\\:mainForm\\:ajax\\:ajaxSection\\:\\:collapse");
+  let $in = jQueryFrameFn("#page\\:mainForm\\:ajax\\:inAjax\\:\\:field");
 
-  var TTT = new TobagoTestTools(assert);
+  let TTT = new TobagoTestTools(assert);
   TTT.action(function () {
     $show().click();
   });

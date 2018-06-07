@@ -26,12 +26,12 @@ function jQueryFrameFn(expression) {
 }
 
 QUnit.test("wait for test", function (assert) {
-  var done = assert.async();
+  let done = assert.async();
 
-  var startTime = new Date().getTime();
-  var contentWindowName = "";
-  var waitingDone = false;
-  var interval = setInterval(function () {
+  let startTime = new Date().getTime();
+  let contentWindowName = "";
+  let waitingDone = false;
+  let interval = setInterval(function () {
     contentWindowName = document.getElementById("page:testframe").contentWindow.name;
     waitingDone = (contentWindowName !== "page:testframe" && contentWindowName !== "ds-tempWindowId")
         || new RegExp('[\?&]base=([^&#]*)').exec(window.location.href)[1].indexOf("error%2F") === 0;
@@ -45,16 +45,16 @@ QUnit.test("wait for test", function (assert) {
 
 QUnit.test("duplicated IDs", function (assert) {
   function getDuplicatedIDs() {
-    var duplicatedIDs = [];
+    let duplicatedIDs = [];
     jQueryFrame('[id]').each(function () {
-      var ids = jQueryFrame('[id="' + this.id + '"]');
+      let ids = jQueryFrame('[id="' + this.id + '"]');
       if (ids.length > 1 && ids[0] === this)
         duplicatedIDs.push(this.id);
     });
     return duplicatedIDs;
   }
 
-  var duplicatedIDs = getDuplicatedIDs();
+  let duplicatedIDs = getDuplicatedIDs();
   assert.equal(duplicatedIDs.length, 0, "duplicated IDs are: " + duplicatedIDs);
 });
 
@@ -95,14 +95,14 @@ TobagoTestTools.prototype = {
     })
   },
   startTest: function () {
-    var steps = this.steps.slice(0);
-    var stepStarted = 0;
-    var stepFinished = 0;
-    var responses = 0;
-    var timeoutTimestamp = Date.now();
+    let steps = this.steps.slice(0);
+    let stepStarted = 0;
+    let stepFinished = 0;
+    let responses = 0;
+    let timeoutTimestamp = Date.now();
 
     function getAssertExpect() {
-      var expect = 0;
+      let expect = 0;
       steps.forEach(function (step) {
         if (step.type === TobagoTestTools.stepType.ASSERTS) {
           expect += step.numOfAssertions;
@@ -112,7 +112,7 @@ TobagoTestTools.prototype = {
     }
 
     function getAssertAsync() {
-      var async = 0;
+      let async = 0;
       steps.forEach(function (step) {
         if (step.type === TobagoTestTools.stepType.ASSERTS) {
           async++;
@@ -122,8 +122,8 @@ TobagoTestTools.prototype = {
     }
 
     this.assert.expect(getAssertExpect());
-    var done = this.assert.async(getAssertAsync());
-    var assert = this.assert;
+    let done = this.assert.async(getAssertAsync());
+    let assert = this.assert;
 
     function isFinished() {
       return stepStarted >= steps.length && stepFinished >= steps.length;

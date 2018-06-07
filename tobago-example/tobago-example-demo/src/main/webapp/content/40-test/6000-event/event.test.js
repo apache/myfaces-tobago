@@ -16,19 +16,19 @@
  */
 
 QUnit.test("tc:button", function (assert) {
-  var eventNames = ["click", "dblclick", "focus", "blur"];
-  var $eventComponent = jQueryFrameFn("#page\\:mainForm\\:buttonevent");
-  var $ajaxComponent = jQueryFrameFn("#page\\:mainForm\\:buttonajax");
+  let eventNames = ["click", "dblclick", "focus", "blur"];
+  let $eventComponent = jQueryFrameFn("#page\\:mainForm\\:buttonevent");
+  let $ajaxComponent = jQueryFrameFn("#page\\:mainForm\\:buttonajax");
   testEvent(assert, "button", eventNames, $eventComponent, $ajaxComponent, null);
 });
 
 QUnit.test("tc:in", function (assert) {
-  var eventNames = ["change", "click", "dblclick", "focus", "blur"];
-  var $eventComponent = jQueryFrameFn("#page\\:mainForm\\:inevent\\:\\:field");
-  var $ajaxComponent = jQueryFrameFn("#page\\:mainForm\\:inajax\\:\\:field");
-  var changeValue = function ($component) {
-    var oldValue = $component().val();
-    var newValue = "hello";
+  let eventNames = ["change", "click", "dblclick", "focus", "blur"];
+  let $eventComponent = jQueryFrameFn("#page\\:mainForm\\:inevent\\:\\:field");
+  let $ajaxComponent = jQueryFrameFn("#page\\:mainForm\\:inajax\\:\\:field");
+  let changeValue = function ($component) {
+    let oldValue = $component().val();
+    let newValue = "hello";
     if (oldValue === "hello") {
       newValue = "hello there!"
     }
@@ -38,18 +38,18 @@ QUnit.test("tc:in", function (assert) {
 });
 
 QUnit.test("tc:row", function (assert) {
-  var eventNames = ["click", "dblclick"];
-  var $eventComponent = jQueryFrameFn("#page\\:mainForm\\:sheetevent\\:0\\:selectPlanet");
-  var $ajaxComponent = jQueryFrameFn("#page\\:mainForm\\:sheetajax\\:0\\:selectPlanet");
+  let eventNames = ["click", "dblclick"];
+  let $eventComponent = jQueryFrameFn("#page\\:mainForm\\:sheetevent\\:0\\:selectPlanet");
+  let $ajaxComponent = jQueryFrameFn("#page\\:mainForm\\:sheetajax\\:0\\:selectPlanet");
   testEvent(assert, "row", eventNames, $eventComponent, $ajaxComponent, null);
 });
 
 QUnit.test("tc:selectBooleanCheckbox", function (assert) {
-  var eventNames = ["change", "click", "dblclick", "focus", "blur"];
-  var $eventComponent = jQueryFrameFn("#page\\:mainForm\\:selectBooleanCheckboxevent\\:\\:field");
-  var $ajaxComponent = jQueryFrameFn("#page\\:mainForm\\:selectBooleanCheckboxajax\\:\\:field");
-  var changeValue = function ($component) {
-    var currentEvent = jQueryFrame("#page\\:mainForm\\:outEventName span").text();
+  let eventNames = ["change", "click", "dblclick", "focus", "blur"];
+  let $eventComponent = jQueryFrameFn("#page\\:mainForm\\:selectBooleanCheckboxevent\\:\\:field");
+  let $ajaxComponent = jQueryFrameFn("#page\\:mainForm\\:selectBooleanCheckboxajax\\:\\:field");
+  let changeValue = function ($component) {
+    let currentEvent = jQueryFrame("#page\\:mainForm\\:outEventName span").text();
     if (currentEvent !== "click") {
       $component().prop("checked", !$component().prop("checked"));
     }
@@ -58,12 +58,12 @@ QUnit.test("tc:selectBooleanCheckbox", function (assert) {
 });
 
 QUnit.test("tc:textarea", function (assert) {
-  var eventNames = ["change", "click", "dblclick", "focus", "blur"];
-  var $eventComponent = jQueryFrameFn("#page\\:mainForm\\:textareaevent\\:\\:field");
-  var $ajaxComponent = jQueryFrameFn("#page\\:mainForm\\:textareaajax\\:\\:field");
-  var changeValue = function ($component) {
-    var oldValue = $component().val();
-    var newValue = "hello";
+  let eventNames = ["change", "click", "dblclick", "focus", "blur"];
+  let $eventComponent = jQueryFrameFn("#page\\:mainForm\\:textareaevent\\:\\:field");
+  let $ajaxComponent = jQueryFrameFn("#page\\:mainForm\\:textareaajax\\:\\:field");
+  let changeValue = function ($component) {
+    let oldValue = $component().val();
+    let newValue = "hello";
     if (oldValue === "hello") {
       newValue = "hello there!"
     }
@@ -73,15 +73,15 @@ QUnit.test("tc:textarea", function (assert) {
 });
 
 function testEvent(assert, componentName, eventNames, $eventComponent, $ajaxComponent, changeValueFunc) {
-  var oldActionCount;
-  var oldActionListenerCount;
-  var oldAjaxListenerCount;
-  var oldValueChangeListenerCount;
-  var oldTimestamp;
+  let oldActionCount;
+  let oldActionListenerCount;
+  let oldAjaxListenerCount;
+  let oldValueChangeListenerCount;
+  let oldTimestamp;
 
-  var TTT = new TobagoTestTools(assert);
+  let TTT = new TobagoTestTools(assert);
   for (i = 0; i < eventNames.length; i++) {
-    var eventName = eventNames[i];
+    let eventName = eventNames[i];
 
     TTT.action(function () {
       activateComponent(componentName, eventName);
@@ -147,7 +147,7 @@ function activateComponent(componentName, eventName) {
   jQueryFrame("#page\\:mainForm\\:componentTable .tobago-sheet-row").each(function () {
     if (jQuery(this).find("td").eq(0).find(".tobago-out").text() === componentName) {
       jQuery(this).find("button").each(function () {
-        var id = jQuery(this).attr("id");
+        let id = jQuery(this).attr("id");
         if (id !== undefined && id.indexOf(eventName + "Behavior") >= 0) {
           this.click();
         }

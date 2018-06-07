@@ -16,6 +16,6 @@
  */
 
 QUnit.test("Dropdown button has 'btn-group'", function (assert) {
-  var $button = jQueryFrame("#page\\:mainForm\\:buttonWithLinks");
+  let $button = jQueryFrame("#page\\:mainForm\\:buttonWithLinks");
   assert.ok($button.hasClass("btn-group"), "id=buttonWithLinks must have 'btn-group'");
 });

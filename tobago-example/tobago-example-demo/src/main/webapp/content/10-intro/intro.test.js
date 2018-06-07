@@ -18,7 +18,7 @@
 QUnit.test("First section title is 'Intro'", function (assert) {
   assert.expect(1);
 
-  var titleOfFirstSectionHeader = jQueryFrame(".tobago-section-header:first span").text();
+  let titleOfFirstSectionHeader = jQueryFrame(".tobago-section-header:first span").text();
 
   assert.equal(titleOfFirstSectionHeader, "Intro");
 });

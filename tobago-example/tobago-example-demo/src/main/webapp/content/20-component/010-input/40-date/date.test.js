@@ -16,19 +16,19 @@
  */
 
 function getToday($dateField) {
-  var tobagoToday = $dateField().data("tobago-today");
-  var todayArray = tobagoToday.split("-");
+  let tobagoToday = $dateField().data("tobago-today");
+  let todayArray = tobagoToday.split("-");
   return todayArray[2] + "." + todayArray[1] + "." + todayArray[0];
 }
 
 QUnit.test("date with label", function (assert) {
   assert.expect(5);
 
-  var $label = jQueryFrameFn("#page\\:mainForm\\:dNormal > label");
-  var $dateField = jQueryFrameFn("#page\\:mainForm\\:dNormal\\:\\:field");
-  var $dateButton = jQueryFrameFn("#page\\:mainForm\\:dNormal button");
-  var $dayToday = jQueryFrameFn(".day.today");
-  var today = getToday($dateField);
+  let $label = jQueryFrameFn("#page\\:mainForm\\:dNormal > label");
+  let $dateField = jQueryFrameFn("#page\\:mainForm\\:dNormal\\:\\:field");
+  let $dateButton = jQueryFrameFn("#page\\:mainForm\\:dNormal button");
+  let $dayToday = jQueryFrameFn(".day.today");
+  let today = getToday($dateField);
 
   assert.equal($label().text(), "Date");
   assert.equal($dateField().val(), today);
@@ -44,13 +44,13 @@ QUnit.test("date with label", function (assert) {
 });
 
 QUnit.test("date+time pattern", function (assert) {
-  var $dateButton = jQueryFrameFn("#page\\:mainForm\\:dateTimePattern .datepickerbutton");
-  var $datepicker = jQueryFrameFn(".bootstrap-datetimepicker-widget");
-  var $firstLi = jQueryFrameFn(".bootstrap-datetimepicker-widget .list-unstyled li:first-child");
-  var $lastLi = jQueryFrameFn(".bootstrap-datetimepicker-widget .list-unstyled li:last-child");
-  var $togglePickerButton = jQueryFrameFn(".bootstrap-datetimepicker-widget .picker-switch a");
+  let $dateButton = jQueryFrameFn("#page\\:mainForm\\:dateTimePattern .datepickerbutton");
+  let $datepicker = jQueryFrameFn(".bootstrap-datetimepicker-widget");
+  let $firstLi = jQueryFrameFn(".bootstrap-datetimepicker-widget .list-unstyled li:first-child");
+  let $lastLi = jQueryFrameFn(".bootstrap-datetimepicker-widget .list-unstyled li:last-child");
+  let $togglePickerButton = jQueryFrameFn(".bootstrap-datetimepicker-widget .picker-switch a");
 
-  var TTT = new TobagoTestTools(assert);
+  let TTT = new TobagoTestTools(assert);
   TTT.action(function () {
     $dateButton().click();
   });
@@ -74,15 +74,15 @@ QUnit.test("date+time pattern", function (assert) {
 });
 
 QUnit.test("submit", function (assert) {
-  var $dateField = jQueryFrameFn("#page\\:mainForm\\:formSubmit\\:input\\:\\:field");
-  var $dateButton = jQueryFrameFn("#page\\:mainForm\\:formSubmit\\:input button");
-  var $outField = jQueryFrameFn("#page\\:mainForm\\:formSubmit\\:output span");
-  var $submitButton = jQueryFrameFn("#page\\:mainForm\\:formSubmit\\:button");
-  var $widget = jQueryFrameFn(".bootstrap-datetimepicker-widget");
-  var $days = jQueryFrameFn(".bootstrap-datetimepicker-widget .day");
-  var day22 = 0;
+  let $dateField = jQueryFrameFn("#page\\:mainForm\\:formSubmit\\:input\\:\\:field");
+  let $dateButton = jQueryFrameFn("#page\\:mainForm\\:formSubmit\\:input button");
+  let $outField = jQueryFrameFn("#page\\:mainForm\\:formSubmit\\:output span");
+  let $submitButton = jQueryFrameFn("#page\\:mainForm\\:formSubmit\\:button");
+  let $widget = jQueryFrameFn(".bootstrap-datetimepicker-widget");
+  let $days = jQueryFrameFn(".bootstrap-datetimepicker-widget .day");
+  let day22 = 0;
 
-  var TTT = new TobagoTestTools(assert);
+  let TTT = new TobagoTestTools(assert);
   TTT.asserts(2, function () {
     assert.equal($dateField().val(), "22.05.2016");
     assert.equal($outField().text(), "22.05.2016");
@@ -118,13 +118,13 @@ QUnit.test("submit", function (assert) {
 });
 
 QUnit.test("ajax", function (assert) {
-  var $dateField = jQueryFrameFn("#page\\:mainForm\\:ajaxinput\\:\\:field");
-  var $dateButton = jQueryFrameFn("#page\\:mainForm\\:ajaxinput button");
-  var $outField = jQueryFrameFn("#page\\:mainForm\\:outputfield span");
-  var $widget = jQueryFrameFn(".bootstrap-datetimepicker-widget");
-  var today = getToday($dateField);
+  let $dateField = jQueryFrameFn("#page\\:mainForm\\:ajaxinput\\:\\:field");
+  let $dateButton = jQueryFrameFn("#page\\:mainForm\\:ajaxinput button");
+  let $outField = jQueryFrameFn("#page\\:mainForm\\:outputfield span");
+  let $widget = jQueryFrameFn(".bootstrap-datetimepicker-widget");
+  let today = getToday($dateField);
 
-  var TTT = new TobagoTestTools(assert);
+  let TTT = new TobagoTestTools(assert);
   TTT.asserts(2, function () {
     assert.equal($dateField().val(), "");
     assert.equal($outField().text(), "");

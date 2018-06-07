@@ -18,9 +18,9 @@
 QUnit.test("Open 'Client Popup' and press 'Cancel'.", function (assert) {
   assert.expect(3);
 
-  var $popup = jQueryFrameFn("#page\\:mainForm\\:form2\\:clientPopup input");
-  var $openButton = jQueryFrameFn("#page\\:mainForm\\:form2\\:open");
-  var $cancelButton = jQueryFrameFn("#page\\:mainForm\\:form2\\:clientPopup\\:cancel2");
+  let $popup = jQueryFrameFn("#page\\:mainForm\\:form2\\:clientPopup input");
+  let $openButton = jQueryFrameFn("#page\\:mainForm\\:form2\\:open");
+  let $cancelButton = jQueryFrameFn("#page\\:mainForm\\:form2\\:clientPopup\\:cancel2");
 
   assert.equal($popup().attr("value"), "true");
   $openButton().click();
@@ -30,16 +30,16 @@ QUnit.test("Open 'Client Popup' and press 'Cancel'.", function (assert) {
 });
 
 QUnit.test("Open 'Client Popup', press 'Submit' while field is empty. Press 'Cancel'.", function (assert) {
-  var $popup = jQueryFrameFn("#page\\:mainForm\\:form2\\:clientPopup input");
-  var $openButton = jQueryFrameFn("#page\\:mainForm\\:form2\\:open");
-  var $output = jQueryFrameFn("#page\\:mainForm\\:form2\\:output span");
-  var $messages = jQueryFrameFn("#page\\:mainForm\\:form2\\:clientPopup\\:messages div");
-  var $inputField = jQueryFrameFn("#page\\:mainForm\\:form2\\:clientPopup\\:in2\\:\\:field");
-  var $submitButton = jQueryFrameFn("#page\\:mainForm\\:form2\\:clientPopup\\:submit2");
-  var $cancelButton = jQueryFrameFn("#page\\:mainForm\\:form2\\:clientPopup\\:cancel2");
-  var outputValue = $output().text();
+  let $popup = jQueryFrameFn("#page\\:mainForm\\:form2\\:clientPopup input");
+  let $openButton = jQueryFrameFn("#page\\:mainForm\\:form2\\:open");
+  let $output = jQueryFrameFn("#page\\:mainForm\\:form2\\:output span");
+  let $messages = jQueryFrameFn("#page\\:mainForm\\:form2\\:clientPopup\\:messages div");
+  let $inputField = jQueryFrameFn("#page\\:mainForm\\:form2\\:clientPopup\\:in2\\:\\:field");
+  let $submitButton = jQueryFrameFn("#page\\:mainForm\\:form2\\:clientPopup\\:submit2");
+  let $cancelButton = jQueryFrameFn("#page\\:mainForm\\:form2\\:clientPopup\\:cancel2");
+  let outputValue = $output().text();
 
-  var TTT = new TobagoTestTools(assert);
+  let TTT = new TobagoTestTools(assert);
   TTT.asserts(1, function () {
     assert.equal($popup().attr("value"), "true");
   });
@@ -68,15 +68,15 @@ QUnit.test("Open 'Client Popup', press 'Submit' while field is empty. Press 'Can
 });
 
 QUnit.test("Open 'Client Popup', press 'Submit' while field has content. Press 'Cancel'.", function (assert) {
-  var $popup = jQueryFrameFn("#page\\:mainForm\\:form2\\:clientPopup input");
-  var $openButton = jQueryFrameFn("#page\\:mainForm\\:form2\\:open");
-  var $output = jQueryFrameFn("#page\\:mainForm\\:form2\\:out span");
-  var $messages = jQueryFrameFn("#page\\:mainForm\\:form2\\:clientPopup\\:messages div");
-  var $inputField = jQueryFrameFn("#page\\:mainForm\\:form2\\:clientPopup\\:in2\\:\\:field");
-  var $submitButton = jQueryFrameFn("#page\\:mainForm\\:form2\\:clientPopup\\:submit2");
-  var $cancelButton = jQueryFrameFn("#page\\:mainForm\\:form2\\:clientPopup\\:cancel2");
+  let $popup = jQueryFrameFn("#page\\:mainForm\\:form2\\:clientPopup input");
+  let $openButton = jQueryFrameFn("#page\\:mainForm\\:form2\\:open");
+  let $output = jQueryFrameFn("#page\\:mainForm\\:form2\\:out span");
+  let $messages = jQueryFrameFn("#page\\:mainForm\\:form2\\:clientPopup\\:messages div");
+  let $inputField = jQueryFrameFn("#page\\:mainForm\\:form2\\:clientPopup\\:in2\\:\\:field");
+  let $submitButton = jQueryFrameFn("#page\\:mainForm\\:form2\\:clientPopup\\:submit2");
+  let $cancelButton = jQueryFrameFn("#page\\:mainForm\\:form2\\:clientPopup\\:cancel2");
 
-  var TTT = new TobagoTestTools(assert);
+  let TTT = new TobagoTestTools(assert);
   TTT.asserts(1, function () {
     assert.equal($popup().attr("value"), "true");
   });
@@ -105,14 +105,14 @@ QUnit.test("Open 'Client Popup', press 'Submit' while field has content. Press '
 });
 
 QUnit.test("Open 'Client Popup', press 'Submit & Close' while field is empty.", function (assert) {
-  var $popup = jQueryFrameFn("#page\\:mainForm\\:form2\\:clientPopup input");
-  var $openButton = jQueryFrameFn("#page\\:mainForm\\:form2\\:open");
-  var $output = jQueryFrameFn("#page\\:mainForm\\:form2\\:output span");
-  var $inputField = jQueryFrameFn("#page\\:mainForm\\:form2\\:clientPopup\\:in2\\:\\:field");
-  var $submitCloseButton = jQueryFrameFn("#page\\:mainForm\\:form2\\:clientPopup\\:submitClose2");
-  var outputValue = $output().text();
+  let $popup = jQueryFrameFn("#page\\:mainForm\\:form2\\:clientPopup input");
+  let $openButton = jQueryFrameFn("#page\\:mainForm\\:form2\\:open");
+  let $output = jQueryFrameFn("#page\\:mainForm\\:form2\\:output span");
+  let $inputField = jQueryFrameFn("#page\\:mainForm\\:form2\\:clientPopup\\:in2\\:\\:field");
+  let $submitCloseButton = jQueryFrameFn("#page\\:mainForm\\:form2\\:clientPopup\\:submitClose2");
+  let outputValue = $output().text();
 
-  var TTT = new TobagoTestTools(assert);
+  let TTT = new TobagoTestTools(assert);
   TTT.asserts(1, function () {
     assert.equal($popup().attr("value"), "true");
   });
@@ -135,13 +135,13 @@ QUnit.test("Open 'Client Popup', press 'Submit & Close' while field is empty.", 
 });
 
 QUnit.test("Open 'Client Popup', press 'Submit & Close' while field has content.", function (assert) {
-  var $popup = jQueryFrameFn("#page\\:mainForm\\:form2\\:clientPopup input");
-  var $openButton = jQueryFrameFn("#page\\:mainForm\\:form2\\:open");
-  var $output = jQueryFrameFn("#page\\:mainForm\\:form2\\:out span");
-  var $inputField = jQueryFrameFn("#page\\:mainForm\\:form2\\:clientPopup\\:in2\\:\\:field");
-  var $submitCloseButton = jQueryFrameFn("#page\\:mainForm\\:form2\\:clientPopup\\:submitClose2");
+  let $popup = jQueryFrameFn("#page\\:mainForm\\:form2\\:clientPopup input");
+  let $openButton = jQueryFrameFn("#page\\:mainForm\\:form2\\:open");
+  let $output = jQueryFrameFn("#page\\:mainForm\\:form2\\:out span");
+  let $inputField = jQueryFrameFn("#page\\:mainForm\\:form2\\:clientPopup\\:in2\\:\\:field");
+  let $submitCloseButton = jQueryFrameFn("#page\\:mainForm\\:form2\\:clientPopup\\:submitClose2");
 
-  var TTT = new TobagoTestTools(assert);
+  let TTT = new TobagoTestTools(assert);
   TTT.asserts(1, function () {
     assert.equal($popup().attr("value"), "true");
   });
@@ -164,13 +164,13 @@ QUnit.test("Open 'Client Popup', press 'Submit & Close' while field has content.
 });
 
 QUnit.test("Open 'Large Popup'.", function (assert) {
-  var $dropdownContainer = jQueryFrameFn("#page\\:mainForm\\:dropdownButton");
-  var $dropdownButton = jQueryFrameFn("#page\\:mainForm\\:dropdownButton\\:\\:command");
-  var $openButton = jQueryFrameFn("#page\\:mainForm\\:largePopupLink");
-  var $popup = jQueryFrameFn("#page\\:mainForm\\:largePopup");
-  var $closeButton = jQueryFrameFn("#page\\:mainForm\\:largePopup\\:closeLargePopup");
+  let $dropdownContainer = jQueryFrameFn("#page\\:mainForm\\:dropdownButton");
+  let $dropdownButton = jQueryFrameFn("#page\\:mainForm\\:dropdownButton\\:\\:command");
+  let $openButton = jQueryFrameFn("#page\\:mainForm\\:largePopupLink");
+  let $popup = jQueryFrameFn("#page\\:mainForm\\:largePopup");
+  let $closeButton = jQueryFrameFn("#page\\:mainForm\\:largePopup\\:closeLargePopup");
 
-  var TTT = new TobagoTestTools(assert);
+  let TTT = new TobagoTestTools(assert);
   TTT.action(function () {
     if ($popup().hasClass("show")) {
       $closeButton().click();
@@ -210,13 +210,13 @@ QUnit.test("Open 'Large Popup'.", function (assert) {
 });
 
 QUnit.test("Open 'Small Popup'.", function (assert) {
-  var $dropdownContainer = jQueryFrameFn("#page\\:mainForm\\:dropdownButton");
-  var $dropdownButton = jQueryFrameFn("#page\\:mainForm\\:dropdownButton\\:\\:command");
-  var $openButton = jQueryFrameFn("#page\\:mainForm\\:smallPopupLink");
-  var $popup = jQueryFrameFn("#page\\:mainForm\\:smallPopup");
-  var $closeButton = jQueryFrameFn("#page\\:mainForm\\:smallPopup\\:closeSmallPopup");
+  let $dropdownContainer = jQueryFrameFn("#page\\:mainForm\\:dropdownButton");
+  let $dropdownButton = jQueryFrameFn("#page\\:mainForm\\:dropdownButton\\:\\:command");
+  let $openButton = jQueryFrameFn("#page\\:mainForm\\:smallPopupLink");
+  let $popup = jQueryFrameFn("#page\\:mainForm\\:smallPopup");
+  let $closeButton = jQueryFrameFn("#page\\:mainForm\\:smallPopup\\:closeSmallPopup");
 
-  var TTT = new TobagoTestTools(assert);
+  let TTT = new TobagoTestTools(assert);
   TTT.action(function () {
     if ($popup().hasClass("show")) {
       $closeButton().click();

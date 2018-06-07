@@ -16,16 +16,16 @@
  */
 
 QUnit.test("test numbers of tabgroupindex", function (assert) {
-  var $tabOne = jQueryFrame("#page\\:mainForm\\:tabOne");
-  var $tabTwo = jQueryFrame("#page\\:mainForm\\:tabTwo");
-  var $tabThree = jQueryFrame("#page\\:mainForm\\:tabThree");
-  var $tabFour = jQueryFrame("#page\\:mainForm\\:tabFour");
-  var $tabFive = jQueryFrame("#page\\:mainForm\\:tabFive");
-  var $tabOneContent = jQueryFrame("#page\\:mainForm\\:tabOne\\:\\:content");
-  var $tabTwoContent = jQueryFrame("#page\\:mainForm\\:tabTwo\\:\\:content");
-  var $tabThreeContent = jQueryFrame("#page\\:mainForm\\:tabThree\\:\\:content");
-  var $tabFourContent = jQueryFrame("#page\\:mainForm\\:tabFour\\:\\:content");
-  var $tabFiveContent = jQueryFrame("#page\\:mainForm\\:tabFive\\:\\:content");
+  let $tabOne = jQueryFrame("#page\\:mainForm\\:tabOne");
+  let $tabTwo = jQueryFrame("#page\\:mainForm\\:tabTwo");
+  let $tabThree = jQueryFrame("#page\\:mainForm\\:tabThree");
+  let $tabFour = jQueryFrame("#page\\:mainForm\\:tabFour");
+  let $tabFive = jQueryFrame("#page\\:mainForm\\:tabFive");
+  let $tabOneContent = jQueryFrame("#page\\:mainForm\\:tabOne\\:\\:content");
+  let $tabTwoContent = jQueryFrame("#page\\:mainForm\\:tabTwo\\:\\:content");
+  let $tabThreeContent = jQueryFrame("#page\\:mainForm\\:tabThree\\:\\:content");
+  let $tabFourContent = jQueryFrame("#page\\:mainForm\\:tabFour\\:\\:content");
+  let $tabFiveContent = jQueryFrame("#page\\:mainForm\\:tabFive\\:\\:content");
 
   assert.equal($tabOne.attr("tabgroupindex"), "0");
   assert.equal($tabTwo.attr("tabgroupindex"), "1");

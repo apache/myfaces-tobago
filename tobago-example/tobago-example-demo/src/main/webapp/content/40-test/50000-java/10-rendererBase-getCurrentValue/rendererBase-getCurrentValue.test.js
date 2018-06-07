@@ -16,7 +16,7 @@
  */
 
 function test(assert, idSuffix, expectedText) {
-  var $out = jQueryFrame("#page\\:mainForm\\:" + idSuffix);
+  let $out = jQueryFrame("#page\\:mainForm\\:" + idSuffix);
   assert.equal($out.text().trim(), expectedText);
 }
 

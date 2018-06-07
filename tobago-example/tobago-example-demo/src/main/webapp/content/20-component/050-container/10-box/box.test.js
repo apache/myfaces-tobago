@@ -16,12 +16,12 @@
  */
 
 QUnit.test("Accordion: Box 1: 'hide' to 'show' to 'hide'", function (assert) {
-  var $box = jQueryFrameFn("#page\\:mainForm\\:accordionBox1");
-  var $showBox = jQueryFrameFn("#page\\:mainForm\\:showBox1");
-  var $hideBox = jQueryFrameFn("#page\\:mainForm\\:hideBox1");
-  var $boxBody = jQueryFrameFn("#page\\:mainForm\\:accordionBox1 .card-body");
+  let $box = jQueryFrameFn("#page\\:mainForm\\:accordionBox1");
+  let $showBox = jQueryFrameFn("#page\\:mainForm\\:showBox1");
+  let $hideBox = jQueryFrameFn("#page\\:mainForm\\:hideBox1");
+  let $boxBody = jQueryFrameFn("#page\\:mainForm\\:accordionBox1 .card-body");
 
-  var TTT = new TobagoTestTools(assert);
+  let TTT = new TobagoTestTools(assert);
   TTT.asserts(3, function () {
     assert.equal($showBox().length, 1);
     assert.equal($hideBox().length, 0);
@@ -49,12 +49,12 @@ QUnit.test("Accordion: Box 1: 'hide' to 'show' to 'hide'", function (assert) {
 });
 
 QUnit.test("Accordion: Box 2: 'hide' to 'show' to 'hide'", function (assert) {
-  var $box = jQueryFrameFn("#page\\:mainForm\\:accordionBox2");
-  var $showBox = jQueryFrameFn("#page\\:mainForm\\:showBox2");
-  var $hideBox = jQueryFrameFn("#page\\:mainForm\\:hideBox2");
-  var $boxBody = jQueryFrameFn("#page\\:mainForm\\:accordionBox2 .card-body");
+  let $box = jQueryFrameFn("#page\\:mainForm\\:accordionBox2");
+  let $showBox = jQueryFrameFn("#page\\:mainForm\\:showBox2");
+  let $hideBox = jQueryFrameFn("#page\\:mainForm\\:hideBox2");
+  let $boxBody = jQueryFrameFn("#page\\:mainForm\\:accordionBox2 .card-body");
 
-  var TTT = new TobagoTestTools(assert);
+  let TTT = new TobagoTestTools(assert);
   TTT.asserts(3, function () {
     assert.equal($showBox().length, 1);
     assert.equal($hideBox().length, 0);
@@ -82,11 +82,11 @@ QUnit.test("Accordion: Box 2: 'hide' to 'show' to 'hide'", function (assert) {
 });
 
 QUnit.test("Accordion: Box 3: 'hide' to 'show' to 'hide'", function (assert) {
-  var $box = jQueryFrameFn("#page\\:mainForm\\:accordionBox3");
-  var $showBox = jQueryFrameFn("#page\\:mainForm\\:showBox3");
-  var $hideBox = jQueryFrameFn("#page\\:mainForm\\:hideBox3");
+  let $box = jQueryFrameFn("#page\\:mainForm\\:accordionBox3");
+  let $showBox = jQueryFrameFn("#page\\:mainForm\\:showBox3");
+  let $hideBox = jQueryFrameFn("#page\\:mainForm\\:hideBox3");
 
-  var TTT = new TobagoTestTools(assert);
+  let TTT = new TobagoTestTools(assert);
   TTT.asserts(3, function () {
     assert.ok($box().hasClass("tobago-collapsed"));
     assert.equal($showBox().length, 1);

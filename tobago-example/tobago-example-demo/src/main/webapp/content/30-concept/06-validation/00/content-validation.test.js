@@ -16,12 +16,12 @@
  */
 
 QUnit.test("Required: Submit without content.", function (assert) {
-  var $messages = jQueryFrameFn("#page\\:messages.tobago-messages div");
-  var $textarea = jQueryFrameFn("#page\\:mainForm\\:required\\:textarea\\:\\:field");
-  var $submit = jQueryFrameFn("#page\\:mainForm\\:required\\:submit_r");
-  var textareaValue = $textarea().val();
+  let $messages = jQueryFrameFn("#page\\:messages.tobago-messages div");
+  let $textarea = jQueryFrameFn("#page\\:mainForm\\:required\\:textarea\\:\\:field");
+  let $submit = jQueryFrameFn("#page\\:mainForm\\:required\\:submit_r");
+  let textareaValue = $textarea().val();
 
-  var TTT = new TobagoTestTools(assert);
+  let TTT = new TobagoTestTools(assert);
   TTT.action(function () {
     $textarea().val("");
     $submit().click();
@@ -35,11 +35,11 @@ QUnit.test("Required: Submit without content.", function (assert) {
 });
 
 QUnit.test("Required: Submit with content.", function (assert) {
-  var $messages = jQueryFrameFn("#page\\:messages.tobago-messages div");
-  var $textarea = jQueryFrameFn("#page\\:mainForm\\:required\\:textarea\\:\\:field");
-  var $submit = jQueryFrameFn("#page\\:mainForm\\:required\\:submit_r");
+  let $messages = jQueryFrameFn("#page\\:messages.tobago-messages div");
+  let $textarea = jQueryFrameFn("#page\\:mainForm\\:required\\:textarea\\:\\:field");
+  let $submit = jQueryFrameFn("#page\\:mainForm\\:required\\:submit_r");
 
-  var TTT = new TobagoTestTools(assert);
+  let TTT = new TobagoTestTools(assert);
   TTT.action(function () {
     $textarea().val("some content");
     $submit().click();
@@ -53,11 +53,11 @@ QUnit.test("Required: Submit with content.", function (assert) {
 });
 
 QUnit.test("Validate Length: Submit single character.", function (assert) {
-  var $messages = jQueryFrameFn("#page\\:messages.tobago-messages div");
-  var $in = jQueryFrameFn("#page\\:mainForm\\:validateLength\\:in_vl\\:\\:field");
-  var $submit = jQueryFrameFn("#page\\:mainForm\\:validateLength\\:submit_vl");
+  let $messages = jQueryFrameFn("#page\\:messages.tobago-messages div");
+  let $in = jQueryFrameFn("#page\\:mainForm\\:validateLength\\:in_vl\\:\\:field");
+  let $submit = jQueryFrameFn("#page\\:mainForm\\:validateLength\\:submit_vl");
 
-  var TTT = new TobagoTestTools(assert);
+  let TTT = new TobagoTestTools(assert);
   TTT.action(function () {
     $in().val("a");
     $submit().click();
@@ -70,11 +70,11 @@ QUnit.test("Validate Length: Submit single character.", function (assert) {
 });
 
 QUnit.test("Validate Length: Submit two character.", function (assert) {
-  var $messages = jQueryFrameFn("#page\\:messages.tobago-messages div");
-  var $in = jQueryFrameFn("#page\\:mainForm\\:validateLength\\:in_vl\\:\\:field");
-  var $submit = jQueryFrameFn("#page\\:mainForm\\:validateLength\\:submit_vl");
+  let $messages = jQueryFrameFn("#page\\:messages.tobago-messages div");
+  let $in = jQueryFrameFn("#page\\:mainForm\\:validateLength\\:in_vl\\:\\:field");
+  let $submit = jQueryFrameFn("#page\\:mainForm\\:validateLength\\:submit_vl");
 
-  var TTT = new TobagoTestTools(assert);
+  let TTT = new TobagoTestTools(assert);
   TTT.action(function () {
     $in().val("ab");
     $submit().click();
@@ -87,11 +87,11 @@ QUnit.test("Validate Length: Submit two character.", function (assert) {
 });
 
 QUnit.test("Validate Range: Submit no number.", function (assert) {
-  var $messages = jQueryFrameFn("#page\\:messages.tobago-messages div");
-  var $in = jQueryFrameFn("#page\\:mainForm\\:validateRange\\:in_vr\\:\\:field");
-  var $submit = jQueryFrameFn("#page\\:mainForm\\:validateRange\\:submit_vr");
+  let $messages = jQueryFrameFn("#page\\:messages.tobago-messages div");
+  let $in = jQueryFrameFn("#page\\:mainForm\\:validateRange\\:in_vr\\:\\:field");
+  let $submit = jQueryFrameFn("#page\\:mainForm\\:validateRange\\:submit_vr");
 
-  var TTT = new TobagoTestTools(assert);
+  let TTT = new TobagoTestTools(assert);
   TTT.action(function () {
     $in().val("no number");
     $submit().click();
@@ -104,11 +104,11 @@ QUnit.test("Validate Range: Submit no number.", function (assert) {
 });
 
 QUnit.test("Validate Range: Submit number '2' which is out of range.", function (assert) {
-  var $messages = jQueryFrameFn("#page\\:messages.tobago-messages div");
-  var $in = jQueryFrameFn("#page\\:mainForm\\:validateRange\\:in_vr\\:\\:field");
-  var $submit = jQueryFrameFn("#page\\:mainForm\\:validateRange\\:submit_vr");
+  let $messages = jQueryFrameFn("#page\\:messages.tobago-messages div");
+  let $in = jQueryFrameFn("#page\\:mainForm\\:validateRange\\:in_vr\\:\\:field");
+  let $submit = jQueryFrameFn("#page\\:mainForm\\:validateRange\\:submit_vr");
 
-  var TTT = new TobagoTestTools(assert);
+  let TTT = new TobagoTestTools(assert);
   TTT.action(function () {
     $in().val("2");
     $submit().click();
@@ -121,11 +121,11 @@ QUnit.test("Validate Range: Submit number '2' which is out of range.", function 
 });
 
 QUnit.test("Validate Range: Submit number '78' which is out of range.", function (assert) {
-  var $messages = jQueryFrameFn("#page\\:messages.tobago-messages div");
-  var $in = jQueryFrameFn("#page\\:mainForm\\:validateRange\\:in_vr\\:\\:field");
-  var $submit = jQueryFrameFn("#page\\:mainForm\\:validateRange\\:submit_vr");
+  let $messages = jQueryFrameFn("#page\\:messages.tobago-messages div");
+  let $in = jQueryFrameFn("#page\\:mainForm\\:validateRange\\:in_vr\\:\\:field");
+  let $submit = jQueryFrameFn("#page\\:mainForm\\:validateRange\\:submit_vr");
 
-  var TTT = new TobagoTestTools(assert);
+  let TTT = new TobagoTestTools(assert);
   TTT.action(function () {
     $in().val("78");
     $submit().click();
@@ -138,11 +138,11 @@ QUnit.test("Validate Range: Submit number '78' which is out of range.", function
 });
 
 QUnit.test("Validate Range: Submit number '64' which is within the range.", function (assert) {
-  var $messages = jQueryFrameFn("#page\\:messages.tobago-messages div");
-  var $in = jQueryFrameFn("#page\\:mainForm\\:validateRange\\:in_vr\\:\\:field");
-  var $submit = jQueryFrameFn("#page\\:mainForm\\:validateRange\\:submit_vr");
+  let $messages = jQueryFrameFn("#page\\:messages.tobago-messages div");
+  let $in = jQueryFrameFn("#page\\:mainForm\\:validateRange\\:in_vr\\:\\:field");
+  let $submit = jQueryFrameFn("#page\\:mainForm\\:validateRange\\:submit_vr");
 
-  var TTT = new TobagoTestTools(assert);
+  let TTT = new TobagoTestTools(assert);
   TTT.action(function () {
     $in().val("64");
     $submit().click();
@@ -155,11 +155,11 @@ QUnit.test("Validate Range: Submit number '64' which is within the range.", func
 });
 
 QUnit.test("Regex Validation: Submit 'T' which violates the pattern.", function (assert) {
-  var $messages = jQueryFrameFn("#page\\:messages.tobago-messages div");
-  var $in = jQueryFrameFn("#page\\:mainForm\\:regexValidation\\:in_rv\\:\\:field");
-  var $submit = jQueryFrameFn("#page\\:mainForm\\:regexValidation\\:submit_rv");
+  let $messages = jQueryFrameFn("#page\\:messages.tobago-messages div");
+  let $in = jQueryFrameFn("#page\\:mainForm\\:regexValidation\\:in_rv\\:\\:field");
+  let $submit = jQueryFrameFn("#page\\:mainForm\\:regexValidation\\:submit_rv");
 
-  var TTT = new TobagoTestTools(assert);
+  let TTT = new TobagoTestTools(assert);
   TTT.action(function () {
     $in().val("T");
     $submit().click();
@@ -172,11 +172,11 @@ QUnit.test("Regex Validation: Submit 'T' which violates the pattern.", function 
 });
 
 QUnit.test("Regex Validation: Submit '3' which violates the pattern.", function (assert) {
-  var $messages = jQueryFrameFn("#page\\:messages.tobago-messages div");
-  var $in = jQueryFrameFn("#page\\:mainForm\\:regexValidation\\:in_rv\\:\\:field");
-  var $submit = jQueryFrameFn("#page\\:mainForm\\:regexValidation\\:submit_rv");
+  let $messages = jQueryFrameFn("#page\\:messages.tobago-messages div");
+  let $in = jQueryFrameFn("#page\\:mainForm\\:regexValidation\\:in_rv\\:\\:field");
+  let $submit = jQueryFrameFn("#page\\:mainForm\\:regexValidation\\:submit_rv");
 
-  var TTT = new TobagoTestTools(assert);
+  let TTT = new TobagoTestTools(assert);
   TTT.action(function () {
     $in().val("3");
     $submit().click();
@@ -189,11 +189,11 @@ QUnit.test("Regex Validation: Submit '3' which violates the pattern.", function 
 });
 
 QUnit.test("Regex Validation: Submit 'T3' which is accepted.", function (assert) {
-  var $messages = jQueryFrameFn("#page\\:messages.tobago-messages div");
-  var $in = jQueryFrameFn("#page\\:mainForm\\:regexValidation\\:in_rv\\:\\:field");
-  var $submit = jQueryFrameFn("#page\\:mainForm\\:regexValidation\\:submit_rv");
+  let $messages = jQueryFrameFn("#page\\:messages.tobago-messages div");
+  let $in = jQueryFrameFn("#page\\:mainForm\\:regexValidation\\:in_rv\\:\\:field");
+  let $submit = jQueryFrameFn("#page\\:mainForm\\:regexValidation\\:submit_rv");
 
-  var TTT = new TobagoTestTools(assert);
+  let TTT = new TobagoTestTools(assert);
   TTT.action(function () {
     $in().val("T3");
     $submit().click();
@@ -206,11 +206,11 @@ QUnit.test("Regex Validation: Submit 'T3' which is accepted.", function (assert)
 });
 
 QUnit.test("Custom Validator: Submit rejected string.", function (assert) {
-  var $messages = jQueryFrameFn("#page\\:messages.tobago-messages div");
-  var $in = jQueryFrameFn("#page\\:mainForm\\:customValidator\\:in_cv\\:\\:field");
-  var $submit = jQueryFrameFn("#page\\:mainForm\\:customValidator\\:submit_cv");
+  let $messages = jQueryFrameFn("#page\\:messages.tobago-messages div");
+  let $in = jQueryFrameFn("#page\\:mainForm\\:customValidator\\:in_cv\\:\\:field");
+  let $submit = jQueryFrameFn("#page\\:mainForm\\:customValidator\\:submit_cv");
 
-  var TTT = new TobagoTestTools(assert);
+  let TTT = new TobagoTestTools(assert);
   TTT.action(function () {
     $in().val("java");
     $submit().click();
@@ -223,11 +223,11 @@ QUnit.test("Custom Validator: Submit rejected string.", function (assert) {
 });
 
 QUnit.test("Custom Validator: Submit accepted string.", function (assert) {
-  var $messages = jQueryFrameFn("#page\\:messages.tobago-messages div");
-  var $in = jQueryFrameFn("#page\\:mainForm\\:customValidator\\:in_cv\\:\\:field");
-  var $submit = jQueryFrameFn("#page\\:mainForm\\:customValidator\\:submit_cv");
+  let $messages = jQueryFrameFn("#page\\:messages.tobago-messages div");
+  let $in = jQueryFrameFn("#page\\:mainForm\\:customValidator\\:in_cv\\:\\:field");
+  let $submit = jQueryFrameFn("#page\\:mainForm\\:customValidator\\:submit_cv");
 
-  var TTT = new TobagoTestTools(assert);
+  let TTT = new TobagoTestTools(assert);
   TTT.action(function () {
     $in().val("tobago");
     $submit().click();

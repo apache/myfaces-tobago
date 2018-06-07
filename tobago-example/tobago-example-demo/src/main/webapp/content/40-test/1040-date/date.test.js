@@ -16,8 +16,8 @@
  */
 
 QUnit.test("inputfield with label", function (assert) {
-  var $dateField = jQueryFrame("#page\\:mainForm\\:dateNoPattern\\:\\:field");
-  var $dateButton = jQueryFrame("#page\\:mainForm\\:dateNoPattern button");
+  let $dateField = jQueryFrame("#page\\:mainForm\\:dateNoPattern\\:\\:field");
+  let $dateButton = jQueryFrame("#page\\:mainForm\\:dateNoPattern button");
 
   assert.equal($dateField.val(), "");
 

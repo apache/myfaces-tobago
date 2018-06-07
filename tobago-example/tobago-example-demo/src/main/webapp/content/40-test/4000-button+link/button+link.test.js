@@ -16,33 +16,33 @@
  */
 
 QUnit.test("Standard Action Button", function (assert) {
-  var $command = jQueryFrameFn("#page\\:mainForm\\:standardButtonAction");
-  var $destinationSection = jQueryFrameFn("#page\\:actionSection");
+  let $command = jQueryFrameFn("#page\\:mainForm\\:standardButtonAction");
+  let $destinationSection = jQueryFrameFn("#page\\:actionSection");
   testStandardCommands($command, $destinationSection, assert);
 });
 
 QUnit.test("Standard Link Button", function (assert) {
-  var $command = jQueryFrameFn("#page\\:mainForm\\:standardButtonLink");
-  var $destinationSection = jQueryFrameFn("#page\\:linkSection");
+  let $command = jQueryFrameFn("#page\\:mainForm\\:standardButtonLink");
+  let $destinationSection = jQueryFrameFn("#page\\:linkSection");
   testStandardCommands($command, $destinationSection, assert);
 });
 
 QUnit.test("Standard Action Link", function (assert) {
-  var $command = jQueryFrameFn("#page\\:mainForm\\:standardLinkAction");
-  var $destinationSection = jQueryFrameFn("#page\\:actionSection");
+  let $command = jQueryFrameFn("#page\\:mainForm\\:standardLinkAction");
+  let $destinationSection = jQueryFrameFn("#page\\:actionSection");
   testStandardCommands($command, $destinationSection, assert);
 });
 
 QUnit.test("Standard Link Link", function (assert) {
-  var $command = jQueryFrameFn("#page\\:mainForm\\:standardLinkLink");
-  var $destinationSection = jQueryFrameFn("#page\\:linkSection");
+  let $command = jQueryFrameFn("#page\\:mainForm\\:standardLinkLink");
+  let $destinationSection = jQueryFrameFn("#page\\:linkSection");
   testStandardCommands($command, $destinationSection, assert);
 });
 
 function testStandardCommands($command, $destinationSection, assert) {
-  var $back = jQueryFrameFn("#page\\:back");
+  let $back = jQueryFrameFn("#page\\:back");
 
-  var TTT = new TobagoTestTools(assert);
+  let TTT = new TobagoTestTools(assert);
   TTT.action(function () {
     $command()[0].click();
   });
@@ -61,31 +61,31 @@ function testStandardCommands($command, $destinationSection, assert) {
 }
 
 QUnit.test("Target Action Button", function (assert) {
-  var $command = jQueryFrameFn("#page\\:mainForm\\:targetButtonAction");
+  let $command = jQueryFrameFn("#page\\:mainForm\\:targetButtonAction");
   testTargetCommands($command, "#textInput", "accessed by action", assert);
 });
 
 QUnit.test("Target Link Button", function (assert) {
-  var $command = jQueryFrameFn("#page\\:mainForm\\:targetButtonLink");
+  let $command = jQueryFrameFn("#page\\:mainForm\\:targetButtonLink");
   testTargetCommands($command, "#textInput", "accessed by link", assert);
 });
 
 QUnit.test("Target Action Link", function (assert) {
-  var $command = jQueryFrameFn("#page\\:mainForm\\:targetLinkAction");
+  let $command = jQueryFrameFn("#page\\:mainForm\\:targetLinkAction");
   testTargetCommands($command, "#textInput", "accessed by action", assert);
 });
 
 QUnit.test("Target Link Link", function (assert) {
-  var $command = jQueryFrameFn("#page\\:mainForm\\:targetLinkLink");
+  let $command = jQueryFrameFn("#page\\:mainForm\\:targetLinkLink");
   testTargetCommands($command, "#textInput", "accessed by link", assert);
 });
 
 QUnit.test("Style must not be a dropdown item", function (assert) {
   assert.expect(3);
 
-  var $dropdownMenu = jQueryFrameFn("#page\\:mainForm\\:dropdownWithStyle .dropdown-menu");
-  var $styleAsItem = jQueryFrameFn("#page\\:mainForm\\:dropdownWithStyle .dropdown-menu .dropdown-item > style");
-  var $button = jQueryFrameFn("#page\\:mainForm\\:dropdownWithStyle > .tobago-button");
+  let $dropdownMenu = jQueryFrameFn("#page\\:mainForm\\:dropdownWithStyle .dropdown-menu");
+  let $styleAsItem = jQueryFrameFn("#page\\:mainForm\\:dropdownWithStyle .dropdown-menu .dropdown-item > style");
+  let $button = jQueryFrameFn("#page\\:mainForm\\:dropdownWithStyle > .tobago-button");
 
   assert.equal($dropdownMenu().length, 1);
   assert.equal($styleAsItem().length, 0);
@@ -93,13 +93,13 @@ QUnit.test("Style must not be a dropdown item", function (assert) {
 });
 
 function testTargetCommands($command, targetTextInputSelector, expectedText, assert) {
-  var TTT = new TobagoTestTools(assert);
+  let TTT = new TobagoTestTools(assert);
   TTT.action(function () {
     $command()[0].click();
   });
   TTT.waitMs(2000); //TobagoTestTools.waitForResponse() didn't recognize responses on a target frame, so we just wait
   TTT.asserts(1, function () {
-    var $targetTextInput = jQueryTargetFrame(targetTextInputSelector);
+    let $targetTextInput = jQueryTargetFrame(targetTextInputSelector);
     assert.equal($targetTextInput.val(), expectedText);
   });
   TTT.startTest();

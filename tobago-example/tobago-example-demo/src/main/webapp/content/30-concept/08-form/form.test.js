@@ -16,14 +16,14 @@
  */
 
 QUnit.test("submit form 1", function (assert) {
-  var $form1InputField = jQueryFrameFn("#page\\:mainForm\\:form1\\:in1\\:\\:field");
-  var $form2InputField = jQueryFrameFn("#page\\:mainForm\\:form2\\:in2\\:\\:field");
-  var $form1OutputField = jQueryFrameFn("#page\\:mainForm\\:form1\\:out1 span");
-  var $form2OutputField = jQueryFrameFn("#page\\:mainForm\\:form2\\:out2 span");
-  var $form1SubmitButton = jQueryFrameFn("#page\\:mainForm\\:form1\\:submit1");
-  var $form2OutputFieldValue = $form2OutputField().text();
+  let $form1InputField = jQueryFrameFn("#page\\:mainForm\\:form1\\:in1\\:\\:field");
+  let $form2InputField = jQueryFrameFn("#page\\:mainForm\\:form2\\:in2\\:\\:field");
+  let $form1OutputField = jQueryFrameFn("#page\\:mainForm\\:form1\\:out1 span");
+  let $form2OutputField = jQueryFrameFn("#page\\:mainForm\\:form2\\:out2 span");
+  let $form1SubmitButton = jQueryFrameFn("#page\\:mainForm\\:form1\\:submit1");
+  let $form2OutputFieldValue = $form2OutputField().text();
 
-  var TTT = new TobagoTestTools(assert);
+  let TTT = new TobagoTestTools(assert);
   TTT.action(function () {
     $form1InputField().val("Oliver");
     $form2InputField().val("Peter");
@@ -40,14 +40,14 @@ QUnit.test("submit form 1", function (assert) {
 });
 
 QUnit.test("submit form 2", function (assert) {
-  var $form1InputField = jQueryFrameFn("#page\\:mainForm\\:form1\\:in1\\:\\:field");
-  var $form2InputField = jQueryFrameFn("#page\\:mainForm\\:form2\\:in2\\:\\:field");
-  var $form1OutputField = jQueryFrameFn("#page\\:mainForm\\:form1\\:out1 span");
-  var $form2OutputField = jQueryFrameFn("#page\\:mainForm\\:form2\\:out2 span");
-  var $form2SubmitButton = jQueryFrameFn("#page\\:mainForm\\:form2\\:submit2");
-  var $form1OutputFieldValue = $form1OutputField().text();
+  let $form1InputField = jQueryFrameFn("#page\\:mainForm\\:form1\\:in1\\:\\:field");
+  let $form2InputField = jQueryFrameFn("#page\\:mainForm\\:form2\\:in2\\:\\:field");
+  let $form1OutputField = jQueryFrameFn("#page\\:mainForm\\:form1\\:out1 span");
+  let $form2OutputField = jQueryFrameFn("#page\\:mainForm\\:form2\\:out2 span");
+  let $form2SubmitButton = jQueryFrameFn("#page\\:mainForm\\:form2\\:submit2");
+  let $form1OutputFieldValue = $form1OutputField().text();
 
-  var TTT = new TobagoTestTools(assert);
+  let TTT = new TobagoTestTools(assert);
   TTT.action(function () {
     $form1InputField().val("Oliver");
     $form2InputField().val("Peter");

@@ -16,38 +16,38 @@
  */
 
 QUnit.test("Basics: 'M'", function (assert) {
-  var inputString = "M";
-  var expectedLength = 10;
+  let inputString = "M";
+  let expectedLength = 10;
 
   testMarsBasics(assert, inputString, expectedLength);
 });
 
 QUnit.test("Basics: 'Ma'", function (assert) {
-  var inputString = "Ma";
-  var expectedLength = 4;
+  let inputString = "Ma";
+  let expectedLength = 4;
 
   testMarsBasics(assert, inputString, expectedLength);
 });
 
 QUnit.test("Basics: 'Mar'", function (assert) {
-  var inputString = "Mar";
-  var expectedLength = 1;
+  let inputString = "Mar";
+  let expectedLength = 1;
 
   testMarsBasics(assert, inputString, expectedLength);
 });
 
 QUnit.test("Basics: 'Mars'", function (assert) {
-  var inputString = "Mars";
-  var expectedLength = 1;
+  let inputString = "Mars";
+  let expectedLength = 1;
 
   testMarsBasics(assert, inputString, expectedLength);
 });
 
 function testMarsBasics(assert, inputString, expectedLength) {
-  var $in = jQueryFrameFn("#page\\:mainForm\\:inBasic\\:\\:field");
-  var $suggestions = getSuggestions("#page\\:mainForm\\:inBasic");
+  let $in = jQueryFrameFn("#page\\:mainForm\\:inBasic\\:\\:field");
+  let $suggestions = getSuggestions("#page\\:mainForm\\:inBasic");
 
-  var TTT = new TobagoTestTools(assert);
+  let TTT = new TobagoTestTools(assert);
   TTT.action(function () {
     $in().val(inputString).trigger('input');
   });
@@ -62,10 +62,10 @@ function testMarsBasics(assert, inputString, expectedLength) {
 }
 
 QUnit.test("Basics: Add 'eus' and click first entry.", function (assert) {
-  var $in = jQueryFrameFn("#page\\:mainForm\\:inBasic\\:\\:field");
-  var $suggestions = getSuggestions("#page\\:mainForm\\:inBasic");
+  let $in = jQueryFrameFn("#page\\:mainForm\\:inBasic\\:\\:field");
+  let $suggestions = getSuggestions("#page\\:mainForm\\:inBasic");
 
-  var TTT = new TobagoTestTools(assert);
+  let TTT = new TobagoTestTools(assert);
   TTT.action(function () {
     $in().val("eus").trigger('input');
   });
@@ -88,11 +88,11 @@ QUnit.test("Basics: Add 'eus' and click first entry.", function (assert) {
 });
 
 QUnit.test("Advanced: 'C'", function (assert) {
-  var $in = jQueryFrameFn("#page\\:mainForm\\:inAdvanced\\:\\:field");
-  var $suggestions = getSuggestions("#page\\:mainForm\\:inAdvanced");
-  var suggestionDelay = 2000;
+  let $in = jQueryFrameFn("#page\\:mainForm\\:inAdvanced\\:\\:field");
+  let $suggestions = getSuggestions("#page\\:mainForm\\:inAdvanced");
+  let suggestionDelay = 2000;
 
-  var TTT = new TobagoTestTools(assert);
+  let TTT = new TobagoTestTools(assert);
   TTT.action(function () {
     $in().val("C").trigger('input');
   });
@@ -104,12 +104,12 @@ QUnit.test("Advanced: 'C'", function (assert) {
 });
 
 QUnit.test("Advanced: 'Ca'", function (assert) {
-  var $in = jQueryFrameFn("#page\\:mainForm\\:inAdvanced\\:\\:field");
-  var $suggestions = getSuggestions("#page\\:mainForm\\:inAdvanced");
-  var suggestionDelay = 2000;
-  var startTime = Date.now();
+  let $in = jQueryFrameFn("#page\\:mainForm\\:inAdvanced\\:\\:field");
+  let $suggestions = getSuggestions("#page\\:mainForm\\:inAdvanced");
+  let suggestionDelay = 2000;
+  let startTime = Date.now();
 
-  var TTT = new TobagoTestTools(assert);
+  let TTT = new TobagoTestTools(assert);
   TTT.action(function () {
     $in().val("Ca").trigger('input');
   });
@@ -130,10 +130,10 @@ QUnit.test("Advanced: 'Ca'", function (assert) {
 });
 
 QUnit.test("Client side: 'Ju'", function (assert) {
-  var $in = jQueryFrameFn("#page\\:mainForm\\:inClient\\:\\:field");
-  var $suggestions = getSuggestions("#page\\:mainForm\\:inClient");
+  let $in = jQueryFrameFn("#page\\:mainForm\\:inClient\\:\\:field");
+  let $suggestions = getSuggestions("#page\\:mainForm\\:inClient");
 
-  var TTT = new TobagoTestTools(assert);
+  let TTT = new TobagoTestTools(assert);
   TTT.action(function () {
     $in().val("Ju").trigger('input');
   });

@@ -16,38 +16,38 @@
  */
 
 QUnit.test("Basics: 'M'", function (assert) {
-  var inputString = "M";
-  var expectedLength = 3;
+  let inputString = "M";
+  let expectedLength = 3;
 
   testMarsBasics(assert, inputString, expectedLength);
 });
 
 QUnit.test("Basics: 'Ma'", function (assert) {
-  var inputString = "Ma";
-  var expectedLength = 2;
+  let inputString = "Ma";
+  let expectedLength = 2;
 
   testMarsBasics(assert, inputString, expectedLength);
 });
 
 QUnit.test("Basics: 'Mar'", function (assert) {
-  var inputString = "Mar";
-  var expectedLength = 2;
+  let inputString = "Mar";
+  let expectedLength = 2;
 
   testMarsBasics(assert, inputString, expectedLength);
 });
 
 QUnit.test("Basics: 'Mars'", function (assert) {
-  var inputString = "Mars";
-  var expectedLength = 1;
+  let inputString = "Mars";
+  let expectedLength = 1;
 
   testMarsBasics(assert, inputString, expectedLength);
 });
 
 function testMarsBasics(assert, inputString, expectedLength) {
-  var $in = jQueryFrameFn("#page\\:mainForm\\:input\\:\\:field");
-  var $suggestions = getSuggestions("#page\\:mainForm\\:input");
+  let $in = jQueryFrameFn("#page\\:mainForm\\:input\\:\\:field");
+  let $suggestions = getSuggestions("#page\\:mainForm\\:input");
 
-  var TTT = new TobagoTestTools(assert);
+  let TTT = new TobagoTestTools(assert);
   TTT.action(function () {
     $in().val(inputString).trigger('input');
   });

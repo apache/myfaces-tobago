@@ -16,15 +16,15 @@
  */
 
 QUnit.test("Add a river and reset.", function (assert) {
-  var $name = jQueryFrameFn("#page\\:mainForm\\:add\\:inName\\:\\:field");
-  var $length = jQueryFrameFn("#page\\:mainForm\\:add\\:inLength\\:\\:field");
-  var $discharge = jQueryFrameFn("#page\\:mainForm\\:add\\:inDischarge\\:\\:field");
-  var $add = jQueryFrameFn("#page\\:mainForm\\:add\\:buttonAdd");
-  var $reset = jQueryFrameFn("#page\\:mainForm\\:reset\\:buttonReset");
-  var $forEachBoxes = jQueryFrameFn("#page\\:mainForm\\:forEach .tobago-box");
-  var $uiRepeatSections = jQueryFrameFn("#page\\:mainForm\\:uiRepeat .tobago-section");
+  let $name = jQueryFrameFn("#page\\:mainForm\\:add\\:inName\\:\\:field");
+  let $length = jQueryFrameFn("#page\\:mainForm\\:add\\:inLength\\:\\:field");
+  let $discharge = jQueryFrameFn("#page\\:mainForm\\:add\\:inDischarge\\:\\:field");
+  let $add = jQueryFrameFn("#page\\:mainForm\\:add\\:buttonAdd");
+  let $reset = jQueryFrameFn("#page\\:mainForm\\:reset\\:buttonReset");
+  let $forEachBoxes = jQueryFrameFn("#page\\:mainForm\\:forEach .tobago-box");
+  let $uiRepeatSections = jQueryFrameFn("#page\\:mainForm\\:uiRepeat .tobago-section");
 
-  var TTT = new TobagoTestTools(assert);
+  let TTT = new TobagoTestTools(assert);
   TTT.action(function () {
     $reset().click();
   });

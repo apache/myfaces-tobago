@@ -16,11 +16,11 @@
  */
 
 QUnit.test("Basics: Name", function (assert) {
-  var $colName = jQueryFrameFn("#page\\:mainForm\\:s1\\:columnName_sorter");
-  var $rows = jQueryFrameFn("#page\\:mainForm\\:s1 .tobago-sheet-bodyTable tbody .tobago-sheet-row");
-  var $leftPaging = jQueryFrameFn("#page\\:mainForm\\:s1 .tobago-sheet-paging-markup-left input");
+  let $colName = jQueryFrameFn("#page\\:mainForm\\:s1\\:columnName_sorter");
+  let $rows = jQueryFrameFn("#page\\:mainForm\\:s1 .tobago-sheet-bodyTable tbody .tobago-sheet-row");
+  let $leftPaging = jQueryFrameFn("#page\\:mainForm\\:s1 .tobago-sheet-paging-markup-left input");
 
-  var TTT = new TobagoTestTools(assert);
+  let TTT = new TobagoTestTools(assert);
   if (!$colName().hasClass("tobago-sheet-header-markup-ascending")) {
     TTT.action(function () {
       $colName().click();
@@ -69,11 +69,11 @@ QUnit.test("Basics: Name", function (assert) {
 });
 
 QUnit.test("Basics: Period", function (assert) {
-  var $colPeriod = jQueryFrameFn("#page\\:mainForm\\:s1\\:columnPeriod_sorter");
-  var $rows = jQueryFrameFn("#page\\:mainForm\\:s1 .tobago-sheet-bodyTable tbody .tobago-sheet-row");
-  var $leftPaging = jQueryFrameFn("#page\\:mainForm\\:s1 .tobago-sheet-paging-markup-left input");
+  let $colPeriod = jQueryFrameFn("#page\\:mainForm\\:s1\\:columnPeriod_sorter");
+  let $rows = jQueryFrameFn("#page\\:mainForm\\:s1 .tobago-sheet-bodyTable tbody .tobago-sheet-row");
+  let $leftPaging = jQueryFrameFn("#page\\:mainForm\\:s1 .tobago-sheet-paging-markup-left input");
 
-  var TTT = new TobagoTestTools(assert);
+  let TTT = new TobagoTestTools(assert);
   if (!$colPeriod().hasClass("tobago-sheet-header-markup-ascending")) {
     TTT.action(function () {
       $colPeriod().click();
@@ -122,11 +122,11 @@ QUnit.test("Basics: Period", function (assert) {
 });
 
 QUnit.test("Basics: Year", function (assert) {
-  var $colYear = jQueryFrameFn("#page\\:mainForm\\:s1\\:columnDiscoverYear_sorter");
-  var $rows = jQueryFrameFn("#page\\:mainForm\\:s1 .tobago-sheet-bodyTable tbody .tobago-sheet-row");
-  var $leftPaging = jQueryFrameFn("#page\\:mainForm\\:s1 .tobago-sheet-paging-markup-left input");
+  let $colYear = jQueryFrameFn("#page\\:mainForm\\:s1\\:columnDiscoverYear_sorter");
+  let $rows = jQueryFrameFn("#page\\:mainForm\\:s1 .tobago-sheet-bodyTable tbody .tobago-sheet-row");
+  let $leftPaging = jQueryFrameFn("#page\\:mainForm\\:s1 .tobago-sheet-paging-markup-left input");
 
-  var TTT = new TobagoTestTools(assert);
+  let TTT = new TobagoTestTools(assert);
   if (!$colYear().hasClass("tobago-sheet-header-markup-ascending")) {
     TTT.action(function () {
       $colYear().click();
@@ -176,11 +176,11 @@ QUnit.test("Basics: Year", function (assert) {
  * 2. goto line 9
  */
 QUnit.test("Basics: left paging", function (assert) {
-  var $colName = jQueryFrameFn("#page\\:mainForm\\:s1\\:columnName_sorter");
-  var $rows = jQueryFrameFn("#page\\:mainForm\\:s1 .tobago-sheet-bodyTable tbody .tobago-sheet-row");
-  var $leftPaging = jQueryFrameFn("#page\\:mainForm\\:s1 .tobago-sheet-paging-markup-left input");
+  let $colName = jQueryFrameFn("#page\\:mainForm\\:s1\\:columnName_sorter");
+  let $rows = jQueryFrameFn("#page\\:mainForm\\:s1 .tobago-sheet-bodyTable tbody .tobago-sheet-row");
+  let $leftPaging = jQueryFrameFn("#page\\:mainForm\\:s1 .tobago-sheet-paging-markup-left input");
 
-  var TTT = new TobagoTestTools(assert);
+  let TTT = new TobagoTestTools(assert);
   if (!$colName().hasClass("tobago-sheet-header-markup-ascending")) {
     TTT.action(function () {
       $colName().click();
@@ -223,12 +223,12 @@ QUnit.test("Basics: left paging", function (assert) {
  * 3. goto page 13
  */
 QUnit.test("Basics: center paging", function (assert) {
-  var $colName = jQueryFrameFn("#page\\:mainForm\\:s1\\:columnName_sorter");
-  var $rows = jQueryFrameFn("#page\\:mainForm\\:s1 .tobago-sheet-bodyTable tbody .tobago-sheet-row");
-  var $leftPaging = jQueryFrameFn("#page\\:mainForm\\:s1 .tobago-sheet-paging-markup-left input");
-  var $centerPaging = jQueryFrameFn("#page\\:mainForm\\:s1 .tobago-sheet-paging-markup-center li .page-link");
+  let $colName = jQueryFrameFn("#page\\:mainForm\\:s1\\:columnName_sorter");
+  let $rows = jQueryFrameFn("#page\\:mainForm\\:s1 .tobago-sheet-bodyTable tbody .tobago-sheet-row");
+  let $leftPaging = jQueryFrameFn("#page\\:mainForm\\:s1 .tobago-sheet-paging-markup-left input");
+  let $centerPaging = jQueryFrameFn("#page\\:mainForm\\:s1 .tobago-sheet-paging-markup-center li .page-link");
 
-  var TTT = new TobagoTestTools(assert);
+  let TTT = new TobagoTestTools(assert);
   if (!$colName().hasClass("tobago-sheet-header-markup-ascending")) {
     TTT.action(function () {
       $colName().click();
@@ -295,13 +295,13 @@ QUnit.test("Basics: center paging", function (assert) {
  * 5. goto page 14
  */
 QUnit.test("Basics: right paging", function (assert) {
-  var $colName = jQueryFrameFn("#page\\:mainForm\\:s1\\:columnName_sorter");
-  var $rows = jQueryFrameFn("#page\\:mainForm\\:s1 .tobago-sheet-bodyTable tbody .tobago-sheet-row");
-  var $leftPaging = jQueryFrameFn("#page\\:mainForm\\:s1 .tobago-sheet-paging-markup-left input");
-  var $rightPaging = jQueryFrameFn("#page\\:mainForm\\:s1 .tobago-sheet-paging-markup-right .page-link");
-  var $jumpToPage = jQueryFrameFn("#page\\:mainForm\\:s1 .tobago-sheet-paging-markup-right .page-link input");
+  let $colName = jQueryFrameFn("#page\\:mainForm\\:s1\\:columnName_sorter");
+  let $rows = jQueryFrameFn("#page\\:mainForm\\:s1 .tobago-sheet-bodyTable tbody .tobago-sheet-row");
+  let $leftPaging = jQueryFrameFn("#page\\:mainForm\\:s1 .tobago-sheet-paging-markup-left input");
+  let $rightPaging = jQueryFrameFn("#page\\:mainForm\\:s1 .tobago-sheet-paging-markup-right .page-link");
+  let $jumpToPage = jQueryFrameFn("#page\\:mainForm\\:s1 .tobago-sheet-paging-markup-right .page-link input");
 
-  var TTT = new TobagoTestTools(assert);
+  let TTT = new TobagoTestTools(assert);
   if (!$colName().hasClass("tobago-sheet-header-markup-ascending")) {
     TTT.action(function () {
       $colName().click();
@@ -383,11 +383,11 @@ QUnit.test("Basics: right paging", function (assert) {
 });
 
 QUnit.test("Custom Sorting: Name", function (assert) {
-  var $colName = jQueryFrameFn("#page\\:mainForm\\:s2\\:customColumnName_sorter");
-  var $rows = jQueryFrameFn("#page\\:mainForm\\:s2 .tobago-sheet-bodyTable tbody .tobago-sheet-row");
-  var $leftPaging = jQueryFrameFn("#page\\:mainForm\\:s2 .tobago-sheet-paging-markup-left input");
+  let $colName = jQueryFrameFn("#page\\:mainForm\\:s2\\:customColumnName_sorter");
+  let $rows = jQueryFrameFn("#page\\:mainForm\\:s2 .tobago-sheet-bodyTable tbody .tobago-sheet-row");
+  let $leftPaging = jQueryFrameFn("#page\\:mainForm\\:s2 .tobago-sheet-paging-markup-left input");
 
-  var TTT = new TobagoTestTools(assert);
+  let TTT = new TobagoTestTools(assert);
   if (!$colName().hasClass("tobago-sheet-header-markup-ascending")) {
     TTT.action(function () {
       $colName().click();
@@ -436,11 +436,11 @@ QUnit.test("Custom Sorting: Name", function (assert) {
 });
 
 QUnit.test("Custom Sorting: Period", function (assert) {
-  var $colPeriod = jQueryFrameFn("#page\\:mainForm\\:s2\\:customColumnPeriod_sorter");
-  var $rows = jQueryFrameFn("#page\\:mainForm\\:s2 .tobago-sheet-bodyTable tbody .tobago-sheet-row");
-  var $leftPaging = jQueryFrameFn("#page\\:mainForm\\:s2 .tobago-sheet-paging-markup-left input");
+  let $colPeriod = jQueryFrameFn("#page\\:mainForm\\:s2\\:customColumnPeriod_sorter");
+  let $rows = jQueryFrameFn("#page\\:mainForm\\:s2 .tobago-sheet-bodyTable tbody .tobago-sheet-row");
+  let $leftPaging = jQueryFrameFn("#page\\:mainForm\\:s2 .tobago-sheet-paging-markup-left input");
 
-  var TTT = new TobagoTestTools(assert);
+  let TTT = new TobagoTestTools(assert);
   if (!$colPeriod().hasClass("tobago-sheet-header-markup-ascending")) {
     TTT.action(function () {
       $colPeriod().click();
@@ -489,11 +489,11 @@ QUnit.test("Custom Sorting: Period", function (assert) {
 });
 
 QUnit.test("Custom Sorting: Year", function (assert) {
-  var $colYear = jQueryFrameFn("#page\\:mainForm\\:s2\\:customColumnYear_sorter");
-  var $rows = jQueryFrameFn("#page\\:mainForm\\:s2 .tobago-sheet-bodyTable tbody .tobago-sheet-row");
-  var $leftPaging = jQueryFrameFn("#page\\:mainForm\\:s2 .tobago-sheet-paging-markup-left input");
+  let $colYear = jQueryFrameFn("#page\\:mainForm\\:s2\\:customColumnYear_sorter");
+  let $rows = jQueryFrameFn("#page\\:mainForm\\:s2 .tobago-sheet-bodyTable tbody .tobago-sheet-row");
+  let $leftPaging = jQueryFrameFn("#page\\:mainForm\\:s2 .tobago-sheet-paging-markup-left input");
 
-  var TTT = new TobagoTestTools(assert);
+  let TTT = new TobagoTestTools(assert);
   if (!$colYear().hasClass("tobago-sheet-header-markup-ascending")) {
     TTT.action(function () {
       $colYear().click();
@@ -543,11 +543,11 @@ QUnit.test("Custom Sorting: Year", function (assert) {
  * 2. goto line 9
  */
 QUnit.test("Custom Sorting: left paging", function (assert) {
-  var $colName = jQueryFrameFn("#page\\:mainForm\\:s2\\:customColumnName_sorter");
-  var $rows = jQueryFrameFn("#page\\:mainForm\\:s2 .tobago-sheet-bodyTable tbody .tobago-sheet-row");
-  var $leftPaging = jQueryFrameFn("#page\\:mainForm\\:s2 .tobago-sheet-paging-markup-left input");
+  let $colName = jQueryFrameFn("#page\\:mainForm\\:s2\\:customColumnName_sorter");
+  let $rows = jQueryFrameFn("#page\\:mainForm\\:s2 .tobago-sheet-bodyTable tbody .tobago-sheet-row");
+  let $leftPaging = jQueryFrameFn("#page\\:mainForm\\:s2 .tobago-sheet-paging-markup-left input");
 
-  var TTT = new TobagoTestTools(assert);
+  let TTT = new TobagoTestTools(assert);
   if (!$colName().hasClass("tobago-sheet-header-markup-ascending")) {
     TTT.action(function () {
       $colName().click();
@@ -590,12 +590,12 @@ QUnit.test("Custom Sorting: left paging", function (assert) {
  * 3. goto page 13
  */
 QUnit.test("Custom Sorting: center paging", function (assert) {
-  var $colName = jQueryFrameFn("#page\\:mainForm\\:s2\\:customColumnName_sorter");
-  var $rows = jQueryFrameFn("#page\\:mainForm\\:s2 .tobago-sheet-bodyTable tbody .tobago-sheet-row");
-  var $leftPaging = jQueryFrameFn("#page\\:mainForm\\:s2 .tobago-sheet-paging-markup-left input");
-  var $centerPaging = jQueryFrameFn("#page\\:mainForm\\:s2 .tobago-sheet-paging-markup-center li .page-link");
+  let $colName = jQueryFrameFn("#page\\:mainForm\\:s2\\:customColumnName_sorter");
+  let $rows = jQueryFrameFn("#page\\:mainForm\\:s2 .tobago-sheet-bodyTable tbody .tobago-sheet-row");
+  let $leftPaging = jQueryFrameFn("#page\\:mainForm\\:s2 .tobago-sheet-paging-markup-left input");
+  let $centerPaging = jQueryFrameFn("#page\\:mainForm\\:s2 .tobago-sheet-paging-markup-center li .page-link");
 
-  var TTT = new TobagoTestTools(assert);
+  let TTT = new TobagoTestTools(assert);
   if (!$colName().hasClass("tobago-sheet-header-markup-ascending")) {
     TTT.action(function () {
       $colName().click();
@@ -662,12 +662,12 @@ QUnit.test("Custom Sorting: center paging", function (assert) {
  * 5. goto page 14
  */
 QUnit.test("Custom Sorting: right paging", function (assert) {
-  var $colName = jQueryFrameFn("#page\\:mainForm\\:s2\\:customColumnName_sorter");
-  var $rows = jQueryFrameFn("#page\\:mainForm\\:s2 .tobago-sheet-bodyTable tbody .tobago-sheet-row");
-  var $leftPaging = jQueryFrameFn("#page\\:mainForm\\:s2 .tobago-sheet-paging-markup-left input");
-  var $rightPaging = jQueryFrameFn("#page\\:mainForm\\:s2 .tobago-sheet-paging-markup-right .page-link");
+  let $colName = jQueryFrameFn("#page\\:mainForm\\:s2\\:customColumnName_sorter");
+  let $rows = jQueryFrameFn("#page\\:mainForm\\:s2 .tobago-sheet-bodyTable tbody .tobago-sheet-row");
+  let $leftPaging = jQueryFrameFn("#page\\:mainForm\\:s2 .tobago-sheet-paging-markup-left input");
+  let $rightPaging = jQueryFrameFn("#page\\:mainForm\\:s2 .tobago-sheet-paging-markup-right .page-link");
 
-  var TTT = new TobagoTestTools(assert);
+  let TTT = new TobagoTestTools(assert);
   if (!$colName().hasClass("tobago-sheet-header-markup-ascending")) {
     TTT.action(function () {
       $colName().click();
@@ -750,18 +750,18 @@ QUnit.test("Custom Sorting: right paging", function (assert) {
 
 function ajaxExecuteBodyTableCheck(assert, $rows, row0col0, row0col1, row0col2, row1col0, row1col1, row1col2,
                                    row2col0, row2col1, row2col2, row3col0, row3col1, row3col2) {
-  var $row0Col0 = $rows().eq(0).find(".tobago-sheet-cell").eq(0).text().trim();
-  var $row0Col1 = $rows().eq(0).find(".tobago-sheet-cell").eq(1).text().trim();
-  var $row0Col2 = $rows().eq(0).find(".tobago-sheet-cell").eq(2).text().trim();
-  var $row1Col0 = $rows().eq(1).find(".tobago-sheet-cell").eq(0).text().trim();
-  var $row1Col1 = $rows().eq(1).find(".tobago-sheet-cell").eq(1).text().trim();
-  var $row1Col2 = $rows().eq(1).find(".tobago-sheet-cell").eq(2).text().trim();
-  var $row2Col0 = $rows().eq(2).find(".tobago-sheet-cell").eq(0).text().trim();
-  var $row2Col1 = $rows().eq(2).find(".tobago-sheet-cell").eq(1).text().trim();
-  var $row2Col2 = $rows().eq(2).find(".tobago-sheet-cell").eq(2).text().trim();
-  var $row3Col0 = $rows().eq(3).find(".tobago-sheet-cell").eq(0).text().trim();
-  var $row3Col1 = $rows().eq(3).find(".tobago-sheet-cell").eq(1).text().trim();
-  var $row3Col2 = $rows().eq(3).find(".tobago-sheet-cell").eq(2).text().trim();
+  let $row0Col0 = $rows().eq(0).find(".tobago-sheet-cell").eq(0).text().trim();
+  let $row0Col1 = $rows().eq(0).find(".tobago-sheet-cell").eq(1).text().trim();
+  let $row0Col2 = $rows().eq(0).find(".tobago-sheet-cell").eq(2).text().trim();
+  let $row1Col0 = $rows().eq(1).find(".tobago-sheet-cell").eq(0).text().trim();
+  let $row1Col1 = $rows().eq(1).find(".tobago-sheet-cell").eq(1).text().trim();
+  let $row1Col2 = $rows().eq(1).find(".tobago-sheet-cell").eq(2).text().trim();
+  let $row2Col0 = $rows().eq(2).find(".tobago-sheet-cell").eq(0).text().trim();
+  let $row2Col1 = $rows().eq(2).find(".tobago-sheet-cell").eq(1).text().trim();
+  let $row2Col2 = $rows().eq(2).find(".tobago-sheet-cell").eq(2).text().trim();
+  let $row3Col0 = $rows().eq(3).find(".tobago-sheet-cell").eq(0).text().trim();
+  let $row3Col1 = $rows().eq(3).find(".tobago-sheet-cell").eq(1).text().trim();
+  let $row3Col2 = $rows().eq(3).find(".tobago-sheet-cell").eq(2).text().trim();
 
   assert.equal($row0Col0, row0col0, "row0col0");
   assert.equal($row0Col1, row0col1, "row0col1");
