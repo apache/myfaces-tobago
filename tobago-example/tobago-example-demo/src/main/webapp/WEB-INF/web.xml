@@ -167,6 +167,8 @@
   <session-config>
     <cookie-config>
       <http-only>true</http-only>
+      <!--only for https-->
+      <!--<secure>true</secure>-->
     </cookie-config>
   </session-config>
 
